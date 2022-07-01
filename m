@@ -2,53 +2,87 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 363EE562419
-	for <lists+freedreno@lfdr.de>; Thu, 30 Jun 2022 22:24:30 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0BD29562DAC
+	for <lists+freedreno@lfdr.de>; Fri,  1 Jul 2022 10:20:48 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D396E11366A;
-	Thu, 30 Jun 2022 20:24:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8CD6C10F425;
+	Fri,  1 Jul 2022 08:20:46 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-X-Greylist: delayed 354 seconds by postgrey-1.36 at gabe;
- Thu, 30 Jun 2022 20:24:26 UTC
-Received: from mo4-p01-ob.smtp.rzone.de (mo4-p01-ob.smtp.rzone.de
- [85.215.255.50])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D07611139E3;
- Thu, 30 Jun 2022 20:24:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1656620309;
- s=strato-dkim-0002; d=gerhold.net;
- h=In-Reply-To:References:Message-ID:Subject:Cc:To:From:Date:Cc:Date:
- From:Subject:Sender;
- bh=jTBh8tpUX4wS523jclqgriqIEwT1It3h9ZxxUKd4K3w=;
- b=Ubkd7PR1Ml9pFUB48ByHTQBPaguLqxqeSK12bVHkWL2V9we8Jt5qg2tlBtN3Qj+iA5
- uj0IBBU6CIvZ3wLV3XTF7IbLPmzLCkC1HtBRggADtkVPxkEEXnIiDjXCfav8Nbgc2bVj
- UsWplxEZeXbc8sQHefmniQzlrBeO9pbO8VP6jyBMK5C28sQCZabngGbKNS28WCyXaYBk
- 2dm3Utv2GjXq/22ZVHzx5RLnYjna6G6P+6BfS4DRjWQg0jud45UHneKV56zsVQtLjxkW
- 9Nt/lkjjXTTF1jl4MZ5oX7ok1LUttsTZQnQpG2di36RkyvNobO/Fl5ZJfp8ovbcAnRCO
- VMhg==
-Authentication-Results: strato.com;
-    dkim=none
-X-RZG-AUTH: ":P3gBZUipdd93FF5ZZvYFPugejmSTVR2nRPhVOQ/OcYgojyw4j34+u267FZF9PwpcNKLUrK8+86Y="
-X-RZG-CLASS-ID: mo00
-Received: from gerhold.net by smtp.strato.de (RZmta 47.46.1 AUTH)
- with ESMTPSA id yfdd30y5UKIS4u1
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
- (Client did not present a certificate);
- Thu, 30 Jun 2022 22:18:28 +0200 (CEST)
-Date: Thu, 30 Jun 2022 22:18:13 +0200
-From: Stephan Gerhold <stephan@gerhold.net>
-To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-Message-ID: <Yr4E+AsXRBZuYCpx@gerhold.net>
-References: <20220630120845.3356144-1-bryan.odonoghue@linaro.org>
- <20220630120845.3356144-4-bryan.odonoghue@linaro.org>
- <225e70ec-553d-4d44-fc61-543128b2ad67@linaro.org>
- <054043a5-3643-aa5b-4204-8cacb7b3ae9a@linaro.org>
+Received: from mail-pl1-x62a.google.com (mail-pl1-x62a.google.com
+ [IPv6:2607:f8b0:4864:20::62a])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EAF0410F2D6
+ for <freedreno@lists.freedesktop.org>; Fri,  1 Jul 2022 08:20:44 +0000 (UTC)
+Received: by mail-pl1-x62a.google.com with SMTP id b2so1703142plx.7
+ for <freedreno@lists.freedesktop.org>; Fri, 01 Jul 2022 01:20:44 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=oUYtq84iNGdg4Xe0/YKALbCpeBgj55K/qcb5czheU50=;
+ b=YlwArJ/41k5bqIwMZiuj2szedp3s1rO7QSuQEi13s1O5Ve6bFzu2r9LarZt3O04Y9D
+ PVD3yDK+9Vb0f95dKwdM+JysaoQPKDf3zise0iThezxJk79eOmrZ72/c5Rg1gCbtjVDl
+ F60N2JHzziONCyalfA/wfFDCSlR8hqnvk92kRRSbAFaKwCckeWcCYXOytSRq+zImeRVe
+ lfI7JPrzOCmulRfNW+KQk7bRX6SOCXgDerBmRWMomIAXhT8TLCoNxRQjAHBANqs51hrT
+ iXX1rmjYKKRLhXUKxd6B3MFliSf1sdOs2RlkARJG2gMqxLz4mBo8TozUysUa0f+Xm3N4
+ gDYg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=oUYtq84iNGdg4Xe0/YKALbCpeBgj55K/qcb5czheU50=;
+ b=kdS7Ygw658DtH8BUW7d78uHi4v+29RRWu4o1pe8QkpP63zzsFXa+G+aiiCYOGb62sV
+ U4Gx//vovyz7gbaibpE7IuOCPtWngbHDXcQiC6Ip6W+ZZ+zFLebYtWod1ePGWrD1d8Jn
+ 9B8PpuaSOXwCKtEn06ahnr1p9P/XpOM3TqQHe7Vvd5gvu4sOm6IPoeE5pfF3jqss84td
+ 5yQ288bytB680f290fCb6wxp2LFvZs6r+vbZ550VBBMveKPyojQ5YjNJWot9u17hshwj
+ Zc+Ik9rPY0DrMhZaRbP7qO/8lUkhKxlGq5+8XgzipEVjE2t3VTKxs26Nm9STpYAfzcwX
+ YGxA==
+X-Gm-Message-State: AJIora/+KkJ/0Z/O4N+N7cnxN1FIKE4T3V0+c186rYHuq/pBymCQo5qn
+ yrGwQ/0wQaQNF9unfqUgd3Ihuw==
+X-Google-Smtp-Source: AGRyM1uw8CKR4s38IcPhcQa1KogQ13yRLMm2Qxe1pU/dJuysA+BJx5bL0ipnbj/Tos0q5dkbVF00/Q==
+X-Received: by 2002:a17:90a:d80b:b0:1ec:9a1a:2266 with SMTP id
+ a11-20020a17090ad80b00b001ec9a1a2266mr15418832pjv.7.1656663644453; 
+ Fri, 01 Jul 2022 01:20:44 -0700 (PDT)
+Received: from localhost ([122.172.201.58]) by smtp.gmail.com with ESMTPSA id
+ ru10-20020a17090b2bca00b001e880972840sm3443768pjb.29.2022.07.01.01.20.43
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 01 Jul 2022 01:20:43 -0700 (PDT)
+From: Viresh Kumar <viresh.kumar@linaro.org>
+To: Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Adrian Hunter <adrian.hunter@intel.com>,
+ Alim Akhtar <alim.akhtar@samsung.com>,
+ Alyssa Rosenzweig <alyssa.rosenzweig@collabora.com>,
+ Andy Gross <agross@kernel.org>,
+ Bjorn Andersson <bjorn.andersson@linaro.org>,
+ Chanwoo Choi <cw00.choi@samsung.com>, Chen-Yu Tsai <wens@csie.org>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Dmitry Osipenko <digetx@gmail.com>, Fabio Estevam <festevam@gmail.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Ilia Lin <ilia.lin@kernel.org>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Jiri Slaby <jirislaby@kernel.org>, Jonathan Hunter <jonathanh@nvidia.com>,
+ Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
+ Kyungmin Park <kyungmin.park@samsung.com>, Mark Brown <broonie@kernel.org>,
+ MyungJoo Ham <myungjoo.ham@samsung.com>, Nishanth Menon <nm@ti.com>,
+ NXP Linux Team <linux-imx@nxp.com>,
+ Patrice Chotard <patrice.chotard@foss.st.com>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Qiang Yu <yuq825@gmail.com>, "Rafael J. Wysocki" <rafael@kernel.org>,
+ Rob Clark <robdclark@gmail.com>, Rob Herring <robh@kernel.org>,
+ Samuel Holland <samuel@sholland.org>,
+ Sascha Hauer <s.hauer@pengutronix.de>, Sean Paul <sean@poorly.run>,
+ Shawn Guo <shawnguo@kernel.org>,
+ Stanimir Varbanov <stanimir.varbanov@linaro.org>,
+ Stephen Boyd <sboyd@kernel.org>, Steven Price <steven.price@arm.com>,
+ Thierry Reding <thierry.reding@gmail.com>,
+ Tomeu Vizoso <tomeu.vizoso@collabora.com>,
+ Ulf Hansson <ulf.hansson@linaro.org>, Viresh Kumar <vireshk@kernel.org>,
+ Viresh Kumar <viresh.kumar@linaro.org>, Yangtao Li <tiny.windzz@gmail.com>
+Date: Fri,  1 Jul 2022 13:49:55 +0530
+Message-Id: <cover.1656660185.git.viresh.kumar@linaro.org>
+X-Mailer: git-send-email 2.31.1.272.g89b43f80a514
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <054043a5-3643-aa5b-4204-8cacb7b3ae9a@linaro.org>
-Subject: Re: [Freedreno] [PATCH 3/7] dt-bindings: msm: dsi: Fix
- power-domains constraint
+Content-Transfer-Encoding: 8bit
+Subject: [Freedreno] [PATCH V2 00/30] OPP: Add new configuration interface:
+ dev_pm_opp_set_config()
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,57 +95,120 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: devicetree@vger.kernel.org, krzysztof.kozlowski+dt@linaro.org,
- airlied@linux.ie, linux-arm-msm@vger.kernel.org, swboyd@chromium.org,
- freedreno@lists.freedesktop.org, robdclark@gmail.com,
- dri-devel@lists.freedesktop.org, quic_abhinavk@quicinc.com,
- Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>, robh+dt@kernel.org,
- quic_mkrishn@quicinc.com, daniel@ffwll.ch, dmitry.baryshkov@linaro.org,
- bjorn.andersson@linaro.org, sean@poorly.run
+Cc: linux-samsung-soc@vger.kernel.org,
+ Vincent Guittot <vincent.guittot@linaro.org>, linux-serial@vger.kernel.org,
+ lima@lists.freedesktop.org, linux-pm@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, linux-mmc@vger.kernel.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-spi@vger.kernel.org, Dmitry Osipenko <dmitry.osipenko@collabora.com>,
+ linux-tegra@vger.kernel.org, freedreno@lists.freedesktop.org,
+ linux-sunxi@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+ linux-media@vger.kernel.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Thu, Jun 30, 2022 at 08:49:03PM +0100, Bryan O'Donoghue wrote:
-> On 30/06/2022 20:01, Krzysztof Kozlowski wrote:
-> > On 30/06/2022 14:08, Bryan O'Donoghue wrote:
-> > > The existing msm8916.dtsi does not depend on nor require power-domains.
-> > > Drop from the list of required.
-> > 
-> > That's not good reason. The bindings are about hardware so the question
-> > is whether being a part of power domain or toggling power domain on/off
-> > is considered required for the DSI.
-> 
-> AFAIK no but, I will check this again and if it is definitely not required,
-> I'll churn the commit log to describe it better.
-> 
+Hello,
 
-The power domain in the DSI node is used together with the OPP table to
-vote for performance states depending on the clock frequency of the byte
-clock. In the downstream kernel this is part of the clock driver.
-In mainline this needs to be done in the consumer driver.
+We have too many configuration specific APIs currently, six of them already,
+like dev_pm_opp_set_regulators(). This makes it complex/messy for both the OPP
+core and its users to manage. There is also code redundancy in these APIs, in
+the way they add/manage the OPP table specific stuff.
 
-The MSM8916 port was never really optimized for power usage. With
-incomplete interconnect support etc the power domains tend to be at
-maximum state most of the time, so it does not cause any issues if you
-forget to vote for performance states in some places.
+This patch series is an attempt to simplify these interfaces by adding a single
+interface, dev_pm_opp_set_config(), which replaces all the existing ones. This
+series also migrates the users to the new API.
 
-In general, the situation on MSM8916/MSM8939 is not really any different
-from newer SoCs. The downstream MSM8916 gcc driver contains:
+The first two patches help get the API in place, followed by patches to migrate
+the end users. Once all the users are migrated, the last few patches remove the
+now unused interfaces.
 
-static struct rcg_clk byte0_clk_src = {
-	/* ... */
-	.c = {
-		/* ... */
-		VDD_DIG_FMAX_MAP2(LOW, 94400000, NOMINAL, 188500000),
-	},
-};
+This is pushed here:
 
-which should be ideally translated into an OPP table with
-power-domains = <&rpmpd MSM8916_VDDCX>; similar to newer SoCs.
+git://git.kernel.org/pub/scm/linux/kernel/git/vireshk/pm.git opp/linux-next
 
-(I'm not saying that "power-domains" should be required, just that it
- could be added for MSM8916/MSM8939 if someone wants to properly
- power-optimize them...)
+This is already tested by various folks now.
 
-Thanks,
-Stephan
+The entire patchset shall get merged via the OPP tree in 5.20-rc1, please do not
+merge individual patches.
+
+V1->V2:
+- dev_pm_opp_set_config() doesn't return the OPP table anymore, but a token
+  allocated with xa_alloc(). The same needs to be passed to clear-config API.
+- Updated all users according to that as well.
+- The clk_names interface is updated to allow multiple clocks.
+- Converted few // comments to /* */.
+- Added tags by few people.
+- Dropped the last patch to rearrange stuff, not required anymore.
+
+Thanks.
+
+--
+Viresh
+
+Viresh Kumar (30):
+  OPP: Track if clock name is configured by platform
+  OPP: Add dev_pm_opp_set_config() and friends
+  cpufreq: dt: Migrate to dev_pm_opp_set_config()
+  cpufreq: imx: Migrate to dev_pm_opp_set_config()
+  cpufreq: qcom-nvmem: Migrate to dev_pm_opp_set_config()
+  cpufreq: sti: Migrate to dev_pm_opp_set_config()
+  cpufreq: sun50i: Migrate to dev_pm_opp_set_config()
+  cpufreq: tegra20: Migrate to dev_pm_opp_set_config()
+  cpufreq: ti: Migrate to dev_pm_opp_set_config()
+  devfreq: exynos: Migrate to dev_pm_opp_set_config()
+  devfreq: sun8i: Migrate to dev_pm_opp_set_config()
+  devfreq: tegra30: Migrate to dev_pm_opp_set_config()
+  drm/lima: Migrate to dev_pm_opp_set_config()
+  drm/msm: Migrate to dev_pm_opp_set_config()
+  drm/panfrost: Migrate to dev_pm_opp_set_config()
+  drm/tegra: Migrate to dev_pm_opp_set_config()
+  media: venus: Migrate to dev_pm_opp_set_config()
+  memory: tegra: Migrate to dev_pm_opp_set_config()
+  mmc: sdhci-msm: Migrate to dev_pm_opp_set_config()
+  OPP: ti: Migrate to dev_pm_opp_set_config()
+  soc/tegra: Add comment over devm_pm_opp_set_clkname()
+  soc/tegra: Migrate to dev_pm_opp_set_config()
+  spi: qcom: Migrate to dev_pm_opp_set_config()
+  serial: qcom: Migrate to dev_pm_opp_set_config()
+  OPP: Remove dev_pm_opp_set_regulators() and friends
+  OPP: Remove dev_pm_opp_set_supported_hw() and friends
+  OPP: Remove dev_pm_opp_set_clkname() and friends
+  OPP: Remove dev_pm_opp_register_set_opp_helper() and friends
+  OPP: Remove dev_pm_opp_attach_genpd() and friends
+  OPP: Remove dev_pm_opp_set_prop_name() and friends
+
+ drivers/cpufreq/cpufreq-dt.c                  |  20 +-
+ drivers/cpufreq/imx-cpufreq-dt.c              |  18 +-
+ drivers/cpufreq/qcom-cpufreq-nvmem.c          | 109 +--
+ drivers/cpufreq/sti-cpufreq.c                 |  27 +-
+ drivers/cpufreq/sun50i-cpufreq-nvmem.c        |  36 +-
+ drivers/cpufreq/tegra20-cpufreq.c             |  18 +-
+ drivers/cpufreq/ti-cpufreq.c                  |  38 +-
+ drivers/devfreq/exynos-bus.c                  |  25 +-
+ drivers/devfreq/sun8i-a33-mbus.c              |   8 +-
+ drivers/devfreq/tegra30-devfreq.c             |   8 +-
+ drivers/gpu/drm/lima/lima_devfreq.c           |  12 +-
+ drivers/gpu/drm/msm/adreno/a5xx_gpu.c         |   8 +-
+ drivers/gpu/drm/msm/adreno/a6xx_gpu.c         |  10 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c       |   6 +-
+ drivers/gpu/drm/msm/dp/dp_ctrl.c              |   6 +-
+ drivers/gpu/drm/msm/dsi/dsi_host.c            |   6 +-
+ drivers/gpu/drm/panfrost/panfrost_devfreq.c   |   9 +-
+ drivers/gpu/drm/tegra/gr3d.c                  |   6 +-
+ .../media/platform/qcom/venus/pm_helpers.c    |  18 +-
+ drivers/memory/tegra/tegra124-emc.c           |  17 +-
+ drivers/mmc/host/sdhci-msm.c                  |   6 +-
+ drivers/opp/core.c                            | 632 ++++++++----------
+ drivers/opp/opp.h                             |  23 +
+ drivers/opp/ti-opp-supply.c                   |   8 +-
+ drivers/soc/tegra/common.c                    |  45 +-
+ drivers/soc/tegra/pmc.c                       |   8 +-
+ drivers/spi/spi-geni-qcom.c                   |   6 +-
+ drivers/spi/spi-qcom-qspi.c                   |   6 +-
+ drivers/tty/serial/qcom_geni_serial.c         |   6 +-
+ include/linux/pm_opp.h                        | 121 +---
+ 30 files changed, 605 insertions(+), 661 deletions(-)
+
+-- 
+2.31.1.272.g89b43f80a514
+
