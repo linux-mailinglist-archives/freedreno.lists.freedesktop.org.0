@@ -1,51 +1,51 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id D6A7E565BE7
-	for <lists+freedreno@lfdr.de>; Mon,  4 Jul 2022 18:23:37 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 7471C565BDD
+	for <lists+freedreno@lfdr.de>; Mon,  4 Jul 2022 18:23:23 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 733D710F989;
-	Mon,  4 Jul 2022 16:16:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B950B10E3FE;
+	Mon,  4 Jul 2022 16:16:33 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-x22e.google.com (mail-lj1-x22e.google.com
- [IPv6:2a00:1450:4864:20::22e])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 97D5710E1B1
- for <freedreno@lists.freedesktop.org>; Mon,  4 Jul 2022 16:11:53 +0000 (UTC)
-Received: by mail-lj1-x22e.google.com with SMTP id bx13so11630178ljb.1
- for <freedreno@lists.freedesktop.org>; Mon, 04 Jul 2022 09:11:53 -0700 (PDT)
+Received: from mail-lj1-x232.google.com (mail-lj1-x232.google.com
+ [IPv6:2a00:1450:4864:20::232])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 964D010E1C6
+ for <freedreno@lists.freedesktop.org>; Mon,  4 Jul 2022 16:11:54 +0000 (UTC)
+Received: by mail-lj1-x232.google.com with SMTP id bx13so11630221ljb.1
+ for <freedreno@lists.freedesktop.org>; Mon, 04 Jul 2022 09:11:54 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=FB+K+cb4f9fS6PvlJKAr+KfimzTAeQrUyeuMC2GkgBE=;
- b=qnHQkupyk1x/oq6nK9qO2WrA02Ohq8y3d9jjyNLlypjohyGZMyL2XN5Nz3X1UvRaZc
- bii0DjgQ10zeZWB9eEDKICbFn5YjggZ6LRfL3eOnDvd7TUXS7kYQhUGhzDL5LcjO4r9o
- fa4MHfr3x6tDVmkDVu5ER+omVEscP6u//DIKD/ZftSG8JXtxdDlBM+TW4yNw5RWm/rOP
- usSDTCN+a8gQGZH4ndzmT75cfnX14VbWq5OgJ2GyXJZl9YQUyq+d2XqTDczLGb40dKe4
- zX3KrjD9UBmole/rb51Hjr5TlhX990vmekb2IoEJCKD9cefKmwTsmhEslf+/uEbTY1Yi
- Y1cg==
+ bh=YIUu3Mrd87z3G3m4XzJVsFhhK3Sg+085T4JDYUEl/jk=;
+ b=ZSTExc85IrAGJ/rW+vr8WpE2t9QKV6hD6GSEM0kBXEmwHxB78S3NezadIBajKSTIUN
+ yU4noebePlvhDLMOeymiPHlc5SSefcYxMfHum3pVnK4UhtElhJsUiQ/FDlT0hW1pQYtK
+ WTfSCOft25zdS2u+cy/K9Kah3DaIGYlJmdz4urHGeZeG0pC1DKCrdRXDPCzUd9skV9RO
+ O9RPaDiABZtnZ7l7r2uyMqPZQ6bvmWdykudEaU7BUVEO6BWcYBRzu1fIzSrJJ1OY2RDj
+ j81p4T7Qgzs4m/E7vtC57W1PgZAKKG+TRlUQhf+f2x/RT+cSfP4Oz35nAEeteI2VT+64
+ tnlQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=FB+K+cb4f9fS6PvlJKAr+KfimzTAeQrUyeuMC2GkgBE=;
- b=EsEpMSlKT/w5lSO75b6Z6UJIt4n8COirRKQDupeHmtV+nKrSSkMAmZifGLnZ7Xr6p4
- /RaQ1S5ivMmicXRPLdmvqFD2zZWhR3yY+R1fAB5EH2hfz6quLZn/CAlTVSOyffVC5uA6
- +6O++0D+UnAvh5RjLBvQB94DRtzLZ6P0LzvYWIFMAoXDOzcvsaJvqGjoEiI2+oDtMXWS
- 4J2XZKLkog3Er8/Bh1KjIdOrpD4v97rG6aN5SgJB7Lj35NfyjiZQ6H3dRFd1UAq/tLq+
- btj1WAfMyeonNM2iW4IffO3HoQ5+VJfHClRiXVL+0q0154V2CJJ1V6p+M8WNkFRi9HC3
- S+qw==
-X-Gm-Message-State: AJIora8XocQNn8ewYpw2V8Lyo0WHuKvUEnPChdj4Zokl2KU9yKc7ErrW
- Op+cW0i4gQHKITvEfFSaArNmFg==
-X-Google-Smtp-Source: AGRyM1v+ysGvZlgZlt6B/q+BV0o2A6rgkhQhJIT//BHmupu6q4pUqrhAZCjKNOsCKPz8O00P8lZhbw==
-X-Received: by 2002:a2e:9808:0:b0:25a:a30c:e5cb with SMTP id
- a8-20020a2e9808000000b0025aa30ce5cbmr17458567ljj.312.1656951111916; 
- Mon, 04 Jul 2022 09:11:51 -0700 (PDT)
+ bh=YIUu3Mrd87z3G3m4XzJVsFhhK3Sg+085T4JDYUEl/jk=;
+ b=N+pdurKhmG8LsoaVDYOxyNcCsBdwD0HUbsvXwO8HB4o1f+4UGfFDTKOk1Eod8IKRZK
+ yVG2sjgOs3rbVtphqfM43kzk9QHy0nxn6551Z67zTmDSz6MFhVz7CZw13KUXj1JPrSAc
+ ehiNi608pKgoXUxG4ca+n6H3LUTOJozblmDXYf4d/6JI1Pwc7MOPQ0lq0Jd2D3EGZL0d
+ RFXowCMrvZ/0+D/FRs5KciRou/Q/gyTBmroIkEaHv0FRCwZn053D8rIMG2o05B+nVpuv
+ h7f+dSQWDU5yEoB6ICPpydyM7AzKnrM2viq48MDSQpkC/OneLgWwM355aP9mdDJfQjX3
+ QR7A==
+X-Gm-Message-State: AJIora/EmAvRIGXMmEFrY8WQcbLncy0Ukv5lJPcYaxQYAgUG49aXvj/S
+ pA3woxBK/wEDYj9nUgnOX6nntA==
+X-Google-Smtp-Source: AGRyM1tvtojLhxu1Ji7ca6nmQ7FH7hsqjwPTL0DGC0s3+tnnbpoth/ZJkxivFg5Gi56gOzZKOVlvcw==
+X-Received: by 2002:a05:651c:1989:b0:25b:e6ac:4055 with SMTP id
+ bx9-20020a05651c198900b0025be6ac4055mr17272197ljb.3.1656951112885; 
+ Mon, 04 Jul 2022 09:11:52 -0700 (PDT)
 Received: from eriador.lan ([37.153.55.125]) by smtp.gmail.com with ESMTPSA id
- bj16-20020a2eaa90000000b0025d254180d7sm381273ljb.113.2022.07.04.09.11.51
+ bj16-20020a2eaa90000000b0025d254180d7sm381273ljb.113.2022.07.04.09.11.52
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 04 Jul 2022 09:11:51 -0700 (PDT)
+ Mon, 04 Jul 2022 09:11:52 -0700 (PDT)
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 To: Andy Gross <agross@kernel.org>,
  Bjorn Andersson <bjorn.andersson@linaro.org>,
@@ -53,15 +53,15 @@ To: Andy Gross <agross@kernel.org>,
  Abhinav Kumar <quic_abhinavk@quicinc.com>,
  Rob Herring <robh+dt@kernel.org>,
  Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>
-Date: Mon,  4 Jul 2022 19:11:47 +0300
-Message-Id: <20220704161148.814510-3-dmitry.baryshkov@linaro.org>
+Date: Mon,  4 Jul 2022 19:11:48 +0300
+Message-Id: <20220704161148.814510-4-dmitry.baryshkov@linaro.org>
 X-Mailer: git-send-email 2.35.1
 In-Reply-To: <20220704161148.814510-1-dmitry.baryshkov@linaro.org>
 References: <20220704161148.814510-1-dmitry.baryshkov@linaro.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH v3 2/3] drm/msm/hdmi: make hdmi_phy_8996 OF clk
- provider
+Subject: [Freedreno] [PATCH v3 3/3] arm64: dts: qcom: msm8996: add
+ #clock-cells and XO clock to the HDMI PHY node
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,79 +75,45 @@ List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
 Cc: devicetree@vger.kernel.org, David Airlie <airlied@linux.ie>,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- Stephen Boyd <swboyd@chromium.org>, Vinod Koul <vkoul@kernel.org>,
- Daniel Vetter <daniel@ffwll.ch>, linux-phy@lists.infradead.org,
- Kishon Vijay Abraham I <kishon@ti.com>, freedreno@lists.freedesktop.org
+ linux-arm-msm@vger.kernel.org,
+ Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
+ dri-devel@lists.freedesktop.org, Stephen Boyd <swboyd@chromium.org>,
+ Vinod Koul <vkoul@kernel.org>, Daniel Vetter <daniel@ffwll.ch>,
+ linux-phy@lists.infradead.org, Kishon Vijay Abraham I <kishon@ti.com>,
+ freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On MSM8996 the HDMI PHY provides the PLL clock to the MMCC. As we are
-preparing to convert the MSM8996 to use DT clocks properties (rather
-than global clock names), register the OF clock provider.
+Add #clock-cells property to the HDMI PHY device node to let other nodes
+resolve the hdmipll clock. While we are at it, also add the XO clock to
+the device node.
 
-While we are at it, also change the driver to use clk_parent_data rather
-parent_names to setup a link to the XO clock.
-
+Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 ---
- drivers/gpu/drm/msm/hdmi/hdmi_phy_8996.c | 25 +++++++++++++-----------
- 1 file changed, 14 insertions(+), 11 deletions(-)
+ arch/arm64/boot/dts/qcom/msm8996.dtsi | 8 ++++++--
+ 1 file changed, 6 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/msm/hdmi/hdmi_phy_8996.c b/drivers/gpu/drm/msm/hdmi/hdmi_phy_8996.c
-index b06d9d25a189..4dd055416620 100644
---- a/drivers/gpu/drm/msm/hdmi/hdmi_phy_8996.c
-+++ b/drivers/gpu/drm/msm/hdmi/hdmi_phy_8996.c
-@@ -691,15 +691,13 @@ static const struct clk_ops hdmi_8996_pll_ops = {
- 	.is_enabled = hdmi_8996_pll_is_enabled,
- };
+diff --git a/arch/arm64/boot/dts/qcom/msm8996.dtsi b/arch/arm64/boot/dts/qcom/msm8996.dtsi
+index 25d6b26fab60..b72385ffecc6 100644
+--- a/arch/arm64/boot/dts/qcom/msm8996.dtsi
++++ b/arch/arm64/boot/dts/qcom/msm8996.dtsi
+@@ -1049,9 +1049,13 @@ hdmi_phy: hdmi-phy@9a0600 {
+ 					    "hdmi_phy";
  
--static const char * const hdmi_pll_parents[] = {
--	"xo",
--};
--
- static const struct clk_init_data pll_init = {
- 	.name = "hdmipll",
- 	.ops = &hdmi_8996_pll_ops,
--	.parent_names = hdmi_pll_parents,
--	.num_parents = ARRAY_SIZE(hdmi_pll_parents),
-+	.parent_data = (const struct clk_parent_data[]){
-+		{ .fw_name = "xo", .name = "xo_board" },
-+	},
-+	.num_parents = 1,
- 	.flags = CLK_IGNORE_UNUSED,
- };
- 
-@@ -707,8 +705,7 @@ int msm_hdmi_pll_8996_init(struct platform_device *pdev)
- {
- 	struct device *dev = &pdev->dev;
- 	struct hdmi_pll_8996 *pll;
--	struct clk *clk;
--	int i;
-+	int i, ret;
- 
- 	pll = devm_kzalloc(dev, sizeof(*pll), GFP_KERNEL);
- 	if (!pll)
-@@ -735,10 +732,16 @@ int msm_hdmi_pll_8996_init(struct platform_device *pdev)
- 	}
- 	pll->clk_hw.init = &pll_init;
- 
--	clk = devm_clk_register(dev, &pll->clk_hw);
--	if (IS_ERR(clk)) {
-+	ret = devm_clk_hw_register(dev, &pll->clk_hw);
-+	if (ret) {
- 		DRM_DEV_ERROR(dev, "failed to register pll clock\n");
--		return -EINVAL;
-+		return ret;
-+	}
+ 				clocks = <&mmcc MDSS_AHB_CLK>,
+-					 <&gcc GCC_HDMI_CLKREF_CLK>;
++					 <&gcc GCC_HDMI_CLKREF_CLK>,
++					 <&xo_board>;
+ 				clock-names = "iface",
+-					      "ref";
++					      "ref",
++					      "xo";
 +
-+	ret = devm_of_clk_add_hw_provider(dev, of_clk_hw_simple_get, &pll->clk_hw);
-+	if (ret) {
-+		DRM_DEV_ERROR(dev, "%s: failed to register clk provider: %d\n", __func__, ret);
-+		return ret;
- 	}
++				#clock-cells = <0>;
  
- 	return 0;
+ 				status = "disabled";
+ 			};
 -- 
 2.35.1
 
