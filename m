@@ -1,72 +1,47 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id F05C1565D65
-	for <lists+freedreno@lfdr.de>; Mon,  4 Jul 2022 20:14:43 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 50920566939
+	for <lists+freedreno@lfdr.de>; Tue,  5 Jul 2022 13:31:02 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C869F8EC25;
-	Mon,  4 Jul 2022 18:14:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9B7C110E1B6;
+	Tue,  5 Jul 2022 11:29:56 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x12f.google.com (mail-lf1-x12f.google.com
- [IPv6:2a00:1450:4864:20::12f])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B5B9F8EC25
- for <freedreno@lists.freedesktop.org>; Mon,  4 Jul 2022 18:14:40 +0000 (UTC)
-Received: by mail-lf1-x12f.google.com with SMTP id e12so16957848lfr.6
- for <freedreno@lists.freedesktop.org>; Mon, 04 Jul 2022 11:14:40 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=message-id:date:mime-version:user-agent:subject:content-language
- :from:to:cc:references:in-reply-to:content-transfer-encoding;
- bh=yK261D6HT2CVyvMevzRHg6YQDQr/r3Jm74jKb1CkJiA=;
- b=u5E0t5qI//wrIJMe7jyJw1s5HaBn6u2jtbBpeqrjqVCy5pEtO5+2UR59UJlmSGcDCT
- l1jw+MYdnW15Xi0g8am4oVWwxVfXE7XMMAc7/xL2pyw11VIaCuL9sx15zvOSeEvkr7rR
- z5XWhD5XGrKcJ9vhDc68aCmfDg2EqI5LCkKDqdm5aHm79fqjgLrGtNepYA8GZGEAzM9/
- qdFVoxoxGsNiQC2SJx1z2crW6CgeGUxN7hqxrMrK0My217aEFMKo6t3VnFSRUMs4k/np
- EiCpPjZl6akLiyKdhF/LPkDgjD97ehSE13uQxmxp7ZUmXlgHgujueO9Qb45scuRvyrr4
- UM5Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
- :content-language:from:to:cc:references:in-reply-to
- :content-transfer-encoding;
- bh=yK261D6HT2CVyvMevzRHg6YQDQr/r3Jm74jKb1CkJiA=;
- b=JJ9wRbP9kqW4SFUAcdIFemRt7RYWnAmvpm4S+Vw8AtkRsWplikYRKjcRLr2djG9f9K
- 2aT1eROl9LI2aMvsBSm2gR9NrPpVQeJ0D+eTtOVqQuQb7uZ4RC46ywcHfBzev3QyPhjc
- hES1qsJ8XLPd3SBqoiJIo3pV9/4fT5ZQGCW9txPwPK2TS9RBPvh6IsQfly9bsslgTx8p
- oiatUa+4ko0iYCo+kMvnURiW6Ko2TxXLaAhnB1szrhT1/RqO5qdPYYW++S3gWMHtjnI4
- URDlh1tHGpxnOlybRU7HXPbwp5POjUvC6KKNliihswDRZ2TGEJ0w3soBRk+S89MYqTSu
- e0rQ==
-X-Gm-Message-State: AJIora9roTKNPlUb4ZgOPwZC/AkjxHEdr5tY4Peix40no4Pa6AHpKbAR
- Ype0Wi7zWsFQ9p6fD+e8Ept15g==
-X-Google-Smtp-Source: AGRyM1voejqIQUfyQJAn5Pr/jmcGfGNP7559mIQvMxHIsFHFO6GgCyiRVTIEUYv0pJ8ArEc6s8M3Fg==
-X-Received: by 2002:a05:6512:15a1:b0:47f:933e:a865 with SMTP id
- bp33-20020a05651215a100b0047f933ea865mr18387360lfb.200.1656958478998; 
- Mon, 04 Jul 2022 11:14:38 -0700 (PDT)
-Received: from [192.168.1.212] ([37.153.55.125])
- by smtp.gmail.com with ESMTPSA id
- d6-20020a2e96c6000000b0025bdd6af056sm3461335ljj.45.2022.07.04.11.14.37
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 04 Jul 2022 11:14:38 -0700 (PDT)
-Message-ID: <1df69cf9-7610-45af-240c-1b8e02953bc1@linaro.org>
-Date: Mon, 4 Jul 2022 21:14:37 +0300
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 589DE10E021;
+ Tue,  5 Jul 2022 07:44:39 +0000 (UTC)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id A6EB560B83;
+ Tue,  5 Jul 2022 05:19:30 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4E207C341C7;
+ Tue,  5 Jul 2022 05:19:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1656998370;
+ bh=Nan9B/WhP+R80VxCKfZuBKrlbu2KTkNVySZBPTQurr4=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=iDpdLIwL2W9I72GrLDRGUChEUERlHuAVoGfvfNCN1x6TXDlgw7YDLGnSq3RXmw+LS
+ MEYpmdBgAhZs2XbSKEDhXvXKtzHiX9UOx3lRjwPKi7oOUxmD3yHYZzeD5TkpJVXoyE
+ feE9Uh3m9NJ8FHM3cTYUB2roORHtAipczvvw8MoCNO5rcmxsJ3MZTEeXNj8oQSLNzM
+ RGQapQE8jbfrUonx55SR15avYqRpPosB3M2TOhE5GSwfDbXmPfsyqyPlXG7jZgEsri
+ 9Fk1CJgZ87eZhPQBCwYq8nJRt09onEjvCR/FCI1S7U9fe6lYVCLSyJVQClTRC3v3nW
+ 77R30MRF/uR+Q==
+Date: Tue, 5 Jul 2022 10:49:25 +0530
+From: Vinod Koul <vkoul@kernel.org>
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Message-ID: <YsPJ3Z5+N4ZmCmcS@matsya>
+References: <20220704161148.814510-1-dmitry.baryshkov@linaro.org>
+ <20220704161148.814510-2-dmitry.baryshkov@linaro.org>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.10.0
-Content-Language: en-GB
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-To: Rob Clark <robdclark@gmail.com>, Doug Anderson <dianders@chromium.org>,
- Kuogee Hsieh <quic_khsieh@quicinc.com>
-References: <1656429606-2765-1-git-send-email-quic_khsieh@quicinc.com>
- <F35C87BF-46A5-41D3-B8A5-B2AB4A24252D@linaro.org>
- <CAD=FV=X3cv=Q30pODyi__OyRY+LbFT14RfEELvm_DAeHafF70g@mail.gmail.com>
- <CAF6AEGvFYK3x_CmErkKsmYNEv9y8AksE9UB_sfp-Z7RieX=tVg@mail.gmail.com>
- <E87F561E-22B4-46B6-AD9B-4995E92A8E29@linaro.org>
-In-Reply-To: <E87F561E-22B4-46B6-AD9B-4995E92A8E29@linaro.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH] drm/msm/dp: make eDP panel as the first
- connected connector
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20220704161148.814510-2-dmitry.baryshkov@linaro.org>
+Subject: Re: [Freedreno] [PATCH v3 1/3] dt-bindings: phy: qcom,
+ hdmi-phy-qmp: add clock-cells and XO clock
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,134 +54,83 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno <freedreno@lists.freedesktop.org>,
- Sankeerth Billakanti <quic_sbillaka@quicinc.com>,
- David Airlie <airlied@linux.ie>,
- "Kuogee Hsieh \(QUIC\)" <quic_khsieh@quicinc.com>,
- "Abhinav Kumar \(QUIC\)" <quic_abhinavk@quicinc.com>,
- dri-devel <dri-devel@lists.freedesktop.org>,
- Stephen Boyd <swboyd@chromium.org>, Vinod Koul <vkoul@kernel.org>,
- Andy Gross <agross@kernel.org>, Daniel Vetter <daniel@ffwll.ch>,
- linux-arm-msm <linux-arm-msm@vger.kernel.org>,
- "Aravind Venkateswaran \(QUIC\)" <quic_aravindh@quicinc.com>,
- Bjorn Andersson <bjorn.andersson@linaro.org>, Sean Paul <sean@poorly.run>,
- LKML <linux-kernel@vger.kernel.org>
+Cc: devicetree@vger.kernel.org, Daniel Vetter <daniel@ffwll.ch>,
+ Kishon Vijay Abraham I <kishon@ti.com>, David Airlie <airlied@linux.ie>,
+ linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, Rob Herring <robh+dt@kernel.org>,
+ Bjorn Andersson <bjorn.andersson@linaro.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
+ Rob Clark <robdclark@gmail.com>, Andy Gross <agross@kernel.org>,
+ dri-devel@lists.freedesktop.org,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ linux-phy@lists.infradead.org, Stephen Boyd <swboyd@chromium.org>,
+ Sean Paul <sean@poorly.run>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 30/06/2022 09:14, Dmitry Baryshkov wrote:
-> 
-> 
-> On 30 June 2022 04:57:35 GMT+03:00, Rob Clark <robdclark@gmail.com> wrote:
->> On Wed, Jun 29, 2022 at 5:36 PM Doug Anderson <dianders@chromium.org> wrote:
->>>
->>> Hi,
->>>
->>> On Tue, Jun 28, 2022 at 1:14 PM Dmitry Baryshkov
->>> <dmitry.baryshkov@linaro.org> wrote:
->>>>
->>>> On 28 June 2022 18:20:06 GMT+03:00, Kuogee Hsieh <quic_khsieh@quicinc.com> wrote:
->>>>> Some userspace presumes that the first connected connector is the main
->>>>> display, where it's supposed to display e.g. the login screen. For
->>>>> laptops, this should be the main panel.
->>>>>
->>>>> This patch call drm_helper_move_panel_connectors_to_head() after
->>>>> drm_bridge_connector_init() to make sure eDP stay at head of
->>>>> connected connector list. This fixes unexpected corruption happen
->>>>> at eDP panel if eDP is not placed at head of connected connector
->>>>> list.
->>>>
->>>> The change itself is a good fix anyway. (And I'd ack it.) However I would like to understand why does it fix the corruption issue. What is we have eDP and DSI, with DSI ending up before the eDP? Would we see the issue?
->>>> Also could you please describe the mind of corruption you are observing?
->>>
->>> I've spent a whole bunch of time poking at this and in the end my
->>> conclusion is this:
->>>
->>> 1. The glitchyness seems to be a result of the Chrome OS userspace
->>> somehow telling the kernel to do something wrong.
->>>
->>> 2. I believe (though I have no proof other than Kuogee's patch fixing
->>> things) that the Chrome OS userspace is simply confused by the eDP
->>> connector being second. This would imply that Kuogee's patch is
->>> actually the right one.
->>>
->>> 3. It would be ideal if the Chrome OS userspace were fixed to handle
->>> this, but it's an area of code that I've never looked at. It also
->>> seems terribly low priority to fix since apparently other OSes have
->>> similar problems (seems like this code was originally added by
->>> RedHat?)
->>>
->>>
->>> Specifically, I tested with a similar but "persistent" glitch that I
->>> reproduced. The glitch Kuogee was digging into was a transitory glitch
->>> on the eDP (internal) display when you plugged in a DP (external)
->>> display. It would show up for a frame or two and then be fixed. I can
->>> get a similar-looking glitch (vertical black and white bars) that
->>> persists by doing these steps on a Chrome OS device (and Chrome OS
->>> kernel):
->>>
->>> a) Observe screen looks good.
->>> b) Observe DP not connected.
->>> c) Plug in DP
->>> d) See transitory glitch on screen, then it all looks fine.
->>> e) set_power_policy --ac_screen_dim_delay=5 --ac_screen_off_delay=10
->>> f) Wait for screen to turn off
->>> g) Unplug DP
->>> h) Hit key on keyboard to wake device.
->>> i) See glitchy.
->>> j) Within 5 seconds: set_power_policy --ac_screen_dim_delay=5000
->>> --ac_screen_off_delay=10000
->>>
->>> Once I'm in the persistent glitch:
->>>
->>> * The "screenshot" command in Chrome OS shows corruption. Not exactly
->>> black and white bars, but the image produced has distinct bands of
->>> garbage.
->>>
->>> * I can actually toggle between VT2 and the main screen (VT1). Note
->>> that VT1/VT2 are not quite the normal Linux managed solution--I
->>> believe they're handled by frecon. In any case, when I switch to VT2
->>> it looks normal (I can see the login prompt). Then back to VT1 and the
->>> vertical bars glitch. Back to VT2 and it's normal. Back to VT1 and the
->>> glitch again. This implies (especially with the extra evidence of
->>> screenshot) that the display controller hardware is all fine and that
->>> it's the underlying data that's somehow messed up.
->>
->> fwiw, from looking at this a bit w/ Doug, I think the "glitch" is
->> simply just an un-renderered buffer being interpreted by the display
->> controller as UBWC (because userspace tells it to)
-> 
-> Thanks for the description. I think the userspace code should be fixed too, but this patch can go in on its own.
-> 
-> Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+On 04-07-22, 19:11, Dmitry Baryshkov wrote:
+> As the QMP HDMI PHY is a clock provider, add constant #clock-cells
+> property. For the compatibility with older DTs the property is not
+> marked as required. Also add the XO clock to the list of the clocks used
+> by the driver.
 
-After some time (please excuse me), musing with the code and even 
-picking up the commit for the merge branch, I understood the fact that I 
-did not like about this change. It moves all panel connectors (generic 
-code) from the DP-specific driver.
-
-I'd like to retract my R-b. Please move this call to the msm_drm_init(). 
-Calling this function somewhere after the ->kms_init() would make sure 
-that all panel connectors are close to the top of the list, whichever 
-MDP/DPU driver is used and whichever actual interface is bound to this 
-panel.
+Acked-By: Vinod Koul <vkoul@kernel.org>
 
 > 
+> Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> ---
+>  .../bindings/phy/qcom,hdmi-phy-qmp.yaml           | 15 ++++++++++++---
+>  1 file changed, 12 insertions(+), 3 deletions(-)
 > 
->>
->> BR,
->> -R
->>
->>> When I pick Kuogee's patch then this "persistent" glitch goes away
->>> just like the transitory one does.
->>>
->>> I'm going to go ahead and do:
->>>
->>> Reviewed-by: Douglas Anderson <dianders@chromium.org>
->>> Tested-by: Douglas Anderson <dianders@chromium.org>
-> 
-
+> diff --git a/Documentation/devicetree/bindings/phy/qcom,hdmi-phy-qmp.yaml b/Documentation/devicetree/bindings/phy/qcom,hdmi-phy-qmp.yaml
+> index eea2e02678ed..83fe4b39b56f 100644
+> --- a/Documentation/devicetree/bindings/phy/qcom,hdmi-phy-qmp.yaml
+> +++ b/Documentation/devicetree/bindings/phy/qcom,hdmi-phy-qmp.yaml
+> @@ -28,12 +28,15 @@ properties:
+>        - const: hdmi_phy
+>  
+>    clocks:
+> -    maxItems: 2
+> +    minItems: 2
+> +    maxItems: 3
+>  
+>    clock-names:
+> +    minItems: 2
+>      items:
+>        - const: iface
+>        - const: ref
+> +      - const: xo
+>  
+>    power-domains:
+>      maxItems: 1
+> @@ -44,6 +47,9 @@ properties:
+>    vddio-supply:
+>      description: phandle to VDD I/O supply regulator
+>  
+> +  '#clock-cells':
+> +    const: 0
+> +
+>    '#phy-cells':
+>      const: 0
+>  
+> @@ -75,9 +81,12 @@ examples:
+>                    "hdmi_phy";
+>  
+>        clocks = <&mmcc 116>,
+> -               <&gcc 214>;
+> +               <&gcc 214>,
+> +               <&xo_board>;
+>        clock-names = "iface",
+> -                    "ref";
+> +                    "ref",
+> +                    "xo";
+> +      #clock-cells = <0>;
+>        #phy-cells = <0>;
+>  
+>        vddio-supply = <&vreg_l12a_1p8>;
+> -- 
+> 2.35.1
 
 -- 
-With best wishes
-Dmitry
+~Vinod
