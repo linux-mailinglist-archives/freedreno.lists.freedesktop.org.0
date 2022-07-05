@@ -2,45 +2,45 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 46CD5566959
-	for <lists+freedreno@lfdr.de>; Tue,  5 Jul 2022 13:32:26 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CAA7956696D
+	for <lists+freedreno@lfdr.de>; Tue,  5 Jul 2022 13:32:49 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9111E10F84F;
-	Tue,  5 Jul 2022 11:30:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A680C10E7B1;
+	Tue,  5 Jul 2022 11:30:27 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1805110E025;
- Tue,  5 Jul 2022 07:19:49 +0000 (UTC)
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 42A9610E021;
+ Tue,  5 Jul 2022 09:07:06 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 1D2A461680;
- Tue,  5 Jul 2022 07:19:48 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A8CC6C341C7;
- Tue,  5 Jul 2022 07:19:46 +0000 (UTC)
+ by ams.source.kernel.org (Postfix) with ESMTPS id 82CDDB81646;
+ Tue,  5 Jul 2022 09:07:04 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B1242C341C7;
+ Tue,  5 Jul 2022 09:07:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1657005587;
- bh=nBS8lG+9F44KSXw0/0LYCtol2wEliplh73wRQQdVkzs=;
+ s=k20201202; t=1657012023;
+ bh=3ZpJpRNDhK6kBwRF3RuYIOFq7v3/dbRfERHQO2XKC9s=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=JdLrazqr1Ri1IBpqvD8+ADX+FpA1BHrc93abMNaGhGJAhFOhv/RAbjTHKJVcoPx5W
- r7WZaaCzUY3MpCc9O/MejASDMJMRgMW4We5HFMXj2qPon5N6XgrGxpSroHe68S8f7L
- iGp9fOYLl88AYeKA3JzJOAvqNkQakeMurzJEKI96UAtVgBtg3jkwpCBPgcbfHpw3hx
- Q3Sbx7XKcgfyGGvcbcpG/QR4D1zhM3JRYHJN3tgGFJbztAr9qz3OHZedez/mmEL0yh
- Qh63BI5p0PZkuU35ObrseIbaBBGGvp2n6CtchsUAHdeiP5NX7Bh0h6YsOa2wCuelz8
- qVsPeTAW4C7NA==
-Date: Tue, 5 Jul 2022 12:49:43 +0530
+ b=oglNQPqxphZHLSarXFIjRthMAFo/TsafAbm8rCG2BW4lSzJbXrFPGqILs8tdQYVnM
+ GpJzRjgiVgviHw11UOsQ+XRjqjARbK9mbrQKyp9qA+ZoXus6l4+eXvzmbdHZNGS4en
+ mFF3ETc27nnx0OuFnYTify3H+qKlJJahQZNRHh607EXDyNTbkCQ0T/srH2zWFtCvhU
+ smcQ+18wH7JFxBWq9i7pNdjLf3RDI1RFKQt1GKE6C8dSrNMWenenQ1j1WCkg4iHCPJ
+ /6aUKcr/DBCRKrO4RzOzbGdwlkvoJNOxEiCLRt+U1p4DnMwp5hM7rgenEiud91p3BA
+ a863LznbMhSpQ==
+Date: Tue, 5 Jul 2022 14:36:58 +0530
 From: Vinod Koul <vkoul@kernel.org>
-To: Kuogee Hsieh <quic_khsieh@quicinc.com>
-Message-ID: <YsPmD08mdcgBXwHx@matsya>
-References: <1655830891-19025-1-git-send-email-quic_khsieh@quicinc.com>
- <1655830891-19025-3-git-send-email-quic_khsieh@quicinc.com>
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Message-ID: <YsP/MmX96aIYc1p7@matsya>
+References: <20220617103608.605898-1-dmitry.baryshkov@linaro.org>
+ <20220617103608.605898-2-dmitry.baryshkov@linaro.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <1655830891-19025-3-git-send-email-quic_khsieh@quicinc.com>
-Subject: Re: [Freedreno] [PATCH v15 2/3] phy: qcom-qmp: add
- regulator_set_load to dp phy
+In-Reply-To: <20220617103608.605898-2-dmitry.baryshkov@linaro.org>
+Subject: Re: [Freedreno] [PATCH 1/3] dt-bindings: phy: qcom,
+ hdmi-phy-qmp: add clock-cells
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,115 +53,21 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: quic_sbillaka@quicinc.com, quic_abhinavk@quicinc.com, airlied@linux.ie,
- freedreno@lists.freedesktop.org, dianders@chromium.org,
- dri-devel@lists.freedesktop.org, swboyd@chromium.org, robdclark@gmail.com,
- agross@kernel.org, daniel@ffwll.ch, linux-arm-msm@vger.kernel.org,
- dmitry.baryshkov@linaro.org, quic_aravindh@quicinc.com,
- bjorn.andersson@linaro.org, sean@poorly.run, linux-kernel@vger.kernel.org
+Cc: freedreno@lists.freedesktop.org, David Airlie <airlied@linux.ie>,
+ linux-arm-msm@vger.kernel.org, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ dri-devel@lists.freedesktop.org, Stephen Boyd <swboyd@chromium.org>,
+ Rob Clark <robdclark@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ linux-phy@lists.infradead.org, Bjorn Andersson <bjorn.andersson@linaro.org>,
+ Sean Paul <sean@poorly.run>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 21-06-22, 10:01, Kuogee Hsieh wrote:
-> This patch add regulator_set_load() before enable regulator at
-> DP phy driver.
-> 
-> Signed-off-by: Kuogee Hsieh <quic_khsieh@quicinc.com>
-> Reviewed-by: Stephen Boyd <swboyd@chromium.org>
-> Reviewed-by: Douglas Anderson <dianders@chromium.org>
-> ---
->  drivers/phy/qualcomm/phy-qcom-qmp-combo.c | 43 ++++++++++++++++++++++++-------
->  1 file changed, 33 insertions(+), 10 deletions(-)
-> 
-> diff --git a/drivers/phy/qualcomm/phy-qcom-qmp-combo.c b/drivers/phy/qualcomm/phy-qcom-qmp-combo.c
-> index 893b5a4..df62980 100644
-> --- a/drivers/phy/qualcomm/phy-qcom-qmp-combo.c
-> +++ b/drivers/phy/qualcomm/phy-qcom-qmp-combo.c
-> @@ -604,6 +604,18 @@ static const struct qmp_phy_init_tbl qmp_v4_dp_tx_tbl[] = {
->  	QMP_PHY_INIT_CFG(QSERDES_V4_TX_TX_EMP_POST1_LVL, 0x20),
->  };
->  
-> +
+On 17-06-22, 13:36, Dmitry Baryshkov wrote:
+> As the QMP HDMI PHY is a clock provider, add constant #clock-cells
+> property. For the compatibility with older DTs the property is not
+> marked as required.
 
-this makes it double blank lines, pls remove
-
-> +/* list of regulators */
-> +struct qmp_regulator_data {
-> +	const char *name;
-> +	unsigned int enable_load;
-> +};
-> +
-> +struct qmp_regulator_data qmp_phy_vreg_l[] = {
-> +	{ .name = "vdda-phy", .enable_load = 21800 },
-> +	{ .name = "vdda-pll", .enable_load = 36000 },
-> +};
-> +
->  struct qmp_phy;
->  
->  /* struct qmp_phy_cfg - per-PHY initialization config */
-> @@ -646,7 +658,7 @@ struct qmp_phy_cfg {
->  	const char * const *reset_list;
->  	int num_resets;
->  	/* regulators to be requested */
-> -	const char * const *vreg_list;
-> +	const struct qmp_regulator_data *vreg_list;
->  	int num_vregs;
->  
->  	/* array of registers with different offsets */
-> @@ -809,11 +821,6 @@ static const char * const sc7180_usb3phy_reset_l[] = {
->  	"phy",
->  };
->  
-> -/* list of regulators */
-> -static const char * const qmp_phy_vreg_l[] = {
-> -	"vdda-phy", "vdda-pll",
-> -};
-> -
->  static const struct qmp_phy_cfg sc7180_usb3phy_cfg = {
->  	.type			= PHY_TYPE_USB3,
->  	.nlanes			= 1,
-> @@ -1969,16 +1976,32 @@ static int qcom_qmp_phy_combo_vreg_init(struct device *dev, const struct qmp_phy
->  {
->  	struct qcom_qmp *qmp = dev_get_drvdata(dev);
->  	int num = cfg->num_vregs;
-> -	int i;
-> +	int ret, i;
->  
->  	qmp->vregs = devm_kcalloc(dev, num, sizeof(*qmp->vregs), GFP_KERNEL);
->  	if (!qmp->vregs)
->  		return -ENOMEM;
->  
->  	for (i = 0; i < num; i++)
-> -		qmp->vregs[i].supply = cfg->vreg_list[i];
-> -
-> -	return devm_regulator_bulk_get(dev, num, qmp->vregs);
-> +		qmp->vregs[i].supply = cfg->vreg_list[i].name;
-> +
-> +        ret = devm_regulator_bulk_get(dev, num, qmp->vregs);
-> +        if (ret) {
-> +                dev_err(dev, "failed at devm_regulator_bulk_get\n");
-> +                return ret;
-> +        }
-> +
-> +        for (i = 0; i < num; i++) {
-> +                ret = regulator_set_load(qmp->vregs[i].consumer,
-> +                                         cfg->vreg_list[i].enable_load);
-> +                if (ret) {
-> +                        dev_err(dev, "failed to set load at %s\n",
-> +                                qmp->vregs[i].supply);
-> +                        return ret;
-> +                }
-> +        }
-> +
-> +        return 0;
-
-argh!
-checkpatch says:
-total: 15 errors, 25 warnings, 1 checks, 277 lines checked
-
-Looks like all lines use spaces and not tabs :-(
-
-Pls fix that and resend
+Acked-By: Vinod Koul <vkoul@kernel.org>
 
 -- 
 ~Vinod
