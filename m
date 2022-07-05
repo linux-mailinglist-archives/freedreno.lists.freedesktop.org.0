@@ -1,46 +1,55 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id CAA7956696D
-	for <lists+freedreno@lfdr.de>; Tue,  5 Jul 2022 13:32:49 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 9849C567445
+	for <lists+freedreno@lfdr.de>; Tue,  5 Jul 2022 18:29:48 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A680C10E7B1;
-	Tue,  5 Jul 2022 11:30:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BFF6614A100;
+	Tue,  5 Jul 2022 16:29:30 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 42A9610E021;
- Tue,  5 Jul 2022 09:07:06 +0000 (UTC)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 82CDDB81646;
- Tue,  5 Jul 2022 09:07:04 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B1242C341C7;
- Tue,  5 Jul 2022 09:07:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1657012023;
- bh=3ZpJpRNDhK6kBwRF3RuYIOFq7v3/dbRfERHQO2XKC9s=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=oglNQPqxphZHLSarXFIjRthMAFo/TsafAbm8rCG2BW4lSzJbXrFPGqILs8tdQYVnM
- GpJzRjgiVgviHw11UOsQ+XRjqjARbK9mbrQKyp9qA+ZoXus6l4+eXvzmbdHZNGS4en
- mFF3ETc27nnx0OuFnYTify3H+qKlJJahQZNRHh607EXDyNTbkCQ0T/srH2zWFtCvhU
- smcQ+18wH7JFxBWq9i7pNdjLf3RDI1RFKQt1GKE6C8dSrNMWenenQ1j1WCkg4iHCPJ
- /6aUKcr/DBCRKrO4RzOzbGdwlkvoJNOxEiCLRt+U1p4DnMwp5hM7rgenEiud91p3BA
- a863LznbMhSpQ==
-Date: Tue, 5 Jul 2022 14:36:58 +0530
-From: Vinod Koul <vkoul@kernel.org>
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Message-ID: <YsP/MmX96aIYc1p7@matsya>
-References: <20220617103608.605898-1-dmitry.baryshkov@linaro.org>
- <20220617103608.605898-2-dmitry.baryshkov@linaro.org>
+Received: from alexa-out-sd-01.qualcomm.com (alexa-out-sd-01.qualcomm.com
+ [199.106.114.38])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 02BC190DDE;
+ Tue,  5 Jul 2022 16:29:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=quicinc.com; i=@quicinc.com; q=dns/txt; s=qcdkim;
+ t=1657038569; x=1688574569;
+ h=from:to:cc:subject:date:message-id:mime-version;
+ bh=nhjQFTOM7tP5gqGtT+73ZdeFjuAbda/CdSnEwGfblNk=;
+ b=yfpmDUOeimVtOcI2Vua58BqZQDNIL2CzblwX7aRxcNIopMIhjxrt19AV
+ pCSPaCnncmDzxsjxaJD3zbcFa3ZvVLUaEoe68kisBGEpaj8R7pS+91iJG
+ QQ76WOJcO+K2ka1AUFa0oxe9DA9u+diFd1YVW5HTzQdSMHt1LagcdP2WV Y=;
+Received: from unknown (HELO ironmsg05-sd.qualcomm.com) ([10.53.140.145])
+ by alexa-out-sd-01.qualcomm.com with ESMTP; 05 Jul 2022 09:29:28 -0700
+X-QCInternal: smtphost
+Received: from nasanex01c.na.qualcomm.com ([10.47.97.222])
+ by ironmsg05-sd.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 05 Jul 2022 09:29:27 -0700
+Received: from nalasex01a.na.qualcomm.com (10.47.209.196) by
+ nasanex01c.na.qualcomm.com (10.47.97.222) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.986.22; Tue, 5 Jul 2022 09:29:27 -0700
+Received: from khsieh-linux1.qualcomm.com (10.80.80.8) by
+ nalasex01a.na.qualcomm.com (10.47.209.196) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.986.22; Tue, 5 Jul 2022 09:29:26 -0700
+From: Kuogee Hsieh <quic_khsieh@quicinc.com>
+To: <dri-devel@lists.freedesktop.org>, <robdclark@gmail.com>,
+ <sean@poorly.run>, <swboyd@chromium.org>, <dianders@chromium.org>,
+ <vkoul@kernel.org>, <daniel@ffwll.ch>, <airlied@linux.ie>,
+ <agross@kernel.org>, <dmitry.baryshkov@linaro.org>,
+ <bjorn.andersson@linaro.org>
+Date: Tue, 5 Jul 2022 09:29:13 -0700
+Message-ID: <1657038556-2231-1-git-send-email-quic_khsieh@quicinc.com>
+X-Mailer: git-send-email 2.7.4
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20220617103608.605898-2-dmitry.baryshkov@linaro.org>
-Subject: Re: [Freedreno] [PATCH 1/3] dt-bindings: phy: qcom,
- hdmi-phy-qmp: add clock-cells
+Content-Type: text/plain
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+Subject: [Freedreno] [PATCH v16 0/3] eDP/DP Phy vdda realted function
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,21 +62,32 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, David Airlie <airlied@linux.ie>,
- linux-arm-msm@vger.kernel.org, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- dri-devel@lists.freedesktop.org, Stephen Boyd <swboyd@chromium.org>,
- Rob Clark <robdclark@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- linux-phy@lists.infradead.org, Bjorn Andersson <bjorn.andersson@linaro.org>,
- Sean Paul <sean@poorly.run>
+Cc: quic_sbillaka@quicinc.com, linux-arm-msm@vger.kernel.org,
+ quic_abhinavk@quicinc.com, Kuogee Hsieh <quic_khsieh@quicinc.com>,
+ quic_aravindh@quicinc.com, freedreno@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 17-06-22, 13:36, Dmitry Baryshkov wrote:
-> As the QMP HDMI PHY is a clock provider, add constant #clock-cells
-> property. For the compatibility with older DTs the property is not
-> marked as required.
+0) rebase on https://git.kernel.org/pub/scm/linux/kernel/git/phy/linux-phy.git tree
+1) add regulator_set_load() to eDP phy
+2) add regulator_set_load() to DP phy
+3) remove vdda related function out of eDP/DP controller
 
-Acked-By: Vinod Koul <vkoul@kernel.org>
+Kuogee Hsieh (3):
+  phy: qcom-edp: add regulator_set_load to edp phy
+  phy: qcom-qmp: add regulator_set_load to dp phy
+  drm/msm/dp: delete vdda regulator related functions from eDP/DP
+    controller
+
+ drivers/gpu/drm/msm/dp/dp_parser.c        | 14 -----
+ drivers/gpu/drm/msm/dp/dp_parser.h        |  8 ---
+ drivers/gpu/drm/msm/dp/dp_power.c         | 95 +------------------------------
+ drivers/phy/qualcomm/phy-qcom-edp.c       | 12 ++++
+ drivers/phy/qualcomm/phy-qcom-qmp-combo.c | 41 ++++++++++---
+ 5 files changed, 46 insertions(+), 124 deletions(-)
 
 -- 
-~Vinod
+The Qualcomm Innovation Center, Inc. is a member of the Code Aurora Forum,
+a Linux Foundation Collaborative Project
+
