@@ -1,65 +1,46 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 070B2566958
-	for <lists+freedreno@lfdr.de>; Tue,  5 Jul 2022 13:32:24 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 46CD5566959
+	for <lists+freedreno@lfdr.de>; Tue,  5 Jul 2022 13:32:26 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D401B10F4CA;
-	Tue,  5 Jul 2022 11:30:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9111E10F84F;
+	Tue,  5 Jul 2022 11:30:22 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from alexa-out-sd-01.qualcomm.com (alexa-out-sd-01.qualcomm.com
- [199.106.114.38])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5121510E021;
- Tue,  5 Jul 2022 07:47:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=quicinc.com; i=@quicinc.com; q=dns/txt; s=qcdkim;
- t=1657007240; x=1688543240;
- h=message-id:date:mime-version:subject:to:cc:references:
- from:in-reply-to:content-transfer-encoding;
- bh=10yG6y6njUSdyHbnv5fALLIcr4SspTq4ByE5kOtgKqY=;
- b=mQX2giajypP+oY02rkxPLLcBQa2yZ+h6gM5KPbhPg/rAYDPifmMYcIeV
- 7cgBiU4LMr2fpIGyajkcwZwm8pjNChMAB5DaAqitXgfWcUtK2l5/aFAEk
- f0ji6Cgh1/L0lkleOr4wCuSjTuicuT9nsAeyhNCQA90a+nR6pyWTVHghS 4=;
-Received: from unknown (HELO ironmsg-SD-alpha.qualcomm.com) ([10.53.140.30])
- by alexa-out-sd-01.qualcomm.com with ESMTP; 04 Jul 2022 22:41:11 -0700
-X-QCInternal: smtphost
-Received: from nasanex01c.na.qualcomm.com ([10.47.97.222])
- by ironmsg-SD-alpha.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 04 Jul 2022 22:41:10 -0700
-Received: from nalasex01a.na.qualcomm.com (10.47.209.196) by
- nasanex01c.na.qualcomm.com (10.47.97.222) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.986.22; Mon, 4 Jul 2022 22:41:10 -0700
-Received: from [10.111.163.64] (10.80.80.8) by nalasex01a.na.qualcomm.com
- (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.22; Mon, 4 Jul 2022
- 22:41:06 -0700
-Message-ID: <48f97293-9fe2-a9fd-b051-fd1fc190bc6c@quicinc.com>
-Date: Mon, 4 Jul 2022 22:41:04 -0700
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1805110E025;
+ Tue,  5 Jul 2022 07:19:49 +0000 (UTC)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 1D2A461680;
+ Tue,  5 Jul 2022 07:19:48 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A8CC6C341C7;
+ Tue,  5 Jul 2022 07:19:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1657005587;
+ bh=nBS8lG+9F44KSXw0/0LYCtol2wEliplh73wRQQdVkzs=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=JdLrazqr1Ri1IBpqvD8+ADX+FpA1BHrc93abMNaGhGJAhFOhv/RAbjTHKJVcoPx5W
+ r7WZaaCzUY3MpCc9O/MejASDMJMRgMW4We5HFMXj2qPon5N6XgrGxpSroHe68S8f7L
+ iGp9fOYLl88AYeKA3JzJOAvqNkQakeMurzJEKI96UAtVgBtg3jkwpCBPgcbfHpw3hx
+ Q3Sbx7XKcgfyGGvcbcpG/QR4D1zhM3JRYHJN3tgGFJbztAr9qz3OHZedez/mmEL0yh
+ Qh63BI5p0PZkuU35ObrseIbaBBGGvp2n6CtchsUAHdeiP5NX7Bh0h6YsOa2wCuelz8
+ qVsPeTAW4C7NA==
+Date: Tue, 5 Jul 2022 12:49:43 +0530
+From: Vinod Koul <vkoul@kernel.org>
+To: Kuogee Hsieh <quic_khsieh@quicinc.com>
+Message-ID: <YsPmD08mdcgBXwHx@matsya>
+References: <1655830891-19025-1-git-send-email-quic_khsieh@quicinc.com>
+ <1655830891-19025-3-git-send-email-quic_khsieh@quicinc.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.6.2
-Content-Language: en-US
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Rob Clark
- <robdclark@gmail.com>, Doug Anderson <dianders@chromium.org>, Kuogee Hsieh
- <quic_khsieh@quicinc.com>
-References: <1656429606-2765-1-git-send-email-quic_khsieh@quicinc.com>
- <F35C87BF-46A5-41D3-B8A5-B2AB4A24252D@linaro.org>
- <CAD=FV=X3cv=Q30pODyi__OyRY+LbFT14RfEELvm_DAeHafF70g@mail.gmail.com>
- <CAF6AEGvFYK3x_CmErkKsmYNEv9y8AksE9UB_sfp-Z7RieX=tVg@mail.gmail.com>
- <E87F561E-22B4-46B6-AD9B-4995E92A8E29@linaro.org>
- <1df69cf9-7610-45af-240c-1b8e02953bc1@linaro.org>
-From: Abhinav Kumar <quic_abhinavk@quicinc.com>
-In-Reply-To: <1df69cf9-7610-45af-240c-1b8e02953bc1@linaro.org>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-Subject: Re: [Freedreno] [PATCH] drm/msm/dp: make eDP panel as the first
- connected connector
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <1655830891-19025-3-git-send-email-quic_khsieh@quicinc.com>
+Subject: Re: [Freedreno] [PATCH v15 2/3] phy: qcom-qmp: add
+ regulator_set_load to dp phy
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,145 +53,115 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sean Paul <sean@poorly.run>,
- Sankeerth Billakanti <quic_sbillaka@quicinc.com>,
- David Airlie <airlied@linux.ie>, linux-arm-msm <linux-arm-msm@vger.kernel.org>,
- LKML <linux-kernel@vger.kernel.org>,
- dri-devel <dri-devel@lists.freedesktop.org>,
- Stephen Boyd <swboyd@chromium.org>, Vinod
- Koul <vkoul@kernel.org>, Andy Gross <agross@kernel.org>,
- Daniel Vetter <daniel@ffwll.ch>, "Aravind
- Venkateswaran \(QUIC\)" <quic_aravindh@quicinc.com>,
- Bjorn Andersson <bjorn.andersson@linaro.org>,
- freedreno <freedreno@lists.freedesktop.org>
+Cc: quic_sbillaka@quicinc.com, quic_abhinavk@quicinc.com, airlied@linux.ie,
+ freedreno@lists.freedesktop.org, dianders@chromium.org,
+ dri-devel@lists.freedesktop.org, swboyd@chromium.org, robdclark@gmail.com,
+ agross@kernel.org, daniel@ffwll.ch, linux-arm-msm@vger.kernel.org,
+ dmitry.baryshkov@linaro.org, quic_aravindh@quicinc.com,
+ bjorn.andersson@linaro.org, sean@poorly.run, linux-kernel@vger.kernel.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
+On 21-06-22, 10:01, Kuogee Hsieh wrote:
+> This patch add regulator_set_load() before enable regulator at
+> DP phy driver.
+> 
+> Signed-off-by: Kuogee Hsieh <quic_khsieh@quicinc.com>
+> Reviewed-by: Stephen Boyd <swboyd@chromium.org>
+> Reviewed-by: Douglas Anderson <dianders@chromium.org>
+> ---
+>  drivers/phy/qualcomm/phy-qcom-qmp-combo.c | 43 ++++++++++++++++++++++++-------
+>  1 file changed, 33 insertions(+), 10 deletions(-)
+> 
+> diff --git a/drivers/phy/qualcomm/phy-qcom-qmp-combo.c b/drivers/phy/qualcomm/phy-qcom-qmp-combo.c
+> index 893b5a4..df62980 100644
+> --- a/drivers/phy/qualcomm/phy-qcom-qmp-combo.c
+> +++ b/drivers/phy/qualcomm/phy-qcom-qmp-combo.c
+> @@ -604,6 +604,18 @@ static const struct qmp_phy_init_tbl qmp_v4_dp_tx_tbl[] = {
+>  	QMP_PHY_INIT_CFG(QSERDES_V4_TX_TX_EMP_POST1_LVL, 0x20),
+>  };
+>  
+> +
 
+this makes it double blank lines, pls remove
 
-On 7/4/2022 11:14 AM, Dmitry Baryshkov wrote:
-> On 30/06/2022 09:14, Dmitry Baryshkov wrote:
->>
->>
->> On 30 June 2022 04:57:35 GMT+03:00, Rob Clark <robdclark@gmail.com> 
->> wrote:
->>> On Wed, Jun 29, 2022 at 5:36 PM Doug Anderson <dianders@chromium.org> 
->>> wrote:
->>>>
->>>> Hi,
->>>>
->>>> On Tue, Jun 28, 2022 at 1:14 PM Dmitry Baryshkov
->>>> <dmitry.baryshkov@linaro.org> wrote:
->>>>>
->>>>> On 28 June 2022 18:20:06 GMT+03:00, Kuogee Hsieh 
->>>>> <quic_khsieh@quicinc.com> wrote:
->>>>>> Some userspace presumes that the first connected connector is the 
->>>>>> main
->>>>>> display, where it's supposed to display e.g. the login screen. For
->>>>>> laptops, this should be the main panel.
->>>>>>
->>>>>> This patch call drm_helper_move_panel_connectors_to_head() after
->>>>>> drm_bridge_connector_init() to make sure eDP stay at head of
->>>>>> connected connector list. This fixes unexpected corruption happen
->>>>>> at eDP panel if eDP is not placed at head of connected connector
->>>>>> list.
->>>>>
->>>>> The change itself is a good fix anyway. (And I'd ack it.) However I 
->>>>> would like to understand why does it fix the corruption issue. What 
->>>>> is we have eDP and DSI, with DSI ending up before the eDP? Would we 
->>>>> see the issue?
->>>>> Also could you please describe the mind of corruption you are 
->>>>> observing?
->>>>
->>>> I've spent a whole bunch of time poking at this and in the end my
->>>> conclusion is this:
->>>>
->>>> 1. The glitchyness seems to be a result of the Chrome OS userspace
->>>> somehow telling the kernel to do something wrong.
->>>>
->>>> 2. I believe (though I have no proof other than Kuogee's patch fixing
->>>> things) that the Chrome OS userspace is simply confused by the eDP
->>>> connector being second. This would imply that Kuogee's patch is
->>>> actually the right one.
->>>>
->>>> 3. It would be ideal if the Chrome OS userspace were fixed to handle
->>>> this, but it's an area of code that I've never looked at. It also
->>>> seems terribly low priority to fix since apparently other OSes have
->>>> similar problems (seems like this code was originally added by
->>>> RedHat?)
->>>>
->>>>
->>>> Specifically, I tested with a similar but "persistent" glitch that I
->>>> reproduced. The glitch Kuogee was digging into was a transitory glitch
->>>> on the eDP (internal) display when you plugged in a DP (external)
->>>> display. It would show up for a frame or two and then be fixed. I can
->>>> get a similar-looking glitch (vertical black and white bars) that
->>>> persists by doing these steps on a Chrome OS device (and Chrome OS
->>>> kernel):
->>>>
->>>> a) Observe screen looks good.
->>>> b) Observe DP not connected.
->>>> c) Plug in DP
->>>> d) See transitory glitch on screen, then it all looks fine.
->>>> e) set_power_policy --ac_screen_dim_delay=5 --ac_screen_off_delay=10
->>>> f) Wait for screen to turn off
->>>> g) Unplug DP
->>>> h) Hit key on keyboard to wake device.
->>>> i) See glitchy.
->>>> j) Within 5 seconds: set_power_policy --ac_screen_dim_delay=5000
->>>> --ac_screen_off_delay=10000
->>>>
->>>> Once I'm in the persistent glitch:
->>>>
->>>> * The "screenshot" command in Chrome OS shows corruption. Not exactly
->>>> black and white bars, but the image produced has distinct bands of
->>>> garbage.
->>>>
->>>> * I can actually toggle between VT2 and the main screen (VT1). Note
->>>> that VT1/VT2 are not quite the normal Linux managed solution--I
->>>> believe they're handled by frecon. In any case, when I switch to VT2
->>>> it looks normal (I can see the login prompt). Then back to VT1 and the
->>>> vertical bars glitch. Back to VT2 and it's normal. Back to VT1 and the
->>>> glitch again. This implies (especially with the extra evidence of
->>>> screenshot) that the display controller hardware is all fine and that
->>>> it's the underlying data that's somehow messed up.
->>>
->>> fwiw, from looking at this a bit w/ Doug, I think the "glitch" is
->>> simply just an un-renderered buffer being interpreted by the display
->>> controller as UBWC (because userspace tells it to)
->>
->> Thanks for the description. I think the userspace code should be fixed 
->> too, but this patch can go in on its own.
->>
->> Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> 
-> After some time (please excuse me), musing with the code and even 
-> picking up the commit for the merge branch, I understood the fact that I 
-> did not like about this change. It moves all panel connectors (generic 
-> code) from the DP-specific driver.
-> 
-> I'd like to retract my R-b. Please move this call to the msm_drm_init(). 
-> Calling this function somewhere after the ->kms_init() would make sure 
-> that all panel connectors are close to the top of the list, whichever 
-> MDP/DPU driver is used and whichever actual interface is bound to this 
-> panel.
-> 
-Ah. True, but just to add. It should be after kms_init() but before 
-drm_dev_register().
+> +/* list of regulators */
+> +struct qmp_regulator_data {
+> +	const char *name;
+> +	unsigned int enable_load;
+> +};
+> +
+> +struct qmp_regulator_data qmp_phy_vreg_l[] = {
+> +	{ .name = "vdda-phy", .enable_load = 21800 },
+> +	{ .name = "vdda-pll", .enable_load = 36000 },
+> +};
+> +
+>  struct qmp_phy;
+>  
+>  /* struct qmp_phy_cfg - per-PHY initialization config */
+> @@ -646,7 +658,7 @@ struct qmp_phy_cfg {
+>  	const char * const *reset_list;
+>  	int num_resets;
+>  	/* regulators to be requested */
+> -	const char * const *vreg_list;
+> +	const struct qmp_regulator_data *vreg_list;
+>  	int num_vregs;
+>  
+>  	/* array of registers with different offsets */
+> @@ -809,11 +821,6 @@ static const char * const sc7180_usb3phy_reset_l[] = {
+>  	"phy",
+>  };
+>  
+> -/* list of regulators */
+> -static const char * const qmp_phy_vreg_l[] = {
+> -	"vdda-phy", "vdda-pll",
+> -};
+> -
+>  static const struct qmp_phy_cfg sc7180_usb3phy_cfg = {
+>  	.type			= PHY_TYPE_USB3,
+>  	.nlanes			= 1,
+> @@ -1969,16 +1976,32 @@ static int qcom_qmp_phy_combo_vreg_init(struct device *dev, const struct qmp_phy
+>  {
+>  	struct qcom_qmp *qmp = dev_get_drvdata(dev);
+>  	int num = cfg->num_vregs;
+> -	int i;
+> +	int ret, i;
+>  
+>  	qmp->vregs = devm_kcalloc(dev, num, sizeof(*qmp->vregs), GFP_KERNEL);
+>  	if (!qmp->vregs)
+>  		return -ENOMEM;
+>  
+>  	for (i = 0; i < num; i++)
+> -		qmp->vregs[i].supply = cfg->vreg_list[i];
+> -
+> -	return devm_regulator_bulk_get(dev, num, qmp->vregs);
+> +		qmp->vregs[i].supply = cfg->vreg_list[i].name;
+> +
+> +        ret = devm_regulator_bulk_get(dev, num, qmp->vregs);
+> +        if (ret) {
+> +                dev_err(dev, "failed at devm_regulator_bulk_get\n");
+> +                return ret;
+> +        }
+> +
+> +        for (i = 0; i < num; i++) {
+> +                ret = regulator_set_load(qmp->vregs[i].consumer,
+> +                                         cfg->vreg_list[i].enable_load);
+> +                if (ret) {
+> +                        dev_err(dev, "failed to set load at %s\n",
+> +                                qmp->vregs[i].supply);
+> +                        return ret;
+> +                }
+> +        }
+> +
+> +        return 0;
 
->>
->>
->>>
->>> BR,
->>> -R
->>>
->>>> When I pick Kuogee's patch then this "persistent" glitch goes away
->>>> just like the transitory one does.
->>>>
->>>> I'm going to go ahead and do:
->>>>
->>>> Reviewed-by: Douglas Anderson <dianders@chromium.org>
->>>> Tested-by: Douglas Anderson <dianders@chromium.org>
->>
-> 
-> 
+argh!
+checkpatch says:
+total: 15 errors, 25 warnings, 1 checks, 277 lines checked
+
+Looks like all lines use spaces and not tabs :-(
+
+Pls fix that and resend
+
+-- 
+~Vinod
