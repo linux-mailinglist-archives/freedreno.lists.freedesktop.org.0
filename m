@@ -2,42 +2,65 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 056A856894E
-	for <lists+freedreno@lfdr.de>; Wed,  6 Jul 2022 15:23:59 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 88E71568BBB
+	for <lists+freedreno@lfdr.de>; Wed,  6 Jul 2022 16:52:32 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 863B011B645;
-	Wed,  6 Jul 2022 13:23:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0850110F4AD;
+	Wed,  6 Jul 2022 14:52:28 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-X-Greylist: delayed 301 seconds by postgrey-1.36 at gabe;
- Wed, 06 Jul 2022 13:23:56 UTC
-Received: from michel.telenet-ops.be (michel.telenet-ops.be
- [IPv6:2a02:1800:110:4::f00:18])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 698BC11B645
- for <freedreno@lists.freedesktop.org>; Wed,  6 Jul 2022 13:23:56 +0000 (UTC)
-Received: from ramsan.of.borg ([84.195.186.194])
- by michel.telenet-ops.be with bizsmtp
- id rpJr2700E4C55Sk06pJr8g; Wed, 06 Jul 2022 15:18:54 +0200
-Received: from rox.of.borg ([192.168.97.57])
- by ramsan.of.borg with esmtps (TLS1.3) tls
- TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.93)
- (envelope-from <geert@linux-m68k.org>)
- id 1o94va-002LB9-R2; Wed, 06 Jul 2022 15:18:50 +0200
-Received: from geert by rox.of.borg with local (Exim 4.93)
- (envelope-from <geert@linux-m68k.org>)
- id 1o94va-009esk-7c; Wed, 06 Jul 2022 15:18:50 +0200
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-To: Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Sean Paul <sean@poorly.run>, David Airlie <airlied@linux.ie>,
- Daniel Vetter <daniel@ffwll.ch>
-Date: Wed,  6 Jul 2022 15:18:48 +0200
-Message-Id: <0083bc7e23753c19902580b902582ae499b44dbf.1657113388.git.geert@linux-m68k.org>
-X-Mailer: git-send-email 2.25.1
+Received: from mail-lf1-x12c.google.com (mail-lf1-x12c.google.com
+ [IPv6:2a00:1450:4864:20::12c])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C7C5810F477
+ for <freedreno@lists.freedesktop.org>; Wed,  6 Jul 2022 14:52:25 +0000 (UTC)
+Received: by mail-lf1-x12c.google.com with SMTP id e12so26339109lfr.6
+ for <freedreno@lists.freedesktop.org>; Wed, 06 Jul 2022 07:52:25 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=6HBzK/l93JxPEmhI/JaroF5KDLT4SrwcSehWqsU43NQ=;
+ b=t5eWjH/Dg2AmKlwx139MJxWOxq1jBDfwI9WMSF9SAsITjUshwwbKTHgMGW7RsPmUEL
+ WRjlBA9lYI4N6n9cI/+G6qoCxwnaTGChhWReYDxD7o59MfrLVGgn4kS3kBzwT9QobPUi
+ NvVWvkeRTBQrbidYucWeDo0DhaVmV/lpGwP/2gU6MGUM4NDGG4y3Wv5mlQvQLODFDGvR
+ vAZlDgycFrQfRjJQBrk96/jBs8pBtl/1NHdKuqiXr7kTk0bs0HfVHUTEC9KW2v0BDt/R
+ HzkrRibSmZ2PNYK6/kmlVaBdzaMO0cfX3unVdnk/qwtXt57GyYullp+GmdIhDdMiIAF3
+ z7Dg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=6HBzK/l93JxPEmhI/JaroF5KDLT4SrwcSehWqsU43NQ=;
+ b=bxK4RmugOogu/MEdBUoSkdQe5S1cFiqYXZDZ1i518hnL9sZ0L63V56SBlm5uc2dK1k
+ DZR41sbkTF1GCRwv3jgtBTTV48oZq72/bTNnK6aqbVPQ9Vx2E+vFNz/eqQkiukMD6tym
+ al75AT3lXHec3oYlM4Izk+W1M+tv0ZYM7ZKOmzRI/DZQgSLbXd/54ZzXPuZ94Ics1B2J
+ 5Wjf76cst0snxHzpKk6IFZXMAB1gwMzlfyWlU/W6EW57/7NPN9Dk5rRaB2ucIGskBC44
+ KAPIMdxDOn+H5kTr2irYoK2Lu2l4bYTUBqBc0ym09nqRygLdPTIzRcUwuOQod6hI3Vhy
+ DaWA==
+X-Gm-Message-State: AJIora92Y/uWYGQGEoLQ/bNWIcY0hMreLtiNaVUQ1Djk1HaqYXKS56ER
+ bMG9fHxlPTDk7b1iVlMH9dnPfg==
+X-Google-Smtp-Source: AGRyM1tFUXYXbeJILL9shHP73Zaabp7CJDJi2SC1ggS6bSdLsSQuPcyJ0S3/TA7y9BPw7jXiyAx3LA==
+X-Received: by 2002:a05:6512:3a91:b0:47f:97fe:fa16 with SMTP id
+ q17-20020a0565123a9100b0047f97fefa16mr25290467lfu.120.1657119144151; 
+ Wed, 06 Jul 2022 07:52:24 -0700 (PDT)
+Received: from eriador.lan ([37.153.55.125]) by smtp.gmail.com with ESMTPSA id
+ v25-20020a056512049900b004855e979abcsm556617lfq.99.2022.07.06.07.52.22
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 06 Jul 2022 07:52:23 -0700 (PDT)
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+To: Andy Gross <agross@kernel.org>,
+ Bjorn Andersson <bjorn.andersson@linaro.org>,
+ Konrad Dybcio <konrad.dybcio@somainline.org>,
+ Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Rob Herring <robh+dt@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>
+Date: Wed,  6 Jul 2022 17:52:18 +0300
+Message-Id: <20220706145222.1565238-1-dmitry.baryshkov@linaro.org>
+X-Mailer: git-send-email 2.35.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH v2] drm/msm/adreno: Do not propagate void return
- values
+Subject: [Freedreno] [PATCH 0/4] dt-bindings: display/msm: schema fixes for
+ gpu, gmu and mdp4
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -50,80 +73,27 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, Geert Uytterhoeven <geert@linux-m68k.org>,
- freedreno@lists.freedesktop.org, Guenter Roeck <linux@roeck-us.net>
+Cc: devicetree@vger.kernel.org, David Airlie <airlied@linux.ie>,
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ Stephen Boyd <swboyd@chromium.org>, Daniel Vetter <daniel@ffwll.ch>,
+ freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-With sparse ("make C=2"), lots of
+Fix several issues in MSM display schema.
 
-  error: return expression in void function
+Dmitry Baryshkov (4):
+  dt-bindings: display/msm/gpu: allow specifying several IOMMU nodes
+  dt-bindings: display/msm/gpu: document using the amd,imageon adreno
+    too
+  dt-bindings: display/msm/gmu: account for different GMU variants
+  dt-bindings: display/msm/mdp4: require 4 IOMMUs
 
-messages are seen.
+ .../devicetree/bindings/display/msm/gmu.yaml  | 166 +++++++++++++++---
+ .../devicetree/bindings/display/msm/gpu.yaml  |   9 +-
+ .../devicetree/bindings/display/msm/mdp4.yaml |   2 +-
+ 3 files changed, 155 insertions(+), 22 deletions(-)
 
-Fix this by removing the return statements to propagate void return
-values.
-
-Signed-off-by: Geert Uytterhoeven <geert@linux-m68k.org>
-Reviewed-by: Guenter Roeck <linux@roeck-us.net>
----
-v2:
-  - Add Reviewed-by.
----
- drivers/gpu/drm/msm/adreno/a6xx_gmu.c | 2 +-
- drivers/gpu/drm/msm/adreno/a6xx_gmu.h | 4 ++--
- drivers/gpu/drm/msm/adreno/a6xx_gpu.c | 2 +-
- 3 files changed, 4 insertions(+), 4 deletions(-)
-
-diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
-index 9f76f5b157598c27..ccf7b29473f0ea4e 100644
---- a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
-+++ b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
-@@ -504,7 +504,7 @@ static void a6xx_rpmh_stop(struct a6xx_gmu *gmu)
- 
- static inline void pdc_write(void __iomem *ptr, u32 offset, u32 value)
- {
--	return msm_writel(value, ptr + (offset << 2));
-+	msm_writel(value, ptr + (offset << 2));
- }
- 
- static void __iomem *a6xx_gmu_get_mmio(struct platform_device *pdev,
-diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gmu.h b/drivers/gpu/drm/msm/adreno/a6xx_gmu.h
-index 84bd516f01e895b2..e034935b3986f9f2 100644
---- a/drivers/gpu/drm/msm/adreno/a6xx_gmu.h
-+++ b/drivers/gpu/drm/msm/adreno/a6xx_gmu.h
-@@ -98,7 +98,7 @@ static inline u32 gmu_read(struct a6xx_gmu *gmu, u32 offset)
- 
- static inline void gmu_write(struct a6xx_gmu *gmu, u32 offset, u32 value)
- {
--	return msm_writel(value, gmu->mmio + (offset << 2));
-+	msm_writel(value, gmu->mmio + (offset << 2));
- }
- 
- static inline void
-@@ -138,7 +138,7 @@ static inline u32 gmu_read_rscc(struct a6xx_gmu *gmu, u32 offset)
- 
- static inline void gmu_write_rscc(struct a6xx_gmu *gmu, u32 offset, u32 value)
- {
--	return msm_writel(value, gmu->rscc + (offset << 2));
-+	msm_writel(value, gmu->rscc + (offset << 2));
- }
- 
- #define gmu_poll_timeout_rscc(gmu, addr, val, cond, interval, timeout) \
-diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-index 42ed9a3c490551a2..2613219a778717a2 100644
---- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-+++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-@@ -1446,7 +1446,7 @@ static void a6xx_llc_rmw(struct a6xx_gpu *a6xx_gpu, u32 reg, u32 mask, u32 or)
- 
- static void a6xx_llc_write(struct a6xx_gpu *a6xx_gpu, u32 reg, u32 value)
- {
--	return msm_writel(value, a6xx_gpu->llc_mmio + (reg << 2));
-+	msm_writel(value, a6xx_gpu->llc_mmio + (reg << 2));
- }
- 
- static void a6xx_llc_deactivate(struct a6xx_gpu *a6xx_gpu)
 -- 
-2.25.1
+2.35.1
 
