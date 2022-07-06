@@ -1,51 +1,51 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5B203568BBA
-	for <lists+freedreno@lfdr.de>; Wed,  6 Jul 2022 16:52:32 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id B3044568BBE
+	for <lists+freedreno@lfdr.de>; Wed,  6 Jul 2022 16:52:34 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5EE7C10FB34;
+	by gabe.freedesktop.org (Postfix) with ESMTP id BF94D10F922;
 	Wed,  6 Jul 2022 14:52:30 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-x22d.google.com (mail-lj1-x22d.google.com
- [IPv6:2a00:1450:4864:20::22d])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7D9B610F99C
- for <freedreno@lists.freedesktop.org>; Wed,  6 Jul 2022 14:52:28 +0000 (UTC)
-Received: by mail-lj1-x22d.google.com with SMTP id y18so7907780ljj.6
- for <freedreno@lists.freedesktop.org>; Wed, 06 Jul 2022 07:52:28 -0700 (PDT)
+Received: from mail-lf1-x132.google.com (mail-lf1-x132.google.com
+ [IPv6:2a00:1450:4864:20::132])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9BC2F10F922
+ for <freedreno@lists.freedesktop.org>; Wed,  6 Jul 2022 14:52:29 +0000 (UTC)
+Received: by mail-lf1-x132.google.com with SMTP id f39so26369460lfv.3
+ for <freedreno@lists.freedesktop.org>; Wed, 06 Jul 2022 07:52:29 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=mWYa/JkrXaVyDqQ/AUIdjm9Zadu3uW7Es8evksI4JMM=;
- b=nERqmQSL/Sc95hbch1fUd+1YIJJKoAoxd5LsP6r7mwfI8nOkG5rzaw00oL/4prG7NW
- Mh2X4WCl6FTODYsm+9mEAVMgTWjDNeXWB+vKiwEtOeDe5QFq5dOQi4LHz0bjbnl/59HW
- iPdgDNyuPofN9+LkhhhCVEOfSu0FNzHNomDtkjVXJcWMztTGTZkAvwspoZYDKXu4mVcT
- zhfmWfvOf58fIT1Jr6PGC7Znm3KcqgKcGWbjAjQ1lZBjdJjccwTWrGyXc43FT5A8RyE/
- gSkA2r6BQVSaAB7SFPquNl/o99zqvuyRz6pd46abT+i4L4bSQUQDbfIBRUPVmduLygWR
- 4XJA==
+ bh=YGpi0SFFoJ3mrUdF5aNGfF/1+tRI0LBYVB6N+5rOpcE=;
+ b=ud+8DDk6zQxQpEHyhB/JSyKIIwzFovGR4WW9/ItDk367a5uJJnQJWjRANSrhIgyESE
+ 1km53xbY/qlz8V7A+bxfcmQ9aCCsjfEGMlt3MvpWj0UJOu3EvNzGr8hhB6NiHfFihU9K
+ CKXy/4JLoMazyQf0KjgNrll1S2qKVzqh5fW6KvmBdmsqRL7AFoPlzm/uv/zLmid5BVLq
+ JVNEvnC7KiGIp3GgxtEXIro8bzdMAZT3zO6RWE5MTq1ODJRPwp7u3TPcjKZG/55312IY
+ Ycaq+rs1nMg2OSRhDZJNERnnNvTRP+sJrZ9uiQF8CbHu9zOBl8K1IIeOpGmBF1ltAVST
+ niGA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=mWYa/JkrXaVyDqQ/AUIdjm9Zadu3uW7Es8evksI4JMM=;
- b=pPQqnlKqcL7a45J/xhbXe87c7UAbnawWzDV9TQ1laz8qoDBmkICOvABIcY3vuHSO+u
- ba16UwBKrToKFJyS/T4mIFzl/APqbBLcJZ82OsqTYo1ONN+zg5RQVHkKDAv9eFeygNlZ
- WgvL1ywPwWrJFh4IkPKEMApvyxui1NnTePxpihyPbuM/JsD6VVrpjuK/2w+i29mrNfqW
- VJJIzqX5ugb49aSYS+qnBpjLUW3ha24MPcqVJgsLfdh2HFPR3hANN9oxgO3Z1v7XBORp
- OxAug6d9hfw3AfUvVEZDoA9MIhZ/QR2hHD04QfPDO7zZcZZVoY1U2K7QBQTfwvkIT8JQ
- 21cg==
-X-Gm-Message-State: AJIora/KkXm2MAJa0m00w4lMHNUO9Dym4WI9xl1O9pgeTT+k3lTOEH21
- XbwlQk3sjOesyJCZQzxPNYffxA==
-X-Google-Smtp-Source: AGRyM1siQ8prPMCEpPsf2tjnXe3IHRkBfsg1LyW8G4wrbodaZchvocP37Mu2sxympGNIK81TjehE8w==
-X-Received: by 2002:a05:651c:1798:b0:25d:3043:58e0 with SMTP id
- bn24-20020a05651c179800b0025d304358e0mr6628027ljb.310.1657119146681; 
- Wed, 06 Jul 2022 07:52:26 -0700 (PDT)
+ bh=YGpi0SFFoJ3mrUdF5aNGfF/1+tRI0LBYVB6N+5rOpcE=;
+ b=dEVgrEO9WFmzYk7JKpEk60hlqyaRLypHwgPPvTM0kTSi4+2G1n1KkxB5VAvY0VL/Km
+ a0bB0NyiDwupRjZg5QXu37zXNEP/ALa4fwxbIyYbNzoAsaaimVrCCLCx3bY1XsekX+DI
+ QplQ3bTsE/2NHByNY2RmQq2g5gkLkGnH3Q3aJCFBz+Uo9pujrfZJb5R/D8ZkGZjIgGmF
+ Urfb6iL8sfVoZVERlVis0kKenMn43O4/ey0eBlYCASpf39K1+11Z4k04GSbpTsnG0kNN
+ XK0/1fWERtucBESs/v9Kgr9O5XKxmHmMRA2ukxepSkpLkCDJ27NAvPIIHCcA2ZyilWSX
+ MvKw==
+X-Gm-Message-State: AJIora/oLBE3nFCkUXB/Ulx2ZsQs7gxltB97m5JdsFjbZuZH4zsgYxq7
+ zsCTluKG/w4c/1JgZqTkelIQRg==
+X-Google-Smtp-Source: AGRyM1vI6k4XLJFvekZaqNekF4y59n9LrP4o4IJNI70b4dAoY11lzc8ZBQXaxV2QO6gEJp2+Bpsoww==
+X-Received: by 2002:ac2:5fa8:0:b0:481:4470:413a with SMTP id
+ s8-20020ac25fa8000000b004814470413amr24354447lfe.449.1657119147993; 
+ Wed, 06 Jul 2022 07:52:27 -0700 (PDT)
 Received: from eriador.lan ([37.153.55.125]) by smtp.gmail.com with ESMTPSA id
- v25-20020a056512049900b004855e979abcsm556617lfq.99.2022.07.06.07.52.25
+ v25-20020a056512049900b004855e979abcsm556617lfq.99.2022.07.06.07.52.26
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 06 Jul 2022 07:52:25 -0700 (PDT)
+ Wed, 06 Jul 2022 07:52:27 -0700 (PDT)
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 To: Andy Gross <agross@kernel.org>,
  Bjorn Andersson <bjorn.andersson@linaro.org>,
@@ -54,15 +54,15 @@ To: Andy Gross <agross@kernel.org>,
  Abhinav Kumar <quic_abhinavk@quicinc.com>,
  Rob Herring <robh+dt@kernel.org>,
  Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>
-Date: Wed,  6 Jul 2022 17:52:20 +0300
-Message-Id: <20220706145222.1565238-3-dmitry.baryshkov@linaro.org>
+Date: Wed,  6 Jul 2022 17:52:21 +0300
+Message-Id: <20220706145222.1565238-4-dmitry.baryshkov@linaro.org>
 X-Mailer: git-send-email 2.35.1
 In-Reply-To: <20220706145222.1565238-1-dmitry.baryshkov@linaro.org>
 References: <20220706145222.1565238-1-dmitry.baryshkov@linaro.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH 2/4] dt-bindings: display/msm/gpu: document
- using the amd, imageon adreno too
+Subject: [Freedreno] [PATCH 3/4] dt-bindings: display/msm/gmu: account for
+ different GMU variants
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,43 +82,214 @@ Cc: devicetree@vger.kernel.org, David Airlie <airlied@linux.ie>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-The DT binding desribes using amd,imageon only for Imageon 2xx GPUs. We
-have been using amd,imageon with newer (Adreno) GPUs to describe the
-headless setup, when the platform does not (yet) have the display DT
-nodes (and no display support). Document this trick in the schema.
+Make display/msm/gmu.yaml describe all existing GMU variants rather than
+just the 630.2 (SDM845) version of it.
 
 Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 ---
- Documentation/devicetree/bindings/display/msm/gpu.yaml | 6 ++++++
- 1 file changed, 6 insertions(+)
+ .../devicetree/bindings/display/msm/gmu.yaml  | 166 +++++++++++++++---
+ 1 file changed, 146 insertions(+), 20 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/display/msm/gpu.yaml b/Documentation/devicetree/bindings/display/msm/gpu.yaml
-index 346aabdccf7b..e006da95462c 100644
---- a/Documentation/devicetree/bindings/display/msm/gpu.yaml
-+++ b/Documentation/devicetree/bindings/display/msm/gpu.yaml
-@@ -16,9 +16,13 @@ properties:
-       - description: |
-           The driver is parsing the compat string for Adreno to
-           figure out the gpu-id and patch level.
-+          Optional amd,imageon compatibility string enables using Adreno
-+          without the display node.
-         items:
-           - pattern: '^qcom,adreno-[3-6][0-9][0-9]\.[0-9]$'
-           - const: qcom,adreno
-+          - const: amd,imageon
-+        minItems: 2
-       - description: |
-           The driver is parsing the compat string for Imageon to
-           figure out the gpu-id and patch level.
-@@ -148,6 +152,8 @@ allOf:
-                 description: GPU 3D engine clock
-               - const: rbbmtimer
-                 description: GPU RBBM Timer for Adreno 5xx series
-+              - const: rbcpr
-+                description: GPU RB CPR clock
-           minItems: 2
-           maxItems: 7
+diff --git a/Documentation/devicetree/bindings/display/msm/gmu.yaml b/Documentation/devicetree/bindings/display/msm/gmu.yaml
+index fe55611d2603..67fdeeabae0c 100644
+--- a/Documentation/devicetree/bindings/display/msm/gmu.yaml
++++ b/Documentation/devicetree/bindings/display/msm/gmu.yaml
+@@ -20,35 +20,24 @@ description: |
+ properties:
+   compatible:
+     items:
+-      - enum:
+-          - qcom,adreno-gmu-630.2
++      - pattern: '^qcom,adreno-gmu-6[0-9][0-9]\.[0-9]$'
+       - const: qcom,adreno-gmu
  
+   reg:
+-    items:
+-      - description: Core GMU registers
+-      - description: GMU PDC registers
+-      - description: GMU PDC sequence registers
++    minItems: 3
++    maxItems: 4
+ 
+   reg-names:
+-    items:
+-      - const: gmu
+-      - const: gmu_pdc
+-      - const: gmu_pdc_seq
++    minItems: 3
++    maxItems: 4
+ 
+   clocks:
+-    items:
+-      - description: GMU clock
+-      - description: GPU CX clock
+-      - description: GPU AXI clock
+-      - description: GPU MEMNOC clock
++    minItems: 4
++    maxItems: 7
+ 
+   clock-names:
+-    items:
+-      - const: gmu
+-      - const: cxo
+-      - const: axi
+-      - const: memnoc
++    minItems: 4
++    maxItems: 7
+ 
+   interrupts:
+     items:
+@@ -76,6 +65,9 @@ properties:
+ 
+   operating-points-v2: true
+ 
++  opp-table:
++    type: object
++
+ required:
+   - compatible
+   - reg
+@@ -91,6 +83,140 @@ required:
+ 
+ additionalProperties: false
+ 
++allOf:
++  - if:
++      properties:
++        compatible:
++          contains:
++            enum:
++              - qcom,adreno-gmu-618.0
++              - qcom,adreno-gmu-630.2
++    then:
++      properties:
++        reg:
++          items:
++            - description: Core GMU registers
++            - description: GMU PDC registers
++            - description: GMU PDC sequence registers
++        reg-names:
++          items:
++            - const: gmu
++            - const: gmu_pdc
++            - const: gmu_pdc_seq
++        clocks:
++          items:
++            - description: GMU clock
++            - description: GPU CX clock
++            - description: GPU AXI clock
++            - description: GPU MEMNOC clock
++        clock-names:
++          items:
++            - const: gmu
++            - const: cxo
++            - const: axi
++            - const: memnoc
++
++  - if:
++      properties:
++        compatible:
++          contains:
++            enum:
++              - qcom,adreno-gmu-635.0
++    then:
++      properties:
++        reg:
++          items:
++            - description: Core GMU registers
++            - description: Resource controller registers
++            - description: GMU PDC registers
++        reg-names:
++          items:
++            - const: gmu
++            - const: rscc
++            - const: gmu_pdc
++        clocks:
++          items:
++            - description: GMU clock
++            - description: GPU CX clock
++            - description: GPU AXI clock
++            - description: GPU MEMNOC clock
++            - description: GPU AHB clock
++            - description: GPU HUB CX clock
++            - description: GPU SMMU vote clock
++        clock-names:
++          items:
++            - const: gmu
++            - const: cxo
++            - const: axi
++            - const: memnoc
++            - const: ahb
++            - const: hub
++            - const: smmu_vote
++
++  - if:
++      properties:
++        compatible:
++          contains:
++            enum:
++              - qcom,adreno-gmu-640.1
++    then:
++      properties:
++        reg:
++          items:
++            - description: Core GMU registers
++            - description: GMU PDC registers
++            - description: GMU PDC sequence registers
++        reg-names:
++          items:
++            - const: gmu
++            - const: gmu_pdc
++            - const: gmu_pdc_seq
++
++  - if:
++      properties:
++        compatible:
++          contains:
++            enum:
++              - qcom,adreno-gmu-650.2
++    then:
++      properties:
++        reg:
++          items:
++            - description: Core GMU registers
++            - description: Resource controller registers
++            - description: GMU PDC registers
++            - description: GMU PDC sequence registers
++        reg-names:
++          items:
++            - const: gmu
++            - const: rscc
++            - const: gmu_pdc
++            - const: gmu_pdc_seq
++
++  - if:
++      properties:
++        compatible:
++          contains:
++            enum:
++              - qcom,adreno-gmu-640.1
++              - qcom,adreno-gmu-650.2
++    then:
++      properties:
++        clocks:
++          items:
++            - description: GPU AHB clock
++            - description: GMU clock
++            - description: GPU CX clock
++            - description: GPU AXI clock
++            - description: GPU MEMNOC clock
++        clock-names:
++          items:
++            - const: ahb
++            - const: gmu
++            - const: cxo
++            - const: axi
++            - const: memnoc
++
+ examples:
+   - |
+     #include <dt-bindings/clock/qcom,gpucc-sdm845.h>
 -- 
 2.35.1
 
