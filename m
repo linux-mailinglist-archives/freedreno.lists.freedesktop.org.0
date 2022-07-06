@@ -1,59 +1,55 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id AEB75569276
-	for <lists+freedreno@lfdr.de>; Wed,  6 Jul 2022 21:15:16 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 5B0085692A4
+	for <lists+freedreno@lfdr.de>; Wed,  6 Jul 2022 21:32:21 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7DCC9112999;
-	Wed,  6 Jul 2022 19:14:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 382EB11B429;
+	Wed,  6 Jul 2022 19:32:19 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-pl1-x629.google.com (mail-pl1-x629.google.com
- [IPv6:2607:f8b0:4864:20::629])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 30B7E11B1AE
- for <freedreno@lists.freedesktop.org>; Wed,  6 Jul 2022 19:14:45 +0000 (UTC)
-Received: by mail-pl1-x629.google.com with SMTP id b2so14405512plx.7
- for <freedreno@lists.freedesktop.org>; Wed, 06 Jul 2022 12:14:45 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=rmyIuGz4xgr5RGO7XFrd0kJyn+/e00wc5WntWtW/Wbo=;
- b=lONXGA0Oa94we1VM7SSu7upm24Oh6HuikccFcEH52YRtWEe8CoVmmJw6AlYuEhyklh
- GhsqRocP4eFVQvD8NknHWpsvJ20dKMNLUp8qwtWaozNM7OA2uVx9cz3ROUU1epoBvz9S
- 07+zyYz+BjlojJI3SZUG4GbsjOnPHRpGMAUp0=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=rmyIuGz4xgr5RGO7XFrd0kJyn+/e00wc5WntWtW/Wbo=;
- b=aeHt0VBCsFc0f4eM/oFvAA8vnd+QsWSK+L4Dxbdi4r0w2qi8COc0JCxnuwW/WrHdU+
- m6KEUPFo+KfLnkHLSjQh6VilDLJToSgINCQCVZxaRj1JotgKSxWvDUqC+YYWBzBr1eqO
- 8wjepGWxIiEvHSQIygDJJPZuXWlEvltXTs0sZYfgjQ0k8pYcc+5jRN+FqXiMdpNTCqCt
- bzrbfOsEvUYiVpOtQ2dhfDQMLUZsryIwGN5UbNx9rFeo8zX4deOJm8uyfP3PvnVS67dG
- B27NLH3vzx+7mAwdBKhQa6LYMbvwra5HVaDOXpr3QLgm9k6jQxn9QUKqN+CjwRXPfLTo
- D9Qg==
-X-Gm-Message-State: AJIora/1UiXpO5ewsBCaV/ImftgrW2jXqZPAVtFmPL5YnxvJKKQkazay
- g+QJu06lUPdX1vu1w3cVNN1jKg==
-X-Google-Smtp-Source: AGRyM1s4Ik+wpzNwQpGqqCRJEELSjtoAI7uTiFsZlXwgvkaUnMOhJxHPZHTcNWqz5GJbIRFES3lg7A==
-X-Received: by 2002:a17:902:988b:b0:16b:fae3:fcd5 with SMTP id
- s11-20020a170902988b00b0016bfae3fcd5mr7996093plp.109.1657134884659; 
- Wed, 06 Jul 2022 12:14:44 -0700 (PDT)
-Received: from smtp.gmail.com ([2620:15c:202:201:a20f:cad4:2229:c6bb])
- by smtp.gmail.com with ESMTPSA id
- n9-20020a17090b0d0900b001ef8912f763sm7051714pjz.7.2022.07.06.12.14.43
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 06 Jul 2022 12:14:44 -0700 (PDT)
-From: Stephen Boyd <swboyd@chromium.org>
-To: Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Wed,  6 Jul 2022 12:14:42 -0700
-Message-Id: <20220706191442.1150634-1-swboyd@chromium.org>
-X-Mailer: git-send-email 2.37.0.rc0.161.g10f37bed90-goog
+Received: from alexa-out-sd-01.qualcomm.com (alexa-out-sd-01.qualcomm.com
+ [199.106.114.38])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 774C811B33F;
+ Wed,  6 Jul 2022 19:32:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=quicinc.com; i=@quicinc.com; q=dns/txt; s=qcdkim;
+ t=1657135938; x=1688671938;
+ h=from:to:cc:subject:date:message-id:mime-version;
+ bh=J1HiFZXVh92OrCy5eDkQ/TvRuTS/M+kZGd4pG0Gz2ZU=;
+ b=GBt3rjp+5K+IdADNgOIg43SfIz9+30X7l33qC3Zk328aOfNAnfpoy/Ax
+ 8yMvXlEqZa8Rr2KNasvuABj3Qw2qEjb0tR7DIuND5EqJ9mjLfmSrN9JU8
+ KPeeCkvbCiXRsNCOU8YPUJvRfm6CjpjygwTlEdGaTI/5eho967u6aCrIh o=;
+Received: from unknown (HELO ironmsg02-sd.qualcomm.com) ([10.53.140.142])
+ by alexa-out-sd-01.qualcomm.com with ESMTP; 06 Jul 2022 12:32:17 -0700
+X-QCInternal: smtphost
+Received: from nasanex01c.na.qualcomm.com ([10.47.97.222])
+ by ironmsg02-sd.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 06 Jul 2022 12:32:17 -0700
+Received: from nalasex01a.na.qualcomm.com (10.47.209.196) by
+ nasanex01c.na.qualcomm.com (10.47.97.222) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.986.22; Wed, 6 Jul 2022 12:32:16 -0700
+Received: from khsieh-linux1.qualcomm.com (10.80.80.8) by
+ nalasex01a.na.qualcomm.com (10.47.209.196) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.986.22; Wed, 6 Jul 2022 12:32:15 -0700
+From: Kuogee Hsieh <quic_khsieh@quicinc.com>
+To: <robdclark@gmail.com>, <sean@poorly.run>, <swboyd@chromium.org>,
+ <dianders@chromium.org>, <vkoul@kernel.org>, <daniel@ffwll.ch>,
+ <airlied@linux.ie>, <agross@kernel.org>, <dmitry.baryshkov@linaro.org>,
+ <bjorn.andersson@linaro.org>
+Date: Wed, 6 Jul 2022 12:32:08 -0700
+Message-ID: <1657135928-31195-1-git-send-email-quic_khsieh@quicinc.com>
+X-Mailer: git-send-email 2.7.4
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH] drm/msm/dsi: Set panel orientation when
- directly connected
+Content-Type: text/plain
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+Subject: [Freedreno] [PATCH v4] drm/msm/dp: make eDP panel as the first
+ connected connector
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,45 +62,49 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Douglas Anderson <dianders@chromium.org>, Sean Paul <sean@poorly.run>,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- patches@lists.linux.dev, Hsin-Yi Wang <hsinyi@chromium.org>,
- freedreno@lists.freedesktop.org
+Cc: quic_sbillaka@quicinc.com, linux-arm-msm@vger.kernel.org,
+ quic_abhinavk@quicinc.com, dri-devel@lists.freedesktop.org,
+ quic_khsieh@quicinc.com, quic_aravindh@quicinc.com,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Set the panel orientation in drm when the panel is directly connected,
-i.e. we're not using an external bridge. The external bridge case is
-already handled by the panel bridge code, so we only update the path we
-take when the panel is directly connected/internal. This silences a
-warning splat coming from __drm_mode_object_add() on Wormdingler boards.
+Some userspace presumes that the first connected connector is the main
+display, where it's supposed to display e.g. the login screen. For
+laptops, this should be the main panel.
 
-Cc: Hsin-Yi Wang <hsinyi@chromium.org>
-Cc: Douglas Anderson <dianders@chromium.org>
-Signed-off-by: Stephen Boyd <swboyd@chromium.org>
+This patch call drm_helper_move_panel_connectors_to_head() after
+drm_bridge_connector_init() to make sure eDP stay at head of
+connected connector list. This fixes unexpected corruption happen
+at eDP panel if eDP is not placed at head of connected connector
+list.
+
+Changes in v2:
+-- move drm_helper_move_panel_connectors_to_head() to
+		dpu_kms_drm_obj_init()
+
+Changes in v4:
+-- move drm_helper_move_panel_connectors_to_head() to msm_drm_init()
+
+Signed-off-by: Kuogee Hsieh <quic_khsieh@quicinc.com>
 ---
-
-This relies on commit 5e41b01a7808 ("drm/panel: Add an API to allow drm
-to set orientation from panel") which is in drm-misc
-
- drivers/gpu/drm/msm/dsi/dsi_manager.c | 2 ++
+ drivers/gpu/drm/msm/msm_drv.c | 2 ++
  1 file changed, 2 insertions(+)
 
-diff --git a/drivers/gpu/drm/msm/dsi/dsi_manager.c b/drivers/gpu/drm/msm/dsi/dsi_manager.c
-index cb84d185d73a..9333f7095acd 100644
---- a/drivers/gpu/drm/msm/dsi/dsi_manager.c
-+++ b/drivers/gpu/drm/msm/dsi/dsi_manager.c
-@@ -268,6 +268,8 @@ static int msm_dsi_manager_panel_init(struct drm_connector *conn, u8 id)
- 		return PTR_ERR(panel);
+diff --git a/drivers/gpu/drm/msm/msm_drv.c b/drivers/gpu/drm/msm/msm_drv.c
+index 4a3dda2..4d518c2 100644
+--- a/drivers/gpu/drm/msm/msm_drv.c
++++ b/drivers/gpu/drm/msm/msm_drv.c
+@@ -419,6 +419,8 @@ static int msm_drm_init(struct device *dev, const struct drm_driver *drv)
+ 		}
  	}
  
-+	drm_connector_set_orientation_from_panel(conn, panel);
++	drm_helper_move_panel_connectors_to_head(ddev);
 +
- 	if (!panel || !IS_BONDED_DSI())
- 		goto out;
+ 	ddev->mode_config.funcs = &mode_config_funcs;
+ 	ddev->mode_config.helper_private = &mode_config_helper_funcs;
  
-
-base-commit: 15b9ca1641f0c3cd74885280331e9172c62a125e
 -- 
-https://chromeos.dev
+The Qualcomm Innovation Center, Inc. is a member of the Code Aurora Forum,
+a Linux Foundation Collaborative Project
 
