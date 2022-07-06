@@ -1,68 +1,60 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3259F5690A4
-	for <lists+freedreno@lfdr.de>; Wed,  6 Jul 2022 19:26:00 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 5AB845690BB
+	for <lists+freedreno@lfdr.de>; Wed,  6 Jul 2022 19:38:53 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D1F2810FD9F;
-	Wed,  6 Jul 2022 17:25:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E6392113A38;
+	Wed,  6 Jul 2022 17:38:51 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-x230.google.com (mail-lj1-x230.google.com
- [IPv6:2a00:1450:4864:20::230])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0E08A10FFA3
- for <freedreno@lists.freedesktop.org>; Wed,  6 Jul 2022 17:25:58 +0000 (UTC)
-Received: by mail-lj1-x230.google.com with SMTP id i17so14543067ljj.12
- for <freedreno@lists.freedesktop.org>; Wed, 06 Jul 2022 10:25:57 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=message-id:date:mime-version:user-agent:subject:content-language:to
- :cc:references:from:in-reply-to:content-transfer-encoding;
- bh=JsyVsYNpDQ8zJGakyxKtjvi7pOZE5FqBAEsh3JtW6QA=;
- b=NRWx5mkTEWIKWytjf1z0cO7hyGFLCIKUeLoUKFmMtM6xjTigvO/PaPNteYAS65MSzG
- vdVJ+EuplQFAcakz/rUqERWWiiCK3jG8ETdoZu6Y9ET+yr7KGaiVip3da5sEdsPBNQjp
- FnQmumbdAoqypEjN/2j/xM2SNmDe0pLuXGpJkB/pJNapsI7oHFxe2IXcTbr1Z7VZu1h9
- KxkW1Kdcf5egxUYoSwIDsEyQSGh4btPW+3Ptug8wmwHzISHm1SSYevWHXpW4FmoUCo5t
- /tw+PaLrywznmn45dZzUG19x0JZBM/l9X7WPTaIN+RAL4QTOyRNkdOrR1kFH6FiGyoXE
- 6O1w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
- :content-language:to:cc:references:from:in-reply-to
- :content-transfer-encoding;
- bh=JsyVsYNpDQ8zJGakyxKtjvi7pOZE5FqBAEsh3JtW6QA=;
- b=LA0UPfx2DdAHochB4HiaWJPp2z+2OZ5KPip7mOpZ6Xt2FN5Giq2NhSCq+ojFYeTGwm
- 3J3hpwnZXs9HgWFPGDP0Xdl2R+Yi1oaci4zHWL5f8HG9jukCNyva4Oybitfp4JuXZklD
- Fa1hefTXRM/n3MI4grQ5069lDz+Is+N7XGXGY0a43jUgyevPst1an2+GbXrio/5Rv1Rx
- D7Q1G9DlhjCHDfcpzscwmAQunlb4u7Ni7RJ/SB8IqdXhMfibV8PX/21IugToco9h6X9N
- nFgg+eq+NBypQs3MGM+tfZrSLstiO2Xe5DCKa9lhSbiVyiRWXS7itPF+JBWU6qwyt/4C
- CJ3g==
-X-Gm-Message-State: AJIora8Y7/tqfVwRyYKKYYoH6VNjOtf3SfX8veTLIqD5qRe902tyUJgT
- 2SeVdMF1Z9u39HSKpIbqd+Pymg==
-X-Google-Smtp-Source: AGRyM1vF2LMbfQeR6t993SuZPpvogaQi52LTs4BKWbGufEcHutNXTzHNLjelj7R9O6jbPxTcOE+3hg==
-X-Received: by 2002:a2e:a41b:0:b0:25b:b56f:1476 with SMTP id
- p27-20020a2ea41b000000b0025bb56f1476mr22445280ljn.381.1657128356338; 
- Wed, 06 Jul 2022 10:25:56 -0700 (PDT)
-Received: from [192.168.1.211] ([37.153.55.125])
- by smtp.gmail.com with ESMTPSA id
- w6-20020a05651204c600b00478df9f4d64sm6364715lfq.227.2022.07.06.10.25.55
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 06 Jul 2022 10:25:55 -0700 (PDT)
-Message-ID: <86ee9636-8827-7bad-6bd9-22191b2d293c@linaro.org>
-Date: Wed, 6 Jul 2022 20:25:54 +0300
+Received: from alexa-out-sd-02.qualcomm.com (alexa-out-sd-02.qualcomm.com
+ [199.106.114.39])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8DC55113A38;
+ Wed,  6 Jul 2022 17:38:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=quicinc.com; i=@quicinc.com; q=dns/txt; s=qcdkim;
+ t=1657129130; x=1688665130;
+ h=message-id:date:mime-version:subject:to:cc:references:
+ from:in-reply-to:content-transfer-encoding;
+ bh=FhWHWnzInvaXJrJbum0+QXz2cZCZEz6fJfsM5k6flbA=;
+ b=kuBnlqcdjVYP8SlnMO7Dq10VfJBGjqH43ie2kH3lFAan5Y3NJpjIT1B+
+ w3+o32oKcTNAWztzvsmbwKw+BM4aBhpRemXGSn297FeiBiwE16oCczOTh
+ NYXDPVZgagYMnEiI3hpn/hUyDuAGQmDxw6w27yP29uYdFjtSsOj5JP8aL s=;
+Received: from unknown (HELO ironmsg04-sd.qualcomm.com) ([10.53.140.144])
+ by alexa-out-sd-02.qualcomm.com with ESMTP; 06 Jul 2022 10:38:49 -0700
+X-QCInternal: smtphost
+Received: from nasanex01c.na.qualcomm.com ([10.47.97.222])
+ by ironmsg04-sd.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 06 Jul 2022 10:38:48 -0700
+Received: from nalasex01a.na.qualcomm.com (10.47.209.196) by
+ nasanex01c.na.qualcomm.com (10.47.97.222) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.986.22; Wed, 6 Jul 2022 10:38:48 -0700
+Received: from [10.110.5.247] (10.80.80.8) by nalasex01a.na.qualcomm.com
+ (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.22; Wed, 6 Jul 2022
+ 10:38:46 -0700
+Message-ID: <949ae061-8191-2497-af56-1df74432272d@quicinc.com>
+Date: Wed, 6 Jul 2022 10:38:46 -0700
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
  Thunderbird/91.10.0
-Content-Language: en-GB
-To: Kuogee Hsieh <quic_khsieh@quicinc.com>, robdclark@gmail.com,
- sean@poorly.run, swboyd@chromium.org, dianders@chromium.org,
- vkoul@kernel.org, daniel@ffwll.ch, airlied@linux.ie, agross@kernel.org,
- bjorn.andersson@linaro.org
+Content-Language: en-US
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, <robdclark@gmail.com>,
+ <sean@poorly.run>, <swboyd@chromium.org>, <dianders@chromium.org>,
+ <vkoul@kernel.org>, <daniel@ffwll.ch>, <airlied@linux.ie>,
+ <agross@kernel.org>, <bjorn.andersson@linaro.org>
 References: <1657128246-15929-1-git-send-email-quic_khsieh@quicinc.com>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-In-Reply-To: <1657128246-15929-1-git-send-email-quic_khsieh@quicinc.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+ <86ee9636-8827-7bad-6bd9-22191b2d293c@linaro.org>
+From: Kuogee Hsieh <quic_khsieh@quicinc.com>
+In-Reply-To: <86ee9636-8827-7bad-6bd9-22191b2d293c@linaro.org>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
 Subject: Re: [Freedreno] [PATCH v3] drm/msm/dp: make eDP panel as the first
  connected connector
 X-BeenThere: freedreno@lists.freedesktop.org
@@ -84,44 +76,50 @@ Cc: quic_sbillaka@quicinc.com, linux-arm-msm@vger.kernel.org,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 06/07/2022 20:24, Kuogee Hsieh wrote:
-> Some userspace presumes that the first connected connector is the main
-> display, where it's supposed to display e.g. the login screen. For
-> laptops, this should be the main panel.
-> 
-> This patch call drm_helper_move_panel_connectors_to_head() after
-> drm_bridge_connector_init() to make sure eDP stay at head of
-> connected connector list. This fixes unexpected corruption happen
-> at eDP panel if eDP is not placed at head of connected connector
-> list.
-> 
-> Changes in v2:
-> -- move drm_helper_move_panel_connectors_to_head() to
-> 		dpu_kms_drm_obj_init()
-> 
-> Signed-off-by: Kuogee Hsieh <quic_khsieh@quicinc.com>
-> ---
->   drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c | 2 ++
->   1 file changed, 2 insertions(+)
-> 
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
-> index 2b9d931..50ff666 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
-> @@ -763,6 +763,8 @@ static int _dpu_kms_drm_obj_init(struct dpu_kms *dpu_kms)
->   	if (ret)
->   		return ret;
->   
-> +	drm_helper_move_panel_connectors_to_head(dev);
 
-This should be in msm_drv.c unless you have a strong reason to have it here.
+On 7/6/2022 10:25 AM, Dmitry Baryshkov wrote:
+> On 06/07/2022 20:24, Kuogee Hsieh wrote:
+>> Some userspace presumes that the first connected connector is the main
+>> display, where it's supposed to display e.g. the login screen. For
+>> laptops, this should be the main panel.
+>>
+>> This patch call drm_helper_move_panel_connectors_to_head() after
+>> drm_bridge_connector_init() to make sure eDP stay at head of
+>> connected connector list. This fixes unexpected corruption happen
+>> at eDP panel if eDP is not placed at head of connected connector
+>> list.
+>>
+>> Changes in v2:
+>> -- move drm_helper_move_panel_connectors_to_head() to
+>>         dpu_kms_drm_obj_init()
+>>
+>> Signed-off-by: Kuogee Hsieh <quic_khsieh@quicinc.com>
+>> ---
+>>   drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c | 2 ++
+>>   1 file changed, 2 insertions(+)
+>>
+>> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c 
+>> b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
+>> index 2b9d931..50ff666 100644
+>> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
+>> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
+>> @@ -763,6 +763,8 @@ static int _dpu_kms_drm_obj_init(struct dpu_kms 
+>> *dpu_kms)
+>>       if (ret)
+>>           return ret;
+>>   +    drm_helper_move_panel_connectors_to_head(dev);
+>
+> This should be in msm_drv.c unless you have a strong reason to have it 
+> here.
+Can you please  provide more info why should be in msm_drv.c?
+> _dpu_kms_drm_obj_init() create and initialize drm obj one by one and 
+> _dpu_kms_setup_displays() had created system wide connectors/interfaces .
 
-> +
->   	num_encoders = 0;
->   	drm_for_each_encoder(encoder, dev)
->   		num_encoders++;
+After that should be fine to move edp to head of connector list.
 
-
--- 
-With best wishes
-Dmitry
+>> +
+>>       num_encoders = 0;
+>>       drm_for_each_encoder(encoder, dev)
+>>           num_encoders++;
+>
+>
