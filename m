@@ -2,67 +2,72 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id C69A8568BC0
-	for <lists+freedreno@lfdr.de>; Wed,  6 Jul 2022 16:52:35 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9751B568DED
+	for <lists+freedreno@lfdr.de>; Wed,  6 Jul 2022 17:46:50 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 571E41122E0;
-	Wed,  6 Jul 2022 14:52:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 34D5711AA02;
+	Wed,  6 Jul 2022 15:46:49 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x12b.google.com (mail-lf1-x12b.google.com
- [IPv6:2a00:1450:4864:20::12b])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6887210FEB6
- for <freedreno@lists.freedesktop.org>; Wed,  6 Jul 2022 14:52:31 +0000 (UTC)
-Received: by mail-lf1-x12b.google.com with SMTP id bf9so3115457lfb.13
- for <freedreno@lists.freedesktop.org>; Wed, 06 Jul 2022 07:52:31 -0700 (PDT)
+Received: from mail-lj1-x233.google.com (mail-lj1-x233.google.com
+ [IPv6:2a00:1450:4864:20::233])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7487A11A85C
+ for <freedreno@lists.freedesktop.org>; Wed,  6 Jul 2022 15:46:46 +0000 (UTC)
+Received: by mail-lj1-x233.google.com with SMTP id bx13so18981030ljb.1
+ for <freedreno@lists.freedesktop.org>; Wed, 06 Jul 2022 08:46:46 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=vXi6F2VH59Ysan4BDfp4AdUlcPkLPDowInIn+GuvGdw=;
- b=hK2Oe9Wf4TgWPdYRY/ql5AAziNtA+NvPlRysTvW4VFmhUWug1/D480ktSh3FVjLjCS
- isipSJy/2JQOKcNzktqPSHgW3beSBpRoxYGZEdUSkwex+vrjtAvFBJ/wypDHtRsl+RuK
- RaehicsjHbV/2g1rCWDq5sL2Q3PYOxt3Mc22icHCyJg47YCK7GHWC0dasfegyJIz5IvB
- buk0Mynpk6Yh5uYy2uFbppqtpZmufEZ0p7s3jdocOSIkXMAy4DrkesI/H+DWXNoB39Xb
- tEFGPakv+dp4sfUa3+4+f2VgM3rBSAMfSvv7QnbswJ7HDtgb8cxXATTcKCHnk5cboZG3
- PvgQ==
+ h=message-id:date:mime-version:user-agent:subject:content-language:to
+ :cc:references:from:in-reply-to:content-transfer-encoding;
+ bh=Xn1I8bjV+RlJzEspA44PeNwzgMS+NkPzrECsX/hzxxg=;
+ b=FwUVWm8Oh1uiIdO5anRZpl+MjgDD/uMdrPsmsw/RMPc1F3mMG5lEqUhD155Ul6uxGf
+ z+PakeZK1lUXOQ0uO43QlnHJuPWDf8Ao6cR+NJCGHXLie+SHIowoT3yo4EVqORUj8Ohi
+ x26TloYV1bgQtTp7sYjtgIIKg9utwyXWzK8XiEt43P6f/9JTokXFneYwYRZlJR4c+qRQ
+ wP+mWBp8Jd9se/fnb7X6POgATSWs01zqrxxNdmoS28kNcu1oSlWLq6dII3Y7N4e8++j6
+ nEK4RXDYQVWH8OGtvPasr+H5+KtZMJx5Uqj6gHhh0Bsn0W+WGoERrKH1I3dLj+uV37j6
+ KgAA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=vXi6F2VH59Ysan4BDfp4AdUlcPkLPDowInIn+GuvGdw=;
- b=1ai80Mm3/a15CN3ltixfRc2nLzbRbpzo53j9Ot+KPjUL7FcyasBjSBq+VcJ8mPrcdh
- 65X4lwa0564meYYpAaR2xPebJmE5/kkk29wgbLaUJe+yT6+ZBxapv9+GHaC+A5/oIQa0
- TAfmXd+xkPgLDsanNYS8jPHTBBpxiCUypvkBIO2TMp0D4OZCxTg3eHQjxKqczHqx1o6g
- Zo4PB39w/q6Bxhm/YQss/JoM+PTzVBZT3JuDczY6oPPV3a0h1p2i7xSdibLP9UCzf2VV
- WpbwlcmRXUrV+t8hYa4MoO4OZouo2/OHlFL8iaYTieOP86Erb2vNyujCuL5teS3wqESX
- MmLw==
-X-Gm-Message-State: AJIora+l81IYBldU8doqihqVlNouuyVVnpuiJLmhiYVnQ2l+nFGCFEkm
- nFb3plGYVEwbPbLAea1gbvJ0/A==
-X-Google-Smtp-Source: AGRyM1tXufqQv7dKCmxJenUnKtY5GI0T/veI1VtYXrKeGe18nnO0SqXXjGuVp5vwNK2VBJhTfJXrtA==
-X-Received: by 2002:a05:6512:b8f:b0:47f:b8fa:20ac with SMTP id
- b15-20020a0565120b8f00b0047fb8fa20acmr28714517lfv.199.1657119149633; 
- Wed, 06 Jul 2022 07:52:29 -0700 (PDT)
-Received: from eriador.lan ([37.153.55.125]) by smtp.gmail.com with ESMTPSA id
- v25-20020a056512049900b004855e979abcsm556617lfq.99.2022.07.06.07.52.28
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 06 Jul 2022 07:52:28 -0700 (PDT)
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-To: Andy Gross <agross@kernel.org>,
- Bjorn Andersson <bjorn.andersson@linaro.org>,
- Konrad Dybcio <konrad.dybcio@somainline.org>,
- Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Rob Herring <robh+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>
-Date: Wed,  6 Jul 2022 17:52:22 +0300
-Message-Id: <20220706145222.1565238-5-dmitry.baryshkov@linaro.org>
-X-Mailer: git-send-email 2.35.1
-In-Reply-To: <20220706145222.1565238-1-dmitry.baryshkov@linaro.org>
-References: <20220706145222.1565238-1-dmitry.baryshkov@linaro.org>
+ h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
+ :content-language:to:cc:references:from:in-reply-to
+ :content-transfer-encoding;
+ bh=Xn1I8bjV+RlJzEspA44PeNwzgMS+NkPzrECsX/hzxxg=;
+ b=R9Ol6R8wWiMhToG1vSXUV2oaE5DQb8gpV0NNWDlZcs0sa9WOwlKRdxDpjFwnpaFu+S
+ UnDjd0OiQAVWJApVCbbC28VFRmFXgjn4ioOmGQaP9vjSodhSxxcyezgZdMLJUtkuaGTf
+ M36g//l/4W8Sk0agEBconMGdTgLwUQgypLUL0ebZGpLJv6TCS/U4Fp8IxEUCW8eJoCQu
+ rOsWW+hMgcat94BkiLeBAlJiNYko6Tp4xa6o6dLuSEqKug68/Bkjj3Ek/ttCJ+yjvUhv
+ Nsm0ClAd4sjaew2dWfk6qXmvD++bNwX2I5SnmAkX5hCWdgTzMT6rHISQua0ogdFoQ5Il
+ MjMQ==
+X-Gm-Message-State: AJIora/LwDE4TyjlY471+Vs2kdJ8iBufjbsZx2xF2KPCAZwRpMqEObEx
+ t0qkIuT+lTS2+bw7BuIAabMoXz2ln3NlAvBD
+X-Google-Smtp-Source: AGRyM1vs88TB8B6mXGQSMvuM1u4Ah9asL6Qs2+9vR6BHwC6N/8LHVDKikeIbBY/FLgfAqb5NQxc0jw==
+X-Received: by 2002:a2e:9808:0:b0:25a:a30c:e5cb with SMTP id
+ a8-20020a2e9808000000b0025aa30ce5cbmr24296595ljj.312.1657122404816; 
+ Wed, 06 Jul 2022 08:46:44 -0700 (PDT)
+Received: from [192.168.1.52] ([84.20.121.239])
+ by smtp.gmail.com with ESMTPSA id
+ a22-20020a05651c211600b0025a65b784b6sm6233022ljq.33.2022.07.06.08.46.43
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 06 Jul 2022 08:46:44 -0700 (PDT)
+Message-ID: <793e34c4-cdfb-8629-3af6-6829aecf4fce@linaro.org>
+Date: Wed, 6 Jul 2022 17:46:42 +0200
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH 4/4] dt-bindings: display/msm/mdp4: require 4
- IOMMUs
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.11.0
+Content-Language: en-US
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Andy Gross <agross@kernel.org>, Bjorn Andersson
+ <bjorn.andersson@linaro.org>, Konrad Dybcio <konrad.dybcio@somainline.org>,
+ Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, Rob Herring <robh+dt@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>
+References: <20220706145222.1565238-1-dmitry.baryshkov@linaro.org>
+ <20220706145222.1565238-2-dmitry.baryshkov@linaro.org>
+From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+In-Reply-To: <20220706145222.1565238-2-dmitry.baryshkov@linaro.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+Subject: Re: [Freedreno] [PATCH 1/4] dt-bindings: display/msm/gpu: allow
+ specifying several IOMMU nodes
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,28 +87,16 @@ Cc: devicetree@vger.kernel.org, David Airlie <airlied@linux.ie>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-APQ8064, the only supported mdp4 platform, uses 4 IOMMUs for the MDP4
-device. Update schema accordingly. When we have other MDP4 platforms,
-this spec can be updated accordingly.
+On 06/07/2022 16:52, Dmitry Baryshkov wrote:
+> Different platforms require different amounts of IOMMUs. The APQ8064
+> uses 64 IOMMU instances for GPU, adjust the schema accordingly.
+> 
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> ---
 
-Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
----
- Documentation/devicetree/bindings/display/msm/mdp4.yaml | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/Documentation/devicetree/bindings/display/msm/mdp4.yaml b/Documentation/devicetree/bindings/display/msm/mdp4.yaml
-index f63f60fea27c..58c13f5277b6 100644
---- a/Documentation/devicetree/bindings/display/msm/mdp4.yaml
-+++ b/Documentation/devicetree/bindings/display/msm/mdp4.yaml
-@@ -36,7 +36,7 @@ properties:
-     maxItems: 1
- 
-   iommus:
--    maxItems: 1
-+    maxItems: 4
- 
-   ports:
-     $ref: /schemas/graph.yaml#/properties/ports
--- 
-2.35.1
+Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 
+
+Best regards,
+Krzysztof
