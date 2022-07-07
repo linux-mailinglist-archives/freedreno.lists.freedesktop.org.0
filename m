@@ -1,51 +1,51 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id BD06056AD81
-	for <lists+freedreno@lfdr.de>; Thu,  7 Jul 2022 23:32:12 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 52AF856AD83
+	for <lists+freedreno@lfdr.de>; Thu,  7 Jul 2022 23:32:18 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4C01D11B017;
-	Thu,  7 Jul 2022 21:32:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4684A11B5FA;
+	Thu,  7 Jul 2022 21:32:12 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-x236.google.com (mail-lj1-x236.google.com
- [IPv6:2a00:1450:4864:20::236])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 62BB311AFC1
- for <freedreno@lists.freedesktop.org>; Thu,  7 Jul 2022 21:32:09 +0000 (UTC)
-Received: by mail-lj1-x236.google.com with SMTP id m16so1956229ljh.10
- for <freedreno@lists.freedesktop.org>; Thu, 07 Jul 2022 14:32:09 -0700 (PDT)
+Received: from mail-lf1-x130.google.com (mail-lf1-x130.google.com
+ [IPv6:2a00:1450:4864:20::130])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4952D11AFC1
+ for <freedreno@lists.freedesktop.org>; Thu,  7 Jul 2022 21:32:10 +0000 (UTC)
+Received: by mail-lf1-x130.google.com with SMTP id t24so33339613lfr.4
+ for <freedreno@lists.freedesktop.org>; Thu, 07 Jul 2022 14:32:10 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=f332h430XPLujzbnB28D655qOD0xftQe2GUMxOaYHEE=;
- b=vD8jwtSVMM/mdnUH1BdycUkk5hOIjujpy8d5BecrgwAj+8TPU9rVVtHkMAmkRTxhxx
- 0KqlOsuqqhWUYhkoKxhkwbJg6L5YA9nF93IvRKRiPaBzGdrNxs/H+OJuum727PQl97NK
- AvhzA+f2+8ZoihCqKTDRs7undVxbsfEpLgXgCDIyGaT3qEhUvjflrF6A1aU9C30FSrJ7
- z8agQE8yY7LObd9J9ssWbFVI71FsDzXGd970M6i0kRrNCRAROna+fpvo0aJWSFiC7cm2
- OP/qeHqs1oCd9eWUGkemU0fcd0BCGQkf+mci2HFZz8jmFDfHAVfdlCNj7LVYQRaUkJCw
- XeUg==
+ bh=Bai7uA9Zgr1Dxz6AfyxoBBI60z5ndVSBWprohGAiax4=;
+ b=qEEHXBHCgDuyEBTWfYy2HkBs5w4OvbEUbUNseSTVjgEZx+VeadXa9ccQqCkUP5WuQN
+ vpn8YrRRCsnN/3nY/PloQQTMl1e7EpdqeybEIXhliof9CXdUuhPFt4IUghqQ5+xur/s6
+ Tze1TgJwR5Ffx4ipVMFuyDue/h38WE5kW6HCtNu6FAQ0MdQZqpkEcogHyrDJM2lpuLfB
+ 4Z/t5jEiC/r+FgknJzN0CYmj25oDUfEPjnL8+2tSlCrSkYhJFPbmW4fjBWLpm5IPQyrK
+ GGTaAh3scH07p4/eQXuOZq5lB9DrsLMtabWKjciA46Spa+DwfoWe2G2qcRYsnhxaZBHf
+ Tyvw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=f332h430XPLujzbnB28D655qOD0xftQe2GUMxOaYHEE=;
- b=fZFDqwrybmdMKYXSsCkXBEn5+gyf+S9tuUT8q+te7vNf/YEca+Klblk8KioZZfFj2B
- 5EJph5FhvybqXp91RobaEoUzjwxSYkYmNIouiIoEgCg7fxtXlUAwS+XKKisMc2ZY8UKq
- ARJN1bd8R4k/n8nzQQ6ww4U7w3dXD0wO43Ki1/tXCcR7t0ZEcJ78nDpH81QfHpCFUQTv
- 3jZXbweAWukJv8xdJj8Il/s71zH4gC+m6BiacMeyW4GGuWNjEjuAcC975l4ZYOEPG61U
- dD/E2fKVudqXJ3PCMTozPNUiQgiLaJirjywvsswMsWAs3RZjtPDUaV1HzIR7u1B9jd4Z
- K0/w==
-X-Gm-Message-State: AJIora+js4YV5mGXNV+Jyj4SE8ER1k1nMGPcSjD2m9xUiUDyzs5PBIXl
- NXRlWDKqaJ3z9yim8GA8idULNQ==
-X-Google-Smtp-Source: AGRyM1tPOhQoRZlBs5GK3iTsOL1N01Bqd8BlBXjJFeIqnAoL/BBF8qFhZsLjhmLbeD8bH2pdElo8mw==
-X-Received: by 2002:a2e:3015:0:b0:25d:51a1:25ea with SMTP id
- w21-20020a2e3015000000b0025d51a125eamr24534ljw.320.1657229527614; 
- Thu, 07 Jul 2022 14:32:07 -0700 (PDT)
+ bh=Bai7uA9Zgr1Dxz6AfyxoBBI60z5ndVSBWprohGAiax4=;
+ b=2g8QCqa/JKJrSbXZZbZMRXiDDvV3DbXKVqDGhK0gFs6Qs2J1ilK0pTuXELzZyztcRZ
+ sPlkdS9jy52gdhOWPFNWa0USGfU6nVwI6a+VQg1oAZo5qMesI+8wOXa6B/aIDfB0AJuP
+ MuTW2KrcofD0lD8ikysEudlveDvbql5vRxNnXxSqt4UvxBbkm0JBs1EtfI9bYNFr+Uax
+ P9/VSMpd/eI1RxzLqAglvw+r0D8CstHEzdiyy18a5nNTxhFk6da//ko/id9gRqqvWHwh
+ Qn9tN896pvD1dBMIsYBmEnb9wIImj9nVVaErNLzuAp3EmheWiVc0YXoRtWrhoA2maZt4
+ dZmQ==
+X-Gm-Message-State: AJIora9+jJSPcFLcovCbBxpaw96hSheYqF4AKFcz9rN93zAaV75UbDVT
+ YSU99kPEC2ZFb+dLuPVz5tPJjg==
+X-Google-Smtp-Source: AGRyM1s0dJc5gcVjYEXPgUWqRTH19P4dhK1AZJwU2duhUmKpruScIAJJg7eI5CiOAKTtl2Cr0u2CCA==
+X-Received: by 2002:a05:6512:234e:b0:487:8835:e92a with SMTP id
+ p14-20020a056512234e00b004878835e92amr162026lfu.190.1657229528577; 
+ Thu, 07 Jul 2022 14:32:08 -0700 (PDT)
 Received: from eriador.lan ([37.153.55.125]) by smtp.gmail.com with ESMTPSA id
- o19-20020ac24e93000000b0047f8cb94004sm7046709lfr.35.2022.07.07.14.32.06
+ o19-20020ac24e93000000b0047f8cb94004sm7046709lfr.35.2022.07.07.14.32.07
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 07 Jul 2022 14:32:06 -0700 (PDT)
+ Thu, 07 Jul 2022 14:32:08 -0700 (PDT)
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 To: Andy Gross <agross@kernel.org>,
  Bjorn Andersson <bjorn.andersson@linaro.org>,
@@ -54,15 +54,15 @@ To: Andy Gross <agross@kernel.org>,
  Abhinav Kumar <quic_abhinavk@quicinc.com>,
  Rob Herring <robh+dt@kernel.org>,
  Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>
-Date: Fri,  8 Jul 2022 00:31:57 +0300
-Message-Id: <20220707213204.2605816-3-dmitry.baryshkov@linaro.org>
+Date: Fri,  8 Jul 2022 00:31:58 +0300
+Message-Id: <20220707213204.2605816-4-dmitry.baryshkov@linaro.org>
 X-Mailer: git-send-email 2.35.1
 In-Reply-To: <20220707213204.2605816-1-dmitry.baryshkov@linaro.org>
 References: <20220707213204.2605816-1-dmitry.baryshkov@linaro.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH 2/9] dt-bindings: msm/dp: bring back support for
- legacy DP reg property
+Subject: [Freedreno] [PATCH 3/9] dt-bindings: msm/dp: mark vdda supplies as
+ deprecated
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,42 +82,44 @@ Cc: devicetree@vger.kernel.org, David Airlie <airlied@linux.ie>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-The commit 687825c402f1 ("dt-bindings: msm/dp: Change reg definition")
-changed reg property to list separate register blocks, which broke
-validation of DT files using single register block. Restore
-compatibility with older (single register block) DT files by declaring
-it as a deprecated alternative.
+The commit fa384dd8b9b8 ("drm/msm/dp: delete vdda regulator related
+functions from eDP/DP controller") removed support for VDDA supplies
+from the DP controller driver. These supplies are now handled by the eDP
+or QMP PHYs. Mark these properties as deprecated and drop them from the
+example.
 
 Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 ---
- .../bindings/display/msm/dp-controller.yaml        | 14 +++++++++-----
- 1 file changed, 9 insertions(+), 5 deletions(-)
+ .../devicetree/bindings/display/msm/dp-controller.yaml   | 9 ++++-----
+ 1 file changed, 4 insertions(+), 5 deletions(-)
 
 diff --git a/Documentation/devicetree/bindings/display/msm/dp-controller.yaml b/Documentation/devicetree/bindings/display/msm/dp-controller.yaml
-index d6bbe58ef9e8..dde82d5f6610 100644
+index dde82d5f6610..75344694466f 100644
 --- a/Documentation/devicetree/bindings/display/msm/dp-controller.yaml
 +++ b/Documentation/devicetree/bindings/display/msm/dp-controller.yaml
-@@ -24,11 +24,15 @@ properties:
-       - qcom,sm8350-dp
+@@ -79,8 +79,10 @@ properties:
+   "#sound-dai-cells":
+     const: 0
  
-   reg:
--    items:
--      - description: ahb register block
--      - description: aux register block
--      - description: link register block
--      - description: p0 register block
-+    oneOf:
-+      - items:
-+          - description: ahb register block
-+          - description: aux register block
-+          - description: link register block
-+          - description: p0 register block
-+      - items:
-+          - description: DP register block
-+            deprecated: true
+-  vdda-0p9-supply: true
+-  vdda-1p2-supply: true
++  vdda-0p9-supply:
++    deprecated: true
++  vdda-1p2-supply:
++    deprecated: true
  
-   interrupts:
-     maxItems: 1
+   ports:
+     $ref: /schemas/graph.yaml#/properties/ports
+@@ -143,9 +145,6 @@ examples:
+ 
+         power-domains = <&rpmhpd SC7180_CX>;
+ 
+-        vdda-0p9-supply = <&vdda_usb_ss_dp_core>;
+-        vdda-1p2-supply = <&vdda_usb_ss_dp_1p2>;
+-
+         ports {
+             #address-cells = <1>;
+             #size-cells = <0>;
 -- 
 2.35.1
 
