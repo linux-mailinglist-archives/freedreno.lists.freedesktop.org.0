@@ -1,57 +1,57 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 915CF56A89F
-	for <lists+freedreno@lfdr.de>; Thu,  7 Jul 2022 18:51:41 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 644AC56A923
+	for <lists+freedreno@lfdr.de>; Thu,  7 Jul 2022 19:10:18 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3E3F810EE0D;
-	Thu,  7 Jul 2022 16:51:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CF8D1113053;
+	Thu,  7 Jul 2022 17:10:16 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from alexa-out-sd-01.qualcomm.com (alexa-out-sd-01.qualcomm.com
- [199.106.114.38])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 62FB110E87C;
- Thu,  7 Jul 2022 16:51:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=quicinc.com; i=@quicinc.com; q=dns/txt; s=qcdkim;
- t=1657212695; x=1688748695;
- h=message-id:date:mime-version:subject:to:cc:references:
- from:in-reply-to:content-transfer-encoding;
- bh=fzvG9KcXakJp0NGkoS5P9K5pudVXmEkaIJ6d4P/hRKk=;
- b=K++uit/0nMjxudNkIFR9KAE+Kk+XArduHYuz65IGzhb/jip8md9nCT3u
- rB7gmbMTEI6TYBNc78Wgh+opUhw83BsbznjlvOs2yoHqUdiFhe9oi5avn
- tHOpVq1ZZ/Mu0cFAQ9VB0DuzFfRuE56Cwm1fMjhc0fWwM6ZCvdReNXQ5R E=;
-Received: from unknown (HELO ironmsg03-sd.qualcomm.com) ([10.53.140.143])
- by alexa-out-sd-01.qualcomm.com with ESMTP; 07 Jul 2022 09:51:34 -0700
-X-QCInternal: smtphost
-Received: from nasanex01c.na.qualcomm.com ([10.47.97.222])
- by ironmsg03-sd.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 07 Jul 2022 09:51:34 -0700
-Received: from nalasex01a.na.qualcomm.com (10.47.209.196) by
- nasanex01c.na.qualcomm.com (10.47.97.222) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.986.22; Thu, 7 Jul 2022 09:51:33 -0700
-Received: from [10.111.163.64] (10.80.80.8) by nalasex01a.na.qualcomm.com
- (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.22; Thu, 7 Jul 2022
- 09:51:31 -0700
-Message-ID: <240422bd-ba5e-d250-d8ac-ef6651a97977@quicinc.com>
-Date: Thu, 7 Jul 2022 09:51:29 -0700
+Received: from mail-wm1-x336.google.com (mail-wm1-x336.google.com
+ [IPv6:2a00:1450:4864:20::336])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 303FA11207E;
+ Thu,  7 Jul 2022 17:10:15 +0000 (UTC)
+Received: by mail-wm1-x336.google.com with SMTP id l42so1350019wms.5;
+ Thu, 07 Jul 2022 10:10:15 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=VA3SbJt6EBSMC9jnydWIaREGnbjiJhUGWyogd1VBc60=;
+ b=bFUBCIKLe6IQ6qKpFInDA68vnotWBxMQeNgiY+32c5hZkyDPLBon+btxmBjOaT4Y00
+ JEGKosj0QpNEYt24iNH0xhzZFolz6hudOUcUNksNXyUHGLj0VzjJJrQdoICPPCeQAoH0
+ DNvlgcB66YwPwmwNcbRIrvhSVV1O2QMWt3cEd+xRKme9rXjw1u541IIxhfiBT+M0zYzF
+ Mqaras7dlF18CgSZuMfGSCvJ5Z8yuTSqJm/NBEIIdZ0jcHSzXf7rD1600FpqAYDYVz37
+ VcIBDJZVjXEDiihGtQUD991TWP3ma0P3tfhIYqHjumqI0h3Y8MFStDNct6Mqh9AEK/bq
+ I9Dg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=VA3SbJt6EBSMC9jnydWIaREGnbjiJhUGWyogd1VBc60=;
+ b=xJI4REvn4nK7bkMuez4J3fQVkXF+U2C3I1CUIkGTRGe8SL7nJf7MfSIPGRUbecQvXE
+ 75oQMZO9WPHGJm65cK9CYE5ijwbtKxGWGZAahIQntHdBfz2yxeJI/HpmlbSvlfcGH+pB
+ BPijP1EucOCG+1VUpRDVjtxhAGbN+GddJOrLJDqGhELhgjXyT+BhmCqWN2fsOUQAJkb7
+ GtVpXZxIgykv3AqXzechaT6sg5eUUDDvUayu1lsOmSCQdYwUI1TEF6zXGSsRJNH/zpcg
+ oZ14BYIVpx+WPCnw/Kt7ZC6ckXhcClC+XPNxq6ea/shZK1LGWqSfBlBn0nWbI7wWVtV7
+ Fu1g==
+X-Gm-Message-State: AJIora/DnVDslc/L/ENm6KwNJcruzO9Y4Q/hGNbVvAaPFKtnNG0+iUiC
+ TGRkJfSOD4kJw3/+Je7mx/wVgDgJESaHaSykLGQ=
+X-Google-Smtp-Source: AGRyM1uKOuyzI23A8kLJo8W49G7VbTQ+827LPYXQYYmMTeuOaUGs/FqsFT/Z7LFMdUkclpe5ALdeM3qoqjfBfNwZMXk=
+X-Received: by 2002:a05:600c:3593:b0:3a1:8909:b5b2 with SMTP id
+ p19-20020a05600c359300b003a18909b5b2mr5728498wmq.77.1657213813592; Thu, 07
+ Jul 2022 10:10:13 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.6.2
-Content-Language: en-US
-To: Rob Clark <robdclark@gmail.com>, <dri-devel@lists.freedesktop.org>
-References: <20220707162040.1594855-1-robdclark@gmail.com>
-From: Abhinav Kumar <quic_abhinavk@quicinc.com>
-In-Reply-To: <20220707162040.1594855-1-robdclark@gmail.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-Subject: Re: [Freedreno] [PATCH] drm/msm/mdp5: Fix global state lock backoff
+References: <1657210262-17166-1-git-send-email-quic_akhilpo@quicinc.com>
+ <20220707213950.3.I4ac27a0b34ea796ce0f938bb509e257516bc6f57@changeid>
+In-Reply-To: <20220707213950.3.I4ac27a0b34ea796ce0f938bb509e257516bc6f57@changeid>
+From: Rob Clark <robdclark@gmail.com>
+Date: Thu, 7 Jul 2022 10:10:01 -0700
+Message-ID: <CAF6AEGudkkUvYjy_7engFGrQy2scdskmc1SRpKN3x0MOxOr1ug@mail.gmail.com>
+To: Akhil P Oommen <quic_akhilpo@quicinc.com>
+Content-Type: text/plain; charset="UTF-8"
+Subject: Re: [Freedreno] [PATCH 3/7] drm/msm: Fix cx collapse issue during
+ recovery
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,86 +64,85 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rob Clark <robdclark@chromium.org>, freedreno@lists.freedesktop.org,
- David Airlie <airlied@linux.ie>, linux-arm-msm@vger.kernel.org,
- open list <linux-kernel@vger.kernel.org>,
+Cc: Sean Paul <sean@poorly.run>, Jonathan Marek <jonathan@marek.ca>,
+ David Airlie <airlied@linux.ie>, linux-arm-msm <linux-arm-msm@vger.kernel.org>,
+ Stephen Boyd <swboyd@chromium.org>, Douglas Anderson <dianders@chromium.org>,
+ dri-devel <dri-devel@lists.freedesktop.org>,
+ Jordan Crouse <jordan@cosmicpenguin.net>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Matthias Kaehlcke <mka@chromium.org>, Daniel Vetter <daniel@ffwll.ch>,
  Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Jessica Zhang <quic_jesszhan@quicinc.com>, Sean Paul <sean@poorly.run>
+ Bjorn Andersson <bjorn.andersson@linaro.org>,
+ freedreno <freedreno@lists.freedesktop.org>, Chia-I Wu <olvaffe@gmail.com>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-
-
-On 7/7/2022 9:20 AM, Rob Clark wrote:
-> From: Rob Clark <robdclark@chromium.org>
-> 
-> We need to grab the lock after the early return for !hwpipe case.
-> Otherwise, we could have hit contention yet still returned 0.
-> 
-> Fixes an issue that the new CONFIG_DRM_DEBUG_MODESET_LOCK stuff flagged
-> in CI:
-> 
->     WARNING: CPU: 0 PID: 282 at drivers/gpu/drm/drm_modeset_lock.c:296 drm_modeset_lock+0xf8/0x154
->     Modules linked in:
->     CPU: 0 PID: 282 Comm: kms_cursor_lega Tainted: G        W         5.19.0-rc2-15930-g875cc8bc536a #1
->     Hardware name: Qualcomm Technologies, Inc. DB820c (DT)
->     pstate: 60000005 (nZCv daif -PAN -UAO -TCO -DIT -SSBS BTYPE=--)
->     pc : drm_modeset_lock+0xf8/0x154
->     lr : drm_atomic_get_private_obj_state+0x84/0x170
->     sp : ffff80000cfab6a0
->     x29: ffff80000cfab6a0 x28: 0000000000000000 x27: ffff000083bc4d00
->     x26: 0000000000000038 x25: 0000000000000000 x24: ffff80000957ca58
->     x23: 0000000000000000 x22: ffff000081ace080 x21: 0000000000000001
->     x20: ffff000081acec18 x19: ffff80000cfabb80 x18: 0000000000000038
->     x17: 0000000000000000 x16: 0000000000000000 x15: fffffffffffea0d0
->     x14: 0000000000000000 x13: 284e4f5f4e524157 x12: 5f534b434f4c5f47
->     x11: ffff80000a386aa8 x10: 0000000000000029 x9 : ffff80000cfab610
->     x8 : 0000000000000029 x7 : 0000000000000014 x6 : 0000000000000000
->     x5 : 0000000000000001 x4 : ffff8000081ad904 x3 : 0000000000000029
->     x2 : ffff0000801db4c0 x1 : ffff80000cfabb80 x0 : ffff000081aceb58
->     Call trace:
->      drm_modeset_lock+0xf8/0x154
->      drm_atomic_get_private_obj_state+0x84/0x170
->      mdp5_get_global_state+0x54/0x6c
->      mdp5_pipe_release+0x2c/0xd4
->      mdp5_plane_atomic_check+0x2ec/0x414
->      drm_atomic_helper_check_planes+0xd8/0x210
->      drm_atomic_helper_check+0x54/0xb0
->      ...
->     ---[ end trace 0000000000000000 ]---
->     drm_modeset_lock attempting to lock a contended lock without backoff:
->        drm_modeset_lock+0x148/0x154
->        mdp5_get_global_state+0x30/0x6c
->        mdp5_pipe_release+0x2c/0xd4
->        mdp5_plane_atomic_check+0x290/0x414
->        drm_atomic_helper_check_planes+0xd8/0x210
->        drm_atomic_helper_check+0x54/0xb0
->        drm_atomic_check_only+0x4b0/0x8f4
->        drm_atomic_commit+0x68/0xe0
-> 
-> Fixes: d59be579fa93 ("drm/msm/mdp5: Return error code in mdp5_pipe_release when deadlock is detected")
-> Signed-off-by: Rob Clark <robdclark@chromium.org>
-Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
+On Thu, Jul 7, 2022 at 9:11 AM Akhil P Oommen <quic_akhilpo@quicinc.com> wrote:
+>
+> There are some hardware logic under CX domain. For a successful
+> recovery, we should ensure cx headswitch collapses to ensure all the
+> stale states are cleard out. This is especially true to for a6xx family
+> where we can GMU co-processor.
+>
+> Currently, cx doesn't collapse due to a devlink between gpu and its
+> smmu. So the *struct gpu device* needs to be runtime suspended to ensure
+> that the iommu driver removes its vote on cx gdsc.
+>
+> Signed-off-by: Akhil P Oommen <quic_akhilpo@quicinc.com>
 > ---
->   drivers/gpu/drm/msm/disp/mdp5/mdp5_pipe.c | 3 ++-
->   1 file changed, 2 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/gpu/drm/msm/disp/mdp5/mdp5_pipe.c b/drivers/gpu/drm/msm/disp/mdp5/mdp5_pipe.c
-> index a4f5cb90f3e8..e4b8a789835a 100644
-> --- a/drivers/gpu/drm/msm/disp/mdp5/mdp5_pipe.c
-> +++ b/drivers/gpu/drm/msm/disp/mdp5/mdp5_pipe.c
-> @@ -123,12 +123,13 @@ int mdp5_pipe_release(struct drm_atomic_state *s, struct mdp5_hw_pipe *hwpipe)
->   {
->   	struct msm_drm_private *priv = s->dev->dev_private;
->   	struct mdp5_kms *mdp5_kms = to_mdp5_kms(to_mdp_kms(priv->kms));
-> -	struct mdp5_global_state *state = mdp5_get_global_state(s);
-> +	struct mdp5_global_state *state;
->   	struct mdp5_hw_pipe_state *new_state;
->   
->   	if (!hwpipe)
->   		return 0;
->   
-> +	state = mdp5_get_global_state(s);
->   	if (IS_ERR(state))
->   		return PTR_ERR(state);
->   
+>
+>  drivers/gpu/drm/msm/adreno/a6xx_gpu.c | 16 ++++++++++++++--
+>  drivers/gpu/drm/msm/msm_gpu.c         |  2 --
+>  2 files changed, 14 insertions(+), 4 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+> index 42ed9a3..57a7ad5 100644
+> --- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+> @@ -1210,8 +1210,20 @@ static void a6xx_recover(struct msm_gpu *gpu)
+>          */
+>         gmu_write(&a6xx_gpu->gmu, REG_A6XX_GMU_GMU_PWR_COL_KEEPALIVE, 0);
+>
+> -       gpu->funcs->pm_suspend(gpu);
+> -       gpu->funcs->pm_resume(gpu);
+> +       /*
+> +        * Now drop all the pm_runtime usage count to allow cx gdsc to collapse.
+> +        * First drop the usage count from all active submits
+> +        */
+> +       for (i = gpu->active_submits; i > 0; i--)
+> +               pm_runtime_put(&gpu->pdev->dev);
+
+Would pm_runtime_force_suspend/resume() work instead?
+
+BR,
+-R
+
+> +
+> +       /* And the final one from recover worker */
+> +       pm_runtime_put_sync(&gpu->pdev->dev);
+> +
+> +       for (i = gpu->active_submits; i > 0; i--)
+> +               pm_runtime_get(&gpu->pdev->dev);
+> +
+> +       pm_runtime_get_sync(&gpu->pdev->dev);
+>
+>         msm_gpu_hw_init(gpu);
+>  }
+> diff --git a/drivers/gpu/drm/msm/msm_gpu.c b/drivers/gpu/drm/msm/msm_gpu.c
+> index f75ff4b..48171b6 100644
+> --- a/drivers/gpu/drm/msm/msm_gpu.c
+> +++ b/drivers/gpu/drm/msm/msm_gpu.c
+> @@ -444,9 +444,7 @@ static void recover_worker(struct kthread_work *work)
+>                 /* retire completed submits, plus the one that hung: */
+>                 retire_submits(gpu);
+>
+> -               pm_runtime_get_sync(&gpu->pdev->dev);
+>                 gpu->funcs->recover(gpu);
+> -               pm_runtime_put_sync(&gpu->pdev->dev);
+>
+>                 /*
+>                  * Replay all remaining submits starting with highest priority
+> --
+> 2.7.4
+>
