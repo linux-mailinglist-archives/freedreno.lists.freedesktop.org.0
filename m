@@ -1,61 +1,66 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 40E5956AD67
-	for <lists+freedreno@lfdr.de>; Thu,  7 Jul 2022 23:25:16 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id B548356AD7F
+	for <lists+freedreno@lfdr.de>; Thu,  7 Jul 2022 23:32:09 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CD37E11235F;
-	Thu,  7 Jul 2022 21:25:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5A37211A30C;
+	Thu,  7 Jul 2022 21:32:08 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from alexa-out-sd-01.qualcomm.com (alexa-out-sd-01.qualcomm.com
- [199.106.114.38])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2A4A810F4B7;
- Thu,  7 Jul 2022 21:25:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=quicinc.com; i=@quicinc.com; q=dns/txt; s=qcdkim;
- t=1657229113; x=1688765113;
- h=message-id:date:mime-version:subject:to:cc:references:
- from:in-reply-to:content-transfer-encoding;
- bh=nH6fEtoTXnECESFrdnd0mY4HzM7PFgFTGxMaeSvl0rM=;
- b=lbVMwxrs8gMNJc/iVVs/ZC+zJR57guOxTZAFawOIPNWxZx5Nfvu5kpXq
- EKtAAqd6epEpR9JSUnF4VQhiNUteNp+XdAOpjpaGsxwzctWDkT7WBqaHZ
- 61sEozhLYwLCLOvcH1Z0tDWVHI7dzl8pCFBcqooUZjGKW/707y/Ac1ihR 0=;
-Received: from unknown (HELO ironmsg01-sd.qualcomm.com) ([10.53.140.141])
- by alexa-out-sd-01.qualcomm.com with ESMTP; 07 Jul 2022 14:25:12 -0700
-X-QCInternal: smtphost
-Received: from nasanex01c.na.qualcomm.com ([10.47.97.222])
- by ironmsg01-sd.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 07 Jul 2022 14:25:12 -0700
-Received: from nalasex01a.na.qualcomm.com (10.47.209.196) by
- nasanex01c.na.qualcomm.com (10.47.97.222) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.986.22; Thu, 7 Jul 2022 14:25:12 -0700
-Received: from [10.111.163.64] (10.80.80.8) by nalasex01a.na.qualcomm.com
- (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.22; Thu, 7 Jul 2022
- 14:25:09 -0700
-Message-ID: <7e029069-3c8d-ad0e-b992-8b2b06f5c4fc@quicinc.com>
-Date: Thu, 7 Jul 2022 14:25:07 -0700
+Received: from mail-lf1-x136.google.com (mail-lf1-x136.google.com
+ [IPv6:2a00:1450:4864:20::136])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 99AEC11A864
+ for <freedreno@lists.freedesktop.org>; Thu,  7 Jul 2022 21:32:07 +0000 (UTC)
+Received: by mail-lf1-x136.google.com with SMTP id t25so33277536lfg.7
+ for <freedreno@lists.freedesktop.org>; Thu, 07 Jul 2022 14:32:07 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=7Jn6Iu6IK/cjTsHc82YNQ/VqbemoAFWW2VWGq7e/Oyc=;
+ b=DXNw+Lwu0b1c4Q7WGiKJn+tKfkGfrOKlD7rgU61K1kPy51HaIBn/x+JMD9O2sjOz7Q
+ 4Prp6O0gqeqGU1KBazLNZTgnLTjs/mDFxjQly0CuR6Q1XwiPry6MHhyP81AiNqaijUuz
+ FWyxk+urYZTTDnk7nufyM2npOqTRZQ8T0PO3E7dGMcgU1QCbRnDQuo8mMx4xZ79Rzpuw
+ QdZOGtWSHRMrjJcGkYadSUzFZQfXxdboJyBBAZMrqjKMzVIApafXsPVwTr1fTVwCv3v/
+ VznA2WZVqlw8zvTegoBTgPy1xGXxPcXD0bv0ocNjAJG3743qeBHCIJbNcwwFDvx+FmAq
+ 6rDg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=7Jn6Iu6IK/cjTsHc82YNQ/VqbemoAFWW2VWGq7e/Oyc=;
+ b=wwVaovxmC/iZFqKsEaoSzic4m79aIWL2jhgOgrTAH2AeymGeMgtMTj+774pajA5YNq
+ 0g0RKhRd24/DUesb05Xqx5mr/2q/Kml2NVDzzao9FPRv+4fCoM8vh4+hjgixzjIY1/y3
+ gISntYWLZiLqnkUM3ZWYOQAfXShBUFxuojeH81Z998xo0JAWpO9ytMGEiOeQGlrqZLtx
+ mMrlAtxLuqfDFs8F2mPMcMRgRHb3q+SyayZ1elms1GQS0ceefaP43uwgInaiJ6QQwrpd
+ GgYj6iUusac+TM5LRKxSoUcOYRnvJ1bmvNXsHPR4RY1RiUaAo0A3mvDuMBt6wk1ieDvA
+ W2ew==
+X-Gm-Message-State: AJIora824II5GqzJe79R342xcwL+AzYVn1OVCJ/LRg+bcW9XQNhOTtlV
+ eRZ+KNL7MHzHeM+UqPgY9i4G3A==
+X-Google-Smtp-Source: AGRyM1vmraEqvsKJOGH5XWV+o6YVlUd7ht5gxF0NEUL44H7Z8+DZYQI+aJN1f5ShgR7NbAP3B4aPfw==
+X-Received: by 2002:a19:490c:0:b0:481:4b9e:cbdb with SMTP id
+ w12-20020a19490c000000b004814b9ecbdbmr152799lfa.350.1657229525781; 
+ Thu, 07 Jul 2022 14:32:05 -0700 (PDT)
+Received: from eriador.lan ([37.153.55.125]) by smtp.gmail.com with ESMTPSA id
+ o19-20020ac24e93000000b0047f8cb94004sm7046709lfr.35.2022.07.07.14.32.04
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 07 Jul 2022 14:32:05 -0700 (PDT)
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+To: Andy Gross <agross@kernel.org>,
+ Bjorn Andersson <bjorn.andersson@linaro.org>,
+ Konrad Dybcio <konrad.dybcio@somainline.org>,
+ Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Rob Herring <robh+dt@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>
+Date: Fri,  8 Jul 2022 00:31:55 +0300
+Message-Id: <20220707213204.2605816-1-dmitry.baryshkov@linaro.org>
+X-Mailer: git-send-email 2.35.1
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.6.2
-Content-Language: en-US
-To: Stephen Boyd <swboyd@chromium.org>, Dmitry Baryshkov
- <dmitry.baryshkov@linaro.org>, Rob Clark <robdclark@gmail.com>
-References: <20220706191442.1150634-1-swboyd@chromium.org>
- <40b6a28c-0237-55d7-2f5d-1c571f27e7d6@quicinc.com>
- <CAE-0n51KOMLP4XJHw2CPNikzfhY0xdjeCScYwvCZ7gAYJM+8Fw@mail.gmail.com>
-From: Abhinav Kumar <quic_abhinavk@quicinc.com>
-In-Reply-To: <CAE-0n51KOMLP4XJHw2CPNikzfhY0xdjeCScYwvCZ7gAYJM+8Fw@mail.gmail.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-Subject: Re: [Freedreno] [PATCH] drm/msm/dsi: Set panel orientation when
- directly connected
+Content-Transfer-Encoding: 8bit
+Subject: [Freedreno] [PATCH 0/9] dt-bindings: msm/dp: cleanup Qualcomm DP
+ and eDP bidndings
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,78 +73,35 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- patches@lists.linux.dev, dri-devel@lists.freedesktop.org,
- Douglas Anderson <dianders@chromium.org>, Hsin-Yi Wang <hsinyi@chromium.org>,
- Sean Paul <sean@poorly.run>
+Cc: devicetree@vger.kernel.org, David Airlie <airlied@linux.ie>,
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ Stephen Boyd <swboyd@chromium.org>, Daniel Vetter <daniel@ffwll.ch>,
+ freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
+Fix several issues with the DP and eDP bindings on the Qualcomm
+platforms. While we are at it, fix several small issues with platform
+files declaring these controllers.
 
+Dmitry Baryshkov (9):
+  dt-bindings: msm/dp: drop extra p1 region
+  dt-bindings: msm/dp: bring back support for legacy DP reg property
+  dt-bindings: msm/dp: mark vdda supplies as deprecated
+  dt-bindings: msm/dp: add missing properties
+  dt-bindings: msm/dp: account for clocks specific for qcom,sc7280-edp
+  dt-bindings: msm/dp: handle DP vs eDP difference
+  arm64: dts: qcom: sc7180: drop #clock-cells from
+    displayport-controller
+  arm64: dts: qcom: sc7280: drop #clock-cells from
+    displayport-controller
+  arm64: dts: qcom: sc7280: drop address/size-cells from eDP node
 
-On 7/7/2022 2:21 PM, Stephen Boyd wrote:
-> Quoting Abhinav Kumar (2022-07-07 14:11:08)
->>
->>
->> On 7/6/2022 12:14 PM, Stephen Boyd wrote:
->>> Set the panel orientation in drm when the panel is directly connected,
->>> i.e. we're not using an external bridge. The external bridge case is
->>> already handled by the panel bridge code, so we only update the path we
->>> take when the panel is directly connected/internal. This silences a
->>> warning splat coming from __drm_mode_object_add() on Wormdingler boards.
->>>
->>> Cc: Hsin-Yi Wang <hsinyi@chromium.org>
->>> Cc: Douglas Anderson <dianders@chromium.org>
->>> Signed-off-by: Stephen Boyd <swboyd@chromium.org>
->>> ---
->>>
->>> This relies on commit 5e41b01a7808 ("drm/panel: Add an API to allow drm
->>> to set orientation from panel") which is in drm-misc
->>>
->>>    drivers/gpu/drm/msm/dsi/dsi_manager.c | 2 ++
->>>    1 file changed, 2 insertions(+)
->>>
->>> diff --git a/drivers/gpu/drm/msm/dsi/dsi_manager.c b/drivers/gpu/drm/msm/dsi/dsi_manager.c
->>> index cb84d185d73a..9333f7095acd 100644
->>> --- a/drivers/gpu/drm/msm/dsi/dsi_manager.c
->>> +++ b/drivers/gpu/drm/msm/dsi/dsi_manager.c
->>> @@ -268,6 +268,8 @@ static int msm_dsi_manager_panel_init(struct drm_connector *conn, u8 id)
->>>                return PTR_ERR(panel);
->>>        }
->>>
->>> +     drm_connector_set_orientation_from_panel(conn, panel);
->>> +
->>
->> This should be moved below the !panel check since you are passing panel
->> as one of the params.
-> 
-> drm_connector_set_orientation_from_panel() checks for a NULL panel
-> pointer and sets to UNKNOWN. If I moved this below the !panel check then
-> I'd have to split that condition for !IS_BONDED_DSI() which was more
-> diff.
-> 
+ .../bindings/display/msm/dp-controller.yaml   | 115 ++++++++++++++----
+ arch/arm64/boot/dts/qcom/sc7180.dtsi          |   1 -
+ arch/arm64/boot/dts/qcom/sc7280.dtsi          |   5 -
+ 3 files changed, 91 insertions(+), 30 deletions(-)
 
-Ah okay. Even if the panel is null, it sets it to 
-DRM_MODE_PANEL_ORIENTATION_UNKNOWN.
+-- 
+2.35.1
 
->>
->> I looked up the doc and it says that for unknown(default cases) this is
->> a no-op so I think this change is fine otherwise.
->>
->> "It is allowed to call this function with a panel_orientation of
->> DRM_MODE_PANEL_ORIENTATION_UNKNOWN, in which case it is a no-op."
-> 
-> Ok, so you're fine with this patch?
-
-Yes, I only held back the R-b for the previous comment, now since thats 
-clarified.
-
-Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
-> 
->>
->>
->>>        if (!panel || !IS_BONDED_DSI())
->>>                goto out;
->>>
->>>
->>> base-commit: 15b9ca1641f0c3cd74885280331e9172c62a125e
