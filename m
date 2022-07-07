@@ -1,57 +1,61 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id B95BF56AE64
-	for <lists+freedreno@lfdr.de>; Fri,  8 Jul 2022 00:28:16 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 44C7756AF29
+	for <lists+freedreno@lfdr.de>; Fri,  8 Jul 2022 01:56:31 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3721514A240;
-	Thu,  7 Jul 2022 22:28:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 63EC010FAC3;
+	Thu,  7 Jul 2022 23:56:08 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from alexa-out-sd-01.qualcomm.com (alexa-out-sd-01.qualcomm.com
- [199.106.114.38])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 03FCB14A247;
- Thu,  7 Jul 2022 22:28:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=quicinc.com; i=@quicinc.com; q=dns/txt; s=qcdkim;
- t=1657232893; x=1688768893;
- h=message-id:date:mime-version:subject:to:cc:references:
- from:in-reply-to:content-transfer-encoding;
- bh=bxnC823s2jQTCTW1F00fQ9L9FPUuS6prikA03g2KwGA=;
- b=SSKznTUVhFrndsuWSMLeRc/bJ5qk33jbKTnLeBpIaEH29DH283Iq9dte
- okgbTPehKl7/aRhNuA2tDMi7MKJGKWVfEyiPae41vyQqFznhZzPpk8K57
- xJLoFjC/V8LZbj8Xlo/HQbBbcRGb+oCvKR7omwfSAVGGW0WwHA0k3+qMn s=;
-Received: from unknown (HELO ironmsg04-sd.qualcomm.com) ([10.53.140.144])
- by alexa-out-sd-01.qualcomm.com with ESMTP; 07 Jul 2022 15:28:12 -0700
-X-QCInternal: smtphost
-Received: from nasanex01c.na.qualcomm.com ([10.47.97.222])
- by ironmsg04-sd.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 07 Jul 2022 15:28:12 -0700
-Received: from nalasex01a.na.qualcomm.com (10.47.209.196) by
- nasanex01c.na.qualcomm.com (10.47.97.222) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.986.22; Thu, 7 Jul 2022 15:28:11 -0700
-Received: from [10.111.163.64] (10.80.80.8) by nalasex01a.na.qualcomm.com
- (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.22; Thu, 7 Jul 2022
- 15:28:09 -0700
-Message-ID: <5112b6fd-32c3-c447-61e1-828d5a0aa7c6@quicinc.com>
-Date: Thu, 7 Jul 2022 15:28:07 -0700
+Received: from mail-oo1-f46.google.com (mail-oo1-f46.google.com
+ [209.85.161.46])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0527F10FAC3
+ for <freedreno@lists.freedesktop.org>; Thu,  7 Jul 2022 23:56:06 +0000 (UTC)
+Received: by mail-oo1-f46.google.com with SMTP id
+ m26-20020a4abc9a000000b00425cd321033so3754735oop.10
+ for <freedreno@lists.freedesktop.org>; Thu, 07 Jul 2022 16:56:06 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
+ h=mime-version:in-reply-to:references:from:user-agent:date:message-id
+ :subject:to:cc;
+ bh=9ntP1WDLnC6Yx7jFk7jZStLEDziwDqk+ZlwPsvE1xWs=;
+ b=bXuaYmps3SO/5Gg3nxuV379NqM1hoHcyQbvWn/KnsI4akOLpYz+plOpnE5dn9mRH7Z
+ Ba4pUy+ktATqZI/NUhKueHyeRHspJaPiUIEewUlCm9RQVmwSizU1Qt7YSZVn+1svIEIs
+ iVy1O+bxNmKs1ULMXdsz6tbhueBjHT39Ggtcs=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:mime-version:in-reply-to:references:from
+ :user-agent:date:message-id:subject:to:cc;
+ bh=9ntP1WDLnC6Yx7jFk7jZStLEDziwDqk+ZlwPsvE1xWs=;
+ b=GLY2jMPQ+g3mupk6vNEkeuZF0z9hsPvdg6rZ4qmhgF+ocVU6xzQc5I5GMmhJfXJNUN
+ wHnXIPvvbtDEr6K9w0t4s+e3c45rDNOaxx+Ix9GURN6SwUKjMBIt4AFq7ukavNa3znFL
+ 213MLCSC9qvkTvnNdAgYaeL6nFA0dM0YAnndHJJd5nw/wkaUwohWO80KhKTxCH3OFM7j
+ fTZQuOMS27A0z2XiUNImsRvtRcND1IcNr4tvZRgwAivpgXhqrYOseHigT1fe2ztZ5aFa
+ wxlmDTnyjuuxcVm3nAxjvn2S07InQY5fAyGa+7N94ZNYkPBbKBIEITNULVnKhtAKVEEz
+ WgGg==
+X-Gm-Message-State: AJIora/ukl5Rz8EnI/zkVjkv0YWcKKVFJgdii+15zT2xIVHTaXoMr2UY
+ /QxvT++zojsTv4CxXGClM1UnY2YjS00xA5I/wARmxA==
+X-Google-Smtp-Source: AGRyM1s5aRJwu3pF2TR9+JflN9Xt6rSHUQxPIdyIsKnn5I3uBjzRJFONFzrC6JiOmFqLVKBgHodXNbkvtUIvE0e4ebU=
+X-Received: by 2002:a4a:81c1:0:b0:425:b01b:f757 with SMTP id
+ s1-20020a4a81c1000000b00425b01bf757mr305054oog.1.1657238106090; Thu, 07 Jul
+ 2022 16:55:06 -0700 (PDT)
+Received: from 753933720722 named unknown by gmailapi.google.com with
+ HTTPREST; Thu, 7 Jul 2022 16:55:05 -0700
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.6.2
-Content-Language: en-US
-To: Rob Clark <robdclark@gmail.com>, <dri-devel@lists.freedesktop.org>
-References: <20220707212003.1710163-1-robdclark@gmail.com>
-From: Abhinav Kumar <quic_abhinavk@quicinc.com>
-In-Reply-To: <20220707212003.1710163-1-robdclark@gmail.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-Subject: Re: [Freedreno] [PATCH] drm/msm/dpu: Fix for non-visible planes
+In-Reply-To: <1657135928-31195-1-git-send-email-quic_khsieh@quicinc.com>
+References: <1657135928-31195-1-git-send-email-quic_khsieh@quicinc.com>
+From: Stephen Boyd <swboyd@chromium.org>
+User-Agent: alot/0.10
+Date: Thu, 7 Jul 2022 16:55:05 -0700
+Message-ID: <CAE-0n506RwOi8xqVEAaLjfhb3vey7R2FF_72_F-nmgrXrP6RWQ@mail.gmail.com>
+To: Kuogee Hsieh <quic_khsieh@quicinc.com>, agross@kernel.org, airlied@linux.ie,
+ bjorn.andersson@linaro.org, daniel@ffwll.ch, dianders@chromium.org, 
+ dmitry.baryshkov@linaro.org, robdclark@gmail.com, sean@poorly.run, 
+ vkoul@kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Subject: Re: [Freedreno] [PATCH v4] drm/msm/dp: make eDP panel as the first
+ connected connector
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,53 +68,32 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rob Clark <robdclark@chromium.org>, freedreno@lists.freedesktop.org,
- David Airlie <airlied@linux.ie>, linux-arm-msm@vger.kernel.org,
- open list <linux-kernel@vger.kernel.org>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Jessica Zhang <quic_jesszhan@quicinc.com>, Sean Paul <sean@poorly.run>,
- Fernando Ramos <greenfoo@u92.eu>, Mark Yacoub <markyacoub@google.com>
+Cc: quic_sbillaka@quicinc.com, linux-arm-msm@vger.kernel.org,
+ quic_abhinavk@quicinc.com, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, quic_aravindh@quicinc.com,
+ freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-
-
-On 7/7/2022 2:20 PM, Rob Clark wrote:
-> From: Rob Clark <robdclark@chromium.org>
-> 
-> Fixes `kms_cursor_crc --run-subtest cursor-offscreen`.. when the cursor
-> moves offscreen the plane becomes non-visible, so we need to skip over
-> it in crtc atomic test and mixer setup.
-> 
-> Signed-off-by: Rob Clark <robdclark@chromium.org>
-Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
-
-Will pick up the fixes tag from Dmitry's r-b.
+Quoting Kuogee Hsieh (2022-07-06 12:32:08)
+> Some userspace presumes that the first connected connector is the main
+> display, where it's supposed to display e.g. the login screen. For
+> laptops, this should be the main panel.
+>
+> This patch call drm_helper_move_panel_connectors_to_head() after
+> drm_bridge_connector_init() to make sure eDP stay at head of
+> connected connector list. This fixes unexpected corruption happen
+> at eDP panel if eDP is not placed at head of connected connector
+> list.
+>
+> Changes in v2:
+> -- move drm_helper_move_panel_connectors_to_head() to
+>                 dpu_kms_drm_obj_init()
+>
+> Changes in v4:
+> -- move drm_helper_move_panel_connectors_to_head() to msm_drm_init()
+>
+> Signed-off-by: Kuogee Hsieh <quic_khsieh@quicinc.com>
 > ---
->   drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c | 6 ++++++
->   1 file changed, 6 insertions(+)
-> 
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
-> index 4dd0ce09ca74..4ba000951a90 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
-> @@ -422,6 +422,9 @@ static void _dpu_crtc_blend_setup_mixer(struct drm_crtc *crtc,
->   		if (!state)
->   			continue;
->   
-> +		if (!state->visible)
-> +			continue;
-> +
->   		pstate = to_dpu_plane_state(state);
->   		fb = state->fb;
->   
-> @@ -1195,6 +1198,9 @@ static int dpu_crtc_atomic_check(struct drm_crtc *crtc,
->   		if (cnt >= DPU_STAGE_MAX * 4)
->   			continue;
->   
-> +		if (!pstate->visible)
-> +			continue;
-> +
->   		pstates[cnt].dpu_pstate = dpu_pstate;
->   		pstates[cnt].drm_pstate = pstate;
->   		pstates[cnt].stage = pstate->normalized_zpos;
+
+Reviewed-by: Stephen Boyd <swboyd@chromium.org>
