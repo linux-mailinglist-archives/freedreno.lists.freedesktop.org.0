@@ -2,60 +2,51 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 44C7756AF29
-	for <lists+freedreno@lfdr.de>; Fri,  8 Jul 2022 01:56:31 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1C6F956AF7B
+	for <lists+freedreno@lfdr.de>; Fri,  8 Jul 2022 02:59:07 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 63EC010FAC3;
-	Thu,  7 Jul 2022 23:56:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 09AFF10EAD0;
+	Fri,  8 Jul 2022 00:58:46 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-oo1-f46.google.com (mail-oo1-f46.google.com
- [209.85.161.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0527F10FAC3
- for <freedreno@lists.freedesktop.org>; Thu,  7 Jul 2022 23:56:06 +0000 (UTC)
-Received: by mail-oo1-f46.google.com with SMTP id
- m26-20020a4abc9a000000b00425cd321033so3754735oop.10
- for <freedreno@lists.freedesktop.org>; Thu, 07 Jul 2022 16:56:06 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=mime-version:in-reply-to:references:from:user-agent:date:message-id
- :subject:to:cc;
- bh=9ntP1WDLnC6Yx7jFk7jZStLEDziwDqk+ZlwPsvE1xWs=;
- b=bXuaYmps3SO/5Gg3nxuV379NqM1hoHcyQbvWn/KnsI4akOLpYz+plOpnE5dn9mRH7Z
- Ba4pUy+ktATqZI/NUhKueHyeRHspJaPiUIEewUlCm9RQVmwSizU1Qt7YSZVn+1svIEIs
- iVy1O+bxNmKs1ULMXdsz6tbhueBjHT39Ggtcs=
+Received: from mail-pg1-f195.google.com (mail-pg1-f195.google.com
+ [209.85.215.195])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B6E3710E3E9
+ for <freedreno@lists.freedesktop.org>; Fri,  8 Jul 2022 00:58:43 +0000 (UTC)
+Received: by mail-pg1-f195.google.com with SMTP id r22so14173804pgr.2
+ for <freedreno@lists.freedesktop.org>; Thu, 07 Jul 2022 17:58:43 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:in-reply-to:references:from
- :user-agent:date:message-id:subject:to:cc;
- bh=9ntP1WDLnC6Yx7jFk7jZStLEDziwDqk+ZlwPsvE1xWs=;
- b=GLY2jMPQ+g3mupk6vNEkeuZF0z9hsPvdg6rZ4qmhgF+ocVU6xzQc5I5GMmhJfXJNUN
- wHnXIPvvbtDEr6K9w0t4s+e3c45rDNOaxx+Ix9GURN6SwUKjMBIt4AFq7ukavNa3znFL
- 213MLCSC9qvkTvnNdAgYaeL6nFA0dM0YAnndHJJd5nw/wkaUwohWO80KhKTxCH3OFM7j
- fTZQuOMS27A0z2XiUNImsRvtRcND1IcNr4tvZRgwAivpgXhqrYOseHigT1fe2ztZ5aFa
- wxlmDTnyjuuxcVm3nAxjvn2S07InQY5fAyGa+7N94ZNYkPBbKBIEITNULVnKhtAKVEEz
- WgGg==
-X-Gm-Message-State: AJIora/ukl5Rz8EnI/zkVjkv0YWcKKVFJgdii+15zT2xIVHTaXoMr2UY
- /QxvT++zojsTv4CxXGClM1UnY2YjS00xA5I/wARmxA==
-X-Google-Smtp-Source: AGRyM1s5aRJwu3pF2TR9+JflN9Xt6rSHUQxPIdyIsKnn5I3uBjzRJFONFzrC6JiOmFqLVKBgHodXNbkvtUIvE0e4ebU=
-X-Received: by 2002:a4a:81c1:0:b0:425:b01b:f757 with SMTP id
- s1-20020a4a81c1000000b00425b01bf757mr305054oog.1.1657238106090; Thu, 07 Jul
- 2022 16:55:06 -0700 (PDT)
-Received: from 753933720722 named unknown by gmailapi.google.com with
- HTTPREST; Thu, 7 Jul 2022 16:55:05 -0700
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=wqH5lkEcgEYk9IYTlg7iiusMTMJ78GFXYQavtNkHZMw=;
+ b=lo+hFye8gJ55EUBpH4qJcrCfNq5oeEJhQPpVm+NiIuWI5MOgPEV8FhJUuus3gn9L1C
+ EjvJ4pam77D1yeha2CE04BwLe2y3NQVg+cF79TNrt0fYGhZyS84UPaGnnO47EVTi/3Lp
+ P5EZxO8aQyla+UPX/0pZfSbU/kKh99a058FqJD4RpS0Zw/sAkEi9I1KHCfE2n4hf/1wI
+ MXSM4eAkkadOCYC3PpdoOjK3aTYpa0dbNBHQ9mQE10ArvpJgDEdzVmbOj0w/PW0l1jWJ
+ FLa1oaeWRKGvmUkoG0KwyopFk0z6D6qaiis/839B68NcM3fLP1PbLX2nce5QQKn/XnAl
+ 09PQ==
+X-Gm-Message-State: AJIora/qi1OvEAFOifd4sfbT9J1roZS6oW5LmIODJBKRoOjnla0BssO/
+ k8fT2gZl2GWlnOc/b+UgqQ==
+X-Google-Smtp-Source: AGRyM1vacj7yRlF6w+n1Bho6IKjJtTx/+ZIht2cmpzn70gZgkzg8M8pXSk63aKGy6xj6m/IaJpgGqw==
+X-Received: by 2002:a63:ea05:0:b0:411:f94f:b80f with SMTP id
+ c5-20020a63ea05000000b00411f94fb80fmr789435pgi.189.1657241923152; 
+ Thu, 07 Jul 2022 17:58:43 -0700 (PDT)
+Received: from localhost.localdomain ([156.146.53.107])
+ by smtp.gmail.com with ESMTPSA id
+ a140-20020a621a92000000b005289fbef7c4sm5034884pfa.140.2022.07.07.17.58.38
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 07 Jul 2022 17:58:42 -0700 (PDT)
+From: sunliming <sunliming@kylinos.cn>
+To: christian.koenig@amd.com, robdclark@gmail.com, quic_abhinavk@quicinc.com,
+ dmitry.baryshkov@linaro.org
+Date: Fri,  8 Jul 2022 08:58:32 +0800
+Message-Id: <20220708005832.439722-1-sunliming@kylinos.cn>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-In-Reply-To: <1657135928-31195-1-git-send-email-quic_khsieh@quicinc.com>
-References: <1657135928-31195-1-git-send-email-quic_khsieh@quicinc.com>
-From: Stephen Boyd <swboyd@chromium.org>
-User-Agent: alot/0.10
-Date: Thu, 7 Jul 2022 16:55:05 -0700
-Message-ID: <CAE-0n506RwOi8xqVEAaLjfhb3vey7R2FF_72_F-nmgrXrP6RWQ@mail.gmail.com>
-To: Kuogee Hsieh <quic_khsieh@quicinc.com>, agross@kernel.org, airlied@linux.ie,
- bjorn.andersson@linaro.org, daniel@ffwll.ch, dianders@chromium.org, 
- dmitry.baryshkov@linaro.org, robdclark@gmail.com, sean@poorly.run, 
- vkoul@kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [PATCH v4] drm/msm/dp: make eDP panel as the first
- connected connector
+Content-Transfer-Encoding: 8bit
+Subject: [Freedreno] [PATCH RESEND] drm/msm/dsi: fix the inconsistent
+ indenting
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,32 +59,37 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: quic_sbillaka@quicinc.com, linux-arm-msm@vger.kernel.org,
- quic_abhinavk@quicinc.com, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, quic_aravindh@quicinc.com,
- freedreno@lists.freedesktop.org
+Cc: kernel test robot <lkp@intel.com>, linux-arm-msm@vger.kernel.org,
+ kelulanainsley@gmail.com, linux-kernel@vger.kernel.org,
+ sunliming <sunliming@kylinos.cn>, freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Quoting Kuogee Hsieh (2022-07-06 12:32:08)
-> Some userspace presumes that the first connected connector is the main
-> display, where it's supposed to display e.g. the login screen. For
-> laptops, this should be the main panel.
->
-> This patch call drm_helper_move_panel_connectors_to_head() after
-> drm_bridge_connector_init() to make sure eDP stay at head of
-> connected connector list. This fixes unexpected corruption happen
-> at eDP panel if eDP is not placed at head of connected connector
-> list.
->
-> Changes in v2:
-> -- move drm_helper_move_panel_connectors_to_head() to
->                 dpu_kms_drm_obj_init()
->
-> Changes in v4:
-> -- move drm_helper_move_panel_connectors_to_head() to msm_drm_init()
->
-> Signed-off-by: Kuogee Hsieh <quic_khsieh@quicinc.com>
-> ---
+Fix the inconsistent indenting in function msm_dsi_dphy_timing_calc_v3().
 
-Reviewed-by: Stephen Boyd <swboyd@chromium.org>
+Fix the following smatch warnings:
+
+drivers/gpu/drm/msm/dsi/phy/dsi_phy.c:350 msm_dsi_dphy_timing_calc_v3() warn: inconsistent indenting
+
+Reported-by: kernel test robot <lkp@intel.com>
+Signed-off-by: sunliming <sunliming@kylinos.cn>
+---
+ drivers/gpu/drm/msm/dsi/phy/dsi_phy.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/msm/dsi/phy/dsi_phy.c b/drivers/gpu/drm/msm/dsi/phy/dsi_phy.c
+index a39de3bdc7fa..56dfa2d24be1 100644
+--- a/drivers/gpu/drm/msm/dsi/phy/dsi_phy.c
++++ b/drivers/gpu/drm/msm/dsi/phy/dsi_phy.c
+@@ -347,7 +347,7 @@ int msm_dsi_dphy_timing_calc_v3(struct msm_dsi_dphy_timing *timing,
+ 	} else {
+ 		timing->shared_timings.clk_pre =
+ 			linear_inter(tmax, tmin, pcnt2, 0, false);
+-			timing->shared_timings.clk_pre_inc_by_2 = 0;
++		timing->shared_timings.clk_pre_inc_by_2 = 0;
+ 	}
+ 
+ 	timing->ta_go = 3;
+-- 
+2.25.1
+
