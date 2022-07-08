@@ -1,58 +1,63 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id A689E56BD24
-	for <lists+freedreno@lfdr.de>; Fri,  8 Jul 2022 18:03:51 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id E683C56BE1E
+	for <lists+freedreno@lfdr.de>; Fri,  8 Jul 2022 18:24:03 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 494B510E1F3;
-	Fri,  8 Jul 2022 16:03:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5CB3F10E87A;
+	Fri,  8 Jul 2022 16:24:02 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from alexa-out.qualcomm.com (alexa-out.qualcomm.com [129.46.98.28])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4C8D510E74D
- for <freedreno@lists.freedesktop.org>; Fri,  8 Jul 2022 16:03:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=quicinc.com; i=@quicinc.com; q=dns/txt; s=qcdkim;
- t=1657296229; x=1688832229;
- h=message-id:date:mime-version:subject:to:cc:references:
- from:in-reply-to:content-transfer-encoding;
- bh=Bbltvf1E1n7dEQo4s8VfRTS+CjAivEgSlrXihksGW7Q=;
- b=VFb4B/Xp/2IkHXUSVv8aXEKnjZr9nLz5yW3bGYxrQd7YgR2Ryo/5HslP
- UXN/L0Nnkt+/Mg7L6/ftli6IcOaKTj2BCr7Uz1UmmSV0SCWzPwqfnd/EN
- WQvcdoSXb2sVePhB0kF0uVtH+jM62HHOBSO2CjA6mdL/3E/9NKZVywEGM A=;
-Received: from ironmsg-lv-alpha.qualcomm.com ([10.47.202.13])
- by alexa-out.qualcomm.com with ESMTP; 08 Jul 2022 09:03:49 -0700
-X-QCInternal: smtphost
-Received: from nasanex01c.na.qualcomm.com ([10.47.97.222])
- by ironmsg-lv-alpha.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Jul 2022 09:03:48 -0700
-Received: from nalasex01a.na.qualcomm.com (10.47.209.196) by
- nasanex01c.na.qualcomm.com (10.47.97.222) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.986.22; Fri, 8 Jul 2022 09:03:47 -0700
-Received: from [10.111.160.191] (10.80.80.8) by nalasex01a.na.qualcomm.com
- (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.22; Fri, 8 Jul 2022
- 09:03:45 -0700
-Message-ID: <57d342b6-6254-9bb0-da80-a2f6b4d5eefe@quicinc.com>
-Date: Fri, 8 Jul 2022 09:03:43 -0700
+Received: from mail-ot1-x32f.google.com (mail-ot1-x32f.google.com
+ [IPv6:2607:f8b0:4864:20::32f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B20AA10E858
+ for <freedreno@lists.freedesktop.org>; Fri,  8 Jul 2022 16:24:00 +0000 (UTC)
+Received: by mail-ot1-x32f.google.com with SMTP id
+ m24-20020a0568301e7800b00616b5c114d4so16526843otr.11
+ for <freedreno@lists.freedesktop.org>; Fri, 08 Jul 2022 09:24:00 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=eS1DoT862v/g6EpjvGHfLBntfCPBUFxV6o7NJazJK14=;
+ b=hSRsjqZkDb6SyYnQtxvHdml60HsCjB3dzHLzVc+Sn2nCDLpjUIt0dvvYQEP4Utv8dp
+ HJ4UVRDAwVrjvDJlMu1KWwignFae8tPFXKxvx7w67BsfotkF0yCeNJpCq93RE79nvUPR
+ a9/RELWNRH58jLvHLFSo559skengu9ebIkY9qFdA3GmDMtcX249eLdFy15rFNHv4HhIG
+ 0OPUsVbAD5efrQapJLvTX2j7ZYGpV3Yo5UuU445XhnUTajLmuVDfgNnmSZgTWUCvD4cO
+ sshWnVjlDI2wpye7wqBbHjpGgI57nlHFi82d3ln8eARWnN2zIdGS4XSIQQa10QOFAmFK
+ hgLA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=eS1DoT862v/g6EpjvGHfLBntfCPBUFxV6o7NJazJK14=;
+ b=4boFgWhOE6DHOuX89NtF+CxbRmlDtAtMkKKmRYw/K0Pl+pGWBF8349tI4WLlKluNn5
+ xzJJnodN1xHcIUHZPxBByYDVDOJOo2kyv6nEWzB59OXQzsCqOE0DEbm8c8AW+JyotLaM
+ zjDtVlbpt1vMqhkl0soRWh3R74XUAIB5zus5AgHOha3ntJ1beoSNrCbyjdOCi9qUEm+2
+ vY7FbE0uRbplY4HqGb/Y5OPZUh+tXyeSzhJj6RDm4gEpCK19B+3fvn7AEd2TKmu0Unat
+ /RLNccD8u1Hq1WMxhF8Q9YUtefuj0W12Z59LtP4pzLDBIurxY/4R/5awDkewD/YTCZya
+ 5ufw==
+X-Gm-Message-State: AJIora9lhT/FyCq6B+hWH9udQl/B+wfjpHA0c9wb66Rdf2XmehjbmjrT
+ IWnPs3b/IOO9Fe2CrqTLxN0Eqg==
+X-Google-Smtp-Source: AGRyM1sHmxfIFe72kNMrpQnCwtapr6QU9N20Rtq+AQ0mLbpRLwO90rb6TwTmApYnhVPsNOLGXUit5Q==
+X-Received: by 2002:a05:6830:cf:b0:61c:265b:1d1e with SMTP id
+ x15-20020a05683000cf00b0061c265b1d1emr1862647oto.290.1657297439983; 
+ Fri, 08 Jul 2022 09:23:59 -0700 (PDT)
+Received: from ripper.. (104-57-184-186.lightspeed.austtx.sbcglobal.net.
+ [104.57.184.186]) by smtp.gmail.com with ESMTPSA id
+ f8-20020a056871070800b00101bd4914f9sm6678663oap.43.2022.07.08.09.23.59
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 08 Jul 2022 09:23:59 -0700 (PDT)
+From: Bjorn Andersson <bjorn.andersson@linaro.org>
+To: Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Date: Fri,  8 Jul 2022 09:26:32 -0700
+Message-Id: <20220708162632.3529864-1-bjorn.andersson@linaro.org>
+X-Mailer: git-send-email 2.35.1
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.6.2
-Content-Language: en-US
-To: sunliming <sunliming@kylinos.cn>, <christian.koenig@amd.com>,
- <robdclark@gmail.com>, <dmitry.baryshkov@linaro.org>
-References: <20220708005832.439722-1-sunliming@kylinos.cn>
-From: Abhinav Kumar <quic_abhinavk@quicinc.com>
-In-Reply-To: <20220708005832.439722-1-sunliming@kylinos.cn>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-Subject: Re: [Freedreno] [PATCH RESEND] drm/msm/dsi: fix the inconsistent
- indenting
+Content-Transfer-Encoding: 8bit
+Subject: [Freedreno] [PATCH] drm/msm/gpu: Drop qos request if
+ devm_devfreq_add_device() fails
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,38 +70,39 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-arm-msm@vger.kernel.org, kelulanainsley@gmail.com,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org, kernel test
- robot <lkp@intel.com>
+Cc: Sean Paul <sean@poorly.run>, David Airlie <airlied@linux.ie>,
+ linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>,
+ freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
+In the event that devm_devfreq_add_device() fails the device's qos freq
+list is left referencing df->idle_freq and df->boost_freq. Attempting to
+initialize devfreq again after a probe deferral will then cause invalid
+memory accesses in dev_pm_qos_add_request().
 
+Fix this by dropping the requests in the error path.
 
-On 7/7/2022 5:58 PM, sunliming wrote:
-> Fix the inconsistent indenting in function msm_dsi_dphy_timing_calc_v3().
-> 
-> Fix the following smatch warnings:
-> 
-> drivers/gpu/drm/msm/dsi/phy/dsi_phy.c:350 msm_dsi_dphy_timing_calc_v3() warn: inconsistent indenting
-> 
-> Reported-by: kernel test robot <lkp@intel.com>
-> Signed-off-by: sunliming <sunliming@kylinos.cn>
-Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
-> ---
->   drivers/gpu/drm/msm/dsi/phy/dsi_phy.c | 2 +-
->   1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/drivers/gpu/drm/msm/dsi/phy/dsi_phy.c b/drivers/gpu/drm/msm/dsi/phy/dsi_phy.c
-> index a39de3bdc7fa..56dfa2d24be1 100644
-> --- a/drivers/gpu/drm/msm/dsi/phy/dsi_phy.c
-> +++ b/drivers/gpu/drm/msm/dsi/phy/dsi_phy.c
-> @@ -347,7 +347,7 @@ int msm_dsi_dphy_timing_calc_v3(struct msm_dsi_dphy_timing *timing,
->   	} else {
->   		timing->shared_timings.clk_pre =
->   			linear_inter(tmax, tmin, pcnt2, 0, false);
-> -			timing->shared_timings.clk_pre_inc_by_2 = 0;
-> +		timing->shared_timings.clk_pre_inc_by_2 = 0;
->   	}
->   
->   	timing->ta_go = 3;
+Fixes: 7c0ffcd40b16 ("drm/msm/gpu: Respect PM QoS constraints")
+Signed-off-by: Bjorn Andersson <bjorn.andersson@linaro.org>
+---
+ drivers/gpu/drm/msm/msm_gpu_devfreq.c | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/drivers/gpu/drm/msm/msm_gpu_devfreq.c b/drivers/gpu/drm/msm/msm_gpu_devfreq.c
+index c2ea978c8921..21e271a318ee 100644
+--- a/drivers/gpu/drm/msm/msm_gpu_devfreq.c
++++ b/drivers/gpu/drm/msm/msm_gpu_devfreq.c
+@@ -198,6 +198,8 @@ void msm_devfreq_init(struct msm_gpu *gpu)
+ 
+ 	if (IS_ERR(df->devfreq)) {
+ 		DRM_DEV_ERROR(&gpu->pdev->dev, "Couldn't initialize GPU devfreq\n");
++		dev_pm_qos_remove_request(&df->idle_freq);
++		dev_pm_qos_remove_request(&df->boost_freq);
+ 		df->devfreq = NULL;
+ 		return;
+ 	}
+-- 
+2.35.1
+
