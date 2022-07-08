@@ -2,62 +2,65 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id E683C56BE1E
-	for <lists+freedreno@lfdr.de>; Fri,  8 Jul 2022 18:24:03 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6216356C10E
+	for <lists+freedreno@lfdr.de>; Fri,  8 Jul 2022 21:24:36 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5CB3F10E87A;
-	Fri,  8 Jul 2022 16:24:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EB46010E104;
+	Fri,  8 Jul 2022 19:24:32 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ot1-x32f.google.com (mail-ot1-x32f.google.com
- [IPv6:2607:f8b0:4864:20::32f])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B20AA10E858
- for <freedreno@lists.freedesktop.org>; Fri,  8 Jul 2022 16:24:00 +0000 (UTC)
-Received: by mail-ot1-x32f.google.com with SMTP id
- m24-20020a0568301e7800b00616b5c114d4so16526843otr.11
- for <freedreno@lists.freedesktop.org>; Fri, 08 Jul 2022 09:24:00 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=eS1DoT862v/g6EpjvGHfLBntfCPBUFxV6o7NJazJK14=;
- b=hSRsjqZkDb6SyYnQtxvHdml60HsCjB3dzHLzVc+Sn2nCDLpjUIt0dvvYQEP4Utv8dp
- HJ4UVRDAwVrjvDJlMu1KWwignFae8tPFXKxvx7w67BsfotkF0yCeNJpCq93RE79nvUPR
- a9/RELWNRH58jLvHLFSo559skengu9ebIkY9qFdA3GmDMtcX249eLdFy15rFNHv4HhIG
- 0OPUsVbAD5efrQapJLvTX2j7ZYGpV3Yo5UuU445XhnUTajLmuVDfgNnmSZgTWUCvD4cO
- sshWnVjlDI2wpye7wqBbHjpGgI57nlHFi82d3ln8eARWnN2zIdGS4XSIQQa10QOFAmFK
- hgLA==
+Received: from mail-oi1-x235.google.com (mail-oi1-x235.google.com
+ [IPv6:2607:f8b0:4864:20::235])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4B35B10E09F
+ for <freedreno@lists.freedesktop.org>; Fri,  8 Jul 2022 19:24:31 +0000 (UTC)
+Received: by mail-oi1-x235.google.com with SMTP id u9so28092072oiv.12
+ for <freedreno@lists.freedesktop.org>; Fri, 08 Jul 2022 12:24:31 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
+ h=mime-version:in-reply-to:references:from:user-agent:date:message-id
+ :subject:to:cc;
+ bh=WEH0jKAhMg/R/ZAtXcmhJHyQlTHAR3FwpDaho4cHgOY=;
+ b=InH2K7dH2NjuGoaeuhMHZJKkEoIt8KoqlBs0E+Q3TTBS5RZRETLKTZRZT3Y0z2Gv/r
+ 2khUzoWLTbkefDeaKsc6pHYPsvYpONGBlM58vaEqm98vTDeKmrMelIOsi+LNxKzJ++6F
+ HaSvWuREHYxyFwh4AjtzoLhPQruLwmmGLLxKw=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=eS1DoT862v/g6EpjvGHfLBntfCPBUFxV6o7NJazJK14=;
- b=4boFgWhOE6DHOuX89NtF+CxbRmlDtAtMkKKmRYw/K0Pl+pGWBF8349tI4WLlKluNn5
- xzJJnodN1xHcIUHZPxBByYDVDOJOo2kyv6nEWzB59OXQzsCqOE0DEbm8c8AW+JyotLaM
- zjDtVlbpt1vMqhkl0soRWh3R74XUAIB5zus5AgHOha3ntJ1beoSNrCbyjdOCi9qUEm+2
- vY7FbE0uRbplY4HqGb/Y5OPZUh+tXyeSzhJj6RDm4gEpCK19B+3fvn7AEd2TKmu0Unat
- /RLNccD8u1Hq1WMxhF8Q9YUtefuj0W12Z59LtP4pzLDBIurxY/4R/5awDkewD/YTCZya
- 5ufw==
-X-Gm-Message-State: AJIora9lhT/FyCq6B+hWH9udQl/B+wfjpHA0c9wb66Rdf2XmehjbmjrT
- IWnPs3b/IOO9Fe2CrqTLxN0Eqg==
-X-Google-Smtp-Source: AGRyM1sHmxfIFe72kNMrpQnCwtapr6QU9N20Rtq+AQ0mLbpRLwO90rb6TwTmApYnhVPsNOLGXUit5Q==
-X-Received: by 2002:a05:6830:cf:b0:61c:265b:1d1e with SMTP id
- x15-20020a05683000cf00b0061c265b1d1emr1862647oto.290.1657297439983; 
- Fri, 08 Jul 2022 09:23:59 -0700 (PDT)
-Received: from ripper.. (104-57-184-186.lightspeed.austtx.sbcglobal.net.
- [104.57.184.186]) by smtp.gmail.com with ESMTPSA id
- f8-20020a056871070800b00101bd4914f9sm6678663oap.43.2022.07.08.09.23.59
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 08 Jul 2022 09:23:59 -0700 (PDT)
-From: Bjorn Andersson <bjorn.andersson@linaro.org>
-To: Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Fri,  8 Jul 2022 09:26:32 -0700
-Message-Id: <20220708162632.3529864-1-bjorn.andersson@linaro.org>
-X-Mailer: git-send-email 2.35.1
+ h=x-gm-message-state:mime-version:in-reply-to:references:from
+ :user-agent:date:message-id:subject:to:cc;
+ bh=WEH0jKAhMg/R/ZAtXcmhJHyQlTHAR3FwpDaho4cHgOY=;
+ b=ygSjFmkUDldOeRISuE2iBSmJcdMn3FDlleaAly2Y6BNd5XAu1TepIzCPitvj9gRiUE
+ vXTYCWBUQx5uZR0vFmAF+lv7H+uLw4HwOByKUSxJQ3NCuDgfkM2PR50aOxX9P0jNpUgp
+ idrq5BX5eW0ffS0qFVmXR9hy5b9Iy9zVE+HXZq3rHw7MdYWmHzizxy2YbAU+w/RW6HeI
+ jadZ2nbeq7XqMiIc+QR30s2DwRq9DGtPYDXjLiIPMflX2h0K9Q7j1NIyxTZv0U4540EM
+ xeM97GZFxFzFeZd3HJDpMPtm8drs4E+5xJPjZJ5X1NQ82CO1au/5xywAprAr/AMVsOsp
+ MhJQ==
+X-Gm-Message-State: AJIora+JIbgm+KSEXKcaTtBbtSh5JzNidyMULDmXMBz7ZJdVXkst/Dyw
+ NcjZG7Y+psvc4f4Ag5vxZ+VSvuMMMDnMJlp1cJSdSg==
+X-Google-Smtp-Source: AGRyM1ux2p5+c4xtdy4iOeVBnPoqwt4uYj+n6OsML6osTpvAhyLCATU4q8jvRdoE/W3LIwJY4+8mxYJs/1atXzH8xbs=
+X-Received: by 2002:a05:6808:171c:b0:334:9342:63ef with SMTP id
+ bc28-20020a056808171c00b00334934263efmr831806oib.63.1657308270538; Fri, 08
+ Jul 2022 12:24:30 -0700 (PDT)
+Received: from 753933720722 named unknown by gmailapi.google.com with
+ HTTPREST; Fri, 8 Jul 2022 12:24:29 -0700
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH] drm/msm/gpu: Drop qos request if
- devm_devfreq_add_device() fails
+In-Reply-To: <36a3490f-5c94-0c54-caa4-1b381dae7745@linaro.org>
+References: <20220707213204.2605816-1-dmitry.baryshkov@linaro.org>
+ <20220707213204.2605816-6-dmitry.baryshkov@linaro.org>
+ <CAE-0n53An_S5H-jj7GPorLg0Q4jW=KqEn5CCrfqs6fn6LBtGNA@mail.gmail.com>
+ <36a3490f-5c94-0c54-caa4-1b381dae7745@linaro.org>
+From: Stephen Boyd <swboyd@chromium.org>
+User-Agent: alot/0.10
+Date: Fri, 8 Jul 2022 12:24:29 -0700
+Message-ID: <CAE-0n53GJANJT5uXzffPqFZuKu4YkzfrhyaCL15vq1VQrDzSag@mail.gmail.com>
+To: Abhinav Kumar <quic_abhinavk@quicinc.com>, Andy Gross <agross@kernel.org>, 
+ Bjorn Andersson <bjorn.andersson@linaro.org>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, 
+ Konrad Dybcio <konrad.dybcio@somainline.org>, 
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Rob Clark <robdclark@gmail.com>, 
+ Rob Herring <robh+dt@kernel.org>, Sean Paul <sean@poorly.run>
+Content-Type: text/plain; charset="UTF-8"
+Subject: Re: [Freedreno] [PATCH 5/9] dt-bindings: msm/dp: account for clocks
+ specific for qcom, sc7280-edp
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,39 +73,43 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sean Paul <sean@poorly.run>, David Airlie <airlied@linux.ie>,
- linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>,
- freedreno@lists.freedesktop.org
+Cc: devicetree@vger.kernel.org, David Airlie <airlied@linux.ie>,
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ Daniel Vetter <daniel@ffwll.ch>, freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-In the event that devm_devfreq_add_device() fails the device's qos freq
-list is left referencing df->idle_freq and df->boost_freq. Attempting to
-initialize devfreq again after a probe deferral will then cause invalid
-memory accesses in dev_pm_qos_add_request().
+Quoting Dmitry Baryshkov (2022-07-07 20:59:02)
+> On 08/07/2022 04:32, Stephen Boyd wrote:
+> > Quoting Dmitry Baryshkov (2022-07-07 14:32:00)
+> >> diff --git a/Documentation/devicetree/bindings/display/msm/dp-controller.yaml b/Documentation/devicetree/bindings/display/msm/dp-controller.yaml
+> >> index f00eae66196f..1ef845005b14 100644
+> >> --- a/Documentation/devicetree/bindings/display/msm/dp-controller.yaml
+> >> +++ b/Documentation/devicetree/bindings/display/msm/dp-controller.yaml
+> >> @@ -119,6 +111,50 @@ required:
+> >>     - power-domains
+> >>     - ports
+> >>
+> >> +allOf:
+> >> +  - if:
+> >> +      properties:
+> >> +        compatible:
+> >> +          contains:
+> >> +            enum:
+> >> +              - qcom,sc7280-edp
+> >> +    then:
+> >> +      properties:
+> >> +        clocks:
+> >> +          items:
+> >> +            - description: XO clock
+> >
+> > What is this for? I would guess it's for the eDP phy, but that isn't
+> > part of the eDP controller, so probably it can be removed.
+>
+> Good question. I was documenting what is present in the sc7280-edp
+> controller DT entry. Could you please check if we can drop them? I don't
+> have the hardware at hand.
+>
 
-Fix this by dropping the requests in the error path.
-
-Fixes: 7c0ffcd40b16 ("drm/msm/gpu: Respect PM QoS constraints")
-Signed-off-by: Bjorn Andersson <bjorn.andersson@linaro.org>
----
- drivers/gpu/drm/msm/msm_gpu_devfreq.c | 2 ++
- 1 file changed, 2 insertions(+)
-
-diff --git a/drivers/gpu/drm/msm/msm_gpu_devfreq.c b/drivers/gpu/drm/msm/msm_gpu_devfreq.c
-index c2ea978c8921..21e271a318ee 100644
---- a/drivers/gpu/drm/msm/msm_gpu_devfreq.c
-+++ b/drivers/gpu/drm/msm/msm_gpu_devfreq.c
-@@ -198,6 +198,8 @@ void msm_devfreq_init(struct msm_gpu *gpu)
- 
- 	if (IS_ERR(df->devfreq)) {
- 		DRM_DEV_ERROR(&gpu->pdev->dev, "Couldn't initialize GPU devfreq\n");
-+		dev_pm_qos_remove_request(&df->idle_freq);
-+		dev_pm_qos_remove_request(&df->boost_freq);
- 		df->devfreq = NULL;
- 		return;
- 	}
--- 
-2.35.1
-
+eDP works fine without those two clks on CRD (hoglin). They can be
+dropped from the dtsi file.
