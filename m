@@ -2,53 +2,53 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0827956AFC0
-	for <lists+freedreno@lfdr.de>; Fri,  8 Jul 2022 03:30:39 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CA5A456AFC3
+	for <lists+freedreno@lfdr.de>; Fri,  8 Jul 2022 03:32:11 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A52A811248B;
-	Fri,  8 Jul 2022 01:29:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9F44C10E9FD;
+	Fri,  8 Jul 2022 01:30:55 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-oi1-f176.google.com (mail-oi1-f176.google.com
- [209.85.167.176])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7587710FEAF
- for <freedreno@lists.freedesktop.org>; Fri,  8 Jul 2022 01:29:51 +0000 (UTC)
-Received: by mail-oi1-f176.google.com with SMTP id s188so25188689oib.6
- for <freedreno@lists.freedesktop.org>; Thu, 07 Jul 2022 18:29:51 -0700 (PDT)
+Received: from mail-oi1-f173.google.com (mail-oi1-f173.google.com
+ [209.85.167.173])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AF87710EE44
+ for <freedreno@lists.freedesktop.org>; Fri,  8 Jul 2022 01:30:53 +0000 (UTC)
+Received: by mail-oi1-f173.google.com with SMTP id w62so3828467oie.3
+ for <freedreno@lists.freedesktop.org>; Thu, 07 Jul 2022 18:30:53 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
  h=mime-version:in-reply-to:references:from:user-agent:date:message-id
  :subject:to:cc;
- bh=HQoQSqm1Y6gc3vLd2/YcryN+qPwBTmG72+1Cc+N5QmA=;
- b=CykAEtsvYnPfrFIuJwuOCf0sw8z7xciHsnHSMcRh16QnXk6QlIvfrYCuLdkrEmDw8Y
- xUg/8KmL2U/g8kmyvsdHQy7ZmsMN3fBtiainjMMGzfllqj0dlPHpKGRfFA4CTnWyv2mx
- SaD57uEHfP6TCBWZoutJutR3hP34XDXxaOhfM=
+ bh=PpvA7vQA+z5udKCHSpv+s9htl2aBC/iRxeWyaMCuGEU=;
+ b=mPZbe8dmikNK7UvVbyxLe30aFtXeZfHb2mwKSxi7WHI0ELKEgTN0v0ScL6BkIwehW8
+ wCWNKgYNusYXoK29wKcexwFVvLFlVIo5QxyBPwIms0NpFFihQyvPzAab05XAVl/5g0Qx
+ KQwxzGXZubTTVlNLDIOZblaTDoM8m7okKqsdw=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:mime-version:in-reply-to:references:from
  :user-agent:date:message-id:subject:to:cc;
- bh=HQoQSqm1Y6gc3vLd2/YcryN+qPwBTmG72+1Cc+N5QmA=;
- b=if2wrnJ/ttUtQwmHqJ51LtTOyg57BK2hN3EhtVGz2VV+M3Wh6BdmuuTpvhGdXh0uzk
- i63EBZWS3NiBPaMrazphNa44jpLonw6S0CzGociUyMaVFb01zr1s8RX55fNjCNTndj99
- mlBYU5vWgL9EgLXY8ePBu/KLBb9s/hfPLmgMk833PP8g5SAA+GTH1vobvFGt1fSmOgly
- 3c7DLXG8oiu+wh+nXq6jKALiJbAwaz1LG+ghwtf53J7Ay2zZBD3apfEO2LZb9vaxDQ5R
- /7WyetbL3R9JIiUeUTzvJcfZEo+SGFgX1Vc+DW+iVXHXS6BNidsSxvo0DRn4BNbrz0MK
- IBNw==
-X-Gm-Message-State: AJIora9KbQaVuR3vBCWYe8KpWV4ZBaLFSiouLH+8qGlqp6u6mHDPv8Bi
- miDoyyA9inIOZ3ETiIqljJdv4JekY8/FxKysuiPzcA==
-X-Google-Smtp-Source: AGRyM1uJ8/E8SerdAnJl3f3McgySgrfAOxikx5UkGEHyUZlQA3GOjpCjdWqPyZoanxplGHhTQrvxDsHhBt2MrfSEudI=
+ bh=PpvA7vQA+z5udKCHSpv+s9htl2aBC/iRxeWyaMCuGEU=;
+ b=XEH52GwfQN+3Zmfd2MnR0RUteklyUtREwWbwT06lTkLzpWDOrplBIGX+vpINdpmcpR
+ 77HQe34v9qR+5Hu+41d+eOdUuXwsoRgvUome1YDwl2Pq0MQfYoE1jD6YBTMl34KKyNMT
+ caDj2RiY1OlsWP4Hf+XcPnItvHcRWKVUNtL5MdCMDYb/Evxm6Nbn8pNHy43poZohPRRu
+ k4zsdu9WlOD4pRsuDz3Tc0fT4mAoR7klmWzSYyxqHgIAuIkKOQ6asN8WoNSrKMxrUYp7
+ EVw5oWai9olX1rLzvdCKIhMQOQhpABeIMUuGxkmRDFHn7ZcvqthrYGyr0lJuiqNA3jLT
+ A3UA==
+X-Gm-Message-State: AJIora+e8oHn5A6EtM7YE62a6/Fm6kzM4/fVSdYWUN6mAXw8/2A0R1wi
+ +cM1nMCNxZ4jw6Q+2L9G7aHJfsxVKZuEqHFryytpqA==
+X-Google-Smtp-Source: AGRyM1sG9aigMbjMOM2ftKDyZpg/JcbL4BqzsFm0snHRfp+ujnNkRfj/Vrv6x4lsFZLIELBbixkV9cqrKRK4Hvo8zQI=
 X-Received: by 2002:a05:6808:e87:b0:32e:4789:d2c with SMTP id
- k7-20020a0568080e8700b0032e47890d2cmr457469oil.193.1657243730587; Thu, 07 Jul
- 2022 18:28:50 -0700 (PDT)
+ k7-20020a0568080e8700b0032e47890d2cmr459094oil.193.1657243792902; Thu, 07 Jul
+ 2022 18:29:52 -0700 (PDT)
 Received: from 753933720722 named unknown by gmailapi.google.com with
- HTTPREST; Thu, 7 Jul 2022 18:28:50 -0700
+ HTTPREST; Thu, 7 Jul 2022 18:29:52 -0700
 MIME-Version: 1.0
-In-Reply-To: <20220707213204.2605816-2-dmitry.baryshkov@linaro.org>
+In-Reply-To: <20220707213204.2605816-3-dmitry.baryshkov@linaro.org>
 References: <20220707213204.2605816-1-dmitry.baryshkov@linaro.org>
- <20220707213204.2605816-2-dmitry.baryshkov@linaro.org>
+ <20220707213204.2605816-3-dmitry.baryshkov@linaro.org>
 From: Stephen Boyd <swboyd@chromium.org>
 User-Agent: alot/0.10
-Date: Thu, 7 Jul 2022 18:28:50 -0700
-Message-ID: <CAE-0n53zV2OjXxjJ_AwCDcAZvOY+BU0-xipxQkup3muHMRCPXA@mail.gmail.com>
+Date: Thu, 7 Jul 2022 18:29:52 -0700
+Message-ID: <CAE-0n519u3S0WK-712aM-2zhZXrRvr7gh9aDSvRfMtkh-f4eUQ@mail.gmail.com>
 To: Abhinav Kumar <quic_abhinavk@quicinc.com>, Andy Gross <agross@kernel.org>, 
  Bjorn Andersson <bjorn.andersson@linaro.org>,
  Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, 
@@ -57,8 +57,8 @@ To: Abhinav Kumar <quic_abhinavk@quicinc.com>, Andy Gross <agross@kernel.org>,
  Rob Clark <robdclark@gmail.com>, 
  Rob Herring <robh+dt@kernel.org>, Sean Paul <sean@poorly.run>
 Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [PATCH 1/9] dt-bindings: msm/dp: drop extra p1
- region
+Subject: Re: [Freedreno] [PATCH 2/9] dt-bindings: msm/dp: bring back support
+ for legacy DP reg property
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,29 +77,13 @@ Cc: devicetree@vger.kernel.org, David Airlie <airlied@linux.ie>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Quoting Dmitry Baryshkov (2022-07-07 14:31:56)
-> The p1 region was probably added by mistake, none of the DTS files
-> provides one (and the driver source code also doesn't use one). Drop it
-> now.
+Quoting Dmitry Baryshkov (2022-07-07 14:31:57)
+> The commit 687825c402f1 ("dt-bindings: msm/dp: Change reg definition")
+> changed reg property to list separate register blocks, which broke
+> validation of DT files using single register block. Restore
+> compatibility with older (single register block) DT files by declaring
+> it as a deprecated alternative.
 
-Yes, looks like the driver doesn't use it.
-
->
-> Fixes: 687825c402f1 ("dt-bindings: msm/dp: Change reg definition")
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> ---
->  Documentation/devicetree/bindings/display/msm/dp-controller.yaml | 1 -
->  1 file changed, 1 deletion(-)
->
-> diff --git a/Documentation/devicetree/bindings/display/msm/dp-controller.yaml b/Documentation/devicetree/bindings/display/msm/dp-controller.yaml
-> index 94bc6e1b6451..d6bbe58ef9e8 100644
-> --- a/Documentation/devicetree/bindings/display/msm/dp-controller.yaml
-> +++ b/Documentation/devicetree/bindings/display/msm/dp-controller.yaml
-> @@ -29,7 +29,6 @@ properties:
->        - description: aux register block
->        - description: link register block
->        - description: p0 register block
-> -      - description: p1 register block
-
-The p1 registers exist on sc7180. They start where the example starts,
-at 0xae91400.
+I think the intention was to quickly migrate the dts files to the
+multiple register regions. Why not just do that and drop this
+deprecation binding update?
