@@ -1,59 +1,58 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id C4F6456BD1B
-	for <lists+freedreno@lfdr.de>; Fri,  8 Jul 2022 18:00:59 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id A689E56BD24
+	for <lists+freedreno@lfdr.de>; Fri,  8 Jul 2022 18:03:51 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 712BB10E833;
-	Fri,  8 Jul 2022 16:00:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 494B510E1F3;
+	Fri,  8 Jul 2022 16:03:50 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from alexa-out-sd-02.qualcomm.com (alexa-out-sd-02.qualcomm.com
- [199.106.114.39])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 431FA10E81D;
- Fri,  8 Jul 2022 16:00:57 +0000 (UTC)
+Received: from alexa-out.qualcomm.com (alexa-out.qualcomm.com [129.46.98.28])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4C8D510E74D
+ for <freedreno@lists.freedesktop.org>; Fri,  8 Jul 2022 16:03:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=quicinc.com; i=@quicinc.com; q=dns/txt; s=qcdkim;
- t=1657296057; x=1688832057;
+ t=1657296229; x=1688832229;
  h=message-id:date:mime-version:subject:to:cc:references:
  from:in-reply-to:content-transfer-encoding;
- bh=qeVM7SLbPnJ5NrmCgidT7re+bw94f7vWzQ6gi7bdXdY=;
- b=SnHOGOw7+WVHH7g0rnfW4UDJuQYXFtO7L4XROlrzTZjOhRMcYjusObdY
- ytdiOXaGgniKCLmoSeyWJDzhzjvI9ZHZU7cLIR8w0rFpznYMfDm1no0rl
- EO0XVQXd8P3Kxepqyu0i2YtgjDoI+n7TxMPu72OPzcpo2HG1ww151Ti8V w=;
-Received: from unknown (HELO ironmsg05-sd.qualcomm.com) ([10.53.140.145])
- by alexa-out-sd-02.qualcomm.com with ESMTP; 08 Jul 2022 09:00:56 -0700
+ bh=Bbltvf1E1n7dEQo4s8VfRTS+CjAivEgSlrXihksGW7Q=;
+ b=VFb4B/Xp/2IkHXUSVv8aXEKnjZr9nLz5yW3bGYxrQd7YgR2Ryo/5HslP
+ UXN/L0Nnkt+/Mg7L6/ftli6IcOaKTj2BCr7Uz1UmmSV0SCWzPwqfnd/EN
+ WQvcdoSXb2sVePhB0kF0uVtH+jM62HHOBSO2CjA6mdL/3E/9NKZVywEGM A=;
+Received: from ironmsg-lv-alpha.qualcomm.com ([10.47.202.13])
+ by alexa-out.qualcomm.com with ESMTP; 08 Jul 2022 09:03:49 -0700
 X-QCInternal: smtphost
 Received: from nasanex01c.na.qualcomm.com ([10.47.97.222])
- by ironmsg05-sd.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Jul 2022 09:00:56 -0700
+ by ironmsg-lv-alpha.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 08 Jul 2022 09:03:48 -0700
 Received: from nalasex01a.na.qualcomm.com (10.47.209.196) by
  nasanex01c.na.qualcomm.com (10.47.97.222) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.986.22; Fri, 8 Jul 2022 09:00:55 -0700
+ 15.2.986.22; Fri, 8 Jul 2022 09:03:47 -0700
 Received: from [10.111.160.191] (10.80.80.8) by nalasex01a.na.qualcomm.com
  (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.22; Fri, 8 Jul 2022
- 09:00:53 -0700
-Message-ID: <60252405-81f2-2465-bc20-5f91a9072031@quicinc.com>
-Date: Fri, 8 Jul 2022 09:00:51 -0700
+ 09:03:45 -0700
+Message-ID: <57d342b6-6254-9bb0-da80-a2f6b4d5eefe@quicinc.com>
+Date: Fri, 8 Jul 2022 09:03:43 -0700
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
  Thunderbird/91.6.2
 Content-Language: en-US
-To: Doug Anderson <dianders@chromium.org>, Stephen Boyd <swboyd@chromium.org>
-References: <20220706191442.1150634-1-swboyd@chromium.org>
- <CAD=FV=UrYCwm2ByN_5EN3fq-ayMJNjmWfJ5sooRy51ZiCoMcjA@mail.gmail.com>
+To: sunliming <sunliming@kylinos.cn>, <christian.koenig@amd.com>,
+ <robdclark@gmail.com>, <dmitry.baryshkov@linaro.org>
+References: <20220708005832.439722-1-sunliming@kylinos.cn>
 From: Abhinav Kumar <quic_abhinavk@quicinc.com>
-In-Reply-To: <CAD=FV=UrYCwm2ByN_5EN3fq-ayMJNjmWfJ5sooRy51ZiCoMcjA@mail.gmail.com>
+In-Reply-To: <20220708005832.439722-1-sunliming@kylinos.cn>
 Content-Type: text/plain; charset="UTF-8"; format=flowed
 Content-Transfer-Encoding: 7bit
 X-Originating-IP: [10.80.80.8]
 X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
  nalasex01a.na.qualcomm.com (10.47.209.196)
-Subject: Re: [Freedreno] [PATCH] drm/msm/dsi: Set panel orientation when
- directly connected
+Subject: Re: [Freedreno] [PATCH RESEND] drm/msm/dsi: fix the inconsistent
+ indenting
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,68 +65,38 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno <freedreno@lists.freedesktop.org>,
- LKML <linux-kernel@vger.kernel.org>,
- dri-devel <dri-devel@lists.freedesktop.org>, patches@lists.linux.dev,
- Rob Clark <robdclark@gmail.com>, Hsin-Yi Wang <hsinyi@chromium.org>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>
+Cc: linux-arm-msm@vger.kernel.org, kelulanainsley@gmail.com,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org, kernel test
+ robot <lkp@intel.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 
 
-On 7/8/2022 8:25 AM, Doug Anderson wrote:
-> Hi,
+On 7/7/2022 5:58 PM, sunliming wrote:
+> Fix the inconsistent indenting in function msm_dsi_dphy_timing_calc_v3().
 > 
-> On Wed, Jul 6, 2022 at 12:14 PM Stephen Boyd <swboyd@chromium.org> wrote:
->>
->> Set the panel orientation in drm when the panel is directly connected,
->> i.e. we're not using an external bridge. The external bridge case is
->> already handled by the panel bridge code, so we only update the path we
->> take when the panel is directly connected/internal. This silences a
->> warning splat coming from __drm_mode_object_add() on Wormdingler boards.
->>
->> Cc: Hsin-Yi Wang <hsinyi@chromium.org>
->> Cc: Douglas Anderson <dianders@chromium.org>
->> Signed-off-by: Stephen Boyd <swboyd@chromium.org>
->> ---
->>
->> This relies on commit 5e41b01a7808 ("drm/panel: Add an API to allow drm
->> to set orientation from panel") which is in drm-misc
->>
->>   drivers/gpu/drm/msm/dsi/dsi_manager.c | 2 ++
->>   1 file changed, 2 insertions(+)
+> Fix the following smatch warnings:
 > 
-> I don't personally have objections to this, but (to my understanding)
-> "the future" is that everyone should use panel_bridge. If we made the
-> move to panel_bridge today then we wouldn't need to do this. In
-> general I think panel_bridge would end up letting us delete a bunch of
-> code...
+> drivers/gpu/drm/msm/dsi/phy/dsi_phy.c:350 msm_dsi_dphy_timing_calc_v3() warn: inconsistent indenting
 > 
-> See commit 4e5763f03e10 ("drm/bridge: ti-sn65dsi86: Wrap panel with
-> panel-bridge") for when this was done by ti-sn65dsi86.
+> Reported-by: kernel test robot <lkp@intel.com>
+> Signed-off-by: sunliming <sunliming@kylinos.cn>
+Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
+> ---
+>   drivers/gpu/drm/msm/dsi/phy/dsi_phy.c | 2 +-
+>   1 file changed, 1 insertion(+), 1 deletion(-)
 > 
-> Then again, I spent a small amount of time looking into this and it's
-> definitely non-trivial. Still likely worthwhile, but not worth
-> blocking a tiny fix like this. It also should be fairly obvious that
-> we should delete this when we switch to panel_bridge.
-
-Right, from what I saw on IRC, panel_bridge is the way forward and 
-dmitry did push a change to do that
-
-https://patchwork.freedesktop.org/patch/492585/
-
-But I think we can go ahead with this change because its simple enough.
-
-Regarding the panel_bridge migration, I am going to start reviewing that 
-as well.
-
-> 
-> Thus:
-> 
-> Reviewed-by: Douglas Anderson <dianders@chromium.org>
-> 
-> I'll assume that we'll just snooze this commit until drm-misc-next
-> merges into a tree that msm-next is based on, which will probably be
-> the next -rc1. If desired and Acked I could land this in
-> drm-misc-next, but it's probably not worth it?
+> diff --git a/drivers/gpu/drm/msm/dsi/phy/dsi_phy.c b/drivers/gpu/drm/msm/dsi/phy/dsi_phy.c
+> index a39de3bdc7fa..56dfa2d24be1 100644
+> --- a/drivers/gpu/drm/msm/dsi/phy/dsi_phy.c
+> +++ b/drivers/gpu/drm/msm/dsi/phy/dsi_phy.c
+> @@ -347,7 +347,7 @@ int msm_dsi_dphy_timing_calc_v3(struct msm_dsi_dphy_timing *timing,
+>   	} else {
+>   		timing->shared_timings.clk_pre =
+>   			linear_inter(tmax, tmin, pcnt2, 0, false);
+> -			timing->shared_timings.clk_pre_inc_by_2 = 0;
+> +		timing->shared_timings.clk_pre_inc_by_2 = 0;
+>   	}
+>   
+>   	timing->ta_go = 3;
