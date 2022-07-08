@@ -1,68 +1,59 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 015AB56C124
-	for <lists+freedreno@lfdr.de>; Fri,  8 Jul 2022 21:59:34 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 8DABA56C16C
+	for <lists+freedreno@lfdr.de>; Fri,  8 Jul 2022 22:59:08 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8ECDC10E3E0;
-	Fri,  8 Jul 2022 19:59:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D065110EB3D;
+	Fri,  8 Jul 2022 20:59:05 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from alexa-out.qualcomm.com (alexa-out.qualcomm.com [129.46.98.28])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AAECF10E3DA;
- Fri,  8 Jul 2022 19:59:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=quicinc.com; i=@quicinc.com; q=dns/txt; s=qcdkim;
- t=1657310373; x=1688846373;
- h=message-id:date:mime-version:subject:to:cc:references:
- from:in-reply-to:content-transfer-encoding;
- bh=z3S8LBSAP0HBukacXxi+GtrkoslT8kcOp4684YGHXQg=;
- b=ErH8j7uErDQ8QSNqoopF3AJHVYdqmQx/zjnLJGu80HRmD4mQhZP7uUyx
- R39wNeEP9KWgfH2mdJQgPlFeVozxumvhcHJB4QDM81ApVzyyg5aDtVRNK
- BGAy3SwBLMyhi/YRU+AhbzSWOizBFjWEVXiCUUncsX8sZB2wBZE5hgGEJ A=;
-Received: from ironmsg08-lv.qualcomm.com ([10.47.202.152])
- by alexa-out.qualcomm.com with ESMTP; 08 Jul 2022 12:59:32 -0700
-X-QCInternal: smtphost
-Received: from nasanex01c.na.qualcomm.com ([10.47.97.222])
- by ironmsg08-lv.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Jul 2022 12:59:31 -0700
-Received: from nalasex01a.na.qualcomm.com (10.47.209.196) by
- nasanex01c.na.qualcomm.com (10.47.97.222) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.986.22; Fri, 8 Jul 2022 12:58:51 -0700
-Received: from [10.111.160.191] (10.80.80.8) by nalasex01a.na.qualcomm.com
- (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.22; Fri, 8 Jul 2022
- 12:58:48 -0700
-Message-ID: <8480c85e-b428-78a5-932e-cdf32dffc07a@quicinc.com>
-Date: Fri, 8 Jul 2022 12:58:45 -0700
+Received: from mail-qk1-x72c.google.com (mail-qk1-x72c.google.com
+ [IPv6:2607:f8b0:4864:20::72c])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EF31A10EB38
+ for <freedreno@lists.freedesktop.org>; Fri,  8 Jul 2022 20:59:03 +0000 (UTC)
+Received: by mail-qk1-x72c.google.com with SMTP id g1so16671613qkl.9
+ for <freedreno@lists.freedesktop.org>; Fri, 08 Jul 2022 13:59:03 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=JGl9x6k8v5djYyGKx5MXjpUaSuYQZtgM2PHdebhPLrI=;
+ b=YHn+dY/1CDbJhtHksr0WeaOZtcVsTgWN8nKsKQX257vSBDXJG9EJmiFhC8I3V6+R6v
+ hgKR98YDa7L5Aa2THh/5998SSzmcZ3wh36NhXb9Qc/kA6gAS8V274yGocQVC9oPD3v4K
+ rQb/R7X5B+K4i+2eUBFLMFwPWVurbq2LXgbTxrAymvG18LutUVSbYul4//UGzb9zxGUR
+ 4EVSS7O1KymuzP3uvh/GmfDbjBVYhiNnsj2SCtvzuzFEjYAw3lC3IYafZjEROuGANY8u
+ F6u0AbNhLdNtz/FvhwD+LvZ2caCAyDvbmZXc5hflWX7+kKbXAFTGhm56//HbQWE58SxT
+ mv0A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=JGl9x6k8v5djYyGKx5MXjpUaSuYQZtgM2PHdebhPLrI=;
+ b=h1842NeQYdQez7czKfuacNv+Eapzy8TiGgcHhdkuRBCRIDghVGfKHTm6FHl07mSdGS
+ 7u7s6ed7vsHTI4Chjlo1psX3ke63SrpitCU1/3/z+t3j0Tpb7QX8edz7JvclpCGSQjKN
+ yracbM77Zw3yFKZEVEpF1iReOk+39Ot4+6eZGEdMEzbaqGAW/CjmSHsIzDZ3o2rizI0I
+ g/4mUhwSYfOr/LUju+6hUkgGkOmPQfZiwV33y/4rvUjidmaynMQKg8iFhK5xJkPg8OU/
+ gzB5kINHtcYTZbhbyRC4707pKBLs+w6/a+ePEArFFmthSuEc3mg/9bESNfLDU0xQMxbK
+ qkCA==
+X-Gm-Message-State: AJIora+0h34GiD7Iitl9iaAaRrNZaJRI5idsZmUgkJeAM0Nfl/tgcG/m
+ 4W9mLGv2BLSziog7B/q9XLVyVPKR8RK97q+k/5qRtQ==
+X-Google-Smtp-Source: AGRyM1ujmsVxb4yca/Yn9DPXvNZf7Hft+9m3xnJmwXIsLCcS7mcLswtUHojB5b8j9AbZ/z3C7lZVtVOGDTv+FHFiiR0=
+X-Received: by 2002:a05:620a:d5b:b0:6b5:660b:2939 with SMTP id
+ o27-20020a05620a0d5b00b006b5660b2939mr3029175qkl.30.1657313942992; Fri, 08
+ Jul 2022 13:59:02 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.6.2
-Content-Language: en-US
-To: Stephen Boyd <swboyd@chromium.org>, Andy Gross <agross@kernel.org>, "Bjorn
- Andersson" <bjorn.andersson@linaro.org>, Dmitry Baryshkov
- <dmitry.baryshkov@linaro.org>, Konrad Dybcio <konrad.dybcio@somainline.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>, Kuogee Hsieh
- <quic_khsieh@quicinc.com>, Rob Clark <robdclark@gmail.com>, Rob Herring
- <robh+dt@kernel.org>, Sean Paul <sean@poorly.run>
-References: <20220707213204.2605816-1-dmitry.baryshkov@linaro.org>
- <20220707213204.2605816-2-dmitry.baryshkov@linaro.org>
- <CAE-0n53zV2OjXxjJ_AwCDcAZvOY+BU0-xipxQkup3muHMRCPXA@mail.gmail.com>
- <b8ee5a03-1168-d5ca-97fe-f82a9d7e453e@linaro.org>
- <CAE-0n52YGDOSZpL+3d=_APsOwVvrJG7uR-x1AcsBej5KrDct5w@mail.gmail.com>
- <eb22ae44-b347-1566-939a-4ca840688f07@quicinc.com>
- <CAE-0n51YV7Oo1HSsoyL-9F=h_wVZh210cScB55qLDD9CM2vXKg@mail.gmail.com>
-From: Abhinav Kumar <quic_abhinavk@quicinc.com>
-In-Reply-To: <CAE-0n51YV7Oo1HSsoyL-9F=h_wVZh210cScB55qLDD9CM2vXKg@mail.gmail.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-Subject: Re: [Freedreno] [PATCH 1/9] dt-bindings: msm/dp: drop extra p1
- region
+References: <20220706191442.1150634-1-swboyd@chromium.org>
+ <CAD=FV=UrYCwm2ByN_5EN3fq-ayMJNjmWfJ5sooRy51ZiCoMcjA@mail.gmail.com>
+ <60252405-81f2-2465-bc20-5f91a9072031@quicinc.com>
+ <ffad2e39-f775-00de-3119-f9b0ca3fe4f7@quicinc.com>
+In-Reply-To: <ffad2e39-f775-00de-3119-f9b0ca3fe4f7@quicinc.com>
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Date: Fri, 8 Jul 2022 23:58:51 +0300
+Message-ID: <CAA8EJpo-CS9ZUzA7wDZ05W+Wcz9P_1fXHYPaZACEhMOjnJv_Yg@mail.gmail.com>
+To: Abhinav Kumar <quic_abhinavk@quicinc.com>
+Content-Type: text/plain; charset="UTF-8"
+Subject: Re: [Freedreno] [PATCH] drm/msm/dsi: Set panel orientation when
+ directly connected
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,45 +66,96 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: devicetree@vger.kernel.org, David Airlie <airlied@linux.ie>,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- Daniel Vetter <daniel@ffwll.ch>, freedreno@lists.freedesktop.org
+Cc: Doug Anderson <dianders@chromium.org>,
+ freedreno <freedreno@lists.freedesktop.org>,
+ LKML <linux-kernel@vger.kernel.org>,
+ dri-devel <dri-devel@lists.freedesktop.org>, patches@lists.linux.dev,
+ Rob Clark <robdclark@gmail.com>, Hsin-Yi Wang <hsinyi@chromium.org>,
+ Stephen Boyd <swboyd@chromium.org>, Sean Paul <sean@poorly.run>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
+On Fri, 8 Jul 2022 at 22:42, Abhinav Kumar <quic_abhinavk@quicinc.com> wrote:
+>
+>
+>
+> On 7/8/2022 9:00 AM, Abhinav Kumar wrote:
+> >
+> >
+> > On 7/8/2022 8:25 AM, Doug Anderson wrote:
+> >> Hi,
+> >>
+> >> On Wed, Jul 6, 2022 at 12:14 PM Stephen Boyd <swboyd@chromium.org> wrote:
+> >>>
+> >>> Set the panel orientation in drm when the panel is directly connected,
+> >>> i.e. we're not using an external bridge. The external bridge case is
+> >>> already handled by the panel bridge code, so we only update the path we
+> >>> take when the panel is directly connected/internal. This silences a
+> >>> warning splat coming from __drm_mode_object_add() on Wormdingler boards.
+> >>>
+> >>> Cc: Hsin-Yi Wang <hsinyi@chromium.org>
+> >>> Cc: Douglas Anderson <dianders@chromium.org>
+> >>> Signed-off-by: Stephen Boyd <swboyd@chromium.org>
+> >>> ---
+> >>>
+> >>> This relies on commit 5e41b01a7808 ("drm/panel: Add an API to allow drm
+> >>> to set orientation from panel") which is in drm-misc
+> >>>
+> >>>   drivers/gpu/drm/msm/dsi/dsi_manager.c | 2 ++
+> >>>   1 file changed, 2 insertions(+)
+> >>
+> >> I don't personally have objections to this, but (to my understanding)
+> >> "the future" is that everyone should use panel_bridge. If we made the
+> >> move to panel_bridge today then we wouldn't need to do this. In
+> >> general I think panel_bridge would end up letting us delete a bunch of
+> >> code...
+> >>
+> >> See commit 4e5763f03e10 ("drm/bridge: ti-sn65dsi86: Wrap panel with
+> >> panel-bridge") for when this was done by ti-sn65dsi86.
+> >>
+> >> Then again, I spent a small amount of time looking into this and it's
+> >> definitely non-trivial. Still likely worthwhile, but not worth
+> >> blocking a tiny fix like this. It also should be fairly obvious that
+> >> we should delete this when we switch to panel_bridge.
+> >
+> > Right, from what I saw on IRC, panel_bridge is the way forward and
+> > dmitry did push a change to do that
+> >
+> > https://patchwork.freedesktop.org/patch/492585/
+> >
+> > But I think we can go ahead with this change because its simple enough.
+> >
+> > Regarding the panel_bridge migration, I am going to start reviewing that
+> > as well.
+> >
+>
+> I did some more digging up on the panel_bridge migration.
+>
+> Dmitry has posted this towards december last year
+>
+> https://patches.linaro.org/project/dri-devel/patch/20211207222901.988484-3-dmitry.baryshkov@linaro.org/
+>
+>
+> and I had given my R-b on this already in Jan.
+>
+> I am not sure why this change was dropped OR was not part of msm-next
+> already.
+>
+> Dmitry, any reason this change was left out so long and why the R-b was
+> not retained and this was reposted?
+>
+>  From what i can see the change looks identical.
+
+I don't remember if it is identical or not. Basically it was postponed
+to allow DSC to flow in. We used drm_panel to pass DSC pps data. And
+if we use panel-bridge, we don't get a handle of the panel.
+Later on I have posted the series moving DSC pps pointer from
+drm_panel to mipi_dsi_device (which is logical anyway, since it's not
+only the panel, who can provide the DSC pps info, some bridges can
+process DSC-compressed data). But since that time it received no
+feedback.
 
 
-On 7/8/2022 12:51 PM, Stephen Boyd wrote:
-> Quoting Abhinav Kumar (2022-07-08 12:38:09)
->> + kuogee
->>
->> On 7/8/2022 12:27 PM, Stephen Boyd wrote:
->>>
->>> Yes I see the same address for P1 on sc7280. Maybe it's a typo? Abhinav,
->>> can you confirm?
->>
->> P1 block does exist on sc7280 and yes its address is same as the address
->> mentioned in sc7180. So its not a typo.
-> 
-> Thanks!
-> 
->>
->> Yes, we are not programming this today but I would prefer to keep this
->> as optional.
->>
->> I did sync up with Kuogee on this change this morning, we will check a
->> few things internally on the P1 block's usage as to which use-cases we
->> need to program it for and update here.
->>
->> The idea behind having this register space listed in the yaml is thats
->> how the software documents have the blocks listed so dropping P1 block
->> just because its unused seemed wrong to me. Optional seems more appropriate.
->>
-> 
-> It doesn't sound optional on sc7180 or sc7280. It exists in the
-> hardware, so we should list the reg property. My understanding of
-> optional properties is for the case where something could be different
-> in the hardware design, like an optionally connected pin on a device.
-
-Ack, if thats the purpose of optional, then we should keep it and yes 
-lets drop this change.
+-- 
+With best wishes
+Dmitry
