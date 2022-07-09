@@ -1,53 +1,57 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5DBA056C751
-	for <lists+freedreno@lfdr.de>; Sat,  9 Jul 2022 08:00:08 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 3B7AF56C755
+	for <lists+freedreno@lfdr.de>; Sat,  9 Jul 2022 08:00:12 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4374F10EC3A;
-	Sat,  9 Jul 2022 06:00:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 26CC710EC5E;
+	Sat,  9 Jul 2022 06:00:09 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from alexa-out-sd-02.qualcomm.com (alexa-out-sd-02.qualcomm.com
  [199.106.114.39])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0A7E710EC28;
- Sat,  9 Jul 2022 06:00:04 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C369A10EC53;
+ Sat,  9 Jul 2022 06:00:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=quicinc.com; i=@quicinc.com; q=dns/txt; s=qcdkim;
- t=1657346405; x=1688882405;
- h=from:to:cc:subject:date:message-id:mime-version;
- bh=cG91PKDYaCd256B46xmBvw0NNT7YMphG4vcv7jLZDuE=;
- b=UHbR7dJHc58MxFYXz74jo3JZaFqZvhaSGFFL/V0e0rWsk7llK9XzO2v7
- 7YPp46kkwyyYiFP29Z1SAoDHYSq1eVMisOoto8GOOiDNzbhq+F/DW1Yxv
- KFH6Ql2PZicnWWOLC2yb1c9xoQzS6NkgW9c45MBuAxwD6gRg/bKyESVDn U=;
+ t=1657346407; x=1688882407;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version;
+ bh=Nx33hXN1LossIpCnrHswpELkvsLkDlmpBkfWihCZXuM=;
+ b=yWTOQ8z9jwPdQDFv0ttrHHhy1SeMh09Rt0Rp6rToQMDrb1IrVa1KUpPT
+ K1ZuZtoWnZKrr7MO34jAUgfCTQ8tYzSXBC5FFRNd1KnlIMZVnyac0tTOo
+ 800SvnrtuOZhDX/yrArF52QcaNxdC2JA+FryQJxuOqQEUJcF6Pj84KFk7 8=;
 Received: from unknown (HELO ironmsg04-sd.qualcomm.com) ([10.53.140.144])
- by alexa-out-sd-02.qualcomm.com with ESMTP; 08 Jul 2022 23:00:03 -0700
+ by alexa-out-sd-02.qualcomm.com with ESMTP; 08 Jul 2022 23:00:07 -0700
 X-QCInternal: smtphost
 Received: from nasanex01c.na.qualcomm.com ([10.47.97.222])
  by ironmsg04-sd.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Jul 2022 23:00:02 -0700
+ 08 Jul 2022 23:00:07 -0700
 Received: from nalasex01a.na.qualcomm.com (10.47.209.196) by
  nasanex01c.na.qualcomm.com (10.47.97.222) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.986.22; Fri, 8 Jul 2022 23:00:01 -0700
+ 15.2.986.22; Fri, 8 Jul 2022 23:00:07 -0700
 Received: from hyd-lnxbld559.qualcomm.com (10.80.80.8) by
  nalasex01a.na.qualcomm.com (10.47.209.196) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.986.22; Fri, 8 Jul 2022 22:59:54 -0700
+ 15.2.986.22; Fri, 8 Jul 2022 23:00:02 -0700
 From: Akhil P Oommen <quic_akhilpo@quicinc.com>
 To: freedreno <freedreno@lists.freedesktop.org>,
  <dri-devel@lists.freedesktop.org>, <linux-arm-msm@vger.kernel.org>, Rob Clark
  <robdclark@gmail.com>, Bjorn Andersson <bjorn.andersson@linaro.org>
-Date: Sat, 9 Jul 2022 11:29:28 +0530
-Message-ID: <1657346375-1461-1-git-send-email-quic_akhilpo@quicinc.com>
+Date: Sat, 9 Jul 2022 11:29:29 +0530
+Message-ID: <20220709112837.v2.1.Icf1e8f0c9b3e7e9933c3b48c70477d0582f3243f@changeid>
 X-Mailer: git-send-email 2.7.4
+In-Reply-To: <1657346375-1461-1-git-send-email-quic_akhilpo@quicinc.com>
+References: <1657346375-1461-1-git-send-email-quic_akhilpo@quicinc.com>
 MIME-Version: 1.0
 Content-Type: text/plain
 X-Originating-IP: [10.80.80.8]
 X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
  nalasex01a.na.qualcomm.com (10.47.209.196)
-Subject: [Freedreno] [PATCH v2 0/7] Improve GPU Recovery
+Subject: [Freedreno] [PATCH v2 1/7] drm/msm: Remove unnecessary
+ pm_runtime_get/put
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,58 +64,49 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: devicetree@vger.kernel.org,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Jonathan Marek <jonathan@marek.ca>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+Cc: Jonathan Marek <jonathan@marek.ca>,
  Akhil P Oommen <quic_akhilpo@quicinc.com>, linux-kernel@vger.kernel.org,
- Stephen Boyd <swboyd@chromium.org>,
- Konrad Dybcio <konrad.dybcio@somainline.org>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, Rob Herring <robh+dt@kernel.org>,
- Douglas Anderson <dianders@chromium.org>, Wang Qing <wangqing@vivo.com>,
- David Airlie <airlied@linux.ie>, Matthias Kaehlcke <mka@chromium.org>, Geert
- Uytterhoeven <geert@linux-m68k.org>, Andy Gross <agross@kernel.org>,
- Daniel Vetter <daniel@ffwll.ch>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, Douglas
+ Anderson <dianders@chromium.org>, David Airlie <airlied@linux.ie>,
+ Matthias Kaehlcke <mka@chromium.org>, Daniel Vetter <daniel@ffwll.ch>,
  Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Jordan Crouse <jordan@cosmicpenguin.net>, Sean
- Paul <sean@poorly.run>, Chia-I Wu <olvaffe@gmail.com>
+ Jordan Crouse <jordan@cosmicpenguin.net>, Sean Paul <sean@poorly.run>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
+We already enable gpu power from msm_gpu_submit(), so avoid a duplicate
+pm_runtime_get/put from msm_job_run().
 
-Recently, I debugged a few device crashes which occured during recovery
-after a hangcheck timeout. It looks like there are a few things we can
-do to improve our chance at a successful gpu recovery.
+Signed-off-by: Akhil P Oommen <quic_akhilpo@quicinc.com>
+---
 
-First one is to ensure that CX GDSC collapses which clears the internal
-states in gpu's CX domain. First 5 patches tries to handle this.
+(no changes since v1)
 
-Rest of the patches are to ensure that few internal blocks like CP, GMU
-and GBIF are halted properly before proceeding for a snapshot followed by
-recovery. Also, handle 'prepare slumber' hfi failure correctly. These
-are A6x specific improvements.
+ drivers/gpu/drm/msm/msm_ringbuffer.c | 4 ----
+ 1 file changed, 4 deletions(-)
 
-Changes in v2:
-- Rebased on msm-next tip
-
-Akhil P Oommen (7):
-  drm/msm: Remove unnecessary pm_runtime_get/put
-  drm/msm: Correct pm_runtime votes in recover worker
-  drm/msm: Fix cx collapse issue during recovery
-  drm/msm: Ensure cx gdsc collapse during recovery
-  arm64: dts: qcom: sc7280: Update gpu register list
-  drm/msm/a6xx: Improve gpu recovery sequence
-  drm/msm/a6xx: Handle GMU prepare-slumber hfi failure
-
- arch/arm64/boot/dts/qcom/sc7280.dtsi  |  6 ++-
- drivers/gpu/drm/msm/adreno/a6xx.xml.h |  4 ++
- drivers/gpu/drm/msm/adreno/a6xx_gmu.c | 83 ++++++++++++++++++++++-------------
- drivers/gpu/drm/msm/adreno/a6xx_gpu.c | 36 +++++++++++++--
- drivers/gpu/drm/msm/msm_gpu.c         |  9 ++--
- drivers/gpu/drm/msm/msm_gpu.h         |  1 +
- drivers/gpu/drm/msm/msm_ringbuffer.c  |  4 --
- 7 files changed, 100 insertions(+), 43 deletions(-)
-
+diff --git a/drivers/gpu/drm/msm/msm_ringbuffer.c b/drivers/gpu/drm/msm/msm_ringbuffer.c
+index 56eecb4..cad4c35 100644
+--- a/drivers/gpu/drm/msm/msm_ringbuffer.c
++++ b/drivers/gpu/drm/msm/msm_ringbuffer.c
+@@ -29,8 +29,6 @@ static struct dma_fence *msm_job_run(struct drm_sched_job *job)
+ 		msm_gem_unlock(obj);
+ 	}
+ 
+-	pm_runtime_get_sync(&gpu->pdev->dev);
+-
+ 	/* TODO move submit path over to using a per-ring lock.. */
+ 	mutex_lock(&gpu->lock);
+ 
+@@ -38,8 +36,6 @@ static struct dma_fence *msm_job_run(struct drm_sched_job *job)
+ 
+ 	mutex_unlock(&gpu->lock);
+ 
+-	pm_runtime_put(&gpu->pdev->dev);
+-
+ 	return dma_fence_get(submit->hw_fence);
+ }
+ 
 -- 
 2.7.4
 
