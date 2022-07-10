@@ -1,51 +1,51 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 82DB056CDFB
-	for <lists+freedreno@lfdr.de>; Sun, 10 Jul 2022 10:42:00 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 4BF4256CDF9
+	for <lists+freedreno@lfdr.de>; Sun, 10 Jul 2022 10:41:58 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B4FDA11BFF8;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9F48D11BFF1;
 	Sun, 10 Jul 2022 08:41:47 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from mail-lf1-x12d.google.com (mail-lf1-x12d.google.com
  [IPv6:2a00:1450:4864:20::12d])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 64C4F11BFF1
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 53F2B11BFBF
  for <freedreno@lists.freedesktop.org>; Sun, 10 Jul 2022 08:41:45 +0000 (UTC)
-Received: by mail-lf1-x12d.google.com with SMTP id n18so2528650lfq.1
+Received: by mail-lf1-x12d.google.com with SMTP id bf9so4203520lfb.13
  for <freedreno@lists.freedesktop.org>; Sun, 10 Jul 2022 01:41:45 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=WZU55ztxCr9hrm/X9mq0W7rnO8DhBgA9l+GjYiiRXCk=;
- b=j7WKH1P9qrMtVfM+BgRoq05JqWY9cqgdDSOY0uMJ+i+8vwStr6I3MUVM2F/0mo/bUn
- SRQnXsUNDz88GLtbvVdJknG/dcAAY3PhVKkvsj/NJbuQbxyk6L3hksHvGDEDgSGUkzYz
- OTCvxU/U/EqnQUgDNdO1/bBL87VtpycpRHXJO3EecLnuPnLC/meVtM6JmLc7ZsDUM1Xp
- Pu0Azk4GUHVoOAQHhPPDRfHw6TfHz+PKCpedDEl3vvE2OOhOapqMh650MEQa/IbKocSc
- FQHjPK89bsHYItgUfUEyRUvnNHs3VQKamH1aNwj6U6A7mDEhCP69LjegN8zYxKva8k3u
- Js2g==
+ bh=N4gY91CPZ/PGGuxbinA0CxZ2MaeVa3+8PjzZmiOKRO8=;
+ b=jYr6pCfUPS/qJhudBzz24iWmIWajwKLSIUSXcwgZoSAgfH3r89LPoQ3BwV4cMMyBYj
+ 3rh2nBvU7quqA+uvde8cqW54OV9G3ZjbXeVkwGoPCsAN80wX7DwZcE5XCb5oR08KJhxx
+ wEI6TLGhZr+VghQ4UzcTizoOH4JIdRLq69gJm52Mqbxlz36nwklgM32iDeWHsElcYEqR
+ 17ceEjhAPVcwlMMyvluN6OqWx8ga7An6zrYNsgQb6SrX5LyMpwjWJTu5dtpXKprRwZi0
+ Ne0iYsKkitKHCaMf7nyjC8h8/iyDLCE1hYKLfmOPoZyLnffxrinIzPB8X147915GZ5dE
+ 93HA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=WZU55ztxCr9hrm/X9mq0W7rnO8DhBgA9l+GjYiiRXCk=;
- b=8KUjqIFGapmiDRJKktNysB1ryF1FeWJSoLEKdIocGM6qCkVYnZKonm0x/lzEB0faIg
- EAAMPUaVQXqyEt6QBg+Tm7E62Cy4uxXOz4QwyGY/hIzGyfA8O92kIB/jYBGhOJ+fy0S0
- VYd7gRlg0W9fpfxB5oJZnUGCIv0rloeSWdtNlfstH10dud+yfOw3Nt8LpcnhNjBS6iYu
- Z24LOBSRCGBYisLUavnonlqvIiC9pIqwZ0q73EFmPUCsGIgq+zoRMU2niTzGnvYp6Bs3
- DBRCuPofSTEf1tJkSBZ/Farwb0+80IcJ8XZ09i8kSuZw7QDdDXbtw0qEui4g5QTAgtI8
- GW1g==
-X-Gm-Message-State: AJIora/b5y2KU79GCIc77YFOZjV2Sslx7iI3yUoiz7ATE74xa9CrOnpf
- +4tHkS30XHH8rlNq5GksSFd++Q==
-X-Google-Smtp-Source: AGRyM1vxQa30p97YqLFfiaEcWr22TJ7iZraKSZ6N1/3jsyAQ35Xl5FJKJAdTXadD7Mj4DfudYkLbbw==
-X-Received: by 2002:a05:6512:2306:b0:485:8e08:5740 with SMTP id
- o6-20020a056512230600b004858e085740mr8320796lfu.354.1657442503707; 
- Sun, 10 Jul 2022 01:41:43 -0700 (PDT)
+ bh=N4gY91CPZ/PGGuxbinA0CxZ2MaeVa3+8PjzZmiOKRO8=;
+ b=Oxc7QbYsb8nySnXQ0GIJAIZznnMzhszDGKsq+0i2CjR2WL8387SAV47uQuspr0kNDP
+ fvBcHqm6T5CtCZ7O5iIQNqPI4l6k+K4c+ohMKUqWwhydZiTmkVYS6BkMY7OLm3MvKXuE
+ 3DfdjdQJ9O5zSQTbwTIu+3PTqmGWzQPlf5+EtfB+TZjvRY32cvG/mVh4vCulpnU27Fxr
+ IlmdY5FAQYKYptF2YEUHHpC8vuPbdbA4tB5FnN44AT/JKj4HcpJ/c8xdl6dPLntq9fRM
+ bnB+daQCSdvHQv+LwTj1NYq57i5wPBNUg+KDVIShXfSvzb8i/6OYtKNxbngkp0xuSmie
+ uu/g==
+X-Gm-Message-State: AJIora/TYFRKxVVI1ArBWBxQz7v3nFx9TMoYNSNwSTc3rQPvQYvyFAPV
+ ub1QL9vGupuW3fW4Jo4vdH/u9g==
+X-Google-Smtp-Source: AGRyM1vKaySEQME7bXBJfZqWkklO83eim1cErMgSEEh2MVcu134scwwIFDyR7zNIYHpefhUh8tmmnQ==
+X-Received: by 2002:a05:6512:398b:b0:489:d94b:f56 with SMTP id
+ j11-20020a056512398b00b00489d94b0f56mr1468043lfu.199.1657442504882; 
+ Sun, 10 Jul 2022 01:41:44 -0700 (PDT)
 Received: from eriador.lan ([37.153.55.125]) by smtp.gmail.com with ESMTPSA id
- i21-20020a2ea235000000b0025d4addbad4sm912536ljm.91.2022.07.10.01.41.42
+ i21-20020a2ea235000000b0025d4addbad4sm912536ljm.91.2022.07.10.01.41.43
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 10 Jul 2022 01:41:43 -0700 (PDT)
+ Sun, 10 Jul 2022 01:41:44 -0700 (PDT)
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 To: Andy Gross <agross@kernel.org>,
  Bjorn Andersson <bjorn.andersson@linaro.org>,
@@ -54,15 +54,15 @@ To: Andy Gross <agross@kernel.org>,
  Abhinav Kumar <quic_abhinavk@quicinc.com>,
  Rob Herring <robh+dt@kernel.org>,
  Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>
-Date: Sun, 10 Jul 2022 11:41:32 +0300
-Message-Id: <20220710084133.30976-9-dmitry.baryshkov@linaro.org>
+Date: Sun, 10 Jul 2022 11:41:33 +0300
+Message-Id: <20220710084133.30976-10-dmitry.baryshkov@linaro.org>
 X-Mailer: git-send-email 2.35.1
 In-Reply-To: <20220710084133.30976-1-dmitry.baryshkov@linaro.org>
 References: <20220710084133.30976-1-dmitry.baryshkov@linaro.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH v2 8/9] dt-bindings: msm/dp: add missing
- properties
+Subject: [Freedreno] [PATCH v2 9/9] dt-bindings: msm/dp: handle DP vs eDP
+ difference
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,41 +82,65 @@ Cc: devicetree@vger.kernel.org, David Airlie <airlied@linux.ie>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Document missing definitions for opp-table (DP controller OPPs), aux-bus
-(DP AUX BUS) and data-lanes (DP/eDP lanes mapping) properties.
+The #sound-dai-cells property should be used only for DP controllers. It
+doesn't make sense for eDP, there is no support for audio output. The
+aux-bus should not be used for DP controllers. Also p1 MMIO region
+should be used only for DP controllers.
 
-Reviewed-by: Stephen Boyd <swboyd@chromium.org>
+Take care of these differences.
+
 Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 ---
- .../bindings/display/msm/dp-controller.yaml          | 12 ++++++++++++
- 1 file changed, 12 insertions(+)
+ .../bindings/display/msm/dp-controller.yaml   | 26 ++++++++++++++++++-
+ 1 file changed, 25 insertions(+), 1 deletion(-)
 
 diff --git a/Documentation/devicetree/bindings/display/msm/dp-controller.yaml b/Documentation/devicetree/bindings/display/msm/dp-controller.yaml
-index 391910d91e43..52cbf00df0ba 100644
+index 52cbf00df0ba..f2515af8256f 100644
 --- a/Documentation/devicetree/bindings/display/msm/dp-controller.yaml
 +++ b/Documentation/devicetree/bindings/display/msm/dp-controller.yaml
-@@ -70,9 +70,21 @@ properties:
-   operating-points-v2:
-     maxItems: 1
+@@ -24,6 +24,7 @@ properties:
+       - qcom,sm8350-dp
  
-+  opp-table: true
-+
-   power-domains:
-     maxItems: 1
+   reg:
++    minItems: 4
+     items:
+       - description: ahb register block
+       - description: aux register block
+@@ -112,10 +113,33 @@ required:
+   - clock-names
+   - phys
+   - phy-names
+-  - "#sound-dai-cells"
+   - power-domains
+   - ports
  
-+  aux-bus:
-+    $ref: /schemas/display/dp-aux-bus.yaml#
++allOf:
++  # AUX BUS does not exist on DP controllers
++  # Audio output also is present only on DP output
++  # p1 regions is present on DP, but not on eDP
++  - if:
++      properties:
++        compatible:
++          contains:
++            enum:
++              - qcom,sc7280-edp
++              - qcom,sc8180x-edp
++    then:
++      properties:
++        "#sound-dai-cells": false
++        reg:
++          maxItems: 4
++    else:
++      properties:
++        aux-bus: false
++        reg:
++          minItems: 5
++      required:
++        - "#sound-dai-cells"
 +
-+  data-lanes:
-+    $ref: /schemas/types.yaml#/definitions/uint32-array
-+    minItems: 1
-+    maxItems: 4
-+    items:
-+      maximum: 3
-+
-   "#sound-dai-cells":
-     const: 0
+ additionalProperties: false
  
+ examples:
 -- 
 2.35.1
 
