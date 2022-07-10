@@ -1,51 +1,51 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id DCFFA56CDF1
-	for <lists+freedreno@lfdr.de>; Sun, 10 Jul 2022 10:41:49 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 12ECB56CDF3
+	for <lists+freedreno@lfdr.de>; Sun, 10 Jul 2022 10:41:53 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 551C611BECA;
+	by gabe.freedesktop.org (Postfix) with ESMTP id AC71F11BF3F;
 	Sun, 10 Jul 2022 08:41:42 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x12a.google.com (mail-lf1-x12a.google.com
- [IPv6:2a00:1450:4864:20::12a])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0101711BE97
- for <freedreno@lists.freedesktop.org>; Sun, 10 Jul 2022 08:41:39 +0000 (UTC)
-Received: by mail-lf1-x12a.google.com with SMTP id e12so4237159lfr.6
- for <freedreno@lists.freedesktop.org>; Sun, 10 Jul 2022 01:41:39 -0700 (PDT)
+Received: from mail-lf1-x136.google.com (mail-lf1-x136.google.com
+ [IPv6:2a00:1450:4864:20::136])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2825011BECA
+ for <freedreno@lists.freedesktop.org>; Sun, 10 Jul 2022 08:41:41 +0000 (UTC)
+Received: by mail-lf1-x136.google.com with SMTP id f39so4254313lfv.3
+ for <freedreno@lists.freedesktop.org>; Sun, 10 Jul 2022 01:41:41 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=+kCksQy9hyBEb/dg/WClV26pEAyqH6K/Nlp6/fq7zx8=;
- b=elgtiyv/9hE7IpbOInVZGopuJata+DVamrZaV4WwV5m/3OMI4591SMBpZl0melXv7p
- uJArSfXi3yBJHRfX1oH2Cki5ExfLQWFgV3UfA9vrA9d130TxWxPz8TzU2gAebjQQUAO2
- mHY0U9BuPuIBD6Br/qgSoJuqlJRVIJdFUv/dX7WvvXze0uCpA4VmjWexVnWTsHkAXI4t
- 3mUjGLS1qoIz8zlTFMjdVOAOnwst25td71oN9hlDmBdCpli4kVGp4DxqyzJo0eeJQVL3
- t8W8EDuHV5uRGPJEfNzuu20a+QwJ2MjOvq8zSyJZxnDOr9WuSy0sktkZ5SEE/j7XODeQ
- 6iOg==
+ bh=4OZQG4ziutxO+vr4IL5ovGIJyJUy264W5pL1ERzKToc=;
+ b=aSnR1KlqkJAwzidfnsEtuoVyifv19Ox8XAsqdSeYtG1gY5vZD7VRZySSfWjelSxiQn
+ qv8G3t7EDTg+w/iNuDWKfD/EeQlOYihRLqSdpv8Gqg4TiEN+ZFTwjXamioNIo5LzxOwz
+ DTwxCu7BWw7wIcJTwT31ufCDknzXPjy3YT5lw2KGNMvjuRn2Q7VB6cg008oMcgPwc63d
+ X2ewPJoHDMKX1wVrqmHsLNWTSaLOwLxfvFTdGPFiLRNG0SHDGpaEYSzeu2ZY3Z2z7TJ3
+ gcnUPXrvSgp8EV7XW6HW23x7baoU+3idrt/YP+cjaPE3tUsWAX1VJRPEbb7/3T9io0Ve
+ Snrg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=+kCksQy9hyBEb/dg/WClV26pEAyqH6K/Nlp6/fq7zx8=;
- b=KCjVdlKBfjmbzhsdTocBO3zqPvv2KqtzHMfXhzQmj/a1DKk7WG9NAIeWqH91d0RJnP
- eHbzQNvsXKLF4NGtgd+TGPqmagFthxyzjEYgfBqd/qmYUssXapfppgafj+dCdAO8/dpN
- 0rtAspI1tiNOH46uupkQrZrGLCTrtFRw4XDF+wYenHK/EjL7RgOTaTjkFYZhs62aF2F4
- Of/6n7+Y5Sq/X188VzYSHcGfQc7+/EWB5Zbc19ZjUug7+RRtQUO2TVEgGScaAGgONvPo
- OHfsEeefMh1/WOYlDHqhPibe4VVW1y5UzI0eG2O52BNPea/lS5V868gha6dRirrZF/Nd
- j6zg==
-X-Gm-Message-State: AJIora9/0r1EPteRaUkkSCQof0TODmRByyrLLu1Sr3ipdidsYvNBdlTG
- Fa0wQQcvsv/UYKXKukwnRn17Zg==
-X-Google-Smtp-Source: AGRyM1vU2rzSmqfURkkjagDekzoolslMTCa8n25I0AuNnvrIxF3WNQ+iDXwESlEy+d8b7rttpHxTEQ==
-X-Received: by 2002:a05:6512:3408:b0:481:7a4:1919 with SMTP id
- i8-20020a056512340800b0048107a41919mr8513714lfr.296.1657442498318; 
- Sun, 10 Jul 2022 01:41:38 -0700 (PDT)
+ bh=4OZQG4ziutxO+vr4IL5ovGIJyJUy264W5pL1ERzKToc=;
+ b=BCDHXGgWXlo1Pdku05NmaHa+HN0XRdi82Rp1uqyNTZgF169TFE0AB7vSs3HQZ+Al+0
+ w/IyAI3QUzubdVxgljX0r8+3avvLF8gpCOlqKHv/L0t5Upwx+ivj5YCY9t7ZWo67GnB8
+ ViXO5QKwVIL5LW5vI9xEbgdpVwdCuXmlxfIIRDDj+3IZnV+uMbZLEncK4HHSDoqM1jKZ
+ SHm6OWnu6YELTF9+zSD2xyzFgEOOZrNCXQCU0z5+m9sIwMS8mPHI5CiS6ggP5w4euJ/W
+ y0yfackV7qKckc4jWowOQjn/lqe+3hFKXXFs0rzvnZezrfHO56Aw3HZeRrMuNmU9FDrR
+ yK9A==
+X-Gm-Message-State: AJIora+bVtwXJ25p/oDfOohsXGqXoGJtZDH0wQPUB6aoPht1Wxc1qOwS
+ CVPuuHrXRYxygT2/3GYx0EWHpw==
+X-Google-Smtp-Source: AGRyM1vjwaXauptf9hMMQNsrlj0OmtsRIyP1YM4c/ZfAhApj4tbXxqwM6A77bt447uzqxOg9fH3HaA==
+X-Received: by 2002:a19:f208:0:b0:481:163a:b07c with SMTP id
+ q8-20020a19f208000000b00481163ab07cmr8585126lfh.613.1657442499446; 
+ Sun, 10 Jul 2022 01:41:39 -0700 (PDT)
 Received: from eriador.lan ([37.153.55.125]) by smtp.gmail.com with ESMTPSA id
- i21-20020a2ea235000000b0025d4addbad4sm912536ljm.91.2022.07.10.01.41.37
+ i21-20020a2ea235000000b0025d4addbad4sm912536ljm.91.2022.07.10.01.41.38
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 10 Jul 2022 01:41:37 -0700 (PDT)
+ Sun, 10 Jul 2022 01:41:38 -0700 (PDT)
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 To: Andy Gross <agross@kernel.org>,
  Bjorn Andersson <bjorn.andersson@linaro.org>,
@@ -54,15 +54,15 @@ To: Andy Gross <agross@kernel.org>,
  Abhinav Kumar <quic_abhinavk@quicinc.com>,
  Rob Herring <robh+dt@kernel.org>,
  Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>
-Date: Sun, 10 Jul 2022 11:41:27 +0300
-Message-Id: <20220710084133.30976-4-dmitry.baryshkov@linaro.org>
+Date: Sun, 10 Jul 2022 11:41:28 +0300
+Message-Id: <20220710084133.30976-5-dmitry.baryshkov@linaro.org>
 X-Mailer: git-send-email 2.35.1
 In-Reply-To: <20220710084133.30976-1-dmitry.baryshkov@linaro.org>
 References: <20220710084133.30976-1-dmitry.baryshkov@linaro.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH v2 3/9] arm64: dts: qcom: sc7280: split register
- block for DP controller
+Subject: [Freedreno] [PATCH v2 4/9] arm64: dts: qcom: sc7280: drop
+ #clock-cells from displayport-controller
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,33 +82,37 @@ Cc: devicetree@vger.kernel.org, David Airlie <airlied@linux.ie>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Follow the schema for the DP controller and declare 5 register regions
-instead of using a single region for all the registers. Note, this
-extends the dts by adding p1 region to the DP node (to be used for DP
-MST).
+Drop #clock-cells from DP device node. It is a leftover from the times
+before splitting the deviice into controller and PHY devices. Now the
+clocks are provided by the PHY, while the controller doesn't provide any
+clocks.
 
+Reviewed-by: Stephen Boyd <swboyd@chromium.org>
 Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 ---
- arch/arm64/boot/dts/qcom/sc7280.dtsi | 6 +++++-
- 1 file changed, 5 insertions(+), 1 deletion(-)
+ arch/arm64/boot/dts/qcom/sc7280.dtsi | 2 --
+ 1 file changed, 2 deletions(-)
 
 diff --git a/arch/arm64/boot/dts/qcom/sc7280.dtsi b/arch/arm64/boot/dts/qcom/sc7280.dtsi
-index a3def1022ea2..e54c2000b098 100644
+index e54c2000b098..a55e6caaaadc 100644
 --- a/arch/arm64/boot/dts/qcom/sc7280.dtsi
 +++ b/arch/arm64/boot/dts/qcom/sc7280.dtsi
-@@ -3810,7 +3810,11 @@ mdss_edp_phy: phy@aec2a00 {
- 			mdss_dp: displayport-controller@ae90000 {
- 				compatible = "qcom,sc7280-dp";
- 
--				reg = <0 0x0ae90000 0 0x1400>;
-+				reg = <0 0xae90000 0 0x200>,
-+				      <0 0xae90200 0 0x200>,
-+				      <0 0xae90400 0 0xc00>,
-+				      <0 0xae91000 0 0x400>,
-+				      <0 0xae91400 0 0x400>;
- 
- 				interrupt-parent = <&mdss>;
- 				interrupts = <12>;
+@@ -3730,7 +3730,6 @@ mdss_edp: edp@aea0000 {
+ 					      "ctrl_link",
+ 					      "ctrl_link_iface",
+ 					      "stream_pixel";
+-				#clock-cells = <1>;
+ 				assigned-clocks = <&dispcc DISP_CC_MDSS_EDP_LINK_CLK_SRC>,
+ 						  <&dispcc DISP_CC_MDSS_EDP_PIXEL_CLK_SRC>;
+ 				assigned-clock-parents = <&mdss_edp_phy 0>, <&mdss_edp_phy 1>;
+@@ -3829,7 +3828,6 @@ mdss_dp: displayport-controller@ae90000 {
+ 						"ctrl_link",
+ 						"ctrl_link_iface",
+ 						"stream_pixel";
+-				#clock-cells = <1>;
+ 				assigned-clocks = <&dispcc DISP_CC_MDSS_DP_LINK_CLK_SRC>,
+ 						  <&dispcc DISP_CC_MDSS_DP_PIXEL_CLK_SRC>;
+ 				assigned-clock-parents = <&dp_phy 0>, <&dp_phy 1>;
 -- 
 2.35.1
 
