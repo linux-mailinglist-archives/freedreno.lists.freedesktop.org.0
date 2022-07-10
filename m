@@ -1,69 +1,66 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2B9EE56D042
-	for <lists+freedreno@lfdr.de>; Sun, 10 Jul 2022 19:00:46 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 6365856D0CD
+	for <lists+freedreno@lfdr.de>; Sun, 10 Jul 2022 20:45:46 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B2B5B14BCDD;
-	Sun, 10 Jul 2022 17:00:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D481A18A8DB;
+	Sun, 10 Jul 2022 18:45:42 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x136.google.com (mail-lf1-x136.google.com
- [IPv6:2a00:1450:4864:20::136])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5E61214BCDB
- for <freedreno@lists.freedesktop.org>; Sun, 10 Jul 2022 17:00:43 +0000 (UTC)
-Received: by mail-lf1-x136.google.com with SMTP id a9so5244725lfk.11
- for <freedreno@lists.freedesktop.org>; Sun, 10 Jul 2022 10:00:43 -0700 (PDT)
+Received: from mail-lf1-x132.google.com (mail-lf1-x132.google.com
+ [IPv6:2a00:1450:4864:20::132])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DB6C918A8DB
+ for <freedreno@lists.freedesktop.org>; Sun, 10 Jul 2022 18:45:40 +0000 (UTC)
+Received: by mail-lf1-x132.google.com with SMTP id u13so5495699lfn.5
+ for <freedreno@lists.freedesktop.org>; Sun, 10 Jul 2022 11:45:40 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=message-id:date:mime-version:user-agent:subject:content-language:to
- :cc:references:from:in-reply-to:content-transfer-encoding;
- bh=z+025bwtj1+XxqfJAYSywQz3zfNZwf8KlNReu6sIH04=;
- b=r3SWgrDqeFIihjpgWX1tGqhS9nvKTMAMwhpH+U4sAOXaUvV9tjewn2dLBHPTMq+GTs
- Ff2uJT7icSDEVCN/UYDLjVOMYKdU/iezSVoQtEmn8xcy3U0YiSIeA9ug+I1y7L6ZUzPT
- QEl3dFzenx2BBNwis/oW7FiSmEhelbQZjnk61dx6cm28RBjI5yZc5brc9zFaArLGqP83
- 5atpqkhw3etHGTVclLy7WhUWAdOdsubJwxjzNT7WchU0tzoHl79G7MSVYYcNuMYQLLNY
- flT7yNC4yKbSM1ZQd31FxPechG9moAl22MNKSMzPsbdgAoh7uVFXUIh08H2sqRK1CGJl
- SXuw==
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=w6H7AZgWHjuSnqSkX8Y5Hss8POYSqDNUbN9BjUh/yDM=;
+ b=PL4jm3aHr8zv3Siu2NU0vyTZ9tXLSyocFJSVWzdqXUrieXJal8Ug+C6gobbwdWi+Pk
+ z7PQbmHSJtYluNTxYqqf7UrwBkPBOIXrRMMekQr2G1idzUUVpzjr9MCziEN/ECo4qzvR
+ dp10xxn6fTLaL+pwxMspEnyAVmyLygmfMq8U+NdssrfQTZbzgXOnNZ/BvyGTN/yf6ntP
+ YlYKdczhHXIunwtFKOs9iSy9RkLREc6kVLIW21Ees1ESyaW3nanxjgvGeO6FIpUg8oTB
+ Ry2uZeVD01iFVkvlICysqTcA1fhvTMBR5m2fMWBNVJ+3s73ghy+vgVP4PAHYI80b1vri
+ megg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
- :content-language:to:cc:references:from:in-reply-to
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
  :content-transfer-encoding;
- bh=z+025bwtj1+XxqfJAYSywQz3zfNZwf8KlNReu6sIH04=;
- b=0H8ux83GhwZgr1F1nfeHOI5MRkYKzTipI7unMo3RSYC16zg7G07QpKcdtxmpZTjXOa
- vlfAK/HYyetPoHjSI0LJZMo3X5IAQg6n1/D2Sz6MVQHTeEhavhtpzieMYm94JoRJqcm6
- Ay/PAzCasVrQHQbeghP7ThO4PhkmDn+4jFE++qSZ+P/Z7myLp+cbg0KFGRS1YlEoPDO8
- Y5MUqwyKGOqRALxKqlHjcT1DZ49YyV76it90Div0fDBg2HD1VktTXSv4JS+0zb5N+8b+
- GiYvqjIeqVahM0qTHruaprcTZLZxDGSQOc/TWc8fq0EEDRNPRzA7+Xro3l0urbOO354t
- M8CA==
-X-Gm-Message-State: AJIora/JUTAgmFWUxzvIucsY6hc973VjXZoHe381C6gaRHcvRJCl5aF3
- jXKBVGb6jyP+y21zDmL1zHj08A==
-X-Google-Smtp-Source: AGRyM1sjRnBSq/F0i1b5lkm7tuWeJt24tjr1ryEGRO6bsTBrwKL2G8G8JFM5hXn6oM8WNvELa38Rbw==
-X-Received: by 2002:a05:6512:1096:b0:489:cbad:de4f with SMTP id
- j22-20020a056512109600b00489cbadde4fmr5557082lfg.164.1657472441640; 
- Sun, 10 Jul 2022 10:00:41 -0700 (PDT)
-Received: from [192.168.43.7] ([188.162.65.244])
- by smtp.gmail.com with ESMTPSA id
- q22-20020a19a416000000b0047968606114sm1005525lfc.111.2022.07.10.10.00.40
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sun, 10 Jul 2022 10:00:41 -0700 (PDT)
-Message-ID: <20269855-766d-4954-b6aa-bcff6d67c967@linaro.org>
-Date: Sun, 10 Jul 2022 20:00:39 +0300
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.10.0
-Content-Language: en-GB
-To: Rob Herring <robh@kernel.org>
-References: <20220710090040.35193-1-dmitry.baryshkov@linaro.org>
- <20220710090040.35193-5-dmitry.baryshkov@linaro.org>
- <1657472056.252419.1602129.nullmailer@robh.at.kernel.org>
+ bh=w6H7AZgWHjuSnqSkX8Y5Hss8POYSqDNUbN9BjUh/yDM=;
+ b=agA1I3F0SVAxM/oPZYP8OETQdIxKRl942lMUAm1ebCuHn3NgmBWM0comt0G0ztvG4i
+ P/IBi5iIaDUkx+EcRGBe/Z1ZivkrkcyOWkAzM0BScPPgMsIl5zoGxtNHeeAm8jGK7X3g
+ wjRZYeBwY/+rtEAAlWrRP2dxUiReyiWQVydkH1JpL/X6PeK8JHblsE8AI1pP0YaGTU/D
+ gdJX153kJ6vBX36LLSK2woOsjTg0Wkd9cEkmKDmFAmzlAeCQoKvZU60JuAsg3DgAEVqS
+ V89n4nKv45Ep1x67ts7ITmpsDMMPOcE1znRteA0KETrWUOicRUxT1Tt4HMtsumZAjbht
+ W4Dw==
+X-Gm-Message-State: AJIora+kEfNTkxSNUVLYpX4iKcQkSXKwXvtaC62ykH5so1NdRvr4uc2/
+ wq4VvpJ8noYRh/glRvU+Fe4XEA==
+X-Google-Smtp-Source: AGRyM1vo2MPiyoFOAGF5g9FgIpCiw6LZZk+dlO6WMHVsPOY4WYNygn8jlVz98uqq43jvOuikyC+uEw==
+X-Received: by 2002:a05:6512:2311:b0:488:b732:5ae7 with SMTP id
+ o17-20020a056512231100b00488b7325ae7mr8967324lfu.40.1657478739101; 
+ Sun, 10 Jul 2022 11:45:39 -0700 (PDT)
+Received: from eriador.lan ([37.153.55.125]) by smtp.gmail.com with ESMTPSA id
+ c21-20020a056512325500b0047255d21132sm1051562lfr.97.2022.07.10.11.45.37
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sun, 10 Jul 2022 11:45:38 -0700 (PDT)
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-In-Reply-To: <1657472056.252419.1602129.nullmailer@robh.at.kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH v2 04/11] dt-bindings: display/msm: split
- qcom, mdss bindings
+To: Douglas Anderson <dianders@chromium.org>,
+ Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <narmstrong@baylibre.com>,
+ Robert Foss <robert.foss@linaro.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Stephen Boyd <swboyd@chromium.org>
+Date: Sun, 10 Jul 2022 21:45:33 +0300
+Message-Id: <20220710184536.172705-1-dmitry.baryshkov@linaro.org>
+X-Mailer: git-send-email 2.35.1
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Subject: [Freedreno] [RFC PATCH 0/3] drm/bridge: ti-sn65dsi86: support
+ DRM_BRIDGE_ATTACH_NO_CONNECTOR
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,50 +73,29 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>,
- devicetree@vger.kernel.org, David Airlie <airlied@linux.ie>,
- linux-arm-msm@vger.kernel.org, Konrad Dybcio <konrad.dybcio@somainline.org>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
- Stephen Boyd <swboyd@chromium.org>, Rob Herring <robh+dt@kernel.org>,
- Rob Clark <robdclark@gmail.com>, Andy Gross <agross@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Bjorn Andersson <bjorn.andersson@linaro.org>, Sean Paul <sean@poorly.run>
+Cc: freedreno@lists.freedesktop.org, David Airlie <airlied@linux.ie>,
+ linux-arm-msm@vger.kernel.org, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ dri-devel@lists.freedesktop.org, Bjorn Andersson <bjorn.andersson@linaro.org>,
+ Rob Clark <robdclark@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Sean Paul <sean@poorly.run>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 10/07/2022 19:54, Rob Herring wrote:
-> On Sun, 10 Jul 2022 12:00:33 +0300, Dmitry Baryshkov wrote:
->> Split Mobile Display SubSystem (MDSS) root node bindings to the separate
->> yaml file. Changes to the existing (txt) schema:
->>   - Added optional "vbif_nrt_phys" region used by msm8996
->>   - Made "bus" and "vsync" clocks optional (they are not used by some
->>     platforms)
->>   - Added (optional) "core" clock added recently to the mdss driver
->>   - Added optional resets property referencing MDSS reset
->>   - Defined child nodes pointing to corresponding reference schema.
->>   - Dropped the "lut" clock. It was added to the schema by mistake (it is
->>     a part of mdp4 schema, not the mdss).
->>
->> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
->> ---
->>   .../devicetree/bindings/display/msm/mdp5.txt  |  30 +---
->>   .../devicetree/bindings/display/msm/mdss.yaml | 161 ++++++++++++++++++
->>   2 files changed, 162 insertions(+), 29 deletions(-)
->>   create mode 100644 Documentation/devicetree/bindings/display/msm/mdss.yaml
->>
-> 
-> My bot found errors running 'make DT_CHECKER_FLAGS=-m dt_binding_check'
-> on your patch (DT_CHECKER_FLAGS is new in v5.13):
-> 
-> yamllint warnings/errors:
-> 
-> dtschema/dtc warnings/errors:
-> ./Documentation/devicetree/bindings/display/msm/mdss.yaml: Unable to find schema file matching $id: http://devicetree.org/schemas/phy/qcom,hdmi-phy-qmp.yaml
+An RFC (or rather RFT, Request-for-Testing) series adding support for
+DRM_BRIDGE_ATTACH_NO_CONNECTOR. Note, it was compile-tested only.  This
+bridge is the last one used on the Qualcomm platforms (in
+upstream-supported devices) and thus it is the only bridge that prevents
+us from removing support for bridge-created connectors from MSM DSI
+code.
 
-The tree is based on linux-next (well, msm-next, which is a part of 
-linux-next).
+Dmitry Baryshkov (3):
+  drm/bridge: ti-sn65dsi86: switch to atomic ops
+  drm/bridge: ti-sn65dsi86: fetch bpc using drm_atomic_state
+  drm/bridge: ti-sn65dsi86: support DRM_BRIDGE_ATTACH_NO_CONNECTOR
 
+ drivers/gpu/drm/bridge/ti-sn65dsi86.c | 55 +++++++++++++++------------
+ 1 file changed, 31 insertions(+), 24 deletions(-)
 
 -- 
-With best wishes
-Dmitry
+2.35.1
+
