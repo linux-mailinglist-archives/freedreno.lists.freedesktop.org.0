@@ -1,63 +1,75 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 61631570986
-	for <lists+freedreno@lfdr.de>; Mon, 11 Jul 2022 19:53:07 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id B6DAF570D2E
+	for <lists+freedreno@lfdr.de>; Tue, 12 Jul 2022 00:10:10 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 31EA3903CA;
-	Mon, 11 Jul 2022 17:52:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2268B91E39;
+	Mon, 11 Jul 2022 22:10:08 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from alexa-out-sd-01.qualcomm.com (alexa-out-sd-01.qualcomm.com
- [199.106.114.38])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8422E902CB;
- Mon, 11 Jul 2022 17:52:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=quicinc.com; i=@quicinc.com; q=dns/txt; s=qcdkim;
- t=1657561970; x=1689097970;
- h=message-id:date:mime-version:subject:to:cc:references:
- from:in-reply-to:content-transfer-encoding;
- bh=Af6Fsa8odOJ1yAUvIaifI1mawcMyGyJfUagJtE8TnjM=;
- b=jLSUxfi1SZbdwOXKj+J+E3kCJpcym8uFow7FYzAKbD1Twlr4+b09Ph2W
- GZ1SVWNo1ezV2AH9PIy/vv4Jg8WcX2/7GtFdTHya0zHA+OUGg3k2oNTju
- aqjHcxlSoc47rK/Uuk8Q0zKOtUTm2BUoMJahIw3+VClMlbYAiv2HxooVL A=;
-Received: from unknown (HELO ironmsg03-sd.qualcomm.com) ([10.53.140.143])
- by alexa-out-sd-01.qualcomm.com with ESMTP; 11 Jul 2022 10:52:49 -0700
-X-QCInternal: smtphost
-Received: from nasanex01c.na.qualcomm.com ([10.47.97.222])
- by ironmsg03-sd.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Jul 2022 10:52:49 -0700
-Received: from nalasex01a.na.qualcomm.com (10.47.209.196) by
- nasanex01c.na.qualcomm.com (10.47.97.222) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.986.22; Mon, 11 Jul 2022 10:52:48 -0700
-Received: from [10.38.245.206] (10.80.80.8) by nalasex01a.na.qualcomm.com
- (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.22; Mon, 11 Jul
- 2022 10:52:45 -0700
-Message-ID: <47c8946d-de24-30c7-9cce-c263276e56b7@quicinc.com>
-Date: Mon, 11 Jul 2022 10:52:43 -0700
+Received: from mail-oi1-x233.google.com (mail-oi1-x233.google.com
+ [IPv6:2607:f8b0:4864:20::233])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BAC5E91E39
+ for <freedreno@lists.freedesktop.org>; Mon, 11 Jul 2022 22:10:07 +0000 (UTC)
+Received: by mail-oi1-x233.google.com with SMTP id r82so8399801oig.2
+ for <freedreno@lists.freedesktop.org>; Mon, 11 Jul 2022 15:10:07 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kali.org; s=google;
+ h=message-id:date:mime-version:user-agent:subject:content-language:to
+ :cc:references:from:in-reply-to:content-transfer-encoding;
+ bh=V4mk1W3OniljS8YPM11si/jZlWMggyziuS1oj31jQVM=;
+ b=FQHRTU7ZvcqILN4Ud1+1ls+ML6DsKpf6hZvdi1PXkWJxoOm8WI58KO8JpBFOntcWco
+ KLkuGGR19dZS2kAOzW8KECrJln5Ib/RMK4b+IS4VKtpM3oOHodOKTrFj/OFnFSRX36cv
+ utAZO5uiRv/VMsJIRRr14CiAOUVBGa/lwUIJtXezQGrJsKeTy7Nc+wjc5ljEWPbBhtWj
+ dng3N9KslipjBaJZi0jZzETTaa+dDsfiBguuFno6paGnM6Lm42CWxuJupiHzYShn8j7b
+ uQ9LPFgCT6yLC3gtZCNHnhwHfCGvC2T4+bl1YjTnZ78KdKayAL2/JWVWk3jgzttIIrv+
+ Fr+g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
+ :content-language:to:cc:references:from:in-reply-to
+ :content-transfer-encoding;
+ bh=V4mk1W3OniljS8YPM11si/jZlWMggyziuS1oj31jQVM=;
+ b=ci03h6UcsUq/ZMKQlHo1Sw4kftnGe4pBBDu3hxyWVkp2hdzMDVrCDUgUX3OXl7X3rS
+ G8SOmC4T0NmvUSaVTnVaSWQOgNxUVakPWOwQgmj7YISlbOUIhoR78etQFKcg4QBKzqo+
+ +IYfGxIF7aKPEhQUTpqNqfZ9p8rsO7RnE0Ce+OVa/Z33LsikweGrvMuYW1fCKvhX+wS5
+ 6LeT81uesyrE/mSpKU1sD54oY9La/vXuTsvDAeZJgwwetZZp1caDNp4uiuJsMXNnovSc
+ ofNSOlfqeWioENiyVa+9vA5lNUEAgegy9Lv+rfGBCq0O4nYiYpLvMW3RKxmkAupyVNmZ
+ cCFQ==
+X-Gm-Message-State: AJIora8UDizIChcY7zQAVKaDVAgEk2LBrqkgC0tr2u60xpPujk00gnzu
+ f63E0V7byr9ZVGDc6ZGf3I5R+Q==
+X-Google-Smtp-Source: AGRyM1t140/a/OrsmWjfzbQXpBvjuOvtdzQsGzuy57X3fj66JnFKdgeE/F13jZWfyePITILiTg0Umw==
+X-Received: by 2002:a05:6808:f89:b0:339:ce78:1ad8 with SMTP id
+ o9-20020a0568080f8900b00339ce781ad8mr315866oiw.207.1657577406972; 
+ Mon, 11 Jul 2022 15:10:06 -0700 (PDT)
+Received: from [192.168.11.16] (cpe-173-173-107-246.satx.res.rr.com.
+ [173.173.107.246]) by smtp.gmail.com with ESMTPSA id
+ h4-20020a056870170400b000f5ccbb7d75sm3848978oae.1.2022.07.11.15.10.05
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 11 Jul 2022 15:10:06 -0700 (PDT)
+Message-ID: <958cb551-52da-615d-64e3-cf0c2da61789@kali.org>
+Date: Mon, 11 Jul 2022 17:10:03 -0500
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.6.2
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:91.0)
+ Gecko/20100101 Thunderbird/91.11.0
 Content-Language: en-US
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, Thierry Reding
- <thierry.reding@gmail.com>, Sam Ravnborg <sam@ravnborg.org>, David Airlie
- <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>, Rob Clark
- <robdclark@gmail.com>, Sean Paul <sean@poorly.run>
-References: <20220711094320.368062-1-dmitry.baryshkov@linaro.org>
- <20220711094320.368062-4-dmitry.baryshkov@linaro.org>
-From: Abhinav Kumar <quic_abhinavk@quicinc.com>
-In-Reply-To: <20220711094320.368062-4-dmitry.baryshkov@linaro.org>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-Subject: Re: [Freedreno] [PATCH v2 3/4] drm/panel: drop DSC pps pointer
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Douglas Anderson <dianders@chromium.org>,
+ Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <narmstrong@baylibre.com>,
+ Robert Foss <robert.foss@linaro.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Stephen Boyd <swboyd@chromium.org>
+References: <20220711092117.360797-1-dmitry.baryshkov@linaro.org>
+ <20220711092117.360797-2-dmitry.baryshkov@linaro.org>
+From: Steev Klimaszewski <steev@kali.org>
+In-Reply-To: <20220711092117.360797-2-dmitry.baryshkov@linaro.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+Subject: Re: [Freedreno] [RFC PATCH v3 1/2] drm/bridge: ti-sn65dsi86: fetch
+ bpc using drm_atomic_state
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,39 +82,106 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-arm-msm@vger.kernel.org, Bjorn Andersson <bjorn.andersson@linaro.org>,
- freedreno@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- Stephen Boyd <swboyd@chromium.org>
+Cc: freedreno@lists.freedesktop.org, Sam Ravnborg <sam@ravnborg.org>,
+ David Airlie <airlied@linux.ie>, linux-arm-msm@vger.kernel.org,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
+ Bjorn Andersson <bjorn.andersson@linaro.org>, Rob Clark <robdclark@gmail.com>,
+ Daniel Vetter <daniel@ffwll.ch>, Sean Paul <sean@poorly.run>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 
-
-On 7/11/2022 2:43 AM, Dmitry Baryshkov wrote:
-> Complete the move of DSC data pointer from struct drm_panel to struct
-> mipi_dsi_device.
-> 
+On 7/11/22 4:21 AM, Dmitry Baryshkov wrote:
+> Rather than reading the pdata->connector directly, fetch the connector
+> using drm_atomic_state. This allows us to make pdata->connector optional
+> (and thus supporting DRM_BRIDGE_ATTACH_NO_CONNECTOR).
+>
+> Reviewed-by: Sam Ravnborg <sam@ravnborg.org>
+> Reviewed-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
 > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
 > ---
->   include/drm/drm_panel.h | 7 -------
->   1 file changed, 7 deletions(-)
-> 
-> diff --git a/include/drm/drm_panel.h b/include/drm/drm_panel.h
-> index 3a271128c078..994bfcdd84c5 100644
-> --- a/include/drm/drm_panel.h
-> +++ b/include/drm/drm_panel.h
-> @@ -188,13 +188,6 @@ struct drm_panel {
->   	 * Panel entry in registry.
->   	 */
->   	struct list_head list;
-> -
-> -	/**
-> -	 * @dsc:
-> -	 *
-> -	 * Panel DSC pps payload to be sent
-> -	 */
-> -	struct drm_dsc_config *dsc;
+>   drivers/gpu/drm/bridge/ti-sn65dsi86.c | 22 ++++++++++++++++------
+>   1 file changed, 16 insertions(+), 6 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/bridge/ti-sn65dsi86.c b/drivers/gpu/drm/bridge/ti-sn65dsi86.c
+> index d6dd4d99a229..b362a7bf4d97 100644
+> --- a/drivers/gpu/drm/bridge/ti-sn65dsi86.c
+> +++ b/drivers/gpu/drm/bridge/ti-sn65dsi86.c
+> @@ -779,9 +779,9 @@ static void ti_sn_bridge_set_dsi_rate(struct ti_sn65dsi86 *pdata)
+>   	regmap_write(pdata->regmap, SN_DSIA_CLK_FREQ_REG, val);
+>   }
+>   
+> -static unsigned int ti_sn_bridge_get_bpp(struct ti_sn65dsi86 *pdata)
+> +static unsigned int ti_sn_bridge_get_bpp(struct drm_connector *connector)
+>   {
+> -	if (pdata->connector->display_info.bpc <= 6)
+> +	if (connector->display_info.bpc <= 6)
+>   		return 18;
+>   	else
+>   		return 24;
+> @@ -796,7 +796,7 @@ static const unsigned int ti_sn_bridge_dp_rate_lut[] = {
+>   	0, 1620, 2160, 2430, 2700, 3240, 4320, 5400
 >   };
 >   
->   void drm_panel_init(struct drm_panel *panel, struct device *dev,
+> -static int ti_sn_bridge_calc_min_dp_rate_idx(struct ti_sn65dsi86 *pdata)
+> +static int ti_sn_bridge_calc_min_dp_rate_idx(struct ti_sn65dsi86 *pdata, unsigned int bpp)
+>   {
+>   	unsigned int bit_rate_khz, dp_rate_mhz;
+>   	unsigned int i;
+> @@ -804,7 +804,7 @@ static int ti_sn_bridge_calc_min_dp_rate_idx(struct ti_sn65dsi86 *pdata)
+>   		&pdata->bridge.encoder->crtc->state->adjusted_mode;
+>   
+>   	/* Calculate minimum bit rate based on our pixel clock. */
+> -	bit_rate_khz = mode->clock * ti_sn_bridge_get_bpp(pdata);
+> +	bit_rate_khz = mode->clock * bpp;
+>   
+>   	/* Calculate minimum DP data rate, taking 80% as per DP spec */
+>   	dp_rate_mhz = DIV_ROUND_UP(bit_rate_khz * DP_CLK_FUDGE_NUM,
+> @@ -1016,12 +1016,21 @@ static void ti_sn_bridge_atomic_enable(struct drm_bridge *bridge,
+>   				       struct drm_bridge_state *old_bridge_state)
+>   {
+>   	struct ti_sn65dsi86 *pdata = bridge_to_ti_sn65dsi86(bridge);
+> +	struct drm_connector *connector;
+>   	const char *last_err_str = "No supported DP rate";
+>   	unsigned int valid_rates;
+>   	int dp_rate_idx;
+>   	unsigned int val;
+>   	int ret = -EINVAL;
+>   	int max_dp_lanes;
+> +	unsigned int bpp;
+> +
+> +	connector = drm_atomic_get_new_connector_for_encoder(old_bridge_state->base.state,
+> +							     bridge->encoder);
+> +	if (!connector) {
+> +		dev_err_ratelimited(pdata->dev, "Could not get the connector\n");
+> +		return;
+> +	}
+>   
+>   	max_dp_lanes = ti_sn_get_max_lanes(pdata);
+>   	pdata->dp_lanes = min(pdata->dp_lanes, max_dp_lanes);
+> @@ -1047,8 +1056,9 @@ static void ti_sn_bridge_atomic_enable(struct drm_bridge *bridge,
+>   	drm_dp_dpcd_writeb(&pdata->aux, DP_EDP_CONFIGURATION_SET,
+>   			   DP_ALTERNATE_SCRAMBLER_RESET_ENABLE);
+>   
+> +	bpp = ti_sn_bridge_get_bpp(connector);
+>   	/* Set the DP output format (18 bpp or 24 bpp) */
+> -	val = (ti_sn_bridge_get_bpp(pdata) == 18) ? BPP_18_RGB : 0;
+> +	val = bpp == 18 ? BPP_18_RGB : 0;
+>   	regmap_update_bits(pdata->regmap, SN_DATA_FORMAT_REG, BPP_18_RGB, val);
+>   
+>   	/* DP lane config */
+> @@ -1059,7 +1069,7 @@ static void ti_sn_bridge_atomic_enable(struct drm_bridge *bridge,
+>   	valid_rates = ti_sn_bridge_read_valid_rates(pdata);
+>   
+>   	/* Train until we run out of rates */
+> -	for (dp_rate_idx = ti_sn_bridge_calc_min_dp_rate_idx(pdata);
+> +	for (dp_rate_idx = ti_sn_bridge_calc_min_dp_rate_idx(pdata, bpp);
+>   	     dp_rate_idx < ARRAY_SIZE(ti_sn_bridge_dp_rate_lut);
+>   	     dp_rate_idx++) {
+>   		if (!(valid_rates & BIT(dp_rate_idx)))
+
+Tested on the Lenovo Yoga C630.  bpc is found to be 6, which I believe 
+is correct.
+
+Tested-by: Steev Klimaszewski <steev@kali.org>
+
