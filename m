@@ -2,25 +2,25 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1993456D856
-	for <lists+freedreno@lfdr.de>; Mon, 11 Jul 2022 10:40:02 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5B85256D85A
+	for <lists+freedreno@lfdr.de>; Mon, 11 Jul 2022 10:40:12 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BBC2218BC8C;
-	Mon, 11 Jul 2022 08:40:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C12AB8A1DB;
+	Mon, 11 Jul 2022 08:40:10 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from relay03.th.seeweb.it (relay03.th.seeweb.it
- [IPv6:2001:4b7a:2000:18::164])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 92FA818BB19
- for <freedreno@lists.freedesktop.org>; Mon, 11 Jul 2022 08:39:59 +0000 (UTC)
+Received: from relay02.th.seeweb.it (relay02.th.seeweb.it
+ [IPv6:2001:4b7a:2000:18::163])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0A6E418BFE9;
+ Mon, 11 Jul 2022 08:40:09 +0000 (UTC)
 Received: from [192.168.1.101] (abxi46.neoplus.adsl.tpnet.pl [83.9.2.46])
  (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by m-r1.th.seeweb.it (Postfix) with ESMTPSA id 04F2A1F625;
- Mon, 11 Jul 2022 10:39:56 +0200 (CEST)
-Message-ID: <876b79a3-c332-fab0-88cc-1ea57aa8dc4c@somainline.org>
-Date: Mon, 11 Jul 2022 10:39:56 +0200
+ by m-r1.th.seeweb.it (Postfix) with ESMTPSA id E14591F53F;
+ Mon, 11 Jul 2022 10:40:06 +0200 (CEST)
+Message-ID: <c41cf29e-f33a-30ef-5465-b520edcf809f@somainline.org>
+Date: Mon, 11 Jul 2022 10:40:06 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
  Thunderbird/91.11.0
@@ -32,12 +32,12 @@ To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
  Rob Herring <robh+dt@kernel.org>,
  Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>
 References: <20220710090040.35193-1-dmitry.baryshkov@linaro.org>
- <20220710090040.35193-2-dmitry.baryshkov@linaro.org>
+ <20220710090040.35193-4-dmitry.baryshkov@linaro.org>
 From: Konrad Dybcio <konrad.dybcio@somainline.org>
-In-Reply-To: <20220710090040.35193-2-dmitry.baryshkov@linaro.org>
+In-Reply-To: <20220710090040.35193-4-dmitry.baryshkov@linaro.org>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH v2 01/11] arm64: dts: qcom: sdm845: rename
+Subject: Re: [Freedreno] [PATCH v2 03/11] arm64: dts: qcom: sm8250: rename
  DPU device node
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -69,19 +69,19 @@ On 10.07.2022 11:00, Dmitry Baryshkov wrote:
 Reviewed-by: Konrad Dybcio <konrad.dybcio@somainline.org>
 
 Konrad
->  arch/arm64/boot/dts/qcom/sdm845.dtsi | 2 +-
+>  arch/arm64/boot/dts/qcom/sm8250.dtsi | 2 +-
 >  1 file changed, 1 insertion(+), 1 deletion(-)
 > 
-> diff --git a/arch/arm64/boot/dts/qcom/sdm845.dtsi b/arch/arm64/boot/dts/qcom/sdm845.dtsi
-> index 32ad5972a642..7c66f490e822 100644
-> --- a/arch/arm64/boot/dts/qcom/sdm845.dtsi
-> +++ b/arch/arm64/boot/dts/qcom/sdm845.dtsi
-> @@ -4265,7 +4265,7 @@ mdss: mdss@ae00000 {
+> diff --git a/arch/arm64/boot/dts/qcom/sm8250.dtsi b/arch/arm64/boot/dts/qcom/sm8250.dtsi
+> index 43c2d04b226f..48c60df59080 100644
+> --- a/arch/arm64/boot/dts/qcom/sm8250.dtsi
+> +++ b/arch/arm64/boot/dts/qcom/sm8250.dtsi
+> @@ -3444,7 +3444,7 @@ mdss: mdss@ae00000 {
 >  			#size-cells = <2>;
 >  			ranges;
 >  
 > -			mdss_mdp: mdp@ae01000 {
 > +			mdss_mdp: display-controller@ae01000 {
->  				compatible = "qcom,sdm845-dpu";
+>  				compatible = "qcom,sm8250-dpu";
 >  				reg = <0 0x0ae01000 0 0x8f000>,
 >  				      <0 0x0aeb0000 0 0x2008>;
