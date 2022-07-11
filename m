@@ -2,54 +2,54 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7471256FE46
-	for <lists+freedreno@lfdr.de>; Mon, 11 Jul 2022 12:08:00 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C47B256FE56
+	for <lists+freedreno@lfdr.de>; Mon, 11 Jul 2022 12:10:46 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C86211128BE;
-	Mon, 11 Jul 2022 10:07:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 33C038D621;
+	Mon, 11 Jul 2022 10:10:45 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x12c.google.com (mail-lf1-x12c.google.com
- [IPv6:2a00:1450:4864:20::12c])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 92B731128BE
- for <freedreno@lists.freedesktop.org>; Mon, 11 Jul 2022 10:07:57 +0000 (UTC)
-Received: by mail-lf1-x12c.google.com with SMTP id n18so6151516lfq.1
- for <freedreno@lists.freedesktop.org>; Mon, 11 Jul 2022 03:07:57 -0700 (PDT)
+Received: from mail-lf1-x134.google.com (mail-lf1-x134.google.com
+ [IPv6:2a00:1450:4864:20::134])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F1AD68D620
+ for <freedreno@lists.freedesktop.org>; Mon, 11 Jul 2022 10:10:43 +0000 (UTC)
+Received: by mail-lf1-x134.google.com with SMTP id bf9so7834639lfb.13
+ for <freedreno@lists.freedesktop.org>; Mon, 11 Jul 2022 03:10:43 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=message-id:date:mime-version:user-agent:subject:content-language:to
  :cc:references:from:in-reply-to:content-transfer-encoding;
- bh=z0gWPzpnf+Fkqqtj9BV5xWECqcqhY1y27pcs8oB10pk=;
- b=USz9x/SbaDxxtjzvjpOXTqjIY7Mz9wUW+iryz/OKPMURFKzZRjviyzbB12zhJrtslY
- 6aSHB4/fWCPW83DzUcvU3/ueoVONNJDF7O0QvgmHtNJXrQcmdXl0HltHAtmNd4aAq//V
- +g11Z6ZRJGlJCc5iOOpu2RR9QafTi+rymGrPE4XhZDCpeQenMqeZHyTYbQyhzhKqLg2v
- DBITsYLlulyjx63sVrcPHmZpuzo89AINn3GNyS2GOWXYCKX3GNDNniFJ/v0U5ADeeJZ0
- jWwCYFPpwpTjMAasLOSDjhmmPxkwAtpZ3q1XIcRyO2b9HDgO0gVhV0Oyek2oK+n1qSEM
- vIMg==
+ bh=SHiA2zoxhmxH5O4HA7IkJ4SShTmEKVvUYuQnX9sbxgQ=;
+ b=UVpseBylGa0hITXDZB040rsiqxom8ASeH+ECgCf7mpMwjK4WsVJB8+gDiLY/4x+J0V
+ MjFezs6PbKJtCVQYVRYPQglt4ixfAjGLp+8x2Hdos5M6BwyYyVy5tRbKfOan0KcYi9kf
+ 0VlqRfko1lKwYEGI+XIhAT2uTuKDEpllWiU/vSsdWV9wecGgEMFxCsaJwtk4mTGsQN4M
+ RWTCjYoEy/WLsY8/aYPb1uWmFBDtS2EFYnCU6Bwicao1H4vlae8gucD5V22dDGY/FFfc
+ dx6kXHN4COn3HA488pJSsQyvZjsXk4rHfIknupVl2Q7+3aXeqyZW5E9YEwwLQAjv4fct
+ ttvA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
  :content-language:to:cc:references:from:in-reply-to
  :content-transfer-encoding;
- bh=z0gWPzpnf+Fkqqtj9BV5xWECqcqhY1y27pcs8oB10pk=;
- b=bDbMixERCrnOJ8cK4IH01YF4c2Byt9a1E1ySUh2sJ9+Nz3CrOZcTHoMIIZS8Ya2QOq
- 1egGvIjwJVwGHZ3A58n5c1m7IiIYLNe+BNZZ80eG4ms/wrMrEovbd5mdvIdGSF8VNTbs
- de2zubBla/TjDOvqrCv/iHZ7q7BVavkhHyyQbmM8Voc0vYUaF2wk81JsFZt6xbP71Wg0
- pD8dE2kLJuC10cLfyu7UX8HttZ+gnD6YlQm1NI3/5GrDKkzJfHN/tN6SHBAOgwjoNW0d
- vSPCb+Z2dSFrZQvNFA9ghSYHfX6cTeXBtWp414YIJEBgUffTunmcEUA5/SM3dripi36S
- bC1w==
-X-Gm-Message-State: AJIora/TcMB71R5hB1dL8ISYFtbsaNQfFNNtq+S0rHszyh2wD/DS5a3C
- Ps+Hvnmzs8PZb1TbLtDhv6ctTA==
-X-Google-Smtp-Source: AGRyM1sQ4qfv3Gvrp6kUtXMTCc4OAJoE7ATLT59r9LNAKRYX4a5MGu0ec17krDwhI+DPHVOyIzdq/Q==
-X-Received: by 2002:a05:6512:b23:b0:489:d24e:5abf with SMTP id
- w35-20020a0565120b2300b00489d24e5abfmr5358846lfu.636.1657534075775; 
- Mon, 11 Jul 2022 03:07:55 -0700 (PDT)
+ bh=SHiA2zoxhmxH5O4HA7IkJ4SShTmEKVvUYuQnX9sbxgQ=;
+ b=xvXyp9wXanpk77NXlA4eQdsnQaL+DWYAI2d0tRUOX+M96IMxVlrbmKcIkjtopjsxZW
+ 4kXhF+jb5i7vy06NmurNcubNScES6AKWa1WTdDb6FDYm9A1c+akx6j0YesRThkf4IxTW
+ TBK3QCrwtNE8UMo7d+2wdbBo4ylAyxBlhKaayJ/oXCkvzak8vya39jURvJWMqmPK0vPk
+ umlqZnll4gmDD6d6rNTDlpO7Ej0EQEAOgX/tvETCpADgHzscCnGPAQbnqLGtMgDPkpn2
+ jb44opB+6C9rhE1j5CqWqmiSbCJ3zUldK/iuSOCe4rtUNahFkYEZLOVBGd/wS2RzQRxe
+ bReQ==
+X-Gm-Message-State: AJIora+ljP+zG3mEl6pSl9ULvc9DiBu3lQNBc0iP0qDfrjQ1MwoqZtuG
+ zyWbiYN867/3B8uGN+AoTcCQiQ==
+X-Google-Smtp-Source: AGRyM1sMIZrBCfuR2GgVaiokY29EPmxjq8AEeJPvueXNdz57OF52ijRyoaPnnaz4w4NoN30xVsg4PA==
+X-Received: by 2002:ac2:4c50:0:b0:489:da2c:ba2c with SMTP id
+ o16-20020ac24c50000000b00489da2cba2cmr4084907lfk.505.1657534242274; 
+ Mon, 11 Jul 2022 03:10:42 -0700 (PDT)
 Received: from [192.168.1.211] ([37.153.55.125])
  by smtp.gmail.com with ESMTPSA id
- q22-20020a05651232b600b0047255d21190sm1449353lfe.191.2022.07.11.03.07.55
+ l26-20020a2e909a000000b0025d4d4b4edbsm1650138ljg.34.2022.07.11.03.10.41
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 11 Jul 2022 03:07:55 -0700 (PDT)
-Message-ID: <9005c10b-01a6-b463-d150-1935e79f92eb@linaro.org>
-Date: Mon, 11 Jul 2022 13:07:54 +0300
+ Mon, 11 Jul 2022 03:10:41 -0700 (PDT)
+Message-ID: <f5025278-884a-273b-15fd-624e571026bb@linaro.org>
+Date: Mon, 11 Jul 2022 13:10:40 +0300
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
  Thunderbird/91.10.0
@@ -58,11 +58,13 @@ To: Vinod Polimera <quic_vpolimer@quicinc.com>,
  dri-devel@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
  freedreno@lists.freedesktop.org, devicetree@vger.kernel.org
 References: <1657532880-12897-1-git-send-email-quic_vpolimer@quicinc.com>
+ <1657532880-12897-4-git-send-email-quic_vpolimer@quicinc.com>
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-In-Reply-To: <1657532880-12897-1-git-send-email-quic_vpolimer@quicinc.com>
+In-Reply-To: <1657532880-12897-4-git-send-email-quic_vpolimer@quicinc.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH v5 00/10] Add PSR support for eDP
+Subject: Re: [Freedreno] [PATCH v5 03/10] drm/msm/dp: use atomic callbacks
+ for DP bridge ops
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,86 +85,85 @@ Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 On 11/07/2022 12:47, Vinod Polimera wrote:
-> Changes in v2:
->    - Use dp bridge to set psr entry/exit instead of dpu_enocder.
->    - Don't modify whitespaces.
->    - Set self refresh aware from atomic_check.
->    - Set self refresh aware only if psr is supported.
->    - Provide a stub for msm_dp_display_set_psr.
->    - Move dp functions to bridge code.
-> 
-> Changes in v3:
->    - Change callback names to reflect atomic interfaces.
->    - Move bridge callback change to separate patch as suggested by Dmitry.
->    - Remove psr function declaration from msm_drv.h.
->    - Set self_refresh_aware flag only if psr is supported.
->    - Modify the variable names to simpler form.
->    - Define bit fields for PSR settings.
->    - Add comments explaining the steps to enter/exit psr.
->    - Change DRM_INFO to drm_dbg_db.
-> 
-> Changes in v4:
->    - Move the get crtc functions to drm_atomic.
->    - Add atomic functions for DP bridge too.
->    - Add ternary operator to choose eDP or DP ops.
->    - Return true/false instead of 1/0.
->    - mode_valid missing in the eDP bridge ops.
->    - Move the functions to get crtc into drm_atomic.c.
->    - Fix compilation issues.
->    - Remove dpu_assign_crtc and get crtc from drm_enc instead of dpu_enc.
->    - Check for crtc state enable while reserving resources.
-> 
-> Changes in v5:
->    - Move the mode_valid changes into a different patch.
->    - Complete psr_op_comp only when isr is set.
->    - Move the DP atomic callback changes to a different patch.
->    - Get crtc from drm connector state crtc.
->    - Move to separate patch for check for crtc state enable while
-> reserving resources.
+> Use atomic variants for DP bridge callback functions so that
+> the atomic state can be accessed in the interface drivers.
+> The atomic state will help the driver find out if the display
+> is in self refresh state.
 > 
 > Signed-off-by: Sankeerth Billakanti <quic_sbillaka@quicinc.com>
-> Signed-off-by: Kalyan Thota <quic_kalyant@quicinc.com>
 > Signed-off-by: Vinod Polimera <quic_vpolimer@quicinc.com>
+> ---
+>   drivers/gpu/drm/msm/dp/dp_display.c |  9 ++++++---
+>   drivers/gpu/drm/msm/dp/dp_drm.c     | 18 +++++++++++-------
+>   2 files changed, 17 insertions(+), 10 deletions(-)
 > 
-> Vinod Polimera (10):
->    drm/msm/disp/dpu1: clear dpu_assign_crtc and get crtc from connector
->      state instead of dpu_enc
+> diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
+> index bce7793..5bd6677 100644
+> --- a/drivers/gpu/drm/msm/dp/dp_display.c
+> +++ b/drivers/gpu/drm/msm/dp/dp_display.c
+> @@ -1652,7 +1652,8 @@ int msm_dp_modeset_init(struct msm_dp *dp_display, struct drm_device *dev,
+>   	return 0;
+>   }
+>   
+> -void dp_bridge_enable(struct drm_bridge *drm_bridge)
+> +void dp_bridge_atomic_enable(struct drm_bridge *drm_bridge,
+> +			     struct drm_bridge_state *old_bridge_state)
+>   {
+>   	struct msm_dp_bridge *dp_bridge = to_dp_bridge(drm_bridge);
+>   	struct msm_dp *dp = dp_bridge->dp_display;
+> @@ -1716,7 +1717,8 @@ void dp_bridge_enable(struct drm_bridge *drm_bridge)
+>   	mutex_unlock(&dp_display->event_mutex);
+>   }
+>   
+> -void dp_bridge_disable(struct drm_bridge *drm_bridge)
+> +void dp_bridge_atomic_disable(struct drm_bridge *drm_bridge,
+> +			      struct drm_bridge_state *old_bridge_state)
+>   {
+>   	struct msm_dp_bridge *dp_bridge = to_dp_bridge(drm_bridge);
+>   	struct msm_dp *dp = dp_bridge->dp_display;
+> @@ -1727,7 +1729,8 @@ void dp_bridge_disable(struct drm_bridge *drm_bridge)
+>   	dp_ctrl_push_idle(dp_display->ctrl);
+>   }
+>   
+> -void dp_bridge_post_disable(struct drm_bridge *drm_bridge)
+> +void dp_bridge_atomic_post_disable(struct drm_bridge *drm_bridge,
+> +				   struct drm_bridge_state *old_bridge_state)
+>   {
+>   	struct msm_dp_bridge *dp_bridge = to_dp_bridge(drm_bridge);
+>   	struct msm_dp *dp = dp_bridge->dp_display;
+> diff --git a/drivers/gpu/drm/msm/dp/dp_drm.c b/drivers/gpu/drm/msm/dp/dp_drm.c
+> index 62d58b9..9d0fc74 100644
+> --- a/drivers/gpu/drm/msm/dp/dp_drm.c
+> +++ b/drivers/gpu/drm/msm/dp/dp_drm.c
+> @@ -61,13 +61,17 @@ static int dp_bridge_get_modes(struct drm_bridge *bridge, struct drm_connector *
+>   }
+>   
+>   static const struct drm_bridge_funcs dp_bridge_ops = {
+> -	.enable       = dp_bridge_enable,
+> -	.disable      = dp_bridge_disable,
+> -	.post_disable = dp_bridge_post_disable,
+> -	.mode_set     = dp_bridge_mode_set,
+> -	.mode_valid   = dp_bridge_mode_valid,
+> -	.get_modes    = dp_bridge_get_modes,
+> -	.detect       = dp_bridge_detect,
+> +	.atomic_enable = dp_bridge_atomic_enable,
+> +	.atomic_disable = dp_bridge_atomic_disable,
+> +	.atomic_post_disable = dp_bridge_atomic_post_disable,
+> +	.mode_set = dp_bridge_mode_set,
+> +	.mode_valid = dp_bridge_mode_valid,
+> +	.get_modes = dp_bridge_get_modes,
+> +	.detect = dp_bridge_detect,
+> +	.atomic_reset = drm_atomic_helper_bridge_reset,
+> +	.atomic_duplicate_state = drm_atomic_helper_bridge_duplicate_state,
+> +	.atomic_destroy_state = drm_atomic_helper_bridge_destroy_state,
+> +	.atomic_check = edp_bridge_atomic_check,
 
-Generic comment: please use 'drm/msm/dpu:' prefix instead.
+This function does not exist (yet). Please move this line to the 
+corresponding patch.
 
->    drm: add helper functions to retrieve old and new crtc
->    drm/msm/dp: use atomic callbacks for DP bridge ops
->    drm/msm/dp: Add basic PSR support for eDP
->    drm/msm/dp: use the eDP bridge ops to validate eDP modes
->    drm/bridge: use atomic enable/disable callbacks for panel bridge
->    drm/bridge: add psr support for panel bridge callbacks
->    drm/msm/disp/dpu1: use atomic enable/disable callbacks for encoder
->      functions
->    drm/msm/disp/dpu1: add PSR support for eDP interface in dpu driver
->    drm/msm/disp/dpu1: check for crtc enable rather than crtc active to
->      release shared resources
-> 
->   drivers/gpu/drm/bridge/panel.c              |  68 ++++++++--
->   drivers/gpu/drm/drm_atomic.c                |  60 +++++++++
->   drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c    |  17 ++-
->   drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c |  55 +++++---
->   drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.h |   8 --
->   drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c     |   2 +-
->   drivers/gpu/drm/msm/dp/dp_catalog.c         |  81 ++++++++++++
->   drivers/gpu/drm/msm/dp/dp_catalog.h         |   4 +
->   drivers/gpu/drm/msm/dp/dp_ctrl.c            |  73 +++++++++++
->   drivers/gpu/drm/msm/dp/dp_ctrl.h            |   3 +
->   drivers/gpu/drm/msm/dp/dp_display.c         |  31 +++--
->   drivers/gpu/drm/msm/dp/dp_display.h         |   2 +
->   drivers/gpu/drm/msm/dp/dp_drm.c             | 187 ++++++++++++++++++++++++++--
->   drivers/gpu/drm/msm/dp/dp_drm.h             |   9 +-
->   drivers/gpu/drm/msm/dp/dp_link.c            |  36 ++++++
->   drivers/gpu/drm/msm/dp/dp_panel.c           |  22 ++++
->   drivers/gpu/drm/msm/dp/dp_panel.h           |   6 +
->   drivers/gpu/drm/msm/dp/dp_reg.h             |  27 ++++
->   include/drm/drm_atomic.h                    |   7 ++
->   19 files changed, 634 insertions(+), 64 deletions(-)
-> 
+>   };
+>   
+>   struct drm_bridge *dp_bridge_init(struct msm_dp *dp_display, struct drm_device *dev,
 
 
 -- 
