@@ -1,55 +1,55 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id E3C24570548
-	for <lists+freedreno@lfdr.de>; Mon, 11 Jul 2022 16:19:25 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 53B6957054E
+	for <lists+freedreno@lfdr.de>; Mon, 11 Jul 2022 16:19:53 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6E09014B4B7;
-	Mon, 11 Jul 2022 14:19:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 053A114B4F3;
+	Mon, 11 Jul 2022 14:19:52 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-x22d.google.com (mail-lj1-x22d.google.com
- [IPv6:2a00:1450:4864:20::22d])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3BDBA14B4B7
- for <freedreno@lists.freedesktop.org>; Mon, 11 Jul 2022 14:19:23 +0000 (UTC)
-Received: by mail-lj1-x22d.google.com with SMTP id bn33so6350470ljb.13
- for <freedreno@lists.freedesktop.org>; Mon, 11 Jul 2022 07:19:23 -0700 (PDT)
+Received: from mail-lf1-x134.google.com (mail-lf1-x134.google.com
+ [IPv6:2a00:1450:4864:20::134])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E00C914B4F3
+ for <freedreno@lists.freedesktop.org>; Mon, 11 Jul 2022 14:19:50 +0000 (UTC)
+Received: by mail-lf1-x134.google.com with SMTP id t1so5404377lft.8
+ for <freedreno@lists.freedesktop.org>; Mon, 11 Jul 2022 07:19:50 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=message-id:date:mime-version:user-agent:subject:content-language:to
  :cc:references:from:in-reply-to:content-transfer-encoding;
- bh=2eZo4Uf6DLNwIqIGEbJqR98FHQ75J7mZnbMsiIwBVKI=;
- b=vujer/oRPRtI1ITzp7sb4qrUT0cs7mbUQjUa2ra+SuUd2wHg2VERiBFINrc7WNUuQV
- KtfF02S1QYcC5W0ss7ATKEEoDs07h4GacynEfju7LtaM+sB5pkPB9I93JryFKB1QhDSz
- FsshgD2tJJIIpthobBWkQxaGmPQBF69sx6h0z6596x/XvtdlObx8rtMH3bm66cKHjj8o
- i92TOVUwdFVy8EVa6ewL0B9ctibdzxBcGLMzS2LRuZABMYy23H+t8Fj1FZnx7K9/BdZu
- 3GSSOpXXl6Vw5P2FJLCEIqXCl5yLZ3MLWSgOfHYhTGUNQzI/Nb4/twogEiFwojnLJ7Io
- e2Ow==
+ bh=EbTGKdHG+1YrudsLr33VcIPNPd0JWleJZSy38WYsqHA=;
+ b=GCJd/iOWc1D1t4INDMA/nNooKIuFLbEp/2dZ+mbivmOWS3NGfry0pyVGLIO/gE6/mg
+ ZCoIYHnxY0on102bwNhY876TLdnpm9jXO/donroJ51Mp2Q/SVgHPgBa/C3ZMG+XBVv+U
+ ncIQ4yP0ooa8DpKGpKsmWBVU7/QIpalYAdMAWVCVxaF7dZ9B3iIltaL8qw8+azxg28o3
+ /bXrRNap6aoHuRgGW98sxezqS6bSt17J8VwU3w4oV6Vl9+p+a38iZ1teQlrvv9fna5pr
+ gVP3nqytTYtVVPqXzLFXj3DDRnx2sD8MTNDTJruabECz9nuyfaQ+pbGHFR5rHlLn2Mgh
+ jwhg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
  :content-language:to:cc:references:from:in-reply-to
  :content-transfer-encoding;
- bh=2eZo4Uf6DLNwIqIGEbJqR98FHQ75J7mZnbMsiIwBVKI=;
- b=8MbysEeOB0qYL28RZB1HQvyufvVO2w5xp5W4/hZkGU2q8/TW9s4Kxc8B28o8gspffC
- f7FAxK57BX2IZ566VFOU3DmIKZ1p5bqfGoFxDVVK1BJ1Z8amRz6aXmgDvjQGISkILNjm
- FUMjwPEJO3ynikMJftEuBd04EEluGP9nTYcq1XOGscrD0HwC+PuGWUzG/apQHb1mlw69
- 6WEtEzX5lU73gV/9KGuM1a5eXpaxLIzKtXHvHRfxqergHnltzgKXbBNpGkuD1eqslrYY
- e1NtUWCTJ6Tu6M9XOwQuEqV0gojqfCLNjbS7Q4JJtZhr76FVAfZy/9DVDPOCpBW++GH8
- Xnug==
-X-Gm-Message-State: AJIora8JfR/zWndaEsjvPd8CMJg36T0c8GbMWeTE4Lq7dCToRfRXrT2V
- rTjREviOShe6PtWpDX6o8FdO6g==
-X-Google-Smtp-Source: AGRyM1sUAjzTkZR8LmknXSW2Y4xr55HJXTle46S+m4AlsuiejFOrYPId1uZ2SDxwXBlZq8YNe76JCA==
-X-Received: by 2002:a05:651c:1246:b0:25a:9a7c:680c with SMTP id
- h6-20020a05651c124600b0025a9a7c680cmr10637075ljh.79.1657549161556; 
- Mon, 11 Jul 2022 07:19:21 -0700 (PDT)
+ bh=EbTGKdHG+1YrudsLr33VcIPNPd0JWleJZSy38WYsqHA=;
+ b=Q/Krwb/C3uoGK8wTTu8Vx7IdyaaU1GB1Ps2VAD4fBuOJl/ysw5wQ8r3+DNe5LY7nP+
+ Lep3jVuJHvB1JInKu9W1bxoFCfNlNzHscb95fbfcZb8jJg3Sa9nAG2EG6wVprSyv7Up9
+ IPffBMtvpnEGSUO2HmutJE3434umiD61nK6Q3jAsaQMOXO0SRDuHboKDl9Nb71jP1ZUi
+ dYZJQSlJicsnBTWcgW/TbiEEA/yy4Sub2CCymOp12hgqTfXqltlG2OIJ8zBCVEv68sIo
+ KH0Rhfhicqt2NiWkcrukGKO2A12wvSF0H5jm8G0pxBYl2D/d8EBf/Ssg2ppsedys3sBG
+ PXTA==
+X-Gm-Message-State: AJIora9HsIRui9gJzi4Pe0Gjl5C0g546GMoQPWWujQMdapTc586buUB1
+ 92djPF+egwJzNg7GPOTzKtWW8g==
+X-Google-Smtp-Source: AGRyM1vtxA3URIMoW5Kpq+Ah7ii7RSPYMDjIX30bY30Yj6lyVAWnXi7dhZAKcPwMDRtRtEY2LLkaxQ==
+X-Received: by 2002:a05:6512:3b90:b0:47f:79df:62d3 with SMTP id
+ g16-20020a0565123b9000b0047f79df62d3mr11952730lfv.486.1657549189273; 
+ Mon, 11 Jul 2022 07:19:49 -0700 (PDT)
 Received: from [192.168.1.211] ([37.153.55.125])
  by smtp.gmail.com with ESMTPSA id
- p13-20020a2e804d000000b0025a885a135csm1780371ljg.119.2022.07.11.07.19.20
+ 9-20020ac25f09000000b0047f6a1237e5sm1562594lfq.291.2022.07.11.07.19.48
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 11 Jul 2022 07:19:21 -0700 (PDT)
-Message-ID: <28b560ab-7323-3c0d-b07c-1741874b6d00@linaro.org>
-Date: Mon, 11 Jul 2022 17:19:20 +0300
+ Mon, 11 Jul 2022 07:19:48 -0700 (PDT)
+Message-ID: <2ba431fb-ec22-81da-29fb-1d7ecd1a8722@linaro.org>
+Date: Mon, 11 Jul 2022 17:19:48 +0300
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
  Thunderbird/91.10.0
@@ -58,13 +58,13 @@ To: Vinod Polimera <quic_vpolimer@quicinc.com>,
  dri-devel@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
  freedreno@lists.freedesktop.org, devicetree@vger.kernel.org
 References: <1657544224-10680-1-git-send-email-quic_vpolimer@quicinc.com>
- <1657544224-10680-10-git-send-email-quic_vpolimer@quicinc.com>
+ <1657544224-10680-11-git-send-email-quic_vpolimer@quicinc.com>
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-In-Reply-To: <1657544224-10680-10-git-send-email-quic_vpolimer@quicinc.com>
+In-Reply-To: <1657544224-10680-11-git-send-email-quic_vpolimer@quicinc.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH v6 09/10] drm/msm/disp/dpu: add PSR support
- for eDP interface in dpu driver
+Subject: Re: [Freedreno] [PATCH v6 10/10] drm/msm/disp/dpu: check for crtc
+ enable rather than crtc active to release shared resources
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -85,116 +85,31 @@ Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 On 11/07/2022 15:57, Vinod Polimera wrote:
-> Enable PSR on eDP interface using drm self-refresh librabry.
-> This patch uses a trigger from self-refresh library to enter/exit
-> into PSR, when there are no updates from framework.
+> According to KMS documentation, The driver must not release any shared
+> resources if active is set to false but enable still true.
 > 
-> Signed-off-by: Kalyan Thota <quic_kalyant@quicinc.com>
+> Fixes: ccc862b957c6 ("drm/msm/dpu: Fix reservation failures in modeset")
 > Signed-off-by: Vinod Polimera <quic_vpolimer@quicinc.com>
 
 Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 
 > ---
->   drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c    | 13 ++++++++++++-
->   drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c | 14 ++++++++++++++
->   drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c     |  2 +-
->   3 files changed, 27 insertions(+), 2 deletions(-)
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c | 2 +-
+>   1 file changed, 1 insertion(+), 1 deletion(-)
 > 
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
-> index f91e3d1..eb3915a 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
-> @@ -18,6 +18,7 @@
->   #include <drm/drm_probe_helper.h>
->   #include <drm/drm_rect.h>
->   #include <drm/drm_vblank.h>
-> +#include <drm/drm_self_refresh_helper.h>
->   
->   #include "dpu_kms.h"
->   #include "dpu_hw_lm.h"
-> @@ -961,6 +962,9 @@ static void dpu_crtc_disable(struct drm_crtc *crtc,
->   
->   	DRM_DEBUG_KMS("crtc%d\n", crtc->base.id);
->   
-> +	if (old_crtc_state->self_refresh_active)
-> +		return;
-> +
->   	/* Disable/save vblank irq handling */
->   	drm_crtc_vblank_off(crtc);
->   
-> @@ -1521,7 +1525,7 @@ struct drm_crtc *dpu_crtc_init(struct drm_device *dev, struct drm_plane *plane,
->   {
->   	struct drm_crtc *crtc = NULL;
->   	struct dpu_crtc *dpu_crtc = NULL;
-> -	int i;
-> +	int i, ret;
->   
->   	dpu_crtc = kzalloc(sizeof(*dpu_crtc), GFP_KERNEL);
->   	if (!dpu_crtc)
-> @@ -1558,6 +1562,13 @@ struct drm_crtc *dpu_crtc_init(struct drm_device *dev, struct drm_plane *plane,
->   	/* initialize event handling */
->   	spin_lock_init(&dpu_crtc->event_lock);
->   
-> +	ret = drm_self_refresh_helper_init(crtc);
-> +	if (ret) {
-> +		DPU_ERROR("Failed to initialize %s with self-refresh helpers %d\n",
-> +			crtc->name, ret);
-> +		return ERR_PTR(ret);
-> +	}
-> +
->   	DRM_DEBUG_KMS("%s: successfully initialized crtc\n", dpu_crtc->name);
->   	return crtc;
->   }
 > diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-> index 3156efb..5dfb56a 100644
+> index 5dfb56a..02a71d1 100644
 > --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
 > +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-> @@ -12,6 +12,7 @@
->   #include <linux/kthread.h>
->   #include <linux/seq_file.h>
+> @@ -592,7 +592,7 @@ static int dpu_encoder_virt_atomic_check(
+>   		if (drm_atomic_crtc_needs_modeset(crtc_state)) {
+>   			dpu_rm_release(global_state, drm_enc);
 >   
-> +#include <drm/drm_atomic.h>
->   #include <drm/drm_crtc.h>
->   #include <drm/drm_file.h>
->   #include <drm/drm_probe_helper.h>
-> @@ -1170,11 +1171,24 @@ static void dpu_encoder_virt_atomic_disable(struct drm_encoder *drm_enc,
->   					struct drm_atomic_state *state)
->   {
->   	struct dpu_encoder_virt *dpu_enc = NULL;
-> +	struct drm_crtc *crtc;
-> +	struct drm_crtc_state *old_state = NULL;
->   	int i = 0;
->   
->   	dpu_enc = to_dpu_encoder_virt(drm_enc);
->   	DPU_DEBUG_ENC(dpu_enc, "\n");
->   
-> +	crtc = drm_atomic_get_old_crtc_for_encoder(state, drm_enc);
-> +	if (crtc)
-> +		old_state = drm_atomic_get_old_crtc_state(state, crtc);
-> +
-> +	/*
-> +	 * The encoder is already disabled if self refresh mode was set earlier,
-> +	 * in the old_state for the corresponding crtc.
-> +	 */
-> +	if (old_state && old_state->self_refresh_active)
-> +		return;
-> +
->   	mutex_lock(&dpu_enc->enc_lock);
->   	dpu_enc->enabled = false;
->   
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
-> index bce4764..cc0a674 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
-> @@ -507,7 +507,7 @@ static void dpu_kms_wait_for_commit_done(struct msm_kms *kms,
->   		return;
->   	}
->   
-> -	if (!crtc->state->active) {
-> +	if (!drm_atomic_crtc_effectively_active(crtc->state)) {
->   		DPU_DEBUG("[crtc:%d] not active\n", crtc->base.id);
->   		return;
->   	}
+> -			if (!crtc_state->active_changed || crtc_state->active)
+> +			if (!crtc_state->active_changed || crtc_state->enable)
+>   				ret = dpu_rm_reserve(&dpu_kms->rm, global_state,
+>   						drm_enc, crtc_state, topology);
+>   		}
 
 
 -- 
