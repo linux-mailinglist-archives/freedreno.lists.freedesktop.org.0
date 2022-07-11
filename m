@@ -2,54 +2,64 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2888B570836
-	for <lists+freedreno@lfdr.de>; Mon, 11 Jul 2022 18:23:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6DDA9570888
+	for <lists+freedreno@lfdr.de>; Mon, 11 Jul 2022 18:48:12 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D187A8BDB0;
-	Mon, 11 Jul 2022 16:23:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 448C912A758;
+	Mon, 11 Jul 2022 16:47:54 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from alexa-out-sd-02.qualcomm.com (alexa-out-sd-02.qualcomm.com
- [199.106.114.39])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 61D3D8EE3C
- for <freedreno@lists.freedesktop.org>; Mon, 11 Jul 2022 16:23:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=quicinc.com; i=@quicinc.com; q=dns/txt; s=qcdkim;
- t=1657556616; x=1689092616;
- h=from:to:cc:subject:date:message-id:mime-version;
- bh=5W/cyp9V2EZN6jUCGc0So5pslzJEKD7nlHQUJeYIWQQ=;
- b=Zz3dFKUR5kotdqmNNQAdADA4TkJxq8eUCjkUNaitMGzyih9jeL/fPUVq
- BjmAAOOSj0y3ojtvWY3MIwg8G8D5oh120PSA8aXHPrLxL62dcKo7eZ07p
- NxxBzRFNys/ZdZ5ZxLIDhvaDjhtxWGNGGAFgC1Ov72g176Zvsb4mdT2Z0 A=;
-Received: from unknown (HELO ironmsg01-sd.qualcomm.com) ([10.53.140.141])
- by alexa-out-sd-02.qualcomm.com with ESMTP; 11 Jul 2022 09:23:35 -0700
-X-QCInternal: smtphost
-Received: from nasanex01c.na.qualcomm.com ([10.47.97.222])
- by ironmsg01-sd.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Jul 2022 09:23:35 -0700
-Received: from nalasex01a.na.qualcomm.com (10.47.209.196) by
- nasanex01c.na.qualcomm.com (10.47.97.222) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.986.22; Mon, 11 Jul 2022 09:23:34 -0700
-Received: from khsieh-linux1.qualcomm.com (10.80.80.8) by
- nalasex01a.na.qualcomm.com (10.47.209.196) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.986.22; Mon, 11 Jul 2022 09:23:34 -0700
-From: Kuogee Hsieh <quic_khsieh@quicinc.com>
-To: <robdclark@gmail.com>, <sean@poorly.run>, <swboyd@chromium.org>,
- <dianders@chromium.org>, <vkoul@kernel.org>, <agross@kernel.org>,
- <bjorn.andersson@linaro.org>, <robh+dt@kernel.org>,
- <devicetree@vger.kernel.org>
-Date: Mon, 11 Jul 2022 09:23:23 -0700
-Message-ID: <1657556603-15024-1-git-send-email-quic_khsieh@quicinc.com>
-X-Mailer: git-send-email 2.7.4
+Received: from mail-ed1-x52e.google.com (mail-ed1-x52e.google.com
+ [IPv6:2a00:1450:4864:20::52e])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 38EB610F95C
+ for <freedreno@lists.freedesktop.org>; Mon, 11 Jul 2022 16:47:52 +0000 (UTC)
+Received: by mail-ed1-x52e.google.com with SMTP id eq6so7002893edb.6
+ for <freedreno@lists.freedesktop.org>; Mon, 11 Jul 2022 09:47:52 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=CgkIi7fMPRr2AoUFqLpQX7xH/fNuy4VUkp8cy7sE2D4=;
+ b=V3/+Rch1ns/j5gS9Z+XimMOBxyslbkPIkGNRpBpOz0bsiaJNcIunGHgZ3wYeuNJ5KB
+ iiojbeFMZBZKTs54MZfAuQo8noiaVjkbPCw+VGJd7zq3ffX2k/PYiJbk2Lf2ec74x8vX
+ oOjelTn9RDQbi834Br05L23PNacDs9h+toRZ8=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=CgkIi7fMPRr2AoUFqLpQX7xH/fNuy4VUkp8cy7sE2D4=;
+ b=ehl5cMCChN4bLLMMAZg5bgE3bH6rj5JSbegpPGSmxkHGrmkIpxYdDKMd4nwCL/pYnw
+ FDy6Xmt5CIfUvWInFdDDZu5sBW9ZSlc4C40Z+7CAKBT5iVl+TjzZy6ckGEbt7Z0FGVzv
+ ntMDYmEJ2NfTMdoSY6jDwY4aHx/7sYj0eBaU9LcEA7pHlm9aVFqo4wPZIwvs+SkeXIZM
+ CVr+XUC7HUDPRqY7qT/zKhAb7W7Rtr/k6oPlmTToudN1mH2wBTnsoWgoFP/oIrYfLrRj
+ cJ7PeVfdGCYcZqE/AFnUKE9FT5lliYuiv8A8oISePDxwtt6SAJFtYkeTJC2Wzdf+Qj1o
+ fcAw==
+X-Gm-Message-State: AJIora/ueG8/J6V478wK8P2iwEBqiDRacrvFlslS82MC83280sj5VOZH
+ PckGbLM/SwY3ORQ+Ijb6Op9hXWTOCkQGSgR+XmE=
+X-Google-Smtp-Source: AGRyM1uHTL0OhUNy2m8D8PwTeYYd8PYDW/xW/w8uJ6mNIOl4s9pt03c+V8gjxceNl8AP/Oi8h7miyw==
+X-Received: by 2002:a05:6402:400a:b0:43a:40e4:af89 with SMTP id
+ d10-20020a056402400a00b0043a40e4af89mr26643348eda.383.1657558070556; 
+ Mon, 11 Jul 2022 09:47:50 -0700 (PDT)
+Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com.
+ [209.85.128.53]) by smtp.gmail.com with ESMTPSA id
+ kv21-20020a17090778d500b0070abf371274sm2826926ejc.136.2022.07.11.09.47.49
+ for <freedreno@lists.freedesktop.org>
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 11 Jul 2022 09:47:49 -0700 (PDT)
+Received: by mail-wm1-f53.google.com with SMTP id ay25so3370130wmb.1
+ for <freedreno@lists.freedesktop.org>; Mon, 11 Jul 2022 09:47:49 -0700 (PDT)
+X-Received: by 2002:a05:600c:3d95:b0:3a2:e97b:f3ae with SMTP id
+ bi21-20020a05600c3d9500b003a2e97bf3aemr3975351wmb.188.1657558069021; Mon, 11
+ Jul 2022 09:47:49 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-Subject: [Freedreno] [PATCH v2] arm64: dta: qcom: sc7280: delete vdda-1p2
- and vdda-0p9 from both dp and edp
+References: <1657556603-15024-1-git-send-email-quic_khsieh@quicinc.com>
+In-Reply-To: <1657556603-15024-1-git-send-email-quic_khsieh@quicinc.com>
+From: Doug Anderson <dianders@chromium.org>
+Date: Mon, 11 Jul 2022 09:47:37 -0700
+X-Gmail-Original-Message-ID: <CAD=FV=X0Fh_p4TnA3c=SadVKCDVFaWnT9Cj1zydQWqZdYL8eSQ@mail.gmail.com>
+Message-ID: <CAD=FV=X0Fh_p4TnA3c=SadVKCDVFaWnT9Cj1zydQWqZdYL8eSQ@mail.gmail.com>
+To: Kuogee Hsieh <quic_khsieh@quicinc.com>
+Content-Type: text/plain; charset="UTF-8"
+Subject: Re: [Freedreno] [PATCH v2] arm64: dta: qcom: sc7280: delete
+ vdda-1p2 and vdda-0p9 from both dp and edp
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,50 +72,30 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: quic_sbillaka@quicinc.com, linux-arm-msm@vger.kernel.org,
- quic_abhinavk@quicinc.com, quic_khsieh@quicinc.com, quic_mkrishn@quicinc.com,
- quic_aravindh@quicinc.com, freedreno@lists.freedesktop.org,
- quic_kalyant@quicinc.coml, linux-kernel@vger.kernel.org
+Cc: "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
+ <devicetree@vger.kernel.org>, Sankeerth Billakanti <quic_sbillaka@quicinc.com>,
+ "Abhinav Kumar \(QUIC\)" <quic_abhinavk@quicinc.com>,
+ freedreno <freedreno@lists.freedesktop.org>, Vinod Koul <vkoul@kernel.org>,
+ Rob Herring <robh+dt@kernel.org>, Bjorn Andersson <bjorn.andersson@linaro.org>,
+ Rob Clark <robdclark@gmail.com>, Andy Gross <agross@kernel.org>,
+ quic_mkrishn@quicinc.com, linux-arm-msm <linux-arm-msm@vger.kernel.org>,
+ "Aravind Venkateswaran \(QUIC\)" <quic_aravindh@quicinc.com>,
+ Stephen Boyd <swboyd@chromium.org>, Sean Paul <sean@poorly.run>,
+ quic_kalyant@quicinc.coml, LKML <linux-kernel@vger.kernel.org>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Both vdda-1p2-supply and vdda-0p9-supply regulators are controlled
-by dp combo phy. Therefore remove them from dp controller.
+Hi,
 
-Signed-off-by: Kuogee Hsieh <quic_khsieh@quicinc.com>
----
- arch/arm64/boot/dts/qcom/sc7280-herobrine.dtsi | 2 --
- arch/arm64/boot/dts/qcom/sc7280-qcard.dtsi     | 3 ---
- 2 files changed, 5 deletions(-)
+On Mon, Jul 11, 2022 at 9:23 AM Kuogee Hsieh <quic_khsieh@quicinc.com> wrote:
+>
+> Both vdda-1p2-supply and vdda-0p9-supply regulators are controlled
+> by dp combo phy. Therefore remove them from dp controller.
+>
+> Signed-off-by: Kuogee Hsieh <quic_khsieh@quicinc.com>
+> ---
+>  arch/arm64/boot/dts/qcom/sc7280-herobrine.dtsi | 2 --
+>  arch/arm64/boot/dts/qcom/sc7280-qcard.dtsi     | 3 ---
+>  2 files changed, 5 deletions(-)
 
-diff --git a/arch/arm64/boot/dts/qcom/sc7280-herobrine.dtsi b/arch/arm64/boot/dts/qcom/sc7280-herobrine.dtsi
-index ed800817..3f8996c 100644
---- a/arch/arm64/boot/dts/qcom/sc7280-herobrine.dtsi
-+++ b/arch/arm64/boot/dts/qcom/sc7280-herobrine.dtsi
-@@ -435,8 +435,6 @@ ap_i2c_tpm: &i2c14 {
- 	pinctrl-names = "default";
- 	pinctrl-0 = <&dp_hot_plug_det>;
- 	data-lanes = <0 1>;
--	vdda-1p2-supply = <&vdd_a_usbssdp_0_1p2>;
--	vdda-0p9-supply = <&vdd_a_usbssdp_0_core>;
- };
- 
- &mdss_mdp {
-diff --git a/arch/arm64/boot/dts/qcom/sc7280-qcard.dtsi b/arch/arm64/boot/dts/qcom/sc7280-qcard.dtsi
-index 4c25ffc..7adf31b 100644
---- a/arch/arm64/boot/dts/qcom/sc7280-qcard.dtsi
-+++ b/arch/arm64/boot/dts/qcom/sc7280-qcard.dtsi
-@@ -311,9 +311,6 @@
- 
- /* NOTE: Not all Qcards have eDP connector stuffed */
- &mdss_edp {
--	vdda-0p9-supply = <&vdd_a_edp_0_0p9>;
--	vdda-1p2-supply = <&vdd_a_edp_0_1p2>;
--
- 	aux-bus {
- 		edp_panel: panel {
- 			compatible = "edp-panel";
--- 
-The Qualcomm Innovation Center, Inc. is a member of the Code Aurora Forum,
-a Linux Foundation Collaborative Project
-
+Reviewed-by: Douglas Anderson <dianders@chromium.org>
