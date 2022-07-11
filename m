@@ -1,58 +1,58 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 67DEA56D6D0
-	for <lists+freedreno@lfdr.de>; Mon, 11 Jul 2022 09:29:33 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 9E9BF56D6D9
+	for <lists+freedreno@lfdr.de>; Mon, 11 Jul 2022 09:31:34 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BD73410F421;
-	Mon, 11 Jul 2022 07:29:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 38146112EE0;
+	Mon, 11 Jul 2022 07:31:33 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-qt1-x835.google.com (mail-qt1-x835.google.com
- [IPv6:2607:f8b0:4864:20::835])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F3A4E10F251
- for <freedreno@lists.freedesktop.org>; Mon, 11 Jul 2022 07:29:29 +0000 (UTC)
-Received: by mail-qt1-x835.google.com with SMTP id r17so3780474qtx.6
- for <freedreno@lists.freedesktop.org>; Mon, 11 Jul 2022 00:29:29 -0700 (PDT)
+Received: from mail-qt1-x834.google.com (mail-qt1-x834.google.com
+ [IPv6:2607:f8b0:4864:20::834])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 48462112EE0
+ for <freedreno@lists.freedesktop.org>; Mon, 11 Jul 2022 07:31:32 +0000 (UTC)
+Received: by mail-qt1-x834.google.com with SMTP id r2so6414814qta.0
+ for <freedreno@lists.freedesktop.org>; Mon, 11 Jul 2022 00:31:32 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=vn9RnGOLMiTjJq2R61BybdGrozv2mqJxAh2DpK7q6tQ=;
- b=tWwSOiaN4TprmmHVh9rGZZCc2LadOLcC7C/vFVx6N7kvE9yQX5Z9g3NYB5ZwPtmRkO
- 5qDuorpXM0XkWBFVrbP/Ai2gGR25Gww+hzZQ+KW2I7S2QqrH1NjmPa/0Nzwg1bpU+5XL
- 4gzGxUY6qA1ZSdkCZNuc8jcqWy44saqUVSLL33qKPXR2ux041OCfW720km7Rj4uM9mAI
- odBhA/Kdn6zT9ShElii+c3EzMWYFac7EXZ6ueNl88UU7pCqrGBOeTESxbSlBHV7C7IOH
- PZAi3pKCIc+lb33UGU4ncl9j93wOm9AeZBoG40qqqX1yio+jpPjjjafT4zhpvqc984vb
- JM6g==
+ :cc; bh=/7sLUT5xG/gk839oUa0EEDIiTWXp5BX3JAGYljElZfg=;
+ b=uXGyRAuv2KAbOv0g4YRopN6v2Vg+zgg/0rtizfGZdXZQ9nkwTGdonA2tsG4G24P6zC
+ A8VZynVvJCD3wT5Y5s8HF/zCqXwve7PssBs8Jx8S1j1021eeve00nxNWv1X40erQHr0z
+ QeQBDBj8RMCr9iMV3lfqEVue8TLWRaZFoE0uLaUrfpGMUgkIaqJtLaVgn2ogXRUhGwgq
+ jN78Fv07/KO3K8z50PJvXAkxyerqtP/L1jWg4OnHIr2OopNC3GIIiB7NFKHWdoytghUl
+ sn9d8id+6gV+X1IvD23Ud+ybZntvuadZ/jFE8ZiZzm65rid3s1IVKGXhY+4ypWs3EBEe
+ NY+g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=vn9RnGOLMiTjJq2R61BybdGrozv2mqJxAh2DpK7q6tQ=;
- b=ubqBlmfX90/MHMgSX2ETUOtP9FJOlo9uDSBOS2o4DW/QgUknGwefnwO9nL3Rki5tlm
- 9VDcQKmwwEqlvFtsTrZdWVf6xphZ6xYkN8CWjsqRm2RYX6o7iekAzBkYr2/nKmYf8bsm
- tmvMMv8OqBVVrNa5SVIqxbhi1r59otZ/tOM6sQAdTtsKRegRIviJGdDtDttDiDQQ6C9C
- 4cgCUhvtl+E+kJut1c6fnVetzCB9wrtTacTe542mY8dCQNFjmKzqpuDgwyy/5GzZ+Hcw
- +xXkTXhI9nUmieCZcfH7k5hsRjxOzTYhWtvJDoT8M4B6LQPqHAUD7wqRI7ZibGbXBrs0
- ohaw==
-X-Gm-Message-State: AJIora8vnWn2d/8t1p8yJBIN6zZKGIAbj5jZGGvPei2X+olgYdWJytqk
- XO6Jh0l3TLDNPmkqssdy8XPt6TdqHm21Lr4bi470Mw==
-X-Google-Smtp-Source: AGRyM1tQhMOlFA4dzCEZxBWibccQVLVlffa7HebJhI4b8ogv/f/fDbItnpLk1YzxgoCFEnSET9X88SV6zp0S2C6v7BU=
-X-Received: by 2002:ac8:5dca:0:b0:31e:85b8:8a18 with SMTP id
- e10-20020ac85dca000000b0031e85b88a18mr12575411qtx.370.1657524568595; Mon, 11
- Jul 2022 00:29:28 -0700 (PDT)
+ bh=/7sLUT5xG/gk839oUa0EEDIiTWXp5BX3JAGYljElZfg=;
+ b=qjidYX18sPDikvM4Hekl8AinLamIgF0vHBK9EGJed9zPte0OvTQHmLBfS0TYBMq3su
+ bArHQIJFPmBg2cwL3kMGtr6sfnKa/anIGYCCkf/0a9vD9DI2/Jf2+Pm3COBa7RTzIQNg
+ 7YmRUFAs4eYST6HKpOsRzQDvelQLQIxaMUZyD4/vEkKLONZak6GPYdmBmtAaj1DQX2AC
+ iZxydtsCYeqJyo3OtEHcJCmDOkFEX43GNdpw5xgAk8yCtzOwZpLCvR85yj1LAVSNUkPS
+ L1dDZNWJOFo515RqtlEB1IO5eE//NYQHeUUqCRHaF9abQzXAdEjyt6mac9pNBzr+Z1pA
+ gTpg==
+X-Gm-Message-State: AJIora8oUo0YMOSgQDdXfHmRcyso42CHN0KlcQ0BVy8czybgsVlKwc0B
+ e/R91EgRa0zUmGGFm1QKCNQPAa5H9MBi1TjW5EB8UQ==
+X-Google-Smtp-Source: AGRyM1v4yopWgDJUivdQtj6Q2uqWUtOVQrX2vVikIwEPyJGIulLhl5A6m1ds9Go6J6iadfWUrWzJd53qFX6mmUUJau4=
+X-Received: by 2002:ac8:4e56:0:b0:31d:38c0:b749 with SMTP id
+ e22-20020ac84e56000000b0031d38c0b749mr12415313qtw.682.1657524691329; Mon, 11
+ Jul 2022 00:31:31 -0700 (PDT)
 MIME-Version: 1.0
 References: <20220710184536.172705-1-dmitry.baryshkov@linaro.org>
- <20220710184536.172705-2-dmitry.baryshkov@linaro.org>
- <YssivkHHpKFhw3cr@ravnborg.org>
-In-Reply-To: <YssivkHHpKFhw3cr@ravnborg.org>
+ <20220710184536.172705-3-dmitry.baryshkov@linaro.org>
+ <YsskUiGP8HCQeUUR@ravnborg.org>
+In-Reply-To: <YsskUiGP8HCQeUUR@ravnborg.org>
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Mon, 11 Jul 2022 10:29:17 +0300
-Message-ID: <CAA8EJppwg54N4HPDSFCgUA_5kpxxOm7wh0eCZWZ0wKCjv=5pkg@mail.gmail.com>
+Date: Mon, 11 Jul 2022 10:31:20 +0300
+Message-ID: <CAA8EJpobTKkyMkFd2zgFVzR21BgqA+Rdrgszc2JYFZqU9Zvp9Q@mail.gmail.com>
 To: Sam Ravnborg <sam@ravnborg.org>
 Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [RFC PATCH 1/3] drm/bridge: ti-sn65dsi86: switch to
- atomic ops
+Subject: Re: [Freedreno] [RFC PATCH 2/3] drm/bridge: ti-sn65dsi86: fetch bpc
+ using drm_atomic_state
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,88 +77,115 @@ Cc: Sean Paul <sean@poorly.run>, Jernej Skrabec <jernej.skrabec@gmail.com>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Sun, 10 Jul 2022 at 22:04, Sam Ravnborg <sam@ravnborg.org> wrote:
+On Sun, 10 Jul 2022 at 22:11, Sam Ravnborg <sam@ravnborg.org> wrote:
 >
 > Hi Dmitry,
 >
-> On Sun, Jul 10, 2022 at 09:45:34PM +0300, Dmitry Baryshkov wrote:
-> > Make ti-sn65dsi86 use atomic_enable / atomic_disable / atomic_pre_enable
-> > / atomic_post_disable rather than their non-atomic versions.
+> On Sun, Jul 10, 2022 at 09:45:35PM +0300, Dmitry Baryshkov wrote:
+> > Rather than reading the pdata->connector directly, fetch the connector
+> > using drm_atomic_state. This allows us to make pdata->connector optional
+> > (and thus supporting DRM_BRIDGE_ATTACH_NO_CONNECTOR).
 > >
 > > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
->
-> a more or less identical patch was applied to drm-misc-next
-> the other day.
-> See d8b599bf625d1d818fdbb322a272fd2a5ea32e38.
-
-Ugh, thanks for pointing this out.
-
->
->         Sam
->
 > > ---
-> >  drivers/gpu/drm/bridge/ti-sn65dsi86.c | 20 ++++++++++++--------
-> >  1 file changed, 12 insertions(+), 8 deletions(-)
+> >  drivers/gpu/drm/bridge/ti-sn65dsi86.c | 20 ++++++++++++++------
+> >  1 file changed, 14 insertions(+), 6 deletions(-)
 > >
 > > diff --git a/drivers/gpu/drm/bridge/ti-sn65dsi86.c b/drivers/gpu/drm/bridge/ti-sn65dsi86.c
-> > index 8cad662de9bb..01171547f638 100644
+> > index 01171547f638..df08207d6223 100644
 > > --- a/drivers/gpu/drm/bridge/ti-sn65dsi86.c
 > > +++ b/drivers/gpu/drm/bridge/ti-sn65dsi86.c
-> > @@ -752,7 +752,8 @@ ti_sn_bridge_mode_valid(struct drm_bridge *bridge,
-> >       return MODE_OK;
+> > @@ -779,9 +779,9 @@ static void ti_sn_bridge_set_dsi_rate(struct ti_sn65dsi86 *pdata)
+> >       regmap_write(pdata->regmap, SN_DSIA_CLK_FREQ_REG, val);
 > >  }
 > >
-> > -static void ti_sn_bridge_disable(struct drm_bridge *bridge)
-> > +static void ti_sn_bridge_atomic_disable(struct drm_bridge *bridge,
-> > +                                     struct drm_bridge_state *old_bridge_state)
+> > -static unsigned int ti_sn_bridge_get_bpp(struct ti_sn65dsi86 *pdata)
+> > +static unsigned int ti_sn_bridge_get_bpp(struct drm_connector *connector)
 > >  {
-> >       struct ti_sn65dsi86 *pdata = bridge_to_ti_sn65dsi86(bridge);
-> >
-> > @@ -1011,7 +1012,8 @@ static int ti_sn_link_training(struct ti_sn65dsi86 *pdata, int dp_rate_idx,
-> >       return ret;
-> >  }
-> >
-> > -static void ti_sn_bridge_enable(struct drm_bridge *bridge)
-> > +static void ti_sn_bridge_atomic_enable(struct drm_bridge *bridge,
-> > +                                    struct drm_bridge_state *old_bridge_state)
-> >  {
-> >       struct ti_sn65dsi86 *pdata = bridge_to_ti_sn65dsi86(bridge);
-> >       const char *last_err_str = "No supported DP rate";
-> > @@ -1080,7 +1082,8 @@ static void ti_sn_bridge_enable(struct drm_bridge *bridge)
-> >                          VSTREAM_ENABLE);
-> >  }
-> >
-> > -static void ti_sn_bridge_pre_enable(struct drm_bridge *bridge)
-> > +static void ti_sn_bridge_atomic_pre_enable(struct drm_bridge *bridge,
-> > +                                        struct drm_bridge_state *old_bridge_state)
-> >  {
-> >       struct ti_sn65dsi86 *pdata = bridge_to_ti_sn65dsi86(bridge);
-> >
-> > @@ -1093,7 +1096,8 @@ static void ti_sn_bridge_pre_enable(struct drm_bridge *bridge)
-> >       usleep_range(100, 110);
-> >  }
-> >
-> > -static void ti_sn_bridge_post_disable(struct drm_bridge *bridge)
-> > +static void ti_sn_bridge_atomic_post_disable(struct drm_bridge *bridge,
-> > +                                          struct drm_bridge_state *old_bridge_state)
-> >  {
-> >       struct ti_sn65dsi86 *pdata = bridge_to_ti_sn65dsi86(bridge);
-> >
-> > @@ -1114,10 +1118,10 @@ static const struct drm_bridge_funcs ti_sn_bridge_funcs = {
-> >       .attach = ti_sn_bridge_attach,
-> >       .detach = ti_sn_bridge_detach,
-> >       .mode_valid = ti_sn_bridge_mode_valid,
-> > -     .pre_enable = ti_sn_bridge_pre_enable,
-> > -     .enable = ti_sn_bridge_enable,
-> > -     .disable = ti_sn_bridge_disable,
-> > -     .post_disable = ti_sn_bridge_post_disable,
-> > +     .atomic_pre_enable = ti_sn_bridge_atomic_pre_enable,
-> > +     .atomic_enable = ti_sn_bridge_atomic_enable,
-> > +     .atomic_disable = ti_sn_bridge_atomic_disable,
-> > +     .atomic_post_disable = ti_sn_bridge_atomic_post_disable,
+> > -     if (pdata->connector->display_info.bpc <= 6)
+> > +     if (connector->display_info.bpc <= 6)
+> >               return 18;
+> >       else
+> >               return 24;
+> > @@ -796,7 +796,7 @@ static const unsigned int ti_sn_bridge_dp_rate_lut[] = {
+> >       0, 1620, 2160, 2430, 2700, 3240, 4320, 5400
 > >  };
 > >
-> >  static void ti_sn_bridge_parse_lanes(struct ti_sn65dsi86 *pdata,
+> > -static int ti_sn_bridge_calc_min_dp_rate_idx(struct ti_sn65dsi86 *pdata)
+> > +static int ti_sn_bridge_calc_min_dp_rate_idx(struct ti_sn65dsi86 *pdata, unsigned int bpp)
+> >  {
+> >       unsigned int bit_rate_khz, dp_rate_mhz;
+> >       unsigned int i;
+> > @@ -804,7 +804,7 @@ static int ti_sn_bridge_calc_min_dp_rate_idx(struct ti_sn65dsi86 *pdata)
+> >               &pdata->bridge.encoder->crtc->state->adjusted_mode;
+> >
+> >       /* Calculate minimum bit rate based on our pixel clock. */
+> > -     bit_rate_khz = mode->clock * ti_sn_bridge_get_bpp(pdata);
+> > +     bit_rate_khz = mode->clock * bpp;
+> >
+> >       /* Calculate minimum DP data rate, taking 80% as per DP spec */
+> >       dp_rate_mhz = DIV_ROUND_UP(bit_rate_khz * DP_CLK_FUDGE_NUM,
+> > @@ -1016,12 +1016,19 @@ static void ti_sn_bridge_atomic_enable(struct drm_bridge *bridge,
+> >                                      struct drm_bridge_state *old_bridge_state)
+> >  {
+> >       struct ti_sn65dsi86 *pdata = bridge_to_ti_sn65dsi86(bridge);
+> > +     struct drm_connector *connector;
+> >       const char *last_err_str = "No supported DP rate";
+> >       unsigned int valid_rates;
+> >       int dp_rate_idx;
+> >       unsigned int val;
+> >       int ret = -EINVAL;
+> >       int max_dp_lanes;
+> > +     unsigned int bpp;
+> > +
+> > +     connector = drm_atomic_get_new_connector_for_encoder(old_bridge_state->base.state,
+> > +                                                          bridge->encoder);
+> > +     if (!connector)
+> > +             return;
+> It would be prudent with a dev_err() logging here as we do not expect to
+> fail.
+> I looked into something similar, but with a less elegant solution, and
+> could not convince myself that the display driver would create the
+> connector before ti_sn_bridge_atomic_enable() was called.
+
+If I understand your concern, the connectors (as does the rest of
+CRTC/encoder/etc objects) are not dynamic, so they must be created
+before being able to use the DRM device or any part of thereof is
+being actually used (enable/disable/modeset).
+
+>
+> This is another reason why a dev_err would be nice - so tester could see
+> if this fails or not.
+
+Will fix this in v2.
+
+>
+> With the dev_err added:
+> Reviewed-by: Sam Ravnborg <sam@ravnborg.org>
+>
+> >
+> >       max_dp_lanes = ti_sn_get_max_lanes(pdata);
+> >       pdata->dp_lanes = min(pdata->dp_lanes, max_dp_lanes);
+> > @@ -1047,8 +1054,9 @@ static void ti_sn_bridge_atomic_enable(struct drm_bridge *bridge,
+> >       drm_dp_dpcd_writeb(&pdata->aux, DP_EDP_CONFIGURATION_SET,
+> >                          DP_ALTERNATE_SCRAMBLER_RESET_ENABLE);
+> >
+> > +     bpp = ti_sn_bridge_get_bpp(connector);
+> >       /* Set the DP output format (18 bpp or 24 bpp) */
+> > -     val = (ti_sn_bridge_get_bpp(pdata) == 18) ? BPP_18_RGB : 0;
+> > +     val = (bpp == 18) ? BPP_18_RGB : 0;
+> >       regmap_update_bits(pdata->regmap, SN_DATA_FORMAT_REG, BPP_18_RGB, val);
+> >
+> >       /* DP lane config */
+> > @@ -1059,7 +1067,7 @@ static void ti_sn_bridge_atomic_enable(struct drm_bridge *bridge,
+> >       valid_rates = ti_sn_bridge_read_valid_rates(pdata);
+> >
+> >       /* Train until we run out of rates */
+> > -     for (dp_rate_idx = ti_sn_bridge_calc_min_dp_rate_idx(pdata);
+> > +     for (dp_rate_idx = ti_sn_bridge_calc_min_dp_rate_idx(pdata, bpp);
+> >            dp_rate_idx < ARRAY_SIZE(ti_sn_bridge_dp_rate_lut);
+> >            dp_rate_idx++) {
+> >               if (!(valid_rates & BIT(dp_rate_idx)))
 > > --
 > > 2.35.1
 
