@@ -2,59 +2,57 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id C11215711AB
-	for <lists+freedreno@lfdr.de>; Tue, 12 Jul 2022 07:05:09 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 221695715F6
+	for <lists+freedreno@lfdr.de>; Tue, 12 Jul 2022 11:43:03 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 79D9A1125D9;
-	Tue, 12 Jul 2022 05:05:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4FBDD112A72;
+	Tue, 12 Jul 2022 09:43:01 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from alexa-out-sd-01.qualcomm.com (alexa-out-sd-01.qualcomm.com
- [199.106.114.38])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 004961125B8;
- Tue, 12 Jul 2022 05:05:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=quicinc.com; i=@quicinc.com; q=dns/txt; s=qcdkim;
- t=1657602306; x=1689138306;
- h=message-id:date:mime-version:subject:to:cc:references:
- from:in-reply-to:content-transfer-encoding;
- bh=17Z3xulwqXW1QfY/QEzxXBPkNTk6rcH+8iLrHGYb9Gc=;
- b=gA0IZ7dtlvORiDpRjLGDLC2ajzjxnZjKGTrQqizofElx8RpREwkxDKzg
- N2r+u7NGDzNrA2fBfcGSzLrvfHz0H3A5JdEcZ6rtJH2WZHLwDo0uu5WLg
- ZwABV3f1/1S1i0d5Nh/CeZphq1D038KvRbf0BEqortPiVrNrLvx53gN34 E=;
-Received: from unknown (HELO ironmsg01-sd.qualcomm.com) ([10.53.140.141])
- by alexa-out-sd-01.qualcomm.com with ESMTP; 11 Jul 2022 22:05:04 -0700
-X-QCInternal: smtphost
-Received: from nasanex01c.na.qualcomm.com ([10.47.97.222])
- by ironmsg01-sd.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Jul 2022 22:05:03 -0700
-Received: from nalasex01a.na.qualcomm.com (10.47.209.196) by
- nasanex01c.na.qualcomm.com (10.47.97.222) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.986.22; Mon, 11 Jul 2022 22:05:02 -0700
-Received: from [10.216.10.34] (10.80.80.8) by nalasex01a.na.qualcomm.com
- (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.22; Mon, 11 Jul
- 2022 22:04:56 -0700
-Message-ID: <1299312f-e614-e4e2-72cb-fd7fb99922ce@quicinc.com>
-Date: Tue, 12 Jul 2022 10:34:54 +0530
+Received: from mail-qv1-xf35.google.com (mail-qv1-xf35.google.com
+ [IPv6:2607:f8b0:4864:20::f35])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 11D0B112A72
+ for <freedreno@lists.freedesktop.org>; Tue, 12 Jul 2022 09:43:00 +0000 (UTC)
+Received: by mail-qv1-xf35.google.com with SMTP id nd6so2174090qvb.6
+ for <freedreno@lists.freedesktop.org>; Tue, 12 Jul 2022 02:42:59 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=YoZBYZy41JFnQOGO3Hk17+jt5jdA+Ko/TmjpBwiSidA=;
+ b=Mp56ho49ONCB9YdoaKjrcHN9VWBBj/JQHylIy8Y66ZDWzu6613aEVMlt4rXLr4xbnT
+ /EAd5UzTDUYiryhZdDscI62gJ5lqGH6tOEoClYAJwYKjdWHqTtnEzRM7gY5AfpO6KvfJ
+ IdcWdko+YQZQjfCIa7XmsgynjbgkayMyaVnVEybhLgR0nwoUN9uHpzAa61o2YvQAROu9
+ 9XKte3wpeBCxjHFQ+HRDKFbY2VKQMtC6xLwMlqGrDUVx79hrhUrjEhCjDMhlgFb5d3EE
+ hPb+EZyqgDTxqoG8689V7XSNtZ2AbdDG+swssRacz8vsQ3qM+byfPSmjl+zwRPTsES5T
+ C5BQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=YoZBYZy41JFnQOGO3Hk17+jt5jdA+Ko/TmjpBwiSidA=;
+ b=dX9Zb5mc0g1jz2jJOU31yOAow/ZRmnz5WInIjjMTMT16NUaJOClYAS1FgQSmrYxmlA
+ W5P0WaFa/ReFmofOZLvchN6gvoXWLHSvOTgNzNx/Zimb6M6Rt94UQIgPa+18W9HFcIDK
+ SusG7wCxBdvyAapMgt6ySdnJbj0bqyMgNJ6VxGY1os2q1qKJ7pSWxjANZmpK04doi/46
+ gCJCcwxMGsLk7leueSLdhFrvXwCM8K87yamIKoaxIk0F8i9ywDeZqvKXswZe6EqnrfUt
+ /XwBGRPdbYpSn1i2ex4Ql3fAEAlYP4XxBVPkuNDqOoC8LdoINT4MgylzJDJ1+vw0NNOS
+ Kc9A==
+X-Gm-Message-State: AJIora+uydJMLFx7xwjMtUV9aBjk0bTsPda+lE4txKDUqUb5hTLWcSSH
+ iH7TR+O4Dvsbg4xH1nnt7lvnYwQsbaH7oqovxn5HuA==
+X-Google-Smtp-Source: AGRyM1tHoH02JA0eu1BvlGmolAYocWBMRLvOM+ZDeFF0Ju9sWVnKd2I++G5vKn9D8D1RhgOguQYeeGDqDOcrYk768oM=
+X-Received: by 2002:a0c:8ecc:0:b0:473:2fa4:df7c with SMTP id
+ y12-20020a0c8ecc000000b004732fa4df7cmr16692462qvb.55.1657618979170; Tue, 12
+ Jul 2022 02:42:59 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.3.2
-Content-Language: en-US
-To: Doug Anderson <dianders@chromium.org>
-References: <1657346375-1461-1-git-send-email-quic_akhilpo@quicinc.com>
- <20220709112837.v2.3.I4ac27a0b34ea796ce0f938bb509e257516bc6f57@changeid>
- <CAD=FV=U=J+yf6Qu0VgJ8A5Lhs_s8Fszw=Oa0XUny5XT-5z56xQ@mail.gmail.com>
-From: Akhil P Oommen <quic_akhilpo@quicinc.com>
-In-Reply-To: <CAD=FV=U=J+yf6Qu0VgJ8A5Lhs_s8Fszw=Oa0XUny5XT-5z56xQ@mail.gmail.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-Subject: Re: [Freedreno] [PATCH v2 3/7] drm/msm: Fix cx collapse issue
- during recovery
+References: <20220710084133.30976-1-dmitry.baryshkov@linaro.org>
+ <20220710084133.30976-9-dmitry.baryshkov@linaro.org>
+ <20220711231638.GA449827-robh@kernel.org>
+In-Reply-To: <20220711231638.GA449827-robh@kernel.org>
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Date: Tue, 12 Jul 2022 12:42:48 +0300
+Message-ID: <CAA8EJpoHKewcM3upa9GvNhUyKNC3sjqYa2rA-zQk5m1TpZmAtg@mail.gmail.com>
+To: Rob Herring <robh@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Subject: Re: [Freedreno] [PATCH v2 8/9] dt-bindings: msm/dp: add missing
+ properties
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,73 +65,70 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno <freedreno@lists.freedesktop.org>,
- Jonathan Marek <jonathan@marek.ca>, David
- Airlie <airlied@linux.ie>, linux-arm-msm <linux-arm-msm@vger.kernel.org>,
+Cc: devicetree@vger.kernel.org, Daniel Vetter <daniel@ffwll.ch>,
+ David Airlie <airlied@linux.ie>, linux-arm-msm@vger.kernel.org,
+ Kuogee Hsieh <quic_khsieh@quicinc.com>,
  Konrad Dybcio <konrad.dybcio@somainline.org>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- dri-devel <dri-devel@lists.freedesktop.org>,
- Bjorn Andersson <bjorn.andersson@linaro.org>, Rob Clark <robdclark@gmail.com>,
- Matthias Kaehlcke <mka@chromium.org>, Daniel Vetter <daniel@ffwll.ch>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Jordan
- Crouse <jordan@cosmicpenguin.net>, Sean Paul <sean@poorly.run>,
- Chia-I Wu <olvaffe@gmail.com>, LKML <linux-kernel@vger.kernel.org>
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
+ Bjorn Andersson <bjorn.andersson@linaro.org>, freedreno@lists.freedesktop.org,
+ Rob Clark <robdclark@gmail.com>, Andy Gross <agross@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Stephen Boyd <swboyd@chromium.org>, Sean Paul <sean@poorly.run>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 7/12/2022 4:52 AM, Doug Anderson wrote:
-> Hi,
+On Tue, 12 Jul 2022 at 02:16, Rob Herring <robh@kernel.org> wrote:
 >
-> On Fri, Jul 8, 2022 at 11:00 PM Akhil P Oommen <quic_akhilpo@quicinc.com> wrote:
->> There are some hardware logic under CX domain. For a successful
->> recovery, we should ensure cx headswitch collapses to ensure all the
->> stale states are cleard out. This is especially true to for a6xx family
->> where we can GMU co-processor.
->>
->> Currently, cx doesn't collapse due to a devlink between gpu and its
->> smmu. So the *struct gpu device* needs to be runtime suspended to ensure
->> that the iommu driver removes its vote on cx gdsc.
->>
->> Signed-off-by: Akhil P Oommen <quic_akhilpo@quicinc.com>
->> ---
->>
->> (no changes since v1)
->>
->>   drivers/gpu/drm/msm/adreno/a6xx_gpu.c | 16 ++++++++++++++--
->>   drivers/gpu/drm/msm/msm_gpu.c         |  2 --
->>   2 files changed, 14 insertions(+), 4 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
->> index 4d50110..7ed347c 100644
->> --- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
->> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
->> @@ -1278,8 +1278,20 @@ static void a6xx_recover(struct msm_gpu *gpu)
->>           */
->>          gmu_write(&a6xx_gpu->gmu, REG_A6XX_GMU_GMU_PWR_COL_KEEPALIVE, 0);
->>
->> -       gpu->funcs->pm_suspend(gpu);
->> -       gpu->funcs->pm_resume(gpu);
->> +       /*
->> +        * Now drop all the pm_runtime usage count to allow cx gdsc to collapse.
->> +        * First drop the usage count from all active submits
->> +        */
->> +       for (i = gpu->active_submits; i > 0; i--)
->> +               pm_runtime_put(&gpu->pdev->dev);
->> +
->> +       /* And the final one from recover worker */
->> +       pm_runtime_put_sync(&gpu->pdev->dev);
->> +
->> +       for (i = gpu->active_submits; i > 0; i--)
->> +               pm_runtime_get(&gpu->pdev->dev);
->> +
->> +       pm_runtime_get_sync(&gpu->pdev->dev);
-> In response to v1, Rob suggested pm_runtime_force_suspend/resume().
-> Those seem like they would work to me, too. Why not use them?
-Quoting my previous response which I seem to have sent only to Freedreno 
-list:
+> On Sun, Jul 10, 2022 at 11:41:32AM +0300, Dmitry Baryshkov wrote:
+> > Document missing definitions for opp-table (DP controller OPPs), aux-bus
+> > (DP AUX BUS) and data-lanes (DP/eDP lanes mapping) properties.
+> >
+> > Reviewed-by: Stephen Boyd <swboyd@chromium.org>
+> > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> > ---
+> >  .../bindings/display/msm/dp-controller.yaml          | 12 ++++++++++++
+> >  1 file changed, 12 insertions(+)
+> >
+> > diff --git a/Documentation/devicetree/bindings/display/msm/dp-controller.yaml b/Documentation/devicetree/bindings/display/msm/dp-controller.yaml
+> > index 391910d91e43..52cbf00df0ba 100644
+> > --- a/Documentation/devicetree/bindings/display/msm/dp-controller.yaml
+> > +++ b/Documentation/devicetree/bindings/display/msm/dp-controller.yaml
+> > @@ -70,9 +70,21 @@ properties:
+> >    operating-points-v2:
+> >      maxItems: 1
+> >
+> > +  opp-table: true
+> > +
+> >    power-domains:
+> >      maxItems: 1
+> >
+> > +  aux-bus:
+> > +    $ref: /schemas/display/dp-aux-bus.yaml#
+> > +
+> > +  data-lanes:
+>
+> But this is the wrong location for 'data-lanes'. It belongs in an
+> endpoint node.
 
-"I believe it is supposed to be used only during system sleep state 
-transitions. Btw, we don't want pm_runtime_get() calls from elsewhere to 
-fail by disabling RPM here."
+Ack. Then I'll drop this for v3.
 
--Akhil
+>
+> > +    $ref: /schemas/types.yaml#/definitions/uint32-array
+> > +    minItems: 1
+> > +    maxItems: 4
+> > +    items:
+> > +      maximum: 3
+> > +
+> >    "#sound-dai-cells":
+> >      const: 0
+> >
+> > --
+> > 2.35.1
+> >
+> >
+
+
+
+-- 
+With best wishes
+Dmitry
