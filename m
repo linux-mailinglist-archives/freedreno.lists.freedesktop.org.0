@@ -2,65 +2,59 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id AA0D7570E4A
-	for <lists+freedreno@lfdr.de>; Tue, 12 Jul 2022 01:28:28 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C11215711AB
+	for <lists+freedreno@lfdr.de>; Tue, 12 Jul 2022 07:05:09 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B976F11A8AD;
-	Mon, 11 Jul 2022 23:28:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 79D9A1125D9;
+	Tue, 12 Jul 2022 05:05:07 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ej1-x62a.google.com (mail-ej1-x62a.google.com
- [IPv6:2a00:1450:4864:20::62a])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 507B4113D72
- for <freedreno@lists.freedesktop.org>; Mon, 11 Jul 2022 23:28:01 +0000 (UTC)
-Received: by mail-ej1-x62a.google.com with SMTP id ss3so5367789ejc.11
- for <freedreno@lists.freedesktop.org>; Mon, 11 Jul 2022 16:28:01 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=tT3i3PdSWIbZI2/jQXTr2ht9FWXt0v5w3WnrwY7zOxE=;
- b=Ldn5e/XdivqNGq4Wo2DSw9vOq5ICFZFMjEsGK5qXKUBqT+RZBBTBUQUrgowVxl9abf
- IZvV6AFjiDL62G8G5+bfNOR9kg81XWRLWcfzrZg1n3q+TAcpqNtW0Qm6u4XsGNXO02KB
- w0cKuHUwdeLDMcYS59ah5rxS1gcxsji/tG4DA=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=tT3i3PdSWIbZI2/jQXTr2ht9FWXt0v5w3WnrwY7zOxE=;
- b=S6GEeC2r+OkWmL6T1vMVFbnbgRC6S0Lb3V69QayfQXyt6YRAOjhjPVh9oEK8ejChek
- bVvbSziAAx5z31elFyCZcoZzedgLx99hgYPYR2iyB+QEVYwRQmpdxH1YLYQmkQHWhWhu
- F67BhmBN/Q8vNgqvZIq2iUyGLNTDRu6vq1P85bPeyYJTRoZaphKHx0t6iBjorcvUqlEh
- eZjUrtdo9/v7eRbVmut0UUGZO5k4C/NS8Ogh0C/VICZ7aKj6um2fdMZkQBr5EF5FaRSl
- mf6KrOX3MYzDTUV8LP0eYhaq2uMGIm6sZM+cywn6ahJVRdCN1rnheAh3WIuix5NgnUft
- EQYw==
-X-Gm-Message-State: AJIora+FXA7OHgDJIssQXmvgO9kAPlSexWKFBfHW/benuxfkqPF8E2Hy
- yofrSlyhhAXihSakASbhW/I8GCUARGrqFSzQXRc=
-X-Google-Smtp-Source: AGRyM1vWRdC8OKNhrUjgrydWPvbQzkArFJ3rcOFpWE7D3W3zjPxmiZh7vjK+nBfY2d2no+ssP5gARw==
-X-Received: by 2002:a17:906:284c:b0:727:3773:1a53 with SMTP id
- s12-20020a170906284c00b0072737731a53mr20367601ejc.765.1657582079520; 
- Mon, 11 Jul 2022 16:27:59 -0700 (PDT)
-Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com.
- [209.85.128.42]) by smtp.gmail.com with ESMTPSA id
- lb17-20020a170907785100b0072a430d2abdsm3161750ejc.91.2022.07.11.16.27.57
- for <freedreno@lists.freedesktop.org>
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 11 Jul 2022 16:27:58 -0700 (PDT)
-Received: by mail-wm1-f42.google.com with SMTP id l68so3814061wml.3
- for <freedreno@lists.freedesktop.org>; Mon, 11 Jul 2022 16:27:57 -0700 (PDT)
-X-Received: by 2002:a05:600c:3d95:b0:3a2:e97b:f3ae with SMTP id
- bi21-20020a05600c3d9500b003a2e97bf3aemr728744wmb.188.1657582077548; Mon, 11
- Jul 2022 16:27:57 -0700 (PDT)
+Received: from alexa-out-sd-01.qualcomm.com (alexa-out-sd-01.qualcomm.com
+ [199.106.114.38])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 004961125B8;
+ Tue, 12 Jul 2022 05:05:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=quicinc.com; i=@quicinc.com; q=dns/txt; s=qcdkim;
+ t=1657602306; x=1689138306;
+ h=message-id:date:mime-version:subject:to:cc:references:
+ from:in-reply-to:content-transfer-encoding;
+ bh=17Z3xulwqXW1QfY/QEzxXBPkNTk6rcH+8iLrHGYb9Gc=;
+ b=gA0IZ7dtlvORiDpRjLGDLC2ajzjxnZjKGTrQqizofElx8RpREwkxDKzg
+ N2r+u7NGDzNrA2fBfcGSzLrvfHz0H3A5JdEcZ6rtJH2WZHLwDo0uu5WLg
+ ZwABV3f1/1S1i0d5Nh/CeZphq1D038KvRbf0BEqortPiVrNrLvx53gN34 E=;
+Received: from unknown (HELO ironmsg01-sd.qualcomm.com) ([10.53.140.141])
+ by alexa-out-sd-01.qualcomm.com with ESMTP; 11 Jul 2022 22:05:04 -0700
+X-QCInternal: smtphost
+Received: from nasanex01c.na.qualcomm.com ([10.47.97.222])
+ by ironmsg01-sd.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 11 Jul 2022 22:05:03 -0700
+Received: from nalasex01a.na.qualcomm.com (10.47.209.196) by
+ nasanex01c.na.qualcomm.com (10.47.97.222) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.986.22; Mon, 11 Jul 2022 22:05:02 -0700
+Received: from [10.216.10.34] (10.80.80.8) by nalasex01a.na.qualcomm.com
+ (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.22; Mon, 11 Jul
+ 2022 22:04:56 -0700
+Message-ID: <1299312f-e614-e4e2-72cb-fd7fb99922ce@quicinc.com>
+Date: Tue, 12 Jul 2022 10:34:54 +0530
 MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
+ Thunderbird/91.3.2
+Content-Language: en-US
+To: Doug Anderson <dianders@chromium.org>
 References: <1657346375-1461-1-git-send-email-quic_akhilpo@quicinc.com>
- <20220709112837.v2.5.I7291c830ace04fce07e6bd95a11de4ba91410f7b@changeid>
-In-Reply-To: <20220709112837.v2.5.I7291c830ace04fce07e6bd95a11de4ba91410f7b@changeid>
-From: Doug Anderson <dianders@chromium.org>
-Date: Mon, 11 Jul 2022 16:27:45 -0700
-X-Gmail-Original-Message-ID: <CAD=FV=XzvcjS51q78BZ=FPCEVUDMD+VKJ70ksCm5V4qwHN_wRg@mail.gmail.com>
-Message-ID: <CAD=FV=XzvcjS51q78BZ=FPCEVUDMD+VKJ70ksCm5V4qwHN_wRg@mail.gmail.com>
-To: Akhil P Oommen <quic_akhilpo@quicinc.com>
-Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [PATCH v2 5/7] arm64: dts: qcom: sc7280: Update gpu
- register list
+ <20220709112837.v2.3.I4ac27a0b34ea796ce0f938bb509e257516bc6f57@changeid>
+ <CAD=FV=U=J+yf6Qu0VgJ8A5Lhs_s8Fszw=Oa0XUny5XT-5z56xQ@mail.gmail.com>
+From: Akhil P Oommen <quic_akhilpo@quicinc.com>
+In-Reply-To: <CAD=FV=U=J+yf6Qu0VgJ8A5Lhs_s8Fszw=Oa0XUny5XT-5z56xQ@mail.gmail.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+Subject: Re: [Freedreno] [PATCH v2 3/7] drm/msm: Fix cx collapse issue
+ during recovery
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,52 +67,73 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
- <devicetree@vger.kernel.org>, Jonathan Marek <jonathan@marek.ca>,
- linux-arm-msm <linux-arm-msm@vger.kernel.org>,
- Stephen Boyd <swboyd@chromium.org>, Andy Gross <agross@kernel.org>,
+Cc: freedreno <freedreno@lists.freedesktop.org>,
+ Jonathan Marek <jonathan@marek.ca>, David
+ Airlie <airlied@linux.ie>, linux-arm-msm <linux-arm-msm@vger.kernel.org>,
+ Konrad Dybcio <konrad.dybcio@somainline.org>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
  dri-devel <dri-devel@lists.freedesktop.org>,
- Bjorn Andersson <bjorn.andersson@linaro.org>, Rob Herring <robh+dt@kernel.org>,
- Rob Clark <robdclark@gmail.com>, Matthias Kaehlcke <mka@chromium.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Jordan Crouse <jordan@cosmicpenguin.net>,
- freedreno <freedreno@lists.freedesktop.org>,
- LKML <linux-kernel@vger.kernel.org>
+ Bjorn Andersson <bjorn.andersson@linaro.org>, Rob Clark <robdclark@gmail.com>,
+ Matthias Kaehlcke <mka@chromium.org>, Daniel Vetter <daniel@ffwll.ch>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Jordan
+ Crouse <jordan@cosmicpenguin.net>, Sean Paul <sean@poorly.run>,
+ Chia-I Wu <olvaffe@gmail.com>, LKML <linux-kernel@vger.kernel.org>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Hi,
+On 7/12/2022 4:52 AM, Doug Anderson wrote:
+> Hi,
+>
+> On Fri, Jul 8, 2022 at 11:00 PM Akhil P Oommen <quic_akhilpo@quicinc.com> wrote:
+>> There are some hardware logic under CX domain. For a successful
+>> recovery, we should ensure cx headswitch collapses to ensure all the
+>> stale states are cleard out. This is especially true to for a6xx family
+>> where we can GMU co-processor.
+>>
+>> Currently, cx doesn't collapse due to a devlink between gpu and its
+>> smmu. So the *struct gpu device* needs to be runtime suspended to ensure
+>> that the iommu driver removes its vote on cx gdsc.
+>>
+>> Signed-off-by: Akhil P Oommen <quic_akhilpo@quicinc.com>
+>> ---
+>>
+>> (no changes since v1)
+>>
+>>   drivers/gpu/drm/msm/adreno/a6xx_gpu.c | 16 ++++++++++++++--
+>>   drivers/gpu/drm/msm/msm_gpu.c         |  2 --
+>>   2 files changed, 14 insertions(+), 4 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+>> index 4d50110..7ed347c 100644
+>> --- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+>> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+>> @@ -1278,8 +1278,20 @@ static void a6xx_recover(struct msm_gpu *gpu)
+>>           */
+>>          gmu_write(&a6xx_gpu->gmu, REG_A6XX_GMU_GMU_PWR_COL_KEEPALIVE, 0);
+>>
+>> -       gpu->funcs->pm_suspend(gpu);
+>> -       gpu->funcs->pm_resume(gpu);
+>> +       /*
+>> +        * Now drop all the pm_runtime usage count to allow cx gdsc to collapse.
+>> +        * First drop the usage count from all active submits
+>> +        */
+>> +       for (i = gpu->active_submits; i > 0; i--)
+>> +               pm_runtime_put(&gpu->pdev->dev);
+>> +
+>> +       /* And the final one from recover worker */
+>> +       pm_runtime_put_sync(&gpu->pdev->dev);
+>> +
+>> +       for (i = gpu->active_submits; i > 0; i--)
+>> +               pm_runtime_get(&gpu->pdev->dev);
+>> +
+>> +       pm_runtime_get_sync(&gpu->pdev->dev);
+> In response to v1, Rob suggested pm_runtime_force_suspend/resume().
+> Those seem like they would work to me, too. Why not use them?
+Quoting my previous response which I seem to have sent only to Freedreno 
+list:
 
-On Fri, Jul 8, 2022 at 11:00 PM Akhil P Oommen <quic_akhilpo@quicinc.com> wrote:
->
-> Update gpu register array with gpucc memory region.
->
-> Signed-off-by: Akhil P Oommen <quic_akhilpo@quicinc.com>
-> ---
->
-> (no changes since v1)
->
->  arch/arm64/boot/dts/qcom/sc7280.dtsi | 6 ++++--
->  1 file changed, 4 insertions(+), 2 deletions(-)
->
-> diff --git a/arch/arm64/boot/dts/qcom/sc7280.dtsi b/arch/arm64/boot/dts/qcom/sc7280.dtsi
-> index e66fc67..defdb25 100644
-> --- a/arch/arm64/boot/dts/qcom/sc7280.dtsi
-> +++ b/arch/arm64/boot/dts/qcom/sc7280.dtsi
-> @@ -2228,10 +2228,12 @@
->                         compatible = "qcom,adreno-635.0", "qcom,adreno";
->                         reg = <0 0x03d00000 0 0x40000>,
->                               <0 0x03d9e000 0 0x1000>,
-> -                             <0 0x03d61000 0 0x800>;
-> +                             <0 0x03d61000 0 0x800>,
-> +                             <0 0x03d90000 0 0x2000>;
->                         reg-names = "kgsl_3d0_reg_memory",
->                                     "cx_mem",
-> -                                   "cx_dbgc";
-> +                                   "cx_dbgc",
-> +                                   "gpucc";
+"I believe it is supposed to be used only during system sleep state 
+transitions. Btw, we don't want pm_runtime_get() calls from elsewhere to 
+fail by disabling RPM here."
 
-This doesn't seem right. Shouldn't you be coordinating with the
-existing gpucc instead of reaching into its registers?
-
--Doug
+-Akhil
