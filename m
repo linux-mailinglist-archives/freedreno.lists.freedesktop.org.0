@@ -1,73 +1,74 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4A3ED574945
-	for <lists+freedreno@lfdr.de>; Thu, 14 Jul 2022 11:43:59 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id E5EA9574A56
+	for <lists+freedreno@lfdr.de>; Thu, 14 Jul 2022 12:15:34 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DEEDB94555;
-	Thu, 14 Jul 2022 09:43:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 86D1BA3F35;
+	Thu, 14 Jul 2022 10:15:33 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-x22c.google.com (mail-lj1-x22c.google.com
- [IPv6:2a00:1450:4864:20::22c])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0FB1591702
- for <freedreno@lists.freedesktop.org>; Thu, 14 Jul 2022 09:43:57 +0000 (UTC)
-Received: by mail-lj1-x22c.google.com with SMTP id x10so1046757ljj.11
- for <freedreno@lists.freedesktop.org>; Thu, 14 Jul 2022 02:43:56 -0700 (PDT)
+Received: from mail-lf1-x12b.google.com (mail-lf1-x12b.google.com
+ [IPv6:2a00:1450:4864:20::12b])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 12208A3F37
+ for <freedreno@lists.freedesktop.org>; Thu, 14 Jul 2022 10:15:33 +0000 (UTC)
+Received: by mail-lf1-x12b.google.com with SMTP id t1so1998600lft.8
+ for <freedreno@lists.freedesktop.org>; Thu, 14 Jul 2022 03:15:32 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=message-id:date:mime-version:user-agent:subject:content-language:to
  :cc:references:from:in-reply-to:content-transfer-encoding;
- bh=wbCsquwN1alwH8J3M5l4Cq/ivX95MU45M7AXoqrgl2Q=;
- b=VDTrfZBM8ClaRXetfV8CdxQ52IOBK9xRGfCl1ywFDqNZYyUfYrotPyc/Jyc9V237jq
- dQTXDJFu29YJ70kaqVKRgMLFp9d2FxNHQa7y0u4ey/KbcZqg/UltpGjY/uF2PvToXPJP
- 7oazL/GFF7SdJ04NIjspWjFwsoo4iJ1NiQNi1aMTygLwiwChwtxyb9HD7mBWxhDnUZpj
- zpbqM0JIzN8Cbt5oQ80Czb8RobDEtf/x8WAT5LtaejgrCupwDwwpaSy/Dz5eAnrl+2Gp
- p1dwI/uae5d40inFHeYY1UFLyuct6WfsBXuGryhmhDNa7G8c6jP0NBY0tjlBMO5U9/d6
- BsyA==
+ bh=kZy7eak2tgSmF/ML1yqzjltWCPwtqthXqM78zNDO+OI=;
+ b=eMSSra1OPQfu7qXpz6L3saU1JxVj07p/HHh/qXvdSMrvPrpI9qzcyriFOtEcrm9xsq
+ hetCcxkb3c2U8abIkPdW++76prqun/Vd24FxpWfWpCdXT3DP1bPcplIo2B3ULIAFXyN0
+ RJBbYXxuWRYFJej6+xS6qXa9hkMoclJM97KGsgSY6KXBlG2c6tiB3t23uDbTCEfQeGJt
+ 2bj5bT6Xs4/8eGC5UjkA2K5J6iOIYjIA1PW/4r1LCIRP3fxMmFj1HOkDxOoyKib9R6ot
+ tLm8NLit0aZHhCsBUusz9vadcvFZJBDpI6Fdc2ijF4xNhGgYBpjQ84xeYuUXehixkcx+
+ IXRw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
  :content-language:to:cc:references:from:in-reply-to
  :content-transfer-encoding;
- bh=wbCsquwN1alwH8J3M5l4Cq/ivX95MU45M7AXoqrgl2Q=;
- b=mwr6kw7e85mJ5EmZ1mgL0L6N91XcI+jtsgM9d3Jw8bTGGuybvC5wPQP1PnQeuffaUP
- j23LuSnGtY4U8Xm7S33fCLzswizL5lX+4pqi5hLf1DoTLuzsjFHZGqIYMfDpCYRv76o6
- luB3iYgLWf2qlZTfdFUGwC5B9jfHbY3NkG3jXySwCDjLwEy+kuXAZKzDXVIU41POIklt
- Mer2/x4FeMmmBV/o2HcU68JSLQAl7waH9jvogL56krGJIm6vhVdSUvG1WFN2jOdz7Zrl
- 5V/A9B/7dHZg5ZPez4HxfEUM7PoK9ObnjQdQYPzow9ZmDnueAiGd0jL7XicbeaX0wmev
- b/Xg==
-X-Gm-Message-State: AJIora+LzZ3TDjOdm2sSrldgqWhkWYhvGRBx81pfKweK5Z8wnh4MMdih
- dYiljfw+4WxlJls1x4ckxwgrRw==
-X-Google-Smtp-Source: AGRyM1u8QlejMdqMFEqmtkhj/2HQFasgTk3M/jud4cK/2ArinXKI5Fjk/WF8hOCTkbuUXx2INzsrHg==
-X-Received: by 2002:a05:651c:243:b0:25d:9aa4:d7c9 with SMTP id
- x3-20020a05651c024300b0025d9aa4d7c9mr1424686ljn.35.1657791835374; 
- Thu, 14 Jul 2022 02:43:55 -0700 (PDT)
-Received: from [10.0.0.8] (fwa5da9-171.bb.online.no. [88.93.169.171])
+ bh=kZy7eak2tgSmF/ML1yqzjltWCPwtqthXqM78zNDO+OI=;
+ b=ChhjsXOjUX4pxupxnweDtsB6PnyZa8kpLih1p0oRSR5LI9891iL72q+DMAmEWbu36Z
+ Nv3XnudZtemzt0Pwsbf7HIt/BNeh+LZti8rQYznF+dB7rRouK3U6Rs5OBWuOrk3RZmv/
+ T+kworJJBksUOKOhXUXARa27tY63yUVNT221yDGGwf4LD/utxGVnRxM0NAjrJnARYWR5
+ fdE61MZnSp1jnc270FkKE+MED2Zews5fqKRAKJkyGAfCSGnUAEogS5kXaWNCvemqafzY
+ i9yNK+E0s+rsdcIG8FEPP2tmyX096rO4eWe9/GHP8d5Rc5Jsf1BttKOl22mRNRlNMhOr
+ exzw==
+X-Gm-Message-State: AJIora/NWD0PdZbeHuD5lHtGKCQlphFH3005qb1Rhy7SPKT9eplrN0MF
+ bH5QtcnqLWiLgLGx4vpEhA2eUA==
+X-Google-Smtp-Source: AGRyM1v1V9ZiyZF7bonIiq2DwpF3Map16xUjhG7MRlmoFvEpyTCgjb4sm6OM4dfGd+xpxCSIJBPwUA==
+X-Received: by 2002:a05:6512:1399:b0:486:2ae5:be71 with SMTP id
+ p25-20020a056512139900b004862ae5be71mr4640937lfa.246.1657793731321; 
+ Thu, 14 Jul 2022 03:15:31 -0700 (PDT)
+Received: from [192.168.1.211] ([37.153.55.125])
  by smtp.gmail.com with ESMTPSA id
- w23-20020a2ea3d7000000b0025bf6099cdbsm191079lje.78.2022.07.14.02.43.52
+ i15-20020a2e808f000000b0025a968f4ffesm205854ljg.19.2022.07.14.03.15.30
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 14 Jul 2022 02:43:54 -0700 (PDT)
-Message-ID: <6e47e212-27a0-0adc-40c4-dea272fd2d72@linaro.org>
-Date: Thu, 14 Jul 2022 11:43:51 +0200
+ Thu, 14 Jul 2022 03:15:30 -0700 (PDT)
+Message-ID: <35cbf2d1-f851-fb6b-309a-8d7499b4abb3@linaro.org>
+Date: Thu, 14 Jul 2022 13:15:30 +0300
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.11.0
-Content-Language: en-US
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Thunderbird/91.10.0
+Content-Language: en-GB
+To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
  Andy Gross <agross@kernel.org>, Bjorn Andersson
  <bjorn.andersson@linaro.org>, Konrad Dybcio <konrad.dybcio@somainline.org>,
  Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
  Abhinav Kumar <quic_abhinavk@quicinc.com>, Rob Herring <robh+dt@kernel.org>,
  Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>
 References: <20220710084133.30976-1-dmitry.baryshkov@linaro.org>
- <20220710084133.30976-9-dmitry.baryshkov@linaro.org>
-From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-In-Reply-To: <20220710084133.30976-9-dmitry.baryshkov@linaro.org>
-Content-Type: text/plain; charset=UTF-8
+ <20220710084133.30976-8-dmitry.baryshkov@linaro.org>
+ <bd84ef20-e6e1-74e5-5681-7aa273d5255c@linaro.org>
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+In-Reply-To: <bd84ef20-e6e1-74e5-5681-7aa273d5255c@linaro.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH v2 8/9] dt-bindings: msm/dp: add missing
- properties
+Subject: Re: [Freedreno] [PATCH v2 7/9] dt-bindings: msm/dp: mark vdda
+ supplies as deprecated
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -87,20 +88,35 @@ Cc: devicetree@vger.kernel.org, David Airlie <airlied@linux.ie>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 10/07/2022 10:41, Dmitry Baryshkov wrote:
-> Document missing definitions for opp-table (DP controller OPPs), aux-bus
-> (DP AUX BUS) and data-lanes (DP/eDP lanes mapping) properties.
+On 14/07/2022 12:38, Krzysztof Kozlowski wrote:
+> On 10/07/2022 10:41, Dmitry Baryshkov wrote:
+>> The commit fa384dd8b9b8 ("drm/msm/dp: delete vdda regulator related
+>> functions from eDP/DP controller") removed support for VDDA supplies
 > 
-> Reviewed-by: Stephen Boyd <swboyd@chromium.org>
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> ---
->  .../bindings/display/msm/dp-controller.yaml          | 12 ++++++++++++
->  1 file changed, 12 insertions(+)
+> No such commit exists in next. Do not reference unpublished commits. If
+> this is your tree, be sure that it is in next.
+
+Excuse me. It might have changed at some point. I will update the patch 
+description in the next revision. The commit in question is 7516351bebc1 
+("drm/msm/dp: delete vdda regulator related functions from eDP/DP 
+controller")
+
 > 
+>> from the DP controller driver. These supplies are now handled by the eDP
+>> or QMP PHYs. Mark these properties as deprecated and drop them from the
+>> example.
+> 
+> Right now I cannot judge whether this is correct or not. I don't know
+> what's in that commit, but in general driver implementation changes do
+> not warrant changes in the binding.
+
+The vdda supplies were initially made a part of DP controller binding, 
+however lately they were moved to be a part of eDP/DP PHY binding (as 
+this better reflects the hardware). DP driver dropped support for these 
+supplies too. Thus I wanted to mark these supplies as deprecated to 
+discourage using them in the DTS files.
 
 
-Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-
-
-Best regards,
-Krzysztof
+-- 
+With best wishes
+Dmitry
