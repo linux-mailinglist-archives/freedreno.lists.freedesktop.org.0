@@ -2,54 +2,54 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 877E3574934
-	for <lists+freedreno@lfdr.de>; Thu, 14 Jul 2022 11:38:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4A3ED574945
+	for <lists+freedreno@lfdr.de>; Thu, 14 Jul 2022 11:43:59 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 13F3A112D65;
-	Thu, 14 Jul 2022 09:38:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DEEDB94555;
+	Thu, 14 Jul 2022 09:43:57 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x136.google.com (mail-lf1-x136.google.com
- [IPv6:2a00:1450:4864:20::136])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 51A1711A9B3
- for <freedreno@lists.freedesktop.org>; Thu, 14 Jul 2022 09:38:32 +0000 (UTC)
-Received: by mail-lf1-x136.google.com with SMTP id t25so1861377lfg.7
- for <freedreno@lists.freedesktop.org>; Thu, 14 Jul 2022 02:38:32 -0700 (PDT)
+Received: from mail-lj1-x22c.google.com (mail-lj1-x22c.google.com
+ [IPv6:2a00:1450:4864:20::22c])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0FB1591702
+ for <freedreno@lists.freedesktop.org>; Thu, 14 Jul 2022 09:43:57 +0000 (UTC)
+Received: by mail-lj1-x22c.google.com with SMTP id x10so1046757ljj.11
+ for <freedreno@lists.freedesktop.org>; Thu, 14 Jul 2022 02:43:56 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=message-id:date:mime-version:user-agent:subject:content-language:to
  :cc:references:from:in-reply-to:content-transfer-encoding;
- bh=TLtLAzqKjh0PR2hCiXTpWedWr6UZ/eh69O/Av6dFIUQ=;
- b=OrBeTbStBItEd8xp+RbyOHCOHfiOQOJrv5ANEz6qxRGixDOxMAJ5IzUuiOQejXwRyZ
- GMkAV6A+Rweq3b6Zxv0mjMm0eoJjr5PRDAQoZco1jCPPb6IAeQSgEB2x3wySZxwH92CG
- v7eIrrSCr/lzKx0racL0bqV858CJVvFs+RCUV9Iz1I0MBxltwBK4evG6S/Rrl/H7V2lq
- Ly6NpupvlRiBmGyepoRqeTavRvkISkRMGu8PAVRfuuZ3Oo+jFfV9oe/nSZlU3EbSClps
- DnYZKmYZJgdiBMW09JWHhs4cqCCLdFQrr5ck858Ixns9msDblNZPtZkKYbuhOiwYqNSY
- /OsA==
+ bh=wbCsquwN1alwH8J3M5l4Cq/ivX95MU45M7AXoqrgl2Q=;
+ b=VDTrfZBM8ClaRXetfV8CdxQ52IOBK9xRGfCl1ywFDqNZYyUfYrotPyc/Jyc9V237jq
+ dQTXDJFu29YJ70kaqVKRgMLFp9d2FxNHQa7y0u4ey/KbcZqg/UltpGjY/uF2PvToXPJP
+ 7oazL/GFF7SdJ04NIjspWjFwsoo4iJ1NiQNi1aMTygLwiwChwtxyb9HD7mBWxhDnUZpj
+ zpbqM0JIzN8Cbt5oQ80Czb8RobDEtf/x8WAT5LtaejgrCupwDwwpaSy/Dz5eAnrl+2Gp
+ p1dwI/uae5d40inFHeYY1UFLyuct6WfsBXuGryhmhDNa7G8c6jP0NBY0tjlBMO5U9/d6
+ BsyA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
  :content-language:to:cc:references:from:in-reply-to
  :content-transfer-encoding;
- bh=TLtLAzqKjh0PR2hCiXTpWedWr6UZ/eh69O/Av6dFIUQ=;
- b=WL3XOB3xgUu60I8GPWrfriW58fpjNRHMGoVcThe2W+a0Gz70AsL3md/c8vq43dmNVz
- sxxscmbM1g6DyZ8fETUeSj7tHGT88j0DVEi+WclV8CN8LvW38b44gGgeC5T5LpdBIX2w
- 5ut5qACGuMn91S5xDN/BD4eTT8ODTD3brmo9SkbGuqlmtNtqOv8DM92/z8lWjfuaX8cm
- 9QSLSRwxiwJMHY3vCMRJu/CFlC33m175JZBTC8DiUYLWVhk532m/6ejd9xbYUFO47MWl
- nTTgR2hHXwLidPjMCQLKkYUWvIvyn/jVqGWxUhv11kbvN/zttA8jHur41WiVkvZafzxa
- Ufpg==
-X-Gm-Message-State: AJIora/1zbZjcKvppoCtGlH39SEpGj+brH+mW0Iw99rs1VcIuU1XQOUQ
- 3QqpDljfujYs51AleZebRMwSRA==
-X-Google-Smtp-Source: AGRyM1tc/J/ECeZYTPp1hWc06zGMIdJAwt8bxeNi6BFWllabpCBNba0Lt2QRG5hj0HKnx9MN0GD8zQ==
-X-Received: by 2002:a05:6512:2308:b0:48a:f9d:7389 with SMTP id
- o8-20020a056512230800b0048a0f9d7389mr3812939lfu.235.1657791510561; 
- Thu, 14 Jul 2022 02:38:30 -0700 (PDT)
+ bh=wbCsquwN1alwH8J3M5l4Cq/ivX95MU45M7AXoqrgl2Q=;
+ b=mwr6kw7e85mJ5EmZ1mgL0L6N91XcI+jtsgM9d3Jw8bTGGuybvC5wPQP1PnQeuffaUP
+ j23LuSnGtY4U8Xm7S33fCLzswizL5lX+4pqi5hLf1DoTLuzsjFHZGqIYMfDpCYRv76o6
+ luB3iYgLWf2qlZTfdFUGwC5B9jfHbY3NkG3jXySwCDjLwEy+kuXAZKzDXVIU41POIklt
+ Mer2/x4FeMmmBV/o2HcU68JSLQAl7waH9jvogL56krGJIm6vhVdSUvG1WFN2jOdz7Zrl
+ 5V/A9B/7dHZg5ZPez4HxfEUM7PoK9ObnjQdQYPzow9ZmDnueAiGd0jL7XicbeaX0wmev
+ b/Xg==
+X-Gm-Message-State: AJIora+LzZ3TDjOdm2sSrldgqWhkWYhvGRBx81pfKweK5Z8wnh4MMdih
+ dYiljfw+4WxlJls1x4ckxwgrRw==
+X-Google-Smtp-Source: AGRyM1u8QlejMdqMFEqmtkhj/2HQFasgTk3M/jud4cK/2ArinXKI5Fjk/WF8hOCTkbuUXx2INzsrHg==
+X-Received: by 2002:a05:651c:243:b0:25d:9aa4:d7c9 with SMTP id
+ x3-20020a05651c024300b0025d9aa4d7c9mr1424686ljn.35.1657791835374; 
+ Thu, 14 Jul 2022 02:43:55 -0700 (PDT)
 Received: from [10.0.0.8] (fwa5da9-171.bb.online.no. [88.93.169.171])
  by smtp.gmail.com with ESMTPSA id
- s2-20020a056512214200b0047960b50c26sm262242lfr.78.2022.07.14.02.38.28
+ w23-20020a2ea3d7000000b0025bf6099cdbsm191079lje.78.2022.07.14.02.43.52
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 14 Jul 2022 02:38:30 -0700 (PDT)
-Message-ID: <bd84ef20-e6e1-74e5-5681-7aa273d5255c@linaro.org>
-Date: Thu, 14 Jul 2022 11:38:27 +0200
+ Thu, 14 Jul 2022 02:43:54 -0700 (PDT)
+Message-ID: <6e47e212-27a0-0adc-40c4-dea272fd2d72@linaro.org>
+Date: Thu, 14 Jul 2022 11:43:51 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
  Thunderbird/91.11.0
@@ -61,13 +61,13 @@ To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
  Abhinav Kumar <quic_abhinavk@quicinc.com>, Rob Herring <robh+dt@kernel.org>,
  Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>
 References: <20220710084133.30976-1-dmitry.baryshkov@linaro.org>
- <20220710084133.30976-8-dmitry.baryshkov@linaro.org>
+ <20220710084133.30976-9-dmitry.baryshkov@linaro.org>
 From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-In-Reply-To: <20220710084133.30976-8-dmitry.baryshkov@linaro.org>
+In-Reply-To: <20220710084133.30976-9-dmitry.baryshkov@linaro.org>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH v2 7/9] dt-bindings: msm/dp: mark vdda
- supplies as deprecated
+Subject: Re: [Freedreno] [PATCH v2 8/9] dt-bindings: msm/dp: add missing
+ properties
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -88,19 +88,19 @@ Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 On 10/07/2022 10:41, Dmitry Baryshkov wrote:
-> The commit fa384dd8b9b8 ("drm/msm/dp: delete vdda regulator related
-> functions from eDP/DP controller") removed support for VDDA supplies
+> Document missing definitions for opp-table (DP controller OPPs), aux-bus
+> (DP AUX BUS) and data-lanes (DP/eDP lanes mapping) properties.
+> 
+> Reviewed-by: Stephen Boyd <swboyd@chromium.org>
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> ---
+>  .../bindings/display/msm/dp-controller.yaml          | 12 ++++++++++++
+>  1 file changed, 12 insertions(+)
+> 
 
-No such commit exists in next. Do not reference unpublished commits. If
-this is your tree, be sure that it is in next.
 
-> from the DP controller driver. These supplies are now handled by the eDP
-> or QMP PHYs. Mark these properties as deprecated and drop them from the
-> example.
+Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 
-Right now I cannot judge whether this is correct or not. I don't know
-what's in that commit, but in general driver implementation changes do
-not warrant changes in the binding.
 
 Best regards,
 Krzysztof
