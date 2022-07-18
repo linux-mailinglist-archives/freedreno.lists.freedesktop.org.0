@@ -1,56 +1,56 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 77D365788C5
-	for <lists+freedreno@lfdr.de>; Mon, 18 Jul 2022 19:50:28 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 445C75788DE
+	for <lists+freedreno@lfdr.de>; Mon, 18 Jul 2022 19:53:43 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 237F09424D;
-	Mon, 18 Jul 2022 17:50:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A04319449E;
+	Mon, 18 Jul 2022 17:53:41 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-il1-f182.google.com (mail-il1-f182.google.com
- [209.85.166.182])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 45ED2942A8;
- Mon, 18 Jul 2022 17:50:26 +0000 (UTC)
-Received: by mail-il1-f182.google.com with SMTP id r4so2226563ilb.10;
- Mon, 18 Jul 2022 10:50:26 -0700 (PDT)
+Received: from mail-il1-f180.google.com (mail-il1-f180.google.com
+ [209.85.166.180])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B6AB894445;
+ Mon, 18 Jul 2022 17:53:40 +0000 (UTC)
+Received: by mail-il1-f180.google.com with SMTP id h16so6410041ila.2;
+ Mon, 18 Jul 2022 10:53:40 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:date:from:to:cc:subject:message-id:references
  :mime-version:content-disposition:in-reply-to;
- bh=Qo+O3LtYsVt3ukwggOHDQf2oi2D8i1x0+YuYG/drp00=;
- b=Hb03a4SO9hraq/Md56gVG0MRyMuVp9QW3r/RW6Nvr+xKZp+W3qcALGT5R+hE6u+pkA
- kCrnV7f6F1Dkzl4ulkC9CdODOkpD7l++gIMm96sgTVTowetVtw8khkYfa/x2SzqXxuYY
- zedqFGRBc34N3vK2nC44Kb3RFEzq/HxDldykADQAcrQ1Y3rvGw6P5k5DIBv09CydkkrY
- 9yTcsloRKrUJFrdXwxRcxytE8wHTO5ytJYEAcD/NLaDzQrmNUuh5E+SttNX+NmE/S1Pt
- 40xeQhs1I6rp6jzam+nOqOqUKUPJafX5GyjK/YMev/qg8zsewI208bBM07JdFsllCKZV
- UwVw==
-X-Gm-Message-State: AJIora+4DcOZEi+cEs9Ouamq2NFiIghZG3rEyUy3ClzvltH+MYtugNEy
- w7eJ18Ee+3hBraqACTLFaQ==
-X-Google-Smtp-Source: AGRyM1vW0jj+2K/+MnMJmlvpDJ+vIEj6eMNRycI2GUzxrkQTlF3EGll5aFibyTPPNbtPr1MMDnGyzA==
-X-Received: by 2002:a92:dd82:0:b0:2d9:126:5bed with SMTP id
- g2-20020a92dd82000000b002d901265bedmr14367423iln.97.1658166625399; 
- Mon, 18 Jul 2022 10:50:25 -0700 (PDT)
+ bh=lQmLMSCkQ0ST4dExxhb7qEHg2NYQluOVHKi1mQiZUuM=;
+ b=hArEwboHAld10B+DzM63FG5nDsuu/T/Hwq3sYZFbQU5UCLLYJllEcooaLU+/fKGcZq
+ yHHFE4FETVElGlP/Ju5BKzMxNWkgfp6XBPpAWJSVpl0rawxevpotJu0rbqOhIiWvCZiU
+ QhoAwdjlWQrXtqj5fSqDmm0CvogF2DJNU29zG3qbl0Z+ZH8822xbeY6FW4zFvM97hmXe
+ 9tUw8sA5bkFOyMT4OAkLmDbAv0XmmnIwjHbB7kxopzLaz3ARo8O3q4J2mxtjoTtQ8dxs
+ 731HsgsHvAitWRQNmqRWeKuc1Ch3ez2Msg6aQ8nisfp+G3w1PWDDOGH17A+qHQYXNMa7
+ Nsjw==
+X-Gm-Message-State: AJIora9ybot82t4ZtuXjYyRb5YOwBZUDt0Vu21qJfvlC/rUwMszXs3uc
+ ppOV5SxblX5C0/b01uZOiQ==
+X-Google-Smtp-Source: AGRyM1vSqLAowZJkSZ+cqSUI1FU1wlTg1E3QUAjAr/2girRrGXj9BFdQm0Pb/A1QWEvDZCk9KF7iSw==
+X-Received: by 2002:a05:6e02:1605:b0:2dc:6f75:3c0a with SMTP id
+ t5-20020a056e02160500b002dc6f753c0amr13589558ilu.257.1658166820013; 
+ Mon, 18 Jul 2022 10:53:40 -0700 (PDT)
 Received: from robh.at.kernel.org ([64.188.179.248])
  by smtp.gmail.com with ESMTPSA id
- y27-20020a02731b000000b0033f51b3b0d9sm5764589jab.138.2022.07.18.10.50.23
+ d8-20020a0566022be800b0067bc7ab0d9esm5595633ioy.53.2022.07.18.10.53.38
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 18 Jul 2022 10:50:24 -0700 (PDT)
-Received: (nullmailer pid 3238778 invoked by uid 1000);
- Mon, 18 Jul 2022 17:50:23 -0000
-Date: Mon, 18 Jul 2022 11:50:23 -0600
+ Mon, 18 Jul 2022 10:53:39 -0700 (PDT)
+Received: (nullmailer pid 3244030 invoked by uid 1000);
+ Mon, 18 Jul 2022 17:53:38 -0000
+Date: Mon, 18 Jul 2022 11:53:38 -0600
 From: Rob Herring <robh@kernel.org>
 To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Message-ID: <20220718175023.GA3216365-robh@kernel.org>
+Message-ID: <20220718175338.GA3243949-robh@kernel.org>
 References: <20220710090040.35193-1-dmitry.baryshkov@linaro.org>
- <20220710090040.35193-12-dmitry.baryshkov@linaro.org>
+ <20220710090040.35193-6-dmitry.baryshkov@linaro.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20220710090040.35193-12-dmitry.baryshkov@linaro.org>
-Subject: Re: [Freedreno] [PATCH v2 11/11] dt-bindings: display/msm: move
- common DPU properties to dpu-common.yaml
+In-Reply-To: <20220710090040.35193-6-dmitry.baryshkov@linaro.org>
+Subject: Re: [Freedreno] [PATCH v2 05/11] dt-bindings: display/msm: move
+ qcom, sdm845-mdss schema to mdss.yaml
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,88 +64,26 @@ List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
 Cc: devicetree@vger.kernel.org, Daniel Vetter <daniel@ffwll.ch>,
- David Airlie <airlied@linux.ie>, linux-arm-msm@vger.kernel.org,
+ David Airlie <airlied@linux.ie>, Sean Paul <sean@poorly.run>,
  Konrad Dybcio <konrad.dybcio@somainline.org>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
- Bjorn Andersson <bjorn.andersson@linaro.org>, freedreno@lists.freedesktop.org,
- Rob Clark <robdclark@gmail.com>, Andy Gross <agross@kernel.org>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, Rob Herring <robh+dt@kernel.org>,
+ Stephen Boyd <swboyd@chromium.org>, Rob Clark <robdclark@gmail.com>,
+ Andy Gross <agross@kernel.org>, dri-devel@lists.freedesktop.org,
  Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Stephen Boyd <swboyd@chromium.org>, Sean Paul <sean@poorly.run>
+ linux-arm-msm@vger.kernel.org, Bjorn Andersson <bjorn.andersson@linaro.org>,
+ freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Sun, Jul 10, 2022 at 12:00:40PM +0300, Dmitry Baryshkov wrote:
-> Move properties common to all DPU DT nodes to the dpu-common.yaml.
-> 
-> Note, this removes description of individual DPU port@ nodes. However
-> such definitions add no additional value. The reg values do not
-> correspond to hardware INTF indices. The driver discovers and binds
-> these ports not paying any care for the order of these items. Thus just
-> leave the reference to graph.yaml#/properties/ports and the description.
+On Sun, 10 Jul 2022 12:00:34 +0300, Dmitry Baryshkov wrote:
+> Move schema for qcom,sdm845-mdss from dpu-sdm845.yaml to mdss.yaml so
+> that the dpu file describes only the DPU schema.
 > 
 > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 > ---
->  .../bindings/display/msm/dpu-common.yaml      | 42 ++++++++++++++++++
->  .../bindings/display/msm/dpu-msm8998.yaml     | 43 ++-----------------
->  .../bindings/display/msm/dpu-qcm2290.yaml     | 39 ++---------------
->  .../bindings/display/msm/dpu-sc7180.yaml      | 43 ++-----------------
->  .../bindings/display/msm/dpu-sc7280.yaml      | 43 ++-----------------
->  .../bindings/display/msm/dpu-sdm845.yaml      | 43 ++-----------------
->  6 files changed, 62 insertions(+), 191 deletions(-)
->  create mode 100644 Documentation/devicetree/bindings/display/msm/dpu-common.yaml
+>  .../bindings/display/msm/dpu-sdm845.yaml      | 135 ++++-----------
+>  .../devicetree/bindings/display/msm/mdss.yaml | 156 ++++++++++++++----
+>  2 files changed, 160 insertions(+), 131 deletions(-)
 > 
-> diff --git a/Documentation/devicetree/bindings/display/msm/dpu-common.yaml b/Documentation/devicetree/bindings/display/msm/dpu-common.yaml
-> new file mode 100644
-> index 000000000000..14eda883e149
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/display/msm/dpu-common.yaml
-> @@ -0,0 +1,42 @@
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/display/msm/dpu-common.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: Qualcomm Display DPU dt properties (common properties)
-> +
-> +maintainers:
-> +  - Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> +  - Krishna Manikandan <quic_mkrishn@quicinc.com>
-> +  - Rob Clark <robdclark@gmail.com>
-> +
-> +description: |
-> +  Common properties for QCom DPU display controller.
-> +
-> +properties:
-> +  interrupts:
-> +    maxItems: 1
-> +
-> +  power-domains:
-> +    maxItems: 1
-> +
-> +  operating-points-v2: true
-> +
-> +  ports:
-> +    $ref: /schemas/graph.yaml#/properties/ports
-> +    description: |
-> +      Contains the list of output ports from DPU device. These ports
-> +      connect to interfaces that are external to the DPU hardware,
-> +      such as DSI, DP etc.
 
-From the last version:
-
-> In case of MDSS all ports are output, they are connected to the external
-> interfaces (DSI, DP, HDMI, etc). The driver uses them to bind available
-> interfaces (using components framework). The reg property of the port is
-> completely ignored.
-
-It doesn't matter what the driver does or doesn't do. Without 
-describing port nodes at all, you are not validating what port nodes 
-can contain. Just try adding any property under a port node. You need at 
-least:
-
-'^port@[0-N]$':
-  $ref: graph.yaml#/properties/port
-
-where N is the max number of ports.
-
-Rob
+Reviewed-by: Rob Herring <robh@kernel.org>
