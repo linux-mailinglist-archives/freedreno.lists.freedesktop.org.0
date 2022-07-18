@@ -1,56 +1,60 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6578057890F
-	for <lists+freedreno@lfdr.de>; Mon, 18 Jul 2022 19:58:30 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 4D3F757897A
+	for <lists+freedreno@lfdr.de>; Mon, 18 Jul 2022 20:21:30 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F065E112FB7;
-	Mon, 18 Jul 2022 17:58:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0C96F11339A;
+	Mon, 18 Jul 2022 18:21:27 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-il1-f182.google.com (mail-il1-f182.google.com
- [209.85.166.182])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6513C112C1A;
- Mon, 18 Jul 2022 17:58:27 +0000 (UTC)
-Received: by mail-il1-f182.google.com with SMTP id f1so619834ilu.3;
- Mon, 18 Jul 2022 10:58:27 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to;
- bh=8LULo19hUFHmhHSaHd6yHFXBHNeiLMybwtS5/MObIek=;
- b=JRExPQHGIzSoiX7tHu0CduqRwLmss5DDP4ZQN3ycJFd2+JjgWsTmUkcEhGEFyRNXD+
- NIAKK+W2tBdy34eRQW1p9jlisoEi38T1bBpkYHTYwEjd0+9T+bHv8HtgXhWwSPc/eEGe
- gl8Gpyu2UYNxfnWuZgsJ8hKy+4EqIk40vtAetyRjKsDESlyYa/7iF5rA0x2ZlysnTFET
- 7SedvqDeqctEKCpHQsBqm6Fu3rwPRJtxFABb0zOWzPqXUIxTSQxKXjU/KOuIRMlulC2c
- 6Sn7eF7L3kjZQCiNLSZ2PGFRCgSvKdff2URgJYzbkrkYDkW2YaeL00V6OCoTeu/LomXN
- 9xhA==
-X-Gm-Message-State: AJIora8SM3pUBEurNGJeAdiD+d/E7BbYmVDkLsptIIP+s7/AOkSlGi+U
- Eobk/K7ZuLkqtT3dy7nUTQ==
-X-Google-Smtp-Source: AGRyM1u5X1SGwuiqB2p5EVblsYNeo7rdYRw4UiHvXjBcEPO2IEJO0Bi/juR+tn25c8JSxj+HtoMATg==
-X-Received: by 2002:a05:6e02:11ae:b0:2dc:d9db:585c with SMTP id
- 14-20020a056e0211ae00b002dcd9db585cmr5304133ilj.236.1658167106722; 
- Mon, 18 Jul 2022 10:58:26 -0700 (PDT)
-Received: from robh.at.kernel.org ([64.188.179.248])
- by smtp.gmail.com with ESMTPSA id
- v11-20020a92c6cb000000b002dc911570f1sm4986389ilm.71.2022.07.18.10.58.25
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 18 Jul 2022 10:58:26 -0700 (PDT)
-Received: (nullmailer pid 3252391 invoked by uid 1000);
- Mon, 18 Jul 2022 17:58:25 -0000
-Date: Mon, 18 Jul 2022 11:58:25 -0600
-From: Rob Herring <robh@kernel.org>
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Message-ID: <20220718175825.GA3252359-robh@kernel.org>
-References: <20220710090040.35193-1-dmitry.baryshkov@linaro.org>
- <20220710090040.35193-11-dmitry.baryshkov@linaro.org>
+Received: from alexa-out-sd-01.qualcomm.com (alexa-out-sd-01.qualcomm.com
+ [199.106.114.38])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6388B11339A
+ for <freedreno@lists.freedesktop.org>; Mon, 18 Jul 2022 18:21:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=quicinc.com; i=@quicinc.com; q=dns/txt; s=qcdkim;
+ t=1658168485; x=1689704485;
+ h=message-id:date:mime-version:subject:from:to:cc:
+ references:in-reply-to:content-transfer-encoding;
+ bh=8scmRzdfuIEvcSseij22MbSKAuV9T6SSdN+N6EeZDm0=;
+ b=U/xk9XOJv1S8mmMIbDYxgXJNV7eybeb7+xkvfYskaQ30H3Ak08OmSS/l
+ Sl7n6bD2iWbVZUTBwsJLB0UrCDemUb2ccIK3sUGEbBEO/pcSDl3xSVsg7
+ aFxsVAI3ex8oV9REKhMnpjc271IuR6GxdZqIluSAbtSZDJJ1TEc8yJYyH 4=;
+Received: from unknown (HELO ironmsg-SD-alpha.qualcomm.com) ([10.53.140.30])
+ by alexa-out-sd-01.qualcomm.com with ESMTP; 18 Jul 2022 11:21:24 -0700
+X-QCInternal: smtphost
+Received: from nasanex01c.na.qualcomm.com ([10.47.97.222])
+ by ironmsg-SD-alpha.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 18 Jul 2022 11:21:24 -0700
+Received: from nalasex01a.na.qualcomm.com (10.47.209.196) by
+ nasanex01c.na.qualcomm.com (10.47.97.222) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.986.22; Mon, 18 Jul 2022 11:21:23 -0700
+Received: from [10.38.240.17] (10.80.80.8) by nalasex01a.na.qualcomm.com
+ (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.22; Mon, 18 Jul
+ 2022 11:21:22 -0700
+Message-ID: <de0037e7-aef5-ca30-6b95-9ad644435ed5@quicinc.com>
+Date: Mon, 18 Jul 2022 11:21:20 -0700
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20220710090040.35193-11-dmitry.baryshkov@linaro.org>
-Subject: Re: [Freedreno] [PATCH v2 10/11] dt-bindings: display/mdm: add
- gcc-bus clock to dpu-smd845
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
+ Thunderbird/91.6.2
+Content-Language: en-US
+From: Abhinav Kumar <quic_abhinavk@quicinc.com>
+To: sunliming <sunliming@kylinos.cn>, <christian.koenig@amd.com>,
+ <robdclark@gmail.com>, <dmitry.baryshkov@linaro.org>
+References: <20220708005832.439722-1-sunliming@kylinos.cn>
+ <57d342b6-6254-9bb0-da80-a2f6b4d5eefe@quicinc.com>
+In-Reply-To: <57d342b6-6254-9bb0-da80-a2f6b4d5eefe@quicinc.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+Subject: Re: [Freedreno] [PATCH RESEND] drm/msm/dsi: fix the inconsistent
+ indenting
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,27 +67,45 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sean Paul <sean@poorly.run>, devicetree@vger.kernel.org,
- Daniel Vetter <daniel@ffwll.ch>, David Airlie <airlied@linux.ie>,
- linux-arm-msm@vger.kernel.org, Konrad Dybcio <konrad.dybcio@somainline.org>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
- Bjorn Andersson <bjorn.andersson@linaro.org>, Rob Herring <robh+dt@kernel.org>,
- Rob Clark <robdclark@gmail.com>, Andy Gross <agross@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Stephen Boyd <swboyd@chromium.org>, freedreno@lists.freedesktop.org
+Cc: linux-arm-msm@vger.kernel.org, kelulanainsley@gmail.com,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org, kernel
+ test robot <lkp@intel.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Sun, 10 Jul 2022 12:00:39 +0300, Dmitry Baryshkov wrote:
-> Add gcc-bus clock required for the SDM845 DPU device tree node. This
-> change was made in the commit 111c52854102 ("arm64: dts: qcom: sdm845:
-> move bus clock to mdp node for sdm845 target"), but was not reflected in
-> the schema.
-> 
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> ---
->  .../devicetree/bindings/display/msm/dpu-sdm845.yaml        | 7 +++++--
->  1 file changed, 5 insertions(+), 2 deletions(-)
-> 
 
-Reviewed-by: Rob Herring <robh@kernel.org>
+
+On 7/8/2022 9:03 AM, Abhinav Kumar wrote:
+> 
+> 
+> On 7/7/2022 5:58 PM, sunliming wrote:
+>> Fix the inconsistent indenting in function msm_dsi_dphy_timing_calc_v3().
+>>
+>> Fix the following smatch warnings:
+>>
+>> drivers/gpu/drm/msm/dsi/phy/dsi_phy.c:350 
+>> msm_dsi_dphy_timing_calc_v3() warn: inconsistent indenting
+>>
+>> Reported-by: kernel test robot <lkp@intel.com>
+>> Signed-off-by: sunliming <sunliming@kylinos.cn>
+> Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
+Fixes: f1fa7ff44056 ("drm/msm/dsi: implement auto PHY timing calculator 
+for 10nm PHY")
+>> ---
+>>   drivers/gpu/drm/msm/dsi/phy/dsi_phy.c | 2 +-
+>>   1 file changed, 1 insertion(+), 1 deletion(-)
+>>
+>> diff --git a/drivers/gpu/drm/msm/dsi/phy/dsi_phy.c 
+>> b/drivers/gpu/drm/msm/dsi/phy/dsi_phy.c
+>> index a39de3bdc7fa..56dfa2d24be1 100644
+>> --- a/drivers/gpu/drm/msm/dsi/phy/dsi_phy.c
+>> +++ b/drivers/gpu/drm/msm/dsi/phy/dsi_phy.c
+>> @@ -347,7 +347,7 @@ int msm_dsi_dphy_timing_calc_v3(struct 
+>> msm_dsi_dphy_timing *timing,
+>>       } else {
+>>           timing->shared_timings.clk_pre =
+>>               linear_inter(tmax, tmin, pcnt2, 0, false);
+>> -            timing->shared_timings.clk_pre_inc_by_2 = 0;
+>> +        timing->shared_timings.clk_pre_inc_by_2 = 0;
+>>       }
+>>       timing->ta_go = 3;
