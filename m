@@ -1,67 +1,60 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id C479657A4D9
-	for <lists+freedreno@lfdr.de>; Tue, 19 Jul 2022 19:18:54 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 5B3E757A4CD
+	for <lists+freedreno@lfdr.de>; Tue, 19 Jul 2022 19:18:42 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7BB3390FBE;
-	Tue, 19 Jul 2022 17:18:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F32A690F59;
+	Tue, 19 Jul 2022 17:18:40 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x12a.google.com (mail-lf1-x12a.google.com
- [IPv6:2a00:1450:4864:20::12a])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 89BA990F97
- for <freedreno@lists.freedesktop.org>; Tue, 19 Jul 2022 17:18:51 +0000 (UTC)
-Received: by mail-lf1-x12a.google.com with SMTP id bp17so25993241lfb.3
- for <freedreno@lists.freedesktop.org>; Tue, 19 Jul 2022 10:18:51 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=5MNb0V6j3qPMABdJqAwbj58qIBpWCdI7aPTD3FNarXk=;
- b=BuVirQTZTwxHB7H87FJWiywTqDnGatrkPQzw5UHbCPG2g8CTgDMoTYPzdXmc1KYSZA
- zTy3rNxK9hcEWlZ37iUIdgAYI3gp5P0kewuDync6JAXMK25mV3f/+c+smo9PEExXg/f5
- x+Il1343dGqjFsDeOlWvHyG+n+V8E0fgXrD8A=
+Received: from mail-pj1-x1034.google.com (mail-pj1-x1034.google.com
+ [IPv6:2607:f8b0:4864:20::1034])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CF94590F59;
+ Tue, 19 Jul 2022 17:18:39 +0000 (UTC)
+Received: by mail-pj1-x1034.google.com with SMTP id s21so15349285pjq.4;
+ Tue, 19 Jul 2022 10:18:39 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=wgjlxY2vwEbbQYsymCaoGbyx7Qj5nQdz14BXeMbJhaU=;
+ b=p4ebQ4x0Es+yVhm5HbrlBJIuofxFuJNJ5oU8LI9n1tczXrvXmtO3qAKCKDxkGi0W/i
+ o3gLj5uG6j884yw/HhZktPPXikTr1ONquivno9qlPTYgbIf9QqUKQxx/+x9BmEM6OIya
+ myPyER21Y0uFH44HARRLyb0MfU3qw2VD+RBpZ+zthxaOraRhsoo+YeQx47nG2Y8bxqaP
+ b153dVsRW78UAua4re115PJ++Gd3al/roKZZBVd/n5JoMIgIsQYcFvMZgjnhQaX/sIQP
+ xS11hKrxHDUnGm+ctazTNAUV94CypiPZ7cofGKf/4h88Dks88wWu8BTKDKL5IjfI0MGV
+ 2LMw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=5MNb0V6j3qPMABdJqAwbj58qIBpWCdI7aPTD3FNarXk=;
- b=Bbq0IoKUMEiNzdYJusSXmUC7MK9E0q7tkArIDswzO5t1pMxa8WNlwOAVUsvBSMvs3P
- mLvk8IGc0Doa9ENVTCUcvONCWfz9Z7GVpY3xiUgmmJy1ObdgQIV6vV4UMZX9Hep30t0M
- sPh1d/2uaMOa3sRJDLkgxZVR8//wUephypOYHeVh+gKljNe1RUCBOqNX/od8u19YsgDa
- 171myRuYyt0uUpaM/CqCcnVI7vYsuVrpVnmW8xP+kDMTGKlRoWCqVCtGgH/J0gUoTL28
- KymREBPJL54csH7dLCQKCcCQ9bt7xsto4Q29c4sZKm6/dnUwwkm/BCUnmkS4bX32g02P
- vqdg==
-X-Gm-Message-State: AJIora9eOwyhUrq6PPbmXrSp4u7GbD0Wc6xQXH8OhQ2fmefnXy+tC/EG
- BCmgC41JyJi8t07T7wOtw40zx4q4nqszm75MObc=
-X-Google-Smtp-Source: AGRyM1tjaM3u6focnOAmzLZhmWMI6N5wuwgo2+UTxs08qfmR9EAnJVBeLotjbNcng2JqT8WIn46iWQ==
-X-Received: by 2002:a05:6512:2609:b0:481:c42:4279 with SMTP id
- bt9-20020a056512260900b004810c424279mr19118085lfb.165.1658251129651; 
- Tue, 19 Jul 2022 10:18:49 -0700 (PDT)
-Received: from mail-lf1-f53.google.com (mail-lf1-f53.google.com.
- [209.85.167.53]) by smtp.gmail.com with ESMTPSA id
- g2-20020a056512118200b0047f8e9826a1sm3312097lfr.31.2022.07.19.10.18.49
- for <freedreno@lists.freedesktop.org>
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 19 Jul 2022 10:18:49 -0700 (PDT)
-Received: by mail-lf1-f53.google.com with SMTP id bf9so25923256lfb.13
- for <freedreno@lists.freedesktop.org>; Tue, 19 Jul 2022 10:18:49 -0700 (PDT)
-X-Received: by 2002:adf:f90d:0:b0:20c:de32:4d35 with SMTP id
- b13-20020adff90d000000b0020cde324d35mr27615443wrr.583.1658250775011; Tue, 19
- Jul 2022 10:12:55 -0700 (PDT)
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=wgjlxY2vwEbbQYsymCaoGbyx7Qj5nQdz14BXeMbJhaU=;
+ b=m993wQzrA7EQx4rYb3VdPfB4ql2wQdPwtTQ2HIVQy+41kjKLcLQLOG75IjQfo3+mxq
+ DDnWb07Q4cVDJ75iNgZ6pRYOhum7oJeEnzBLBLq8akPtH/2n44PpZIPkF1kji0EZTm9d
+ Ft10XDKned7DO+hxGJ2ZgMfbOE23HCWPxssPkAxLgeXXhaKW58X42FrCV/SCtRn9K6TZ
+ uvqskZlvICdz6Meptmin45GJ0bayz+BKhMoYYml7t5Xrtsh35CgUusbCHJ6Fpioizpbd
+ vAbj5vfP/zsu2udC4oK9mYPWTplMPLZCmttS7M+KoZvMvLpvwcvm3Borz2o7uuWebvhZ
+ uJ/w==
+X-Gm-Message-State: AJIora+JYe9OhUy0BP/6Lu3Pll+Ano5b/bFaxW5gTH0tvC9HvbkHCJ3n
+ giIEfb+STMQRA1kKmI6N60n17irEI1A=
+X-Google-Smtp-Source: AGRyM1tiIGFdkSIYREuKSjwYhFDnYD5jN1rCGiePbxyhzgQNo3Q1PYnMml4qKU9sYeo6X8ydRXwkpQ==
+X-Received: by 2002:a17:902:ebcb:b0:168:e3ba:4b5a with SMTP id
+ p11-20020a170902ebcb00b00168e3ba4b5amr34258744plg.11.1658251118481; 
+ Tue, 19 Jul 2022 10:18:38 -0700 (PDT)
+Received: from localhost ([2a00:79e1:abd:4a00:2703:3c72:eb1a:cffd])
+ by smtp.gmail.com with ESMTPSA id
+ ij19-20020a170902ab5300b0016b865ea2ddsm11892850plb.85.2022.07.19.10.18.36
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 19 Jul 2022 10:18:37 -0700 (PDT)
+From: Rob Clark <robdclark@gmail.com>
+To: dri-devel@lists.freedesktop.org
+Date: Tue, 19 Jul 2022 10:18:44 -0700
+Message-Id: <20220719171900.289265-1-robdclark@gmail.com>
+X-Mailer: git-send-email 2.36.1
 MIME-Version: 1.0
-References: <20220711092117.360797-1-dmitry.baryshkov@linaro.org>
- <20220711092117.360797-3-dmitry.baryshkov@linaro.org>
- <CAD=FV=XQbP2OSf6vtPOQtuXajUOuQ9Vz7t7pmcSraSzcBJD2ig@mail.gmail.com>
-In-Reply-To: <CAD=FV=XQbP2OSf6vtPOQtuXajUOuQ9Vz7t7pmcSraSzcBJD2ig@mail.gmail.com>
-From: Doug Anderson <dianders@chromium.org>
-Date: Tue, 19 Jul 2022 10:12:42 -0700
-X-Gmail-Original-Message-ID: <CAD=FV=UZN6SrybRt3_DRHsRYg=-yi9w++NPAtjtGHvzuyW6y7A@mail.gmail.com>
-Message-ID: <CAD=FV=UZN6SrybRt3_DRHsRYg=-yi9w++NPAtjtGHvzuyW6y7A@mail.gmail.com>
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [RFC PATCH v3 2/2] drm/bridge: ti-sn65dsi86:
- support DRM_BRIDGE_ATTACH_NO_CONNECTOR
+Content-Transfer-Encoding: 8bit
+Subject: [Freedreno] [PATCH v2 00/13] drm+msm: Shrinker and LRU rework
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,54 +67,73 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno <freedreno@lists.freedesktop.org>,
- Daniel Vetter <daniel@ffwll.ch>, Sam Ravnborg <sam@ravnborg.org>,
- Jonas Karlman <jonas@kwiboo.se>, David Airlie <airlied@linux.ie>,
- Robert Foss <robert.foss@linaro.org>,
- dri-devel <dri-devel@lists.freedesktop.org>,
- Neil Armstrong <narmstrong@baylibre.com>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Jernej Skrabec <jernej.skrabec@gmail.com>, Stephen Boyd <swboyd@chromium.org>,
- Rob Clark <robdclark@gmail.com>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Andrzej Hajda <andrzej.hajda@intel.com>,
- linux-arm-msm <linux-arm-msm@vger.kernel.org>,
- Bjorn Andersson <bjorn.andersson@linaro.org>, Sean Paul <sean@poorly.run>
+Cc: Rob Clark <robdclark@chromium.org>, linux-arm-msm@vger.kernel.org,
+ Sean Paul <sean@poorly.run>, freedreno@lists.freedesktop.org,
+ open list <linux-kernel@vger.kernel.org>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Hi,
+From: Rob Clark <robdclark@chromium.org>
 
-On Mon, Jul 11, 2022 at 10:23 AM Doug Anderson <dianders@chromium.org> wrote:
->
-> Hi,
->
-> On Mon, Jul 11, 2022 at 2:21 AM Dmitry Baryshkov
-> <dmitry.baryshkov@linaro.org> wrote:
-> >
-> > Now as the driver does not depend on pdata->connector, add support for
-> > attaching the bridge with DRM_BRIDGE_ATTACH_NO_CONNECTOR.
-> >
-> > Reviewed-by: Sam Ravnborg <sam@ravnborg.org>
-> > Reviewed-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-> > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> > ---
-> >  drivers/gpu/drm/bridge/ti-sn65dsi86.c | 18 ++++++++----------
-> >  1 file changed, 8 insertions(+), 10 deletions(-)
->
->  This has been on my list of annoyances for quite some time now. Most
-> excellent to have it fixed, thanks!
->
-> Reviewed-by: Douglas Anderson <dianders@chromium.org>
->
-> Tested together with patch #1.
->
-> Tested-by: Douglas Anderson <dianders@chromium.org>
->
->
-> Unless someone yells that there's a problem or someone beats me to it,
-> I'll plan to land in drm-misc-next sometime next week.
+Mostly a resend with a small fix in the last patch (and a couple early
+patches drop out when rebasing).
 
-Landed on drm-misc-next:
+original description below:
 
-6e2dc7ac7141 drm/bridge: ti-sn65dsi86: support DRM_BRIDGE_ATTACH_NO_CONNECTOR
+This is mostly motivated by getting drm/msm to pass an i-g-t shrinker
+test that I've been working on.  In particular the test creates and
+cycles between more GEM buffers than what will fit in RAM to force
+eviction and re-pin.  (There are sub-tests that cover this case both
+single threaded and with many child processes in parallel.)
+
+Getting this test to pass necessitated a few improvements:
+
+1. Re-ordering submit path to get rid of __GFP_NORETRY (in the common
+   case, doing this for syncobjs is still TODO)
+2. Decoupling locks needed in the retire path from locks that could
+   be held while hitting reclaim in the submit path
+3. If necessary, allow stalling on active BOs for reclaim.
+
+The latter point is because we pin objects in the synchronous part of
+the submit path (before queuing on the drm gpu-scheduler), which means
+in the parallel variant of the i-g-t test, we need to be able to block
+in the reclaim path until some queued work has completed/retired.
+
+In the process of re-working how drm/msm tracks buffer state in it's
+various LRU lists, I refactored out a drm_gem_lru helper which, in
+theory, should be usable by other drivers and drm shmem helpers for
+implementing LRU tracking and shrinker.
+
+Rob Clark (13):
+  drm/msm: Reorder lock vs submit alloc
+  drm/msm: Small submit cleanup
+  drm/msm: Split out idr_lock
+  drm/msm/gem: Check for active in shrinker path
+  drm/msm/gem: Rename update_inactive
+  drm/msm/gem: Rename to pin/unpin_pages
+  drm/msm/gem: Consolidate pin/unpin paths
+  drm/msm/gem: Remove active refcnt
+  drm/gem: Add LRU/shrinker helper
+  drm/msm/gem: Convert to using drm_gem_lru
+  drm/msm/gem: Unpin buffers earlier
+  drm/msm/gem: Consolidate shrinker trace
+  drm/msm/gem: Evict active GEM objects when necessary
+
+ drivers/gpu/drm/drm_gem.c              | 183 +++++++++++++++++++++++++
+ drivers/gpu/drm/msm/msm_drv.c          |  18 ++-
+ drivers/gpu/drm/msm/msm_drv.h          |  70 +++++++---
+ drivers/gpu/drm/msm/msm_gem.c          | 149 +++++++-------------
+ drivers/gpu/drm/msm/msm_gem.h          | 112 +--------------
+ drivers/gpu/drm/msm/msm_gem_prime.c    |   4 +-
+ drivers/gpu/drm/msm/msm_gem_shrinker.c | 164 ++++++++++------------
+ drivers/gpu/drm/msm/msm_gem_submit.c   |  78 ++++-------
+ drivers/gpu/drm/msm/msm_gpu.c          |   3 -
+ drivers/gpu/drm/msm/msm_gpu.h          |  10 +-
+ drivers/gpu/drm/msm/msm_gpu_trace.h    |  36 +++--
+ drivers/gpu/drm/msm/msm_submitqueue.c  |   1 +
+ include/drm/drm_gem.h                  |  56 ++++++++
+ 13 files changed, 483 insertions(+), 401 deletions(-)
+
+-- 
+2.36.1
+
