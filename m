@@ -1,67 +1,65 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8D0BE579225
-	for <lists+freedreno@lfdr.de>; Tue, 19 Jul 2022 06:48:18 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id BF0DE5792AA
+	for <lists+freedreno@lfdr.de>; Tue, 19 Jul 2022 07:49:28 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2FD3514A072;
-	Tue, 19 Jul 2022 04:48:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D745010F379;
+	Tue, 19 Jul 2022 05:49:26 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-oa1-x2a.google.com (mail-oa1-x2a.google.com
- [IPv6:2001:4860:4864:20::2a])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A9D1F14A077
- for <freedreno@lists.freedesktop.org>; Tue, 19 Jul 2022 04:48:15 +0000 (UTC)
-Received: by mail-oa1-x2a.google.com with SMTP id
- 586e51a60fabf-f2a4c51c45so29292793fac.9
- for <freedreno@lists.freedesktop.org>; Mon, 18 Jul 2022 21:48:15 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=8aJymfMTLF3V7ElX+b3QpJ+uAT3GT/5Q9yr/dFcNEhs=;
- b=vaKuG49TyhspbeY60kzZ6Im+k6xB5DEp9boY/8u3C6+YuM7Quo8zoXp0IiwwvMtxmU
- VXCgRWsb+lwpQfoVDwiQ73gnlkKo6WC8W8VA65guUg3D55tCqB1GYsGHeKLOcbCEzaB/
- BUc5PWm7ORAlDOM97jtyT+CLKNfmbAkWOKmtZjsrmCvJSFh+SwBWtIrzu+bgpjaBIEk/
- SfLonku3BdT8K0+nGwDZsiM5PjLpDVGPDNpl/vEFoKwVbpzvaxrG66Hl5ka1AiQ9AzdY
- tOqjKEuMcYMNPe6GuVWzOvL5/4I9Wy408AJFMpDsWdJONSblT0RJ/KrrT+DnJyuFWKRl
- XQsQ==
+Received: from mail-oa1-x2f.google.com (mail-oa1-x2f.google.com
+ [IPv6:2001:4860:4864:20::2f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4D0D210F3C1
+ for <freedreno@lists.freedesktop.org>; Tue, 19 Jul 2022 05:49:25 +0000 (UTC)
+Received: by mail-oa1-x2f.google.com with SMTP id
+ 586e51a60fabf-10c0052da61so29515407fac.12
+ for <freedreno@lists.freedesktop.org>; Mon, 18 Jul 2022 22:49:25 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
+ h=mime-version:in-reply-to:references:from:user-agent:date:message-id
+ :subject:to:cc:content-transfer-encoding;
+ bh=yW4sxd/rSfY0mjBvxj6NVim/qvTzr2TopHALi6gFszU=;
+ b=NAxY5QN4hAKJwVowqc9LH6lFKLz5HnjlPC9tcgg2oorLto+Ons5jzv8gUBiJkL55Au
+ Hseeh/SZEYf9W+bZdts2RRH1Lgr3ev7kfyrSj7vIAzI04R4HzAo8R1SCuZdKh67PjBNi
+ T+xuS2ruT06MwvcL82x3Wv+AGbFBXSv/O0kBM=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=8aJymfMTLF3V7ElX+b3QpJ+uAT3GT/5Q9yr/dFcNEhs=;
- b=jK+kuDoSxT93F++fLry2FqmXfFR534mCHHbRe3D4hHaPoGG46yWMR2ZpLPr6ZE61sC
- x/yxl/fLdjFyZiIC2BwMHsPS7FucBrOvB19SUAEwSHSOEq/zzHJ9pKzbgT4ty0NO2kIm
- I/XISAirKOveWdhqE73rxFfo4ZZyvoAgp+eWfXRNEXMp5HfuFmLf2+Y2mZf1O9NqhrM8
- 4oJ5lYJCfGm3s+CsthNb3Z8SgUmlMP4E/WVc4PBG4exLiU0wF+SldZqejQWLoaSgpDhG
- WSFrNMFmyf4toYSUsQrQ7rnPEzeXjKg1ihI58TE4wSS27wZlspbzAxbJgj6HxZMUVeCv
- ELkg==
-X-Gm-Message-State: AJIora8RKQDBo4dPEQoRKwzjcWBkkK4gK/Cwkv8pvet0zuSFoVpYIVMh
- JxGxqd5Bk0ZvJikL5l8qwcZdEw==
-X-Google-Smtp-Source: AGRyM1u+ErfCuSHr5Erivc76AfPeU0LhRvfrJ7R7I2Ve4TYxaQ8gthTJr0jwPUUBpxCskBCB6aUsaA==
-X-Received: by 2002:aca:1803:0:b0:337:e764:9927 with SMTP id
- h3-20020aca1803000000b00337e7649927mr14949031oih.51.1658206094780; 
- Mon, 18 Jul 2022 21:48:14 -0700 (PDT)
-Received: from builder.lan (104-57-184-186.lightspeed.austtx.sbcglobal.net.
- [104.57.184.186]) by smtp.gmail.com with ESMTPSA id
- w9-20020a9d70c9000000b0061c9bbac1f9sm2803209otj.16.2022.07.18.21.48.13
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 18 Jul 2022 21:48:14 -0700 (PDT)
-From: Bjorn Andersson <bjorn.andersson@linaro.org>
-To: robh+dt@kernel.org, robdclark@gmail.com, quic_khsieh@quicinc.com,
- sean@poorly.run, vkoul@kernel.org, swboyd@chromium.org, agross@kernel.org,
- devicetree@vger.kernel.org, dianders@chromium.org
-Date: Mon, 18 Jul 2022 23:48:02 -0500
-Message-Id: <165820608074.1955453.1557807402050131416.b4-ty@linaro.org>
-X-Mailer: git-send-email 2.37.1
-In-Reply-To: <1657556603-15024-1-git-send-email-quic_khsieh@quicinc.com>
-References: <1657556603-15024-1-git-send-email-quic_khsieh@quicinc.com>
+ h=x-gm-message-state:mime-version:in-reply-to:references:from
+ :user-agent:date:message-id:subject:to:cc:content-transfer-encoding;
+ bh=yW4sxd/rSfY0mjBvxj6NVim/qvTzr2TopHALi6gFszU=;
+ b=0LbKS1lKP+FQGXrRu+yne0gihrVJZCooNPsEsCANup/QXzFubpuLO/y0YszHgB+Hdy
+ UAdseJCqbwk5+aJwuDc8NAhvyp+Fk/tVlosAXcxj6wTPFTBGxrAjodPY3yvCteDOZxb/
+ sg10gYz7GP1JV68YeN32WxbjrkgT5YO0gx0FoiUwK2zvD8+Zq+pJ6vhm7H9kiIB0qcHZ
+ TxNHV4Tti6yrhVJyxQFYGUwH9wGP8nFdWXwzukr6xpYq8kp49/GOViP95jdVdAU6hfEK
+ YPvam1TMxCF1y2SipInSNokNGhtwMAvpX6UWOvZIjaPhSIeok1Yts4F/fKxz6wtv4a+1
+ WoVQ==
+X-Gm-Message-State: AJIora9ND0U2PFRN76en1B/DeQeNRxnuMkZsCvSnlMz+EykGvOjqaT39
+ XyKgXJIihWXc+qBRnlAu4oOzaaF2xOnd2n3oR8x0zQ==
+X-Google-Smtp-Source: AGRyM1vIxz8QjHUizNOQmAPd15ZPPBtKVcbtcagMWpaB45V9j3SYDpkwdeou7jUf4qcYiU8TW7NHWBtxz4iJD0ZRX8I=
+X-Received: by 2002:a05:6870:41c3:b0:10c:529c:3844 with SMTP id
+ z3-20020a05687041c300b0010c529c3844mr15985898oac.0.1658209764467; Mon, 18 Jul
+ 2022 22:49:24 -0700 (PDT)
+Received: from 753933720722 named unknown by gmailapi.google.com with
+ HTTPREST; Tue, 19 Jul 2022 01:49:23 -0400
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Subject: Re: [Freedreno] (subset) [PATCH v2] arm64: dta: qcom: sc7280:
- delete vdda-1p2 and vdda-0p9 from both dp and edp
+In-Reply-To: <e4dcdd8d-18a9-8da3-7ac3-6cc792139f70@quicinc.com>
+References: <1657346375-1461-1-git-send-email-quic_akhilpo@quicinc.com>
+ <20220709112837.v2.5.I7291c830ace04fce07e6bd95a11de4ba91410f7b@changeid>
+ <CAD=FV=XzvcjS51q78BZ=FPCEVUDMD+VKJ70ksCm5V4qwHN_wRg@mail.gmail.com>
+ <c022538d-c616-8f1a-e1c2-c11b5f0de670@quicinc.com>
+ <e4dcdd8d-18a9-8da3-7ac3-6cc792139f70@quicinc.com>
+From: Stephen Boyd <swboyd@chromium.org>
+User-Agent: alot/0.10
+Date: Tue, 19 Jul 2022 01:49:23 -0400
+Message-ID: <CAE-0n52TG3hsytN5nRU7W=S6PffSj8yQDmuicN0-qxoW-jxiZQ@mail.gmail.com>
+To: Akhil P Oommen <quic_akhilpo@quicinc.com>,
+ Doug Anderson <dianders@chromium.org>, 
+ Taniya Das <quic_tdas@quicinc.com>, quic_rjendra@quicinc.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: base64
+Subject: Re: [Freedreno] [PATCH v2 5/7] arm64: dts: qcom: sc7280: Update gpu
+ register list
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,24 +72,69 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: quic_sbillaka@quicinc.com, linux-arm-msm@vger.kernel.org,
- quic_abhinavk@quicinc.com, linux-kernel@vger.kernel.org,
- quic_mkrishn@quicinc.com, quic_aravindh@quicinc.com,
- freedreno@lists.freedesktop.org, quic_kalyant@quicinc.coml
+Cc: devicetree@vger.kernel.org, Jonathan Marek <jonathan@marek.ca>,
+ linux-arm-msm <linux-arm-msm@vger.kernel.org>,
+ LKML <linux-kernel@vger.kernel.org>,
+ dri-devel <dri-devel@lists.freedesktop.org>,
+ Bjorn Andersson <bjorn.andersson@linaro.org>, Rob Herring <robh+dt@kernel.org>,
+ Rob Clark <robdclark@gmail.com>, Andy Gross <agross@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Jordan Crouse <jordan@cosmicpenguin.net>,
+ freedreno <freedreno@lists.freedesktop.org>,
+ Matthias Kaehlcke <mka@chromium.org>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Mon, 11 Jul 2022 09:23:23 -0700, Kuogee Hsieh wrote:
-> Both vdda-1p2-supply and vdda-0p9-supply regulators are controlled
-> by dp combo phy. Therefore remove them from dp controller.
-> 
-> 
-
-Applied, thanks!
-
-[1/1] arm64: dta: qcom: sc7280: delete vdda-1p2 and vdda-0p9 from both dp and edp
-      commit: 8ed85d1e515ff5f302a929308c7ccc06bec68632
-
-Best regards,
--- 
-Bjorn Andersson <bjorn.andersson@linaro.org>
+UXVvdGluZyBBa2hpbCBQIE9vbW1lbiAoMjAyMi0wNy0xOCAyMTowNzowNSkNCj4gT24gNy8xNC8y
+MDIyIDExOjEwIEFNLCBBa2hpbCBQIE9vbW1lbiB3cm90ZToNCj4gPiBPbiA3LzEyLzIwMjIgNDo1
+NyBBTSwgRG91ZyBBbmRlcnNvbiB3cm90ZToNCj4gPj4gSGksDQo+ID4+DQo+ID4+IE9uIEZyaSwg
+SnVsIDgsIDIwMjIgYXQgMTE6MDAgUE0gQWtoaWwgUCBPb21tZW4NCj4gPj4gPHF1aWNfYWtoaWxw
+b0BxdWljaW5jLmNvbT4gd3JvdGU6DQo+ID4+PiBVcGRhdGUgZ3B1IHJlZ2lzdGVyIGFycmF5IHdp
+dGggZ3B1Y2MgbWVtb3J5IHJlZ2lvbi4NCj4gPj4+DQo+ID4+PiBTaWduZWQtb2ZmLWJ5OiBBa2hp
+bCBQIE9vbW1lbiA8cXVpY19ha2hpbHBvQHF1aWNpbmMuY29tPg0KPiA+Pj4gLS0tDQo+ID4+Pg0K
+PiA+Pj4gKG5vIGNoYW5nZXMgc2luY2UgdjEpDQo+ID4+Pg0KPiA+Pj4gwqAgYXJjaC9hcm02NC9i
+b290L2R0cy9xY29tL3NjNzI4MC5kdHNpIHwgNiArKysrLS0NCj4gPj4+IMKgIDEgZmlsZSBjaGFu
+Z2VkLCA0IGluc2VydGlvbnMoKyksIDIgZGVsZXRpb25zKC0pDQo+ID4+Pg0KPiA+Pj4gZGlmZiAt
+LWdpdCBhL2FyY2gvYXJtNjQvYm9vdC9kdHMvcWNvbS9zYzcyODAuZHRzaQ0KPiA+Pj4gYi9hcmNo
+L2FybTY0L2Jvb3QvZHRzL3Fjb20vc2M3MjgwLmR0c2kNCj4gPj4+IGluZGV4IGU2NmZjNjcuLmRl
+ZmRiMjUgMTAwNjQ0DQo+ID4+PiAtLS0gYS9hcmNoL2FybTY0L2Jvb3QvZHRzL3Fjb20vc2M3Mjgw
+LmR0c2kNCj4gPj4+ICsrKyBiL2FyY2gvYXJtNjQvYm9vdC9kdHMvcWNvbS9zYzcyODAuZHRzaQ0K
+PiA+Pj4gQEAgLTIyMjgsMTAgKzIyMjgsMTIgQEANCj4gPj4+IMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBjb21wYXRpYmxlID0gInFjb20sYWRyZW5vLTYz
+NS4wIiwNCj4gPj4+ICJxY29tLGFkcmVubyI7DQo+ID4+PiDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgcmVnID0gPDAgMHgwM2QwMDAwMCAwIDB4NDAwMDA+
+LA0KPiA+Pj4gwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgIDwwIDB4MDNkOWUwMDAgMCAweDEwMDA+LA0KPiA+Pj4gLcKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIDwwIDB4MDNkNjEw
+MDAgMCAweDgwMD47DQo+ID4+PiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqAgPDAgMHgwM2Q2MTAwMCAwIDB4ODAwPiwNCj4gPj4+ICvCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCA8MCAw
+eDAzZDkwMDAwIDAgMHgyMDAwPjsNCj4gPj4+IMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoCByZWctbmFtZXMgPSAia2dzbF8zZDBfcmVnX21lbW9yeSIsDQo+
+ID4+PiDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqAgImN4X21lbSIsDQo+ID4+PiAtwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgImN4X2Ri
+Z2MiOw0KPiA+Pj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgICJjeF9kYmdjIiwNCj4gPj4+ICvCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCAi
+Z3B1Y2MiOw0KPiA+PiBUaGlzIGRvZXNuJ3Qgc2VlbSByaWdodC4gU2hvdWxkbid0IHlvdSBiZSBj
+b29yZGluYXRpbmcgd2l0aCB0aGUNCj4gPj4gZXhpc3RpbmcgZ3B1Y2MgaW5zdGVhZCBvZiByZWFj
+aGluZyBpbnRvIGl0cyByZWdpc3RlcnM/DQo+ID4+DQo+ID4gSUlVQywgcWNvbSBnZHNjIGRyaXZl
+ciBkb2Vzbid0IGVuc3VyZSBoYXJkd2FyZSBpcyBjb2xsYXBzZWQgc2luY2UgdGhleQ0KPiA+IGFy
+ZSB2b3RlLWFibGUgc3dpdGNoZXMuIElkZWFsbHksIHdlIHNob3VsZCBlbnN1cmUgdGhhdCB0aGUg
+aHcgaGFzDQo+ID4gY29sbGFwc2VkIGZvciBncHUgcmVjb3ZlcnkgYmVjYXVzZSB0aGVyZSBjb3Vs
+ZCBiZSB0cmFuc2llbnQgdm90ZXMgZnJvbQ0KPiA+IG90aGVyIHN1YnN5c3RlbXMgbGlrZSBoeXBl
+cnZpc29yIHVzaW5nIHRoZWlyIHZvdGUgcmVnaXN0ZXIuDQo+ID4NCj4gPiBJIGFtIG5vdCBzdXJl
+IGhvdyBjb21wbGV4IHRoZSBwbHVtYmluZyB0byBncHVjYyBkcml2ZXIgd291bGQgYmUgdG8gYWxs
+b3cNCj4gPiBncHUgZHJpdmVyIHRvIGNoZWNrIGh3IHN0YXR1cy4gT1RPSCwgd2l0aCB0aGlzIHBh
+dGNoLCBncHUgZHJpdmVyIGRvZXMgYQ0KPiA+IHJlYWQgb3BlcmF0aW9uIG9uIGEgZ3B1Y2MgcmVn
+aXN0ZXIgd2hpY2ggaXMgaW4gYWx3YXlzLW9uIGRvbWFpbi4gVGhhdA0KPiA+IG1lYW5zIHdlIGRv
+bid0IG5lZWQgdG8gdm90ZSBhbnkgcmVzb3VyY2UgdG8gYWNjZXNzIHRoaXMgcmVnaXN0ZXIuDQo+
+ID4NCj4gPiBTdGVwaGVuL1JhamVuZHJhL1Rhbml5YSwgYW55IHN1Z2dlc3Rpb24/DQoNCldoeSBj
+YW4ndCB5b3UgYXNzZXJ0IGEgZ3B1IHJlc2V0IHNpZ25hbCB3aXRoIHRoZSByZXNldCBBUElzPyBU
+aGlzIHNlcmllcw0Kc2VlbXMgdG8ganVtcCB0aHJvdWdoIGEgYnVuY2ggb2YgaG9vcHMgdG8gZ2V0
+IHRoZSBnZHNjIGFuZCBwb3dlciBkb21haW4NCnRvICJyZXNldCIgd2hlbiBJIGRvbid0IGtub3cg
+d2h5IGFueSBvZiB0aGF0IGlzIG5lY2Vzc2FyeS4gQ2FuJ3Qgd2UNCnNpbXBseSBhc3NlcnQgYSBy
+ZXNldCB0byB0aGUgaGFyZHdhcmUgYWZ0ZXIgcmVjb3ZlcnkgY29tcGxldGVzIHNvIHRoZQ0KZGV2
+aWNlIGlzIGJhY2sgaW50byBhIGdvb2Qga25vd24gUE9SIChwb3dlciBvbiByZXNldCkgc3RhdGU/
+DQo=
