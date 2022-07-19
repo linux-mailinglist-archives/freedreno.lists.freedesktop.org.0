@@ -2,62 +2,60 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id BF0DE5792AA
-	for <lists+freedreno@lfdr.de>; Tue, 19 Jul 2022 07:49:28 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 34EDD579352
+	for <lists+freedreno@lfdr.de>; Tue, 19 Jul 2022 08:37:32 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D745010F379;
-	Tue, 19 Jul 2022 05:49:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CF6F210E650;
+	Tue, 19 Jul 2022 06:37:30 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-oa1-x2f.google.com (mail-oa1-x2f.google.com
- [IPv6:2001:4860:4864:20::2f])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4D0D210F3C1
- for <freedreno@lists.freedesktop.org>; Tue, 19 Jul 2022 05:49:25 +0000 (UTC)
-Received: by mail-oa1-x2f.google.com with SMTP id
- 586e51a60fabf-10c0052da61so29515407fac.12
- for <freedreno@lists.freedesktop.org>; Mon, 18 Jul 2022 22:49:25 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=mime-version:in-reply-to:references:from:user-agent:date:message-id
- :subject:to:cc:content-transfer-encoding;
- bh=yW4sxd/rSfY0mjBvxj6NVim/qvTzr2TopHALi6gFszU=;
- b=NAxY5QN4hAKJwVowqc9LH6lFKLz5HnjlPC9tcgg2oorLto+Ons5jzv8gUBiJkL55Au
- Hseeh/SZEYf9W+bZdts2RRH1Lgr3ev7kfyrSj7vIAzI04R4HzAo8R1SCuZdKh67PjBNi
- T+xuS2ruT06MwvcL82x3Wv+AGbFBXSv/O0kBM=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:in-reply-to:references:from
- :user-agent:date:message-id:subject:to:cc:content-transfer-encoding;
- bh=yW4sxd/rSfY0mjBvxj6NVim/qvTzr2TopHALi6gFszU=;
- b=0LbKS1lKP+FQGXrRu+yne0gihrVJZCooNPsEsCANup/QXzFubpuLO/y0YszHgB+Hdy
- UAdseJCqbwk5+aJwuDc8NAhvyp+Fk/tVlosAXcxj6wTPFTBGxrAjodPY3yvCteDOZxb/
- sg10gYz7GP1JV68YeN32WxbjrkgT5YO0gx0FoiUwK2zvD8+Zq+pJ6vhm7H9kiIB0qcHZ
- TxNHV4Tti6yrhVJyxQFYGUwH9wGP8nFdWXwzukr6xpYq8kp49/GOViP95jdVdAU6hfEK
- YPvam1TMxCF1y2SipInSNokNGhtwMAvpX6UWOvZIjaPhSIeok1Yts4F/fKxz6wtv4a+1
- WoVQ==
-X-Gm-Message-State: AJIora9ND0U2PFRN76en1B/DeQeNRxnuMkZsCvSnlMz+EykGvOjqaT39
- XyKgXJIihWXc+qBRnlAu4oOzaaF2xOnd2n3oR8x0zQ==
-X-Google-Smtp-Source: AGRyM1vIxz8QjHUizNOQmAPd15ZPPBtKVcbtcagMWpaB45V9j3SYDpkwdeou7jUf4qcYiU8TW7NHWBtxz4iJD0ZRX8I=
-X-Received: by 2002:a05:6870:41c3:b0:10c:529c:3844 with SMTP id
- z3-20020a05687041c300b0010c529c3844mr15985898oac.0.1658209764467; Mon, 18 Jul
- 2022 22:49:24 -0700 (PDT)
-Received: from 753933720722 named unknown by gmailapi.google.com with
- HTTPREST; Tue, 19 Jul 2022 01:49:23 -0400
+Received: from alexa-out.qualcomm.com (alexa-out.qualcomm.com [129.46.98.28])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 450EE10E4E0;
+ Tue, 19 Jul 2022 06:37:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=quicinc.com; i=@quicinc.com; q=dns/txt; s=qcdkim;
+ t=1658212649; x=1689748649;
+ h=message-id:date:mime-version:subject:to:cc:references:
+ from:in-reply-to:content-transfer-encoding;
+ bh=/qUg5Su1dYRVu4jI8q26NvXYMR+SGZtUx1lHXfQyIMc=;
+ b=etpa3Us3Dw23W+CPNuU+muF1Td3Djm7r3G6udZlVa2ykgo9K5jIVOZGY
+ PfNNrrHMNlDRGpdD4vGXY+kTcVlB30J5sgxTfem+mnQJ1YpPKCmvbgKgS
+ tMUYW/0ME8PG9Qo/Oz5uNzu9lMD/H6FWwysz2rcR1661ewDmwYjnKU+49 A=;
+Received: from ironmsg07-lv.qualcomm.com ([10.47.202.151])
+ by alexa-out.qualcomm.com with ESMTP; 18 Jul 2022 23:37:28 -0700
+X-QCInternal: smtphost
+Received: from nasanex01c.na.qualcomm.com ([10.47.97.222])
+ by ironmsg07-lv.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 18 Jul 2022 23:37:27 -0700
+Received: from nalasex01a.na.qualcomm.com (10.47.209.196) by
+ nasanex01c.na.qualcomm.com (10.47.97.222) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.986.22; Mon, 18 Jul 2022 23:37:27 -0700
+Received: from [10.216.51.115] (10.80.80.8) by nalasex01a.na.qualcomm.com
+ (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.22; Mon, 18 Jul
+ 2022 23:37:21 -0700
+Message-ID: <0c050434-27ca-1099-d93d-8ad6ace3396e@quicinc.com>
+Date: Tue, 19 Jul 2022 12:07:16 +0530
 MIME-Version: 1.0
-In-Reply-To: <e4dcdd8d-18a9-8da3-7ac3-6cc792139f70@quicinc.com>
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
+ Thunderbird/91.3.2
+Content-Language: en-US
+To: Stephen Boyd <swboyd@chromium.org>, Doug Anderson <dianders@chromium.org>, 
+ Taniya Das <quic_tdas@quicinc.com>, <quic_rjendra@quicinc.com>
 References: <1657346375-1461-1-git-send-email-quic_akhilpo@quicinc.com>
  <20220709112837.v2.5.I7291c830ace04fce07e6bd95a11de4ba91410f7b@changeid>
  <CAD=FV=XzvcjS51q78BZ=FPCEVUDMD+VKJ70ksCm5V4qwHN_wRg@mail.gmail.com>
  <c022538d-c616-8f1a-e1c2-c11b5f0de670@quicinc.com>
  <e4dcdd8d-18a9-8da3-7ac3-6cc792139f70@quicinc.com>
-From: Stephen Boyd <swboyd@chromium.org>
-User-Agent: alot/0.10
-Date: Tue, 19 Jul 2022 01:49:23 -0400
-Message-ID: <CAE-0n52TG3hsytN5nRU7W=S6PffSj8yQDmuicN0-qxoW-jxiZQ@mail.gmail.com>
-To: Akhil P Oommen <quic_akhilpo@quicinc.com>,
- Doug Anderson <dianders@chromium.org>, 
- Taniya Das <quic_tdas@quicinc.com>, quic_rjendra@quicinc.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: base64
+ <CAE-0n52TG3hsytN5nRU7W=S6PffSj8yQDmuicN0-qxoW-jxiZQ@mail.gmail.com>
+From: Akhil P Oommen <quic_akhilpo@quicinc.com>
+In-Reply-To: <CAE-0n52TG3hsytN5nRU7W=S6PffSj8yQDmuicN0-qxoW-jxiZQ@mail.gmail.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
 Subject: Re: [Freedreno] [PATCH v2 5/7] arm64: dts: qcom: sc7280: Update gpu
  register list
 X-BeenThere: freedreno@lists.freedesktop.org
@@ -75,8 +73,8 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Cc: devicetree@vger.kernel.org, Jonathan Marek <jonathan@marek.ca>,
  linux-arm-msm <linux-arm-msm@vger.kernel.org>,
  LKML <linux-kernel@vger.kernel.org>,
- dri-devel <dri-devel@lists.freedesktop.org>,
- Bjorn Andersson <bjorn.andersson@linaro.org>, Rob Herring <robh+dt@kernel.org>,
+ dri-devel <dri-devel@lists.freedesktop.org>, Bjorn
+ Andersson <bjorn.andersson@linaro.org>, Rob Herring <robh+dt@kernel.org>,
  Rob Clark <robdclark@gmail.com>, Andy Gross <agross@kernel.org>,
  Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
  Jordan Crouse <jordan@cosmicpenguin.net>,
@@ -85,56 +83,63 @@ Cc: devicetree@vger.kernel.org, Jonathan Marek <jonathan@marek.ca>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-UXVvdGluZyBBa2hpbCBQIE9vbW1lbiAoMjAyMi0wNy0xOCAyMTowNzowNSkNCj4gT24gNy8xNC8y
-MDIyIDExOjEwIEFNLCBBa2hpbCBQIE9vbW1lbiB3cm90ZToNCj4gPiBPbiA3LzEyLzIwMjIgNDo1
-NyBBTSwgRG91ZyBBbmRlcnNvbiB3cm90ZToNCj4gPj4gSGksDQo+ID4+DQo+ID4+IE9uIEZyaSwg
-SnVsIDgsIDIwMjIgYXQgMTE6MDAgUE0gQWtoaWwgUCBPb21tZW4NCj4gPj4gPHF1aWNfYWtoaWxw
-b0BxdWljaW5jLmNvbT4gd3JvdGU6DQo+ID4+PiBVcGRhdGUgZ3B1IHJlZ2lzdGVyIGFycmF5IHdp
-dGggZ3B1Y2MgbWVtb3J5IHJlZ2lvbi4NCj4gPj4+DQo+ID4+PiBTaWduZWQtb2ZmLWJ5OiBBa2hp
-bCBQIE9vbW1lbiA8cXVpY19ha2hpbHBvQHF1aWNpbmMuY29tPg0KPiA+Pj4gLS0tDQo+ID4+Pg0K
-PiA+Pj4gKG5vIGNoYW5nZXMgc2luY2UgdjEpDQo+ID4+Pg0KPiA+Pj4gwqAgYXJjaC9hcm02NC9i
-b290L2R0cy9xY29tL3NjNzI4MC5kdHNpIHwgNiArKysrLS0NCj4gPj4+IMKgIDEgZmlsZSBjaGFu
-Z2VkLCA0IGluc2VydGlvbnMoKyksIDIgZGVsZXRpb25zKC0pDQo+ID4+Pg0KPiA+Pj4gZGlmZiAt
-LWdpdCBhL2FyY2gvYXJtNjQvYm9vdC9kdHMvcWNvbS9zYzcyODAuZHRzaQ0KPiA+Pj4gYi9hcmNo
-L2FybTY0L2Jvb3QvZHRzL3Fjb20vc2M3MjgwLmR0c2kNCj4gPj4+IGluZGV4IGU2NmZjNjcuLmRl
-ZmRiMjUgMTAwNjQ0DQo+ID4+PiAtLS0gYS9hcmNoL2FybTY0L2Jvb3QvZHRzL3Fjb20vc2M3Mjgw
-LmR0c2kNCj4gPj4+ICsrKyBiL2FyY2gvYXJtNjQvYm9vdC9kdHMvcWNvbS9zYzcyODAuZHRzaQ0K
-PiA+Pj4gQEAgLTIyMjgsMTAgKzIyMjgsMTIgQEANCj4gPj4+IMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBjb21wYXRpYmxlID0gInFjb20sYWRyZW5vLTYz
-NS4wIiwNCj4gPj4+ICJxY29tLGFkcmVubyI7DQo+ID4+PiDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgcmVnID0gPDAgMHgwM2QwMDAwMCAwIDB4NDAwMDA+
-LA0KPiA+Pj4gwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgIDwwIDB4MDNkOWUwMDAgMCAweDEwMDA+LA0KPiA+Pj4gLcKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIDwwIDB4MDNkNjEw
-MDAgMCAweDgwMD47DQo+ID4+PiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqAgPDAgMHgwM2Q2MTAwMCAwIDB4ODAwPiwNCj4gPj4+ICvCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCA8MCAw
-eDAzZDkwMDAwIDAgMHgyMDAwPjsNCj4gPj4+IMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoCByZWctbmFtZXMgPSAia2dzbF8zZDBfcmVnX21lbW9yeSIsDQo+
-ID4+PiDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqAgImN4X21lbSIsDQo+ID4+PiAtwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgImN4X2Ri
-Z2MiOw0KPiA+Pj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgICJjeF9kYmdjIiwNCj4gPj4+ICvCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCAi
-Z3B1Y2MiOw0KPiA+PiBUaGlzIGRvZXNuJ3Qgc2VlbSByaWdodC4gU2hvdWxkbid0IHlvdSBiZSBj
-b29yZGluYXRpbmcgd2l0aCB0aGUNCj4gPj4gZXhpc3RpbmcgZ3B1Y2MgaW5zdGVhZCBvZiByZWFj
-aGluZyBpbnRvIGl0cyByZWdpc3RlcnM/DQo+ID4+DQo+ID4gSUlVQywgcWNvbSBnZHNjIGRyaXZl
-ciBkb2Vzbid0IGVuc3VyZSBoYXJkd2FyZSBpcyBjb2xsYXBzZWQgc2luY2UgdGhleQ0KPiA+IGFy
-ZSB2b3RlLWFibGUgc3dpdGNoZXMuIElkZWFsbHksIHdlIHNob3VsZCBlbnN1cmUgdGhhdCB0aGUg
-aHcgaGFzDQo+ID4gY29sbGFwc2VkIGZvciBncHUgcmVjb3ZlcnkgYmVjYXVzZSB0aGVyZSBjb3Vs
-ZCBiZSB0cmFuc2llbnQgdm90ZXMgZnJvbQ0KPiA+IG90aGVyIHN1YnN5c3RlbXMgbGlrZSBoeXBl
-cnZpc29yIHVzaW5nIHRoZWlyIHZvdGUgcmVnaXN0ZXIuDQo+ID4NCj4gPiBJIGFtIG5vdCBzdXJl
-IGhvdyBjb21wbGV4IHRoZSBwbHVtYmluZyB0byBncHVjYyBkcml2ZXIgd291bGQgYmUgdG8gYWxs
-b3cNCj4gPiBncHUgZHJpdmVyIHRvIGNoZWNrIGh3IHN0YXR1cy4gT1RPSCwgd2l0aCB0aGlzIHBh
-dGNoLCBncHUgZHJpdmVyIGRvZXMgYQ0KPiA+IHJlYWQgb3BlcmF0aW9uIG9uIGEgZ3B1Y2MgcmVn
-aXN0ZXIgd2hpY2ggaXMgaW4gYWx3YXlzLW9uIGRvbWFpbi4gVGhhdA0KPiA+IG1lYW5zIHdlIGRv
-bid0IG5lZWQgdG8gdm90ZSBhbnkgcmVzb3VyY2UgdG8gYWNjZXNzIHRoaXMgcmVnaXN0ZXIuDQo+
-ID4NCj4gPiBTdGVwaGVuL1JhamVuZHJhL1Rhbml5YSwgYW55IHN1Z2dlc3Rpb24/DQoNCldoeSBj
-YW4ndCB5b3UgYXNzZXJ0IGEgZ3B1IHJlc2V0IHNpZ25hbCB3aXRoIHRoZSByZXNldCBBUElzPyBU
-aGlzIHNlcmllcw0Kc2VlbXMgdG8ganVtcCB0aHJvdWdoIGEgYnVuY2ggb2YgaG9vcHMgdG8gZ2V0
-IHRoZSBnZHNjIGFuZCBwb3dlciBkb21haW4NCnRvICJyZXNldCIgd2hlbiBJIGRvbid0IGtub3cg
-d2h5IGFueSBvZiB0aGF0IGlzIG5lY2Vzc2FyeS4gQ2FuJ3Qgd2UNCnNpbXBseSBhc3NlcnQgYSBy
-ZXNldCB0byB0aGUgaGFyZHdhcmUgYWZ0ZXIgcmVjb3ZlcnkgY29tcGxldGVzIHNvIHRoZQ0KZGV2
-aWNlIGlzIGJhY2sgaW50byBhIGdvb2Qga25vd24gUE9SIChwb3dlciBvbiByZXNldCkgc3RhdGU/
-DQo=
+On 7/19/2022 11:19 AM, Stephen Boyd wrote:
+> Quoting Akhil P Oommen (2022-07-18 21:07:05)
+>> On 7/14/2022 11:10 AM, Akhil P Oommen wrote:
+>>> On 7/12/2022 4:57 AM, Doug Anderson wrote:
+>>>> Hi,
+>>>>
+>>>> On Fri, Jul 8, 2022 at 11:00 PM Akhil P Oommen
+>>>> <quic_akhilpo@quicinc.com> wrote:
+>>>>> Update gpu register array with gpucc memory region.
+>>>>>
+>>>>> Signed-off-by: Akhil P Oommen <quic_akhilpo@quicinc.com>
+>>>>> ---
+>>>>>
+>>>>> (no changes since v1)
+>>>>>
+>>>>>    arch/arm64/boot/dts/qcom/sc7280.dtsi | 6 ++++--
+>>>>>    1 file changed, 4 insertions(+), 2 deletions(-)
+>>>>>
+>>>>> diff --git a/arch/arm64/boot/dts/qcom/sc7280.dtsi
+>>>>> b/arch/arm64/boot/dts/qcom/sc7280.dtsi
+>>>>> index e66fc67..defdb25 100644
+>>>>> --- a/arch/arm64/boot/dts/qcom/sc7280.dtsi
+>>>>> +++ b/arch/arm64/boot/dts/qcom/sc7280.dtsi
+>>>>> @@ -2228,10 +2228,12 @@
+>>>>>                           compatible = "qcom,adreno-635.0",
+>>>>> "qcom,adreno";
+>>>>>                           reg = <0 0x03d00000 0 0x40000>,
+>>>>>                                 <0 0x03d9e000 0 0x1000>,
+>>>>> -                             <0 0x03d61000 0 0x800>;
+>>>>> +                             <0 0x03d61000 0 0x800>,
+>>>>> +                             <0 0x03d90000 0 0x2000>;
+>>>>>                           reg-names = "kgsl_3d0_reg_memory",
+>>>>>                                       "cx_mem",
+>>>>> -                                   "cx_dbgc";
+>>>>> +                                   "cx_dbgc",
+>>>>> +                                   "gpucc";
+>>>> This doesn't seem right. Shouldn't you be coordinating with the
+>>>> existing gpucc instead of reaching into its registers?
+>>>>
+>>> IIUC, qcom gdsc driver doesn't ensure hardware is collapsed since they
+>>> are vote-able switches. Ideally, we should ensure that the hw has
+>>> collapsed for gpu recovery because there could be transient votes from
+>>> other subsystems like hypervisor using their vote register.
+>>>
+>>> I am not sure how complex the plumbing to gpucc driver would be to allow
+>>> gpu driver to check hw status. OTOH, with this patch, gpu driver does a
+>>> read operation on a gpucc register which is in always-on domain. That
+>>> means we don't need to vote any resource to access this register.
+>>>
+>>> Stephen/Rajendra/Taniya, any suggestion?
+> Why can't you assert a gpu reset signal with the reset APIs? This series
+> seems to jump through a bunch of hoops to get the gdsc and power domain
+> to "reset" when I don't know why any of that is necessary. Can't we
+> simply assert a reset to the hardware after recovery completes so the
+> device is back into a good known POR (power on reset) state?
+That is because there is no register interface to reset GPU CX domain. 
+The recommended sequence from HW design folks is to collapse both cx and 
+gx gdsc to properly reset gpu/gmu.
+
+-Akhil.
