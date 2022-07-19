@@ -1,52 +1,62 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8579C57902E
-	for <lists+freedreno@lfdr.de>; Tue, 19 Jul 2022 03:56:38 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 5A23C5791A2
+	for <lists+freedreno@lfdr.de>; Tue, 19 Jul 2022 06:07:21 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 185FD11A898;
-	Tue, 19 Jul 2022 01:56:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7844B10E4E0;
+	Tue, 19 Jul 2022 04:07:19 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-pf1-f194.google.com (mail-pf1-f194.google.com
- [209.85.210.194])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4031911A872
- for <freedreno@lists.freedesktop.org>; Tue, 19 Jul 2022 01:56:36 +0000 (UTC)
-Received: by mail-pf1-f194.google.com with SMTP id e16so12220495pfm.11
- for <freedreno@lists.freedesktop.org>; Mon, 18 Jul 2022 18:56:36 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=/a4FiR7aLndGxzWuyiR1P2igj/4sxawq1FoYvUVjoOA=;
- b=ejpnTYXthwyk9FfureAtbzDCOPHGhskkJxigz1JkHJWU41eW4/OKibnuCarDay2GAU
- Hb66C3XWu9gGkmd/XtV2JdoBeXc3DArbff4BHvs9DFIAbP2K+O8ps7nveDabYoj6T2s5
- LOdUE1zb+qJpWR7gwbMkPotCfClmhbH5PhAKPFGzUwddvrJQw/tXw+5MRkxgvRfkgwUN
- 0q32y8Iizcqu4SL217DjCTr9229PqmxAVe/Dtg1B+O8eXWrssLBSCOKFu+7Squkf3Uzm
- Z4JI3VWwslTvJFW0hQ4mi6FmICm1i0X0J+4rpU1NE6IVf7inJImDjObgMB9lqHp+Bs0O
- EHsQ==
-X-Gm-Message-State: AJIora8eVTpzTULRInOeDC6Yvq09xcOyHy1gHpisvPuTvlvvOJMk5I/Y
- nYTQWghysQ6jn2fg85i7pg==
-X-Google-Smtp-Source: AGRyM1sC9k4aPblFgOso28rTleM2SsyhMxxgJNyGcr1cBKdOSZu0+rwvpzTCFaSpg2Zl+X8eVVVajA==
-X-Received: by 2002:a63:6846:0:b0:415:bb65:d6f0 with SMTP id
- d67-20020a636846000000b00415bb65d6f0mr26989951pgc.238.1658195795563; 
- Mon, 18 Jul 2022 18:56:35 -0700 (PDT)
-Received: from localhost.localdomain ([156.146.53.107])
- by smtp.gmail.com with ESMTPSA id
- j15-20020a170903024f00b0015f2b3bc97asm10067405plh.13.2022.07.18.18.56.29
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 18 Jul 2022 18:56:35 -0700 (PDT)
-From: sunliming <sunliming@kylinos.cn>
-To: christian.koenig@amd.com, robdclark@gmail.com, quic_abhinavk@quicinc.com,
- dmitry.baryshkov@linaro.org
-Date: Tue, 19 Jul 2022 09:56:22 +0800
-Message-Id: <20220719015622.646718-1-sunliming@kylinos.cn>
-X-Mailer: git-send-email 2.25.1
+Received: from alexa-out-sd-01.qualcomm.com (alexa-out-sd-01.qualcomm.com
+ [199.106.114.38])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3EFCE10E4E0;
+ Tue, 19 Jul 2022 04:07:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=quicinc.com; i=@quicinc.com; q=dns/txt; s=qcdkim;
+ t=1658203638; x=1689739638;
+ h=message-id:date:mime-version:subject:from:to:cc:
+ references:in-reply-to:content-transfer-encoding;
+ bh=jU56txNrlLvbYZzZ6gj0i6vcpYygudkLhnYlO1eIeYw=;
+ b=b3B4ovF3g1bqdJVWlIhI+EMaAKaSHBEwtQqwFKsPm3PQsyiRjzUYS+PZ
+ SIkE7ZwekhRSA+TZJOjxkRxOJrHAa49tlKZu26O+nibduz4g5dUl7ZQb3
+ h0qBhI0mrIHdVTdoGqzAb33JPotLlidgNDtNg0S3yIZhsNLIGh36Wbd89 8=;
+Received: from unknown (HELO ironmsg01-sd.qualcomm.com) ([10.53.140.141])
+ by alexa-out-sd-01.qualcomm.com with ESMTP; 18 Jul 2022 21:07:17 -0700
+X-QCInternal: smtphost
+Received: from nasanex01c.na.qualcomm.com ([10.47.97.222])
+ by ironmsg01-sd.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 18 Jul 2022 21:07:17 -0700
+Received: from nalasex01a.na.qualcomm.com (10.47.209.196) by
+ nasanex01c.na.qualcomm.com (10.47.97.222) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.986.22; Mon, 18 Jul 2022 21:07:16 -0700
+Received: from [10.216.42.230] (10.80.80.8) by nalasex01a.na.qualcomm.com
+ (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.22; Mon, 18 Jul
+ 2022 21:07:10 -0700
+Message-ID: <e4dcdd8d-18a9-8da3-7ac3-6cc792139f70@quicinc.com>
+Date: Tue, 19 Jul 2022 09:37:05 +0530
 MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
+ Thunderbird/91.3.2
+Content-Language: en-US
+From: Akhil P Oommen <quic_akhilpo@quicinc.com>
+To: Doug Anderson <dianders@chromium.org>, Stephen Boyd <swboyd@chromium.org>, 
+ Taniya Das <quic_tdas@quicinc.com>, <quic_rjendra@quicinc.com>
+References: <1657346375-1461-1-git-send-email-quic_akhilpo@quicinc.com>
+ <20220709112837.v2.5.I7291c830ace04fce07e6bd95a11de4ba91410f7b@changeid>
+ <CAD=FV=XzvcjS51q78BZ=FPCEVUDMD+VKJ70ksCm5V4qwHN_wRg@mail.gmail.com>
+ <c022538d-c616-8f1a-e1c2-c11b5f0de670@quicinc.com>
+In-Reply-To: <c022538d-c616-8f1a-e1c2-c11b5f0de670@quicinc.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
 Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH RESEND] drm/msm/dsi: fix the inconsistent
- indenting
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+Subject: Re: [Freedreno] [PATCH v2 5/7] arm64: dts: qcom: sc7280: Update gpu
+ register list
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,39 +69,74 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: kernel test robot <lkp@intel.com>, linux-arm-msm@vger.kernel.org,
- kelulanainsley@gmail.com, linux-kernel@vger.kernel.org,
- sunliming <sunliming@kylinos.cn>, freedreno@lists.freedesktop.org
+Cc: "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
+ <devicetree@vger.kernel.org>, Jonathan Marek <jonathan@marek.ca>,
+ linux-arm-msm <linux-arm-msm@vger.kernel.org>,
+ LKML <linux-kernel@vger.kernel.org>,
+ dri-devel <dri-devel@lists.freedesktop.org>, Bjorn
+ Andersson <bjorn.andersson@linaro.org>, Rob Herring <robh+dt@kernel.org>,
+ Rob Clark <robdclark@gmail.com>, Andy Gross <agross@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Jordan Crouse <jordan@cosmicpenguin.net>,
+ freedreno <freedreno@lists.freedesktop.org>,
+ Matthias Kaehlcke <mka@chromium.org>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Fix the inconsistent indenting in function msm_dsi_dphy_timing_calc_v3().
+On 7/14/2022 11:10 AM, Akhil P Oommen wrote:
+> On 7/12/2022 4:57 AM, Doug Anderson wrote:
+>> Hi,
+>>
+>> On Fri, Jul 8, 2022 at 11:00 PM Akhil P Oommen 
+>> <quic_akhilpo@quicinc.com> wrote:
+>>> Update gpu register array with gpucc memory region.
+>>>
+>>> Signed-off-by: Akhil P Oommen <quic_akhilpo@quicinc.com>
+>>> ---
+>>>
+>>> (no changes since v1)
+>>>
+>>>   arch/arm64/boot/dts/qcom/sc7280.dtsi | 6 ++++--
+>>>   1 file changed, 4 insertions(+), 2 deletions(-)
+>>>
+>>> diff --git a/arch/arm64/boot/dts/qcom/sc7280.dtsi 
+>>> b/arch/arm64/boot/dts/qcom/sc7280.dtsi
+>>> index e66fc67..defdb25 100644
+>>> --- a/arch/arm64/boot/dts/qcom/sc7280.dtsi
+>>> +++ b/arch/arm64/boot/dts/qcom/sc7280.dtsi
+>>> @@ -2228,10 +2228,12 @@
+>>>                          compatible = "qcom,adreno-635.0", 
+>>> "qcom,adreno";
+>>>                          reg = <0 0x03d00000 0 0x40000>,
+>>>                                <0 0x03d9e000 0 0x1000>,
+>>> -                             <0 0x03d61000 0 0x800>;
+>>> +                             <0 0x03d61000 0 0x800>,
+>>> +                             <0 0x03d90000 0 0x2000>;
+>>>                          reg-names = "kgsl_3d0_reg_memory",
+>>>                                      "cx_mem",
+>>> -                                   "cx_dbgc";
+>>> +                                   "cx_dbgc",
+>>> +                                   "gpucc";
+>> This doesn't seem right. Shouldn't you be coordinating with the
+>> existing gpucc instead of reaching into its registers?
+>>
+>> -Doug
+> IIUC, qcom gdsc driver doesn't ensure hardware is collapsed since they 
+> are vote-able switches. Ideally, we should ensure that the hw has 
+> collapsed for gpu recovery because there could be transient votes from 
+> other subsystems like hypervisor using their vote register.
+> 
+> I am not sure how complex the plumbing to gpucc driver would be to allow 
+> gpu driver to check hw status. OTOH, with this patch, gpu driver does a 
+> read operation on a gpucc register which is in always-on domain. That 
+> means we don't need to vote any resource to access this register.
+> 
+> Stephen/Rajendra/Taniya, any suggestion?
+> 
+> -Akhil.
+> 
+> 
+Gentle ping.
 
-Fix the following smatch warnings:
-
-drivers/gpu/drm/msm/dsi/phy/dsi_phy.c:350 msm_dsi_dphy_timing_calc_v3() warn: inconsistent indenting
-
-Fixes: f1fa7ff44056 ("drm/msm/dsi: implement auto PHY timing calculator for 10nm PHY")
-Reported-by: kernel test robot <lkp@intel.com>
-Signed-off-by: sunliming <sunliming@kylinos.cn>
-Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
----
- drivers/gpu/drm/msm/dsi/phy/dsi_phy.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/msm/dsi/phy/dsi_phy.c b/drivers/gpu/drm/msm/dsi/phy/dsi_phy.c
-index a39de3bdc7fa..56dfa2d24be1 100644
---- a/drivers/gpu/drm/msm/dsi/phy/dsi_phy.c
-+++ b/drivers/gpu/drm/msm/dsi/phy/dsi_phy.c
-@@ -347,7 +347,7 @@ int msm_dsi_dphy_timing_calc_v3(struct msm_dsi_dphy_timing *timing,
- 	} else {
- 		timing->shared_timings.clk_pre =
- 			linear_inter(tmax, tmin, pcnt2, 0, false);
--			timing->shared_timings.clk_pre_inc_by_2 = 0;
-+		timing->shared_timings.clk_pre_inc_by_2 = 0;
- 	}
- 
- 	timing->ta_go = 3;
--- 
-2.25.1
+-Akhil
 
