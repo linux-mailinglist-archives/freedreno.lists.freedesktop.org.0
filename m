@@ -1,62 +1,67 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5A23C5791A2
-	for <lists+freedreno@lfdr.de>; Tue, 19 Jul 2022 06:07:21 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 8D0BE579225
+	for <lists+freedreno@lfdr.de>; Tue, 19 Jul 2022 06:48:18 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7844B10E4E0;
-	Tue, 19 Jul 2022 04:07:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2FD3514A072;
+	Tue, 19 Jul 2022 04:48:17 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from alexa-out-sd-01.qualcomm.com (alexa-out-sd-01.qualcomm.com
- [199.106.114.38])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3EFCE10E4E0;
- Tue, 19 Jul 2022 04:07:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=quicinc.com; i=@quicinc.com; q=dns/txt; s=qcdkim;
- t=1658203638; x=1689739638;
- h=message-id:date:mime-version:subject:from:to:cc:
- references:in-reply-to:content-transfer-encoding;
- bh=jU56txNrlLvbYZzZ6gj0i6vcpYygudkLhnYlO1eIeYw=;
- b=b3B4ovF3g1bqdJVWlIhI+EMaAKaSHBEwtQqwFKsPm3PQsyiRjzUYS+PZ
- SIkE7ZwekhRSA+TZJOjxkRxOJrHAa49tlKZu26O+nibduz4g5dUl7ZQb3
- h0qBhI0mrIHdVTdoGqzAb33JPotLlidgNDtNg0S3yIZhsNLIGh36Wbd89 8=;
-Received: from unknown (HELO ironmsg01-sd.qualcomm.com) ([10.53.140.141])
- by alexa-out-sd-01.qualcomm.com with ESMTP; 18 Jul 2022 21:07:17 -0700
-X-QCInternal: smtphost
-Received: from nasanex01c.na.qualcomm.com ([10.47.97.222])
- by ironmsg01-sd.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 18 Jul 2022 21:07:17 -0700
-Received: from nalasex01a.na.qualcomm.com (10.47.209.196) by
- nasanex01c.na.qualcomm.com (10.47.97.222) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.986.22; Mon, 18 Jul 2022 21:07:16 -0700
-Received: from [10.216.42.230] (10.80.80.8) by nalasex01a.na.qualcomm.com
- (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.22; Mon, 18 Jul
- 2022 21:07:10 -0700
-Message-ID: <e4dcdd8d-18a9-8da3-7ac3-6cc792139f70@quicinc.com>
-Date: Tue, 19 Jul 2022 09:37:05 +0530
+Received: from mail-oa1-x2a.google.com (mail-oa1-x2a.google.com
+ [IPv6:2001:4860:4864:20::2a])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A9D1F14A077
+ for <freedreno@lists.freedesktop.org>; Tue, 19 Jul 2022 04:48:15 +0000 (UTC)
+Received: by mail-oa1-x2a.google.com with SMTP id
+ 586e51a60fabf-f2a4c51c45so29292793fac.9
+ for <freedreno@lists.freedesktop.org>; Mon, 18 Jul 2022 21:48:15 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=from:to:cc:subject:date:message-id:in-reply-to:references
+ :mime-version:content-transfer-encoding;
+ bh=8aJymfMTLF3V7ElX+b3QpJ+uAT3GT/5Q9yr/dFcNEhs=;
+ b=vaKuG49TyhspbeY60kzZ6Im+k6xB5DEp9boY/8u3C6+YuM7Quo8zoXp0IiwwvMtxmU
+ VXCgRWsb+lwpQfoVDwiQ73gnlkKo6WC8W8VA65guUg3D55tCqB1GYsGHeKLOcbCEzaB/
+ BUc5PWm7ORAlDOM97jtyT+CLKNfmbAkWOKmtZjsrmCvJSFh+SwBWtIrzu+bgpjaBIEk/
+ SfLonku3BdT8K0+nGwDZsiM5PjLpDVGPDNpl/vEFoKwVbpzvaxrG66Hl5ka1AiQ9AzdY
+ tOqjKEuMcYMNPe6GuVWzOvL5/4I9Wy408AJFMpDsWdJONSblT0RJ/KrrT+DnJyuFWKRl
+ XQsQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+ :references:mime-version:content-transfer-encoding;
+ bh=8aJymfMTLF3V7ElX+b3QpJ+uAT3GT/5Q9yr/dFcNEhs=;
+ b=jK+kuDoSxT93F++fLry2FqmXfFR534mCHHbRe3D4hHaPoGG46yWMR2ZpLPr6ZE61sC
+ x/yxl/fLdjFyZiIC2BwMHsPS7FucBrOvB19SUAEwSHSOEq/zzHJ9pKzbgT4ty0NO2kIm
+ I/XISAirKOveWdhqE73rxFfo4ZZyvoAgp+eWfXRNEXMp5HfuFmLf2+Y2mZf1O9NqhrM8
+ 4oJ5lYJCfGm3s+CsthNb3Z8SgUmlMP4E/WVc4PBG4exLiU0wF+SldZqejQWLoaSgpDhG
+ WSFrNMFmyf4toYSUsQrQ7rnPEzeXjKg1ihI58TE4wSS27wZlspbzAxbJgj6HxZMUVeCv
+ ELkg==
+X-Gm-Message-State: AJIora8RKQDBo4dPEQoRKwzjcWBkkK4gK/Cwkv8pvet0zuSFoVpYIVMh
+ JxGxqd5Bk0ZvJikL5l8qwcZdEw==
+X-Google-Smtp-Source: AGRyM1u+ErfCuSHr5Erivc76AfPeU0LhRvfrJ7R7I2Ve4TYxaQ8gthTJr0jwPUUBpxCskBCB6aUsaA==
+X-Received: by 2002:aca:1803:0:b0:337:e764:9927 with SMTP id
+ h3-20020aca1803000000b00337e7649927mr14949031oih.51.1658206094780; 
+ Mon, 18 Jul 2022 21:48:14 -0700 (PDT)
+Received: from builder.lan (104-57-184-186.lightspeed.austtx.sbcglobal.net.
+ [104.57.184.186]) by smtp.gmail.com with ESMTPSA id
+ w9-20020a9d70c9000000b0061c9bbac1f9sm2803209otj.16.2022.07.18.21.48.13
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 18 Jul 2022 21:48:14 -0700 (PDT)
+From: Bjorn Andersson <bjorn.andersson@linaro.org>
+To: robh+dt@kernel.org, robdclark@gmail.com, quic_khsieh@quicinc.com,
+ sean@poorly.run, vkoul@kernel.org, swboyd@chromium.org, agross@kernel.org,
+ devicetree@vger.kernel.org, dianders@chromium.org
+Date: Mon, 18 Jul 2022 23:48:02 -0500
+Message-Id: <165820608074.1955453.1557807402050131416.b4-ty@linaro.org>
+X-Mailer: git-send-email 2.37.1
+In-Reply-To: <1657556603-15024-1-git-send-email-quic_khsieh@quicinc.com>
+References: <1657556603-15024-1-git-send-email-quic_khsieh@quicinc.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.3.2
-Content-Language: en-US
-From: Akhil P Oommen <quic_akhilpo@quicinc.com>
-To: Doug Anderson <dianders@chromium.org>, Stephen Boyd <swboyd@chromium.org>, 
- Taniya Das <quic_tdas@quicinc.com>, <quic_rjendra@quicinc.com>
-References: <1657346375-1461-1-git-send-email-quic_akhilpo@quicinc.com>
- <20220709112837.v2.5.I7291c830ace04fce07e6bd95a11de4ba91410f7b@changeid>
- <CAD=FV=XzvcjS51q78BZ=FPCEVUDMD+VKJ70ksCm5V4qwHN_wRg@mail.gmail.com>
- <c022538d-c616-8f1a-e1c2-c11b5f0de670@quicinc.com>
-In-Reply-To: <c022538d-c616-8f1a-e1c2-c11b5f0de670@quicinc.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-Subject: Re: [Freedreno] [PATCH v2 5/7] arm64: dts: qcom: sc7280: Update gpu
- register list
+Subject: Re: [Freedreno] (subset) [PATCH v2] arm64: dta: qcom: sc7280:
+ delete vdda-1p2 and vdda-0p9 from both dp and edp
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,74 +74,24 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
- <devicetree@vger.kernel.org>, Jonathan Marek <jonathan@marek.ca>,
- linux-arm-msm <linux-arm-msm@vger.kernel.org>,
- LKML <linux-kernel@vger.kernel.org>,
- dri-devel <dri-devel@lists.freedesktop.org>, Bjorn
- Andersson <bjorn.andersson@linaro.org>, Rob Herring <robh+dt@kernel.org>,
- Rob Clark <robdclark@gmail.com>, Andy Gross <agross@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Jordan Crouse <jordan@cosmicpenguin.net>,
- freedreno <freedreno@lists.freedesktop.org>,
- Matthias Kaehlcke <mka@chromium.org>
+Cc: quic_sbillaka@quicinc.com, linux-arm-msm@vger.kernel.org,
+ quic_abhinavk@quicinc.com, linux-kernel@vger.kernel.org,
+ quic_mkrishn@quicinc.com, quic_aravindh@quicinc.com,
+ freedreno@lists.freedesktop.org, quic_kalyant@quicinc.coml
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 7/14/2022 11:10 AM, Akhil P Oommen wrote:
-> On 7/12/2022 4:57 AM, Doug Anderson wrote:
->> Hi,
->>
->> On Fri, Jul 8, 2022 at 11:00 PM Akhil P Oommen 
->> <quic_akhilpo@quicinc.com> wrote:
->>> Update gpu register array with gpucc memory region.
->>>
->>> Signed-off-by: Akhil P Oommen <quic_akhilpo@quicinc.com>
->>> ---
->>>
->>> (no changes since v1)
->>>
->>>   arch/arm64/boot/dts/qcom/sc7280.dtsi | 6 ++++--
->>>   1 file changed, 4 insertions(+), 2 deletions(-)
->>>
->>> diff --git a/arch/arm64/boot/dts/qcom/sc7280.dtsi 
->>> b/arch/arm64/boot/dts/qcom/sc7280.dtsi
->>> index e66fc67..defdb25 100644
->>> --- a/arch/arm64/boot/dts/qcom/sc7280.dtsi
->>> +++ b/arch/arm64/boot/dts/qcom/sc7280.dtsi
->>> @@ -2228,10 +2228,12 @@
->>>                          compatible = "qcom,adreno-635.0", 
->>> "qcom,adreno";
->>>                          reg = <0 0x03d00000 0 0x40000>,
->>>                                <0 0x03d9e000 0 0x1000>,
->>> -                             <0 0x03d61000 0 0x800>;
->>> +                             <0 0x03d61000 0 0x800>,
->>> +                             <0 0x03d90000 0 0x2000>;
->>>                          reg-names = "kgsl_3d0_reg_memory",
->>>                                      "cx_mem",
->>> -                                   "cx_dbgc";
->>> +                                   "cx_dbgc",
->>> +                                   "gpucc";
->> This doesn't seem right. Shouldn't you be coordinating with the
->> existing gpucc instead of reaching into its registers?
->>
->> -Doug
-> IIUC, qcom gdsc driver doesn't ensure hardware is collapsed since they 
-> are vote-able switches. Ideally, we should ensure that the hw has 
-> collapsed for gpu recovery because there could be transient votes from 
-> other subsystems like hypervisor using their vote register.
-> 
-> I am not sure how complex the plumbing to gpucc driver would be to allow 
-> gpu driver to check hw status. OTOH, with this patch, gpu driver does a 
-> read operation on a gpucc register which is in always-on domain. That 
-> means we don't need to vote any resource to access this register.
-> 
-> Stephen/Rajendra/Taniya, any suggestion?
-> 
-> -Akhil.
+On Mon, 11 Jul 2022 09:23:23 -0700, Kuogee Hsieh wrote:
+> Both vdda-1p2-supply and vdda-0p9-supply regulators are controlled
+> by dp combo phy. Therefore remove them from dp controller.
 > 
 > 
-Gentle ping.
 
--Akhil
+Applied, thanks!
 
+[1/1] arm64: dta: qcom: sc7280: delete vdda-1p2 and vdda-0p9 from both dp and edp
+      commit: 8ed85d1e515ff5f302a929308c7ccc06bec68632
+
+Best regards,
+-- 
+Bjorn Andersson <bjorn.andersson@linaro.org>
