@@ -1,79 +1,57 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id A0D6657BB2D
-	for <lists+freedreno@lfdr.de>; Wed, 20 Jul 2022 18:16:34 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id D8BF657BD47
+	for <lists+freedreno@lfdr.de>; Wed, 20 Jul 2022 19:57:03 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 356D310FAE2;
-	Wed, 20 Jul 2022 16:16:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7E21D112F97;
+	Wed, 20 Jul 2022 17:57:02 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-X-Greylist: delayed 1390 seconds by postgrey-1.36 at gabe;
- Wed, 20 Jul 2022 16:16:29 UTC
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 49BF312B2E8;
- Wed, 20 Jul 2022 16:16:29 +0000 (UTC)
-Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 26KEneff004381;
- Wed, 20 Jul 2022 15:53:15 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
- h=message-id : date :
- mime-version : subject : to : cc : references : from : in-reply-to :
- content-type : content-transfer-encoding; s=qcppdkim1;
- bh=j2gzFu/wt6aBTiGBmAPpcDslvY+HafzuYx4BhFQDEvg=;
- b=LkmZi8kYWI2MAf+Q/Ud38DlQkU+oGbkaDbGaTxCf4BpAWJsShy30LBeA8uaK3bEXZ1BK
- 5EEYYzzUddKzmxyWmOXHMY4cP2wv8yCkvw6hh+jmjCk0IR2sYkfnxBb7U+Efd/Vv0ct8
- awHLoD9bZ6HhuowIzDBJaLIpJUNWONlsa+zZdluj+FgWvwkUhH6YtI1VL6x2IlfjLByG
- nSGhqQ3k/4UvB7f9gkJCODKVYGPV6ZgwntiCh2AQlZ68aEEoeSEYtnrUhCns3rLjalFf
- nfcC+Ip9GtNmHfRjE64+laxc/AAL7vmiI8y5MQtk6FO8XYiXGifZh+QDLQOvKJBYJ7Sa qg== 
-Received: from nasanppmta02.qualcomm.com (i-global254.qualcomm.com
- [199.106.103.254])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3hdrfjm52b-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 20 Jul 2022 15:53:14 +0000
-Received: from nasanex01b.na.qualcomm.com (nasanex01b.na.qualcomm.com
- [10.46.141.250])
- by NASANPPMTA02.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 26KFrEXU015977
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 20 Jul 2022 15:53:14 GMT
-Received: from [10.71.108.121] (10.80.80.8) by nasanex01b.na.qualcomm.com
- (10.46.141.250) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.22; Wed, 20 Jul
- 2022 08:53:13 -0700
-Message-ID: <d7e303f8-e566-ccbf-be24-b12dd9764bbd@quicinc.com>
-Date: Wed, 20 Jul 2022 08:53:13 -0700
+Received: from mail-wm1-x333.google.com (mail-wm1-x333.google.com
+ [IPv6:2a00:1450:4864:20::333])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1260F11BEEF;
+ Wed, 20 Jul 2022 17:57:02 +0000 (UTC)
+Received: by mail-wm1-x333.google.com with SMTP id a11so5214764wmq.3;
+ Wed, 20 Jul 2022 10:57:01 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=yHRPEwie+kv37rjFQaOMTG39vvbswHQIAL5qJKmAXZY=;
+ b=jHHP9ovMBvjF1Tz2XGF2O9uZIGYUh8uL3ccc1JcN0v8LL9vnt/CinMBSagcmUsB0Ha
+ xOMPdfqLVfRR8KBTjUW3q4gJAiq9/Bj+xwq8vM5i2NJGbuUau3prMQFvEfK187IPw3sP
+ ldn0KN2bm3rURRez4YtZRMTE9BhOk8rkB5kG+pW/VAI5cr1aqPSKS04ccEoqIYJR6tVy
+ Zuw3v3nP+Hb8a3vYv7VyQIgdXWHzjqNVBfIr4tnV16bQGFafAwIaR6YmH3qdWmpIj3MM
+ 3fM2UpyV4zp2x+GfoPfTe10AJahSclTCRwIrWIwAQ6N64nxC0rG4BGVOnfxlHcdrCw9m
+ qR4Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=yHRPEwie+kv37rjFQaOMTG39vvbswHQIAL5qJKmAXZY=;
+ b=fTNxJH5HEoBwElRCDCKqBBXKlGPq6iewQn35x0YMdCAuTb8hfB4+hmEM/lt572iKUU
+ qSBs+K1g9jn5sQmmyp6HeyBz3qB+4ZjhT2pqLI238WYVy1OnFHcdtc/KU0iL5uMhtVXy
+ 7m+OYn7ngL2mdiRyJERk4LysUf5qLY0p+vfoYk6atoGEn+AGung3Xj7zbrNs2jQM1UVY
+ 6hgrZXhmkNf27Mk1htlrGvgNMcAjJgyrLfUioWjGKitPxiL3X8E3SJ092+tdq3ymux1k
+ ug6uflUgSH00eyymcxxAIEftSmXAcCFo5S8T02ra/XjDDlWBsJPCKdabfRe+c2gtFzIk
+ RIcw==
+X-Gm-Message-State: AJIora8tpm0Pq5gv9IRCmSo3uVvQElrOe/p9qOngqWPKJEoaeGHVw5S7
+ i62XGb83OzNg0k2lEPeI6vArezE9AOsKALPXvk0=
+X-Google-Smtp-Source: AGRyM1um84Qx2d3VuA14HmTjZeEjFriFAeIWZ5gQkmqsDi89xqJ0we4+Qh4P4848RYr0tzuTinlTksVyONKTxWesIwg=
+X-Received: by 2002:a05:600c:3ac3:b0:3a0:45b6:7efb with SMTP id
+ d3-20020a05600c3ac300b003a045b67efbmr4906657wms.183.1658339820479; Wed, 20
+ Jul 2022 10:57:00 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.0.1
-Content-Language: en-US
-To: Abhinav Kumar <quic_abhinavk@quicinc.com>,
- <freedreno@lists.freedesktop.org>
-References: <1657912468-17254-1-git-send-email-quic_abhinavk@quicinc.com>
-From: Jessica Zhang <quic_jesszhan@quicinc.com>
-In-Reply-To: <1657912468-17254-1-git-send-email-quic_abhinavk@quicinc.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
- nasanex01b.na.qualcomm.com (10.46.141.250)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-GUID: Rf8sUwLxk3N-Pi4NeKT3zXc8sJlVvNwO
-X-Proofpoint-ORIG-GUID: Rf8sUwLxk3N-Pi4NeKT3zXc8sJlVvNwO
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.205,Aquarius:18.0.883,Hydra:6.0.517,FMLib:17.11.122.1
- definitions=2022-07-20_10,2022-07-20_01,2022-06-22_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 bulkscore=0
- phishscore=0 priorityscore=1501 impostorscore=0 mlxscore=0
- lowpriorityscore=0 spamscore=0 mlxlogscore=983 suspectscore=0
- clxscore=1011 malwarescore=0 classifier=spam adjust=0 reason=mlx
- scancount=1 engine=8.12.0-2206140000 definitions=main-2207200065
-Subject: Re: [Freedreno] [PATCH] drm/msm/dpu: populate wb or intf before
- reset_intf_cfg
+References: <20220719171900.289265-1-robdclark@gmail.com>
+ <20220719171900.289265-10-robdclark@gmail.com>
+ <c5beb186-96d3-59d7-fad8-987bb8125de1@collabora.com>
+In-Reply-To: <c5beb186-96d3-59d7-fad8-987bb8125de1@collabora.com>
+From: Rob Clark <robdclark@gmail.com>
+Date: Wed, 20 Jul 2022 10:57:21 -0700
+Message-ID: <CAF6AEGusbnsY8fyFetkov5bRPd0vidTyBm8QL7a56TwYZ+NdRQ@mail.gmail.com>
+To: Dmitry Osipenko <dmitry.osipenko@collabora.com>
+Content-Type: text/plain; charset="UTF-8"
+Subject: Re: [Freedreno] [PATCH v2 09/13] drm/gem: Add LRU/shrinker helper
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -86,51 +64,37 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: dri-devel@lists.freedesktop.org, swboyd@chromium.org, robdclark@gmail.com,
- seanpaul@chromium.org, daniel@ffwll.ch, dmitry.baryshkov@linaro.org,
- quic_aravindh@quicinc.com
+Cc: Rob Clark <robdclark@chromium.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@linux.ie>, linux-arm-msm <linux-arm-msm@vger.kernel.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ open list <linux-kernel@vger.kernel.org>,
+ dri-devel <dri-devel@lists.freedesktop.org>,
+ Maxime Ripard <mripard@kernel.org>, Daniel Vetter <daniel@ffwll.ch>,
+ freedreno <freedreno@lists.freedesktop.org>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
+On Tue, Jul 19, 2022 at 11:56 AM Dmitry Osipenko
+<dmitry.osipenko@collabora.com> wrote:
+>
+> On 7/19/22 20:18, Rob Clark wrote:
+> > +void
+> > +drm_gem_lru_move_tail_locked(struct drm_gem_lru *lru, struct drm_gem_object *obj)
+> > +{
+> > +     WARN_ON(!mutex_is_locked(lru->lock));
+>
+> Nit: What about lockdep_assert_held_once(&lru->lock->base)) ?
 
+ahh, good point.. I've switched it locally
 
-On 7/15/2022 12:14 PM, Abhinav Kumar wrote:
-> dpu_encoder_helper_phys_cleanup() was not populating neither
-> wb or intf to the intf_cfg before calling the reset_intf_cfg().
-> 
-> This causes the reset of the active bits of wb/intf to be
-> skipped which is incorrect.
-> 
-> Fix this by populating the relevant wb or intf indices correctly.
-> 
-> Fixes: ae4d721ce100 ("drm/msm/dpu: add an API to reset the encoder related hw blocks")
-> Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
+BR,
+-R
 
-Reviewed-by: Jessica Zhang <quic_jesszhan@quicinc.com>
-
-Tested-by: Jessica Zhang <quic_jesszhan@quicinc.com> # Trogdor (SC8170)
-
-> ---
->   drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c | 6 ++++++
->   1 file changed, 6 insertions(+)
-> 
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-> index c682d4e02d1b..52a626117f70 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-> @@ -2061,6 +2061,12 @@ void dpu_encoder_helper_phys_cleanup(struct dpu_encoder_phys *phys_enc)
->   
->   	intf_cfg.stream_sel = 0; /* Don't care value for video mode */
->   	intf_cfg.mode_3d = dpu_encoder_helper_get_3d_blend_mode(phys_enc);
-> +
-> +	if (phys_enc->hw_intf)
-> +		intf_cfg.intf = phys_enc->hw_intf->idx;
-> +	if (phys_enc->hw_wb)
-> +		intf_cfg.wb = phys_enc->hw_wb->idx;
-> +
->   	if (phys_enc->hw_pp->merge_3d)
->   		intf_cfg.merge_3d = phys_enc->hw_pp->merge_3d->idx;
->   
-> -- 
-> 2.7.4
-> 
+> Otherwise, looks good! I'll use it for the DRM-SHMEM shrinker after
+> completing the work on the dma-buf locks.
+>
+> Reviewed-by: Dmitry Osipenko <dmitry.osipenko@collabora.com>
+>
+> --
+> Best regards,
+> Dmitry
