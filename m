@@ -1,48 +1,49 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4CAA557CA19
-	for <lists+freedreno@lfdr.de>; Thu, 21 Jul 2022 13:56:50 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 733B057CA62
+	for <lists+freedreno@lfdr.de>; Thu, 21 Jul 2022 14:12:30 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B458C11B01B;
-	Thu, 21 Jul 2022 11:56:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 020A414A3DD;
+	Thu, 21 Jul 2022 12:12:29 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7FECA11A2F9;
- Thu, 21 Jul 2022 11:56:46 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4F7C414B3B3;
+ Thu, 21 Jul 2022 12:12:27 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id BA36C61B53;
- Thu, 21 Jul 2022 11:56:45 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B6C87C3411E;
- Thu, 21 Jul 2022 11:56:40 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 3294261D93;
+ Thu, 21 Jul 2022 12:12:25 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8DA86C3411E;
+ Thu, 21 Jul 2022 12:12:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1658404605;
- bh=bQi+xZq9b9DToWtN6MtK9Eyx2oVXPsN/YNsJApzwPXk=;
+ s=k20201202; t=1658405544;
+ bh=bjLxvlVXamAjASEle08xmCl8qBx04BWEVs5DHeMu8Mw=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=r9NvCZHAHtXI5zVzVvnKkmsqZVsKfhdPIPnASOgzTo7PexDO/+J6R0Cytrc4sHc1F
- lOiUzAoTX5qkasHi55O3pWUVejl39Zg+ZHpkU4rDhA9ITfR0cIRWtYRyEMyAF+JBrS
- 0OQlVDCeR6Lii1osz8YYTMQUtV9IzocfTMk0t/4XcLkJvmbq6HDshTtaoP5SbeW7jC
- R4hm+Ne4pCCTkQspJ7avyF2QtKCiLCLhZI5C2nTCjcGoEPQs9HxbK79b8R159hnyuH
- O5x4+tyGI4U6RyzRFUydhUdDuJ2B+6oH76X6ospfT/MdnY4Giwv3PpN8t9RAIU0kTT
- e3hgDYESt60PQ==
-Date: Thu, 21 Jul 2022 12:56:37 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Johan Hovold <johan@kernel.org>
-Message-ID: <Ytk+9W0Ur1ibqtw8@sirena.org.uk>
+ b=ns1cEqWMytm09KDRjusjlPxfR1qr267qTII21k/oxK5j4XXiA6BfiZpii70rEUBj1
+ +mCEtt83eiFLaUG9g0rpuUn4GhB82MYLJ1WPpWns10eHBLSiEUrhykQuWQTR11ICGi
+ 4IDZUWNrPIDgRj/Kp2gl4bmvVRzqUpaS2LTw2oZ2ze7xEpSoN59CDBixYSbfBhILJE
+ q7amUFr5BW8PvrA6ixfVgHAjUgKEFt8NpCaXeBxfQHadz/DvzIGYxrvV474QB43l9E
+ HjtcRtdYD78hXIbO/1lpe37h+fKRUGMGsXB9qmb2RoR2smqtcTSuu9WiSHdF0e7IMF
+ Tpf64xF/JT0RQ==
+Received: from johan by xi.lan with local (Exim 4.94.2)
+ (envelope-from <johan@kernel.org>)
+ id 1oEV2W-0003Na-9F; Thu, 21 Jul 2022 14:12:24 +0200
+Date: Thu, 21 Jul 2022 14:12:24 +0200
+From: Johan Hovold <johan@kernel.org>
+To: Mark Brown <broonie@kernel.org>
+Message-ID: <YtlCqPWUCmw01Jon@hovoldconsulting.com>
 References: <1657038556-2231-1-git-send-email-quic_khsieh@quicinc.com>
  <YtkrDcjTGhpaU1e0@hovoldconsulting.com>
- <Ytk2dxEC2n/ffNpD@sirena.org.uk>
+ <Ytk2dxEC2n/ffNpD@sirena.org.uk> <Ytk+9W0Ur1ibqtw8@sirena.org.uk>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="9EvVpXRtaCTHvahb"
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature"; boundary="CFA1nl4l5O882w62"
 Content-Disposition: inline
-In-Reply-To: <Ytk2dxEC2n/ffNpD@sirena.org.uk>
-X-Cookie: Killing turkeys causes winter.
+In-Reply-To: <Ytk+9W0Ur1ibqtw8@sirena.org.uk>
 Subject: Re: [Freedreno] [PATCH v16 0/3] eDP/DP Phy vdda realted function
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -71,31 +72,38 @@ Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 
---9EvVpXRtaCTHvahb
+--CFA1nl4l5O882w62
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-On Thu, Jul 21, 2022 at 12:20:31PM +0100, Mark Brown wrote:
+On Thu, Jul 21, 2022 at 12:56:37PM +0100, Mark Brown wrote:
+> On Thu, Jul 21, 2022 at 12:20:31PM +0100, Mark Brown wrote:
+>=20
+> > You could add a way to specify constant base loads in DT on either a per
+> > regulator or per consumer basis.
+>=20
+> ...and also note that this is only an issue if the system gives
+> permission to change the mode in the constraints which is pretty rare.
 
-> You could add a way to specify constant base loads in DT on either a per
-> regulator or per consumer basis.
+Yeah, apparently only Qualcomm is using regulator-allow-set-load at the
+moment, but it seems pretty common there.
 
-...and also note that this is only an issue if the system gives
-permission to change the mode in the constraints which is pretty rare.
+We should probably just drop that from the platforms affected by this
+particular regression and perhaps later add it back where it makes
+sense (e.g. after making sure all consumers specify a load in some way).
 
---9EvVpXRtaCTHvahb
+Johan
+
+--CFA1nl4l5O882w62
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmLZPvQACgkQJNaLcl1U
-h9C4Swf9EuzQYYxQIE3HdaloWAtNQHqp+O9hc6A5uGIlqvQ0+1hCyKTNm/0LdZTB
-a2quGYwotizns28XjF1CPNAa80hvUgC2z4eyze8DKnSBm8LVAOcSkhI25xY+rwyn
-V43nJzwu8lvtoSb/imoh28i22Zw26qMB4equfXXQtysXS3jyGy8uVEyqBbuNTx/f
-WFnEh2yYmdz6HlIFGfXLtV6eWFi6rf8pLpzg1h3JV1nKvW3SKmJ4U4G/FnfqvNZ4
-h8DE4YK2Vzy3VadPRNwuSAZYwl+RXXlVSoQbQZbdD4itSVcdt62rm/hdZ6727nMn
-wAihahnCrAecenK9FFwbCTZO+0LMYQ==
-=i7fU
+iHUEABYIAB0WIQQHbPq+cpGvN/peuzMLxc3C7H1lCAUCYtlCpAAKCRALxc3C7H1l
+CH3VAP0UC9lDdd/fIlxYLQa+xUSFqHJHrap+vbhZ0Co4s/SlkgD+JXqNWLFDmtEF
+29yeuk3k7WUrvkX9OIjphqSsYKFRzwo=
+=+ChT
 -----END PGP SIGNATURE-----
 
---9EvVpXRtaCTHvahb--
+--CFA1nl4l5O882w62--
