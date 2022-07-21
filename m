@@ -1,58 +1,59 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id D8EA157D380
-	for <lists+freedreno@lfdr.de>; Thu, 21 Jul 2022 20:42:05 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 1ABB957D6D7
+	for <lists+freedreno@lfdr.de>; Fri, 22 Jul 2022 00:24:07 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0CE83113163;
-	Thu, 21 Jul 2022 18:42:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 25ABE14AB43;
+	Thu, 21 Jul 2022 22:24:05 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-qk1-x729.google.com (mail-qk1-x729.google.com
- [IPv6:2607:f8b0:4864:20::729])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D407710F11B
- for <freedreno@lists.freedesktop.org>; Thu, 21 Jul 2022 18:42:01 +0000 (UTC)
-Received: by mail-qk1-x729.google.com with SMTP id l3so1991804qkl.3
- for <freedreno@lists.freedesktop.org>; Thu, 21 Jul 2022 11:42:01 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=+RQnuRQVAxAGI0N6/NnLGG+FggFTKyFm89xEXb36pkw=;
- b=iyniFeKPwDu5YPSQmW8iQt+xqhxFQoPdxQjdUIgapHfOqPMwIDAiMIsP8KHWWmUUqc
- VBlBRg7crLnY3rJMYSRDh2ATS1OW2p4cK1dEkdliPUAbxZa3mfkqy2FAjNp/eouhe0QV
- BvDeWRn33axasZAOviZ1Vau68l6ZKppGw+WAPxwCd6aEe3VaM3Zz3Q63Gz7OCFFaSflj
- eFsgsWbn2OLOQPDP72jbZ5ZQY168A2emerxJYUpXrhBAJuQBSaQf1ib0yGUzE3yVMJKO
- 0fzeU7s5SEoi8OAk5sb9a1b+uvGGEuddx7cfMtcL6lsZetlLUhFLOCseY/xQJFvFLSU9
- RCKQ==
+Received: from mail-pf1-x42e.google.com (mail-pf1-x42e.google.com
+ [IPv6:2607:f8b0:4864:20::42e])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6300814A5B8
+ for <freedreno@lists.freedesktop.org>; Thu, 21 Jul 2022 22:24:03 +0000 (UTC)
+Received: by mail-pf1-x42e.google.com with SMTP id c3so2958008pfb.13
+ for <freedreno@lists.freedesktop.org>; Thu, 21 Jul 2022 15:24:03 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=deNvbs3qYKL1JRrzER9SspNMUOrIoxIui7ZX5V+JLIY=;
+ b=e5rJiANtFt5gfhuP8SpDzFLRuphuqpFoj6Lu7gZl+xJY9yml8Aqdg46TPEZl5GBmas
+ dX0+EQBxvL1vBjAZaUkJNovqgRUTPlICeTOTSR9IVyqIf7rzg+tk8e70egqb0AHpSj2C
+ Bye7taMr00CtAqIfvlf+r0c4XN9cnckKaj0J0=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=+RQnuRQVAxAGI0N6/NnLGG+FggFTKyFm89xEXb36pkw=;
- b=2yvCXcSL919qda05TeZY6tnoP4CJ4qic9csqqRINnmMnRtls1oavYCVHjH6ht8zhHM
- VpIcH2Mi4uTDE1WyFRJ4KwdKLPdJ7UKqRrpiOY3WFnXEcpH4ba5JoCWGsKjR/f57FHMU
- a+5R1x+NU8xm7Aye3G8Az+W19xDEec/pCqzsfCQe1y7g6SAEWbdlyajNXtcWpnFMUd15
- phY5GRo+R9lQU9rkj1EokX120stfNwYDqEcvtv0px/6adfJNUHGeg7TVfHHcNep8uVvw
- nlMFbADT73Hmd3n97sZmLE3eJMh62ZTwGj2EaUr0dRWfgo4he5wQiJqKV0Ai3Hf5NxiM
- s19w==
-X-Gm-Message-State: AJIora97T6wlxQjP1jqrlb1F/RDotI1gMnbLrMS7CV21Qbkmto3nUXEh
- ShuljdgvXOn98sh4XEHuNVJVQcvBFZk+NLBgvVxTWw==
-X-Google-Smtp-Source: AGRyM1v29kSP8xawWrXzI8sSr5FM+BvUWfSZ3Fu+pP7hxXeMYCoPETKED42dCZUElsVZdMDlopzzF1/ML7pLO8dDpb0=
-X-Received: by 2002:a05:620a:2408:b0:6b6:2df3:d18b with SMTP id
- d8-20020a05620a240800b006b62df3d18bmr55176qkn.203.1658428920842; Thu, 21 Jul
- 2022 11:42:00 -0700 (PDT)
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=deNvbs3qYKL1JRrzER9SspNMUOrIoxIui7ZX5V+JLIY=;
+ b=eJ6OGwzcCKzHWivCnSkTbYQkYKi8Bv6e9VK8mp2G+VcfII5C1trtSYfqqCgtObnVhy
+ 7mY4Kowb92wxFKrovtee45qLbip10NupnnS7TVfpm9HR6Nmnlshgr8+ZIIPdUc0An3b2
+ mIVswbmp2itGUCZAHqy+Wh47+GfxRMmMeeJ4CnYlJ1cklNgZNi4jYdrrsT2fre6xK5Ak
+ NpzU41czFCZpPHAIvorzJcqSBJBYrSdoCcGHz9qna+dzR1Y77X4XW7T0NgNXwvE6R6Ei
+ soXNMhpG6IZDjz9ibP8WCYUQT6v5DFc7DaDMZHp3Yn2GVTAPr46hZeOdVKBr6Xt+hoWj
+ 6QdQ==
+X-Gm-Message-State: AJIora/A+cnQMFATrlFR8jMdO0bb6jotdk3ziBYKCRKk+Knsnb8mV3Jh
+ zM/ryLvQeivuzWyK4mi88B9sdA==
+X-Google-Smtp-Source: AGRyM1ucmGbzlsf5miZykSaJZXCq20zaDUKzLsPufJXzF3FOBiGnHuUiUhGGwYQQmz3a3+Q96KwlRA==
+X-Received: by 2002:a65:58cb:0:b0:415:ea6a:c535 with SMTP id
+ e11-20020a6558cb000000b00415ea6ac535mr486685pgu.100.1658442242856; 
+ Thu, 21 Jul 2022 15:24:02 -0700 (PDT)
+Received: from tictac2.mtv.corp.google.com
+ ([2620:15c:202:201:29c7:7a23:197d:913d])
+ by smtp.gmail.com with ESMTPSA id
+ y189-20020a6264c6000000b0052594a3ba89sm2248779pfb.65.2022.07.21.15.24.01
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 21 Jul 2022 15:24:02 -0700 (PDT)
+From: Douglas Anderson <dianders@chromium.org>
+To: dri-devel@lists.freedesktop.org
+Date: Thu, 21 Jul 2022 15:23:40 -0700
+Message-Id: <20220721152314.RFC.1.Ie333b3e4aff6e4a5b58c4aa805e030e561be8773@changeid>
+X-Mailer: git-send-email 2.37.1.359.gd136c6c3e2-goog
 MIME-Version: 1.0
-References: <1657038556-2231-1-git-send-email-quic_khsieh@quicinc.com>
- <YtkrDcjTGhpaU1e0@hovoldconsulting.com>
- <CAA8EJprQnnWjDZJy9+zUBsVQCi3jtc0Ngtzzk9MXpwOvuAS68g@mail.gmail.com>
- <CAD=FV=W0m-x9JC=5hQ3urSNmUp8sY-u8YkNd66yrKfRNAH4rcg@mail.gmail.com>
-In-Reply-To: <CAD=FV=W0m-x9JC=5hQ3urSNmUp8sY-u8YkNd66yrKfRNAH4rcg@mail.gmail.com>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Thu, 21 Jul 2022 21:41:49 +0300
-Message-ID: <CAA8EJppWeDXAMqYmw6iOs_tr2mpnxmdbSKT79SH9f8=TYaBLnQ@mail.gmail.com>
-To: Doug Anderson <dianders@chromium.org>
-Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [PATCH v16 0/3] eDP/DP Phy vdda realted function
+Content-Transfer-Encoding: 8bit
+Subject: [Freedreno] [RFC PATCH] drm/edid: Make 144 Hz not preferred on
+ Sharp LQ140M1JW46
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,68 +66,63 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sankeerth Billakanti <quic_sbillaka@quicinc.com>,
- David Airlie <airlied@linux.ie>, dri-devel <dri-devel@lists.freedesktop.org>,
- Bjorn Andersson <bjorn.andersson@linaro.org>,
- Manivannan Sadhasivam <manivannan.sadhasivam@linaro.org>,
- Johan Hovold <johan@kernel.org>,
- "Aravind Venkateswaran \(QUIC\)" <quic_aravindh@quicinc.com>,
- Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
- Kuogee Hsieh <quic_khsieh@quicinc.com>, Andy Gross <agross@kernel.org>,
- linux-arm-msm <linux-arm-msm@vger.kernel.org>,
- "Abhinav Kumar \(QUIC\)" <quic_abhinavk@quicinc.com>,
- Stephen Boyd <swboyd@chromium.org>, Mark Brown <broonie@kernel.org>,
- Sean Paul <sean@poorly.run>, Vinod Koul <vkoul@kernel.org>,
- Liam Girdwood <lgirdwood@gmail.com>, LKML <linux-kernel@vger.kernel.org>,
- Rob Clark <robdclark@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- freedreno <freedreno@lists.freedesktop.org>
+Cc: Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@linux.ie>,
+ linux-kernel@vger.kernel.org,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, Maxime Ripard <mripard@kernel.org>,
+ Douglas Anderson <dianders@chromium.org>, Rob Clark <robdclark@gmail.com>,
+ Daniel Vetter <daniel@ffwll.ch>, freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Thu, 21 Jul 2022 at 17:50, Doug Anderson <dianders@chromium.org> wrote:
->
-> Hi,
->
-> On Thu, Jul 21, 2022 at 6:25 AM Dmitry Baryshkov
-> <dmitry.baryshkov@linaro.org> wrote:
-> >
-> > > This series breaks USB and PCIe for some SC8280XP and SA540P machines
-> > > where the DP PHY regulators are shared with other PHYs whose drivers do
-> > > not request a load.
-> >
-> > I'm trying to understand, why does this series cause the regression.
-> > Previously it would be the DP controller voting on the regulators
-> > load, now it has been moved to the DP/eDP PHYs.
->
-> I think in the past not many device trees actually hooked up the
-> regulators to the DP/eDP but did hook up the regulators to the PHYs?
-> That means they didn't used to get a regulator_set_load() on them and
-> now they do?
->
-> It should also be noted that we're now setting the load for a bunch of
-> USB PHYs that we didn't used to set a load on...
+The Sharp LQ140M1JW46 panel is on the Qualcomm sc7280 CRD reference
+board. This panel supports 144 Hz and 60 Hz. In the EDID, the 144 Hz
+mode is listed first and thus is marked preferred. The EDID decode I
+ran says:
 
-Might be the case, yes.
+  First detailed timing includes the native pixel format and preferred
+  refresh rate.
 
-> > > It seems quite likely that changes like this one affects other systems
-> > > too, and the effects may be hard to debug. So a more general solution
-> > > than playing whack-a-mole using DT would be good to have.
-> >
-> > I think enabling a regulator which supports set_load() and without
-> > load being set should cause a warning, at least with
-> > CONFIG_REGULATOR_DEBUG. WDYT?
->
-> I'm not a total fan. I'd love to see evidence to the contrary, but I'm
-> a believer that the amount of extra cruft involved with all these
-> regulator_set_load() calls is overkill for most cases. All the extra
-> code / per-SoC tables added to drivers isn't ideal.
+  ...
 
-I'm fine with the load being specified in the DT (and that sounds like
-a good idea for me too).
-What I'd like to achieve is catching load-enabled regulators for which
-we did not set the load (via an API call or via the DT).
+  Detailed Timing Descriptors:
+    DTD 1:  1920x1080  143.981 Hz  16:9   166.587 kHz  346.500 MHz
+                 Hfront   48 Hsync  32 Hback  80 Hpol N
+                 Vfront    3 Vsync   5 Vback  69 Vpol N
+    DTD 2:  1920x1080   59.990 Hz  16:9    69.409 kHz  144.370 MHz
+                 Hfront   48 Hsync  32 Hback  80 Hpol N
+                 Vfront    3 Vsync   5 Vback  69 Vpol N
 
+I'm proposing here that the above is actually a bug and that the 60 Hz
+mode really should be considered preferred by Linux.
+
+The argument here is that this is a laptop panel and on a laptop we
+know power will always be a concern. Presumably even if someone using
+this panel wanted to use 144 Hz for some use cases they would only do
+so dynamically and would still want the default to be 60 Hz.
+
+Let's change the default to 60 Hz using a standard quirk.
+
+Signed-off-by: Douglas Anderson <dianders@chromium.org>
+---
+
+ drivers/gpu/drm/drm_edid.c | 3 +++
+ 1 file changed, 3 insertions(+)
+
+diff --git a/drivers/gpu/drm/drm_edid.c b/drivers/gpu/drm/drm_edid.c
+index bbc25e3b7220..06ff8ba216af 100644
+--- a/drivers/gpu/drm/drm_edid.c
++++ b/drivers/gpu/drm/drm_edid.c
+@@ -160,6 +160,9 @@ static const struct edid_quirk {
+ 	EDID_QUIRK('S', 'A', 'M', 596, EDID_QUIRK_PREFER_LARGE_60),
+ 	EDID_QUIRK('S', 'A', 'M', 638, EDID_QUIRK_PREFER_LARGE_60),
+ 
++	/* 144 Hz should only be used when needed; it wastes power */
++	EDID_QUIRK('S', 'H', 'P', 0x1523, EDID_QUIRK_PREFER_LARGE_60),
++
+ 	/* Sony PVM-2541A does up to 12 bpc, but only reports max 8 bpc */
+ 	EDID_QUIRK('S', 'N', 'Y', 0x2541, EDID_QUIRK_FORCE_12BPC),
+ 
 -- 
-With best wishes
-Dmitry
+2.37.1.359.gd136c6c3e2-goog
+
