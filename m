@@ -2,67 +2,67 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 91A1457D015
-	for <lists+freedreno@lfdr.de>; Thu, 21 Jul 2022 17:44:10 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 37EA457D0A6
+	for <lists+freedreno@lfdr.de>; Thu, 21 Jul 2022 18:04:50 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A653110E2D7;
-	Thu, 21 Jul 2022 15:44:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B29A910E2E6;
+	Thu, 21 Jul 2022 16:04:48 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ed1-x536.google.com (mail-ed1-x536.google.com
- [IPv6:2a00:1450:4864:20::536])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1CEE110E2D7
- for <freedreno@lists.freedesktop.org>; Thu, 21 Jul 2022 15:44:07 +0000 (UTC)
-Received: by mail-ed1-x536.google.com with SMTP id v12so2646075edc.10
- for <freedreno@lists.freedesktop.org>; Thu, 21 Jul 2022 08:44:07 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=SxxITHDTb1HH7twfNVc7G9AAeqX8EqngAkO5R6iw9Js=;
- b=nR88LRJ9k88qnqomsQbC4z8uoRy9fr9i9anwrJpCsWfLVtmxOhvAcI824wYLC8zXE8
- RjsTDc1tVbPt92E7Ye/VEY0Y/MbN+CHAQCQXQk7Yt50W/Vf3C7QBWWD+vy10BkIU2CA5
- ydR0CWMAHPOsDGdAmI3Rrm77mVcFoDqSxdL1U=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=SxxITHDTb1HH7twfNVc7G9AAeqX8EqngAkO5R6iw9Js=;
- b=FIOxOHiv5xjVwqMXCgsoTkfr33oQ+TPxg3tnL+F6YsmjQ7XkDi5swpjYAEJpI1PtnU
- r5aiD28e5NjPPsWsy/vLbovKRxkF++n6k/BfJYfdGPMirlafbuiVOnt6bBTRb+cCAZJs
- gbE0cQg/Zk/f7xJvBw21TSX4P4930eJbzK3WVQb+ptUuc9ZdZ8M2uRuOWAKSI3dsjIzS
- uJn9Mu+RXo1u9Z1rp0XDuGXAM2YzSyBGG/F4+Zl4LjAZZmTXMU3drKBuPwRoQpNjpDaJ
- 1gpnq6YYRuOsnfeh2Qkacklcr0ENVdUkr22kuXmQHQzQjiRdeIrDWVcTg0bKKhdE7aU2
- hKlQ==
-X-Gm-Message-State: AJIora+iekdGnF9SZNTb60HMwMm3CItJSbKy13t+iTDgXGPSD1gy6HRn
- xMpsycKojHrVfuQZZdCJETAiyTFrrB2LVZnJfUo=
-X-Google-Smtp-Source: AGRyM1ttWh4OKOh/XzHf+A9im62vES/knYSJuOkz30bE2+qrKDbGbbTw+kSs467YHou5K3CIdp361A==
-X-Received: by 2002:a05:6402:4255:b0:43a:c03f:1aa4 with SMTP id
- g21-20020a056402425500b0043ac03f1aa4mr59472695edb.146.1658418245384; 
- Thu, 21 Jul 2022 08:44:05 -0700 (PDT)
-Received: from mail-wr1-f41.google.com (mail-wr1-f41.google.com.
- [209.85.221.41]) by smtp.gmail.com with ESMTPSA id
- g1-20020a17090604c100b0072b7b317aadsm953277eja.150.2022.07.21.08.44.02
- for <freedreno@lists.freedesktop.org>
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 21 Jul 2022 08:44:04 -0700 (PDT)
-Received: by mail-wr1-f41.google.com with SMTP id d16so2830550wrv.10
- for <freedreno@lists.freedesktop.org>; Thu, 21 Jul 2022 08:44:02 -0700 (PDT)
-X-Received: by 2002:adf:fb12:0:b0:20c:79b2:a200 with SMTP id
- c18-20020adffb12000000b0020c79b2a200mr35607698wrr.617.1658418241950; Thu, 21
- Jul 2022 08:44:01 -0700 (PDT)
+Received: from alexa-out.qualcomm.com (alexa-out.qualcomm.com [129.46.98.28])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BB8DA10E2E6;
+ Thu, 21 Jul 2022 16:04:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=quicinc.com; i=@quicinc.com; q=dns/txt; s=qcdkim;
+ t=1658419488; x=1689955488;
+ h=message-id:date:mime-version:subject:from:to:cc:
+ references:in-reply-to:content-transfer-encoding;
+ bh=yb4FZU2sS2ec3vg0Ki3FrlpdsmD+gWNYDrl+E3MSovU=;
+ b=ZY3aB3P2f9yuLoBzPsOSM/gdwBrHbzoU3YApNen2ILyNBmk0DnUPjG+K
+ wO7PheNIFU9ANpdZU5oGAwZprYOlDDKQCJhymZWm3Z1TQV3jvT5+stLQu
+ fiQFQzWU6YYBTjXWjKVe6XhLw+RUT5x4t7l9yg6W+ysfPoue6HM1W3esh A=;
+Received: from ironmsg-lv-alpha.qualcomm.com ([10.47.202.13])
+ by alexa-out.qualcomm.com with ESMTP; 21 Jul 2022 09:04:47 -0700
+X-QCInternal: smtphost
+Received: from nasanex01c.na.qualcomm.com ([10.47.97.222])
+ by ironmsg-lv-alpha.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 21 Jul 2022 09:04:45 -0700
+Received: from nalasex01a.na.qualcomm.com (10.47.209.196) by
+ nasanex01c.na.qualcomm.com (10.47.97.222) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.986.22; Thu, 21 Jul 2022 09:04:45 -0700
+Received: from [10.216.44.13] (10.80.80.8) by nalasex01a.na.qualcomm.com
+ (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.22; Thu, 21 Jul
+ 2022 09:04:39 -0700
+Message-ID: <1e39d008-f8e5-eea5-90f4-78293bf2c580@quicinc.com>
+Date: Thu, 21 Jul 2022 21:34:35 +0530
 MIME-Version: 1.0
-References: <1657038556-2231-1-git-send-email-quic_khsieh@quicinc.com>
- <YtkrDcjTGhpaU1e0@hovoldconsulting.com>
- <CAA8EJprQnnWjDZJy9+zUBsVQCi3jtc0Ngtzzk9MXpwOvuAS68g@mail.gmail.com>
- <CAD=FV=W0m-x9JC=5hQ3urSNmUp8sY-u8YkNd66yrKfRNAH4rcg@mail.gmail.com>
- <YtlrV5R+JMxb7Dlu@sirena.org.uk>
-In-Reply-To: <YtlrV5R+JMxb7Dlu@sirena.org.uk>
-From: Doug Anderson <dianders@chromium.org>
-Date: Thu, 21 Jul 2022 08:43:48 -0700
-X-Gmail-Original-Message-ID: <CAD=FV=XDOxy1R5ipD0errwi6GOFz-X6G3_WE34LGLqmWE6_iyw@mail.gmail.com>
-Message-ID: <CAD=FV=XDOxy1R5ipD0errwi6GOFz-X6G3_WE34LGLqmWE6_iyw@mail.gmail.com>
-To: Mark Brown <broonie@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [PATCH v16 0/3] eDP/DP Phy vdda realted function
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
+ Thunderbird/91.3.2
+Content-Language: en-US
+From: Akhil P Oommen <quic_akhilpo@quicinc.com>
+To: Rajendra Nayak <quic_rjendra@quicinc.com>, Stephen Boyd
+ <swboyd@chromium.org>, Doug Anderson <dianders@chromium.org>, Taniya Das
+ <quic_tdas@quicinc.com>, Bjorn Andersson <bjorn.andersson@linaro.org>
+References: <1657346375-1461-1-git-send-email-quic_akhilpo@quicinc.com>
+ <20220709112837.v2.5.I7291c830ace04fce07e6bd95a11de4ba91410f7b@changeid>
+ <CAD=FV=XzvcjS51q78BZ=FPCEVUDMD+VKJ70ksCm5V4qwHN_wRg@mail.gmail.com>
+ <c022538d-c616-8f1a-e1c2-c11b5f0de670@quicinc.com>
+ <e4dcdd8d-18a9-8da3-7ac3-6cc792139f70@quicinc.com>
+ <CAE-0n52TG3hsytN5nRU7W=S6PffSj8yQDmuicN0-qxoW-jxiZQ@mail.gmail.com>
+ <0c050434-27ca-1099-d93d-8ad6ace3396e@quicinc.com>
+ <CAE-0n53J=dADDTrydVuNZzw38dW_-+Baf8cfn0Q6DSVX_6cLNg@mail.gmail.com>
+ <b6ab023b-601d-1df2-b04b-af5961b73bea@quicinc.com>
+ <698d3279-6a02-9b1e-a3bd-627b6afbc57e@quicinc.com>
+In-Reply-To: <698d3279-6a02-9b1e-a3bd-627b6afbc57e@quicinc.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+Subject: Re: [Freedreno] [PATCH v2 5/7] arm64: dts: qcom: sc7280: Update gpu
+ register list
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,61 +75,93 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sankeerth Billakanti <quic_sbillaka@quicinc.com>,
- David Airlie <airlied@linux.ie>, dri-devel <dri-devel@lists.freedesktop.org>,
- Bjorn Andersson <bjorn.andersson@linaro.org>,
- Manivannan Sadhasivam <manivannan.sadhasivam@linaro.org>,
- Johan Hovold <johan@kernel.org>,
- "Aravind Venkateswaran \(QUIC\)" <quic_aravindh@quicinc.com>,
- Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
- Kuogee Hsieh <quic_khsieh@quicinc.com>, Andy Gross <agross@kernel.org>,
- linux-arm-msm <linux-arm-msm@vger.kernel.org>,
- "Abhinav Kumar \(QUIC\)" <quic_abhinavk@quicinc.com>,
- Stephen Boyd <swboyd@chromium.org>, Sean Paul <sean@poorly.run>,
- Vinod Koul <vkoul@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
- LKML <linux-kernel@vger.kernel.org>, Rob Clark <robdclark@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- freedreno <freedreno@lists.freedesktop.org>
+Cc: devicetree@vger.kernel.org, Jonathan Marek <jonathan@marek.ca>,
+ linux-arm-msm <linux-arm-msm@vger.kernel.org>, Andy Gross <agross@kernel.org>,
+ dri-devel <dri-devel@lists.freedesktop.org>,
+ Jordan Crouse <jordan@cosmicpenguin.net>, Rob Clark <robdclark@gmail.com>,
+ Rob Herring <robh+dt@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ freedreno <freedreno@lists.freedesktop.org>,
+ Matthias Kaehlcke <mka@chromium.org>, LKML <linux-kernel@vger.kernel.org>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Hi,
-
-On Thu, Jul 21, 2022 at 8:06 AM Mark Brown <broonie@kernel.org> wrote:
+On 7/20/2022 11:34 AM, Akhil P Oommen wrote:
+> On 7/19/2022 3:26 PM, Rajendra Nayak wrote:
+>>
+>>
+>> On 7/19/2022 12:49 PM, Stephen Boyd wrote:
+>>> Quoting Akhil P Oommen (2022-07-18 23:37:16)
+>>>> On 7/19/2022 11:19 AM, Stephen Boyd wrote:
+>>>>> Quoting Akhil P Oommen (2022-07-18 21:07:05)
+>>>>>> On 7/14/2022 11:10 AM, Akhil P Oommen wrote:
+>>>>>>> IIUC, qcom gdsc driver doesn't ensure hardware is collapsed 
+>>>>>>> since they
+>>>>>>> are vote-able switches. Ideally, we should ensure that the hw has
+>>>>>>> collapsed for gpu recovery because there could be transient 
+>>>>>>> votes from
+>>>>>>> other subsystems like hypervisor using their vote register.
+>>>>>>>
+>>>>>>> I am not sure how complex the plumbing to gpucc driver would be 
+>>>>>>> to allow
+>>>>>>> gpu driver to check hw status. OTOH, with this patch, gpu driver 
+>>>>>>> does a
+>>>>>>> read operation on a gpucc register which is in always-on domain. 
+>>>>>>> That
+>>>>>>> means we don't need to vote any resource to access this register.
+>>>
+>>> Reading between the lines here, you're saying that you have to read the
+>>> gdsc register to make sure that the gdsc is in some state? Can you
+>>> clarify exactly what you're doing? And how do you know that something
+>>> else in the kernel can't cause the register to change after it is read?
+>>> It certainly seems like we can't be certain because there is voting
+>>> involved.
+> From gpu driver, cx_gdscr.bit[31] (power off status) register can be 
+> polled to ensure that it *collapsed at least once*. We don't need to 
+> care if something turns ON gdsc after that.
 >
-> On Thu, Jul 21, 2022 at 07:49:55AM -0700, Doug Anderson wrote:
+>>
+>> yes, this looks like the best case effort to get the gpu to recover, but
+>> the kernel driver really has no control to make sure this condition can
+>> always be met (because it depends on other entities like hyp, 
+>> trustzone etc right?)
+>> Why not just put a worst case polling delay?
 >
-> > Every single LDO on Qualcomm's PMICs seems to be able to be set in
-> > "high power mode" and "low power mode", but I think the majority of
-> > clients only really care about two things: on and in high power mode
-> > vs. off. I think the amount of stuff peripherals can do in low power
-> > mode is super limited, so you have to be _really_ sure that the
-> > peripheral won't draw too much current without you having a chance to
-> > reconfigure the regulator.
+> I didn't get you entirely. Where do you mean to keep the polling delay?
+>>
+>>>
+>>>>>>>
+>>>>>>> Stephen/Rajendra/Taniya, any suggestion?
+>>>>> Why can't you assert a gpu reset signal with the reset APIs? This 
+>>>>> series
+>>>>> seems to jump through a bunch of hoops to get the gdsc and power 
+>>>>> domain
+>>>>> to "reset" when I don't know why any of that is necessary. Can't we
+>>>>> simply assert a reset to the hardware after recovery completes so the
+>>>>> device is back into a good known POR (power on reset) state?
+>>>> That is because there is no register interface to reset GPU CX domain.
+>>>> The recommended sequence from HW design folks is to collapse both 
+>>>> cx and
+>>>> gx gdsc to properly reset gpu/gmu.
+>>>>
+>>>
+>>> Ok. One knee jerk reaction is to treat the gdsc as a reset then and
+>>> possibly mux that request along with any power domain on/off so that if
+>>> the reset is requested and the power domain is off nothing happens.
+>>> Otherwise if the power domain is on then it manually sequences and
+>>> controls the two gdscs so that the GPU is reset and then restores the
+>>> enable state of the power domain.
+> It would be fatal to asynchronously pull the plug on CX gdsc 
+> forcefully because there might be another gpu/smmu driver thread 
+> accessing registers in cx domain.
 >
-> *Generally* a low power mode would be mainly useful for low power
-> retention type states, not active use.
+> -Akhil.
+>
+But, we can move the cx collapse polling to gpucc and expose it to gpu 
+driver using 'reset' framework. I am not very familiar with clk driver, 
+but I did a rough prototype here (untested): 
+https://zerobin.net/?d34b5f958be3b9b8#NKGzdPy9fgcuOqXZ/XqjI7b8JWcivqe+oSTf4yWHSOU=
 
-Right. Certainly the case I've seen where it is most useful is in S3
-where we need to keep a device powered just enough to detect a wakeup,
-but it can definitely also be useful for mostly idle devices that we
-need to keep powered to retain memory so they can start up again
-quickly.
+If this approach is acceptable, I will send it out as a separate series.
 
-I guess I'd put it this way, though: how many drivers in Linux today
-have _two_ calls to regulator_set_load(): one for the "active" state
-and one for the retention state. Looks like UFS maybe. Any others? For
-most devices the pattern is:
-
-* get all of our regulators.
-* for each regulator, set the load to something that will trigger HPM
-when we're using the regulator.
-* turn regulators on when we need power and off when we don't.
-
-All the extra scaffolding and tables to pass something to
-regulator_set_load() is just a lot of noise to add for drivers that
-don't have any concept of "retention" mode and don't need it.
-
--Doug
+-Akhil.
