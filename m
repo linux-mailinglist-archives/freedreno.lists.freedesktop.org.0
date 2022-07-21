@@ -2,48 +2,46 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 256E957C907
-	for <lists+freedreno@lfdr.de>; Thu, 21 Jul 2022 12:31:49 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2AD1557C9AD
+	for <lists+freedreno@lfdr.de>; Thu, 21 Jul 2022 13:20:56 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 858AF11B0A5;
-	Thu, 21 Jul 2022 10:31:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1B0612B728;
+	Thu, 21 Jul 2022 11:20:38 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 80E0E11B136;
- Thu, 21 Jul 2022 10:31:45 +0000 (UTC)
+Received: from ams.source.kernel.org (ams.source.kernel.org
+ [IPv6:2604:1380:4601:e00::1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 320F21129B9;
+ Thu, 21 Jul 2022 11:20:36 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 182D6B8239B;
- Thu, 21 Jul 2022 10:31:44 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A26C5C3411E;
- Thu, 21 Jul 2022 10:31:42 +0000 (UTC)
+ by ams.source.kernel.org (Postfix) with ESMTPS id EC749B823C7;
+ Thu, 21 Jul 2022 11:20:32 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DE060C3411E;
+ Thu, 21 Jul 2022 11:20:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1658399502;
- bh=6cLo27J62FOn04WxOUjgMwROfE1fTOAuDjpYF7NaDwc=;
+ s=k20201202; t=1658402431;
+ bh=F94TfIE1knNCQ1PbA4Yel8RssqfFFH/6UvosT8/A/6w=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=N3WbGRRLy3Wz7OLnE9xyJeuJ98YmI7krfBHCmOr89Wmr2NSJ51Y1NwhDSZL7do3tP
- lDY5qvEUEDGK3ZBTiKL6N3H0ZCT07piH6XgcsUP+1DBs4MSdglmBv/lSRCP7uEwIHo
- 4mMndlxHuavBGafCJSi0YU/mpbIMU/S7s9VfQkW5w5ZxcFERww4ElkI91OGgELqIFf
- G5EdrwfFRy/DS54kxVu04FF7CbSzVwYK0jaycvcvAL/EaMtRLm1k6f/I0Phvlp7+5P
- ds4flliAvV07XpVp3S/h8s82GLcwQx4i1luvClq9ETl2HPWemt3/RFm/UWrzIwcSD5
- 4u7MTyS1qBAOQ==
-Received: from johan by xi.lan with local (Exim 4.94.2)
- (envelope-from <johan@kernel.org>)
- id 1oETT3-00058P-6k; Thu, 21 Jul 2022 12:31:41 +0200
-Date: Thu, 21 Jul 2022 12:31:41 +0200
-From: Johan Hovold <johan@kernel.org>
-To: Kuogee Hsieh <quic_khsieh@quicinc.com>,
- Douglas Anderson <dianders@chromium.org>,
- Bjorn Andersson <bjorn.andersson@linaro.org>,
- Vinod Koul <vkoul@kernel.org>, Mark Brown <broonie@kernel.org>
-Message-ID: <YtkrDcjTGhpaU1e0@hovoldconsulting.com>
+ b=RN09Akc6l/4soLrnBxeLUOsLAGNZwZ5BRP6FiEh667Hp0V+9e+lwgO3lBSfBiBMnL
+ aXJWKmfn4bajVh7eZtRno6RTPoKf5giMyjgDGBlMRq4+UyJAakD1LCXY1HhBE9Z0gi
+ 2UK1osBvwlJ9n2KsHnfGFIwLcRhd7DnzH3RkHlSHds1DGAVKJ9NtoYQpoPKM3Kmgia
+ GgaeyMe0OSrqJbdwyJdLq4ZX1m1UntSC8dBMCxPBFc4ZHDcS2RtzWzO8o+98FCDN+X
+ iP60VGBDtG3ulVNJbdJD3YaYVs+aIca57i1suuQg9QO18Iofq2QE5t0iZ8AUiQjNLS
+ 29GR5GdbXwf7g==
+Date: Thu, 21 Jul 2022 12:20:23 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Johan Hovold <johan@kernel.org>
+Message-ID: <Ytk2dxEC2n/ffNpD@sirena.org.uk>
 References: <1657038556-2231-1-git-send-email-quic_khsieh@quicinc.com>
+ <YtkrDcjTGhpaU1e0@hovoldconsulting.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="1DJx7/60zQ9pOY6w"
 Content-Disposition: inline
-In-Reply-To: <1657038556-2231-1-git-send-email-quic_khsieh@quicinc.com>
+In-Reply-To: <YtkrDcjTGhpaU1e0@hovoldconsulting.com>
+X-Cookie: Exercise caution in your daily affairs.
 Subject: Re: [Freedreno] [PATCH v16 0/3] eDP/DP Phy vdda realted function
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -57,57 +55,74 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rob Herring <robh@kernel.org>, quic_sbillaka@quicinc.com,
- Liam Girdwood <lgirdwood@gmail.com>, airlied@linux.ie,
- freedreno@lists.freedesktop.org,
+Cc: quic_sbillaka@quicinc.com, airlied@linux.ie,
+ dri-devel@lists.freedesktop.org, Liam Girdwood <lgirdwood@gmail.com>,
  Manivannan Sadhasivam <manivannan.sadhasivam@linaro.org>,
- quic_abhinavk@quicinc.com, dri-devel@lists.freedesktop.org,
- swboyd@chromium.org, Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
- robdclark@gmail.com, agross@kernel.org, daniel@ffwll.ch,
- linux-arm-msm@vger.kernel.org, dmitry.baryshkov@linaro.org,
- quic_aravindh@quicinc.com, sean@poorly.run, linux-kernel@vger.kernel.org
+ quic_aravindh@quicinc.com, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
+ Kuogee Hsieh <quic_khsieh@quicinc.com>, agross@kernel.org, robdclark@gmail.com,
+ linux-arm-msm@vger.kernel.org, quic_abhinavk@quicinc.com, swboyd@chromium.org,
+ Bjorn Andersson <bjorn.andersson@linaro.org>, sean@poorly.run,
+ Douglas Anderson <dianders@chromium.org>, linux-kernel@vger.kernel.org,
+ Vinod Koul <vkoul@kernel.org>, daniel@ffwll.ch, dmitry.baryshkov@linaro.org,
+ freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Tue, Jul 05, 2022 at 09:29:13AM -0700, Kuogee Hsieh wrote:
-> 0) rebase on https://git.kernel.org/pub/scm/linux/kernel/git/phy/linux-phy.git tree
-> 1) add regulator_set_load() to eDP phy
-> 2) add regulator_set_load() to DP phy
-> 3) remove vdda related function out of eDP/DP controller
-> 
-> Kuogee Hsieh (3):
->   phy: qcom-edp: add regulator_set_load to edp phy
->   phy: qcom-qmp: add regulator_set_load to dp phy
->   drm/msm/dp: delete vdda regulator related functions from eDP/DP
->     controller
-> 
->  drivers/gpu/drm/msm/dp/dp_parser.c        | 14 -----
->  drivers/gpu/drm/msm/dp/dp_parser.h        |  8 ---
->  drivers/gpu/drm/msm/dp/dp_power.c         | 95 +------------------------------
->  drivers/phy/qualcomm/phy-qcom-edp.c       | 12 ++++
->  drivers/phy/qualcomm/phy-qcom-qmp-combo.c | 41 ++++++++++---
->  5 files changed, 46 insertions(+), 124 deletions(-)
 
-This series breaks USB and PCIe for some SC8280XP and SA540P machines
-where the DP PHY regulators are shared with other PHYs whose drivers do
-not request a load.
+--1DJx7/60zQ9pOY6w
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Specifically, the hard-coded vdda-phy load of 21.8 mA added by this
-series, causes several RPMh regulators to now be put in low-power mode.
+On Thu, Jul 21, 2022 at 12:31:41PM +0200, Johan Hovold wrote:
 
-I found Doug's suggestion to handle situations like this in regulator
-core:
+If you're copying someone into a thread that's not obviously relevant
+for them it's good practice to put a note about it at the top of the
+mail to reduce the chances that it just gets deleted unread - people get
+copies of all sorts of random stuff for not great reasons (like getting
+pulled in by checkpatch due to once having done a cleanup) and are often
+quicky to delete things.
 
-	https://lore.kernel.org/all/20180814170617.100087-1-dianders@chromium.org/
+> This series breaks USB and PCIe for some SC8280XP and SA540P machines
+> where the DP PHY regulators are shared with other PHYs whose drivers do
+> not request a load.
 
-but since that was rejected, how do we deal with this generally?
+> Specifically, the hard-coded vdda-phy load of 21.8 mA added by this
+> series, causes several RPMh regulators to now be put in low-power mode.
 
-In the above thread Doug mentioned adding support for load requests to
-further drivers and Bjorn mentioned working around it by adding
-regulator-system-load properties to DT.
+> I found Doug's suggestion to handle situations like this in regulator
+> core:
+>=20
+> 	https://lore.kernel.org/all/20180814170617.100087-1-dianders@chromium.or=
+g/
 
-It seems quite likely that changes like this one affects other systems
-too, and the effects may be hard to debug. So a more general solution
-than playing whack-a-mole using DT would be good to have.
+> but since that was rejected, how do we deal with this generally?
 
-Johan
+> In the above thread Doug mentioned adding support for load requests to
+> further drivers and Bjorn mentioned working around it by adding
+> regulator-system-load properties to DT.
+
+> It seems quite likely that changes like this one affects other systems
+> too, and the effects may be hard to debug. So a more general solution
+> than playing whack-a-mole using DT would be good to have.
+
+You could add a way to specify constant base loads in DT on either a per
+regulator or per consumer basis.
+
+--1DJx7/60zQ9pOY6w
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmLZNnYACgkQJNaLcl1U
+h9C5rgf+MVZe9YmzqkRT4LQel+SV9Vlj1VQpA/dU9mHnpj8r4rEbG0pOqIYr4o6R
+cpJPULleczotUgkT2/yF9qKYsAo51HFenpTc3/AAkYqAueTjgHOsZo2RyPs2adr4
+DRthG2aRurta36wS8dtMtJqCUNOCOjwSCFJYklfpimdxz/7rMeR3U0z3FKHEcKAR
+9EC0r+4Os8oAt4uh/+/fSpZJ3xiPh1J9t9dv8KEop9+ZEbUEz1rAYsZzWLZQi8b1
+Sr737G8A0w+5xNdU/Ao00SsEeYU3u+is1wBQmcZGFVt+nvlf0bBYcsMv5pnUHJQ+
+RSty8G6tyVlasuFBEcnGC3CnQZ1hjQ==
+=jWVX
+-----END PGP SIGNATURE-----
+
+--1DJx7/60zQ9pOY6w--
