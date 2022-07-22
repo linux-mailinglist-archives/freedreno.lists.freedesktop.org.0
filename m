@@ -2,58 +2,66 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1ABB957D6D7
-	for <lists+freedreno@lfdr.de>; Fri, 22 Jul 2022 00:24:07 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6747257D803
+	for <lists+freedreno@lfdr.de>; Fri, 22 Jul 2022 03:29:05 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 25ABE14AB43;
-	Thu, 21 Jul 2022 22:24:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F3D0C14BD7B;
+	Fri, 22 Jul 2022 01:29:03 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-pf1-x42e.google.com (mail-pf1-x42e.google.com
- [IPv6:2607:f8b0:4864:20::42e])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6300814A5B8
- for <freedreno@lists.freedesktop.org>; Thu, 21 Jul 2022 22:24:03 +0000 (UTC)
-Received: by mail-pf1-x42e.google.com with SMTP id c3so2958008pfb.13
- for <freedreno@lists.freedesktop.org>; Thu, 21 Jul 2022 15:24:03 -0700 (PDT)
+Received: from mail-ej1-x62c.google.com (mail-ej1-x62c.google.com
+ [IPv6:2a00:1450:4864:20::62c])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 58A6A14A358
+ for <freedreno@lists.freedesktop.org>; Fri, 22 Jul 2022 01:29:02 +0000 (UTC)
+Received: by mail-ej1-x62c.google.com with SMTP id os14so6128090ejb.4
+ for <freedreno@lists.freedesktop.org>; Thu, 21 Jul 2022 18:29:02 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=deNvbs3qYKL1JRrzER9SspNMUOrIoxIui7ZX5V+JLIY=;
- b=e5rJiANtFt5gfhuP8SpDzFLRuphuqpFoj6Lu7gZl+xJY9yml8Aqdg46TPEZl5GBmas
- dX0+EQBxvL1vBjAZaUkJNovqgRUTPlICeTOTSR9IVyqIf7rzg+tk8e70egqb0AHpSj2C
- Bye7taMr00CtAqIfvlf+r0c4XN9cnckKaj0J0=
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=SVPqfwH/07HlNOv2TRkPmLswn/QUPlQGAJ5mgKuBLO4=;
+ b=MFIlp/LiIilyP6VUEC691FGgrKDYwLe0ZTn31yUfuKe208ESUqpgsUsgzvHrgZXuho
+ CpRTNoUgxieKQSsv3drg4QbWVAb4S1/EUdYV3IRzwlqztu3dG35B1B1M3F/imiT3P5Am
+ 7L80f1thRVsnKNVab/YwGzlYyexpswU1yBHkc=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=deNvbs3qYKL1JRrzER9SspNMUOrIoxIui7ZX5V+JLIY=;
- b=eJ6OGwzcCKzHWivCnSkTbYQkYKi8Bv6e9VK8mp2G+VcfII5C1trtSYfqqCgtObnVhy
- 7mY4Kowb92wxFKrovtee45qLbip10NupnnS7TVfpm9HR6Nmnlshgr8+ZIIPdUc0An3b2
- mIVswbmp2itGUCZAHqy+Wh47+GfxRMmMeeJ4CnYlJ1cklNgZNi4jYdrrsT2fre6xK5Ak
- NpzU41czFCZpPHAIvorzJcqSBJBYrSdoCcGHz9qna+dzR1Y77X4XW7T0NgNXwvE6R6Ei
- soXNMhpG6IZDjz9ibP8WCYUQT6v5DFc7DaDMZHp3Yn2GVTAPr46hZeOdVKBr6Xt+hoWj
- 6QdQ==
-X-Gm-Message-State: AJIora/A+cnQMFATrlFR8jMdO0bb6jotdk3ziBYKCRKk+Knsnb8mV3Jh
- zM/ryLvQeivuzWyK4mi88B9sdA==
-X-Google-Smtp-Source: AGRyM1ucmGbzlsf5miZykSaJZXCq20zaDUKzLsPufJXzF3FOBiGnHuUiUhGGwYQQmz3a3+Q96KwlRA==
-X-Received: by 2002:a65:58cb:0:b0:415:ea6a:c535 with SMTP id
- e11-20020a6558cb000000b00415ea6ac535mr486685pgu.100.1658442242856; 
- Thu, 21 Jul 2022 15:24:02 -0700 (PDT)
-Received: from tictac2.mtv.corp.google.com
- ([2620:15c:202:201:29c7:7a23:197d:913d])
- by smtp.gmail.com with ESMTPSA id
- y189-20020a6264c6000000b0052594a3ba89sm2248779pfb.65.2022.07.21.15.24.01
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 21 Jul 2022 15:24:02 -0700 (PDT)
-From: Douglas Anderson <dianders@chromium.org>
-To: dri-devel@lists.freedesktop.org
-Date: Thu, 21 Jul 2022 15:23:40 -0700
-Message-Id: <20220721152314.RFC.1.Ie333b3e4aff6e4a5b58c4aa805e030e561be8773@changeid>
-X-Mailer: git-send-email 2.37.1.359.gd136c6c3e2-goog
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=SVPqfwH/07HlNOv2TRkPmLswn/QUPlQGAJ5mgKuBLO4=;
+ b=kPPwDO0jemqjT9F4bKVwOFgE/V6n9i5UTy2OUiiJ/nIm543NYrgDOvL5OogmIhZCtC
+ dJ2JqutK8nvLHExMzH20mwo3BFx/Tp7QsiE/Tda6oh4WQYrZLL9VFZ6yB9t9M9sX5Q8C
+ o8nYwA6Qhgi0K08ZO3N9OOUdrPQQKj6QwisFuBei7LX/Yih2W7S3MiTITEf3ivIEK4Kl
+ GpJybISC4jCuycrgFzacbPV38EW81PVBQbyxC1G+8O2nQC33bdmgaSTviQAjcOlfJ8KZ
+ 9/SpC0nKfunj/es3Va0Ubkc8N/x0fwOv6bQJukGOOzJjZyk0nG4yVHPH4cLTd3cPUfFI
+ maGw==
+X-Gm-Message-State: AJIora9GbvHua6dgz8KJ+4QnQGk8jvgAO7BdU9Ohlg8VnyqL3jLqgPDs
+ VE1jWN1wQQ/xaeqU72ItpKkNms/uiF2L7cVLXbU=
+X-Google-Smtp-Source: AGRyM1ut162yfCf9G+zqRvRTjpapaz99Beus3eXhY8NaD09QUmUjPSE1fMBuUQmfWe4aW1yyUs4+UQ==
+X-Received: by 2002:a17:907:7e87:b0:72b:4af3:bf57 with SMTP id
+ qb7-20020a1709077e8700b0072b4af3bf57mr1104444ejc.9.1658453340696; 
+ Thu, 21 Jul 2022 18:29:00 -0700 (PDT)
+Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com.
+ [209.85.128.45]) by smtp.gmail.com with ESMTPSA id
+ kx20-20020a170907775400b0072aa014e852sm1409157ejc.87.2022.07.21.18.28.55
+ for <freedreno@lists.freedesktop.org>
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 21 Jul 2022 18:28:58 -0700 (PDT)
+Received: by mail-wm1-f45.google.com with SMTP id a11so1958266wmq.3
+ for <freedreno@lists.freedesktop.org>; Thu, 21 Jul 2022 18:28:55 -0700 (PDT)
+X-Received: by 2002:a05:600c:4e86:b0:3a3:2edc:bcb4 with SMTP id
+ f6-20020a05600c4e8600b003a32edcbcb4mr5596548wmq.85.1658453335156; Thu, 21 Jul
+ 2022 18:28:55 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [RFC PATCH] drm/edid: Make 144 Hz not preferred on
- Sharp LQ140M1JW46
+References: <1657038556-2231-1-git-send-email-quic_khsieh@quicinc.com>
+ <YtkrDcjTGhpaU1e0@hovoldconsulting.com> <Ytk2dxEC2n/ffNpD@sirena.org.uk>
+ <CAD=FV=UQGXqVkew544f3RDtWb3virRHWiafBAxK3ncb5wmVYwQ@mail.gmail.com>
+ <CAD=FV=WuyKAwLwJ80uv15jBPO=W9F7FGZ4dAci+CncwF0WPfOw@mail.gmail.com>
+In-Reply-To: <CAD=FV=WuyKAwLwJ80uv15jBPO=W9F7FGZ4dAci+CncwF0WPfOw@mail.gmail.com>
+From: Doug Anderson <dianders@chromium.org>
+Date: Thu, 21 Jul 2022 18:28:40 -0700
+X-Gmail-Original-Message-ID: <CAD=FV=XVxhZwJFmOAg2v1UmfOt9_HWz0LG8M3wac+RkMPGOwYg@mail.gmail.com>
+Message-ID: <CAD=FV=XVxhZwJFmOAg2v1UmfOt9_HWz0LG8M3wac+RkMPGOwYg@mail.gmail.com>
+To: Mark Brown <broonie@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Subject: Re: [Freedreno] [PATCH v16 0/3] eDP/DP Phy vdda realted function
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,63 +74,59 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@linux.ie>,
- linux-kernel@vger.kernel.org,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, Maxime Ripard <mripard@kernel.org>,
- Douglas Anderson <dianders@chromium.org>, Rob Clark <robdclark@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>, freedreno@lists.freedesktop.org
+Cc: Sankeerth Billakanti <quic_sbillaka@quicinc.com>,
+ David Airlie <airlied@linux.ie>, dri-devel <dri-devel@lists.freedesktop.org>,
+ Bjorn Andersson <bjorn.andersson@linaro.org>,
+ Manivannan Sadhasivam <manivannan.sadhasivam@linaro.org>,
+ Johan Hovold <johan@kernel.org>,
+ "Aravind Venkateswaran \(QUIC\)" <quic_aravindh@quicinc.com>,
+ Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
+ Kuogee Hsieh <quic_khsieh@quicinc.com>, Andy Gross <agross@kernel.org>,
+ Rob Clark <robdclark@gmail.com>, linux-arm-msm <linux-arm-msm@vger.kernel.org>,
+ "Abhinav Kumar \(QUIC\)" <quic_abhinavk@quicinc.com>,
+ Stephen Boyd <swboyd@chromium.org>, Sean Paul <sean@poorly.run>,
+ Liam Girdwood <lgirdwood@gmail.com>, LKML <linux-kernel@vger.kernel.org>,
+ Vinod Koul <vkoul@kernel.org>, Daniel Vetter <daniel@ffwll.ch>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ freedreno <freedreno@lists.freedesktop.org>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-The Sharp LQ140M1JW46 panel is on the Qualcomm sc7280 CRD reference
-board. This panel supports 144 Hz and 60 Hz. In the EDID, the 144 Hz
-mode is listed first and thus is marked preferred. The EDID decode I
-ran says:
+Hi,
 
-  First detailed timing includes the native pixel format and preferred
-  refresh rate.
+On Thu, Jul 21, 2022 at 7:52 AM Doug Anderson <dianders@chromium.org> wrote:
+>
+> Hi,
+>
+> On Thu, Jul 21, 2022 at 7:39 AM Doug Anderson <dianders@chromium.org> wrote:
+> >
+> > > You could add a way to specify constant base loads in DT on either a per
+> > > regulator or per consumer basis.
+> >
+> > Yes, this please! ...on a per consumer basis. :-) It's been on my
+> > wishlist for a while and would eliminate a massive amount of code /
+> > tables in the drivers.
+> >
+> > We could debate syntax, but I guess you'd either do it w/ two cells
+> >
+> > vdda-phy-supply = <&vdda_mipi_dsi0_1p2 21800>;
+> >
+> > ...or with matching properties:
+> >
+> > vdda-phy-supply = <&vdda_mipi_dsi0_1p2>;
+> > vdda-phy-supply-base-load = <21800>;
+>
+> Ah, sorry to respond to my own thread so quickly, but I just thought
+> of a reason for the "matching properties" solution instead of the two
+> cells. It would allow the SoC "dtsi" file to specify a base load while
+> the board "dts" file can then specify the supply. That feels like it
+> could be a nice solution.
 
-  ...
+This seemed easy, so I whipped up a quick prototype. Forewarned that I
+did very little detailed testing. I didn't CC everyone on this thread,
+but hopefully folks can find it if they are interested...
 
-  Detailed Timing Descriptors:
-    DTD 1:  1920x1080  143.981 Hz  16:9   166.587 kHz  346.500 MHz
-                 Hfront   48 Hsync  32 Hback  80 Hpol N
-                 Vfront    3 Vsync   5 Vback  69 Vpol N
-    DTD 2:  1920x1080   59.990 Hz  16:9    69.409 kHz  144.370 MHz
-                 Hfront   48 Hsync  32 Hback  80 Hpol N
-                 Vfront    3 Vsync   5 Vback  69 Vpol N
+https://lore.kernel.org/r/20220721182622.RFC.1.I8a64b707169cfd73d9309c5eaf5d43b8bc4db988@changeid
 
-I'm proposing here that the above is actually a bug and that the 60 Hz
-mode really should be considered preferred by Linux.
-
-The argument here is that this is a laptop panel and on a laptop we
-know power will always be a concern. Presumably even if someone using
-this panel wanted to use 144 Hz for some use cases they would only do
-so dynamically and would still want the default to be 60 Hz.
-
-Let's change the default to 60 Hz using a standard quirk.
-
-Signed-off-by: Douglas Anderson <dianders@chromium.org>
----
-
- drivers/gpu/drm/drm_edid.c | 3 +++
- 1 file changed, 3 insertions(+)
-
-diff --git a/drivers/gpu/drm/drm_edid.c b/drivers/gpu/drm/drm_edid.c
-index bbc25e3b7220..06ff8ba216af 100644
---- a/drivers/gpu/drm/drm_edid.c
-+++ b/drivers/gpu/drm/drm_edid.c
-@@ -160,6 +160,9 @@ static const struct edid_quirk {
- 	EDID_QUIRK('S', 'A', 'M', 596, EDID_QUIRK_PREFER_LARGE_60),
- 	EDID_QUIRK('S', 'A', 'M', 638, EDID_QUIRK_PREFER_LARGE_60),
- 
-+	/* 144 Hz should only be used when needed; it wastes power */
-+	EDID_QUIRK('S', 'H', 'P', 0x1523, EDID_QUIRK_PREFER_LARGE_60),
-+
- 	/* Sony PVM-2541A does up to 12 bpc, but only reports max 8 bpc */
- 	EDID_QUIRK('S', 'N', 'Y', 0x2541, EDID_QUIRK_FORCE_12BPC),
- 
--- 
-2.37.1.359.gd136c6c3e2-goog
-
+-Doug
