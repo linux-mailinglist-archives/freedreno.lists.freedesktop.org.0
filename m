@@ -1,66 +1,80 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8808D57E3BD
-	for <lists+freedreno@lfdr.de>; Fri, 22 Jul 2022 17:27:45 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id CB10D57E488
+	for <lists+freedreno@lfdr.de>; Fri, 22 Jul 2022 18:38:06 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1A9C78B047;
-	Fri, 22 Jul 2022 15:27:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 82ECA90809;
+	Fri, 22 Jul 2022 16:38:05 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wr1-x42a.google.com (mail-wr1-x42a.google.com
- [IPv6:2a00:1450:4864:20::42a])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0AFC08B047;
- Fri, 22 Jul 2022 15:27:43 +0000 (UTC)
-Received: by mail-wr1-x42a.google.com with SMTP id d8so6955989wrp.6;
- Fri, 22 Jul 2022 08:27:42 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=91TgSgSA/YJ92ess13xjquT9UadVbNK7ich3jTvC5qI=;
- b=k/TFir2d6KAVi3xNxGUZuwCh/ybufbrNaeiH3SeOXE+3Cj6IUDA0NhAjhrSsJOPn8V
- WFM1U/tGr+K90lpQ+BiLn9ciICmiGj+8hT2H9d67MEfZgGHXvfxKJlwP4xW/EVhHjfJ+
- UaxibEcgJ/3Yj5dxKkcD+oTXGzWRJMKJPyEXQc88EIJGJc2V366zNJ6XXxKxId/snIUQ
- j8gXQi9CCaTu1exkGoZRw5cpQxmhjHBdG82ie8fthDyijBDdSM8HBTVoud6O23HMLJm8
- hEN53vuJ0zAIxgkyq2d0UDgH2RqtMHaUIR8LNTLACioSRku209F4g4t9PNX8fFF/9RpU
- x8SA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=91TgSgSA/YJ92ess13xjquT9UadVbNK7ich3jTvC5qI=;
- b=Et0iqlwZYb/w02TxcLSpi4IhZVqu0jNSyjusaDhh63NPk93pgDgTTb7EyVTDbKdIvB
- KdAvgovKNqYjeUn3ElhjXNr485XlIKmxXy13Ifz3khrx5y1RfqR5xqr5C8p9GooTSmvH
- RtP1miBDZJe86qf6yExPbFZxC9eV5le1KeNMKk0LgLnlwFTNQhWUIUneDyXsCwx7rfLF
- 9WffeSbVcotrvE1yPddKlvtUx5yXUsbxBIo7PffMHAO6hEeXx0HuSnjHGeHkgSy1UNjP
- WVGJYbIPXsM2XHQSOEASDBmaWUY93RPbTkZOwNleFmkTTl4am608qdTOOFfmXScj8UMG
- c6Eg==
-X-Gm-Message-State: AJIora/qmKuMY9S/32MkD6v//W3jv0+vIIo6dB+895FCM7bSOVPt0PJN
- WiAAizJGiVzVEMvcBj7kFJtC5jWCAXlBUNcGxzk=
-X-Google-Smtp-Source: AGRyM1t/dc5V3tlwl/q7T8kwCuJ7BkOWFAp3DDWr7S604HLVvUwtxwwAR54eidgUx5YB6yIo4YaTjmqjVK/7CXLbmNU=
-X-Received: by 2002:a05:6000:18a3:b0:21d:c651:4de7 with SMTP id
- b3-20020a05600018a300b0021dc6514de7mr288256wri.679.1658503661395; Fri, 22 Jul
- 2022 08:27:41 -0700 (PDT)
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6775890809;
+ Fri, 22 Jul 2022 16:38:04 +0000 (UTC)
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 26MG8FJp015304;
+ Fri, 22 Jul 2022 16:37:52 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
+ h=message-id : date :
+ mime-version : subject : to : cc : references : from : in-reply-to :
+ content-type : content-transfer-encoding; s=qcppdkim1;
+ bh=wPnjrGgNVhbBSH8gF2RGxnPdRwwa5gYEtG3aPqkrRNk=;
+ b=MqDDjFOedVQR7TYyFZwLPHvjAS0ApjMZCdnMnRQN64RLHxlvHcJmPSzx+UkeCbPloxIr
+ PBSdiUwLDBLcGrJHiDWPQaPlkG8HYOzote2GcEceVL5x1ycTEP/dQUmfDJCd9s1j4fY3
+ isSOQx6yqC28KGMDdJNuni4pn8F1xmFOTsRQ/LOqw6Paccgnxf8CWWQ3i0zoBK5+NVhb
+ rzOfQaE9jsjOtW/zKkOYEjHSN56KmT8l606cepLGhMrdxJRagrTiVbcKNMYG6jHeViqE
+ MARntvF5IW38Fe+6jeC+ZsZiGfY4eaC0nFWdxw/YKVFQBXVckP336z7Vs/Z4hP+ee4YB Rw== 
+Received: from nasanppmta01.qualcomm.com (i-global254.qualcomm.com
+ [199.106.103.254])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3hftv78w19-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Fri, 22 Jul 2022 16:37:52 +0000
+Received: from nasanex01c.na.qualcomm.com (nasanex01c.na.qualcomm.com
+ [10.47.97.222])
+ by NASANPPMTA01.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 26MGbpBu008535
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Fri, 22 Jul 2022 16:37:51 GMT
+Received: from nalasex01a.na.qualcomm.com (10.47.209.196) by
+ nasanex01c.na.qualcomm.com (10.47.97.222) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.986.22; Fri, 22 Jul 2022 09:37:51 -0700
+Received: from [10.38.243.149] (10.80.80.8) by nalasex01a.na.qualcomm.com
+ (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.22; Fri, 22 Jul
+ 2022 09:37:48 -0700
+Message-ID: <269f2610-425b-f296-dcfc-89bdc2e1d587@quicinc.com>
+Date: Fri, 22 Jul 2022 09:37:46 -0700
 MIME-Version: 1.0
-References: <1657346375-1461-1-git-send-email-quic_akhilpo@quicinc.com>
- <20220709112837.v2.5.I7291c830ace04fce07e6bd95a11de4ba91410f7b@changeid>
- <CAD=FV=XzvcjS51q78BZ=FPCEVUDMD+VKJ70ksCm5V4qwHN_wRg@mail.gmail.com>
- <c022538d-c616-8f1a-e1c2-c11b5f0de670@quicinc.com>
- <e4dcdd8d-18a9-8da3-7ac3-6cc792139f70@quicinc.com>
- <CAE-0n52TG3hsytN5nRU7W=S6PffSj8yQDmuicN0-qxoW-jxiZQ@mail.gmail.com>
- <0c050434-27ca-1099-d93d-8ad6ace3396e@quicinc.com>
- <CAE-0n53J=dADDTrydVuNZzw38dW_-+Baf8cfn0Q6DSVX_6cLNg@mail.gmail.com>
- <b6ab023b-601d-1df2-b04b-af5961b73bea@quicinc.com>
- <698d3279-6a02-9b1e-a3bd-627b6afbc57e@quicinc.com>
- <1e39d008-f8e5-eea5-90f4-78293bf2c580@quicinc.com>
-In-Reply-To: <1e39d008-f8e5-eea5-90f4-78293bf2c580@quicinc.com>
-From: Rob Clark <robdclark@gmail.com>
-Date: Fri, 22 Jul 2022 08:28:03 -0700
-Message-ID: <CAF6AEGsSfB6wY6mxhxO6H0h0OxiSn8yw5WuKJ-v-U9i9mn8AEw@mail.gmail.com>
-To: Akhil P Oommen <quic_akhilpo@quicinc.com>
-Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [PATCH v2 5/7] arm64: dts: qcom: sc7280: Update gpu
- register list
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
+ Thunderbird/91.6.2
+Content-Language: en-US
+To: Douglas Anderson <dianders@chromium.org>, <dri-devel@lists.freedesktop.org>
+References: <20220721152314.RFC.1.Ie333b3e4aff6e4a5b58c4aa805e030e561be8773@changeid>
+From: Abhinav Kumar <quic_abhinavk@quicinc.com>
+In-Reply-To: <20220721152314.RFC.1.Ie333b3e4aff6e4a5b58c4aa805e030e561be8773@changeid>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-ORIG-GUID: OdVUAT7OcjVy9m3db0NZ8-DlwwxG64rn
+X-Proofpoint-GUID: OdVUAT7OcjVy9m3db0NZ8-DlwwxG64rn
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.205,Aquarius:18.0.883,Hydra:6.0.517,FMLib:17.11.122.1
+ definitions=2022-07-22_06,2022-07-21_02,2022-06-22_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ mlxscore=0 clxscore=1011
+ suspectscore=0 impostorscore=0 adultscore=0 mlxlogscore=999 spamscore=0
+ phishscore=0 malwarescore=0 bulkscore=0 priorityscore=1501
+ lowpriorityscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2206140000 definitions=main-2207220070
+Subject: Re: [Freedreno] [RFC PATCH] drm/edid: Make 144 Hz not preferred on
+ Sharp LQ140M1JW46
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,105 +87,78 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
- <devicetree@vger.kernel.org>, Jonathan Marek <jonathan@marek.ca>,
- linux-arm-msm <linux-arm-msm@vger.kernel.org>,
- Jordan Crouse <jordan@cosmicpenguin.net>,
- Doug Anderson <dianders@chromium.org>,
- dri-devel <dri-devel@lists.freedesktop.org>,
- Bjorn Andersson <bjorn.andersson@linaro.org>, Rob Herring <robh+dt@kernel.org>,
- Taniya Das <quic_tdas@quicinc.com>, Andy Gross <agross@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Rajendra Nayak <quic_rjendra@quicinc.com>, Stephen Boyd <swboyd@chromium.org>,
- freedreno <freedreno@lists.freedesktop.org>,
- Matthias Kaehlcke <mka@chromium.org>, LKML <linux-kernel@vger.kernel.org>
+Cc: Sankeerth Billakanti <quic_sbillaka@quicinc.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@linux.ie>,
+ Maarten
+ Lankhorst <maarten.lankhorst@linux.intel.com>, linux-kernel@vger.kernel.org,
+ Maxime Ripard <mripard@kernel.org>, Rob Clark <robdclark@gmail.com>,
+ Daniel Vetter <daniel@ffwll.ch>, freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Thu, Jul 21, 2022 at 9:04 AM Akhil P Oommen <quic_akhilpo@quicinc.com> wrote:
->
-> On 7/20/2022 11:34 AM, Akhil P Oommen wrote:
-> > On 7/19/2022 3:26 PM, Rajendra Nayak wrote:
-> >>
-> >>
-> >> On 7/19/2022 12:49 PM, Stephen Boyd wrote:
-> >>> Quoting Akhil P Oommen (2022-07-18 23:37:16)
-> >>>> On 7/19/2022 11:19 AM, Stephen Boyd wrote:
-> >>>>> Quoting Akhil P Oommen (2022-07-18 21:07:05)
-> >>>>>> On 7/14/2022 11:10 AM, Akhil P Oommen wrote:
-> >>>>>>> IIUC, qcom gdsc driver doesn't ensure hardware is collapsed
-> >>>>>>> since they
-> >>>>>>> are vote-able switches. Ideally, we should ensure that the hw has
-> >>>>>>> collapsed for gpu recovery because there could be transient
-> >>>>>>> votes from
-> >>>>>>> other subsystems like hypervisor using their vote register.
-> >>>>>>>
-> >>>>>>> I am not sure how complex the plumbing to gpucc driver would be
-> >>>>>>> to allow
-> >>>>>>> gpu driver to check hw status. OTOH, with this patch, gpu driver
-> >>>>>>> does a
-> >>>>>>> read operation on a gpucc register which is in always-on domain.
-> >>>>>>> That
-> >>>>>>> means we don't need to vote any resource to access this register.
-> >>>
-> >>> Reading between the lines here, you're saying that you have to read the
-> >>> gdsc register to make sure that the gdsc is in some state? Can you
-> >>> clarify exactly what you're doing? And how do you know that something
-> >>> else in the kernel can't cause the register to change after it is read?
-> >>> It certainly seems like we can't be certain because there is voting
-> >>> involved.
-> > From gpu driver, cx_gdscr.bit[31] (power off status) register can be
-> > polled to ensure that it *collapsed at least once*. We don't need to
-> > care if something turns ON gdsc after that.
-> >
-> >>
-> >> yes, this looks like the best case effort to get the gpu to recover, but
-> >> the kernel driver really has no control to make sure this condition can
-> >> always be met (because it depends on other entities like hyp,
-> >> trustzone etc right?)
-> >> Why not just put a worst case polling delay?
-> >
-> > I didn't get you entirely. Where do you mean to keep the polling delay?
-> >>
-> >>>
-> >>>>>>>
-> >>>>>>> Stephen/Rajendra/Taniya, any suggestion?
-> >>>>> Why can't you assert a gpu reset signal with the reset APIs? This
-> >>>>> series
-> >>>>> seems to jump through a bunch of hoops to get the gdsc and power
-> >>>>> domain
-> >>>>> to "reset" when I don't know why any of that is necessary. Can't we
-> >>>>> simply assert a reset to the hardware after recovery completes so the
-> >>>>> device is back into a good known POR (power on reset) state?
-> >>>> That is because there is no register interface to reset GPU CX domain.
-> >>>> The recommended sequence from HW design folks is to collapse both
-> >>>> cx and
-> >>>> gx gdsc to properly reset gpu/gmu.
-> >>>>
-> >>>
-> >>> Ok. One knee jerk reaction is to treat the gdsc as a reset then and
-> >>> possibly mux that request along with any power domain on/off so that if
-> >>> the reset is requested and the power domain is off nothing happens.
-> >>> Otherwise if the power domain is on then it manually sequences and
-> >>> controls the two gdscs so that the GPU is reset and then restores the
-> >>> enable state of the power domain.
-> > It would be fatal to asynchronously pull the plug on CX gdsc
-> > forcefully because there might be another gpu/smmu driver thread
-> > accessing registers in cx domain.
-> >
-> > -Akhil.
-> >
-> But, we can move the cx collapse polling to gpucc and expose it to gpu
-> driver using 'reset' framework. I am not very familiar with clk driver,
-> but I did a rough prototype here (untested):
-> https://zerobin.net/?d34b5f958be3b9b8#NKGzdPy9fgcuOqXZ/XqjI7b8JWcivqe+oSTf4yWHSOU=
->
-> If this approach is acceptable, I will send it out as a separate series.
->
++ sankeerth
 
-I'm not super familiar w/ reset framework, but this approach seems
-like it would avoid needing to play games with working around runpm as
-well.  So that seems like a cleaner approach.
+Hi Doug
 
-BR,
--R
+On 7/21/2022 3:23 PM, Douglas Anderson wrote:
+> The Sharp LQ140M1JW46 panel is on the Qualcomm sc7280 CRD reference
+> board. This panel supports 144 Hz and 60 Hz. In the EDID, the 144 Hz
+> mode is listed first and thus is marked preferred. The EDID decode I
+> ran says:
+> 
+>    First detailed timing includes the native pixel format and preferred
+>    refresh rate.
+> 
+>    ...
+> 
+>    Detailed Timing Descriptors:
+>      DTD 1:  1920x1080  143.981 Hz  16:9   166.587 kHz  346.500 MHz
+>                   Hfront   48 Hsync  32 Hback  80 Hpol N
+>                   Vfront    3 Vsync   5 Vback  69 Vpol N
+>      DTD 2:  1920x1080   59.990 Hz  16:9    69.409 kHz  144.370 MHz
+>                   Hfront   48 Hsync  32 Hback  80 Hpol N
+>                   Vfront    3 Vsync   5 Vback  69 Vpol N
+> 
+> I'm proposing here that the above is actually a bug and that the 60 Hz
+> mode really should be considered preferred by Linux.
+> 
+> The argument here is that this is a laptop panel and on a laptop we
+> know power will always be a concern. Presumably even if someone using
+> this panel wanted to use 144 Hz for some use cases they would only do
+> so dynamically and would still want the default to be 60 Hz.
+> 
+> Let's change the default to 60 Hz using a standard quirk.
+> 
+> Signed-off-by: Douglas Anderson <dianders@chromium.org>
+
+Yes, we were aware that 144Hz was getting picked. We found that while 
+debugging the screen corruption issue.
+
+Well, yes power would be less with 60Hz but so will be the performance.
+
+The test teams have been validating with 144Hz so far so we are checking 
+internally with the team whether its OKAY to goto 60Hz now since that 
+kind of invalidates the testing they have been doing.
+
+Will update this thread once we finalize.
+
+
+> ---
+> 
+>   drivers/gpu/drm/drm_edid.c | 3 +++
+>   1 file changed, 3 insertions(+)
+> 
+> diff --git a/drivers/gpu/drm/drm_edid.c b/drivers/gpu/drm/drm_edid.c
+> index bbc25e3b7220..06ff8ba216af 100644
+> --- a/drivers/gpu/drm/drm_edid.c
+> +++ b/drivers/gpu/drm/drm_edid.c
+> @@ -160,6 +160,9 @@ static const struct edid_quirk {
+>   	EDID_QUIRK('S', 'A', 'M', 596, EDID_QUIRK_PREFER_LARGE_60),
+>   	EDID_QUIRK('S', 'A', 'M', 638, EDID_QUIRK_PREFER_LARGE_60),
+>   
+> +	/* 144 Hz should only be used when needed; it wastes power */
+> +	EDID_QUIRK('S', 'H', 'P', 0x1523, EDID_QUIRK_PREFER_LARGE_60),
+> +
+>   	/* Sony PVM-2541A does up to 12 bpc, but only reports max 8 bpc */
+>   	EDID_QUIRK('S', 'N', 'Y', 0x2541, EDID_QUIRK_FORCE_12BPC),
+>   
