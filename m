@@ -2,66 +2,65 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6747257D803
-	for <lists+freedreno@lfdr.de>; Fri, 22 Jul 2022 03:29:05 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8808D57E3BD
+	for <lists+freedreno@lfdr.de>; Fri, 22 Jul 2022 17:27:45 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F3D0C14BD7B;
-	Fri, 22 Jul 2022 01:29:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1A9C78B047;
+	Fri, 22 Jul 2022 15:27:44 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ej1-x62c.google.com (mail-ej1-x62c.google.com
- [IPv6:2a00:1450:4864:20::62c])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 58A6A14A358
- for <freedreno@lists.freedesktop.org>; Fri, 22 Jul 2022 01:29:02 +0000 (UTC)
-Received: by mail-ej1-x62c.google.com with SMTP id os14so6128090ejb.4
- for <freedreno@lists.freedesktop.org>; Thu, 21 Jul 2022 18:29:02 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
+Received: from mail-wr1-x42a.google.com (mail-wr1-x42a.google.com
+ [IPv6:2a00:1450:4864:20::42a])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0AFC08B047;
+ Fri, 22 Jul 2022 15:27:43 +0000 (UTC)
+Received: by mail-wr1-x42a.google.com with SMTP id d8so6955989wrp.6;
+ Fri, 22 Jul 2022 08:27:42 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=SVPqfwH/07HlNOv2TRkPmLswn/QUPlQGAJ5mgKuBLO4=;
- b=MFIlp/LiIilyP6VUEC691FGgrKDYwLe0ZTn31yUfuKe208ESUqpgsUsgzvHrgZXuho
- CpRTNoUgxieKQSsv3drg4QbWVAb4S1/EUdYV3IRzwlqztu3dG35B1B1M3F/imiT3P5Am
- 7L80f1thRVsnKNVab/YwGzlYyexpswU1yBHkc=
+ :cc; bh=91TgSgSA/YJ92ess13xjquT9UadVbNK7ich3jTvC5qI=;
+ b=k/TFir2d6KAVi3xNxGUZuwCh/ybufbrNaeiH3SeOXE+3Cj6IUDA0NhAjhrSsJOPn8V
+ WFM1U/tGr+K90lpQ+BiLn9ciICmiGj+8hT2H9d67MEfZgGHXvfxKJlwP4xW/EVhHjfJ+
+ UaxibEcgJ/3Yj5dxKkcD+oTXGzWRJMKJPyEXQc88EIJGJc2V366zNJ6XXxKxId/snIUQ
+ j8gXQi9CCaTu1exkGoZRw5cpQxmhjHBdG82ie8fthDyijBDdSM8HBTVoud6O23HMLJm8
+ hEN53vuJ0zAIxgkyq2d0UDgH2RqtMHaUIR8LNTLACioSRku209F4g4t9PNX8fFF/9RpU
+ x8SA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=SVPqfwH/07HlNOv2TRkPmLswn/QUPlQGAJ5mgKuBLO4=;
- b=kPPwDO0jemqjT9F4bKVwOFgE/V6n9i5UTy2OUiiJ/nIm543NYrgDOvL5OogmIhZCtC
- dJ2JqutK8nvLHExMzH20mwo3BFx/Tp7QsiE/Tda6oh4WQYrZLL9VFZ6yB9t9M9sX5Q8C
- o8nYwA6Qhgi0K08ZO3N9OOUdrPQQKj6QwisFuBei7LX/Yih2W7S3MiTITEf3ivIEK4Kl
- GpJybISC4jCuycrgFzacbPV38EW81PVBQbyxC1G+8O2nQC33bdmgaSTviQAjcOlfJ8KZ
- 9/SpC0nKfunj/es3Va0Ubkc8N/x0fwOv6bQJukGOOzJjZyk0nG4yVHPH4cLTd3cPUfFI
- maGw==
-X-Gm-Message-State: AJIora9GbvHua6dgz8KJ+4QnQGk8jvgAO7BdU9Ohlg8VnyqL3jLqgPDs
- VE1jWN1wQQ/xaeqU72ItpKkNms/uiF2L7cVLXbU=
-X-Google-Smtp-Source: AGRyM1ut162yfCf9G+zqRvRTjpapaz99Beus3eXhY8NaD09QUmUjPSE1fMBuUQmfWe4aW1yyUs4+UQ==
-X-Received: by 2002:a17:907:7e87:b0:72b:4af3:bf57 with SMTP id
- qb7-20020a1709077e8700b0072b4af3bf57mr1104444ejc.9.1658453340696; 
- Thu, 21 Jul 2022 18:29:00 -0700 (PDT)
-Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com.
- [209.85.128.45]) by smtp.gmail.com with ESMTPSA id
- kx20-20020a170907775400b0072aa014e852sm1409157ejc.87.2022.07.21.18.28.55
- for <freedreno@lists.freedesktop.org>
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 21 Jul 2022 18:28:58 -0700 (PDT)
-Received: by mail-wm1-f45.google.com with SMTP id a11so1958266wmq.3
- for <freedreno@lists.freedesktop.org>; Thu, 21 Jul 2022 18:28:55 -0700 (PDT)
-X-Received: by 2002:a05:600c:4e86:b0:3a3:2edc:bcb4 with SMTP id
- f6-20020a05600c4e8600b003a32edcbcb4mr5596548wmq.85.1658453335156; Thu, 21 Jul
- 2022 18:28:55 -0700 (PDT)
+ bh=91TgSgSA/YJ92ess13xjquT9UadVbNK7ich3jTvC5qI=;
+ b=Et0iqlwZYb/w02TxcLSpi4IhZVqu0jNSyjusaDhh63NPk93pgDgTTb7EyVTDbKdIvB
+ KdAvgovKNqYjeUn3ElhjXNr485XlIKmxXy13Ifz3khrx5y1RfqR5xqr5C8p9GooTSmvH
+ RtP1miBDZJe86qf6yExPbFZxC9eV5le1KeNMKk0LgLnlwFTNQhWUIUneDyXsCwx7rfLF
+ 9WffeSbVcotrvE1yPddKlvtUx5yXUsbxBIo7PffMHAO6hEeXx0HuSnjHGeHkgSy1UNjP
+ WVGJYbIPXsM2XHQSOEASDBmaWUY93RPbTkZOwNleFmkTTl4am608qdTOOFfmXScj8UMG
+ c6Eg==
+X-Gm-Message-State: AJIora/qmKuMY9S/32MkD6v//W3jv0+vIIo6dB+895FCM7bSOVPt0PJN
+ WiAAizJGiVzVEMvcBj7kFJtC5jWCAXlBUNcGxzk=
+X-Google-Smtp-Source: AGRyM1t/dc5V3tlwl/q7T8kwCuJ7BkOWFAp3DDWr7S604HLVvUwtxwwAR54eidgUx5YB6yIo4YaTjmqjVK/7CXLbmNU=
+X-Received: by 2002:a05:6000:18a3:b0:21d:c651:4de7 with SMTP id
+ b3-20020a05600018a300b0021dc6514de7mr288256wri.679.1658503661395; Fri, 22 Jul
+ 2022 08:27:41 -0700 (PDT)
 MIME-Version: 1.0
-References: <1657038556-2231-1-git-send-email-quic_khsieh@quicinc.com>
- <YtkrDcjTGhpaU1e0@hovoldconsulting.com> <Ytk2dxEC2n/ffNpD@sirena.org.uk>
- <CAD=FV=UQGXqVkew544f3RDtWb3virRHWiafBAxK3ncb5wmVYwQ@mail.gmail.com>
- <CAD=FV=WuyKAwLwJ80uv15jBPO=W9F7FGZ4dAci+CncwF0WPfOw@mail.gmail.com>
-In-Reply-To: <CAD=FV=WuyKAwLwJ80uv15jBPO=W9F7FGZ4dAci+CncwF0WPfOw@mail.gmail.com>
-From: Doug Anderson <dianders@chromium.org>
-Date: Thu, 21 Jul 2022 18:28:40 -0700
-X-Gmail-Original-Message-ID: <CAD=FV=XVxhZwJFmOAg2v1UmfOt9_HWz0LG8M3wac+RkMPGOwYg@mail.gmail.com>
-Message-ID: <CAD=FV=XVxhZwJFmOAg2v1UmfOt9_HWz0LG8M3wac+RkMPGOwYg@mail.gmail.com>
-To: Mark Brown <broonie@kernel.org>
+References: <1657346375-1461-1-git-send-email-quic_akhilpo@quicinc.com>
+ <20220709112837.v2.5.I7291c830ace04fce07e6bd95a11de4ba91410f7b@changeid>
+ <CAD=FV=XzvcjS51q78BZ=FPCEVUDMD+VKJ70ksCm5V4qwHN_wRg@mail.gmail.com>
+ <c022538d-c616-8f1a-e1c2-c11b5f0de670@quicinc.com>
+ <e4dcdd8d-18a9-8da3-7ac3-6cc792139f70@quicinc.com>
+ <CAE-0n52TG3hsytN5nRU7W=S6PffSj8yQDmuicN0-qxoW-jxiZQ@mail.gmail.com>
+ <0c050434-27ca-1099-d93d-8ad6ace3396e@quicinc.com>
+ <CAE-0n53J=dADDTrydVuNZzw38dW_-+Baf8cfn0Q6DSVX_6cLNg@mail.gmail.com>
+ <b6ab023b-601d-1df2-b04b-af5961b73bea@quicinc.com>
+ <698d3279-6a02-9b1e-a3bd-627b6afbc57e@quicinc.com>
+ <1e39d008-f8e5-eea5-90f4-78293bf2c580@quicinc.com>
+In-Reply-To: <1e39d008-f8e5-eea5-90f4-78293bf2c580@quicinc.com>
+From: Rob Clark <robdclark@gmail.com>
+Date: Fri, 22 Jul 2022 08:28:03 -0700
+Message-ID: <CAF6AEGsSfB6wY6mxhxO6H0h0OxiSn8yw5WuKJ-v-U9i9mn8AEw@mail.gmail.com>
+To: Akhil P Oommen <quic_akhilpo@quicinc.com>
 Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [PATCH v16 0/3] eDP/DP Phy vdda realted function
+Subject: Re: [Freedreno] [PATCH v2 5/7] arm64: dts: qcom: sc7280: Update gpu
+ register list
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,59 +73,105 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sankeerth Billakanti <quic_sbillaka@quicinc.com>,
- David Airlie <airlied@linux.ie>, dri-devel <dri-devel@lists.freedesktop.org>,
- Bjorn Andersson <bjorn.andersson@linaro.org>,
- Manivannan Sadhasivam <manivannan.sadhasivam@linaro.org>,
- Johan Hovold <johan@kernel.org>,
- "Aravind Venkateswaran \(QUIC\)" <quic_aravindh@quicinc.com>,
- Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
- Kuogee Hsieh <quic_khsieh@quicinc.com>, Andy Gross <agross@kernel.org>,
- Rob Clark <robdclark@gmail.com>, linux-arm-msm <linux-arm-msm@vger.kernel.org>,
- "Abhinav Kumar \(QUIC\)" <quic_abhinavk@quicinc.com>,
- Stephen Boyd <swboyd@chromium.org>, Sean Paul <sean@poorly.run>,
- Liam Girdwood <lgirdwood@gmail.com>, LKML <linux-kernel@vger.kernel.org>,
- Vinod Koul <vkoul@kernel.org>, Daniel Vetter <daniel@ffwll.ch>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- freedreno <freedreno@lists.freedesktop.org>
+Cc: "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
+ <devicetree@vger.kernel.org>, Jonathan Marek <jonathan@marek.ca>,
+ linux-arm-msm <linux-arm-msm@vger.kernel.org>,
+ Jordan Crouse <jordan@cosmicpenguin.net>,
+ Doug Anderson <dianders@chromium.org>,
+ dri-devel <dri-devel@lists.freedesktop.org>,
+ Bjorn Andersson <bjorn.andersson@linaro.org>, Rob Herring <robh+dt@kernel.org>,
+ Taniya Das <quic_tdas@quicinc.com>, Andy Gross <agross@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Rajendra Nayak <quic_rjendra@quicinc.com>, Stephen Boyd <swboyd@chromium.org>,
+ freedreno <freedreno@lists.freedesktop.org>,
+ Matthias Kaehlcke <mka@chromium.org>, LKML <linux-kernel@vger.kernel.org>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Hi,
-
-On Thu, Jul 21, 2022 at 7:52 AM Doug Anderson <dianders@chromium.org> wrote:
+On Thu, Jul 21, 2022 at 9:04 AM Akhil P Oommen <quic_akhilpo@quicinc.com> wrote:
 >
-> Hi,
+> On 7/20/2022 11:34 AM, Akhil P Oommen wrote:
+> > On 7/19/2022 3:26 PM, Rajendra Nayak wrote:
+> >>
+> >>
+> >> On 7/19/2022 12:49 PM, Stephen Boyd wrote:
+> >>> Quoting Akhil P Oommen (2022-07-18 23:37:16)
+> >>>> On 7/19/2022 11:19 AM, Stephen Boyd wrote:
+> >>>>> Quoting Akhil P Oommen (2022-07-18 21:07:05)
+> >>>>>> On 7/14/2022 11:10 AM, Akhil P Oommen wrote:
+> >>>>>>> IIUC, qcom gdsc driver doesn't ensure hardware is collapsed
+> >>>>>>> since they
+> >>>>>>> are vote-able switches. Ideally, we should ensure that the hw has
+> >>>>>>> collapsed for gpu recovery because there could be transient
+> >>>>>>> votes from
+> >>>>>>> other subsystems like hypervisor using their vote register.
+> >>>>>>>
+> >>>>>>> I am not sure how complex the plumbing to gpucc driver would be
+> >>>>>>> to allow
+> >>>>>>> gpu driver to check hw status. OTOH, with this patch, gpu driver
+> >>>>>>> does a
+> >>>>>>> read operation on a gpucc register which is in always-on domain.
+> >>>>>>> That
+> >>>>>>> means we don't need to vote any resource to access this register.
+> >>>
+> >>> Reading between the lines here, you're saying that you have to read the
+> >>> gdsc register to make sure that the gdsc is in some state? Can you
+> >>> clarify exactly what you're doing? And how do you know that something
+> >>> else in the kernel can't cause the register to change after it is read?
+> >>> It certainly seems like we can't be certain because there is voting
+> >>> involved.
+> > From gpu driver, cx_gdscr.bit[31] (power off status) register can be
+> > polled to ensure that it *collapsed at least once*. We don't need to
+> > care if something turns ON gdsc after that.
+> >
+> >>
+> >> yes, this looks like the best case effort to get the gpu to recover, but
+> >> the kernel driver really has no control to make sure this condition can
+> >> always be met (because it depends on other entities like hyp,
+> >> trustzone etc right?)
+> >> Why not just put a worst case polling delay?
+> >
+> > I didn't get you entirely. Where do you mean to keep the polling delay?
+> >>
+> >>>
+> >>>>>>>
+> >>>>>>> Stephen/Rajendra/Taniya, any suggestion?
+> >>>>> Why can't you assert a gpu reset signal with the reset APIs? This
+> >>>>> series
+> >>>>> seems to jump through a bunch of hoops to get the gdsc and power
+> >>>>> domain
+> >>>>> to "reset" when I don't know why any of that is necessary. Can't we
+> >>>>> simply assert a reset to the hardware after recovery completes so the
+> >>>>> device is back into a good known POR (power on reset) state?
+> >>>> That is because there is no register interface to reset GPU CX domain.
+> >>>> The recommended sequence from HW design folks is to collapse both
+> >>>> cx and
+> >>>> gx gdsc to properly reset gpu/gmu.
+> >>>>
+> >>>
+> >>> Ok. One knee jerk reaction is to treat the gdsc as a reset then and
+> >>> possibly mux that request along with any power domain on/off so that if
+> >>> the reset is requested and the power domain is off nothing happens.
+> >>> Otherwise if the power domain is on then it manually sequences and
+> >>> controls the two gdscs so that the GPU is reset and then restores the
+> >>> enable state of the power domain.
+> > It would be fatal to asynchronously pull the plug on CX gdsc
+> > forcefully because there might be another gpu/smmu driver thread
+> > accessing registers in cx domain.
+> >
+> > -Akhil.
+> >
+> But, we can move the cx collapse polling to gpucc and expose it to gpu
+> driver using 'reset' framework. I am not very familiar with clk driver,
+> but I did a rough prototype here (untested):
+> https://zerobin.net/?d34b5f958be3b9b8#NKGzdPy9fgcuOqXZ/XqjI7b8JWcivqe+oSTf4yWHSOU=
 >
-> On Thu, Jul 21, 2022 at 7:39 AM Doug Anderson <dianders@chromium.org> wrote:
-> >
-> > > You could add a way to specify constant base loads in DT on either a per
-> > > regulator or per consumer basis.
-> >
-> > Yes, this please! ...on a per consumer basis. :-) It's been on my
-> > wishlist for a while and would eliminate a massive amount of code /
-> > tables in the drivers.
-> >
-> > We could debate syntax, but I guess you'd either do it w/ two cells
-> >
-> > vdda-phy-supply = <&vdda_mipi_dsi0_1p2 21800>;
-> >
-> > ...or with matching properties:
-> >
-> > vdda-phy-supply = <&vdda_mipi_dsi0_1p2>;
-> > vdda-phy-supply-base-load = <21800>;
+> If this approach is acceptable, I will send it out as a separate series.
 >
-> Ah, sorry to respond to my own thread so quickly, but I just thought
-> of a reason for the "matching properties" solution instead of the two
-> cells. It would allow the SoC "dtsi" file to specify a base load while
-> the board "dts" file can then specify the supply. That feels like it
-> could be a nice solution.
 
-This seemed easy, so I whipped up a quick prototype. Forewarned that I
-did very little detailed testing. I didn't CC everyone on this thread,
-but hopefully folks can find it if they are interested...
+I'm not super familiar w/ reset framework, but this approach seems
+like it would avoid needing to play games with working around runpm as
+well.  So that seems like a cleaner approach.
 
-https://lore.kernel.org/r/20220721182622.RFC.1.I8a64b707169cfd73d9309c5eaf5d43b8bc4db988@changeid
-
--Doug
+BR,
+-R
