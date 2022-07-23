@@ -1,59 +1,76 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id D61AF57E5B6
-	for <lists+freedreno@lfdr.de>; Fri, 22 Jul 2022 19:36:35 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 2FDE757F1CD
+	for <lists+freedreno@lfdr.de>; Sat, 23 Jul 2022 23:46:15 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 31B4D10E59C;
-	Fri, 22 Jul 2022 17:36:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 401BC10FABD;
+	Sat, 23 Jul 2022 21:46:12 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wm1-x335.google.com (mail-wm1-x335.google.com
- [IPv6:2a00:1450:4864:20::335])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0414911A8AB;
- Fri, 22 Jul 2022 17:36:23 +0000 (UTC)
-Received: by mail-wm1-x335.google.com with SMTP id
- a18-20020a05600c349200b003a30de68697so5406424wmq.0; 
- Fri, 22 Jul 2022 10:36:23 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=yGBGk+p2EktzA+zS1mnmSkS2k1FkCaq2TcgNmtHB9w8=;
- b=AuiC7D3WaG23z3SLsy5dE+QMQxe+snbzEWYetJrnDWtIk5JkMaBzzb+1XmGz/7npeJ
- prALpI+A0WrXNqQ+ZPXUQxR2/OttVmzrZN8/rQcazbGWI2uVfqAAN2ELkjiPt5lIwNLh
- jqQoZAjQ1N5+bwAF90E/3eLtTEAb+zMDiqqv0knOHSmuH9tLjhMcuDYYcDbWKtZCZ1d2
- KjwZJOyABGNRkacHxap052MwJCkVrWYekdQz/hStIgdovBy7JMUqJEbOtvj0k+ZJeRjo
- nva1EScC/2J+fRygysf7Z1Kf8dNcietJ9qXqcBUFv0Dph+lQvORTcFYX7w66YyrWpzBk
- TL2g==
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3F2D1ADF82
+ for <freedreno@lists.freedesktop.org>; Sat, 23 Jul 2022 21:09:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1658610540;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=9KeV3b2L++kC1oJ9l6Py5QcKGf/q+aaG3Cox8NYOjJ4=;
+ b=cRJ8uGXjr9x36CypX28R0hjUOBQVbmcE9UI+4SiMNyAllP4qacOToqxe5h3dq0xCwivZSb
+ LIVgAIsGlrgUKla/gqEYdCxBtEtvklmy1wEO85kzAErIkUF+g+NIzupJZVHymb2OEb8z5J
+ u4b5OFsBqp7skuZ0EgDC9ofEdSH0jNY=
+Received: from mail-wm1-f71.google.com (mail-wm1-f71.google.com
+ [209.85.128.71]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-156-0VnCW8eBMIqSDC0-gMTf6g-1; Sat, 23 Jul 2022 17:08:59 -0400
+X-MC-Unique: 0VnCW8eBMIqSDC0-gMTf6g-1
+Received: by mail-wm1-f71.google.com with SMTP id
+ i133-20020a1c3b8b000000b003a2fe4c345cso2687381wma.0
+ for <freedreno@lists.freedesktop.org>; Sat, 23 Jul 2022 14:08:58 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=yGBGk+p2EktzA+zS1mnmSkS2k1FkCaq2TcgNmtHB9w8=;
- b=E1RRct55iafbd8WNT8tGdJeHb2eGiXxLH7RQHQB0wYnWZd/RkcsekGyt9/N9aqD28O
- Adg/XL0KqWAGNGKpfmw4InmGp/kNDwIdfL8a71RDsAE+rRlY+qxOxeFXoVtS6OFerGQD
- qjcxDbzP6dFsj9e8dpHK2EOjRz13j+DIBTuVlF55wI9id1D2lccNAFUFW4AuDWZwAt/J
- 8HCvbbdIhjAy2z21VUQwBtGlqfde8eOMleEq39oEEoqQjiU8/ZVdcLu+PELkyTSSPzfx
- 3+cERGJaVkTzPLttt75NHjcL9QW4WMhUhKaeGKLdsXVYev8X3BwI8srXSUAFtX0I73xi
- 4WKQ==
-X-Gm-Message-State: AJIora8vksff/R1TuOTZQHn/04tmn/ZZnyvhQr2+hYbAjrQBIP51Laj1
- 4aFetGqtC5XpqqurxQ8iW5d6Qxh8Lsaq61TXN1s=
-X-Google-Smtp-Source: AGRyM1u39p8LsNLN5QDBQqApbbnXq6QehY4cZtGOoda3GVQm5WQIb47ThAB08yL1BKFo1IzMvE0TGABxt/gg8mQM5u0=
-X-Received: by 2002:a05:600c:3510:b0:3a3:34e7:cfc8 with SMTP id
- h16-20020a05600c351000b003a334e7cfc8mr6773219wmq.164.1658511382374; Fri, 22
- Jul 2022 10:36:22 -0700 (PDT)
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=9KeV3b2L++kC1oJ9l6Py5QcKGf/q+aaG3Cox8NYOjJ4=;
+ b=kF6M9+PynUgmmlbk53uMlH3pko17vucUvG+PD3cCJVxCL3hOu0t5wuJ3Gvp2KJoV4b
+ Vl9TiOaJzEGRpp8BJT+86lEcjY88vjgu3pEa7h33dvWwYkF0K/9KBlKUTfQLvInBs740
+ +2wV0JoS2zwcabpRb4t3vS9Unuue8EyymsEhC5EE6SSir6w9fRAYN5+VOTUlWAcX0DXy
+ 40j6m07zr0IRP3ZVxJcGp3WGpuD8tAXHGzgf4AvmF4H+FEVP3XEGuxLg+Br0XgnBnnxT
+ RRB1OjuwTuKr1LjQ9W7sH0OVojHpyGLQ7I+8gc652+EvqS5F+OEriIyZmJcCBOLCKzxx
+ 0Kuw==
+X-Gm-Message-State: AJIora8O3sC93yJJD/AAnWHMQNCPHv6Pent0/9njNcvvjaV8KEoEMQnD
+ 3KMfJt8YOhS/7WW+v7bKSA7iI6ts5QOqnD9MihenPcfvf/NHbftCmxOkqVflPkQ9vKBo+3Mpthl
+ hAWW8Tba1RS0Oi8Rt6RWTvIjfLf4x
+X-Received: by 2002:adf:f90f:0:b0:21e:7e3d:6af6 with SMTP id
+ b15-20020adff90f000000b0021e7e3d6af6mr1780658wrr.183.1658610537957; 
+ Sat, 23 Jul 2022 14:08:57 -0700 (PDT)
+X-Google-Smtp-Source: AGRyM1tScx1EViU35wGKRbd11AAdwaQ2ZMMsBGJoIAt1Cxrb2NeGSD2oe3BbzTHgx6jv08s5IYWO2Q==
+X-Received: by 2002:adf:f90f:0:b0:21e:7e3d:6af6 with SMTP id
+ b15-20020adff90f000000b0021e7e3d6af6mr1780646wrr.183.1658610537607; 
+ Sat, 23 Jul 2022 14:08:57 -0700 (PDT)
+Received: from minerva.home (205.pool92-176-231.dynamic.orange.es.
+ [92.176.231.205]) by smtp.gmail.com with ESMTPSA id
+ j14-20020adfd20e000000b0021e40019ae7sm7643643wrh.48.2022.07.23.14.08.55
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sat, 23 Jul 2022 14:08:57 -0700 (PDT)
+From: Javier Martinez Canillas <javierm@redhat.com>
+To: linux-kernel@vger.kernel.org
+Date: Sat, 23 Jul 2022 23:08:25 +0200
+Message-Id: <20220723210825.564922-1-javierm@redhat.com>
+X-Mailer: git-send-email 2.37.1
 MIME-Version: 1.0
-References: <20220721152314.RFC.1.Ie333b3e4aff6e4a5b58c4aa805e030e561be8773@changeid>
- <269f2610-425b-f296-dcfc-89bdc2e1d587@quicinc.com>
- <CAD=FV=XSVXasU5PMR2kL0WQjQ458xDePuTGd1m14_v9JO5B6oA@mail.gmail.com>
-In-Reply-To: <CAD=FV=XSVXasU5PMR2kL0WQjQ458xDePuTGd1m14_v9JO5B6oA@mail.gmail.com>
-From: Rob Clark <robdclark@gmail.com>
-Date: Fri, 22 Jul 2022 10:36:44 -0700
-Message-ID: <CAF6AEGv_Vikf80v-7ccz90fvGPrk5pV1tOxRoWKxKHYuEW8=aA@mail.gmail.com>
-To: Doug Anderson <dianders@chromium.org>
-Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [RFC PATCH] drm/edid: Make 144 Hz not preferred on
- Sharp LQ140M1JW46
+Authentication-Results: relay.mimecast.com;
+ auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=javierm@redhat.com
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="US-ASCII"; x-default=true
+X-Mailman-Approved-At: Sat, 23 Jul 2022 21:46:11 +0000
+Subject: [Freedreno] [PATCH] drm/msm: Make .remove and .shutdown HW shutdown
+ consistent
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,93 +83,105 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sankeerth Billakanti <quic_sbillaka@quicinc.com>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@linux.ie>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- dri-devel <dri-devel@lists.freedesktop.org>,
- LKML <linux-kernel@vger.kernel.org>, Maxime Ripard <mripard@kernel.org>,
- Daniel Vetter <daniel@ffwll.ch>, freedreno <freedreno@lists.freedesktop.org>
+Cc: David Airlie <airlied@linux.ie>, freedreno@lists.freedesktop.org,
+ Javier Martinez Canillas <javierm@redhat.com>, dri-devel@lists.freedesktop.org,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, Rob Clark <robdclark@gmail.com>,
+ Daniel Vetter <daniel@ffwll.ch>, linux-arm-msm@vger.kernel.org,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Fri, Jul 22, 2022 at 9:48 AM Doug Anderson <dianders@chromium.org> wrote:
->
-> Hi,
->
-> On Fri, Jul 22, 2022 at 9:37 AM Abhinav Kumar <quic_abhinavk@quicinc.com> wrote:
-> >
-> > + sankeerth
-> >
-> > Hi Doug
-> >
-> > On 7/21/2022 3:23 PM, Douglas Anderson wrote:
-> > > The Sharp LQ140M1JW46 panel is on the Qualcomm sc7280 CRD reference
-> > > board. This panel supports 144 Hz and 60 Hz. In the EDID, the 144 Hz
-> > > mode is listed first and thus is marked preferred. The EDID decode I
-> > > ran says:
-> > >
-> > >    First detailed timing includes the native pixel format and preferred
-> > >    refresh rate.
-> > >
-> > >    ...
-> > >
-> > >    Detailed Timing Descriptors:
-> > >      DTD 1:  1920x1080  143.981 Hz  16:9   166.587 kHz  346.500 MHz
-> > >                   Hfront   48 Hsync  32 Hback  80 Hpol N
-> > >                   Vfront    3 Vsync   5 Vback  69 Vpol N
-> > >      DTD 2:  1920x1080   59.990 Hz  16:9    69.409 kHz  144.370 MHz
-> > >                   Hfront   48 Hsync  32 Hback  80 Hpol N
-> > >                   Vfront    3 Vsync   5 Vback  69 Vpol N
-> > >
-> > > I'm proposing here that the above is actually a bug and that the 60 Hz
-> > > mode really should be considered preferred by Linux.
-> > >
-> > > The argument here is that this is a laptop panel and on a laptop we
-> > > know power will always be a concern. Presumably even if someone using
-> > > this panel wanted to use 144 Hz for some use cases they would only do
-> > > so dynamically and would still want the default to be 60 Hz.
-> > >
-> > > Let's change the default to 60 Hz using a standard quirk.
-> > >
-> > > Signed-off-by: Douglas Anderson <dianders@chromium.org>
-> >
-> > Yes, we were aware that 144Hz was getting picked. We found that while
-> > debugging the screen corruption issue.
-> >
-> > Well, yes power would be less with 60Hz but so will be the performance.
->
-> What performance specifically will be less with 60 Hz? In general the
-> sc7280 CPU is a bit memory-bandwidth constrained and the LCD refresh
-> from memory is a non-trivial part of that. Reducing to 60 Hz will
-> relieve some of the memory bandwidth pressure and will actually allow
-> tasks on the CPU to run _faster_. I guess the downside is that some
-> animations might be a little less smooth...
+Drivers' .remove and .shutdown callbacks are executed on different code
+paths. The former is called when a device is removed from the bus, while
+the latter is called at system shutdown time to quiesce the device.
 
-I guess he is referring to something that is vblank sync'd running
-faster than 60fps.
+This means that some overlap exists between the two, because both have to
+take care of properly shutting down the hardware. But currently the logic
+used in these two callbacks isn't consistent in msm drivers, which could
+lead to kernel oops.
 
-but OTOH it is a bit of a waste for fbcon to be using 144Hz.  And
-there are enough android games that limit themselves to 30fps to save
-your "phone" battery.  So it seems a lot more sane to default to 60Hz
-and let userspace that knows it wants more pick the 144Hz rate when
-needed.
+For example, on .remove the component is deleted and its .unbind callback
+leads to the hardware being shutdown but only if the DRM device has been
+marked as registered.
 
-BR,
--R
+That check doesn't exist in the .shutdown logic and this can lead to the
+driver calling drm_atomic_helper_shutdown() for a DRM device that hasn't
+been properly initialized.
 
->
->
-> > The test teams have been validating with 144Hz so far so we are checking
-> > internally with the team whether its OKAY to goto 60Hz now since that
-> > kind of invalidates the testing they have been doing.
->
-> You're worried that the panel itself won't work well at 60 Hz, or
-> something else about the system won't? The whole system in general
-> needs to work well with 60 Hz displays and I expect them to be much
-> more common than 144 Hz displays. Quite honestly if switching to 60 Hz
-> uncovers a problem that would be a huge benefit of landing this patch
-> because it would mean we'd find it now rather than down the road when
-> someone hooks up a different panel.
->
-> -Doug
+A situation when this can happen is when a driver for an expected device
+fails to probe, since the .bind callback will never be executed.
+
+This bug was attempted to be fixed in commit 623f279c7781 ("drm/msm: fix
+shutdown hook in case GPU components failed to bind"), but unfortunately
+it still happens in some cases.
+
+Rather than trying to keep fixing in both places, let's unify in a single
+helper function that could be used for the two callbacks.
+
+Signed-off-by: Javier Martinez Canillas <javierm@redhat.com>
+---
+
+ drivers/gpu/drm/msm/msm_drv.c | 31 +++++++++++++++++--------------
+ 1 file changed, 17 insertions(+), 14 deletions(-)
+
+diff --git a/drivers/gpu/drm/msm/msm_drv.c b/drivers/gpu/drm/msm/msm_drv.c
+index 1ed4cd09dbf8..669891bd6f09 100644
+--- a/drivers/gpu/drm/msm/msm_drv.c
++++ b/drivers/gpu/drm/msm/msm_drv.c
+@@ -190,14 +190,8 @@ static int vblank_ctrl_queue_work(struct msm_drm_private *priv,
+ 	return 0;
+ }
+ 
+-static int msm_drm_uninit(struct device *dev)
++static void msm_shutdown_hw(struct drm_device *dev)
+ {
+-	struct platform_device *pdev = to_platform_device(dev);
+-	struct msm_drm_private *priv = platform_get_drvdata(pdev);
+-	struct drm_device *ddev = priv->dev;
+-	struct msm_kms *kms = priv->kms;
+-	int i;
+-
+ 	/*
+ 	 * Shutdown the hw if we're far enough along where things might be on.
+ 	 * If we run this too early, we'll end up panicking in any variety of
+@@ -205,10 +199,21 @@ static int msm_drm_uninit(struct device *dev)
+ 	 * msm_drm_init, drm_dev->registered is used as an indicator that the
+ 	 * shutdown will be successful.
+ 	 */
+-	if (ddev->registered) {
++	if (dev->registered)
++		drm_atomic_helper_shutdown(dev);
++}
++
++static int msm_drm_uninit(struct device *dev)
++{
++	struct platform_device *pdev = to_platform_device(dev);
++	struct msm_drm_private *priv = platform_get_drvdata(pdev);
++	struct drm_device *ddev = priv->dev;
++	struct msm_kms *kms = priv->kms;
++	int i;
++
++	if (ddev->registered)
+ 		drm_dev_unregister(ddev);
+-		drm_atomic_helper_shutdown(ddev);
+-	}
++	msm_shutdown_hw(ddev);
+ 
+ 	/* We must cancel and cleanup any pending vblank enable/disable
+ 	 * work before msm_irq_uninstall() to avoid work re-enabling an
+@@ -1242,10 +1247,8 @@ void msm_drv_shutdown(struct platform_device *pdev)
+ 	struct msm_drm_private *priv = platform_get_drvdata(pdev);
+ 	struct drm_device *drm = priv ? priv->dev : NULL;
+ 
+-	if (!priv || !priv->kms)
+-		return;
+-
+-	drm_atomic_helper_shutdown(drm);
++	if (drm)
++		msm_shutdown_hw(drm);
+ }
+ 
+ static struct platform_driver msm_platform_driver = {
+-- 
+2.37.1
+
