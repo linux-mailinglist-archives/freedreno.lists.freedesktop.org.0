@@ -2,42 +2,39 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 963DD595E8E
-	for <lists+freedreno@lfdr.de>; Tue, 16 Aug 2022 16:49:43 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 50EAC595E8F
+	for <lists+freedreno@lfdr.de>; Tue, 16 Aug 2022 16:49:47 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 22B58973A8;
-	Tue, 16 Aug 2022 14:49:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5A0B9A9AA1;
+	Tue, 16 Aug 2022 14:49:45 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from smtpbg.qq.com (biz-43-154-221-58.mail.qq.com [43.154.221.58])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6EA98BEF5F;
- Sun, 24 Jul 2022 07:37:15 +0000 (UTC)
-X-QQ-mid: bizesmtp80t1658648218tccj66q4
-Received: from localhost.localdomain ( [125.70.163.183])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 73DA31123A3;
+ Sun, 24 Jul 2022 12:53:52 +0000 (UTC)
+X-QQ-mid: bizesmtp86t1658667219tiqqdwip
+Received: from localhost.localdomain ( [171.223.97.251])
  by bizesmtp.qq.com (ESMTP) with 
- id ; Sun, 24 Jul 2022 15:36:56 +0800 (CST)
-X-QQ-SSF: 01000000002000007000B00A0000000
-X-QQ-FEAT: 7jw2iSiCazoMav4Yzpx3ytw6EPmuPE4/jr5WrcEa/tATwFc9DCuRRags72aEm
- Ni4wJKPcbIzFuMp9rzpXMacoJrYGVH3rW/3F0kQ+/mgtJPAL1MOL57hrgwv4ZYZwPYfiCKM
- T8rwhYhM+7rwqqgy4cydyqW+VX6w8F+YgXIqnqrnd/Hona7FX0NSw0M9BTWNDtHPcHIFDxt
- t6zCE2HGk0bQZpekv88T2NWDfoI3fA6ghFcYA3yw2VKGa+FQLXPzPdHArsm6u0peE4dH+mU
- mNDfJblYFIwudRKXCOxpcsmC+QEaXdpRsLPfUTueF9Gl+Bf6jRTEKRUN8WIOxNA5vZebPeA
- 4qqWGSF2YQnpSWSaPpaRc6Nlk/HI8E37yaR3YjmVD4lGMyMXuJ88gYJ3udjHQ==
+ id ; Sun, 24 Jul 2022 20:53:37 +0800 (CST)
+X-QQ-SSF: 01000000002000F0U000B00A0000000
+X-QQ-FEAT: RrZlkntZBflKcuY8rrgOtE6VDI+adS2tmGpOUI5TaU9rC6YaVQCXtBpTxBiDD
+ w/Tu1RgqOoKHEX2qqZGRqWAw0LKbxyzhsG9oW+KkLDWgYINr33l572bzy+wU7mdQdzHeY8U
+ qQe4xOhQ9A8iGRjzbufEFp01vo8aCb9pXyyviQfM79ZfpyvxGyNG+9w96D8SLtu6wicASts
+ phknQuDRPu5AyKs7BrJvKlKvpasIkXiyYpo0b3Ve+SqxJ3/upzksCZkAb+moGdJIRti4aLD
+ ROfi2F5VcHDiz71+BpqVkQwjZI/vzDr/JypXAVwQ9MWNE8+bRNSU2j/dYzTtXsVYOPMZhpH
+ f5bGHj8orl0TIOEMOxBGANgMBDw8X5vsd6fwzkJmzFOHEpZs216OoB9gFI17Gy/vDtl7AOi
 X-QQ-GoodBg: 0
-From: wangjianli <wangjianli@cdjrlc.com>
-To: robdclark@gmail.com, quic_abhinavk@quicinc.com,
- dmitry.baryshkov@linaro.org, sean@poorly.run, airlied@linux.ie,
- daniel@ffwll.ch, wangqing@vivo.com, dan.carpenter@oracle.com,
- bjorn.andersson@linaro.org
-Date: Sun, 24 Jul 2022 15:36:50 +0800
-Message-Id: <20220724073650.16460-1-wangjianli@cdjrlc.com>
-X-Mailer: git-send-email 2.36.1
+From: Jason Wang <wangborong@cdjrlc.com>
+To: quic_abhinavk@quicinc.com
+Date: Mon, 25 Jul 2022 04:42:42 +0800
+Message-Id: <20220724204242.4107-1-wangborong@cdjrlc.com>
+X-Mailer: git-send-email 2.35.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-QQ-SENDSIZE: 520
-Feedback-ID: bizesmtp:cdjrlc.com:qybglogicsvr:qybglogicsvr7
+Feedback-ID: bizesmtp:cdjrlc.com:qybglogicsvr:qybglogicsvr6
 X-Mailman-Approved-At: Tue, 16 Aug 2022 14:49:33 +0000
-Subject: [Freedreno] [PATCH] msm/adreno: fix repeated words in comments
+Subject: [Freedreno] [PATCH] drm/msm/dpu: Fix comment typo
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -50,32 +47,36 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: wangjianli <wangjianli@cdjrlc.com>, linux-arm-msm@vger.kernel.org,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org
+Cc: quic_kalyant@quicinc.com, freedreno@lists.freedesktop.org, airlied@linux.ie,
+ linux-arm-msm@vger.kernel.org, vkoul@kernel.org,
+ dri-devel@lists.freedesktop.org, bjorn.andersson@linaro.org,
+ robdclark@gmail.com, Jason Wang <wangborong@cdjrlc.com>, daniel@ffwll.ch,
+ dmitry.baryshkov@linaro.org, quic_vpolimer@quicinc.com, sean@poorly.run,
+ linux-kernel@vger.kernel.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
- Delete the redundant word 'in'.
+The double `be' is duplicated in the comment, remove one.
 
-Signed-off-by: wangjianli <wangjianli@cdjrlc.com>
+Signed-off-by: Jason Wang <wangborong@cdjrlc.com>
 ---
- drivers/gpu/drm/msm/adreno/a6xx_gmu.c | 2 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
-index 9f76f5b15759..9303a011b81d 100644
---- a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
-+++ b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
-@@ -1277,7 +1277,7 @@ static int a6xx_gmu_rpmh_arc_votes_init(struct device *dev, u32 *votes,
- 		}
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h
+index 71fe4c505f5b..38aa38ab1568 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h
+@@ -76,7 +76,7 @@ enum {
  
- 		/*
--		 * Look for a level in in the secondary list that matches. If
-+		 * Look for a level in the secondary list that matches. If
- 		 * nothing fits, use the maximum non zero vote
- 		 */
- 
+ /**
+  * MDP TOP BLOCK features
+- * @DPU_MDP_PANIC_PER_PIPE Panic configuration needs to be be done per pipe
++ * @DPU_MDP_PANIC_PER_PIPE Panic configuration needs to be done per pipe
+  * @DPU_MDP_10BIT_SUPPORT, Chipset supports 10 bit pixel formats
+  * @DPU_MDP_BWC,           MDSS HW supports Bandwidth compression.
+  * @DPU_MDP_UBWC_1_0,      This chipsets supports Universal Bandwidth
 -- 
-2.36.1
+2.35.1
+
 
