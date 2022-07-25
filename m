@@ -2,83 +2,73 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8880857F6FA
-	for <lists+freedreno@lfdr.de>; Sun, 24 Jul 2022 22:15:13 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0C24157FA69
+	for <lists+freedreno@lfdr.de>; Mon, 25 Jul 2022 09:43:25 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1B5218A68A;
-	Sun, 24 Jul 2022 20:15:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A8300112E04;
+	Mon, 25 Jul 2022 07:43:23 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B88C68A68A
- for <freedreno@lists.freedesktop.org>; Sun, 24 Jul 2022 20:15:10 +0000 (UTC)
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5B41211294D
+ for <freedreno@lists.freedesktop.org>; Mon, 25 Jul 2022 07:43:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1658693709;
+ s=mimecast20190719; t=1658735001;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=kZz4b5LoajqAvsUTBnBgNSgY5TJeL+gVGY7SLqZJsYs=;
- b=ej/Sypls0XHfg20boaQYadN/uHXn7WC5kk0neiM1xYxYsYI5DeKPwHiijw8sxvzb6287sx
- 9ojrig6iHMpd24xWsitADboSLR7eifS3UEqqf2IT1MUxa3f+75KZ/Tih3PJeMCbk15WwsU
- /rmIB6l/33C8zMB40wmgfAJwLy8Hy/s=
+ content-transfer-encoding:content-transfer-encoding;
+ bh=eq4OL1zxJF2+2fp+Q22O19ixxH9CotH/xfhS3oI2/ds=;
+ b=gorDPpMYhy3AsWqnb/sagCot5wtiypVzVSDXtS6xb3N+w5ty5GIeNLcorLoLiX55buPiUa
+ /vTPP6sRFyhGsFClcZVvGeKKkWQ2TQ3JIa7LDx9QM8hT2t961aayZQE57+amVQNVRWFjCj
+ /Fgq5NHkB+a0bIkUxEi/Y7YlzbNXtGw=
 Received: from mail-wm1-f72.google.com (mail-wm1-f72.google.com
  [209.85.128.72]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-422-yZwYSDo3MhOZJhVS65AuUQ-1; Sun, 24 Jul 2022 16:15:06 -0400
-X-MC-Unique: yZwYSDo3MhOZJhVS65AuUQ-1
+ us-mta-41-ojMKmqqwPOWIsXvA1xhGkg-1; Mon, 25 Jul 2022 03:43:20 -0400
+X-MC-Unique: ojMKmqqwPOWIsXvA1xhGkg-1
 Received: by mail-wm1-f72.google.com with SMTP id
- r9-20020a1c4409000000b003a2fdeea756so4287076wma.2
- for <freedreno@lists.freedesktop.org>; Sun, 24 Jul 2022 13:15:06 -0700 (PDT)
+ v18-20020a05600c215200b003a2fea66b7cso3701426wml.4
+ for <freedreno@lists.freedesktop.org>; Mon, 25 Jul 2022 00:43:20 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
- :content-language:to:cc:references:from:in-reply-to
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
  :content-transfer-encoding;
- bh=kZz4b5LoajqAvsUTBnBgNSgY5TJeL+gVGY7SLqZJsYs=;
- b=uQRBaQJqpNOigbM4W7gPPL9BCIntQHlJ01dPYHngfoV751ZMuQ3Z34ixGQSvJJ6776
- tHXi8nQsgIBfBbXk3sTkwUovU7udJrBCccwBgak811MxupSMBWuMaL9uSuyvlXvM6x2L
- ElfLexKlPFPfz2I4kCYgZW+0CoNR3cXx3GTTb1zH/mbumrArQOWD45qg5TQo8as6QBmM
- E5xtnVmIvbj4XMRhru7CyYf+Bgt3Iio37O6BKTZrP/xHdUYLbID1vGRlGkNpNkQjWfGE
- 8BqoIVfIajtClVNcH9N4o7/hCqcu1QDhTXhq8/Sr+teGC8Sjtn+uJnCtV2GusUaAd44S
- YDAA==
-X-Gm-Message-State: AJIora9e8OlKbPvE27ALOCmy6Ewbm+ris/JPLFCaBrup0fY+VYbKq8X7
- fisn6RoC5KmDBgyatYRiLCM9U8zUcAZ6f72ic3rMbISdEqc1SIy+x0mMzjD+5E43c3BsN53xdqc
- BAyI566bPLoqB/kygxQ1ohYm2Ojt0
-X-Received: by 2002:a05:600c:4e94:b0:3a3:4448:62cc with SMTP id
- f20-20020a05600c4e9400b003a3444862ccmr6292853wmq.108.1658693705160; 
- Sun, 24 Jul 2022 13:15:05 -0700 (PDT)
-X-Google-Smtp-Source: AGRyM1uuRx/wU5NQqtwBn5eDMRUu4h4Xzgsm5XmvnoiDQbrqTXU/ISSTDKN57eKI3H4AHbrm5rUtyw==
-X-Received: by 2002:a05:600c:4e94:b0:3a3:4448:62cc with SMTP id
- f20-20020a05600c4e9400b003a3444862ccmr6292836wmq.108.1658693704845; 
- Sun, 24 Jul 2022 13:15:04 -0700 (PDT)
-Received: from [192.168.1.130] (205.pool92-176-231.dynamic.orange.es.
+ bh=eq4OL1zxJF2+2fp+Q22O19ixxH9CotH/xfhS3oI2/ds=;
+ b=XpjPNUVqj87U+K6TCwpdAG55e/FzIrJUUTPiH9z1qwC24nE6/1Ohn92wGNQ75Dpktr
+ HJ2429iX9sDJhbAsPu2wMia9pd8GtFdYtCy/lAz1dNi5IX6NfGMbhOfpoZlLZmyjuWnb
+ 1h0qBjn9/D0VetEqz7FzIAGr+yKJNbqiBdatjFNKGkXhoV1uSbhsmFBx76syRenw/gm5
+ +BUw5xGBSY5fOSAPc+DNhDZp/hcpkZs5t7exdvD73RZ2rlfsmglEi03XThAvixa/Amn6
+ JwA/sIQ5dSi24Xj4QxhMb7EdpzutxbcduzXTMup/H2KblJQmC1Iwe7lhWHJQWcH2HC4e
+ RbdA==
+X-Gm-Message-State: AJIora+4F2N0XHz3uG41diDe3BoKXTb64amdqeHGBA3fio7fl15zfB+F
+ YMVKOMTQaj4vqRGeI5SMZWCtPZnh8z2NGC92rnTn1rEXvb08P12kQ+5/5wtPna/c56bKvNZwfNh
+ UvaCufvFvgEDOS0yQVwzV3mT7EgDJ
+X-Received: by 2002:a05:6000:144d:b0:21d:8109:701d with SMTP id
+ v13-20020a056000144d00b0021d8109701dmr6564233wrx.443.1658734998261; 
+ Mon, 25 Jul 2022 00:43:18 -0700 (PDT)
+X-Google-Smtp-Source: AGRyM1tBKBzTRxo9vQI/80qLdj5OZrt+z9DMgSEy+3bbSO1SZWvbh7cisads/gEd5kCIpmRjt1OStw==
+X-Received: by 2002:a05:6000:144d:b0:21d:8109:701d with SMTP id
+ v13-20020a056000144d00b0021d8109701dmr6564214wrx.443.1658734997943; 
+ Mon, 25 Jul 2022 00:43:17 -0700 (PDT)
+Received: from minerva.home (205.pool92-176-231.dynamic.orange.es.
  [92.176.231.205]) by smtp.gmail.com with ESMTPSA id
- b12-20020a05600c4e0c00b003a2fde6ef62sm12180954wmq.7.2022.07.24.13.15.03
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sun, 24 Jul 2022 13:15:04 -0700 (PDT)
-Message-ID: <efcccedb-58e0-13a8-5c21-2e519e9fc335@redhat.com>
-Date: Sun, 24 Jul 2022 22:15:03 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.11.0
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-References: <20220724111327.1195693-1-javierm@redhat.com>
- <CAA8EJppEpPe4nfZ_kvNen6shSvgyUoL3adSQfhhCGCS2VmVZhQ@mail.gmail.com>
- <6b3f98db-83bf-41cd-b23d-79b455a06ebd@redhat.com>
- <630a6654-0305-f3a8-e062-f13a0074d35a@redhat.com>
- <CAA8EJpr1xf9mkfT-FhK9M58syMnWCFXozWHH9L_gxtXOqgh0yw@mail.gmail.com>
+ ay35-20020a05600c1e2300b003a2e42ae9a4sm16069031wmb.14.2022.07.25.00.43.16
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 25 Jul 2022 00:43:17 -0700 (PDT)
 From: Javier Martinez Canillas <javierm@redhat.com>
-In-Reply-To: <CAA8EJpr1xf9mkfT-FhK9M58syMnWCFXozWHH9L_gxtXOqgh0yw@mail.gmail.com>
+To: linux-kernel@vger.kernel.org
+Date: Mon, 25 Jul 2022 09:43:13 +0200
+Message-Id: <20220725074313.42172-1-javierm@redhat.com>
+X-Mailer: git-send-email 2.37.1
+MIME-Version: 1.0
 Authentication-Results: relay.mimecast.com;
  auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=javierm@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Language: en-US
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH v2] drm/msm: Make .remove and .shutdown HW
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="US-ASCII"; x-default=true
+Subject: [Freedreno] [PATCH v3] drm/msm: Make .remove and .shutdown HW
  shutdown consistent
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -92,51 +82,174 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, David Airlie <airlied@linux.ie>,
- Sean Paul <sean@poorly.run>, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Rob Clark <robdclark@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- linux-arm-msm@vger.kernel.org, Fabio Estevam <festevam@gmail.com>
+Cc: David Airlie <airlied@linux.ie>, freedreno@lists.freedesktop.org,
+ Javier Martinez Canillas <javierm@redhat.com>, dri-devel@lists.freedesktop.org,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, Rob Clark <robdclark@gmail.com>,
+ Krishna Manikandan <quic_mkrishn@quicinc.com>, Daniel Vetter <daniel@ffwll.ch>,
+ linux-arm-msm@vger.kernel.org, Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Sean Paul <sean@poorly.run>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 7/24/22 22:10, Dmitry Baryshkov wrote:
-> On Sun, 24 Jul 2022 at 22:51, Javier Martinez Canillas
-> <javierm@redhat.com> wrote:
->>
->> On 7/24/22 20:47, Javier Martinez Canillas wrote:
->>> Hello Dmitry,
->>
->> [...]
->>
->>>> Now there is no point in having this as a separate function. Could you
->>>
->>> The only reason why I kept this was to avoid duplicating the same comment
->>> in two places. I thought that an inline function would be better than that.
->>>
->>>> please inline it?
->>>>
->>
->> Or do you mean inline it as dropping the wrapper helper and just call to
->> drm_atomic_helper_shutdown() in both callbacks ? I'm OK with that but as
->> mentioned then we should probably have to duplicate the comment.
->>
->> Since is marked as inline anyways, the resulting code should be the same.
-> 
-> Yes, I'd like for you to drop the wrapper. I'm fine with duplicating
-> the comment, since it will be in place where it matters (before
-> checking ddev->registered) rather than just stating the contract for
-> the wrapper (which can be easily ignored).
-> 
-> (And yes, I do read patches and commit messages before commenting.)
-> 
+Drivers' .remove and .shutdown callbacks are executed on different code
+paths. The former is called when a device is removed from the bus, while
+the latter is called at system shutdown time to quiesce the device.
 
-OK. I'll post a v3 tomorrow doing that then. Sorry for the misunderstanding.
+This means that some overlap exists between the two, because both have to
+take care of properly shutting down the hardware. But currently the logic
+used in these two callbacks isn't consistent in msm drivers, which could
+lead to kernel panic.
 
+For example, on .remove the component is deleted and its .unbind callback
+leads to the hardware being shutdown but only if the DRM device has been
+marked as registered.
+
+That check doesn't exist in the .shutdown logic and this can lead to the
+driver calling drm_atomic_helper_shutdown() for a DRM device that hasn't
+been properly initialized.
+
+A situation like this can happen if drivers for expected sub-devices fail
+to probe, since the .bind callback will never be executed. If that is the
+case, drm_atomic_helper_shutdown() will attempt to take mutexes that are
+only initialized if drm_mode_config_init() is called during a device bind.
+
+This bug was attempted to be fixed in commit 623f279c7781 ("drm/msm: fix
+shutdown hook in case GPU components failed to bind"), but unfortunately
+it still happens in some cases as the one mentioned above, i.e:
+
+[  169.495897] systemd-shutdown[1]: Powering off.
+[  169.500466] kvm: exiting hardware virtualization
+[  169.554787] platform wifi-firmware.0: Removing from iommu group 12
+[  169.610238] platform video-firmware.0: Removing from iommu group 10
+[  169.682164] ------------[ cut here ]------------
+[  169.686909] WARNING: CPU: 6 PID: 1 at drivers/gpu/drm/drm_modeset_lock.c:317 drm_modeset_lock_all_ctx+0x3c4/0x3d0
+...
+[  169.775691] Hardware name: Google CoachZ (rev3+) (DT)
+[  169.780874] pstate: a0400009 (NzCv daif +PAN -UAO -TCO -DIT -SSBS BTYPE=--)
+[  169.788021] pc : drm_modeset_lock_all_ctx+0x3c4/0x3d0
+[  169.793205] lr : drm_modeset_lock_all_ctx+0x48/0x3d0
+[  169.798299] sp : ffff80000805bb80
+[  169.801701] x29: ffff80000805bb80 x28: ffff327c00128000 x27: 0000000000000000
+[  169.809025] x26: 0000000000000000 x25: 0000000000000001 x24: ffffc95d820ec030
+[  169.816349] x23: ffff327c00bbd090 x22: ffffc95d8215eca0 x21: ffff327c039c5800
+[  169.823674] x20: ffff327c039c5988 x19: ffff80000805bbe8 x18: 0000000000000034
+[  169.830998] x17: 000000040044ffff x16: ffffc95d80cac920 x15: 0000000000000000
+[  169.838322] x14: 0000000000000315 x13: 0000000000000315 x12: 0000000000000000
+[  169.845646] x11: 0000000000000000 x10: 0000000000000000 x9 : 0000000000000000
+[  169.852971] x8 : ffff80000805bc28 x7 : 0000000000000000 x6 : 0000000000000000
+[  169.860295] x5 : 0000000000000000 x4 : 0000000000000000 x3 : 0000000000000000
+[  169.867619] x2 : ffff327c00128000 x1 : 0000000000000000 x0 : ffff327c039c59b0
+[  169.874944] Call trace:
+[  169.877467]  drm_modeset_lock_all_ctx+0x3c4/0x3d0
+[  169.882297]  drm_atomic_helper_shutdown+0x70/0x134
+[  169.887217]  msm_drv_shutdown+0x30/0x40
+[  169.891159]  platform_shutdown+0x28/0x40
+[  169.895191]  device_shutdown+0x148/0x350
+[  169.899221]  kernel_power_off+0x38/0x80
+[  169.903163]  __do_sys_reboot+0x288/0x2c0
+[  169.907192]  __arm64_sys_reboot+0x28/0x34
+[  169.911309]  invoke_syscall+0x48/0x114
+[  169.915162]  el0_svc_common.constprop.0+0x44/0xec
+[  169.919992]  do_el0_svc+0x2c/0xc0
+[  169.923394]  el0_svc+0x2c/0x84
+[  169.926535]  el0t_64_sync_handler+0x11c/0x150
+[  169.931013]  el0t_64_sync+0x18c/0x190
+[  169.934777] ---[ end trace 0000000000000000 ]---
+[  169.939557] Unable to handle kernel NULL pointer dereference at virtual address 0000000000000018
+[  169.948574] Mem abort info:
+[  169.951452]   ESR = 0x0000000096000004
+[  169.955307]   EC = 0x25: DABT (current EL), IL = 32 bits
+[  169.960765]   SET = 0, FnV = 0
+[  169.963901]   EA = 0, S1PTW = 0
+[  169.967127]   FSC = 0x04: level 0 translation fault
+[  169.972136] Data abort info:
+[  169.975093]   ISV = 0, ISS = 0x00000004
+[  169.979037]   CM = 0, WnR = 0
+[  169.982083] user pgtable: 4k pages, 48-bit VAs, pgdp=000000010eab1000
+[  169.988697] [0000000000000018] pgd=0000000000000000, p4d=0000000000000000
+[  169.995669] Internal error: Oops: 96000004 [#1] PREEMPT SMP
+...
+[  170.079614] Hardware name: Google CoachZ (rev3+) (DT)
+[  170.084801] pstate: a0400009 (NzCv daif +PAN -UAO -TCO -DIT -SSBS BTYPE=--)
+[  170.091941] pc : ww_mutex_lock+0x28/0x32c
+[  170.096064] lr : drm_modeset_lock_all_ctx+0x1b0/0x3d0
+[  170.101254] sp : ffff80000805bb50
+[  170.104658] x29: ffff80000805bb50 x28: ffff327c00128000 x27: 0000000000000000
+[  170.111977] x26: 0000000000000000 x25: 0000000000000001 x24: 0000000000000018
+[  170.119296] x23: ffff80000805bc10 x22: ffff327c039c5ad8 x21: ffff327c039c5800
+[  170.126615] x20: ffff80000805bbe8 x19: 0000000000000018 x18: 0000000000000034
+[  170.133933] x17: 000000040044ffff x16: ffffc95d80cac920 x15: 0000000000000000
+[  170.141252] x14: 0000000000000315 x13: 0000000000000315 x12: 0000000000000000
+[  170.148571] x11: 0000000000000000 x10: 0000000000000000 x9 : 0000000000000000
+[  170.155890] x8 : ffff80000805bc28 x7 : 0000000000000000 x6 : 0000000000000000
+[  170.163209] x5 : 0000000000000000 x4 : 0000000000000000 x3 : 0000000000000000
+[  170.170528] x2 : ffff327c00128000 x1 : 0000000000000000 x0 : 0000000000000018
+[  170.177847] Call trace:
+[  170.180364]  ww_mutex_lock+0x28/0x32c
+[  170.184127]  drm_modeset_lock_all_ctx+0x1b0/0x3d0
+[  170.188957]  drm_atomic_helper_shutdown+0x70/0x134
+[  170.193876]  msm_drv_shutdown+0x30/0x40
+[  170.197820]  platform_shutdown+0x28/0x40
+[  170.201854]  device_shutdown+0x148/0x350
+[  170.205888]  kernel_power_off+0x38/0x80
+[  170.209832]  __do_sys_reboot+0x288/0x2c0
+[  170.213866]  __arm64_sys_reboot+0x28/0x34
+[  170.217990]  invoke_syscall+0x48/0x114
+[  170.221843]  el0_svc_common.constprop.0+0x44/0xec
+[  170.226672]  do_el0_svc+0x2c/0xc0
+[  170.230079]  el0_svc+0x2c/0x84
+[  170.233215]  el0t_64_sync_handler+0x11c/0x150
+[  170.237686]  el0t_64_sync+0x18c/0x190
+[  170.241451] Code: aa0103f4 d503201f d2800001 aa0103e3 (c8e37c02)
+[  170.247704] ---[ end trace 0000000000000000 ]---
+[  170.252457] Kernel panic - not syncing: Attempted to kill init! exitcode=0x0000000b
+[  170.260654] Kernel Offset: 0x495d77c00000 from 0xffff800008000000
+[  170.266910] PHYS_OFFSET: 0xffffcd8500000000
+[  170.271212] CPU features: 0x800,00c2a015,19801c82
+[  170.276042] Memory Limit: none
+[  170.279183] ---[ end Kernel panic - not syncing: Attempted to kill init! exitcode=0x0000000b ]---
+
+Fixes: 9d5cbf5fe46e ("drm/msm: add shutdown support for display platform_driver")
+Signed-off-by: Javier Martinez Canillas <javierm@redhat.com>
+---
+
+Changes in v3:
+- Drop the msm_shutdown_hw() wrapper and just call drm_atomic_helper_shutdown()
+  in both callbacks (Dmitry Baryshkov).
+- Copy the comment in msm_drm_uninit() to msm_drv_shutdown() (Dmitry Baryshkov).
+
+Changes in v2:
+- Take the registered check out of the msm_shutdown_hw() and make callers to check instead.
+- Make msm_shutdown_hw() an inline function.
+- Add a Fixes: tag.
+
+ drivers/gpu/drm/msm/msm_drv.c | 13 +++++++++----
+ 1 file changed, 9 insertions(+), 4 deletions(-)
+
+diff --git a/drivers/gpu/drm/msm/msm_drv.c b/drivers/gpu/drm/msm/msm_drv.c
+index 1ed4cd09dbf8..1333fea57713 100644
+--- a/drivers/gpu/drm/msm/msm_drv.c
++++ b/drivers/gpu/drm/msm/msm_drv.c
+@@ -1242,10 +1242,15 @@ void msm_drv_shutdown(struct platform_device *pdev)
+ 	struct msm_drm_private *priv = platform_get_drvdata(pdev);
+ 	struct drm_device *drm = priv ? priv->dev : NULL;
+ 
+-	if (!priv || !priv->kms)
+-		return;
+-
+-	drm_atomic_helper_shutdown(drm);
++	/*
++	 * Shutdown the hw if we're far enough along where things might be on.
++	 * If we run this too early, we'll end up panicking in any variety of
++	 * places. Since we don't register the drm device until late in
++	 * msm_drm_init, drm_dev->registered is used as an indicator that the
++	 * shutdown will be successful.
++	 */
++	if (drm && drm->registered)
++		drm_atomic_helper_shutdown(drm);
+ }
+ 
+ static struct platform_driver msm_platform_driver = {
 -- 
-Best regards,
-
-Javier Martinez Canillas
-Linux Engineering
-Red Hat
+2.37.1
 
