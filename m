@@ -1,75 +1,60 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0C24157FA69
-	for <lists+freedreno@lfdr.de>; Mon, 25 Jul 2022 09:43:25 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 4F0335808CB
+	for <lists+freedreno@lfdr.de>; Tue, 26 Jul 2022 02:49:37 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A8300112E04;
-	Mon, 25 Jul 2022 07:43:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EDFB01134DE;
+	Tue, 26 Jul 2022 00:49:35 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5B41211294D
- for <freedreno@lists.freedesktop.org>; Mon, 25 Jul 2022 07:43:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1658735001;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding;
- bh=eq4OL1zxJF2+2fp+Q22O19ixxH9CotH/xfhS3oI2/ds=;
- b=gorDPpMYhy3AsWqnb/sagCot5wtiypVzVSDXtS6xb3N+w5ty5GIeNLcorLoLiX55buPiUa
- /vTPP6sRFyhGsFClcZVvGeKKkWQ2TQ3JIa7LDx9QM8hT2t961aayZQE57+amVQNVRWFjCj
- /Fgq5NHkB+a0bIkUxEi/Y7YlzbNXtGw=
-Received: from mail-wm1-f72.google.com (mail-wm1-f72.google.com
- [209.85.128.72]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-41-ojMKmqqwPOWIsXvA1xhGkg-1; Mon, 25 Jul 2022 03:43:20 -0400
-X-MC-Unique: ojMKmqqwPOWIsXvA1xhGkg-1
-Received: by mail-wm1-f72.google.com with SMTP id
- v18-20020a05600c215200b003a2fea66b7cso3701426wml.4
- for <freedreno@lists.freedesktop.org>; Mon, 25 Jul 2022 00:43:20 -0700 (PDT)
+Received: from mail-pj1-x1031.google.com (mail-pj1-x1031.google.com
+ [IPv6:2607:f8b0:4864:20::1031])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E20761134E9
+ for <freedreno@lists.freedesktop.org>; Tue, 26 Jul 2022 00:49:34 +0000 (UTC)
+Received: by mail-pj1-x1031.google.com with SMTP id y1so3855100pja.4
+ for <freedreno@lists.freedesktop.org>; Mon, 25 Jul 2022 17:49:34 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=+AUaLdIW2kOZ+/xoH0tVV9AtAHo6mtNsYI8hh+TMy4o=;
+ b=VOqbVUhb9+yC6s9nvBupTIrZ/aP0hpNb42pK50udweri2wAlRvyDiy6/B8X324BQtp
+ i/G8CbjoDjmtYCV/JbnlUBxzdcHgWHGgAI2lskxzoBHKNv8uTYKrtrGL849/MNXa3PG/
+ LGZWJ7h+NBe9HahcvUVxpA7ALA1+f67+2gtiM=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
  :content-transfer-encoding;
- bh=eq4OL1zxJF2+2fp+Q22O19ixxH9CotH/xfhS3oI2/ds=;
- b=XpjPNUVqj87U+K6TCwpdAG55e/FzIrJUUTPiH9z1qwC24nE6/1Ohn92wGNQ75Dpktr
- HJ2429iX9sDJhbAsPu2wMia9pd8GtFdYtCy/lAz1dNi5IX6NfGMbhOfpoZlLZmyjuWnb
- 1h0qBjn9/D0VetEqz7FzIAGr+yKJNbqiBdatjFNKGkXhoV1uSbhsmFBx76syRenw/gm5
- +BUw5xGBSY5fOSAPc+DNhDZp/hcpkZs5t7exdvD73RZ2rlfsmglEi03XThAvixa/Amn6
- JwA/sIQ5dSi24Xj4QxhMb7EdpzutxbcduzXTMup/H2KblJQmC1Iwe7lhWHJQWcH2HC4e
- RbdA==
-X-Gm-Message-State: AJIora+4F2N0XHz3uG41diDe3BoKXTb64amdqeHGBA3fio7fl15zfB+F
- YMVKOMTQaj4vqRGeI5SMZWCtPZnh8z2NGC92rnTn1rEXvb08P12kQ+5/5wtPna/c56bKvNZwfNh
- UvaCufvFvgEDOS0yQVwzV3mT7EgDJ
-X-Received: by 2002:a05:6000:144d:b0:21d:8109:701d with SMTP id
- v13-20020a056000144d00b0021d8109701dmr6564233wrx.443.1658734998261; 
- Mon, 25 Jul 2022 00:43:18 -0700 (PDT)
-X-Google-Smtp-Source: AGRyM1tBKBzTRxo9vQI/80qLdj5OZrt+z9DMgSEy+3bbSO1SZWvbh7cisads/gEd5kCIpmRjt1OStw==
-X-Received: by 2002:a05:6000:144d:b0:21d:8109:701d with SMTP id
- v13-20020a056000144d00b0021d8109701dmr6564214wrx.443.1658734997943; 
- Mon, 25 Jul 2022 00:43:17 -0700 (PDT)
-Received: from minerva.home (205.pool92-176-231.dynamic.orange.es.
- [92.176.231.205]) by smtp.gmail.com with ESMTPSA id
- ay35-20020a05600c1e2300b003a2e42ae9a4sm16069031wmb.14.2022.07.25.00.43.16
+ bh=+AUaLdIW2kOZ+/xoH0tVV9AtAHo6mtNsYI8hh+TMy4o=;
+ b=YFv0cAxf97Q7iTzsBPxBIfTppQ3fp5b9yX+iUN6PQNRgvoiYcsDlLRiTUeEx3IAgkZ
+ ofeJxcNt8JOPu2aGiRM8c9DvepgLXso2YzfN/Ia0cNTFxBKUclLoB3wnBHVT5qSiHEsT
+ gpMgFk/qmKDulD2RsbfoVtCK1M6S2j8xUWawJDb9HXDH5V/t0Z8VhjecDLeIUAFHezUN
+ sR1dSKikIPvqhj21jU9A2i/mzoKoEDSRixZSKHyrqYdt1er/SgmsW4iI6pRtNoSCm9++
+ iwC6QdEPGL9GPeoOMgL6bvTp5MeoJt/WNDPepYaTEtyttUFGNRmO+hnZycILxbGdhf2h
+ 9Npg==
+X-Gm-Message-State: AJIora+fKnuxXrfveGrg6Ttl46fy5azW7SAQOM8yUJ8JTcKXqY05a6i5
+ h1Ds+8vTXqua7E6gKEfXr6Zt5w==
+X-Google-Smtp-Source: AGRyM1vBH6++JCEBcqGJQ+MS/IH+2HhSwLvNbJxhZLtZL+KE3a4VPgvSSpAsBTaeQQ93oQI2syt18A==
+X-Received: by 2002:a17:902:be16:b0:16c:151d:3e21 with SMTP id
+ r22-20020a170902be1600b0016c151d3e21mr15208476pls.49.1658796574208; 
+ Mon, 25 Jul 2022 17:49:34 -0700 (PDT)
+Received: from tictac2.mtv.corp.google.com
+ ([2620:15c:202:201:5a2d:feb3:83b3:7523])
+ by smtp.gmail.com with ESMTPSA id
+ h184-20020a6283c1000000b0052531985e3esm10236130pfe.22.2022.07.25.17.49.31
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 25 Jul 2022 00:43:17 -0700 (PDT)
-From: Javier Martinez Canillas <javierm@redhat.com>
-To: linux-kernel@vger.kernel.org
-Date: Mon, 25 Jul 2022 09:43:13 +0200
-Message-Id: <20220725074313.42172-1-javierm@redhat.com>
-X-Mailer: git-send-email 2.37.1
+ Mon, 25 Jul 2022 17:49:33 -0700 (PDT)
+From: Douglas Anderson <dianders@chromium.org>
+To: Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Date: Mon, 25 Jul 2022 17:49:08 -0700
+Message-Id: <20220725174810.1.If1f94fbbdb7c1d0fb3961de61483a851ad1971a7@changeid>
+X-Mailer: git-send-email 2.37.1.359.gd136c6c3e2-goog
 MIME-Version: 1.0
-Authentication-Results: relay.mimecast.com;
- auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=javierm@redhat.com
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain; charset="US-ASCII"; x-default=true
-Subject: [Freedreno] [PATCH v3] drm/msm: Make .remove and .shutdown HW
- shutdown consistent
+Subject: [Freedreno] [PATCH] drm/msm/dsi: Don't set a load before disabling
+ a regulator
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,174 +67,501 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: David Airlie <airlied@linux.ie>, freedreno@lists.freedesktop.org,
- Javier Martinez Canillas <javierm@redhat.com>, dri-devel@lists.freedesktop.org,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, Rob Clark <robdclark@gmail.com>,
- Krishna Manikandan <quic_mkrishn@quicinc.com>, Daniel Vetter <daniel@ffwll.ch>,
- linux-arm-msm@vger.kernel.org, Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Sean Paul <sean@poorly.run>
+Cc: freedreno@lists.freedesktop.org, Loic Poulain <loic.poulain@linaro.org>,
+ Jonathan Marek <jonathan@marek.ca>, David Airlie <airlied@linux.ie>,
+ Rajeev Nandan <quic_rajeevny@quicinc.com>, linux-arm-msm@vger.kernel.org,
+ Vladimir Lypak <vladimir.lypak@gmail.com>,
+ Konrad Dybcio <konrad.dybcio@somainline.org>,
+ Douglas Anderson <dianders@chromium.org>, dri-devel@lists.freedesktop.org,
+ Bjorn Andersson <bjorn.andersson@linaro.org>, Vinod Koul <vkoul@kernel.org>,
+ Mark Brown <broonie@kernel.org>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ Daniel Vetter <daniel@ffwll.ch>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@somainline.org>,
+ =?UTF-8?q?Jos=C3=A9=20Exp=C3=B3sito?= <jose.exposito89@gmail.com>,
+ Stephen Boyd <swboyd@chromium.org>, Sean Paul <sean@poorly.run>,
+ linux-kernel@vger.kernel.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Drivers' .remove and .shutdown callbacks are executed on different code
-paths. The former is called when a device is removed from the bus, while
-the latter is called at system shutdown time to quiesce the device.
+As of commit 5451781dadf8 ("regulator: core: Only count load for
+enabled consumers"), a load isn't counted for a disabled
+regulator. That means all the code in the DSI driver to specify and
+set loads before disabling a regulator is not actually doing anything
+useful. Let's remove it.
 
-This means that some overlap exists between the two, because both have to
-take care of properly shutting down the hardware. But currently the logic
-used in these two callbacks isn't consistent in msm drivers, which could
-lead to kernel panic.
+It should be noted that all of the loads set that were being specified
+were pointless noise anyway. The only use for this number is to pick
+between low power and high power modes of regulators. Regulators
+appear to do this changeover at loads on the order of 10000 uA. You
+would a lot of clients of the same rail for that 100 uA number to
+count for anything.
 
-For example, on .remove the component is deleted and its .unbind callback
-leads to the hardware being shutdown but only if the DRM device has been
-marked as registered.
+Note that now that we get rid of the setting of the load at disable
+time, we can just set the load once when we first get the regulator
+and then forget it.
 
-That check doesn't exist in the .shutdown logic and this can lead to the
-driver calling drm_atomic_helper_shutdown() for a DRM device that hasn't
-been properly initialized.
+It should also be noted that the regulator functions
+regulator_bulk_enable() and regulator_set_load() already print error
+messages when they encounter problems so while moving things around we
+get rid of some extra error prints.
 
-A situation like this can happen if drivers for expected sub-devices fail
-to probe, since the .bind callback will never be executed. If that is the
-case, drm_atomic_helper_shutdown() will attempt to take mutexes that are
-only initialized if drm_mode_config_init() is called during a device bind.
-
-This bug was attempted to be fixed in commit 623f279c7781 ("drm/msm: fix
-shutdown hook in case GPU components failed to bind"), but unfortunately
-it still happens in some cases as the one mentioned above, i.e:
-
-[  169.495897] systemd-shutdown[1]: Powering off.
-[  169.500466] kvm: exiting hardware virtualization
-[  169.554787] platform wifi-firmware.0: Removing from iommu group 12
-[  169.610238] platform video-firmware.0: Removing from iommu group 10
-[  169.682164] ------------[ cut here ]------------
-[  169.686909] WARNING: CPU: 6 PID: 1 at drivers/gpu/drm/drm_modeset_lock.c:317 drm_modeset_lock_all_ctx+0x3c4/0x3d0
-...
-[  169.775691] Hardware name: Google CoachZ (rev3+) (DT)
-[  169.780874] pstate: a0400009 (NzCv daif +PAN -UAO -TCO -DIT -SSBS BTYPE=--)
-[  169.788021] pc : drm_modeset_lock_all_ctx+0x3c4/0x3d0
-[  169.793205] lr : drm_modeset_lock_all_ctx+0x48/0x3d0
-[  169.798299] sp : ffff80000805bb80
-[  169.801701] x29: ffff80000805bb80 x28: ffff327c00128000 x27: 0000000000000000
-[  169.809025] x26: 0000000000000000 x25: 0000000000000001 x24: ffffc95d820ec030
-[  169.816349] x23: ffff327c00bbd090 x22: ffffc95d8215eca0 x21: ffff327c039c5800
-[  169.823674] x20: ffff327c039c5988 x19: ffff80000805bbe8 x18: 0000000000000034
-[  169.830998] x17: 000000040044ffff x16: ffffc95d80cac920 x15: 0000000000000000
-[  169.838322] x14: 0000000000000315 x13: 0000000000000315 x12: 0000000000000000
-[  169.845646] x11: 0000000000000000 x10: 0000000000000000 x9 : 0000000000000000
-[  169.852971] x8 : ffff80000805bc28 x7 : 0000000000000000 x6 : 0000000000000000
-[  169.860295] x5 : 0000000000000000 x4 : 0000000000000000 x3 : 0000000000000000
-[  169.867619] x2 : ffff327c00128000 x1 : 0000000000000000 x0 : ffff327c039c59b0
-[  169.874944] Call trace:
-[  169.877467]  drm_modeset_lock_all_ctx+0x3c4/0x3d0
-[  169.882297]  drm_atomic_helper_shutdown+0x70/0x134
-[  169.887217]  msm_drv_shutdown+0x30/0x40
-[  169.891159]  platform_shutdown+0x28/0x40
-[  169.895191]  device_shutdown+0x148/0x350
-[  169.899221]  kernel_power_off+0x38/0x80
-[  169.903163]  __do_sys_reboot+0x288/0x2c0
-[  169.907192]  __arm64_sys_reboot+0x28/0x34
-[  169.911309]  invoke_syscall+0x48/0x114
-[  169.915162]  el0_svc_common.constprop.0+0x44/0xec
-[  169.919992]  do_el0_svc+0x2c/0xc0
-[  169.923394]  el0_svc+0x2c/0x84
-[  169.926535]  el0t_64_sync_handler+0x11c/0x150
-[  169.931013]  el0t_64_sync+0x18c/0x190
-[  169.934777] ---[ end trace 0000000000000000 ]---
-[  169.939557] Unable to handle kernel NULL pointer dereference at virtual address 0000000000000018
-[  169.948574] Mem abort info:
-[  169.951452]   ESR = 0x0000000096000004
-[  169.955307]   EC = 0x25: DABT (current EL), IL = 32 bits
-[  169.960765]   SET = 0, FnV = 0
-[  169.963901]   EA = 0, S1PTW = 0
-[  169.967127]   FSC = 0x04: level 0 translation fault
-[  169.972136] Data abort info:
-[  169.975093]   ISV = 0, ISS = 0x00000004
-[  169.979037]   CM = 0, WnR = 0
-[  169.982083] user pgtable: 4k pages, 48-bit VAs, pgdp=000000010eab1000
-[  169.988697] [0000000000000018] pgd=0000000000000000, p4d=0000000000000000
-[  169.995669] Internal error: Oops: 96000004 [#1] PREEMPT SMP
-...
-[  170.079614] Hardware name: Google CoachZ (rev3+) (DT)
-[  170.084801] pstate: a0400009 (NzCv daif +PAN -UAO -TCO -DIT -SSBS BTYPE=--)
-[  170.091941] pc : ww_mutex_lock+0x28/0x32c
-[  170.096064] lr : drm_modeset_lock_all_ctx+0x1b0/0x3d0
-[  170.101254] sp : ffff80000805bb50
-[  170.104658] x29: ffff80000805bb50 x28: ffff327c00128000 x27: 0000000000000000
-[  170.111977] x26: 0000000000000000 x25: 0000000000000001 x24: 0000000000000018
-[  170.119296] x23: ffff80000805bc10 x22: ffff327c039c5ad8 x21: ffff327c039c5800
-[  170.126615] x20: ffff80000805bbe8 x19: 0000000000000018 x18: 0000000000000034
-[  170.133933] x17: 000000040044ffff x16: ffffc95d80cac920 x15: 0000000000000000
-[  170.141252] x14: 0000000000000315 x13: 0000000000000315 x12: 0000000000000000
-[  170.148571] x11: 0000000000000000 x10: 0000000000000000 x9 : 0000000000000000
-[  170.155890] x8 : ffff80000805bc28 x7 : 0000000000000000 x6 : 0000000000000000
-[  170.163209] x5 : 0000000000000000 x4 : 0000000000000000 x3 : 0000000000000000
-[  170.170528] x2 : ffff327c00128000 x1 : 0000000000000000 x0 : 0000000000000018
-[  170.177847] Call trace:
-[  170.180364]  ww_mutex_lock+0x28/0x32c
-[  170.184127]  drm_modeset_lock_all_ctx+0x1b0/0x3d0
-[  170.188957]  drm_atomic_helper_shutdown+0x70/0x134
-[  170.193876]  msm_drv_shutdown+0x30/0x40
-[  170.197820]  platform_shutdown+0x28/0x40
-[  170.201854]  device_shutdown+0x148/0x350
-[  170.205888]  kernel_power_off+0x38/0x80
-[  170.209832]  __do_sys_reboot+0x288/0x2c0
-[  170.213866]  __arm64_sys_reboot+0x28/0x34
-[  170.217990]  invoke_syscall+0x48/0x114
-[  170.221843]  el0_svc_common.constprop.0+0x44/0xec
-[  170.226672]  do_el0_svc+0x2c/0xc0
-[  170.230079]  el0_svc+0x2c/0x84
-[  170.233215]  el0t_64_sync_handler+0x11c/0x150
-[  170.237686]  el0t_64_sync+0x18c/0x190
-[  170.241451] Code: aa0103f4 d503201f d2800001 aa0103e3 (c8e37c02)
-[  170.247704] ---[ end trace 0000000000000000 ]---
-[  170.252457] Kernel panic - not syncing: Attempted to kill init! exitcode=0x0000000b
-[  170.260654] Kernel Offset: 0x495d77c00000 from 0xffff800008000000
-[  170.266910] PHYS_OFFSET: 0xffffcd8500000000
-[  170.271212] CPU features: 0x800,00c2a015,19801c82
-[  170.276042] Memory Limit: none
-[  170.279183] ---[ end Kernel panic - not syncing: Attempted to kill init! exitcode=0x0000000b ]---
-
-Fixes: 9d5cbf5fe46e ("drm/msm: add shutdown support for display platform_driver")
-Signed-off-by: Javier Martinez Canillas <javierm@redhat.com>
+Signed-off-by: Douglas Anderson <dianders@chromium.org>
 ---
 
-Changes in v3:
-- Drop the msm_shutdown_hw() wrapper and just call drm_atomic_helper_shutdown()
-  in both callbacks (Dmitry Baryshkov).
-- Copy the comment in msm_drm_uninit() to msm_drv_shutdown() (Dmitry Baryshkov).
+ drivers/gpu/drm/msm/dsi/dsi.h                 |  1 -
+ drivers/gpu/drm/msm/dsi/dsi_cfg.c             | 52 +++++++++----------
+ drivers/gpu/drm/msm/dsi/dsi_host.c            | 45 ++++------------
+ drivers/gpu/drm/msm/dsi/phy/dsi_phy.c         | 46 ++++------------
+ drivers/gpu/drm/msm/dsi/phy/dsi_phy_10nm.c    |  4 +-
+ drivers/gpu/drm/msm/dsi/phy/dsi_phy_14nm.c    |  6 +--
+ drivers/gpu/drm/msm/dsi/phy/dsi_phy_20nm.c    |  4 +-
+ drivers/gpu/drm/msm/dsi/phy/dsi_phy_28nm.c    |  6 +--
+ .../gpu/drm/msm/dsi/phy/dsi_phy_28nm_8960.c   |  2 +-
+ drivers/gpu/drm/msm/dsi/phy/dsi_phy_7nm.c     |  6 +--
+ 10 files changed, 60 insertions(+), 112 deletions(-)
 
-Changes in v2:
-- Take the registered check out of the msm_shutdown_hw() and make callers to check instead.
-- Make msm_shutdown_hw() an inline function.
-- Add a Fixes: tag.
-
- drivers/gpu/drm/msm/msm_drv.c | 13 +++++++++----
- 1 file changed, 9 insertions(+), 4 deletions(-)
-
-diff --git a/drivers/gpu/drm/msm/msm_drv.c b/drivers/gpu/drm/msm/msm_drv.c
-index 1ed4cd09dbf8..1333fea57713 100644
---- a/drivers/gpu/drm/msm/msm_drv.c
-+++ b/drivers/gpu/drm/msm/msm_drv.c
-@@ -1242,10 +1242,15 @@ void msm_drv_shutdown(struct platform_device *pdev)
- 	struct msm_drm_private *priv = platform_get_drvdata(pdev);
- 	struct drm_device *drm = priv ? priv->dev : NULL;
+diff --git a/drivers/gpu/drm/msm/dsi/dsi.h b/drivers/gpu/drm/msm/dsi/dsi.h
+index 580a1e6358bf..bb6a5bd05cb1 100644
+--- a/drivers/gpu/drm/msm/dsi/dsi.h
++++ b/drivers/gpu/drm/msm/dsi/dsi.h
+@@ -37,7 +37,6 @@ enum msm_dsi_phy_usecase {
+ struct dsi_reg_entry {
+ 	char name[32];
+ 	int enable_load;
+-	int disable_load;
+ };
  
--	if (!priv || !priv->kms)
--		return;
+ struct dsi_reg_config {
+diff --git a/drivers/gpu/drm/msm/dsi/dsi_cfg.c b/drivers/gpu/drm/msm/dsi/dsi_cfg.c
+index 2c23324a2296..d24742ea32c6 100644
+--- a/drivers/gpu/drm/msm/dsi/dsi_cfg.c
++++ b/drivers/gpu/drm/msm/dsi/dsi_cfg.c
+@@ -14,9 +14,9 @@ static const struct msm_dsi_config apq8064_dsi_cfg = {
+ 	.reg_cfg = {
+ 		.num = 3,
+ 		.regs = {
+-			{"vdda", 100000, 100},	/* 1.2 V */
+-			{"avdd", 10000, 100},	/* 3.0 V */
+-			{"vddio", 100000, 100},	/* 1.8 V */
++			{"vdda", 100000},	/* 1.2 V */
++			{"avdd", 10000},	/* 3.0 V */
++			{"vddio", 100000},	/* 1.8 V */
+ 		},
+ 	},
+ 	.bus_clk_names = dsi_v2_bus_clk_names,
+@@ -34,9 +34,9 @@ static const struct msm_dsi_config msm8974_apq8084_dsi_cfg = {
+ 	.reg_cfg = {
+ 		.num = 3,
+ 		.regs = {
+-			{"vdd", 150000, 100},	/* 3.0 V */
+-			{"vdda", 100000, 100},	/* 1.2 V */
+-			{"vddio", 100000, 100},	/* 1.8 V */
++			{"vdd", 150000},	/* 3.0 V */
++			{"vdda", 100000},	/* 1.2 V */
++			{"vddio", 100000},	/* 1.8 V */
+ 		},
+ 	},
+ 	.bus_clk_names = dsi_6g_bus_clk_names,
+@@ -54,8 +54,8 @@ static const struct msm_dsi_config msm8916_dsi_cfg = {
+ 	.reg_cfg = {
+ 		.num = 2,
+ 		.regs = {
+-			{"vdda", 100000, 100},	/* 1.2 V */
+-			{"vddio", 100000, 100},	/* 1.8 V */
++			{"vdda", 100000},	/* 1.2 V */
++			{"vddio", 100000},	/* 1.8 V */
+ 		},
+ 	},
+ 	.bus_clk_names = dsi_8916_bus_clk_names,
+@@ -73,8 +73,8 @@ static const struct msm_dsi_config msm8976_dsi_cfg = {
+ 	.reg_cfg = {
+ 		.num = 2,
+ 		.regs = {
+-			{"vdda", 100000, 100},	/* 1.2 V */
+-			{"vddio", 100000, 100},	/* 1.8 V */
++			{"vdda", 100000},	/* 1.2 V */
++			{"vddio", 100000},	/* 1.8 V */
+ 		},
+ 	},
+ 	.bus_clk_names = dsi_8976_bus_clk_names,
+@@ -88,12 +88,12 @@ static const struct msm_dsi_config msm8994_dsi_cfg = {
+ 	.reg_cfg = {
+ 		.num = 6,
+ 		.regs = {
+-			{"vdda", 100000, 100},	/* 1.25 V */
+-			{"vddio", 100000, 100},	/* 1.8 V */
+-			{"vcca", 10000, 100},	/* 1.0 V */
+-			{"vdd", 100000, 100},	/* 1.8 V */
+-			{"lab_reg", -1, -1},
+-			{"ibb_reg", -1, -1},
++			{"vdda", 100000},	/* 1.25 V */
++			{"vddio", 100000},	/* 1.8 V */
++			{"vcca", 10000},	/* 1.0 V */
++			{"vdd", 100000},	/* 1.8 V */
++			{"lab_reg", -1},
++			{"ibb_reg", -1},
+ 		},
+ 	},
+ 	.bus_clk_names = dsi_6g_bus_clk_names,
+@@ -111,9 +111,9 @@ static const struct msm_dsi_config msm8996_dsi_cfg = {
+ 	.reg_cfg = {
+ 		.num = 2,
+ 		.regs = {
+-			{"vdda", 18160, 1 },	/* 1.25 V */
+-			{"vcca", 17000, 32 },	/* 0.925 V */
+-			{"vddio", 100000, 100 },/* 1.8 V */
++			{"vdda", 18160},	/* 1.25 V */
++			{"vcca", 17000},	/* 0.925 V */
++			{"vddio", 100000},/* 1.8 V */
+ 		},
+ 	},
+ 	.bus_clk_names = dsi_8996_bus_clk_names,
+@@ -131,8 +131,8 @@ static const struct msm_dsi_config msm8998_dsi_cfg = {
+ 	.reg_cfg = {
+ 		.num = 2,
+ 		.regs = {
+-			{"vdd", 367000, 16 },	/* 0.9 V */
+-			{"vdda", 62800, 2 },	/* 1.2 V */
++			{"vdd", 367000},	/* 0.9 V */
++			{"vdda", 62800},	/* 1.2 V */
+ 		},
+ 	},
+ 	.bus_clk_names = dsi_msm8998_bus_clk_names,
+@@ -150,7 +150,7 @@ static const struct msm_dsi_config sdm660_dsi_cfg = {
+ 	.reg_cfg = {
+ 		.num = 2,
+ 		.regs = {
+-			{"vdda", 12560, 4 },	/* 1.2 V */
++			{"vdda", 12560},	/* 1.2 V */
+ 		},
+ 	},
+ 	.bus_clk_names = dsi_sdm660_bus_clk_names,
+@@ -172,7 +172,7 @@ static const struct msm_dsi_config sdm845_dsi_cfg = {
+ 	.reg_cfg = {
+ 		.num = 1,
+ 		.regs = {
+-			{"vdda", 21800, 4 },	/* 1.2 V */
++			{"vdda", 21800},	/* 1.2 V */
+ 		},
+ 	},
+ 	.bus_clk_names = dsi_sdm845_bus_clk_names,
+@@ -186,7 +186,7 @@ static const struct msm_dsi_config sc7180_dsi_cfg = {
+ 	.reg_cfg = {
+ 		.num = 1,
+ 		.regs = {
+-			{"vdda", 21800, 4 },	/* 1.2 V */
++			{"vdda", 21800},	/* 1.2 V */
+ 		},
+ 	},
+ 	.bus_clk_names = dsi_sc7180_bus_clk_names,
+@@ -204,7 +204,7 @@ static const struct msm_dsi_config sc7280_dsi_cfg = {
+ 	.reg_cfg = {
+ 		.num = 1,
+ 		.regs = {
+-			{"vdda", 8350, 0 },	/* 1.2 V */
++			{"vdda", 8350},	/* 1.2 V */
+ 		},
+ 	},
+ 	.bus_clk_names = dsi_sc7280_bus_clk_names,
+@@ -222,7 +222,7 @@ static const struct msm_dsi_config qcm2290_dsi_cfg = {
+ 	.reg_cfg = {
+ 		.num = 1,
+ 		.regs = {
+-			{"vdda", 21800, 4 },	/* 1.2 V */
++			{"vdda", 21800},	/* 1.2 V */
+ 		},
+ 	},
+ 	.bus_clk_names = dsi_qcm2290_bus_clk_names,
+diff --git a/drivers/gpu/drm/msm/dsi/dsi_host.c b/drivers/gpu/drm/msm/dsi/dsi_host.c
+index bab2634ebd11..c59e88d766de 100644
+--- a/drivers/gpu/drm/msm/dsi/dsi_host.c
++++ b/drivers/gpu/drm/msm/dsi/dsi_host.c
+@@ -259,15 +259,7 @@ static inline struct msm_dsi_host *to_msm_dsi_host(struct mipi_dsi_host *host)
+ static void dsi_host_regulator_disable(struct msm_dsi_host *msm_host)
+ {
+ 	struct regulator_bulk_data *s = msm_host->supplies;
+-	const struct dsi_reg_entry *regs = msm_host->cfg_hnd->cfg->reg_cfg.regs;
+ 	int num = msm_host->cfg_hnd->cfg->reg_cfg.num;
+-	int i;
 -
--	drm_atomic_helper_shutdown(drm);
-+	/*
-+	 * Shutdown the hw if we're far enough along where things might be on.
-+	 * If we run this too early, we'll end up panicking in any variety of
-+	 * places. Since we don't register the drm device until late in
-+	 * msm_drm_init, drm_dev->registered is used as an indicator that the
-+	 * shutdown will be successful.
-+	 */
-+	if (drm && drm->registered)
-+		drm_atomic_helper_shutdown(drm);
+-	DBG("");
+-	for (i = num - 1; i >= 0; i--)
+-		if (regs[i].disable_load >= 0)
+-			regulator_set_load(s[i].consumer,
+-					   regs[i].disable_load);
+ 
+ 	regulator_bulk_disable(num, s);
+ }
+@@ -275,35 +267,9 @@ static void dsi_host_regulator_disable(struct msm_dsi_host *msm_host)
+ static int dsi_host_regulator_enable(struct msm_dsi_host *msm_host)
+ {
+ 	struct regulator_bulk_data *s = msm_host->supplies;
+-	const struct dsi_reg_entry *regs = msm_host->cfg_hnd->cfg->reg_cfg.regs;
+ 	int num = msm_host->cfg_hnd->cfg->reg_cfg.num;
+-	int ret, i;
+-
+-	DBG("");
+-	for (i = 0; i < num; i++) {
+-		if (regs[i].enable_load >= 0) {
+-			ret = regulator_set_load(s[i].consumer,
+-						 regs[i].enable_load);
+-			if (ret < 0) {
+-				pr_err("regulator %d set op mode failed, %d\n",
+-					i, ret);
+-				goto fail;
+-			}
+-		}
+-	}
+-
+-	ret = regulator_bulk_enable(num, s);
+-	if (ret < 0) {
+-		pr_err("regulator enable failed, %d\n", ret);
+-		goto fail;
+-	}
+ 
+-	return 0;
+-
+-fail:
+-	for (i--; i >= 0; i--)
+-		regulator_set_load(s[i].consumer, regs[i].disable_load);
+-	return ret;
++	return regulator_bulk_enable(num, s);
  }
  
- static struct platform_driver msm_platform_driver = {
+ static int dsi_regulator_init(struct msm_dsi_host *msm_host)
+@@ -323,6 +289,15 @@ static int dsi_regulator_init(struct msm_dsi_host *msm_host)
+ 		return ret;
+ 	}
+ 
++	for (i = 0; i < num; i++) {
++		if (regs[i].enable_load >= 0) {
++			ret = regulator_set_load(s[i].consumer,
++						 regs[i].enable_load);
++			if (ret < 0)
++				return ret;
++		}
++	}
++
+ 	return 0;
+ }
+ 
+diff --git a/drivers/gpu/drm/msm/dsi/phy/dsi_phy.c b/drivers/gpu/drm/msm/dsi/phy/dsi_phy.c
+index a39de3bdc7fa..330c0c4e7f9d 100644
+--- a/drivers/gpu/drm/msm/dsi/phy/dsi_phy.c
++++ b/drivers/gpu/drm/msm/dsi/phy/dsi_phy.c
+@@ -529,20 +529,22 @@ static int dsi_phy_regulator_init(struct msm_dsi_phy *phy)
+ 		return ret;
+ 	}
+ 
++	for (i = 0; i < num; i++) {
++		if (regs[i].enable_load >= 0) {
++			ret = regulator_set_load(s[i].consumer,
++							regs[i].enable_load);
++			if (ret < 0)
++				return ret;
++		}
++	}
++
+ 	return 0;
+ }
+ 
+ static void dsi_phy_regulator_disable(struct msm_dsi_phy *phy)
+ {
+ 	struct regulator_bulk_data *s = phy->supplies;
+-	const struct dsi_reg_entry *regs = phy->cfg->reg_cfg.regs;
+ 	int num = phy->cfg->reg_cfg.num;
+-	int i;
+-
+-	DBG("");
+-	for (i = num - 1; i >= 0; i--)
+-		if (regs[i].disable_load >= 0)
+-			regulator_set_load(s[i].consumer, regs[i].disable_load);
+ 
+ 	regulator_bulk_disable(num, s);
+ }
+@@ -550,37 +552,9 @@ static void dsi_phy_regulator_disable(struct msm_dsi_phy *phy)
+ static int dsi_phy_regulator_enable(struct msm_dsi_phy *phy)
+ {
+ 	struct regulator_bulk_data *s = phy->supplies;
+-	const struct dsi_reg_entry *regs = phy->cfg->reg_cfg.regs;
+-	struct device *dev = &phy->pdev->dev;
+ 	int num = phy->cfg->reg_cfg.num;
+-	int ret, i;
+ 
+-	DBG("");
+-	for (i = 0; i < num; i++) {
+-		if (regs[i].enable_load >= 0) {
+-			ret = regulator_set_load(s[i].consumer,
+-							regs[i].enable_load);
+-			if (ret < 0) {
+-				DRM_DEV_ERROR(dev,
+-					"regulator %d set op mode failed, %d\n",
+-					i, ret);
+-				goto fail;
+-			}
+-		}
+-	}
+-
+-	ret = regulator_bulk_enable(num, s);
+-	if (ret < 0) {
+-		DRM_DEV_ERROR(dev, "regulator enable failed, %d\n", ret);
+-		goto fail;
+-	}
+-
+-	return 0;
+-
+-fail:
+-	for (i--; i >= 0; i--)
+-		regulator_set_load(s[i].consumer, regs[i].disable_load);
+-	return ret;
++	return regulator_bulk_enable(num, s);
+ }
+ 
+ static int dsi_phy_enable_resource(struct msm_dsi_phy *phy)
+diff --git a/drivers/gpu/drm/msm/dsi/phy/dsi_phy_10nm.c b/drivers/gpu/drm/msm/dsi/phy/dsi_phy_10nm.c
+index 08b015ea1b1e..6a10a1448051 100644
+--- a/drivers/gpu/drm/msm/dsi/phy/dsi_phy_10nm.c
++++ b/drivers/gpu/drm/msm/dsi/phy/dsi_phy_10nm.c
+@@ -1033,7 +1033,7 @@ const struct msm_dsi_phy_cfg dsi_phy_10nm_cfgs = {
+ 	.reg_cfg = {
+ 		.num = 1,
+ 		.regs = {
+-			{"vdds", 36000, 32},
++			{"vdds", 36000},
+ 		},
+ 	},
+ 	.ops = {
+@@ -1055,7 +1055,7 @@ const struct msm_dsi_phy_cfg dsi_phy_10nm_8998_cfgs = {
+ 	.reg_cfg = {
+ 		.num = 1,
+ 		.regs = {
+-			{"vdds", 36000, 32},
++			{"vdds", 36000},
+ 		},
+ 	},
+ 	.ops = {
+diff --git a/drivers/gpu/drm/msm/dsi/phy/dsi_phy_14nm.c b/drivers/gpu/drm/msm/dsi/phy/dsi_phy_14nm.c
+index 8199c53567f4..0f3d4c56c333 100644
+--- a/drivers/gpu/drm/msm/dsi/phy/dsi_phy_14nm.c
++++ b/drivers/gpu/drm/msm/dsi/phy/dsi_phy_14nm.c
+@@ -1029,7 +1029,7 @@ const struct msm_dsi_phy_cfg dsi_phy_14nm_cfgs = {
+ 	.reg_cfg = {
+ 		.num = 1,
+ 		.regs = {
+-			{"vcca", 17000, 32},
++			{"vcca", 17000},
+ 		},
+ 	},
+ 	.ops = {
+@@ -1050,7 +1050,7 @@ const struct msm_dsi_phy_cfg dsi_phy_14nm_660_cfgs = {
+ 	.reg_cfg = {
+ 		.num = 1,
+ 		.regs = {
+-			{"vcca", 73400, 32},
++			{"vcca", 73400},
+ 		},
+ 	},
+ 	.ops = {
+@@ -1071,7 +1071,7 @@ const struct msm_dsi_phy_cfg dsi_phy_14nm_8953_cfgs = {
+ 	.reg_cfg = {
+ 		.num = 1,
+ 		.regs = {
+-			{"vcca", 17000, 32},
++			{"vcca", 17000},
+ 		},
+ 	},
+ 	.ops = {
+diff --git a/drivers/gpu/drm/msm/dsi/phy/dsi_phy_20nm.c b/drivers/gpu/drm/msm/dsi/phy/dsi_phy_20nm.c
+index ee7c418a1c29..b7c621d94981 100644
+--- a/drivers/gpu/drm/msm/dsi/phy/dsi_phy_20nm.c
++++ b/drivers/gpu/drm/msm/dsi/phy/dsi_phy_20nm.c
+@@ -134,8 +134,8 @@ const struct msm_dsi_phy_cfg dsi_phy_20nm_cfgs = {
+ 	.reg_cfg = {
+ 		.num = 2,
+ 		.regs = {
+-			{"vddio", 100000, 100},	/* 1.8 V */
+-			{"vcca", 10000, 100},	/* 1.0 V */
++			{"vddio", 100000},	/* 1.8 V */
++			{"vcca", 10000},	/* 1.0 V */
+ 		},
+ 	},
+ 	.ops = {
+diff --git a/drivers/gpu/drm/msm/dsi/phy/dsi_phy_28nm.c b/drivers/gpu/drm/msm/dsi/phy/dsi_phy_28nm.c
+index 48eab80b548e..6beba387640d 100644
+--- a/drivers/gpu/drm/msm/dsi/phy/dsi_phy_28nm.c
++++ b/drivers/gpu/drm/msm/dsi/phy/dsi_phy_28nm.c
+@@ -774,7 +774,7 @@ const struct msm_dsi_phy_cfg dsi_phy_28nm_hpm_cfgs = {
+ 	.reg_cfg = {
+ 		.num = 1,
+ 		.regs = {
+-			{"vddio", 100000, 100},
++			{"vddio", 100000},
+ 		},
+ 	},
+ 	.ops = {
+@@ -795,7 +795,7 @@ const struct msm_dsi_phy_cfg dsi_phy_28nm_hpm_famb_cfgs = {
+ 	.reg_cfg = {
+ 		.num = 1,
+ 		.regs = {
+-			{"vddio", 100000, 100},
++			{"vddio", 100000},
+ 		},
+ 	},
+ 	.ops = {
+@@ -816,7 +816,7 @@ const struct msm_dsi_phy_cfg dsi_phy_28nm_lp_cfgs = {
+ 	.reg_cfg = {
+ 		.num = 1,
+ 		.regs = {
+-			{"vddio", 100000, 100},	/* 1.8 V */
++			{"vddio", 100000},	/* 1.8 V */
+ 		},
+ 	},
+ 	.ops = {
+diff --git a/drivers/gpu/drm/msm/dsi/phy/dsi_phy_28nm_8960.c b/drivers/gpu/drm/msm/dsi/phy/dsi_phy_28nm_8960.c
+index fc56cdcc9ad6..2e942b10fffa 100644
+--- a/drivers/gpu/drm/msm/dsi/phy/dsi_phy_28nm_8960.c
++++ b/drivers/gpu/drm/msm/dsi/phy/dsi_phy_28nm_8960.c
+@@ -653,7 +653,7 @@ const struct msm_dsi_phy_cfg dsi_phy_28nm_8960_cfgs = {
+ 	.reg_cfg = {
+ 		.num = 1,
+ 		.regs = {
+-			{"vddio", 100000, 100},	/* 1.8 V */
++			{"vddio", 100000},	/* 1.8 V */
+ 		},
+ 	},
+ 	.ops = {
+diff --git a/drivers/gpu/drm/msm/dsi/phy/dsi_phy_7nm.c b/drivers/gpu/drm/msm/dsi/phy/dsi_phy_7nm.c
+index 66ed1919a1db..9c7c49ce1200 100644
+--- a/drivers/gpu/drm/msm/dsi/phy/dsi_phy_7nm.c
++++ b/drivers/gpu/drm/msm/dsi/phy/dsi_phy_7nm.c
+@@ -1041,7 +1041,7 @@ const struct msm_dsi_phy_cfg dsi_phy_7nm_cfgs = {
+ 	.reg_cfg = {
+ 		.num = 1,
+ 		.regs = {
+-			{"vdds", 36000, 32},
++			{"vdds", 36000},
+ 		},
+ 	},
+ 	.ops = {
+@@ -1068,7 +1068,7 @@ const struct msm_dsi_phy_cfg dsi_phy_7nm_8150_cfgs = {
+ 	.reg_cfg = {
+ 		.num = 1,
+ 		.regs = {
+-			{"vdds", 36000, 32},
++			{"vdds", 36000},
+ 		},
+ 	},
+ 	.ops = {
+@@ -1090,7 +1090,7 @@ const struct msm_dsi_phy_cfg dsi_phy_7nm_7280_cfgs = {
+ 	.reg_cfg = {
+ 		.num = 1,
+ 		.regs = {
+-			{"vdds", 37550, 0},
++			{"vdds", 37550},
+ 		},
+ 	},
+ 	.ops = {
 -- 
-2.37.1
+2.37.1.359.gd136c6c3e2-goog
 
