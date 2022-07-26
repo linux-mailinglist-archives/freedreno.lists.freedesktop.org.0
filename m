@@ -2,63 +2,59 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 764A8581898
-	for <lists+freedreno@lfdr.de>; Tue, 26 Jul 2022 19:39:04 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D79D75818DF
+	for <lists+freedreno@lfdr.de>; Tue, 26 Jul 2022 19:50:17 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E7ADA95F71;
-	Tue, 26 Jul 2022 17:39:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 714DF96397;
+	Tue, 26 Jul 2022 17:50:16 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-pj1-x1031.google.com (mail-pj1-x1031.google.com
- [IPv6:2607:f8b0:4864:20::1031])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E4BCC95F05
- for <freedreno@lists.freedesktop.org>; Tue, 26 Jul 2022 17:38:54 +0000 (UTC)
-Received: by mail-pj1-x1031.google.com with SMTP id
- c19-20020a17090ae11300b001f2f94ed5c6so1312817pjz.1
- for <freedreno@lists.freedesktop.org>; Tue, 26 Jul 2022 10:38:54 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=K0kI1Jv+w1hmGLF3xtO2oXTT7wqxRY+foeGCCnL9AjA=;
- b=T8/qC+6srgVHTfRFG2w3KUAoBN6VLIzzpZbAeztmNvkmsXTnA5PKwRmipASZpYED0z
- I87WgNvf/uUqjJuLyM+Mi6E+70SIk7irxOx/e5gblOaorXfDfroYuho817EeBocZzerM
- FWyQb3qO1T4WRRzV5vizZfUXe6VKu9rNnZcv4=
+Received: from mail-pj1-x1033.google.com (mail-pj1-x1033.google.com
+ [IPv6:2607:f8b0:4864:20::1033])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6739896386;
+ Tue, 26 Jul 2022 17:50:15 +0000 (UTC)
+Received: by mail-pj1-x1033.google.com with SMTP id y1so5975458pja.4;
+ Tue, 26 Jul 2022 10:50:15 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=c6iLmN27rlZLm/jw4V3YqvoT+/IQjLY4dY+8uO1e+u8=;
+ b=ALJD/PV6Rp0F7MvYb6Se3xjuI4Z7oMRY2YyMeVLHM2dCv/dmIoDWNBNWu6+xxoroT5
+ j0H67TR5S31Mdo6rnWJjqV4e9CgeyARFhA0NhelVT/ZXWaPNgqurGuepDJSwmAc0IrHy
+ 1m+vtLie8b5PHNnIWAWy46RlXj+pHmVbLjOGY2KzAd4d5UYbubuq1gVihU97YtpLLDOt
+ jt6uTsW+ofJDquPFd/Z09+ufHcIxrrerNaqEFXyCftzb1itsUYhG6jWkK/EI/tDUy29W
+ Gnnd4Q4AdTmfufV6Lm+g56yJkKGxT24sETT1xsuSv5gimqmNC55OwdMX/5KIye1ASbxo
+ n9vg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=K0kI1Jv+w1hmGLF3xtO2oXTT7wqxRY+foeGCCnL9AjA=;
- b=j8QJqHQlrrAY9mdbOojcMit+QxfOlk9uJF8CIVXOSdXYKPvzONSJNs9FxsxyqWvsBx
- zh4oh9bAADo/058bNJNbTv2UcXK5PV3cXj61K1c907IP7slSXXkUZCBRtRwCrh8awY42
- 08VqjmF4X38vc8FZfIs/BAqXTO5Jmog0ox1kRBJdVE/aW3hnoQJ79QzTMEe/9lc993DH
- KaevPUWlKs3RtaaadWx8Fcl5adORObemHtPbHnlzED5KBAKabwSL1UPAysJ9CvxUtOAT
- QJQghDZg6A4MfH7Cx82Re+A+QWuHO190oSBOM8KEKDofYVhVsU8VVajTvCSC9OeAph9G
- Oj6Q==
-X-Gm-Message-State: AJIora9coHADxzoO3LwRB3isrva6TYbpGTS9ilZqHT0RrE65F6aQWyjQ
- +6KQUjeKDKStkpt/Cm7MIm72cQ==
-X-Google-Smtp-Source: AGRyM1ufD662+ThVauOZCyZ7KHWQfXWbOlLf/kR+URMihVCr62EbCNVmkYFQ0+JEW5z1xTuqhR6foA==
-X-Received: by 2002:a17:90b:164d:b0:1f0:31c1:9e88 with SMTP id
- il13-20020a17090b164d00b001f031c19e88mr304501pjb.206.1658857134609; 
- Tue, 26 Jul 2022 10:38:54 -0700 (PDT)
-Received: from tictac2.mtv.corp.google.com
- ([2620:15c:202:201:8693:e9aa:75c0:5134])
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=c6iLmN27rlZLm/jw4V3YqvoT+/IQjLY4dY+8uO1e+u8=;
+ b=SvnDtobza6bf7pcEBjecfNRdHqIiiVZA0lLgYcd5F7zsF1H8eI5Ot1QC2ZPv813eip
+ LS6IsCVMIaVF3mV/6Yvwl/SVyffr4wrmxbXoOAZWJmbUS88wCSAO/XXhODRYPw9wjdZ6
+ zFLwcHPKgBnV2i2FSdJjwxa8ZevSTAPnlgRcXwXcFSAxoicm8GZHcsDiHbhiw4lWzjhp
+ 9yXwEp2lgIr8YWeEfRRcK2vm5Pl0TooN+8G/xeNihrZxNELa3Mx8ctlpvk6NzagO3QoG
+ HZHfF5E8eGak7TqKfxQRK2bmhR3uxjtajLJhpVb/ThRrLqfqHu97wo1ZtFcZQiyNh9hA
+ vUsw==
+X-Gm-Message-State: AJIora9flyqiwxJNUft6MDHb1yobnIjf5zetdYJpC/YFCNbPgfJKP7wj
+ 18huEHjuCmxUqiwFNYVfxsZXXfJpBKU=
+X-Google-Smtp-Source: AGRyM1vlwf0yvNeQMR8hx2qbVQ9TcWZl4Y6mby4fic7OQ8qtSSXl9N5S+tygiRaFoBbAUGhHduAGdg==
+X-Received: by 2002:a17:90b:1d8a:b0:1f2:9d6b:7457 with SMTP id
+ pf10-20020a17090b1d8a00b001f29d6b7457mr370242pjb.32.1658857814138; 
+ Tue, 26 Jul 2022 10:50:14 -0700 (PDT)
+Received: from localhost ([2a00:79e1:abd:4a00:2703:3c72:eb1a:cffd])
  by smtp.gmail.com with ESMTPSA id
- ik29-20020a170902ab1d00b0016d9ecd71f4sm245884plb.77.2022.07.26.10.38.52
+ c28-20020aa7953c000000b0052896629f66sm11934892pfp.208.2022.07.26.10.50.12
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 26 Jul 2022 10:38:53 -0700 (PDT)
-From: Douglas Anderson <dianders@chromium.org>
-To: Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Mark Brown <broonie@kernel.org>
-Date: Tue, 26 Jul 2022 10:38:24 -0700
-Message-Id: <20220726103631.v2.7.I55a9e65cb1c22221316629e98768ff473f47a067@changeid>
-X-Mailer: git-send-email 2.37.1.359.gd136c6c3e2-goog
-In-Reply-To: <20220726173824.1166873-1-dianders@chromium.org>
-References: <20220726173824.1166873-1-dianders@chromium.org>
+ Tue, 26 Jul 2022 10:50:12 -0700 (PDT)
+From: Rob Clark <robdclark@gmail.com>
+To: dri-devel@lists.freedesktop.org
+Date: Tue, 26 Jul 2022 10:50:24 -0700
+Message-Id: <20220726175043.1027731-1-robdclark@gmail.com>
+X-Mailer: git-send-email 2.36.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH v2 7/7] drm/msm/dsi: Take advantage of
- devm_regulator_bulk_get_const()
+Subject: [Freedreno] [PATCH v3 00/15] drm+msm: Shrinker and LRU rework
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,394 +67,82 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sean Paul <sean@poorly.run>, Loic Poulain <loic.poulain@linaro.org>,
- Jonathan Marek <jonathan@marek.ca>, David Airlie <airlied@linux.ie>,
- linux-arm-msm@vger.kernel.org, Konrad Dybcio <konrad.dybcio@somainline.org>,
- Douglas Anderson <dianders@chromium.org>, dri-devel@lists.freedesktop.org,
- Stephen Boyd <swboyd@chromium.org>, Vinod Koul <vkoul@kernel.org>,
- Daniel Vetter <daniel@ffwll.ch>, Rajeev Nandan <quic_rajeevny@quicinc.com>,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Cc: Rob Clark <robdclark@chromium.org>, linux-arm-msm@vger.kernel.org,
+ Sean Paul <sean@poorly.run>, freedreno@lists.freedesktop.org,
+ open list <linux-kernel@vger.kernel.org>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-In the patch ("regulator: core: Allow drivers to define their init
-data as const") we no longer need to do copying of regulator bulk data
-from initdata to something dynamic. Let's take advantage of that.
+From: Rob Clark <robdclark@chromium.org>
 
-In addition to saving some code, this also moves us to using
-ARRAY_SIZE() to specify how many regulators we have which is less
-error prone.
+Mostly a resend with switch to lockdep asserts for the GEM LRU helper
+and conversion of msm locking checks to lockdep asserts, since that
+seemed like a good idea.
 
-NOTE: Though I haven't done the math, this is likely an overall
-savings in terms of "static const" data. We previously always
-allocated space for 8 supplies. Each of these supplies took up 36
-bytes of data (32 for name, 4 for an int).
+original description below:
 
-Signed-off-by: Douglas Anderson <dianders@chromium.org>
----
+This is mostly motivated by getting drm/msm to pass an i-g-t shrinker
+test that I've been working on.  In particular the test creates and
+cycles between more GEM buffers than what will fit in RAM to force
+eviction and re-pin.  (There are sub-tests that cover this case both
+single threaded and with many child processes in parallel.)
 
-Changes in v2:
-- ("Take advantage of devm_regulator_bulk_get_const") new for v2.
+Getting this test to pass necessitated a few improvements:
 
- drivers/gpu/drm/msm/dsi/dsi_cfg.c  | 172 ++++++++++++++---------------
- drivers/gpu/drm/msm/dsi/dsi_cfg.h  |   3 +-
- drivers/gpu/drm/msm/dsi/dsi_host.c |  27 +----
- 3 files changed, 94 insertions(+), 108 deletions(-)
+1. Re-ordering submit path to get rid of __GFP_NORETRY (in the common
+   case, doing this for syncobjs is still TODO)
+2. Decoupling locks needed in the retire path from locks that could
+   be held while hitting reclaim in the submit path
+3. If necessary, allow stalling on active BOs for reclaim.
 
-diff --git a/drivers/gpu/drm/msm/dsi/dsi_cfg.c b/drivers/gpu/drm/msm/dsi/dsi_cfg.c
-index 901d6fd53800..7e97c239ed48 100644
---- a/drivers/gpu/drm/msm/dsi/dsi_cfg.c
-+++ b/drivers/gpu/drm/msm/dsi/dsi_cfg.c
-@@ -9,16 +9,16 @@ static const char * const dsi_v2_bus_clk_names[] = {
- 	"core_mmss", "iface", "bus",
- };
- 
-+static const struct regulator_bulk_data apq8064_dsi_regulators[] = {
-+	{ .supply = "vdda", .init_load_uA = 100000 },	/* 1.2 V */
-+	{ .supply = "avdd", .init_load_uA = 10000 },	/* 3.0 V */
-+	{ .supply = "vddio", .init_load_uA = 100000 },	/* 1.8 V */
-+};
-+
- static const struct msm_dsi_config apq8064_dsi_cfg = {
- 	.io_offset = 0,
--	.reg_cfg = {
--		.num = 3,
--		.regs = {
--			{"vdda", 100000},	/* 1.2 V */
--			{"avdd", 10000},	/* 3.0 V */
--			{"vddio", 100000},	/* 1.8 V */
--		},
--	},
-+	.regulator_data = apq8064_dsi_regulators,
-+	.num_regulators = ARRAY_SIZE(apq8064_dsi_regulators),
- 	.bus_clk_names = dsi_v2_bus_clk_names,
- 	.num_bus_clks = ARRAY_SIZE(dsi_v2_bus_clk_names),
- 	.io_start = { 0x4700000, 0x5800000 },
-@@ -29,16 +29,16 @@ static const char * const dsi_6g_bus_clk_names[] = {
- 	"mdp_core", "iface", "bus", "core_mmss",
- };
- 
-+static const struct regulator_bulk_data msm8974_apq8084_regulators[] = {
-+	{ .supply = "vdd", .init_load_uA = 150000 },	/* 3.0 V */
-+	{ .supply = "vdda", .init_load_uA = 100000 },	/* 1.2 V */
-+	{ .supply = "vddio", .init_load_uA = 100000 },	/* 1.8 V */
-+};
-+
- static const struct msm_dsi_config msm8974_apq8084_dsi_cfg = {
- 	.io_offset = DSI_6G_REG_SHIFT,
--	.reg_cfg = {
--		.num = 3,
--		.regs = {
--			{"vdd", 150000},	/* 3.0 V */
--			{"vdda", 100000},	/* 1.2 V */
--			{"vddio", 100000},	/* 1.8 V */
--		},
--	},
-+	.regulator_data = msm8974_apq8084_regulators,
-+	.num_regulators = ARRAY_SIZE(msm8974_apq8084_regulators),
- 	.bus_clk_names = dsi_6g_bus_clk_names,
- 	.num_bus_clks = ARRAY_SIZE(dsi_6g_bus_clk_names),
- 	.io_start = { 0xfd922800, 0xfd922b00 },
-@@ -49,15 +49,15 @@ static const char * const dsi_8916_bus_clk_names[] = {
- 	"mdp_core", "iface", "bus",
- };
- 
-+static const struct regulator_bulk_data msm8916_dsi_regulators[] = {
-+	{ .supply = "vdda", .init_load_uA = 100000 },	/* 1.2 V */
-+	{ .supply = "vddio", .init_load_uA = 100000 },	/* 1.8 V */
-+};
-+
- static const struct msm_dsi_config msm8916_dsi_cfg = {
- 	.io_offset = DSI_6G_REG_SHIFT,
--	.reg_cfg = {
--		.num = 2,
--		.regs = {
--			{"vdda", 100000},	/* 1.2 V */
--			{"vddio", 100000},	/* 1.8 V */
--		},
--	},
-+	.regulator_data = msm8916_dsi_regulators,
-+	.num_regulators = ARRAY_SIZE(msm8916_dsi_regulators),
- 	.bus_clk_names = dsi_8916_bus_clk_names,
- 	.num_bus_clks = ARRAY_SIZE(dsi_8916_bus_clk_names),
- 	.io_start = { 0x1a98000 },
-@@ -68,34 +68,34 @@ static const char * const dsi_8976_bus_clk_names[] = {
- 	"mdp_core", "iface", "bus",
- };
- 
-+static const struct regulator_bulk_data msm8976_dsi_regulators[] = {
-+	{ .supply = "vdda", .init_load_uA = 100000 },	/* 1.2 V */
-+	{ .supply = "vddio", .init_load_uA = 100000 },	/* 1.8 V */
-+};
-+
- static const struct msm_dsi_config msm8976_dsi_cfg = {
- 	.io_offset = DSI_6G_REG_SHIFT,
--	.reg_cfg = {
--		.num = 2,
--		.regs = {
--			{"vdda", 100000},	/* 1.2 V */
--			{"vddio", 100000},	/* 1.8 V */
--		},
--	},
-+	.regulator_data = msm8976_dsi_regulators,
-+	.num_regulators = ARRAY_SIZE(msm8976_dsi_regulators),
- 	.bus_clk_names = dsi_8976_bus_clk_names,
- 	.num_bus_clks = ARRAY_SIZE(dsi_8976_bus_clk_names),
- 	.io_start = { 0x1a94000, 0x1a96000 },
- 	.num_dsi = 2,
- };
- 
-+static const struct regulator_bulk_data msm8994_dsi_regulators[] = {
-+	{ .supply = "vdda", .init_load_uA = 100000 },	/* 1.25 V */
-+	{ .supply = "vddio", .init_load_uA = 100000 },	/* 1.8 V */
-+	{ .supply = "vcca", .init_load_uA = 10000 },	/* 1.0 V */
-+	{ .supply = "vdd", .init_load_uA = 100000 },	/* 1.8 V */
-+	{ .supply = "lab_reg", .init_load_uA = -1 },
-+	{ .supply = "ibb_reg", .init_load_uA = -1 },
-+};
-+
- static const struct msm_dsi_config msm8994_dsi_cfg = {
- 	.io_offset = DSI_6G_REG_SHIFT,
--	.reg_cfg = {
--		.num = 6,
--		.regs = {
--			{"vdda", 100000},	/* 1.25 V */
--			{"vddio", 100000},	/* 1.8 V */
--			{"vcca", 10000},	/* 1.0 V */
--			{"vdd", 100000},	/* 1.8 V */
--			{"lab_reg", -1},
--			{"ibb_reg", -1},
--		},
--	},
-+	.regulator_data = msm8994_dsi_regulators,
-+	.num_regulators = ARRAY_SIZE(msm8994_dsi_regulators),
- 	.bus_clk_names = dsi_6g_bus_clk_names,
- 	.num_bus_clks = ARRAY_SIZE(dsi_6g_bus_clk_names),
- 	.io_start = { 0xfd998000, 0xfd9a0000 },
-@@ -106,16 +106,16 @@ static const char * const dsi_8996_bus_clk_names[] = {
- 	"mdp_core", "iface", "bus", "core_mmss",
- };
- 
-+static const struct regulator_bulk_data msm8996_dsi_regulators[] = {
-+	{ .supply = "vdda", .init_load_uA = 18160 },	/* 1.25 V */
-+	{ .supply = "vcca", .init_load_uA = 17000 },	/* 0.925 V */
-+	{ .supply = "vddio", .init_load_uA = 100000 },	/* 1.8 V */
-+};
-+
- static const struct msm_dsi_config msm8996_dsi_cfg = {
- 	.io_offset = DSI_6G_REG_SHIFT,
--	.reg_cfg = {
--		.num = 3,
--		.regs = {
--			{"vdda", 18160},	/* 1.25 V */
--			{"vcca", 17000},	/* 0.925 V */
--			{"vddio", 100000},/* 1.8 V */
--		},
--	},
-+	.regulator_data = msm8996_dsi_regulators,
-+	.num_regulators = ARRAY_SIZE(msm8996_dsi_regulators),
- 	.bus_clk_names = dsi_8996_bus_clk_names,
- 	.num_bus_clks = ARRAY_SIZE(dsi_8996_bus_clk_names),
- 	.io_start = { 0x994000, 0x996000 },
-@@ -126,15 +126,15 @@ static const char * const dsi_msm8998_bus_clk_names[] = {
- 	"iface", "bus", "core",
- };
- 
-+static const struct regulator_bulk_data msm8998_dsi_regulators[] = {
-+	{ .supply = "vdd", .init_load_uA = 367000 },	/* 0.9 V */
-+	{ .supply = "vdda", .init_load_uA = 62800 },	/* 1.2 V */
-+};
-+
- static const struct msm_dsi_config msm8998_dsi_cfg = {
- 	.io_offset = DSI_6G_REG_SHIFT,
--	.reg_cfg = {
--		.num = 2,
--		.regs = {
--			{"vdd", 367000},	/* 0.9 V */
--			{"vdda", 62800},	/* 1.2 V */
--		},
--	},
-+	.regulator_data = msm8998_dsi_regulators,
-+	.num_regulators = ARRAY_SIZE(msm8998_dsi_regulators),
- 	.bus_clk_names = dsi_msm8998_bus_clk_names,
- 	.num_bus_clks = ARRAY_SIZE(dsi_msm8998_bus_clk_names),
- 	.io_start = { 0xc994000, 0xc996000 },
-@@ -145,14 +145,14 @@ static const char * const dsi_sdm660_bus_clk_names[] = {
- 	"iface", "bus", "core", "core_mmss",
- };
- 
-+static const struct regulator_bulk_data sdm660_dsi_regulators[] = {
-+	{ .supply = "vdda", .init_load_uA = 12560 },	/* 1.2 V */
-+};
-+
- static const struct msm_dsi_config sdm660_dsi_cfg = {
- 	.io_offset = DSI_6G_REG_SHIFT,
--	.reg_cfg = {
--		.num = 1,
--		.regs = {
--			{"vdda", 12560},	/* 1.2 V */
--		},
--	},
-+	.regulator_data = sdm660_dsi_regulators,
-+	.num_regulators = ARRAY_SIZE(sdm660_dsi_regulators),
- 	.bus_clk_names = dsi_sdm660_bus_clk_names,
- 	.num_bus_clks = ARRAY_SIZE(dsi_sdm660_bus_clk_names),
- 	.io_start = { 0xc994000, 0xc996000 },
-@@ -167,28 +167,28 @@ static const char * const dsi_sc7180_bus_clk_names[] = {
- 	"iface", "bus",
- };
- 
-+static const struct regulator_bulk_data sdm845_dsi_regulators[] = {
-+	{ .supply = "vdda", .init_load_uA = 21800 },	/* 1.2 V */
-+};
-+
- static const struct msm_dsi_config sdm845_dsi_cfg = {
- 	.io_offset = DSI_6G_REG_SHIFT,
--	.reg_cfg = {
--		.num = 1,
--		.regs = {
--			{"vdda", 21800},	/* 1.2 V */
--		},
--	},
-+	.regulator_data = sdm845_dsi_regulators,
-+	.num_regulators = ARRAY_SIZE(sdm845_dsi_regulators),
- 	.bus_clk_names = dsi_sdm845_bus_clk_names,
- 	.num_bus_clks = ARRAY_SIZE(dsi_sdm845_bus_clk_names),
- 	.io_start = { 0xae94000, 0xae96000 },
- 	.num_dsi = 2,
- };
- 
-+static const struct regulator_bulk_data sc7180_dsi_regulators[] = {
-+	{ .supply = "vdda", .init_load_uA = 21800 },	/* 1.2 V */
-+};
-+
- static const struct msm_dsi_config sc7180_dsi_cfg = {
- 	.io_offset = DSI_6G_REG_SHIFT,
--	.reg_cfg = {
--		.num = 1,
--		.regs = {
--			{"vdda", 21800},	/* 1.2 V */
--		},
--	},
-+	.regulator_data = sc7180_dsi_regulators,
-+	.num_regulators = ARRAY_SIZE(sc7180_dsi_regulators),
- 	.bus_clk_names = dsi_sc7180_bus_clk_names,
- 	.num_bus_clks = ARRAY_SIZE(dsi_sc7180_bus_clk_names),
- 	.io_start = { 0xae94000 },
-@@ -199,14 +199,14 @@ static const char * const dsi_sc7280_bus_clk_names[] = {
- 	"iface", "bus",
- };
- 
-+static const struct regulator_bulk_data sc7280_dsi_regulators[] = {
-+	{ .supply = "vdda", .init_load_uA = 8350 },	/* 1.2 V */
-+};
-+
- static const struct msm_dsi_config sc7280_dsi_cfg = {
- 	.io_offset = DSI_6G_REG_SHIFT,
--	.reg_cfg = {
--		.num = 1,
--		.regs = {
--			{"vdda", 8350},	/* 1.2 V */
--		},
--	},
-+	.regulator_data = sc7280_dsi_regulators,
-+	.num_regulators = ARRAY_SIZE(sc7280_dsi_regulators),
- 	.bus_clk_names = dsi_sc7280_bus_clk_names,
- 	.num_bus_clks = ARRAY_SIZE(dsi_sc7280_bus_clk_names),
- 	.io_start = { 0xae94000 },
-@@ -217,14 +217,14 @@ static const char * const dsi_qcm2290_bus_clk_names[] = {
- 	"iface", "bus",
- };
- 
-+static const struct regulator_bulk_data qcm2290_dsi_cfg_regulators[] = {
-+	{ .supply = "vdda", .init_load_uA = 21800 },	/* 1.2 V */
-+};
-+
- static const struct msm_dsi_config qcm2290_dsi_cfg = {
- 	.io_offset = DSI_6G_REG_SHIFT,
--	.reg_cfg = {
--		.num = 1,
--		.regs = {
--			{"vdda", 21800},	/* 1.2 V */
--		},
--	},
-+	.regulator_data = qcm2290_dsi_cfg_regulators,
-+	.num_regulators = ARRAY_SIZE(qcm2290_dsi_cfg_regulators),
- 	.bus_clk_names = dsi_qcm2290_bus_clk_names,
- 	.num_bus_clks = ARRAY_SIZE(dsi_qcm2290_bus_clk_names),
- 	.io_start = { 0x5e94000 },
-diff --git a/drivers/gpu/drm/msm/dsi/dsi_cfg.h b/drivers/gpu/drm/msm/dsi/dsi_cfg.h
-index fe54a999968b..8f04e685a74e 100644
---- a/drivers/gpu/drm/msm/dsi/dsi_cfg.h
-+++ b/drivers/gpu/drm/msm/dsi/dsi_cfg.h
-@@ -32,7 +32,8 @@
- 
- struct msm_dsi_config {
- 	u32 io_offset;
--	struct dsi_reg_config reg_cfg;
-+	const struct regulator_bulk_data *regulator_data;
-+	int num_regulators;
- 	const char * const *bus_clk_names;
- 	const int num_bus_clks;
- 	const resource_size_t io_start[DSI_MAX];
-diff --git a/drivers/gpu/drm/msm/dsi/dsi_host.c b/drivers/gpu/drm/msm/dsi/dsi_host.c
-index dec7a94cf819..e159f2006158 100644
---- a/drivers/gpu/drm/msm/dsi/dsi_host.c
-+++ b/drivers/gpu/drm/msm/dsi/dsi_host.c
-@@ -106,7 +106,7 @@ struct msm_dsi_host {
- 
- 	void __iomem *ctrl_base;
- 	phys_addr_t ctrl_size;
--	struct regulator_bulk_data supplies[DSI_DEV_REGULATOR_MAX];
-+	struct regulator_bulk_data *supplies;
- 
- 	int num_bus_clks;
- 	struct clk_bulk_data bus_clks[DSI_BUS_CLK_MAX];
-@@ -259,7 +259,7 @@ static inline struct msm_dsi_host *to_msm_dsi_host(struct mipi_dsi_host *host)
- static void dsi_host_regulator_disable(struct msm_dsi_host *msm_host)
- {
- 	struct regulator_bulk_data *s = msm_host->supplies;
--	int num = msm_host->cfg_hnd->cfg->reg_cfg.num;
-+	int num = msm_host->cfg_hnd->cfg->num_regulators;
- 
- 	regulator_bulk_disable(num, s);
- }
-@@ -267,31 +267,16 @@ static void dsi_host_regulator_disable(struct msm_dsi_host *msm_host)
- static int dsi_host_regulator_enable(struct msm_dsi_host *msm_host)
- {
- 	struct regulator_bulk_data *s = msm_host->supplies;
--	int num = msm_host->cfg_hnd->cfg->reg_cfg.num;
-+	int num = msm_host->cfg_hnd->cfg->num_regulators;
- 
- 	return regulator_bulk_enable(num, s);
- }
- 
- static int dsi_regulator_init(struct msm_dsi_host *msm_host)
- {
--	struct regulator_bulk_data *s = msm_host->supplies;
--	const struct dsi_reg_entry *regs = msm_host->cfg_hnd->cfg->reg_cfg.regs;
--	int num = msm_host->cfg_hnd->cfg->reg_cfg.num;
--	int i, ret;
--
--	for (i = 0; i < num; i++) {
--		s[i].supply = regs[i].name;
--		s[i].init_load_uA = regs[i].enable_load;
--	}
--
--	ret = devm_regulator_bulk_get(&msm_host->pdev->dev, num, s);
--	if (ret < 0) {
--		pr_err("%s: failed to init regulator, ret=%d\n",
--						__func__, ret);
--		return ret;
--	}
--
--	return 0;
-+	return devm_regulator_bulk_get_const(
-+		&msm_host->pdev->dev, msm_host->cfg_hnd->cfg->num_regulators,
-+		msm_host->cfg_hnd->cfg->regulator_data, &msm_host->supplies);
- }
- 
- int dsi_clk_init_v2(struct msm_dsi_host *msm_host)
+The latter point is because we pin objects in the synchronous part of
+the submit path (before queuing on the drm gpu-scheduler), which means
+in the parallel variant of the i-g-t test, we need to be able to block
+in the reclaim path until some queued work has completed/retired.
+
+In the process of re-working how drm/msm tracks buffer state in it's
+various LRU lists, I refactored out a drm_gem_lru helper which, in
+theory, should be usable by other drivers and drm shmem helpers for
+implementing LRU tracking and shrinker.
+
+
+v2: rebase + small fix in 13/13
+v3: use lockdep_assert_held in GEM LRU helper, and add a couple patches
+    at the end to convert MSM from WARN_ON(!is_locked()) to lockdep
+    asserts
+
+Rob Clark (15):
+  drm/msm: Reorder lock vs submit alloc
+  drm/msm: Small submit cleanup
+  drm/msm: Split out idr_lock
+  drm/msm/gem: Check for active in shrinker path
+  drm/msm/gem: Rename update_inactive
+  drm/msm/gem: Rename to pin/unpin_pages
+  drm/msm/gem: Consolidate pin/unpin paths
+  drm/msm/gem: Remove active refcnt
+  drm/gem: Add LRU/shrinker helper
+  drm/msm/gem: Convert to using drm_gem_lru
+  drm/msm/gem: Unpin buffers earlier
+  drm/msm/gem: Consolidate shrinker trace
+  drm/msm/gem: Evict active GEM objects when necessary
+  drm/msm/gem: Add msm_gem_assert_locked()
+  drm/msm/gem: Convert to lockdep assert
+
+ drivers/gpu/drm/drm_gem.c              | 183 +++++++++++++++++++++++++
+ drivers/gpu/drm/msm/msm_drv.c          |  18 ++-
+ drivers/gpu/drm/msm/msm_drv.h          |  70 +++++++---
+ drivers/gpu/drm/msm/msm_gem.c          | 179 +++++++++---------------
+ drivers/gpu/drm/msm/msm_gem.h          | 123 ++---------------
+ drivers/gpu/drm/msm/msm_gem_prime.c    |   4 +-
+ drivers/gpu/drm/msm/msm_gem_shrinker.c | 164 ++++++++++------------
+ drivers/gpu/drm/msm/msm_gem_submit.c   |  78 ++++-------
+ drivers/gpu/drm/msm/msm_gpu.c          |   3 -
+ drivers/gpu/drm/msm/msm_gpu.h          |  10 +-
+ drivers/gpu/drm/msm/msm_gpu_trace.h    |  36 +++--
+ drivers/gpu/drm/msm/msm_submitqueue.c  |   1 +
+ include/drm/drm_gem.h                  |  56 ++++++++
+ 13 files changed, 505 insertions(+), 420 deletions(-)
+
 -- 
-2.37.1.359.gd136c6c3e2-goog
+2.36.1
 
