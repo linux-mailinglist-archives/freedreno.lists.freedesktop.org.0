@@ -2,51 +2,56 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1E518580A8C
-	for <lists+freedreno@lfdr.de>; Tue, 26 Jul 2022 06:46:11 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A6F7B581763
+	for <lists+freedreno@lfdr.de>; Tue, 26 Jul 2022 18:25:30 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8C9C510E9DC;
-	Tue, 26 Jul 2022 04:46:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0F214932E7;
+	Tue, 26 Jul 2022 16:25:29 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from alexa-out-sd-01.qualcomm.com (alexa-out-sd-01.qualcomm.com
- [199.106.114.38])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AF92210EFFD;
- Tue, 26 Jul 2022 04:46:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=quicinc.com; i=@quicinc.com; q=dns/txt; s=qcdkim;
- t=1658810766; x=1690346766;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=+JixpvyYfaWRndCLMC/gsQfJIe6k7h9hL0j0x6Kv8eI=;
- b=qjnmTq+bVjwYk6aF7zrr0AtsN3EH7zP8qTnM4X8Fw5G0AqJJmd6b8awc
- yY1OKyVbX9KTMg2LIwZ8XIetjvMRMk35xZsXKkd9CKCP529Vx4iGUp0aQ
- BolClmEzC42zN7dPeuhiv24NVb+n45u2cgwGCuZss1x01kTBV5OCyPIPW s=;
-Received: from unknown (HELO ironmsg01-sd.qualcomm.com) ([10.53.140.141])
- by alexa-out-sd-01.qualcomm.com with ESMTP; 25 Jul 2022 21:46:06 -0700
-X-QCInternal: smtphost
-Received: from unknown (HELO nasanex01a.na.qualcomm.com) ([10.52.223.231])
- by ironmsg01-sd.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 25 Jul 2022 21:46:05 -0700
-Received: from hu-ddhamara-hyd.qualcomm.com (10.80.80.8) by
- nasanex01a.na.qualcomm.com (10.52.223.231) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.986.22; Mon, 25 Jul 2022 21:46:03 -0700
-From: <quic_ddhamara@quicinc.com>
-To: <freedreno@lists.freedesktop.org>
-Date: Tue, 26 Jul 2022 10:14:46 +0530
-Message-ID: <20220726044446.21102-2-quic_ddhamara@quicinc.com>
-X-Mailer: git-send-email 2.37.0
-In-Reply-To: <20220726044446.21102-1-quic_ddhamara@quicinc.com>
-References: <20220726044446.21102-1-quic_ddhamara@quicinc.com>
+Received: from mail-wr1-x42c.google.com (mail-wr1-x42c.google.com
+ [IPv6:2a00:1450:4864:20::42c])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1BAA193328;
+ Tue, 26 Jul 2022 16:25:28 +0000 (UTC)
+Received: by mail-wr1-x42c.google.com with SMTP id m17so20602708wrw.7;
+ Tue, 26 Jul 2022 09:25:28 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=t8LcVDs8RvZGnf91eTJED60DiX0yf8UGdRli/z4R9ww=;
+ b=KOAeoyBm7wwBLORTMOBcTE7Nn6Uh+DlNDpeypqWgO3iRo3tTNM3ST5PjirqDA0SNJd
+ 2l8tM5Fj8bIosSVBQsNPXU16f9vBj/jxTLV1nUXBRaz958Ponsgt4MKJhTr/4P5C+ob8
+ md49wVvLWNFB5WIcMqUydukfJrGCaC3zNFOc4r9JAlEwuq376EAb1KN9TGJAiGaS18CG
+ pHW1lv0nYtqFya/3QGUA0ljw77iue/nXuR0nGJvpPMrGKGEDLJs/tHDRj6EjA6Mb7ZdR
+ 76rNBUZTj8S4pvcPutDbd37L1F7Da4v1+THmyE+fq8vsqR1TLx/hBtGU89MS78ZkXDIt
+ fYyQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=t8LcVDs8RvZGnf91eTJED60DiX0yf8UGdRli/z4R9ww=;
+ b=I1dDVQEZoNiL941GAJrk3ll0xT0pGlfvJYxeauM49UIThwb7vIrQg7siU1CuOkQuWT
+ /tpRCgntB1KcbzprGLcSNw5QHuhYbcvaV8VOSvWe8ZI+uHrxjg/vg5LShPMffX2dLdwg
+ Pj50gJYhBdqUTuM0wd4jUVJF2pWf7JF9P4GATrWbHtGLKjYHlNHEikkUZ0pwJP0wIuvk
+ BoPFs403nMgeMlcnqZpqpakRL+fSOSRIzvk3G8GsVkgYydOlYhWLOfw4JkLZc3HSF2ci
+ kNlLz09Z4w1A1iYRAPlX0PHqJujUBAPkZdOugpmXOLlZUjKbJYXlISgKybY8MqjiEv34
+ lWuw==
+X-Gm-Message-State: AJIora+H/3NNwviQzjIZvhFv7Svv9rlCvL8nNPon54CSggVhfLs1U6/p
+ k6o0F967L4Rs2Cd5CW8WFJd02EGecXub6NTUOkQ=
+X-Google-Smtp-Source: AGRyM1vYA93JRusWt3hwGYo+dbJpfk0guI4CLJFR6iKYSfUwTVlqD4Bn4DScV0Cy1Y1E4ZJY93/GUDJxhAakmjQSbgI=
+X-Received: by 2002:adf:e187:0:b0:21d:64c6:74f0 with SMTP id
+ az7-20020adfe187000000b0021d64c674f0mr10806915wrb.221.1658852726467; Tue, 26
+ Jul 2022 09:25:26 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
- nasanex01a.na.qualcomm.com (10.52.223.231)
-Subject: [Freedreno] [PATCH v2 1/1] drm/msm/a6xx: Fix null pointer access in
- a6xx_get_indexed_registers
+References: <20220726044446.21102-1-quic_ddhamara@quicinc.com>
+ <20220726044446.21102-2-quic_ddhamara@quicinc.com>
+In-Reply-To: <20220726044446.21102-2-quic_ddhamara@quicinc.com>
+From: Rob Clark <robdclark@gmail.com>
+Date: Tue, 26 Jul 2022 09:25:50 -0700
+Message-ID: <CAF6AEGvd+nS+hiypoVAZ-kag1xHHBMO=e=aGPrVr-+asUmFXBw@mail.gmail.com>
+To: quic_ddhamara@quicinc.com
+Content-Type: text/plain; charset="UTF-8"
+Subject: Re: [Freedreno] [PATCH v2 1/1] drm/msm/a6xx: Fix null pointer
+ access in a6xx_get_indexed_registers
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,44 +65,66 @@ List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
 Cc: quic_akhilpo@quicinc.com, linux-arm-msm@vger.kernel.org,
- Devi prasad Dhamarasingi <quic_ddhamara@quicinc.com>,
- dri-devel@lists.freedesktop.org, robclark@gmail.com
+ freedreno@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ robclark@gmail.com
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-From: Akhil P Oommen <quic_akhilpo@quicinc.com>
+On Mon, Jul 25, 2022 at 9:46 PM <quic_ddhamara@quicinc.com> wrote:
+>
+> From: Akhil P Oommen <quic_akhilpo@quicinc.com>
+>
+> Fix a null pointer access when memory allocation fails in
+> a6xx_get_indexed_registers().
+>
+> Change-Id: I33e13745cd8e5841d2f377f48a199af98be2ed02
+> Signed-off-by: Akhil P Oommen <quic_akhilpo@quicinc.com>
+> Signed-off-by: Devi prasad Dhamarasingi <quic_ddhamara@quicinc.com>
+> ---
+>
+> Changes in v2:
+> - Corrected the signoff name and email id.
+>
+>  drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c | 6 ++++++
+>  1 file changed, 6 insertions(+)
+>
+> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c b/drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c
+> index 55f443328d8e..507074f6222c 100644
+> --- a/drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c
+> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c
+> @@ -952,6 +952,12 @@ static void a6xx_get_indexed_registers(struct msm_gpu *gpu,
+>         a6xx_get_indexed_regs(gpu, a6xx_state, &a6xx_cp_mempool_indexed,
+>                 &a6xx_state->indexed_regs[i]);
+>
+> +       if (!a6xx_state->indexed_regs[i].data) {
+> +               gpu_write(gpu, REG_A6XX_CP_MEM_POOL_SIZE, mempool_size);
+> +               a6xx_state->nr_indexed_regs = count - 1;
+> +               return;
+> +       }
 
-Fix a null pointer access when memory allocation fails in
-a6xx_get_indexed_registers().
+Hmm, I don't see us adjusting nr_indexed_regs if any of the earlier
+sections fails, so I don't think we need to do that here either.  So I
+think you could just:
 
-Change-Id: I33e13745cd8e5841d2f377f48a199af98be2ed02
-Signed-off-by: Akhil P Oommen <quic_akhilpo@quicinc.com>
-Signed-off-by: Devi prasad Dhamarasingi <quic_ddhamara@quicinc.com>
----
+if (a6xx_state->indexed_regs[i].data)
+   a6xx_state->indexed_regs[i].data[0x2000] = mempool_size;
 
-Changes in v2:
-- Corrected the signoff name and email id.
+And I kinda expect if there was an allocation failure we'd just end up
+dereferencing a null ptr later in the show path.
 
- drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c | 6 ++++++
- 1 file changed, 6 insertions(+)
+But, I think in general you can assume small GFP_KERNEL allocations
+will never fail.  If necessary they will block for reclaim/shrinker to
+free up some memory or evict some pages to swap.  If you've gotten to
+the point where even that isn't possible, then a null ptr deref is
+really the least of your problems ;-)
 
-diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c b/drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c
-index 55f443328d8e..507074f6222c 100644
---- a/drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c
-+++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c
-@@ -952,6 +952,12 @@ static void a6xx_get_indexed_registers(struct msm_gpu *gpu,
- 	a6xx_get_indexed_regs(gpu, a6xx_state, &a6xx_cp_mempool_indexed,
- 		&a6xx_state->indexed_regs[i]);
- 
-+	if (!a6xx_state->indexed_regs[i].data) {
-+		gpu_write(gpu, REG_A6XX_CP_MEM_POOL_SIZE, mempool_size);
-+		a6xx_state->nr_indexed_regs = count - 1;
-+		return;
-+	}
-+
- 	/*
- 	 * Offset 0x2000 in the mempool is the size - copy the saved size over
- 	 * so the data is consistent
--- 
-2.37.0
+BR,
+-R
 
+> +
+>         /*
+>          * Offset 0x2000 in the mempool is the size - copy the saved size over
+>          * so the data is consistent
+> --
+> 2.37.0
+>
