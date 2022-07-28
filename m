@@ -2,45 +2,59 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id CBED85835F7
-	for <lists+freedreno@lfdr.de>; Thu, 28 Jul 2022 02:21:49 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 51B5A58450A
+	for <lists+freedreno@lfdr.de>; Thu, 28 Jul 2022 19:34:33 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 34512112297;
-	Thu, 28 Jul 2022 00:21:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8F7EA10F335;
+	Thu, 28 Jul 2022 17:34:30 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1A4DD11ABDE;
- Thu, 28 Jul 2022 00:20:24 +0000 (UTC)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 221F6B82299;
- Thu, 28 Jul 2022 00:20:23 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3A6A6C433D6;
- Thu, 28 Jul 2022 00:20:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1658967621;
- bh=XXheh9mqQDG3PaGTXFAtn6/QW0kvLQwVCz2hrunYYhM=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=tp6nvtlyMl7PUOOQe6aUhPfQ6VoiX/t0XQxIFemkOnC6ZsowTE3NGaO8WMv+526Ua
- oAk+Y1eQNEtRFd8hQoofQy2IDrCJmL42bsNc3gdi2QiSubW/Hj+9xxEmKiadu8GqD7
- 1omO5Mjsgdh7IZtNQPxJqhnok1QNVui6L8qxp8QTsFJDUC54M+qjntHQEWGPwToMEi
- cnUukWDdUdNbwOYPa99kTtjBD4n9UMWO0VGSMpRYWUrm0pYLITQjHrYQhpR06vyfYJ
- IZld7mj02WoZb0JwNFdE2qOQ8vygEpehAM4izDe8/aphZPhWS8RwIqaCCpQXX1hzHW
- iu8U+YNK0Pb5A==
-Date: Thu, 28 Jul 2022 01:20:13 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Douglas Anderson <dianders@chromium.org>
-Message-ID: <YuHWPbMJpvzI4Q8F@sirena.org.uk>
-References: <20220726173824.1166873-1-dianders@chromium.org>
+Received: from alexa-out.qualcomm.com (alexa-out.qualcomm.com [129.46.98.28])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7A53111A1A4;
+ Thu, 28 Jul 2022 17:34:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=quicinc.com; i=@quicinc.com; q=dns/txt; s=qcdkim;
+ t=1659029666; x=1690565666;
+ h=message-id:date:mime-version:subject:to:cc:references:
+ from:in-reply-to:content-transfer-encoding;
+ bh=o+fn6h9fFDfk07b94ykcs0xYkUzKgqQtjInlwWCLcjs=;
+ b=jwQ1HpKjEiU8jJBoBqrTA2eeN9TvXocWLVLHZoc7WyC+XYhAEiapTpfy
+ RvYEDigEeJp3pbAbMBj0sWqf+ELL7Ru3CnYFdqwj2QmYpnY6qjCMkl/Uw
+ 9vxvvAnudidKFA+99g1z6tu0bmAJYvl7u1yKZW20ZyeAfx6W/9wITgXBo A=;
+Received: from ironmsg08-lv.qualcomm.com ([10.47.202.152])
+ by alexa-out.qualcomm.com with ESMTP; 28 Jul 2022 10:34:25 -0700
+X-QCInternal: smtphost
+Received: from nasanex01c.na.qualcomm.com ([10.47.97.222])
+ by ironmsg08-lv.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 28 Jul 2022 10:34:25 -0700
+Received: from nalasex01a.na.qualcomm.com (10.47.209.196) by
+ nasanex01c.na.qualcomm.com (10.47.97.222) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.986.22; Thu, 28 Jul 2022 10:34:24 -0700
+Received: from [10.111.167.242] (10.80.80.8) by nalasex01a.na.qualcomm.com
+ (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.22; Thu, 28 Jul
+ 2022 10:34:21 -0700
+Message-ID: <5c8ca71c-5f0b-d5f5-9f16-e312dec0d01b@quicinc.com>
+Date: Thu, 28 Jul 2022 10:34:19 -0700
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="QzwTGW35j9Lkz65d"
-Content-Disposition: inline
-In-Reply-To: <20220726173824.1166873-1-dianders@chromium.org>
-X-Cookie: No motorized vehicles allowed.
-Subject: Re: [Freedreno] [PATCH v2 0/7] drm/msm/dsi regulator improvements
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
+ Thunderbird/91.6.2
+Content-Language: en-US
+To: Rob Clark <robdclark@gmail.com>, Doug Anderson <dianders@chromium.org>
+References: <20220721152314.RFC.1.Ie333b3e4aff6e4a5b58c4aa805e030e561be8773@changeid>
+ <269f2610-425b-f296-dcfc-89bdc2e1d587@quicinc.com>
+ <CAD=FV=XSVXasU5PMR2kL0WQjQ458xDePuTGd1m14_v9JO5B6oA@mail.gmail.com>
+ <CAF6AEGv_Vikf80v-7ccz90fvGPrk5pV1tOxRoWKxKHYuEW8=aA@mail.gmail.com>
+From: Abhinav Kumar <quic_abhinavk@quicinc.com>
+In-Reply-To: <CAF6AEGv_Vikf80v-7ccz90fvGPrk5pV1tOxRoWKxKHYuEW8=aA@mail.gmail.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+Subject: Re: [Freedreno] [RFC PATCH] drm/edid: Make 144 Hz not preferred on
+ Sharp LQ140M1JW46
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,80 +67,116 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: David Airlie <airlied@linux.ie>,
- Konrad Dybcio <konrad.dybcio@somainline.org>, dri-devel@lists.freedesktop.org,
- Bjorn Andersson <bjorn.andersson@linaro.org>,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@somainline.org>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- Archit Taneja <architt@codeaurora.org>, Jonathan Marek <jonathan@marek.ca>,
- Rob Clark <robdclark@gmail.com>, Rajeev Nandan <quic_rajeevny@quicinc.com>,
- linux-arm-msm@vger.kernel.org, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Stephen Boyd <swboyd@chromium.org>, Sean Paul <sean@poorly.run>,
- Loic Poulain <loic.poulain@linaro.org>,
- Vladimir Lypak <vladimir.lypak@gmail.com>, Liam Girdwood <lgirdwood@gmail.com>,
- linux-kernel@vger.kernel.org, Vinod Koul <vkoul@kernel.org>,
- Daniel Vetter <daniel@ffwll.ch>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- =?iso-8859-1?Q?Jos=E9_Exp=F3sito?= <jose.exposito89@gmail.com>,
- freedreno@lists.freedesktop.org
+Cc: Sankeerth Billakanti <quic_sbillaka@quicinc.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@linux.ie>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ LKML <linux-kernel@vger.kernel.org>,
+ dri-devel <dri-devel@lists.freedesktop.org>,
+ Maxime Ripard <mripard@kernel.org>, Daniel Vetter <daniel@ffwll.ch>,
+ freedreno <freedreno@lists.freedesktop.org>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
+Hi Rob and Doug
 
---QzwTGW35j9Lkz65d
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+On 7/22/2022 10:36 AM, Rob Clark wrote:
+> On Fri, Jul 22, 2022 at 9:48 AM Doug Anderson <dianders@chromium.org> wrote:
+>>
+>> Hi,
+>>
+>> On Fri, Jul 22, 2022 at 9:37 AM Abhinav Kumar <quic_abhinavk@quicinc.com> wrote:
+>>>
+>>> + sankeerth
+>>>
+>>> Hi Doug
+>>>
+>>> On 7/21/2022 3:23 PM, Douglas Anderson wrote:
+>>>> The Sharp LQ140M1JW46 panel is on the Qualcomm sc7280 CRD reference
+>>>> board. This panel supports 144 Hz and 60 Hz. In the EDID, the 144 Hz
+>>>> mode is listed first and thus is marked preferred. The EDID decode I
+>>>> ran says:
+>>>>
+>>>>     First detailed timing includes the native pixel format and preferred
+>>>>     refresh rate.
+>>>>
+>>>>     ...
+>>>>
+>>>>     Detailed Timing Descriptors:
+>>>>       DTD 1:  1920x1080  143.981 Hz  16:9   166.587 kHz  346.500 MHz
+>>>>                    Hfront   48 Hsync  32 Hback  80 Hpol N
+>>>>                    Vfront    3 Vsync   5 Vback  69 Vpol N
+>>>>       DTD 2:  1920x1080   59.990 Hz  16:9    69.409 kHz  144.370 MHz
+>>>>                    Hfront   48 Hsync  32 Hback  80 Hpol N
+>>>>                    Vfront    3 Vsync   5 Vback  69 Vpol N
+>>>>
+>>>> I'm proposing here that the above is actually a bug and that the 60 Hz
+>>>> mode really should be considered preferred by Linux.
 
-On Tue, Jul 26, 2022 at 10:38:17AM -0700, Douglas Anderson wrote:
+Its a bit tricky to say that this is a bug but I think we can certainly 
+add here that for an internal display we would have ideally had the 
+lower resolution first to indicate it as default.
 
-> * After that I have patches that add to the regulator API and then
->   show a usage of those in the DSI driver. I'd expect that the two
->   regulator patches could land in the regulator tree. The DSI patches
->   would need to wait until the new regulator changes are available.
+>>>>
+>>>> The argument here is that this is a laptop panel and on a laptop we
+>>>> know power will always be a concern. Presumably even if someone using
+>>>> this panel wanted to use 144 Hz for some use cases they would only do
+>>>> so dynamically and would still want the default to be 60 Hz.
+>>>>
+>>>> Let's change the default to 60 Hz using a standard quirk.
+>>>>
+>>>> Signed-off-by: Douglas Anderson <dianders@chromium.org>
+>>>
+>>> Yes, we were aware that 144Hz was getting picked. We found that while
+>>> debugging the screen corruption issue.
+>>>
+>>> Well, yes power would be less with 60Hz but so will be the performance.
+>>
+>> What performance specifically will be less with 60 Hz? In general the
+>> sc7280 CPU is a bit memory-bandwidth constrained and the LCD refresh
+>> from memory is a non-trivial part of that. Reducing to 60 Hz will
+>> relieve some of the memory bandwidth pressure and will actually allow
+>> tasks on the CPU to run _faster_. I guess the downside is that some
+>> animations might be a little less smooth...
+> 
+> I guess he is referring to something that is vblank sync'd running
+> faster than 60fps.
+> 
+> but OTOH it is a bit of a waste for fbcon to be using 144Hz.  And
+> there are enough android games that limit themselves to 30fps to save
+> your "phone" battery.  So it seems a lot more sane to default to 60Hz
+> and let userspace that knows it wants more pick the 144Hz rate when
+> needed.
+> 
+> BR,
+> -R
 
-The following changes since commit f2906aa863381afb0015a9eb7fefad885d4e5a56:
+Yes i was referring to vblank synced apps.
 
-  Linux 5.19-rc1 (2022-06-05 17:18:54 -0700)
+> 
+>>
+>>
+>>> The test teams have been validating with 144Hz so far so we are checking
+>>> internally with the team whether its OKAY to goto 60Hz now since that
+>>> kind of invalidates the testing they have been doing.
+>>
+>> You're worried that the panel itself won't work well at 60 Hz, or
+>> something else about the system won't? The whole system in general
+>> needs to work well with 60 Hz displays and I expect them to be much
+>> more common than 144 Hz displays. Quite honestly if switching to 60 Hz
+>> uncovers a problem that would be a huge benefit of landing this patch
+>> because it would mean we'd find it now rather than down the road when
+>> someone hooks up a different panel.
 
-are available in the Git repository at:
+I was worried that it will invalidate the testing they did so far but 
+since you have confirmed that you would prefer 60Hz to be more 
+thoroughly tested than 144Hz, I have informed the internal teams of this 
+change and given the heads up.
 
-  https://git.kernel.org/pub/scm/linux/kernel/git/broonie/regulator.git tags/regulator-load-bulk-api
+You can have my R-b for this change,
 
-for you to fetch changes up to 1de452a0edda26f1483d1d934f692eab13ba669a:
+Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
 
-  regulator: core: Allow drivers to define their init data as const (2022-07-27 13:47:30 +0100)
+I would also wait to see if others have different thought about this.
 
-----------------------------------------------------------------
-regulator: Consumer load management improvements
-
-The main goal of this series is to make a small dent in cleaning up
-the way we deal with regulator loads. The idea is to add some extra
-functionality to the regulator "bulk" API so that consumers can
-specify the load using that.
-
-----------------------------------------------------------------
-Douglas Anderson (2):
-      regulator: core: Allow specifying an initial load w/ the bulk API
-      regulator: core: Allow drivers to define their init data as const
-
- drivers/regulator/core.c           | 20 ++++++++++++--------
- drivers/regulator/devres.c         | 28 ++++++++++++++++++++++++++++
- include/linux/regulator/consumer.h | 16 ++++++++++++----
- 3 files changed, 52 insertions(+), 12 deletions(-)
-
---QzwTGW35j9Lkz65d
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmLh1j0ACgkQJNaLcl1U
-h9BPcQf9GPCWEomdabnhH7GCmgmAzwu/Nlx2FCFvYeXoCpuaINN3KbtkjSFWzHkk
-kytEcl/slC5uu8bQ6MbnAIOQ2R2qKEPyiF9t7TL4y3HEE+9nYp4K40kJFq0Fa2c2
-mNIKO8ZLShH3UvymPdF04WgerfKOCSlKuB6B1wAIGzhtsOUoQqMFdvyeJy/Lf4NW
-8rTpcC8n9NZqDBN+B/sKxxxiENdwykMexZw2TQ1hhOo788tmSmelbvTRbWDgp5iT
-F/LJL6A97+BAbmRcFeDYEfWQtwkzSsVtR+KbpTAXpYmfJGjQut/lCGSxKy59wYHz
-Jgq5sucnh/e6WSb20C7HDpFRLDb2GA==
-=zdxm
------END PGP SIGNATURE-----
-
---QzwTGW35j9Lkz65d--
+>>
+>> -Doug
