@@ -2,80 +2,50 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 04F38584CFA
-	for <lists+freedreno@lfdr.de>; Fri, 29 Jul 2022 09:52:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 19FC45850F2
+	for <lists+freedreno@lfdr.de>; Fri, 29 Jul 2022 15:35:24 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7173010E4A6;
-	Fri, 29 Jul 2022 07:52:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2479610FDF7;
+	Fri, 29 Jul 2022 13:35:22 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from wout3-smtp.messagingengine.com (wout3-smtp.messagingengine.com
- [64.147.123.19])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2317A10E324;
- Fri, 29 Jul 2022 07:51:25 +0000 (UTC)
-Received: from compute2.internal (compute2.nyi.internal [10.202.2.46])
- by mailout.west.internal (Postfix) with ESMTP id 8BD2C320097D;
- Fri, 29 Jul 2022 03:51:23 -0400 (EDT)
-Received: from mailfrontend1 ([10.202.2.162])
- by compute2.internal (MEProxy); Fri, 29 Jul 2022 03:51:24 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cerno.tech; h=cc
- :cc:content-type:date:date:from:from:in-reply-to:in-reply-to
- :message-id:mime-version:references:reply-to:sender:subject
- :subject:to:to; s=fm2; t=1659081083; x=1659167483; bh=x/uGRUiGzR
- Dd3km1ZgnwtdHQHNmvSMC7sQG/+Jd4zoo=; b=DemEI6dSqK7EJVTyXhNlRLZ/jk
- k7DuMlQ/vpPv6NeJz7Bsf8jOI+1qCyZvR4CAB/ZSSDgr2ORETFcrvwqd17nsVQQm
- wMX/Bnc+EZDdc+cYEqzCMXjfuWhKjbNmxuB94eb5HFUlApQitdLn2iCXoUbmxAMo
- dr1IvCPOySBmMkkS0vJlSfUKf7IFkX6PNUWB3CPmVgX+8/vUbbxZoEU47YvvDlRZ
- iJTcTYFMhJsTbR7kPUXM/+aRPUG1wX/Rdizj/lBE5D53i2wqwUcWAAiSxjlYVvTv
- XompauWC9IXADu9AkQVuVkl/EOKvskqqKB7cmP7wLzGS/LUqsa5haXoXFKEQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:cc:content-type:date:date:feedback-id
- :feedback-id:from:from:in-reply-to:in-reply-to:message-id
- :mime-version:references:reply-to:sender:subject:subject:to:to
- :x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
- fm3; t=1659081083; x=1659167483; bh=x/uGRUiGzRDd3km1ZgnwtdHQHNmv
- SMC7sQG/+Jd4zoo=; b=YRxavZe8a60Zm2BU6GWIO89qBmmH6m3uHtBgAo5dZZjK
- xlNhYLJDOTnVRhfXL5fbhEKYyHeAMmOCupZTuDJeP8aXqofgfXYJxIBUM5HlbdTX
- edIjwU3cu8P/L45pT8ivnU46u0uEmu0mZkcDOgMwPETKnrgUc5EbFhMT83+PRL3D
- j38RG2eMBhCqgNcZqUdhV9X6Kok/pRIXVx4Tz9IM1eQz63u4xULwlt86sM6xVD6J
- ZhrKu4y67fbC6PKQxkBuA9tEcHKDu1cUYNVX6wszaBBbQTUCpvHl2XJecTh0bvbT
- nfW+UUDOBqvLx7do5AYAZS4aN3ngDyaiJdL7kZAYtg==
-X-ME-Sender: <xms:epHjYsGPGlfLbMJnIjGS219YhZe8iia-4GjqzkFPO1s_lMY-1xFRvA>
- <xme:epHjYlW3WB_cEB9HU4F90CwFvzrNgsqrURaFCELLXD7RsgDp4p5o3VZEUOO8KzTSI
- N6-172Gm7OYgkIMTgU>
-X-ME-Received: <xmr:epHjYmLFOL3FEU8_KR1zIkjoEBRTmyxWIjgP87-prKtA7l5PCZo-Iuvxc0nAnkqwWyxU52I0QTNA-fqgCJQ>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvfedrvdduiedgieehucetufdoteggodetrfdotf
- fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
- uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
- cujfgurhepfffhvfevuffkfhggtggujgesghdtreertddtvdenucfhrhhomhepofgrgihi
- mhgvucftihhprghrugcuoehmrgigihhmvgestggvrhhnohdrthgvtghhqeenucggtffrrg
- htthgvrhhnpeetfefffefgkedtfefgledugfdtjeefjedvtddtkeetieffjedvgfehheff
- hfevudenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpe
- hmrgigihhmvgestggvrhhnohdrthgvtghh
-X-ME-Proxy: <xmx:epHjYuGCvckobZGg9GCAjTHdxWPHM8UynsXwmU6WWQjtqkR2CIM5Ug>
- <xmx:epHjYiWk9irHe7OTCgM7TgPYExB3KIYEhlRit_Yg76baHatbsXt0OQ>
- <xmx:epHjYhO-f8uOdSaBFz8oRQtnh6nU9H6sBa6dZVjQzxaJDy5iJfb0Bw>
- <xmx:e5HjYuQdLX9DQoA4-k3XGTf0wDmM4uT9Mi1wsjV0fIPo35pwH5jY7Q>
-Feedback-ID: i8771445c:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
- 29 Jul 2022 03:51:21 -0400 (EDT)
-Date: Fri, 29 Jul 2022 09:51:18 +0200
-From: Maxime Ripard <maxime@cerno.tech>
+Received: from ams.source.kernel.org (ams.source.kernel.org
+ [IPv6:2604:1380:4601:e00::1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BC53110E529;
+ Fri, 29 Jul 2022 13:35:20 +0000 (UTC)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by ams.source.kernel.org (Postfix) with ESMTPS id 4C44BB826FA;
+ Fri, 29 Jul 2022 13:35:19 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DF0D9C433D6;
+ Fri, 29 Jul 2022 13:35:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1659101718;
+ bh=g7Gd/PoHfjOyzH34IAYZoXpagm7Fnjjg/cxFUIUV/tg=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=dsQCVsvr8fYQW+jJdJNEjOp0TTXdK0E8ygyu3TR1eYM8ZEYFY49k9mrMZSJ3vb+WQ
+ LU0TAWEFXuqIFki2vXl5NhBA8XBxmu3JPXhRu+pbNGH1SeNWW7RYZ8zoa9oN43iHvH
+ rl2WJvA/pW2fZn5qOiKPN8ZmciHh5pERiVlPqVSgXdOd9Vudo0gRSPggdzTp/IvH2J
+ 2tdjRUVPbnybzkJfdoSjMYxOaghQau7ro1DnCEFJ5I7k1/dMep6m8AbQP5MyrHbQjF
+ I67tPRgugyWyl+W4V19+qY/haX6PQ2huMS5qNmySA8toWXfSlHbnSz11Bi49hDSPQv
+ +ZhFY3PWvEG+g==
+Received: from johan by xi.lan with local (Exim 4.94.2)
+ (envelope-from <johan@kernel.org>)
+ id 1oHQ9N-0002Vi-9d; Fri, 29 Jul 2022 15:35:34 +0200
+Date: Fri, 29 Jul 2022 15:35:33 +0200
+From: Johan Hovold <johan@kernel.org>
 To: Doug Anderson <dianders@chromium.org>
-Message-ID: <20220729075118.ofnpk52tk4usm3n3@penduick>
-References: <20220721152314.RFC.1.Ie333b3e4aff6e4a5b58c4aa805e030e561be8773@changeid>
- <269f2610-425b-f296-dcfc-89bdc2e1d587@quicinc.com>
- <CAD=FV=XSVXasU5PMR2kL0WQjQ458xDePuTGd1m14_v9JO5B6oA@mail.gmail.com>
- <CAF6AEGv_Vikf80v-7ccz90fvGPrk5pV1tOxRoWKxKHYuEW8=aA@mail.gmail.com>
- <5c8ca71c-5f0b-d5f5-9f16-e312dec0d01b@quicinc.com>
- <CAD=FV=UGYV1mZenDCRrbpC+gpE12-Uis7fm_=H3PeEjK=t36yA@mail.gmail.com>
+Message-ID: <YuPiJWQ1/wQbkvD8@hovoldconsulting.com>
+References: <1657038556-2231-1-git-send-email-quic_khsieh@quicinc.com>
+ <YtkrDcjTGhpaU1e0@hovoldconsulting.com>
+ <CAA8EJprQnnWjDZJy9+zUBsVQCi3jtc0Ngtzzk9MXpwOvuAS68g@mail.gmail.com>
+ <CAD=FV=W0m-x9JC=5hQ3urSNmUp8sY-u8YkNd66yrKfRNAH4rcg@mail.gmail.com>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature"; boundary="oklsttshcgwhfm5m"
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <CAD=FV=UGYV1mZenDCRrbpC+gpE12-Uis7fm_=H3PeEjK=t36yA@mail.gmail.com>
-Subject: Re: [Freedreno] [RFC PATCH] drm/edid: Make 144 Hz not preferred on
- Sharp LQ140M1JW46
+In-Reply-To: <CAD=FV=W0m-x9JC=5hQ3urSNmUp8sY-u8YkNd66yrKfRNAH4rcg@mail.gmail.com>
+Subject: Re: [Freedreno] [PATCH v16 0/3] eDP/DP Phy vdda realted function
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -89,105 +59,123 @@ List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
 Cc: Sankeerth Billakanti <quic_sbillaka@quicinc.com>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@linux.ie>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- dri-devel <dri-devel@lists.freedesktop.org>,
- LKML <linux-kernel@vger.kernel.org>, Rob Clark <robdclark@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>, freedreno <freedreno@lists.freedesktop.org>
+ David Airlie <airlied@linux.ie>, dri-devel <dri-devel@lists.freedesktop.org>,
+ Bjorn Andersson <bjorn.andersson@linaro.org>,
+ Manivannan Sadhasivam <manivannan.sadhasivam@linaro.org>,
+ "Aravind Venkateswaran \(QUIC\)" <quic_aravindh@quicinc.com>,
+ Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
+ Kuogee Hsieh <quic_khsieh@quicinc.com>, Andy Gross <agross@kernel.org>,
+ linux-arm-msm <linux-arm-msm@vger.kernel.org>,
+ "Abhinav Kumar \(QUIC\)" <quic_abhinavk@quicinc.com>,
+ Stephen Boyd <swboyd@chromium.org>, Mark Brown <broonie@kernel.org>,
+ Sean Paul <sean@poorly.run>, Vinod Koul <vkoul@kernel.org>,
+ Liam Girdwood <lgirdwood@gmail.com>, LKML <linux-kernel@vger.kernel.org>,
+ Rob Clark <robdclark@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ freedreno <freedreno@lists.freedesktop.org>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
+Sorry about the late follow-up on this. Has been one of those
+constant-preemption weeks.
 
---oklsttshcgwhfm5m
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+And thanks Doug and Mark for the insightful comments in this and the
+dt-load RFC thread.
 
-On Thu, Jul 28, 2022 at 02:18:38PM -0700, Doug Anderson wrote:
+On Thu, Jul 21, 2022 at 07:49:55AM -0700, Doug Anderson wrote:
 > Hi,
->=20
-> On Thu, Jul 28, 2022 at 10:34 AM Abhinav Kumar
-> <quic_abhinavk@quicinc.com> wrote:
+> 
+> On Thu, Jul 21, 2022 at 6:25 AM Dmitry Baryshkov
+> <dmitry.baryshkov@linaro.org> wrote:
 > >
-> > Hi Rob and Doug
+> > > This series breaks USB and PCIe for some SC8280XP and SA540P machines
+> > > where the DP PHY regulators are shared with other PHYs whose drivers do
+> > > not request a load.
 > >
-> > On 7/22/2022 10:36 AM, Rob Clark wrote:
-> > > On Fri, Jul 22, 2022 at 9:48 AM Doug Anderson <dianders@chromium.org>=
- wrote:
-> > >>
-> > >> Hi,
-> > >>
-> > >> On Fri, Jul 22, 2022 at 9:37 AM Abhinav Kumar <quic_abhinavk@quicinc=
-=2Ecom> wrote:
-> > >>>
-> > >>> + sankeerth
-> > >>>
-> > >>> Hi Doug
-> > >>>
-> > >>> On 7/21/2022 3:23 PM, Douglas Anderson wrote:
-> > >>>> The Sharp LQ140M1JW46 panel is on the Qualcomm sc7280 CRD reference
-> > >>>> board. This panel supports 144 Hz and 60 Hz. In the EDID, the 144 =
-Hz
-> > >>>> mode is listed first and thus is marked preferred. The EDID decode=
- I
-> > >>>> ran says:
-> > >>>>
-> > >>>>     First detailed timing includes the native pixel format and pre=
-ferred
-> > >>>>     refresh rate.
-> > >>>>
-> > >>>>     ...
-> > >>>>
-> > >>>>     Detailed Timing Descriptors:
-> > >>>>       DTD 1:  1920x1080  143.981 Hz  16:9   166.587 kHz  346.500 M=
-Hz
-> > >>>>                    Hfront   48 Hsync  32 Hback  80 Hpol N
-> > >>>>                    Vfront    3 Vsync   5 Vback  69 Vpol N
-> > >>>>       DTD 2:  1920x1080   59.990 Hz  16:9    69.409 kHz  144.370 M=
-Hz
-> > >>>>                    Hfront   48 Hsync  32 Hback  80 Hpol N
-> > >>>>                    Vfront    3 Vsync   5 Vback  69 Vpol N
-> > >>>>
-> > >>>> I'm proposing here that the above is actually a bug and that the 6=
-0 Hz
-> > >>>> mode really should be considered preferred by Linux.
+> > I'm trying to understand, why does this series cause the regression.
+> > Previously it would be the DP controller voting on the regulators
+> > load, now it has been moved to the DP/eDP PHYs.
+> 
+> I think in the past not many device trees actually hooked up the
+> regulators to the DP/eDP but did hook up the regulators to the PHYs?
+> That means they didn't used to get a regulator_set_load() on them and
+> now they do?
+
+This was the case for us, but this could probably also partly be blamed
+on the DP stuff being work-in-progress and the regulators were only ever
+specified in the PHY nodes.
+
+> It should also be noted that we're now setting the load for a bunch of
+> USB PHYs that we didn't used to set a load on...
+
+That was my concern. But after skimming the mainline dts it seems that
+no users of these drivers are currently allowing the regulator mode to
+be changed for those particular regulators.
+
+Well, except for the sc8280xp (derivate) machines in -next that I'm
+working on and that regressed of course.
+
+I guess we just need to drop all those regulator-allow-set-load
+properties for now even if using DT for power-management configuration
+this way does seem to run against the whole DT-as-hardware-description
+idea (e.g. we may want to add them back when/if active- and idle loads
+are specified by the corresponding Linux drivers).
+
+> > > It seems quite likely that changes like this one affects other systems
+> > > too, and the effects may be hard to debug. So a more general solution
+> > > than playing whack-a-mole using DT would be good to have.
 > >
-> > Its a bit tricky to say that this is a bug but I think we can certainly
-> > add here that for an internal display we would have ideally had the
-> > lower resolution first to indicate it as default.
->=20
-> Yeah, it gets into the vagueness of the EDID spec in general. As far
-> as I can find it's really up to the monitor to decide by what means it
-> chooses the "preferred" refresh rate if the monitor can support many.
-> Some displays may decide that the normal rate is "preferred" and some
-> may decide that the high refresh rate is "preferred". Neither display
-> is "wrong" per say, but it's nice to have some consistency here and to
-> make it so that otherwise "dumb" userspace will get something
-> reasonable by default. I'll change it to say:
->=20
-> While the EDID spec appears to allow a display to use any criteria for
-> picking which refresh mode is "preferred" or "optimal", that vagueness
-> is a bit annoying. From Linux's point of view let's choose the 60 Hz
-> one as the default.
+> > I think enabling a regulator which supports set_load() and without
+> > load being set should cause a warning, at least with
+> > CONFIG_REGULATOR_DEBUG. WDYT?
+> 
+> I'm not a total fan. I'd love to see evidence to the contrary, but I'm
+> a believer that the amount of extra cruft involved with all these
+> regulator_set_load() calls is overkill for most cases. All the extra
+> code / per-SoC tables added to drivers isn't ideal.
+> 
+> Every single LDO on Qualcomm's PMICs seems to be able to be set in
+> "high power mode" and "low power mode", but I think the majority of
+> clients only really care about two things: on and in high power mode
+> vs. off. I think the amount of stuff peripherals can do in low power
+> mode is super limited, so you have to be _really_ sure that the
+> peripheral won't draw too much current without you having a chance to
+> reconfigure the regulator.
+> 
+> Of course, if the load could be easily specified in the device tree
+> and we could get rid of all the cruft in the drivers then maybe that
+> would be OK.
 
-And if we start making that decision, it should be for all panels with a
-similar constraint, so most likely handled by the core, and the new
-policy properly documented.
+It seems a decision was made against this (which I tend to agree with),
+and that instead it is now easier for drivers to specify loads using
+your updated bulk-regulator implementation.
 
-Doing that just for a single panel is weird.
+But that doesn't address the problem that was trying to highlight here,
+and that you had noticed years ago, namely that using set_load only
+works reliably if *all* consumers use it.
 
-Maxime
+Otherwise we may end up with a couple of drivers adding some 10 mA each to
+the load, while other driver do not specify a load so that while the
+actual load is really above the 30 mA HPM threshold, we still end up in
+LPM.
 
---oklsttshcgwhfm5m
-Content-Type: application/pgp-signature; name="signature.asc"
+Shouldn't an enabled regulator from a consumer that didn't specify a
+load somehow result in HPM always being selected (e.g. count as INT_MAX
+load as Doug suggested some years ago)?
 
------BEGIN PGP SIGNATURE-----
+Note that LPM may be ok until that last consumer that didn't specify a
+load pushes it over the HPM threshold (so specifying a regulator base
+load in DT would also prevent ever selecting LPM).
 
-iHUEABMIAB0WIQTXEe0+DlZaRlgM8LOIQ8rmN6G3ywUCYuORdgAKCRCIQ8rmN6G3
-y0z+AP9ojmTlQhu5iNapifR8TkVj5GwhktAW8TUwGoGL14Ci4QEA9Otjl7UEG2oM
-Fy+ESHA52LQtiaNfS8fUHkPZnBQYz6Q=
-=cdJ8
------END PGP SIGNATURE-----
+This case of mixing consumers that specify and don't specify loads might
+at least warrant a warning otherwise to avoid ending up in a
+hard-to-debug situation with failing USB and PCIe due to a seemingly
+unrelated DP PHY update.
 
---oklsttshcgwhfm5m--
+At some point in the discussion I thought Mark suggested removing
+set_load from drivers that don't actually manage active and idle loads.
+That would also work, at least until the day one of the drivers adds
+support for idle loads.
+
+Johan
