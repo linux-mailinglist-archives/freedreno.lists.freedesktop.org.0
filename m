@@ -2,64 +2,80 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8CB68584909
-	for <lists+freedreno@lfdr.de>; Fri, 29 Jul 2022 02:23:54 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 04F38584CFA
+	for <lists+freedreno@lfdr.de>; Fri, 29 Jul 2022 09:52:16 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0C0EA112EDF;
-	Fri, 29 Jul 2022 00:23:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7173010E4A6;
+	Fri, 29 Jul 2022 07:52:14 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ej1-x630.google.com (mail-ej1-x630.google.com
- [IPv6:2a00:1450:4864:20::630])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D63DF113DAE
- for <freedreno@lists.freedesktop.org>; Fri, 29 Jul 2022 00:22:34 +0000 (UTC)
-Received: by mail-ej1-x630.google.com with SMTP id tk8so5797063ejc.7
- for <freedreno@lists.freedesktop.org>; Thu, 28 Jul 2022 17:22:34 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc;
- bh=YbqiOPzZmbvFzZa130GwJGGGwEXthWuw9oeJXPqxLMw=;
- b=kRjkFi56KoI/XZGvwlf6yOjdbiP1tOmPWovRkV0lQ9r/9z+zKKFuNvzZ526mN8SbkY
- 2TdEpBoXlMQ+lVoNCpoWhAPvoC8JWZChWscjFpUjaHrW9+uuQyrM093O5JJ2ch0W3yhw
- 53t5JnC3EDdl/YBCZLn7vwtZGg7twxgkwE0VE=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc;
- bh=YbqiOPzZmbvFzZa130GwJGGGwEXthWuw9oeJXPqxLMw=;
- b=YNhSINSl9RA7OXDtxXpYEJZw5NOS+uAxRIyNZKiSmvT3rsS0xdY1THJ2D0/m2K4i8a
- kOzeh96Uo+ZyyGEssgAXw8GvQ5xj4lCoKdlNYafy1q8PU3hqcp8QJljkz3U1qw+Gf83H
- /prY6BHG/NSzJxyWjW9u2lZ0ffq637qzkTBPmvXv3l6nZ8kOyQBXqq140Et/QHp9wiHe
- ZvfHxHfkJF5i7OydNpCQsNoTNFZE/z/ZE0RtGZ85XC3+HkVFD75UKrr7ewTEbzwWtTeR
- q7R2dbcuIofCrT9uFIPFClLHC+xDn9h/kRrnJ61i04w4cYkCTH+quFlF9uVTfwr836rR
- z6zQ==
-X-Gm-Message-State: AJIora+iSwyYi4gBes6ToYWMY5BEf03viEFQhyrMCcqqcQe89ZPU5Nhs
- DS8kWk7/gGaJLcRl0wa37Crk0Y7DfTgJx4Ro
-X-Google-Smtp-Source: AGRyM1vF4tNFfmFnUk2tcChvcefkoorMdcrzV0eVQLrQQig5tl/gpYhgAyaly0/pgKSjRVYWzcaR6w==
-X-Received: by 2002:a17:907:7e87:b0:72b:4af3:bf57 with SMTP id
- qb7-20020a1709077e8700b0072b4af3bf57mr982739ejc.9.1659054153055; 
- Thu, 28 Jul 2022 17:22:33 -0700 (PDT)
-Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com.
- [209.85.221.49]) by smtp.gmail.com with ESMTPSA id
- gq12-20020a170906e24c00b0072aebed5937sm947496ejb.221.2022.07.28.17.22.31
- for <freedreno@lists.freedesktop.org>
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 28 Jul 2022 17:22:32 -0700 (PDT)
-Received: by mail-wr1-f49.google.com with SMTP id l4so4152207wrm.13
- for <freedreno@lists.freedesktop.org>; Thu, 28 Jul 2022 17:22:31 -0700 (PDT)
-X-Received: by 2002:adf:fb12:0:b0:20c:79b2:a200 with SMTP id
- c18-20020adffb12000000b0020c79b2a200mr744258wrr.617.1659054151464; Thu, 28
- Jul 2022 17:22:31 -0700 (PDT)
+Received: from wout3-smtp.messagingengine.com (wout3-smtp.messagingengine.com
+ [64.147.123.19])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2317A10E324;
+ Fri, 29 Jul 2022 07:51:25 +0000 (UTC)
+Received: from compute2.internal (compute2.nyi.internal [10.202.2.46])
+ by mailout.west.internal (Postfix) with ESMTP id 8BD2C320097D;
+ Fri, 29 Jul 2022 03:51:23 -0400 (EDT)
+Received: from mailfrontend1 ([10.202.2.162])
+ by compute2.internal (MEProxy); Fri, 29 Jul 2022 03:51:24 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cerno.tech; h=cc
+ :cc:content-type:date:date:from:from:in-reply-to:in-reply-to
+ :message-id:mime-version:references:reply-to:sender:subject
+ :subject:to:to; s=fm2; t=1659081083; x=1659167483; bh=x/uGRUiGzR
+ Dd3km1ZgnwtdHQHNmvSMC7sQG/+Jd4zoo=; b=DemEI6dSqK7EJVTyXhNlRLZ/jk
+ k7DuMlQ/vpPv6NeJz7Bsf8jOI+1qCyZvR4CAB/ZSSDgr2ORETFcrvwqd17nsVQQm
+ wMX/Bnc+EZDdc+cYEqzCMXjfuWhKjbNmxuB94eb5HFUlApQitdLn2iCXoUbmxAMo
+ dr1IvCPOySBmMkkS0vJlSfUKf7IFkX6PNUWB3CPmVgX+8/vUbbxZoEU47YvvDlRZ
+ iJTcTYFMhJsTbR7kPUXM/+aRPUG1wX/Rdizj/lBE5D53i2wqwUcWAAiSxjlYVvTv
+ XompauWC9IXADu9AkQVuVkl/EOKvskqqKB7cmP7wLzGS/LUqsa5haXoXFKEQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:cc:content-type:date:date:feedback-id
+ :feedback-id:from:from:in-reply-to:in-reply-to:message-id
+ :mime-version:references:reply-to:sender:subject:subject:to:to
+ :x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
+ fm3; t=1659081083; x=1659167483; bh=x/uGRUiGzRDd3km1ZgnwtdHQHNmv
+ SMC7sQG/+Jd4zoo=; b=YRxavZe8a60Zm2BU6GWIO89qBmmH6m3uHtBgAo5dZZjK
+ xlNhYLJDOTnVRhfXL5fbhEKYyHeAMmOCupZTuDJeP8aXqofgfXYJxIBUM5HlbdTX
+ edIjwU3cu8P/L45pT8ivnU46u0uEmu0mZkcDOgMwPETKnrgUc5EbFhMT83+PRL3D
+ j38RG2eMBhCqgNcZqUdhV9X6Kok/pRIXVx4Tz9IM1eQz63u4xULwlt86sM6xVD6J
+ ZhrKu4y67fbC6PKQxkBuA9tEcHKDu1cUYNVX6wszaBBbQTUCpvHl2XJecTh0bvbT
+ nfW+UUDOBqvLx7do5AYAZS4aN3ngDyaiJdL7kZAYtg==
+X-ME-Sender: <xms:epHjYsGPGlfLbMJnIjGS219YhZe8iia-4GjqzkFPO1s_lMY-1xFRvA>
+ <xme:epHjYlW3WB_cEB9HU4F90CwFvzrNgsqrURaFCELLXD7RsgDp4p5o3VZEUOO8KzTSI
+ N6-172Gm7OYgkIMTgU>
+X-ME-Received: <xmr:epHjYmLFOL3FEU8_KR1zIkjoEBRTmyxWIjgP87-prKtA7l5PCZo-Iuvxc0nAnkqwWyxU52I0QTNA-fqgCJQ>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvfedrvdduiedgieehucetufdoteggodetrfdotf
+ fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
+ uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
+ cujfgurhepfffhvfevuffkfhggtggujgesghdtreertddtvdenucfhrhhomhepofgrgihi
+ mhgvucftihhprghrugcuoehmrgigihhmvgestggvrhhnohdrthgvtghhqeenucggtffrrg
+ htthgvrhhnpeetfefffefgkedtfefgledugfdtjeefjedvtddtkeetieffjedvgfehheff
+ hfevudenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpe
+ hmrgigihhmvgestggvrhhnohdrthgvtghh
+X-ME-Proxy: <xmx:epHjYuGCvckobZGg9GCAjTHdxWPHM8UynsXwmU6WWQjtqkR2CIM5Ug>
+ <xmx:epHjYiWk9irHe7OTCgM7TgPYExB3KIYEhlRit_Yg76baHatbsXt0OQ>
+ <xmx:epHjYhO-f8uOdSaBFz8oRQtnh6nU9H6sBa6dZVjQzxaJDy5iJfb0Bw>
+ <xmx:e5HjYuQdLX9DQoA4-k3XGTf0wDmM4uT9Mi1wsjV0fIPo35pwH5jY7Q>
+Feedback-ID: i8771445c:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
+ 29 Jul 2022 03:51:21 -0400 (EDT)
+Date: Fri, 29 Jul 2022 09:51:18 +0200
+From: Maxime Ripard <maxime@cerno.tech>
+To: Doug Anderson <dianders@chromium.org>
+Message-ID: <20220729075118.ofnpk52tk4usm3n3@penduick>
+References: <20220721152314.RFC.1.Ie333b3e4aff6e4a5b58c4aa805e030e561be8773@changeid>
+ <269f2610-425b-f296-dcfc-89bdc2e1d587@quicinc.com>
+ <CAD=FV=XSVXasU5PMR2kL0WQjQ458xDePuTGd1m14_v9JO5B6oA@mail.gmail.com>
+ <CAF6AEGv_Vikf80v-7ccz90fvGPrk5pV1tOxRoWKxKHYuEW8=aA@mail.gmail.com>
+ <5c8ca71c-5f0b-d5f5-9f16-e312dec0d01b@quicinc.com>
+ <CAD=FV=UGYV1mZenDCRrbpC+gpE12-Uis7fm_=H3PeEjK=t36yA@mail.gmail.com>
 MIME-Version: 1.0
-References: <1657544224-10680-1-git-send-email-quic_vpolimer@quicinc.com>
-In-Reply-To: <1657544224-10680-1-git-send-email-quic_vpolimer@quicinc.com>
-From: Doug Anderson <dianders@chromium.org>
-Date: Thu, 28 Jul 2022 17:22:18 -0700
-X-Gmail-Original-Message-ID: <CAD=FV=U_GStziLOCVLs_FC_2Vr=ykGfbb4ZtUp79iV8V=B0cEA@mail.gmail.com>
-Message-ID: <CAD=FV=U_GStziLOCVLs_FC_2Vr=ykGfbb4ZtUp79iV8V=B0cEA@mail.gmail.com>
-To: Vinod Polimera <quic_vpolimer@quicinc.com>
-Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [PATCH v6 00/10] Add PSR support for eDP
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature"; boundary="oklsttshcgwhfm5m"
+Content-Disposition: inline
+In-Reply-To: <CAD=FV=UGYV1mZenDCRrbpC+gpE12-Uis7fm_=H3PeEjK=t36yA@mail.gmail.com>
+Subject: Re: [Freedreno] [RFC PATCH] drm/edid: Make 144 Hz not preferred on
+ Sharp LQ140M1JW46
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,127 +88,106 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: quic_kalyant <quic_kalyant@quicinc.com>,
- "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
- <devicetree@vger.kernel.org>, Sankeerth Billakanti <quic_sbillaka@quicinc.com>,
- "Abhinav Kumar \(QUIC\)" <quic_abhinavk@quicinc.com>,
- quic_vproddut <quic_vproddut@quicinc.com>,
- linux-arm-msm <linux-arm-msm@vger.kernel.org>,
- LKML <linux-kernel@vger.kernel.org>,
+Cc: Sankeerth Billakanti <quic_sbillaka@quicinc.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@linux.ie>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
  dri-devel <dri-devel@lists.freedesktop.org>,
- Stephen Boyd <swboyd@chromium.org>, Rob Clark <robdclark@gmail.com>,
- Bjorn Andersson <bjorn.andersson@linaro.org>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- "Aravind Venkateswaran \(QUIC\)" <quic_aravindh@quicinc.com>,
- "Kuogee Hsieh \(QUIC\)" <quic_khsieh@quicinc.com>,
- freedreno <freedreno@lists.freedesktop.org>
+ LKML <linux-kernel@vger.kernel.org>, Rob Clark <robdclark@gmail.com>,
+ Daniel Vetter <daniel@ffwll.ch>, freedreno <freedreno@lists.freedesktop.org>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Hi,
 
-On Mon, Jul 11, 2022 at 5:57 AM Vinod Polimera
-<quic_vpolimer@quicinc.com> wrote:
->
-> Changes in v2:
->   - Use dp bridge to set psr entry/exit instead of dpu_enocder.
->   - Don't modify whitespaces.
->   - Set self refresh aware from atomic_check.
->   - Set self refresh aware only if psr is supported.
->   - Provide a stub for msm_dp_display_set_psr.
->   - Move dp functions to bridge code.
->
-> Changes in v3:
->   - Change callback names to reflect atomic interfaces.
->   - Move bridge callback change to separate patch as suggested by Dmitry.
->   - Remove psr function declaration from msm_drv.h.
->   - Set self_refresh_aware flag only if psr is supported.
->   - Modify the variable names to simpler form.
->   - Define bit fields for PSR settings.
->   - Add comments explaining the steps to enter/exit psr.
->   - Change DRM_INFO to drm_dbg_db.
->
-> Changes in v4:
->   - Move the get crtc functions to drm_atomic.
->   - Add atomic functions for DP bridge too.
->   - Add ternary operator to choose eDP or DP ops.
->   - Return true/false instead of 1/0.
->   - mode_valid missing in the eDP bridge ops.
->   - Move the functions to get crtc into drm_atomic.c.
->   - Fix compilation issues.
->   - Remove dpu_assign_crtc and get crtc from drm_enc instead of dpu_enc.
->   - Check for crtc state enable while reserving resources.
->
-> Changes in v5:
->   - Move the mode_valid changes into a different patch.
->   - Complete psr_op_comp only when isr is set.
->   - Move the DP atomic callback changes to a different patch.
->   - Get crtc from drm connector state crtc.
->   - Move to separate patch for check for crtc state enable while
-> reserving resources.
->
-> Changes in v6:
->   - Remove crtc from dpu_encoder_virt struct.
->   - fix crtc check during vblank toggle crtc.
->   - Misc changes.
->
-> Signed-off-by: Sankeerth Billakanti <quic_sbillaka@quicinc.com>
-> Signed-off-by: Kalyan Thota <quic_kalyant@quicinc.com>
-> Signed-off-by: Vinod Polimera <quic_vpolimer@quicinc.com>
->
-> Vinod Polimera (10):
->   drm/msm/disp/dpu: clear dpu_assign_crtc and get crtc from connector
->     state instead of dpu_enc
->   drm: add helper functions to retrieve old and new crtc
->   drm/msm/dp: use atomic callbacks for DP bridge ops
->   drm/msm/dp: Add basic PSR support for eDP
->   drm/msm/dp: use the eDP bridge ops to validate eDP modes
->   drm/bridge: use atomic enable/disable callbacks for panel bridge
->   drm/bridge: add psr support for panel bridge callbacks
->   drm/msm/disp/dpu: use atomic enable/disable callbacks for encoder
->     functions
->   drm/msm/disp/dpu: add PSR support for eDP interface in dpu driver
->   drm/msm/disp/dpu: check for crtc enable rather than crtc active to
->     release shared resources
->
->  drivers/gpu/drm/bridge/panel.c              |  68 ++++++++--
->  drivers/gpu/drm/drm_atomic.c                |  60 +++++++++
->  drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c    |  17 ++-
->  drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c |  56 +++++----
->  drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.h |   8 --
->  drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c     |   2 +-
->  drivers/gpu/drm/msm/dp/dp_catalog.c         |  81 ++++++++++++
->  drivers/gpu/drm/msm/dp/dp_catalog.h         |   4 +
->  drivers/gpu/drm/msm/dp/dp_ctrl.c            |  73 +++++++++++
->  drivers/gpu/drm/msm/dp/dp_ctrl.h            |   3 +
->  drivers/gpu/drm/msm/dp/dp_display.c         |  31 +++--
->  drivers/gpu/drm/msm/dp/dp_display.h         |   2 +
->  drivers/gpu/drm/msm/dp/dp_drm.c             | 184 ++++++++++++++++++++++++++--
->  drivers/gpu/drm/msm/dp/dp_drm.h             |   9 +-
->  drivers/gpu/drm/msm/dp/dp_link.c            |  36 ++++++
->  drivers/gpu/drm/msm/dp/dp_panel.c           |  22 ++++
->  drivers/gpu/drm/msm/dp/dp_panel.h           |   6 +
->  drivers/gpu/drm/msm/dp/dp_reg.h             |  27 ++++
->  include/drm/drm_atomic.h                    |   7 ++
->  19 files changed, 631 insertions(+), 65 deletions(-)
+--oklsttshcgwhfm5m
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-I spent some time looking at the first few patches. I can try to look
-at more later this week, though (as you've noticed) many of my reviews
-are more nit-picks because I don't really have experience with PSR and
-my overall knowledge of the Qualcomm DP driver is pretty weak.
+On Thu, Jul 28, 2022 at 02:18:38PM -0700, Doug Anderson wrote:
+> Hi,
+>=20
+> On Thu, Jul 28, 2022 at 10:34 AM Abhinav Kumar
+> <quic_abhinavk@quicinc.com> wrote:
+> >
+> > Hi Rob and Doug
+> >
+> > On 7/22/2022 10:36 AM, Rob Clark wrote:
+> > > On Fri, Jul 22, 2022 at 9:48 AM Doug Anderson <dianders@chromium.org>=
+ wrote:
+> > >>
+> > >> Hi,
+> > >>
+> > >> On Fri, Jul 22, 2022 at 9:37 AM Abhinav Kumar <quic_abhinavk@quicinc=
+=2Ecom> wrote:
+> > >>>
+> > >>> + sankeerth
+> > >>>
+> > >>> Hi Doug
+> > >>>
+> > >>> On 7/21/2022 3:23 PM, Douglas Anderson wrote:
+> > >>>> The Sharp LQ140M1JW46 panel is on the Qualcomm sc7280 CRD reference
+> > >>>> board. This panel supports 144 Hz and 60 Hz. In the EDID, the 144 =
+Hz
+> > >>>> mode is listed first and thus is marked preferred. The EDID decode=
+ I
+> > >>>> ran says:
+> > >>>>
+> > >>>>     First detailed timing includes the native pixel format and pre=
+ferred
+> > >>>>     refresh rate.
+> > >>>>
+> > >>>>     ...
+> > >>>>
+> > >>>>     Detailed Timing Descriptors:
+> > >>>>       DTD 1:  1920x1080  143.981 Hz  16:9   166.587 kHz  346.500 M=
+Hz
+> > >>>>                    Hfront   48 Hsync  32 Hback  80 Hpol N
+> > >>>>                    Vfront    3 Vsync   5 Vback  69 Vpol N
+> > >>>>       DTD 2:  1920x1080   59.990 Hz  16:9    69.409 kHz  144.370 M=
+Hz
+> > >>>>                    Hfront   48 Hsync  32 Hback  80 Hpol N
+> > >>>>                    Vfront    3 Vsync   5 Vback  69 Vpol N
+> > >>>>
+> > >>>> I'm proposing here that the above is actually a bug and that the 6=
+0 Hz
+> > >>>> mode really should be considered preferred by Linux.
+> >
+> > Its a bit tricky to say that this is a bug but I think we can certainly
+> > add here that for an internal display we would have ideally had the
+> > lower resolution first to indicate it as default.
+>=20
+> Yeah, it gets into the vagueness of the EDID spec in general. As far
+> as I can find it's really up to the monitor to decide by what means it
+> chooses the "preferred" refresh rate if the monitor can support many.
+> Some displays may decide that the normal rate is "preferred" and some
+> may decide that the high refresh rate is "preferred". Neither display
+> is "wrong" per say, but it's nice to have some consistency here and to
+> make it so that otherwise "dumb" userspace will get something
+> reasonable by default. I'll change it to say:
+>=20
+> While the EDID spec appears to allow a display to use any criteria for
+> picking which refresh mode is "preferred" or "optimal", that vagueness
+> is a bit annoying. From Linux's point of view let's choose the 60 Hz
+> one as the default.
 
-I tried to at least pick to give a Tested-by, but when I did that it
-didn't work flawlessly. I picked this series to the chromeos-5.15
-tree, which is pretty close to mainline right now. I left it sitting
-at a screen with a blinking cursor which pretty much means it's always
-transitioning into and out of PSR. I've seen several glitches on the
-screen with the series applied. :( No idea what's wrong--that's just
-me black-box testing. I did try to add debug printouts to see if we
-were hitting "PSR_UPDATE_ERROR_INT | PSR_WAKE_ERROR_INT" but I didn't
-see my printouts...
+And if we start making that decision, it should be for all panels with a
+similar constraint, so most likely handled by the core, and the new
+policy properly documented.
 
-FWIW: I'm running with KASAN enabled which could affect timings...
-Glitches happen every few minutes or so for me and so far I haven't
-see any glitches without KASAN, but that could just be chance...
+Doing that just for a single panel is weird.
 
--Doug
+Maxime
+
+--oklsttshcgwhfm5m
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABMIAB0WIQTXEe0+DlZaRlgM8LOIQ8rmN6G3ywUCYuORdgAKCRCIQ8rmN6G3
+y0z+AP9ojmTlQhu5iNapifR8TkVj5GwhktAW8TUwGoGL14Ci4QEA9Otjl7UEG2oM
+Fy+ESHA52LQtiaNfS8fUHkPZnBQYz6Q=
+=cdJ8
+-----END PGP SIGNATURE-----
+
+--oklsttshcgwhfm5m--
