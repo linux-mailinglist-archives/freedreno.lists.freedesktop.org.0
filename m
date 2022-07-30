@@ -1,49 +1,54 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id BB3F6585776
-	for <lists+freedreno@lfdr.de>; Sat, 30 Jul 2022 01:47:39 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 2665758596E
+	for <lists+freedreno@lfdr.de>; Sat, 30 Jul 2022 11:18:15 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2227810E73F;
-	Fri, 29 Jul 2022 23:47:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B439D10F586;
+	Sat, 30 Jul 2022 09:18:12 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from ams.source.kernel.org (ams.source.kernel.org
- [IPv6:2604:1380:4601:e00::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E319810E5D1;
- Fri, 29 Jul 2022 23:47:35 +0000 (UTC)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 90ECEB829DF;
- Fri, 29 Jul 2022 23:47:34 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 36B2BC433C1;
- Fri, 29 Jul 2022 23:47:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1659138453;
- bh=/9DF8fECnYB2+1mLIbUvSwsHWSZQ5617h3wGyODKus8=;
- h=In-Reply-To:References:Subject:From:Cc:To:Date:From;
- b=fqV5DmyDyd/aGpJgkOZ/bQqpUmg7EmyY3RJtSPfzOdVhubYVxYltZRzxi1g9bC0z3
- TaP41Cy7lC1/xcQdB3AQxl0l6oNXCV+61kLOJ28dzakZV+I0WbpbZLq6+ej3KAZyhr
- 73UrXVNSZ9KEVGVZHbQTzPtm94Dzw8ySEwV13Xq5eps2Y/Z0KKje9wHs+b91XRWNQ1
- n2tt3rZOQ/KwwhrYKdCbDdCrfWyP8ckuphBLaUG48VE+hDNDML9ipA1A3z8dwYD+uS
- c4LMaWk8LVdJRdkFn71x5EWsCtx/94Jic47f2wfDlUwEclUIisgDBWis5TzIPsWG/4
- EMk6GTq0TnSgw==
-Content-Type: text/plain; charset="utf-8"
+Received: from alexa-out.qualcomm.com (alexa-out.qualcomm.com [129.46.98.28])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E029110F36C;
+ Sat, 30 Jul 2022 09:18:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=quicinc.com; i=@quicinc.com; q=dns/txt; s=qcdkim;
+ t=1659172691; x=1690708691;
+ h=from:to:cc:subject:date:message-id:mime-version;
+ bh=9DS4bJLebw1lBvzzjml/GDCUoVQ6Slpznv0XDbK9ev4=;
+ b=BfJ9qiKmAgQdJkQ+QDwK8zsaJVe3w580UGN2zk5yZqkHo4iBHMTYzzI6
+ 09WT3tsIfWZr9sLo4dgIc21XS+BJdkjqo88s2yaOHN2xlxAZmwvZadoV2
+ aU7kjxeF9kwABRdyppXAhdcm772aaFY+/c1WWHE8iEEJJUQW5NLU5qNmK 0=;
+Received: from ironmsg07-lv.qualcomm.com ([10.47.202.151])
+ by alexa-out.qualcomm.com with ESMTP; 30 Jul 2022 02:18:10 -0700
+X-QCInternal: smtphost
+Received: from nasanex01c.na.qualcomm.com ([10.47.97.222])
+ by ironmsg07-lv.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 30 Jul 2022 02:18:09 -0700
+Received: from nalasex01a.na.qualcomm.com (10.47.209.196) by
+ nasanex01c.na.qualcomm.com (10.47.97.222) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.986.22; Sat, 30 Jul 2022 02:18:09 -0700
+Received: from hyd-lnxbld559.qualcomm.com (10.80.80.8) by
+ nalasex01a.na.qualcomm.com (10.47.209.196) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.986.22; Sat, 30 Jul 2022 02:18:03 -0700
+From: Akhil P Oommen <quic_akhilpo@quicinc.com>
+To: freedreno <freedreno@lists.freedesktop.org>,
+ <dri-devel@lists.freedesktop.org>, <linux-arm-msm@vger.kernel.org>, Rob Clark
+ <robdclark@gmail.com>, Bjorn Andersson <bjorn.andersson@linaro.org>, "Stephen
+ Boyd" <swboyd@chromium.org>
+Date: Sat, 30 Jul 2022 14:47:39 +0530
+Message-ID: <1659172664-10345-1-git-send-email-quic_akhilpo@quicinc.com>
+X-Mailer: git-send-email 2.7.4
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-In-Reply-To: <20220629225331.357308-4-marijn.suijten@somainline.org>
-References: <20220629225331.357308-1-marijn.suijten@somainline.org>
- <20220629225331.357308-4-marijn.suijten@somainline.org>
-From: Stephen Boyd <sboyd@kernel.org>
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Marijn Suijten <marijn.suijten@somainline.org>, phone-devel@vger.kernel.org
-Date: Fri, 29 Jul 2022 16:47:31 -0700
-User-Agent: alot/0.10
-Message-Id: <20220729234733.36B2BC433C1@smtp.kernel.org>
-Subject: Re: [Freedreno] [PATCH v3 03/11] clk: fixed-factor: Introduce
- *clk_hw_register_fixed_factor_parent_hw()
+Content-Type: text/plain
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+Subject: [Freedreno] [PATCH 0/5] clk/qcom: Support gdsc collapse polling
+ using 'reset' inteface
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,28 +61,48 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, Jonathan Marek <jonathan@marek.ca>,
- Jami Kettunen <jami.kettunen@somainline.org>,
- Rajeev Nandan <quic_rajeevny@quicinc.com>,
+Cc: devicetree@vger.kernel.org, Philipp Zabel <p.zabel@pengutronix.de>,
+ Akhil P Oommen <quic_akhilpo@quicinc.com>,
  Michael Turquette <mturquette@baylibre.com>,
- Vladimir Lypak <vladimir.lypak@gmail.com>,
  Konrad Dybcio <konrad.dybcio@somainline.org>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, David Airlie <airlied@linux.ie>,
- Rob Clark <robdclark@gmail.com>, Martin Botka <martin.botka@somainline.org>,
- ~postmarketos/upstreaming@lists.sr.ht, Daniel Vetter <daniel@ffwll.ch>,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@somainline.org>,
- Marijn Suijten <marijn.suijten@somainline.org>, Sean Paul <sean@poorly.run>,
- linux-clk@vger.kernel.org, linux-arm-msm@vger.kernel.org
+ Douglas Anderson <dianders@chromium.org>, Rob
+ Herring <robh+dt@kernel.org>, linux-kernel@vger.kernel.org,
+ Stephen Boyd <sboyd@kernel.org>, Andy Gross <agross@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ linux-clk@vger.kernel.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Quoting Marijn Suijten (2022-06-29 15:53:23)
-> Add the devres and non-devres variant of
-> clk_hw_register_fixed_factor_parent_hw() for registering a fixed factor
-> clock with clk_hw parent pointer instead of parent name.
->=20
-> Signed-off-by: Marijn Suijten <marijn.suijten@somainline.org>
-> ---
 
-Applied to clk-next
+Some clients like adreno gpu driver would like to ensure that its gdsc
+is collapsed at hardware during a gpu reset sequence. This is because it
+has a votable gdsc which could be ON due to a vote from another subsystem
+like tz, hyp etc or due to an internal hardware signal. To allow
+this, gpucc driver can expose an interface to the client driver using
+reset framework. Using this the client driver can trigger a polling within
+the gdsc driver.
+
+This series is rebased on top of linus's master branch.
+
+Related discussion: https://patchwork.freedesktop.org/patch/493144/
+
+
+Akhil P Oommen (5):
+  dt-bindings: clk: qcom: Support gpu cx gdsc reset
+  clk: qcom: Allow custom reset ops
+  clk: qcom: gpucc-sc7280: Add cx collapse reset support
+  clk: qcom: gdsc: Add a reset op to poll gdsc collapse
+  arm64: dts: qcom: sc7280: Add Reset support for gpu
+
+ arch/arm64/boot/dts/qcom/sc7280.dtsi          |  3 +++
+ drivers/clk/qcom/gdsc.c                       | 23 +++++++++++++++++++----
+ drivers/clk/qcom/gdsc.h                       |  7 +++++++
+ drivers/clk/qcom/gpucc-sc7280.c               |  6 ++++++
+ drivers/clk/qcom/reset.c                      |  6 ++++++
+ drivers/clk/qcom/reset.h                      |  2 ++
+ include/dt-bindings/clock/qcom,gpucc-sc7280.h |  3 +++
+ 7 files changed, 46 insertions(+), 4 deletions(-)
+
+-- 
+2.7.4
+
