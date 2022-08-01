@@ -1,61 +1,61 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 01FFC586DA0
-	for <lists+freedreno@lfdr.de>; Mon,  1 Aug 2022 17:20:56 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 64257586F37
+	for <lists+freedreno@lfdr.de>; Mon,  1 Aug 2022 19:04:52 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9BB889112C;
-	Mon,  1 Aug 2022 15:20:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5537910ED23;
+	Mon,  1 Aug 2022 17:04:36 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from alexa-out-sd-01.qualcomm.com (alexa-out-sd-01.qualcomm.com
- [199.106.114.38])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E10398F579;
- Mon,  1 Aug 2022 15:20:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=quicinc.com; i=@quicinc.com; q=dns/txt; s=qcdkim;
- t=1659367244; x=1690903244;
- h=message-id:date:mime-version:subject:to:cc:references:
- from:in-reply-to:content-transfer-encoding;
- bh=2DXcIe7hUnldJ+7bWfHGOv4iXtFwQUzM3UzzWrBzOUs=;
- b=yZ4GimpjRY+D5M1e5o39grHkSvXksZRDmEE99Zlt3FQyd4ynxwphp+mm
- JSstcFeTghu8ei6mLqZcqraaepeEPHPfaDSOdk9+FhcoqE7bor49WbLYJ
- W74TbtKk6eSr4Iv8ZfEy1SwFkh5mXDhhiKkBJnRliQwQ449yD83JgW7+M I=;
-Received: from unknown (HELO ironmsg04-sd.qualcomm.com) ([10.53.140.144])
- by alexa-out-sd-01.qualcomm.com with ESMTP; 01 Aug 2022 08:20:43 -0700
-X-QCInternal: smtphost
-Received: from nasanex01c.na.qualcomm.com ([10.47.97.222])
- by ironmsg04-sd.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Aug 2022 08:20:42 -0700
-Received: from nalasex01a.na.qualcomm.com (10.47.209.196) by
- nasanex01c.na.qualcomm.com (10.47.97.222) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.986.22; Mon, 1 Aug 2022 08:20:42 -0700
-Received: from [10.216.14.65] (10.80.80.8) by nalasex01a.na.qualcomm.com
- (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.22; Mon, 1 Aug 2022
- 08:20:35 -0700
-Message-ID: <b3c5dec2-6d73-4d7a-8a2f-194672f2c675@quicinc.com>
-Date: Mon, 1 Aug 2022 20:50:29 +0530
+Received: from mail-pj1-x1029.google.com (mail-pj1-x1029.google.com
+ [IPv6:2607:f8b0:4864:20::1029])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 25F9011BA6A;
+ Mon,  1 Aug 2022 17:04:28 +0000 (UTC)
+Received: by mail-pj1-x1029.google.com with SMTP id
+ s5-20020a17090a13c500b001f4da9ffe5fso5822059pjf.5; 
+ Mon, 01 Aug 2022 10:04:28 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc;
+ bh=xOX9chVYPROOGAwdmaGgZcPW07GxLyOUqTmIVsiyRrY=;
+ b=APqGvEY9aCng9joJBKu4D5mC2tl8a1Y345jPp7UNZbhXrBCzYzipvvUw6DJuz/DyMh
+ xUwH38OxWdYI5ubyyM9eYy7A9keEqSdj6kjsrM1r0EO0opDIPanW7or/+pN6ouFdYpeE
+ cUg5u+pTWdd7+6lgxaDAeWdasptlCzw/MG+OdazqsPSBJcITD1rGEZ43khcN5DYRdNBc
+ mpBZbCLB+Ci36ZBqqwamfhQpbdvIK6X4S77rJX2aagCc76p1sMjOPa+Ms5vR1p1VKdCg
+ THWheImhu7rAq+i/2t1MpySjeVhjTTaw0oHSWovn0rE/Yrxe8EwMIJ8mfKpklG2R6+t3
+ 2BAw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc;
+ bh=xOX9chVYPROOGAwdmaGgZcPW07GxLyOUqTmIVsiyRrY=;
+ b=YvzRLULUI67pDm0ECpjna5tYGI6/fiw2XIo/UNLa6Faq0nKRwTsoN8SZsosejwbpv3
+ PT5PbwzgRjB6p7VespEuK6qF9WlI3gWtuWmaWBkKzP5eVFUzG/DWieNXNnd44E0xpJJV
+ poQZVtJopSxQZA+JdtXIng5s8f5nOr3G6kk0RAkx1R+TfRThhLuBPb+1Mrv5pHzmotrZ
+ X9pj2IbJlCfnN2VQT7dECpqwWeFdp2zF0PUvCioNFnX0SH2IsPsqXe6AqDOvHHCErFuK
+ uXF9U3s53OGXfH/YElBtEtHUS+rxvzRh4XxCeH+QWIB8mBoLhKWyzTtCVp2APu8bPf5n
+ WZgA==
+X-Gm-Message-State: ACgBeo13grJ813DgxrkDyP2CPuTbCwf4y19ySYxx51g7lxs7Vqs57q/K
+ Wao9S3Wr5E6hSVJ9WfYiCIjr+UKGOnc=
+X-Google-Smtp-Source: AA6agR4Wp1sdG2ePJHPzujo2lxC4pM4up8FzRO7eHzEQfmz1DeZIq9jjtKnY1WFOjVr4/m8ni0CLdw==
+X-Received: by 2002:a17:902:da91:b0:16d:3bc2:ff49 with SMTP id
+ j17-20020a170902da9100b0016d3bc2ff49mr17520540plx.85.1659373466548; 
+ Mon, 01 Aug 2022 10:04:26 -0700 (PDT)
+Received: from localhost ([2a00:79e1:abd:4a00:2703:3c72:eb1a:cffd])
+ by smtp.gmail.com with ESMTPSA id
+ y3-20020a17090a1f4300b001f2e50bd789sm11953200pjy.31.2022.08.01.10.04.24
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 01 Aug 2022 10:04:24 -0700 (PDT)
+From: Rob Clark <robdclark@gmail.com>
+To: dri-devel@lists.freedesktop.org
+Date: Mon,  1 Aug 2022 10:04:54 -0700
+Message-Id: <20220801170459.1593706-1-robdclark@gmail.com>
+X-Mailer: git-send-email 2.36.1
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.3.2
-Content-Language: en-US
-To: kernel test robot <lkp@intel.com>, freedreno
- <freedreno@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
- <linux-arm-msm@vger.kernel.org>, Rob Clark <robdclark@gmail.com>, "Bjorn
- Andersson" <bjorn.andersson@linaro.org>, Stephen Boyd <swboyd@chromium.org>
-References: <20220730144713.2.I4b69f984a97535179acd9637426a1331f84f6646@changeid>
- <202207302137.mPbHPaHz-lkp@intel.com>
-From: Akhil P Oommen <quic_akhilpo@quicinc.com>
-In-Reply-To: <202207302137.mPbHPaHz-lkp@intel.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-Subject: Re: [Freedreno] [PATCH 2/5] clk: qcom: Allow custom reset ops
+Content-Transfer-Encoding: 8bit
+Subject: [Freedreno] [PATCH v2 0/3] dma-buf: map-info support
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,69 +68,36 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: kbuild-all@lists.01.org, Michael Turquette <mturquette@baylibre.com>,
- Konrad Dybcio <konrad.dybcio@somainline.org>,
- Douglas Anderson <dianders@chromium.org>, linux-kernel@vger.kernel.org,
- Andy Gross <agross@kernel.org>, linux-clk@vger.kernel.org
+Cc: Rob Clark <robdclark@chromium.org>,
+ =?UTF-8?q?J=C3=A9r=C3=B4me=20Pouiller?= <jerome.pouiller@silabs.com>,
+ "open list:DRM DRIVER FOR MSM ADRENO GPU" <linux-arm-msm@vger.kernel.org>,
+ open list <linux-kernel@vger.kernel.org>,
+ "moderated list:DMA BUFFER SHARING FRAMEWORK" <linaro-mm-sig@lists.linaro.org>,
+ Sean Paul <sean@poorly.run>, freedreno@lists.freedesktop.org,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ "open list:DMA BUFFER SHARING FRAMEWORK" <linux-media@vger.kernel.org>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 7/30/2022 6:40 PM, kernel test robot wrote:
-> Hi Akhil,
->
-> Thank you for the patch! Perhaps something to improve:
->
-> [auto build test WARNING on clk/clk-next]
-> [also build test WARNING on robh/for-next drm-misc/drm-misc-next drm-tip/drm-tip linus/master v5.19-rc8 next-20220728]
-> [If your patch is applied to the wrong git tree, kindly drop us a note.
-> And when submitting patch, we suggest to use '--base' as documented in
-> https://git-scm.com/docs/git-format-patch#_base_tree_information]
->
-> url:    https://github.com/intel-lab-lkp/linux/commits/Akhil-P-Oommen/clk-qcom-Support-gdsc-collapse-polling-using-reset-inteface/20220730-171922
-> base:   https://git.kernel.org/pub/scm/linux/kernel/git/clk/linux.git clk-next
-> config: ia64-randconfig-r031-20220729 (https://download.01.org/0day-ci/archive/20220730/202207302137.mPbHPaHz-lkp@intel.com/config)
-> compiler: ia64-linux-gcc (GCC) 12.1.0
-> reproduce (this is a W=1 build):
->          wget https://raw.githubusercontent.com/intel/lkp-tests/master/sbin/make.cross -O ~/bin/make.cross
->          chmod +x ~/bin/make.cross
->          # https://github.com/intel-lab-lkp/linux/commit/971a03493e9854ff4a227ee4d80b533997959891
->          git remote add linux-review https://github.com/intel-lab-lkp/linux
->          git fetch --no-tags linux-review Akhil-P-Oommen/clk-qcom-Support-gdsc-collapse-polling-using-reset-inteface/20220730-171922
->          git checkout 971a03493e9854ff4a227ee4d80b533997959891
->          # save the config file
->          mkdir build_dir && cp config build_dir/.config
->          COMPILER_INSTALL_PATH=$HOME/0day COMPILER=gcc-12.1.0 make.cross W=1 O=build_dir ARCH=ia64 SHELL=/bin/bash drivers/clk/qcom/
->
-> If you fix the issue, kindly add following tag where applicable
-> Reported-by: kernel test robot <lkp@intel.com>
->
-> All warnings (new ones prefixed by >>):
->
->     drivers/clk/qcom/reset.c: In function 'qcom_reset':
->>> drivers/clk/qcom/reset.c:17:9: warning: ISO C90 forbids mixed declarations and code [-Wdeclaration-after-statement]
->        17 |         const struct qcom_reset_map *map = &rst->reset_map[id];
->           |         ^~~~~
->
->
-> vim +17 drivers/clk/qcom/reset.c
->
->      13	
->      14	static int qcom_reset(struct reset_controller_dev *rcdev, unsigned long id)
->      15	{
->      16		struct qcom_reset_controller *rst = to_qcom_reset_controller(rcdev);
->    > 17		const struct qcom_reset_map *map = &rst->reset_map[id];
->      18	
->      19		if (map->op)
->      20			return map->op(map);
->      21	
->      22		rcdev->ops->assert(rcdev, id);
->      23		udelay(1);
->      24		rcdev->ops->deassert(rcdev, id);
->      25		return 0;
->      26	}
->      27	
->
-Will fix this and send another version of this patch. Please let me know 
-if there is any feedback to the whole series.
+From: Rob Clark <robdclark@chromium.org>
 
--Akhil.
+See 1/3 for motivation.
+
+Rob Clark (3):
+  dma-buf: Add ioctl to query mmap info
+  drm/prime: Wire up mmap_info support
+  drm/msm/prime: Add mmap_info support
+
+ drivers/dma-buf/dma-buf.c           | 26 ++++++++++++++++++++++++++
+ drivers/gpu/drm/drm_prime.c         | 12 ++++++++++++
+ drivers/gpu/drm/msm/msm_drv.c       |  1 +
+ drivers/gpu/drm/msm/msm_drv.h       |  1 +
+ drivers/gpu/drm/msm/msm_gem_prime.c | 11 +++++++++++
+ include/drm/drm_drv.h               |  7 +++++++
+ include/linux/dma-buf.h             |  7 +++++++
+ include/uapi/linux/dma-buf.h        | 28 ++++++++++++++++++++++++++++
+ 8 files changed, 93 insertions(+)
+
+-- 
+2.36.1
+
