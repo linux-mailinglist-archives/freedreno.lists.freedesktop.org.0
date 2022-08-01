@@ -2,56 +2,49 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4FE41586FA6
-	for <lists+freedreno@lfdr.de>; Mon,  1 Aug 2022 19:38:33 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 276E858718B
+	for <lists+freedreno@lfdr.de>; Mon,  1 Aug 2022 21:42:16 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7A12593592;
-	Mon,  1 Aug 2022 17:38:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BEE9E12BE64;
+	Mon,  1 Aug 2022 19:41:57 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x132.google.com (mail-lf1-x132.google.com
- [IPv6:2a00:1450:4864:20::132])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7CBB68E44D;
- Mon,  1 Aug 2022 17:38:17 +0000 (UTC)
-Received: by mail-lf1-x132.google.com with SMTP id m22so6617761lfl.9;
- Mon, 01 Aug 2022 10:38:17 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc;
- bh=ZEofs24gWs056HlATsdo9nk24MrkNe/lc9UM4+Isgr8=;
- b=Y6aD/NFrfESMvBfbHzvKOWWdDZQzFo2aG0nDV5EzCdNn4dWqhzz55mE6mbkGX4X023
- w5f+dmNk7z7SwcCdijk0Gcahw2NhGVeHrgPh7AyzIc3O4cZ0amRedlG9Aj2zCWP2Gaw1
- VDLnkeRuX6DyUR1cfRFhGREXishTcJx85CfewWjc51jacmOqc9rgj0omjylug/jBR/iD
- YJzuXVhof3t/CpA5FNbIDnp70aZKTec0ly7qX39koUnCNNZiPhjlFQD4ssz9erbDBNU+
- ZGNIK7s7nKoRiy78/O/sovkFTvOuN2Lt7wAQVl7q0vBBO/ctYd5xNyZ5t3J9nT3ZJOhr
- aOUA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc;
- bh=ZEofs24gWs056HlATsdo9nk24MrkNe/lc9UM4+Isgr8=;
- b=kJozb5VcLgw3RVwXDvrEqdTGmi133WeATLzdmEPR94IrxVjOF2ywoQIb62LYShms8M
- F/xKI/N/GqFjAPlEb3Ey6jr22E3ay04lI/fY/7R0y0k0zcY5PBObT+mjZ6AYEGuSm/B3
- nN+qYqBASK4QcfG8Mv06e83KOnMhSuz9yf15+OcsCY0SUCHuNAeTH28Y9PPg6yV53+k0
- 7noOKWoZmzFdNPXovIY9kv5BxqZhpX7bfFaTQqZm39kY5MZMr77Kqm/HZvYIugpf9Wq3
- C7HXcQX6fU7ATy2llb3LYzPv1fHLfPyOIBnammblRD63KlGNDdhJ9lmiJixgA5Cm31PS
- WpBg==
-X-Gm-Message-State: AJIora/ivfyN9VWIriFT+1tumjhTusEmkSzs5rvzDpj4VSx954j5uSsn
- QOJNEt6BYu9P3fcyqZOuYdjISbK/eSPrRqLHo1A=
-X-Google-Smtp-Source: AGRyM1uH70a7t4bA3N9awioJlcyh926xaZ5LmjMqI/SMlNSixVeVv7X58I/Su0ACuAScAp5/nzenLH2wV2YKiMFTjBI=
-X-Received: by 2002:ac2:4f03:0:b0:481:50f7:ac07 with SMTP id
- k3-20020ac24f03000000b0048150f7ac07mr5615148lfr.422.1659375495569; Mon, 01
- Aug 2022 10:38:15 -0700 (PDT)
+Received: from madras.collabora.co.uk (madras.collabora.co.uk
+ [IPv6:2a00:1098:0:82:1000:25:2eeb:e5ab])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D538D8D3DC;
+ Mon,  1 Aug 2022 19:41:46 +0000 (UTC)
+Received: from [192.168.2.145] (109-252-119-232.nat.spd-mgts.ru
+ [109.252.119.232])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ (Authenticated sender: dmitry.osipenko)
+ by madras.collabora.co.uk (Postfix) with ESMTPSA id 8D2A46601BA5;
+ Mon,  1 Aug 2022 20:41:44 +0100 (BST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1659382905;
+ bh=k5EraTwHAEVrhojLCqVx1FWHD2f7NGKvuhlO2ptrZ8c=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=gTmFFtTz0V1cbFEZIG4avYtl1KBj8ARpZgTTbHPEaLeBhlx5TS4UGiv6SIcSivaQG
+ 8COE65IXzErRaIgVt3NuVZmojRPcp6TNXfRBFXG9mtLvm8VfYOReoLhkdiRx73uew5
+ cnx7ung2K2PXXjHs17F9WyeTjUoFAvA2nSy6fi5cPtPGpaDQSwONgPBz9Fx8wWWpal
+ +p+6kyTyU4JxvKxtcmjTDQTc45JBY1nLRuUZARaGpCojqI50EOv94+NtwUEyJTovdx
+ i25DDfP/GyqrarCky7ixFCXc9AgdXPkZ2gvy2ek5YU7lnc9q+rt7ij3kSo4ZjpVakw
+ h3j2XjuKyWw9Q==
+Message-ID: <def8e47c-067e-0841-4ae4-1eb90244cd50@collabora.com>
+Date: Mon, 1 Aug 2022 22:41:40 +0300
 MIME-Version: 1.0
-References: <20220708162632.3529864-1-bjorn.andersson@linaro.org>
-In-Reply-To: <20220708162632.3529864-1-bjorn.andersson@linaro.org>
-From: Rob Clark <robdclark@gmail.com>
-Date: Mon, 1 Aug 2022 10:38:41 -0700
-Message-ID: <CAF6AEGuWj_7MPaYCcQa+ewr2MsLGNttKO=HVqmb72SPEemmizw@mail.gmail.com>
-To: Bjorn Andersson <bjorn.andersson@linaro.org>
-Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [PATCH] drm/msm/gpu: Drop qos request if
- devm_devfreq_add_device() fails
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.12.0
+Content-Language: en-US
+To: Rob Clark <robdclark@gmail.com>, dri-devel@lists.freedesktop.org
+References: <20220726175043.1027731-1-robdclark@gmail.com>
+ <20220726175043.1027731-10-robdclark@gmail.com>
+From: Dmitry Osipenko <dmitry.osipenko@collabora.com>
+In-Reply-To: <20220726175043.1027731-10-robdclark@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+Subject: Re: [Freedreno] [PATCH v3 09/15] drm/gem: Add LRU/shrinker helper
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,46 +57,43 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, David Airlie <airlied@linux.ie>,
- linux-arm-msm@vger.kernel.org, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Daniel Vetter <daniel@ffwll.ch>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>
+Cc: Rob Clark <robdclark@chromium.org>, Daniel Vetter <daniel@ffwll.ch>,
+ David Airlie <airlied@linux.ie>, linux-arm-msm@vger.kernel.org,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ open list <linux-kernel@vger.kernel.org>, Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Fri, Jul 8, 2022 at 9:24 AM Bjorn Andersson
-<bjorn.andersson@linaro.org> wrote:
->
-> In the event that devm_devfreq_add_device() fails the device's qos freq
-> list is left referencing df->idle_freq and df->boost_freq. Attempting to
-> initialize devfreq again after a probe deferral will then cause invalid
-> memory accesses in dev_pm_qos_add_request().
->
-> Fix this by dropping the requests in the error path.
->
-> Fixes: 7c0ffcd40b16 ("drm/msm/gpu: Respect PM QoS constraints")
-> Signed-off-by: Bjorn Andersson <bjorn.andersson@linaro.org>
+On 7/26/22 20:50, Rob Clark wrote:
+> +/**
+> + * drm_gem_lru_remove - remove object from whatever LRU it is in
+> + *
+> + * If the object is currently in any LRU, remove it.
+> + *
+> + * @obj: The GEM object to remove from current LRU
+> + */
+> +void
+> +drm_gem_lru_remove(struct drm_gem_object *obj)
+> +{
+> +	struct drm_gem_lru *lru = obj->lru;
+> +
+> +	if (!lru)
+> +		return;
+> +
+> +	mutex_lock(lru->lock);
+> +	lru_remove(obj);
+> +	mutex_unlock(lru->lock);
+> +}
+> +EXPORT_SYMBOL(drm_gem_lru_remove);
 
-Reviewed-by: Rob Clark <robdclark@gmail.com>
+I made a preliminary port of the DRM-SHMEM shrinker on top of the the
+latest version of dma-buf locking convention and yours LRU patches. It
+all works good, the only thing that is missing for the DRM-SHMEM
+shrinker is the drm_gem_lru_remove_locked().
 
-> ---
->  drivers/gpu/drm/msm/msm_gpu_devfreq.c | 2 ++
->  1 file changed, 2 insertions(+)
->
-> diff --git a/drivers/gpu/drm/msm/msm_gpu_devfreq.c b/drivers/gpu/drm/msm/msm_gpu_devfreq.c
-> index c2ea978c8921..21e271a318ee 100644
-> --- a/drivers/gpu/drm/msm/msm_gpu_devfreq.c
-> +++ b/drivers/gpu/drm/msm/msm_gpu_devfreq.c
-> @@ -198,6 +198,8 @@ void msm_devfreq_init(struct msm_gpu *gpu)
->
->         if (IS_ERR(df->devfreq)) {
->                 DRM_DEV_ERROR(&gpu->pdev->dev, "Couldn't initialize GPU devfreq\n");
-> +               dev_pm_qos_remove_request(&df->idle_freq);
-> +               dev_pm_qos_remove_request(&df->boost_freq);
->                 df->devfreq = NULL;
->                 return;
->         }
-> --
-> 2.35.1
->
+What about to add a locked variant of drm_gem_lru_remove()?
+
+-- 
+Best regards,
+Dmitry
