@@ -2,55 +2,59 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 847B9585A84
-	for <lists+freedreno@lfdr.de>; Sat, 30 Jul 2022 15:11:21 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 20805586CEB
+	for <lists+freedreno@lfdr.de>; Mon,  1 Aug 2022 16:34:48 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 053AF10ED22;
-	Sat, 30 Jul 2022 13:11:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C39D3CDD1E;
+	Mon,  1 Aug 2022 14:33:26 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E9C9210EB3B;
- Sat, 30 Jul 2022 13:11:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1659186673; x=1690722673;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=8WinKOkiACvMCIL7j4JUfw0p1az0NmOrR3j3M1UjeuM=;
- b=DC7bfGe4cnGPsf+dSnSCIdGCVMgk6TSIzwGXl8WsJ02SduxTW1DbfVDi
- stc6E2layfG30hrtNX23jsOdYrv46SDzT7pP7mlOU0I26680Xk/PlwcMi
- E9QveI3ubKDBfgJyESpktlQG9KqZQLG4A2FBIRtu+gqQ4t4INgoQ+GzuN
- xkLBSQ8xKU4YW+qC51zNfg3Dx9/cxKk6AVTdT69V4YLXJQ+8YA1rMU5QW
- 3AEd3TTHhGGeAnK8f/ptzffHUI2zT79cAB5VRsv834uLk0ymtsfr3doYb
- O2FZWzZAy3eMbeZ/5b2ptepthAyErCg9WG5Lsb18qXmIMLhkweeNNv8xN w==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10424"; a="286472113"
-X-IronPort-AV: E=Sophos;i="5.93,204,1654585200"; d="scan'208";a="286472113"
-Received: from orsmga004.jf.intel.com ([10.7.209.38])
- by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 30 Jul 2022 06:11:12 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.93,204,1654585200"; d="scan'208";a="728001021"
-Received: from lkp-server01.sh.intel.com (HELO e0eace57cfef) ([10.239.97.150])
- by orsmga004.jf.intel.com with ESMTP; 30 Jul 2022 06:11:08 -0700
-Received: from kbuild by e0eace57cfef with local (Exim 4.96)
- (envelope-from <lkp@intel.com>) id 1oHmFI-000Cqf-0W;
- Sat, 30 Jul 2022 13:11:08 +0000
-Date: Sat, 30 Jul 2022 21:10:19 +0800
-From: kernel test robot <lkp@intel.com>
-To: Akhil P Oommen <quic_akhilpo@quicinc.com>,
- freedreno <freedreno@lists.freedesktop.org>,
- dri-devel@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
- Rob Clark <robdclark@gmail.com>,
- Bjorn Andersson <bjorn.andersson@linaro.org>,
- Stephen Boyd <swboyd@chromium.org>
-Message-ID: <202207302137.mPbHPaHz-lkp@intel.com>
-References: <20220730144713.2.I4b69f984a97535179acd9637426a1331f84f6646@changeid>
+Received: from alexa-out-sd-02.qualcomm.com (alexa-out-sd-02.qualcomm.com
+ [199.106.114.39])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 38802CD801;
+ Mon,  1 Aug 2022 14:32:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=quicinc.com; i=@quicinc.com; q=dns/txt; s=qcdkim;
+ t=1659364375; x=1690900375;
+ h=message-id:date:mime-version:subject:to:cc:references:
+ from:in-reply-to:content-transfer-encoding;
+ bh=NkCrMrpG7PAAemzFvj7zQriC7ibq+uDZy/7liQTcrfA=;
+ b=P3XI91bCn3q57bAW9KXSbn3kG6BJ5swqQGnIFvuRcVDvXHrlAiD86Sri
+ 1Ebzh8lPOpBVPurHZLqGPbXKKwg2X1ealJc/h0YzFjSTZprW2VC+qLA7p
+ RzQVEuRIwQeQgWgnNN3jI++HgT0FSvppML+LNBz+sM9Ml4rY5pRbFmlUg I=;
+Received: from unknown (HELO ironmsg05-sd.qualcomm.com) ([10.53.140.145])
+ by alexa-out-sd-02.qualcomm.com with ESMTP; 01 Aug 2022 07:32:54 -0700
+X-QCInternal: smtphost
+Received: from nasanex01c.na.qualcomm.com ([10.47.97.222])
+ by ironmsg05-sd.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 01 Aug 2022 07:32:53 -0700
+Received: from nalasex01a.na.qualcomm.com (10.47.209.196) by
+ nasanex01c.na.qualcomm.com (10.47.97.222) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.986.22; Mon, 1 Aug 2022 07:32:52 -0700
+Received: from [10.216.14.65] (10.80.80.8) by nalasex01a.na.qualcomm.com
+ (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.22; Mon, 1 Aug 2022
+ 07:32:46 -0700
+Message-ID: <f9ab9c36-5ecd-a15d-57de-0ad999d575e4@quicinc.com>
+Date: Mon, 1 Aug 2022 20:02:41 +0530
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20220730144713.2.I4b69f984a97535179acd9637426a1331f84f6646@changeid>
-Subject: Re: [Freedreno] [PATCH 2/5] clk: qcom: Allow custom reset ops
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
+ Thunderbird/91.3.2
+Content-Language: en-US
+To: Rob Clark <robdclark@gmail.com>
+References: <1659174051-27816-1-git-send-email-quic_akhilpo@quicinc.com>
+ <20220730150952.v3.1.Icf1e8f0c9b3e7e9933c3b48c70477d0582f3243f@changeid>
+ <CAF6AEGsOzd8wMbgpt7bGNdCspNoH4shQfTknwwdyVde8k4zcZw@mail.gmail.com>
+From: Akhil P Oommen <quic_akhilpo@quicinc.com>
+In-Reply-To: <CAF6AEGsOzd8wMbgpt7bGNdCspNoH4shQfTknwwdyVde8k4zcZw@mail.gmail.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+Subject: Re: [Freedreno] [PATCH v3 1/8] drm/msm: Remove unnecessary
+ pm_runtime_get/put
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,68 +67,68 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: kbuild-all@lists.01.org, Akhil P Oommen <quic_akhilpo@quicinc.com>,
- Michael Turquette <mturquette@baylibre.com>,
- Konrad Dybcio <konrad.dybcio@somainline.org>,
- Douglas Anderson <dianders@chromium.org>, linux-kernel@vger.kernel.org,
- Andy Gross <agross@kernel.org>, linux-clk@vger.kernel.org
+Cc: Sean Paul <sean@poorly.run>, Jonathan Marek <jonathan@marek.ca>,
+ David Airlie <airlied@linux.ie>, linux-arm-msm@vger.kernel.org, Douglas
+ Anderson <dianders@chromium.org>, dri-devel@lists.freedesktop.org,
+ Jordan Crouse <jordan@cosmicpenguin.net>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Matthias Kaehlcke <mka@chromium.org>, Daniel Vetter <daniel@ffwll.ch>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Bjorn
+ Andersson <bjorn.andersson@linaro.org>,
+ freedreno <freedreno@lists.freedesktop.org>, linux-kernel@vger.kernel.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Hi Akhil,
+On 7/31/2022 9:25 PM, Rob Clark wrote:
+> On Sat, Jul 30, 2022 at 2:41 AM Akhil P Oommen <quic_akhilpo@quicinc.com> wrote:
+>> We already enable gpu power from msm_gpu_submit(), so avoid a duplicate
+>> pm_runtime_get/put from msm_job_run().
+>>
+>> Signed-off-by: Akhil P Oommen <quic_akhilpo@quicinc.com>
+>> ---
+>>
+>> (no changes since v1)
+>>
+>>   drivers/gpu/drm/msm/msm_ringbuffer.c | 4 ----
+>>   1 file changed, 4 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/msm/msm_ringbuffer.c b/drivers/gpu/drm/msm/msm_ringbuffer.c
+>> index 56eecb4..cad4c35 100644
+>> --- a/drivers/gpu/drm/msm/msm_ringbuffer.c
+>> +++ b/drivers/gpu/drm/msm/msm_ringbuffer.c
+>> @@ -29,8 +29,6 @@ static struct dma_fence *msm_job_run(struct drm_sched_job *job)
+>>                  msm_gem_unlock(obj);
+>>          }
+>>
+>> -       pm_runtime_get_sync(&gpu->pdev->dev);
+>> -
+> This is removing a _get_sync() and simply relying on a _get() (async)
+> in msm_gpu_submit().. that seems pretty likely to go badly?  I think
+> it should probably replace the _get() in msm_gpu_submit() with
+> _get_sync() (but also since this is changing position of
+> resume/suspend vs active_lock, please make sure you test with lockdep
+> enabled)
+>
+> BR,
+> -R
+As discussed in the other patch, this is correctly handled in 
+msm_gpu_submit(). And from active_lock perspective, there is no change 
+actually. GPU is ON by the time we touch active_lock in both cases.
 
-Thank you for the patch! Perhaps something to improve:
+-Akhil.
+>>          /* TODO move submit path over to using a per-ring lock.. */
+>>          mutex_lock(&gpu->lock);
+>>
+>> @@ -38,8 +36,6 @@ static struct dma_fence *msm_job_run(struct drm_sched_job *job)
+>>
+>>          mutex_unlock(&gpu->lock);
+>>
+>> -       pm_runtime_put(&gpu->pdev->dev);
+>> -
+>>          return dma_fence_get(submit->hw_fence);
+>>   }
+>>
+>> --
+>> 2.7.4
+>>
 
-[auto build test WARNING on clk/clk-next]
-[also build test WARNING on robh/for-next drm-misc/drm-misc-next drm-tip/drm-tip linus/master v5.19-rc8 next-20220728]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch#_base_tree_information]
-
-url:    https://github.com/intel-lab-lkp/linux/commits/Akhil-P-Oommen/clk-qcom-Support-gdsc-collapse-polling-using-reset-inteface/20220730-171922
-base:   https://git.kernel.org/pub/scm/linux/kernel/git/clk/linux.git clk-next
-config: ia64-randconfig-r031-20220729 (https://download.01.org/0day-ci/archive/20220730/202207302137.mPbHPaHz-lkp@intel.com/config)
-compiler: ia64-linux-gcc (GCC) 12.1.0
-reproduce (this is a W=1 build):
-        wget https://raw.githubusercontent.com/intel/lkp-tests/master/sbin/make.cross -O ~/bin/make.cross
-        chmod +x ~/bin/make.cross
-        # https://github.com/intel-lab-lkp/linux/commit/971a03493e9854ff4a227ee4d80b533997959891
-        git remote add linux-review https://github.com/intel-lab-lkp/linux
-        git fetch --no-tags linux-review Akhil-P-Oommen/clk-qcom-Support-gdsc-collapse-polling-using-reset-inteface/20220730-171922
-        git checkout 971a03493e9854ff4a227ee4d80b533997959891
-        # save the config file
-        mkdir build_dir && cp config build_dir/.config
-        COMPILER_INSTALL_PATH=$HOME/0day COMPILER=gcc-12.1.0 make.cross W=1 O=build_dir ARCH=ia64 SHELL=/bin/bash drivers/clk/qcom/
-
-If you fix the issue, kindly add following tag where applicable
-Reported-by: kernel test robot <lkp@intel.com>
-
-All warnings (new ones prefixed by >>):
-
-   drivers/clk/qcom/reset.c: In function 'qcom_reset':
->> drivers/clk/qcom/reset.c:17:9: warning: ISO C90 forbids mixed declarations and code [-Wdeclaration-after-statement]
-      17 |         const struct qcom_reset_map *map = &rst->reset_map[id];
-         |         ^~~~~
-
-
-vim +17 drivers/clk/qcom/reset.c
-
-    13	
-    14	static int qcom_reset(struct reset_controller_dev *rcdev, unsigned long id)
-    15	{
-    16		struct qcom_reset_controller *rst = to_qcom_reset_controller(rcdev);
-  > 17		const struct qcom_reset_map *map = &rst->reset_map[id];
-    18	
-    19		if (map->op)
-    20			return map->op(map);
-    21	
-    22		rcdev->ops->assert(rcdev, id);
-    23		udelay(1);
-    24		rcdev->ops->deassert(rcdev, id);
-    25		return 0;
-    26	}
-    27	
-
--- 
-0-DAY CI Kernel Test Service
-https://01.org/lkp
