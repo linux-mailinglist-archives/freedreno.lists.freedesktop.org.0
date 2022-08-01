@@ -1,62 +1,57 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 78CC9586F3B
-	for <lists+freedreno@lfdr.de>; Mon,  1 Aug 2022 19:05:11 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 4FE41586FA6
+	for <lists+freedreno@lfdr.de>; Mon,  1 Aug 2022 19:38:33 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 31EB511ABB6;
-	Mon,  1 Aug 2022 17:04:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7A12593592;
+	Mon,  1 Aug 2022 17:38:26 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-pg1-x533.google.com (mail-pg1-x533.google.com
- [IPv6:2607:f8b0:4864:20::533])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3FCE210FFBA;
- Mon,  1 Aug 2022 17:04:38 +0000 (UTC)
-Received: by mail-pg1-x533.google.com with SMTP id f65so10206169pgc.12;
- Mon, 01 Aug 2022 10:04:38 -0700 (PDT)
+Received: from mail-lf1-x132.google.com (mail-lf1-x132.google.com
+ [IPv6:2a00:1450:4864:20::132])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7CBB68E44D;
+ Mon,  1 Aug 2022 17:38:17 +0000 (UTC)
+Received: by mail-lf1-x132.google.com with SMTP id m22so6617761lfl.9;
+ Mon, 01 Aug 2022 10:38:17 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc;
- bh=mcGjaEjlp9E6N37UMib26cBF56AyQFK+2CInJ6FUTCo=;
- b=kyyjaNp7woKcXT7K+n3fQlDF5rurTZ1cFbBnUazT8LphCUB8Uunsdp08fL8++XY2um
- qb1LS7PccKyWz0vzjzjNpvlrRmU8E0YxTMjoBsqnK93APqh93yZiOi1E31OHdKCN2E5S
- 2Bha/UZLOERNo8HHII25RrcN8NLrxzdPTQARsRVBoJCYd45cndns0/Iv/28i+nNkJjc0
- JpbO3XGDCiRSWLri0EY8pCKOQrtrOdxG0f9Mk0TciXDMpON3bZ6TEAdvHjlZ9l3Dfbsw
- D09IZeer2fLxvoLbGWAZZ0i30jGrtTQnx5m2C3Xhila4KMIUpX2NxB2ppfssLU6hWKhZ
- DxhQ==
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc;
+ bh=ZEofs24gWs056HlATsdo9nk24MrkNe/lc9UM4+Isgr8=;
+ b=Y6aD/NFrfESMvBfbHzvKOWWdDZQzFo2aG0nDV5EzCdNn4dWqhzz55mE6mbkGX4X023
+ w5f+dmNk7z7SwcCdijk0Gcahw2NhGVeHrgPh7AyzIc3O4cZ0amRedlG9Aj2zCWP2Gaw1
+ VDLnkeRuX6DyUR1cfRFhGREXishTcJx85CfewWjc51jacmOqc9rgj0omjylug/jBR/iD
+ YJzuXVhof3t/CpA5FNbIDnp70aZKTec0ly7qX39koUnCNNZiPhjlFQD4ssz9erbDBNU+
+ ZGNIK7s7nKoRiy78/O/sovkFTvOuN2Lt7wAQVl7q0vBBO/ctYd5xNyZ5t3J9nT3ZJOhr
+ aOUA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc;
- bh=mcGjaEjlp9E6N37UMib26cBF56AyQFK+2CInJ6FUTCo=;
- b=fy4iEqejKMdrfZY6uNoEn4lj0e8SK17kgTLDpUnIllGRHdbWoINNxm17QdSGpEZ+J3
- UYezEDV4zn7TrEwZ44J1QeTRPlJ+eEFSUE0EcMzYVy4NoiPx4XgRMQG3JGPcZRSJ+w3B
- 6zY05JaELnd6+BdFtNPKoTl3YqrBeqhutc93+NKmrjgU26Dr68MD7/S9TZDpp8JoA2Z2
- jDjfdPN/jvXsoHXH8+5qhwkUqc2Jj9i+GDixG70Jm0HrP6kUQeThJPLe4/Ss748Ez+HK
- zkfdJLf5vYNxVWvf8KUryQ2uxlbjYL+5hgGmxWHu6EigjTlMXqk5hosppkab9HeGUk7q
- uBAA==
-X-Gm-Message-State: ACgBeo1m2iJtRxVlHdvIXBNml+FpsaZgIt8Oji2FSAQ5+dFVZeL8YPSO
- nxL2T9CW0PNOGPKF/kTcsrcOwIqMO1Y=
-X-Google-Smtp-Source: AA6agR7dVYfLrOR+qbczsM1EP90s8etc+W7B7ocadHOyqNO+TOxE1IUloB81XTDszRpVmSoiTlEyiA==
-X-Received: by 2002:a05:6a00:996:b0:52d:170f:c7ca with SMTP id
- u22-20020a056a00099600b0052d170fc7camr11462141pfg.86.1659373476856; 
- Mon, 01 Aug 2022 10:04:36 -0700 (PDT)
-Received: from localhost ([2a00:79e1:abd:4a00:2703:3c72:eb1a:cffd])
- by smtp.gmail.com with ESMTPSA id
- o8-20020a17090a9f8800b001f2ef2f9c6fsm9041018pjp.56.2022.08.01.10.04.35
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 01 Aug 2022 10:04:35 -0700 (PDT)
-From: Rob Clark <robdclark@gmail.com>
-To: dri-devel@lists.freedesktop.org
-Date: Mon,  1 Aug 2022 10:04:57 -0700
-Message-Id: <20220801170459.1593706-4-robdclark@gmail.com>
-X-Mailer: git-send-email 2.36.1
-In-Reply-To: <20220801170459.1593706-1-robdclark@gmail.com>
-References: <20220801170459.1593706-1-robdclark@gmail.com>
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc;
+ bh=ZEofs24gWs056HlATsdo9nk24MrkNe/lc9UM4+Isgr8=;
+ b=kJozb5VcLgw3RVwXDvrEqdTGmi133WeATLzdmEPR94IrxVjOF2ywoQIb62LYShms8M
+ F/xKI/N/GqFjAPlEb3Ey6jr22E3ay04lI/fY/7R0y0k0zcY5PBObT+mjZ6AYEGuSm/B3
+ nN+qYqBASK4QcfG8Mv06e83KOnMhSuz9yf15+OcsCY0SUCHuNAeTH28Y9PPg6yV53+k0
+ 7noOKWoZmzFdNPXovIY9kv5BxqZhpX7bfFaTQqZm39kY5MZMr77Kqm/HZvYIugpf9Wq3
+ C7HXcQX6fU7ATy2llb3LYzPv1fHLfPyOIBnammblRD63KlGNDdhJ9lmiJixgA5Cm31PS
+ WpBg==
+X-Gm-Message-State: AJIora/ivfyN9VWIriFT+1tumjhTusEmkSzs5rvzDpj4VSx954j5uSsn
+ QOJNEt6BYu9P3fcyqZOuYdjISbK/eSPrRqLHo1A=
+X-Google-Smtp-Source: AGRyM1uH70a7t4bA3N9awioJlcyh926xaZ5LmjMqI/SMlNSixVeVv7X58I/Su0ACuAScAp5/nzenLH2wV2YKiMFTjBI=
+X-Received: by 2002:ac2:4f03:0:b0:481:50f7:ac07 with SMTP id
+ k3-20020ac24f03000000b0048150f7ac07mr5615148lfr.422.1659375495569; Mon, 01
+ Aug 2022 10:38:15 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH v2 3/3] drm/msm/prime: Add mmap_info support
+References: <20220708162632.3529864-1-bjorn.andersson@linaro.org>
+In-Reply-To: <20220708162632.3529864-1-bjorn.andersson@linaro.org>
+From: Rob Clark <robdclark@gmail.com>
+Date: Mon, 1 Aug 2022 10:38:41 -0700
+Message-ID: <CAF6AEGuWj_7MPaYCcQa+ewr2MsLGNttKO=HVqmb72SPEemmizw@mail.gmail.com>
+To: Bjorn Andersson <bjorn.andersson@linaro.org>
+Content-Type: text/plain; charset="UTF-8"
+Subject: Re: [Freedreno] [PATCH] drm/msm/gpu: Drop qos request if
+ devm_devfreq_add_device() fails
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,78 +64,46 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rob Clark <robdclark@chromium.org>, David Airlie <airlied@linux.ie>,
- Sean Paul <sean@poorly.run>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- open list <linux-kernel@vger.kernel.org>, Rob Clark <robdclark@gmail.com>,
+Cc: freedreno@lists.freedesktop.org, David Airlie <airlied@linux.ie>,
+ linux-arm-msm@vger.kernel.org, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
  Daniel Vetter <daniel@ffwll.ch>,
- "open list:DRM DRIVER FOR MSM ADRENO GPU" <linux-arm-msm@vger.kernel.org>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- freedreno@lists.freedesktop.org
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-From: Rob Clark <robdclark@chromium.org>
+On Fri, Jul 8, 2022 at 9:24 AM Bjorn Andersson
+<bjorn.andersson@linaro.org> wrote:
+>
+> In the event that devm_devfreq_add_device() fails the device's qos freq
+> list is left referencing df->idle_freq and df->boost_freq. Attempting to
+> initialize devfreq again after a probe deferral will then cause invalid
+> memory accesses in dev_pm_qos_add_request().
+>
+> Fix this by dropping the requests in the error path.
+>
+> Fixes: 7c0ffcd40b16 ("drm/msm/gpu: Respect PM QoS constraints")
+> Signed-off-by: Bjorn Andersson <bjorn.andersson@linaro.org>
 
-Signed-off-by: Rob Clark <robdclark@chromium.org>
----
- drivers/gpu/drm/msm/msm_drv.c       |  1 +
- drivers/gpu/drm/msm/msm_drv.h       |  1 +
- drivers/gpu/drm/msm/msm_gem_prime.c | 11 +++++++++++
- 3 files changed, 13 insertions(+)
+Reviewed-by: Rob Clark <robdclark@gmail.com>
 
-diff --git a/drivers/gpu/drm/msm/msm_drv.c b/drivers/gpu/drm/msm/msm_drv.c
-index 1ca4a92ba96e..4979aa8187ec 100644
---- a/drivers/gpu/drm/msm/msm_drv.c
-+++ b/drivers/gpu/drm/msm/msm_drv.c
-@@ -1044,6 +1044,7 @@ static const struct drm_driver msm_driver = {
- 	.prime_fd_to_handle = drm_gem_prime_fd_to_handle,
- 	.gem_prime_import_sg_table = msm_gem_prime_import_sg_table,
- 	.gem_prime_mmap     = msm_gem_prime_mmap,
-+	.gem_prime_mmap_info= msm_gem_prime_mmap_info,
- #ifdef CONFIG_DEBUG_FS
- 	.debugfs_init       = msm_debugfs_init,
- #endif
-diff --git a/drivers/gpu/drm/msm/msm_drv.h b/drivers/gpu/drm/msm/msm_drv.h
-index 7330d7b5de8e..b4ace34ec889 100644
---- a/drivers/gpu/drm/msm/msm_drv.h
-+++ b/drivers/gpu/drm/msm/msm_drv.h
-@@ -271,6 +271,7 @@ void msm_gem_shrinker_init(struct drm_device *dev);
- void msm_gem_shrinker_cleanup(struct drm_device *dev);
- 
- int msm_gem_prime_mmap(struct drm_gem_object *obj, struct vm_area_struct *vma);
-+int msm_gem_prime_mmap_info(struct drm_gem_object *obj);
- struct sg_table *msm_gem_prime_get_sg_table(struct drm_gem_object *obj);
- int msm_gem_prime_vmap(struct drm_gem_object *obj, struct iosys_map *map);
- void msm_gem_prime_vunmap(struct drm_gem_object *obj, struct iosys_map *map);
-diff --git a/drivers/gpu/drm/msm/msm_gem_prime.c b/drivers/gpu/drm/msm/msm_gem_prime.c
-index c1d91863df05..2bacab7a1921 100644
---- a/drivers/gpu/drm/msm/msm_gem_prime.c
-+++ b/drivers/gpu/drm/msm/msm_gem_prime.c
-@@ -5,6 +5,7 @@
-  */
- 
- #include <linux/dma-buf.h>
-+#include <uapi/linux/dma-buf.h>
- 
- #include <drm/drm_prime.h>
- 
-@@ -26,6 +27,16 @@ int msm_gem_prime_mmap(struct drm_gem_object *obj, struct vm_area_struct *vma)
- 	return drm_gem_prime_mmap(obj, vma);
- }
- 
-+int msm_gem_prime_mmap_info(struct drm_gem_object *obj)
-+{
-+	struct msm_gem_object *msm_obj = to_msm_bo(obj);
-+
-+	if (msm_obj->flags & MSM_BO_WC)
-+		return DMA_BUF_VM_PROT_WC;
-+
-+	return DMA_BUF_VM_PROT_CACHED;
-+}
-+
- struct sg_table *msm_gem_prime_get_sg_table(struct drm_gem_object *obj)
- {
- 	struct msm_gem_object *msm_obj = to_msm_bo(obj);
--- 
-2.36.1
-
+> ---
+>  drivers/gpu/drm/msm/msm_gpu_devfreq.c | 2 ++
+>  1 file changed, 2 insertions(+)
+>
+> diff --git a/drivers/gpu/drm/msm/msm_gpu_devfreq.c b/drivers/gpu/drm/msm/msm_gpu_devfreq.c
+> index c2ea978c8921..21e271a318ee 100644
+> --- a/drivers/gpu/drm/msm/msm_gpu_devfreq.c
+> +++ b/drivers/gpu/drm/msm/msm_gpu_devfreq.c
+> @@ -198,6 +198,8 @@ void msm_devfreq_init(struct msm_gpu *gpu)
+>
+>         if (IS_ERR(df->devfreq)) {
+>                 DRM_DEV_ERROR(&gpu->pdev->dev, "Couldn't initialize GPU devfreq\n");
+> +               dev_pm_qos_remove_request(&df->idle_freq);
+> +               dev_pm_qos_remove_request(&df->boost_freq);
+>                 df->devfreq = NULL;
+>                 return;
+>         }
+> --
+> 2.35.1
+>
