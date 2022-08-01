@@ -1,58 +1,62 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1C3695871EA
-	for <lists+freedreno@lfdr.de>; Mon,  1 Aug 2022 22:01:44 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id D6AF15871FF
+	for <lists+freedreno@lfdr.de>; Mon,  1 Aug 2022 22:09:24 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EE5EF14AE0A;
-	Mon,  1 Aug 2022 20:00:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7EBDD18B740;
+	Mon,  1 Aug 2022 20:08:38 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x130.google.com (mail-lf1-x130.google.com
- [IPv6:2a00:1450:4864:20::130])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B636014A70E;
- Mon,  1 Aug 2022 20:00:41 +0000 (UTC)
-Received: by mail-lf1-x130.google.com with SMTP id t1so18954129lft.8;
- Mon, 01 Aug 2022 13:00:41 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc;
- bh=V5gQ5qjxqGzCmOK1PLGxzPSbavAClYglR/pW8JvcVsY=;
- b=EOL03vS8sJyZdeSxpiRsCpF+3QVM3bz3TKLSdmNrCoN76SVWyUko+Tv6vsSYLW7ohS
- OoFPkFDsJRnCHJ8rN0rBpqI8kXsGle4DYUVWllYVv4qGUEKKkiDcieFDGBfMgt6tEi7t
- LP86DXRvoqv4wH2xg+sMC+aIO5Wf/uE9oLW9FlN2WJvKg9mQqtKopNHU39gskBLHOLhg
- oqT9ulPJApTuxEbnIx4D096yBekO7hEns8wHMQ8Vga8PMh+bdRVTg2U1BdfxwzpUz+Sa
- x2ALv/PS9Hp6ZtJQhZD3YGGC5A9n7f4sDdG7YeKW3OJkegRDy04hq3vJtVLEaS9RiQd6
- Co6Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc;
- bh=V5gQ5qjxqGzCmOK1PLGxzPSbavAClYglR/pW8JvcVsY=;
- b=PtG86v0kx+LwH61i7yDcNZTaULLXV6U1PScFfGv/+Qlf48ZANMoqpWZqyda651wA4v
- ghleXkYcGxy/RBwvilKF6NG0G7uTfXAXUZEYelinK5hX/0aExPAHRmMrdONqVmu6YD0k
- oZWZL8eTOXW8VVvtv2zvVpm/wOr9JYzqSQmsd7nCFDzalO8fCCvhu09GBdOyOuoF1lsr
- uQjm2YC3h9pxKmd8oSawixR3gU8AZtfmFtAESwWTA4WAkxqPl/h43Ql3uiLbwp/01r0W
- DNwxsW8g1dioq7i6Q/EYBFqfGUTb7rW9IG0gG0CavJBNdJZq5BVys6m0crqGf4jY5lL5
- pg6A==
-X-Gm-Message-State: AJIora8xcDZvk4iemLnGCnbPghUJnWZP/fVTO1PbOQdL57I7mhuhoGxu
- UPUiT0xkvhS7LNdBxHn/rZLHvII1VNkIsWKZcVA=
-X-Google-Smtp-Source: AGRyM1vBBRHawcG8ftTonyM9q75QurQ3p3zcaTaySOV/jAW8LTQYo2ezKlXopdPACqJAWiV0BTKWTE1V6STR2cdwnFI=
-X-Received: by 2002:a05:6512:3f13:b0:48a:a89e:3ccb with SMTP id
- y19-20020a0565123f1300b0048aa89e3ccbmr5804969lfa.245.1659384039913; Mon, 01
- Aug 2022 13:00:39 -0700 (PDT)
+Received: from alexa-out-sd-02.qualcomm.com (alexa-out-sd-02.qualcomm.com
+ [199.106.114.39])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5FB5718A92C;
+ Mon,  1 Aug 2022 20:08:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=quicinc.com; i=@quicinc.com; q=dns/txt; s=qcdkim;
+ t=1659384504; x=1690920504;
+ h=message-id:date:mime-version:subject:to:cc:references:
+ from:in-reply-to:content-transfer-encoding;
+ bh=Z2sKdEmuR5GzYMOhpZvEQcMlZYe/O/eQFVyPPPVjpGM=;
+ b=zBwNSxd52hJpSeNoOxGh7lP1qn3YwJ5vJC4yBaeWO3/d0H/7eIcNi6h9
+ 9Y2Nv/4rDHJZ3Zm2ch9lUU/4Siv/pmx6NtyhgYy3A//Zx41xHhxW2OmaX
+ aa6hEAJgE9itePzEdJivB0wLdd+0e8hSfRgctn0fdD9eWZn/T2DyG/xdA 8=;
+Received: from unknown (HELO ironmsg05-sd.qualcomm.com) ([10.53.140.145])
+ by alexa-out-sd-02.qualcomm.com with ESMTP; 01 Aug 2022 13:08:23 -0700
+X-QCInternal: smtphost
+Received: from nasanex01c.na.qualcomm.com ([10.47.97.222])
+ by ironmsg05-sd.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 01 Aug 2022 13:08:22 -0700
+Received: from nalasex01a.na.qualcomm.com (10.47.209.196) by
+ nasanex01c.na.qualcomm.com (10.47.97.222) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.986.22; Mon, 1 Aug 2022 13:08:22 -0700
+Received: from [10.110.16.215] (10.80.80.8) by nalasex01a.na.qualcomm.com
+ (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.22; Mon, 1 Aug 2022
+ 13:08:20 -0700
+Message-ID: <89f3dfa2-0983-5e33-281f-94539492d1d2@quicinc.com>
+Date: Mon, 1 Aug 2022 13:08:13 -0700
 MIME-Version: 1.0
-References: <20220726175043.1027731-1-robdclark@gmail.com>
- <20220726175043.1027731-10-robdclark@gmail.com>
- <def8e47c-067e-0841-4ae4-1eb90244cd50@collabora.com>
-In-Reply-To: <def8e47c-067e-0841-4ae4-1eb90244cd50@collabora.com>
-From: Rob Clark <robdclark@gmail.com>
-Date: Mon, 1 Aug 2022 13:00:27 -0700
-Message-ID: <CAF6AEGtV4GY6=PmQh0wrKxjxk_baRCzOo=s=Uz-uKBNEn7SBBg@mail.gmail.com>
-To: Dmitry Osipenko <dmitry.osipenko@collabora.com>
-Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [PATCH v3 09/15] drm/gem: Add LRU/shrinker helper
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
+ Thunderbird/91.11.0
+Content-Language: en-US
+To: Stephen Boyd <swboyd@chromium.org>, <agross@kernel.org>,
+ <airlied@linux.ie>, <bjorn.andersson@linaro.org>, <daniel@ffwll.ch>,
+ <dianders@chromium.org>, <dmitry.baryshkov@linaro.org>,
+ <robdclark@gmail.com>, <sean@poorly.run>, <vkoul@kernel.org>
+References: <1659382970-17477-1-git-send-email-quic_khsieh@quicinc.com>
+ <CAE-0n52=zJ0ScrknAhsvJQc5hXP7+TGaoa4gnaVzsT26bQL_Uw@mail.gmail.com>
+From: Kuogee Hsieh <quic_khsieh@quicinc.com>
+In-Reply-To: <CAE-0n52=zJ0ScrknAhsvJQc5hXP7+TGaoa4gnaVzsT26bQL_Uw@mail.gmail.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+Subject: Re: [Freedreno] [PATCH] drm/msm/dp: delete
+ DP_RECOVERED_CLOCK_OUT_EN to fix tps4
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,52 +69,47 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rob Clark <robdclark@chromium.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@linux.ie>, linux-arm-msm@vger.kernel.org,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- open list <linux-kernel@vger.kernel.org>, dri-devel@lists.freedesktop.org,
- Maxime Ripard <mripard@kernel.org>, Daniel Vetter <daniel@ffwll.ch>,
- freedreno@lists.freedesktop.org
+Cc: quic_sbillaka@quicinc.com, linux-arm-msm@vger.kernel.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ quic_aravindh@quicinc.com, freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Mon, Aug 1, 2022 at 12:41 PM Dmitry Osipenko
-<dmitry.osipenko@collabora.com> wrote:
->
-> On 7/26/22 20:50, Rob Clark wrote:
-> > +/**
-> > + * drm_gem_lru_remove - remove object from whatever LRU it is in
-> > + *
-> > + * If the object is currently in any LRU, remove it.
-> > + *
-> > + * @obj: The GEM object to remove from current LRU
-> > + */
-> > +void
-> > +drm_gem_lru_remove(struct drm_gem_object *obj)
-> > +{
-> > +     struct drm_gem_lru *lru = obj->lru;
-> > +
-> > +     if (!lru)
-> > +             return;
-> > +
-> > +     mutex_lock(lru->lock);
-> > +     lru_remove(obj);
-> > +     mutex_unlock(lru->lock);
-> > +}
-> > +EXPORT_SYMBOL(drm_gem_lru_remove);
->
-> I made a preliminary port of the DRM-SHMEM shrinker on top of the the
-> latest version of dma-buf locking convention and yours LRU patches. It
-> all works good, the only thing that is missing for the DRM-SHMEM
-> shrinker is the drm_gem_lru_remove_locked().
->
-> What about to add a locked variant of drm_gem_lru_remove()?
 
-Sounds fine to me.. the only reason it didn't exist yet was because it
-wasn't needed yet..
 
-I can respin w/ an addition of a _locked() version, or you can add it
-on top in your patchset.  Either is fine by me
-
-BR,
--R
+On 8/1/2022 12:51 PM, Stephen Boyd wrote:
+> Quoting Kuogee Hsieh (2022-08-01 12:42:50)
+>> Data Symbols scrambled is required for tps4 at link training 2.
+>> Therefore SCRAMBLING_DISABLE bit should not be set for tps4 to
+>> work.
+>> RECOVERED_CLOCK_OUT_EN is for enable simple EYE test for jitter
+>> measurement with minimal equipment for embedded applications purpose
+>> and is not required to be set during normal operation.
+>> Current implementation always have RECOVERED_CLOCK_OUT_EN bit set
+>> which cause SCRAMBLING_DISABLE bit wrongly set at tps4 which prevent
+>> tps4 from working.
+>> This patch delete setting RECOVERED_CLOCK_OUT_EN to fix SCRAMBLING_DISABLE
+>> be wrongly set at tps4.
+>>
+>> Fixes: 956653250b21 ("drm/msm/dp: add support of tps4 (training pattern 4) for HBR3")
+>>
+>> Signed-off-by: Kuogee Hsieh <quic_khsieh@quicinc.com>
+>> ---
+>>   drivers/gpu/drm/msm/dp/dp_ctrl.c | 2 +-
+>>   1 file changed, 1 insertion(+), 1 deletion(-)
+>>
+>> diff --git a/drivers/gpu/drm/msm/dp/dp_ctrl.c b/drivers/gpu/drm/msm/dp/dp_ctrl.c
+>> index ab6aa13..013ca02 100644
+>> --- a/drivers/gpu/drm/msm/dp/dp_ctrl.c
+>> +++ b/drivers/gpu/drm/msm/dp/dp_ctrl.c
+>> @@ -1214,7 +1214,7 @@ static int dp_ctrl_link_train_2(struct dp_ctrl_private *ctrl,
+>>          if (ret)
+>>                  return ret;
+>>
+>> -       dp_ctrl_train_pattern_set(ctrl, pattern | DP_RECOVERED_CLOCK_OUT_EN);
+>> +       dp_ctrl_train_pattern_set(ctrl, pattern);
+> This line is from the first patch introducing this driver. Even if this
+> is fixing tps4 support, it sounds like the bit should never have been
+> enabled in the first place. Why isn't the fixes tag targeted at the
+> first commit? Does it hurt to apply it without commit 956653250b21?
+agree, it should be fixed to first patch
