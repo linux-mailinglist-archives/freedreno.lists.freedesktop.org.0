@@ -1,72 +1,60 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4D8225877A5
-	for <lists+freedreno@lfdr.de>; Tue,  2 Aug 2022 09:15:51 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 8E570587F4C
+	for <lists+freedreno@lfdr.de>; Tue,  2 Aug 2022 17:51:44 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1CDF82B19B;
-	Tue,  2 Aug 2022 07:15:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BBC3E90484;
+	Tue,  2 Aug 2022 15:51:36 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x12b.google.com (mail-lf1-x12b.google.com
- [IPv6:2a00:1450:4864:20::12b])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C6187892DE
- for <freedreno@lists.freedesktop.org>; Tue,  2 Aug 2022 07:15:30 +0000 (UTC)
-Received: by mail-lf1-x12b.google.com with SMTP id z25so20720567lfr.2
- for <freedreno@lists.freedesktop.org>; Tue, 02 Aug 2022 00:15:30 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc; bh=c61IBeGENLBrfZtlLVNhveGWmLmYNBW+8+c+xekhbN4=;
- b=xisHHreQsg8+3CNQvjUzLiFcibwj9uUxJ2QlQewRTagHGQoP36+CZbvfc/rrpsOTsr
- 5esKvZs4yhrgNcCEKQfRA3I3wq+Z+aiJ4Y9V4JV9TjrlXTOYVgTtCTsuw7qLBwDyRZ8r
- WFsaNN8T6wlUS6CDzl9oPjiDS/FhO/T5pJ2zo8hhy/FhwQRYsHZfYcgHV10LIKiWJ/Po
- lUoNmmJpUGJxZvrh8NRphScyouZmrcNiWwwzMayOFyD/ettTncNk4fs4mGCUJ4OyrRKU
- 1kIDK3/XM4M0j7gW7SDCyhs9oNuaWY1jF6MdTEPNM1s52BlkfE+Zztk6ElhqAeojqbnP
- NYYA==
+Received: from mail-pl1-x631.google.com (mail-pl1-x631.google.com
+ [IPv6:2607:f8b0:4864:20::631])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0A61A90481;
+ Tue,  2 Aug 2022 15:51:19 +0000 (UTC)
+Received: by mail-pl1-x631.google.com with SMTP id z19so13853657plb.1;
+ Tue, 02 Aug 2022 08:51:19 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc;
+ bh=NWeX+YprTRWHBBG/4VEXO7GVujWct+9awIElnHMdcqs=;
+ b=Sl67Q6DIolX+ANbJwp7ZfqBmK2T/Gv6vLDxeRNAJuoIXYeav7o8lG8BRi2oALk11qo
+ GC/CFjQxL62+E3GIhflVixdPQqivPpPeq9yw6xh1O9L46TFPROeSSnqapmrbc3/szFvo
+ U2nnF2PUGdyfU87fQHNX0DbnWOIJyLkNQIRNGaVBeQ9GUpV11CBnZO5r47WVxV+fKLqT
+ 0l7eMn/k9+Jt/+Lcf7e++LliKllsZFK/fv2Tz8+v2x3fysQNfnq/tZK6FFkKiagBMU/M
+ pVtd3EF3P4rVy1lQRphRAFaw8g/VyEV7CnMdOuMDamoJhZdywpYmpwFMlyZ06h/rBc82
+ 654g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc;
- bh=c61IBeGENLBrfZtlLVNhveGWmLmYNBW+8+c+xekhbN4=;
- b=mCBCikzQ+049W4zUqJJeNU0UpywI4tqA5pVKHeeMLc1EnfiPYtIIRZaoA9zJQnx0SE
- tV8ZU5iBU47m438EwnN03t5wALDBfqiWTQcEB3z/D4LVW+xsatg0WOJPjw2nRAZok0Y/
- asAsfN9tp4551dhPqktsMLV0bN8iQlvUXeA1BRnVzQTZRdBxNIVEDwoF3v0CdlCoxo6i
- lg15JIuc48poABsDVktiTYsnwZMVRRdQ0rXS1jUM/HZkrCdUs49QCNkmzuq7I9D+iUEz
- BLcCrj8HzALJsyAFOjOz4eH+Eq5xxN32zanrs0cbC19vSG50QGiEdpJ7QN9paFSjSkL+
- IM5A==
-X-Gm-Message-State: ACgBeo2iD9fWuYa997KYYj1uQDt7zVeMJP5YcP+6XZqqJxu5AoBXy00q
- oYjvHy3goA+tqC8Nti9HpsXxDg==
-X-Google-Smtp-Source: AA6agR4DKQ54iF2lBgq5cgDu5t0vw5ELL8IbGd6dlICfMebN3W4GFM72tUtCrYKW0uIY59zfuFAv0Q==
-X-Received: by 2002:a05:6512:3c8d:b0:48a:f74a:67b6 with SMTP id
- h13-20020a0565123c8d00b0048af74a67b6mr3619423lfv.231.1659424528774; 
- Tue, 02 Aug 2022 00:15:28 -0700 (PDT)
-Received: from [192.168.1.211] ([37.153.55.125])
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc;
+ bh=NWeX+YprTRWHBBG/4VEXO7GVujWct+9awIElnHMdcqs=;
+ b=RBY1HwucIFc4dKbdlccvqqAAiH3CKHI76VABm4HvIuAYndxc/U4r/JUm3S+15pF6ZD
+ 86dlRglYzMDkHR9lPIrnQopInA4sGAskgh53k7zJflurziLW46PCG1QJIoEYxlMjRCtx
+ eiZDjtubG1ttFOaLauWzrtPyiRXSHKp0xa8b4tRzUw0BDtVp3mAaFgcak2YukJSROnSZ
+ pOgqE1j2s3HkFLTlTa3BbXzBOzTZW+9ypFTTz/ynh/NtCDpAFbf0x0rVeHVgxgxcg2c9
+ VJCr/HNVeiHDnRVqf461dJ1FaKml+ub/7M75ZCCecxpGaQaKg/Zb7PWe1smvfgxlJ4FY
+ lH7w==
+X-Gm-Message-State: ACgBeo2fETqd71EzsX9g/KLu7rhfNwRrUXqAt64umIXZzUzcwYSJw4/H
+ OZmE+xEm6TekRuOdgie0yWeFI4Gc5cI=
+X-Google-Smtp-Source: AA6agR56jjzgY+aeqcZzexrc3Ci5QhZmdPqkiD4sQeLXuekKbS8BO8rNt2bK1Syu0RSEISDeum/5Dw==
+X-Received: by 2002:a17:90b:4d05:b0:1e0:b53:f4a3 with SMTP id
+ mw5-20020a17090b4d0500b001e00b53f4a3mr115390pjb.3.1659455478641; 
+ Tue, 02 Aug 2022 08:51:18 -0700 (PDT)
+Received: from localhost ([2a00:79e1:abd:4a00:2703:3c72:eb1a:cffd])
  by smtp.gmail.com with ESMTPSA id
- g12-20020a2ea4ac000000b0025e48907929sm922293ljm.23.2022.08.02.00.15.28
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 02 Aug 2022 00:15:28 -0700 (PDT)
-Message-ID: <9098554e-5327-0b7f-f4d0-a81880556136@linaro.org>
-Date: Tue, 2 Aug 2022 10:15:27 +0300
+ c194-20020a624ecb000000b0052d27ccea39sm7347118pfb.19.2022.08.02.08.51.17
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 02 Aug 2022 08:51:17 -0700 (PDT)
+From: Rob Clark <robdclark@gmail.com>
+To: dri-devel@lists.freedesktop.org
+Date: Tue,  2 Aug 2022 08:51:33 -0700
+Message-Id: <20220802155152.1727594-1-robdclark@gmail.com>
+X-Mailer: git-send-email 2.36.1
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.10.0
-Content-Language: en-GB
-To: Akhil P Oommen <quic_akhilpo@quicinc.com>,
- freedreno <freedreno@lists.freedesktop.org>,
- dri-devel@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
- Rob Clark <robdclark@gmail.com>, Bjorn Andersson
- <bjorn.andersson@linaro.org>, Stephen Boyd <swboyd@chromium.org>
-References: <1659172664-10345-1-git-send-email-quic_akhilpo@quicinc.com>
- <20220730144713.3.I5e64ff4b77bb9079eb2edeea8a02585c9e76778f@changeid>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-In-Reply-To: <20220730144713.3.I5e64ff4b77bb9079eb2edeea8a02585c9e76778f@changeid>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH 3/5] clk: qcom: gpucc-sc7280: Add cx
- collapse reset support
+Content-Transfer-Encoding: 8bit
+Subject: [Freedreno] [PATCH v4 00/15] drm+msm: Shrinker and LRU rework
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,53 +67,81 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Stephen Boyd <sboyd@kernel.org>,
- Michael Turquette <mturquette@baylibre.com>,
- Konrad Dybcio <konrad.dybcio@somainline.org>,
- Douglas Anderson <dianders@chromium.org>, linux-kernel@vger.kernel.org,
- Andy Gross <agross@kernel.org>, linux-clk@vger.kernel.org
+Cc: Rob Clark <robdclark@chromium.org>, linux-arm-msm@vger.kernel.org,
+ Sean Paul <sean@poorly.run>, freedreno@lists.freedesktop.org,
+ open list <linux-kernel@vger.kernel.org>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 30/07/2022 12:17, Akhil P Oommen wrote:
-> Allow a consumer driver to poll for cx gdsc collapse through Reset
-> framework.
-> 
-> Signed-off-by: Akhil P Oommen <quic_akhilpo@quicinc.com>
-> ---
-> 
->   drivers/clk/qcom/gpucc-sc7280.c | 6 ++++++
->   1 file changed, 6 insertions(+)
-> 
-> diff --git a/drivers/clk/qcom/gpucc-sc7280.c b/drivers/clk/qcom/gpucc-sc7280.c
-> index 9a832f2..f5df51d 100644
-> --- a/drivers/clk/qcom/gpucc-sc7280.c
-> +++ b/drivers/clk/qcom/gpucc-sc7280.c
-> @@ -433,12 +433,18 @@ static const struct regmap_config gpu_cc_sc7280_regmap_config = {
->   	.fast_io = true,
->   };
->   
-> +static const struct qcom_reset_map gpucc_sc7280_resets[] = {
-> +	[GPU_CX_COLLAPSE] = { .op = gdsc_wait_for_collapse, .priv = &cx_gdsc },
-> +};
-> +
->   static const struct qcom_cc_desc gpu_cc_sc7280_desc = {
->   	.config = &gpu_cc_sc7280_regmap_config,
->   	.clks = gpu_cc_sc7280_clocks,
->   	.num_clks = ARRAY_SIZE(gpu_cc_sc7280_clocks),
->   	.gdscs = gpu_cc_sc7180_gdscs,
->   	.num_gdscs = ARRAY_SIZE(gpu_cc_sc7180_gdscs),
-> +	.resets = gpucc_sc7280_resets,
-> +	.num_resets = ARRAY_SIZE(gpucc_sc7280_resets),
+From: Rob Clark <robdclark@chromium.org>
 
-An implementation question. Do we have to poll for the GDSC on platforms 
-like sm8150/sm8250 which have the plain BCR resets?
+Unchanged other than small update in 09/15
 
->   };
->   
->   static const struct of_device_id gpu_cc_sc7280_match_table[] = {
+original description below:
 
+This is mostly motivated by getting drm/msm to pass an i-g-t shrinker
+test that I've been working on.  In particular the test creates and
+cycles between more GEM buffers than what will fit in RAM to force
+eviction and re-pin.  (There are sub-tests that cover this case both
+single threaded and with many child processes in parallel.)
+
+Getting this test to pass necessitated a few improvements:
+
+1. Re-ordering submit path to get rid of __GFP_NORETRY (in the common
+   case, doing this for syncobjs is still TODO)
+2. Decoupling locks needed in the retire path from locks that could
+   be held while hitting reclaim in the submit path
+3. If necessary, allow stalling on active BOs for reclaim.
+
+The latter point is because we pin objects in the synchronous part of
+the submit path (before queuing on the drm gpu-scheduler), which means
+in the parallel variant of the i-g-t test, we need to be able to block
+in the reclaim path until some queued work has completed/retired.
+
+In the process of re-working how drm/msm tracks buffer state in it's
+various LRU lists, I refactored out a drm_gem_lru helper which, in
+theory, should be usable by other drivers and drm shmem helpers for
+implementing LRU tracking and shrinker.
+
+
+v2: rebase + small fix in 13/13
+v3: use lockdep_assert_held in GEM LRU helper, and add a couple patches
+    at the end to convert MSM from WARN_ON(!is_locked()) to lockdep
+    asserts
+v4: keep drm_gem_move_tail_locked() static until there is a user
+
+Rob Clark (15):
+  drm/msm: Reorder lock vs submit alloc
+  drm/msm: Small submit cleanup
+  drm/msm: Split out idr_lock
+  drm/msm/gem: Check for active in shrinker path
+  drm/msm/gem: Rename update_inactive
+  drm/msm/gem: Rename to pin/unpin_pages
+  drm/msm/gem: Consolidate pin/unpin paths
+  drm/msm/gem: Remove active refcnt
+  drm/gem: Add LRU/shrinker helper
+  drm/msm/gem: Convert to using drm_gem_lru
+  drm/msm/gem: Unpin buffers earlier
+  drm/msm/gem: Consolidate shrinker trace
+  drm/msm/gem: Evict active GEM objects when necessary
+  drm/msm/gem: Add msm_gem_assert_locked()
+  drm/msm/gem: Convert to lockdep assert
+
+ drivers/gpu/drm/drm_gem.c              | 170 +++++++++++++++++++++++
+ drivers/gpu/drm/msm/msm_drv.c          |  18 ++-
+ drivers/gpu/drm/msm/msm_drv.h          |  70 +++++++---
+ drivers/gpu/drm/msm/msm_gem.c          | 179 +++++++++----------------
+ drivers/gpu/drm/msm/msm_gem.h          | 123 ++---------------
+ drivers/gpu/drm/msm/msm_gem_prime.c    |   4 +-
+ drivers/gpu/drm/msm/msm_gem_shrinker.c | 164 +++++++++++-----------
+ drivers/gpu/drm/msm/msm_gem_submit.c   |  78 ++++-------
+ drivers/gpu/drm/msm/msm_gpu.c          |   3 -
+ drivers/gpu/drm/msm/msm_gpu.h          |  10 +-
+ drivers/gpu/drm/msm/msm_gpu_trace.h    |  36 +++--
+ drivers/gpu/drm/msm/msm_submitqueue.c  |   1 +
+ include/drm/drm_gem.h                  |  55 ++++++++
+ 13 files changed, 491 insertions(+), 420 deletions(-)
 
 -- 
-With best wishes
-Dmitry
+2.36.1
+
