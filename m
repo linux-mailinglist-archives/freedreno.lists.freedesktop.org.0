@@ -2,71 +2,68 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id B5004588776
-	for <lists+freedreno@lfdr.de>; Wed,  3 Aug 2022 08:37:46 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6CF2D5887A8
+	for <lists+freedreno@lfdr.de>; Wed,  3 Aug 2022 09:01:22 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 17C1210FFDD;
-	Wed,  3 Aug 2022 06:37:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9DBDE11A440;
+	Wed,  3 Aug 2022 07:01:20 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x130.google.com (mail-lf1-x130.google.com
- [IPv6:2a00:1450:4864:20::130])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C0AEC10FC77
- for <freedreno@lists.freedesktop.org>; Wed,  3 Aug 2022 06:37:30 +0000 (UTC)
-Received: by mail-lf1-x130.google.com with SMTP id m22so13213492lfl.9
- for <freedreno@lists.freedesktop.org>; Tue, 02 Aug 2022 23:37:30 -0700 (PDT)
+Received: from mail-lj1-x22c.google.com (mail-lj1-x22c.google.com
+ [IPv6:2a00:1450:4864:20::22c])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5273F11A4AD
+ for <freedreno@lists.freedesktop.org>; Wed,  3 Aug 2022 07:01:17 +0000 (UTC)
+Received: by mail-lj1-x22c.google.com with SMTP id r14so17987523ljp.2
+ for <freedreno@lists.freedesktop.org>; Wed, 03 Aug 2022 00:01:17 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=message-id:date:mime-version:user-agent:subject:content-language:to
- :cc:references:from:in-reply-to:content-transfer-encoding;
- bh=3C/lNt77+qlJDztrS8WVjy6lbQy6qfEyINiYOOYnU18=;
- b=OkTTeDdgE1wq3JFHiRmbjgpyqJF9kC+95jnwwzwrKilHNWflwBySJidfMTBFuX1US3
- JLlom3TZgEzsdoeqoGjWDbLUUs/wzgFAasq1I/3bubb/U3cA+rKmxQqyjFFm6Goml4Kd
- yL4A1YBkBsHnJ5jm/nuf9kXHpK+/Wh/bXGqfyfPkqHdEjzw69+Co4UoPHz1VMgo2gXTQ
- n0GGainzh8Hw+TW+JVZ9ockkmlKNfPaTYHI2oNT/mHU4J9H03QGZhyxvdaY0z6pejV3B
- UVlfzuHuwgOOoVEZDOtR0K6eVjW6IEUuWpk30GlQNTScVwvI6zi1tmQlxysqusRscnZk
- PhYA==
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc; bh=6iA1iDDg2wT5L45f8xQzKm/33un6F5eze6/xZZLONzc=;
+ b=LkvUnyrn95oArIe+LqyBPWpm1Tt2+ZtXN95srDZ5S+5JY8SHMNFCerf6bdm4APJdn6
+ pkJKDqEuHtWTkYZikpsKLdLZMI3efKjCne42dk/2e8BoavLopWbtWPcWkepqIG+FNaVx
+ PUeKEZEz+dUPctCW73YN2EegSF+mACNF2p8RL+wXldyT9iUEVHK6baWiqjsg2wk4kpo7
+ ISKUm5jCmT9QM+8c0lca0bzNeZqvKaY95u3FVnNWawRL6ViswAhd2UDHVVMO3ILYeXip
+ gWXQY9ROaAm7zs/4Rl0dspJ+EIFeUBrQewxwxcOAQquWoukUL+ok3egO167EgYiTnPDF
+ OOCA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
- :content-language:to:cc:references:from:in-reply-to
- :content-transfer-encoding;
- bh=3C/lNt77+qlJDztrS8WVjy6lbQy6qfEyINiYOOYnU18=;
- b=0OnjQ2L31BhF67Nt6TMIM11OgMo84Q0yy5g8qruLk1rBALFh3rRyKDM7PCXu+zdbR2
- 242FckVEmpuzdpvoWSCrrrmec3agCAQjz63kFDKiI/WPcespJoA6r6qpO1vY1NHqOkpd
- TIp6KPX6TAVF0g+qA0w2LKjTFXqZjNvAOZnSQjA5oxnsW6ooDgihD7sLtMwjQrrtLtQg
- rnrDp2KB3CBQkyQxPnSRT5lkDa1BvsaxNYBL2+fcAeB1aQIzw/UQrSJRfxjmIRCl/7hI
- t8rMCAeOf452Llx7cJAl2dxH4g1ShXTdg8FsjEB89EMETtQnjIbsAkyKE1IatdoLTCOz
- hG+g==
-X-Gm-Message-State: AJIora9bym1kMaghwjzgEdxkplLWtoIo3VSrxQVAgDcL4nqpeGohcu+4
- xuWotoNUpPQOw567z79kG6nOGA==
-X-Google-Smtp-Source: AGRyM1s5ZskGPA3x2RfGUG+ZddgaBOYCr+PGg5vqJBsdELbLJDGDQFIGpzGmtTAa7OvrGnkfkkU8OQ==
-X-Received: by 2002:a05:6512:3f0c:b0:48a:433:6d3b with SMTP id
- y12-20020a0565123f0c00b0048a04336d3bmr8447107lfa.570.1659508649004; 
- Tue, 02 Aug 2022 23:37:29 -0700 (PDT)
-Received: from [192.168.1.6] ([213.161.169.44])
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc;
+ bh=6iA1iDDg2wT5L45f8xQzKm/33un6F5eze6/xZZLONzc=;
+ b=REegwbLx+Dn99uaGDkQ8o3bRlWq4wqTEcJRcSJrVYOuCdUyorBgnS0TYaaRT9bVJ2U
+ 6crkJJF5a0wVcM6vnlmAYxu90Ug7sY0wpZAWxB9DuEvuGUKzelOAlQAD8M+L6aSuN5kE
+ 6O04kH4nVr9GNudKg94B9oGeF0RhGGxiIWTlsJX+oGIsKxijf53pTQiXYMjxsPNEAXd3
+ wHNdhjUjZU+YX8JFxwuhpNemPcJSQXfvGLJgf7WgxrxMgDzCNPz83KFKfcILdiEJKKBo
+ +5zYuTMtHuPRQDIYEng4rsiOdzzamK1sGYBgFQBJDQ5Cy8RmvqKWauCvL9nYLXkxCSyV
+ ViWw==
+X-Gm-Message-State: AJIora/wAADxJKvZxT4mlzXyhzV8rIbJbT2QIaVZ6NIBD0vn/19qEp66
+ Kycqhjg/laQN2y62C4NW3PBgGA==
+X-Google-Smtp-Source: AGRyM1s5IdB0FWkmOIReBn0TOtbL6cM9VogND3jzcIcT1PiaxHFmSz63MP1zi2G7w0ZRDn/hAlW+kg==
+X-Received: by 2002:a05:651c:1584:b0:25d:c6ad:6237 with SMTP id
+ h4-20020a05651c158400b0025dc6ad6237mr7395214ljq.509.1659510075506; 
+ Wed, 03 Aug 2022 00:01:15 -0700 (PDT)
+Received: from [192.168.1.211] ([37.153.55.125])
  by smtp.gmail.com with ESMTPSA id
- a11-20020a19f80b000000b0048af437ce87sm1246604lff.183.2022.08.02.23.37.24
+ f34-20020a0565123b2200b0048ad13756dcsm2118746lfv.223.2022.08.03.00.01.14
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 02 Aug 2022 23:37:27 -0700 (PDT)
-Message-ID: <f2453080-d71b-3c33-ba8e-d2ed15e06927@linaro.org>
-Date: Wed, 3 Aug 2022 08:37:23 +0200
+ Wed, 03 Aug 2022 00:01:15 -0700 (PDT)
+Message-ID: <6723fb49-4768-c40b-0d00-6be594adccf0@linaro.org>
+Date: Wed, 3 Aug 2022 10:01:14 +0300
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.12.0
-Content-Language: en-US
-To: Akhil P Oommen <quic_akhilpo@quicinc.com>,
- freedreno <freedreno@lists.freedesktop.org>,
- dri-devel@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
- Rob Clark <robdclark@gmail.com>, Bjorn Andersson
- <bjorn.andersson@linaro.org>, Stephen Boyd <swboyd@chromium.org>
-References: <1659172664-10345-1-git-send-email-quic_akhilpo@quicinc.com>
- <20220730144713.1.I68b749219741db01356a42d782f74265d29a2ac3@changeid>
-From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-In-Reply-To: <20220730144713.1.I68b749219741db01356a42d782f74265d29a2ac3@changeid>
-Content-Type: text/plain; charset=UTF-8
+ Thunderbird/91.10.0
+Content-Language: en-GB
+To: Douglas Anderson <dianders@chromium.org>, Rob Clark
+ <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>
+References: <20220802223738.898592-1-dianders@chromium.org>
+ <20220802153434.v3.1.I1056ee3f77f71287f333279efe4c85f88d403f65@changeid>
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+In-Reply-To: <20220802153434.v3.1.I1056ee3f77f71287f333279efe4c85f88d403f65@changeid>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH 1/5] dt-bindings: clk: qcom: Support gpu cx
- gdsc reset
+Subject: Re: [Freedreno] [PATCH v3 1/6] drm/msm/dsi: Fix number of
+ regulators for msm8996_dsi_cfg
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,26 +76,50 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: devicetree@vger.kernel.org, Stephen Boyd <sboyd@kernel.org>,
- linux-kernel@vger.kernel.org, Michael Turquette <mturquette@baylibre.com>,
- Konrad Dybcio <konrad.dybcio@somainline.org>, Andy Gross <agross@kernel.org>,
- Douglas Anderson <dianders@chromium.org>, Rob Herring <robh+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- linux-clk@vger.kernel.org
+Cc: Sean Paul <sean@poorly.run>, Archit Taneja <architt@codeaurora.org>,
+ Loic Poulain <loic.poulain@linaro.org>, David Airlie <airlied@linux.ie>,
+ linux-arm-msm@vger.kernel.org, Konrad Dybcio <konrad.dybcio@somainline.org>,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ Stephen Boyd <swboyd@chromium.org>, Mark Brown <broonie@kernel.org>,
+ Daniel Vetter <daniel@ffwll.ch>, Rajeev Nandan <quic_rajeevny@quicinc.com>,
+ freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 30/07/2022 11:17, Akhil P Oommen wrote:
-> Add necessary definitions in gpucc bindings to ensure gpu cx gdsc collapse
-> through 'reset' framework for SC7280.
+On 03/08/2022 01:37, Douglas Anderson wrote:
+> 3 regulators are specified listed but the number 2 is specified. Fix
+> it.
 > 
-> Signed-off-by: Akhil P Oommen <quic_akhilpo@quicinc.com>
+> Fixes: 3a3ff88a0fc1 ("drm/msm/dsi: Add 8x96 info in dsi_cfg")
+> Signed-off-by: Douglas Anderson <dianders@chromium.org>
+
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+
 > ---
+> 
+> (no changes since v2)
+> 
+> Changes in v2:
+> - ("Fix number of regulators for msm8996_dsi_cfg") new for v2.
+> 
+>   drivers/gpu/drm/msm/dsi/dsi_cfg.c | 2 +-
+>   1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/drivers/gpu/drm/msm/dsi/dsi_cfg.c b/drivers/gpu/drm/msm/dsi/dsi_cfg.c
+> index 2c23324a2296..02000a7b7a18 100644
+> --- a/drivers/gpu/drm/msm/dsi/dsi_cfg.c
+> +++ b/drivers/gpu/drm/msm/dsi/dsi_cfg.c
+> @@ -109,7 +109,7 @@ static const char * const dsi_8996_bus_clk_names[] = {
+>   static const struct msm_dsi_config msm8996_dsi_cfg = {
+>   	.io_offset = DSI_6G_REG_SHIFT,
+>   	.reg_cfg = {
+> -		.num = 2,
+> +		.num = 3,
+>   		.regs = {
+>   			{"vdda", 18160, 1 },	/* 1.25 V */
+>   			{"vcca", 17000, 32 },	/* 0.925 V */
 
-Assuming discussion in cover letter sorts out:
 
-Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-
-
-Best regards,
-Krzysztof
+-- 
+With best wishes
+Dmitry
