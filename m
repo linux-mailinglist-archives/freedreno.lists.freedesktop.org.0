@@ -1,53 +1,60 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 437565888DC
-	for <lists+freedreno@lfdr.de>; Wed,  3 Aug 2022 10:50:31 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id B33A4588A0F
+	for <lists+freedreno@lfdr.de>; Wed,  3 Aug 2022 12:02:27 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8704C11264D;
-	Wed,  3 Aug 2022 08:50:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A3EF3113F04;
+	Wed,  3 Aug 2022 10:02:11 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7F8051125E9;
- Wed,  3 Aug 2022 08:50:25 +0000 (UTC)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id C751BB821B4;
- Wed,  3 Aug 2022 08:50:21 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8C428C433D6;
- Wed,  3 Aug 2022 08:50:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1659516620;
- bh=lcBBGQP1cMln4snVW0FD2LaDsPlFtDJyczxrGwOfe/4=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=OrIYoUrDNQaIPpBy3vKM446Otlu8KmxoDb7pEMlvauKF7D1Xab/3fdFp1iRDL9kRC
- IM1rVrmCLTUhG5FKX2RFndcSUocoe9fCExwYM0ebi5Hjqbw3DhF+nNrep+i0zz/DPj
- FAIaudx1LT9qDJ1gRdke5kiieCNY3cE3llwzr8aiyNih2Bbw1ISDo0O7ws0RQ0y3Hu
- a0asIBkOeA6fGE0bWLLp0smArL+b7RQ0ovxEqKC6yFwywVyi3AikPnKKQfxsLuI4Lc
- osLerpkW0Mxk6ErF5Wc19cwB8OVlFdZ7VVTekDd+nIQjkw45PLTbTYBlEkx3pIbCfI
- djPijGU1gqHtw==
-Received: from johan by xi.lan with local (Exim 4.94.2)
- (envelope-from <johan@kernel.org>)
- id 1oJA5O-0007O7-Fj; Wed, 03 Aug 2022 10:50:38 +0200
-Date: Wed, 3 Aug 2022 10:50:38 +0200
-From: Johan Hovold <johan@kernel.org>
-To: Mark Brown <broonie@kernel.org>
-Message-ID: <Yuo23sdBe6tI7g5K@hovoldconsulting.com>
-References: <1657038556-2231-1-git-send-email-quic_khsieh@quicinc.com>
- <YtkrDcjTGhpaU1e0@hovoldconsulting.com>
- <CAA8EJprQnnWjDZJy9+zUBsVQCi3jtc0Ngtzzk9MXpwOvuAS68g@mail.gmail.com>
- <CAD=FV=W0m-x9JC=5hQ3urSNmUp8sY-u8YkNd66yrKfRNAH4rcg@mail.gmail.com>
- <YuPiJWQ1/wQbkvD8@hovoldconsulting.com>
- <YuPps+cvVAMugWmy@sirena.org.uk>
+Received: from alexa-out.qualcomm.com (alexa-out.qualcomm.com [129.46.98.28])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7482A12AB17;
+ Wed,  3 Aug 2022 10:01:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=quicinc.com; i=@quicinc.com; q=dns/txt; s=qcdkim;
+ t=1659520919; x=1691056919;
+ h=message-id:date:mime-version:subject:to:cc:references:
+ from:in-reply-to:content-transfer-encoding;
+ bh=1rVxQ4eqI3N9wCVO+tgYoYxdpipoicSFsvvHXjVF02g=;
+ b=C3Cu6vOsuzPJuzImBkgFrMpA39OFtZBJnzHRhL1gPpYkCXFfM9ufo5Cm
+ f7HrPkGh/Jr7QW1INMGoqqL18jJuppc/P1JvnOESosfsiwojecjjsT1f6
+ iylDLVO+2Ny4jaDZ59bd4338xhctqw/rvWAMKsU2WR9bBE6LgbVmx+Eeu E=;
+Received: from ironmsg08-lv.qualcomm.com ([10.47.202.152])
+ by alexa-out.qualcomm.com with ESMTP; 03 Aug 2022 03:01:58 -0700
+X-QCInternal: smtphost
+Received: from nasanex01c.na.qualcomm.com ([10.47.97.222])
+ by ironmsg08-lv.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 03 Aug 2022 03:01:58 -0700
+Received: from nalasex01a.na.qualcomm.com (10.47.209.196) by
+ nasanex01c.na.qualcomm.com (10.47.97.222) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.986.22; Wed, 3 Aug 2022 03:01:57 -0700
+Received: from [10.216.24.92] (10.80.80.8) by nalasex01a.na.qualcomm.com
+ (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.22; Wed, 3 Aug 2022
+ 03:01:51 -0700
+Message-ID: <0f90ef4d-4b74-2746-a37c-4a661cc0d5ea@quicinc.com>
+Date: Wed, 3 Aug 2022 15:31:48 +0530
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature"; boundary="YTsIOlOo8860ehFK"
-Content-Disposition: inline
-In-Reply-To: <YuPps+cvVAMugWmy@sirena.org.uk>
-Subject: Re: [Freedreno] [PATCH v16 0/3] eDP/DP Phy vdda realted function
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
+ Thunderbird/91.3.2
+Content-Language: en-US
+To: Rob Clark <robdclark@gmail.com>, Dmitry Baryshkov
+ <dmitry.baryshkov@linaro.org>
+References: <1659172664-10345-1-git-send-email-quic_akhilpo@quicinc.com>
+ <34ae275e-8d4c-3735-c08c-4769caf2909c@linaro.org>
+ <CAF6AEGv_cgPtaFpxSPCzWXeBcJvqE2fGucriRvMAJMbQ7ULndQ@mail.gmail.com>
+From: Akhil P Oommen <quic_akhilpo@quicinc.com>
+In-Reply-To: <CAF6AEGv_cgPtaFpxSPCzWXeBcJvqE2fGucriRvMAJMbQ7ULndQ@mail.gmail.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+Subject: Re: [Freedreno] [PATCH 0/5] clk/qcom: Support gdsc collapse polling
+ using 'reset' inteface
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,105 +67,85 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sankeerth Billakanti <quic_sbillaka@quicinc.com>,
- David Airlie <airlied@linux.ie>, dri-devel <dri-devel@lists.freedesktop.org>,
- Doug Anderson <dianders@chromium.org>,
- Manivannan Sadhasivam <manivannan.sadhasivam@linaro.org>,
- "Aravind Venkateswaran \(QUIC\)" <quic_aravindh@quicinc.com>,
- Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
- Kuogee Hsieh <quic_khsieh@quicinc.com>, Andy Gross <agross@kernel.org>,
- linux-arm-msm <linux-arm-msm@vger.kernel.org>,
- "Abhinav Kumar \(QUIC\)" <quic_abhinavk@quicinc.com>,
- Stephen Boyd <swboyd@chromium.org>,
- Bjorn Andersson <bjorn.andersson@linaro.org>, Sean Paul <sean@poorly.run>,
- Vinod Koul <vkoul@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
- LKML <linux-kernel@vger.kernel.org>, Rob Clark <robdclark@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- freedreno <freedreno@lists.freedesktop.org>
+Cc: devicetree@vger.kernel.org, Philipp Zabel <p.zabel@pengutronix.de>,
+ Stephen Boyd <sboyd@kernel.org>, linux-arm-msm@vger.kernel.org,
+ Michael Turquette <mturquette@baylibre.com>,
+ Konrad Dybcio <konrad.dybcio@somainline.org>,
+ Douglas Anderson <dianders@chromium.org>, dri-devel@lists.freedesktop.org,
+ Stephen Boyd <swboyd@chromium.org>, Rob
+ Herring <robh+dt@kernel.org>, Andy Gross <agross@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>, Bjorn
+ Andersson <bjorn.andersson@linaro.org>,
+ freedreno <freedreno@lists.freedesktop.org>, linux-clk@vger.kernel.org,
+ linux-kernel@vger.kernel.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
+On 8/3/2022 12:02 AM, Rob Clark wrote:
+> On Tue, Aug 2, 2022 at 12:02 AM Dmitry Baryshkov
+> <dmitry.baryshkov@linaro.org> wrote:
+>> On 30/07/2022 12:17, Akhil P Oommen wrote:
+>>> Some clients like adreno gpu driver would like to ensure that its gdsc
+>>> is collapsed at hardware during a gpu reset sequence. This is because it
+>>> has a votable gdsc which could be ON due to a vote from another subsystem
+>>> like tz, hyp etc or due to an internal hardware signal.
+>> If this is votable, do we have any guarantee that the gdsc will collapse
+>> at all? How can we proceed if it did not collapse?
+> Other potential votes should be transient.  But I guess we eventually
+> need to timeout and give up.  At which point we are no worse off than
+> before.
+>
+> But hmm, we aren't using RBBM_SW_RESET_CMD for sw reset like we have
+> on previous generations?  That does seem a bit odd.  Looks like kgsl
+> does use it.
+>
+> BR,
+> -R
+Like Rob mentioned there could be transient votes from other 
+clients/subsystem. It could be even stuck ON when hardware is in bad 
+shape in some very rare cases. For the worst case scenario, I have added 
+a timeout (500msec) in the gdsc reset op.
 
---YTsIOlOo8860ehFK
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+I have added the Soft reset in [1]. But this resets only the core gpu 
+blocks, not everything. For eg. GMU.
 
-On Fri, Jul 29, 2022 at 03:07:47PM +0100, Mark Brown wrote:
-> On Fri, Jul 29, 2022 at 03:35:33PM +0200, Johan Hovold wrote:
->=20
-> > I guess we just need to drop all those regulator-allow-set-load
-> > properties for now even if using DT for power-management configuration
-> > this way does seem to run against the whole DT-as-hardware-description
-> > idea (e.g. we may want to add them back when/if active- and idle loads
-> > are specified by the corresponding Linux drivers).
->=20
-> Well, there's also a question of if the hardware can usefully make use
-> of the facility - is there any non-suspend state where the regulator
-> needs to be on but is drawing so little current that it's worth trying
-> to select a lower power mode?
+[1] [PATCH v3 7/8] drm/msm/a6xx: Improve gpu recovery sequence
 
-Good point.
+>
+>>> To allow
+>>> this, gpucc driver can expose an interface to the client driver using
+>>> reset framework. Using this the client driver can trigger a polling within
+>>> the gdsc driver.
+>> Trigger the polling made me think initially that we will actually
+>> trigger something in the HW. Instead the client uses reset framework to
+>> poll for the gdsc to be reset.
+Yes. I should replace 'trigger' with 'start' here.
 
-> > But that doesn't address the problem that was trying to highlight here,
-> > and that you had noticed years ago, namely that using set_load only
-> > works reliably if *all* consumers use it.
->=20
-> > Shouldn't an enabled regulator from a consumer that didn't specify a
-> > load somehow result in HPM always being selected (e.g. count as INT_MAX
-> > load as Doug suggested some years ago)?
->=20
-> Possibly, but note that as well as the consumers with software drivers
-> you also have to consider any passive consumers on the board which may
-> not have any representation in DT so the actual numbers may well be off
-> even if every consumer is trying to keep things up to date.  You also
-> come back to the "let's just shove a random number in here" problem.
+-Akhil.
+>>
+>>> This series is rebased on top of linus's master branch.
+>>>
+>>> Related discussion: https://patchwork.freedesktop.org/patch/493144/
+>>>
+>>>
+>>> Akhil P Oommen (5):
+>>>     dt-bindings: clk: qcom: Support gpu cx gdsc reset
+>>>     clk: qcom: Allow custom reset ops
+>>>     clk: qcom: gpucc-sc7280: Add cx collapse reset support
+>>>     clk: qcom: gdsc: Add a reset op to poll gdsc collapse
+>>>     arm64: dts: qcom: sc7280: Add Reset support for gpu
+>>>
+>>>    arch/arm64/boot/dts/qcom/sc7280.dtsi          |  3 +++
+>>>    drivers/clk/qcom/gdsc.c                       | 23 +++++++++++++++++++----
+>>>    drivers/clk/qcom/gdsc.h                       |  7 +++++++
+>>>    drivers/clk/qcom/gpucc-sc7280.c               |  6 ++++++
+>>>    drivers/clk/qcom/reset.c                      |  6 ++++++
+>>>    drivers/clk/qcom/reset.h                      |  2 ++
+>>>    include/dt-bindings/clock/qcom,gpucc-sc7280.h |  3 +++
+>>>    7 files changed, 46 insertions(+), 4 deletions(-)
+>>>
+>>
+>> --
+>> With best wishes
+>> Dmitry
 
-Right, but some of that could be captured in DT with
-'regulator-system-load'.
-
-> For ultimate saftey we probably want a command line option to gate the
-> feature which people can set to say they've audited their full
-> software/hardware integration stack.
-
-That sounds like it could be useful.
-=20
-> > At some point in the discussion I thought Mark suggested removing
-> > set_load from drivers that don't actually manage active and idle loads.
-> > That would also work, at least until the day one of the drivers adds
-> > support for idle loads.
->=20
-> Yes, if the driver isn't actively managing loads it's probably not doing
-> anything useful.
-
-Ok, thanks for confirming. Perhaps we should drop the set_loads() added
-to the PHY driver by this series then.
-=20
-> The difficulties with this sort of system integration question is an
-> unfortunate consequence of DT, having to describe what's safe for an
-> unknown software stack is fundamentally hard.  I do question how much
-> effort it's worth putting into enabling this, especially in cases where
-> the regulator is shared - how much power is actually saved in the grand
-> scheme of things given that this is only taking effect when the system
-> is out of suspend and we tend to be talking about some percentage of the
-> power being drawn on something which is presumably already consuming
-> very little power for this to be at all relevant?
-
-I tend to agree. Thanks again for your input!
-
-Johan
-
---YTsIOlOo8860ehFK
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYIAB0WIQQHbPq+cpGvN/peuzMLxc3C7H1lCAUCYuo22gAKCRALxc3C7H1l
-CArBAP4+W07nkP4v5zuEdV1LepVpAWJtpTTVnGwdfkVwnr5FAgD+I8xjWidPc2Kq
-nD+BAXuccWyyiOPlBuyM2GD/ZXjL1wQ=
-=ehiB
------END PGP SIGNATURE-----
-
---YTsIOlOo8860ehFK--
