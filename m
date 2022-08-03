@@ -2,66 +2,52 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1876C58880E
-	for <lists+freedreno@lfdr.de>; Wed,  3 Aug 2022 09:37:32 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 437565888DC
+	for <lists+freedreno@lfdr.de>; Wed,  3 Aug 2022 10:50:31 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5F72C10EDD6;
-	Wed,  3 Aug 2022 07:37:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8704C11264D;
+	Wed,  3 Aug 2022 08:50:29 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x12a.google.com (mail-lf1-x12a.google.com
- [IPv6:2a00:1450:4864:20::12a])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7B8CF10E6E1
- for <freedreno@lists.freedesktop.org>; Wed,  3 Aug 2022 07:37:25 +0000 (UTC)
-Received: by mail-lf1-x12a.google.com with SMTP id e15so15175012lfs.0
- for <freedreno@lists.freedesktop.org>; Wed, 03 Aug 2022 00:37:25 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc; bh=ZFL1rpNY6wsrWyWGElxKgonarXbu9XUulVlTCMlwgB8=;
- b=Le0GMSUGuNXx+DN948ov64Ao1jAZwv3kaV4yFwbqE5JSOZv9bCE4+/3ZSAy4eNXvy2
- GVzdyrzDcvEKPn3V6hjk6Ah9wwBzbLF5W30zMnjoOw0oEKhaSdnHLrNGngyDfkApaaQ6
- n6hzafHDmdkraBiVziOE/q0LfblRzzL26eOH/BS8SJ2e8HEoby/q6TY2+6uqbRZn0Xzj
- 2MDd7XGl49TpxybUemiYLCAd8nmjzo9nw/QNKZ1ykvGRnJw18BtVdAjrsrM1kyQY377J
- LKjMj1bPjon2t3fbDC3m/vNX3dLWevmTDyUc4bPdChSMLz4bTHrim4NXP+iQ9HofyJrX
- EOOg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc;
- bh=ZFL1rpNY6wsrWyWGElxKgonarXbu9XUulVlTCMlwgB8=;
- b=Jx8j0QdenNoAyNXNah3zdZ/kqcXgsrCQvsZs7mHoPIOmiSuihYl/5Ef+EfEA5pOpqI
- XFS5h7Dg20Zv/TKbbcLx0a3ihlrZRZ9s3ERdZeMfiFTTeEVhe/4XssIhKcRfXXAY/cyv
- ab/0/x8dGFlb9cJwxRoLYZlUAp9wQ4zkIbkdTNLIJx/URKZAiVaNH2R37ZnMR5fc5xZU
- g18CCpOVAZD+iTnMpKvqBFc1+w3Cb8+HvxuMRrGgxZnbJ9cnZF/T/IrJQePeI1ul6P5y
- WnGf2SmafiyNm1TMQ1C7fc+CtqHCKtX/c+uI6vFWkeRNitMVO7EcHSC3sKCqF7c/nvP8
- RT2g==
-X-Gm-Message-State: AJIora8yRTxDbX4mrIzAp+Ijc9FBjjY959j5WXWLjoHwIDMYpwpPxKM+
- ugd/BUmsCcKoNyQoA+9dWgs+sg==
-X-Google-Smtp-Source: AGRyM1uVZPcFKVrcPg3zLx0Sinm/50QHNCT/fy+51eTa2lNlbroLZyAtLonhS6dhSihB/nl0XSStUg==
-X-Received: by 2002:a05:6512:3f23:b0:48a:90ed:10a5 with SMTP id
- y35-20020a0565123f2300b0048a90ed10a5mr8325616lfa.93.1659512243670; 
- Wed, 03 Aug 2022 00:37:23 -0700 (PDT)
-Received: from [192.168.1.211] ([37.153.55.125])
- by smtp.gmail.com with ESMTPSA id
- p13-20020a2eb98d000000b0025e4ca99066sm1120098ljp.139.2022.08.03.00.37.22
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 03 Aug 2022 00:37:23 -0700 (PDT)
-Message-ID: <7de9cd34-dc37-053e-63dc-54b6879ce181@linaro.org>
-Date: Wed, 3 Aug 2022 10:37:22 +0300
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7F8051125E9;
+ Wed,  3 Aug 2022 08:50:25 +0000 (UTC)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by ams.source.kernel.org (Postfix) with ESMTPS id C751BB821B4;
+ Wed,  3 Aug 2022 08:50:21 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8C428C433D6;
+ Wed,  3 Aug 2022 08:50:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1659516620;
+ bh=lcBBGQP1cMln4snVW0FD2LaDsPlFtDJyczxrGwOfe/4=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=OrIYoUrDNQaIPpBy3vKM446Otlu8KmxoDb7pEMlvauKF7D1Xab/3fdFp1iRDL9kRC
+ IM1rVrmCLTUhG5FKX2RFndcSUocoe9fCExwYM0ebi5Hjqbw3DhF+nNrep+i0zz/DPj
+ FAIaudx1LT9qDJ1gRdke5kiieCNY3cE3llwzr8aiyNih2Bbw1ISDo0O7ws0RQ0y3Hu
+ a0asIBkOeA6fGE0bWLLp0smArL+b7RQ0ovxEqKC6yFwywVyi3AikPnKKQfxsLuI4Lc
+ osLerpkW0Mxk6ErF5Wc19cwB8OVlFdZ7VVTekDd+nIQjkw45PLTbTYBlEkx3pIbCfI
+ djPijGU1gqHtw==
+Received: from johan by xi.lan with local (Exim 4.94.2)
+ (envelope-from <johan@kernel.org>)
+ id 1oJA5O-0007O7-Fj; Wed, 03 Aug 2022 10:50:38 +0200
+Date: Wed, 3 Aug 2022 10:50:38 +0200
+From: Johan Hovold <johan@kernel.org>
+To: Mark Brown <broonie@kernel.org>
+Message-ID: <Yuo23sdBe6tI7g5K@hovoldconsulting.com>
+References: <1657038556-2231-1-git-send-email-quic_khsieh@quicinc.com>
+ <YtkrDcjTGhpaU1e0@hovoldconsulting.com>
+ <CAA8EJprQnnWjDZJy9+zUBsVQCi3jtc0Ngtzzk9MXpwOvuAS68g@mail.gmail.com>
+ <CAD=FV=W0m-x9JC=5hQ3urSNmUp8sY-u8YkNd66yrKfRNAH4rcg@mail.gmail.com>
+ <YuPiJWQ1/wQbkvD8@hovoldconsulting.com>
+ <YuPps+cvVAMugWmy@sirena.org.uk>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.10.0
-Content-Language: en-GB
-To: Douglas Anderson <dianders@chromium.org>, Rob Clark
- <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>
-References: <20220802223738.898592-1-dianders@chromium.org>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-In-Reply-To: <20220802223738.898592-1-dianders@chromium.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH v3 0/6] drm/msm/dsi regulator improvements
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature"; boundary="YTsIOlOo8860ehFK"
+Content-Disposition: inline
+In-Reply-To: <YuPps+cvVAMugWmy@sirena.org.uk>
+Subject: Re: [Freedreno] [PATCH v16 0/3] eDP/DP Phy vdda realted function
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,85 +60,105 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sean Paul <sean@poorly.run>, Archit Taneja <architt@codeaurora.org>,
- Loic Poulain <loic.poulain@linaro.org>, Jonathan Marek <jonathan@marek.ca>,
- Sireesh Kodali <sireeshkodali1@gmail.com>, David Airlie <airlied@linux.ie>,
- linux-arm-msm@vger.kernel.org, Vladimir Lypak <vladimir.lypak@gmail.com>,
- Konrad Dybcio <konrad.dybcio@somainline.org>, Vinod Koul <vkoul@kernel.org>,
- dri-devel@lists.freedesktop.org, Bjorn Andersson <bjorn.andersson@linaro.org>,
- Rajeev Nandan <quic_rajeevny@quicinc.com>, Mark Brown <broonie@kernel.org>,
- Marijn Suijten <marijn.suijten@somainline.org>,
+Cc: Sankeerth Billakanti <quic_sbillaka@quicinc.com>,
+ David Airlie <airlied@linux.ie>, dri-devel <dri-devel@lists.freedesktop.org>,
+ Doug Anderson <dianders@chromium.org>,
+ Manivannan Sadhasivam <manivannan.sadhasivam@linaro.org>,
+ "Aravind Venkateswaran \(QUIC\)" <quic_aravindh@quicinc.com>,
+ Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
+ Kuogee Hsieh <quic_khsieh@quicinc.com>, Andy Gross <agross@kernel.org>,
+ linux-arm-msm <linux-arm-msm@vger.kernel.org>,
+ "Abhinav Kumar \(QUIC\)" <quic_abhinavk@quicinc.com>,
+ Stephen Boyd <swboyd@chromium.org>,
+ Bjorn Andersson <bjorn.andersson@linaro.org>, Sean Paul <sean@poorly.run>,
+ Vinod Koul <vkoul@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
+ LKML <linux-kernel@vger.kernel.org>, Rob Clark <robdclark@gmail.com>,
  Daniel Vetter <daniel@ffwll.ch>,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@somainline.org>,
- =?UTF-8?B?Sm9zw6kgRXhww7NzaXRv?= <jose.exposito89@gmail.com>,
- Stephen Boyd <swboyd@chromium.org>, freedreno@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ freedreno <freedreno@lists.freedesktop.org>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 03/08/2022 01:37, Douglas Anderson wrote:
-> The main goal of this series is to make a small dent in cleaning up
-> the way we deal with regulator loads for DSI drivers.
-> 
-> As of v3 of this series, the regulator API improvements needed for the
-> later patches in the series are merged into mainline. Thus this series
-> only contains the DSI changes now.
-> 
-> I'd expect:
-> * The first two patches are bugfixes found while converting the DSI
->    driver over. Those could land any time.
-> * The third patch ("drm/msm/dsi: Don't set a load before disabling a
->    regulator") is a patch a sent the other day verbatim, included in
->    this series because it's highly related. It could land any
->    time.
-> * The next two patches use the new APIs. Since those APIs are now in
->    mainline those could also land any time.
-> * The last patch is just cleanup I noticed as I was touching the
->    function. It's not really related to regulators but it applies atop
->    these. In theory it could be rebased to land separately.
-> 
-> Changes in v3:
-> - ("Improve dsi_phy_driver_probe() probe error handling") new for v3.
-> - Do all the PHYs too.
-> - Fix typo in commit message.
-> - Get rid of error print after devm_regulator_bulk_get_const().
-> - Just directly call the bulk commands; get rid of the wrapper.
-> - Update commit message to point at the git hash of the regulator change.
-> 
-> Changes in v2:
-> - ("Fix number of regulators for SDM660") new for v2.
-> - ("Fix number of regulators for msm8996_dsi_cfg") new for v2.
-> - ("Take advantage of devm_regulator_bulk_get_const") new for v2.
-> - ("Use the new regulator bulk feature to specify the load") new for v2.
-> 
-> Douglas Anderson (6):
->    drm/msm/dsi: Fix number of regulators for msm8996_dsi_cfg
->    drm/msm/dsi: Fix number of regulators for SDM660
 
-These two can be picked into the -fixes branch. The reset looks like 
-5.21/6.1 material
+--YTsIOlOo8860ehFK
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
->    drm/msm/dsi: Don't set a load before disabling a regulator
->    drm/msm/dsi: Use the new regulator bulk feature to specify the load
->    drm/msm/dsi: Take advantage of devm_regulator_bulk_get_const()
->    drm/msm/dsi: Improve dsi_phy_driver_probe() probe error handling
-> 
->   drivers/gpu/drm/msm/dsi/dsi.h                 |  13 --
->   drivers/gpu/drm/msm/dsi/dsi_cfg.c             | 172 +++++++++---------
->   drivers/gpu/drm/msm/dsi/dsi_cfg.h             |   3 +-
->   drivers/gpu/drm/msm/dsi/dsi_host.c            |  96 ++--------
->   drivers/gpu/drm/msm/dsi/phy/dsi_phy.c         | 160 ++++------------
->   drivers/gpu/drm/msm/dsi/phy/dsi_phy.h         |   5 +-
->   drivers/gpu/drm/msm/dsi/phy/dsi_phy_10nm.c    |  20 +-
->   drivers/gpu/drm/msm/dsi/phy/dsi_phy_14nm.c    |  32 ++--
->   drivers/gpu/drm/msm/dsi/phy/dsi_phy_20nm.c    |  14 +-
->   drivers/gpu/drm/msm/dsi/phy/dsi_phy_28nm.c    |  28 +--
->   .../gpu/drm/msm/dsi/phy/dsi_phy_28nm_8960.c   |  12 +-
->   drivers/gpu/drm/msm/dsi/phy/dsi_phy_7nm.c     |  32 ++--
->   12 files changed, 197 insertions(+), 390 deletions(-)
-> 
+On Fri, Jul 29, 2022 at 03:07:47PM +0100, Mark Brown wrote:
+> On Fri, Jul 29, 2022 at 03:35:33PM +0200, Johan Hovold wrote:
+>=20
+> > I guess we just need to drop all those regulator-allow-set-load
+> > properties for now even if using DT for power-management configuration
+> > this way does seem to run against the whole DT-as-hardware-description
+> > idea (e.g. we may want to add them back when/if active- and idle loads
+> > are specified by the corresponding Linux drivers).
+>=20
+> Well, there's also a question of if the hardware can usefully make use
+> of the facility - is there any non-suspend state where the regulator
+> needs to be on but is drawing so little current that it's worth trying
+> to select a lower power mode?
 
+Good point.
 
--- 
-With best wishes
-Dmitry
+> > But that doesn't address the problem that was trying to highlight here,
+> > and that you had noticed years ago, namely that using set_load only
+> > works reliably if *all* consumers use it.
+>=20
+> > Shouldn't an enabled regulator from a consumer that didn't specify a
+> > load somehow result in HPM always being selected (e.g. count as INT_MAX
+> > load as Doug suggested some years ago)?
+>=20
+> Possibly, but note that as well as the consumers with software drivers
+> you also have to consider any passive consumers on the board which may
+> not have any representation in DT so the actual numbers may well be off
+> even if every consumer is trying to keep things up to date.  You also
+> come back to the "let's just shove a random number in here" problem.
+
+Right, but some of that could be captured in DT with
+'regulator-system-load'.
+
+> For ultimate saftey we probably want a command line option to gate the
+> feature which people can set to say they've audited their full
+> software/hardware integration stack.
+
+That sounds like it could be useful.
+=20
+> > At some point in the discussion I thought Mark suggested removing
+> > set_load from drivers that don't actually manage active and idle loads.
+> > That would also work, at least until the day one of the drivers adds
+> > support for idle loads.
+>=20
+> Yes, if the driver isn't actively managing loads it's probably not doing
+> anything useful.
+
+Ok, thanks for confirming. Perhaps we should drop the set_loads() added
+to the PHY driver by this series then.
+=20
+> The difficulties with this sort of system integration question is an
+> unfortunate consequence of DT, having to describe what's safe for an
+> unknown software stack is fundamentally hard.  I do question how much
+> effort it's worth putting into enabling this, especially in cases where
+> the regulator is shared - how much power is actually saved in the grand
+> scheme of things given that this is only taking effect when the system
+> is out of suspend and we tend to be talking about some percentage of the
+> power being drawn on something which is presumably already consuming
+> very little power for this to be at all relevant?
+
+I tend to agree. Thanks again for your input!
+
+Johan
+
+--YTsIOlOo8860ehFK
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYIAB0WIQQHbPq+cpGvN/peuzMLxc3C7H1lCAUCYuo22gAKCRALxc3C7H1l
+CArBAP4+W07nkP4v5zuEdV1LepVpAWJtpTTVnGwdfkVwnr5FAgD+I8xjWidPc2Kq
+nD+BAXuccWyyiOPlBuyM2GD/ZXjL1wQ=
+=ehiB
+-----END PGP SIGNATURE-----
+
+--YTsIOlOo8860ehFK--
