@@ -2,59 +2,67 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4F34F588AEB
-	for <lists+freedreno@lfdr.de>; Wed,  3 Aug 2022 13:09:47 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7A11C588DE0
+	for <lists+freedreno@lfdr.de>; Wed,  3 Aug 2022 15:51:05 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C4F0410E105;
-	Wed,  3 Aug 2022 11:09:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 63BA518B8FE;
+	Wed,  3 Aug 2022 13:51:02 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-qt1-x832.google.com (mail-qt1-x832.google.com
- [IPv6:2607:f8b0:4864:20::832])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 37D4B10E105
- for <freedreno@lists.freedesktop.org>; Wed,  3 Aug 2022 11:09:29 +0000 (UTC)
-Received: by mail-qt1-x832.google.com with SMTP id e23so427512qts.1
- for <freedreno@lists.freedesktop.org>; Wed, 03 Aug 2022 04:09:29 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+Received: from mail-ej1-x636.google.com (mail-ej1-x636.google.com
+ [IPv6:2a00:1450:4864:20::636])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4B1DC10FC3D
+ for <freedreno@lists.freedesktop.org>; Wed,  3 Aug 2022 13:50:55 +0000 (UTC)
+Received: by mail-ej1-x636.google.com with SMTP id tl27so13747341ejc.1
+ for <freedreno@lists.freedesktop.org>; Wed, 03 Aug 2022 06:50:55 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:from:to:cc;
- bh=Ni8odVu9N3fk9U9c9SMmRIWk/Y6CS1n2Honac+jmqgs=;
- b=Th5oMiLjG03N9iifNJ+PqTAXgjG8zvJ0AEDvGCFY4OmRya8dUm1vyXHag+GTqc/UH9
- g63yIX90v3j3GhyXhCtEJR8a97K9KRbms0q9AZb4WCqU0tDqUTBM7403hP+yEHMKTMAs
- 8Fgwcm5ZP06m4PxK/WZEmfee7579c4OpAMvGP8/JHVyvgGC2BQoq3QYN11tI/rTw3M4a
- Km0n4F/sLlmf1Qyy+NtyQXRKCk+Kfewv+RMWDeNiuSn2pyzn27e7C0dRCRftX30AXelh
- dH+n7OCSzAjSKZfS0OYZeQl1GihHZVFu1rpsE45QcePSqDaYKKLmnRoLDg9+R3Z5vAzZ
- eRxg==
+ bh=JobmQomHLtYAJ+DDomxdN8Lk7HYy1OLd4rHEITgLQdA=;
+ b=OPbC8bWfgzWIie1MfD0jyh6gObqMl3sUtChiIWlKH1yMV8iPxv4ElTDcA/PzHNegar
+ 6Q0saDylV3e1iDeJ1byjBXOSyeKWMBGjWYRa5oQbwaeiE8Z2F7rmGUHCGcWI70WcGI+X
+ +jYxrmH6tmuZkcUvlnKf2JFiqxRcT748c8QQQ=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:x-gm-message-state:from:to:cc;
- bh=Ni8odVu9N3fk9U9c9SMmRIWk/Y6CS1n2Honac+jmqgs=;
- b=U1YBYNDdVlHXTkzMWpQcPzuxW1Qj+0BkBFJezOav3tWB8JgugsVUrXhTHfnRxpI/X8
- ZFyVxCGpLWnrxeg8GV6Q7F1lnmTzMWyzSHQEJcHqIrxXbFUEuhAzUEV5wUa0TQ5s4tJU
- lBHB5h6P3I9ih70KNdOtrdd7+siM6ZW2x4bSSPHAbG1aUM0v53dCQ8YpDHrdoXveGJiB
- wwh7tijPTfnsHo46sYS5owrLBmWpg3UuuMxzSWH1qE2v2znoBicIBDFZTMx9DqfAUzhv
- bz25XYkc3mLAFdmBZ/DsZ295FTU0RRED2jKDDPdzLLcamP8lhCgi2De9yMvJ9NVJYJxY
- dobA==
-X-Gm-Message-State: AJIora/ypwRRzrooypZ+TcGGemhEwFB6NZ6Rv6dKegq1X/3/pCYOnqkw
- Zy235ApJOAPYiyCUYuXC6H6ZCgyVH08nwl29Znqi+A==
-X-Google-Smtp-Source: AGRyM1seDx27XYMUBT57CYfQofAFqfovuO2uZ8Up/W6X6P7dbfW63+VBwTQvz9D+Wu7uMwiNerkJzyu2CRWYpP9Q8cE=
-X-Received: by 2002:ac8:5942:0:b0:31f:39f6:aba7 with SMTP id
- 2-20020ac85942000000b0031f39f6aba7mr21127160qtz.295.1659524968328; Wed, 03
- Aug 2022 04:09:28 -0700 (PDT)
+ bh=JobmQomHLtYAJ+DDomxdN8Lk7HYy1OLd4rHEITgLQdA=;
+ b=qEXBwtpUHfIN37H/wQaWQWizc6Jtz+kr54OyWKzomqfQIXE1DhAzBevjQUKwGXh1qT
+ d62wNjnfUHVMGYGkuiVkG0ta5uLJrTAL8rg44P0mMxD5eV0rQ9kof/4EZbNwkio+l/Iu
+ ViLj1ciq8PIcjvDTRXbO+bkE21gtBLegPWh0MfCTY1FwDZsE0nSPiYBraNX88TVwkAQD
+ pkmtLG23mYjVVr/l6ddPwlgK3qHRtIcXOpBB9/15Gbw6aZmIk8UjTH9J7nQWV9WqH4qI
+ Woob7xb4mJIBSog4WnL9Gw2xLJ/GdksIT9VNNl9bvqsqUzX41uaTvkHvf6i1pMaBVJww
+ 51kg==
+X-Gm-Message-State: ACgBeo3PVs+ObJ3FEu+E5pZmIYnpkedhk1nbhsujIhxsT61gKz9eA3+j
+ bIWq0OMikFckVAt9uV+uQHBuWbvng1T6iJNy
+X-Google-Smtp-Source: AA6agR4DlhWW5G4lcyhBKQFb7Pd1uavNgzn/vOy5blQSlu1fjb4dH2DFDvyoltAWFcdMIODpeFcCvg==
+X-Received: by 2002:a17:907:2d23:b0:730:acf0:4907 with SMTP id
+ gs35-20020a1709072d2300b00730acf04907mr3129864ejc.700.1659534653630; 
+ Wed, 03 Aug 2022 06:50:53 -0700 (PDT)
+Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com.
+ [209.85.221.53]) by smtp.gmail.com with ESMTPSA id
+ ec15-20020a0564020d4f00b0043c83ac66e3sm9462346edb.92.2022.08.03.06.50.48
+ for <freedreno@lists.freedesktop.org>
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 03 Aug 2022 06:50:50 -0700 (PDT)
+Received: by mail-wr1-f53.google.com with SMTP id h13so2404430wrf.6
+ for <freedreno@lists.freedesktop.org>; Wed, 03 Aug 2022 06:50:48 -0700 (PDT)
+X-Received: by 2002:adf:f90d:0:b0:20c:de32:4d35 with SMTP id
+ b13-20020adff90d000000b0020cde324d35mr16303940wrr.583.1659534647816; Wed, 03
+ Aug 2022 06:50:47 -0700 (PDT)
 MIME-Version: 1.0
-References: <1659174051-27816-1-git-send-email-quic_akhilpo@quicinc.com>
- <20220730150952.v3.5.I176567525af2b9439a7e485d0ca130528666a55c@changeid>
- <8715e07f-9d58-1ae3-9a3a-25828b545905@linaro.org>
- <0a81938b-f30e-fa78-fd73-c753af4e324b@quicinc.com>
-In-Reply-To: <0a81938b-f30e-fa78-fd73-c753af4e324b@quicinc.com>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Wed, 3 Aug 2022 14:09:16 +0300
-Message-ID: <CAA8EJppAprzF5S-zvYYo53QenosUkXU49kiWWzWndVwhWZgS7Q@mail.gmail.com>
-To: Akhil P Oommen <quic_akhilpo@quicinc.com>
+References: <20220802223738.898592-1-dianders@chromium.org>
+ <20220802153434.v3.4.I7b3c72949883846badb073cfeae985c55239da1d@changeid>
+ <232f875a-4986-300a-f1e8-18f2da3a8fc6@linaro.org>
+In-Reply-To: <232f875a-4986-300a-f1e8-18f2da3a8fc6@linaro.org>
+From: Doug Anderson <dianders@chromium.org>
+Date: Wed, 3 Aug 2022 06:50:35 -0700
+X-Gmail-Original-Message-ID: <CAD=FV=XWxMis61zouPeAoTUC6xYz7rSUC33wdvyLii0Cd2j4Ww@mail.gmail.com>
+Message-ID: <CAD=FV=XWxMis61zouPeAoTUC6xYz7rSUC33wdvyLii0Cd2j4Ww@mail.gmail.com>
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [PATCH v3 5/8] drm/msm/a6xx: Ensure CX collapse
- during gpu recovery
+Subject: Re: [Freedreno] [PATCH v3 4/6] drm/msm/dsi: Use the new regulator
+ bulk feature to specify the load
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,69 +75,45 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sean Paul <sean@poorly.run>, Philipp Zabel <p.zabel@pengutronix.de>,
+Cc: Sean Paul <sean@poorly.run>, Vinod Koul <vkoul@kernel.org>,
  Jonathan Marek <jonathan@marek.ca>, David Airlie <airlied@linux.ie>,
- linux-arm-msm@vger.kernel.org, Stephen Boyd <swboyd@chromium.org>,
- Douglas Anderson <dianders@chromium.org>, dri-devel@lists.freedesktop.org,
- Jordan Crouse <jordan@cosmicpenguin.net>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, Rob Clark <robdclark@gmail.com>,
- Matthias Kaehlcke <mka@chromium.org>, Daniel Vetter <daniel@ffwll.ch>,
- Bjorn Andersson <bjorn.andersson@linaro.org>,
- freedreno <freedreno@lists.freedesktop.org>, Chia-I Wu <olvaffe@gmail.com>,
- linux-kernel@vger.kernel.org
+ linux-arm-msm <linux-arm-msm@vger.kernel.org>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ dri-devel <dri-devel@lists.freedesktop.org>,
+ Stephen Boyd <swboyd@chromium.org>, Rob Clark <robdclark@gmail.com>,
+ Mark Brown <broonie@kernel.org>, Daniel Vetter <daniel@ffwll.ch>,
+ Rajeev Nandan <quic_rajeevny@quicinc.com>,
+ freedreno <freedreno@lists.freedesktop.org>,
+ LKML <linux-kernel@vger.kernel.org>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Wed, 3 Aug 2022 at 13:15, Akhil P Oommen <quic_akhilpo@quicinc.com> wrote:
+Hi,
+
+On Wed, Aug 3, 2022 at 12:12 AM Dmitry Baryshkov
+<dmitry.baryshkov@linaro.org> wrote:
 >
-> On 8/2/2022 12:44 PM, Dmitry Baryshkov wrote:
-> > On 30/07/2022 12:40, Akhil P Oommen wrote:
-> >> Because there could be transient votes from other drivers/tz/hyp which
-> >> may keep the cx gdsc enabled, we should poll until cx gdsc collapses.
-> >> We can use the reset framework to poll for cx gdsc collapse from gpucc
-> >> clk driver.
-> >>
-> >> This feature requires support from the platform's gpucc driver.
-> >>
-> >> Signed-off-by: Akhil P Oommen <quic_akhilpo@quicinc.com>
-> >> ---
-> >>
-> >> Changes in v3:
-> >> - Use reset interface from gpucc driver to poll for cx gdsc collapse
-> >>    https://patchwork.freedesktop.org/series/106860/
-> >>
-> >>   drivers/gpu/drm/msm/adreno/a6xx_gpu.c | 4 ++++
-> >>   drivers/gpu/drm/msm/msm_gpu.c         | 4 ++++
-> >>   drivers/gpu/drm/msm/msm_gpu.h         | 4 ++++
-> >>   3 files changed, 12 insertions(+)
-> >>
-> >> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-> >> b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-> >> index 1b049c5..721d5e6 100644
-> >> --- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-> >> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-> >> @@ -10,6 +10,7 @@
-> >>     #include <linux/bitfield.h>
-> >>   #include <linux/devfreq.h>
-> >> +#include <linux/reset.h>
-> >>   #include <linux/soc/qcom/llcc-qcom.h>
-> >>     #define GPU_PAS_ID 13
-> >> @@ -1224,6 +1225,9 @@ static void a6xx_recover(struct msm_gpu *gpu)
-> >>       /* And the final one from recover worker */
-> >>       pm_runtime_put_sync(&gpu->pdev->dev);
-> >>   +    /* Call into gpucc driver to poll for cx gdsc collapse */
-> >> +    reset_control_reset(gpu->cx_collapse);
+> On 03/08/2022 01:37, Douglas Anderson wrote:
+> > As of commit 6eabfc018e8d ("regulator: core: Allow specifying an
+> > initial load w/ the bulk API") we can now specify the initial load in
+> > the bulk data rather than having to manually call regulator_set_load()
+> > on each regulator. Let's use it.
 > >
-> > Do we have a race between the last pm_runtime_put_sync(), this polling
-> > and other voters removing their votes beforehand?
-> I can't see any issue with a race here. reset_control_reset() will
-> return immediately in that case.
+> > Signed-off-by: Douglas Anderson <dianders@chromium.org>
+>
+> Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+>
+> It might have been better, if the previous patch had only removed the
+> load_setting on disable and inlined the dsi_host_regulator_disable().
+> Then this patch would drop the regulator_set_load() from
+> dsi_host_regulator_enable() path and inline it. Then it would have been
+> more obvious that after these two changes the time when we set loads is
+> not changed.
 
-Ack, ok then.
+Seems like I should post a v4 to update the commit message of the
+final patch in the series, but I'm going to leave this the way it is
+since the end result is the same. Originally when I wrote the series I
+didn't know if the new regulator API changes would be accepted, so the
+previous patch did the most cleanup it could do with the old API. ;-)
 
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-
-
--- 
-With best wishes
-Dmitry
+-Doug
