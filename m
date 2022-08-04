@@ -1,75 +1,66 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id C656F589A75
-	for <lists+freedreno@lfdr.de>; Thu,  4 Aug 2022 12:29:44 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 70E24589D58
+	for <lists+freedreno@lfdr.de>; Thu,  4 Aug 2022 16:19:04 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DF64A94AC4;
-	Thu,  4 Aug 2022 10:29:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7160E14A2C8;
+	Thu,  4 Aug 2022 14:17:37 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D4B1A94A96;
- Thu,  4 Aug 2022 10:29:06 +0000 (UTC)
-Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 274A9UUG023791;
- Thu, 4 Aug 2022 10:29:04 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
- h=from : to : cc : subject : date : message-id; s=qcppdkim1;
- bh=EZe8eC3iDD3kk/ONKmOPiIysE9i0w67BBMmkWHWW3H0=;
- b=FBoIiZmGu46jChSLNNt60yA4a4inoaJYCyOSbJdw4LeZdChhTBfLw2Gh//h0nuhVHUGw
- 9BmR1qYBSBKQoTyRKUDlbJWLtvO1O72rD2uFhIUl3EZCmXQ8Mbh+9ThrUwOIFWMPOykR
- akPO7ZzQQ4i1AlsUFd0rx+3OEbpWA96gJWzV5oy+DWq2HYw7NaVrNwQp13l1qVVHmcSM
- 0WsLpNHCASVvvcm2pKJkXZJ+Jw289QtCUfZOUvBvNLm+pdMQGTBWCv0sFT2fWSv9CUIa
- BC3sPFy+ya76OqwyT79KWnHbgArzN57UQQK8qAij/WAStAU+rKur3WX7IhQWtFTpYPf3 xQ== 
-Received: from apblrppmta02.qualcomm.com
- (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com [103.229.18.19])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3hqy7r9cu3-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 04 Aug 2022 10:29:03 +0000
-Received: from pps.filterd (APBLRPPMTA02.qualcomm.com [127.0.0.1])
- by APBLRPPMTA02.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTP id 274ASxPf017796; 
- Thu, 4 Aug 2022 10:28:59 GMT
-Received: from pps.reinject (localhost [127.0.0.1])
- by APBLRPPMTA02.qualcomm.com (PPS) with ESMTP id 3hmwqkg9n7-1;
- Thu, 04 Aug 2022 10:28:59 +0000
-Received: from APBLRPPMTA02.qualcomm.com (APBLRPPMTA02.qualcomm.com
- [127.0.0.1])
- by pps.reinject (8.17.1.5/8.17.1.5) with ESMTP id 274ASwq7017791;
- Thu, 4 Aug 2022 10:28:58 GMT
-Received: from kalyant-linux.qualcomm.com (kalyant-linux.qualcomm.com
- [10.204.66.210])
- by APBLRPPMTA02.qualcomm.com (PPS) with ESMTP id 274ASwYO017790;
- Thu, 04 Aug 2022 10:28:58 +0000
-Received: by kalyant-linux.qualcomm.com (Postfix, from userid 94428)
- id D9F5E40F4; Thu,  4 Aug 2022 03:28:57 -0700 (PDT)
-From: Kalyan Thota <quic_kalyant@quicinc.com>
-To: dri-devel@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
- freedreno@lists.freedesktop.org, devicetree@vger.kernel.org
-Date: Thu,  4 Aug 2022 03:28:50 -0700
-Message-Id: <1659608930-4370-1-git-send-email-quic_kalyant@quicinc.com>
-X-Mailer: git-send-email 2.7.4
-X-QCInternal: smtphost
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-GUID: 1ZUH6sWsyGbNWSu42OdW5FXzlwGvlRt5
-X-Proofpoint-ORIG-GUID: 1ZUH6sWsyGbNWSu42OdW5FXzlwGvlRt5
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.205,Aquarius:18.0.883,Hydra:6.0.517,FMLib:17.11.122.1
- definitions=2022-08-04_03,2022-08-04_01,2022-06-22_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- mlxlogscore=999
- priorityscore=1501 spamscore=0 mlxscore=0 lowpriorityscore=0
- malwarescore=0 clxscore=1011 impostorscore=0 phishscore=0 adultscore=0
- suspectscore=0 bulkscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2206140000 definitions=main-2208040045
-Subject: [Freedreno] [v1] drm/msm/disp/dpu1: add support for hierarchical
- flush for dspp in sc7280
+Received: from mail-ed1-x529.google.com (mail-ed1-x529.google.com
+ [IPv6:2a00:1450:4864:20::529])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D2A9999DDB
+ for <freedreno@lists.freedesktop.org>; Thu,  4 Aug 2022 14:17:22 +0000 (UTC)
+Received: by mail-ed1-x529.google.com with SMTP id o22so10070430edc.10
+ for <freedreno@lists.freedesktop.org>; Thu, 04 Aug 2022 07:17:22 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc;
+ bh=V3jLsfHepCtzmM3jqaIFNUTw4oeeGqLPVBJGqzP2VdM=;
+ b=JkX7XwsJCHIlFiF0B5fxtl8ET99tlQYq3RS+0DqL8n+QyFBMY+jCN8PnuswadccSA5
+ v0MdTihTLtD8ubvNIhYjEY+sngNIR8YxPzP/ayFfUmaggZkgLAMOBQ4VFkROAMr386p0
+ BLiUb6KVyGjjtpbltPlz+BraNZwXSKA3psbVY=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc;
+ bh=V3jLsfHepCtzmM3jqaIFNUTw4oeeGqLPVBJGqzP2VdM=;
+ b=YpxtvJVRi3EthHh5mH+GoZuwrE0UF18pz7YWpN4uAdSgnzU2Ghx7glwLxSIrcSkCCy
+ rq+YmSklhFyDuKfkFEe4Tm3612TYalc5fB4bImO5jqgDOENctN/6iT+zVnA+INlID7JU
+ /YCkHkgMeXlaAVWsBGW92bso813EUI/9dUuvhjxJke+C7MSdFUuIFBa5CPtEU77GYYB8
+ n9ha3WhliC4VLQ4Zyh3VIv4+lKvPpL8lknj55rn3PFPyd9p3JnaUynJG9tiFbBGe8fUr
+ piqj/X0t76PxZoYk4J02CDbFupZZmYekaaTu3a2znZxTa1JUEuhclZfGz5fPUeJMuYb2
+ r+sA==
+X-Gm-Message-State: ACgBeo1lCFr/txS1r3qgr6QkWJWOZcLvhyyF8LuX67SKMmJbrlCg5oHZ
+ JCGBdfUX4mS1/SBCCuD5FQV/bJKgfo9gaYZJ
+X-Google-Smtp-Source: AA6agR5m02nhWS5WiTIqnA4h1aaxwzUCggptSzvqd7ShEcNAB6OqnS46DyTryRb/wyIU0D2IWwm8qA==
+X-Received: by 2002:a05:6402:51d1:b0:43e:f2d2:fa25 with SMTP id
+ r17-20020a05640251d100b0043ef2d2fa25mr766279edd.31.1659622641239; 
+ Thu, 04 Aug 2022 07:17:21 -0700 (PDT)
+Received: from mail-wr1-f43.google.com (mail-wr1-f43.google.com.
+ [209.85.221.43]) by smtp.gmail.com with ESMTPSA id
+ sd5-20020a170906ce2500b007081282cbd8sm387656ejb.76.2022.08.04.07.17.11
+ for <freedreno@lists.freedesktop.org>
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 04 Aug 2022 07:17:13 -0700 (PDT)
+Received: by mail-wr1-f43.google.com with SMTP id q30so21018228wra.11
+ for <freedreno@lists.freedesktop.org>; Thu, 04 Aug 2022 07:17:11 -0700 (PDT)
+X-Received: by 2002:a5d:5889:0:b0:21d:bccd:38e3 with SMTP id
+ n9-20020a5d5889000000b0021dbccd38e3mr1554422wrf.659.1659622631172; Thu, 04
+ Aug 2022 07:17:11 -0700 (PDT)
+MIME-Version: 1.0
+References: <1659608930-4370-1-git-send-email-quic_kalyant@quicinc.com>
+In-Reply-To: <1659608930-4370-1-git-send-email-quic_kalyant@quicinc.com>
+From: Doug Anderson <dianders@chromium.org>
+Date: Thu, 4 Aug 2022 07:16:57 -0700
+X-Gmail-Original-Message-ID: <CAD=FV=Vo8GMLi=QfV=HXyVf=PTsOkntrc+OTsnQ5jMWYxSDFuQ@mail.gmail.com>
+Message-ID: <CAD=FV=Vo8GMLi=QfV=HXyVf=PTsOkntrc+OTsnQ5jMWYxSDFuQ@mail.gmail.com>
+To: Kalyan Thota <quic_kalyant@quicinc.com>
+Content-Type: text/plain; charset="UTF-8"
+Subject: Re: [Freedreno] [v1] drm/msm/disp/dpu1: add support for
+ hierarchical flush for dspp in sc7280
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,179 +73,42 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Kalyan Thota <quic_kalyant@quicinc.com>, dianders@chromium.org,
- quic_abhinavk@quicinc.com, linux-kernel@vger.kernel.org,
- quic_vpolimer@quicinc.com, robdclark@gmail.com, dmitry.baryshkov@linaro.org,
- swboyd@chromium.org
+Cc: "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
+ <devicetree@vger.kernel.org>,
+ "Abhinav Kumar \(QUIC\)" <quic_abhinavk@quicinc.com>,
+ linux-arm-msm <linux-arm-msm@vger.kernel.org>,
+ LKML <linux-kernel@vger.kernel.org>,
+ dri-devel <dri-devel@lists.freedesktop.org>,
+ Stephen Boyd <swboyd@chromium.org>, Rob Clark <robdclark@gmail.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Vinod Polimera <quic_vpolimer@quicinc.com>,
+ freedreno <freedreno@lists.freedesktop.org>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Flush mechanism for DSPP blocks has changed in sc7280 family, it
-allows individual sub blocks to be flushed in coordination with
-master flush control.
+On Thu, Aug 4, 2022 at 3:29 AM Kalyan Thota <quic_kalyant@quicinc.com> wrote:
+>
+> +static void dpu_hw_ctl_set_dspp_hierarchical_flush(struct dpu_hw_ctl *ctx,
+> +       enum dpu_dspp dspp, enum dpu_dspp_sub_blk dspp_sub_blk)
+> +{
+> +       uint32_t flushbits = 0, active = 0;
 
-representation: master_flush && (PCC_flush | IGC_flush .. etc )
+nit: don't init to 0 since you just override below.
 
-This change adds necessary support for the above design.
 
-Signed-off-by: Kalyan Thota <quic_kalyant@quicinc.com>
----
- drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c       |  4 +++
- drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c |  5 +++-
- drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h |  2 ++
- drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c     | 40 +++++++++++++++++++++++++-
- drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.h     |  3 ++
- drivers/gpu/drm/msm/disp/dpu1/dpu_hw_mdss.h    |  7 +++++
- 6 files changed, 59 insertions(+), 2 deletions(-)
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.h
+> index ac15444..8ecab91 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.h
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.h
+> @@ -160,6 +160,9 @@ struct dpu_hw_ctl_ops {
+>         uint32_t (*get_bitmask_dspp)(struct dpu_hw_ctl *ctx,
+>                 enum dpu_dspp blk);
+>
+> +       void (*set_dspp_hierarchical_flush)(struct dpu_hw_ctl *ctx,
+> +               enum dpu_dspp blk, enum dpu_dspp_sub_blk dspp_sub_blk);
+> +
 
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
-index 7763558..4eca317 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
-@@ -703,6 +703,10 @@ static void _dpu_crtc_setup_cp_blocks(struct drm_crtc *crtc)
- 		mixer[i].flush_mask |= ctl->ops.get_bitmask_dspp(ctl,
- 			mixer[i].hw_dspp->idx);
- 
-+		if(ctl->ops.set_dspp_hierarchical_flush)
-+			ctl->ops.set_dspp_hierarchical_flush(ctl,
-+						mixer[i].hw_dspp->idx, DSPP_SUB_PCC);
-+
- 		/* stage config flush mask */
- 		ctl->ops.update_pending_flush(ctl, mixer[i].flush_mask);
- 
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
-index 021eb2f..3b27a87 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
-@@ -58,7 +58,10 @@
- 	(PINGPONG_SDM845_MASK | BIT(DPU_PINGPONG_TE2))
- 
- #define CTL_SC7280_MASK \
--	(BIT(DPU_CTL_ACTIVE_CFG) | BIT(DPU_CTL_FETCH_ACTIVE) | BIT(DPU_CTL_VM_CFG))
-+	(BIT(DPU_CTL_ACTIVE_CFG) | \
-+	 BIT(DPU_CTL_FETCH_ACTIVE) | \
-+	 BIT(DPU_CTL_VM_CFG) | \
-+	 BIT(DPU_CTL_HIERARCHICAL_FLUSH))
- 
- #define MERGE_3D_SM8150_MASK (0)
- 
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h
-index b85b24b..7922f6c 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h
-@@ -185,6 +185,7 @@ enum {
-  * @DPU_CTL_SPLIT_DISPLAY:	CTL supports video mode split display
-  * @DPU_CTL_FETCH_ACTIVE:	Active CTL for fetch HW (SSPPs)
-  * @DPU_CTL_VM_CFG:		CTL config to support multiple VMs
-+ * @DPU_CTL_HIERARCHICAL_FLUSH: CTL config to support hierarchical flush
-  * @DPU_CTL_MAX
-  */
- enum {
-@@ -192,6 +193,7 @@ enum {
- 	DPU_CTL_ACTIVE_CFG,
- 	DPU_CTL_FETCH_ACTIVE,
- 	DPU_CTL_VM_CFG,
-+	DPU_CTL_HIERARCHICAL_FLUSH,
- 	DPU_CTL_MAX
- };
- 
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c
-index 3584f5e..b34fc30 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c
-@@ -28,6 +28,8 @@
- #define   CTL_INTF_FLUSH                0x110
- #define   CTL_INTF_MASTER               0x134
- #define   CTL_FETCH_PIPE_ACTIVE         0x0FC
-+#define   CTL_DSPP_0_FLUSH		0x13C
-+
- 
- #define CTL_MIXER_BORDER_OUT            BIT(24)
- #define CTL_FLUSH_MASK_CTL              BIT(17)
-@@ -292,6 +294,36 @@ static uint32_t dpu_hw_ctl_get_bitmask_dspp(struct dpu_hw_ctl *ctx,
- 	return flushbits;
- }
- 
-+static uint32_t dpu_hw_ctl_get_bitmask_dspp_v1(struct dpu_hw_ctl *ctx,
-+	enum dpu_dspp dspp)
-+{
-+	return BIT(29);
-+}
-+
-+static void dpu_hw_ctl_set_dspp_hierarchical_flush(struct dpu_hw_ctl *ctx,
-+	enum dpu_dspp dspp, enum dpu_dspp_sub_blk dspp_sub_blk)
-+{
-+	uint32_t flushbits = 0, active = 0;
-+
-+	switch (dspp_sub_blk) {
-+	case DSPP_SUB_IGC:
-+		flushbits = BIT(2);
-+		break;
-+	case DSPP_SUB_PCC:
-+		flushbits = BIT(4);
-+		break;
-+	case DSPP_SUB_GC:
-+		flushbits = BIT(5);
-+		break;
-+	default:
-+		return;
-+	}
-+
-+	active = DPU_REG_READ(&ctx->hw, CTL_DSPP_0_FLUSH + ((dspp - 1) * 4));
-+
-+	DPU_REG_WRITE(&ctx->hw, CTL_DSPP_0_FLUSH + ((dspp - 1) * 4), active | flushbits);
-+}
-+
- static u32 dpu_hw_ctl_poll_reset_status(struct dpu_hw_ctl *ctx, u32 timeout_us)
- {
- 	struct dpu_hw_blk_reg_map *c = &ctx->hw;
-@@ -600,7 +632,13 @@ static void _setup_ctl_ops(struct dpu_hw_ctl_ops *ops,
- 	ops->setup_blendstage = dpu_hw_ctl_setup_blendstage;
- 	ops->get_bitmask_sspp = dpu_hw_ctl_get_bitmask_sspp;
- 	ops->get_bitmask_mixer = dpu_hw_ctl_get_bitmask_mixer;
--	ops->get_bitmask_dspp = dpu_hw_ctl_get_bitmask_dspp;
-+	if (cap & BIT(DPU_CTL_HIERARCHICAL_FLUSH)) {
-+		ops->get_bitmask_dspp = dpu_hw_ctl_get_bitmask_dspp_v1;
-+		ops->set_dspp_hierarchical_flush = dpu_hw_ctl_set_dspp_hierarchical_flush;
-+	} else {
-+		ops->get_bitmask_dspp = dpu_hw_ctl_get_bitmask_dspp;
-+	}
-+
- 	if (cap & BIT(DPU_CTL_FETCH_ACTIVE))
- 		ops->set_active_pipes = dpu_hw_ctl_set_fetch_pipe_active;
- };
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.h
-index ac15444..8ecab91 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.h
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.h
-@@ -160,6 +160,9 @@ struct dpu_hw_ctl_ops {
- 	uint32_t (*get_bitmask_dspp)(struct dpu_hw_ctl *ctx,
- 		enum dpu_dspp blk);
- 
-+	void (*set_dspp_hierarchical_flush)(struct dpu_hw_ctl *ctx,
-+		enum dpu_dspp blk, enum dpu_dspp_sub_blk dspp_sub_blk);
-+
- 	/**
- 	 * Set all blend stages to disabled
- 	 * @ctx       : ctl path ctx pointer
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_mdss.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_mdss.h
-index bb9cead..561e2ab 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_mdss.h
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_mdss.h
-@@ -166,6 +166,13 @@ enum dpu_dspp {
- 	DSPP_MAX
- };
- 
-+enum dpu_dspp_sub_blk{
-+	DSPP_SUB_PCC = 1,
-+	DSPP_SUB_IGC,
-+	DSPP_SUB_GC,
-+	DSPP_SUB_MAX
-+};
-+
- enum dpu_ctl {
- 	CTL_0 = 1,
- 	CTL_1,
--- 
-2.7.4
+Given that most of the items in this list have kernel-doc comments
+explaining them, probably you should have one for your new one too.
 
+-Doug
