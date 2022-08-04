@@ -1,56 +1,59 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9E9B8589F51
-	for <lists+freedreno@lfdr.de>; Thu,  4 Aug 2022 18:21:43 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id CE223589FF5
+	for <lists+freedreno@lfdr.de>; Thu,  4 Aug 2022 19:40:40 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CEEE19EA35;
-	Thu,  4 Aug 2022 16:21:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B6B76A29ED;
+	Thu,  4 Aug 2022 17:33:52 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ed1-x536.google.com (mail-ed1-x536.google.com
- [IPv6:2a00:1450:4864:20::536])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D2A7618AECC
- for <freedreno@lists.freedesktop.org>; Thu,  4 Aug 2022 16:21:18 +0000 (UTC)
-Received: by mail-ed1-x536.google.com with SMTP id s11so237052edd.13
- for <freedreno@lists.freedesktop.org>; Thu, 04 Aug 2022 09:21:18 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=kvAqCBmhC1zB39spR1tg3XxszATJUMKEiGdcZPVBnEk=;
- b=UErQStKIF5hZVlCtEqf1Am7dqLpJ3Gf93i3FVYaQ4WnaZGrJrjTToT0UTJCKeJWi7F
- C+ASE7ShUEwtc8+vcatkrMMqsliKcY70qJzCb9Qlf9Pkfquo1CyCK8lv35BU0pIjOOWC
- vDkE68covrngok0XigFTlS5HlB4zBDCRKFjJJM48SyUrICpUP/bg/2FzpPwnEpgnfTQ2
- DELUKeugxTGXXTyQQHMmUQzzT2pMZVpi+PkYVvoCsuKElaZyanc/7Bb9OXKG4s9kxaXX
- HM7e45G9kdDwUwaMaNZT/WdQ289cMM5Ci4V4Bwk5qR5equtn3xIEJMy+oL1xCGN5WBTt
- ANFQ==
+Received: from mail-io1-xd2b.google.com (mail-io1-xd2b.google.com
+ [IPv6:2607:f8b0:4864:20::d2b])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 216D9A2050;
+ Thu,  4 Aug 2022 17:32:50 +0000 (UTC)
+Received: by mail-io1-xd2b.google.com with SMTP id v185so194205ioe.11;
+ Thu, 04 Aug 2022 10:32:50 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc;
+ bh=ZQf4XnBOCJB+vfAUnlzSwte/cUU8bNUatf6/Q8jOgEg=;
+ b=jpJNn4uLeRXOgYq2sOuJhfouM6NXGvrYP/ciqu+C1dEv8Ch9RTeh8d36GTYbPmery4
+ YPHeKo3EBsBL8wYh6OU1klWoV6E2JHKHqkj9MY32X4tnZjm9yDPqYpcl/bm9XTxH/RKY
+ 9H+1RyOckouKnvkStdM+hA8mVWt6KY8oFYHH5lOMoLg8V8eSFtBIv1i5ntmYfKKD6Kif
+ ctmsJpuoPRiS5GnZnO7uil5A32DiFAWEUN1DRp5TyaSInoFyDT68uz2TpPtEfFub8wqn
+ qCovJNGdPNUPHJN1zvaEB+vRABBMQr7pQXhXW+iKugKjiPfiYAoF1k+IxBInGDKboBZm
+ Exxg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=kvAqCBmhC1zB39spR1tg3XxszATJUMKEiGdcZPVBnEk=;
- b=OVQ5OGtTaFYJKWMpJKf6MoOhrn2a0UPBjW76ljLf3R82sVrZFFVyUKuDUNZtc26ngp
- n5/M6schGr5kjMCeB70CgQamVkGIyZTOC3DGh2XBS8k1pHaMQlkPDASgK3Se7hAG0Uwh
- necTfwJjRhH0azmuesvJqjfKim9WWZ6ZJ+9+srZwjMUmdUVsMaaw4zDbygp2tqUGy8kq
- 9v1AQ540dYuy62YVAnhDp5FUR7vgaCXNeDwYD4S85VcHW56eZa3qnQGkEKQbqO4GRuPh
- c9kAu8J+I60yEynydId3NJjxRVtpODIFWz80v6aKGfcJf/0mmsKYkshsBV+7P6QvS+wO
- PwrA==
-X-Gm-Message-State: ACgBeo3CltEOaPIAvIkwBvsXT65Jiy0h21ZO0G6cktkqW5O5Wv3EDYvm
- JTWfx51DxqOY5xr7kk1yCK1bd0/ENV2DRykCqoPJKw==
-X-Google-Smtp-Source: AA6agR4d07uIaAqAc9iaaznOWJ4GsUqNCVavrOx8TxPMdJe98XydwPgZ07U3x/6+7aPRKb0bACRT3oDA2mJN9dI52kg=
-X-Received: by 2002:a05:6402:909:b0:435:a8b:5232 with SMTP id
- g9-20020a056402090900b004350a8b5232mr2845711edz.240.1659630077136; Thu, 04
- Aug 2022 09:21:17 -0700 (PDT)
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc;
+ bh=ZQf4XnBOCJB+vfAUnlzSwte/cUU8bNUatf6/Q8jOgEg=;
+ b=aHWYwTMDCslNJFTvZ2e9/XbMgb1YIlMcOsWUX7fQvSrQK2vtHXUmyt3EgAYWx95Lgv
+ 7d3oYNnlizLCjG/9yjgwf815jUSWpHELtgULrm+PsuoGRjXNylpMwBJr7fcwWAWQs3K8
+ uvEDuqVTCf8ZzAn9TeWumUr9xPUPvklK07qTZvHK6b7NzPpIponhBzeuO/tPryXa77mV
+ PM/FFls6xG0w9bJaVA0VUds2lcXdw7CRCroTbb2XlJQLkJsu/yZ6886if8Rx13CIRB5Q
+ 2FIWttTfohERloKdI8fcGHI/SiRbGSVEemyL7ieRnDqE+vSDYYgn0T8AAwWmudm86VTL
+ hdqQ==
+X-Gm-Message-State: ACgBeo2C0/vBWg/7Dg56HW7jebYLEF6LgFpXOAqC6Thy6DYvVYCGig00
+ lYss2dqiyUEZ6BAHxt3YTZXHfrTBC4XKUK+sAZs=
+X-Google-Smtp-Source: AA6agR7l+0CbFrUgBA7wD4UHjdEAojTPkkSEOy0SRKRZdOZG7J7o6ZyxuIxXmVlYDjjCoFMxBCQ95tMMlKSldAZtRrE=
+X-Received: by 2002:a02:9622:0:b0:342:86af:7506 with SMTP id
+ c31-20020a029622000000b0034286af7506mr1287121jai.311.1659634369569; Thu, 04
+ Aug 2022 10:32:49 -0700 (PDT)
 MIME-Version: 1.0
-References: <1657544224-10680-1-git-send-email-quic_vpolimer@quicinc.com>
- <CAD=FV=U_GStziLOCVLs_FC_2Vr=ykGfbb4ZtUp79iV8V=B0cEA@mail.gmail.com>
-In-Reply-To: <CAD=FV=U_GStziLOCVLs_FC_2Vr=ykGfbb4ZtUp79iV8V=B0cEA@mail.gmail.com>
-From: Robert Foss <robert.foss@linaro.org>
-Date: Thu, 4 Aug 2022 18:21:05 +0200
-Message-ID: <CAG3jFyv3up0o4S+UYMKaAjanKL6hxCNtEa5zQTQEeNREab-NRA@mail.gmail.com>
-To: Doug Anderson <dianders@chromium.org>
+References: <20220803172302.1976981-1-robdclark@gmail.com>
+ <c80d70b6-a7ad-5900-ea7a-f0f2157e4a40@quicinc.com>
+ <CAF6AEGuDajmv=bnQ9hNgCbkB8ubpFhhoFZVL4881O=2B9xh+_Q@mail.gmail.com>
+ <7f7bd85a-2444-1939-4ac8-dbf2685eaf24@quicinc.com>
+In-Reply-To: <7f7bd85a-2444-1939-4ac8-dbf2685eaf24@quicinc.com>
+From: Rob Clark <robdclark@gmail.com>
+Date: Thu, 4 Aug 2022 10:33:16 -0700
+Message-ID: <CAF6AEGv8sYG=72ne4wMx_OQwWOUkx88fYdKM2EEszdmYzOrg1A@mail.gmail.com>
+To: Akhil P Oommen <quic_akhilpo@quicinc.com>
 Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [PATCH v6 00/10] Add PSR support for eDP
+Subject: Re: [Freedreno] [PATCH 1/2] drm/msm: Move hangcheck timer restart
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,112 +66,104 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: quic_kalyant <quic_kalyant@quicinc.com>,
- "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
- <devicetree@vger.kernel.org>, Sankeerth Billakanti <quic_sbillaka@quicinc.com>,
- "Abhinav Kumar \(QUIC\)" <quic_abhinavk@quicinc.com>,
- quic_vproddut <quic_vproddut@quicinc.com>,
- linux-arm-msm <linux-arm-msm@vger.kernel.org>,
- "Kuogee Hsieh \(QUIC\)" <quic_khsieh@quicinc.com>,
- LKML <linux-kernel@vger.kernel.org>,
- dri-devel <dri-devel@lists.freedesktop.org>,
- Vinod Polimera <quic_vpolimer@quicinc.com>, Rob Clark <robdclark@gmail.com>,
- Bjorn Andersson <bjorn.andersson@linaro.org>,
+Cc: Rob Clark <robdclark@chromium.org>, David Airlie <airlied@linux.ie>,
+ linux-arm-msm@vger.kernel.org, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ dri-devel@lists.freedesktop.org, open list <linux-kernel@vger.kernel.org>,
+ Sean Paul <sean@poorly.run>, Daniel Vetter <daniel@ffwll.ch>,
  Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- "Aravind Venkateswaran \(QUIC\)" <quic_aravindh@quicinc.com>,
- Stephen Boyd <swboyd@chromium.org>,
- freedreno <freedreno@lists.freedesktop.org>
+ freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Fri, 29 Jul 2022 at 02:22, Doug Anderson <dianders@chromium.org> wrote:
+On Thu, Aug 4, 2022 at 12:53 AM Akhil P Oommen <quic_akhilpo@quicinc.com> wrote:
 >
-> Hi,
->
-> On Mon, Jul 11, 2022 at 5:57 AM Vinod Polimera
-> <quic_vpolimer@quicinc.com> wrote:
+> On 8/4/2022 1:59 AM, Rob Clark wrote:
+> > On Wed, Aug 3, 2022 at 12:52 PM Akhil P Oommen <quic_akhilpo@quicinc.com> wrote:
+> >> On 8/3/2022 10:53 PM, Rob Clark wrote:
+> >>> From: Rob Clark <robdclark@chromium.org>
+> >>>
+> >>> Don't directly restart the hangcheck timer from the timer handler, but
+> >>> instead start it after the recover_worker replays remaining jobs.
+> >>>
+> >>> If the kthread is blocked for other reasons, there is no point to
+> >>> immediately restart the timer.  Fixes a random symptom of the problem
+> >>> fixed in the next patch.
+> >>>
+> >>> Signed-off-by: Rob Clark <robdclark@chromium.org>
+> >>> ---
+> >>>    drivers/gpu/drm/msm/msm_gpu.c | 14 +++++++++-----
+> >>>    1 file changed, 9 insertions(+), 5 deletions(-)
+> >>>
+> >>> diff --git a/drivers/gpu/drm/msm/msm_gpu.c b/drivers/gpu/drm/msm/msm_gpu.c
+> >>> index fba85f894314..8f9c48eabf7d 100644
+> >>> --- a/drivers/gpu/drm/msm/msm_gpu.c
+> >>> +++ b/drivers/gpu/drm/msm/msm_gpu.c
+> >>> @@ -328,6 +328,7 @@ find_submit(struct msm_ringbuffer *ring, uint32_t fence)
+> >>>    }
+> >>>
+> >>>    static void retire_submits(struct msm_gpu *gpu);
+> >>> +static void hangcheck_timer_reset(struct msm_gpu *gpu);
+> >>>
+> >>>    static void get_comm_cmdline(struct msm_gem_submit *submit, char **comm, char **cmd)
+> >>>    {
+> >>> @@ -420,6 +421,8 @@ static void recover_worker(struct kthread_work *work)
+> >>>        }
+> >>>
+> >>>        if (msm_gpu_active(gpu)) {
+> >>> +             bool restart_hangcheck = false;
+> >>> +
+> >>>                /* retire completed submits, plus the one that hung: */
+> >>>                retire_submits(gpu);
+> >>>
+> >>> @@ -436,10 +439,15 @@ static void recover_worker(struct kthread_work *work)
+> >>>                        unsigned long flags;
+> >>>
+> >>>                        spin_lock_irqsave(&ring->submit_lock, flags);
+> >>> -                     list_for_each_entry(submit, &ring->submits, node)
+> >>> +                     list_for_each_entry(submit, &ring->submits, node) {
+> >>>                                gpu->funcs->submit(gpu, submit);
+> >>> +                             restart_hangcheck = true;
+> >>> +                     }
+> >>>                        spin_unlock_irqrestore(&ring->submit_lock, flags);
+> >>>                }
+> >>> +
+> >>> +             if (restart_hangcheck)
+> >>> +                     hangcheck_timer_reset(gpu);
+> >>>        }
+> >>>
+> >>>        mutex_unlock(&gpu->lock);
+> >>> @@ -515,10 +523,6 @@ static void hangcheck_handler(struct timer_list *t)
+> >>>                kthread_queue_work(gpu->worker, &gpu->recover_work);
+> >>>        }
+> >>>
+> >>> -     /* if still more pending work, reset the hangcheck timer: */
+> >> In the scenario mentioned here, shouldn't we restart the timer?
+> > yeah, actually the case where we don't want to restart the timer is
+> > *only* when we schedule recover_work..
 > >
-> > Changes in v2:
-> >   - Use dp bridge to set psr entry/exit instead of dpu_enocder.
-> >   - Don't modify whitespaces.
-> >   - Set self refresh aware from atomic_check.
-> >   - Set self refresh aware only if psr is supported.
-> >   - Provide a stub for msm_dp_display_set_psr.
-> >   - Move dp functions to bridge code.
-> >
-> > Changes in v3:
-> >   - Change callback names to reflect atomic interfaces.
-> >   - Move bridge callback change to separate patch as suggested by Dmitry.
-> >   - Remove psr function declaration from msm_drv.h.
-> >   - Set self_refresh_aware flag only if psr is supported.
-> >   - Modify the variable names to simpler form.
-> >   - Define bit fields for PSR settings.
-> >   - Add comments explaining the steps to enter/exit psr.
-> >   - Change DRM_INFO to drm_dbg_db.
-> >
-> > Changes in v4:
-> >   - Move the get crtc functions to drm_atomic.
-> >   - Add atomic functions for DP bridge too.
-> >   - Add ternary operator to choose eDP or DP ops.
-> >   - Return true/false instead of 1/0.
-> >   - mode_valid missing in the eDP bridge ops.
-> >   - Move the functions to get crtc into drm_atomic.c.
-> >   - Fix compilation issues.
-> >   - Remove dpu_assign_crtc and get crtc from drm_enc instead of dpu_enc.
-> >   - Check for crtc state enable while reserving resources.
-> >
-> > Changes in v5:
-> >   - Move the mode_valid changes into a different patch.
-> >   - Complete psr_op_comp only when isr is set.
-> >   - Move the DP atomic callback changes to a different patch.
-> >   - Get crtc from drm connector state crtc.
-> >   - Move to separate patch for check for crtc state enable while
-> > reserving resources.
-> >
-> > Changes in v6:
-> >   - Remove crtc from dpu_encoder_virt struct.
-> >   - fix crtc check during vblank toggle crtc.
-> >   - Misc changes.
-> >
-> > Signed-off-by: Sankeerth Billakanti <quic_sbillaka@quicinc.com>
-> > Signed-off-by: Kalyan Thota <quic_kalyant@quicinc.com>
-> > Signed-off-by: Vinod Polimera <quic_vpolimer@quicinc.com>
-> >
-> > Vinod Polimera (10):
-> >   drm/msm/disp/dpu: clear dpu_assign_crtc and get crtc from connector
-> >     state instead of dpu_enc
-> >   drm: add helper functions to retrieve old and new crtc
-> >   drm/msm/dp: use atomic callbacks for DP bridge ops
-> >   drm/msm/dp: Add basic PSR support for eDP
-> >   drm/msm/dp: use the eDP bridge ops to validate eDP modes
-> >   drm/bridge: use atomic enable/disable callbacks for panel bridge
-> >   drm/bridge: add psr support for panel bridge callbacks
-> >   drm/msm/disp/dpu: use atomic enable/disable callbacks for encoder
-> >     functions
-> >   drm/msm/disp/dpu: add PSR support for eDP interface in dpu driver
-> >   drm/msm/disp/dpu: check for crtc enable rather than crtc active to
-> >     release shared resources
-> >
-> >  drivers/gpu/drm/bridge/panel.c              |  68 ++++++++--
-> >  drivers/gpu/drm/drm_atomic.c                |  60 +++++++++
-> >  drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c    |  17 ++-
-> >  drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c |  56 +++++----
-> >  drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.h |   8 --
-> >  drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c     |   2 +-
-> >  drivers/gpu/drm/msm/dp/dp_catalog.c         |  81 ++++++++++++
-> >  drivers/gpu/drm/msm/dp/dp_catalog.h         |   4 +
-> >  drivers/gpu/drm/msm/dp/dp_ctrl.c            |  73 +++++++++++
-> >  drivers/gpu/drm/msm/dp/dp_ctrl.h            |   3 +
-> >  drivers/gpu/drm/msm/dp/dp_display.c         |  31 +++--
-> >  drivers/gpu/drm/msm/dp/dp_display.h         |   2 +
-> >  drivers/gpu/drm/msm/dp/dp_drm.c             | 184 ++++++++++++++++++++++++++--
-> >  drivers/gpu/drm/msm/dp/dp_drm.h             |   9 +-
-> >  drivers/gpu/drm/msm/dp/dp_link.c            |  36 ++++++
-> >  drivers/gpu/drm/msm/dp/dp_panel.c           |  22 ++++
-> >  drivers/gpu/drm/msm/dp/dp_panel.h           |   6 +
-> >  drivers/gpu/drm/msm/dp/dp_reg.h             |  27 ++++
-> >  include/drm/drm_atomic.h                    |   7 ++
-> >  19 files changed, 631 insertions(+), 65 deletions(-)
+> > BR,
+> > -R
+> Not sure if your codebase is different but based on msm-next branch,
+> when "if (fence != ring->hangcheck_fence)" is true, we now skip
+> rescheduling the timer. I don't think that is what we want. There should
+> be a hangcheck timer running as long as there is an active submit,
+> unless we have scheduled a recover_work here.
 >
 
-Which tree does this series apply to?
+right, v2 will change that to only skip rescheduling the timer in the
+recover path
+
+BR,
+-R
+
+> -Akhil.
+> >
+> >> -Akhil.
+> >>> -     if (fence_after(ring->fctx->last_fence, ring->hangcheck_fence))
+> >>> -             hangcheck_timer_reset(gpu);
+> >>> -
+> >>>        /* workaround for missing irq: */
+> >>>        msm_gpu_retire(gpu);
+> >>>    }
+> >>>
+>
