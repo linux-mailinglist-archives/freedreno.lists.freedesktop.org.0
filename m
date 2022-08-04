@@ -1,57 +1,59 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id C56BE589337
-	for <lists+freedreno@lfdr.de>; Wed,  3 Aug 2022 22:29:32 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 5237D589522
+	for <lists+freedreno@lfdr.de>; Thu,  4 Aug 2022 02:13:05 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1194718AF7A;
-	Wed,  3 Aug 2022 20:28:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C519110F63A;
+	Thu,  4 Aug 2022 00:13:02 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-io1-xd2f.google.com (mail-io1-xd2f.google.com
- [IPv6:2607:f8b0:4864:20::d2f])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 266A618BFAA;
- Wed,  3 Aug 2022 20:28:36 +0000 (UTC)
-Received: by mail-io1-xd2f.google.com with SMTP id x64so13781292iof.1;
- Wed, 03 Aug 2022 13:28:36 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc;
- bh=qns3k2bMfWZ5++no4JhoINAIs2Mgvwk2maknIEZXZGA=;
- b=aEWJqLOnfAJre5C81Ylqs5yMywTkNY2DxE1pRS3Qa06+/3s5LtLaxsW7WkgO6B5/iM
- +6BWdNFChgc7bTjv3aUJZwTqbv0KgFnZFwS9WTQkvR4yi7GsiYdyQ3hplToWzIpt1xLl
- nKqSRu0Q+G1bONulaZMWnTzrfCqKqm1bjsfuB7HmTit/6A7yOCNnFyNCLWg9y07ZO4/J
- w7bMXsP5oQFM+/Jnwk7rvdi0mWNboq0GB1SXVeG5uMJ89rUXo9zV1ai9KmXDcQnc4P2J
- quCXLPa5enl2sXd9VRyx9l7hS16EtrjKd18Yvn92oBfx25bdm6+CG6rczOBbCrvgZb2e
- REZQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc;
- bh=qns3k2bMfWZ5++no4JhoINAIs2Mgvwk2maknIEZXZGA=;
- b=tUNp8nqcZLU0ibxKPJp7r3OkzqNrw7xsfpuCLumzz1a+gGkw/am7DVtb5AUKTa1Pyr
- RMsKudGeWISQ8KxdTBmBTWi72EbGVDwfN1f7XE6KUigUzZUyW03GQHCIi/fufiKWKmiG
- sgMdZE4ouXzemMRt6JCjrfgCatVTQqSHVy+WIw9ENGei0rvcNjmTjELBym9knxa/ATIQ
- i+mEMFKgBgJCNhl15/9+auW8WvVc/h0gluyFdpS0CR7XIyN07ZWV+0C6sOlmbM3iaKiR
- XdzoJQA4bTWbJcEq9js+N1MzkOkScFrVNWpVyjyxCyVk2taXMBUzKMLrPvuWmNR+jU11
- 6KtQ==
-X-Gm-Message-State: AJIora+Y/z+Wm8LlnGkkIUSw/JyXreevarN9MwMTEr+30fvSaCB/rrtk
- OmzkilRHfaQjqratxLMzv+wekPx6bxBAsPseRfU=
-X-Google-Smtp-Source: AGRyM1uH9w+FBi6w0iZfzdHO3chJWDFvIKlbdmizYyLuuwR3oEBqq5s53/WwKRKL0zGMjQBFej7UhPKp3nXHYVah3Eg=
-X-Received: by 2002:a05:6638:4883:b0:33f:7948:e685 with SMTP id
- ct3-20020a056638488300b0033f7948e685mr11202421jab.138.1659558516113; Wed, 03
- Aug 2022 13:28:36 -0700 (PDT)
+Received: from alexa-out.qualcomm.com (alexa-out.qualcomm.com [129.46.98.28])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 477F41121D9;
+ Thu,  4 Aug 2022 00:12:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=quicinc.com; i=@quicinc.com; q=dns/txt; s=qcdkim;
+ t=1659571971; x=1691107971;
+ h=message-id:date:mime-version:subject:to:cc:references:
+ from:in-reply-to:content-transfer-encoding;
+ bh=06hoXfj0l/m4jLS8OfPlNj8veo6ll8SvlYcusmzMU+E=;
+ b=g0tPaEOKNhpaNuJQ/o4k8xjzDlJLDH0BckzZneCK8BiNQjHQCBKrJBii
+ ovALH/+Po/b4QraCsnimoQJADqlQealT+7ECbwkdVS2XpUnPWtzgSOx7U
+ ZM12up1l6gplWJWkXxjuBlk0R6LpOHWUm48dMxWmEBGXIcRz7uHm8JenJ g=;
+Received: from ironmsg08-lv.qualcomm.com ([10.47.202.152])
+ by alexa-out.qualcomm.com with ESMTP; 03 Aug 2022 17:12:50 -0700
+X-QCInternal: smtphost
+Received: from nasanex01c.na.qualcomm.com ([10.47.97.222])
+ by ironmsg08-lv.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 03 Aug 2022 17:12:50 -0700
+Received: from nalasex01a.na.qualcomm.com (10.47.209.196) by
+ nasanex01c.na.qualcomm.com (10.47.97.222) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.986.22; Wed, 3 Aug 2022 17:12:29 -0700
+Received: from [10.38.247.209] (10.80.80.8) by nalasex01a.na.qualcomm.com
+ (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.22; Wed, 3 Aug 2022
+ 17:12:25 -0700
+Message-ID: <6e6aeb9d-9ced-a5b8-1461-bca9f4135b20@quicinc.com>
+Date: Wed, 3 Aug 2022 17:12:23 -0700
 MIME-Version: 1.0
-References: <20220803172302.1976981-1-robdclark@gmail.com>
- <c80d70b6-a7ad-5900-ea7a-f0f2157e4a40@quicinc.com>
-In-Reply-To: <c80d70b6-a7ad-5900-ea7a-f0f2157e4a40@quicinc.com>
-From: Rob Clark <robdclark@gmail.com>
-Date: Wed, 3 Aug 2022 13:29:02 -0700
-Message-ID: <CAF6AEGuDajmv=bnQ9hNgCbkB8ubpFhhoFZVL4881O=2B9xh+_Q@mail.gmail.com>
-To: Akhil P Oommen <quic_akhilpo@quicinc.com>
-Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [PATCH 1/2] drm/msm: Move hangcheck timer restart
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
+ Thunderbird/91.6.2
+Content-Language: en-US
+To: Douglas Anderson <dianders@chromium.org>, Rob Clark <robdclark@gmail.com>, 
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+References: <20220802223738.898592-1-dianders@chromium.org>
+ <20220802153434.v3.1.I1056ee3f77f71287f333279efe4c85f88d403f65@changeid>
+From: Abhinav Kumar <quic_abhinavk@quicinc.com>
+In-Reply-To: <20220802153434.v3.1.I1056ee3f77f71287f333279efe4c85f88d403f65@changeid>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+Subject: Re: [Freedreno] [PATCH v3 1/6] drm/msm/dsi: Fix number of
+ regulators for msm8996_dsi_cfg
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,90 +66,49 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rob Clark <robdclark@chromium.org>, David Airlie <airlied@linux.ie>,
- linux-arm-msm@vger.kernel.org, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- dri-devel@lists.freedesktop.org, open list <linux-kernel@vger.kernel.org>,
- Sean Paul <sean@poorly.run>, Daniel Vetter <daniel@ffwll.ch>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- freedreno@lists.freedesktop.org
+Cc: Sean Paul <sean@poorly.run>, Archit
+ Taneja <architt@codeaurora.org>, Loic Poulain <loic.poulain@linaro.org>, David
+ Airlie <airlied@linux.ie>, linux-arm-msm@vger.kernel.org,
+ Konrad Dybcio <konrad.dybcio@somainline.org>, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, Stephen Boyd <swboyd@chromium.org>,
+ Mark Brown <broonie@kernel.org>, Daniel Vetter <daniel@ffwll.ch>,
+ Rajeev Nandan <quic_rajeevny@quicinc.com>, freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Wed, Aug 3, 2022 at 12:52 PM Akhil P Oommen <quic_akhilpo@quicinc.com> wrote:
->
-> On 8/3/2022 10:53 PM, Rob Clark wrote:
-> > From: Rob Clark <robdclark@chromium.org>
-> >
-> > Don't directly restart the hangcheck timer from the timer handler, but
-> > instead start it after the recover_worker replays remaining jobs.
-> >
-> > If the kthread is blocked for other reasons, there is no point to
-> > immediately restart the timer.  Fixes a random symptom of the problem
-> > fixed in the next patch.
-> >
-> > Signed-off-by: Rob Clark <robdclark@chromium.org>
-> > ---
-> >   drivers/gpu/drm/msm/msm_gpu.c | 14 +++++++++-----
-> >   1 file changed, 9 insertions(+), 5 deletions(-)
-> >
-> > diff --git a/drivers/gpu/drm/msm/msm_gpu.c b/drivers/gpu/drm/msm/msm_gpu.c
-> > index fba85f894314..8f9c48eabf7d 100644
-> > --- a/drivers/gpu/drm/msm/msm_gpu.c
-> > +++ b/drivers/gpu/drm/msm/msm_gpu.c
-> > @@ -328,6 +328,7 @@ find_submit(struct msm_ringbuffer *ring, uint32_t fence)
-> >   }
-> >
-> >   static void retire_submits(struct msm_gpu *gpu);
-> > +static void hangcheck_timer_reset(struct msm_gpu *gpu);
-> >
-> >   static void get_comm_cmdline(struct msm_gem_submit *submit, char **comm, char **cmd)
-> >   {
-> > @@ -420,6 +421,8 @@ static void recover_worker(struct kthread_work *work)
-> >       }
-> >
-> >       if (msm_gpu_active(gpu)) {
-> > +             bool restart_hangcheck = false;
-> > +
-> >               /* retire completed submits, plus the one that hung: */
-> >               retire_submits(gpu);
-> >
-> > @@ -436,10 +439,15 @@ static void recover_worker(struct kthread_work *work)
-> >                       unsigned long flags;
-> >
-> >                       spin_lock_irqsave(&ring->submit_lock, flags);
-> > -                     list_for_each_entry(submit, &ring->submits, node)
-> > +                     list_for_each_entry(submit, &ring->submits, node) {
-> >                               gpu->funcs->submit(gpu, submit);
-> > +                             restart_hangcheck = true;
-> > +                     }
-> >                       spin_unlock_irqrestore(&ring->submit_lock, flags);
-> >               }
-> > +
-> > +             if (restart_hangcheck)
-> > +                     hangcheck_timer_reset(gpu);
-> >       }
-> >
-> >       mutex_unlock(&gpu->lock);
-> > @@ -515,10 +523,6 @@ static void hangcheck_handler(struct timer_list *t)
-> >               kthread_queue_work(gpu->worker, &gpu->recover_work);
-> >       }
-> >
-> > -     /* if still more pending work, reset the hangcheck timer: */
-> In the scenario mentioned here, shouldn't we restart the timer?
 
-yeah, actually the case where we don't want to restart the timer is
-*only* when we schedule recover_work..
 
-BR,
--R
+On 8/2/2022 3:37 PM, Douglas Anderson wrote:
+> 3 regulators are specified listed but the number 2 is specified. Fix
+> it.
+> 
+> Fixes: 3a3ff88a0fc1 ("drm/msm/dsi: Add 8x96 info in dsi_cfg")
+> Signed-off-by: Douglas Anderson <dianders@chromium.org>
 
->
-> -Akhil.
-> > -     if (fence_after(ring->fctx->last_fence, ring->hangcheck_fence))
-> > -             hangcheck_timer_reset(gpu);
-> > -
-> >       /* workaround for missing irq: */
-> >       msm_gpu_retire(gpu);
-> >   }
-> >
->
+Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
+
+Will queue this for -fixes.
+
+> ---
+> 
+> (no changes since v2)
+> 
+> Changes in v2:
+> - ("Fix number of regulators for msm8996_dsi_cfg") new for v2.
+> 
+>   drivers/gpu/drm/msm/dsi/dsi_cfg.c | 2 +-
+>   1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/drivers/gpu/drm/msm/dsi/dsi_cfg.c b/drivers/gpu/drm/msm/dsi/dsi_cfg.c
+> index 2c23324a2296..02000a7b7a18 100644
+> --- a/drivers/gpu/drm/msm/dsi/dsi_cfg.c
+> +++ b/drivers/gpu/drm/msm/dsi/dsi_cfg.c
+> @@ -109,7 +109,7 @@ static const char * const dsi_8996_bus_clk_names[] = {
+>   static const struct msm_dsi_config msm8996_dsi_cfg = {
+>   	.io_offset = DSI_6G_REG_SHIFT,
+>   	.reg_cfg = {
+> -		.num = 2,
+> +		.num = 3,
+>   		.regs = {
+>   			{"vdda", 18160, 1 },	/* 1.25 V */
+>   			{"vcca", 17000, 32 },	/* 0.925 V */
