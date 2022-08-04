@@ -1,62 +1,57 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2DE37589DBE
-	for <lists+freedreno@lfdr.de>; Thu,  4 Aug 2022 16:40:37 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 0EF7F589F06
+	for <lists+freedreno@lfdr.de>; Thu,  4 Aug 2022 17:59:08 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F333C9A364;
-	Thu,  4 Aug 2022 14:40:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9C8CB9D2A7;
+	Thu,  4 Aug 2022 15:59:05 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-pf1-x42d.google.com (mail-pf1-x42d.google.com
- [IPv6:2607:f8b0:4864:20::42d])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7273014A3B9
- for <freedreno@lists.freedesktop.org>; Thu,  4 Aug 2022 14:39:31 +0000 (UTC)
-Received: by mail-pf1-x42d.google.com with SMTP id f28so11290636pfk.1
- for <freedreno@lists.freedesktop.org>; Thu, 04 Aug 2022 07:39:31 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc;
- bh=eqpuB/jZzr6RZg9MRH4VQT6RcEmZ2WxwGiLdN4NtIg4=;
- b=evryTDQOO0HgjyAOUk7ubNrfNSGdkhoTL9o+GwIA/OY2hY+51Vj6trYOWxPbPml4FT
- rw9PKgSLcUoxCoT9TO13RHS09VL6LyK+mQWk3vhspjXMvgg7lc90ilqNvrtMSLhZl4Nj
- X1qeLbUpaXlwz6DeNwYCPuZGQ5yXzp18XZzuo=
+Received: from mail-qv1-xf36.google.com (mail-qv1-xf36.google.com
+ [IPv6:2607:f8b0:4864:20::f36])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 71DB214BB81
+ for <freedreno@lists.freedesktop.org>; Thu,  4 Aug 2022 15:58:57 +0000 (UTC)
+Received: by mail-qv1-xf36.google.com with SMTP id u8so13370838qvv.1
+ for <freedreno@lists.freedesktop.org>; Thu, 04 Aug 2022 08:58:57 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc;
+ bh=EOSA1ipEONvwIiVLkOm/G9KBqxDibYTA7jNR8f2wzec=;
+ b=gcrPbowTAuzSl9SbjvQe1FKQqld1ecqy5j7CS0sx5zQuLiI3VZJe1prue31K/0stWm
+ Rp3FxCsiy2ySSrddcbf5JH2OXIcPPvN9D4boR20fCm2FPXuDWyKi5tAwhH8gjwjeOYwH
+ uGeorse+1TpqaQUIrukoZgJIv5mHVfEGJgf5FCqOiv/+TinOIXKmJInR0ETyCt8wR26H
+ jSVTH+aI93BwwZPbCEkaBDHsROhryLw4d9HxRKyAGTimHMk1Bd2eiQ+r4fZr3rQyl8Xl
+ 9T8Cs8XRIpwlJ1huAH2IVBP0Hzy8jOErlvh0+9FbNgfyMQMnYBhrLRsZGQGrwNMTP6ZO
+ Qtxg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc;
- bh=eqpuB/jZzr6RZg9MRH4VQT6RcEmZ2WxwGiLdN4NtIg4=;
- b=tlK9G1wzKioD5C+psxGdK0+iwGWHjnFjH25dR5AMMAwDl/7Jaq0mObmVvRemn/4hFv
- ZiSy9hGg6zWcPbx72D4wTglzHaiJfmc5JgpTonIDceYF5iz6B7bXMDHr/G7TM/56RUvE
- jGOvY8+0TlEyxodZNT7eoEWFv6GW74uebdE1Mbw0Z+6lZDq8YvumpMxSOvqYps3P3EmL
- wYCQTPPUzphwOhqh+gKvI057kbNWAO6zvwMxHkJ0/z1qUt6jiyReuVviK2dlcVKx5WwN
- NGU5Rwyl0ZLbCT4BBQa7oYCYJQEEWomlGOwaFjqtD5mLVxiFvHRfWSereLG6ZR7EIIw2
- BpzQ==
-X-Gm-Message-State: ACgBeo10dVrFuBrRTXvNwCpdn11PlaucshUz8sGR7YqKOqmj4mDTxaOw
- mktRu2Tir6Qc2G05H4xMykPDrQ==
-X-Google-Smtp-Source: AA6agR7Vaijl6KTd0e85hYD7XDfBZESwSM8wGKiYzx4xW6HUQmtTu+dDVpncWOtNc9BzWoeu3QXNSg==
-X-Received: by 2002:a63:87:0:b0:419:f2d0:1e3b with SMTP id
- 129-20020a630087000000b00419f2d01e3bmr1963782pga.234.1659623970813; 
- Thu, 04 Aug 2022 07:39:30 -0700 (PDT)
-Received: from tictac2.mtv.corp.google.com
- ([2620:15c:202:201:aa71:2553:6f54:5cb1])
- by smtp.gmail.com with ESMTPSA id
- h7-20020a170902680700b0016a111c83cdsm1075071plk.119.2022.08.04.07.39.28
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 04 Aug 2022 07:39:30 -0700 (PDT)
-From: Douglas Anderson <dianders@chromium.org>
-To: Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Thu,  4 Aug 2022 07:38:53 -0700
-Message-Id: <20220804073608.v4.6.I969118a35934a0e5007fe4f80e3e28e9c0b7602a@changeid>
-X-Mailer: git-send-email 2.37.1.455.g008518b4e5-goog
-In-Reply-To: <20220804143854.1544395-1-dianders@chromium.org>
-References: <20220804143854.1544395-1-dianders@chromium.org>
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc;
+ bh=EOSA1ipEONvwIiVLkOm/G9KBqxDibYTA7jNR8f2wzec=;
+ b=4LBwCtP3vYImK5VQjpCWcNT76Qxmi1WbMK1LUwmbMoMZdzQDqyqjG7of1JMppuxwtT
+ f9EqQ3ElV8d1mjxV7y1vSFDmMb9nzCKYhEzAuprioN3BOEdH85EOEikOiM8RHryauHU8
+ iVOp5gfjTxPJaOpyzjtD+yl2JEJpBZPoRSyjTwmDhNlUPSA+KawXBw01rBenwhG80/rs
+ TmGxJaK7/38IUB2SIDVmPzZKYynbyrbZ4TwZi5vtwlGYzRBgCNqjIumGDjXsY1+J41fK
+ mw1RhsxHs9m73tdG0nJu+8DMhTPEKoE8NYtbJupbpA/SI1f0ZDl4GBJndpvTMG7SI2+S
+ yhxw==
+X-Gm-Message-State: ACgBeo04SiKBsXOcaceBu/ydP7zigiEmprWfcCt+KKMzyLLV8CLfeUF7
+ F3LcVEj56EdGJtEcdGN4H61vkaLgXKBzWw3Ao3LOQA==
+X-Google-Smtp-Source: AA6agR6+YdOKJ3iA6PLFxLLlTu/AXklKS7TWLL/OmCuTdauV3zrKiLw1M2MqSlUN9lnT2A75AmbQ131YSys+8AunwuI=
+X-Received: by 2002:a0c:8ecc:0:b0:473:2fa4:df7c with SMTP id
+ y12-20020a0c8ecc000000b004732fa4df7cmr2124165qvb.55.1659628736233; Thu, 04
+ Aug 2022 08:58:56 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH v4 6/6] drm/msm/dsi: Improve
- dsi_phy_driver_probe() probe error handling
+References: <1659608930-4370-1-git-send-email-quic_kalyant@quicinc.com>
+In-Reply-To: <1659608930-4370-1-git-send-email-quic_kalyant@quicinc.com>
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Date: Thu, 4 Aug 2022 18:58:45 +0300
+Message-ID: <CAA8EJpoAN4CVMKNouh3pPtX-5rnBeL3_T60M5cNhirNEmNeEkQ@mail.gmail.com>
+To: Kalyan Thota <quic_kalyant@quicinc.com>
+Content-Type: text/plain; charset="UTF-8"
+Subject: Re: [Freedreno] [v1] drm/msm/disp/dpu1: add support for
+ hierarchical flush for dspp in sc7280
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,176 +64,215 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sean Paul <sean@poorly.run>, Jonathan Marek <jonathan@marek.ca>,
- David Airlie <airlied@linux.ie>, linux-arm-msm@vger.kernel.org,
- Vladimir Lypak <vladimir.lypak@gmail.com>,
- Douglas Anderson <dianders@chromium.org>, dri-devel@lists.freedesktop.org,
- Stephen Boyd <swboyd@chromium.org>, Mark Brown <broonie@kernel.org>,
- Daniel Vetter <daniel@ffwll.ch>, Rajeev Nandan <quic_rajeevny@quicinc.com>,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Cc: devicetree@vger.kernel.org, quic_abhinavk@quicinc.com,
+ linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, dianders@chromium.org, robdclark@gmail.com,
+ swboyd@chromium.org, freedreno@lists.freedesktop.org,
+ quic_vpolimer@quicinc.com
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-The dsi_phy_driver_probe() function has a "goto fail" for no
-reason. Change it to just always return directly when it sees an
-error. Make this simpler by leveraging dev_err_probe() which is
-designed to make code like this shorter / simpler.
+On Thu, 4 Aug 2022 at 13:29, Kalyan Thota <quic_kalyant@quicinc.com> wrote:
+>
+> Flush mechanism for DSPP blocks has changed in sc7280 family, it
+> allows individual sub blocks to be flushed in coordination with
+> master flush control.
+>
+> representation: master_flush && (PCC_flush | IGC_flush .. etc )
+>
+> This change adds necessary support for the above design.
+>
+> Signed-off-by: Kalyan Thota <quic_kalyant@quicinc.com>
 
-NOTE: as part of this, we now pass through error codes directly from
-msm_ioremap_size() rather than translating to -ENOMEM. This changed
-mostly because it's much more convenient when using dev_err_probe()
-and also it's usually encouraged not to hide error codes like the old
-code was doing unless there is a good reason. I can't see any reason
-why we'd need to return -ENOMEM instead of -EINVAL from the probe
-function.
+I'd like to land at least patches 6-8 from [1] next cycle. They clean
+up the CTL interface. Could you please rebase your patch on top of
+them?
 
-Signed-off-by: Douglas Anderson <dianders@chromium.org>
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
----
+[1] https://patchwork.freedesktop.org/series/99909/
 
-Changes in v4:
-- Mention error code change in commit message.
+> ---
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c       |  4 +++
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c |  5 +++-
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h |  2 ++
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c     | 40 +++++++++++++++++++++++++-
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.h     |  3 ++
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_mdss.h    |  7 +++++
+>  6 files changed, 59 insertions(+), 2 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
+> index 7763558..4eca317 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
+> @@ -703,6 +703,10 @@ static void _dpu_crtc_setup_cp_blocks(struct drm_crtc *crtc)
+>                 mixer[i].flush_mask |= ctl->ops.get_bitmask_dspp(ctl,
+>                         mixer[i].hw_dspp->idx);
+>
+> +               if(ctl->ops.set_dspp_hierarchical_flush)
+> +                       ctl->ops.set_dspp_hierarchical_flush(ctl,
+> +                                               mixer[i].hw_dspp->idx, DSPP_SUB_PCC);
+> +
+>                 /* stage config flush mask */
+>                 ctl->ops.update_pending_flush(ctl, mixer[i].flush_mask);
+>
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
+> index 021eb2f..3b27a87 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
+> @@ -58,7 +58,10 @@
+>         (PINGPONG_SDM845_MASK | BIT(DPU_PINGPONG_TE2))
+>
+>  #define CTL_SC7280_MASK \
+> -       (BIT(DPU_CTL_ACTIVE_CFG) | BIT(DPU_CTL_FETCH_ACTIVE) | BIT(DPU_CTL_VM_CFG))
+> +       (BIT(DPU_CTL_ACTIVE_CFG) | \
+> +        BIT(DPU_CTL_FETCH_ACTIVE) | \
+> +        BIT(DPU_CTL_VM_CFG) | \
+> +        BIT(DPU_CTL_HIERARCHICAL_FLUSH))
+>
+>  #define MERGE_3D_SM8150_MASK (0)
+>
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h
+> index b85b24b..7922f6c 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h
+> @@ -185,6 +185,7 @@ enum {
+>   * @DPU_CTL_SPLIT_DISPLAY:     CTL supports video mode split display
+>   * @DPU_CTL_FETCH_ACTIVE:      Active CTL for fetch HW (SSPPs)
+>   * @DPU_CTL_VM_CFG:            CTL config to support multiple VMs
+> + * @DPU_CTL_HIERARCHICAL_FLUSH: CTL config to support hierarchical flush
+>   * @DPU_CTL_MAX
+>   */
+>  enum {
+> @@ -192,6 +193,7 @@ enum {
+>         DPU_CTL_ACTIVE_CFG,
+>         DPU_CTL_FETCH_ACTIVE,
+>         DPU_CTL_VM_CFG,
+> +       DPU_CTL_HIERARCHICAL_FLUSH,
+>         DPU_CTL_MAX
+>  };
+>
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c
+> index 3584f5e..b34fc30 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c
+> @@ -28,6 +28,8 @@
+>  #define   CTL_INTF_FLUSH                0x110
+>  #define   CTL_INTF_MASTER               0x134
+>  #define   CTL_FETCH_PIPE_ACTIVE         0x0FC
+> +#define   CTL_DSPP_0_FLUSH             0x13C
 
-Changes in v3:
-- ("Improve dsi_phy_driver_probe() probe error handling") new for v3.
+Please change to CTL_DSPP_n_FLUSH(n).
 
- drivers/gpu/drm/msm/dsi/phy/dsi_phy.c | 74 ++++++++++-----------------
- 1 file changed, 27 insertions(+), 47 deletions(-)
+> +
+>
+>  #define CTL_MIXER_BORDER_OUT            BIT(24)
+>  #define CTL_FLUSH_MASK_CTL              BIT(17)
+> @@ -292,6 +294,36 @@ static uint32_t dpu_hw_ctl_get_bitmask_dspp(struct dpu_hw_ctl *ctx,
+>         return flushbits;
+>  }
+>
+> +static uint32_t dpu_hw_ctl_get_bitmask_dspp_v1(struct dpu_hw_ctl *ctx,
+> +       enum dpu_dspp dspp)
+> +{
+> +       return BIT(29);
+> +}
+> +
+> +static void dpu_hw_ctl_set_dspp_hierarchical_flush(struct dpu_hw_ctl *ctx,
+> +       enum dpu_dspp dspp, enum dpu_dspp_sub_blk dspp_sub_blk)
+> +{
+> +       uint32_t flushbits = 0, active = 0;
+> +
+> +       switch (dspp_sub_blk) {
+> +       case DSPP_SUB_IGC:
+> +               flushbits = BIT(2);
+> +               break;
+> +       case DSPP_SUB_PCC:
+> +               flushbits = BIT(4);
+> +               break;
+> +       case DSPP_SUB_GC:
+> +               flushbits = BIT(5);
+> +               break;
+> +       default:
+> +               return;
+> +       }
+> +
+> +       active = DPU_REG_READ(&ctx->hw, CTL_DSPP_0_FLUSH + ((dspp - 1) * 4));
 
-diff --git a/drivers/gpu/drm/msm/dsi/phy/dsi_phy.c b/drivers/gpu/drm/msm/dsi/phy/dsi_phy.c
-index 0a00f9b73fc5..57cd525de7a1 100644
---- a/drivers/gpu/drm/msm/dsi/phy/dsi_phy.c
-+++ b/drivers/gpu/drm/msm/dsi/phy/dsi_phy.c
-@@ -621,12 +621,9 @@ static int dsi_phy_driver_probe(struct platform_device *pdev)
- 	phy->pdev = pdev;
- 
- 	phy->id = dsi_phy_get_id(phy);
--	if (phy->id < 0) {
--		ret = phy->id;
--		DRM_DEV_ERROR(dev, "%s: couldn't identify PHY index, %d\n",
--			__func__, ret);
--		goto fail;
--	}
-+	if (phy->id < 0)
-+		return dev_err_probe(dev, phy->id,
-+				     "Couldn't identify PHY index\n");
- 
- 	phy->regulator_ldo_mode = of_property_read_bool(dev->of_node,
- 				"qcom,dsi-phy-regulator-ldo-mode");
-@@ -634,88 +631,71 @@ static int dsi_phy_driver_probe(struct platform_device *pdev)
- 		phy->cphy_mode = (phy_type == PHY_TYPE_CPHY);
- 
- 	phy->base = msm_ioremap_size(pdev, "dsi_phy", &phy->base_size);
--	if (IS_ERR(phy->base)) {
--		DRM_DEV_ERROR(dev, "%s: failed to map phy base\n", __func__);
--		ret = -ENOMEM;
--		goto fail;
--	}
-+	if (IS_ERR(phy->base))
-+		return dev_err_probe(dev, PTR_ERR(phy->base),
-+				     "Failed to map phy base\n");
- 
- 	phy->pll_base = msm_ioremap_size(pdev, "dsi_pll", &phy->pll_size);
--	if (IS_ERR(phy->pll_base)) {
--		DRM_DEV_ERROR(&pdev->dev, "%s: failed to map pll base\n", __func__);
--		ret = -ENOMEM;
--		goto fail;
--	}
-+	if (IS_ERR(phy->pll_base))
-+		return dev_err_probe(dev, PTR_ERR(phy->pll_base),
-+				     "Failed to map pll base\n");
- 
- 	if (phy->cfg->has_phy_lane) {
- 		phy->lane_base = msm_ioremap_size(pdev, "dsi_phy_lane", &phy->lane_size);
--		if (IS_ERR(phy->lane_base)) {
--			DRM_DEV_ERROR(&pdev->dev, "%s: failed to map phy lane base\n", __func__);
--			ret = -ENOMEM;
--			goto fail;
--		}
-+		if (IS_ERR(phy->lane_base))
-+			return dev_err_probe(dev, PTR_ERR(phy->lane_base),
-+					     "Failed to map phy lane base\n");
- 	}
- 
- 	if (phy->cfg->has_phy_regulator) {
- 		phy->reg_base = msm_ioremap_size(pdev, "dsi_phy_regulator", &phy->reg_size);
--		if (IS_ERR(phy->reg_base)) {
--			DRM_DEV_ERROR(&pdev->dev, "%s: failed to map phy regulator base\n", __func__);
--			ret = -ENOMEM;
--			goto fail;
--		}
-+		if (IS_ERR(phy->reg_base))
-+			return dev_err_probe(dev, PTR_ERR(phy->reg_base),
-+					     "Failed to map phy regulator base\n");
- 	}
- 
- 	if (phy->cfg->ops.parse_dt_properties) {
- 		ret = phy->cfg->ops.parse_dt_properties(phy);
- 		if (ret)
--			goto fail;
-+			return ret;
- 	}
- 
- 	ret = devm_regulator_bulk_get_const(dev, phy->cfg->num_regulators,
- 					    phy->cfg->regulator_data,
- 					    &phy->supplies);
- 	if (ret)
--		goto fail;
-+		return ret;
- 
- 	phy->ahb_clk = msm_clk_get(pdev, "iface");
--	if (IS_ERR(phy->ahb_clk)) {
--		DRM_DEV_ERROR(dev, "%s: Unable to get ahb clk\n", __func__);
--		ret = PTR_ERR(phy->ahb_clk);
--		goto fail;
--	}
-+	if (IS_ERR(phy->ahb_clk))
-+		return dev_err_probe(dev, PTR_ERR(phy->ahb_clk),
-+				     "Unable to get ahb clk\n");
- 
- 	/* PLL init will call into clk_register which requires
- 	 * register access, so we need to enable power and ahb clock.
- 	 */
- 	ret = dsi_phy_enable_resource(phy);
- 	if (ret)
--		goto fail;
-+		return ret;
- 
- 	if (phy->cfg->ops.pll_init) {
- 		ret = phy->cfg->ops.pll_init(phy);
--		if (ret) {
--			DRM_DEV_INFO(dev,
--				"%s: pll init failed: %d, need separate pll clk driver\n",
--				__func__, ret);
--			goto fail;
--		}
-+		if (ret)
-+			return dev_err_probe(dev, ret,
-+					     "PLL init failed; need separate clk driver\n");
- 	}
- 
- 	ret = devm_of_clk_add_hw_provider(dev, of_clk_hw_onecell_get,
- 				     phy->provided_clocks);
--	if (ret) {
--		DRM_DEV_ERROR(dev, "%s: failed to register clk provider: %d\n", __func__, ret);
--		goto fail;
--	}
-+	if (ret)
-+		return dev_err_probe(dev, ret,
-+				     "Failed to register clk provider\n");
- 
- 	dsi_phy_disable_resource(phy);
- 
- 	platform_set_drvdata(pdev, phy);
- 
- 	return 0;
--
--fail:
--	return ret;
- }
- 
- static struct platform_driver dsi_phy_platform_driver = {
+So that this line will be simpler to read.
+
+> +
+> +       DPU_REG_WRITE(&ctx->hw, CTL_DSPP_0_FLUSH + ((dspp - 1) * 4), active | flushbits);
+> +}
+> +
+>  static u32 dpu_hw_ctl_poll_reset_status(struct dpu_hw_ctl *ctx, u32 timeout_us)
+>  {
+>         struct dpu_hw_blk_reg_map *c = &ctx->hw;
+> @@ -600,7 +632,13 @@ static void _setup_ctl_ops(struct dpu_hw_ctl_ops *ops,
+>         ops->setup_blendstage = dpu_hw_ctl_setup_blendstage;
+>         ops->get_bitmask_sspp = dpu_hw_ctl_get_bitmask_sspp;
+>         ops->get_bitmask_mixer = dpu_hw_ctl_get_bitmask_mixer;
+> -       ops->get_bitmask_dspp = dpu_hw_ctl_get_bitmask_dspp;
+> +       if (cap & BIT(DPU_CTL_HIERARCHICAL_FLUSH)) {
+> +               ops->get_bitmask_dspp = dpu_hw_ctl_get_bitmask_dspp_v1;
+
+We have used _v1 for active CTLs. What is the relationship between
+CTL_HIERARCHILCAL_FLUSH and active CTLs?
+
+> +               ops->set_dspp_hierarchical_flush = dpu_hw_ctl_set_dspp_hierarchical_flush;
+> +       } else {
+> +               ops->get_bitmask_dspp = dpu_hw_ctl_get_bitmask_dspp;
+> +       }
+> +
+>         if (cap & BIT(DPU_CTL_FETCH_ACTIVE))
+>                 ops->set_active_pipes = dpu_hw_ctl_set_fetch_pipe_active;
+>  };
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.h
+> index ac15444..8ecab91 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.h
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.h
+> @@ -160,6 +160,9 @@ struct dpu_hw_ctl_ops {
+>         uint32_t (*get_bitmask_dspp)(struct dpu_hw_ctl *ctx,
+>                 enum dpu_dspp blk);
+>
+> +       void (*set_dspp_hierarchical_flush)(struct dpu_hw_ctl *ctx,
+> +               enum dpu_dspp blk, enum dpu_dspp_sub_blk dspp_sub_blk);
+
+The word "hierarchical" means particular (internal) implementation.
+Please change to something like set_dspp_block_flush().
+Or with [2] in place, it can be hidden in the
+update_pending_flush_dspp() function. Just pass the subblock to the
+function and let the dpu_hw_ctl care about it.
+
+[2] https://patchwork.freedesktop.org/patch/473159/?series=99909&rev=1
+
+
+> +
+>         /**
+>          * Set all blend stages to disabled
+>          * @ctx       : ctl path ctx pointer
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_mdss.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_mdss.h
+> index bb9cead..561e2ab 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_mdss.h
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_mdss.h
+> @@ -166,6 +166,13 @@ enum dpu_dspp {
+>         DSPP_MAX
+>  };
+>
+> +enum dpu_dspp_sub_blk{
+> +       DSPP_SUB_PCC = 1,
+> +       DSPP_SUB_IGC,
+> +       DSPP_SUB_GC,
+> +       DSPP_SUB_MAX
+> +};
+
+I'd prefer if we can use DPU_DSPP_* definitions instead.
+
+> +
+>  enum dpu_ctl {
+>         CTL_0 = 1,
+>         CTL_1,
+
+
+
 -- 
-2.37.1.455.g008518b4e5-goog
-
+With best wishes
+Dmitry
