@@ -2,65 +2,58 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 70E24589D58
-	for <lists+freedreno@lfdr.de>; Thu,  4 Aug 2022 16:19:04 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7EE96589DB8
+	for <lists+freedreno@lfdr.de>; Thu,  4 Aug 2022 16:40:15 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7160E14A2C8;
-	Thu,  4 Aug 2022 14:17:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 38E3F99B10;
+	Thu,  4 Aug 2022 14:39:41 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ed1-x529.google.com (mail-ed1-x529.google.com
- [IPv6:2a00:1450:4864:20::529])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D2A9999DDB
- for <freedreno@lists.freedesktop.org>; Thu,  4 Aug 2022 14:17:22 +0000 (UTC)
-Received: by mail-ed1-x529.google.com with SMTP id o22so10070430edc.10
- for <freedreno@lists.freedesktop.org>; Thu, 04 Aug 2022 07:17:22 -0700 (PDT)
+Received: from mail-pg1-x536.google.com (mail-pg1-x536.google.com
+ [IPv6:2607:f8b0:4864:20::536])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 871989542F
+ for <freedreno@lists.freedesktop.org>; Thu,  4 Aug 2022 14:39:19 +0000 (UTC)
+Received: by mail-pg1-x536.google.com with SMTP id 13so42396pgc.8
+ for <freedreno@lists.freedesktop.org>; Thu, 04 Aug 2022 07:39:19 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc;
- bh=V3jLsfHepCtzmM3jqaIFNUTw4oeeGqLPVBJGqzP2VdM=;
- b=JkX7XwsJCHIlFiF0B5fxtl8ET99tlQYq3RS+0DqL8n+QyFBMY+jCN8PnuswadccSA5
- v0MdTihTLtD8ubvNIhYjEY+sngNIR8YxPzP/ayFfUmaggZkgLAMOBQ4VFkROAMr386p0
- BLiUb6KVyGjjtpbltPlz+BraNZwXSKA3psbVY=
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc;
+ bh=eiXJeP7WokDKvW2gy8/Ekzn80/y0tYXfb01K6UEv3lo=;
+ b=VsrMMFdPnpBCkYIHS/8OlaF+PlqFIGTirKIbaSa5AE4wKgjslo29008CtGT619gMIT
+ Ex0cX8v+7y0sm9KVWMiW6+HrHEGQuoEFMt0I52/VPDRolLiEfS3NXdJv92ojd1a6JTDh
+ 1vSJ6jB4tQPT2ypbNg9C+h3sKPn0vxwcKCjx4=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc;
- bh=V3jLsfHepCtzmM3jqaIFNUTw4oeeGqLPVBJGqzP2VdM=;
- b=YpxtvJVRi3EthHh5mH+GoZuwrE0UF18pz7YWpN4uAdSgnzU2Ghx7glwLxSIrcSkCCy
- rq+YmSklhFyDuKfkFEe4Tm3612TYalc5fB4bImO5jqgDOENctN/6iT+zVnA+INlID7JU
- /YCkHkgMeXlaAVWsBGW92bso813EUI/9dUuvhjxJke+C7MSdFUuIFBa5CPtEU77GYYB8
- n9ha3WhliC4VLQ4Zyh3VIv4+lKvPpL8lknj55rn3PFPyd9p3JnaUynJG9tiFbBGe8fUr
- piqj/X0t76PxZoYk4J02CDbFupZZmYekaaTu3a2znZxTa1JUEuhclZfGz5fPUeJMuYb2
- r+sA==
-X-Gm-Message-State: ACgBeo1lCFr/txS1r3qgr6QkWJWOZcLvhyyF8LuX67SKMmJbrlCg5oHZ
- JCGBdfUX4mS1/SBCCuD5FQV/bJKgfo9gaYZJ
-X-Google-Smtp-Source: AA6agR5m02nhWS5WiTIqnA4h1aaxwzUCggptSzvqd7ShEcNAB6OqnS46DyTryRb/wyIU0D2IWwm8qA==
-X-Received: by 2002:a05:6402:51d1:b0:43e:f2d2:fa25 with SMTP id
- r17-20020a05640251d100b0043ef2d2fa25mr766279edd.31.1659622641239; 
- Thu, 04 Aug 2022 07:17:21 -0700 (PDT)
-Received: from mail-wr1-f43.google.com (mail-wr1-f43.google.com.
- [209.85.221.43]) by smtp.gmail.com with ESMTPSA id
- sd5-20020a170906ce2500b007081282cbd8sm387656ejb.76.2022.08.04.07.17.11
- for <freedreno@lists.freedesktop.org>
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 04 Aug 2022 07:17:13 -0700 (PDT)
-Received: by mail-wr1-f43.google.com with SMTP id q30so21018228wra.11
- for <freedreno@lists.freedesktop.org>; Thu, 04 Aug 2022 07:17:11 -0700 (PDT)
-X-Received: by 2002:a5d:5889:0:b0:21d:bccd:38e3 with SMTP id
- n9-20020a5d5889000000b0021dbccd38e3mr1554422wrf.659.1659622631172; Thu, 04
- Aug 2022 07:17:11 -0700 (PDT)
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc;
+ bh=eiXJeP7WokDKvW2gy8/Ekzn80/y0tYXfb01K6UEv3lo=;
+ b=75bLXrgui1pw/PeHEYhQiO0g06SK16b8CK/f4DLE95I8DoA+9VE/G066j2rBWDL89b
+ +d3FILrpIJNIG5EccBBYwJs6zPGz0j8FO01wu8HN5CjcnLih7vJfhBbCsU91v+QN3SyZ
+ 6nJMvEPD0jIbWWWhrLYJrwZznREjy1T6RPQYhIuNVQ9MIjSc6qZTRhDVnSG7ayviiaV1
+ 9Fe7x/vlVB1/qZEcuwro2weN1kCVf4jDOt8Sp+1S2AwfEwrJZ8zATytXlwb9iehFHCrw
+ zHzBo5QLkW8PTESlb2Q2NfMXu1uTzZ1GZY6vqJbON9EDraIRtadympK4VWzAeCpf8BEs
+ rvtw==
+X-Gm-Message-State: ACgBeo1fne/yGgM/JJgApcy6uE+APn7Zl0FUiw3dRyQ1pYqy/UFwveYC
+ wMoUcci3dbhiUZ9D2HwaKK1VZg==
+X-Google-Smtp-Source: AA6agR7Rnj6JVadOw+wUTPK9LSMDxWtcpLrIyOUlRbk4YSruGHyO1UKQ+7PBkeD8xesD3fFqH0MeFg==
+X-Received: by 2002:a05:6a00:1821:b0:52e:3c7c:9297 with SMTP id
+ y33-20020a056a00182100b0052e3c7c9297mr2278473pfa.54.1659623958441; 
+ Thu, 04 Aug 2022 07:39:18 -0700 (PDT)
+Received: from tictac2.mtv.corp.google.com
+ ([2620:15c:202:201:aa71:2553:6f54:5cb1])
+ by smtp.gmail.com with ESMTPSA id
+ h7-20020a170902680700b0016a111c83cdsm1075071plk.119.2022.08.04.07.39.16
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 04 Aug 2022 07:39:17 -0700 (PDT)
+From: Douglas Anderson <dianders@chromium.org>
+To: Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Date: Thu,  4 Aug 2022 07:38:47 -0700
+Message-Id: <20220804143854.1544395-1-dianders@chromium.org>
+X-Mailer: git-send-email 2.37.1.455.g008518b4e5-goog
 MIME-Version: 1.0
-References: <1659608930-4370-1-git-send-email-quic_kalyant@quicinc.com>
-In-Reply-To: <1659608930-4370-1-git-send-email-quic_kalyant@quicinc.com>
-From: Doug Anderson <dianders@chromium.org>
-Date: Thu, 4 Aug 2022 07:16:57 -0700
-X-Gmail-Original-Message-ID: <CAD=FV=Vo8GMLi=QfV=HXyVf=PTsOkntrc+OTsnQ5jMWYxSDFuQ@mail.gmail.com>
-Message-ID: <CAD=FV=Vo8GMLi=QfV=HXyVf=PTsOkntrc+OTsnQ5jMWYxSDFuQ@mail.gmail.com>
-To: Kalyan Thota <quic_kalyant@quicinc.com>
-Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [v1] drm/msm/disp/dpu1: add support for
- hierarchical flush for dspp in sc7280
+Content-Transfer-Encoding: 8bit
+Subject: [Freedreno] [PATCH v4 0/6] drm/msm/dsi regulator improvements
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,42 +66,84 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
- <devicetree@vger.kernel.org>,
- "Abhinav Kumar \(QUIC\)" <quic_abhinavk@quicinc.com>,
- linux-arm-msm <linux-arm-msm@vger.kernel.org>,
- LKML <linux-kernel@vger.kernel.org>,
- dri-devel <dri-devel@lists.freedesktop.org>,
- Stephen Boyd <swboyd@chromium.org>, Rob Clark <robdclark@gmail.com>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Vinod Polimera <quic_vpolimer@quicinc.com>,
- freedreno <freedreno@lists.freedesktop.org>
+Cc: Sean Paul <sean@poorly.run>, Vinod Koul <vkoul@kernel.org>,
+ Archit Taneja <architt@codeaurora.org>, Loic Poulain <loic.poulain@linaro.org>,
+ Jonathan Marek <jonathan@marek.ca>, David Airlie <airlied@linux.ie>,
+ linux-arm-msm@vger.kernel.org, Vladimir Lypak <vladimir.lypak@gmail.com>,
+ Konrad Dybcio <konrad.dybcio@somainline.org>,
+ Douglas Anderson <dianders@chromium.org>, dri-devel@lists.freedesktop.org,
+ Bjorn Andersson <bjorn.andersson@linaro.org>,
+ Rajeev Nandan <quic_rajeevny@quicinc.com>, Mark Brown <broonie@kernel.org>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ Daniel Vetter <daniel@ffwll.ch>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@somainline.org>,
+ =?UTF-8?q?Jos=C3=A9=20Exp=C3=B3sito?= <jose.exposito89@gmail.com>,
+ Stephen Boyd <swboyd@chromium.org>, freedreno@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Thu, Aug 4, 2022 at 3:29 AM Kalyan Thota <quic_kalyant@quicinc.com> wrote:
->
-> +static void dpu_hw_ctl_set_dspp_hierarchical_flush(struct dpu_hw_ctl *ctx,
-> +       enum dpu_dspp dspp, enum dpu_dspp_sub_blk dspp_sub_blk)
-> +{
-> +       uint32_t flushbits = 0, active = 0;
+The main goal of this series is to make a small dent in cleaning up
+the way we deal with regulator loads for DSI drivers.
 
-nit: don't init to 0 since you just override below.
+As of v3 of this series, the regulator API improvements needed for the
+later patches in the series are merged into mainline. Thus this series
+only contains the DSI changes now.
 
+I'd expect:
+* The first two patches are bugfixes found while converting the DSI
+  driver over. Those could land any time.
+* The third patch ("drm/msm/dsi: Don't set a load before disabling a
+  regulator") is a patch a sent the other day verbatim, included in
+  this series because it's highly related. It could land any
+  time.
+* The next two patches use the new APIs. Since those APIs are now in
+  mainline those could also land any time.
+* The last patch is just cleanup I noticed as I was touching the
+  function. It's not really related to regulators but it applies atop
+  these. In theory it could be rebased to land separately.
 
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.h
-> index ac15444..8ecab91 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.h
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.h
-> @@ -160,6 +160,9 @@ struct dpu_hw_ctl_ops {
->         uint32_t (*get_bitmask_dspp)(struct dpu_hw_ctl *ctx,
->                 enum dpu_dspp blk);
->
-> +       void (*set_dspp_hierarchical_flush)(struct dpu_hw_ctl *ctx,
-> +               enum dpu_dspp blk, enum dpu_dspp_sub_blk dspp_sub_blk);
-> +
+Changes in v4:
+- Correct the commit that this Fixes.
+- Mention error code change in commit message.
+- Use more gooder English in the commit description.
 
-Given that most of the items in this list have kernel-doc comments
-explaining them, probably you should have one for your new one too.
+Changes in v3:
+- ("Improve dsi_phy_driver_probe() probe error handling") new for v3.
+- Do all the PHYs too.
+- Fix typo in commit message.
+- Get rid of error print after devm_regulator_bulk_get_const().
+- Just directly call the bulk commands; get rid of the wrapper.
+- Update commit message to point at the git hash of the regulator change.
 
--Doug
+Changes in v2:
+- ("Fix number of regulators for SDM660") new for v2.
+- ("Fix number of regulators for msm8996_dsi_cfg") new for v2.
+- ("Take advantage of devm_regulator_bulk_get_const") new for v2.
+- ("Use the new regulator bulk feature to specify the load") new for v2.
+
+Douglas Anderson (6):
+  drm/msm/dsi: Fix number of regulators for msm8996_dsi_cfg
+  drm/msm/dsi: Fix number of regulators for SDM660
+  drm/msm/dsi: Don't set a load before disabling a regulator
+  drm/msm/dsi: Use the new regulator bulk feature to specify the load
+  drm/msm/dsi: Take advantage of devm_regulator_bulk_get_const()
+  drm/msm/dsi: Improve dsi_phy_driver_probe() probe error handling
+
+ drivers/gpu/drm/msm/dsi/dsi.h                 |  13 --
+ drivers/gpu/drm/msm/dsi/dsi_cfg.c             | 172 +++++++++---------
+ drivers/gpu/drm/msm/dsi/dsi_cfg.h             |   3 +-
+ drivers/gpu/drm/msm/dsi/dsi_host.c            |  96 ++--------
+ drivers/gpu/drm/msm/dsi/phy/dsi_phy.c         | 160 ++++------------
+ drivers/gpu/drm/msm/dsi/phy/dsi_phy.h         |   5 +-
+ drivers/gpu/drm/msm/dsi/phy/dsi_phy_10nm.c    |  20 +-
+ drivers/gpu/drm/msm/dsi/phy/dsi_phy_14nm.c    |  32 ++--
+ drivers/gpu/drm/msm/dsi/phy/dsi_phy_20nm.c    |  14 +-
+ drivers/gpu/drm/msm/dsi/phy/dsi_phy_28nm.c    |  28 +--
+ .../gpu/drm/msm/dsi/phy/dsi_phy_28nm_8960.c   |  12 +-
+ drivers/gpu/drm/msm/dsi/phy/dsi_phy_7nm.c     |  32 ++--
+ 12 files changed, 197 insertions(+), 390 deletions(-)
+
+-- 
+2.37.1.455.g008518b4e5-goog
+
