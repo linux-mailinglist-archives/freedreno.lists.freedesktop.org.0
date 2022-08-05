@@ -2,66 +2,60 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id B30AA58A012
-	for <lists+freedreno@lfdr.de>; Thu,  4 Aug 2022 19:55:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4DF6958AA67
+	for <lists+freedreno@lfdr.de>; Fri,  5 Aug 2022 13:57:05 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 93BF314BB65;
-	Thu,  4 Aug 2022 17:55:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 816EEB2E8C;
+	Fri,  5 Aug 2022 11:56:42 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-io1-xd2f.google.com (mail-io1-xd2f.google.com
- [IPv6:2607:f8b0:4864:20::d2f])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7880A14B443
- for <freedreno@lists.freedesktop.org>; Thu,  4 Aug 2022 17:54:54 +0000 (UTC)
-Received: by mail-io1-xd2f.google.com with SMTP id e69so264325iof.5
- for <freedreno@lists.freedesktop.org>; Thu, 04 Aug 2022 10:54:54 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc;
- bh=Q94Q2VDlGnfmsIVyKku4OjRypxckGbu+KvrwMMNdhgs=;
- b=lvlLlE7olQ5iMWyiRKxfNMtkZzWDdxp8/mVxNcRkMZH6idmzmJ+atn9c5BDlpGUrKu
- FVhK6HEEUsRFAHOdZY+MRmjSYBywMpoNw2sneaMMNrqkdn8AZoP1vdPmR1Ls7aHDiEyc
- l5HOCLI+BuYNahdSsPJrSNvwqhvEx7O6pe8qE=
+Received: from mail-lj1-x234.google.com (mail-lj1-x234.google.com
+ [IPv6:2a00:1450:4864:20::234])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4D2E0AD696
+ for <freedreno@lists.freedesktop.org>; Fri,  5 Aug 2022 11:56:33 +0000 (UTC)
+Received: by mail-lj1-x234.google.com with SMTP id s9so2800595ljs.6
+ for <freedreno@lists.freedesktop.org>; Fri, 05 Aug 2022 04:56:33 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc;
+ bh=jrQF6AuV7Fvmua8dvICh/NLlPPWG4sQcBjqkZirl8oQ=;
+ b=EMgoCiUPb5t17HriQFu8bNn3CZW1NJvNPb8bibP54YOSFltmgmVObYz4ccPxvBfTdo
+ w+VLGhYbnAF+/E85EczcZ0Hw/l3hHgGgxnielOJMbYHjd/qG3PdiptZYw3rPQP86nafA
+ fa5/8HU+2O0xV8b+G9bCp62/nyEQi2HVUELkBc+0DHTIMO9YVogwp1f3/7rIj5nkoMd5
+ FdVa6d3yxa1upxG7AbfZyUy6EpJ0Gy8gBgRIAI5/qo/oCwPBEG8dshXEf6PVUsm5X/4h
+ JpkZaa07NHEt02ZVcP+0AhSOxml8Xia00YmEH/vi9g2hGMjv2YoEHKq27sImc+LIg0Zp
+ nJhQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc;
- bh=Q94Q2VDlGnfmsIVyKku4OjRypxckGbu+KvrwMMNdhgs=;
- b=s2/krumkskr5BtxubDR0D6bf3M2yjby5XTSNSw3Itqa8Sba3tN3s6b/TIMTC7oeuTQ
- 0DPW6n2f3ULLvZ2PsPIYuj3bT1vrY3N4URzAqy63R9Zy0x+hTi/d/+GqZ4WWYXpsBbr9
- tG9aeIJJ50SAE00pxKx4G7BGkpusqrLCVvh1T2aaP28HF/QABLO5N7FGuAAIrvg6t0xc
- EaUid9A95hVxveHSE9CqB31sPz40/CI0cmbwYouWcDn6vr84p3IzxbErGmCw5Az3Bvjc
- ngi+l7Tse8ix/rO350VUm6jg/g+LXTg7HW71ORaLprQphi9vt7y/8uRT/u5mPvaqMYyN
- +ESQ==
-X-Gm-Message-State: ACgBeo11NFgKcVJWkdGtZPeNtb0lBzVrPV0fYvr2INhpqUApzNaOE2mV
- Ov3/EePoNfW14KcDFpQlo+GX9h9HrkW2A3fS
-X-Google-Smtp-Source: AA6agR5BuzQJMi31AIRLI5qsO529WO2Yh7Z+gHtnDZ/k6Ph3PjTO3Xg8Owfq8i/ylUNx0LxdhlWdhQ==
-X-Received: by 2002:a05:6602:26c3:b0:66c:f8b2:53c with SMTP id
- g3-20020a05660226c300b0066cf8b2053cmr1196897ioo.50.1659635693011; 
- Thu, 04 Aug 2022 10:54:53 -0700 (PDT)
-Received: from mail-io1-f54.google.com (mail-io1-f54.google.com.
- [209.85.166.54]) by smtp.gmail.com with ESMTPSA id
- x19-20020a026f13000000b00342a1021507sm688325jab.123.2022.08.04.10.54.51
- for <freedreno@lists.freedesktop.org>
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 04 Aug 2022 10:54:51 -0700 (PDT)
-Received: by mail-io1-f54.google.com with SMTP id s7so303176ioa.0
- for <freedreno@lists.freedesktop.org>; Thu, 04 Aug 2022 10:54:51 -0700 (PDT)
-X-Received: by 2002:a05:6638:2614:b0:33f:5bc2:b385 with SMTP id
- m20-20020a056638261400b0033f5bc2b385mr1356611jat.246.1659635690978; Thu, 04
- Aug 2022 10:54:50 -0700 (PDT)
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc;
+ bh=jrQF6AuV7Fvmua8dvICh/NLlPPWG4sQcBjqkZirl8oQ=;
+ b=tas0W6n1QXkAI5T0CZRKqnRsYD+vzLXQcox/IKpQFnJza8hbR6b8/19340X+GzRwae
+ CPdq6er6an6WYGG+8WdKjHccgyWuyVFLvH52e8JA+XWdHCh/tpg6w2Yd15+DqoeXrVeZ
+ CCVaBz06orJEiptO4dz5HGu1bUM1f9sd+sVzxsLU+mmf+h4SNM6BmxZ2xNfYoNqKtJTk
+ mWpRCXp8f7o5oYdLy3RyYcnbRBDHA8wFYL+VjgGs7m5dWnMPdOUsF+5izOpLH9Kt3dc0
+ C99haktNuEosi/neXFmrhEVhckXaX2Urn6F5xzyJfng4O+mEgxeSPKrCTwtlrfoFlZ2W
+ TOkQ==
+X-Gm-Message-State: ACgBeo16dDqX9hvm5i0HvJxHDBvWo/iUnM0g4ll1l617ssLg/BBphE5e
+ Zw72oSHGKJmhyy0OYaQ2+9g3hw==
+X-Google-Smtp-Source: AA6agR6Y+9fhV1QUxGxZYMLDmELrriu3de+ZW69tZqRNV5C1bhGU1VOsiEkzPaLr9HxQG79R19olbw==
+X-Received: by 2002:a2e:8749:0:b0:25e:4357:8ef7 with SMTP id
+ q9-20020a2e8749000000b0025e43578ef7mr2060893ljj.319.1659700591529; 
+ Fri, 05 Aug 2022 04:56:31 -0700 (PDT)
+Received: from eriador.lan ([37.153.55.125]) by smtp.gmail.com with ESMTPSA id
+ z7-20020a05651c022700b0025d9552fcafsm449065ljn.97.2022.08.05.04.56.30
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 05 Aug 2022 04:56:30 -0700 (PDT)
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+To: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>
+Date: Fri,  5 Aug 2022 14:56:30 +0300
+Message-Id: <20220805115630.506391-1-dmitry.baryshkov@linaro.org>
+X-Mailer: git-send-email 2.35.1
 MIME-Version: 1.0
-References: <1657544224-10680-1-git-send-email-quic_vpolimer@quicinc.com>
- <CAD=FV=U_GStziLOCVLs_FC_2Vr=ykGfbb4ZtUp79iV8V=B0cEA@mail.gmail.com>
- <CAG3jFyv3up0o4S+UYMKaAjanKL6hxCNtEa5zQTQEeNREab-NRA@mail.gmail.com>
-In-Reply-To: <CAG3jFyv3up0o4S+UYMKaAjanKL6hxCNtEa5zQTQEeNREab-NRA@mail.gmail.com>
-From: Doug Anderson <dianders@chromium.org>
-Date: Thu, 4 Aug 2022 10:54:36 -0700
-X-Gmail-Original-Message-ID: <CAD=FV=VL2ATy=Ap5fAVxMYZZ5G6_8pdFGw=gdOc=PuqiOPHMow@mail.gmail.com>
-Message-ID: <CAD=FV=VL2ATy=Ap5fAVxMYZZ5G6_8pdFGw=gdOc=PuqiOPHMow@mail.gmail.com>
-To: Robert Foss <robert.foss@linaro.org>
-Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [PATCH v6 00/10] Add PSR support for eDP
+Content-Transfer-Encoding: 8bit
+Subject: [Freedreno] [RFC PATCH] drm/msm: lookup the ICC paths in both
+ mdp5/dpu and mdss devices
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,122 +68,125 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: quic_kalyant <quic_kalyant@quicinc.com>,
- "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
- <devicetree@vger.kernel.org>, Sankeerth Billakanti <quic_sbillaka@quicinc.com>,
- "Abhinav Kumar \(QUIC\)" <quic_abhinavk@quicinc.com>,
- quic_vproddut <quic_vproddut@quicinc.com>,
- linux-arm-msm <linux-arm-msm@vger.kernel.org>,
- "Kuogee Hsieh \(QUIC\)" <quic_khsieh@quicinc.com>,
- LKML <linux-kernel@vger.kernel.org>,
- dri-devel <dri-devel@lists.freedesktop.org>,
- Vinod Polimera <quic_vpolimer@quicinc.com>, Rob Clark <robdclark@gmail.com>,
- Bjorn Andersson <bjorn.andersson@linaro.org>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- "Aravind Venkateswaran \(QUIC\)" <quic_aravindh@quicinc.com>,
- Stephen Boyd <swboyd@chromium.org>,
- freedreno <freedreno@lists.freedesktop.org>
+Cc: Yassine Oudjana <y.oudjana@protonmail.com>, David Airlie <airlied@linux.ie>,
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ Bjorn Andersson <bjorn.andersson@linaro.org>, Daniel Vetter <daniel@ffwll.ch>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ Stephen Boyd <swboyd@chromium.org>, freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Hi,
+The commit 6874f48bb8b0 ("drm/msm: make mdp5/dpu devices master
+components") changed the MDP5 driver to look for the interconnect paths
+in the MDSS device rather than in the MDP5 device itself. This was left
+unnoticed since on my testing devices the interconnects probably didn't
+reach the sync state.
 
-On Thu, Aug 4, 2022 at 9:21 AM Robert Foss <robert.foss@linaro.org> wrote:
->
-> On Fri, 29 Jul 2022 at 02:22, Doug Anderson <dianders@chromium.org> wrote:
-> >
-> > Hi,
-> >
-> > On Mon, Jul 11, 2022 at 5:57 AM Vinod Polimera
-> > <quic_vpolimer@quicinc.com> wrote:
-> > >
-> > > Changes in v2:
-> > >   - Use dp bridge to set psr entry/exit instead of dpu_enocder.
-> > >   - Don't modify whitespaces.
-> > >   - Set self refresh aware from atomic_check.
-> > >   - Set self refresh aware only if psr is supported.
-> > >   - Provide a stub for msm_dp_display_set_psr.
-> > >   - Move dp functions to bridge code.
-> > >
-> > > Changes in v3:
-> > >   - Change callback names to reflect atomic interfaces.
-> > >   - Move bridge callback change to separate patch as suggested by Dmitry.
-> > >   - Remove psr function declaration from msm_drv.h.
-> > >   - Set self_refresh_aware flag only if psr is supported.
-> > >   - Modify the variable names to simpler form.
-> > >   - Define bit fields for PSR settings.
-> > >   - Add comments explaining the steps to enter/exit psr.
-> > >   - Change DRM_INFO to drm_dbg_db.
-> > >
-> > > Changes in v4:
-> > >   - Move the get crtc functions to drm_atomic.
-> > >   - Add atomic functions for DP bridge too.
-> > >   - Add ternary operator to choose eDP or DP ops.
-> > >   - Return true/false instead of 1/0.
-> > >   - mode_valid missing in the eDP bridge ops.
-> > >   - Move the functions to get crtc into drm_atomic.c.
-> > >   - Fix compilation issues.
-> > >   - Remove dpu_assign_crtc and get crtc from drm_enc instead of dpu_enc.
-> > >   - Check for crtc state enable while reserving resources.
-> > >
-> > > Changes in v5:
-> > >   - Move the mode_valid changes into a different patch.
-> > >   - Complete psr_op_comp only when isr is set.
-> > >   - Move the DP atomic callback changes to a different patch.
-> > >   - Get crtc from drm connector state crtc.
-> > >   - Move to separate patch for check for crtc state enable while
-> > > reserving resources.
-> > >
-> > > Changes in v6:
-> > >   - Remove crtc from dpu_encoder_virt struct.
-> > >   - fix crtc check during vblank toggle crtc.
-> > >   - Misc changes.
-> > >
-> > > Signed-off-by: Sankeerth Billakanti <quic_sbillaka@quicinc.com>
-> > > Signed-off-by: Kalyan Thota <quic_kalyant@quicinc.com>
-> > > Signed-off-by: Vinod Polimera <quic_vpolimer@quicinc.com>
-> > >
-> > > Vinod Polimera (10):
-> > >   drm/msm/disp/dpu: clear dpu_assign_crtc and get crtc from connector
-> > >     state instead of dpu_enc
-> > >   drm: add helper functions to retrieve old and new crtc
-> > >   drm/msm/dp: use atomic callbacks for DP bridge ops
-> > >   drm/msm/dp: Add basic PSR support for eDP
-> > >   drm/msm/dp: use the eDP bridge ops to validate eDP modes
-> > >   drm/bridge: use atomic enable/disable callbacks for panel bridge
-> > >   drm/bridge: add psr support for panel bridge callbacks
-> > >   drm/msm/disp/dpu: use atomic enable/disable callbacks for encoder
-> > >     functions
-> > >   drm/msm/disp/dpu: add PSR support for eDP interface in dpu driver
-> > >   drm/msm/disp/dpu: check for crtc enable rather than crtc active to
-> > >     release shared resources
-> > >
-> > >  drivers/gpu/drm/bridge/panel.c              |  68 ++++++++--
-> > >  drivers/gpu/drm/drm_atomic.c                |  60 +++++++++
-> > >  drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c    |  17 ++-
-> > >  drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c |  56 +++++----
-> > >  drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.h |   8 --
-> > >  drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c     |   2 +-
-> > >  drivers/gpu/drm/msm/dp/dp_catalog.c         |  81 ++++++++++++
-> > >  drivers/gpu/drm/msm/dp/dp_catalog.h         |   4 +
-> > >  drivers/gpu/drm/msm/dp/dp_ctrl.c            |  73 +++++++++++
-> > >  drivers/gpu/drm/msm/dp/dp_ctrl.h            |   3 +
-> > >  drivers/gpu/drm/msm/dp/dp_display.c         |  31 +++--
-> > >  drivers/gpu/drm/msm/dp/dp_display.h         |   2 +
-> > >  drivers/gpu/drm/msm/dp/dp_drm.c             | 184 ++++++++++++++++++++++++++--
-> > >  drivers/gpu/drm/msm/dp/dp_drm.h             |   9 +-
-> > >  drivers/gpu/drm/msm/dp/dp_link.c            |  36 ++++++
-> > >  drivers/gpu/drm/msm/dp/dp_panel.c           |  22 ++++
-> > >  drivers/gpu/drm/msm/dp/dp_panel.h           |   6 +
-> > >  drivers/gpu/drm/msm/dp/dp_reg.h             |  27 ++++
-> > >  include/drm/drm_atomic.h                    |   7 ++
-> > >  19 files changed, 631 insertions(+), 65 deletions(-)
-> >
->
-> Which tree does this series apply to?
+Rather than just using the MDP5 device for ICC path lookups for the MDP5
+devices, introduce an additional helper to check both MDP5/DPU and MDSS
+nodes. This will be helpful for the MDP5->DPU conversion, since the
+driver will have to check both nodes.
 
-It ought to apply to msm-next, but as I mentioned in my reply to patch
-#1 it doesn't apply to the top of msm-next. I think I also had to
-manually apply a few of the later patches with "patch -p1".
+Fixes: 6874f48bb8b0 ("drm/msm: make mdp5/dpu devices master components")
+Reported-by: Marijn Suijten <marijn.suijten@somainline.org>
+Reported-by: Yassine Oudjana <y.oudjana@protonmail.com>
+Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+---
+ drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c  |  7 ++-----
+ drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c |  9 +++------
+ drivers/gpu/drm/msm/msm_drv.h            |  2 ++
+ drivers/gpu/drm/msm/msm_io_utils.c       | 22 ++++++++++++++++++++++
+ 4 files changed, 29 insertions(+), 11 deletions(-)
 
--Doug
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
+index e23e2552e802..9eff6c2b1917 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
+@@ -383,12 +383,9 @@ static int dpu_kms_parse_data_bus_icc_path(struct dpu_kms *dpu_kms)
+ 	struct icc_path *path1;
+ 	struct drm_device *dev = dpu_kms->dev;
+ 	struct device *dpu_dev = dev->dev;
+-	struct device *mdss_dev = dpu_dev->parent;
+ 
+-	/* Interconnects are a part of MDSS device tree binding, not the
+-	 * MDP/DPU device. */
+-	path0 = of_icc_get(mdss_dev, "mdp0-mem");
+-	path1 = of_icc_get(mdss_dev, "mdp1-mem");
++	path0 = msm_icc_get(dpu_dev, "mdp0-mem");
++	path1 = msm_icc_get(dpu_dev, "mdp1-mem");
+ 
+ 	if (IS_ERR_OR_NULL(path0))
+ 		return PTR_ERR_OR_ZERO(path0);
+diff --git a/drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c b/drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c
+index 3d5621a68f85..b0c372fef5d5 100644
+--- a/drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c
++++ b/drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c
+@@ -921,12 +921,9 @@ static int mdp5_init(struct platform_device *pdev, struct drm_device *dev)
+ 
+ static int mdp5_setup_interconnect(struct platform_device *pdev)
+ {
+-	/* Interconnects are a part of MDSS device tree binding, not the
+-	 * MDP5 device. */
+-	struct device *mdss_dev = pdev->dev.parent;
+-	struct icc_path *path0 = of_icc_get(mdss_dev, "mdp0-mem");
+-	struct icc_path *path1 = of_icc_get(mdss_dev, "mdp1-mem");
+-	struct icc_path *path_rot = of_icc_get(mdss_dev, "rotator-mem");
++	struct icc_path *path0 = msm_icc_get(&pdev->dev, "mdp0-mem");
++	struct icc_path *path1 = msm_icc_get(&pdev->dev, "mdp1-mem");
++	struct icc_path *path_rot = msm_icc_get(&pdev->dev, "rotator-mem");
+ 
+ 	if (IS_ERR(path0))
+ 		return PTR_ERR(path0);
+diff --git a/drivers/gpu/drm/msm/msm_drv.h b/drivers/gpu/drm/msm/msm_drv.h
+index 08388d742d65..d38510f6dbf5 100644
+--- a/drivers/gpu/drm/msm/msm_drv.h
++++ b/drivers/gpu/drm/msm/msm_drv.h
+@@ -441,6 +441,8 @@ void __iomem *msm_ioremap_size(struct platform_device *pdev, const char *name,
+ 		phys_addr_t *size);
+ void __iomem *msm_ioremap_quiet(struct platform_device *pdev, const char *name);
+ 
++struct icc_path *msm_icc_get(struct device *dev, const char *name);
++
+ #define msm_writel(data, addr) writel((data), (addr))
+ #define msm_readl(addr) readl((addr))
+ 
+diff --git a/drivers/gpu/drm/msm/msm_io_utils.c b/drivers/gpu/drm/msm/msm_io_utils.c
+index 7b504617833a..d02cd29ce829 100644
+--- a/drivers/gpu/drm/msm/msm_io_utils.c
++++ b/drivers/gpu/drm/msm/msm_io_utils.c
+@@ -5,6 +5,8 @@
+  * Author: Rob Clark <robdclark@gmail.com>
+  */
+ 
++#include <linux/interconnect.h>
++
+ #include "msm_drv.h"
+ 
+ /*
+@@ -124,3 +126,23 @@ void msm_hrtimer_work_init(struct msm_hrtimer_work *work,
+ 	work->worker = worker;
+ 	kthread_init_work(&work->work, fn);
+ }
++
++struct icc_path *msm_icc_get(struct device *dev, const char *name)
++{
++	struct device *mdss_dev = dev->parent;
++	struct icc_path *path;
++
++	path = of_icc_get(dev, name);
++	if (path)
++		return path;
++
++	/*
++	 * If there are no interconnects attached to the corresponding device
++	 * node, of_icc_get() will return NULL.
++	 *
++	 * If the MDP5/DPU device node doesn't have interconnects, lookup the
++	 * path in the parent (MDSS) device.
++	 */
++	return of_icc_get(mdss_dev, name);
++
++}
+-- 
+2.35.1
+
