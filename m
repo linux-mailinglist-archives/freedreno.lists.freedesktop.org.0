@@ -1,33 +1,43 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 59FDE58AADB
-	for <lists+freedreno@lfdr.de>; Fri,  5 Aug 2022 14:29:16 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 0EFD658AB72
+	for <lists+freedreno@lfdr.de>; Fri,  5 Aug 2022 15:15:23 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3430AB2C6F;
-	Fri,  5 Aug 2022 12:27:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9291F9BBC7;
+	Fri,  5 Aug 2022 13:15:20 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from relay02.th.seeweb.it (relay02.th.seeweb.it [5.144.164.163])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 18BFAB5622
- for <freedreno@lists.freedesktop.org>; Fri,  5 Aug 2022 12:24:16 +0000 (UTC)
-Received: from SoMainline.org (94-209-165-62.cable.dynamic.v4.ziggo.nl
- [94.209.165.62])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest
- SHA256) (No client certificate requested)
- by m-r1.th.seeweb.it (Postfix) with ESMTPSA id 364211F697;
- Fri,  5 Aug 2022 14:24:14 +0200 (CEST)
-Date: Fri, 5 Aug 2022 14:24:06 +0200
-From: Marijn Suijten <marijn.suijten@somainline.org>
+Received: from mail-41104.protonmail.ch (mail-41104.protonmail.ch
+ [185.70.41.104])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4E20D10FA4F
+ for <freedreno@lists.freedesktop.org>; Fri,  5 Aug 2022 13:15:10 +0000 (UTC)
+Date: Fri, 05 Aug 2022 13:14:46 +0000
+Authentication-Results: mail-41104.protonmail.ch;
+ dkim=pass (2048-bit key) header.d=protonmail.com header.i=@protonmail.com
+ header.b="FAZEeCdd"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=protonmail.com;
+ s=protonmail3; t=1659705304; x=1659964504;
+ bh=ziI5V+sIub4XwCkMXnfzTYqZ1lrMICCCmyYVkMbZJ64=;
+ h=Date:To:From:Cc:Reply-To:Subject:Message-ID:In-Reply-To:
+ References:Feedback-ID:From:To:Cc:Date:Subject:Reply-To:
+ Feedback-ID:Message-ID;
+ b=FAZEeCddvGry0RRerFlnxxBc2UyoIGfr56LjriN9eMRNygtTSGxPO5QnIMOx8wl2c
+ dSFITvunQak+jqDJcqx+gBEVw3veJnduFGbwnGO7VKOptySadtuBGlSvYoPz5d3vIN
+ 7EFYfH7F5Too/d1gcX303LiTtQdM2UowKc9+77PD5j87JLHDZqZ/H100t9j2I/lzLF
+ OawfSicHFQVlV7kT5YgXOLCTrSmDc02SczVQhJiNTf3icSkrEwWkKfERjzJ4vy1uly
+ 7zTPOwF6x4G1rDEYgV60ougjBlhww1H+wx99rKV5NtvBRAst7eAaVSP5ZSxkN51rvO
+ 8PU4QrvmxCIhA==
 To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Message-ID: <20220805122406.x7xxywofeaquhfxg@SoMainline.org>
-References: <20220805115630.506391-1-dmitry.baryshkov@linaro.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+From: Yassine Oudjana <y.oudjana@protonmail.com>
+Message-ID: <jqNAyNB27XoGsxddwc_bag0mjFI1qbGMGS7BtyDbd8ZK15RKmQNvVgJYUzcEc_U-h_Ei0mKju27yZJ5qI1xDxPbGvpcLkxX9aG_tmbxxzBI=@protonmail.com>
 In-Reply-To: <20220805115630.506391-1-dmitry.baryshkov@linaro.org>
+References: <20220805115630.506391-1-dmitry.baryshkov@linaro.org>
+Feedback-ID: 6882736:user:proton
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 Subject: Re: [Freedreno] [RFC PATCH] drm/msm: lookup the ICC paths in both
  mdp5/dpu and mdss devices
 X-BeenThere: freedreno@lists.freedesktop.org
@@ -42,138 +52,156 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, Yassine Oudjana <y.oudjana@protonmail.com>,
- David Airlie <airlied@linux.ie>, linux-arm-msm@vger.kernel.org,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
- Stephen Boyd <swboyd@chromium.org>, Rob Clark <robdclark@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>, Bjorn Andersson <bjorn.andersson@linaro.org>,
- Sean Paul <sean@poorly.run>
+Reply-To: Yassine Oudjana <y.oudjana@protonmail.com>
+Cc: freedreno@lists.freedesktop.org, David Airlie <airlied@linux.ie>,
+ linux-arm-msm@vger.kernel.org, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ dri-devel@lists.freedesktop.org, Stephen Boyd <swboyd@chromium.org>,
+ Rob Clark <robdclark@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ Bjorn Andersson <bjorn.andersson@linaro.org>, Sean Paul <sean@poorly.run>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 2022-08-05 14:56:30, Dmitry Baryshkov wrote:
+On Friday, August 5th, 2022 at 12:56 PM, Dmitry Baryshkov <dmitry.baryshkov=
+@linaro.org> wrote:
+
 > The commit 6874f48bb8b0 ("drm/msm: make mdp5/dpu devices master
 > components") changed the MDP5 driver to look for the interconnect paths
 > in the MDSS device rather than in the MDP5 device itself. This was left
 > unnoticed since on my testing devices the interconnects probably didn't
 > reach the sync state.
-> 
+>
 > Rather than just using the MDP5 device for ICC path lookups for the MDP5
 > devices, introduce an additional helper to check both MDP5/DPU and MDSS
 > nodes. This will be helpful for the MDP5->DPU conversion, since the
+>
 > driver will have to check both nodes.
-> 
+>
 > Fixes: 6874f48bb8b0 ("drm/msm: make mdp5/dpu devices master components")
-> Reported-by: Marijn Suijten <marijn.suijten@somainline.org>
-> Reported-by: Yassine Oudjana <y.oudjana@protonmail.com>
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-
-Tested-by: Marijn Suijten <marijn.suijten@somainline.org> # On sdm630
-
-But I'm not sure about giving my Reviewed-by to this, as I'd rather
-*correct* the DT bindings for sdm630 and msm8996 to provide
-interconnects in the MDSS node unless there are strong reasons not to
-(and I don't consider "backwards compatibility" to be one, this binding
-"never even existed" if mdp5.txt is to be believed).
-
-- Marijn
-
+> Reported-by: Marijn Suijten marijn.suijten@somainline.org
+>
+> Reported-by: Yassine Oudjana y.oudjana@protonmail.com
+>
+> Signed-off-by: Dmitry Baryshkov dmitry.baryshkov@linaro.org
+>
 > ---
->  drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c  |  7 ++-----
->  drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c |  9 +++------
->  drivers/gpu/drm/msm/msm_drv.h            |  2 ++
->  drivers/gpu/drm/msm/msm_io_utils.c       | 22 ++++++++++++++++++++++
->  4 files changed, 29 insertions(+), 11 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
+> drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c | 7 ++-----
+> drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c | 9 +++------
+> drivers/gpu/drm/msm/msm_drv.h | 2 ++
+> drivers/gpu/drm/msm/msm_io_utils.c | 22 ++++++++++++++++++++++
+> 4 files changed, 29 insertions(+), 11 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c b/drivers/gpu/drm/ms=
+m/disp/dpu1/dpu_kms.c
 > index e23e2552e802..9eff6c2b1917 100644
 > --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
 > +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
-> @@ -383,12 +383,9 @@ static int dpu_kms_parse_data_bus_icc_path(struct dpu_kms *dpu_kms)
->  	struct icc_path *path1;
->  	struct drm_device *dev = dpu_kms->dev;
->  	struct device *dpu_dev = dev->dev;
-> -	struct device *mdss_dev = dpu_dev->parent;
->  
-> -	/* Interconnects are a part of MDSS device tree binding, not the
-> -	 * MDP/DPU device. */
-> -	path0 = of_icc_get(mdss_dev, "mdp0-mem");
-> -	path1 = of_icc_get(mdss_dev, "mdp1-mem");
-> +	path0 = msm_icc_get(dpu_dev, "mdp0-mem");
-> +	path1 = msm_icc_get(dpu_dev, "mdp1-mem");
->  
->  	if (IS_ERR_OR_NULL(path0))
->  		return PTR_ERR_OR_ZERO(path0);
-> diff --git a/drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c b/drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c
+> @@ -383,12 +383,9 @@ static int dpu_kms_parse_data_bus_icc_path(struct dp=
+u_kms *dpu_kms)
+> struct icc_path *path1;
+> struct drm_device *dev =3D dpu_kms->dev;
+>
+> struct device *dpu_dev =3D dev->dev;
+>
+> - struct device *mdss_dev =3D dpu_dev->parent;
+>
+>
+> - /* Interconnects are a part of MDSS device tree binding, not the
+> - * MDP/DPU device. */
+> - path0 =3D of_icc_get(mdss_dev, "mdp0-mem");
+> - path1 =3D of_icc_get(mdss_dev, "mdp1-mem");
+> + path0 =3D msm_icc_get(dpu_dev, "mdp0-mem");
+> + path1 =3D msm_icc_get(dpu_dev, "mdp1-mem");
+>
+> if (IS_ERR_OR_NULL(path0))
+> return PTR_ERR_OR_ZERO(path0);
+> diff --git a/drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c b/drivers/gpu/drm/m=
+sm/disp/mdp5/mdp5_kms.c
 > index 3d5621a68f85..b0c372fef5d5 100644
 > --- a/drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c
 > +++ b/drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c
-> @@ -921,12 +921,9 @@ static int mdp5_init(struct platform_device *pdev, struct drm_device *dev)
->  
->  static int mdp5_setup_interconnect(struct platform_device *pdev)
->  {
-> -	/* Interconnects are a part of MDSS device tree binding, not the
-> -	 * MDP5 device. */
-> -	struct device *mdss_dev = pdev->dev.parent;
-> -	struct icc_path *path0 = of_icc_get(mdss_dev, "mdp0-mem");
-> -	struct icc_path *path1 = of_icc_get(mdss_dev, "mdp1-mem");
-> -	struct icc_path *path_rot = of_icc_get(mdss_dev, "rotator-mem");
-> +	struct icc_path *path0 = msm_icc_get(&pdev->dev, "mdp0-mem");
-> +	struct icc_path *path1 = msm_icc_get(&pdev->dev, "mdp1-mem");
-> +	struct icc_path *path_rot = msm_icc_get(&pdev->dev, "rotator-mem");
->  
->  	if (IS_ERR(path0))
->  		return PTR_ERR(path0);
-> diff --git a/drivers/gpu/drm/msm/msm_drv.h b/drivers/gpu/drm/msm/msm_drv.h
+> @@ -921,12 +921,9 @@ static int mdp5_init(struct platform_device *pdev, s=
+truct drm_device *dev)
+>
+> static int mdp5_setup_interconnect(struct platform_device pdev)
+> {
+> - / Interconnects are a part of MDSS device tree binding, not the
+> - * MDP5 device. */
+> - struct device *mdss_dev =3D pdev->dev.parent;
+>
+> - struct icc_path *path0 =3D of_icc_get(mdss_dev, "mdp0-mem");
+> - struct icc_path *path1 =3D of_icc_get(mdss_dev, "mdp1-mem");
+> - struct icc_path *path_rot =3D of_icc_get(mdss_dev, "rotator-mem");
+> + struct icc_path *path0 =3D msm_icc_get(&pdev->dev, "mdp0-mem");
+>
+> + struct icc_path *path1 =3D msm_icc_get(&pdev->dev, "mdp1-mem");
+>
+> + struct icc_path *path_rot =3D msm_icc_get(&pdev->dev, "rotator-mem");
+>
+>
+> if (IS_ERR(path0))
+> return PTR_ERR(path0);
+> diff --git a/drivers/gpu/drm/msm/msm_drv.h b/drivers/gpu/drm/msm/msm_drv.=
+h
 > index 08388d742d65..d38510f6dbf5 100644
 > --- a/drivers/gpu/drm/msm/msm_drv.h
 > +++ b/drivers/gpu/drm/msm/msm_drv.h
-> @@ -441,6 +441,8 @@ void __iomem *msm_ioremap_size(struct platform_device *pdev, const char *name,
->  		phys_addr_t *size);
->  void __iomem *msm_ioremap_quiet(struct platform_device *pdev, const char *name);
->  
+> @@ -441,6 +441,8 @@ void __iomem *msm_ioremap_size(struct platform_device=
+ *pdev, const char *name,
+> phys_addr_t *size);
+> void __iomem *msm_ioremap_quiet(struct platform_device *pdev, const char =
+*name);
+>
 > +struct icc_path *msm_icc_get(struct device *dev, const char *name);
 > +
->  #define msm_writel(data, addr) writel((data), (addr))
->  #define msm_readl(addr) readl((addr))
->  
-> diff --git a/drivers/gpu/drm/msm/msm_io_utils.c b/drivers/gpu/drm/msm/msm_io_utils.c
+> #define msm_writel(data, addr) writel((data), (addr))
+> #define msm_readl(addr) readl((addr))
+>
+> diff --git a/drivers/gpu/drm/msm/msm_io_utils.c b/drivers/gpu/drm/msm/msm=
+_io_utils.c
 > index 7b504617833a..d02cd29ce829 100644
 > --- a/drivers/gpu/drm/msm/msm_io_utils.c
 > +++ b/drivers/gpu/drm/msm/msm_io_utils.c
 > @@ -5,6 +5,8 @@
->   * Author: Rob Clark <robdclark@gmail.com>
->   */
->  
+> * Author: Rob Clark robdclark@gmail.com
+>
+> */
+>
 > +#include <linux/interconnect.h>
+>
 > +
->  #include "msm_drv.h"
->  
->  /*
-> @@ -124,3 +126,23 @@ void msm_hrtimer_work_init(struct msm_hrtimer_work *work,
->  	work->worker = worker;
->  	kthread_init_work(&work->work, fn);
->  }
+> #include "msm_drv.h"
+>
+> /*
+> @@ -124,3 +126,23 @@ void msm_hrtimer_work_init(struct msm_hrtimer_work *=
+work,
+> work->worker =3D worker;
+>
+> kthread_init_work(&work->work, fn);
+>
+> }
 > +
 > +struct icc_path *msm_icc_get(struct device *dev, const char *name)
 > +{
-> +	struct device *mdss_dev = dev->parent;
-> +	struct icc_path *path;
+> + struct device *mdss_dev =3D dev->parent;
+>
+> + struct icc_path path;
 > +
-> +	path = of_icc_get(dev, name);
-> +	if (path)
-> +		return path;
+> + path =3D of_icc_get(dev, name);
+> + if (path)
+> + return path;
 > +
-> +	/*
-> +	 * If there are no interconnects attached to the corresponding device
-> +	 * node, of_icc_get() will return NULL.
-> +	 *
-> +	 * If the MDP5/DPU device node doesn't have interconnects, lookup the
-> +	 * path in the parent (MDSS) device.
-> +	 */
-> +	return of_icc_get(mdss_dev, name);
+> + /
+> + * If there are no interconnects attached to the corresponding device
+> + * node, of_icc_get() will return NULL.
+> + *
+> + * If the MDP5/DPU device node doesn't have interconnects, lookup the
+> + * path in the parent (MDSS) device.
+> + */
+> + return of_icc_get(mdss_dev, name);
 > +
 > +}
-> -- 
+> --
 > 2.35.1
-> 
+
+Tested-by: Yassine Oudjana <y.oudjana@protonmail.com> # msm8996
