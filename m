@@ -2,44 +2,59 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0EFD658AB72
-	for <lists+freedreno@lfdr.de>; Fri,  5 Aug 2022 15:15:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E3EB958BBCA
+	for <lists+freedreno@lfdr.de>; Sun,  7 Aug 2022 18:08:41 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9291F9BBC7;
-	Fri,  5 Aug 2022 13:15:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 060F811AA44;
+	Sun,  7 Aug 2022 16:08:38 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-41104.protonmail.ch (mail-41104.protonmail.ch
- [185.70.41.104])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4E20D10FA4F
- for <freedreno@lists.freedesktop.org>; Fri,  5 Aug 2022 13:15:10 +0000 (UTC)
-Date: Fri, 05 Aug 2022 13:14:46 +0000
-Authentication-Results: mail-41104.protonmail.ch;
- dkim=pass (2048-bit key) header.d=protonmail.com header.i=@protonmail.com
- header.b="FAZEeCdd"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=protonmail.com;
- s=protonmail3; t=1659705304; x=1659964504;
- bh=ziI5V+sIub4XwCkMXnfzTYqZ1lrMICCCmyYVkMbZJ64=;
- h=Date:To:From:Cc:Reply-To:Subject:Message-ID:In-Reply-To:
- References:Feedback-ID:From:To:Cc:Date:Subject:Reply-To:
- Feedback-ID:Message-ID;
- b=FAZEeCddvGry0RRerFlnxxBc2UyoIGfr56LjriN9eMRNygtTSGxPO5QnIMOx8wl2c
- dSFITvunQak+jqDJcqx+gBEVw3veJnduFGbwnGO7VKOptySadtuBGlSvYoPz5d3vIN
- 7EFYfH7F5Too/d1gcX303LiTtQdM2UowKc9+77PD5j87JLHDZqZ/H100t9j2I/lzLF
- OawfSicHFQVlV7kT5YgXOLCTrSmDc02SczVQhJiNTf3icSkrEwWkKfERjzJ4vy1uly
- 7zTPOwF6x4G1rDEYgV60ougjBlhww1H+wx99rKV5NtvBRAst7eAaVSP5ZSxkN51rvO
- 8PU4QrvmxCIhA==
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-From: Yassine Oudjana <y.oudjana@protonmail.com>
-Message-ID: <jqNAyNB27XoGsxddwc_bag0mjFI1qbGMGS7BtyDbd8ZK15RKmQNvVgJYUzcEc_U-h_Ei0mKju27yZJ5qI1xDxPbGvpcLkxX9aG_tmbxxzBI=@protonmail.com>
-In-Reply-To: <20220805115630.506391-1-dmitry.baryshkov@linaro.org>
-References: <20220805115630.506391-1-dmitry.baryshkov@linaro.org>
-Feedback-ID: 6882736:user:proton
+Received: from mail-pf1-x432.google.com (mail-pf1-x432.google.com
+ [IPv6:2607:f8b0:4864:20::432])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B85A711AC8C;
+ Sun,  7 Aug 2022 16:08:29 +0000 (UTC)
+Received: by mail-pf1-x432.google.com with SMTP id f28so6230243pfk.1;
+ Sun, 07 Aug 2022 09:08:29 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc;
+ bh=5LZXNn7pnpmQJ9fitC0ymrlN4xtjBHI2SmcGn+8C2hU=;
+ b=MlaYW+6iOUFKWzQ+Rbg9UNxvCteOXhlxwIiJRJ6hjtXeWXtVnr34mlZJr3TzkZtGyu
+ WiYG1+YiWdu21dvUEGqW8+gOsjDojLAW6g+DJB9C6e0mJP1J1+lZUQ8Zwbcvtnqb8S44
+ EgZ4S3b5mgGfJtsr6pN803E0HPlosIV34N1fGNVkaFYW2vwdqQ3zAxoZCF8q0Y1iMYNW
+ QCqzcjeaAZHk7HnQqQsZ4qiQ19vqIWIcCYtKb9jMd/LIvMzX+eSNXk8MUaTL0HF94WXo
+ qbci2YS384PoSkwu0Na4O9xjlY0T0upgzUPdqdp35jDwA7W5jXqw7CPcgz/RXu7aWrtH
+ LVcg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc;
+ bh=5LZXNn7pnpmQJ9fitC0ymrlN4xtjBHI2SmcGn+8C2hU=;
+ b=oo/Y7y3wZJ5ssDzrgbTW3+G82/WTFodW4vhgA8yMUCihV5lZiekt9x3HGe1+DT7/c6
+ mdMYiFSwfjI2JQw7fKw/UuXjXX5ggl+MBifR9aB2zD1Hh/3Fm3YMm7JCA7J664MhfLMe
+ a9JZkVWdjwWHh2Ai5+XR7noBAfBwziOlIsxE+9y4JALvvwkA74e3OvLJHPqa0ez6Lisu
+ RP1Sl9wL57O7x4HqV4XQ6dibtItped8tSnyEPv5hO4k+KK4zrK3EURXPgJ18Nhxae5n1
+ dmANzrzzT5uMcs2C2b4P8ocw1XIgpLSh75Djc+dBh9CzD0kUv7yvcHfWQ6dJLQsJ/xtm
+ PZyg==
+X-Gm-Message-State: ACgBeo2hDgMSlG0Hx3v3rXP0JU056/ohDRGCoK9P4yd5Cl3v9T9QGKm0
+ HKCBDdi+A26p880FWs45u9h1mEz2kV8=
+X-Google-Smtp-Source: AA6agR4ovtqBAWw/GdrxlybKf+QUZMi07LtPvSAXrIFSiyw7Do2MuwxwOAUK1JFh656lYB/iHLMa3g==
+X-Received: by 2002:a05:6a00:22c8:b0:52d:586f:19c3 with SMTP id
+ f8-20020a056a0022c800b0052d586f19c3mr14778379pfj.80.1659888508416; 
+ Sun, 07 Aug 2022 09:08:28 -0700 (PDT)
+Received: from localhost ([2601:1c0:5200:a6:307:a401:7b76:c6e5])
+ by smtp.gmail.com with ESMTPSA id
+ s22-20020a17090a075600b001f21f5c81a5sm8930336pje.19.2022.08.07.09.08.27
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sun, 07 Aug 2022 09:08:27 -0700 (PDT)
+From: Rob Clark <robdclark@gmail.com>
+To: dri-devel@lists.freedesktop.org
+Date: Sun,  7 Aug 2022 09:09:00 -0700
+Message-Id: <20220807160901.2353471-1-robdclark@gmail.com>
+X-Mailer: git-send-email 2.36.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [Freedreno] [RFC PATCH] drm/msm: lookup the ICC paths in both
- mdp5/dpu and mdss devices
+Content-Transfer-Encoding: 8bit
+Subject: [Freedreno] [PATCH v2 1/2] drm/msm: Move hangcheck timer restart
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -52,156 +67,97 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: Yassine Oudjana <y.oudjana@protonmail.com>
-Cc: freedreno@lists.freedesktop.org, David Airlie <airlied@linux.ie>,
- linux-arm-msm@vger.kernel.org, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- dri-devel@lists.freedesktop.org, Stephen Boyd <swboyd@chromium.org>,
+Cc: Rob Clark <robdclark@chromium.org>,
+ Akhil P Oommen <quic_akhilpo@quicinc.com>, linux-arm-msm@vger.kernel.org,
+ David Airlie <airlied@linux.ie>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ open list <linux-kernel@vger.kernel.org>, Sean Paul <sean@poorly.run>,
  Rob Clark <robdclark@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- Bjorn Andersson <bjorn.andersson@linaro.org>, Sean Paul <sean@poorly.run>
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Friday, August 5th, 2022 at 12:56 PM, Dmitry Baryshkov <dmitry.baryshkov=
-@linaro.org> wrote:
+From: Rob Clark <robdclark@chromium.org>
 
-> The commit 6874f48bb8b0 ("drm/msm: make mdp5/dpu devices master
-> components") changed the MDP5 driver to look for the interconnect paths
-> in the MDSS device rather than in the MDP5 device itself. This was left
-> unnoticed since on my testing devices the interconnects probably didn't
-> reach the sync state.
->
-> Rather than just using the MDP5 device for ICC path lookups for the MDP5
-> devices, introduce an additional helper to check both MDP5/DPU and MDSS
-> nodes. This will be helpful for the MDP5->DPU conversion, since the
->
-> driver will have to check both nodes.
->
-> Fixes: 6874f48bb8b0 ("drm/msm: make mdp5/dpu devices master components")
-> Reported-by: Marijn Suijten marijn.suijten@somainline.org
->
-> Reported-by: Yassine Oudjana y.oudjana@protonmail.com
->
-> Signed-off-by: Dmitry Baryshkov dmitry.baryshkov@linaro.org
->
-> ---
-> drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c | 7 ++-----
-> drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c | 9 +++------
-> drivers/gpu/drm/msm/msm_drv.h | 2 ++
-> drivers/gpu/drm/msm/msm_io_utils.c | 22 ++++++++++++++++++++++
-> 4 files changed, 29 insertions(+), 11 deletions(-)
->
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c b/drivers/gpu/drm/ms=
-m/disp/dpu1/dpu_kms.c
-> index e23e2552e802..9eff6c2b1917 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
-> @@ -383,12 +383,9 @@ static int dpu_kms_parse_data_bus_icc_path(struct dp=
-u_kms *dpu_kms)
-> struct icc_path *path1;
-> struct drm_device *dev =3D dpu_kms->dev;
->
-> struct device *dpu_dev =3D dev->dev;
->
-> - struct device *mdss_dev =3D dpu_dev->parent;
->
->
-> - /* Interconnects are a part of MDSS device tree binding, not the
-> - * MDP/DPU device. */
-> - path0 =3D of_icc_get(mdss_dev, "mdp0-mem");
-> - path1 =3D of_icc_get(mdss_dev, "mdp1-mem");
-> + path0 =3D msm_icc_get(dpu_dev, "mdp0-mem");
-> + path1 =3D msm_icc_get(dpu_dev, "mdp1-mem");
->
-> if (IS_ERR_OR_NULL(path0))
-> return PTR_ERR_OR_ZERO(path0);
-> diff --git a/drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c b/drivers/gpu/drm/m=
-sm/disp/mdp5/mdp5_kms.c
-> index 3d5621a68f85..b0c372fef5d5 100644
-> --- a/drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c
-> +++ b/drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c
-> @@ -921,12 +921,9 @@ static int mdp5_init(struct platform_device *pdev, s=
-truct drm_device *dev)
->
-> static int mdp5_setup_interconnect(struct platform_device pdev)
-> {
-> - / Interconnects are a part of MDSS device tree binding, not the
-> - * MDP5 device. */
-> - struct device *mdss_dev =3D pdev->dev.parent;
->
-> - struct icc_path *path0 =3D of_icc_get(mdss_dev, "mdp0-mem");
-> - struct icc_path *path1 =3D of_icc_get(mdss_dev, "mdp1-mem");
-> - struct icc_path *path_rot =3D of_icc_get(mdss_dev, "rotator-mem");
-> + struct icc_path *path0 =3D msm_icc_get(&pdev->dev, "mdp0-mem");
->
-> + struct icc_path *path1 =3D msm_icc_get(&pdev->dev, "mdp1-mem");
->
-> + struct icc_path *path_rot =3D msm_icc_get(&pdev->dev, "rotator-mem");
->
->
-> if (IS_ERR(path0))
-> return PTR_ERR(path0);
-> diff --git a/drivers/gpu/drm/msm/msm_drv.h b/drivers/gpu/drm/msm/msm_drv.=
-h
-> index 08388d742d65..d38510f6dbf5 100644
-> --- a/drivers/gpu/drm/msm/msm_drv.h
-> +++ b/drivers/gpu/drm/msm/msm_drv.h
-> @@ -441,6 +441,8 @@ void __iomem *msm_ioremap_size(struct platform_device=
- *pdev, const char *name,
-> phys_addr_t *size);
-> void __iomem *msm_ioremap_quiet(struct platform_device *pdev, const char =
-*name);
->
-> +struct icc_path *msm_icc_get(struct device *dev, const char *name);
-> +
-> #define msm_writel(data, addr) writel((data), (addr))
-> #define msm_readl(addr) readl((addr))
->
-> diff --git a/drivers/gpu/drm/msm/msm_io_utils.c b/drivers/gpu/drm/msm/msm=
-_io_utils.c
-> index 7b504617833a..d02cd29ce829 100644
-> --- a/drivers/gpu/drm/msm/msm_io_utils.c
-> +++ b/drivers/gpu/drm/msm/msm_io_utils.c
-> @@ -5,6 +5,8 @@
-> * Author: Rob Clark robdclark@gmail.com
->
-> */
->
-> +#include <linux/interconnect.h>
->
-> +
-> #include "msm_drv.h"
->
-> /*
-> @@ -124,3 +126,23 @@ void msm_hrtimer_work_init(struct msm_hrtimer_work *=
-work,
-> work->worker =3D worker;
->
-> kthread_init_work(&work->work, fn);
->
-> }
-> +
-> +struct icc_path *msm_icc_get(struct device *dev, const char *name)
-> +{
-> + struct device *mdss_dev =3D dev->parent;
->
-> + struct icc_path path;
-> +
-> + path =3D of_icc_get(dev, name);
-> + if (path)
-> + return path;
-> +
-> + /
-> + * If there are no interconnects attached to the corresponding device
-> + * node, of_icc_get() will return NULL.
-> + *
-> + * If the MDP5/DPU device node doesn't have interconnects, lookup the
-> + * path in the parent (MDSS) device.
-> + */
-> + return of_icc_get(mdss_dev, name);
-> +
-> +}
-> --
-> 2.35.1
+Don't directly restart the hangcheck timer from the timer handler, but
+instead start it after the recover_worker replays remaining jobs.
 
-Tested-by: Yassine Oudjana <y.oudjana@protonmail.com> # msm8996
+If the kthread is blocked for other reasons, there is no point to
+immediately restart the timer.  Fixes a random symptom of the problem
+fixed in the next patch.
+
+v2: Keep the hangcheck timer restart in the timer handler in the case
+    where we aren't scheduling recover_worker
+
+Signed-off-by: Rob Clark <robdclark@chromium.org>
+---
+ drivers/gpu/drm/msm/msm_gpu.c | 19 +++++++++++++++++--
+ 1 file changed, 17 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/gpu/drm/msm/msm_gpu.c b/drivers/gpu/drm/msm/msm_gpu.c
+index fba85f894314..6762001d9945 100644
+--- a/drivers/gpu/drm/msm/msm_gpu.c
++++ b/drivers/gpu/drm/msm/msm_gpu.c
+@@ -328,6 +328,7 @@ find_submit(struct msm_ringbuffer *ring, uint32_t fence)
+ }
+ 
+ static void retire_submits(struct msm_gpu *gpu);
++static void hangcheck_timer_reset(struct msm_gpu *gpu);
+ 
+ static void get_comm_cmdline(struct msm_gem_submit *submit, char **comm, char **cmd)
+ {
+@@ -420,6 +421,8 @@ static void recover_worker(struct kthread_work *work)
+ 	}
+ 
+ 	if (msm_gpu_active(gpu)) {
++		bool restart_hangcheck = false;
++
+ 		/* retire completed submits, plus the one that hung: */
+ 		retire_submits(gpu);
+ 
+@@ -436,10 +439,15 @@ static void recover_worker(struct kthread_work *work)
+ 			unsigned long flags;
+ 
+ 			spin_lock_irqsave(&ring->submit_lock, flags);
+-			list_for_each_entry(submit, &ring->submits, node)
++			list_for_each_entry(submit, &ring->submits, node) {
+ 				gpu->funcs->submit(gpu, submit);
++				restart_hangcheck = true;
++			}
+ 			spin_unlock_irqrestore(&ring->submit_lock, flags);
+ 		}
++
++		if (restart_hangcheck)
++			hangcheck_timer_reset(gpu);
+ 	}
+ 
+ 	mutex_unlock(&gpu->lock);
+@@ -498,6 +506,7 @@ static void hangcheck_handler(struct timer_list *t)
+ 	struct drm_device *dev = gpu->dev;
+ 	struct msm_ringbuffer *ring = gpu->funcs->active_ring(gpu);
+ 	uint32_t fence = ring->memptrs->fence;
++	bool restart_hangcheck = true;
+ 
+ 	if (fence != ring->hangcheck_fence) {
+ 		/* some progress has been made.. ya! */
+@@ -513,10 +522,16 @@ static void hangcheck_handler(struct timer_list *t)
+ 				gpu->name, ring->fctx->last_fence);
+ 
+ 		kthread_queue_work(gpu->worker, &gpu->recover_work);
++
++		/* If we do recovery, we want to defer restarting the hangcheck
++		 * timer until recovery completes and the remaining non-guilty
++		 * jobs are re-played.
++		 */
++		restart_hangcheck = false;
+ 	}
+ 
+ 	/* if still more pending work, reset the hangcheck timer: */
+-	if (fence_after(ring->fctx->last_fence, ring->hangcheck_fence))
++	if (restart_hangcheck && fence_after(ring->fctx->last_fence, ring->hangcheck_fence))
+ 		hangcheck_timer_reset(gpu);
+ 
+ 	/* workaround for missing irq: */
+-- 
+2.36.1
+
