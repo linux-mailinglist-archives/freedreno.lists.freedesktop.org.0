@@ -2,78 +2,63 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1F07158E1A3
-	for <lists+freedreno@lfdr.de>; Tue,  9 Aug 2022 23:16:26 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0BD1F58E17B
+	for <lists+freedreno@lfdr.de>; Tue,  9 Aug 2022 23:06:24 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3FFD0C3675;
-	Tue,  9 Aug 2022 21:16:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CE77DC8772;
+	Tue,  9 Aug 2022 21:06:06 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-X-Greylist: delayed 1848 seconds by postgrey-1.36 at gabe;
- Tue, 09 Aug 2022 21:15:56 UTC
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C958DC1C57;
- Tue,  9 Aug 2022 21:15:56 +0000 (UTC)
-Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 279JdZkR008907;
- Tue, 9 Aug 2022 20:45:01 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
- h=from : to : cc :
- subject : date : message-id : mime-version : content-type; s=qcppdkim1;
- bh=IEE0YHiaWW61YmH/j85ir0CvCiEo9J0vpFpZfNkOFUM=;
- b=F5BfVaDcYMMED9p/4k+UaxY/T3HlYYvEx5WTevmN6qdTsu+i78hq/mjxLN1z5cU9kTtw
- rciyrHQp4niPYGSdpY5dGweDEiqGFek8tEfhJXhufnuwUk+V7bXR66SK+24cJbeIfPEa
- mI7lV8cYCNYj15jiACrApngqpAPRlCdvbCQy7EzvVTZfChG05aqQZ/Yzk0M61+0ADCOI
- 6cQ/4C2YQPWnuSrXgZMj34NVDywxJRjofZ4Z3gJIvGTms/dKK7JItuGQ03aGvM2WKBUU
- F0Mk8Kz55rhcxS/4Bor7Cs2Ze7JSvNqvGisv17XjvQsj69sfA8TyrWAHQ0p2D+4FQ3QZ hg== 
-Received: from nasanppmta04.qualcomm.com (i-global254.qualcomm.com
- [199.106.103.254])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3huwr5g4s7-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 09 Aug 2022 20:45:01 +0000
-Received: from nasanex01c.na.qualcomm.com (nasanex01c.na.qualcomm.com
- [10.47.97.222])
- by NASANPPMTA04.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 279Kj0rF004101
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 9 Aug 2022 20:45:00 GMT
-Received: from nalasex01a.na.qualcomm.com (10.47.209.196) by
- nasanex01c.na.qualcomm.com (10.47.97.222) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.986.22; Tue, 9 Aug 2022 13:45:00 -0700
-Received: from khsieh-linux1.qualcomm.com (10.80.80.8) by
- nalasex01a.na.qualcomm.com (10.47.209.196) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.986.22; Tue, 9 Aug 2022 13:44:59 -0700
-From: Kuogee Hsieh <quic_khsieh@quicinc.com>
-To: <robdclark@gmail.com>, <sean@poorly.run>, <swboyd@chromium.org>,
- <dianders@chromium.org>, <vkoul@kernel.org>, <daniel@ffwll.ch>,
- <airlied@linux.ie>, <agross@kernel.org>, <dmitry.baryshkov@linaro.org>,
- <bjorn.andersson@linaro.org>
-Date: Tue, 9 Aug 2022 13:44:50 -0700
-Message-ID: <1660077890-31622-1-git-send-email-quic_khsieh@quicinc.com>
-X-Mailer: git-send-email 2.7.4
+Received: from mail-oa1-x2f.google.com (mail-oa1-x2f.google.com
+ [IPv6:2001:4860:4864:20::2f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7F281C8375
+ for <freedreno@lists.freedesktop.org>; Tue,  9 Aug 2022 21:05:49 +0000 (UTC)
+Received: by mail-oa1-x2f.google.com with SMTP id
+ 586e51a60fabf-10e6bdbe218so15463688fac.10
+ for <freedreno@lists.freedesktop.org>; Tue, 09 Aug 2022 14:05:49 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc;
+ bh=46DbGyQMRqNHGkxsacJCotXRTrnXUBQPUgKwQCTQR8k=;
+ b=hKJ9CRNm64FZ36uHItRlkf0idiXTuCMHIGEr6dAZWogMfifrszy0oFCa8H7K6Cah9D
+ 55TjcK/iPn+BvOBQtb3mTI/51rUKzCQKkeAftF7q4oAP41j2EtShrtivvHKSpR5bfZer
+ kKomkfpi78zEBQWdUTGBQsWZoO1hLcqLrubVg3hbnYziSqG7Np8t99DOzJt15uvfu4DH
+ lIl3P/v4VaAuXaU2DVxn1GSS9n3BdSp8H0AaoYSW06MbcdfjeAjzYF6jJv0KLF0567nM
+ IvcbioXxyho8pz1HTFTb4zgU+MfEOO3JI1a95UB3T4VXsLIsG9LxbQS1K6baKYW1BMBZ
+ sV8g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc;
+ bh=46DbGyQMRqNHGkxsacJCotXRTrnXUBQPUgKwQCTQR8k=;
+ b=qj+quYkhGQ1WmuKPojzgMI6lBBG3NUN+GneiXaI/rHtA+mos86bD1Swj4Xt3Ssi4LQ
+ zMdc873lFSjzE6mAIURGoOqe95cQRx3oKvnlkyLjkn4zw1aEkBXyf4uNw2tJXHH/GGN/
+ Q1MeU29L1s58jlYgBaITdohSKqcHO/l8/hFVT8VblniijdGzABGOuGOY7+fwsVbuXEsm
+ kxL+MITVb4Ljyum9X4MSlkAYwkziHYBr2xx83TUGl9Dhr9ikjkOqFpkAGAgptmqfG/Lr
+ IOLtku4cM9paWczPVXNO+nip0QjyB9EhlV9Spndi2Yg+DWifAtph/VMMV4Ze3c49YkhX
+ RiPA==
+X-Gm-Message-State: ACgBeo1MG5RkbS25Xd4S4yx/yp9V7SR0wUFTCEriowAAf1eFduDc1PrP
+ fIEgEmP75VGp4MOlvgp8GWSRbQ==
+X-Google-Smtp-Source: AA6agR7/jfhQKdcyS9t/lnwAnJxheoLryGMKECjJwkUJ1IJiQ9e3xVupz1MV7wbT5OutnB3H7N+IWA==
+X-Received: by 2002:a05:6870:5818:b0:116:a478:7f6a with SMTP id
+ r24-20020a056870581800b00116a4787f6amr170549oap.204.1660079148210; 
+ Tue, 09 Aug 2022 14:05:48 -0700 (PDT)
+Received: from baldur ([2600:380:785a:7aa8:200:ff:fe00:0])
+ by smtp.gmail.com with ESMTPSA id
+ s70-20020acaa949000000b0032e3cca8561sm214842oie.21.2022.08.09.14.05.45
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 09 Aug 2022 14:05:47 -0700 (PDT)
+Date: Tue, 9 Aug 2022 16:05:43 -0500
+From: Bjorn Andersson <bjorn.andersson@linaro.org>
+To: Akhil P Oommen <quic_akhilpo@quicinc.com>
+Message-ID: <YvLMJ2yQRhBFp2y9@baldur>
+References: <1659172664-10345-1-git-send-email-quic_akhilpo@quicinc.com>
 MIME-Version: 1.0
-Content-Type: text/plain
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-GUID: AetsPD28bEHPnV7Wmy05NjwCeOGwWvSL
-X-Proofpoint-ORIG-GUID: AetsPD28bEHPnV7Wmy05NjwCeOGwWvSL
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.205,Aquarius:18.0.883,Hydra:6.0.517,FMLib:17.11.122.1
- definitions=2022-08-09_05,2022-08-09_02,2022-06-22_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501
- malwarescore=0 suspectscore=0 bulkscore=0 spamscore=0 clxscore=1011
- lowpriorityscore=0 phishscore=0 impostorscore=0 mlxscore=0 adultscore=0
- mlxlogscore=999 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2207270000 definitions=main-2208090076
-Subject: [Freedreno] [PATCH] drm/msm/dp: check hpd_state before push idle
- pattern at dp_bridge_disable()
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <1659172664-10345-1-git-send-email-quic_akhilpo@quicinc.com>
+Subject: Re: [Freedreno] [PATCH 0/5] clk/qcom: Support gdsc collapse polling
+ using 'reset' inteface
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -86,54 +71,62 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: quic_sbillaka@quicinc.com, linux-arm-msm@vger.kernel.org,
- quic_abhinavk@quicinc.com, dri-devel@lists.freedesktop.org,
- quic_khsieh@quicinc.com, quic_aravindh@quicinc.com,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Cc: devicetree@vger.kernel.org, Philipp Zabel <p.zabel@pengutronix.de>,
+ Stephen Boyd <sboyd@kernel.org>, linux-arm-msm@vger.kernel.org,
+ Michael Turquette <mturquette@baylibre.com>,
+ Konrad Dybcio <konrad.dybcio@somainline.org>,
+ Douglas Anderson <dianders@chromium.org>, dri-devel@lists.freedesktop.org,
+ Stephen Boyd <swboyd@chromium.org>, Rob Herring <robh+dt@kernel.org>,
+ Rob Clark <robdclark@gmail.com>, Andy Gross <agross@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ freedreno <freedreno@lists.freedesktop.org>, linux-clk@vger.kernel.org,
+ linux-kernel@vger.kernel.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-dp_bridge_disable() is the first step toward tearing down main link.
-Its major function is to start transmitting idle pattern to replace
-video stream. This patch will check hpd_state to make sure main link
-is enabled before commit changes of main link's configuration to
-push idle pattern out to avoid system crashing due to main link clock
-is disabled while access main link registers.
+On Sat 30 Jul 04:17 CDT 2022, Akhil P Oommen wrote:
 
-Fixes: 13ea4799a81b ("drm/msm/dp: remove extra wrappers and public functions");
-Signed-off-by: Kuogee Hsieh <quic_khsieh@quicinc.com>
+> 
+> Some clients like adreno gpu driver would like to ensure that its gdsc
+> is collapsed at hardware during a gpu reset sequence. This is because it
+> has a votable gdsc which could be ON due to a vote from another subsystem
+> like tz, hyp etc or due to an internal hardware signal. To allow
+> this, gpucc driver can expose an interface to the client driver using
+> reset framework. Using this the client driver can trigger a polling within
+> the gdsc driver.
+> 
+> This series is rebased on top of linus's master branch.
+> 
+> Related discussion: https://patchwork.freedesktop.org/patch/493144/
+> 
 
-Reported-by: Leonard Lausen @leezu
----
- drivers/gpu/drm/msm/dp/dp_display.c | 10 ++++++++++
- 1 file changed, 10 insertions(+)
+Forgive me if I'm assuming too much, but isn't this an extension of:
 
-diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
-index b36f8b6..678289a 100644
---- a/drivers/gpu/drm/msm/dp/dp_display.c
-+++ b/drivers/gpu/drm/msm/dp/dp_display.c
-@@ -1729,10 +1729,20 @@ void dp_bridge_disable(struct drm_bridge *drm_bridge)
- 	struct msm_dp_bridge *dp_bridge = to_dp_bridge(drm_bridge);
- 	struct msm_dp *dp = dp_bridge->dp_display;
- 	struct dp_display_private *dp_display;
-+	u32 state;
- 
- 	dp_display = container_of(dp, struct dp_display_private, dp_display);
- 
-+	mutex_lock(&dp_display->event_mutex);
-+
-+	state = dp_display->hpd_state;
-+	if (state != ST_DISCONNECT_PENDING && state != ST_CONNECTED) {
-+		mutex_unlock(&dp_display->event_mutex);
-+		return;
-+	}
-+
- 	dp_ctrl_push_idle(dp_display->ctrl);
-+	mutex_unlock(&dp_display->event_mutex);
- }
- 
- void dp_bridge_post_disable(struct drm_bridge *drm_bridge)
--- 
-The Qualcomm Innovation Center, Inc. is a member of the Code Aurora Forum,
-a Linux Foundation Collaborative Project
+85a3d920d30a ("clk: qcom: Add a dummy enable function for GX gdsc")
 
+With the additional requirement that disable should really ensure that
+the GDSC is turned off?
+
+Regards,
+Bjorn
+
+> 
+> Akhil P Oommen (5):
+>   dt-bindings: clk: qcom: Support gpu cx gdsc reset
+>   clk: qcom: Allow custom reset ops
+>   clk: qcom: gpucc-sc7280: Add cx collapse reset support
+>   clk: qcom: gdsc: Add a reset op to poll gdsc collapse
+>   arm64: dts: qcom: sc7280: Add Reset support for gpu
+> 
+>  arch/arm64/boot/dts/qcom/sc7280.dtsi          |  3 +++
+>  drivers/clk/qcom/gdsc.c                       | 23 +++++++++++++++++++----
+>  drivers/clk/qcom/gdsc.h                       |  7 +++++++
+>  drivers/clk/qcom/gpucc-sc7280.c               |  6 ++++++
+>  drivers/clk/qcom/reset.c                      |  6 ++++++
+>  drivers/clk/qcom/reset.h                      |  2 ++
+>  include/dt-bindings/clock/qcom,gpucc-sc7280.h |  3 +++
+>  7 files changed, 46 insertions(+), 4 deletions(-)
+> 
+> -- 
+> 2.7.4
+> 
