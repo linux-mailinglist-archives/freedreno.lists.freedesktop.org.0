@@ -2,66 +2,51 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id ECE8758CC2E
-	for <lists+freedreno@lfdr.de>; Mon,  8 Aug 2022 18:35:37 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CFB5358D166
+	for <lists+freedreno@lfdr.de>; Tue,  9 Aug 2022 02:36:03 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A4AC111A5C8;
-	Mon,  8 Aug 2022 16:30:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 03438B1ECB;
+	Tue,  9 Aug 2022 00:35:58 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-yb1-xb36.google.com (mail-yb1-xb36.google.com
- [IPv6:2607:f8b0:4864:20::b36])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8BF491121EE
- for <freedreno@lists.freedesktop.org>; Mon,  8 Aug 2022 16:29:26 +0000 (UTC)
-Received: by mail-yb1-xb36.google.com with SMTP id g5so14428726ybg.11
- for <freedreno@lists.freedesktop.org>; Mon, 08 Aug 2022 09:29:26 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc:content-transfer-encoding;
- bh=Y2IMNWPIjkzwaAM4UvkDC79np/PUW3X2sEbAT/ct8M4=;
- b=LxmDtRGZHfImjROQcKCDQgGiXe9nnrACKjUj1qQ1Oo5w8W1sVppkiIaStTZalM3DXn
- d4fg1VCCvKly9zyZDlAlOBTDConQkbR6pYotSN97XAEEa3G6Ci/dkjE2SlkeewTK2qS/
- +LZD9TM6jhdfJet5x28hBgUlGGgDvlR0Axijg=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc:content-transfer-encoding;
- bh=Y2IMNWPIjkzwaAM4UvkDC79np/PUW3X2sEbAT/ct8M4=;
- b=Rx3XxR9qdI3PzB9pVqMZmK3a2W6HA70guyJNUDSS5586WpADUinCubIdqs4gwAqhGh
- R9s/awLaVBlh4OcKuJETUswcrU76asdMc7tEqRyIq9ky/uhX+Ks9uTNEwPo55w6Ay4aP
- IJ2rSqnZSNo5RIeQJahgrLca2etJ9b0V9ETWfbPlisA73k2ulH8LY3dF0M0Q3poQrJf4
- pzNIXOxOf4kVYFtQ6gTpWAFshQmK4JNyEPAvYojP23ddJ+RF4ioozCti3nlzwy7wQtoJ
- AZ6EvIuV6joWRrmrtOMJ7o7OgsKv5HBM7z70L7sxG7FAj2ECNxb17DHNheKSu+r6uArn
- yMlQ==
-X-Gm-Message-State: ACgBeo29pdMAHifGeKmTbEgfk3wM9Dhf2ZWknnB7d8XK4OdKmYYo7GFX
- MpWJIp/v4hATUTRfitsiVPmDYUUqLVhamlyZTHPXvQ==
-X-Google-Smtp-Source: AA6agR6kDyxRT7WvypBMOU0kjVKYcER2bG2K/ZyDSG0YHpOdaiMnykM2TuLH0P9zUQOyjlN1ElXY6sY14LDXcz0HYCw=
-X-Received: by 2002:a25:b68b:0:b0:673:df99:5838 with SMTP id
- s11-20020a25b68b000000b00673df995838mr17329517ybj.157.1659976165690; Mon, 08
- Aug 2022 09:29:25 -0700 (PDT)
+Received: from alexa-out-sd-01.qualcomm.com (alexa-out-sd-01.qualcomm.com
+ [199.106.114.38])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0B8B2894DE;
+ Tue,  9 Aug 2022 00:35:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=quicinc.com; i=@quicinc.com; q=dns/txt; s=qcdkim;
+ t=1660005350; x=1691541350;
+ h=from:to:cc:subject:date:message-id:mime-version;
+ bh=goiRTVR0dzxVxPapYCEI6HEmKLjl86equcMUtqPjUVI=;
+ b=InUVNooslcH/m2QbGvH7Z+6+KVg7z97J/ex792rktZb6gf4BL4FvpkYZ
+ xm7lSGvqsp7/GmfL6U4QElnw/9uWzP26AwjSjgLHqHIuXs9PNSTRimu+e
+ dwNVL5qasC7ueCANJBNKZy8FT+OeygP/hNvqquRV6/LrxY9duVnkhTtWY Q=;
+Received: from unknown (HELO ironmsg01-sd.qualcomm.com) ([10.53.140.141])
+ by alexa-out-sd-01.qualcomm.com with ESMTP; 08 Aug 2022 17:35:49 -0700
+X-QCInternal: smtphost
+Received: from nasanex01c.na.qualcomm.com ([10.47.97.222])
+ by ironmsg01-sd.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 08 Aug 2022 17:35:49 -0700
+Received: from nalasex01a.na.qualcomm.com (10.47.209.196) by
+ nasanex01c.na.qualcomm.com (10.47.97.222) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.986.22; Mon, 8 Aug 2022 17:35:48 -0700
+Received: from abhinavk-linux.qualcomm.com (10.80.80.8) by
+ nalasex01a.na.qualcomm.com (10.47.209.196) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.986.22; Mon, 8 Aug 2022 17:35:47 -0700
+From: Abhinav Kumar <quic_abhinavk@quicinc.com>
+To: <dri-devel@lists.freedesktop.org>
+Date: Mon, 8 Aug 2022 17:35:30 -0700
+Message-ID: <1660005330-12369-1-git-send-email-quic_abhinavk@quicinc.com>
+X-Mailer: git-send-email 2.7.4
 MIME-Version: 1.0
-References: <20220729170744.1301044-1-robdclark@gmail.com>
- <20220729170744.1301044-2-robdclark@gmail.com>
- <3d2083aa-fc6c-6875-3daf-e5abe45fb762@gmail.com>
- <CAF6AEGvKdM3vyCvBZK=ZcdGmak7tsrP1b8ANyyaMjVfNDViqyw@mail.gmail.com>
- <973de2f8-75e4-d4c7-a13a-c541a6cf7c77@amd.com>
- <CAF6AEGuhQT6A_jh8kLWh5xMoUGc1osdewyBk-8NoprtWOHseaQ@mail.gmail.com>
- <2fc74efe-220f-b57a-e804-7d2b3880d14f@gmail.com>
- <CAF6AEGv9H+fSFKPNqwPxYUjkgj05AimpXbp-p_JL8nKLnzON=w@mail.gmail.com>
- <e2423bd7-ef73-8d43-c661-a19c80ad1a26@gmail.com>
- <CAF6AEGsoYaXe2+qug_TfT99KXuXh9Ez2L2HjQZroE6c6GSW4SQ@mail.gmail.com>
- <e90caaaa-cae9-c6d1-bfb6-dc56aa559681@amd.com>
- <CAF6AEGtWjtF7_uCYAH4uARVXgnOnX3DZ3KQahxTdAi_9Myvw0w@mail.gmail.com>
- <4e7448d2-7b26-e260-3d6c-7aa263a75250@amd.com>
-In-Reply-To: <4e7448d2-7b26-e260-3d6c-7aa263a75250@amd.com>
-From: Rob Clark <robdclark@chromium.org>
-Date: Mon, 8 Aug 2022 09:29:52 -0700
-Message-ID: <CAJs_Fx7vf7RyGqBrQHySyG4zr31O_j8GyQeWTCjxZ3R2VDnE9Q@mail.gmail.com>
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [Freedreno] [Linaro-mm-sig] [PATCH 1/3] dma-buf: Add ioctl to
- query mmap info
+Content-Type: text/plain
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+Subject: [Freedreno] [RFC] drm/bridge: adv7533: remove dynamic lane
+ switching from adv7533 bridge
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,145 +59,219 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: =?UTF-8?B?SsOpcsO0bWUgUG91aWxsZXI=?= <jerome.pouiller@silabs.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>,
- open list <linux-kernel@vger.kernel.org>, dri-devel@lists.freedesktop.org,
- "moderated list:DMA BUFFER SHARING FRAMEWORK" <linaro-mm-sig@lists.linaro.org>,
- Rob Clark <robdclark@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- freedreno@lists.freedesktop.org, Sumit Semwal <sumit.semwal@linaro.org>,
- "open list:DMA BUFFER SHARING FRAMEWORK" <linux-media@vger.kernel.org>
+Cc: jernej.skrabec@gmail.com, andrzej.hajda@intel.com, narmstrong@baylibre.com,
+ airlied@linux.ie, sam@ravnborg.org, jonas@kwiboo.se,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, robert.foss@linaro.org,
+ swboyd@chromium.org, robdclark@gmail.com, seanpaul@chromium.org,
+ Laurent.pinchart@ideasonboard.com, daniel@ffwll.ch,
+ dmitry.baryshkov@linaro.org, quic_jesszhan@quicinc.com,
+ quic_aravindh@quicinc.com, colin.king@intel.com,
+ freedreno@lists.freedesktop.org, maxime@cerno.tech
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Mon, Aug 8, 2022 at 7:56 AM Christian K=C3=B6nig <christian.koenig@amd.c=
-om> wrote:
->
-> Am 08.08.22 um 15:26 schrieb Rob Clark:
-> > On Mon, Aug 8, 2022 at 4:22 AM Christian K=C3=B6nig <christian.koenig@a=
-md.com> wrote:
-> >
-> > [SNIP]
-> >>>> If the virtio/virtgpu UAPI was build around the idea that this is
-> >>>> possible then it is most likely fundamental broken.
-> >>> How else can you envision mmap'ing to guest userspace working?
-> >> Well long story short: You can't.
-> >>
-> >> See userspace mappings are not persistent, but rather faulted in on
-> >> demand. The exporter is responsible for setting those up to be able to
-> >> add reverse tracking and so can invalidate those mappings when the
-> >> backing store changes.
-> > I think that is not actually a problem.  At least for how it works on
-> > arm64 but I'm almost positive x86 is similar.. I'm not sure how else
-> > you could virtualize mmu/iommu/etc in a way that didn't have horrible
-> > performance.
-> >
-> > There are two levels of pagetable translation, the first controlled by
-> > the host kernel, the second by the guest.  From the PoV of host
-> > kernel, it is just memory mapped to userspace, getting faulted in on
-> > demand, just as normal.  First the guest controlled translation
-> > triggers a fault in the guest which sets up guest mapping.  And then
-> > the second level of translation to translate from what guest sees as
-> > PA (but host sees as VA) to actual PA triggers a fault in the host.
->
-> Ok, that's calming.
->
-> At least that's not the approach talked about the last time this came up
-> and it doesn't rip a massive security hole somewhere.
+adv7533 bridge tries to dynamically switch lanes based on the
+mode by detaching and attaching the mipi dsi device.
 
-Hmm, tbh I'm not sure which thread/discussion this was.. it could have
-been before I was paying much attention to the vm use-case
+This approach is incorrect because as per the DSI spec the
+number of lanes is fixed at the time of system design or initial
+configuration and may not change dynamically.
 
-> The question is why is the guest then not using the caching attributes
-> setup by the host page tables when the translation is forwarded anyway?
+In addition this method of dynamic switch of detaching and
+attaching the mipi dsi device also results in removing
+and adding the component which is not necessary.
 
-The guest kernel itself doesn't know.  AFAICT, at least on arm, the hw
-will combine the attributes of the mapping in S1 and S2 pagetables and
-use the most restrictive.  So if S1 (host) is cached but S2 (guest) is
-WC, you'll end up w/ WC.
+This approach is also prone to deadlocks. So for example, on the
+db410c whenever this path is executed with lockdep enabled,
+this results in a deadlock due to below ordering of locks.
 
-That said, at least on aarch64, it seems like we could always tell the
-guest it is cached, and if mapped WC in S1 you'll end up with WC
-access.  But this seems to depend on an optional feature, FWB, which
-allows S2 to override S1 attributes, not being enabled.  And not
-entirely sure how it works on x86.
+-> #1 (crtc_ww_class_acquire){+.+.}-{0:0}:
+        lock_acquire+0x6c/0x90
+        drm_modeset_acquire_init+0xf4/0x150
+        drmm_mode_config_init+0x220/0x770
+        msm_drm_bind+0x13c/0x654
+        try_to_bring_up_aggregate_device+0x164/0x1d0
+        __component_add+0xa8/0x174
+        component_add+0x18/0x2c
+        dsi_dev_attach+0x24/0x30
+        dsi_host_attach+0x98/0x14c
+        devm_mipi_dsi_attach+0x38/0xb0
+        adv7533_attach_dsi+0x8c/0x110
+        adv7511_probe+0x5a0/0x930
+        i2c_device_probe+0x30c/0x350
+        really_probe.part.0+0x9c/0x2b0
+        __driver_probe_device+0x98/0x144
+        driver_probe_device+0xac/0x14c
+        __device_attach_driver+0xbc/0x124
+        bus_for_each_drv+0x78/0xd0
+        __device_attach+0xa8/0x1c0
+        device_initial_probe+0x18/0x24
+        bus_probe_device+0xa0/0xac
+        deferred_probe_work_func+0x90/0xd0
+        process_one_work+0x28c/0x6b0
+        worker_thread+0x240/0x444
+        kthread+0x110/0x114
+        ret_from_fork+0x10/0x20
 
-BR,
--R
+-> #0 (component_mutex){+.+.}-{3:3}:
+        __lock_acquire+0x1280/0x20ac
+        lock_acquire.part.0+0xe0/0x230
+        lock_acquire+0x6c/0x90
+        __mutex_lock+0x84/0x400
+        mutex_lock_nested+0x3c/0x70
+        component_del+0x34/0x170
+        dsi_dev_detach+0x24/0x30
+        dsi_host_detach+0x20/0x64
+        mipi_dsi_detach+0x2c/0x40
+        adv7533_mode_set+0x64/0x90
+        adv7511_bridge_mode_set+0x210/0x214
+        drm_bridge_chain_mode_set+0x5c/0x84
+        crtc_set_mode+0x18c/0x1dc
+        drm_atomic_helper_commit_modeset_disables+0x40/0x50
+        msm_atomic_commit_tail+0x1d0/0x6e0
+        commit_tail+0xa4/0x180
+        drm_atomic_helper_commit+0x178/0x3b0
+        drm_atomic_commit+0xa4/0xe0
+        drm_client_modeset_commit_atomic+0x228/0x284
+        drm_client_modeset_commit_locked+0x64/0x1d0
+        drm_client_modeset_commit+0x34/0x60
+        drm_fb_helper_lastclose+0x74/0xcc
+        drm_lastclose+0x3c/0x80
+        drm_release+0xfc/0x114
+        __fput+0x70/0x224
+        ____fput+0x14/0x20
+        task_work_run+0x88/0x1a0
+        do_exit+0x350/0xa50
+        do_group_exit+0x38/0xa4
+        __wake_up_parent+0x0/0x34
+        invoke_syscall+0x48/0x114
+        el0_svc_common.constprop.0+0x60/0x11c
+        do_el0_svc+0x30/0xc0
+        el0_svc+0x58/0x100
+        el0t_64_sync_handler+0x1b0/0x1bc
+        el0t_64_sync+0x18c/0x190
 
-> > [SNIP]
-> > This is basically what happens, although via the two levels of pgtable
-> > translation.  This patch provides the missing piece, the caching
-> > attributes.
->
-> Yeah, but that won't work like this. See the backing store migrates all
-> the time and when it is backed by PCIe/VRAM/local memory you need to use
-> write combine while system memory is usually cached.
->
-> >>       Because otherwise you can't accommodate that the exporter is
-> >> changing those caching attributes.
-> > Changing the attributes dynamically isn't going to work.. or at least
-> > not easily.  If you had some sort of synchronous notification to host
-> > userspace, it could trigger an irq to the guest, I suppose.  But it
-> > would mean host kernel has to block waiting for host userspace to
-> > interrupt the guest, then wait for guest vgpu process to be scheduled
-> > and handle the irq.
->
-> We basically change that on every page flip on APUs and that doesn't
-> sound like something fast.
->
-> Thanks for the explanation how this works,
-> Christian.
->
-> >
-> > At least in the case of msm, the cache attributes are static for the
-> > life of the buffer, so this scenario isn't a problem.  AFAICT this
-> > should work fine for at least all UMA hw.. I'm a bit less sure when it
-> > comes to TTM, but shouldn't you at least be able to use worst-cache
-> > cache attributes for buffers that are allowed to be mapped to guest?
-> >
-> > BR,
-> > -R
-> >
-> >>> But more seriously, let's take a step back here.. what scenarios are
-> >>> you seeing this being problematic for?  Then we can see how to come u=
-p
-> >>> with solutions.  The current situation of host userspace VMM just
-> >>> guessing isn't great.
-> >> Well "isn't great" is a complete understatement. When KVM/virtio/virtg=
-pu
-> >> is doing what I guess they are doing here then that is a really major
-> >> security hole.
-> >>
-> >>>     And sticking our heads in the sand and
-> >>> pretending VMs don't exist isn't great.  So what can we do?  I can
-> >>> instead add a msm ioctl to return this info and solve the problem eve=
-n
-> >>> more narrowly for a single platform.  But then the problem still
-> >>> remains on other platforms.
-> >> Well once more: This is *not* MSM specific, you just absolutely *can't
-> >> do that* for any driver!
-> >>
-> >> I'm just really wondering what the heck is going on here, because all =
-of
-> >> this was discussed in lengthy before on the mailing list and very
-> >> bluntly rejected.
-> >>
-> >> Either I'm missing something (that's certainly possible) or we have a
-> >> strong case of somebody implementing something without thinking about
-> >> all the consequences.
-> >>
-> >> Regards,
-> >> Christian.
-> >>
-> >>
-> >>> Slightly implicit in this is that mapping dma-bufs to the guest won't
-> >>> work for anything that requires DMA_BUF_IOCTL_SYNC for coherency.. we
-> >>> could add a possible return value for DMA_BUF_INFO_VM_PROT indicating
-> >>> that the buffer does not support mapping to guest or CPU access
-> >>> without DMA_BUF_IOCTL_SYNC.  Then at least the VMM can fail gracefull=
-y
-> >>> instead of subtly.
-> >>>
-> >>> BR,
-> >>> -R
->
+Due to above reasons, remove the dynamic lane switching
+code from adv7533 bridge chip and filter out the modes
+which would need different number of lanes as compared
+to the initialization time using the mode_valid callback.
+
+Suggested-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
+---
+ drivers/gpu/drm/bridge/adv7511/adv7511.h     |  3 ++-
+ drivers/gpu/drm/bridge/adv7511/adv7511_drv.c | 18 ++++++++++++++----
+ drivers/gpu/drm/bridge/adv7511/adv7533.c     | 25 +++++++++++++------------
+ 3 files changed, 29 insertions(+), 17 deletions(-)
+
+diff --git a/drivers/gpu/drm/bridge/adv7511/adv7511.h b/drivers/gpu/drm/bridge/adv7511/adv7511.h
+index 9e3bb8a8ee40..0a7cec80b75d 100644
+--- a/drivers/gpu/drm/bridge/adv7511/adv7511.h
++++ b/drivers/gpu/drm/bridge/adv7511/adv7511.h
+@@ -417,7 +417,8 @@ static inline int adv7511_cec_init(struct device *dev, struct adv7511 *adv7511)
+ 
+ void adv7533_dsi_power_on(struct adv7511 *adv);
+ void adv7533_dsi_power_off(struct adv7511 *adv);
+-void adv7533_mode_set(struct adv7511 *adv, const struct drm_display_mode *mode);
++enum drm_mode_status adv7533_mode_valid(struct adv7511 *adv,
++		const struct drm_display_mode *mode);
+ int adv7533_patch_registers(struct adv7511 *adv);
+ int adv7533_patch_cec_registers(struct adv7511 *adv);
+ int adv7533_attach_dsi(struct adv7511 *adv);
+diff --git a/drivers/gpu/drm/bridge/adv7511/adv7511_drv.c b/drivers/gpu/drm/bridge/adv7511/adv7511_drv.c
+index 5bb9300040dd..1115ef9be83c 100644
+--- a/drivers/gpu/drm/bridge/adv7511/adv7511_drv.c
++++ b/drivers/gpu/drm/bridge/adv7511/adv7511_drv.c
+@@ -697,7 +697,7 @@ adv7511_detect(struct adv7511 *adv7511, struct drm_connector *connector)
+ }
+ 
+ static enum drm_mode_status adv7511_mode_valid(struct adv7511 *adv7511,
+-			      struct drm_display_mode *mode)
++			      const struct drm_display_mode *mode)
+ {
+ 	if (mode->clock > 165000)
+ 		return MODE_CLOCK_HIGH;
+@@ -791,9 +791,6 @@ static void adv7511_mode_set(struct adv7511 *adv7511,
+ 	regmap_update_bits(adv7511->regmap, 0x17,
+ 		0x60, (vsync_polarity << 6) | (hsync_polarity << 5));
+ 
+-	if (adv7511->type == ADV7533 || adv7511->type == ADV7535)
+-		adv7533_mode_set(adv7511, adj_mode);
+-
+ 	drm_mode_copy(&adv7511->curr_mode, adj_mode);
+ 
+ 	/*
+@@ -913,6 +910,18 @@ static void adv7511_bridge_mode_set(struct drm_bridge *bridge,
+ 	adv7511_mode_set(adv, mode, adj_mode);
+ }
+ 
++static enum drm_mode_status adv7511_bridge_mode_valid(struct drm_bridge *bridge,
++		const struct drm_display_info *info,
++		const struct drm_display_mode *mode)
++{
++	struct adv7511 *adv = bridge_to_adv7511(bridge);
++
++	if (adv->type == ADV7533 || adv->type == ADV7535)
++		return adv7533_mode_valid(adv, mode);
++	else
++		return adv7511_mode_valid(adv, mode);
++}
++
+ static int adv7511_bridge_attach(struct drm_bridge *bridge,
+ 				 enum drm_bridge_attach_flags flags)
+ {
+@@ -960,6 +969,7 @@ static const struct drm_bridge_funcs adv7511_bridge_funcs = {
+ 	.enable = adv7511_bridge_enable,
+ 	.disable = adv7511_bridge_disable,
+ 	.mode_set = adv7511_bridge_mode_set,
++	.mode_valid = adv7511_bridge_mode_valid,
+ 	.attach = adv7511_bridge_attach,
+ 	.detect = adv7511_bridge_detect,
+ 	.get_edid = adv7511_bridge_get_edid,
+diff --git a/drivers/gpu/drm/bridge/adv7511/adv7533.c b/drivers/gpu/drm/bridge/adv7511/adv7533.c
+index ef6270806d1d..4a6d45edf431 100644
+--- a/drivers/gpu/drm/bridge/adv7511/adv7533.c
++++ b/drivers/gpu/drm/bridge/adv7511/adv7533.c
+@@ -100,26 +100,27 @@ void adv7533_dsi_power_off(struct adv7511 *adv)
+ 	regmap_write(adv->regmap_cec, 0x27, 0x0b);
+ }
+ 
+-void adv7533_mode_set(struct adv7511 *adv, const struct drm_display_mode *mode)
++enum drm_mode_status adv7533_mode_valid(struct adv7511 *adv,
++		const struct drm_display_mode *mode)
+ {
++	int lanes;
+ 	struct mipi_dsi_device *dsi = adv->dsi;
+-	int lanes, ret;
+-
+-	if (adv->num_dsi_lanes != 4)
+-		return;
+ 
+ 	if (mode->clock > 80000)
+ 		lanes = 4;
+ 	else
+ 		lanes = 3;
+ 
+-	if (lanes != dsi->lanes) {
+-		mipi_dsi_detach(dsi);
+-		dsi->lanes = lanes;
+-		ret = mipi_dsi_attach(dsi);
+-		if (ret)
+-			dev_err(&dsi->dev, "failed to change host lanes\n");
+-	}
++	/*
++	 * number of lanes cannot be changed after initialization
++	 * as per section 6.1 of the DSI specification. Hence filter
++	 * out the modes which shall need different number of lanes
++	 * than what was configured in the device tree.
++	 */
++	if (lanes != dsi->lanes)
++		return MODE_BAD;
++
++	return MODE_OK;
+ }
+ 
+ int adv7533_patch_registers(struct adv7511 *adv)
+-- 
+2.7.4
+
