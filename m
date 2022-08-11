@@ -2,46 +2,47 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0B44459010E
-	for <lists+freedreno@lfdr.de>; Thu, 11 Aug 2022 17:49:52 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E39265901F5
+	for <lists+freedreno@lfdr.de>; Thu, 11 Aug 2022 18:02:10 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EAA68B4840;
-	Thu, 11 Aug 2022 15:49:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 47E92B49E2;
+	Thu, 11 Aug 2022 16:02:05 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E1131B4826;
- Thu, 11 Aug 2022 15:49:41 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9FF8AB49F7;
+ Thu, 11 Aug 2022 16:01:55 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 6995A6068F;
- Thu, 11 Aug 2022 15:49:41 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 54DF8C433C1;
- Thu, 11 Aug 2022 15:49:39 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 2AD0961378;
+ Thu, 11 Aug 2022 16:01:55 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9B46AC433D7;
+ Thu, 11 Aug 2022 16:01:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1660232980;
- bh=MAiaC/5yBcdIJnS4EwGQVV4M3oiWPn1vOI6l1WzdSog=;
+ s=k20201202; t=1660233715;
+ bh=5FJntoiGAy4FKurYXXyOYgeeCYPluPQ7jBivwhv82Vk=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=e0tDevSPU9uLn9bgjHiRVdBc2lHd0lOrKuGrr319QuI5qwTumKDWqWH5eHov1JZW1
- 7Q2atpu96PkMjLDA3UQj8eGc/2t6JSy1uFAYc9aj9dYOfeklrF9yksCyLzWJfJHXXT
- h+cH8XIvlhIRBqGflyxptyB85B/UGUoj9Y/uNwDbmlTETuKRi2I4MdQIwn6Mdfwx4/
- H2poT0lZYqAp5rUfYUzbsEnLovYhQHLIsnn3eiB35Y7LFn5tGp/PgYQrZBjnEtasV2
- BFEWuby7tjpfv+RNx6pYk6IRRkuoYnly/Crl89Br47elrDtmEvVHNizeFOTVs51oWM
- Zu05NZFf6bUhw==
+ b=IRPnX1+8fIBudYbPaa4sHaQj2GuLevfqGoNATnAc6FW5R8W5wvwfySvCDtU1cFYXO
+ uWlxtYZB29DdJA3emN/7DDT13QmM4rIQ8aVfKZPzZWFJEFq6Weng5w8v769+oJdSqi
+ oEKhlMduuaGXn3qzsmcrS2cC0EDOtC6/GHqgAy4dhfjF26PVlxKwDZR5u42Q1V6oI+
+ PUyVDMRZW20iBcYQXQV0yemvpD99wUKQoLYdvy2MKuYbyMkM91KDI4dzeSzdIKwfls
+ 6uQp7pWNeQhIBsdxOWDAvxBxlRnQhHiqypTciceDwoPrYfSORFj15rZEm9p+7HBS3K
+ T9inrvWR7yBfg==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Date: Thu, 11 Aug 2022 11:41:50 -0400
-Message-Id: <20220811154237.1531313-56-sashal@kernel.org>
+Date: Thu, 11 Aug 2022 11:55:55 -0400
+Message-Id: <20220811155632.1536867-46-sashal@kernel.org>
 X-Mailer: git-send-email 2.35.1
-In-Reply-To: <20220811154237.1531313-1-sashal@kernel.org>
-References: <20220811154237.1531313-1-sashal@kernel.org>
+In-Reply-To: <20220811155632.1536867-1-sashal@kernel.org>
+References: <20220811155632.1536867-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
 Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH AUTOSEL 5.18 56/93] drm/msm/gem: Drop obj lock
+Subject: [Freedreno] [PATCH AUTOSEL 5.15 46/69] drm/msm/gem: Drop obj lock
  in msm_gem_free_object()
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -83,10 +84,10 @@ Signed-off-by: Sasha Levin <sashal@kernel.org>
  2 files changed, 13 insertions(+), 9 deletions(-)
 
 diff --git a/drivers/gpu/drm/msm/msm_gem.c b/drivers/gpu/drm/msm/msm_gem.c
-index a4f61972667b..59d5f327047e 100644
+index d280dd64744d..0d84bdd4a0a8 100644
 --- a/drivers/gpu/drm/msm/msm_gem.c
 +++ b/drivers/gpu/drm/msm/msm_gem.c
-@@ -991,8 +991,6 @@ void msm_gem_free_object(struct drm_gem_object *obj)
+@@ -1017,8 +1017,6 @@ void msm_gem_free_object(struct drm_gem_object *obj)
  	list_del(&msm_obj->mm_list);
  	mutex_unlock(&priv->mm_lock);
  
@@ -95,7 +96,7 @@ index a4f61972667b..59d5f327047e 100644
  	/* object should not be on active list: */
  	GEM_WARN_ON(is_active(msm_obj));
  
-@@ -1008,17 +1006,11 @@ void msm_gem_free_object(struct drm_gem_object *obj)
+@@ -1034,17 +1032,11 @@ void msm_gem_free_object(struct drm_gem_object *obj)
  
  		put_iova_vmas(obj);
  
@@ -114,10 +115,10 @@ index a4f61972667b..59d5f327047e 100644
  
  	drm_gem_object_release(obj);
 diff --git a/drivers/gpu/drm/msm/msm_gem.h b/drivers/gpu/drm/msm/msm_gem.h
-index af612add5264..f62855134660 100644
+index e39a8e7ad843..fdd9b1a08009 100644
 --- a/drivers/gpu/drm/msm/msm_gem.h
 +++ b/drivers/gpu/drm/msm/msm_gem.h
-@@ -196,7 +196,19 @@ msm_gem_unlock(struct drm_gem_object *obj)
+@@ -193,7 +193,19 @@ msm_gem_unlock(struct drm_gem_object *obj)
  static inline bool
  msm_gem_is_locked(struct drm_gem_object *obj)
  {
