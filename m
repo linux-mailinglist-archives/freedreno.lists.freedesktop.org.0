@@ -2,75 +2,78 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 80CAD58F966
-	for <lists+freedreno@lfdr.de>; Thu, 11 Aug 2022 10:44:34 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D002058FB8C
+	for <lists+freedreno@lfdr.de>; Thu, 11 Aug 2022 13:44:33 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A17F9A6D33;
-	Thu, 11 Aug 2022 08:43:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2565CAD12B;
+	Thu, 11 Aug 2022 11:44:29 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x133.google.com (mail-lf1-x133.google.com
- [IPv6:2a00:1450:4864:20::133])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 23BD3A3DA1
- for <freedreno@lists.freedesktop.org>; Thu, 11 Aug 2022 08:43:43 +0000 (UTC)
-Received: by mail-lf1-x133.google.com with SMTP id d14so24593802lfl.13
- for <freedreno@lists.freedesktop.org>; Thu, 11 Aug 2022 01:43:43 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc;
- bh=ooM7y6v9J6zgXgg6OqlmVWX6M0IPHPI6lI2ab0c9pDA=;
- b=d4tvCxgrvq0CXKar5cnmPvhPR5M9QrNQCbiuAr0vViRXBOQvDWi5Hgfk45hiB7Sh3+
- YDNN5v4Qw/iogPERl3ywwvSQaR/jBFtNNKUujqIGW/q7jBrvLhSYK1xa83prb9SC5khx
- UQNcQWM5cAXyS3nX93hC2PSqhNma4LrF9szVkjQKzYwGvM3OrBaJIDrWTzV9LpghS3E6
- b1B9M7lyGXZBd5sljALlvj0Pq+XgKZMqqkHpUQ0gQMbcLmYKyovpg5fc7knns2nOTnoq
- d4IDsNbw7M8rOnGMSOHtHh+ozfYAoKLcZ3L3zRaAPNh2JKb8g5cYsgIxkP+S29uyZId8
- OmEg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc;
- bh=ooM7y6v9J6zgXgg6OqlmVWX6M0IPHPI6lI2ab0c9pDA=;
- b=qB1zToxX7WStbrWfJIGrMWpMeuyp2oWfeAZpTxptmJbKKqN53gWP8lukGeToA4/9pk
- dwERhS0Wxnl4MZdKr13tadYSPTUUQNJI/eWhbvaaTl42Drc5KoI7qq5i2Zw6bMDnqGlX
- C8WKIgT2PSQtdyPC7gbcAJuCr8GoBfAMyLengKj9w+JjztDvI/O68KgfhYB9x9rHJkgY
- ++0/giBamaQDF95RzPS/NZMVHLWu9k9fX0C2movC+F/mNKKjYDQDqOtTthjtwbauWT70
- CvaqR9Y2vYYxWcxFewflxGmfbCj2C4WugCp65e7/5pI2MSPCwmQUbSXcfYl4ntJ+ulHj
- zgbw==
-X-Gm-Message-State: ACgBeo2gaj9d/oLqBzx+L4mZF1+BQ4iQG+JHGEUR0vnTeEaF6IuUgY+1
- /P82pOCGxLO4Uih4sCjzoQt+0A==
-X-Google-Smtp-Source: AA6agR5mO3DiFZ3t4Lgk1NnmeQ8cSRVtzF9qwzrrk5oLi5kRvefXVkYodaLJf5t1o/M2ohExFwDVIA==
-X-Received: by 2002:a05:6512:108f:b0:48b:a169:d291 with SMTP id
- j15-20020a056512108f00b0048ba169d291mr8339394lfg.198.1660207422686; 
- Thu, 11 Aug 2022 01:43:42 -0700 (PDT)
-Received: from localhost.localdomain ([83.146.140.105])
- by smtp.gmail.com with ESMTPSA id
- f4-20020a056512360400b0048af379957asm631077lfs.72.2022.08.11.01.43.41
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 11 Aug 2022 01:43:42 -0700 (PDT)
-From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-To: Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Sean Paul <sean@poorly.run>, David Airlie <airlied@linux.ie>,
- Daniel Vetter <daniel@ffwll.ch>, Rob Herring <robh+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Del Regno <angelogioacchino.delregno@somainline.org>,
- Loic Poulain <loic.poulain@linaro.org>,
- Krishna Manikandan <quic_mkrishn@quicinc.com>,
- Jami Kettunen <jami.kettunen@somainline.org>,
- Stephen Boyd <swboyd@chromium.org>,
- Bjorn Andersson <bjorn.andersson@linaro.org>,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Date: Thu, 11 Aug 2022 11:43:31 +0300
-Message-Id: <20220811084331.83715-6-krzysztof.kozlowski@linaro.org>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20220811084331.83715-1-krzysztof.kozlowski@linaro.org>
-References: <20220811084331.83715-1-krzysztof.kozlowski@linaro.org>
+X-Greylist: delayed 720 seconds by postgrey-1.36 at gabe;
+ Thu, 11 Aug 2022 11:44:16 UTC
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C34DCAD0D3;
+ Thu, 11 Aug 2022 11:44:15 +0000 (UTC)
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 27B6fSQJ018190;
+ Thu, 11 Aug 2022 11:30:54 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
+ h=message-id : date :
+ mime-version : subject : to : cc : references : from : in-reply-to :
+ content-type : content-transfer-encoding; s=qcppdkim1;
+ bh=7KaiEaKQcKJR7xjpPNQ8FEdyIVIj3AxeDSRSxYpiISg=;
+ b=Zoi//DwlVP2oGIHdR42tfOnYMU+wPMze4rwMbIDsnijoqWHaZD6a/WUok9yME9tj/BSZ
+ 4JeBDCFdnn4iECos+tfspdqez3Vntb+NtyiYsCRVgZnd9ixybOb+UBqBfEa0FpkduCBC
+ 21K1H3PkdPhSXf34HWvG+Cmtk2EU5zkgTwlD+AUOYEi4gcHxetaoQ1obnmgJ1ue7HUho
+ a9YWMCpVYAWZ6yvqSKbaKFWQ2R2WbyugIqYnlRQ4UFPUfcMwhh7hCeuOID9n7iYr5Mjo
+ rKn0Cnr52OuEifu9/hQadC7vqGOye29ltZp5VBVFbbpC0sSNlw4BOkWVSx0pTjjFOq5g jg== 
+Received: from nalasppmta02.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3huwr8wuwk-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 11 Aug 2022 11:30:54 +0000
+Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
+ [10.47.209.196])
+ by NALASPPMTA02.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 27BBFhpQ024546
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 11 Aug 2022 11:15:43 GMT
+Received: from [10.216.12.63] (10.80.80.8) by nalasex01a.na.qualcomm.com
+ (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.22; Thu, 11 Aug
+ 2022 04:15:35 -0700
+Message-ID: <647583a6-6e1f-b3d9-cc1d-2ca4564cceed@quicinc.com>
+Date: Thu, 11 Aug 2022 16:45:31 +0530
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH 5/5] dt-bindings: display/msm: dpu-sdm845: add
- missing DPU opp-table
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
+ Thunderbird/91.3.2
+Content-Language: en-US
+To: Bjorn Andersson <bjorn.andersson@linaro.org>
+References: <1659172664-10345-1-git-send-email-quic_akhilpo@quicinc.com>
+ <YvLMJ2yQRhBFp2y9@baldur>
+From: Akhil P Oommen <quic_akhilpo@quicinc.com>
+In-Reply-To: <YvLMJ2yQRhBFp2y9@baldur>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-GUID: fJhxWupsDssORr3TgLNUO8nf0c7zzTVK
+X-Proofpoint-ORIG-GUID: fJhxWupsDssORr3TgLNUO8nf0c7zzTVK
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.205,Aquarius:18.0.883,Hydra:6.0.517,FMLib:17.11.122.1
+ definitions=2022-08-11_05,2022-08-11_01,2022-06-22_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0
+ impostorscore=0 adultscore=0 suspectscore=0 spamscore=0 clxscore=1011
+ priorityscore=1501 mlxscore=0 phishscore=0 mlxlogscore=916 bulkscore=0
+ lowpriorityscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2207270000 definitions=main-2208110034
+Subject: Re: [Freedreno] [PATCH 0/5] clk/qcom: Support gdsc collapse polling
+ using 'reset' inteface
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,48 +86,69 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+Cc: devicetree@vger.kernel.org, Philipp Zabel <p.zabel@pengutronix.de>,
+ Stephen Boyd <sboyd@kernel.org>, linux-arm-msm@vger.kernel.org,
+ Michael Turquette <mturquette@baylibre.com>,
+ Konrad Dybcio <konrad.dybcio@somainline.org>,
+ Douglas Anderson <dianders@chromium.org>, dri-devel@lists.freedesktop.org,
+ Stephen Boyd <swboyd@chromium.org>, Rob Herring <robh+dt@kernel.org>,
+ Rob Clark <robdclark@gmail.com>, Andy Gross <agross@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ freedreno <freedreno@lists.freedesktop.org>, linux-clk@vger.kernel.org,
+ linux-kernel@vger.kernel.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-The 'display-controller' child (DPU) of Display SubSystem (MDSS) uses
-opp-table, so reference it which allows restricting DPU schema to fixed
-list of properties.
+On 8/10/2022 2:35 AM, Bjorn Andersson wrote:
+> On Sat 30 Jul 04:17 CDT 2022, Akhil P Oommen wrote:
+>
+>> Some clients like adreno gpu driver would like to ensure that its gdsc
+>> is collapsed at hardware during a gpu reset sequence. This is because it
+>> has a votable gdsc which could be ON due to a vote from another subsystem
+>> like tz, hyp etc or due to an internal hardware signal. To allow
+>> this, gpucc driver can expose an interface to the client driver using
+>> reset framework. Using this the client driver can trigger a polling within
+>> the gdsc driver.
+>>
+>> This series is rebased on top of linus's master branch.
+>>
+>> Related discussion: https://patchwork.freedesktop.org/patch/493144/
+>>
+> Forgive me if I'm assuming too much, but isn't this an extension of:
+>
+> 85a3d920d30a ("clk: qcom: Add a dummy enable function for GX gdsc")
+>
+> With the additional requirement that disable should really ensure that
+> the GDSC is turned off?
+Also, gpu driver needs a way to ensure cx gdsc was collapsed at least 
+once before it goes ahead with re-init.
 
-Fixes: 3d7a0dd8f39b ("dt-bindings: msm: disp: add yaml schemas for DPU bindings")
-Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+Btw, the patch you mentioned is about gx gdsc in gpucc which is supposed 
+to be owned by gmu (except when it is in bad shape). But the current 
+series is about cx gdsc which is shared with other subsystems/drivers.
 
----
-
-Cc: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Cc: Rob Clark <robdclark@gmail.com>
-Cc: Sean Paul <sean@poorly.run>
-Cc: Abhinav Kumar <quic_abhinavk@quicinc.com>
----
- Documentation/devicetree/bindings/display/msm/dpu-sdm845.yaml | 3 +++
- 1 file changed, 3 insertions(+)
-
-diff --git a/Documentation/devicetree/bindings/display/msm/dpu-sdm845.yaml b/Documentation/devicetree/bindings/display/msm/dpu-sdm845.yaml
-index 2bb8896beffc..aa99201dae3f 100644
---- a/Documentation/devicetree/bindings/display/msm/dpu-sdm845.yaml
-+++ b/Documentation/devicetree/bindings/display/msm/dpu-sdm845.yaml
-@@ -65,6 +65,7 @@ patternProperties:
-   "^display-controller@[0-9a-f]+$":
-     type: object
-     description: Node containing the properties of DPU.
-+    additionalProperties: false
- 
-     properties:
-       compatible:
-@@ -102,6 +103,8 @@ patternProperties:
-         maxItems: 1
- 
-       operating-points-v2: true
-+      opp-table: true
-+
-       ports:
-         $ref: /schemas/graph.yaml#/properties/ports
-         description: |
--- 
-2.34.1
+-Akhil.
+>
+> Regards,
+> Bjorn
+>
+>> Akhil P Oommen (5):
+>>    dt-bindings: clk: qcom: Support gpu cx gdsc reset
+>>    clk: qcom: Allow custom reset ops
+>>    clk: qcom: gpucc-sc7280: Add cx collapse reset support
+>>    clk: qcom: gdsc: Add a reset op to poll gdsc collapse
+>>    arm64: dts: qcom: sc7280: Add Reset support for gpu
+>>
+>>   arch/arm64/boot/dts/qcom/sc7280.dtsi          |  3 +++
+>>   drivers/clk/qcom/gdsc.c                       | 23 +++++++++++++++++++----
+>>   drivers/clk/qcom/gdsc.h                       |  7 +++++++
+>>   drivers/clk/qcom/gpucc-sc7280.c               |  6 ++++++
+>>   drivers/clk/qcom/reset.c                      |  6 ++++++
+>>   drivers/clk/qcom/reset.h                      |  2 ++
+>>   include/dt-bindings/clock/qcom,gpucc-sc7280.h |  3 +++
+>>   7 files changed, 46 insertions(+), 4 deletions(-)
+>>
+>> -- 
+>> 2.7.4
+>>
 
