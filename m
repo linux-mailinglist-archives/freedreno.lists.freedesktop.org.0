@@ -1,58 +1,70 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2472A58F701
-	for <lists+freedreno@lfdr.de>; Thu, 11 Aug 2022 06:37:00 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id A4BDA58F7D2
+	for <lists+freedreno@lfdr.de>; Thu, 11 Aug 2022 08:43:20 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1A01F9F4E4;
-	Thu, 11 Aug 2022 04:36:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7F9B8A3E98;
+	Thu, 11 Aug 2022 06:43:12 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ej1-x636.google.com (mail-ej1-x636.google.com
- [IPv6:2a00:1450:4864:20::636])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C587B8DFC4
- for <freedreno@lists.freedesktop.org>; Thu, 11 Aug 2022 04:36:25 +0000 (UTC)
-Received: by mail-ej1-x636.google.com with SMTP id dc19so31364400ejb.12
- for <freedreno@lists.freedesktop.org>; Wed, 10 Aug 2022 21:36:25 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kali.org; s=google;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc;
- bh=wbQAeMQOJ4LfSIWECGQFyUhqjfpSoLI8AfopCaQiJEU=;
- b=G2Svss+8NtmivkCOl4Bh6T8tY5W084Z2nlXQ31QrJ6LZyKPy2WaINasfEgMBwOxRtb
- 7SFYLbAM+NhjMLdjquQr1/Y6LIZQlP1j/aI+enQPlzLAy7k2QQwB2Q4wDbANkwZGvwOF
- fsSaXcGgaqc3LSOwBeGoMAMPlhKHKQDl1a6THh7/kek/2AHn0ylR3zV9K61bQ6ecRJ4k
- WRqJvY6Gnkv+aXANNFxwpWbxaPy1atzV5pOKxDyXdGqv7bqwbyKSCkWyecybU/VTaHoe
- A3sTBV9vizJ7LfPXsEkOI25uvnog+uhUhnof911XHQB9wHkikqAfkLgsCBIXfiUI2lpr
- bD6Q==
+Received: from mail-lj1-x22f.google.com (mail-lj1-x22f.google.com
+ [IPv6:2a00:1450:4864:20::22f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2DDC6A3E8D
+ for <freedreno@lists.freedesktop.org>; Thu, 11 Aug 2022 06:43:06 +0000 (UTC)
+Received: by mail-lj1-x22f.google.com with SMTP id x9so14666562ljj.13
+ for <freedreno@lists.freedesktop.org>; Wed, 10 Aug 2022 23:43:06 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc; bh=y5FLc62ya38DCrndtGr7VVaO4umLSwe5yc3jrPdFBrc=;
+ b=L1T1o8ZLdd5kbxyZjbXT0VQ5v2U/q5JVdFy57DZbCP0SNbQjsqKePpl+rzYwQFzV5M
+ 29v0Q06y1/W7DMjRiu9GCAd9Djt94Mhrbeky9w4L5xk3u1Co3GhxrrXef0rcSpsmUckr
+ rXRRTKiX5qPxWLB7gIfUwN3+QeyEk9BrOucigGqNMtUfLEkDqEAp5aMKbMXSY4VB2eF+
+ 3xiDTTLRKjILEuGa6KU+qs0gK2H9Tx9ymABJmRl86YRLig4XV/LXIsTY6wtaKfcIIwpn
+ D2o8Utp4GVH6MpEYvwUfk+79wt5tNkYv5ruSIjzGrVSF6VF9e5usgLnarhq0gsHMIISS
+ W1yQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc;
- bh=wbQAeMQOJ4LfSIWECGQFyUhqjfpSoLI8AfopCaQiJEU=;
- b=N/Adi859sz5ZhEmiQY1gE+ypD/JBU3Ip5P8yBF8mLZucbTJsbHCPCze3g+Ic2nELjL
- C0+Xrh6bSgo5Ak5KY32KlF6lKncwoFrUtJXTCVvm6aWz6dMSzED6WJQ9TXjmzOVh+A/E
- Oa0irAAj2TDd0FOoGSHPUWP01+mhrv5ye3RWdd0PtxQORQYXtCOYmzgNKoz0d8ZyuYMC
- QeMJBXkcrs5cymupUS9hhAQ0S+YV8IMuryt3cpKWJj/k2rxn48ZlQ0jiWe+w+WJ7IGg2
- bRDnvHsyp1x/uZNVAxczJC+FXrH2X3z12sZ+JFCaCgGQqMKBmTLV/qT+9eqPTqvRWrYK
- L7gQ==
-X-Gm-Message-State: ACgBeo0c8lp9rJHd0wnOsIGMqz0LjmjR3HQiqhTord0n1Ux5eCa6RhTL
- 0uA1Tbwl1LU0F8P2gt0YQkRpsMsETeV1AQzCLcHl2g==
-X-Google-Smtp-Source: AA6agR7nmtkC3H2rGXWkVc5MPJ5csNAZDDyaJhdrIQp6wcJA9xfLEfa8hMO5cs2oGCS5/++TiKn6sJspoXwqiADL1Aw=
-X-Received: by 2002:a17:907:929:b0:731:3bb6:d454 with SMTP id
- au9-20020a170907092900b007313bb6d454mr14771971ejc.96.1660192584299; Wed, 10
- Aug 2022 21:36:24 -0700 (PDT)
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc;
+ bh=y5FLc62ya38DCrndtGr7VVaO4umLSwe5yc3jrPdFBrc=;
+ b=QK1vpnoRH7ufzqSz40TUixCfBYxCXKXNkdkVG6/giZH0MToBcODc83bjThjBIW+b0d
+ 4i2HJ2oJlvwPAFIZ7XBelgv3eO/BlVb9n2gUnvJIPwZ6uNpCl3KCrLfULPbrSOtvEuGk
+ RQZ4TCfefyQq9ObeE46f3edb49G1c/qUmtrAxj7n0GPo6RTc91AyuFVa5pkPLNE4USux
+ cFd6qLwVijJ9WaDyb9ozFAyY31v2lSZxx+QAMPS9atgrd5Lhorzf+AWOSlT0UF2RZtlH
+ htbaOPJMByOpJSyberFQADoZg1+g0+RusEHY+wRs3zLmq0mOmRnM3RU8T10pf3CZWNOc
+ I3Xg==
+X-Gm-Message-State: ACgBeo0bgcNn4LjMZpv+gF4YqLO9ipiVGuuNRJbE7oHLtOwwNwR+HDJm
+ 0iAMZ0FW54Y5wTGQ6UpHwxNHsA==
+X-Google-Smtp-Source: AA6agR4h+jzDsmikLvCssyfAVWexiXl8Fvftjc223qA8kNJVZYUbk3OTI+SNepuFVGd3G3IP6e5rpg==
+X-Received: by 2002:a2e:b4ac:0:b0:25f:fc9f:bc2 with SMTP id
+ q12-20020a2eb4ac000000b0025ffc9f0bc2mr2480323ljm.185.1660200185171; 
+ Wed, 10 Aug 2022 23:43:05 -0700 (PDT)
+Received: from [192.168.1.39] ([83.146.140.105])
+ by smtp.gmail.com with ESMTPSA id
+ c16-20020a05651c015000b0025e6e1c836dsm683249ljd.126.2022.08.10.23.43.03
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 10 Aug 2022 23:43:03 -0700 (PDT)
+Message-ID: <97934c11-4308-a579-9088-9356e0ccab1c@linaro.org>
+Date: Thu, 11 Aug 2022 09:43:02 +0300
 MIME-Version: 1.0
-References: <20220811040121.3775613-1-bjorn.andersson@linaro.org>
- <20220811040121.3775613-4-bjorn.andersson@linaro.org>
- <CAKXuJqhWn8bcG3x-xvyJ5-1kGXBVqCEuG31aHNidCqKA81NSqQ@mail.gmail.com>
-In-Reply-To: <CAKXuJqhWn8bcG3x-xvyJ5-1kGXBVqCEuG31aHNidCqKA81NSqQ@mail.gmail.com>
-From: Steev Klimaszewski <steev@kali.org>
-Date: Wed, 10 Aug 2022 23:36:13 -0500
-Message-ID: <CAKXuJqiTQxwBdT+ZDkOuRy3+s+XTjWevJr=7+wZN7HKsy6EGbA@mail.gmail.com>
-To: Bjorn Andersson <bjorn.andersson@linaro.org>
-Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [PATCH 3/3] drm/msm/dpu: Introduce SC8280XP
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.12.0
+Content-Language: en-US
+To: Rob Herring <robh@kernel.org>
+References: <20220810035013.3582848-1-bjorn.andersson@linaro.org>
+ <20220810035013.3582848-2-bjorn.andersson@linaro.org>
+ <c5cc8752-d7e2-b870-6887-c025137ed8a1@linaro.org>
+ <20220810192029.GF200295-robh@kernel.org>
+From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+In-Reply-To: <20220810192029.GF200295-robh@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+Subject: Re: [Freedreno] [PATCH 1/7] dt-bindings: msm/dp: Add SDM845 and
+ SC8280XP compatibles
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,87 +78,50 @@ List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
 Cc: freedreno@lists.freedesktop.org,
+ Sankeerth Billakanti <quic_sbillaka@quicinc.com>,
+ Daniel Vetter <daniel@ffwll.ch>, devicetree@vger.kernel.org,
+ David Airlie <airlied@linux.ie>, Kuogee Hsieh <quic_khsieh@quicinc.com>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
+ Stephen Boyd <swboyd@chromium.org>, Rob Clark <robdclark@gmail.com>,
  Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- devicetree@vger.kernel.org, David Airlie <airlied@linux.ie>,
- linux-arm-msm@vger.kernel.org, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Rob Clark <robdclark@gmail.com>, Rob Herring <robh+dt@kernel.org>,
- Daniel Vetter <daniel@ffwll.ch>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>
+ linux-arm-msm@vger.kernel.org, Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Bjorn Andersson <bjorn.andersson@linaro.org>, Sean Paul <sean@poorly.run>,
+ linux-kernel@vger.kernel.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Wed, Aug 10, 2022 at 11:28 PM Steev Klimaszewski <steev@kali.org> wrote:
->
-> Hi Bjorn,
->
->
-> On Wed, Aug 10, 2022 at 10:58 PM Bjorn Andersson
-> <bjorn.andersson@linaro.org> wrote:
-> >
-> > The Qualcomm SC8280XP platform contains DPU version 8.0.0, has 9
-> > interfaces, 2 DSI controllers and 4 DisplayPort controllers. Extend the
-> > necessary definitions and describe the DPU in the SC8280XP.
-> >
-> > Signed-off-by: Bjorn Andersson <bjorn.andersson@linaro.org>
-> > ---
-> >
-> > Note that MSM_DP_CONTROLLER_3 is also defined in the DP series and as such a
-> > trivial conflict will occur when merging the latter of the two series.
-> >
-> >  .../gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c    | 211 ++++++++++++++++++
-> >  .../gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h    |   1 +
-> >  .../gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c |  18 ++
-> >  .../gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.h |   3 +
-> >  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_mdss.h   |   2 +
-> >  drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c       |   1 +
-> >  drivers/gpu/drm/msm/msm_drv.h                 |   1 +
-> >  drivers/gpu/drm/msm/msm_mdss.c                |   2 +
-> >  8 files changed, 239 insertions(+)
-> >
-> <snip>
-> >
-> > diff --git a/drivers/gpu/drm/msm/msm_drv.h b/drivers/gpu/drm/msm/msm_drv.h
-> > index b3689a2d27d7..5978c6e26a1e 100644
-> > --- a/drivers/gpu/drm/msm/msm_drv.h
-> > +++ b/drivers/gpu/drm/msm/msm_drv.h
-> > @@ -55,6 +55,7 @@ enum msm_dp_controller {
-> >         MSM_DP_CONTROLLER_0,
-> >         MSM_DP_CONTROLLER_1,
-> >         MSM_DP_CONTROLLER_2,
-> > +       MSM_DP_CONTROLLER_3,
-> >         MSM_DP_CONTROLLER_COUNT,
-> >  };
-> >
-> This seems to also be part of
-> https://lore.kernel.org/r/20220810040745.3582985-6-bjorn.andersson@linaro.org
-> (but only th msm_drv.h hunk
-Sorry, wrong copy buffer - it's part of this patchset -
-https://lore.kernel.org/all/20220810035013.3582848-4-bjorn.andersson@linaro.org/
+On 10/08/2022 22:20, Rob Herring wrote:
+> On Wed, Aug 10, 2022 at 05:47:52PM +0300, Krzysztof Kozlowski wrote:
+>> On 10/08/2022 06:50, Bjorn Andersson wrote:
+>>> Add compatibles for the DisplayPort and Embedded DisplayPort blocks in
+>>> Qualcomm SDM845 and SC8280XP platforms.
+>>>
+>>> Signed-off-by: Bjorn Andersson <bjorn.andersson@linaro.org>
+>>> ---
+>>>  .../devicetree/bindings/display/msm/dp-controller.yaml         | 3 +++
+>>>  1 file changed, 3 insertions(+)
+>>>
+>>> diff --git a/Documentation/devicetree/bindings/display/msm/dp-controller.yaml b/Documentation/devicetree/bindings/display/msm/dp-controller.yaml
+>>> index 94bc6e1b6451..90f9302d1731 100644
+>>> --- a/Documentation/devicetree/bindings/display/msm/dp-controller.yaml
+>>> +++ b/Documentation/devicetree/bindings/display/msm/dp-controller.yaml
+>>> @@ -16,11 +16,14 @@ description: |
+>>>  properties:
+>>>    compatible:
+>>>      enum:
+>>> +      - qcom,sdm845-dp
+>>>        - qcom,sc7180-dp
+>>
+>> Alphabetical order, please.
+>>
+>> The DTS warnings from the bot look unrelated to this patch.
+> 
+> Yes, but there are a ton of them and I thought Bjorn might care. Looks 
+> like the schema is pretty out of sync with reality and they don't really 
+> look like dts side fixes.
 
->
-> >
-> > diff --git a/drivers/gpu/drm/msm/msm_mdss.c b/drivers/gpu/drm/msm/msm_mdss.c
-> > index e13c5c12b775..7c391fab6263 100644
-> > --- a/drivers/gpu/drm/msm/msm_mdss.c
-> > +++ b/drivers/gpu/drm/msm/msm_mdss.c
-> > @@ -208,6 +208,7 @@ static int msm_mdss_enable(struct msm_mdss *msm_mdss)
-> >                 writel_relaxed(0x420, msm_mdss->mmio + UBWC_STATIC);
-> >                 break;
-> >         case DPU_HW_VER_600:
-> > +       case DPU_HW_VER_800:
-> >                 /* TODO: 0x102e for LP_DDR4 */
-> >                 writel_relaxed(0x103e, msm_mdss->mmio + UBWC_STATIC);
-> >                 writel_relaxed(2, msm_mdss->mmio + UBWC_CTRL_2);
-> > @@ -445,6 +446,7 @@ static const struct of_device_id mdss_dt_match[] = {
-> >         { .compatible = "qcom,sc7180-mdss" },
-> >         { .compatible = "qcom,sc7280-mdss" },
-> >         { .compatible = "qcom,sc8180x-mdss" },
-> > +       { .compatible = "qcom,sc8280xp-mdss" },
-> >         { .compatible = "qcom,sm8150-mdss" },
-> >         { .compatible = "qcom,sm8250-mdss" },
-> >         {}
-> > --
-> > 2.35.1
-> >
-> -- steev
+It's in progress by Dmitry:
+https://lore.kernel.org/all/20220710084133.30976-1-dmitry.baryshkov@linaro.org/
+
+Best regards,
+Krzysztof
