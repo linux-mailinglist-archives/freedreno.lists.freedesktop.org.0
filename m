@@ -2,48 +2,72 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id E39265901F5
-	for <lists+freedreno@lfdr.de>; Thu, 11 Aug 2022 18:02:10 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C85FA5907F3
+	for <lists+freedreno@lfdr.de>; Thu, 11 Aug 2022 23:19:55 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 47E92B49E2;
-	Thu, 11 Aug 2022 16:02:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 786A818B625;
+	Thu, 11 Aug 2022 21:19:51 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9FF8AB49F7;
- Thu, 11 Aug 2022 16:01:55 +0000 (UTC)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 2AD0961378;
- Thu, 11 Aug 2022 16:01:55 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9B46AC433D7;
- Thu, 11 Aug 2022 16:01:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1660233715;
- bh=5FJntoiGAy4FKurYXXyOYgeeCYPluPQ7jBivwhv82Vk=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=IRPnX1+8fIBudYbPaa4sHaQj2GuLevfqGoNATnAc6FW5R8W5wvwfySvCDtU1cFYXO
- uWlxtYZB29DdJA3emN/7DDT13QmM4rIQ8aVfKZPzZWFJEFq6Weng5w8v769+oJdSqi
- oEKhlMduuaGXn3qzsmcrS2cC0EDOtC6/GHqgAy4dhfjF26PVlxKwDZR5u42Q1V6oI+
- PUyVDMRZW20iBcYQXQV0yemvpD99wUKQoLYdvy2MKuYbyMkM91KDI4dzeSzdIKwfls
- 6uQp7pWNeQhIBsdxOWDAvxBxlRnQhHiqypTciceDwoPrYfSORFj15rZEm9p+7HBS3K
- T9inrvWR7yBfg==
-From: Sasha Levin <sashal@kernel.org>
-To: linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Date: Thu, 11 Aug 2022 11:55:55 -0400
-Message-Id: <20220811155632.1536867-46-sashal@kernel.org>
-X-Mailer: git-send-email 2.35.1
-In-Reply-To: <20220811155632.1536867-1-sashal@kernel.org>
-References: <20220811155632.1536867-1-sashal@kernel.org>
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9EAAB10FAFD;
+ Thu, 11 Aug 2022 21:19:42 +0000 (UTC)
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 27BL101H017487;
+ Thu, 11 Aug 2022 21:19:31 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
+ h=from : to : cc :
+ subject : date : message-id : mime-version : content-type; s=qcppdkim1;
+ bh=5U+s+Yn3cyeuZfaM1EzTRsyPLeu5gbrWluIaMDdEdgM=;
+ b=B7pPylBFaBt+onJO4rP9Oac0dTm4wUC0sgwHanHwiJm+ZZ2WVBsMqvHFX5WWQsnFl3Sw
+ oenW5QVPTQuHEJpTI9qYdI0EiiSST90XwXZGI8WWjMQItMTytaQ9Z0f90Y+rrVmr4D6t
+ y2pUeZFE1U55iZBwsjeuYkQG9NUzsA1tR9FydJ3NMer4heV6U0acIoZVKKghWjiu2Y1u
+ KSTm/VUNRI29VD34JjvpPABRPRaBMDAVYWZ3uT2gADVHoYjviuTIUJHkMDsHnp5y5Q6o
+ BcUlsMAuW8sAMcu3SZGUTRbdxhPP2AhMaGtG+MQnrcpFCiLrjsFrWUO2TZ/vq9F8fU4/ xQ== 
+Received: from nalasppmta01.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3hw3a6s9s1-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 11 Aug 2022 21:19:31 +0000
+Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
+ [10.47.209.196])
+ by NALASPPMTA01.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 27BLJTbc011682
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 11 Aug 2022 21:19:29 GMT
+Received: from khsieh-linux1.qualcomm.com (10.80.80.8) by
+ nalasex01a.na.qualcomm.com (10.47.209.196) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.986.22; Thu, 11 Aug 2022 14:19:28 -0700
+From: Kuogee Hsieh <quic_khsieh@quicinc.com>
+To: <robdclark@gmail.com>, <sean@poorly.run>, <swboyd@chromium.org>,
+ <dianders@chromium.org>, <vkoul@kernel.org>, <daniel@ffwll.ch>,
+ <airlied@linux.ie>, <agross@kernel.org>, <dmitry.baryshkov@linaro.org>,
+ <bjorn.andersson@linaro.org>
+Date: Thu, 11 Aug 2022 14:19:21 -0700
+Message-ID: <1660252761-14595-1-git-send-email-quic_khsieh@quicinc.com>
+X-Mailer: git-send-email 2.7.4
 MIME-Version: 1.0
-X-stable: review
-X-Patchwork-Hint: Ignore
-Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH AUTOSEL 5.15 46/69] drm/msm/gem: Drop obj lock
- in msm_gem_free_object()
+Content-Type: text/plain
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-GUID: T8nLp6bwS8A888zIYb7LfcqVQA6OSqw3
+X-Proofpoint-ORIG-GUID: T8nLp6bwS8A888zIYb7LfcqVQA6OSqw3
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.205,Aquarius:18.0.883,Hydra:6.0.517,FMLib:17.11.122.1
+ definitions=2022-08-11_13,2022-08-11_01,2022-06-22_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 malwarescore=0
+ adultscore=0 impostorscore=0 lowpriorityscore=0 suspectscore=0
+ clxscore=1015 spamscore=0 priorityscore=1501 mlxscore=0 mlxlogscore=999
+ phishscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2207270000 definitions=main-2208110064
+Subject: [Freedreno] [PATCH v3] drm/msm/dp: delete DP_RECOVERED_CLOCK_OUT_EN
+ to fix tps4
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,89 +80,57 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rob Clark <robdclark@chromium.org>, Sasha Levin <sashal@kernel.org>,
- airlied@linux.ie, linux-arm-msm@vger.kernel.org, quic_abhinavk@quicinc.com,
- dri-devel@lists.freedesktop.org, robdclark@gmail.com, daniel@ffwll.ch,
- dmitry.baryshkov@linaro.org, freedreno@lists.freedesktop.org
+Cc: quic_sbillaka@quicinc.com, linux-arm-msm@vger.kernel.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ quic_khsieh@quicinc.com, quic_aravindh@quicinc.com,
+ freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-From: Rob Clark <robdclark@chromium.org>
+Data Symbols scrambled is required for tps4 at link training 2.
+Therefore SCRAMBLING_DISABLE bit should not be set for tps4 to
+work.
 
-[ Upstream commit a414fe3a2129b490e1e9b8ad66f0364f4f961887 ]
+RECOVERED_CLOCK_OUT_EN is for enable simple EYE test for jitter
+measurement with minimal equipment for embedded applications purpose
+and is not required to be set during normal operation.
+Current implementation always have RECOVERED_CLOCK_OUT_EN bit set
+which cause SCRAMBLING_DISABLE bit wrongly set at tps4 which prevent
+tps4 from working.
 
-The only reason we grabbed the lock was to satisfy a bunch of places
-that WARN_ON() if called without the lock held.  But this angers lockdep
-which doesn't realize no one else can be holding the lock by the time we
-end up destroying the object (and sees what would otherwise be a locking
-inversion between reservation_ww_class_mutex and fs_reclaim).
+This patch delete setting RECOVERED_CLOCK_OUT_EN to fix SCRAMBLING_DISABLE
+be wrongly set at tps4.
 
-Closes: https://gitlab.freedesktop.org/drm/msm/-/issues/14
-Signed-off-by: Rob Clark <robdclark@chromium.org>
-Patchwork: https://patchwork.freedesktop.org/patch/489364/
-Link: https://lore.kernel.org/r/20220613205032.2652374-1-robdclark@gmail.com
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Changes in v2:
+-- fix Fixes tag
+
+Changes in v3:
+-- revise commit text
+
+Fixes: c943b4948b58 ("drm/msm/dp: add displayPort driver support")
+Signed-off-by: Kuogee Hsieh <quic_khsieh@quicinc.com>
+
+Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
+Reviewed-by: Stephen Boyd <swboyd@chromium.org>
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 ---
- drivers/gpu/drm/msm/msm_gem.c |  8 --------
- drivers/gpu/drm/msm/msm_gem.h | 14 +++++++++++++-
- 2 files changed, 13 insertions(+), 9 deletions(-)
+ drivers/gpu/drm/msm/dp/dp_ctrl.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/msm/msm_gem.c b/drivers/gpu/drm/msm/msm_gem.c
-index d280dd64744d..0d84bdd4a0a8 100644
---- a/drivers/gpu/drm/msm/msm_gem.c
-+++ b/drivers/gpu/drm/msm/msm_gem.c
-@@ -1017,8 +1017,6 @@ void msm_gem_free_object(struct drm_gem_object *obj)
- 	list_del(&msm_obj->mm_list);
- 	mutex_unlock(&priv->mm_lock);
+diff --git a/drivers/gpu/drm/msm/dp/dp_ctrl.c b/drivers/gpu/drm/msm/dp/dp_ctrl.c
+index ab6aa13..013ca02 100644
+--- a/drivers/gpu/drm/msm/dp/dp_ctrl.c
++++ b/drivers/gpu/drm/msm/dp/dp_ctrl.c
+@@ -1214,7 +1214,7 @@ static int dp_ctrl_link_train_2(struct dp_ctrl_private *ctrl,
+ 	if (ret)
+ 		return ret;
  
--	msm_gem_lock(obj);
--
- 	/* object should not be on active list: */
- 	GEM_WARN_ON(is_active(msm_obj));
+-	dp_ctrl_train_pattern_set(ctrl, pattern | DP_RECOVERED_CLOCK_OUT_EN);
++	dp_ctrl_train_pattern_set(ctrl, pattern);
  
-@@ -1034,17 +1032,11 @@ void msm_gem_free_object(struct drm_gem_object *obj)
- 
- 		put_iova_vmas(obj);
- 
--		/* dma_buf_detach() grabs resv lock, so we need to unlock
--		 * prior to drm_prime_gem_destroy
--		 */
--		msm_gem_unlock(obj);
--
- 		drm_prime_gem_destroy(obj, msm_obj->sgt);
- 	} else {
- 		msm_gem_vunmap(obj);
- 		put_pages(obj);
- 		put_iova_vmas(obj);
--		msm_gem_unlock(obj);
- 	}
- 
- 	drm_gem_object_release(obj);
-diff --git a/drivers/gpu/drm/msm/msm_gem.h b/drivers/gpu/drm/msm/msm_gem.h
-index e39a8e7ad843..fdd9b1a08009 100644
---- a/drivers/gpu/drm/msm/msm_gem.h
-+++ b/drivers/gpu/drm/msm/msm_gem.h
-@@ -193,7 +193,19 @@ msm_gem_unlock(struct drm_gem_object *obj)
- static inline bool
- msm_gem_is_locked(struct drm_gem_object *obj)
- {
--	return dma_resv_is_locked(obj->resv);
-+	/*
-+	 * Destroying the object is a special case.. msm_gem_free_object()
-+	 * calls many things that WARN_ON if the obj lock is not held.  But
-+	 * acquiring the obj lock in msm_gem_free_object() can cause a
-+	 * locking order inversion between reservation_ww_class_mutex and
-+	 * fs_reclaim.
-+	 *
-+	 * This deadlock is not actually possible, because no one should
-+	 * be already holding the lock when msm_gem_free_object() is called.
-+	 * Unfortunately lockdep is not aware of this detail.  So when the
-+	 * refcount drops to zero, we pretend it is already locked.
-+	 */
-+	return dma_resv_is_locked(obj->resv) || (kref_read(&obj->refcount) == 0);
- }
- 
- static inline bool is_active(struct msm_gem_object *msm_obj)
+ 	for (tries = 0; tries <= maximum_retries; tries++) {
+ 		drm_dp_link_train_channel_eq_delay(ctrl->aux, ctrl->panel->dpcd);
 -- 
-2.35.1
+The Qualcomm Innovation Center, Inc. is a member of the Code Aurora Forum,
+a Linux Foundation Collaborative Project
 
