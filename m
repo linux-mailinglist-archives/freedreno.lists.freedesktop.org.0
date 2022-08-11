@@ -2,69 +2,71 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id A4BDA58F7D2
-	for <lists+freedreno@lfdr.de>; Thu, 11 Aug 2022 08:43:20 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1352858F8A8
+	for <lists+freedreno@lfdr.de>; Thu, 11 Aug 2022 09:56:41 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7F9B8A3E98;
-	Thu, 11 Aug 2022 06:43:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2A2258AB8C;
+	Thu, 11 Aug 2022 07:56:25 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-x22f.google.com (mail-lj1-x22f.google.com
- [IPv6:2a00:1450:4864:20::22f])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2DDC6A3E8D
- for <freedreno@lists.freedesktop.org>; Thu, 11 Aug 2022 06:43:06 +0000 (UTC)
-Received: by mail-lj1-x22f.google.com with SMTP id x9so14666562ljj.13
- for <freedreno@lists.freedesktop.org>; Wed, 10 Aug 2022 23:43:06 -0700 (PDT)
+Received: from mail-lj1-x232.google.com (mail-lj1-x232.google.com
+ [IPv6:2a00:1450:4864:20::232])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CD54A18B3A8
+ for <freedreno@lists.freedesktop.org>; Thu, 11 Aug 2022 07:56:09 +0000 (UTC)
+Received: by mail-lj1-x232.google.com with SMTP id v10so15022947ljh.9
+ for <freedreno@lists.freedesktop.org>; Thu, 11 Aug 2022 00:56:09 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc; bh=y5FLc62ya38DCrndtGr7VVaO4umLSwe5yc3jrPdFBrc=;
- b=L1T1o8ZLdd5kbxyZjbXT0VQ5v2U/q5JVdFy57DZbCP0SNbQjsqKePpl+rzYwQFzV5M
- 29v0Q06y1/W7DMjRiu9GCAd9Djt94Mhrbeky9w4L5xk3u1Co3GhxrrXef0rcSpsmUckr
- rXRRTKiX5qPxWLB7gIfUwN3+QeyEk9BrOucigGqNMtUfLEkDqEAp5aMKbMXSY4VB2eF+
- 3xiDTTLRKjILEuGa6KU+qs0gK2H9Tx9ymABJmRl86YRLig4XV/LXIsTY6wtaKfcIIwpn
- D2o8Utp4GVH6MpEYvwUfk+79wt5tNkYv5ruSIjzGrVSF6VF9e5usgLnarhq0gsHMIISS
- W1yQ==
+ :from:to:cc; bh=HGD+mIOoUzZZibF46I+q3hJDknL0evsBnB4j8896RDE=;
+ b=w2Ve8pp7kpZ5uxP6kONzTfBLYo+GLlwLTI7YboNcnwSUyzMvCwh29zN6fAO49uGDiN
+ 2VkGvu5lb5NoOGvCo9WLrxVNL2kkhkZIqJy4urwI/xgg+7eImhMqGsWALOoMnzCuQr5a
+ bKphNe9iQ97fbwjNLqIGNqLFqimYiYA4/dLFxdeNGB77EkbPI0c/rV9Hivs6Z4wDlomk
+ mQ/HBLn/W6xohgtVK02g79ptUnDbrLrzhBlbmIFRD9MiGsm31GZQ1IOFu1mw95/Nafxo
+ H+2XTOYXnTJd9XCIgwRairgOHXj4qxGE/iMLiBsmwycAmo1lOFjZ/OQyThUyS/wqO6Gi
+ L1Vw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc;
- bh=y5FLc62ya38DCrndtGr7VVaO4umLSwe5yc3jrPdFBrc=;
- b=QK1vpnoRH7ufzqSz40TUixCfBYxCXKXNkdkVG6/giZH0MToBcODc83bjThjBIW+b0d
- 4i2HJ2oJlvwPAFIZ7XBelgv3eO/BlVb9n2gUnvJIPwZ6uNpCl3KCrLfULPbrSOtvEuGk
- RQZ4TCfefyQq9ObeE46f3edb49G1c/qUmtrAxj7n0GPo6RTc91AyuFVa5pkPLNE4USux
- cFd6qLwVijJ9WaDyb9ozFAyY31v2lSZxx+QAMPS9atgrd5Lhorzf+AWOSlT0UF2RZtlH
- htbaOPJMByOpJSyberFQADoZg1+g0+RusEHY+wRs3zLmq0mOmRnM3RU8T10pf3CZWNOc
- I3Xg==
-X-Gm-Message-State: ACgBeo0bgcNn4LjMZpv+gF4YqLO9ipiVGuuNRJbE7oHLtOwwNwR+HDJm
- 0iAMZ0FW54Y5wTGQ6UpHwxNHsA==
-X-Google-Smtp-Source: AA6agR4h+jzDsmikLvCssyfAVWexiXl8Fvftjc223qA8kNJVZYUbk3OTI+SNepuFVGd3G3IP6e5rpg==
-X-Received: by 2002:a2e:b4ac:0:b0:25f:fc9f:bc2 with SMTP id
- q12-20020a2eb4ac000000b0025ffc9f0bc2mr2480323ljm.185.1660200185171; 
- Wed, 10 Aug 2022 23:43:05 -0700 (PDT)
+ bh=HGD+mIOoUzZZibF46I+q3hJDknL0evsBnB4j8896RDE=;
+ b=gqDuHIK24KOP25d7BplGsz3f9kDh0vZ0UvDwS5HDgA1ziQdDF2p/ZJrfe9nI3NFj7b
+ 3juGz5z7wTQMjVjCcjXGguFsMgqmS5sSQS2BsB4r35NsiN121EYQNJ4gON4uSK/ObVFo
+ jdLoVa6wWEzsNhwSeN5G2tQ4cFk/eAPYF2dTk4IatDDY4qovQM1ca8Mp+mzzzJsD9ky9
+ 9kKYA4Z0xQrQ4yTFzQPmaN/Po1ZxNWsUKYo6UFWyIRQ9iYW3gxZbmgmlp+p6VOoieLrE
+ yib9w7eryW2ccrbGQiuydVQ3b/M3mB11jD/QwhuJ8rdhIf7nNzo6AeCj051zx5yNZ4Mh
+ 6WYQ==
+X-Gm-Message-State: ACgBeo3rk5xU2grbgUCevfIjMHzB5BbFtw3a40NSswv1nEQ/le0QJL85
+ UR9QnNMxoGGWeHco2Hw1F0DcEg==
+X-Google-Smtp-Source: AA6agR4c8fIm9+sSNAAoQ/CG7qvl6RSg1/y9svFJ1Yzku00jo7ICQImd2/4B1MH6UMreW6bzwNBm1A==
+X-Received: by 2002:a05:651c:241:b0:25e:65bd:3a8a with SMTP id
+ x1-20020a05651c024100b0025e65bd3a8amr10308517ljn.206.1660204567994; 
+ Thu, 11 Aug 2022 00:56:07 -0700 (PDT)
 Received: from [192.168.1.39] ([83.146.140.105])
  by smtp.gmail.com with ESMTPSA id
- c16-20020a05651c015000b0025e6e1c836dsm683249ljd.126.2022.08.10.23.43.03
+ j2-20020a056512398200b0048b008844b8sm607407lfu.270.2022.08.11.00.56.06
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 10 Aug 2022 23:43:03 -0700 (PDT)
-Message-ID: <97934c11-4308-a579-9088-9356e0ccab1c@linaro.org>
-Date: Thu, 11 Aug 2022 09:43:02 +0300
+ Thu, 11 Aug 2022 00:56:07 -0700 (PDT)
+Message-ID: <db9b74f9-1f65-5b88-1c81-0a3fd6dcf9a6@linaro.org>
+Date: Thu, 11 Aug 2022 10:56:06 +0300
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
  Thunderbird/91.12.0
 Content-Language: en-US
-To: Rob Herring <robh@kernel.org>
-References: <20220810035013.3582848-1-bjorn.andersson@linaro.org>
- <20220810035013.3582848-2-bjorn.andersson@linaro.org>
- <c5cc8752-d7e2-b870-6887-c025137ed8a1@linaro.org>
- <20220810192029.GF200295-robh@kernel.org>
+To: Bjorn Andersson <bjorn.andersson@linaro.org>,
+ Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Rob Herring <robh+dt@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>
+References: <20220811040121.3775613-1-bjorn.andersson@linaro.org>
+ <20220811040121.3775613-2-bjorn.andersson@linaro.org>
 From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-In-Reply-To: <20220810192029.GF200295-robh@kernel.org>
+In-Reply-To: <20220811040121.3775613-2-bjorn.andersson@linaro.org>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH 1/7] dt-bindings: msm/dp: Add SDM845 and
- SC8280XP compatibles
+Subject: Re: [Freedreno] [PATCH 1/3] dt-bindings: display/msm: Add binding
+ for SC8280XP MDSS
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,51 +79,140 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org,
- Sankeerth Billakanti <quic_sbillaka@quicinc.com>,
- Daniel Vetter <daniel@ffwll.ch>, devicetree@vger.kernel.org,
- David Airlie <airlied@linux.ie>, Kuogee Hsieh <quic_khsieh@quicinc.com>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
- Stephen Boyd <swboyd@chromium.org>, Rob Clark <robdclark@gmail.com>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- linux-arm-msm@vger.kernel.org, Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Bjorn Andersson <bjorn.andersson@linaro.org>, Sean Paul <sean@poorly.run>,
- linux-kernel@vger.kernel.org
+Cc: Sean Paul <sean@poorly.run>, devicetree@vger.kernel.org,
+ David Airlie <airlied@linux.ie>, linux-arm-msm@vger.kernel.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ Daniel Vetter <daniel@ffwll.ch>, freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 10/08/2022 22:20, Rob Herring wrote:
-> On Wed, Aug 10, 2022 at 05:47:52PM +0300, Krzysztof Kozlowski wrote:
->> On 10/08/2022 06:50, Bjorn Andersson wrote:
->>> Add compatibles for the DisplayPort and Embedded DisplayPort blocks in
->>> Qualcomm SDM845 and SC8280XP platforms.
->>>
->>> Signed-off-by: Bjorn Andersson <bjorn.andersson@linaro.org>
->>> ---
->>>  .../devicetree/bindings/display/msm/dp-controller.yaml         | 3 +++
->>>  1 file changed, 3 insertions(+)
->>>
->>> diff --git a/Documentation/devicetree/bindings/display/msm/dp-controller.yaml b/Documentation/devicetree/bindings/display/msm/dp-controller.yaml
->>> index 94bc6e1b6451..90f9302d1731 100644
->>> --- a/Documentation/devicetree/bindings/display/msm/dp-controller.yaml
->>> +++ b/Documentation/devicetree/bindings/display/msm/dp-controller.yaml
->>> @@ -16,11 +16,14 @@ description: |
->>>  properties:
->>>    compatible:
->>>      enum:
->>> +      - qcom,sdm845-dp
->>>        - qcom,sc7180-dp
->>
->> Alphabetical order, please.
->>
->> The DTS warnings from the bot look unrelated to this patch.
+On 11/08/2022 07:01, Bjorn Andersson wrote:
+> Add binding for the display subsystem and display processing unit in the
+> Qualcomm SC8280XP platform.
 > 
-> Yes, but there are a ton of them and I thought Bjorn might care. Looks 
-> like the schema is pretty out of sync with reality and they don't really 
-> look like dts side fixes.
+> Signed-off-by: Bjorn Andersson <bjorn.andersson@linaro.org>
+> ---
+>  .../bindings/display/msm/dpu-sc8280xp.yaml    | 284 ++++++++++++++++++
+>  1 file changed, 284 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/display/msm/dpu-sc8280xp.yaml
+> 
+> diff --git a/Documentation/devicetree/bindings/display/msm/dpu-sc8280xp.yaml b/Documentation/devicetree/bindings/display/msm/dpu-sc8280xp.yaml
+> new file mode 100644
+> index 000000000000..6c25943e639c
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/display/msm/dpu-sc8280xp.yaml
 
-It's in progress by Dmitry:
-https://lore.kernel.org/all/20220710084133.30976-1-dmitry.baryshkov@linaro.org/
+qcom prefix is needed (also when file is in msm subdir)
+
+The file name should be based on compatible, so "qcom,sc8280xp-mdss.yaml"
+
+> @@ -0,0 +1,284 @@
+> +# SPDX-License-Identifier: GPL-2.0-only or BSD-2-Clause
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/display/msm/dpu-sc8280xp.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: Qualcomm Display Processing Unit for SC8280XP
+> +
+> +maintainers:
+> +  - Bjorn Andersson <bjorn.andersson@linaro.org>
+> +
+> +description:
+> +  Device tree bindings for MSM Mobile Display Subsystem (MDSS) that encapsulates
+> +  sub-blocks like DPU display controller, DSI and DP interfaces etc. Device tree
+> +  bindings of MDSS and DPU are mentioned for SC8280XP.
+
+s/Device tree bindings//
+so just:
+
+SC8280XP MSM Mobile Display Subsystem (MDSS) that encapsulates
+sub-blocks like DPU display controller, DSI and DP interfaces etc.
+
+> +
+> +properties:
+> +  compatible:
+> +    const: qcom,sc8280xp-mdss
+> +
+> +  reg:
+> +    maxItems: 1
+> +
+> +  reg-names:
+> +    const: mdss
+
+You do not need reg names for one item, especially if the name is kind
+of obvious... unless you re-use existing driver which needs it? Then
+maybe let's change the driver to take first element?
+
+> +
+> +  power-domains:
+> +    maxItems: 1
+> +
+> +  clocks:
+> +    items:
+> +      - description: Display AHB clock from gcc
+> +      - description: Display AHB clock from dispcc
+> +      - description: Display core clock
+> +
+> +  clock-names:
+> +    items:
+> +      - const: iface
+> +      - const: ahb
+> +      - const: core
+> +
+> +  interrupts:
+> +    maxItems: 1
+> +
+> +  interrupt-controller: true
+> +
+> +  "#address-cells": true
+> +
+> +  "#size-cells": true
+
+I see other DPU bindings also specify both as "true". Why not a fixed
+number (const)?
+
+> +
+> +  "#interrupt-cells":
+> +    const: 1
+> +
+> +  iommus:
+> +    items:
+> +      - description: Phandle to apps_smmu node with SID mask for Hard-Fail port0
+> +
+> +  ranges: true
+> +
+> +  interconnects:
+> +    minItems: 2
+
+No need for minItems in such case.
+
+> +    maxItems: 2
+> +
+> +  interconnect-names:
+> +    items:
+> +      - const: mdp0-mem
+> +      - const: mdp1-mem
+> +
+> +  resets:
+> +    items:
+> +      - description: MDSS_CORE reset
+> +
+> +patternProperties:
+> +  "^display-controller@[0-9a-f]+$":
+> +    type: object
+> +    description: Node containing the properties of DPU.
+
+additionalProperties:false on this level
+
+which will point to missing properties (e.g. opp-table)
+
+> +
+> +    properties:
+> +      compatible:
+> +        const: qcom,sc8280xp-dpu
+> +
+
 
 Best regards,
 Krzysztof
