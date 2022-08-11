@@ -1,66 +1,65 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0C2AF58F692
-	for <lists+freedreno@lfdr.de>; Thu, 11 Aug 2022 05:59:27 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 987C358F68F
+	for <lists+freedreno@lfdr.de>; Thu, 11 Aug 2022 05:59:21 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2D98E10E1FC;
-	Thu, 11 Aug 2022 03:59:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5DD4B11AD74;
+	Thu, 11 Aug 2022 03:59:03 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-oi1-x22e.google.com (mail-oi1-x22e.google.com
- [IPv6:2607:f8b0:4864:20::22e])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5391399305
- for <freedreno@lists.freedesktop.org>; Thu, 11 Aug 2022 03:58:47 +0000 (UTC)
-Received: by mail-oi1-x22e.google.com with SMTP id l188so19918498oia.4
- for <freedreno@lists.freedesktop.org>; Wed, 10 Aug 2022 20:58:47 -0700 (PDT)
+Received: from mail-oa1-x35.google.com (mail-oa1-x35.google.com
+ [IPv6:2001:4860:4864:20::35])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 54F0C11AD74
+ for <freedreno@lists.freedesktop.org>; Thu, 11 Aug 2022 03:58:48 +0000 (UTC)
+Received: by mail-oa1-x35.google.com with SMTP id
+ 586e51a60fabf-10ec41637b3so20265364fac.4
+ for <freedreno@lists.freedesktop.org>; Wed, 10 Aug 2022 20:58:48 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc;
- bh=W/Ddv3FILaw5kcUD3MzHcpXXotpPc2TE/jad5ETUSuM=;
- b=cUwl8twTqYs/ew9sdT3ULDGEmiDGjv97A+o5Dp3uk3glhVxXP5H7+tiQJel2pQbBzY
- +eIHdQUDm/Fk01osvE2rIePFAwIVLN6NQENxUMm1P410V7p6/MIQb0X1cOC8x2nfGkX1
- u5ouO+IccIFz/MfaE1gZTp2ly1+oMAiRCZVLWdjQa4J7gxrCBLwpeCtd96jqtz2yc6Yt
- A2J3vg/WlVtcvF9Bg8bwvaAEw4y+JJE+k8CFX91QuqzGlRz+LZh/5ovk1U0lS5uryQBf
- yvt2XVgmcV7367e14/bcpm7J+Uw70eFaTq8YI995sPZhq8D7C1dHu8hXmqhly3Mv19y1
- 4AeA==
+ bh=WoGxgm6hm2DcIMIJHu37sZN3LBlheWW2cglanaquIW0=;
+ b=CweOhy/8ASwAhV9xEgqiRk5gtbe4elGrTFE2sPXLee7BUSqeI+vgu28VRF8TyhL5YP
+ QHsJTKS61Y+FX8C+aAyjD8ToRqHSqpJYym2xA12RI8AviJmFG512m8md9WHBKYLTrHOz
+ WV9u3CABSPBsjw2HHLxITozNaZdWzM0YFTD3J3cX1LYfm05d1WZct4wqvmvYF0xLtKv3
+ Vy2gfYKp5Fhrxhf5ywEbzyxZKKk5qi3DR2iy+lGuQGRyie1IQ9nVRTdhX39Pxd42BeRW
+ RWklli78pvsAUOY/Yw7x5KiCqInvzobURoGISurH9FammW/l6g3u7IMZFBmEB/Dq/NZt
+ 6zpg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc;
- bh=W/Ddv3FILaw5kcUD3MzHcpXXotpPc2TE/jad5ETUSuM=;
- b=AIbeSXrSOpcPrIjwEt/2Hswh8YgyEKCcpBYf2ipCUztEkkxCHvQ9bD/86/0IrS4W9G
- 1auV4pT5i+mp56kzH7BjwvSL4tdsnA+vb7dz5ECddCltWk6XM+XW6yUbr1CYNNk2YXS7
- /VFL2aiSYIMQtGjrFQvXiAzJFRs5GATaL738yt6n/HVFw8w+uRtdja7RxgT/JOtZJrCM
- R2qhK5kpMp/lqdvbzTvwFCypPs5j1/YhVjOHKxaIVW9Ca0TIXgouo1/KvKzb05Mx2sBe
- kmRAuIYoEoUAi344mF+oLovak/9Zs8xMEuJimXO8orHLUDmH1yQO+n7Uhy+RByHsamd3
- yKBA==
-X-Gm-Message-State: ACgBeo1w57nWuLRefCWmbUdWiVNL6FULx0hHUHFnaikFNP/T1uSCNbrI
- tVt2XQ8nDggZTaJsAfRcGVKA2w==
-X-Google-Smtp-Source: AA6agR4Bivj+6SyN7gYcv9JGlrUXaDqXqgBvYMIom0ezxOmJPpuIcHoZGl3zZJaCiacFxTRvdVAV/w==
-X-Received: by 2002:a05:6808:30a8:b0:343:538c:33ef with SMTP id
- bl40-20020a05680830a800b00343538c33efmr228693oib.91.1660190326462; 
- Wed, 10 Aug 2022 20:58:46 -0700 (PDT)
+ bh=WoGxgm6hm2DcIMIJHu37sZN3LBlheWW2cglanaquIW0=;
+ b=J/vBkpc/UK8vr2tYB9monl0WOrdQb1+W/kRxAbCUGfIuS7pZz7wyBzguTIOL/qlTsR
+ bmgy3nUzpMC3PXW1hA0b0rhi05GXO0pKbl0NRZYIYFlLb3smkxPMTDlM773exzWvhIwm
+ dHIKXbbagtEs68dxVxzXNdkHpEW6qu3qPif/22LqdnCg1I8cqbYpE13QRZtG4rzlxDhn
+ H8O+QVQiq0/xhAZQS7lsA0yV5Z4M4Cx4CEz9jNh6m3WS0ysicruNKgvXeb7nEurVOpMF
+ U0TRog8AUm5MNE2h9fWy+Y+JO3TGSWVlkJjvwjMmyqZBi7TIsLoZgx2qOEX+P2/M0uua
+ adAw==
+X-Gm-Message-State: ACgBeo2OV+SfE/alAhSxC5xaPTIdH7YVJhKASjBib48+8o1RrYDumQOY
+ fau36fuB78ef1cmSezU85TW4Eg==
+X-Google-Smtp-Source: AA6agR4BVzYmJfl+Hk8fitZmA3UojbgYxnrzYUgkQRHIbC6+ILapSjcFMHkSG/CeGqoomENm/h0R6Q==
+X-Received: by 2002:a05:6870:9613:b0:10d:cc11:62ec with SMTP id
+ d19-20020a056870961300b0010dcc1162ecmr2878413oaq.9.1660190327551; 
+ Wed, 10 Aug 2022 20:58:47 -0700 (PDT)
 Received: from ripper.. (104-57-184-186.lightspeed.austtx.sbcglobal.net.
  [104.57.184.186]) by smtp.gmail.com with ESMTPSA id
- w22-20020a056808141600b00338869042fdsm891443oiv.32.2022.08.10.20.58.45
+ w22-20020a056808141600b00338869042fdsm891443oiv.32.2022.08.10.20.58.46
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 10 Aug 2022 20:58:45 -0700 (PDT)
+ Wed, 10 Aug 2022 20:58:47 -0700 (PDT)
 From: Bjorn Andersson <bjorn.andersson@linaro.org>
 To: Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Rob Herring <robh+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>
-Date: Wed, 10 Aug 2022 21:01:19 -0700
-Message-Id: <20220811040121.3775613-2-bjorn.andersson@linaro.org>
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Date: Wed, 10 Aug 2022 21:01:20 -0700
+Message-Id: <20220811040121.3775613-3-bjorn.andersson@linaro.org>
 X-Mailer: git-send-email 2.35.1
 In-Reply-To: <20220811040121.3775613-1-bjorn.andersson@linaro.org>
 References: <20220811040121.3775613-1-bjorn.andersson@linaro.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH 1/3] dt-bindings: display/msm: Add binding for
- SC8280XP MDSS
+Subject: [Freedreno] [PATCH 2/3] drm/msm/dpu: add support for MDP_TOP
+ blackhole
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,312 +72,62 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sean Paul <sean@poorly.run>, devicetree@vger.kernel.org,
- David Airlie <airlied@linux.ie>, linux-arm-msm@vger.kernel.org,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- Daniel Vetter <daniel@ffwll.ch>, freedreno@lists.freedesktop.org
+Cc: freedreno@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>,
+ devicetree@vger.kernel.org, David Airlie <airlied@linux.ie>,
+ linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, Rob Herring <robh+dt@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Sean Paul <sean@poorly.run>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Add binding for the display subsystem and display processing unit in the
-Qualcomm SC8280XP platform.
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 
+On sm8450 a register block was removed from MDP TOP. Accessing it during
+snapshotting results in NoC errors / immediate reboot. Skip accessing
+these registers during snapshot.
+
+Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 Signed-off-by: Bjorn Andersson <bjorn.andersson@linaro.org>
 ---
- .../bindings/display/msm/dpu-sc8280xp.yaml    | 284 ++++++++++++++++++
- 1 file changed, 284 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/display/msm/dpu-sc8280xp.yaml
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h |  1 +
+ drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c        | 11 +++++++++--
+ 2 files changed, 10 insertions(+), 2 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/display/msm/dpu-sc8280xp.yaml b/Documentation/devicetree/bindings/display/msm/dpu-sc8280xp.yaml
-new file mode 100644
-index 000000000000..6c25943e639c
---- /dev/null
-+++ b/Documentation/devicetree/bindings/display/msm/dpu-sc8280xp.yaml
-@@ -0,0 +1,284 @@
-+# SPDX-License-Identifier: GPL-2.0-only or BSD-2-Clause
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/display/msm/dpu-sc8280xp.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Qualcomm Display Processing Unit for SC8280XP
-+
-+maintainers:
-+  - Bjorn Andersson <bjorn.andersson@linaro.org>
-+
-+description:
-+  Device tree bindings for MSM Mobile Display Subsystem (MDSS) that encapsulates
-+  sub-blocks like DPU display controller, DSI and DP interfaces etc. Device tree
-+  bindings of MDSS and DPU are mentioned for SC8280XP.
-+
-+properties:
-+  compatible:
-+    const: qcom,sc8280xp-mdss
-+
-+  reg:
-+    maxItems: 1
-+
-+  reg-names:
-+    const: mdss
-+
-+  power-domains:
-+    maxItems: 1
-+
-+  clocks:
-+    items:
-+      - description: Display AHB clock from gcc
-+      - description: Display AHB clock from dispcc
-+      - description: Display core clock
-+
-+  clock-names:
-+    items:
-+      - const: iface
-+      - const: ahb
-+      - const: core
-+
-+  interrupts:
-+    maxItems: 1
-+
-+  interrupt-controller: true
-+
-+  "#address-cells": true
-+
-+  "#size-cells": true
-+
-+  "#interrupt-cells":
-+    const: 1
-+
-+  iommus:
-+    items:
-+      - description: Phandle to apps_smmu node with SID mask for Hard-Fail port0
-+
-+  ranges: true
-+
-+  interconnects:
-+    minItems: 2
-+    maxItems: 2
-+
-+  interconnect-names:
-+    items:
-+      - const: mdp0-mem
-+      - const: mdp1-mem
-+
-+  resets:
-+    items:
-+      - description: MDSS_CORE reset
-+
-+patternProperties:
-+  "^display-controller@[0-9a-f]+$":
-+    type: object
-+    description: Node containing the properties of DPU.
-+
-+    properties:
-+      compatible:
-+        const: qcom,sc8280xp-dpu
-+
-+      reg:
-+        items:
-+          - description: Address offset and size for mdp register set
-+          - description: Address offset and size for vbif register set
-+
-+      reg-names:
-+        items:
-+          - const: mdp
-+          - const: vbif
-+
-+      clocks:
-+        items:
-+          - description: Display hf axi clock
-+          - description: Display sf axi clock
-+          - description: Display ahb clock
-+          - description: Display lut clock
-+          - description: Display core clock
-+          - description: Display vsync clock
-+
-+      clock-names:
-+        items:
-+          - const: bus
-+          - const: nrt_bus
-+          - const: iface
-+          - const: lut
-+          - const: core
-+          - const: vsync
-+
-+      interrupts:
-+        maxItems: 1
-+
-+      power-domains:
-+        maxItems: 1
-+
-+      operating-points-v2: true
-+
-+      ports:
-+        $ref: /schemas/graph.yaml#/properties/ports
-+        description: |
-+          Contains the list of output ports from DPU device. These ports
-+          connect to interfaces that are external to the DPU hardware,
-+          such as DSI, DP etc. Each output port contains an endpoint that
-+          describes how it is connected to an external interface.
-+
-+        patternProperties:
-+          '^port@[0-8]$':
-+            $ref: /schemas/graph.yaml#/properties/port
-+            description: DPU interfaces
-+
-+    required:
-+      - compatible
-+      - reg
-+      - reg-names
-+      - clocks
-+      - interrupts
-+      - power-domains
-+      - operating-points-v2
-+      - ports
-+
-+required:
-+  - compatible
-+  - reg
-+  - reg-names
-+  - power-domains
-+  - clocks
-+  - interrupts
-+  - interrupt-controller
-+  - iommus
-+  - ranges
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    #include <dt-bindings/clock/qcom,dispcc-sc8280xp.h>
-+    #include <dt-bindings/clock/qcom,gcc-sc8280xp.h>
-+    #include <dt-bindings/interrupt-controller/arm-gic.h>
-+    #include <dt-bindings/interconnect/qcom,sc8280xp.h>
-+    #include <dt-bindings/power/qcom-rpmpd.h>
-+
-+    display-subsystem@ae00000 {
-+      compatible = "qcom,sc8280xp-mdss";
-+      reg = <0x0ae00000 0x1000>;
-+      reg-names = "mdss";
-+
-+      power-domains = <&dispcc0 MDSS_GDSC>;
-+
-+      clocks = <&gcc GCC_DISP_AHB_CLK>,
-+               <&dispcc0 DISP_CC_MDSS_AHB_CLK>,
-+               <&dispcc0 DISP_CC_MDSS_MDP_CLK>;
-+      clock-names = "iface",
-+                    "ahb",
-+                    "core";
-+
-+      assigned-clocks = <&dispcc0 DISP_CC_MDSS_MDP_CLK>;
-+      assigned-clock-rates = <460000000>;
-+
-+      resets = <&dispcc0 DISP_CC_MDSS_CORE_BCR>;
-+
-+      interrupts = <GIC_SPI 83 IRQ_TYPE_LEVEL_HIGH>;
-+      interrupt-controller;
-+      #interrupt-cells = <1>;
-+
-+      interconnects = <&mmss_noc MASTER_MDP0 0 &mc_virt SLAVE_EBI1 0>,
-+                      <&mmss_noc MASTER_MDP1 0 &mc_virt SLAVE_EBI1 0>;
-+      interconnect-names = "mdp0-mem", "mdp1-mem";
-+
-+      iommus = <&apps_smmu 0x1000 0x402>;
-+
-+      #address-cells = <1>;
-+      #size-cells = <1>;
-+      ranges;
-+
-+      display-controller@ae01000 {
-+        compatible = "qcom,sc8280xp-dpu";
-+        reg = <0x0ae01000 0x8f000>,
-+              <0x0aeb0000 0x2008>;
-+        reg-names = "mdp", "vbif";
-+
-+        clocks = <&gcc GCC_DISP_HF_AXI_CLK>,
-+                 <&gcc GCC_DISP_SF_AXI_CLK>,
-+                 <&dispcc0 DISP_CC_MDSS_AHB_CLK>,
-+                 <&dispcc0 DISP_CC_MDSS_MDP_LUT_CLK>,
-+                 <&dispcc0 DISP_CC_MDSS_MDP_CLK>,
-+                 <&dispcc0 DISP_CC_MDSS_VSYNC_CLK>;
-+        clock-names = "bus",
-+                      "nrt_bus",
-+                      "iface",
-+                      "lut",
-+                      "core",
-+                      "vsync";
-+
-+        assigned-clocks = <&dispcc0 DISP_CC_MDSS_MDP_CLK>,
-+                          <&dispcc0 DISP_CC_MDSS_VSYNC_CLK>;
-+        assigned-clock-rates = <460000000>,
-+                               <19200000>;
-+
-+        operating-points-v2 = <&mdss0_mdp_opp_table>;
-+        power-domains = <&rpmhpd SC8280XP_MMCX>;
-+
-+        interrupt-parent = <&mdss0>;
-+        interrupts = <0>;
-+
-+        ports {
-+          #address-cells = <1>;
-+          #size-cells = <0>;
-+
-+          port@0 {
-+            reg = <0>;
-+              endpoint {
-+                remote-endpoint = <&mdss0_dp0_in>;
-+              };
-+          };
-+
-+          port@4 {
-+            reg = <4>;
-+            endpoint {
-+              remote-endpoint = <&mdss0_dp1_in>;
-+            };
-+          };
-+
-+          port@5 {
-+            reg = <5>;
-+              endpoint {
-+                remote-endpoint = <&mdss0_dp3_in>;
-+              };
-+          };
-+
-+          port@6 {
-+            reg = <6>;
-+              endpoint {
-+                remote-endpoint = <&mdss0_dp2_in>;
-+              };
-+          };
-+        };
-+
-+        mdss0_mdp_opp_table: opp-table {
-+          compatible = "operating-points-v2";
-+
-+          opp-200000000 {
-+            opp-hz = /bits/ 64 <200000000>;
-+            required-opps = <&rpmhpd_opp_low_svs>;
-+          };
-+
-+          opp-300000000 {
-+            opp-hz = /bits/ 64 <300000000>;
-+            required-opps = <&rpmhpd_opp_svs>;
-+          };
-+
-+          opp-345000000 {
-+            opp-hz = /bits/ 64 <345000000>;
-+            required-opps = <&rpmhpd_opp_svs_l1>;
-+          };
-+
-+          opp-460000000 {
-+            opp-hz = /bits/ 64 <460000000>;
-+            required-opps = <&rpmhpd_opp_nom>;
-+          };
-+        };
-+      };
-+    };
-+...
-+
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h
+index 71fe4c505f5b..daf76ea908de 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h
+@@ -92,6 +92,7 @@ enum {
+ 	DPU_MDP_UBWC_1_0,
+ 	DPU_MDP_UBWC_1_5,
+ 	DPU_MDP_AUDIO_SELECT,
++	DPU_MDP_PERIPH_0_REMOVED,
+ 	DPU_MDP_MAX
+ };
+ 
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
+index 008e1420e6e5..49e7aeebdedc 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
+@@ -946,8 +946,15 @@ static void dpu_kms_mdp_snapshot(struct msm_disp_state *disp_state, struct msm_k
+ 		msm_disp_snapshot_add_block(disp_state, cat->wb[i].len,
+ 				dpu_kms->mmio + cat->wb[i].base, "wb_%d", i);
+ 
+-	msm_disp_snapshot_add_block(disp_state, cat->mdp[0].len,
+-			dpu_kms->mmio + cat->mdp[0].base, "top");
++	if (top->caps->features & BIT(DPU_MDP_PERIPH_0_REMOVED)) {
++		msm_disp_snapshot_add_block(disp_state, 0x380,
++					    dpu_kms->mmio + cat->mdp[0].base, "top");
++		msm_disp_snapshot_add_block(disp_state, cat->mdp[0].len - 0x3a8,
++					    dpu_kms->mmio + cat->mdp[0].base + 0x3a8, "top_2");
++	} else {
++		msm_disp_snapshot_add_block(disp_state, cat->mdp[0].len,
++					    dpu_kms->mmio + cat->mdp[0].base, "top");
++	}
+ 
+ 	pm_runtime_put_sync(&dpu_kms->pdev->dev);
+ }
 -- 
 2.35.1
 
