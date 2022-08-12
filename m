@@ -2,72 +2,52 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id CA0385908D3
-	for <lists+freedreno@lfdr.de>; Fri, 12 Aug 2022 00:58:28 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 19C615912B4
+	for <lists+freedreno@lfdr.de>; Fri, 12 Aug 2022 17:14:19 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4886D92607;
-	Thu, 11 Aug 2022 22:58:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 08572B62D8;
+	Fri, 12 Aug 2022 15:14:03 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 723708BD92;
- Thu, 11 Aug 2022 22:58:04 +0000 (UTC)
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 27BMchoS031684;
- Thu, 11 Aug 2022 22:57:58 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
- h=from : to : cc :
- subject : date : message-id : mime-version : content-type; s=qcppdkim1;
- bh=xVaFdP9YnOOfriV34XRVwBTP9uPK6xLsJxnZttySgp0=;
- b=oeu/aKkxLtUQvQYQ4o6jisW4HurkfJfdS4RXweNCuHISSsQ+TyENYQja+nQexZNTuw2U
- g4cSbe2fAU+B9wSz3Yju2CAMAf3WofmUmgQdf7r8vuAPlHNzbWYvcFtXSazDOmbEKPai
- lVG9TYMqxtn2H2eT4OquJj45SvMezCElxckdgfNuzW5+LBI2aR4Us47HfMbWpfukIHI1
- TxQt3Q6O/PhMMv2YG7el3MP1a5qeW+R331kyow0pwHUsyX8R3oY9hFZnynmP7uz7z4Yq
- t50m7RWKlj1cB4QM31zVSuerAkFJrGDnVxbbWbR5UTnfBFtkBIMYcqh5rtAk6UbW1Jn8 sw== 
-Received: from nalasppmta01.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3hwa8d02eu-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 11 Aug 2022 22:57:58 +0000
-Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
- [10.47.209.196])
- by NALASPPMTA01.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 27BMvvwe010071
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 11 Aug 2022 22:57:57 GMT
-Received: from khsieh-linux1.qualcomm.com (10.80.80.8) by
- nalasex01a.na.qualcomm.com (10.47.209.196) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.986.22; Thu, 11 Aug 2022 15:57:56 -0700
-From: Kuogee Hsieh <quic_khsieh@quicinc.com>
-To: <robdclark@gmail.com>, <sean@poorly.run>, <swboyd@chromium.org>,
- <dianders@chromium.org>, <vkoul@kernel.org>, <daniel@ffwll.ch>,
- <airlied@linux.ie>, <agross@kernel.org>, <dmitry.baryshkov@linaro.org>,
- <bjorn.andersson@linaro.org>
-Date: Thu, 11 Aug 2022 15:57:50 -0700
-Message-ID: <1660258670-4200-1-git-send-email-quic_khsieh@quicinc.com>
-X-Mailer: git-send-email 2.7.4
-MIME-Version: 1.0
-Content-Type: text/plain
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-GUID: dIXcJ7UY6pmG2FEuyfMM6U03V8WOqLSA
-X-Proofpoint-ORIG-GUID: dIXcJ7UY6pmG2FEuyfMM6U03V8WOqLSA
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.205,Aquarius:18.0.883,Hydra:6.0.517,FMLib:17.11.122.1
- definitions=2022-08-11_14,2022-08-11_01,2022-06-22_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- mlxlogscore=999 spamscore=0
- priorityscore=1501 mlxscore=0 lowpriorityscore=0 bulkscore=0 adultscore=0
- impostorscore=0 suspectscore=0 malwarescore=0 clxscore=1015 phishscore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2207270000
- definitions=main-2208110068
-Subject: [Freedreno] [PATCH v5] drm/msm/dp: delete DP_RECOVERED_CLOCK_OUT_EN
- to fix tps4
+Received: from mail-il1-f181.google.com (mail-il1-f181.google.com
+ [209.85.166.181])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1B2ACB62DD;
+ Fri, 12 Aug 2022 15:13:56 +0000 (UTC)
+Received: by mail-il1-f181.google.com with SMTP id c5so617909ilh.3;
+ Fri, 12 Aug 2022 08:13:56 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=message-id:date:subject:references:in-reply-to:cc:to:from
+ :x-gm-message-state:from:to:cc;
+ bh=qrYMH+Kwic0lNNdXlyACBjAld7jR6Z8oVCf9ilB6udQ=;
+ b=7Xvl8x6tBqQKv2Yk7e3BMAqaUBegp+Xj5kQ0cSU9WPAybcpmetG+MqHwpowG1dghtI
+ nYhknO+9W0IK2YgfkSa4TpEbabIf6V+mYGeM5oBEpT3cVwXPXA7TLS/ZgxF85G9eNemN
+ 1qNY+RsrQZaTBvjTDoeOF9Te4Jl3nj1DKoRj+ZV/O8AT36eD7zxzWTKZinEXERFCJ/lo
+ obC3Tq4jfgjMaNo2z1LreWdEBcRARNP7XvNo0/IOnLNcJpNlOwTnEcf0DzuU9xvrO4vp
+ Z8mNIk7lxb3/2/JsLFFTllcJhxZDemk42HgmKgqAwL1tjTarKk00nIpdCKWFJWTLDPsi
+ GINg==
+X-Gm-Message-State: ACgBeo1yl9oXrSQU1S4PtNvrUIXI0f7j4o3MFOoRoX4oG4b7wMIGB1kr
+ sIZpdg0gQUA0J2hmOUzBag==
+X-Google-Smtp-Source: AA6agR4LIkp2IQh8Xf1gwt2+DMWiriYNLrEfpR8rav2W8/cROciO1rzAEhb1njHS4Nnbwm7Gm0KzRg==
+X-Received: by 2002:a05:6e02:19cc:b0:2dd:ad68:7443 with SMTP id
+ r12-20020a056e0219cc00b002ddad687443mr2092242ill.141.1660317235332; 
+ Fri, 12 Aug 2022 08:13:55 -0700 (PDT)
+Received: from robh.at.kernel.org ([64.188.179.248])
+ by smtp.gmail.com with ESMTPSA id
+ bq12-20020a056638468c00b00343617e8368sm793015jab.99.2022.08.12.08.13.54
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 12 Aug 2022 08:13:54 -0700 (PDT)
+Received: (nullmailer pid 168973 invoked by uid 1000);
+ Fri, 12 Aug 2022 15:13:53 -0000
+From: Rob Herring <robh@kernel.org>
+To: Bjorn Andersson <bjorn.andersson@linaro.org>
+In-Reply-To: <20220811040121.3775613-2-bjorn.andersson@linaro.org>
+References: <20220811040121.3775613-1-bjorn.andersson@linaro.org>
+ <20220811040121.3775613-2-bjorn.andersson@linaro.org>
+Date: Fri, 12 Aug 2022 09:13:53 -0600
+Message-Id: <1660317233.413609.168972.nullmailer@robh.at.kernel.org>
+Subject: Re: [Freedreno] [PATCH 1/3] dt-bindings: display/msm: Add binding
+ for SC8280XP MDSS
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,63 +60,54 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: quic_sbillaka@quicinc.com, linux-arm-msm@vger.kernel.org,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- quic_khsieh@quicinc.com, quic_aravindh@quicinc.com,
- freedreno@lists.freedesktop.org
+Cc: devicetree@vger.kernel.org,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ David Airlie <airlied@linux.ie>, linux-arm-msm@vger.kernel.org,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Rob Clark <robdclark@gmail.com>,
+ Rob Herring <robh+dt@kernel.org>, Daniel Vetter <daniel@ffwll.ch>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ freedreno@lists.freedesktop.org, Sean Paul <sean@poorly.run>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Data Symbols scrambled is required for tps4 at link training 2.
-Therefore SCRAMBLING_DISABLE bit should not be set for tps4 to
-work.
+On Wed, 10 Aug 2022 21:01:19 -0700, Bjorn Andersson wrote:
+> Add binding for the display subsystem and display processing unit in the
+> Qualcomm SC8280XP platform.
+> 
+> Signed-off-by: Bjorn Andersson <bjorn.andersson@linaro.org>
+> ---
+>  .../bindings/display/msm/dpu-sc8280xp.yaml    | 284 ++++++++++++++++++
+>  1 file changed, 284 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/display/msm/dpu-sc8280xp.yaml
+> 
 
-RECOVERED_CLOCK_OUT_EN is for enable simple EYE test for jitter
-measurement with minimal equipment for embedded applications purpose
-and is not required to be set during normal operation. Current
-implementation always have RECOVERED_CLOCK_OUT_EN bit set which
-cause SCRAMBLING_DISABLE bit wrongly set at tps4 which prevent
-tps4 from working.
+My bot found errors running 'make DT_CHECKER_FLAGS=-m dt_binding_check'
+on your patch (DT_CHECKER_FLAGS is new in v5.13):
 
-This patch delete setting RECOVERED_CLOCK_OUT_EN to fix
-SCRAMBLING_DISABLE be wrongly set at tps4.
+yamllint warnings/errors:
 
-Changes in v2:
--- fix Fixes tag
+dtschema/dtc warnings/errors:
+Documentation/devicetree/bindings/display/msm/dpu-sc8280xp.example.dts:21:18: fatal error: dt-bindings/clock/qcom,dispcc-sc8280xp.h: No such file or directory
+   21 |         #include <dt-bindings/clock/qcom,dispcc-sc8280xp.h>
+      |                  ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+compilation terminated.
+make[1]: *** [scripts/Makefile.lib:383: Documentation/devicetree/bindings/display/msm/dpu-sc8280xp.example.dtb] Error 1
+make[1]: *** Waiting for unfinished jobs....
+make: *** [Makefile:1404: dt_binding_check] Error 2
 
-Changes in v3:
--- revise commit text
+doc reference errors (make refcheckdocs):
 
-Changes in v4:
--- fix commit text newline
+See https://patchwork.ozlabs.org/patch/
 
-Changes in v5:
--- fix commit text line over 75 chars
+This check can fail if there are any dependencies. The base for a patch
+series is generally the most recent rc1.
 
-Fixes: c943b4948b58 ("drm/msm/dp: add displayPort driver support")
-Signed-off-by: Kuogee Hsieh <quic_khsieh@quicinc.com>
+If you already ran 'make dt_binding_check' and didn't see the above
+error(s), then make sure 'yamllint' is installed and dt-schema is up to
+date:
 
-Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
-Reviewed-by: Stephen Boyd <swboyd@chromium.org>
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
----
- drivers/gpu/drm/msm/dp/dp_ctrl.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+pip3 install dtschema --upgrade
 
-diff --git a/drivers/gpu/drm/msm/dp/dp_ctrl.c b/drivers/gpu/drm/msm/dp/dp_ctrl.c
-index ab6aa13..013ca02 100644
---- a/drivers/gpu/drm/msm/dp/dp_ctrl.c
-+++ b/drivers/gpu/drm/msm/dp/dp_ctrl.c
-@@ -1214,7 +1214,7 @@ static int dp_ctrl_link_train_2(struct dp_ctrl_private *ctrl,
- 	if (ret)
- 		return ret;
- 
--	dp_ctrl_train_pattern_set(ctrl, pattern | DP_RECOVERED_CLOCK_OUT_EN);
-+	dp_ctrl_train_pattern_set(ctrl, pattern);
- 
- 	for (tries = 0; tries <= maximum_retries; tries++) {
- 		drm_dp_link_train_channel_eq_delay(ctrl->aux, ctrl->panel->dpcd);
--- 
-The Qualcomm Innovation Center, Inc. is a member of the Code Aurora Forum,
-a Linux Foundation Collaborative Project
+Please check and re-submit.
 
