@@ -2,50 +2,89 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6D5FD595F7E
-	for <lists+freedreno@lfdr.de>; Tue, 16 Aug 2022 17:46:09 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2EDA6596053
+	for <lists+freedreno@lfdr.de>; Tue, 16 Aug 2022 18:32:25 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5E37B11A2E3;
-	Tue, 16 Aug 2022 15:46:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 32DC7A95B1;
+	Tue, 16 Aug 2022 16:32:07 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 75BE68BB29;
- Tue, 16 Aug 2022 15:45:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1660664759; x=1692200759;
- h=date:from:to:cc:subject:message-id:mime-version:
- content-transfer-encoding;
- bh=+iQ63kE0PzIS7sChTLoQskV1wRb2XpAS+UEE3rIsNUQ=;
- b=NKKihUOTAJZNCGtfot/xF21RR06i8jIPaxmJGJkE6Cah9RWwIvcVivYt
- kNsEe4nv9sGQVZeCf/FOPFH2Kb0y6ZXc8t/Q7rLb+4QjFWvmLReiTkJyW
- sIUqdjvAIoCESY76DtAIC0rkh4kESDr4Xkt/+aUGupqkOCkWvyZ2Erezf
- N4lE7438O/bDyFsibuY7la6loqvYsglzkrh2/FkC9SUzY2grC7LDxUKIY
- OUD5AWzydgaQyeOuQNyoXyGe+I1WVJndyheaiODSsnUxiMyg7Rg5xmTm/
- rpk518xr0LUxu0FmxXyI5VvsLxdX8r+l+J4+v1UcfQ865H4Uo1j83Fu5G A==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10441"; a="356257354"
-X-IronPort-AV: E=Sophos;i="5.93,241,1654585200"; d="scan'208";a="356257354"
-Received: from fmsmga004.fm.intel.com ([10.253.24.48])
- by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Aug 2022 08:45:58 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.93,241,1654585200"; d="scan'208";a="675265674"
-Received: from lkp-server02.sh.intel.com (HELO 81d7e1ade3ba) ([10.239.97.151])
- by fmsmga004.fm.intel.com with ESMTP; 16 Aug 2022 08:45:56 -0700
-Received: from kbuild by 81d7e1ade3ba with local (Exim 4.96)
- (envelope-from <lkp@intel.com>) id 1oNylP-00002s-2Y;
- Tue, 16 Aug 2022 15:45:55 +0000
-Date: Tue, 16 Aug 2022 23:45:43 +0800
-From: kernel test robot <lkp@intel.com>
-To: Andrew Morton <akpm@linux-foundation.org>
-Message-ID: <62fbbba7.FTVctBJTzk0OdnQC%lkp@intel.com>
-User-Agent: Heirloom mailx 12.5 6/20/10
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3F585A90C4;
+ Tue, 16 Aug 2022 16:31:48 +0000 (UTC)
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 27GGIRGD020603;
+ Tue, 16 Aug 2022 16:31:42 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
+ h=message-id : date :
+ mime-version : subject : to : cc : references : from : in-reply-to :
+ content-type : content-transfer-encoding; s=qcppdkim1;
+ bh=+JVztAJrFmffVkcN5cBnFPtMt3xVZVog5t/baqeuFaE=;
+ b=ZRKRhj6WbFlB6BFz/rg5/agOADzOJb3rJTF+Na4PKSrcAL9AywOqmE29+1TzVYijOvOs
+ fG7XUH1Lmmv4xcl5L+yjkNhJNynM6IE+zqlkEoUMlWBTP7LK/L9N+xHy2cWJ+INJiDy3
+ UIvylx06AvnHJFimoArP6vLvTOEo1eNZDmPVqoBwDiV8HaUfye+nNvz/2ep5YuDlgwIq
+ 9tCrl6bq5XDdRcCa1SecIMwjJuKe6I53nNE6bk+W7hErApCZxZqzvWG/jSa2rciYQF2+
+ IqnwRMhOpeN3ZbKXsEILTgyi078MO4FtciEZQLQgacukNYv3XSBcPYeiL/mRxvcEHkeC rQ== 
+Received: from nalasppmta02.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3j08un1bhp-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 16 Aug 2022 16:31:42 +0000
+Received: from nasanex01c.na.qualcomm.com (nasanex01c.na.qualcomm.com
+ [10.47.97.222])
+ by NALASPPMTA02.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 27GGVfS0020453
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 16 Aug 2022 16:31:41 GMT
+Received: from nalasex01a.na.qualcomm.com (10.47.209.196) by
+ nasanex01c.na.qualcomm.com (10.47.97.222) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.986.22; Tue, 16 Aug 2022 09:31:41 -0700
+Received: from [10.110.125.243] (10.80.80.8) by nalasex01a.na.qualcomm.com
+ (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.22; Tue, 16 Aug
+ 2022 09:31:39 -0700
+Message-ID: <f6493f87-479a-7755-914d-5bb7d1560ee3@quicinc.com>
+Date: Tue, 16 Aug 2022 09:31:29 -0700
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Transfer-Encoding: 7bit
-Subject: [Freedreno] [linux-next:master] BUILD REGRESSION
- e1084bacab44f570691c0fdaa1259acf93ed0098
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
+ Thunderbird/91.11.0
+Content-Language: en-US
+To: Stephen Boyd <swboyd@chromium.org>, Abhinav Kumar
+ <quic_abhinavk@quicinc.com>, <agross@kernel.org>,
+ <airlied@linux.ie>, <bjorn.andersson@linaro.org>, <daniel@ffwll.ch>,
+ <dianders@chromium.org>, <dmitry.baryshkov@linaro.org>,
+ <robdclark@gmail.com>, <sean@poorly.run>, <vkoul@kernel.org>
+References: <1660159551-13828-1-git-send-email-quic_khsieh@quicinc.com>
+ <CAE-0n533SUb3Bg=pR8Fhwo-M5qLWiti4nzLR-rSGVAsrXgEYNQ@mail.gmail.com>
+ <dbda8bce-2890-e5e3-4052-073a52eb06a6@quicinc.com>
+ <CAE-0n51NyrP8CikcK_3wj4EEsurmmSZ4RY3pLhJJmkY2_8wNZw@mail.gmail.com>
+ <0641a116-5b58-4305-bf2d-f53dcb747276@quicinc.com>
+ <1e792f49-febf-43bf-d828-8ecf99cbeba3@quicinc.com>
+ <CAE-0n50QXiJs=k78Tmd7om28MgWChypwC8LPRzF2jx_qB5+0FQ@mail.gmail.com>
+From: Kuogee Hsieh <quic_khsieh@quicinc.com>
+In-Reply-To: <CAE-0n50QXiJs=k78Tmd7om28MgWChypwC8LPRzF2jx_qB5+0FQ@mail.gmail.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-ORIG-GUID: Hg0hR1wVYjLHqsYyJBSGS-lYas6GHNIA
+X-Proofpoint-GUID: Hg0hR1wVYjLHqsYyJBSGS-lYas6GHNIA
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.205,Aquarius:18.0.883,Hydra:6.0.517,FMLib:17.11.122.1
+ definitions=2022-08-16_08,2022-08-16_02,2022-06-22_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 phishscore=0
+ mlxlogscore=999 mlxscore=0 malwarescore=0 spamscore=0 clxscore=1015
+ impostorscore=0 priorityscore=1501 adultscore=0 bulkscore=0
+ lowpriorityscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2207270000 definitions=main-2208160062
+Subject: Re: [Freedreno] [PATCH v3] drm/msm/dp: check hpd_state before push
+ idle pattern at dp_bridge_disable()
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,145 +97,97 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- Linux Memory Management List <linux-mm@kvack.org>
+Cc: quic_sbillaka@quicinc.com, linux-arm-msm@vger.kernel.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ quic_aravindh@quicinc.com, freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-tree/branch: https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git master
-branch HEAD: e1084bacab44f570691c0fdaa1259acf93ed0098  Add linux-next specific files for 20220816
 
-Error/Warning reports:
+On 8/15/2022 10:08 AM, Stephen Boyd wrote:
+> Quoting Kuogee Hsieh (2022-08-11 08:20:01)
+>> On 8/10/2022 6:00 PM, Abhinav Kumar wrote:
+>>> Even then, you do have a valid point. DRM framework should not have
+>>> caused the disable path to happen without an enable.
+>>>
+>>> I went through the stack mentioned in the issue.
+>>>
+>>> Lets see this part of the stack:
+>>>
+>>> dp_ctrl_push_idle+0x40/0x88
+>>>   dp_bridge_disable+0x24/0x30
+>>>   drm_atomic_bridge_chain_disable+0x90/0xbc
+>>>   drm_atomic_helper_commit_modeset_disables+0x198/0x444
+>>>   msm_atomic_commit_tail+0x1d0/0x374
+>>>
+>>> In drm_atomic_helper_commit_modeset_disables(), we call
+>>> disable_outputs().
+>>>
+>>> AFAICT, this is the only place which has a protection to not call the
+>>> disable() flow if it was not enabled here:
+>>>
+>>> https://gitlab.freedesktop.org/drm/msm/-/blob/msm-next/drivers/gpu/drm/drm_atomic_helper.c#L1063
+>>>
+>>>
+>>> But that function is only checking crtc_state->active. Thats set by
+>>> the usermode:
+>>>
+>>> https://gitlab.freedesktop.org/drm/msm/-/blob/msm-next/drivers/gpu/drm/drm_atomic_uapi.c#L407
+>>>
+>>>
+>>> Now, if usermode sets that to true and then crashed it can bypass this
+>>> check and we will crash in the location kuogee is trying to fix.
+> That seems bad, no? We don't want userspace to be able to crash and then
+> be able to call the disable path when enable never succeeded.
+>
+>>>  From the issue mentioned in
+>>> https://gitlab.freedesktop.org/drm/msm/-/issues/17, the reporter did
+>>> mention the usermode crashed.
+>>>
+>>> So this is my tentative analysis of whats happening here.
+>>>
+>>> Ideally yes, we should have been protected by the location mentioned
+>>> above in disable_outputs() but looks to me due to the above hypothesis
+>>> its getting bypassed.
+> Can you fix the problem there? Not fixing it means that every driver out
+> there has to develop the same "fix", when it could be fixed in the core
+> one time.
 
-https://lore.kernel.org/linux-doc/202208162058.7apPivKL-lkp@intel.com
+The reporter is running GNOME Display Manager (gdm3) instead of chrome.
 
-Error/Warning: (recently discovered and may have been fixed)
+We can not duplicate this problem locally. Hence we can not confirm this 
+is the root cause of this bug or not.
 
-Warning: MAINTAINERS references a file that doesn't exist: Documentation/devicetree/bindings/gpio/gpio-xilinx.txt
-drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/amdgpu_dm_plane.c:1046:5: warning: no previous prototype for 'fill_dc_scaling_info' [-Wmissing-prototypes]
-drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/amdgpu_dm_plane.c:1222:6: warning: no previous prototype for 'handle_cursor_update' [-Wmissing-prototypes]
-drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/amdgpu_dm_plane.c:152:6: warning: no previous prototype for 'modifier_has_dcc' [-Wmissing-prototypes]
-drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/amdgpu_dm_plane.c:1576:5: warning: no previous prototype for 'amdgpu_dm_plane_init' [-Wmissing-prototypes]
-drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/amdgpu_dm_plane.c:157:10: warning: no previous prototype for 'modifier_gfx9_swizzle_mode' [-Wmissing-prototypes]
-drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/amdgpu_dm_plane.c:752:5: warning: no previous prototype for 'fill_plane_buffer_attributes' [-Wmissing-prototypes]
-drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/amdgpu_dm_plane.c:83:31: warning: no previous prototype for 'amd_get_format_info' [-Wmissing-prototypes]
-drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/amdgpu_dm_plane.c:88:6: warning: no previous prototype for 'fill_blending_from_plane_state' [-Wmissing-prototypes]
-drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/amdgpu_dm_plane.c:992:5: warning: no previous prototype for 'dm_plane_helper_check_state' [-Wmissing-prototypes]
-drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c:905:28: warning: variable 'top' set but not used [-Wunused-but-set-variable]
-include/linux/random.h:25:46: error: 'latent_entropy' undeclared (first use in this function); did you mean 'add_latent_entropy'?
+Do you know who is more proper to investigate more into this?
 
-Error/Warning ids grouped by kconfigs:
+> Ideally drivers are simple. They configure the hardware for what the
+> function pointer is asking for. State management and things like that
+> should be pushed into the core framework so that we don't have to
+> duplicate that multiple times.
+>
+>>> Thanks
+>>>
+>>> Abhinav
+>>>
+>>>
+>> Ii sound likes that there is a hole either at user space or drm.
+>>
+>> But that should not cause dp_bridge_disable() at dp driver to crash.
+> Agreed.
+>
+>> Therefore it is properly to check hdp_state condition at
+>> dp_bridge_disable() to prevent it from crashing.
+>>
+> Disagree. Userspace shouldn't be able to get drm into a wedged state.
 
-gcc_recent_errors
-|-- alpha-allyesconfig
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-amdgpu_dm-amdgpu_dm_plane.c:warning:no-previous-prototype-for-amd_get_format_info
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-amdgpu_dm-amdgpu_dm_plane.c:warning:no-previous-prototype-for-amdgpu_dm_plane_init
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-amdgpu_dm-amdgpu_dm_plane.c:warning:no-previous-prototype-for-dm_plane_helper_check_state
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-amdgpu_dm-amdgpu_dm_plane.c:warning:no-previous-prototype-for-fill_blending_from_plane_state
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-amdgpu_dm-amdgpu_dm_plane.c:warning:no-previous-prototype-for-fill_dc_scaling_info
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-amdgpu_dm-amdgpu_dm_plane.c:warning:no-previous-prototype-for-fill_plane_buffer_attributes
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-amdgpu_dm-amdgpu_dm_plane.c:warning:no-previous-prototype-for-handle_cursor_update
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-amdgpu_dm-amdgpu_dm_plane.c:warning:no-previous-prototype-for-modifier_gfx9_swizzle_mode
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-amdgpu_dm-amdgpu_dm_plane.c:warning:no-previous-prototype-for-modifier_has_dcc
-|   `-- drivers-gpu-drm-msm-disp-dpu1-dpu_kms.c:warning:variable-top-set-but-not-used
-|-- arc-allyesconfig
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-amdgpu_dm-amdgpu_dm_plane.c:warning:no-previous-prototype-for-amd_get_format_info
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-amdgpu_dm-amdgpu_dm_plane.c:warning:no-previous-prototype-for-amdgpu_dm_plane_init
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-amdgpu_dm-amdgpu_dm_plane.c:warning:no-previous-prototype-for-dm_plane_helper_check_state
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-amdgpu_dm-amdgpu_dm_plane.c:warning:no-previous-prototype-for-fill_blending_from_plane_state
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-amdgpu_dm-amdgpu_dm_plane.c:warning:no-previous-prototype-for-fill_dc_scaling_info
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-amdgpu_dm-amdgpu_dm_plane.c:warning:no-previous-prototype-for-fill_plane_buffer_attributes
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-amdgpu_dm-amdgpu_dm_plane.c:warning:no-previous-prototype-for-handle_cursor_update
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-amdgpu_dm-amdgpu_dm_plane.c:warning:no-previous-prototype-for-modifier_gfx9_swizzle_mode
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-amdgpu_dm-amdgpu_dm_plane.c:warning:no-previous-prototype-for-modifier_has_dcc
-|   `-- drivers-gpu-drm-msm-disp-dpu1-dpu_kms.c:warning:variable-top-set-but-not-used
-|-- arm-allyesconfig
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-amdgpu_dm-amdgpu_dm_plane.c:warning:no-previous-prototype-for-amd_get_format_info
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-amdgpu_dm-amdgpu_dm_plane.c:warning:no-previous-prototype-for-amdgpu_dm_plane_init
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-amdgpu_dm-amdgpu_dm_plane.c:warning:no-previous-prototype-for-dm_plane_helper_check_state
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-amdgpu_dm-amdgpu_dm_plane.c:warning:no-previous-prototype-for-fill_blending_from_plane_state
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-amdgpu_dm-amdgpu_dm_plane.c:warning:no-previous-prototype-for-fill_dc_scaling_info
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-amdgpu_dm-amdgpu_dm_plane.c:warning:no-previous-prototype-for-fill_plane_buffer_attributes
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-amdgpu_dm-amdgpu_dm_plane.c:warning:no-previous-prototype-for-handle_cursor_update
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-amdgpu_dm-amdgpu_dm_plane.c:warning:no-previous-prototype-for-modifier_gfx9_swizzle_mode
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-amdgpu_dm-amdgpu_dm_plane.c:warning:no-previous-prototype-for-modifier_has_dcc
-|   `-- drivers-gpu-drm-msm-disp-dpu1-dpu_kms.c:warning:variable-top-set-but-not-used
-|-- arm-defconfig
-|   `-- drivers-gpu-drm-msm-disp-dpu1-dpu_kms.c:warning:variable-top-set-but-not-used
-|-- arm64-allyesconfig
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-amdgpu_dm-amdgpu_dm_plane.c:warning:no-previous-prototype-for-amd_get_format_info
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-amdgpu_dm-amdgpu_dm_plane.c:warning:no-previous-prototype-for-amdgpu_dm_plane_init
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-amdgpu_dm-amdgpu_dm_plane.c:warning:no-previous-prototype-for-dm_plane_helper_check_state
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-amdgpu_dm-amdgpu_dm_plane.c:warning:no-previous-prototype-for-fill_blending_from_plane_state
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-amdgpu_dm-amdgpu_dm_plane.c:warning:no-previous-prototype-for-fill_dc_scaling_info
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-amdgpu_dm-amdgpu_dm_plane.c:warning:no-previous-prototype-for-fill_plane_buffer_attributes
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-amdgpu_dm-amdgpu_dm_plane.c:warning:no-previous-prototype-for-handle_cursor_update
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-amdgpu_dm-amdgpu_dm_plane.c:warning:no-previous-prototype-for-modifier_gfx9_swizzle_mode
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-amdgpu_dm-amdgpu_dm_plane.c:warning:no-previous-prototype-for-modifier_has_dcc
-|   `-- drivers-gpu-drm-msm-disp-dpu1-dpu_kms.c:warning:variable-top-set-but-not-used
-|-- ia64-allmodconfig
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-amdgpu_dm-amdgpu_dm_plane.c:warning:no-previous-prototype-for-amd_get_format_info
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-amdgpu_dm-amdgpu_dm_plane.c:warning:no-previous-prototype-for-amdgpu_dm_plane_init
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-amdgpu_dm-amdgpu_dm_plane.c:warning:no-previous-prototype-for-dm_plane_helper_check_state
+not sure for this.
 
-elapsed time: 697m
+I agree if this is simple driver such as i2c which does not need to 
+maintain any states during operation.
 
-configs tested: 48
-configs skipped: 3
+but mdp/dp is far more complexity. we really do not want to have any 
+crash happen at mdp/dp in the filed.
 
-gcc tested configs:
-um                             i386_defconfig
-um                           x86_64_defconfig
-powerpc                           allnoconfig
-x86_64                           rhel-8.3-kvm
-x86_64                          rhel-8.3-func
-x86_64                         rhel-8.3-kunit
-x86_64                    rhel-8.3-kselftests
-sh                               allmodconfig
-x86_64                           rhel-8.3-syz
-powerpc                          allmodconfig
-mips                             allyesconfig
-arm                           h3600_defconfig
-arm                                 defconfig
-m68k                        m5272c3_defconfig
-arm                      integrator_defconfig
-mips                          rb532_defconfig
-m68k                        m5307c3_defconfig
-mips                         bigsur_defconfig
-riscv                    nommu_k210_defconfig
-arm                         at91_dt_defconfig
-powerpc                      chrp32_defconfig
-xtensa                generic_kc705_defconfig
-sh                            shmin_defconfig
-powerpc                     redwood_defconfig
-xtensa                              defconfig
-xtensa                  nommu_kc705_defconfig
-sh                        sh7785lcr_defconfig
-powerpc                     sequoia_defconfig
-arm                           corgi_defconfig
-ia64                      gensparse_defconfig
-arm                              allyesconfig
-arm64                            allyesconfig
-ia64                             allmodconfig
-x86_64                              defconfig
-x86_64                               rhel-8.3
-x86_64                           allyesconfig
-alpha                            allyesconfig
-arc                              allyesconfig
-m68k                             allyesconfig
-m68k                             allmodconfig
+would you please reconsider our point to add this hdp_state checking 
+here to prevent any crash happen.
 
-clang tested configs:
-powerpc                      acadia_defconfig
-mips                          rm200_defconfig
-arm                       versatile_defconfig
-powerpc                 mpc8560_ads_defconfig
-arm                        multi_v5_defconfig
-powerpc                      ppc64e_defconfig
-arm                        spear3xx_defconfig
-arm                         lpc32xx_defconfig
-
--- 
-0-DAY CI Kernel Test Service
-https://01.org/lkp
