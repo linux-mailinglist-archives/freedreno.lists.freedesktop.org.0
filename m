@@ -2,59 +2,59 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id A566B595E8D
-	for <lists+freedreno@lfdr.de>; Tue, 16 Aug 2022 16:49:41 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 96A8A595E47
+	for <lists+freedreno@lfdr.de>; Tue, 16 Aug 2022 16:25:45 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E27AB11B427;
-	Tue, 16 Aug 2022 14:49:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 665C19971B;
+	Tue, 16 Aug 2022 14:25:43 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-yw1-x1133.google.com (mail-yw1-x1133.google.com
- [IPv6:2607:f8b0:4864:20::1133])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 48DF1A9709
- for <freedreno@lists.freedesktop.org>; Tue, 16 Aug 2022 12:58:53 +0000 (UTC)
-Received: by mail-yw1-x1133.google.com with SMTP id
- 00721157ae682-33365a01f29so50627687b3.2
- for <freedreno@lists.freedesktop.org>; Tue, 16 Aug 2022 05:58:53 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc;
- bh=+APQErezRUUuYStoYBWySEt+3xQfH5a4Q9eEyloCdO4=;
- b=x9KuSNkerI+YBEaGzHZaxyQOFaaIhzC2hmxvIzKzaouiPT+YK/IzNMAYIZm4fk8ZIz
- KJTaqm48f+h/6j6WO0/ZX5Yueu4KND2Q4toY6g9zv/VawjxSYddeZY092w9iGpCnd2oS
- 5mmVo2B8eyaPhysGyIcStOE9xhUybTw7xGR8I5wt/2KYijQrq1+WUeAKy2aCNFbpODmn
- xWaJpIxSt/5dpXQYkqzb+SpHFwLil9isYYoj3oR16P1aLjE42kg5z5UPEmIPDOjPGKnz
- 6U4T2coYJlFYhTfD7aEIEJ/pNyhyRG5kIJhawk5NDEndu8YV0YDxq0A55DxGmqS4gx7M
- tXoQ==
+Received: from mail-io1-xd2e.google.com (mail-io1-xd2e.google.com
+ [IPv6:2607:f8b0:4864:20::d2e])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A28DA10E43B;
+ Tue, 16 Aug 2022 14:25:33 +0000 (UTC)
+Received: by mail-io1-xd2e.google.com with SMTP id r141so4780558iod.4;
+ Tue, 16 Aug 2022 07:25:33 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc;
+ bh=hlPqld0MkkDzkP6nlR9+xwe5ym6yN7qtcrF+O0hs2y8=;
+ b=hhVXCUBxtngsOXAc6MKLkbqPptQ7caYH5YoYz2TsHCZipiu4nB29ljNurOc4WPWzPW
+ MKo0WvLARZDo7zmak1U7qrJRQGZY2nuEfNDIyp3qhsQJH63Am9rDKPpYCNg9Njwt8E+T
+ kkz7fH0b+PvbqqQxyp1Hqlw/MvWlGDdWRxq+h5cp4jqYQVwiK4rf5afli4fdqfiFe55B
+ 32rP5fbB3A/l0fbZKr6FqUaoruUWBKCOxh1WnaAalrQPPtNVrMdSw8GMEQipYOEKyVcY
+ 4OS9ujSuNDmzZZSSWm4EnJ2fPyJq5xr5V2yjx3bikhUe0j6rgFtCKyE5sJYgf9GY4yoP
+ 5SkA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc;
- bh=+APQErezRUUuYStoYBWySEt+3xQfH5a4Q9eEyloCdO4=;
- b=cdgzUQhCOFIi4+I9NN8ilIBiM59Cnf8Nw2YiaueLWDTytt0yDhcp/FMMzMSw845Ips
- IVIj+HMDKUxBW4+taXnBlUxF/Aal+SeaaPOiYBYYYWme/jn2b9x19mh0wa1J/mk1I4R4
- ZcIJFwOXkJ0BB+7IU/zr2phPvk/UhqJIN/Kh+esJp+uZww7DMyQcWdXJpz1QnUcUg0L/
- Q6GZokMB9peFrQND7SQ7M+rCQ1UpiIbteaiZ2ISPnMt2iASdvQ+5d9GaSq8nBODEpge3
- WCfTdcswaMNiXkyw7qk0apBZHaYH2bPQebaDJhQB1jAG8HfBXysO5Znu6G5MlQ4v2HAL
- ZlYw==
-X-Gm-Message-State: ACgBeo2Qin/U8rpPbPeMm3hHEXDZ7vLmN/19O7jqjz1h7fBLMS9xyhZU
- xVIdfHmGAFdzaK4xVwiVAgEQQ7IresvEFlH2Z88EbQ==
-X-Google-Smtp-Source: AA6agR4bFaX1jNBrHlmDiDERjLQUfuKqNK4/8sdZ6mHGzjqdQD862rW8hycDmUmJCJ/71dKdH/tropAgISbUudHzrlU=
-X-Received: by 2002:a81:502:0:b0:32f:dcc4:146e with SMTP id
- 2-20020a810502000000b0032fdcc4146emr10207096ywf.316.1660654732311; Tue, 16
- Aug 2022 05:58:52 -0700 (PDT)
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc;
+ bh=hlPqld0MkkDzkP6nlR9+xwe5ym6yN7qtcrF+O0hs2y8=;
+ b=7pgRX/J5iek7YmK6yYa4HjxV2sszyvUgJje7pWxfjrGeUJEBqmUTMX7oU5PVm2f1df
+ ayHAiPTHYxxxSHl6fU2S1AhJMC3YLwBz3N3sQGUYkVd86CeJjmSOJ7C5Cy2eeL/m0OUL
+ ut0mQ9jmtvXTuexu/JkM+WsyH8uyuNCVpcl7seCDbBVo+mbSRytuJASubH412C2CKYyM
+ E3yXInV5VoBD7cuuXAxwB6ZCF2A1gKI1V7yR6yhYv1BK29kKmC3fVLx0Vpo49leJAeoW
+ uepZCtI2eGHORUW/YfluLDG1vXWYjSi7FG5JqRFz4+0QPk7qtXf/T67LYNpbTLa9iv75
+ 2oMQ==
+X-Gm-Message-State: ACgBeo0kcACxnirONslkU7CYvK0WMwLOVp5PiI4x9dFN/LWlv2w/S9me
+ 1xR/VPrgPNyCxxy9Ic6x+obnGIyKbRBDAo+Igvk=
+X-Google-Smtp-Source: AA6agR4xEs1XMyR1EW/f5TP3OUKn5DGc+mwcUXNgPFGPvWU/puhG5LB5XDjy/1yi/N+effprNDe6LAh/XgDwkBH0SD4=
+X-Received: by 2002:a05:6638:25d6:b0:342:916c:d59a with SMTP id
+ u22-20020a05663825d600b00342916cd59amr9425579jat.51.1660659932782; Tue, 16
+ Aug 2022 07:25:32 -0700 (PDT)
 MIME-Version: 1.0
-References: <20220726173824.1166873-1-dianders@chromium.org>
- <20220726103631.v2.4.Ie85f68215ada39f502a96dcb8a1f3ad977e3f68a@changeid>
-In-Reply-To: <20220726103631.v2.4.Ie85f68215ada39f502a96dcb8a1f3ad977e3f68a@changeid>
-From: Yongqin Liu <yongqin.liu@linaro.org>
-Date: Tue, 16 Aug 2022 20:58:41 +0800
-Message-ID: <CAMSo37XsawRxTnJriLUAwJAj0+ZzpACtMiR_3V7H1H9WXg3T_Q@mail.gmail.com>
-To: Douglas Anderson <dianders@chromium.org>
+References: <20220815211516.3169470-1-robdclark@gmail.com>
+ <20220815211516.3169470-2-robdclark@gmail.com>
+ <327c77d5-5812-a158-6c9f-c68e15a5a6b4@amd.com>
+In-Reply-To: <327c77d5-5812-a158-6c9f-c68e15a5a6b4@amd.com>
+From: Rob Clark <robdclark@gmail.com>
+Date: Tue, 16 Aug 2022 07:26:04 -0700
+Message-ID: <CAF6AEGu3oxM+EX_FsLpw4m0KouMyFMLN=AGGbf=6TVQGkJ7jQg@mail.gmail.com>
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
 Content-Type: text/plain; charset="UTF-8"
-X-Mailman-Approved-At: Tue, 16 Aug 2022 14:49:33 +0000
-Subject: Re: [Freedreno] [PATCH v2 4/7] regulator: core: Allow specifying an
- initial load w/ the bulk API
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [Freedreno] [PATCH v2 1/3] dma-buf: Add ioctl to query mmap
+ coherency/cache info
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,217 +67,345 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-arm-msm@vger.kernel.org, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- dri-devel@lists.freedesktop.org, Liam Girdwood <lgirdwood@gmail.com>,
- Rob Clark <robdclark@gmail.com>, Mark Brown <broonie@kernel.org>,
- John Stultz <jstultz@google.com>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- freedreno@lists.freedesktop.org, Sumit Semwal <sumit.semwal@linaro.org>,
- linux-kernel@vger.kernel.org
+Cc: Rob Clark <robdclark@chromium.org>,
+ =?UTF-8?B?SsOpcsO0bWUgUG91aWxsZXI=?= <jerome.pouiller@silabs.com>,
+ open list <linux-kernel@vger.kernel.org>, dri-devel@lists.freedesktop.org,
+ "moderated list:DMA BUFFER SHARING FRAMEWORK" <linaro-mm-sig@lists.linaro.org>,
+ Daniel Vetter <daniel@ffwll.ch>, freedreno@lists.freedesktop.org,
+ Sumit Semwal <sumit.semwal@linaro.org>,
+ "open list:DMA BUFFER SHARING FRAMEWORK" <linux-media@vger.kernel.org>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-HI, Douglas
+On Tue, Aug 16, 2022 at 1:27 AM Christian K=C3=B6nig
+<christian.koenig@amd.com> wrote:
+>
+> Am 15.08.22 um 23:15 schrieb Rob Clark:
+> > From: Rob Clark <robdclark@chromium.org>
+> >
+> > This is a fairly narrowly focused interface, providing a way for a VMM
+> > in userspace to tell the guest kernel what pgprot settings to use when
+> > mapping a buffer to guest userspace.
+> >
+> > For buffers that get mapped into guest userspace, virglrenderer returns
+> > a dma-buf fd to the VMM (crosvm or qemu).  In addition to mapping the
+> > pages into the guest VM, it needs to report to drm/virtio in the guest
+> > the cache settings to use for guest userspace.  In particular, on some
+> > architectures, creating aliased mappings with different cache attribute=
+s
+> > is frowned upon, so it is important that the guest mappings have the
+> > same cache attributes as any potential host mappings.
+> >
+> > Signed-off-by: Rob Clark <robdclark@chromium.org>
+> > ---
+> > v2: Combine with coherency, as that is a related concept.. and it is
+> >      relevant to the VMM whether coherent access without the SYNC ioctl
+> >      is possible; set map_info at export time to make it more clear
+> >      that it applies for the lifetime of the dma-buf (for any mmap
+> >      created via the dma-buf)
+>
+> Well, exactly that's a conceptual NAK from my side.
+>
+> The caching information can change at any time. For CPU mappings even
+> without further notice from the exporter.
 
-With this change, I get one kernel panic with my hikey960
-android-mainline based Android build,
-if it's reverted, then the build could boot to the home screen successfully.
-From the log information I shared here, not sure if you have any idea
-what I could do to have the hikey960
-build work with this change,
+You should look before you criticize, as I left you a way out.. the
+idea was that DMA_BUF_MAP_INCOHERENT should indicate that the buffer
+cannot be mapped to the guest.  We could ofc add more DMA_BUF_MAP_*
+values if something else would suit you better.  But the goal is to
+give the VMM enough information to dtrt, or return an error if mapping
+to guest is not possible.  That seems better than assuming mapping to
+guest will work and guessing about cache attrs
 
-The kernel panic is something like this, for details, please check the
-log here: http://ix.io/47Lq
+BR,
+-R
 
-[   10.738042][  T193] adv7511 1-0039: error 0000000000000000: Failed
-to get supply 'v1p2'
-[   10.748457][  T194] apexd: Found pre-installed APEX
-/system/apex/com.android.os.statsd.apex
-[   10.752908][   T67] Unable to handle kernel read from unreadable
-memory at virtual address 000000000000004c
-[   10.753116][    T8] Unable to handle kernel read from unreadable
-memory at virtual address 0000000000000078
-[   10.753130][    T8] Mem abort info:
-[   10.753135][    T8]   ESR = 0x0000000096000005
-[   10.753142][    T8]   EC = 0x25: DABT (current EL), IL = 32 bits
-[   10.753152][    T8]   SET = 0, FnV = 0
-[   10.753159][    T8]   EA = 0, S1PTW = 0
-[   10.753166][    T8]   FSC = 0x05: level 1 translation fault
-[   10.753174][    T8] Data abort info:
-[   10.753179][    T8]   ISV = 0, ISS = 0x00000005
-[   10.753184][    T8]   CM = 0, WnR = 0
-[   10.753192][    T8] user pgtable: 4k pages, 39-bit VAs, pgdp=0000000003098000
-[   10.753204][    T8] [0000000000000078] pgd=0000000000000000,
-p4d=0000000000000000, pud=0000000000000000
-[   10.753232][    T8] Internal error: Oops: 96000005 [#1] PREEMPT SMP
-[   10.753245][    T8] Modules linked in: adv7511(E+) tcpci_rt1711h(E)
-hci_uart(E) btqca(E) btbcm(E) cpufreq_dt(E) hi3660_i2s(E)
-hisi_hikey_usb(E) hi6421_pmic_core(E) syscon_reboot_mode(E)
-reboot_mode(E) hi3660_mailbox(E) dw_mmc_k3(E) hisi_thermal(E)
-dw_mmc_pltfm(E) dw_mmc(E) kirin_drm(E) snd_soc_simple_card(E)
-snd_soc_simple_card_utils(E) spi_pl022(E) kirin_dsi(E)
-phy_hi3660_usb3(E) i2c_designware_platform(E) drm_cma_helper(E)
-i2c_designware_core(E) mali_kbase(OE) k3dma(E) cma_heap(E)
-system_heap(E)
-[   10.753436][    T8] CPU: 2 PID: 8 Comm: kworker/u16:0 Tainted: G
-       OE      5.19.0-mainline-03487-g86d047950300-dirty #1
-[   10.753454][    T8] Hardware name: HiKey960 (DT)
-[   10.753463][    T8] Workqueue: events_unbound async_run_entry_fn
-[   10.753497][    T8] pstate: 60400005 (nZCv daif +PAN -UAO -TCO -DIT
--SSBS BTYPE=--)
-[   10.753516][    T8] pc : regulator_bulk_enable_async+0x3c/0x98
-[   10.753540][    T8] lr : async_run_entry_fn+0x30/0xf8
-[   10.753559][    T8] sp : ffffffc009ed3d20
-[   10.753567][    T8] x29: ffffffc009ed3d40 x28: 0000000000000402
-x27: ffffff801ad99828
-[   10.753592][    T8] x26: ffffff803217b010 x25: 0000000000000002
-x24: ffffff8003385da8
-[   10.753617][    T8] x23: ffffff8003385da0 x22: ffffff801ad94805
-x21: ffffff8003385da0
-[   10.753642][    T8] x20: 0000000000000000 x19: ffffff8003143d20
-x18: ffffffc008075028
-[   10.753667][    T8] x17: 000000040044ffff x16: 0000000000000001
-x15: 0000000000000010
-[   10.753691][    T8] x14: 0000000000000000 x13: 0000000000000f58
-x12: 0000000082355555
-[   10.753715][    T8] x11: 00006acfbfa2f400 x10: 0000000000000016 x9
-: 00ffffffffffffff
-[   10.753740][    T8] x8 : da9ecda1b63b0500 x7 : 0000000000008080 x6
-: 0000000000000000
-[   10.753764][    T8] x5 : 0000000000000001 x4 : 0000646e756f626e x3
-: ffffff801ad99828
-[   10.753788][    T8] x2 : ffffff8003385da8 x1 : ffffffc009ed3d20 x0
-: ffffff8003143d20
-[   10.753812][    T8] Call trace:
-[   10.753818][    T8]  regulator_bulk_enable_async+0x3c/0x98
-[   10.753839][    T8]  async_run_entry_fn+0x30/0xf8
-[   10.753859][    T8]  process_one_work+0x1d0/0x404
-[   10.753879][    T8]  worker_thread+0x25c/0x43c
-[   10.753897][    T8]  kthread+0xf0/0x2c0
-[   10.753912][    T8]  ret_from_fork+0x10/0x20
-[   10.753940][    T8] Code: f81f83a8 f9400814 a900ffff f90003ff (f9403e95)
-[   10.753950][    T8] ---[ end trace 0000000000000000 ]---
-[   10.760621][  T194] apexd: Found pre-installed APEX
-/system/apex/com.android.permission.capex
-[   10.767672][   T67] Mem abort info:
-[   10.779658][  T194] apexd: Found pre-installed APEX
-/system/apex/com.android.art.capex
-[   10.783690][   T67]   ESR = 0x0000000096000005
-[   10.792424][  T194] apexd: Found pre-installed APEX
-/system/apex/com.android.scheduling.capex
-[   10.794713][    T8] Kernel panic - not syncing: Oops: Fatal exception
-[   10.794723][    T8] SMP: stopping secondary CPUs
-[   10.798141][    T8] Kernel Offset: 0x70000 from 0xffffffc008000000
-[   10.798150][    T8] PHYS_OFFSET: 0x0
-[   10.798156][    T8] CPU features: 0x0000,00649020,00001086
-[   10.798167][    T8] Memory Limit: none
-
-Thanks,
-Yongqin Liu
-
-On Wed, 27 Jul 2022 at 01:39, Douglas Anderson <dianders@chromium.org> wrote:
+> If the hardware can't use the caching information from the host CPU page
+> tables directly then that pretty much completely breaks the concept that
+> the exporter is responsible for setting up those page tables.
 >
-> There are a number of drivers that follow a pattern that looks like
-> this:
-> 1. Use the regulator bulk API to get a bunch of regulators.
-> 2. Set the load on each of the regulators to use whenever the
->    regulators are enabled.
+> Regards,
+> Christian.
 >
-> Let's make this easier by just allowing the drivers to pass the load
-> in.
+> >
+> >   drivers/dma-buf/dma-buf.c    | 63 +++++++++++++++++++++++++++------
+> >   include/linux/dma-buf.h      | 11 ++++++
+> >   include/uapi/linux/dma-buf.h | 68 +++++++++++++++++++++++++++++++++++=
++
+> >   3 files changed, 132 insertions(+), 10 deletions(-)
+> >
+> > diff --git a/drivers/dma-buf/dma-buf.c b/drivers/dma-buf/dma-buf.c
+> > index 32f55640890c..262c4706f721 100644
+> > --- a/drivers/dma-buf/dma-buf.c
+> > +++ b/drivers/dma-buf/dma-buf.c
+> > @@ -125,6 +125,32 @@ static struct file_system_type dma_buf_fs_type =3D=
+ {
+> >       .kill_sb =3D kill_anon_super,
+> >   };
+> >
+> > +static int __dma_buf_mmap(struct dma_buf *dmabuf, struct vm_area_struc=
+t *vma)
+> > +{
+> > +     int ret;
+> > +
+> > +     /* check if buffer supports mmap */
+> > +     if (!dmabuf->ops->mmap)
+> > +             return -EINVAL;
+> > +
+> > +     ret =3D dmabuf->ops->mmap(dmabuf, vma);
+> > +
+> > +     /*
+> > +      * If the exporter claims to support coherent access, ensure the
+> > +      * pgprot flags match the claim.
+> > +      */
+> > +     if ((dmabuf->map_info !=3D DMA_BUF_MAP_INCOHERENT) && !ret) {
+> > +             pgprot_t wc_prot =3D pgprot_writecombine(vma->vm_page_pro=
+t);
+> > +             if (dmabuf->map_info =3D=3D DMA_BUF_COHERENT_WC) {
+> > +                     WARN_ON_ONCE(pgprot_val(vma->vm_page_prot) !=3D p=
+gprot_val(wc_prot));
+> > +             } else {
+> > +                     WARN_ON_ONCE(pgprot_val(vma->vm_page_prot) =3D=3D=
+ pgprot_val(wc_prot));
+> > +             }
+> > +     }
+> > +
+> > +     return ret;
+> > +}
+> > +
+> >   static int dma_buf_mmap_internal(struct file *file, struct vm_area_st=
+ruct *vma)
+> >   {
+> >       struct dma_buf *dmabuf;
+> > @@ -134,16 +160,12 @@ static int dma_buf_mmap_internal(struct file *fil=
+e, struct vm_area_struct *vma)
+> >
+> >       dmabuf =3D file->private_data;
+> >
+> > -     /* check if buffer supports mmap */
+> > -     if (!dmabuf->ops->mmap)
+> > -             return -EINVAL;
+> > -
+> >       /* check for overflowing the buffer's size */
+> >       if (vma->vm_pgoff + vma_pages(vma) >
+> >           dmabuf->size >> PAGE_SHIFT)
+> >               return -EINVAL;
+> >
+> > -     return dmabuf->ops->mmap(dmabuf, vma);
+> > +     return __dma_buf_mmap(dmabuf, vma);
+> >   }
+> >
+> >   static loff_t dma_buf_llseek(struct file *file, loff_t offset, int wh=
+ence)
+> > @@ -326,6 +348,27 @@ static long dma_buf_set_name(struct dma_buf *dmabu=
+f, const char __user *buf)
+> >       return 0;
+> >   }
+> >
+> > +static long dma_buf_info(struct dma_buf *dmabuf, void __user *uarg)
+> > +{
+> > +     struct dma_buf_info arg;
+> > +
+> > +     if (copy_from_user(&arg, uarg, sizeof(arg)))
+> > +             return -EFAULT;
+> > +
+> > +     switch (arg.param) {
+> > +     case DMA_BUF_INFO_MAP_INFO:
+> > +             arg.value =3D dmabuf->map_info;
+> > +             break;
+> > +     default:
+> > +             return -EINVAL;
+> > +     }
+> > +
+> > +     if (copy_to_user(uarg, &arg, sizeof(arg)))
+> > +             return -EFAULT;
+> > +
+> > +     return 0;
+> > +}
+> > +
+> >   static long dma_buf_ioctl(struct file *file,
+> >                         unsigned int cmd, unsigned long arg)
+> >   {
+> > @@ -369,6 +412,9 @@ static long dma_buf_ioctl(struct file *file,
+> >       case DMA_BUF_SET_NAME_B:
+> >               return dma_buf_set_name(dmabuf, (const char __user *)arg)=
+;
+> >
+> > +     case DMA_BUF_IOCTL_INFO:
+> > +             return dma_buf_info(dmabuf, (void __user *)arg);
+> > +
+> >       default:
+> >               return -ENOTTY;
+> >       }
+> > @@ -530,6 +576,7 @@ struct dma_buf *dma_buf_export(const struct dma_buf=
+_export_info *exp_info)
+> >       dmabuf->priv =3D exp_info->priv;
+> >       dmabuf->ops =3D exp_info->ops;
+> >       dmabuf->size =3D exp_info->size;
+> > +     dmabuf->map_info =3D exp_info->map_info;
+> >       dmabuf->exp_name =3D exp_info->exp_name;
+> >       dmabuf->owner =3D exp_info->owner;
+> >       spin_lock_init(&dmabuf->name_lock);
+> > @@ -1245,10 +1292,6 @@ int dma_buf_mmap(struct dma_buf *dmabuf, struct =
+vm_area_struct *vma,
+> >       if (WARN_ON(!dmabuf || !vma))
+> >               return -EINVAL;
+> >
+> > -     /* check if buffer supports mmap */
+> > -     if (!dmabuf->ops->mmap)
+> > -             return -EINVAL;
+> > -
+> >       /* check for offset overflow */
+> >       if (pgoff + vma_pages(vma) < pgoff)
+> >               return -EOVERFLOW;
+> > @@ -1262,7 +1305,7 @@ int dma_buf_mmap(struct dma_buf *dmabuf, struct v=
+m_area_struct *vma,
+> >       vma_set_file(vma, dmabuf->file);
+> >       vma->vm_pgoff =3D pgoff;
+> >
+> > -     return dmabuf->ops->mmap(dmabuf, vma);
+> > +     return __dma_buf_mmap(dmabuf, vma);
+> >   }
+> >   EXPORT_SYMBOL_NS_GPL(dma_buf_mmap, DMA_BUF);
+> >
+> > diff --git a/include/linux/dma-buf.h b/include/linux/dma-buf.h
+> > index 71731796c8c3..37923c8d5c24 100644
+> > --- a/include/linux/dma-buf.h
+> > +++ b/include/linux/dma-buf.h
+> > @@ -23,6 +23,8 @@
+> >   #include <linux/dma-fence.h>
+> >   #include <linux/wait.h>
+> >
+> > +#include <uapi/linux/dma-buf.h>
+> > +
+> >   struct device;
+> >   struct dma_buf;
+> >   struct dma_buf_attachment;
+> > @@ -307,6 +309,13 @@ struct dma_buf {
+> >        */
+> >       size_t size;
+> >
+> > +     /**
+> > +      * @map_info:
+> > +      *
+> > +      * CPU mapping/coherency information for the buffer.
+> > +      */
+> > +     enum dma_buf_map_info map_info;
+> > +
+> >       /**
+> >        * @file:
+> >        *
+> > @@ -533,6 +542,7 @@ struct dma_buf_attachment {
+> >    * @ops:    Attach allocator-defined dma buf ops to the new buffer
+> >    * @size:   Size of the buffer - invariant over the lifetime of the b=
+uffer
+> >    * @flags:  mode flags for the file
+> > + * @map_info:        CPU mapping/coherency information for the buffer
+> >    * @resv:   reservation-object, NULL to allocate default one
+> >    * @priv:   Attach private data of allocator to this buffer
+> >    *
+> > @@ -545,6 +555,7 @@ struct dma_buf_export_info {
+> >       const struct dma_buf_ops *ops;
+> >       size_t size;
+> >       int flags;
+> > +     enum dma_buf_map_info map_info;
+> >       struct dma_resv *resv;
+> >       void *priv;
+> >   };
+> > diff --git a/include/uapi/linux/dma-buf.h b/include/uapi/linux/dma-buf.=
+h
+> > index b1523cb8ab30..07b403ffdb43 100644
+> > --- a/include/uapi/linux/dma-buf.h
+> > +++ b/include/uapi/linux/dma-buf.h
+> > @@ -85,6 +85,72 @@ struct dma_buf_sync {
+> >
+> >   #define DMA_BUF_NAME_LEN    32
+> >
+> > +/**
+> > + * enum dma_buf_map_info - CPU mapping info
+> > + *
+> > + * This enum describes coherency of a userspace mapping of the dmabuf.
+> > + *
+> > + * Importing devices should check dma_buf::map_info flag and reject an
+> > + * import if unsupported.  For example, if the exporting device uses
+> > + * @DMA_BUF_COHERENT_CACHED but the importing device does not support
+> > + * CPU cache coherency, the dma-buf import should fail.
+> > + */
+> > +enum dma_buf_map_info {
+> > +     /**
+> > +      * @DMA_BUF_MAP_INCOHERENT: CPU mapping is incoherent.
+> > +      *
+> > +      * Use of DMA_BUF_IOCTL_SYNC is required for CPU managed coherene=
+ncy.
+> > +      */
+> > +     DMA_BUF_MAP_INCOHERENT,
+> > +
+> > +     /**
+> > +      * @DMA_BUF_COHERENT_WC: CPU mapping is coherent but not cached.
+> > +      *
+> > +      * A cpu mmap'ing is coherent, and DMA_BUF_IOCTL_SYNC is not requ=
+ired.
+> > +      * However fences may be still required for synchronizing access.=
+  Ie.
+> > +      * coherency can only be relied upon by an explicit-fencing users=
+pace.
+> > +      * An implicit-sync userspace must still use DMA_BUF_IOCTL_SYNC.
+> > +      *
+> > +      * The cpu mapping is writecombine.
+> > +      */
+> > +     DMA_BUF_COHERENT_WC,
+> > +
+> > +     /**
+> > +      * @DMA_BUF_COHERENT_CACHED: CPU mapping is coherent and CPU cach=
+ed.
+> > +      *
+> > +      * A cpu mmap'ing is coherent, and DMA_BUF_IOCTL_SYNC is not requ=
+ired.
+> > +      * However fences may be still required for synchronizing access.=
+  Ie.
+> > +      * coherency can only be relied upon by an explicit-fencing users=
+pace.
+> > +      * An implicit-sync userspace must still use DMA_BUF_IOCTL_SYNC.
+> > +      *
+> > +      * The cpu mapping is cached.
+> > +      */
+> > +     DMA_BUF_COHERENT_CACHED,
+> > +};
+> > +
+> > +/**
+> > + * struct dma_buf_info - Query info about the buffer.
+> > + */
+> > +struct dma_buf_info {
+> > +
+> > +#define DMA_BUF_INFO_MAP_INFO    1
+> > +
+> > +     /**
+> > +      * @param: Which param to query
+> > +      *
+> > +      * DMA_BUF_INFO_MAP_INFO:
+> > +      *     Returns enum dma_buf_map_info, describing the coherency an=
+d
+> > +      *     caching of a CPU mapping of the buffer.
+> > +      */
+> > +     __u32 param;
+> > +     __u32 pad;
+> > +
+> > +     /**
+> > +      * @value: Return value of the query.
+> > +      */
+> > +     __u64 value;
+> > +};
+> > +
+> >   #define DMA_BUF_BASE                'b'
+> >   #define DMA_BUF_IOCTL_SYNC  _IOW(DMA_BUF_BASE, 0, struct dma_buf_sync=
+)
+> >
+> > @@ -95,4 +161,6 @@ struct dma_buf_sync {
+> >   #define DMA_BUF_SET_NAME_A  _IOW(DMA_BUF_BASE, 1, __u32)
+> >   #define DMA_BUF_SET_NAME_B  _IOW(DMA_BUF_BASE, 1, __u64)
+> >
+> > +#define DMA_BUF_IOCTL_INFO   _IOWR(DMA_BUF_BASE, 2, struct dma_buf_inf=
+o)
+> > +
+> >   #endif
 >
-> As part of this change we need to move the error printing in
-> regulator_bulk_get() around; let's switch to the new dev_err_probe()
-> to simplify it.
->
-> Signed-off-by: Douglas Anderson <dianders@chromium.org>
-> ---
->
-> Changes in v2:
-> - ("Allow specifying an initial load w/ the bulk API") new for v2.
->
->  drivers/regulator/core.c           | 20 ++++++++++++--------
->  include/linux/regulator/consumer.h | 12 ++++++++----
->  2 files changed, 20 insertions(+), 12 deletions(-)
->
-> diff --git a/drivers/regulator/core.c b/drivers/regulator/core.c
-> index 1e54a833f2cf..17c476fc8adb 100644
-> --- a/drivers/regulator/core.c
-> +++ b/drivers/regulator/core.c
-> @@ -4783,22 +4783,26 @@ int regulator_bulk_get(struct device *dev, int num_consumers,
->                 consumers[i].consumer = regulator_get(dev,
->                                                       consumers[i].supply);
->                 if (IS_ERR(consumers[i].consumer)) {
-> -                       ret = PTR_ERR(consumers[i].consumer);
->                         consumers[i].consumer = NULL;
-> +                       ret = dev_err_probe(dev, PTR_ERR(consumers[i].consumer),
-> +                                           "Failed to get supply '%s'",
-> +                                           consumers[i].supply);
->                         goto err;
->                 }
-> +
-> +               if (consumers[i].init_load_uA > 0) {
-> +                       ret = regulator_set_load(consumers[i].consumer,
-> +                                                consumers[i].init_load_uA);
-> +                       if (ret) {
-> +                               i++;
-> +                               goto err;
-> +                       }
-> +               }
->         }
->
->         return 0;
->
->  err:
-> -       if (ret != -EPROBE_DEFER)
-> -               dev_err(dev, "Failed to get supply '%s': %pe\n",
-> -                       consumers[i].supply, ERR_PTR(ret));
-> -       else
-> -               dev_dbg(dev, "Failed to get supply '%s', deferring\n",
-> -                       consumers[i].supply);
-> -
->         while (--i >= 0)
->                 regulator_put(consumers[i].consumer);
->
-> diff --git a/include/linux/regulator/consumer.h b/include/linux/regulator/consumer.h
-> index bbf6590a6dec..5779f4466e62 100644
-> --- a/include/linux/regulator/consumer.h
-> +++ b/include/linux/regulator/consumer.h
-> @@ -171,10 +171,13 @@ struct regulator;
->  /**
->   * struct regulator_bulk_data - Data used for bulk regulator operations.
->   *
-> - * @supply:   The name of the supply.  Initialised by the user before
-> - *            using the bulk regulator APIs.
-> - * @consumer: The regulator consumer for the supply.  This will be managed
-> - *            by the bulk API.
-> + * @supply:       The name of the supply.  Initialised by the user before
-> + *                using the bulk regulator APIs.
-> + * @init_load_uA: After getting the regulator, regulator_set_load() will be
-> + *                called with this load.  Initialised by the user before
-> + *                using the bulk regulator APIs.
-> + * @consumer:     The regulator consumer for the supply.  This will be managed
-> + *                by the bulk API.
->   *
->   * The regulator APIs provide a series of regulator_bulk_() API calls as
->   * a convenience to consumers which require multiple supplies.  This
-> @@ -182,6 +185,7 @@ struct regulator;
->   */
->  struct regulator_bulk_data {
->         const char *supply;
-> +       int init_load_uA;
->         struct regulator *consumer;
->
->         /* private: Internal use */
-> --
-> 2.37.1.359.gd136c6c3e2-goog
->
-
-
--- 
-Best Regards,
-Yongqin Liu
----------------------------------------------------------------
-#mailing list
-linaro-android@lists.linaro.org
-http://lists.linaro.org/mailman/listinfo/linaro-android
