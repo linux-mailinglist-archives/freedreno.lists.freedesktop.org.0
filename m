@@ -1,90 +1,122 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2EDA6596053
-	for <lists+freedreno@lfdr.de>; Tue, 16 Aug 2022 18:32:25 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id C015E596092
+	for <lists+freedreno@lfdr.de>; Tue, 16 Aug 2022 18:51:15 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 32DC7A95B1;
-	Tue, 16 Aug 2022 16:32:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5C230AF0A9;
+	Tue, 16 Aug 2022 16:51:13 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3F585A90C4;
- Tue, 16 Aug 2022 16:31:48 +0000 (UTC)
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 27GGIRGD020603;
- Tue, 16 Aug 2022 16:31:42 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
- h=message-id : date :
- mime-version : subject : to : cc : references : from : in-reply-to :
- content-type : content-transfer-encoding; s=qcppdkim1;
- bh=+JVztAJrFmffVkcN5cBnFPtMt3xVZVog5t/baqeuFaE=;
- b=ZRKRhj6WbFlB6BFz/rg5/agOADzOJb3rJTF+Na4PKSrcAL9AywOqmE29+1TzVYijOvOs
- fG7XUH1Lmmv4xcl5L+yjkNhJNynM6IE+zqlkEoUMlWBTP7LK/L9N+xHy2cWJ+INJiDy3
- UIvylx06AvnHJFimoArP6vLvTOEo1eNZDmPVqoBwDiV8HaUfye+nNvz/2ep5YuDlgwIq
- 9tCrl6bq5XDdRcCa1SecIMwjJuKe6I53nNE6bk+W7hErApCZxZqzvWG/jSa2rciYQF2+
- IqnwRMhOpeN3ZbKXsEILTgyi078MO4FtciEZQLQgacukNYv3XSBcPYeiL/mRxvcEHkeC rQ== 
-Received: from nalasppmta02.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3j08un1bhp-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 16 Aug 2022 16:31:42 +0000
-Received: from nasanex01c.na.qualcomm.com (nasanex01c.na.qualcomm.com
- [10.47.97.222])
- by NALASPPMTA02.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 27GGVfS0020453
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 16 Aug 2022 16:31:41 GMT
-Received: from nalasex01a.na.qualcomm.com (10.47.209.196) by
- nasanex01c.na.qualcomm.com (10.47.97.222) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.986.22; Tue, 16 Aug 2022 09:31:41 -0700
-Received: from [10.110.125.243] (10.80.80.8) by nalasex01a.na.qualcomm.com
- (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.22; Tue, 16 Aug
- 2022 09:31:39 -0700
-Message-ID: <f6493f87-479a-7755-914d-5bb7d1560ee3@quicinc.com>
-Date: Tue, 16 Aug 2022 09:31:29 -0700
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10on2068.outbound.protection.outlook.com [40.107.92.68])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6BFB2AEFDF;
+ Tue, 16 Aug 2022 16:51:04 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=kRqabzE7CN+nAPO7HdM3aIuxdLLqYusmFBQ1+eFeSodT8HCzP+iE6j5DecTVwu/5H9AqaqNJ3swGP3G/zEsXmgC22DVravwwYzuVb/9P3B5DrE2D+MIaW1w8uNbzfuNclW0QNPAh+EbsPdvKnMX7o9gn6m1d7hSsdfNGCekXmZo2wupqLmR7RCJjYcXaG/9iAMQSCbqqdLw+dwwYZpvXi2ZG6tCObSPW6G0SonNAyu1cxgUxiwWjMCE5cKqWMg3A/ZAMaC98v1SxufhUB9e4eqVRpBP8yTPm0gcpBhyWohpP0ymqn35rC86bEo5pxbMSPe2oR3hY/qYvbv7Qh0JB3g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=h9gANgFdQVGk51hiUtj4X5yHe/rDB7AmKtcrhAJJSnw=;
+ b=DxZ/+7HMsZuiS+DGx7wa5OeVaGhwrSt9GnLxMy7DPVYMfu/4pULR/WUvTRBsLuAbcG5gz+gDpBm/9n7m21673feMgPVKPK1B6XwxsHLZzk50h95WlG+SZANK7+T3K1C891Y0IzfnwOi1bLVPy1EYQGVaGl1eWLTFex0KE5wiQDIEzV+XiCv2eaDPkTCxQExj1AasYOQJYvA8YIW8rV7BIRgWskT60httdaXxVXGjd4fxtNS1kGQeZ2lZX2sYj3LQBpy72UjqwCCSdw/l0u0K3DjmCZabCmo0d++TYc8AWhaYmxr91YVTjCTpS2Xq3f+WMsZmokjLWptm9ApC/VYAXA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=h9gANgFdQVGk51hiUtj4X5yHe/rDB7AmKtcrhAJJSnw=;
+ b=KvSiXOgPIq6bUsywBg+VLbRXE0L8OE9AAMEkL37H9cjoBHGVGKExbWXQJF6O688Eke/Xqc6vQPjtRB7IhjYtoVXa8xC7XkJzx55LI8QHLFUnXkk9Fgk5TtyeOEJ/E82FKjPqh6cZhN/HvBPQ9n6RSo5zTerVVYz5fkdis2k2z9c=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from BYAPR12MB3589.namprd12.prod.outlook.com (2603:10b6:a03:df::29)
+ by BYAPR12MB3094.namprd12.prod.outlook.com (2603:10b6:a03:db::23)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5525.11; Tue, 16 Aug
+ 2022 16:51:01 +0000
+Received: from BYAPR12MB3589.namprd12.prod.outlook.com
+ ([fe80::78a4:a1dc:b951:15cd]) by BYAPR12MB3589.namprd12.prod.outlook.com
+ ([fe80::78a4:a1dc:b951:15cd%4]) with mapi id 15.20.5525.011; Tue, 16 Aug 2022
+ 16:51:01 +0000
+Message-ID: <6396ccf9-a677-427d-f5f9-12d30ad2197e@amd.com>
+Date: Tue, 16 Aug 2022 18:50:54 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
  Thunderbird/91.11.0
 Content-Language: en-US
-To: Stephen Boyd <swboyd@chromium.org>, Abhinav Kumar
- <quic_abhinavk@quicinc.com>, <agross@kernel.org>,
- <airlied@linux.ie>, <bjorn.andersson@linaro.org>, <daniel@ffwll.ch>,
- <dianders@chromium.org>, <dmitry.baryshkov@linaro.org>,
- <robdclark@gmail.com>, <sean@poorly.run>, <vkoul@kernel.org>
-References: <1660159551-13828-1-git-send-email-quic_khsieh@quicinc.com>
- <CAE-0n533SUb3Bg=pR8Fhwo-M5qLWiti4nzLR-rSGVAsrXgEYNQ@mail.gmail.com>
- <dbda8bce-2890-e5e3-4052-073a52eb06a6@quicinc.com>
- <CAE-0n51NyrP8CikcK_3wj4EEsurmmSZ4RY3pLhJJmkY2_8wNZw@mail.gmail.com>
- <0641a116-5b58-4305-bf2d-f53dcb747276@quicinc.com>
- <1e792f49-febf-43bf-d828-8ecf99cbeba3@quicinc.com>
- <CAE-0n50QXiJs=k78Tmd7om28MgWChypwC8LPRzF2jx_qB5+0FQ@mail.gmail.com>
-From: Kuogee Hsieh <quic_khsieh@quicinc.com>
-In-Reply-To: <CAE-0n50QXiJs=k78Tmd7om28MgWChypwC8LPRzF2jx_qB5+0FQ@mail.gmail.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
+To: Rob Clark <robdclark@gmail.com>
+References: <20220815211516.3169470-1-robdclark@gmail.com>
+ <20220815211516.3169470-2-robdclark@gmail.com>
+ <327c77d5-5812-a158-6c9f-c68e15a5a6b4@amd.com>
+ <CAF6AEGu3oxM+EX_FsLpw4m0KouMyFMLN=AGGbf=6TVQGkJ7jQg@mail.gmail.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
+In-Reply-To: <CAF6AEGu3oxM+EX_FsLpw4m0KouMyFMLN=AGGbf=6TVQGkJ7jQg@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-ORIG-GUID: Hg0hR1wVYjLHqsYyJBSGS-lYas6GHNIA
-X-Proofpoint-GUID: Hg0hR1wVYjLHqsYyJBSGS-lYas6GHNIA
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.205,Aquarius:18.0.883,Hydra:6.0.517,FMLib:17.11.122.1
- definitions=2022-08-16_08,2022-08-16_02,2022-06-22_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 phishscore=0
- mlxlogscore=999 mlxscore=0 malwarescore=0 spamscore=0 clxscore=1015
- impostorscore=0 priorityscore=1501 adultscore=0 bulkscore=0
- lowpriorityscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2207270000 definitions=main-2208160062
-Subject: Re: [Freedreno] [PATCH v3] drm/msm/dp: check hpd_state before push
- idle pattern at dp_bridge_disable()
+X-ClientProxiedBy: AS9PR06CA0537.eurprd06.prod.outlook.com
+ (2603:10a6:20b:49d::34) To BYAPR12MB3589.namprd12.prod.outlook.com
+ (2603:10b6:a03:df::29)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 52dcbb50-08b7-4202-1b9b-08da7fa77fe0
+X-MS-TrafficTypeDiagnostic: BYAPR12MB3094:EE_
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: g+vCDKnrcbgpjbHrsDxGhVVuk+9hrk3GO9hDIaBYX36q1BCbZj90zu7jcxQkHXRw/ReEWw8drfymPZ+4aBZjhBcSQm2KPwLvObtdPAE1HisEiBiTW4ivQqkyw48nbnZo6fM0FT38iv3mTJ1g9YYgDxxeGHoXDhdGLbeKJG8ixCrpjhmWjFQiwGZa7f2nSrV1ejLJcfOCIiF6FFQPDZXLDem+KvCbdXhzlE97895bA0HUH2kXUulUFGRbwKufnHIq1Z5UjTJyBfX7mHYdRER9+66Y3cOoUP60L0/U/rdWburkCexc0oeIBgcKQGqmyidPXVVB0zXm79TpjGJcj6z2ix33yyWuR0jntf98ZdRq1ST5pDyuCCAWPUYHuTpjyOty38Peg4/flAiE1lUxbOchiXHDghrMhrGLcsIHH2lXMTfVyiz2DoJ2IabiasqtqSvjZlHnmvvCnsZzl/cZPM0F1ImuX5wctRQtYrDo4EXYmvxgT9zsyLce1cU/mHt68r2aqoBDbDl3Xh+swpAPDZEERWrvebK6tFUA0XQSnd6Bl1Ul+wmhqOqJVicSBX77dPtTRN4VUtKZlxL20uHTQLWbHBW1+0PGtuyef/LGLCla5x6wkWZkpVG5bmOANb6oCWXNvTDgB0BqqQsP9w8vwHGyxlHurc36yq6l2bvVukuFfKW1C2+W1Gn5JnThHFflyiG4a3YHLq4Dani/9Euna1/GM8qoYgQQhUPBypSxYFPIWLEds9NONWaU6pFPrG86Cpb9rhSI1NiNXUADrx59botFVxqE97FpdNg11VjclHorDSJCURpxS53LDB5h5j8dT/PPIVLw8xk+pH5kYuPVLtEbpQ==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BYAPR12MB3589.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230016)(4636009)(136003)(346002)(396003)(39860400002)(376002)(366004)(41300700001)(478600001)(54906003)(316002)(38100700002)(4326008)(6486002)(7416002)(66946007)(8676002)(30864003)(8936002)(66476007)(66556008)(5660300002)(2906002)(6916009)(31696002)(53546011)(31686004)(36756003)(186003)(86362001)(6506007)(66574015)(6666004)(2616005)(83380400001)(6512007)(45980500001)(43740500002);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?MkJ0NFdqMTJ3OWMzZWxwZUp3eURuTFRBb1NyaVhoZkE0NXBmajk4SEFwdDg1?=
+ =?utf-8?B?UEFWNjEzb1M5QUMvbzRuaEV2S2FpakZPWGtvVDRubTgvRVZ3L3BIc1MrZklo?=
+ =?utf-8?B?V29jd2ZSVHllaVRwUnV0a2FDSUF4TWhLWU1WdGkrc2JNWkF1S2REYm9uUzh4?=
+ =?utf-8?B?YTBvWlByWjhHQmdKZ3VEZ2ZmZkdyM29QYlRYMG53U0ZnZHVwYVFZcGlFMXpV?=
+ =?utf-8?B?b3VHL2lDWjgzcW8yQ3BKM296dGMrdEFpSVhaejRxRkJhcElmTFlrckUvNU1E?=
+ =?utf-8?B?MG9DMnREME0wNVNWK3BRTll4RldWektiWThuVzV5OEJtU0hqdmJDTHBXb2Nk?=
+ =?utf-8?B?VzQ0NHFUdXdEVkVKYXhBallBQkQxeWdySmpwWkFFTkl2dDRvKzVJeHpML25z?=
+ =?utf-8?B?UUJOck1HOWVqSTlVMEV3YkhENEV6RUZwOUNHWklxS2hQNVpXcURNZ2I5dFho?=
+ =?utf-8?B?ZDJ6aGYxbGEwQW5FbUNPY2h3Rlh0ZGEya2VuemZaczc1ZUU1Qi9KWk1CL0pi?=
+ =?utf-8?B?WmIydEpSVlZSRlh4a3Q2cTJHN01JZ1VoZUFLcWg3OEJUVXhVN0hGYzRJazdi?=
+ =?utf-8?B?T2prb0lpOG1JcVd3MUFON25yRTZFejZjVC91TjZQc0ptaW1oZU9iSUtNRXU4?=
+ =?utf-8?B?djNLWS9Vb0JVZFYzNHF0WFZMQ1Uxa1duTW45SzBpdldQcmhDZGZZQ1I4S1RV?=
+ =?utf-8?B?QWRqbGNqcXEyVzhNM0JZU1dIaDVCemk4QU9FSnVTMzJpZVN5NEN0VGI3Qi93?=
+ =?utf-8?B?UjNGTVRMR0VJbDdKUE1rT3JPRFZBSFVOZFkzTFlvY1hEWGs3UjdJeVNrbnl3?=
+ =?utf-8?B?TitsZ0JsaWhTWGxVVEd2eGFMUG5yR0NBa3NjRzkxWGhnSjBpd2ZBcUx1R3hs?=
+ =?utf-8?B?blAyWWVEZzVWS3JpTmZtYXV0ZnZyRWs0U2ZnSDJEVVBZK25OVks0QmlHNHNK?=
+ =?utf-8?B?VFZvek5xN3h3aWlNTGJrSDl4YVkyQTBuZ3dQQzNtTWQ3QVc1VmMrakJwcXhO?=
+ =?utf-8?B?cnExVGlUWVo4QWJ1UlBieWFaVUdrZk1DVDFnYUJKcG5ENUhXNmRtZU9QMDhq?=
+ =?utf-8?B?bnNpeW8vMVlUOG5Vb25Hb1JEdjJhK29Mb2JiZEFDNXRvQWh6eW1ndXlDUzMz?=
+ =?utf-8?B?bEc1Ui83dmFTd2xSQjhTR0V1eE1VWC9zQUVxRjJ6NUU0Y2Y4MFBLNVBiVFVq?=
+ =?utf-8?B?MDkyVkJSeXQ1aFlubjlQcklXKyt0dFAyYXdnblFRNy9YM3NIWjlMdTZ6anlm?=
+ =?utf-8?B?UlgrWEk2Q2QxZWtJT1dscUJDc2o3VjZhWlp5NHNVYWJwZDdCYXc1YnVFdGpM?=
+ =?utf-8?B?S1h1R1VDcldPQW5wczVZYmlVY3lGNS9nQjU0ZXQySXNOUFBIY2EzcnFWcmsy?=
+ =?utf-8?B?QW9JVjBSVmxTUDAvdWx2cVJaUDQ5TDRwTlRQeDBDV1BicnIzNkcrc2wzWjRM?=
+ =?utf-8?B?d2lXbnJSbHptUFVKUk9kVTNHbmlUNFN1THcrTHhpaGxycXk3bC9hQkk3SGV0?=
+ =?utf-8?B?dmk1R3dWL25HVmlpV2NramtyNmdnb29rcHNyUkNNdVJKWmcvSjNKRVJWZmt6?=
+ =?utf-8?B?K0twN1R5djRTc1JVa0xTU0RwelBSYjJEVDh2UkNCc2ZLSm91UWd2TTd5cDVN?=
+ =?utf-8?B?VmZMZnc0S1NJaWZaelpZeHYvY04vMlB4My9IWk91VFhQdTdnamM4SXIrZDFq?=
+ =?utf-8?B?QmZMV2hhdmZaMnZYRGl3eHE3enVvU3d1U0pienBhRnQybzFWY04xVkxNRkY2?=
+ =?utf-8?B?MnlEWkJzTityWllhaHF1Z1JrZ0M1cXJrbUgzY1Y1SkZVc1dGVDNzRjRyM0NE?=
+ =?utf-8?B?R2k2S0FZR0VWbzFSZ1NaSzZxa2dsUVAzOE5RYzB4U2h3aW1FbXJhcTdjMjRj?=
+ =?utf-8?B?MTQ3K1pFTFhzVWc0SGVGTVlRYTY2Z05Kdm42TFRIUFpack93MjZsNDM4Y1l0?=
+ =?utf-8?B?SVFZKzU4SkRIWW1pbXlOVkpOejFnbzlJa1FmaUdjeVJ0ZDNrQ3BQVGdHYjJ3?=
+ =?utf-8?B?cVRsUWFtNzB0dDR4TWtUMkFqNjRQYW1TSlczZzBlSzIwS012WGlkVXJTNXFo?=
+ =?utf-8?B?aVFSNzRwUUZtVml2MGxCNk5lQzJKYXV4VklpV2dITzNRQjFLWUI1MEtOV21J?=
+ =?utf-8?B?R1JiazhzTHI2SU5Hb3VNQWYraXZPSC9ldXA4N3F4NEx6YWV0djQzUG1vdUts?=
+ =?utf-8?Q?KJuQjbV9C3utU99fUTllwj21HHou7Mpe4AHvjTwGueA7?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 52dcbb50-08b7-4202-1b9b-08da7fa77fe0
+X-MS-Exchange-CrossTenant-AuthSource: BYAPR12MB3589.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Aug 2022 16:51:01.0974 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: PgYxUzPKC1UmRZXSnLA9qCa2gjHJ7RUe07ejLqHPVhTjw8GU+0eJUD9Yz0uNU7hb
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BYAPR12MB3094
+Subject: Re: [Freedreno] [PATCH v2 1/3] dma-buf: Add ioctl to query mmap
+ coherency/cache info
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -97,97 +129,336 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: quic_sbillaka@quicinc.com, linux-arm-msm@vger.kernel.org,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- quic_aravindh@quicinc.com, freedreno@lists.freedesktop.org
+Cc: Rob Clark <robdclark@chromium.org>,
+ =?UTF-8?B?SsOpcsO0bWUgUG91aWxsZXI=?= <jerome.pouiller@silabs.com>,
+ open list <linux-kernel@vger.kernel.org>, dri-devel@lists.freedesktop.org,
+ "moderated list:DMA BUFFER SHARING FRAMEWORK" <linaro-mm-sig@lists.linaro.org>,
+ Daniel Vetter <daniel@ffwll.ch>, freedreno@lists.freedesktop.org,
+ Sumit Semwal <sumit.semwal@linaro.org>,
+ "open list:DMA BUFFER SHARING FRAMEWORK" <linux-media@vger.kernel.org>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-
-On 8/15/2022 10:08 AM, Stephen Boyd wrote:
-> Quoting Kuogee Hsieh (2022-08-11 08:20:01)
->> On 8/10/2022 6:00 PM, Abhinav Kumar wrote:
->>> Even then, you do have a valid point. DRM framework should not have
->>> caused the disable path to happen without an enable.
+Am 16.08.22 um 16:26 schrieb Rob Clark:
+> On Tue, Aug 16, 2022 at 1:27 AM Christian König
+> <christian.koenig@amd.com> wrote:
+>> Am 15.08.22 um 23:15 schrieb Rob Clark:
+>>> From: Rob Clark <robdclark@chromium.org>
 >>>
->>> I went through the stack mentioned in the issue.
+>>> This is a fairly narrowly focused interface, providing a way for a VMM
+>>> in userspace to tell the guest kernel what pgprot settings to use when
+>>> mapping a buffer to guest userspace.
 >>>
->>> Lets see this part of the stack:
+>>> For buffers that get mapped into guest userspace, virglrenderer returns
+>>> a dma-buf fd to the VMM (crosvm or qemu).  In addition to mapping the
+>>> pages into the guest VM, it needs to report to drm/virtio in the guest
+>>> the cache settings to use for guest userspace.  In particular, on some
+>>> architectures, creating aliased mappings with different cache attributes
+>>> is frowned upon, so it is important that the guest mappings have the
+>>> same cache attributes as any potential host mappings.
 >>>
->>> dp_ctrl_push_idle+0x40/0x88
->>>   dp_bridge_disable+0x24/0x30
->>>   drm_atomic_bridge_chain_disable+0x90/0xbc
->>>   drm_atomic_helper_commit_modeset_disables+0x198/0x444
->>>   msm_atomic_commit_tail+0x1d0/0x374
->>>
->>> In drm_atomic_helper_commit_modeset_disables(), we call
->>> disable_outputs().
->>>
->>> AFAICT, this is the only place which has a protection to not call the
->>> disable() flow if it was not enabled here:
->>>
->>> https://gitlab.freedesktop.org/drm/msm/-/blob/msm-next/drivers/gpu/drm/drm_atomic_helper.c#L1063
->>>
->>>
->>> But that function is only checking crtc_state->active. Thats set by
->>> the usermode:
->>>
->>> https://gitlab.freedesktop.org/drm/msm/-/blob/msm-next/drivers/gpu/drm/drm_atomic_uapi.c#L407
->>>
->>>
->>> Now, if usermode sets that to true and then crashed it can bypass this
->>> check and we will crash in the location kuogee is trying to fix.
-> That seems bad, no? We don't want userspace to be able to crash and then
-> be able to call the disable path when enable never succeeded.
->
->>>  From the issue mentioned in
->>> https://gitlab.freedesktop.org/drm/msm/-/issues/17, the reporter did
->>> mention the usermode crashed.
->>>
->>> So this is my tentative analysis of whats happening here.
->>>
->>> Ideally yes, we should have been protected by the location mentioned
->>> above in disable_outputs() but looks to me due to the above hypothesis
->>> its getting bypassed.
-> Can you fix the problem there? Not fixing it means that every driver out
-> there has to develop the same "fix", when it could be fixed in the core
-> one time.
-
-The reporter is running GNOME Display Manager (gdm3) instead of chrome.
-
-We can not duplicate this problem locally. Hence we can not confirm this 
-is the root cause of this bug or not.
-
-Do you know who is more proper to investigate more into this?
-
-> Ideally drivers are simple. They configure the hardware for what the
-> function pointer is asking for. State management and things like that
-> should be pushed into the core framework so that we don't have to
-> duplicate that multiple times.
->
->>> Thanks
->>>
->>> Abhinav
->>>
->>>
->> Ii sound likes that there is a hole either at user space or drm.
+>>> Signed-off-by: Rob Clark <robdclark@chromium.org>
+>>> ---
+>>> v2: Combine with coherency, as that is a related concept.. and it is
+>>>       relevant to the VMM whether coherent access without the SYNC ioctl
+>>>       is possible; set map_info at export time to make it more clear
+>>>       that it applies for the lifetime of the dma-buf (for any mmap
+>>>       created via the dma-buf)
+>> Well, exactly that's a conceptual NAK from my side.
 >>
->> But that should not cause dp_bridge_disable() at dp driver to crash.
-> Agreed.
+>> The caching information can change at any time. For CPU mappings even
+>> without further notice from the exporter.
+> You should look before you criticize, as I left you a way out.. the
+> idea was that DMA_BUF_MAP_INCOHERENT should indicate that the buffer
+> cannot be mapped to the guest.  We could ofc add more DMA_BUF_MAP_*
+> values if something else would suit you better.  But the goal is to
+> give the VMM enough information to dtrt, or return an error if mapping
+> to guest is not possible.  That seems better than assuming mapping to
+> guest will work and guessing about cache attrs
+
+Well I'm not rejecting the implementation, I'm rejecting this from the 
+conceptual point of view.
+
+We intentional gave the exporter full control over the CPU mappings. 
+This approach here breaks that now.
+
+I haven't seen the full detailed reason why we should do that and to be 
+honest KVM seems to mess with things it is not supposed to touch.
+
+For example the page reference count of mappings marked with VM_IO is a 
+complete no-go. This is a very strong evidence that this was based on 
+rather dangerous halve knowledge about the background of the handling here.
+
+So as long as I don't see a full explanation why KVM is grabbing 
+reference to pages while faulting them and why we manually need to 
+forward the caching while the hardware documentation indicates otherwise 
+I will be rejecting this whole approach.
+
+Regards,
+Christian.
+
 >
->> Therefore it is properly to check hdp_state condition at
->> dp_bridge_disable() to prevent it from crashing.
+> BR,
+> -R
+>
+>> If the hardware can't use the caching information from the host CPU page
+>> tables directly then that pretty much completely breaks the concept that
+>> the exporter is responsible for setting up those page tables.
 >>
-> Disagree. Userspace shouldn't be able to get drm into a wedged state.
-
-not sure for this.
-
-I agree if this is simple driver such as i2c which does not need to 
-maintain any states during operation.
-
-but mdp/dp is far more complexity. we really do not want to have any 
-crash happen at mdp/dp in the filed.
-
-would you please reconsider our point to add this hdp_state checking 
-here to prevent any crash happen.
+>> Regards,
+>> Christian.
+>>
+>>>    drivers/dma-buf/dma-buf.c    | 63 +++++++++++++++++++++++++++------
+>>>    include/linux/dma-buf.h      | 11 ++++++
+>>>    include/uapi/linux/dma-buf.h | 68 ++++++++++++++++++++++++++++++++++++
+>>>    3 files changed, 132 insertions(+), 10 deletions(-)
+>>>
+>>> diff --git a/drivers/dma-buf/dma-buf.c b/drivers/dma-buf/dma-buf.c
+>>> index 32f55640890c..262c4706f721 100644
+>>> --- a/drivers/dma-buf/dma-buf.c
+>>> +++ b/drivers/dma-buf/dma-buf.c
+>>> @@ -125,6 +125,32 @@ static struct file_system_type dma_buf_fs_type = {
+>>>        .kill_sb = kill_anon_super,
+>>>    };
+>>>
+>>> +static int __dma_buf_mmap(struct dma_buf *dmabuf, struct vm_area_struct *vma)
+>>> +{
+>>> +     int ret;
+>>> +
+>>> +     /* check if buffer supports mmap */
+>>> +     if (!dmabuf->ops->mmap)
+>>> +             return -EINVAL;
+>>> +
+>>> +     ret = dmabuf->ops->mmap(dmabuf, vma);
+>>> +
+>>> +     /*
+>>> +      * If the exporter claims to support coherent access, ensure the
+>>> +      * pgprot flags match the claim.
+>>> +      */
+>>> +     if ((dmabuf->map_info != DMA_BUF_MAP_INCOHERENT) && !ret) {
+>>> +             pgprot_t wc_prot = pgprot_writecombine(vma->vm_page_prot);
+>>> +             if (dmabuf->map_info == DMA_BUF_COHERENT_WC) {
+>>> +                     WARN_ON_ONCE(pgprot_val(vma->vm_page_prot) != pgprot_val(wc_prot));
+>>> +             } else {
+>>> +                     WARN_ON_ONCE(pgprot_val(vma->vm_page_prot) == pgprot_val(wc_prot));
+>>> +             }
+>>> +     }
+>>> +
+>>> +     return ret;
+>>> +}
+>>> +
+>>>    static int dma_buf_mmap_internal(struct file *file, struct vm_area_struct *vma)
+>>>    {
+>>>        struct dma_buf *dmabuf;
+>>> @@ -134,16 +160,12 @@ static int dma_buf_mmap_internal(struct file *file, struct vm_area_struct *vma)
+>>>
+>>>        dmabuf = file->private_data;
+>>>
+>>> -     /* check if buffer supports mmap */
+>>> -     if (!dmabuf->ops->mmap)
+>>> -             return -EINVAL;
+>>> -
+>>>        /* check for overflowing the buffer's size */
+>>>        if (vma->vm_pgoff + vma_pages(vma) >
+>>>            dmabuf->size >> PAGE_SHIFT)
+>>>                return -EINVAL;
+>>>
+>>> -     return dmabuf->ops->mmap(dmabuf, vma);
+>>> +     return __dma_buf_mmap(dmabuf, vma);
+>>>    }
+>>>
+>>>    static loff_t dma_buf_llseek(struct file *file, loff_t offset, int whence)
+>>> @@ -326,6 +348,27 @@ static long dma_buf_set_name(struct dma_buf *dmabuf, const char __user *buf)
+>>>        return 0;
+>>>    }
+>>>
+>>> +static long dma_buf_info(struct dma_buf *dmabuf, void __user *uarg)
+>>> +{
+>>> +     struct dma_buf_info arg;
+>>> +
+>>> +     if (copy_from_user(&arg, uarg, sizeof(arg)))
+>>> +             return -EFAULT;
+>>> +
+>>> +     switch (arg.param) {
+>>> +     case DMA_BUF_INFO_MAP_INFO:
+>>> +             arg.value = dmabuf->map_info;
+>>> +             break;
+>>> +     default:
+>>> +             return -EINVAL;
+>>> +     }
+>>> +
+>>> +     if (copy_to_user(uarg, &arg, sizeof(arg)))
+>>> +             return -EFAULT;
+>>> +
+>>> +     return 0;
+>>> +}
+>>> +
+>>>    static long dma_buf_ioctl(struct file *file,
+>>>                          unsigned int cmd, unsigned long arg)
+>>>    {
+>>> @@ -369,6 +412,9 @@ static long dma_buf_ioctl(struct file *file,
+>>>        case DMA_BUF_SET_NAME_B:
+>>>                return dma_buf_set_name(dmabuf, (const char __user *)arg);
+>>>
+>>> +     case DMA_BUF_IOCTL_INFO:
+>>> +             return dma_buf_info(dmabuf, (void __user *)arg);
+>>> +
+>>>        default:
+>>>                return -ENOTTY;
+>>>        }
+>>> @@ -530,6 +576,7 @@ struct dma_buf *dma_buf_export(const struct dma_buf_export_info *exp_info)
+>>>        dmabuf->priv = exp_info->priv;
+>>>        dmabuf->ops = exp_info->ops;
+>>>        dmabuf->size = exp_info->size;
+>>> +     dmabuf->map_info = exp_info->map_info;
+>>>        dmabuf->exp_name = exp_info->exp_name;
+>>>        dmabuf->owner = exp_info->owner;
+>>>        spin_lock_init(&dmabuf->name_lock);
+>>> @@ -1245,10 +1292,6 @@ int dma_buf_mmap(struct dma_buf *dmabuf, struct vm_area_struct *vma,
+>>>        if (WARN_ON(!dmabuf || !vma))
+>>>                return -EINVAL;
+>>>
+>>> -     /* check if buffer supports mmap */
+>>> -     if (!dmabuf->ops->mmap)
+>>> -             return -EINVAL;
+>>> -
+>>>        /* check for offset overflow */
+>>>        if (pgoff + vma_pages(vma) < pgoff)
+>>>                return -EOVERFLOW;
+>>> @@ -1262,7 +1305,7 @@ int dma_buf_mmap(struct dma_buf *dmabuf, struct vm_area_struct *vma,
+>>>        vma_set_file(vma, dmabuf->file);
+>>>        vma->vm_pgoff = pgoff;
+>>>
+>>> -     return dmabuf->ops->mmap(dmabuf, vma);
+>>> +     return __dma_buf_mmap(dmabuf, vma);
+>>>    }
+>>>    EXPORT_SYMBOL_NS_GPL(dma_buf_mmap, DMA_BUF);
+>>>
+>>> diff --git a/include/linux/dma-buf.h b/include/linux/dma-buf.h
+>>> index 71731796c8c3..37923c8d5c24 100644
+>>> --- a/include/linux/dma-buf.h
+>>> +++ b/include/linux/dma-buf.h
+>>> @@ -23,6 +23,8 @@
+>>>    #include <linux/dma-fence.h>
+>>>    #include <linux/wait.h>
+>>>
+>>> +#include <uapi/linux/dma-buf.h>
+>>> +
+>>>    struct device;
+>>>    struct dma_buf;
+>>>    struct dma_buf_attachment;
+>>> @@ -307,6 +309,13 @@ struct dma_buf {
+>>>         */
+>>>        size_t size;
+>>>
+>>> +     /**
+>>> +      * @map_info:
+>>> +      *
+>>> +      * CPU mapping/coherency information for the buffer.
+>>> +      */
+>>> +     enum dma_buf_map_info map_info;
+>>> +
+>>>        /**
+>>>         * @file:
+>>>         *
+>>> @@ -533,6 +542,7 @@ struct dma_buf_attachment {
+>>>     * @ops:    Attach allocator-defined dma buf ops to the new buffer
+>>>     * @size:   Size of the buffer - invariant over the lifetime of the buffer
+>>>     * @flags:  mode flags for the file
+>>> + * @map_info:        CPU mapping/coherency information for the buffer
+>>>     * @resv:   reservation-object, NULL to allocate default one
+>>>     * @priv:   Attach private data of allocator to this buffer
+>>>     *
+>>> @@ -545,6 +555,7 @@ struct dma_buf_export_info {
+>>>        const struct dma_buf_ops *ops;
+>>>        size_t size;
+>>>        int flags;
+>>> +     enum dma_buf_map_info map_info;
+>>>        struct dma_resv *resv;
+>>>        void *priv;
+>>>    };
+>>> diff --git a/include/uapi/linux/dma-buf.h b/include/uapi/linux/dma-buf.h
+>>> index b1523cb8ab30..07b403ffdb43 100644
+>>> --- a/include/uapi/linux/dma-buf.h
+>>> +++ b/include/uapi/linux/dma-buf.h
+>>> @@ -85,6 +85,72 @@ struct dma_buf_sync {
+>>>
+>>>    #define DMA_BUF_NAME_LEN    32
+>>>
+>>> +/**
+>>> + * enum dma_buf_map_info - CPU mapping info
+>>> + *
+>>> + * This enum describes coherency of a userspace mapping of the dmabuf.
+>>> + *
+>>> + * Importing devices should check dma_buf::map_info flag and reject an
+>>> + * import if unsupported.  For example, if the exporting device uses
+>>> + * @DMA_BUF_COHERENT_CACHED but the importing device does not support
+>>> + * CPU cache coherency, the dma-buf import should fail.
+>>> + */
+>>> +enum dma_buf_map_info {
+>>> +     /**
+>>> +      * @DMA_BUF_MAP_INCOHERENT: CPU mapping is incoherent.
+>>> +      *
+>>> +      * Use of DMA_BUF_IOCTL_SYNC is required for CPU managed coherenency.
+>>> +      */
+>>> +     DMA_BUF_MAP_INCOHERENT,
+>>> +
+>>> +     /**
+>>> +      * @DMA_BUF_COHERENT_WC: CPU mapping is coherent but not cached.
+>>> +      *
+>>> +      * A cpu mmap'ing is coherent, and DMA_BUF_IOCTL_SYNC is not required.
+>>> +      * However fences may be still required for synchronizing access.  Ie.
+>>> +      * coherency can only be relied upon by an explicit-fencing userspace.
+>>> +      * An implicit-sync userspace must still use DMA_BUF_IOCTL_SYNC.
+>>> +      *
+>>> +      * The cpu mapping is writecombine.
+>>> +      */
+>>> +     DMA_BUF_COHERENT_WC,
+>>> +
+>>> +     /**
+>>> +      * @DMA_BUF_COHERENT_CACHED: CPU mapping is coherent and CPU cached.
+>>> +      *
+>>> +      * A cpu mmap'ing is coherent, and DMA_BUF_IOCTL_SYNC is not required.
+>>> +      * However fences may be still required for synchronizing access.  Ie.
+>>> +      * coherency can only be relied upon by an explicit-fencing userspace.
+>>> +      * An implicit-sync userspace must still use DMA_BUF_IOCTL_SYNC.
+>>> +      *
+>>> +      * The cpu mapping is cached.
+>>> +      */
+>>> +     DMA_BUF_COHERENT_CACHED,
+>>> +};
+>>> +
+>>> +/**
+>>> + * struct dma_buf_info - Query info about the buffer.
+>>> + */
+>>> +struct dma_buf_info {
+>>> +
+>>> +#define DMA_BUF_INFO_MAP_INFO    1
+>>> +
+>>> +     /**
+>>> +      * @param: Which param to query
+>>> +      *
+>>> +      * DMA_BUF_INFO_MAP_INFO:
+>>> +      *     Returns enum dma_buf_map_info, describing the coherency and
+>>> +      *     caching of a CPU mapping of the buffer.
+>>> +      */
+>>> +     __u32 param;
+>>> +     __u32 pad;
+>>> +
+>>> +     /**
+>>> +      * @value: Return value of the query.
+>>> +      */
+>>> +     __u64 value;
+>>> +};
+>>> +
+>>>    #define DMA_BUF_BASE                'b'
+>>>    #define DMA_BUF_IOCTL_SYNC  _IOW(DMA_BUF_BASE, 0, struct dma_buf_sync)
+>>>
+>>> @@ -95,4 +161,6 @@ struct dma_buf_sync {
+>>>    #define DMA_BUF_SET_NAME_A  _IOW(DMA_BUF_BASE, 1, __u32)
+>>>    #define DMA_BUF_SET_NAME_B  _IOW(DMA_BUF_BASE, 1, __u64)
+>>>
+>>> +#define DMA_BUF_IOCTL_INFO   _IOWR(DMA_BUF_BASE, 2, struct dma_buf_info)
+>>> +
+>>>    #endif
 
