@@ -2,76 +2,73 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 695AC597A58
-	for <lists+freedreno@lfdr.de>; Thu, 18 Aug 2022 01:45:58 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 20791597CF7
+	for <lists+freedreno@lfdr.de>; Thu, 18 Aug 2022 06:18:28 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C39BD9312C;
-	Wed, 17 Aug 2022 23:45:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 269E7B5B66;
+	Thu, 18 Aug 2022 04:17:49 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ej1-x635.google.com (mail-ej1-x635.google.com
- [IPv6:2a00:1450:4864:20::635])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4188293A7C
- for <freedreno@lists.freedesktop.org>; Wed, 17 Aug 2022 23:45:46 +0000 (UTC)
-Received: by mail-ej1-x635.google.com with SMTP id k26so293484ejx.5
- for <freedreno@lists.freedesktop.org>; Wed, 17 Aug 2022 16:45:46 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc;
- bh=IWb2N7Xh9yGWA33yAIfv+qx2jSyZqbeR/BcqwQYk4GY=;
- b=P5U4urhNLwkPn0VXRB7BllqfamQzYQnpd9d5JlgO6U0NCLhy44wkbrgkAbRQcZRXwd
- O+ZqrHXXzTijLFwT873gpciUSMrsArWBYCoT2v0Nqa2RHSKnQROtS50JyycZMyY7a2bd
- ZL/F37sHK4zyZ6fIO5qEQlf05kRetkXFD1PKI=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc;
- bh=IWb2N7Xh9yGWA33yAIfv+qx2jSyZqbeR/BcqwQYk4GY=;
- b=k/xEw16aebQqu975WQGp2N56TbLtnH6tGG69AgmqPIW0l5p4F+/3MBw09lYB1Wcbs+
- G5Lmca3Yu3WpjT0obzgxLV4mQg0hvkDjcoOTb6NkcJMPWeago/l6vSXfA3lV8IEkija/
- ew63AV1PHlwUD8IX8dZrRdhOZ+BYsGgWQ2wjiSFpo+dNS7ugT7bB531hs7Tqbx1ypWgt
- HuTVMYPpzwyBeACjgkLEAmxR/6YIOjTifffYWVAgrm/a6CsSVlDN9Hno7vCMuuA1+NFi
- 9Z5gVthehJFl/ANa/1wf8TDd1i+xJ5XDwtjSPTBB4OkRPoVpb+a/I8+jvoLmBFbTNsMD
- D0dA==
-X-Gm-Message-State: ACgBeo0XZjT6MNDKV9KOi18eq02s3FYYADWRDiYhe0ScWTT8j4RnjJR+
- IS4an+PzhWgtsFnC6oEtAIK3vYEyE1DKVCki
-X-Google-Smtp-Source: AA6agR51xeNUUOjzI8aqxcSw0v8PYiL+U+kLMRTui7Bc+8JPXLxfLPhmhPMCHZ5CS/Piy7ybn2jt4g==
-X-Received: by 2002:a17:907:724b:b0:731:48b3:6fed with SMTP id
- ds11-20020a170907724b00b0073148b36fedmr227283ejc.405.1660779944544; 
- Wed, 17 Aug 2022 16:45:44 -0700 (PDT)
-Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com.
- [209.85.128.49]) by smtp.gmail.com with ESMTPSA id
- 23-20020a170906309700b007317f00a6d9sm7319216ejv.208.2022.08.17.16.45.42
- for <freedreno@lists.freedesktop.org>
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 17 Aug 2022 16:45:42 -0700 (PDT)
-Received: by mail-wm1-f49.google.com with SMTP id
- k18-20020a05600c0b5200b003a5dab49d0bso121557wmr.3
- for <freedreno@lists.freedesktop.org>; Wed, 17 Aug 2022 16:45:42 -0700 (PDT)
-X-Received: by 2002:a05:600c:4e8b:b0:3a5:f5bf:9c5a with SMTP id
- f11-20020a05600c4e8b00b003a5f5bf9c5amr3477561wmq.85.1660779941883; Wed, 17
- Aug 2022 16:45:41 -0700 (PDT)
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B328BB5B32;
+ Thu, 18 Aug 2022 04:17:27 +0000 (UTC)
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 27I4C0hD003644;
+ Thu, 18 Aug 2022 04:17:22 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
+ h=from : to : cc :
+ subject : date : message-id : mime-version : content-type; s=qcppdkim1;
+ bh=H31UzLEojwM3wgQfVzmfwrfB8cyUdcUtpJwyaBqUfKs=;
+ b=gtEmTYGpGlLJI5tlY91wfouuqeSIX+bYqu/PtmpZLn6mylhzYgVFmhxxn8u9/7N0GyU8
+ TqJ+cP71Av+KI2+F4pi+0VhoKDtbTj28slALS/EEeIHOsb6ATPhlElTBFYehaKSiEhGM
+ sq5G3M+rigMfkg05NapCu7e3lckUJ86PD647S/xci+P1oACxUYDrjK8WNwK0Byh8LcVC
+ YcX2rkpLTCgE8vgHq//dYtv3UxR/PnM0/kB40yTI7YQK7uzLkiOIT2zOG7IcJcYXvWx9
+ svvF+udhW8twtggIodFPocpnmqtgNtBRvOXoZ6vH/X2Bn3SndN+7+y/VhOoSPZVkDZsf wg== 
+Received: from nalasppmta03.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3j13v1j9tn-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 18 Aug 2022 04:17:22 +0000
+Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
+ [10.47.209.196])
+ by NALASPPMTA03.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 27I4HI1S018163
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 18 Aug 2022 04:17:21 GMT
+Received: from hyd-lnxbld559.qualcomm.com (10.80.80.8) by
+ nalasex01a.na.qualcomm.com (10.47.209.196) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.986.22; Wed, 17 Aug 2022 07:58:14 -0700
+From: Akhil P Oommen <quic_akhilpo@quicinc.com>
+To: freedreno <freedreno@lists.freedesktop.org>,
+ <dri-devel@lists.freedesktop.org>, <linux-arm-msm@vger.kernel.org>,
+ Rob Clark <robdclark@gmail.com>,
+ Bjorn Andersson <bjorn.andersson@linaro.org>, "Stephen
+ Boyd" <swboyd@chromium.org>, Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Date: Wed, 17 Aug 2022 20:27:49 +0530
+Message-ID: <1660748274-39239-1-git-send-email-quic_akhilpo@quicinc.com>
+X-Mailer: git-send-email 2.7.4
 MIME-Version: 1.0
-References: <20220721152314.RFC.1.Ie333b3e4aff6e4a5b58c4aa805e030e561be8773@changeid>
- <269f2610-425b-f296-dcfc-89bdc2e1d587@quicinc.com>
- <CAD=FV=XSVXasU5PMR2kL0WQjQ458xDePuTGd1m14_v9JO5B6oA@mail.gmail.com>
- <CAF6AEGv_Vikf80v-7ccz90fvGPrk5pV1tOxRoWKxKHYuEW8=aA@mail.gmail.com>
- <5c8ca71c-5f0b-d5f5-9f16-e312dec0d01b@quicinc.com>
- <CAD=FV=UGYV1mZenDCRrbpC+gpE12-Uis7fm_=H3PeEjK=t36yA@mail.gmail.com>
- <20220729075118.ofnpk52tk4usm3n3@penduick>
- <CAD=FV=WUB68-DQ-pAFjGaG-kid33ve4Qc3iqb8OUh61xTBohmg@mail.gmail.com>
- <20220729164136.opucqg64qz4ypmvo@penduick>
- <CAD=FV=UKYksHjuVR27DPdUFFtJrQKB2KbT08qjeYLNW_3y_Mfg@mail.gmail.com>
- <20220815064543.g7loqfb6rtwkookl@houat>
-In-Reply-To: <20220815064543.g7loqfb6rtwkookl@houat>
-From: Doug Anderson <dianders@chromium.org>
-Date: Wed, 17 Aug 2022 16:45:29 -0700
-X-Gmail-Original-Message-ID: <CAD=FV=W9sK2dKMnDZmW_ipLGZJFrrvNHz6zHsXVaSCD_u4JpiA@mail.gmail.com>
-Message-ID: <CAD=FV=W9sK2dKMnDZmW_ipLGZJFrrvNHz6zHsXVaSCD_u4JpiA@mail.gmail.com>
-To: Maxime Ripard <maxime@cerno.tech>
-Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [RFC PATCH] drm/edid: Make 144 Hz not preferred on
- Sharp LQ140M1JW46
+Content-Type: text/plain
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-GUID: 3P1GUtWu8JPrHUcEyEHZk5UsUB0eEMhe
+X-Proofpoint-ORIG-GUID: 3P1GUtWu8JPrHUcEyEHZk5UsUB0eEMhe
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.205,Aquarius:18.0.883,Hydra:6.0.517,FMLib:17.11.122.1
+ definitions=2022-08-18_02,2022-08-16_02,2022-06-22_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 impostorscore=0
+ mlxscore=0 clxscore=1015 malwarescore=0 mlxlogscore=674 bulkscore=0
+ phishscore=0 suspectscore=0 lowpriorityscore=0 priorityscore=1501
+ adultscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2207270000 definitions=main-2208180014
+Subject: [Freedreno] [PATCH v2 0/5] clk/qcom: Support gdsc collapse polling
+ using 'reset' inteface
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -84,161 +81,49 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sankeerth Billakanti <quic_sbillaka@quicinc.com>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@linux.ie>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- dri-devel <dri-devel@lists.freedesktop.org>,
- LKML <linux-kernel@vger.kernel.org>, Rob Clark <robdclark@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>, freedreno <freedreno@lists.freedesktop.org>
+Cc: devicetree@vger.kernel.org, Akhil P Oommen <quic_akhilpo@quicinc.com>,
+ Michael Turquette <mturquette@baylibre.com>,
+ Konrad Dybcio <konrad.dybcio@somainline.org>,
+ Douglas Anderson <dianders@chromium.org>, Rob Herring <robh+dt@kernel.org>,
+ linux-kernel@vger.kernel.org, Stephen Boyd <sboyd@kernel.org>,
+ krzysztof.kozlowski@linaro.org, Andy Gross <agross@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ linux-clk@vger.kernel.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Hi,
 
-On Sun, Aug 14, 2022 at 11:46 PM Maxime Ripard <maxime@cerno.tech> wrote:
->
-> On Fri, Jul 29, 2022 at 12:57:40PM -0700, Doug Anderson wrote:
-> > Hi,
-> >
-> > On Fri, Jul 29, 2022 at 9:41 AM Maxime Ripard <maxime@cerno.tech> wrote:
-> > >
-> > > On Fri, Jul 29, 2022 at 07:50:20AM -0700, Doug Anderson wrote:
-> > > > On Fri, Jul 29, 2022 at 12:51 AM Maxime Ripard <maxime@cerno.tech> wrote:
-> > > > >
-> > > > > On Thu, Jul 28, 2022 at 02:18:38PM -0700, Doug Anderson wrote:
-> > > > > > Hi,
-> > > > > >
-> > > > > > On Thu, Jul 28, 2022 at 10:34 AM Abhinav Kumar
-> > > > > > <quic_abhinavk@quicinc.com> wrote:
-> > > > > > >
-> > > > > > > Hi Rob and Doug
-> > > > > > >
-> > > > > > > On 7/22/2022 10:36 AM, Rob Clark wrote:
-> > > > > > > > On Fri, Jul 22, 2022 at 9:48 AM Doug Anderson <dianders@chromium.org> wrote:
-> > > > > > > >>
-> > > > > > > >> Hi,
-> > > > > > > >>
-> > > > > > > >> On Fri, Jul 22, 2022 at 9:37 AM Abhinav Kumar <quic_abhinavk@quicinc.com> wrote:
-> > > > > > > >>>
-> > > > > > > >>> + sankeerth
-> > > > > > > >>>
-> > > > > > > >>> Hi Doug
-> > > > > > > >>>
-> > > > > > > >>> On 7/21/2022 3:23 PM, Douglas Anderson wrote:
-> > > > > > > >>>> The Sharp LQ140M1JW46 panel is on the Qualcomm sc7280 CRD reference
-> > > > > > > >>>> board. This panel supports 144 Hz and 60 Hz. In the EDID, the 144 Hz
-> > > > > > > >>>> mode is listed first and thus is marked preferred. The EDID decode I
-> > > > > > > >>>> ran says:
-> > > > > > > >>>>
-> > > > > > > >>>>     First detailed timing includes the native pixel format and preferred
-> > > > > > > >>>>     refresh rate.
-> > > > > > > >>>>
-> > > > > > > >>>>     ...
-> > > > > > > >>>>
-> > > > > > > >>>>     Detailed Timing Descriptors:
-> > > > > > > >>>>       DTD 1:  1920x1080  143.981 Hz  16:9   166.587 kHz  346.500 MHz
-> > > > > > > >>>>                    Hfront   48 Hsync  32 Hback  80 Hpol N
-> > > > > > > >>>>                    Vfront    3 Vsync   5 Vback  69 Vpol N
-> > > > > > > >>>>       DTD 2:  1920x1080   59.990 Hz  16:9    69.409 kHz  144.370 MHz
-> > > > > > > >>>>                    Hfront   48 Hsync  32 Hback  80 Hpol N
-> > > > > > > >>>>                    Vfront    3 Vsync   5 Vback  69 Vpol N
-> > > > > > > >>>>
-> > > > > > > >>>> I'm proposing here that the above is actually a bug and that the 60 Hz
-> > > > > > > >>>> mode really should be considered preferred by Linux.
-> > > > > > >
-> > > > > > > Its a bit tricky to say that this is a bug but I think we can certainly
-> > > > > > > add here that for an internal display we would have ideally had the
-> > > > > > > lower resolution first to indicate it as default.
-> > > > > >
-> > > > > > Yeah, it gets into the vagueness of the EDID spec in general. As far
-> > > > > > as I can find it's really up to the monitor to decide by what means it
-> > > > > > chooses the "preferred" refresh rate if the monitor can support many.
-> > > > > > Some displays may decide that the normal rate is "preferred" and some
-> > > > > > may decide that the high refresh rate is "preferred". Neither display
-> > > > > > is "wrong" per say, but it's nice to have some consistency here and to
-> > > > > > make it so that otherwise "dumb" userspace will get something
-> > > > > > reasonable by default. I'll change it to say:
-> > > > > >
-> > > > > > While the EDID spec appears to allow a display to use any criteria for
-> > > > > > picking which refresh mode is "preferred" or "optimal", that vagueness
-> > > > > > is a bit annoying. From Linux's point of view let's choose the 60 Hz
-> > > > > > one as the default.
-> > > > >
-> > > > > And if we start making that decision, it should be for all panels with a
-> > > > > similar constraint, so most likely handled by the core, and the new
-> > > > > policy properly documented.
-> > > > >
-> > > > > Doing that just for a single panel is weird.
-> > > >
-> > > > Yeah, though having a "general policy" in the core can be problematic.
-> > > >
-> > > > In general I think panel EDIDs are only trustworthy as far as you can
-> > > > throw them. They are notorious for having wrong and incorrect
-> > > > information, which is why the EDID quirk list exists to begin with.
-> > > > Trying to change how we're going to interpret all EDIDs, even all
-> > > > EDIDs for eDP panels, seems like it will break someone somewhere.
-> > > > Maybe there are EDIDs out there that were only ever validated at the
-> > > > higher refresh rate and they don't work / flicker / cause digitizer
-> > > > noise at the lower refresh rate. Heck, we've seen eDP panel vendors
-> > > > that can't even get their checksum correct, so I'm not sure I want to
-> > > > make a global assertion that all panels validated their "secondary"
-> > > > display mode.
-> > > >
-> > > > In this particular case, we have validated that this particular Sharp
-> > > > panel works fine at the lower refresh rate.
-> > > >
-> > > > I would also note that, as far as I understand it, ODMs actually can
-> > > > request different EDIDs from the panel vendors. In the past we have
-> > > > been able to get panel vendors to change EDIDs. Thus for most panels
-> > > > I'd expect that we would discover this early, change the EDID default,
-> > > > and be done with it. The case here is a little unusual in that by the
-> > > > time we got involved and started digging into this panel too many were
-> > > > created and nobody wants to throw away those old panels. This is why
-> > > > I'm treating it as a quirk/bug. Really: we should have updated the
-> > > > EDID of the panel but we're unable to in this case.
-> > >
-> > > You raise some good points, but most of the discussion around that patch
-> > > were mostly around performances, power consumption and so on.
-> > >
-> > > This is very much a policy decision, and if there is some panel where
-> > > the EDID reports 60Hz but is broken, then that panel should be the
-> > > exception to the policy
-> > >
-> > > But doing it for a single panel is just odd
-> >
-> > OK, fair enough. I'll abandon this patch at least as far as mainline
-> > is concerned, then.
->
-> That wasn't really my point though :)
->
-> If you think that this change is needed, then we should totally discuss
-> it and I'm not opposed to it.
->
-> What I don't really like about this patch is that it's about a single
-> panel: if we're doing it we should do it for all the panels.
->
-> Where we do it can also be discussed, but we should remain consistent
-> there.
+Some clients like adreno gpu driver would like to ensure that its gdsc
+is collapsed at hardware during a gpu reset sequence. This is because it
+has a votable gdsc which could be ON due to a vote from another subsystem
+like tz, hyp etc or due to an internal hardware signal. To allow
+this, gpucc driver can expose an interface to the client driver using
+reset framework. Using this the client driver can trigger a polling within
+the gdsc driver.
 
-I was never massively confident about it, which is why I added the
-"RFC" tag to begin with. ;-) In general I suspect that either change
-will make people upset. In other words, if we programmatically always
-try to put the "high refresh rate" first for all displays then people
-will be upset and if we programmatically always try to put the "60 Hz
-rate" first then people will be upset. Unless someone wants to stand
-up and say that one side or the other is wrong, I think we're going to
-simply leave this up to the whim of individual panels. Someone could
-stand up and demand that it go one way or the other, but I certainly
-don't have that clout.
+This series is rebased on top of linus's master branch.
 
-The spec, as far as I can tell, says that it's up to the panel vendor
-to use whatever means they want to decide on the "preferred" refresh
-rate. Thus, as far as the spec is concerned this decision is made on
-an individual panel basis. ;-) This was really the justification for
-why my patch was just on one panel.
+Related discussion: https://patchwork.freedesktop.org/patch/493144/
 
-In any case, as I said I'm OK w/ dropping this. We'll find other ways
-to work around the issue.
+Changes in v2:
+- Return error when a particular custom reset op is not implemented. (Dmitry)
 
--Doug
+Akhil P Oommen (5):
+  dt-bindings: clk: qcom: Support gpu cx gdsc reset
+  clk: qcom: Allow custom reset ops
+  clk: qcom: gdsc: Add a reset op to poll gdsc collapse
+  clk: qcom: gpucc-sc7280: Add cx collapse reset support
+  arm64: dts: qcom: sc7280: Add Reset support for gpu
+
+ arch/arm64/boot/dts/qcom/sc7280.dtsi          |  3 +++
+ drivers/clk/qcom/gdsc.c                       | 23 +++++++++++++++++++----
+ drivers/clk/qcom/gdsc.h                       |  7 +++++++
+ drivers/clk/qcom/gpucc-sc7280.c               | 10 ++++++++++
+ drivers/clk/qcom/reset.c                      | 27 +++++++++++++++++++++++++++
+ drivers/clk/qcom/reset.h                      |  8 ++++++++
+ include/dt-bindings/clock/qcom,gpucc-sc7280.h |  3 +++
+ 7 files changed, 77 insertions(+), 4 deletions(-)
+
+-- 
+2.7.4
+
