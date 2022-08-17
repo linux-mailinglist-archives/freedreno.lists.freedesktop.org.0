@@ -1,61 +1,77 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id A34495A0069
-	for <lists+freedreno@lfdr.de>; Wed, 24 Aug 2022 19:31:16 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id ED6485A010E
+	for <lists+freedreno@lfdr.de>; Wed, 24 Aug 2022 20:04:28 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C829AA168D;
-	Wed, 24 Aug 2022 17:30:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D8726B7298;
+	Wed, 24 Aug 2022 18:04:25 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-oa1-x29.google.com (mail-oa1-x29.google.com
- [IPv6:2001:4860:4864:20::29])
- by gabe.freedesktop.org (Postfix) with ESMTPS id ECF56BE51A
- for <freedreno@lists.freedesktop.org>; Wed, 24 Aug 2022 17:30:39 +0000 (UTC)
-Received: by mail-oa1-x29.google.com with SMTP id
- 586e51a60fabf-f2a4c51c45so21690464fac.9
- for <freedreno@lists.freedesktop.org>; Wed, 24 Aug 2022 10:30:39 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=cc:to:subject:message-id:date:user-agent:from:references
- :in-reply-to:mime-version:from:to:cc;
- bh=d2910jvc1FYW2CzUzlDlHxLoXiZignwtt7dqFgJIrVI=;
- b=fcQ5BKX6CF1pB0Q5K+QtelbSTU2ihxqxPUnaPzIVR0MQ/vdL6bmvl5OMW4nPfeQxcI
- xjTPKRTjCubgelgY+XlCapqkiKrgDLZc9Iv5SNleO0KO7Xz048d0ap823yKYrg0UJOiT
- m2Rf5yz4zgPncnzKbEPPJipiprzWzx6yl5n2s=
+Received: from mail-lj1-x231.google.com (mail-lj1-x231.google.com
+ [IPv6:2a00:1450:4864:20::231])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 85EC110EF88
+ for <freedreno@lists.freedesktop.org>; Wed, 17 Aug 2022 06:21:11 +0000 (UTC)
+Received: by mail-lj1-x231.google.com with SMTP id j3so12664533ljo.0
+ for <freedreno@lists.freedesktop.org>; Tue, 16 Aug 2022 23:21:11 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc;
+ bh=RfBVYdcgWCETO8kv58T7Yvcn1ctskhunxUupScfdMTY=;
+ b=ydIHGt/P/asGeUFjJaMEu5NGac9v2aGsLucz96bXjD1yaKx9KvR+Yfvki1luQfNn0x
+ aMvmbYy+qahOIUDUpMP3xKoe7fYugKzwX+DWhowMROOxAsXFWLy3CdpNZLqiXX97X/HI
+ V4c52jbgI9uHNcWmdVmKJgEUozgd6BTn8VW/Ab6GfDuxDBzYi9M/JpX//fQ0Bq9ttthJ
+ JekkFK0SBo0wTn2gwkkyZXDU+uUpcGNnaHJUwwzGBSPtfZZQXdBII9QDCWiJfn/taK/B
+ KDsIru+Lgvu+toDRx+UTfEHMbLbaG/i6Bm+4Kp4Fi7US7cKbWGC2FqvD7YqjT77aeLGG
+ cH8w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=cc:to:subject:message-id:date:user-agent:from:references
- :in-reply-to:mime-version:x-gm-message-state:from:to:cc;
- bh=d2910jvc1FYW2CzUzlDlHxLoXiZignwtt7dqFgJIrVI=;
- b=h7Zv9y29VjCfIPr50nXbSPPCjCa9Dj290aj2awJyf/QYZPb3SC2qP4HGt2nCeu6bL6
- Hku54vGVUXyunPB6jNC3l6UIsdaO2X3o8Q6xZ29cYFqT0mDW/SBgWHnoreZpwMIHuhU3
- XMSzXBni7/u5WWJbHoSRqPDttgnu2KWpt7rlYxv94Pq5CUXwhFZvGYzrm21YmSi+8Fvs
- 5ju9uj7myMCsN0b/vdqne/2RTjtbbJfxUhelSjp6AqMXwskjOdzwBXA/0GLtf6BieD1M
- NgUNFcqcEk21ibAhKbAh6CHEZaVr8okEHBfzFkQ4IO+l2tz5wirY4/ht+SFdhoSmzoMr
- 207g==
-X-Gm-Message-State: ACgBeo3G4VMz+yUj6AZ54hhnY5qnFcIADQsCmGruYVf+h+MCEaqxcw9Y
- JrId7iUBX7k2LbeZFjiwmj2tuI7vbKhbodNbPtMtfg==
-X-Google-Smtp-Source: AA6agR7QDhwW4ErLZ7pKcygsrPIJ67UAWeCMGbJtFeUUkR9yxPnuX6YfLksltT67IRMFVnSMhpLZXdZbOmpszg5JuT8=
-X-Received: by 2002:a05:6870:a99c:b0:11c:2c37:3d03 with SMTP id
- ep28-20020a056870a99c00b0011c2c373d03mr91633oab.0.1661362239159; Wed, 24 Aug
- 2022 10:30:39 -0700 (PDT)
-Received: from 753933720722 named unknown by gmailapi.google.com with
- HTTPREST; Wed, 24 Aug 2022 12:30:38 -0500
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc;
+ bh=RfBVYdcgWCETO8kv58T7Yvcn1ctskhunxUupScfdMTY=;
+ b=IQB1xSNLxTeD6Ip5kqrbIxcghPIw6KPPlYF0Ctol/dzWsWI4QQRPQWeFs9C7uZQxa1
+ XHN4+2oHTHQRYLOKJS6zGWtWN3LqUyPDOUnAr4SjYATVlYR0OXOLacWTA+0a7CbsQj5c
+ pfWMMJbh6qgFGpfLRblfcJXEdyGWeek1CaYgKlwxixfrpO9Nn3px81E6PoBFUnHzxgp8
+ u1c+7dgnX/UjWeyQKCCAzpWg9bNH04wagp+UeOl6MFDgjemQgBF9VJXelPwPFCiRjp5L
+ v745fTnJvNpkX8q9jJsDL0tB1pttuolXiYsJc4d8uo5RczB1IJKDU47lcZF9GXXcVZd/
+ CCcw==
+X-Gm-Message-State: ACgBeo27kgeTzGmFHip2HJwHcPuU9wf2f9EMMGEmt4IuVM2NnWUC51hx
+ 78XgPBKKas/B7ttupCRMlfN0Ew==
+X-Google-Smtp-Source: AA6agR4+FgNQRQuvaZE1/pe2oQDZwEobNJtZXGvgoiXBI2AAv7IjxeefZTGItBW5nCCEcgwemygMBw==
+X-Received: by 2002:a2e:8092:0:b0:25f:f075:a1b1 with SMTP id
+ i18-20020a2e8092000000b0025ff075a1b1mr6978448ljg.23.1660717270962; 
+ Tue, 16 Aug 2022 23:21:10 -0700 (PDT)
+Received: from krzk-bin.. (d15l54h48cw7vbh-qr4-4.rev.dnainternet.fi.
+ [2001:14bb:ae:539c:1b1c:14b7:109b:ed76])
+ by smtp.gmail.com with ESMTPSA id
+ u27-20020ac258db000000b0048b0062a14fsm1581002lfo.144.2022.08.16.23.21.09
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 16 Aug 2022 23:21:10 -0700 (PDT)
+From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+To: Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Sean Paul <sean@poorly.run>, David Airlie <airlied@linux.ie>,
+ Daniel Vetter <daniel@ffwll.ch>, Rob Herring <robh+dt@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Del Regno <angelogioacchino.delregno@somainline.org>,
+ Loic Poulain <loic.poulain@linaro.org>,
+ Krishna Manikandan <quic_mkrishn@quicinc.com>,
+ Jami Kettunen <jami.kettunen@somainline.org>,
+ Stephen Boyd <swboyd@chromium.org>,
+ Bjorn Andersson <bjorn.andersson@linaro.org>,
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Date: Wed, 17 Aug 2022 09:20:59 +0300
+Message-Id: <20220817062059.18640-6-krzysztof.kozlowski@linaro.org>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20220817062059.18640-1-krzysztof.kozlowski@linaro.org>
+References: <20220817062059.18640-1-krzysztof.kozlowski@linaro.org>
 MIME-Version: 1.0
-In-Reply-To: <1661361751-2173-1-git-send-email-quic_khsieh@quicinc.com>
-References: <1661361751-2173-1-git-send-email-quic_khsieh@quicinc.com>
-From: Stephen Boyd <swboyd@chromium.org>
-User-Agent: alot/0.10
-Date: Wed, 24 Aug 2022 12:30:38 -0500
-Message-ID: <CAE-0n50wZkb5sYcZ2g+4L3S7OAYAti+5GEaBDZfANyOJCF3JzA@mail.gmail.com>
-To: Kuogee Hsieh <quic_khsieh@quicinc.com>, agross@kernel.org, airlied@linux.ie,
- bjorn.andersson@linaro.org, daniel@ffwll.ch, dianders@chromium.org, 
- dmitry.baryshkov@linaro.org, robdclark@gmail.com, sean@poorly.run, 
- vkoul@kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [PATCH v2] drm/msm/dp: correct 1.62G link rate at
- dp_catalog_ctrl_config_msa()
+Content-Transfer-Encoding: 8bit
+Subject: [Freedreno] [PATCH v2 5/5] dt-bindings: display/msm: dpu-sdm845:
+ add missing DPU opp-table
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,51 +84,49 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: quic_sbillaka@quicinc.com, linux-arm-msm@vger.kernel.org,
- quic_abhinavk@quicinc.com, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, freedreno@lists.freedesktop.org
+Cc: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Quoting Kuogee Hsieh (2022-08-24 10:22:31)
-> At current implementation there is an extra 0 at 1.62G link rate which cause
-> no correct pixel_div selected for 1.62G link rate to calculate mvid and nvid.
-> This patch delete the extra 0 to have mvid and nvid be calculated correctly.
->
-> Changes in v2:
-> -- fix Fixes tag's text
->
-> Fixes: 937f941ca06f  ("drm/msm/dp: Use qmp phy for DP PLL and PHY")
-> Signed-off-by: Kuogee Hsieh <quic_khsieh@quicinc.com>
->
-> Reviewed-by: Stephen Boyd <swboyd@chromium.org>
-> eviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
+The 'display-controller' child (DPU) of Display SubSystem (MDSS) uses
+opp-table, so reference it which allows restricting DPU schema to fixed
+list of properties.
 
-Missing an R.
+Fixes: 3d7a0dd8f39b ("dt-bindings: msm: disp: add yaml schemas for DPU bindings")
+Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 
->
-> diff --git a/drivers/gpu/drm/msm/dp/dp_catalog.c b/drivers/gpu/drm/msm/dp/dp_catalog.c
-> index 7257515..676279d 100644
-> --- a/drivers/gpu/drm/msm/dp/dp_catalog.c
-> +++ b/drivers/gpu/drm/msm/dp/dp_catalog.c
-> @@ -431,7 +431,7 @@ void dp_catalog_ctrl_config_msa(struct dp_catalog *dp_catalog,
->
->         if (rate == link_rate_hbr3)
->                 pixel_div = 6;
-> -       else if (rate == 1620000 || rate == 270000)
-> +       else if (rate == 162000 || rate == 270000)
+---
 
-BTW
+Cc: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Cc: Rob Clark <robdclark@gmail.com>
+Cc: Sean Paul <sean@poorly.run>
+Cc: Abhinav Kumar <quic_abhinavk@quicinc.com>
+---
+ Documentation/devicetree/bindings/display/msm/dpu-sdm845.yaml | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-  $ git grep 162000 -- drivers/gpu/drm/msm/dp/
-  drivers/gpu/drm/msm/dp/dp_catalog.c:    else if (rate == 1620000 ||
-rate == 270000)
-  drivers/gpu/drm/msm/dp/dp_ctrl.c:
-ctrl->link->link_params.rate = 162000;
-  drivers/gpu/drm/msm/dp/dp_ctrl.c:       case 162000:
+diff --git a/Documentation/devicetree/bindings/display/msm/dpu-sdm845.yaml b/Documentation/devicetree/bindings/display/msm/dpu-sdm845.yaml
+index 2bb8896beffc..7d1037373175 100644
+--- a/Documentation/devicetree/bindings/display/msm/dpu-sdm845.yaml
++++ b/Documentation/devicetree/bindings/display/msm/dpu-sdm845.yaml
+@@ -65,6 +65,7 @@ patternProperties:
+   "^display-controller@[0-9a-f]+$":
+     type: object
+     description: Node containing the properties of DPU.
++    additionalProperties: false
+ 
+     properties:
+       compatible:
+@@ -102,6 +103,9 @@ patternProperties:
+         maxItems: 1
+ 
+       operating-points-v2: true
++      opp-table:
++        type: object
++
+       ports:
+         $ref: /schemas/graph.yaml#/properties/ports
+         description: |
+-- 
+2.34.1
 
-We really should have a #define for these things. Can you send a
-different followup patch that makes something like HBR3_KHZ, HBR2_KHZ,
-etc. and then replaces these bare numbers throughout the driver? That
-would prevent this from happening again. This one liner can and should
-be backported to stable trees.
