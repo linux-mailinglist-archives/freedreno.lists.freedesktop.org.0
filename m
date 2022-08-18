@@ -1,77 +1,74 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 35CC3597CC8
-	for <lists+freedreno@lfdr.de>; Thu, 18 Aug 2022 06:17:58 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id B9C28597F01
+	for <lists+freedreno@lfdr.de>; Thu, 18 Aug 2022 09:10:37 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C71C3B5B59;
-	Thu, 18 Aug 2022 04:17:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B3F74B8B69;
+	Thu, 18 Aug 2022 07:10:35 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1EC3FB5B22;
- Thu, 18 Aug 2022 04:17:26 +0000 (UTC)
-Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 27I28I8L006244;
- Thu, 18 Aug 2022 04:17:23 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
- h=from : to : cc :
- subject : date : message-id : in-reply-to : references : mime-version :
- content-type; s=qcppdkim1;
- bh=7/Dlb7opb1zHeDvNOlDvqLTNKaGONEslYGnrJDLSevg=;
- b=k7Nh+coZDc3xx0pigDWj1uY9XpltHEFdA2taT/7dVzsECYLHPwzqWV8zXkJ27zGMx0Du
- IoHDQVG1+3Ju2nrGN0CZAnknWq3ZBb9OxJUWDfpG4BYSRCMjt3NBfpyOKEO1yB0hvOap
- qxM4X/ZvVx20WkjkS4wRpIuSFrUuI7ee4R63/s7vg0RQ0XlB3vkTJydULGWPuRJf+g63
- EuOEmIJAn/AMKKd2YwTWDhrx2a5TRXXN5i9s1MF9MU+gdiPVXTMIsKXJFf8iHUhuBSR3
- CklsfwDsYIjFjkHeQ7xuPArurqMBqUbB+vyZnXccvjwgEufAv3eZzV8Zq04qV/Drvmhw CA== 
-Received: from nalasppmta03.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3j0w7hm3rf-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 18 Aug 2022 04:17:22 +0000
-Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
- [10.47.209.196])
- by NALASPPMTA03.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 27I4HJlA018189
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 18 Aug 2022 04:17:21 GMT
-Received: from hyd-lnxbld559.qualcomm.com (10.80.80.8) by
- nalasex01a.na.qualcomm.com (10.47.209.196) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.986.22; Wed, 17 Aug 2022 08:15:06 -0700
-From: Akhil P Oommen <quic_akhilpo@quicinc.com>
-To: freedreno <freedreno@lists.freedesktop.org>,
- <dri-devel@lists.freedesktop.org>, <linux-arm-msm@vger.kernel.org>,
- Rob Clark <robdclark@gmail.com>,
- Bjorn Andersson <bjorn.andersson@linaro.org>, "Dmitry
- Baryshkov" <dmitry.baryshkov@linaro.org>
-Date: Wed, 17 Aug 2022 20:44:20 +0530
-Message-ID: <20220817204224.v4.7.I54815c7c36b80d4725cd054e536365250454452f@changeid>
-X-Mailer: git-send-email 2.7.4
-In-Reply-To: <1660749261-7602-1-git-send-email-quic_akhilpo@quicinc.com>
-References: <1660749261-7602-1-git-send-email-quic_akhilpo@quicinc.com>
+Received: from mail-lf1-x12b.google.com (mail-lf1-x12b.google.com
+ [IPv6:2a00:1450:4864:20::12b])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 280CABE351
+ for <freedreno@lists.freedesktop.org>; Thu, 18 Aug 2022 07:10:30 +0000 (UTC)
+Received: by mail-lf1-x12b.google.com with SMTP id x19so989532lfq.7
+ for <freedreno@lists.freedesktop.org>; Thu, 18 Aug 2022 00:10:30 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc; bh=4AkHVnmH3Qgljaq8kspzBsE5mDKEXgmNmBcNRLyZpfo=;
+ b=gZpAZJTQ8l5SemqKeTwFepwZXG7wa1f6L0zrraK6KM5GRT2GfnEYaougqWwQRTJJ3R
+ tlGuMAGBrfDDtjT8pks99gfOWY72Be1YUWjrYzeTLja605yzJegKFQauEfHWnj7Yoq7m
+ UEVGM+trkCYe22YUFEGun9AyKKldYjuOoRa7dyvN7AhsjEOyVd266XcZDIghdjHyF4/A
+ ca3ezFZ8E89j/fDFlb54QHxDJbfcy/GWC0O0cyD/U4rmE4DL/R1Ow7ZmDip8wG3LE61Q
+ LbH35rWVo8ULcDGxY6pbLmqiVUo7xR1S3B5Mr2/G559dnG9g7QscHBJ/t6T7ibcWCs2O
+ nDGg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc;
+ bh=4AkHVnmH3Qgljaq8kspzBsE5mDKEXgmNmBcNRLyZpfo=;
+ b=Y1ANX+mVlJdDz6M701UMuTbA0hm5U607LBl7fPBwQwwzvYCOhSOZCkRIBIusmXi72Z
+ dZ0yBYgKyEoV6bc5erG6HJIvPQ63Dm7VT0QL6y9dL8k9z5nTlGLY7RfDwdo2hwZbx604
+ lHt+pd6za6lvNNMQJxZSvWVgZq+kfElJl6BIvWPGd9A6Bs01flGBCrM6iH6avlZu81Xi
+ x4wKsDex9y4tXaYu7444w0vuXk3LueZDuS42loVXj/60s8vmxsqOS4GDGzqkSKdOlm0t
+ JWa/fprnmR9DhxQxnazw0eyceUkok+2TSCgAZUrRW3wwPKu2vGIIuIh2kmeXNqqva42H
+ 3YPw==
+X-Gm-Message-State: ACgBeo0UaqVXdjJuBkDWfk8tuIyamR5p6dMj+0gfBBI3lYNTAT/yNx3o
+ JXo2TUS/nrAPrPstbWApUfCZwg==
+X-Google-Smtp-Source: AA6agR5zsBQpMggDPWPhCVXkH4YrDgWCTxmfyFBqg6rPVwRLM6tjQlIRLnwexY8i61elDwn4FUH6Ag==
+X-Received: by 2002:a05:6512:114a:b0:492:84b9:b376 with SMTP id
+ m10-20020a056512114a00b0049284b9b376mr555220lfg.450.1660806628262; 
+ Thu, 18 Aug 2022 00:10:28 -0700 (PDT)
+Received: from ?IPV6:2001:14bb:ae:539c:53ab:2635:d4f2:d6d5?
+ (d15l54z9nf469l8226z-4.rev.dnainternet.fi.
+ [2001:14bb:ae:539c:53ab:2635:d4f2:d6d5])
+ by smtp.gmail.com with ESMTPSA id
+ c10-20020a056512074a00b0048aee10096fsm112529lfs.82.2022.08.18.00.10.26
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 18 Aug 2022 00:10:27 -0700 (PDT)
+Message-ID: <5a22d41a-f7cc-0be0-8bd1-d7d2c2133ace@linaro.org>
+Date: Thu, 18 Aug 2022 10:10:25 +0300
 MIME-Version: 1.0
-Content-Type: text/plain
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-ORIG-GUID: t24avLC5JYHADwChdhlRERvHbP6cvKu6
-X-Proofpoint-GUID: t24avLC5JYHADwChdhlRERvHbP6cvKu6
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.205,Aquarius:18.0.883,Hydra:6.0.517,FMLib:17.11.122.1
- definitions=2022-08-18_02,2022-08-16_02,2022-06-22_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- mlxscore=0 clxscore=1015
- mlxlogscore=862 suspectscore=0 spamscore=0 impostorscore=0 adultscore=0
- malwarescore=0 bulkscore=0 lowpriorityscore=0 priorityscore=1501
- phishscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2207270000 definitions=main-2208180014
-Subject: [Freedreno] [PATCH v4 7/7] drm/msm/a6xx: Handle GMU prepare-slumber
- hfi failure
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.12.0
+Content-Language: en-US
+To: Akhil P Oommen <quic_akhilpo@quicinc.com>,
+ freedreno <freedreno@lists.freedesktop.org>,
+ dri-devel@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
+ Rob Clark <robdclark@gmail.com>, Bjorn Andersson
+ <bjorn.andersson@linaro.org>, Stephen Boyd <swboyd@chromium.org>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+References: <1660748274-39239-1-git-send-email-quic_akhilpo@quicinc.com>
+ <20220817202609.v2.2.I75baff799a363bbb960376539e3a0f737377c3f1@changeid>
+From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+In-Reply-To: <20220817202609.v2.2.I75baff799a363bbb960376539e3a0f737377c3f1@changeid>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+Subject: Re: [Freedreno] [PATCH v2 2/5] clk: qcom: Allow custom reset ops
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -84,45 +81,41 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Jonathan Marek <jonathan@marek.ca>,
- Akhil P Oommen <quic_akhilpo@quicinc.com>, linux-kernel@vger.kernel.org,
- Abhinav
- Kumar <quic_abhinavk@quicinc.com>, Douglas Anderson <dianders@chromium.org>,
- Wang Qing <wangqing@vivo.com>, David Airlie <airlied@linux.ie>,
- Matthias Kaehlcke <mka@chromium.org>, Daniel Vetter <daniel@ffwll.ch>,
- Jordan Crouse <jordan@cosmicpenguin.net>, Sean Paul <sean@poorly.run>,
- Dan Carpenter <dan.carpenter@oracle.com>
+Cc: Stephen Boyd <sboyd@kernel.org>,
+ Michael Turquette <mturquette@baylibre.com>,
+ Konrad Dybcio <konrad.dybcio@somainline.org>,
+ Douglas Anderson <dianders@chromium.org>, linux-kernel@vger.kernel.org,
+ Andy Gross <agross@kernel.org>, linux-clk@vger.kernel.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-When prepare-slumber hfi fails, we should follow a6xx_gmu_force_off()
-sequence.
+On 17/08/2022 17:57, Akhil P Oommen wrote:
 
-Signed-off-by: Akhil P Oommen <quic_akhilpo@quicinc.com>
----
+Thank you for your patch. There is something to discuss/improve.
 
-(no changes since v1)
+>  
+>  	return regmap_update_bits(rst->regmap, map->reg, mask, 0);
+> diff --git a/drivers/clk/qcom/reset.h b/drivers/clk/qcom/reset.h
+> index 2a08b5e..d4213b4 100644
+> --- a/drivers/clk/qcom/reset.h
+> +++ b/drivers/clk/qcom/reset.h
+> @@ -8,9 +8,17 @@
+>  
+>  #include <linux/reset-controller.h>
+>  
+> +struct qcom_reset_ops {
+> +	int (*reset)(void *priv);
+> +	int (*assert)(void *priv);
+> +	int (*deassert)(void *priv);
+> +};
+> +
+>  struct qcom_reset_map {
+>  	unsigned int reg;
+>  	u8 bit;
+> +	struct qcom_reset_ops *ops;
 
- drivers/gpu/drm/msm/adreno/a6xx_gmu.c | 6 +++++-
- 1 file changed, 5 insertions(+), 1 deletion(-)
+This should be pointer to const.
 
-diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
-index db05942..3d00ef9 100644
---- a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
-+++ b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
-@@ -1082,7 +1082,11 @@ static void a6xx_gmu_shutdown(struct a6xx_gmu *gmu)
- 		a6xx_bus_clear_pending_transactions(adreno_gpu);
- 
- 		/* tell the GMU we want to slumber */
--		a6xx_gmu_notify_slumber(gmu);
-+		ret = a6xx_gmu_notify_slumber(gmu);
-+		if (ret) {
-+			a6xx_gmu_force_off(gmu);
-+			return;
-+		}
- 
- 		ret = gmu_poll_timeout(gmu,
- 			REG_A6XX_GPU_GMU_AO_GPU_CX_BUSY_STATUS, val,
--- 
-2.7.4
 
+Best regards,
+Krzysztof
