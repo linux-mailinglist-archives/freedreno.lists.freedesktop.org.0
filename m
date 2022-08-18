@@ -2,76 +2,74 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id EA6A5598DCA
-	for <lists+freedreno@lfdr.de>; Thu, 18 Aug 2022 22:23:49 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 229FC598FAC
+	for <lists+freedreno@lfdr.de>; Thu, 18 Aug 2022 23:38:09 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 46F7010EEEC;
-	Thu, 18 Aug 2022 20:23:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B07D310EF3B;
+	Thu, 18 Aug 2022 21:38:07 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2B53910EEBE;
- Thu, 18 Aug 2022 20:23:14 +0000 (UTC)
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 27IFseMc015415;
- Thu, 18 Aug 2022 20:23:11 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
- h=from : to : cc :
- subject : date : message-id : in-reply-to : references : mime-version :
- content-type; s=qcppdkim1;
- bh=7/Dlb7opb1zHeDvNOlDvqLTNKaGONEslYGnrJDLSevg=;
- b=bFKMVOwFLzkM2VSQVIyo81skadGLII1c+trgYqoqskbbT+3d73k80Oy9rWtEPbacp+IK
- zwhsw7scYm4xzN43dR2bit1V1p7Kq30TPtfS+AcBUj3G9/Ge2OKta1HsKflheHQkIfKY
- eE6t2iLLiPqznBIM74qUdHPTaJi6h9LY5opd/q8MQa3CI0gxRMOhAYpSVvWUhYRQtdLa
- rWaoz9qqlcsSa45Je6PQsy4nevQAaTzCHP7PKbQlyucvATbsfYzZh2ef9nwujTmk15mP
- V2n2JYlLOVHxoyPUAAh3bZyv3HoTVDqfIJ3VXA5W/VY/eI+gv/AR2X8O4q3EJiBd4LXL SA== 
-Received: from nalasppmta05.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3j1d803f61-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 18 Aug 2022 20:23:11 +0000
-Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
- [10.47.209.196])
- by NALASPPMTA05.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 27IKNAQe023554
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 18 Aug 2022 20:23:10 GMT
-Received: from hyd-lnxbld559.qualcomm.com (10.80.80.8) by
- nalasex01a.na.qualcomm.com (10.47.209.196) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.986.22; Thu, 18 Aug 2022 13:23:04 -0700
-From: Akhil P Oommen <quic_akhilpo@quicinc.com>
-To: freedreno <freedreno@lists.freedesktop.org>,
- <dri-devel@lists.freedesktop.org>, <linux-arm-msm@vger.kernel.org>,
- Rob Clark <robdclark@gmail.com>,
- Bjorn Andersson <bjorn.andersson@linaro.org>, "Dmitry
- Baryshkov" <dmitry.baryshkov@linaro.org>
-Date: Fri, 19 Aug 2022 01:52:15 +0530
-Message-ID: <20220819015030.v5.7.I54815c7c36b80d4725cd054e536365250454452f@changeid>
-X-Mailer: git-send-email 2.7.4
-In-Reply-To: <1660854135-1667-1-git-send-email-quic_akhilpo@quicinc.com>
-References: <1660854135-1667-1-git-send-email-quic_akhilpo@quicinc.com>
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7377510F0C4
+ for <freedreno@lists.freedesktop.org>; Thu, 18 Aug 2022 21:38:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1660858682;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=lScf9Dov1eqBcZW4o7xmR0mpAM2ZlF/Ug/GDTkmjTuQ=;
+ b=VFZa+lIpWZHDuq1f4tytOW3QR6fv+gJ5cX0Jsnc5Xdb9tBvf7f8gBqWuG/jNljuM3yN44M
+ x4eMlly1eT7/UVmZ/xkFoaI8xqu/u7U5sUQnLR9HQjDdr50eKXREZ9trPAAEaiumdN41GQ
+ OS/Qj4SSxau77CNqA0SKxoGbOiH7OSI=
+Received: from mail-qt1-f198.google.com (mail-qt1-f198.google.com
+ [209.85.160.198]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_128_GCM_SHA256) id
+ us-mta-110-ZESnKR7bNsyYUYAgRM8GVQ-1; Thu, 18 Aug 2022 17:38:01 -0400
+X-MC-Unique: ZESnKR7bNsyYUYAgRM8GVQ-1
+Received: by mail-qt1-f198.google.com with SMTP id
+ hf13-20020a05622a608d00b003214b6b3777so2098770qtb.13
+ for <freedreno@lists.freedesktop.org>; Thu, 18 Aug 2022 14:38:01 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=content-transfer-encoding:mime-version:user-agent:organization:date
+ :to:from:subject:message-id:x-gm-message-state:from:to:cc;
+ bh=lScf9Dov1eqBcZW4o7xmR0mpAM2ZlF/Ug/GDTkmjTuQ=;
+ b=j9fXKzBMtdy8UTM2Q/1j3Lz0SLfZT55lom4UVVvNhqj6ENhAiNu6KfZDWIKQyZrKiC
+ ydEuLzImm3UFmVTd8ugMbhV0Nw7KPPVIyq2ZR03/15ko60MXspN42diqbm2VDBbkG6E1
+ Hus73p3S2KjXGx+JUx8yduLlpIi+jeMTc0b0b66ymFbJ8WnAqg+nLHPk4D9Pmmj6MblT
+ tYvrLsM7TCktGfUUTx3ZubFtz/FNhLiJVBcc1NYToNsCpNiMPjdozBtk+dWIw9p8jFc+
+ 2pbaxDgrv3h4Ekho5cfqJqPyp+17uVXMSe5POqXm9Cb3pbU6tNIzFveR+Y3maJqRdU8S
+ U1aQ==
+X-Gm-Message-State: ACgBeo2wEfsaKgcr0K9nBDTS3OyAlI6a6shwJ1LsB2ZNBjROOcRXWR1H
+ FiKdFb07OBdv/kis8NIjpPxLJgA+O4nkcqhoGkB5JJA4JnZu9q0rxW5k9KLE9XkpJR7J8lJTbzK
+ BHpqOX33KE/qlNg5R0NRDGDkxBtKbC9n+WlcL9iDPl75P/UjaCrj2vYWZz3jeCMdqlSVdJjR0tz
+ hD
+X-Received: by 2002:a05:620a:450e:b0:6bb:a4cf:de01 with SMTP id
+ t14-20020a05620a450e00b006bba4cfde01mr3660398qkp.636.1660858680608; 
+ Thu, 18 Aug 2022 14:38:00 -0700 (PDT)
+X-Google-Smtp-Source: AA6agR4eJbJ6MHspJZofKg/uG3Q4hmV5Ec879fTMGZtNRbiHqYpbk/vZLhJu7X5k38OzaQEGP0vR+A==
+X-Received: by 2002:a05:620a:450e:b0:6bb:a4cf:de01 with SMTP id
+ t14-20020a05620a450e00b006bba4cfde01mr3660386qkp.636.1660858680333; 
+ Thu, 18 Aug 2022 14:38:00 -0700 (PDT)
+Received: from [192.168.8.138] (pool-100-0-245-4.bstnma.fios.verizon.net.
+ [100.0.245.4]) by smtp.gmail.com with ESMTPSA id
+ f9-20020ac84989000000b0034490214788sm1714155qtq.49.2022.08.18.14.37.59
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 18 Aug 2022 14:37:59 -0700 (PDT)
+Message-ID: <b759d459b1a5a5446e838e80159711ec9ceb2174.camel@redhat.com>
+From: Lyude Paul <lyude@redhat.com>
+To: freedreno@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
+ nouveau@lists.freedesktop.org, nouveau@lists.freedesktop.org
+Date: Thu, 18 Aug 2022 17:37:59 -0400
+Organization: Red Hat Inc.
+User-Agent: Evolution 3.42.4 (3.42.4-2.fc35)
 MIME-Version: 1.0
-Content-Type: text/plain
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-GUID: 7-UNUdfGEDKs2BOZkGLE4qVK8kNlPcmt
-X-Proofpoint-ORIG-GUID: 7-UNUdfGEDKs2BOZkGLE4qVK8kNlPcmt
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.205,Aquarius:18.0.895,Hydra:6.0.517,FMLib:17.11.122.1
- definitions=2022-08-18_14,2022-08-18_01,2022-06-22_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 spamscore=0
- malwarescore=0 bulkscore=0 priorityscore=1501 impostorscore=0
- mlxlogscore=862 mlxscore=0 adultscore=0 lowpriorityscore=0 phishscore=0
- clxscore=1015 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2207270000 definitions=main-2208180074
-Subject: [Freedreno] [PATCH v5 7/7] drm/msm/a6xx: Handle GMU prepare-slumber
- hfi failure
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
+Subject: [Freedreno] Requests For Proposals for hosting XDC 2023 are now open
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -84,45 +82,42 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Jonathan Marek <jonathan@marek.ca>,
- Akhil P Oommen <quic_akhilpo@quicinc.com>, linux-kernel@vger.kernel.org,
- Abhinav
- Kumar <quic_abhinavk@quicinc.com>, Douglas Anderson <dianders@chromium.org>,
- Wang Qing <wangqing@vivo.com>, David Airlie <airlied@linux.ie>,
- Matthias Kaehlcke <mka@chromium.org>, Daniel Vetter <daniel@ffwll.ch>,
- Jordan Crouse <jordan@cosmicpenguin.net>, Sean Paul <sean@poorly.run>,
- Dan Carpenter <dan.carpenter@oracle.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-When prepare-slumber hfi fails, we should follow a6xx_gmu_force_off()
-sequence.
+Hello everyone!
 
-Signed-off-by: Akhil P Oommen <quic_akhilpo@quicinc.com>
----
+The X.org board is soliciting proposals to host XDC in 2023. Since
+XDC 2022 is being held in North America this year, XDC 2023 is expected
+to be in Europe. However, the board is open to other locations,
+especially if there's an interesting co-location with another
+conference.
 
-(no changes since v1)
+If you're considering hosting XDC, we've assembled a wiki page with
+what's generally expected and needed:
 
- drivers/gpu/drm/msm/adreno/a6xx_gmu.c | 6 +++++-
- 1 file changed, 5 insertions(+), 1 deletion(-)
+https://www.x.org/wiki/Events/RFP/
 
-diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
-index db05942..3d00ef9 100644
---- a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
-+++ b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
-@@ -1082,7 +1082,11 @@ static void a6xx_gmu_shutdown(struct a6xx_gmu *gmu)
- 		a6xx_bus_clear_pending_transactions(adreno_gpu);
- 
- 		/* tell the GMU we want to slumber */
--		a6xx_gmu_notify_slumber(gmu);
-+		ret = a6xx_gmu_notify_slumber(gmu);
-+		if (ret) {
-+			a6xx_gmu_force_off(gmu);
-+			return;
-+		}
- 
- 		ret = gmu_poll_timeout(gmu,
- 			REG_A6XX_GPU_GMU_AO_GPU_CX_BUSY_STATUS, val,
+When submitting your proposal, please make sure to include at least the
+key information about the potential location in question, possible
+dates along with estimated costs. Proposals can be submitted to board
+at foundation.x.org until the deadline of *September 1st, 2022*. 
+
+Additionally, an quirk early heads-up to the board if you're
+considering hosting would be appreciated, in case we need to adjust the
+schedule a bit. Also, earlier is better since there generally will be a
+bit of Q&A with organizers.
+
+And if you just have some questions about what organizing XDC entails,
+please feel free to chat with previous organizers, or someone from the
+board.
+
+Best regards,
+	Lyude Paul
+On behalf of X.org
+
 -- 
-2.7.4
+Cheers,
+ Lyude Paul (she/her)
+ Software Engineer at Red Hat
 
