@@ -2,47 +2,60 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id A066259805D
-	for <lists+freedreno@lfdr.de>; Thu, 18 Aug 2022 10:55:01 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id EDA43598177
+	for <lists+freedreno@lfdr.de>; Thu, 18 Aug 2022 12:31:50 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 163E6C542D;
-	Thu, 18 Aug 2022 08:54:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 21CD9CBF0D;
+	Thu, 18 Aug 2022 10:31:47 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from metis.ext.pengutronix.de (metis.ext.pengutronix.de
- [IPv6:2001:67c:670:201:290:27ff:fe1d:cc33])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B923DC53CA
- for <freedreno@lists.freedesktop.org>; Thu, 18 Aug 2022 08:54:44 +0000 (UTC)
-Received: from ptx.hi.pengutronix.de ([2001:67c:670:100:1d::c0])
- by metis.ext.pengutronix.de with esmtps
- (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
- (envelope-from <pza@pengutronix.de>)
- id 1oObIZ-0001Iu-3G; Thu, 18 Aug 2022 10:54:43 +0200
-Received: from pza by ptx.hi.pengutronix.de with local (Exim 4.92)
- (envelope-from <pza@pengutronix.de>)
- id 1oObIU-0008RM-BW; Thu, 18 Aug 2022 10:54:38 +0200
-Date: Thu, 18 Aug 2022 10:54:38 +0200
-From: Philipp Zabel <p.zabel@pengutronix.de>
-To: Akhil P Oommen <quic_akhilpo@quicinc.com>
-Message-ID: <20220818085438.GA29793@pengutronix.de>
-References: <1660749261-7602-1-git-send-email-quic_akhilpo@quicinc.com>
- <20220817204224.v4.5.I176567525af2b9439a7e485d0ca130528666a55c@changeid>
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 64AE3C0D29;
+ Thu, 18 Aug 2022 10:31:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1660818687; x=1692354687;
+ h=from:to:cc:subject:in-reply-to:references:date:
+ message-id:mime-version;
+ bh=t8Rq1gQAoemnCUCEVfnVYlyYdtJjUbQsitsuxWe88dw=;
+ b=J3IdfxyKPP9Dtfx9jWZhqy1PJIbbnJ4b5LQIS/gvdYLw3p7Pzsn92xJg
+ 5YvBQodP1WawwGZkT8cnPELPH9QqCrVKH4MDsEGd4BiI0COmKYTaan33+
+ aZbPs7b3RcwFGfZZbjO9l3RzB5Jyr1mOzKyYNnlMS6cBvoHUBpvTexNKR
+ umzTF01W/eiS3RbnzItEFYWp6Mu6WCJ/KDXor14i7cxt59GiHMWwWqU4F
+ RDUeFailSwegOBWMqrucZjSK4lGZnaGxmKASRhEtIq6JOXlFAMBfLn6cH
+ 9gSnEkXe7noX8qfLgENvZmGBMaiIUo5NWVLZuQG3Q+5ZEUNrosH8yHrJh A==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10442"; a="279690784"
+X-IronPort-AV: E=Sophos;i="5.93,246,1654585200"; d="scan'208";a="279690784"
+Received: from fmsmga008.fm.intel.com ([10.253.24.58])
+ by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 18 Aug 2022 03:31:26 -0700
+X-IronPort-AV: E=Sophos;i="5.93,246,1654585200"; d="scan'208";a="668048685"
+Received: from mwiniars-mobl2.ger.corp.intel.com (HELO localhost)
+ ([10.252.40.166])
+ by fmsmga008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 18 Aug 2022 03:31:23 -0700
+From: Jani Nikula <jani.nikula@linux.intel.com>
+To: Doug Anderson <dianders@chromium.org>, Maxime Ripard <maxime@cerno.tech>
+In-Reply-To: <CAD=FV=W9sK2dKMnDZmW_ipLGZJFrrvNHz6zHsXVaSCD_u4JpiA@mail.gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
+References: <20220721152314.RFC.1.Ie333b3e4aff6e4a5b58c4aa805e030e561be8773@changeid>
+ <269f2610-425b-f296-dcfc-89bdc2e1d587@quicinc.com>
+ <CAD=FV=XSVXasU5PMR2kL0WQjQ458xDePuTGd1m14_v9JO5B6oA@mail.gmail.com>
+ <CAF6AEGv_Vikf80v-7ccz90fvGPrk5pV1tOxRoWKxKHYuEW8=aA@mail.gmail.com>
+ <5c8ca71c-5f0b-d5f5-9f16-e312dec0d01b@quicinc.com>
+ <CAD=FV=UGYV1mZenDCRrbpC+gpE12-Uis7fm_=H3PeEjK=t36yA@mail.gmail.com>
+ <20220729075118.ofnpk52tk4usm3n3@penduick>
+ <CAD=FV=WUB68-DQ-pAFjGaG-kid33ve4Qc3iqb8OUh61xTBohmg@mail.gmail.com>
+ <20220729164136.opucqg64qz4ypmvo@penduick>
+ <CAD=FV=UKYksHjuVR27DPdUFFtJrQKB2KbT08qjeYLNW_3y_Mfg@mail.gmail.com>
+ <20220815064543.g7loqfb6rtwkookl@houat>
+ <CAD=FV=W9sK2dKMnDZmW_ipLGZJFrrvNHz6zHsXVaSCD_u4JpiA@mail.gmail.com>
+Date: Thu, 18 Aug 2022 13:31:21 +0300
+Message-ID: <8735dtq1vq.fsf@intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20220817204224.v4.5.I176567525af2b9439a7e485d0ca130528666a55c@changeid>
-X-Sent-From: Pengutronix Hildesheim
-X-URL: http://www.pengutronix.de/
-X-Accept-Language: de,en
-X-Accept-Content-Type: text/plain
-User-Agent: Mutt/1.10.1 (2018-07-13)
-X-SA-Exim-Connect-IP: 2001:67c:670:100:1d::c0
-X-SA-Exim-Mail-From: pza@pengutronix.de
-X-SA-Exim-Scanned: No (on metis.ext.pengutronix.de);
- SAEximRunCond expanded to false
-X-PTX-Original-Recipient: freedreno@lists.freedesktop.org
-Subject: Re: [Freedreno] [PATCH v4 5/7] drm/msm/a6xx: Ensure CX collapse
- during gpu recovery
+Content-Type: text/plain
+Subject: Re: [Freedreno] [RFC PATCH] drm/edid: Make 144 Hz not preferred on
+ Sharp LQ140M1JW46
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,61 +68,72 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sean Paul <sean@poorly.run>, Jonathan Marek <jonathan@marek.ca>,
- David Airlie <airlied@linux.ie>, linux-arm-msm@vger.kernel.org,
- Douglas Anderson <dianders@chromium.org>, dri-devel@lists.freedesktop.org,
- Bjorn Andersson <bjorn.andersson@linaro.org>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, Rob Clark <robdclark@gmail.com>,
- Matthias Kaehlcke <mka@chromium.org>, Daniel Vetter <daniel@ffwll.ch>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Jordan Crouse <jordan@cosmicpenguin.net>,
- freedreno <freedreno@lists.freedesktop.org>, Chia-I Wu <olvaffe@gmail.com>,
- linux-kernel@vger.kernel.org
+Cc: Sankeerth Billakanti <quic_sbillaka@quicinc.com>,
+ David Airlie <airlied@linux.ie>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ dri-devel <dri-devel@lists.freedesktop.org>,
+ LKML <linux-kernel@vger.kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ freedreno <freedreno@lists.freedesktop.org>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Hi Akhil,
+On Wed, 17 Aug 2022, Doug Anderson <dianders@chromium.org> wrote:
+> Hi,
+>
+> On Sun, Aug 14, 2022 at 11:46 PM Maxime Ripard <maxime@cerno.tech> wrote:
+>>
+>> On Fri, Jul 29, 2022 at 12:57:40PM -0700, Doug Anderson wrote:
+>> > Hi,
+>> >
+>> > On Fri, Jul 29, 2022 at 9:41 AM Maxime Ripard <maxime@cerno.tech> wrote:
+>> > > You raise some good points, but most of the discussion around that patch
+>> > > were mostly around performances, power consumption and so on.
+>> > >
+>> > > This is very much a policy decision, and if there is some panel where
+>> > > the EDID reports 60Hz but is broken, then that panel should be the
+>> > > exception to the policy
+>> > >
+>> > > But doing it for a single panel is just odd
+>> >
+>> > OK, fair enough. I'll abandon this patch at least as far as mainline
+>> > is concerned, then.
+>>
+>> That wasn't really my point though :)
+>>
+>> If you think that this change is needed, then we should totally discuss
+>> it and I'm not opposed to it.
+>>
+>> What I don't really like about this patch is that it's about a single
+>> panel: if we're doing it we should do it for all the panels.
+>>
+>> Where we do it can also be discussed, but we should remain consistent
+>> there.
+>
+> I was never massively confident about it, which is why I added the
+> "RFC" tag to begin with. ;-) In general I suspect that either change
+> will make people upset. In other words, if we programmatically always
+> try to put the "high refresh rate" first for all displays then people
+> will be upset and if we programmatically always try to put the "60 Hz
+> rate" first then people will be upset. Unless someone wants to stand
+> up and say that one side or the other is wrong, I think we're going to
+> simply leave this up to the whim of individual panels. Someone could
+> stand up and demand that it go one way or the other, but I certainly
+> don't have that clout.
+>
+> The spec, as far as I can tell, says that it's up to the panel vendor
+> to use whatever means they want to decide on the "preferred" refresh
+> rate. Thus, as far as the spec is concerned this decision is made on
+> an individual panel basis. ;-) This was really the justification for
+> why my patch was just on one panel.
+>
+> In any case, as I said I'm OK w/ dropping this. We'll find other ways
+> to work around the issue.
 
-On Wed, Aug 17, 2022 at 08:44:18PM +0530, Akhil P Oommen wrote:
-> Because there could be transient votes from other drivers/tz/hyp which
-> may keep the cx gdsc enabled, we should poll until cx gdsc collapses.
-> We can use the reset framework to poll for cx gdsc collapse from gpucc
-> clk driver.
-> 
-> This feature requires support from the platform's gpucc driver.
-> 
-> Signed-off-by: Akhil P Oommen <quic_akhilpo@quicinc.com>
-> Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> ---
-> 
-> (no changes since v3)
-> 
-> Changes in v3:
-> - Use reset interface from gpucc driver to poll for cx gdsc collapse
->   https://patchwork.freedesktop.org/series/106860/
-> 
->  drivers/gpu/drm/msm/adreno/a6xx_gpu.c | 4 ++++
->  drivers/gpu/drm/msm/msm_gpu.c         | 4 ++++
->  drivers/gpu/drm/msm/msm_gpu.h         | 4 ++++
->  3 files changed, 12 insertions(+)
-> 
-[...]
-> diff --git a/drivers/gpu/drm/msm/msm_gpu.c b/drivers/gpu/drm/msm/msm_gpu.c
-> index 07e55a6..4a57627 100644
-> --- a/drivers/gpu/drm/msm/msm_gpu.c
-> +++ b/drivers/gpu/drm/msm/msm_gpu.c
-[...]
-> @@ -903,6 +904,9 @@ int msm_gpu_init(struct drm_device *drm, struct platform_device *pdev,
->  	if (IS_ERR(gpu->gpu_cx))
->  		gpu->gpu_cx = NULL;
->  
-> +	gpu->cx_collapse = devm_reset_control_get_optional(&pdev->dev,
-> +			"cx_collapse");
+FWIW, if the EDID reported preferred mode works, I also think that's
+what we should prefer.
 
-Please use devm_reset_control_get_optional_exclusive() instead.
+BR,
+Jani.
 
-With that,
-Reviewed-by: Philipp Zabel <p.zabel@pengutronix.de>
 
-regards
-Philipp
+-- 
+Jani Nikula, Intel Open Source Graphics Center
