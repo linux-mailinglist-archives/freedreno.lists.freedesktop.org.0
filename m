@@ -2,79 +2,74 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4A7885990FA
-	for <lists+freedreno@lfdr.de>; Fri, 19 Aug 2022 01:11:40 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8B723599532
+	for <lists+freedreno@lfdr.de>; Fri, 19 Aug 2022 08:18:03 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E445910E793;
-	Thu, 18 Aug 2022 23:11:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A869810E6CA;
+	Fri, 19 Aug 2022 06:18:01 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 427B210E6D9;
- Thu, 18 Aug 2022 23:11:25 +0000 (UTC)
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 27IMrC9L011384;
- Thu, 18 Aug 2022 23:11:22 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
- h=message-id : date :
- mime-version : subject : to : cc : references : from : in-reply-to :
- content-type : content-transfer-encoding; s=qcppdkim1;
- bh=LwMe9vWTBIKzX8q+kA+JWETXwlgC1hWx7z5/AwjqoIg=;
- b=AY73Xy/KGHNTwZHgBpUWWLzgqJEXxKfgpJPcf4IVDE+Uk+64Srg7aMZJQ7geeRR5jEqU
- n8/ewv+FE5/q7ejCN4T/zG8zAlsVBhWLMdwCr13XNupB0VYxbZlFP3viI7HG8EM4u4R5
- nCH5YK9s7jz/xQcmEJwRLu3DQYNux9lyN71AHg4EPnMkHwu8bM/7UO/ASUmhe92OJH/J
- mRVvDrxt8mW9ANs9HwOZqTAuOrm+DvD2mg/xPyQos181xnwgD/oEzTPwYwbdHMDQT757
- hjmp6/TYclBaNJgK9+b4GADEimdCccEH/2D3qL71PQZ9KI0tgHiuLEl4wWFewuagM99Y kw== 
-Received: from nalasppmta03.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3j1hhp2u79-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 18 Aug 2022 23:11:22 +0000
-Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
- [10.47.209.196])
- by NALASPPMTA03.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 27INBLMT019869
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 18 Aug 2022 23:11:21 GMT
-Received: from [10.111.166.229] (10.80.80.8) by nalasex01a.na.qualcomm.com
- (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.22; Thu, 18 Aug
- 2022 16:11:19 -0700
-Message-ID: <eca58cbc-dc7e-98d3-7618-858742b82614@quicinc.com>
-Date: Thu, 18 Aug 2022 16:11:17 -0700
+Received: from mail-lj1-x235.google.com (mail-lj1-x235.google.com
+ [IPv6:2a00:1450:4864:20::235])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7BA4310E76A
+ for <freedreno@lists.freedesktop.org>; Fri, 19 Aug 2022 06:17:47 +0000 (UTC)
+Received: by mail-lj1-x235.google.com with SMTP id n24so1595421ljc.13
+ for <freedreno@lists.freedesktop.org>; Thu, 18 Aug 2022 23:17:47 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc; bh=LJ6Y1/P/3NgrZFk4V8Ks7FUqbnAKX/c9IhrAriRyk6U=;
+ b=Z0w5qpy0S5WF+Jsw5u2J+pjK95+pFKjYVL4sGfE+yR1hQ1MoPmPz49Rd6+OB6mS3+Y
+ QPLvSsihCnXsLWWB0KszmzbJbdOLSljlZEXhaxTRzEPltEtY2VfT6d26dB1zEJHvJzkB
+ 32f8Ue/R2OHXzjX3ZvmU5OqvJFVZ0HA1XWA9sY+HIa011NmNSlQOnQcmhTZLWeDcc84V
+ FtissL+7XWGXrjJyoVA3UqQay6veJiU3CPrxmzL3nktYWB9DgrzlDaqIai0Cy+twNIwh
+ E6Qkx+188IEKWu8s8VXzj3QQvdrpXLMqDzcMh1RAORSzj0CENMhaAnxfd1co8MbHyH0h
+ oj2Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc;
+ bh=LJ6Y1/P/3NgrZFk4V8Ks7FUqbnAKX/c9IhrAriRyk6U=;
+ b=0szXBp8R4u92l/zywu1Ixl9jCc6adn0yx8o8Btln99KAnVyDW9KamXCPz4aEKb7MQP
+ NE7db0x0FyCKUu0zNSyr/lq50pDyXQ621YVFC6MLDRnvy6w4Ywv2Z8DL4MFaGC8mf9z0
+ g5kGiVY6AlYZCKl27w3rHAUExQi5l4bQMXDeP2NXPBWi5cmR/fPG7M7wqHYaEUX2pndi
+ pLLoH3XHEnULosCM2WKWtNk+Sx4a/X4M7ts/TfvmFdXMo/MSTG8KSshv0Eia3XRqnJzv
+ 0IjEog116DMk2eyL0N2GS0gj2EsW7q/Aaq7aMKNLPkpvYc5mbDqyhKZQnZYMRu/eo+a0
+ pcqA==
+X-Gm-Message-State: ACgBeo2rfdiaTon2+X3ApYXUgJoCF1V+P4GUIGe0M88yRuyOCg1ySf/d
+ jBzN/I6udbOdeNfhz3+IVxkq9Q==
+X-Google-Smtp-Source: AA6agR7DCy6FxvZFYRuBMsWwcqPT29FISCRST1z/IxE7dY3YeTj9ewMGRqgvtt9uK0rRYfOeb2FacA==
+X-Received: by 2002:a2e:978f:0:b0:25e:4847:530a with SMTP id
+ y15-20020a2e978f000000b0025e4847530amr1794081lji.279.1660889865666; 
+ Thu, 18 Aug 2022 23:17:45 -0700 (PDT)
+Received: from ?IPV6:2001:14bb:ac:e5a8:ef73:73ed:75b3:8ed5?
+ (d1xw6v77xrs23np8r6z-4.rev.dnainternet.fi.
+ [2001:14bb:ac:e5a8:ef73:73ed:75b3:8ed5])
+ by smtp.gmail.com with ESMTPSA id
+ w17-20020a19c511000000b0048af85f6581sm509957lfe.154.2022.08.18.23.17.44
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 18 Aug 2022 23:17:45 -0700 (PDT)
+Message-ID: <0cdca889-1193-1595-e524-5a0cfc633d14@linaro.org>
+Date: Fri, 19 Aug 2022 09:17:43 +0300
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.6.2
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.12.0
 Content-Language: en-US
-To: Doug Anderson <dianders@chromium.org>, Rob Clark <robdclark@gmail.com>
-References: <20220706191442.1150634-1-swboyd@chromium.org>
- <CAD=FV=UrYCwm2ByN_5EN3fq-ayMJNjmWfJ5sooRy51ZiCoMcjA@mail.gmail.com>
- <CAF6AEGt_J6f1T+-6KtyCrUJrY2fh7Sz10L1AV1FSe8hueGREtQ@mail.gmail.com>
- <CAD=FV=W+VWtpTKAoyQpYMFteZy8iYB7-o=ACqkjr7YX7uCxZvg@mail.gmail.com>
- <CAD=FV=W9Gr9MyCg2rsKaA-ssSi5e3W5zO9sC56At+ceN4A2XtA@mail.gmail.com>
-From: Abhinav Kumar <quic_abhinavk@quicinc.com>
-In-Reply-To: <CAD=FV=W9Gr9MyCg2rsKaA-ssSi5e3W5zO9sC56At+ceN4A2XtA@mail.gmail.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
+To: Akhil P Oommen <quic_akhilpo@quicinc.com>,
+ freedreno <freedreno@lists.freedesktop.org>,
+ dri-devel@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
+ Rob Clark <robdclark@gmail.com>, Bjorn Andersson
+ <bjorn.andersson@linaro.org>, Stephen Boyd <swboyd@chromium.org>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+References: <1660853919-987-1-git-send-email-quic_akhilpo@quicinc.com>
+ <20220819014758.v3.5.I6a1fca5d53c886c05ea3e24cd4282d31c9c0cd0b@changeid>
+From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+In-Reply-To: <20220819014758.v3.5.I6a1fca5d53c886c05ea3e24cd4282d31c9c0cd0b@changeid>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-GUID: FAtIbuZ2YlaJUXcNJf6H83gb0f5mPJda
-X-Proofpoint-ORIG-GUID: FAtIbuZ2YlaJUXcNJf6H83gb0f5mPJda
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.205,Aquarius:18.0.895,Hydra:6.0.517,FMLib:17.11.122.1
- definitions=2022-08-18_16,2022-08-18_01,2022-06-22_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- mlxscore=0 clxscore=1011
- adultscore=0 suspectscore=0 priorityscore=1501 impostorscore=0
- mlxlogscore=999 spamscore=0 phishscore=0 malwarescore=0 lowpriorityscore=0
- bulkscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2207270000 definitions=main-2208180085
-Subject: Re: [Freedreno] [PATCH] drm/msm/dsi: Set panel orientation when
- directly connected
+Subject: Re: [Freedreno] [PATCH v3 5/5] arm64: dts: qcom: sc7280: Add Reset
+ support for gpu
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -87,108 +82,39 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sean Paul <sean@poorly.run>, LKML <linux-kernel@vger.kernel.org>,
- dri-devel <dri-devel@lists.freedesktop.org>, patches@lists.linux.dev,
- Hsin-Yi Wang <hsinyi@chromium.org>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Stephen Boyd <swboyd@chromium.org>,
- freedreno <freedreno@lists.freedesktop.org>
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Konrad Dybcio <konrad.dybcio@somainline.org>, Andy Gross <agross@kernel.org>,
+ Douglas Anderson <dianders@chromium.org>, Rob Herring <robh+dt@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Hi Doug
-
-On 8/17/2022 1:48 PM, Doug Anderson wrote:
-> Hi,
+On 18/08/2022 23:18, Akhil P Oommen wrote:
+> Add support for Reset using GPUCC driver for GPU. This helps to ensure
+> that GPU state is reset by making sure that CX head switch is collapsed.
 > 
-> On Wed, Jul 20, 2022 at 3:42 PM Doug Anderson <dianders@chromium.org> wrote:
->>
->> Hi,
->>
->> On Wed, Jul 20, 2022 at 1:46 PM Rob Clark <robdclark@gmail.com> wrote:
->>>
->>> On Fri, Jul 8, 2022 at 8:25 AM Doug Anderson <dianders@chromium.org> wrote:
->>>>
->>>> Hi,
->>>>
->>>> On Wed, Jul 6, 2022 at 12:14 PM Stephen Boyd <swboyd@chromium.org> wrote:
->>>>>
->>>>> Set the panel orientation in drm when the panel is directly connected,
->>>>> i.e. we're not using an external bridge. The external bridge case is
->>>>> already handled by the panel bridge code, so we only update the path we
->>>>> take when the panel is directly connected/internal. This silences a
->>>>> warning splat coming from __drm_mode_object_add() on Wormdingler boards.
->>>>>
->>>>> Cc: Hsin-Yi Wang <hsinyi@chromium.org>
->>>>> Cc: Douglas Anderson <dianders@chromium.org>
->>>>> Signed-off-by: Stephen Boyd <swboyd@chromium.org>
->>>>> ---
->>>>>
->>>>> This relies on commit 5e41b01a7808 ("drm/panel: Add an API to allow drm
->>>>> to set orientation from panel") which is in drm-misc
->>>>>
->>>>>   drivers/gpu/drm/msm/dsi/dsi_manager.c | 2 ++
->>>>>   1 file changed, 2 insertions(+)
->>>>
->>>> I don't personally have objections to this, but (to my understanding)
->>>> "the future" is that everyone should use panel_bridge. If we made the
->>>> move to panel_bridge today then we wouldn't need to do this. In
->>>> general I think panel_bridge would end up letting us delete a bunch of
->>>> code...
->>>>
->>>> See commit 4e5763f03e10 ("drm/bridge: ti-sn65dsi86: Wrap panel with
->>>> panel-bridge") for when this was done by ti-sn65dsi86.
->>>>
->>>> Then again, I spent a small amount of time looking into this and it's
->>>> definitely non-trivial. Still likely worthwhile, but not worth
->>>> blocking a tiny fix like this. It also should be fairly obvious that
->>>> we should delete this when we switch to panel_bridge.
->>>>
->>>> Thus:
->>>>
->>>> Reviewed-by: Douglas Anderson <dianders@chromium.org>
->>>>
->>>> I'll assume that we'll just snooze this commit until drm-misc-next
->>>> merges into a tree that msm-next is based on, which will probably be
->>>> the next -rc1. If desired and Acked I could land this in
->>>> drm-misc-next, but it's probably not worth it?
->>>
->>> if you want to land this patch via drm-misc, which might be the
->>> easier/faster route, then:
->>>
->>> Acked-by: Rob Clark <robdclark@gmail.com>
->>
->> As per discussion on IRC, I'm not going to apply this to drm-misc-next.
->>
->> Given where we are in the cycle landing in drm-misc-next means it
->> won't be in mainline for a couple versions and I suspect that'll cause
->> merge conflicts with Dmitry's series [1]. ...and, of course, if
->> Dmitry's series lands then we don't even need ${SUBJECT} patch...
->>
->> So I think the plan is:
->>
->> 1. Snooze waiting for the next -rc1 since
->> drm_connector_set_orientation_from_panel() won't be in mainline until
->> then.
->>
->> 2. If Dmitry's series looks like a long way off, we could land
->> ${SUBJECT} patch in msm-next as a stopgap fix.
->>
->>
->> [1] https://lore.kernel.org/r/20220711094320.368062-5-dmitry.baryshkov@linaro.org/
+> Signed-off-by: Akhil P Oommen <quic_akhilpo@quicinc.com>
+> ---
 > 
-> Just checking up. What's the latest thinking here? Do we want to land
-> Stephen's change as a stopgap?
-> drm_connector_set_orientation_from_panel() is available in v6.0-rc1.
+> (no changes since v1)
 > 
-> -Doug
+>  arch/arm64/boot/dts/qcom/sc7280.dtsi | 3 +++
+>  1 file changed, 3 insertions(+)
+> 
+> diff --git a/arch/arm64/boot/dts/qcom/sc7280.dtsi b/arch/arm64/boot/dts/qcom/sc7280.dtsi
+> index e66fc67..f5257d6 100644
+> --- a/arch/arm64/boot/dts/qcom/sc7280.dtsi
+> +++ b/arch/arm64/boot/dts/qcom/sc7280.dtsi
+> @@ -2243,6 +2243,9 @@
+>  			nvmem-cells = <&gpu_speed_bin>;
+>  			nvmem-cell-names = "speed_bin";
+>  
+> +			resets = <&gpucc GPU_CX_COLLAPSE>;
+> +			reset-names = "cx_collapse";
+> +
 
-As per todays discussion with Rob on IRC, we will start preparing the 
-tree for the next release. So lets drop this one and take the panel 
-bridge change instead since my comments on that were minor and can also 
-be addressed in a follow up change, will take it up and send it over to 
-Rob with some other changes.
+I think this is not allowed by bindings. Did you test your change with
+dtbs_check?
 
-Thanks
-
-Abhinav
+Best regards,
+Krzysztof
