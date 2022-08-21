@@ -1,83 +1,60 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0ADF05A01F8
-	for <lists+freedreno@lfdr.de>; Wed, 24 Aug 2022 21:16:42 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 3F1D35A0230
+	for <lists+freedreno@lfdr.de>; Wed, 24 Aug 2022 21:39:00 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 07277BE635;
-	Wed, 24 Aug 2022 19:16:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 738B5C416F;
+	Wed, 24 Aug 2022 19:38:57 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3C51210F1A9;
- Fri, 19 Aug 2022 16:43:30 +0000 (UTC)
-Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 27JF9vGx002286;
- Fri, 19 Aug 2022 16:43:26 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
- h=message-id : date :
- mime-version : subject : to : cc : references : from : in-reply-to :
- content-type : content-transfer-encoding; s=qcppdkim1;
- bh=GtJ4fiAXcF1nuHF+341AhR1Z8kc+y5XsUhmSuM+SNWI=;
- b=SN21T1oFreUxbl2+DeAP/z7JXQG2z2p5jzVI/4etDJwnmhC01cl4SPFHLKaNjly9pe/D
- Cmy3vbr88Km+34PAp2q/elx0YbnTIwUOGr0scmszhjUfrweGwPWpScD8dYbaDrzp1Ori
- FInrif5KtiAtW5vUn57FgKbfsunIyPqmtAKYLATJL3MLcIFOaCpkcITID78l4fzQrwwo
- 1koi8o8MAj27b4FXaHPmKEH7PekySEGu1uxRTa29O6eiNNQU2vRWSXnB9P5uto/HEEa6
- TGmWw1FUB00nYbZo4P84tEj2KBDybcillhUZ5s5V/G48Lw7JGQOE82s253+BiYz9nAn6 FQ== 
-Received: from nalasppmta04.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3j2bu7ghg9-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 19 Aug 2022 16:43:26 +0000
-Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
- [10.47.209.196])
- by NALASPPMTA04.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 27JGhP6j010224
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 19 Aug 2022 16:43:25 GMT
-Received: from [10.216.8.151] (10.80.80.8) by nalasex01a.na.qualcomm.com
- (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.22; Fri, 19 Aug
- 2022 09:43:20 -0700
-Message-ID: <eb18b9ce-95c2-a7a1-7429-57b82cc70de8@quicinc.com>
-Date: Fri, 19 Aug 2022 22:13:16 +0530
+Received: from mail-pl1-x635.google.com (mail-pl1-x635.google.com
+ [IPv6:2607:f8b0:4864:20::635])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DE7CB8E467;
+ Sun, 21 Aug 2022 15:54:09 +0000 (UTC)
+Received: by mail-pl1-x635.google.com with SMTP id y4so7948134plb.2;
+ Sun, 21 Aug 2022 08:54:09 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc;
+ bh=bkh2RmwQz43pDpH6k4U/hhGBE1MuNMuBG/1+04H09nA=;
+ b=ZNuEb7fEQxkPm2NNO2ZrPhQhxg0BwQRwImIdnuP6Yf88nqeoybObA5gVPi/QaxeDl2
+ lMXau9nQFQN/XhXyesFCEWMsBo63C+eAi4u/rVGieZyYN6kjxqcl9iQynZQedN1tPBzG
+ p9r5Xen6HBfl0pr9MDJ/T9bZd8jQhITDM3DCPkOKstNtSgKgnUcU4OkutHqMZLY9IB4M
+ LxnMaAipIehqbD/frL8KKAdKDq5WHiWncxGG+XnFkP+QSY9P5FNr50Ldcf15qF/GFEz1
+ 7qHy/tzRU9+cVvIjIXToTf2d0996+QJIJ8MknJHzydRBfWG/RTxdTViurjUjKHHfqlPh
+ NvnA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc;
+ bh=bkh2RmwQz43pDpH6k4U/hhGBE1MuNMuBG/1+04H09nA=;
+ b=6iu6rGzeRQDYvDnTTZkz4I6q1IjMOOmqdNEsLs4VWL5OMgvX24RpxsUK2nToDtpY+X
+ O+BbuK0uxHD2uH1N/Iy2g9/gwTtjSnwK6OLa6xZaJ6H6IX6ipOmAuM5Zwrky8QUCM7IP
+ g5dvwMpmXzvIJiqkHdjMsmNc8pBwfP07D+7B9SWvmyE0hpxGqj5ZYWJGZ/mgkPZostE9
+ 5wip8CjfG7tRsDimI+QKbvhkwTbk5boynEnUBiyI/rLD9lS6ytqkYr+yHW7LTvoJ71Mu
+ qAw8JALm4WG02KZzhJ1EnwGqYpY2ttefyPJQc2K/LDxlDXOUVvacdRbobqNmCuOvia7y
+ NTmA==
+X-Gm-Message-State: ACgBeo3hbD5G7moKoCoeuMfwj6YQH2kkgGg+VBC94e2r8BAwNjnVhfNk
+ b6cBmqZyrcJBuvPF9hNm5dvdJH0p3jY=
+X-Google-Smtp-Source: AA6agR5Zh5My6hY3phecIGV+h3IPFUyS+zATf/VZj14J1TTIDjXcv0iGZrjT1Z8iftL+CvaKJJHV8Q==
+X-Received: by 2002:a17:903:28c:b0:172:e5f7:f58c with SMTP id
+ j12-20020a170903028c00b00172e5f7f58cmr2283522plr.37.1661097248488; 
+ Sun, 21 Aug 2022 08:54:08 -0700 (PDT)
+Received: from localhost (c-73-25-156-94.hsd1.or.comcast.net. [73.25.156.94])
+ by smtp.gmail.com with ESMTPSA id
+ l8-20020a170903244800b0016bea74d11esm2910408pls.267.2022.08.21.08.54.06
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sun, 21 Aug 2022 08:54:07 -0700 (PDT)
+From: Rob Clark <robdclark@gmail.com>
+To: dri-devel@lists.freedesktop.org
+Date: Sun, 21 Aug 2022 08:54:35 -0700
+Message-Id: <20220821155441.1092134-1-robdclark@gmail.com>
+X-Mailer: git-send-email 2.37.2
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.3.2
-Content-Language: en-US
-To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>, freedreno
- <freedreno@lists.freedesktop.org>,
- <dri-devel@lists.freedesktop.org>, <linux-arm-msm@vger.kernel.org>,
- Rob Clark <robdclark@gmail.com>, Bjorn
- Andersson <bjorn.andersson@linaro.org>, Stephen Boyd <swboyd@chromium.org>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-References: <1660853919-987-1-git-send-email-quic_akhilpo@quicinc.com>
- <20220819014758.v3.5.I6a1fca5d53c886c05ea3e24cd4282d31c9c0cd0b@changeid>
- <0cdca889-1193-1595-e524-5a0cfc633d14@linaro.org>
-From: Akhil P Oommen <quic_akhilpo@quicinc.com>
-In-Reply-To: <0cdca889-1193-1595-e524-5a0cfc633d14@linaro.org>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-ORIG-GUID: dd6w9iYiMKaBSkVittxn115KEOQ2O4cM
-X-Proofpoint-GUID: dd6w9iYiMKaBSkVittxn115KEOQ2O4cM
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.205,Aquarius:18.0.895,Hydra:6.0.517,FMLib:17.11.122.1
- definitions=2022-08-19_08,2022-08-18_01,2022-06-22_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- mlxscore=0 bulkscore=0
- clxscore=1015 spamscore=0 adultscore=0 priorityscore=1501 malwarescore=0
- impostorscore=0 phishscore=0 suspectscore=0 lowpriorityscore=0
- mlxlogscore=999 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2207270000 definitions=main-2208190060
-Subject: Re: [Freedreno] [PATCH v3 5/5] arm64: dts: qcom: sc7280: Add Reset
- support for gpu
+Content-Transfer-Encoding: 8bit
+Subject: [Freedreno] [PATCH] drm/msm: De-open-code some CP_EVENT_WRITE
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -90,42 +67,67 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- Konrad Dybcio <konrad.dybcio@somainline.org>, Andy Gross <agross@kernel.org>,
- Douglas Anderson <dianders@chromium.org>, Rob Herring <robh+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>
+Cc: Rob Clark <robdclark@chromium.org>,
+ open list <linux-kernel@vger.kernel.org>,
+ Akhil P Oommen <quic_akhilpo@quicinc.com>, David Airlie <airlied@linux.ie>,
+ linux-arm-msm@vger.kernel.org, Konrad Dybcio <konrad.dybcio@somainline.org>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Douglas Anderson <dianders@chromium.org>, Sean Paul <sean@poorly.run>,
+ Rob Clark <robdclark@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ freedreno@lists.freedesktop.org, Chia-I Wu <olvaffe@gmail.com>,
+ Dan Carpenter <dan.carpenter@oracle.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 8/19/2022 11:47 AM, Krzysztof Kozlowski wrote:
-> On 18/08/2022 23:18, Akhil P Oommen wrote:
->> Add support for Reset using GPUCC driver for GPU. This helps to ensure
->> that GPU state is reset by making sure that CX head switch is collapsed.
->>
->> Signed-off-by: Akhil P Oommen <quic_akhilpo@quicinc.com>
->> ---
->>
->> (no changes since v1)
->>
->>   arch/arm64/boot/dts/qcom/sc7280.dtsi | 3 +++
->>   1 file changed, 3 insertions(+)
->>
->> diff --git a/arch/arm64/boot/dts/qcom/sc7280.dtsi b/arch/arm64/boot/dts/qcom/sc7280.dtsi
->> index e66fc67..f5257d6 100644
->> --- a/arch/arm64/boot/dts/qcom/sc7280.dtsi
->> +++ b/arch/arm64/boot/dts/qcom/sc7280.dtsi
->> @@ -2243,6 +2243,9 @@
->>   			nvmem-cells = <&gpu_speed_bin>;
->>   			nvmem-cell-names = "speed_bin";
->>   
->> +			resets = <&gpucc GPU_CX_COLLAPSE>;
->> +			reset-names = "cx_collapse";
->> +
-> I think this is not allowed by bindings. Did you test your change with
-> dtbs_check?
->
-> Best regards,
-> Krzysztof
-My bad! Thanks for pointing this out. Fixed in v4 with patch 5/6.
+From: Rob Clark <robdclark@chromium.org>
 
--Akhil.
+Signed-off-by: Rob Clark <robdclark@chromium.org>
+---
+ drivers/gpu/drm/msm/adreno/a3xx_gpu.c | 2 +-
+ drivers/gpu/drm/msm/adreno/a4xx_gpu.c | 2 +-
+ drivers/gpu/drm/msm/adreno/a6xx_gpu.c | 2 +-
+ 3 files changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/gpu/drm/msm/adreno/a3xx_gpu.c b/drivers/gpu/drm/msm/adreno/a3xx_gpu.c
+index 0ab0e1dd8bbb..2c8b9899625b 100644
+--- a/drivers/gpu/drm/msm/adreno/a3xx_gpu.c
++++ b/drivers/gpu/drm/msm/adreno/a3xx_gpu.c
+@@ -68,7 +68,7 @@ static void a3xx_submit(struct msm_gpu *gpu, struct msm_gem_submit *submit)
+ 
+ 	/* BIT(31) of CACHE_FLUSH_TS triggers CACHE_FLUSH_TS IRQ from GPU */
+ 	OUT_PKT3(ring, CP_EVENT_WRITE, 3);
+-	OUT_RING(ring, CACHE_FLUSH_TS | BIT(31));
++	OUT_RING(ring, CACHE_FLUSH_TS | CP_EVENT_WRITE_0_IRQ);
+ 	OUT_RING(ring, rbmemptr(ring, fence));
+ 	OUT_RING(ring, submit->seqno);
+ 
+diff --git a/drivers/gpu/drm/msm/adreno/a4xx_gpu.c b/drivers/gpu/drm/msm/adreno/a4xx_gpu.c
+index 0c6b2a6d0b4c..7cb8d9849c07 100644
+--- a/drivers/gpu/drm/msm/adreno/a4xx_gpu.c
++++ b/drivers/gpu/drm/msm/adreno/a4xx_gpu.c
+@@ -62,7 +62,7 @@ static void a4xx_submit(struct msm_gpu *gpu, struct msm_gem_submit *submit)
+ 
+ 	/* BIT(31) of CACHE_FLUSH_TS triggers CACHE_FLUSH_TS IRQ from GPU */
+ 	OUT_PKT3(ring, CP_EVENT_WRITE, 3);
+-	OUT_RING(ring, CACHE_FLUSH_TS | BIT(31));
++	OUT_RING(ring, CACHE_FLUSH_TS | CP_EVENT_WRITE_0_IRQ);
+ 	OUT_RING(ring, rbmemptr(ring, fence));
+ 	OUT_RING(ring, submit->seqno);
+ 
+diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+index 4d501100b9e4..c8ad8aeca777 100644
+--- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
++++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+@@ -146,7 +146,7 @@ static void a6xx_set_pagetable(struct a6xx_gpu *a6xx_gpu,
+ 	 */
+ 
+ 	OUT_PKT7(ring, CP_EVENT_WRITE, 1);
+-	OUT_RING(ring, 0x31);
++	OUT_RING(ring, CACHE_INVALIDATE);
+ 
+ 	if (!sysprof) {
+ 		/*
+-- 
+2.37.2
+
