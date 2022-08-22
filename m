@@ -1,63 +1,38 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id ACE4F59B5F6
-	for <lists+freedreno@lfdr.de>; Sun, 21 Aug 2022 20:19:28 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 0C7EC59C104
+	for <lists+freedreno@lfdr.de>; Mon, 22 Aug 2022 15:53:51 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 032BD8FAC5;
-	Sun, 21 Aug 2022 18:19:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2A41F8ECCD;
+	Mon, 22 Aug 2022 13:53:25 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-pf1-x433.google.com (mail-pf1-x433.google.com
- [IPv6:2607:f8b0:4864:20::433])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A7B848FAB9;
- Sun, 21 Aug 2022 18:19:08 +0000 (UTC)
-Received: by mail-pf1-x433.google.com with SMTP id x15so7523106pfp.4;
- Sun, 21 Aug 2022 11:19:08 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc;
- bh=rJPJHp4WUC+k2ZugmXMrEl/gry6ReB2YgyAezAf1/ks=;
- b=igd3L5C0F/igLnISA3+VP7PELE0Tt3GXUb3snhvjwtOdEzx9eRDgu/de4iZ4v8ZByJ
- 9p8GsGJC4YZ5AIL7Baq8coyhYhSJlmsz8t61OWkgsoxBiRA8UjJdLUtJv4e6Wd82LuYq
- YPnSx1vQV1elOuCFKu6lsmXcy3XvF8MvBudyOhK2cf/4X3p7aBLcbyFVpmtyxOsyUNfv
- jsL1sPaOcZ9p3pub/xX3MxRTnbjyQzn6Q+NgQbFeH5HB4NBRdr2kp9DMEtkJiBh0HnBm
- CJYGRjFHNaxi6TooTGYKT8+O5Ime+KG9p/MJMa/Gzco2Vc2UKU4rcnUTtcNJsndoT2K3
- XALA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc;
- bh=rJPJHp4WUC+k2ZugmXMrEl/gry6ReB2YgyAezAf1/ks=;
- b=y0RToaLgbHkYG1uV58Dc0/9zuWXdybXlbYdA7+Jwr0ts5tR0Hwzo0xveV32YUksEBS
- cwGECXcrlQ1kDIGCVLRE/ypCKni+6IPifz53/Xe+TBH4IxET+7jfua3xVYs0LoYvmSBt
- sIdYxWKQ+n3sq5dEDhTNQsmuOi59BS0miszcBwM/6comJ37CEjIrJL3Qdqm2oRNkMdgo
- mMArez5kEbNdq/VwebQndHXtiPcQiiBVj63yFgZyiYHDlQg3XguQ43Bg1zTvlImu913l
- LXNnMGu5tRo0tW3zPweqS4Rk5iVSQrP+xyfkPFaYwxhBizMbzeuVEgZ5k3AGjAfYQlhP
- zEKQ==
-X-Gm-Message-State: ACgBeo1jFMdVl0OXhGZq9cqOKNZpu7GPtWCls0F36ybdQDO0EMWUlWda
- gXLfeKMEr2yz4ScWhnQBYE1A6ji7ubo=
-X-Google-Smtp-Source: AA6agR7grPVWv0p0d5feTVXYX0q0iIO3i4jluQbDa7BvmI7ly44pt5otEGUi/E8EyZ4IvklYGtFK9A==
-X-Received: by 2002:a05:6a00:27a0:b0:52f:8947:4cc5 with SMTP id
- bd32-20020a056a0027a000b0052f89474cc5mr17505693pfb.16.1661105947769; 
- Sun, 21 Aug 2022 11:19:07 -0700 (PDT)
-Received: from localhost ([2601:1c0:5200:a6:307:a401:7b76:c6e5])
- by smtp.gmail.com with ESMTPSA id
- nt22-20020a17090b249600b001f55dda84b3sm6602422pjb.22.2022.08.21.11.19.05
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 21 Aug 2022 11:19:06 -0700 (PDT)
-From: Rob Clark <robdclark@gmail.com>
-To: dri-devel@lists.freedesktop.org
-Date: Sun, 21 Aug 2022 11:19:06 -0700
-Message-Id: <20220821181917.1188021-6-robdclark@gmail.com>
-X-Mailer: git-send-email 2.37.2
-In-Reply-To: <20220821181917.1188021-1-robdclark@gmail.com>
-References: <20220821181917.1188021-1-robdclark@gmail.com>
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 3911D8ECE2;
+ Mon, 22 Aug 2022 13:53:04 +0000 (UTC)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id E704812FC;
+ Mon, 22 Aug 2022 06:53:06 -0700 (PDT)
+Received: from [10.57.15.77] (unknown [10.57.15.77])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id E5E9A3F70D;
+ Mon, 22 Aug 2022 06:53:01 -0700 (PDT)
+Message-ID: <c8543ace-65cd-b8a8-499c-1b051867366b@arm.com>
+Date: Mon, 22 Aug 2022 14:52:55 +0100
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH 5/5] drm/msm: Skip tlbinv on unmap from
- non-current pgtables
+User-Agent: Mozilla/5.0 (Windows NT 10.0; rv:91.0) Gecko/20100101
+ Thunderbird/91.12.0
+Content-Language: en-GB
+To: Rob Clark <robdclark@gmail.com>, dri-devel@lists.freedesktop.org
+References: <20220821181917.1188021-1-robdclark@gmail.com>
+ <20220821181917.1188021-5-robdclark@gmail.com>
+From: Robin Murphy <robin.murphy@arm.com>
+In-Reply-To: <20220821181917.1188021-5-robdclark@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Subject: Re: [Freedreno] [PATCH 4/5] drm/msm: Use separate ASID for each set
+ of pgtables
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,87 +45,87 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rob Clark <robdclark@chromium.org>,
- Akhil P Oommen <quic_akhilpo@quicinc.com>, David Airlie <airlied@linux.ie>,
- linux-arm-msm@vger.kernel.org, Konrad Dybcio <konrad.dybcio@somainline.org>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Douglas Anderson <dianders@chromium.org>, Sean Paul <sean@poorly.run>,
- Rob Clark <robdclark@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- freedreno@lists.freedesktop.org, Chia-I Wu <olvaffe@gmail.com>,
- open list <linux-kernel@vger.kernel.org>
+Cc: Rob Clark <robdclark@chromium.org>, freedreno@lists.freedesktop.org,
+ Will Deacon <will@kernel.org>, David Airlie <airlied@linux.ie>,
+ linux-arm-msm@vger.kernel.org, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ open list <linux-kernel@vger.kernel.org>,
+ "iommu@lists.linux.dev" <iommu@lists.linux.dev>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-From: Rob Clark <robdclark@chromium.org>
+On 2022-08-21 19:19, Rob Clark wrote:
+> From: Rob Clark <robdclark@chromium.org>
+> 
+> Optimize TLB invalidation by using different ASID for each set of
+> pgtables.  There can be scenarios where multiple processes end up
+> with the same ASID (such as >256 processes using the GPU), but this
+> is harmless, it will only result in some over-invalidation (but
+> less over-invalidation compared to using ASID=0 for all processes)
 
-We can rely on the tlbinv done by CP_SMMU_TABLE_UPDATE in this case.
+Um, if you're still relying on the GPU doing an invalidate-all-by-ASID 
+whenever it switches a TTBR, then there's only ever one ASID live in the 
+TLBs at once, so it really doesn't matter whether its value stays the 
+same or changes. This seems like a whole chunk of complexity to achieve 
+nothing :/
 
-Signed-off-by: Rob Clark <robdclark@chromium.org>
----
- drivers/gpu/drm/msm/adreno/a6xx_gpu.c |  6 ++++++
- drivers/gpu/drm/msm/msm_iommu.c       | 29 +++++++++++++++++++++++++++
- 2 files changed, 35 insertions(+)
+If you could actually use multiple ASIDs in a meaningful way to avoid 
+any invalidations, you'd need to do considerably more work to keep track 
+of reuse, and those races would probably be a lot less benign.
 
-diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-index c8ad8aeca777..1ba0ed629549 100644
---- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-+++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-@@ -1180,6 +1180,12 @@ static int hw_init(struct msm_gpu *gpu)
- 	/* Always come up on rb 0 */
- 	a6xx_gpu->cur_ring = gpu->rb[0];
- 
-+	/*
-+	 * Note, we cannot assume anything about the state of the SMMU when
-+	 * coming back from power collapse, so force a CP_SMMU_TABLE_UPDATE
-+	 * on the first submit.  Also, msm_iommu_pagetable_unmap() relies on
-+	 * this behavior.
-+	 */
- 	gpu->cur_ctx_seqno = 0;
- 
- 	/* Enable the SQE_to start the CP engine */
-diff --git a/drivers/gpu/drm/msm/msm_iommu.c b/drivers/gpu/drm/msm/msm_iommu.c
-index 94c8c09980d1..218074a58081 100644
---- a/drivers/gpu/drm/msm/msm_iommu.c
-+++ b/drivers/gpu/drm/msm/msm_iommu.c
-@@ -45,8 +45,37 @@ static int msm_iommu_pagetable_unmap(struct msm_mmu *mmu, u64 iova,
- 		size -= 4096;
- 	}
- 
-+	/*
-+	 * A CP_SMMU_TABLE_UPDATE is always sent for the first
-+	 * submit after resume, and that does a TLB invalidate.
-+	 * So we can skip that if the device is not currently
-+	 * powered.
-+	 */
-+	if (!pm_runtime_get_if_in_use(pagetable->parent->dev))
-+		goto out;
-+
-+	/*
-+	 * If we are not the current pgtables, we can rely on the
-+	 * TLB invalidate done by CP_SMMU_TABLE_UPDATE.
-+	 *
-+	 * We'll always be racing with the GPU updating ttbr0,
-+	 * but there are only two cases:
-+	 *
-+	 *  + either we are not the the current pgtables and there
-+	 *    will be a tlbinv done by the GPU before we are again
-+	 *
-+	 *  + or we are.. there might have already been a tblinv
-+	 *    if we raced with the GPU, but we have to assume the
-+	 *    worse and do the tlbinv
-+	 */
-+	if (adreno_smmu->get_ttbr0(adreno_smmu->cookie) != pagetable->ttbr)
-+		goto out_put;
-+
- 	adreno_smmu->tlb_inv_by_id(adreno_smmu->cookie, pagetable->asid);
- 
-+out_put:
-+	pm_runtime_put(pagetable->parent->dev);
-+out:
- 	return (unmapped == size) ? 0 : -EINVAL;
- }
- 
--- 
-2.37.2
+Robin.
 
+.> Signed-off-by: Rob Clark <robdclark@chromium.org>
+> ---
+>   drivers/gpu/drm/msm/msm_iommu.c | 15 ++++++++++-----
+>   1 file changed, 10 insertions(+), 5 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/msm/msm_iommu.c b/drivers/gpu/drm/msm/msm_iommu.c
+> index a54ed354578b..94c8c09980d1 100644
+> --- a/drivers/gpu/drm/msm/msm_iommu.c
+> +++ b/drivers/gpu/drm/msm/msm_iommu.c
+> @@ -33,6 +33,8 @@ static int msm_iommu_pagetable_unmap(struct msm_mmu *mmu, u64 iova,
+>   		size_t size)
+>   {
+>   	struct msm_iommu_pagetable *pagetable = to_pagetable(mmu);
+> +	struct adreno_smmu_priv *adreno_smmu =
+> +		dev_get_drvdata(pagetable->parent->dev);
+>   	struct io_pgtable_ops *ops = pagetable->pgtbl_ops;
+>   	size_t unmapped = 0;
+>   
+> @@ -43,7 +45,7 @@ static int msm_iommu_pagetable_unmap(struct msm_mmu *mmu, u64 iova,
+>   		size -= 4096;
+>   	}
+>   
+> -	iommu_flush_iotlb_all(to_msm_iommu(pagetable->parent)->domain);
+> +	adreno_smmu->tlb_inv_by_id(adreno_smmu->cookie, pagetable->asid);
+>   
+>   	return (unmapped == size) ? 0 : -EINVAL;
+>   }
+> @@ -147,6 +149,7 @@ static int msm_fault_handler(struct iommu_domain *domain, struct device *dev,
+>   
+>   struct msm_mmu *msm_iommu_pagetable_create(struct msm_mmu *parent)
+>   {
+> +	static atomic_t asid = ATOMIC_INIT(1);
+>   	struct adreno_smmu_priv *adreno_smmu = dev_get_drvdata(parent->dev);
+>   	struct msm_iommu *iommu = to_msm_iommu(parent);
+>   	struct msm_iommu_pagetable *pagetable;
+> @@ -210,12 +213,14 @@ struct msm_mmu *msm_iommu_pagetable_create(struct msm_mmu *parent)
+>   	pagetable->ttbr = ttbr0_cfg.arm_lpae_s1_cfg.ttbr;
+>   
+>   	/*
+> -	 * TODO we would like each set of page tables to have a unique ASID
+> -	 * to optimize TLB invalidation.  But iommu_flush_iotlb_all() will
+> -	 * end up flushing the ASID used for TTBR1 pagetables, which is not
+> -	 * what we want.  So for now just use the same ASID as TTBR1.
+> +	 * ASID 0 is used for kernel mapped buffers in TTBR1, which we
+> +	 * do not need to invalidate when unmapping from TTBR0 pgtables.
+> +	 * The hw ASID is at *least* 8b, but can be 16b.  We just assume
+> +	 * the worst:
+>   	 */
+>   	pagetable->asid = 0;
+> +	while (!pagetable->asid)
+> +		pagetable->asid = atomic_inc_return(&asid) & 0xff;
+>   
+>   	return &pagetable->base;
+>   }
