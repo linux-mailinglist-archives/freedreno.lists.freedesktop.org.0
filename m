@@ -2,65 +2,70 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1CE7159C9F6
-	for <lists+freedreno@lfdr.de>; Mon, 22 Aug 2022 22:27:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 395EA59CA0C
+	for <lists+freedreno@lfdr.de>; Mon, 22 Aug 2022 22:34:10 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A0715A1E09;
-	Mon, 22 Aug 2022 20:27:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9B4F6A1B32;
+	Mon, 22 Aug 2022 20:34:07 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x12e.google.com (mail-lf1-x12e.google.com
- [IPv6:2a00:1450:4864:20::12e])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 85FA1A1DEB
- for <freedreno@lists.freedesktop.org>; Mon, 22 Aug 2022 20:27:13 +0000 (UTC)
-Received: by mail-lf1-x12e.google.com with SMTP id m5so6208217lfj.4
- for <freedreno@lists.freedesktop.org>; Mon, 22 Aug 2022 13:27:13 -0700 (PDT)
+Received: from mail-lj1-x22e.google.com (mail-lj1-x22e.google.com
+ [IPv6:2a00:1450:4864:20::22e])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BEF41A20A1
+ for <freedreno@lists.freedesktop.org>; Mon, 22 Aug 2022 20:33:49 +0000 (UTC)
+Received: by mail-lj1-x22e.google.com with SMTP id u24so6132438lji.0
+ for <freedreno@lists.freedesktop.org>; Mon, 22 Aug 2022 13:33:49 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc; bh=loYNWu7FRv2ThLC9ofsf4DwxdBiFsBUPefz91dNaNro=;
- b=BG/imemOmfpqBeOzL5CFYMAkxTPOeLgLdS7RJtZBRG6bIpbeog6aJj401flbO6GPgv
- DUUQs0HooT6mBtST4Z35dH3KEVTNOyz+2xxfcfcsL3J44Yv0hfWQKft6sR478G5+KkDQ
- EZdPWieOK1TzlgDiPB/V0ih4+3/NZ2IXcZMDhte9XckL1+XgijaV+UlEh6PSloX3uePI
- ctJzme61A5KE0mth7+KY17OGTocV/y1jTDSPt9vw/eNbayk6211LiNbClIYhB92rTXTh
- Bx4tY2wznshcIjbs1clZMBZMEMhxR6DW2y8nryErc0jtfjI0tHdIeWQ/TzOBwNj7Jl/D
- POcg==
+ :from:to:cc; bh=K9ObQ97ISx4Clb2EU3qigRcWkQ6jJk32rWADiTnPB+w=;
+ b=HuR5Jhu4zVf25w1uhem4PvXtNLZjHJwxvHsr3LBLE32U2npuz5LTsoWBb/HaYycPdv
+ tLKGtDcYAdTDkv4aG8D8rKzLSbmKrUai8AGSfFnHc/PfuoWzx+mY5b/SWbMHIa7Lqf/w
+ /LjxODb+uB3sw0hWq7BwxuJIGfGxMCTT2fspo7nnYcqr4hFMI6dcbn+JrcKCZFGB4MS/
+ gRMPS7zIwgQY7SPqY13UMnMNh7B+aYg9PIYppCmkK0qpxNhUc8RQiwVNAOUl+y2yi3uN
+ Eu9VuDN/HbmpWuoIy9dK6VYnU9wx9anKXtKQrgxQxd+jmm0FHyvHGIk9a2Lur/Iyv0r0
+ ip6w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc;
- bh=loYNWu7FRv2ThLC9ofsf4DwxdBiFsBUPefz91dNaNro=;
- b=AZcbRXRLy7XdLM7Z3tMR86kL8qe/666Gd2lrHL4gEWsljwU9h8uS03tpQf5MQ6JpFG
- Zi2Gj2OXdDAqeK3N/G+mIw8t/tyrGnjTsWEi0Cq0PSUVmRxRXpMWyW4EGyAacScJUaxU
- TyYItMFNNcCqsPpw+HJ8KBvWydcb+ehZz7LVt6RxLMScleDepVryxDLwryT+Vzl07+zC
- WNUs12StXUxay4w89MCs2K6icVNKpuGLsLjB7+HIBkTMpVJDKK0XCtaxJfge3qJaYhCw
- F6x0JHeiOAmtSM5lgXrt+QQ4MgJ9vk6NYn6SUBgjK4X223F+IEccR4lcTZ1fkm/bP3J1
- WYuA==
-X-Gm-Message-State: ACgBeo0Hfadw3LxCfLfAAEZUdRHBcUyQHP5iVUsV1O+TWcH0Lk3/Y9Rn
- YUuLtfMSBreFrWxosgnW7CDBaA==
-X-Google-Smtp-Source: AA6agR4SmBR2z0Jp+Wr4jWA1Ua44vfUbLuyVcmjgNhY1h8LKQdoiYvY1uOEb0+pyAs0UXkL4y5xvdg==
-X-Received: by 2002:a05:6512:2985:b0:492:d9dc:b3e3 with SMTP id
- du5-20020a056512298500b00492d9dcb3e3mr3821940lfb.426.1661200031863; 
- Mon, 22 Aug 2022 13:27:11 -0700 (PDT)
+ bh=K9ObQ97ISx4Clb2EU3qigRcWkQ6jJk32rWADiTnPB+w=;
+ b=D438or2DdRzO2QlfDseBTkdjLPg5ImEBTFJjtW3Jp82r2p6rJTLTtk+N4WpjWVGx9Y
+ jbzqa5qUPaQbntJeQQYt7eBBMNAYhNR1RX8iOSvdiV2zm2x9pQN3XmKwqWavMtGWXN/0
+ qV4CRg0HFjzN7YetFVOyQElZCkLvE6+uvQemLvqu6QoBeAIal2F4aPmKzKEnv+l+eYB9
+ Hq5V405oiwS1BNIrjC2elfUr1UcI5UvCvEgqt1o+9tZrGVfZHCSzL6GTB6Fi+fivfeRu
+ pXK/dfTFEOJYI9cmi/7tBRiHi6V6HMzObs4hwxuZgipyvebxDGW0G7tFCELd3dR3gqi5
+ jaqw==
+X-Gm-Message-State: ACgBeo0PHn4w0SyNxTqQdnBThQeq5NTMFr4TH8Xyh3ouqryi0V3E4Z0r
+ upEl2xT4CoTaXuQAYGZOSVezrA==
+X-Google-Smtp-Source: AA6agR6WVHEiENVXSb3cj+S907V1F8Xb4V+GL/frT2pmZ0hKCfKocjlQl883hDG+8Q/TBumk2USBTQ==
+X-Received: by 2002:a05:651c:1544:b0:25f:5036:ece2 with SMTP id
+ y4-20020a05651c154400b0025f5036ece2mr6589760ljp.73.1661200428065; 
+ Mon, 22 Aug 2022 13:33:48 -0700 (PDT)
 Received: from [192.168.1.211] ([37.153.55.125])
  by smtp.gmail.com with ESMTPSA id
- v16-20020ac258f0000000b00492dfcc0e58sm875694lfo.53.2022.08.22.13.27.10
+ s8-20020a19ad48000000b0048ae316caf0sm2090513lfd.18.2022.08.22.13.33.47
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 22 Aug 2022 13:27:11 -0700 (PDT)
-Message-ID: <eb7ab2ea-de23-0ed4-466c-d422b48af276@linaro.org>
-Date: Mon, 22 Aug 2022 23:27:10 +0300
+ Mon, 22 Aug 2022 13:33:47 -0700 (PDT)
+Message-ID: <2d9db562-1746-64d9-7ca3-f1a7f405bd77@linaro.org>
+Date: Mon, 22 Aug 2022 23:33:47 +0300
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.1.2
 Content-Language: en-GB
-To: Jason Wang <wangborong@cdjrlc.com>, quic_abhinavk@quicinc.com
-References: <20220724204242.4107-1-wangborong@cdjrlc.com>
+To: Bjorn Andersson <bjorn.andersson@linaro.org>,
+ Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Stephen Boyd <swboyd@chromium.org>, Kuogee Hsieh <quic_khsieh@quicinc.com>,
+ Sankeerth Billakanti <quic_sbillaka@quicinc.com>
+References: <20220810035013.3582848-1-bjorn.andersson@linaro.org>
+ <20220810035013.3582848-4-bjorn.andersson@linaro.org>
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-In-Reply-To: <20220724204242.4107-1-wangborong@cdjrlc.com>
+In-Reply-To: <20220810035013.3582848-4-bjorn.andersson@linaro.org>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH] drm/msm/dpu: Fix comment typo
+Subject: Re: [Freedreno] [PATCH 3/7] drm/msm/dp: Add DP and EDP compatibles
+ for SC8280XP
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,40 +78,31 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: quic_kalyant@quicinc.com, freedreno@lists.freedesktop.org, airlied@linux.ie,
- linux-arm-msm@vger.kernel.org, vkoul@kernel.org,
- dri-devel@lists.freedesktop.org, bjorn.andersson@linaro.org,
- robdclark@gmail.com, daniel@ffwll.ch, quic_vpolimer@quicinc.com,
- sean@poorly.run, linux-kernel@vger.kernel.org
+Cc: freedreno@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>,
+ devicetree@vger.kernel.org, David Airlie <airlied@linux.ie>,
+ linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, Rob Herring <robh+dt@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Sean Paul <sean@poorly.run>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 24/07/2022 23:42, Jason Wang wrote:
-> The double `be' is duplicated in the comment, remove one.
+On 10/08/2022 06:50, Bjorn Andersson wrote:
+> The SC8280XP platform has four DisplayPort controllers, per MDSS
+> instance, all with widebus support.
 > 
-> Signed-off-by: Jason Wang <wangborong@cdjrlc.com>
+> The first two are defined to be DisplayPort only, while the latter pair
+> (of each instance) can be either DisplayPort or Embedded DisplayPort.
+> The two sets are tied to the possible compatibels.
+> 
+> Signed-off-by: Bjorn Andersson <bjorn.andersson@linaro.org>
 
 Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 
 > ---
->   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h | 2 +-
->   1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h
-> index 71fe4c505f5b..38aa38ab1568 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h
-> @@ -76,7 +76,7 @@ enum {
->   
->   /**
->    * MDP TOP BLOCK features
-> - * @DPU_MDP_PANIC_PER_PIPE Panic configuration needs to be be done per pipe
-> + * @DPU_MDP_PANIC_PER_PIPE Panic configuration needs to be done per pipe
->    * @DPU_MDP_10BIT_SUPPORT, Chipset supports 10 bit pixel formats
->    * @DPU_MDP_BWC,           MDSS HW supports Bandwidth compression.
->    * @DPU_MDP_UBWC_1_0,      This chipsets supports Universal Bandwidth
-
--- 
+>   drivers/gpu/drm/msm/dp/dp_display.c | 22 ++++++++++++++++++++++
+>   drivers/gpu/drm/msm/msm_drv.h       |  1 +
+>   2 files changed, 23 insertions(+)-- 
 With best wishes
 Dmitry
 
