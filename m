@@ -2,73 +2,68 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id BC6C759C669
-	for <lists+freedreno@lfdr.de>; Mon, 22 Aug 2022 20:33:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 54F8E59C6E8
+	for <lists+freedreno@lfdr.de>; Mon, 22 Aug 2022 20:47:15 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1022E8E72A;
-	Mon, 22 Aug 2022 18:33:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0D147918F3;
+	Mon, 22 Aug 2022 18:47:13 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-x22f.google.com (mail-lj1-x22f.google.com
- [IPv6:2a00:1450:4864:20::22f])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B1AD79F10C
- for <freedreno@lists.freedesktop.org>; Mon, 22 Aug 2022 18:33:38 +0000 (UTC)
-Received: by mail-lj1-x22f.google.com with SMTP id l23so391979lji.1
- for <freedreno@lists.freedesktop.org>; Mon, 22 Aug 2022 11:33:38 -0700 (PDT)
+Received: from mail-lj1-x235.google.com (mail-lj1-x235.google.com
+ [IPv6:2a00:1450:4864:20::235])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A7FB711A833
+ for <freedreno@lists.freedesktop.org>; Mon, 22 Aug 2022 18:46:42 +0000 (UTC)
+Received: by mail-lj1-x235.google.com with SMTP id bx38so11445083ljb.10
+ for <freedreno@lists.freedesktop.org>; Mon, 22 Aug 2022 11:46:42 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc; bh=xPEThM+voZDV86XHw2ieneCB0y1qVMLkDtKoP7Y2Jt4=;
- b=rFwkarzxAseZgLgg/cI11bLRRWGARO/BnewzUo0tAQ8MNbQDPfJOjvoaZz1j+mBtNW
- JOF8fyavWDKwQrUT8bleo2ltgPJEc1R1G9LdLrBEt7IKAbXNnDittl6glibkX14NaAdw
- vCbrVRJ1EzLmw3wCSK7lTv9twk9+H745sHXJqnb2XbtcKNM585QAnYMrAWZzcMWgKSxu
- QgpylCBP/ZUyBQGJCxfBy/+NQnZt2XHON/h9GwmbAjdwdOMp0NSh6UeHetWIk+YMVKLN
- PZ2F++B4Zj5yiZK8vswFI5Q148yQjim1+ZRCVX0u7kPbkLxPOuyJGNqgtCKa9KpcWiNa
- 4bEA==
+ :from:to:cc; bh=rvqBR+MqWw6osirnvKxuZH0TWTk+3bKndNATN0ZQht0=;
+ b=VaFBcoYnBgImf8ma6nDsr2IR4PMJFbP6tYtbYCZuEdxP4cGUCFrY/1dVGfMkBve951
+ n4P1mfweqp/mn9HAxjpru9xJNguC7QaNmMjn2GTPKasPSqwVnZJEJ54upg/vBglOShiC
+ vCIwGfm0kD63TMLOligYX93P/3+bSHajqR9pq/Nz+wtwhBFnP8foGcGSRoWHxMgZOiq9
+ fzUVqc0Erq4uK5vuItooiY8X0sax32csi7zdnBJdVUW6lfjHiPa+fwnlg149ZFjjqU9o
+ ck/yWJAp+VG15Ktxr0xHj7BVxRdIsN8korYm/rO+cRGnZZF0FTBqa+prEZpHsF3Rx3hQ
+ +41A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc;
- bh=xPEThM+voZDV86XHw2ieneCB0y1qVMLkDtKoP7Y2Jt4=;
- b=IXKfOYL+ghe21kR2GuhBPWFwDgeRW48UrczV6fd9gyX9tbjoOV6niLAlSTd0BkaNx1
- 7HaiR5HoCG6udZk5HJkp2KOBVQK3yXRou1/moybxAxuYLUmO/EidsA4/T/LwD/RgXrc8
- DFmTicx3XuWc28pAo6FOfK/7m3y7joBoBQ+I8G+WpAlE6jGnHiM5EAyIlMitthSx9/7P
- zT7t0Xsp0Vwm3NyJJGpFR4zEylaDh8NLj+i5Q4Qo70+QRCTt+tzNIC2eHuUuh1hI6GL2
- UNBnvYCJt+1gGZm1rj1IOO6TT40x4a7xA+6VRtGF2TdBj8fUsKTghDc86pna9j6jXS24
- OA9A==
-X-Gm-Message-State: ACgBeo0MFb9Kv3sfGsnlHUVClVcfOp5mpXEfR6yCHkm7tBV8ui02WUDw
- Yw96R0SBHCasBRJtUWSAMchtWA==
-X-Google-Smtp-Source: AA6agR6Ot4kr92MbagLAF+U3AjLjw9N6TXLxOqO6ux2vh8enPEa3LnqhmraZ913NIaS6vrL3aUmC8g==
-X-Received: by 2002:a2e:712:0:b0:25e:c39b:45cf with SMTP id
- 18-20020a2e0712000000b0025ec39b45cfmr6527984ljh.511.1661193216666; 
- Mon, 22 Aug 2022 11:33:36 -0700 (PDT)
+ bh=rvqBR+MqWw6osirnvKxuZH0TWTk+3bKndNATN0ZQht0=;
+ b=uXngIxhfwZ1UQOR/aPKoXh9ypDMzq6i0pnv89MhIqS2Pqf7PzVVyEcSwSbXyYEFMZz
+ KN5u16onYydbDT7cAiQLRgI7Cx8cG6ezzmJ2hMCfPgAirMZJPKcDOgEXFBEa+naeAo4v
+ ELmubgLOPlN913llZ2yUqgzDbW6hZt3rcr8p20w7OTwB1rih+6uppUU9ZDqzJtK/Vpsy
+ rpSNqYl8DiBQuroLcFIs7aBxIta/W0ouGebu/H4X3CP2Yj+3dwC6KwLApFZx+xnAD8dt
+ A+R+vm3FfCdN8zC/mm7E1ypSXPI1nOKpdjuhKFUoOo7ZPrGocTFIABDfFbUA54792FC/
+ D7Dg==
+X-Gm-Message-State: ACgBeo3agBz/oI3EyQUEGxJrZcrs7eMBQuAJf+LCUZOfuI0C3dbvLNkE
+ hzSx26wN0gALPXVBKqSaXWkA+g==
+X-Google-Smtp-Source: AA6agR4ZNMRCEOaFZ/wplgkfOzH12OuW0OGUwpNx1C8V+ySdF9HCd/NkFeqZesY0VjTgGBO8Jv08Ew==
+X-Received: by 2002:a2e:bf0c:0:b0:260:3df:1bce with SMTP id
+ c12-20020a2ebf0c000000b0026003df1bcemr6648253ljr.117.1661194001003; 
+ Mon, 22 Aug 2022 11:46:41 -0700 (PDT)
 Received: from [192.168.1.211] ([37.153.55.125])
  by smtp.gmail.com with ESMTPSA id
- w12-20020a05651204cc00b0048b0696d0b1sm2042260lfq.90.2022.08.22.11.33.35
+ x43-20020a2ea9ab000000b0025d5eb5dde7sm1863077ljq.104.2022.08.22.11.46.40
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 22 Aug 2022 11:33:36 -0700 (PDT)
-Message-ID: <bb153360-6567-c4d5-dc23-8586549df8c8@linaro.org>
-Date: Mon, 22 Aug 2022 21:33:35 +0300
+ Mon, 22 Aug 2022 11:46:40 -0700 (PDT)
+Message-ID: <e9760ee4-421a-5c87-4370-50262930aea1@linaro.org>
+Date: Mon, 22 Aug 2022 21:46:39 +0300
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.1.2
 Content-Language: en-GB
-To: Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Kuogee Hsieh <quic_khsieh@quicinc.com>, robdclark@gmail.com,
- sean@poorly.run, swboyd@chromium.org, dianders@chromium.org,
- vkoul@kernel.org, daniel@ffwll.ch, airlied@linux.ie, agross@kernel.org,
- bjorn.andersson@linaro.org
-References: <1660759314-28088-1-git-send-email-quic_khsieh@quicinc.com>
- <f211520a-cb9c-1202-0752-7bb200726ae8@linaro.org>
- <d4b3c303-fc20-537d-0e69-6e19826b6e59@quicinc.com>
- <266c0531-344e-5589-2143-02ab1fe9b276@linaro.org>
- <724d695d-0293-db81-7014-57cb96bd6d4b@quicinc.com>
+To: Rob Herring <robh@kernel.org>
+References: <20220710084133.30976-1-dmitry.baryshkov@linaro.org>
+ <20220710084133.30976-9-dmitry.baryshkov@linaro.org>
+ <20220711231638.GA449827-robh@kernel.org>
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-In-Reply-To: <724d695d-0293-db81-7014-57cb96bd6d4b@quicinc.com>
+In-Reply-To: <20220711231638.GA449827-robh@kernel.org>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-Subject: Re: [Freedreno] [PATCH] drm/msm/dp: add atomic_check to bridge ops
+Content-Transfer-Encoding: 7bit
+Subject: Re: [Freedreno] [PATCH v2 8/9] dt-bindings: msm/dp: add missing
+ properties
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,290 +76,71 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: quic_sbillaka@quicinc.com, linux-arm-msm@vger.kernel.org,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- quic_aravindh@quicinc.com, freedreno@lists.freedesktop.org
+Cc: devicetree@vger.kernel.org, Daniel Vetter <daniel@ffwll.ch>,
+ David Airlie <airlied@linux.ie>, linux-arm-msm@vger.kernel.org,
+ Kuogee Hsieh <quic_khsieh@quicinc.com>,
+ Konrad Dybcio <konrad.dybcio@somainline.org>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
+ Bjorn Andersson <bjorn.andersson@linaro.org>, freedreno@lists.freedesktop.org,
+ Rob Clark <robdclark@gmail.com>, Andy Gross <agross@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Stephen Boyd <swboyd@chromium.org>, Sean Paul <sean@poorly.run>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 22/08/2022 20:32, Abhinav Kumar wrote:
-> 
-> 
-> On 8/22/2022 9:49 AM, Dmitry Baryshkov wrote:
->> On 22/08/2022 19:38, Abhinav Kumar wrote:
->>> Hi Dmitry
->>>
->>> On 8/22/2022 9:18 AM, Dmitry Baryshkov wrote:
->>>> On 17/08/2022 21:01, Kuogee Hsieh wrote:
->>>>> DRM commit_tails() will disable downstream crtc/encoder/bridge if
->>>>> both disable crtc is required and crtc->active is set before pushing
->>>>> a new frame downstream.
->>>>>
->>>>> There is a rare case that user space display manager issue an extra
->>>>> screen update immediately followed by close DRM device while down
->>>>> stream display interface is disabled. This extra screen update will
->>>>> timeout due to the downstream interface is disabled but will cause
->>>>> crtc->active be set. Hence the followed commit_tails() called by
->>>>> drm_release() will pass the disable downstream crtc/encoder/bridge
->>>>> conditions checking even downstream interface is disabled.
->>>>> This cause the crash to happen at dp_bridge_disable() due to it trying
->>>>> to access the main link register to push the idle pattern out while 
->>>>> main
->>>>> link clocks is disabled.
->>>>>
->>>>> This patch adds atomic_check to prevent the extra frame will not
->>>>> be pushed down if display interface is down so that crtc->active
->>>>> will not be set neither. This will fail the conditions checking
->>>>> of disabling down stream crtc/encoder/bridge which prevent
->>>>> drm_release() from calling dp_bridge_disable() so that crash
->>>>> at dp_bridge_disable() prevented.
->>>>
->>>> I must admit I had troubles parsing this description. However if I 
->>>> got you right, I think the check that the main link clock is running 
->>>> in the dp_bridge_disable() or dp_ctrl_push_idle() would be a better 
->>>> fix.
->>>
->>> Originally, thats what was posted 
->>> https://patchwork.freedesktop.org/patch/496984/.
+On 12/07/2022 02:16, Rob Herring wrote:
+> On Sun, Jul 10, 2022 at 11:41:32AM +0300, Dmitry Baryshkov wrote:
+>> Document missing definitions for opp-table (DP controller OPPs), aux-bus
+>> (DP AUX BUS) and data-lanes (DP/eDP lanes mapping) properties.
 >>
->> This patch is also not so correct from my POV. It checks for the hpd 
->> status, while in reality it should check for main link clocks being 
->> enabled.
+>> Reviewed-by: Stephen Boyd <swboyd@chromium.org>
+>> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+>> ---
+>>   .../bindings/display/msm/dp-controller.yaml          | 12 ++++++++++++
+>>   1 file changed, 12 insertions(+)
 >>
+>> diff --git a/Documentation/devicetree/bindings/display/msm/dp-controller.yaml b/Documentation/devicetree/bindings/display/msm/dp-controller.yaml
+>> index 391910d91e43..52cbf00df0ba 100644
+>> --- a/Documentation/devicetree/bindings/display/msm/dp-controller.yaml
+>> +++ b/Documentation/devicetree/bindings/display/msm/dp-controller.yaml
+>> @@ -70,9 +70,21 @@ properties:
+>>     operating-points-v2:
+>>       maxItems: 1
+>>   
+>> +  opp-table: true
+>> +
+>>     power-domains:
+>>       maxItems: 1
+>>   
+>> +  aux-bus:
+>> +    $ref: /schemas/display/dp-aux-bus.yaml#
+>> +
+>> +  data-lanes:
 > 
-> We can push another fix to check for the clk state instead of the hpd 
-> status. But I must say we are again just masking something which the fwk 
-> should have avoided isnt it?
-> 
-> As per the doc in the include/drm/drm_bridge.h it says,
-> 
-> "*
->   * The bridge can assume that the display pipe (i.e. clocks and timing
->   * signals) feeding it is still running when this callback is called.
->   *"
+> But this is the wrong location for 'data-lanes'. It belongs in an
+> endpoint node.
 
-Yes, that's what I meant about this chunk begging to go to the core. In 
-my opinion, if we are talking about the disconnected sinks, it is the 
-framework who should disallow submitting the frames to the disconnected 
-sinks.
+I rechecked the existing device trees (sc7280-herobrine.dtsi). The 
+data-lanes are already inside the main dp controller node. I'll take a 
+glance on fixing the driver to check the dp_out endpoint (and update 
+existing DT to move the property to the endpoint node), but to make 
+schema compatible with the existing device trees we'd probably still 
+need this property (which can be marked as deprecated once the proper 
+endpoint property is supported). Does that sound plausible?
 
 > 
-> By adding an extra layers of protection in the driver, we are just 
-> avoiding another issue but the commit should not have been issued in the 
-> first place.
-> 
-> So shouldnt we do both then? That is add protection to check if clock is 
-> ON and also, reject commits when display is disconnected.
-> 
->>>
->>> Then it seemed like we were just protecting against an issue in the 
->>> framework which was allowing the frames to be pushed even after the 
->>> display was disconnected. The DP driver did send out the disconnect 
->>> event correctly and as per the logs, this frame came down after that 
->>> and the DRM fwk did allow it.
->>>
->>> So after discussing on IRC with Rob, we came up with this approach that
->>> if the display is not connected, then atomic_check should fail. That 
->>> way the commit will not happen.
->>>
->>> Just seemed a bit cleaner instead of adding all our protections.
+>> +    $ref: /schemas/types.yaml#/definitions/uint32-array
+>> +    minItems: 1
+>> +    maxItems: 4
+>> +    items:
+>> +      maximum: 3
+>> +
+>>     "#sound-dai-cells":
+>>       const: 0
+>>   
+>> -- 
+>> 2.35.1
 >>
->> The check to fail atomic_check if display is not connected seems out 
->> of place. In its current way it begs go to the upper layer, forbidding 
->> using disconnected sinks for all the drivers. There is nothing special 
->> in the MSM DP driver with respect to the HPD events processing and 
->> failing atomic_check() based on that.
->>
-> 
-> Why all the drivers? This is only for MSM DP bridge.
-
-Yes, we change the MSM DRM driver. But the check is generic enough. I'm 
-not actually insisting on pushing the check to the core, just trying to 
-understand the real cause here.
-
-> 
->>>
->>>>
->>>>>
->>>>> SError Interrupt on CPU7, code 0x00000000be000411 -- SError
->>>>> CPU: 7 PID: 3878 Comm: Xorg Not tainted 5.19.0-stb-cbq #19
->>>>> Hardware name: Google Lazor (rev3 - 8) (DT)
->>>>> pstate: a04000c9 (NzCv daIF +PAN -UAO -TCO -DIT -SSBS BTYPE=--)
->>>>> pc : __cmpxchg_case_acq_32+0x14/0x2c
->>>>> lr : do_raw_spin_lock+0xa4/0xdc
->>>>> sp : ffffffc01092b6a0
->>>>> x29: ffffffc01092b6a0 x28: 0000000000000028 x27: 0000000000000038
->>>>> x26: 0000000000000004 x25: ffffffd2973dce48 x24: 0000000000000000
->>>>> x23: 00000000ffffffff x22: 00000000ffffffff x21: ffffffd2978d0008
->>>>> x20: ffffffd2978d0008 x19: ffffff80ff759fc0 x18: 0000000000000000
->>>>> x17: 004800a501260460 x16: 0441043b04600438 x15: 04380000089807d0
->>>>> x14: 07b0089807800780 x13: 0000000000000000 x12: 0000000000000000
->>>>> x11: 0000000000000438 x10: 00000000000007d0 x9 : ffffffd2973e09e4
->>>>> x8 : ffffff8092d53300 x7 : ffffff808902e8b8 x6 : 0000000000000001
->>>>> x5 : ffffff808902e880 x4 : 0000000000000000 x3 : ffffff80ff759fc0
->>>>> x2 : 0000000000000001 x1 : 0000000000000000 x0 : ffffff80ff759fc0
->>>>> Kernel panic - not syncing: Asynchronous SError Interrupt
->>>>> CPU: 7 PID: 3878 Comm: Xorg Not tainted 5.19.0-stb-cbq #19
->>>>> Hardware name: Google Lazor (rev3 - 8) (DT)
->>>>> Call trace:
->>>>>   dump_backtrace.part.0+0xbc/0xe4
->>>>>   show_stack+0x24/0x70
->>>>>   dump_stack_lvl+0x68/0x84
->>>>>   dump_stack+0x18/0x34
->>>>>   panic+0x14c/0x32c
->>>>>   nmi_panic+0x58/0x7c
->>>>>   arm64_serror_panic+0x78/0x84
->>>>>   do_serror+0x40/0x64
->>>>>   el1h_64_error_handler+0x30/0x48
->>>>>   el1h_64_error+0x68/0x6c
->>>>>   __cmpxchg_case_acq_32+0x14/0x2c
->>>>>   _raw_spin_lock_irqsave+0x38/0x4c
-
-You know, after re-reading the trace, I could not help but notice that 
-the issue seems to be related to completion/timer/spinlock memory 
-becoming unavailable rather than disabling the main link clock.
-See, the SError comes in the spin_lock path, not during register read.
-
-Thus I think the commit message is a bit misleading.
-
-Can we please get a trace checking which calls were actually made for 
-the dp bridge and if the dp/dp->ctrl memory pointers are correct?
-
-I do not see the dp_display_disable() being called. Maybe I just missed 
-the call.
-
-
->>>>>   lock_timer_base+0x40/0x78
->>>>>   __mod_timer+0xf4/0x25c
->>>>>   schedule_timeout+0xd4/0xfc
->>>>>   __wait_for_common+0xac/0x140
->>>>>   wait_for_completion_timeout+0x2c/0x54
->>>>>   dp_ctrl_push_idle+0x40/0x88
->>>>>   dp_bridge_disable+0x24/0x30
->>>>>   drm_atomic_bridge_chain_disable+0x90/0xbc
->>>>>   drm_atomic_helper_commit_modeset_disables+0x198/0x444
->>>>>   msm_atomic_commit_tail+0x1d0/0x374
->>>>>   commit_tail+0x80/0x108
->>>>>   drm_atomic_helper_commit+0x118/0x11c
->>>>>   drm_atomic_commit+0xb4/0xe0
->>>>>   drm_client_modeset_commit_atomic+0x184/0x224
->>>>>   drm_client_modeset_commit_locked+0x58/0x160
->>>>>   drm_client_modeset_commit+0x3c/0x64
->>>>>   __drm_fb_helper_restore_fbdev_mode_unlocked+0x98/0xac
->>>>>   drm_fb_helper_set_par+0x74/0x80
->>>>>   drm_fb_helper_hotplug_event+0xdc/0xe0
->>>>>   __drm_fb_helper_restore_fbdev_mode_unlocked+0x7c/0xac
->>>>>   drm_fb_helper_restore_fbdev_mode_unlocked+0x20/0x2c
->>>>>   drm_fb_helper_lastclose+0x20/0x2c
->>>>>   drm_lastclose+0x44/0x6c
->>>>>   drm_release+0x88/0xd4
->>>>>   __fput+0x104/0x220
->>>>>   ____fput+0x1c/0x28
->>>>>   task_work_run+0x8c/0x100
->>>>>   do_exit+0x450/0x8d0
->>>>>   do_group_exit+0x40/0xac
->>>>>   __wake_up_parent+0x0/0x38
->>>>>   invoke_syscall+0x84/0x11c
->>>>>   el0_svc_common.constprop.0+0xb8/0xe4
->>>>>   do_el0_svc+0x8c/0xb8
->>>>>   el0_svc+0x2c/0x54
->>>>>   el0t_64_sync_handler+0x120/0x1c0
->>>>>   el0t_64_sync+0x190/0x194
->>>>> SMP: stopping secondary CPUs
->>>>> Kernel Offset: 0x128e800000 from 0xffffffc008000000
->>>>> PHYS_OFFSET: 0x80000000
->>>>> CPU features: 0x800,00c2a015,19801c82
->>>>> Memory Limit: none
->>>>>
->>>>> Fixes: 8a3b4c17f863 ("drm/msm/dp: employ bridge mechanism for 
->>>>> display enable and disable")
->>>>> Reported-by: Leonard Lausen <leonard@lausen.nl>
->>>>> Suggested-by: Rob Clark <robdclark@gmail.com>
->>>>> Closes: https://gitlab.freedesktop.org/drm/msm/-/issues/17
->>>>> Signed-off-by: Kuogee Hsieh <quic_khsieh@quicinc.com>
->>>>> ---
->>>>>   drivers/gpu/drm/msm/dp/dp_drm.c | 23 +++++++++++++++++++++++
->>>>>   1 file changed, 23 insertions(+)
->>>>>
->>>>> diff --git a/drivers/gpu/drm/msm/dp/dp_drm.c 
->>>>> b/drivers/gpu/drm/msm/dp/dp_drm.c
->>>>> index 6df25f7..c682588 100644
->>>>> --- a/drivers/gpu/drm/msm/dp/dp_drm.c
->>>>> +++ b/drivers/gpu/drm/msm/dp/dp_drm.c
->>>>> @@ -31,6 +31,25 @@ static enum drm_connector_status 
->>>>> dp_bridge_detect(struct drm_bridge *bridge)
->>>>>                       connector_status_disconnected;
->>>>>   }
->>>>> +static int dp_bridge_atomic_check(struct drm_bridge *bridge,
->>>>> +                struct drm_bridge_state *bridge_state,
->>>>> +                struct drm_crtc_state *crtc_state,
->>>>> +                struct drm_connector_state *conn_state)
->>>>> +{
->>>>> +    struct msm_dp *dp;
->>>>> +
->>>>> +    dp = to_dp_bridge(bridge)->dp_display;
->>>>> +
->>>>> +    drm_dbg_dp(dp->drm_dev, "is_connected = %s\n",
->>>>> +        (dp->is_connected) ? "true" : "false");
->>>>> +
->>>>> +    if (bridge->ops & DRM_BRIDGE_OP_HPD)
->>>>> +        return (dp->is_connected) ? 0 : -ENOTCONN;
->>
->> This raises questions if this will work for the configurations when 
->> other bridge is used for HPD events.
->>
->> Let's not mix the levels of processing. If we should not disable the 
->> link because it is already disabled, let's just do so rather than 
->> failing the atomic_check().
->>
-> 
-> This is only for MSM DP's bridge. If we use another bridge which is 
-> capable of handling its own HPD, then that time MSM DP's bridge shouldnt 
-> set this flag.
-
-Not quite. The bridges set the ops to describe the ops that they support 
-themselves. Then the drm_bridge_connectors selects the bridge handling 
-hpd, etc. So the DRM_BRIDGE_OP_HPD is always set for DP sources. But the 
-question is quite the opposite: if we have the next bridge (e.g. the 
-usb-c-connector or the display-connector), will the is_connected field 
-be set correctly?
-
-> 
-> We can even replace this check with just checking if connector_type is 
-> DP but that would again open the discussion of having DP/eDP specific 
-> checks so we did it this way.
-> 
-> 
->>>>> +
->>>>> +    return 0;
->>>>> +}
->>>>> +
->>>>> +
->>>>>   /**
->>>>>    * dp_bridge_get_modes - callback to add drm modes via 
->>>>> drm_mode_probed_add()
->>>>>    * @bridge: Poiner to drm bridge
->>>>> @@ -61,6 +80,9 @@ static int dp_bridge_get_modes(struct drm_bridge 
->>>>> *bridge, struct drm_connector *
->>>>>   }
->>>>>   static const struct drm_bridge_funcs dp_bridge_ops = {
->>>>> +    .atomic_duplicate_state = 
->>>>> drm_atomic_helper_bridge_duplicate_state,
->>>>> +    .atomic_destroy_state   = drm_atomic_helper_bridge_destroy_state,
->>>>> +    .atomic_reset           = drm_atomic_helper_bridge_reset,
->>>>>       .enable       = dp_bridge_enable,
->>>>>       .disable      = dp_bridge_disable,
->>>>>       .post_disable = dp_bridge_post_disable,
->>>>> @@ -68,6 +90,7 @@ static const struct drm_bridge_funcs 
->>>>> dp_bridge_ops = {
->>>>>       .mode_valid   = dp_bridge_mode_valid,
->>>>>       .get_modes    = dp_bridge_get_modes,
->>>>>       .detect       = dp_bridge_detect,
->>>>> +    .atomic_check = dp_bridge_atomic_check,
->>>>>   };
->>>>>   struct drm_bridge *dp_bridge_init(struct msm_dp *dp_display, 
->>>>> struct drm_device *dev,
->>>>
 >>
 
 -- 
