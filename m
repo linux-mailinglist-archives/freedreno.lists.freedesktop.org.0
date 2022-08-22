@@ -2,56 +2,63 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 58A4159C820
-	for <lists+freedreno@lfdr.de>; Mon, 22 Aug 2022 21:11:07 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9C8DE59C835
+	for <lists+freedreno@lfdr.de>; Mon, 22 Aug 2022 21:11:49 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D6CA0A03FF;
-	Mon, 22 Aug 2022 19:11:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E8F96A0457;
+	Mon, 22 Aug 2022 19:11:47 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-oa1-f49.google.com (mail-oa1-f49.google.com
- [209.85.160.49])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 63DBFA03F2;
- Mon, 22 Aug 2022 19:10:59 +0000 (UTC)
-Received: by mail-oa1-f49.google.com with SMTP id
- 586e51a60fabf-11d2dcc31dbso5925985fac.7; 
- Mon, 22 Aug 2022 12:10:59 -0700 (PDT)
+Received: from mail-lf1-x12d.google.com (mail-lf1-x12d.google.com
+ [IPv6:2a00:1450:4864:20::12d])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 34429A044B
+ for <freedreno@lists.freedesktop.org>; Mon, 22 Aug 2022 19:11:41 +0000 (UTC)
+Received: by mail-lf1-x12d.google.com with SMTP id d23so12267830lfl.13
+ for <freedreno@lists.freedesktop.org>; Mon, 22 Aug 2022 12:11:41 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc;
+ bh=iMDkWm8TCfHT8OAB3OYo4HTW9w3Q76IKCWQmxSVeQpQ=;
+ b=dv1C1kBV3HwxnFUuzxtwuwq+g/+pxFAKNhm6bbtQkIuG6ymC+D2X27JIrkmMSn6PpY
+ G5WNxfRMk2JrEg0rMFpYXlG2vN4pbvuyGWo2ZECoAO12VqV2m3UHP/lzazBZHqYkzXgS
+ bO448cCNv0vkRNCo75AXz/fOR5NMmRUINCSEQGUeMznKqRAyOLG3Ry/ErOcxg12Dhp7T
+ wGdQqh0P5Jf8JFReBoxO/jJrum9rMq0PRjOOwDoMiGhw4tTPTaRLIjl9LbKleB1e01Rn
+ kXBaY9ZekMF32f+j++mt85Ahvblf9NzaU/tLI+cwHdCKd5FVXfIyr5j8lre58O5JtmVh
+ jRXQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc;
- bh=RyQ2R2dv/3M8lzsIjXV0R+NCfbe4VzghtrRY+W8bSpw=;
- b=Ddj3CDlAJ4/LyfJRrb+vnVXkV2nmNUsgzmHfIN82t3qbuCY/NSeMbj4YJWxgjeBYIn
- d5fFOXCA7lBWd8/1VzXn9I6YyNMJV17SOXtJBgeU5u2SXNE7aMTWdBZJG38emUsf5seG
- gn6ws00JA8oK1mWRkc9HZ04/hQppGSp6XfdhnZg3IwjcJ16x/yqtaiDnY8WqaP3jR52M
- PE2Hs4/XUrIp4qPocUTPaEbKFGA9IF8pLBUTVMYVTnZELNtEqNjHqWJfAZj+3OE18Pig
- sTFAy/OKEw53aNn7PhGdrurToaXdz2sgFSfbgq8Ekx3B0WPtqIT5H09ubEzkJXbJDFbT
- oByg==
-X-Gm-Message-State: ACgBeo0CvT0O5czMNUCoxnomJ5Iiy20cPDXmgF/dOrA4R7dUG9bzdvdX
- gTTo7UGd1cL5T85jeRQ/Tw==
-X-Google-Smtp-Source: AA6agR5bA4WycmNTvTD2/U7R6fOagPZP//u9KeaYWrui4/55tDupOwumUUqlIU8jnWDyBbSuSIc46Q==
-X-Received: by 2002:a05:6870:1715:b0:11d:80d4:9972 with SMTP id
- h21-20020a056870171500b0011d80d49972mr1394577oae.52.1661195458566; 
- Mon, 22 Aug 2022 12:10:58 -0700 (PDT)
-Received: from robh.at.kernel.org (66-90-144-107.dyn.grandenetworks.net.
- [66.90.144.107]) by smtp.gmail.com with ESMTPSA id
- j23-20020a056808035700b003449ff2299esm2752348oie.4.2022.08.22.12.10.57
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc;
+ bh=iMDkWm8TCfHT8OAB3OYo4HTW9w3Q76IKCWQmxSVeQpQ=;
+ b=ByOPGQvHsUtQgeNS1rb/H1+/Y7Gov6bJtBeISoXRAxOkMUn4ixxYUV7BhjcUp8leo3
+ ZAZdnAbAm34ywnIV3MlO7UowSUq/GSzOr5EBty7RHKyexVpAjK9a0wwScvihyrqUb4x8
+ XjMwN7pB/O3x4Dhw7+/lR9iHYOOBwdw3kVJNmA22F9KAcpyeeZ7O8WWV1c8zIuMCLabZ
+ DeSxSNyHTcOWO1OaTT62hzDJBoGktfJQMxEOzMpm2bOM2m6zTVria2XaRIdPMM8ArYwk
+ osha2jPGJh2aZy8mFm+hZ50DTT3FjCqLXgixFw3aYDzDdWP+VlcXMO/0HP3UVa/coz6x
+ xa1Q==
+X-Gm-Message-State: ACgBeo3zTwMx2oKgl0GzQLTmHXnbUJsaoKbh6AWQC0anQ3MPWXwCkmwV
+ fDauwfGS3egdQn/cVFj2BDGoVw==
+X-Google-Smtp-Source: AA6agR70vuKeOo3/CtRRcy/X8xj4wYkOtmS/jyu+Q6qlyjuX+3unBEUBymLpNpcfmWnefXqlX0oXKQ==
+X-Received: by 2002:a05:6512:3faa:b0:48a:f17a:579e with SMTP id
+ x42-20020a0565123faa00b0048af17a579emr8136533lfa.30.1661195499573; 
+ Mon, 22 Aug 2022 12:11:39 -0700 (PDT)
+Received: from eriador.lan ([37.153.55.125]) by smtp.gmail.com with ESMTPSA id
+ w18-20020a05651234d200b0048b193041easm2059691lfr.209.2022.08.22.12.11.38
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 22 Aug 2022 12:10:58 -0700 (PDT)
-Received: (nullmailer pid 223613 invoked by uid 1000);
- Mon, 22 Aug 2022 19:10:57 -0000
-Date: Mon, 22 Aug 2022 14:10:57 -0500
-From: Rob Herring <robh@kernel.org>
-To: Akhil P Oommen <quic_akhilpo@quicinc.com>
-Message-ID: <20220822191057.GA223526-robh@kernel.org>
-References: <1660927246-11327-1-git-send-email-quic_akhilpo@quicinc.com>
- <20220819221017.v4.5.Ieffadd08a071a233213ced4406bf84bb5922ab9a@changeid>
+ Mon, 22 Aug 2022 12:11:39 -0700 (PDT)
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+To: Andy Gross <agross@kernel.org>,
+ Bjorn Andersson <bjorn.andersson@linaro.org>,
+ Konrad Dybcio <konrad.dybcio@somainline.org>,
+ Rob Herring <robh+dt@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>
+Date: Mon, 22 Aug 2022 22:11:38 +0300
+Message-Id: <20220822191138.316912-1-dmitry.baryshkov@linaro.org>
+X-Mailer: git-send-email 2.35.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20220819221017.v4.5.Ieffadd08a071a233213ced4406bf84bb5922ab9a@changeid>
-Subject: Re: [Freedreno] [PATCH v4 5/6] dt-bindings: drm/msm/gpu: Add
- optional resets
+Content-Transfer-Encoding: 8bit
+Subject: [Freedreno] [PATCH] arm64: dts: qcom: sm8250: move DSI opp table to
+ the dsi0 node
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,31 +71,75 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: devicetree@vger.kernel.org, Douglas Anderson <dianders@chromium.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- David Airlie <airlied@linux.ie>, freedreno <freedreno@lists.freedesktop.org>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
- Bjorn Andersson <bjorn.andersson@linaro.org>, krzysztof.kozlowski@linaro.org,
- Rob Clark <robdclark@gmail.com>, Rob Herring <robh+dt@kernel.org>,
- Daniel Vetter <daniel@ffwll.ch>, linux-arm-msm@vger.kernel.org,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Stephen Boyd <swboyd@chromium.org>, Sean Paul <sean@poorly.run>,
- linux-kernel@vger.kernel.org
+Cc: linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
+ devicetree@vger.kernel.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Fri, 19 Aug 2022 22:10:44 +0530, Akhil P Oommen wrote:
-> Add an optional reference to GPUCC reset which can be used to ensure cx
-> gdsc collapse during gpu recovery.
-> 
-> Signed-off-by: Akhil P Oommen <quic_akhilpo@quicinc.com>
-> ---
-> 
-> Changes in v4:
-> - New patch in v4
-> 
->  Documentation/devicetree/bindings/display/msm/gpu.yaml | 7 +++++++
->  1 file changed, 7 insertions(+)
-> 
+It makes no sense to have the OPP table for the DSI controllers in the
+DSI1 PHY node. Move it to more logical dsi0 device node.
 
-Acked-by: Rob Herring <robh@kernel.org>
+Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+---
+ arch/arm64/boot/dts/qcom/sm8250.dtsi | 38 ++++++++++++++--------------
+ 1 file changed, 19 insertions(+), 19 deletions(-)
+
+diff --git a/arch/arm64/boot/dts/qcom/sm8250.dtsi b/arch/arm64/boot/dts/qcom/sm8250.dtsi
+index bc773e210023..5843e46a3164 100644
+--- a/arch/arm64/boot/dts/qcom/sm8250.dtsi
++++ b/arch/arm64/boot/dts/qcom/sm8250.dtsi
+@@ -3571,6 +3571,25 @@ dsi0_out: endpoint {
+ 						};
+ 					};
+ 				};
++
++				dsi_opp_table: opp-table {
++					compatible = "operating-points-v2";
++
++					opp-187500000 {
++						opp-hz = /bits/ 64 <187500000>;
++						required-opps = <&rpmhpd_opp_low_svs>;
++					};
++
++					opp-300000000 {
++						opp-hz = /bits/ 64 <300000000>;
++						required-opps = <&rpmhpd_opp_svs>;
++					};
++
++					opp-358000000 {
++						opp-hz = /bits/ 64 <358000000>;
++						required-opps = <&rpmhpd_opp_svs_l1>;
++					};
++				};
+ 			};
+ 
+ 			dsi0_phy: dsi-phy@ae94400 {
+@@ -3663,25 +3682,6 @@ dsi1_phy: dsi-phy@ae96400 {
+ 				clock-names = "iface", "ref";
+ 
+ 				status = "disabled";
+-
+-				dsi_opp_table: opp-table {
+-					compatible = "operating-points-v2";
+-
+-					opp-187500000 {
+-						opp-hz = /bits/ 64 <187500000>;
+-						required-opps = <&rpmhpd_opp_low_svs>;
+-					};
+-
+-					opp-300000000 {
+-						opp-hz = /bits/ 64 <300000000>;
+-						required-opps = <&rpmhpd_opp_svs>;
+-					};
+-
+-					opp-358000000 {
+-						opp-hz = /bits/ 64 <358000000>;
+-						required-opps = <&rpmhpd_opp_svs_l1>;
+-					};
+-				};
+ 			};
+ 		};
+ 
+-- 
+2.35.1
+
