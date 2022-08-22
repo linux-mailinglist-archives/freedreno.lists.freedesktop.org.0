@@ -2,38 +2,68 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7213059C1BC
-	for <lists+freedreno@lfdr.de>; Mon, 22 Aug 2022 16:38:35 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5EEBD59C3F0
+	for <lists+freedreno@lfdr.de>; Mon, 22 Aug 2022 18:19:26 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 28269911C1;
-	Mon, 22 Aug 2022 14:38:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6AA5218A233;
+	Mon, 22 Aug 2022 16:19:08 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by gabe.freedesktop.org (Postfix) with ESMTP id B657118A9F2;
- Mon, 22 Aug 2022 14:38:10 +0000 (UTC)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 11A3C12FC;
- Mon, 22 Aug 2022 07:38:13 -0700 (PDT)
-Received: from [10.57.15.77] (unknown [10.57.15.77])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id E017E3F70D;
- Mon, 22 Aug 2022 07:38:07 -0700 (PDT)
-Message-ID: <4650e8ff-86e1-d65e-bf87-c785013f3e08@arm.com>
-Date: Mon, 22 Aug 2022 15:38:02 +0100
+Received: from mail-lj1-x235.google.com (mail-lj1-x235.google.com
+ [IPv6:2a00:1450:4864:20::235])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1D0A6112332
+ for <freedreno@lists.freedesktop.org>; Mon, 22 Aug 2022 16:18:42 +0000 (UTC)
+Received: by mail-lj1-x235.google.com with SMTP id w23so5955930ljj.7
+ for <freedreno@lists.freedesktop.org>; Mon, 22 Aug 2022 09:18:41 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :from:to:cc; bh=1Hr7SjKBusnPB/mCwhMi+HTasXJ+kgjUChQRe0sHC4c=;
+ b=VZYHkaUxFphhVCpOzMwyrR83EdFG4s5zPBA3RysDY6Eg7ujIBgxsxUXezLtWCArBLy
+ /rbfXHq9tqqbefZR/wQDNPi2bdaJ4rpXnOqtz/086QDIL+eenDOAO1MzJ9HA/G9e9jAb
+ vtXFMeFHEvZWxwwXWPAgZhjCgRfdIe1gfjQ8RzVdd7uWGg36qGzlS0KNMnlxnLkcmRdp
+ R/FjJWCt4EPfNpDYDtNVAppLifgAD4WVZS93Deqtb57zktPHZw/PvYcREatlbDNfJZk8
+ 6OlBUYvPFNArhk0eIPqA2QUGk4HPqB5evxe46vrF+1wiMvCf+8bwkBq37h7E7MxbFUom
+ MVqw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc;
+ bh=1Hr7SjKBusnPB/mCwhMi+HTasXJ+kgjUChQRe0sHC4c=;
+ b=FKgN8MnRAel7BjAp57+XYJbbuk8XxU3nrrdKqrmZHscgvwZLAz05IvUBwL+ntQLCsL
+ Pu5uViV0SKRkp/EiTDmzAnpPtXr+51aTm9Pyrsb82hJZMaUoVmCAJC6bhraiauJfAFy/
+ DXwzz2lFz6M0iJu4mUrrvSH7vplInBSJMLDLjenRmfRUWxNtvgKpZt+FwH7KfwgDFqc2
+ cyBa76VaBax8clRCAqr+bnspx45RcQha0fRTqUqnz4hdJ4pXY/Qcvy9mU3c0VjRW1QYB
+ 5PyRGrFtCLpf9IQQlp+1AbaNWymfJVNrVnP/FTIW32PFlvdqu/X52wkYELuccX8MUwFU
+ oHkQ==
+X-Gm-Message-State: ACgBeo3xJqAAeBzXzd3o8sR848UEZPhDs2wRHswcltJnhltFmxslwk16
+ 2aC4VNufPZwRTtr0E2P674zOuQ==
+X-Google-Smtp-Source: AA6agR46GWQER6lDZQUost5Rtlh4FosszefiNZP7xBW2a5jcfTvEBwoKdziELVVeMY2QYWIF6/dfEg==
+X-Received: by 2002:a2e:9d5a:0:b0:25e:2c67:edaf with SMTP id
+ y26-20020a2e9d5a000000b0025e2c67edafmr6088739ljj.437.1661185119654; 
+ Mon, 22 Aug 2022 09:18:39 -0700 (PDT)
+Received: from [192.168.1.211] ([37.153.55.125])
+ by smtp.gmail.com with ESMTPSA id
+ w18-20020a05651234d200b0048b193041easm1988698lfr.209.2022.08.22.09.18.38
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 22 Aug 2022 09:18:39 -0700 (PDT)
+Message-ID: <f211520a-cb9c-1202-0752-7bb200726ae8@linaro.org>
+Date: Mon, 22 Aug 2022 19:18:38 +0300
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; rv:91.0) Gecko/20100101
- Thunderbird/91.12.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.1.2
+To: Kuogee Hsieh <quic_khsieh@quicinc.com>, robdclark@gmail.com,
+ sean@poorly.run, swboyd@chromium.org, dianders@chromium.org,
+ vkoul@kernel.org, daniel@ffwll.ch, airlied@linux.ie, agross@kernel.org,
+ bjorn.andersson@linaro.org
+References: <1660759314-28088-1-git-send-email-quic_khsieh@quicinc.com>
 Content-Language: en-GB
-From: Robin Murphy <robin.murphy@arm.com>
-To: Rob Clark <robdclark@gmail.com>, dri-devel@lists.freedesktop.org
-References: <20220821181917.1188021-1-robdclark@gmail.com>
- <20220821181917.1188021-5-robdclark@gmail.com>
- <c8543ace-65cd-b8a8-499c-1b051867366b@arm.com>
-In-Reply-To: <c8543ace-65cd-b8a8-499c-1b051867366b@arm.com>
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+In-Reply-To: <1660759314-28088-1-git-send-email-quic_khsieh@quicinc.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-Subject: Re: [Freedreno] [PATCH 4/5] drm/msm: Use separate ASID for each set
- of pgtables
+Content-Transfer-Encoding: 7bit
+Subject: Re: [Freedreno] [PATCH] drm/msm/dp: add atomic_check to bridge ops
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -46,96 +76,174 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rob Clark <robdclark@chromium.org>, David Airlie <airlied@linux.ie>,
- freedreno@lists.freedesktop.org, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- open list <linux-kernel@vger.kernel.org>, Sean Paul <sean@poorly.run>,
- "iommu@lists.linux.dev" <iommu@lists.linux.dev>, linux-arm-msm@vger.kernel.org,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Will Deacon <will@kernel.org>
+Cc: quic_sbillaka@quicinc.com, linux-arm-msm@vger.kernel.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ quic_aravindh@quicinc.com, freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 2022-08-22 14:52, Robin Murphy wrote:
-> On 2022-08-21 19:19, Rob Clark wrote:
->> From: Rob Clark <robdclark@chromium.org>
->>
->> Optimize TLB invalidation by using different ASID for each set of
->> pgtables.  There can be scenarios where multiple processes end up
->> with the same ASID (such as >256 processes using the GPU), but this
->> is harmless, it will only result in some over-invalidation (but
->> less over-invalidation compared to using ASID=0 for all processes)
+On 17/08/2022 21:01, Kuogee Hsieh wrote:
+> DRM commit_tails() will disable downstream crtc/encoder/bridge if
+> both disable crtc is required and crtc->active is set before pushing
+> a new frame downstream.
 > 
-> Um, if you're still relying on the GPU doing an invalidate-all-by-ASID 
-> whenever it switches a TTBR, then there's only ever one ASID live in the 
-> TLBs at once, so it really doesn't matter whether its value stays the 
-> same or changes. This seems like a whole chunk of complexity to achieve 
-> nothing :/
+> There is a rare case that user space display manager issue an extra
+> screen update immediately followed by close DRM device while down
+> stream display interface is disabled. This extra screen update will
+> timeout due to the downstream interface is disabled but will cause
+> crtc->active be set. Hence the followed commit_tails() called by
+> drm_release() will pass the disable downstream crtc/encoder/bridge
+> conditions checking even downstream interface is disabled.
+> This cause the crash to happen at dp_bridge_disable() due to it trying
+> to access the main link register to push the idle pattern out while main
+> link clocks is disabled.
 > 
-> If you could actually use multiple ASIDs in a meaningful way to avoid 
-> any invalidations, you'd need to do considerably more work to keep track 
-> of reuse, and those races would probably be a lot less benign.
+> This patch adds atomic_check to prevent the extra frame will not
+> be pushed down if display interface is down so that crtc->active
+> will not be set neither. This will fail the conditions checking
+> of disabling down stream crtc/encoder/bridge which prevent
+> drm_release() from calling dp_bridge_disable() so that crash
+> at dp_bridge_disable() prevented.
 
-Oh, and on top of that, if you did want to go down that route then 
-chances are you'd then also want to start looking at using global 
-mappings in TTBR1 to avoid increased TLB pressure from kernel buffers, 
-and then we'd run up against some pretty horrid MMU-500 errata which so 
-far I've been happy to ignore on the basis that Linux doesn't use global 
-mappings. Spoiler alert: unless you can additionally convert everything 
-to invalidate by VA, the workaround for #752357 most likely makes the 
-whole idea moot.
+I must admit I had troubles parsing this description. However if I got 
+you right, I think the check that the main link clock is running in the 
+dp_bridge_disable() or dp_ctrl_push_idle() would be a better fix.
 
-Robin.
+> 
+> SError Interrupt on CPU7, code 0x00000000be000411 -- SError
+> CPU: 7 PID: 3878 Comm: Xorg Not tainted 5.19.0-stb-cbq #19
+> Hardware name: Google Lazor (rev3 - 8) (DT)
+> pstate: a04000c9 (NzCv daIF +PAN -UAO -TCO -DIT -SSBS BTYPE=--)
+> pc : __cmpxchg_case_acq_32+0x14/0x2c
+> lr : do_raw_spin_lock+0xa4/0xdc
+> sp : ffffffc01092b6a0
+> x29: ffffffc01092b6a0 x28: 0000000000000028 x27: 0000000000000038
+> x26: 0000000000000004 x25: ffffffd2973dce48 x24: 0000000000000000
+> x23: 00000000ffffffff x22: 00000000ffffffff x21: ffffffd2978d0008
+> x20: ffffffd2978d0008 x19: ffffff80ff759fc0 x18: 0000000000000000
+> x17: 004800a501260460 x16: 0441043b04600438 x15: 04380000089807d0
+> x14: 07b0089807800780 x13: 0000000000000000 x12: 0000000000000000
+> x11: 0000000000000438 x10: 00000000000007d0 x9 : ffffffd2973e09e4
+> x8 : ffffff8092d53300 x7 : ffffff808902e8b8 x6 : 0000000000000001
+> x5 : ffffff808902e880 x4 : 0000000000000000 x3 : ffffff80ff759fc0
+> x2 : 0000000000000001 x1 : 0000000000000000 x0 : ffffff80ff759fc0
+> Kernel panic - not syncing: Asynchronous SError Interrupt
+> CPU: 7 PID: 3878 Comm: Xorg Not tainted 5.19.0-stb-cbq #19
+> Hardware name: Google Lazor (rev3 - 8) (DT)
+> Call trace:
+>   dump_backtrace.part.0+0xbc/0xe4
+>   show_stack+0x24/0x70
+>   dump_stack_lvl+0x68/0x84
+>   dump_stack+0x18/0x34
+>   panic+0x14c/0x32c
+>   nmi_panic+0x58/0x7c
+>   arm64_serror_panic+0x78/0x84
+>   do_serror+0x40/0x64
+>   el1h_64_error_handler+0x30/0x48
+>   el1h_64_error+0x68/0x6c
+>   __cmpxchg_case_acq_32+0x14/0x2c
+>   _raw_spin_lock_irqsave+0x38/0x4c
+>   lock_timer_base+0x40/0x78
+>   __mod_timer+0xf4/0x25c
+>   schedule_timeout+0xd4/0xfc
+>   __wait_for_common+0xac/0x140
+>   wait_for_completion_timeout+0x2c/0x54
+>   dp_ctrl_push_idle+0x40/0x88
+>   dp_bridge_disable+0x24/0x30
+>   drm_atomic_bridge_chain_disable+0x90/0xbc
+>   drm_atomic_helper_commit_modeset_disables+0x198/0x444
+>   msm_atomic_commit_tail+0x1d0/0x374
+>   commit_tail+0x80/0x108
+>   drm_atomic_helper_commit+0x118/0x11c
+>   drm_atomic_commit+0xb4/0xe0
+>   drm_client_modeset_commit_atomic+0x184/0x224
+>   drm_client_modeset_commit_locked+0x58/0x160
+>   drm_client_modeset_commit+0x3c/0x64
+>   __drm_fb_helper_restore_fbdev_mode_unlocked+0x98/0xac
+>   drm_fb_helper_set_par+0x74/0x80
+>   drm_fb_helper_hotplug_event+0xdc/0xe0
+>   __drm_fb_helper_restore_fbdev_mode_unlocked+0x7c/0xac
+>   drm_fb_helper_restore_fbdev_mode_unlocked+0x20/0x2c
+>   drm_fb_helper_lastclose+0x20/0x2c
+>   drm_lastclose+0x44/0x6c
+>   drm_release+0x88/0xd4
+>   __fput+0x104/0x220
+>   ____fput+0x1c/0x28
+>   task_work_run+0x8c/0x100
+>   do_exit+0x450/0x8d0
+>   do_group_exit+0x40/0xac
+>   __wake_up_parent+0x0/0x38
+>   invoke_syscall+0x84/0x11c
+>   el0_svc_common.constprop.0+0xb8/0xe4
+>   do_el0_svc+0x8c/0xb8
+>   el0_svc+0x2c/0x54
+>   el0t_64_sync_handler+0x120/0x1c0
+>   el0t_64_sync+0x190/0x194
+> SMP: stopping secondary CPUs
+> Kernel Offset: 0x128e800000 from 0xffffffc008000000
+> PHYS_OFFSET: 0x80000000
+> CPU features: 0x800,00c2a015,19801c82
+> Memory Limit: none
+> 
+> Fixes: 8a3b4c17f863 ("drm/msm/dp: employ bridge mechanism for display enable and disable")
+> Reported-by: Leonard Lausen <leonard@lausen.nl>
+> Suggested-by: Rob Clark <robdclark@gmail.com>
+> Closes: https://gitlab.freedesktop.org/drm/msm/-/issues/17
+> Signed-off-by: Kuogee Hsieh <quic_khsieh@quicinc.com>
+> ---
+>   drivers/gpu/drm/msm/dp/dp_drm.c | 23 +++++++++++++++++++++++
+>   1 file changed, 23 insertions(+)
+> 
+> diff --git a/drivers/gpu/drm/msm/dp/dp_drm.c b/drivers/gpu/drm/msm/dp/dp_drm.c
+> index 6df25f7..c682588 100644
+> --- a/drivers/gpu/drm/msm/dp/dp_drm.c
+> +++ b/drivers/gpu/drm/msm/dp/dp_drm.c
+> @@ -31,6 +31,25 @@ static enum drm_connector_status dp_bridge_detect(struct drm_bridge *bridge)
+>   					connector_status_disconnected;
+>   }
+>   
+> +static int dp_bridge_atomic_check(struct drm_bridge *bridge,
+> +			    struct drm_bridge_state *bridge_state,
+> +			    struct drm_crtc_state *crtc_state,
+> +			    struct drm_connector_state *conn_state)
+> +{
+> +	struct msm_dp *dp;
+> +
+> +	dp = to_dp_bridge(bridge)->dp_display;
+> +
+> +	drm_dbg_dp(dp->drm_dev, "is_connected = %s\n",
+> +		(dp->is_connected) ? "true" : "false");
+> +
+> +	if (bridge->ops & DRM_BRIDGE_OP_HPD)
+> +		return (dp->is_connected) ? 0 : -ENOTCONN;
+> +
+> +	return 0;
+> +}
+> +
+> +
+>   /**
+>    * dp_bridge_get_modes - callback to add drm modes via drm_mode_probed_add()
+>    * @bridge: Poiner to drm bridge
+> @@ -61,6 +80,9 @@ static int dp_bridge_get_modes(struct drm_bridge *bridge, struct drm_connector *
+>   }
+>   
+>   static const struct drm_bridge_funcs dp_bridge_ops = {
+> +	.atomic_duplicate_state = drm_atomic_helper_bridge_duplicate_state,
+> +	.atomic_destroy_state   = drm_atomic_helper_bridge_destroy_state,
+> +	.atomic_reset           = drm_atomic_helper_bridge_reset,
+>   	.enable       = dp_bridge_enable,
+>   	.disable      = dp_bridge_disable,
+>   	.post_disable = dp_bridge_post_disable,
+> @@ -68,6 +90,7 @@ static const struct drm_bridge_funcs dp_bridge_ops = {
+>   	.mode_valid   = dp_bridge_mode_valid,
+>   	.get_modes    = dp_bridge_get_modes,
+>   	.detect       = dp_bridge_detect,
+> +	.atomic_check = dp_bridge_atomic_check,
+>   };
+>   
+>   struct drm_bridge *dp_bridge_init(struct msm_dp *dp_display, struct drm_device *dev,
 
->> Signed-off-by: Rob Clark <robdclark@chromium.org>
->> ---
->>   drivers/gpu/drm/msm/msm_iommu.c | 15 ++++++++++-----
->>   1 file changed, 10 insertions(+), 5 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/msm/msm_iommu.c 
->> b/drivers/gpu/drm/msm/msm_iommu.c
->> index a54ed354578b..94c8c09980d1 100644
->> --- a/drivers/gpu/drm/msm/msm_iommu.c
->> +++ b/drivers/gpu/drm/msm/msm_iommu.c
->> @@ -33,6 +33,8 @@ static int msm_iommu_pagetable_unmap(struct msm_mmu 
->> *mmu, u64 iova,
->>           size_t size)
->>   {
->>       struct msm_iommu_pagetable *pagetable = to_pagetable(mmu);
->> +    struct adreno_smmu_priv *adreno_smmu =
->> +        dev_get_drvdata(pagetable->parent->dev);
->>       struct io_pgtable_ops *ops = pagetable->pgtbl_ops;
->>       size_t unmapped = 0;
->> @@ -43,7 +45,7 @@ static int msm_iommu_pagetable_unmap(struct msm_mmu 
->> *mmu, u64 iova,
->>           size -= 4096;
->>       }
->> -    iommu_flush_iotlb_all(to_msm_iommu(pagetable->parent)->domain);
->> +    adreno_smmu->tlb_inv_by_id(adreno_smmu->cookie, pagetable->asid);
->>       return (unmapped == size) ? 0 : -EINVAL;
->>   }
->> @@ -147,6 +149,7 @@ static int msm_fault_handler(struct iommu_domain 
->> *domain, struct device *dev,
->>   struct msm_mmu *msm_iommu_pagetable_create(struct msm_mmu *parent)
->>   {
->> +    static atomic_t asid = ATOMIC_INIT(1);
->>       struct adreno_smmu_priv *adreno_smmu = 
->> dev_get_drvdata(parent->dev);
->>       struct msm_iommu *iommu = to_msm_iommu(parent);
->>       struct msm_iommu_pagetable *pagetable;
->> @@ -210,12 +213,14 @@ struct msm_mmu 
->> *msm_iommu_pagetable_create(struct msm_mmu *parent)
->>       pagetable->ttbr = ttbr0_cfg.arm_lpae_s1_cfg.ttbr;
->>       /*
->> -     * TODO we would like each set of page tables to have a unique ASID
->> -     * to optimize TLB invalidation.  But iommu_flush_iotlb_all() will
->> -     * end up flushing the ASID used for TTBR1 pagetables, which is not
->> -     * what we want.  So for now just use the same ASID as TTBR1.
->> +     * ASID 0 is used for kernel mapped buffers in TTBR1, which we
->> +     * do not need to invalidate when unmapping from TTBR0 pgtables.
->> +     * The hw ASID is at *least* 8b, but can be 16b.  We just assume
->> +     * the worst:
->>        */
->>       pagetable->asid = 0;
->> +    while (!pagetable->asid)
->> +        pagetable->asid = atomic_inc_return(&asid) & 0xff;
->>       return &pagetable->base;
->>   }
+-- 
+With best wishes
+Dmitry
+
