@@ -2,71 +2,65 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 40F5B59C4D0
-	for <lists+freedreno@lfdr.de>; Mon, 22 Aug 2022 19:15:19 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9899D59C4D9
+	for <lists+freedreno@lfdr.de>; Mon, 22 Aug 2022 19:16:10 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2FA779A89F;
-	Mon, 22 Aug 2022 17:15:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6F56C94169;
+	Mon, 22 Aug 2022 17:16:08 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-x233.google.com (mail-lj1-x233.google.com
- [IPv6:2a00:1450:4864:20::233])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8CC8D9A89F
- for <freedreno@lists.freedesktop.org>; Mon, 22 Aug 2022 17:14:59 +0000 (UTC)
-Received: by mail-lj1-x233.google.com with SMTP id x10so11252554ljq.4
- for <freedreno@lists.freedesktop.org>; Mon, 22 Aug 2022 10:14:59 -0700 (PDT)
+Received: from mail-lj1-x235.google.com (mail-lj1-x235.google.com
+ [IPv6:2a00:1450:4864:20::235])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5B69B18A473
+ for <freedreno@lists.freedesktop.org>; Mon, 22 Aug 2022 17:15:57 +0000 (UTC)
+Received: by mail-lj1-x235.google.com with SMTP id by6so11225153ljb.11
+ for <freedreno@lists.freedesktop.org>; Mon, 22 Aug 2022 10:15:57 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc; bh=HmHJ7gWp7BcjLsSi8xEcBSYmwusbbPRlOVnswlXqR1k=;
- b=dJEvqYTyJl/xn/Peu0pFOu8cZDjSK4xFCOlOQoiNkojf2DkVuDQ1U9riuuj2M4RHCL
- X33SRW81AGp5A0CRW+kF7qE+qoTMDEn1fnnfcYnGl0jEh6t0dfubjrAAnwZCxncFUS1E
- 1zDXGXOZSUt8LYF37ZcEkWhkKfS90u4/LvSUUVU8jxdK4JhGwsw9LVRED2es7b0WYfG5
- TRqGSvAWerpZZGf8Jjg8rpmq0QyGk7kmHb8Y5HbpkB9S7rCQsXvZE0DJTCQjB0Esv4Lv
- bumV6AJI7sJE91RGZc7ke5milB+ovDohahBWeJoox2hL4ezVje45qcHqoq62FAUd2dSc
- +vjw==
+ :from:to:cc; bh=3B91h+yrTjwS7I4FUx77uKxPNz+E7GshMHnIapiZTc8=;
+ b=L9QS1hKwgWBMx6ma10ELOh9eQnoZAT8Szdd1iSgK+rhGHKoZ6Mtm7TdVEyday19ApG
+ R3x87oAm5OhNvqgvSNUuuRIalt/FEzvZraWsVRATJVhrk2zNUxrDG1DaPfqa1gnvRiET
+ GrjSk+xWXT3q1YI3kCSOaTd1UTyO1DACmUkCAqSUglcPKmJP1VWpzOVBZaafRTN020KX
+ qgfAE13dDMgRhUjuX7bsxL0AleLwvYnfTTynsdyZJ0GrQ26JoQvufwKvqsGlC2wbb9YA
+ nfXmXt03p+fYISvL3GLe/omMfhMvZoA6T2eo0unJ3CCi/WCwLifw7v7K7vddOmcEa/u+
+ O91Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc;
- bh=HmHJ7gWp7BcjLsSi8xEcBSYmwusbbPRlOVnswlXqR1k=;
- b=i6iZ/FJTDp54IxUO1ff7SMz+mkBnZuI7T7ix+neTGmcti4xRixHwLHu/s+bcrT13oZ
- RjG4TAGPiIWHrpPjHZaTaw0mpyUB5fFIV/xPV3URkCWRs+GOxNBWZXrQRoNOXLAaMtPb
- iBjDsj5ToJ1hkozDfUulKXHcYnevMgAqykRI7c8YG5pZXsz4YHV0QKH/KryNQC/74aH3
- iyN5oNzqNYSSoPwvNiOWqzmBHdEP/X2tB9Wsr4oEp+/y7tRmqy91VjocNSyHsl97ULcJ
- peaPb+mVAM7fBLKcFko+oU7QOdr90yUXbFrQilW7hll0v3syFCMhsebomrWrHSqwuFl8
- G5Hw==
-X-Gm-Message-State: ACgBeo1rp3DA2U3g8ruMvmiY23Ux/hKvfgQVoClZ8MPqGYrd4rKcx8EU
- x9zaSAemk4jFClEM86FSM7UY/A==
-X-Google-Smtp-Source: AA6agR58v6ldgC0ZLyOtTHI0ZuRbH59+jLuimO/JwRR1MpmFwzDJ54ATiXx5WOlvwYQsTXqdo+c7GQ==
-X-Received: by 2002:a2e:9d02:0:b0:25d:d6b9:b753 with SMTP id
- t2-20020a2e9d02000000b0025dd6b9b753mr5728079lji.344.1661188497895; 
- Mon, 22 Aug 2022 10:14:57 -0700 (PDT)
+ bh=3B91h+yrTjwS7I4FUx77uKxPNz+E7GshMHnIapiZTc8=;
+ b=QuTzex4TotbRvz31HHX02vlLHm1KN4GKBI4YAzHV4LkbsIUr5Kl/MHmZKv33V0D5L4
+ zbewebDPsh/t7NpM9TuTqUZJSnRkHk5EpdiJbicIq4p8Vmaat3dGKHrvwAnBIfuWKWUD
+ aGzHCslPx/bI53i92d/TEafuiEKPGNgJzWMR5le2b8m6Xb1w5FlI89TGSiJNu7PAImQX
+ QjoDzXfRbp0lAjqr7RP+zEge9r/+X7FEJ2Rdr8GIm4yaURwpRHybZ3Aoeg4SNuShT36r
+ yfMo3pdxeXWN7DzWf2IEX+ybOnNw7akYl7rvkAaZEVYnWOT33pQjVDfuBuhUK8b7O/+x
+ 0kuw==
+X-Gm-Message-State: ACgBeo3yZJAJT2XOvDwURB2dLymUvySYJv04B4Cnu3fppl2EDt0bnfyQ
+ UAym41FQykRLLLV2XS5e230+8Q==
+X-Google-Smtp-Source: AA6agR45NEMpbO0Z9AzrrsVon/LA0ZrvVtjVxutO5v+1o6P1YNcB95+XrUkQ2XHqrbFf16qxDUfE0w==
+X-Received: by 2002:a2e:3314:0:b0:261:d144:faa4 with SMTP id
+ d20-20020a2e3314000000b00261d144faa4mr1232145ljc.208.1661188555755; 
+ Mon, 22 Aug 2022 10:15:55 -0700 (PDT)
 Received: from [192.168.1.211] ([37.153.55.125])
  by smtp.gmail.com with ESMTPSA id
- y4-20020a2e3204000000b0025e15fe421bsm1910334ljy.17.2022.08.22.10.14.57
+ w9-20020a05651203c900b0048b0bf9f4bfsm2010195lfp.140.2022.08.22.10.15.54
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 22 Aug 2022 10:14:57 -0700 (PDT)
-Message-ID: <c4f5290d-8151-ab90-05d9-bce321719d4c@linaro.org>
-Date: Mon, 22 Aug 2022 20:14:56 +0300
+ Mon, 22 Aug 2022 10:15:55 -0700 (PDT)
+Message-ID: <f0016468-16f9-aca1-c362-805bfd141e57@linaro.org>
+Date: Mon, 22 Aug 2022 20:15:54 +0300
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.1.2
 Content-Language: en-GB
-To: Akhil P Oommen <quic_akhilpo@quicinc.com>,
- freedreno <freedreno@lists.freedesktop.org>,
- dri-devel@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
- Rob Clark <robdclark@gmail.com>, Bjorn Andersson
- <bjorn.andersson@linaro.org>, Stephen Boyd <swboyd@chromium.org>
-References: <1660927246-11327-1-git-send-email-quic_akhilpo@quicinc.com>
- <20220819221017.v4.4.I5e64ff4b77bb9079eb2edeea8a02585c9e76778f@changeid>
+To: Rob Clark <robdclark@gmail.com>, dri-devel@lists.freedesktop.org
+References: <20220821155441.1092134-1-robdclark@gmail.com>
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-In-Reply-To: <20220819221017.v4.4.I5e64ff4b77bb9079eb2edeea8a02585c9e76778f@changeid>
+In-Reply-To: <20220821155441.1092134-1-robdclark@gmail.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH v4 4/6] clk: qcom: gpucc-sc7280: Add cx
- collapse reset support
+Subject: Re: [Freedreno] [PATCH] drm/msm: De-open-code some CP_EVENT_WRITE
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,34 +73,24 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Stephen Boyd <sboyd@kernel.org>,
- Michael Turquette <mturquette@baylibre.com>,
- Konrad Dybcio <konrad.dybcio@somainline.org>,
- Douglas Anderson <dianders@chromium.org>, linux-kernel@vger.kernel.org,
- krzysztof.kozlowski@linaro.org, Andy Gross <agross@kernel.org>,
- linux-clk@vger.kernel.org
+Cc: Rob Clark <robdclark@chromium.org>, freedreno@lists.freedesktop.org,
+ open list <linux-kernel@vger.kernel.org>, David Airlie <airlied@linux.ie>,
+ linux-arm-msm@vger.kernel.org, Konrad Dybcio <konrad.dybcio@somainline.org>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Douglas Anderson <dianders@chromium.org>,
+ Akhil P Oommen <quic_akhilpo@quicinc.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Sean Paul <sean@poorly.run>, Chia-I Wu <olvaffe@gmail.com>,
+ Dan Carpenter <dan.carpenter@oracle.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 19/08/2022 19:40, Akhil P Oommen wrote:
-> Allow a consumer driver to poll for cx gdsc collapse through Reset
-> framework.
+On 21/08/2022 18:54, Rob Clark wrote:
+> From: Rob Clark <robdclark@chromium.org>
 > 
-> Signed-off-by: Akhil P Oommen <quic_akhilpo@quicinc.com>
-> ---
-> 
-> (no changes since v3)
-> 
-> Changes in v3:
-> - Convert 'struct qcom_reset_ops cx_gdsc_reset' to 'static const' (Krzysztof)
-> 
-> Changes in v2:
-> - Minor update to use the updated custom reset ops implementation
-> 
->   drivers/clk/qcom/gpucc-sc7280.c | 10 ++++++++++
->   1 file changed, 10 insertions(+)
+> Signed-off-by: Rob Clark <robdclark@chromium.org>
 
 Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+
 -- 
 With best wishes
 Dmitry
