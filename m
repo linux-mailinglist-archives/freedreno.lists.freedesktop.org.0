@@ -1,51 +1,51 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2C30259C71B
-	for <lists+freedreno@lfdr.de>; Mon, 22 Aug 2022 20:49:48 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id EAE7E59C716
+	for <lists+freedreno@lfdr.de>; Mon, 22 Aug 2022 20:49:29 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 488F41133B4;
-	Mon, 22 Aug 2022 18:49:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A84442BAF4;
+	Mon, 22 Aug 2022 18:49:17 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x12a.google.com (mail-lf1-x12a.google.com
- [IPv6:2a00:1450:4864:20::12a])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 296812A5B8
+Received: from mail-lf1-x132.google.com (mail-lf1-x132.google.com
+ [IPv6:2a00:1450:4864:20::132])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2429214A99C
  for <freedreno@lists.freedesktop.org>; Mon, 22 Aug 2022 18:49:03 +0000 (UTC)
-Received: by mail-lf1-x12a.google.com with SMTP id q7so12855377lfu.5
+Received: by mail-lf1-x132.google.com with SMTP id z6so16533015lfu.9
  for <freedreno@lists.freedesktop.org>; Mon, 22 Aug 2022 11:49:03 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc;
- bh=rsjsUi5j29pEEYwqLrOimHSSjS8I1Tzv9QAdiQT8qPo=;
- b=LQGklJCGzJGKHdWBkted5ByOVqUVC7J0izLl28gYCPluIn7L0Ez6NyrkxwrK2a8q8p
- Ktftb7A2PEroo6wEZIwBtcIIsxvDh2fMVcQv1waPpo0s1Jspg7npBdJLUG7y+h2MNCzN
- 1oYGU7Rmveduyu1Rx+gFlFujMnRVyItJxagzMVfJAZb+kfiqUkHKQnPYR9bV+VkGTg7O
- 3uFyHLmSr5XOsciaST3frULP/uFly4YD6sZd7ubkRkbfy5YX3IMBGsfC4I6Kn7Mq4KXl
- KUzV/QFF3ngPfyhbg1vuYJ6yRdVo28JJWd9Hr0P57j3KRWL0j44wAaeMWCAHeNwB8mNU
- mtsQ==
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc;
+ bh=+6p730dgyqntkr7bllnjAf2d8NavekxWpvxDzWTO3h0=;
+ b=eDeiz+RYOBRYfof7v0uXtkctIBuyowUeC9JCs+Do6Z8P9lu2mnnOO7RtMuFhTUlDON
+ eFEO1XeNM4k9Gdr+HeINrVpuSeAFRw8jx8Ab9FlRve8WWZEOc1fDlsWqNaXIMQES9QMR
+ vCSVP9oKodIqRWhIg0KmRPhoYC458rmDROSi9anxGe9d7MPpCelyEgXwJ8/sdtZUMCOe
+ GtjUQEQu9oYe+m0X6Po9EHdEcy5+CsNFqBDxXqKWGUQ4XyM0pP/KM5LXQomf3C692378
+ v873Q0wA6skDnACEKJBp455nmZHNPK/HfyJtunJq7Dc0QKv5pV44Q5fn1li6gaOIDX7h
+ nhww==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc;
- bh=rsjsUi5j29pEEYwqLrOimHSSjS8I1Tzv9QAdiQT8qPo=;
- b=1Xa3KpVaVXMaWdHyuBvcaZfNJc9Q0miDVHlgJY3U5eRGY/k9bDfXtFUie/PpyvdcMf
- oce/B6m9Qitfrr/iKjQfc5HHU+4mVHeNattpIpl21/XsPT48/CA+Iz4bSA1YNc9eoa4i
- uZ06HGUki5iEneYp0AO7l9g6JO6aSmsL/NUlmJfMNYeFw9IL6819W4M/jCRrSA4CEIRx
- KhM9Cx4XJDuCblxiqC/fZ/aq3UkkCUwHdc4FRNgdyNerkXiSPr91NDHy/dvRR0wXwpeA
- z/ox+KdECoemIA1TwX3ZRqNPMuRca8Q1PiMclyL3ZC9AmTEJqD9TVnsuU2ZU1J+WQtff
- Hu/A==
-X-Gm-Message-State: ACgBeo0N3oZjwl/aeVTvilr/15YC7vKaJ1dNEdD6PDw1ihYH2Ib4xVfE
- bEhbcWCi8lFU7OwF/TtJni9jjw==
-X-Google-Smtp-Source: AA6agR5DtSe4fBaOZwmnol1A/9xLdl1qZkv2nRAnVVepcoZn0MEJuGyfMi+XYztw6sZ5o48fs5c2NA==
-X-Received: by 2002:a19:5f4f:0:b0:492:e5d9:a0eb with SMTP id
- a15-20020a195f4f000000b00492e5d9a0ebmr1992808lfj.377.1661194141378; 
- Mon, 22 Aug 2022 11:49:01 -0700 (PDT)
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc;
+ bh=+6p730dgyqntkr7bllnjAf2d8NavekxWpvxDzWTO3h0=;
+ b=m88X43KJP/c4QzRdlp+dXehNiCIrjJYnxpnZwcu+V5Oh3Q5l/NZKBz60rLE61vB16+
+ OZSZlKCRoSfjw/8ZTgbPDzIhQNcn3jFnvYSjs84fkY/w68FBlphEpcXPapq43WlSS0Wl
+ S0WiJWL5N5Fyp0z2zfA1Ac+t4ittFzoRZiIXfyC0OoShfudhrRzc0g3asY7msjokE/Yy
+ /grwhE4c12Js8hKtBc+7pCsHhY3i2rwg0PjK6FzZg1ZlKzyQ+TzMPcgF6kpPWAOoyJ76
+ od3gxf54UdrGtIOjK08DVhU5t14/a2YHWbHZxftjJo3SZHNrWCkUXyYAb3Jv6Lz9eUkB
+ gfFw==
+X-Gm-Message-State: ACgBeo0P3rtBzgwEhG5wDgyoAeyDq/5mFICQY1TIHW9pc/PWYZAs6EaU
+ y1hxlFPx6dL3VFAER18Jhsx5jA==
+X-Google-Smtp-Source: AA6agR44lsNkng4rpEe72WkAzNNu0JEWbU0OeFAkX8SVca0JpyvVTSqiNbeUBsgEd8RImBEhTfW9UQ==
+X-Received: by 2002:ac2:4e16:0:b0:492:e5be:bcc0 with SMTP id
+ e22-20020ac24e16000000b00492e5bebcc0mr1953621lfr.210.1661194142326; 
+ Mon, 22 Aug 2022 11:49:02 -0700 (PDT)
 Received: from eriador.lan ([37.153.55.125]) by smtp.gmail.com with ESMTPSA id
- w11-20020a05651c118b00b00261bc05c461sm1672599ljo.50.2022.08.22.11.49.00
+ w11-20020a05651c118b00b00261bc05c461sm1672599ljo.50.2022.08.22.11.49.01
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 22 Aug 2022 11:49:00 -0700 (PDT)
+ Mon, 22 Aug 2022 11:49:01 -0700 (PDT)
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 To: Andy Gross <agross@kernel.org>,
  Bjorn Andersson <bjorn.andersson@linaro.org>,
@@ -54,13 +54,15 @@ To: Andy Gross <agross@kernel.org>,
  Abhinav Kumar <quic_abhinavk@quicinc.com>,
  Rob Herring <robh+dt@kernel.org>,
  Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>
-Date: Mon, 22 Aug 2022 21:48:57 +0300
-Message-Id: <20220822184900.307160-1-dmitry.baryshkov@linaro.org>
+Date: Mon, 22 Aug 2022 21:48:58 +0300
+Message-Id: <20220822184900.307160-2-dmitry.baryshkov@linaro.org>
 X-Mailer: git-send-email 2.35.1
+In-Reply-To: <20220822184900.307160-1-dmitry.baryshkov@linaro.org>
+References: <20220822184900.307160-1-dmitry.baryshkov@linaro.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH v3 0/3] dt-bindings: msm/dp: cleanup Qualcomm DP
- and eDP bidndings
+Subject: [Freedreno] [PATCH v3 1/3] dt-bindings: msm/dp: mark vdda supplies
+ as deprecated
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,38 +75,53 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: devicetree@vger.kernel.org, David Airlie <airlied@linux.ie>,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- Stephen Boyd <swboyd@chromium.org>, Daniel Vetter <daniel@ffwll.ch>,
- freedreno@lists.freedesktop.org
+Cc: devicetree@vger.kernel.org, Rob Herring <robh@kernel.org>,
+ David Airlie <airlied@linux.ie>, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, Stephen Boyd <swboyd@chromium.org>,
+ Daniel Vetter <daniel@ffwll.ch>, freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Fix several issues with the DP and eDP bindings on the Qualcomm
-platforms. While we are at it, fix several small issues with platform
-files declaring these controllers.
+The commit 85936d4f3815 ("phy: qcom-qmp: add regulator_set_load to dp
+phy") moved setting regulator load to the DP PHY driver (QMP). Then, the
+commit 7516351bebc1 ("drm/msm/dp: delete vdda regulator related
+functions from eDP/DP controller") removed support for VDDA supplies
+from the DP controller driver.
+Mark these properties as deprecated and drop them from the example.
 
-Changes since v2:
- - Fixed commit message for the patch 1 to mention proper commit IDs.
- - Dropped dts patches which were picked up by respective tree.
+Acked-by: Rob Herring <robh@kernel.org>
+Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+---
+ .../devicetree/bindings/display/msm/dp-controller.yaml   | 9 ++++-----
+ 1 file changed, 4 insertions(+), 5 deletions(-)
 
-Changes since v1:
- - Reordered patches to cleanup dts first, to remove warnings from DP
-   schema
- - Split DP register blocks in sc7180.dtsi and sc7280.dtsi
- - Cleaned up the p1 register block handling: marked it as required for DP
-   and absent for eDP controllers
- - Dropped unused xo and ref clocks from sc7280-edp node, they belong to
-   eDP PHY.
-
-Dmitry Baryshkov (3):
-  dt-bindings: msm/dp: mark vdda supplies as deprecated
-  dt-bindings: msm/dp: add missing properties
-  dt-bindings: msm/dp: handle DP vs eDP difference
-
- .../bindings/display/msm/dp-controller.yaml   | 47 ++++++++++++++++---
- 1 file changed, 41 insertions(+), 6 deletions(-)
-
+diff --git a/Documentation/devicetree/bindings/display/msm/dp-controller.yaml b/Documentation/devicetree/bindings/display/msm/dp-controller.yaml
+index 94bc6e1b6451..391910d91e43 100644
+--- a/Documentation/devicetree/bindings/display/msm/dp-controller.yaml
++++ b/Documentation/devicetree/bindings/display/msm/dp-controller.yaml
+@@ -76,8 +76,10 @@ properties:
+   "#sound-dai-cells":
+     const: 0
+ 
+-  vdda-0p9-supply: true
+-  vdda-1p2-supply: true
++  vdda-0p9-supply:
++    deprecated: true
++  vdda-1p2-supply:
++    deprecated: true
+ 
+   ports:
+     $ref: /schemas/graph.yaml#/properties/ports
+@@ -140,9 +142,6 @@ examples:
+ 
+         power-domains = <&rpmhpd SC7180_CX>;
+ 
+-        vdda-0p9-supply = <&vdda_usb_ss_dp_core>;
+-        vdda-1p2-supply = <&vdda_usb_ss_dp_1p2>;
+-
+         ports {
+             #address-cells = <1>;
+             #size-cells = <0>;
 -- 
 2.35.1
 
