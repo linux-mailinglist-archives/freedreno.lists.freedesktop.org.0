@@ -2,73 +2,56 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3B5E359C7D5
-	for <lists+freedreno@lfdr.de>; Mon, 22 Aug 2022 21:04:47 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 58A4159C820
+	for <lists+freedreno@lfdr.de>; Mon, 22 Aug 2022 21:11:07 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BB8C69F5D6;
-	Mon, 22 Aug 2022 19:04:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D6CA0A03FF;
+	Mon, 22 Aug 2022 19:11:05 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-x230.google.com (mail-lj1-x230.google.com
- [IPv6:2a00:1450:4864:20::230])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9069398E8B
- for <freedreno@lists.freedesktop.org>; Mon, 22 Aug 2022 19:04:20 +0000 (UTC)
-Received: by mail-lj1-x230.google.com with SMTP id n24so9478814ljc.13
- for <freedreno@lists.freedesktop.org>; Mon, 22 Aug 2022 12:04:20 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc; bh=3IWXz8eCdqpXEQvD6O5SYTQDmDx5euY2FlxhrreZWG4=;
- b=LuvvTwCNhCDCu2NS4MmKwvnQenPyoAw/9xUEHWdz7Tq5EervJX1bOfuah2Z3IieK4E
- Dbu6NyQCWCGpV1RT1ctHxOhR+5SSKFaAslQKO4fdKWzhnTJk9uog76OShLGq1bMvXuFn
- aOxGIS8p6wZ053W+wpGK47ODLh/TUgH7HDN8NkgUX5BB+e8MItGr1D/QDHlVbllVhSpM
- 6WmeAtxtXEUdGkf8VbFb8DYCUfIGrjTyLB4PYH/KbCOZLWSqmiebx4w5yHrgQQeDS6km
- 0tSPifp6zhnyNM/RcnaTVkhz2nAm8PHajVLPKTNCC5975uXx+Jy+e51Cb/K8TcAnEUQs
- qd0Q==
+Received: from mail-oa1-f49.google.com (mail-oa1-f49.google.com
+ [209.85.160.49])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 63DBFA03F2;
+ Mon, 22 Aug 2022 19:10:59 +0000 (UTC)
+Received: by mail-oa1-f49.google.com with SMTP id
+ 586e51a60fabf-11d2dcc31dbso5925985fac.7; 
+ Mon, 22 Aug 2022 12:10:59 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc;
- bh=3IWXz8eCdqpXEQvD6O5SYTQDmDx5euY2FlxhrreZWG4=;
- b=nqOpxkXr5HAw0zdxneSMdcl4zdJTcL7TPv7t34ebAW0RsECGnLB4kzJ0wUzBrOSNAs
- FV6VoIBSPFnODpy2yWeadEn7notnTiZbSKhPw5uteo82CehW2xCbwV8k1+swjlDmJNom
- 1YDA/7SxJ18V3x7+w2w/KGKdfZ5N22kVtv2icJy7THhm60x8Ox3QnSThmNLCbB3G6AxY
- TD4kPGAAWR/Kxkz4r8iUVFHCNuDJrqOfYWpwH57Jt+P6i+H1KAE8Bee2FuPEX+NRkbZm
- Or7vvouYzoHkJoGHY2IkEmi5bke1hOz4s7RMy5KypOBkH3RcVHUbgjHdbfct5R9FZQKo
- C61Q==
-X-Gm-Message-State: ACgBeo3rHZwVpoA9VB4q5i0hBjyRfrZHmI9LEh2RTKLS3AFcJrmC5cis
- 3Slk05nlwjUHw8MIXzyFYVO9Ng==
-X-Google-Smtp-Source: AA6agR5ieNB4uOnYYDjnId+dqFhUZbozl3LcSybJCzFRj4ssHYbplnXNawbEaRZdLCNmR7fu6JnsRw==
-X-Received: by 2002:a2e:ba0a:0:b0:261:cc4f:1ab1 with SMTP id
- p10-20020a2eba0a000000b00261cc4f1ab1mr2126422lja.215.1661195058732; 
- Mon, 22 Aug 2022 12:04:18 -0700 (PDT)
-Received: from [192.168.1.211] ([37.153.55.125])
- by smtp.gmail.com with ESMTPSA id
- q15-20020a056512210f00b00492d1eb41dfsm1381207lfr.240.2022.08.22.12.04.17
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 22 Aug 2022 12:04:18 -0700 (PDT)
-Message-ID: <76c05290-d957-b1ec-fa4d-1074c42979a8@linaro.org>
-Date: Mon, 22 Aug 2022 22:04:17 +0300
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc;
+ bh=RyQ2R2dv/3M8lzsIjXV0R+NCfbe4VzghtrRY+W8bSpw=;
+ b=Ddj3CDlAJ4/LyfJRrb+vnVXkV2nmNUsgzmHfIN82t3qbuCY/NSeMbj4YJWxgjeBYIn
+ d5fFOXCA7lBWd8/1VzXn9I6YyNMJV17SOXtJBgeU5u2SXNE7aMTWdBZJG38emUsf5seG
+ gn6ws00JA8oK1mWRkc9HZ04/hQppGSp6XfdhnZg3IwjcJ16x/yqtaiDnY8WqaP3jR52M
+ PE2Hs4/XUrIp4qPocUTPaEbKFGA9IF8pLBUTVMYVTnZELNtEqNjHqWJfAZj+3OE18Pig
+ sTFAy/OKEw53aNn7PhGdrurToaXdz2sgFSfbgq8Ekx3B0WPtqIT5H09ubEzkJXbJDFbT
+ oByg==
+X-Gm-Message-State: ACgBeo0CvT0O5czMNUCoxnomJ5Iiy20cPDXmgF/dOrA4R7dUG9bzdvdX
+ gTTo7UGd1cL5T85jeRQ/Tw==
+X-Google-Smtp-Source: AA6agR5bA4WycmNTvTD2/U7R6fOagPZP//u9KeaYWrui4/55tDupOwumUUqlIU8jnWDyBbSuSIc46Q==
+X-Received: by 2002:a05:6870:1715:b0:11d:80d4:9972 with SMTP id
+ h21-20020a056870171500b0011d80d49972mr1394577oae.52.1661195458566; 
+ Mon, 22 Aug 2022 12:10:58 -0700 (PDT)
+Received: from robh.at.kernel.org (66-90-144-107.dyn.grandenetworks.net.
+ [66.90.144.107]) by smtp.gmail.com with ESMTPSA id
+ j23-20020a056808035700b003449ff2299esm2752348oie.4.2022.08.22.12.10.57
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 22 Aug 2022 12:10:58 -0700 (PDT)
+Received: (nullmailer pid 223613 invoked by uid 1000);
+ Mon, 22 Aug 2022 19:10:57 -0000
+Date: Mon, 22 Aug 2022 14:10:57 -0500
+From: Rob Herring <robh@kernel.org>
+To: Akhil P Oommen <quic_akhilpo@quicinc.com>
+Message-ID: <20220822191057.GA223526-robh@kernel.org>
+References: <1660927246-11327-1-git-send-email-quic_akhilpo@quicinc.com>
+ <20220819221017.v4.5.Ieffadd08a071a233213ced4406bf84bb5922ab9a@changeid>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.1.2
-Content-Language: en-GB
-To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
- Andy Gross <agross@kernel.org>, Bjorn Andersson
- <bjorn.andersson@linaro.org>, Konrad Dybcio <konrad.dybcio@somainline.org>,
- Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, Rob Herring <robh+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>
-References: <20220710090040.35193-1-dmitry.baryshkov@linaro.org>
- <20220710090040.35193-7-dmitry.baryshkov@linaro.org>
- <37bf0f7f-e555-7ae9-7d2b-e05a9e8db6a4@linaro.org>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-In-Reply-To: <37bf0f7f-e555-7ae9-7d2b-e05a9e8db6a4@linaro.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH v2 06/11] dt-bindings: display/msm: move
- qcom, sc7180-mdss schema to mdss.yaml
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20220819221017.v4.5.Ieffadd08a071a233213ced4406bf84bb5922ab9a@changeid>
+Subject: Re: [Freedreno] [PATCH v4 5/6] dt-bindings: drm/msm/gpu: Add
+ optional resets
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,328 +64,31 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: devicetree@vger.kernel.org, David Airlie <airlied@linux.ie>,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- Stephen Boyd <swboyd@chromium.org>, Daniel Vetter <daniel@ffwll.ch>,
- freedreno@lists.freedesktop.org
+Cc: devicetree@vger.kernel.org, Douglas Anderson <dianders@chromium.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ David Airlie <airlied@linux.ie>, freedreno <freedreno@lists.freedesktop.org>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
+ Bjorn Andersson <bjorn.andersson@linaro.org>, krzysztof.kozlowski@linaro.org,
+ Rob Clark <robdclark@gmail.com>, Rob Herring <robh+dt@kernel.org>,
+ Daniel Vetter <daniel@ffwll.ch>, linux-arm-msm@vger.kernel.org,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Stephen Boyd <swboyd@chromium.org>, Sean Paul <sean@poorly.run>,
+ linux-kernel@vger.kernel.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 11/08/2022 11:25, Krzysztof Kozlowski wrote:
-> On 10/07/2022 12:00, Dmitry Baryshkov wrote:
->> Move schema for qcom,sc7180-mdss from dpu-sc7180.yaml to mdss.yaml so
->> that the dpu file describes only the DPU schema.
->>
->> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
->> ---
->>   .../bindings/display/msm/dpu-sc7180.yaml      | 149 +++++-------------
->>   .../devicetree/bindings/display/msm/mdss.yaml |  45 +++++-
->>   2 files changed, 80 insertions(+), 114 deletions(-)
->>
->> diff --git a/Documentation/devicetree/bindings/display/msm/dpu-sc7180.yaml b/Documentation/devicetree/bindings/display/msm/dpu-sc7180.yaml
->> index d3c3e4b07897..9d4ec0b60c25 100644
->> --- a/Documentation/devicetree/bindings/display/msm/dpu-sc7180.yaml
->> +++ b/Documentation/devicetree/bindings/display/msm/dpu-sc7180.yaml
->> @@ -10,151 +10,78 @@ maintainers:
->>     - Krishna Manikandan <quic_mkrishn@quicinc.com>
->>   
->>   description: |
->> -  Device tree bindings for MSM Mobile Display Subsystem(MDSS) that encapsulates
->> -  sub-blocks like DPU display controller, DSI and DP interfaces etc. Device tree
->> -  bindings of MDSS and DPU are mentioned for SC7180 target.
->> +  Device tree bindings for the DPU display controller for SC7180 target.
->>   
->>   properties:
->>     compatible:
->>       items:
->> -      - const: qcom,sc7180-mdss
->> +      - const: qcom,sc7180-dpu
->>   
->>     reg:
->> -    maxItems: 1
->> +    items:
->> +      - description: Address offset and size for mdp register set
->> +      - description: Address offset and size for vbif register set
->>   
->>     reg-names:
->> -    const: mdss
->> -
->> -  power-domains:
->> -    maxItems: 1
->> +    items:
->> +      - const: mdp
->> +      - const: vbif
->>   
->>     clocks:
->>       items:
->> -      - description: Display AHB clock from gcc
->> -      - description: Display AHB clock from dispcc
->> +      - description: Display hf axi clock
->> +      - description: Display ahb clock
->> +      - description: Display rotator clock
->> +      - description: Display lut clock
->>         - description: Display core clock
->> +      - description: Display vsync clock
->>   
->>     clock-names:
->>       items:
->> +      - const: bus
->>         - const: iface
->> -      - const: ahb
->> +      - const: rot
->> +      - const: lut
->>         - const: core
->> +      - const: vsync
->>   
->>     interrupts:
->>       maxItems: 1
->>   
->> -  interrupt-controller: true
->> -
->> -  "#address-cells": true
->> -
->> -  "#size-cells": true
->> -
->> -  "#interrupt-cells":
->> -    const: 1
->> -
->> -  iommus:
->> -    items:
->> -      - description: Phandle to apps_smmu node with SID mask for Hard-Fail port0
->> -
->> -  ranges: true
->> -
->> -  interconnects:
->> -    items:
->> -      - description: Interconnect path specifying the port ids for data bus
->> -
->> -  interconnect-names:
->> -    const: mdp0-mem
->> +  power-domains:
->> +    maxItems: 1
->>   
->> -  resets:
->> -    items:
->> -      - description: MDSS_CORE reset
->> +  operating-points-v2: true
->>   
->> -patternProperties:
->> -  "^display-controller@[0-9a-f]+$":
->> -    type: object
->> -    description: Node containing the properties of DPU.
->> +  ports:
->> +    $ref: /schemas/graph.yaml#/properties/ports
->> +    description: |
->> +      Contains the list of output ports from DPU device. These ports
->> +      connect to interfaces that are external to the DPU hardware,
->> +      such as DSI, DP etc. Each output port contains an endpoint that
->> +      describes how it is connected to an external interface.
->>   
->>       properties:
->> -      compatible:
->> -        items:
->> -          - const: qcom,sc7180-dpu
->> -
->> -      reg:
->> -        items:
->> -          - description: Address offset and size for mdp register set
->> -          - description: Address offset and size for vbif register set
->> -
->> -      reg-names:
->> -        items:
->> -          - const: mdp
->> -          - const: vbif
->> -
->> -      clocks:
->> -        items:
->> -          - description: Display hf axi clock
->> -          - description: Display ahb clock
->> -          - description: Display rotator clock
->> -          - description: Display lut clock
->> -          - description: Display core clock
->> -          - description: Display vsync clock
->> -
->> -      clock-names:
->> -        items:
->> -          - const: bus
->> -          - const: iface
->> -          - const: rot
->> -          - const: lut
->> -          - const: core
->> -          - const: vsync
->> -
->> -      interrupts:
->> -        maxItems: 1
->> -
->> -      power-domains:
->> -        maxItems: 1
->> -
->> -      operating-points-v2: true
->> -
->> -      ports:
->> -        $ref: /schemas/graph.yaml#/properties/ports
->> -        description: |
->> -          Contains the list of output ports from DPU device. These ports
->> -          connect to interfaces that are external to the DPU hardware,
->> -          such as DSI, DP etc. Each output port contains an endpoint that
->> -          describes how it is connected to an external interface.
->> -
->> -        properties:
->> -          port@0:
->> -            $ref: /schemas/graph.yaml#/properties/port
->> -            description: DPU_INTF1 (DSI1)
->> -
->> -          port@2:
->> -            $ref: /schemas/graph.yaml#/properties/port
->> -            description: DPU_INTF0 (DP)
->> -
->> -        required:
->> -          - port@0
->> +      port@0:
->> +        $ref: /schemas/graph.yaml#/properties/port
->> +        description: DPU_INTF1 (DSI1)
->> +
->> +      port@2:
->> +        $ref: /schemas/graph.yaml#/properties/port
->> +        description: DPU_INTF0 (DP)
->>   
->>       required:
->> -      - compatible
->> -      - reg
->> -      - reg-names
->> -      - clocks
->> -      - interrupts
->> -      - power-domains
->> -      - operating-points-v2
->> -      - ports
->> +      - port@0
->>   
->>   required:
->>     - compatible
->>     - reg
->>     - reg-names
->> -  - power-domains
->>     - clocks
->>     - interrupts
->> -  - interrupt-controller
->> -  - iommus
->> -  - ranges
->> +  - power-domains
->> +  - operating-points-v2
->> +  - ports
->>   
->>   additionalProperties: false
->>   
->> diff --git a/Documentation/devicetree/bindings/display/msm/mdss.yaml b/Documentation/devicetree/bindings/display/msm/mdss.yaml
->> index 7d4ab3d71d2d..98f1f2501291 100644
->> --- a/Documentation/devicetree/bindings/display/msm/mdss.yaml
->> +++ b/Documentation/devicetree/bindings/display/msm/mdss.yaml
->> @@ -17,6 +17,7 @@ description:
->>   properties:
->>     compatible:
->>       enum:
->> +      - qcom,sc7180-mdss
->>         - qcom,sdm845-mdss
->>         - qcom,mdss
->>   
->> @@ -64,20 +65,21 @@ properties:
->>         - description: MDSS_CORE reset
->>   
->>     interconnects:
->> -    minItems: 2
->> +    minItems: 1
->>       items:
->>         - description: MDP port 0
->>         - description: MDP port 1
->>         - description: Rotator
->>   
->>     interconnect-names:
->> -    minItems: 2
->> +    minItems: 1
->>       items:
->>         - const: mdp0-mem
->>         - const: mdp1-mem
->>         - const: rotator-mem
->>   
->>     iommus:
->> +    minItems: 1
->>       items:
->>         - description: Phandle to apps_smmu node with SID mask for Hard-Fail port0
->>         - description: Phandle to apps_smmu node with SID mask for Hard-Fail port1
->> @@ -129,9 +131,11 @@ allOf:
->>               - const: mdss
->>   
->>           interconnects:
->> +          minItems: 1
->>             maxItems: 2
->>   
->>           interconnect-names:
->> +          minItems: 1
->>             maxItems: 2
->>   
->>         required:
->> @@ -157,6 +161,29 @@ allOf:
->>           iommus:
->>             minItems: 2
->>   
->> +  - if:
->> +      properties:
->> +        compatible:
->> +          contains:
->> +            enum:
->> +              - qcom,sc7180-mdss
->> +    then:
->> +      properties:
->> +        clocks:
->> +          items:
->> +            - description: Display AHB clock from gcc
->> +            - description: Display AHB clock from dispcc
->> +            - description: Display core clock
->> +
->> +        clock-names:
->> +          items:
->> +            - const: iface
->> +            - const: ahb
->> +            - const: core
->> +
->> +        iommus:
->> +          maxItems: 1
->> +
->>   required:
->>     - compatible
->>     - reg
->> @@ -177,7 +204,19 @@ patternProperties:
->>       # TODO: add reference once the mdp5 is converted
->>   
->>     "^display-controller@(0|[1-9a-f][0-9a-f]*)$":
->> -    $ref: dpu-sdm845.yaml
->> +    oneOf:
->> +      - $ref: dpu-sc7180.yaml
->> +      - $ref: dpu-sdm845.yaml
+On Fri, 19 Aug 2022 22:10:44 +0530, Akhil P Oommen wrote:
+> Add an optional reference to GPUCC reset which can be used to ensure cx
+> gdsc collapse during gpu recovery.
 > 
-> I don't think this is good approach. These are strictly tied, so you
-> should have rather per SoC MDSS schema pulling in:
-> 1. common MDSS
-> 2. specific children schemas
+> Signed-off-by: Akhil P Oommen <quic_akhilpo@quicinc.com>
+> ---
 > 
-> This makes it quite obvious and specific. Your setup now allows putting
-> sc7180-dpu under sdm845-dpu.
-
-Then we should probably also use very specific $ref and compat check for 
-all other entries in this file too. I understand your concern, however 
-I'd prefer to have the working schema which is not tight enough compared 
-to set of schema files that completely do not work. And current 
-dpu-*yaml do not work as they allow just the display-controller beneath 
-the mdss node.
-
-If you absolutely insist on me making the binding tight enough, I'll 
-rework the bindings to clearly specify which SoC has which nodes.
-
+> Changes in v4:
+> - New patch in v4
 > 
-> Best regards,
-> Krzysztof
+>  Documentation/devicetree/bindings/display/msm/gpu.yaml | 7 +++++++
+>  1 file changed, 7 insertions(+)
+> 
 
--- 
-With best wishes
-Dmitry
-
+Acked-by: Rob Herring <robh@kernel.org>
