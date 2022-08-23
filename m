@@ -1,58 +1,61 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id CE9D559CEBB
-	for <lists+freedreno@lfdr.de>; Tue, 23 Aug 2022 04:44:20 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 35EA359CED6
+	for <lists+freedreno@lfdr.de>; Tue, 23 Aug 2022 04:56:35 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AD143113B87;
-	Tue, 23 Aug 2022 02:44:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0333B90707;
+	Tue, 23 Aug 2022 02:56:23 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-pf1-x42e.google.com (mail-pf1-x42e.google.com
- [IPv6:2607:f8b0:4864:20::42e])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3A145A05F9
- for <freedreno@lists.freedesktop.org>; Tue, 23 Aug 2022 02:43:59 +0000 (UTC)
-Received: by mail-pf1-x42e.google.com with SMTP id x15so11273471pfp.4
- for <freedreno@lists.freedesktop.org>; Mon, 22 Aug 2022 19:43:59 -0700 (PDT)
+Received: from mail-oi1-x22d.google.com (mail-oi1-x22d.google.com
+ [IPv6:2607:f8b0:4864:20::22d])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CD3CF11BC2D
+ for <freedreno@lists.freedesktop.org>; Tue, 23 Aug 2022 02:55:57 +0000 (UTC)
+Received: by mail-oi1-x22d.google.com with SMTP id a133so6748176oif.4
+ for <freedreno@lists.freedesktop.org>; Mon, 22 Aug 2022 19:55:57 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc;
- bh=PynmO5Jk7dMLlFmc4BJabIpYsmxogYHpegMgoaOMSq4=;
- b=MabqGyxwHR/rSORTB7TeITLkNwTwRIAZ0fWVRA14qsIbhD91j0WkB+KTPJh+TjKtd2
- Kfa/Xj/wbblHUFxT3lmhHujC6EqGMMnjAQ3hmAZxYdBihPag2jQXaLyIJcrSAKvbZUEx
- 3FHOEZdXgHO8p5RN4ENZM0QcmNDqOThrG57A0=
+ h=cc:to:subject:message-id:date:user-agent:from:references
+ :in-reply-to:mime-version:from:to:cc;
+ bh=T+S/nKyRsVKnDI2NI2XWxFbudSWc5/W62WtWCj7xI5k=;
+ b=FyTH6s+w0NZh2OcFL16yY9rrPwgEsLeMGuckTfZFJvUpiQgZhvKwNJDT6oZiYYI1Z6
+ ahxK6O/w05oVFZ4wDew/xvyytGyxYN+aSDywQsmGUSyGn5wO+1YdQUKE/fCXgrv+Mdeh
+ DuW/vVKva1riddVn6fvIhACtHvxgTngeF1ltc=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc;
- bh=PynmO5Jk7dMLlFmc4BJabIpYsmxogYHpegMgoaOMSq4=;
- b=sXeibgnwqO6UHaJaRrCpKB57fXbkhkZyycRBnk+CLbu6PViKUWvq5VBqLQief7iwod
- Ji54KbcG+Qf+OJ3taFXIahqamaQcjEhSCxrhaS403Hdcp2EohGPnaDNyAxZRCF5Hnt3q
- 3sUX69dLRXkypl1x3xFZeacr6DCrzB0lZXLpyt1nSPKGJsKPxVBtd9EIqTW9EdrbXp8W
- fXjiJhYEJdViaX0zcIPyPE4ya1FRbz6Gk3vv9Ouv03pyAXuKxpnj1NxtoGOJKJslzBeS
- jgu+0U6h+nzd/cMdltoSwMBcfeQipGZ7UwlgOSq8lorbwX9oe8u5ZsJ7zjO51+PiVVF1
- 92uQ==
-X-Gm-Message-State: ACgBeo0UJYd8E76aMKqJnNmqsTJ8yRln1nczSLa2ZPVvQui7ry3CWIKb
- WloBPUBypeTcoGL/Qa140EMTLg==
-X-Google-Smtp-Source: AA6agR72B2tpzoHRr2X1icCS5N1hJfZlnCktZgRksrhuGPX7UJF1L2xySUvV0LfAKMWPy7NvsdM88Q==
-X-Received: by 2002:a62:be0e:0:b0:536:76fe:ee96 with SMTP id
- l14-20020a62be0e000000b0053676feee96mr8956523pff.44.1661222639316; 
- Mon, 22 Aug 2022 19:43:59 -0700 (PDT)
-Received: from smtp.gmail.com ([2620:15c:202:201:14dd:44db:a286:d093])
- by smtp.gmail.com with ESMTPSA id
- b14-20020a170903228e00b001728eb339e2sm9140538plh.286.2022.08.22.19.43.57
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 22 Aug 2022 19:43:58 -0700 (PDT)
-From: Stephen Boyd <swboyd@chromium.org>
-To: Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>
-Date: Mon, 22 Aug 2022 19:43:56 -0700
-Message-Id: <20220823024356.783318-1-swboyd@chromium.org>
-X-Mailer: git-send-email 2.37.1.595.g718a3a8f04-goog
+ h=cc:to:subject:message-id:date:user-agent:from:references
+ :in-reply-to:mime-version:x-gm-message-state:from:to:cc;
+ bh=T+S/nKyRsVKnDI2NI2XWxFbudSWc5/W62WtWCj7xI5k=;
+ b=K2PRSxsFh4BhQPk7SLZgzltVN6ICo9dMSVS6XsR/U6UAUdORUEqgVf/e5C6ylvwh8H
+ IgJugdVGJy7jXh2+GzNTWcuWnQaP1dDg35H/z0YStrkWln+beLNWO3HjAdNB25Ouukap
+ YSU+EI2NrWG1YmD1Q18OwuIgbVL5icDP8FbP8210TgWUJ9kkpACAoJkbf58qUbyV8Q8c
+ tsCbUkQJ8OUGYkN3wj3h8Fe4k7o17rg8YamkGR99kFijeRYf2HBaxVa1qf9PqryOntk+
+ wzJNsy7uM1KOxVr1Hnh1cVJCmba2BvHIr4TZ2OGGsLOdfJVa7PF6XuRvdZgeymP8k44i
+ y8iw==
+X-Gm-Message-State: ACgBeo1ou4Nplua4wnZQwiVFt97yYtnssTGyjfgyWPiAHduN5cfHQy4y
+ S5LyJ2XllBE9K+cF3D9Vl83CJn39rNgVUvaxX1vePQ==
+X-Google-Smtp-Source: AA6agR5B1RXiqU24b10dVaT51Y2w8Tu58T9a6cri/gxITu0yRHhbmrCSL4kKosa2BPr7V6Lbpg9/mCneKS0FOSLLrzY=
+X-Received: by 2002:a05:6808:1142:b0:343:86a0:dedc with SMTP id
+ u2-20020a056808114200b0034386a0dedcmr510821oiu.44.1661223357058; Mon, 22 Aug
+ 2022 19:55:57 -0700 (PDT)
+Received: from 753933720722 named unknown by gmailapi.google.com with
+ HTTPREST; Mon, 22 Aug 2022 21:55:56 -0500
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH] drm/msm/dp: Silence inconsistent indent warning
+In-Reply-To: <e9760ee4-421a-5c87-4370-50262930aea1@linaro.org>
+References: <20220710084133.30976-1-dmitry.baryshkov@linaro.org>
+ <20220710084133.30976-9-dmitry.baryshkov@linaro.org>
+ <20220711231638.GA449827-robh@kernel.org>
+ <e9760ee4-421a-5c87-4370-50262930aea1@linaro.org>
+From: Stephen Boyd <swboyd@chromium.org>
+User-Agent: alot/0.10
+Date: Mon, 22 Aug 2022 21:55:56 -0500
+Message-ID: <CAE-0n50OhC=+twQiei8fdXjCAV_XpAW-7N2zDFQMu9Vx7Zyy+Q@mail.gmail.com>
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Rob Herring <robh@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Subject: Re: [Freedreno] [PATCH v2 8/9] dt-bindings: msm/dp: add missing
+ properties
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,44 +68,32 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: kernel test robot <lkp@intel.com>, linux-arm-msm@vger.kernel.org,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- Kuogee Hsieh <quic_khsieh@quicinc.com>, patches@lists.linux.dev,
- freedreno@lists.freedesktop.org
+Cc: devicetree@vger.kernel.org, Daniel Vetter <daniel@ffwll.ch>,
+ David Airlie <airlied@linux.ie>, linux-arm-msm@vger.kernel.org,
+ Kuogee Hsieh <quic_khsieh@quicinc.com>,
+ Konrad Dybcio <konrad.dybcio@somainline.org>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
+ Bjorn Andersson <bjorn.andersson@linaro.org>, Rob Clark <robdclark@gmail.com>,
+ Andy Gross <agross@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ freedreno@lists.freedesktop.org, Sean Paul <sean@poorly.run>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Build robots complain
+Quoting Dmitry Baryshkov (2022-08-22 11:46:39)
+> On 12/07/2022 02:16, Rob Herring wrote:
+> >
+> > But this is the wrong location for 'data-lanes'. It belongs in an
+> > endpoint node.
+>
+> I rechecked the existing device trees (sc7280-herobrine.dtsi). The
+> data-lanes are already inside the main dp controller node. I'll take a
+> glance on fixing the driver to check the dp_out endpoint (and update
+> existing DT to move the property to the endpoint node), but to make
+> schema compatible with the existing device trees we'd probably still
+> need this property (which can be marked as deprecated once the proper
+> endpoint property is supported). Does that sound plausible?
 
- smatch warnings:
- drivers/gpu/drm/msm/dp/dp_link.c:969 dp_link_process_link_status_update() warn: inconsistent indenting
-
-Fix it.
-
-Cc: Kuogee Hsieh <quic_khsieh@quicinc.com>
-Fixes: ea530388e64b ("drm/msm/dp: skip checking LINK_STATUS_UPDATED bit")
-Reported-by: kernel test robot <lkp@intel.com>
-Signed-off-by: Stephen Boyd <swboyd@chromium.org>
----
- drivers/gpu/drm/msm/dp/dp_link.c | 3 +--
- 1 file changed, 1 insertion(+), 2 deletions(-)
-
-diff --git a/drivers/gpu/drm/msm/dp/dp_link.c b/drivers/gpu/drm/msm/dp/dp_link.c
-index 36f0af02749f..1620110806cf 100644
---- a/drivers/gpu/drm/msm/dp/dp_link.c
-+++ b/drivers/gpu/drm/msm/dp/dp_link.c
-@@ -965,8 +965,7 @@ static int dp_link_process_link_status_update(struct dp_link_private *link)
- 	if (channel_eq_done && clock_recovery_done)
- 		return -EINVAL;
- 
--
--       return 0;
-+	return 0;
- }
- 
- /**
-
-base-commit: 568035b01cfb107af8d2e4bd2fb9aea22cf5b868
--- 
-https://chromeos.dev
-
+It would be nice if drm_of_get_data_lanes_count() took some port and
+endpoint number instead of a node pointer directly. Then you couldn't
+mess this up as easily.
