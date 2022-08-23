@@ -1,75 +1,73 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id DD9C859DACB
-	for <lists+freedreno@lfdr.de>; Tue, 23 Aug 2022 13:01:18 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 56B7059DADB
+	for <lists+freedreno@lfdr.de>; Tue, 23 Aug 2022 13:12:06 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B7F6C113E17;
-	Tue, 23 Aug 2022 11:01:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8B07710E1E8;
+	Tue, 23 Aug 2022 11:12:03 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-x233.google.com (mail-lj1-x233.google.com
- [IPv6:2a00:1450:4864:20::233])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 31419112AA7
- for <freedreno@lists.freedesktop.org>; Tue, 23 Aug 2022 11:00:57 +0000 (UTC)
-Received: by mail-lj1-x233.google.com with SMTP id u24so7568160lji.0
- for <freedreno@lists.freedesktop.org>; Tue, 23 Aug 2022 04:00:57 -0700 (PDT)
+Received: from mail-lf1-x130.google.com (mail-lf1-x130.google.com
+ [IPv6:2a00:1450:4864:20::130])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 11C48112207
+ for <freedreno@lists.freedesktop.org>; Tue, 23 Aug 2022 11:11:51 +0000 (UTC)
+Received: by mail-lf1-x130.google.com with SMTP id z25so19212075lfr.2
+ for <freedreno@lists.freedesktop.org>; Tue, 23 Aug 2022 04:11:50 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc; bh=478xp+xXVm6+LQ5Y3hKJmtg5OeuY/mk2KivYHfJ1FyI=;
- b=Nq2gKwXPYd00IQHol2CzP6IXX2LeLm7uHOotL89KBXhS6ZS5av7WLktBWQ7iJB6mEC
- br9dan6yynV7jbA4OkT9Q1ztA/vTFwmKfm1uPbH5k9Og+YfRXKeE7ElBkyrdmuRXix8i
- 8Z7mWfODgyJ/8zCDULxA5X2aOBSHuSGz5R+W1HBOKXA1bhsr+v+jFJyuc29IuIiguhxf
- Q1MEGYyObdn/bW/UKnJttO+tR5lCBjbiDOUBFqOcWglnaQ3hx3twJ/9X5GSAExlv4ymo
- tTc6nUAnH7sSlz5JUTOhnjbZG25MIrh9s3dwIgxbY8z2eEz0lIKzBDl2+MI/JlXbNnL7
- 4BFA==
+ :from:to:cc; bh=RyGB8PQO8ADQrO2JFjLIJii6hzK5vNZX03ZezGuypGs=;
+ b=oCfh6AI2QwLBOgQEi1W8eHyNhAH/PsXgbcycKMnCTV5RxfayaL3wtv4jIvSOvZZzE8
+ gzUXOExHburHxVgMSsMbHibLI1L2SnbkuVLjvD+bljZz7Sn6Mia3nJOyOn07BVOgDr2l
+ abxhLitpMAPOzrXk3jSQvcxgg7QwV8n5lW1lQqSbk8+a6T5oNh/sQQpbsuMaBSgrrI8A
+ bJ2jSdmA27l2XZwB1wTkNwf60Ej1NEZsOhpD4PpcvP1LSahuyUmZkYQ+Q6M13KC/36C/
+ o/KZNDD1g/R8rdQRYab4Ck4uov5qDnDC/psQAJognpFGI2eXoLgZ6Dd82cMKEbgDGmgv
+ HJQQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc;
- bh=478xp+xXVm6+LQ5Y3hKJmtg5OeuY/mk2KivYHfJ1FyI=;
- b=fPnHHb/qxIFQuY+0EWJrUNgI42m+/inA1V7xh0o3ri5Q9ekazWYb2es1cGBdw1oLQy
- fnnMuDiqzDH/LYzsx8RTP8MDHWK0y7j3PT4L5jF2E9A3LxvhNt7HcqUMmIWADhJW0JUA
- O8jIFzBMOe6XR4z/2Pn8RgXXzSyTWuhy6trN6Hag0PRxxBqmzu7llRMf+/QA9z1fqEUF
- 1A8oNLgErx9ShQl76i6uW4/wgQUWrR4DWFPlJAZB+Z6JR0q847f6LFIrNf5+hiWjZTwF
- +nnvNSkAEI8th3XqJ1xyZrH6HsN7ER0wI3MHlc+tNxuRSxfy7YvcKn+kI8lIPSv8xoxJ
- Vj4g==
-X-Gm-Message-State: ACgBeo022C4NxpG1mg7MRNqUKmBQSU7yhstA5E+JsBY/nIpHdUTbyXnW
- SnHNpZPiAZXXCfryXeWXwGH+YA==
-X-Google-Smtp-Source: AA6agR6pHuA/Pqmja0Nyf2X+bxQ8qNJYXHFv0dFuO3RrNLaLnxBp429/iBJM6FMXPPiiCSEkUiu4KQ==
-X-Received: by 2002:a05:651c:12c4:b0:25d:d71c:e249 with SMTP id
- 4-20020a05651c12c400b0025dd71ce249mr6320800lje.17.1661252455406; 
- Tue, 23 Aug 2022 04:00:55 -0700 (PDT)
+ bh=RyGB8PQO8ADQrO2JFjLIJii6hzK5vNZX03ZezGuypGs=;
+ b=7ChEWPHxTOwlzp/Gux7AwPXSPqd4U4V+AzFzpLzHqkOhHO+k06nAT+83Xm9tzWf9A8
+ RcrKU2aZfsl4QWRZSvXYD4nucxSQ5BHraVH6OEzjJNoURJshioqzFSyiJojlMQQaeCyG
+ MmWZhbtyfH45dAwyge+/QvWpL//yps/0blVk1MmY4h0kBVIaxKvieS0OAbTd4Gk9MFAe
+ SFkcel6vjPFec2ggV6Q7lWGQj9cgYSTnA15FmshRyaROaPckFFryYKl1/nN9LD3VhqYZ
+ zJsgjUQQ8pyRyfOiVHpD9S097+tXtl8OiVhjj4A8MntTeILbB4sU3mQ45FzHZi6ckNrt
+ YmMw==
+X-Gm-Message-State: ACgBeo2xCb7cHi9MeY/d6axVcw3F1TAawqMrXpbOk7+KPrrXuefa6QUq
+ 1vqMvipFl4H9P8WAmVQcLUQWgw==
+X-Google-Smtp-Source: AA6agR431MJa34QlqrqboyJ2CF1O1nEgGRTLQBgHBhF/nzaTuInpM0Ee1WeB028VXCHqg7KXMU98oA==
+X-Received: by 2002:a19:654f:0:b0:492:f148:beb with SMTP id
+ c15-20020a19654f000000b00492f1480bebmr1379997lfj.493.1661253109390; 
+ Tue, 23 Aug 2022 04:11:49 -0700 (PDT)
 Received: from [192.168.0.11] (89-27-92-210.bb.dnainternet.fi. [89.27.92.210])
  by smtp.gmail.com with ESMTPSA id
- t2-20020a19dc02000000b0047f8d7c08e4sm2449095lfg.166.2022.08.23.04.00.54
+ r30-20020ac25c1e000000b00492f1b2ac0bsm511806lfp.101.2022.08.23.04.11.48
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 23 Aug 2022 04:00:54 -0700 (PDT)
-Message-ID: <b59fad42-5217-8c96-a43a-d6f036766371@linaro.org>
-Date: Tue, 23 Aug 2022 14:00:53 +0300
+ Tue, 23 Aug 2022 04:11:48 -0700 (PDT)
+Message-ID: <e8a02030-d114-fa4b-1978-15327501b7e9@linaro.org>
+Date: Tue, 23 Aug 2022 14:11:47 +0300
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
  Thunderbird/91.12.0
 Content-Language: en-US
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Andy Gross <agross@kernel.org>, Bjorn Andersson
- <bjorn.andersson@linaro.org>, Konrad Dybcio <konrad.dybcio@somainline.org>,
- Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, Rob Herring <robh+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>
-References: <20220710090040.35193-1-dmitry.baryshkov@linaro.org>
- <20220710090040.35193-7-dmitry.baryshkov@linaro.org>
- <37bf0f7f-e555-7ae9-7d2b-e05a9e8db6a4@linaro.org>
- <76c05290-d957-b1ec-fa4d-1074c42979a8@linaro.org>
+To: Akhil P Oommen <quic_akhilpo@quicinc.com>,
+ freedreno <freedreno@lists.freedesktop.org>,
+ dri-devel@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
+ Rob Clark <robdclark@gmail.com>, Bjorn Andersson
+ <bjorn.andersson@linaro.org>, Stephen Boyd <swboyd@chromium.org>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+References: <1660927246-11327-1-git-send-email-quic_akhilpo@quicinc.com>
+ <20220819221017.v4.5.Ieffadd08a071a233213ced4406bf84bb5922ab9a@changeid>
 From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-In-Reply-To: <76c05290-d957-b1ec-fa4d-1074c42979a8@linaro.org>
+In-Reply-To: <20220819221017.v4.5.Ieffadd08a071a233213ced4406bf84bb5922ab9a@changeid>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH v2 06/11] dt-bindings: display/msm: move
- qcom, sc7180-mdss schema to mdss.yaml
+Subject: Re: [Freedreno] [PATCH v4 5/6] dt-bindings: drm/msm/gpu: Add
+ optional resets
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,53 +80,39 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: devicetree@vger.kernel.org, David Airlie <airlied@linux.ie>,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- Stephen Boyd <swboyd@chromium.org>, Daniel Vetter <daniel@ffwll.ch>,
- freedreno@lists.freedesktop.org
+Cc: devicetree@vger.kernel.org, Daniel Vetter <daniel@ffwll.ch>,
+ David Airlie <airlied@linux.ie>, linux-kernel@vger.kernel.org,
+ Douglas Anderson <dianders@chromium.org>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, Rob Herring <robh+dt@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Sean Paul <sean@poorly.run>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 22/08/2022 22:04, Dmitry Baryshkov wrote:
->>>   required:
->>>     - compatible
->>>     - reg
->>> @@ -177,7 +204,19 @@ patternProperties:
->>>       # TODO: add reference once the mdp5 is converted
->>>   
->>>     "^display-controller@(0|[1-9a-f][0-9a-f]*)$":
->>> -    $ref: dpu-sdm845.yaml
->>> +    oneOf:
->>> +      - $ref: dpu-sc7180.yaml
->>> +      - $ref: dpu-sdm845.yaml
->>
->> I don't think this is good approach. These are strictly tied, so you
->> should have rather per SoC MDSS schema pulling in:
->> 1. common MDSS
->> 2. specific children schemas
->>
->> This makes it quite obvious and specific. Your setup now allows putting
->> sc7180-dpu under sdm845-dpu.
+On 19/08/2022 19:40, Akhil P Oommen wrote:
+>  Documentation/devicetree/bindings/display/msm/gpu.yaml | 7 +++++++
+>  1 file changed, 7 insertions(+)
 > 
-> Then we should probably also use very specific $ref and compat check for 
-> all other entries in this file too. I understand your concern, however 
-> I'd prefer to have the working schema which is not tight enough compared 
-> to set of schema files that completely do not work.
+> diff --git a/Documentation/devicetree/bindings/display/msm/gpu.yaml b/Documentation/devicetree/bindings/display/msm/gpu.yaml
+> index 3397bc3..4576b31 100644
+> --- a/Documentation/devicetree/bindings/display/msm/gpu.yaml
+> +++ b/Documentation/devicetree/bindings/display/msm/gpu.yaml
+> @@ -109,6 +109,13 @@ properties:
+>        For GMU attached devices a phandle to the GMU device that will
+>        control the power for the GPU.
+>  
+> +  resets:
+> +    maxItems: 1
+> +
+> +  reset-names:
+> +    items:
+> +      - const: cx_collapse
+> +
 
-Why they cannot be tight and working?
+Just one blank line, not two. You can keep Rob's ack with that change.
 
-> And current 
-> dpu-*yaml do not work as they allow just the display-controller beneath 
-> the mdss node.
-
-Sure, this can be fixed but not really in a relaxing way.
-
-> 
-> If you absolutely insist on me making the binding tight enough, I'll 
-> rework the bindings to clearly specify which SoC has which nodes.
-
-I do not see the drawbacks of specific/tight approach, so yes, please
-make it tight.
+>  required:
+>    - compatible
 
 
 Best regards,
