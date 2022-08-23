@@ -2,59 +2,70 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5FE915A01BA
-	for <lists+freedreno@lfdr.de>; Wed, 24 Aug 2022 21:02:42 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 28DCF5A02D2
+	for <lists+freedreno@lfdr.de>; Wed, 24 Aug 2022 22:33:44 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BC422C28B0;
-	Wed, 24 Aug 2022 19:02:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A9A1CC7A38;
+	Wed, 24 Aug 2022 20:33:38 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-oa1-x36.google.com (mail-oa1-x36.google.com
- [IPv6:2001:4860:4864:20::36])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 13414C269B;
- Wed, 24 Aug 2022 19:01:55 +0000 (UTC)
-Received: by mail-oa1-x36.google.com with SMTP id
- 586e51a60fabf-11c896b879bso21998140fac.3; 
- Wed, 24 Aug 2022 12:01:55 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+Received: from mail-ej1-x629.google.com (mail-ej1-x629.google.com
+ [IPv6:2a00:1450:4864:20::629])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C580110EAE2
+ for <freedreno@lists.freedesktop.org>; Tue, 23 Aug 2022 14:50:42 +0000 (UTC)
+Received: by mail-ej1-x629.google.com with SMTP id j21so22533271ejs.0
+ for <freedreno@lists.freedesktop.org>; Tue, 23 Aug 2022 07:50:42 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:from:to:cc;
- bh=BmUDAkEKs1QpgVs64aZzzQ45Z2VQd8OBs9xag8teZ5A=;
- b=hq301drIRDNXKLDjux5Dw7HOGWufL2ta4/DKG0n/S8UDdcDf8G6vX0gNBwWL4kfU4D
- l8aaI7AW8dcuYM77/3T9t/84xiLojrORAiIsE8vMyAe5brccsxj/rokbVEIROAMvx5Uc
- aaDqYj7esjRU9Yc6PA6fGDJ8V/qWKw/Umb9shFdTiap4MDV8s/BF3KqOJzKqR5sPRyh9
- /ZdCDk2yuadBFZqTh0lKHt6Q7K1IJ9I3NDH4MVLxIrSH9JPgTrCBqNr4nhIQqSbCGxrb
- BoRgPi11+3jOZPJU4Cmmg4ilmc19AAN/seMUEkemwVpvhg24ZxXAER5nPLrsDe6gtG49
- KF2w==
+ bh=5HbW8uko2vZ7AfwOU8eshl0aSQHKvNNaKtmoLv6rUEM=;
+ b=JVJ/J+80rmibqknLI2dl4D/IfJ9EQwbBZSfvxG712BBjzT3yS+x3AVpptqWtAIaoP5
+ 6AoLaaLRByrmJMtY636D5RKtuqEryU2Ox4VkD9HvYVOmuivp45RYryYXmKDqEJApQVWi
+ nDj+k2TQWI9jk0P895iLQrG5xjpJylgYK15ms=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:x-gm-message-state:from:to:cc;
- bh=BmUDAkEKs1QpgVs64aZzzQ45Z2VQd8OBs9xag8teZ5A=;
- b=SBDnd5TF2c+NMQ4zguSI5kgIS8I52V9aQyms/KL+2wQAvJ20DvRKM9HnaZvJldORgC
- fxC+fORm71Z+kl/TyouymvDALclRy/nNRbolEBJbApLsQBOEQEOVdahi84oue7UZ2u9P
- bud8Rli978M7pKvBWDulVI5LoDoUjqxmaRWiDoE5aApXeDNU1mLF5j/+2irQmFG4ldFk
- IwtSuqyYXwIVEK1yT5mXQB/xmg0dcIet77NnVi4GW2NBG8I2QgZ3k0WHB7K/ZEHuRcUB
- a07PY9ax7q6JgX+/63MkK/RENEm938G+xutMXW505B0tAuU/1/xx/lswX0e+1xTxW6ua
- cTyw==
-X-Gm-Message-State: ACgBeo14/cTF1YaWoupXxlIb4R6Y7xflAjBl0WY6QiKRRN9MkONxMZa9
- 0XLhRMj+Lvvl/MemgcBIJ3Lw0PABNOjsVUOX8PK870a2
-X-Google-Smtp-Source: AA6agR6utCAbb8FEE7KJ6XCRZJyWK6tahQl9cT49ap8xyT6ONQ04pMG8osXSVOG0kx+xHxkNzrDvp9mZYPzrJKAplBg=
-X-Received: by 2002:a05:6870:b692:b0:11d:482f:3642 with SMTP id
- cy18-20020a056870b69200b0011d482f3642mr264476oab.38.1661367714607; Wed, 24
- Aug 2022 12:01:54 -0700 (PDT)
+ bh=5HbW8uko2vZ7AfwOU8eshl0aSQHKvNNaKtmoLv6rUEM=;
+ b=Z9qOmhPREfFyL+dIQD6DgkmBwGvMCGpt3wM+Ze2dJRoZrHHbaJbS2suMdR1pA5vdhp
+ LAwz3sk2iAzNVw1cERUAwIQZDdnwQdEgvdSpGg6InbGdL6BB+085YYOBlFtuEdbWN/8W
+ 8qjgyU+ld2uBAaqt2S5t9nJEz4gviuhUDfrLggWlq6yxDm5jT0sY6t5JBm+FCE92H0Jd
+ Iq/+Yi0HG50AJ0q7NBAfDaE9pqU1wkIHoK4N0NPM03npCeV/kTTro7mDMMBSC8R2INeD
+ ylJ85T+zdfdfV90M5UayyyN22/uQT2AAQ6ShnPP1xdcr3GIUD0kGpSyA4iO2hNLPCoWo
+ 5Wog==
+X-Gm-Message-State: ACgBeo23byQYE1jDlf6ydzNIcN8ko5Od4/Hgs7IJlOLXbQitZ0pDnSre
+ OdY18RwJ/j2qA5xm7WIDaycWqD4T6jHpzs5FrBM=
+X-Google-Smtp-Source: AA6agR7XvhdswWlOgct5whmDFsiSlp8vaIv32N3kwoK31jFLwG1fJCjr2NCnZzum0l0PHmo4nBu86g==
+X-Received: by 2002:a17:906:844b:b0:73d:a994:d9d7 with SMTP id
+ e11-20020a170906844b00b0073da994d9d7mr1058692ejy.261.1661266240533; 
+ Tue, 23 Aug 2022 07:50:40 -0700 (PDT)
+Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com.
+ [209.85.221.53]) by smtp.gmail.com with ESMTPSA id
+ w6-20020a170906184600b0073065747de1sm7582492eje.51.2022.08.23.07.50.37
+ for <freedreno@lists.freedesktop.org>
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 23 Aug 2022 07:50:37 -0700 (PDT)
+Received: by mail-wr1-f53.google.com with SMTP id r16so17298596wrm.6
+ for <freedreno@lists.freedesktop.org>; Tue, 23 Aug 2022 07:50:37 -0700 (PDT)
+X-Received: by 2002:a5d:6881:0:b0:225:28cb:332f with SMTP id
+ h1-20020a5d6881000000b0022528cb332fmr13686062wru.405.1661266236928; Tue, 23
+ Aug 2022 07:50:36 -0700 (PDT)
 MIME-Version: 1.0
-References: <20220821181917.1188021-1-robdclark@gmail.com>
- <20220821181917.1188021-6-robdclark@gmail.com>
- <93ff00db-b5d0-350c-b192-e58b781bb1cf@quicinc.com>
-In-Reply-To: <93ff00db-b5d0-350c-b192-e58b781bb1cf@quicinc.com>
-From: Rob Clark <robdclark@gmail.com>
-Date: Wed, 24 Aug 2022 12:02:28 -0700
-Message-ID: <CAF6AEGtBw5pgdpaF6F5sBJvn6Kief2jHnSbKXFJGZ_GeGVjafQ@mail.gmail.com>
-To: Akhil P Oommen <quic_akhilpo@quicinc.com>
+References: <20220726173824.1166873-1-dianders@chromium.org>
+ <20220726103631.v2.4.Ie85f68215ada39f502a96dcb8a1f3ad977e3f68a@changeid>
+ <CAMSo37XsawRxTnJriLUAwJAj0+ZzpACtMiR_3V7H1H9WXg3T_Q@mail.gmail.com>
+ <CAD=FV=V5c0bCOCBvdnqVJ6Sa1XKeg+d7kTEL2Okh4GAL66MGiw@mail.gmail.com>
+ <CAMSo37Uve4qrAA81zrO9eOGc4y7vjg-OZ9L7m9xWM7UkQ6PzmQ@mail.gmail.com>
+ <CAMSo37U1uxUFkn4Jda5E+nDiz0wp8_ERbNa9BUgWttZ6dEssAg@mail.gmail.com>
+In-Reply-To: <CAMSo37U1uxUFkn4Jda5E+nDiz0wp8_ERbNa9BUgWttZ6dEssAg@mail.gmail.com>
+From: Doug Anderson <dianders@chromium.org>
+Date: Tue, 23 Aug 2022 07:50:23 -0700
+X-Gmail-Original-Message-ID: <CAD=FV=WNNAYtdoocp_ShyNBOBmqSSr79=x_2UKq+yfA+HiOo9w@mail.gmail.com>
+Message-ID: <CAD=FV=WNNAYtdoocp_ShyNBOBmqSSr79=x_2UKq+yfA+HiOo9w@mail.gmail.com>
+To: Yongqin Liu <yongqin.liu@linaro.org>
 Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [PATCH 5/5] drm/msm: Skip tlbinv on unmap from
- non-current pgtables
+Subject: Re: [Freedreno] [PATCH v2 4/7] regulator: core: Allow specifying an
+ initial load w/ the bulk API
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,109 +78,57 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rob Clark <robdclark@chromium.org>, David Airlie <airlied@linux.ie>,
- linux-arm-msm@vger.kernel.org, Konrad Dybcio <konrad.dybcio@somainline.org>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
- Douglas Anderson <dianders@chromium.org>, Sean Paul <sean@poorly.run>,
- Daniel Vetter <daniel@ffwll.ch>,
+Cc: linux-arm-msm <linux-arm-msm@vger.kernel.org>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ dri-devel <dri-devel@lists.freedesktop.org>,
+ Liam Girdwood <lgirdwood@gmail.com>, Steve Muckle <smuckle@google.com>,
+ Alistair Delva <alistair.delva@linaro.org>, Rob Clark <robdclark@gmail.com>,
+ Mark Brown <broonie@kernel.org>, John Stultz <jstultz@google.com>,
  Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- freedreno@lists.freedesktop.org, Chia-I Wu <olvaffe@gmail.com>,
- open list <linux-kernel@vger.kernel.org>
+ freedreno <freedreno@lists.freedesktop.org>,
+ Sumit Semwal <sumit.semwal@linaro.org>, LKML <linux-kernel@vger.kernel.org>,
+ Todd Kjos <tkjos@google.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Wed, Aug 24, 2022 at 10:46 AM Akhil P Oommen
-<quic_akhilpo@quicinc.com> wrote:
->
-> On 8/21/2022 11:49 PM, Rob Clark wrote:
-> > From: Rob Clark <robdclark@chromium.org>
-> >
-> > We can rely on the tlbinv done by CP_SMMU_TABLE_UPDATE in this case.
-> >
-> > Signed-off-by: Rob Clark <robdclark@chromium.org>
-> > ---
-> >   drivers/gpu/drm/msm/adreno/a6xx_gpu.c |  6 ++++++
-> >   drivers/gpu/drm/msm/msm_iommu.c       | 29 +++++++++++++++++++++++++++
-> >   2 files changed, 35 insertions(+)
-> >
-> > diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-> > index c8ad8aeca777..1ba0ed629549 100644
-> > --- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-> > +++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-> > @@ -1180,6 +1180,12 @@ static int hw_init(struct msm_gpu *gpu)
-> >       /* Always come up on rb 0 */
-> >       a6xx_gpu->cur_ring = gpu->rb[0];
-> >
-> > +     /*
-> > +      * Note, we cannot assume anything about the state of the SMMU when
-> > +      * coming back from power collapse, so force a CP_SMMU_TABLE_UPDATE
-> > +      * on the first submit.  Also, msm_iommu_pagetable_unmap() relies on
-> > +      * this behavior.
-> > +      */
-> >       gpu->cur_ctx_seqno = 0;
-> >
-> >       /* Enable the SQE_to start the CP engine */
-> > diff --git a/drivers/gpu/drm/msm/msm_iommu.c b/drivers/gpu/drm/msm/msm_iommu.c
-> > index 94c8c09980d1..218074a58081 100644
-> > --- a/drivers/gpu/drm/msm/msm_iommu.c
-> > +++ b/drivers/gpu/drm/msm/msm_iommu.c
-> > @@ -45,8 +45,37 @@ static int msm_iommu_pagetable_unmap(struct msm_mmu *mmu, u64 iova,
-> >               size -= 4096;
-> >       }
-> >
-> > +     /*
-> > +      * A CP_SMMU_TABLE_UPDATE is always sent for the first
-> > +      * submit after resume, and that does a TLB invalidate.
-> > +      * So we can skip that if the device is not currently
-> > +      * powered.
-> > +      */
-> > +     if (!pm_runtime_get_if_in_use(pagetable->parent->dev))
-> > +             goto out;
-> > +
-> > +     /*
-> > +      * If we are not the current pgtables, we can rely on the
-> > +      * TLB invalidate done by CP_SMMU_TABLE_UPDATE.
-> > +      *
-> > +      * We'll always be racing with the GPU updating ttbr0,
-> > +      * but there are only two cases:
-> > +      *
-> > +      *  + either we are not the the current pgtables and there
-> > +      *    will be a tlbinv done by the GPU before we are again
-> > +      *
-> > +      *  + or we are.. there might have already been a tblinv
-> > +      *    if we raced with the GPU, but we have to assume the
-> > +      *    worse and do the tlbinv
-> > +      */
-> > +     if (adreno_smmu->get_ttbr0(adreno_smmu->cookie) != pagetable->ttbr)
-> > +             goto out_put;
-> > +
-> >       adreno_smmu->tlb_inv_by_id(adreno_smmu->cookie, pagetable->asid);
-> >
-> > +out_put:
-> > +     pm_runtime_put(pagetable->parent->dev);
-> > +out:
-> >       return (unmapped == size) ? 0 : -EINVAL;
-> >   }
-> >
-> Asking because it is a *security issue* if we get this wrong:
-> 1. Is there any measure benefit with this patch? I believe tlb
-> invalidation doesn't contribute much to the unmap latency.
+Hi,
 
-It turned out to not make a huge difference.. although I expect the
-part about skipping the inv when runtime suspended is still useful
-from a power standpoint (but don't have a great setup to measure that)
+On Mon, Aug 22, 2022 at 11:23 PM Yongqin Liu <yongqin.liu@linaro.org> wrote:
+>
+> Hi, Douglas
+>
+> Just an update on the fix you pointed out previously here:
+> > > [1] https://lore.kernel.org/r/20220809142738.1.I91625242f137c707bb345c51c80c5ecee02eeff3@changeid
+>
+> With it I could boot the hikey960 build to the home screen if it does
+> not use the GKI kernel.
+> but the problem will be reproduced if it uses the GKI kernel.
+>
+> And if this change is reverted, then it could boot with the GKI kernel as well.
+>
+> I am not sure what's the reason there, but there seems to be some
+> difference with the fix above and the workaround of revert.
+> Not sure if you have any idea about that.
+>
+> Regarding the GKI kernel(Android Generic Kernel Image)[2], it's built
+> from the android-mainline tree(f51334eac4de) without any workaround.
+> (Neither the revert, nor the fix applied), and the regulator modules
+> used for the hikey960 build are hi6421v530-regulator.ko and
+> hi655x-regulator.ko
+>
+> I am still not sure if it would work with the GKI kernel that has the
+> fix that you pointed out in. the case that both the GKI kernel and
+> vendor tree have the fix.
+> Will update here when I have some results.
+>
+> [2]: https://source.android.com/docs/core/architecture/kernel/generic-kernel-image?hl=en
 
-BR,
--R
+That's not too surprising. The broken patch is in the core kernel so
+you need the fix in the core kernel. I think that means you'll have to
+wait until `android-mainline` gets the fix. I don't work on Android,
+so if there's some other route to get an expedited fix into
+android-mainline I'm not aware of it.
 
-> 2. We at least should insert a full memory barrier before reading the
-> ttbr0 register to ensure that everything we did prior to that is visible
-> to smmu. But then I guess the cost of the full barrier would be similar
-> to the tlb invalidation.
->
-> Because it could lead to security issues or other very hard to debug
-> issues, I would prefer this optimization only if there is a significant
-> measurable gain.
->
-> -Akhil.
->
+-Doug
+
+-Doug
