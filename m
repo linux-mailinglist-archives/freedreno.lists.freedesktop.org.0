@@ -1,66 +1,38 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id A0B1D59DA99
-	for <lists+freedreno@lfdr.de>; Tue, 23 Aug 2022 12:22:36 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 6DA0859DAAA
+	for <lists+freedreno@lfdr.de>; Tue, 23 Aug 2022 12:29:32 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EC3BAB310C;
-	Tue, 23 Aug 2022 10:22:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 77E01B33C8;
+	Tue, 23 Aug 2022 10:29:30 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-x235.google.com (mail-lj1-x235.google.com
- [IPv6:2a00:1450:4864:20::235])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B0136B30C8
- for <freedreno@lists.freedesktop.org>; Tue, 23 Aug 2022 10:22:15 +0000 (UTC)
-Received: by mail-lj1-x235.google.com with SMTP id l19so9913686ljg.8
- for <freedreno@lists.freedesktop.org>; Tue, 23 Aug 2022 03:22:15 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc; bh=kW7te9++6zj/2sA/1JFiFaJwC/VuRhhQ3+OUD8QzdyQ=;
- b=N+3+nblwaKvranNQu5ZLkFEJVD0V8Kh5L1aCicV8oOG4puiJizV9xHY/vNdRlz/YCM
- JD0EzOieszeOq1Ev/NFpfYlgnlK6Q1vWCk5MK2sEAD0SvuS2evY3mpagh+yDJIL3HuQK
- 1fDkSspBXg4AFXl9Jp5mD6W1pWHY+/k2SEhbvjj0aXFWSxGPQvj5i610itPmlpXif0il
- qe+p/TmU75rvtSRUAybCkAXGRsUwALRO/hKj18XGoLgB31yMBvFTv6w+92VA3eRl6ix9
- RvPGkGjgwWdaZPNV3KuoVHBpcqMxMB/3nmcH8mgmKSnlZlhK/gmVh9bpnINTkDzs7ReY
- oUpQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc;
- bh=kW7te9++6zj/2sA/1JFiFaJwC/VuRhhQ3+OUD8QzdyQ=;
- b=tM4UwmoNmlVenUo8Dw3N6m9RR7b7FWd1Xinqiw8AkbaNqLrTBmh4QTb3auEJqpV8w1
- IsIuj4jYWXWxxK88DRbuetAaYQY3cWZZSTUULxlAewmfQoqWqcWMI/Xy0a7U7OT8Yzy9
- kIVwqfYhRhh30EK85nigHb382SUwdPDlfdZqJqpi6+InTfkwo8f9jeYkGE2d7MHvCeGg
- PoGt+fL2n8AxCiy2UPaqQ6l/NiUalJna+DygDWMM56qbnkdGj3gu9PQxJ9AvrM+mC9io
- aKqfOiqy2yuaevcdcpqrZTb2mkXcJ78lPVYNvP0fZW9H3PRYuP2uKusc0MmxcwZUwwHf
- 7Mtg==
-X-Gm-Message-State: ACgBeo0m1PzxuEnwdn78tTuJGb+M64oWRtx77P9zYoXXDgkjh2OMpYiO
- YlrgrDTuR5AzV32eaXjQ/WVQNg==
-X-Google-Smtp-Source: AA6agR4lvtDEQD5n2gZcVUqeIv4vFwxirf/UExZM2GSUkocuDpW/zvL/LU5ea/L5NBX6eKujEc1qpQ==
-X-Received: by 2002:a2e:b8d1:0:b0:261:caee:4049 with SMTP id
- s17-20020a2eb8d1000000b00261caee4049mr3186459ljp.405.1661250133956; 
- Tue, 23 Aug 2022 03:22:13 -0700 (PDT)
-Received: from [192.168.0.11] (89-27-92-210.bb.dnainternet.fi. [89.27.92.210])
- by smtp.gmail.com with ESMTPSA id
- bg11-20020a05651c0b8b00b00261c6342636sm220772ljb.14.2022.08.23.03.22.13
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 23 Aug 2022 03:22:13 -0700 (PDT)
-Message-ID: <e810c877-82a4-c9ef-5f63-c22c246cf340@linaro.org>
-Date: Tue, 23 Aug 2022 13:22:12 +0300
+X-Greylist: delayed 393 seconds by postgrey-1.36 at gabe;
+ Tue, 23 Aug 2022 10:29:16 UTC
+Received: from m-r2.th.seeweb.it (m-r2.th.seeweb.it
+ [IPv6:2001:4b7a:2000:18::171])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AE4CFB33B3
+ for <freedreno@lists.freedesktop.org>; Tue, 23 Aug 2022 10:29:16 +0000 (UTC)
+Received: from [192.168.1.101] (afbd223.neoplus.adsl.tpnet.pl [95.49.29.223])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ by m-r2.th.seeweb.it (Postfix) with ESMTPSA id 3C4D33F63E;
+ Tue, 23 Aug 2022 12:22:38 +0200 (CEST)
+Message-ID: <3eaa26a5-dde7-06e7-f47d-cb836fbd495d@somainline.org>
+Date: Tue, 23 Aug 2022 12:22:37 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
  Thunderbird/91.12.0
 Content-Language: en-US
 To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
  Andy Gross <agross@kernel.org>, Bjorn Andersson
- <bjorn.andersson@linaro.org>, Konrad Dybcio <konrad.dybcio@somainline.org>,
- Rob Herring <robh+dt@kernel.org>,
+ <bjorn.andersson@linaro.org>, Rob Herring <robh+dt@kernel.org>,
  Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>
 References: <20220822191138.316912-1-dmitry.baryshkov@linaro.org>
-From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+From: Konrad Dybcio <konrad.dybcio@somainline.org>
 In-Reply-To: <20220822191138.316912-1-dmitry.baryshkov@linaro.org>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
@@ -83,16 +55,74 @@ Cc: linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 22/08/2022 22:11, Dmitry Baryshkov wrote:
+
+
+On 22.08.2022 21:11, Dmitry Baryshkov wrote:
 > It makes no sense to have the OPP table for the DSI controllers in the
 > DSI1 PHY node. Move it to more logical dsi0 device node.
 > 
 > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 > ---
+Reviewed-by: Konrad Dybcio <konrad.dybcio@somainline.org>
 
+Konrad
 
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-
-
-Best regards,
-Krzysztof
+>  arch/arm64/boot/dts/qcom/sm8250.dtsi | 38 ++++++++++++++--------------
+>  1 file changed, 19 insertions(+), 19 deletions(-)
+> 
+> diff --git a/arch/arm64/boot/dts/qcom/sm8250.dtsi b/arch/arm64/boot/dts/qcom/sm8250.dtsi
+> index bc773e210023..5843e46a3164 100644
+> --- a/arch/arm64/boot/dts/qcom/sm8250.dtsi
+> +++ b/arch/arm64/boot/dts/qcom/sm8250.dtsi
+> @@ -3571,6 +3571,25 @@ dsi0_out: endpoint {
+>  						};
+>  					};
+>  				};
+> +
+> +				dsi_opp_table: opp-table {
+> +					compatible = "operating-points-v2";
+> +
+> +					opp-187500000 {
+> +						opp-hz = /bits/ 64 <187500000>;
+> +						required-opps = <&rpmhpd_opp_low_svs>;
+> +					};
+> +
+> +					opp-300000000 {
+> +						opp-hz = /bits/ 64 <300000000>;
+> +						required-opps = <&rpmhpd_opp_svs>;
+> +					};
+> +
+> +					opp-358000000 {
+> +						opp-hz = /bits/ 64 <358000000>;
+> +						required-opps = <&rpmhpd_opp_svs_l1>;
+> +					};
+> +				};
+>  			};
+>  
+>  			dsi0_phy: dsi-phy@ae94400 {
+> @@ -3663,25 +3682,6 @@ dsi1_phy: dsi-phy@ae96400 {
+>  				clock-names = "iface", "ref";
+>  
+>  				status = "disabled";
+> -
+> -				dsi_opp_table: opp-table {
+> -					compatible = "operating-points-v2";
+> -
+> -					opp-187500000 {
+> -						opp-hz = /bits/ 64 <187500000>;
+> -						required-opps = <&rpmhpd_opp_low_svs>;
+> -					};
+> -
+> -					opp-300000000 {
+> -						opp-hz = /bits/ 64 <300000000>;
+> -						required-opps = <&rpmhpd_opp_svs>;
+> -					};
+> -
+> -					opp-358000000 {
+> -						opp-hz = /bits/ 64 <358000000>;
+> -						required-opps = <&rpmhpd_opp_svs_l1>;
+> -					};
+> -				};
+>  			};
+>  		};
+>  
