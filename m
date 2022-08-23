@@ -1,55 +1,55 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 448E459DAA5
-	for <lists+freedreno@lfdr.de>; Tue, 23 Aug 2022 12:26:47 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id DD9C859DACB
+	for <lists+freedreno@lfdr.de>; Tue, 23 Aug 2022 13:01:18 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 10094B3296;
-	Tue, 23 Aug 2022 10:26:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B7F6C113E17;
+	Tue, 23 Aug 2022 11:01:10 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x12d.google.com (mail-lf1-x12d.google.com
- [IPv6:2a00:1450:4864:20::12d])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E4A77988E3
- for <freedreno@lists.freedesktop.org>; Tue, 23 Aug 2022 10:26:18 +0000 (UTC)
-Received: by mail-lf1-x12d.google.com with SMTP id a16so10752693lfs.3
- for <freedreno@lists.freedesktop.org>; Tue, 23 Aug 2022 03:26:18 -0700 (PDT)
+Received: from mail-lj1-x233.google.com (mail-lj1-x233.google.com
+ [IPv6:2a00:1450:4864:20::233])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 31419112AA7
+ for <freedreno@lists.freedesktop.org>; Tue, 23 Aug 2022 11:00:57 +0000 (UTC)
+Received: by mail-lj1-x233.google.com with SMTP id u24so7568160lji.0
+ for <freedreno@lists.freedesktop.org>; Tue, 23 Aug 2022 04:00:57 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc; bh=c1dA5oASWGj0rrUZ/WWyyCO38Uiq0TAfsSxGYmfkPlY=;
- b=pJou0ZXsL1X+99tYH/vTpA2PAeq8TQDtnnogZ2rT/Gn4lNZu9+uWGqmUq28zaFjoW6
- 1Xv2tfJrgzApfi1rTqb+a4Kb3sH2AsyD34KBsrjbLezWjFOzFxhW1Ts93ES6j9z4evOD
- 2Otl/3yI1hHdn+tr0dvn+QQbGkfb5V+/i6E8YbbghU0fchDUg5GRjmNWLW+0+QS6LLr9
- qpR9XOygAvLdBbbQgd2azeymUwWj4VSagVxzULPtVjIdlmLU1Op5nj+empBcEx3R27ym
- GlZt6nWioLJSfZaizWat8u6OoABAC2mQKeXUD9ryImR8pgT2FoHeWfUyvLdEMUCTHj0g
- /CNQ==
+ :from:to:cc; bh=478xp+xXVm6+LQ5Y3hKJmtg5OeuY/mk2KivYHfJ1FyI=;
+ b=Nq2gKwXPYd00IQHol2CzP6IXX2LeLm7uHOotL89KBXhS6ZS5av7WLktBWQ7iJB6mEC
+ br9dan6yynV7jbA4OkT9Q1ztA/vTFwmKfm1uPbH5k9Og+YfRXKeE7ElBkyrdmuRXix8i
+ 8Z7mWfODgyJ/8zCDULxA5X2aOBSHuSGz5R+W1HBOKXA1bhsr+v+jFJyuc29IuIiguhxf
+ Q1MEGYyObdn/bW/UKnJttO+tR5lCBjbiDOUBFqOcWglnaQ3hx3twJ/9X5GSAExlv4ymo
+ tTc6nUAnH7sSlz5JUTOhnjbZG25MIrh9s3dwIgxbY8z2eEz0lIKzBDl2+MI/JlXbNnL7
+ 4BFA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc;
- bh=c1dA5oASWGj0rrUZ/WWyyCO38Uiq0TAfsSxGYmfkPlY=;
- b=bGVi4aRrgMDv8NGF4RNsJNpI9olsEqa3NPIONWLNfLLN0B/fEALSVK+xj1Mgc5e0sN
- tugq+pBA5Wnl78qC3AjUiDXdI+eKTx5KPVnEOASxw9CEQhdtq6iGK685XGwk3XrZXaBx
- p5EMyyZTDkoXLF/dbxeuZ2FOYBglwMfG/DGu0ZrrxPBrnAv1C5pshaQ6n9Kt92fz91hT
- i1LVd8kdoOotgcGo51KrjtyQiYxnLKlPOA0YY/bqTYK+17P9qLxPkfOwcNP2F4+JEaRs
- 6hEogAASFk/9fKnzlOk/dQpnySJ9Iz9MTt2WLFS8rGV8dAel6oWx3IcVLDOjqW8lFFZO
- PE7Q==
-X-Gm-Message-State: ACgBeo28BnqjFOqhwdjHdP3iHWQT+nNOWZizJu4+pn/900WCYAK1L21e
- 7xdeA7cJiMGZd7x4QOQkfUNdNw==
-X-Google-Smtp-Source: AA6agR7wM+x9s2G0l80E0LnJODLA/PG74+Qk16IJ5VwKsCc/MbDJLPh5C/Qmli+xGAgcR8f845D2Tw==
-X-Received: by 2002:a05:6512:258b:b0:492:f472:3058 with SMTP id
- bf11-20020a056512258b00b00492f4723058mr857168lfb.337.1661250377095; 
- Tue, 23 Aug 2022 03:26:17 -0700 (PDT)
+ bh=478xp+xXVm6+LQ5Y3hKJmtg5OeuY/mk2KivYHfJ1FyI=;
+ b=fPnHHb/qxIFQuY+0EWJrUNgI42m+/inA1V7xh0o3ri5Q9ekazWYb2es1cGBdw1oLQy
+ fnnMuDiqzDH/LYzsx8RTP8MDHWK0y7j3PT4L5jF2E9A3LxvhNt7HcqUMmIWADhJW0JUA
+ O8jIFzBMOe6XR4z/2Pn8RgXXzSyTWuhy6trN6Hag0PRxxBqmzu7llRMf+/QA9z1fqEUF
+ 1A8oNLgErx9ShQl76i6uW4/wgQUWrR4DWFPlJAZB+Z6JR0q847f6LFIrNf5+hiWjZTwF
+ +nnvNSkAEI8th3XqJ1xyZrH6HsN7ER0wI3MHlc+tNxuRSxfy7YvcKn+kI8lIPSv8xoxJ
+ Vj4g==
+X-Gm-Message-State: ACgBeo022C4NxpG1mg7MRNqUKmBQSU7yhstA5E+JsBY/nIpHdUTbyXnW
+ SnHNpZPiAZXXCfryXeWXwGH+YA==
+X-Google-Smtp-Source: AA6agR6pHuA/Pqmja0Nyf2X+bxQ8qNJYXHFv0dFuO3RrNLaLnxBp429/iBJM6FMXPPiiCSEkUiu4KQ==
+X-Received: by 2002:a05:651c:12c4:b0:25d:d71c:e249 with SMTP id
+ 4-20020a05651c12c400b0025dd71ce249mr6320800lje.17.1661252455406; 
+ Tue, 23 Aug 2022 04:00:55 -0700 (PDT)
 Received: from [192.168.0.11] (89-27-92-210.bb.dnainternet.fi. [89.27.92.210])
  by smtp.gmail.com with ESMTPSA id
- a16-20020a056512391000b0048aa9d67483sm2437921lfu.160.2022.08.23.03.26.15
+ t2-20020a19dc02000000b0047f8d7c08e4sm2449095lfg.166.2022.08.23.04.00.54
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 23 Aug 2022 03:26:16 -0700 (PDT)
-Message-ID: <2d6a6603-ae0b-6874-d92a-eeebef6abf17@linaro.org>
-Date: Tue, 23 Aug 2022 13:26:15 +0300
+ Tue, 23 Aug 2022 04:00:54 -0700 (PDT)
+Message-ID: <b59fad42-5217-8c96-a43a-d6f036766371@linaro.org>
+Date: Tue, 23 Aug 2022 14:00:53 +0300
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
  Thunderbird/91.12.0
@@ -60,16 +60,16 @@ To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
  Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
  Abhinav Kumar <quic_abhinavk@quicinc.com>, Rob Herring <robh+dt@kernel.org>,
  Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>
-References: <20220706145222.1565238-1-dmitry.baryshkov@linaro.org>
- <20220706145222.1565238-4-dmitry.baryshkov@linaro.org>
- <7b504ecb-b05a-549e-e2ce-18c539f68655@linaro.org>
- <a3a917b3-5dfc-761e-e5f6-5955c89db4a4@linaro.org>
+References: <20220710090040.35193-1-dmitry.baryshkov@linaro.org>
+ <20220710090040.35193-7-dmitry.baryshkov@linaro.org>
+ <37bf0f7f-e555-7ae9-7d2b-e05a9e8db6a4@linaro.org>
+ <76c05290-d957-b1ec-fa4d-1074c42979a8@linaro.org>
 From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-In-Reply-To: <a3a917b3-5dfc-761e-e5f6-5955c89db4a4@linaro.org>
+In-Reply-To: <76c05290-d957-b1ec-fa4d-1074c42979a8@linaro.org>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH 3/4] dt-bindings: display/msm/gmu: account
- for different GMU variants
+Subject: Re: [Freedreno] [PATCH v2 06/11] dt-bindings: display/msm: move
+ qcom, sc7180-mdss schema to mdss.yaml
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -89,81 +89,46 @@ Cc: devicetree@vger.kernel.org, David Airlie <airlied@linux.ie>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 22/08/2022 20:58, Dmitry Baryshkov wrote:
-> On 06/07/2022 18:52, Krzysztof Kozlowski wrote:
->> On 06/07/2022 16:52, Dmitry Baryshkov wrote:
->>> Make display/msm/gmu.yaml describe all existing GMU variants rather than
->>> just the 630.2 (SDM845) version of it.
->>>
->>> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
->>> ---
->>>   .../devicetree/bindings/display/msm/gmu.yaml  | 166 +++++++++++++++---
->>>   1 file changed, 146 insertions(+), 20 deletions(-)
->>>
->>> diff --git a/Documentation/devicetree/bindings/display/msm/gmu.yaml b/Documentation/devicetree/bindings/display/msm/gmu.yaml
->>> index fe55611d2603..67fdeeabae0c 100644
->>> --- a/Documentation/devicetree/bindings/display/msm/gmu.yaml
->>> +++ b/Documentation/devicetree/bindings/display/msm/gmu.yaml
->>> @@ -20,35 +20,24 @@ description: |
->>>   properties:
->>>     compatible:
->>>       items:
->>> -      - enum:
->>> -          - qcom,adreno-gmu-630.2
->>> +      - pattern: '^qcom,adreno-gmu-6[0-9][0-9]\.[0-9]$'
->>>         - const: qcom,adreno-gmu
+On 22/08/2022 22:04, Dmitry Baryshkov wrote:
+>>>   required:
+>>>     - compatible
+>>>     - reg
+>>> @@ -177,7 +204,19 @@ patternProperties:
+>>>       # TODO: add reference once the mdp5 is converted
 >>>   
->>>     reg:
->>> -    items:
->>> -      - description: Core GMU registers
->>> -      - description: GMU PDC registers
->>> -      - description: GMU PDC sequence registers
->>> +    minItems: 3
->>> +    maxItems: 4
->>>   
->>>     reg-names:
->>> -    items:
->>> -      - const: gmu
->>> -      - const: gmu_pdc
->>> -      - const: gmu_pdc_seq
->>> +    minItems: 3
->>> +    maxItems: 4
->>>   
->>>     clocks:
->>> -    items:
->>> -      - description: GMU clock
->>> -      - description: GPU CX clock
->>> -      - description: GPU AXI clock
->>> -      - description: GPU MEMNOC clock
->>> +    minItems: 4
->>> +    maxItems: 7
->>>   
->>>     clock-names:
->>> -    items:
->>> -      - const: gmu
->>> -      - const: cxo
->>> -      - const: axi
->>> -      - const: memnoc
->>> +    minItems: 4
->>> +    maxItems: 7
->>>   
->>>     interrupts:
->>>       items:
->>> @@ -76,6 +65,9 @@ properties:
->>>   
->>>     operating-points-v2: true
->>>   
->>> +  opp-table:
->>> +    type: object
+>>>     "^display-controller@(0|[1-9a-f][0-9a-f]*)$":
+>>> -    $ref: dpu-sdm845.yaml
+>>> +    oneOf:
+>>> +      - $ref: dpu-sc7180.yaml
+>>> +      - $ref: dpu-sdm845.yaml
 >>
->> instead: opp-table:true
+>> I don't think this is good approach. These are strictly tied, so you
+>> should have rather per SoC MDSS schema pulling in:
+>> 1. common MDSS
+>> 2. specific children schemas
+>>
+>> This makes it quite obvious and specific. Your setup now allows putting
+>> sc7180-dpu under sdm845-dpu.
 > 
-> Wouldn't this allow e.g. using just 'opp-table;' as a flag?
+> Then we should probably also use very specific $ref and compat check for 
+> all other entries in this file too. I understand your concern, however 
+> I'd prefer to have the working schema which is not tight enough compared 
+> to set of schema files that completely do not work.
 
-You're right and Rob also corrected me. Your original patch was correct
-(type:object).
+Why they cannot be tight and working?
 
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+> And current 
+> dpu-*yaml do not work as they allow just the display-controller beneath 
+> the mdss node.
+
+Sure, this can be fixed but not really in a relaxing way.
+
+> 
+> If you absolutely insist on me making the binding tight enough, I'll 
+> rework the bindings to clearly specify which SoC has which nodes.
+
+I do not see the drawbacks of specific/tight approach, so yes, please
+make it tight.
 
 
 Best regards,
