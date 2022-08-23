@@ -2,75 +2,63 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6F55059EA4A
-	for <lists+freedreno@lfdr.de>; Tue, 23 Aug 2022 19:53:03 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4CB8959EAE1
+	for <lists+freedreno@lfdr.de>; Tue, 23 Aug 2022 20:24:51 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6C8A110E293;
-	Tue, 23 Aug 2022 17:53:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D26D611A235;
+	Tue, 23 Aug 2022 18:24:48 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AFA7510E293;
- Tue, 23 Aug 2022 17:52:46 +0000 (UTC)
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 27NGlCIZ013898;
- Tue, 23 Aug 2022 17:52:40 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
- h=message-id : date :
- mime-version : subject : to : cc : references : from : in-reply-to :
- content-type : content-transfer-encoding; s=qcppdkim1;
- bh=rUw2in+AH1erjyxM6/5u1ukVrsGpIF9x+6A1qOpftQY=;
- b=nJyJANptU6yyFLb6ikz3Hp7PqxgKAij4TjmVWMjSKLJeo8wbHR9iv9wwDZ0/RtvMT6/E
- 2xV2l9RoaKODrCgAzBoXBDDEeeGLYL3QkqU9fNWOUh3lMdQE3VIjyKZsrlGq96JCHFBT
- px9xcXPA/tfziFgK7v7yTToSAyKxdSl5qcI1YwbzRN9Ij3IgqP5TuL3WRqQkpk1EbbNw
- gpmwi4DSTfMi9GiVrK8VyUqXzQDSq8FemxJY6oujhA96Fc5kq1DSH/rAX28neFvEdevz
- igxyeJqf04hlXEbZIZId/YR/HRxFqFQuMwZPdZoN+HwkdN5wAgT8lwS1WP5HwEftJF8s hw== 
-Received: from nalasppmta03.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3j52pq8a11-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 23 Aug 2022 17:52:39 +0000
-Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
- [10.47.209.196])
- by NALASPPMTA03.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 27NHqcDG013801
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 23 Aug 2022 17:52:38 GMT
-Received: from [10.111.161.24] (10.80.80.8) by nalasex01a.na.qualcomm.com
- (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.29; Tue, 23 Aug
- 2022 10:52:36 -0700
-Message-ID: <2237e6d0-8ee3-48a9-ab4c-4a99ed0e5646@quicinc.com>
-Date: Tue, 23 Aug 2022 10:52:34 -0700
+Received: from mail-yw1-x1131.google.com (mail-yw1-x1131.google.com
+ [IPv6:2607:f8b0:4864:20::1131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C4C2C11A1E0
+ for <freedreno@lists.freedesktop.org>; Tue, 23 Aug 2022 18:24:40 +0000 (UTC)
+Received: by mail-yw1-x1131.google.com with SMTP id
+ 00721157ae682-3375488624aso372449867b3.3
+ for <freedreno@lists.freedesktop.org>; Tue, 23 Aug 2022 11:24:40 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc;
+ bh=XtHnpqNsO1GqMrMs/hDiQG1cyMYMiBI2ato5C3wCzTY=;
+ b=ZKjjBYj1gBxAdyZVr4lWAsSGku+8GieBuHQ0OEl+X6QIkz2TOPeiJzxckGICnDAK6n
+ HQDdOGwtXOJmY2+WICC2VDh8zfUiHfdLpJC8lWSq7GxlkVvqWeAgjuHN4CFZcvp6aLOZ
+ khUt1UxKnVrjmLB7um48WbJx2FswKGDvb7Oe2zpjfVf9shqM7nucZZVk+DMnjbtAEIIu
+ yI/uwG1Y513oEBHTDMT3NV3d95LxaNIG/5QDAwtKNc7sKA2wBoKhbb+hb73rCvLoG64i
+ wc5mWc5YcuVubR46MgT47K/oMOGJQlY7a9xMpfU0Dwz4AIlp11JdSygsuDWpwwtdQjyk
+ uHdQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc;
+ bh=XtHnpqNsO1GqMrMs/hDiQG1cyMYMiBI2ato5C3wCzTY=;
+ b=zDez/Vx8jtFezsQ7yr0UL6SrBfcX75/Jnsxn43NlC0olsQPiUg/F2NMMitqFXr0NYJ
+ ucAwLSNPmxjFTqtWgdazRX2P0v1q8rkejvJBe4VSg4XZHplSikPfgOJGADu23wrDQOAH
+ iHrPpRFiXBcRwZR9smPwFn2xJxYf4XEQv5RD4atpFM8C0b5Vt4wgpPrLVA3C2idGGKOu
+ 0BjiK51AY7XdwDsp5BEn4sQohW8ORnarX1w/Tdnn4PxJJxwSciUg6qZHvVW8ex9jHmGd
+ 7tXu8pIxQKnDazaw+7UAvj15zp2sWJMxqWYOmLC7sJjNqhmnPW/ZHHdGMvz3XTIdFToi
+ VzvQ==
+X-Gm-Message-State: ACgBeo2S1Eg5L3ntaiiOhlSxdlvdcQfs3yEmSctOjOSUhpAdFNYxWa63
+ XzQhUG8RpbsWsBdeaGCEQmWcnR02FBq6Aku1p+LaNg==
+X-Google-Smtp-Source: AA6agR5pGU5afgAW1EmPG74/gUZ4nBuucS0dag+FVmm04t1k3abnSKIImoKbMJKXkhk9kD94wSV2vICNKg4sS6nDwjk=
+X-Received: by 2002:a0d:eb87:0:b0:338:d06b:e605 with SMTP id
+ u129-20020a0deb87000000b00338d06be605mr20055821ywe.316.1661279079937; Tue, 23
+ Aug 2022 11:24:39 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.6.2
-Content-Language: en-US
-To: Jilin Yuan <yuanjilin@cdjrlc.com>, <robdclark@gmail.com>,
- <dmitry.baryshkov@linaro.org>, <airlied@linux.ie>, <daniel@ffwll.ch>
-References: <20220823115100.44060-1-yuanjilin@cdjrlc.com>
-From: Abhinav Kumar <quic_abhinavk@quicinc.com>
-In-Reply-To: <20220823115100.44060-1-yuanjilin@cdjrlc.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-ORIG-GUID: 70aeHVeJT2NAGntlt0BzuPj93oCTqYFp
-X-Proofpoint-GUID: 70aeHVeJT2NAGntlt0BzuPj93oCTqYFp
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.205,Aquarius:18.0.895,Hydra:6.0.517,FMLib:17.11.122.1
- definitions=2022-08-23_07,2022-08-22_02,2022-06-22_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0
- suspectscore=0 mlxlogscore=999 bulkscore=0 phishscore=0 spamscore=0
- impostorscore=0 clxscore=1011 adultscore=0 malwarescore=0 mlxscore=0
- priorityscore=1501 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2207270000 definitions=main-2208230070
-Subject: Re: [Freedreno] [PATCH] disp/dpu1: fix repeated words in comments
+References: <20220726173824.1166873-1-dianders@chromium.org>
+ <20220726103631.v2.4.Ie85f68215ada39f502a96dcb8a1f3ad977e3f68a@changeid>
+ <CAMSo37XsawRxTnJriLUAwJAj0+ZzpACtMiR_3V7H1H9WXg3T_Q@mail.gmail.com>
+ <CAD=FV=V5c0bCOCBvdnqVJ6Sa1XKeg+d7kTEL2Okh4GAL66MGiw@mail.gmail.com>
+ <CAMSo37Uve4qrAA81zrO9eOGc4y7vjg-OZ9L7m9xWM7UkQ6PzmQ@mail.gmail.com>
+ <CAMSo37U1uxUFkn4Jda5E+nDiz0wp8_ERbNa9BUgWttZ6dEssAg@mail.gmail.com>
+ <CAD=FV=WNNAYtdoocp_ShyNBOBmqSSr79=x_2UKq+yfA+HiOo9w@mail.gmail.com>
+In-Reply-To: <CAD=FV=WNNAYtdoocp_ShyNBOBmqSSr79=x_2UKq+yfA+HiOo9w@mail.gmail.com>
+From: Yongqin Liu <yongqin.liu@linaro.org>
+Date: Wed, 24 Aug 2022 02:24:29 +0800
+Message-ID: <CAMSo37W47x-rFdNqJBJPW6TqCYC=K2fUS3FRPRCUg=t37a3u-Q@mail.gmail.com>
+To: Doug Anderson <dianders@chromium.org>
+Content-Type: text/plain; charset="UTF-8"
+Subject: Re: [Freedreno] [PATCH v2 4/7] regulator: core: Allow specifying an
+ initial load w/ the bulk API
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,37 +71,84 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org
+Cc: linux-arm-msm <linux-arm-msm@vger.kernel.org>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ dri-devel <dri-devel@lists.freedesktop.org>,
+ Liam Girdwood <lgirdwood@gmail.com>, Steve Muckle <smuckle@google.com>,
+ Alistair Delva <alistair.delva@linaro.org>, Rob Clark <robdclark@gmail.com>,
+ Mark Brown <broonie@kernel.org>, John Stultz <jstultz@google.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ freedreno <freedreno@lists.freedesktop.org>,
+ Sumit Semwal <sumit.semwal@linaro.org>, LKML <linux-kernel@vger.kernel.org>,
+ Todd Kjos <tkjos@google.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Please fix the subject line .
+Hi, Douglas
 
-It should be drm/msm/dpu: fix repeated words in comments
+On Tue, 23 Aug 2022 at 22:50, Doug Anderson <dianders@chromium.org> wrote:
+>
+> Hi,
+>
+> On Mon, Aug 22, 2022 at 11:23 PM Yongqin Liu <yongqin.liu@linaro.org> wrote:
+> >
+> > Hi, Douglas
+> >
+> > Just an update on the fix you pointed out previously here:
+> > > > [1] https://lore.kernel.org/r/20220809142738.1.I91625242f137c707bb345c51c80c5ecee02eeff3@changeid
+> >
+> > With it I could boot the hikey960 build to the home screen if it does
+> > not use the GKI kernel.
+> > but the problem will be reproduced if it uses the GKI kernel.
+> >
+> > And if this change is reverted, then it could boot with the GKI kernel as well.
+> >
+> > I am not sure what's the reason there, but there seems to be some
+> > difference with the fix above and the workaround of revert.
+> > Not sure if you have any idea about that.
+> >
+> > Regarding the GKI kernel(Android Generic Kernel Image)[2], it's built
+> > from the android-mainline tree(f51334eac4de) without any workaround.
+> > (Neither the revert, nor the fix applied), and the regulator modules
+> > used for the hikey960 build are hi6421v530-regulator.ko and
+> > hi655x-regulator.ko
+> >
+> > I am still not sure if it would work with the GKI kernel that has the
+> > fix that you pointed out in. the case that both the GKI kernel and
+> > vendor tree have the fix.
+> > Will update here when I have some results.
 
-Also, you can add
+Just checked, with the fix applied in the GKI kernel, the problem is
+not reproduced again.
 
-Fixes: 25fdd5933e4c ("drm/msm: Add SDM845 DPU support")
+> > [2]: https://source.android.com/docs/core/architecture/kernel/generic-kernel-image?hl=en
+>
+> That's not too surprising. The broken patch is in the core kernel so
+> you need the fix in the core kernel.
+Sorry, I still do not get the point here.
 
-On 8/23/2022 4:51 AM, Jilin Yuan wrote:
->   Delete the redundant word 'is'.
-> 
-> Signed-off-by: Jilin Yuan <yuanjilin@cdjrlc.com>
-> ---
->   drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c | 2 +-
->   1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
-> index bce47647d891..59ca7d70a652 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
-> @@ -1169,7 +1169,7 @@ static int dpu_kms_hw_init(struct msm_kms *kms)
->   
->   	/*
->   	 * max crtc width is equal to the max mixer width * 2 and max height is
-> -	 * is 4K
-> +	 * 4K
->   	 */
->   	dev->mode_config.max_width =
->   			dpu_kms->catalog->caps->max_mixer_width * 2;
+The GKI kernel is the same one, that does not have the revert and the
+fix applied.
+
+for the vendor tree(the ko files and dtb files are used)
+#1 built with this commit reverted.
+#2 built with the fix applied.
+
+#1 could boot with the GKI kernel, while #2 does not boot with the same error.
+What might cause the difference?
+
+> I think that means you'll have to
+> wait until `android-mainline` gets the fix. I don't work on Android,
+> so if there's some other route to get an expedited fix into
+> android-mainline I'm not aware of it.
+
+Thanks, I will wait for the fix to be merged into the android-mainline,
+before that I will use the revert workaround for the moment.
+
+-- 
+Best Regards,
+Yongqin Liu
+---------------------------------------------------------------
+#mailing list
+linaro-android@lists.linaro.org
+http://lists.linaro.org/mailman/listinfo/linaro-android
