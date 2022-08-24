@@ -1,45 +1,77 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id B9A475A02D3
-	for <lists+freedreno@lfdr.de>; Wed, 24 Aug 2022 22:33:58 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 2BE8C5A02E6
+	for <lists+freedreno@lfdr.de>; Wed, 24 Aug 2022 22:37:41 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 07A68C7DC9;
-	Wed, 24 Aug 2022 20:33:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2221E2B844;
+	Wed, 24 Aug 2022 20:36:51 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-41104.protonmail.ch (mail-41104.protonmail.ch
- [185.70.41.104])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B6B9D11BD01
- for <freedreno@lists.freedesktop.org>; Tue, 23 Aug 2022 15:15:36 +0000 (UTC)
-Date: Tue, 23 Aug 2022 15:15:18 +0000
-Authentication-Results: mail-41104.protonmail.ch;
- dkim=pass (1024-bit key) header.d=connolly.tech header.i=@connolly.tech
- header.b="oF0ZlcI3"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=connolly.tech;
- s=protonmail; t=1661267729; x=1661526929;
- bh=/a5Sr9z4hKMkNQE2RiJnMU4myUih+AbOa22vER9x60Q=;
- h=Date:To:From:Cc:Reply-To:Subject:Message-ID:In-Reply-To:
- References:Feedback-ID:From:To:Cc:Date:Subject:Reply-To:
- Feedback-ID:Message-ID;
- b=oF0ZlcI3jQo3o5di1EQm3lYNC4ZqhwDt2qOck1QEd3v0d7RAxquP6nkgnHPYV2qdH
- WCLhYGe7AasNrtjbOhAQ5T2eDUEuE8wivgsavw8lBv3oJx4G/En4bdzrv0l4DQ91z1
- jRkymxY7CQP77zuG7VMoO5V3GzOsRFNQdl/aK/8Q=
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Andy Gross <agross@kernel.org>, Bjorn Andersson <bjorn.andersson@linaro.org>,
- Konrad Dybcio <konrad.dybcio@somainline.org>, Rob Herring <robh+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>
-From: Caleb Connolly <caleb@connolly.tech>
-Message-ID: <2af8e228-5334-d5fe-eee5-2067d84481dc@connolly.tech>
-In-Reply-To: <20220822191138.316912-1-dmitry.baryshkov@linaro.org>
-References: <20220822191138.316912-1-dmitry.baryshkov@linaro.org>
-Feedback-ID: 10753939:user:proton
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C3E7310E3D8;
+ Wed, 24 Aug 2022 01:25:11 +0000 (UTC)
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 27NNqEYl010733;
+ Wed, 24 Aug 2022 01:25:08 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
+ h=message-id : date :
+ mime-version : subject : to : cc : references : from : in-reply-to :
+ content-type : content-transfer-encoding; s=qcppdkim1;
+ bh=IzHXtqynfVwEe5eMwtZdRV4569xPU1BbuzTf2dKX8nI=;
+ b=lQkrPKFI0IrNAw55l4MGIxQB2bJPm2KtMWv2/eyRo1EvxCzBmhPrNTJCQC9P5eUfuF+5
+ MQwcbUtJuyWZLm972MBcSuNCeaGkqIFXEOL0Emjl9IO+i84G/pnsYF1mNMcjWWCsEFaP
+ YH6ht+X8ca9L8OVgWYBIQLtwlH5vvCItuUv3MhEMatSGkDArp5/WCIk/IkAONNK46PG3
+ 15jL/1sMmJNML4fyh1bA1yDdsxr5+YTbzGu3uMC9P7NUC1bTTdxFco14mgtE6YBK7npA
+ pQM31OqeUavWiesUdtcOOumKGLAWCRz+fUNWZe8HvG807ymfcoFqICVSkJZgaT5O11ll GQ== 
+Received: from nalasppmta02.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3j52pjhede-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 24 Aug 2022 01:25:08 +0000
+Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
+ [10.47.209.196])
+ by NALASPPMTA02.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 27O1P7Gq003538
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 24 Aug 2022 01:25:07 GMT
+Received: from [10.111.161.24] (10.80.80.8) by nalasex01a.na.qualcomm.com
+ (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.29; Tue, 23 Aug
+ 2022 18:25:05 -0700
+Message-ID: <251f0ce1-05cd-548e-9253-82adbc1038ce@quicinc.com>
+Date: Tue, 23 Aug 2022 18:25:03 -0700
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [Freedreno] [PATCH] arm64: dts: qcom: sm8250: move DSI opp
- table to the dsi0 node
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
+ Thunderbird/91.6.2
+Content-Language: en-US
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Rob Clark
+ <robdclark@gmail.com>, Sean Paul <sean@poorly.run>
+References: <20220620213054.1872954-1-dmitry.baryshkov@linaro.org>
+ <20220620213054.1872954-2-dmitry.baryshkov@linaro.org>
+From: Abhinav Kumar <quic_abhinavk@quicinc.com>
+In-Reply-To: <20220620213054.1872954-2-dmitry.baryshkov@linaro.org>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-ORIG-GUID: Qvd7WFTPvdJfuu5igI6rJ_GubrGwxNBM
+X-Proofpoint-GUID: Qvd7WFTPvdJfuu5igI6rJ_GubrGwxNBM
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.205,Aquarius:18.0.895,Hydra:6.0.517,FMLib:17.11.122.1
+ definitions=2022-08-23_10,2022-08-22_02,2022-06-22_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015
+ priorityscore=1501 mlxscore=0 lowpriorityscore=0 bulkscore=0 phishscore=0
+ suspectscore=0 adultscore=0 spamscore=0 malwarescore=0 mlxlogscore=999
+ impostorscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2207270000 definitions=main-2208240002
+Subject: Re: [Freedreno] [PATCH v1 1/4] drm/msm/mdp5: stop overriding drvdata
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -52,88 +84,107 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: Caleb Connolly <caleb@connolly.tech>
-Cc: linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
- devicetree@vger.kernel.org
+Cc: David Airlie <airlied@linux.ie>, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, Bjorn Andersson <bjorn.andersson@linaro.org>,
+ Daniel Vetter <daniel@ffwll.ch>, Stephen Boyd <swboyd@chromium.org>,
+ freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 
 
-On 22/08/2022 20:11, Dmitry Baryshkov wrote:
-> It makes no sense to have the OPP table for the DSI controllers in the
-> DSI1 PHY node. Move it to more logical dsi0 device node.
->
+On 6/20/2022 2:30 PM, Dmitry Baryshkov wrote:
+> The rest of the code expects that master's device drvdata is the
+> struct msm_drm_private instance. Do not override the mdp5's drvdata.
+> 
+> Fixes: 6874f48bb8b0 ("drm/msm: make mdp5/dpu devices master components")
 > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 
-Reviewed-by: Caleb Connolly <caleb@connolly.tech>
+Is this just for consistency across mdp5/dpu drivers?
+
+What issue was seen if mdp5's platform data is overwritten?
 
 > ---
->   arch/arm64/boot/dts/qcom/sm8250.dtsi | 38 ++++++++++++++--------------
->   1 file changed, 19 insertions(+), 19 deletions(-)
->
-> diff --git a/arch/arm64/boot/dts/qcom/sm8250.dtsi b/arch/arm64/boot/dts/q=
-com/sm8250.dtsi
-> index bc773e210023..5843e46a3164 100644
-> --- a/arch/arm64/boot/dts/qcom/sm8250.dtsi
-> +++ b/arch/arm64/boot/dts/qcom/sm8250.dtsi
-> @@ -3571,6 +3571,25 @@ dsi0_out: endpoint {
->   =09=09=09=09=09=09};
->   =09=09=09=09=09};
->   =09=09=09=09};
-> +
-> +=09=09=09=09dsi_opp_table: opp-table {
-> +=09=09=09=09=09compatible =3D "operating-points-v2";
-> +
-> +=09=09=09=09=09opp-187500000 {
-> +=09=09=09=09=09=09opp-hz =3D /bits/ 64 <187500000>;
-> +=09=09=09=09=09=09required-opps =3D <&rpmhpd_opp_low_svs>;
-> +=09=09=09=09=09};
-> +
-> +=09=09=09=09=09opp-300000000 {
-> +=09=09=09=09=09=09opp-hz =3D /bits/ 64 <300000000>;
-> +=09=09=09=09=09=09required-opps =3D <&rpmhpd_opp_svs>;
-> +=09=09=09=09=09};
-> +
-> +=09=09=09=09=09opp-358000000 {
-> +=09=09=09=09=09=09opp-hz =3D /bits/ 64 <358000000>;
-> +=09=09=09=09=09=09required-opps =3D <&rpmhpd_opp_svs_l1>;
-> +=09=09=09=09=09};
-> +=09=09=09=09};
->   =09=09=09};
->
->   =09=09=09dsi0_phy: dsi-phy@ae94400 {
-> @@ -3663,25 +3682,6 @@ dsi1_phy: dsi-phy@ae96400 {
->   =09=09=09=09clock-names =3D "iface", "ref";
->
->   =09=09=09=09status =3D "disabled";
+>   drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c | 19 +++++++++----------
+>   1 file changed, 9 insertions(+), 10 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c b/drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c
+> index c668a4b27cc6..daf5b5ca7233 100644
+> --- a/drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c
+> +++ b/drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c
+> @@ -203,7 +203,7 @@ static int mdp5_set_split_display(struct msm_kms *kms,
+>   							  slave_encoder);
+>   }
+>   
+> -static void mdp5_destroy(struct platform_device *pdev);
+> +static void mdp5_destroy(struct mdp5_kms *mdp5_kms);
+>   
+>   static void mdp5_kms_destroy(struct msm_kms *kms)
+>   {
+> @@ -223,7 +223,7 @@ static void mdp5_kms_destroy(struct msm_kms *kms)
+>   	}
+>   
+>   	mdp_kms_destroy(&mdp5_kms->base);
+> -	mdp5_destroy(mdp5_kms->pdev);
+> +	mdp5_destroy(mdp5_kms);
+>   }
+>   
+>   #ifdef CONFIG_DEBUG_FS
+> @@ -651,9 +651,8 @@ static int mdp5_kms_init(struct drm_device *dev)
+>   	return ret;
+>   }
+>   
+> -static void mdp5_destroy(struct platform_device *pdev)
+> +static void mdp5_destroy(struct mdp5_kms *mdp5_kms)
+>   {
+> -	struct mdp5_kms *mdp5_kms = platform_get_drvdata(pdev);
+>   	int i;
+>   
+>   	if (mdp5_kms->ctlm)
+> @@ -667,7 +666,7 @@ static void mdp5_destroy(struct platform_device *pdev)
+>   		kfree(mdp5_kms->intfs[i]);
+>   
+>   	if (mdp5_kms->rpm_enabled)
+> -		pm_runtime_disable(&pdev->dev);
+> +		pm_runtime_disable(&mdp5_kms->pdev->dev);
+>   
+>   	drm_atomic_private_obj_fini(&mdp5_kms->glob_state);
+>   	drm_modeset_lock_fini(&mdp5_kms->glob_state_lock);
+> @@ -816,8 +815,6 @@ static int mdp5_init(struct platform_device *pdev, struct drm_device *dev)
+>   		goto fail;
+>   	}
+>   
+> -	platform_set_drvdata(pdev, mdp5_kms);
 > -
-> -=09=09=09=09dsi_opp_table: opp-table {
-> -=09=09=09=09=09compatible =3D "operating-points-v2";
-> -
-> -=09=09=09=09=09opp-187500000 {
-> -=09=09=09=09=09=09opp-hz =3D /bits/ 64 <187500000>;
-> -=09=09=09=09=09=09required-opps =3D <&rpmhpd_opp_low_svs>;
-> -=09=09=09=09=09};
-> -
-> -=09=09=09=09=09opp-300000000 {
-> -=09=09=09=09=09=09opp-hz =3D /bits/ 64 <300000000>;
-> -=09=09=09=09=09=09required-opps =3D <&rpmhpd_opp_svs>;
-> -=09=09=09=09=09};
-> -
-> -=09=09=09=09=09opp-358000000 {
-> -=09=09=09=09=09=09opp-hz =3D /bits/ 64 <358000000>;
-> -=09=09=09=09=09=09required-opps =3D <&rpmhpd_opp_svs_l1>;
-> -=09=09=09=09=09};
-> -=09=09=09=09};
->   =09=09=09};
->   =09=09};
->
-> --
-> 2.35.1
->
-
---
-Kind Regards,
-Caleb
-
+>   	spin_lock_init(&mdp5_kms->resource_lock);
+>   
+>   	mdp5_kms->dev = dev;
+> @@ -915,7 +912,7 @@ static int mdp5_init(struct platform_device *pdev, struct drm_device *dev)
+>   	return 0;
+>   fail:
+>   	if (mdp5_kms)
+> -		mdp5_destroy(pdev);
+> +		mdp5_destroy(mdp5_kms);
+>   	return ret;
+>   }
+>   
+> @@ -975,7 +972,8 @@ static int mdp5_dev_remove(struct platform_device *pdev)
+>   static __maybe_unused int mdp5_runtime_suspend(struct device *dev)
+>   {
+>   	struct platform_device *pdev = to_platform_device(dev);
+> -	struct mdp5_kms *mdp5_kms = platform_get_drvdata(pdev);
+> +	struct msm_drm_private *priv = platform_get_drvdata(pdev);
+> +	struct mdp5_kms *mdp5_kms = to_mdp5_kms(to_mdp_kms(priv->kms));
+>   
+>   	DBG("");
+>   
+> @@ -985,7 +983,8 @@ static __maybe_unused int mdp5_runtime_suspend(struct device *dev)
+>   static __maybe_unused int mdp5_runtime_resume(struct device *dev)
+>   {
+>   	struct platform_device *pdev = to_platform_device(dev);
+> -	struct mdp5_kms *mdp5_kms = platform_get_drvdata(pdev);
+> +	struct msm_drm_private *priv = platform_get_drvdata(pdev);
+> +	struct mdp5_kms *mdp5_kms = to_mdp5_kms(to_mdp_kms(priv->kms));
+>   
+>   	DBG("");
+>   
