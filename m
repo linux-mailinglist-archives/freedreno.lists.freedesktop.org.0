@@ -1,60 +1,60 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3F1D35A0230
-	for <lists+freedreno@lfdr.de>; Wed, 24 Aug 2022 21:39:00 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 5FE915A01BA
+	for <lists+freedreno@lfdr.de>; Wed, 24 Aug 2022 21:02:42 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 738B5C416F;
-	Wed, 24 Aug 2022 19:38:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BC422C28B0;
+	Wed, 24 Aug 2022 19:02:23 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-pl1-x635.google.com (mail-pl1-x635.google.com
- [IPv6:2607:f8b0:4864:20::635])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DE7CB8E467;
- Sun, 21 Aug 2022 15:54:09 +0000 (UTC)
-Received: by mail-pl1-x635.google.com with SMTP id y4so7948134plb.2;
- Sun, 21 Aug 2022 08:54:09 -0700 (PDT)
+Received: from mail-oa1-x36.google.com (mail-oa1-x36.google.com
+ [IPv6:2001:4860:4864:20::36])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 13414C269B;
+ Wed, 24 Aug 2022 19:01:55 +0000 (UTC)
+Received: by mail-oa1-x36.google.com with SMTP id
+ 586e51a60fabf-11c896b879bso21998140fac.3; 
+ Wed, 24 Aug 2022 12:01:55 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc;
- bh=bkh2RmwQz43pDpH6k4U/hhGBE1MuNMuBG/1+04H09nA=;
- b=ZNuEb7fEQxkPm2NNO2ZrPhQhxg0BwQRwImIdnuP6Yf88nqeoybObA5gVPi/QaxeDl2
- lMXau9nQFQN/XhXyesFCEWMsBo63C+eAi4u/rVGieZyYN6kjxqcl9iQynZQedN1tPBzG
- p9r5Xen6HBfl0pr9MDJ/T9bZd8jQhITDM3DCPkOKstNtSgKgnUcU4OkutHqMZLY9IB4M
- LxnMaAipIehqbD/frL8KKAdKDq5WHiWncxGG+XnFkP+QSY9P5FNr50Ldcf15qF/GFEz1
- 7qHy/tzRU9+cVvIjIXToTf2d0996+QJIJ8MknJHzydRBfWG/RTxdTViurjUjKHHfqlPh
- NvnA==
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc;
+ bh=BmUDAkEKs1QpgVs64aZzzQ45Z2VQd8OBs9xag8teZ5A=;
+ b=hq301drIRDNXKLDjux5Dw7HOGWufL2ta4/DKG0n/S8UDdcDf8G6vX0gNBwWL4kfU4D
+ l8aaI7AW8dcuYM77/3T9t/84xiLojrORAiIsE8vMyAe5brccsxj/rokbVEIROAMvx5Uc
+ aaDqYj7esjRU9Yc6PA6fGDJ8V/qWKw/Umb9shFdTiap4MDV8s/BF3KqOJzKqR5sPRyh9
+ /ZdCDk2yuadBFZqTh0lKHt6Q7K1IJ9I3NDH4MVLxIrSH9JPgTrCBqNr4nhIQqSbCGxrb
+ BoRgPi11+3jOZPJU4Cmmg4ilmc19AAN/seMUEkemwVpvhg24ZxXAER5nPLrsDe6gtG49
+ KF2w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc;
- bh=bkh2RmwQz43pDpH6k4U/hhGBE1MuNMuBG/1+04H09nA=;
- b=6iu6rGzeRQDYvDnTTZkz4I6q1IjMOOmqdNEsLs4VWL5OMgvX24RpxsUK2nToDtpY+X
- O+BbuK0uxHD2uH1N/Iy2g9/gwTtjSnwK6OLa6xZaJ6H6IX6ipOmAuM5Zwrky8QUCM7IP
- g5dvwMpmXzvIJiqkHdjMsmNc8pBwfP07D+7B9SWvmyE0hpxGqj5ZYWJGZ/mgkPZostE9
- 5wip8CjfG7tRsDimI+QKbvhkwTbk5boynEnUBiyI/rLD9lS6ytqkYr+yHW7LTvoJ71Mu
- qAw8JALm4WG02KZzhJ1EnwGqYpY2ttefyPJQc2K/LDxlDXOUVvacdRbobqNmCuOvia7y
- NTmA==
-X-Gm-Message-State: ACgBeo3hbD5G7moKoCoeuMfwj6YQH2kkgGg+VBC94e2r8BAwNjnVhfNk
- b6cBmqZyrcJBuvPF9hNm5dvdJH0p3jY=
-X-Google-Smtp-Source: AA6agR5Zh5My6hY3phecIGV+h3IPFUyS+zATf/VZj14J1TTIDjXcv0iGZrjT1Z8iftL+CvaKJJHV8Q==
-X-Received: by 2002:a17:903:28c:b0:172:e5f7:f58c with SMTP id
- j12-20020a170903028c00b00172e5f7f58cmr2283522plr.37.1661097248488; 
- Sun, 21 Aug 2022 08:54:08 -0700 (PDT)
-Received: from localhost (c-73-25-156-94.hsd1.or.comcast.net. [73.25.156.94])
- by smtp.gmail.com with ESMTPSA id
- l8-20020a170903244800b0016bea74d11esm2910408pls.267.2022.08.21.08.54.06
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 21 Aug 2022 08:54:07 -0700 (PDT)
-From: Rob Clark <robdclark@gmail.com>
-To: dri-devel@lists.freedesktop.org
-Date: Sun, 21 Aug 2022 08:54:35 -0700
-Message-Id: <20220821155441.1092134-1-robdclark@gmail.com>
-X-Mailer: git-send-email 2.37.2
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc;
+ bh=BmUDAkEKs1QpgVs64aZzzQ45Z2VQd8OBs9xag8teZ5A=;
+ b=SBDnd5TF2c+NMQ4zguSI5kgIS8I52V9aQyms/KL+2wQAvJ20DvRKM9HnaZvJldORgC
+ fxC+fORm71Z+kl/TyouymvDALclRy/nNRbolEBJbApLsQBOEQEOVdahi84oue7UZ2u9P
+ bud8Rli978M7pKvBWDulVI5LoDoUjqxmaRWiDoE5aApXeDNU1mLF5j/+2irQmFG4ldFk
+ IwtSuqyYXwIVEK1yT5mXQB/xmg0dcIet77NnVi4GW2NBG8I2QgZ3k0WHB7K/ZEHuRcUB
+ a07PY9ax7q6JgX+/63MkK/RENEm938G+xutMXW505B0tAuU/1/xx/lswX0e+1xTxW6ua
+ cTyw==
+X-Gm-Message-State: ACgBeo14/cTF1YaWoupXxlIb4R6Y7xflAjBl0WY6QiKRRN9MkONxMZa9
+ 0XLhRMj+Lvvl/MemgcBIJ3Lw0PABNOjsVUOX8PK870a2
+X-Google-Smtp-Source: AA6agR6utCAbb8FEE7KJ6XCRZJyWK6tahQl9cT49ap8xyT6ONQ04pMG8osXSVOG0kx+xHxkNzrDvp9mZYPzrJKAplBg=
+X-Received: by 2002:a05:6870:b692:b0:11d:482f:3642 with SMTP id
+ cy18-20020a056870b69200b0011d482f3642mr264476oab.38.1661367714607; Wed, 24
+ Aug 2022 12:01:54 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH] drm/msm: De-open-code some CP_EVENT_WRITE
+References: <20220821181917.1188021-1-robdclark@gmail.com>
+ <20220821181917.1188021-6-robdclark@gmail.com>
+ <93ff00db-b5d0-350c-b192-e58b781bb1cf@quicinc.com>
+In-Reply-To: <93ff00db-b5d0-350c-b192-e58b781bb1cf@quicinc.com>
+From: Rob Clark <robdclark@gmail.com>
+Date: Wed, 24 Aug 2022 12:02:28 -0700
+Message-ID: <CAF6AEGtBw5pgdpaF6F5sBJvn6Kief2jHnSbKXFJGZ_GeGVjafQ@mail.gmail.com>
+To: Akhil P Oommen <quic_akhilpo@quicinc.com>
+Content-Type: text/plain; charset="UTF-8"
+Subject: Re: [Freedreno] [PATCH 5/5] drm/msm: Skip tlbinv on unmap from
+ non-current pgtables
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,67 +67,109 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rob Clark <robdclark@chromium.org>,
- open list <linux-kernel@vger.kernel.org>,
- Akhil P Oommen <quic_akhilpo@quicinc.com>, David Airlie <airlied@linux.ie>,
+Cc: Rob Clark <robdclark@chromium.org>, David Airlie <airlied@linux.ie>,
  linux-arm-msm@vger.kernel.org, Konrad Dybcio <konrad.dybcio@somainline.org>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
  Douglas Anderson <dianders@chromium.org>, Sean Paul <sean@poorly.run>,
- Rob Clark <robdclark@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Daniel Vetter <daniel@ffwll.ch>,
  Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
  freedreno@lists.freedesktop.org, Chia-I Wu <olvaffe@gmail.com>,
- Dan Carpenter <dan.carpenter@oracle.com>
+ open list <linux-kernel@vger.kernel.org>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-From: Rob Clark <robdclark@chromium.org>
+On Wed, Aug 24, 2022 at 10:46 AM Akhil P Oommen
+<quic_akhilpo@quicinc.com> wrote:
+>
+> On 8/21/2022 11:49 PM, Rob Clark wrote:
+> > From: Rob Clark <robdclark@chromium.org>
+> >
+> > We can rely on the tlbinv done by CP_SMMU_TABLE_UPDATE in this case.
+> >
+> > Signed-off-by: Rob Clark <robdclark@chromium.org>
+> > ---
+> >   drivers/gpu/drm/msm/adreno/a6xx_gpu.c |  6 ++++++
+> >   drivers/gpu/drm/msm/msm_iommu.c       | 29 +++++++++++++++++++++++++++
+> >   2 files changed, 35 insertions(+)
+> >
+> > diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+> > index c8ad8aeca777..1ba0ed629549 100644
+> > --- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+> > +++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+> > @@ -1180,6 +1180,12 @@ static int hw_init(struct msm_gpu *gpu)
+> >       /* Always come up on rb 0 */
+> >       a6xx_gpu->cur_ring = gpu->rb[0];
+> >
+> > +     /*
+> > +      * Note, we cannot assume anything about the state of the SMMU when
+> > +      * coming back from power collapse, so force a CP_SMMU_TABLE_UPDATE
+> > +      * on the first submit.  Also, msm_iommu_pagetable_unmap() relies on
+> > +      * this behavior.
+> > +      */
+> >       gpu->cur_ctx_seqno = 0;
+> >
+> >       /* Enable the SQE_to start the CP engine */
+> > diff --git a/drivers/gpu/drm/msm/msm_iommu.c b/drivers/gpu/drm/msm/msm_iommu.c
+> > index 94c8c09980d1..218074a58081 100644
+> > --- a/drivers/gpu/drm/msm/msm_iommu.c
+> > +++ b/drivers/gpu/drm/msm/msm_iommu.c
+> > @@ -45,8 +45,37 @@ static int msm_iommu_pagetable_unmap(struct msm_mmu *mmu, u64 iova,
+> >               size -= 4096;
+> >       }
+> >
+> > +     /*
+> > +      * A CP_SMMU_TABLE_UPDATE is always sent for the first
+> > +      * submit after resume, and that does a TLB invalidate.
+> > +      * So we can skip that if the device is not currently
+> > +      * powered.
+> > +      */
+> > +     if (!pm_runtime_get_if_in_use(pagetable->parent->dev))
+> > +             goto out;
+> > +
+> > +     /*
+> > +      * If we are not the current pgtables, we can rely on the
+> > +      * TLB invalidate done by CP_SMMU_TABLE_UPDATE.
+> > +      *
+> > +      * We'll always be racing with the GPU updating ttbr0,
+> > +      * but there are only two cases:
+> > +      *
+> > +      *  + either we are not the the current pgtables and there
+> > +      *    will be a tlbinv done by the GPU before we are again
+> > +      *
+> > +      *  + or we are.. there might have already been a tblinv
+> > +      *    if we raced with the GPU, but we have to assume the
+> > +      *    worse and do the tlbinv
+> > +      */
+> > +     if (adreno_smmu->get_ttbr0(adreno_smmu->cookie) != pagetable->ttbr)
+> > +             goto out_put;
+> > +
+> >       adreno_smmu->tlb_inv_by_id(adreno_smmu->cookie, pagetable->asid);
+> >
+> > +out_put:
+> > +     pm_runtime_put(pagetable->parent->dev);
+> > +out:
+> >       return (unmapped == size) ? 0 : -EINVAL;
+> >   }
+> >
+> Asking because it is a *security issue* if we get this wrong:
+> 1. Is there any measure benefit with this patch? I believe tlb
+> invalidation doesn't contribute much to the unmap latency.
 
-Signed-off-by: Rob Clark <robdclark@chromium.org>
----
- drivers/gpu/drm/msm/adreno/a3xx_gpu.c | 2 +-
- drivers/gpu/drm/msm/adreno/a4xx_gpu.c | 2 +-
- drivers/gpu/drm/msm/adreno/a6xx_gpu.c | 2 +-
- 3 files changed, 3 insertions(+), 3 deletions(-)
+It turned out to not make a huge difference.. although I expect the
+part about skipping the inv when runtime suspended is still useful
+from a power standpoint (but don't have a great setup to measure that)
 
-diff --git a/drivers/gpu/drm/msm/adreno/a3xx_gpu.c b/drivers/gpu/drm/msm/adreno/a3xx_gpu.c
-index 0ab0e1dd8bbb..2c8b9899625b 100644
---- a/drivers/gpu/drm/msm/adreno/a3xx_gpu.c
-+++ b/drivers/gpu/drm/msm/adreno/a3xx_gpu.c
-@@ -68,7 +68,7 @@ static void a3xx_submit(struct msm_gpu *gpu, struct msm_gem_submit *submit)
- 
- 	/* BIT(31) of CACHE_FLUSH_TS triggers CACHE_FLUSH_TS IRQ from GPU */
- 	OUT_PKT3(ring, CP_EVENT_WRITE, 3);
--	OUT_RING(ring, CACHE_FLUSH_TS | BIT(31));
-+	OUT_RING(ring, CACHE_FLUSH_TS | CP_EVENT_WRITE_0_IRQ);
- 	OUT_RING(ring, rbmemptr(ring, fence));
- 	OUT_RING(ring, submit->seqno);
- 
-diff --git a/drivers/gpu/drm/msm/adreno/a4xx_gpu.c b/drivers/gpu/drm/msm/adreno/a4xx_gpu.c
-index 0c6b2a6d0b4c..7cb8d9849c07 100644
---- a/drivers/gpu/drm/msm/adreno/a4xx_gpu.c
-+++ b/drivers/gpu/drm/msm/adreno/a4xx_gpu.c
-@@ -62,7 +62,7 @@ static void a4xx_submit(struct msm_gpu *gpu, struct msm_gem_submit *submit)
- 
- 	/* BIT(31) of CACHE_FLUSH_TS triggers CACHE_FLUSH_TS IRQ from GPU */
- 	OUT_PKT3(ring, CP_EVENT_WRITE, 3);
--	OUT_RING(ring, CACHE_FLUSH_TS | BIT(31));
-+	OUT_RING(ring, CACHE_FLUSH_TS | CP_EVENT_WRITE_0_IRQ);
- 	OUT_RING(ring, rbmemptr(ring, fence));
- 	OUT_RING(ring, submit->seqno);
- 
-diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-index 4d501100b9e4..c8ad8aeca777 100644
---- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-+++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-@@ -146,7 +146,7 @@ static void a6xx_set_pagetable(struct a6xx_gpu *a6xx_gpu,
- 	 */
- 
- 	OUT_PKT7(ring, CP_EVENT_WRITE, 1);
--	OUT_RING(ring, 0x31);
-+	OUT_RING(ring, CACHE_INVALIDATE);
- 
- 	if (!sysprof) {
- 		/*
--- 
-2.37.2
+BR,
+-R
 
+> 2. We at least should insert a full memory barrier before reading the
+> ttbr0 register to ensure that everything we did prior to that is visible
+> to smmu. But then I guess the cost of the full barrier would be similar
+> to the tlb invalidation.
+>
+> Because it could lead to security issues or other very hard to debug
+> issues, I would prefer this optimization only if there is a significant
+> measurable gain.
+>
+> -Akhil.
+>
