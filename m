@@ -1,68 +1,99 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 917045A0D32
-	for <lists+freedreno@lfdr.de>; Thu, 25 Aug 2022 11:51:51 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 6903E5A0F24
+	for <lists+freedreno@lfdr.de>; Thu, 25 Aug 2022 13:33:49 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C690E11B561;
-	Thu, 25 Aug 2022 09:51:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4D6AC11212B;
+	Thu, 25 Aug 2022 11:33:45 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-x22e.google.com (mail-lj1-x22e.google.com
- [IPv6:2a00:1450:4864:20::22e])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0E6B01139D9
- for <freedreno@lists.freedesktop.org>; Thu, 25 Aug 2022 09:51:15 +0000 (UTC)
-Received: by mail-lj1-x22e.google.com with SMTP id u24so13313172lji.0
- for <freedreno@lists.freedesktop.org>; Thu, 25 Aug 2022 02:51:14 -0700 (PDT)
+Received: from mail-lf1-x134.google.com (mail-lf1-x134.google.com
+ [IPv6:2a00:1450:4864:20::134])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 26C4A10FC5C
+ for <freedreno@lists.freedesktop.org>; Thu, 25 Aug 2022 11:33:42 +0000 (UTC)
+Received: by mail-lf1-x134.google.com with SMTP id m5so17158382lfj.4
+ for <freedreno@lists.freedesktop.org>; Thu, 25 Aug 2022 04:33:42 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc;
- bh=DvaJK17gV4B+bl1ZbEWU+oqW67fAbVfCADxcKfyU+fo=;
- b=jrMX2sKeb7fmWWgdwU0PRGp30JE12BX2p6j9usPnDrXjswJ4bzVW1QN3IlrPHB62Bi
- +EFnKvG7IvmbLuwH4GiwE2lrxqWAUCT6nk1vVWJlPSGkwMh+CqVpZwkOw9MGxIyghOWG
- c6I7mhb7EPuxMwtG2InqAxOCsfKCjOUpJ5v8uBazJEdiDtbVyrc22rrbpbVVazy1e9Pn
- 8RWOnSABSUWvSzKr8KqT/gD5zeUgri2Fx4v6K0YE7yrk3ICuVMgfSsMuCE23gku0kQWQ
- HC6R1yJRJdZDWFOE49kEHMX+aI0ArOyaY0j+ucltO6vQjFr81G+RRj4zgJDJxc2othN1
- 48Lg==
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc;
+ bh=5f5tWhIstVtTSwKpxEt2LvelJrCKuLR3PL365pf4QS4=;
+ b=pVklcWuFNgj8ttdDE9REKfypKLdUtCn9f/ySSF5qEbDM/toFxSWpQc/MYxWQdNJwu2
+ Nlxa70HrmyrR9cDd2ZqKYbbg+kl+13HsP2FwR/+Rx4XiXKvXvRRdSuWC1A0icUhGCx6t
+ dyQS15jw+p54nSqSS7aYeOmv5lRBCq2ZIJl3w9gYWBtDZwVXTrp2kpRCb9dwndNZKsQS
+ d3lPhpObnhcUhkTmK3xq7CFa+pTwJ8rVaSIjbMnWZgnivbeSC14doHc5zQ2dow6ptE9t
+ ZDrOv/Qk+ajcw68RlQ0dUOTHllKHqhtxZw3Ir/BzshJmyMCx1LVCdufFSby1sGYV316g
+ ttPQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc;
- bh=DvaJK17gV4B+bl1ZbEWU+oqW67fAbVfCADxcKfyU+fo=;
- b=BJ53IMSUy5cmN7SImJ8RvEXdPhdlKp/7OCSUKtAe8ihGU+7sSaMNM17CVtWg1hDEhn
- x8xqQd1xAHIAbXdH56ThU80ZRj5oC2VM0990ptjR8GtHFQbVjPKOSsTXTmJfeysyV3xR
- JbCyOych4T2HXxbbbn4Ux00lX1QphXbk/a9SjQ8JE+A8SC1nGO21sjS6cF5XLdhJ2v6W
- e7MxCii+Xf/AohZiJhxvdNZ7ri5HcGuQ6tjM/nLzcrhN9TFsukW4cmnAKCp1R53QXKiW
- 5Ks5xtLvjiIUYs2j79CYUr0KAnN91HP5ozkQSrhzSxRcE/Dl/pZJET6X4tb7LGI+XIdU
- mZng==
-X-Gm-Message-State: ACgBeo2cHf2dVQMuG/R1HvIpHYsU5LcYlHptOyiXdwW6tLK+bVBx2x6O
- mz7QbU9PYKVHed7+Pso9QjzYhQ==
-X-Google-Smtp-Source: AA6agR6YfoBwsTqR20ybFZO3sNncqpFoke6wtT679ceGxCwxo1h5VJwbmkf3yMwRokjXS5wG7ZrvsA==
-X-Received: by 2002:a2e:84d7:0:b0:261:e692:511a with SMTP id
- q23-20020a2e84d7000000b00261e692511amr847690ljh.32.1661421074575; 
- Thu, 25 Aug 2022 02:51:14 -0700 (PDT)
-Received: from eriador.lan ([37.153.55.125]) by smtp.gmail.com with ESMTPSA id
- h10-20020a056512220a00b00492cfecf1c0sm398502lfu.245.2022.08.25.02.51.13
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc;
+ bh=5f5tWhIstVtTSwKpxEt2LvelJrCKuLR3PL365pf4QS4=;
+ b=lAzjPMeXh8PaX+R5IFzIfgENDpne7eEsrGq7Z1ZMsX8M1bTubGEOpv17Zyq6UTXTTC
+ VeZPuXBRGF11GJ9s7/51WS1AmjkzzhOwQLFduGR4VKI7hCU2wZ84UCRT/Z/WPO6LyiAu
+ sdJdzVn9WEo8VQQ3HJAJtjB1vb77IKTxUnHQnqY0fr8R0SkKZZizua6CfIVWSsn63REf
+ FIgu/0AsUpC0+8BoXhcdyPRDbNejuVjvgYG/8B/f8XzINp6u/a+DwCl5LRgnyyUtfwJX
+ SCM5y0+eGsH8goRrXSGuRxzGsDeUJRsj7xL2veufpKj+tJDAQiPudT5mw9QqPGwmDn8M
+ TNwQ==
+X-Gm-Message-State: ACgBeo2EbvH7mcg8II0NaZbZHNG9Ag1RgUkzD9BHthx74+FdCOiGT2NG
+ 4Pt0zAWPN3cSXzXWm/h3TRNhwA==
+X-Google-Smtp-Source: AA6agR5Cwlt1QnJQbh16uHaNZuyEAqyKIdLBAYRJgSNUyF+xnOQylMkrtQ8mBl4L0+NErXHiMNgWew==
+X-Received: by 2002:a05:6512:3905:b0:493:80a:46ba with SMTP id
+ a5-20020a056512390500b00493080a46bamr956006lfu.69.1661427220406; 
+ Thu, 25 Aug 2022 04:33:40 -0700 (PDT)
+Received: from krzk-bin.starman.ee (82.131.98.15.cable.starman.ee.
+ [82.131.98.15]) by smtp.gmail.com with ESMTPSA id
+ e18-20020a195012000000b0048b0aa2f87csm446764lfb.181.2022.08.25.04.33.38
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 25 Aug 2022 02:51:14 -0700 (PDT)
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-To: Andy Gross <agross@kernel.org>,
- Bjorn Andersson <bjorn.andersson@linaro.org>,
- Konrad Dybcio <konrad.dybcio@somainline.org>,
- Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Rob Herring <robh+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>
-Date: Thu, 25 Aug 2022 12:51:03 +0300
-Message-Id: <20220825095103.624891-11-dmitry.baryshkov@linaro.org>
-X-Mailer: git-send-email 2.35.1
-In-Reply-To: <20220825095103.624891-1-dmitry.baryshkov@linaro.org>
-References: <20220825095103.624891-1-dmitry.baryshkov@linaro.org>
+ Thu, 25 Aug 2022 04:33:39 -0700 (PDT)
+From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+To: Rob Herring <robh+dt@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Kunihiko Hayashi <hayashi.kunihiko@socionext.com>,
+ Masami Hiramatsu <mhiramat@kernel.org>,
+ Damien Le Moal <damien.lemoal@opensource.wdc.com>,
+ Michael Turquette <mturquette@baylibre.com>,
+ Stephen Boyd <sboyd@kernel.org>,
+ Geert Uytterhoeven <geert+renesas@glider.be>,
+ Sylwester Nawrocki <s.nawrocki@samsung.com>,
+ Tomasz Figa <tomasz.figa@gmail.com>, Chanwoo Choi <cw00.choi@samsung.com>,
+ Alim Akhtar <alim.akhtar@samsung.com>, Vladimir Zapolskiy <vz@mleia.com>,
+ Herbert Xu <herbert@gondor.apana.org.au>,
+ "David S. Miller" <davem@davemloft.net>,
+ Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Robert Foss <robert.foss@linaro.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
+ Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Sean Paul <sean@poorly.run>, Inki Dae <inki.dae@samsung.com>,
+ Seung-Woo Kim <sw0312.kim@samsung.com>,
+ Kyungmin Park <kyungmin.park@samsung.com>,
+ Thierry Reding <thierry.reding@gmail.com>,
+ Jonathan Hunter <jonathanh@nvidia.com>,
+ Masahiro Yamada <yamada.masahiro@socionext.com>,
+ Florian Fainelli <f.fainelli@gmail.com>,
+ Linus Walleij <linus.walleij@linaro.org>,
+ Andre Przywara <andre.przywara@arm.com>,
+ Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+ Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>,
+ Marek Vasut <marex@denx.de>, Krishna Manikandan <quic_mkrishn@quicinc.com>,
+ devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org, linux-ide@vger.kernel.org,
+ linux-clk@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
+ linux-samsung-soc@vger.kernel.org, linux-crypto@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
+ freedreno@lists.freedesktop.org, linux-tegra@vger.kernel.org
+Date: Thu, 25 Aug 2022 14:33:30 +0300
+Message-Id: <20220825113334.196908-1-krzysztof.kozlowski@linaro.org>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH v4 10/10] dt-bindings: display/msm: add support
- for the display on SM8250
+Subject: [Freedreno] [PATCH 1/5] dt-bindings: socionext,
+ uniphier-system-cache: drop minItems equal to maxItems
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,228 +106,30 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: devicetree@vger.kernel.org, David Airlie <airlied@linux.ie>,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- Stephen Boyd <swboyd@chromium.org>, Daniel Vetter <daniel@ffwll.ch>,
- freedreno@lists.freedesktop.org
+Cc: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Add DPU schema and extend MDSS schema to describe MDSS and DPU blocks on
-Qualcomm SM8250 platform.
+minItems, if missing, are implicitly equal to maxItems, so drop
+redundant piece to reduce size of code.
 
-Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 ---
- .../bindings/display/msm/dpu-sm8250.yaml      | 123 ++++++++++++++++++
- .../devicetree/bindings/display/msm/mdss.yaml |  51 ++++++++
- 2 files changed, 174 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/display/msm/dpu-sm8250.yaml
+ .../bindings/arm/socionext/socionext,uniphier-system-cache.yaml  | 1 -
+ 1 file changed, 1 deletion(-)
 
-diff --git a/Documentation/devicetree/bindings/display/msm/dpu-sm8250.yaml b/Documentation/devicetree/bindings/display/msm/dpu-sm8250.yaml
-new file mode 100644
-index 000000000000..26e71a0feb96
---- /dev/null
-+++ b/Documentation/devicetree/bindings/display/msm/dpu-sm8250.yaml
-@@ -0,0 +1,123 @@
-+# SPDX-License-Identifier: GPL-2.0-only or BSD-2-Clause
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/display/msm/dpu-sm8250.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Qualcomm Display DPU dt properties for SM8250
-+
-+maintainers:
-+  - Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-+
-+description: |
-+  Device tree bindings for the DPU display controller for SM8250 target.
-+
-+properties:
-+  compatible:
-+    const: qcom,sm8250-dpu
-+
-+  reg:
-+    items:
-+      - description: Address offset and size for mdp register set
-+      - description: Address offset and size for vbif register set
-+
-+  reg-names:
-+    items:
-+      - const: mdp
-+      - const: vbif
-+
-+  clocks:
-+    items:
-+      - description: Display ahb clock
-+      - description: Display hf axi clock
-+      - description: Display core clock
-+      - description: Display vsync clock
-+
-+  clock-names:
-+    items:
-+      - const: iface
-+      - const: bus
-+      - const: core
-+      - const: vsync
-+
-+allOf:
-+  - $ref: "/schemas/display/msm/dpu-common.yaml#"
-+
-+unevaluatedProperties: false
-+
-+examples:
-+  - |
-+    #include <dt-bindings/clock/qcom,dispcc-sm8250.h>
-+    #include <dt-bindings/clock/qcom,gcc-sm8250.h>
-+    #include <dt-bindings/interrupt-controller/arm-gic.h>
-+    #include <dt-bindings/interconnect/qcom,sm8250.h>
-+    #include <dt-bindings/power/qcom-rpmpd.h>
-+
-+    mdss@ae00000 {
-+      #address-cells = <1>;
-+      #size-cells = <1>;
-+      compatible = "qcom,sm8250-mdss";
-+      reg = <0x0ae00000 0x1000>;
-+      reg-names = "mdss";
-+
-+      interconnects = <&mmss_noc MASTER_MDP_PORT0 &mc_virt SLAVE_EBI_CH0>,
-+                      <&mmss_noc MASTER_MDP_PORT1 &mc_virt SLAVE_EBI_CH0>;
-+      interconnect-names = "mdp0-mem", "mdp1-mem";
-+
-+      power-domains = <&dispcc MDSS_GDSC>;
-+
-+      clocks = <&dispcc DISP_CC_MDSS_AHB_CLK>,
-+               <&gcc GCC_DISP_HF_AXI_CLK>,
-+               <&gcc GCC_DISP_SF_AXI_CLK>,
-+               <&dispcc DISP_CC_MDSS_MDP_CLK>;
-+      clock-names = "iface", "bus", "nrt_bus", "core";
-+
-+      interrupts = <GIC_SPI 83 IRQ_TYPE_LEVEL_HIGH>;
-+      interrupt-controller;
-+      #interrupt-cells = <1>;
-+
-+      iommus = <&apps_smmu 0x820 0x402>;
-+      ranges;
-+
-+      display-controller@ae01000 {
-+        compatible = "qcom,sm8250-dpu";
-+        reg = <0x0ae01000 0x8f000>,
-+              <0x0aeb0000 0x2008>;
-+        reg-names = "mdp", "vbif";
-+
-+        clocks = <&dispcc DISP_CC_MDSS_AHB_CLK>,
-+                 <&gcc GCC_DISP_HF_AXI_CLK>,
-+                 <&dispcc DISP_CC_MDSS_MDP_CLK>,
-+                 <&dispcc DISP_CC_MDSS_VSYNC_CLK>;
-+        clock-names = "iface", "bus", "core", "vsync";
-+
-+        assigned-clocks = <&dispcc DISP_CC_MDSS_VSYNC_CLK>;
-+        assigned-clock-rates = <19200000>;
-+
-+        operating-points-v2 = <&mdp_opp_table>;
-+        power-domains = <&rpmhpd SM8250_MMCX>;
-+
-+        interrupt-parent = <&mdss>;
-+        interrupts = <0>;
-+
-+        ports {
-+          #address-cells = <1>;
-+          #size-cells = <0>;
-+
-+          port@0 {
-+            reg = <0>;
-+            endpoint {
-+              remote-endpoint = <&dsi0_in>;
-+            };
-+          };
-+
-+          port@1 {
-+            reg = <1>;
-+            endpoint {
-+              remote-endpoint = <&dsi1_in>;
-+            };
-+          };
-+        };
-+      };
-+    };
-+...
-diff --git a/Documentation/devicetree/bindings/display/msm/mdss.yaml b/Documentation/devicetree/bindings/display/msm/mdss.yaml
-index 1b469893732a..57fa8dedc82b 100644
---- a/Documentation/devicetree/bindings/display/msm/mdss.yaml
-+++ b/Documentation/devicetree/bindings/display/msm/mdss.yaml
-@@ -23,6 +23,7 @@ properties:
-       - qcom,sc7180-mdss
-       - qcom,sc7280-mdss
-       - qcom,sdm845-mdss
-+      - qcom,sm8250-mdss
+diff --git a/Documentation/devicetree/bindings/arm/socionext/socionext,uniphier-system-cache.yaml b/Documentation/devicetree/bindings/arm/socionext/socionext,uniphier-system-cache.yaml
+index 7ca5375f278f..6096c082d56d 100644
+--- a/Documentation/devicetree/bindings/arm/socionext/socionext,uniphier-system-cache.yaml
++++ b/Documentation/devicetree/bindings/arm/socionext/socionext,uniphier-system-cache.yaml
+@@ -22,7 +22,6 @@ properties:
+     description: |
+       should contain 3 regions: control register, revision register,
+       operation register, in this order.
+-    minItems: 3
+     maxItems: 3
  
-   reg:
-     minItems: 1
-@@ -232,6 +233,30 @@ allOf:
-         iommus:
-           minItems: 2
- 
-+  - if:
-+      properties:
-+        compatible:
-+          contains:
-+            const: qcom,sm8250-mdss
-+    then:
-+      properties:
-+        clocks:
-+          items:
-+            - description: Display AHB clock
-+            - description: Display hf axi clock
-+            - description: Display sf axi clock
-+            - description: Display core clock
-+
-+        clock-names:
-+          items:
-+            - const: iface
-+            - const: bus
-+            - const: nrt_bus
-+            - const: core
-+
-+        iommus:
-+          minItems: 1
-+
-   - if:
-       properties:
-         compatible:
-@@ -441,6 +466,32 @@ allOf:
-               enum:
-                 - qcom,dsi-phy-10nm
- 
-+  - if:
-+      properties:
-+        compatible:
-+          contains:
-+            const: qcom,sm8250-mdss
-+    then:
-+      patternProperties:
-+        "^display-controller@[1-9a-f][0-9a-f]*$":
-+          type: object
-+          properties:
-+            compatible:
-+              const: qcom,sm8250-dpu
-+
-+        "^dsi@[1-9a-f][0-9a-f]*$":
-+          type: object
-+          properties:
-+            compatible:
-+              const: qcom,mdss-dsi-ctrl
-+
-+        "^dsi-phy@[1-9a-f][0-9a-f]*$":
-+          type: object
-+          properties:
-+            compatible:
-+              enum:
-+                - qcom,dsi-phy-7nm
-+
- required:
-   - compatible
-   - reg
+   interrupts:
 -- 
-2.35.1
+2.34.1
 
