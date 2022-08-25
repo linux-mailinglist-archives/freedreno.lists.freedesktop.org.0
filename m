@@ -2,50 +2,50 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id F24FC5A0D29
-	for <lists+freedreno@lfdr.de>; Thu, 25 Aug 2022 11:51:32 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 702285A0D2C
+	for <lists+freedreno@lfdr.de>; Thu, 25 Aug 2022 11:51:42 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E5EFC113B9D;
-	Thu, 25 Aug 2022 09:51:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F2ED61138C3;
+	Thu, 25 Aug 2022 09:51:20 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-x234.google.com (mail-lj1-x234.google.com
- [IPv6:2a00:1450:4864:20::234])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 44CE111216C
+Received: from mail-lj1-x22e.google.com (mail-lj1-x22e.google.com
+ [IPv6:2a00:1450:4864:20::22e])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 786EC113412
  for <freedreno@lists.freedesktop.org>; Thu, 25 Aug 2022 09:51:09 +0000 (UTC)
-Received: by mail-lj1-x234.google.com with SMTP id d9so2818377ljl.8
+Received: by mail-lj1-x22e.google.com with SMTP id u24so13312892lji.0
  for <freedreno@lists.freedesktop.org>; Thu, 25 Aug 2022 02:51:09 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc;
- bh=Kz2AwCWKHDmjf3qjuApf6Od5DsDm3lcQBH2jB3nDWqc=;
- b=m9amoWcPhoABRfbNSRcFUFWFxgoOkWsmnSP5pVm3UN88pqL4i0dlR9iyRsTleR5d+n
- 1hL+5u9adxScxN9saRx6gJfeExoUQ8N+Bi+/n5WzEL2qGKyk+9fFkFYhCAe+xEjC3XNm
- KHiIZ05vH8cOHycLPUdYsIsL4a5NTNDYw7rVH8KUG65WYaLzuI6Bc5DwQZKuQQUl0dVD
- QryzXSKh8LlLW2Fln1udfba/z32UDcquLA0pb6sN0hmlDp5Dq4AlJtjDkoul0H/zH8v7
- Pc7BRNZzKsx08uml+zaHb2oBCxFmm5rNvTefd1U+tdXt2W2Wmk28FZVm7oIesgJjXqdO
- xS5Q==
+ bh=bU2avyUHwN6VM4u370PvLRLbb5vzzoJzTSKFs8t/yUc=;
+ b=DVMJfsEICPE3pNBGxzEZ+Y+ZnHdUMqwnApWscjXtl+5RVETcmjWnxyK3sx75jqtBRM
+ hzdqAfI9Rt2e2iZQv0jDKzpDeIX3+rg8C86BPMonyXY4R1yII1YaSqgnCeNUYb+Z5iRH
+ IJ0aYTsx+w6YppudYOvrfDwLR+O7LFGfdaQ+Lhj8Zb5PTb+Gb86SHht+xRA1q9ib/2pl
+ as1J1pwcP4TsmDanTW6NgTK/iRtPo5CC3/RVzArmnB/aImfVhTzJeoHuiFFsUaQjwrle
+ WxzbLUs2veuqWraFXix4a9ab5e16a5o5ULfYfSdTef2uz/pZG73kmn3TbA1ye6vkJgdE
+ pPLA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc;
- bh=Kz2AwCWKHDmjf3qjuApf6Od5DsDm3lcQBH2jB3nDWqc=;
- b=rFs+p8KPc3eqxkk88irvYa/A+PrlGvQ1xYn0CBgNyb/z5H1n55mvCKOkuKIVUq6cPO
- k+3WVRuKvK1wdv1FdxY9ouV9NrImrOoBCVw5VERW/MROTqtLe38bljjP0zvmWOLkMIm3
- 4m9AEjYGReJxfbAwLn/umesEHwZTT+mqUlsOBooGn+rfxhrHLHijXvG2c5ukchn375Wd
- T2Fyi5dx61NQwtrLVuSwqs0fS1q/d3oDXLgtpAi4MuhI+aN4H+Mqpg6kJlHFNSw5P3Ki
- USD7OS/CHuaZT0RcILtBCgVUHtn9lQEs6ejEzKqO9ub4oiWQtIc4x20DuC34ha39nC68
- lRiw==
-X-Gm-Message-State: ACgBeo1ARLwxE+zjUOVqBl1app+MQVGuxOMDhh+zL9wPJSjA+hYitbqd
- KOFfqFlbtIKeAk3AefK5ltAoDg==
-X-Google-Smtp-Source: AA6agR5/HR7SgnXsWjGLQxR5fWGG9CWvTAE9qjeoJ2IgDhpGdy+oEnDD2VtFHaKI00T9sfmrmZ2TuA==
-X-Received: by 2002:a2e:a913:0:b0:25d:3128:21af with SMTP id
- j19-20020a2ea913000000b0025d312821afmr857081ljq.58.1661421066885; 
- Thu, 25 Aug 2022 02:51:06 -0700 (PDT)
+ bh=bU2avyUHwN6VM4u370PvLRLbb5vzzoJzTSKFs8t/yUc=;
+ b=jKlw+BU6rhW7DJwbDyB0+rjI8nm5lvy8IaIQt4jsHaPyT3paBVbRKeLMwtIvMy9RMg
+ LqhTLCzZmfVRoGN77MeTFF2Os880bhEuyLaMlhRbxqJlfl4nLdRfiKAU1HcZLCnmaINP
+ 95mHFiAhvx5gBwKr8OoKJalTnlp9uxOFZ2FztVfGyZpgQkfaSSENdTvNkHXCsHKJYQTz
+ J4CtVXtrMItUrCH4qP4j2F71jFN/sHH+1oHEDl2FKwXEAyN+dl2Tgl/bVX67bZme65JZ
+ VaiRsJl9IWOxqUAiqyONEn+3F1DqGkYo/eDEI0g3uHNPtcdDVY9SCjWLCz9TVlwjOjBx
+ GwGQ==
+X-Gm-Message-State: ACgBeo0s7RpTNZm3tsiLX+I6gfVlUjM60wapqEpDvw6TAMtfZiaWOO0a
+ x8sz1YMJaIcJyZeAONxYVwA5Rw==
+X-Google-Smtp-Source: AA6agR5RtW5hLmRPOyJZT/9z5WezpWHZf1PgD2CJ00Ltn05BRuiB11YQ4JWu4tqD6aXd4SJ42WP3rQ==
+X-Received: by 2002:a2e:b809:0:b0:261:be83:a2b0 with SMTP id
+ u9-20020a2eb809000000b00261be83a2b0mr847561ljo.219.1661421067787; 
+ Thu, 25 Aug 2022 02:51:07 -0700 (PDT)
 Received: from eriador.lan ([37.153.55.125]) by smtp.gmail.com with ESMTPSA id
- h10-20020a056512220a00b00492cfecf1c0sm398502lfu.245.2022.08.25.02.51.05
+ h10-20020a056512220a00b00492cfecf1c0sm398502lfu.245.2022.08.25.02.51.06
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 25 Aug 2022 02:51:06 -0700 (PDT)
+ Thu, 25 Aug 2022 02:51:07 -0700 (PDT)
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 To: Andy Gross <agross@kernel.org>,
  Bjorn Andersson <bjorn.andersson@linaro.org>,
@@ -54,15 +54,15 @@ To: Andy Gross <agross@kernel.org>,
  Abhinav Kumar <quic_abhinavk@quicinc.com>,
  Rob Herring <robh+dt@kernel.org>,
  Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>
-Date: Thu, 25 Aug 2022 12:50:55 +0300
-Message-Id: <20220825095103.624891-3-dmitry.baryshkov@linaro.org>
+Date: Thu, 25 Aug 2022 12:50:56 +0300
+Message-Id: <20220825095103.624891-4-dmitry.baryshkov@linaro.org>
 X-Mailer: git-send-email 2.35.1
 In-Reply-To: <20220825095103.624891-1-dmitry.baryshkov@linaro.org>
 References: <20220825095103.624891-1-dmitry.baryshkov@linaro.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH v4 02/10] dt-bindings: display/msm: move qcom,
- sdm845-mdss schema to mdss.yaml
+Subject: [Freedreno] [PATCH v4 03/10] dt-bindings: display/msm: move qcom,
+ sc7180-mdss schema to mdss.yaml
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,33 +82,33 @@ Cc: devicetree@vger.kernel.org, David Airlie <airlied@linux.ie>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Move schema for qcom,sdm845-mdss from dpu-sdm845.yaml to mdss.yaml so
+Move schema for qcom,sc7180-mdss from dpu-sc7180.yaml to mdss.yaml so
 that the dpu file describes only the DPU schema.
 
 Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 ---
- .../bindings/display/msm/dpu-sdm845.yaml      | 135 +++------
- .../devicetree/bindings/display/msm/mdss.yaml | 265 ++++++++++++++----
- 2 files changed, 239 insertions(+), 161 deletions(-)
+ .../bindings/display/msm/dpu-sc7180.yaml      | 149 +++++-------------
+ .../devicetree/bindings/display/msm/mdss.yaml |  66 +++++++-
+ 2 files changed, 102 insertions(+), 113 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/display/msm/dpu-sdm845.yaml b/Documentation/devicetree/bindings/display/msm/dpu-sdm845.yaml
-index 2bb8896beffc..2074e954372f 100644
---- a/Documentation/devicetree/bindings/display/msm/dpu-sdm845.yaml
-+++ b/Documentation/devicetree/bindings/display/msm/dpu-sdm845.yaml
-@@ -10,139 +10,74 @@ maintainers:
+diff --git a/Documentation/devicetree/bindings/display/msm/dpu-sc7180.yaml b/Documentation/devicetree/bindings/display/msm/dpu-sc7180.yaml
+index d3c3e4b07897..9d4ec0b60c25 100644
+--- a/Documentation/devicetree/bindings/display/msm/dpu-sc7180.yaml
++++ b/Documentation/devicetree/bindings/display/msm/dpu-sc7180.yaml
+@@ -10,151 +10,78 @@ maintainers:
    - Krishna Manikandan <quic_mkrishn@quicinc.com>
  
  description: |
 -  Device tree bindings for MSM Mobile Display Subsystem(MDSS) that encapsulates
 -  sub-blocks like DPU display controller, DSI and DP interfaces etc. Device tree
--  bindings of MDSS and DPU are mentioned for SDM845 target.
-+  Device tree bindings for the DPU display controller for SDM845 target.
+-  bindings of MDSS and DPU are mentioned for SC7180 target.
++  Device tree bindings for the DPU display controller for SC7180 target.
  
  properties:
    compatible:
      items:
--      - const: qcom,sdm845-mdss
-+      - const: qcom,sdm845-dpu
+-      - const: qcom,sc7180-mdss
++      - const: qcom,sc7180-dpu
  
    reg:
 -    maxItems: 1
@@ -128,15 +128,21 @@ index 2bb8896beffc..2074e954372f 100644
    clocks:
      items:
 -      - description: Display AHB clock from gcc
+-      - description: Display AHB clock from dispcc
++      - description: Display hf axi clock
 +      - description: Display ahb clock
-+      - description: Display axi clock
++      - description: Display rotator clock
++      - description: Display lut clock
        - description: Display core clock
 +      - description: Display vsync clock
  
    clock-names:
      items:
-       - const: iface
 +      - const: bus
+       - const: iface
+-      - const: ahb
++      - const: rot
++      - const: lut
        - const: core
 +      - const: vsync
  
@@ -155,21 +161,27 @@ index 2bb8896beffc..2074e954372f 100644
 -  iommus:
 -    items:
 -      - description: Phandle to apps_smmu node with SID mask for Hard-Fail port0
--      - description: Phandle to apps_smmu node with SID mask for Hard-Fail port1
 -
 -  ranges: true
 -
+-  interconnects:
+-    items:
+-      - description: Interconnect path specifying the port ids for data bus
+-
+-  interconnect-names:
+-    const: mdp0-mem
++  power-domains:
++    maxItems: 1
+ 
 -  resets:
 -    items:
 -      - description: MDSS_CORE reset
-+  power-domains:
-+    maxItems: 1
++  operating-points-v2: true
  
 -patternProperties:
 -  "^display-controller@[0-9a-f]+$":
 -    type: object
 -    description: Node containing the properties of DPU.
-+  operating-points-v2: true
 +  ports:
 +    $ref: /schemas/graph.yaml#/properties/ports
 +    description: |
@@ -181,7 +193,7 @@ index 2bb8896beffc..2074e954372f 100644
      properties:
 -      compatible:
 -        items:
--          - const: qcom,sdm845-dpu
+-          - const: qcom,sc7180-dpu
 -
 -      reg:
 -        items:
@@ -195,15 +207,19 @@ index 2bb8896beffc..2074e954372f 100644
 -
 -      clocks:
 -        items:
+-          - description: Display hf axi clock
 -          - description: Display ahb clock
--          - description: Display axi clock
+-          - description: Display rotator clock
+-          - description: Display lut clock
 -          - description: Display core clock
 -          - description: Display vsync clock
 -
 -      clock-names:
 -        items:
--          - const: iface
 -          - const: bus
+-          - const: iface
+-          - const: rot
+-          - const: lut
 -          - const: core
 -          - const: vsync
 -
@@ -214,6 +230,7 @@ index 2bb8896beffc..2074e954372f 100644
 -        maxItems: 1
 -
 -      operating-points-v2: true
+-
 -      ports:
 -        $ref: /schemas/graph.yaml#/properties/ports
 -        description: |
@@ -227,20 +244,19 @@ index 2bb8896beffc..2074e954372f 100644
 -            $ref: /schemas/graph.yaml#/properties/port
 -            description: DPU_INTF1 (DSI1)
 -
--          port@1:
+-          port@2:
 -            $ref: /schemas/graph.yaml#/properties/port
--            description: DPU_INTF2 (DSI2)
+-            description: DPU_INTF0 (DP)
 -
 -        required:
 -          - port@0
--          - port@1
 +      port@0:
 +        $ref: /schemas/graph.yaml#/properties/port
 +        description: DPU_INTF1 (DSI1)
 +
-+      port@1:
++      port@2:
 +        $ref: /schemas/graph.yaml#/properties/port
-+        description: DPU_INTF2 (DSI2)
++        description: DPU_INTF0 (DP)
  
      required:
 -      - compatible
@@ -252,7 +268,6 @@ index 2bb8896beffc..2074e954372f 100644
 -      - operating-points-v2
 -      - ports
 +      - port@0
-+      - port@1
  
  required:
    - compatible
@@ -271,230 +286,103 @@ index 2bb8896beffc..2074e954372f 100644
  additionalProperties: false
  
 diff --git a/Documentation/devicetree/bindings/display/msm/mdss.yaml b/Documentation/devicetree/bindings/display/msm/mdss.yaml
-index afc48d2b02f1..ef4709d87004 100644
+index ef4709d87004..f86177bb2e8c 100644
 --- a/Documentation/devicetree/bindings/display/msm/mdss.yaml
 +++ b/Documentation/devicetree/bindings/display/msm/mdss.yaml
-@@ -18,17 +18,15 @@ properties:
+@@ -18,6 +18,7 @@ properties:
    compatible:
      enum:
        - qcom,mdss
-+      - qcom,sdm845-mdss
++      - qcom,sc7180-mdss
+       - qcom,sdm845-mdss
  
    reg:
--    minItems: 2
-+    minItems: 1
-     maxItems: 3
- 
-   reg-names:
--    minItems: 2
--    items:
--      - const: mdss_phys
--      - const: vbif_phys
--      - const: vbif_nrt_phys
-+    minItems: 1
-+    maxItems: 3
- 
-   interrupts:
-     maxItems: 1
-@@ -53,10 +51,10 @@ properties:
-     maxItems: 4
- 
-   "#address-cells":
--    const: 1
-+    enum: [1, 2]
- 
-   "#size-cells":
--    const: 1
-+    enum: [1, 2]
- 
-   ranges:
-     true
-@@ -65,29 +63,178 @@ properties:
-     items:
+@@ -64,20 +65,21 @@ properties:
        - description: MDSS_CORE reset
  
--oneOf:
--  - properties:
--      clocks:
--        minItems: 3
--        maxItems: 4
--
--      clock-names:
--        minItems: 3
--        items:
--          - const: iface
--          - const: bus
--          - const: vsync
--          - const: core
--  - properties:
--      clocks:
--        minItems: 1
--        maxItems: 2
--
--      clock-names:
--        minItems: 1
--        items:
--          - const: iface
--          - const: core
-+  interconnects:
-+    minItems: 2
-+    items:
-+      - description: MDP port 0
-+      - description: MDP port 1
-+      - description: Rotator
-+
-+  interconnect-names:
-+    minItems: 2
-+    items:
-+      - const: mdp0-mem
-+      - const: mdp1-mem
-+      - const: rotator-mem
-+
-+  iommus:
-+    items:
-+      - description: Phandle to apps_smmu node with SID mask for Hard-Fail port0
-+      - description: Phandle to apps_smmu node with SID mask for Hard-Fail port1
-+
-+allOf:
+   interconnects:
+-    minItems: 2
++    minItems: 1
+     items:
+       - description: MDP port 0
+       - description: MDP port 1
+       - description: Rotator
+ 
+   interconnect-names:
+-    minItems: 2
++    minItems: 1
+     items:
+       - const: mdp0-mem
+       - const: mdp1-mem
+       - const: rotator-mem
+ 
+   iommus:
++    minItems: 1
+     items:
+       - description: Phandle to apps_smmu node with SID mask for Hard-Fail port0
+       - description: Phandle to apps_smmu node with SID mask for Hard-Fail port1
+@@ -129,14 +131,39 @@ allOf:
+             - const: mdss
+ 
+         interconnects:
++          minItems: 1
+           maxItems: 2
+ 
+         interconnect-names:
++          minItems: 1
+           maxItems: 2
+ 
+       required:
+         - iommus
+ 
 +  - if:
 +      properties:
 +        compatible:
 +          contains:
-+            const: qcom,mdss
-+    then:
-+      properties:
-+        reg-names:
-+          minItems: 2
-+          items:
-+            - const: mdss_phys
-+            - const: vbif_phys
-+            - const: vbif_nrt_phys
-+      oneOf:
-+        - properties:
-+            clocks:
-+              minItems: 3
-+              maxItems: 4
-+
-+            clock-names:
-+              minItems: 3
-+              items:
-+                - const: iface
-+                - const: bus
-+                - const: vsync
-+                - const: core
-+        - properties:
-+            clocks:
-+              minItems: 1
-+              maxItems: 2
-+
-+            clock-names:
-+              minItems: 1
-+              items:
-+                - const: iface
-+                - const: core
-+    else:
-+      properties:
-+        regs:
-+          maxItems: 1
-+
-+        reg-names:
-+          items:
-+            - const: mdss
-+
-+        interconnects:
-+          maxItems: 2
-+
-+        interconnect-names:
-+          maxItems: 2
-+
-+      required:
-+        - iommus
-+
-+  - if:
-+      properties:
-+        compatible:
-+          contains:
-+            const: qcom,sdm845-mdss
++            enum:
++              - qcom,sc7180-mdss
 +    then:
 +      properties:
 +        clocks:
 +          items:
 +            - description: Display AHB clock from gcc
++            - description: Display AHB clock from dispcc
 +            - description: Display core clock
 +
 +        clock-names:
 +          items:
 +            - const: iface
++            - const: ahb
 +            - const: core
 +
 +        iommus:
-+          minItems: 2
++          maxItems: 1
 +
+   - if:
+       properties:
+         compatible:
+@@ -210,6 +237,38 @@ allOf:
+                 - qcom,hdmi-tx-8994
+                 - qcom,hdmi-tx-8996
+ 
 +  - if:
 +      properties:
 +        compatible:
 +          contains:
-+            const: qcom,mdss
-+    then:
-+      patternProperties:
-+        "^mdp@[1-9a-f][0-9a-f]*$":
-+          type: object
-+          properties:
-+            compatible:
-+              const: qcom,mdp5
-+
-+        "^dsi@[1-9a-f][0-9a-f]*$":
-+          type: object
-+          properties:
-+            compatible:
-+              const: qcom,mdss-dsi-ctrl
-+
-+        "^dsi-phy@[1-9a-f][0-9a-f]*$":
-+          type: object
-+          properties:
-+            compatible:
-+              enum:
-+                - qcom,dsi-phy-14nm
-+                - qcom,dsi-phy-14nm-660
-+                - qcom,dsi-phy-20nm
-+                - qcom,dsi-phy-28nm-hpm
-+                - qcom,dsi-phy-28nm-lp
-+
-+        "^hdmi-phy@[1-9a-f][0-9a-f]*$":
-+          type: object
-+          properties:
-+            compatible:
-+              enum:
-+                - qcom,hdmi-phy-8084
-+                - qcom,hdmi-phy-8660
-+                - qcom,hdmi-phy-8960
-+                - qcom,hdmi-phy-8974
-+                - qcom,hdmi-phy-8996
-+
-+        "^hdmi-tx@[1-9a-f][0-9a-f]*$":
-+          type: object
-+          properties:
-+            compatible:
-+              enum:
-+                - qcom,hdmi-tx-8084
-+                - qcom,hdmi-tx-8660
-+                - qcom,hdmi-tx-8960
-+                - qcom,hdmi-tx-8974
-+                - qcom,hdmi-tx-8994
-+                - qcom,hdmi-tx-8996
-+
-+  - if:
-+      properties:
-+        compatible:
-+          contains:
-+            const: qcom,sdm845-mdss
++            const: qcom,sc7180-mdss
 +    then:
 +      patternProperties:
 +        "^display-controller@[1-9a-f][0-9a-f]*$":
 +          type: object
 +          properties:
 +            compatible:
-+              const: qcom,sdm845-dpu
++              const: qcom,sc7180-dpu
++
++        "^displayport-controller@[1-9a-f][0-9a-f]*$":
++          type: object
++          properties:
++            compatible:
++              const: qcom,sc7180-dp
 +
 +        "^dsi@[1-9a-f][0-9a-f]*$":
 +          type: object
@@ -508,89 +396,20 @@ index afc48d2b02f1..ef4709d87004 100644
 +            compatible:
 +              enum:
 +                - qcom,dsi-phy-10nm
- 
- required:
-   - compatible
-@@ -106,48 +253,21 @@ required:
- patternProperties:
-   "^mdp@[1-9a-f][0-9a-f]*$":
-     type: object
--    properties:
--      compatible:
--        const: qcom,mdp5
 +
-+  "^display-controller@[1-9a-f][0-9a-f]*$":
-+    type: object
+   - if:
+       properties:
+         compatible:
+@@ -257,6 +316,9 @@ patternProperties:
+   "^display-controller@[1-9a-f][0-9a-f]*$":
+     type: object
  
++  "^displayport-controller@[1-9a-f][0-9a-f]*$":
++    type: object
++
    "^dsi@[1-9a-f][0-9a-f]*$":
      type: object
--    properties:
--      compatible:
--        const: qcom,mdss-dsi-ctrl
  
-   "^dsi-phy@[1-9a-f][0-9a-f]*$":
-     type: object
--    properties:
--      compatible:
--        enum:
--          - qcom,dsi-phy-14nm
--          - qcom,dsi-phy-20nm
--          - qcom,dsi-phy-28nm-hpm
--          - qcom,dsi-phy-28nm-lp
- 
-   "^hdmi-phy@[1-9a-f][0-9a-f]*$":
-     type: object
--    properties:
--      compatible:
--        enum:
--          - qcom,hdmi-phy-8084
--          - qcom,hdmi-phy-8660
--          - qcom,hdmi-phy-8960
--          - qcom,hdmi-phy-8974
--          - qcom,hdmi-phy-8996
- 
-   "^hdmi-tx@[1-9a-f][0-9a-f]*$":
-     type: object
--    properties:
--      compatible:
--        enum:
--          - qcom,hdmi-tx-8084
--          - qcom,hdmi-tx-8660
--          - qcom,hdmi-tx-8960
--          - qcom,hdmi-tx-8974
--          - qcom,hdmi-tx-8994
--          - qcom,hdmi-tx-8996
- 
- additionalProperties: false
- 
-@@ -180,4 +300,27 @@ examples:
-       ranges;
- 
-     };
-+  - |
-+    #include <dt-bindings/interrupt-controller/arm-gic.h>
-+    #include <dt-bindings/power/qcom-rpmpd.h>
-+    display-subsystem@ae00000 {
-+          #address-cells = <1>;
-+          #size-cells = <1>;
-+          compatible = "qcom,sdm845-mdss";
-+          reg = <0x0ae00000 0x1000>;
-+          reg-names = "mdss";
-+          power-domains = <&dispcc MDSS_GDSC>;
-+
-+          clocks = <&gcc 19>,
-+                   <&dispcc 12>;
-+          clock-names = "iface", "core";
-+
-+          interrupts = <GIC_SPI 83 IRQ_TYPE_LEVEL_HIGH>;
-+          interrupt-controller;
-+          #interrupt-cells = <1>;
-+
-+          iommus = <&apps_smmu 0x880 0x8>,
-+                   <&apps_smmu 0xc80 0x8>;
-+          ranges;
-+        };
- ...
 -- 
 2.35.1
 
