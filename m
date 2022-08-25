@@ -2,54 +2,54 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id DE6465A0F95
-	for <lists+freedreno@lfdr.de>; Thu, 25 Aug 2022 13:51:09 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CD0825A0FA6
+	for <lists+freedreno@lfdr.de>; Thu, 25 Aug 2022 13:55:47 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 67E48113549;
-	Thu, 25 Aug 2022 11:51:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 49C6B11390F;
+	Thu, 25 Aug 2022 11:55:46 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x133.google.com (mail-lf1-x133.google.com
- [IPv6:2a00:1450:4864:20::133])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7609D113549
- for <freedreno@lists.freedesktop.org>; Thu, 25 Aug 2022 11:51:04 +0000 (UTC)
-Received: by mail-lf1-x133.google.com with SMTP id z6so27862839lfu.9
- for <freedreno@lists.freedesktop.org>; Thu, 25 Aug 2022 04:51:04 -0700 (PDT)
+Received: from mail-lj1-x234.google.com (mail-lj1-x234.google.com
+ [IPv6:2a00:1450:4864:20::234])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2D71111390F
+ for <freedreno@lists.freedesktop.org>; Thu, 25 Aug 2022 11:55:43 +0000 (UTC)
+Received: by mail-lj1-x234.google.com with SMTP id s8so1714686ljj.5
+ for <freedreno@lists.freedesktop.org>; Thu, 25 Aug 2022 04:55:43 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc; bh=QslpZXG7w6+Zu0cuJpcihO4wL0ZcP7qpvE0bMlNnn88=;
- b=LimlF0C4WC4ny6FZr0Orj0k40ks11cTYtD5QO6JSOvOvUpPD6Tv8nuYA9QS41unyqI
- 0XMpNFV+o0pFIMKNO2PvGCJVjErilKa8Ag04mNQX1YsdE75zQRkjq+c3e31bJUP6G7Qc
- pTsppBNUcnEnI4wqGFgVUDLx4ztOU3d/reKjqYDsWcQbNGjud8Wws64NEP2d2gkwR6IS
- qnzTm/627wp16BwyEkoJPPAe42iKhoVzlzs6orQzwu+l20/0VUmk4XRM/TJ5DvuUPfxe
- R/5bxx4a6QFN3EVbi3xGMdLw4HOo3hENHyQeuPrt+93o/IzoCqTYhXMtadmC0lT4V3rt
- /EaA==
+ :from:to:cc; bh=6XKZfRQTbqgRZcANt6xELc2SVlUljiEWEfQE8Qx9J+8=;
+ b=Qqf/eZldqtrSxY+Imp6UQb0gxT52HRHcfkvEHvpCVlEEUx0bABCkhI5Hvn07yHr970
+ 9O1i9/E74Y7k/gH4VzdlpLrv+Ux1Uq2HRIZKdWGlNX8tx/FSUy4N7jQ2gnh0FtBa0+9M
+ Mr98uzkTkMjZWF9QwkwxNgCu/omlrI90+2tBpOgf3zutgux+DG3HoUNAAEk2z04tfckB
+ oGNxAxuxM0m88qTgHjFll5yF32EOvSXwbRop+3MRbNazeGMyskV/tvIZlyqUf1klOdQj
+ LkYesc9VmoU0fgEzD1pF/ezlRP7TFOBi/5gIHUoA8ofCsX/5YZ5EEHuBAfJog1gVnvgL
+ GLzw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc;
- bh=QslpZXG7w6+Zu0cuJpcihO4wL0ZcP7qpvE0bMlNnn88=;
- b=QQxhAGLrxQAaF2+yeYyX9BYlZwJS56vSIAP9bxkpAlMY9ztALptRRoYHZwbmu3luBn
- uMiyKmNBwFLxBR4+YtrMKWSiayUb/+RTRdfINy5Xw/s6uYaiIC0MJ/FtXsEvQZWvHYx5
- qqsJMJS57yNRsxmWlgVPVxl5l/c6ZzDeLX1g7uB/Gv9XGQ+/mKw9U69dgumal5NZ4dej
- N+VmyWE89qzZXOO7ZxNUcelm2TnJydbx9uVIhQPGi2NmtluR5vfie5WbIzr7aexruWWx
- o9UTLqVDoJibmTGM74tOwgksVf28rr3JCsz4u6CoDr+Ybk6ocxUNBfsQLbyFSYQtKH1R
- LWnw==
-X-Gm-Message-State: ACgBeo0JL4v7Fxzw4roshC1JcRa5yYfhC3BdkdiiPWuNMVJAvWUbswDX
- CrPq9hxyGQ2IYLWFaveFHk6FZSml0GCUfXI7lMI=
-X-Google-Smtp-Source: AA6agR7b6cEUO9K0Iijpg8ftzYlO5oAvjsgLr4FBxw+igjm+vGxsRNZiXOqbvoyl252nS7ROZq43VQ==
-X-Received: by 2002:a19:e04a:0:b0:492:f96f:85b7 with SMTP id
- g10-20020a19e04a000000b00492f96f85b7mr980042lfj.141.1661428262801; 
- Thu, 25 Aug 2022 04:51:02 -0700 (PDT)
+ bh=6XKZfRQTbqgRZcANt6xELc2SVlUljiEWEfQE8Qx9J+8=;
+ b=DH3N1eGQMr1ZTNCD4bVDlnbx1cDLgMjTztCCKGcAvpZXCblzJIVI3lhBl3hLvdFTjU
+ QwVz8sWrmWQHRZjC/FNcPAeIelsDGPNiDdFisLWR02mIaAjuidBTDwk2bFB4YbQ3bI9T
+ N8Calj7YATsJFCq1HRaL59NgYVEAjpnfGw1XFb9XZ0LRcppQDC0adIpaGMWFgfeDA+DH
+ MFNe85+dBZotMl+flZKfbxHAnvuwC2DAFNjkeWnvcCA+Q+QZhMaddJC5p/vkYaRuCx5N
+ yoLRdvtS94AqI+HbByvNivbgo3OMV01E3aLw6paZdFSfsWS+/croFzjAy3Ql6Ob+BtU4
+ fddg==
+X-Gm-Message-State: ACgBeo2x5PYe/PFVwBG1m1Wrx5PzbZpVmiDdP8m7a8CGYB+SNCHaUTGa
+ E3MweLFRQSR1MDx3kR0ox8jOqw==
+X-Google-Smtp-Source: AA6agR6iJRh4adLmym6DhicDyzYTJIpz7bsuJ8SQG/bWGZqpju0gBB68YyMlqiclDMC2VDp5to2LeQ==
+X-Received: by 2002:a05:651c:1025:b0:261:c071:c473 with SMTP id
+ w5-20020a05651c102500b00261c071c473mr1002073ljm.71.1661428541105; 
+ Thu, 25 Aug 2022 04:55:41 -0700 (PDT)
 Received: from [192.168.0.71] (82.131.98.15.cable.starman.ee. [82.131.98.15])
  by smtp.gmail.com with ESMTPSA id
- s4-20020a056512314400b0048fdb3efa20sm455083lfi.185.2022.08.25.04.51.01
+ r15-20020a056512102f00b0048b0176bac6sm464706lfr.93.2022.08.25.04.55.39
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 25 Aug 2022 04:51:01 -0700 (PDT)
-Message-ID: <0048ccbe-e8dc-2ce8-a8a7-68a5ad4194ac@linaro.org>
-Date: Thu, 25 Aug 2022 14:51:00 +0300
+ Thu, 25 Aug 2022 04:55:40 -0700 (PDT)
+Message-ID: <a0eb1fd7-4bc4-f62e-b61a-f02e388afda4@linaro.org>
+Date: Thu, 25 Aug 2022 14:55:39 +0300
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
  Thunderbird/91.13.0
@@ -88,22 +88,70 @@ Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 On 25/08/2022 12:50, Dmitry Baryshkov wrote:
-> Split Mobile Display SubSystem (MDSS) root node bindings to the separate
-> yaml file. Changes to the existing (txt) schema:
->  - Added optional "vbif_nrt_phys" region used by msm8996
->  - Made "bus" and "vsync" clocks optional (they are not used by some
->    platforms)
->  - Added (optional) "core" clock added recently to the mdss driver
->  - Added optional resets property referencing MDSS reset
->  - Defined child nodes pointing to corresponding reference schema.
->  - Dropped the "lut" clock. It was added to the schema by mistake (it is
->    a part of mdp4 schema, not the mdss).
-> 
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 
+(...)
 
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+> +    minItems: 1
+> +    maxItems: 4
+> +
+> +  clock-names:
+> +    minItems: 1
+> +    maxItems: 4
+> +
+> +  "#address-cells":
+> +    const: 1
+> +
+> +  "#size-cells":
+> +    const: 1
+> +
+> +  ranges:
+> +    true
+> +
+> +  resets:
+> +    items:
+> +      - description: MDSS_CORE reset
+> +
+> +oneOf:
+> +  - properties:
+> +      clocks:
+> +        minItems: 3
+> +        maxItems: 4
+> +
+> +      clock-names:
+> +        minItems: 3
+> +        items:
+> +          - const: iface
+> +          - const: bus
+> +          - const: vsync
+> +          - const: core
+> +  - properties:
+> +      clocks:
+> +        minItems: 1
+> +        maxItems: 2
+> +
+> +      clock-names:
+> +        minItems: 1
+> +        items:
+> +          - const: iface
+> +          - const: core
+> +
+> +required:
+> +  - compatible
+> +  - reg
+> +  - reg-names
+> +  - interrupts
+> +  - interrupt-controller
+> +  - "#interrupt-cells"
+> +  - power-domains
+> +  - clocks
+> +  - clock-names
+> +  - "#address-cells"
+> +  - "#size-cells"
+> +  - ranges
+> +
+> +patternProperties:
 
+This goes after properties, not after required.
 
 Best regards,
 Krzysztof
