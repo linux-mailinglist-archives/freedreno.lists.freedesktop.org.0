@@ -2,39 +2,65 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3536C5A0BE8
-	for <lists+freedreno@lfdr.de>; Thu, 25 Aug 2022 10:52:08 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id AD69F5A0D26
+	for <lists+freedreno@lfdr.de>; Thu, 25 Aug 2022 11:51:14 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F031D10E2ED;
-	Thu, 25 Aug 2022 08:51:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D621C1133C9;
+	Thu, 25 Aug 2022 09:51:12 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
- [213.167.242.64])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3B0F311A694;
- Thu, 25 Aug 2022 08:51:48 +0000 (UTC)
-Received: from pendragon.ideasonboard.com (62-78-145-57.bb.dnainternet.fi
- [62.78.145.57])
- by perceval.ideasonboard.com (Postfix) with ESMTPSA id 564422B3;
- Thu, 25 Aug 2022 10:51:46 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
- s=mail; t=1661417506;
- bh=hqjjTfpHavt0j/vu7b/diKsDIw1QdqTc5yyTW7GYfo8=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=Z8pStjaw+wTHpUqjfkrNYv4yhEOMiZpey4BovUqFDdUKaiJRG3zr27mJb+3KOVnqv
- SeSwIWuxOsniVY0CtkTuJBrvvODxoS4qbCjAnkQGfS00GuyUS1Limb9dDBRxhVsFoW
- HVOrzfbF2aIEGVjQzg6fMImib3ZqHBM+/31mCM9o=
-Date: Thu, 25 Aug 2022 11:51:40 +0300
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: Rob Herring <robh@kernel.org>
-Message-ID: <Ywc4HGS+7aq9Fbk1@pendragon.ideasonboard.com>
-References: <20220823145649.3118479-11-robh@kernel.org>
+Received: from mail-lj1-x22f.google.com (mail-lj1-x22f.google.com
+ [IPv6:2a00:1450:4864:20::22f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BD51F11216C
+ for <freedreno@lists.freedesktop.org>; Thu, 25 Aug 2022 09:51:06 +0000 (UTC)
+Received: by mail-lj1-x22f.google.com with SMTP id n24so16855559ljc.13
+ for <freedreno@lists.freedesktop.org>; Thu, 25 Aug 2022 02:51:06 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc;
+ bh=tpyf1AK+W21R0VaLwh8O8+lqzRdSfdFGGL30pitSVKM=;
+ b=J9KRyJrDgp3B5iFvG8wKhqBYQppPrdNLt0cdQBT9SR4/ZjFxDGnjp1AYqpwiluT47b
+ LMkAbILCXkKDgo8KIEXpt1XTHOOhyn0g0ON2vdbGTjD99tZVRwmun0bjaxoWJaFYvdxB
+ Arv9xQDXAxUSjUfsgeThbnn8tpX3+AGG8r3r0ehPCwBT39EboKCwUY/vdJMgAif2Gss2
+ oBKB0vnsqgc+IymkJlJsdUFrJ/QfJBBE7IP1MBXAZjLcFozvx9/8Xfj42eJ6POYGb6sJ
+ 3cJ44/FJSy4mavYAaIQvOz9oONnm5a73z1D8IUDGweCIlKXC5ezMw8a/AvT1eDH49z/J
+ My3Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc;
+ bh=tpyf1AK+W21R0VaLwh8O8+lqzRdSfdFGGL30pitSVKM=;
+ b=AMDrX6r+fRFRM79jU+ihfCeksT9kPT9uCewaCpHSFgNm3OeLyXVsdcErteJ2KN5+EP
+ S3LPgSJ2liVifAGQSM7Zf6N0PZ/39PXt6e/pZFk+wRq9b19EPsOXTa7c1wdFzftJHIld
+ e3DBwbSmwprEoE/kvNr/zt042sV6F1kbxqnpzJYfF0QNaG1E9un/mKjxQFegh6y6G5E5
+ eGkrxHfBS9YxjG3lYU5o3jxQBbKLueh+wiz0mTmlPTlFQ5H2mTDSWhMR5eSl7BZd4vLp
+ R7xuPxLbrLDXeYxEwT/yNMgU21rbCFILb9pVYrcznqHcsJ6oCzL+txca3vhuW0cjflP/
+ IxEQ==
+X-Gm-Message-State: ACgBeo2om9K5WRf07tsVD8nALQ1ESKqg9iAoF3hJhWpIEfD01LIEiq7l
+ 6fvparctg9mmzf/kDdbTqxIIIQ==
+X-Google-Smtp-Source: AA6agR74Tz9FPEsBsZZMiR9A+8UDim/mVuD9g6zKLM5gd+q0/nbi8JTdlx+L1gjtLTobGxLzqAHrqQ==
+X-Received: by 2002:a2e:9b59:0:b0:261:d61d:5f51 with SMTP id
+ o25-20020a2e9b59000000b00261d61d5f51mr801415ljj.418.1661421065035; 
+ Thu, 25 Aug 2022 02:51:05 -0700 (PDT)
+Received: from eriador.lan ([37.153.55.125]) by smtp.gmail.com with ESMTPSA id
+ h10-20020a056512220a00b00492cfecf1c0sm398502lfu.245.2022.08.25.02.51.03
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 25 Aug 2022 02:51:04 -0700 (PDT)
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+To: Andy Gross <agross@kernel.org>,
+ Bjorn Andersson <bjorn.andersson@linaro.org>,
+ Konrad Dybcio <konrad.dybcio@somainline.org>,
+ Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Rob Herring <robh+dt@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>
+Date: Thu, 25 Aug 2022 12:50:53 +0300
+Message-Id: <20220825095103.624891-1-dmitry.baryshkov@linaro.org>
+X-Mailer: git-send-email 2.35.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20220823145649.3118479-11-robh@kernel.org>
-Subject: Re: [Freedreno] [PATCH] dt-bindings: display: Add missing
- (unevaluated|additional)Properties on child nodes
+Content-Transfer-Encoding: 8bit
+Subject: [Freedreno] [PATCH v4 00/10] dt-bindings: display/msm: rework MDSS
+ and DPU bindings
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -47,110 +73,64 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Neil Armstrong <narmstrong@baylibre.com>, David Airlie <airlied@linux.ie>,
- Liviu Dudau <liviu.dudau@arm.com>, dri-devel@lists.freedesktop.org,
- Jernej Skrabec <jernej.skrabec@gmail.com>,
- Andrzej Hajda <andrzej.hajda@intel.com>,
- Mihail Atanassov <mihail.atanassov@arm.com>, linux-samsung-soc@vger.kernel.org,
- Kyungmin Park <kyungmin.park@samsung.com>,
- Krzysztof Kozlowski <krzk@kernel.org>,
- "James \(Qian\) Wang" <james.qian.wang@arm.com>, linux-arm-msm@vger.kernel.org,
- Alim Akhtar <alim.akhtar@samsung.com>, devicetree@vger.kernel.org,
- Jonas Karlman <jonas@kwiboo.se>, Andre Przywara <andre.przywara@arm.com>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, Inki Dae <inki.dae@samsung.com>,
- Sean Paul <sean@poorly.run>, linux-arm-kernel@lists.infradead.org,
- Seung-Woo Kim <sw0312.kim@samsung.com>, linux-kernel@vger.kernel.org,
- Robert Foss <robert.foss@linaro.org>, Rob Clark <robdclark@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+Cc: devicetree@vger.kernel.org, David Airlie <airlied@linux.ie>,
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ Stephen Boyd <swboyd@chromium.org>, Daniel Vetter <daniel@ffwll.ch>,
  freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Hi Rob,
+Create separate YAML schema for MDSS devicesd$ (both for MDP5 and DPU
+devices). Cleanup DPU schema files, so that they do not contain schema
+for both MDSS and DPU nodes. Apply misc small fixes to the DPU schema
+afterwards.
 
-Thank you for the patch.
+Changes since v3:
+ - Changed mdss->(dpu, dsi, etc.) relationship into the tight binding
+   dependin on the mdss compatible string.
+ - Added sm8250 dpu schema and added qcom,sm8250-mdss to mdss.yaml
 
-On Tue, Aug 23, 2022 at 09:56:42AM -0500, Rob Herring wrote:
-> In order to ensure only documented properties are present, node schemas
-> must have unevaluatedProperties or additionalProperties set to false
-> (typically).
-> 
-> Signed-off-by: Rob Herring <robh@kernel.org>
+Changes since v2:
+ - Added a patch to allow opp-table under the dpu* nodes.
+ - Removed the c&p issue which allowed the @0 nodes under the MDSS
+   device node.
 
-Reviewed-by: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
+Changes since v1:
+ - Renamed DPU device nodes from mdp@ to display-controller@
+ - Described removal of mistakenly mentioned "lut" clock
+ - Switched mdss.yaml to use $ref instead of fixing compatible strings
+ - Dropped mdp-opp-table description (renamed by Krzysztof in his
+   patchset)
+ - Reworked DPU's ports definitions. Dropped description of individual
+   ports, left only /ports $ref and description in dpu-common.yaml.
 
-> ---
->  Documentation/devicetree/bindings/display/arm,komeda.yaml        | 1 +
->  Documentation/devicetree/bindings/display/bridge/lvds-codec.yaml | 1 +
->  Documentation/devicetree/bindings/display/msm/gpu.yaml           | 1 +
->  .../bindings/display/samsung/samsung,exynos7-decon.yaml          | 1 +
->  .../devicetree/bindings/display/samsung/samsung,fimd.yaml        | 1 +
->  5 files changed, 5 insertions(+)
-> 
-> diff --git a/Documentation/devicetree/bindings/display/arm,komeda.yaml b/Documentation/devicetree/bindings/display/arm,komeda.yaml
-> index 9f4aade97f10..3ad3eef89ca8 100644
-> --- a/Documentation/devicetree/bindings/display/arm,komeda.yaml
-> +++ b/Documentation/devicetree/bindings/display/arm,komeda.yaml
-> @@ -58,6 +58,7 @@ properties:
->  patternProperties:
->    '^pipeline@[01]$':
->      type: object
-> +    additionalProperties: false
->      description:
->        clocks
->  
-> diff --git a/Documentation/devicetree/bindings/display/bridge/lvds-codec.yaml b/Documentation/devicetree/bindings/display/bridge/lvds-codec.yaml
-> index 3a8614e0f627..84aafcbf0919 100644
-> --- a/Documentation/devicetree/bindings/display/bridge/lvds-codec.yaml
-> +++ b/Documentation/devicetree/bindings/display/bridge/lvds-codec.yaml
-> @@ -51,6 +51,7 @@ properties:
->      properties:
->        port@0:
->          $ref: /schemas/graph.yaml#/$defs/port-base
-> +        unevaluatedProperties: false
->          description: |
->            For LVDS encoders, port 0 is the parallel input
->            For LVDS decoders, port 0 is the LVDS input
-> diff --git a/Documentation/devicetree/bindings/display/msm/gpu.yaml b/Documentation/devicetree/bindings/display/msm/gpu.yaml
-> index 3397bc31d087..0179c816fa6d 100644
-> --- a/Documentation/devicetree/bindings/display/msm/gpu.yaml
-> +++ b/Documentation/devicetree/bindings/display/msm/gpu.yaml
-> @@ -81,6 +81,7 @@ properties:
->  
->    zap-shader:
->      type: object
-> +    additionalProperties: false
->      description: |
->        For a5xx and a6xx devices this node contains a memory-region that
->        points to reserved memory to store the zap shader that can be used to
-> diff --git a/Documentation/devicetree/bindings/display/samsung/samsung,exynos7-decon.yaml b/Documentation/devicetree/bindings/display/samsung/samsung,exynos7-decon.yaml
-> index 969bd8c563a5..dec1c9058876 100644
-> --- a/Documentation/devicetree/bindings/display/samsung/samsung,exynos7-decon.yaml
-> +++ b/Documentation/devicetree/bindings/display/samsung/samsung,exynos7-decon.yaml
-> @@ -37,6 +37,7 @@ properties:
->  
->    i80-if-timings:
->      type: object
-> +    additionalProperties: false
->      description: timing configuration for lcd i80 interface support
->      properties:
->        cs-setup:
-> diff --git a/Documentation/devicetree/bindings/display/samsung/samsung,fimd.yaml b/Documentation/devicetree/bindings/display/samsung/samsung,fimd.yaml
-> index 5d5cc220f78a..7593938601bb 100644
-> --- a/Documentation/devicetree/bindings/display/samsung/samsung,fimd.yaml
-> +++ b/Documentation/devicetree/bindings/display/samsung/samsung,fimd.yaml
-> @@ -40,6 +40,7 @@ properties:
->  
->    i80-if-timings:
->      type: object
-> +    additionalProperties: false
->      description: |
->        Timing configuration for lcd i80 interface support.
->        The parameters are defined as::
+Dmitry Baryshkov (10):
+  dt-bindings: display/msm: split qcom,mdss bindings
+  dt-bindings: display/msm: move qcom,sdm845-mdss schema to mdss.yaml
+  dt-bindings: display/msm: move qcom,sc7180-mdss schema to mdss.yaml
+  dt-bindings: display/msm: move qcom,sc7280-mdss schema to mdss.yaml
+  dt-bindings: display/msm: move qcom,qcm2290-mdss schema to mdss.yaml
+  dt-bindings: display/msm: move qcom,msm8998-mdss schema to mdss.yaml
+  dt-bindings: display/mdm: add gcc-bus clock to dpu-smd845
+  dt-bindings: display/msm: move common DPU properties to
+    dpu-common.yaml
+  dt-bindings: display/msm/dpu-common: add opp-table property
+  dt-bindings: display/msm: add support for the display on SM8250
+
+ .../bindings/display/msm/dpu-common.yaml      |  45 ++
+ .../bindings/display/msm/dpu-msm8998.yaml     | 139 +---
+ .../bindings/display/msm/dpu-qcm2290.yaml     | 143 +----
+ .../bindings/display/msm/dpu-sc7180.yaml      | 148 +----
+ .../bindings/display/msm/dpu-sc7280.yaml      | 147 +----
+ .../bindings/display/msm/dpu-sdm845.yaml      | 139 +---
+ .../bindings/display/msm/dpu-sm8250.yaml      | 123 ++++
+ .../devicetree/bindings/display/msm/mdp5.txt  |  30 +-
+ .../devicetree/bindings/display/msm/mdss.yaml | 591 ++++++++++++++++++
+ 9 files changed, 861 insertions(+), 644 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/display/msm/dpu-common.yaml
+ create mode 100644 Documentation/devicetree/bindings/display/msm/dpu-sm8250.yaml
+ create mode 100644 Documentation/devicetree/bindings/display/msm/mdss.yaml
 
 -- 
-Regards,
+2.35.1
 
-Laurent Pinchart
