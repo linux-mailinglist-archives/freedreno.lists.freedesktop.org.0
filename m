@@ -1,52 +1,52 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6903E5A0F24
-	for <lists+freedreno@lfdr.de>; Thu, 25 Aug 2022 13:33:49 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 036C55A0F33
+	for <lists+freedreno@lfdr.de>; Thu, 25 Aug 2022 13:33:57 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4D6AC11212B;
-	Thu, 25 Aug 2022 11:33:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6A41F11329E;
+	Thu, 25 Aug 2022 11:33:50 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x134.google.com (mail-lf1-x134.google.com
- [IPv6:2a00:1450:4864:20::134])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 26C4A10FC5C
- for <freedreno@lists.freedesktop.org>; Thu, 25 Aug 2022 11:33:42 +0000 (UTC)
-Received: by mail-lf1-x134.google.com with SMTP id m5so17158382lfj.4
- for <freedreno@lists.freedesktop.org>; Thu, 25 Aug 2022 04:33:42 -0700 (PDT)
+Received: from mail-lf1-x132.google.com (mail-lf1-x132.google.com
+ [IPv6:2a00:1450:4864:20::132])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0BB6710FEEF
+ for <freedreno@lists.freedesktop.org>; Thu, 25 Aug 2022 11:33:44 +0000 (UTC)
+Received: by mail-lf1-x132.google.com with SMTP id l8so10301650lfc.12
+ for <freedreno@lists.freedesktop.org>; Thu, 25 Aug 2022 04:33:43 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc;
- bh=5f5tWhIstVtTSwKpxEt2LvelJrCKuLR3PL365pf4QS4=;
- b=pVklcWuFNgj8ttdDE9REKfypKLdUtCn9f/ySSF5qEbDM/toFxSWpQc/MYxWQdNJwu2
- Nlxa70HrmyrR9cDd2ZqKYbbg+kl+13HsP2FwR/+Rx4XiXKvXvRRdSuWC1A0icUhGCx6t
- dyQS15jw+p54nSqSS7aYeOmv5lRBCq2ZIJl3w9gYWBtDZwVXTrp2kpRCb9dwndNZKsQS
- d3lPhpObnhcUhkTmK3xq7CFa+pTwJ8rVaSIjbMnWZgnivbeSC14doHc5zQ2dow6ptE9t
- ZDrOv/Qk+ajcw68RlQ0dUOTHllKHqhtxZw3Ir/BzshJmyMCx1LVCdufFSby1sGYV316g
- ttPQ==
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc;
+ bh=vJFyZ4gv7uWiZY7gLlnEc+MME2d1g+apMDYeqdsH534=;
+ b=GmCvZ5CPgo7pW/PvY0w3ePfTcxnp1AUZHlBN7qx8csNaBhjJhTZFPpIt+K2tpHS3cb
+ lWzmI+jsy+BsmTIO7jq8BbkYMnn8VnH0T/MmjBDLZkcSdpQfAXOp3q1+S5nKPRNOa1Tr
+ V03DzrqqhMceS7MHVNL3a4SL3N4seRhJa3sq1UXzvjmU7+v0JD/qBI7t9a862HBi3Pk/
+ cvDHX8T6sNyidT7M39TZ2avUKX6RLQUk8M7pezhvGR0zLKfkphbIR/04n3Euf/vV1+VX
+ D3RubGp99jbSZXUgpwHkhVKfWpWLo6zQeuayC4F1PlNLImrKpG3hAEq19c19+VgiiQoc
+ BGMQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc;
- bh=5f5tWhIstVtTSwKpxEt2LvelJrCKuLR3PL365pf4QS4=;
- b=lAzjPMeXh8PaX+R5IFzIfgENDpne7eEsrGq7Z1ZMsX8M1bTubGEOpv17Zyq6UTXTTC
- VeZPuXBRGF11GJ9s7/51WS1AmjkzzhOwQLFduGR4VKI7hCU2wZ84UCRT/Z/WPO6LyiAu
- sdJdzVn9WEo8VQQ3HJAJtjB1vb77IKTxUnHQnqY0fr8R0SkKZZizua6CfIVWSsn63REf
- FIgu/0AsUpC0+8BoXhcdyPRDbNejuVjvgYG/8B/f8XzINp6u/a+DwCl5LRgnyyUtfwJX
- SCM5y0+eGsH8goRrXSGuRxzGsDeUJRsj7xL2veufpKj+tJDAQiPudT5mw9QqPGwmDn8M
- TNwQ==
-X-Gm-Message-State: ACgBeo2EbvH7mcg8II0NaZbZHNG9Ag1RgUkzD9BHthx74+FdCOiGT2NG
- 4Pt0zAWPN3cSXzXWm/h3TRNhwA==
-X-Google-Smtp-Source: AA6agR5Cwlt1QnJQbh16uHaNZuyEAqyKIdLBAYRJgSNUyF+xnOQylMkrtQ8mBl4L0+NErXHiMNgWew==
-X-Received: by 2002:a05:6512:3905:b0:493:80a:46ba with SMTP id
- a5-20020a056512390500b00493080a46bamr956006lfu.69.1661427220406; 
- Thu, 25 Aug 2022 04:33:40 -0700 (PDT)
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc;
+ bh=vJFyZ4gv7uWiZY7gLlnEc+MME2d1g+apMDYeqdsH534=;
+ b=PDd+cFMYRvaUaijQfXfZ2eGyJ8xMFNvwB1yTdahFXHtDA5CBc+RqPLGMhwcrfXHV8I
+ 52Xhej7jPSZIMWFTRbnoBunSb60WgF2IMfcaMi9d19Z4cgfYoqvD4umWlZcgJfU+n658
+ swaL4Tj+NWD9PcYA39LYs261Ii8eVzWJfikQLmxzVFWz+sg1Dgaj5RDuOAYWJoYamztI
+ 0WUC1ECpKfUEuMWPXfOnspnZeF+zXOe5sDgtj/6xj929gO9MhzR99BfX0UmYuL9x+1Iv
+ 9dN+yFSwkzk7pg/V6pC/95QcTpt9YrDgt+7q8wOYQ/FpiNY1CO6goDXguGaEdIM14lgj
+ DvSQ==
+X-Gm-Message-State: ACgBeo2PdEBko5bA6hdbUuARtsRQivIhxx5DIugeoZkN3KWoTrcdQuRC
+ QcGt8t/aodA76DqI5Kv4HtVp6g==
+X-Google-Smtp-Source: AA6agR6HHKtOkxDIjlKrISLuP9gSIMQzZk2YFK0maUrFa24vBEbpyEy1Swt7twBvT/cLjTU/pj53BA==
+X-Received: by 2002:a05:6512:1093:b0:492:ca36:d693 with SMTP id
+ j19-20020a056512109300b00492ca36d693mr1019749lfg.226.1661427222193; 
+ Thu, 25 Aug 2022 04:33:42 -0700 (PDT)
 Received: from krzk-bin.starman.ee (82.131.98.15.cable.starman.ee.
  [82.131.98.15]) by smtp.gmail.com with ESMTPSA id
- e18-20020a195012000000b0048b0aa2f87csm446764lfb.181.2022.08.25.04.33.38
+ e18-20020a195012000000b0048b0aa2f87csm446764lfb.181.2022.08.25.04.33.40
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 25 Aug 2022 04:33:39 -0700 (PDT)
+ Thu, 25 Aug 2022 04:33:41 -0700 (PDT)
 From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 To: Rob Herring <robh+dt@kernel.org>,
  Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
@@ -87,13 +87,15 @@ To: Rob Herring <robh+dt@kernel.org>,
  linux-samsung-soc@vger.kernel.org, linux-crypto@vger.kernel.org,
  dri-devel@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
  freedreno@lists.freedesktop.org, linux-tegra@vger.kernel.org
-Date: Thu, 25 Aug 2022 14:33:30 +0300
-Message-Id: <20220825113334.196908-1-krzysztof.kozlowski@linaro.org>
+Date: Thu, 25 Aug 2022 14:33:31 +0300
+Message-Id: <20220825113334.196908-2-krzysztof.kozlowski@linaro.org>
 X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20220825113334.196908-1-krzysztof.kozlowski@linaro.org>
+References: <20220825113334.196908-1-krzysztof.kozlowski@linaro.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH 1/5] dt-bindings: socionext,
- uniphier-system-cache: drop minItems equal to maxItems
+Subject: [Freedreno] [PATCH 2/5] dt-bindings: ata: drop minItems equal to
+ maxItems
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -115,21 +117,55 @@ redundant piece to reduce size of code.
 
 Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 ---
- .../bindings/arm/socionext/socionext,uniphier-system-cache.yaml  | 1 -
- 1 file changed, 1 deletion(-)
+ Documentation/devicetree/bindings/ata/brcm,sata-brcm.yaml       | 1 -
+ .../devicetree/bindings/ata/cortina,gemini-sata-bridge.yaml     | 2 --
+ Documentation/devicetree/bindings/ata/sata_highbank.yaml        | 1 -
+ 3 files changed, 4 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/arm/socionext/socionext,uniphier-system-cache.yaml b/Documentation/devicetree/bindings/arm/socionext/socionext,uniphier-system-cache.yaml
-index 7ca5375f278f..6096c082d56d 100644
---- a/Documentation/devicetree/bindings/arm/socionext/socionext,uniphier-system-cache.yaml
-+++ b/Documentation/devicetree/bindings/arm/socionext/socionext,uniphier-system-cache.yaml
-@@ -22,7 +22,6 @@ properties:
-     description: |
-       should contain 3 regions: control register, revision register,
-       operation register, in this order.
--    minItems: 3
-     maxItems: 3
+diff --git a/Documentation/devicetree/bindings/ata/brcm,sata-brcm.yaml b/Documentation/devicetree/bindings/ata/brcm,sata-brcm.yaml
+index 235a93ac86b0..3766cc80cb17 100644
+--- a/Documentation/devicetree/bindings/ata/brcm,sata-brcm.yaml
++++ b/Documentation/devicetree/bindings/ata/brcm,sata-brcm.yaml
+@@ -30,7 +30,6 @@ properties:
+           - const: brcm,bcm-nsp-ahci
  
-   interrupts:
+   reg:
+-    minItems: 2
+     maxItems: 2
+ 
+   reg-names:
+diff --git a/Documentation/devicetree/bindings/ata/cortina,gemini-sata-bridge.yaml b/Documentation/devicetree/bindings/ata/cortina,gemini-sata-bridge.yaml
+index 21a90975593b..529093666508 100644
+--- a/Documentation/devicetree/bindings/ata/cortina,gemini-sata-bridge.yaml
++++ b/Documentation/devicetree/bindings/ata/cortina,gemini-sata-bridge.yaml
+@@ -22,7 +22,6 @@ properties:
+     maxItems: 1
+ 
+   resets:
+-    minItems: 2
+     maxItems: 2
+     description: phandles to the reset lines for both SATA bridges
+ 
+@@ -32,7 +31,6 @@ properties:
+       - const: sata1
+ 
+   clocks:
+-    minItems: 2
+     maxItems: 2
+     description: phandles to the compulsory peripheral clocks
+ 
+diff --git a/Documentation/devicetree/bindings/ata/sata_highbank.yaml b/Documentation/devicetree/bindings/ata/sata_highbank.yaml
+index 49679b58041c..f23f26a8f21c 100644
+--- a/Documentation/devicetree/bindings/ata/sata_highbank.yaml
++++ b/Documentation/devicetree/bindings/ata/sata_highbank.yaml
+@@ -52,7 +52,6 @@ properties:
+     minItems: 1
+     maxItems: 8
+     items:
+-      minItems: 2
+       maxItems: 2
+ 
+   calxeda,tx-atten:
 -- 
 2.34.1
 
