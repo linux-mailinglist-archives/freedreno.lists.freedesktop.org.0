@@ -2,54 +2,54 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id C02A45A0FB8
-	for <lists+freedreno@lfdr.de>; Thu, 25 Aug 2022 13:59:20 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E3C035A0FCF
+	for <lists+freedreno@lfdr.de>; Thu, 25 Aug 2022 14:01:57 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 48BE5113A90;
-	Thu, 25 Aug 2022 11:59:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CD09C11A182;
+	Thu, 25 Aug 2022 12:01:55 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x12c.google.com (mail-lf1-x12c.google.com
- [IPv6:2a00:1450:4864:20::12c])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 45C80113D86
- for <freedreno@lists.freedesktop.org>; Thu, 25 Aug 2022 11:59:15 +0000 (UTC)
-Received: by mail-lf1-x12c.google.com with SMTP id bq23so18855493lfb.7
- for <freedreno@lists.freedesktop.org>; Thu, 25 Aug 2022 04:59:15 -0700 (PDT)
+Received: from mail-lj1-x229.google.com (mail-lj1-x229.google.com
+ [IPv6:2a00:1450:4864:20::229])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 56086113D86
+ for <freedreno@lists.freedesktop.org>; Thu, 25 Aug 2022 12:01:52 +0000 (UTC)
+Received: by mail-lj1-x229.google.com with SMTP id q18so18194483ljg.12
+ for <freedreno@lists.freedesktop.org>; Thu, 25 Aug 2022 05:01:52 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc; bh=ft8kfdyaZSgF2yf1wj8tP6MEdPlZf5eOiQM/efyjVCg=;
- b=I3QavyDrYlsmL8vLvkGNHNXlRhkQH+JvIDYAEoC2GMCJ5MgPBlEpHxz6WczBPZh5rP
- MvR5dTotpy68o1L5S4w+wHiJhC+q1xCWblCLnlKWMFOxS+T1AnsUjCcSch/ip4xUkF6M
- gdhCfY+S96J/JgL2e4RhFKogNe6A59IRqwZ7wlBBdqp4MMGqmP7kHMr+6fIKr+Mz13Yb
- IzV1+RrnQi3pcPB6Lezi4blSaMb4t3F2M5UKuEVxVPWPHG3lY/4ncHsfOQRxU0kV7ec7
- v6XcZhEjHCcqRA9sduXJHPk6Nsmzm2SL1qOEVtNM2FvRb3Qt5fUljoLzw1zFXgTBSb/u
- Tfxg==
+ :from:to:cc; bh=f2M4iXxI1q5T3VkoG4UYWNwFB3x0AhyJ8PHoXo+SF3k=;
+ b=ggWYiQ/HcrXx1XLQhvzjoNQ0gSD+jIBLN9muzyDYpiTR1GIoy/Cbf98QStpRVMh9KH
+ +dP6Mccdv24maC9648P/flZl2nN68wzmCFxe6lpFbvmKbR+3X3DIrLRk5eprbDPM7uTH
+ +8Xze+6TaRDg5OGERMxCkROw8pCjjCTWLofhGEwYa5pxjBICfFq1Thm282bAz8mOASJj
+ WOyoOKUljhZpPaGAqgsiMUFCXED8aXEtyip2vIsIG0XEZebuDBJkIhBIEbXdm0UlbMJ6
+ NYQ5jahLWcu+lqqhhyvQyzkqwZFDGK/TVF0PxTR2/WYa0rHoaj/6JLkxnf7D0QodCOUQ
+ CbIw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc;
- bh=ft8kfdyaZSgF2yf1wj8tP6MEdPlZf5eOiQM/efyjVCg=;
- b=6ky/ZEnON6nwYOLCGdKrUNcn+BYF9h5+laq+S64G0TBDg5VBdWKGfu2ZumVivRK6Nd
- B4649lfqi1WdXAl995LzorsBxAn/otCC2mfq3QDzEexkLGhrwxFxusFupHxCudwGwENb
- 8wiyu/8xJj0vzC+Mv/IthaYHr399iMiinVODjOAjJ06CdsxHpYdl8gneswROy2ERsdtJ
- Bf7IHJdXneMlq0yBubNlg4H8Om4QdgJWNPzGm92ciwT8psLr1v2puK1C3KP94+V9WUbG
- 028NbdGRBur4c6gTQy43xxxybZLX5UuWOSrauubUT8mNuGmAMyQ/N2CD5REC7YZEJUK+
- XQBg==
-X-Gm-Message-State: ACgBeo35x4HATykpZK++BDABDIe+9+++X25uI1emXz3Pc9xdYElBARN6
- 0d7xrB2s7NXVLXz25CSB6PDizg==
-X-Google-Smtp-Source: AA6agR43t4OeE5Os5aRTttwbEHGlwc/GvwBPDRzzJJznYatTfMzrdBSXIKdfoPo6CXkZIn/xg0ZnxA==
-X-Received: by 2002:a05:6512:1156:b0:48a:fdea:520a with SMTP id
- m22-20020a056512115600b0048afdea520amr1141259lfg.138.1661428753541; 
- Thu, 25 Aug 2022 04:59:13 -0700 (PDT)
+ bh=f2M4iXxI1q5T3VkoG4UYWNwFB3x0AhyJ8PHoXo+SF3k=;
+ b=jGBn+JmicESMZGASVdezp1+C2nf+1hSddrQuOGl/jFbmGTRE5J2sZmbTBqQaK2ast2
+ kEnJ2nwCyXL+SaW4h1rcqrQK1IkKtbz3ht6qurUs6OOV0rT0Q1FUcmANR0kKkLSAuLV6
+ jEPDEhxH6GMno3Yi7P+7C09/oD254gcYbf2rZgjld1QDztVgQ++PXpjsUWNwOb+h4oKE
+ mRHi9qLyMv1iyrN8oEnbv/aFApranoMHgrcmBLJA4J4Rm17QCulznClYhFrZWDmbqxZ3
+ i2QeECqoa+Xzl4Z8faUpPIZLtfHeH2B2BOGxeaDf7H5eZPKJPLWPD9G9A2k654apOrWj
+ sHGw==
+X-Gm-Message-State: ACgBeo3SmHbb970GJJrJ+r271zNho6Rvfbs3RglutK9CRcgJC2TM+wg0
+ md35r5ohqiixbZKrPM9g34kjrA==
+X-Google-Smtp-Source: AA6agR6cD5F+W9iFjjk7hqYwstmfLt+P6TX+9vOP/jf2H6MJ2DsN7/KbqO7D2ZEeufLsuA4aud4iEA==
+X-Received: by 2002:a2e:7c0c:0:b0:261:e73a:9819 with SMTP id
+ x12-20020a2e7c0c000000b00261e73a9819mr856025ljc.203.1661428910608; 
+ Thu, 25 Aug 2022 05:01:50 -0700 (PDT)
 Received: from [192.168.0.71] (82.131.98.15.cable.starman.ee. [82.131.98.15])
  by smtp.gmail.com with ESMTPSA id
- i20-20020a196d14000000b00492d8a2de7dsm460733lfc.129.2022.08.25.04.59.12
+ z6-20020a05651c022600b002618fbebbbcsm523158ljn.47.2022.08.25.05.01.47
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 25 Aug 2022 04:59:12 -0700 (PDT)
-Message-ID: <89c0f29c-abd1-0919-266e-f21c8e04434a@linaro.org>
-Date: Thu, 25 Aug 2022 14:59:11 +0300
+ Thu, 25 Aug 2022 05:01:48 -0700 (PDT)
+Message-ID: <8e0ab9f0-cc27-f472-ce5c-b9f4a9d94005@linaro.org>
+Date: Thu, 25 Aug 2022 15:01:46 +0300
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
  Thunderbird/91.13.0
@@ -61,13 +61,13 @@ To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
  Abhinav Kumar <quic_abhinavk@quicinc.com>, Rob Herring <robh+dt@kernel.org>,
  Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>
 References: <20220825095103.624891-1-dmitry.baryshkov@linaro.org>
- <20220825095103.624891-3-dmitry.baryshkov@linaro.org>
+ <20220825095103.624891-4-dmitry.baryshkov@linaro.org>
 From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-In-Reply-To: <20220825095103.624891-3-dmitry.baryshkov@linaro.org>
+In-Reply-To: <20220825095103.624891-4-dmitry.baryshkov@linaro.org>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH v4 02/10] dt-bindings: display/msm: move
- qcom, sdm845-mdss schema to mdss.yaml
+Subject: Re: [Freedreno] [PATCH v4 03/10] dt-bindings: display/msm: move
+ qcom, sc7180-mdss schema to mdss.yaml
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -88,42 +88,39 @@ Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 On 25/08/2022 12:50, Dmitry Baryshkov wrote:
-> Move schema for qcom,sdm845-mdss from dpu-sdm845.yaml to mdss.yaml so
+> Move schema for qcom,sc7180-mdss from dpu-sc7180.yaml to mdss.yaml so
 > that the dpu file describes only the DPU schema.
+
+MDSS grows to unmanagable file. I don't think we will be able to keep it
+maintained. You will have many if-else defining subnodes and their
+characteristics. As I said before - this should be several separate
+schemas with common part.
+
 > 
 > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 > ---
->  .../bindings/display/msm/dpu-sdm845.yaml      | 135 +++------
->  .../devicetree/bindings/display/msm/mdss.yaml | 265 ++++++++++++++----
-
-I still don't think this is better approach than what I proposed - to
-have common MDSS schema used by several device-specific schemas (e.g.
-sdm845-mdss.yaml or existing dpu-sdm845.yaml).
-
-It's not only difficulty to review the patch but also to understand the
-binding which grows huge.
-
-
->  2 files changed, 239 insertions(+), 161 deletions(-)
+>  .../bindings/display/msm/dpu-sc7180.yaml      | 149 +++++-------------
+>  .../devicetree/bindings/display/msm/mdss.yaml |  66 +++++++-
+>  2 files changed, 102 insertions(+), 113 deletions(-)
 > 
-> diff --git a/Documentation/devicetree/bindings/display/msm/dpu-sdm845.yaml b/Documentation/devicetree/bindings/display/msm/dpu-sdm845.yaml
-> index 2bb8896beffc..2074e954372f 100644
-> --- a/Documentation/devicetree/bindings/display/msm/dpu-sdm845.yaml
-> +++ b/Documentation/devicetree/bindings/display/msm/dpu-sdm845.yaml
-> @@ -10,139 +10,74 @@ maintainers:
+> diff --git a/Documentation/devicetree/bindings/display/msm/dpu-sc7180.yaml b/Documentation/devicetree/bindings/display/msm/dpu-sc7180.yaml
+> index d3c3e4b07897..9d4ec0b60c25 100644
+> --- a/Documentation/devicetree/bindings/display/msm/dpu-sc7180.yaml
+> +++ b/Documentation/devicetree/bindings/display/msm/dpu-sc7180.yaml
+> @@ -10,151 +10,78 @@ maintainers:
 >    - Krishna Manikandan <quic_mkrishn@quicinc.com>
 >  
 >  description: |
 > -  Device tree bindings for MSM Mobile Display Subsystem(MDSS) that encapsulates
 > -  sub-blocks like DPU display controller, DSI and DP interfaces etc. Device tree
-> -  bindings of MDSS and DPU are mentioned for SDM845 target.
-> +  Device tree bindings for the DPU display controller for SDM845 target.
+> -  bindings of MDSS and DPU are mentioned for SC7180 target.
+> +  Device tree bindings for the DPU display controller for SC7180 target.
 >  
 >  properties:
 >    compatible:
 >      items:
-> -      - const: qcom,sdm845-mdss
-> +      - const: qcom,sdm845-dpu
+> -      - const: qcom,sc7180-mdss
+> +      - const: qcom,sc7180-dpu
 >  
 >    reg:
 > -    maxItems: 1
@@ -143,229 +140,26 @@ binding which grows huge.
 >    clocks:
 >      items:
 > -      - description: Display AHB clock from gcc
+> -      - description: Display AHB clock from dispcc
+> +      - description: Display hf axi clock
 > +      - description: Display ahb clock
-> +      - description: Display axi clock
+> +      - description: Display rotator clock
+> +      - description: Display lut clock
 >        - description: Display core clock
 > +      - description: Display vsync clock
 >  
 >    clock-names:
 >      items:
->        - const: iface
 > +      - const: bus
+>        - const: iface
+> -      - const: ahb
+> +      - const: rot
+> +      - const: lut
 >        - const: core
 > +      - const: vsync
->  
->    interrupts:
->      maxItems: 1
->  
-> -  interrupt-controller: true
-> -
-> -  "#address-cells": true
-> -
-> -  "#size-cells": true
-> -
-> -  "#interrupt-cells":
-> -    const: 1
-> -
-> -  iommus:
-> -    items:
-> -      - description: Phandle to apps_smmu node with SID mask for Hard-Fail port0
-> -      - description: Phandle to apps_smmu node with SID mask for Hard-Fail port1
-> -
-> -  ranges: true
-> -
-> -  resets:
-> -    items:
-> -      - description: MDSS_CORE reset
-> +  power-domains:
-> +    maxItems: 1
->  
-> -patternProperties:
-> -  "^display-controller@[0-9a-f]+$":
-> -    type: object
-> -    description: Node containing the properties of DPU.
-> +  operating-points-v2: true
-> +  ports:
-> +    $ref: /schemas/graph.yaml#/properties/ports
-> +    description: |
-> +      Contains the list of output ports from DPU device. These ports
-> +      connect to interfaces that are external to the DPU hardware,
-> +      such as DSI, DP etc. Each output port contains an endpoint that
-> +      describes how it is connected to an external interface.
->  
->      properties:
-> -      compatible:
-> -        items:
-> -          - const: qcom,sdm845-dpu
-> -
-> -      reg:
-> -        items:
-> -          - description: Address offset and size for mdp register set
-> -          - description: Address offset and size for vbif register set
-> -
-> -      reg-names:
-> -        items:
-> -          - const: mdp
-> -          - const: vbif
-> -
-> -      clocks:
-> -        items:
-> -          - description: Display ahb clock
-> -          - description: Display axi clock
-> -          - description: Display core clock
-> -          - description: Display vsync clock
-> -
-> -      clock-names:
-> -        items:
-> -          - const: iface
-> -          - const: bus
-> -          - const: core
-> -          - const: vsync
-> -
-> -      interrupts:
-> -        maxItems: 1
-> -
-> -      power-domains:
-> -        maxItems: 1
-> -
-> -      operating-points-v2: true
-> -      ports:
-> -        $ref: /schemas/graph.yaml#/properties/ports
-> -        description: |
-> -          Contains the list of output ports from DPU device. These ports
-> -          connect to interfaces that are external to the DPU hardware,
-> -          such as DSI, DP etc. Each output port contains an endpoint that
-> -          describes how it is connected to an external interface.
-> -
-> -        properties:
-> -          port@0:
-> -            $ref: /schemas/graph.yaml#/properties/port
-> -            description: DPU_INTF1 (DSI1)
-> -
-> -          port@1:
-> -            $ref: /schemas/graph.yaml#/properties/port
-> -            description: DPU_INTF2 (DSI2)
-> -
-> -        required:
-> -          - port@0
-> -          - port@1
-> +      port@0:
-> +        $ref: /schemas/graph.yaml#/properties/port
-> +        description: DPU_INTF1 (DSI1)
-> +
-> +      port@1:
-> +        $ref: /schemas/graph.yaml#/properties/port
-> +        description: DPU_INTF2 (DSI2)
->  
->      required:
-> -      - compatible
-> -      - reg
-> -      - reg-names
-> -      - clocks
-> -      - interrupts
-> -      - power-domains
-> -      - operating-points-v2
-> -      - ports
-> +      - port@0
-> +      - port@1
->  
->  required:
->    - compatible
->    - reg
->    - reg-names
-> -  - power-domains
->    - clocks
->    - interrupts
-> -  - interrupt-controller
-> -  - iommus
-> -  - ranges
-> +  - power-domains
-> +  - operating-points-v2
-> +  - ports
->  
->  additionalProperties: false
->  
-> diff --git a/Documentation/devicetree/bindings/display/msm/mdss.yaml b/Documentation/devicetree/bindings/display/msm/mdss.yaml
-> index afc48d2b02f1..ef4709d87004 100644
-> --- a/Documentation/devicetree/bindings/display/msm/mdss.yaml
-> +++ b/Documentation/devicetree/bindings/display/msm/mdss.yaml
-> @@ -18,17 +18,15 @@ properties:
->    compatible:
->      enum:
->        - qcom,mdss
-> +      - qcom,sdm845-mdss
->  
->    reg:
-> -    minItems: 2
-> +    minItems: 1
->      maxItems: 3
->  
->    reg-names:
-> -    minItems: 2
-> -    items:
-> -      - const: mdss_phys
-> -      - const: vbif_phys
-> -      - const: vbif_nrt_phys
-> +    minItems: 1
-> +    maxItems: 3
->  
->    interrupts:
->      maxItems: 1
-> @@ -53,10 +51,10 @@ properties:
->      maxItems: 4
->  
->    "#address-cells":
-> -    const: 1
-> +    enum: [1, 2]
->  
->    "#size-cells":
-> -    const: 1
-> +    enum: [1, 2]
->  
->    ranges:
->      true
-> @@ -65,29 +63,178 @@ properties:
->      items:
->        - description: MDSS_CORE reset
->  
-> -oneOf:
-> -  - properties:
-> -      clocks:
-> -        minItems: 3
-> -        maxItems: 4
-> -
-> -      clock-names:
-> -        minItems: 3
-> -        items:
-> -          - const: iface
-> -          - const: bus
-> -          - const: vsync
-> -          - const: core
-> -  - properties:
-> -      clocks:
-> -        minItems: 1
-> -        maxItems: 2
-> -
-> -      clock-names:
-> -        minItems: 1
-> -        items:
-> -          - const: iface
-> -          - const: core
-> +  interconnects:
-> +    minItems: 2
-> +    items:
-> +      - description: MDP port 0
-> +      - description: MDP port 1
-> +      - description: Rotator
-> +
-> +  interconnect-names:
-> +    minItems: 2
-> +    items:
-> +      - const: mdp0-mem
-> +      - const: mdp1-mem
-> +      - const: rotator-mem
 
-This was not allowed for qcom,mdss. Same with iommus.
+All these changes point that device schemas are simply different and
+trying to unify them is not correct approach.
 
 Best regards,
 Krzysztof
