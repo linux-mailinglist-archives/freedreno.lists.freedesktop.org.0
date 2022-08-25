@@ -1,101 +1,73 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id DBDDA5A0F34
-	for <lists+freedreno@lfdr.de>; Thu, 25 Aug 2022 13:33:57 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id DE6465A0F95
+	for <lists+freedreno@lfdr.de>; Thu, 25 Aug 2022 13:51:09 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 09F5410FEEF;
-	Thu, 25 Aug 2022 11:33:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 67E48113549;
+	Thu, 25 Aug 2022 11:51:08 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x12c.google.com (mail-lf1-x12c.google.com
- [IPv6:2a00:1450:4864:20::12c])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6201B112859
- for <freedreno@lists.freedesktop.org>; Thu, 25 Aug 2022 11:33:49 +0000 (UTC)
-Received: by mail-lf1-x12c.google.com with SMTP id m3so22125826lfg.10
- for <freedreno@lists.freedesktop.org>; Thu, 25 Aug 2022 04:33:49 -0700 (PDT)
+Received: from mail-lf1-x133.google.com (mail-lf1-x133.google.com
+ [IPv6:2a00:1450:4864:20::133])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7609D113549
+ for <freedreno@lists.freedesktop.org>; Thu, 25 Aug 2022 11:51:04 +0000 (UTC)
+Received: by mail-lf1-x133.google.com with SMTP id z6so27862839lfu.9
+ for <freedreno@lists.freedesktop.org>; Thu, 25 Aug 2022 04:51:04 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc;
- bh=Tq0s9B485yoq3tV5HmxMkObKnV3Mr1APkcEYUXUMsb0=;
- b=lFelrwdgyU0S7QCGZG4WC4OD1o/tcyBXsjjSh54M9wMD+cwqfLYayIQCN/GqBHbHxZ
- oLJ4G1d44o0bIJYbyVz5CWA/FevFy7L/b1qtl34SgeGctg7orXBdL5PKecyygfI/2xxt
- tVAjPszcQXAkc8iaB48dn+ob+iWxr8wpQwR1eUdvngppmoBJugWt3nsMqfGJmVFm5V7d
- 1p4OuhZCQYxqHYTII8q9h+li56i6UW2cdgAPwri77xsWvxNhx7hPFyJtp0TZ/oz85ZFd
- 95+sRXVj0Rxap9qMy+GQz2N9aXsJDQTPP77tlYUWwgSJ7D8MGXKP+Nh3J01EnpYPRZUn
- 98WQ==
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc; bh=QslpZXG7w6+Zu0cuJpcihO4wL0ZcP7qpvE0bMlNnn88=;
+ b=LimlF0C4WC4ny6FZr0Orj0k40ks11cTYtD5QO6JSOvOvUpPD6Tv8nuYA9QS41unyqI
+ 0XMpNFV+o0pFIMKNO2PvGCJVjErilKa8Ag04mNQX1YsdE75zQRkjq+c3e31bJUP6G7Qc
+ pTsppBNUcnEnI4wqGFgVUDLx4ztOU3d/reKjqYDsWcQbNGjud8Wws64NEP2d2gkwR6IS
+ qnzTm/627wp16BwyEkoJPPAe42iKhoVzlzs6orQzwu+l20/0VUmk4XRM/TJ5DvuUPfxe
+ R/5bxx4a6QFN3EVbi3xGMdLw4HOo3hENHyQeuPrt+93o/IzoCqTYhXMtadmC0lT4V3rt
+ /EaA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc;
- bh=Tq0s9B485yoq3tV5HmxMkObKnV3Mr1APkcEYUXUMsb0=;
- b=VAlWKg9hYRejHj6afGN8C6gNY5KWgTG9skpTTSWrd05HdO7PFMtsIidR7BT2XZco4z
- K0c9uIVWzTlD+T8HCvFmOlfXo8H0EOC7eAiyeYGY0KXUjDN2EK47Zd1WwAJEDa3thTqb
- 64G2yqevd6sBqKSQV87zJkQGmp6+btz1JiL2jmPCpX5GwJw44iB1+XjyQABC6Qm9MIVJ
- sMFM161rB5eODcPDOyj6Xv6YmQYfhQ2brnGdo1D/gRrChMEImAr+zHbITeDRYrDnTlvv
- 8NzdDqwmGmplOMbnIjQOx7W8Yn+YlijBCFwTA89Fj/pIMgsTjg30T9VSajKpKO+2w2mu
- LG2g==
-X-Gm-Message-State: ACgBeo18uDNAXCn+sRBFfbL5DsQ/x8962NiJ9PGsf0u4YUC4wmGMYGk7
- 5+ntOIgQtnUYHuikbLy6WmnlFA==
-X-Google-Smtp-Source: AA6agR7uYhTEmWfh0/JQDYwVaRIxA3JmwcnbxkFxOGoCltN/foI9prmdgFxeyJpRr7c/V2eZZ6Nk6w==
-X-Received: by 2002:a05:6512:2611:b0:478:da8f:e2d8 with SMTP id
- bt17-20020a056512261100b00478da8fe2d8mr990459lfb.460.1661427227697; 
- Thu, 25 Aug 2022 04:33:47 -0700 (PDT)
-Received: from krzk-bin.starman.ee (82.131.98.15.cable.starman.ee.
- [82.131.98.15]) by smtp.gmail.com with ESMTPSA id
- e18-20020a195012000000b0048b0aa2f87csm446764lfb.181.2022.08.25.04.33.46
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 25 Aug 2022 04:33:46 -0700 (PDT)
-From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-To: Rob Herring <robh+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Kunihiko Hayashi <hayashi.kunihiko@socionext.com>,
- Masami Hiramatsu <mhiramat@kernel.org>,
- Damien Le Moal <damien.lemoal@opensource.wdc.com>,
- Michael Turquette <mturquette@baylibre.com>,
- Stephen Boyd <sboyd@kernel.org>,
- Geert Uytterhoeven <geert+renesas@glider.be>,
- Sylwester Nawrocki <s.nawrocki@samsung.com>,
- Tomasz Figa <tomasz.figa@gmail.com>, Chanwoo Choi <cw00.choi@samsung.com>,
- Alim Akhtar <alim.akhtar@samsung.com>, Vladimir Zapolskiy <vz@mleia.com>,
- Herbert Xu <herbert@gondor.apana.org.au>,
- "David S. Miller" <davem@davemloft.net>,
- Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Robert Foss <robert.foss@linaro.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
- Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Sean Paul <sean@poorly.run>, Inki Dae <inki.dae@samsung.com>,
- Seung-Woo Kim <sw0312.kim@samsung.com>,
- Kyungmin Park <kyungmin.park@samsung.com>,
- Thierry Reding <thierry.reding@gmail.com>,
- Jonathan Hunter <jonathanh@nvidia.com>,
- Masahiro Yamada <yamada.masahiro@socionext.com>,
- Florian Fainelli <f.fainelli@gmail.com>,
- Linus Walleij <linus.walleij@linaro.org>,
- Andre Przywara <andre.przywara@arm.com>,
- Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
- Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>,
- Marek Vasut <marex@denx.de>, Krishna Manikandan <quic_mkrishn@quicinc.com>,
- devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org, linux-ide@vger.kernel.org,
- linux-clk@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
- linux-samsung-soc@vger.kernel.org, linux-crypto@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
- freedreno@lists.freedesktop.org, linux-tegra@vger.kernel.org
-Date: Thu, 25 Aug 2022 14:33:34 +0300
-Message-Id: <20220825113334.196908-5-krzysztof.kozlowski@linaro.org>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20220825113334.196908-1-krzysztof.kozlowski@linaro.org>
-References: <20220825113334.196908-1-krzysztof.kozlowski@linaro.org>
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc;
+ bh=QslpZXG7w6+Zu0cuJpcihO4wL0ZcP7qpvE0bMlNnn88=;
+ b=QQxhAGLrxQAaF2+yeYyX9BYlZwJS56vSIAP9bxkpAlMY9ztALptRRoYHZwbmu3luBn
+ uMiyKmNBwFLxBR4+YtrMKWSiayUb/+RTRdfINy5Xw/s6uYaiIC0MJ/FtXsEvQZWvHYx5
+ qqsJMJS57yNRsxmWlgVPVxl5l/c6ZzDeLX1g7uB/Gv9XGQ+/mKw9U69dgumal5NZ4dej
+ N+VmyWE89qzZXOO7ZxNUcelm2TnJydbx9uVIhQPGi2NmtluR5vfie5WbIzr7aexruWWx
+ o9UTLqVDoJibmTGM74tOwgksVf28rr3JCsz4u6CoDr+Ybk6ocxUNBfsQLbyFSYQtKH1R
+ LWnw==
+X-Gm-Message-State: ACgBeo0JL4v7Fxzw4roshC1JcRa5yYfhC3BdkdiiPWuNMVJAvWUbswDX
+ CrPq9hxyGQ2IYLWFaveFHk6FZSml0GCUfXI7lMI=
+X-Google-Smtp-Source: AA6agR7b6cEUO9K0Iijpg8ftzYlO5oAvjsgLr4FBxw+igjm+vGxsRNZiXOqbvoyl252nS7ROZq43VQ==
+X-Received: by 2002:a19:e04a:0:b0:492:f96f:85b7 with SMTP id
+ g10-20020a19e04a000000b00492f96f85b7mr980042lfj.141.1661428262801; 
+ Thu, 25 Aug 2022 04:51:02 -0700 (PDT)
+Received: from [192.168.0.71] (82.131.98.15.cable.starman.ee. [82.131.98.15])
+ by smtp.gmail.com with ESMTPSA id
+ s4-20020a056512314400b0048fdb3efa20sm455083lfi.185.2022.08.25.04.51.01
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 25 Aug 2022 04:51:01 -0700 (PDT)
+Message-ID: <0048ccbe-e8dc-2ce8-a8a7-68a5ad4194ac@linaro.org>
+Date: Thu, 25 Aug 2022 14:51:00 +0300
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH 5/5] dt-bindings: display: drop minItems equal
- to maxItems
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.13.0
+Content-Language: en-US
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Andy Gross <agross@kernel.org>, Bjorn Andersson
+ <bjorn.andersson@linaro.org>, Konrad Dybcio <konrad.dybcio@somainline.org>,
+ Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, Rob Herring <robh+dt@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>
+References: <20220825095103.624891-1-dmitry.baryshkov@linaro.org>
+ <20220825095103.624891-2-dmitry.baryshkov@linaro.org>
+From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+In-Reply-To: <20220825095103.624891-2-dmitry.baryshkov@linaro.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+Subject: Re: [Freedreno] [PATCH v4 01/10] dt-bindings: display/msm: split
+ qcom, mdss bindings
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -108,160 +80,30 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+Cc: devicetree@vger.kernel.org, David Airlie <airlied@linux.ie>,
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ Stephen Boyd <swboyd@chromium.org>, Daniel Vetter <daniel@ffwll.ch>,
+ freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-minItems, if missing, are implicitly equal to maxItems, so drop
-redundant piece to reduce size of code.
+On 25/08/2022 12:50, Dmitry Baryshkov wrote:
+> Split Mobile Display SubSystem (MDSS) root node bindings to the separate
+> yaml file. Changes to the existing (txt) schema:
+>  - Added optional "vbif_nrt_phys" region used by msm8996
+>  - Made "bus" and "vsync" clocks optional (they are not used by some
+>    platforms)
+>  - Added (optional) "core" clock added recently to the mdss driver
+>  - Added optional resets property referencing MDSS reset
+>  - Defined child nodes pointing to corresponding reference schema.
+>  - Dropped the "lut" clock. It was added to the schema by mistake (it is
+>    a part of mdp4 schema, not the mdss).
+> 
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 
-Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
----
- Documentation/devicetree/bindings/display/bridge/fsl,ldb.yaml   | 1 -
- .../devicetree/bindings/display/msm/dsi-controller-main.yaml    | 2 --
- Documentation/devicetree/bindings/display/msm/dsi-phy-10nm.yaml | 2 --
- .../bindings/display/samsung/samsung,exynos5433-decon.yaml      | 2 --
- .../bindings/display/samsung/samsung,exynos5433-mic.yaml        | 1 -
- .../bindings/display/samsung/samsung,exynos7-decon.yaml         | 1 -
- .../devicetree/bindings/display/samsung/samsung,fimd.yaml       | 1 -
- .../devicetree/bindings/display/tegra/nvidia,tegra20-gr3d.yaml  | 1 -
- .../devicetree/bindings/display/tegra/nvidia,tegra20-mpe.yaml   | 2 --
- 9 files changed, 13 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/display/bridge/fsl,ldb.yaml b/Documentation/devicetree/bindings/display/bridge/fsl,ldb.yaml
-index 2ebaa43eb62e..b19be0804abe 100644
---- a/Documentation/devicetree/bindings/display/bridge/fsl,ldb.yaml
-+++ b/Documentation/devicetree/bindings/display/bridge/fsl,ldb.yaml
-@@ -25,7 +25,6 @@ properties:
-     const: ldb
- 
-   reg:
--    minItems: 2
-     maxItems: 2
- 
-   reg-names:
-diff --git a/Documentation/devicetree/bindings/display/msm/dsi-controller-main.yaml b/Documentation/devicetree/bindings/display/msm/dsi-controller-main.yaml
-index 880bfe930830..3b609c19e0bc 100644
---- a/Documentation/devicetree/bindings/display/msm/dsi-controller-main.yaml
-+++ b/Documentation/devicetree/bindings/display/msm/dsi-controller-main.yaml
-@@ -66,13 +66,11 @@ properties:
-       2 DSI links.
- 
-   assigned-clocks:
--    minItems: 2
-     maxItems: 2
-     description: |
-       Parents of "byte" and "pixel" for the given platform.
- 
-   assigned-clock-parents:
--    minItems: 2
-     maxItems: 2
-     description: |
-       The Byte clock and Pixel clock PLL outputs provided by a DSI PHY block.
-diff --git a/Documentation/devicetree/bindings/display/msm/dsi-phy-10nm.yaml b/Documentation/devicetree/bindings/display/msm/dsi-phy-10nm.yaml
-index 716f921e3532..d9ad8b659f58 100644
---- a/Documentation/devicetree/bindings/display/msm/dsi-phy-10nm.yaml
-+++ b/Documentation/devicetree/bindings/display/msm/dsi-phy-10nm.yaml
-@@ -37,7 +37,6 @@ properties:
- 
-   qcom,phy-rescode-offset-top:
-     $ref: /schemas/types.yaml#/definitions/int8-array
--    minItems: 5
-     maxItems: 5
-     description:
-       Integer array of offset for pull-up legs rescode for all five lanes.
-@@ -49,7 +48,6 @@ properties:
- 
-   qcom,phy-rescode-offset-bot:
-     $ref: /schemas/types.yaml#/definitions/int8-array
--    minItems: 5
-     maxItems: 5
-     description:
-       Integer array of offset for pull-down legs rescode for all five lanes.
-diff --git a/Documentation/devicetree/bindings/display/samsung/samsung,exynos5433-decon.yaml b/Documentation/devicetree/bindings/display/samsung/samsung,exynos5433-decon.yaml
-index 921bfe925cd6..6380eeebb073 100644
---- a/Documentation/devicetree/bindings/display/samsung/samsung,exynos5433-decon.yaml
-+++ b/Documentation/devicetree/bindings/display/samsung/samsung,exynos5433-decon.yaml
-@@ -24,7 +24,6 @@ properties:
-       - samsung,exynos5433-decon-tv
- 
-   clocks:
--    minItems: 11
-     maxItems: 11
- 
-   clock-names:
-@@ -59,7 +58,6 @@ properties:
-       - const: te
- 
-   iommus:
--    minItems: 2
-     maxItems: 2
- 
-   iommu-names:
-diff --git a/Documentation/devicetree/bindings/display/samsung/samsung,exynos5433-mic.yaml b/Documentation/devicetree/bindings/display/samsung/samsung,exynos5433-mic.yaml
-index 7d405f2febcd..26e5017737a3 100644
---- a/Documentation/devicetree/bindings/display/samsung/samsung,exynos5433-mic.yaml
-+++ b/Documentation/devicetree/bindings/display/samsung/samsung,exynos5433-mic.yaml
-@@ -24,7 +24,6 @@ properties:
-     const: samsung,exynos5433-mic
- 
-   clocks:
--    minItems: 2
-     maxItems: 2
- 
-   clock-names:
-diff --git a/Documentation/devicetree/bindings/display/samsung/samsung,exynos7-decon.yaml b/Documentation/devicetree/bindings/display/samsung/samsung,exynos7-decon.yaml
-index 969bd8c563a5..c06f306e8d14 100644
---- a/Documentation/devicetree/bindings/display/samsung/samsung,exynos7-decon.yaml
-+++ b/Documentation/devicetree/bindings/display/samsung/samsung,exynos7-decon.yaml
-@@ -22,7 +22,6 @@ properties:
-     const: samsung,exynos7-decon
- 
-   clocks:
--    minItems: 4
-     maxItems: 4
- 
-   clock-names:
-diff --git a/Documentation/devicetree/bindings/display/samsung/samsung,fimd.yaml b/Documentation/devicetree/bindings/display/samsung/samsung,fimd.yaml
-index 5d5cc220f78a..210d856b3b57 100644
---- a/Documentation/devicetree/bindings/display/samsung/samsung,fimd.yaml
-+++ b/Documentation/devicetree/bindings/display/samsung/samsung,fimd.yaml
-@@ -27,7 +27,6 @@ properties:
-     const: 1
- 
-   clocks:
--    minItems: 2
-     maxItems: 2
- 
-   clock-names:
-diff --git a/Documentation/devicetree/bindings/display/tegra/nvidia,tegra20-gr3d.yaml b/Documentation/devicetree/bindings/display/tegra/nvidia,tegra20-gr3d.yaml
-index dbdf0229d9f6..4755a73473c7 100644
---- a/Documentation/devicetree/bindings/display/tegra/nvidia,tegra20-gr3d.yaml
-+++ b/Documentation/devicetree/bindings/display/tegra/nvidia,tegra20-gr3d.yaml
-@@ -59,7 +59,6 @@ properties:
-     maxItems: 2
- 
-   power-domain-names:
--    minItems: 2
-     maxItems: 2
- 
- allOf:
-diff --git a/Documentation/devicetree/bindings/display/tegra/nvidia,tegra20-mpe.yaml b/Documentation/devicetree/bindings/display/tegra/nvidia,tegra20-mpe.yaml
-index 4154ae01ad13..5f4f0fb4b692 100644
---- a/Documentation/devicetree/bindings/display/tegra/nvidia,tegra20-mpe.yaml
-+++ b/Documentation/devicetree/bindings/display/tegra/nvidia,tegra20-mpe.yaml
-@@ -42,11 +42,9 @@ properties:
-     maxItems: 1
- 
-   interconnects:
--    minItems: 6
-     maxItems: 6
- 
-   interconnect-names:
--    minItems: 6
-     maxItems: 6
- 
-   operating-points-v2:
--- 
-2.34.1
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 
+
+Best regards,
+Krzysztof
