@@ -1,73 +1,82 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id B7E9D5A0967
-	for <lists+freedreno@lfdr.de>; Thu, 25 Aug 2022 09:02:06 +0200 (CEST)
+Received: from gabe.freedesktop.org (unknown [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id C4C575A08D3
+	for <lists+freedreno@lfdr.de>; Thu, 25 Aug 2022 08:26:53 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CDF8CD8A29;
-	Thu, 25 Aug 2022 07:01:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5293F10F76D;
+	Thu, 25 Aug 2022 06:26:17 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E9495D8A29;
- Thu, 25 Aug 2022 07:01:42 +0000 (UTC)
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 27OJrl6W014974;
- Wed, 24 Aug 2022 20:16:01 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
- h=from : to : cc :
- subject : date : message-id : mime-version : content-type; s=qcppdkim1;
- bh=NREg/Sv5sTCvtzp8T5q5YOmhz1/flsdDP2vCt31PiQU=;
- b=UOmrbz5hqN9qkK9fi0hr95ozx4cbIc9g3T5KwToh2hEYB8Tj95JD/CIeBJt5X/mnLyw+
- 4S77XyEOr0D63mTGDq1Kepy/pD9QOnpO5le4TxRfvTNeaOJUY4xa+9awpBI0dNdjPeoi
- w7qI2RtfLr812quRDdW2tG1QiJbX4Fwc2ecZmIGvouVnD+BkE85ScVFTLnMNdEJgFRKa
- 9kz5yss0QXApBR6/b8BJyAQrTkRawi6tDeMvI9tQskABRE+j8JWTQBK1st9qSYvCdjRN
- MWMP/Tb6tKGToTlfVs+qSwzVBS1oChy+THUQAnUdANVJ/oK8UhipzLg7uP2ZMi4Ert0Y vQ== 
-Received: from nalasppmta03.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3j52pqcmkx-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 24 Aug 2022 20:16:01 +0000
-Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
- [10.47.209.196])
- by NALASPPMTA03.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 27OKFxhG001578
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 24 Aug 2022 20:15:59 GMT
-Received: from khsieh-linux1.qualcomm.com (10.80.80.8) by
- nalasex01a.na.qualcomm.com (10.47.209.196) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.986.29; Wed, 24 Aug 2022 13:15:59 -0700
-From: Kuogee Hsieh <quic_khsieh@quicinc.com>
-To: <robdclark@gmail.com>, <sean@poorly.run>, <swboyd@chromium.org>,
- <dianders@chromium.org>, <vkoul@kernel.org>, <daniel@ffwll.ch>,
- <airlied@linux.ie>, <agross@kernel.org>, <dmitry.baryshkov@linaro.org>,
- <bjorn.andersson@linaro.org>
-Date: Wed, 24 Aug 2022 13:15:50 -0700
-Message-ID: <1661372150-3764-1-git-send-email-quic_khsieh@quicinc.com>
-X-Mailer: git-send-email 2.7.4
+Received: from mail-lf1-x12f.google.com (mail-lf1-x12f.google.com
+ [IPv6:2a00:1450:4864:20::12f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B7E2010F76D
+ for <freedreno@lists.freedesktop.org>; Thu, 25 Aug 2022 06:26:00 +0000 (UTC)
+Received: by mail-lf1-x12f.google.com with SMTP id m5so16255489lfj.4
+ for <freedreno@lists.freedesktop.org>; Wed, 24 Aug 2022 23:26:00 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc; bh=Z1nM8n9D4cKIWi39fJN2NwqcjbnvD6EFp1Fh0bxjzc4=;
+ b=hNvYAqJ2fMgVfTRnyfDWcky5oQJfdfYi+EdOJEgIcIKlbFGnhD+xji0eDdp3G4FiBV
+ li/WRRGtpXvSBfIY9h+kEDodO0Nuvnsjqolc9rmpHT2pT5w7CV9jO4mANXyYd0sYkCMQ
+ AGax0m2WPRn9KJ4tHlBY3rtMYpNYPldGdFTzojUDma+OXFM3bpp2NbA68S8BEAS+F/kT
+ ASp1W/5Zgtuwd4GTAfSf3p/ectWSNTqB40+jWtcZCdXqIryvnbDUl6KMNxc/CAzpWtKm
+ 39qMJo5w6+kedsFKna1EV8Dwoa9fnBx8gkQljEdnVZpYy4fkw4qH5vur4bjXS26Uasr5
+ qGpg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc;
+ bh=Z1nM8n9D4cKIWi39fJN2NwqcjbnvD6EFp1Fh0bxjzc4=;
+ b=j08PJ7havEvvnNC36/hqXMz6yhUias6qNQO0YDva3HCTC3R4e+AyNe//GpHAnDr0/q
+ rsrnIFel1EtJvgzEa+l0VzFIIl276stR2hGA2gmMridkn/RNbPkyErYRutkkDL1elXTj
+ +jcGOcqLcU+uXSbG4hzFDz0/xSQoagAfkeJwlu8J4JyFp6MTDiBgW6W6GhWL2WS6Hz0l
+ uf6qFN+M8oJvTaOUQLv8c95jhz7psln7hV1PDM5nsERj0Q0TNzycox6KVuLoaKQ5NrCV
+ oEcaGh7HqPNEzzKnm8Um482r2OuKVCSP01T3ligrLSz3eeSG+nsvkhfm/AQMzMzzzlXO
+ ghRg==
+X-Gm-Message-State: ACgBeo0Dq/6+Xly5EO949A1Ln06m9Cvz1PxutGiz/a5QRs73YukvOPL8
+ FCra0Bmx21IX0zWx/AcIsmlCHg==
+X-Google-Smtp-Source: AA6agR7dN0Oeo86So9OoOfr2zzWDWG3FwxukDfc3LUcA3VWZLlGdSlmuXbMu+QCVHLh7M7V+OcogvQ==
+X-Received: by 2002:a05:6512:a8e:b0:492:b3e5:adcd with SMTP id
+ m14-20020a0565120a8e00b00492b3e5adcdmr674979lfu.374.1661408758612; 
+ Wed, 24 Aug 2022 23:25:58 -0700 (PDT)
+Received: from [192.168.0.71] (82.131.98.15.cable.starman.ee. [82.131.98.15])
+ by smtp.gmail.com with ESMTPSA id
+ s28-20020a056512203c00b0048a91266268sm311509lfs.232.2022.08.24.23.25.57
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 24 Aug 2022 23:25:58 -0700 (PDT)
+Message-ID: <84caccd4-1e28-b344-8e7d-67a6d5c974f2@linaro.org>
+Date: Thu, 25 Aug 2022 09:25:57 +0300
 MIME-Version: 1.0
-Content-Type: text/plain
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-ORIG-GUID: QAkP6ZLvjdAqupe2hmG4G8KPKs3X9rWl
-X-Proofpoint-GUID: QAkP6ZLvjdAqupe2hmG4G8KPKs3X9rWl
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.205,Aquarius:18.0.895,Hydra:6.0.517,FMLib:17.11.122.1
- definitions=2022-08-24_12,2022-08-22_02,2022-06-22_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0
- suspectscore=0 mlxlogscore=999 bulkscore=0 phishscore=0 spamscore=0
- impostorscore=0 clxscore=1011 adultscore=0 malwarescore=0 mlxscore=0
- priorityscore=1501 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2207270000 definitions=main-2208240074
-Subject: [Freedreno] [PATCH v3] drm/msm/dp: correct 1.62G link rate at
- dp_catalog_ctrl_config_msa()
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.12.0
+Content-Language: en-US
+To: Rob Herring <robh@kernel.org>, "James (Qian) Wang"
+ <james.qian.wang@arm.com>, Liviu Dudau <liviu.dudau@arm.com>,
+ Mihail Atanassov <mihail.atanassov@arm.com>, David Airlie
+ <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <narmstrong@baylibre.com>,
+ Robert Foss <robert.foss@linaro.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>,
+ Inki Dae <inki.dae@samsung.com>, Seung-Woo Kim <sw0312.kim@samsung.com>,
+ Kyungmin Park <kyungmin.park@samsung.com>,
+ Alim Akhtar <alim.akhtar@samsung.com>,
+ Andre Przywara <andre.przywara@arm.com>
+References: <20220823145649.3118479-11-robh@kernel.org>
+From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+In-Reply-To: <20220823145649.3118479-11-robh@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+Subject: Re: [Freedreno] [PATCH] dt-bindings: display: Add missing
+ (unevaluated|additional)Properties on child nodes
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,46 +89,23 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: quic_sbillaka@quicinc.com, linux-arm-msm@vger.kernel.org,
- quic_abhinavk@quicinc.com, dri-devel@lists.freedesktop.org,
- quic_khsieh@quicinc.com, freedreno@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
+Cc: devicetree@vger.kernel.org, linux-samsung-soc@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, Krzysztof Kozlowski <krzk@kernel.org>,
+ freedreno@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-At current implementation there is an extra 0 at 1.62G link rate which cause
-no correct pixel_div selected for 1.62G link rate to calculate mvid and nvid.
-This patch delete the extra 0 to have mvid and nvid be calculated correctly.
+On 23/08/2022 17:56, Rob Herring wrote:
+> In order to ensure only documented properties are present, node schemas
+> must have unevaluatedProperties or additionalProperties set to false
+> (typically).
+> 
+> Signed-off-by: Rob Herring <robh@kernel.org>
 
-Changes in v2:
--- fix Fixes tag's text
 
-Changes in v3:
--- fix misspelling of "Reviewed-by"
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 
-Fixes: 937f941ca06f  ("drm/msm/dp: Use qmp phy for DP PLL and PHY")
-Signed-off-by: Kuogee Hsieh <quic_khsieh@quicinc.com>
 
-Reviewed-by: Stephen Boyd <swboyd@chromium.org>
-Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
----
- drivers/gpu/drm/msm/dp/dp_catalog.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/msm/dp/dp_catalog.c b/drivers/gpu/drm/msm/dp/dp_catalog.c
-index 7257515..676279d 100644
---- a/drivers/gpu/drm/msm/dp/dp_catalog.c
-+++ b/drivers/gpu/drm/msm/dp/dp_catalog.c
-@@ -431,7 +431,7 @@ void dp_catalog_ctrl_config_msa(struct dp_catalog *dp_catalog,
- 
- 	if (rate == link_rate_hbr3)
- 		pixel_div = 6;
--	else if (rate == 1620000 || rate == 270000)
-+	else if (rate == 162000 || rate == 270000)
- 		pixel_div = 2;
- 	else if (rate == link_rate_hbr2)
- 		pixel_div = 4;
--- 
-The Qualcomm Innovation Center, Inc. is a member of the Code Aurora Forum,
-a Linux Foundation Collaborative Project
-
+Best regards,
+Krzysztof
