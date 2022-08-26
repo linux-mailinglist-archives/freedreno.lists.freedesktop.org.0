@@ -2,65 +2,63 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 957F55A24BC
-	for <lists+freedreno@lfdr.de>; Fri, 26 Aug 2022 11:45:19 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D22F65A24BE
+	for <lists+freedreno@lfdr.de>; Fri, 26 Aug 2022 11:45:42 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6CC1410E7ED;
-	Fri, 26 Aug 2022 09:45:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 72CA510E7EE;
+	Fri, 26 Aug 2022 09:45:39 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x12b.google.com (mail-lf1-x12b.google.com
- [IPv6:2a00:1450:4864:20::12b])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9828B10E7D8
- for <freedreno@lists.freedesktop.org>; Fri, 26 Aug 2022 09:45:12 +0000 (UTC)
-Received: by mail-lf1-x12b.google.com with SMTP id z25so1315863lfr.2
- for <freedreno@lists.freedesktop.org>; Fri, 26 Aug 2022 02:45:12 -0700 (PDT)
+Received: from mail-lj1-x236.google.com (mail-lj1-x236.google.com
+ [IPv6:2a00:1450:4864:20::236])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C611710E7EE
+ for <freedreno@lists.freedesktop.org>; Fri, 26 Aug 2022 09:45:32 +0000 (UTC)
+Received: by mail-lj1-x236.google.com with SMTP id bn9so1058601ljb.6
+ for <freedreno@lists.freedesktop.org>; Fri, 26 Aug 2022 02:45:32 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc; bh=MRX0Q3WFNIyiJmZ3N40sithEPWIDpqa2XOG7FbBr3D0=;
- b=DdKZMvLy1XEM5WRjVugHdAX4mR9xI5f62NbewhpZWwoafdfHcdoAXDVc/YrZbu23kD
- MM8Lc0U7QhsaSQLgsaE6/7OTRqvm2h+9oL/UYC13P3tPufMFH7nNH1bVIm4J2PD+w2SA
- BgFEkxo+COMALZs9JP45pQNhm2DFWt6K1Y/1NeoLzu8EJCVobi/SSPH2mgCxcQnyRtNY
- L7C2TQPU6ELdcqIwaWdN72y+HtR3S3wy/lnDxN+jerJV7CRJ+tIJXcPFsCWgsv7VDA3D
- wezhM8uUvafqGDIjlgv/aM9A4xtPmK7BXitVAMfuL29zZndhA+xRJ8jT9QcsP/hN0gAz
- 4+wQ==
+ :from:to:cc; bh=vHi6QtI//7TBnE8nBrdSJbUVsEE4d4QVsX/BRPswYrQ=;
+ b=BWewzD58WZb2ASIS2HyX2JfaWcfca0rgAcn6J5TlNj5DoxINJROfyx552k1h2zzyF6
+ RJt7AjD9mK9Mjbto3LkmLdGTyTxdEGUnaOGyFWxx3qTtT3CTEF1tWEBymb/A1x8rup7B
+ aofXemKbyAlXn97Rye/g+JYpbD0PbO/XdO6JJPCxZsHQPmfjPOgp+mjuBndmcLptLMtM
+ 7reYj0YLImkiZfJ0IPFkzCb/pvKayV8A9xaF2OZ7MEj8F+F2CIXnX71mXwBYIEey/0Rf
+ 2EOzBNNSYAc2u//muJcPQXZWenW4T3yWfTnXXB46a4diIpmdFdaWsB4JMCN4UgxO+Kua
+ +Hzg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc;
- bh=MRX0Q3WFNIyiJmZ3N40sithEPWIDpqa2XOG7FbBr3D0=;
- b=BDR+wCP7cXUR9yF2zVDe+pLk/oitJiO0ElB9nGWSwWh1ZJmZw5JL7oIZS6RIu0QeUj
- nooPHzDCX6iD5eXBIDW8jgo7qPYyS4gxjw5ja98z50MTQbbbn7QER6cEc1yGusqtGAnj
- f/QuqabeS7FIN2Uf6VBN0YeS2FCiuJoAs9TJ+sbsOjam8GBDtZTCU71LLFAXuwmV9lhH
- JeMmtIFA6zH2EGHq9XD5+EpiA2dcXX1MRB/fcC8SA5VVqFGayc91I3Q+oqzLpN7UNJA6
- 8TcGLHGf2y7uGYznggoS0XcXsk0+n1uSReNkK45iiuLY9aSNcLf5Bux4jJrVaXc98HHf
- 0iqA==
-X-Gm-Message-State: ACgBeo0QZMffK2xuGX0SjuNR5EPZknGFUDmzGb4RinBXLp+PEZNAND2l
- CavyI+8jd79OICkMZYutcgl/gA==
-X-Google-Smtp-Source: AA6agR5grWoSeTNkOaTdkov5yXG2RspFnS/8kO38DF7QXqH412ouT7J2ahv8u3r5wPWv5QcnQ30ghg==
-X-Received: by 2002:a05:6512:2629:b0:492:b1e7:bf26 with SMTP id
- bt41-20020a056512262900b00492b1e7bf26mr2092332lfb.254.1661507110668; 
- Fri, 26 Aug 2022 02:45:10 -0700 (PDT)
+ bh=vHi6QtI//7TBnE8nBrdSJbUVsEE4d4QVsX/BRPswYrQ=;
+ b=Uu2XnGrJrUaxXTt+w1ada+4V9IIf7KgJo+SBqyBv6jtr1BWvOyJPwj2S/R4VehDQkJ
+ BJhxEqNXCjdzGIL1hc4EmdKhj3h3fwrCDNBK7DbDyKEz8U5wARcmQmG9u++oFVo08UMv
+ ZJHfMVreYZA8GDLClKHdnPlBZ81cxAOk+6SrBrz7lVUggU8GDdhplm8zZ93+vW5vC7kK
+ 8S5Lum9iOogiHvcVUFJxcqOszadaJJW+Bz+5QjhaaVZkO78usgw7Lctu/g8B1FfGMyjI
+ wcYzufyi58M8MvQc0gX8axOBenc/turI+/lElEpdKJ+dFHr8PuisgmwokUcEBXKbbdmB
+ K2MQ==
+X-Gm-Message-State: ACgBeo0KatBzqoBAfq6l/TDuR6D5shDmysopcEDmzR0FmGG7mwGmTYf6
+ TsiYYLO/vKIWHpFQuQPHevVdcg==
+X-Google-Smtp-Source: AA6agR4/uKgMFOSDi0fVB/x6w+1OBJbUOI2cYP4ho460NcforDI8wUraY7L+Ql32mO1uqRKl9BMjEw==
+X-Received: by 2002:a2e:9e50:0:b0:261:e3fd:cdc5 with SMTP id
+ g16-20020a2e9e50000000b00261e3fdcdc5mr2120322ljk.56.1661507131161; 
+ Fri, 26 Aug 2022 02:45:31 -0700 (PDT)
 Received: from [192.168.1.211] ([37.153.55.125])
  by smtp.gmail.com with ESMTPSA id
- be28-20020a05651c171c00b0025e72aae6bdsm399882ljb.28.2022.08.26.02.45.09
+ by6-20020a05651c1a0600b0026181f65600sm399237ljb.136.2022.08.26.02.45.30
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 26 Aug 2022 02:45:10 -0700 (PDT)
-Message-ID: <0e16e719-4eb2-bfb3-6b77-88d5314757a1@linaro.org>
-Date: Fri, 26 Aug 2022 12:45:09 +0300
+ Fri, 26 Aug 2022 02:45:30 -0700 (PDT)
+Message-ID: <9396ac0b-e8a1-e82d-65db-8abc0ee75491@linaro.org>
+Date: Fri, 26 Aug 2022 12:45:30 +0300
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.1.2
 Content-Language: en-GB
-To: wangjianli <wangjianli@cdjrlc.com>, robdclark@gmail.com,
- quic_abhinavk@quicinc.com, sean@poorly.run, airlied@linux.ie,
- daniel@ffwll.ch, wangqing@vivo.com, dan.carpenter@oracle.com,
- bjorn.andersson@linaro.org
-References: <20220724073650.16460-1-wangjianli@cdjrlc.com>
+To: Jilin Yuan <yuanjilin@cdjrlc.com>, robdclark@gmail.com,
+ quic_abhinavk@quicinc.com, airlied@linux.ie, daniel@ffwll.ch
+References: <20220823115654.58725-1-yuanjilin@cdjrlc.com>
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-In-Reply-To: <20220724073650.16460-1-wangjianli@cdjrlc.com>
+In-Reply-To: <20220823115654.58725-1-yuanjilin@cdjrlc.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 Subject: Re: [Freedreno] [PATCH] msm/adreno: fix repeated words in comments
@@ -81,8 +79,12 @@ Cc: linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 24/07/2022 10:36, wangjianli wrote:
+On 23/08/2022 14:56, Jilin Yuan wrote:
+>   Delete the redundant word 'power'.
 >   Delete the redundant word 'in'.
+>   Delete the redundant word 'for'.
+> 
+> Signed-off-by: Jilin Yuan <yuanjilin@cdjrlc.com>
 
 Could you please:
 - adjust the commit subject to follow the rest of commit messages,
@@ -91,16 +93,32 @@ Could you please:
 
 Thank you
 
-> 
-> Signed-off-by: wangjianli <wangjianli@cdjrlc.com>
 > ---
->   drivers/gpu/drm/msm/adreno/a6xx_gmu.c | 2 +-
->   1 file changed, 1 insertion(+), 1 deletion(-)
+>   drivers/gpu/drm/msm/adreno/a6xx_gmu.c | 8 ++++----
+>   1 file changed, 4 insertions(+), 4 deletions(-)
 > 
 > diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
-> index 9f76f5b15759..9303a011b81d 100644
+> index 9f76f5b15759..32ecb783c3c1 100644
 > --- a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
 > +++ b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
+> @@ -352,7 +352,7 @@ void a6xx_gmu_clear_oob(struct a6xx_gmu *gmu, enum a6xx_gmu_oob_state state)
+>   	gmu_write(gmu, REG_A6XX_GMU_HOST2GMU_INTR_SET, 1 << bit);
+>   }
+>   
+> -/* Enable CPU control of SPTP power power collapse */
+> +/* Enable CPU control of SPTP power collapse */
+>   static int a6xx_sptprac_enable(struct a6xx_gmu *gmu)
+>   {
+>   	int ret;
+> @@ -374,7 +374,7 @@ static int a6xx_sptprac_enable(struct a6xx_gmu *gmu)
+>   	return 0;
+>   }
+>   
+> -/* Disable CPU control of SPTP power power collapse */
+> +/* Disable CPU control of SPTP power collapse */
+>   static void a6xx_sptprac_disable(struct a6xx_gmu *gmu)
+>   {
+>   	u32 val;
 > @@ -1277,7 +1277,7 @@ static int a6xx_gmu_rpmh_arc_votes_init(struct device *dev, u32 *votes,
 >   		}
 >   
@@ -110,6 +128,15 @@ Thank you
 >   		 * nothing fits, use the maximum non zero vote
 >   		 */
 >   
+> @@ -1559,7 +1559,7 @@ int a6xx_gmu_init(struct a6xx_gpu *a6xx_gpu, struct device_node *node)
+>   			goto err_memory;
+>   	}
+>   
+> -	/* Allocate memory for for the HFI queues */
+> +	/* Allocate memory for the HFI queues */
+>   	ret = a6xx_gmu_memory_alloc(gmu, &gmu->hfi, SZ_16K, 0, "hfi");
+>   	if (ret)
+>   		goto err_memory;
 
 -- 
 With best wishes
