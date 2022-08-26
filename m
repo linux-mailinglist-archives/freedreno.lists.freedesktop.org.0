@@ -1,86 +1,45 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7FBD15A2C8F
-	for <lists+freedreno@lfdr.de>; Fri, 26 Aug 2022 18:44:42 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id E38575A2CC7
+	for <lists+freedreno@lfdr.de>; Fri, 26 Aug 2022 18:53:22 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AE2D210E63C;
-	Fri, 26 Aug 2022 16:44:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1F95C10E9D2;
+	Fri, 26 Aug 2022 16:53:21 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5982B10E63C;
- Fri, 26 Aug 2022 16:44:35 +0000 (UTC)
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 27QFQAt4004618;
- Fri, 26 Aug 2022 16:44:23 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
- h=message-id : date :
- mime-version : subject : to : cc : references : from : in-reply-to :
- content-type : content-transfer-encoding; s=qcppdkim1;
- bh=cjpCRKfqy6eA8YImp/t0gkWrTearMo/Ur8HrjYj/93E=;
- b=Mr09qT3lACSj7MfNRricPfqoVTKyJVKmzrP7wMAJ77GAwwt/jJG3xCxzskHex9dwzsGw
- 4+c0TBr+ywKXb2yCW6GACL06aQfj9a0PNueygnrfOBB0kNN6mSNSYSW31JRSZlc7x4Sa
- wh3aAvtgQxW0uUerNltghvqQbwczcIbay4Ji80crRJsj6+mhFRopbgWcSYkGp89sxLC8
- NHZ+c5TiJU39Mn4F6roszMHedFzF86kqMUb662WEpLC2NHKF1fXeWdOB2zslHS0iSD3Y
- kdxS2RDd9mKtQVlX/Om1fHng7f6xNATnVUnmA52MtpSuaDHCJcQZQlionln2MWzrwn0a BQ== 
-Received: from nalasppmta01.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3j6ngxtapd-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 26 Aug 2022 16:44:22 +0000
-Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
- [10.47.209.196])
- by NALASPPMTA01.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 27QGdKpT014327
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 26 Aug 2022 16:39:20 GMT
-Received: from [10.38.245.204] (10.80.80.8) by nalasex01a.na.qualcomm.com
- (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.29; Fri, 26 Aug
- 2022 09:39:17 -0700
-Message-ID: <cc81c4da-a005-30c7-3a63-b33991ac8aa2@quicinc.com>
-Date: Fri, 26 Aug 2022 09:39:15 -0700
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.6.2
-Content-Language: en-US
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
+ [213.167.242.64])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5A4EC10E9D1;
+ Fri, 26 Aug 2022 16:53:19 +0000 (UTC)
+Received: from pendragon.ideasonboard.com (62-78-145-57.bb.dnainternet.fi
+ [62.78.145.57])
+ by perceval.ideasonboard.com (Postfix) with ESMTPSA id 444F52B3;
+ Fri, 26 Aug 2022 18:53:17 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+ s=mail; t=1661532797;
+ bh=l5nOKSe7tyfi3nmMy5tSpDEUSHUZJimujVQ7AUBOrok=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=P4BMX7Li/hWK8IRnz7x7qD/Ng+5uu5uhcW2LSEW+3Fn0hKLD2Zm+j4+VPRDL2GT9F
+ nDyTiEUDopC9p2jDnvxjXUFRYiV/GxXeKNZ8EdNsso92pIJ+NKyZk5dBK5oI1K/9a8
+ tHXcnJKYoJfPUrHR8Du1dvU8DxaCd2vudOSAOmXw=
+Date: Fri, 26 Aug 2022 19:53:10 +0300
+From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
 To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-References: <1660759314-28088-1-git-send-email-quic_khsieh@quicinc.com>
- <f211520a-cb9c-1202-0752-7bb200726ae8@linaro.org>
- <d4b3c303-fc20-537d-0e69-6e19826b6e59@quicinc.com>
- <266c0531-344e-5589-2143-02ab1fe9b276@linaro.org>
- <724d695d-0293-db81-7014-57cb96bd6d4b@quicinc.com>
- <bb153360-6567-c4d5-dc23-8586549df8c8@linaro.org>
- <13509c06-cf2b-e37b-d8ec-b5cc5370f566@quicinc.com>
- <CAA8EJprzE_U0crAQxu5xvQxadu8jUovEXOWzV2cTc_BQeHjyow@mail.gmail.com>
- <16f2c33f-c91e-8b4a-f67a-81f13adb2eac@quicinc.com>
- <CAA8EJprhwnMDLnWyfy3+TXG4cfeCCGGaaLqBTPn+UFgm7en8Fg@mail.gmail.com>
- <35384419-0801-dabf-3481-1b5717bc11e9@quicinc.com>
- <1f31afce-6807-5d33-15e2-78bc42894764@linaro.org>
-From: Abhinav Kumar <quic_abhinavk@quicinc.com>
-In-Reply-To: <1f31afce-6807-5d33-15e2-78bc42894764@linaro.org>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-GUID: D5qo653pazA-EEAORRZgd8WudBVZ4UHu
-X-Proofpoint-ORIG-GUID: D5qo653pazA-EEAORRZgd8WudBVZ4UHu
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.205,Aquarius:18.0.895,Hydra:6.0.517,FMLib:17.11.122.1
- definitions=2022-08-26_08,2022-08-25_01,2022-06-22_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0
- priorityscore=1501 phishscore=0 mlxlogscore=999 bulkscore=0 suspectscore=0
- adultscore=0 clxscore=1015 mlxscore=0 impostorscore=0 lowpriorityscore=0
- spamscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2207270000 definitions=main-2208260067
-Subject: Re: [Freedreno] [PATCH] drm/msm/dp: add atomic_check to bridge ops
+Message-ID: <Ywj6dnZEPhQjzlTG@pendragon.ideasonboard.com>
+References: <1660005330-12369-1-git-send-email-quic_abhinavk@quicinc.com>
+ <YvK4SpvF0zwtaIM9@pendragon.ideasonboard.com>
+ <2933a555-d000-3fc3-5336-778238545b80@linaro.org>
+ <ef88ed87-fd32-5c50-d220-fd43b238bd7c@linaro.org>
+ <Ywi0u4E5+MUx9wCk@pendragon.ideasonboard.com>
+ <648214d3-df31-9554-7b42-c69d72fe1ba9@linaro.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <648214d3-df31-9554-7b42-c69d72fe1ba9@linaro.org>
+Subject: Re: [Freedreno] [RFC] drm/bridge: adv7533: remove dynamic lane
+ switching from adv7533 bridge
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -93,382 +52,129 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, quic_sbillaka@quicinc.com,
- dianders@chromium.org, airlied@linux.ie, linux-arm-msm@vger.kernel.org,
- robdclark@gmail.com, dri-devel@lists.freedesktop.org, swboyd@chromium.org,
- vkoul@kernel.org, agross@kernel.org, bjorn.andersson@linaro.org,
- daniel@ffwll.ch, quic_aravindh@quicinc.com,
- Kuogee Hsieh <quic_khsieh@quicinc.com>, sean@poorly.run,
- linux-kernel@vger.kernel.org
+Cc: jernej.skrabec@gmail.com, andrzej.hajda@intel.com, narmstrong@baylibre.com,
+ airlied@linux.ie, sam@ravnborg.org, jonas@kwiboo.se,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
+ swboyd@chromium.org, robdclark@gmail.com, seanpaul@chromium.org,
+ robert.foss@linaro.org, daniel@ffwll.ch, quic_jesszhan@quicinc.com,
+ quic_aravindh@quicinc.com, colin.king@intel.com,
+ freedreno@lists.freedesktop.org, maxime@cerno.tech
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
+Hi Dmitry,
 
-
-On 8/26/2022 1:19 AM, Dmitry Baryshkov wrote:
-> On 24/08/2022 22:16, Abhinav Kumar wrote:
->>
->>
->> On 8/24/2022 1:25 AM, Dmitry Baryshkov wrote:
->>> On Wed, 24 Aug 2022 at 01:59, Abhinav Kumar 
->>> <quic_abhinavk@quicinc.com> wrote:
->>>>
->>>>
->>>>
->>>> On 8/23/2022 3:41 PM, Dmitry Baryshkov wrote:
->>>>> On Wed, 24 Aug 2022 at 01:07, Abhinav Kumar 
->>>>> <quic_abhinavk@quicinc.com> wrote:
->>>>>> On 8/22/2022 11:33 AM, Dmitry Baryshkov wrote:
->>>>>>> On 22/08/2022 20:32, Abhinav Kumar wrote:
->>>>>>>>
->>>>>>>>
->>>>>>>> On 8/22/2022 9:49 AM, Dmitry Baryshkov wrote:
->>>>>>>>> On 22/08/2022 19:38, Abhinav Kumar wrote:
->>>>>>>>>> Hi Dmitry
->>>>>>>>>>
->>>>>>>>>> On 8/22/2022 9:18 AM, Dmitry Baryshkov wrote:
->>>>>>>>>>> On 17/08/2022 21:01, Kuogee Hsieh wrote:
->>>>>>>>>>>> DRM commit_tails() will disable downstream 
->>>>>>>>>>>> crtc/encoder/bridge if
->>>>>>>>>>>> both disable crtc is required and crtc->active is set before 
->>>>>>>>>>>> pushing
->>>>>>>>>>>> a new frame downstream.
->>>>>>>>>>>>
->>>>>>>>>>>> There is a rare case that user space display manager issue 
->>>>>>>>>>>> an extra
->>>>>>>>>>>> screen update immediately followed by close DRM device while 
->>>>>>>>>>>> down
->>>>>>>>>>>> stream display interface is disabled. This extra screen 
->>>>>>>>>>>> update will
->>>>>>>>>>>> timeout due to the downstream interface is disabled but will 
->>>>>>>>>>>> cause
->>>>>>>>>>>> crtc->active be set. Hence the followed commit_tails() 
->>>>>>>>>>>> called by
->>>>>>>>>>>> drm_release() will pass the disable downstream 
->>>>>>>>>>>> crtc/encoder/bridge
->>>>>>>>>>>> conditions checking even downstream interface is disabled.
->>>>>>>>>>>> This cause the crash to happen at dp_bridge_disable() due to it
->>>>>>>>>>>> trying
->>>>>>>>>>>> to access the main link register to push the idle pattern out
->>>>>>>>>>>> while main
->>>>>>>>>>>> link clocks is disabled.
->>>>>>>>>>>>
->>>>>>>>>>>> This patch adds atomic_check to prevent the extra frame will 
->>>>>>>>>>>> not
->>>>>>>>>>>> be pushed down if display interface is down so that 
->>>>>>>>>>>> crtc->active
->>>>>>>>>>>> will not be set neither. This will fail the conditions checking
->>>>>>>>>>>> of disabling down stream crtc/encoder/bridge which prevent
->>>>>>>>>>>> drm_release() from calling dp_bridge_disable() so that crash
->>>>>>>>>>>> at dp_bridge_disable() prevented.
->>>>>>>>>>>
->>>>>>>>>>> I must admit I had troubles parsing this description. However 
->>>>>>>>>>> if I
->>>>>>>>>>> got you right, I think the check that the main link clock is
->>>>>>>>>>> running in the dp_bridge_disable() or dp_ctrl_push_idle() 
->>>>>>>>>>> would be
->>>>>>>>>>> a better fix.
->>>>>>>>>>
->>>>>>>>>> Originally, thats what was posted
->>>>>>>>>> https://patchwork.freedesktop.org/patch/496984/.
->>>>>>>>>
->>>>>>>>> This patch is also not so correct from my POV. It checks for 
->>>>>>>>> the hpd
->>>>>>>>> status, while in reality it should check for main link clocks 
->>>>>>>>> being
->>>>>>>>> enabled.
->>>>>>>>>
->>>>>>>>
->>>>>>>> We can push another fix to check for the clk state instead of 
->>>>>>>> the hpd
->>>>>>>> status. But I must say we are again just masking something which 
->>>>>>>> the
->>>>>>>> fwk should have avoided isnt it?
->>>>>>>>
->>>>>>>> As per the doc in the include/drm/drm_bridge.h it says,
->>>>>>>>
->>>>>>>> "*
->>>>>>>>     * The bridge can assume that the display pipe (i.e. clocks 
->>>>>>>> and timing
->>>>>>>>     * signals) feeding it is still running when this callback is 
->>>>>>>> called.
->>>>>>>>     *"
->>>>>>>
->>>>>>> Yes, that's what I meant about this chunk begging to go to the 
->>>>>>> core. In
->>>>>>> my opinion, if we are talking about the disconnected sinks, it is 
->>>>>>> the
->>>>>>> framework who should disallow submitting the frames to the 
->>>>>>> disconnected
->>>>>>> sinks.
->>>>>>>
->>>>>>>>
->>>>>>>> By adding an extra layers of protection in the driver, we are just
->>>>>>>> avoiding another issue but the commit should not have been 
->>>>>>>> issued in
->>>>>>>> the first place.
->>>>>>>>
->>>>>>>> So shouldnt we do both then? That is add protection to check if 
->>>>>>>> clock
->>>>>>>> is ON and also, reject commits when display is disconnected.
->>>>>>>>
->>>>>>>>>>
->>>>>>>>>> Then it seemed like we were just protecting against an issue 
->>>>>>>>>> in the
->>>>>>>>>> framework which was allowing the frames to be pushed even 
->>>>>>>>>> after the
->>>>>>>>>> display was disconnected. The DP driver did send out the 
->>>>>>>>>> disconnect
->>>>>>>>>> event correctly and as per the logs, this frame came down 
->>>>>>>>>> after that
->>>>>>>>>> and the DRM fwk did allow it.
->>>>>>>>>>
->>>>>>>>>> So after discussing on IRC with Rob, we came up with this 
->>>>>>>>>> approach that
->>>>>>>>>> if the display is not connected, then atomic_check should 
->>>>>>>>>> fail. That
->>>>>>>>>> way the commit will not happen.
->>>>>>>>>>
->>>>>>>>>> Just seemed a bit cleaner instead of adding all our protections.
->>>>>>>>>
->>>>>>>>> The check to fail atomic_check if display is not connected 
->>>>>>>>> seems out
->>>>>>>>> of place. In its current way it begs go to the upper layer,
->>>>>>>>> forbidding using disconnected sinks for all the drivers. There is
->>>>>>>>> nothing special in the MSM DP driver with respect to the HPD 
->>>>>>>>> events
->>>>>>>>> processing and failing atomic_check() based on that.
->>>>>>>>>
->>>>>>>>
->>>>>>>> Why all the drivers? This is only for MSM DP bridge.
->>>>>>>
->>>>>>> Yes, we change the MSM DRM driver. But the check is generic 
->>>>>>> enough. I'm
->>>>>>> not actually insisting on pushing the check to the core, just 
->>>>>>> trying to
->>>>>>> understand the real cause here.
->>>>>>>
->>>>>>>>
->>>>>>
->>>>>> I actually wanted to push this to the core and thats what I had
->>>>>> originally asked on IRC because it does seem to be generic enough 
->>>>>> that
->>>>>> it should belong to the core but after discussion with Rob on 
->>>>>> freedreno,
->>>>>> he felt this was a better approach because for some of the legacy
->>>>>> connectors like VGA, this need not belong to the DRM core, hence 
->>>>>> we went
->>>>>> with this approach.
->>>>>
->>>>> It might be better to whitelist such connectors (S-VIDEO/composite
->>>>> comes to my mind rather than VGA).
->>>>
->>>> I am fine with that approach, if Rob is onboard with that.
->>>>
->>>>>
->>>>>>>>>>>> SError Interrupt on CPU7, code 0x00000000be000411 -- SError
->>>>>>>>>>>> CPU: 7 PID: 3878 Comm: Xorg Not tainted 5.19.0-stb-cbq #19
->>>>>>>>>>>> Hardware name: Google Lazor (rev3 - 8) (DT)
->>>>>>>>>>>> pstate: a04000c9 (NzCv daIF +PAN -UAO -TCO -DIT -SSBS BTYPE=--)
->>>>>>>>>>>> pc : __cmpxchg_case_acq_32+0x14/0x2c
->>>>>>>>>>>> lr : do_raw_spin_lock+0xa4/0xdc
->>>>>>>>>>>> sp : ffffffc01092b6a0
->>>>>>>>>>>> x29: ffffffc01092b6a0 x28: 0000000000000028 x27: 
->>>>>>>>>>>> 0000000000000038
->>>>>>>>>>>> x26: 0000000000000004 x25: ffffffd2973dce48 x24: 
->>>>>>>>>>>> 0000000000000000
->>>>>>>>>>>> x23: 00000000ffffffff x22: 00000000ffffffff x21: 
->>>>>>>>>>>> ffffffd2978d0008
->>>>>>>>>>>> x20: ffffffd2978d0008 x19: ffffff80ff759fc0 x18: 
->>>>>>>>>>>> 0000000000000000
->>>>>>>>>>>> x17: 004800a501260460 x16: 0441043b04600438 x15: 
->>>>>>>>>>>> 04380000089807d0
->>>>>>>>>>>> x14: 07b0089807800780 x13: 0000000000000000 x12: 
->>>>>>>>>>>> 0000000000000000
->>>>>>>>>>>> x11: 0000000000000438 x10: 00000000000007d0 x9 : 
->>>>>>>>>>>> ffffffd2973e09e4
->>>>>>>>>>>> x8 : ffffff8092d53300 x7 : ffffff808902e8b8 x6 : 
->>>>>>>>>>>> 0000000000000001
->>>>>>>>>>>> x5 : ffffff808902e880 x4 : 0000000000000000 x3 : 
->>>>>>>>>>>> ffffff80ff759fc0
->>>>>>>>>>>> x2 : 0000000000000001 x1 : 0000000000000000 x0 : 
->>>>>>>>>>>> ffffff80ff759fc0
->>>>>>>>>>>> Kernel panic - not syncing: Asynchronous SError Interrupt
->>>>>>>>>>>> CPU: 7 PID: 3878 Comm: Xorg Not tainted 5.19.0-stb-cbq #19
->>>>>>>>>>>> Hardware name: Google Lazor (rev3 - 8) (DT)
->>>>>>>>>>>> Call trace:
->>>>>>>>>>>>     dump_backtrace.part.0+0xbc/0xe4
->>>>>>>>>>>>     show_stack+0x24/0x70
->>>>>>>>>>>>     dump_stack_lvl+0x68/0x84
->>>>>>>>>>>>     dump_stack+0x18/0x34
->>>>>>>>>>>>     panic+0x14c/0x32c
->>>>>>>>>>>>     nmi_panic+0x58/0x7c
->>>>>>>>>>>>     arm64_serror_panic+0x78/0x84
->>>>>>>>>>>>     do_serror+0x40/0x64
->>>>>>>>>>>>     el1h_64_error_handler+0x30/0x48
->>>>>>>>>>>>     el1h_64_error+0x68/0x6c
->>>>>>>>>>>>     __cmpxchg_case_acq_32+0x14/0x2c
->>>>>>>>>>>>     _raw_spin_lock_irqsave+0x38/0x4c
->>>>>>>
->>>>>>> You know, after re-reading the trace, I could not help but notice 
->>>>>>> that
->>>>>>> the issue seems to be related to completion/timer/spinlock memory
->>>>>>> becoming unavailable rather than disabling the main link clock.
->>>>>>> See, the SError comes in the spin_lock path, not during register 
->>>>>>> read.
->>>>>>>
->>>>>>> Thus I think the commit message is a bit misleading.
->>>>>>>
->>>>>>
->>>>>> No, this issue is due to unclocked access. Please check this part 
->>>>>> of the
->>>>>> stack:
->>>>>
->>>>> Well, if it were for the unlocked access, we would see SError on the
->>>>> register access, wouldn't we? However in this case the SError comes
->>>>> from the raw spinlock code.
->>>>
->>>> This is not uncommon. With unclocked access, we have seen in the past
->>>> that sometimes the stack is off by one line. The fact that this issue
->>>> got resolved even with the older version of the patch
->>>> https://patchwork.freedesktop.org/patch/496984/ is pointing towards an
->>>> unclocked access and not the dp/dp->ctrl memory pointers.
->>>
->>> As far as I understood, the bug is reproducible. Just to make me feel
->>> safe, can we please:
->>> -  either have a trace which shows when the clocks are disabled (or 
->>> not enabled)
->>> - or make sure that keeping the mainlink clock on would also mitigate 
->>> the issue?
->>
->> Yes, this trace is already available with all the drm_dbg_dp messages 
->> enabled. Please refer to the attachment named 
->> 2022-08-15-dmesg-drm-4K-crash.txt in the bug 
->> https://gitlab.freedesktop.org/drm/msm/-/issues/17.
->>
->> You can jump to this section of the log.
->>
->> [   99.191216] msm_dpu ae01000.mdp: [drm:dp_display_host_phy_exit] 
->> type=10 core_init=1 phy_init=1
->> [   99.192354] [drm:dp_ctrl_phy_exit] phy=00000000b9b91350 init=0 
->> power_on=0
->> [   99.192369] msm_dpu ae01000.mdp: 
->> [drm:dp_display_disable.constprop.0.isra.0] sink count: 1
->>
->> Here is the dp_display_disable() you were looking for.
->>
->> [   99.192378] msm_dpu ae01000.mdp: [drm:dp_bridge_post_disable] 
->> type=10 Done
->> [   99.192389] msm_dpu ae01000.mdp: 
->> [drm:drm_atomic_helper_commit_modeset_disables] disabling 
->> [CRTC:60:crtc-1]
->> [   99.192561] [drm:dpu_crtc_disable] no frames pending
->> [   99.192571] [drm:dpu_core_perf_crtc_update] crtc:60 stop_req:1 
->> core_clk:200000000
->> [   99.192581] [drm:dpu_core_perf_crtc_update] crtc=60 disable
->> [   99.192588] [drm:_dpu_core_perf_crtc_update_bus] crtc=59 bw=0 paths:1
->> [   99.192595] [drm:_dpu_core_perf_crtc_update_bus] crtc=60 bw=0 paths:1
->> [   99.192700] [drm:dpu_core_perf_crtc_update] clk:200000000
->> [   99.192714] [drm:dpu_core_perf_crtc_update] update clk rate = 
->> 200000000 HZ
->> [   99.192729] msm_dpu ae01000.mdp: 
->> [drm:drm_atomic_helper_commit_modeset_disables] modeset on 
->> [ENCODER:33:TMDS-33]
->> [   99.192738] [drm:dpu_encoder_virt_atomic_mode_set] enc33
->> [   99.192749] [drm:dpu_crtc_atomic_begin] crtc59
->>>
->>>>
->>>>>
->>>>>>    >>>>>>   wait_for_completion_timeout+0x2c/0x54
->>>>>>    >>>>>>   dp_ctrl_push_idle+0x40/0x88
->>>>>>    >>>>>>   dp_bridge_disable+0x24/0x30
->>>>>>    >>>>>>   drm_atomic_bridge_chain_disable+0x90/0xbc
->>>>>>    >>>>>>   drm_atomic_helper_commit_modeset_disables+0x198/0x444
->>>>>>    >>>>>>   msm_atomic_commit_tail+0x1d0/0x374
->>>>>>    >>>>>>   commit_tail+0x80/0x108
->>>>>>    >>>>>>   drm_atomic_helper_commit+0x118/0x11c
->>>>>>    >>>>>>   drm_atomic_commit+0xb4/0xe0
->>>>>>    >>>>>>   drm_client_modeset_commit_atomic+0x184/0x224
->>>>>>    >>>>>>   drm_client_modeset_commit_locked+0x58/0x160
->>>>>>    >>>>>>   drm_client_modeset_commit+0x3c/0x64
->>>>>>
->>>>>>> Can we please get a trace checking which calls were actually made 
->>>>>>> for
->>>>>>> the dp bridge and if the dp/dp->ctrl memory pointers are correct?
->>>>>>>
->>>>>>> I do not see the dp_display_disable() being called. Maybe I just 
->>>>>>> missed
->>>>>>> the call.
->>>>>>>
->>>>>>
->>>>>> Yes it is called, please refer to the above part of the stack that I
->>>>>> have pasted.
->>>>>
->>>>> The stacktrace mentions dp_bridge_disable(), not dp_display_disable()
->>>>> (which I asked for).
->>>>>
->>>>
->>>> So whats happening here is the crash is happening in 
->>>> dp_bridge_disable().
->>>>
->>>> dp_display_disable() is called from post_disable() thats why it doesnt
->>>> show up in the stack.
->>>>
->>>
->>> Yes. But the mainlink clocks are disabled in dp_display_disable()
->>> that's why I'm asking if the function was called at all.
->>
->> Now, I see why you were asking about dp_display_disable(). So 
->> basically your question is that when did dp_display_disable() happen 
->> that disabled the clocks causing this issue.
->>
->> dp_display_disable() happened when the cable was disconnected as shown 
->> in the above section of the logs.
->>
->> We also sent the disconnected uevent to the usermode. But this commit 
->> is happening from the drm_lastclose() context which doesnt check the 
->> connection status.
->>
->> This leads to a commit after the cable has been disconnected causing 
->> the unclocked access.
->>
->> You can refer this log and comment if something is still not clear to 
->> you.
+On Fri, Aug 26, 2022 at 04:52:12PM +0300, Dmitry Baryshkov wrote:
+> On 26/08/2022 14:55, Laurent Pinchart wrote:
+> > On Fri, Aug 26, 2022 at 01:17:43PM +0300, Dmitry Baryshkov wrote:
+> >> On 22/08/2022 19:31, Dmitry Baryshkov wrote:
+> >>> On 09/08/2022 22:40, Laurent Pinchart wrote:
+> >>>> On Mon, Aug 08, 2022 at 05:35:30PM -0700, Abhinav Kumar wrote:
+> >>>>> adv7533 bridge tries to dynamically switch lanes based on the
+> >>>>> mode by detaching and attaching the mipi dsi device.
+> >>>>>
+> >>>>> This approach is incorrect because as per the DSI spec the
+> >>>>> number of lanes is fixed at the time of system design or initial
+> >>>>> configuration and may not change dynamically.
+> >>>>
+> >>>> Is that really so ? The number of lanes connected on the board is
+> >>>> certainlyset at design time, but a lower number of lanes can be used at
+> >>>> runtime. It shouldn't change dynamically while the display is on, but it
+> >>>> could change at mode set time.
+> >>>
+> >>> I'm not sure if I interpreted the standard correctly, but I tended to
+> >>> have the same interpretation as Abhinav did.
+> >>>
+> >>> Anyway, even if we allow the drivers to switch the amount of lanes, this
+> >>> should not happen in the form of detach()/attach() cycle. The drivers
+> > 
+> > Agreed.
+> > 
+> >>> use mipi_dsi_attach() as way to signal the DSI hosts that the sink
+> >>> device is ready. Some of DSI hosts (including MSM one) would bind
+> >>> components from the attach callback.
+> >>>
+> >>> If we were to support dynamically changing the amount of lanes, I would
+> >>> ask for additional mipi_dsi API call telling the host to switch the
+> >>> amount of lanes. And note that this can open the can of worms. Different
+> >>> hosts might have different requirements here. For example for the MSM
+> >>> platform the amount of lanes is programmed during bridge_pre_enable
+> >>> chain call, so it is possible to just set the amount of lanes following
+> >>> the msm_dsi_device::lanes. Other hosts might have other requirements.
+> > 
+> > Conceptually, I would expect the number of effective lanes to be
+> > selected at mode set time, because it has to be done while the output is
+> > disabled.
 > 
-> I have spent some time comparing the log and the programming logic.
+> There is one tightly coupled question. The dual-DSI (or bonded-DSI) 
+> mode. Currently it is exposed as two independent DSI hosts. If we allow 
+> changing the amount of DSI lanes at runtime, bonded DSI mode would 
+> become complicated by fixing amount of lanes for each of outputs (or 
+> switching them in tight loop). And then comes the question of switching 
+> between single-DSI and bonded-DSI at runtime.
+
+Maybe we can leave dynamic selection of the number of lanes for dual-DSI
+out at this point ? I have no experienced with bonded DSI, is it typical
+to have to switch between single and bonded links at runtime (to be
+precise, at mode set time, not while the display is on) ?
+
+> > With the atomic API for bridges the .mode_set() operation is
+> > deprecated, so .pre_enable() sounds best, but there's a potential issue:
+> > the .pre_enable() operation is called from sink to source. It means that
+> > a DSI sink .pre_enable() operation would need to call a DSI host
+> > operation to set (or maybe negotiate instead of just setting a fixed
+> > value) the number of lanes first if it wants to control the sink through
+> > DCS at .pre_enable() time. We'd have to see how that fits.
 > 
-> I found what I was looking for: a safeguard for not doing the disable 
-> twice. The disable_outputs() function, the one which calls 
-> drm_atomic_bridge_chain_disable() has a logical check which should have 
-> acted as a safety net here: it checks whether crtc_needs_disable().
+> What is the fate of the patchset that implemented 'parent-first' opt-in 
+> for the drm_bridge chains? It was supposed to solve this this kind of 
+> issues. I'm asking because until it is merged some DSI hosts (e.g. the 
+> msm dsi) turn on the power in .mode_set() to allow the pre_enable() 
+> callbacks work when the DSI link is in LP11 mode.
 > 
-> Can you please doublecheck why doesn't it reflect the fact that CRTC 
-> doesn't need disabling as it has been already disabled. If I understand 
-> correctly this boils down to CRTC's old_state->active being set, while 
-> the CRTC has been effectively disabled.
+> Back then I voted for the explicit mipi_dsi_power_on kind of calls, 
+> which would allow the sink bridge to prepare for the DSI powerup (e.g. 
+> by setting the amount of lanes), power up the DSI host, putting the link 
+> into LP11 and after that communicate with the sink using the DSI data 
+> lanes.
+
+A long time ago, I worked on converting the omapdrm driver to the DRM
+bridge API. It was using internal bridge and panel drivers with an API
+specific to omapdrm, and it was based on a similar principle: enabling
+or disabling an output went from the last component in the chain, which
+was the responsible for calling into its parent explicitly, with a
+bus-specific API. DRM bridge, on the other hand, doesn't use a recursive
+model but sequences the whole pipeline with a fixed order. This has led
+to be pre-enable/enable split, and even that isn't enough. Moving from
+the omapdrm model to the DRM bridge model was difficult and took lots of
+time and effort, and I'm now increasingly thinking the omapdrm model got
+it right, only too early to convince enough people.
+
+> >>> Thus said I'd suggest accepting this patch and maybe working on the
+> >>> API/support for the lane switching as a followup.
+> > 
+> > I don't have a personal need for the ADV7533 so I won't really complain
+> > about any potential regression this may introduce (given that it fixes a
+> > deadlock maybe things are completely broken already and nothing can
+> > regress). I'd like to see this fixed though, doing it as a follow up is
+> > too often a way to avoid doing it at all :-)
 > 
+> I don't know if this sounds like a promise, we are supporting several 
+> devices which use adv75xx (including famous dragonboard410c and less 
+> known Inforce ifc6510). So it might be (*) in our interest to restore 
+> this functionality. However as it requires adding additional API, design 
+> & negotiations might take some time.
 
-Yes, I had investigated this angle too. Please check my analysis here:
+That's fine.
 
-https://patchwork.freedesktop.org/patch/496984/#comment_896107
+> (*) might be if it limits the functionality of the device by limiting 
+> support for different modes. If not... why care then?
+> 
+> > In any case, the commit message should be reworded to explain the
+> > rationale and what needs to be done. Adding a TODO or FIXME comment in
+> > the code would also help.
 
-crtc_state->active is controlled by the usermode setting the "active" 
-property on the CRTC AFAICT, it is not a driver managed variable.
+-- 
+Regards,
 
- From the user report, there was a usermode crash. So it is entirely 
-possible that usermode did not reset before crashing this allowing the 
-second disable.
-
-The only thing I dont have for you is a log proving this because by 
-default there is no DRM trace for this flow from UAPI.
-
-So after sharing this analysis, Stephen mentioned that usermode should 
-not allow DRM to crash like this which I agreed with and hence we wanted 
-to avoid this scenario with this patch.
-
-Let me know if you think this analysis still needs to be checked and why.
-
-
-
-
-
+Laurent Pinchart
