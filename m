@@ -1,71 +1,72 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 505855A28DB
-	for <lists+freedreno@lfdr.de>; Fri, 26 Aug 2022 15:52:27 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 5C6405A2917
+	for <lists+freedreno@lfdr.de>; Fri, 26 Aug 2022 16:09:21 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8A8EA10E925;
-	Fri, 26 Aug 2022 13:52:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DD5FA10E860;
+	Fri, 26 Aug 2022 14:09:10 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x132.google.com (mail-lf1-x132.google.com
- [IPv6:2a00:1450:4864:20::132])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C9A7E10E917
- for <freedreno@lists.freedesktop.org>; Fri, 26 Aug 2022 13:52:15 +0000 (UTC)
-Received: by mail-lf1-x132.google.com with SMTP id z6so2080368lfu.9
- for <freedreno@lists.freedesktop.org>; Fri, 26 Aug 2022 06:52:15 -0700 (PDT)
+Received: from mail-lf1-x134.google.com (mail-lf1-x134.google.com
+ [IPv6:2a00:1450:4864:20::134])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BD21F10E799
+ for <freedreno@lists.freedesktop.org>; Fri, 26 Aug 2022 14:09:05 +0000 (UTC)
+Received: by mail-lf1-x134.google.com with SMTP id m3so2137471lfg.10
+ for <freedreno@lists.freedesktop.org>; Fri, 26 Aug 2022 07:09:05 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc; bh=lTzV7n7YCX+2rNWBDGnjMopVLA2KjEwwfdhSN/SUuIQ=;
- b=v4orgEt+Ur+7MTTMWfRNCAhqjJWT7FuDT9PJ32ngcplFQEi/WHUTZS4Ej5BZaqnY6k
- 7sSPLlNmeQ5rWJVLzjU1VC4dv6dWPPaugV8iZNIHPh+xKD/wu1cHwznHOAJ6Dw8eQZ0V
- hzePykCuNsBJCZ/RGyMop4Ta5b92A2TucKtRsEbr7YGduAP4kjkR6qbmgr/OATyQNvlo
- pjHRaqUOPCczgXgMpzWnUBOmx/hcZ/CYq28w3Y8c7b214LkKMKBJcR6YKhus569Y7lHR
- blPOH0i2XZmlcbI97AyBHsrah0/t77fBK1rzKfVPkUUSECQ//jGXgkUklh0wmSJwB6bg
- U2ig==
+ :from:to:cc; bh=/jvB3Zk9Ur35ndfTH3ClegVJp3L5YsswZJHu0HBwLYs=;
+ b=jQx3CjsoG4/KqyBTEu7I7zus+LfGm5o2i5DJwYB8PEnBnlqdKMQzoZvzit0d6HbeH0
+ 792OCLK+089fkSLzsDQuf2cforIA6vpukpmf76nehp/qDWBuiYMLjsmWpN7WNH5AxDdU
+ qpnOWvv9wKrOoyONFNZu8kA2YQFNeacvY52jZO1JOzAfRuPnJ64iqc/6Bj7UjCoJT6WC
+ zyeDGn0/ILk/Tj/GtHLoIKMB53JY16zqhRiRyTuqu7Y39WVoUVn4D7QLzoexl5+rPLhO
+ uOcCOqIghY4npZvkgBcYBxMGS4rUzVeEnIKhbPm0++/HPXlt1SnjdlVgM4xqrUkhK7kO
+ o9iQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc;
- bh=lTzV7n7YCX+2rNWBDGnjMopVLA2KjEwwfdhSN/SUuIQ=;
- b=aDUL0ZCJ+fJfoenEmHUW6Cnb79C24nwv6S+dqJ6EpjEzU88MLSesGPX/8uvUPYsF0o
- vuQNi1DvZ1+acoetJHCTeRyGQc2TksdbhOsivQ97nOMSZBTS9uW8808Vn9m2YuQPkIHZ
- qRJK/u7vj6A2V1/g8bJVJcHsHCVKvARVkIV1JQaIl7q6xiH2Gglup0e9VmFxd7H3waIr
- Ij73vluwOgiAOC0r90+Yaz6ihYQLIx30mFnEFdcAnCLnHwEO0ScZ7IbbCe/nmpPArA4M
- XEk6MQoib/GRZ+wOy6e/rK8C+yp7mHh5bps5yjPtrTWfuOSQ05UJi5lCjLoAyJcfiNk5
- oSOQ==
-X-Gm-Message-State: ACgBeo2RIZKFBHu6s112GtzOrWL7sr9Jff9nQFVX6YE0KReWnnTMxBEG
- 0nZHbFYfWkeRxthvqzb7CbA/Bg==
-X-Google-Smtp-Source: AA6agR5PK2neleXjNF0K3AJOAc0RaleB3Pq+FuSAeBmtSFLkJx+AxFxMsVP6Wp/QFsnK2NL3vjxsRA==
-X-Received: by 2002:a05:6512:210b:b0:492:e4cb:b93a with SMTP id
- q11-20020a056512210b00b00492e4cbb93amr2457810lfr.601.1661521933823; 
- Fri, 26 Aug 2022 06:52:13 -0700 (PDT)
+ bh=/jvB3Zk9Ur35ndfTH3ClegVJp3L5YsswZJHu0HBwLYs=;
+ b=k3K195x0ScMnd8oj+IGZKpX8X2/+s9As3HohcpNFik1TvICmFu3xkjwZCZL6BwbZXg
+ xOLkcdqTREhcE1V/6XGkjzHUUGKpgctof4zqOFLrIegMdQ93jprkeoXNmYANzqU39kvw
+ G1s9KRMmzS8MOiypPAZQfIuqpIFae94SIRm2IHnJlnXnWdtRtdtQ4a6wtVzPoNhooQ1H
+ lrXznf+he/G4DEFh/6RNxdifXG0Ya24V/TpXvpVtQwHLnZkjeggW3VUpL71J7VlBR4/r
+ v2xXnPsnF6G6CTqWfzzFuwaYeWhcjC23XtfE7gn3TTUs6GXmi6v4dVTnJ1QgRWAHViPK
+ wtZg==
+X-Gm-Message-State: ACgBeo3uW1iPaBNRnrEl5AEGJ3wGDR/sWqefK/ebFdVkYSxnUSvzvEBY
+ HiC41r7vy5ikNbgSGElWDWy4FQ==
+X-Google-Smtp-Source: AA6agR7HiAAjmQ+OSdNfaAHoyknzoyrjx3MUmL1Ng+Vf6qRLQP4g75Bp3THQvj6bRqHPWOxdn6lnQw==
+X-Received: by 2002:a05:6512:68d:b0:492:ec42:1dd2 with SMTP id
+ t13-20020a056512068d00b00492ec421dd2mr2597519lfe.55.1661522944058; 
+ Fri, 26 Aug 2022 07:09:04 -0700 (PDT)
 Received: from [192.168.1.211] ([37.153.55.125])
  by smtp.gmail.com with ESMTPSA id
- g1-20020a2eb5c1000000b0026181467eb4sm472629ljn.114.2022.08.26.06.52.13
+ s10-20020a19ad4a000000b00492c017de43sm390763lfd.127.2022.08.26.07.09.03
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 26 Aug 2022 06:52:13 -0700 (PDT)
-Message-ID: <648214d3-df31-9554-7b42-c69d72fe1ba9@linaro.org>
-Date: Fri, 26 Aug 2022 16:52:12 +0300
+ Fri, 26 Aug 2022 07:09:03 -0700 (PDT)
+Message-ID: <37834264-f6a0-fe71-e4c6-2edca9475d5a@linaro.org>
+Date: Fri, 26 Aug 2022 17:09:02 +0300
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.1.2
 Content-Language: en-GB
-To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-References: <1660005330-12369-1-git-send-email-quic_abhinavk@quicinc.com>
- <YvK4SpvF0zwtaIM9@pendragon.ideasonboard.com>
- <2933a555-d000-3fc3-5336-778238545b80@linaro.org>
- <ef88ed87-fd32-5c50-d220-fd43b238bd7c@linaro.org>
- <Ywi0u4E5+MUx9wCk@pendragon.ideasonboard.com>
+To: Kalyan Thota <kalyant@qti.qualcomm.com>,
+ "Kalyan Thota (QUIC)" <quic_kalyant@quicinc.com>,
+ "robdclark@gmail.com" <robdclark@gmail.com>
+References: <1655802387-15275-1-git-send-email-quic_kalyant@quicinc.com>
+ <1655802387-15275-2-git-send-email-quic_kalyant@quicinc.com>
+ <CAA8EJponMDAXDAZ9zpkYEZvONDAztuXhjwZ6y7rgo1HtQOMtfQ@mail.gmail.com>
+ <BN0PR02MB81426CB90870085223C308A496B99@BN0PR02MB8142.namprd02.prod.outlook.com>
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-In-Reply-To: <Ywi0u4E5+MUx9wCk@pendragon.ideasonboard.com>
+In-Reply-To: <BN0PR02MB81426CB90870085223C308A496B99@BN0PR02MB8142.namprd02.prod.outlook.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [RFC] drm/bridge: adv7533: remove dynamic lane
- switching from adv7533 bridge
+Subject: Re: [Freedreno] [v1 2/2] drm/msm/disp/dpu1: enable crtc color
+ management based on encoder topology
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,109 +79,48 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: jernej.skrabec@gmail.com, andrzej.hajda@intel.com, narmstrong@baylibre.com,
- airlied@linux.ie, sam@ravnborg.org, jonas@kwiboo.se,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
- swboyd@chromium.org, robdclark@gmail.com, seanpaul@chromium.org,
- robert.foss@linaro.org, daniel@ffwll.ch, quic_jesszhan@quicinc.com,
- quic_aravindh@quicinc.com, colin.king@intel.com,
- freedreno@lists.freedesktop.org, maxime@cerno.tech
+Cc: "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+ "Abhinav Kumar \(QUIC\)" <quic_abhinavk@quicinc.com>,
+ "linux-arm-msm@vger.kernel.org" <linux-arm-msm@vger.kernel.org>,
+ "dianders@chromium.org" <dianders@chromium.org>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "swboyd@chromium.org" <swboyd@chromium.org>,
+ "freedreno@lists.freedesktop.org" <freedreno@lists.freedesktop.org>,
+ "Vinod Polimera \(QUIC\)" <quic_vpolimer@quicinc.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 26/08/2022 14:55, Laurent Pinchart wrote:
-> Hello,
+On 27/06/2022 14:56, Kalyan Thota wrote:
+> Thanks for the comments, Dmitry. I haven't noticed mode->hdisplay being used. My idea was to run thru the topology and tie up the encoders with dspp to the CRTCs.
+> Since mode is available only in the commit, we cannot use the dpu_encoder_get_topology during initialization sequence.
 > 
-> On Fri, Aug 26, 2022 at 01:17:43PM +0300, Dmitry Baryshkov wrote:
->> On 22/08/2022 19:31, Dmitry Baryshkov wrote:
->>> On 09/08/2022 22:40, Laurent Pinchart wrote:
->>>> On Mon, Aug 08, 2022 at 05:35:30PM -0700, Abhinav Kumar wrote:
->>>>> adv7533 bridge tries to dynamically switch lanes based on the
->>>>> mode by detaching and attaching the mipi dsi device.
->>>>>
->>>>> This approach is incorrect because as per the DSI spec the
->>>>> number of lanes is fixed at the time of system design or initial
->>>>> configuration and may not change dynamically.
->>>>
->>>> Is that really so ? The number of lanes connected on the board is
->>>> certainlyset at design time, but a lower number of lanes can be used at
->>>> runtime. It shouldn't change dynamically while the display is on, but it
->>>> could change at mode set time.
->>>
->>> I'm not sure if I interpreted the standard correctly, but I tended to
->>> have the same interpretation as Abhinav did.
->>>
->>> Anyway, even if we allow the drivers to switch the amount of lanes, this
->>> should not happen in the form of detach()/attach() cycle. The drivers
+> The requirement here is that when we initialize the crtc, we need to enable drm_crtc_enable_color_mgmt only for the crtcs that support it. As I understand from Rob, chrome framework will check for the enablement in order to exercise the feature.
 > 
-> Agreed.
-> 
->>> use mipi_dsi_attach() as way to signal the DSI hosts that the sink
->>> device is ready. Some of DSI hosts (including MSM one) would bind
->>> components from the attach callback.
->>>
->>> If we were to support dynamically changing the amount of lanes, I would
->>> ask for additional mipi_dsi API call telling the host to switch the
->>> amount of lanes. And note that this can open the can of worms. Different
->>> hosts might have different requirements here. For example for the MSM
->>> platform the amount of lanes is programmed during bridge_pre_enable
->>> chain call, so it is possible to just set the amount of lanes following
->>> the msm_dsi_device::lanes. Other hosts might have other requirements.
-> 
-> Conceptually, I would expect the number of effective lanes to be
-> selected at mode set time, because it has to be done while the output is
-> disabled.
+> Do you have any ideas on how to handle this requirement ? Since we will reserve the dspp's only when a commit is issued, I guess it will be too late to enable color management by then.
 
-There is one tightly coupled question. The dual-DSI (or bonded-DSI) 
-mode. Currently it is exposed as two independent DSI hosts. If we allow 
-changing the amount of DSI lanes at runtime, bonded DSI mode would 
-become complicated by fixing amount of lanes for each of outputs (or 
-switching them in tight loop). And then comes the question of switching 
-between single-DSI and bonded-DSI at runtime.
+I have been thinking about this for quite a while.
 
-> With the atomic API for bridges the .mode_set() operation is
-> deprecated, so .pre_enable() sounds best, but there's a potential issue:
-> the .pre_enable() operation is called from sink to source. It means that
-> a DSI sink .pre_enable() operation would need to call a DSI host
-> operation to set (or maybe negotiate instead of just setting a fixed
-> value) the number of lanes first if it wants to control the sink through
-> DCS at .pre_enable() time. We'd have to see how that fits.
+Basically I fear you have two options:
+- Register the color management for all CRTCs. In dpu_rm_reserve() check 
+for the ctm, allocate LMs taking the available DSPPs into account. Fail 
+the atomic_check() if there are no available LMs with required 
+capabilities. Additional bonus point for moving LM/DSPP resource 
+allocation from dpu_encoder into dpu_crtc.
 
-What is the fate of the patchset that implemented 'parent-first' opt-in 
-for the drm_bridge chains? It was supposed to solve this this kind of 
-issues. I'm asking because until it is merged some DSI hosts (e.g. the 
-msm dsi) turn on the power in .mode_set() to allow the pre_enable() 
-callbacks work when the DSI link is in LP11 mode.
+- Register CRTCs and it's colormanagement properties according to exact 
+available hardware. Let the userspace composer select the CRTC for the 
+connector basing on the availability of the CTM support.
 
-Back then I voted for the explicit mipi_dsi_power_on kind of calls, 
-which would allow the sink bridge to prepare for the DSI powerup (e.g. 
-by setting the amount of lanes), power up the DSI host, putting the link 
-into LP11 and after that communicate with the sink using the DSI data 
-lanes.
+I'd vote strongly against any attempt to put the policy ('e.g. enable 
+CTM only for the eDP and first DSI display') into the kernel, because we 
+can not predict the actual usecases the user needs. It well might be 
+that the user of the laptop will work with DP displays only and thus 
+require color management for DP.
 
 > 
->>> Thus said I'd suggest accepting this patch and maybe working on the
->>> API/support for the lane switching as a followup.
-> 
-> I don't have a personal need for the ADV7533 so I won't really complain
-> about any potential regression this may introduce (given that it fixes a
-> deadlock maybe things are completely broken already and nothing can
-> regress). I'd like to see this fixed though, doing it as a follow up is
-> too often a way to avoid doing it at all :-)
-
-I don't know if this sounds like a promise, we are supporting several 
-devices which use adv75xx (including famous dragonboard410c and less 
-known Inforce ifc6510). So it might be (*) in our interest to restore 
-this functionality. However as it requires adding additional API, design 
-& negotiations might take some time.
-
-(*) might be if it limits the functionality of the device by limiting 
-support for different modes. If not... why care then?
-
-
-> In any case, the commit message should be reworded to explain the
-> rationale and what needs to be done. Adding a TODO or FIXME comment in
-> the code would also help.
+> @robdclark@gmail.com
+> Is it okay, if we disable color management for all the crtcs during initialization and enable it when we have dspps available during modeset. Can we framework code query for the property before issuing a commit for the frame after modeset ?
 > 
 
 -- 
