@@ -2,130 +2,62 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id E3A665A1CC0
-	for <lists+freedreno@lfdr.de>; Fri, 26 Aug 2022 00:51:48 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 63C935A21D6
+	for <lists+freedreno@lfdr.de>; Fri, 26 Aug 2022 09:28:40 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5A64C10E4BA;
-	Thu, 25 Aug 2022 22:51:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 32B3E10E6D5;
+	Fri, 26 Aug 2022 07:28:32 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-X-Greylist: delayed 429 seconds by postgrey-1.36 at gabe;
- Thu, 25 Aug 2022 22:38:32 UTC
-Received: from esa1.hgst.iphmx.com (esa1.hgst.iphmx.com [68.232.141.245])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4B04C10E47E
- for <freedreno@lists.freedesktop.org>; Thu, 25 Aug 2022 22:38:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=wdc.com; i=@wdc.com; q=dns/txt; s=dkim.wdc.com;
- t=1661467112; x=1693003112;
- h=message-id:date:mime-version:subject:to:references:from:
- in-reply-to:content-transfer-encoding;
- bh=pXWRUr7yy74YSO6PolHsHDXM3uM60SKPSfU0sqhXVlw=;
- b=TYVDESp/LWTmdDuBqWEM+FjUfPKGZW++MdrQ3k5fc+fRJsjRdxvY92lW
- TWsAfvWB+XpxBGYzbu2JmWx20zoMN/ZE7i32RmelAo77x+aGMznNeSBz+
- /1jEz76eIYMd7B/w+nLkCwtJkOR8lIL/64Gn4Uae1gIM8AjJIfsRgfk8j
- UR12CyaVMwHoTlkijngPaD+RdRDfiTV9iNsJ/ec1IZp8XyMtUFgTEkh9I
- rwgFZtAW3qIfYxYe/WfNbLDsj88R7NyFfmRD5odOOBDCdpInzxZzIa5FF
- kaZfslAzpZ5c7vmq93fbgIawCH3BsrYfdVmyRtDIjWIkWwqnsFSy59Tfz g==;
-X-IronPort-AV: E=Sophos;i="5.93,264,1654531200"; d="scan'208";a="321780545"
-Received: from h199-255-45-14.hgst.com (HELO uls-op-cesaep01.wdc.com)
- ([199.255.45.14])
- by ob1.hgst.iphmx.com with ESMTP; 26 Aug 2022 06:31:22 +0800
-IronPort-SDR: OuUHdtbyuEu2X8dLCZND7j5VDI2YNLPsSq8lIbHBwgRIdWZSBlSlviu74POOYcHnbwe80MCodP
- jW2HgXGueOrHSrjOChygtF6ppxDzKCuqAI+rWcE/JeiTv4uy8qWNn5AJHNsse6N7Y6qoYiRoGh
- PzttK3VGQ8CRz4SVPPVei2cgC3SFaH5nV1v9cZYep7LvKaVCxBC7e8PUeoWkYjviGMmk1S4VJS
- FQgFJ73D6/TmFpXSrxfnjLuu79UvedIHKGbiK8c4FTAsLCVbaCr8N49d+ViJ/wHQohHs1kWoHM
- DWgCy9E+dJk6hqLfdOdF6J2t
-Received: from uls-op-cesaip02.wdc.com ([10.248.3.37])
- by uls-op-cesaep01.wdc.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256;
- 25 Aug 2022 14:51:59 -0700
-IronPort-SDR: vFcsJ8P8XdZd3bJD9hVNG2iP4C8ncUYyPTucYI6BL94XS/4iDfNYTVhKYKws5EbalvHW9I9S4v
- bhTkMCSwxdpMdWxuFwdEuXPMu6WnB0fATQDWNiL5UwTR979+xNE448haOQMVzgwR+xwHubHji6
- oPCv3tp+Qnvh1tUWS6z3OM5LfriPYEcLCEhANuzZB0Dyu45U1YgEHX2WIq5oSAhc8K9e0yEYeU
- I9k0i7EWRYOnTIWIZYr90qV1JQgKUbmJW9GCBpofeDIk95P7LQ9DKi5lvJNKXr8dZHwM3VqY6X
- tM0=
-WDCIronportException: Internal
-Received: from usg-ed-osssrv.wdc.com ([10.3.10.180])
- by uls-op-cesaip02.wdc.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256;
- 25 Aug 2022 15:31:22 -0700
-Received: from usg-ed-osssrv.wdc.com (usg-ed-osssrv.wdc.com [127.0.0.1])
- by usg-ed-osssrv.wdc.com (Postfix) with ESMTP id 4MDHkK5rKGz1Rwnm
- for <freedreno@lists.freedesktop.org>; Thu, 25 Aug 2022 15:31:21 -0700 (PDT)
-Authentication-Results: usg-ed-osssrv.wdc.com (amavisd-new); dkim=pass
- reason="pass (just generated, assumed good)"
- header.d=opensource.wdc.com
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=
- opensource.wdc.com; h=content-transfer-encoding:content-type
- :in-reply-to:organization:from:references:to:content-language
- :subject:user-agent:mime-version:date:message-id; s=dkim; t=
- 1661466680; x=1664058681; bh=pXWRUr7yy74YSO6PolHsHDXM3uM60SKPSfU
- 0sqhXVlw=; b=a8whp66ACRrklw6ADvp7cL99Zh6tbdcTsus1XTWRJx1aNBRUnzU
- 79wpHkqB4aCfkJ2QYSrIBiZKDaAZJiIJqmWQBFGH49efNg/Z+d2IwiAJNh9daBOQ
- 3OgqD6XE5LeMN4usjJnhhhShvkaIGmAxd78j6SXzLJm9YG0VqTvf6by0P8EyZX7+
- P3zVnBiP2ajxTAxULa2hPJzwckV8794zYVyoynMwtl9VOU8//kJFawZ+gTFnmR+q
- ojL7lEdll7fquZxt6CgfCF/1fwhGyD7gTzUb8RSUU+lGJwOnj8ZaaS74gnb2buvI
- xSJoFmAA1/riuh0hOIgnDxp0cS22y93OZiQ==
-X-Virus-Scanned: amavisd-new at usg-ed-osssrv.wdc.com
-Received: from usg-ed-osssrv.wdc.com ([127.0.0.1])
- by usg-ed-osssrv.wdc.com (usg-ed-osssrv.wdc.com [127.0.0.1]) (amavisd-new,
- port 10026)
- with ESMTP id 7TpSlr27Mkpw for <freedreno@lists.freedesktop.org>;
- Thu, 25 Aug 2022 15:31:20 -0700 (PDT)
-Received: from [10.225.163.46] (unknown [10.225.163.46])
- by usg-ed-osssrv.wdc.com (Postfix) with ESMTPSA id 4MDHk850sGz1RtVk;
- Thu, 25 Aug 2022 15:31:12 -0700 (PDT)
-Message-ID: <bb0728d1-20fd-8b6d-5d42-a0c76b6d3e4b@opensource.wdc.com>
-Date: Fri, 26 Aug 2022 07:31:11 +0900
+Received: from mail-pj1-x1033.google.com (mail-pj1-x1033.google.com
+ [IPv6:2607:f8b0:4864:20::1033])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 20E5310E6D0;
+ Fri, 26 Aug 2022 07:28:27 +0000 (UTC)
+Received: by mail-pj1-x1033.google.com with SMTP id
+ r14-20020a17090a4dce00b001faa76931beso7288800pjl.1; 
+ Fri, 26 Aug 2022 00:28:27 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc;
+ bh=jTAWiNo/omAtLMeXfYZgyB0/HAK6wszJreXqF/7S7wI=;
+ b=Mw00zfqC4T6VEtu20Rp2a+r5W186flt11PrO5MBPkuC9AKIvsEodr58v8llZfl2bcB
+ Ez9huPudWeNGj1CXK90QSezqvUwejBlxia2MO7ZEg5tFc+yPyKNrrXnPZZ372asAA06o
+ qfcOuFH2a7wCvxa5H78Y829Xlz7lftna7JXGqQR1Y/r94x3tJGTa+FODRpHCXoTl4Ek/
+ K/V3SgnxNr/TvRxmw5h/oddjS6JWNn5H27l78eLbhfs2O29FwgFMHQHHXc/yFamb+qrf
+ lT9q249MRU9opuU9/j5QUiUUIlInjxdJWSibgsrbYstcKCAeQX98M6a25iRJV999JWGq
+ 0l4w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc;
+ bh=jTAWiNo/omAtLMeXfYZgyB0/HAK6wszJreXqF/7S7wI=;
+ b=c3HZ+xcINIhBZxqpHOJIPMhh/Zv2UvyDgeHLxkHJJweytLMV+h4rk2GHMaUAQu6OzX
+ jJah0JlHKiBCf5bzbC9G11TNO/hU7jWZ5/WFm41BRYVkerZclv56qUYkTHo0wChDFvoW
+ nTHRliB3Mql4IZpMOIO3fcjxZ7Y1hoFVAvoeWYuw8FBRA95/xTjhBYTo+Q/pameZSStq
+ 9pcI74oMt1TJwms6wI6fpoEZe3ksLmR9H3IiuNNgndJt78eEzVsi6pQqaf74KNsBiQom
+ /Lf+btNSje2LtHy5jg2RJaFTnDq58d5lxDPwNPJ8DZJi9kN+An5TGNN6pRAbOjm4FSB+
+ IXoA==
+X-Gm-Message-State: ACgBeo1PxxiWh81r2bjrahRGr8Y7/g1enueyIMaauoPysIibZvOJOWjQ
+ 8lJQ7AbVJhwQ6Gkz8N8egaA=
+X-Google-Smtp-Source: AA6agR4deiMjaahtMRHx2xJWavsJbeXhXn9hPdI2v0yMOGZpprcfeXeHoJiPulIpm1tqBOm1x4+G7A==
+X-Received: by 2002:a17:902:db05:b0:172:f759:f989 with SMTP id
+ m5-20020a170902db0500b00172f759f989mr2660471plx.58.1661498907566; 
+ Fri, 26 Aug 2022 00:28:27 -0700 (PDT)
+Received: from localhost.localdomain ([193.203.214.57])
+ by smtp.gmail.com with ESMTPSA id
+ d6-20020a17090a3b0600b001fae01779c8sm941014pjc.7.2022.08.26.00.28.24
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 26 Aug 2022 00:28:27 -0700 (PDT)
+From: cgel.zte@gmail.com
+X-Google-Original-From: ye.xingchen@zte.com.cn
+To: robdclark@gmail.com
+Date: Fri, 26 Aug 2022 07:28:21 +0000
+Message-Id: <20220826072821.253150-1-ye.xingchen@zte.com.cn>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.12.0
-Content-Language: en-US
-To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
- Rob Herring <robh+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Kunihiko Hayashi <hayashi.kunihiko@socionext.com>,
- Masami Hiramatsu <mhiramat@kernel.org>,
- Michael Turquette <mturquette@baylibre.com>, Stephen Boyd
- <sboyd@kernel.org>, Geert Uytterhoeven <geert+renesas@glider.be>,
- Sylwester Nawrocki <s.nawrocki@samsung.com>,
- Tomasz Figa <tomasz.figa@gmail.com>, Chanwoo Choi <cw00.choi@samsung.com>,
- Alim Akhtar <alim.akhtar@samsung.com>, Vladimir Zapolskiy <vz@mleia.com>,
- Herbert Xu <herbert@gondor.apana.org.au>,
- "David S. Miller" <davem@davemloft.net>,
- Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Robert Foss <robert.foss@linaro.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
- Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>,
- Inki Dae <inki.dae@samsung.com>, Seung-Woo Kim <sw0312.kim@samsung.com>,
- Kyungmin Park <kyungmin.park@samsung.com>,
- Thierry Reding <thierry.reding@gmail.com>,
- Jonathan Hunter <jonathanh@nvidia.com>,
- Masahiro Yamada <yamada.masahiro@socionext.com>,
- Florian Fainelli <f.fainelli@gmail.com>,
- Linus Walleij <linus.walleij@linaro.org>,
- Andre Przywara <andre.przywara@arm.com>,
- Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
- Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>,
- Marek Vasut <marex@denx.de>, Krishna Manikandan <quic_mkrishn@quicinc.com>,
- devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org, linux-ide@vger.kernel.org,
- linux-clk@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
- linux-samsung-soc@vger.kernel.org, linux-crypto@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
- freedreno@lists.freedesktop.org, linux-tegra@vger.kernel.org
-References: <20220825113334.196908-1-krzysztof.kozlowski@linaro.org>
- <20220825113334.196908-2-krzysztof.kozlowski@linaro.org>
-From: Damien Le Moal <damien.lemoal@opensource.wdc.com>
-Organization: Western Digital Research
-In-Reply-To: <20220825113334.196908-2-krzysztof.kozlowski@linaro.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Mailman-Approved-At: Thu, 25 Aug 2022 22:51:43 +0000
-Subject: Re: [Freedreno] [PATCH 2/5] dt-bindings: ata: drop minItems equal
- to maxItems
+Content-Transfer-Encoding: 8bit
+Subject: [Freedreno] [PATCH linux-next] drm/msm/dsi: Remove the unneeded
+ result variable
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -138,69 +70,45 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
+Cc: freedreno@lists.freedesktop.org, dianders@chromium.org, airlied@linux.ie,
+ linux-arm-msm@vger.kernel.org, Zeal Robot <zealci@zte.com.cn>,
+ quic_abhinavk@quicinc.com, dri-devel@lists.freedesktop.org,
+ swboyd@chromium.org, vkoul@kernel.org, laurent.pinchart@ideasonboard.com,
+ daniel@ffwll.ch, ye xingchen <ye.xingchen@zte.com.cn>,
+ dmitry.baryshkov@linaro.org, sean@poorly.run
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 8/25/22 20:33, Krzysztof Kozlowski wrote:
-> minItems, if missing, are implicitly equal to maxItems, so drop
-> redundant piece to reduce size of code.
-> 
-> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+From: ye xingchen <ye.xingchen@zte.com.cn>
 
-Acked-by: Damien Le Moal <damien.lemoal@opensource.wdc.com>
+Return the value msm_dsi_phy_enable() directly instead of storing it in
+another redundant variable.
 
-> ---
->  Documentation/devicetree/bindings/ata/brcm,sata-brcm.yaml       | 1 -
->  .../devicetree/bindings/ata/cortina,gemini-sata-bridge.yaml     | 2 --
->  Documentation/devicetree/bindings/ata/sata_highbank.yaml        | 1 -
->  3 files changed, 4 deletions(-)
-> 
-> diff --git a/Documentation/devicetree/bindings/ata/brcm,sata-brcm.yaml b/Documentation/devicetree/bindings/ata/brcm,sata-brcm.yaml
-> index 235a93ac86b0..3766cc80cb17 100644
-> --- a/Documentation/devicetree/bindings/ata/brcm,sata-brcm.yaml
-> +++ b/Documentation/devicetree/bindings/ata/brcm,sata-brcm.yaml
-> @@ -30,7 +30,6 @@ properties:
->            - const: brcm,bcm-nsp-ahci
->  
->    reg:
-> -    minItems: 2
->      maxItems: 2
->  
->    reg-names:
-> diff --git a/Documentation/devicetree/bindings/ata/cortina,gemini-sata-bridge.yaml b/Documentation/devicetree/bindings/ata/cortina,gemini-sata-bridge.yaml
-> index 21a90975593b..529093666508 100644
-> --- a/Documentation/devicetree/bindings/ata/cortina,gemini-sata-bridge.yaml
-> +++ b/Documentation/devicetree/bindings/ata/cortina,gemini-sata-bridge.yaml
-> @@ -22,7 +22,6 @@ properties:
->      maxItems: 1
->  
->    resets:
-> -    minItems: 2
->      maxItems: 2
->      description: phandles to the reset lines for both SATA bridges
->  
-> @@ -32,7 +31,6 @@ properties:
->        - const: sata1
->  
->    clocks:
-> -    minItems: 2
->      maxItems: 2
->      description: phandles to the compulsory peripheral clocks
->  
-> diff --git a/Documentation/devicetree/bindings/ata/sata_highbank.yaml b/Documentation/devicetree/bindings/ata/sata_highbank.yaml
-> index 49679b58041c..f23f26a8f21c 100644
-> --- a/Documentation/devicetree/bindings/ata/sata_highbank.yaml
-> +++ b/Documentation/devicetree/bindings/ata/sata_highbank.yaml
-> @@ -52,7 +52,6 @@ properties:
->      minItems: 1
->      maxItems: 8
->      items:
-> -      minItems: 2
->        maxItems: 2
->  
->    calxeda,tx-atten:
+Reported-by: Zeal Robot <zealci@zte.com.cn>
+Signed-off-by: ye xingchen <ye.xingchen@zte.com.cn>
+---
+ drivers/gpu/drm/msm/dsi/dsi_manager.c | 5 +----
+ 1 file changed, 1 insertion(+), 4 deletions(-)
 
-
+diff --git a/drivers/gpu/drm/msm/dsi/dsi_manager.c b/drivers/gpu/drm/msm/dsi/dsi_manager.c
+index cb84d185d73a..0b516a04945f 100644
+--- a/drivers/gpu/drm/msm/dsi/dsi_manager.c
++++ b/drivers/gpu/drm/msm/dsi/dsi_manager.c
+@@ -141,14 +141,11 @@ static int enable_phy(struct msm_dsi *msm_dsi,
+ 		      struct msm_dsi_phy_shared_timings *shared_timings)
+ {
+ 	struct msm_dsi_phy_clk_request clk_req;
+-	int ret;
+ 	bool is_bonded_dsi = IS_BONDED_DSI();
+ 
+ 	msm_dsi_host_get_phy_clk_req(msm_dsi->host, &clk_req, is_bonded_dsi);
+ 
+-	ret = msm_dsi_phy_enable(msm_dsi->phy, &clk_req, shared_timings);
+-
+-	return ret;
++	return msm_dsi_phy_enable(msm_dsi->phy, &clk_req, shared_timings);
+ }
+ 
+ static int
 -- 
-Damien Le Moal
-Western Digital Research
+2.25.1
