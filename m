@@ -1,67 +1,69 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 31C715A24B7
-	for <lists+freedreno@lfdr.de>; Fri, 26 Aug 2022 11:43:51 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 957F55A24BC
+	for <lists+freedreno@lfdr.de>; Fri, 26 Aug 2022 11:45:19 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1340B10E7C6;
-	Fri, 26 Aug 2022 09:43:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6CC1410E7ED;
+	Fri, 26 Aug 2022 09:45:17 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-x229.google.com (mail-lj1-x229.google.com
- [IPv6:2a00:1450:4864:20::229])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4D68210E7F4
- for <freedreno@lists.freedesktop.org>; Fri, 26 Aug 2022 09:43:31 +0000 (UTC)
-Received: by mail-lj1-x229.google.com with SMTP id u24so1091358lji.0
- for <freedreno@lists.freedesktop.org>; Fri, 26 Aug 2022 02:43:31 -0700 (PDT)
+Received: from mail-lf1-x12b.google.com (mail-lf1-x12b.google.com
+ [IPv6:2a00:1450:4864:20::12b])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9828B10E7D8
+ for <freedreno@lists.freedesktop.org>; Fri, 26 Aug 2022 09:45:12 +0000 (UTC)
+Received: by mail-lf1-x12b.google.com with SMTP id z25so1315863lfr.2
+ for <freedreno@lists.freedesktop.org>; Fri, 26 Aug 2022 02:45:12 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc; bh=+lqDjb0qBgeqnkEqJaLG27x7N3wtLO3gCVuMcmo3TBw=;
- b=VhxJOtjjqS32cws+7S6MknCuthUPbEFAM8r54Og1meOmNOF5aLgq+CDq6b6oHJv0wz
- QVjTQgDiLo99fHiCA1l9RbuoSugkVrj4tm4rQdNo6iH8nv8T0YtwZz2944Ouuex4twr3
- r49e+nez32HZCyhRn1NuMHD0UtltpqlFfa7TQJIH5G9S2qwqg9FRtWkzu43i8gP9//rJ
- inkrP8pAQZJZpI/sHBVb5zaYmW3+uDHlDyz96Mq48JAZJOMp5TnmHZRtOXLstbqdnY9Q
- nd1nhPbLPsAwKAdyzAR8Wv88RDl5dibLpYwgH3RDoKvfBX/7MXf5F2gkdMl3BsPGjU2f
- srxA==
+ :from:to:cc; bh=MRX0Q3WFNIyiJmZ3N40sithEPWIDpqa2XOG7FbBr3D0=;
+ b=DdKZMvLy1XEM5WRjVugHdAX4mR9xI5f62NbewhpZWwoafdfHcdoAXDVc/YrZbu23kD
+ MM8Lc0U7QhsaSQLgsaE6/7OTRqvm2h+9oL/UYC13P3tPufMFH7nNH1bVIm4J2PD+w2SA
+ BgFEkxo+COMALZs9JP45pQNhm2DFWt6K1Y/1NeoLzu8EJCVobi/SSPH2mgCxcQnyRtNY
+ L7C2TQPU6ELdcqIwaWdN72y+HtR3S3wy/lnDxN+jerJV7CRJ+tIJXcPFsCWgsv7VDA3D
+ wezhM8uUvafqGDIjlgv/aM9A4xtPmK7BXitVAMfuL29zZndhA+xRJ8jT9QcsP/hN0gAz
+ 4+wQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc;
- bh=+lqDjb0qBgeqnkEqJaLG27x7N3wtLO3gCVuMcmo3TBw=;
- b=mWKFvBr4yZ+Q0u/lXg60KAvRmQ9N54jVnY73XNLXGNlzKzyRQ3HnmhkUQfQjuysWCM
- y6+RqZMBmswOKePt0KYXjtc3A0Lg626fyCvEVMjRVcbfVwtsrxti9HuauYylFoCVn/R7
- jcwHDfwWV6V3ChLlJn6FF3FbqwmvWvydtY5g7ktW9fh6PmHqaJ7vzzo5wSidGr1dXfW7
- eeWbFYeVPWotc6LQqNWVP/JCs7nG0Z3dQW+JcLhj7VwNcX3QfvksGqxhGbXI6h57A7uc
- l8gVHjLSnApusuzQpA5GmZQj1xrPaSl/4F0lILRXyz+ruNaERLl4iovgzbfM5B7GYefu
- O6EA==
-X-Gm-Message-State: ACgBeo0+5QtJ5IXAT0tPRzl2M8Q04vpgKYC/EQsEbz4ac34UramVtZ5T
- OSk0Grb8qadUubrnPM3bVllzBA==
-X-Google-Smtp-Source: AA6agR60mdKAFt3fcZSOqh0nQB0mBgQpUkcT+i+VJYGcCuzDHjy0Ta+/PXxV5E04Iyz2oJx0T+2haw==
-X-Received: by 2002:a2e:b602:0:b0:261:e4a6:8c89 with SMTP id
- r2-20020a2eb602000000b00261e4a68c89mr2163985ljn.354.1661507009617; 
- Fri, 26 Aug 2022 02:43:29 -0700 (PDT)
+ bh=MRX0Q3WFNIyiJmZ3N40sithEPWIDpqa2XOG7FbBr3D0=;
+ b=BDR+wCP7cXUR9yF2zVDe+pLk/oitJiO0ElB9nGWSwWh1ZJmZw5JL7oIZS6RIu0QeUj
+ nooPHzDCX6iD5eXBIDW8jgo7qPYyS4gxjw5ja98z50MTQbbbn7QER6cEc1yGusqtGAnj
+ f/QuqabeS7FIN2Uf6VBN0YeS2FCiuJoAs9TJ+sbsOjam8GBDtZTCU71LLFAXuwmV9lhH
+ JeMmtIFA6zH2EGHq9XD5+EpiA2dcXX1MRB/fcC8SA5VVqFGayc91I3Q+oqzLpN7UNJA6
+ 8TcGLHGf2y7uGYznggoS0XcXsk0+n1uSReNkK45iiuLY9aSNcLf5Bux4jJrVaXc98HHf
+ 0iqA==
+X-Gm-Message-State: ACgBeo0QZMffK2xuGX0SjuNR5EPZknGFUDmzGb4RinBXLp+PEZNAND2l
+ CavyI+8jd79OICkMZYutcgl/gA==
+X-Google-Smtp-Source: AA6agR5grWoSeTNkOaTdkov5yXG2RspFnS/8kO38DF7QXqH412ouT7J2ahv8u3r5wPWv5QcnQ30ghg==
+X-Received: by 2002:a05:6512:2629:b0:492:b1e7:bf26 with SMTP id
+ bt41-20020a056512262900b00492b1e7bf26mr2092332lfb.254.1661507110668; 
+ Fri, 26 Aug 2022 02:45:10 -0700 (PDT)
 Received: from [192.168.1.211] ([37.153.55.125])
  by smtp.gmail.com with ESMTPSA id
- x7-20020a056512078700b0048b0aa2f87csm321710lfr.181.2022.08.26.02.43.28
+ be28-20020a05651c171c00b0025e72aae6bdsm399882ljb.28.2022.08.26.02.45.09
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 26 Aug 2022 02:43:29 -0700 (PDT)
-Message-ID: <658faa4e-ad16-7b13-87f3-27ea91db4ba3@linaro.org>
-Date: Fri, 26 Aug 2022 12:43:28 +0300
+ Fri, 26 Aug 2022 02:45:10 -0700 (PDT)
+Message-ID: <0e16e719-4eb2-bfb3-6b77-88d5314757a1@linaro.org>
+Date: Fri, 26 Aug 2022 12:45:09 +0300
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.1.2
 Content-Language: en-GB
-To: Jilin Yuan <yuanjilin@cdjrlc.com>, robdclark@gmail.com,
- quic_abhinavk@quicinc.com, airlied@linux.ie, daniel@ffwll.ch
-References: <20220823115409.46653-1-yuanjilin@cdjrlc.com>
+To: wangjianli <wangjianli@cdjrlc.com>, robdclark@gmail.com,
+ quic_abhinavk@quicinc.com, sean@poorly.run, airlied@linux.ie,
+ daniel@ffwll.ch, wangqing@vivo.com, dan.carpenter@oracle.com,
+ bjorn.andersson@linaro.org
+References: <20220724073650.16460-1-wangjianli@cdjrlc.com>
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-In-Reply-To: <20220823115409.46653-1-yuanjilin@cdjrlc.com>
+In-Reply-To: <20220724073650.16460-1-wangjianli@cdjrlc.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH] drm/msm: fix repeated words in comments
+Subject: Re: [Freedreno] [PATCH] msm/adreno: fix repeated words in comments
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,35 +81,35 @@ Cc: linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 23/08/2022 14:54, Jilin Yuan wrote:
->   Delete the redundant word 'one'.
+On 24/07/2022 10:36, wangjianli wrote:
+>   Delete the redundant word 'in'.
 
-The whitespace is unnecessary.
+Could you please:
+- adjust the commit subject to follow the rest of commit messages,
+- drop the extra whitespace at the beginning of the commit message,
+- add a correct Fixes tag.
+
+Thank you
 
 > 
-> Signed-off-by: Jilin Yuan <yuanjilin@cdjrlc.com>
-
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Fixes: 7198e6b03155 ("drm/msm: add a3xx gpu support")
-
-
+> Signed-off-by: wangjianli <wangjianli@cdjrlc.com>
 > ---
->   drivers/gpu/drm/msm/msm_gem.h | 2 +-
+>   drivers/gpu/drm/msm/adreno/a6xx_gmu.c | 2 +-
 >   1 file changed, 1 insertion(+), 1 deletion(-)
 > 
-> diff --git a/drivers/gpu/drm/msm/msm_gem.h b/drivers/gpu/drm/msm/msm_gem.h
-> index c75d3b879a53..e300c70e8904 100644
-> --- a/drivers/gpu/drm/msm/msm_gem.h
-> +++ b/drivers/gpu/drm/msm/msm_gem.h
-> @@ -118,7 +118,7 @@ struct msm_gem_object {
->   	 * An object is either:
->   	 *  inactive - on priv->inactive_dontneed or priv->inactive_willneed
->   	 *     (depending on purgeability status)
-> -	 *  active   - on one one of the gpu's active_list..  well, at
-> +	 *  active   - on one of the gpu's active_list..  well, at
->   	 *     least for now we don't have (I don't think) hw sync between
->   	 *     2d and 3d one devices which have both, meaning we need to
->   	 *     block on submit if a bo is already on other ring
+> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
+> index 9f76f5b15759..9303a011b81d 100644
+> --- a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
+> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
+> @@ -1277,7 +1277,7 @@ static int a6xx_gmu_rpmh_arc_votes_init(struct device *dev, u32 *votes,
+>   		}
+>   
+>   		/*
+> -		 * Look for a level in in the secondary list that matches. If
+> +		 * Look for a level in the secondary list that matches. If
+>   		 * nothing fits, use the maximum non zero vote
+>   		 */
+>   
 
 -- 
 With best wishes
