@@ -2,44 +2,51 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 889D15A2398
-	for <lists+freedreno@lfdr.de>; Fri, 26 Aug 2022 10:54:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CFC765A2387
+	for <lists+freedreno@lfdr.de>; Fri, 26 Aug 2022 10:49:39 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3345B10E77D;
-	Fri, 26 Aug 2022 08:54:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 816C310E751;
+	Fri, 26 Aug 2022 08:49:33 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-X-Greylist: delayed 1001 seconds by postgrey-1.36 at gabe;
- Fri, 26 Aug 2022 08:54:14 UTC
-Received: from szxga03-in.huawei.com (szxga03-in.huawei.com [45.249.212.189])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 66B2510E751;
- Fri, 26 Aug 2022 08:54:14 +0000 (UTC)
-Received: from dggpemm500023.china.huawei.com (unknown [172.30.72.55])
- by szxga03-in.huawei.com (SkyGuard) with ESMTP id 4MDY7m3NxDzGprc;
- Fri, 26 Aug 2022 16:35:48 +0800 (CST)
-Received: from dggpemm500007.china.huawei.com (7.185.36.183) by
- dggpemm500023.china.huawei.com (7.185.36.83) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2375.24; Fri, 26 Aug 2022 16:37:30 +0800
-Received: from huawei.com (10.175.103.91) by dggpemm500007.china.huawei.com
- (7.185.36.183) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.24; Fri, 26 Aug
- 2022 16:37:29 +0800
-From: Yang Yingliang <yangyingliang@huawei.com>
-To: <linux-kernel@vger.kernel.org>, <freedreno@lists.freedesktop.org>,
- <dri-devel@lists.freedesktop.org>, <linux-arm-msm@vger.kernel.org>
-Date: Fri, 26 Aug 2022 16:45:24 +0800
-Message-ID: <20220826084524.2217022-1-yangyingliang@huawei.com>
+Received: from mail-pg1-f196.google.com (mail-pg1-f196.google.com
+ [209.85.215.196])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 682D510E751
+ for <freedreno@lists.freedesktop.org>; Fri, 26 Aug 2022 08:49:29 +0000 (UTC)
+Received: by mail-pg1-f196.google.com with SMTP id r69so838189pgr.2
+ for <freedreno@lists.freedesktop.org>; Fri, 26 Aug 2022 01:49:29 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc;
+ bh=/a4FiR7aLndGxzWuyiR1P2igj/4sxawq1FoYvUVjoOA=;
+ b=N8Pm1mTU7cWHDbzj6ViV0jE/jdW8Ke1Xwv/7efFGL9aOIcyKDVBSP7mr0KkOBae6BD
+ Ct6QWod2pOtJq/l4/mylb7TIYfRheyh64U/tz8kxxUcC+uEDcK47JoihXDaIeGflf/be
+ 0JRKeWFIKsRC+R/3L9Q6ztD3ANWxj1L+ryT0awn/CxtSA8SwIGyoE3UAtDLzhDo+AS9E
+ EdcHvQGIBFFlleHbQ4FM9gtCfG8HBMxLHmjNdCf7mfkTgltps+of5cqs4M1y7pSNM32y
+ Pb+BYC7GjZssKX9WACDiH9o8OO4Hu1p48jI5mYgB1Dg0tBc1srmaucqI2Pn5JZmruGy1
+ DqHw==
+X-Gm-Message-State: ACgBeo3A3aOvAFwRhpMwrBtS9bkPR1YcEm8Hq45tl7Irzi+mvJ9oDi24
+ 7XJQR3sbZ7UbeSBzpSlQdw==
+X-Google-Smtp-Source: AA6agR5D+/X+OTlMDgze+3xQO1o0WOIn/bmV+6/bYyku0SHDYfHOfHcKkK95XjZvp4wXhdW1V8vMzA==
+X-Received: by 2002:a63:1857:0:b0:41c:4217:426e with SMTP id
+ 23-20020a631857000000b0041c4217426emr2460335pgy.285.1661503768953; 
+ Fri, 26 Aug 2022 01:49:28 -0700 (PDT)
+Received: from localhost.localdomain ([156.146.53.107])
+ by smtp.gmail.com with ESMTPSA id
+ r18-20020a17090b051200b001f8c532b93dsm1118128pjz.15.2022.08.26.01.49.23
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 26 Aug 2022 01:49:28 -0700 (PDT)
+From: sunliming <sunliming@kylinos.cn>
+To: christian.koenig@amd.com, robdclark@gmail.com, quic_abhinavk@quicinc.com,
+ dmitry.baryshkov@linaro.org
+Date: Fri, 26 Aug 2022 16:49:17 +0800
+Message-Id: <20220826084917.95409-1-sunliming@kylinos.cn>
 X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.175.103.91]
-X-ClientProxiedBy: dggems703-chm.china.huawei.com (10.3.19.180) To
- dggpemm500007.china.huawei.com (7.185.36.183)
-X-CFilter-Loop: Reflected
-Subject: [Freedreno] [PATCH -next] drm/msm/adreno: Switch to
- memdup_user_nul() helper
+Subject: [Freedreno] [PATCH RESEND] drm/msm/dsi: fix the inconsistent
+ indenting
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -52,43 +59,39 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: robdclark@gmail.com, quic_abhinavk@quicinc.com
+Cc: kernel test robot <lkp@intel.com>, kelulanainsley@gmail.com,
+ linux-kernel@vger.kernel.org, inux-arm-msm@vger.kernel.org,
+ sunliming <sunliming@kylinos.cn>, freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Use memdup_user_nul() helper instead of open-coding to
-simplify the code.
+Fix the inconsistent indenting in function msm_dsi_dphy_timing_calc_v3().
 
-Signed-off-by: Yang Yingliang <yangyingliang@huawei.com>
+Fix the following smatch warnings:
+
+drivers/gpu/drm/msm/dsi/phy/dsi_phy.c:350 msm_dsi_dphy_timing_calc_v3() warn: inconsistent indenting
+
+Fixes: f1fa7ff44056 ("drm/msm/dsi: implement auto PHY timing calculator for 10nm PHY")
+Reported-by: kernel test robot <lkp@intel.com>
+Signed-off-by: sunliming <sunliming@kylinos.cn>
+Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
 ---
- drivers/gpu/drm/msm/adreno/adreno_gpu.c | 14 +++-----------
- 1 file changed, 3 insertions(+), 11 deletions(-)
+ drivers/gpu/drm/msm/dsi/phy/dsi_phy.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.c b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
-index 382fb7f9e497..50b33e14237b 100644
---- a/drivers/gpu/drm/msm/adreno/adreno_gpu.c
-+++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
-@@ -339,17 +339,9 @@ int adreno_set_param(struct msm_gpu *gpu, struct msm_file_private *ctx,
- 	case MSM_PARAM_CMDLINE: {
- 		char *str, **paramp;
+diff --git a/drivers/gpu/drm/msm/dsi/phy/dsi_phy.c b/drivers/gpu/drm/msm/dsi/phy/dsi_phy.c
+index a39de3bdc7fa..56dfa2d24be1 100644
+--- a/drivers/gpu/drm/msm/dsi/phy/dsi_phy.c
++++ b/drivers/gpu/drm/msm/dsi/phy/dsi_phy.c
+@@ -347,7 +347,7 @@ int msm_dsi_dphy_timing_calc_v3(struct msm_dsi_dphy_timing *timing,
+ 	} else {
+ 		timing->shared_timings.clk_pre =
+ 			linear_inter(tmax, tmin, pcnt2, 0, false);
+-			timing->shared_timings.clk_pre_inc_by_2 = 0;
++		timing->shared_timings.clk_pre_inc_by_2 = 0;
+ 	}
  
--		str = kmalloc(len + 1, GFP_KERNEL);
--		if (!str)
--			return -ENOMEM;
--
--		if (copy_from_user(str, u64_to_user_ptr(value), len)) {
--			kfree(str);
--			return -EFAULT;
--		}
--
--		/* Ensure string is null terminated: */
--		str[len] = '\0';
-+		str = memdup_user_nul(u64_to_user_ptr(value), len);
-+		if (IS_ERR(str))
-+			return PTR_ERR(str);
- 
- 		if (param == MSM_PARAM_COMM) {
- 			paramp = &ctx->comm;
+ 	timing->ta_go = 3;
 -- 
 2.25.1
 
