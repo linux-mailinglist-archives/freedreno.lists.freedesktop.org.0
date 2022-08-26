@@ -2,60 +2,62 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id D90A55A249E
-	for <lists+freedreno@lfdr.de>; Fri, 26 Aug 2022 11:39:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E1B4C5A24A4
+	for <lists+freedreno@lfdr.de>; Fri, 26 Aug 2022 11:39:51 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2652710E7F4;
-	Fri, 26 Aug 2022 09:39:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 21D6010E7D6;
+	Fri, 26 Aug 2022 09:39:39 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-x22c.google.com (mail-lj1-x22c.google.com
- [IPv6:2a00:1450:4864:20::22c])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 34DED10E7E3
- for <freedreno@lists.freedesktop.org>; Fri, 26 Aug 2022 09:39:31 +0000 (UTC)
-Received: by mail-lj1-x22c.google.com with SMTP id u24so1082657lji.0
+Received: from mail-lf1-x12f.google.com (mail-lf1-x12f.google.com
+ [IPv6:2a00:1450:4864:20::12f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 17B7410E7E3
+ for <freedreno@lists.freedesktop.org>; Fri, 26 Aug 2022 09:39:32 +0000 (UTC)
+Received: by mail-lf1-x12f.google.com with SMTP id d8so1329821lfq.0
  for <freedreno@lists.freedesktop.org>; Fri, 26 Aug 2022 02:39:31 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc;
- bh=VeJT6TambDYpE2R29D5H9btEkRqd26ppCcO4LObDeKk=;
- b=PqHJaHohZYwsm/CV439/jAsas87s0RNPbSrywTlt2XGjyomH/MTwJqOrsWzSFFQMTQ
- vaZmlQdxuPI7z3gmHCq3pbqaXk6Z2esxQhDPy7ETKu0O/Yo3My7k8JfAflQ//2hHenTy
- XMtzeSsgDdsn4VXR22zoazGO7Zy0hT52NHsfzgG8JV0MR3LQSdbJBqpZ8wj+uzxx542r
- ppMVtgIVH0sCPyzk4PHyrtgBBrX29Ap8PyM6QWxRclJYeBVU8t4sIm7sRDHi4e2X1JCb
- cM7ZY8VirzSqE6h9GyPWmR8mvCOVsyRu3Qr1Gae+I95bVyGN5kidODIYsmXxU0Fi0y3u
- bmoA==
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc;
+ bh=qWb9HqeFqbEjNo0sX8LWqplCuUfM7JNEP4wMIZnoIBI=;
+ b=NGf+DQWXQ5hozu+8Vb2gZUGGz9qnwo3us1L8EiFM6rrC0BncmtMMMJIPszws1Bj9bg
+ 8jwSi6yw41MGbMCL3hLaxH6QfANE00+UJ/4Sr5+PE6WHtNIxLXKhBY+SZHY6uPuIDHZ9
+ MBWLSDGh8yYnl1mHIvWNsMFWqb4rJ2ClyVldRS2ZhxfqFHOA6oPCwaqgThHbWo3lO2sa
+ bIS1nyCeIpwMugQk5u7o8tZFwtZiLf0HaS2+m3vcKRCIuHh4+cujd9acAgPZ0l5pvtwl
+ tJOweNonRWYXB9wvFgKC1DXD4X2jQ7vDyikduNH6xdp5sFeu7cXH1AdGv7uyeUvRHTMt
+ 26Bw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc;
- bh=VeJT6TambDYpE2R29D5H9btEkRqd26ppCcO4LObDeKk=;
- b=qAY72SzR7HWyof+hLUo4FKOLm4HAHL9zGPmNr4io4lw7J1oahUdRGo8hqNoeHnf64t
- 8Lm4EeD7NYdwF8TMMKQVlHM+t6jixfCTjileeqoKRrAyqNRnp1Fnm+Wj4lWK1NbejLrx
- lJ253nwkYqDbVjMfb+9xdO5MnjAoYkBNf/fD0IG6/ooXHn9gXPDni5nnrJXThjrrHR69
- ra5fNJ5z+jKuN5jEh3ht2RRGaUYrXQvcIjzcERH1/SH5Nd+oOgXhx6PJ1qIqolU3dDRu
- jotghBOUe5v2aPP+5Mil8tKLySC7aXZB957NoBhH+FZ2FCodj93AmYS1F2hnYP6QK4L3
- ilkA==
-X-Gm-Message-State: ACgBeo0OkJjzFxajKuihCCXwLd5cAKBatuP83loQm358g1Zxkargu6+z
- lG/hX4SqdaXwuodDVLs+6K9aKw==
-X-Google-Smtp-Source: AA6agR6PiH5e9EgjVJ3S1NHkzUw9Zid8iMhCu5LWfb+2bIn5w5XIKzzL7wkJNzmFuI8/wm+2YKr8gw==
-X-Received: by 2002:a2e:8443:0:b0:25e:21ef:952d with SMTP id
- u3-20020a2e8443000000b0025e21ef952dmr2213447ljh.403.1661506769254; 
- Fri, 26 Aug 2022 02:39:29 -0700 (PDT)
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc;
+ bh=qWb9HqeFqbEjNo0sX8LWqplCuUfM7JNEP4wMIZnoIBI=;
+ b=5PZx30TzRZZU0EC9l0qn3pmPgJvublVr//jKWiUhL8e8jfde0tk7JRadX5GR3dhVRt
+ FvN2A6BXpcUPXobRnIqg7d2ViWFEJjHIm21jAPA91z+IF4gpgm9t/Jt/3USzNOLkdWZ5
+ lL2kJRBJD2VxaGD1DRwS3pyOY64xcVJm/sSTVlcAYX+K3IW+t4Qrl6QFuOfKwRdnAQeJ
+ 9DQ3RdKi3tNN/U+PF0nxHhAYZyuKTRB6f7ncniVoMKN7G7/fhBXUSpuiBc5X4GtNwmUd
+ Yj/jDmk8VuqwTWA9J7VwXfGkLAyvjvtrfU0SWkuROFIF9g7FdORZyPxPqAWIlExXeJY4
+ w1/w==
+X-Gm-Message-State: ACgBeo3gH0jQA94SkFc5Kl257LexcvMb0+neRaHy2JXisR9VidsmKGpM
+ PklTC6dbHjUAhlUkbX7sSuGX8A==
+X-Google-Smtp-Source: AA6agR6KpPktXTIffRko51lBRjKetKH/0kFJEkJQx8jlsskHvwLVgjRaJr32l9jyc9jbvgrgjVhqDg==
+X-Received: by 2002:a19:f010:0:b0:492:ca3b:e34 with SMTP id
+ p16-20020a19f010000000b00492ca3b0e34mr2196875lfc.563.1661506770071; 
+ Fri, 26 Aug 2022 02:39:30 -0700 (PDT)
 Received: from eriador.lan ([37.153.55.125]) by smtp.gmail.com with ESMTPSA id
- m6-20020a195206000000b004886508ca5csm329055lfb.68.2022.08.26.02.39.28
+ m6-20020a195206000000b004886508ca5csm329055lfb.68.2022.08.26.02.39.29
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 26 Aug 2022 02:39:28 -0700 (PDT)
+ Fri, 26 Aug 2022 02:39:29 -0700 (PDT)
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 To: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
  Abhinav Kumar <quic_abhinavk@quicinc.com>
-Date: Fri, 26 Aug 2022 12:39:22 +0300
-Message-Id: <20220826093927.851597-1-dmitry.baryshkov@linaro.org>
+Date: Fri, 26 Aug 2022 12:39:23 +0300
+Message-Id: <20220826093927.851597-2-dmitry.baryshkov@linaro.org>
 X-Mailer: git-send-email 2.35.1
+In-Reply-To: <20220826093927.851597-1-dmitry.baryshkov@linaro.org>
+References: <20220826093927.851597-1-dmitry.baryshkov@linaro.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH v2 0/5] drm/msm/hdmi: move resource allocation
- to probe function
+Subject: [Freedreno] [PATCH v2 1/5] drm/msm/hdmi: use devres helper for
+ runtime PM management
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,25 +77,29 @@ Cc: David Airlie <airlied@linux.ie>, linux-arm-msm@vger.kernel.org,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-As pointed several times in the discussions, start moving resource
-allocation from component bind to the probe function. This simplifies
-boot process, as the component will not be registered until all
-resources (clocks, regulators, IRQ, etc.) are not registered.
+Use devm_pm_runtime_enable() to enable runtime PM. This way its effect
+will be reverted on device unbind/destruction.
 
-Changes since v1:
- - Moved a call to msm_hdmi_get_phy() to msm_hdmi_dev_probe() too.
+Fixes: 6ed9ed484d04 ("drm/msm/hdmi: Set up runtime PM for HDMI")
+Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
+---
+ drivers/gpu/drm/msm/hdmi/hdmi.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Dmitry Baryshkov (5):
-  drm/msm/hdmi: use devres helper for runtime PM management
-  drm/msm/hdmi: drop constant resource names from platform config
-  drm/msm/hdmi: move resource allocation to probe function
-  drm/msm/hdmi: don't take extra reference on PHY device
-  drm/msm/hdmi: move msm_hdmi_get_phy() to msm_hdmi_dev_probe()
-
- drivers/gpu/drm/msm/hdmi/hdmi.c | 348 +++++++++++++++-----------------
- drivers/gpu/drm/msm/hdmi/hdmi.h |   3 -
- 2 files changed, 161 insertions(+), 190 deletions(-)
-
+diff --git a/drivers/gpu/drm/msm/hdmi/hdmi.c b/drivers/gpu/drm/msm/hdmi/hdmi.c
+index 93fe61b86967..1d4557de6872 100644
+--- a/drivers/gpu/drm/msm/hdmi/hdmi.c
++++ b/drivers/gpu/drm/msm/hdmi/hdmi.c
+@@ -252,7 +252,7 @@ static struct hdmi *msm_hdmi_init(struct platform_device *pdev)
+ 	if (hdmi->hpd_gpiod)
+ 		gpiod_set_consumer_name(hdmi->hpd_gpiod, "HDMI_HPD");
+ 
+-	pm_runtime_enable(&pdev->dev);
++	devm_pm_runtime_enable(&pdev->dev);
+ 
+ 	hdmi->workq = alloc_ordered_workqueue("msm_hdmi", 0);
+ 
 -- 
 2.35.1
 
