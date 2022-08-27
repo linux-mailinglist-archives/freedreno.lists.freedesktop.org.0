@@ -1,45 +1,40 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id E38575A2CC7
-	for <lists+freedreno@lfdr.de>; Fri, 26 Aug 2022 18:53:22 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id D7D005A3371
+	for <lists+freedreno@lfdr.de>; Sat, 27 Aug 2022 03:24:47 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1F95C10E9D2;
-	Fri, 26 Aug 2022 16:53:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3246010EB07;
+	Sat, 27 Aug 2022 01:24:45 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
- [213.167.242.64])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5A4EC10E9D1;
- Fri, 26 Aug 2022 16:53:19 +0000 (UTC)
-Received: from pendragon.ideasonboard.com (62-78-145-57.bb.dnainternet.fi
- [62.78.145.57])
- by perceval.ideasonboard.com (Postfix) with ESMTPSA id 444F52B3;
- Fri, 26 Aug 2022 18:53:17 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
- s=mail; t=1661532797;
- bh=l5nOKSe7tyfi3nmMy5tSpDEUSHUZJimujVQ7AUBOrok=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=P4BMX7Li/hWK8IRnz7x7qD/Ng+5uu5uhcW2LSEW+3Fn0hKLD2Zm+j4+VPRDL2GT9F
- nDyTiEUDopC9p2jDnvxjXUFRYiV/GxXeKNZ8EdNsso92pIJ+NKyZk5dBK5oI1K/9a8
- tHXcnJKYoJfPUrHR8Du1dvU8DxaCd2vudOSAOmXw=
-Date: Fri, 26 Aug 2022 19:53:10 +0300
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Message-ID: <Ywj6dnZEPhQjzlTG@pendragon.ideasonboard.com>
-References: <1660005330-12369-1-git-send-email-quic_abhinavk@quicinc.com>
- <YvK4SpvF0zwtaIM9@pendragon.ideasonboard.com>
- <2933a555-d000-3fc3-5336-778238545b80@linaro.org>
- <ef88ed87-fd32-5c50-d220-fd43b238bd7c@linaro.org>
- <Ywi0u4E5+MUx9wCk@pendragon.ideasonboard.com>
- <648214d3-df31-9554-7b42-c69d72fe1ba9@linaro.org>
+X-Greylist: delayed 304 seconds by postgrey-1.36 at gabe;
+ Sat, 27 Aug 2022 01:24:42 UTC
+Received: from mailgw.kylinos.cn (unknown [124.126.103.232])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2534210EB07
+ for <freedreno@lists.freedesktop.org>; Sat, 27 Aug 2022 01:24:41 +0000 (UTC)
+X-UUID: 5009da63b2f94f519724e26bc2b707ea-20220827
+X-UUID: 5009da63b2f94f519724e26bc2b707ea-20220827
+Received: from cs2c.com.cn [(192.168.0.8)] by mailgw
+ (envelope-from <sunliming@kylinos.cn>) (Generic MTA)
+ with ESMTP id 429498446; Sat, 27 Aug 2022 09:19:48 +0800
+Received: by cs2c.com.cn (NSMail, from userid 0)
+ id 9590D182C2923; Sat, 27 Aug 2022 09:19:31 +0800 (CST)
+From: =?UTF-8?B?5a2Z56uL5piO?= <sunliming@kylinos.cn>
+To: =?UTF-8?B?QWJoaW5hdiBLdW1hcg==?= <quic_abhinavk@quicinc.com>,
+ <christian.koenig@amd.com>, <robdclark@gmail.com>,
+ <dmitry.baryshkov@linaro.org>,
+Date: Sat, 27 Aug 2022 09:19:31 +0800
+X-Mailer: NSMAIL 6.0
+Message-ID: <1m2x504li73-1m2zovrfluo@nsmail6.0>
+References: b190ff71-fdf4-9fe3-56ee-456665b48237@quicinc.com
+X-Delaysendtime: Sat, 27 Aug 2022 09:19:31 +0800
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <648214d3-df31-9554-7b42-c69d72fe1ba9@linaro.org>
-Subject: Re: [Freedreno] [RFC] drm/bridge: adv7533: remove dynamic lane
- switching from adv7533 bridge
+Content-Type: multipart/mixed; boundary=nsmail-1m3vld6vvj6-1m3vld6vvj7
+X-ns-mid: webmail-63097123-1m30ytku
+Subject: [Freedreno] =?utf-8?b?5Zue5aSNOiBSZTogW1BBVENIIFJFU0VORF0gZHJt?=
+ =?utf-8?q?/msm/dsi=3A_fix_the_inconsistent_indenting?=
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -52,129 +47,74 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: jernej.skrabec@gmail.com, andrzej.hajda@intel.com, narmstrong@baylibre.com,
- airlied@linux.ie, sam@ravnborg.org, jonas@kwiboo.se,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
- swboyd@chromium.org, robdclark@gmail.com, seanpaul@chromium.org,
- robert.foss@linaro.org, daniel@ffwll.ch, quic_jesszhan@quicinc.com,
- quic_aravindh@quicinc.com, colin.king@intel.com,
- freedreno@lists.freedesktop.org, maxime@cerno.tech
+Cc: inux-arm-msm@vger.kernel.org, kelulanainsley@gmail.com,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ =?UTF-8?B?a2VybmVsIHRlc3Qgcm9ib3Q=?= <lkp@intel.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Hi Dmitry,
+This message is in MIME format.
 
-On Fri, Aug 26, 2022 at 04:52:12PM +0300, Dmitry Baryshkov wrote:
-> On 26/08/2022 14:55, Laurent Pinchart wrote:
-> > On Fri, Aug 26, 2022 at 01:17:43PM +0300, Dmitry Baryshkov wrote:
-> >> On 22/08/2022 19:31, Dmitry Baryshkov wrote:
-> >>> On 09/08/2022 22:40, Laurent Pinchart wrote:
-> >>>> On Mon, Aug 08, 2022 at 05:35:30PM -0700, Abhinav Kumar wrote:
-> >>>>> adv7533 bridge tries to dynamically switch lanes based on the
-> >>>>> mode by detaching and attaching the mipi dsi device.
-> >>>>>
-> >>>>> This approach is incorrect because as per the DSI spec the
-> >>>>> number of lanes is fixed at the time of system design or initial
-> >>>>> configuration and may not change dynamically.
-> >>>>
-> >>>> Is that really so ? The number of lanes connected on the board is
-> >>>> certainlyset at design time, but a lower number of lanes can be used at
-> >>>> runtime. It shouldn't change dynamically while the display is on, but it
-> >>>> could change at mode set time.
-> >>>
-> >>> I'm not sure if I interpreted the standard correctly, but I tended to
-> >>> have the same interpretation as Abhinav did.
-> >>>
-> >>> Anyway, even if we allow the drivers to switch the amount of lanes, this
-> >>> should not happen in the form of detach()/attach() cycle. The drivers
-> > 
-> > Agreed.
-> > 
-> >>> use mipi_dsi_attach() as way to signal the DSI hosts that the sink
-> >>> device is ready. Some of DSI hosts (including MSM one) would bind
-> >>> components from the attach callback.
-> >>>
-> >>> If we were to support dynamically changing the amount of lanes, I would
-> >>> ask for additional mipi_dsi API call telling the host to switch the
-> >>> amount of lanes. And note that this can open the can of worms. Different
-> >>> hosts might have different requirements here. For example for the MSM
-> >>> platform the amount of lanes is programmed during bridge_pre_enable
-> >>> chain call, so it is possible to just set the amount of lanes following
-> >>> the msm_dsi_device::lanes. Other hosts might have other requirements.
-> > 
-> > Conceptually, I would expect the number of effective lanes to be
-> > selected at mode set time, because it has to be done while the output is
-> > disabled.
-> 
-> There is one tightly coupled question. The dual-DSI (or bonded-DSI) 
-> mode. Currently it is exposed as two independent DSI hosts. If we allow 
-> changing the amount of DSI lanes at runtime, bonded DSI mode would 
-> become complicated by fixing amount of lanes for each of outputs (or 
-> switching them in tight loop). And then comes the question of switching 
-> between single-DSI and bonded-DSI at runtime.
+--nsmail-1m3vld6vvj6-1m3vld6vvj7
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: base64
 
-Maybe we can leave dynamic selection of the number of lanes for dual-DSI
-out at this point ? I have no experienced with bonded DSI, is it typical
-to have to switch between single and bonded links at runtime (to be
-precise, at mode set time, not while the display is on) ?
+CiAmbmJzcDsgJm5ic3A7T0ssIEkgYW0gc29ycnkuIFRoYW5rczxicj48YnI+
+PGJyPgoKICZuYnNwOyAmbmJzcDs8cD4tLS0tPC9wPjxkaXYgaWQ9ImNzMmNf
+bWFpbF9zaWdhdHVyZSI+PHA+PC9wPjxwPjxicj48L3A+PC9kaXY+PHA+PC9w
+PjxkaXYgaWQ9InJlIiBzdHlsZT0ibWFyZ2luLWxlZnQ6MC41ZW07cGFkZGlu
+Zy1sZWZ0OjAuNWVtO2JvcmRlci1sZWZ0OjFweCBzb2xpZCBncmVlbjsiPjxi
+cj48YnI+PGJyPgogJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7PGRpdiBz
+dHlsZT0iYmFja2dyb3VuZC1jb2xvcjojZjVmN2ZhIj48Yj7kuLvjgIDpopjv
+vJo8L2I+PHNwYW4gaWQ9InN1YmplY3QiPlJlOiBbUEFUQ0ggUkVTRU5EXSBk
+cm0vbXNtL2RzaTogZml4IHRoZSBpbmNvbnNpc3RlbnQgaW5kZW50aW5nPC9z
+cGFuPgogJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJz
+cDs8YnI+PGI+5pel44CA5pyf77yaPC9iPjxzcGFuIGlkPSJkYXRlIj4yMDIy
+LTA4LTI3IDAwOjEwPC9zcGFuPgogJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5i
+c3A7ICZuYnNwOyAmbmJzcDs8YnI+PGI+5Y+R5Lu25Lq677yaPC9iPjxzcGFu
+IGlkPSJmcm9tIj5BYmhpbmF2IEt1bWFyPC9zcGFuPgogJm5ic3A7ICZuYnNw
+OyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDs8YnI+PGI+5pS25Lu25Lq6
+77yaPC9iPjxzcGFuIGlkPSJ0byI+5a2Z56uL5piOY2hyaXN0aWFuLmtvZW5p
+Z0BhbWQuY29tcm9iZGNsYXJrQGdtYWlsLmNvbWRtaXRyeS5iYXJ5c2hrb3ZA
+bGluYXJvLm9yZzwvc3Bhbj4KICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNw
+OyAmbmJzcDsgJm5ic3A7CiAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDs8
+L2Rpdj48YnI+CiAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDs8ZGl2IGlk
+PSJjb250ZW50Ij48ZGl2IGNsYXNzPSJ2aWV3ZXJfcGFydCI+PGRpdj48YnI+
+PGJyPk9uIDgvMjYvMjAyMiAxOjQ5IEFNLCBzdW5saW1pbmcgd3JvdGU6PGJy
+PiZndDsgRml4IHRoZSBpbmNvbnNpc3RlbnQgaW5kZW50aW5nIGluIGZ1bmN0
+aW9uIG1zbV9kc2lfZHBoeV90aW1pbmdfY2FsY192MygpLjxicj4mZ3Q7IDxi
+cj4mZ3Q7IEZpeCB0aGUgZm9sbG93aW5nIHNtYXRjaCB3YXJuaW5nczo8YnI+
+Jmd0OyA8YnI+Jmd0OyBkcml2ZXJzL2dwdS9kcm0vbXNtL2RzaS9waHkvZHNp
+X3BoeS5jOjM1MCBtc21fZHNpX2RwaHlfdGltaW5nX2NhbGNfdjMoKSB3YXJu
+OiBpbmNvbnNpc3RlbnQgaW5kZW50aW5nPGJyPiZndDsgPGJyPiZndDsgRml4
+ZXM6IGYxZmE3ZmY0NDA1NiAoImRybS9tc20vZHNpOiBpbXBsZW1lbnQgYXV0
+byBQSFkgdGltaW5nIGNhbGN1bGF0b3IgZm9yIDEwbm0gUEhZIik8YnI+Jmd0
+OyBSZXBvcnRlZC1ieToga2VybmVsIHRlc3Qgcm9ib3QgJmx0O2xrcEBpbnRl
+bC5jb20mZ3Q7PGJyPiZndDsgU2lnbmVkLW9mZi1ieTogc3VubGltaW5nICZs
+dDtzdW5saW1pbmdAa3lsaW5vcy5jbiZndDs8YnI+Jmd0OyBSZXZpZXdlZC1i
+eTogQWJoaW5hdiBLdW1hciAmbHQ7cXVpY19hYmhpbmF2a0BxdWljaW5jLmNv
+bSZndDs8YnI+VGhlcmUgaXMgbm8gbmVlZCB0byByZXNlbmQgdGhpcy4gVGhp
+cyB3YXMgYWxyZWFkeSBhcHBsaWVkIHRvIG1zbS1maXhlczxicj48YnI+aHR0
+cHM6Ly9naXRsYWIuZnJlZWRlc2t0b3Aub3JnL2RybS9tc20vLS9jb21taXQv
+MmYyNWExZmI0ZWM1MTZjNWFkNjdhZmQ3NTQzMzRiNDkxYjlmMDlhNTxicj48
+YnI+Jmd0OyAtLS08YnI+Jmd0OyAmbmJzcDsgZHJpdmVycy9ncHUvZHJtL21z
+bS9kc2kvcGh5L2RzaV9waHkuYyB8IDIgKy08YnI+Jmd0OyAmbmJzcDsgMSBm
+aWxlIGNoYW5nZWQsIDEgaW5zZXJ0aW9uKCspLCAxIGRlbGV0aW9uKC0pPGJy
+PiZndDsgPGJyPiZndDsgZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9t
+c20vZHNpL3BoeS9kc2lfcGh5LmMgYi9kcml2ZXJzL2dwdS9kcm0vbXNtL2Rz
+aS9waHkvZHNpX3BoeS5jPGJyPiZndDsgaW5kZXggYTM5ZGUzYmRjN2ZhLi41
+NmRmYTJkMjRiZTEgMTAwNjQ0PGJyPiZndDsgLS0tIGEvZHJpdmVycy9ncHUv
+ZHJtL21zbS9kc2kvcGh5L2RzaV9waHkuYzxicj4mZ3Q7ICsrKyBiL2RyaXZl
+cnMvZ3B1L2RybS9tc20vZHNpL3BoeS9kc2lfcGh5LmM8YnI+Jmd0OyBAQCAt
+MzQ3LDcgKzM0Nyw3IEBAIGludCBtc21fZHNpX2RwaHlfdGltaW5nX2NhbGNf
+djMoc3RydWN0IG1zbV9kc2lfZHBoeV90aW1pbmcgKnRpbWluZyw8YnI+Jmd0
+OyAmbmJzcDsgCX0gZWxzZSB7PGJyPiZndDsgJm5ic3A7IAkJdGltaW5nLSZn
+dDtzaGFyZWRfdGltaW5ncy5jbGtfcHJlID08YnI+Jmd0OyAmbmJzcDsgCQkJ
+bGluZWFyX2ludGVyKHRtYXgsIHRtaW4sIHBjbnQyLCAwLCBmYWxzZSk7PGJy
+PiZndDsgLQkJCXRpbWluZy0mZ3Q7c2hhcmVkX3RpbWluZ3MuY2xrX3ByZV9p
+bmNfYnlfMiA9IDA7PGJyPiZndDsgKwkJdGltaW5nLSZndDtzaGFyZWRfdGlt
+aW5ncy5jbGtfcHJlX2luY19ieV8yID0gMDs8YnI+Jmd0OyAmbmJzcDsgCX08
+YnI+Jmd0OyAmbmJzcDsgPGJyPiZndDsgJm5ic3A7IAl0aW1pbmctJmd0O3Rh
+X2dvID0gMzs8YnI+PC9kaXY+PC9kaXY+PC9kaXY+PC9kaXY+
 
-> > With the atomic API for bridges the .mode_set() operation is
-> > deprecated, so .pre_enable() sounds best, but there's a potential issue:
-> > the .pre_enable() operation is called from sink to source. It means that
-> > a DSI sink .pre_enable() operation would need to call a DSI host
-> > operation to set (or maybe negotiate instead of just setting a fixed
-> > value) the number of lanes first if it wants to control the sink through
-> > DCS at .pre_enable() time. We'd have to see how that fits.
-> 
-> What is the fate of the patchset that implemented 'parent-first' opt-in 
-> for the drm_bridge chains? It was supposed to solve this this kind of 
-> issues. I'm asking because until it is merged some DSI hosts (e.g. the 
-> msm dsi) turn on the power in .mode_set() to allow the pre_enable() 
-> callbacks work when the DSI link is in LP11 mode.
-> 
-> Back then I voted for the explicit mipi_dsi_power_on kind of calls, 
-> which would allow the sink bridge to prepare for the DSI powerup (e.g. 
-> by setting the amount of lanes), power up the DSI host, putting the link 
-> into LP11 and after that communicate with the sink using the DSI data 
-> lanes.
-
-A long time ago, I worked on converting the omapdrm driver to the DRM
-bridge API. It was using internal bridge and panel drivers with an API
-specific to omapdrm, and it was based on a similar principle: enabling
-or disabling an output went from the last component in the chain, which
-was the responsible for calling into its parent explicitly, with a
-bus-specific API. DRM bridge, on the other hand, doesn't use a recursive
-model but sequences the whole pipeline with a fixed order. This has led
-to be pre-enable/enable split, and even that isn't enough. Moving from
-the omapdrm model to the DRM bridge model was difficult and took lots of
-time and effort, and I'm now increasingly thinking the omapdrm model got
-it right, only too early to convince enough people.
-
-> >>> Thus said I'd suggest accepting this patch and maybe working on the
-> >>> API/support for the lane switching as a followup.
-> > 
-> > I don't have a personal need for the ADV7533 so I won't really complain
-> > about any potential regression this may introduce (given that it fixes a
-> > deadlock maybe things are completely broken already and nothing can
-> > regress). I'd like to see this fixed though, doing it as a follow up is
-> > too often a way to avoid doing it at all :-)
-> 
-> I don't know if this sounds like a promise, we are supporting several 
-> devices which use adv75xx (including famous dragonboard410c and less 
-> known Inforce ifc6510). So it might be (*) in our interest to restore 
-> this functionality. However as it requires adding additional API, design 
-> & negotiations might take some time.
-
-That's fine.
-
-> (*) might be if it limits the functionality of the device by limiting 
-> support for different modes. If not... why care then?
-> 
-> > In any case, the commit message should be reworded to explain the
-> > rationale and what needs to be done. Adding a TODO or FIXME comment in
-> > the code would also help.
-
--- 
-Regards,
-
-Laurent Pinchart
+--nsmail-1m3vld6vvj6-1m3vld6vvj7--
