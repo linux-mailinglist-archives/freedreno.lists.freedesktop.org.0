@@ -2,53 +2,56 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9C6A95A3837
-	for <lists+freedreno@lfdr.de>; Sat, 27 Aug 2022 16:55:21 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 30FD05A38D5
+	for <lists+freedreno@lfdr.de>; Sat, 27 Aug 2022 18:42:28 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E52C210E15F;
-	Sat, 27 Aug 2022 14:55:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BADF110ECEB;
+	Sat, 27 Aug 2022 16:42:11 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-oa1-x2c.google.com (mail-oa1-x2c.google.com
- [IPv6:2001:4860:4864:20::2c])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2807510E130;
- Sat, 27 Aug 2022 14:55:01 +0000 (UTC)
-Received: by mail-oa1-x2c.google.com with SMTP id
- 586e51a60fabf-11dca1c9c01so5624839fac.2; 
- Sat, 27 Aug 2022 07:55:01 -0700 (PDT)
+Received: from mail-oi1-x232.google.com (mail-oi1-x232.google.com
+ [IPv6:2607:f8b0:4864:20::232])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4327610ECE8;
+ Sat, 27 Aug 2022 16:42:07 +0000 (UTC)
+Received: by mail-oi1-x232.google.com with SMTP id j5so5699999oih.6;
+ Sat, 27 Aug 2022 09:42:07 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=cc:to:subject:message-id:date:from:mime-version:from:to:cc;
- bh=71oNbZSndhwYBZLMwuwcdKtHK8hICgbu4SkrdHGyvgo=;
- b=VADkVaDFrfYfyMS5L6QaKumo8bJEIvIM3jOmOQwSQOYp5l6C7f5otO4udiSpuiSdST
- pplgFeKgaGXOGOlRRqCyIbGjFaKkQsk0yA1mr6efbvmUjQYxKhYVUjRRHa2+TQkOP1vB
- 0gu6GpACZTFUcACSKTopz8EqquwyYcktukvrOZf+RcwBOoSnTxa11wrASpMzGpKmQA7S
- XQaHk7GBY92UPjaoE+xX/z8Zi9I9TWGsmYUORxIgdFAdx5/55xO8+530rpvtUzKoY4Ze
- EoBAgUkshuvmafEqNRl9JSAzvRp3HKm4PnuaGszW0gmMv8KXSvjijaXtJr4KewhD9Vya
- ppQw==
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc;
+ bh=ZmxTNJXdfZJJ2Pe5JS3kCmHqPvETpA9u1Q36GaimG9Q=;
+ b=WfNr5KGqtldRVuwfZONE+mIxQ0mEB5GJ4odOwhsZUPEPZ1UY84Rr2MF9je/ddUvf7Y
+ MV3EtpWzq6UODVlTwUDV/EHVqvmm83oWxxIEJbLPTez587GAA2c0AJEDQUAJmRW/XIhT
+ FX4YYJiDYwfId2Vc1++QvsIfsXsjxD0nNnw3fL6i75AukOj0Le9iS+qOwUsaRYlWm1Mg
+ JkczjQMz8mV7bQIdIyKE4Bo1nq5fbvDFa9UuqVFjcamJBDhwXMp5RcVhFd4ni1HuV4Gq
+ QLj9f4c11qrRbPm9MZN/STcSDtzxpp10D380N13sihUqh2CRXrwdg3l+4Af4OHmxEszP
+ rZCg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=cc:to:subject:message-id:date:from:mime-version:x-gm-message-state
- :from:to:cc;
- bh=71oNbZSndhwYBZLMwuwcdKtHK8hICgbu4SkrdHGyvgo=;
- b=lLkbfnr2RxtATaHzn7AG7PW5GZpdsAJFp8pCJLH3T2pYFy+QZPnMuBZItS2SxwXU8B
- GfzCW4wbbtQ2sPMK+yCpOkTMRUkeaWrFzWSLH53l4fweYJWFJ5DssEghxBBdd4w3FU63
- XOO2DQd1whfubfP/1ytaKDNDL6qsiJqWKOw8v9QCN9cZuhzMdk+vf7jdewSAu0rsyFTK
- W3VrpA272zBNfZomIwUjqeJ04VbPWIeJIhY1mFLSqvJS+/up4WJiIXpgwJ/mC20PI6FT
- tUWPkIni1sVeorZj65DymSJ7sQ5EtGWivt3c2Usok/uSCJqTRG0Uf6UeEvO+qVFORrCG
- bovA==
-X-Gm-Message-State: ACgBeo3z8zHKHQgSpB/bT0tnGpXoqnQRmJ0Haw2QvwGGkKecAIZCbF46
- dzc7xIkY7gHKVajlueM3I+WKHNYz3Awuw5fjRJc=
-X-Google-Smtp-Source: AA6agR5p7lBN/SwHjcKbGWMaSSJ2WyTAkbH2cPGyeYXe1G8vUyraBERGrhqhlzU2aEDBsi3Nx/YMQiaGWNNTzDyNs2c=
-X-Received: by 2002:a05:6870:b692:b0:11d:482f:3642 with SMTP id
- cy18-20020a056870b69200b0011d482f3642mr4125585oab.38.1661612100391; Sat, 27
- Aug 2022 07:55:00 -0700 (PDT)
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc;
+ bh=ZmxTNJXdfZJJ2Pe5JS3kCmHqPvETpA9u1Q36GaimG9Q=;
+ b=utC/JAHA2tkpTK+NQJGBLS+r/ZARaiV21gaWePdRP3TsIv824hxBQRUA5XcULCoIU6
+ hMOxSMJGFD5BPIFNBpB0oPTf1zpfce8zcNqAILuzUln8yE7X0tkRpCkbqz0/CKP72HVP
+ 7SJVYyQkGOROOdJd8ifkGpObHYbt79rLmNzeM554WWXfhb83v0YDytMpsI6EigEScwLk
+ W5ekdqqEbMSAO/FUA5MglEas53XQH5VIzCzBGiy9YQG0g99iJb/EWd28rBMSBEUAsOwA
+ pLBN6FVtTBYJ1o7bZ/ie5ONsiwbq6ZDurrTNlBJ3eiTCbjwIrmWJ1oSFtXTmtIw4Oke1
+ lWhQ==
+X-Gm-Message-State: ACgBeo2slWaf4/yXG4stITNpVcID1J18I+EbUZnQgyOfcfMoVjcz9kA1
+ xguJrxsXIjv7h+LjqMN1+MowLeRIWCs4tZwSdQ8=
+X-Google-Smtp-Source: AA6agR6Wqr0YeZSEMWsmFyC16ahJ1c45RKtBIAagiDq5AHfxZbKwsuTkkIACI1f83+S71M3mN6+sVUYEeO+H5K6QcNg=
+X-Received: by 2002:a05:6808:238d:b0:344:e5f9:db34 with SMTP id
+ bp13-20020a056808238d00b00344e5f9db34mr3739338oib.183.1661618526484; Sat, 27
+ Aug 2022 09:42:06 -0700 (PDT)
 MIME-Version: 1.0
+References: <20220823115409.46653-1-yuanjilin@cdjrlc.com>
+ <658faa4e-ad16-7b13-87f3-27ea91db4ba3@linaro.org>
+In-Reply-To: <658faa4e-ad16-7b13-87f3-27ea91db4ba3@linaro.org>
 From: Rob Clark <robdclark@gmail.com>
-Date: Sat, 27 Aug 2022 07:55:36 -0700
-Message-ID: <CAF6AEGtuY=jd44itwTkLXVqhnoKgY0BswPTrxDTxCiPG3WbmLA@mail.gmail.com>
-To: Dave Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>
+Date: Sat, 27 Aug 2022 09:42:42 -0700
+Message-ID: <CAF6AEGvX_J_t04tUUxserXh_rrcdu5eYTt6JOHoD-SJ6944adQ@mail.gmail.com>
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 Content-Type: text/plain; charset="UTF-8"
-Subject: [Freedreno] [pull] drm/msm: drm-msm-fixes-2022-08-27 for v6.0
+Subject: Re: [Freedreno] [PATCH] drm/msm: fix repeated words in comments
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,84 +64,55 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- linux-arm-msm <linux-arm-msm@vger.kernel.org>,
- freedreno <freedreno@lists.freedesktop.org>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- dri-devel <dri-devel@lists.freedesktop.org>
+Cc: Jilin Yuan <yuanjilin@cdjrlc.com>, airlied@linux.ie,
+ linux-arm-msm@vger.kernel.org, quic_abhinavk@quicinc.com,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, daniel@ffwll.ch,
+ freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-(one more time without forgetting dri-devel this time)
+On Fri, Aug 26, 2022 at 2:43 AM Dmitry Baryshkov
+<dmitry.baryshkov@linaro.org> wrote:
+>
+> On 23/08/2022 14:54, Jilin Yuan wrote:
+> >   Delete the redundant word 'one'.
+>
+> The whitespace is unnecessary.
+>
+> >
+> > Signed-off-by: Jilin Yuan <yuanjilin@cdjrlc.com>
+>
+> Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> Fixes: 7198e6b03155 ("drm/msm: add a3xx gpu support")
+>
 
-Hi Dave,
+jfyi, this comment (and associated list-head) is removed by:
 
-A few fixes for the v6.0 cycle.  I meant to send this a bit earlier
-but ended up at the bottom of other rabbit holes.  Summary below (and
-in tag msg)
+https://patchwork.freedesktop.org/patch/496131/?series=105633&rev=4
 
-The following changes since commit cb77085b1f0a86ef9dfba86b5f3ed6c3340c2ea3:
+BR,
+-R
 
-  drm/msm/dpu: Fix for non-visible planes (2022-07-08 08:10:58 -0700)
-
-are available in the Git repository at:
-
-  https://gitlab.freedesktop.org/drm/msm.git tags/drm-msm-fixes-2022-08-27
-
-for you to fetch changes up to 174974d8463b77c2b4065e98513adb204e64de7d:
-
-  drm/msm/rd: Fix FIFO-full deadlock (2022-08-15 10:19:53 -0700)
-
-----------------------------------------------------------------
-Fixes for v6.0
-
-- Fix for inconsistent indenting in function msm_dsi_dphy_timing_calc_v3.
-  This fixes a smatch warning reported by kbot
-- Fix to make eDP the first connector in the connected list. This was
-  mainly done to address a screen corruption issue we were seeing on
-  sc7280 boards which have eDP as the primary display. The corruption
-  itself is from usermode but we decided to fix it this way because
-  things work correct with the primary display as the first one for
-  usermode
-- Fix to populate intf_cfg correctly before calling reset_intf_cfg().
-  Without this, the display pipeline is not torn down correctly for
-  writeback
-- Specify the correct number of DSI regulators for SDM660. It should
-  have been 1 but 2 was mentioned
-- Specify the correct number of DSI regulators for MSM8996. It should
-  have been 3 but 2 was mentioned
-- Fix for removing DP_RECOVERED_CLOCK_OUT_EN bit for tps4 link training
-  for DP. This was causing link training failures and hence no display
-  for a specific DP to HDMI cable on chromebooks
-- Fix probe-deferral crash in gpu devfreq
-- Fix gpu debugfs deadlock
-
-----------------------------------------------------------------
-Abhinav Kumar (1):
-      drm/msm/dpu: populate wb or intf before reset_intf_cfg
-
-Bjorn Andersson (1):
-      drm/msm/gpu: Drop qos request if devm_devfreq_add_device() fails
-
-Douglas Anderson (2):
-      drm/msm/dsi: Fix number of regulators for msm8996_dsi_cfg
-      drm/msm/dsi: Fix number of regulators for SDM660
-
-Kuogee Hsieh (2):
-      drm/msm/dp: make eDP panel as the first connected connector
-      drm/msm/dp: delete DP_RECOVERED_CLOCK_OUT_EN to fix tps4
-
-Rob Clark (1):
-      drm/msm/rd: Fix FIFO-full deadlock
-
-sunliming (1):
-      drm/msm/dsi: fix the inconsistent indenting
-
- drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c | 6 ++++++
- drivers/gpu/drm/msm/dp/dp_ctrl.c            | 2 +-
- drivers/gpu/drm/msm/dsi/dsi_cfg.c           | 4 ++--
- drivers/gpu/drm/msm/dsi/phy/dsi_phy.c       | 2 +-
- drivers/gpu/drm/msm/msm_drv.c               | 2 ++
- drivers/gpu/drm/msm/msm_gpu_devfreq.c       | 2 ++
- drivers/gpu/drm/msm/msm_rd.c                | 3 +++
- 7 files changed, 17 insertions(+), 4 deletions(-)
+>
+> > ---
+> >   drivers/gpu/drm/msm/msm_gem.h | 2 +-
+> >   1 file changed, 1 insertion(+), 1 deletion(-)
+> >
+> > diff --git a/drivers/gpu/drm/msm/msm_gem.h b/drivers/gpu/drm/msm/msm_gem.h
+> > index c75d3b879a53..e300c70e8904 100644
+> > --- a/drivers/gpu/drm/msm/msm_gem.h
+> > +++ b/drivers/gpu/drm/msm/msm_gem.h
+> > @@ -118,7 +118,7 @@ struct msm_gem_object {
+> >        * An object is either:
+> >        *  inactive - on priv->inactive_dontneed or priv->inactive_willneed
+> >        *     (depending on purgeability status)
+> > -      *  active   - on one one of the gpu's active_list..  well, at
+> > +      *  active   - on one of the gpu's active_list..  well, at
+> >        *     least for now we don't have (I don't think) hw sync between
+> >        *     2d and 3d one devices which have both, meaning we need to
+> >        *     block on submit if a bo is already on other ring
+>
+> --
+> With best wishes
+> Dmitry
+>
