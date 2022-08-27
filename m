@@ -1,51 +1,51 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 91CF55A3831
-	for <lists+freedreno@lfdr.de>; Sat, 27 Aug 2022 16:52:57 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 9C6A95A3837
+	for <lists+freedreno@lfdr.de>; Sat, 27 Aug 2022 16:55:21 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BB63410E130;
-	Sat, 27 Aug 2022 14:52:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E52C210E15F;
+	Sat, 27 Aug 2022 14:55:06 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-oa1-x2f.google.com (mail-oa1-x2f.google.com
- [IPv6:2001:4860:4864:20::2f])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 83EC110E130
- for <freedreno@lists.freedesktop.org>; Sat, 27 Aug 2022 14:52:52 +0000 (UTC)
-Received: by mail-oa1-x2f.google.com with SMTP id
- 586e51a60fabf-11c5505dba2so5565968fac.13
- for <freedreno@lists.freedesktop.org>; Sat, 27 Aug 2022 07:52:52 -0700 (PDT)
+Received: from mail-oa1-x2c.google.com (mail-oa1-x2c.google.com
+ [IPv6:2001:4860:4864:20::2c])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2807510E130;
+ Sat, 27 Aug 2022 14:55:01 +0000 (UTC)
+Received: by mail-oa1-x2c.google.com with SMTP id
+ 586e51a60fabf-11dca1c9c01so5624839fac.2; 
+ Sat, 27 Aug 2022 07:55:01 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=cc:to:subject:message-id:date:from:mime-version:from:to:cc;
- bh=ENmTEz2sdDhPaUZ1YuMYFzj0qZyorVVrht0Q7zVdl5A=;
- b=fakL+gb4E+NtO3ziLxu6HuOpkO2QrjQpPe1EVZfpWbzH1HcwGI68uVScTaQT3nVfot
- te93JwTHEON9VLtXHqfmz4mbAzimgcNYXt+qnZOEQXAEcgyIcdDAqrq6Ea50SXBOQZIX
- wa4pahhhhrQNV4zWXd1keaPg2JRUa8JaFHD+ESqFAavwRQnm5yabmSk+kkVUORI/gut8
- 7fRBJ6ozmmGUvbpAwJlREqcsTo//MN4QYq0vy7xp4TUFqUfDs6UgnjwC5Lnj8uYNa3Wi
- F1wBbsQI/XLBHM3dPLX9Cx0Cyxk34imk2OaV4cT+jTQHW5YXUnGGpW4vKUW+80NJCTsa
- kufw==
+ bh=71oNbZSndhwYBZLMwuwcdKtHK8hICgbu4SkrdHGyvgo=;
+ b=VADkVaDFrfYfyMS5L6QaKumo8bJEIvIM3jOmOQwSQOYp5l6C7f5otO4udiSpuiSdST
+ pplgFeKgaGXOGOlRRqCyIbGjFaKkQsk0yA1mr6efbvmUjQYxKhYVUjRRHa2+TQkOP1vB
+ 0gu6GpACZTFUcACSKTopz8EqquwyYcktukvrOZf+RcwBOoSnTxa11wrASpMzGpKmQA7S
+ XQaHk7GBY92UPjaoE+xX/z8Zi9I9TWGsmYUORxIgdFAdx5/55xO8+530rpvtUzKoY4Ze
+ EoBAgUkshuvmafEqNRl9JSAzvRp3HKm4PnuaGszW0gmMv8KXSvjijaXtJr4KewhD9Vya
+ ppQw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=cc:to:subject:message-id:date:from:mime-version:x-gm-message-state
  :from:to:cc;
- bh=ENmTEz2sdDhPaUZ1YuMYFzj0qZyorVVrht0Q7zVdl5A=;
- b=mdpRcPN9iE+gDcHLYA8hloQZkgL0HPw9s7kFowwrdE3l+Ty4kRIhB2HSVljt6LnBHF
- cZhDTqiBabMcxh8ExN2hcv55cttSSpQnO+oBkn+2T/RXFfs6DzC97vf1bsMlRCJ0IQ4g
- Vg3fUCwL6dUChsjtbuyy4LoKyJTJxblk4GX9BlFH04/elk6pG14zv/Qy11mbqUJAh/9T
- nLFfaFWWKp8aKigx1JFPZHDekychuptIGx6+gEpM9DW8DkazLRmkwXx+rjPgK2Djb58e
- 6MgOBOj2LITadJ7vR2V8rka5QUlMZJAlbURin+VliEcPJarBYesl4K9o/0mnY4/WOAMv
- aFmQ==
-X-Gm-Message-State: ACgBeo21C+bPCH8VYSF5iYR5CYAbfYMJRgSopX6uyj1VFrE0h4H19Jw9
- yxxesdG19WhKSzcy4aWDDpu9lDXEyvio96rnUF0=
-X-Google-Smtp-Source: AA6agR6xFP1IuWf9MCarhROFl12ZJ69qAgM3HKlcNhwJmBXJWgSZZ8VoaeuW7OLYEGjbjMsVVrUAevhz2rw83amLtDE=
-X-Received: by 2002:a05:6871:825:b0:11e:8862:d5f5 with SMTP id
- q37-20020a056871082500b0011e8862d5f5mr2679762oap.183.1661611971709; Sat, 27
- Aug 2022 07:52:51 -0700 (PDT)
+ bh=71oNbZSndhwYBZLMwuwcdKtHK8hICgbu4SkrdHGyvgo=;
+ b=lLkbfnr2RxtATaHzn7AG7PW5GZpdsAJFp8pCJLH3T2pYFy+QZPnMuBZItS2SxwXU8B
+ GfzCW4wbbtQ2sPMK+yCpOkTMRUkeaWrFzWSLH53l4fweYJWFJ5DssEghxBBdd4w3FU63
+ XOO2DQd1whfubfP/1ytaKDNDL6qsiJqWKOw8v9QCN9cZuhzMdk+vf7jdewSAu0rsyFTK
+ W3VrpA272zBNfZomIwUjqeJ04VbPWIeJIhY1mFLSqvJS+/up4WJiIXpgwJ/mC20PI6FT
+ tUWPkIni1sVeorZj65DymSJ7sQ5EtGWivt3c2Usok/uSCJqTRG0Uf6UeEvO+qVFORrCG
+ bovA==
+X-Gm-Message-State: ACgBeo3z8zHKHQgSpB/bT0tnGpXoqnQRmJ0Haw2QvwGGkKecAIZCbF46
+ dzc7xIkY7gHKVajlueM3I+WKHNYz3Awuw5fjRJc=
+X-Google-Smtp-Source: AA6agR5p7lBN/SwHjcKbGWMaSSJ2WyTAkbH2cPGyeYXe1G8vUyraBERGrhqhlzU2aEDBsi3Nx/YMQiaGWNNTzDyNs2c=
+X-Received: by 2002:a05:6870:b692:b0:11d:482f:3642 with SMTP id
+ cy18-20020a056870b69200b0011d482f3642mr4125585oab.38.1661612100391; Sat, 27
+ Aug 2022 07:55:00 -0700 (PDT)
 MIME-Version: 1.0
 From: Rob Clark <robdclark@gmail.com>
-Date: Sat, 27 Aug 2022 07:53:27 -0700
-Message-ID: <CAF6AEGvwuAN2ekr4o-RybqSnUSmJm_Watu4kBztnddE9brqmiA@mail.gmail.com>
+Date: Sat, 27 Aug 2022 07:55:36 -0700
+Message-ID: <CAF6AEGtuY=jd44itwTkLXVqhnoKgY0BswPTrxDTxCiPG3WbmLA@mail.gmail.com>
 To: Dave Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>
 Content-Type: text/plain; charset="UTF-8"
 Subject: [Freedreno] [pull] drm/msm: drm-msm-fixes-2022-08-27 for v6.0
@@ -64,9 +64,12 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Cc: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
  linux-arm-msm <linux-arm-msm@vger.kernel.org>,
  freedreno <freedreno@lists.freedesktop.org>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ dri-devel <dri-devel@lists.freedesktop.org>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
+
+(one more time without forgetting dri-devel this time)
 
 Hi Dave,
 
