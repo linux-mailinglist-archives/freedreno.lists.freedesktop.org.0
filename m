@@ -2,71 +2,43 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id DA8455A3F7F
-	for <lists+freedreno@lfdr.de>; Sun, 28 Aug 2022 21:41:35 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E36A05A5252
+	for <lists+freedreno@lfdr.de>; Mon, 29 Aug 2022 18:55:12 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 385A010EFB6;
-	Sun, 28 Aug 2022 19:41:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2666210E4C8;
+	Mon, 29 Aug 2022 16:55:11 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8AE4810EFBB
- for <freedreno@lists.freedesktop.org>; Sun, 28 Aug 2022 19:41:26 +0000 (UTC)
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 27SJTraI012220;
- Sun, 28 Aug 2022 19:41:22 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
- h=from : to : cc :
- subject : date : message-id : mime-version : content-type; s=qcppdkim1;
- bh=+6jySjGEpiVcyt6aKqewR2JyBNAPP6BNhhqo2TqCsTY=;
- b=YzMbRXYTT62QFwgvm8Ehf33JH0WypGE9vHyKSON8XJVZU/b7gucwEXLSwtvrPteT0Sly
- z2HLhHW+jU/VUJtXY1g6XIew1NSFbPlA8zs3N3h5P50oL0lvZ0NxJmW7q1WQINNSndz1
- 3GpSGxNybGWvy4qacYUoLsjyN5d+guxvbk3lUNzGT8o7MZZJXuQVKJor4lusjLzYWlid
- rV6Ky87Sd+52T9AA4jbb3zHX/NQ01ik2DU+t1P/BCBoW72VtjKT8d0guBMxmgTte1PiA
- 2b7Fgx8N11GhpdUsop8+Zzd8gfxg6ffimD0tbJ2wh49OQ5WkQQTTJmXmQpPhipfjldb/ 5w== 
-Received: from nalasppmta05.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3j7a9ekuhb-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Sun, 28 Aug 2022 19:41:22 +0000
-Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
- [10.47.209.196])
- by NALASPPMTA05.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 27SJfLTh014475
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Sun, 28 Aug 2022 19:41:21 GMT
-Received: from hyd-lnxbld559.qualcomm.com (10.80.80.8) by
- nalasex01a.na.qualcomm.com (10.47.209.196) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.986.29; Sun, 28 Aug 2022 12:41:17 -0700
-From: Akhil P Oommen <quic_akhilpo@quicinc.com>
-To: freedreno <freedreno@lists.freedesktop.org>,
- <linux-arm-msm@vger.kernel.org>, "OPEN FIRMWARE AND FLATTENED DEVICE TREE
- BINDINGS" <devicetree@vger.kernel.org>, Rob Clark <robdclark@gmail.com>,
- "Bjorn Andersson" <bjorn.andersson@linaro.org>
-Date: Mon, 29 Aug 2022 01:10:55 +0530
-Message-ID: <20220829011035.1.Ie3564662150e038571b7e2779cac7229191cf3bf@changeid>
-X-Mailer: git-send-email 2.7.4
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 22D7210E3C8;
+ Mon, 29 Aug 2022 16:55:05 +0000 (UTC)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 2DB24611BD;
+ Mon, 29 Aug 2022 16:55:04 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D01FAC433C1;
+ Mon, 29 Aug 2022 16:55:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1661792103;
+ bh=HiXBOm9dvzWK6mHglRBKim5I3iQDy4svVep8E5b0sME=;
+ h=From:To:Cc:Subject:Date:From;
+ b=FoHQL1KrEzneppmN3SgxX1IImlY1zrOwvKJF+GUdJRm5+H/HpCnTOtgJ6h/aNK/J4
+ JM2GTtzIl/wrW9a9+cmiP629/xcU8pZmfxHUA7R+HulqRJ7dWt7eTLiQnyT+725A5j
+ XcVNJUAlfLSx8hSA29R+DX++apn0uqdeFHVPhTDAUIEDGXcq5yVtMoQiFEKrzn0lWs
+ jCyEob3iychWRCGKEn3iLg7EYBwckUhb1c6jEBku8PHjerkshTRWyowPeiBiv6gVPx
+ L3+bvNz+IWCI1ePD5z1S6HukDWKta+RxSBSwaXEGZg/zGor8U6PgwxWpTskJKfcSTZ
+ 7cguOZzgEcctg==
+From: Nathan Chancellor <nathan@kernel.org>
+To: Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Date: Mon, 29 Aug 2022 09:54:50 -0700
+Message-Id: <20220829165450.217628-1-nathan@kernel.org>
+X-Mailer: git-send-email 2.37.2
 MIME-Version: 1.0
-Content-Type: text/plain
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-GUID: i1U4dt8QkwNrLXbm3Qn5Sx0retzMZ2cV
-X-Proofpoint-ORIG-GUID: i1U4dt8QkwNrLXbm3Qn5Sx0retzMZ2cV
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.205,Aquarius:18.0.895,Hydra:6.0.517,FMLib:17.11.122.1
- definitions=2022-08-28_13,2022-08-25_01,2022-06-22_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- mlxscore=0 lowpriorityscore=0
- suspectscore=0 adultscore=0 malwarescore=0 clxscore=1015 mlxlogscore=999
- impostorscore=0 phishscore=0 priorityscore=1501 spamscore=0 bulkscore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2207270000
- definitions=main-2208280082
-Subject: [Freedreno] [PATCH] arm64: dts: qcom: sc7280: Update gpu opp table
+Content-Transfer-Encoding: 8bit
+Subject: [Freedreno] [PATCH] drm/msm/dsi: Remove use of device_node in
+ dsi_host_parse_dt()
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,50 +51,60 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Akhil P Oommen <quic_akhilpo@quicinc.com>,
- Konrad Dybcio <konrad.dybcio@somainline.org>, Andy Gross <agross@kernel.org>,
- linux-kernel@vger.kernel.org, Rob Herring <robh+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>
+Cc: Sean Paul <sean@poorly.run>, linux-arm-msm@vger.kernel.org,
+ llvm@lists.linux.dev, Nick Desaulniers <ndesaulniers@google.com>,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ patches@lists.linux.dev, Nathan Chancellor <nathan@kernel.org>,
+ Tom Rix <trix@redhat.com>, freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On the lite sku where GPU Fmax is 550Mhz, voting for a slightly higher
-bandwidth at the highest gpu opp helps to improve "Manhattan offscreen"
-score by 10%. Update the gpu opp table such that this is applicable only
-on SKUs which has 550Mhz as GPU Fmax.
+Clang warns:
 
-Signed-off-by: Akhil P Oommen <quic_akhilpo@quicinc.com>
+  drivers/gpu/drm/msm/dsi/dsi_host.c:1903:14: error: variable 'device_node' is uninitialized when used here [-Werror,-Wuninitialized]
+          of_node_put(device_node);
+                      ^~~~~~~~~~~
+  drivers/gpu/drm/msm/dsi/dsi_host.c:1870:44: note: initialize the variable 'device_node' to silence this warning
+          struct device_node *endpoint, *device_node;
+                                                    ^
+                                                    = NULL
+  1 error generated.
+
+device_node's assignment was removed but not all of its uses. Remove the
+call to of_node_put() and the variable declaration to clean up the
+warning.
+
+Fixes: 5f8cdece42ff ("drm/msm/dsi: switch to DRM_PANEL_BRIDGE")
+Link: https://github.com/ClangBuiltLinux/linux/issues/1700
+Signed-off-by: Nathan Chancellor <nathan@kernel.org>
 ---
+ drivers/gpu/drm/msm/dsi/dsi_host.c | 4 +---
+ 1 file changed, 1 insertion(+), 3 deletions(-)
 
- arch/arm64/boot/dts/qcom/sc7280.dtsi | 12 ++++++++++--
- 1 file changed, 10 insertions(+), 2 deletions(-)
+diff --git a/drivers/gpu/drm/msm/dsi/dsi_host.c b/drivers/gpu/drm/msm/dsi/dsi_host.c
+index 57a4c0fa614b..7fbf391c024f 100644
+--- a/drivers/gpu/drm/msm/dsi/dsi_host.c
++++ b/drivers/gpu/drm/msm/dsi/dsi_host.c
+@@ -1867,7 +1867,7 @@ static int dsi_host_parse_dt(struct msm_dsi_host *msm_host)
+ {
+ 	struct device *dev = &msm_host->pdev->dev;
+ 	struct device_node *np = dev->of_node;
+-	struct device_node *endpoint, *device_node;
++	struct device_node *endpoint;
+ 	int ret = 0;
+ 
+ 	/*
+@@ -1900,8 +1900,6 @@ static int dsi_host_parse_dt(struct msm_dsi_host *msm_host)
+ 		}
+ 	}
+ 
+-	of_node_put(device_node);
+-
+ err:
+ 	of_node_put(endpoint);
+ 
 
-diff --git a/arch/arm64/boot/dts/qcom/sc7280.dtsi b/arch/arm64/boot/dts/qcom/sc7280.dtsi
-index 13d7f26..5a16592 100644
---- a/arch/arm64/boot/dts/qcom/sc7280.dtsi
-+++ b/arch/arm64/boot/dts/qcom/sc7280.dtsi
-@@ -2352,11 +2352,19 @@
- 					opp-supported-hw = <0x03>;
- 				};
- 
--				opp-550000000 {
-+				/* Only applicable for SKUs which has 550Mhz as Fmax */
-+				opp-550000000-0 {
-+					opp-hz = /bits/ 64 <550000000>;
-+					opp-level = <RPMH_REGULATOR_LEVEL_SVS_L1>;
-+					opp-peak-kBps = <8368000>;
-+					opp-supported-hw = <0x01>;
-+				};
-+
-+				opp-550000000-1 {
- 					opp-hz = /bits/ 64 <550000000>;
- 					opp-level = <RPMH_REGULATOR_LEVEL_SVS_L1>;
- 					opp-peak-kBps = <6832000>;
--					opp-supported-hw = <0x03>;
-+					opp-supported-hw = <0x02>;
- 				};
- 
- 				opp-608000000 {
+base-commit: 5f8cdece42ff0c615e213b6619d29487f9f409d7
 -- 
-2.7.4
+2.37.2
 
