@@ -2,88 +2,65 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 929605A68E7
-	for <lists+freedreno@lfdr.de>; Tue, 30 Aug 2022 18:58:18 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 940645A6E9A
+	for <lists+freedreno@lfdr.de>; Tue, 30 Aug 2022 22:42:35 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8407210E1DF;
-	Tue, 30 Aug 2022 16:58:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 858C910E144;
+	Tue, 30 Aug 2022 20:42:33 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8192C10E1DA;
- Tue, 30 Aug 2022 16:58:12 +0000 (UTC)
-Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 27UFxJTm028885;
- Tue, 30 Aug 2022 16:58:07 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
- h=message-id : date :
- mime-version : subject : to : cc : references : from : in-reply-to :
- content-type : content-transfer-encoding; s=qcppdkim1;
- bh=5Wf6+OkpJlbMMlkzUeaHJttZ4+wKwZmkQLfCuv3YGbI=;
- b=ePU0x17jHUirtMZYvZBIuWKeWoMyRTPh9iJ3Jnsy0g4g3bcovHNjCl0DDoQWUA9Enyuw
- 8xSLHYzca8m7vTG0OlTHf6Ux3G2Mz8vmFcAmB2/51w1n3WIMLQ84DxWRjMIr+5pzOUlE
- xrwv+njI1uIUD9Wa6hQAMyTewgJesh2+0zVQUwhzl73D/guOVBH6SnVdlWYSw6/nu8jg
- MaDwu/nGAe4NQpXCi4D9A6+xhRlveviGUPyk9lVZMsUa8vgwLwPGlWU4m2nJg7UtMmvt
- lpmO3M+X9H1Kiwh44kGh3kBLac4gKdYZgLXW+IKkENzcYpcv3kEFP7pYzT480tz00g7h LQ== 
-Received: from nalasppmta01.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3j9jm4gqj9-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 30 Aug 2022 16:58:07 +0000
-Received: from pps.filterd (NALASPPMTA01.qualcomm.com [127.0.0.1])
- by NALASPPMTA01.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTP id 27UGv4dg026790; 
- Tue, 30 Aug 2022 16:58:06 GMT
-Received: from pps.reinject (localhost [127.0.0.1])
- by NALASPPMTA01.qualcomm.com (PPS) with ESMTPS id 3j7cbkmq64-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 30 Aug 2022 16:58:06 +0000
-Received: from NALASPPMTA01.qualcomm.com (NALASPPMTA01.qualcomm.com
- [127.0.0.1])
- by pps.reinject (8.17.1.5/8.17.1.5) with ESMTP id 27UGw5ji027514;
- Tue, 30 Aug 2022 16:58:05 GMT
-Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
- [10.47.209.196])
- by NALASPPMTA01.qualcomm.com (PPS) with ESMTPS id 27UGw4RF027510
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 30 Aug 2022 16:58:05 +0000
-Received: from [10.111.165.88] (10.80.80.8) by nalasex01a.na.qualcomm.com
- (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.29; Tue, 30 Aug
- 2022 09:58:02 -0700
-Message-ID: <38a03147-058c-53e5-ea3f-68e40ad39ec4@quicinc.com>
-Date: Tue, 30 Aug 2022 09:58:00 -0700
+Received: from mail-lf1-x12c.google.com (mail-lf1-x12c.google.com
+ [IPv6:2a00:1450:4864:20::12c])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 42E2610E144
+ for <freedreno@lists.freedesktop.org>; Tue, 30 Aug 2022 20:42:26 +0000 (UTC)
+Received: by mail-lf1-x12c.google.com with SMTP id bt10so17168695lfb.1
+ for <freedreno@lists.freedesktop.org>; Tue, 30 Aug 2022 13:42:26 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc; bh=cYIt8T5qTTPMHnPLf3xQ+OALuVf5JTfc65U2LdgUBRw=;
+ b=u12h2y5bEzDK0Z7f56rEwzaTFo5dMxORpwCNdjTOvecDv5/T3+4AThU1ci+IcjwQQJ
+ Zng+Ii9ZUZglYG8VQN4ZrxV8w7ZtWUy/Yz+KQqHEm/B63vwtNGPaR+AYLFZFbDjLXJNe
+ kRkkFAeg8VgZKFONW7AYee4/1rlLY7a7bu7psGDgB/o7yYRC3P/WB36OpOatqYvHdl/U
+ E1GCJ2q7/rHqZiQEeaDWR3h/Jw0zmaO3RtEZ8C3taZ/LBRSmqUTYZfrUxD51mrnSgSyp
+ YwUQ3lUTUvUGJ2ZXPALH4QAnwbjKoBx0THf0GAgAsbDQVvgX33vVDsdu1cSoJbEblAWR
+ u+rA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc;
+ bh=cYIt8T5qTTPMHnPLf3xQ+OALuVf5JTfc65U2LdgUBRw=;
+ b=Tac0amKk2S3UYLHhaIuXOXzdr94srhQfmA4i7LZEBylm/whr3dNkLmQVgV1Z0Rj1Ua
+ g43T43BUwYNeyV83tjWb/BG6m6UGMGRImHce2d70aUPVvFqQLs+EVHgzz0koDE/xO+dq
+ b01wQVia3ELq2xrS+58awS/98tRW0/z7Wc+LOvwNuLH9uIeYWflhSe+Lnro5z7yNRY9a
+ jYuLcnpvnswSeTIVrKZ1bvA4C0rC2XNfXShkcWk/fQBYOgWIy/aGjfSJiF+zAkGqKqYU
+ VYDeZP2vdEPGuJ7sllelbOKmpv0IaniLUsar+D945ObC+Uu0VpQdPRH1l6Lrz0sivxWv
+ 1JaQ==
+X-Gm-Message-State: ACgBeo2pbXGqNP1+l997F2s6CS8WZaKTgjbqOevwsVhjbIGqPdJaILXz
+ +WnjXkETwi4d8NWd5P3FNUSSMA==
+X-Google-Smtp-Source: AA6agR5kINkZTpU9ZCvAgVHkM73uJ9XuvJxMdXlcD3IzA7JJZGJdFWJiTcv47RB/1xYcEd6sZkrb9Q==
+X-Received: by 2002:a05:6512:1510:b0:492:df5b:ff76 with SMTP id
+ bq16-20020a056512151000b00492df5bff76mr7958543lfb.178.1661892144495; 
+ Tue, 30 Aug 2022 13:42:24 -0700 (PDT)
+Received: from [192.168.1.211] ([37.153.55.125])
+ by smtp.gmail.com with ESMTPSA id
+ c25-20020a056512075900b00492dc1bb346sm1712622lfs.260.2022.08.30.13.42.23
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 30 Aug 2022 13:42:23 -0700 (PDT)
+Message-ID: <d43b3936-dbc0-dbca-96de-449cec1fc024@linaro.org>
+Date: Tue, 30 Aug 2022 23:42:22 +0300
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.6.2
-Content-Language: en-US
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.1.2
+Content-Language: en-GB
 To: Nathan Chancellor <nathan@kernel.org>, Rob Clark <robdclark@gmail.com>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+ Abhinav Kumar <quic_abhinavk@quicinc.com>
 References: <20220829165450.217628-1-nathan@kernel.org>
-From: Abhinav Kumar <quic_abhinavk@quicinc.com>
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 In-Reply-To: <20220829165450.217628-1-nathan@kernel.org>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-X-QCInternal: smtphost
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-ORIG-GUID: RdoyeJjpYfi6TAnYZH_N9WCrNw_tGLHS
-X-Proofpoint-GUID: RdoyeJjpYfi6TAnYZH_N9WCrNw_tGLHS
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.205,Aquarius:18.0.895,Hydra:6.0.517,FMLib:17.11.122.1
- definitions=2022-08-30_10,2022-08-30_01,2022-06-22_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 bulkscore=0
- adultscore=0 malwarescore=0 priorityscore=1501 lowpriorityscore=0
- phishscore=0 clxscore=1011 suspectscore=0 mlxscore=0 impostorscore=0
- mlxlogscore=999 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2207270000 definitions=main-2208300078
 Subject: Re: [Freedreno] [PATCH] drm/msm/dsi: Remove use of device_node in
  dsi_host_parse_dt()
 X-BeenThere: freedreno@lists.freedesktop.org
@@ -106,9 +83,7 @@ Cc: Sean Paul <sean@poorly.run>, linux-arm-msm@vger.kernel.org,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-
-
-On 8/29/2022 9:54 AM, Nathan Chancellor wrote:
+On 29/08/2022 19:54, Nathan Chancellor wrote:
 > Clang warns:
 > 
 >    drivers/gpu/drm/msm/dsi/dsi_host.c:1903:14: error: variable 'device_node' is uninitialized when used here [-Werror,-Wuninitialized]
@@ -127,32 +102,10 @@ On 8/29/2022 9:54 AM, Nathan Chancellor wrote:
 > Fixes: 5f8cdece42ff ("drm/msm/dsi: switch to DRM_PANEL_BRIDGE")
 > Link: https://github.com/ClangBuiltLinux/linux/issues/1700
 > Signed-off-by: Nathan Chancellor <nathan@kernel.org>
-Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
-> ---
->   drivers/gpu/drm/msm/dsi/dsi_host.c | 4 +---
->   1 file changed, 1 insertion(+), 3 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/msm/dsi/dsi_host.c b/drivers/gpu/drm/msm/dsi/dsi_host.c
-> index 57a4c0fa614b..7fbf391c024f 100644
-> --- a/drivers/gpu/drm/msm/dsi/dsi_host.c
-> +++ b/drivers/gpu/drm/msm/dsi/dsi_host.c
-> @@ -1867,7 +1867,7 @@ static int dsi_host_parse_dt(struct msm_dsi_host *msm_host)
->   {
->   	struct device *dev = &msm_host->pdev->dev;
->   	struct device_node *np = dev->of_node;
-> -	struct device_node *endpoint, *device_node;
-> +	struct device_node *endpoint;
->   	int ret = 0;
->   
->   	/*
-> @@ -1900,8 +1900,6 @@ static int dsi_host_parse_dt(struct msm_dsi_host *msm_host)
->   		}
->   	}
->   
-> -	of_node_put(device_node);
-> -
->   err:
->   	of_node_put(endpoint);
->   
-> 
-> base-commit: 5f8cdece42ff0c615e213b6619d29487f9f409d7
+
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+
+-- 
+With best wishes
+Dmitry
+
