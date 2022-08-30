@@ -1,73 +1,73 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id C33645A5A0F
-	for <lists+freedreno@lfdr.de>; Tue, 30 Aug 2022 05:33:39 +0200 (CEST)
+Received: from gabe.freedesktop.org (unknown [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 4F26A5A601C
+	for <lists+freedreno@lfdr.de>; Tue, 30 Aug 2022 12:03:31 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 10D7A10E9CD;
-	Tue, 30 Aug 2022 03:33:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id ACB158905A;
+	Tue, 30 Aug 2022 10:03:09 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 36C5F10E8A2;
- Tue, 30 Aug 2022 03:33:27 +0000 (UTC)
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 27U202I9020890;
- Tue, 30 Aug 2022 03:33:25 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
- h=from : to : cc :
- subject : date : message-id : in-reply-to : references : mime-version :
- content-type; s=qcppdkim1;
- bh=x+k/jQa7M69GQnoGJnwgVGHvBFAN8UjdEX2S2MvhKiI=;
- b=c4XyRGkSaXj6bSyCLqdv7Ubdfau54f5aVlytFZXQp2z6xR8SBv5GBmAERyJgUwhDnKDf
- b6W8ywPwH38o7ELaZJclImmAENhimQC/PMNCXXkgLGYsGw1RKMN0is2xF5G4eINE+BL3
- b0KOnFcuRx7GEM5Ya2YSHLKK1soRD1Ue609qSy5KBNcZtluwTfk08/nDHNHW8rivK8gn
- evcA6ejb14WlbKG5L3Sjca+MkVf8AK4ODcqXQ/OYHq2WIC3kJGVvqus/eATsynKAf5+Z
- D73BK5IGzJF42pc/aCH+EZ5pEaioOrBawnltoXWeE6PzFpsFY96RCgWLfQJFK4HOGJMK zg== 
-Received: from nalasppmta05.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3j8x1j1ypk-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 30 Aug 2022 03:33:24 +0000
-Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
- [10.47.209.196])
- by NALASPPMTA05.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 27U3XMQV026932
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 30 Aug 2022 03:33:22 GMT
-Received: from abhinavk-linux.qualcomm.com (10.80.80.8) by
- nalasex01a.na.qualcomm.com (10.47.209.196) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.986.29; Mon, 29 Aug 2022 20:33:23 -0700
-From: Abhinav Kumar <quic_abhinavk@quicinc.com>
-To: <freedreno@lists.freedesktop.org>
-Date: Mon, 29 Aug 2022 20:33:09 -0700
-Message-ID: <1661830389-22439-4-git-send-email-quic_abhinavk@quicinc.com>
-X-Mailer: git-send-email 2.7.4
-In-Reply-To: <1661830389-22439-1-git-send-email-quic_abhinavk@quicinc.com>
-References: <1661830389-22439-1-git-send-email-quic_abhinavk@quicinc.com>
+Received: from mail-lj1-x22f.google.com (mail-lj1-x22f.google.com
+ [IPv6:2a00:1450:4864:20::22f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 472D888C3D
+ for <freedreno@lists.freedesktop.org>; Tue, 30 Aug 2022 10:03:03 +0000 (UTC)
+Received: by mail-lj1-x22f.google.com with SMTP id x10so10785157ljq.4
+ for <freedreno@lists.freedesktop.org>; Tue, 30 Aug 2022 03:03:03 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc; bh=+Rmf6Ay/5f9NnZwdZRewRAWeUIFEVxm3g3aQu9VQRg4=;
+ b=P0J8K0R7ZZqi6Jsr1dj02/aY0fuWShyfs2bZj+MZZ8gPn5iVvSjI/79ZsYMxzinfwz
+ MNndVVaIsJPtL70GXStzlwNXHj6K0gb74SLgWUT7RRwbmIPbnxAWsQ8gHlbJQ2JB2KSL
+ 6BpZpoKnYD6w6pOeM2AadeKBziK+hYOF9M7aeNgKTFhLBn0CtVBwYvvSocucy81J3X5B
+ CZgKUSS31ZUTr6353s+0CeKI1VoZ3OpZAhZd0f4X+vnloGG816uQ0HD+L+oD2uT28Bdn
+ 6L3FPQ+pDIepyo5QdJdXtYa7l6z+Ko9L3l01QBe4RxhHNNuzBdszogrMrL59ug3B+NVC
+ rgwg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc;
+ bh=+Rmf6Ay/5f9NnZwdZRewRAWeUIFEVxm3g3aQu9VQRg4=;
+ b=oJjVGANnw6RGzHatKHVlRWurPSNB/5WbFhTvrUOxdIj7TYfBUyHp6djoqjBdpJs+C0
+ Lf8d3GBGBqRwBujPSdLuX6auz8on+eKlMc0ja/qg0C6lD2USQZf0SiYUa8CwSQpLjKjj
+ By3Ldn8AT0OHWL7UCSZ5T3VqYOqSu7k4VjjxVEHMnffZ3pC7x4iCd2CHI5c1xcrHVG47
+ b0FAEascNgbxSP18TkK/2KQRXxrn7Pf9HiAzxcaAR3vTsnMYhlJbUM4qXBa6Eavh90HL
+ pv0xudMXC/MQ9SsxBxW/5fMEbZ0C4o2i3fQQu86+UxQcNmDG2aL0KKtwooON8uyHZZMw
+ 8W5w==
+X-Gm-Message-State: ACgBeo2bZk4z+x1PS2zsnOzXdYDOVN2ba82b6cemoDhCzHEMwUoSksax
+ xnJlDz4+WUm56vbjBeUjxiE+/g==
+X-Google-Smtp-Source: AA6agR7gmsLtXHKiV5/+nl4hdZyDBOEekrdwrl2N0/Dt19xwRjqcrEz1LF6+TNZhAHJwBOXqhHa8Hg==
+X-Received: by 2002:a2e:b282:0:b0:25e:46b6:ff33 with SMTP id
+ 2-20020a2eb282000000b0025e46b6ff33mr6645589ljx.503.1661853781591; 
+ Tue, 30 Aug 2022 03:03:01 -0700 (PDT)
+Received: from [192.168.28.124] (balticom-73-99-134.balticom.lv.
+ [109.73.99.134]) by smtp.gmail.com with ESMTPSA id
+ p9-20020a2eba09000000b0025df5f38da8sm1707002lja.119.2022.08.30.03.03.00
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 30 Aug 2022 03:03:01 -0700 (PDT)
+Message-ID: <6f5183b9-7979-b71d-6051-23752cd9580e@linaro.org>
+Date: Tue, 30 Aug 2022 13:02:59 +0300
 MIME-Version: 1.0
-Content-Type: text/plain
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-GUID: ZfRuI8pI0BWZ4RaHVlRvughh-m_QBed5
-X-Proofpoint-ORIG-GUID: ZfRuI8pI0BWZ4RaHVlRvughh-m_QBed5
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.205,Aquarius:18.0.895,Hydra:6.0.517,FMLib:17.11.122.1
- definitions=2022-08-29_13,2022-08-25_01,2022-06-22_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 clxscore=1015
- bulkscore=0 mlxscore=0 mlxlogscore=999 lowpriorityscore=0 adultscore=0
- impostorscore=0 suspectscore=0 priorityscore=1501 malwarescore=0
- phishscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2207270000 definitions=main-2208300015
-Subject: [Freedreno] [RFC PATCH 3/3] drm/msm: filter out modes for DP/eDP
- bridge having unsupported clock
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.13.0
+Content-Language: en-US
+To: Akhil P Oommen <quic_akhilpo@quicinc.com>,
+ freedreno <freedreno@lists.freedesktop.org>,
+ dri-devel@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
+ Rob Clark <robdclark@gmail.com>, Bjorn Andersson
+ <bjorn.andersson@linaro.org>, Stephen Boyd <swboyd@chromium.org>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+References: <1661714479-28981-1-git-send-email-quic_akhilpo@quicinc.com>
+ <20220829005035.v5.5.Ieffadd08a071a233213ced4406bf84bb5922ab9a@changeid>
+From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+In-Reply-To: <20220829005035.v5.5.Ieffadd08a071a233213ced4406bf84bb5922ab9a@changeid>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+Subject: Re: [Freedreno] [PATCH v5 5/6] dt-bindings: drm/msm/gpu: Add
+ optional resets
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,140 +80,30 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: dianders@chromium.org, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- dri-devel@lists.freedesktop.org, swboyd@chromium.org, robdclark@gmail.com,
- seanpaul@chromium.org, daniel@ffwll.ch, dmitry.baryshkov@linaro.org,
- quic_jesszhan@quicinc.com
+Cc: devicetree@vger.kernel.org, Daniel Vetter <daniel@ffwll.ch>,
+ David Airlie <airlied@linux.ie>, linux-kernel@vger.kernel.org,
+ Douglas Anderson <dianders@chromium.org>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, Rob Herring <robh+dt@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Sean Paul <sean@poorly.run>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Filter out DP/eDP modes having an unsupported pixel clock by
-replacing the current hard-coded limit with the per chipset advertised
-value.
+On 28/08/2022 22:21, Akhil P Oommen wrote:
+> Add an optional reference to GPUCC reset which can be used to ensure cx
+> gdsc collapse during gpu recovery.
+> 
+> Signed-off-by: Akhil P Oommen <quic_akhilpo@quicinc.com>
+> Acked-by: Rob Herring <robh@kernel.org>
+> ---
+> 
+> Changes in v5:
+> - Nit: Remove a duplicate blank line (Krzysztof)
 
-Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
----
- drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c |  7 ++++---
- drivers/gpu/drm/msm/dp/dp_display.c     | 16 +++++++++++++---
- drivers/gpu/drm/msm/dp/dp_parser.h      |  1 -
- drivers/gpu/drm/msm/msm_drv.h           |  5 +++--
- 4 files changed, 20 insertions(+), 9 deletions(-)
+FWIW:
 
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
-index e6f7e07fd2a6..7857ce58b615 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
-@@ -614,7 +614,8 @@ static int _dpu_kms_initialize_dsi(struct drm_device *dev,
- 
- static int _dpu_kms_initialize_displayport(struct drm_device *dev,
- 					    struct msm_drm_private *priv,
--					    struct dpu_kms *dpu_kms)
-+					    struct dpu_kms *dpu_kms,
-+					    int max_ext_pclk)
- {
- 	struct drm_encoder *encoder = NULL;
- 	struct msm_display_info info;
-@@ -632,7 +633,7 @@ static int _dpu_kms_initialize_displayport(struct drm_device *dev,
- 		}
- 
- 		memset(&info, 0, sizeof(info));
--		rc = msm_dp_modeset_init(priv->dp[i], dev, encoder);
-+		rc = msm_dp_modeset_init(priv->dp[i], dev, encoder, max_ext_pclk);
- 		if (rc) {
- 			DPU_ERROR("modeset_init failed for DP, rc = %d\n", rc);
- 			drm_encoder_cleanup(encoder);
-@@ -715,7 +716,7 @@ static int _dpu_kms_setup_displays(struct drm_device *dev,
- 		return rc;
- 	}
- 
--	rc = _dpu_kms_initialize_displayport(dev, priv, dpu_kms);
-+	rc = _dpu_kms_initialize_displayport(dev, priv, dpu_kms, max_ext_pclk);
- 	if (rc) {
- 		DPU_ERROR("initialize_DP failed, rc = %d\n", rc);
- 		return rc;
-diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
-index bfd0aeff3f0d..8b91d8adf921 100644
---- a/drivers/gpu/drm/msm/dp/dp_display.c
-+++ b/drivers/gpu/drm/msm/dp/dp_display.c
-@@ -117,6 +117,7 @@ struct dp_display_private {
- 
- 	bool wide_bus_en;
- 
-+	int max_ext_pclk;
- 	struct dp_audio *audio;
- };
- 
-@@ -986,8 +987,15 @@ enum drm_mode_status dp_bridge_mode_valid(struct drm_bridge *bridge,
- 	if (dp->is_edp)
- 		return MODE_OK;
- 
--	if (mode->clock > DP_MAX_PIXEL_CLK_KHZ)
--		return MODE_CLOCK_HIGH;
-+	/*
-+	 * If DP/eDP supports HPD natively or through a bridge, need to make
-+	 * sure that we filter out the modes with pixel clock higher than the
-+	 * chipset capabilities
-+	 */
-+	if ((bridge->ops & DRM_BRIDGE_OP_HPD) ||
-+			(dp->next_bridge && (dp->next_bridge->ops & DRM_BRIDGE_OP_HPD)))
-+		if (mode->clock > dp_display->max_ext_pclk)
-+			return MODE_CLOCK_HIGH;
- 
- 	dp_display = container_of(dp, struct dp_display_private, dp_display);
- 	link_info = &dp_display->panel->link_info;
-@@ -1587,7 +1595,7 @@ static int dp_display_get_next_bridge(struct msm_dp *dp)
- }
- 
- int msm_dp_modeset_init(struct msm_dp *dp_display, struct drm_device *dev,
--			struct drm_encoder *encoder)
-+			struct drm_encoder *encoder, int max_ext_pclk)
- {
- 	struct msm_drm_private *priv;
- 	struct dp_display_private *dp_priv;
-@@ -1599,6 +1607,8 @@ int msm_dp_modeset_init(struct msm_dp *dp_display, struct drm_device *dev,
- 	priv = dev->dev_private;
- 	dp_display->drm_dev = dev;
- 
-+	dp_priv->max_ext_pclk = max_ext_pclk;
-+
- 	dp_priv = container_of(dp_display, struct dp_display_private, dp_display);
- 
- 	ret = dp_display_request_irq(dp_display);
-diff --git a/drivers/gpu/drm/msm/dp/dp_parser.h b/drivers/gpu/drm/msm/dp/dp_parser.h
-index 866c1a82bf1a..c94b793027a2 100644
---- a/drivers/gpu/drm/msm/dp/dp_parser.h
-+++ b/drivers/gpu/drm/msm/dp/dp_parser.h
-@@ -13,7 +13,6 @@
- #include "msm_drv.h"
- 
- #define DP_LABEL "MDSS DP DISPLAY"
--#define DP_MAX_PIXEL_CLK_KHZ	675000
- #define DP_MAX_NUM_DP_LANES	4
- 
- enum dp_pm_type {
-diff --git a/drivers/gpu/drm/msm/msm_drv.h b/drivers/gpu/drm/msm/msm_drv.h
-index 44d882b04327..39e8cdde6152 100644
---- a/drivers/gpu/drm/msm/msm_drv.h
-+++ b/drivers/gpu/drm/msm/msm_drv.h
-@@ -329,7 +329,7 @@ static inline struct drm_dsc_config *msm_dsi_get_dsc_config(struct msm_dsi *msm_
- int __init msm_dp_register(void);
- void __exit msm_dp_unregister(void);
- int msm_dp_modeset_init(struct msm_dp *dp_display, struct drm_device *dev,
--			 struct drm_encoder *encoder);
-+			 struct drm_encoder *encoder, int max_ext_pclk);
- void msm_dp_irq_postinstall(struct msm_dp *dp_display);
- void msm_dp_snapshot(struct msm_disp_state *disp_state, struct msm_dp *dp_display);
- 
-@@ -346,7 +346,8 @@ static inline void __exit msm_dp_unregister(void)
- }
- static inline int msm_dp_modeset_init(struct msm_dp *dp_display,
- 				       struct drm_device *dev,
--				       struct drm_encoder *encoder)
-+				       struct drm_encoder *encoder,
-+				       int max_ext_pclk)
- {
- 	return -EINVAL;
- }
--- 
-2.7.4
+Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 
+
+Best regards,
+Krzysztof
