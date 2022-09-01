@@ -1,61 +1,64 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id A0E1F5A92E3
-	for <lists+freedreno@lfdr.de>; Thu,  1 Sep 2022 11:15:42 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 20FB85A92E6
+	for <lists+freedreno@lfdr.de>; Thu,  1 Sep 2022 11:15:45 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1981D10E665;
-	Thu,  1 Sep 2022 09:15:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5754810E669;
+	Thu,  1 Sep 2022 09:15:37 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x12e.google.com (mail-lf1-x12e.google.com
- [IPv6:2a00:1450:4864:20::12e])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7A97110E666
- for <freedreno@lists.freedesktop.org>; Thu,  1 Sep 2022 09:15:30 +0000 (UTC)
-Received: by mail-lf1-x12e.google.com with SMTP id j14so13151034lfu.4
- for <freedreno@lists.freedesktop.org>; Thu, 01 Sep 2022 02:15:30 -0700 (PDT)
+Received: from mail-lf1-x132.google.com (mail-lf1-x132.google.com
+ [IPv6:2a00:1450:4864:20::132])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 838FD10E666
+ for <freedreno@lists.freedesktop.org>; Thu,  1 Sep 2022 09:15:31 +0000 (UTC)
+Received: by mail-lf1-x132.google.com with SMTP id q7so23475136lfu.5
+ for <freedreno@lists.freedesktop.org>; Thu, 01 Sep 2022 02:15:31 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date;
- bh=zQcaTdcAmFm7hKWlLt7/xAx+RulymiwoxzvlaJ6Dn4Y=;
- b=JqDX3BcBRbEuzqHtzIvmuHl9zsEJNPKE7l/J9hCp3dTmiGTmUGANlkcI61pxniOBiP
- JxczKhAJraORVgVbg3yw8lYcJeaF+LtkllQqtBOPlBYn7TgWtk9L3gidTKpAFvNomSBM
- JaRq7x1SXvS03vxVyCOUvP0ntcSuwyHGmoHeBPnn9h6QpfenpwarKlfdmKqoHb5FTPmh
- HTBBsziaEU8lFuSsw/qnJH7DLsdhFgMSsV8+a9x/uxUOjSo2CPpzL1YcqAZSWr9srsWZ
- i8a332tycHTFY/IoelO9ictoS7XQhRWzEB0x2H8wef6vYxMMHqZQZZLbMIr88GnmRX2Z
- 3bCQ==
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date;
+ bh=jNM+5myziriC40IcLi6KZeIacAr+ajJ9scGcT8bKpzo=;
+ b=TPU5kkYcJ/bgeVpCEiOlPxfeLqUaaCPDobVW8KvP0t4ccjSpwx+gYAwldV7QaklzxM
+ YUPO6qjo6OEi/7l1GhfjVE7Cr1igB6CdWJgTTi9HpjS4QT84noyhAXEd9QLaJl5h4M1/
+ GoAueKnl0gIsq6AjZPXF1rO/kQX6sRaTq4B6jeCkc4fuIVWEcEu1NF6Vg/kn2PQ9V3Dn
+ hyPSkDhVH3aLmX1e1Hk0ApD8P3TFuIT/lJwxfF16QivYZfYsrD9sXF8WjNQb8fxmuDOy
+ yOYvEnlvZEWp+LVI7Cw+6XmzXhhB2Rphl6NsmERJvi7sgabkLedAVqAa8hbJjEIlur9w
+ oQ/g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date;
- bh=zQcaTdcAmFm7hKWlLt7/xAx+RulymiwoxzvlaJ6Dn4Y=;
- b=l4KmUHN1lImjcU7sOphy0aoGGTE58y7e06JI5pBp5Jn9cXlvFBL46uehR/XTXzIJke
- BGdhySs4UMl9g0rqh798+9zTHfEqV1kaVHMmzN833Oeoz6k27CHbeEOQSLSsRvmdrRT0
- RfEhKP1UlssWi2v5rmZ3irGBIdztZk9SLqPneZDnBkFT5504f9rG1KP4lZbPLuoG3weD
- a5+LRGP1JMzXlyn5Ox8GU7WZFx6P8ONKaRolJYmY26aNWriiAsqfF5xdGEPzxV9Rut5q
- s0bIXx3htIZ3arLfqvhT4zMF3QpIJjzqVbCjE5Zzjs4wR1C6232Qx7iuPtzQNGMs4UIW
- ynpQ==
-X-Gm-Message-State: ACgBeo039VmbHtaJXFYpRMsufsPE8OwMeUjBozqJ/R5ZSxKBQjxfOhbW
- ZZciQm2tZt2e8qR+L8dh5proZw==
-X-Google-Smtp-Source: AA6agR5GXLMIEsCjNQLVkedtAe8QPcwwd2ykMWWhZGoYNdvLxKo95u/JLQVVYd6Zn/3caSaICMdj+Q==
-X-Received: by 2002:a05:6512:3406:b0:494:9e2a:cbd with SMTP id
- i6-20020a056512340600b004949e2a0cbdmr486161lfr.635.1662023728748; 
- Thu, 01 Sep 2022 02:15:28 -0700 (PDT)
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+ :subject:date;
+ bh=jNM+5myziriC40IcLi6KZeIacAr+ajJ9scGcT8bKpzo=;
+ b=jKwXeOw89QSVCWgAhzdea6xW5JYJJdLuHoHU/zJNIOtx4Fd2uKqgkuu1/65Srov0K3
+ JXb0UvZmWNspvMSulugPp/soBxB9LPqM/ki8sYPJegQpGbPJMwX8fmOD7eK0MAUYVqKU
+ ZFcApQWovpk3oPfHlCSgKgV3BWcYpZdG1TNSPs4Ed+AWWJCnyNZdJ1ZA0GdSpEUKHyDL
+ gVRuDo/bRvU1ix4UVY0iQrVn5kJbsIIud8Hu0cFYSF9cxc9z36S3vyX/nCh/gEf/a9A/
+ 6BFp0+fktTUazJkJahbHZz5HeGZh/M26miPKS3m3pWzwrdmjCDIF6MmxlGLxE15/Bji7
+ Vf7g==
+X-Gm-Message-State: ACgBeo0v0gYXTbR1iVi7H9i7+g/NxMy681GcYDVJCm0g4ZYis6XZo0fO
+ kRVyFAPJ+SOkGm9+IAEhcZfu8w==
+X-Google-Smtp-Source: AA6agR5LX8WMcaeVD4ENclbBhkqZGs2/l0DYGO4bc0F6WTraZHk3TbrLnXaw4WnOMwev2kp1gk7JMQ==
+X-Received: by 2002:a05:6512:2350:b0:494:9925:f734 with SMTP id
+ p16-20020a056512235000b004949925f734mr965847lfu.97.1662023729618; 
+ Thu, 01 Sep 2022 02:15:29 -0700 (PDT)
 Received: from eriador.lan ([37.153.55.125]) by smtp.gmail.com with ESMTPSA id
- t17-20020a2e2d11000000b00261b4df9ec4sm2422349ljt.138.2022.09.01.02.15.27
+ t17-20020a2e2d11000000b00261b4df9ec4sm2422349ljt.138.2022.09.01.02.15.28
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 01 Sep 2022 02:15:28 -0700 (PDT)
+ Thu, 01 Sep 2022 02:15:29 -0700 (PDT)
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 To: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
  Abhinav Kumar <quic_abhinavk@quicinc.com>
-Date: Thu,  1 Sep 2022 12:15:24 +0300
-Message-Id: <20220901091527.1992208-1-dmitry.baryshkov@linaro.org>
+Date: Thu,  1 Sep 2022 12:15:25 +0300
+Message-Id: <20220901091527.1992208-2-dmitry.baryshkov@linaro.org>
 X-Mailer: git-send-email 2.35.1
+In-Reply-To: <20220901091527.1992208-1-dmitry.baryshkov@linaro.org>
+References: <20220901091527.1992208-1-dmitry.baryshkov@linaro.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [RFC PATCH 0/3] drm/msm/dp: several fixes for the IRQ
- handling
+Subject: [Freedreno] [RFC PATCH 1/3] drm/msm/dp: fold disable_irq into
+ devm_request_irq
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,19 +78,35 @@ Cc: David Airlie <airlied@linux.ie>, linux-arm-msm@vger.kernel.org,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Johan Hovold has reported that returning a probe deferral from the
-msm_dp_modeset_init() can cause issues because the IRQ is not freed
-properly. This (compile-tested only) series tries to fix the issue by
-moving devm_request_irq() to the probe callback.
+Calling disable_irq() right after devm_request_irq() is a bad practice.
+it leaves a small window when the driver doesn't expect the IRQ, but the
+hardware still can trigger it. Use the IRQF_NO_AUTOEN flag to prevent
+the request_irq from enabling the IRQ line.
 
-Dmitry Baryshkov (3):
-  drm/msm/dp: fold disable_irq into devm_request_irq
-  drm/msm/dp: switch to using platform_get_irq()
-  drm/msm/dp: move dp_request_irq() call to dp_display_probe()
+Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+---
+ drivers/gpu/drm/msm/dp/dp_display.c | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
 
- drivers/gpu/drm/msm/dp/dp_display.c | 19 +++++++++----------
- 1 file changed, 9 insertions(+), 10 deletions(-)
-
+diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
+index bfd0aeff3f0d..3173e6962a78 100644
+--- a/drivers/gpu/drm/msm/dp/dp_display.c
++++ b/drivers/gpu/drm/msm/dp/dp_display.c
+@@ -1251,13 +1251,12 @@ int dp_display_request_irq(struct msm_dp *dp_display)
+ 
+ 	rc = devm_request_irq(&dp->pdev->dev, dp->irq,
+ 			dp_display_irq_handler,
+-			IRQF_TRIGGER_HIGH, "dp_display_isr", dp);
++			IRQF_TRIGGER_HIGH | IRQF_NO_AUTOEN, "dp_display_isr", dp);
+ 	if (rc < 0) {
+ 		DRM_ERROR("failed to request IRQ%u: %d\n",
+ 				dp->irq, rc);
+ 		return rc;
+ 	}
+-	disable_irq(dp->irq);
+ 
+ 	return 0;
+ }
 -- 
 2.35.1
 
