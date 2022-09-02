@@ -1,67 +1,67 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4A1A75AA78F
-	for <lists+freedreno@lfdr.de>; Fri,  2 Sep 2022 08:03:12 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 85B5F5AA7BB
+	for <lists+freedreno@lfdr.de>; Fri,  2 Sep 2022 08:06:39 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E387B10E746;
-	Fri,  2 Sep 2022 06:03:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 05C4510E753;
+	Fri,  2 Sep 2022 06:06:38 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x12f.google.com (mail-lf1-x12f.google.com
- [IPv6:2a00:1450:4864:20::12f])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EB48910E746
- for <freedreno@lists.freedesktop.org>; Fri,  2 Sep 2022 06:03:05 +0000 (UTC)
-Received: by mail-lf1-x12f.google.com with SMTP id m7so1802105lfq.8
- for <freedreno@lists.freedesktop.org>; Thu, 01 Sep 2022 23:03:05 -0700 (PDT)
+Received: from mail-lj1-x232.google.com (mail-lj1-x232.google.com
+ [IPv6:2a00:1450:4864:20::232])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CF31810E759
+ for <freedreno@lists.freedesktop.org>; Fri,  2 Sep 2022 06:06:35 +0000 (UTC)
+Received: by mail-lj1-x232.google.com with SMTP id z23so1251992ljk.1
+ for <freedreno@lists.freedesktop.org>; Thu, 01 Sep 2022 23:06:35 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=content-transfer-encoding:mime-version:message-id:references
  :in-reply-to:user-agent:subject:cc:to:from:date:from:to:cc:subject
- :date; bh=ffvbLl1jFsmA7m/s4nl7FyHc0hFH1L5jLxXME/aPLu4=;
- b=ZJoMUA0CzdUCYA4eJRyo7DLyyhB/Fsx8fQ/GFLCh3ehKhSFwb/l1+9+I/EHCI+Cvld
- MJC6IuSNfQDxJ99OsIpA30LS8c+Lcxw8jSJCfrt9ptEKsRMfUZK5U1lv+Tjz7vG6b5WE
- QwqDKqiWwAF+SY64GT9dbsqM3favzq0dY/2r/OfYAE7MNQ+jiOS/+rL3xTTiG04xjAQQ
- LzjVd26yukIxs6G/z6BHddJkQ2KTB2G/17iWSxrRYUV/7f1v50FKCeIv1pBzgN88lTaC
- ytZ+0ViLmyLQ8kM2bg6lSHa+IzL4+KIBVZls/jEX6WZMY2zstIbGAtnmFUDFoNkGLoHu
- 3TdQ==
+ :date; bh=aSUPk7xnJRnPZFtFZgnCdhzsjxOJIfTgGJR8QUiNJRM=;
+ b=pUwMQLH1H/5LrZu5x6M+LkcjEzqOhZ6KdsN7YJXqdOJCHNPiHUYu+iioRkG0e2qsPb
+ IsmX7jEhnf7bHg2nLk9sVRExHQoBR9JiyHvfoSuuzl+Ct2jCVAQ2dfJRJ+4PZGObRRWQ
+ UiCRPzGUbBKfE7rO7HZ2VDZef8TFxzbI5tvmi1jtO9PW7/D7V0OfHkhgohFwz97tuQ6+
+ 28+GxJJBuSGi+iMYBfb4PMfqpDWl9DISWbe5Ol0eoEqlsDiDW/3N/CpxbTb5D7FGpObu
+ cgASyeWQ8Ry6A5nw19+0mUAfbfwSK1FGn2CFAznILyLPRAZxJORaFViPF5m9r1ePp+Nd
+ 2V6w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=content-transfer-encoding:mime-version:message-id:references
  :in-reply-to:user-agent:subject:cc:to:from:date:x-gm-message-state
  :from:to:cc:subject:date;
- bh=ffvbLl1jFsmA7m/s4nl7FyHc0hFH1L5jLxXME/aPLu4=;
- b=wu3ohF+jknNMv0Zu9Bpyv6xBYDIyD1l5JwQ+QEc391zYqBQcUTjuWOGYoeIjKNuXe8
- GXTY8nHLtUfmlIJALKZtLI9phVKh2kXtbpUEh0Ye01Q98CFvVOhAWJyQZq/W6GjHFMug
- /qtvBu8gvtXEf3mFYaKBBIgcfCOwOOpB0/0vJ7NhYWvilJ8xL77A90MOsfQkdYhrriAN
- Dz/12wUQXC2uqDacyf/Jn+yglv5WUuT91DTURsVSbsboHjMJBlwCTpX3geZHdpvlnc/a
- bCKFhUhH1hgPoDarpSpycQhYRAiUurOC79CDBCAEkPct9lT1JPE/KPOPm2pHLTPawjVV
- ZdyQ==
-X-Gm-Message-State: ACgBeo2u2ZCXYvgsLHH+H81jiin3WIa3Yk30kJysFKNKUikG+hjTwF/8
- K97+Xy0NpFbAh9b8rRLfP0iDKA==
-X-Google-Smtp-Source: AA6agR6NPHOKfoGhpIWRmH8tuIUycivkQLTgGb6ER/1vjV/cqczRuQqHyi2K0W/l4IGo+q5iOOo0HA==
-X-Received: by 2002:a05:6512:2248:b0:48a:f8f9:3745 with SMTP id
- i8-20020a056512224800b0048af8f93745mr10821431lfu.256.1662098584229; 
- Thu, 01 Sep 2022 23:03:04 -0700 (PDT)
+ bh=aSUPk7xnJRnPZFtFZgnCdhzsjxOJIfTgGJR8QUiNJRM=;
+ b=VweHVGp9S4iOIoKPs9+rTFQJdqCqBrhm8CCyCddtBDFdDb6h2eZh2xwhGTqU6QdlRX
+ 5atb/Lahy+9tP2Os+n3mCUZiz9nFDgGwa9DzXVGYzVFJB4AEAb/HqbPoPMEPrc5nPxpZ
+ G64KDlImx447MypvF1MXzeIX4JFb5DdVpYmq4ENJ54RbCv6dJAzsPYIi+pbr+/2XFHPD
+ sFeiUnS7MNSDSzatga/SR5YPLdEgqzvOz5UZhpuxyP5yggMWoPZydmps/mH6drkidLle
+ UrYvWZbx+U+zsUNpo3F2OUqb5z6pzw6DMUYf4mukPPgR6IN+ypPyhFw2Il1O2j5Tbe3o
+ cExg==
+X-Gm-Message-State: ACgBeo1cmgLsFuAV2EHSIP98BjbS1cJX1cbRW9dTPww0HPwpI8nlZ4Ba
+ /c7gBh3YwiOyw9jnqrBXMb6UbA==
+X-Google-Smtp-Source: AA6agR6QRbXgRlZvVeUm6D6oqa3ykV6LJb3UiVOoChs1UJZlEhrgk1vISDxupgYb6KwIlUxxLBgBOg==
+X-Received: by 2002:a2e:824c:0:b0:25f:de27:f013 with SMTP id
+ j12-20020a2e824c000000b0025fde27f013mr10280595ljh.447.1662098793834; 
+ Thu, 01 Sep 2022 23:06:33 -0700 (PDT)
 Received: from [127.0.0.1] ([94.25.228.19]) by smtp.gmail.com with ESMTPSA id
- g9-20020a19ac09000000b004949761d330sm135634lfc.128.2022.09.01.23.03.03
+ u9-20020ac258c9000000b0048b064707ebsm138367lfo.103.2022.09.01.23.06.33
  (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Thu, 01 Sep 2022 23:03:03 -0700 (PDT)
-Date: Fri, 02 Sep 2022 09:01:56 +0300
+ Thu, 01 Sep 2022 23:06:33 -0700 (PDT)
+Date: Fri, 02 Sep 2022 09:06:27 +0300
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 To: Abhinav Kumar <quic_abhinavk@quicinc.com>, Rob Clark <robdclark@gmail.com>,
  Sean Paul <sean@poorly.run>
 User-Agent: K-9 Mail for Android
-In-Reply-To: <9627ff41-6bd8-e380-0e8e-438aecdb824f@quicinc.com>
+In-Reply-To: <014fc43f-bee6-88eb-9d3c-69aed2fcd7c6@quicinc.com>
 References: <20220620213054.1872954-1-dmitry.baryshkov@linaro.org>
- <20220620213054.1872954-3-dmitry.baryshkov@linaro.org>
- <9627ff41-6bd8-e380-0e8e-438aecdb824f@quicinc.com>
-Message-ID: <24DFFDD8-955B-459B-B9C7-06BFAB32F817@linaro.org>
+ <20220620213054.1872954-4-dmitry.baryshkov@linaro.org>
+ <014fc43f-bee6-88eb-9d3c-69aed2fcd7c6@quicinc.com>
+Message-ID: <7D8A3C28-85A1-4737-B6ED-EACBF488FF70@linaro.org>
 MIME-Version: 1.0
 Content-Type: text/plain;
  charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Subject: Re: [Freedreno] [PATCH v1 2/4] drm/msm/dpu: move resource
+Subject: Re: [Freedreno] [PATCH v1 3/4] drm/msm/mdp4: move resource
  allocation to the _probe function
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -84,124 +84,201 @@ Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 
 
-On 2 September 2022 00:37:30 GMT+03:00, Abhinav Kumar <quic_abhinavk@quici=
+On 2 September 2022 03:24:17 GMT+03:00, Abhinav Kumar <quic_abhinavk@quici=
 nc=2Ecom> wrote:
 >
 >
 >On 6/20/2022 2:30 PM, Dmitry Baryshkov wrote:
 >> To let the probe function bail early if any of the resources is
 >> unavailable, move resource allocattion from kms_init directly to the
-> allocation
-
-Ack
-
 >> probe callback=2E While we are at it, replace irq_of_parse_and_map() wi=
 th
 >> platform_get_irq()=2E
->Any specific reason to replace this?
-
-Yes=2E To use generic API rather than the OF-specific unusual function=2E
-
 >>=20
 >> Signed-off-by: Dmitry Baryshkov <dmitry=2Ebaryshkov@linaro=2Eorg>
->
->With those two addressed,
->
->Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc=2Ecom>
 >> ---
->>   drivers/gpu/drm/msm/disp/dpu1/dpu_kms=2Ec | 62 +++++++++++++---------=
+>>   drivers/gpu/drm/msm/disp/mdp4/mdp4_kms=2Ec | 107 +++++++++++---------=
 ---
->>   1 file changed, 32 insertions(+), 30 deletions(-)
+>>   1 file changed, 51 insertions(+), 56 deletions(-)
 >>=20
->> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms=2Ec b/drivers/gpu/dr=
-m/msm/disp/dpu1/dpu_kms=2Ec
->> index ae13a3a5d8a5=2E=2E756be04d804b 100644
->> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms=2Ec
->> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms=2Ec
->> @@ -1206,31 +1206,13 @@ static int dpu_kms_init(struct drm_device *ddev=
-)
->>   	struct device *dev =3D ddev->dev;
->>   	struct platform_device *pdev =3D to_platform_device(dev);
->>   	struct dpu_kms *dpu_kms;
->> -	int irq;
->>   	struct dev_pm_opp *opp;
->>   	int ret =3D 0;
->>   	unsigned long max_freq =3D ULONG_MAX;
->>   -	dpu_kms =3D devm_kzalloc(&pdev->dev, sizeof(*dpu_kms), GFP_KERNEL);
->> +	dpu_kms =3D to_dpu_kms(priv->kms);
->>   	if (!dpu_kms)
->> -		return -ENOMEM;
+>> diff --git a/drivers/gpu/drm/msm/disp/mdp4/mdp4_kms=2Ec b/drivers/gpu/d=
+rm/msm/disp/mdp4/mdp4_kms=2Ec
+>> index 41dc60784847=2E=2E6499713eccf6 100644
+>> --- a/drivers/gpu/drm/msm/disp/mdp4/mdp4_kms=2Ec
+>> +++ b/drivers/gpu/drm/msm/disp/mdp4/mdp4_kms=2Ec
+>> @@ -139,8 +139,6 @@ static void mdp4_destroy(struct msm_kms *kms)
+>>   		pm_runtime_disable(dev);
+>>     	mdp_kms_destroy(&mdp4_kms->base);
 >> -
->> -	ret =3D devm_pm_opp_set_clkname(dev, "core");
->> -	if (ret)
->> -		return ret;
->> -	/* OPP table is optional */
->> -	ret =3D devm_pm_opp_of_add_table(dev);
->> -	if (ret && ret !=3D -ENODEV) {
->> -		dev_err(dev, "invalid OPP table in device tree\n");
->> -		return ret;
->> -	}
->> -
->> -	ret =3D devm_clk_bulk_get_all(&pdev->dev, &dpu_kms->clocks);
->> -	if (ret < 0) {
->> -		DPU_ERROR("failed to parse clocks, ret=3D%d\n", ret);
->> -		return ret;
->> -	}
->> -	dpu_kms->num_clocks =3D ret;
->> +		return -EINVAL;
->>     	opp =3D dev_pm_opp_find_freq_floor(dev, &max_freq);
->>   	if (!IS_ERR(opp))
->> @@ -1249,21 +1231,41 @@ static int dpu_kms_init(struct drm_device *ddev=
-)
->>   	pm_runtime_enable(&pdev->dev);
->>   	dpu_kms->rpm_enabled =3D true;
->>   -	priv->kms =3D &dpu_kms->base;
->> -
->> -	irq =3D irq_of_parse_and_map(dpu_kms->pdev->dev=2Eof_node, 0);
->> -	if (!irq) {
->> -		DPU_ERROR("failed to get irq\n");
->> -		return -EINVAL;
->> -	}
->> -	dpu_kms->base=2Eirq =3D irq;
->> -
->>   	return 0;
+>> -	kfree(mdp4_kms);
 >>   }
->>     static int dpu_dev_probe(struct platform_device *pdev)
+>>     static const struct mdp_kms_funcs kms_funcs =3D {
+>> @@ -383,57 +381,27 @@ static int mdp4_kms_init(struct drm_device *dev)
 >>   {
->> -	return msm_drv_probe(&pdev->dev, dpu_kms_init, NULL);
+>>   	struct platform_device *pdev =3D to_platform_device(dev->dev);
+>>   	struct msm_drm_private *priv =3D dev->dev_private;
+>> -	struct mdp4_kms *mdp4_kms;
+>> +	struct mdp4_kms *mdp4_kms =3D to_mdp4_kms(to_mdp_kms(priv->kms));
+>>   	struct msm_kms *kms =3D NULL;
+>>   	struct iommu_domain *iommu;
+>>   	struct msm_gem_address_space *aspace;
+>> -	int irq, ret;
+>> +	int ret;
+>>   	u32 major, minor;
+>>   	unsigned long max_clk;
+>>     	/* TODO: Chips that aren't apq8064 have a 200 Mhz max_clk */
+>>   	max_clk =3D 266667000;
+>>   -	mdp4_kms =3D kzalloc(sizeof(*mdp4_kms), GFP_KERNEL);
+>> -	if (!mdp4_kms) {
+>> -		DRM_DEV_ERROR(dev->dev, "failed to allocate kms\n");
+>> -		return -ENOMEM;
+>> -	}
+>> -
+>>   	ret =3D mdp_kms_init(&mdp4_kms->base, &kms_funcs);
+>>   	if (ret) {
+>>   		DRM_DEV_ERROR(dev->dev, "failed to init kms\n");
+>>   		goto fail;
+>>   	}
+>>   -	priv->kms =3D &mdp4_kms->base=2Ebase;
+>>   	kms =3D priv->kms;
+>>     	mdp4_kms->dev =3D dev;
+>>   -	mdp4_kms->mmio =3D msm_ioremap(pdev, NULL);
+>> -	if (IS_ERR(mdp4_kms->mmio)) {
+>> -		ret =3D PTR_ERR(mdp4_kms->mmio);
+>> -		goto fail;
+>> -	}
+>> -
+>> -	irq =3D platform_get_irq(pdev, 0);
+>> -	if (irq < 0) {
+>> -		ret =3D irq;
+>> -		DRM_DEV_ERROR(dev->dev, "failed to get irq: %d\n", ret);
+>> -		goto fail;
+>> -	}
+>> -
+>> -	kms->irq =3D irq;
+>> -
+>> -	/* NOTE: driver for this regulator still missing upstream=2E=2E use
+>> -	 * _get_exclusive() and ignore the error if it does not exist
+>> -	 * (and hope that the bootloader left it on for us)
+>> -	 */
+>> -	mdp4_kms->vdd =3D devm_regulator_get_exclusive(&pdev->dev, "vdd");
+>> -	if (IS_ERR(mdp4_kms->vdd))
+>> -		mdp4_kms->vdd =3D NULL;
+>> -
+>>   	if (mdp4_kms->vdd) {
+>>   		ret =3D regulator_enable(mdp4_kms->vdd);
+>>   		if (ret) {
+>> @@ -442,24 +410,6 @@ static int mdp4_kms_init(struct drm_device *dev)
+>>   		}
+>>   	}
+>>   -	mdp4_kms->clk =3D devm_clk_get(&pdev->dev, "core_clk");
+>> -	if (IS_ERR(mdp4_kms->clk)) {
+>> -		DRM_DEV_ERROR(dev->dev, "failed to get core_clk\n");
+>> -		ret =3D PTR_ERR(mdp4_kms->clk);
+>> -		goto fail;
+>> -	}
+>> -
+>> -	mdp4_kms->pclk =3D devm_clk_get(&pdev->dev, "iface_clk");
+>> -	if (IS_ERR(mdp4_kms->pclk))
+>> -		mdp4_kms->pclk =3D NULL;
+>> -
+>> -	mdp4_kms->axi_clk =3D devm_clk_get(&pdev->dev, "bus_clk");
+>> -	if (IS_ERR(mdp4_kms->axi_clk)) {
+>> -		DRM_DEV_ERROR(dev->dev, "failed to get axi_clk\n");
+>> -		ret =3D PTR_ERR(mdp4_kms->axi_clk);
+>> -		goto fail;
+>> -	}
+>> -
+>>   	clk_set_rate(mdp4_kms->clk, max_clk);
+>>     	read_mdp_hw_revision(mdp4_kms, &major, &minor);
+>> @@ -474,10 +424,9 @@ static int mdp4_kms_init(struct drm_device *dev)
+>>   	mdp4_kms->rev =3D minor;
+>>     	if (mdp4_kms->rev >=3D 2) {
+>> -		mdp4_kms->lut_clk =3D devm_clk_get(&pdev->dev, "lut_clk");
+>> -		if (IS_ERR(mdp4_kms->lut_clk)) {
+>> +		if (!mdp4_kms->lut_clk) {
+>>   			DRM_DEV_ERROR(dev->dev, "failed to get lut_clk\n");
+>> -			ret =3D PTR_ERR(mdp4_kms->lut_clk);
+>> +			ret =3D -ENODEV;
+>>   			goto fail;
+>>   		}
+>>   		clk_set_rate(mdp4_kms->lut_clk, max_clk);
+>> @@ -560,7 +509,53 @@ static const struct dev_pm_ops mdp4_pm_ops =3D {
+>>     static int mdp4_probe(struct platform_device *pdev)
+>>   {
+>> -	return msm_drv_probe(&pdev->dev, mdp4_kms_init, NULL);
 >> +	struct device *dev =3D &pdev->dev;
->> +	struct dpu_kms *dpu_kms;
+>> +	struct mdp4_kms *mdp4_kms;
 >> +	int irq;
->> +	int ret =3D 0;
 >> +
->> +	dpu_kms =3D devm_kzalloc(dev, sizeof(*dpu_kms), GFP_KERNEL);
->> +	if (!dpu_kms)
->> +		return -ENOMEM;
+>> +	mdp4_kms =3D devm_kzalloc(dev, sizeof(*mdp4_kms), GFP_KERNEL);
+>> +	if (!mdp4_kms)
+>> +		return dev_err_probe(dev, -ENOMEM, "failed to allocate kms\n");
 >> +
->> +	ret =3D devm_pm_opp_set_clkname(dev, "core");
->> +	if (ret)
->> +		return ret;
->> +	/* OPP table is optional */
->> +	ret =3D devm_pm_opp_of_add_table(dev);
->> +	if (ret && ret !=3D -ENODEV)
->> +		return dev_err_probe(dev, ret, "invalid OPP table in device tree\n")=
-;
->> +
->> +	ret =3D devm_clk_bulk_get_all(&pdev->dev, &dpu_kms->clocks);
->> +	if (ret < 0)
->> +		return dev_err_probe(dev, ret, "failed to parse clocks\n");
->> +
->> +	dpu_kms->num_clocks =3D ret;
+>> +	mdp4_kms->mmio =3D msm_ioremap(pdev, NULL);
+>> +	if (IS_ERR(mdp4_kms->mmio))
+>> +		return PTR_ERR(mdp4_kms->mmio);
 >> +
 >> +	irq =3D platform_get_irq(pdev, 0);
 >> +	if (irq < 0)
 >> +		return dev_err_probe(dev, irq, "failed to get irq\n");
 >> +
->> +	dpu_kms->base=2Eirq =3D irq;
+>> +	mdp4_kms->base=2Ebase=2Eirq =3D irq;
 >> +
->> +	return msm_drv_probe(&pdev->dev, dpu_kms_init, &dpu_kms->base);
+>> +	/* NOTE: driver for this regulator still missing upstream=2E=2E use
+>> +	 * _get_exclusive() and ignore the error if it does not exist
+>> +	 * (and hope that the bootloader left it on for us)
+>> +	 */
+>> +	mdp4_kms->vdd =3D devm_regulator_get_exclusive(&pdev->dev, "vdd");
+>> +	if (IS_ERR(mdp4_kms->vdd))
+>> +		mdp4_kms->vdd =3D NULL;
+>> +
+>> +	mdp4_kms->clk =3D devm_clk_get(&pdev->dev, "core_clk");
+>> +	if (IS_ERR(mdp4_kms->clk))
+>> +		return dev_err_probe(dev, PTR_ERR(mdp4_kms->clk), "failed to get cor=
+e_clk\n");
+>> +
+>> +	mdp4_kms->pclk =3D devm_clk_get(&pdev->dev, "iface_clk");
+>> +	if (IS_ERR(mdp4_kms->pclk))
+>> +		mdp4_kms->pclk =3D NULL;
+>> +
+>> +	mdp4_kms->axi_clk =3D devm_clk_get(&pdev->dev, "bus_clk");
+>> +	if (IS_ERR(mdp4_kms->axi_clk))
+>> +		return dev_err_probe(dev, PTR_ERR(mdp4_kms->axi_clk), "failed to get=
+ axi_clk\n");
+>> +
+>> +	/*
+>> +	 * This is required for revn >=3D 2=2E Handle errors here and let the=
+ kms
+>> +	 * init bail out if the clock is not provided=2E
+>> +	 */
+>> +	mdp4_kms->lut_clk =3D devm_clk_get_optional(&pdev->dev, "lut_clk");
+>> +	if (IS_ERR(mdp4_kms->lut_clk))
+>> +		return dev_err_probe(dev, PTR_ERR(mdp4_kms->lut_clk), "failed to get=
+ lut_clk\n");
+>
+>I can see that you have moved this from init to probe and only rev >=3D2 =
+needs it=2E
+>
+>But, your check here will end up returning from probe because you have a =
+return=2E So I guess you means just having dev_err_probe without the return=
+ and let the init fail if the clk is not found because we have the hw_rev o=
+nly in init=2E
+
+No=2E The function called here is the devm_clk_get_optional()=2E So the dr=
+iver will get NULL if the clock is not present in the DT and an error only =
+in an error case (e=2Eg=2E EINVAL, EPROBE_DEFER)=2E
+
+Later on the mdp4_kms_init() will check hw_rev and return -ENODEV if the c=
+lock is required, but is set to NULL (not present in DT)=2E
+
+
+>
+>> +
+>> +	return msm_drv_probe(&pdev->dev, mdp4_kms_init, &mdp4_kms->base=2Ebas=
+e);
 >>   }
->>     static int dpu_dev_remove(struct platform_device *pdev)
+>>     static int mdp4_remove(struct platform_device *pdev)
 
 --=20
 With best wishes
