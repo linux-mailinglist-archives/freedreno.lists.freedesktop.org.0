@@ -2,76 +2,66 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 721085AA4BB
-	for <lists+freedreno@lfdr.de>; Fri,  2 Sep 2022 03:00:29 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4A1A75AA78F
+	for <lists+freedreno@lfdr.de>; Fri,  2 Sep 2022 08:03:12 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 95BAA10E3CB;
-	Fri,  2 Sep 2022 01:00:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E387B10E746;
+	Fri,  2 Sep 2022 06:03:09 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8D25910E3CB;
- Fri,  2 Sep 2022 01:00:23 +0000 (UTC)
-Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 2820AHCe002412;
- Fri, 2 Sep 2022 01:00:20 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
- h=message-id : date :
- mime-version : subject : to : cc : references : from : in-reply-to :
- content-type : content-transfer-encoding; s=qcppdkim1;
- bh=DN7Ru5KLmieOhAv8GkQlyk+HPB8LjBsLoYLzxfaL72c=;
- b=ibQrDsJI4Iimev8bDAmFtd5xkRpH+u7zLrP9blQin0xY4rHooeTt7JB33ySF+Gbg/IMa
- DrBM3AiKeLHOqLFlW3PVhgErwD6S7RDPGuqJpm8CJ9Kq2eWKockI7MziMVurqtUvWlmb
- YRqIKQwZCYNuf4CDFnlcxpEYHtBYtU9yxfqIFz0ifCdiJzW4150Nb2VCgTTUwWZKUXi9
- RE7QObxqDB96G7RIMP6otY1aSIF5o1xpkp48p8SEmrcqErMJFkjxWlK6HITZrvXeRNZt
- qvyeIsXUvyW+g35KWJQGFnJTCGPNpL+/T3KY/vVbHc19MRKHtFoOTBuTw2G/KeheEnwH eA== 
-Received: from nalasppmta04.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3jarc8327h-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 02 Sep 2022 01:00:19 +0000
-Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
- [10.47.209.196])
- by NALASPPMTA04.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 28210IYD002054
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 2 Sep 2022 01:00:18 GMT
-Received: from [10.111.173.210] (10.80.80.8) by nalasex01a.na.qualcomm.com
- (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.29; Thu, 1 Sep 2022
- 18:00:15 -0700
-Message-ID: <3489faa4-659d-6635-d20b-c34f9c6e6b18@quicinc.com>
-Date: Thu, 1 Sep 2022 18:00:13 -0700
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.6.2
-Content-Language: en-US
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Rob Clark
- <robdclark@gmail.com>, Sean Paul <sean@poorly.run>
+Received: from mail-lf1-x12f.google.com (mail-lf1-x12f.google.com
+ [IPv6:2a00:1450:4864:20::12f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EB48910E746
+ for <freedreno@lists.freedesktop.org>; Fri,  2 Sep 2022 06:03:05 +0000 (UTC)
+Received: by mail-lf1-x12f.google.com with SMTP id m7so1802105lfq.8
+ for <freedreno@lists.freedesktop.org>; Thu, 01 Sep 2022 23:03:05 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=content-transfer-encoding:mime-version:message-id:references
+ :in-reply-to:user-agent:subject:cc:to:from:date:from:to:cc:subject
+ :date; bh=ffvbLl1jFsmA7m/s4nl7FyHc0hFH1L5jLxXME/aPLu4=;
+ b=ZJoMUA0CzdUCYA4eJRyo7DLyyhB/Fsx8fQ/GFLCh3ehKhSFwb/l1+9+I/EHCI+Cvld
+ MJC6IuSNfQDxJ99OsIpA30LS8c+Lcxw8jSJCfrt9ptEKsRMfUZK5U1lv+Tjz7vG6b5WE
+ QwqDKqiWwAF+SY64GT9dbsqM3favzq0dY/2r/OfYAE7MNQ+jiOS/+rL3xTTiG04xjAQQ
+ LzjVd26yukIxs6G/z6BHddJkQ2KTB2G/17iWSxrRYUV/7f1v50FKCeIv1pBzgN88lTaC
+ ytZ+0ViLmyLQ8kM2bg6lSHa+IzL4+KIBVZls/jEX6WZMY2zstIbGAtnmFUDFoNkGLoHu
+ 3TdQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=content-transfer-encoding:mime-version:message-id:references
+ :in-reply-to:user-agent:subject:cc:to:from:date:x-gm-message-state
+ :from:to:cc:subject:date;
+ bh=ffvbLl1jFsmA7m/s4nl7FyHc0hFH1L5jLxXME/aPLu4=;
+ b=wu3ohF+jknNMv0Zu9Bpyv6xBYDIyD1l5JwQ+QEc391zYqBQcUTjuWOGYoeIjKNuXe8
+ GXTY8nHLtUfmlIJALKZtLI9phVKh2kXtbpUEh0Ye01Q98CFvVOhAWJyQZq/W6GjHFMug
+ /qtvBu8gvtXEf3mFYaKBBIgcfCOwOOpB0/0vJ7NhYWvilJ8xL77A90MOsfQkdYhrriAN
+ Dz/12wUQXC2uqDacyf/Jn+yglv5WUuT91DTURsVSbsboHjMJBlwCTpX3geZHdpvlnc/a
+ bCKFhUhH1hgPoDarpSpycQhYRAiUurOC79CDBCAEkPct9lT1JPE/KPOPm2pHLTPawjVV
+ ZdyQ==
+X-Gm-Message-State: ACgBeo2u2ZCXYvgsLHH+H81jiin3WIa3Yk30kJysFKNKUikG+hjTwF/8
+ K97+Xy0NpFbAh9b8rRLfP0iDKA==
+X-Google-Smtp-Source: AA6agR6NPHOKfoGhpIWRmH8tuIUycivkQLTgGb6ER/1vjV/cqczRuQqHyi2K0W/l4IGo+q5iOOo0HA==
+X-Received: by 2002:a05:6512:2248:b0:48a:f8f9:3745 with SMTP id
+ i8-20020a056512224800b0048af8f93745mr10821431lfu.256.1662098584229; 
+ Thu, 01 Sep 2022 23:03:04 -0700 (PDT)
+Received: from [127.0.0.1] ([94.25.228.19]) by smtp.gmail.com with ESMTPSA id
+ g9-20020a19ac09000000b004949761d330sm135634lfc.128.2022.09.01.23.03.03
+ (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+ Thu, 01 Sep 2022 23:03:03 -0700 (PDT)
+Date: Fri, 02 Sep 2022 09:01:56 +0300
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+To: Abhinav Kumar <quic_abhinavk@quicinc.com>, Rob Clark <robdclark@gmail.com>,
+ Sean Paul <sean@poorly.run>
+User-Agent: K-9 Mail for Android
+In-Reply-To: <9627ff41-6bd8-e380-0e8e-438aecdb824f@quicinc.com>
 References: <20220620213054.1872954-1-dmitry.baryshkov@linaro.org>
- <20220620213054.1872954-5-dmitry.baryshkov@linaro.org>
-From: Abhinav Kumar <quic_abhinavk@quicinc.com>
-In-Reply-To: <20220620213054.1872954-5-dmitry.baryshkov@linaro.org>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-ORIG-GUID: N6-cCYXzbawiAfhUjBjGlbqyjWc8nlWC
-X-Proofpoint-GUID: N6-cCYXzbawiAfhUjBjGlbqyjWc8nlWC
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.205,Aquarius:18.0.895,Hydra:6.0.517,FMLib:17.11.122.1
- definitions=2022-09-01_12,2022-08-31_03,2022-06-22_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 suspectscore=0
- adultscore=0 mlxlogscore=999 lowpriorityscore=0 malwarescore=0
- clxscore=1015 priorityscore=1501 spamscore=0 mlxscore=0 impostorscore=0
- phishscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2207270000 definitions=main-2209020002
-Subject: Re: [Freedreno] [PATCH v1 4/4] drm/msm/mdp5: move resource
+ <20220620213054.1872954-3-dmitry.baryshkov@linaro.org>
+ <9627ff41-6bd8-e380-0e8e-438aecdb824f@quicinc.com>
+Message-ID: <24DFFDD8-955B-459B-B9C7-06BFAB32F817@linaro.org>
+MIME-Version: 1.0
+Content-Type: text/plain;
+ charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [Freedreno] [PATCH v1 2/4] drm/msm/dpu: move resource
  allocation to the _probe function
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -94,182 +84,125 @@ Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 
 
-On 6/20/2022 2:30 PM, Dmitry Baryshkov wrote:
-> To let the probe function bail early if any of the resources is
-> unavailable, move resource allocattion from kms_init directly to the
-> probe callback.
+On 2 September 2022 00:37:30 GMT+03:00, Abhinav Kumar <quic_abhinavk@quici=
+nc=2Ecom> wrote:
+>
+>
+>On 6/20/2022 2:30 PM, Dmitry Baryshkov wrote:
+>> To let the probe function bail early if any of the resources is
+>> unavailable, move resource allocattion from kms_init directly to the
+> allocation
 
-Seems to be the common typo in all the patches of this series
+Ack
 
-allocattion -> allocation
+>> probe callback=2E While we are at it, replace irq_of_parse_and_map() wi=
+th
+>> platform_get_irq()=2E
+>Any specific reason to replace this?
 
-Apart from that, this one LGTM,
+Yes=2E To use generic API rather than the OF-specific unusual function=2E
 
-Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
-> 
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> ---
->   drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c | 97 +++++++++++-------------
->   1 file changed, 45 insertions(+), 52 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c b/drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c
-> index daf5b5ca7233..015388f262f4 100644
-> --- a/drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c
-> +++ b/drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c
-> @@ -556,17 +556,18 @@ static int mdp5_kms_init(struct drm_device *dev)
->   	struct mdp5_cfg *config;
->   	struct msm_kms *kms;
->   	struct msm_gem_address_space *aspace;
-> -	int irq, i, ret;
-> +	int i, ret;
->   	struct device *iommu_dev;
->   
-> -	ret = mdp5_init(to_platform_device(dev->dev), dev);
-> -
->   	/* priv->kms would have been populated by the MDP5 driver */
->   	kms = priv->kms;
->   	if (!kms)
->   		return -ENOMEM;
->   
->   	mdp5_kms = to_mdp5_kms(to_mdp_kms(kms));
-> +
-> +	ret = mdp5_init(to_platform_device(dev->dev), dev);
-> +
->   	pdev = mdp5_kms->pdev;
->   
->   	ret = mdp_kms_init(&mdp5_kms->base, &kms_funcs);
-> @@ -575,15 +576,6 @@ static int mdp5_kms_init(struct drm_device *dev)
->   		goto fail;
->   	}
->   
-> -	irq = irq_of_parse_and_map(pdev->dev.of_node, 0);
-> -	if (!irq) {
-> -		ret = -EINVAL;
-> -		DRM_DEV_ERROR(&pdev->dev, "failed to get irq\n");
-> -		goto fail;
-> -	}
-> -
-> -	kms->irq = irq;
-> -
->   	config = mdp5_cfg_get_config(mdp5_kms->cfg);
->   
->   	/* make sure things are off before attaching iommu (bootloader could
-> @@ -804,51 +796,17 @@ static int interface_init(struct mdp5_kms *mdp5_kms)
->   static int mdp5_init(struct platform_device *pdev, struct drm_device *dev)
->   {
->   	struct msm_drm_private *priv = dev->dev_private;
-> -	struct mdp5_kms *mdp5_kms;
-> +	struct mdp5_kms *mdp5_kms = to_mdp5_kms(to_mdp_kms(priv->kms));
->   	struct mdp5_cfg *config;
->   	u32 major, minor;
->   	int ret;
->   
-> -	mdp5_kms = devm_kzalloc(&pdev->dev, sizeof(*mdp5_kms), GFP_KERNEL);
-> -	if (!mdp5_kms) {
-> -		ret = -ENOMEM;
-> -		goto fail;
-> -	}
-> -
-> -	spin_lock_init(&mdp5_kms->resource_lock);
-> -
->   	mdp5_kms->dev = dev;
-> -	mdp5_kms->pdev = pdev;
->   
->   	ret = mdp5_global_obj_init(mdp5_kms);
->   	if (ret)
->   		goto fail;
->   
-> -	mdp5_kms->mmio = msm_ioremap(pdev, "mdp_phys");
-> -	if (IS_ERR(mdp5_kms->mmio)) {
-> -		ret = PTR_ERR(mdp5_kms->mmio);
-> -		goto fail;
-> -	}
-> -
-> -	/* mandatory clocks: */
-> -	ret = get_clk(pdev, &mdp5_kms->axi_clk, "bus", true);
-> -	if (ret)
-> -		goto fail;
-> -	ret = get_clk(pdev, &mdp5_kms->ahb_clk, "iface", true);
-> -	if (ret)
-> -		goto fail;
-> -	ret = get_clk(pdev, &mdp5_kms->core_clk, "core", true);
-> -	if (ret)
-> -		goto fail;
-> -	ret = get_clk(pdev, &mdp5_kms->vsync_clk, "vsync", true);
-> -	if (ret)
-> -		goto fail;
-> -
-> -	/* optional clocks: */
-> -	get_clk(pdev, &mdp5_kms->lut_clk, "lut", false);
-> -	get_clk(pdev, &mdp5_kms->tbu_clk, "tbu", false);
-> -	get_clk(pdev, &mdp5_kms->tbu_rt_clk, "tbu_rt", false);
-> -
->   	/* we need to set a default rate before enabling.  Set a safe
->   	 * rate first, then figure out hw revision, and then set a
->   	 * more optimal rate:
-> @@ -906,9 +864,6 @@ static int mdp5_init(struct platform_device *pdev, struct drm_device *dev)
->   	if (ret)
->   		goto fail;
->   
-> -	/* set uninit-ed kms */
-> -	priv->kms = &mdp5_kms->base.base;
-> -
->   	return 0;
->   fail:
->   	if (mdp5_kms)
-> @@ -951,15 +906,53 @@ static int mdp5_setup_interconnect(struct platform_device *pdev)
->   
->   static int mdp5_dev_probe(struct platform_device *pdev)
->   {
-> -	int ret;
-> +	struct mdp5_kms *mdp5_kms;
-> +	int ret, irq;
->   
->   	DBG("");
->   
-> +	mdp5_kms = devm_kzalloc(&pdev->dev, sizeof(*mdp5_kms), GFP_KERNEL);
-> +	if (!mdp5_kms)
-> +		return -ENOMEM;
-> +
->   	ret = mdp5_setup_interconnect(pdev);
->   	if (ret)
->   		return ret;
->   
-> -	return msm_drv_probe(&pdev->dev, mdp5_kms_init, NULL);
-> +	mdp5_kms->pdev = pdev;
-> +
-> +	spin_lock_init(&mdp5_kms->resource_lock);
-> +
-> +	mdp5_kms->mmio = msm_ioremap(pdev, "mdp_phys");
-> +	if (IS_ERR(mdp5_kms->mmio))
-> +		return PTR_ERR(mdp5_kms->mmio);
-> +
-> +	/* mandatory clocks: */
-> +	ret = get_clk(pdev, &mdp5_kms->axi_clk, "bus", true);
-> +	if (ret)
-> +		return ret;
-> +	ret = get_clk(pdev, &mdp5_kms->ahb_clk, "iface", true);
-> +	if (ret)
-> +		return ret;
-> +	ret = get_clk(pdev, &mdp5_kms->core_clk, "core", true);
-> +	if (ret)
-> +		return ret;
-> +	ret = get_clk(pdev, &mdp5_kms->vsync_clk, "vsync", true);
-> +	if (ret)
-> +		return ret;
-> +
-> +	/* optional clocks: */
-> +	get_clk(pdev, &mdp5_kms->lut_clk, "lut", false);
-> +	get_clk(pdev, &mdp5_kms->tbu_clk, "tbu", false);
-> +	get_clk(pdev, &mdp5_kms->tbu_rt_clk, "tbu_rt", false);
-> +
-> +	irq = platform_get_irq(pdev, 0);
-> +	if (irq < 0)
-> +		return dev_err_probe(&pdev->dev, irq, "failed to get irq\n");
-> +
-> +	mdp5_kms->base.base.irq = irq;
-> +
-> +	return msm_drv_probe(&pdev->dev, mdp5_kms_init, &mdp5_kms->base.base);
->   }
->   
->   static int mdp5_dev_remove(struct platform_device *pdev)
+>>=20
+>> Signed-off-by: Dmitry Baryshkov <dmitry=2Ebaryshkov@linaro=2Eorg>
+>
+>With those two addressed,
+>
+>Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc=2Ecom>
+>> ---
+>>   drivers/gpu/drm/msm/disp/dpu1/dpu_kms=2Ec | 62 +++++++++++++---------=
+---
+>>   1 file changed, 32 insertions(+), 30 deletions(-)
+>>=20
+>> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms=2Ec b/drivers/gpu/dr=
+m/msm/disp/dpu1/dpu_kms=2Ec
+>> index ae13a3a5d8a5=2E=2E756be04d804b 100644
+>> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms=2Ec
+>> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms=2Ec
+>> @@ -1206,31 +1206,13 @@ static int dpu_kms_init(struct drm_device *ddev=
+)
+>>   	struct device *dev =3D ddev->dev;
+>>   	struct platform_device *pdev =3D to_platform_device(dev);
+>>   	struct dpu_kms *dpu_kms;
+>> -	int irq;
+>>   	struct dev_pm_opp *opp;
+>>   	int ret =3D 0;
+>>   	unsigned long max_freq =3D ULONG_MAX;
+>>   -	dpu_kms =3D devm_kzalloc(&pdev->dev, sizeof(*dpu_kms), GFP_KERNEL);
+>> +	dpu_kms =3D to_dpu_kms(priv->kms);
+>>   	if (!dpu_kms)
+>> -		return -ENOMEM;
+>> -
+>> -	ret =3D devm_pm_opp_set_clkname(dev, "core");
+>> -	if (ret)
+>> -		return ret;
+>> -	/* OPP table is optional */
+>> -	ret =3D devm_pm_opp_of_add_table(dev);
+>> -	if (ret && ret !=3D -ENODEV) {
+>> -		dev_err(dev, "invalid OPP table in device tree\n");
+>> -		return ret;
+>> -	}
+>> -
+>> -	ret =3D devm_clk_bulk_get_all(&pdev->dev, &dpu_kms->clocks);
+>> -	if (ret < 0) {
+>> -		DPU_ERROR("failed to parse clocks, ret=3D%d\n", ret);
+>> -		return ret;
+>> -	}
+>> -	dpu_kms->num_clocks =3D ret;
+>> +		return -EINVAL;
+>>     	opp =3D dev_pm_opp_find_freq_floor(dev, &max_freq);
+>>   	if (!IS_ERR(opp))
+>> @@ -1249,21 +1231,41 @@ static int dpu_kms_init(struct drm_device *ddev=
+)
+>>   	pm_runtime_enable(&pdev->dev);
+>>   	dpu_kms->rpm_enabled =3D true;
+>>   -	priv->kms =3D &dpu_kms->base;
+>> -
+>> -	irq =3D irq_of_parse_and_map(dpu_kms->pdev->dev=2Eof_node, 0);
+>> -	if (!irq) {
+>> -		DPU_ERROR("failed to get irq\n");
+>> -		return -EINVAL;
+>> -	}
+>> -	dpu_kms->base=2Eirq =3D irq;
+>> -
+>>   	return 0;
+>>   }
+>>     static int dpu_dev_probe(struct platform_device *pdev)
+>>   {
+>> -	return msm_drv_probe(&pdev->dev, dpu_kms_init, NULL);
+>> +	struct device *dev =3D &pdev->dev;
+>> +	struct dpu_kms *dpu_kms;
+>> +	int irq;
+>> +	int ret =3D 0;
+>> +
+>> +	dpu_kms =3D devm_kzalloc(dev, sizeof(*dpu_kms), GFP_KERNEL);
+>> +	if (!dpu_kms)
+>> +		return -ENOMEM;
+>> +
+>> +	ret =3D devm_pm_opp_set_clkname(dev, "core");
+>> +	if (ret)
+>> +		return ret;
+>> +	/* OPP table is optional */
+>> +	ret =3D devm_pm_opp_of_add_table(dev);
+>> +	if (ret && ret !=3D -ENODEV)
+>> +		return dev_err_probe(dev, ret, "invalid OPP table in device tree\n")=
+;
+>> +
+>> +	ret =3D devm_clk_bulk_get_all(&pdev->dev, &dpu_kms->clocks);
+>> +	if (ret < 0)
+>> +		return dev_err_probe(dev, ret, "failed to parse clocks\n");
+>> +
+>> +	dpu_kms->num_clocks =3D ret;
+>> +
+>> +	irq =3D platform_get_irq(pdev, 0);
+>> +	if (irq < 0)
+>> +		return dev_err_probe(dev, irq, "failed to get irq\n");
+>> +
+>> +	dpu_kms->base=2Eirq =3D irq;
+>> +
+>> +	return msm_drv_probe(&pdev->dev, dpu_kms_init, &dpu_kms->base);
+>>   }
+>>     static int dpu_dev_remove(struct platform_device *pdev)
+
+--=20
+With best wishes
+Dmitry
