@@ -2,56 +2,56 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1A0FF5B0DA3
-	for <lists+freedreno@lfdr.de>; Wed,  7 Sep 2022 22:00:18 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 10B875B0DAE
+	for <lists+freedreno@lfdr.de>; Wed,  7 Sep 2022 22:03:45 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6341010E864;
-	Wed,  7 Sep 2022 20:00:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7B8FC10E865;
+	Wed,  7 Sep 2022 20:03:42 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-oa1-f52.google.com (mail-oa1-f52.google.com
- [209.85.160.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F1B2810E868;
- Wed,  7 Sep 2022 20:00:09 +0000 (UTC)
-Received: by mail-oa1-f52.google.com with SMTP id
- 586e51a60fabf-1278a61bd57so20195580fac.7; 
- Wed, 07 Sep 2022 13:00:09 -0700 (PDT)
+Received: from mail-ot1-f51.google.com (mail-ot1-f51.google.com
+ [209.85.210.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5A39810E861;
+ Wed,  7 Sep 2022 20:03:37 +0000 (UTC)
+Received: by mail-ot1-f51.google.com with SMTP id
+ m21-20020a9d6ad5000000b00638df677850so10997279otq.5; 
+ Wed, 07 Sep 2022 13:03:37 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date;
- bh=Ezjz3pR0ZD7JxS32x6H4PWVYd4DbErGzq0myuVFhl7k=;
- b=4Flc37EN2dgzeS0e/kIVEoz74djBk+uqpkKdr6QKcSYYjhkweSFX/eOKqyMS6gsnQr
- ka5mG+Vwdr525FRrOH9XV4L0VLK+mtKpbvPZ8LjafTbIvFfbYckE2Cpc1zauDKwHmj7Y
- g6O8zvGlCRQXBDNrU8KNygy/Z3wAMio/4u8ydpU6SN9dfqjv/qFyFDd7VjgQpF8+HSVq
- +tAp62eMIAAfIePoSdgUF9WNhgIjmHIel3ENZWENqEDdGhfdLyDKClxgDDV96+WvqLgK
- hHdLNHigWxZEqdYGiwnjC4pmyXED+hAQSMedywDCOAdELT+il/16QWgWe44Q/oeSZpZ1
- E+Pg==
-X-Gm-Message-State: ACgBeo2+OjkfqXED7SQAorqwXr9H0DdT8bKSC5Zr6dhAcDHn3hz5PoSu
- SWYgxS/TnQ9A+0m57n72bw==
-X-Google-Smtp-Source: AA6agR6mtZOVx+jt1TqJIGzVJ9zUjh/ebkpMh6FfEDDo2YrBSHibeAEp46mZ6ufVap+F8l2EmOwnIw==
-X-Received: by 2002:aca:2810:0:b0:344:e898:35aa with SMTP id
- 16-20020aca2810000000b00344e89835aamr44380oix.279.1662580808956; 
- Wed, 07 Sep 2022 13:00:08 -0700 (PDT)
+ bh=HJtpL2X+zo8QGiAz4xLcd6dnwWmk0PxaqMgysL3AVC8=;
+ b=10AcWhjBmgmP0ZnxUQsbXXaXvqQnQ/j1McXorfyiH6nLbad3VbXfU/D3EZZCV1LFUp
+ 8VOlNWMNpB/Fil2B+eO7YjddxdW3jqqvtuiwXYN+B3OTqPi0KYWqwwVfVNTTBk8cbcfk
+ +Tka1HC7v7qRqs8xPP7JjykB9Y9LMHAMapQaZT2ioG9Ue+T2TEdg4hHNoR+nnmRYB19m
+ FIzXzAIDYSMzHLXS/+LiXwzCeKyUuEfdF4To1yZQ4WCAGuMOVzVzXrrYOvDyv0Uycix5
+ 6AR6xZDzzNqsjTCxgUQy6G27IBIT1MhpwAs27UGWJjc3YzykQUAyJZ5XvoFcA8P0/mcw
+ 8Ytg==
+X-Gm-Message-State: ACgBeo0cYpsMo4SFCVX+TTJJiLmR81lzvIC+qUCPtM/sY4r/Dqq13Z3+
+ M57+xtUbFAdHX42Bjc9NLA==
+X-Google-Smtp-Source: AA6agR7IyMO/AfcshwHGYC1fPOTTYCdaa/6reZ0Ew4AMdBfoMVEEfqKL5j7akmLaX8uKO+dYpP2hag==
+X-Received: by 2002:a9d:6b15:0:b0:636:deac:5288 with SMTP id
+ g21-20020a9d6b15000000b00636deac5288mr2156093otp.236.1662581016595; 
+ Wed, 07 Sep 2022 13:03:36 -0700 (PDT)
 Received: from robh.at.kernel.org (66-90-144-107.dyn.grandenetworks.net.
  [66.90.144.107]) by smtp.gmail.com with ESMTPSA id
- o84-20020acaf057000000b0034484c532c7sm6821240oih.32.2022.09.07.13.00.08
+ z125-20020aca3383000000b00326cb6225f8sm6786337oiz.44.2022.09.07.13.03.35
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 07 Sep 2022 13:00:08 -0700 (PDT)
-Received: (nullmailer pid 113022 invoked by uid 1000);
- Wed, 07 Sep 2022 20:00:07 -0000
-Date: Wed, 7 Sep 2022 15:00:07 -0500
+ Wed, 07 Sep 2022 13:03:36 -0700 (PDT)
+Received: (nullmailer pid 118890 invoked by uid 1000);
+ Wed, 07 Sep 2022 20:03:35 -0000
+Date: Wed, 7 Sep 2022 15:03:35 -0500
 From: Rob Herring <robh@kernel.org>
 To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Message-ID: <20220907200007.GB98468-robh@kernel.org>
+Message-ID: <20220907200335.GA113284-robh@kernel.org>
 References: <20220901102312.2005553-1-dmitry.baryshkov@linaro.org>
- <20220901102312.2005553-5-dmitry.baryshkov@linaro.org>
+ <20220901102312.2005553-6-dmitry.baryshkov@linaro.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20220901102312.2005553-5-dmitry.baryshkov@linaro.org>
-Subject: Re: [Freedreno] [PATCH v6 04/12] dt-bindings: display/msm: move
- common DPU properties to dpu-common.yaml
+In-Reply-To: <20220901102312.2005553-6-dmitry.baryshkov@linaro.org>
+Subject: Re: [Freedreno] [PATCH v6 05/12] dt-bindings: display/msm: move
+ common MDSS properties to mdss-common.yaml
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,37 +77,124 @@ Cc: devicetree@vger.kernel.org, Loic Poulain <loic.poulain@linaro.org>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Thu, Sep 01, 2022 at 01:23:04PM +0300, Dmitry Baryshkov wrote:
-> Move properties common to all DPU DT nodes to the dpu-common.yaml.
+On Thu, Sep 01, 2022 at 01:23:05PM +0300, Dmitry Baryshkov wrote:
+> Move properties common to all MDSS DT nodes to the mdss-common.yaml.
 > 
-> Note, this removes description of individual DPU port@ nodes. However
-> such definitions add no additional value. The reg values do not
-> correspond to hardware INTF indices. The driver discovers and binds
-> these ports not paying any care for the order of these items. Thus just
-> leave the reference to graph.yaml#/properties/ports and the description.
+> This extends qcom,msm8998-mdss schema to allow interconnect nodes, which
+> will be added later, once msm8998 gains interconnect support.
 > 
 > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 > ---
->  .../bindings/display/msm/dpu-common.yaml      | 44 ++++++++++++++++++
->  .../bindings/display/msm/dpu-msm8998.yaml     | 46 ++-----------------
->  .../bindings/display/msm/dpu-qcm2290.yaml     | 41 ++---------------
->  .../bindings/display/msm/dpu-sc7180.yaml      | 45 ++----------------
->  .../bindings/display/msm/dpu-sc7280.yaml      | 45 ++----------------
->  .../bindings/display/msm/dpu-sdm845.yaml      | 46 ++-----------------
->  6 files changed, 64 insertions(+), 203 deletions(-)
->  create mode 100644 Documentation/devicetree/bindings/display/msm/dpu-common.yaml
-> 
-> diff --git a/Documentation/devicetree/bindings/display/msm/dpu-common.yaml b/Documentation/devicetree/bindings/display/msm/dpu-common.yaml
+>  .../bindings/display/msm/dpu-msm8998.yaml     | 42 ++--------
+>  .../bindings/display/msm/dpu-qcm2290.yaml     | 52 ++----------
+>  .../bindings/display/msm/dpu-sc7180.yaml      | 51 ++----------
+>  .../bindings/display/msm/dpu-sc7280.yaml      | 51 ++----------
+>  .../bindings/display/msm/dpu-sdm845.yaml      | 55 ++----------
+>  .../bindings/display/msm/mdss-common.yaml     | 83 +++++++++++++++++++
+>  6 files changed, 116 insertions(+), 218 deletions(-)
+>  create mode 100644 Documentation/devicetree/bindings/display/msm/mdss-common.yaml
+
+[...]
+
+> diff --git a/Documentation/devicetree/bindings/display/msm/mdss-common.yaml b/Documentation/devicetree/bindings/display/msm/mdss-common.yaml
 > new file mode 100644
-> index 000000000000..bf5764e9932b
+> index 000000000000..053c1e889552
 > --- /dev/null
-> +++ b/Documentation/devicetree/bindings/display/msm/dpu-common.yaml
-> @@ -0,0 +1,44 @@
+> +++ b/Documentation/devicetree/bindings/display/msm/mdss-common.yaml
+> @@ -0,0 +1,83 @@
+> +# SPDX-License-Identifier: GPL-2.0-only or BSD-2-Clause
 > +%YAML 1.2
 > +---
-> +$id: http://devicetree.org/schemas/display/msm/dpu-common.yaml#
+> +$id: http://devicetree.org/schemas/display/msm/mdss-common.yaml#
 > +$schema: http://devicetree.org/meta-schemas/core.yaml#
 > +
-> +title: Qualcomm Display DPU dt properties (common properties)
+> +title: Qualcomm Display MDSS dt properties (common properties)
 
-Qualcomm Display DPU common properties
+...MDSS common properties
+
+> +
+> +maintainers:
+> +  - Krishna Manikandan <quic_mkrishn@quicinc.com>
+> +  - Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> +  - Rob Clark <robdclark@gmail.com>
+> +
+> +description: |
+
+Don't need '|' if no formatting.
+
+> +  Device tree bindings for MSM Mobile Display Subsystem(MDSS) that encapsulates
+> +  sub-blocks like DPU display controller, DSI and DP interfaces etc.
+> +
+> +properties:
+> +  reg:
+> +    maxItems: 1
+> +
+> +  reg-names:
+> +    const: mdss
+> +
+> +  power-domains:
+> +    maxItems: 1
+> +
+> +  clocks:
+> +    minItems: 2
+> +    maxItems: 3
+> +
+> +  clock-names:
+> +    minItems: 2
+> +    maxItems: 3
+> +
+> +  interrupts:
+> +    maxItems: 1
+> +
+> +  interrupt-controller: true
+> +
+> +  "#address-cells": true
+> +
+> +  "#size-cells": true
+> +
+> +  "#interrupt-cells":
+> +    const: 1
+> +
+> +  iommus:
+> +    minItems: 1
+> +    items:
+> +      - description: Phandle to apps_smmu node with SID mask for Hard-Fail port0
+> +      - description: Phandle to apps_smmu node with SID mask for Hard-Fail port1
+> +
+> +  ranges: true
+> +
+> +  interconnects:
+> +    minItems: 1
+> +    items:
+> +      - description: Interconnect path specifying the port ids for data bus
+> +      - description: Interconnect path specifying the port ids for data bus
+
+Same description twice...
+
+> +
+> +  interconnect-names:
+> +    minItems: 1
+> +    items:
+> +      - const: mdp0-mem
+> +      - const: mdp1-mem
+> +
+> +  resets:
+> +    items:
+> +      - description: MDSS_CORE reset
+> +
+> +required:
+> +  - compatible
+> +  - reg
+> +  - reg-names
+> +  - power-domains
+> +  - clocks
+> +  - interrupts
+> +  - interrupt-controller
+> +  - iommus
+> +  - ranges
+> +
+> +additionalProperties: true
+> -- 
+> 2.35.1
+> 
+> 
