@@ -1,71 +1,73 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id E71065B211C
-	for <lists+freedreno@lfdr.de>; Thu,  8 Sep 2022 16:48:01 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 78A995B228B
+	for <lists+freedreno@lfdr.de>; Thu,  8 Sep 2022 17:38:57 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2269E10E42E;
-	Thu,  8 Sep 2022 14:48:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id ADC6310EB3D;
+	Thu,  8 Sep 2022 15:38:55 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x132.google.com (mail-lf1-x132.google.com
- [IPv6:2a00:1450:4864:20::132])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 02ABC10E42E
- for <freedreno@lists.freedesktop.org>; Thu,  8 Sep 2022 14:47:57 +0000 (UTC)
-Received: by mail-lf1-x132.google.com with SMTP id i26so12377986lfp.11
- for <freedreno@lists.freedesktop.org>; Thu, 08 Sep 2022 07:47:56 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date;
- bh=UuieVaXEXts9HHmfzhbQi0/SaGvodhk9jcB1Qvi2Vfk=;
- b=OVR1cCbGJE072hGoQUQmFQJ+kprUmprVLEtmSadFZzpbbM7QbSvFvlCIfSqryPYi1+
- SD1skqQd1QH52qTt6B1S/BsqHmuHjpZH9S8UyJzmPe8Zx7lmJFsP6MLRxPjlD72Vew+F
- b3lD9iUSQTOtSZCuSR/OZHMWl5KUpzR00UUcgkT49wx1fcv3qiGGhm3smwbpo3sqBOFZ
- Z5hickhSir1Me8plctfVtkpBlKW0vRDxdoKVZ7W3hL2g2Jcf81GRGI863Xy7G+pj3Pp2
- 4oWiONVlaAsk50KQFObKyWirZF0osd3vjKUSXgBE+7K2LLcMQ4dOLD77ynoOtMcJFiKA
- 8gqA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date;
- bh=UuieVaXEXts9HHmfzhbQi0/SaGvodhk9jcB1Qvi2Vfk=;
- b=FD2cDr1ccCwBm/lxZ6OAsCgLB3rDs1ImjqLMowX97J7EJcE1l0SCoOrht1W9fOOK22
- wsE4vXrBxpwelL2Vcfn3EPkUp9lwIpmrzDR+GuIL7VOQwbBNfIuyKZxVXbK7kNCvxe8p
- Xktj2fTjSVGlyAFHTQVFoEu5hVbNZ5UKcbb+2OiY1KcYtCFxZ8h83e73NrH5FvB76D1z
- jA9lNkY8RvjJurhheQdPhP9YjmCJZqDH/IaGnM0wUdz8/yO8rTn9njfuxRan7/XpVvJ9
- DS9XCuWhY2Wef5IdFVBbazxPKvzfUV+Hh9chpi5b9a3MAENSQ9sLQYcsZNo0UKnMXftK
- uHpw==
-X-Gm-Message-State: ACgBeo0njaTPJw6PhTyUuPHBaWoYup2u+X97v/jkqV3Snp4ZjCaus6MR
- TKES3WQW3h4GvlOByfIPINDWLA==
-X-Google-Smtp-Source: AA6agR7D86UKhJvdjGXOYNf76HQYlp2EoXMifqDRKaFOaRaCQAkypP44nETDFgPRIChEC/kucC5VjA==
-X-Received: by 2002:a05:6512:224e:b0:498:f21f:3500 with SMTP id
- i14-20020a056512224e00b00498f21f3500mr659945lfu.581.1662648475360; 
- Thu, 08 Sep 2022 07:47:55 -0700 (PDT)
-Received: from [192.168.1.211] ([37.153.55.125])
- by smtp.gmail.com with ESMTPSA id
- a24-20020ac25e78000000b0048aee825e2esm788307lfr.282.2022.09.08.07.47.54
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 08 Sep 2022 07:47:55 -0700 (PDT)
-Message-ID: <f1d8736c-2e05-885c-aebe-0e89e3139eb5@linaro.org>
-Date: Thu, 8 Sep 2022 17:47:54 +0300
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5F75910EB3D;
+ Thu,  8 Sep 2022 15:38:52 +0000 (UTC)
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 288DZ9hU030911;
+ Thu, 8 Sep 2022 15:38:45 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
+ h=from : to : cc :
+ subject : date : message-id : mime-version : content-type; s=qcppdkim1;
+ bh=Yv0FuTQbVv84IVdZh7TlEzUrjVusKhcsqSV7puFnrF4=;
+ b=Tp2BAGNs954+gUTqEQW8SFkVM0McXDgBV4SorWvCW1GSJz3BIK20yBj6iR6h0vz9xPbc
+ fZ84FOe3PIPnPAmNxVvfeY8kFnNyQlYqYyioWv0Ip4v+ZU5Vv/LtAgsYHuHleHZ2jK5z
+ IMFvaM2m02NIfBdtRyUpoCwGepIPkTL0af0NhBLYCw1EDJkLn4lG8brhIe862nJnRBeM
+ CAvU9S7o+mW0Qq4ieQ7XDyr88ebFsioTAP7l1P0Kuvj3RTDOCAKvjWhpb574nPiXAZt+
+ XjNMp18tfTcmlW9aEqVfnG4vP+rDVZuREtCm0LppviudpdP4wBDe1ocljuxmCUTu0U44 4A== 
+Received: from nalasppmta05.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3jfeuurvr9-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 08 Sep 2022 15:38:45 +0000
+Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
+ [10.47.209.196])
+ by NALASPPMTA05.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 288FciVQ020803
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 8 Sep 2022 15:38:44 GMT
+Received: from khsieh-linux1.qualcomm.com (10.80.80.8) by
+ nalasex01a.na.qualcomm.com (10.47.209.196) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.986.29; Thu, 8 Sep 2022 08:38:43 -0700
+From: Kuogee Hsieh <quic_khsieh@quicinc.com>
+To: <robdclark@gmail.com>, <sean@poorly.run>, <swboyd@chromium.org>,
+ <dianders@chromium.org>, <vkoul@kernel.org>, <daniel@ffwll.ch>,
+ <airlied@linux.ie>, <agross@kernel.org>, <dmitry.baryshkov@linaro.org>,
+ <bjorn.andersson@linaro.org>
+Date: Thu, 8 Sep 2022 08:38:36 -0700
+Message-ID: <1662651516-30283-1-git-send-email-quic_khsieh@quicinc.com>
+X-Mailer: git-send-email 2.7.4
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.1.2
-Content-Language: en-GB
-To: Abhinav Kumar <quic_abhinavk@quicinc.com>, Rob Clark
- <robdclark@gmail.com>, Sean Paul <sean@poorly.run>
-References: <20220617233328.1143665-1-dmitry.baryshkov@linaro.org>
- <20220617233328.1143665-2-dmitry.baryshkov@linaro.org>
- <4f4862fd-4cbd-82ac-f162-e38c05c92423@quicinc.com>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-In-Reply-To: <4f4862fd-4cbd-82ac-f162-e38c05c92423@quicinc.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-Subject: Re: [Freedreno] [PATCH v6 1/4] drm/msm: clean event_thread->worker
- in case of an error
+Content-Type: text/plain
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-ORIG-GUID: O0BQrB8OKZgfOMgkhGtdW3SswoLNLfVF
+X-Proofpoint-GUID: O0BQrB8OKZgfOMgkhGtdW3SswoLNLfVF
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.205,Aquarius:18.0.895,Hydra:6.0.528,FMLib:17.11.122.1
+ definitions=2022-09-08_10,2022-09-08_01,2022-06-22_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501
+ suspectscore=0 spamscore=0 adultscore=0 lowpriorityscore=0 bulkscore=0
+ mlxscore=0 mlxlogscore=999 clxscore=1015 phishscore=0 malwarescore=0
+ impostorscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2207270000 definitions=main-2209080057
+Subject: [Freedreno] [PATCH v3] drm/msm/dp: cleared DP_DOWNSPREAD_CTRL
+ register before start link training
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,57 +80,110 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: David Airlie <airlied@linux.ie>, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, Bjorn Andersson <bjorn.andersson@linaro.org>,
- Daniel Vetter <daniel@ffwll.ch>, Stephen Boyd <swboyd@chromium.org>,
- freedreno@lists.freedesktop.org
+Cc: quic_sbillaka@quicinc.com, linux-arm-msm@vger.kernel.org,
+ quic_abhinavk@quicinc.com, dri-devel@lists.freedesktop.org,
+ quic_khsieh@quicinc.com, freedreno@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 08/09/2022 03:08, Abhinav Kumar wrote:
-> 
-> 
-> On 6/17/2022 4:33 PM, Dmitry Baryshkov wrote:
->> If worker creation fails, nullify the event_thread->worker, so that
->> msm_drm_uninit() doesn't try accessing invalid memory location. While we
->> are at it, remove duplicate assignment to the ret variable.
->>
->> Fixes: 1041dee2178f ("drm/msm: use kthread_create_worker instead of 
->> kthread_run")
->> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> 
-> the change itself LGTM,
-> 
-> Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
-> 
-> One minor nit below
->> ---
->>   drivers/gpu/drm/msm/msm_drv.c | 2 +-
->>   1 file changed, 1 insertion(+), 1 deletion(-)
->>
->> diff --git a/drivers/gpu/drm/msm/msm_drv.c 
->> b/drivers/gpu/drm/msm/msm_drv.c
->> index 44485363f37a..1aab6bf86278 100644
->> --- a/drivers/gpu/drm/msm/msm_drv.c
->> +++ b/drivers/gpu/drm/msm/msm_drv.c
->> @@ -436,7 +436,7 @@ static int msm_drm_init(struct device *dev, const 
->> struct drm_driver *drv)
->>           if (IS_ERR(priv->event_thread[i].worker)) {
->>               ret = PTR_ERR(priv->event_thread[i].worker);
->>               DRM_DEV_ERROR(dev, "failed to create crtc_event 
->> kthread\n");
-> 
-> Can we print ret in this error message?
+DOWNSPREAD_CTRL (0x107) shall be cleared to 0 upon power-on reset or an
+upstream device disconnect. This patch will enforce this rule by always
+cleared DOWNSPREAD_CTRL register to 0 before start link training. At rare
+case that DP MSA timing parameters may be mis-interpreted by the sink
+which causes audio sampling rate be calculated wrongly and cause audio
+did not work at sink if DOWNSPREAD_CTRL register is not cleared to 0.
+This patch also make sure bring sink out of D3 power-down mode into D0
+(normal operation mode) successfully by retrying 3 times.
 
-In a separate change. I'll add it to my todo list.
+Changes in v2:
+1) fix spelling at commit text
+2) merge ssc variable into encoding[0]
 
-> 
->> -            ret = PTR_ERR(priv->event_thread[i].worker);
->> +            priv->event_thread[i].worker = NULL;
->>               goto err_msm_uninit;
->>           }
+Changes in v3:
+-- correct spelling of DOWNSPREAD_CTRL
+-- replace err with len of ssize_t
 
+Fixes: 154b5a7da0fd ("drm/msm/dp: add displayPort driver support")
+Signed-off-by: Kuogee Hsieh <quic_khsieh@quicinc.com>
+---
+ drivers/gpu/drm/msm/dp/dp_ctrl.c | 13 +++++--------
+ drivers/gpu/drm/msm/dp/dp_link.c | 21 ++++++++++++---------
+ 2 files changed, 17 insertions(+), 17 deletions(-)
+
+diff --git a/drivers/gpu/drm/msm/dp/dp_ctrl.c b/drivers/gpu/drm/msm/dp/dp_ctrl.c
+index ab6aa13..2c74c59 100644
+--- a/drivers/gpu/drm/msm/dp/dp_ctrl.c
++++ b/drivers/gpu/drm/msm/dp/dp_ctrl.c
+@@ -1245,8 +1245,7 @@ static int dp_ctrl_link_train(struct dp_ctrl_private *ctrl,
+ {
+ 	int ret = 0;
+ 	const u8 *dpcd = ctrl->panel->dpcd;
+-	u8 encoding = DP_SET_ANSI_8B10B;
+-	u8 ssc;
++	u8 encoding[] = { 0, DP_SET_ANSI_8B10B };
+ 	u8 assr;
+ 	struct dp_link_info link_info = {0};
+ 
+@@ -1258,13 +1257,11 @@ static int dp_ctrl_link_train(struct dp_ctrl_private *ctrl,
+ 
+ 	dp_aux_link_configure(ctrl->aux, &link_info);
+ 
+-	if (drm_dp_max_downspread(dpcd)) {
+-		ssc = DP_SPREAD_AMP_0_5;
+-		drm_dp_dpcd_write(ctrl->aux, DP_DOWNSPREAD_CTRL, &ssc, 1);
+-	}
++	if (drm_dp_max_downspread(dpcd))
++		encoding[0] |= DP_SPREAD_AMP_0_5;
+ 
+-	drm_dp_dpcd_write(ctrl->aux, DP_MAIN_LINK_CHANNEL_CODING_SET,
+-				&encoding, 1);
++	/* config DOWNSPREAD_CTRL and MAIN_LINK_CHANNEL_CODING_SET */
++	drm_dp_dpcd_write(ctrl->aux, DP_DOWNSPREAD_CTRL, encoding, 2);
+ 
+ 	if (drm_dp_alternate_scrambler_reset_cap(dpcd)) {
+ 		assr = DP_ALTERNATE_SCRAMBLER_RESET_ENABLE;
+diff --git a/drivers/gpu/drm/msm/dp/dp_link.c b/drivers/gpu/drm/msm/dp/dp_link.c
+index 36f0af0..7b5ecf5 100644
+--- a/drivers/gpu/drm/msm/dp/dp_link.c
++++ b/drivers/gpu/drm/msm/dp/dp_link.c
+@@ -49,23 +49,26 @@ static int dp_aux_link_power_up(struct drm_dp_aux *aux,
+ 					struct dp_link_info *link)
+ {
+ 	u8 value;
+-	int err;
++	ssize_t len;
++	int i;
+ 
+ 	if (link->revision < 0x11)
+ 		return 0;
+ 
+-	err = drm_dp_dpcd_readb(aux, DP_SET_POWER, &value);
+-	if (err < 0)
+-		return err;
++	len = drm_dp_dpcd_readb(aux, DP_SET_POWER, &value);
++	if (len < 0)
++		return len;
+ 
+ 	value &= ~DP_SET_POWER_MASK;
+ 	value |= DP_SET_POWER_D0;
+ 
+-	err = drm_dp_dpcd_writeb(aux, DP_SET_POWER, value);
+-	if (err < 0)
+-		return err;
+-
+-	usleep_range(1000, 2000);
++	/* retry for 1ms to give the sink time to wake up */
++	for (i = 0; i < 3; i++) {
++	        len = drm_dp_dpcd_writeb(aux, DP_SET_POWER, value);
++		usleep_range(1000, 2000);
++		if (len == 1)
++			break;
++	}
+ 
+ 	return 0;
+ }
 -- 
-With best wishes
-Dmitry
+The Qualcomm Innovation Center, Inc. is a member of the Code Aurora Forum,
+a Linux Foundation Collaborative Project
 
