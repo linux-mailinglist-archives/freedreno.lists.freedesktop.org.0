@@ -1,79 +1,74 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4D2795B1596
-	for <lists+freedreno@lfdr.de>; Thu,  8 Sep 2022 09:26:49 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 495575B1F5A
+	for <lists+freedreno@lfdr.de>; Thu,  8 Sep 2022 15:37:46 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 63E1010E990;
-	Thu,  8 Sep 2022 07:26:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CFE6010E6FF;
+	Thu,  8 Sep 2022 13:37:44 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1EF0E10E97D;
- Thu,  8 Sep 2022 07:26:37 +0000 (UTC)
-Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 2885oaOd013439;
- Thu, 8 Sep 2022 07:26:35 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
- h=from : to : cc :
- subject : date : message-id : in-reply-to : references; s=qcppdkim1;
- bh=peU2kOufsbu5SBls6JVPvgET4EJbYt9FkY4Sr3YPXAA=;
- b=IrLj9+BQoce3YIaTrqTlkA+tfc5FWMo2098H3Ae6piajcjQIsZRarOs+QAs7OGniLWjU
- QxPt9DMDDRDaaKjJVFWXTIVnCSnPc0gcL8eQmIjTaNowCeAXY6ddCcDY5Cx3SaORvcDa
- CpaY1ymBBhS9G+y93sx6WD5OgBJrVRob1HsdKxkrDg9mNeVCAeTjXNsDb02VvalKteE9
- p+eXCWMVI09kl8XmBqDJr3wasZY2bl1rs7hGsdHL+HFTKuYzrN2D93LJxB69vplv3y8L
- 8Z3rktai8qqOpw7ARRkTxaPUYYBd07FvbwYwqeLEsv2Lbk5eFvVLCDSVvtMN/DksrzFM AA== 
-Received: from apblrppmta01.qualcomm.com
- (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com [103.229.18.19])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3jf1sws74t-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 08 Sep 2022 07:26:34 +0000
-Received: from pps.filterd (APBLRPPMTA01.qualcomm.com [127.0.0.1])
- by APBLRPPMTA01.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTP id 2887QU5o010240; 
- Thu, 8 Sep 2022 07:26:30 GMT
-Received: from pps.reinject (localhost [127.0.0.1])
- by APBLRPPMTA01.qualcomm.com (PPS) with ESMTP id 3jc00kafvj-1;
- Thu, 08 Sep 2022 07:26:30 +0000
-Received: from APBLRPPMTA01.qualcomm.com (APBLRPPMTA01.qualcomm.com
- [127.0.0.1])
- by pps.reinject (8.17.1.5/8.17.1.5) with ESMTP id 2887QURG010233;
- Thu, 8 Sep 2022 07:26:30 GMT
-Received: from kalyant-linux.qualcomm.com (kalyant-linux.qualcomm.com
- [10.204.66.210])
- by APBLRPPMTA01.qualcomm.com (PPS) with ESMTP id 2887QUOi010217;
- Thu, 08 Sep 2022 07:26:30 +0000
-Received: by kalyant-linux.qualcomm.com (Postfix, from userid 94428)
- id 7C06E462C; Thu,  8 Sep 2022 00:26:29 -0700 (PDT)
-From: Kalyan Thota <quic_kalyant@quicinc.com>
-To: y@qualcomm.com, dri-devel@lists.freedesktop.org,
- linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
- devicetree@vger.kernel.org
-Date: Thu,  8 Sep 2022 00:26:28 -0700
-Message-Id: <1662621988-6873-1-git-send-email-quic_kalyant@quicinc.com>
-X-Mailer: git-send-email 2.7.4
-In-Reply-To: <y>
-References: <y>
-X-QCInternal: smtphost
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-GUID: m_Ez0RETrxV4Wb_AHOjX3BAFlY5R7l_G
-X-Proofpoint-ORIG-GUID: m_Ez0RETrxV4Wb_AHOjX3BAFlY5R7l_G
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.205,Aquarius:18.0.895,Hydra:6.0.528,FMLib:17.11.122.1
- definitions=2022-09-08_05,2022-09-07_02,2022-06-22_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0
- phishscore=0 bulkscore=0 impostorscore=0 adultscore=0 priorityscore=1501
- mlxscore=0 spamscore=0 malwarescore=0 clxscore=1015 mlxlogscore=999
- suspectscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2207270000 definitions=main-2209080026
-Subject: [Freedreno] [v4] drm/msm/disp/dpu1: add support for dspp sub block
- flush in sc7280
+Received: from mail-lf1-x133.google.com (mail-lf1-x133.google.com
+ [IPv6:2a00:1450:4864:20::133])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1927E10E6FF
+ for <freedreno@lists.freedesktop.org>; Thu,  8 Sep 2022 13:37:42 +0000 (UTC)
+Received: by mail-lf1-x133.google.com with SMTP id z25so27803234lfr.2
+ for <freedreno@lists.freedesktop.org>; Thu, 08 Sep 2022 06:37:42 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date;
+ bh=mg9cAuwjkSFrw35IeJp38HB0O0TPmsiUVUu8bVEz1QM=;
+ b=iw03YHKoa1hqYNph53FKORbebKgOWi4Y+ocuspU6/3oxNgeNXe5e9T6vXEEnVwhh/p
+ Zv8CS21DQ0DXerLzZ4g6isG/QFPZM2H5OEBQ1ex3aOI/cp3P5ubXD1bVyiOpus5iVE9R
+ vf6occMq3nwYyADbRJbk7lHftIW8UIhJ9ypvZI2T9B4jo1w8Y87xetGCOf/Hv7tHLmHH
+ 4QnoyYOtg/fzuT8riOrBTSicE2/+BMKX+VEGwrJ4gf1mtbnGGKJhV8IOq4xX9WU448Vv
+ A4hV8H22geiEjyGSFKArsbtG/kSFnyjLHJ+fuA2IgtUVFCqUsPyYgBuQlfjcRFG8lb42
+ 9rzw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date;
+ bh=mg9cAuwjkSFrw35IeJp38HB0O0TPmsiUVUu8bVEz1QM=;
+ b=4I9bft+51cuPeD1gsOoQApOaBxy4WmKsd1OHWKUWTRyM7SQqzB480Mz5dC6pLJGIEg
+ jw3FiirTLZaQsj5TM7RQmncUBIjqH2+FBcduInAqSH3lgj1WZn1yWKutz/0MGfaNKkHX
+ SfyraKMkanaWJbg6kMnv54Ppra4kJDdBFrG9CKbMxBc62Cu0jCpvQtNof3O6SO1pbGfQ
+ XRgwoHAcZWMEhyBVJOZlZOSWkFBKclNVKfPTLdGDcHAKw+cLezujjdYOOtJ2mYzAO7B9
+ DTCbD0x8S4liv06hQsSExDWCdK8UtmYgAnUImrkEnYjzjPq7HT05BOQZ8quL6GcArmPV
+ S1mw==
+X-Gm-Message-State: ACgBeo1Dh9qaFHu5ldfqNazMuvETczS1XUeyjcPueFtkwjkdUXTwlFzO
+ h0NIYJoM3yBE2XyQidfIX54xPg==
+X-Google-Smtp-Source: AA6agR5JkCFywxWDiaXlWCjogpSBj7qQif3BMpiUND+cljMl4lbSknid5qxiBcr2rvUvaGE+D9QYvg==
+X-Received: by 2002:a05:6512:3a96:b0:494:71e2:6d86 with SMTP id
+ q22-20020a0565123a9600b0049471e26d86mr2988699lfu.274.1662644260395; 
+ Thu, 08 Sep 2022 06:37:40 -0700 (PDT)
+Received: from [192.168.0.21] (78-11-189-27.static.ip.netia.com.pl.
+ [78.11.189.27]) by smtp.gmail.com with ESMTPSA id
+ q9-20020ac25fc9000000b0049464d89e40sm1059515lfg.72.2022.09.08.06.37.38
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 08 Sep 2022 06:37:39 -0700 (PDT)
+Message-ID: <3e525135-d205-eddc-ff2d-98c8321386e3@linaro.org>
+Date: Thu, 8 Sep 2022 15:37:38 +0200
+MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.13.0
+Content-Language: en-US
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Andy Gross <agross@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konrad.dybcio@somainline.org>, Rob Clark
+ <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, Rob Herring <robh+dt@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>
+References: <20220901102312.2005553-1-dmitry.baryshkov@linaro.org>
+ <20220901102312.2005553-2-dmitry.baryshkov@linaro.org>
+From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+In-Reply-To: <20220901102312.2005553-2-dmitry.baryshkov@linaro.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+Subject: Re: [Freedreno] [PATCH v6 01/12] dt-bindings: display/msm: split
+ qcom, mdss bindings
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -86,194 +81,260 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Kalyan Thota <quic_kalyant@quicinc.com>, dianders@chromium.org,
- quic_abhinavk@quicinc.com, linux-kernel@vger.kernel.org,
- quic_vpolimer@quicinc.com, robdclark@gmail.com, dmitry.baryshkov@linaro.org,
- swboyd@chromium.org
+Cc: devicetree@vger.kernel.org, Loic Poulain <loic.poulain@linaro.org>,
+ David Airlie <airlied@linux.ie>, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, Stephen Boyd <swboyd@chromium.org>,
+ Daniel Vetter <daniel@ffwll.ch>, freedreno@lists.freedesktop.org,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Flush mechanism for DSPP blocks has changed in sc7280 family, it
-allows individual sub blocks to be flushed in coordination with
-master flush control.
+On 01/09/2022 12:23, Dmitry Baryshkov wrote:
+> Split Mobile Display SubSystem (MDSS) root node bindings to the separate
+> yaml file. Changes to the existing (txt) schema:
+>  - Added optional "vbif_nrt_phys" region used by msm8996
+>  - Made "bus" and "vsync" clocks optional (they are not used by some
+>    platforms)
+>  - Added (optional) "core" clock added recently to the mdss driver
+>  - Added optional resets property referencing MDSS reset
+>  - Defined child nodes pointing to corresponding reference schema.
+>  - Dropped the "lut" clock. It was added to the schema by mistake (it is
+>    a part of mdp4 schema, not the mdss).
+> 
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> ---
+>  .../devicetree/bindings/display/msm/mdp5.txt  |  30 +---
+>  .../devicetree/bindings/display/msm/mdss.yaml | 166 ++++++++++++++++++
+>  2 files changed, 167 insertions(+), 29 deletions(-)
+>  create mode 100644 Documentation/devicetree/bindings/display/msm/mdss.yaml
+> 
+> diff --git a/Documentation/devicetree/bindings/display/msm/mdp5.txt b/Documentation/devicetree/bindings/display/msm/mdp5.txt
+> index 43d11279c925..65d03c58dee6 100644
+> --- a/Documentation/devicetree/bindings/display/msm/mdp5.txt
+> +++ b/Documentation/devicetree/bindings/display/msm/mdp5.txt
+> @@ -2,37 +2,9 @@ Qualcomm adreno/snapdragon MDP5 display controller
+>  
+>  Description:
+>  
+> -This is the bindings documentation for the Mobile Display Subsytem(MDSS) that
+> -encapsulates sub-blocks like MDP5, DSI, HDMI, eDP etc, and the MDP5 display
+> +This is the bindings documentation for the MDP5 display
+>  controller found in SoCs like MSM8974, APQ8084, MSM8916, MSM8994 and MSM8996.
+>  
+> -MDSS:
+> -Required properties:
+> -- compatible:
+> -  * "qcom,mdss" - MDSS
+> -- reg: Physical base address and length of the controller's registers.
+> -- reg-names: The names of register regions. The following regions are required:
+> -  * "mdss_phys"
+> -  * "vbif_phys"
+> -- interrupts: The interrupt signal from MDSS.
+> -- interrupt-controller: identifies the node as an interrupt controller.
+> -- #interrupt-cells: specifies the number of cells needed to encode an interrupt
+> -  source, should be 1.
+> -- power-domains: a power domain consumer specifier according to
+> -  Documentation/devicetree/bindings/power/power_domain.txt
+> -- clocks: device clocks. See ../clocks/clock-bindings.txt for details.
+> -- clock-names: the following clocks are required.
+> -  * "iface"
+> -  * "bus"
+> -  * "vsync"
+> -- #address-cells: number of address cells for the MDSS children. Should be 1.
+> -- #size-cells: Should be 1.
+> -- ranges: parent bus address space is the same as the child bus address space.
+> -
+> -Optional properties:
+> -- clock-names: the following clocks are optional:
+> -  * "lut"
+> -
+>  MDP5:
+>  Required properties:
+>  - compatible:
+> diff --git a/Documentation/devicetree/bindings/display/msm/mdss.yaml b/Documentation/devicetree/bindings/display/msm/mdss.yaml
+> new file mode 100644
+> index 000000000000..8860fc55cca5
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/display/msm/mdss.yaml
+> @@ -0,0 +1,166 @@
+> +# SPDX-License-Identifier: GPL-2.0-only or BSD-2-Clause
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/display/msm/mdss.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: Qualcomm Mobile Display SubSystem (MDSS)
+> +
+> +maintainers:
+> +  - Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> +  - Rob Clark <robdclark@gmail.com>
+> +
+> +description:
+> +  This is the bindings documentation for the Mobile Display Subsytem(MDSS) that
+> +  encapsulates sub-blocks like MDP5, DSI, HDMI, eDP, etc.
+> +
+> +properties:
+> +  compatible:
+> +    enum:
+> +      - qcom,mdss
+> +
+> +  reg:
+> +    minItems: 2
+> +    maxItems: 3
+> +
+> +  reg-names:
+> +    minItems: 2
+> +    items:
+> +      - const: mdss_phys
+> +      - const: vbif_phys
+> +      - const: vbif_nrt_phys
+> +
+> +  interrupts:
+> +    maxItems: 1
+> +
+> +  interrupt-controller:
+> +    true
 
-Representation: master_flush && (PCC_flush | IGC_flush .. etc )
+If there is going to be v7 - please make it one line.
 
-This change adds necessary support for the above design.
+> +
+> +  "#interrupt-cells":
+> +    const: 1
+> +
+> +  power-domains:
+> +    maxItems: 1
+> +    description: |
+> +      The MDSS power domain provided by GCC
+> +
+> +  clocks:
+> +    minItems: 1
+> +    items:
+> +      - description: Display abh clock
+> +      - description: Display axi clock
+> +      - description: Display vsync clock
+> +
+> +  clock-names:
+> +    minItems: 1
+> +    items:
+> +      - const: iface
+> +      - const: bus
+> +      - const: vsync
+> +
+> +  "#address-cells":
+> +    const: 1
+> +
+> +  "#size-cells":
+> +    const: 1
+> +
+> +  ranges:
+> +    true
 
-Changes in v1:
-- Few nits (Doug, Dmitry)
-- Restrict sub-block flush programming to dpu_hw_ctl file (Dmitry)
+Ditto.
 
-Changes in v2:
-- Move the address offset to flush macro (Dmitry)
-- Seperate ops for the sub block flush (Dmitry)
+> +
+> +  resets:
+> +    items:
+> +      - description: MDSS_CORE reset
+> +
+> +required:
+> +  - compatible
+> +  - reg
+> +  - reg-names
+> +  - interrupts
+> +  - interrupt-controller
+> +  - "#interrupt-cells"
+> +  - power-domains
+> +  - clocks
+> +  - clock-names
+> +  - "#address-cells"
+> +  - "#size-cells"
+> +  - ranges
+> +
+> +patternProperties:
+> +  "^mdp@[1-9a-f][0-9a-f]*$":
+> +    type: object
+> +    properties:
+> +      compatible:
+> +        const: qcom,mdp5
+> +
+> +  "^dsi@[1-9a-f][0-9a-f]*$":
+> +    type: object
+> +    properties:
+> +      compatible:
+> +        const: qcom,mdss-dsi-ctrl
 
-Changes in v3:
-- Reuse the DPU_DSPP_xx enum instead of a new one (Dmitry)
----
- drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c       |  2 +-
- drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c |  5 +++-
- drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h |  4 +++
- drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c     | 35 ++++++++++++++++++++++++--
- drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.h     | 10 ++++++--
- 5 files changed, 50 insertions(+), 6 deletions(-)
+This should be ref to dsi-controller-main.yaml... or based on previous
+Rob's feedback you dropped it everywhere in children?
 
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
-index 601d687..4170fbe 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
-@@ -766,7 +766,7 @@ static void _dpu_crtc_setup_cp_blocks(struct drm_crtc *crtc)
- 
- 		/* stage config flush mask */
- 		ctl->ops.update_pending_flush_dspp(ctl,
--			mixer[i].hw_dspp->idx);
-+			mixer[i].hw_dspp->idx, DPU_DSPP_PCC);
- 	}
- }
- 
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
-index 27f029f..0eecb2f 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
-@@ -65,7 +65,10 @@
- 	(PINGPONG_SDM845_MASK | BIT(DPU_PINGPONG_TE2))
- 
- #define CTL_SC7280_MASK \
--	(BIT(DPU_CTL_ACTIVE_CFG) | BIT(DPU_CTL_FETCH_ACTIVE) | BIT(DPU_CTL_VM_CFG))
-+	(BIT(DPU_CTL_ACTIVE_CFG) | \
-+	 BIT(DPU_CTL_FETCH_ACTIVE) | \
-+	 BIT(DPU_CTL_VM_CFG) | \
-+	 BIT(DPU_CTL_DSPP_SUB_BLOCK_FLUSH))
- 
- #define MERGE_3D_SM8150_MASK (0)
- 
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h
-index 38aa38a..8148e91 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h
-@@ -161,10 +161,12 @@ enum {
-  * DSPP sub-blocks
-  * @DPU_DSPP_PCC             Panel color correction block
-  * @DPU_DSPP_GC              Gamma correction block
-+ * @DPU_DSPP_IGC             Inverse Gamma correction block
-  */
- enum {
- 	DPU_DSPP_PCC = 0x1,
- 	DPU_DSPP_GC,
-+	DPU_DSPP_IGC,
- 	DPU_DSPP_MAX
- };
- 
-@@ -191,6 +193,7 @@ enum {
-  * @DPU_CTL_SPLIT_DISPLAY:	CTL supports video mode split display
-  * @DPU_CTL_FETCH_ACTIVE:	Active CTL for fetch HW (SSPPs)
-  * @DPU_CTL_VM_CFG:		CTL config to support multiple VMs
-+ * @DPU_CTL_DSPP_BLOCK_FLUSH: CTL config to support dspp sub-block flush
-  * @DPU_CTL_MAX
-  */
- enum {
-@@ -198,6 +201,7 @@ enum {
- 	DPU_CTL_ACTIVE_CFG,
- 	DPU_CTL_FETCH_ACTIVE,
- 	DPU_CTL_VM_CFG,
-+	DPU_CTL_DSPP_SUB_BLOCK_FLUSH,
- 	DPU_CTL_MAX
- };
- 
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c
-index a35ecb6..bbda09a 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c
-@@ -33,6 +33,7 @@
- #define   CTL_INTF_FLUSH                0x110
- #define   CTL_INTF_MASTER               0x134
- #define   CTL_FETCH_PIPE_ACTIVE         0x0FC
-+#define   CTL_DSPP_n_FLUSH(n)		((0x13C) + ((n - 1) * 4))
- 
- #define CTL_MIXER_BORDER_OUT            BIT(24)
- #define CTL_FLUSH_MASK_CTL              BIT(17)
-@@ -287,8 +288,9 @@ static void dpu_hw_ctl_update_pending_flush_merge_3d_v1(struct dpu_hw_ctl *ctx,
- }
- 
- static void dpu_hw_ctl_update_pending_flush_dspp(struct dpu_hw_ctl *ctx,
--	enum dpu_dspp dspp)
-+	enum dpu_dspp dspp, u32 dspp_sub_blk)
- {
-+
- 	switch (dspp) {
- 	case DSPP_0:
- 		ctx->pending_flush_mask |= BIT(13);
-@@ -307,6 +309,31 @@ static void dpu_hw_ctl_update_pending_flush_dspp(struct dpu_hw_ctl *ctx,
- 	}
- }
- 
-+static void dpu_hw_ctl_update_pending_flush_dspp_subblocks(
-+	struct dpu_hw_ctl *ctx,	enum dpu_dspp dspp, u32 dspp_sub_blk)
-+{
-+	uint32_t flushbits = 0, active;
-+
-+	switch (dspp_sub_blk) {
-+	case DPU_DSPP_IGC:
-+		flushbits = BIT(2);
-+		break;
-+	case DPU_DSPP_PCC:
-+		flushbits = BIT(4);
-+		break;
-+	case DPU_DSPP_GC:
-+		flushbits = BIT(5);
-+		break;
-+	default:
-+		return;
-+	}
-+
-+	active = DPU_REG_READ(&ctx->hw, CTL_DSPP_n_FLUSH(dspp));
-+	DPU_REG_WRITE(&ctx->hw, CTL_DSPP_n_FLUSH(dspp), active | flushbits);
-+
-+	ctx->pending_flush_mask |= BIT(29);
-+}
-+
- static u32 dpu_hw_ctl_poll_reset_status(struct dpu_hw_ctl *ctx, u32 timeout_us)
- {
- 	struct dpu_hw_blk_reg_map *c = &ctx->hw;
-@@ -675,7 +702,11 @@ static void _setup_ctl_ops(struct dpu_hw_ctl_ops *ops,
- 	ops->setup_blendstage = dpu_hw_ctl_setup_blendstage;
- 	ops->update_pending_flush_sspp = dpu_hw_ctl_update_pending_flush_sspp;
- 	ops->update_pending_flush_mixer = dpu_hw_ctl_update_pending_flush_mixer;
--	ops->update_pending_flush_dspp = dpu_hw_ctl_update_pending_flush_dspp;
-+	if (cap & BIT(DPU_CTL_DSPP_SUB_BLOCK_FLUSH))
-+		ops->update_pending_flush_dspp = dpu_hw_ctl_update_pending_flush_dspp_subblocks;
-+	else
-+		ops->update_pending_flush_dspp = dpu_hw_ctl_update_pending_flush_dspp;
-+
- 	if (cap & BIT(DPU_CTL_FETCH_ACTIVE))
- 		ops->set_active_pipes = dpu_hw_ctl_set_fetch_pipe_active;
- };
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.h
-index 96c012e..1743572 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.h
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.h
-@@ -149,12 +149,18 @@ struct dpu_hw_ctl_ops {
- 
- 	/**
- 	 * OR in the given flushbits to the cached pending_flush_mask
--	 * No effect on hardware
-+	 *
-+	 * If the hardware supports dspp sub block flush, then sub-block
-+	 * flushes are written to the hardware and main dspp flush will
-+	 * be cached in the pending_flush_mask.
-+	 *
- 	 * @ctx       : ctl path ctx pointer
- 	 * @blk       : DSPP block index
-+	 * @dspp_sub_blk : DSPP sub-block index
- 	 */
- 	void (*update_pending_flush_dspp)(struct dpu_hw_ctl *ctx,
--		enum dpu_dspp blk);
-+		enum dpu_dspp blk,  u32 dspp_sub_blk);
-+
- 	/**
- 	 * Write the value of the pending_flush_mask to hardware
- 	 * @ctx       : ctl path ctx pointer
--- 
-2.7.4
+> +
+> +  "^dsi-phy@[1-9a-f][0-9a-f]*$":
+> +    type: object
+> +    properties:
+> +      compatible:
+> +        enum:
+> +          - qcom,dsi-phy-14nm
+> +          - qcom,dsi-phy-14nm-660
+> +          - qcom,dsi-phy-20nm
+> +          - qcom,dsi-phy-28nm-hpm
+> +          - qcom,dsi-phy-28nm-lp
+> +
+> +  "^hdmi-phy@[1-9a-f][0-9a-f]*$":
+> +    type: object
+> +    properties:
+> +      compatible:
+> +        enum:
+> +          - qcom,hdmi-phy-8084
+> +          - qcom,hdmi-phy-8660
+> +          - qcom,hdmi-phy-8960
+> +          - qcom,hdmi-phy-8974
+> +          - qcom,hdmi-phy-8996
+> +
+> +  "^hdmi-tx@[1-9a-f][0-9a-f]*$":
+> +    type: object
+> +    properties:
+> +      compatible:
+> +        enum:
+> +          - qcom,hdmi-tx-8084
+> +          - qcom,hdmi-tx-8660
+> +          - qcom,hdmi-tx-8960
+> +          - qcom,hdmi-tx-8974
+> +          - qcom,hdmi-tx-8994
+> +          - qcom,hdmi-tx-8996
+> +
+> +additionalProperties: false
+> +
+> +examples:
+> +  - |
+> +    #include <dt-bindings/clock/qcom,gcc-msm8916.h>
+> +    #include <dt-bindings/interrupt-controller/arm-gic.h>
+> +    mdss@1a00000 {
+> +      compatible = "qcom,mdss";
+> +      reg = <0x1a00000 0x1000>,
+> +            <0x1ac8000 0x3000>;
+> +      reg-names = "mdss_phys", "vbif_phys";
+> +
+> +      power-domains = <&gcc MDSS_GDSC>;
+> +
+> +      clocks = <&gcc GCC_MDSS_AHB_CLK>,
+> +               <&gcc GCC_MDSS_AXI_CLK>,
+> +               <&gcc GCC_MDSS_VSYNC_CLK>;
+> +      clock-names = "iface",
+> +                    "bus",
+> +                    "vsync";
+> +
+> +      interrupts = <GIC_SPI 72 IRQ_TYPE_LEVEL_HIGH>;
+> +
+> +      interrupt-controller;
+> +      #interrupt-cells = <1>;
+> +
+> +      #address-cells = <1>;
+> +      #size-cells = <1>;
+> +      ranges;
+> +
 
+No need for blank line.
+
+
+
+Best regards,
+Krzysztof
