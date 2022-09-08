@@ -1,56 +1,56 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 495575B1F5A
-	for <lists+freedreno@lfdr.de>; Thu,  8 Sep 2022 15:37:46 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 9BEA35B1F7C
+	for <lists+freedreno@lfdr.de>; Thu,  8 Sep 2022 15:44:09 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CFE6010E6FF;
-	Thu,  8 Sep 2022 13:37:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A7EEE10E9DC;
+	Thu,  8 Sep 2022 13:44:07 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x133.google.com (mail-lf1-x133.google.com
- [IPv6:2a00:1450:4864:20::133])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1927E10E6FF
- for <freedreno@lists.freedesktop.org>; Thu,  8 Sep 2022 13:37:42 +0000 (UTC)
-Received: by mail-lf1-x133.google.com with SMTP id z25so27803234lfr.2
- for <freedreno@lists.freedesktop.org>; Thu, 08 Sep 2022 06:37:42 -0700 (PDT)
+Received: from mail-lf1-x12a.google.com (mail-lf1-x12a.google.com
+ [IPv6:2a00:1450:4864:20::12a])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5636B10E9ED
+ for <freedreno@lists.freedesktop.org>; Thu,  8 Sep 2022 13:44:05 +0000 (UTC)
+Received: by mail-lf1-x12a.google.com with SMTP id m15so8114932lfl.9
+ for <freedreno@lists.freedesktop.org>; Thu, 08 Sep 2022 06:44:05 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :from:to:cc:subject:date;
- bh=mg9cAuwjkSFrw35IeJp38HB0O0TPmsiUVUu8bVEz1QM=;
- b=iw03YHKoa1hqYNph53FKORbebKgOWi4Y+ocuspU6/3oxNgeNXe5e9T6vXEEnVwhh/p
- Zv8CS21DQ0DXerLzZ4g6isG/QFPZM2H5OEBQ1ex3aOI/cp3P5ubXD1bVyiOpus5iVE9R
- vf6occMq3nwYyADbRJbk7lHftIW8UIhJ9ypvZI2T9B4jo1w8Y87xetGCOf/Hv7tHLmHH
- 4QnoyYOtg/fzuT8riOrBTSicE2/+BMKX+VEGwrJ4gf1mtbnGGKJhV8IOq4xX9WU448Vv
- A4hV8H22geiEjyGSFKArsbtG/kSFnyjLHJ+fuA2IgtUVFCqUsPyYgBuQlfjcRFG8lb42
- 9rzw==
+ bh=ADjKcgU/7WVg1iZnEBOc24JneNzG+pamTo18hJi4qC4=;
+ b=W4Y4wSahcBGlxIwPOKy2A/5B/zitDUDrZKJ0i+Q5RM5SxqY1rIoWeLPC0sAnXVxVaL
+ ot30JkD4LVAxJepRJtzxf4DtAqjdAtlxnDpU4dgfc00elvrLyeTK8EKaNtzpPEB8P3cR
+ g3rkQpPHbexJX0X8wxpI5stKYCsWjh3RNZjZsqp1ArtvW9N67czMFf970ch2SYi6+Yls
+ f0IvHieCTQ1qjS7WL3dCZPFH1bpnNF7N5eij4Wk5T09+RJB0uXXVoY98XeBWvxe1ATFC
+ 0e8FhXROxeRlnf6qgk/1B/C+MzrobDLalzN+bLrbmkGId/UFtoGDzwwMapilKe8b+yY8
+ KImw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date;
- bh=mg9cAuwjkSFrw35IeJp38HB0O0TPmsiUVUu8bVEz1QM=;
- b=4I9bft+51cuPeD1gsOoQApOaBxy4WmKsd1OHWKUWTRyM7SQqzB480Mz5dC6pLJGIEg
- jw3FiirTLZaQsj5TM7RQmncUBIjqH2+FBcduInAqSH3lgj1WZn1yWKutz/0MGfaNKkHX
- SfyraKMkanaWJbg6kMnv54Ppra4kJDdBFrG9CKbMxBc62Cu0jCpvQtNof3O6SO1pbGfQ
- XRgwoHAcZWMEhyBVJOZlZOSWkFBKclNVKfPTLdGDcHAKw+cLezujjdYOOtJ2mYzAO7B9
- DTCbD0x8S4liv06hQsSExDWCdK8UtmYgAnUImrkEnYjzjPq7HT05BOQZ8quL6GcArmPV
- S1mw==
-X-Gm-Message-State: ACgBeo1Dh9qaFHu5ldfqNazMuvETczS1XUeyjcPueFtkwjkdUXTwlFzO
- h0NIYJoM3yBE2XyQidfIX54xPg==
-X-Google-Smtp-Source: AA6agR5JkCFywxWDiaXlWCjogpSBj7qQif3BMpiUND+cljMl4lbSknid5qxiBcr2rvUvaGE+D9QYvg==
-X-Received: by 2002:a05:6512:3a96:b0:494:71e2:6d86 with SMTP id
- q22-20020a0565123a9600b0049471e26d86mr2988699lfu.274.1662644260395; 
- Thu, 08 Sep 2022 06:37:40 -0700 (PDT)
+ bh=ADjKcgU/7WVg1iZnEBOc24JneNzG+pamTo18hJi4qC4=;
+ b=VSyCmUK0ZCRmB1If/kdefN67Sad1FNSXIY2WWi89KKbf90pgn94Fz14eV2+RqffbAb
+ 8Ef2xfwiooOCOBm3nhShxfsdbuCD4lAyLEDZeiLhIe/mh1k8x6r2QnJioKvbW3FUhUyP
+ iLi4s2EDHhH0gsV8j/X8qxr96PcGjMZkQDeTHMX5O7Qlc040s/lY6xQkfXTRVFbUQVHq
+ dd9lDpVYDMD6PjxFboFqlUSeLV7h5sU67y2fBLH3pCnp7aSK8S/l59V9QdPelQ9+9IWf
+ dWcZ6fNPT2pD3zyrKGu5r6o2V+fo8Cwi0wdrvwtpy07FHH5RwhR8hXWV3dzXr+V0TXOQ
+ nhjQ==
+X-Gm-Message-State: ACgBeo13WAFDvLU6T5qnBoEA0xVZt+Y7ZLdP0ksKnLSuXDcdJxTSMeML
+ bJ7jMCAEr4+mHuH55Oo8h7sX7g==
+X-Google-Smtp-Source: AA6agR4wHBMp+HzD7UtYqVNqr/wulhee2bv18awY6dzHZIdtqfYE3uyvQV3OijHcTs/qKENgvxF/4g==
+X-Received: by 2002:a05:6512:3d06:b0:494:6871:639e with SMTP id
+ d6-20020a0565123d0600b004946871639emr2734162lfv.227.1662644643456; 
+ Thu, 08 Sep 2022 06:44:03 -0700 (PDT)
 Received: from [192.168.0.21] (78-11-189-27.static.ip.netia.com.pl.
  [78.11.189.27]) by smtp.gmail.com with ESMTPSA id
- q9-20020ac25fc9000000b0049464d89e40sm1059515lfg.72.2022.09.08.06.37.38
+ b28-20020ac247fc000000b004951c1beb4fsm2603188lfp.66.2022.09.08.06.44.01
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 08 Sep 2022 06:37:39 -0700 (PDT)
-Message-ID: <3e525135-d205-eddc-ff2d-98c8321386e3@linaro.org>
-Date: Thu, 8 Sep 2022 15:37:38 +0200
+ Thu, 08 Sep 2022 06:44:02 -0700 (PDT)
+Message-ID: <92e18257-9a95-9366-ffff-416d27039c3b@linaro.org>
+Date: Thu, 8 Sep 2022 15:44:01 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
  Thunderbird/91.13.0
@@ -62,13 +62,13 @@ To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
  Abhinav Kumar <quic_abhinavk@quicinc.com>, Rob Herring <robh+dt@kernel.org>,
  Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>
 References: <20220901102312.2005553-1-dmitry.baryshkov@linaro.org>
- <20220901102312.2005553-2-dmitry.baryshkov@linaro.org>
+ <20220901102312.2005553-7-dmitry.baryshkov@linaro.org>
 From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-In-Reply-To: <20220901102312.2005553-2-dmitry.baryshkov@linaro.org>
+In-Reply-To: <20220901102312.2005553-7-dmitry.baryshkov@linaro.org>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH v6 01/12] dt-bindings: display/msm: split
- qcom, mdss bindings
+Subject: Re: [Freedreno] [PATCH v6 06/12] dt-bindings: display/msm: split
+ dpu-sc7180 into DPU and MDSS parts
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -90,249 +90,150 @@ Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 On 01/09/2022 12:23, Dmitry Baryshkov wrote:
-> Split Mobile Display SubSystem (MDSS) root node bindings to the separate
-> yaml file. Changes to the existing (txt) schema:
->  - Added optional "vbif_nrt_phys" region used by msm8996
->  - Made "bus" and "vsync" clocks optional (they are not used by some
->    platforms)
->  - Added (optional) "core" clock added recently to the mdss driver
->  - Added optional resets property referencing MDSS reset
->  - Defined child nodes pointing to corresponding reference schema.
->  - Dropped the "lut" clock. It was added to the schema by mistake (it is
->    a part of mdp4 schema, not the mdss).
+> In order to make the schema more readable, split dpu-sc7180 into the DPU
+> and MDSS parts, each one describing just a single device binding.
 > 
 > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> ---
->  .../devicetree/bindings/display/msm/mdp5.txt  |  30 +---
->  .../devicetree/bindings/display/msm/mdss.yaml | 166 ++++++++++++++++++
->  2 files changed, 167 insertions(+), 29 deletions(-)
->  create mode 100644 Documentation/devicetree/bindings/display/msm/mdss.yaml
-> 
-> diff --git a/Documentation/devicetree/bindings/display/msm/mdp5.txt b/Documentation/devicetree/bindings/display/msm/mdp5.txt
-> index 43d11279c925..65d03c58dee6 100644
-> --- a/Documentation/devicetree/bindings/display/msm/mdp5.txt
-> +++ b/Documentation/devicetree/bindings/display/msm/mdp5.txt
-> @@ -2,37 +2,9 @@ Qualcomm adreno/snapdragon MDP5 display controller
->  
->  Description:
->  
-> -This is the bindings documentation for the Mobile Display Subsytem(MDSS) that
-> -encapsulates sub-blocks like MDP5, DSI, HDMI, eDP etc, and the MDP5 display
-> +This is the bindings documentation for the MDP5 display
->  controller found in SoCs like MSM8974, APQ8084, MSM8916, MSM8994 and MSM8996.
->  
-> -MDSS:
-> -Required properties:
-> -- compatible:
-> -  * "qcom,mdss" - MDSS
-> -- reg: Physical base address and length of the controller's registers.
-> -- reg-names: The names of register regions. The following regions are required:
-> -  * "mdss_phys"
-> -  * "vbif_phys"
-> -- interrupts: The interrupt signal from MDSS.
-> -- interrupt-controller: identifies the node as an interrupt controller.
-> -- #interrupt-cells: specifies the number of cells needed to encode an interrupt
-> -  source, should be 1.
-> -- power-domains: a power domain consumer specifier according to
-> -  Documentation/devicetree/bindings/power/power_domain.txt
-> -- clocks: device clocks. See ../clocks/clock-bindings.txt for details.
-> -- clock-names: the following clocks are required.
-> -  * "iface"
-> -  * "bus"
-> -  * "vsync"
-> -- #address-cells: number of address cells for the MDSS children. Should be 1.
-> -- #size-cells: Should be 1.
-> -- ranges: parent bus address space is the same as the child bus address space.
+
+Thank you for your patch. There is something to discuss/improve.
+
+> -                           #address-cells = <1>;
+> -                           #size-cells = <0>;
 > -
-> -Optional properties:
-> -- clock-names: the following clocks are optional:
-> -  * "lut"
+> -                           port@0 {
+> -                                   reg = <0>;
+> -                                   dpu_intf1_out: endpoint {
+> -                                                  remote-endpoint = <&dsi0_in>;
+> -                                   };
+> -                           };
 > -
->  MDP5:
->  Required properties:
->  - compatible:
-> diff --git a/Documentation/devicetree/bindings/display/msm/mdss.yaml b/Documentation/devicetree/bindings/display/msm/mdss.yaml
+> -                            port@2 {
+> -                                    reg = <2>;
+> -                                    dpu_intf0_out: endpoint {
+> -                                                   remote-endpoint = <&dp_in>;
+> -                                    };
+> -                            };
+> -                   };
+> -         };
+> +    display-controller@ae01000 {
+> +               compatible = "qcom,sc7180-dpu";
+> +               reg = <0x0ae01000 0x8f000>,
+
+You need to fix up the indentation.
+
+> +                     <0x0aeb0000 0x2008>;
+> +
+> +               reg-names = "mdp", "vbif";
+> +
+> +               clocks = <&gcc GCC_DISP_HF_AXI_CLK>,
+> +                        <&dispcc DISP_CC_MDSS_AHB_CLK>,
+> +                        <&dispcc DISP_CC_MDSS_ROT_CLK>,
+> +                        <&dispcc DISP_CC_MDSS_MDP_LUT_CLK>,
+> +                        <&dispcc DISP_CC_MDSS_MDP_CLK>,
+> +                        <&dispcc DISP_CC_MDSS_VSYNC_CLK>;
+> +               clock-names = "bus", "iface", "rot", "lut", "core",
+> +                             "vsync";
+> +
+> +               interrupt-parent = <&mdss>;
+> +               interrupts = <0>;
+> +               power-domains = <&rpmhpd SC7180_CX>;
+> +               operating-points-v2 = <&mdp_opp_table>;
+> +
+> +               ports {
+> +                       #address-cells = <1>;
+> +                       #size-cells = <0>;
+> +
+> +                       port@0 {
+> +                               reg = <0>;
+> +                               dpu_intf1_out: endpoint {
+> +                                              remote-endpoint = <&dsi0_in>;
+> +                               };
+> +                       };
+> +
+> +                        port@2 {
+> +                                reg = <2>;
+> +                                dpu_intf0_out: endpoint {
+> +                                               remote-endpoint = <&dp_in>;
+> +                                };
+> +                        };
+> +               };
+>      };
+>  ...
+> diff --git a/Documentation/devicetree/bindings/display/msm/mdss-sc7180.yaml b/Documentation/devicetree/bindings/display/msm/mdss-sc7180.yaml
 > new file mode 100644
-> index 000000000000..8860fc55cca5
+> index 000000000000..27d944f0e471
 > --- /dev/null
-> +++ b/Documentation/devicetree/bindings/display/msm/mdss.yaml
-> @@ -0,0 +1,166 @@
+> +++ b/Documentation/devicetree/bindings/display/msm/mdss-sc7180.yaml
+> @@ -0,0 +1,85 @@
 > +# SPDX-License-Identifier: GPL-2.0-only or BSD-2-Clause
 > +%YAML 1.2
 > +---
-> +$id: http://devicetree.org/schemas/display/msm/mdss.yaml#
+> +$id: http://devicetree.org/schemas/display/msm/mdss-sc7180.yaml#
 > +$schema: http://devicetree.org/meta-schemas/core.yaml#
 > +
-> +title: Qualcomm Mobile Display SubSystem (MDSS)
+> +title: Qualcomm Display MDSS dt properties for SC7180 target
 > +
 > +maintainers:
-> +  - Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> +  - Rob Clark <robdclark@gmail.com>
+> +  - Krishna Manikandan <quic_mkrishn@quicinc.com>
 > +
-> +description:
-> +  This is the bindings documentation for the Mobile Display Subsytem(MDSS) that
-> +  encapsulates sub-blocks like MDP5, DSI, HDMI, eDP, etc.
+> +description: |
+> +  Device tree bindings for MSM Mobile Display Subsystem(MDSS) that encapsulates
+> +  sub-blocks like DPU display controller, DSI and DP interfaces etc. Device tree
+> +  bindings of MDSS are mentioned for SC7180 target.
+> +
+> +allOf:
+> +  - $ref: /schemas/display/msm/mdss-common.yaml#
 > +
 > +properties:
 > +  compatible:
-> +    enum:
-> +      - qcom,mdss
-> +
-> +  reg:
-> +    minItems: 2
-> +    maxItems: 3
-> +
-> +  reg-names:
-> +    minItems: 2
 > +    items:
-> +      - const: mdss_phys
-> +      - const: vbif_phys
-> +      - const: vbif_nrt_phys
-> +
-> +  interrupts:
-> +    maxItems: 1
-> +
-> +  interrupt-controller:
-> +    true
-
-If there is going to be v7 - please make it one line.
-
-> +
-> +  "#interrupt-cells":
-> +    const: 1
-> +
-> +  power-domains:
-> +    maxItems: 1
-> +    description: |
-> +      The MDSS power domain provided by GCC
+> +      - const: qcom,sc7180-mdss
 > +
 > +  clocks:
-> +    minItems: 1
 > +    items:
-> +      - description: Display abh clock
-> +      - description: Display axi clock
-> +      - description: Display vsync clock
+> +      - description: Display AHB clock from gcc
+> +      - description: Display AHB clock from dispcc
+> +      - description: Display core clock
 > +
 > +  clock-names:
-> +    minItems: 1
 > +    items:
 > +      - const: iface
-> +      - const: bus
-> +      - const: vsync
+> +      - const: ahb
+> +      - const: core
 > +
-> +  "#address-cells":
-> +    const: 1
+> +  iommus:
+> +    maxItems: 1
 > +
-> +  "#size-cells":
-> +    const: 1
+> +  interconnects:
+> +    maxItems: 1
 > +
-> +  ranges:
-> +    true
-
-Ditto.
-
-> +
-> +  resets:
-> +    items:
-> +      - description: MDSS_CORE reset
-> +
-> +required:
-> +  - compatible
-> +  - reg
-> +  - reg-names
-> +  - interrupts
-> +  - interrupt-controller
-> +  - "#interrupt-cells"
-> +  - power-domains
-> +  - clocks
-> +  - clock-names
-> +  - "#address-cells"
-> +  - "#size-cells"
-> +  - ranges
+> +  interconnect-names:
+> +    maxItems: 1
 > +
 > +patternProperties:
-> +  "^mdp@[1-9a-f][0-9a-f]*$":
+> +  "^display-controller@[0-9a-f]+$":
 > +    type: object
 > +    properties:
 > +      compatible:
-> +        const: qcom,mdp5
-> +
-> +  "^dsi@[1-9a-f][0-9a-f]*$":
-> +    type: object
-> +    properties:
-> +      compatible:
-> +        const: qcom,mdss-dsi-ctrl
+> +        const: qcom,sc7180-dpu
 
-This should be ref to dsi-controller-main.yaml... or based on previous
-Rob's feedback you dropped it everywhere in children?
+You have now schema for qcom,sc7180-dpu so just reference it here instead.
 
 > +
-> +  "^dsi-phy@[1-9a-f][0-9a-f]*$":
-> +    type: object
-> +    properties:
-> +      compatible:
-> +        enum:
-> +          - qcom,dsi-phy-14nm
-> +          - qcom,dsi-phy-14nm-660
-> +          - qcom,dsi-phy-20nm
-> +          - qcom,dsi-phy-28nm-hpm
-> +          - qcom,dsi-phy-28nm-lp
-> +
-> +  "^hdmi-phy@[1-9a-f][0-9a-f]*$":
-> +    type: object
-> +    properties:
-> +      compatible:
-> +        enum:
-> +          - qcom,hdmi-phy-8084
-> +          - qcom,hdmi-phy-8660
-> +          - qcom,hdmi-phy-8960
-> +          - qcom,hdmi-phy-8974
-> +          - qcom,hdmi-phy-8996
-> +
-> +  "^hdmi-tx@[1-9a-f][0-9a-f]*$":
-> +    type: object
-> +    properties:
-> +      compatible:
-> +        enum:
-> +          - qcom,hdmi-tx-8084
-> +          - qcom,hdmi-tx-8660
-> +          - qcom,hdmi-tx-8960
-> +          - qcom,hdmi-tx-8974
-> +          - qcom,hdmi-tx-8994
-> +          - qcom,hdmi-tx-8996
-> +
-> +additionalProperties: false
+> +unevaluatedProperties: false
 > +
 > +examples:
 > +  - |
-> +    #include <dt-bindings/clock/qcom,gcc-msm8916.h>
+> +    #include <dt-bindings/clock/qcom,dispcc-sc7180.h>
+> +    #include <dt-bindings/clock/qcom,gcc-sc7180.h>
 > +    #include <dt-bindings/interrupt-controller/arm-gic.h>
-> +    mdss@1a00000 {
-> +      compatible = "qcom,mdss";
-> +      reg = <0x1a00000 0x1000>,
-> +            <0x1ac8000 0x3000>;
-> +      reg-names = "mdss_phys", "vbif_phys";
+> +    #include <dt-bindings/interconnect/qcom,sdm845.h>
+> +    #include <dt-bindings/power/qcom-rpmpd.h>
 > +
-> +      power-domains = <&gcc MDSS_GDSC>;
-> +
-> +      clocks = <&gcc GCC_MDSS_AHB_CLK>,
-> +               <&gcc GCC_MDSS_AXI_CLK>,
-> +               <&gcc GCC_MDSS_VSYNC_CLK>;
-> +      clock-names = "iface",
-> +                    "bus",
-> +                    "vsync";
-> +
-> +      interrupts = <GIC_SPI 72 IRQ_TYPE_LEVEL_HIGH>;
-> +
-> +      interrupt-controller;
-> +      #interrupt-cells = <1>;
-> +
-> +      #address-cells = <1>;
-> +      #size-cells = <1>;
-> +      ranges;
-> +
+> +    display-subsystem@ae00000 {
+> +         #address-cells = <1>;
 
-No need for blank line.
+Fix indentation to four spaces.
 
 
 
