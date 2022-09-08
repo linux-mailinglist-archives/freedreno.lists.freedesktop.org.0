@@ -1,68 +1,78 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 262E25B254E
-	for <lists+freedreno@lfdr.de>; Thu,  8 Sep 2022 20:06:07 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 002A95B2649
+	for <lists+freedreno@lfdr.de>; Thu,  8 Sep 2022 20:53:30 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B3C1910E98D;
-	Thu,  8 Sep 2022 18:06:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C92F010EBC5;
+	Thu,  8 Sep 2022 18:53:26 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-x22a.google.com (mail-lj1-x22a.google.com
- [IPv6:2a00:1450:4864:20::22a])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AA14110E98D
- for <freedreno@lists.freedesktop.org>; Thu,  8 Sep 2022 18:06:01 +0000 (UTC)
-Received: by mail-lj1-x22a.google.com with SMTP id y29so8287730ljq.7
- for <freedreno@lists.freedesktop.org>; Thu, 08 Sep 2022 11:06:01 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date;
- bh=i6R+T1LxzHrLjcWK+Adp5zlhp4ZmO7ZHrUGFuap8v4g=;
- b=Bt6tIkPhP/94b+3TXdX20M3nrhbAQzpfREfJGMTJtMzJTM7tk4CGTRep3GepAI78kE
- wHVoZI9q7qCWUkSfAvYpVwoFU66IuLTh+VrsNK+LHMfxYVdCVQzFkv9IkgK/yDWfUFRI
- 61aI/sbJqkY+GVG4D8aLqMR/aJ2e5Z+vjedvy9pr/qszYDW0idZgOA2SONU1weSbMITj
- eQNizgRhUpSHgFjUDaRkDnRM4aCjD/rLn4ARMBHjHxFS4ZtMy9AEBD5FyaEGXWvN4L9J
- FMC5KPxdUWELHSCEAEkYsslh+q6ELJnF6BJhSbazh6Sd4LoZRYwLgZuGUoqj3LjZ2la2
- gMjg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date;
- bh=i6R+T1LxzHrLjcWK+Adp5zlhp4ZmO7ZHrUGFuap8v4g=;
- b=w3ikq9G/lK0RsE4PRQzKb1JXuPmu1vI3T5f5bGICAkoXNFuTPgEPabv3ensdpXwLl4
- zMQ24rSjDJJXCJ4QPC5YrUH53HeM/kS6uBNSuvhUHsAqAKC0iFRo2kfG0QTQESH0pmyG
- yf1Biy8nY+dm+aOye8av0c/pmKFO1wJVycmfgWinjuF23h27Dm9kVD8zSAL+OW/b9f1V
- pEAQHuYffKdQQdXfp+W4vMHBrG7ph9Hml/U7wONX2QDTYIqj8J3p+uhchcv6jtaSD0J2
- Cf40B3FN381xGwJpQ6vDc/MT+H0mD7gu7xjOIgIjFXfryN7DR+Tos3ES5RBdlejjMvyx
- r3cA==
-X-Gm-Message-State: ACgBeo15Z6F5FUMpyJ7UqzVy6TKlbiqAs3wInMPpTYf8K0X+VmDVm2ny
- 8xY6DaV0/Dp8yUsQOCDBg7O1YA==
-X-Google-Smtp-Source: AA6agR5WJMSDclSm4Gl/NoQeBPciYND4nSeVr3axIRBYZuzQUt/Fptcx3HfRHEwCqxK3tICB1eFAEg==
-X-Received: by 2002:a2e:a98b:0:b0:25f:d9e9:588d with SMTP id
- x11-20020a2ea98b000000b0025fd9e9588dmr2926280ljq.205.1662660358907; 
- Thu, 08 Sep 2022 11:05:58 -0700 (PDT)
-Received: from [192.168.1.211] ([37.153.55.125])
- by smtp.gmail.com with ESMTPSA id
- h10-20020a05651c124a00b0026a92616cd2sm776011ljh.35.2022.09.08.11.05.58
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 08 Sep 2022 11:05:58 -0700 (PDT)
-Message-ID: <3961088c-d090-6986-491b-7976f5339ac8@linaro.org>
-Date: Thu, 8 Sep 2022 21:05:57 +0300
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 802C510EBC4;
+ Thu,  8 Sep 2022 18:53:22 +0000 (UTC)
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 288ILCc2025860;
+ Thu, 8 Sep 2022 18:53:20 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
+ h=message-id : date :
+ mime-version : subject : to : cc : references : from : in-reply-to :
+ content-type : content-transfer-encoding; s=qcppdkim1;
+ bh=PVWQV9fVKCz51CeppBvuDOBVcv5Q22kv7TX1fJNpK1o=;
+ b=i+SgHvZ4h9qyxlSgImwCF02NuuWmsYhavGTkDif34665KAGUpatMK/prHk2sBymA0wni
+ qEDPR/5+/YVFGl3YWzQRA6FF6B+Y+bV2UaxqK+eZA2BjNd+ewxkgug7PH7ZYbMDlmab3
+ Ygo+EAJFEyC5II5Y8TLSedTxY04yjU6oWWjb46CmzvEQ6RWBb14dmbeIDZRQ5Sp/l5mA
+ gWoRBVzGwU2E39+Ah5y2JFjtJ+IcvFcwFiGGmkzTtNnyCohUZAjHJog7YWcppV1rcgt0
+ ng7fvchwP17vEG2Z3sJLgh2IrXfx7LCh/JOIMgUTGLImW9Yh/NyUSctJ3zTsSGoWeLmn Qg== 
+Received: from nalasppmta04.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3jfdc7204q-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 08 Sep 2022 18:53:19 +0000
+Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
+ [10.47.209.196])
+ by NALASPPMTA04.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 288IrIXJ023968
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 8 Sep 2022 18:53:18 GMT
+Received: from [10.111.169.242] (10.80.80.8) by nalasex01a.na.qualcomm.com
+ (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.29; Thu, 8 Sep 2022
+ 11:53:16 -0700
+Message-ID: <b992a7ec-3c30-c2df-d173-74dc2a03dc56@quicinc.com>
+Date: Thu, 8 Sep 2022 11:53:14 -0700
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.1.2
-Content-Language: en-GB
-To: Abhinav Kumar <quic_abhinavk@quicinc.com>, freedreno@lists.freedesktop.org,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
+ Thunderbird/91.6.2
+Content-Language: en-US
+To: Stephen Boyd <swboyd@chromium.org>, <freedreno@lists.freedesktop.org>
 References: <1661830389-22439-1-git-send-email-quic_abhinavk@quicinc.com>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-In-Reply-To: <1661830389-22439-1-git-send-email-quic_abhinavk@quicinc.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+ <1661830389-22439-3-git-send-email-quic_abhinavk@quicinc.com>
+ <CAE-0n50JDpYUO10QzGocq0m_irJJ4Ag7zUv_hyPqPOb-2_=RkQ@mail.gmail.com>
+From: Abhinav Kumar <quic_abhinavk@quicinc.com>
+In-Reply-To: <CAE-0n50JDpYUO10QzGocq0m_irJJ4Ag7zUv_hyPqPOb-2_=RkQ@mail.gmail.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
 Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [RFC PATCH 0/3] Limit pluggable display modes
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-GUID: QgqRF9dh1teL0I_32pYLbWj5eco2f5q9
+X-Proofpoint-ORIG-GUID: QgqRF9dh1teL0I_32pYLbWj5eco2f5q9
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.205,Aquarius:18.0.895,Hydra:6.0.528,FMLib:17.11.122.1
+ definitions=2022-09-08_11,2022-09-08_01,2022-06-22_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0
+ priorityscore=1501 lowpriorityscore=0 suspectscore=0 mlxlogscore=999
+ spamscore=0 phishscore=0 clxscore=1015 adultscore=0 bulkscore=0
+ impostorscore=0 mlxscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2207270000 definitions=main-2209080066
+Subject: Re: [Freedreno] [RFC PATCH 2/3] drm/msm: filter out modes for DSI
+ bridge having unsupported clock
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,85 +85,192 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: dianders@chromium.org, dri-devel@lists.freedesktop.org, swboyd@chromium.org,
- robdclark@gmail.com, seanpaul@chromium.org, daniel@ffwll.ch,
+Cc: dianders@chromium.org, dri-devel@lists.freedesktop.org, robdclark@gmail.com,
+ seanpaul@chromium.org, daniel@ffwll.ch, dmitry.baryshkov@linaro.org,
  quic_jesszhan@quicinc.com
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
+Hi Stephen
 
-On 30/08/2022 06:33, Abhinav Kumar wrote:
-> As reported on https://gitlab.freedesktop.org/drm/msm/-/issues/17, currently
-> there is no mechanism to limit the display output to the pluggable displays
-> and it lets users connect any monitor on any chipset based device.
+On 9/7/2022 6:06 PM, Stephen Boyd wrote:
+> Quoting Abhinav Kumar (2022-08-29 20:33:08)
+>> diff --git a/drivers/gpu/drm/msm/dsi/dsi.c b/drivers/gpu/drm/msm/dsi/dsi.c
+>> index 39bbabb5daf6..3a06a157d1b1 100644
+>> --- a/drivers/gpu/drm/msm/dsi/dsi.c
+>> +++ b/drivers/gpu/drm/msm/dsi/dsi.c
+>> @@ -265,6 +265,11 @@ int msm_dsi_modeset_init(struct msm_dsi *msm_dsi, struct drm_device *dev,
+>>          return ret;
+>>   }
+>>
+>> +void msm_dsi_set_max_extpclk(struct msm_dsi *msm_dsi, int max_ext_pclk)
 > 
-> This can lead to undefined behavior because lets say the display
-> advertises an unsupported pixel clock as its preferred resolution, then
-> the end-user can experience undefined behavior such as black screen,
-> crash or an underrun.
-> 
-> The capabilities of every chipset are advertised in the product
-> specification for both on-device displays and pluggable displays.
+> Do we really need a 'setter' API for something like this? Why can't we
+> directly access the constant value for the max clk in the function that
+> uses it to limit modes?
 
-After discussing this privately, it was agreed that there are two kinds 
-of issues here:
-  - filtering the modes which can not be handled by the DPU/DSI/DP 
-hardware pieces themselves
+That constant value is part of the DPU catalog. the value needs to be 
+passed from the DPU to DSI/DP for it to use. Hence the setter API.
 
-  - filtering the modes which can not be handled by the external 
-limitations (e.g. the bridge not being able to drive this mode, the pcb 
-routing of data lanes being unable to sustain the rate, the connector 
-being the limit, etc).
+In this RFC atleast, this is being modeled as a DPU catalog entry.
 
-Krzysztof, I'd like to ask your advice if adding a properly like 
-`max-link-frequency' sounds like a good idea? The video-interfaces.yaml 
-bindings already has the `link-frequencies' property, but it is an array 
-of discrete frequencies supported by the link in the graph. In our case 
-the list of frequencies is more or less continuous, with max (and min) 
-values. Also, can it be added to the final device in the chain (e.g. 
-hdmi/dp/vga connectors) or should it be added to the endpoint graph nodes?
+> 
+>> +{
+>> +        msm_dsi_host_set_max_extpclk(msm_dsi->host, max_ext_pclk);
+>> +}
+>> +
+>>   void msm_dsi_snapshot(struct msm_disp_state *disp_state, struct msm_dsi *msm_dsi)
+>>   {
+>>          msm_dsi_host_snapshot(disp_state, msm_dsi->host);
+>> diff --git a/drivers/gpu/drm/msm/dsi/dsi.h b/drivers/gpu/drm/msm/dsi/dsi.h
+>> index 2a96b4fe7839..1be4ebb0f9c8 100644
+>> --- a/drivers/gpu/drm/msm/dsi/dsi.h
+>> +++ b/drivers/gpu/drm/msm/dsi/dsi.h
+>> @@ -93,8 +93,9 @@ int msm_dsi_host_power_on(struct mipi_dsi_host *host,
+>>   int msm_dsi_host_power_off(struct mipi_dsi_host *host);
+>>   int msm_dsi_host_set_display_mode(struct mipi_dsi_host *host,
+>>                                    const struct drm_display_mode *mode);
+>> -enum drm_mode_status msm_dsi_host_check_dsc(struct mipi_dsi_host *host,
+>> -                                           const struct drm_display_mode *mode);
+>> +enum drm_mode_status msm_dsi_host_mode_valid(struct mipi_dsi_host *host,
+>> +               const struct drm_display_mode *mode,
+>> +               struct drm_bridge *ext_bridge);
+>>   unsigned long msm_dsi_host_get_mode_flags(struct mipi_dsi_host *host);
+>>   int msm_dsi_host_register(struct mipi_dsi_host *host);
+>>   void msm_dsi_host_unregister(struct mipi_dsi_host *host);
+>> @@ -109,6 +110,7 @@ void msm_dsi_host_get_phy_clk_req(struct mipi_dsi_host *host,
+>>   void msm_dsi_host_destroy(struct mipi_dsi_host *host);
+>>   int msm_dsi_host_modeset_init(struct mipi_dsi_host *host,
+>>                                          struct drm_device *dev);
+>> +void msm_dsi_host_set_max_extpclk(struct mipi_dsi_host *host, int max_ext_pclk);
+>>   int msm_dsi_host_init(struct msm_dsi *msm_dsi);
+>>   int msm_dsi_runtime_suspend(struct device *dev);
+>>   int msm_dsi_runtime_resume(struct device *dev);
+>> diff --git a/drivers/gpu/drm/msm/dsi/dsi_host.c b/drivers/gpu/drm/msm/dsi/dsi_host.c
+>> index 57a4c0fa614b..4428a6a66ee1 100644
+>> --- a/drivers/gpu/drm/msm/dsi/dsi_host.c
+>> +++ b/drivers/gpu/drm/msm/dsi/dsi_host.c
+>> @@ -172,6 +172,9 @@ struct msm_dsi_host {
+>>          int dlane_swap;
+>>          int num_data_lanes;
+>>
+>> +       /* max pixel clock when used with a bridge chip */
+>> +       int max_ext_pclk;
+> 
+> Will pixel clock be negative? What units is this in? Hz?
 
-> Documents such as [1], [2] and [3] can easily be found on the vendor's
-> website which advertise the max resolution support for that chipset.
-> 
-> Utilize this information to filter out the resolutions which have
-> pixel clock more than the supported limits.
-> 
-> This change only addresses pluggable displays because the underlying
-> assumption is that for the built-in displays, the display being chosen
-> for the product will be done so after referring to the advertised limits.
-> 
-> For calculating the pixel clock, the value has been taken from the CEA
-> speficiation if the resolution is a CEA one and from the CVT specification
-> for non-CEA.
-> 
-> This change has only been compile tested so far to get a general feedback
-> first and once it takes a final shape, will validate on whatever devices I have
-> and will appreciate help from others who have devices which I dont.
-> 
-> [1]: https://www.qualcomm.com/content/dam/qcomm-martech/dm-assets/documents/prod_brief_qcom_sd7c.pdf
-> [2]: https://www.qualcomm.com/content/dam/qcomm-martech/dm-assets/documents/prod_brief_qcom_sd7c_gen2.pdf
-> [3]: https://www.qualcomm.com/content/dam/qcomm-martech/dm-assets/documents/prod_brief_qcom_sd8cx_gen2.pdf
-> 
-> Abhinav Kumar (3):
->    drm/msm/dpu: add max external pixel clock for all targets
->    drm/msm: filter out modes for DSI bridge having unsupported clock
->    drm/msm: filter out modes for DP/eDP bridge having unsupported clock
-> 
->   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c |  8 ++++++
->   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h |  2 ++
->   drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c        | 18 ++++++++----
->   drivers/gpu/drm/msm/dp/dp_display.c            | 16 +++++++++--
->   drivers/gpu/drm/msm/dp/dp_parser.h             |  1 -
->   drivers/gpu/drm/msm/dsi/dsi.c                  |  5 ++++
->   drivers/gpu/drm/msm/dsi/dsi.h                  |  6 ++--
->   drivers/gpu/drm/msm/dsi/dsi_host.c             | 40 ++++++++++++++++++++++----
->   drivers/gpu/drm/msm/dsi/dsi_manager.c          |  2 +-
->   drivers/gpu/drm/msm/msm_drv.h                  |  9 ++++--
->   10 files changed, 88 insertions(+), 19 deletions(-)
-> 
+This is in Khz. It cannot be negative. I was also thinking of an 
+unsigned int for this but the drm_display_mode's clock is an int so i 
+also kept it like this.
 
--- 
-With best wishes
-Dmitry
+227 struct drm_display_mode {
+228 	/**
+229 	 * @clock:
+230 	 *
+231 	 * Pixel clock in kHz.
+232 	 */
+233 	int clock;		/* in kHz */
+234 	u16 hdisplay;
 
+
+> 
+>> +
+>>          /* from phy DT */
+>>          bool cphy_mode;
+>>
+>> @@ -2076,6 +2079,13 @@ int msm_dsi_host_modeset_init(struct mipi_dsi_host *host,
+>>          return 0;
+>>   }
+>>
+>> +void msm_dsi_host_set_max_extpclk(struct mipi_dsi_host *host, int max_ext_pclk)
+>> +{
+>> +       struct msm_dsi_host *msm_host = to_msm_dsi_host(host);
+>> +
+>> +       msm_host->max_ext_pclk = max_ext_pclk;
+>> +}
+>> +
+>>   int msm_dsi_host_register(struct mipi_dsi_host *host)
+>>   {
+>>          struct msm_dsi_host *msm_host = to_msm_dsi_host(host);
+>> @@ -2548,17 +2558,14 @@ int msm_dsi_host_set_display_mode(struct mipi_dsi_host *host,
+>>          return 0;
+>>   }
+>>
+>> -enum drm_mode_status msm_dsi_host_check_dsc(struct mipi_dsi_host *host,
+>> -                                           const struct drm_display_mode *mode)
+>> +static enum drm_mode_status msm_dsi_host_check_dsc(struct mipi_dsi_host *host,
+>> +               const struct drm_display_mode *mode)
+>>   {
+>>          struct msm_dsi_host *msm_host = to_msm_dsi_host(host);
+>>          struct drm_dsc_config *dsc = msm_host->dsc;
+>>          int pic_width = mode->hdisplay;
+>>          int pic_height = mode->vdisplay;
+>>
+>> -       if (!msm_host->dsc)
+>> -               return MODE_OK;
+>> -
+>>          if (pic_width % dsc->slice_width) {
+>>                  pr_err("DSI: pic_width %d has to be multiple of slice %d\n",
+>>                         pic_width, dsc->slice_width);
+>> @@ -2574,6 +2581,29 @@ enum drm_mode_status msm_dsi_host_check_dsc(struct mipi_dsi_host *host,
+>>          return MODE_OK;
+>>   }
+>>
+>> +enum drm_mode_status msm_dsi_host_mode_valid(struct mipi_dsi_host *host,
+>> +                                           const struct drm_display_mode *mode,
+>> +                                           struct drm_bridge *ext_bridge)
+>> +{
+>> +       struct msm_dsi_host *msm_host = to_msm_dsi_host(host);
+>> +
+>> +       /* TODO: external bridge chip with DSI having DSC */
+>> +       if (msm_host->dsc)
+>> +               return msm_dsi_host_check_dsc(host, mode);
+>> +
+>> +       /* TODO: add same logic for non-dpu targets */
+>> +       if (!msm_host->max_ext_pclk)
+>> +               return MODE_OK;
+>> +
+>> +       if (ext_bridge) {
+>> +               if (ext_bridge->ops & DRM_BRIDGE_OP_HPD)
+> 
+> Nitpick: Collapse conditions
+> 
+> 	if (ext_bridge && (ext_bridge->ops & DRM_BRIDGE_OP_HPD))
+
+Ack
+> 
+> Also, what does HPD have to do with this?
+
+The documents referenced in the cover letter define the limits for 
+built-in and external displays.
+
+This series is targetted only for external displays with an underlying 
+assumption that built-in displays are chosen at design time of the 
+product and the product spec should be kept in mind while choosing them.
+
+But for external ( pluggable ) displays, this is not true as the 
+consumer can plug-in any monitor.
+
+Now, there is no rule that DSI cannot be used as the external display 
+with a DSI to HDMI or DSI to DP bridge chip.
+
+In those cases, we need to check if the ext_bridge has HPD support and 
+if so use this filtering of modes.
+
+After discussing with Dmitry, I do agree though that instead of checking 
+the next bridge, I should be checking the last bridge in the chain instead.
+
+So when i do push the next version, I should change this to check if the 
+last bridge has HPD support.
+
+> 
+>> +                       if (mode->clock > msm_host->max_ext_pclk)
+>> +                               return MODE_CLOCK_HIGH;
+>> +       }
+>> +
+>> +       return MODE_OK;
+>> +}
+>> +
+>>   unsigned long msm_dsi_host_get_mode_flags(struct mipi_dsi_host *host)
+>>   {
+>>          return to_msm_dsi_host(host)->mode_flags;
