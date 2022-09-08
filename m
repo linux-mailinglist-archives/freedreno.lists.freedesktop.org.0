@@ -2,60 +2,58 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3D1185B1174
-	for <lists+freedreno@lfdr.de>; Thu,  8 Sep 2022 02:42:06 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0872C5B11C9
+	for <lists+freedreno@lfdr.de>; Thu,  8 Sep 2022 03:07:09 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BE31110E911;
-	Thu,  8 Sep 2022 00:42:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6ED6F10E916;
+	Thu,  8 Sep 2022 01:07:04 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-oa1-x30.google.com (mail-oa1-x30.google.com
- [IPv6:2001:4860:4864:20::30])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7E04110E911
- for <freedreno@lists.freedesktop.org>; Thu,  8 Sep 2022 00:42:01 +0000 (UTC)
-Received: by mail-oa1-x30.google.com with SMTP id
- 586e51a60fabf-1274ec87ad5so25396203fac.0
- for <freedreno@lists.freedesktop.org>; Wed, 07 Sep 2022 17:42:01 -0700 (PDT)
+Received: from mail-oa1-x31.google.com (mail-oa1-x31.google.com
+ [IPv6:2001:4860:4864:20::31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C37E110E39D
+ for <freedreno@lists.freedesktop.org>; Thu,  8 Sep 2022 01:06:59 +0000 (UTC)
+Received: by mail-oa1-x31.google.com with SMTP id
+ 586e51a60fabf-1280590722dso6950862fac.1
+ for <freedreno@lists.freedesktop.org>; Wed, 07 Sep 2022 18:06:59 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
  h=cc:to:subject:message-id:date:user-agent:from:references
  :in-reply-to:mime-version:from:to:cc:subject:date;
- bh=6kh9ikwWaThXq4seCLNDajay+f1HdBOkIbkGH9umXJw=;
- b=kvBYxdrbSayvPbBqEk92BZ7Z8UmortMyc2HyEOsM/6KOEBt/U5Oo5+olLwauurChcT
- dWbN6R2iRtz19PlqNfH8x/NJxV/Rehv3/XPsPajdRvXc7+iUSk5Vx2JyIAvYcYlvMAjx
- 2oc/JST9OpF8IBS4yY3vZ8SRdKgJKMVaO7KJA=
+ bh=7qiAFezc7TDNN8MphEwFX9YLlaU3Z88nj+kfViwya00=;
+ b=d/ER7mg4tpjjM7KQFCgy+Aj0wxY6tHlCC/10fJtfyhoQPoRGpBtfcIH0c5wQtZ/GMn
+ XQxirnoxgTKNyCR9yzjnD79PqSjQzFjUx3bKiEj44XUlsAVg07dewg7r/BfGEoGfnyJN
+ 0J9JK7Pqts+JksQKkb952qUcbFEPgbW5ha2AE=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=cc:to:subject:message-id:date:user-agent:from:references
  :in-reply-to:mime-version:x-gm-message-state:from:to:cc:subject:date;
- bh=6kh9ikwWaThXq4seCLNDajay+f1HdBOkIbkGH9umXJw=;
- b=3ujkf1C0lfTPxZqZKBQ0tOivQpPm8HfV+QiQhM4NCLUodHzuBuPZAj+HeaE5dF4U1L
- AylfLKAQ4oPw/FgJMCYTlSngMPqsEiPWQnv6s/0zLb81xPAUeY1O5yBN+c78bPb30fRT
- 2OcrdTKwLV/p0mgOge7uYtLSRPJF+bqgcg/afHmXVk0ocU2p5oWjoDsPFV+lzX1RnmuG
- v0Tgfw7lxvdbeuG+1rZnN6Vdm7GHtR+h2vNPNedxjYJISTYdk9a/oUIvtXrZkqWxljNS
- Z5g5rvGOT5ibokjTkTwktHG1TKipqofQhKUCGuJzyQqUgzZmCqkszWUDYO5Bb/gTxeYf
- Gupg==
-X-Gm-Message-State: ACgBeo2UUym6pO0Y6nKZhyIePjl11dSb1rPUl4QRHT4HYSuySM6rzIbP
- ciqP0MUjTwnIJJa27tYMIJGHxVCbjLWzAwI7ErIfjg==
-X-Google-Smtp-Source: AA6agR6GDd4jOsqjCzVR3yOFzs56YJqWoGpuOidx2GfpBymcQROdS9Bv7Prd4st7kf0kWSuZiyFu4xIeT7K6tYmo5N0=
+ bh=7qiAFezc7TDNN8MphEwFX9YLlaU3Z88nj+kfViwya00=;
+ b=s5jWA6Ika/5FPPOeq/tmQGxR3mmJqnIBAWw/3pvF622/S+N4rN3SydaKPDzjTjORGX
+ +xqpvAzvpB+f7WCvUJUiDAtTwRTfKKBWuEAtoso+bLxyXFvIsaUFJ2Apy0Fe24SiUL39
+ x2TsZXSABVnDwOdOqNbJgc5GajhxRUb4WZhWmevpKKG2Ze8AQ5gY929IbrPFI1GL0sWB
+ JN6h8QXD/fbSq4kk2zi/T+t2Qp+71KWAMJ9f6k1rBD/nHYV24Q/ZYX1oBV43i512PpXk
+ yFP4LFsKE/vDBDozhFBvZo84BWOb7GLO77UGnBTel24DtrAtVdceFdB1rv7iLYjMPCi+
+ ZBeA==
+X-Gm-Message-State: ACgBeo2YboBIiFwJY5Y4HFbQNacWle6crqH2+ldpgSAt4670PFmljARn
+ V1D9fQmDBmLceOSaRV+NlzMy9gjshGu9jv44PNVARg==
+X-Google-Smtp-Source: AA6agR5lNOwaDGSQuS0zoDB3JL2ylckc5Rw69cwhkyYz/6/a0a2tQp3DqBBClJaQHs8Kvg44kZqbDnrln2Y092hqzp0=
 X-Received: by 2002:a05:6871:6a1:b0:127:3a21:7e00 with SMTP id
- l33-20020a05687106a100b001273a217e00mr597166oao.44.1662597720814; Wed, 07 Sep
- 2022 17:42:00 -0700 (PDT)
+ l33-20020a05687106a100b001273a217e00mr641174oao.44.1662599218943; Wed, 07 Sep
+ 2022 18:06:58 -0700 (PDT)
 Received: from 753933720722 named unknown by gmailapi.google.com with
- HTTPREST; Wed, 7 Sep 2022 19:42:00 -0500
+ HTTPREST; Wed, 7 Sep 2022 20:06:58 -0500
 MIME-Version: 1.0
-In-Reply-To: <20220901091527.1992208-4-dmitry.baryshkov@linaro.org>
-References: <20220901091527.1992208-1-dmitry.baryshkov@linaro.org>
- <20220901091527.1992208-4-dmitry.baryshkov@linaro.org>
+In-Reply-To: <1661830389-22439-3-git-send-email-quic_abhinavk@quicinc.com>
+References: <1661830389-22439-1-git-send-email-quic_abhinavk@quicinc.com>
+ <1661830389-22439-3-git-send-email-quic_abhinavk@quicinc.com>
 From: Stephen Boyd <swboyd@chromium.org>
 User-Agent: alot/0.10
-Date: Wed, 7 Sep 2022 19:42:00 -0500
-Message-ID: <CAE-0n51Wh=pT4G=QRFNu_v5hMQRvS55sGWKT=zvrJS=nSB4Tng@mail.gmail.com>
-To: Abhinav Kumar <quic_abhinavk@quicinc.com>, 
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Rob Clark <robdclark@gmail.com>,
- Sean Paul <sean@poorly.run>
+Date: Wed, 7 Sep 2022 20:06:58 -0500
+Message-ID: <CAE-0n50JDpYUO10QzGocq0m_irJJ4Ag7zUv_hyPqPOb-2_=RkQ@mail.gmail.com>
+To: Abhinav Kumar <quic_abhinavk@quicinc.com>, freedreno@lists.freedesktop.org
 Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [RFC PATCH 3/3] drm/msm/dp: move dp_request_irq()
- call to dp_display_probe()
+Subject: Re: [Freedreno] [RFC PATCH 2/3] drm/msm: filter out modes for DSI
+ bridge having unsupported clock
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,20 +66,143 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: David Airlie <airlied@linux.ie>, linux-arm-msm@vger.kernel.org,
- Bjorn Andersson <andersson@kernel.org>, Johan Hovold <johan@kernel.org>,
- dri-devel@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>,
- freedreno@lists.freedesktop.org
+Cc: dianders@chromium.org, dri-devel@lists.freedesktop.org, robdclark@gmail.com,
+ seanpaul@chromium.org, daniel@ffwll.ch, dmitry.baryshkov@linaro.org,
+ quic_jesszhan@quicinc.com
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Quoting Dmitry Baryshkov (2022-09-01 02:15:27)
-> As the MDSS registers the IRQ domain before populating child devices,
-> there is little point in deferring the IRQ request up to the
-> msm_dp_modeset_init(). Following the 'get resources as early as
-> possible' paradigm, move dp_request_irq() call to dp_display_probe().
+Quoting Abhinav Kumar (2022-08-29 20:33:08)
+> diff --git a/drivers/gpu/drm/msm/dsi/dsi.c b/drivers/gpu/drm/msm/dsi/dsi.c
+> index 39bbabb5daf6..3a06a157d1b1 100644
+> --- a/drivers/gpu/drm/msm/dsi/dsi.c
+> +++ b/drivers/gpu/drm/msm/dsi/dsi.c
+> @@ -265,6 +265,11 @@ int msm_dsi_modeset_init(struct msm_dsi *msm_dsi, struct drm_device *dev,
+>         return ret;
+>  }
 >
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> ---
+> +void msm_dsi_set_max_extpclk(struct msm_dsi *msm_dsi, int max_ext_pclk)
 
-Reviewed-by: Stephen Boyd <swboyd@chromium.org>
+Do we really need a 'setter' API for something like this? Why can't we
+directly access the constant value for the max clk in the function that
+uses it to limit modes?
+
+> +{
+> +        msm_dsi_host_set_max_extpclk(msm_dsi->host, max_ext_pclk);
+> +}
+> +
+>  void msm_dsi_snapshot(struct msm_disp_state *disp_state, struct msm_dsi *msm_dsi)
+>  {
+>         msm_dsi_host_snapshot(disp_state, msm_dsi->host);
+> diff --git a/drivers/gpu/drm/msm/dsi/dsi.h b/drivers/gpu/drm/msm/dsi/dsi.h
+> index 2a96b4fe7839..1be4ebb0f9c8 100644
+> --- a/drivers/gpu/drm/msm/dsi/dsi.h
+> +++ b/drivers/gpu/drm/msm/dsi/dsi.h
+> @@ -93,8 +93,9 @@ int msm_dsi_host_power_on(struct mipi_dsi_host *host,
+>  int msm_dsi_host_power_off(struct mipi_dsi_host *host);
+>  int msm_dsi_host_set_display_mode(struct mipi_dsi_host *host,
+>                                   const struct drm_display_mode *mode);
+> -enum drm_mode_status msm_dsi_host_check_dsc(struct mipi_dsi_host *host,
+> -                                           const struct drm_display_mode *mode);
+> +enum drm_mode_status msm_dsi_host_mode_valid(struct mipi_dsi_host *host,
+> +               const struct drm_display_mode *mode,
+> +               struct drm_bridge *ext_bridge);
+>  unsigned long msm_dsi_host_get_mode_flags(struct mipi_dsi_host *host);
+>  int msm_dsi_host_register(struct mipi_dsi_host *host);
+>  void msm_dsi_host_unregister(struct mipi_dsi_host *host);
+> @@ -109,6 +110,7 @@ void msm_dsi_host_get_phy_clk_req(struct mipi_dsi_host *host,
+>  void msm_dsi_host_destroy(struct mipi_dsi_host *host);
+>  int msm_dsi_host_modeset_init(struct mipi_dsi_host *host,
+>                                         struct drm_device *dev);
+> +void msm_dsi_host_set_max_extpclk(struct mipi_dsi_host *host, int max_ext_pclk);
+>  int msm_dsi_host_init(struct msm_dsi *msm_dsi);
+>  int msm_dsi_runtime_suspend(struct device *dev);
+>  int msm_dsi_runtime_resume(struct device *dev);
+> diff --git a/drivers/gpu/drm/msm/dsi/dsi_host.c b/drivers/gpu/drm/msm/dsi/dsi_host.c
+> index 57a4c0fa614b..4428a6a66ee1 100644
+> --- a/drivers/gpu/drm/msm/dsi/dsi_host.c
+> +++ b/drivers/gpu/drm/msm/dsi/dsi_host.c
+> @@ -172,6 +172,9 @@ struct msm_dsi_host {
+>         int dlane_swap;
+>         int num_data_lanes;
+>
+> +       /* max pixel clock when used with a bridge chip */
+> +       int max_ext_pclk;
+
+Will pixel clock be negative? What units is this in? Hz?
+
+> +
+>         /* from phy DT */
+>         bool cphy_mode;
+>
+> @@ -2076,6 +2079,13 @@ int msm_dsi_host_modeset_init(struct mipi_dsi_host *host,
+>         return 0;
+>  }
+>
+> +void msm_dsi_host_set_max_extpclk(struct mipi_dsi_host *host, int max_ext_pclk)
+> +{
+> +       struct msm_dsi_host *msm_host = to_msm_dsi_host(host);
+> +
+> +       msm_host->max_ext_pclk = max_ext_pclk;
+> +}
+> +
+>  int msm_dsi_host_register(struct mipi_dsi_host *host)
+>  {
+>         struct msm_dsi_host *msm_host = to_msm_dsi_host(host);
+> @@ -2548,17 +2558,14 @@ int msm_dsi_host_set_display_mode(struct mipi_dsi_host *host,
+>         return 0;
+>  }
+>
+> -enum drm_mode_status msm_dsi_host_check_dsc(struct mipi_dsi_host *host,
+> -                                           const struct drm_display_mode *mode)
+> +static enum drm_mode_status msm_dsi_host_check_dsc(struct mipi_dsi_host *host,
+> +               const struct drm_display_mode *mode)
+>  {
+>         struct msm_dsi_host *msm_host = to_msm_dsi_host(host);
+>         struct drm_dsc_config *dsc = msm_host->dsc;
+>         int pic_width = mode->hdisplay;
+>         int pic_height = mode->vdisplay;
+>
+> -       if (!msm_host->dsc)
+> -               return MODE_OK;
+> -
+>         if (pic_width % dsc->slice_width) {
+>                 pr_err("DSI: pic_width %d has to be multiple of slice %d\n",
+>                        pic_width, dsc->slice_width);
+> @@ -2574,6 +2581,29 @@ enum drm_mode_status msm_dsi_host_check_dsc(struct mipi_dsi_host *host,
+>         return MODE_OK;
+>  }
+>
+> +enum drm_mode_status msm_dsi_host_mode_valid(struct mipi_dsi_host *host,
+> +                                           const struct drm_display_mode *mode,
+> +                                           struct drm_bridge *ext_bridge)
+> +{
+> +       struct msm_dsi_host *msm_host = to_msm_dsi_host(host);
+> +
+> +       /* TODO: external bridge chip with DSI having DSC */
+> +       if (msm_host->dsc)
+> +               return msm_dsi_host_check_dsc(host, mode);
+> +
+> +       /* TODO: add same logic for non-dpu targets */
+> +       if (!msm_host->max_ext_pclk)
+> +               return MODE_OK;
+> +
+> +       if (ext_bridge) {
+> +               if (ext_bridge->ops & DRM_BRIDGE_OP_HPD)
+
+Nitpick: Collapse conditions
+
+	if (ext_bridge && (ext_bridge->ops & DRM_BRIDGE_OP_HPD))
+
+Also, what does HPD have to do with this?
+
+> +                       if (mode->clock > msm_host->max_ext_pclk)
+> +                               return MODE_CLOCK_HIGH;
+> +       }
+> +
+> +       return MODE_OK;
+> +}
+> +
+>  unsigned long msm_dsi_host_get_mode_flags(struct mipi_dsi_host *host)
+>  {
+>         return to_msm_dsi_host(host)->mode_flags;
