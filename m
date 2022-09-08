@@ -2,59 +2,60 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9BEA35B1F7C
-	for <lists+freedreno@lfdr.de>; Thu,  8 Sep 2022 15:44:09 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1348E5B1F85
+	for <lists+freedreno@lfdr.de>; Thu,  8 Sep 2022 15:45:18 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A7EEE10E9DC;
-	Thu,  8 Sep 2022 13:44:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1CDDD10E9DC;
+	Thu,  8 Sep 2022 13:45:16 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x12a.google.com (mail-lf1-x12a.google.com
- [IPv6:2a00:1450:4864:20::12a])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5636B10E9ED
- for <freedreno@lists.freedesktop.org>; Thu,  8 Sep 2022 13:44:05 +0000 (UTC)
-Received: by mail-lf1-x12a.google.com with SMTP id m15so8114932lfl.9
- for <freedreno@lists.freedesktop.org>; Thu, 08 Sep 2022 06:44:05 -0700 (PDT)
+Received: from mail-lf1-x129.google.com (mail-lf1-x129.google.com
+ [IPv6:2a00:1450:4864:20::129])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B434710E9DC
+ for <freedreno@lists.freedesktop.org>; Thu,  8 Sep 2022 13:45:11 +0000 (UTC)
+Received: by mail-lf1-x129.google.com with SMTP id u18so15502689lfo.8
+ for <freedreno@lists.freedesktop.org>; Thu, 08 Sep 2022 06:45:11 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ h=content-transfer-encoding:in-reply-to:references:cc:to:from
  :content-language:subject:user-agent:mime-version:date:message-id
  :from:to:cc:subject:date;
- bh=ADjKcgU/7WVg1iZnEBOc24JneNzG+pamTo18hJi4qC4=;
- b=W4Y4wSahcBGlxIwPOKy2A/5B/zitDUDrZKJ0i+Q5RM5SxqY1rIoWeLPC0sAnXVxVaL
- ot30JkD4LVAxJepRJtzxf4DtAqjdAtlxnDpU4dgfc00elvrLyeTK8EKaNtzpPEB8P3cR
- g3rkQpPHbexJX0X8wxpI5stKYCsWjh3RNZjZsqp1ArtvW9N67czMFf970ch2SYi6+Yls
- f0IvHieCTQ1qjS7WL3dCZPFH1bpnNF7N5eij4Wk5T09+RJB0uXXVoY98XeBWvxe1ATFC
- 0e8FhXROxeRlnf6qgk/1B/C+MzrobDLalzN+bLrbmkGId/UFtoGDzwwMapilKe8b+yY8
- KImw==
+ bh=K1xmDVRthzjWOyGdohyh7MTbGHYJ56y8iv2a+1Z9WWA=;
+ b=glmTnUvQVW1uqDE+SIQR6OQTqacwnemf/++69ByqHqFoPKpvfWKjnVXG693OpsVwCz
+ evrZ9cHAUSR15MD3Qhxlxm6aKc6BS2rwbcD1L0n/peFMwzKOY2Wn6j7cyYf5RWoYkNfw
+ kZy5tNDdvljlF1lqn0shBkeFtWThGify00/LQQM+V7fJzy1zBzAk4Qxfmxx29pKhXK2X
+ RP0GzqcFPAYABc2ClmW8KcNTI7xs8ZwBPTcKGtCX/4IOSjQabQnSxKzd87MYyAO6GE3w
+ 4LLqOdTT6uSf5f2cktCrzaZ8O8mMVixqHenirGCoHiLFupS1cYx+15sq4Pz7O1dQ+5s5
+ YIqg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ h=content-transfer-encoding:in-reply-to:references:cc:to:from
  :content-language:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date;
- bh=ADjKcgU/7WVg1iZnEBOc24JneNzG+pamTo18hJi4qC4=;
- b=VSyCmUK0ZCRmB1If/kdefN67Sad1FNSXIY2WWi89KKbf90pgn94Fz14eV2+RqffbAb
- 8Ef2xfwiooOCOBm3nhShxfsdbuCD4lAyLEDZeiLhIe/mh1k8x6r2QnJioKvbW3FUhUyP
- iLi4s2EDHhH0gsV8j/X8qxr96PcGjMZkQDeTHMX5O7Qlc040s/lY6xQkfXTRVFbUQVHq
- dd9lDpVYDMD6PjxFboFqlUSeLV7h5sU67y2fBLH3pCnp7aSK8S/l59V9QdPelQ9+9IWf
- dWcZ6fNPT2pD3zyrKGu5r6o2V+fo8Cwi0wdrvwtpy07FHH5RwhR8hXWV3dzXr+V0TXOQ
- nhjQ==
-X-Gm-Message-State: ACgBeo13WAFDvLU6T5qnBoEA0xVZt+Y7ZLdP0ksKnLSuXDcdJxTSMeML
- bJ7jMCAEr4+mHuH55Oo8h7sX7g==
-X-Google-Smtp-Source: AA6agR4wHBMp+HzD7UtYqVNqr/wulhee2bv18awY6dzHZIdtqfYE3uyvQV3OijHcTs/qKENgvxF/4g==
-X-Received: by 2002:a05:6512:3d06:b0:494:6871:639e with SMTP id
- d6-20020a0565123d0600b004946871639emr2734162lfv.227.1662644643456; 
- Thu, 08 Sep 2022 06:44:03 -0700 (PDT)
+ bh=K1xmDVRthzjWOyGdohyh7MTbGHYJ56y8iv2a+1Z9WWA=;
+ b=evtG8yktGYxSDRtJfCw9lz+IG3JCIIf8ZtackbyItvjNTu1O4IJhnFbyl7OkBRaKoV
+ QndBKIHcXdmB6xPOkeUKwmvQk8hPMED3fDdla0i20FhovPBcOsQpiexSSMOXUr9GNnKw
+ 3YPzK171AWM+XIa0ej7+DoSbNNULy3/4nl8mhd0LSa4uwLETlG210IVNefiTRXqldgag
+ VtlFdaqXTDtHFyuUbARlDzAiZm6EeKNKQw3cWcp3wNHz5gtY0KVuf+nMHMgEbk+z8YxH
+ gq53h+ZG0Cau+nPKOBWb0pZkUR5tOGZaVSLqKuK6Pv5pgWS7TQ7ZjX6yqpxAlX1aUv8b
+ exWw==
+X-Gm-Message-State: ACgBeo3aTBM/oHOuwvMntK9eerglgFW8FXB5+1orzAY36iBJfgBq1lUi
+ aoyAQ9EledG7Y1EalRGk39P+fA==
+X-Google-Smtp-Source: AA6agR5CtptxXfFJSh01xzHCz5Gl5OhOa7Mv2/Z7XGiY7IevgY0ma0fyIsjVbbpb86bTnvY5hu89xA==
+X-Received: by 2002:a19:d611:0:b0:492:8e15:ba18 with SMTP id
+ n17-20020a19d611000000b004928e15ba18mr2710698lfg.524.1662644709634; 
+ Thu, 08 Sep 2022 06:45:09 -0700 (PDT)
 Received: from [192.168.0.21] (78-11-189-27.static.ip.netia.com.pl.
  [78.11.189.27]) by smtp.gmail.com with ESMTPSA id
- b28-20020ac247fc000000b004951c1beb4fsm2603188lfp.66.2022.09.08.06.44.01
+ m3-20020a194343000000b00497817b8ebbsm1672669lfj.134.2022.09.08.06.45.08
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 08 Sep 2022 06:44:02 -0700 (PDT)
-Message-ID: <92e18257-9a95-9366-ffff-416d27039c3b@linaro.org>
-Date: Thu, 8 Sep 2022 15:44:01 +0200
+ Thu, 08 Sep 2022 06:45:09 -0700 (PDT)
+Message-ID: <d8f173e6-3c0f-f7d7-573d-db91d9cfdb75@linaro.org>
+Date: Thu, 8 Sep 2022 15:45:07 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
  Thunderbird/91.13.0
 Content-Language: en-US
+From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
  Andy Gross <agross@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
  Konrad Dybcio <konrad.dybcio@somainline.org>, Rob Clark
@@ -63,8 +64,8 @@ To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
  Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>
 References: <20220901102312.2005553-1-dmitry.baryshkov@linaro.org>
  <20220901102312.2005553-7-dmitry.baryshkov@linaro.org>
-From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-In-Reply-To: <20220901102312.2005553-7-dmitry.baryshkov@linaro.org>
+ <92e18257-9a95-9366-ffff-416d27039c3b@linaro.org>
+In-Reply-To: <92e18257-9a95-9366-ffff-416d27039c3b@linaro.org>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 Subject: Re: [Freedreno] [PATCH v6 06/12] dt-bindings: display/msm: split
@@ -89,153 +90,23 @@ Cc: devicetree@vger.kernel.org, Loic Poulain <loic.poulain@linaro.org>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 01/09/2022 12:23, Dmitry Baryshkov wrote:
-> In order to make the schema more readable, split dpu-sc7180 into the DPU
-> and MDSS parts, each one describing just a single device binding.
+On 08/09/2022 15:44, Krzysztof Kozlowski wrote:
+>> +  interconnects:
+>> +    maxItems: 1
+>> +
+>> +  interconnect-names:
+>> +    maxItems: 1
+>> +
+>> +patternProperties:
+>> +  "^display-controller@[0-9a-f]+$":
+>> +    type: object
+>> +    properties:
+>> +      compatible:
+>> +        const: qcom,sc7180-dpu
 > 
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> You have now schema for qcom,sc7180-dpu so just reference it here instead.
 
-Thank you for your patch. There is something to discuss/improve.
-
-> -                           #address-cells = <1>;
-> -                           #size-cells = <0>;
-> -
-> -                           port@0 {
-> -                                   reg = <0>;
-> -                                   dpu_intf1_out: endpoint {
-> -                                                  remote-endpoint = <&dsi0_in>;
-> -                                   };
-> -                           };
-> -
-> -                            port@2 {
-> -                                    reg = <2>;
-> -                                    dpu_intf0_out: endpoint {
-> -                                                   remote-endpoint = <&dp_in>;
-> -                                    };
-> -                            };
-> -                   };
-> -         };
-> +    display-controller@ae01000 {
-> +               compatible = "qcom,sc7180-dpu";
-> +               reg = <0x0ae01000 0x8f000>,
-
-You need to fix up the indentation.
-
-> +                     <0x0aeb0000 0x2008>;
-> +
-> +               reg-names = "mdp", "vbif";
-> +
-> +               clocks = <&gcc GCC_DISP_HF_AXI_CLK>,
-> +                        <&dispcc DISP_CC_MDSS_AHB_CLK>,
-> +                        <&dispcc DISP_CC_MDSS_ROT_CLK>,
-> +                        <&dispcc DISP_CC_MDSS_MDP_LUT_CLK>,
-> +                        <&dispcc DISP_CC_MDSS_MDP_CLK>,
-> +                        <&dispcc DISP_CC_MDSS_VSYNC_CLK>;
-> +               clock-names = "bus", "iface", "rot", "lut", "core",
-> +                             "vsync";
-> +
-> +               interrupt-parent = <&mdss>;
-> +               interrupts = <0>;
-> +               power-domains = <&rpmhpd SC7180_CX>;
-> +               operating-points-v2 = <&mdp_opp_table>;
-> +
-> +               ports {
-> +                       #address-cells = <1>;
-> +                       #size-cells = <0>;
-> +
-> +                       port@0 {
-> +                               reg = <0>;
-> +                               dpu_intf1_out: endpoint {
-> +                                              remote-endpoint = <&dsi0_in>;
-> +                               };
-> +                       };
-> +
-> +                        port@2 {
-> +                                reg = <2>;
-> +                                dpu_intf0_out: endpoint {
-> +                                               remote-endpoint = <&dp_in>;
-> +                                };
-> +                        };
-> +               };
->      };
->  ...
-> diff --git a/Documentation/devicetree/bindings/display/msm/mdss-sc7180.yaml b/Documentation/devicetree/bindings/display/msm/mdss-sc7180.yaml
-> new file mode 100644
-> index 000000000000..27d944f0e471
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/display/msm/mdss-sc7180.yaml
-> @@ -0,0 +1,85 @@
-> +# SPDX-License-Identifier: GPL-2.0-only or BSD-2-Clause
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/display/msm/mdss-sc7180.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: Qualcomm Display MDSS dt properties for SC7180 target
-> +
-> +maintainers:
-> +  - Krishna Manikandan <quic_mkrishn@quicinc.com>
-> +
-> +description: |
-> +  Device tree bindings for MSM Mobile Display Subsystem(MDSS) that encapsulates
-> +  sub-blocks like DPU display controller, DSI and DP interfaces etc. Device tree
-> +  bindings of MDSS are mentioned for SC7180 target.
-> +
-> +allOf:
-> +  - $ref: /schemas/display/msm/mdss-common.yaml#
-> +
-> +properties:
-> +  compatible:
-> +    items:
-> +      - const: qcom,sc7180-mdss
-> +
-> +  clocks:
-> +    items:
-> +      - description: Display AHB clock from gcc
-> +      - description: Display AHB clock from dispcc
-> +      - description: Display core clock
-> +
-> +  clock-names:
-> +    items:
-> +      - const: iface
-> +      - const: ahb
-> +      - const: core
-> +
-> +  iommus:
-> +    maxItems: 1
-> +
-> +  interconnects:
-> +    maxItems: 1
-> +
-> +  interconnect-names:
-> +    maxItems: 1
-> +
-> +patternProperties:
-> +  "^display-controller@[0-9a-f]+$":
-> +    type: object
-> +    properties:
-> +      compatible:
-> +        const: qcom,sc7180-dpu
-
-You have now schema for qcom,sc7180-dpu so just reference it here instead.
-
-> +
-> +unevaluatedProperties: false
-> +
-> +examples:
-> +  - |
-> +    #include <dt-bindings/clock/qcom,dispcc-sc7180.h>
-> +    #include <dt-bindings/clock/qcom,gcc-sc7180.h>
-> +    #include <dt-bindings/interrupt-controller/arm-gic.h>
-> +    #include <dt-bindings/interconnect/qcom,sdm845.h>
-> +    #include <dt-bindings/power/qcom-rpmpd.h>
-> +
-> +    display-subsystem@ae00000 {
-> +         #address-cells = <1>;
-
-Fix indentation to four spaces.
-
-
+OTOH, I think it fits your other uses, so it's ok.
 
 Best regards,
 Krzysztof
