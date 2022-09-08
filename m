@@ -1,58 +1,68 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id B774B5B231E
-	for <lists+freedreno@lfdr.de>; Thu,  8 Sep 2022 18:07:41 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 262E25B254E
+	for <lists+freedreno@lfdr.de>; Thu,  8 Sep 2022 20:06:07 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 65AA410EB4B;
-	Thu,  8 Sep 2022 16:07:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B3C1910E98D;
+	Thu,  8 Sep 2022 18:06:05 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-yw1-x112d.google.com (mail-yw1-x112d.google.com
- [IPv6:2607:f8b0:4864:20::112d])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9720910EB49
- for <freedreno@lists.freedesktop.org>; Thu,  8 Sep 2022 16:07:33 +0000 (UTC)
-Received: by mail-yw1-x112d.google.com with SMTP id
- 00721157ae682-3450a7358baso142672607b3.13
- for <freedreno@lists.freedesktop.org>; Thu, 08 Sep 2022 09:07:33 -0700 (PDT)
+Received: from mail-lj1-x22a.google.com (mail-lj1-x22a.google.com
+ [IPv6:2a00:1450:4864:20::22a])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AA14110E98D
+ for <freedreno@lists.freedesktop.org>; Thu,  8 Sep 2022 18:06:01 +0000 (UTC)
+Received: by mail-lj1-x22a.google.com with SMTP id y29so8287730ljq.7
+ for <freedreno@lists.freedesktop.org>; Thu, 08 Sep 2022 11:06:01 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date;
- bh=JJv51cMEwPKHeGHtyDWtDlnrabxmd1GuWDEXM9pG4rU=;
- b=TcrxrJCtL6pyn3nnmMSCsZMPhcs5m3fyi2iV7TKoaOShZwoPJQYgjIx1KBYqXESOP0
- bNBni7sHtK8MyEgvjgrpp9gur+gQLZj+Q80cmIREIB/RY5abPTO5tOnxFz9MXRG2zAar
- 117pLJeiY50esGdC1pApVgf1nKk0IeyoJawvZDOf+oLvJ5A3IdPLmHWZdai1sW8jlrMb
- xwzeasSr/jc0rmPNyLp5Ak2o/AWa7XoT5FdGPt4i8iaKYZyk2vwijRjgAAhGmtRjhhJg
- Ga9S67aUzkZzbjdoTAAvgPD6bPdvsVs0DJbIvQEU9UZrrTy4JUidRk74VH05GppL80F+
- SGHA==
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date;
+ bh=i6R+T1LxzHrLjcWK+Adp5zlhp4ZmO7ZHrUGFuap8v4g=;
+ b=Bt6tIkPhP/94b+3TXdX20M3nrhbAQzpfREfJGMTJtMzJTM7tk4CGTRep3GepAI78kE
+ wHVoZI9q7qCWUkSfAvYpVwoFU66IuLTh+VrsNK+LHMfxYVdCVQzFkv9IkgK/yDWfUFRI
+ 61aI/sbJqkY+GVG4D8aLqMR/aJ2e5Z+vjedvy9pr/qszYDW0idZgOA2SONU1weSbMITj
+ eQNizgRhUpSHgFjUDaRkDnRM4aCjD/rLn4ARMBHjHxFS4ZtMy9AEBD5FyaEGXWvN4L9J
+ FMC5KPxdUWELHSCEAEkYsslh+q6ELJnF6BJhSbazh6Sd4LoZRYwLgZuGUoqj3LjZ2la2
+ gMjg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date;
- bh=JJv51cMEwPKHeGHtyDWtDlnrabxmd1GuWDEXM9pG4rU=;
- b=rV5J7LAAJTcSY3JzMx+1oG7tj7rVceoMPhDl7KoGEUzsm77+dSCDtskuxDM6l+cx/b
- j31SW2ipInwoaF8eOlXWYJ/XrWolcR8tU/7eNk3PGvNR2v0d/JvuW4ZWeh96cWAjx0xq
- BeNQghisITrZghzn5I0wEc+z8xWdii6rt3q/7GH5RkEiq8MOdqtt7AVWTU8d7qe+bWzX
- bIYi2jmoKy9Gnm6Oj+a7yEWthdBw+Yz3UxalhHUoRXrMAHCEDH8D5fRnVKo8n3vWQpH2
- J3XatVYHZyXgOROAcyRz+iNNwf4fDRZ3CExUI70rmW9g1kt2Ge5/m5dPJpg2wMTjPiKc
- LVnA==
-X-Gm-Message-State: ACgBeo2R3zk9mwy3F3KvNXfzjaa6yDTP70LICZb+DjndNiRS4JHOyCBN
- SgU4D/YurVk3mzHT+rtz+v2h9R1our2TprABVqlfcQ==
-X-Google-Smtp-Source: AA6agR4zjZ5M4DR5iRReMpuVoqJUCuQUa9QEuRg73CcLPLa7gZkhLwEqcDY/mIHWG91nOJscsrrtch3EhKjLReFSL5I=
-X-Received: by 2002:a0d:ffc5:0:b0:341:6cc1:c589 with SMTP id
- p188-20020a0dffc5000000b003416cc1c589mr8431078ywf.418.1662653252731; Thu, 08
- Sep 2022 09:07:32 -0700 (PDT)
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date;
+ bh=i6R+T1LxzHrLjcWK+Adp5zlhp4ZmO7ZHrUGFuap8v4g=;
+ b=w3ikq9G/lK0RsE4PRQzKb1JXuPmu1vI3T5f5bGICAkoXNFuTPgEPabv3ensdpXwLl4
+ zMQ24rSjDJJXCJ4QPC5YrUH53HeM/kS6uBNSuvhUHsAqAKC0iFRo2kfG0QTQESH0pmyG
+ yf1Biy8nY+dm+aOye8av0c/pmKFO1wJVycmfgWinjuF23h27Dm9kVD8zSAL+OW/b9f1V
+ pEAQHuYffKdQQdXfp+W4vMHBrG7ph9Hml/U7wONX2QDTYIqj8J3p+uhchcv6jtaSD0J2
+ Cf40B3FN381xGwJpQ6vDc/MT+H0mD7gu7xjOIgIjFXfryN7DR+Tos3ES5RBdlejjMvyx
+ r3cA==
+X-Gm-Message-State: ACgBeo15Z6F5FUMpyJ7UqzVy6TKlbiqAs3wInMPpTYf8K0X+VmDVm2ny
+ 8xY6DaV0/Dp8yUsQOCDBg7O1YA==
+X-Google-Smtp-Source: AA6agR5WJMSDclSm4Gl/NoQeBPciYND4nSeVr3axIRBYZuzQUt/Fptcx3HfRHEwCqxK3tICB1eFAEg==
+X-Received: by 2002:a2e:a98b:0:b0:25f:d9e9:588d with SMTP id
+ x11-20020a2ea98b000000b0025fd9e9588dmr2926280ljq.205.1662660358907; 
+ Thu, 08 Sep 2022 11:05:58 -0700 (PDT)
+Received: from [192.168.1.211] ([37.153.55.125])
+ by smtp.gmail.com with ESMTPSA id
+ h10-20020a05651c124a00b0026a92616cd2sm776011ljh.35.2022.09.08.11.05.58
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 08 Sep 2022 11:05:58 -0700 (PDT)
+Message-ID: <3961088c-d090-6986-491b-7976f5339ac8@linaro.org>
+Date: Thu, 8 Sep 2022 21:05:57 +0300
 MIME-Version: 1.0
-References: <1662651516-30283-1-git-send-email-quic_khsieh@quicinc.com>
-In-Reply-To: <1662651516-30283-1-git-send-email-quic_khsieh@quicinc.com>
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.1.2
+Content-Language: en-GB
+To: Abhinav Kumar <quic_abhinavk@quicinc.com>, freedreno@lists.freedesktop.org,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>
+References: <1661830389-22439-1-git-send-email-quic_abhinavk@quicinc.com>
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Thu, 8 Sep 2022 19:07:21 +0300
-Message-ID: <CAA8EJpr_cBTyugJx1qZCEEgsdNvxHmZ7TPZiqRu_kb=NNNVLKw@mail.gmail.com>
-To: Kuogee Hsieh <quic_khsieh@quicinc.com>
-Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [PATCH v3] drm/msm/dp: cleared DP_DOWNSPREAD_CTRL
- register before start link training
+In-Reply-To: <1661830389-22439-1-git-send-email-quic_abhinavk@quicinc.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Subject: Re: [Freedreno] [RFC PATCH 0/3] Limit pluggable display modes
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,29 +75,85 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: quic_sbillaka@quicinc.com, quic_abhinavk@quicinc.com, airlied@linux.ie,
- freedreno@lists.freedesktop.org, robdclark@gmail.com,
- dri-devel@lists.freedesktop.org, dianders@chromium.org, vkoul@kernel.org,
- agross@kernel.org, bjorn.andersson@linaro.org, daniel@ffwll.ch,
- linux-arm-msm@vger.kernel.org, swboyd@chromium.org, sean@poorly.run,
- linux-kernel@vger.kernel.org
+Cc: dianders@chromium.org, dri-devel@lists.freedesktop.org, swboyd@chromium.org,
+ robdclark@gmail.com, seanpaul@chromium.org, daniel@ffwll.ch,
+ quic_jesszhan@quicinc.com
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Thu, 8 Sept 2022 at 18:38, Kuogee Hsieh <quic_khsieh@quicinc.com> wrote:
->
-> DOWNSPREAD_CTRL (0x107) shall be cleared to 0 upon power-on reset or an
-> upstream device disconnect. This patch will enforce this rule by always
-> cleared DOWNSPREAD_CTRL register to 0 before start link training. At rare
-> case that DP MSA timing parameters may be mis-interpreted by the sink
-> which causes audio sampling rate be calculated wrongly and cause audio
-> did not work at sink if DOWNSPREAD_CTRL register is not cleared to 0.
-> This patch also make sure bring sink out of D3 power-down mode into D0
-> (normal operation mode) successfully by retrying 3 times.
 
-Split into three separate patches please.
+On 30/08/2022 06:33, Abhinav Kumar wrote:
+> As reported on https://gitlab.freedesktop.org/drm/msm/-/issues/17, currently
+> there is no mechanism to limit the display output to the pluggable displays
+> and it lets users connect any monitor on any chipset based device.
+> 
+> This can lead to undefined behavior because lets say the display
+> advertises an unsupported pixel clock as its preferred resolution, then
+> the end-user can experience undefined behavior such as black screen,
+> crash or an underrun.
+> 
+> The capabilities of every chipset are advertised in the product
+> specification for both on-device displays and pluggable displays.
 
+After discussing this privately, it was agreed that there are two kinds 
+of issues here:
+  - filtering the modes which can not be handled by the DPU/DSI/DP 
+hardware pieces themselves
+
+  - filtering the modes which can not be handled by the external 
+limitations (e.g. the bridge not being able to drive this mode, the pcb 
+routing of data lanes being unable to sustain the rate, the connector 
+being the limit, etc).
+
+Krzysztof, I'd like to ask your advice if adding a properly like 
+`max-link-frequency' sounds like a good idea? The video-interfaces.yaml 
+bindings already has the `link-frequencies' property, but it is an array 
+of discrete frequencies supported by the link in the graph. In our case 
+the list of frequencies is more or less continuous, with max (and min) 
+values. Also, can it be added to the final device in the chain (e.g. 
+hdmi/dp/vga connectors) or should it be added to the endpoint graph nodes?
+
+> Documents such as [1], [2] and [3] can easily be found on the vendor's
+> website which advertise the max resolution support for that chipset.
+> 
+> Utilize this information to filter out the resolutions which have
+> pixel clock more than the supported limits.
+> 
+> This change only addresses pluggable displays because the underlying
+> assumption is that for the built-in displays, the display being chosen
+> for the product will be done so after referring to the advertised limits.
+> 
+> For calculating the pixel clock, the value has been taken from the CEA
+> speficiation if the resolution is a CEA one and from the CVT specification
+> for non-CEA.
+> 
+> This change has only been compile tested so far to get a general feedback
+> first and once it takes a final shape, will validate on whatever devices I have
+> and will appreciate help from others who have devices which I dont.
+> 
+> [1]: https://www.qualcomm.com/content/dam/qcomm-martech/dm-assets/documents/prod_brief_qcom_sd7c.pdf
+> [2]: https://www.qualcomm.com/content/dam/qcomm-martech/dm-assets/documents/prod_brief_qcom_sd7c_gen2.pdf
+> [3]: https://www.qualcomm.com/content/dam/qcomm-martech/dm-assets/documents/prod_brief_qcom_sd8cx_gen2.pdf
+> 
+> Abhinav Kumar (3):
+>    drm/msm/dpu: add max external pixel clock for all targets
+>    drm/msm: filter out modes for DSI bridge having unsupported clock
+>    drm/msm: filter out modes for DP/eDP bridge having unsupported clock
+> 
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c |  8 ++++++
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h |  2 ++
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c        | 18 ++++++++----
+>   drivers/gpu/drm/msm/dp/dp_display.c            | 16 +++++++++--
+>   drivers/gpu/drm/msm/dp/dp_parser.h             |  1 -
+>   drivers/gpu/drm/msm/dsi/dsi.c                  |  5 ++++
+>   drivers/gpu/drm/msm/dsi/dsi.h                  |  6 ++--
+>   drivers/gpu/drm/msm/dsi/dsi_host.c             | 40 ++++++++++++++++++++++----
+>   drivers/gpu/drm/msm/dsi/dsi_manager.c          |  2 +-
+>   drivers/gpu/drm/msm/msm_drv.h                  |  9 ++++--
+>   10 files changed, 88 insertions(+), 19 deletions(-)
+> 
 
 -- 
 With best wishes
 Dmitry
+
