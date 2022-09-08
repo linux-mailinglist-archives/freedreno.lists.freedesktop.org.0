@@ -2,56 +2,56 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id F1F5A5B1483
-	for <lists+freedreno@lfdr.de>; Thu,  8 Sep 2022 08:16:26 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4D2795B1596
+	for <lists+freedreno@lfdr.de>; Thu,  8 Sep 2022 09:26:49 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0681010E968;
-	Thu,  8 Sep 2022 06:16:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 63E1010E990;
+	Thu,  8 Sep 2022 07:26:42 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B142F10E968;
- Thu,  8 Sep 2022 06:16:19 +0000 (UTC)
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 2885psqc028972;
- Thu, 8 Sep 2022 06:16:17 GMT
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1EF0E10E97D;
+ Thu,  8 Sep 2022 07:26:37 +0000 (UTC)
+Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 2885oaOd013439;
+ Thu, 8 Sep 2022 07:26:35 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
  h=from : to : cc :
  subject : date : message-id : in-reply-to : references; s=qcppdkim1;
- bh=lUhjfJ1ZplQ8/9znHOmo1ubgNXWxaHS+Zo/O5ytusWM=;
- b=hQ4Y3IUI0n+a4VmEIuibwnK/6ylpX9pMI2I+Klmf90WMvXd9/CswYsHd/l6+lXhmXh3b
- sKLI+X1DSNoRd8aKyy9X1MKVz85DQy5Afk1S1ov3cR2MbUR/71kn4lnSLO1UvHmbJjwe
- stFrYKd9ouFUWTNVdjonawsNwQBhj1CpRrGp8q+dd+aoEX4bHy8hAwROIP8bJ44OvPoT
- hkXan4jOTlD/tSuaj30THL/RdodXq0TOW5efh1aketZRmfHmRPTigGPF3JktBxZ9rrYC
- JmqQrZm9GgozmZs1U5sqc4hvGrSN+jLD+97hDjTqJYF8+oDAd9gjV9NVmrcNHeos0E6i pg== 
-Received: from apblrppmta02.qualcomm.com
+ bh=peU2kOufsbu5SBls6JVPvgET4EJbYt9FkY4Sr3YPXAA=;
+ b=IrLj9+BQoce3YIaTrqTlkA+tfc5FWMo2098H3Ae6piajcjQIsZRarOs+QAs7OGniLWjU
+ QxPt9DMDDRDaaKjJVFWXTIVnCSnPc0gcL8eQmIjTaNowCeAXY6ddCcDY5Cx3SaORvcDa
+ CpaY1ymBBhS9G+y93sx6WD5OgBJrVRob1HsdKxkrDg9mNeVCAeTjXNsDb02VvalKteE9
+ p+eXCWMVI09kl8XmBqDJr3wasZY2bl1rs7hGsdHL+HFTKuYzrN2D93LJxB69vplv3y8L
+ 8Z3rktai8qqOpw7ARRkTxaPUYYBd07FvbwYwqeLEsv2Lbk5eFvVLCDSVvtMN/DksrzFM AA== 
+Received: from apblrppmta01.qualcomm.com
  (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com [103.229.18.19])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3jf39xgv5t-1
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3jf1sws74t-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 08 Sep 2022 06:16:16 +0000
-Received: from pps.filterd (APBLRPPMTA02.qualcomm.com [127.0.0.1])
- by APBLRPPMTA02.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTP id 2886GC37020835; 
- Thu, 8 Sep 2022 06:16:12 GMT
+ Thu, 08 Sep 2022 07:26:34 +0000
+Received: from pps.filterd (APBLRPPMTA01.qualcomm.com [127.0.0.1])
+ by APBLRPPMTA01.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTP id 2887QU5o010240; 
+ Thu, 8 Sep 2022 07:26:30 GMT
 Received: from pps.reinject (localhost [127.0.0.1])
- by APBLRPPMTA02.qualcomm.com (PPS) with ESMTP id 3jc00m2t6p-1;
- Thu, 08 Sep 2022 06:16:12 +0000
-Received: from APBLRPPMTA02.qualcomm.com (APBLRPPMTA02.qualcomm.com
+ by APBLRPPMTA01.qualcomm.com (PPS) with ESMTP id 3jc00kafvj-1;
+ Thu, 08 Sep 2022 07:26:30 +0000
+Received: from APBLRPPMTA01.qualcomm.com (APBLRPPMTA01.qualcomm.com
  [127.0.0.1])
- by pps.reinject (8.17.1.5/8.17.1.5) with ESMTP id 2886GC0U020825;
- Thu, 8 Sep 2022 06:16:12 GMT
+ by pps.reinject (8.17.1.5/8.17.1.5) with ESMTP id 2887QURG010233;
+ Thu, 8 Sep 2022 07:26:30 GMT
 Received: from kalyant-linux.qualcomm.com (kalyant-linux.qualcomm.com
  [10.204.66.210])
- by APBLRPPMTA02.qualcomm.com (PPS) with ESMTP id 2886GBJm020823;
- Thu, 08 Sep 2022 06:16:12 +0000
+ by APBLRPPMTA01.qualcomm.com (PPS) with ESMTP id 2887QUOi010217;
+ Thu, 08 Sep 2022 07:26:30 +0000
 Received: by kalyant-linux.qualcomm.com (Postfix, from userid 94428)
- id 45E374372; Wed,  7 Sep 2022 23:16:11 -0700 (PDT)
+ id 7C06E462C; Thu,  8 Sep 2022 00:26:29 -0700 (PDT)
 From: Kalyan Thota <quic_kalyant@quicinc.com>
 To: y@qualcomm.com, dri-devel@lists.freedesktop.org,
  linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
  devicetree@vger.kernel.org
-Date: Wed,  7 Sep 2022 23:16:10 -0700
-Message-Id: <1662617770-2795-1-git-send-email-quic_kalyant@quicinc.com>
+Date: Thu,  8 Sep 2022 00:26:28 -0700
+Message-Id: <1662621988-6873-1-git-send-email-quic_kalyant@quicinc.com>
 X-Mailer: git-send-email 2.7.4
 In-Reply-To: <y>
 References: <y>
@@ -61,18 +61,18 @@ X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
  signatures=585085
 X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
  signatures=585085
-X-Proofpoint-ORIG-GUID: aou5gqwR1aV8DEyccjM1GNEIuFYUl35n
-X-Proofpoint-GUID: aou5gqwR1aV8DEyccjM1GNEIuFYUl35n
+X-Proofpoint-GUID: m_Ez0RETrxV4Wb_AHOjX3BAFlY5R7l_G
+X-Proofpoint-ORIG-GUID: m_Ez0RETrxV4Wb_AHOjX3BAFlY5R7l_G
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.205,Aquarius:18.0.895,Hydra:6.0.528,FMLib:17.11.122.1
- definitions=2022-09-08_04,2022-09-07_02,2022-06-22_01
+ definitions=2022-09-08_05,2022-09-07_02,2022-06-22_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 mlxlogscore=999
- malwarescore=0 priorityscore=1501 impostorscore=0 bulkscore=0 adultscore=0
- spamscore=0 mlxscore=0 phishscore=0 suspectscore=0 lowpriorityscore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2207270000
- definitions=main-2209080023
-Subject: [Freedreno] [v3] drm/msm/disp/dpu1: add support for dspp sub block
+ lowpriorityscore=0
+ phishscore=0 bulkscore=0 impostorscore=0 adultscore=0 priorityscore=1501
+ mlxscore=0 spamscore=0 malwarescore=0 clxscore=1015 mlxlogscore=999
+ suspectscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2207270000 definitions=main-2209080026
+Subject: [Freedreno] [v4] drm/msm/disp/dpu1: add support for dspp sub block
  flush in sc7280
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -108,17 +108,19 @@ Changes in v1:
 Changes in v2:
 - Move the address offset to flush macro (Dmitry)
 - Seperate ops for the sub block flush (Dmitry)
+
+Changes in v3:
+- Reuse the DPU_DSPP_xx enum instead of a new one (Dmitry)
 ---
  drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c       |  2 +-
  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c |  5 +++-
- drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h |  2 ++
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h |  4 +++
  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c     | 35 ++++++++++++++++++++++++--
  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.h     | 10 ++++++--
- drivers/gpu/drm/msm/disp/dpu1/dpu_hw_mdss.h    |  7 ++++++
- 6 files changed, 55 insertions(+), 6 deletions(-)
+ 5 files changed, 50 insertions(+), 6 deletions(-)
 
 diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
-index 601d687..ab38a52 100644
+index 601d687..4170fbe 100644
 --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
 +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
 @@ -766,7 +766,7 @@ static void _dpu_crtc_setup_cp_blocks(struct drm_crtc *crtc)
@@ -126,7 +128,7 @@ index 601d687..ab38a52 100644
  		/* stage config flush mask */
  		ctl->ops.update_pending_flush_dspp(ctl,
 -			mixer[i].hw_dspp->idx);
-+			mixer[i].hw_dspp->idx, DPU_DSPP_SUB_PCC);
++			mixer[i].hw_dspp->idx, DPU_DSPP_PCC);
  	}
  }
  
@@ -147,10 +149,23 @@ index 27f029f..0eecb2f 100644
  #define MERGE_3D_SM8150_MASK (0)
  
 diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h
-index 38aa38a..6a0b784 100644
+index 38aa38a..8148e91 100644
 --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h
 +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h
-@@ -191,6 +191,7 @@ enum {
+@@ -161,10 +161,12 @@ enum {
+  * DSPP sub-blocks
+  * @DPU_DSPP_PCC             Panel color correction block
+  * @DPU_DSPP_GC              Gamma correction block
++ * @DPU_DSPP_IGC             Inverse Gamma correction block
+  */
+ enum {
+ 	DPU_DSPP_PCC = 0x1,
+ 	DPU_DSPP_GC,
++	DPU_DSPP_IGC,
+ 	DPU_DSPP_MAX
+ };
+ 
+@@ -191,6 +193,7 @@ enum {
   * @DPU_CTL_SPLIT_DISPLAY:	CTL supports video mode split display
   * @DPU_CTL_FETCH_ACTIVE:	Active CTL for fetch HW (SSPPs)
   * @DPU_CTL_VM_CFG:		CTL config to support multiple VMs
@@ -158,7 +173,7 @@ index 38aa38a..6a0b784 100644
   * @DPU_CTL_MAX
   */
  enum {
-@@ -198,6 +199,7 @@ enum {
+@@ -198,6 +201,7 @@ enum {
  	DPU_CTL_ACTIVE_CFG,
  	DPU_CTL_FETCH_ACTIVE,
  	DPU_CTL_VM_CFG,
@@ -167,7 +182,7 @@ index 38aa38a..6a0b784 100644
  };
  
 diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c
-index a35ecb6..31c8c44 100644
+index a35ecb6..bbda09a 100644
 --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c
 +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c
 @@ -33,6 +33,7 @@
@@ -183,7 +198,7 @@ index a35ecb6..31c8c44 100644
  
  static void dpu_hw_ctl_update_pending_flush_dspp(struct dpu_hw_ctl *ctx,
 -	enum dpu_dspp dspp)
-+	enum dpu_dspp dspp, enum dpu_dspp_sub_blk dspp_sub_blk)
++	enum dpu_dspp dspp, u32 dspp_sub_blk)
  {
 +
  	switch (dspp) {
@@ -194,18 +209,18 @@ index a35ecb6..31c8c44 100644
  }
  
 +static void dpu_hw_ctl_update_pending_flush_dspp_subblocks(
-+	struct dpu_hw_ctl *ctx,	enum dpu_dspp dspp, enum dpu_dspp_sub_blk dspp_sub_blk)
++	struct dpu_hw_ctl *ctx,	enum dpu_dspp dspp, u32 dspp_sub_blk)
 +{
 +	uint32_t flushbits = 0, active;
 +
 +	switch (dspp_sub_blk) {
-+	case DPU_DSPP_SUB_IGC:
++	case DPU_DSPP_IGC:
 +		flushbits = BIT(2);
 +		break;
-+	case DPU_DSPP_SUB_PCC:
++	case DPU_DSPP_PCC:
 +		flushbits = BIT(4);
 +		break;
-+	case DPU_DSPP_SUB_GC:
++	case DPU_DSPP_GC:
 +		flushbits = BIT(5);
 +		break;
 +	default:
@@ -235,7 +250,7 @@ index a35ecb6..31c8c44 100644
  		ops->set_active_pipes = dpu_hw_ctl_set_fetch_pipe_active;
  };
 diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.h
-index 96c012e..227f1bd 100644
+index 96c012e..1743572 100644
 --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.h
 +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.h
 @@ -149,12 +149,18 @@ struct dpu_hw_ctl_ops {
@@ -254,29 +269,11 @@ index 96c012e..227f1bd 100644
  	 */
  	void (*update_pending_flush_dspp)(struct dpu_hw_ctl *ctx,
 -		enum dpu_dspp blk);
-+		enum dpu_dspp blk,  enum dpu_dspp_sub_blk dspp_sub_blk);
++		enum dpu_dspp blk,  u32 dspp_sub_blk);
 +
  	/**
  	 * Write the value of the pending_flush_mask to hardware
  	 * @ctx       : ctl path ctx pointer
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_mdss.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_mdss.h
-index d3b0ed0..c113d52 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_mdss.h
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_mdss.h
-@@ -167,6 +167,13 @@ enum dpu_dspp {
- 	DSPP_MAX
- };
- 
-+enum dpu_dspp_sub_blk{
-+	DPU_DSPP_SUB_PCC = 1,
-+	DPU_DSPP_SUB_IGC,
-+	DPU_DSPP_SUB_GC,
-+	DPU_DSPP_SUB_MAX
-+};
-+
- enum dpu_ctl {
- 	CTL_0 = 1,
- 	CTL_1,
 -- 
 2.7.4
 
