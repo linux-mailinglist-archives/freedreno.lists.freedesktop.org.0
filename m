@@ -2,71 +2,72 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id F21BE5B2799
-	for <lists+freedreno@lfdr.de>; Thu,  8 Sep 2022 22:20:37 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6499D5B2856
+	for <lists+freedreno@lfdr.de>; Thu,  8 Sep 2022 23:18:59 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3914B10E661;
-	Thu,  8 Sep 2022 20:20:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1707810E6D2;
+	Thu,  8 Sep 2022 21:18:57 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-x22d.google.com (mail-lj1-x22d.google.com
- [IPv6:2a00:1450:4864:20::22d])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 613F010E661
- for <freedreno@lists.freedesktop.org>; Thu,  8 Sep 2022 20:20:28 +0000 (UTC)
-Received: by mail-lj1-x22d.google.com with SMTP id y18so6569114ljh.12
- for <freedreno@lists.freedesktop.org>; Thu, 08 Sep 2022 13:20:28 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date;
- bh=VOKz9BVOP52xmOqTjYmKPQXcHKZS+E6Y9TgNulPT/gM=;
- b=dF32T47D/EQb9uPV9n6kVZZbiCtMoL5GjDC4B07uzLnyHxk00pBzHsIhaOQUJoHVms
- IDx/trVvGUbvMk85ipFRSXLlm3ow62yozPE6oDBKw/8BK6Bch4HJn8s1P4WA9GOoCOa3
- /dZ7sFLZ584tEJqMf00Tsv1ALYuaAyg8YPMaAWz3HL5+fv+SXAljFe6kISBpSe6+w77X
- /n0jac6i91oNDPWQb8clOCfqnHPgIWa7IYi7pJKFIDHAE9uJ81PzPo7iVbpcU+ABSSwV
- y5LqfleZ0GVq7rsAyxLudSOvLQBLxyauBZnfWi28ieKNsjWNxj8eGj34u8fGrU1cBvh3
- ZAcg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date;
- bh=VOKz9BVOP52xmOqTjYmKPQXcHKZS+E6Y9TgNulPT/gM=;
- b=uXEQsoPFeZPmfWQ8oE9/nidPOkg8qquakyqlLtvANus9y+h6exZrcJJMyjZhibt1/1
- dyp+2usYcGqPv3yWGVZsYpzzxXEftyj+a9hQroKbrHzzCYgeLpMtNZEofXDWuIk5DwRn
- OItm+dRwz+JqhuhcVwLF5BeVCGYkIpsbdSmWMd/Iycvx2bPKSrxiBbAjP4zeKADqk9dj
- AFBNFO3ZUKhP8Z46zcqilqFBzOdjXITdRWBjzGkzbp0PTfKHxImi43vLJucd69gYtkLB
- Tcc/dzT3eqIub36AOPslH90g9ha3u7qiJg04HeMa2dliCfqmVBkL8BGzYkQH9UcEV4iA
- GVVg==
-X-Gm-Message-State: ACgBeo1UmoOBbyRlXfdp6ADFaxegtBwplXqhUKPtiv5LFjD/ZjX5jco0
- GkmnWBpUQbvgYurwov90waHBtg==
-X-Google-Smtp-Source: AA6agR5eJ8MNh09DV1LDxQKHWQdQTxffs/1OGe7Cb2m+Ag7Yva5nNhTEaLjOwqy3kHNs7jVFhpaR0A==
-X-Received: by 2002:a2e:aa13:0:b0:264:eb98:b7fd with SMTP id
- bf19-20020a2eaa13000000b00264eb98b7fdmr2866734ljb.26.1662668426296; 
- Thu, 08 Sep 2022 13:20:26 -0700 (PDT)
-Received: from [192.168.1.211] ([37.153.55.125])
- by smtp.gmail.com with ESMTPSA id
- l10-20020a056512110a00b00497ad8e6d07sm701961lfg.222.2022.09.08.13.20.25
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 08 Sep 2022 13:20:25 -0700 (PDT)
-Message-ID: <1ebe64a3-fab9-1dd7-517a-01001a176d9f@linaro.org>
-Date: Thu, 8 Sep 2022 23:20:24 +0300
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2176510E6C9;
+ Thu,  8 Sep 2022 21:18:54 +0000 (UTC)
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 288JNtlt006817;
+ Thu, 8 Sep 2022 21:18:48 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
+ h=from : to : cc :
+ subject : date : message-id : mime-version : content-type; s=qcppdkim1;
+ bh=t+zvnrxkVhAaJLOW7/6oGGs4/8MFrNwkd7LOwSIRTDw=;
+ b=pYI3xVZjOEAHbzy40iHThzgHHBApCBuDmj9WmvRwRh0VZTIT8N23oMtQMF3cojvkzIBw
+ z8mamJo8nUlYlRw3ZYuR2gqoC2f6n1pdPKJLfdEnkMpUT/GwmOwbte6XNF1pRMYDFZfy
+ I74Q/AxAv3/KCeym1JLjlU3JerupLi8EbenE+e2rWZDJ2S93GkHB6m1eIeXhmH3BLu4b
+ 86VqnXiMwGZ9hTDWEyptrh7UYDDXPYk2PBXEhOlaD+QP3Ds6MKQY8U/Ojni9C4iFgali
+ GLnZYzABAkq5j9oLzq/8bHRl0gIpfFyCoEJHGdC3qDGt6jWnopQ0Bxt1/093HBVjJ/T0 /Q== 
+Received: from nalasppmta03.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3jfcpbt9k9-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 08 Sep 2022 21:18:47 +0000
+Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
+ [10.47.209.196])
+ by NALASPPMTA03.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 288LIlnH020104
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 8 Sep 2022 21:18:47 GMT
+Received: from khsieh-linux1.qualcomm.com (10.80.80.8) by
+ nalasex01a.na.qualcomm.com (10.47.209.196) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.986.29; Thu, 8 Sep 2022 14:18:46 -0700
+From: Kuogee Hsieh <quic_khsieh@quicinc.com>
+To: <dri-devel@lists.freedesktop.org>, <robdclark@gmail.com>,
+ <sean@poorly.run>, <swboyd@chromium.org>, <dianders@chromium.org>,
+ <vkoul@kernel.org>, <daniel@ffwll.ch>, <airlied@linux.ie>,
+ <agross@kernel.org>, <dmitry.baryshkov@linaro.org>,
+ <bjorn.andersson@linaro.org>
+Date: Thu, 8 Sep 2022 14:18:35 -0700
+Message-ID: <1662671917-17194-1-git-send-email-quic_khsieh@quicinc.com>
+X-Mailer: git-send-email 2.7.4
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.1.2
-Content-Language: en-GB
-To: Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-References: <20220901102312.2005553-1-dmitry.baryshkov@linaro.org>
- <20220901102312.2005553-2-dmitry.baryshkov@linaro.org>
- <3e525135-d205-eddc-ff2d-98c8321386e3@linaro.org>
- <20220908193705.GA3002673-robh@kernel.org>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-In-Reply-To: <20220908193705.GA3002673-robh@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH v6 01/12] dt-bindings: display/msm: split
- qcom, mdss bindings
+Content-Type: text/plain
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-ORIG-GUID: 2Kpp7qIh4Hw5r13L2CYQDKXSyA3m3_kS
+X-Proofpoint-GUID: 2Kpp7qIh4Hw5r13L2CYQDKXSyA3m3_kS
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.205,Aquarius:18.0.895,Hydra:6.0.528,FMLib:17.11.122.1
+ definitions=2022-09-08_12,2022-09-08_01,2022-06-22_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 adultscore=0
+ clxscore=1015 bulkscore=0 mlxlogscore=905 lowpriorityscore=0
+ malwarescore=0 mlxscore=0 impostorscore=0 spamscore=0 priorityscore=1501
+ phishscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2207270000 definitions=main-2209080076
+Subject: [Freedreno] [PATCH v4 0/2] cleared DP_DOWNSPREAD_CTRL register
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,216 +80,24 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: devicetree@vger.kernel.org, Loic Poulain <loic.poulain@linaro.org>,
- David Airlie <airlied@linux.ie>, linux-arm-msm@vger.kernel.org,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konrad.dybcio@somainline.org>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
- Stephen Boyd <swboyd@chromium.org>, Rob Clark <robdclark@gmail.com>,
- Andy Gross <agross@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- freedreno@lists.freedesktop.org, Sean Paul <sean@poorly.run>,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Cc: quic_sbillaka@quicinc.com, linux-arm-msm@vger.kernel.org,
+ quic_abhinavk@quicinc.com, linux-kernel@vger.kernel.org,
+ Kuogee Hsieh <quic_khsieh@quicinc.com>, freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 08/09/2022 22:37, Rob Herring wrote:
-> On Thu, Sep 08, 2022 at 03:37:38PM +0200, Krzysztof Kozlowski wrote:
->> On 01/09/2022 12:23, Dmitry Baryshkov wrote:
->>> Split Mobile Display SubSystem (MDSS) root node bindings to the separate
->>> yaml file. Changes to the existing (txt) schema:
->>>   - Added optional "vbif_nrt_phys" region used by msm8996
->>>   - Made "bus" and "vsync" clocks optional (they are not used by some
->>>     platforms)
->>>   - Added (optional) "core" clock added recently to the mdss driver
->>>   - Added optional resets property referencing MDSS reset
->>>   - Defined child nodes pointing to corresponding reference schema.
->>>   - Dropped the "lut" clock. It was added to the schema by mistake (it is
->>>     a part of mdp4 schema, not the mdss).
->>>
->>> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
->>> ---
->>>   .../devicetree/bindings/display/msm/mdp5.txt  |  30 +---
->>>   .../devicetree/bindings/display/msm/mdss.yaml | 166 ++++++++++++++++++
->>>   2 files changed, 167 insertions(+), 29 deletions(-)
->>>   create mode 100644 Documentation/devicetree/bindings/display/msm/mdss.yaml
->>>
->>> diff --git a/Documentation/devicetree/bindings/display/msm/mdp5.txt b/Documentation/devicetree/bindings/display/msm/mdp5.txt
->>> index 43d11279c925..65d03c58dee6 100644
->>> --- a/Documentation/devicetree/bindings/display/msm/mdp5.txt
->>> +++ b/Documentation/devicetree/bindings/display/msm/mdp5.txt
->>> @@ -2,37 +2,9 @@ Qualcomm adreno/snapdragon MDP5 display controller
->>>   
->>>   Description:
->>>   
->>> -This is the bindings documentation for the Mobile Display Subsytem(MDSS) that
->>> -encapsulates sub-blocks like MDP5, DSI, HDMI, eDP etc, and the MDP5 display
->>> +This is the bindings documentation for the MDP5 display
->>>   controller found in SoCs like MSM8974, APQ8084, MSM8916, MSM8994 and MSM8996.
->>>   
->>> -MDSS:
->>> -Required properties:
->>> -- compatible:
->>> -  * "qcom,mdss" - MDSS
->>> -- reg: Physical base address and length of the controller's registers.
->>> -- reg-names: The names of register regions. The following regions are required:
->>> -  * "mdss_phys"
->>> -  * "vbif_phys"
->>> -- interrupts: The interrupt signal from MDSS.
->>> -- interrupt-controller: identifies the node as an interrupt controller.
->>> -- #interrupt-cells: specifies the number of cells needed to encode an interrupt
->>> -  source, should be 1.
->>> -- power-domains: a power domain consumer specifier according to
->>> -  Documentation/devicetree/bindings/power/power_domain.txt
->>> -- clocks: device clocks. See ../clocks/clock-bindings.txt for details.
->>> -- clock-names: the following clocks are required.
->>> -  * "iface"
->>> -  * "bus"
->>> -  * "vsync"
->>> -- #address-cells: number of address cells for the MDSS children. Should be 1.
->>> -- #size-cells: Should be 1.
->>> -- ranges: parent bus address space is the same as the child bus address space.
->>> -
->>> -Optional properties:
->>> -- clock-names: the following clocks are optional:
->>> -  * "lut"
->>> -
->>>   MDP5:
->>>   Required properties:
->>>   - compatible:
->>> diff --git a/Documentation/devicetree/bindings/display/msm/mdss.yaml b/Documentation/devicetree/bindings/display/msm/mdss.yaml
->>> new file mode 100644
->>> index 000000000000..8860fc55cca5
->>> --- /dev/null
->>> +++ b/Documentation/devicetree/bindings/display/msm/mdss.yaml
->>> @@ -0,0 +1,166 @@
->>> +# SPDX-License-Identifier: GPL-2.0-only or BSD-2-Clause
->>> +%YAML 1.2
->>> +---
->>> +$id: http://devicetree.org/schemas/display/msm/mdss.yaml#
->>> +$schema: http://devicetree.org/meta-schemas/core.yaml#
->>> +
->>> +title: Qualcomm Mobile Display SubSystem (MDSS)
->>> +
->>> +maintainers:
->>> +  - Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
->>> +  - Rob Clark <robdclark@gmail.com>
->>> +
->>> +description:
->>> +  This is the bindings documentation for the Mobile Display Subsytem(MDSS) that
->>> +  encapsulates sub-blocks like MDP5, DSI, HDMI, eDP, etc.
->>> +
->>> +properties:
->>> +  compatible:
->>> +    enum:
->>> +      - qcom,mdss
->>> +
->>> +  reg:
->>> +    minItems: 2
->>> +    maxItems: 3
->>> +
->>> +  reg-names:
->>> +    minItems: 2
->>> +    items:
->>> +      - const: mdss_phys
->>> +      - const: vbif_phys
->>> +      - const: vbif_nrt_phys
->>> +
->>> +  interrupts:
->>> +    maxItems: 1
->>> +
->>> +  interrupt-controller:
->>> +    true
->>
->> If there is going to be v7 - please make it one line.
->>
->>> +
->>> +  "#interrupt-cells":
->>> +    const: 1
->>> +
->>> +  power-domains:
->>> +    maxItems: 1
->>> +    description: |
->>> +      The MDSS power domain provided by GCC
->>> +
->>> +  clocks:
->>> +    minItems: 1
->>> +    items:
->>> +      - description: Display abh clock
->>> +      - description: Display axi clock
->>> +      - description: Display vsync clock
->>> +
->>> +  clock-names:
->>> +    minItems: 1
->>> +    items:
->>> +      - const: iface
->>> +      - const: bus
->>> +      - const: vsync
->>> +
->>> +  "#address-cells":
->>> +    const: 1
->>> +
->>> +  "#size-cells":
->>> +    const: 1
->>> +
->>> +  ranges:
->>> +    true
->>
->> Ditto.
->>
->>> +
->>> +  resets:
->>> +    items:
->>> +      - description: MDSS_CORE reset
->>> +
->>> +required:
->>> +  - compatible
->>> +  - reg
->>> +  - reg-names
->>> +  - interrupts
->>> +  - interrupt-controller
->>> +  - "#interrupt-cells"
->>> +  - power-domains
->>> +  - clocks
->>> +  - clock-names
->>> +  - "#address-cells"
->>> +  - "#size-cells"
->>> +  - ranges
->>> +
->>> +patternProperties:
->>> +  "^mdp@[1-9a-f][0-9a-f]*$":
->>> +    type: object
->>> +    properties:
->>> +      compatible:
->>> +        const: qcom,mdp5
->>> +
->>> +  "^dsi@[1-9a-f][0-9a-f]*$":
->>> +    type: object
->>> +    properties:
->>> +      compatible:
->>> +        const: qcom,mdss-dsi-ctrl
->>
->> This should be ref to dsi-controller-main.yaml... or based on previous
->> Rob's feedback you dropped it everywhere in children?
-> 
-> I don't think I said. I thought about it some, as yes, we normally have
-> done as you suggested. The downside is with a ref we'll do the whole
-> validation of the child node twice (unless the referenced schema has a
-> 'select: false') whereas here only 'compatible' is validated twice. This
-> way also complicates checking for unevaluatedProperties/additionalProperties.
-> 
-> So maybe better to keep with the 'normal' way and make this a ref.
+cleared DP_DOWNSPREAD_CTRL register before start link training
 
-Well.. I tried using $ref in the previous iteration, but then I faced 
-the fact that I can not use it. Using the $ref the node gets validated 
-even if it is disabled, and we do not want to do this. The nodes are 
-usually split in way that regulators are specified in the board DT file. 
-Thus disabled dsi/dsi-phy nodes do not get all the required regulators. 
-And dt-validate happily dumps tons of warnings for disabled nodes. Thus 
-I ended up with the compatible rather than $ref.
+Kuogee Hsieh (2):
+  drm/msm/dp: cleared DP_DOWNSPREAD_CTRL register before start link
+    training
+  drm/msm/dp: retry 3 times if set sink to D0 poweer state failed
 
+ drivers/gpu/drm/msm/dp/dp_ctrl.c | 13 +++++--------
+ drivers/gpu/drm/msm/dp/dp_link.c | 21 ++++++++++++---------
+ 2 files changed, 17 insertions(+), 17 deletions(-)
 
 -- 
-With best wishes
-Dmitry
+The Qualcomm Innovation Center, Inc. is a member of the Code Aurora Forum,
+a Linux Foundation Collaborative Project
 
