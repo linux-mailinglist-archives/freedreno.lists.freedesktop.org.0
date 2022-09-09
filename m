@@ -2,72 +2,71 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 19EF25B3501
-	for <lists+freedreno@lfdr.de>; Fri,  9 Sep 2022 12:18:31 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1B8C55B3DCC
+	for <lists+freedreno@lfdr.de>; Fri,  9 Sep 2022 19:17:00 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 117DF10EC5D;
-	Fri,  9 Sep 2022 10:18:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B8BBE10ECE9;
+	Fri,  9 Sep 2022 17:16:57 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x135.google.com (mail-lf1-x135.google.com
- [IPv6:2a00:1450:4864:20::135])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7847A10EC5D
- for <freedreno@lists.freedesktop.org>; Fri,  9 Sep 2022 10:18:25 +0000 (UTC)
-Received: by mail-lf1-x135.google.com with SMTP id x14so1866377lfu.10
- for <freedreno@lists.freedesktop.org>; Fri, 09 Sep 2022 03:18:25 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=content-transfer-encoding:in-reply-to:references:cc:to:from
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date;
- bh=/VudPBuUg8Yi2H0fyp4XXItQAWSGnhKI9+QIvSj4aPo=;
- b=SjK8642m+kC7L50jtrJprb6TubEpjuGV5QEEpGgw68uKQnlmEOHp0TpvHh5bZpVNEr
- rcO5WBcWwwONmzk1ETvAo+E7YImhsx7Kc3GR8qgDXM+MtXgUCFDVynI9eSqiNbAo5j5K
- iUE5CPFt5lMkjgbRv0Ryjp2qqWKSWHtOxTy4o62eplLuFo6GDYn74kkFZEwS4kR/Y6XS
- wH6la7j11eYaOK9DXmLzs0IVy5ooCLNv8uluaXu/Z74F3Fn4Ny2epqwSXSEOH42dtmT0
- +6SgKOkTAo8m3FiBSLCprgCQ2pSDKXey2HUG1wx+EiwaeSk0jZvdfDSmWdF0z3YtYn8I
- WLSw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=content-transfer-encoding:in-reply-to:references:cc:to:from
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date;
- bh=/VudPBuUg8Yi2H0fyp4XXItQAWSGnhKI9+QIvSj4aPo=;
- b=Bf2KdXgUM+1xDdPwGcF8LeLBpVrCvRbMiWgT9WR2lVvpjK1SJF7I57A3YQaUGbMuht
- L1WVrgjXCHRfjba6YiP20zFeb/BgrpuLXit7hCXZ4tuUk4Is9Kgd8n2ejVkuL7K0dBsj
- 52eHUI5y/ur/Pcqmbe935pVtcctwO5Z69UZDPo8hAwVFCUsPNgvS1ceEVJfEJf4KbYzg
- ED+YRNO8Q1QCxtm6c8YAB5XeomAZmHfOFKAmCyECNbAbIzFdB4bbwtiIX6zuCYyK6JCy
- fcUV1wk6xCNBgZvtDp4tkdaYvyo/I5zZcuXQQYLd7iCPNJ1I/5pHkbXqKlBh8r+I766w
- p36Q==
-X-Gm-Message-State: ACgBeo0twtcJrTL7rXpJBEIqlWHfszjCKn/HD3i2IrhNYo2zz1xH0fsg
- 7eRduzze662JR9hFwq6sJMc23w==
-X-Google-Smtp-Source: AA6agR7TrZ2dYc7MCPiwqkYmLv9B4ObWokWYVKngs6cXjyE23B6nKRTFuKspSwXlWLoWmEatMQ/LOg==
-X-Received: by 2002:a05:6512:159a:b0:492:d0c8:aec1 with SMTP id
- bp26-20020a056512159a00b00492d0c8aec1mr4455606lfb.275.1662718703748; 
- Fri, 09 Sep 2022 03:18:23 -0700 (PDT)
-Received: from [192.168.1.211] ([37.153.55.125])
- by smtp.gmail.com with ESMTPSA id
- h27-20020a2eb0fb000000b00261b9ccb18esm27383ljl.10.2022.09.09.03.18.23
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 09 Sep 2022 03:18:23 -0700 (PDT)
-Message-ID: <7f002ba4-1e1e-300d-062e-db93390b0461@linaro.org>
-Date: Fri, 9 Sep 2022 13:18:22 +0300
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 05CE710E0E3;
+ Fri,  9 Sep 2022 17:16:51 +0000 (UTC)
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 289EjNd4002070;
+ Fri, 9 Sep 2022 17:16:44 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
+ h=from : to : cc :
+ subject : date : message-id : mime-version : content-type; s=qcppdkim1;
+ bh=Ic3WaKhlmQlNohswPAMHE7FNT2PwFLCSIqYFvTWFuhU=;
+ b=UynpZaOeF3oIIlj2f7SLWJPL+9f4wnwUL20CPJ//EPlfba2TuWGVNJfr/izp5K0/E+K1
+ 3y9CeUns7y2lZEcKleY3wb/abPvYPSUy1bklbFpdCRcU4gX4gGIzwzEY78y51rH2rLaK
+ SmcV8zyeIu5RIrccIsdNfNlr6kw6iuIIbRQ3r5L5XS5APc70lu/KTTGJVFcZtiIUhJeh
+ O0u0e+qvWuBfDl/+0VNy3BO55ey2NBm4W2GnrUHYOTF31uTH8xJ0EgpT8JbqCev+DtXN
+ ETn4fV8IM4E6onuwIJZbjFPahLGbDE1yvDlmnTP9FGc7tjZ5FQMFfRF2h9vb1e3zLDJu nw== 
+Received: from nalasppmta05.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3jg3c21f3b-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Fri, 09 Sep 2022 17:16:44 +0000
+Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
+ [10.47.209.196])
+ by NALASPPMTA05.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 289HGhUD030628
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Fri, 9 Sep 2022 17:16:43 GMT
+Received: from khsieh-linux1.qualcomm.com (10.80.80.8) by
+ nalasex01a.na.qualcomm.com (10.47.209.196) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.986.29; Fri, 9 Sep 2022 10:16:42 -0700
+From: Kuogee Hsieh <quic_khsieh@quicinc.com>
+To: <robdclark@gmail.com>, <sean@poorly.run>, <swboyd@chromium.org>,
+ <dianders@chromium.org>, <vkoul@kernel.org>, <daniel@ffwll.ch>,
+ <airlied@linux.ie>, <agross@kernel.org>, <dmitry.baryshkov@linaro.org>,
+ <bjorn.andersson@linaro.org>
+Date: Fri, 9 Sep 2022 10:16:35 -0700
+Message-ID: <1662743795-30438-1-git-send-email-quic_khsieh@quicinc.com>
+X-Mailer: git-send-email 2.7.4
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.1.2
-Content-Language: en-GB
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-To: Andy Gross <agross@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
- Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, Rob Herring <robh+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>
-References: <20220704161148.814510-1-dmitry.baryshkov@linaro.org>
- <20220704161148.814510-4-dmitry.baryshkov@linaro.org>
- <6474b61e-69d8-dbcb-f638-7729ec3dee31@linaro.org>
-In-Reply-To: <6474b61e-69d8-dbcb-f638-7729ec3dee31@linaro.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-Subject: Re: [Freedreno] [PATCH v3 3/3] arm64: dts: qcom: msm8996: add
- #clock-cells and XO clock to the HDMI PHY node
+Content-Type: text/plain
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-GUID: k6g5wZ_NVYARlW2qsftIcW7-ekDmY5gN
+X-Proofpoint-ORIG-GUID: k6g5wZ_NVYARlW2qsftIcW7-ekDmY5gN
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.205,Aquarius:18.0.895,Hydra:6.0.528,FMLib:17.11.122.1
+ definitions=2022-09-09_08,2022-09-09_01,2022-06-22_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 spamscore=0
+ priorityscore=1501 phishscore=0 clxscore=1015 malwarescore=0
+ suspectscore=0 mlxlogscore=999 mlxscore=0 adultscore=0 lowpriorityscore=0
+ impostorscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2207270000 definitions=main-2209090061
+Subject: [Freedreno] [PATCH v2] drm/msm/dp: add atomic_check to bridge ops
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,57 +79,177 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: devicetree@vger.kernel.org, David Airlie <airlied@linux.ie>,
- linux-arm-msm@vger.kernel.org,
- Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
- dri-devel@lists.freedesktop.org, Stephen Boyd <swboyd@chromium.org>,
- Vinod Koul <vkoul@kernel.org>, Daniel Vetter <daniel@ffwll.ch>,
- linux-phy@lists.infradead.org, Kishon Vijay Abraham I <kishon@ti.com>,
- freedreno@lists.freedesktop.org
+Cc: quic_sbillaka@quicinc.com, linux-arm-msm@vger.kernel.org,
+ quic_abhinavk@quicinc.com, dri-devel@lists.freedesktop.org,
+ quic_khsieh@quicinc.com, freedreno@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 26/08/2022 17:25, Dmitry Baryshkov wrote:
-> On 04/07/2022 19:11, Dmitry Baryshkov wrote:
->> Add #clock-cells property to the HDMI PHY device node to let other nodes
->> resolve the hdmipll clock. While we are at it, also add the XO clock to
->> the device node.
->>
->> Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
->> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> 
-> Bjorn, I'm picking the patches 1,2 into msm-next. Could you please pick 
-> this patch into your dts-for-6.1?
+DRM commit_tails() will disable downstream crtc/encoder/bridge if
+both disable crtc is required and crtc->active is set before pushing
+a new frame downstream.
 
-Again, gracious ping.
+There is a rare case that user space display manager issue an extra
+screen update immediately followed by close DRM device while down
+stream display interface is disabled. This extra screen update will
+timeout due to the downstream interface is disabled but will cause
+crtc->active be set. Hence the followed commit_tails() called by
+drm_release() will pass the disable downstream crtc/encoder/bridge
+conditions checking even downstream interface is disabled.
+This cause the crash to happen at dp_bridge_disable() due to it trying
+to access the main link register to push the idle pattern out while main
+link clocks is disabled.
 
-> 
->> ---
->>   arch/arm64/boot/dts/qcom/msm8996.dtsi | 8 ++++++--
->>   1 file changed, 6 insertions(+), 2 deletions(-)
->>
->> diff --git a/arch/arm64/boot/dts/qcom/msm8996.dtsi 
->> b/arch/arm64/boot/dts/qcom/msm8996.dtsi
->> index 25d6b26fab60..b72385ffecc6 100644
->> --- a/arch/arm64/boot/dts/qcom/msm8996.dtsi
->> +++ b/arch/arm64/boot/dts/qcom/msm8996.dtsi
->> @@ -1049,9 +1049,13 @@ hdmi_phy: hdmi-phy@9a0600 {
->>                           "hdmi_phy";
->>                   clocks = <&mmcc MDSS_AHB_CLK>,
->> -                     <&gcc GCC_HDMI_CLKREF_CLK>;
->> +                     <&gcc GCC_HDMI_CLKREF_CLK>,
->> +                     <&xo_board>;
->>                   clock-names = "iface",
->> -                          "ref";
->> +                          "ref",
->> +                          "xo";
->> +
->> +                #clock-cells = <0>;
->>                   status = "disabled";
->>               };
-> 
+This patch adds atomic_check to prevent the extra frame will not
+be pushed down if display interface is down so that crtc->active
+will not be set neither. This will fail the conditions checking
+of disabling down stream crtc/encoder/bridge which prevent
+drm_release() from calling dp_bridge_disable() so that crash
+at dp_bridge_disable() prevented.
 
+There is no protection in the DRM framework to check if the display
+pipeline has been already disabled before trying again. The only
+check is the crtc_state->active but this is controlled by usermode
+using UAPI. Hence if the usermode sets this and then crashes, the
+driver needs to protect against double disable"
+
+SError Interrupt on CPU7, code 0x00000000be000411 -- SError
+CPU: 7 PID: 3878 Comm: Xorg Not tainted 5.19.0-stb-cbq #19
+Hardware name: Google Lazor (rev3 - 8) (DT)
+pstate: a04000c9 (NzCv daIF +PAN -UAO -TCO -DIT -SSBS BTYPE=--)
+pc : __cmpxchg_case_acq_32+0x14/0x2c
+lr : do_raw_spin_lock+0xa4/0xdc
+sp : ffffffc01092b6a0
+x29: ffffffc01092b6a0 x28: 0000000000000028 x27: 0000000000000038
+x26: 0000000000000004 x25: ffffffd2973dce48 x24: 0000000000000000
+x23: 00000000ffffffff x22: 00000000ffffffff x21: ffffffd2978d0008
+x20: ffffffd2978d0008 x19: ffffff80ff759fc0 x18: 0000000000000000
+x17: 004800a501260460 x16: 0441043b04600438 x15: 04380000089807d0
+x14: 07b0089807800780 x13: 0000000000000000 x12: 0000000000000000
+x11: 0000000000000438 x10: 00000000000007d0 x9 : ffffffd2973e09e4
+x8 : ffffff8092d53300 x7 : ffffff808902e8b8 x6 : 0000000000000001
+x5 : ffffff808902e880 x4 : 0000000000000000 x3 : ffffff80ff759fc0
+x2 : 0000000000000001 x1 : 0000000000000000 x0 : ffffff80ff759fc0
+Kernel panic - not syncing: Asynchronous SError Interrupt
+CPU: 7 PID: 3878 Comm: Xorg Not tainted 5.19.0-stb-cbq #19
+Hardware name: Google Lazor (rev3 - 8) (DT)
+Call trace:
+ dump_backtrace.part.0+0xbc/0xe4
+ show_stack+0x24/0x70
+ dump_stack_lvl+0x68/0x84
+ dump_stack+0x18/0x34
+ panic+0x14c/0x32c
+ nmi_panic+0x58/0x7c
+ arm64_serror_panic+0x78/0x84
+ do_serror+0x40/0x64
+ el1h_64_error_handler+0x30/0x48
+ el1h_64_error+0x68/0x6c
+ __cmpxchg_case_acq_32+0x14/0x2c
+ _raw_spin_lock_irqsave+0x38/0x4c
+ lock_timer_base+0x40/0x78
+ __mod_timer+0xf4/0x25c
+ schedule_timeout+0xd4/0xfc
+ __wait_for_common+0xac/0x140
+ wait_for_completion_timeout+0x2c/0x54
+ dp_ctrl_push_idle+0x40/0x88
+ dp_bridge_disable+0x24/0x30
+ drm_atomic_bridge_chain_disable+0x90/0xbc
+ drm_atomic_helper_commit_modeset_disables+0x198/0x444
+ msm_atomic_commit_tail+0x1d0/0x374
+ commit_tail+0x80/0x108
+ drm_atomic_helper_commit+0x118/0x11c
+ drm_atomic_commit+0xb4/0xe0
+ drm_client_modeset_commit_atomic+0x184/0x224
+ drm_client_modeset_commit_locked+0x58/0x160
+ drm_client_modeset_commit+0x3c/0x64
+ __drm_fb_helper_restore_fbdev_mode_unlocked+0x98/0xac
+ drm_fb_helper_set_par+0x74/0x80
+ drm_fb_helper_hotplug_event+0xdc/0xe0
+ __drm_fb_helper_restore_fbdev_mode_unlocked+0x7c/0xac
+ drm_fb_helper_restore_fbdev_mode_unlocked+0x20/0x2c
+ drm_fb_helper_lastclose+0x20/0x2c
+ drm_lastclose+0x44/0x6c
+ drm_release+0x88/0xd4
+ __fput+0x104/0x220
+ ____fput+0x1c/0x28
+ task_work_run+0x8c/0x100
+ do_exit+0x450/0x8d0
+ do_group_exit+0x40/0xac
+ __wake_up_parent+0x0/0x38
+ invoke_syscall+0x84/0x11c
+ el0_svc_common.constprop.0+0xb8/0xe4
+ do_el0_svc+0x8c/0xb8
+ el0_svc+0x2c/0x54
+ el0t_64_sync_handler+0x120/0x1c0
+ el0t_64_sync+0x190/0x194
+SMP: stopping secondary CPUs
+Kernel Offset: 0x128e800000 from 0xffffffc008000000
+PHYS_OFFSET: 0x80000000
+CPU features: 0x800,00c2a015,19801c82
+Memory Limit: none
+
+Changes in v2:
+-- add more commit text
+
+Fixes: 8a3b4c17f863 ("drm/msm/dp: employ bridge mechanism for display enable and disable")
+Reported-by: Leonard Lausen <leonard@lausen.nl>
+Suggested-by: Rob Clark <robdclark@gmail.com>
+Closes: https://gitlab.freedesktop.org/drm/msm/-/issues/17
+Signed-off-by: Kuogee Hsieh <quic_khsieh@quicinc.com>
+---
+ drivers/gpu/drm/msm/dp/dp_drm.c | 23 +++++++++++++++++++++++
+ 1 file changed, 23 insertions(+)
+
+diff --git a/drivers/gpu/drm/msm/dp/dp_drm.c b/drivers/gpu/drm/msm/dp/dp_drm.c
+index 6df25f7..c682588 100644
+--- a/drivers/gpu/drm/msm/dp/dp_drm.c
++++ b/drivers/gpu/drm/msm/dp/dp_drm.c
+@@ -31,6 +31,25 @@ static enum drm_connector_status dp_bridge_detect(struct drm_bridge *bridge)
+ 					connector_status_disconnected;
+ }
+ 
++static int dp_bridge_atomic_check(struct drm_bridge *bridge,
++			    struct drm_bridge_state *bridge_state,
++			    struct drm_crtc_state *crtc_state,
++			    struct drm_connector_state *conn_state)
++{
++	struct msm_dp *dp;
++
++	dp = to_dp_bridge(bridge)->dp_display;
++
++	drm_dbg_dp(dp->drm_dev, "is_connected = %s\n",
++		(dp->is_connected) ? "true" : "false");
++
++	if (bridge->ops & DRM_BRIDGE_OP_HPD)
++		return (dp->is_connected) ? 0 : -ENOTCONN;
++
++	return 0;
++}
++
++
+ /**
+  * dp_bridge_get_modes - callback to add drm modes via drm_mode_probed_add()
+  * @bridge: Poiner to drm bridge
+@@ -61,6 +80,9 @@ static int dp_bridge_get_modes(struct drm_bridge *bridge, struct drm_connector *
+ }
+ 
+ static const struct drm_bridge_funcs dp_bridge_ops = {
++	.atomic_duplicate_state = drm_atomic_helper_bridge_duplicate_state,
++	.atomic_destroy_state   = drm_atomic_helper_bridge_destroy_state,
++	.atomic_reset           = drm_atomic_helper_bridge_reset,
+ 	.enable       = dp_bridge_enable,
+ 	.disable      = dp_bridge_disable,
+ 	.post_disable = dp_bridge_post_disable,
+@@ -68,6 +90,7 @@ static const struct drm_bridge_funcs dp_bridge_ops = {
+ 	.mode_valid   = dp_bridge_mode_valid,
+ 	.get_modes    = dp_bridge_get_modes,
+ 	.detect       = dp_bridge_detect,
++	.atomic_check = dp_bridge_atomic_check,
+ };
+ 
+ struct drm_bridge *dp_bridge_init(struct msm_dp *dp_display, struct drm_device *dev,
 -- 
-With best wishes
-Dmitry
+The Qualcomm Innovation Center, Inc. is a member of the Code Aurora Forum,
+a Linux Foundation Collaborative Project
 
