@@ -2,46 +2,47 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 299FA5B4901
-	for <lists+freedreno@lfdr.de>; Sat, 10 Sep 2022 23:16:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A85905B4935
+	for <lists+freedreno@lfdr.de>; Sat, 10 Sep 2022 23:18:05 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6AE0D10E2D0;
-	Sat, 10 Sep 2022 21:16:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BBADB10E2D5;
+	Sat, 10 Sep 2022 21:18:03 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4DD2B10E080;
- Sat, 10 Sep 2022 21:16:30 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2CCBC10E2D3;
+ Sat, 10 Sep 2022 21:17:59 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 8351960E1F;
- Sat, 10 Sep 2022 21:16:29 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CC4D8C433D7;
- Sat, 10 Sep 2022 21:16:27 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id A974F60DD4;
+ Sat, 10 Sep 2022 21:17:58 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EB803C43141;
+ Sat, 10 Sep 2022 21:17:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1662844589;
- bh=/Z5VauDP6NZb5Qbbk5QtyDSUJrRx1CVHUG5+Lgr4zrw=;
+ s=k20201202; t=1662844678;
+ bh=TNpz5TSPLIITY9+EhMX9wDc1LMTj+4DwgPahXg/iDtk=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=Nw0v9aomqumUWn5giZ68z91Qmodd/XRCiDBLIvtHgCaxY8W/8SiiycTOM4/EbyoHo
- 47NyUSeUjTz2IoLP4QQiiM+P0s1JpkFaSo3yUc0euX7ovG6JExOpcL3dzN4vNomJGD
- CfrT2OJQH0x5Q25F+d/6w/0Oa4iFE7LkgX63pL4hF3u7q640vc0rbA+EzxgnBQUryK
- 8+vRNsX9aW7xEyKR6hcQ5Y6fslp32vG+h+eKI44Ma6O840ICsWZ8gfDJOohUSp79gD
- vKaZkErFiQmI5UQPz/hKPCs79AyzhM/E9g9XE3h2OohS1tJTWm/U8MqgheH1Qc4hUk
- ahHn8NkwvbTcQ==
+ b=uOio4aSo2mcc2ez6ecBpkjg8ymF8MNA92+zkOo0A9gDGr64Ccu0XuR8D04IX7lcuY
+ A0H3884wDKhWYP2RYKFP+6NQt8gPtL8diGVM5C8mo1u9H2x1DPgu8E2Jva576sw10T
+ SWKNSv6Qidl2wQYWYzNhDZbuoJofrQO4Zq+Sm4ggQXPmd7dZN8+KUjNdN0GujqEHoA
+ /1lT9dXYuIqWKUcGmzIXuhlY7CA6FTtX+vmVssgXfXbiRjaAdKwUvZMpRczHWbzuhw
+ uJcmvyPAT6tSScQUL5h9cFXl3S21O+nBQjQPByfWEOkZ2uv5NhBjX1W20Une8x5P1z
+ B6nGf5b90Ipsw==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Date: Sat, 10 Sep 2022 17:15:48 -0400
-Message-Id: <20220910211623.69825-3-sashal@kernel.org>
+Date: Sat, 10 Sep 2022 17:17:34 -0400
+Message-Id: <20220910211752.70291-3-sashal@kernel.org>
 X-Mailer: git-send-email 2.35.1
-In-Reply-To: <20220910211623.69825-1-sashal@kernel.org>
-References: <20220910211623.69825-1-sashal@kernel.org>
+In-Reply-To: <20220910211752.70291-1-sashal@kernel.org>
+References: <20220910211752.70291-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
 Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH AUTOSEL 5.19 03/38] drm/msm/rd: Fix FIFO-full
+Subject: [Freedreno] [PATCH AUTOSEL 5.15 03/21] drm/msm/rd: Fix FIFO-full
  deadlock
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -80,10 +81,10 @@ Signed-off-by: Sasha Levin <sashal@kernel.org>
  1 file changed, 3 insertions(+)
 
 diff --git a/drivers/gpu/drm/msm/msm_rd.c b/drivers/gpu/drm/msm/msm_rd.c
-index a92ffde53f0b3..db2f847c8535f 100644
+index b55398a34fa48..e3f0dd4a36792 100644
 --- a/drivers/gpu/drm/msm/msm_rd.c
 +++ b/drivers/gpu/drm/msm/msm_rd.c
-@@ -196,6 +196,9 @@ static int rd_open(struct inode *inode, struct file *file)
+@@ -191,6 +191,9 @@ static int rd_open(struct inode *inode, struct file *file)
  	file->private_data = rd;
  	rd->open = true;
  
@@ -92,7 +93,7 @@ index a92ffde53f0b3..db2f847c8535f 100644
 +
  	/* the parsing tools need to know gpu-id to know which
  	 * register database to load.
- 	 *
+ 	 */
 -- 
 2.35.1
 
