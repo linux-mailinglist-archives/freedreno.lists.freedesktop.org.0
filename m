@@ -1,60 +1,48 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (unknown [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5915D5B47C3
-	for <lists+freedreno@lfdr.de>; Sat, 10 Sep 2022 19:41:22 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 299FA5B4901
+	for <lists+freedreno@lfdr.de>; Sat, 10 Sep 2022 23:16:38 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B115F10E22C;
-	Sat, 10 Sep 2022 17:41:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6AE0D10E2D0;
+	Sat, 10 Sep 2022 21:16:35 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wr1-x429.google.com (mail-wr1-x429.google.com
- [IPv6:2a00:1450:4864:20::429])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9C1B510ECB3
- for <freedreno@lists.freedesktop.org>; Fri,  9 Sep 2022 15:29:12 +0000 (UTC)
-Received: by mail-wr1-x429.google.com with SMTP id bz13so3398093wrb.2
- for <freedreno@lists.freedesktop.org>; Fri, 09 Sep 2022 08:29:12 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date;
- bh=x5KrfZMUqk39SoEPHLkAPrMFfPRI1D3FajlqzTwrI2w=;
- b=oSYpl/Gb1s9dRqBo3A5bgCA72v4jIqY5p2bmNk/vF4s4Z3Ej+MlZWJsUyTGVNwZ/yL
- 80TFASgEwfo3yvcFMYRdBstqzyu3kpN57pNe+DqjU8T1t5aIe6g+UheTJwf4quTfGohg
- dIECs/DMEDAnA6Z/89eBhe+EPGIjU3BGLmeGSbWEHr/afbL8jo2GOosPz7te/ia1zXqc
- ViZLMeW/bckHzNGye3KqZHyv26ATnWeXHJ9RDz7Ar1pQyEhVa1XXJ98OQvOJ2T5Y8pRs
- 005yXvVrRb7ofk+0Y56L42BjxJn4xzM7xbGKTY9PgS/MXHUxNbbPkdkU5aut49H1VH18
- fRgg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date;
- bh=x5KrfZMUqk39SoEPHLkAPrMFfPRI1D3FajlqzTwrI2w=;
- b=VGdseq0o3BKD2BVNY4f4n2W0xx9/pjAI7m0xE76aP0xoighYQsyD5Uow9BZfdYfIr5
- TbZ0L5p1/JVdt3C2chLKtRIx/91nyT21QRjnsL2YlmZy9D5kdm2KQ9JP4f2XGD3e4C++
- x8/tstJp5cyxw/4E2fcORrNaKjjf6CNy0cx67gCHRWIKa3h4gxoXhyZbTqFFraAdeHz+
- lEfK6caP0ASHTD1wieNu4vbHdd9LMAQjkTR91wx3lqdetVatcGqxTF460PPq6KfAOo7l
- 8mr4hPNiGjctcQ+2R52QTjxJUZ78FQFtj42EoSylxU8jKcDkx2OKTTqRIF2JAei6rgKN
- ey3w==
-X-Gm-Message-State: ACgBeo17rbIxiTChOk1vTSD2nt43b5j+ZXx6QbhlGI+1j4cIFbwP4bAB
- Ke9yYZam7GJ/p48y2cIaJxoXoQ==
-X-Google-Smtp-Source: AA6agR6wb87riPAljaE4mS1gw1MnP9z5tVpez/1x2jPhB3Ig+9QVEo4MAY76WVxvchFw/nzKIBqD1w==
-X-Received: by 2002:a5d:6481:0:b0:228:dc1f:4f95 with SMTP id
- o1-20020a5d6481000000b00228dc1f4f95mr8415352wri.298.1662737351151; 
- Fri, 09 Sep 2022 08:29:11 -0700 (PDT)
-Received: from radium.lan ([88.160.162.107]) by smtp.gmail.com with ESMTPSA id
- o12-20020a5d4a8c000000b002285f73f11dsm956931wrq.81.2022.09.09.08.29.09
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 09 Sep 2022 08:29:10 -0700 (PDT)
-From: Fabien Parent <fabien.parent@linaro.org>
-To: robdclark@gmail.com, quic_abhinavk@quicinc.com, dmitry.baryshkov@linaro.org
-Date: Fri,  9 Sep 2022 17:28:56 +0200
-Message-Id: <20220909152856.149291-1-fabien.parent@linaro.org>
-X-Mailer: git-send-email 2.37.2
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4DD2B10E080;
+ Sat, 10 Sep 2022 21:16:30 +0000 (UTC)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 8351960E1F;
+ Sat, 10 Sep 2022 21:16:29 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CC4D8C433D7;
+ Sat, 10 Sep 2022 21:16:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1662844589;
+ bh=/Z5VauDP6NZb5Qbbk5QtyDSUJrRx1CVHUG5+Lgr4zrw=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=Nw0v9aomqumUWn5giZ68z91Qmodd/XRCiDBLIvtHgCaxY8W/8SiiycTOM4/EbyoHo
+ 47NyUSeUjTz2IoLP4QQiiM+P0s1JpkFaSo3yUc0euX7ovG6JExOpcL3dzN4vNomJGD
+ CfrT2OJQH0x5Q25F+d/6w/0Oa4iFE7LkgX63pL4hF3u7q640vc0rbA+EzxgnBQUryK
+ 8+vRNsX9aW7xEyKR6hcQ5Y6fslp32vG+h+eKI44Ma6O840ICsWZ8gfDJOohUSp79gD
+ vKaZkErFiQmI5UQPz/hKPCs79AyzhM/E9g9XE3h2OohS1tJTWm/U8MqgheH1Qc4hUk
+ ahHn8NkwvbTcQ==
+From: Sasha Levin <sashal@kernel.org>
+To: linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Date: Sat, 10 Sep 2022 17:15:48 -0400
+Message-Id: <20220910211623.69825-3-sashal@kernel.org>
+X-Mailer: git-send-email 2.35.1
+In-Reply-To: <20220910211623.69825-1-sashal@kernel.org>
+References: <20220910211623.69825-1-sashal@kernel.org>
 MIME-Version: 1.0
+X-stable: review
+X-Patchwork-Hint: Ignore
 Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Sat, 10 Sep 2022 17:40:57 +0000
-Subject: [Freedreno] [PATCH] drm/msm/mdp5: fix kernel panic during shutdown
+Subject: [Freedreno] [PATCH AUTOSEL 5.19 03/38] drm/msm/rd: Fix FIFO-full
+ deadlock
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,114 +55,44 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: airlied@linux.ie, linux-arm-msm@vger.kernel.org, dianders@chromium.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, daniel@ffwll.ch,
- freedreno@lists.freedesktop.org, Fabien Parent <fabien.parent@linaro.org>
+Cc: Rob Clark <robdclark@chromium.org>, Sasha Levin <sashal@kernel.org>,
+ airlied@linux.ie, linux-arm-msm@vger.kernel.org, quic_abhinavk@quicinc.com,
+ dri-devel@lists.freedesktop.org, robdclark@gmail.com, daniel@ffwll.ch,
+ dmitry.baryshkov@linaro.org, freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-The kernel is panicking when rebooting on MSM8939:
+From: Rob Clark <robdclark@chromium.org>
 
-	# reboot -f
-	[   87.280853] Unable to handle kernel write to read-only memory at virtual address ffff800008ed5810
-	...
-	snip
-	...
-	[   87.445142] Call trace:
-	[   87.452253]  mutex_lock+0x1c/0x50
-	[   87.454511]  msm_drv_shutdown+0x28/0x40
-	[   87.457984]  platform_shutdown+0x28/0x40
-	[   87.461629]  device_shutdown+0x14c/0x240
-	[   87.465796]  __do_sys_reboot+0x180/0x274
-	[   87.469703]  __arm64_sys_reboot+0x28/0x3c
-	[   87.473608]  invoke_syscall+0x54/0x124
-	[   87.477515]  el0_svc_common.constprop.0+0x44/0xec
-	[   87.481163]  do_el0_svc+0x90/0xe0
-	[   87.485934]  el0_svc+0x50/0xa4
-	[   87.489232]  el0t_64_sync_handler+0x11c/0x150
-	[   87.492185]  el0t_64_sync+0x190/0x194
-	[   87.496618] Code: f9800011 c85ffc03 ca010064 b5000064 (c8047c02)
-	[   87.500264] ---[ end trace 0000000000000000 ]---
-	Segmentation fault
+[ Upstream commit 174974d8463b77c2b4065e98513adb204e64de7d ]
 
-The issue comes from the fact that mdp5_init() is calling
-platform_set_drvdata() and consequently overwriting the driver data
-previously set by msm_drv_probe.
-msm_drv_shutdown was casting the driver data as "struct msm_drm_private"
-while it was actually a "struct mdp5_kms".
+If the previous thing cat'ing $debugfs/rd left the FIFO full, then
+subsequent open could deadlock in rd_write() (because open is blocked,
+not giving a chance for read() to consume any data in the FIFO).  Also
+it is generally a good idea to clear out old data from the FIFO.
 
-This commit fixes the issue by having mdp5_init() not override the
-platform driver data, and instead use a series of
-to_mdp5_kms(to_mdp_kms(priv->kms)) to retrieve the mdp5_kms from the
-pdata.
-
-Fixes: 54199009958f ("drm/msm: Fix shutdown")
-Signed-off-by: Fabien Parent <fabien.parent@linaro.org>
+Signed-off-by: Rob Clark <robdclark@chromium.org>
+Patchwork: https://patchwork.freedesktop.org/patch/496706/
+Link: https://lore.kernel.org/r/20220807160901.2353471-2-robdclark@gmail.com
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c | 18 +++++++++++-------
- 1 file changed, 11 insertions(+), 7 deletions(-)
+ drivers/gpu/drm/msm/msm_rd.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-diff --git a/drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c b/drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c
-index d2a48caf9d27..17aeabeedfeb 100644
---- a/drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c
-+++ b/drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c
-@@ -634,7 +634,8 @@ static int mdp5_kms_init(struct drm_device *dev)
+diff --git a/drivers/gpu/drm/msm/msm_rd.c b/drivers/gpu/drm/msm/msm_rd.c
+index a92ffde53f0b3..db2f847c8535f 100644
+--- a/drivers/gpu/drm/msm/msm_rd.c
++++ b/drivers/gpu/drm/msm/msm_rd.c
+@@ -196,6 +196,9 @@ static int rd_open(struct inode *inode, struct file *file)
+ 	file->private_data = rd;
+ 	rd->open = true;
  
- static void mdp5_destroy(struct platform_device *pdev)
- {
--	struct mdp5_kms *mdp5_kms = platform_get_drvdata(pdev);
-+	struct msm_drm_private *priv = platform_get_drvdata(pdev);
-+	struct mdp5_kms *mdp5_kms = to_mdp5_kms(to_mdp_kms(priv->kms));
- 	int i;
- 
- 	if (mdp5_kms->ctlm)
-@@ -797,7 +798,8 @@ static int mdp5_init(struct platform_device *pdev, struct drm_device *dev)
- 		goto fail;
- 	}
- 
--	platform_set_drvdata(pdev, mdp5_kms);
-+	/* set uninit-ed kms */
-+	priv->kms = &mdp5_kms->base.base;
- 
- 	spin_lock_init(&mdp5_kms->resource_lock);
- 
-@@ -890,13 +892,13 @@ static int mdp5_init(struct platform_device *pdev, struct drm_device *dev)
- 	if (ret)
- 		goto fail;
- 
--	/* set uninit-ed kms */
--	priv->kms = &mdp5_kms->base.base;
--
- 	return 0;
- fail:
- 	if (mdp5_kms)
- 		mdp5_destroy(pdev);
++	/* Reset fifo to clear any previously unread data: */
++	rd->fifo.head = rd->fifo.tail = 0;
 +
-+	priv->kms = NULL;
-+
- 	return ret;
- }
- 
-@@ -956,7 +958,8 @@ static int mdp5_dev_remove(struct platform_device *pdev)
- static __maybe_unused int mdp5_runtime_suspend(struct device *dev)
- {
- 	struct platform_device *pdev = to_platform_device(dev);
--	struct mdp5_kms *mdp5_kms = platform_get_drvdata(pdev);
-+	struct msm_drm_private *priv = platform_get_drvdata(pdev);
-+	struct mdp5_kms *mdp5_kms = to_mdp5_kms(to_mdp_kms(priv->kms));
- 
- 	DBG("");
- 
-@@ -966,7 +969,8 @@ static __maybe_unused int mdp5_runtime_suspend(struct device *dev)
- static __maybe_unused int mdp5_runtime_resume(struct device *dev)
- {
- 	struct platform_device *pdev = to_platform_device(dev);
--	struct mdp5_kms *mdp5_kms = platform_get_drvdata(pdev);
-+	struct msm_drm_private *priv = platform_get_drvdata(pdev);
-+	struct mdp5_kms *mdp5_kms = to_mdp5_kms(to_mdp_kms(priv->kms));
- 
- 	DBG("");
- 
+ 	/* the parsing tools need to know gpu-id to know which
+ 	 * register database to load.
+ 	 *
 -- 
-2.37.2
+2.35.1
 
