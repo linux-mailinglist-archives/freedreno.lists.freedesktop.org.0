@@ -1,72 +1,62 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (unknown [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 47FE15B4548
-	for <lists+freedreno@lfdr.de>; Sat, 10 Sep 2022 10:45:56 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 11AEE5B466E
+	for <lists+freedreno@lfdr.de>; Sat, 10 Sep 2022 14:55:15 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B7BE010E157;
-	Sat, 10 Sep 2022 08:45:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 07C5110E065;
+	Sat, 10 Sep 2022 12:55:10 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-x229.google.com (mail-lj1-x229.google.com
- [IPv6:2a00:1450:4864:20::229])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5796110E157
- for <freedreno@lists.freedesktop.org>; Sat, 10 Sep 2022 08:45:30 +0000 (UTC)
-Received: by mail-lj1-x229.google.com with SMTP id by6so4684088ljb.11
- for <freedreno@lists.freedesktop.org>; Sat, 10 Sep 2022 01:45:30 -0700 (PDT)
+Received: from mail-yw1-x1133.google.com (mail-yw1-x1133.google.com
+ [IPv6:2607:f8b0:4864:20::1133])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C4E9610E065
+ for <freedreno@lists.freedesktop.org>; Sat, 10 Sep 2022 12:55:07 +0000 (UTC)
+Received: by mail-yw1-x1133.google.com with SMTP id
+ 00721157ae682-3321c2a8d4cso48722637b3.5
+ for <freedreno@lists.freedesktop.org>; Sat, 10 Sep 2022 05:55:07 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date;
- bh=P9E6EJOAjkihEVhh+VHXY0BL5/AxfW43uIcjA2GedNQ=;
- b=iVPhA7d5Az8rlbmvca1G2gC/MeeY9juG8dCTbIgYVWCUDRGFTqYJUnk3IA7ZCNWoaF
- ls7vqVUcjKPgvnmzpq3w/5bt+ntAiY/Wu3ZuLe4OcCKTb8JjTTr3J5m5u4FKKVjdRkLV
- 63RIJleMQOrYi+o4EU9WbHPJKfYZZGMPMx2tPS3wqf86q9hPsCeD170/CFy0pJcpkfuX
- s3HMMz3kCpAntkSBiamVRVsfBlD2NHLEhrixMsWy83IGSMvdAcMukTihnz5Z3uGomS97
- ug4R+HRSGvh+XWgxba0hQx0Uy2q1mG8dvoZZa5qnJiHdr2vsZgk+uVXtgmNIxXGkO95/
- lVgw==
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date;
+ bh=H9+aEqiuPXTD/0BZaNY7OkRWAFHFJteXc5O3Y0RlriU=;
+ b=mBHDGwsHzU8tUV9CsDzMvAXPhxljy4Z/pZKGE4kQymHkgT8ih+5G40SzDLbN0kydlr
+ 2tjDhbT4XnoRojq0JPdXDKumG2iQzpTlod5jENB0Cm9jPsLf+C8Pno1eaDHvK2vv0B94
+ kEwzHuGm9EWHRfiL5Mi+LeccMdIBUaH3HdQCPcpJFiQLybFtiFFgow+Hb4LrlXukH5Jk
+ 6MQn8oaQF5MsKJZ/DHvGM+7k+ekMr/btC25EG+mB3XqY74ddKV4jEin1nU1so8g744At
+ T1F+z15ipWU2Fji4Ho5ed+7xdgKVX6OvR6gIkUvrdVIsEDmRHc3wpW8aeTJmAwBVbZke
+ a44w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date;
- bh=P9E6EJOAjkihEVhh+VHXY0BL5/AxfW43uIcjA2GedNQ=;
- b=kVpCyOrPoSpnS5mibiTVt4MAhXO0HZDmZMZ4JPwk86gipTq8DVUa3pj7M2SPkEONsj
- IOUU8nrKh2u3kev1FU1RJekx5ahOfB+peKtJc8G6ZTbzlBV2678cIz94pa1lztEsfxGw
- KWjqqAKotJRUrtTc+pKOKpGFB412/bCMcUdUlwfH5uWDZfnatg66KTnqxeNtTyNHwhGi
- HBq5dYM5tzX1tLlBT6SVYQ8bZDKXlaLNcElCzLBuciU0o8vAtxOfPKmVDEPtExWWXAE4
- um/0MV5tePJ+sEuUJ19ktsmgtnwGxuNlG3MUYRs5faeum4JnqlUe1+P93WoCVoyYX7If
- fntw==
-X-Gm-Message-State: ACgBeo2ieGzXTiM4H9NUso7/iFWP0S5mimfCKtvBRHZfI9MT7dxXeeTN
- LTYr9iXVC7r3qiGsB9u9GYSuxg==
-X-Google-Smtp-Source: AA6agR6xJmtXQZHTsaPv0yXAg2Xgwt41B3uhxvyWqB8zdnoZRUfTeBkz1VRmj+33lgWRIDrhrUpC6w==
-X-Received: by 2002:a2e:3817:0:b0:26a:d369:ca71 with SMTP id
- f23-20020a2e3817000000b0026ad369ca71mr4359670lja.191.1662799528217; 
- Sat, 10 Sep 2022 01:45:28 -0700 (PDT)
-Received: from [192.168.0.21] (78-11-189-27.static.ip.netia.com.pl.
- [78.11.189.27]) by smtp.gmail.com with ESMTPSA id
- d29-20020ac25edd000000b0048a83336343sm183581lfq.252.2022.09.10.01.45.26
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sat, 10 Sep 2022 01:45:27 -0700 (PDT)
-Message-ID: <2204eab4-b22d-8ee7-4595-49139cb387a8@linaro.org>
-Date: Sat, 10 Sep 2022 10:45:26 +0200
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date;
+ bh=H9+aEqiuPXTD/0BZaNY7OkRWAFHFJteXc5O3Y0RlriU=;
+ b=xEBil2tIXCStFHeL5nyw+e7nZByr45M4Z8MvQ4DzOIe8IgReNNl0kscJGKRbgmqyL2
+ dcoDiO8uLmR8uZQtOeteCNvibTPJBpnFrZIUDtp+fLyCqx/4ycWjaPk6uuG065EaV8AD
+ bqjIlP22vfRdCVes4ZIiRZbOeohokqnhnkw6YbfJUTQHyNa0J9+VYohWjT0fW/MKZar8
+ dCEscVKf4dMDEF4eGI0JD57LST9VXwPqFZtrSczoA6Mk9K7YPVUWQYmyL4g1J8Ayi/0h
+ kFm+I0fxPgclA+EFJbnw7MG4zPBeUGAg65WmM+8Sq+GSVcLfhohXch9ornP0vTj7qQFF
+ /t/g==
+X-Gm-Message-State: ACgBeo1ePAlrorp6dX+/zsQDA2ik9IP8n/94YjQ5Y8LPR5ydi7W4LwIh
+ rF9cFcSuiBKQTbyk05M7e7RmIAoeXRJB9Qyj8kfUVA==
+X-Google-Smtp-Source: AA6agR5M01fLD1dnWRcihDf9ksYjlQdjkT0J9p3TdYpAK/1HdHOcbQhPoqH8kNrR1WJrJnAvY1r3ksR1w8AubJ+eWUI=
+X-Received: by 2002:a0d:ffc5:0:b0:341:6cc1:c589 with SMTP id
+ p188-20020a0dffc5000000b003416cc1c589mr15944568ywf.418.1662814506532; Sat, 10
+ Sep 2022 05:55:06 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.13.0
-Content-Language: en-US
-To: Rob Herring <robh@kernel.org>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 References: <20220901102312.2005553-1-dmitry.baryshkov@linaro.org>
  <20220901102312.2005553-2-dmitry.baryshkov@linaro.org>
  <3e525135-d205-eddc-ff2d-98c8321386e3@linaro.org>
  <20220908193705.GA3002673-robh@kernel.org>
  <1ebe64a3-fab9-1dd7-517a-01001a176d9f@linaro.org>
  <CAL_JsqLkV_fnUnc4cS=cdTvP3rKYAS011_+KZYiBGhXDx-pHnA@mail.gmail.com>
-From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-In-Reply-To: <CAL_JsqLkV_fnUnc4cS=cdTvP3rKYAS011_+KZYiBGhXDx-pHnA@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+ <2204eab4-b22d-8ee7-4595-49139cb387a8@linaro.org>
+In-Reply-To: <2204eab4-b22d-8ee7-4595-49139cb387a8@linaro.org>
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Date: Sat, 10 Sep 2022 15:54:55 +0300
+Message-ID: <CAA8EJpqHL-gO=zSG6Ek=-y4njGF5R66z0MwLeKZ9U4Ag1j51Og@mail.gmail.com>
+To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+Content-Type: text/plain; charset="UTF-8"
 Subject: Re: [Freedreno] [PATCH v6 01/12] dt-bindings: display/msm: split
  qcom, mdss bindings
 X-BeenThere: freedreno@lists.freedesktop.org
@@ -81,8 +71,9 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: devicetree@vger.kernel.org, Loic Poulain <loic.poulain@linaro.org>,
- David Airlie <airlied@linux.ie>, linux-arm-msm <linux-arm-msm@vger.kernel.org>,
+Cc: Rob Herring <robh@kernel.org>, Loic Poulain <loic.poulain@linaro.org>,
+ devicetree@vger.kernel.org, David Airlie <airlied@linux.ie>,
+ linux-arm-msm <linux-arm-msm@vger.kernel.org>,
  Bjorn Andersson <andersson@kernel.org>,
  Konrad Dybcio <konrad.dybcio@somainline.org>,
  Abhinav Kumar <quic_abhinavk@quicinc.com>,
@@ -95,65 +86,76 @@ Cc: devicetree@vger.kernel.org, Loic Poulain <loic.poulain@linaro.org>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 10/09/2022 00:23, Rob Herring wrote:
->>>>
->>>> This should be ref to dsi-controller-main.yaml... or based on previous
->>>> Rob's feedback you dropped it everywhere in children?
->>>
->>> I don't think I said. I thought about it some, as yes, we normally have
->>> done as you suggested. The downside is with a ref we'll do the whole
->>> validation of the child node twice (unless the referenced schema has a
->>> 'select: false') whereas here only 'compatible' is validated twice. This
->>> way also complicates checking for unevaluatedProperties/additionalProperties.
->>>
->>> So maybe better to keep with the 'normal' way and make this a ref.
->>
->> Well.. I tried using $ref in the previous iteration, but then I faced
->> the fact that I can not use it. Using the $ref the node gets validated
->> even if it is disabled, and we do not want to do this. The nodes are
->> usually split in way that regulators are specified in the board DT file.
->> Thus disabled dsi/dsi-phy nodes do not get all the required regulators.
->> And dt-validate happily dumps tons of warnings for disabled nodes. Thus
->> I ended up with the compatible rather than $ref.
-> 
-> Only warnings about required properties? Those are supposed to get
-> filtered out if the node is disabled. Maybe being in a $ref doesn't
-> work.
+On Sat, 10 Sept 2022 at 11:45, Krzysztof Kozlowski
+<krzysztof.kozlowski@linaro.org> wrote:
+>
+> On 10/09/2022 00:23, Rob Herring wrote:
+> >>>>
+> >>>> This should be ref to dsi-controller-main.yaml... or based on previous
+> >>>> Rob's feedback you dropped it everywhere in children?
+> >>>
+> >>> I don't think I said. I thought about it some, as yes, we normally have
+> >>> done as you suggested. The downside is with a ref we'll do the whole
+> >>> validation of the child node twice (unless the referenced schema has a
+> >>> 'select: false') whereas here only 'compatible' is validated twice. This
+> >>> way also complicates checking for unevaluatedProperties/additionalProperties.
+> >>>
+> >>> So maybe better to keep with the 'normal' way and make this a ref.
+> >>
+> >> Well.. I tried using $ref in the previous iteration, but then I faced
+> >> the fact that I can not use it. Using the $ref the node gets validated
+> >> even if it is disabled, and we do not want to do this. The nodes are
+> >> usually split in way that regulators are specified in the board DT file.
+> >> Thus disabled dsi/dsi-phy nodes do not get all the required regulators.
+> >> And dt-validate happily dumps tons of warnings for disabled nodes. Thus
+> >> I ended up with the compatible rather than $ref.
+> >
+> > Only warnings about required properties? Those are supposed to get
+> > filtered out if the node is disabled. Maybe being in a $ref doesn't
+> > work.
+>
+> This seems to break regardless it is in $ref or when you directly
+> reference the schema.
+>
+> I tested display/msm/dpu-sc7180.yaml on modified DTB when a required
+> property is missing (I removed reg-names) and:
+>
+> 1. When node is enabled:
+>
+> c7180-idp.dtb: display-controller@ae01000: 'reg-names' is a required
+> property
+>
+>         Documentation/devicetree/bindings/display/msm/dpu-sc7180.yaml
+>
+> rch/arm64/boot/dts/qcom/sc7180-idp.dtb: display-controller@ae01000:
+> Unevaluated properties are not allowed ('interrupt-parent',
+> 'interrupts', 'operating-points-v2', 'opp-table', 'ports',
+> 'power-domains' were unexpected)
+>
+>
+> 2. When node is disabled the first error disappears (so no clue which
+> one is missing) but schema does not pass:
+>
+> qcom/sc7180-idp.dtb: display-controller@ae01000: Unevaluated properties
+> are not allowed ('interrupt-parent', 'interrupts',
+> 'operating-points-v2', 'opp-table', 'ports', 'power-domains' were
+> unexpected)
+>
+>         From schema: Documentation/devicetree/bindings/display/msm/dpu-sc7180.yaml
+>
+>
+> However I think there is no such problem, as Dmitry said, that ref
+> changes anything. There will be always failure - either from parent
+> schema (using $ref) or from device child schema (the one which actually
+> misses the property).
 
-This seems to break regardless it is in $ref or when you directly
-reference the schema.
+Initially I stumbled upon this issue with the dsi and dsi_phy nodes
+for msm8996 devices. If I have $ref here, dsi1/dsi1_phy nodes will
+emit warnings regarding the missing -supply properties despite nodes
+being disabled. If I use `compatible' here, the schema checks pass.
+Thus I'd prefer to leave `compatible' here. Not to mention that it
+also allows specifying a tighter binding than just using the $ref.
 
-I tested display/msm/dpu-sc7180.yaml on modified DTB when a required
-property is missing (I removed reg-names) and:
-
-1. When node is enabled:
-
-c7180-idp.dtb: display-controller@ae01000: 'reg-names' is a required
-property
-
-	Documentation/devicetree/bindings/display/msm/dpu-sc7180.yaml
-
-rch/arm64/boot/dts/qcom/sc7180-idp.dtb: display-controller@ae01000:
-Unevaluated properties are not allowed ('interrupt-parent',
-'interrupts', 'operating-points-v2', 'opp-table', 'ports',
-'power-domains' were unexpected)
-
-
-2. When node is disabled the first error disappears (so no clue which
-one is missing) but schema does not pass:
-
-qcom/sc7180-idp.dtb: display-controller@ae01000: Unevaluated properties
-are not allowed ('interrupt-parent', 'interrupts',
-'operating-points-v2', 'opp-table', 'ports', 'power-domains' were
-unexpected)
-
-	From schema: Documentation/devicetree/bindings/display/msm/dpu-sc7180.yaml
-
-
-However I think there is no such problem, as Dmitry said, that ref
-changes anything. There will be always failure - either from parent
-schema (using $ref) or from device child schema (the one which actually
-misses the property).
-
-Best regards,
-Krzysztof
+-- 
+With best wishes
+Dmitry
