@@ -2,60 +2,47 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id EB1825B4E64
-	for <lists+freedreno@lfdr.de>; Sun, 11 Sep 2022 13:27:30 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BDD655B4F2C
+	for <lists+freedreno@lfdr.de>; Sun, 11 Sep 2022 15:46:00 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EB00710E3F6;
-	Sun, 11 Sep 2022 11:27:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A1D7810E471;
+	Sun, 11 Sep 2022 13:45:53 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x130.google.com (mail-lf1-x130.google.com
- [IPv6:2a00:1450:4864:20::130])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 991C810E3F3
- for <freedreno@lists.freedesktop.org>; Sun, 11 Sep 2022 11:27:22 +0000 (UTC)
-Received: by mail-lf1-x130.google.com with SMTP id o2so8234494lfc.10
- for <freedreno@lists.freedesktop.org>; Sun, 11 Sep 2022 04:27:22 -0700 (PDT)
+Received: from mail-yb1-xb29.google.com (mail-yb1-xb29.google.com
+ [IPv6:2607:f8b0:4864:20::b29])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6B63F10E471
+ for <freedreno@lists.freedesktop.org>; Sun, 11 Sep 2022 13:45:47 +0000 (UTC)
+Received: by mail-yb1-xb29.google.com with SMTP id e187so2985190ybh.10
+ for <freedreno@lists.freedesktop.org>; Sun, 11 Sep 2022 06:45:47 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date;
- bh=KGB5KUhs9u6/qzvDEhLDSbwJvVi3lKOIpjk/q5kI8ps=;
- b=CvzseaMTpNL08WWmVX7s3adcuwcccnU2QXIj11rOrS5xBKcte8icpKZSdxt+W5mDI+
- nzMKVSj23s+VXWlO8qp7UAPs6IZ5j/A1SHXhkYbeoGiWMgkwasVB4Gczn5tGMfiwg4lI
- eCOFAVNsasfejci1H1HzfAqlI/eoK8kZvtivnoYvUCY30TJVPiFWCCZM6HSW4f9f1WwZ
- So/3MC4k1WF+frmTweMhT0k/co2JYR1+l1nRUYph97ouFJB8pGUzz5NEWU85jI8naW1e
- tnG0Gc42pm3lSoAS6IEDubhMwuY9PPFa31YAZ7uXdEhm3hAH/Xf+yPsL9Bg8ZYwjjVm0
- hMfw==
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date;
+ bh=5HqIOcG8x4likLdUFYhKV2vDY9FYKtBGRhEqTmUcrsY=;
+ b=S0L2CvFshXTcGx2gV46rtMsvefTjoiczN+TXYgfWm41bgtY5+1jOsw23Zi37N3K9xE
+ aA8oemxSJ8X44ndvDESNHxSgYaNeJ7mTyK/aBqONVba0zXB5J2mORlp/g6atZvc8N1Mb
+ pfJPM8bY+vqXL5sIpUA9OZk1TvH7z/LBReR+5OpkdsnvDD5LPw4a0Dz5vWOfcbssPthJ
+ jPy4+g0+7UGuUZ7leUeqENKSWArOTdfzeVt0Ta8cDtnKhGhgDl8O43G8pmbzi1veftNs
+ ihWjWQW2XqbphhnfvFev+xbJsd3vzfxS6HPhACJsORvpF26WEIJie9CdMYt6fEJtk23Y
+ uNbA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date;
- bh=KGB5KUhs9u6/qzvDEhLDSbwJvVi3lKOIpjk/q5kI8ps=;
- b=ueuErfjECuEQ1w9QgnrmQDxxuoPXvm7CpzJub3DoX2f4ln6en9gFtS6zkGGMxz3QsG
- ERPquVXbbr50wMmL0YkJpvCAYvYZFQ0W1mKjDvXWlUy1FpqQfc4VxCEkvaJL9EDj7hXP
- bMfomEieamY4QPVwQ19zjMLMfC8wzI1Lew8qmkqaR3mpryNw3EA6tNy3MGnHsgFwGWRN
- IIZI84F1vITEa9VHjyYbQilab+ycp+TkUt1EFKexfVr68CekyeEwey6oKVw8PbLkTHru
- cFP303YCVqUFUlGfy497c06tHeYkM+l9co9SuIMSk0g6wiWzRvC+zQYNLKF338AzZqlA
- QC3A==
-X-Gm-Message-State: ACgBeo1jUPyvvNtc98uZBZWAwYqyyBQzfHucPiV+PPRfNayGPfpLJOwz
- GzlQQ1iKVETvkjWS5ocdqzTJFw==
-X-Google-Smtp-Source: AA6agR6Ieg2VRvFOnyVF8oScDNythHwnCyh+ZOet0x7Oy3fi/OrUTbQyS4vyq9fOqLHqHoepI/i8EA==
-X-Received: by 2002:a05:6512:1283:b0:499:d0a3:3ca8 with SMTP id
- u3-20020a056512128300b00499d0a33ca8mr1706981lfs.665.1662895640833; 
- Sun, 11 Sep 2022 04:27:20 -0700 (PDT)
-Received: from [192.168.0.21] (78-11-189-27.static.ip.netia.com.pl.
- [78.11.189.27]) by smtp.gmail.com with ESMTPSA id
- y26-20020a05651c221a00b0026ad1da0dc3sm618756ljq.122.2022.09.11.04.27.19
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sun, 11 Sep 2022 04:27:20 -0700 (PDT)
-Message-ID: <e7a132e7-a819-ebe2-e6e5-c01cbfacef15@linaro.org>
-Date: Sun, 11 Sep 2022 13:27:19 +0200
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date;
+ bh=5HqIOcG8x4likLdUFYhKV2vDY9FYKtBGRhEqTmUcrsY=;
+ b=QbHWD354vrw3uO6/sOB/M7prtKaFGVKIxeSF+snb34jFOCdMH539/PZUmtYIome80u
+ n04uQ4oUJTVLVZixcYYqLc8PJRpjoJ2kIAOFWuKRWF8AKmuFlzMJYgEHJdwIuAJ0D8h2
+ KrtZdSXlFBZ/c82EfK2h6nvpshY3YMj/f6GvmFiEfNgQRvxGrBi540oU+f8CsE3Uc3Wg
+ XLbvTbOCeBFmXX/fYLvOEa0dzKDy0U/XM1wMgn0OVMoPZN88ksvYECO9ks82r9/UPsA1
+ c5W1ca1EOyDjXb55oFuYF5XFH+/3R6nrgFmG9eTLVzM2L4k8dk54GZDmWaFNnBWtzgse
+ DUKg==
+X-Gm-Message-State: ACgBeo0TIc8mTf4vZzfDEMeJlsIQuBU9gDVVAyPfeVKWFn06y1+7ENXk
+ 3Tg9Cfg/CgXWBpAsGLnvNSKqwpmi7D+CCt27DJEBmA==
+X-Google-Smtp-Source: AA6agR5b3srfz+0UXFR6VD9/hRFnzkydunMZcHEgtygrOZCAfrlPx9UUN7wz0ndz1t7d1pWP7P7GK4PEl9YOqEl2K/0=
+X-Received: by 2002:a05:6902:1029:b0:6af:2c99:4630 with SMTP id
+ x9-20020a056902102900b006af2c994630mr696449ybt.516.1662903946156; Sun, 11 Sep
+ 2022 06:45:46 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.13.0
-Content-Language: en-US
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 References: <20220901102312.2005553-1-dmitry.baryshkov@linaro.org>
  <20220901102312.2005553-2-dmitry.baryshkov@linaro.org>
  <3e525135-d205-eddc-ff2d-98c8321386e3@linaro.org>
@@ -64,10 +51,13 @@ References: <20220901102312.2005553-1-dmitry.baryshkov@linaro.org>
  <CAL_JsqLkV_fnUnc4cS=cdTvP3rKYAS011_+KZYiBGhXDx-pHnA@mail.gmail.com>
  <2204eab4-b22d-8ee7-4595-49139cb387a8@linaro.org>
  <CAA8EJpqHL-gO=zSG6Ek=-y4njGF5R66z0MwLeKZ9U4Ag1j51Og@mail.gmail.com>
-From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-In-Reply-To: <CAA8EJpqHL-gO=zSG6Ek=-y4njGF5R66z0MwLeKZ9U4Ag1j51Og@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+ <e7a132e7-a819-ebe2-e6e5-c01cbfacef15@linaro.org>
+In-Reply-To: <e7a132e7-a819-ebe2-e6e5-c01cbfacef15@linaro.org>
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Date: Sun, 11 Sep 2022 16:45:35 +0300
+Message-ID: <CAA8EJpoPPRAQPfVQmSfrrDrroMp0bzvJ=-vHMRx72aKTBgPOTA@mail.gmail.com>
+To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+Content-Type: text/plain; charset="UTF-8"
 Subject: Re: [Freedreno] [PATCH v6 01/12] dt-bindings: display/msm: split
  qcom, mdss bindings
 X-BeenThere: freedreno@lists.freedesktop.org
@@ -97,24 +87,29 @@ Cc: Rob Herring <robh@kernel.org>, Loic Poulain <loic.poulain@linaro.org>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 10/09/2022 14:54, Dmitry Baryshkov wrote:
->>
->> However I think there is no such problem, as Dmitry said, that ref
->> changes anything. There will be always failure - either from parent
->> schema (using $ref) or from device child schema (the one which actually
->> misses the property).
-> 
-> Initially I stumbled upon this issue with the dsi and dsi_phy nodes
-> for msm8996 devices. If I have $ref here, dsi1/dsi1_phy nodes will
-> emit warnings regarding the missing -supply properties despite nodes
-> being disabled. If I use `compatible' here, the schema checks pass.
-> Thus I'd prefer to leave `compatible' here. Not to mention that it
-> also allows specifying a tighter binding than just using the $ref.
+On Sun, 11 Sept 2022 at 14:27, Krzysztof Kozlowski
+<krzysztof.kozlowski@linaro.org> wrote:
+>
+> On 10/09/2022 14:54, Dmitry Baryshkov wrote:
+> >>
+> >> However I think there is no such problem, as Dmitry said, that ref
+> >> changes anything. There will be always failure - either from parent
+> >> schema (using $ref) or from device child schema (the one which actually
+> >> misses the property).
+> >
+> > Initially I stumbled upon this issue with the dsi and dsi_phy nodes
+> > for msm8996 devices. If I have $ref here, dsi1/dsi1_phy nodes will
+> > emit warnings regarding the missing -supply properties despite nodes
+> > being disabled. If I use `compatible' here, the schema checks pass.
+> > Thus I'd prefer to leave `compatible' here. Not to mention that it
+> > also allows specifying a tighter binding than just using the $ref.
+>
+> I don't think we understood each other. I claim that error will be there
+> anyway, just from different schema. So your change fixes nothing in
+> total schema check...
 
-I don't think we understood each other. I claim that error will be there
-anyway, just from different schema. So your change fixes nothing in
-total schema check...
+If the node is disabled, there will be no different schema check.
 
-
-Best regards,
-Krzysztof
+-- 
+With best wishes
+Dmitry
