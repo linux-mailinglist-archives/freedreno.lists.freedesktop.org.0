@@ -2,55 +2,55 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 95D2E5B50BC
-	for <lists+freedreno@lfdr.de>; Sun, 11 Sep 2022 20:56:09 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id F311E5B50D9
+	for <lists+freedreno@lfdr.de>; Sun, 11 Sep 2022 21:19:47 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F21F210E0E8;
-	Sun, 11 Sep 2022 18:56:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 539DB10E51C;
+	Sun, 11 Sep 2022 19:19:41 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-x22a.google.com (mail-lj1-x22a.google.com
- [IPv6:2a00:1450:4864:20::22a])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E7F2910E0E8
- for <freedreno@lists.freedesktop.org>; Sun, 11 Sep 2022 18:56:00 +0000 (UTC)
-Received: by mail-lj1-x22a.google.com with SMTP id x10so8187240ljq.4
- for <freedreno@lists.freedesktop.org>; Sun, 11 Sep 2022 11:56:00 -0700 (PDT)
+Received: from mail-lf1-x129.google.com (mail-lf1-x129.google.com
+ [IPv6:2a00:1450:4864:20::129])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 00B8010E51C
+ for <freedreno@lists.freedesktop.org>; Sun, 11 Sep 2022 19:19:36 +0000 (UTC)
+Received: by mail-lf1-x129.google.com with SMTP id f9so10805262lfr.3
+ for <freedreno@lists.freedesktop.org>; Sun, 11 Sep 2022 12:19:36 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=content-transfer-encoding:in-reply-to:references:cc:to:from
  :content-language:subject:user-agent:mime-version:date:message-id
  :from:to:cc:subject:date;
- bh=RPQy1aNVD24fj2brehWpaN5iIeVrcdsDrdD2wAGWJbw=;
- b=c75Vojp6jAAIpodeHlqPi0GJc4HMYQ5s4cTSvzo5PjQO2eaDN+Y8J294PC1o/W1Mh1
- 7rJkE/pTpxM+OVoq/75nokUTo+OB5oPdKt0pd+v6NKiNM+aiHrN+0QPW7Nocpvt7Ns+X
- dixVgW8RsCGSdey2Ot5IOqy1BVePjs0mufrNarMJch+192iMV44lLqUEvsCfnKr+P8O9
- YchsFXgqg9leGJO+/nfFqxOD01IZpocXxcRjBt+TrAJ4SC7ZnnimbF3kdLHtgqVXVRtM
- LkI4b+oWGMzBUaDArYKQud1rHpXu5yk80gIVS8LklPOaGdWE/0e0Et0uD4u8r0xrt2md
- Hz1g==
+ bh=apzG3xku8I3ZdvmAyq4e50tGVV+Ky/wz//4vHO1DJgc=;
+ b=uHlWNh9ubEWHL2dHypDQKfqR1vRoY/u3L3VnE52MFf9bJn5LGd5ehhYXJt4m/PlbkA
+ CtfIVcb3pu57WkiF8DjEesF+PUeUqeqypzKQv9x/xL0alQnOgPA6+9E6iMqbuzmIP/vR
+ hpc0sh2T/OoVBKPl6RqUDE2cYXhJOVZ5Yl37F103A5WJxwE+lAY/EpDBLvt8uaHYVx4c
+ ZBp4gmvoNaCkEVgaBlB3H1Om6APfYRccQwZvrjsdULChjMmqfF6ECNwGKTElkN0m3jbF
+ XUx1Zth+D30LLZucO386T9b+3KJF6q1A5w7HnBpc39zXCVtUOu4NBN0ZeVCXnqoRWfj0
+ UM1g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=content-transfer-encoding:in-reply-to:references:cc:to:from
  :content-language:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date;
- bh=RPQy1aNVD24fj2brehWpaN5iIeVrcdsDrdD2wAGWJbw=;
- b=O0N9sUPFVLhFs6ZMJzV3l6PSJvrALwQarE3P2A/BqYTn4cWrd/AkoxE6DSQ5jhV3XJ
- FWDCLlaLmQh7pxDUtLo+NTZQu+kVYYwjN4zsugbAS8KcsEoNeS2SK/KgdVcBNVEBmidK
- qO3LDAn7Z610DgLAGjrAzoolcp+03xTJzihstHxvosglW5NXV8YU4P/F7T6WyPMu5In3
- E/3J1hvTK0p8qBS7fVXmmV2MhSRet3IQsfDWKm4jEWy+QzBxRTwMmPQne6k5PzRsrhed
- NXw0zPJCFXRvxx2hIfYZ4HfIPX0hDAVCeQRt9AewqrsFr0o9qfdSabNtAKgypuvD5NMV
- 90mg==
-X-Gm-Message-State: ACgBeo1InkUiE1wzz+LEejC8YXasld6qsY7iySI1Uw4vvIbzsjaWJQWj
- MniDe914ymxMxVXUwZM02kFS6A==
-X-Google-Smtp-Source: AA6agR5kw9mbNFc8XSl/zb4xnABTaoglXNP4qJenxxMNT/Dy+78GH+uJdblCn8w8V3fRV1ow1HficA==
-X-Received: by 2002:a2e:be28:0:b0:25f:d901:16ef with SMTP id
- z40-20020a2ebe28000000b0025fd90116efmr7159410ljq.126.1662922558995; 
- Sun, 11 Sep 2022 11:55:58 -0700 (PDT)
+ bh=apzG3xku8I3ZdvmAyq4e50tGVV+Ky/wz//4vHO1DJgc=;
+ b=6KvEsYGJ97r6+YFy9YPuLLfcC8EgqdkpcMqKzedvvEqSyzUEeW88EXMAfBJg+9ggaI
+ X34dk+zx3jP7N6t0ncxIp4VlLnei2CdqjKqe66FtARJaYKoXKsQW5m3/iaKROBYJFWQd
+ 8v2jNflaSjgLS853ubA062QaWhumgt8BKm3oz6v/+M9wNJmnqYQusibSlPowlq/mfdWv
+ wwJ3B9QIHu3wcJl201qXbgUtc4i/Xd7H7EgWZJCWNUS+CuTY9LirYFgyUM5nnc1l/NK5
+ cB3KuOy3bl67rAIXvN8GOhVJzbJxWwulXARslxVscH8scssbEwR6iE75JHv3RZJ+yRRS
+ eZ9w==
+X-Gm-Message-State: ACgBeo3qfy58QyXCyA4vinQ/Pyfz/9lB8oXIzAlqFXr92mbyLP/tux5c
+ d0By446C06DqcHXrhQbqdPLBaaQ/seZOvg==
+X-Google-Smtp-Source: AA6agR7HkDM6NL+ZQ3n6KFtN5GzDUUVIGgl3PFqUw1Fy7FX4FxHrVRhX6lvmxFhkZYmEKyoUD/zzow==
+X-Received: by 2002:a05:6512:15a5:b0:49a:84f4:9284 with SMTP id
+ bp37-20020a05651215a500b0049a84f49284mr1115466lfb.477.1662923975359; 
+ Sun, 11 Sep 2022 12:19:35 -0700 (PDT)
 Received: from [192.168.0.21] (78-11-189-27.static.ip.netia.com.pl.
  [78.11.189.27]) by smtp.gmail.com with ESMTPSA id
- w1-20020ac25d41000000b004991437990esm704068lfd.11.2022.09.11.11.55.52
+ h6-20020ac25966000000b004949ea5480fsm703756lfp.97.2022.09.11.12.19.33
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sun, 11 Sep 2022 11:55:58 -0700 (PDT)
-Message-ID: <7cf581a6-0602-7d6d-1518-7ae62a89031e@linaro.org>
-Date: Sun, 11 Sep 2022 20:55:46 +0200
+ Sun, 11 Sep 2022 12:19:34 -0700 (PDT)
+Message-ID: <2b4ab827-28aa-5e3f-951a-0bf43d1eb7b9@linaro.org>
+Date: Sun, 11 Sep 2022 21:19:28 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
  Thunderbird/91.13.0
@@ -105,20 +105,15 @@ Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 On 11/09/2022 20:36, Krzysztof Kozlowski wrote:
 
->> /home/krzk/dev/linux/linux/out/arch/arm64/boot/dts/qcom/sda660-inforce-ifc6560.dtb:
->> dsi@c994000: 'vdda-supply' does not match any of the regexes:
->> 'pinctrl-[0-9]+'
->>
->>
->>
 >> If your child schema fails, the referencing schema fails as well...
 > 
 > 
 > Although now with DSI-PHY I cannot reproduce it and I am pretty sure I
 > reproduced it with DPU controllers after modifying the DTS to lack a
 > property... Hmmm
-> 
-I think I have a fix for this in DT schema.
+
+https://github.com/devicetree-org/dt-schema/pull/82
+
 
 Best regards,
 Krzysztof
