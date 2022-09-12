@@ -1,60 +1,54 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (unknown [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8822E5B519C
-	for <lists+freedreno@lfdr.de>; Mon, 12 Sep 2022 00:51:50 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id E69A45B56AD
+	for <lists+freedreno@lfdr.de>; Mon, 12 Sep 2022 10:51:28 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 188D310E349;
-	Sun, 11 Sep 2022 22:51:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B555110E307;
+	Mon, 12 Sep 2022 08:51:26 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ot1-x32f.google.com (mail-ot1-x32f.google.com
- [IPv6:2607:f8b0:4864:20::32f])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DDDA310E349
- for <freedreno@lists.freedesktop.org>; Sun, 11 Sep 2022 22:51:25 +0000 (UTC)
-Received: by mail-ot1-x32f.google.com with SMTP id
- t8-20020a9d5908000000b0063b41908168so4753829oth.8
- for <freedreno@lists.freedesktop.org>; Sun, 11 Sep 2022 15:51:25 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=cc:to:subject:message-id:date:user-agent:from:references
- :in-reply-to:mime-version:from:to:cc:subject:date;
- bh=yf6us0hpX9C+LQcsMl8TWkCbnYmsi9yU4+2aJofZWvw=;
- b=f/VeRCwZVsc2aBLVrdb5X6p45wFZ7LLVVBaei228qrJLXXEfigzM9sj4Gshg4vg1bb
- 5rNUz6HxDgfuF0du+GtbgGRgi/3vOC+xwV8qIJ6IFIc4mP0McTqVEKs7vTBsaPKwUDvo
- XOFaF32qNe1Daqp7zvrTEG8FfH3ZBJmc0lkKM=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=cc:to:subject:message-id:date:user-agent:from:references
- :in-reply-to:mime-version:x-gm-message-state:from:to:cc:subject:date;
- bh=yf6us0hpX9C+LQcsMl8TWkCbnYmsi9yU4+2aJofZWvw=;
- b=twoUnHsSbCzCNpbK/SmaI/7ptMigrWc47s9ksWnBFWXBYNP90h5Y719X3LO7AiQh9d
- Z3/r6r82qO7ue8lYGPWmpyf7zGK2G3i1bcrHjZE8zGXBCBenTL1xUlc5iXRJ9QAAGmaM
- WtzOfcCxDTe4MJpHlKAfJMl4cEcE5CFedKSx8AUD6bU86jQ82Frjw9FL/haAevL/OKeC
- RBQDErXLC4QHmFa73OekAIfp5KacVjJ1ObJJzmOutkG+zWeYk+FnB8nd9FmhasFGFl8m
- pfV4YI/hAKktNN+QUIQPBwpqvo4HkXBI2mW1hV3v+qaIsWV9/OoM4MPmbVU5MtpP0m/2
- b4Mw==
-X-Gm-Message-State: ACgBeo2r/1vaeg0/nhJK2wga4stXoa29XOrQTs/KLrY4sPo+ZS7YmLHG
- eSvdyR+op5SyMYMhlRLxzXZvN4W6ABoh1KbOZaIgyQ==
-X-Google-Smtp-Source: AA6agR5dthMo/JycUE/0eQ7pE2kMS3cJLcSQDOaW/Qur0qtlVKXNbZbZ3G7tq0yONaPO7sO0TX9z8zeHVfIBJtcrz2w=
-X-Received: by 2002:a9d:738c:0:b0:638:9962:8cb6 with SMTP id
- j12-20020a9d738c000000b0063899628cb6mr9426218otk.73.1662936684828; Sun, 11
- Sep 2022 15:51:24 -0700 (PDT)
-Received: from 753933720722 named unknown by gmailapi.google.com with
- HTTPREST; Sun, 11 Sep 2022 17:51:24 -0500
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
+ [213.167.242.64])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EDCA810E2FE;
+ Mon, 12 Sep 2022 08:51:19 +0000 (UTC)
+Received: from [192.168.1.111] (91-158-154-79.elisa-laajakaista.fi
+ [91.158.154.79])
+ by perceval.ideasonboard.com (Postfix) with ESMTPSA id E1AC359D;
+ Mon, 12 Sep 2022 10:51:16 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+ s=mail; t=1662972678;
+ bh=Od/d6LlBW2xnygl0iW1ZsBhY+OTpV2C+JIgmzV9Gc7s=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=Rid4kBnbJuvDOmk0F8kB4FS8PIwA7Cgs/BfZN/e8B58pecCJpnvVGO1cU4E4quMDQ
+ Xv+K7YygTYWAnNM8yo+K67jQVcrbEEY5oz/TA6MwO7QQUZzOUxFPpU8Hman4qBMXi9
+ 9MuWQYEI9+5ebkg95AGME9CC2ac1+15Dgqo9j5ZU=
+Message-ID: <87f178f6-0abe-7e5c-5a70-05c2bab94991@ideasonboard.com>
+Date: Mon, 12 Sep 2022 11:51:14 +0300
 MIME-Version: 1.0
-In-Reply-To: <1662621988-6873-1-git-send-email-quic_kalyant@quicinc.com>
-References: <y> <1662621988-6873-1-git-send-email-quic_kalyant@quicinc.com>
-From: Stephen Boyd <swboyd@chromium.org>
-User-Agent: alot/0.10
-Date: Sun, 11 Sep 2022 17:51:24 -0500
-Message-ID: <CAE-0n51x3um=CZFk0K0k=7XkgbUk7OixtTjr2oqkhOLOz7yzwg@mail.gmail.com>
-To: Kalyan Thota <quic_kalyant@quicinc.com>, devicetree@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
- linux-arm-msm@vger.kernel.org, y@qualcomm.com
-Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [v4] drm/msm/disp/dpu1: add support for dspp sub
- block flush in sc7280
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.11.0
+Content-Language: en-US
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
+ Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>,
+ Lucas Stach <l.stach@pengutronix.de>, Philipp Zabel
+ <p.zabel@pengutronix.de>, Shawn Guo <shawnguo@kernel.org>,
+ Sascha Hauer <s.hauer@pengutronix.de>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Fabio Estevam <festevam@gmail.com>, NXP Linux Team <linux-imx@nxp.com>,
+ Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>
+References: <20220429185157.3673633-1-dmitry.baryshkov@linaro.org>
+From: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
+In-Reply-To: <20220429185157.3673633-1-dmitry.baryshkov@linaro.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Subject: Re: [Freedreno] [PATCH v1 0/7] drm/bridge_connector: perform HPD
+ enablement automatically
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,24 +61,43 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: dianders@chromium.org, quic_abhinavk@quicinc.com,
- linux-kernel@vger.kernel.org, quic_vpolimer@quicinc.com, robdclark@gmail.com,
- dmitry.baryshkov@linaro.org
+Cc: linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
+ linux-arm-kernel@lists.infradead.org, dri-devel@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Quoting Kalyan Thota (2022-09-08 00:26:28)
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c
-> index a35ecb6..bbda09a 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c
-> @@ -307,6 +309,31 @@ static void dpu_hw_ctl_update_pending_flush_dspp(struct dpu_hw_ctl *ctx,
->         }
->  }
->
-> +static void dpu_hw_ctl_update_pending_flush_dspp_subblocks(
-> +       struct dpu_hw_ctl *ctx, enum dpu_dspp dspp, u32 dspp_sub_blk)
-> +{
-> +       uint32_t flushbits = 0, active;
+Hi,
 
-Please use u32 in the kernel. It's shorter.
+On 29/04/2022 21:51, Dmitry Baryshkov wrote:
+>  From all the drivers using drm_bridge_connector only iMX/dcss and OMAP
+> DRM driver do a proper work of calling
+> drm_bridge_connector_en/disable_hpd() in right places. Rather than
+> teaching each and every driver how to properly handle
+> drm_bridge_connector's HPD, make that automatic.
+> 
+> Add two additional drm_connector helper funcs: enable_hpd() and
+> disable_hpd(). Make drm_kms_helper_poll_* functions call them (as this
+> is the time where the drm_bridge_connector's functions are called by the
+> drivers too).
+
+09077bc3116581f4d1cb961ec359ad56586e370b ("drm/bridge_connector: enable 
+HPD by default if supported") was merged in March, but I think that one 
+is  bit broken 
+(https://lore.kernel.org/all/a28a4858-c66a-6737-a9fc-502f591ba2d5@ideasonboard.com/). 
+To get omapdrm work without WARNs we could just revert that commit, but 
+I think this series makes things cleaner.
+
+There's one small problem with this series: in drm_bridge_connector.c 
+the drm_bridge_hpd_disable() function is called from 
+_drm_bridge_connector_disable_hpd() and from 
+drm_bridge_connector_destroy(). This causes two hpd_disable calls when 
+removing the driver modules. I think the call from 
+drm_bridge_connector_destroy() could be removed, as 
+_drm_bridge_connector_disable_hpd() should always get called when 
+removing the drivers.
+
+Dmitry, are you still interested in this series? Can you rebase on top 
+of current upstream, and revert 09077bc3116581f4d1cb961ec359ad56586e370b 
+first?
+
+  Tomi
