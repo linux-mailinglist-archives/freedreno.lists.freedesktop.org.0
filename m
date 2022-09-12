@@ -1,51 +1,73 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 48D0F5B5E44
-	for <lists+freedreno@lfdr.de>; Mon, 12 Sep 2022 18:30:46 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 35D5A5B5E53
+	for <lists+freedreno@lfdr.de>; Mon, 12 Sep 2022 18:35:18 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8DFDB10E5FC;
-	Mon, 12 Sep 2022 16:30:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C3A9A10E5FC;
+	Mon, 12 Sep 2022 16:35:14 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A50E310E5AC;
- Mon, 12 Sep 2022 15:41:28 +0000 (UTC)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id E47EA61257;
- Mon, 12 Sep 2022 15:41:27 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2E629C43144;
- Mon, 12 Sep 2022 15:41:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1662997286;
- bh=NvUPn637z6uLalY0boDdcXrcj/rg6GMPWSoihJhuhnU=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=cuhz9DELmb+VMsNghrKvvabDT47SnHzyP7fPgGTEhXDCzH5DLcOFeJhEH8HL7aCPD
- MoqfnPuxjhHHpNtIXi4RQSa59WG3G+ffR3BQomxaGU6d4mKJPe4LJU5k8XWFypnvWD
- GpZppgjBhdNtvaHDLN3+PnIpI9KC6JY5h2OxAvEqtKB9phidytPw46H+/umJ7qHhyH
- wu+V0Hm4uSLaybeSB5njmUozFZ6ZcFaMG7vS6O6unarZzzHALWBCLQPWHWpN4Iy3rF
- HfZyfk6SxatSKX3N28/SQP4gQAwD9DEW0McrXXJ5WkBzZaXr16R2glvWG4nJj8iiLH
- uc2nEPXAGhWyA==
-Received: from johan by xi.lan with local (Exim 4.94.2)
- (envelope-from <johan+linaro@kernel.org>)
- id 1oXlYp-0003N0-Ni; Mon, 12 Sep 2022 17:41:23 +0200
-From: Johan Hovold <johan+linaro@kernel.org>
-To: Douglas Anderson <dianders@chromium.org>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Rob Clark <robdclark@gmail.com>
-Date: Mon, 12 Sep 2022 17:40:46 +0200
-Message-Id: <20220912154046.12900-8-johan+linaro@kernel.org>
-X-Mailer: git-send-email 2.35.1
-In-Reply-To: <20220912154046.12900-1-johan+linaro@kernel.org>
-References: <20220912154046.12900-1-johan+linaro@kernel.org>
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 944C610E5F1;
+ Mon, 12 Sep 2022 16:35:08 +0000 (UTC)
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 28CFkWDv032103;
+ Mon, 12 Sep 2022 16:34:56 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
+ h=from : to : cc :
+ subject : date : message-id : mime-version : content-type; s=qcppdkim1;
+ bh=8inPOYSTAfE53hY3d8SWa4WV7k6KQylG3Txza+N8+Z8=;
+ b=aQkYtFNCdV5RIT0/a0dLREWXN7REz5nK06R1Q2GkPfWnegTJeQEwNOT499gfLl499GSH
+ NUzR36tPcp6S7FAbS9rubt21FjTC64pXW6zopZxA5YQ8rB3L+PyOb2z7zsX2cUsU+f4Q
+ D42/Q2w8TSAnJ8gsX6ngNhb2FFbPjPHrXPGB1LXPPoZA5mGWQB7FK0VCv+VUORz26OsD
+ /kQESWonD6zhKtJZWkRo7g4qevIR8syX1Yp3PEWfFfAUyzYXDrRpSWVLFMM7XyS8JQyB
+ 4vIpbTRV2pVmKiqOgr9Ek+KJ5sO86qNM1oUbJmBgd/dRAy/KfQ2eCaa8E8lzFbk7bDn6 Bw== 
+Received: from nalasppmta05.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3jgk43nhtv-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 12 Sep 2022 16:34:56 +0000
+Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
+ [10.47.209.196])
+ by NALASPPMTA05.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 28CGO2Me009159
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 12 Sep 2022 16:24:02 GMT
+Received: from khsieh-linux1.qualcomm.com (10.80.80.8) by
+ nalasex01a.na.qualcomm.com (10.47.209.196) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.986.29; Mon, 12 Sep 2022 09:24:01 -0700
+From: Kuogee Hsieh <quic_khsieh@quicinc.com>
+To: <dri-devel@lists.freedesktop.org>, <robdclark@gmail.com>,
+ <sean@poorly.run>, <swboyd@chromium.org>, <dianders@chromium.org>,
+ <vkoul@kernel.org>, <daniel@ffwll.ch>, <airlied@linux.ie>,
+ <agross@kernel.org>, <dmitry.baryshkov@linaro.org>,
+ <bjorn.andersson@linaro.org>
+Date: Mon, 12 Sep 2022 09:23:47 -0700
+Message-ID: <1662999830-13916-1-git-send-email-quic_khsieh@quicinc.com>
+X-Mailer: git-send-email 2.7.4
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Mon, 12 Sep 2022 16:30:33 +0000
-Subject: [Freedreno] [PATCH 7/7] drm/msm: drop modeset sanity checks
+Content-Type: text/plain
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-GUID: 48qLi6EM33zdJszI3EULpJKmYEqZwOJT
+X-Proofpoint-ORIG-GUID: 48qLi6EM33zdJszI3EULpJKmYEqZwOJT
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.205,Aquarius:18.0.895,Hydra:6.0.528,FMLib:17.11.122.1
+ definitions=2022-09-12_12,2022-09-12_02,2022-06-22_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ mlxlogscore=999 clxscore=1015
+ mlxscore=0 priorityscore=1501 impostorscore=0 phishscore=0 bulkscore=0
+ malwarescore=0 adultscore=0 spamscore=0 suspectscore=0 lowpriorityscore=0
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2207270000
+ definitions=main-2209120056
+Subject: [Freedreno] [PATCH v5 0/3] cleared DP_DOWNSPREAD_CTRL register
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,69 +80,25 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: dri-devel@lists.freedesktop.org, Neil Armstrong <neil.armstrong@linaro.org>,
- Daniel Vetter <daniel@ffwll.ch>, Jonas Karlman <jonas@kwiboo.se>,
- David Airlie <airlied@linux.ie>, linux-arm-msm@vger.kernel.org,
- Bjorn Andersson <andersson@kernel.org>, linux-kernel@vger.kernel.org,
- Jernej Skrabec <jernej.skrabec@gmail.com>, Stephen Boyd <swboyd@chromium.org>,
- Robert Foss <robert.foss@linaro.org>, Andrzej Hajda <andrzej.hajda@intel.com>,
- Manivannan Sadhasivam <manivannan.sadhasivam@linaro.org>,
- freedreno@lists.freedesktop.org, Sean Paul <sean@poorly.run>,
- Johan Hovold <johan+linaro@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>
+Cc: quic_sbillaka@quicinc.com, linux-arm-msm@vger.kernel.org,
+ quic_abhinavk@quicinc.com, linux-kernel@vger.kernel.org,
+ Kuogee Hsieh <quic_khsieh@quicinc.com>, freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Drop the overly defensive modeset sanity checks of function parameters
-which have already been checked or used by the callers.
+cleared DP_DOWNSPREAD_CTRL register before start link training
 
-Signed-off-by: Johan Hovold <johan+linaro@kernel.org>
----
- drivers/gpu/drm/msm/dp/dp_display.c | 7 +------
- drivers/gpu/drm/msm/dsi/dsi.c       | 7 +------
- 2 files changed, 2 insertions(+), 12 deletions(-)
+Kuogee Hsieh (3):
+  drm/msm/dp: cleared DP_DOWNSPREAD_CTRL register before start link
+    training
+  drm/msm/dp: replace variable err with len at dp_aux_link_power_up()
+  drm/msm/dp: retry 3 times if set sink to D0 poweer state failed
 
-diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
-index 393af1ea9ed8..8ad28bf81abe 100644
---- a/drivers/gpu/drm/msm/dp/dp_display.c
-+++ b/drivers/gpu/drm/msm/dp/dp_display.c
-@@ -1597,15 +1597,10 @@ static int dp_display_get_next_bridge(struct msm_dp *dp)
- int msm_dp_modeset_init(struct msm_dp *dp_display, struct drm_device *dev,
- 			struct drm_encoder *encoder)
- {
--	struct msm_drm_private *priv;
-+	struct msm_drm_private *priv = dev->dev_private;
- 	struct dp_display_private *dp_priv;
- 	int ret;
- 
--	if (WARN_ON(!encoder) || WARN_ON(!dp_display) || WARN_ON(!dev))
--		return -EINVAL;
--
--	priv = dev->dev_private;
--
- 	if (priv->num_bridges == ARRAY_SIZE(priv->bridges)) {
- 		DRM_DEV_ERROR(dev->dev, "too many bridges\n");
- 		return -ENOSPC;
-diff --git a/drivers/gpu/drm/msm/dsi/dsi.c b/drivers/gpu/drm/msm/dsi/dsi.c
-index 8a95c744972a..31fdee2052be 100644
---- a/drivers/gpu/drm/msm/dsi/dsi.c
-+++ b/drivers/gpu/drm/msm/dsi/dsi.c
-@@ -211,14 +211,9 @@ void __exit msm_dsi_unregister(void)
- int msm_dsi_modeset_init(struct msm_dsi *msm_dsi, struct drm_device *dev,
- 			 struct drm_encoder *encoder)
- {
--	struct msm_drm_private *priv;
-+	struct msm_drm_private *priv = dev->dev_private;
- 	int ret;
- 
--	if (WARN_ON(!encoder) || WARN_ON(!msm_dsi) || WARN_ON(!dev))
--		return -EINVAL;
--
--	priv = dev->dev_private;
--
- 	if (priv->num_bridges == ARRAY_SIZE(priv->bridges)) {
- 		DRM_DEV_ERROR(dev->dev, "too many bridges\n");
- 		return -ENOSPC;
+ drivers/gpu/drm/msm/dp/dp_ctrl.c | 13 +++++--------
+ drivers/gpu/drm/msm/dp/dp_link.c | 21 ++++++++++++---------
+ 2 files changed, 17 insertions(+), 17 deletions(-)
+
 -- 
-2.35.1
+The Qualcomm Innovation Center, Inc. is a member of the Code Aurora Forum,
+a Linux Foundation Collaborative Project
 
