@@ -1,77 +1,54 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id B9D935B6448
-	for <lists+freedreno@lfdr.de>; Tue, 13 Sep 2022 01:43:22 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 4F6935B653F
+	for <lists+freedreno@lfdr.de>; Tue, 13 Sep 2022 03:51:55 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A463110E47B;
-	Mon, 12 Sep 2022 23:43:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D93C510E391;
+	Tue, 13 Sep 2022 01:51:49 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5139C10E037;
- Mon, 12 Sep 2022 23:43:09 +0000 (UTC)
-Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 28CMZZAQ026715;
- Mon, 12 Sep 2022 23:42:58 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
- h=message-id : date :
- mime-version : subject : to : cc : references : from : in-reply-to :
- content-type : content-transfer-encoding; s=qcppdkim1;
- bh=MrdPCVKJW19ifdLWsUR1qiE5pu616/8/sWAfZWiWc8E=;
- b=mmwoAt8rS+Kgx0FvSWUvy6a6LQ+dQKKOB5/U7ZAsFTK0J+EiORRsb2cFqDKNIRoqypa6
- Tf+qMRxtl2HMJCbapi8x9+/M02FBTwHj7VAifC76BQBY1KSpfV3+0QUz6hhxAW3msAux
- XK32daV8s0WzCQ55nbLyjWfgt3OvO62uZQKE6v8PP/e/IGdDbLKt1xH9gYrv/mlcpoZD
- SyYt802uADQdpuHWUKjbY/nN+5KQ6cwFC/crGAM58qt99t+BiTn/6fQ+0Bnqi06qIChP
- OOQD+0+XGUye/yzSAKdnFN354ZXjli6PpAd89xVdcgoRedZPTWf31jtdmg8J8tLgNuJ7 FQ== 
-Received: from nalasppmta04.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3jgk0denwc-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 12 Sep 2022 23:42:58 +0000
-Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
- [10.47.209.196])
- by NALASPPMTA04.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 28CNgvl1008893
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 12 Sep 2022 23:42:57 GMT
-Received: from [10.111.167.172] (10.80.80.8) by nalasex01a.na.qualcomm.com
- (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.29; Mon, 12 Sep
- 2022 16:42:55 -0700
-Message-ID: <94e0ae94-c8f8-8aa5-606d-68e3abca5a9e@quicinc.com>
-Date: Mon, 12 Sep 2022 16:42:53 -0700
+Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7E58210E27A;
+ Tue, 13 Sep 2022 01:51:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1663033904; x=1694569904;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=2NGc7hvIE92RCbTENDH1MmBHPouANN1/L78mTjXfFAs=;
+ b=Ipln9n8efswqVqwMMrHaQesMo1oQGb4OS82Xl17QJWW6U4fHmdH3TN18
+ cb5KWaI3MQdy6kWwvnRyS43+R3IWBu/n2Z3JuIvQKsM/vxwF4TOI39eko
+ LIJGTRValOAr0zsGnFGzQHOKx4y0pK2GFsGtPm60gpqRuzeIrNYbRTf8v
+ OEGIydVJmaKXj3+MzuNHLhuf7ISqVKHLmnwjm200PDrE6GKIp9h9wOkjB
+ P1OX07xzKGOyLX3UvchDcHVueJsgOb+thFI3TwxitjXBBaY8twE9/1CFc
+ 5iCdFjwpzLuHU3AW8O9fvzDfkVEzYPpE74Qmnuh0sA/YVyhdkC9AyEnyd A==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10468"; a="298015476"
+X-IronPort-AV: E=Sophos;i="5.93,311,1654585200"; d="scan'208";a="298015476"
+Received: from orsmga004.jf.intel.com ([10.7.209.38])
+ by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 12 Sep 2022 18:51:43 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.93,311,1654585200"; d="scan'208";a="741990614"
+Received: from lkp-server02.sh.intel.com (HELO 4011df4f4fd3) ([10.239.97.151])
+ by orsmga004.jf.intel.com with ESMTP; 12 Sep 2022 18:51:39 -0700
+Received: from kbuild by 4011df4f4fd3 with local (Exim 4.96)
+ (envelope-from <lkp@intel.com>) id 1oXv5O-00034d-1T;
+ Tue, 13 Sep 2022 01:51:38 +0000
+Date: Tue, 13 Sep 2022 09:51:37 +0800
+From: kernel test robot <lkp@intel.com>
+To: Johan Hovold <johan+linaro@kernel.org>,
+ Douglas Anderson <dianders@chromium.org>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Rob Clark <robdclark@gmail.com>
+Message-ID: <202209130930.yrI8pQGL-lkp@intel.com>
+References: <20220912154046.12900-5-johan+linaro@kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.6.2
-Content-Language: en-US
-To: Fabien Parent <fabien.parent@linaro.org>, <robdclark@gmail.com>,
- <dmitry.baryshkov@linaro.org>
-References: <20220909152856.149291-1-fabien.parent@linaro.org>
-From: Abhinav Kumar <quic_abhinavk@quicinc.com>
-In-Reply-To: <20220909152856.149291-1-fabien.parent@linaro.org>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-GUID: 9JoVC6nU3aG-uDALZdha683VO2jdYV2f
-X-Proofpoint-ORIG-GUID: 9JoVC6nU3aG-uDALZdha683VO2jdYV2f
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.205,Aquarius:18.0.895,Hydra:6.0.528,FMLib:17.11.122.1
- definitions=2022-09-12_14,2022-09-12_02,2022-06-22_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1011 impostorscore=0
- suspectscore=0 bulkscore=0 adultscore=0 spamscore=0 mlxlogscore=999
- phishscore=0 priorityscore=1501 mlxscore=0 malwarescore=0
- lowpriorityscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2207270000 definitions=main-2209120083
-Subject: Re: [Freedreno] [PATCH] drm/msm/mdp5: fix kernel panic during
- shutdown
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20220912154046.12900-5-johan+linaro@kernel.org>
+Subject: Re: [Freedreno] [PATCH 4/7] drm/msm/dp: fix aux-bus EP lifetime
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -84,126 +61,114 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: airlied@linux.ie, linux-arm-msm@vger.kernel.org, dianders@chromium.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, daniel@ffwll.ch,
- freedreno@lists.freedesktop.org
+Cc: Sean Paul <sean@poorly.run>, Neil Armstrong <neil.armstrong@linaro.org>,
+ kbuild-all@lists.01.org, Jonas Karlman <jonas@kwiboo.se>,
+ David Airlie <airlied@linux.ie>, linux-arm-msm@vger.kernel.org,
+ Bjorn Andersson <andersson@kernel.org>, Johan Hovold <johan+linaro@kernel.org>,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ Stephen Boyd <swboyd@chromium.org>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Andrzej Hajda <andrzej.hajda@intel.com>,
+ Manivannan Sadhasivam <manivannan.sadhasivam@linaro.org>,
+ stable@vger.kernel.org, freedreno@lists.freedesktop.org,
+ Robert Foss <robert.foss@linaro.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Hi Fabien
+Hi Johan,
 
-Thanks for the patch.
+I love your patch! Yet something to improve:
 
-I believe this issue should get resolved with 
-https://patchwork.freedesktop.org/patch/490326/ as this avoids the override.
+[auto build test ERROR on next-20220912]
+[also build test ERROR on v6.0-rc5]
+[cannot apply to drm-misc/drm-misc-next drm/drm-next drm-intel/for-linux-next drm-tip/drm-tip linus/master v6.0-rc5 v6.0-rc4 v6.0-rc3]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch#_base_tree_information]
 
-I have acked that change and will pick it up for the next fixes.
+url:    https://github.com/intel-lab-lkp/linux/commits/Johan-Hovold/drm-msm-probe-deferral-fixes/20220912-234351
+base:    044b771be9c5de9d817dfafb829d2f049c71c3b4
+config: arc-allyesconfig (https://download.01.org/0day-ci/archive/20220913/202209130930.yrI8pQGL-lkp@intel.com/config)
+compiler: arceb-elf-gcc (GCC) 12.1.0
+reproduce (this is a W=1 build):
+        wget https://raw.githubusercontent.com/intel/lkp-tests/master/sbin/make.cross -O ~/bin/make.cross
+        chmod +x ~/bin/make.cross
+        # https://github.com/intel-lab-lkp/linux/commit/458c96e19570036b3dd6e48d91f0bf6f67b996fa
+        git remote add linux-review https://github.com/intel-lab-lkp/linux
+        git fetch --no-tags linux-review Johan-Hovold/drm-msm-probe-deferral-fixes/20220912-234351
+        git checkout 458c96e19570036b3dd6e48d91f0bf6f67b996fa
+        # save the config file
+        mkdir build_dir && cp config build_dir/.config
+        COMPILER_INSTALL_PATH=$HOME/0day COMPILER=gcc-12.1.0 make.cross W=1 O=build_dir ARCH=arc SHELL=/bin/bash
 
-Thanks
+If you fix the issue, kindly add following tag where applicable
+Reported-by: kernel test robot <lkp@intel.com>
 
-Abhinav
+All errors (new ones prefixed by >>):
+
+   drivers/gpu/drm/bridge/ti-sn65dsi86.c: In function 'ti_sn_aux_probe':
+>> drivers/gpu/drm/bridge/ti-sn65dsi86.c:632:50: error: passing argument 1 of 'devm_of_dp_aux_populate_ep_devices' from incompatible pointer type [-Werror=incompatible-pointer-types]
+     632 |         ret = devm_of_dp_aux_populate_ep_devices(&pdata->aux);
+         |                                                  ^~~~~~~~~~~
+         |                                                  |
+         |                                                  struct drm_dp_aux *
+   In file included from drivers/gpu/drm/bridge/ti-sn65dsi86.c:26:
+   include/drm/display/drm_dp_aux_bus.h:64:69: note: expected 'struct device *' but argument is of type 'struct drm_dp_aux *'
+      64 | static inline int devm_of_dp_aux_populate_ep_devices(struct device *dev, struct drm_dp_aux *aux)
+         |                                                      ~~~~~~~~~~~~~~~^~~
+>> drivers/gpu/drm/bridge/ti-sn65dsi86.c:632:15: error: too few arguments to function 'devm_of_dp_aux_populate_ep_devices'
+     632 |         ret = devm_of_dp_aux_populate_ep_devices(&pdata->aux);
+         |               ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   include/drm/display/drm_dp_aux_bus.h:64:19: note: declared here
+      64 | static inline int devm_of_dp_aux_populate_ep_devices(struct device *dev, struct drm_dp_aux *aux)
+         |                   ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   cc1: some warnings being treated as errors
+--
+   drivers/gpu/drm/bridge/analogix/anx7625.c: In function 'anx7625_i2c_probe':
+>> drivers/gpu/drm/bridge/analogix/anx7625.c:2654:44: error: passing argument 1 of 'devm_of_dp_aux_populate_ep_devices' from incompatible pointer type [-Werror=incompatible-pointer-types]
+    2654 |         devm_of_dp_aux_populate_ep_devices(&platform->aux);
+         |                                            ^~~~~~~~~~~~~~
+         |                                            |
+         |                                            struct drm_dp_aux *
+   In file included from drivers/gpu/drm/bridge/analogix/anx7625.c:24:
+   include/drm/display/drm_dp_aux_bus.h:64:69: note: expected 'struct device *' but argument is of type 'struct drm_dp_aux *'
+      64 | static inline int devm_of_dp_aux_populate_ep_devices(struct device *dev, struct drm_dp_aux *aux)
+         |                                                      ~~~~~~~~~~~~~~~^~~
+>> drivers/gpu/drm/bridge/analogix/anx7625.c:2654:9: error: too few arguments to function 'devm_of_dp_aux_populate_ep_devices'
+    2654 |         devm_of_dp_aux_populate_ep_devices(&platform->aux);
+         |         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   include/drm/display/drm_dp_aux_bus.h:64:19: note: declared here
+      64 | static inline int devm_of_dp_aux_populate_ep_devices(struct device *dev, struct drm_dp_aux *aux)
+         |                   ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   cc1: some warnings being treated as errors
 
 
-On 9/9/2022 8:28 AM, Fabien Parent wrote:
-> The kernel is panicking when rebooting on MSM8939:
-> 
-> 	# reboot -f
-> 	[   87.280853] Unable to handle kernel write to read-only memory at virtual address ffff800008ed5810
-> 	...
-> 	snip
-> 	...
-> 	[   87.445142] Call trace:
-> 	[   87.452253]  mutex_lock+0x1c/0x50
-> 	[   87.454511]  msm_drv_shutdown+0x28/0x40
-> 	[   87.457984]  platform_shutdown+0x28/0x40
-> 	[   87.461629]  device_shutdown+0x14c/0x240
-> 	[   87.465796]  __do_sys_reboot+0x180/0x274
-> 	[   87.469703]  __arm64_sys_reboot+0x28/0x3c
-> 	[   87.473608]  invoke_syscall+0x54/0x124
-> 	[   87.477515]  el0_svc_common.constprop.0+0x44/0xec
-> 	[   87.481163]  do_el0_svc+0x90/0xe0
-> 	[   87.485934]  el0_svc+0x50/0xa4
-> 	[   87.489232]  el0t_64_sync_handler+0x11c/0x150
-> 	[   87.492185]  el0t_64_sync+0x190/0x194
-> 	[   87.496618] Code: f9800011 c85ffc03 ca010064 b5000064 (c8047c02)
-> 	[   87.500264] ---[ end trace 0000000000000000 ]---
-> 	Segmentation fault
-> 
-> The issue comes from the fact that mdp5_init() is calling
-> platform_set_drvdata() and consequently overwriting the driver data
-> previously set by msm_drv_probe.
-> msm_drv_shutdown was casting the driver data as "struct msm_drm_private"
-> while it was actually a "struct mdp5_kms".
-> 
-> This commit fixes the issue by having mdp5_init() not override the
-> platform driver data, and instead use a series of
-> to_mdp5_kms(to_mdp_kms(priv->kms)) to retrieve the mdp5_kms from the
-> pdata.
-> 
-> Fixes: 54199009958f ("drm/msm: Fix shutdown")
-> Signed-off-by: Fabien Parent <fabien.parent@linaro.org>
-> ---
->   drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c | 18 +++++++++++-------
->   1 file changed, 11 insertions(+), 7 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c b/drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c
-> index d2a48caf9d27..17aeabeedfeb 100644
-> --- a/drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c
-> +++ b/drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c
-> @@ -634,7 +634,8 @@ static int mdp5_kms_init(struct drm_device *dev)
->   
->   static void mdp5_destroy(struct platform_device *pdev)
->   {
-> -	struct mdp5_kms *mdp5_kms = platform_get_drvdata(pdev);
-> +	struct msm_drm_private *priv = platform_get_drvdata(pdev);
-> +	struct mdp5_kms *mdp5_kms = to_mdp5_kms(to_mdp_kms(priv->kms));
->   	int i;
->   
->   	if (mdp5_kms->ctlm)
-> @@ -797,7 +798,8 @@ static int mdp5_init(struct platform_device *pdev, struct drm_device *dev)
->   		goto fail;
->   	}
->   
-> -	platform_set_drvdata(pdev, mdp5_kms);
-> +	/* set uninit-ed kms */
-> +	priv->kms = &mdp5_kms->base.base;
->   
->   	spin_lock_init(&mdp5_kms->resource_lock);
->   
-> @@ -890,13 +892,13 @@ static int mdp5_init(struct platform_device *pdev, struct drm_device *dev)
->   	if (ret)
->   		goto fail;
->   
-> -	/* set uninit-ed kms */
-> -	priv->kms = &mdp5_kms->base.base;
-> -
->   	return 0;
->   fail:
->   	if (mdp5_kms)
->   		mdp5_destroy(pdev);
-> +
-> +	priv->kms = NULL;
-> +
->   	return ret;
->   }
->   
-> @@ -956,7 +958,8 @@ static int mdp5_dev_remove(struct platform_device *pdev)
->   static __maybe_unused int mdp5_runtime_suspend(struct device *dev)
->   {
->   	struct platform_device *pdev = to_platform_device(dev);
-> -	struct mdp5_kms *mdp5_kms = platform_get_drvdata(pdev);
-> +	struct msm_drm_private *priv = platform_get_drvdata(pdev);
-> +	struct mdp5_kms *mdp5_kms = to_mdp5_kms(to_mdp_kms(priv->kms));
->   
->   	DBG("");
->   
-> @@ -966,7 +969,8 @@ static __maybe_unused int mdp5_runtime_suspend(struct device *dev)
->   static __maybe_unused int mdp5_runtime_resume(struct device *dev)
->   {
->   	struct platform_device *pdev = to_platform_device(dev);
-> -	struct mdp5_kms *mdp5_kms = platform_get_drvdata(pdev);
-> +	struct msm_drm_private *priv = platform_get_drvdata(pdev);
-> +	struct mdp5_kms *mdp5_kms = to_mdp5_kms(to_mdp_kms(priv->kms));
->   
->   	DBG("");
->   
+vim +/devm_of_dp_aux_populate_ep_devices +632 drivers/gpu/drm/bridge/ti-sn65dsi86.c
+
+77674e722f4b27 Laurent Pinchart 2021-06-24  620  
+77674e722f4b27 Laurent Pinchart 2021-06-24  621  static int ti_sn_aux_probe(struct auxiliary_device *adev,
+77674e722f4b27 Laurent Pinchart 2021-06-24  622  			   const struct auxiliary_device_id *id)
+77674e722f4b27 Laurent Pinchart 2021-06-24  623  {
+77674e722f4b27 Laurent Pinchart 2021-06-24  624  	struct ti_sn65dsi86 *pdata = dev_get_drvdata(adev->dev.parent);
+77674e722f4b27 Laurent Pinchart 2021-06-24  625  	int ret;
+77674e722f4b27 Laurent Pinchart 2021-06-24  626  
+77674e722f4b27 Laurent Pinchart 2021-06-24  627  	pdata->aux.name = "ti-sn65dsi86-aux";
+77674e722f4b27 Laurent Pinchart 2021-06-24  628  	pdata->aux.dev = &adev->dev;
+77674e722f4b27 Laurent Pinchart 2021-06-24  629  	pdata->aux.transfer = ti_sn_aux_transfer;
+77674e722f4b27 Laurent Pinchart 2021-06-24  630  	drm_dp_aux_init(&pdata->aux);
+77674e722f4b27 Laurent Pinchart 2021-06-24  631  
+77674e722f4b27 Laurent Pinchart 2021-06-24 @632  	ret = devm_of_dp_aux_populate_ep_devices(&pdata->aux);
+77674e722f4b27 Laurent Pinchart 2021-06-24  633  	if (ret)
+77674e722f4b27 Laurent Pinchart 2021-06-24  634  		return ret;
+77674e722f4b27 Laurent Pinchart 2021-06-24  635  
+77674e722f4b27 Laurent Pinchart 2021-06-24  636  	/*
+77674e722f4b27 Laurent Pinchart 2021-06-24  637  	 * The eDP to MIPI bridge parts don't work until the AUX channel is
+77674e722f4b27 Laurent Pinchart 2021-06-24  638  	 * setup so we don't add it in the main driver probe, we add it now.
+77674e722f4b27 Laurent Pinchart 2021-06-24  639  	 */
+77674e722f4b27 Laurent Pinchart 2021-06-24  640  	return ti_sn65dsi86_add_aux_device(pdata, &pdata->bridge_aux, "bridge");
+77674e722f4b27 Laurent Pinchart 2021-06-24  641  }
+77674e722f4b27 Laurent Pinchart 2021-06-24  642  
+
+-- 
+0-DAY CI Kernel Test Service
+https://01.org/lkp
