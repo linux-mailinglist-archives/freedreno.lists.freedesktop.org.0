@@ -1,56 +1,89 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 23DC45B7C5E
-	for <lists+freedreno@lfdr.de>; Tue, 13 Sep 2022 22:56:07 +0200 (CEST)
+Received: from gabe.freedesktop.org (unknown [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id C611D5B7D90
+	for <lists+freedreno@lfdr.de>; Wed, 14 Sep 2022 01:37:16 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C255610E4E3;
-	Tue, 13 Sep 2022 20:55:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6117D10E544;
+	Tue, 13 Sep 2022 23:36:55 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ua1-x94a.google.com (mail-ua1-x94a.google.com
- [IPv6:2607:f8b0:4864:20::94a])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B3AAA10E4D2
- for <freedreno@lists.freedesktop.org>; Tue, 13 Sep 2022 20:55:55 +0000 (UTC)
-Received: by mail-ua1-x94a.google.com with SMTP id
- a8-20020ab04948000000b003b5de1448d2so3899124uad.11
- for <freedreno@lists.freedesktop.org>; Tue, 13 Sep 2022 13:55:55 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20210112;
- h=cc:from:subject:message-id:mime-version:date:from:to:cc:subject
- :date; bh=u98YH0jx3OdeW4UquaiRdtASz50xZgF9GmW5yVmKS+A=;
- b=MPz2hm1dNp3wtK0Q6VOZj4HijDeEPDlqtG4P+GnwI1ScUXpTtAiMFQURP2+l0rCUxA
- qmrDRKPBY9MbWm16lKVZvzyIUdJdDUkzzrXDRzHRTJ6GX/yvA5wXbbFrPXBsVfmK5Eo4
- 9ogkCukA16YVJLYlQyC6GDCLXZsEW5Jth3oYNbG/63WjVVZ1gvealfQW8jCDjky728Oe
- PBJlPLftoNRA5YfGbbYdkSf/WXE0SzNerEGMYnvyd8sR0THOr0GsvrAeMrBEU6VKtlok
- /9MFSeRwtKp+B3qVEYRyAMqDCg2EYB4UlKeFmcJPYJLNDLU7NZi7lqkjGWIHLveewJpg
- hb0Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=cc:from:subject:message-id:mime-version:date:x-gm-message-state
- :from:to:cc:subject:date;
- bh=u98YH0jx3OdeW4UquaiRdtASz50xZgF9GmW5yVmKS+A=;
- b=UubsEHUJnLijabhdfwYH+b5E0P4LV9AQTSmrGuliZ2SZSnrriZQ50GBD4g3/DKwl3v
- D9k5SV4P5YfqkBMpSpFeje8atJY1bwAHaznH79mpQOS0/D5M0S7qTwHmhdnn2WkVREEx
- Ac3f3R/aUMmf5snXkt8JYyzx0rjOplh6b1ullFjEv3Y0MmKIrjEMgu8yLeOf+/8tUFSC
- dcPGk5BUguJM8Oto4dYI6cJ/CerBpGCfCNT4WbkFuc2HQRFgdLpPv//Z+egL4bZE02zs
- BybvN/NR/MBvFcjZrxCbG7udBDLPzTkv2t90a22hxext9jm+Lz6sVmrxxfwoXxRbdClO
- JhyQ==
-X-Gm-Message-State: ACgBeo1lGI538bvevhXU+1wEITk8nYxbFDy/MQoSfwA9Wa7gNjOQJiMS
- Bcoi22jqrxtsYv9AxtJzVP/kLoJ1cQ==
-X-Google-Smtp-Source: AA6agR5NeheBAt2f63oLFPCmdLpznilELhZXE8PxzUyHeV2qLgMAkY7E8Tau4uJxbQ4Q64hU2nMVSO1q4Q==
-X-Received: from nhuck.c.googlers.com ([fda3:e722:ac3:cc00:14:4d90:c0a8:39cc])
- (user=nhuck job=sendgmr) by 2002:a1f:2548:0:b0:3a2:5fbb:6485 with
- SMTP id
- l69-20020a1f2548000000b003a25fbb6485mr3366058vkl.18.1663102554926; Tue, 13
- Sep 2022 13:55:54 -0700 (PDT)
-Date: Tue, 13 Sep 2022 13:55:48 -0700
-Mime-Version: 1.0
-X-Mailer: git-send-email 2.37.2.789.g6183377224-goog
-Message-ID: <20220913205551.155128-1-nhuck@google.com>
-From: Nathan Huckleberry <nhuck@google.com>
-Content-Type: text/plain; charset="UTF-8"
-Subject: [Freedreno] [PATCH] drm/msm: Fix return type of
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9565310E544;
+ Tue, 13 Sep 2022 23:36:53 +0000 (UTC)
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 28DNMRi9016447;
+ Tue, 13 Sep 2022 23:36:40 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
+ h=message-id : date :
+ mime-version : subject : to : cc : references : from : in-reply-to :
+ content-type : content-transfer-encoding; s=qcppdkim1;
+ bh=QDluYs9EIrWXj5kwYq7EJZq+XOtXveaKEk1PTPlIhsk=;
+ b=YcoCMWZS41WvZftzE7mBuQO6ToHgy1Rwn5kg2ijWizmAO2ITAC/CidkSztk4pXS28ZVk
+ bD3PZsOFLt7xtNXLkMmme4Pr1V5YUO/r/AmMzocl79X/z9tWApjrxGHyrUO6SP/JhOgw
+ Af2r7D6nmGY1pnUUawNVuFEnLnF+nSai5mebq+e4dK4bU4Ba9e86XRhH2LQ0v+oLJakL
+ duwLajymcbq++xuULVoQ39z5eeTKKNBl2RhghmwMfDto+K0supA1dp/uwOiDSup8GHJH
+ xDWCJTs0FzTL6r/uD5GMtwYGC9iLH8xAyqw1ri3cTLpwvTzKCG48DPX21Chbsz2p/B+1 +A== 
+Received: from nalasppmta05.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3jjxymgn79-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 13 Sep 2022 23:36:40 +0000
+Received: from pps.filterd (NALASPPMTA05.qualcomm.com [127.0.0.1])
+ by NALASPPMTA05.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTP id 28DN1Onp000852; 
+ Tue, 13 Sep 2022 23:01:24 GMT
+Received: from pps.reinject (localhost [127.0.0.1])
+ by NALASPPMTA05.qualcomm.com (PPS) with ESMTPS id 3jjqbt2j7n-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 13 Sep 2022 23:01:24 +0000
+Received: from NALASPPMTA05.qualcomm.com (NALASPPMTA05.qualcomm.com
+ [127.0.0.1])
+ by pps.reinject (8.17.1.5/8.17.1.5) with ESMTP id 28DN0TVc032424;
+ Tue, 13 Sep 2022 23:01:24 GMT
+Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
+ [10.47.209.196])
+ by NALASPPMTA05.qualcomm.com (PPS) with ESMTPS id 28DN1OxS000846
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 13 Sep 2022 23:01:24 +0000
+Received: from [10.111.167.172] (10.80.80.8) by nalasex01a.na.qualcomm.com
+ (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.29; Tue, 13 Sep
+ 2022 16:01:21 -0700
+Message-ID: <2ce64f0a-8e31-4019-8d3e-49ca3ddd4766@quicinc.com>
+Date: Tue, 13 Sep 2022 16:01:19 -0700
+MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
+ Thunderbird/91.6.2
+Content-Language: en-US
+To: Nathan Huckleberry <nhuck@google.com>
+References: <20220913205551.155128-1-nhuck@google.com>
+From: Abhinav Kumar <quic_abhinavk@quicinc.com>
+In-Reply-To: <20220913205551.155128-1-nhuck@google.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+X-QCInternal: smtphost
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-ORIG-GUID: DpLLdyEnhGfPp-TYtzvZVzRkbO5p3Ffx
+X-Proofpoint-GUID: DpLLdyEnhGfPp-TYtzvZVzRkbO5p3Ffx
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.205,Aquarius:18.0.895,Hydra:6.0.528,FMLib:17.11.122.1
+ definitions=2022-09-13_10,2022-09-13_01,2022-06-22_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1011
+ priorityscore=1501 malwarescore=0 bulkscore=0 adultscore=0 impostorscore=0
+ mlxscore=0 mlxlogscore=999 lowpriorityscore=0 phishscore=0 suspectscore=0
+ spamscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2208220000 definitions=main-2209130109
+Subject: Re: [Freedreno] [PATCH] drm/msm: Fix return type of
  mdp4_lvds_connector_mode_valid
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -64,52 +97,61 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, Dan Carpenter <error27@gmail.com>,
+Cc: Sean Paul <sean@poorly.run>, Dan Carpenter <error27@gmail.com>,
  David Airlie <airlied@linux.ie>, Tom Rix <trix@redhat.com>,
  llvm@lists.linux.dev, Nick Desaulniers <ndesaulniers@google.com>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
- Nathan Huckleberry <nhuck@google.com>, Nathan Chancellor <nathan@kernel.org>,
- Rob Clark <robdclark@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- linux-arm-msm@vger.kernel.org, Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Sean Paul <sean@poorly.run>, linux-kernel@vger.kernel.org
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ Nathan Chancellor <nathan@kernel.org>, Rob Clark <robdclark@gmail.com>,
+ Daniel Vetter <daniel@ffwll.ch>, linux-arm-msm@vger.kernel.org,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-The mode_valid field in drm_connector_helper_funcs is expected to be of
-type:
-enum drm_mode_status (* mode_valid) (struct drm_connector *connector,
-                                     struct drm_display_mode *mode);
+Hi Nathan
 
-The mismatched return type breaks forward edge kCFI since the underlying
-function definition does not match the function hook definition.
+Thanks for the patch.
 
-The return type of mdp4_lvds_connector_mode_valid should be changed from
-int to enum drm_mode_status.
+On 9/13/2022 1:55 PM, Nathan Huckleberry wrote:
+> The mode_valid field in drm_connector_helper_funcs is expected to be of
+> type:
+> enum drm_mode_status (* mode_valid) (struct drm_connector *connector,
+>                                       struct drm_display_mode *mode);
+> 
+> The mismatched return type breaks forward edge kCFI since the underlying
+> function definition does not match the function hook definition.
+> 
+> The return type of mdp4_lvds_connector_mode_valid should be changed from
+> int to enum drm_mode_status.
+> 
+> Reported-by: Dan Carpenter <error27@gmail.com>
+> Link: https://github.com/ClangBuiltLinux/linux/issues/1703
+> Cc: llvm@lists.linux.dev
+> Signed-off-by: Nathan Huckleberry <nhuck@google.com>
 
-Reported-by: Dan Carpenter <error27@gmail.com>
-Link: https://github.com/ClangBuiltLinux/linux/issues/1703
-Cc: llvm@lists.linux.dev
-Signed-off-by: Nathan Huckleberry <nhuck@google.com>
----
- drivers/gpu/drm/msm/disp/mdp4/mdp4_lvds_connector.c | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
+ From what I can see this one has been this way since lvds support was 
+added. Hence this should have
 
-diff --git a/drivers/gpu/drm/msm/disp/mdp4/mdp4_lvds_connector.c b/drivers/gpu/drm/msm/disp/mdp4/mdp4_lvds_connector.c
-index 7288041dd86a..7444b75c4215 100644
---- a/drivers/gpu/drm/msm/disp/mdp4/mdp4_lvds_connector.c
-+++ b/drivers/gpu/drm/msm/disp/mdp4/mdp4_lvds_connector.c
-@@ -56,8 +56,9 @@ static int mdp4_lvds_connector_get_modes(struct drm_connector *connector)
- 	return ret;
- }
- 
--static int mdp4_lvds_connector_mode_valid(struct drm_connector *connector,
--				 struct drm_display_mode *mode)
-+static enum drm_mode_status
-+mdp4_lvds_connector_mode_valid(struct drm_connector *connector,
-+			       struct drm_display_mode *mode)
- {
- 	struct mdp4_lvds_connector *mdp4_lvds_connector =
- 			to_mdp4_lvds_connector(connector);
--- 
-2.37.2.789.g6183377224-goog
+Fixes: 3e87599b68e7 ("drm/msm/mdp4: add LVDS panel support")
 
+Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
+> ---
+>   drivers/gpu/drm/msm/disp/mdp4/mdp4_lvds_connector.c | 5 +++--
+>   1 file changed, 3 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/msm/disp/mdp4/mdp4_lvds_connector.c b/drivers/gpu/drm/msm/disp/mdp4/mdp4_lvds_connector.c
+> index 7288041dd86a..7444b75c4215 100644
+> --- a/drivers/gpu/drm/msm/disp/mdp4/mdp4_lvds_connector.c
+> +++ b/drivers/gpu/drm/msm/disp/mdp4/mdp4_lvds_connector.c
+> @@ -56,8 +56,9 @@ static int mdp4_lvds_connector_get_modes(struct drm_connector *connector)
+>   	return ret;
+>   }
+>   
+> -static int mdp4_lvds_connector_mode_valid(struct drm_connector *connector,
+> -				 struct drm_display_mode *mode)
+> +static enum drm_mode_status
+> +mdp4_lvds_connector_mode_valid(struct drm_connector *connector,
+> +			       struct drm_display_mode *mode)
+>   {
+>   	struct mdp4_lvds_connector *mdp4_lvds_connector =
+>   			to_mdp4_lvds_connector(connector);
