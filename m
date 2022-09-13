@@ -1,77 +1,71 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 187025B75BA
-	for <lists+freedreno@lfdr.de>; Tue, 13 Sep 2022 17:54:30 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 7F26C5B772A
+	for <lists+freedreno@lfdr.de>; Tue, 13 Sep 2022 19:05:05 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2B2A210E773;
-	Tue, 13 Sep 2022 15:54:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4D7A210E795;
+	Tue, 13 Sep 2022 17:04:56 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4C1A110E4A5;
- Tue, 13 Sep 2022 15:54:21 +0000 (UTC)
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 28DDvEt1018625;
- Tue, 13 Sep 2022 15:54:18 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
- h=message-id : date :
- mime-version : subject : to : cc : references : from : in-reply-to :
- content-type : content-transfer-encoding; s=qcppdkim1;
- bh=3mz+DIWbAv2lJtq7oCMQc/sw/N2SOx9zzz4TQU/xQ78=;
- b=lqBW2RWSEOFTktKoaXL0hoUfOi1CwnLF1WBtDSgaNh+5QmK4WiOzRdgedCTZ5ZsMrlgc
- egUC7LUwL4dcf3iJyeCLIRTKiqAv3DXovscT0AKhzts0q/a0aRqP69fGa1nGplKaykwB
- xdoLJ+4Tf1Xuu6L2QKwEAc+M+EjLTdmKp/2p7V2Jh4N06wYFbTTPKlavXYRof9fWDQoO
- laOc96g+5JDPts3y6oDAcuGpiMmfvj/12YF7U26nrUmaJJx/gIQFHKx80LNk21gkW/rY
- Rv9NJIawOMFEfLKO9gz92DCSGfmy/pweRN0HtIisSScZPZGZnS7u65jwWTipsN7i40jb hA== 
-Received: from nasanppmta05.qualcomm.com (i-global254.qualcomm.com
- [199.106.103.254])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3jjh9tjwqh-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 13 Sep 2022 15:54:18 +0000
-Received: from nasanex01b.na.qualcomm.com (nasanex01b.na.qualcomm.com
- [10.46.141.250])
- by NASANPPMTA05.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 28DFsHVt004993
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 13 Sep 2022 15:54:17 GMT
-Received: from [10.71.111.188] (10.80.80.8) by nasanex01b.na.qualcomm.com
- (10.46.141.250) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.29; Tue, 13 Sep
- 2022 08:54:17 -0700
-Message-ID: <24b05be6-1aac-a136-3746-a349b2fefa6c@quicinc.com>
-Date: Tue, 13 Sep 2022 08:54:16 -0700
+Received: from mail-lf1-x12f.google.com (mail-lf1-x12f.google.com
+ [IPv6:2a00:1450:4864:20::12f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3ACE410E795
+ for <freedreno@lists.freedesktop.org>; Tue, 13 Sep 2022 17:04:52 +0000 (UTC)
+Received: by mail-lf1-x12f.google.com with SMTP id f14so20207558lfg.5
+ for <freedreno@lists.freedesktop.org>; Tue, 13 Sep 2022 10:04:52 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date;
+ bh=C1SHrY0bzxKJ2NJT55YgREa1pzMItM4ioi+jr7Uh69I=;
+ b=ZyzHm7wCckAHL4Gs1yvJKUehjmxAlog/Jx3GoSEfC4baYLnjiY7xzQVbg1PkrG4KFC
+ v97vC0Qk1DFJl9ilEx3cLWjd/j9NES0HBuZanV/u/bcCIliA9ktXGZrjhAAxQLsg7oqC
+ 9USwMMYwfKr+JzxZQ3Su1k9TpWSYbZccBk5Go25P9wOiQWcuB/EeDpKNudTt/UDESMDq
+ CCTylyfCgb0/lOANY0qNvTCv2F/hLzFA3m7UOUKmAX+hSZnuxTD+4IRPuhmBEJ5+SwMj
+ ZuFKikE00gDHXMjuVbTrIoI7n0Swziqp6aJViDdPykGVFW9DXifyATtfJz+1ysj3OPLs
+ u4TA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date;
+ bh=C1SHrY0bzxKJ2NJT55YgREa1pzMItM4ioi+jr7Uh69I=;
+ b=NPM1wYOsLajNW9E2R7ADl3ux0cSZ/H6VqVsq5wXI9F1dMaSBry+9uG4GI/KAzJf6II
+ TTAk05Wy2C5rhO12h5Zn3w25Az9jDfovhS+554lLwH1JP0qGPJK9TuQAsqMrSDe0cPcL
+ YIJ6MrY7UkMRpw6VqPBAc0tWZRPU+vfgCbrXS3hlHGnYAVzeKrDT69CVGlY793gZrazv
+ /KU7VzjUeBZbKcwDZOj/vSxTbPTgnNrA2K/UCL0cV5Q3Fy6sQp7YgBfSdzWZCZdhkElR
+ Q7d/JM6RcdWwfIAF6mNaB0LIGSbR09v7MXazpM9O3lyQuAQkTtVPl81Ty16+R94kq0bQ
+ Ncuw==
+X-Gm-Message-State: ACgBeo3KrAsR6IX9BN/E7DmszEs1ybet1rLkqPMxNBJXAoREZqdINefv
+ a5TaVnLBZcoQVM24gEXK7gCCow==
+X-Google-Smtp-Source: AA6agR4rAimnm7a205Tjxp1N64zK3JZcXpBZwm3oeZBBQMHWEgaM2PIlpoha5yNCcLjv3U9HBWcOyQ==
+X-Received: by 2002:a19:f805:0:b0:498:df1f:858e with SMTP id
+ a5-20020a19f805000000b00498df1f858emr9917460lff.610.1663088690486; 
+ Tue, 13 Sep 2022 10:04:50 -0700 (PDT)
+Received: from [192.168.1.211] ([37.153.55.125])
+ by smtp.gmail.com with ESMTPSA id
+ i24-20020a0565123e1800b00492e5d31201sm1833989lfv.7.2022.09.13.10.04.49
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 13 Sep 2022 10:04:50 -0700 (PDT)
+Message-ID: <fc45b986-99ae-b63d-9ed4-0ca622b16a8f@linaro.org>
+Date: Tue, 13 Sep 2022 20:04:49 +0300
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.2.2
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- <freedreno@lists.freedesktop.org>
-References: <20220901203422.217-1-quic_jesszhan@quicinc.com>
- <f3083bc5-fd56-b017-5cdf-c72e730a987e@linaro.org>
-Content-Language: en-US
-From: Jessica Zhang <quic_jesszhan@quicinc.com>
-In-Reply-To: <f3083bc5-fd56-b017-5cdf-c72e730a987e@linaro.org>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
- nasanex01b.na.qualcomm.com (10.46.141.250)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-ORIG-GUID: korJaAmV5dj8ILBtiwhV1_qwfxEceDt2
-X-Proofpoint-GUID: korJaAmV5dj8ILBtiwhV1_qwfxEceDt2
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.205,Aquarius:18.0.895,Hydra:6.0.528,FMLib:17.11.122.1
- definitions=2022-09-13_09,2022-09-13_01,2022-06-22_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 mlxscore=0
- adultscore=0 lowpriorityscore=0 malwarescore=0 mlxlogscore=999 spamscore=0
- priorityscore=1501 clxscore=1015 bulkscore=0 impostorscore=0 phishscore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2207270000
- definitions=main-2209130072
-Subject: Re: [Freedreno] [PATCH 0/2] Add support for HDR color formats
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.2.1
+Content-Language: en-GB
+To: Vinod Polimera <quic_vpolimer@quicinc.com>,
+ dri-devel@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
+ freedreno@lists.freedesktop.org, devicetree@vger.kernel.org
+References: <1663080676-12936-1-git-send-email-quic_vpolimer@quicinc.com>
+ <1663080676-12936-2-git-send-email-quic_vpolimer@quicinc.com>
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+In-Reply-To: <1663080676-12936-2-git-send-email-quic_vpolimer@quicinc.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Subject: Re: [Freedreno] [PATCH v7 01/15] drm/msm/disp/dpu: clear
+ dpu_assign_crtc and get crtc from connector state instead of dpu_enc
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -84,46 +78,161 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-arm-msm@vger.kernel.org, quic_abhinavk@quicinc.com,
- dri-devel@lists.freedesktop.org, swboyd@chromium.org, robdclark@gmail.com,
- seanpaul@chromium.org
+Cc: quic_kalyant@quicinc.com, quic_sbillaka@quicinc.com, dianders@chromium.org,
+ quic_bjorande@quicinc.com, quic_abhinavk@quicinc.com,
+ quic_vproddut@quicinc.com, linux-kernel@vger.kernel.org,
+ quic_khsieh@quicinc.com, robdclark@gmail.com, quic_aravindh@quicinc.com,
+ swboyd@chromium.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Hi Dmitry,
-
-On 9/12/2022 11:33 AM, Dmitry Baryshkov wrote:
-> On 01/09/2022 23:34, Jessica Zhang wrote:
->> Add support for HDR color formats.
->>
->> XR30 linear/compressed format has been validated with null_platform_test
->> on SC7180, and P010 linear has been validated with plane_test (also on
->> SC7180).
+On 13/09/2022 17:51, Vinod Polimera wrote:
+> Update crtc retrieval from dpu_enc to dpu_enc connector state,
+> since new links get set as part of the dpu enc virt mode set.
+> The dpu_enc->crtc cache is no more needed, hence cleaning it as
+> part of this change.
 > 
-> Are they supported on sdm845? On msm8998?
-
-Yes for both. AFAIK XR30 and P010 are supported on all DPU boards.
-
-Thanks,
-
-Jessica Zhang
-
+> Signed-off-by: Vinod Polimera <quic_vpolimer@quicinc.com>
+> ---
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c    |  4 ----
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c | 35 ++++++++++++-----------------
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.h |  8 -------
+>   3 files changed, 14 insertions(+), 33 deletions(-)
 > 
->>
->> Jessica Zhang (2):
->>    drm/msm/dpu: Add support for XR30 format
->>    drm/msm/dpu: Add support for P010 format
->>
->>   drivers/gpu/drm/msm/disp/dpu1/dpu_formats.c   | 24 ++++++++++++++++++-
->>   .../gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c    |  3 +++
->>   drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c     |  2 ++
->>   3 files changed, 28 insertions(+), 1 deletion(-)
->>
->> -- 
->> 2.35.1
->>
-> 
-> -- 
-> With best wishes
-> Dmitry
-> 
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
+> index 13ce321..8ec9a13 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
+> @@ -1029,7 +1029,6 @@ static void dpu_crtc_disable(struct drm_crtc *crtc,
+>   		 */
+>   		if (dpu_encoder_get_intf_mode(encoder) == INTF_MODE_VIDEO)
+>   			release_bandwidth = true;
+> -		dpu_encoder_assign_crtc(encoder, NULL);
+>   	}
+>   
+>   	/* wait for frame_event_done completion */
+> @@ -1099,9 +1098,6 @@ static void dpu_crtc_enable(struct drm_crtc *crtc,
+>   	trace_dpu_crtc_enable(DRMID(crtc), true, dpu_crtc);
+>   	dpu_crtc->enabled = true;
+>   
+> -	drm_for_each_encoder_mask(encoder, crtc->dev, crtc->state->encoder_mask)
+> -		dpu_encoder_assign_crtc(encoder, crtc);
+> -
+>   	/* Enable/restore vblank irq handling */
+>   	drm_crtc_vblank_on(crtc);
+>   }
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+> index 9c6817b..0c7d8b5 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+> @@ -132,11 +132,6 @@ enum dpu_enc_rc_states {
+>    * @intfs_swapped:	Whether or not the phys_enc interfaces have been swapped
+>    *			for partial update right-only cases, such as pingpong
+>    *			split where virtual pingpong does not generate IRQs
+> - * @crtc:		Pointer to the currently assigned crtc. Normally you
+> - *			would use crtc->state->encoder_mask to determine the
+> - *			link between encoder/crtc. However in this case we need
+> - *			to track crtc in the disable() hook which is called
+> - *			_after_ encoder_mask is cleared.
+>    * @connector:		If a mode is set, cached pointer to the active connector
+>    * @crtc_kickoff_cb:		Callback into CRTC that will flush & start
+>    *				all CTL paths
+> @@ -181,7 +176,6 @@ struct dpu_encoder_virt {
+>   
+>   	bool intfs_swapped;
+>   
+> -	struct drm_crtc *crtc;
+>   	struct drm_connector *connector;
+>   
+>   	struct dentry *debugfs_root;
+> @@ -1288,6 +1282,7 @@ static void dpu_encoder_vblank_callback(struct drm_encoder *drm_enc,
+>   		struct dpu_encoder_phys *phy_enc)
+>   {
+>   	struct dpu_encoder_virt *dpu_enc = NULL;
+> +	struct drm_crtc *crtc;
+>   	unsigned long lock_flags;
+>   
+>   	if (!drm_enc || !phy_enc)
+> @@ -1298,9 +1293,14 @@ static void dpu_encoder_vblank_callback(struct drm_encoder *drm_enc,
+>   
+>   	atomic_inc(&phy_enc->vsync_cnt);
+>   
+> +	if (!dpu_enc->connector || !dpu_enc->connector->state)
+> +		return;
+> +
+> +	crtc = dpu_enc->connector->state->crtc;
+> +
+>   	spin_lock_irqsave(&dpu_enc->enc_spinlock, lock_flags);
+> -	if (dpu_enc->crtc)
+> -		dpu_crtc_vblank_callback(dpu_enc->crtc);
+> +	if (crtc)
+> +		dpu_crtc_vblank_callback(crtc);
+>   	spin_unlock_irqrestore(&dpu_enc->enc_spinlock, lock_flags);
+
+Stephen's comment about reading the state from outside of the lock and 
+then using local variable under spinlock is still valid. Moreover I'm 
+not sure that enc_spinlock protects connector's state. I'd say one has 
+to take the modesetting lock here.
+
+>   
+>   	DPU_ATRACE_END("encoder_vblank_callback");
+> @@ -1324,29 +1324,22 @@ static void dpu_encoder_underrun_callback(struct drm_encoder *drm_enc,
+>   	DPU_ATRACE_END("encoder_underrun_callback");
+>   }
+>   
+> -void dpu_encoder_assign_crtc(struct drm_encoder *drm_enc, struct drm_crtc *crtc)
+> -{
+> -	struct dpu_encoder_virt *dpu_enc = to_dpu_encoder_virt(drm_enc);
+> -	unsigned long lock_flags;
+> -
+> -	spin_lock_irqsave(&dpu_enc->enc_spinlock, lock_flags);
+> -	/* crtc should always be cleared before re-assigning */
+> -	WARN_ON(crtc && dpu_enc->crtc);
+> -	dpu_enc->crtc = crtc;
+> -	spin_unlock_irqrestore(&dpu_enc->enc_spinlock, lock_flags);
+> -}
+> -
+>   void dpu_encoder_toggle_vblank_for_crtc(struct drm_encoder *drm_enc,
+>   					struct drm_crtc *crtc, bool enable)
+>   {
+>   	struct dpu_encoder_virt *dpu_enc = to_dpu_encoder_virt(drm_enc);
+> +	struct drm_crtc *new_crtc;
+>   	unsigned long lock_flags;
+>   	int i;
+>   
+>   	trace_dpu_enc_vblank_cb(DRMID(drm_enc), enable);
+>   
+> +	if (!dpu_enc->connector || !dpu_enc->connector->state)
+> +		return;
+> +
+> +	new_crtc = dpu_enc->connector->state->crtc;
+>   	spin_lock_irqsave(&dpu_enc->enc_spinlock, lock_flags);
+> -	if (dpu_enc->crtc != crtc) {
+> +	if (!new_crtc || new_crtc != crtc) {
+>   		spin_unlock_irqrestore(&dpu_enc->enc_spinlock, lock_flags);
+>   		return;
+>   	}
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.h
+> index 9e7236e..eda5cd8 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.h
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.h
+> @@ -40,14 +40,6 @@ struct msm_display_info {
+>   };
+>   
+>   /**
+> - * dpu_encoder_assign_crtc - Link the encoder to the crtc it's assigned to
+> - * @encoder:	encoder pointer
+> - * @crtc:	crtc pointer
+> - */
+> -void dpu_encoder_assign_crtc(struct drm_encoder *encoder,
+> -			     struct drm_crtc *crtc);
+> -
+> -/**
+>    * dpu_encoder_toggle_vblank_for_crtc - Toggles vblank interrupts on or off if
+>    *	the encoder is assigned to the given crtc
+>    * @encoder:	encoder pointer
+
+-- 
+With best wishes
+Dmitry
+
