@@ -1,49 +1,67 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5958B5B6B0B
-	for <lists+freedreno@lfdr.de>; Tue, 13 Sep 2022 11:45:08 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id D46565B6D74
+	for <lists+freedreno@lfdr.de>; Tue, 13 Sep 2022 14:43:04 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AC29110E693;
-	Tue, 13 Sep 2022 09:44:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2B39710E6EA;
+	Tue, 13 Sep 2022 12:42:58 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from ams.source.kernel.org (ams.source.kernel.org
- [IPv6:2604:1380:4601:e00::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E17FE10E683;
- Tue, 13 Sep 2022 09:44:51 +0000 (UTC)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 728B1B80E3B;
- Tue, 13 Sep 2022 09:44:50 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 10818C433D7;
- Tue, 13 Sep 2022 09:44:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1663062289;
- bh=skvVraM7srPfIkoWZ6q9hkoJ56QIEuw02+nE/Cr6Icc=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=IJcLpDVPQYoTsaLIa2Bw02A71s4zAIU/2K2mPrNcwIjbrggvd8Zys1RxGdqFH7dZ6
- t+ETJjw2MBtdK2c9lb5a01S3gSmJdrqBKw1eaDu8UdRIowiwXLTfm1z6dJpszAPN1w
- tKVSP4KvPHz/atuJWecf4SCFsP8IbVI/zP5pOavv5GTgcJUYxpospxrIjDz8Xe/zP7
- zk/hMtqoQKCTIDd/HbrnM0IqXozOmGDqLyC5/sXjmnosoiYLAxtSBdX3TUuPHNzYsj
- c1yMu6eOXUNUkoJoi1bZNmrPhQPTsX+VeYAAJ9CwWTDy8YvSqaQoYr/r7FgGV4cl66
- 2D18c3wQTDKPg==
-Received: from johan by xi.lan with local (Exim 4.94.2)
- (envelope-from <johan@kernel.org>)
- id 1oY2TI-0002f3-2i; Tue, 13 Sep 2022 11:44:48 +0200
-Date: Tue, 13 Sep 2022 11:44:48 +0200
-From: Johan Hovold <johan@kernel.org>
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Message-ID: <YyBREIfwOQy687zH@hovoldconsulting.com>
-References: <20220901091527.1992208-1-dmitry.baryshkov@linaro.org>
+Received: from mail-ej1-x62d.google.com (mail-ej1-x62d.google.com
+ [IPv6:2a00:1450:4864:20::62d])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 87B2510E6EB
+ for <freedreno@lists.freedesktop.org>; Tue, 13 Sep 2022 12:42:55 +0000 (UTC)
+Received: by mail-ej1-x62d.google.com with SMTP id w16so11821706eji.9
+ for <freedreno@lists.freedesktop.org>; Tue, 13 Sep 2022 05:42:55 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date;
+ bh=sbb0BJfxSJ0bvHV5wkGwxNNxQE++mNh72PtFxZYdbyw=;
+ b=fKbUU7RNxlQl+VA9rK9x6fuo4I5OHpjbBX6iooSmH8j2dhxcAOmNSE8zqOmavODS+m
+ LuxcXt3P9JkKEwEVC1MiOt78KIlqAKdBtMugt8WZ8+Zhu/nr/u+MJoeUAV0iQdju4EET
+ zR91JVo8I8Tz+zapJ5jTBrH5mexNnTqVyfEsY=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date;
+ bh=sbb0BJfxSJ0bvHV5wkGwxNNxQE++mNh72PtFxZYdbyw=;
+ b=dTqIOjE3nWtuMQ/6Gmzary4Jl0efg+nQnJz9UXK0lo2yI4OhkwHKrL+K1LIBQpJE1T
+ YyM/ygbyRPEhMMrZlMqFo2Bv2P8nMx+G/hzbK/ROYH9FWugJkYijfkOvZuwEwBdDY+gE
+ o/+LIoiSa1GVs3VtTzhlr6xrFq9LwcDymaLb6guT/72WhmhSkn7ucC8KwxWVF+Lhtq9S
+ gtpov5b8QYsEQ4iBPxJRJtBNFqk4HRMyTNFh1jjZLbk7KSi5S5mfIXRvSFgD9Ve0FTWD
+ VFQQqO5etQCskwXW0SAGI/gcr5NcrKfsIf7mvRre+wCu+5AlWp1PpyrF5k7P4ins91eM
+ J64Q==
+X-Gm-Message-State: ACgBeo0rOubshOsvtsewJUbWInaOKvoteix52QhpmBKcnT1L8F1oVB5S
+ di2XrX/XBOc9rpM8HFPtFMLRygsRmlAWIDjud74=
+X-Google-Smtp-Source: AA6agR5JtqWHqTb6Q8tECTmrCgYQRuWi86yvs238EI0yizp55BBy6p6lF2mvlWxBFPrpWhyQeEcbCw==
+X-Received: by 2002:a17:907:2e02:b0:77b:bdab:674b with SMTP id
+ ig2-20020a1709072e0200b0077bbdab674bmr9502691ejc.159.1663072973895; 
+ Tue, 13 Sep 2022 05:42:53 -0700 (PDT)
+Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com.
+ [209.85.128.51]) by smtp.gmail.com with ESMTPSA id
+ b10-20020a056402138a00b0044625884285sm7801174edv.49.2022.09.13.05.42.53
+ for <freedreno@lists.freedesktop.org>
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 13 Sep 2022 05:42:53 -0700 (PDT)
+Received: by mail-wm1-f51.google.com with SMTP id
+ d12-20020a05600c34cc00b003a83d20812fso9441258wmq.1
+ for <freedreno@lists.freedesktop.org>; Tue, 13 Sep 2022 05:42:53 -0700 (PDT)
+X-Received: by 2002:a05:600c:4e8b:b0:3a5:f5bf:9c5a with SMTP id
+ f11-20020a05600c4e8b00b003a5f5bf9c5amr2359963wmq.85.1663072581167; Tue, 13
+ Sep 2022 05:36:21 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20220901091527.1992208-1-dmitry.baryshkov@linaro.org>
-Subject: Re: [Freedreno] [RFC PATCH 0/3] drm/msm/dp: several fixes for the
- IRQ handling
+References: <20220913085320.8577-1-johan+linaro@kernel.org>
+ <20220913085320.8577-7-johan+linaro@kernel.org>
+In-Reply-To: <20220913085320.8577-7-johan+linaro@kernel.org>
+From: Doug Anderson <dianders@chromium.org>
+Date: Tue, 13 Sep 2022 13:36:09 +0100
+X-Gmail-Original-Message-ID: <CAD=FV=XXCOgRwdsHxnH5DhoNb5QAT6n9m8iUNOQ5at4YAKd-cw@mail.gmail.com>
+Message-ID: <CAD=FV=XXCOgRwdsHxnH5DhoNb5QAT6n9m8iUNOQ5at4YAKd-cw@mail.gmail.com>
+To: Johan Hovold <johan+linaro@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Subject: Re: [Freedreno] [PATCH v2 06/10] drm/msm/dp: fix aux-bus EP lifetime
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,35 +74,51 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, David Airlie <airlied@linux.ie>,
- linux-arm-msm@vger.kernel.org, Bjorn Andersson <andersson@kernel.org>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
- Stephen Boyd <swboyd@chromium.org>, Rob Clark <robdclark@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>, Sean Paul <sean@poorly.run>
+Cc: dri-devel <dri-devel@lists.freedesktop.org>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>, LKML <linux-kernel@vger.kernel.org>,
+ Daniel Vetter <daniel@ffwll.ch>, Jonas Karlman <jonas@kwiboo.se>,
+ linux-arm-msm <linux-arm-msm@vger.kernel.org>,
+ Bjorn Andersson <andersson@kernel.org>,
+ freedreno <freedreno@lists.freedesktop.org>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Robert Foss <robert.foss@linaro.org>, Stephen Boyd <swboyd@chromium.org>,
+ Rob Clark <robdclark@gmail.com>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Andrzej Hajda <andrzej.hajda@intel.com>,
+ Manivannan Sadhasivam <manivannan.sadhasivam@linaro.org>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ "# 4.0+" <stable@vger.kernel.org>, Kuogee Hsieh <quic_khsieh@quicinc.com>,
+ Sean Paul <sean@poorly.run>, Steev Klimaszewski <steev@kali.org>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Thu, Sep 01, 2022 at 12:15:24PM +0300, Dmitry Baryshkov wrote:
-> Johan Hovold has reported that returning a probe deferral from the
-> msm_dp_modeset_init() can cause issues because the IRQ is not freed
-> properly. This (compile-tested only) series tries to fix the issue by
-> moving devm_request_irq() to the probe callback.
+Hi,
 
-For reference, here's an analysis of the underlying problem and a series
-of fixes that addresses this:
+On Tue, Sep 13, 2022 at 9:58 AM Johan Hovold <johan+linaro@kernel.org> wrote:
+>
+> Device-managed resources allocated post component bind must be tied to
+> the lifetime of the aggregate DRM device or they will not necessarily be
+> released when binding of the aggregate device is deferred.
+>
+> This can lead resource leaks or failure to bind the aggregate device
+> when binding is later retried and a second attempt to allocate the
+> resources is made.
+>
+> For the DP aux-bus, an attempt to populate the bus a second time will
+> simply fail ("DP AUX EP device already populated").
+>
+> Fix this by tying the lifetime of the EP device to the DRM device rather
+> than DP controller platform device.
+>
+> Fixes: c3bf8e21b38a ("drm/msm/dp: Add eDP support via aux_bus")
+> Cc: stable@vger.kernel.org      # 5.19
+> Signed-off-by: Johan Hovold <johan+linaro@kernel.org>
+> ---
+>  drivers/gpu/drm/msm/dp/dp_display.c | 13 ++++++++++++-
+>  1 file changed, 12 insertions(+), 1 deletion(-)
 
-	https://lore.kernel.org/all/20220913085320.8577-1-johan+linaro@kernel.org/
+This seems fine to me as a short term fix until we get the DP AUX
+populating moved to probe.
 
-Note that moving the irq request to probe also fixes the immediate
-issue, but that can now be done as a follow-on cleanup (optimisation)
-instead.
-
-> Dmitry Baryshkov (3):
->   drm/msm/dp: fold disable_irq into devm_request_irq
->   drm/msm/dp: switch to using platform_get_irq()
->   drm/msm/dp: move dp_request_irq() call to dp_display_probe()
-> 
->  drivers/gpu/drm/msm/dp/dp_display.c | 19 +++++++++----------
->  1 file changed, 9 insertions(+), 10 deletions(-)
-
-Johan
+Reviewed-by: Douglas Anderson <dianders@chromium.org>
