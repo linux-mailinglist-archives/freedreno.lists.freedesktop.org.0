@@ -1,52 +1,52 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id ED0C65B9C03
-	for <lists+freedreno@lfdr.de>; Thu, 15 Sep 2022 15:38:06 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 5E5175B9C0A
+	for <lists+freedreno@lfdr.de>; Thu, 15 Sep 2022 15:38:25 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4A15B10EB24;
-	Thu, 15 Sep 2022 13:37:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8494010EB2C;
+	Thu, 15 Sep 2022 13:37:59 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x12e.google.com (mail-lf1-x12e.google.com
- [IPv6:2a00:1450:4864:20::12e])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1AEBB10EB2A
- for <freedreno@lists.freedesktop.org>; Thu, 15 Sep 2022 13:37:47 +0000 (UTC)
-Received: by mail-lf1-x12e.google.com with SMTP id i26so30399751lfp.11
- for <freedreno@lists.freedesktop.org>; Thu, 15 Sep 2022 06:37:47 -0700 (PDT)
+Received: from mail-lj1-x235.google.com (mail-lj1-x235.google.com
+ [IPv6:2a00:1450:4864:20::235])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2C41810EB20
+ for <freedreno@lists.freedesktop.org>; Thu, 15 Sep 2022 13:37:48 +0000 (UTC)
+Received: by mail-lj1-x235.google.com with SMTP id p5so22242245ljc.13
+ for <freedreno@lists.freedesktop.org>; Thu, 15 Sep 2022 06:37:48 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date;
- bh=2rC5Rchk8Av3pvvEimOqZHjNpVOqnGT2anEFSOvGN64=;
- b=IKP/mIBhN/OvoJh22Pux9rpkgDo2Br5ejssgu6BY7UZvH8vz4gl06Wt434iXnPt9Z8
- K6mvF2xXJSMr2h6+1omsJN/ndmTgCprt1tggK5ZHa+NTv+E9WaS4d+6sNIIq/GT7Eydi
- /m2i/HthmD+ES/SUqiP8SP3ljhBeZDgeRSvtFoXaowYn4bYFJikm62Ag2rrrJZw1UZgj
- CxwDJlWrBY7ifE5rEz7jvR7QnoGMIxes5ovd01MG9iw88YxYZyF6UfYm2HB6KyDnH3WC
- 8VFfAVFUZxkwCgHDipkkteSi4lN5o+Uls/5G53hlwAVXoJNadbqkZ2lBwso5wwnk2d9+
- 5rDA==
+ bh=QnLPNe+iKM00cshOq1HEgR2lwUHyezV+b5qRTjwgLIw=;
+ b=tV6z3grq1vzzmNrhOtUiZd9uwgE0I0J/+LPx/Z46mh1AZc0+yRFiy1ygnMIZIgDSWb
+ MGI1/mq77N56Agc5mhTYWGuoGDcRivTEujMPmAHOvh1DjROrIyAAZ4us5ZY3r2TDCzn2
+ tIsGG4jm31Js6rpS2CO5h0CwaagM/BUg1ZCKWXG06VnmwSwEfmzGF7MhG02CTS/Ns9bL
+ 2WyvryUvChMZJ5L9OCQ4L4uMkTs6GxIU1XSOUoPoLD+rVTVq3vC4b6uguJAIWszqbreG
+ QHCQ4mQ7uM74Zn8VcEUv/IuZj5fK+l5oj6rMXeSBdwb1QcT7EIttJIfXUeRv0G2NkNrM
+ Z2GA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date;
- bh=2rC5Rchk8Av3pvvEimOqZHjNpVOqnGT2anEFSOvGN64=;
- b=zsA4+ASsc1nKMue7MKkRe6i3NfI4BzmoJRniywWcJ4784tpLGIFwxmmiC6VzGxRjfQ
- H1mrECZh12hQ4r06JLZCdlf/jkTZZkObRSwGMQkXJPHX5vZewX1WCuv37ENjA3Y6aLJj
- gZFT4Yj5H576Nj8xAQyhU2z6Wzph0oMenwyuw0riLEqAj+wpwl2XibXqLCRNtxq7wG35
- 1qhhmc3v3fpbAMlHJ3f2Gn+OVMnb6KPZAdIXjerQtG3EK0dLqqc2enAATa3vRb4aDGOD
- bRKRqDWejpFid8Re3S9TYPeaI/nWQTltZ2rw2V0rNijTFAvfrlTrque7ziNvcIgYSeE8
- JY7g==
-X-Gm-Message-State: ACgBeo3XDYCX88lci1mvwBkTF1Jo9XAAfCzWmB1NAs4lBH5emhefrHmP
- bMrMhzpkS06P/QJpwOAjKFe+Xw==
-X-Google-Smtp-Source: AA6agR4Osl+CBl9CveKLxgRn7EUt0C6TM2YD+qTGpMXLBbPcTjuyLbj+xXJrCGodRMXTJmXjRKu7iw==
-X-Received: by 2002:ac2:4bd0:0:b0:497:abfd:3572 with SMTP id
- o16-20020ac24bd0000000b00497abfd3572mr12099024lfq.200.1663249064985; 
- Thu, 15 Sep 2022 06:37:44 -0700 (PDT)
+ bh=QnLPNe+iKM00cshOq1HEgR2lwUHyezV+b5qRTjwgLIw=;
+ b=xryB0KHQcFapv3Z/bgIeIg0/rRas6YbxqRvpBOACPAks+gSfJjMiIAMtOlocnkwcXA
+ oydXjCscMrSgWloltdqRbUvw+QsYNr1KpWbMpqRdSZ6cfJebQLMHAAAO0Aou6vS8RokI
+ IZvuUT0tuNknH0+8qB366lszbFhNUDl1OhPYmR0pBO/esLXyq1tSNUIfycU67fVsHPkI
+ qGjj/UhSShlbz+oIiUUm4Rhp8MaXU19iY9wFVBYJj8I5IZKWeP1FDsGhAm1L1WoDJZ0K
+ SGfWCR3LLpMQFerko9m5uKIZ83z4JvOlx2Jp7lfpImb6BK7sh9B7E0oiPq+/Ifc5FVDt
+ EMHg==
+X-Gm-Message-State: ACrzQf05YDpJiUe/LpHX4Ksb6H3BdeRUiA30RQJAhps0uO2qXwDF5poX
+ IiYrj5L1Am3nOIssYonzhu5PjA==
+X-Google-Smtp-Source: AMsMyM4UD05VNVSpuNUyec7dDFdrKjwlOjPBwXubUGJVv/SN05yO8Ib1mfwD0wEoOmZeTs5yvTV8LQ==
+X-Received: by 2002:a2e:a589:0:b0:26c:2a8a:4179 with SMTP id
+ m9-20020a2ea589000000b0026c2a8a4179mr2013169ljp.288.1663249065931; 
+ Thu, 15 Sep 2022 06:37:45 -0700 (PDT)
 Received: from eriador.lan ([37.153.55.125]) by smtp.gmail.com with ESMTPSA id
- 2-20020a2e0902000000b0026ad753448fsm3142634ljj.85.2022.09.15.06.37.44
+ 2-20020a2e0902000000b0026ad753448fsm3142634ljj.85.2022.09.15.06.37.45
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 15 Sep 2022 06:37:44 -0700 (PDT)
+ Thu, 15 Sep 2022 06:37:45 -0700 (PDT)
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 To: Andy Gross <agross@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
  Konrad Dybcio <konrad.dybcio@somainline.org>,
@@ -54,15 +54,15 @@ To: Andy Gross <agross@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
  Abhinav Kumar <quic_abhinavk@quicinc.com>,
  Rob Herring <robh+dt@kernel.org>,
  Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>
-Date: Thu, 15 Sep 2022 16:37:32 +0300
-Message-Id: <20220915133742.115218-3-dmitry.baryshkov@linaro.org>
+Date: Thu, 15 Sep 2022 16:37:33 +0300
+Message-Id: <20220915133742.115218-4-dmitry.baryshkov@linaro.org>
 X-Mailer: git-send-email 2.35.1
 In-Reply-To: <20220915133742.115218-1-dmitry.baryshkov@linaro.org>
 References: <20220915133742.115218-1-dmitry.baryshkov@linaro.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH v7 02/12] dt-bindings: display/msm: add gcc-bus
- clock to dpu-smd845
+Subject: [Freedreno] [PATCH v7 03/12] dt-bindings: display/msm: add
+ interconnects property to qcom, mdss-smd845
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,59 +75,44 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: devicetree@vger.kernel.org, Rob Herring <robh@kernel.org>,
- David Airlie <airlied@linux.ie>, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, Stephen Boyd <swboyd@chromium.org>,
- Daniel Vetter <daniel@ffwll.ch>, freedreno@lists.freedesktop.org
+Cc: devicetree@vger.kernel.org, David Airlie <airlied@linux.ie>,
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ Stephen Boyd <swboyd@chromium.org>, Daniel Vetter <daniel@ffwll.ch>,
+ freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Add gcc-bus clock required for the SDM845 DPU device tree node. This
-change was made in the commit 111c52854102 ("arm64: dts: qcom: sdm845:
-move bus clock to mdp node for sdm845 target"), but was not reflected in
-the schema.
+Add interconnects required for the SDM845 MDSS device tree node. This
+change was made in the commit c8c61c09e38b ("arm64: dts: qcom: sdm845:
+Add interconnects property for display"), but was not reflected in the
+schema.
 
-Reviewed-by: Rob Herring <robh@kernel.org>
 Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 ---
- .../devicetree/bindings/display/msm/dpu-sdm845.yaml        | 7 +++++--
- 1 file changed, 5 insertions(+), 2 deletions(-)
+ .../devicetree/bindings/display/msm/dpu-sdm845.yaml    | 10 ++++++++++
+ 1 file changed, 10 insertions(+)
 
 diff --git a/Documentation/devicetree/bindings/display/msm/dpu-sdm845.yaml b/Documentation/devicetree/bindings/display/msm/dpu-sdm845.yaml
-index 7d1037373175..3cb2ae336996 100644
+index 3cb2ae336996..a87deea8e9bc 100644
 --- a/Documentation/devicetree/bindings/display/msm/dpu-sdm845.yaml
 +++ b/Documentation/devicetree/bindings/display/msm/dpu-sdm845.yaml
-@@ -84,6 +84,7 @@ patternProperties:
+@@ -57,6 +57,16 @@ properties:
  
-       clocks:
-         items:
-+          - description: Display GCC bus clock
-           - description: Display ahb clock
-           - description: Display axi clock
-           - description: Display core clock
-@@ -91,6 +92,7 @@ patternProperties:
+   ranges: true
  
-       clock-names:
-         items:
-+          - const: gcc-bus
-           - const: iface
-           - const: bus
-           - const: core
-@@ -183,11 +185,12 @@ examples:
-                           <0x0aeb0000 0x2008>;
-                     reg-names = "mdp", "vbif";
- 
--                    clocks = <&dispcc DISP_CC_MDSS_AHB_CLK>,
-+                    clocks = <&gcc GCC_DISP_AXI_CLK>,
-+                             <&dispcc DISP_CC_MDSS_AHB_CLK>,
-                              <&dispcc DISP_CC_MDSS_AXI_CLK>,
-                              <&dispcc DISP_CC_MDSS_MDP_CLK>,
-                              <&dispcc DISP_CC_MDSS_VSYNC_CLK>;
--                    clock-names = "iface", "bus", "core", "vsync";
-+                    clock-names = "gcc-bus", "iface", "bus", "core", "vsync";
- 
-                     interrupt-parent = <&mdss>;
-                     interrupts = <0>;
++  interconnects:
++    items:
++      - description: Interconnect path from mdp0 port to the data bus
++      - description: Interconnect path from mdp1 port to the data bus
++
++  interconnect-names:
++    items:
++      - const: mdp0-mem
++      - const: mdp1-mem
++
+   resets:
+     items:
+       - description: MDSS_CORE reset
 -- 
 2.35.1
 
