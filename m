@@ -1,71 +1,65 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id B51E35B9B3A
-	for <lists+freedreno@lfdr.de>; Thu, 15 Sep 2022 14:44:34 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 9EB275B9BFF
+	for <lists+freedreno@lfdr.de>; Thu, 15 Sep 2022 15:38:00 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 736C110EB07;
-	Thu, 15 Sep 2022 12:44:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 488ED10EB23;
+	Thu, 15 Sep 2022 13:37:52 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x136.google.com (mail-lf1-x136.google.com
- [IPv6:2a00:1450:4864:20::136])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E966110E1C6
- for <freedreno@lists.freedesktop.org>; Thu, 15 Sep 2022 12:44:30 +0000 (UTC)
-Received: by mail-lf1-x136.google.com with SMTP id j16so3133002lfg.1
- for <freedreno@lists.freedesktop.org>; Thu, 15 Sep 2022 05:44:30 -0700 (PDT)
+Received: from mail-lf1-x12d.google.com (mail-lf1-x12d.google.com
+ [IPv6:2a00:1450:4864:20::12d])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 162B010EB23
+ for <freedreno@lists.freedesktop.org>; Thu, 15 Sep 2022 13:37:45 +0000 (UTC)
+Received: by mail-lf1-x12d.google.com with SMTP id z25so30470963lfr.2
+ for <freedreno@lists.freedesktop.org>; Thu, 15 Sep 2022 06:37:44 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=content-transfer-encoding:in-reply-to:references:cc:to:from
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date;
- bh=GbMPySDSU6WmgItxp994TYVOui10YiB6AOxxeQ38DWA=;
- b=OqodDEGO+HX5IYC9wkHWaQK5n7oCF9NayMeRaEdr5CfLpP6ZdmbbjKl0tYIp+k83/4
- bl180r0LxM8gmM+gUm4C2glC2htKXT5ok97uABU/WEVMlya+FWL2czplb1WcjMcCYlL0
- Cc/AcAwuPyOaFrCI4928xwDNL6hnRfgxgDOHxiANtwI4QcXwGTvm2xfcZB5vw9eR4i46
- DPPKaWjwnl7WqZUSjsR70Zysx599E3JZHvOcKTSUt5LX3Jmh7sFyMiBegFW1J6GmHifq
- mugNViCCsDLuqqkpTpQWAaZheQ5Xub+jqgdN7DdIfo3cEoGhEwnWww9aiR4gWPDEgQJ1
- mBrQ==
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date;
+ bh=lrd6VnfqJApSJppb6xI303k0JwHHmOYhEyNS4XGWRFA=;
+ b=KoTHBVBAaChkoFAE5029XAI7eKlWeFk7/R39zb6Go2RhR48+VIk6tJFy50F/jCglRE
+ WHDFLDLIjL4F7O9tvzKs8RejHyBr8msYVAKt6GrVllvrU0VwgE74TLaMCSGTGLkJb1NX
+ rfZIQ/t8XOWI2205/AuyhZS8XeGPyjYWonydI1m7u3B6VPGJvOpL4pLFt9FDJsDiE8Np
+ LxpQM3R1Naj7LiYv7tHATUkJWyJW2Xg6bIOkO4fYKldOcD5j1jdtN0AVMGiSRBPGtKWc
+ hc4vlDNl4NJj090m6tOXRpxOro/0uxgz1H33BZIC//CgHcAeHstCtHLvzmx8SC3v/Mru
+ iWcA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=content-transfer-encoding:in-reply-to:references:cc:to:from
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date;
- bh=GbMPySDSU6WmgItxp994TYVOui10YiB6AOxxeQ38DWA=;
- b=iRvXOTAlY1PlpYBl3vekesfJSBUeDOowZaX/EUv5hO9OOdwSBXgicEt9O7iU7Cph+v
- AfOuUgqDBuaYV1jiyWYkRy2jYJ0OQsHC12cH61cMzRYnOdmT4dH3W+CfwEqEpN+mJXwt
- u1+H56hJALj+YeIjq0pSruIcQXjxU8pJQB7s0VZH1srlUveQrLnpKy+iuA3B7NO5kiqN
- lZJxgDYEpJU5wBZwroeqPeErYIEQv99bH+nTjXHTrQ7KUPOpNMt2Xc0Cy6aGrxy8XvG0
- vqGoGIwdRix3cDHIReMf7SptG6VPf8sLQ4DJYchO1Jft1qnhA3Qv2BdRaSPGHzfWvN05
- Lfyw==
-X-Gm-Message-State: ACgBeo0YZ6fCPVqj5Bs9FgWDBTktACnK28WAoYqrcObX7krJBn1v4zJK
- 03ynrlBNr5IewPydSxhSV4S8OQ==
-X-Google-Smtp-Source: AA6agR5e3aLhLl+SPavx1J3SMAHglV+z0HW2twco7cekVm4i6twl/pbFFjIx5uZ3q6jZeGHephVbIA==
-X-Received: by 2002:a05:6512:3185:b0:49c:3310:6910 with SMTP id
- i5-20020a056512318500b0049c33106910mr4619068lfe.352.1663245869189; 
- Thu, 15 Sep 2022 05:44:29 -0700 (PDT)
-Received: from [192.168.1.211] ([37.153.55.125])
- by smtp.gmail.com with ESMTPSA id
- p8-20020a2eb7c8000000b0026c16e9e45bsm1954318ljo.17.2022.09.15.05.44.28
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 15 Sep 2022 05:44:28 -0700 (PDT)
-Message-ID: <49cb7d54-6546-5228-0c30-6b37faa87ec9@linaro.org>
-Date: Thu, 15 Sep 2022 15:44:28 +0300
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.2.1
-Content-Language: en-GB
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date;
+ bh=lrd6VnfqJApSJppb6xI303k0JwHHmOYhEyNS4XGWRFA=;
+ b=Ci8UznYM41Todp15tAhR+Us5zEJheXJ3YhoXzlJ/H+XyiqeeV8/t8PWIN+9c57j0XO
+ URaXZTzl6x88S8fNPUv+lWyg8vzBx5qpyLUZwr1uDAhWt56oXNY5FLnsPR7xfxISwrKt
+ KwNW+b2zCgwkOMAfGYf/aHagq26UUtL+O9PgT1Ln4AIi+1l56N8nv6nwmvuDNGEZOtyq
+ 7n+06XlZ6fufhe6CkURBNUWlmWguahai6CgnHCrzdHYgQB62oHkvTvmpaMe0F2iWE8Gt
+ wqlhQ1BOMWCeKacD7vy2jiEYQyM4rau4HvDVnD7fKUP/fG05BCtl1mA5DAbU+ckQNRQd
+ xQ/w==
+X-Gm-Message-State: ACgBeo0otY7o+xwchljQuEel4vL07bHCNrTYsIB79+TGlSp61v+ZzK5S
+ ZNQFBfAGSwfzdF2xHvlGNpTbUg==
+X-Google-Smtp-Source: AA6agR5fzXF7XwpqvzAUleEv9zA3CFS2t43pRwg1PxEtvOSAtJvDH/n2zv8Nkk7iQj+WC4hWVUuoMw==
+X-Received: by 2002:a05:6512:3d9f:b0:497:a108:544f with SMTP id
+ k31-20020a0565123d9f00b00497a108544fmr12679417lfv.688.1663249063304; 
+ Thu, 15 Sep 2022 06:37:43 -0700 (PDT)
+Received: from eriador.lan ([37.153.55.125]) by smtp.gmail.com with ESMTPSA id
+ 2-20020a2e0902000000b0026ad753448fsm3142634ljj.85.2022.09.15.06.37.42
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 15 Sep 2022 06:37:42 -0700 (PDT)
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-To: Rob Herring <robh@kernel.org>
-References: <20220901102312.2005553-1-dmitry.baryshkov@linaro.org>
- <20220901102312.2005553-5-dmitry.baryshkov@linaro.org>
- <20220907195904.GA98468-robh@kernel.org>
- <CAA8EJpoJk-_LC25uyqkQ0Q8CYziNuU8nSnExm40542xZcvcbxQ@mail.gmail.com>
-In-Reply-To: <CAA8EJpoJk-_LC25uyqkQ0Q8CYziNuU8nSnExm40542xZcvcbxQ@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH v6 04/12] dt-bindings: display/msm: move
- common DPU properties to dpu-common.yaml
+To: Andy Gross <agross@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konrad.dybcio@somainline.org>,
+ Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Rob Herring <robh+dt@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>
+Date: Thu, 15 Sep 2022 16:37:30 +0300
+Message-Id: <20220915133742.115218-1-dmitry.baryshkov@linaro.org>
+X-Mailer: git-send-email 2.35.1
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Subject: [Freedreno] [PATCH v7 00/12] dt-bindings: display/msm: rework MDSS
+ and DPU bindings
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,97 +72,117 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: devicetree@vger.kernel.org, Loic Poulain <loic.poulain@linaro.org>,
- David Airlie <airlied@linux.ie>, linux-arm-msm@vger.kernel.org,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konrad.dybcio@somainline.org>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
- Stephen Boyd <swboyd@chromium.org>, Rob Clark <robdclark@gmail.com>,
- Andy Gross <agross@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- freedreno@lists.freedesktop.org, Sean Paul <sean@poorly.run>,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Cc: devicetree@vger.kernel.org, David Airlie <airlied@linux.ie>,
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ Stephen Boyd <swboyd@chromium.org>, Daniel Vetter <daniel@ffwll.ch>,
+ freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 08/09/2022 00:13, Dmitry Baryshkov wrote:
-> On Wed, 7 Sept 2022 at 22:59, Rob Herring <robh@kernel.org> wrote:
->>
->> On Thu, Sep 01, 2022 at 01:23:04PM +0300, Dmitry Baryshkov wrote:
->>> Move properties common to all DPU DT nodes to the dpu-common.yaml.
->>>
->>> Note, this removes description of individual DPU port@ nodes. However
->>> such definitions add no additional value. The reg values do not
->>> correspond to hardware INTF indices. The driver discovers and binds
->>> these ports not paying any care for the order of these items. Thus just
->>> leave the reference to graph.yaml#/properties/ports and the description.
->>>
->>> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
->>> ---
->>>   .../bindings/display/msm/dpu-common.yaml      | 44 ++++++++++++++++++
->>>   .../bindings/display/msm/dpu-msm8998.yaml     | 46 ++-----------------
->>>   .../bindings/display/msm/dpu-qcm2290.yaml     | 41 ++---------------
->>>   .../bindings/display/msm/dpu-sc7180.yaml      | 45 ++----------------
->>>   .../bindings/display/msm/dpu-sc7280.yaml      | 45 ++----------------
->>>   .../bindings/display/msm/dpu-sdm845.yaml      | 46 ++-----------------
->>>   6 files changed, 64 insertions(+), 203 deletions(-)
->>>   create mode 100644 Documentation/devicetree/bindings/display/msm/dpu-common.yaml
->>>
->>> diff --git a/Documentation/devicetree/bindings/display/msm/dpu-common.yaml b/Documentation/devicetree/bindings/display/msm/dpu-common.yaml
->>> new file mode 100644
->>> index 000000000000..bf5764e9932b
->>> --- /dev/null
->>> +++ b/Documentation/devicetree/bindings/display/msm/dpu-common.yaml
->>> @@ -0,0 +1,44 @@
->>> +%YAML 1.2
->>> +---
->>> +$id: http://devicetree.org/schemas/display/msm/dpu-common.yaml#
->>> +$schema: http://devicetree.org/meta-schemas/core.yaml#
->>> +
->>> +title: Qualcomm Display DPU dt properties (common properties)
->>> +
->>> +maintainers:
->>> +  - Krishna Manikandan <quic_mkrishn@quicinc.com>
->>> +  - Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
->>> +  - Rob Clark <robdclark@gmail.com>
->>> +
->>> +description: |
->>> +  Common properties for QCom DPU display controller.
->>> +
->>> +properties:
->>> +  interrupts:
->>> +    maxItems: 1
->>> +
->>> +  power-domains:
->>> +    maxItems: 1
->>> +
->>> +  operating-points-v2: true
->>> +  opp-table:
->>> +    type: object
->>> +
->>> +  ports:
->>> +    $ref: /schemas/graph.yaml#/properties/ports
->>> +    description: |
->>> +      Contains the list of output ports from DPU device. These ports
->>> +      connect to interfaces that are external to the DPU hardware,
->>> +      such as DSI, DP etc.
->>
->> Haven't we been over this already?
->>
->> You have to define 'port' nodes or else anything is allowed in them
->> (and endpoint nodes). If you want to define them as pattern, then fine.
->> But you must have a ref to graph.yaml#/properties/port.
-> 
-> Last time you asked to do this, I did a check. Adding any additional
-> property results in a schema error. And this is logical.
-> graph.yaml#/properties/ports already limits the node properties. I
-> thus do not see a need to define port@[0-9a-f]+$. Did I miss anything?
+Create separate YAML schema for MDSS devicesd$ (both for MDP5 and DPU
+devices). Cleanup DPU schema files, so that they do not contain schema
+for both MDSS and DPU nodes. Apply misc small fixes to the DPU schema
+afterwards. Add schema for the MDSS and DPU on sm8250 platform.
 
-I see, what I did miss now. I missed adding properties to individual 
-/port nodes. Please excuse me. BTW: is there any reason for not 
-enforcing this in the graph.yaml?
+Changes since v6:
+ - Removed extra newlines (Krzysztof)
+ - Added $ref to dpu-common.yaml#/ports/port@foo to enforce schema
+   for the port nodes (Rob)
+ - Removed unused allOf's (Rob)
+ - Fixed repeated interconnects descriptions (Rob)
+ - Fixed dpu-common.yaml and mdss-common.yaml descriptions (Rob)
+ - Fixed intentation of examples (Krzysztof)
+ - Renamed MDSS and DPU schema to follow compat names (Rob)
+
+Changes since v5:
+ - Dropped the core clock from mdss.yaml. It will be handled in a
+   separate patchset together with adding the clock itself.
+ - Fixed a typo in two commit subjects (mdm -> msm).
+
+Changes since v4:
+ - Created separate mdss-common.yaml
+ - Rather than squashing everything into mdss.yaml, create individual
+   schema files for MDSS devices.
+
+Changes since v3:
+ - Changed mdss->(dpu, dsi, etc.) relationship into the tight binding
+   depending on the mdss compatible string.
+ - Added sm8250 dpu schema and added qcom,sm8250-mdss to mdss.yaml
+
+Changes since v2:
+ - Added a patch to allow opp-table under the dpu* nodes.
+ - Removed the c&p issue which allowed the @0 nodes under the MDSS
+   device node.
+
+Changes since v1:
+ - Renamed DPU device nodes from mdp@ to display-controller@
+ - Described removal of mistakenly mentioned "lut" clock
+ - Switched mdss.yaml to use $ref instead of fixing compatible strings
+ - Dropped mdp-opp-table description (renamed by Krzysztof in his
+   patchset)
+ - Reworked DPU's ports definitions. Dropped description of individual
+   ports, left only /ports $ref and description in dpu-common.yaml.
+
+Dmitry Baryshkov (12):
+  dt-bindings: display/msm: split qcom,mdss bindings
+  dt-bindings: display/msm: add gcc-bus clock to dpu-smd845
+  dt-bindings: display/msm: add interconnects property to
+    qcom,mdss-smd845
+  dt-bindings: display/msm: move common DPU properties to
+    dpu-common.yaml
+  dt-bindings: display/msm: move common MDSS properties to
+    mdss-common.yaml
+  dt-bindings: display/msm: split dpu-sc7180 into DPU and MDSS parts
+  dt-bindings: display/msm: split dpu-sc7280 into DPU and MDSS parts
+  dt-bindings: display/msm: split dpu-sdm845 into DPU and MDSS parts
+  dt-bindings: display/msm: split dpu-msm8998 into DPU and MDSS parts
+  dt-bindings: display/msm: split dpu-qcm2290 into DPU and MDSS parts
+  dt-bindings: display/msm: add missing device nodes to mdss-* schemas
+  dt-bindings: display/msm: add support for the display on SM8250
+
+ .../bindings/display/msm/dpu-common.yaml      |  48 ++++
+ .../bindings/display/msm/dpu-msm8998.yaml     | 223 ----------------
+ .../bindings/display/msm/dpu-qcm2290.yaml     | 222 ----------------
+ .../bindings/display/msm/dpu-sc7180.yaml      | 235 -----------------
+ .../bindings/display/msm/dpu-sc7280.yaml      | 239 ------------------
+ .../bindings/display/msm/dpu-sdm845.yaml      | 217 ----------------
+ .../devicetree/bindings/display/msm/mdp5.txt  |  30 +--
+ .../bindings/display/msm/mdss-common.yaml     |  83 ++++++
+ .../bindings/display/msm/qcom,mdss.yaml       | 164 ++++++++++++
+ .../display/msm/qcom,msm8998-dpu.yaml         |  95 +++++++
+ .../display/msm/qcom,msm8998-mdss.yaml        |  87 +++++++
+ .../display/msm/qcom,qcm2290-dpu.yaml         |  84 ++++++
+ .../display/msm/qcom,qcm2290-mdss.yaml        |  91 +++++++
+ .../bindings/display/msm/qcom,sc7180-dpu.yaml |  95 +++++++
+ .../display/msm/qcom,sc7180-mdss.yaml         | 102 ++++++++
+ .../bindings/display/msm/qcom,sc7280-dpu.yaml |  98 +++++++
+ .../display/msm/qcom,sc7280-mdss.yaml         | 111 ++++++++
+ .../bindings/display/msm/qcom,sdm845-dpu.yaml |  90 +++++++
+ .../display/msm/qcom,sdm845-mdss.yaml         |  91 +++++++
+ .../bindings/display/msm/qcom,sm8250-dpu.yaml |  92 +++++++
+ .../display/msm/qcom,sm8250-mdss.yaml         | 103 ++++++++
+ 21 files changed, 1435 insertions(+), 1165 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/display/msm/dpu-common.yaml
+ delete mode 100644 Documentation/devicetree/bindings/display/msm/dpu-msm8998.yaml
+ delete mode 100644 Documentation/devicetree/bindings/display/msm/dpu-qcm2290.yaml
+ delete mode 100644 Documentation/devicetree/bindings/display/msm/dpu-sc7180.yaml
+ delete mode 100644 Documentation/devicetree/bindings/display/msm/dpu-sc7280.yaml
+ delete mode 100644 Documentation/devicetree/bindings/display/msm/dpu-sdm845.yaml
+ create mode 100644 Documentation/devicetree/bindings/display/msm/mdss-common.yaml
+ create mode 100644 Documentation/devicetree/bindings/display/msm/qcom,mdss.yaml
+ create mode 100644 Documentation/devicetree/bindings/display/msm/qcom,msm8998-dpu.yaml
+ create mode 100644 Documentation/devicetree/bindings/display/msm/qcom,msm8998-mdss.yaml
+ create mode 100644 Documentation/devicetree/bindings/display/msm/qcom,qcm2290-dpu.yaml
+ create mode 100644 Documentation/devicetree/bindings/display/msm/qcom,qcm2290-mdss.yaml
+ create mode 100644 Documentation/devicetree/bindings/display/msm/qcom,sc7180-dpu.yaml
+ create mode 100644 Documentation/devicetree/bindings/display/msm/qcom,sc7180-mdss.yaml
+ create mode 100644 Documentation/devicetree/bindings/display/msm/qcom,sc7280-dpu.yaml
+ create mode 100644 Documentation/devicetree/bindings/display/msm/qcom,sc7280-mdss.yaml
+ create mode 100644 Documentation/devicetree/bindings/display/msm/qcom,sdm845-dpu.yaml
+ create mode 100644 Documentation/devicetree/bindings/display/msm/qcom,sdm845-mdss.yaml
+ create mode 100644 Documentation/devicetree/bindings/display/msm/qcom,sm8250-dpu.yaml
+ create mode 100644 Documentation/devicetree/bindings/display/msm/qcom,sm8250-mdss.yaml
 
 -- 
-With best wishes
-Dmitry
+2.35.1
 
