@@ -1,84 +1,60 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id A203C5B9D30
-	for <lists+freedreno@lfdr.de>; Thu, 15 Sep 2022 16:33:43 +0200 (CEST)
+Received: from gabe.freedesktop.org (unknown [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 24F605BB134
+	for <lists+freedreno@lfdr.de>; Fri, 16 Sep 2022 18:44:14 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3D80610EB4E;
-	Thu, 15 Sep 2022 14:33:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F376510E4C3;
+	Fri, 16 Sep 2022 16:44:01 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wm1-x330.google.com (mail-wm1-x330.google.com
- [IPv6:2a00:1450:4864:20::330])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B728810EB4E
- for <freedreno@lists.freedesktop.org>; Thu, 15 Sep 2022 14:33:36 +0000 (UTC)
-Received: by mail-wm1-x330.google.com with SMTP id
- n40-20020a05600c3ba800b003b49aefc35fso4655361wms.5
- for <freedreno@lists.freedesktop.org>; Thu, 15 Sep 2022 07:33:36 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date;
- bh=wnHQKWcpBCnlgkgGEcKhjPdjmSAL7sgo8FjBnqwxuRk=;
- b=Fv+3vdzUC/FW+D3gRIqf4d/40nLZ0zbPTAiGBYbmnKQ2x5kWskEbj0ZiKXWr6V7q4t
- JrlU3+00PgYIY2OT3jM7xg2Y1g+0CLkgtCM6owx9l3Mp47n1oObxi+zYKpOjaThYeXYg
- MZ1t7kEwhXLF4mOSj5P5nWUcBQRbwwcHwsjLOpjmTxmGJNCN8eiN4aBW9+8Qfatt23jB
- BTK7al5c5lv7n52rQ3z8b3oUamHfqvs6G2bh3rha6B4/REwYzRiAH7RpUaXDnt9E5Yjb
- 6ciAsg1M3dyAAgp/pkDfjWEwK/Wyh39O3t2Ylg6DlA5dC0TJB7+0s4Fn7kaWgvWJDsGd
- GRMQ==
+Received: from mail-ej1-x62e.google.com (mail-ej1-x62e.google.com
+ [IPv6:2a00:1450:4864:20::62e])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 82D5E10E4C3
+ for <freedreno@lists.freedesktop.org>; Fri, 16 Sep 2022 16:43:56 +0000 (UTC)
+Received: by mail-ej1-x62e.google.com with SMTP id r18so50725888eja.11
+ for <freedreno@lists.freedesktop.org>; Fri, 16 Sep 2022 09:43:56 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kali.org; s=google;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date;
+ bh=4S8cX88Es8i3MLoJRyzbdun9gW08SUXlcQPWBMTUJws=;
+ b=Dhu8Yd5YFJ7SYZj6LWj8Gs7ewgUud/FLZ+qU+yCXOoRgB4taCZhQQluD5HFHGU2t3Y
+ dLqbKl1IbcFlPqv/1t+a2r5fVtTiQK1bsHD/VfKeHmPHSibWxqgjsaTYUb2nte1hnDnL
+ CkF3SK9NL7ybCPxYMnBZDEvL7CRx8frZCOloc2qrcMyl2TDsePEXZO6nkhmsuPnVMxIL
+ G6mBv3hV3Fxk0gbgGsWHYvTVJWpaC6BFzgKff7vWvp/Hy8R6wmCeJLCW836LST/CKlRJ
+ O9ZGk6ChkC67EAC9lmhAfv95mzwINSQGgFgVnMmd/r+k6sTG9VlGQlzMQeKLqFALzszt
+ 9fjg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date;
- bh=wnHQKWcpBCnlgkgGEcKhjPdjmSAL7sgo8FjBnqwxuRk=;
- b=T0nGH71XNbfyP+uskqpL3M35cKX2g+rweHfolheYwT0bBcG4aLprY/qobFPhdX6U1h
- IMgnbebcjQXVCvTcXRxu1suEks2zsa+TulbZvCj8uXgDrHJrZZf6TYeCzel841gGTMiL
- krGwl7HOJ9IeHoTy50Jpqpxmhkxp2jPHkBW6tkHr0xPeqr1TfGw/ETO7FePK8UG45rNd
- eE7TZXHVrMY2B9rZ1gxsNc7oRgCZq6/3S/T5yK9MZ2s9ZVK1gAMUL8bkga4osnOho2dh
- 1GFJFBFgiv+XeFPzlR6S3SmVFjdItdqmjZyx61DnTAubFOLHY2PfbdUDydlOQ9B/xfWD
- UC8w==
-X-Gm-Message-State: ACgBeo0edMqHL6Z5qbO0UNWNSoin6X2hajigtaNSJr2Ru4DTIBbUYBgg
- laEPonoCSlrQVRKCO7Zqg7ugEA==
-X-Google-Smtp-Source: AA6agR4DnsY43bvjKQeTuEmCzbwS04r06XWMjNusiQH3OTZHOoDDvEls+8tqOGfusd7I3N4mwXsNKQ==
-X-Received: by 2002:a1c:721a:0:b0:3b4:641c:5d99 with SMTP id
- n26-20020a1c721a000000b003b4641c5d99mr7157814wmc.71.1663252415188; 
- Thu, 15 Sep 2022 07:33:35 -0700 (PDT)
-Received: from [10.119.22.201] ([89.101.193.72])
- by smtp.gmail.com with ESMTPSA id
- m188-20020a1c26c5000000b003b33943ce5esm2991082wmm.32.2022.09.15.07.33.34
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 15 Sep 2022 07:33:34 -0700 (PDT)
-Message-ID: <0d2490ac-f5cc-c55a-030e-a49f021f81fa@linaro.org>
-Date: Thu, 15 Sep 2022 15:33:33 +0100
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date;
+ bh=4S8cX88Es8i3MLoJRyzbdun9gW08SUXlcQPWBMTUJws=;
+ b=1M9xinHC/+hQzf/MBZmoJbmH1oFEia/qBR/A07RBJgkLTH375R2+Gb18hnWttieczt
+ NGGmYJo1gH7GbvG4BpmqMLYl7CFLPcWf30JvBTrdSF6RJgldu7cIVqDDzrtL1AQkPqBP
+ pCM/1tkvEGPnUdxUcI8HuSaAh3Hd4OrEmpB7fXwVopPduF17rFDxiEr+moqi8azxoYvb
+ EUg+pzBSKQfc45kX5ynoCjIGWYa0RGcqDBDMzl2RtnHRQ+DtGVE2ny7UN5GyD90h8waS
+ DvIwMZVS79DzqbTs7fvcnITtvvWyeqGVc3/eXEr+yNcOKDfZC0JpYY65XyTMGGUGycJe
+ ub/g==
+X-Gm-Message-State: ACrzQf1UjiEP2o6Kj+9xrL5rF3823hPoOPY+HLUMrswJtivvj+RORTbR
+ jl4sj6BhN3MGSG9c+VB72/RIIXqtfnf/rJfrGMg1uw==
+X-Google-Smtp-Source: AMsMyM5YC0fOX0+qFcisQfW5zkv5GmlFTeL+5x7BQ+4b00bO2O4kl1QmoHdXrpt+RMqp6iXzlVdnoi46lgAeYw+Vkx8=
+X-Received: by 2002:a17:907:2706:b0:77a:4c0e:d37d with SMTP id
+ w6-20020a170907270600b0077a4c0ed37dmr4150793ejk.501.1663346635005; Fri, 16
+ Sep 2022 09:43:55 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.13.0
-Content-Language: en-US
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-References: <20220901102312.2005553-1-dmitry.baryshkov@linaro.org>
- <20220901102312.2005553-2-dmitry.baryshkov@linaro.org>
- <3e525135-d205-eddc-ff2d-98c8321386e3@linaro.org>
- <20220908193705.GA3002673-robh@kernel.org>
- <1ebe64a3-fab9-1dd7-517a-01001a176d9f@linaro.org>
- <CAL_JsqLkV_fnUnc4cS=cdTvP3rKYAS011_+KZYiBGhXDx-pHnA@mail.gmail.com>
- <2204eab4-b22d-8ee7-4595-49139cb387a8@linaro.org>
- <CAA8EJpqHL-gO=zSG6Ek=-y4njGF5R66z0MwLeKZ9U4Ag1j51Og@mail.gmail.com>
- <e7a132e7-a819-ebe2-e6e5-c01cbfacef15@linaro.org>
- <CAA8EJpoPPRAQPfVQmSfrrDrroMp0bzvJ=-vHMRx72aKTBgPOTA@mail.gmail.com>
- <f013accb-96f7-a025-1d41-e2e97f8b2aa8@linaro.org>
- <CAA8EJprnrKP9Ze__KTTNGDs8sj3QhqpiHnnhf1=ipq+CFCoXsQ@mail.gmail.com>
- <272413e3-73d4-8e0d-7b5d-93007e419f76@linaro.org>
- <6e3bca5a-8b01-af12-ae69-b0044a8790f6@linaro.org>
- <2b4ab827-28aa-5e3f-951a-0bf43d1eb7b9@linaro.org>
- <dafc0231-c578-07f1-1f4b-1cf819fa349a@linaro.org>
-From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-In-Reply-To: <dafc0231-c578-07f1-1f4b-1cf819fa349a@linaro.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH v6 01/12] dt-bindings: display/msm: split
- qcom, mdss bindings
+References: <20220913085320.8577-1-johan+linaro@kernel.org>
+ <ca6a97c5-1abe-b215-0ff2-443f4ed9a25f@kali.org>
+ <YyFuT9N0f8bg0epk@hovoldconsulting.com>
+In-Reply-To: <YyFuT9N0f8bg0epk@hovoldconsulting.com>
+From: Steev Klimaszewski <steev@kali.org>
+Date: Fri, 16 Sep 2022 11:43:43 -0500
+Message-ID: <CAKXuJqh4XeuA2TREPeGp+EGUk4mLWHS7H9qNj+r6MRByj7Qf2w@mail.gmail.com>
+To: Johan Hovold <johan@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [Freedreno] [PATCH v2 00/10] drm/msm: probe deferral fixes
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -91,44 +67,147 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rob Herring <robh@kernel.org>, Loic Poulain <loic.poulain@linaro.org>,
- devicetree@vger.kernel.org, David Airlie <airlied@linux.ie>,
- linux-arm-msm <linux-arm-msm@vger.kernel.org>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konrad.dybcio@somainline.org>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- dri-devel <dri-devel@lists.freedesktop.org>,
- Stephen Boyd <swboyd@chromium.org>, Rob Clark <robdclark@gmail.com>,
- Andy Gross <agross@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- freedreno <freedreno@lists.freedesktop.org>, Sean Paul <sean@poorly.run>,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Cc: dri-devel@lists.freedesktop.org, Neil Armstrong <neil.armstrong@linaro.org>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>, linux-kernel@vger.kernel.org,
+ Daniel Vetter <daniel@ffwll.ch>, Jonas Karlman <jonas@kwiboo.se>,
+ Kuogee Hsieh <quic_khsieh@quicinc.com>, Bjorn Andersson <andersson@kernel.org>,
+ freedreno@lists.freedesktop.org, Douglas Anderson <dianders@chromium.org>,
+ Robert Foss <robert.foss@linaro.org>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, Rob Clark <robdclark@gmail.com>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Andrzej Hajda <andrzej.hajda@intel.com>,
+ Manivannan Sadhasivam <manivannan.sadhasivam@linaro.org>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, linux-arm-msm@vger.kernel.org,
+ Stephen Boyd <swboyd@chromium.org>, Sean Paul <sean@poorly.run>,
+ Johan Hovold <johan+linaro@kernel.org>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 15/09/2022 12:50, Dmitry Baryshkov wrote:
-> On 11/09/2022 22:19, Krzysztof Kozlowski wrote:
->> On 11/09/2022 20:36, Krzysztof Kozlowski wrote:
->>
->>>> If your child schema fails, the referencing schema fails as well...
->>>
->>>
->>> Although now with DSI-PHY I cannot reproduce it and I am pretty sure I
->>> reproduced it with DPU controllers after modifying the DTS to lack a
->>> property... Hmmm
->>
->> https://github.com/devicetree-org/dt-schema/pull/82
-> 
-> Thanks for the quick fix!
-> 
-> However I think I'd still stick to the compatible binding for two reasons:
->   - It doesn't evaluate schema twice for these nodes
->   - It allows us to tightly link child nodes with the parent compatible, 
-> which I think, was one of the points raised several revisions ago.
+Hi Johan,
 
-Yes, true. The referenced schema sometimes accepts few compatibles and
-this gives strict matching without additional complexity.
+On Wed, Sep 14, 2022 at 1:01 AM Johan Hovold <johan@kernel.org> wrote:
+>
+> On Tue, Sep 13, 2022 at 03:23:10PM -0500, Steev Klimaszewski wrote:
+> > Hi Johan,
+> >
+> > On 9/13/22 3:53 AM, Johan Hovold wrote:
+> > > The MSM DRM driver is currently broken in multiple ways with respect =
+to
+> > > probe deferral. Not only does the driver currently fail to probe agai=
+n
+> > > after a late deferral, but due to a related use-after-free bug this a=
+lso
+> > > triggers NULL-pointer dereferences.
+>
+> > > In some cases, such has for the DP IRQ, the above situation can also =
+be
+> > > avoided by moving the allocation in question to the platform driver
+> > > probe (d0) or component bind (between d2 and d3). But as doing so is =
+not
+> > > a general fix, this can be done later as a cleanup/optimisation.
+>
+> > I've tested this on both sc8180x (Lenovo Flex 5G) and sdm850 (Lenovo
+> > Yoga C630), and both of them show the same issue:
+>
+> [ Copied the below from IRC instead as the formatting in your mail was
+> off. ]
+>
+> > [    7.449305] platform ae9a000.displayport-controller: Fixing up cycli=
+c dependency with ae01000.mdp
+> > [    7.454344] Unable to handle kernel NULL pointer dereference at virt=
+ual address 0000000000000008
+> > [    7.454406] Mem abort info:
+> > [    7.454423]   ESR =3D 0x0000000096000004
+> > [    7.454446]   EC =3D 0x25: DABT (current EL), IL =3D 32 bits
+> > [    7.454475]   SET =3D 0, FnV =3D 0
+> > [    7.454494]   EA =3D 0, S1PTW =3D 0
+> > [    7.454512]   FSC =3D 0x04: level 0 translation fault
+> > [    7.454539] Data abort info:
+> > [    7.454556]   ISV =3D 0, ISS =3D 0x00000004
+> > [    7.454577]   CM =3D 0, WnR =3D 0
+> > [    7.454595] user pgtable: 4k pages, 48-bit VAs, pgdp=3D0000000101504=
+000
+> > [    7.454629] [0000000000000008] pgd=3D0000000000000000, p4d=3D0000000=
+000000000
+> > [    7.454669] Internal error: Oops: 96000004 [#1] PREEMPT SMP
+> > [    7.454700] Modules linked in: i2c_hid_of i2c_hid leds_qcom_lpg led_=
+class_multicolor rtc_pm8xxx msm mdt_loader gpu_sched drm_dp_aux_bus drm_dis=
+play_helper drm_kms_helper drm phy_qcom_edp llcc_qcom i2c_qcom_geni phy_qco=
+m_qmp_combo phy_qcom_snps_femto_v2 phy_qcom_qmp_ufs phy_qcom_qmp_pcie ufs_q=
+com pwm_bl
+> > [    7.454860] CPU: 2 PID: 76 Comm: kworker/u16:2 Not tainted 5.19.0-rc=
+8-next-20220728 #26
+> > [    7.454902] Hardware name: LENOVO 82AK/LNVNB161216, BIOS EACN43WW(V1=
+.15) 09/13/2021
+> > [    7.454941] Workqueue: events_unbound deferred_probe_work_func
+> > [    7.454982] pstate: 40400005 (nZcv daif +PAN -UAO -TCO -DIT -SSBS BT=
+YPE=3D--)
+> > [    7.455020] pc : dp_display_request_irq+0x50/0xdc [msm]
+> > [    7.455145] lr : dp_display_request_irq+0x2c/0xdc [msm]
+> > [    7.455265] sp : ffff800008c1bb30
+> > [    7.455285] x29: ffff800008c1bb30 x28: 0000000000000000 x27: 0000000=
+000000000
+> > [    7.455327] x26: ffffc9c918420000 x25: ffffc9c9186ec570 x24: 0000000=
+00000003a
+> > [    7.455368] x23: ffffc9c918811d30 x22: ffff2a5806baa998 x21: ffff2a5=
+806ba3410
+> > [    7.455410] x20: ffff2a5806baa880 x19: ffff2a5806baa998 x18: fffffff=
+fffffffff
+> > [    7.455451] x17: 0000000000000038 x16: ffffc9c9164eeb24 x15: fffffff=
+fffffffff
+> > [    7.455492] x14: ffff2a5806bc3004 x13: ffff2a5806bc3000 x12: 0000000=
+000000000
+> > [    7.455533] x11: 0000000000000040 x10: ffffc9c918493080 x9 : ffffc9c=
+918493078
+> > [    7.455574] x8 : ffff2a5800681b88 x7 : 0000000000000000 x6 : ffff2a5=
+806baa880
+> > [    7.455616] x5 : ffffc9c8ca2de000 x4 : 0000000000080004 x3 : 0000000=
+000000000
+> > [    7.455656] x2 : ffffc9c8ca296000 x1 : 00000000000000a8 x0 : 0000000=
+000000000
+> > [    7.455698] Call trace:
+> > [    7.455714]  dp_display_request_irq+0x50/0xdc [msm]
+> > [    7.455834]  dp_display_probe+0xf8/0x4a4 [msm]
+> > [    7.455950]  platform_probe+0x6c/0xc4
+> > [    7.455976]  really_probe+0xbc/0x2d4
+> > [    7.455999]  __driver_probe_device+0x78/0xe0
+> > [    7.456025]  driver_probe_device+0x3c/0x13c
+> > [    7.456051]  __device_attach_driver+0xb8/0x120
+> > [    7.456077]  bus_for_each_drv+0x78/0xd0
+> > [    7.456105]  __device_attach+0x9c/0x1a0
+> > [    7.456129]  device_initial_probe+0x18/0x2c
+> > [    7.456154]  bus_probe_device+0x9c/0xa4
+> > [    7.456178]  deferred_probe_work_func+0x88/0xc0
+> > [    7.456204]  process_one_work+0x1d4/0x330
+> > [    7.456231]  worker_thread+0x70/0x42c
+> > [    7.456255]  kthread+0x10c/0x110
+> > [    7.456278]  ret_from_fork+0x10/0x20
+> > [    7.456306] Code: aa1403e6 f2a00104 f0000225 f0ffffe2 (f9400400)
+> > [    7.456341] ---[ end trace 0000000000000000 ]---
+>
+> > This is from the sc8180x, sdm850 is the same call stack, just with
+> > different addresses.
+> >
+> > I do have
+> > https://lore.kernel.org/all/20220712132258.671263-1-dmitry.baryshkov@li=
+naro.org/
+> > applied here which makes the 10th patch not apply cleanly.
+>
+> Yeah, that is expected. You need to drop Dmitry's series first. Once you
+> verified that this series works, you can add it back if you want but you
+> then need to restore the device pointer used when allocating the irq in
+> dp_display_request_irq():
+>
+> -       rc =3D devm_request_irq(dp_display->drm_dev->dev, dp->irq,
+> +       rc =3D devm_request_irq(&dp->pdev->dev, dp->irq,
+>
+> > It fails actually, but I applied it manually here.
+>
+> Please drop that series and give this one another spin.
+>
+> Johan
 
+I thought as much but wasn't sure.  Thanks for the clarification.
+With Dmitriy's patchset backed out, this series does work as expected.
 
-Best regards,
-Krzysztof
+Tested-by: Steev Klimaszewski <steev@kali.org>
