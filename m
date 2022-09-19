@@ -2,68 +2,44 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 584B05BB9A9
-	for <lists+freedreno@lfdr.de>; Sat, 17 Sep 2022 19:03:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A18285BD63A
+	for <lists+freedreno@lfdr.de>; Mon, 19 Sep 2022 23:18:45 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DFFF210E44E;
-	Sat, 17 Sep 2022 17:03:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A289C10E146;
+	Mon, 19 Sep 2022 21:18:43 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x134.google.com (mail-lf1-x134.google.com
- [IPv6:2a00:1450:4864:20::134])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D498210E44E
- for <freedreno@lists.freedesktop.org>; Sat, 17 Sep 2022 17:03:30 +0000 (UTC)
-Received: by mail-lf1-x134.google.com with SMTP id j16so13312490lfg.1
- for <freedreno@lists.freedesktop.org>; Sat, 17 Sep 2022 10:03:30 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date;
- bh=CNlP4WjQ5gD2dVZdm851YFALcjCKHtccpYUpR8J49Z4=;
- b=DfnUDIDLdqg6CeGSnomPiIyWPl9FGL/z455mP7Ly354UMsEwXqUKDKNMZTgG8qHPNL
- iYgOdL6YvessQlDBOFRxqA4bb52EMcOfI7IjvDpiKNGcCgell5vLizFbrqkTxA6LAmpN
- qunDNkWcVGUT239u2rrhYWET0wfCLC6hpQfu40QpY05Jn2N8W5oMsUNDpd172nBVbxQQ
- sSZBNH6QGp/r4D11puhNqSYCnilEK3vW7hgZdg5B8+snXYHDuq86Oa2l4r+0idQ5uRVt
- c0HOzShWNXIGDjGn1duIXbU1UpvEFx1ELV3bpMNem8ZLM0VCr/KoCLahPTxP8BA7nqmX
- mXCA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date;
- bh=CNlP4WjQ5gD2dVZdm851YFALcjCKHtccpYUpR8J49Z4=;
- b=YIlcxvGcmxbFy0PkI0HOQzD8hBLiupcu9Qn4WB5bCJKTFGEqoAyRDNyAo4bq37xorK
- vQublKUCjwwulwma/s0oHqEokuaU0yZ739cMBle1ayqG5Q3m30LPzZN3VHOojrTb0U/E
- dAniR+Tv69ID1jUnASIzgR1yGGR9sO9YHAbg7DkQXOHZgOzZ/PlqsDcbzYWriaoNew8e
- 6lxVMwM72KupZrbAKwbfoWuUA2kwlNUgp+Hi0iBCXKj7p7AeZaYBR40uuGgGScglXrEv
- qt1GjNarhjjuychQWG8OP+62iA6NtP2kv5hKxU+r995XH2nEjn3l13ffKfbz88wyi7/A
- LsgQ==
-X-Gm-Message-State: ACrzQf3DOITwBFlO2NkdlaH8MR8pI+K1UHPBsCHrdsmFtj4o29z55tCv
- NPut8uvVN3AgCMKzrFG404GjBg==
-X-Google-Smtp-Source: AMsMyM6yCCGGK54OXLJ5OP/agtg//cmMTA3Jc3j8bIg9aGqi9wiv0UUto5VjD5mRdOjt7u8CLVTYig==
-X-Received: by 2002:a05:6512:230f:b0:499:dcd:2fd2 with SMTP id
- o15-20020a056512230f00b004990dcd2fd2mr3715968lfu.677.1663434209040; 
- Sat, 17 Sep 2022 10:03:29 -0700 (PDT)
-Received: from [192.168.0.21] (78-11-189-27.static.ip.netia.com.pl.
- [78.11.189.27]) by smtp.gmail.com with ESMTPSA id
- z1-20020a05651c11c100b0026c3975f488sm951701ljo.26.2022.09.17.10.03.27
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sat, 17 Sep 2022 10:03:28 -0700 (PDT)
-Message-ID: <1641e41c-08c7-859b-644a-28d966fb00f3@linaro.org>
-Date: Sat, 17 Sep 2022 18:03:27 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.13.0
-Content-Language: en-US
-To: Bjorn Andersson <quic_bjorande@quicinc.com>,
- Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A4A1710E12F;
+ Mon, 19 Sep 2022 21:18:38 +0000 (UTC)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by ams.source.kernel.org (Postfix) with ESMTPS id 3EF68B81CBF;
+ Mon, 19 Sep 2022 21:18:37 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C91A6C433C1;
+ Mon, 19 Sep 2022 21:18:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1663622315;
+ bh=zyKwpB+TZU0POEehx6BHCVgBibbVZtVjpx2DjzNk6fw=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=NeKrC1aMNRDeZ8TX0sQIYnI3jRBY2AmbpSrAEqqpTnrm0POsTUBO95bXhxkr0k4sQ
+ 9FnvmU+FbXIPtS92p05VBEF/2KkGn3Wy2pGfaNXzqElVoTbnKwn+EzA1c+cEZ7gxZ3
+ K83CLaoZcnbMn7DGbuzYC7DgT3bPgUDe/BZe6utD8+xB7mvgjpMdwXCI3j/giNRpFb
+ ox59Fu5TFuUgyvP4HJ8CF8mmAG77RTzyhdkVJ3BnradIr2GfTK5Ipk9K26le2/ARBp
+ UtZ4c3Gt+V5Y8piAFwQ1Lx30k96Vc1cFIf+ey9cqkuIs6b1afA5SU65az10f9dfEvs
+ AzvHhpOB6NVUA==
+Date: Mon, 19 Sep 2022 16:18:32 -0500
+From: Bjorn Andersson <andersson@kernel.org>
+To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+Message-ID: <20220919211832.6b3buqxrnfp6yjjg@builder.lan>
 References: <20220916200028.25009-1-quic_bjorande@quicinc.com>
  <20220916200028.25009-2-quic_bjorande@quicinc.com>
-From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-In-Reply-To: <20220916200028.25009-2-quic_bjorande@quicinc.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+ <1641e41c-08c7-859b-644a-28d966fb00f3@linaro.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <1641e41c-08c7-859b-644a-28d966fb00f3@linaro.org>
 Subject: Re: [Freedreno] [PATCH v2 1/7] dt-bindings: msm/dp: Add SDM845 and
  SC8280XP compatibles
 X-BeenThere: freedreno@lists.freedesktop.org
@@ -80,27 +56,43 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
 Cc: devicetree@vger.kernel.org,
  Sankeerth Billakanti <quic_sbillaka@quicinc.com>,
- linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, Kuogee Hsieh <quic_khsieh@quicinc.com>,
+ Bjorn Andersson <quic_bjorande@quicinc.com>, linux-arm-msm@vger.kernel.org,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
+ Stephen Boyd <swboyd@chromium.org>, Rob Clark <robdclark@gmail.com>,
  Rob Herring <robh+dt@kernel.org>,
  Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Stephen Boyd <swboyd@chromium.org>, freedreno@lists.freedesktop.org
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Kuogee Hsieh <quic_khsieh@quicinc.com>, freedreno@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 16/09/2022 21:00, Bjorn Andersson wrote:
-> From: Bjorn Andersson <bjorn.andersson@linaro.org>
+On Sat, Sep 17, 2022 at 06:03:27PM +0100, Krzysztof Kozlowski wrote:
+> On 16/09/2022 21:00, Bjorn Andersson wrote:
+> > From: Bjorn Andersson <bjorn.andersson@linaro.org>
+> > 
+> > Add compatibles for the DisplayPort and Embedded DisplayPort blocks in
+> > Qualcomm SDM845 and SC8280XP platforms.
+> > 
+> > Signed-off-by: Bjorn Andersson <bjorn.andersson@linaro.org>
+> > Signed-off-by: Bjorn Andersson <quic_bjorande@quicinc.com>
 > 
-> Add compatibles for the DisplayPort and Embedded DisplayPort blocks in
-> Qualcomm SDM845 and SC8280XP platforms.
+> No need for quicinc SoB (unless you also take ownership).
 > 
-> Signed-off-by: Bjorn Andersson <bjorn.andersson@linaro.org>
-> Signed-off-by: Bjorn Andersson <quic_bjorande@quicinc.com>
 
-No need for quicinc SoB (unless you also take ownership).
+It's my understanding that both needs to be there. Bjorn @ Linaro
+authored the patch and the author must certify its origin, but as the
+submitter I must certify its origin.
 
-Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>\
+I'm not entirely sure what you mean about taking ownership, I am going
+to pursue getting these patches landed. But it wouldn't be correct for
+new me to claim I authored them.
 
+Regards,
+Bjorn
 
-Best regards,
-Krzysztof
+> Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>\
+> 
+> 
+> Best regards,
+> Krzysztof
