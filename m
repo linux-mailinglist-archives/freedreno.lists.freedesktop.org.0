@@ -2,46 +2,70 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2FAB85BD64A
-	for <lists+freedreno@lfdr.de>; Mon, 19 Sep 2022 23:22:29 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 340D15BDDD1
+	for <lists+freedreno@lfdr.de>; Tue, 20 Sep 2022 09:09:21 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 64EF810E14C;
-	Mon, 19 Sep 2022 21:22:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6EED010E29C;
+	Tue, 20 Sep 2022 07:09:19 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from ams.source.kernel.org (ams.source.kernel.org
- [IPv6:2604:1380:4601:e00::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7D11310E146;
- Mon, 19 Sep 2022 21:22:24 +0000 (UTC)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 0F765B820F4;
- Mon, 19 Sep 2022 21:22:23 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A4394C433D6;
- Mon, 19 Sep 2022 21:22:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1663622541;
- bh=IvWPxgYC8Y7/jKbvrMgvoSlVhNU4G8aj4azB6VTN5qk=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=LDukC2laWLeAS1hTstk3+uI80cx9+0pZ+wPFhhsMNlRE1bu16hMatnmZ1crpFbqt1
- k3tuAb9cL3igaJ1hDw7pjHvCDdVDLLmsBbe8qF07lur0B2xwaCdMINQtpmSO8vGW4c
- Wm8sgUtgNwKfKIY2ok3U8REzvC4BSqFPOn0IFdSj7Nw4tvVH2ISkeHNNXtB698XHbA
- uzxcqMJLg0T1xmOP/eHgGvkLgQDLvJAfLjdQ/w6afxgTGGwuF5TtgJcCpyRafNtP2a
- qbELnhcSynvFccTFurRKvvc8gGi6OMcf1cAYn2a79rBiiIey0Kb9Xl0WsTfpXmYe+Z
- /sx7/IpnsHzsw==
-Date: Mon, 19 Sep 2022 16:22:18 -0500
-From: Bjorn Andersson <andersson@kernel.org>
-To: Jeff Johnson <quic_jjohnson@quicinc.com>
-Message-ID: <20220919212218.chyeo7uga2sitwk7@builder.lan>
-References: <20220916200028.25009-1-quic_bjorande@quicinc.com>
- <20220916200028.25009-6-quic_bjorande@quicinc.com>
- <07b39c97-30be-4e82-044e-51b0d98a5197@quicinc.com>
+Received: from mail-lj1-x22a.google.com (mail-lj1-x22a.google.com
+ [IPv6:2a00:1450:4864:20::22a])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8391510E14E
+ for <freedreno@lists.freedesktop.org>; Tue, 20 Sep 2022 07:09:16 +0000 (UTC)
+Received: by mail-lj1-x22a.google.com with SMTP id l12so1851823ljg.9
+ for <freedreno@lists.freedesktop.org>; Tue, 20 Sep 2022 00:09:16 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date;
+ bh=Wo8uP5ffgZyZWYK9afaO+p/W/5Kwf864osF/ckvXkRg=;
+ b=grzro9B7+WgfVf2xBiNjkxTYALekfROadRmRfJuBoGy5IpiijPZGNUGpa2HgNc+O52
+ gtc0da8IZopEEne89hAZlYzfr9DGVMejFi1IJejkP23YUHixyjYVebTZDFQo8nQhHwvY
+ U1UnDmZbIGF/4WgyGLcWn/7vwina3T/z4WzHdVWwdL1T8AaIiS3kx8NSnqq8P4nkdVp+
+ KkxzpFx3UUa91XTE0ZHVaevoiZtw3FkGLvHJBr4qv9jK16plWRc0jy+tfyul0TuMMqRa
+ X3jz1lCo0/Hl8QGGXedKkpK7GCjKz5VX1Cfpc4Y0jB3phALjZWKNg/ucfpHL+H6jrVkZ
+ 6ctA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date;
+ bh=Wo8uP5ffgZyZWYK9afaO+p/W/5Kwf864osF/ckvXkRg=;
+ b=flqis+fvmwqHWdJtW1WoxG6aHoPMU8SxTcbiUMhuzF+tiUNZBvREgEBoZ9/Ex+EZSf
+ TgHv4fDP3q2t9RmRfwEJrJoL7Hb4PoW9YhAP6oda6uwezeKZhlw1ULWI7u8aKC6npPq/
+ wysdGfn64jdmxWlNZQR3dBgQz1eJ7qKRT3EbO2t4Q4XlADDTQWHU02ATSdwdXmHlH2Ai
+ tqtoHjXX6M/49IPIhf/4kyjJxMqvg3TnE9OlBCszN0lBZwZ/tSyiFQTLfCS8Kqv4WLqI
+ cH5eY+1l3eQqz2ZkuYpOq7eOFhCFnf5rWcp7dMGTnkNKPEZ2iWeTqpVj4zUFrijAwZny
+ OIyw==
+X-Gm-Message-State: ACrzQf2EqJ2yBQ/xG1GxLbrg6/4Sqse+me4aOw5uE+Pzxhba3hg81QL/
+ j6U8PAhe7OOBVu5wuvP1bloi8A==
+X-Google-Smtp-Source: AMsMyM5k368tciyRffIEz9KEI7TXQB6utOD+AnJuFSrX4KDaWv/fY/Ol3hSX1jO8ZUTskHXRihVDqg==
+X-Received: by 2002:a05:651c:50b:b0:26c:2962:bf1e with SMTP id
+ o11-20020a05651c050b00b0026c2962bf1emr6119083ljp.343.1663657754595; 
+ Tue, 20 Sep 2022 00:09:14 -0700 (PDT)
+Received: from [192.168.0.21] (78-11-189-27.static.ip.netia.com.pl.
+ [78.11.189.27]) by smtp.gmail.com with ESMTPSA id
+ i189-20020a2e22c6000000b0026c1b85d8b3sm113960lji.34.2022.09.20.00.09.13
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 20 Sep 2022 00:09:13 -0700 (PDT)
+Message-ID: <6b242b44-b657-c7a6-63ca-465c7031376f@linaro.org>
+Date: Tue, 20 Sep 2022 09:09:13 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <07b39c97-30be-4e82-044e-51b0d98a5197@quicinc.com>
-Subject: Re: [Freedreno] [PATCH v2 5/7] drm/msm/dp: Implement hpd_notify()
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.13.0
+Content-Language: en-US
+To: Bjorn Andersson <andersson@kernel.org>
+References: <20220916200028.25009-1-quic_bjorande@quicinc.com>
+ <20220916200028.25009-2-quic_bjorande@quicinc.com>
+ <1641e41c-08c7-859b-644a-28d966fb00f3@linaro.org>
+ <20220919211832.6b3buqxrnfp6yjjg@builder.lan>
+From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+In-Reply-To: <20220919211832.6b3buqxrnfp6yjjg@builder.lan>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+Subject: Re: [Freedreno] [PATCH v2 1/7] dt-bindings: msm/dp: Add SDM845 and
+ SC8280XP compatibles
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,19 +91,42 @@ Cc: devicetree@vger.kernel.org,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Fri, Sep 16, 2022 at 02:17:30PM -0700, Jeff Johnson wrote:
-> On 9/16/2022 1:00 PM, Bjorn Andersson wrote:
-> > From: Bjorn Andersson <bjorn.andersson@linaro.org>
-> > 
-> > The DisplayPort controller's hot-plug mechanism is based on pinmuxing a
-> > physical signal no a GPIO pin into the controller. This is not always
+On 19/09/2022 23:18, Bjorn Andersson wrote:
+> On Sat, Sep 17, 2022 at 06:03:27PM +0100, Krzysztof Kozlowski wrote:
+>> On 16/09/2022 21:00, Bjorn Andersson wrote:
+>>> From: Bjorn Andersson <bjorn.andersson@linaro.org>
+>>>
+>>> Add compatibles for the DisplayPort and Embedded DisplayPort blocks in
+>>> Qualcomm SDM845 and SC8280XP platforms.
+>>>
+>>> Signed-off-by: Bjorn Andersson <bjorn.andersson@linaro.org>
+>>> Signed-off-by: Bjorn Andersson <quic_bjorande@quicinc.com>
+>>
+>> No need for quicinc SoB (unless you also take ownership).
+>>
 > 
-> nit: s/ no / on /?
-> 
+> It's my understanding that both needs to be there. Bjorn @ Linaro
+> authored the patch and the author must certify its origin, but as the
+> submitter I must certify its origin.
 
-Correct, thank you Jeff.
+It's the same person. There are no two Bjorns (unless there are :) ), so
+you certify with old email. SoB chain is coming from people, not email
+addresses.
 
-> > possible, either because there aren't dedicated GPIOs available or
-> > because the hot-plug signal is a virtual notification, in cases such as
-> > USB Type-C.
+And it is not only my understanding of SoB chain.
+https://lore.kernel.org/all/YuKcBO5JatwRYQJ3@kroah.com/
+
 > 
+> I'm not entirely sure what you mean about taking ownership, 
+
+I meant you to be the author of the commit.
+
+> I am going
+> to pursue getting these patches landed. But it wouldn't be correct for
+> new me to claim I authored them.
+
+Yeah, that's true.
+
+
+Best regards,
+Krzysztof
