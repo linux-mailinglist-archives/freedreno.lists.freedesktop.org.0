@@ -2,70 +2,48 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 340D15BDDD1
-	for <lists+freedreno@lfdr.de>; Tue, 20 Sep 2022 09:09:21 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 27E015BE15F
+	for <lists+freedreno@lfdr.de>; Tue, 20 Sep 2022 11:06:33 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6EED010E29C;
-	Tue, 20 Sep 2022 07:09:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 80D6010E4AD;
+	Tue, 20 Sep 2022 09:06:31 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-x22a.google.com (mail-lj1-x22a.google.com
- [IPv6:2a00:1450:4864:20::22a])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8391510E14E
- for <freedreno@lists.freedesktop.org>; Tue, 20 Sep 2022 07:09:16 +0000 (UTC)
-Received: by mail-lj1-x22a.google.com with SMTP id l12so1851823ljg.9
- for <freedreno@lists.freedesktop.org>; Tue, 20 Sep 2022 00:09:16 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date;
- bh=Wo8uP5ffgZyZWYK9afaO+p/W/5Kwf864osF/ckvXkRg=;
- b=grzro9B7+WgfVf2xBiNjkxTYALekfROadRmRfJuBoGy5IpiijPZGNUGpa2HgNc+O52
- gtc0da8IZopEEne89hAZlYzfr9DGVMejFi1IJejkP23YUHixyjYVebTZDFQo8nQhHwvY
- U1UnDmZbIGF/4WgyGLcWn/7vwina3T/z4WzHdVWwdL1T8AaIiS3kx8NSnqq8P4nkdVp+
- KkxzpFx3UUa91XTE0ZHVaevoiZtw3FkGLvHJBr4qv9jK16plWRc0jy+tfyul0TuMMqRa
- X3jz1lCo0/Hl8QGGXedKkpK7GCjKz5VX1Cfpc4Y0jB3phALjZWKNg/ucfpHL+H6jrVkZ
- 6ctA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date;
- bh=Wo8uP5ffgZyZWYK9afaO+p/W/5Kwf864osF/ckvXkRg=;
- b=flqis+fvmwqHWdJtW1WoxG6aHoPMU8SxTcbiUMhuzF+tiUNZBvREgEBoZ9/Ex+EZSf
- TgHv4fDP3q2t9RmRfwEJrJoL7Hb4PoW9YhAP6oda6uwezeKZhlw1ULWI7u8aKC6npPq/
- wysdGfn64jdmxWlNZQR3dBgQz1eJ7qKRT3EbO2t4Q4XlADDTQWHU02ATSdwdXmHlH2Ai
- tqtoHjXX6M/49IPIhf/4kyjJxMqvg3TnE9OlBCszN0lBZwZ/tSyiFQTLfCS8Kqv4WLqI
- cH5eY+1l3eQqz2ZkuYpOq7eOFhCFnf5rWcp7dMGTnkNKPEZ2iWeTqpVj4zUFrijAwZny
- OIyw==
-X-Gm-Message-State: ACrzQf2EqJ2yBQ/xG1GxLbrg6/4Sqse+me4aOw5uE+Pzxhba3hg81QL/
- j6U8PAhe7OOBVu5wuvP1bloi8A==
-X-Google-Smtp-Source: AMsMyM5k368tciyRffIEz9KEI7TXQB6utOD+AnJuFSrX4KDaWv/fY/Ol3hSX1jO8ZUTskHXRihVDqg==
-X-Received: by 2002:a05:651c:50b:b0:26c:2962:bf1e with SMTP id
- o11-20020a05651c050b00b0026c2962bf1emr6119083ljp.343.1663657754595; 
- Tue, 20 Sep 2022 00:09:14 -0700 (PDT)
-Received: from [192.168.0.21] (78-11-189-27.static.ip.netia.com.pl.
- [78.11.189.27]) by smtp.gmail.com with ESMTPSA id
- i189-20020a2e22c6000000b0026c1b85d8b3sm113960lji.34.2022.09.20.00.09.13
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 20 Sep 2022 00:09:13 -0700 (PDT)
-Message-ID: <6b242b44-b657-c7a6-63ca-465c7031376f@linaro.org>
-Date: Tue, 20 Sep 2022 09:09:13 +0200
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 544C810E4AF;
+ Tue, 20 Sep 2022 09:06:29 +0000 (UTC)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id B24C36274A;
+ Tue, 20 Sep 2022 09:06:28 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 18E58C433D6;
+ Tue, 20 Sep 2022 09:06:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1663664788;
+ bh=6pYIi9glaYZlye/aQHBoMpVkZ1qcD8dJmGfOqYp0ROA=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=fUD8S2gvOniifTyASmpBcDPIJdMlH8cRZA4WNglMYAr0pYRbk+Zw4hK34lc+dq20g
+ I51hhRJ9LhYOzCL/W3aridwhiHSOGHKpEibeUa6BYHz7PrE3D072LoJ8eWqt2ywMHy
+ oiPv4Dl5cuEuMknH2wHA7UGt/l2rw75KZrz0oF9k69yFtgkUbhkMsxbCFxn4POyG7W
+ J2fN42NBPcPXPdQsiOE2Sa2mR+zPMVr9qxbsT5hU9SLMcnxECbTwlp2uICH5vFAtPV
+ GeNPbY959ihZSBZmuOFuL3Tl3tS1nXoFHezTwXXvvN9ZlS1hsgtBARVHQMUm1mb85f
+ k8PuqZSa7AOxg==
+Received: from johan by xi.lan with local (Exim 4.94.2)
+ (envelope-from <johan@kernel.org>)
+ id 1oaZD4-0002LH-9A; Tue, 20 Sep 2022 11:06:30 +0200
+Date: Tue, 20 Sep 2022 11:06:30 +0200
+From: Johan Hovold <johan@kernel.org>
+To: Douglas Anderson <dianders@chromium.org>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>
+Message-ID: <YymCll02tRIMb+9Z@hovoldconsulting.com>
+References: <20220913085320.8577-1-johan+linaro@kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.13.0
-Content-Language: en-US
-To: Bjorn Andersson <andersson@kernel.org>
-References: <20220916200028.25009-1-quic_bjorande@quicinc.com>
- <20220916200028.25009-2-quic_bjorande@quicinc.com>
- <1641e41c-08c7-859b-644a-28d966fb00f3@linaro.org>
- <20220919211832.6b3buqxrnfp6yjjg@builder.lan>
-From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-In-Reply-To: <20220919211832.6b3buqxrnfp6yjjg@builder.lan>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH v2 1/7] dt-bindings: msm/dp: Add SDM845 and
- SC8280XP compatibles
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20220913085320.8577-1-johan+linaro@kernel.org>
+Subject: Re: [Freedreno] [PATCH v2 00/10] drm/msm: probe deferral fixes
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,55 +56,59 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: devicetree@vger.kernel.org,
- Sankeerth Billakanti <quic_sbillaka@quicinc.com>,
- Bjorn Andersson <quic_bjorande@quicinc.com>, linux-arm-msm@vger.kernel.org,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
- Stephen Boyd <swboyd@chromium.org>, Rob Clark <robdclark@gmail.com>,
- Rob Herring <robh+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Kuogee Hsieh <quic_khsieh@quicinc.com>, freedreno@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
+Cc: dri-devel@lists.freedesktop.org, Neil Armstrong <neil.armstrong@linaro.org>,
+ Daniel Vetter <daniel@ffwll.ch>, Jonas Karlman <jonas@kwiboo.se>,
+ linux-arm-msm@vger.kernel.org, Bjorn Andersson <andersson@kernel.org>,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Jernej Skrabec <jernej.skrabec@gmail.com>, Stephen Boyd <swboyd@chromium.org>,
+ Robert Foss <robert.foss@linaro.org>, Andrzej Hajda <andrzej.hajda@intel.com>,
+ Manivannan Sadhasivam <manivannan.sadhasivam@linaro.org>,
+ Kuogee Hsieh <quic_khsieh@quicinc.com>, Sean Paul <sean@poorly.run>,
+ Steev Klimaszewski <steev@kali.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 19/09/2022 23:18, Bjorn Andersson wrote:
-> On Sat, Sep 17, 2022 at 06:03:27PM +0100, Krzysztof Kozlowski wrote:
->> On 16/09/2022 21:00, Bjorn Andersson wrote:
->>> From: Bjorn Andersson <bjorn.andersson@linaro.org>
->>>
->>> Add compatibles for the DisplayPort and Embedded DisplayPort blocks in
->>> Qualcomm SDM845 and SC8280XP platforms.
->>>
->>> Signed-off-by: Bjorn Andersson <bjorn.andersson@linaro.org>
->>> Signed-off-by: Bjorn Andersson <quic_bjorande@quicinc.com>
->>
->> No need for quicinc SoB (unless you also take ownership).
->>
+On Tue, Sep 13, 2022 at 10:53:10AM +0200, Johan Hovold wrote:
+> The MSM DRM driver is currently broken in multiple ways with respect to
+> probe deferral. Not only does the driver currently fail to probe again
+> after a late deferral, but due to a related use-after-free bug this also
+> triggers NULL-pointer dereferences.
 > 
-> It's my understanding that both needs to be there. Bjorn @ Linaro
-> authored the patch and the author must certify its origin, but as the
-> submitter I must certify its origin.
-
-It's the same person. There are no two Bjorns (unless there are :) ), so
-you certify with old email. SoB chain is coming from people, not email
-addresses.
-
-And it is not only my understanding of SoB chain.
-https://lore.kernel.org/all/YuKcBO5JatwRYQJ3@kroah.com/
-
+> These bugs are not new but have become critical with the release of
+> 5.19 where probe is deferred in case the aux-bus EP panel driver has not
+> yet been loaded.
 > 
-> I'm not entirely sure what you mean about taking ownership, 
+> The underlying problem is lifetime issues due to careless use of
+> device-managed resources.
 
-I meant you to be the author of the commit.
+Any chance of getting this merged for 6.1?
 
-> I am going
-> to pursue getting these patches landed. But it wouldn't be correct for
-> new me to claim I authored them.
+Johan
 
-Yeah, that's true.
-
-
-Best regards,
-Krzysztof
+> Changes in v2
+>  - use a custom devres action instead of amending the AUX bus interface
+>    (Doug)
+>  - split sanity check fixes and cleanups per bridge type (Dmitry)
+>  - add another Fixes tag for the missing bridge counter reset (Dmitry)
+> 
+> 
+> Johan Hovold (10):
+>   drm/msm: fix use-after-free on probe deferral
+>   drm/msm/dp: fix memory corruption with too many bridges
+>   drm/msm/dsi: fix memory corruption with too many bridges
+>   drm/msm/hdmi: fix memory corruption with too many bridges
+>   drm/msm/dp: fix IRQ lifetime
+>   drm/msm/dp: fix aux-bus EP lifetime
+>   drm/msm/dp: fix bridge lifetime
+>   drm/msm/hdmi: fix IRQ lifetime
+>   drm/msm/dp: drop modeset sanity checks
+>   drm/msm/dsi: drop modeset sanity checks
+> 
+>  drivers/gpu/drm/msm/dp/dp_display.c | 26 +++++++++++++++++++-------
+>  drivers/gpu/drm/msm/dp/dp_parser.c  |  6 +++---
+>  drivers/gpu/drm/msm/dp/dp_parser.h  |  5 +++--
+>  drivers/gpu/drm/msm/dsi/dsi.c       |  9 +++++----
+>  drivers/gpu/drm/msm/hdmi/hdmi.c     |  7 ++++++-
+>  drivers/gpu/drm/msm/msm_drv.c       |  1 +
+>  6 files changed, 37 insertions(+), 17 deletions(-)
