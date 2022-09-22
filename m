@@ -2,59 +2,59 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 71CFD5E5FED
-	for <lists+freedreno@lfdr.de>; Thu, 22 Sep 2022 12:31:17 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B25E65E610E
+	for <lists+freedreno@lfdr.de>; Thu, 22 Sep 2022 13:30:33 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2129310EAAA;
-	Thu, 22 Sep 2022 10:31:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 24A8610EAC9;
+	Thu, 22 Sep 2022 11:30:29 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-yw1-x1134.google.com (mail-yw1-x1134.google.com
- [IPv6:2607:f8b0:4864:20::1134])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E6D3D10EAB2
- for <freedreno@lists.freedesktop.org>; Thu, 22 Sep 2022 10:31:10 +0000 (UTC)
-Received: by mail-yw1-x1134.google.com with SMTP id
- 00721157ae682-3487d84e477so93791307b3.6
- for <freedreno@lists.freedesktop.org>; Thu, 22 Sep 2022 03:31:10 -0700 (PDT)
+Received: from mail-lf1-x132.google.com (mail-lf1-x132.google.com
+ [IPv6:2a00:1450:4864:20::132])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CB50C10EAC9
+ for <freedreno@lists.freedesktop.org>; Thu, 22 Sep 2022 11:30:22 +0000 (UTC)
+Received: by mail-lf1-x132.google.com with SMTP id s6so14148025lfo.7
+ for <freedreno@lists.freedesktop.org>; Thu, 22 Sep 2022 04:30:22 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date;
- bh=d1av7JNMJ6QwTEI5A+nW9Rk600pfta4mmcFg/bbQiuo=;
- b=nBL924xLyfUXAgRFsh04SP05n+QQwtwageFeiNxabLE5C0mEZHnupcMC+OY9wi/HGh
- tJmRJjWXw1SogxmaaEt4jKRDs10PeSnipsGbgYKzwv18Fa5TBnNej70jo4w6XCtUgXsn
- o69nEfGQzMUamMyQRLnWpVK+PJF+JaiWvg31oNBzX/t2LUGDZntbfaPlZf1KYlYmOX0+
- /9Qy1cfykD3Wll8VH5Uq5L+XYwS7agLI3NqOo5ccYKRn0l9pZcv7rqkSLeK6BosZ6lmp
- icRYT4VdMPFZ5WOQbknmTaj55zhG4zpRZoainwe3kOEmq2uVJ5kwlZ7QWBLlALcvznmK
- 6ITg==
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date;
+ bh=LkD3jQHv+BqRf+/+wzrmLIW7XBT4WmGJ2Xf+6E77lbU=;
+ b=EmtmBvgk03neDgJ3f0flqzedS12sROzDs2hrEQcsMUfzzTzJpsPSysdCvsqAToun04
+ nmpeO7tHEXZ8mjegUQUYcGnvhNFXsMIxGGz8GwpTOOtpPhZf+AY/8xnBksAnXc3D4tya
+ QN3ErhT9ooWRb7jDXBETIlpF5qYURJ8P517kXZ+3Wr36kLAJMMmuOjotIt6TBaZWIoQ1
+ pEcAjNGvygroxJL6Vx5gbG82nYZNzh2MIxdOZ/vCwnAmegjfx8NXQmLxe1AXK5dd1zDS
+ Mq507ehG+YD9PqiBjcnH6UdrOYkn2jU43/aGdnAcGykWx3+Rm0fUMih8giZK+bDL+11D
+ s33g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date;
- bh=d1av7JNMJ6QwTEI5A+nW9Rk600pfta4mmcFg/bbQiuo=;
- b=SrqaF3FkGfA9UM2YTt8qwhHcPpHpjoOGL50/gqYwXj8WBxP9YBA3N68VeRJ9TGnYjF
- zgPZZdH6opLvuL1OOcqJuEVkLyDXmUyoVPADqR0pWU3f7ayHEQm00hLAWBRFUCoTgNcl
- upMenvNmjW0i6aFl304zAWTdOZFN1bCQUJoyCDBfQEGhZ/3Z24JvZM3ut/niXiKsI/0Z
- ZB5gwaLbHCype+zCTN9Gj4csXFjzl0KiMUNo3cxO6SE8Tfv5FJEw1OExCCJR5+aymM6o
- YV954vfl/3dREgDFXnb6znocCcoOHvrzK5wFi42LB4q1ZR1/jDI1pveiHdDkClO+zMx4
- v1gw==
-X-Gm-Message-State: ACrzQf2PUAopcA/gPgkrUmL6Hh1kDzMN6TDkxy1QSMnrKpRa2sq2fvMT
- g1edr6WSGR9McXqk/bLYkgm07TyLA0EkpsOLebUhrQ==
-X-Google-Smtp-Source: AMsMyM7/FLhzfPLVrzX6fdQx3rCLzT0b0rSr+zIV+FjyFzomBRy5lMomrZlXpUUAwi4rIUtGZNFSQ7XkNd71WtkEp1o=
-X-Received: by 2002:a81:1e0d:0:b0:33b:fb67:9895 with SMTP id
- e13-20020a811e0d000000b0033bfb679895mr2367129ywe.188.1663842670066; Thu, 22
- Sep 2022 03:31:10 -0700 (PDT)
-MIME-Version: 1.0
-References: <20220915133742.115218-1-dmitry.baryshkov@linaro.org>
- <20220915133742.115218-7-dmitry.baryshkov@linaro.org>
- <94bc039f-065e-ebfa-e09b-7fdb5f4be89b@linaro.org>
-In-Reply-To: <94bc039f-065e-ebfa-e09b-7fdb5f4be89b@linaro.org>
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date;
+ bh=LkD3jQHv+BqRf+/+wzrmLIW7XBT4WmGJ2Xf+6E77lbU=;
+ b=K/6g6GVu2xmg5I9KqqU9ZBVxeWNPjvilNaV13JP05/eE+Eija+0YNlnEu/Bm+6XE0Q
+ uRCjppYaNfmqRbFYUOb0QT9MgnBLSj8Ol8QmdYXOH/eOPs+XGbdHVC9veLt5q01xSpe9
+ yRawzTbXBJ+IPkHjE3+YHDKZaRWgGWtChQjwZk2EhnVF/fACV0Oy4R+Ref0Fuzen9YFr
+ VGcTN94+rhaTd314Y5B6WQoEl+K8hxAYKHWUrFxg8A17bZH+vcBeDe/miQdQo9l9MzYO
+ xaDqryAoFZLpvTw7qTMeFlOWytRP+UD3rsbiN/m3+9hzshVKPDH9Mr+5SCPvSdxrE57A
+ s8Zg==
+X-Gm-Message-State: ACrzQf3puTJQ4obQg9pXT7OMCruVRMRDZQUJqRoEKuSI2BkBNNUKJElv
+ bEoJSVxKXPE4ojye1PGjjTv0Vg==
+X-Google-Smtp-Source: AMsMyM5jLmRmuevxV1Zx6hXKJA7EoRFNvQ6KFDnrrY5fz9Q6cTAco/grcQKWL13VONg0Qb8Md9dvWQ==
+X-Received: by 2002:a05:6512:118b:b0:492:e3c4:a164 with SMTP id
+ g11-20020a056512118b00b00492e3c4a164mr1125188lfr.598.1663846218309; 
+ Thu, 22 Sep 2022 04:30:18 -0700 (PDT)
+Received: from eriador.lan ([37.153.55.125]) by smtp.gmail.com with ESMTPSA id
+ c4-20020ac25304000000b004996fbfd75esm898527lfh.71.2022.09.22.04.30.17
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 22 Sep 2022 04:30:17 -0700 (PDT)
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Thu, 22 Sep 2022 13:30:59 +0300
-Message-ID: <CAA8EJppqxMvn+bpHQ-49nBw6esdgRyft4aPj2410bq2tbL=94w@mail.gmail.com>
-To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [PATCH v7 06/12] dt-bindings: display/msm: split
- dpu-sc7180 into DPU and MDSS parts
+To: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>
+Date: Thu, 22 Sep 2022 14:30:11 +0300
+Message-Id: <20220922113016.355188-1-dmitry.baryshkov@linaro.org>
+X-Mailer: git-send-email 2.35.1
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Subject: [Freedreno] [PATCH 0/5] drm/msm: add support for SM8450
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,225 +67,35 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: devicetree@vger.kernel.org, Daniel Vetter <daniel@ffwll.ch>,
- David Airlie <airlied@linux.ie>, linux-arm-msm@vger.kernel.org,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konrad.dybcio@somainline.org>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, Rob Herring <robh+dt@kernel.org>,
- Stephen Boyd <swboyd@chromium.org>, Rob Clark <robdclark@gmail.com>,
- Andy Gross <agross@kernel.org>, dri-devel@lists.freedesktop.org,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- freedreno@lists.freedesktop.org, Sean Paul <sean@poorly.run>
+Cc: David Airlie <airlied@linux.ie>, linux-arm-msm@vger.kernel.org,
+ Bjorn Andersson <andersson@kernel.org>, dri-devel@lists.freedesktop.org,
+ Stephen Boyd <swboyd@chromium.org>, Daniel Vetter <daniel@ffwll.ch>,
+ freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Thu, 22 Sept 2022 at 10:08, Krzysztof Kozlowski
-<krzysztof.kozlowski@linaro.org> wrote:
->
-> On 15/09/2022 15:37, Dmitry Baryshkov wrote:
-> > In order to make the schema more readable, split dpu-sc7180 into the DPU
-> > and MDSS parts, each one describing just a single device binding.
-> >
-> > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
->
->
-> Thank you for your patch. There is something to discuss/improve.
->
-> > +---
-> > +$id: http://devicetree.org/schemas/display/msm/qcom,sc7180-dpu.yaml#
-> > +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> > +
-> > +title: Qualcomm Display DPU dt properties for SC7180 target
-> > +
-> > +maintainers:
-> > +  - Krishna Manikandan <quic_mkrishn@quicinc.com>
-> > +
->
-> missing allOf
->
-> > +$ref: /schemas/display/msm/dpu-common.yaml#
-> > +
-> > +properties:
-> > +  compatible:
-> > +    items:
-> > +      - const: qcom,sc7180-dpu
-> > +
-> > +  reg:
-> > +    items:
-> > +      - description: Address offset and size for mdp register set
-> > +      - description: Address offset and size for vbif register set
-> > +
-> > +  reg-names:
-> > +    items:
-> > +      - const: mdp
-> > +      - const: vbif
-> > +
-> > +  clocks:
-> > +    items:
-> > +      - description: Display hf axi clock
-> > +      - description: Display ahb clock
-> > +      - description: Display rotator clock
-> > +      - description: Display lut clock
-> > +      - description: Display core clock
-> > +      - description: Display vsync clock
-> > +
-> > +  clock-names:
-> > +    items:
-> > +      - const: bus
-> > +      - const: iface
-> > +      - const: rot
-> > +      - const: lut
-> > +      - const: core
-> > +      - const: vsync
-> > +
-> > +unevaluatedProperties: false
-> > +
-> > +examples:
-> > +  - |
-> > +    #include <dt-bindings/clock/qcom,dispcc-sc7180.h>
-> > +    #include <dt-bindings/clock/qcom,gcc-sc7180.h>
-> > +    #include <dt-bindings/power/qcom-rpmpd.h>
-> > +
-> > +    display-controller@ae01000 {
-> > +        compatible = "qcom,sc7180-dpu";
-> > +        reg = <0x0ae01000 0x8f000>,
-> > +              <0x0aeb0000 0x2008>;
-> > +
-> > +        reg-names = "mdp", "vbif";
-> > +
-> > +        clocks = <&gcc GCC_DISP_HF_AXI_CLK>,
-> > +                 <&dispcc DISP_CC_MDSS_AHB_CLK>,
-> > +                 <&dispcc DISP_CC_MDSS_ROT_CLK>,
-> > +                 <&dispcc DISP_CC_MDSS_MDP_LUT_CLK>,
-> > +                 <&dispcc DISP_CC_MDSS_MDP_CLK>,
-> > +                 <&dispcc DISP_CC_MDSS_VSYNC_CLK>;
-> > +        clock-names = "bus", "iface", "rot", "lut", "core",
-> > +                      "vsync";
-> > +
-> > +        interrupt-parent = <&mdss>;
-> > +        interrupts = <0>;
-> > +        power-domains = <&rpmhpd SC7180_CX>;
-> > +        operating-points-v2 = <&mdp_opp_table>;
-> > +
-> > +        ports {
-> > +            #address-cells = <1>;
-> > +            #size-cells = <0>;
-> > +
-> > +            port@0 {
-> > +                reg = <0>;
-> > +                endpoint {
-> > +                    remote-endpoint = <&dsi0_in>;
-> > +                };
-> > +            };
-> > +
-> > +            port@2 {
-> > +                reg = <2>;
-> > +                endpoint {
-> > +                    remote-endpoint = <&dp_in>;
-> > +                };
-> > +            };
-> > +        };
-> > +    };
-> > +...
-> > diff --git a/Documentation/devicetree/bindings/display/msm/qcom,sc7180-mdss.yaml b/Documentation/devicetree/bindings/display/msm/qcom,sc7180-mdss.yaml
-> > new file mode 100644
-> > index 000000000000..e507c091b60f
-> > --- /dev/null
-> > +++ b/Documentation/devicetree/bindings/display/msm/qcom,sc7180-mdss.yaml
-> > @@ -0,0 +1,84 @@
-> > +# SPDX-License-Identifier: GPL-2.0-only or BSD-2-Clause
-> > +%YAML 1.2
-> > +---
-> > +$id: http://devicetree.org/schemas/display/msm/qcom,sc7180-mdss.yaml#
-> > +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> > +
-> > +title: Qualcomm SC7180 Display MDSS
-> > +
-> > +maintainers:
-> > +  - Krishna Manikandan <quic_mkrishn@quicinc.com>
-> > +
-> > +description:
-> > +  Device tree bindings for MSM Mobile Display Subsystem(MDSS) that encapsulates
-> > +  sub-blocks like DPU display controller, DSI and DP interfaces etc. Device tree
-> > +  bindings of MDSS are mentioned for SC7180 target.
-> > +
->
-> missing allOf.
->
-> > +$ref: /schemas/display/msm/mdss-common.yaml#
-> > +
-> > +properties:
-> > +  compatible:
-> > +    items:
-> > +      - const: qcom,sc7180-mdss
-> > +
-> > +  clocks:
-> > +    items:
-> > +      - description: Display AHB clock from gcc
-> > +      - description: Display AHB clock from dispcc
-> > +      - description: Display core clock
-> > +
-> > +  clock-names:
-> > +    items:
-> > +      - const: iface
-> > +      - const: ahb
-> > +      - const: core
-> > +
-> > +  iommus:
-> > +    maxItems: 1
-> > +
-> > +  interconnects:
-> > +    maxItems: 1
-> > +
-> > +  interconnect-names:
-> > +    maxItems: 1
-> > +
-> > +patternProperties:
-> > +  "^display-controller@[0-9a-f]+$":
-> > +    type: object
-> > +    properties:
-> > +      compatible:
-> > +        const: qcom,sc7180-dpu
-> > +
-> > +unevaluatedProperties: false
-> > +
-> > +examples:
-> > +  - |
-> > +    #include <dt-bindings/clock/qcom,dispcc-sc7180.h>
-> > +    #include <dt-bindings/clock/qcom,gcc-sc7180.h>
-> > +    #include <dt-bindings/interrupt-controller/arm-gic.h>
-> > +    #include <dt-bindings/interconnect/qcom,sdm845.h>
-> > +    #include <dt-bindings/power/qcom-rpmpd.h>
-> > +
-> > +    display-subsystem@ae00000 {
-> > +        #address-cells = <1>;
-> > +        #size-cells = <1>;
-> > +        compatible = "qcom,sc7180-mdss";
-> > +        reg = <0xae00000 0x1000>;
-> > +        reg-names = "mdss";
-> > +        power-domains = <&dispcc MDSS_GDSC>;
-> > +        clocks = <&gcc GCC_DISP_AHB_CLK>,
-> > +                 <&dispcc DISP_CC_MDSS_AHB_CLK>,
-> > +                 <&dispcc DISP_CC_MDSS_MDP_CLK>;
-> > +        clock-names = "iface", "ahb", "core";
-> > +
-> > +        interrupts = <GIC_SPI 83 IRQ_TYPE_LEVEL_HIGH>;
-> > +        interrupt-controller;
-> > +        #interrupt-cells = <1>;
-> > +
-> > +        interconnects = <&mmss_noc MASTER_MDP0 &mc_virt SLAVE_EBI1>;
-> > +        interconnect-names = "mdp0-mem";
-> > +
-> > +        iommus = <&apps_smmu 0x800 0x2>;
-> > +        ranges;
->
-> This should come with full example, so with display-controller child
-> (unless Rob asked not to?)
+This adds support for the MDSS/DPU/DSI on the Qualcomm SM8450 platform.
 
-I'm not sure here. We have an example of a display-controller in a
-separate schema file. Why would you like to duplicate it?
+Dmitry Baryshkov (5):
+  drm/msm/dsi: add support for DSI-PHY on SM8350 and SM8450
+  drm/msm/dsi: add support for DSI 2.6.0
+  drm/msm/dpu: add support for MDP_TOP blackhole
+  drm/msm/dpu: add support for SM8450
+  drm/msm: mdss add support for SM8450
 
+ drivers/gpu/drm/msm/Kconfig                   |   6 +-
+ .../gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c    | 224 ++++++++++++++++++
+ .../gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h    |   2 +
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_mdss.h   |   3 +
+ drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c       |  12 +-
+ drivers/gpu/drm/msm/dsi/dsi_cfg.c             |   2 +
+ drivers/gpu/drm/msm/dsi/dsi_cfg.h             |   1 +
+ drivers/gpu/drm/msm/dsi/phy/dsi_phy.c         |   4 +
+ drivers/gpu/drm/msm/dsi/phy/dsi_phy.h         |   2 +
+ drivers/gpu/drm/msm/dsi/phy/dsi_phy_7nm.c     | 132 ++++++++++-
+ drivers/gpu/drm/msm/msm_mdss.c                |   8 +
+ 11 files changed, 381 insertions(+), 15 deletions(-)
 
 -- 
-With best wishes
-Dmitry
+2.35.1
+
