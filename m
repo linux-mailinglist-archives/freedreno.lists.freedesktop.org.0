@@ -1,46 +1,73 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 250D55E662A
-	for <lists+freedreno@lfdr.de>; Thu, 22 Sep 2022 16:51:18 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id D2AA55E6746
+	for <lists+freedreno@lfdr.de>; Thu, 22 Sep 2022 17:37:47 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C7B5410E20D;
-	Thu, 22 Sep 2022 14:51:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 97DB110E3D1;
+	Thu, 22 Sep 2022 15:37:46 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from szxga01-in.huawei.com (szxga01-in.huawei.com [45.249.212.187])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6C2F010E36A;
- Thu, 22 Sep 2022 13:48:18 +0000 (UTC)
-Received: from dggpemm500022.china.huawei.com (unknown [172.30.72.57])
- by szxga01-in.huawei.com (SkyGuard) with ESMTP id 4MYGj05XQWzlWvP;
- Thu, 22 Sep 2022 21:44:04 +0800 (CST)
-Received: from dggpemm100009.china.huawei.com (7.185.36.113) by
- dggpemm500022.china.huawei.com (7.185.36.162) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2375.31; Thu, 22 Sep 2022 21:48:13 +0800
-Received: from huawei.com (10.175.113.32) by dggpemm100009.china.huawei.com
- (7.185.36.113) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.31; Thu, 22 Sep
- 2022 21:48:12 +0800
-From: Liu Shixin <liushixin2@huawei.com>
-To: Rob Clark <robdclark@gmail.com>, Abhinav Kumar
- <quic_abhinavk@quicinc.com>, Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Sean Paul <sean@poorly.run>, David Airlie <airlied@linux.ie>, Daniel Vetter
- <daniel@ffwll.ch>
-Date: Thu, 22 Sep 2022 22:21:47 +0800
-Message-ID: <20220922142147.3246649-1-liushixin2@huawei.com>
-X-Mailer: git-send-email 2.25.1
+Received: from mail-lf1-x12e.google.com (mail-lf1-x12e.google.com
+ [IPv6:2a00:1450:4864:20::12e])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4178010E3D1
+ for <freedreno@lists.freedesktop.org>; Thu, 22 Sep 2022 15:37:43 +0000 (UTC)
+Received: by mail-lf1-x12e.google.com with SMTP id j16so15356025lfg.1
+ for <freedreno@lists.freedesktop.org>; Thu, 22 Sep 2022 08:37:43 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date;
+ bh=zdGItr5ICc4vlhS3KGwufw/Y8w2UR5ZVlts6EctynGI=;
+ b=cYwW6ohqGr+JtPJ/CQ4fzXi+ot92VVnYo0FHuXQI76jbm8+6lgnVm/+IBi5NLIuAJp
+ kxZ2IXhyaFXUtcVSx6vOBG5nCGulreB7JY3l7+kgMlntGfGGUYdxNf4zhJGDvLfzBNZj
+ yffbR7QxgOGesk1up0TsxpFaSg3SIHIQsGmWH+obHSl6VIRewS62cXjxHRfTYSWhTT4I
+ c14V4UraiU52gm+7TgaCeOQU0hsbgoWEfgHezZ/Ug6+jjqd4WNg/HZoY1Cuc1HX1s6tB
+ 95/xM/6e58bs5qpZu/Eg8t3clreVhFcU9ISgFZVBQNhwZ7Ejl6uMNpLQPjEyZ7ENEv0p
+ bljA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date;
+ bh=zdGItr5ICc4vlhS3KGwufw/Y8w2UR5ZVlts6EctynGI=;
+ b=xefFhSXt0ONH5o2xPu5djYaWtGwfapACBaOJRkG610S2KbmQP6rzmQlMPLk6TCKkLK
+ hgecnuzW1AspxaPt1nPB8RyiGNIhiPYHOflG4djGy/M78UjjdUfWhvR5ThgDVGrmEBtr
+ 1B7maH9NF8zbueC2IJTBdxme1O8OyfBnLkabSPCzrmdTBraI8pwU3FYB2Gsijxfhen+L
+ L+C2tXP7nPhLDQ+ONolynmQBCrvOzzSGUkXzrosa5XClbq0ctSJT0mLRpmxXrYXLRIdN
+ sA/OklX1LITjNIZyHjR4gj0QmqF3s4j9BD1VD+oj/DrSob68KNag4iPMKqMqwZ8EG4Ju
+ W19Q==
+X-Gm-Message-State: ACrzQf1HHvCGCOTcSQszPjz868YCmpCNgRB+fYx34kEYf5K2QgJEx8bP
+ hhc8M/j2Xtd2J8yiOxM3+c7wig==
+X-Google-Smtp-Source: AMsMyM7h9wDWsyUiqMcRTiNhG8QJKDH4ATtOFz8lkYELII3NUCIdQoLWizMQQQXkal5Hd6Zg8Y51zg==
+X-Received: by 2002:a05:6512:2251:b0:496:c3b9:c18d with SMTP id
+ i17-20020a056512225100b00496c3b9c18dmr1389520lfu.403.1663861061448; 
+ Thu, 22 Sep 2022 08:37:41 -0700 (PDT)
+Received: from [192.168.0.21] (78-11-189-27.static.ip.netia.com.pl.
+ [78.11.189.27]) by smtp.gmail.com with ESMTPSA id
+ g4-20020a056512118400b0049f907b9ba9sm982317lfr.226.2022.09.22.08.37.40
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 22 Sep 2022 08:37:40 -0700 (PDT)
+Message-ID: <acd9ff20-a07b-05ab-6f4b-34e3e8b1cae8@linaro.org>
+Date: Thu, 22 Sep 2022 17:37:39 +0200
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.175.113.32]
-X-ClientProxiedBy: dggems702-chm.china.huawei.com (10.3.19.179) To
- dggpemm100009.china.huawei.com (7.185.36.113)
-X-CFilter-Loop: Reflected
-X-Mailman-Approved-At: Thu, 22 Sep 2022 14:51:14 +0000
-Subject: [Freedreno] [PATCH] drm/msm/dpu: use DEFINE_SHOW_ATTRIBUTE to
- simplify dpu_regset32
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.2.2
+Content-Language: en-US
+To: Bjorn Andersson <andersson@kernel.org>
+References: <20220916200028.25009-1-quic_bjorande@quicinc.com>
+ <20220916200028.25009-2-quic_bjorande@quicinc.com>
+ <1641e41c-08c7-859b-644a-28d966fb00f3@linaro.org>
+ <20220919211832.6b3buqxrnfp6yjjg@builder.lan>
+ <6b242b44-b657-c7a6-63ca-465c7031376f@linaro.org>
+ <20220922001429.zqfap3clprvlo6jo@builder.lan>
+From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+In-Reply-To: <20220922001429.zqfap3clprvlo6jo@builder.lan>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+Subject: Re: [Freedreno] [PATCH v2 1/7] dt-bindings: msm/dp: Add SDM845 and
+ SC8280XP compatibles
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,62 +80,67 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Liu Shixin <liushixin2@huawei.com>, linux-arm-msm@vger.kernel.org,
- freedreno@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+Cc: devicetree@vger.kernel.org,
+ Sankeerth Billakanti <quic_sbillaka@quicinc.com>,
+ Bjorn Andersson <quic_bjorande@quicinc.com>, linux-arm-msm@vger.kernel.org,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
+ Stephen Boyd <swboyd@chromium.org>, Rob Clark <robdclark@gmail.com>,
+ Rob Herring <robh+dt@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Kuogee Hsieh <quic_khsieh@quicinc.com>, freedreno@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Use DEFINE_SHOW_ATTRIBUTE helper macro to simplify the code.
-No functional change.
+On 22/09/2022 02:14, Bjorn Andersson wrote:
+> On Tue, Sep 20, 2022 at 09:09:13AM +0200, Krzysztof Kozlowski wrote:
+>> On 19/09/2022 23:18, Bjorn Andersson wrote:
+>>> On Sat, Sep 17, 2022 at 06:03:27PM +0100, Krzysztof Kozlowski wrote:
+>>>> On 16/09/2022 21:00, Bjorn Andersson wrote:
+>>>>> From: Bjorn Andersson <bjorn.andersson@linaro.org>
+>>>>>
+>>>>> Add compatibles for the DisplayPort and Embedded DisplayPort blocks in
+>>>>> Qualcomm SDM845 and SC8280XP platforms.
+>>>>>
+>>>>> Signed-off-by: Bjorn Andersson <bjorn.andersson@linaro.org>
+>>>>> Signed-off-by: Bjorn Andersson <quic_bjorande@quicinc.com>
+>>>>
+>>>> No need for quicinc SoB (unless you also take ownership).
+>>>>
+>>>
+>>> It's my understanding that both needs to be there. Bjorn @ Linaro
+>>> authored the patch and the author must certify its origin, but as the
+>>> submitter I must certify its origin.
+>>
+>> It's the same person. There are no two Bjorns (unless there are :) ), so
+>> you certify with old email. SoB chain is coming from people, not email
+>> addresses.
+>>
+> 
+> IANAL, but I don't think it's the same person. I can't use my old
+> signature to certify the origin in a contribution today and I can't
+> claim authorship of something Linaro did.
 
-Signed-off-by: Liu Shixin <liushixin2@huawei.com>
----
- drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c | 18 +++---------------
- 1 file changed, 3 insertions(+), 15 deletions(-)
+Fine with me.
 
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
-index 5e6e2626151e..f3660cd14f4f 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
-@@ -194,7 +194,7 @@ struct dpu_debugfs_regset32 {
- 	struct dpu_kms *dpu_kms;
- };
- 
--static int _dpu_debugfs_show_regset32(struct seq_file *s, void *data)
-+static int dpu_regset32_show(struct seq_file *s, void *data)
- {
- 	struct dpu_debugfs_regset32 *regset = s->private;
- 	struct dpu_kms *dpu_kms = regset->dpu_kms;
-@@ -227,19 +227,7 @@ static int _dpu_debugfs_show_regset32(struct seq_file *s, void *data)
- 
- 	return 0;
- }
--
--static int dpu_debugfs_open_regset32(struct inode *inode,
--		struct file *file)
--{
--	return single_open(file, _dpu_debugfs_show_regset32, inode->i_private);
--}
--
--static const struct file_operations dpu_fops_regset32 = {
--	.open =		dpu_debugfs_open_regset32,
--	.read =		seq_read,
--	.llseek =	seq_lseek,
--	.release =	single_release,
--};
-+DEFINE_SHOW_ATTRIBUTE(dpu_regset32);
- 
- void dpu_debugfs_create_regset32(const char *name, umode_t mode,
- 		void *parent,
-@@ -259,7 +247,7 @@ void dpu_debugfs_create_regset32(const char *name, umode_t mode,
- 	regset->blk_len = length;
- 	regset->dpu_kms = dpu_kms;
- 
--	debugfs_create_file(name, mode, parent, regset, &dpu_fops_regset32);
-+	debugfs_create_file(name, mode, parent, regset, &dpu_regset32_fops);
- }
- 
- static int dpu_kms_debugfs_init(struct msm_kms *kms, struct drm_minor *minor)
--- 
-2.25.1
+> 
+>> And it is not only my understanding of SoB chain.
+>> https://lore.kernel.org/all/YuKcBO5JatwRYQJ3@kroah.com/
+>>
+> 
+> Again, IANAL, but I think the situation is different given AMD and
+> Xilinx relationship.
+
+Hm, I am not sure how it is different. We might know or we might know
+the change of ownership. Maybe the change of owner came with copyrights,
+maybe not (someone else bought them). I don't know, there can be many
+cases here. I interpret Greg's point there as in SoB statement - the
+person, not email address, certifies.
+
+Anyway, this is not a blocker for the patch.
+
+
+Best regards,
+Krzysztof
 
