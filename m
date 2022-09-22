@@ -2,55 +2,55 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0973F5E6C2A
-	for <lists+freedreno@lfdr.de>; Thu, 22 Sep 2022 21:54:30 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0CD8E5E6C33
+	for <lists+freedreno@lfdr.de>; Thu, 22 Sep 2022 21:54:52 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AE0D310E0F9;
-	Thu, 22 Sep 2022 19:54:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 95BBB10E139;
+	Thu, 22 Sep 2022 19:54:50 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x129.google.com (mail-lf1-x129.google.com
- [IPv6:2a00:1450:4864:20::129])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5F7A210E211
- for <freedreno@lists.freedesktop.org>; Thu, 22 Sep 2022 19:54:24 +0000 (UTC)
-Received: by mail-lf1-x129.google.com with SMTP id u18so16411738lfo.8
- for <freedreno@lists.freedesktop.org>; Thu, 22 Sep 2022 12:54:24 -0700 (PDT)
+Received: from mail-lf1-x12b.google.com (mail-lf1-x12b.google.com
+ [IPv6:2a00:1450:4864:20::12b])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E5A7210E139
+ for <freedreno@lists.freedesktop.org>; Thu, 22 Sep 2022 19:54:39 +0000 (UTC)
+Received: by mail-lf1-x12b.google.com with SMTP id s6so16447372lfo.7
+ for <freedreno@lists.freedesktop.org>; Thu, 22 Sep 2022 12:54:39 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :from:to:cc:subject:date;
- bh=zDb70WoeINlNx9irFKk6bRAswY6QKXf8jtRE5Sg+xuc=;
- b=e14Rma8aobSIPoTFiAvddfO9VrrSEWb5OAv/vAYZrJyxHZLKgNe7FRwCy8H+rMq55z
- 9SgiTOBTOW5fbmBNgeSLAEswJqAdv+LvGlIkFYAwH5ZmH67wkj9mWeUbArfatAFrMITy
- 9DTvu3wxHjcAVDwgrJzXLdF5we1tV7FdJIj9KDmNAUPS02FjiFghQr2HzEoA0jbmBTdD
- yFe40SVo0m6meu1ADwI7rqHmpd4ZXWuul8inj7VP+Iu89bdcLwE+TX3DtI1IyE6YolYu
- EE9zpZO9JDEx7z8DE50gxK2keFlv11vniqms6lWh7RqacygUPDuWhhjAvMThlrht3wx3
- meug==
+ bh=OjwZCqtCWqNmy6fBlsSqFzKD3bCEsVFc8uYZ8NecXtA=;
+ b=cR1wX2FyrChyeXiQTbsumMufekbEXq//32J9TUANOOvMEPcLZBAnvdJkN5/dOTPFhW
+ YDzxuQBUWoM8O+Ji2t/YzyJES7V01wIFwoDljjbUsfMqbKEr+FsO2QpGX7GhL2/Mp4G4
+ mON4wkSqvEa57udsnvbN4U4OpI1WBslnFDc6d1PdQDr6yJLEe2WZ8OHPXEFigl1J0xw3
+ b6XSaWYhGmBtfvo3PjAqcFcVUcnANXhRnP4+5lIbYIDCqnyNSgMZUJtB8fHlA6AehCax
+ fMemAtVkjVnrgnonlx+vH3cCQc+KK2iIA9bjL7VaxYEEbI2M6aePGQ0YpGae/k2DGaZq
+ QTKQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date;
- bh=zDb70WoeINlNx9irFKk6bRAswY6QKXf8jtRE5Sg+xuc=;
- b=LlbVkhPrtiiVk2X6NyU7UpekMc8aUYKgGAoBjBSzAGwUTZE/Q5zu0CYskpQ01mRKr9
- w6ISpIfBsGZdYKWtdjcn5LC3uz6yGLlw5cb+7UVQSxipfg83I9GFBsMTMs2hZhrac/OU
- ud92CXe8Cawhlv/wk1T8tXT+yXCdrUQKfOqZAcoscbAC4Ve9NiNyBcrD/qLOD1G4bv2C
- dJpBtxmOlpWdhvKzileObRUoUjryzkDNjC2wfCS0KK//NsjLumig5yLuozRlEIKxu+gt
- YdtnC2a7fwETpROhRd221ToGSIS18/+KStUWBk8KE8r+EJD9TGAmapoe+MKlRKsy5Cgd
- Flkg==
-X-Gm-Message-State: ACrzQf1pep/cLiY7VgWZ7qRKJ1tAi/MMfzBZxfqn1T7d1HOI7o4PrbAh
- 28UDwk8CoFidbTJB+kN9+r9sjA==
-X-Google-Smtp-Source: AMsMyM6rSKkJT7IrEEGLQaau0EqzxrS/guqoT52jaku/kN4wSEXcJRuY7+W54WkiFW0yNFbLYDB6yQ==
-X-Received: by 2002:ac2:454a:0:b0:49c:6212:c44d with SMTP id
- j10-20020ac2454a000000b0049c6212c44dmr2035689lfm.430.1663876462589; 
- Thu, 22 Sep 2022 12:54:22 -0700 (PDT)
+ bh=OjwZCqtCWqNmy6fBlsSqFzKD3bCEsVFc8uYZ8NecXtA=;
+ b=hu4ApKVQVzhsn+lhEcuHC/tVqFJPnCdS91yUB0RoqbHUuHqvyh7gEUapSfmzxrzuOp
+ fB9GuaD4nF1Xp/2/ZmmIM8SlEuZ7za16ViQrOg8hXJqXnh7mISDRaMTYyhEtfUohZS8b
+ UpY+cGAgT01fJenEl1e50ZJ++trn/LPYknkugCfQWdU7uD747QmnhG0vPFlZSimUeaoa
+ 3/RbY3knmFePvbRFGgJjDA2SF7NGWy57VTbfDOkiY7eU7MVkZio4P3XbUsBNPnR6NEve
+ 5NAXVIB86CIaR7cx0fAgP9CRsLTem05oVfyXE7z4xsLkDqe048Cf7ooyiVI9ww4Gie0L
+ Kd5w==
+X-Gm-Message-State: ACrzQf3oJYzJkzRCFQoskgDXM4qMHsc1zy9/VLpEmgerRzzkitgnSb7/
+ yfANnF8Qzh5AFEa56aOObQb/uQ==
+X-Google-Smtp-Source: AMsMyM6i0a3Z4JYmUOIVUA71gmZPtBQq55ndJesQ2D0Yuq+Npbif2fuRodqYcIhyrWi8eBAEzx2g+A==
+X-Received: by 2002:a05:6512:ac6:b0:4a0:2b26:3ab3 with SMTP id
+ n6-20020a0565120ac600b004a02b263ab3mr1551875lfu.154.1663876478067; 
+ Thu, 22 Sep 2022 12:54:38 -0700 (PDT)
 Received: from [192.168.1.211] ([37.153.55.125])
  by smtp.gmail.com with ESMTPSA id
- r10-20020ac24d0a000000b0048af3c090f8sm1089401lfi.13.2022.09.22.12.54.21
+ q8-20020a056512210800b00499b726508csm1072325lfr.250.2022.09.22.12.54.37
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 22 Sep 2022 12:54:22 -0700 (PDT)
-Message-ID: <b3b59b86-d9e8-5706-c9e0-152523661e9e@linaro.org>
-Date: Thu, 22 Sep 2022 22:54:21 +0300
+ Thu, 22 Sep 2022 12:54:37 -0700 (PDT)
+Message-ID: <39ae31b2-48f1-4c30-851c-17276ce55e25@linaro.org>
+Date: Thu, 22 Sep 2022 22:54:37 +0300
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.2.2
@@ -59,12 +59,12 @@ To: Johan Hovold <johan+linaro@kernel.org>,
  Douglas Anderson <dianders@chromium.org>, Rob Clark <robdclark@gmail.com>,
  Abhinav Kumar <quic_abhinavk@quicinc.com>
 References: <20220913085320.8577-1-johan+linaro@kernel.org>
- <20220913085320.8577-3-johan+linaro@kernel.org>
+ <20220913085320.8577-4-johan+linaro@kernel.org>
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-In-Reply-To: <20220913085320.8577-3-johan+linaro@kernel.org>
+In-Reply-To: <20220913085320.8577-4-johan+linaro@kernel.org>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH v2 02/10] drm/msm/dp: fix memory corruption
+Subject: Re: [Freedreno] [PATCH v2 03/10] drm/msm/dsi: fix memory corruption
  with too many bridges
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -96,9 +96,13 @@ On 13/09/2022 11:53, Johan Hovold wrote:
 > data beyond the fixed-sized bridge array in case there are ever more
 > than eight bridges.
 > 
-> Fixes: 8a3b4c17f863 ("drm/msm/dp: employ bridge mechanism for display enable and disable")
-> Cc: stable@vger.kernel.org	# 5.17
+> Fixes: a689554ba6ed ("drm/msm: Initial add DSI connector support")
+> Cc: stable@vger.kernel.org	# 4.1
 > Signed-off-by: Johan Hovold <johan+linaro@kernel.org>
+> ---
+>   drivers/gpu/drm/msm/dsi/dsi.c | 6 ++++++
+>   1 file changed, 6 insertions(+)
+> 
 
 Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 
