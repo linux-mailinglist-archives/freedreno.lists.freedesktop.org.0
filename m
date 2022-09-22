@@ -2,53 +2,40 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1FE375E6A6A
-	for <lists+freedreno@lfdr.de>; Thu, 22 Sep 2022 20:09:34 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 615D95E6B5D
+	for <lists+freedreno@lfdr.de>; Thu, 22 Sep 2022 21:00:03 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B8DAB10E045;
-	Thu, 22 Sep 2022 18:09:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8136310E067;
+	Thu, 22 Sep 2022 19:00:01 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-oa1-x31.google.com (mail-oa1-x31.google.com
- [IPv6:2001:4860:4864:20::31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9689110E045;
- Thu, 22 Sep 2022 18:09:27 +0000 (UTC)
-Received: by mail-oa1-x31.google.com with SMTP id
- 586e51a60fabf-12c8312131fso15039471fac.4; 
- Thu, 22 Sep 2022 11:09:27 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=cc:to:subject:message-id:date:from:mime-version:from:to:cc:subject
- :date; bh=O5nJHg+VQnGV2W4egYTndSwkmO5/IvT/ILfbHE1H9ms=;
- b=iykt5EE5yprRyhR4T47LS5GElzrW7L0mmUnBKGtJTNOt3jjCE0OtQpsCnjhg1j6rU/
- cILT9a1911tC/hL+bJ3oxwJBVhBueorNX+R6VJBwmPv4dx9Za+Yz+LxpIjxctiETVtCE
- FolkViKtdORJoJp5j36iZakL7KmKtyRv/teWOJ9ZT+NfWs60sSkaWAdPlSqI6Zp7aWJK
- uZZQPiElIzR9OEQ1TOn4rlljAVu2ow+JG1DBWi5GiquZ61UYyr59QDPxv8X7ooCjmK4z
- kqJKlXLDPJzDrbZy+Y3No4SHPgP3+PcvBHc48zKz+5AhWkusduTG2V0rWfGyGy7pG2r1
- WuZw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=cc:to:subject:message-id:date:from:mime-version:x-gm-message-state
- :from:to:cc:subject:date;
- bh=O5nJHg+VQnGV2W4egYTndSwkmO5/IvT/ILfbHE1H9ms=;
- b=pd0+BAv7tNFdVr11n/iQ76hvraERamkVgdxbgR/RckTFupS7f0rBxIZO+01DiJI5Ww
- pI0AiDmiUCCDV1bzZhnUpCtEVNSiedy2v7gVt9dLCliPzGltdV3csCJWff0Y+lItFQ5j
- krEf+pIaLvDU8TnWHrCuMEt1glJWJvF+UJ966GkD/iMBTgNmpYeAQIwVzdAcq310VxVD
- xlojBTeNkxWflyLNQDAqjAO9eUeJe8ZDeKmE7DM33TT0xRaJ5X8K+I+K4S5YL76R4wmI
- 1755lSAYuwCpY78Gwyl0W4dMSrbXmLQdMaQ+XnP0Oqq5KcG3u1wUbtvirQ2uKB/yITtk
- QcAg==
-X-Gm-Message-State: ACrzQf3nw+aurn5XzI7qTcKV7T1S0wfyayHPJZZvE4IhhXDlpJ8GfT9+
- 49OJec5eOPxJ5MmaKPrBMasfrDKB1kCxHf7g2N4=
-X-Google-Smtp-Source: AMsMyM7KAyhfBRTkZtFo/50Lw38oL4YPv080I++w00yoLpOV9SCxd/5xGufu9uG8RVayv8A/9BVitJ/rkqPBT3edr+w=
-X-Received: by 2002:a05:6871:14e:b0:127:3f08:4599 with SMTP id
- z14-20020a056871014e00b001273f084599mr2800000oab.183.1663870166791; Thu, 22
- Sep 2022 11:09:26 -0700 (PDT)
+X-Greylist: delayed 433 seconds by postgrey-1.36 at gabe;
+ Thu, 22 Sep 2022 18:59:57 UTC
+Received: from mail.z3ntu.xyz (mail.z3ntu.xyz [128.199.32.197])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 795F710E067;
+ Thu, 22 Sep 2022 18:59:57 +0000 (UTC)
+Received: from g550jk.localnet (212095005231.public.telering.at [212.95.5.231])
+ by mail.z3ntu.xyz (Postfix) with ESMTPSA id CE32AC6F7E;
+ Thu, 22 Sep 2022 18:52:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=z3ntu.xyz; s=z3ntu;
+ t=1663872732; bh=KdT3GQnKbtD+Gy6qAnxENeBL3H5RB8RdcqUSV2ItXfQ=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References;
+ b=Zs10k8aMASZB+UpMveA+AwZ+V9OkKQRREY31HGRvnVoVK/+q+SeAoc8a52rBQ4FFY
+ ngu9zfpnekmPh+u4QFhO2SHN/tI2+wRM19f7yz8Jdgx6jN6mf0voGBzQkPgU3uIxAy
+ O/4qbsZeBVSVHo1/w7Fxawo1InI/d7LWgTTcKMkk=
+From: Luca Weiss <luca@z3ntu.xyz>
+To: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Date: Thu, 22 Sep 2022 20:52:08 +0200
+Message-ID: <10146868.nUPlyArG6x@g550jk>
+In-Reply-To: <20220620213054.1872954-2-dmitry.baryshkov@linaro.org>
+References: <20220620213054.1872954-1-dmitry.baryshkov@linaro.org>
+ <20220620213054.1872954-2-dmitry.baryshkov@linaro.org>
 MIME-Version: 1.0
-From: Rob Clark <robdclark@gmail.com>
-Date: Thu, 22 Sep 2022 11:09:20 -0700
-Message-ID: <CAF6AEGsrfrr9v1oR9S4oYfOs9jm=jbKQiwPBTrCRHrjYerJJFA@mail.gmail.com>
-To: Dave Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>
-Content-Type: text/plain; charset="UTF-8"
-Subject: [Freedreno] [pull] drm/msm: drm-msm-next-2022-09-22 for v6.1
+Content-Transfer-Encoding: 7Bit
+Content-Type: text/plain; charset="us-ascii"
+Subject: Re: [Freedreno] [PATCH v1 1/4] drm/msm/mdp5: stop overriding drvdata
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,254 +48,247 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- linux-arm-msm <linux-arm-msm@vger.kernel.org>,
- freedreno <freedreno@lists.freedesktop.org>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- dri-devel <dri-devel@lists.freedesktop.org>
+Cc: David Airlie <airlied@linux.ie>, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, Bjorn Andersson <bjorn.andersson@linaro.org>,
+ Daniel Vetter <daniel@ffwll.ch>, Stephen Boyd <swboyd@chromium.org>,
+ freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Hi Dave & Daniel,
+Hi Dmitry,
 
-Here is the main drm/msm pull for v6.1, description below and in tag.
+On Montag, 20. Juni 2022 23:30:51 CEST Dmitry Baryshkov wrote:
+> The rest of the code expects that master's device drvdata is the
+> struct msm_drm_private instance. Do not override the mdp5's drvdata.
+> 
+> Fixes: 6874f48bb8b0 ("drm/msm: make mdp5/dpu devices master components")
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 
-The following changes since commit 1c23f9e627a7b412978b4e852793c5e3c3efc555:
+In search of a fix for a problem on msm8974/msm8226 crashing during shutdown
+I tried applying this patch.
+On top of 6.0-rc6 with some of my patches incl. adding display support to
+msm8226 which generally works fine without this patch, plus only this patch on
+top.
 
-  Linux 6.0-rc2 (2022-08-21 17:32:54 -0700)
+Unfortunately it seems display isn't probing anymore and I'm getting a null
+pointer dereference in dmesg as seen below.
 
-are available in the Git repository at:
+Hope that's helpful so you can fix that ;)
 
-  https://gitlab.freedesktop.org/drm/msm.git tags/drm-msm-next-2022-09-22
+Regards
+Luca
 
-for you to fetch changes up to e8b595f7b058c7909e410f3e0736d95e8f909d01:
+[    2.616083] platform fd922800.dsi: Fixing up cyclic dependency with fd900100.mdp
+[    2.636031] msm_mdp fd900100.mdp: No interconnect support may cause display underflows!
+[    2.638435] [drm] using 32m VRAM carveout
+[    2.646026] msm_mdp fd900100.mdp: [drm:msm_drm_bind [msm]] VRAM: 1c100000->1e100000
+[    2.647055] msm_mdp fd900100.mdp: bound fd922800.dsi (ops dsi_ops [msm])
+[    2.654642] 8<--- cut here ---
+[    2.662750] Unable to handle kernel NULL pointer dereference at virtual address 000004d8
+[    2.664358] [000004d8] *pgd=00000000
+[    2.672610] Internal error: Oops: 5 [#1] PREEMPT SMP ARM
+[    2.676106] Modules linked in: msm gpu_sched qnoc_msm8974 icc_smd_rpm
+[    2.681403] CPU: 0 PID: 108 Comm: kworker/u2:5 Not tainted 6.0.0-rc6-00034-g3b2cf6d374af #217
+[    2.687746] Hardware name: Generic DT based system
+[    2.696242] Workqueue: events_unbound deferred_probe_work_func
+[    2.700931] PC is at mdp5_runtime_resume+0x30/0x168 [msm]
+[    2.706747] LR is at mdp5_runtime_resume+0x30/0x168 [msm]
+[    2.712217] pc : [<bf044794>]    lr : [<bf044794>]    psr: 60000013
+[    2.717598] sp : d0a49a48  ip : bf0c0370  fp : c196d094
+[    2.723671] r10: c036a9dc  r9 : c2bfabc0  r8 : 00000000
+[    2.728880] r7 : c3079c94  r6 : c196d010  r5 : c08fab08  r4 : 00000000
+[    2.734092] r3 : c2bfabc0  r2 : 00000000  r1 : 00000000  r0 : 00000002
+[    2.740691] Flags: nZCv  IRQs on  FIQs on  Mode SVC_32  ISA ARM  Segment none
+[    2.747204] Control: 10c5387d  Table: 1307006a  DAC: 00000051
+[    2.754403] Register r0 information: non-paged memory
+[    2.760129] Register r1 information: NULL pointer
+[    2.765163] Register r2 information: NULL pointer
+[    2.769850] Register r3 information: slab task_struct start c2bfabc0 pointer offset 0
+[    2.774550] Register r4 information: NULL pointer
+[    2.782350] Register r5 information: non-slab/vmalloc memory
+[    2.787041] Register r6 information: slab kmalloc-1k start c196d000 pointer offset 16 size 1024
+[    2.792781] Register r7 information: slab kmalloc-1k start c3079c00 pointer offset 148 size 1024
+[    2.801201] Register r8 information: NULL pointer
+[    2.810216] Register r9 information: slab task_struct start c2bfabc0 pointer offset 0
+[    2.814827] Register r10 information: non-slab/vmalloc memory
+[    2.822631] Register r11 information: slab kmalloc-1k start c196d000 pointer offset 148 size 1024
+[    2.828371] Register r12 information: 242-page vmalloc region starting at 0xbf025000 allocated at load_module+0x9a4/0x1f44
+[    2.837233] Process kworker/u2:5 (pid: 108, stack limit = 0x(ptrval))
+[    2.848155] Stack: (0xd0a49a48 to 0xd0a4a000)
+[    2.854665] 9a40:                   c3079c10 c08fab08 c196d010 c08fd82c c3079c10 c08fab08
+[    2.859020] 9a60: c196d010 00000004 d0a49a9c c2bfabc0 c036a9dc c08fd9a8 c3079c10 c08fab08
+[    2.867179] 9a80: c196d010 c08fd0f8 c3079c10 00000000 0bebc200 00000000 ffffffff ffadf800
+[    2.875339] 9aa0: 8807ce68 a6e11243 d0940100 60000013 00000004 c3079c94 c307e840 c3079c10
+[    2.883499] 9ac0: c3079c10 00000001 c152654c c08fd484 c306b040 c3079c00 c11d4314 bf044ab8
+[    2.891658] 9ae0: c3079c10 d0a49b34 c3207900 00000018 c3080400 c3080400 00000000 c0dd2950
+[    2.899818] 9b00: d0a49b14 a6e11243 3f0c81c2 c0dd29d0 c1179a84 bf0c0710 c3219ec0 d0a49b34
+[    2.907977] 9b20: 00000004 c0492c60 00000000 c0dd2d18 d0a49b48 c117985c c307ea34 c3080400
+[    2.916137] 9b40: 00000000 c3079c10 cbf5b000 a6e11243 00000001 c307e840 c3080400 00000000
+[    2.924297] 9b60: c3079c10 cbf5b000 c307e840 00000001 c152654c bf071b38 1e100000 00000000
+[    2.932457] 9b80: 00000000 a6e11243 00000001 c307fc08 00000001 c307fc08 c3079dc0 a0000113
+[    2.940617] 9ba0: c152654c a6e11243 c152654c c3202300 c3202300 c3207900 c1526568 c32078c0
+[    2.948776] 9bc0: 00000018 00000001 c152654c c08e6a70 00000001 c3202300 00000000 c3207900
+[    2.956935] 9be0: 00000000 c3202300 c1526560 bf0b81d4 00000000 c0e9531c c1805800 c08e6d3c
+[    2.965096] 9c00: c307ec40 c307fc08 c307fc08 00000000 c1526570 bf096abc c307fc00 c3203340
+[    2.973256] 9c20: c307fc08 c08e61a4 c0ea4380 d0a49c30 000000ff 000000ff 00000000 00000000
+[    2.981415] 9c40: 00000001 00000000 00000000 a6e11243 c307fc08 00000000 c15264f4 c08eed68
+[    2.989575] 9c60: c307fc08 c15264f4 c307fc08 0000001d c1526570 c08ef010 c15cc76c c15264f4
+[    2.997734] 9c80: c307fc08 c08ef0a0 00000001 c15264f4 d0a49cdc c307fc08 c1526570 c08ef690
+[    3.005895] 9ca0: 00000000 d0a49cdc c08ef5fc c15cc740 c1526570 c08ecfa4 c1805800 c194f06c
+[    3.014055] 9cc0: c1af8038 a6e11243 c307fc08 00000001 c307fc4c c08ef34c c307fc08 c307fc08
+[    3.022213] 9ce0: 00000001 a6e11243 c307fc08 c307fc08 c152624c c08ee038 c307fc08 00000000
+[    3.030374] 9d00: c307ac10 c08eab20 c307fc9c 60000113 00000001 c03a8660 d0a49d58 a6e11243
+[    3.038534] 9d20: c307fc08 c32020c0 c32020c0 c307fc08 00000000 a6e11243 c307fc00 c307fc00
+[    3.046692] 9d40: d0a49d88 c307ec40 c307fc08 00000000 c15818c0 c1812005 c1805800 c08d4d1c
+[    3.054852] 9d60: cbdd8020 00000000 c307ec40 c11548e4 00000000 c08d4e60 00000000 00000000
+[    3.063012] 9d80: d0a49dfc 00000000 3234676c 00003733 00000000 00000000 00000000 00000000
+[    3.071172] 9da0: cbdd8020 a6e11243 00000000 c307ec40 00000000 cbdd7724 c3208cc0 bf098170
+[    3.079331] 9dc0: bf0dc6fc bf09a80c c3217240 c3208cc0 00000000 c307ac00 cbdd7724 00000000
+[    3.087491] 9de0: c15818c0 c1812005 c1805800 bf095c98 00000000 d0a49dfc 00000000 cbdd831c
+[    3.095650] 9e00: 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000
+[    3.103810] 9e20: 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000
+[    3.111971] 9e40: 00000000 a6e11243 bf0daf30 00000000 c307ac10 bf0daf30 00000000 c08f155c
+[    3.120130] 9e60: c307ac10 00000000 bf0daf30 c08eed68 c307ac10 bf0daf30 c307ac10 0000001d
+[    3.128289] 9e80: 00000000 c08ef010 c15cc76c bf0daf30 c307ac10 c08ef0a0 00000001 bf0daf30
+[    3.136449] 9ea0: d0a49eec c307ac10 00000000 c08ef690 00000000 d0a49eec c08ef5fc 00000000
+[    3.144610] 9ec0: 00000000 c08ecfa4 c1805800 c188e86c c30f2938 a6e11243 c307ac10 00000001
+[    3.152770] 9ee0: c307ac54 c08ef34c c15818c0 c307ac10 00000001 a6e11243 c307ac10 c307ac10
+[    3.160928] 9f00: c1526b10 c08ee038 c307ac10 c1526858 c152686c c08ee478 c1526890 c3017200
+[    3.169089] 9f20: c1805800 c1812000 00000000 c033fbf0 c2bfabc0 c1805800 c180581c c3017200
+[    3.177249] 9f40: c1805800 c3017218 c180581c c1403d40 c2bfabc0 00000088 c1805800 c0340304
+[    3.185409] 9f60: 00000000 c0de2740 00000000 c3013500 c03402c0 c3017200 c2bfabc0 c30134c0
+[    3.193567] 9f80: d0a2deb8 00000000 00000000 c034665c c3013500 c0346564 00000000 00000000
+[    3.201727] 9fa0: 00000000 00000000 00000000 c0300148 00000000 00000000 00000000 00000000
+[    3.209886] 9fc0: 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000
+[    3.218046] 9fe0: 00000000 00000000 00000000 00000000 00000013 00000000 00000000 00000000
+[    3.226210]  mdp5_runtime_resume [msm] from __rpm_callback+0x3c/0x168
+[    3.234359]  __rpm_callback from rpm_callback+0x50/0x54
+[    3.240774]  rpm_callback from rpm_resume+0x424/0x77c
+[    3.245809]  rpm_resume from __pm_runtime_resume+0x34/0x6c
+[    3.251019]  __pm_runtime_resume from mdp5_kms_init+0x1ec/0xee0 [msm]
+[    3.256405]  mdp5_kms_init [msm] from msm_drm_bind+0x138/0x610 [msm]
+[    3.262915]  msm_drm_bind [msm] from try_to_bring_up_aggregate_device+0x168/0x1c4
+[    3.269345]  try_to_bring_up_aggregate_device from __component_add+0x98/0x13c
+[    3.276717]  __component_add from dsi_host_attach+0x88/0x11c [msm]
+[    3.283834]  dsi_host_attach [msm] from lgd_lg4237_probe+0xfc/0x1b4
+[    3.289911]  lgd_lg4237_probe from really_probe+0xc8/0x2ec
+[    3.296070]  really_probe from __driver_probe_device+0x84/0xe4
+[    3.301626]  __driver_probe_device from driver_probe_device+0x30/0x104
+[    3.307444]  driver_probe_device from __device_attach_driver+0x94/0x108
+[    3.313954]  __device_attach_driver from bus_for_each_drv+0x88/0xd4
+[    3.320465]  bus_for_each_drv from __device_attach+0xa8/0x1bc
+[    3.326712]  __device_attach from bus_probe_device+0x84/0x8c
+[    3.332616]  bus_probe_device from device_add+0x39c/0x8d8
+[    3.338344]  device_add from mipi_dsi_device_register_full+0xc4/0x140
+[    3.343643]  mipi_dsi_device_register_full from mipi_dsi_host_register+0xc8/0x170
+[    3.350072]  mipi_dsi_host_register from msm_dsi_host_register+0x34/0x4c [msm]
+[    3.357538]  msm_dsi_host_register [msm] from msm_dsi_manager_register+0x110/0x1d0 [msm]
+[    3.364659]  msm_dsi_manager_register [msm] from dsi_dev_probe+0x17c/0x22c [msm]
+[    3.372903]  dsi_dev_probe [msm] from platform_probe+0x5c/0xb0
+[    3.380274]  platform_probe from really_probe+0xc8/0x2ec
+[    3.385913]  really_probe from __driver_probe_device+0x84/0xe4
+[    3.391383]  __driver_probe_device from driver_probe_device+0x30/0x104
+[    3.397027]  driver_probe_device from __device_attach_driver+0x94/0x108
+[    3.403538]  __device_attach_driver from bus_for_each_drv+0x88/0xd4
+[    3.410048]  bus_for_each_drv from __device_attach+0xa8/0x1bc
+[    3.416297]  __device_attach from bus_probe_device+0x84/0x8c
+[    3.422198]  bus_probe_device from deferred_probe_work_func+0x78/0xa4
+[    3.427930]  deferred_probe_work_func from process_one_work+0x1e4/0x510
+[    3.434267]  process_one_work from worker_thread+0x44/0x510
+[    3.440688]  worker_thread from kthread+0xf8/0x128
+[    3.446242]  kthread from ret_from_fork+0x14/0x2c
+[    3.451102] Exception stack(0xd0a49fb0 to 0xd0a49ff8)
+[    3.455880] 9fa0:                                     00000000 00000000 00000000 00000000
+[    3.460929] 9fc0: 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000
+[    3.469087] 9fe0: 00000000 00000000 00000000 00000000 00000013 00000000
+[    3.477242] Code: e3a00002 e3001370 e34b1f0c eb61bb8f (e59434d8) 
+[    3.484215] ---[ end trace 0000000000000000 ]---
 
-  drm/msm/hdmi: make hdmi_phy_8996 OF clk provider (2022-09-18 09:38:07 -0700)
 
-----------------------------------------------------------------
-msm-next for v6.1
+> ---
+>  drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c | 19 +++++++++----------
+>  1 file changed, 9 insertions(+), 10 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c
+> b/drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c index c668a4b27cc6..daf5b5ca7233
+> 100644
+> --- a/drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c
+> +++ b/drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c
+> @@ -203,7 +203,7 @@ static int mdp5_set_split_display(struct msm_kms *kms,
+>  							  slave_encoder);
+>  }
+> 
+> -static void mdp5_destroy(struct platform_device *pdev);
+> +static void mdp5_destroy(struct mdp5_kms *mdp5_kms);
+> 
+>  static void mdp5_kms_destroy(struct msm_kms *kms)
+>  {
+> @@ -223,7 +223,7 @@ static void mdp5_kms_destroy(struct msm_kms *kms)
+>  	}
+> 
+>  	mdp_kms_destroy(&mdp5_kms->base);
+> -	mdp5_destroy(mdp5_kms->pdev);
+> +	mdp5_destroy(mdp5_kms);
+>  }
+> 
+>  #ifdef CONFIG_DEBUG_FS
+> @@ -651,9 +651,8 @@ static int mdp5_kms_init(struct drm_device *dev)
+>  	return ret;
+>  }
+> 
+> -static void mdp5_destroy(struct platform_device *pdev)
+> +static void mdp5_destroy(struct mdp5_kms *mdp5_kms)
+>  {
+> -	struct mdp5_kms *mdp5_kms = platform_get_drvdata(pdev);
+>  	int i;
+> 
+>  	if (mdp5_kms->ctlm)
+> @@ -667,7 +666,7 @@ static void mdp5_destroy(struct platform_device *pdev)
+>  		kfree(mdp5_kms->intfs[i]);
+> 
+>  	if (mdp5_kms->rpm_enabled)
+> -		pm_runtime_disable(&pdev->dev);
+> +		pm_runtime_disable(&mdp5_kms->pdev->dev);
+> 
+>  	drm_atomic_private_obj_fini(&mdp5_kms->glob_state);
+>  	drm_modeset_lock_fini(&mdp5_kms->glob_state_lock);
+> @@ -816,8 +815,6 @@ static int mdp5_init(struct platform_device *pdev,
+> struct drm_device *dev) goto fail;
+>  	}
+> 
+> -	platform_set_drvdata(pdev, mdp5_kms);
+> -
+>  	spin_lock_init(&mdp5_kms->resource_lock);
+> 
+>  	mdp5_kms->dev = dev;
+> @@ -915,7 +912,7 @@ static int mdp5_init(struct platform_device *pdev,
+> struct drm_device *dev) return 0;
+>  fail:
+>  	if (mdp5_kms)
+> -		mdp5_destroy(pdev);
+> +		mdp5_destroy(mdp5_kms);
+>  	return ret;
+>  }
+> 
+> @@ -975,7 +972,8 @@ static int mdp5_dev_remove(struct platform_device *pdev)
+> static __maybe_unused int mdp5_runtime_suspend(struct device *dev) {
+>  	struct platform_device *pdev = to_platform_device(dev);
+> -	struct mdp5_kms *mdp5_kms = platform_get_drvdata(pdev);
+> +	struct msm_drm_private *priv = platform_get_drvdata(pdev);
+> +	struct mdp5_kms *mdp5_kms = to_mdp5_kms(to_mdp_kms(priv->kms));
+> 
+>  	DBG("");
+> 
+> @@ -985,7 +983,8 @@ static __maybe_unused int mdp5_runtime_suspend(struct
+> device *dev) static __maybe_unused int mdp5_runtime_resume(struct device
+> *dev) {
+>  	struct platform_device *pdev = to_platform_device(dev);
+> -	struct mdp5_kms *mdp5_kms = platform_get_drvdata(pdev);
+> +	struct msm_drm_private *priv = platform_get_drvdata(pdev);
+> +	struct mdp5_kms *mdp5_kms = to_mdp5_kms(to_mdp_kms(priv->kms));
+> 
+>  	DBG("");
 
-DPU:
-- simplified VBIF configuration
-- cleaned up CTL interfaces to accept indices rather than flush masks
 
-DSI:
-- removed unused msm_display_dsc_config struct
-- switch regulator calls to new bulk API
-- switched to use PANEL_BRIDGE for directly attached panels
 
-DSI PHY:
-- converted drivers to use parent_hws instead of parent_names
 
-DP:
-- cleaned up pixel_rate handling
-
-HDMI PHY:
-- turned hdmi-phy-8996 into OF clk provider
-
-core:
-- misc dt-bindings fixes
-- choose eDP as primary display if it's available
-- support getting interconnects from either the mdss or the mdp5/dpu
-  device nodes
-
-gpu+gem:
-- Shrinker + LRU re-work:
-  - adds a shared GEM LRU+shrinker helper and moves msm over to that
-  - reduces lock contention between retire and submit by avoiding the
-    need to acquire obj lock in retire path (and instead using resv
-    seeing obj's busyness in the shrinker
-  - fix reclaim vs submit issues
-- GEM fault injection for triggering userspace error paths
-- Map/unmap optimization
-- Improved robustness for a6xx GPU recovery
-
-----------------------------------------------------------------
-Abhinav Kumar (1):
-      drm/msm/dpu: populate wb or intf before reset_intf_cfg
-
-Akhil P Oommen (7):
-      drm/msm: Remove unnecessary pm_runtime_get/put
-      drm/msm: Take single rpm refcount on behalf of all submits
-      drm/msm: Correct pm_runtime votes in recover worker
-      drm/msm: Fix cx collapse issue during recovery
-      drm/msm/a6xx: Ensure CX collapse during gpu recovery
-      drm/msm/a6xx: Improve gpu recovery sequence
-      drm/msm/a6xx: Handle GMU prepare-slumber hfi failure
-
-Bjorn Andersson (1):
-      drm/msm/gpu: Drop qos request if devm_devfreq_add_device() fails
-
-Dmitry Baryshkov (25):
-      drm/msm/dpu: use drm_dsc_config instead of msm_display_dsc_config
-      drm/msm/dsi: use drm_dsc_config instead of msm_display_dsc_config
-      dt-bindings: display/msm/gpu: allow specifying several IOMMU nodes
-      dt-bindings: display/msm/gmu: account for different GMU variants
-      dt-bindings: display/msm/mdp4: require 4 IOMMUs
-      drm/msm: lookup the ICC paths in both mdp5/dpu and mdss devices
-      drm/msm/dpu: index dpu_kms->hw_vbif using vbif_idx
-      drm/msm/dpu: fix error handling around dpu_hw_vbif_init
-      drm/msm/dpu: drop VBIF indices
-      drm/msm/dpu: drop unused memory allocation
-      drm/msm/dpu: drop unused variable from dpu_kms_mdp_snapshot()
-      drm/msm/dpu: rip out master planes support
-      drm/msm/dpu: do not limit the zpos property
-      drm/msm/dpu: inline dpu_plane_get_ctl_flush
-      drm/msm/dpu: get rid of cached flush_mask
-      dt-bindings: msm/dp: mark vdda supplies as deprecated
-      dt-bindings: msm/dp: add missing properties
-      dt-bindings: msm/dp: handle DP vs eDP difference
-      drm/msm/dsi: drop the hpd worker
-      drm/mipi-dsi: pass DSC data through the struct mipi_dsi_device
-      drm/msm/dsi: fetch DSC pps payload from struct mipi_dsi_device
-      drm/panel: drop DSC pps pointer
-      drm/msm/dsi: switch to DRM_PANEL_BRIDGE
-      dt-bindings: phy: qcom, hdmi-phy-qmp: add clock-cells and XO clock
-      drm/msm/hdmi: make hdmi_phy_8996 OF clk provider
-
-Douglas Anderson (6):
-      drm/msm/dsi: Fix number of regulators for msm8996_dsi_cfg
-      drm/msm/dsi: Fix number of regulators for SDM660
-      drm/msm/dsi: Don't set a load before disabling a regulator
-      drm/msm/dsi: Use the new regulator bulk feature to specify the load
-      drm/msm/dsi: Take advantage of devm_regulator_bulk_get_const()
-      drm/msm/dsi: Improve dsi_phy_driver_probe() probe error handling
-
-Jason Wang (1):
-      drm/msm/dpu: Fix comment typo
-
-Javier Martinez Canillas (1):
-      drm/msm: Make .remove and .shutdown HW shutdown consistent
-
-Krzysztof Kozlowski (5):
-      dt-bindings: display/msm: dpu-msm8998: add missing DPU opp-table
-      dt-bindings: display/msm: dpu-qcm2290: add missing DPU opp-table
-      dt-bindings: display/msm: dpu-sc7180: add missing DPU opp-table
-      dt-bindings: display/msm: dpu-sc7280: add missing DPU opp-table
-      dt-bindings: display/msm: dpu-sdm845: add missing DPU opp-table
-
-Kuogee Hsieh (3):
-      drm/msm/dp: make eDP panel as the first connected connector
-      drm/msm/dp: delete DP_RECOVERED_CLOCK_OUT_EN to fix tps4
-      drm/msm/dp: correct 1.62G link rate at dp_catalog_ctrl_config_msa()
-
-Marijn Suijten (8):
-      drm/msm/dsi/phy: Reindent and reflow multiline function calls
-      drm/msm/dsi_phy_28nm_8960: Use stack memory for temporary clock names
-      drm/msm/dsi/phy: Replace hardcoded char-array length with sizeof()
-      drm/msm/dsi_phy_28nm_8960: Replace parent names with clk_hw pointers
-      drm/msm/dsi_phy_28nm: Replace parent names with clk_hw pointers
-      drm/msm/dsi_phy_14nm: Replace parent names with clk_hw pointers
-      drm/msm/dsi_phy_10nm: Replace parent names with clk_hw pointers
-      drm/msm/dsi_phy_7nm: Replace parent names with clk_hw pointers
-
-Nathan Chancellor (1):
-      drm/msm/dsi: Remove use of device_node in dsi_host_parse_dt()
-
-Rob Clark (19):
-      drm/msm: Reorder lock vs submit alloc
-      drm/msm: Small submit cleanup
-      drm/msm: Split out idr_lock
-      drm/msm/gem: Check for active in shrinker path
-      drm/msm/gem: Rename update_inactive
-      drm/msm/gem: Rename to pin/unpin_pages
-      drm/msm/gem: Consolidate pin/unpin paths
-      drm/msm/gem: Remove active refcnt
-      drm/gem: Add LRU/shrinker helper
-      drm/msm/gem: Convert to using drm_gem_lru
-      drm/msm/gem: Unpin buffers earlier
-      drm/msm/gem: Consolidate shrinker trace
-      drm/msm/gem: Evict active GEM objects when necessary
-      drm/msm/gem: Add msm_gem_assert_locked()
-      drm/msm/gem: Convert to lockdep assert
-      drm/msm: Add fault-injection support
-      drm/msm/iommu: optimize map/unmap
-      drm/msm: De-open-code some CP_EVENT_WRITE
-      drm/msm/rd: Fix FIFO-full deadlock
-
-Stephen Boyd (4):
-      drm/msm/dp: Reorganize code to avoid forward declaration
-      drm/msm/dp: Remove pixel_rate from struct dp_ctrl
-      drm/msm/dp: Get rid of dp_ctrl_on_stream_phy_test_report()
-      drm/msm/dp: Silence inconsistent indent warning
-
-sunliming (1):
-      drm/msm/dsi: fix the inconsistent indenting
-
-ye xingchen (1):
-      drm/msm/dsi: Remove the unneeded result variable
-
- .../bindings/display/msm/dp-controller.yaml        |  47 +++-
- .../bindings/display/msm/dpu-msm8998.yaml          |   4 +
- .../bindings/display/msm/dpu-qcm2290.yaml          |   3 +
- .../bindings/display/msm/dpu-sc7180.yaml           |   3 +
- .../bindings/display/msm/dpu-sc7280.yaml           |   3 +
- .../bindings/display/msm/dpu-sdm845.yaml           |   4 +
- .../devicetree/bindings/display/msm/gmu.yaml       | 166 ++++++++++--
- .../devicetree/bindings/display/msm/gpu.yaml       |   3 +-
- .../devicetree/bindings/display/msm/mdp4.yaml      |   2 +-
- .../devicetree/bindings/phy/qcom,hdmi-phy-qmp.yaml |  15 +-
- drivers/gpu/drm/drm_gem.c                          | 170 ++++++++++++
- drivers/gpu/drm/msm/adreno/a3xx_gpu.c              |   2 +-
- drivers/gpu/drm/msm/adreno/a4xx_gpu.c              |   2 +-
- drivers/gpu/drm/msm/adreno/a6xx.xml.h              |   4 +
- drivers/gpu/drm/msm/adreno/a6xx_gmu.c              |  83 +++---
- drivers/gpu/drm/msm/adreno/a6xx_gpu.c              |  45 +++-
- drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c           |  50 ++--
- drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.h           |   1 -
- drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c        |  37 +--
- drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.h        |   2 +-
- drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c     |   9 +-
- drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h     |   2 +-
- drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c         |  78 +++---
- drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.h         |  35 ++-
- drivers/gpu/drm/msm/disp/dpu1/dpu_hw_dsc.c         |  74 ++---
- drivers/gpu/drm/msm/disp/dpu1/dpu_hw_dsc.h         |   4 +-
- drivers/gpu/drm/msm/disp/dpu1/dpu_hw_mdss.h        |   6 +-
- drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.c        |   3 +-
- drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.h        |   4 +-
- drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c            |  27 +-
- drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c          |  94 +------
- drivers/gpu/drm/msm/disp/dpu1/dpu_plane.h          |  22 +-
- drivers/gpu/drm/msm/disp/dpu1/dpu_vbif.c           |  65 +++--
- drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c           |   9 +-
- drivers/gpu/drm/msm/dp/dp_catalog.c                |   2 +-
- drivers/gpu/drm/msm/dp/dp_ctrl.c                   | 150 +++++------
- drivers/gpu/drm/msm/dp/dp_ctrl.h                   |   1 -
- drivers/gpu/drm/msm/dp/dp_link.c                   |   5 +-
- drivers/gpu/drm/msm/dsi/dsi.c                      |  37 +--
- drivers/gpu/drm/msm/dsi/dsi.h                      |  31 +--
- drivers/gpu/drm/msm/dsi/dsi_cfg.c                  | 172 ++++++------
- drivers/gpu/drm/msm/dsi/dsi_cfg.h                  |   3 +-
- drivers/gpu/drm/msm/dsi/dsi_host.c                 | 299 ++++++---------------
- drivers/gpu/drm/msm/dsi/dsi_manager.c              | 288 +++-----------------
- drivers/gpu/drm/msm/dsi/phy/dsi_phy.c              | 162 +++--------
- drivers/gpu/drm/msm/dsi/phy/dsi_phy.h              |   5 +-
- drivers/gpu/drm/msm/dsi/phy/dsi_phy_10nm.c         | 185 ++++++-------
- drivers/gpu/drm/msm/dsi/phy/dsi_phy_14nm.c         |  87 +++---
- drivers/gpu/drm/msm/dsi/phy/dsi_phy_20nm.c         |  14 +-
- drivers/gpu/drm/msm/dsi/phy/dsi_phy_28nm.c         | 145 +++++-----
- drivers/gpu/drm/msm/dsi/phy/dsi_phy_28nm_8960.c    | 102 ++++---
- drivers/gpu/drm/msm/dsi/phy/dsi_phy_7nm.c          | 188 +++++++------
- drivers/gpu/drm/msm/hdmi/hdmi_phy_8996.c           |  25 +-
- drivers/gpu/drm/msm/msm_debugfs.c                  |   8 +
- drivers/gpu/drm/msm/msm_drv.c                      |  48 +++-
- drivers/gpu/drm/msm/msm_drv.h                      |  88 ++++--
- drivers/gpu/drm/msm/msm_gem.c                      | 179 +++++-------
- drivers/gpu/drm/msm/msm_gem.h                      | 123 +--------
- drivers/gpu/drm/msm/msm_gem_prime.c                |   4 +-
- drivers/gpu/drm/msm/msm_gem_shrinker.c             | 164 ++++++-----
- drivers/gpu/drm/msm/msm_gem_submit.c               |  78 ++----
- drivers/gpu/drm/msm/msm_gpu.c                      |  24 +-
- drivers/gpu/drm/msm/msm_gpu.h                      |  14 +-
- drivers/gpu/drm/msm/msm_gpu_devfreq.c              |   2 +
- drivers/gpu/drm/msm/msm_gpu_trace.h                |  36 ++-
- drivers/gpu/drm/msm/msm_io_utils.c                 |  22 ++
- drivers/gpu/drm/msm/msm_iommu.c                    | 101 +++++--
- drivers/gpu/drm/msm/msm_rd.c                       |   3 +
- drivers/gpu/drm/msm/msm_ringbuffer.c               |   4 -
- drivers/gpu/drm/msm/msm_submitqueue.c              |   1 +
- include/drm/drm_gem.h                              |  55 ++++
- include/drm/drm_mipi_dsi.h                         |   2 +
- include/drm/drm_panel.h                            |   7 -
- 73 files changed, 1860 insertions(+), 2082 deletions(-)
