@@ -1,63 +1,71 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id DBD435E6115
-	for <lists+freedreno@lfdr.de>; Thu, 22 Sep 2022 13:30:43 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id A6EA45E6164
+	for <lists+freedreno@lfdr.de>; Thu, 22 Sep 2022 13:42:13 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CC01510EAD7;
-	Thu, 22 Sep 2022 11:30:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 27C1910EACD;
+	Thu, 22 Sep 2022 11:42:08 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x131.google.com (mail-lf1-x131.google.com
- [IPv6:2a00:1450:4864:20::131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A282B10EACC
- for <freedreno@lists.freedesktop.org>; Thu, 22 Sep 2022 11:30:29 +0000 (UTC)
-Received: by mail-lf1-x131.google.com with SMTP id k10so14155959lfm.4
- for <freedreno@lists.freedesktop.org>; Thu, 22 Sep 2022 04:30:29 -0700 (PDT)
+Received: from mail-lj1-x22a.google.com (mail-lj1-x22a.google.com
+ [IPv6:2a00:1450:4864:20::22a])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 06BB710EACD
+ for <freedreno@lists.freedesktop.org>; Thu, 22 Sep 2022 11:42:02 +0000 (UTC)
+Received: by mail-lj1-x22a.google.com with SMTP id b6so10606193ljr.10
+ for <freedreno@lists.freedesktop.org>; Thu, 22 Sep 2022 04:42:01 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date;
- bh=Nws0gXLCbPL6X9KoHrtPIHCoOBfOHKZJmB1WauEIFW4=;
- b=Cm4/iCt/4HPFS3Z+l8YA5dr9YKfLde/mEP/bKpfnK8EDu3fqU5JcxrXnl4xV51GOfw
- VBMgy9stx2JauU/DneaXoYQTVxEkn4rGkKYnQ+kLM5LnpmEKdUfuH82cnpaQrNrWSpO5
- DIUupurOi7wGq6ccpfWFxgZGIbBHgbkKfRfg7qp2p5ib72xs/mS69bMPaW4cVagHVG8i
- ebn2Kvfx+cehUdop8aAgjqZGgC1er3Mn8b4o31uIzZenXVNEnUkUSqShTmgvMK+Hly5u
- czKDoKeRri7PEPh9nSBgSd9IaiY83cqbdc9DzEVxHd9YvHFcaZ/o1LeNyngrOGqjCq49
- l9XA==
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date;
+ bh=+1WSPKWPrsc/qCB3+vUopjI5nZ0YDPu4pJY+FLQ9d2g=;
+ b=MFSvPboCRq4R6FIggkWWQ3DXdLdL9n5qZDgoEkrudLezY2MDKnJP4wtJs7ttGBOZSc
+ BcdF0QP+wa6Flm4LNfPX3OZBlIlLdLWhJx4s5tb0gNyTDo0/xMRuI4cf7EOMULCWT8aO
+ lqtu4MCYdNwM3f6e3vI5RjMCTyVE/e5u7MXcIP9LlzTxFdL+1KwnDby1EQznZJ+kRDUl
+ 0SyGrD4Mw2fjA99PNwqxVkcfKqY0g/0ul9z6SO3MhKPlEnfC26Hy+6waB8P0a+ruU77y
+ QxCiDdSN/WPOVNDjIwRB9dhBf7Y2V/cV8+FsolgnsRUuLuP/FOlcir5kLI5xK1c2M8lH
+ jH3w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date;
- bh=Nws0gXLCbPL6X9KoHrtPIHCoOBfOHKZJmB1WauEIFW4=;
- b=QZZ4nAGECjsa49uFkFegD+mMZoM59IuEebnbxDG8SWazG2OVUUVkkXK4h3XciMn65K
- dGHsYk9mFnYf3QUKpMimNTGog5zF8rMpJ1H0AxIaFzDXfIrto+0ljb8R4YWu+KaA33O5
- NIThB7GTal+ICyUvRBHLAOtDSpWigeXDEcYxnimQpIEu51nlMJcRzxM+atAQuQSjB5e5
- FGpe3EWKb+VsYCfnQPdPvcwu1q2ec/i19pM6EevNsxvzZZKgQWgRjxaNtFzWZ6xderg2
- hyCMDGWdzdZjArmOnCfjkzarTk7BBZwuOBocilnqASYQIDzfkCvW8LD86NUAPGc4sjaX
- syYQ==
-X-Gm-Message-State: ACrzQf3PCZcCo/70Ukxzp2xZx3RMcwsVDy7nawXs8jKE505Tz++vt54S
- 7gTc6SqqXzMM4jlIKkI6vpMRFg==
-X-Google-Smtp-Source: AMsMyM4fDheMKM/auohpHSKGpGB20FTYUF2o5KeB20hodt+Cz1FbODPDnrWnGrb7OXwt5uSew3/bzg==
-X-Received: by 2002:a05:6512:310:b0:496:a0ca:1613 with SMTP id
- t16-20020a056512031000b00496a0ca1613mr1155642lfp.394.1663846222847; 
- Thu, 22 Sep 2022 04:30:22 -0700 (PDT)
-Received: from eriador.lan ([37.153.55.125]) by smtp.gmail.com with ESMTPSA id
- c4-20020ac25304000000b004996fbfd75esm898527lfh.71.2022.09.22.04.30.22
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 22 Sep 2022 04:30:22 -0700 (PDT)
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-To: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>
-Date: Thu, 22 Sep 2022 14:30:16 +0300
-Message-Id: <20220922113016.355188-6-dmitry.baryshkov@linaro.org>
-X-Mailer: git-send-email 2.35.1
-In-Reply-To: <20220922113016.355188-1-dmitry.baryshkov@linaro.org>
-References: <20220922113016.355188-1-dmitry.baryshkov@linaro.org>
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date;
+ bh=+1WSPKWPrsc/qCB3+vUopjI5nZ0YDPu4pJY+FLQ9d2g=;
+ b=20y1sPLoKIGV2RHhw0rP3UpTg9C3dWKGn5wHG3DIMyjyW7OH4ig6p4z4tlT6Q7mGv4
+ 7edSoi4TupC3rqzg+tyyXoFTME58DG3WCYV3yPhZEGjvaIfkCe13rLVPsf8OV2xkv7RU
+ njYCmL99MI+AofuYulfRRHXQLAt/RWKhJRUu29+5v+PCf4SZn0elkCy+t0AHcayEGx1l
+ WItZJVJacDHrDNqGgn27CT2bUnA9oyLygv1zRh1F/2QIVOKemPxGYP8hk/FoBv/1gxTH
+ zJuERcFGJ8U9ddBvC5fnZGu15NNocwqr4yxRWvJll/dt5nBXS2a5VTyn3ltKSRtt3c9z
+ GH3A==
+X-Gm-Message-State: ACrzQf28ae+NoJThb1wuRl/fKvvhQG/LNGBEABMKnmEqF6/QXwAb8tfG
+ B0q+SDT0mXtA4wIZdskROeTdjw==
+X-Google-Smtp-Source: AMsMyM6zHeMHrlIuqY4/28l8FLxG/78F98uMeprX3YAgBNuR2l6PU1cveCKQz16copA4pZIFLZZisw==
+X-Received: by 2002:a2e:940f:0:b0:261:b9ca:6207 with SMTP id
+ i15-20020a2e940f000000b00261b9ca6207mr955616ljh.192.1663846920252; 
+ Thu, 22 Sep 2022 04:42:00 -0700 (PDT)
+Received: from [192.168.0.21] (78-11-189-27.static.ip.netia.com.pl.
+ [78.11.189.27]) by smtp.gmail.com with ESMTPSA id
+ d2-20020a056512368200b00494a603953dsm902628lfs.89.2022.09.22.04.41.59
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 22 Sep 2022 04:41:59 -0700 (PDT)
+Message-ID: <4841c705-0944-9e94-1ade-47ad2f462303@linaro.org>
+Date: Thu, 22 Sep 2022 13:41:58 +0200
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH 5/5] drm/msm: mdss add support for SM8450
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.2.2
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+References: <20220915133742.115218-1-dmitry.baryshkov@linaro.org>
+ <20220915133742.115218-5-dmitry.baryshkov@linaro.org>
+ <2c7769ae-79af-dab5-ebe3-31ccca0bd9a4@linaro.org>
+ <CAA8EJppRdrfy5vPuLxH0+=DAELdadK4h6X0xmHA01rySoBFN7g@mail.gmail.com>
+Content-Language: en-US
+From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+In-Reply-To: <CAA8EJppRdrfy5vPuLxH0+=DAELdadK4h6X0xmHA01rySoBFN7g@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+Subject: Re: [Freedreno] [PATCH v7 04/12] dt-bindings: display/msm: move
+ common DPU properties to dpu-common.yaml
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,46 +78,42 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: David Airlie <airlied@linux.ie>, linux-arm-msm@vger.kernel.org,
- Bjorn Andersson <andersson@kernel.org>, dri-devel@lists.freedesktop.org,
- Stephen Boyd <swboyd@chromium.org>, Daniel Vetter <daniel@ffwll.ch>,
- freedreno@lists.freedesktop.org
+Cc: devicetree@vger.kernel.org, Daniel Vetter <daniel@ffwll.ch>,
+ David Airlie <airlied@linux.ie>, linux-arm-msm@vger.kernel.org,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konrad.dybcio@somainline.org>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, Rob Herring <robh+dt@kernel.org>,
+ Stephen Boyd <swboyd@chromium.org>, Rob Clark <robdclark@gmail.com>,
+ Andy Gross <agross@kernel.org>, dri-devel@lists.freedesktop.org,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ freedreno@lists.freedesktop.org, Sean Paul <sean@poorly.run>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Add support for the MDSS block on SM8450 platform.
+On 22/09/2022 09:50, Dmitry Baryshkov wrote:
+> On Thu, 22 Sept 2022 at 10:02, Krzysztof Kozlowski
+> <krzysztof.kozlowski@linaro.org> wrote:
+>>
+>> On 15/09/2022 15:37, Dmitry Baryshkov wrote:
+>>> Move properties common to all DPU DT nodes to the dpu-common.yaml.
+>>>
+>>> Note, this removes description of individual DPU port@ nodes. However
+>>> such definitions add no additional value. The reg values do not
+>>> correspond to hardware INTF indices. The driver discovers and binds
+>>> these ports not paying any care for the order of these items. Thus just
+>>> leave the reference to graph.yaml#/properties/ports and the description.
+>>
+>> This is okay, but you loose required:ports@[01].
+> 
+> This is fine for me. The ports do not have 1:1 correspondence to
+> intfs. Usually platforms add ports as new sinks are added. For example
+> a platform can start with a single DSI node and later get second DSI,
+> DP, eDP, etc. as they are receiving support/required by end-user
+> devices.
 
-Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
----
- drivers/gpu/drm/msm/msm_mdss.c | 8 ++++++++
- 1 file changed, 8 insertions(+)
+Then at least port@0 would be required. Node without ports does not look
+correct.
 
-diff --git a/drivers/gpu/drm/msm/msm_mdss.c b/drivers/gpu/drm/msm/msm_mdss.c
-index e13c5c12b775..9e011762396b 100644
---- a/drivers/gpu/drm/msm/msm_mdss.c
-+++ b/drivers/gpu/drm/msm/msm_mdss.c
-@@ -219,6 +219,13 @@ static int msm_mdss_enable(struct msm_mdss *msm_mdss)
- 	case DPU_HW_VER_720:
- 		writel_relaxed(0x101e, msm_mdss->mmio + UBWC_STATIC);
- 		break;
-+	case DPU_HW_VER_810:
-+		/* FIXME: merge with 6.0.0? */
-+		/* TODO: 0x102e for LP_DDR4 */
-+		writel_relaxed(0x103e, msm_mdss->mmio + UBWC_STATIC);
-+		writel_relaxed(2, msm_mdss->mmio + UBWC_CTRL_2);
-+		writel_relaxed(1, msm_mdss->mmio + UBWC_PREDICTION_MODE);
-+		break;
- 	}
- 
- 	return ret;
-@@ -447,6 +454,7 @@ static const struct of_device_id mdss_dt_match[] = {
- 	{ .compatible = "qcom,sc8180x-mdss" },
- 	{ .compatible = "qcom,sm8150-mdss" },
- 	{ .compatible = "qcom,sm8250-mdss" },
-+	{ .compatible = "qcom,sm8450-mdss" },
- 	{}
- };
- MODULE_DEVICE_TABLE(of, mdss_dt_match);
--- 
-2.35.1
+Best regards,
+Krzysztof
 
