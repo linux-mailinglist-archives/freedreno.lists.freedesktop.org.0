@@ -1,76 +1,46 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 50D6A5E625D
-	for <lists+freedreno@lfdr.de>; Thu, 22 Sep 2022 14:28:25 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 250D55E662A
+	for <lists+freedreno@lfdr.de>; Thu, 22 Sep 2022 16:51:18 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1354310EAFF;
-	Thu, 22 Sep 2022 12:28:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C7B5410E20D;
+	Thu, 22 Sep 2022 14:51:16 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x134.google.com (mail-lf1-x134.google.com
- [IPv6:2a00:1450:4864:20::134])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C69FF10EAFD
- for <freedreno@lists.freedesktop.org>; Thu, 22 Sep 2022 12:28:19 +0000 (UTC)
-Received: by mail-lf1-x134.google.com with SMTP id u18so14380523lfo.8
- for <freedreno@lists.freedesktop.org>; Thu, 22 Sep 2022 05:28:19 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date;
- bh=5SZRoMWkj7sPPK68CLRRPVikyUUuj8SEQiwVkaQJlWY=;
- b=MCQN23xBoz2SKYpzjoltuC8QA9SC1+5Ru6OFQsdFc14JZGlqhxRsf909vKHzjWm1Te
- WT/D/0SCsUz22VN1J1zOME7omOBRfg6yj8dwWUt21xjBwbWkwhOK8HZomv/ua9Oh7Wo4
- pBrfkYSh38qHgM+TIIimvhBy4xQS+eoy6+HJbXUBcXlrAQwum58MLvFoN77AfQJqhTli
- d6bnIsmj93xjXmdBNpLsQSKJ3oJJ/eb7Tl9wH4qhk17EXNDGTELUd8BDh2NChQUhb5oN
- vY4rWE+23sodZwklNhN3f38s1F+LNzFfuvWaK8+P48Kl6kHfAnuXAnYU5YzsuY4chov5
- aKKg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date;
- bh=5SZRoMWkj7sPPK68CLRRPVikyUUuj8SEQiwVkaQJlWY=;
- b=2tnfux4wjaTm/tNromBgK9K45lBTRJxHc4Aa28VizyGXIRIOB1wHNz95gQh2cMJSUX
- 2KZoLJrd/SUUt+RdQJHtVg/X6cT7q/JsyneDCZ8+zLvCkHtlf7nNXan3matpEE9qN1Ox
- dcvxeQtDx0yxX5WCDRh0lH0GsFGhy3gb25OAjVJp9wW3mqJkdd/YTLuNXnlU0rmv258i
- J8kk1Y3Pw6zRX2vBQTRxlhTsevPv1WOnO6uwSy+l7IcNLuE8C6l2V/4jo4m1pCi8IMIj
- alQc8V9bRneV4Z69iktzwyIcerlYKBRE2EKPyQNwtFE9mBOl16NNrKU8EIV83l9GJAtv
- AwVQ==
-X-Gm-Message-State: ACrzQf0JUNM8oyvKT2E5wrpiEp51wyEanVhnXQmGxRm/072gpUJLNwZf
- jWkrvvn+OPmtFx+asu1FdhCYIw==
-X-Google-Smtp-Source: AMsMyM4wVKJ79xhrEwFdmhQEp5YX56Nc1TUep7BTcnzG89LQeXIsYvp7rQ2cqzc+hSndw9i+usfS6A==
-X-Received: by 2002:a05:6512:401d:b0:496:9971:78c5 with SMTP id
- br29-20020a056512401d00b00496997178c5mr1054971lfb.337.1663849698142; 
- Thu, 22 Sep 2022 05:28:18 -0700 (PDT)
-Received: from [192.168.0.21] (78-11-189-27.static.ip.netia.com.pl.
- [78.11.189.27]) by smtp.gmail.com with ESMTPSA id
- a7-20020ac25e67000000b00499b57032c1sm916120lfr.144.2022.09.22.05.28.17
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 22 Sep 2022 05:28:17 -0700 (PDT)
-Message-ID: <d2af0a8e-63fe-221f-1c53-9fe1c43fa04d@linaro.org>
-Date: Thu, 22 Sep 2022 14:28:16 +0200
+Received: from szxga01-in.huawei.com (szxga01-in.huawei.com [45.249.212.187])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6C2F010E36A;
+ Thu, 22 Sep 2022 13:48:18 +0000 (UTC)
+Received: from dggpemm500022.china.huawei.com (unknown [172.30.72.57])
+ by szxga01-in.huawei.com (SkyGuard) with ESMTP id 4MYGj05XQWzlWvP;
+ Thu, 22 Sep 2022 21:44:04 +0800 (CST)
+Received: from dggpemm100009.china.huawei.com (7.185.36.113) by
+ dggpemm500022.china.huawei.com (7.185.36.162) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2375.31; Thu, 22 Sep 2022 21:48:13 +0800
+Received: from huawei.com (10.175.113.32) by dggpemm100009.china.huawei.com
+ (7.185.36.113) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.31; Thu, 22 Sep
+ 2022 21:48:12 +0800
+From: Liu Shixin <liushixin2@huawei.com>
+To: Rob Clark <robdclark@gmail.com>, Abhinav Kumar
+ <quic_abhinavk@quicinc.com>, Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Sean Paul <sean@poorly.run>, David Airlie <airlied@linux.ie>, Daniel Vetter
+ <daniel@ffwll.ch>
+Date: Thu, 22 Sep 2022 22:21:47 +0800
+Message-ID: <20220922142147.3246649-1-liushixin2@huawei.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.2.2
-Content-Language: en-US
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Andy Gross <agross@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konrad.dybcio@somainline.org>, Rob Clark
- <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, Rob Herring <robh+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>
-References: <20220915133742.115218-1-dmitry.baryshkov@linaro.org>
- <20220915133742.115218-6-dmitry.baryshkov@linaro.org>
- <02b60bf8-70ac-eb7b-33d7-1c9b7a6f0a54@linaro.org>
- <168a46c3-2c0e-cd5c-e6f1-1e072c67d162@linaro.org>
-From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-In-Reply-To: <168a46c3-2c0e-cd5c-e6f1-1e072c67d162@linaro.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH v7 05/12] dt-bindings: display/msm: move
- common MDSS properties to mdss-common.yaml
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.175.113.32]
+X-ClientProxiedBy: dggems702-chm.china.huawei.com (10.3.19.179) To
+ dggpemm100009.china.huawei.com (7.185.36.113)
+X-CFilter-Loop: Reflected
+X-Mailman-Approved-At: Thu, 22 Sep 2022 14:51:14 +0000
+Subject: [Freedreno] [PATCH] drm/msm/dpu: use DEFINE_SHOW_ATTRIBUTE to
+ simplify dpu_regset32
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,33 +53,62 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: devicetree@vger.kernel.org, David Airlie <airlied@linux.ie>,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- Stephen Boyd <swboyd@chromium.org>, Daniel Vetter <daniel@ffwll.ch>,
- freedreno@lists.freedesktop.org
+Cc: Liu Shixin <liushixin2@huawei.com>, linux-arm-msm@vger.kernel.org,
+ freedreno@lists.freedesktop.org, dri-devel@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 22/09/2022 13:46, Dmitry Baryshkov wrote:
->>> -  ranges: true
->>> +    maxItems: 2
->>>   
->>>     interconnects:
->>> -    items:
->>> -      - description: Interconnect path from mdp0 port to the data bus
->>> -      - description: Interconnect path from mdp1 port to the data bus
->>> +    maxItems: 2
->>
->> I think this is not equivalent now, because you have in total minItems:1
->> and maxItems:2, while in past minItems was 2.
-> 
-> This means that I should have minItems:2, maxItems:2, which, if I got it 
-> right, is frowned upon. Let me doublecheck though if it works as expected.
+Use DEFINE_SHOW_ATTRIBUTE helper macro to simplify the code.
+No functional change.
 
-It is frowned upon only if it is alone, because for missing minItems,
-maxItems implies minItems. Here you have minItems in other schema, so
-there is no such case
+Signed-off-by: Liu Shixin <liushixin2@huawei.com>
+---
+ drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c | 18 +++---------------
+ 1 file changed, 3 insertions(+), 15 deletions(-)
 
-Best regards,
-Krzysztof
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
+index 5e6e2626151e..f3660cd14f4f 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
+@@ -194,7 +194,7 @@ struct dpu_debugfs_regset32 {
+ 	struct dpu_kms *dpu_kms;
+ };
+ 
+-static int _dpu_debugfs_show_regset32(struct seq_file *s, void *data)
++static int dpu_regset32_show(struct seq_file *s, void *data)
+ {
+ 	struct dpu_debugfs_regset32 *regset = s->private;
+ 	struct dpu_kms *dpu_kms = regset->dpu_kms;
+@@ -227,19 +227,7 @@ static int _dpu_debugfs_show_regset32(struct seq_file *s, void *data)
+ 
+ 	return 0;
+ }
+-
+-static int dpu_debugfs_open_regset32(struct inode *inode,
+-		struct file *file)
+-{
+-	return single_open(file, _dpu_debugfs_show_regset32, inode->i_private);
+-}
+-
+-static const struct file_operations dpu_fops_regset32 = {
+-	.open =		dpu_debugfs_open_regset32,
+-	.read =		seq_read,
+-	.llseek =	seq_lseek,
+-	.release =	single_release,
+-};
++DEFINE_SHOW_ATTRIBUTE(dpu_regset32);
+ 
+ void dpu_debugfs_create_regset32(const char *name, umode_t mode,
+ 		void *parent,
+@@ -259,7 +247,7 @@ void dpu_debugfs_create_regset32(const char *name, umode_t mode,
+ 	regset->blk_len = length;
+ 	regset->dpu_kms = dpu_kms;
+ 
+-	debugfs_create_file(name, mode, parent, regset, &dpu_fops_regset32);
++	debugfs_create_file(name, mode, parent, regset, &dpu_regset32_fops);
+ }
+ 
+ static int dpu_kms_debugfs_init(struct msm_kms *kms, struct drm_minor *minor)
+-- 
+2.25.1
 
