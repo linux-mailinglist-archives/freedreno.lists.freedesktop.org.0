@@ -1,73 +1,53 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id D2AA55E6746
-	for <lists+freedreno@lfdr.de>; Thu, 22 Sep 2022 17:37:47 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 0CA1A5E6A64
+	for <lists+freedreno@lfdr.de>; Thu, 22 Sep 2022 20:08:44 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 97DB110E3D1;
-	Thu, 22 Sep 2022 15:37:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B240510E045;
+	Thu, 22 Sep 2022 18:08:42 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x12e.google.com (mail-lf1-x12e.google.com
- [IPv6:2a00:1450:4864:20::12e])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4178010E3D1
- for <freedreno@lists.freedesktop.org>; Thu, 22 Sep 2022 15:37:43 +0000 (UTC)
-Received: by mail-lf1-x12e.google.com with SMTP id j16so15356025lfg.1
- for <freedreno@lists.freedesktop.org>; Thu, 22 Sep 2022 08:37:43 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date;
- bh=zdGItr5ICc4vlhS3KGwufw/Y8w2UR5ZVlts6EctynGI=;
- b=cYwW6ohqGr+JtPJ/CQ4fzXi+ot92VVnYo0FHuXQI76jbm8+6lgnVm/+IBi5NLIuAJp
- kxZ2IXhyaFXUtcVSx6vOBG5nCGulreB7JY3l7+kgMlntGfGGUYdxNf4zhJGDvLfzBNZj
- yffbR7QxgOGesk1up0TsxpFaSg3SIHIQsGmWH+obHSl6VIRewS62cXjxHRfTYSWhTT4I
- c14V4UraiU52gm+7TgaCeOQU0hsbgoWEfgHezZ/Ug6+jjqd4WNg/HZoY1Cuc1HX1s6tB
- 95/xM/6e58bs5qpZu/Eg8t3clreVhFcU9ISgFZVBQNhwZ7Ejl6uMNpLQPjEyZ7ENEv0p
- bljA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date;
- bh=zdGItr5ICc4vlhS3KGwufw/Y8w2UR5ZVlts6EctynGI=;
- b=xefFhSXt0ONH5o2xPu5djYaWtGwfapACBaOJRkG610S2KbmQP6rzmQlMPLk6TCKkLK
- hgecnuzW1AspxaPt1nPB8RyiGNIhiPYHOflG4djGy/M78UjjdUfWhvR5ThgDVGrmEBtr
- 1B7maH9NF8zbueC2IJTBdxme1O8OyfBnLkabSPCzrmdTBraI8pwU3FYB2Gsijxfhen+L
- L+C2tXP7nPhLDQ+ONolynmQBCrvOzzSGUkXzrosa5XClbq0ctSJT0mLRpmxXrYXLRIdN
- sA/OklX1LITjNIZyHjR4gj0QmqF3s4j9BD1VD+oj/DrSob68KNag4iPMKqMqwZ8EG4Ju
- W19Q==
-X-Gm-Message-State: ACrzQf1HHvCGCOTcSQszPjz868YCmpCNgRB+fYx34kEYf5K2QgJEx8bP
- hhc8M/j2Xtd2J8yiOxM3+c7wig==
-X-Google-Smtp-Source: AMsMyM7h9wDWsyUiqMcRTiNhG8QJKDH4ATtOFz8lkYELII3NUCIdQoLWizMQQQXkal5Hd6Zg8Y51zg==
-X-Received: by 2002:a05:6512:2251:b0:496:c3b9:c18d with SMTP id
- i17-20020a056512225100b00496c3b9c18dmr1389520lfu.403.1663861061448; 
- Thu, 22 Sep 2022 08:37:41 -0700 (PDT)
-Received: from [192.168.0.21] (78-11-189-27.static.ip.netia.com.pl.
- [78.11.189.27]) by smtp.gmail.com with ESMTPSA id
- g4-20020a056512118400b0049f907b9ba9sm982317lfr.226.2022.09.22.08.37.40
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 22 Sep 2022 08:37:40 -0700 (PDT)
-Message-ID: <acd9ff20-a07b-05ab-6f4b-34e3e8b1cae8@linaro.org>
-Date: Thu, 22 Sep 2022 17:37:39 +0200
+Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9BEFD10E045;
+ Thu, 22 Sep 2022 18:08:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1663870119; x=1695406119;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=XWTPtcPwd9kNlzOtTTr/5rIXRMrAohKWyfVZj2wcdLc=;
+ b=kn5ZpbXBjelyLfgjut4bOIFECL4EtPM61py/EA48irKg9MAeQacpA5CJ
+ 5q0xcMmAvLN996aZctC8O2Lb7N9peP01U78teMrKgl/uv3wSSpCPtxqGp
+ jICgIn0+qTpUTSNx/YCr0a/YKG1MUO5TPM2MyY8vUNgfy+DRQ2Pf7D39t
+ EKyx6OYbQLio8GsvP3TQ/4Jp7PNwXesfJs1vByZAftgefHjyqL+GMBlNG
+ l0KOtfBg2lMzk/icklMkYK+KQq9NDuaihidYVIW/cWNL+9SSb3y1LyPH4
+ WKLA09T5a3j4pjTsrviav+sk4aD5MPWoXavyw134ALUHtvqifkcOeLNSY w==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10478"; a="300368068"
+X-IronPort-AV: E=Sophos;i="5.93,337,1654585200"; d="scan'208";a="300368068"
+Received: from orsmga003.jf.intel.com ([10.7.209.27])
+ by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 22 Sep 2022 11:08:38 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.93,337,1654585200"; d="scan'208";a="571069511"
+Received: from lkp-server01.sh.intel.com (HELO c0a60f19fe7e) ([10.239.97.150])
+ by orsmga003.jf.intel.com with ESMTP; 22 Sep 2022 11:08:35 -0700
+Received: from kbuild by c0a60f19fe7e with local (Exim 4.96)
+ (envelope-from <lkp@intel.com>) id 1obQck-0004r1-2W;
+ Thu, 22 Sep 2022 18:08:34 +0000
+Date: Fri, 23 Sep 2022 02:08:02 +0800
+From: kernel test robot <lkp@intel.com>
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>
+Message-ID: <202209230114.2apdPcjg-lkp@intel.com>
+References: <20220922113016.355188-5-dmitry.baryshkov@linaro.org>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.2.2
-Content-Language: en-US
-To: Bjorn Andersson <andersson@kernel.org>
-References: <20220916200028.25009-1-quic_bjorande@quicinc.com>
- <20220916200028.25009-2-quic_bjorande@quicinc.com>
- <1641e41c-08c7-859b-644a-28d966fb00f3@linaro.org>
- <20220919211832.6b3buqxrnfp6yjjg@builder.lan>
- <6b242b44-b657-c7a6-63ca-465c7031376f@linaro.org>
- <20220922001429.zqfap3clprvlo6jo@builder.lan>
-From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-In-Reply-To: <20220922001429.zqfap3clprvlo6jo@builder.lan>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH v2 1/7] dt-bindings: msm/dp: Add SDM845 and
- SC8280XP compatibles
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20220922113016.355188-5-dmitry.baryshkov@linaro.org>
+Subject: Re: [Freedreno] [PATCH 4/5] drm/msm/dpu: add support for SM8450
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,67 +60,124 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: devicetree@vger.kernel.org,
- Sankeerth Billakanti <quic_sbillaka@quicinc.com>,
- Bjorn Andersson <quic_bjorande@quicinc.com>, linux-arm-msm@vger.kernel.org,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
- Stephen Boyd <swboyd@chromium.org>, Rob Clark <robdclark@gmail.com>,
- Rob Herring <robh+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Kuogee Hsieh <quic_khsieh@quicinc.com>, freedreno@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
+Cc: kbuild-all@lists.01.org, David Airlie <airlied@linux.ie>,
+ linux-arm-msm@vger.kernel.org, Bjorn Andersson <andersson@kernel.org>,
+ llvm@lists.linux.dev, dri-devel@lists.freedesktop.org,
+ Stephen Boyd <swboyd@chromium.org>, freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 22/09/2022 02:14, Bjorn Andersson wrote:
-> On Tue, Sep 20, 2022 at 09:09:13AM +0200, Krzysztof Kozlowski wrote:
->> On 19/09/2022 23:18, Bjorn Andersson wrote:
->>> On Sat, Sep 17, 2022 at 06:03:27PM +0100, Krzysztof Kozlowski wrote:
->>>> On 16/09/2022 21:00, Bjorn Andersson wrote:
->>>>> From: Bjorn Andersson <bjorn.andersson@linaro.org>
->>>>>
->>>>> Add compatibles for the DisplayPort and Embedded DisplayPort blocks in
->>>>> Qualcomm SDM845 and SC8280XP platforms.
->>>>>
->>>>> Signed-off-by: Bjorn Andersson <bjorn.andersson@linaro.org>
->>>>> Signed-off-by: Bjorn Andersson <quic_bjorande@quicinc.com>
->>>>
->>>> No need for quicinc SoB (unless you also take ownership).
->>>>
->>>
->>> It's my understanding that both needs to be there. Bjorn @ Linaro
->>> authored the patch and the author must certify its origin, but as the
->>> submitter I must certify its origin.
->>
->> It's the same person. There are no two Bjorns (unless there are :) ), so
->> you certify with old email. SoB chain is coming from people, not email
->> addresses.
->>
-> 
-> IANAL, but I don't think it's the same person. I can't use my old
-> signature to certify the origin in a contribution today and I can't
-> claim authorship of something Linaro did.
+Hi Dmitry,
 
-Fine with me.
+I love your patch! Perhaps something to improve:
 
-> 
->> And it is not only my understanding of SoB chain.
->> https://lore.kernel.org/all/YuKcBO5JatwRYQJ3@kroah.com/
->>
-> 
-> Again, IANAL, but I think the situation is different given AMD and
-> Xilinx relationship.
+[auto build test WARNING on next-20220921]
+[also build test WARNING on linus/master v6.0-rc6]
+[cannot apply to drm-misc/drm-misc-next v6.0-rc6 v6.0-rc5 v6.0-rc4]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch#_base_tree_information]
 
-Hm, I am not sure how it is different. We might know or we might know
-the change of ownership. Maybe the change of owner came with copyrights,
-maybe not (someone else bought them). I don't know, there can be many
-cases here. I interpret Greg's point there as in SoB statement - the
-person, not email address, certifies.
+url:    https://github.com/intel-lab-lkp/linux/commits/Dmitry-Baryshkov/drm-msm-add-support-for-SM8450/20220922-193223
+base:    483fed3b5dc8ce3644c83d24240cf5756fb0993e
+config: s390-randconfig-r044-20220922 (https://download.01.org/0day-ci/archive/20220923/202209230114.2apdPcjg-lkp@intel.com/config)
+compiler: clang version 16.0.0 (https://github.com/llvm/llvm-project 791a7ae1ba3efd6bca96338e10ffde557ba83920)
+reproduce (this is a W=1 build):
+        wget https://raw.githubusercontent.com/intel/lkp-tests/master/sbin/make.cross -O ~/bin/make.cross
+        chmod +x ~/bin/make.cross
+        # install s390 cross compiling tool for clang build
+        # apt-get install binutils-s390x-linux-gnu
+        # https://github.com/intel-lab-lkp/linux/commit/b25f303f8c65c2776a67e8c6ac66c379d74170ce
+        git remote add linux-review https://github.com/intel-lab-lkp/linux
+        git fetch --no-tags linux-review Dmitry-Baryshkov/drm-msm-add-support-for-SM8450/20220922-193223
+        git checkout b25f303f8c65c2776a67e8c6ac66c379d74170ce
+        # save the config file
+        mkdir build_dir && cp config build_dir/.config
+        COMPILER_INSTALL_PATH=$HOME/0day COMPILER=clang make.cross W=1 O=build_dir ARCH=s390 SHELL=/bin/bash drivers/gpu/drm/msm/
 
-Anyway, this is not a blocker for the patch.
+If you fix the issue, kindly add following tag where applicable
+| Reported-by: kernel test robot <lkp@intel.com>
+
+All warnings (new ones prefixed by >>):
+
+   In file included from drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c:8:
+   In file included from include/linux/of_address.h:7:
+   In file included from include/linux/io.h:13:
+   In file included from arch/s390/include/asm/io.h:75:
+   include/asm-generic/io.h:547:31: warning: performing pointer arithmetic on a null pointer has undefined behavior [-Wnull-pointer-arithmetic]
+           val = __raw_readb(PCI_IOBASE + addr);
+                             ~~~~~~~~~~ ^
+   include/asm-generic/io.h:560:61: warning: performing pointer arithmetic on a null pointer has undefined behavior [-Wnull-pointer-arithmetic]
+           val = __le16_to_cpu((__le16 __force)__raw_readw(PCI_IOBASE + addr));
+                                                           ~~~~~~~~~~ ^
+   include/uapi/linux/byteorder/big_endian.h:37:59: note: expanded from macro '__le16_to_cpu'
+   #define __le16_to_cpu(x) __swab16((__force __u16)(__le16)(x))
+                                                             ^
+   include/uapi/linux/swab.h:102:54: note: expanded from macro '__swab16'
+   #define __swab16(x) (__u16)__builtin_bswap16((__u16)(x))
+                                                        ^
+   In file included from drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c:8:
+   In file included from include/linux/of_address.h:7:
+   In file included from include/linux/io.h:13:
+   In file included from arch/s390/include/asm/io.h:75:
+   include/asm-generic/io.h:573:61: warning: performing pointer arithmetic on a null pointer has undefined behavior [-Wnull-pointer-arithmetic]
+           val = __le32_to_cpu((__le32 __force)__raw_readl(PCI_IOBASE + addr));
+                                                           ~~~~~~~~~~ ^
+   include/uapi/linux/byteorder/big_endian.h:35:59: note: expanded from macro '__le32_to_cpu'
+   #define __le32_to_cpu(x) __swab32((__force __u32)(__le32)(x))
+                                                             ^
+   include/uapi/linux/swab.h:115:54: note: expanded from macro '__swab32'
+   #define __swab32(x) (__u32)__builtin_bswap32((__u32)(x))
+                                                        ^
+   In file included from drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c:8:
+   In file included from include/linux/of_address.h:7:
+   In file included from include/linux/io.h:13:
+   In file included from arch/s390/include/asm/io.h:75:
+   include/asm-generic/io.h:584:33: warning: performing pointer arithmetic on a null pointer has undefined behavior [-Wnull-pointer-arithmetic]
+           __raw_writeb(value, PCI_IOBASE + addr);
+                               ~~~~~~~~~~ ^
+   include/asm-generic/io.h:594:59: warning: performing pointer arithmetic on a null pointer has undefined behavior [-Wnull-pointer-arithmetic]
+           __raw_writew((u16 __force)cpu_to_le16(value), PCI_IOBASE + addr);
+                                                         ~~~~~~~~~~ ^
+   include/asm-generic/io.h:604:59: warning: performing pointer arithmetic on a null pointer has undefined behavior [-Wnull-pointer-arithmetic]
+           __raw_writel((u32 __force)cpu_to_le32(value), PCI_IOBASE + addr);
+                                                         ~~~~~~~~~~ ^
+   include/asm-generic/io.h:692:20: warning: performing pointer arithmetic on a null pointer has undefined behavior [-Wnull-pointer-arithmetic]
+           readsb(PCI_IOBASE + addr, buffer, count);
+                  ~~~~~~~~~~ ^
+   include/asm-generic/io.h:700:20: warning: performing pointer arithmetic on a null pointer has undefined behavior [-Wnull-pointer-arithmetic]
+           readsw(PCI_IOBASE + addr, buffer, count);
+                  ~~~~~~~~~~ ^
+   include/asm-generic/io.h:708:20: warning: performing pointer arithmetic on a null pointer has undefined behavior [-Wnull-pointer-arithmetic]
+           readsl(PCI_IOBASE + addr, buffer, count);
+                  ~~~~~~~~~~ ^
+   include/asm-generic/io.h:717:21: warning: performing pointer arithmetic on a null pointer has undefined behavior [-Wnull-pointer-arithmetic]
+           writesb(PCI_IOBASE + addr, buffer, count);
+                   ~~~~~~~~~~ ^
+   include/asm-generic/io.h:726:21: warning: performing pointer arithmetic on a null pointer has undefined behavior [-Wnull-pointer-arithmetic]
+           writesw(PCI_IOBASE + addr, buffer, count);
+                   ~~~~~~~~~~ ^
+   include/asm-generic/io.h:735:21: warning: performing pointer arithmetic on a null pointer has undefined behavior [-Wnull-pointer-arithmetic]
+           writesl(PCI_IOBASE + addr, buffer, count);
+                   ~~~~~~~~~~ ^
+>> drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c:1559:37: warning: unused variable 'sm8450_regdma' [-Wunused-const-variable]
+   static const struct dpu_reg_dma_cfg sm8450_regdma = {
+                                       ^
+   13 warnings generated.
 
 
-Best regards,
-Krzysztof
+vim +/sm8450_regdma +1559 drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
 
+  1558	
+> 1559	static const struct dpu_reg_dma_cfg sm8450_regdma = {
+  1560		.base = 0x0,
+  1561		.version = 0x00020000,
+  1562		.trigger_sel_off = 0x119c,
+  1563		.xin_id = 7,
+  1564		.clk_ctrl = DPU_CLK_CTRL_REG_DMA,
+  1565	};
+  1566	
+
+-- 
+0-DAY CI Kernel Test Service
+https://01.org/lkp
