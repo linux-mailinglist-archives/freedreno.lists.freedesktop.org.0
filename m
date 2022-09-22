@@ -2,73 +2,58 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6B3915E5BE3
-	for <lists+freedreno@lfdr.de>; Thu, 22 Sep 2022 09:10:34 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2A6075E5CA9
+	for <lists+freedreno@lfdr.de>; Thu, 22 Sep 2022 09:50:59 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 14A9010E570;
-	Thu, 22 Sep 2022 07:10:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 756BE10E1B4;
+	Thu, 22 Sep 2022 07:50:57 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x131.google.com (mail-lf1-x131.google.com
- [IPv6:2a00:1450:4864:20::131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EED2410E571
- for <freedreno@lists.freedesktop.org>; Thu, 22 Sep 2022 07:10:29 +0000 (UTC)
-Received: by mail-lf1-x131.google.com with SMTP id f9so13162205lfr.3
- for <freedreno@lists.freedesktop.org>; Thu, 22 Sep 2022 00:10:29 -0700 (PDT)
+Received: from mail-yb1-xb29.google.com (mail-yb1-xb29.google.com
+ [IPv6:2607:f8b0:4864:20::b29])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 27A3510EA65
+ for <freedreno@lists.freedesktop.org>; Thu, 22 Sep 2022 07:50:55 +0000 (UTC)
+Received: by mail-yb1-xb29.google.com with SMTP id e187so11546177ybh.10
+ for <freedreno@lists.freedesktop.org>; Thu, 22 Sep 2022 00:50:55 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date;
- bh=+UzXS09SHc8/NrA6s9IEtWZ9LL+BrDTcoGV33B1WFWs=;
- b=rldSwPkc246dYUhm7aJnPBpqe6gTN8yppc0aS2NIIHlJTDMx9BtTfru5RVrxqJutrJ
- FPMVJHO5jqCggzEDee2aVYetpt9V8CPXHPbu/wJ5sxTilSXcsA0N9FgY1Mf3aJZevnpE
- TO/SVJN/jgEf0rxNil7Yc5zCc1Wbd5NpwtC1XYPTsQqrB1j+Y/ePE+KVa9t54cNlGOEI
- yKv42dH3/EIWZVsJfI1oXEGEofo0cl6gzlMwiww/n8pIXRPZ7wpE3uNOH2jEYxDm3G6W
- IbjspM99I/oe0fcCRcS9JAxrdtqM/62/QXoHTIU5ej3gx6OGjWDbXPJWVahq0D5HyWKY
- 4iYQ==
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date;
+ bh=Sds/Dyb9ikOJ5Khfgi4mahargaDHP26IO9csDUpISkI=;
+ b=AL32irr9FYBKUHIMMo9eydEHfgQBuJXAF1H89Pdx7WfEOgLxDFof1d2iloaxmHz3MU
+ 7A6q3mQUUPlbgcPO1mv30xD6Jh46/G3ZSbLL9NzwwHNOmyDfps3O0ZS5hNnQHVsGEjqw
+ kXXFtzjE6X/0uMrKBwPoj9qBj1e6naSv66VFWpxMUPKtV8A8owNf7h3nT5KRtiJqtjz+
+ GicpVKAZCIBSVdcU/cNIZ7FW/Si2ErxCcRy15qVAjuTmExkgv/eU+gkTLgcWwLd4u0GQ
+ nU8nLPhL81yotdmJHno45uTGy12/qx7v/7BFzCS7mnB6kltpVmz7iQx9Y2+oc7L3Lsai
+ WRrA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date;
- bh=+UzXS09SHc8/NrA6s9IEtWZ9LL+BrDTcoGV33B1WFWs=;
- b=FfquWylYMQvpRmg8feLZv7sNy7Pn/abtddhvGi4U+oOpmUsVAg1nVhRN8kiRsKYc5t
- V66ZTBOGdFl5SnBcjcOcM1QqCQ3mrUaafojJOOZRVAUZH9sIsN/yXj6rexMWI9OtYaEB
- s8gh+BLbzDuTLa1weNXMmEVJE7yYv8aTHicXqsarfaExFG0JBh/lj/RLNx7KycoLjt4o
- 9P8zF02ISQrU2BU9pG36nCljqA5SufSp3znAX9XWEh1WdJbp6uDYQ7J8vzfmqkkMC0fT
- Y4kbnni7V1Ro4Ngsjh793OwwxNH+lmzQ9nTbIGF2JnDCgFYbN+rwiKWHHQYSxQ0jPk+G
- JYqQ==
-X-Gm-Message-State: ACrzQf3Bmekn2vvIRUbzB0K0wS1qov+79NH0ZkvwtQESPYzvc6YnZRef
- plAhTIHEzO0tFYbLZEh0oDNKlQ==
-X-Google-Smtp-Source: AMsMyM5F7VkHhJgjVqBB1a1ONBQ5olwuUXN2RSxZX/ri2ZPBesm/WyDGH/ppzmGo8yVAuFQDj4KZmQ==
-X-Received: by 2002:a05:6512:3e10:b0:498:f317:e57e with SMTP id
- i16-20020a0565123e1000b00498f317e57emr745349lfv.328.1663830627881; 
- Thu, 22 Sep 2022 00:10:27 -0700 (PDT)
-Received: from [192.168.0.21] (78-11-189-27.static.ip.netia.com.pl.
- [78.11.189.27]) by smtp.gmail.com with ESMTPSA id
- c3-20020a05651221a300b0048b08e25979sm788559lft.199.2022.09.22.00.10.26
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 22 Sep 2022 00:10:27 -0700 (PDT)
-Message-ID: <278583ee-0607-9b4f-56ff-143d47573a47@linaro.org>
-Date: Thu, 22 Sep 2022 09:10:26 +0200
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date;
+ bh=Sds/Dyb9ikOJ5Khfgi4mahargaDHP26IO9csDUpISkI=;
+ b=WhXj0VOS+6s2nB2Xtpx2bm6wOt96rqGKt/ZyPY2+TEG1ENBBX/lWgBP9pgaOYzhee9
+ V4xop+ueocbz9idcOt5M+Fk5deFWb3Mn/1f17HS1IYqrSnnZYIHy0LX60+DHJ5A38dtA
+ mspe0o6gXnj5WU/5MG9Te/7DHZsFFhyGEvcp8DT1AQDVLA1NVH4zV7d8wrG6Wrv2Hn31
+ 9pzmEnKT1nu4dGIaDdzyxlgPZK2Tr0IWx+PPlpqTpD6iW8fyCSMjHzNa2u+kkwGXMdk4
+ slpIA0XsuRHpnyzIMz+vyTnsGw+jSpuo/GDouxU7V5c8avVnp7Zy8AroVsxOI1bxaMoW
+ QEEA==
+X-Gm-Message-State: ACrzQf0HjZqhQPe1yWqOAjfcBOBFGrkX6zvzsnjvX0k0J7Ae5gZL270s
+ essSywruM9p7b9VN5NDtCOVyHr6uTFYOj9WZJ1CP+g==
+X-Google-Smtp-Source: AMsMyM4crSAFL+O0e+s4NTT408WVmhHJaTlutWu7sbiOJhejjg0f2UMZVY1/RmXcx4UZDj4v7SZabrQOYZMdyXO+xKs=
+X-Received: by 2002:a25:81cf:0:b0:6a9:4d0d:5ee6 with SMTP id
+ n15-20020a2581cf000000b006a94d0d5ee6mr2392450ybm.153.1663833054098; Thu, 22
+ Sep 2022 00:50:54 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.2.2
-Content-Language: en-US
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Andy Gross <agross@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konrad.dybcio@somainline.org>, Rob Clark
- <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, Rob Herring <robh+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>
 References: <20220915133742.115218-1-dmitry.baryshkov@linaro.org>
- <20220915133742.115218-13-dmitry.baryshkov@linaro.org>
-From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-In-Reply-To: <20220915133742.115218-13-dmitry.baryshkov@linaro.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH v7 12/12] dt-bindings: display/msm: add
- support for the display on SM8250
+ <20220915133742.115218-5-dmitry.baryshkov@linaro.org>
+ <2c7769ae-79af-dab5-ebe3-31ccca0bd9a4@linaro.org>
+In-Reply-To: <2c7769ae-79af-dab5-ebe3-31ccca0bd9a4@linaro.org>
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Date: Thu, 22 Sep 2022 10:50:43 +0300
+Message-ID: <CAA8EJppRdrfy5vPuLxH0+=DAELdadK4h6X0xmHA01rySoBFN7g@mail.gmail.com>
+To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+Content-Type: text/plain; charset="UTF-8"
+Subject: Re: [Freedreno] [PATCH v7 04/12] dt-bindings: display/msm: move
+ common DPU properties to dpu-common.yaml
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,66 +66,38 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: devicetree@vger.kernel.org, David Airlie <airlied@linux.ie>,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- Stephen Boyd <swboyd@chromium.org>, Daniel Vetter <daniel@ffwll.ch>,
- freedreno@lists.freedesktop.org
+Cc: devicetree@vger.kernel.org, Daniel Vetter <daniel@ffwll.ch>,
+ David Airlie <airlied@linux.ie>, linux-arm-msm@vger.kernel.org,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konrad.dybcio@somainline.org>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, Rob Herring <robh+dt@kernel.org>,
+ Stephen Boyd <swboyd@chromium.org>, Rob Clark <robdclark@gmail.com>,
+ Andy Gross <agross@kernel.org>, dri-devel@lists.freedesktop.org,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ freedreno@lists.freedesktop.org, Sean Paul <sean@poorly.run>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 15/09/2022 15:37, Dmitry Baryshkov wrote:
-> Add DPU and MDSS schemas to describe MDSS and DPU blocks on the Qualcomm
-> SM8250 platform.
-> 
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> ---
->  .../bindings/display/msm/mdss-common.yaml     |   4 +-
->  .../bindings/display/msm/qcom,sm8250-dpu.yaml |  92 ++++++++++++++++
->  .../display/msm/qcom,sm8250-mdss.yaml         | 103 ++++++++++++++++++
->  3 files changed, 197 insertions(+), 2 deletions(-)
->  create mode 100644 Documentation/devicetree/bindings/display/msm/qcom,sm8250-dpu.yaml
->  create mode 100644 Documentation/devicetree/bindings/display/msm/qcom,sm8250-mdss.yaml
-> 
-> diff --git a/Documentation/devicetree/bindings/display/msm/mdss-common.yaml b/Documentation/devicetree/bindings/display/msm/mdss-common.yaml
-> index 2a476bd0215e..27d7242657b2 100644
-> --- a/Documentation/devicetree/bindings/display/msm/mdss-common.yaml
-> +++ b/Documentation/devicetree/bindings/display/msm/mdss-common.yaml
-> @@ -27,11 +27,11 @@ properties:
->  
->    clocks:
->      minItems: 2
-> -    maxItems: 3
-> +    maxItems: 4
->  
->    clock-names:
->      minItems: 2
-> -    maxItems: 3
-> +    maxItems: 4
->  
->    interrupts:
->      maxItems: 1
-> diff --git a/Documentation/devicetree/bindings/display/msm/qcom,sm8250-dpu.yaml b/Documentation/devicetree/bindings/display/msm/qcom,sm8250-dpu.yaml
-> new file mode 100644
-> index 000000000000..9ff8a265c85f
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/display/msm/qcom,sm8250-dpu.yaml
-> @@ -0,0 +1,92 @@
-> +# SPDX-License-Identifier: GPL-2.0-only or BSD-2-Clause
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/display/msm/qcom,sm8250-dpu.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: Qualcomm SM8250 Display DPU
-> +
-> +maintainers:
-> +  - Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> +
-> +$ref: /schemas/display/msm/dpu-common.yaml#
+On Thu, 22 Sept 2022 at 10:02, Krzysztof Kozlowski
+<krzysztof.kozlowski@linaro.org> wrote:
+>
+> On 15/09/2022 15:37, Dmitry Baryshkov wrote:
+> > Move properties common to all DPU DT nodes to the dpu-common.yaml.
+> >
+> > Note, this removes description of individual DPU port@ nodes. However
+> > such definitions add no additional value. The reg values do not
+> > correspond to hardware INTF indices. The driver discovers and binds
+> > these ports not paying any care for the order of these items. Thus just
+> > leave the reference to graph.yaml#/properties/ports and the description.
+>
+> This is okay, but you loose required:ports@[01].
 
-Same problem as in other bindings.
+This is fine for me. The ports do not have 1:1 correspondence to
+intfs. Usually platforms add ports as new sinks are added. For example
+a platform can start with a single DSI node and later get second DSI,
+DP, eDP, etc. as they are receiving support/required by end-user
+devices.
 
-
-Best regards,
-Krzysztof
-
+-- 
+With best wishes
+Dmitry
