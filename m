@@ -2,59 +2,76 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id CECD35E80C1
-	for <lists+freedreno@lfdr.de>; Fri, 23 Sep 2022 19:33:14 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A002F5E83C4
+	for <lists+freedreno@lfdr.de>; Fri, 23 Sep 2022 22:33:01 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8D8EB10E401;
-	Fri, 23 Sep 2022 17:33:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D698210E987;
+	Fri, 23 Sep 2022 20:32:59 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-pj1-x1030.google.com (mail-pj1-x1030.google.com
- [IPv6:2607:f8b0:4864:20::1030])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6431B10E2C5;
- Fri, 23 Sep 2022 17:33:10 +0000 (UTC)
-Received: by mail-pj1-x1030.google.com with SMTP id y11so676702pjv.4;
- Fri, 23 Sep 2022 10:33:10 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date;
- bh=RcmsQzRl+ihF1VVNpRmBrhOSsh2l+7OEJ3HKlIa4qQU=;
- b=chP6WJAGr2PPuIsrNecBqcLaY0+SHmMWrrckXnnYy9FfJxkzwls0F972JKhiawx7qh
- RuOSd5JO80tfXxiRwltW+g/uMDmdkwbXkwL3uNXwo5XeakTaAuBz4DdpPqm4RulfTsN7
- 6hXrT8grt3WPqGTgzp8pd6QDxegMtIhOLygNKPzszr9lPWbjtfT7m9Zde6o/QpOaXyyT
- CcW1cW0NNSFgxWEpjGevZ1MIog+sKnCfjR6qY1W+QtAh12P0Mn6fQUCi2VsVys+ezhQa
- 4/vT9fQLx9Whxbl7c3neAVkTiKVGflERZRbuDciOJNdN8l80YKLMTwAkL+WA8T79ABDH
- BToA==
+Received: from mail-lf1-x132.google.com (mail-lf1-x132.google.com
+ [IPv6:2a00:1450:4864:20::132])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D0A1710E987
+ for <freedreno@lists.freedesktop.org>; Fri, 23 Sep 2022 20:32:53 +0000 (UTC)
+Received: by mail-lf1-x132.google.com with SMTP id i26so1961771lfp.11
+ for <freedreno@lists.freedesktop.org>; Fri, 23 Sep 2022 13:32:53 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date;
+ bh=nBM+qi7ZEJ79MaRiQNuFb4KCQxuABqaRCCx+mb2oxBg=;
+ b=o3OHHM/T+yReW4NfXa27nKO8K+4nryGOnb1wE+L9S/UfvloEESITwMAB1wcImMrHR2
+ I7UswL4qx/NwsvUNcVKNFu8Gjv9iLlBMjlyahuHAty143DTuh2GHlMR7LYWusM4zZDeX
+ gf8oqH68bp/44bZhX5aBiMU78uyltyU0U49t8zj7sbidsN5COcIdH0+NJfFH/nffMsmd
+ kJFc1FapVDm5MIh5e9j1ebQblIXWvxSranbYEp6z9ES/TJR8IeHTtU1QBlsTvsSKyfgw
+ d+FiHLZEFI59C+9cXso+ojwzhoV8Wti0G1bbjGJPkkL20w/N70pQsVp1SkkxoMc8nChO
+ PKlw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date;
- bh=RcmsQzRl+ihF1VVNpRmBrhOSsh2l+7OEJ3HKlIa4qQU=;
- b=5Q5WCgFyAglaiWp8RIgt2K2x5WETROg4qCWEfDNKDoqBqcjWcHKkPY4DstZOd0Wvze
- Yc3FdTlCk9Rc6a7RkmIlZlDK1CTTa++dzOHCepSTPE1O6ZgVc0skUfBzq2/GoxUBoeyO
- UdQTa+D7C7xufGsqLAIYKPI7YQ83Vp/xlTc6+8vlN6cU2qmFDAhqtae128+Czk5IkB49
- mdmXk7QeEXfDjwsfMwcRO6Wz8J6ew+kbZBXR1AEVZdOJrS8QkXdWAJnXecaHjXzzSmPW
- UFGW4ZkhteRtmriUlgconq6LGX+xjskvUtzu3IKCfOco4v766/+ZoWqMwdtlhvo3WpN6
- IQdg==
-X-Gm-Message-State: ACrzQf1UCZFx5D20lb9p/KTW5TamOyH4kiA1XCv+wIMyUw0gWNWGvEeq
- IFtjXQsN+JvXmXUUdtezXtGIAjtMLx8=
-X-Google-Smtp-Source: AMsMyM7rLu4btpweWbZ0rMM4U+K1DoebEMuwVCjkXK7sGacJsmBu4vTipbG5Rl0LSDp8gBJh/lV5+A==
-X-Received: by 2002:a17:902:7d97:b0:178:6505:10f6 with SMTP id
- a23-20020a1709027d9700b00178650510f6mr9462087plm.155.1663954389602; 
- Fri, 23 Sep 2022 10:33:09 -0700 (PDT)
-Received: from localhost ([2a00:79e1:abd:4a00:2703:3c72:eb1a:cffd])
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date;
+ bh=nBM+qi7ZEJ79MaRiQNuFb4KCQxuABqaRCCx+mb2oxBg=;
+ b=4OoI6lRWSSVLYBaFkYXoZdqgPa9KX8oPfPpu71JIi7ASM+l3CV/1Rb6MIsLgauxKFi
+ P7GMLzjW5k1Kt6TB0Z6eikmPpaBxIYga4DcVq9DcliDdlCFHvxV2jJb8ecfhv3iB26wR
+ aAQZOc0+XNcDWjrlR5ClDs/hGO0pQ57mGZSdApL0cdAbKaIl1doN5AFilK6l+1oTHJ50
+ 5HsZ4YnPobor/zLtxTGg55fHsHMA9kSQ5zBMryRvxSyQL7AV2V6KlHB5MZQO5Ly70quY
+ ZoxFZsxzX3RQVv6P6SXNKsWVr2gSxE+XXLwxEMVKFINgy77kJTz9uMh6VE15A+MWUKe4
+ meEg==
+X-Gm-Message-State: ACrzQf1tmqoRBSknuV6Ntn6L3meGJVB1dQhaNF4xxZ6gkrVYsi7rK1xW
+ 39ziTQ5COhTBqGCOsJCnOoGoYg==
+X-Google-Smtp-Source: AMsMyM7YTtVO77quMiW6KFmjaY2ziWHoZFQBBzaOp2QWJF5Pd4KQtydKOHQr1S++G+N5wTYhKpJHig==
+X-Received: by 2002:ac2:5623:0:b0:49a:d7b9:c06d with SMTP id
+ b3-20020ac25623000000b0049ad7b9c06dmr4251708lff.511.1663965172046; 
+ Fri, 23 Sep 2022 13:32:52 -0700 (PDT)
+Received: from [192.168.1.211] ([37.153.55.125])
  by smtp.gmail.com with ESMTPSA id
- x7-20020aa79ac7000000b00540d75197e5sm6547525pfp.47.2022.09.23.10.33.08
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 23 Sep 2022 10:33:09 -0700 (PDT)
-From: Rob Clark <robdclark@gmail.com>
-To: dri-devel@lists.freedesktop.org
-Date: Fri, 23 Sep 2022 10:33:07 -0700
-Message-Id: <20220923173307.2429872-1-robdclark@gmail.com>
-X-Mailer: git-send-email 2.37.2
+ q2-20020a2e5c02000000b0025e4c49969fsm1520756ljb.98.2022.09.23.13.32.51
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 23 Sep 2022 13:32:51 -0700 (PDT)
+Message-ID: <aeae567c-ccf7-de73-61eb-1f04772d3bba@linaro.org>
+Date: Fri, 23 Sep 2022 23:32:50 +0300
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH] drm/msm: Add MSM_INFO_GET_FLAGS
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.2.2
+Content-Language: en-GB
+To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
+ Andy Gross <agross@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konrad.dybcio@somainline.org>, Rob Clark
+ <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, Rob Herring <robh+dt@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>
+References: <20220915133742.115218-1-dmitry.baryshkov@linaro.org>
+ <20220915133742.115218-6-dmitry.baryshkov@linaro.org>
+ <02b60bf8-70ac-eb7b-33d7-1c9b7a6f0a54@linaro.org>
+ <168a46c3-2c0e-cd5c-e6f1-1e072c67d162@linaro.org>
+ <d2af0a8e-63fe-221f-1c53-9fe1c43fa04d@linaro.org>
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+In-Reply-To: <d2af0a8e-63fe-221f-1c53-9fe1c43fa04d@linaro.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Subject: Re: [Freedreno] [PATCH v7 05/12] dt-bindings: display/msm: move
+ common MDSS properties to mdss-common.yaml
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,66 +84,56 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rob Clark <robdclark@chromium.org>, David Airlie <airlied@linux.ie>,
- linux-arm-msm@vger.kernel.org, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- open list <linux-kernel@vger.kernel.org>, Sean Paul <sean@poorly.run>,
- Rob Clark <robdclark@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+Cc: devicetree@vger.kernel.org, David Airlie <airlied@linux.ie>,
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ Stephen Boyd <swboyd@chromium.org>, Daniel Vetter <daniel@ffwll.ch>,
  freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-From: Rob Clark <robdclark@chromium.org>
+On 22/09/2022 15:28, Krzysztof Kozlowski wrote:
+> On 22/09/2022 13:46, Dmitry Baryshkov wrote:
+>>>> -  ranges: true
+>>>> +    maxItems: 2
+>>>>    
+>>>>      interconnects:
+>>>> -    items:
+>>>> -      - description: Interconnect path from mdp0 port to the data bus
+>>>> -      - description: Interconnect path from mdp1 port to the data bus
+>>>> +    maxItems: 2
+>>>
+>>> I think this is not equivalent now, because you have in total minItems:1
+>>> and maxItems:2, while in past minItems was 2.
+>>
+>> This means that I should have minItems:2, maxItems:2, which, if I got it
+>> right, is frowned upon. Let me doublecheck though if it works as expected.
+> 
+> It is frowned upon only if it is alone, because for missing minItems,
+> maxItems implies minItems. Here you have minItems in other schema, so
+> there is no such case
 
-In some cases crosvm needs a way to query the cache flags to communicate
-them to the guest kernel for guest userspace mapping.
+Well, I just checked, the schema will throw an error if I put a single 
+interconnects or iommus entry. If I understand correctly these two 
+clauses are evaluated separately. So, the dpu-common's clause tells 
+minItems:1, maxItems:2. The platform schema file contains just 
+maxItems:2, which implicitly adds minItems:2 to _this_ clause.
 
-Signed-off-by: Rob Clark <robdclark@chromium.org>
----
- drivers/gpu/drm/msm/msm_drv.c | 10 ++++++++++
- include/uapi/drm/msm_drm.h    |  1 +
- 2 files changed, 11 insertions(+)
+Thus I think I'll leave this part as is.
 
-diff --git a/drivers/gpu/drm/msm/msm_drv.c b/drivers/gpu/drm/msm/msm_drv.c
-index 07f66412533b..66b515a956c1 100644
---- a/drivers/gpu/drm/msm/msm_drv.c
-+++ b/drivers/gpu/drm/msm/msm_drv.c
-@@ -818,6 +818,7 @@ static int msm_ioctl_gem_info(struct drm_device *dev, void *data,
- 	case MSM_INFO_GET_OFFSET:
- 	case MSM_INFO_GET_IOVA:
- 	case MSM_INFO_SET_IOVA:
-+	case MSM_INFO_GET_FLAGS:
- 		/* value returned as immediate, not pointer, so len==0: */
- 		if (args->len)
- 			return -EINVAL;
-@@ -845,6 +846,15 @@ static int msm_ioctl_gem_info(struct drm_device *dev, void *data,
- 	case MSM_INFO_SET_IOVA:
- 		ret = msm_ioctl_gem_info_set_iova(dev, file, obj, args->value);
- 		break;
-+	case MSM_INFO_GET_FLAGS:
-+		if (obj->import_attach) {
-+			ret = -EINVAL;
-+			break;
-+		}
-+		/* Hide internal kernel-only flags: */
-+		args->value = to_msm_bo(obj)->flags & MSM_BO_FLAGS;
-+		ret = 0;
-+		break;
- 	case MSM_INFO_SET_NAME:
- 		/* length check should leave room for terminating null: */
- 		if (args->len >= sizeof(msm_obj->name)) {
-diff --git a/include/uapi/drm/msm_drm.h b/include/uapi/drm/msm_drm.h
-index 3c7b097c4e3d..f54b48ef6a2d 100644
---- a/include/uapi/drm/msm_drm.h
-+++ b/include/uapi/drm/msm_drm.h
-@@ -138,6 +138,7 @@ struct drm_msm_gem_new {
- #define MSM_INFO_SET_NAME	0x02   /* set the debug name (by pointer) */
- #define MSM_INFO_GET_NAME	0x03   /* get debug name, returned by pointer */
- #define MSM_INFO_SET_IOVA	0x04   /* set the iova, passed by value */
-+#define MSM_INFO_GET_FLAGS	0x05   /* get the MSM_BO_x flags */
- 
- struct drm_msm_gem_info {
- 	__u32 handle;         /* in */
+For the reference (with single-entry iommus and interconnects properties):
+
+/home/lumag/Projects/Qcomm/build-64/Documentation/devicetree/bindings/display/msm/dpu-sdm845.example.dtb: 
+display-subsystem@ae00000: iommus: [[4294967295, 2176, 8]] is too short
+	From schema: 
+/home/lumag/Projects/Qcomm/kernel/Documentation/devicetree/bindings/display/msm/dpu-sdm845.yaml
+/home/lumag/Projects/Qcomm/build-64/Documentation/devicetree/bindings/display/msm/dpu-sdm845.example.dtb: 
+display-subsystem@ae00000: interconnects: [[4294967295, 1, 0, 
+4294967295, 1, 0]] is too short
+	From schema: 
+/home/lumag/Projects/Qcomm/kernel/Documentation/devicetree/bindings/display/msm/dpu-sdm845.yaml
+
+
 -- 
-2.37.2
+With best wishes
+Dmitry
 
