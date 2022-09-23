@@ -1,77 +1,60 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id A002F5E83C4
-	for <lists+freedreno@lfdr.de>; Fri, 23 Sep 2022 22:33:01 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id E1AD75E85F3
+	for <lists+freedreno@lfdr.de>; Sat, 24 Sep 2022 00:41:15 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D698210E987;
-	Fri, 23 Sep 2022 20:32:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C4CB910EB24;
+	Fri, 23 Sep 2022 22:41:13 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x132.google.com (mail-lf1-x132.google.com
- [IPv6:2a00:1450:4864:20::132])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D0A1710E987
- for <freedreno@lists.freedesktop.org>; Fri, 23 Sep 2022 20:32:53 +0000 (UTC)
-Received: by mail-lf1-x132.google.com with SMTP id i26so1961771lfp.11
- for <freedreno@lists.freedesktop.org>; Fri, 23 Sep 2022 13:32:53 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date;
- bh=nBM+qi7ZEJ79MaRiQNuFb4KCQxuABqaRCCx+mb2oxBg=;
- b=o3OHHM/T+yReW4NfXa27nKO8K+4nryGOnb1wE+L9S/UfvloEESITwMAB1wcImMrHR2
- I7UswL4qx/NwsvUNcVKNFu8Gjv9iLlBMjlyahuHAty143DTuh2GHlMR7LYWusM4zZDeX
- gf8oqH68bp/44bZhX5aBiMU78uyltyU0U49t8zj7sbidsN5COcIdH0+NJfFH/nffMsmd
- kJFc1FapVDm5MIh5e9j1ebQblIXWvxSranbYEp6z9ES/TJR8IeHTtU1QBlsTvsSKyfgw
- d+FiHLZEFI59C+9cXso+ojwzhoV8Wti0G1bbjGJPkkL20w/N70pQsVp1SkkxoMc8nChO
- PKlw==
+Received: from mail-pf1-x42b.google.com (mail-pf1-x42b.google.com
+ [IPv6:2607:f8b0:4864:20::42b])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 84F7D10EB2A;
+ Fri, 23 Sep 2022 22:41:11 +0000 (UTC)
+Received: by mail-pf1-x42b.google.com with SMTP id a29so1420506pfk.5;
+ Fri, 23 Sep 2022 15:41:11 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date;
+ bh=oOI1w1RpGPXrz/NU70+BlU1qHXDFQzQmtw6vEH42xjs=;
+ b=ndQOEMU3yBWN/RaJFUoxcBG8JODdya6truLZHSKj35iTY3iuiFdXa54rNGAcTTNLa1
+ 44qzi5WwzLqs/tWUW8d1Civy+XnhhcdSz0+M6JoL8QQegwhcT0AKils5mdwdkWb+HgrI
+ syeSknpoFpJHmpFR8sGzFgLqvQ62EQQtHVOzLFGIh77aY1WPDrflvQ4BIN3dESJbPXyZ
+ YGr4CteT+J+rJPXf0OOS/qWePukr4xrxfZ3WOPxpwDTjDrs7Xt4A4ADI/VKStbZuzagV
+ g3hAI/N9vs1GLaCHaJXHzYDEUrtaS+0wuVaMLqap8AIXxVVrmzG0qMWLtOd0Sc4Y5Jld
+ u40g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date;
- bh=nBM+qi7ZEJ79MaRiQNuFb4KCQxuABqaRCCx+mb2oxBg=;
- b=4OoI6lRWSSVLYBaFkYXoZdqgPa9KX8oPfPpu71JIi7ASM+l3CV/1Rb6MIsLgauxKFi
- P7GMLzjW5k1Kt6TB0Z6eikmPpaBxIYga4DcVq9DcliDdlCFHvxV2jJb8ecfhv3iB26wR
- aAQZOc0+XNcDWjrlR5ClDs/hGO0pQ57mGZSdApL0cdAbKaIl1doN5AFilK6l+1oTHJ50
- 5HsZ4YnPobor/zLtxTGg55fHsHMA9kSQ5zBMryRvxSyQL7AV2V6KlHB5MZQO5Ly70quY
- ZoxFZsxzX3RQVv6P6SXNKsWVr2gSxE+XXLwxEMVKFINgy77kJTz9uMh6VE15A+MWUKe4
- meEg==
-X-Gm-Message-State: ACrzQf1tmqoRBSknuV6Ntn6L3meGJVB1dQhaNF4xxZ6gkrVYsi7rK1xW
- 39ziTQ5COhTBqGCOsJCnOoGoYg==
-X-Google-Smtp-Source: AMsMyM7YTtVO77quMiW6KFmjaY2ziWHoZFQBBzaOp2QWJF5Pd4KQtydKOHQr1S++G+N5wTYhKpJHig==
-X-Received: by 2002:ac2:5623:0:b0:49a:d7b9:c06d with SMTP id
- b3-20020ac25623000000b0049ad7b9c06dmr4251708lff.511.1663965172046; 
- Fri, 23 Sep 2022 13:32:52 -0700 (PDT)
-Received: from [192.168.1.211] ([37.153.55.125])
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date;
+ bh=oOI1w1RpGPXrz/NU70+BlU1qHXDFQzQmtw6vEH42xjs=;
+ b=1MSfRMMTgM0YkbMka/1r0m0/V/HwjI3bVSjNcq+CQTzQ9c5aRWmdZlmuLLr5I7EQMP
+ cS1env/WTAz8tfrgYlg9ijkrfH73lQtDOR0dUeU6b4tdaVGPHiJXCC5T9wfZnkJmotdd
+ 0UN8zBnGNgcDte1FvOGvLJrmGvd9xi22dEWHpckkFGW7liXFcxN4k7Zv5XjELnJnQ+bj
+ qQ1gDqStuENmjiB9k+LP+ngTBIhnzhcLuel9yPr6hfPoAS7ZtAqdzWbCIY6XSXPbG/v6
+ +9FHd1DT1FjX6FrUcIgCnrvcWtjRZLQPBG6dUrsjmiSKlTDWW7m612ji9bv7Y0khOQyF
+ M54w==
+X-Gm-Message-State: ACrzQf1DmAgg4TyLZ/nY2nx7wjfVhtfHc+AnfiRwRyiJEGGbSmumeIl/
+ qILA+A5YbELB1+NrZiQ8Wbs5Wn8zrB0=
+X-Google-Smtp-Source: AMsMyM7iSk/g+tzazFBHrdHLO7817yrGTQYIUzyZk+Y1xplU0QyZaPrFUlaCUkO/MvnMIQubBg6jxA==
+X-Received: by 2002:a63:5144:0:b0:43b:ed4b:224 with SMTP id
+ r4-20020a635144000000b0043bed4b0224mr9610350pgl.594.1663972870693; 
+ Fri, 23 Sep 2022 15:41:10 -0700 (PDT)
+Received: from localhost ([2a00:79e1:abd:4a00:2703:3c72:eb1a:cffd])
  by smtp.gmail.com with ESMTPSA id
- q2-20020a2e5c02000000b0025e4c49969fsm1520756ljb.98.2022.09.23.13.32.51
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 23 Sep 2022 13:32:51 -0700 (PDT)
-Message-ID: <aeae567c-ccf7-de73-61eb-1f04772d3bba@linaro.org>
-Date: Fri, 23 Sep 2022 23:32:50 +0300
+ e6-20020a170902d38600b00173411a4385sm6506514pld.43.2022.09.23.15.41.09
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 23 Sep 2022 15:41:09 -0700 (PDT)
+From: Rob Clark <robdclark@gmail.com>
+To: dri-devel@lists.freedesktop.org
+Date: Fri, 23 Sep 2022 15:40:44 -0700
+Message-Id: <20220923224043.2449152-1-robdclark@gmail.com>
+X-Mailer: git-send-email 2.37.2
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.2.2
-Content-Language: en-GB
-To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
- Andy Gross <agross@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konrad.dybcio@somainline.org>, Rob Clark
- <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, Rob Herring <robh+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>
-References: <20220915133742.115218-1-dmitry.baryshkov@linaro.org>
- <20220915133742.115218-6-dmitry.baryshkov@linaro.org>
- <02b60bf8-70ac-eb7b-33d7-1c9b7a6f0a54@linaro.org>
- <168a46c3-2c0e-cd5c-e6f1-1e072c67d162@linaro.org>
- <d2af0a8e-63fe-221f-1c53-9fe1c43fa04d@linaro.org>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-In-Reply-To: <d2af0a8e-63fe-221f-1c53-9fe1c43fa04d@linaro.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH v7 05/12] dt-bindings: display/msm: move
- common MDSS properties to mdss-common.yaml
+Content-Transfer-Encoding: 8bit
+Subject: [Freedreno] [PATCH] drm/msm/gem: Unpin objects slightly later
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -84,56 +67,67 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: devicetree@vger.kernel.org, David Airlie <airlied@linux.ie>,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- Stephen Boyd <swboyd@chromium.org>, Daniel Vetter <daniel@ffwll.ch>,
+Cc: Rob Clark <robdclark@chromium.org>, David Airlie <airlied@linux.ie>,
+ linux-arm-msm@vger.kernel.org, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ open list <linux-kernel@vger.kernel.org>, Sean Paul <sean@poorly.run>,
+ Rob Clark <robdclark@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
  freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 22/09/2022 15:28, Krzysztof Kozlowski wrote:
-> On 22/09/2022 13:46, Dmitry Baryshkov wrote:
->>>> -  ranges: true
->>>> +    maxItems: 2
->>>>    
->>>>      interconnects:
->>>> -    items:
->>>> -      - description: Interconnect path from mdp0 port to the data bus
->>>> -      - description: Interconnect path from mdp1 port to the data bus
->>>> +    maxItems: 2
->>>
->>> I think this is not equivalent now, because you have in total minItems:1
->>> and maxItems:2, while in past minItems was 2.
->>
->> This means that I should have minItems:2, maxItems:2, which, if I got it
->> right, is frowned upon. Let me doublecheck though if it works as expected.
-> 
-> It is frowned upon only if it is alone, because for missing minItems,
-> maxItems implies minItems. Here you have minItems in other schema, so
-> there is no such case
+From: Rob Clark <robdclark@chromium.org>
 
-Well, I just checked, the schema will throw an error if I put a single 
-interconnects or iommus entry. If I understand correctly these two 
-clauses are evaluated separately. So, the dpu-common's clause tells 
-minItems:1, maxItems:2. The platform schema file contains just 
-maxItems:2, which implicitly adds minItems:2 to _this_ clause.
+The introduction of 025d27239a2f exposes a problem with f371bcc0c2ac, in
+that we need to keep the object pinned in the time the submit is queued
+up in the gpu scheduler.  Otherwise the shrinker will see it as a thing
+that can be evicted if we wait for it to be signaled.  But if the
+shrinker path is waiting on it with the obj lock held, the job cannot be
+scheduled, as that also requires briefly grabbing the obj lock, leading
+to deadlock.  (Not to mention, we don't want the shrinker to evict an
+obj queued up in gpu scheduler.)
 
-Thus I think I'll leave this part as is.
+Fixes: f371bcc0c2ac ("drm/msm/gem: Unpin buffers earlier")
+Fixes: 025d27239a2f ("drm/msm/gem: Evict active GEM objects when necessary")
+Closes: https://gitlab.freedesktop.org/drm/msm/-/issues/19
+Signed-off-by: Rob Clark <robdclark@chromium.org>
+---
+ drivers/gpu/drm/msm/msm_gem_submit.c | 4 ++--
+ drivers/gpu/drm/msm/msm_ringbuffer.c | 3 ++-
+ 2 files changed, 4 insertions(+), 3 deletions(-)
 
-For the reference (with single-entry iommus and interconnects properties):
-
-/home/lumag/Projects/Qcomm/build-64/Documentation/devicetree/bindings/display/msm/dpu-sdm845.example.dtb: 
-display-subsystem@ae00000: iommus: [[4294967295, 2176, 8]] is too short
-	From schema: 
-/home/lumag/Projects/Qcomm/kernel/Documentation/devicetree/bindings/display/msm/dpu-sdm845.yaml
-/home/lumag/Projects/Qcomm/build-64/Documentation/devicetree/bindings/display/msm/dpu-sdm845.example.dtb: 
-display-subsystem@ae00000: interconnects: [[4294967295, 1, 0, 
-4294967295, 1, 0]] is too short
-	From schema: 
-/home/lumag/Projects/Qcomm/kernel/Documentation/devicetree/bindings/display/msm/dpu-sdm845.yaml
-
-
+diff --git a/drivers/gpu/drm/msm/msm_gem_submit.c b/drivers/gpu/drm/msm/msm_gem_submit.c
+index 5599d93ec0d2..c670591995e6 100644
+--- a/drivers/gpu/drm/msm/msm_gem_submit.c
++++ b/drivers/gpu/drm/msm/msm_gem_submit.c
+@@ -501,11 +501,11 @@ static int submit_reloc(struct msm_gem_submit *submit, struct msm_gem_object *ob
+  */
+ static void submit_cleanup(struct msm_gem_submit *submit, bool error)
+ {
+-	unsigned cleanup_flags = BO_LOCKED | BO_OBJ_PINNED;
++	unsigned cleanup_flags = BO_LOCKED;
+ 	unsigned i;
+ 
+ 	if (error)
+-		cleanup_flags |= BO_VMA_PINNED;
++		cleanup_flags |= BO_VMA_PINNED | BO_OBJ_PINNED;
+ 
+ 	for (i = 0; i < submit->nr_bos; i++) {
+ 		struct msm_gem_object *msm_obj = submit->bos[i].obj;
+diff --git a/drivers/gpu/drm/msm/msm_ringbuffer.c b/drivers/gpu/drm/msm/msm_ringbuffer.c
+index cad4c3525f0b..57a8e9564540 100644
+--- a/drivers/gpu/drm/msm/msm_ringbuffer.c
++++ b/drivers/gpu/drm/msm/msm_ringbuffer.c
+@@ -25,7 +25,8 @@ static struct dma_fence *msm_job_run(struct drm_sched_job *job)
+ 
+ 		msm_gem_lock(obj);
+ 		msm_gem_unpin_vma_fenced(submit->bos[i].vma, fctx);
+-		submit->bos[i].flags &= ~BO_VMA_PINNED;
++		msm_gem_unpin_locked(obj);
++		submit->bos[i].flags &= ~(BO_VMA_PINNED | BO_OBJ_PINNED);
+ 		msm_gem_unlock(obj);
+ 	}
+ 
 -- 
-With best wishes
-Dmitry
+2.37.2
 
