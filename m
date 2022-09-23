@@ -2,48 +2,59 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4920D5E73CD
-	for <lists+freedreno@lfdr.de>; Fri, 23 Sep 2022 08:17:29 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CECD35E80C1
+	for <lists+freedreno@lfdr.de>; Fri, 23 Sep 2022 19:33:14 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7603710E3D1;
-	Fri, 23 Sep 2022 06:17:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8D8EB10E401;
+	Fri, 23 Sep 2022 17:33:13 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D52D510E3D1;
- Fri, 23 Sep 2022 06:17:24 +0000 (UTC)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 3610B6194F;
- Fri, 23 Sep 2022 06:17:24 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 923D2C433D6;
- Fri, 23 Sep 2022 06:17:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1663913843;
- bh=087222Xy8pZjxNKwBirqYA3XIzVV/4i7Mss3vpSpd14=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=JWIwwHV/RaIiU6aBqkf7d1JFcWRbDborvpLhn3FVp0PRRXG/Ofa8dYm9RTBoMHfMx
- KbV2rEc7i7fUrlTOCJ5CtIynqpFMnkVUjp6hjHhZRtiFI9wlEtLYsbG7x8WALnduAz
- wGQpsJUKd5Gd1j3aZoJf/HPbJpTfR7meZCsOdBM5gs8e+d5xf1Kb5ZzUv2NCTRrXWq
- NimW7ZebHGANSFgKT4lEFWpoedoa01T9VVg8KIHDcXX/sL2Q0Pkni/0oFw1xWqbu5n
- B8bWTYdit0IMdjyJA5OIFtqQ3RC5CsUzu9tNzs9O8SyKJewh5pH9EPvvufNCR222Pp
- g9Vw4qFwOo+VQ==
-Received: from johan by xi.lan with local (Exim 4.94.2)
- (envelope-from <johan@kernel.org>)
- id 1obc06-0006GM-An; Fri, 23 Sep 2022 08:17:26 +0200
-Date: Fri, 23 Sep 2022 08:17:26 +0200
-From: Johan Hovold <johan@kernel.org>
-To: Kuogee Hsieh <quic_khsieh@quicinc.com>
-Message-ID: <Yy1Pdr6gxGR1O+o2@hovoldconsulting.com>
-References: <20220913085320.8577-1-johan+linaro@kernel.org>
- <20220913085320.8577-9-johan+linaro@kernel.org>
- <9e223c13-15e2-de5e-e1e1-0dbbe629a0a1@quicinc.com>
+Received: from mail-pj1-x1030.google.com (mail-pj1-x1030.google.com
+ [IPv6:2607:f8b0:4864:20::1030])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6431B10E2C5;
+ Fri, 23 Sep 2022 17:33:10 +0000 (UTC)
+Received: by mail-pj1-x1030.google.com with SMTP id y11so676702pjv.4;
+ Fri, 23 Sep 2022 10:33:10 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date;
+ bh=RcmsQzRl+ihF1VVNpRmBrhOSsh2l+7OEJ3HKlIa4qQU=;
+ b=chP6WJAGr2PPuIsrNecBqcLaY0+SHmMWrrckXnnYy9FfJxkzwls0F972JKhiawx7qh
+ RuOSd5JO80tfXxiRwltW+g/uMDmdkwbXkwL3uNXwo5XeakTaAuBz4DdpPqm4RulfTsN7
+ 6hXrT8grt3WPqGTgzp8pd6QDxegMtIhOLygNKPzszr9lPWbjtfT7m9Zde6o/QpOaXyyT
+ CcW1cW0NNSFgxWEpjGevZ1MIog+sKnCfjR6qY1W+QtAh12P0Mn6fQUCi2VsVys+ezhQa
+ 4/vT9fQLx9Whxbl7c3neAVkTiKVGflERZRbuDciOJNdN8l80YKLMTwAkL+WA8T79ABDH
+ BToA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date;
+ bh=RcmsQzRl+ihF1VVNpRmBrhOSsh2l+7OEJ3HKlIa4qQU=;
+ b=5Q5WCgFyAglaiWp8RIgt2K2x5WETROg4qCWEfDNKDoqBqcjWcHKkPY4DstZOd0Wvze
+ Yc3FdTlCk9Rc6a7RkmIlZlDK1CTTa++dzOHCepSTPE1O6ZgVc0skUfBzq2/GoxUBoeyO
+ UdQTa+D7C7xufGsqLAIYKPI7YQ83Vp/xlTc6+8vlN6cU2qmFDAhqtae128+Czk5IkB49
+ mdmXk7QeEXfDjwsfMwcRO6Wz8J6ew+kbZBXR1AEVZdOJrS8QkXdWAJnXecaHjXzzSmPW
+ UFGW4ZkhteRtmriUlgconq6LGX+xjskvUtzu3IKCfOco4v766/+ZoWqMwdtlhvo3WpN6
+ IQdg==
+X-Gm-Message-State: ACrzQf1UCZFx5D20lb9p/KTW5TamOyH4kiA1XCv+wIMyUw0gWNWGvEeq
+ IFtjXQsN+JvXmXUUdtezXtGIAjtMLx8=
+X-Google-Smtp-Source: AMsMyM7rLu4btpweWbZ0rMM4U+K1DoebEMuwVCjkXK7sGacJsmBu4vTipbG5Rl0LSDp8gBJh/lV5+A==
+X-Received: by 2002:a17:902:7d97:b0:178:6505:10f6 with SMTP id
+ a23-20020a1709027d9700b00178650510f6mr9462087plm.155.1663954389602; 
+ Fri, 23 Sep 2022 10:33:09 -0700 (PDT)
+Received: from localhost ([2a00:79e1:abd:4a00:2703:3c72:eb1a:cffd])
+ by smtp.gmail.com with ESMTPSA id
+ x7-20020aa79ac7000000b00540d75197e5sm6547525pfp.47.2022.09.23.10.33.08
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 23 Sep 2022 10:33:09 -0700 (PDT)
+From: Rob Clark <robdclark@gmail.com>
+To: dri-devel@lists.freedesktop.org
+Date: Fri, 23 Sep 2022 10:33:07 -0700
+Message-Id: <20220923173307.2429872-1-robdclark@gmail.com>
+X-Mailer: git-send-email 2.37.2
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <9e223c13-15e2-de5e-e1e1-0dbbe629a0a1@quicinc.com>
-Subject: Re: [Freedreno] [PATCH v2 08/10] drm/msm/hdmi: fix IRQ lifetime
+Content-Transfer-Encoding: 8bit
+Subject: [Freedreno] [PATCH] drm/msm: Add MSM_INFO_GET_FLAGS
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,53 +67,66 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: dri-devel@lists.freedesktop.org, Douglas Anderson <dianders@chromium.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Andrzej Hajda <andrzej.hajda@intel.com>,
- Manivannan Sadhasivam <manivannan.sadhasivam@linaro.org>,
- Jernej Skrabec <jernej.skrabec@gmail.com>, Jonas Karlman <jonas@kwiboo.se>,
+Cc: Rob Clark <robdclark@chromium.org>, David Airlie <airlied@linux.ie>,
  linux-arm-msm@vger.kernel.org, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Stephen Boyd <swboyd@chromium.org>, Steev Klimaszewski <steev@kali.org>,
- Sean Paul <sean@poorly.run>, Johan Hovold <johan+linaro@kernel.org>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Bjorn Andersson <andersson@kernel.org>, linux-kernel@vger.kernel.org,
- Robert Foss <robert.foss@linaro.org>, Rob Clark <robdclark@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, stable@vger.kernel.org,
+ open list <linux-kernel@vger.kernel.org>, Sean Paul <sean@poorly.run>,
+ Rob Clark <robdclark@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
  freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Thu, Sep 22, 2022 at 12:55:03PM -0700, Kuogee Hsieh wrote:
-> 
-> On 9/13/2022 1:53 AM, Johan Hovold wrote:
-> > Device-managed resources allocated post component bind must be tied to
-> > the lifetime of the aggregate DRM device or they will not necessarily be
-> > released when binding of the aggregate device is deferred.
-> >
-> > This is specifically true for the HDMI IRQ, which will otherwise remain
-> > requested so that the next bind attempt fails when requesting the IRQ a
-> > second time.
-> >
-> > Fix this by tying the device-managed lifetime of the HDMI IRQ to the DRM
-> > device so that it is released when bind fails.
-> >
-> > Fixes: 067fef372c73 ("drm/msm/hdmi: refactor bind/init")
-> > Cc: stable@vger.kernel.org      # 3.19
-> > Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> > Signed-off-by: Johan Hovold <johan+linaro@kernel.org>
-> 
-> > Tested-by: Kuogee Hsieh <quic_khsieh@quicinc.com>
-> > Reviewed-by: Kuogee Hsieh <quic_khsieh@quicinc.com>
+From: Rob Clark <robdclark@chromium.org>
 
-I believe you meant:
+In some cases crosvm needs a way to query the cache flags to communicate
+them to the guest kernel for guest userspace mapping.
 
-Tested-by: Kuogee Hsieh <quic_khsieh@quicinc.com>
-Reviewed-by: Kuogee Hsieh <quic_khsieh@quicinc.com>
+Signed-off-by: Rob Clark <robdclark@chromium.org>
+---
+ drivers/gpu/drm/msm/msm_drv.c | 10 ++++++++++
+ include/uapi/drm/msm_drm.h    |  1 +
+ 2 files changed, 11 insertions(+)
 
-here (i.e. without the '>' quotes). Otherwise the tooling may not pick
-these up.
+diff --git a/drivers/gpu/drm/msm/msm_drv.c b/drivers/gpu/drm/msm/msm_drv.c
+index 07f66412533b..66b515a956c1 100644
+--- a/drivers/gpu/drm/msm/msm_drv.c
++++ b/drivers/gpu/drm/msm/msm_drv.c
+@@ -818,6 +818,7 @@ static int msm_ioctl_gem_info(struct drm_device *dev, void *data,
+ 	case MSM_INFO_GET_OFFSET:
+ 	case MSM_INFO_GET_IOVA:
+ 	case MSM_INFO_SET_IOVA:
++	case MSM_INFO_GET_FLAGS:
+ 		/* value returned as immediate, not pointer, so len==0: */
+ 		if (args->len)
+ 			return -EINVAL;
+@@ -845,6 +846,15 @@ static int msm_ioctl_gem_info(struct drm_device *dev, void *data,
+ 	case MSM_INFO_SET_IOVA:
+ 		ret = msm_ioctl_gem_info_set_iova(dev, file, obj, args->value);
+ 		break;
++	case MSM_INFO_GET_FLAGS:
++		if (obj->import_attach) {
++			ret = -EINVAL;
++			break;
++		}
++		/* Hide internal kernel-only flags: */
++		args->value = to_msm_bo(obj)->flags & MSM_BO_FLAGS;
++		ret = 0;
++		break;
+ 	case MSM_INFO_SET_NAME:
+ 		/* length check should leave room for terminating null: */
+ 		if (args->len >= sizeof(msm_obj->name)) {
+diff --git a/include/uapi/drm/msm_drm.h b/include/uapi/drm/msm_drm.h
+index 3c7b097c4e3d..f54b48ef6a2d 100644
+--- a/include/uapi/drm/msm_drm.h
++++ b/include/uapi/drm/msm_drm.h
+@@ -138,6 +138,7 @@ struct drm_msm_gem_new {
+ #define MSM_INFO_SET_NAME	0x02   /* set the debug name (by pointer) */
+ #define MSM_INFO_GET_NAME	0x03   /* get debug name, returned by pointer */
+ #define MSM_INFO_SET_IOVA	0x04   /* set the iova, passed by value */
++#define MSM_INFO_GET_FLAGS	0x05   /* get the MSM_BO_x flags */
+ 
+ struct drm_msm_gem_info {
+ 	__u32 handle;         /* in */
+-- 
+2.37.2
 
-Thanks for reviewing and testing.
-
-Johan
