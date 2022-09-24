@@ -1,64 +1,60 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0A49C5E8EE5
-	for <lists+freedreno@lfdr.de>; Sat, 24 Sep 2022 19:23:53 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 3974C5E8F47
+	for <lists+freedreno@lfdr.de>; Sat, 24 Sep 2022 20:22:38 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AC68F10E637;
-	Sat, 24 Sep 2022 17:23:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B5AE110E07A;
+	Sat, 24 Sep 2022 18:22:36 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-x22b.google.com (mail-lj1-x22b.google.com
- [IPv6:2a00:1450:4864:20::22b])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A2CB610E639
- for <freedreno@lists.freedesktop.org>; Sat, 24 Sep 2022 17:23:44 +0000 (UTC)
-Received: by mail-lj1-x22b.google.com with SMTP id b24so3261260ljk.6
- for <freedreno@lists.freedesktop.org>; Sat, 24 Sep 2022 10:23:44 -0700 (PDT)
+Received: from mail-yw1-x112d.google.com (mail-yw1-x112d.google.com
+ [IPv6:2607:f8b0:4864:20::112d])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 99CA110E081
+ for <freedreno@lists.freedesktop.org>; Sat, 24 Sep 2022 18:22:33 +0000 (UTC)
+Received: by mail-yw1-x112d.google.com with SMTP id
+ 00721157ae682-3321c2a8d4cso30535837b3.5
+ for <freedreno@lists.freedesktop.org>; Sat, 24 Sep 2022 11:22:33 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date;
- bh=sslfC90ZklIf6wLnIhiCKVZK6GJGnQV2ng9fxAHP2yo=;
- b=PTAqd7crGxlL3Jt90Y0i9CPEnGUp9IKfpvAzbV7aEhFinW8Ah02LoOM+2L9CUF5t1W
- iDqJjgUYJiXivgwUwZ0CaNwE2bZ7WfEq5Kj6mQIk/ZRT8kgCHDAYofRTr2hNbDmB+bUs
- ujXM11D7UtxuwMGfabOWvI6jBmjoLB9TC5G/qVvCLQkL0Rqn7wr/3N17TzseCtd3FUP1
- 8DtZsyDNkd1NDJLqjrRBzNYUY2MLsQmyLqUwsQpEFapaTb9MR/pq9ossiwmN5DKf3/oa
- 1el6LxugZKGXQwYHYNCKlTX2eRDBM6ZQ3oqcUyqXIoBSuOiFAntQwUarXxH72RkTz4ST
- fs+g==
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date;
+ bh=s2yVFEWeDENib5ZI/a0e4ge6cSf4cj8rWCXGLC8hWc8=;
+ b=wxMdeFEZDUmk1q3u139fGzFutmWA3RDqZJDDpILqRY8aNRDEHhddkYzPg3AmSAmtKL
+ a28v+VdYgGVulYsS+pbwPNXyWq4u7zF0P3w/4Jo2MLt0Q99QblBroXAzGYWb+cTHxXqg
+ OCpHbKEzut3wEex19I/RXeUN9ZV4FqD2L33md0qJ+APWgl/qlX0dJrH9stA6F+f4ZG8t
+ /5+CWuEAjpFC6q/1pn3czSH1jVuj6S4lkcMCbKnPj2PSP6gzRmPt3Fg3zyYRGmbYSx69
+ xltQVHNl+GV6On0h971Iu3BqUG1ZUJh4KloHkfvQgYzjDYusKvsoJKVKUqUxizCKmIJg
+ Mchg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date;
- bh=sslfC90ZklIf6wLnIhiCKVZK6GJGnQV2ng9fxAHP2yo=;
- b=ShR+a6Pb6eeCImYapv+bN3oXD7igRfmWlAGx7pdU2ZnWFbn+5VJvnVXbfX0QqSIJwS
- NDGCqoHZjQMKWYTDGHeHZ4EZQkQx8pgLCeydYrnUvu2LSR+5IAZZYubdy03LW5nomS9J
- 1V5fbYk+uhDMszv7vn0chtXYW3Kw7u1QZz2I+VI1NXr6RWVFPofdBA46nqCO6OCAOiFY
- mD9+mVVBsPVED0bOP/HywMMwDdlZ6xtKjQXv8MyMKlg1FwTusIoz3QMEhuuJXfu8+qnW
- nzY6aXhHZcD+jpYsdwtnSYTtQadpOQQJBVQFwYBWke3JY6/v+JyZhF7LwDez9spEIHet
- PBTA==
-X-Gm-Message-State: ACrzQf05csEG0mi0gRVYDGLpN2Voty8rBhNySDToSy3EdmpjT8yUS1dq
- UyOphFoDvh/LYiz1z08ajtGlPA==
-X-Google-Smtp-Source: AMsMyM5ShCjydTQrfsrfhVOekorNsO14U4Ib+bJE7obr3yzLOM5vn9k/q7IIeT/kdYXHtzXBPUHgUw==
-X-Received: by 2002:a2e:b016:0:b0:26b:f00b:a8cf with SMTP id
- y22-20020a2eb016000000b0026bf00ba8cfmr4719440ljk.24.1664040222285; 
- Sat, 24 Sep 2022 10:23:42 -0700 (PDT)
-Received: from krzk-bin (78-11-189-27.static.ip.netia.com.pl. [78.11.189.27])
- by smtp.gmail.com with ESMTPSA id
- t3-20020a056512208300b00492e16b7ab3sm1955935lfr.94.2022.09.24.10.23.41
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 24 Sep 2022 10:23:41 -0700 (PDT)
-Date: Sat, 24 Sep 2022 19:23:39 +0200
-From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Message-ID: <20220924172339.bebekrawee4ubogv@krzk-bin>
-References: <20220924123611.225520-1-dmitry.baryshkov@linaro.org>
- <20220924123611.225520-2-dmitry.baryshkov@linaro.org>
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date;
+ bh=s2yVFEWeDENib5ZI/a0e4ge6cSf4cj8rWCXGLC8hWc8=;
+ b=BCxD8yqDvjE82b9JXBQMxGVhWOKBRVfgjNPwE9tMAns4NezTz9ovt3+8ZjhHd1ho9d
+ fl4J0RiPLM0FCuMjR7zLaGa24J+hDDE1T8/TYZ3m13wGdAGHQf34910f4zt3PclmIPhw
+ Q5KWZYMuUrkwhFwWVG1O9FqZX1H4FnSGn58MSMoonyDOV7LgBAh1k6R8goMTzQL65Ou+
+ QXb5dD/7KboQj82Klj3P7af65lSVEA3KZR7Lker+t8pHAWZif2Md38XoVM4kVsEnBDrj
+ YWPmN/Wzvx7JhiCVbwHGjiFVKUi1TVtSS9koq7LhPGuJ6rAAIXQz89sFAsFY8PYD9XRg
+ kYNg==
+X-Gm-Message-State: ACrzQf2blddYlMvuxGMPxcfQd+DFjcxebCqSghMB3+jFoi8m9CKYgpHP
+ dBhswJRzw2qoZG7T8KBVvjSBMy6IJwheA6G7FcZv0g==
+X-Google-Smtp-Source: AMsMyM55C7BiVAgLyyl2DjyMdVD0pDcGpUVDvvuje9A16f1dgXZcSU4O2RBMsUKcA7MgADqVBthdJWgunYiS+vBYqbo=
+X-Received: by 2002:a81:1e0d:0:b0:33b:fb67:9895 with SMTP id
+ e13-20020a811e0d000000b0033bfb679895mr13952159ywe.188.1664043752195; Sat, 24
+ Sep 2022 11:22:32 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20220924123611.225520-2-dmitry.baryshkov@linaro.org>
-Subject: Re: [Freedreno] [PATCH v8 01/12] dt-bindings: display/msm: split
- qcom, mdss bindings
+References: <20220924123611.225520-1-dmitry.baryshkov@linaro.org>
+ <20220924123611.225520-4-dmitry.baryshkov@linaro.org>
+ <20220924172324.qdgz5dnccncadmfz@krzk-bin>
+In-Reply-To: <20220924172324.qdgz5dnccncadmfz@krzk-bin>
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Date: Sat, 24 Sep 2022 21:22:21 +0300
+Message-ID: <CAA8EJpoZq9zrVeSYdn4_MQ_HVQTEXR8Zmx+BWpoo1PDUS7X+5A@mail.gmail.com>
+To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+Content-Type: text/plain; charset="UTF-8"
+Subject: Re: [Freedreno] [PATCH v8 03/12] dt-bindings: display/msm: add
+ interconnects property to qcom, mdss-smd845
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,74 +67,65 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sean Paul <sean@poorly.run>, Rob Herring <robh@kernel.org>,
+Cc: devicetree@vger.kernel.org,
  Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- devicetree@vger.kernel.org, David Airlie <airlied@linux.ie>,
- linux-arm-msm@vger.kernel.org, Bjorn Andersson <andersson@kernel.org>,
+ Sean Paul <sean@poorly.run>, Bjorn Andersson <andersson@kernel.org>,
  Konrad Dybcio <konrad.dybcio@somainline.org>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, Rob Herring <robh+dt@kernel.org>,
  Stephen Boyd <swboyd@chromium.org>, Rob Clark <robdclark@gmail.com>,
- Rob Herring <robh+dt@kernel.org>, Andy Gross <agross@kernel.org>,
- Daniel Vetter <daniel@ffwll.ch>, freedreno@lists.freedesktop.org
+ Andy Gross <agross@kernel.org>, dri-devel@lists.freedesktop.org,
+ Daniel Vetter <daniel@ffwll.ch>, linux-arm-msm@vger.kernel.org,
+ freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Sat, 24 Sep 2022 15:36:00 +0300, Dmitry Baryshkov wrote:
-> Split Mobile Display SubSystem (MDSS) root node bindings to the separate
-> yaml file. Changes to the existing (txt) schema:
->  - Added optional "vbif_nrt_phys" region used by msm8996
->  - Made "bus" and "vsync" clocks optional (they are not used by some
->    platforms)
->  - Added optional resets property referencing MDSS reset
->  - Defined child nodes pointing to corresponding reference schema.
->  - Dropped the "lut" clock. It was added to the schema by mistake (it is
->    a part of mdp4 schema, not the mdss).
-> 
-> Reviewed-by: Rob Herring <robh@kernel.org>
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> ---
->  .../devicetree/bindings/display/msm/mdp5.txt  |  30 +-
->  .../bindings/display/msm/qcom,mdss.yaml       | 264 ++++++++++++++++++
->  2 files changed, 265 insertions(+), 29 deletions(-)
->  create mode 100644 Documentation/devicetree/bindings/display/msm/qcom,mdss.yaml
-> 
+On Sat, 24 Sept 2022 at 20:23, Krzysztof Kozlowski
+<krzysztof.kozlowski@linaro.org> wrote:
+>
+> On Sat, 24 Sep 2022 15:36:02 +0300, Dmitry Baryshkov wrote:
+> > Add interconnects required for the SDM845 MDSS device tree node. This
+> > change was made in the commit c8c61c09e38b ("arm64: dts: qcom: sdm845:
+> > Add interconnects property for display"), but was not reflected in the
+> > schema.
+> >
+> > Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+> > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> > ---
+> >  .../devicetree/bindings/display/msm/dpu-sdm845.yaml    | 10 ++++++++++
+> >  1 file changed, 10 insertions(+)
+> >
+>
+> Running 'make dtbs_check' with the schema in this patch gives the
+> following warnings. Consider if they are expected or the schema is
+> incorrect. These may not be new warnings.
+>
+> Note that it is not yet a requirement to have 0 warnings for dtbs_check.
+> This will change in the future.
+>
+> Full log is available here: https://patchwork.ozlabs.org/patch/1681884
+>
+>
+> mdss@ae00000: 'dsi-phy@ae94400', 'dsi-phy@ae96400', 'dsi@ae94000', 'dsi@ae96000' do not match any of the regexes: '^display-controller@[0-9a-f]+$', 'pinctrl-[0-9]+'
+>         arch/arm64/boot/dts/qcom/sdm845-cheza-r1.dtb
+>         arch/arm64/boot/dts/qcom/sdm845-cheza-r2.dtb
+>         arch/arm64/boot/dts/qcom/sdm845-cheza-r3.dtb
+>         arch/arm64/boot/dts/qcom/sdm845-db845c.dtb
+>         arch/arm64/boot/dts/qcom/sdm845-lg-judyln.dtb
+>         arch/arm64/boot/dts/qcom/sdm845-lg-judyp.dtb
+>         arch/arm64/boot/dts/qcom/sdm845-mtp.dtb
+>         arch/arm64/boot/dts/qcom/sdm845-oneplus-enchilada.dtb
+>         arch/arm64/boot/dts/qcom/sdm845-oneplus-fajita.dtb
+>         arch/arm64/boot/dts/qcom/sdm845-shift-axolotl.dtb
+>         arch/arm64/boot/dts/qcom/sdm845-sony-xperia-tama-akari.dtb
+>         arch/arm64/boot/dts/qcom/sdm845-sony-xperia-tama-akatsuki.dtb
+>         arch/arm64/boot/dts/qcom/sdm845-sony-xperia-tama-apollo.dtb
+>         arch/arm64/boot/dts/qcom/sdm845-xiaomi-beryllium.dtb
+>         arch/arm64/boot/dts/qcom/sdm845-xiaomi-polaris.dtb
+>         arch/arm64/boot/dts/qcom/sdm850-lenovo-yoga-c630.dtb
+>         arch/arm64/boot/dts/qcom/sdm850-samsung-w737.dtb
 
-My bot found errors running 'make DT_CHECKER_FLAGS=-m dt_binding_check'
-on your patch (DT_CHECKER_FLAGS is new in v5.13):
+This is expected and fixed by one of the later patches.
 
-yamllint warnings/errors:
-
-dtschema/dtc warnings/errors:
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,mdss.example.dtb: dsi@1a98000: clock-names:0: 'byte' was expected
-	From schema: /builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/dsi-controller-main.yaml
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,mdss.example.dtb: dsi@1a98000: clock-names:1: 'byte_intf' was expected
-	From schema: /builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/dsi-controller-main.yaml
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,mdss.example.dtb: dsi@1a98000: clock-names:2: 'pixel' was expected
-	From schema: /builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/dsi-controller-main.yaml
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,mdss.example.dtb: dsi@1a98000: clock-names:3: 'core' was expected
-	From schema: /builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/dsi-controller-main.yaml
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,mdss.example.dtb: dsi@1a98000: clock-names:4: 'iface' was expected
-	From schema: /builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/dsi-controller-main.yaml
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,mdss.example.dtb: dsi@1a98000: clock-names:5: 'bus' was expected
-	From schema: /builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/dsi-controller-main.yaml
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,mdss.example.dtb: dsi@1a98000: phy-names:0: 'dsi' was expected
-	From schema: /builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/dsi-controller-main.yaml
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,mdss.example.dtb: dsi@1a98000: 'power-domains' is a required property
-	From schema: /builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/dsi-controller-main.yaml
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,mdss.example.dtb: dsi@1a98000: 'operating-points-v2' is a required property
-	From schema: /builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/dsi-controller-main.yaml
-
-doc reference errors (make refcheckdocs):
-
-See https://patchwork.ozlabs.org/patch/1681881
-
-This check can fail if there are any dependencies. The base for a patch
-series is generally the most recent rc1.
-
-If you already ran 'make dt_binding_check' and didn't see the above
-error(s), then make sure 'yamllint' is installed and dt-schema is up to
-date:
-
-pip3 install dtschema --upgrade
-
-Please check and re-submit.
+-- 
+With best wishes
+Dmitry
