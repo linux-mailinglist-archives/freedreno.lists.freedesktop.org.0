@@ -2,43 +2,61 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 90A7F5E8D89
-	for <lists+freedreno@lfdr.de>; Sat, 24 Sep 2022 16:48:51 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5132D5E8DA7
+	for <lists+freedreno@lfdr.de>; Sat, 24 Sep 2022 17:01:16 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 552C910E3B6;
-	Sat, 24 Sep 2022 14:48:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 626AD10E5F5;
+	Sat, 24 Sep 2022 15:01:11 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from relay03.th.seeweb.it (relay03.th.seeweb.it
- [IPv6:2001:4b7a:2000:18::164])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 70ED210E5EF
- for <freedreno@lists.freedesktop.org>; Sat, 24 Sep 2022 14:48:45 +0000 (UTC)
-Received: from [192.168.1.101] (95.49.29.188.neoplus.adsl.tpnet.pl
- [95.49.29.188])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits))
- (No client certificate requested)
- by m-r1.th.seeweb.it (Postfix) with ESMTPSA id 16E5E1F8F0;
- Sat, 24 Sep 2022 16:48:43 +0200 (CEST)
-Message-ID: <f06d06a2-0631-2be6-a45a-86895c4c08f9@somainline.org>
-Date: Sat, 24 Sep 2022 16:48:42 +0200
+Received: from mail-lf1-x129.google.com (mail-lf1-x129.google.com
+ [IPv6:2a00:1450:4864:20::129])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 07F9910E607
+ for <freedreno@lists.freedesktop.org>; Sat, 24 Sep 2022 15:01:05 +0000 (UTC)
+Received: by mail-lf1-x129.google.com with SMTP id i26so4452046lfp.11
+ for <freedreno@lists.freedesktop.org>; Sat, 24 Sep 2022 08:01:04 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date;
+ bh=qtTPVHorLcAcqrLqtetLOrQsQ05YXzyOFV1U2nU0d+4=;
+ b=H4wwb8a6K5uJxPEtRNOjAiCdigN4xdVUg2o/JrgbT+NUylgS749+Bxmw3gEUCYizkS
+ qENczikyzYMAfBErrjTGRmHTfgECEBeQFc5BwEa/XZD7KN3p1sPk53P/jmWN8jpHJsJH
+ hhog3X9D9sosamaeew+xtI9zNyfLxBbWk/Y+ggqfFET6Mj1UQ6pqysUTqaDwPcyeb4/f
+ HnQspWsRwN5AaWBsP/7608m4befY9ELsqxlE7EuGG/mmjEcfvQDPCXcZAIBuK68FKLer
+ QyUlE/SohoGbxPnH5Iwekzk0B1rY1KyzddrTL3Brfk/sO8IUHF5Jn4phtKEIgwfR1xgp
+ X3pw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date;
+ bh=qtTPVHorLcAcqrLqtetLOrQsQ05YXzyOFV1U2nU0d+4=;
+ b=fCXLuOaBDay8cNG6J+AdvvabzAaOVRB74zImFXHDyujycVIkQHwEr8ZQhVfwyQqq7j
+ 6RuIEhZjNud8a682dHcpTBARCHzOvJECwXyrK3Nr9ppdNEtK8ojy7ERBfp53475y8sSp
+ Trob5ealEUqtwLibcyP7yQOldCG4tQO+h4wwGisfyl/wO/Dd7En9WvOtm/v+mSz67B7Y
+ BsuKJJ6MQc3gYj737k77nkmEw9UQ/gsh8HB7bb2GhQHR/4mvr9xL54oAWKUqEx9FLITA
+ JqK8uYdf1JXhPdSmbzS3J/IzCs/AM41KfAN10x00/m0WWvcRsuV5v8jeq0qg36a2nQDl
+ HMrg==
+X-Gm-Message-State: ACrzQf2tW3D3HD2P6PFsdedyUF1T5B6caP64nQy/t4qgC460al0FHMnm
+ ODbLu+z6x+wyU+1IlCbKImlAiw==
+X-Google-Smtp-Source: AMsMyM4S2/JPR75Oa1ZwWzReIsRVuwvgpEhrTvVAUZdyDa2UyqfccrEzUwv+522daffp495rq2ve/Q==
+X-Received: by 2002:a05:6512:3b06:b0:498:fa72:c24d with SMTP id
+ f6-20020a0565123b0600b00498fa72c24dmr5605200lfv.538.1664031663026; 
+ Sat, 24 Sep 2022 08:01:03 -0700 (PDT)
+Received: from eriador.lumag.spb.ru ([95.161.222.18])
+ by smtp.gmail.com with ESMTPSA id
+ m6-20020a056512114600b004896ed8dce3sm1929587lfg.2.2022.09.24.08.01.02
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sat, 24 Sep 2022 08:01:02 -0700 (PDT)
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+To: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>
+Date: Sat, 24 Sep 2022 18:01:01 +0300
+Message-Id: <20220924150101.255586-1-dmitry.baryshkov@linaro.org>
+X-Mailer: git-send-email 2.35.1
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.3.0
-Content-Language: en-US
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Andy Gross <agross@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
- Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, Rob Herring <robh+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>
-References: <20220924121900.222711-1-dmitry.baryshkov@linaro.org>
- <20220924121900.222711-3-dmitry.baryshkov@linaro.org>
-From: Konrad Dybcio <konrad.dybcio@somainline.org>
-In-Reply-To: <20220924121900.222711-3-dmitry.baryshkov@linaro.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH v3 2/2] drm/msm/dsi: Add phy configuration
- for QCM2290
+Content-Transfer-Encoding: 8bit
+Subject: [Freedreno] [PATCH] dt-bindings: display/msm: convert MDP5 schema
+ to YAML format
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -51,83 +69,312 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: devicetree@vger.kernel.org, Loic Poulain <loic.poulain@linaro.org>,
- David Airlie <airlied@linux.ie>, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, Stephen Boyd <swboyd@chromium.org>,
- Daniel Vetter <daniel@ffwll.ch>, freedreno@lists.freedesktop.org
+Cc: David Airlie <airlied@linux.ie>, linux-arm-msm@vger.kernel.org,
+ Bjorn Andersson <andersson@kernel.org>, dri-devel@lists.freedesktop.org,
+ Stephen Boyd <swboyd@chromium.org>, Daniel Vetter <daniel@ffwll.ch>,
+ freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
+Convert the mdp5.txt into the yaml format. Changes to the existing (txt) schema:
+ - MSM8996 has additional "iommu" clock, define it separately
+ - Add new properties used on some of platforms:
+   - interconnects, interconnect-names
+   - iommus
+   - power-domains
+   - operating-points-v2, opp-table
 
+Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+---
+Dependency: https://lore.kernel.org/linux-arm-msm/20220924123611.225520-2-dmitry.baryshkov@linaro.org/
+---
+ .../devicetree/bindings/display/msm/mdp5.txt  | 132 -----------------
+ .../bindings/display/msm/qcom,mdp5.yaml       | 137 ++++++++++++++++++
+ 2 files changed, 137 insertions(+), 132 deletions(-)
+ delete mode 100644 Documentation/devicetree/bindings/display/msm/mdp5.txt
+ create mode 100644 Documentation/devicetree/bindings/display/msm/qcom,mdp5.yaml
 
-On 24.09.2022 14:19, Dmitry Baryshkov wrote:
-> From: Loic Poulain <loic.poulain@linaro.org>
-> 
-> The QCM2290 SoC a the 14nm (V2.0) single DSI phy. The platform is not
-> fully compatible with the standard 14nm PHY, so it requires a separate
-> compatible and config entry.
-> 
-> Signed-off-by: Loic Poulain <loic.poulain@linaro.org>
-> [DB: rebased and updated commit msg]
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> ---
-Reviewed-by: Konrad Dybcio <konrad.dybcio@somainline.org>
+diff --git a/Documentation/devicetree/bindings/display/msm/mdp5.txt b/Documentation/devicetree/bindings/display/msm/mdp5.txt
+deleted file mode 100644
+index 65d03c58dee6..000000000000
+--- a/Documentation/devicetree/bindings/display/msm/mdp5.txt
++++ /dev/null
+@@ -1,132 +0,0 @@
+-Qualcomm adreno/snapdragon MDP5 display controller
+-
+-Description:
+-
+-This is the bindings documentation for the MDP5 display
+-controller found in SoCs like MSM8974, APQ8084, MSM8916, MSM8994 and MSM8996.
+-
+-MDP5:
+-Required properties:
+-- compatible:
+-  * "qcom,mdp5" - MDP5
+-- reg: Physical base address and length of the controller's registers.
+-- reg-names: The names of register regions. The following regions are required:
+-  * "mdp_phys"
+-- interrupts: Interrupt line from MDP5 to MDSS interrupt controller.
+-- clocks: device clocks. See ../clocks/clock-bindings.txt for details.
+-- clock-names: the following clocks are required.
+--   * "bus"
+--   * "iface"
+--   * "core"
+--   * "vsync"
+-- ports: contains the list of output ports from MDP. These connect to interfaces
+-  that are external to the MDP hardware, such as HDMI, DSI, EDP etc (LVDS is a
+-  special case since it is a part of the MDP block itself).
+-
+-  Each output port contains an endpoint that describes how it is connected to an
+-  external interface. These are described by the standard properties documented
+-  here:
+-	Documentation/devicetree/bindings/graph.txt
+-	Documentation/devicetree/bindings/media/video-interfaces.txt
+-
+-  The availability of output ports can vary across SoC revisions:
+-
+-  For MSM8974 and APQ8084:
+-	 Port 0 -> MDP_INTF0 (eDP)
+-	 Port 1 -> MDP_INTF1 (DSI1)
+-	 Port 2 -> MDP_INTF2 (DSI2)
+-	 Port 3 -> MDP_INTF3 (HDMI)
+-
+-  For MSM8916:
+-	 Port 0 -> MDP_INTF1 (DSI1)
+-
+-  For MSM8994 and MSM8996:
+-	 Port 0 -> MDP_INTF1 (DSI1)
+-	 Port 1 -> MDP_INTF2 (DSI2)
+-	 Port 2 -> MDP_INTF3 (HDMI)
+-
+-Optional properties:
+-- clock-names: the following clocks are optional:
+-  * "lut"
+-  * "tbu"
+-  * "tbu_rt"
+-
+-Example:
+-
+-/ {
+-	...
+-
+-	mdss: mdss@1a00000 {
+-		compatible = "qcom,mdss";
+-		reg = <0x1a00000 0x1000>,
+-		      <0x1ac8000 0x3000>;
+-		reg-names = "mdss_phys", "vbif_phys";
+-
+-		power-domains = <&gcc MDSS_GDSC>;
+-
+-		clocks = <&gcc GCC_MDSS_AHB_CLK>,
+-			 <&gcc GCC_MDSS_AXI_CLK>,
+-			 <&gcc GCC_MDSS_VSYNC_CLK>;
+-		clock-names = "iface",
+-			      "bus",
+-			      "vsync"
+-
+-		interrupts = <0 72 0>;
+-
+-		interrupt-controller;
+-		#interrupt-cells = <1>;
+-
+-		#address-cells = <1>;
+-		#size-cells = <1>;
+-		ranges;
+-
+-		mdp: mdp@1a01000 {
+-			compatible = "qcom,mdp5";
+-			reg = <0x1a01000 0x90000>;
+-			reg-names = "mdp_phys";
+-
+-			interrupt-parent = <&mdss>;
+-			interrupts = <0 0>;
+-
+-			clocks = <&gcc GCC_MDSS_AHB_CLK>,
+-				 <&gcc GCC_MDSS_AXI_CLK>,
+-				 <&gcc GCC_MDSS_MDP_CLK>,
+-				 <&gcc GCC_MDSS_VSYNC_CLK>;
+-			clock-names = "iface",
+-				      "bus",
+-				      "core",
+-				      "vsync";
+-
+-			ports {
+-				#address-cells = <1>;
+-				#size-cells = <0>;
+-
+-				port@0 {
+-					reg = <0>;
+-					mdp5_intf1_out: endpoint {
+-						remote-endpoint = <&dsi0_in>;
+-					};
+-				};
+-			};
+-		};
+-
+-		dsi0: dsi@1a98000 {
+-			...
+-			ports {
+-				...
+-				port@0 {
+-					reg = <0>;
+-					dsi0_in: endpoint {
+-						remote-endpoint = <&mdp5_intf1_out>;
+-					};
+-				};
+-				...
+-			};
+-			...
+-		};
+-
+-		dsi_phy0: dsi-phy@1a98300 {
+-			...
+-		};
+-	};
+-};
+diff --git a/Documentation/devicetree/bindings/display/msm/qcom,mdp5.yaml b/Documentation/devicetree/bindings/display/msm/qcom,mdp5.yaml
+new file mode 100644
+index 000000000000..574e8b7bd67b
+--- /dev/null
++++ b/Documentation/devicetree/bindings/display/msm/qcom,mdp5.yaml
+@@ -0,0 +1,137 @@
++# SPDX-License-Identifier: GPL-2.0-only or BSD-2-Clause
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/display/msm/qcom,mdp5.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Qualcomm Adreno/Snapdragon Mobile Display controller (MDP5)
++
++description: >
++  MDP5 display controller found in SoCs like MSM8974, APQ8084, MSM8916, MSM8994
++  and MSM8996.
++
++maintainers:
++  - Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
++  - Rob Clark <robdclark@gmail.com>
++
++properties:
++  compatible:
++    const: qcom,mdp5
++
++  reg:
++    maxItems: 1
++
++  reg-names:
++    items:
++      - const: mdp_phys
++
++  interrupts:
++    maxItems: 1
++
++  clocks:
++    minItems: 4
++    maxItems: 7
++
++  clock-names:
++    oneOf:
++      - minItems: 4
++        items:
++          - const: iface
++          - const: bus
++          - const: core
++          - const: vsync
++          - const: lut
++          - const: tbu
++          - const: tbu_rt
++        #MSM8996 has additional iommu clock
++      - items:
++          - const: iface
++          - const: bus
++          - const: core
++          - const: iommu
++          - const: vsync
++
++  interconnects:
++    minItems: 1
++    items:
++      - description: Interconnect path from mdp0 (or a single mdp) port to the data bus
++      - description: Interconnect path from mdp1 port to the data bus
++      - description: Interconnect path from rotator port to the data bus
++
++  interconnect-names:
++    minItems: 1
++    items:
++      - const: mdp0-mem
++      - const: mdp1-mem
++      - const: rotator-mem
++
++  iommus:
++    items:
++      - description: Phandle to apps_smmu node with SID mask for Hard-Fail port0
++
++  power-domains:
++    maxItems: 1
++
++  operating-points-v2: true
++  opp-table:
++    type: object
++
++  ports:
++    $ref: /schemas/graph.yaml#/properties/ports
++    description: |
++      Contains the list of output ports from DPU device. These ports
++      connect to interfaces that are external to the DPU hardware,
++      such as DSI, DP etc.
++
++    patternProperties:
++      "^port@[0-9a-f]+$":
++        $ref: /schemas/graph.yaml#/properties/port
++
++    # at least one port is required
++    required:
++      - port@0
++
++required:
++  - compatible
++  - reg
++  - reg-names
++  - clocks
++  - clock-names
++  - ports
++
++additionalProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/clock/qcom,gcc-msm8916.h>
++    #include <dt-bindings/interrupt-controller/arm-gic.h>
++    mdp@1a01000 {
++        compatible = "qcom,mdp5";
++        reg = <0x1a01000 0x90000>;
++        reg-names = "mdp_phys";
++
++        interrupt-parent = <&mdss>;
++        interrupts = <0>;
++
++        clocks = <&gcc GCC_MDSS_AHB_CLK>,
++                 <&gcc GCC_MDSS_AXI_CLK>,
++                 <&gcc GCC_MDSS_MDP_CLK>,
++                 <&gcc GCC_MDSS_VSYNC_CLK>;
++        clock-names = "iface",
++                      "bus",
++                      "core",
++                      "vsync";
++
++        ports {
++            #address-cells = <1>;
++            #size-cells = <0>;
++
++            port@0 {
++                reg = <0>;
++                endpoint {
++                    remote-endpoint = <&dsi0_in>;
++                };
++            };
++        };
++    };
++...
+-- 
+2.35.1
 
-(sorry I didn't notice earlier that there was a v2)
-
-Konrad
->  drivers/gpu/drm/msm/dsi/phy/dsi_phy.c      |  2 ++
->  drivers/gpu/drm/msm/dsi/phy/dsi_phy.h      |  1 +
->  drivers/gpu/drm/msm/dsi/phy/dsi_phy_14nm.c | 17 +++++++++++++++++
->  3 files changed, 20 insertions(+)
-> 
-> diff --git a/drivers/gpu/drm/msm/dsi/phy/dsi_phy.c b/drivers/gpu/drm/msm/dsi/phy/dsi_phy.c
-> index 7fc0975cb869..ee6051367679 100644
-> --- a/drivers/gpu/drm/msm/dsi/phy/dsi_phy.c
-> +++ b/drivers/gpu/drm/msm/dsi/phy/dsi_phy.c
-> @@ -549,6 +549,8 @@ static const struct of_device_id dsi_phy_dt_match[] = {
->  #ifdef CONFIG_DRM_MSM_DSI_14NM_PHY
->  	{ .compatible = "qcom,dsi-phy-14nm",
->  	  .data = &dsi_phy_14nm_cfgs },
-> +	{ .compatible = "qcom,dsi-phy-14nm-2290",
-> +	  .data = &dsi_phy_14nm_2290_cfgs },
->  	{ .compatible = "qcom,dsi-phy-14nm-660",
->  	  .data = &dsi_phy_14nm_660_cfgs },
->  	{ .compatible = "qcom,dsi-phy-14nm-8953",
-> diff --git a/drivers/gpu/drm/msm/dsi/phy/dsi_phy.h b/drivers/gpu/drm/msm/dsi/phy/dsi_phy.h
-> index 60a99c6525b2..1096afedd616 100644
-> --- a/drivers/gpu/drm/msm/dsi/phy/dsi_phy.h
-> +++ b/drivers/gpu/drm/msm/dsi/phy/dsi_phy.h
-> @@ -50,6 +50,7 @@ extern const struct msm_dsi_phy_cfg dsi_phy_20nm_cfgs;
->  extern const struct msm_dsi_phy_cfg dsi_phy_28nm_8960_cfgs;
->  extern const struct msm_dsi_phy_cfg dsi_phy_14nm_cfgs;
->  extern const struct msm_dsi_phy_cfg dsi_phy_14nm_660_cfgs;
-> +extern const struct msm_dsi_phy_cfg dsi_phy_14nm_2290_cfgs;
->  extern const struct msm_dsi_phy_cfg dsi_phy_14nm_8953_cfgs;
->  extern const struct msm_dsi_phy_cfg dsi_phy_10nm_cfgs;
->  extern const struct msm_dsi_phy_cfg dsi_phy_10nm_8998_cfgs;
-> diff --git a/drivers/gpu/drm/msm/dsi/phy/dsi_phy_14nm.c b/drivers/gpu/drm/msm/dsi/phy/dsi_phy_14nm.c
-> index 0f8f4ca46429..9f488adea7f5 100644
-> --- a/drivers/gpu/drm/msm/dsi/phy/dsi_phy_14nm.c
-> +++ b/drivers/gpu/drm/msm/dsi/phy/dsi_phy_14nm.c
-> @@ -1081,3 +1081,20 @@ const struct msm_dsi_phy_cfg dsi_phy_14nm_8953_cfgs = {
->  	.io_start = { 0x1a94400, 0x1a96400 },
->  	.num_dsi_phy = 2,
->  };
-> +
-> +const struct msm_dsi_phy_cfg dsi_phy_14nm_2290_cfgs = {
-> +	.has_phy_lane = true,
-> +	.regulator_data = dsi_phy_14nm_17mA_regulators,
-> +	.num_regulators = ARRAY_SIZE(dsi_phy_14nm_17mA_regulators),
-> +	.ops = {
-> +		.enable = dsi_14nm_phy_enable,
-> +		.disable = dsi_14nm_phy_disable,
-> +		.pll_init = dsi_pll_14nm_init,
-> +		.save_pll_state = dsi_14nm_pll_save_state,
-> +		.restore_pll_state = dsi_14nm_pll_restore_state,
-> +	},
-> +	.min_pll_rate = VCO_MIN_RATE,
-> +	.max_pll_rate = VCO_MAX_RATE,
-> +	.io_start = { 0x5e94400 },
-> +	.num_dsi_phy = 1,
-> +};
