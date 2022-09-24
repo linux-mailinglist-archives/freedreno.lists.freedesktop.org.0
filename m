@@ -1,50 +1,50 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id B80A75E8C3B
-	for <lists+freedreno@lfdr.de>; Sat, 24 Sep 2022 14:19:20 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 7C9425E8C3A
+	for <lists+freedreno@lfdr.de>; Sat, 24 Sep 2022 14:19:19 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 68D7A10E604;
-	Sat, 24 Sep 2022 12:19:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2F49610E602;
+	Sat, 24 Sep 2022 12:19:18 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-x22b.google.com (mail-lj1-x22b.google.com
- [IPv6:2a00:1450:4864:20::22b])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4BC1010E602
- for <freedreno@lists.freedesktop.org>; Sat, 24 Sep 2022 12:19:04 +0000 (UTC)
-Received: by mail-lj1-x22b.google.com with SMTP id s10so2742837ljp.5
- for <freedreno@lists.freedesktop.org>; Sat, 24 Sep 2022 05:19:04 -0700 (PDT)
+Received: from mail-lj1-x236.google.com (mail-lj1-x236.google.com
+ [IPv6:2a00:1450:4864:20::236])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 235BB10E5F8
+ for <freedreno@lists.freedesktop.org>; Sat, 24 Sep 2022 12:19:05 +0000 (UTC)
+Received: by mail-lj1-x236.google.com with SMTP id c7so2697619ljm.12
+ for <freedreno@lists.freedesktop.org>; Sat, 24 Sep 2022 05:19:05 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date;
- bh=wD3ZI06u4uCsqVEUfwh957mdvUPp6OmvWbWypMR79T8=;
- b=nBK+COj+qWJOJr1vEWAq+PPZHyzDP7XVnSdgqieDOO8CI/VStgLHD8bmqQIJfm1bta
- JUkAMWVV7E8deEZR/5vohz7L7QBhWwdyZEP7aHo0wKEShQDPuWfO1uL8DyXvq7yFSoob
- NydCexnqlGYKcYrfhHiQk0B9BuW3xqJlSBGypzzdy17kZKwf2kCoBVSZReK4wowS2sRP
- IgjX+TvJIlmCXjayZWe35NqtFMHrDbqVEPWRarFFew+MrI3g8WKXwHvncJ/eKoz599Jd
- ZJWhiaUVAHWO2EoXngRkGog7CR04r+MuUry3BjHv6WHHQLKtelA3H0qtn67UHotCQn5j
- X5qA==
+ bh=cF05yDaRT5/jiUw2Qee8ED5ZHeJzCzuJb8hAnhlWOHs=;
+ b=FGMDVNmTTCwzuEQjUbzFokaGuVVrEbe4XLVOqB9alqagctg7M38iNl0oL2Ti5KCchv
+ 6HElc8Z4/fdQ7vJhOxoTYWOxKTAqX4fFmYefb8Ln9Dk8rKvLUhAofvsh/BT/lOcBOXlv
+ GBk9dfAEzifNpD77lgecOZuTZmDB4dz7wRxvR2vTiiZWEb3psvpsxY9tRx2DqVv+LZyz
+ aABSt52FVB0xXGFANFwPxzMBp2mriJ9AKVhfwayY1h7aiHACSRIlh/1VIX2uD7cYolyw
+ X+U2pkbRRSFxWrLEHtCmDbhMf3Ib/c5WdochVWTWeWm8s+jMQ+ZA1Ts4mDE+58tqhhit
+ jGAA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date;
- bh=wD3ZI06u4uCsqVEUfwh957mdvUPp6OmvWbWypMR79T8=;
- b=HxlFgo8I24rgzpjPdh1Qt8EwEJ4lINjP7onRxtwF2MCmVqX3oUeelcSf8Q1VPFS45U
- CpFxmNN4Qw9a1DitQnXJTLgSsgO7twJtullO8w9fk1HGxgJ90QKQXj+45WgZLyk0BaMd
- vWBBKQ38/fJd8R0ZUmzLgBExzYAeBF3Y7dWohVMsjqtoCC9TsmCedHzBCAcorbED1xH4
- iiFmxflex6BJl8xIWKRGQJIGxB/B3E8hoYma03n5AyslctQFw9shNvKdba191nOtm8Q3
- 1IwDnlNpkl5K8f0LBtigMk4bxnQGDIWn+wJJitiww/hjNOas3OndApKpGkn4aTrh/8pk
- 883Q==
-X-Gm-Message-State: ACrzQf3S9F+uisynjAmTaYAcrjlZC21iK1zfiRHXrGjwGI2serJkjN6s
- MVtAvpbkQPqKlXlxg1JKHTl+Hg==
-X-Google-Smtp-Source: AMsMyM4e34UZotqqQpuUajQ6KhUnIaVDH3NbpeLeHKBsw2Xz7QmrnNeD63hJ98FQOiIMtktXyORJ4A==
-X-Received: by 2002:a2e:8917:0:b0:26a:a520:db52 with SMTP id
- d23-20020a2e8917000000b0026aa520db52mr4288881lji.289.1664021942396; 
- Sat, 24 Sep 2022 05:19:02 -0700 (PDT)
+ bh=cF05yDaRT5/jiUw2Qee8ED5ZHeJzCzuJb8hAnhlWOHs=;
+ b=qhiULNQEQKvU78Xqemfg+h9Fe6S5in4GPWOEoeC/env7ML/DNJbA8k/mGTQduG22/j
+ tazI9gSHO2Vuppctw1ovy5luVeReRKREC/U+dcCfZ/ao3qOkvktAWJZE+x2ROjJIPgkv
+ pqz0EzpVjUPOCIPhzxjjarf/T9eg/Xc8tZT/OUoot5oOBk93DqT0zT0ZQnHI4UYOAT8T
+ Pdw22Cl/DnF+P5pJLNJkjkMnDLiLFub21PW31zYbqFJp3JcI71psWc8H5klvFa2Dm64i
+ nW3qCjFJx/yvtm0zxQ9XE6V3ZKYY4Ew4K4FyPpSs4660j2YgmowHEbENDywXRMZdKcOo
+ ei5w==
+X-Gm-Message-State: ACrzQf3QjdOWL9FeG9IxpaMfMTosOfF/z1puIuBH251Y2jmb4p5FEJsD
+ 8lx9gXbiqRpWxpwQ6FGF2lMZZw==
+X-Google-Smtp-Source: AMsMyM7wuGdhR667gNoEFZoGT2hzAMfPUNRUSpEarxRy811LKEsZt70ebnjb7JfmVC4EKOwStJ+Lvg==
+X-Received: by 2002:a05:651c:514:b0:26c:5815:551d with SMTP id
+ o20-20020a05651c051400b0026c5815551dmr4279508ljp.28.1664021943200; 
+ Sat, 24 Sep 2022 05:19:03 -0700 (PDT)
 Received: from eriador.lan ([37.153.55.125]) by smtp.gmail.com with ESMTPSA id
- v12-20020a19740c000000b00497a2815d8dsm1870113lfe.195.2022.09.24.05.19.01
+ v12-20020a19740c000000b00497a2815d8dsm1870113lfe.195.2022.09.24.05.19.02
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
  Sat, 24 Sep 2022 05:19:02 -0700 (PDT)
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
@@ -54,15 +54,15 @@ To: Andy Gross <agross@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
  Abhinav Kumar <quic_abhinavk@quicinc.com>,
  Rob Herring <robh+dt@kernel.org>,
  Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>
-Date: Sat, 24 Sep 2022 15:18:59 +0300
-Message-Id: <20220924121900.222711-2-dmitry.baryshkov@linaro.org>
+Date: Sat, 24 Sep 2022 15:19:00 +0300
+Message-Id: <20220924121900.222711-3-dmitry.baryshkov@linaro.org>
 X-Mailer: git-send-email 2.35.1
 In-Reply-To: <20220924121900.222711-1-dmitry.baryshkov@linaro.org>
 References: <20220924121900.222711-1-dmitry.baryshkov@linaro.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH v3 1/2] dt-bindings: display/msm: Add QCM2290
- DSI phy
+Subject: [Freedreno] [PATCH v3 2/2] drm/msm/dsi: Add phy configuration for
+ QCM2290
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -84,26 +84,69 @@ Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 From: Loic Poulain <loic.poulain@linaro.org>
 
-QCM2290 platform uses the 14nm DSI PHY driver.
+The QCM2290 SoC a the 14nm (V2.0) single DSI phy. The platform is not
+fully compatible with the standard 14nm PHY, so it requires a separate
+compatible and config entry.
 
 Signed-off-by: Loic Poulain <loic.poulain@linaro.org>
+[DB: rebased and updated commit msg]
 Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 ---
- Documentation/devicetree/bindings/display/msm/dsi-phy-14nm.yaml | 1 +
- 1 file changed, 1 insertion(+)
+ drivers/gpu/drm/msm/dsi/phy/dsi_phy.c      |  2 ++
+ drivers/gpu/drm/msm/dsi/phy/dsi_phy.h      |  1 +
+ drivers/gpu/drm/msm/dsi/phy/dsi_phy_14nm.c | 17 +++++++++++++++++
+ 3 files changed, 20 insertions(+)
 
-diff --git a/Documentation/devicetree/bindings/display/msm/dsi-phy-14nm.yaml b/Documentation/devicetree/bindings/display/msm/dsi-phy-14nm.yaml
-index bc3d0b4063c7..054d8f65d9fa 100644
---- a/Documentation/devicetree/bindings/display/msm/dsi-phy-14nm.yaml
-+++ b/Documentation/devicetree/bindings/display/msm/dsi-phy-14nm.yaml
-@@ -15,6 +15,7 @@ properties:
-   compatible:
-     enum:
-       - qcom,dsi-phy-14nm
-+      - qcom,dsi-phy-14nm-2290
-       - qcom,dsi-phy-14nm-660
-       - qcom,dsi-phy-14nm-8953
- 
+diff --git a/drivers/gpu/drm/msm/dsi/phy/dsi_phy.c b/drivers/gpu/drm/msm/dsi/phy/dsi_phy.c
+index 7fc0975cb869..ee6051367679 100644
+--- a/drivers/gpu/drm/msm/dsi/phy/dsi_phy.c
++++ b/drivers/gpu/drm/msm/dsi/phy/dsi_phy.c
+@@ -549,6 +549,8 @@ static const struct of_device_id dsi_phy_dt_match[] = {
+ #ifdef CONFIG_DRM_MSM_DSI_14NM_PHY
+ 	{ .compatible = "qcom,dsi-phy-14nm",
+ 	  .data = &dsi_phy_14nm_cfgs },
++	{ .compatible = "qcom,dsi-phy-14nm-2290",
++	  .data = &dsi_phy_14nm_2290_cfgs },
+ 	{ .compatible = "qcom,dsi-phy-14nm-660",
+ 	  .data = &dsi_phy_14nm_660_cfgs },
+ 	{ .compatible = "qcom,dsi-phy-14nm-8953",
+diff --git a/drivers/gpu/drm/msm/dsi/phy/dsi_phy.h b/drivers/gpu/drm/msm/dsi/phy/dsi_phy.h
+index 60a99c6525b2..1096afedd616 100644
+--- a/drivers/gpu/drm/msm/dsi/phy/dsi_phy.h
++++ b/drivers/gpu/drm/msm/dsi/phy/dsi_phy.h
+@@ -50,6 +50,7 @@ extern const struct msm_dsi_phy_cfg dsi_phy_20nm_cfgs;
+ extern const struct msm_dsi_phy_cfg dsi_phy_28nm_8960_cfgs;
+ extern const struct msm_dsi_phy_cfg dsi_phy_14nm_cfgs;
+ extern const struct msm_dsi_phy_cfg dsi_phy_14nm_660_cfgs;
++extern const struct msm_dsi_phy_cfg dsi_phy_14nm_2290_cfgs;
+ extern const struct msm_dsi_phy_cfg dsi_phy_14nm_8953_cfgs;
+ extern const struct msm_dsi_phy_cfg dsi_phy_10nm_cfgs;
+ extern const struct msm_dsi_phy_cfg dsi_phy_10nm_8998_cfgs;
+diff --git a/drivers/gpu/drm/msm/dsi/phy/dsi_phy_14nm.c b/drivers/gpu/drm/msm/dsi/phy/dsi_phy_14nm.c
+index 0f8f4ca46429..9f488adea7f5 100644
+--- a/drivers/gpu/drm/msm/dsi/phy/dsi_phy_14nm.c
++++ b/drivers/gpu/drm/msm/dsi/phy/dsi_phy_14nm.c
+@@ -1081,3 +1081,20 @@ const struct msm_dsi_phy_cfg dsi_phy_14nm_8953_cfgs = {
+ 	.io_start = { 0x1a94400, 0x1a96400 },
+ 	.num_dsi_phy = 2,
+ };
++
++const struct msm_dsi_phy_cfg dsi_phy_14nm_2290_cfgs = {
++	.has_phy_lane = true,
++	.regulator_data = dsi_phy_14nm_17mA_regulators,
++	.num_regulators = ARRAY_SIZE(dsi_phy_14nm_17mA_regulators),
++	.ops = {
++		.enable = dsi_14nm_phy_enable,
++		.disable = dsi_14nm_phy_disable,
++		.pll_init = dsi_pll_14nm_init,
++		.save_pll_state = dsi_14nm_pll_save_state,
++		.restore_pll_state = dsi_14nm_pll_restore_state,
++	},
++	.min_pll_rate = VCO_MIN_RATE,
++	.max_pll_rate = VCO_MAX_RATE,
++	.io_start = { 0x5e94400 },
++	.num_dsi_phy = 1,
++};
 -- 
 2.35.1
 
