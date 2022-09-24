@@ -2,63 +2,73 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7C4865E8AC5
-	for <lists+freedreno@lfdr.de>; Sat, 24 Sep 2022 11:29:17 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0C3CA5E8ACB
+	for <lists+freedreno@lfdr.de>; Sat, 24 Sep 2022 11:29:52 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0960310E59E;
-	Sat, 24 Sep 2022 09:29:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 258E810E5A8;
+	Sat, 24 Sep 2022 09:29:50 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x12e.google.com (mail-lf1-x12e.google.com
- [IPv6:2a00:1450:4864:20::12e])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5FA6C10E59D
- for <freedreno@lists.freedesktop.org>; Sat, 24 Sep 2022 09:29:12 +0000 (UTC)
-Received: by mail-lf1-x12e.google.com with SMTP id z25so3726588lfr.2
- for <freedreno@lists.freedesktop.org>; Sat, 24 Sep 2022 02:29:12 -0700 (PDT)
+Received: from mail-lj1-x234.google.com (mail-lj1-x234.google.com
+ [IPv6:2a00:1450:4864:20::234])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E85D410E59E
+ for <freedreno@lists.freedesktop.org>; Sat, 24 Sep 2022 09:29:45 +0000 (UTC)
+Received: by mail-lj1-x234.google.com with SMTP id h3so2473876lja.1
+ for <freedreno@lists.freedesktop.org>; Sat, 24 Sep 2022 02:29:45 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date;
- bh=e0x+n06hV5mMu68CdHdoiGvRmngz5GOt9vNpZJY16Rg=;
- b=A4Ia+iMkg7q1KZc0e5t3tnHCjWwXPP19hIwQGyKINHOThQuOY04Y9oEupgiP1kjfCx
- Lddaxj+ftBazMurQtdWEgQaY/PoEn1vO4J4TYD6/feGhpQaT1zkkMPpwxdTNohmLfqcE
- goCUQYKDO3phBJjEFQgSlvJyPT+f42EQIkNvpaZ8L4ydYQ5jgUSNhmPBCxPAIVdCiVcA
- U6DknBtakaukK5Vqg/dZUE9eANznmUB2xjoq8WS+H5m3zLu1fWvK9kmo3HOQaD89iY1z
- 1qu0AVoAOcik6buhmWR+YbN4xqTm4mgEZgN7xvgPdxrOm4f4xgmltTR74mzzuEBCWaZg
- BEhQ==
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date;
+ bh=DZGAIB6lOdSfIICauQbfT5Gio7LJSO7BYlR0b7U8DS8=;
+ b=pNvfAYYPA0xFYXDIi5y4/92pkWfgTeRTqoJ+Nce4yxlfZbl5qnT8BcKAwvo8ZUMMQa
+ Tsgsd1dU4t6pIJ04hWvXqPPi3frAY6pxcRUIEJAnws3MS2tiqAylhibn51MicUYjfTBK
+ //Q21qbi38NHXgeZX4DaQEgNlNfgHpE7Jdqq6Ub0I5dVUNUismaSRIrc1uiK63dHOyfL
+ K0je9eCCGpMWZMgKU8fC8LsaM+JmhjzVRX/dt+UtMyFQDRAsoj0REM+1WlDosfC0DtDe
+ IsX7WrqEnmi6TTVg+f4x7VZdewwNqN2QUIAH/QKxjWisVIhw/Gn7dzFBXpucMiSw+aRd
+ ii2A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date;
- bh=e0x+n06hV5mMu68CdHdoiGvRmngz5GOt9vNpZJY16Rg=;
- b=HABHmE5nDC1853QWIz6eTuRtaxhCkQSs6W/Akn96CHICloVt6/GOGFuFHi1R3Qj1dv
- IMqUi/zvy4L/dTjK2GYekiejfnoGLhlsjyFLHs3pA0+r4uiYKg980WFUyUgaYOOblVSw
- XRTPXDFGZd8EhdLY56MHLim/ozPdoMGgoWpwqbxbJDIz3xur7tXtKg0XT9BwOJN4gASO
- v+IvFdVkLW8WzyKIHDoYamGbOmCbZWAEBp4/lhO6LYjO4VmajX5x6Y3cv5YqWu45ESmR
- izwAhc5s4LhJC8Gj1CoxwNgws1tawmhdR5QzPCcLPwr31+BsWqqafSqS5cNyaxSwG5dO
- MUvw==
-X-Gm-Message-State: ACrzQf2oTYB5Qgf3Fp0lk/YWmLtkBufWVikn3VGzdud0zcng14UVnuQe
- or/KrReGelhnoRDIRIaxRLBNRQ==
-X-Google-Smtp-Source: AMsMyM6u2fZyvcRB2sCwnQ38Ns95A5PFsTtukBYF2ddfLMppMdFmN6x0MPy+enNFQEE81mQAGyULkg==
-X-Received: by 2002:a05:6512:c12:b0:49b:755d:fde9 with SMTP id
- z18-20020a0565120c1200b0049b755dfde9mr4656911lfu.181.1664011750727; 
- Sat, 24 Sep 2022 02:29:10 -0700 (PDT)
-Received: from eriador.lan ([37.153.55.125]) by smtp.gmail.com with ESMTPSA id
- c24-20020a196558000000b0049472efaf7asm1828118lfj.244.2022.09.24.02.29.10
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 24 Sep 2022 02:29:10 -0700 (PDT)
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-To: Andy Gross <agross@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konrad.dybcio@somainline.org>,
- Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Rob Herring <robh+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>
-Date: Sat, 24 Sep 2022 12:29:09 +0300
-Message-Id: <20220924092909.175418-1-dmitry.baryshkov@linaro.org>
-X-Mailer: git-send-email 2.35.1
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date;
+ bh=DZGAIB6lOdSfIICauQbfT5Gio7LJSO7BYlR0b7U8DS8=;
+ b=sEfE0vvHETzYCuP9IMS3OO9/nQrkgwuWv2kVsTfCVlhcuP7NrFil4X1RU4WStbcPBz
+ nNvVRoJ5Ikc6nL636kFclFViQ4A6wibC8vI6BJOmURiCIKtllHajaNR/T9T6W8DKj1X7
+ Lim8NIbHsBQu9iNzHEhFgZsQe+sxLGdhCRioi8iHEdY0LCb73839gBX/ZY5JN+aTIUPK
+ F/HnDUpONcskMPpOdLOBsfoPIMwIt4kwXk8//Fj4zheNtmawtL3ZUxf89tt2xeDbAYpJ
+ vqOQiN7XRxn3NLTNPdF6PEa9NEFe+gJuLk54jXOogTFLDeqTi7gmb1HL+puYi2LkzJUI
+ DdxQ==
+X-Gm-Message-State: ACrzQf38T3WUA+D+qBzqrkrJ/XGOHnmQAG6f9WIdM5XOwxlLCIAqr/ro
+ fAU/GOYw/WRf/CvYJPRRS6evUQ==
+X-Google-Smtp-Source: AMsMyM5SWQN3EwIq8in2Z15Fx8LgxNJnzmtrpYJprInmv+ZrHJMt6KkxewCGTsrGVOf/otXbQLbwUw==
+X-Received: by 2002:a2e:a5cb:0:b0:26c:4311:91cf with SMTP id
+ n11-20020a2ea5cb000000b0026c431191cfmr4168268ljp.491.1664011784324; 
+ Sat, 24 Sep 2022 02:29:44 -0700 (PDT)
+Received: from [192.168.0.21] (78-11-189-27.static.ip.netia.com.pl.
+ [78.11.189.27]) by smtp.gmail.com with ESMTPSA id
+ o9-20020a05651205c900b004979ec19387sm1826256lfo.305.2022.09.24.02.29.43
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Sat, 24 Sep 2022 02:29:43 -0700 (PDT)
+Message-ID: <5ea1e309-6ea8-f6c1-dc53-471d858ff60d@linaro.org>
+Date: Sat, 24 Sep 2022 11:29:42 +0200
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH] arm64: dts: qcom: sc7280: assign DSI clocks
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.3.0
+Content-Language: en-US
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Andy Gross <agross@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konrad.dybcio@somainline.org>, Rob Clark
+ <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, Rob Herring <robh+dt@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>
+References: <20220924090108.166934-1-dmitry.baryshkov@linaro.org>
+ <fd91077b-e4ff-0187-8424-0b83b96588ef@linaro.org>
+ <361ad59f-288f-beae-25c7-7acd42c2db94@linaro.org>
+From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+In-Reply-To: <361ad59f-288f-beae-25c7-7acd42c2db94@linaro.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+Subject: Re: [Freedreno] [PATCH 0/9] arm: dts: qcom: rename DSI PHY nodes
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,30 +88,30 @@ Cc: devicetree@vger.kernel.org, David Airlie <airlied@linux.ie>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-The driver (and the DT schema) requires us to assign DSI clocks in the
-DT node, so that the clock tree is setup propertly.
+On 24/09/2022 11:20, Dmitry Baryshkov wrote:
+> On 24/09/2022 12:11, Krzysztof Kozlowski wrote:
+>> On 24/09/2022 11:00, Dmitry Baryshkov wrote:
+>>> Historically DSI PHY device tree nodes used the dsi-phy@ names. Replace
+>>> them with generic phy@ names.
+>>>
+>>> Dmitry Baryshkov (9):
+>>>    ARM: dts: qcom-apq8064: change DSI PHY node name to generic one
+>>
+>> dsi-phy is similar to other generic names (usb-phy, ethernet-phy) [1] so
+>> it could stay. Is there particular need for this, like coming from DT
+>> schema?
+> 
+> No, there is no requirement from the DT schema. However:
+> 1) The resent qcom DT files already use just phy@ for most of PHY nodes
+> 2) The recommended list mentions usb-phy/ethernet-phy, but not 
+> <anything>-phy, so I'd think that those two are mostly for backwards 
+> compatibility.
+> 3) I liked the example of sc7280 which switched all MDSS PHYs to just 
+> phy@ (this includes DSI PHY, eDP PHY and, by extension, the HDMI PHY).
 
-Fixes: 43137272f0bc ("arm64: dts: qcom: sc7280: Add DSI display nodes")
-Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
----
- arch/arm64/boot/dts/qcom/sc7280.dtsi | 4 ++++
- 1 file changed, 4 insertions(+)
+Good explanation. If there is going to be resent/submit, please add it
+to cover letter. :)
 
-diff --git a/arch/arm64/boot/dts/qcom/sc7280.dtsi b/arch/arm64/boot/dts/qcom/sc7280.dtsi
-index 13d7f267b289..d5c01ee1d2fa 100644
---- a/arch/arm64/boot/dts/qcom/sc7280.dtsi
-+++ b/arch/arm64/boot/dts/qcom/sc7280.dtsi
-@@ -3636,6 +3636,10 @@ mdss_dsi: dsi@ae94000 {
- 					      "iface",
- 					      "bus";
- 
-+				assigned-clocks = <&dispcc DISP_CC_MDSS_BYTE0_CLK_SRC>,
-+						  <&dispcc DISP_CC_MDSS_PCLK0_CLK_SRC>;
-+				assigned-clock-parents = <&mdss_dsi_phy 0>, <&mdss_dsi_phy 1>;
-+
- 				operating-points-v2 = <&dsi_opp_table>;
- 				power-domains = <&rpmhpd SC7280_CX>;
- 
--- 
-2.35.1
+Best regards,
+Krzysztof
 
