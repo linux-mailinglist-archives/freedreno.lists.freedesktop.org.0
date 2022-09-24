@@ -2,55 +2,55 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 29A385E8AEC
-	for <lists+freedreno@lfdr.de>; Sat, 24 Sep 2022 11:32:29 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5A0B65E8AF0
+	for <lists+freedreno@lfdr.de>; Sat, 24 Sep 2022 11:32:44 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D5C1910E5AA;
-	Sat, 24 Sep 2022 09:32:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1348B10E5AA;
+	Sat, 24 Sep 2022 09:32:43 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x12b.google.com (mail-lf1-x12b.google.com
- [IPv6:2a00:1450:4864:20::12b])
- by gabe.freedesktop.org (Postfix) with ESMTPS id ADF1A10E5AA
- for <freedreno@lists.freedesktop.org>; Sat, 24 Sep 2022 09:32:22 +0000 (UTC)
-Received: by mail-lf1-x12b.google.com with SMTP id i26so3662122lfp.11
- for <freedreno@lists.freedesktop.org>; Sat, 24 Sep 2022 02:32:22 -0700 (PDT)
+Received: from mail-lj1-x236.google.com (mail-lj1-x236.google.com
+ [IPv6:2a00:1450:4864:20::236])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7A78410E5AA
+ for <freedreno@lists.freedesktop.org>; Sat, 24 Sep 2022 09:32:35 +0000 (UTC)
+Received: by mail-lj1-x236.google.com with SMTP id h3so2478504lja.1
+ for <freedreno@lists.freedesktop.org>; Sat, 24 Sep 2022 02:32:35 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :from:to:cc:subject:date;
- bh=IBvwqmIkee/mEk1eD5GIAynGE3bP9mLepq0/KSN1Z5Y=;
- b=LJaLm182QkoKzGWu5uXx5putxoguYh6AcVXczHW8BbwZmR5tvIlT4rubtVEYkcTM+g
- gU2B/dACe/XMk/5j0mzgccCVAkOCZPiJFKenwghxIXAcTuU0SAv4/KovX1aeILDICz4B
- G0sTQpqUzbll0jsFHNVKyNW1sMTJuD7I76nwBjwvMn5fySSHfiu4e4LokzMjzLyAKe0x
- t64jtzuSDJY0qNeJUAwLIg74NjySWq5wzdXnXGSsxQUj8Mnh296273SIjYX5dfxYERwb
- QYHEJoZJKt2Jbp5hNn2Yq6ay0gsGFgczpoTaWOhWRP4eX4TIGvlUwvMkrQhBCVDUpRZY
- kpww==
+ bh=UhfSf2CMm4aexoQYjsSQyZk7bwSh8tin0SfTbWRZyJk=;
+ b=eG+FiDWiXDILhdt2T5wwU6v6nOoldLYauzCBreGoqTOEP86dJrJ/0Ameg5TWcLPNT7
+ eVPHgVYQqoY9ByHNPsNKodEE8eLQK9rxHq+Z0lBbbo/gTvGWtGiDHSuDQKJF8dluYDs7
+ HBJoivDCZxCHjGyHZjBhiQiYVbiaEQxe7yfAg+HyJmQFbe41aSuaIwbOKQNp6BuIxaDV
+ L02anBuSUTtFr2VkyBUI7VMQSCAfsrUcSNzsr2s7gF0eI1BOjRqAs37hhSAsgWKsnW0a
+ uKtKjs/ta+HCGE8i3BLrcLOOlZlkKfOHUc4rt5Bi/ISAf07sttdS0W8dEadJNqP+CVXK
+ mpMQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date;
- bh=IBvwqmIkee/mEk1eD5GIAynGE3bP9mLepq0/KSN1Z5Y=;
- b=5IXdwTuCJPP4QD3vGVLWyVXrnN1F3xiak8+XJL4CsIPefn4X0lGcV7ykxyfZaHKx7q
- JSoko+HJ68/jJiFPepdZE4nZcsACXbjvi822MhLmOcQX2bKAu0djxaThAGz6vjocpTmT
- frmocSDfjkgEWriTra39M0XijInIKmXW5J1Xr0lyWmrjhZmdTxIbOiBbm8N/SiOGs3fL
- dS09v45dybvphERBq2m5B8OsB+aQS3eosE4ilWWDBvYMXALyXAPM3PZiRvgnCfabEvaI
- jpVQrfOtmnfxkVe/Wc/FWQaaVolmFi4whdmHTRQqyc3ih3t+depAcFN9gwbILwT74zwS
- 4QwA==
-X-Gm-Message-State: ACrzQf2ZfvyTDbywCbaSeOw8Ln8C/1wwGawl3pgstl7qG9SN2Sq4rgi8
- nz+MT3aoIwtldlshIIAtV8O3dQ==
-X-Google-Smtp-Source: AMsMyM7rUVXbSCob+vZTjIU2JFurM6xW76UMUJQQvpdFWCrYg7ZGgStla+hlXC08Iddk5YCHIeLicQ==
-X-Received: by 2002:a19:6446:0:b0:49a:9b06:f4be with SMTP id
- b6-20020a196446000000b0049a9b06f4bemr5056375lfj.157.1664011942279; 
- Sat, 24 Sep 2022 02:32:22 -0700 (PDT)
+ bh=UhfSf2CMm4aexoQYjsSQyZk7bwSh8tin0SfTbWRZyJk=;
+ b=6JY4O868GOG0ONY6hTgz9g+SF9O7tvhIO88d+2KTtxutFRZAyEvCYfcudH4UnKSXMy
+ isiGfZ8oiNMcsTTWqY7BF14teMHjfrRKATvnMBcdIAPmBHyjcNvskGdyvlVT1Xf8hmlO
+ mVejZKVpCHBMRB9aKuh1bw0PQ9VkBdMfgbmbNyu1Qzx6tnHwuahHhUBeP212ZTwlOLSu
+ PjsURa1/sB0cCBfkfrSszpNIOnVrWZbSUyi5qrXAk64XrpWI8ZKRRwag4nQNJKMHrUTv
+ f2G698dHAA1RRYZ+6l1S7c+w8hzlExnvw0Xho4AKNDezIEdJTE5h3W5hk8MBHeT1Yf0R
+ vJWA==
+X-Gm-Message-State: ACrzQf3NJSvU8vViWbQzpVZMpYyc8cERhVNqeRM/TgRjKN3zIyiO2Mx0
+ t26DK8L8cJM+TfqtthAvtdCGyQ==
+X-Google-Smtp-Source: AMsMyM7N1dwXNw/7q6ugVHeYBN9H8X5Ecb3R5C2y44tiRaC/BlIhfA/m0WqD9TEQf7puKdFubvub0w==
+X-Received: by 2002:a2e:9c2:0:b0:26a:cbe5:21ae with SMTP id
+ 185-20020a2e09c2000000b0026acbe521aemr4418978ljj.354.1664011953866; 
+ Sat, 24 Sep 2022 02:32:33 -0700 (PDT)
 Received: from [192.168.0.21] (78-11-189-27.static.ip.netia.com.pl.
  [78.11.189.27]) by smtp.gmail.com with ESMTPSA id
- k1-20020ac257c1000000b00492e98c27ebsm1841892lfo.91.2022.09.24.02.32.20
+ k4-20020a05651239c400b0049908e21e26sm1830317lfu.253.2022.09.24.02.32.32
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sat, 24 Sep 2022 02:32:21 -0700 (PDT)
-Message-ID: <4847bee8-6370-5be5-1ef2-e3deef1a395d@linaro.org>
-Date: Sat, 24 Sep 2022 11:32:20 +0200
+ Sat, 24 Sep 2022 02:32:33 -0700 (PDT)
+Message-ID: <4eabf0bf-cae0-5457-7b0e-3a9991402de6@linaro.org>
+Date: Sat, 24 Sep 2022 11:32:32 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.3.0
@@ -62,12 +62,12 @@ To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
  Abhinav Kumar <quic_abhinavk@quicinc.com>, Rob Herring <robh+dt@kernel.org>,
  Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>
 References: <20220924090108.166934-1-dmitry.baryshkov@linaro.org>
- <20220924090108.166934-9-dmitry.baryshkov@linaro.org>
+ <20220924090108.166934-10-dmitry.baryshkov@linaro.org>
 From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-In-Reply-To: <20220924090108.166934-9-dmitry.baryshkov@linaro.org>
+In-Reply-To: <20220924090108.166934-10-dmitry.baryshkov@linaro.org>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH 8/9] arm64: dts: qcom: sdm845: change DSI
+Subject: Re: [Freedreno] [PATCH 9/9] arm64: dts: qcom: sm8250: change DSI
  PHY node name to generic one
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -91,7 +91,6 @@ Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 On 24/09/2022 11:01, Dmitry Baryshkov wrote:
 > Change DSI PHY node names from custom 'dsi-phy' to the generic 'phy'.
 > 
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 
 
 Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
