@@ -1,60 +1,65 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id E1AD75E85F3
-	for <lists+freedreno@lfdr.de>; Sat, 24 Sep 2022 00:41:15 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id D657C5E8A48
+	for <lists+freedreno@lfdr.de>; Sat, 24 Sep 2022 10:51:36 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C4CB910EB24;
-	Fri, 23 Sep 2022 22:41:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 82C9F10E54A;
+	Sat, 24 Sep 2022 08:51:34 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-pf1-x42b.google.com (mail-pf1-x42b.google.com
- [IPv6:2607:f8b0:4864:20::42b])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 84F7D10EB2A;
- Fri, 23 Sep 2022 22:41:11 +0000 (UTC)
-Received: by mail-pf1-x42b.google.com with SMTP id a29so1420506pfk.5;
- Fri, 23 Sep 2022 15:41:11 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+Received: from mail-lj1-x234.google.com (mail-lj1-x234.google.com
+ [IPv6:2a00:1450:4864:20::234])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 33B6D10E54E
+ for <freedreno@lists.freedesktop.org>; Sat, 24 Sep 2022 08:51:32 +0000 (UTC)
+Received: by mail-lj1-x234.google.com with SMTP id b6so2355782ljr.10
+ for <freedreno@lists.freedesktop.org>; Sat, 24 Sep 2022 01:51:32 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=content-transfer-encoding:mime-version:message-id:date:subject:cc
  :to:from:from:to:cc:subject:date;
- bh=oOI1w1RpGPXrz/NU70+BlU1qHXDFQzQmtw6vEH42xjs=;
- b=ndQOEMU3yBWN/RaJFUoxcBG8JODdya6truLZHSKj35iTY3iuiFdXa54rNGAcTTNLa1
- 44qzi5WwzLqs/tWUW8d1Civy+XnhhcdSz0+M6JoL8QQegwhcT0AKils5mdwdkWb+HgrI
- syeSknpoFpJHmpFR8sGzFgLqvQ62EQQtHVOzLFGIh77aY1WPDrflvQ4BIN3dESJbPXyZ
- YGr4CteT+J+rJPXf0OOS/qWePukr4xrxfZ3WOPxpwDTjDrs7Xt4A4ADI/VKStbZuzagV
- g3hAI/N9vs1GLaCHaJXHzYDEUrtaS+0wuVaMLqap8AIXxVVrmzG0qMWLtOd0Sc4Y5Jld
- u40g==
+ bh=iDwEuv4T7rJzq7WHYdQWqX7LJJaB6y35xV9LrRnMHBQ=;
+ b=P0ZcwQPNEHGCa/kFG1k7Rtk8ll1dAN19sfN9ZHbSTKBeer3HKfXILiiPZKzRGtVmwv
+ ghqtRljRETPEN+SO/3csMofmRmNB9FjIRDJH5rXnFcrDm8rkWnK8V20fCbr6rcLhhrFI
+ hYRW/US4zZ/uWujGsi+lK8wQYkcqr5Xt22GBXWJhNUH9h/86r2fhuq/pE/g2n0j7o6U6
+ tWMSceDiyT2Dk/0or8JZZrCTVitEcxYQhKqLKmC1NipXIBZmDOYhuIHoarqCKiaaqF+j
+ H8Xc2HdkwIB1BXCadmv8xMcj3FNFBfsF+EZdWln+1Uvls63+4we6qo9thUDHE0YcILKO
+ haOg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=content-transfer-encoding:mime-version:message-id:date:subject:cc
  :to:from:x-gm-message-state:from:to:cc:subject:date;
- bh=oOI1w1RpGPXrz/NU70+BlU1qHXDFQzQmtw6vEH42xjs=;
- b=1MSfRMMTgM0YkbMka/1r0m0/V/HwjI3bVSjNcq+CQTzQ9c5aRWmdZlmuLLr5I7EQMP
- cS1env/WTAz8tfrgYlg9ijkrfH73lQtDOR0dUeU6b4tdaVGPHiJXCC5T9wfZnkJmotdd
- 0UN8zBnGNgcDte1FvOGvLJrmGvd9xi22dEWHpckkFGW7liXFcxN4k7Zv5XjELnJnQ+bj
- qQ1gDqStuENmjiB9k+LP+ngTBIhnzhcLuel9yPr6hfPoAS7ZtAqdzWbCIY6XSXPbG/v6
- +9FHd1DT1FjX6FrUcIgCnrvcWtjRZLQPBG6dUrsjmiSKlTDWW7m612ji9bv7Y0khOQyF
- M54w==
-X-Gm-Message-State: ACrzQf1DmAgg4TyLZ/nY2nx7wjfVhtfHc+AnfiRwRyiJEGGbSmumeIl/
- qILA+A5YbELB1+NrZiQ8Wbs5Wn8zrB0=
-X-Google-Smtp-Source: AMsMyM7iSk/g+tzazFBHrdHLO7817yrGTQYIUzyZk+Y1xplU0QyZaPrFUlaCUkO/MvnMIQubBg6jxA==
-X-Received: by 2002:a63:5144:0:b0:43b:ed4b:224 with SMTP id
- r4-20020a635144000000b0043bed4b0224mr9610350pgl.594.1663972870693; 
- Fri, 23 Sep 2022 15:41:10 -0700 (PDT)
-Received: from localhost ([2a00:79e1:abd:4a00:2703:3c72:eb1a:cffd])
- by smtp.gmail.com with ESMTPSA id
- e6-20020a170902d38600b00173411a4385sm6506514pld.43.2022.09.23.15.41.09
+ bh=iDwEuv4T7rJzq7WHYdQWqX7LJJaB6y35xV9LrRnMHBQ=;
+ b=1NooelyecP3Kxgi2V0xG5GmWssZrNJ8Irl83xILrYxkkS/buM/IxCHyenCFZh58rqH
+ VuC1sRKwcscRxJ3DbyNONDoDRr3dyvYLEbtQsiilxcq3JmSaZwnLdLjLk1wzxUjTe/ht
+ cHG5fX6u5yLc6FiKAboSR/rgSm+GaS+dH96abxkh34DnNE9wVGUG2PuaginPxEmb/Asz
+ Pk3w8QdyyC2kLMU5JNpLAkoKcsyrsKtH7NyKCSX7XRDqXiGShcJP0UF8NJwRpk3cAZQz
+ 9FOcWsMGpJYWbBqXUYsN2/sd8mP4OA9lTfaX1TJXc53r8hL2YMdyYVqgyXxhHcFjknve
+ o3kw==
+X-Gm-Message-State: ACrzQf21RcRv/wNIy3TtT6EvRX2qMcKcQgCGsCGw4NYHyg8XPWf2puQE
+ /KlKCVwDDhavL23mDIT9pzS28Q==
+X-Google-Smtp-Source: AMsMyM63Ts07oQdImLmzAELIpuUd98DDUPvv+GpcuZkiZ0YCMuydQmUx2b0h1SC//8tmWgokHgrcTA==
+X-Received: by 2002:a2e:a795:0:b0:26c:51d9:e491 with SMTP id
+ c21-20020a2ea795000000b0026c51d9e491mr4325044ljf.327.1664009490210; 
+ Sat, 24 Sep 2022 01:51:30 -0700 (PDT)
+Received: from eriador.lan ([37.153.55.125]) by smtp.gmail.com with ESMTPSA id
+ 129-20020a2e0987000000b0026acfbbcb7esm1717607ljj.12.2022.09.24.01.51.29
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 23 Sep 2022 15:41:09 -0700 (PDT)
-From: Rob Clark <robdclark@gmail.com>
-To: dri-devel@lists.freedesktop.org
-Date: Fri, 23 Sep 2022 15:40:44 -0700
-Message-Id: <20220923224043.2449152-1-robdclark@gmail.com>
-X-Mailer: git-send-email 2.37.2
+ Sat, 24 Sep 2022 01:51:29 -0700 (PDT)
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+To: Andy Gross <agross@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konrad.dybcio@somainline.org>,
+ Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Rob Herring <robh+dt@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>
+Date: Sat, 24 Sep 2022 11:51:27 +0300
+Message-Id: <20220924085129.161086-1-dmitry.baryshkov@linaro.org>
+X-Mailer: git-send-email 2.35.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH] drm/msm/gem: Unpin objects slightly later
+Subject: [Freedreno] [PATCH v2 0/2] drm/msm/dsi: Add support for DSI PHY on
+ QCM2290
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,67 +72,36 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rob Clark <robdclark@chromium.org>, David Airlie <airlied@linux.ie>,
- linux-arm-msm@vger.kernel.org, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- open list <linux-kernel@vger.kernel.org>, Sean Paul <sean@poorly.run>,
- Rob Clark <robdclark@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- freedreno@lists.freedesktop.org
+Cc: devicetree@vger.kernel.org, Loic Poulain <loic.poulain@linaro.org>,
+ David Airlie <airlied@linux.ie>, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, Stephen Boyd <swboyd@chromium.org>,
+ Daniel Vetter <daniel@ffwll.ch>, freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-From: Rob Clark <robdclark@chromium.org>
+The QCM2290 platform uses 14nm DSI PHY. As the configuration is not
+fully compatible with the main qcom,dsi-phy-14nm, a separate compatible
+is added.
 
-The introduction of 025d27239a2f exposes a problem with f371bcc0c2ac, in
-that we need to keep the object pinned in the time the submit is queued
-up in the gpu scheduler.  Otherwise the shrinker will see it as a thing
-that can be evicted if we wait for it to be signaled.  But if the
-shrinker path is waiting on it with the obj lock held, the job cannot be
-scheduled, as that also requires briefly grabbing the obj lock, leading
-to deadlock.  (Not to mention, we don't want the shrinker to evict an
-obj queued up in gpu scheduler.)
+V1 was not sent to freedreno@, so it nearly got missed by me.
 
-Fixes: f371bcc0c2ac ("drm/msm/gem: Unpin buffers earlier")
-Fixes: 025d27239a2f ("drm/msm/gem: Evict active GEM objects when necessary")
-Closes: https://gitlab.freedesktop.org/drm/msm/-/issues/19
-Signed-off-by: Rob Clark <robdclark@chromium.org>
----
- drivers/gpu/drm/msm/msm_gem_submit.c | 4 ++--
- drivers/gpu/drm/msm/msm_ringbuffer.c | 3 ++-
- 2 files changed, 4 insertions(+), 3 deletions(-)
+Changes since v1:
+ - Rebased on top of msm-next, fixed DSI PHY config to follow upstream
+   changes.
+ - Changed compatible to follow agreed scheme
+   ('qcom,qcm2290-dsi-phy-14nm').
+ - Updated commit messages.
 
-diff --git a/drivers/gpu/drm/msm/msm_gem_submit.c b/drivers/gpu/drm/msm/msm_gem_submit.c
-index 5599d93ec0d2..c670591995e6 100644
---- a/drivers/gpu/drm/msm/msm_gem_submit.c
-+++ b/drivers/gpu/drm/msm/msm_gem_submit.c
-@@ -501,11 +501,11 @@ static int submit_reloc(struct msm_gem_submit *submit, struct msm_gem_object *ob
-  */
- static void submit_cleanup(struct msm_gem_submit *submit, bool error)
- {
--	unsigned cleanup_flags = BO_LOCKED | BO_OBJ_PINNED;
-+	unsigned cleanup_flags = BO_LOCKED;
- 	unsigned i;
- 
- 	if (error)
--		cleanup_flags |= BO_VMA_PINNED;
-+		cleanup_flags |= BO_VMA_PINNED | BO_OBJ_PINNED;
- 
- 	for (i = 0; i < submit->nr_bos; i++) {
- 		struct msm_gem_object *msm_obj = submit->bos[i].obj;
-diff --git a/drivers/gpu/drm/msm/msm_ringbuffer.c b/drivers/gpu/drm/msm/msm_ringbuffer.c
-index cad4c3525f0b..57a8e9564540 100644
---- a/drivers/gpu/drm/msm/msm_ringbuffer.c
-+++ b/drivers/gpu/drm/msm/msm_ringbuffer.c
-@@ -25,7 +25,8 @@ static struct dma_fence *msm_job_run(struct drm_sched_job *job)
- 
- 		msm_gem_lock(obj);
- 		msm_gem_unpin_vma_fenced(submit->bos[i].vma, fctx);
--		submit->bos[i].flags &= ~BO_VMA_PINNED;
-+		msm_gem_unpin_locked(obj);
-+		submit->bos[i].flags &= ~(BO_VMA_PINNED | BO_OBJ_PINNED);
- 		msm_gem_unlock(obj);
- 	}
- 
+Loic Poulain (2):
+  dt-bindings: display/msm: Add QCM2290 DSI phy
+  drm/msm/dsi: Add phy configuration for QCM2290
+
+ .../bindings/display/msm/dsi-phy-14nm.yaml      |  1 +
+ drivers/gpu/drm/msm/dsi/phy/dsi_phy.c           |  2 ++
+ drivers/gpu/drm/msm/dsi/phy/dsi_phy.h           |  1 +
+ drivers/gpu/drm/msm/dsi/phy/dsi_phy_14nm.c      | 17 +++++++++++++++++
+ 4 files changed, 21 insertions(+)
+
 -- 
-2.37.2
+2.35.1
 
