@@ -1,75 +1,79 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 52A5F5EAA5C
-	for <lists+freedreno@lfdr.de>; Mon, 26 Sep 2022 17:21:12 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id BDD865EAF70
+	for <lists+freedreno@lfdr.de>; Mon, 26 Sep 2022 20:17:54 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9F95310E6D7;
-	Mon, 26 Sep 2022 15:21:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5733710E589;
+	Mon, 26 Sep 2022 18:17:53 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x12e.google.com (mail-lf1-x12e.google.com
- [IPv6:2a00:1450:4864:20::12e])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 935B510E6D7
- for <freedreno@lists.freedesktop.org>; Mon, 26 Sep 2022 15:21:06 +0000 (UTC)
-Received: by mail-lf1-x12e.google.com with SMTP id d42so11495214lfv.0
- for <freedreno@lists.freedesktop.org>; Mon, 26 Sep 2022 08:21:06 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date;
- bh=tWi/dsE8AuXCeQ6nZkBTZY/QK66Lk4dB+IUoBCRY7mk=;
- b=imQCW1Cq4bSSwT+3faEeWCRPaqfIK/sznAR1qnmSFc6/PgtqhnTtFZzMgi9uuDru71
- bd2u4s9093j3nCVqhwlLE/wwT+JEd09mCHvqarsHv9fWXsrdMZUaYCP3bmf6yPzoBsMB
- 9BxdxRa17MBvvkEMyPCgKA6qZYnvkaRkXAS5HfrvUmD+3u+9wdviTguR8Jo1vHWKc59T
- +SA514JyXxM6iIjctdW1FfIU8cIpRoMsohvlV+TlU/mMGnbil+fJ5YDfy4U/aF8uhqqt
- bCtRmkvLDX60DzfO5ZJUn+v0glQ1//zY7TMRUSq85efN53wSNKds2gaoi5r49dXb29G1
- FuoQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date;
- bh=tWi/dsE8AuXCeQ6nZkBTZY/QK66Lk4dB+IUoBCRY7mk=;
- b=BEUZcqypDoTZ6K2BYWO8pOJGhfK/6PEQxgjsg3x305/bWdQMpayyACwvqclRjpe/hV
- 46lbU78psj8WnA9MwM2MzXQos+bM6IDIoJMqLZRzZ2dup6oV5T8EzK9rmQszaW7WAkuK
- WbwX1zDDAIq5KF3RyMuqdLwiadlp9arbfMhFv0LXOvaeOWJ3u/x6owRCONrsyjaQ3xza
- Ih4s1cecpvX9AtBQjUAE9YjnQZHDLAQf74lgCFYbrpr/bLwP3pC9DXB9ru68Fjw400Ge
- g3AyuuyoU8k+pxN5xQJXCXEabOcJz3bf+cfJj0oZHaD3ubpptTT937KlwZ1pd8P/uYKB
- XKqA==
-X-Gm-Message-State: ACrzQf0TPdjJ6412WcYEA6hJ0ARBT7uaM06A23vdp3c41OiFJtBQ4P7O
- wKlaU5/ZA8Dwd4VQZxebECJE1g==
-X-Google-Smtp-Source: AMsMyM6ZKhHvCfw6VXJTnAEUEBa6RxAvON78hn4d1rZ4Z8sgGMJ8zlmCmYgyKGXCuTn95c6xzWmtAQ==
-X-Received: by 2002:a05:6512:1056:b0:498:efaf:5bd1 with SMTP id
- c22-20020a056512105600b00498efaf5bd1mr8760526lfb.64.1664205664900; 
- Mon, 26 Sep 2022 08:21:04 -0700 (PDT)
-Received: from [192.168.0.21] (78-11-189-27.static.ip.netia.com.pl.
- [78.11.189.27]) by smtp.gmail.com with ESMTPSA id
- i21-20020a0565123e1500b0048fdb3efa20sm2548731lfv.185.2022.09.26.08.20.33
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 26 Sep 2022 08:20:43 -0700 (PDT)
-Message-ID: <123472be-564e-9fa4-528e-f7d43cd5b9ad@linaro.org>
-Date: Mon, 26 Sep 2022 17:20:24 +0200
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C9CF510E756;
+ Mon, 26 Sep 2022 18:17:47 +0000 (UTC)
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 28QFrlDG000444;
+ Mon, 26 Sep 2022 18:17:28 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
+ h=message-id : date :
+ mime-version : subject : to : cc : references : from : in-reply-to :
+ content-type : content-transfer-encoding; s=qcppdkim1;
+ bh=PZ2igG0XeOJ1ke4qYHYcTVfC0hxw/eV5eDt2ybTALcI=;
+ b=NqWtARwtkiZSUeqmAg42P32mYm9APznSWheF9qdOGQQkJLtgS9hT8UYcMoKIaNhD99Ui
+ WML81VzZtoIp7SZzSBjO3TbpnYkkUwhsfzLtpWZf3iErFjPPE12vaa2plQmaBwx9ox3h
+ sAcuyOazYUbWtXf4DhjISzvCQMfo054EBym0/VpyCOJialqLXJyv6dHPulNmhqQIYQ9z
+ Pr8jc1MbCPWtJA12ZmG3u3959+w7BReSXQCAlOgxuguRnzv7L0jqX3W7M7ie0ob2b06U
+ hgkW1ky6zdCQj+sZVBS+n3T/fLXYmLVDWVQPNBqxZHLjPLhfiNKk0pHAseRAyFuMiVNS iA== 
+Received: from nalasppmta04.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3ju9p69gvu-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 26 Sep 2022 18:17:27 +0000
+Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
+ [10.47.209.196])
+ by NALASPPMTA04.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 28QIHR2B014048
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 26 Sep 2022 18:17:27 GMT
+Received: from [10.111.163.216] (10.80.80.8) by nalasex01a.na.qualcomm.com
+ (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.29; Mon, 26 Sep
+ 2022 11:17:23 -0700
+Message-ID: <d05290d8-7603-13b3-3cc4-d8509b03fc02@quicinc.com>
+Date: Mon, 26 Sep 2022 11:17:20 -0700
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.3.0
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
+ Thunderbird/91.6.2
 Content-Language: en-US
-To: Rob Herring <robh@kernel.org>
-References: <20220916200028.25009-1-quic_bjorande@quicinc.com>
- <20220916200028.25009-2-quic_bjorande@quicinc.com>
- <1641e41c-08c7-859b-644a-28d966fb00f3@linaro.org>
- <20220919211832.6b3buqxrnfp6yjjg@builder.lan>
- <6b242b44-b657-c7a6-63ca-465c7031376f@linaro.org>
- <20220922001429.zqfap3clprvlo6jo@builder.lan>
- <acd9ff20-a07b-05ab-6f4b-34e3e8b1cae8@linaro.org>
- <20220926151302.GA1880039-robh@kernel.org>
-From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-In-Reply-To: <20220926151302.GA1880039-robh@kernel.org>
-Content-Type: text/plain; charset=UTF-8
+To: Johan Hovold <johan+linaro@kernel.org>, Douglas Anderson
+ <dianders@chromium.org>, Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ "Rob Clark" <robdclark@gmail.com>
+References: <20220913085320.8577-1-johan+linaro@kernel.org>
+ <20220913085320.8577-10-johan+linaro@kernel.org>
+From: Abhinav Kumar <quic_abhinavk@quicinc.com>
+In-Reply-To: <20220913085320.8577-10-johan+linaro@kernel.org>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
 Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH v2 1/7] dt-bindings: msm/dp: Add SDM845 and
- SC8280XP compatibles
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-ORIG-GUID: w9FVVQl4B3_fZSQFShLeI0dvhjPH29iA
+X-Proofpoint-GUID: w9FVVQl4B3_fZSQFShLeI0dvhjPH29iA
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.205,Aquarius:18.0.895,Hydra:6.0.528,FMLib:17.11.122.1
+ definitions=2022-09-26_09,2022-09-22_02,2022-06-22_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501
+ malwarescore=0 adultscore=0 mlxlogscore=999 clxscore=1011
+ lowpriorityscore=0 spamscore=0 mlxscore=0 impostorscore=0 phishscore=0
+ bulkscore=0 suspectscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2209130000 definitions=main-2209260114
+Subject: Re: [Freedreno] [PATCH v2 09/10] drm/msm/dp: drop modeset sanity
+ checks
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,76 +86,59 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: devicetree@vger.kernel.org,
- Sankeerth Billakanti <quic_sbillaka@quicinc.com>,
- Bjorn Andersson <quic_bjorande@quicinc.com>, linux-arm-msm@vger.kernel.org,
- Bjorn Andersson <andersson@kernel.org>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
- Stephen Boyd <swboyd@chromium.org>, Rob Clark <robdclark@gmail.com>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Kuogee Hsieh <quic_khsieh@quicinc.com>, freedreno@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
+Cc: dri-devel@lists.freedesktop.org, Neil Armstrong <neil.armstrong@linaro.org>,
+ Daniel Vetter <daniel@ffwll.ch>, Jonas Karlman <jonas@kwiboo.se>,
+ linux-arm-msm@vger.kernel.org, Bjorn Andersson <andersson@kernel.org>,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Jernej Skrabec <jernej.skrabec@gmail.com>, Stephen Boyd <swboyd@chromium.org>,
+ Robert Foss <robert.foss@linaro.org>, Andrzej Hajda <andrzej.hajda@intel.com>,
+ Manivannan Sadhasivam <manivannan.sadhasivam@linaro.org>,
+ Kuogee Hsieh <quic_khsieh@quicinc.com>, Sean Paul <sean@poorly.run>,
+ Steev Klimaszewski <steev@kali.org>, Laurent
+ Pinchart <Laurent.pinchart@ideasonboard.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 26/09/2022 17:13, Rob Herring wrote:
-> On Thu, Sep 22, 2022 at 05:37:39PM +0200, Krzysztof Kozlowski wrote:
->> On 22/09/2022 02:14, Bjorn Andersson wrote:
->>> On Tue, Sep 20, 2022 at 09:09:13AM +0200, Krzysztof Kozlowski wrote:
->>>> On 19/09/2022 23:18, Bjorn Andersson wrote:
->>>>> On Sat, Sep 17, 2022 at 06:03:27PM +0100, Krzysztof Kozlowski wrote:
->>>>>> On 16/09/2022 21:00, Bjorn Andersson wrote:
->>>>>>> From: Bjorn Andersson <bjorn.andersson@linaro.org>
->>>>>>>
->>>>>>> Add compatibles for the DisplayPort and Embedded DisplayPort blocks in
->>>>>>> Qualcomm SDM845 and SC8280XP platforms.
->>>>>>>
->>>>>>> Signed-off-by: Bjorn Andersson <bjorn.andersson@linaro.org>
->>>>>>> Signed-off-by: Bjorn Andersson <quic_bjorande@quicinc.com>
->>>>>>
->>>>>> No need for quicinc SoB (unless you also take ownership).
->>>>>>
->>>>>
->>>>> It's my understanding that both needs to be there. Bjorn @ Linaro
->>>>> authored the patch and the author must certify its origin, but as the
->>>>> submitter I must certify its origin.
->>>>
->>>> It's the same person. There are no two Bjorns (unless there are :) ), so
->>>> you certify with old email. SoB chain is coming from people, not email
->>>> addresses.
->>>>
->>>
->>> IANAL, but I don't think it's the same person. I can't use my old
->>> signature to certify the origin in a contribution today and I can't
->>> claim authorship of something Linaro did.
->>
->> Fine with me.
->>
->>>
->>>> And it is not only my understanding of SoB chain.
->>>> https://lore.kernel.org/all/YuKcBO5JatwRYQJ3@kroah.com/
->>>>
->>>
->>> Again, IANAL, but I think the situation is different given AMD and
->>> Xilinx relationship.
->>
->> Hm, I am not sure how it is different. We might know or we might know
->> the change of ownership. Maybe the change of owner came with copyrights,
->> maybe not (someone else bought them). I don't know, there can be many
->> cases here. I interpret Greg's point there as in SoB statement - the
->> person, not email address, certifies.
+
+
+On 9/13/2022 1:53 AM, Johan Hovold wrote:
+> Drop the overly defensive modeset sanity checks of function parameters
+> which have already been checked or used by the callers.
 > 
-> If Bjorn owned the copyright, then yeah, 1 email would be enough. But 
-> Linaro owned the copyright so it should be there.
+> Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> Signed-off-by: Johan Hovold <johan+linaro@kernel.org>
 
-True for taking the authorship of patch, however SoB is not for
-copyright holders/ownership but to certify that one has the right to
-send it. Since patch was on the list, anyone can take it and send it.
-Everyone has such right. If another person is sending, then he needs to
-certify the origin with SoB. If Bjornv2 is that other person, he already
-certified (although with different email address).
+The change LGTM, hence
 
-Best regards,
-Krzysztof
+Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
 
+I think we can use below fixes tag so that we can pick up this entire 
+series for the fixes cycle.
+
+Fixes: c943b4948b58 ("drm/msm/dp: add displayPort driver support")
+
+> ---
+>   drivers/gpu/drm/msm/dp/dp_display.c | 7 +------
+>   1 file changed, 1 insertion(+), 6 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
+> index 808a516e84c5..33daec11f813 100644
+> --- a/drivers/gpu/drm/msm/dp/dp_display.c
+> +++ b/drivers/gpu/drm/msm/dp/dp_display.c
+> @@ -1607,15 +1607,10 @@ static int dp_display_get_next_bridge(struct msm_dp *dp)
+>   int msm_dp_modeset_init(struct msm_dp *dp_display, struct drm_device *dev,
+>   			struct drm_encoder *encoder)
+>   {
+> -	struct msm_drm_private *priv;
+> +	struct msm_drm_private *priv = dev->dev_private;
+>   	struct dp_display_private *dp_priv;
+>   	int ret;
+>   
+> -	if (WARN_ON(!encoder) || WARN_ON(!dp_display) || WARN_ON(!dev))
+> -		return -EINVAL;
+> -
+> -	priv = dev->dev_private;
+> -
+>   	if (priv->num_bridges == ARRAY_SIZE(priv->bridges)) {
+>   		DRM_DEV_ERROR(dev->dev, "too many bridges\n");
+>   		return -ENOSPC;
