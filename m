@@ -2,78 +2,55 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 004C45EAFF7
-	for <lists+freedreno@lfdr.de>; Mon, 26 Sep 2022 20:33:43 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 91EEE5EB55E
+	for <lists+freedreno@lfdr.de>; Tue, 27 Sep 2022 01:18:18 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AF0A110E1CA;
-	Mon, 26 Sep 2022 18:33:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4ACBB10E817;
+	Mon, 26 Sep 2022 23:18:17 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0101910E1CA;
- Mon, 26 Sep 2022 18:33:39 +0000 (UTC)
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 28QIBG0P028897;
- Mon, 26 Sep 2022 18:33:33 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
- h=message-id : date :
- mime-version : subject : to : cc : references : from : in-reply-to :
- content-type : content-transfer-encoding; s=qcppdkim1;
- bh=iJBTAqXN/XXcUOGDVDgIc8+945bIMYNQLu9jWVBWuUw=;
- b=G+1mWz+BDcNhdsgBYmethwtY8wqDjzmvHjVFPealhndgTu3hCkp8bgSORyyc1k+LrTfa
- UKw2btkzuOG8uwh3fsK6c60+qQqajSJjj43hjHjk+936MIndQP2vD9C4FksCSLWk0M3b
- 6iQAQNXa+LfXRvXxeBGlPVXYX9iUmtbDHXw8SxTKwRsUU53FbAJ+t+uLbNIAnO0PEAwJ
- P90MiLSgB4Mf7g2Gmo6+hcYCAjPUoi23jdW7pnYPuvwRzXxnWQ/nYhkFxkOHcbx5vwxV
- 1jwj0ev8MeJt/Kb5+V2giaUpcD+uIUwQsGyTD4SOMRNM2kehrux93xNx3GOkehVQ5pEU Qw== 
-Received: from nalasppmta05.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3jssg6vds2-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 26 Sep 2022 18:33:33 +0000
-Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
- [10.47.209.196])
- by NALASPPMTA05.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 28QIXWLS009583
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 26 Sep 2022 18:33:32 GMT
-Received: from [10.111.163.216] (10.80.80.8) by nalasex01a.na.qualcomm.com
- (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.29; Mon, 26 Sep
- 2022 11:33:30 -0700
-Message-ID: <aba835e2-65f6-b965-d4fb-cbbebee6478d@quicinc.com>
-Date: Mon, 26 Sep 2022 11:33:28 -0700
+Received: from mail-oi1-f176.google.com (mail-oi1-f176.google.com
+ [209.85.167.176])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4013810E81D;
+ Mon, 26 Sep 2022 23:18:14 +0000 (UTC)
+Received: by mail-oi1-f176.google.com with SMTP id n124so10097421oih.7;
+ Mon, 26 Sep 2022 16:18:14 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date;
+ bh=/VPqA+Ek8QtP5pfgu0YyQnv/XSoVrA0G4H3niIHpRLw=;
+ b=HzR5nk32IjxnJgJ3dFp5jGYLykqpCADlgoGjZdK53D5g4ywzlOmlfacqFrrWMzm0fY
+ ZQ9/unXqZ5NDWWw2qUrLcj+6lHEJkYDcS0//fMButHf83+QhXMDWIZ8rDcINp4zUiDYI
+ 7C+OP5m8fLdaamqgIrOcIw76oE9egyJSwk0PCqWd05HnPOsy1uODda70BX2hlDCChk1T
+ 25U5nTJ3ItV2XIX4lWJik4L+KtMmNVvh0yifLkfJBymXyCgHDya0VJw5o42k0BS/+Wq9
+ UbonPsvCjdJPEoTgG2jaofml5PQ+9/l/Hkz4c/deRGBVOFql5V2HqZN0z+UOErStXq4B
+ pdag==
+X-Gm-Message-State: ACrzQf14usrpXf0qixAJckkwBU0S/8tOPTK2+AmPXzQv/pg+Wg0bfVMA
+ PNQWSJN61qaWzD7p5iVBpA==
+X-Google-Smtp-Source: AMsMyM7gXM9sEcSlW/jlbRbRX1jbCgTiZp1J8NlO3IV8x9BQR2Y84Aa7gOjkqLc+YV+CpPU5wjUD2g==
+X-Received: by 2002:a05:6808:118e:b0:345:9c3e:121d with SMTP id
+ j14-20020a056808118e00b003459c3e121dmr541410oil.211.1664234293408; 
+ Mon, 26 Sep 2022 16:18:13 -0700 (PDT)
+Received: from robh.at.kernel.org (66-90-144-107.dyn.grandenetworks.net.
+ [66.90.144.107]) by smtp.gmail.com with ESMTPSA id
+ 7-20020a9d0c07000000b00655c6b2655esm8247356otr.68.2022.09.26.16.18.12
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 26 Sep 2022 16:18:13 -0700 (PDT)
+Received: (nullmailer pid 3156327 invoked by uid 1000);
+ Mon, 26 Sep 2022 23:18:12 -0000
+Date: Mon, 26 Sep 2022 18:18:12 -0500
+From: Rob Herring <robh@kernel.org>
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Message-ID: <20220926231812.GA3156261-robh@kernel.org>
+References: <20220924121900.222711-1-dmitry.baryshkov@linaro.org>
+ <20220924121900.222711-2-dmitry.baryshkov@linaro.org>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.6.2
-Content-Language: en-US
-To: Liu Shixin <liushixin2@huawei.com>, Rob Clark <robdclark@gmail.com>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Sean Paul <sean@poorly.run>, David Airlie <airlied@linux.ie>,
- Daniel Vetter <daniel@ffwll.ch>
-References: <20220922142147.3246649-1-liushixin2@huawei.com>
-From: Abhinav Kumar <quic_abhinavk@quicinc.com>
-In-Reply-To: <20220922142147.3246649-1-liushixin2@huawei.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-GUID: PsZAPvwMCCA6cFHVhpgfy-l5zfet0dpI
-X-Proofpoint-ORIG-GUID: PsZAPvwMCCA6cFHVhpgfy-l5zfet0dpI
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.205,Aquarius:18.0.895,Hydra:6.0.528,FMLib:17.11.122.1
- definitions=2022-09-26_09,2022-09-22_02,2022-06-22_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 mlxscore=0
- phishscore=0 mlxlogscore=999 spamscore=0 clxscore=1011 priorityscore=1501
- lowpriorityscore=0 malwarescore=0 suspectscore=0 impostorscore=0
- adultscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2209130000 definitions=main-2209260115
-Subject: Re: [Freedreno] [PATCH] drm/msm/dpu: use DEFINE_SHOW_ATTRIBUTE to
- simplify dpu_regset32
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20220924121900.222711-2-dmitry.baryshkov@linaro.org>
+Subject: Re: [Freedreno] [PATCH v3 1/2] dt-bindings: display/msm: Add
+ QCM2290 DSI phy
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -86,66 +63,29 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org
+Cc: Sean Paul <sean@poorly.run>, devicetree@vger.kernel.org,
+ Loic Poulain <loic.poulain@linaro.org>, Daniel Vetter <daniel@ffwll.ch>,
+ David Airlie <airlied@linux.ie>, linux-arm-msm@vger.kernel.org,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konrad.dybcio@somainline.org>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
+ Stephen Boyd <swboyd@chromium.org>, Rob Herring <robh+dt@kernel.org>,
+ Rob Clark <robdclark@gmail.com>, Andy Gross <agross@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-
-
-On 9/22/2022 7:21 AM, Liu Shixin wrote:
-> Use DEFINE_SHOW_ATTRIBUTE helper macro to simplify the code.
-> No functional change.
+On Sat, 24 Sep 2022 15:18:59 +0300, Dmitry Baryshkov wrote:
+> From: Loic Poulain <loic.poulain@linaro.org>
 > 
-> Signed-off-by: Liu Shixin <liushixin2@huawei.com>
-
-Looks reasonable to me
-
-Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
+> QCM2290 platform uses the 14nm DSI PHY driver.
+> 
+> Signed-off-by: Loic Poulain <loic.poulain@linaro.org>
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 > ---
->   drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c | 18 +++---------------
->   1 file changed, 3 insertions(+), 15 deletions(-)
+>  Documentation/devicetree/bindings/display/msm/dsi-phy-14nm.yaml | 1 +
+>  1 file changed, 1 insertion(+)
 > 
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
-> index 5e6e2626151e..f3660cd14f4f 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
-> @@ -194,7 +194,7 @@ struct dpu_debugfs_regset32 {
->   	struct dpu_kms *dpu_kms;
->   };
->   
-> -static int _dpu_debugfs_show_regset32(struct seq_file *s, void *data)
-> +static int dpu_regset32_show(struct seq_file *s, void *data)
->   {
->   	struct dpu_debugfs_regset32 *regset = s->private;
->   	struct dpu_kms *dpu_kms = regset->dpu_kms;
-> @@ -227,19 +227,7 @@ static int _dpu_debugfs_show_regset32(struct seq_file *s, void *data)
->   
->   	return 0;
->   }
-> -
-> -static int dpu_debugfs_open_regset32(struct inode *inode,
-> -		struct file *file)
-> -{
-> -	return single_open(file, _dpu_debugfs_show_regset32, inode->i_private);
-> -}
-> -
-> -static const struct file_operations dpu_fops_regset32 = {
-> -	.open =		dpu_debugfs_open_regset32,
-> -	.read =		seq_read,
-> -	.llseek =	seq_lseek,
-> -	.release =	single_release,
-> -};
-> +DEFINE_SHOW_ATTRIBUTE(dpu_regset32);
->   
->   void dpu_debugfs_create_regset32(const char *name, umode_t mode,
->   		void *parent,
-> @@ -259,7 +247,7 @@ void dpu_debugfs_create_regset32(const char *name, umode_t mode,
->   	regset->blk_len = length;
->   	regset->dpu_kms = dpu_kms;
->   
-> -	debugfs_create_file(name, mode, parent, regset, &dpu_fops_regset32);
-> +	debugfs_create_file(name, mode, parent, regset, &dpu_regset32_fops);
->   }
->   
->   static int dpu_kms_debugfs_init(struct msm_kms *kms, struct drm_minor *minor)
+
+Acked-by: Rob Herring <robh@kernel.org>
