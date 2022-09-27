@@ -1,58 +1,47 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8B0A65EC76D
-	for <lists+freedreno@lfdr.de>; Tue, 27 Sep 2022 17:19:13 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id C63AD5ECACE
+	for <lists+freedreno@lfdr.de>; Tue, 27 Sep 2022 19:26:40 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D512D10E94E;
-	Tue, 27 Sep 2022 15:19:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 39EF410E0FA;
+	Tue, 27 Sep 2022 17:26:39 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-oi1-f174.google.com (mail-oi1-f174.google.com
- [209.85.167.174])
- by gabe.freedesktop.org (Postfix) with ESMTPS id ED77C10E3CB;
- Tue, 27 Sep 2022 15:19:07 +0000 (UTC)
-Received: by mail-oi1-f174.google.com with SMTP id q10so4651121oib.5;
- Tue, 27 Sep 2022 08:19:07 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date;
- bh=wXRxHNgmKmKanl4l8Eg0fqOKtTO4UZYjRiXrYlMvlIs=;
- b=QfACLi6hDq8E1XAhHy6b3jdHO910E7qeTsLM2ajXGM6ofR2WXLQ+zbralp3HWyxl6H
- Gu0ntlQydJfp6uPNWzC+fqRZxPWHb2Oz8/sBdLIjNum7QpNvX8eiMLKz8OYesBvCjCRp
- MrbsE4pbvYhtQLZ0TjSz/ugGKTnzfRaC6KIyWpuNvSwSkWKE+zuyInMOFDTzUFa3D8wb
- kACFqazkTORV8rej6P/i7MOse++K2qsvGnudpwzcI9TdxI6L0HWwFm0N1tv4L0RGE/dL
- M7kV5SZNkrQdtWD75CadayBr38szDGjydxFlk9Y8m5EmNWbGRQUFRXwYAckIBFihGimc
- cG6A==
-X-Gm-Message-State: ACrzQf1NpbZUQkXdccEzolE9x2jKY8aZUFi23PRjiAVplDDm4+2dyQ/P
- lQlKk70fUmXFL5PVPhMstQ==
-X-Google-Smtp-Source: AMsMyM7Tq6EI9RI+e6p6itE+pIviLGESsSPKqa2eDsEQSeRij6qJxEIF50+Itf26CrjppCHGUK4y9A==
-X-Received: by 2002:a05:6808:282:b0:34f:6d11:7f68 with SMTP id
- z2-20020a056808028200b0034f6d117f68mr2093203oic.237.1664291947082; 
- Tue, 27 Sep 2022 08:19:07 -0700 (PDT)
-Received: from macbook.herring.priv (66-90-144-107.dyn.grandenetworks.net.
- [66.90.144.107]) by smtp.gmail.com with ESMTPSA id
- w15-20020a056830410f00b0065689e13f52sm787327ott.71.2022.09.27.08.19.06
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 27 Sep 2022 08:19:06 -0700 (PDT)
-Received: (nullmailer pid 4054434 invoked by uid 1000);
- Tue, 27 Sep 2022 15:19:05 -0000
-Date: Tue, 27 Sep 2022 10:19:05 -0500
-From: Rob Herring <robh@kernel.org>
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Message-ID: <20220927151905.GA4052559-robh@kernel.org>
-References: <20220924123611.225520-1-dmitry.baryshkov@linaro.org>
- <20220924123611.225520-2-dmitry.baryshkov@linaro.org>
- <20220924172339.bebekrawee4ubogv@krzk-bin>
- <CAA8EJpqD74ZWvFK-QQ+MUHxssE7HKLS5D+hVe7+A9_H03QgwOg@mail.gmail.com>
+Received: from ams.source.kernel.org (ams.source.kernel.org
+ [IPv6:2604:1380:4601:e00::1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5517310E0F4;
+ Tue, 27 Sep 2022 17:26:32 +0000 (UTC)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by ams.source.kernel.org (Postfix) with ESMTPS id 82097B80D3F;
+ Tue, 27 Sep 2022 17:26:30 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1964AC433C1;
+ Tue, 27 Sep 2022 17:26:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1664299589;
+ bh=7qW4NoYfDpzCVbAcPMno7UyKuLi2bhHCAlraw+xf0DU=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=Ah9kXG5WXTnm4IQfxw0kTiNqLFGQtpPXAwE/8mRaytERIGpRPJA7plDtS0pKtRKQK
+ 6FVQKT9fsZgjjiGIxz3V7bRd3ogBSVIQKHZRArlodpWDmnspRE/E6cmuLdCh2OVruj
+ 9gfSy0wfh45qDbDNyPpKRzpGoKF/PT4N6NotqFYw/kLfhdjSSMLWDdL5kHj77ALdAq
+ m86sTM6PztdqZtdNnqPccZn/Ftgv3KucRwPi4i6Vaf54J7HY6BGorcUF6zelf3BAs7
+ VUFM7Xoq7LprWEIjmaHp2wg6mBJjkfy6XAupj2HDUZDSTH8XgERJZoeOcKualjUDva
+ 2exQjN63qeGCw==
+Date: Tue, 27 Sep 2022 12:26:26 -0500
+From: Bjorn Andersson <andersson@kernel.org>
+To: Akhil P Oommen <quic_akhilpo@quicinc.com>
+Message-ID: <20220927172626.cwxpmrqkb7zsuolx@builder.lan>
+References: <1660853919-987-1-git-send-email-quic_akhilpo@quicinc.com>
+ <20220819014758.v3.3.I162c4be55f230cd439f0643f1624527bdc8a9831@changeid>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <CAA8EJpqD74ZWvFK-QQ+MUHxssE7HKLS5D+hVe7+A9_H03QgwOg@mail.gmail.com>
-Subject: Re: [Freedreno] [PATCH v8 01/12] dt-bindings: display/msm: split
- qcom, mdss bindings
+In-Reply-To: <20220819014758.v3.3.I162c4be55f230cd439f0643f1624527bdc8a9831@changeid>
+Subject: Re: [Freedreno] [PATCH v3 3/5] clk: qcom: gdsc: Add a reset op to
+ poll gdsc collapse
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,76 +54,149 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sean Paul <sean@poorly.run>, devicetree@vger.kernel.org,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- David Airlie <airlied@linux.ie>, linux-arm-msm@vger.kernel.org,
- Bjorn Andersson <andersson@kernel.org>,
+Cc: Stephen Boyd <sboyd@kernel.org>, linux-arm-msm@vger.kernel.org,
+ Michael Turquette <mturquette@baylibre.com>,
  Konrad Dybcio <konrad.dybcio@somainline.org>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
- Stephen Boyd <swboyd@chromium.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
- Andy Gross <agross@kernel.org>, Rob Clark <robdclark@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>, Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
- freedreno@lists.freedesktop.org
+ Douglas Anderson <dianders@chromium.org>, dri-devel@lists.freedesktop.org,
+ Stephen Boyd <swboyd@chromium.org>, krzysztof.kozlowski@linaro.org,
+ Rob Clark <robdclark@gmail.com>, Andy Gross <agross@kernel.org>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Bjorn Andersson <bjorn.andersson@linaro.org>,
+ freedreno <freedreno@lists.freedesktop.org>, linux-clk@vger.kernel.org,
+ linux-kernel@vger.kernel.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Sat, Sep 24, 2022 at 09:27:10PM +0300, Dmitry Baryshkov wrote:
-> Hi,
+On Fri, Aug 19, 2022 at 01:48:37AM +0530, Akhil P Oommen wrote:
+> Add a reset op compatible function to poll for gdsc collapse.
 > 
-> On Sat, 24 Sept 2022 at 20:23, Krzysztof Kozlowski
-> <krzysztof.kozlowski@linaro.org> wrote:
-> >
-> > On Sat, 24 Sep 2022 15:36:00 +0300, Dmitry Baryshkov wrote:
-> > > Split Mobile Display SubSystem (MDSS) root node bindings to the separate
-> > > yaml file. Changes to the existing (txt) schema:
-> > >  - Added optional "vbif_nrt_phys" region used by msm8996
-> > >  - Made "bus" and "vsync" clocks optional (they are not used by some
-> > >    platforms)
-> > >  - Added optional resets property referencing MDSS reset
-> > >  - Defined child nodes pointing to corresponding reference schema.
-> > >  - Dropped the "lut" clock. It was added to the schema by mistake (it is
-> > >    a part of mdp4 schema, not the mdss).
-> > >
-> > > Reviewed-by: Rob Herring <robh@kernel.org>
-> > > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> > > ---
-> > >  .../devicetree/bindings/display/msm/mdp5.txt  |  30 +-
-> > >  .../bindings/display/msm/qcom,mdss.yaml       | 264 ++++++++++++++++++
-> > >  2 files changed, 265 insertions(+), 29 deletions(-)
-> > >  create mode 100644 Documentation/devicetree/bindings/display/msm/qcom,mdss.yaml
-> > >
-> >
-> > My bot found errors running 'make DT_CHECKER_FLAGS=-m dt_binding_check'
-> > on your patch (DT_CHECKER_FLAGS is new in v5.13):
-> >
-> > yamllint warnings/errors:
-> >
-> > dtschema/dtc warnings/errors:
-> > /builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,mdss.example.dtb: dsi@1a98000: clock-names:0: 'byte' was expected
-> >         From schema: /builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/dsi-controller-main.yaml
-> > /builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,mdss.example.dtb: dsi@1a98000: clock-names:1: 'byte_intf' was expected
-> >         From schema: /builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/dsi-controller-main.yaml
-> > /builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,mdss.example.dtb: dsi@1a98000: clock-names:2: 'pixel' was expected
-> >         From schema: /builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/dsi-controller-main.yaml
-> > /builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,mdss.example.dtb: dsi@1a98000: clock-names:3: 'core' was expected
-> >         From schema: /builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/dsi-controller-main.yaml
-> > /builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,mdss.example.dtb: dsi@1a98000: clock-names:4: 'iface' was expected
-> >         From schema: /builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/dsi-controller-main.yaml
-> > /builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,mdss.example.dtb: dsi@1a98000: clock-names:5: 'bus' was expected
-> >         From schema: /builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/dsi-controller-main.yaml
-> > /builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,mdss.example.dtb: dsi@1a98000: phy-names:0: 'dsi' was expected
-> >         From schema: /builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/dsi-controller-main.yaml
-> > /builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,mdss.example.dtb: dsi@1a98000: 'power-domains' is a required property
-> >         From schema: /builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/dsi-controller-main.yaml
-> > /builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,mdss.example.dtb: dsi@1a98000: 'operating-points-v2' is a required property
-> >         From schema: /builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/dsi-controller-main.yaml
+> Signed-off-by: Akhil P Oommen <quic_akhilpo@quicinc.com>
+> ---
 > 
-> These are the errors generated by the dsi@ node from the example. The
-> DSI schema is handled separately (by Bryan, added to the Cc list). Can
-> we have a lifter for this patch? Or I can revert to dropping the dsi@
-> part from the example.
+> (no changes since v2)
+> 
+> Changes in v2:
+> - Minor update to function prototype
+> 
+>  drivers/clk/qcom/gdsc.c | 23 +++++++++++++++++++----
+>  drivers/clk/qcom/gdsc.h |  7 +++++++
+>  2 files changed, 26 insertions(+), 4 deletions(-)
+> 
+> diff --git a/drivers/clk/qcom/gdsc.c b/drivers/clk/qcom/gdsc.c
+> index 44520ef..2d0f1d1 100644
+> --- a/drivers/clk/qcom/gdsc.c
+> +++ b/drivers/clk/qcom/gdsc.c
+> @@ -17,6 +17,7 @@
+>  #include <linux/reset-controller.h>
+>  #include <linux/slab.h>
+>  #include "gdsc.h"
+> +#include "reset.h"
+>  
+>  #define PWR_ON_MASK		BIT(31)
+>  #define EN_REST_WAIT_MASK	GENMASK_ULL(23, 20)
+> @@ -116,7 +117,8 @@ static int gdsc_hwctrl(struct gdsc *sc, bool en)
+>  	return regmap_update_bits(sc->regmap, sc->gdscr, HW_CONTROL_MASK, val);
+>  }
+>  
+> -static int gdsc_poll_status(struct gdsc *sc, enum gdsc_status status)
+> +static int gdsc_poll_status(struct gdsc *sc, enum gdsc_status status,
+> +		s64 timeout_us, unsigned int interval_ms)
+>  {
+>  	ktime_t start;
+>  
+> @@ -124,7 +126,9 @@ static int gdsc_poll_status(struct gdsc *sc, enum gdsc_status status)
+>  	do {
+>  		if (gdsc_check_status(sc, status))
+>  			return 0;
+> -	} while (ktime_us_delta(ktime_get(), start) < TIMEOUT_US);
+> +		if (interval_ms)
+> +			msleep(interval_ms);
 
-It's fine as long as I don't see them in linux-next.
+You effectively msleep(5) here, for which you shouldn't use msleep() -
+or more likely, this only happens in exceptional circumstances, so a
+longer interval_ms seems reasonable.
 
-Rob
+> +	} while (ktime_us_delta(ktime_get(), start) < timeout_us);
+>  
+>  	if (gdsc_check_status(sc, status))
+>  		return 0;
+> @@ -172,7 +176,7 @@ static int gdsc_toggle_logic(struct gdsc *sc, enum gdsc_status status)
+>  		udelay(1);
+>  	}
+>  
+> -	ret = gdsc_poll_status(sc, status);
+> +	ret = gdsc_poll_status(sc, status, TIMEOUT_US, 0);
+>  	WARN(ret, "%s status stuck at 'o%s'", sc->pd.name, status ? "ff" : "n");
+>  
+>  	if (!ret && status == GDSC_OFF && sc->rsupply) {
+> @@ -343,7 +347,7 @@ static int _gdsc_disable(struct gdsc *sc)
+>  		 */
+>  		udelay(1);
+>  
+> -		ret = gdsc_poll_status(sc, GDSC_ON);
+> +		ret = gdsc_poll_status(sc, GDSC_ON, TIMEOUT_US, 0);
+>  		if (ret)
+>  			return ret;
+>  	}
+> @@ -565,3 +569,14 @@ int gdsc_gx_do_nothing_enable(struct generic_pm_domain *domain)
+>  	return 0;
+>  }
+>  EXPORT_SYMBOL_GPL(gdsc_gx_do_nothing_enable);
+> +
+> +int gdsc_wait_for_collapse(void *priv)
+> +{
+> +	struct gdsc *sc = priv;
+> +	int ret;
+> +
+> +	ret = gdsc_poll_status(sc, GDSC_OFF, 500000, 5);
+
+So I presume the GPU driver will put() the GDSC and then issue a reset,
+which will wait up to 5 seconds for the GDSC to be turned off.
+
+So essentially, this logic is needed because we don't wait for VOTABLE
+GDSCs to be turned off? And we have no way to do the put-with-wait for
+this specific case.
+
+I would like the commit message to capture this reasoning.
+
+Thanks,
+Bjorn
+
+> +	WARN(ret, "%s status stuck at 'on'", sc->pd.name);
+> +	return ret;
+> +}
+> +EXPORT_SYMBOL_GPL(gdsc_wait_for_collapse);
+> diff --git a/drivers/clk/qcom/gdsc.h b/drivers/clk/qcom/gdsc.h
+> index ad313d7..d484bdb 100644
+> --- a/drivers/clk/qcom/gdsc.h
+> +++ b/drivers/clk/qcom/gdsc.h
+> @@ -12,6 +12,7 @@
+>  struct regmap;
+>  struct regulator;
+>  struct reset_controller_dev;
+> +struct qcom_reset_map;
+>  
+>  /**
+>   * struct gdsc - Globally Distributed Switch Controller
+> @@ -79,6 +80,7 @@ int gdsc_register(struct gdsc_desc *desc, struct reset_controller_dev *,
+>  		  struct regmap *);
+>  void gdsc_unregister(struct gdsc_desc *desc);
+>  int gdsc_gx_do_nothing_enable(struct generic_pm_domain *domain);
+> +int gdsc_wait_for_collapse(void *priv);
+>  #else
+>  static inline int gdsc_register(struct gdsc_desc *desc,
+>  				struct reset_controller_dev *rcdev,
+> @@ -88,5 +90,10 @@ static inline int gdsc_register(struct gdsc_desc *desc,
+>  }
+>  
+>  static inline void gdsc_unregister(struct gdsc_desc *desc) {};
+> +
+> +static int gdsc_wait_for_collapse(void *priv)
+> +{
+> +	return  -ENOSYS;
+> +}
+>  #endif /* CONFIG_QCOM_GDSC */
+>  #endif /* __QCOM_GDSC_H__ */
+> -- 
+> 2.7.4
+> 
