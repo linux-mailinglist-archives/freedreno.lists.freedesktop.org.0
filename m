@@ -1,47 +1,79 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id C63AD5ECACE
-	for <lists+freedreno@lfdr.de>; Tue, 27 Sep 2022 19:26:40 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id ECA6C5ECC3F
+	for <lists+freedreno@lfdr.de>; Tue, 27 Sep 2022 20:43:24 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 39EF410E0FA;
-	Tue, 27 Sep 2022 17:26:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3433310E0D7;
+	Tue, 27 Sep 2022 18:43:18 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from ams.source.kernel.org (ams.source.kernel.org
- [IPv6:2604:1380:4601:e00::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5517310E0F4;
- Tue, 27 Sep 2022 17:26:32 +0000 (UTC)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 82097B80D3F;
- Tue, 27 Sep 2022 17:26:30 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1964AC433C1;
- Tue, 27 Sep 2022 17:26:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1664299589;
- bh=7qW4NoYfDpzCVbAcPMno7UyKuLi2bhHCAlraw+xf0DU=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=Ah9kXG5WXTnm4IQfxw0kTiNqLFGQtpPXAwE/8mRaytERIGpRPJA7plDtS0pKtRKQK
- 6FVQKT9fsZgjjiGIxz3V7bRd3ogBSVIQKHZRArlodpWDmnspRE/E6cmuLdCh2OVruj
- 9gfSy0wfh45qDbDNyPpKRzpGoKF/PT4N6NotqFYw/kLfhdjSSMLWDdL5kHj77ALdAq
- m86sTM6PztdqZtdNnqPccZn/Ftgv3KucRwPi4i6Vaf54J7HY6BGorcUF6zelf3BAs7
- VUFM7Xoq7LprWEIjmaHp2wg6mBJjkfy6XAupj2HDUZDSTH8XgERJZoeOcKualjUDva
- 2exQjN63qeGCw==
-Date: Tue, 27 Sep 2022 12:26:26 -0500
-From: Bjorn Andersson <andersson@kernel.org>
-To: Akhil P Oommen <quic_akhilpo@quicinc.com>
-Message-ID: <20220927172626.cwxpmrqkb7zsuolx@builder.lan>
-References: <1660853919-987-1-git-send-email-quic_akhilpo@quicinc.com>
- <20220819014758.v3.3.I162c4be55f230cd439f0643f1624527bdc8a9831@changeid>
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D0C6410E046;
+ Tue, 27 Sep 2022 18:43:14 +0000 (UTC)
+Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 28RIHat5007239;
+ Tue, 27 Sep 2022 18:43:01 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
+ h=message-id : date :
+ mime-version : subject : to : cc : references : from : in-reply-to :
+ content-type : content-transfer-encoding; s=qcppdkim1;
+ bh=gR4Pn4q136Weq5jaeUge3M1T4dRq5PIIMbxgLr4u+D4=;
+ b=e4STaSNNclop8Rq4IRgHyCUI54isGrYHyOo4bxa02WzM8fAH+3r/mFragTkA/5cxp43H
+ QWRpA8kzMYYmPiRJHQQ8/nr3teJt8AuUrcXFgd9WiZ34owRCeGkpKPtaNEnVIb2RZl9e
+ oX0gG+FPO9OSClYFgzv8KYEq5BCt+YX+2zCet4whRkOPJGfB0HjQ18gVLDYyyIKBmkUq
+ g8npiV71BChsUgCcuTP1g8RFdHVz6j3jTO7HIgJ/G9cbys+9QNhvz6UMu1lOPe1YmRJ4
+ lO6QOAnduxMImoMdsb1Nzl7703XYrUBIC7S4HTrSYq18CH7ZTWPqptPZIZ8QSZ5NOiRp 2Q== 
+Received: from nalasppmta01.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3jsrwfqcuu-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 27 Sep 2022 18:43:00 +0000
+Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
+ [10.47.209.196])
+ by NALASPPMTA01.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 28RIgxYj025366
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 27 Sep 2022 18:42:59 GMT
+Received: from [10.111.168.84] (10.80.80.8) by nalasex01a.na.qualcomm.com
+ (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.29; Tue, 27 Sep
+ 2022 11:42:55 -0700
+Message-ID: <d7688497-6229-40d4-3378-5036d699dfd7@quicinc.com>
+Date: Tue, 27 Sep 2022 11:42:53 -0700
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20220819014758.v3.3.I162c4be55f230cd439f0643f1624527bdc8a9831@changeid>
-Subject: Re: [Freedreno] [PATCH v3 3/5] clk: qcom: gdsc: Add a reset op to
- poll gdsc collapse
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
+ Thunderbird/91.6.2
+Content-Language: en-US
+To: Johan Hovold <johan@kernel.org>
+References: <20220913085320.8577-1-johan+linaro@kernel.org>
+ <20220913085320.8577-10-johan+linaro@kernel.org>
+ <d05290d8-7603-13b3-3cc4-d8509b03fc02@quicinc.com>
+ <YzKi8XfV6V0p0TJi@hovoldconsulting.com>
+From: Abhinav Kumar <quic_abhinavk@quicinc.com>
+In-Reply-To: <YzKi8XfV6V0p0TJi@hovoldconsulting.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-ORIG-GUID: Unl2EMpDkPDOs-OWU28xnutJtpITwt9V
+X-Proofpoint-GUID: Unl2EMpDkPDOs-OWU28xnutJtpITwt9V
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.205,Aquarius:18.0.895,Hydra:6.0.528,FMLib:17.11.122.1
+ definitions=2022-09-27_09,2022-09-27_01,2022-06-22_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1011 spamscore=0
+ malwarescore=0 adultscore=0 bulkscore=0 mlxscore=0 impostorscore=0
+ priorityscore=1501 phishscore=0 lowpriorityscore=0 mlxlogscore=807
+ suspectscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2209130000 definitions=main-2209270116
+Subject: Re: [Freedreno] [PATCH v2 09/10] drm/msm/dp: drop modeset sanity
+ checks
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,149 +86,51 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Stephen Boyd <sboyd@kernel.org>, linux-arm-msm@vger.kernel.org,
- Michael Turquette <mturquette@baylibre.com>,
- Konrad Dybcio <konrad.dybcio@somainline.org>,
- Douglas Anderson <dianders@chromium.org>, dri-devel@lists.freedesktop.org,
- Stephen Boyd <swboyd@chromium.org>, krzysztof.kozlowski@linaro.org,
- Rob Clark <robdclark@gmail.com>, Andy Gross <agross@kernel.org>,
+Cc: dri-devel@lists.freedesktop.org, Neil
+ Armstrong <neil.armstrong@linaro.org>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>, linux-kernel@vger.kernel.org,
+ Daniel Vetter <daniel@ffwll.ch>, Jonas Karlman <jonas@kwiboo.se>,
+ linux-arm-msm@vger.kernel.org, Bjorn Andersson <andersson@kernel.org>,
+ Steev Klimaszewski <steev@kali.org>, freedreno@lists.freedesktop.org,
+ Douglas Anderson <dianders@chromium.org>, Robert Foss <robert.foss@linaro.org>,
+ Stephen Boyd <swboyd@chromium.org>, Rob Clark <robdclark@gmail.com>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Andrzej Hajda <andrzej.hajda@intel.com>, Manivannan
+ Sadhasivam <manivannan.sadhasivam@linaro.org>,
  Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Bjorn Andersson <bjorn.andersson@linaro.org>,
- freedreno <freedreno@lists.freedesktop.org>, linux-clk@vger.kernel.org,
- linux-kernel@vger.kernel.org
+ Kuogee Hsieh <quic_khsieh@quicinc.com>, Sean Paul <sean@poorly.run>,
+ Johan Hovold <johan+linaro@kernel.org>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Fri, Aug 19, 2022 at 01:48:37AM +0530, Akhil P Oommen wrote:
-> Add a reset op compatible function to poll for gdsc collapse.
+
+
+On 9/27/2022 12:14 AM, Johan Hovold wrote:
+> On Mon, Sep 26, 2022 at 11:17:20AM -0700, Abhinav Kumar wrote:
+>> On 9/13/2022 1:53 AM, Johan Hovold wrote:
+>>> Drop the overly defensive modeset sanity checks of function parameters
+>>> which have already been checked or used by the callers.
+>>>
+>>> Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+>>> Signed-off-by: Johan Hovold <johan+linaro@kernel.org>
+>>
+>> The change LGTM, hence
+>>
+>> Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
+>>
+>> I think we can use below fixes tag so that we can pick up this entire
+>> series for the fixes cycle.
+>>
+>> Fixes: c943b4948b58 ("drm/msm/dp: add displayPort driver support")
 > 
-> Signed-off-by: Akhil P Oommen <quic_akhilpo@quicinc.com>
-> ---
+> Perhaps that's a requirement for drm, but I wouldn't add a Fixes tag for
+> this otherwise as it's not a bug.
 > 
-> (no changes since v2)
+> You also have to watch out for Sasha and his autosel scripts which will
+> probably try to backport this to stable if it finds a Fixes tag.
 > 
-> Changes in v2:
-> - Minor update to function prototype
-> 
->  drivers/clk/qcom/gdsc.c | 23 +++++++++++++++++++----
->  drivers/clk/qcom/gdsc.h |  7 +++++++
->  2 files changed, 26 insertions(+), 4 deletions(-)
-> 
-> diff --git a/drivers/clk/qcom/gdsc.c b/drivers/clk/qcom/gdsc.c
-> index 44520ef..2d0f1d1 100644
-> --- a/drivers/clk/qcom/gdsc.c
-> +++ b/drivers/clk/qcom/gdsc.c
-> @@ -17,6 +17,7 @@
->  #include <linux/reset-controller.h>
->  #include <linux/slab.h>
->  #include "gdsc.h"
-> +#include "reset.h"
->  
->  #define PWR_ON_MASK		BIT(31)
->  #define EN_REST_WAIT_MASK	GENMASK_ULL(23, 20)
-> @@ -116,7 +117,8 @@ static int gdsc_hwctrl(struct gdsc *sc, bool en)
->  	return regmap_update_bits(sc->regmap, sc->gdscr, HW_CONTROL_MASK, val);
->  }
->  
-> -static int gdsc_poll_status(struct gdsc *sc, enum gdsc_status status)
-> +static int gdsc_poll_status(struct gdsc *sc, enum gdsc_status status,
-> +		s64 timeout_us, unsigned int interval_ms)
->  {
->  	ktime_t start;
->  
-> @@ -124,7 +126,9 @@ static int gdsc_poll_status(struct gdsc *sc, enum gdsc_status status)
->  	do {
->  		if (gdsc_check_status(sc, status))
->  			return 0;
-> -	} while (ktime_us_delta(ktime_get(), start) < TIMEOUT_US);
-> +		if (interval_ms)
-> +			msleep(interval_ms);
+> Johan
 
-You effectively msleep(5) here, for which you shouldn't use msleep() -
-or more likely, this only happens in exceptional circumstances, so a
-longer interval_ms seems reasonable.
-
-> +	} while (ktime_us_delta(ktime_get(), start) < timeout_us);
->  
->  	if (gdsc_check_status(sc, status))
->  		return 0;
-> @@ -172,7 +176,7 @@ static int gdsc_toggle_logic(struct gdsc *sc, enum gdsc_status status)
->  		udelay(1);
->  	}
->  
-> -	ret = gdsc_poll_status(sc, status);
-> +	ret = gdsc_poll_status(sc, status, TIMEOUT_US, 0);
->  	WARN(ret, "%s status stuck at 'o%s'", sc->pd.name, status ? "ff" : "n");
->  
->  	if (!ret && status == GDSC_OFF && sc->rsupply) {
-> @@ -343,7 +347,7 @@ static int _gdsc_disable(struct gdsc *sc)
->  		 */
->  		udelay(1);
->  
-> -		ret = gdsc_poll_status(sc, GDSC_ON);
-> +		ret = gdsc_poll_status(sc, GDSC_ON, TIMEOUT_US, 0);
->  		if (ret)
->  			return ret;
->  	}
-> @@ -565,3 +569,14 @@ int gdsc_gx_do_nothing_enable(struct generic_pm_domain *domain)
->  	return 0;
->  }
->  EXPORT_SYMBOL_GPL(gdsc_gx_do_nothing_enable);
-> +
-> +int gdsc_wait_for_collapse(void *priv)
-> +{
-> +	struct gdsc *sc = priv;
-> +	int ret;
-> +
-> +	ret = gdsc_poll_status(sc, GDSC_OFF, 500000, 5);
-
-So I presume the GPU driver will put() the GDSC and then issue a reset,
-which will wait up to 5 seconds for the GDSC to be turned off.
-
-So essentially, this logic is needed because we don't wait for VOTABLE
-GDSCs to be turned off? And we have no way to do the put-with-wait for
-this specific case.
-
-I would like the commit message to capture this reasoning.
-
-Thanks,
-Bjorn
-
-> +	WARN(ret, "%s status stuck at 'on'", sc->pd.name);
-> +	return ret;
-> +}
-> +EXPORT_SYMBOL_GPL(gdsc_wait_for_collapse);
-> diff --git a/drivers/clk/qcom/gdsc.h b/drivers/clk/qcom/gdsc.h
-> index ad313d7..d484bdb 100644
-> --- a/drivers/clk/qcom/gdsc.h
-> +++ b/drivers/clk/qcom/gdsc.h
-> @@ -12,6 +12,7 @@
->  struct regmap;
->  struct regulator;
->  struct reset_controller_dev;
-> +struct qcom_reset_map;
->  
->  /**
->   * struct gdsc - Globally Distributed Switch Controller
-> @@ -79,6 +80,7 @@ int gdsc_register(struct gdsc_desc *desc, struct reset_controller_dev *,
->  		  struct regmap *);
->  void gdsc_unregister(struct gdsc_desc *desc);
->  int gdsc_gx_do_nothing_enable(struct generic_pm_domain *domain);
-> +int gdsc_wait_for_collapse(void *priv);
->  #else
->  static inline int gdsc_register(struct gdsc_desc *desc,
->  				struct reset_controller_dev *rcdev,
-> @@ -88,5 +90,10 @@ static inline int gdsc_register(struct gdsc_desc *desc,
->  }
->  
->  static inline void gdsc_unregister(struct gdsc_desc *desc) {};
-> +
-> +static int gdsc_wait_for_collapse(void *priv)
-> +{
-> +	return  -ENOSYS;
-> +}
->  #endif /* CONFIG_QCOM_GDSC */
->  #endif /* __QCOM_GDSC_H__ */
-> -- 
-> 2.7.4
-> 
+Discussed with Rob on IRC, we will apply everything except the last two 
+patches of this series in the -fixes and take these two for the next 
+kernel rev push.
