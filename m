@@ -2,41 +2,73 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 59BFB5EF197
-	for <lists+freedreno@lfdr.de>; Thu, 29 Sep 2022 11:14:21 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 96D645EF231
+	for <lists+freedreno@lfdr.de>; Thu, 29 Sep 2022 11:36:45 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1CEE710E544;
-	Thu, 29 Sep 2022 09:14:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E12D310EA27;
+	Thu, 29 Sep 2022 09:36:43 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from szxga02-in.huawei.com (szxga02-in.huawei.com [45.249.212.188])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4C93E10E544;
- Thu, 29 Sep 2022 09:14:17 +0000 (UTC)
-Received: from dggpemm500024.china.huawei.com (unknown [172.30.72.53])
- by szxga02-in.huawei.com (SkyGuard) with ESMTP id 4MdSHg3SyjzWh65;
- Thu, 29 Sep 2022 17:10:07 +0800 (CST)
-Received: from dggpemm500007.china.huawei.com (7.185.36.183) by
- dggpemm500024.china.huawei.com (7.185.36.203) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2375.31; Thu, 29 Sep 2022 17:14:14 +0800
-Received: from huawei.com (10.175.103.91) by dggpemm500007.china.huawei.com
- (7.185.36.183) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.31; Thu, 29 Sep
- 2022 17:14:14 +0800
-From: Yang Yingliang <yangyingliang@huawei.com>
-To: <dri-devel@lists.freedesktop.org>, <freedreno@lists.freedesktop.org>
-Date: Thu, 29 Sep 2022 17:30:22 +0800
-Message-ID: <20220929093022.2428520-1-yangyingliang@huawei.com>
-X-Mailer: git-send-email 2.25.1
+Received: from mail-lf1-x12c.google.com (mail-lf1-x12c.google.com
+ [IPv6:2a00:1450:4864:20::12c])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E697E10EA35
+ for <freedreno@lists.freedesktop.org>; Thu, 29 Sep 2022 09:36:35 +0000 (UTC)
+Received: by mail-lf1-x12c.google.com with SMTP id d42so1439022lfv.0
+ for <freedreno@lists.freedesktop.org>; Thu, 29 Sep 2022 02:36:35 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date;
+ bh=ww6o0U2i2zJudwjdhnCm//cb1qt3k7L9xG3fGtIOJ0Y=;
+ b=OSVXqv00/DBEjGvA0lWQtx0UoVTvunrlz3LSwOOhP1LROKbXDjxZwbQcFnBdn/q4hi
+ fmXDXJlLPDms9ZLZZLyuSQ0atE2+f0w4QTrjLdi/W87F3QUTHl29bnNUuwcvz18r9z5d
+ YEOL0A0SMER1G1NSI5AdBSxFsPlbaQzAX74iN/sm43FkRv/Xkd0pX88qLyCWb+xTjLZB
+ iDqo09iDozXCNGH8QMvnasXxnTcsbAVtIH09EHTF2Ju6u9CGemeNBvorL4hUwMfLANXF
+ Fr5LfX7Wj0l1XEm7aKwLZR6dYkRjWoLwmKR18NWR1p7oVZ1FxyigqwXKj+0XqZY++5UQ
+ ybPQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date;
+ bh=ww6o0U2i2zJudwjdhnCm//cb1qt3k7L9xG3fGtIOJ0Y=;
+ b=giax+OkyVTy5MHG9mzkF8DZ7mnVcBLh0A15Jfxc4cE3j5QKOZ+zSybDQQx7s5LPyWB
+ oTmbgwirlpsHtg11Gv4RBRYkjbI/+WB54cajeeIIzOE7stpf62C7ONzKVah9u/jCqcqu
+ as1IsFGXwBX798Uz8avzBfErFVjHAFAnmA8VOZ9n/ullXdA8IL/LTmVUntjA3CKdYxz4
+ ks0t7mIDIn9FtlD3DbLyfRZ4pFVeHbU+B87aGr6C6DcfKzKbp7o9PbXiOYzkkA2MUya5
+ kWNizhhOa9IIs1ur3IDerVCcKb+ODEj2MSuNwQ3VfEoJDKpKUZHKhY1MyX0lazthq81X
+ 2/kg==
+X-Gm-Message-State: ACrzQf2EINraQaFijmmOAzHWGsHcC3ZFajNUIlRw6w2fK+/n1h106F40
+ WEfIll1QhO0XFfSzRegQcGBr1w==
+X-Google-Smtp-Source: AMsMyM4Dy/g46rErBOUXB26zHgJUerXIox3jFEOJ+JO/d1gOihHxqiQK0J4+5dHNIj1rAVf/D9KgUg==
+X-Received: by 2002:a05:6512:3f08:b0:4a1:af5e:5643 with SMTP id
+ y8-20020a0565123f0800b004a1af5e5643mr1012675lfa.86.1664444194280; 
+ Thu, 29 Sep 2022 02:36:34 -0700 (PDT)
+Received: from [192.168.0.21] (78-11-189-27.static.ip.netia.com.pl.
+ [78.11.189.27]) by smtp.gmail.com with ESMTPSA id
+ s14-20020a19770e000000b0048b08e25979sm733803lfc.199.2022.09.29.02.36.33
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 29 Sep 2022 02:36:33 -0700 (PDT)
+Message-ID: <869ac2b0-b643-310e-7b32-0e81edef6e15@linaro.org>
+Date: Thu, 29 Sep 2022 11:36:32 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
-X-Originating-IP: [10.175.103.91]
-X-ClientProxiedBy: dggems704-chm.china.huawei.com (10.3.19.181) To
- dggpemm500007.china.huawei.com (7.185.36.183)
-X-CFilter-Loop: Reflected
-Subject: [Freedreno] [PATCH -next] drm/msm/msm_gem_shrinker: fix compile
- error in can_block()
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.3.0
+Content-Language: en-US
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Andy Gross <agross@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konrad.dybcio@somainline.org>, Rob Clark
+ <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, Rob Herring <robh+dt@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>
+References: <20220924094347.178666-1-dmitry.baryshkov@linaro.org>
+ <20220924094347.178666-2-dmitry.baryshkov@linaro.org>
+From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+In-Reply-To: <20220924094347.178666-2-dmitry.baryshkov@linaro.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+Subject: Re: [Freedreno] [PATCH 1/2] ARM: dts: qcom-apq8064: change HDMI PHY
+ node name to generic one
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -49,41 +81,21 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: robdclark@gmail.com
+Cc: devicetree@vger.kernel.org, David Airlie <airlied@linux.ie>,
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ Stephen Boyd <swboyd@chromium.org>, Daniel Vetter <daniel@ffwll.ch>,
+ freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-I got the compile error:
+On 24/09/2022 11:43, Dmitry Baryshkov wrote:
+> Change HDMI PHY node names from custom 'hdmi-phy' to the generic 'phy'.
+> 
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 
-  drivers/gpu/drm/msm/msm_gem_shrinker.c: In function ‘can_block’:
-  drivers/gpu/drm/msm/msm_gem_shrinker.c:29:21: error: ‘__GFP_ATOMIC’ undeclared (first use in this function); did you mean ‘GFP_ATOMIC’?
-    if (sc->gfp_mask & __GFP_ATOMIC)
-                       ^~~~~~~~~~~~
-                       GFP_ATOMIC
-  drivers/gpu/drm/msm/msm_gem_shrinker.c:29:21: note: each undeclared identifier is reported only once for each function it appears in
 
-__GFP_ATOMIC is dropped by commit 6708fe6bec50 ("mm: discard __GFP_ATOMIC").
-Use __GFP_HIGH instead.
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 
-Fixes: 025d27239a2f ("drm/msm/gem: Evict active GEM objects when necessary")
-Signed-off-by: Yang Yingliang <yangyingliang@huawei.com>
----
- drivers/gpu/drm/msm/msm_gem_shrinker.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/msm/msm_gem_shrinker.c b/drivers/gpu/drm/msm/msm_gem_shrinker.c
-index 58e0513be5f4..6a0de6cdb82b 100644
---- a/drivers/gpu/drm/msm/msm_gem_shrinker.c
-+++ b/drivers/gpu/drm/msm/msm_gem_shrinker.c
-@@ -26,7 +26,7 @@ static bool can_swap(void)
- 
- static bool can_block(struct shrink_control *sc)
- {
--	if (sc->gfp_mask & __GFP_ATOMIC)
-+	if (sc->gfp_mask & __GFP_HIGH)
- 		return false;
- 	return current_is_kswapd() || (sc->gfp_mask & __GFP_RECLAIM);
- }
--- 
-2.25.1
+Best regards,
+Krzysztof
 
