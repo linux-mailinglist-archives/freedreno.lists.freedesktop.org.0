@@ -1,57 +1,61 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id B21765EFE6E
-	for <lists+freedreno@lfdr.de>; Thu, 29 Sep 2022 22:09:17 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 0BEC15EFEBB
+	for <lists+freedreno@lfdr.de>; Thu, 29 Sep 2022 22:39:09 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 700A110ECB8;
-	Thu, 29 Sep 2022 20:09:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 089C310ECCB;
+	Thu, 29 Sep 2022 20:39:07 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-oo1-f48.google.com (mail-oo1-f48.google.com
- [209.85.161.48])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 228B010ECB0;
- Thu, 29 Sep 2022 20:09:12 +0000 (UTC)
-Received: by mail-oo1-f48.google.com with SMTP id
- r136-20020a4a378e000000b004755953bc6cso857171oor.13; 
- Thu, 29 Sep 2022 13:09:12 -0700 (PDT)
+Received: from mail-oa1-x2c.google.com (mail-oa1-x2c.google.com
+ [IPv6:2001:4860:4864:20::2c])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 37C4810E128;
+ Thu, 29 Sep 2022 20:39:02 +0000 (UTC)
+Received: by mail-oa1-x2c.google.com with SMTP id
+ 586e51a60fabf-131de9fddbaso2154839fac.5; 
+ Thu, 29 Sep 2022 13:39:02 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date;
+ bh=L6Jq2GQtVcQkjuptcsbFOufJYwxSeo/fK5+jPP+A2VU=;
+ b=JdfcTXWoV3REgo2PZFYu+nhYhqFVHxKK/6/twg5bDlveZjOh0z6T6zjeYAKV2YVyfc
+ YHbaJvQBClzHyDXMnbguYYMP8H81nU46mdM/fm+a/7HZEuoinjuOAXpeUa+IrfP70djn
+ /MbgF8qBkX9tjcxUnlYjD/J23szs31h+zPkVzkdoMHuz/DYZbjbYL9aP9QVywW4fjiNo
+ 7eGCyKfBHC6Oc1tjKFpkTju4XPYLeVck2RzTGHOPZhM/Kbhm4cks4WsaFyJ0JHODTDF9
+ JpO7+riyK8T15B++osfN0cGH+pGiwHBaIw8SGdHzqUat7HnPVKYUk5Ng5MxfbPZtMKEr
+ x92g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date;
- bh=GZZiagUs3HUfpeMwbywCyzsEBVOVMqD641TL2LDqp7c=;
- b=CT/sa/Y5gxbeGAmdRatCeLbRw/rRyBk74A/qMVvPBdteAj/COqLwZSHVQNC+H5CAEW
- 9F4bx7v95tq9IG1clJnZBuJC3elCnqFcD1dJxvUR/SynW8qbO9Hm/Z9YdOVxaYZD9Es6
- 5kWnVBkODuhU6k3eVb8+S/9MDlhcRVL/5XvHDXk97HEJJvKcmpzaaQSUApolgZLcw0UB
- jnEBuGyvNrWD81Xr1HwbteXEYZj6PuTXtwsdyS0nKz6WhUqkZi69uNs+iQEUsKrPT2oh
- p7+Wm8oVPCBkYhh18YVZMHti6kuTf0vqh/21f4OnP2GO2uQfPwogtshXXdrlrgTCrdHH
- DY4A==
-X-Gm-Message-State: ACrzQf2smor30a91oB6Bsw6PSieoZF93miQX+sY/eomBKsiFGBkbgOh2
- pz4Auist5X2EhfrKIqnXBu4oT5VSwQ==
-X-Google-Smtp-Source: AMsMyM5cV8SitoPg7y58nU1devSHpI02JFb0pExeyBbLcIVHfK4FQ7OAAFPslz4V6wx4F4ys7pwgPw==
-X-Received: by 2002:a4a:645:0:b0:475:e496:78f9 with SMTP id
- 66-20020a4a0645000000b00475e49678f9mr2055524ooj.13.1664482151091; 
- Thu, 29 Sep 2022 13:09:11 -0700 (PDT)
-Received: from macbook.herring.priv (66-90-144-107.dyn.grandenetworks.net.
- [66.90.144.107]) by smtp.gmail.com with ESMTPSA id
- s17-20020a0568301e1100b00659ba9f2872sm138276otr.77.2022.09.29.13.09.09
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 29 Sep 2022 13:09:10 -0700 (PDT)
-Received: (nullmailer pid 2658309 invoked by uid 1000);
- Thu, 29 Sep 2022 20:09:09 -0000
-Date: Thu, 29 Sep 2022 15:09:09 -0500
-From: Rob Herring <robh@kernel.org>
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Message-ID: <166448214908.2658264.16651014631872750746.robh@kernel.org>
-References: <20220924123611.225520-1-dmitry.baryshkov@linaro.org>
- <20220924123611.225520-13-dmitry.baryshkov@linaro.org>
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date;
+ bh=L6Jq2GQtVcQkjuptcsbFOufJYwxSeo/fK5+jPP+A2VU=;
+ b=Kw/Eso3W4Y/1RNoLhp0OUfggfj23cDmrK4FNKSXobBg9NjFV16yypBUW+cEGkjqrwh
+ MXCByubiIeR/NmgZ77wusp/egttd0zfqRgUTrqesUKFhqc61qVF4iaYRZMU7ayldDwm2
+ 6UaRaCkxS4km1pwEAZcbFWCL+Z5SypZxUxRaFfctY4UAkYs7RN3Jl1bWZo6UoKoDd3E9
+ +LX7IOUvXpWvWNmgS6bWpAg8ACJp6aa85LEOX+pS8td8X4IITLQo+RfmwSxSWCzHbuZE
+ DMyKVUxtU+dXBMD2ZMHUe6UKjTNL3tdOxth7jcRYaV41PCJoLMH6S++L1WWQthHMD1F4
+ fPbg==
+X-Gm-Message-State: ACrzQf1/Rb8Ab8EBCMspDexFxHwYUv2kcIDnZ7CMUVq7BuDXagBDV1cJ
+ 7nMJAOgR1ga9f3l2u2ZqGvD3ilUWRY7Qfy9u3gA=
+X-Google-Smtp-Source: AMsMyM7tHG8MLEPAAC1oq+pOtaq8q9LCvdpsiOuBH5gC7p5A8Fc21TRp39srBqNjD9CRCr/b6Fq2r+vkwI+mI5j7i/U=
+X-Received: by 2002:a05:6870:14cf:b0:12d:392b:1d9b with SMTP id
+ l15-20020a05687014cf00b0012d392b1d9bmr2853008oab.38.1664483941436; Thu, 29
+ Sep 2022 13:39:01 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20220924123611.225520-13-dmitry.baryshkov@linaro.org>
-Subject: Re: [Freedreno] [PATCH v8 12/12] dt-bindings: display/msm: add
- support for the display on SM8250
+References: <20220929093022.2428520-1-yangyingliang@huawei.com>
+ <6504933c-048d-310a-1651-58528f868bdb@quicinc.com>
+In-Reply-To: <6504933c-048d-310a-1651-58528f868bdb@quicinc.com>
+From: Rob Clark <robdclark@gmail.com>
+Date: Thu, 29 Sep 2022 13:38:58 -0700
+Message-ID: <CAF6AEGvKFF+xrz0y39d0YU9+0empuMCqq2zF3Qtrjkk_oyxdUw@mail.gmail.com>
+To: Akhil P Oommen <quic_akhilpo@quicinc.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [Freedreno] [PATCH -next] drm/msm/msm_gem_shrinker: fix compile
+ error in can_block()
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,31 +68,67 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: devicetree@vger.kernel.org,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- David Airlie <airlied@linux.ie>, linux-arm-msm@vger.kernel.org,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konrad.dybcio@somainline.org>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, Rob Herring <robh+dt@kernel.org>,
- Stephen Boyd <swboyd@chromium.org>, Rob Clark <robdclark@gmail.com>,
- Andy Gross <agross@kernel.org>, dri-devel@lists.freedesktop.org,
- Daniel Vetter <daniel@ffwll.ch>, freedreno@lists.freedesktop.org,
- Sean Paul <sean@poorly.run>
+Cc: freedreno@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ Yang Yingliang <yangyingliang@huawei.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Sat, 24 Sep 2022 15:36:11 +0300, Dmitry Baryshkov wrote:
-> Add DPU and MDSS schemas to describe MDSS and DPU blocks on the Qualcomm
-> SM8250 platform.
-> 
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> ---
->  .../bindings/display/msm/mdss-common.yaml     |   4 +-
->  .../bindings/display/msm/qcom,sm8250-dpu.yaml |  92 +++++
->  .../display/msm/qcom,sm8250-mdss.yaml         | 330 ++++++++++++++++++
->  3 files changed, 424 insertions(+), 2 deletions(-)
->  create mode 100644 Documentation/devicetree/bindings/display/msm/qcom,sm8250-dpu.yaml
->  create mode 100644 Documentation/devicetree/bindings/display/msm/qcom,sm8250-mdss.yaml
-> 
+On Thu, Sep 29, 2022 at 4:51 AM Akhil P Oommen <quic_akhilpo@quicinc.com> w=
+rote:
+>
+> On 9/29/2022 3:00 PM, Yang Yingliang wrote:
+> > I got the compile error:
+> >
+> >    drivers/gpu/drm/msm/msm_gem_shrinker.c: In function =E2=80=98can_blo=
+ck=E2=80=99:
+> >    drivers/gpu/drm/msm/msm_gem_shrinker.c:29:21: error: =E2=80=98__GFP_=
+ATOMIC=E2=80=99 undeclared (first use in this function); did you mean =E2=
+=80=98GFP_ATOMIC=E2=80=99?
+> >      if (sc->gfp_mask & __GFP_ATOMIC)
+> >                         ^~~~~~~~~~~~
+> >                         GFP_ATOMIC
+> >    drivers/gpu/drm/msm/msm_gem_shrinker.c:29:21: note: each undeclared =
+identifier is reported only once for each function it appears in
+> >
+> > __GFP_ATOMIC is dropped by commit 6708fe6bec50 ("mm: discard __GFP_ATOM=
+IC").
+> > Use __GFP_HIGH instead.
+> >
+> > Fixes: 025d27239a2f ("drm/msm/gem: Evict active GEM objects when necess=
+ary")
+> > Signed-off-by: Yang Yingliang <yangyingliang@huawei.com>
+> > ---
+> >   drivers/gpu/drm/msm/msm_gem_shrinker.c | 2 +-
+> >   1 file changed, 1 insertion(+), 1 deletion(-)
+> >
+> > diff --git a/drivers/gpu/drm/msm/msm_gem_shrinker.c b/drivers/gpu/drm/m=
+sm/msm_gem_shrinker.c
+> > index 58e0513be5f4..6a0de6cdb82b 100644
+> > --- a/drivers/gpu/drm/msm/msm_gem_shrinker.c
+> > +++ b/drivers/gpu/drm/msm/msm_gem_shrinker.c
+> > @@ -26,7 +26,7 @@ static bool can_swap(void)
+> >
+> >   static bool can_block(struct shrink_control *sc)
+> >   {
+> > -     if (sc->gfp_mask & __GFP_ATOMIC)
+> > +     if (sc->gfp_mask & __GFP_HIGH)
+> >               return false;
+> >       return current_is_kswapd() || (sc->gfp_mask & __GFP_RECLAIM);
+> >   }
+>
+> Reviewed-by: Akhil P Oommen <quic_akhilpo@quicinc.com>
+>
 
-Reviewed-by: Rob Herring <robh@kernel.org>
+Somehow the original patch didn't show up in my inbox, but I've sent this:
+
+https://patchwork.freedesktop.org/series/109255/
+
+I guess __GFP_HIGH could also be used to detect GFP_ATOMIC, but
+checking that direct reclaim is ok seems safer (ie. it should always
+be safe to sleep in that case)
+
+BR,
+-R
+
+>
+> -Akhil.
