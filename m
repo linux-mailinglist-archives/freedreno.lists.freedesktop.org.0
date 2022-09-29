@@ -1,56 +1,56 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 96D645EF231
-	for <lists+freedreno@lfdr.de>; Thu, 29 Sep 2022 11:36:45 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id D61855EF233
+	for <lists+freedreno@lfdr.de>; Thu, 29 Sep 2022 11:36:51 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E12D310EA27;
-	Thu, 29 Sep 2022 09:36:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8241710EA39;
+	Thu, 29 Sep 2022 09:36:50 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x12c.google.com (mail-lf1-x12c.google.com
- [IPv6:2a00:1450:4864:20::12c])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E697E10EA35
- for <freedreno@lists.freedesktop.org>; Thu, 29 Sep 2022 09:36:35 +0000 (UTC)
-Received: by mail-lf1-x12c.google.com with SMTP id d42so1439022lfv.0
- for <freedreno@lists.freedesktop.org>; Thu, 29 Sep 2022 02:36:35 -0700 (PDT)
+Received: from mail-lf1-x136.google.com (mail-lf1-x136.google.com
+ [IPv6:2a00:1450:4864:20::136])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 74D0210EA27
+ for <freedreno@lists.freedesktop.org>; Thu, 29 Sep 2022 09:36:42 +0000 (UTC)
+Received: by mail-lf1-x136.google.com with SMTP id 10so1395883lfy.5
+ for <freedreno@lists.freedesktop.org>; Thu, 29 Sep 2022 02:36:42 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :from:to:cc:subject:date;
- bh=ww6o0U2i2zJudwjdhnCm//cb1qt3k7L9xG3fGtIOJ0Y=;
- b=OSVXqv00/DBEjGvA0lWQtx0UoVTvunrlz3LSwOOhP1LROKbXDjxZwbQcFnBdn/q4hi
- fmXDXJlLPDms9ZLZZLyuSQ0atE2+f0w4QTrjLdi/W87F3QUTHl29bnNUuwcvz18r9z5d
- YEOL0A0SMER1G1NSI5AdBSxFsPlbaQzAX74iN/sm43FkRv/Xkd0pX88qLyCWb+xTjLZB
- iDqo09iDozXCNGH8QMvnasXxnTcsbAVtIH09EHTF2Ju6u9CGemeNBvorL4hUwMfLANXF
- Fr5LfX7Wj0l1XEm7aKwLZR6dYkRjWoLwmKR18NWR1p7oVZ1FxyigqwXKj+0XqZY++5UQ
- ybPQ==
+ bh=YboU7EJWX9s/eCKMNyU4MN70itKOnGmUbie/p84rbqI=;
+ b=JuHnP7zGLpDgnUtkUD1REAPRC0Y2S44WRa2xDgQH2rm7j8wRYSFLZgJD18dkNRHEe6
+ kHPbUGFIMs3vn1q6J84rOm0DiQadRN/iRnx0FMnMM+8174ypbIfpcMYrCM9jaTQcD0T6
+ pHWnpEu2UsTb7pYGv31+X6MPH33bABPYKRDD4BMGON3A7zUO/tiKlzM73XqhhLkCUpJR
+ SKeF0NPzxoR+iWSMYMEEg2h41UiKL8/zV/L//wmk9IrOcmUnO3RV2t1TZ/xOlrkL4cy9
+ E/oLC18xRQZEwJE9+JCtA4gdNNtTLD+poq/GfzcdpvZIBPbCBbQuW91Zfc9roedF1MCZ
+ 3Igg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date;
- bh=ww6o0U2i2zJudwjdhnCm//cb1qt3k7L9xG3fGtIOJ0Y=;
- b=giax+OkyVTy5MHG9mzkF8DZ7mnVcBLh0A15Jfxc4cE3j5QKOZ+zSybDQQx7s5LPyWB
- oTmbgwirlpsHtg11Gv4RBRYkjbI/+WB54cajeeIIzOE7stpf62C7ONzKVah9u/jCqcqu
- as1IsFGXwBX798Uz8avzBfErFVjHAFAnmA8VOZ9n/ullXdA8IL/LTmVUntjA3CKdYxz4
- ks0t7mIDIn9FtlD3DbLyfRZ4pFVeHbU+B87aGr6C6DcfKzKbp7o9PbXiOYzkkA2MUya5
- kWNizhhOa9IIs1ur3IDerVCcKb+ODEj2MSuNwQ3VfEoJDKpKUZHKhY1MyX0lazthq81X
- 2/kg==
-X-Gm-Message-State: ACrzQf2EINraQaFijmmOAzHWGsHcC3ZFajNUIlRw6w2fK+/n1h106F40
- WEfIll1QhO0XFfSzRegQcGBr1w==
-X-Google-Smtp-Source: AMsMyM4Dy/g46rErBOUXB26zHgJUerXIox3jFEOJ+JO/d1gOihHxqiQK0J4+5dHNIj1rAVf/D9KgUg==
-X-Received: by 2002:a05:6512:3f08:b0:4a1:af5e:5643 with SMTP id
- y8-20020a0565123f0800b004a1af5e5643mr1012675lfa.86.1664444194280; 
- Thu, 29 Sep 2022 02:36:34 -0700 (PDT)
+ bh=YboU7EJWX9s/eCKMNyU4MN70itKOnGmUbie/p84rbqI=;
+ b=8BSJBpGtWK52G+7KBFojV5IswYnnTf+mmHebddNPQfVg/TXpXHkB2Av0NtQvT0XDLG
+ YzK0YpBZiGMApQ7SvbIgQfnh2DL0O5wslDZLT4d3JuVj3X2nxcxbzTToHvyWHRIbyKIz
+ dz8PonJc1VHq3Zlq2IbBbZKWkWhZLv2NvgXXs81T+9P7iZEUQUWBH/ZQUGgMVy2h1HMM
+ cTtGjAWkMn+EUw4K6YG7LKttYt5ABDjE8QAshXTIIgX5z0moa3MFEAYym1q4GKh0HU+0
+ pnIAMsbufiQzdD2qhw+g8mp/Mx4wx/nACidyy2OW+LvdZbrQW0p+rnprFXpmERg7+dnx
+ jBjw==
+X-Gm-Message-State: ACrzQf1yF5rOcZKy52iRgNE2/bT6YgMB4fHoHKcyRAPe0X4GSGFGjNbg
+ Hrthri98Ib6Qg5WR20YhtSHFow==
+X-Google-Smtp-Source: AMsMyM4cbUx3bEAc/nOwmW2NfB+K9ZpERD1j5UJsF0wbx7S/BgpUDvdacDKkJe+a3ToJ2swNATd+ag==
+X-Received: by 2002:a05:6512:3b9b:b0:499:b2b7:c3c1 with SMTP id
+ g27-20020a0565123b9b00b00499b2b7c3c1mr972536lfv.54.1664444200826; 
+ Thu, 29 Sep 2022 02:36:40 -0700 (PDT)
 Received: from [192.168.0.21] (78-11-189-27.static.ip.netia.com.pl.
  [78.11.189.27]) by smtp.gmail.com with ESMTPSA id
- s14-20020a19770e000000b0048b08e25979sm733803lfc.199.2022.09.29.02.36.33
+ p13-20020ac24ecd000000b00499cf3e3ebesm732365lfr.121.2022.09.29.02.36.39
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 29 Sep 2022 02:36:33 -0700 (PDT)
-Message-ID: <869ac2b0-b643-310e-7b32-0e81edef6e15@linaro.org>
-Date: Thu, 29 Sep 2022 11:36:32 +0200
+ Thu, 29 Sep 2022 02:36:40 -0700 (PDT)
+Message-ID: <30009f48-4f31-b6b4-f444-85bc91836d14@linaro.org>
+Date: Thu, 29 Sep 2022 11:36:39 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.3.0
@@ -62,13 +62,13 @@ To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
  Abhinav Kumar <quic_abhinavk@quicinc.com>, Rob Herring <robh+dt@kernel.org>,
  Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>
 References: <20220924094347.178666-1-dmitry.baryshkov@linaro.org>
- <20220924094347.178666-2-dmitry.baryshkov@linaro.org>
+ <20220924094347.178666-3-dmitry.baryshkov@linaro.org>
 From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-In-Reply-To: <20220924094347.178666-2-dmitry.baryshkov@linaro.org>
+In-Reply-To: <20220924094347.178666-3-dmitry.baryshkov@linaro.org>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH 1/2] ARM: dts: qcom-apq8064: change HDMI PHY
- node name to generic one
+Subject: Re: [Freedreno] [PATCH 2/2] arm64: dts: qcom: msm8996: change HDMI
+ PHY node name to generic one
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -89,7 +89,7 @@ Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 On 24/09/2022 11:43, Dmitry Baryshkov wrote:
-> Change HDMI PHY node names from custom 'hdmi-phy' to the generic 'phy'.
+> Change HDMI PHY node name from custom 'hdmi-phy' to the generic 'phy'.
 > 
 > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 
