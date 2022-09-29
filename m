@@ -1,77 +1,48 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 803805EF4B9
-	for <lists+freedreno@lfdr.de>; Thu, 29 Sep 2022 13:51:19 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 1DFBD5EF6DD
+	for <lists+freedreno@lfdr.de>; Thu, 29 Sep 2022 15:47:19 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C8B9D10E5AF;
-	Thu, 29 Sep 2022 11:51:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CFC8110EA8F;
+	Thu, 29 Sep 2022 13:47:17 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8FAC310E5AF;
- Thu, 29 Sep 2022 11:51:13 +0000 (UTC)
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 28TBhLJY017900;
- Thu, 29 Sep 2022 11:51:09 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
- h=message-id : date :
- mime-version : subject : to : cc : references : from : in-reply-to :
- content-type : content-transfer-encoding; s=qcppdkim1;
- bh=hrGxqKIP1J6IorcVpPqieu0Smi370k03ViTx7kfgyqk=;
- b=l/ukuZW+SbuLWSKBaBGoc0w0Vvav6VoK35d6qQaK9HqnAuNANStLLFZ4a5YEWu/jx5hv
- 46aLM3jbkJRtWzclu1vEng/Gc+C7EFJy27d67qorDpDSlml1TTGpeFLdPKe5N/QLJbN/
- zB0KrujvQ6Ik1CLgsbPcpjn2LkwtwtFVtBZgyZ+m2WIFhM04xZSRxZqJvNaMnXNFh0qr
- dQEeAAiZbtZ9bM8H0dlhnUre4MaTsVf0ATKp6nwAECwT3kwG6KvjF6blBcjkYSwRNwC7
- IsVd2IfJ5p5g9UNhom5U2OMd/mA/VdekoDe78ISMa1Tr4XUXJpsznAFwX1ZpciPyyvju tg== 
-Received: from nalasppmta04.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3jw4xq9apv-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 29 Sep 2022 11:51:09 +0000
-Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
- [10.47.209.196])
- by NALASPPMTA04.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 28TBp8fS000689
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 29 Sep 2022 11:51:08 GMT
-Received: from [10.204.67.102] (10.80.80.8) by nalasex01a.na.qualcomm.com
- (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.29; Thu, 29 Sep
- 2022 04:51:07 -0700
-Message-ID: <6504933c-048d-310a-1651-58528f868bdb@quicinc.com>
-Date: Thu, 29 Sep 2022 17:21:04 +0530
+Received: from mail.codeweavers.com (mail.codeweavers.com [65.103.31.132])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E1D0310E299;
+ Thu, 29 Sep 2022 12:55:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=codeweavers.com; s=6377696661; h=Content-Transfer-Encoding:Content-Type:
+ Subject:From:To:MIME-Version:Date:Message-ID:Sender:Reply-To:Cc:Content-ID:
+ Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+ :Resent-Message-ID:In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:
+ List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=sLRVBiowlV3tgU9aNfa7uL8HAclPzQwxQlHwwavoEO4=; b=MojYtUJRl8xO+X4QxgC3u5xer8
+ zhKa4ZNMN3KOOlNDjCx4QcE7qWgbUR7wngGBdOpD9qVqXXJbWVpk3VTi+dgH7gmc9C43bYkRnLHVF
+ XWxmGESyyUch0KKrU3UXzf3ZGOTKfSKkaXryLOWFp6RJW2/8ESTXELWQM/mA7Y/x0+DM=;
+Received: from jwhite.vpn.codeweavers.com ([10.69.141.101] helo=[10.0.0.18])
+ by mail.codeweavers.com with esmtpsa (TLS1.3) tls
+ TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 (Exim 4.94.2)
+ (envelope-from <jwhite@codeweavers.com>)
+ id 1odt4P-00087X-TW; Thu, 29 Sep 2022 07:55:18 -0500
+Message-ID: <0dff419f-1c40-16ba-b067-a88ba46305eb@codeweavers.com>
+Date: Thu, 29 Sep 2022 07:55:17 -0500
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.3.2
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.13.0
 Content-Language: en-US
-To: Yang Yingliang <yangyingliang@huawei.com>,
- <dri-devel@lists.freedesktop.org>, <freedreno@lists.freedesktop.org>
-References: <20220929093022.2428520-1-yangyingliang@huawei.com>
-From: Akhil P Oommen <quic_akhilpo@quicinc.com>
-In-Reply-To: <20220929093022.2428520-1-yangyingliang@huawei.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
+To: events@lists.x.org, xorg-devel@lists.freedesktop.org,
+ wayland-devel@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ mesa-dev@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ etnaviv@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ nouveau@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ libre-soc-dev@lists.libre-soc.org
+From: Jeremy White <jwhite@codeweavers.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-GUID: PdVcu667UtcKV8Kfd6GWONjeEDQ1DfaJ
-X-Proofpoint-ORIG-GUID: PdVcu667UtcKV8Kfd6GWONjeEDQ1DfaJ
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.205,Aquarius:18.0.895,Hydra:6.0.528,FMLib:17.11.122.1
- definitions=2022-09-29_06,2022-09-29_03,2022-06-22_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 mlxlogscore=999
- spamscore=0 priorityscore=1501 bulkscore=0 impostorscore=0 suspectscore=0
- malwarescore=0 mlxscore=0 lowpriorityscore=0 clxscore=1011 adultscore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2209130000
- definitions=main-2209290073
-Subject: Re: [Freedreno] [PATCH -next] drm/msm/msm_gem_shrinker: fix compile
- error in can_block()
+X-Mailman-Approved-At: Thu, 29 Sep 2022 13:47:12 +0000
+Subject: [Freedreno] Information about XDC 2022 - next week!
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -84,44 +55,58 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: robdclark@gmail.com
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 9/29/2022 3:00 PM, Yang Yingliang wrote:
-> I got the compile error:
->
->    drivers/gpu/drm/msm/msm_gem_shrinker.c: In function ‘can_block’:
->    drivers/gpu/drm/msm/msm_gem_shrinker.c:29:21: error: ‘__GFP_ATOMIC’ undeclared (first use in this function); did you mean ‘GFP_ATOMIC’?
->      if (sc->gfp_mask & __GFP_ATOMIC)
->                         ^~~~~~~~~~~~
->                         GFP_ATOMIC
->    drivers/gpu/drm/msm/msm_gem_shrinker.c:29:21: note: each undeclared identifier is reported only once for each function it appears in
->
-> __GFP_ATOMIC is dropped by commit 6708fe6bec50 ("mm: discard __GFP_ATOMIC").
-> Use __GFP_HIGH instead.
->
-> Fixes: 025d27239a2f ("drm/msm/gem: Evict active GEM objects when necessary")
-> Signed-off-by: Yang Yingliang <yangyingliang@huawei.com>
-> ---
->   drivers/gpu/drm/msm/msm_gem_shrinker.c | 2 +-
->   1 file changed, 1 insertion(+), 1 deletion(-)
->
-> diff --git a/drivers/gpu/drm/msm/msm_gem_shrinker.c b/drivers/gpu/drm/msm/msm_gem_shrinker.c
-> index 58e0513be5f4..6a0de6cdb82b 100644
-> --- a/drivers/gpu/drm/msm/msm_gem_shrinker.c
-> +++ b/drivers/gpu/drm/msm/msm_gem_shrinker.c
-> @@ -26,7 +26,7 @@ static bool can_swap(void)
->   
->   static bool can_block(struct shrink_control *sc)
->   {
-> -	if (sc->gfp_mask & __GFP_ATOMIC)
-> +	if (sc->gfp_mask & __GFP_HIGH)
->   		return false;
->   	return current_is_kswapd() || (sc->gfp_mask & __GFP_RECLAIM);
->   }
+﻿Hi folks,
 
-Reviewed-by: Akhil P Oommen <quic_akhilpo@quicinc.com>
+We are excited to welcome you in person to the 2022 X.Org Developers 
+Conference, held in conjunction with WineConf and FOSS XR conference.
 
+The conference will start officially on Tuesday morning, October 4th. 
+The program is here:
+   https://indico.freedesktop.org/event/2/timetable/#all.detailed
+The official events start at 8:30 am, but we will have coffee and 
+pastries available from 7:30 on Tuesday and 8 on Wednesday and Thursday.
 
--Akhil.
+We expect everyone attending to be vaccinated and to be respectful of 
+people that are trying to avoid catching COVID. Masks are mandatory, 
+except when presenting or eating.
+
+A small number of us will gather informally at Brit’s Pub, starting at 
+around 4:00 pm on Monday, October 3rd.  We’ll try to have a table with 
+some sort of a sign, and folks can connect, have a drink, and then 
+perhaps group up to explore alternate food.  Note that if the weather is 
+nice, we may be up on the roof, so explore far to find us.
+
+We will be on the Minneapolis campus of St. Thomas, which is a mildly 
+confusing campus.  We have given instructions and a picture to guide you 
+here:
+ 
+https://indico.freedesktop.org/event/2/page/10-attending-xdc-wineconf-foss-xr
+We are working on the remote experience, and expect to have streaming of 
+all events available. The above page will have those details just as 
+soon as they are finalized.
+
+We have a page of instructions for folks that will be presenting:
+   https://indico.freedesktop.org/event/2/page/18-speaker-instructions
+
+We are also excited to announce the happy hour taking place on 
+Wednesday, from 6:00 pm until 8:00 pm.  The hope is that all three 
+projects can mingle and socialize and enjoy the return of in person 
+meetings.
+
+Also, this year we plan to adopt the Wine strategy of using a deliberate 
+Matrix chat room just for the conference.  Matrix has a variety of apps, 
+and Element, the default one is easy to configure on many devices, 
+including mobile phones.  The link to that channel is here:
+   https://matrix.to/#/#xdc-wineconf-fossxr-2022:matrix.org
+We find the chat channel a good place to learn what restaurants and bars 
+are chosen, and just a good way to track the social aspects of the 
+conference.
+
+We look forward to seeing you next week!
+
+Cheers,
+
+Jeremy
