@@ -2,43 +2,55 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id A5AB35EFAFC
-	for <lists+freedreno@lfdr.de>; Thu, 29 Sep 2022 18:36:55 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3590A5EFE0C
+	for <lists+freedreno@lfdr.de>; Thu, 29 Sep 2022 21:36:13 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3823D10EAC9;
-	Thu, 29 Sep 2022 16:36:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5524110EC75;
+	Thu, 29 Sep 2022 19:36:11 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from bombadil.infradead.org (bombadil.infradead.org
- [IPv6:2607:7c80:54:3::133])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8B0EC10EAC9;
- Thu, 29 Sep 2022 16:36:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
- Content-Type:In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:
- Message-ID:Sender:Reply-To:Content-ID:Content-Description;
- bh=Xaq4k1m7DmXrhS0yatltQ3u7OYSHA8MZ+pTtIuY0h+o=; b=t2WNTiWbOULZA+DVCue417StiQ
- 9U6hQkWbnCD21t9/FLjeLQj4tmLUtClIkf9wAqmQsheoyPFGDQSLjgvdNkQkbwzjjZkDH/526kSiR
- bDBlx0E+ttCTXvW/SidO5w7Bp7BZ/bQpY/WYc8b6kHeCAKFxjOd+0Df1KjGJAxk9ixavA3Tsb7ybh
- YfDQkEWfUbMJgBF/0CIrZHbdMY9szPy3+a8HwgP5daod3Xf6m5SsyeOx285hTuJeKEQgWIcfZdBpS
- aiZTuy0FMI9hopRg5NYdmR7wE7X5rXKWK9G6Lp5bBtrjXuzR6jmPzOCghtyfVczc2GFNJmplq0mEW
- hUfMOASg==;
-Received: from [2601:1c2:d80:3110::a2e7]
- by bombadil.infradead.org with esmtpsa (Exim 4.94.2 #2 (Red Hat Linux))
- id 1odwWm-004EZI-R7; Thu, 29 Sep 2022 16:36:48 +0000
-Message-ID: <81f8b954-ebb7-fcb6-4bdf-d5992e2be80a@infradead.org>
-Date: Thu, 29 Sep 2022 09:36:45 -0700
+Received: from mail-oi1-f171.google.com (mail-oi1-f171.google.com
+ [209.85.167.171])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1402210EC75;
+ Thu, 29 Sep 2022 19:36:09 +0000 (UTC)
+Received: by mail-oi1-f171.google.com with SMTP id c81so2654417oif.3;
+ Thu, 29 Sep 2022 12:36:09 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date;
+ bh=R6Fx1GZLpV1QRnBBMILVQk0FCMQZPR9gcz/0eV1V+30=;
+ b=HiXzuuteB7X9U6RrSbfTvg8o9OsMphepGxJsHde+FWs+saIQyNkUkIIaLkPQWwzSCW
+ V5IPmEB/jTPIpuY4IJjITCLytFNKwjtB9OFXItMhdmfPGQ0DktOQ+vSDOZ+JfJlw0OYp
+ 4GzNC8P5+Ff9q1XOraTmMbZHEpPy04qjampOYjwoU3tuZQNdrJ/32zMG8hRZTdpl0wx1
+ 4SMMLG6QY+MPW58yv429EnFtn7UL1PO5003yDDYq1lt26/RDU59Fg6j2j1BgVuHVkbEx
+ emR2wAZWgnGXgWcPSV+Xw5GKACPEU9BwSid+1NBuoqUJM2AkUO6npoSdRUmkyHbsKawD
+ smfg==
+X-Gm-Message-State: ACrzQf3FrBPONkt65lwuLdYL6Lit8PPJDlWj+9lmNC+Q+4fEsC3u3gne
+ 6VupBTlfRuh2lUu1HTVkfg==
+X-Google-Smtp-Source: AMsMyM7wumYHj5Di5UZXrYcudyqXxaGDmcrSg4h9U5d0fxPE1xPAm3edqGlszMTz+y14KJ3XhsIh1Q==
+X-Received: by 2002:a05:6808:285:b0:34f:b12b:565e with SMTP id
+ z5-20020a056808028500b0034fb12b565emr7911683oic.24.1664480167952; 
+ Thu, 29 Sep 2022 12:36:07 -0700 (PDT)
+Received: from macbook.herring.priv (66-90-144-107.dyn.grandenetworks.net.
+ [66.90.144.107]) by smtp.gmail.com with ESMTPSA id
+ t15-20020a056870e74f00b0011f00b027bdsm146159oak.45.2022.09.29.12.36.06
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 29 Sep 2022 12:36:07 -0700 (PDT)
+Received: (nullmailer pid 2619055 invoked by uid 1000);
+ Thu, 29 Sep 2022 19:36:06 -0000
+Date: Thu, 29 Sep 2022 14:36:06 -0500
+From: Rob Herring <robh@kernel.org>
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Message-ID: <166448016545.2618978.3839528347670225478.robh@kernel.org>
+References: <20220924123611.225520-1-dmitry.baryshkov@linaro.org>
+ <20220924123611.225520-5-dmitry.baryshkov@linaro.org>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.2.2
-Content-Language: en-US
-To: Rob Clark <robdclark@gmail.com>, dri-devel@lists.freedesktop.org
-References: <20220929161404.2769414-1-robdclark@gmail.com>
-From: Randy Dunlap <rdunlap@infradead.org>
-In-Reply-To: <20220929161404.2769414-1-robdclark@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH] drm/msm: Fix build break with recent mm tree
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20220924123611.225520-5-dmitry.baryshkov@linaro.org>
+Subject: Re: [Freedreno] [PATCH v8 04/12] dt-bindings: display/msm: move
+ common DPU properties to dpu-common.yaml
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -51,56 +63,37 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rob Clark <robdclark@chromium.org>, freedreno@lists.freedesktop.org,
- Stephen Rothwell <sfr@canb.auug.org.au>, David Airlie <airlied@linux.ie>,
- linux-arm-msm@vger.kernel.org, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- open list <linux-kernel@vger.kernel.org>, Sean Paul <sean@poorly.run>,
- Daniel Vetter <daniel@ffwll.ch>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Dave Airlie <airlied@gmail.com>
+Cc: devicetree@vger.kernel.org, Daniel Vetter <daniel@ffwll.ch>,
+ David Airlie <airlied@linux.ie>, Sean Paul <sean@poorly.run>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konrad.dybcio@somainline.org>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
+ Stephen Boyd <swboyd@chromium.org>, Rob Herring <robh+dt@kernel.org>,
+ Rob Clark <robdclark@gmail.com>, Andy Gross <agross@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-
-
-On 9/29/22 09:14, Rob Clark wrote:
-> From: Rob Clark <robdclark@chromium.org>
+On Sat, 24 Sep 2022 15:36:03 +0300, Dmitry Baryshkov wrote:
+> Move properties common to all DPU DT nodes to the dpu-common.yaml.
 > 
-> 9178e3dcb121 ("mm: discard __GFP_ATOMIC") removed __GFP_ATOMIC,
-> replacing it with a check for not __GFP_DIRECT_RECLAIM.
+> Note, this removes description of individual DPU port@ nodes. However
+> such definitions add no additional value. The reg values do not
+> correspond to hardware INTF indices. The driver discovers and binds
+> these ports not paying any care for the order of these items. Thus just
+> leave the reference to graph.yaml#/properties/ports and the description.
 > 
-> Reported-by: Randy Dunlap <rdunlap@infradead.org>
-> Reported-by: Stephen Rothwell <sfr@canb.auug.org.au>
-> Signed-off-by: Rob Clark <robdclark@chromium.org>
-
-Acked-by: Randy Dunlap <rdunlap@infradead.org> # build-tested
-
-Thanks.
-
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 > ---
-> Sorry, this was reported by Stephen earlier in the month, while
-> I was on the other side of the globe and jetlagged.  Unfortunately
-> I forgot about it by the time I got back home.  Applying this patch
-> after 025d27239a2f ("drm/msm/gem: Evict active GEM objects when necessary")
-> but before or after 9178e3dcb121 ("mm: discard __GFP_ATOMIC") should
-> resolve the build breakage.
+>  .../bindings/display/msm/dpu-common.yaml      | 52 +++++++++++++++++++
+>  .../bindings/display/msm/dpu-msm8998.yaml     | 44 +---------------
+>  .../bindings/display/msm/dpu-qcm2290.yaml     | 39 +-------------
+>  .../bindings/display/msm/dpu-sc7180.yaml      | 43 +--------------
+>  .../bindings/display/msm/dpu-sc7280.yaml      | 43 +--------------
+>  .../bindings/display/msm/dpu-sdm845.yaml      | 44 +---------------
+>  6 files changed, 62 insertions(+), 203 deletions(-)
+>  create mode 100644 Documentation/devicetree/bindings/display/msm/dpu-common.yaml
 > 
->  drivers/gpu/drm/msm/msm_gem_shrinker.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/drivers/gpu/drm/msm/msm_gem_shrinker.c b/drivers/gpu/drm/msm/msm_gem_shrinker.c
-> index 473ced14e520..8f83454ceedf 100644
-> --- a/drivers/gpu/drm/msm/msm_gem_shrinker.c
-> +++ b/drivers/gpu/drm/msm/msm_gem_shrinker.c
-> @@ -27,7 +27,7 @@ static bool can_swap(void)
->  
->  static bool can_block(struct shrink_control *sc)
->  {
-> -	if (sc->gfp_mask & __GFP_ATOMIC)
-> +	if (!(sc->gfp_mask & __GFP_DIRECT_RECLAIM))
->  		return false;
->  	return current_is_kswapd() || (sc->gfp_mask & __GFP_RECLAIM);
->  }
 
--- 
-~Randy
+Reviewed-by: Rob Herring <robh@kernel.org>
