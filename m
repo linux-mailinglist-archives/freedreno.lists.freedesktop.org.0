@@ -1,48 +1,58 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1DFBD5EF6DD
-	for <lists+freedreno@lfdr.de>; Thu, 29 Sep 2022 15:47:19 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 1E9345EF845
+	for <lists+freedreno@lfdr.de>; Thu, 29 Sep 2022 17:05:23 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CFC8110EA8F;
-	Thu, 29 Sep 2022 13:47:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B263A10EAAD;
+	Thu, 29 Sep 2022 15:05:21 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail.codeweavers.com (mail.codeweavers.com [65.103.31.132])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E1D0310E299;
- Thu, 29 Sep 2022 12:55:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=codeweavers.com; s=6377696661; h=Content-Transfer-Encoding:Content-Type:
- Subject:From:To:MIME-Version:Date:Message-ID:Sender:Reply-To:Cc:Content-ID:
- Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
- :Resent-Message-ID:In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:
- List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=sLRVBiowlV3tgU9aNfa7uL8HAclPzQwxQlHwwavoEO4=; b=MojYtUJRl8xO+X4QxgC3u5xer8
- zhKa4ZNMN3KOOlNDjCx4QcE7qWgbUR7wngGBdOpD9qVqXXJbWVpk3VTi+dgH7gmc9C43bYkRnLHVF
- XWxmGESyyUch0KKrU3UXzf3ZGOTKfSKkaXryLOWFp6RJW2/8ESTXELWQM/mA7Y/x0+DM=;
-Received: from jwhite.vpn.codeweavers.com ([10.69.141.101] helo=[10.0.0.18])
- by mail.codeweavers.com with esmtpsa (TLS1.3) tls
- TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 (Exim 4.94.2)
- (envelope-from <jwhite@codeweavers.com>)
- id 1odt4P-00087X-TW; Thu, 29 Sep 2022 07:55:18 -0500
-Message-ID: <0dff419f-1c40-16ba-b067-a88ba46305eb@codeweavers.com>
-Date: Thu, 29 Sep 2022 07:55:17 -0500
+Received: from mail-yb1-xb2c.google.com (mail-yb1-xb2c.google.com
+ [IPv6:2607:f8b0:4864:20::b2c])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E30C410EAB0
+ for <freedreno@lists.freedesktop.org>; Thu, 29 Sep 2022 15:05:17 +0000 (UTC)
+Received: by mail-yb1-xb2c.google.com with SMTP id k3so53161ybk.9
+ for <freedreno@lists.freedesktop.org>; Thu, 29 Sep 2022 08:05:17 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date;
+ bh=b9uxRyoaMis4M/Del53oQhe/OKhSA38Po18Or6YilLY=;
+ b=j/p76Gbz/6p+klZe5CzqnqgPqzGWALW2g91DrPRqYNms6dk5oGuWDhJHL1Tvx+U25E
+ nv9/Y0D9beecD9wyAD08rbImhYmv8NXz9nzQnidMa8IRhaLbrWuagphyW2wJHaXf6e3y
+ ORntlHyPdupf80tWY1phTwvXu6h2ci8lJbuNw=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date;
+ bh=b9uxRyoaMis4M/Del53oQhe/OKhSA38Po18Or6YilLY=;
+ b=bZxhloHyOMulCCRhgbzNtOS5GAsEeXXzRpaT8rGijFY9jBC9l6OKZF809RlSMtouHc
+ OUZjhR9hlbsI/iDIJzBZcgJmq+7kyx9j2oHrblYJ4VDq7xIFja1dMkQjpDHrUbV+/HaT
+ 4wS+LWVlY823U6FG/K09l6x+Iu2d5GlQnAwMyFOUKPdcEkaz2I00jHmazdNHrGNziJS3
+ waNb9elQNhEabeaHo+3Lomk/YwkHkQfbhZM9QkdVdirYLIfwMTjotzZaDxSPUgsHyUmY
+ VBLjjMWkC7rbZd+IVr1AZIDhmB+K2+Psi7fMVVyO8yRbqn7afa9Hw6IzW8zPTpme/ew8
+ MnmA==
+X-Gm-Message-State: ACrzQf2Xhb1KGdo7/AVQL79e4znHlcgvTCO/0MJHCFrZe+lvjvgJB1ZQ
+ E9Rv32K4/a3YH4Zr0S88Rw6aU8wBZko2OJQcbBA8iw==
+X-Google-Smtp-Source: AMsMyM6mVFtECpxKgra3ZkQaG9b6seBNybgK+xW2wUNsy82MrfUpk07hV4+qwXFgEt9Ky8+H6uTmtZZfdLoFajaRwaU=
+X-Received: by 2002:a05:6902:284:b0:67b:fc57:9104 with SMTP id
+ v4-20020a056902028400b0067bfc579104mr3718530ybh.647.1664463915933; Thu, 29
+ Sep 2022 08:05:15 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.13.0
-Content-Language: en-US
-To: events@lists.x.org, xorg-devel@lists.freedesktop.org,
- wayland-devel@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- mesa-dev@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- etnaviv@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- nouveau@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- libre-soc-dev@lists.libre-soc.org
-From: Jeremy White <jwhite@codeweavers.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Thu, 29 Sep 2022 13:47:12 +0000
-Subject: [Freedreno] Information about XDC 2022 - next week!
+References: <20220928192605.247546-1-broonie@kernel.org>
+ <68689c5b-327f-65df-0d34-a7e1a851f568@infradead.org>
+ <CAMuHMdWrQabb_LoCPfbdWo9D11+4kxSjQeBStpjvckvuXuBMNQ@mail.gmail.com>
+In-Reply-To: <CAMuHMdWrQabb_LoCPfbdWo9D11+4kxSjQeBStpjvckvuXuBMNQ@mail.gmail.com>
+From: Rob Clark <robdclark@chromium.org>
+Date: Thu, 29 Sep 2022 08:05:04 -0700
+Message-ID: <CAJs_Fx4NzHVRvN6xd-unrpmv=Nc_PXYbHvYujhz7UZ=YRkRZ7A@mail.gmail.com>
+To: Geert Uytterhoeven <geert@linux-m68k.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [Freedreno] linux-next: Tree for Sep 28
+ (drivers/gpu/drm/msm/msm_gem_shrinker.c)
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,58 +65,57 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
+Cc: linux-arm-msm@vger.kernel.org, Randy Dunlap <rdunlap@infradead.org>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ broonie@kernel.org, Linux Next Mailing List <linux-next@vger.kernel.org>,
+ freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-﻿Hi folks,
+On Thu, Sep 29, 2022 at 12:09 AM Geert Uytterhoeven
+<geert@linux-m68k.org> wrote:
+>
+> On Thu, Sep 29, 2022 at 8:10 AM Randy Dunlap <rdunlap@infradead.org> wrot=
+e:
+> > On 9/28/22 12:26, broonie@kernel.org wrote:
+> > > Changes since 20220927:
+> > >
+> >
+> > on x86_64:
+> >
+> > ../drivers/gpu/drm/msm/msm_gem_shrinker.c: In function =E2=80=98can_blo=
+ck=E2=80=99:
+> > ../drivers/gpu/drm/msm/msm_gem_shrinker.c:29:28: error: =E2=80=98__GFP_=
+ATOMIC=E2=80=99 undeclared (first use in this function); did you mean =E2=
+=80=98GFP_ATOMIC=E2=80=99?
+> >    29 |         if (sc->gfp_mask & __GFP_ATOMIC)
+> >       |                            ^~~~~~~~~~~~
+> >       |                            GFP_ATOMIC
+>
+> Also on m68k, as reported by noreply@ellerman.id.au
+>
+> I have bisected it to commit 1ccea29f90329e35 ("Merge branch
+> 'mm-everything' of
+> git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm"), but I didn't
+> see immediately what caused it.
 
-We are excited to welcome you in person to the 2022 X.Org Developers 
-Conference, held in conjunction with WineConf and FOSS XR conference.
+I'll send a patch for this shortly
 
-The conference will start officially on Tuesday morning, October 4th. 
-The program is here:
-   https://indico.freedesktop.org/event/2/timetable/#all.detailed
-The official events start at 8:30 am, but we will have coffee and 
-pastries available from 7:30 on Tuesday and 8 on Wednesday and Thursday.
+BR,
+-R
 
-We expect everyone attending to be vaccinated and to be respectful of 
-people that are trying to avoid catching COVID. Masks are mandatory, 
-except when presenting or eating.
 
-A small number of us will gather informally at Brit’s Pub, starting at 
-around 4:00 pm on Monday, October 3rd.  We’ll try to have a table with 
-some sort of a sign, and folks can connect, have a drink, and then 
-perhaps group up to explore alternate food.  Note that if the weather is 
-nice, we may be up on the roof, so explore far to find us.
-
-We will be on the Minneapolis campus of St. Thomas, which is a mildly 
-confusing campus.  We have given instructions and a picture to guide you 
-here:
- 
-https://indico.freedesktop.org/event/2/page/10-attending-xdc-wineconf-foss-xr
-We are working on the remote experience, and expect to have streaming of 
-all events available. The above page will have those details just as 
-soon as they are finalized.
-
-We have a page of instructions for folks that will be presenting:
-   https://indico.freedesktop.org/event/2/page/18-speaker-instructions
-
-We are also excited to announce the happy hour taking place on 
-Wednesday, from 6:00 pm until 8:00 pm.  The hope is that all three 
-projects can mingle and socialize and enjoy the return of in person 
-meetings.
-
-Also, this year we plan to adopt the Wine strategy of using a deliberate 
-Matrix chat room just for the conference.  Matrix has a variety of apps, 
-and Element, the default one is easy to configure on many devices, 
-including mobile phones.  The link to that channel is here:
-   https://matrix.to/#/#xdc-wineconf-fossxr-2022:matrix.org
-We find the chat channel a good place to learn what restaurants and bars 
-are chosen, and just a good way to track the social aspects of the 
-conference.
-
-We look forward to seeing you next week!
-
-Cheers,
-
-Jeremy
+> Gr{oetje,eeting}s,
+>
+>                         Geert
+>
+> --
+> Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m6=
+8k.org
+>
+> In personal conversations with technical people, I call myself a hacker. =
+But
+> when I'm talking to journalists I just say "programmer" or something like=
+ that.
+>                                 -- Linus Torvalds
