@@ -1,58 +1,66 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1E9345EF845
-	for <lists+freedreno@lfdr.de>; Thu, 29 Sep 2022 17:05:23 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id CEE235EF9EF
+	for <lists+freedreno@lfdr.de>; Thu, 29 Sep 2022 18:13:50 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B263A10EAAD;
-	Thu, 29 Sep 2022 15:05:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7746E10E607;
+	Thu, 29 Sep 2022 16:13:46 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-yb1-xb2c.google.com (mail-yb1-xb2c.google.com
- [IPv6:2607:f8b0:4864:20::b2c])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E30C410EAB0
- for <freedreno@lists.freedesktop.org>; Thu, 29 Sep 2022 15:05:17 +0000 (UTC)
-Received: by mail-yb1-xb2c.google.com with SMTP id k3so53161ybk.9
- for <freedreno@lists.freedesktop.org>; Thu, 29 Sep 2022 08:05:17 -0700 (PDT)
+Received: from mail-ej1-x636.google.com (mail-ej1-x636.google.com
+ [IPv6:2a00:1450:4864:20::636])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6470010E5F5
+ for <freedreno@lists.freedesktop.org>; Thu, 29 Sep 2022 16:13:42 +0000 (UTC)
+Received: by mail-ej1-x636.google.com with SMTP id dv25so3781945ejb.12
+ for <freedreno@lists.freedesktop.org>; Thu, 29 Sep 2022 09:13:42 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date;
- bh=b9uxRyoaMis4M/Del53oQhe/OKhSA38Po18Or6YilLY=;
- b=j/p76Gbz/6p+klZe5CzqnqgPqzGWALW2g91DrPRqYNms6dk5oGuWDhJHL1Tvx+U25E
- nv9/Y0D9beecD9wyAD08rbImhYmv8NXz9nzQnidMa8IRhaLbrWuagphyW2wJHaXf6e3y
- ORntlHyPdupf80tWY1phTwvXu6h2ci8lJbuNw=
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date;
+ bh=V7QLJZSIzhY9dr2OFvy6n8FCoALGEpJ2vGDHHoAqT/I=;
+ b=U5nWZ+zCnE6ObM1a1HTcsz5fUlLj7t9tsv+E5+LhXtnz9e4+xVV3xDQOTnsLxYF47t
+ 2ZD30c3FM7IESBJDjIyKdNG1CIQ3oPQsfMBa45Rch5e+Fgg7012WK4guAP0mWiXKAOHg
+ TK5WpXxFwsqpDoq6d1yO9pR9vCsxPFGrv9CUo=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date;
- bh=b9uxRyoaMis4M/Del53oQhe/OKhSA38Po18Or6YilLY=;
- b=bZxhloHyOMulCCRhgbzNtOS5GAsEeXXzRpaT8rGijFY9jBC9l6OKZF809RlSMtouHc
- OUZjhR9hlbsI/iDIJzBZcgJmq+7kyx9j2oHrblYJ4VDq7xIFja1dMkQjpDHrUbV+/HaT
- 4wS+LWVlY823U6FG/K09l6x+Iu2d5GlQnAwMyFOUKPdcEkaz2I00jHmazdNHrGNziJS3
- waNb9elQNhEabeaHo+3Lomk/YwkHkQfbhZM9QkdVdirYLIfwMTjotzZaDxSPUgsHyUmY
- VBLjjMWkC7rbZd+IVr1AZIDhmB+K2+Psi7fMVVyO8yRbqn7afa9Hw6IzW8zPTpme/ew8
- MnmA==
-X-Gm-Message-State: ACrzQf2Xhb1KGdo7/AVQL79e4znHlcgvTCO/0MJHCFrZe+lvjvgJB1ZQ
- E9Rv32K4/a3YH4Zr0S88Rw6aU8wBZko2OJQcbBA8iw==
-X-Google-Smtp-Source: AMsMyM6mVFtECpxKgra3ZkQaG9b6seBNybgK+xW2wUNsy82MrfUpk07hV4+qwXFgEt9Ky8+H6uTmtZZfdLoFajaRwaU=
-X-Received: by 2002:a05:6902:284:b0:67b:fc57:9104 with SMTP id
- v4-20020a056902028400b0067bfc579104mr3718530ybh.647.1664463915933; Thu, 29
- Sep 2022 08:05:15 -0700 (PDT)
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date;
+ bh=V7QLJZSIzhY9dr2OFvy6n8FCoALGEpJ2vGDHHoAqT/I=;
+ b=dcI52z30Z+GrtItq7dzcS66rnba0XdhppegOTVgt6RmCtQta7Gq62mLlISBb96M7sb
+ Bylobe/o0nqOaTpnCM4t9fTcrTlxZflC928jxM/OvkIo0cIpfEvPfzBJoymXDaTKeyCB
+ PX58j5tDGccKCrahdH/y8eFspsQ1XAzKiG53eGhRzofWlsxnyhA32FV9BhiFCgyLNg4g
+ MxND3Lcld2hTRqOLmwnRsTplmjqcKJxRiRtR9CWXgY+QEKrlNSzy438JaDIPHEIGrFJ4
+ YCbHSVdv9WdaMi2i1jLPa38NAdAYiEfbVso16HfbKcM/GNbxDYLmOyIL+69HZwKekpr3
+ j6cg==
+X-Gm-Message-State: ACrzQf0yBQr5x6eA6+NeanQuhnyde4YuOlfYTKmdQaEjMrvxF8Wt49sS
+ UwCHtPMMlp5yXfqXM/kWbh4wRs3WmpGvAiUb
+X-Google-Smtp-Source: AMsMyM7mG4lNTBearusdajgrhRB7tGV64CDCkQyncAQxKsuNJH8yJbHvN+jvGiQjqpj8xCGF6tOyYQ==
+X-Received: by 2002:a17:907:762d:b0:787:a8e3:17f2 with SMTP id
+ jy13-20020a170907762d00b00787a8e317f2mr3295047ejc.661.1664468020410; 
+ Thu, 29 Sep 2022 09:13:40 -0700 (PDT)
+Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com.
+ [209.85.221.44]) by smtp.gmail.com with ESMTPSA id
+ l16-20020a056402029000b00456e6e64047sm5566956edv.94.2022.09.29.09.13.38
+ for <freedreno@lists.freedesktop.org>
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 29 Sep 2022 09:13:38 -0700 (PDT)
+Received: by mail-wr1-f44.google.com with SMTP id x18so2963694wrm.7
+ for <freedreno@lists.freedesktop.org>; Thu, 29 Sep 2022 09:13:38 -0700 (PDT)
+X-Received: by 2002:a05:6000:168c:b0:226:f4c2:d6db with SMTP id
+ y12-20020a056000168c00b00226f4c2d6dbmr2895434wrd.659.1664468017868; Thu, 29
+ Sep 2022 09:13:37 -0700 (PDT)
 MIME-Version: 1.0
-References: <20220928192605.247546-1-broonie@kernel.org>
- <68689c5b-327f-65df-0d34-a7e1a851f568@infradead.org>
- <CAMuHMdWrQabb_LoCPfbdWo9D11+4kxSjQeBStpjvckvuXuBMNQ@mail.gmail.com>
-In-Reply-To: <CAMuHMdWrQabb_LoCPfbdWo9D11+4kxSjQeBStpjvckvuXuBMNQ@mail.gmail.com>
-From: Rob Clark <robdclark@chromium.org>
-Date: Thu, 29 Sep 2022 08:05:04 -0700
-Message-ID: <CAJs_Fx4NzHVRvN6xd-unrpmv=Nc_PXYbHvYujhz7UZ=YRkRZ7A@mail.gmail.com>
-To: Geert Uytterhoeven <geert@linux-m68k.org>
+References: <1663157784-22232-1-git-send-email-quic_kalyant@quicinc.com>
+In-Reply-To: <1663157784-22232-1-git-send-email-quic_kalyant@quicinc.com>
+From: Doug Anderson <dianders@chromium.org>
+Date: Thu, 29 Sep 2022 09:13:20 -0700
+X-Gmail-Original-Message-ID: <CAD=FV=UT-GmAOYrCBRU0bhGeXU=pOGDbk=Jq7JEk40tyEH0zLA@mail.gmail.com>
+Message-ID: <CAD=FV=UT-GmAOYrCBRU0bhGeXU=pOGDbk=Jq7JEk40tyEH0zLA@mail.gmail.com>
+To: Kalyan Thota <quic_kalyant@quicinc.com>
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [Freedreno] linux-next: Tree for Sep 28
- (drivers/gpu/drm/msm/msm_gem_shrinker.c)
+Subject: Re: [Freedreno] [v5] drm/msm/disp/dpu1: add support for dspp sub
+ block flush in sc7280
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,57 +73,56 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-arm-msm@vger.kernel.org, Randy Dunlap <rdunlap@infradead.org>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- broonie@kernel.org, Linux Next Mailing List <linux-next@vger.kernel.org>,
- freedreno@lists.freedesktop.org
+Cc: "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
+ <devicetree@vger.kernel.org>,
+ "Abhinav Kumar \(QUIC\)" <quic_abhinavk@quicinc.com>,
+ linux-arm-msm <linux-arm-msm@vger.kernel.org>,
+ LKML <linux-kernel@vger.kernel.org>,
+ dri-devel <dri-devel@lists.freedesktop.org>,
+ Stephen Boyd <swboyd@chromium.org>, Rob Clark <robdclark@gmail.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Vinod Polimera <quic_vpolimer@quicinc.com>,
+ freedreno <freedreno@lists.freedesktop.org>, y@qualcomm.com
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Thu, Sep 29, 2022 at 12:09 AM Geert Uytterhoeven
-<geert@linux-m68k.org> wrote:
->
-> On Thu, Sep 29, 2022 at 8:10 AM Randy Dunlap <rdunlap@infradead.org> wrot=
-e:
-> > On 9/28/22 12:26, broonie@kernel.org wrote:
-> > > Changes since 20220927:
-> > >
-> >
-> > on x86_64:
-> >
-> > ../drivers/gpu/drm/msm/msm_gem_shrinker.c: In function =E2=80=98can_blo=
-ck=E2=80=99:
-> > ../drivers/gpu/drm/msm/msm_gem_shrinker.c:29:28: error: =E2=80=98__GFP_=
-ATOMIC=E2=80=99 undeclared (first use in this function); did you mean =E2=
-=80=98GFP_ATOMIC=E2=80=99?
-> >    29 |         if (sc->gfp_mask & __GFP_ATOMIC)
-> >       |                            ^~~~~~~~~~~~
-> >       |                            GFP_ATOMIC
->
-> Also on m68k, as reported by noreply@ellerman.id.au
->
-> I have bisected it to commit 1ccea29f90329e35 ("Merge branch
-> 'mm-everything' of
-> git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm"), but I didn't
-> see immediately what caused it.
+Hi,
 
-I'll send a patch for this shortly
-
-BR,
--R
-
-
-> Gr{oetje,eeting}s,
+On Wed, Sep 14, 2022 at 5:16 AM Kalyan Thota <quic_kalyant@quicinc.com> wrote:
 >
->                         Geert
+> Flush mechanism for DSPP blocks has changed in sc7280 family, it
+> allows individual sub blocks to be flushed in coordination with
+> master flush control.
 >
-> --
-> Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m6=
-8k.org
+> Representation: master_flush && (PCC_flush | IGC_flush .. etc )
 >
-> In personal conversations with technical people, I call myself a hacker. =
-But
-> when I'm talking to journalists I just say "programmer" or something like=
- that.
->                                 -- Linus Torvalds
+> This change adds necessary support for the above design.
+>
+> Changes in v1:
+> - Few nits (Doug, Dmitry)
+> - Restrict sub-block flush programming to dpu_hw_ctl file (Dmitry)
+>
+> Changes in v2:
+> - Move the address offset to flush macro (Dmitry)
+> - Seperate ops for the sub block flush (Dmitry)
+>
+> Changes in v3:
+> - Reuse the DPU_DSPP_xx enum instead of a new one (Dmitry)
+>
+> Changes in v4:
+> - Use shorter version for unsigned int (Stephen)
+>
+> Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> ---
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c       |  2 +-
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c |  5 +++-
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h |  4 +++
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c     | 35 ++++++++++++++++++++++++--
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.h     | 10 ++++++--
+>  5 files changed, 50 insertions(+), 6 deletions(-)
+
+Breadcrumbs: though this is tagged in the subject as v5 I think the
+newest version is actually "resend v4" [1] which just fixes the
+Signed-off-by.
+
+[1] https://lore.kernel.org/r/1663825463-6715-1-git-send-email-quic_kalyant@quicinc.com
