@@ -2,73 +2,76 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id D61855EF233
-	for <lists+freedreno@lfdr.de>; Thu, 29 Sep 2022 11:36:51 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 803805EF4B9
+	for <lists+freedreno@lfdr.de>; Thu, 29 Sep 2022 13:51:19 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8241710EA39;
-	Thu, 29 Sep 2022 09:36:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C8B9D10E5AF;
+	Thu, 29 Sep 2022 11:51:17 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x136.google.com (mail-lf1-x136.google.com
- [IPv6:2a00:1450:4864:20::136])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 74D0210EA27
- for <freedreno@lists.freedesktop.org>; Thu, 29 Sep 2022 09:36:42 +0000 (UTC)
-Received: by mail-lf1-x136.google.com with SMTP id 10so1395883lfy.5
- for <freedreno@lists.freedesktop.org>; Thu, 29 Sep 2022 02:36:42 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date;
- bh=YboU7EJWX9s/eCKMNyU4MN70itKOnGmUbie/p84rbqI=;
- b=JuHnP7zGLpDgnUtkUD1REAPRC0Y2S44WRa2xDgQH2rm7j8wRYSFLZgJD18dkNRHEe6
- kHPbUGFIMs3vn1q6J84rOm0DiQadRN/iRnx0FMnMM+8174ypbIfpcMYrCM9jaTQcD0T6
- pHWnpEu2UsTb7pYGv31+X6MPH33bABPYKRDD4BMGON3A7zUO/tiKlzM73XqhhLkCUpJR
- SKeF0NPzxoR+iWSMYMEEg2h41UiKL8/zV/L//wmk9IrOcmUnO3RV2t1TZ/xOlrkL4cy9
- E/oLC18xRQZEwJE9+JCtA4gdNNtTLD+poq/GfzcdpvZIBPbCBbQuW91Zfc9roedF1MCZ
- 3Igg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date;
- bh=YboU7EJWX9s/eCKMNyU4MN70itKOnGmUbie/p84rbqI=;
- b=8BSJBpGtWK52G+7KBFojV5IswYnnTf+mmHebddNPQfVg/TXpXHkB2Av0NtQvT0XDLG
- YzK0YpBZiGMApQ7SvbIgQfnh2DL0O5wslDZLT4d3JuVj3X2nxcxbzTToHvyWHRIbyKIz
- dz8PonJc1VHq3Zlq2IbBbZKWkWhZLv2NvgXXs81T+9P7iZEUQUWBH/ZQUGgMVy2h1HMM
- cTtGjAWkMn+EUw4K6YG7LKttYt5ABDjE8QAshXTIIgX5z0moa3MFEAYym1q4GKh0HU+0
- pnIAMsbufiQzdD2qhw+g8mp/Mx4wx/nACidyy2OW+LvdZbrQW0p+rnprFXpmERg7+dnx
- jBjw==
-X-Gm-Message-State: ACrzQf1yF5rOcZKy52iRgNE2/bT6YgMB4fHoHKcyRAPe0X4GSGFGjNbg
- Hrthri98Ib6Qg5WR20YhtSHFow==
-X-Google-Smtp-Source: AMsMyM4cbUx3bEAc/nOwmW2NfB+K9ZpERD1j5UJsF0wbx7S/BgpUDvdacDKkJe+a3ToJ2swNATd+ag==
-X-Received: by 2002:a05:6512:3b9b:b0:499:b2b7:c3c1 with SMTP id
- g27-20020a0565123b9b00b00499b2b7c3c1mr972536lfv.54.1664444200826; 
- Thu, 29 Sep 2022 02:36:40 -0700 (PDT)
-Received: from [192.168.0.21] (78-11-189-27.static.ip.netia.com.pl.
- [78.11.189.27]) by smtp.gmail.com with ESMTPSA id
- p13-20020ac24ecd000000b00499cf3e3ebesm732365lfr.121.2022.09.29.02.36.39
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 29 Sep 2022 02:36:40 -0700 (PDT)
-Message-ID: <30009f48-4f31-b6b4-f444-85bc91836d14@linaro.org>
-Date: Thu, 29 Sep 2022 11:36:39 +0200
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8FAC310E5AF;
+ Thu, 29 Sep 2022 11:51:13 +0000 (UTC)
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 28TBhLJY017900;
+ Thu, 29 Sep 2022 11:51:09 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
+ h=message-id : date :
+ mime-version : subject : to : cc : references : from : in-reply-to :
+ content-type : content-transfer-encoding; s=qcppdkim1;
+ bh=hrGxqKIP1J6IorcVpPqieu0Smi370k03ViTx7kfgyqk=;
+ b=l/ukuZW+SbuLWSKBaBGoc0w0Vvav6VoK35d6qQaK9HqnAuNANStLLFZ4a5YEWu/jx5hv
+ 46aLM3jbkJRtWzclu1vEng/Gc+C7EFJy27d67qorDpDSlml1TTGpeFLdPKe5N/QLJbN/
+ zB0KrujvQ6Ik1CLgsbPcpjn2LkwtwtFVtBZgyZ+m2WIFhM04xZSRxZqJvNaMnXNFh0qr
+ dQEeAAiZbtZ9bM8H0dlhnUre4MaTsVf0ATKp6nwAECwT3kwG6KvjF6blBcjkYSwRNwC7
+ IsVd2IfJ5p5g9UNhom5U2OMd/mA/VdekoDe78ISMa1Tr4XUXJpsznAFwX1ZpciPyyvju tg== 
+Received: from nalasppmta04.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3jw4xq9apv-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 29 Sep 2022 11:51:09 +0000
+Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
+ [10.47.209.196])
+ by NALASPPMTA04.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 28TBp8fS000689
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 29 Sep 2022 11:51:08 GMT
+Received: from [10.204.67.102] (10.80.80.8) by nalasex01a.na.qualcomm.com
+ (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.29; Thu, 29 Sep
+ 2022 04:51:07 -0700
+Message-ID: <6504933c-048d-310a-1651-58528f868bdb@quicinc.com>
+Date: Thu, 29 Sep 2022 17:21:04 +0530
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.3.0
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
+ Thunderbird/91.3.2
 Content-Language: en-US
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Andy Gross <agross@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konrad.dybcio@somainline.org>, Rob Clark
- <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, Rob Herring <robh+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>
-References: <20220924094347.178666-1-dmitry.baryshkov@linaro.org>
- <20220924094347.178666-3-dmitry.baryshkov@linaro.org>
-From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-In-Reply-To: <20220924094347.178666-3-dmitry.baryshkov@linaro.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH 2/2] arm64: dts: qcom: msm8996: change HDMI
- PHY node name to generic one
+To: Yang Yingliang <yangyingliang@huawei.com>,
+ <dri-devel@lists.freedesktop.org>, <freedreno@lists.freedesktop.org>
+References: <20220929093022.2428520-1-yangyingliang@huawei.com>
+From: Akhil P Oommen <quic_akhilpo@quicinc.com>
+In-Reply-To: <20220929093022.2428520-1-yangyingliang@huawei.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-GUID: PdVcu667UtcKV8Kfd6GWONjeEDQ1DfaJ
+X-Proofpoint-ORIG-GUID: PdVcu667UtcKV8Kfd6GWONjeEDQ1DfaJ
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.205,Aquarius:18.0.895,Hydra:6.0.528,FMLib:17.11.122.1
+ definitions=2022-09-29_06,2022-09-29_03,2022-06-22_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 mlxlogscore=999
+ spamscore=0 priorityscore=1501 bulkscore=0 impostorscore=0 suspectscore=0
+ malwarescore=0 mlxscore=0 lowpriorityscore=0 clxscore=1011 adultscore=0
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2209130000
+ definitions=main-2209290073
+Subject: Re: [Freedreno] [PATCH -next] drm/msm/msm_gem_shrinker: fix compile
+ error in can_block()
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,21 +84,44 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: devicetree@vger.kernel.org, David Airlie <airlied@linux.ie>,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- Stephen Boyd <swboyd@chromium.org>, Daniel Vetter <daniel@ffwll.ch>,
- freedreno@lists.freedesktop.org
+Cc: robdclark@gmail.com
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 24/09/2022 11:43, Dmitry Baryshkov wrote:
-> Change HDMI PHY node name from custom 'hdmi-phy' to the generic 'phy'.
-> 
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+On 9/29/2022 3:00 PM, Yang Yingliang wrote:
+> I got the compile error:
+>
+>    drivers/gpu/drm/msm/msm_gem_shrinker.c: In function ‘can_block’:
+>    drivers/gpu/drm/msm/msm_gem_shrinker.c:29:21: error: ‘__GFP_ATOMIC’ undeclared (first use in this function); did you mean ‘GFP_ATOMIC’?
+>      if (sc->gfp_mask & __GFP_ATOMIC)
+>                         ^~~~~~~~~~~~
+>                         GFP_ATOMIC
+>    drivers/gpu/drm/msm/msm_gem_shrinker.c:29:21: note: each undeclared identifier is reported only once for each function it appears in
+>
+> __GFP_ATOMIC is dropped by commit 6708fe6bec50 ("mm: discard __GFP_ATOMIC").
+> Use __GFP_HIGH instead.
+>
+> Fixes: 025d27239a2f ("drm/msm/gem: Evict active GEM objects when necessary")
+> Signed-off-by: Yang Yingliang <yangyingliang@huawei.com>
+> ---
+>   drivers/gpu/drm/msm/msm_gem_shrinker.c | 2 +-
+>   1 file changed, 1 insertion(+), 1 deletion(-)
+>
+> diff --git a/drivers/gpu/drm/msm/msm_gem_shrinker.c b/drivers/gpu/drm/msm/msm_gem_shrinker.c
+> index 58e0513be5f4..6a0de6cdb82b 100644
+> --- a/drivers/gpu/drm/msm/msm_gem_shrinker.c
+> +++ b/drivers/gpu/drm/msm/msm_gem_shrinker.c
+> @@ -26,7 +26,7 @@ static bool can_swap(void)
+>   
+>   static bool can_block(struct shrink_control *sc)
+>   {
+> -	if (sc->gfp_mask & __GFP_ATOMIC)
+> +	if (sc->gfp_mask & __GFP_HIGH)
+>   		return false;
+>   	return current_is_kswapd() || (sc->gfp_mask & __GFP_RECLAIM);
+>   }
+
+Reviewed-by: Akhil P Oommen <quic_akhilpo@quicinc.com>
 
 
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-
-Best regards,
-Krzysztof
-
+-Akhil.
