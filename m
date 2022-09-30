@@ -2,84 +2,47 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 43A935F0249
-	for <lists+freedreno@lfdr.de>; Fri, 30 Sep 2022 03:37:11 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 97BFF5F025C
+	for <lists+freedreno@lfdr.de>; Fri, 30 Sep 2022 03:48:26 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 072CA10ECAB;
-	Fri, 30 Sep 2022 01:37:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5F9A110E132;
+	Fri, 30 Sep 2022 01:48:25 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7E60C10ECAB;
- Fri, 30 Sep 2022 01:37:07 +0000 (UTC)
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 28TKaSGk012711;
- Fri, 30 Sep 2022 01:37:00 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
- h=message-id : date :
- mime-version : subject : to : cc : references : from : in-reply-to :
- content-type : content-transfer-encoding; s=qcppdkim1;
- bh=8uskSYXZrC8wCallSBV0TUOAeGS6evy4WyhF7aiBzFc=;
- b=QOkbhHVS6+vX7RljFXCRdQ7S1yPyldL1IwQ9Bi1G5JOKvGYxIvu8OL0aMwj2lYhO7p9i
- lVswuF9Ua+RlcO8PHAPCac0Wb5cnwF/StpWbiRGMkx45NefJ2G+AE1ntmw8yNGJWr/5r
- VWYkeg5fpdltdux4qPLQFEDNtxg7q3PuG5vlPjITmBA3RVONTXNYe5T9pLeCY3QSodXv
- 8i3q/RYNAoPndNfG6Q3v4g64WQVCooflpwSqcQOaLCiSAMg29L5irIbfq91f7rt0GuJ6
- t1PT6TMioPdv6jjFpAroGHC3jjGZiJ49KsSJMRcKtEpClzfKUD3rFcAsezOx/6Gt2xjC xg== 
-Received: from nalasppmta01.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3jw4xqbpm6-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 30 Sep 2022 01:36:59 +0000
-Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
- [10.47.209.196])
- by NALASPPMTA01.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 28U1axDI018655
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 30 Sep 2022 01:36:59 GMT
-Received: from [10.111.171.63] (10.80.80.8) by nalasex01a.na.qualcomm.com
- (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.29; Thu, 29 Sep
- 2022 18:36:55 -0700
-Message-ID: <36e191e0-9ddc-80b8-7f59-e002d5d458c1@quicinc.com>
-Date: Thu, 29 Sep 2022 18:36:53 -0700
+Received: from szxga02-in.huawei.com (szxga02-in.huawei.com [45.249.212.188])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4106A10E132;
+ Fri, 30 Sep 2022 01:48:23 +0000 (UTC)
+Received: from dggpemm500022.china.huawei.com (unknown [172.30.72.57])
+ by szxga02-in.huawei.com (SkyGuard) with ESMTP id 4MdtKv0SxFzHtnP;
+ Fri, 30 Sep 2022 09:43:31 +0800 (CST)
+Received: from dggpemm500007.china.huawei.com (7.185.36.183) by
+ dggpemm500022.china.huawei.com (7.185.36.162) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2375.31; Fri, 30 Sep 2022 09:48:20 +0800
+Received: from [10.174.178.174] (10.174.178.174) by
+ dggpemm500007.china.huawei.com (7.185.36.183) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2375.31; Fri, 30 Sep 2022 09:48:19 +0800
+To: Rob Clark <robdclark@gmail.com>, Akhil P Oommen <quic_akhilpo@quicinc.com>
+References: <20220929093022.2428520-1-yangyingliang@huawei.com>
+ <6504933c-048d-310a-1651-58528f868bdb@quicinc.com>
+ <CAF6AEGvKFF+xrz0y39d0YU9+0empuMCqq2zF3Qtrjkk_oyxdUw@mail.gmail.com>
+From: Yang Yingliang <yangyingliang@huawei.com>
+Message-ID: <e6b58363-5a45-245e-05bf-d230950948e2@huawei.com>
+Date: Fri, 30 Sep 2022 09:48:18 +0800
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:68.0) Gecko/20100101
+ Thunderbird/68.7.0
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.6.2
-Content-Language: en-US
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Kuogee Hsieh
- <quic_khsieh@quicinc.com>,
- <dri-devel@lists.freedesktop.org>, <robdclark@gmail.com>,
- <sean@poorly.run>, <swboyd@chromium.org>, <dianders@chromium.org>,
- <vkoul@kernel.org>, <daniel@ffwll.ch>, <airlied@linux.ie>,
- <agross@kernel.org>, <bjorn.andersson@linaro.org>
-References: <1662999830-13916-1-git-send-email-quic_khsieh@quicinc.com>
- <1662999830-13916-2-git-send-email-quic_khsieh@quicinc.com>
- <0f381285-860f-aaa2-2ae7-834608d0b4e8@linaro.org>
- <e6543dd7-30ac-d210-6bf0-95bb9d22ca0a@quicinc.com>
- <47f661b6-b5b9-9f28-10cf-1e7bbb8b282a@linaro.org>
-From: Abhinav Kumar <quic_abhinavk@quicinc.com>
-In-Reply-To: <47f661b6-b5b9-9f28-10cf-1e7bbb8b282a@linaro.org>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
+In-Reply-To: <CAF6AEGvKFF+xrz0y39d0YU9+0empuMCqq2zF3Qtrjkk_oyxdUw@mail.gmail.com>
+Content-Type: text/plain; charset="utf-8"; format=flowed
 Content-Transfer-Encoding: 8bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-GUID: RkK_-3mHW8BCHBgGWeQKK1mxBrTba1Ae
-X-Proofpoint-ORIG-GUID: RkK_-3mHW8BCHBgGWeQKK1mxBrTba1Ae
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.205,Aquarius:18.0.895,Hydra:6.0.528,FMLib:17.11.122.1
- definitions=2022-09-30_01,2022-09-29_03,2022-06-22_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 mlxlogscore=999
- spamscore=0 priorityscore=1501 bulkscore=0 impostorscore=0 suspectscore=0
- malwarescore=0 mlxscore=0 lowpriorityscore=0 clxscore=1015 adultscore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2209130000
- definitions=main-2209300008
-Subject: Re: [Freedreno] [PATCH v5 1/3] drm/msm/dp: cleared
- DP_DOWNSPREAD_CTRL register before start link training
+Content-Language: en-US
+X-Originating-IP: [10.174.178.174]
+X-ClientProxiedBy: dggems705-chm.china.huawei.com (10.3.19.182) To
+ dggpemm500007.china.huawei.com (7.185.36.183)
+X-CFilter-Loop: Reflected
+Subject: Re: [Freedreno] [PATCH -next] drm/msm/msm_gem_shrinker: fix compile
+ error in can_block()
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -92,94 +55,68 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-arm-msm@vger.kernel.org, quic_sbillaka@quicinc.com,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Cc: freedreno@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ yangyingliang@huawei.com
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
+Hi,
 
-
-On 9/12/2022 12:25 PM, Dmitry Baryshkov wrote:
-> On 12/09/2022 22:21, Kuogee Hsieh wrote:
->>
->> On 9/12/2022 11:39 AM, Dmitry Baryshkov wrote:
->>> On 12/09/2022 19:23, Kuogee Hsieh wrote:
->>>> DOWNSPREAD_CTRL (0x107) shall be cleared to 0 upon power-on reset or an
->>>> upstream device disconnect. This patch will enforce this rule by always
->>>> cleared DOWNSPREAD_CTRL register to 0 before start link training. At 
->>>> rare
->>>> case that DP MSA timing parameters may be mis-interpreted by the sink
->>>> which causes audio sampling rate be calculated wrongly and cause audio
->>>> did not work at sink if DOWNSPREAD_CTRL register is not cleared to 0.
->>>>
->>>> Changes in v2:
->>>> 1) fix spelling at commit text
->>>> 2) merge ssc variable into encoding[0]
->>>>
->>>> Changes in v3:
->>>> -- correct spelling of DOWNSPREAD_CTRL
->>>> -- replace err with len of ssize_t
->>>>
->>>> Changes in v4:
->>>> -- split into 2 patches
->>>>
->>>> Fixes: 154b5a7da0fd ("drm/msm/dp: add displayPort driver support")
-
-Fixes tag is wrong here. It should be:
-
-Fixes: c943b4948b58 ("drm/msm/dp: add displayPort driver support")
-
->>>> Signed-off-by: Kuogee Hsieh <quic_khsieh@quicinc.com>
->>>> ---
->>>>   drivers/gpu/drm/msm/dp/dp_ctrl.c | 13 +++++--------
->>>>   1 file changed, 5 insertions(+), 8 deletions(-)
->>>>
->>>> diff --git a/drivers/gpu/drm/msm/dp/dp_ctrl.c 
->>>> b/drivers/gpu/drm/msm/dp/dp_ctrl.c
->>>> index ab6aa13..2c74c59 100644
->>>> --- a/drivers/gpu/drm/msm/dp/dp_ctrl.c
->>>> +++ b/drivers/gpu/drm/msm/dp/dp_ctrl.c
->>>> @@ -1245,8 +1245,7 @@ static int dp_ctrl_link_train(struct 
->>>> dp_ctrl_private *ctrl,
->>>>   {
->>>>       int ret = 0;
->>>>       const u8 *dpcd = ctrl->panel->dpcd;
->>>> -    u8 encoding = DP_SET_ANSI_8B10B;
->>>> -    u8 ssc;
->>>> +    u8 encoding[] = { 0, DP_SET_ANSI_8B10B };
->>>>       u8 assr;
->>>>       struct dp_link_info link_info = {0};
->>>>   @@ -1258,13 +1257,11 @@ static int dp_ctrl_link_train(struct 
->>>> dp_ctrl_private *ctrl,
->>>>         dp_aux_link_configure(ctrl->aux, &link_info);
->>>>   -    if (drm_dp_max_downspread(dpcd)) {
->>>> -        ssc = DP_SPREAD_AMP_0_5;
->>>> -        drm_dp_dpcd_write(ctrl->aux, DP_DOWNSPREAD_CTRL, &ssc, 1);
->>>> -    }
->>>> +    if (drm_dp_max_downspread(dpcd))
->>>> +        encoding[0] |= DP_SPREAD_AMP_0_5;
+On 2022/9/30 4:38, Rob Clark wrote:
+> On Thu, Sep 29, 2022 at 4:51 AM Akhil P Oommen <quic_akhilpo@quicinc.com> wrote:
+>> On 9/29/2022 3:00 PM, Yang Yingliang wrote:
+>>> I got the compile error:
 >>>
->>> It would be simpler to call drm_dp_dpcd_write(ssc, 
->>> DP_DOWNSPREAD_CTRL, 1) unconditionally here. You won't have to change 
->>> the encoding/DP_MAIN_LINK_CHANNEL_CODING_SET/etc.
->>
->> The difference is one write with 2 bytes against two writes with one 
->> byte each.
->>
->> I think it is more efficient to combine two bytes into one write since 
->> these two bytes are consecutive address.
-> 
-> I probably wouldn't do so, nevertheless:
-> 
-> Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> 
->>
+>>>     drivers/gpu/drm/msm/msm_gem_shrinker.c: In function ‘can_block’:
+>>>     drivers/gpu/drm/msm/msm_gem_shrinker.c:29:21: error: ‘__GFP_ATOMIC’ undeclared (first use in this function); did you mean ‘GFP_ATOMIC’?
+>>>       if (sc->gfp_mask & __GFP_ATOMIC)
+>>>                          ^~~~~~~~~~~~
+>>>                          GFP_ATOMIC
+>>>     drivers/gpu/drm/msm/msm_gem_shrinker.c:29:21: note: each undeclared identifier is reported only once for each function it appears in
 >>>
->>>>   -    drm_dp_dpcd_write(ctrl->aux, DP_MAIN_LINK_CHANNEL_CODING_SET,
->>>> -                &encoding, 1);
->>>> +    /* config DOWNSPREAD_CTRL and MAIN_LINK_CHANNEL_CODING_SET */
->>>> +    drm_dp_dpcd_write(ctrl->aux, DP_DOWNSPREAD_CTRL, encoding, 2);
->>>>         if (drm_dp_alternate_scrambler_reset_cap(dpcd)) {
->>>>           assr = DP_ALTERNATE_SCRAMBLER_RESET_ENABLE;
+>>> __GFP_ATOMIC is dropped by commit 6708fe6bec50 ("mm: discard __GFP_ATOMIC").
+>>> Use __GFP_HIGH instead.
 >>>
-> 
+>>> Fixes: 025d27239a2f ("drm/msm/gem: Evict active GEM objects when necessary")
+>>> Signed-off-by: Yang Yingliang <yangyingliang@huawei.com>
+>>> ---
+>>>    drivers/gpu/drm/msm/msm_gem_shrinker.c | 2 +-
+>>>    1 file changed, 1 insertion(+), 1 deletion(-)
+>>>
+>>> diff --git a/drivers/gpu/drm/msm/msm_gem_shrinker.c b/drivers/gpu/drm/msm/msm_gem_shrinker.c
+>>> index 58e0513be5f4..6a0de6cdb82b 100644
+>>> --- a/drivers/gpu/drm/msm/msm_gem_shrinker.c
+>>> +++ b/drivers/gpu/drm/msm/msm_gem_shrinker.c
+>>> @@ -26,7 +26,7 @@ static bool can_swap(void)
+>>>
+>>>    static bool can_block(struct shrink_control *sc)
+>>>    {
+>>> -     if (sc->gfp_mask & __GFP_ATOMIC)
+>>> +     if (sc->gfp_mask & __GFP_HIGH)
+>>>                return false;
+>>>        return current_is_kswapd() || (sc->gfp_mask & __GFP_RECLAIM);
+>>>    }
+>> Reviewed-by: Akhil P Oommen <quic_akhilpo@quicinc.com>
+>>
+> Somehow the original patch didn't show up in my inbox, but I've sent this:
+>
+> https://patchwork.freedesktop.org/series/109255/
+When __GFP_ATOMIC is not dropped, if __GFP_KSWAPD_RECLAIM is set,
+it allows sleep(can_block() returns true).
+In your patch case, if __GFP_KSWAPD_RECLAIM is set but 
+__GFP_DIRECT_RECLAIM is
+not set, it don't allows sleep(can_blcok() returns false). It's 
+different from earlier behavior.
+
+Thanks,
+Yang
+>
+> I guess __GFP_HIGH could also be used to detect GFP_ATOMIC, but
+> checking that direct reclaim is ok seems safer (ie. it should always
+> be safe to sleep in that case)
+>
+> BR,
+> -R
+>
+>> -Akhil.
+> .
