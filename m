@@ -2,57 +2,56 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id F2A925F45DB
-	for <lists+freedreno@lfdr.de>; Tue,  4 Oct 2022 16:46:04 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 78DEE5F4700
+	for <lists+freedreno@lfdr.de>; Tue,  4 Oct 2022 17:56:09 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9D2CC10E296;
-	Tue,  4 Oct 2022 14:46:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2A3F610E3B6;
+	Tue,  4 Oct 2022 15:56:08 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-yb1-xb2b.google.com (mail-yb1-xb2b.google.com
- [IPv6:2607:f8b0:4864:20::b2b])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EE01410E70B
- for <freedreno@lists.freedesktop.org>; Tue,  4 Oct 2022 14:46:01 +0000 (UTC)
-Received: by mail-yb1-xb2b.google.com with SMTP id 69so5325869ybl.6
- for <freedreno@lists.freedesktop.org>; Tue, 04 Oct 2022 07:46:01 -0700 (PDT)
+Received: from mail-ej1-x62b.google.com (mail-ej1-x62b.google.com
+ [IPv6:2a00:1450:4864:20::62b])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 567E410E5EF
+ for <freedreno@lists.freedesktop.org>; Tue,  4 Oct 2022 15:56:05 +0000 (UTC)
+Received: by mail-ej1-x62b.google.com with SMTP id a2so9718069ejx.10
+ for <freedreno@lists.freedesktop.org>; Tue, 04 Oct 2022 08:56:05 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:from:to:cc:subject:date;
- bh=9dr7qJ7Qml93GSKT3iv83T/pfmaFSKB83Wj12OdpTQ8=;
- b=BQUx0AnFkzWaEdyMHn06vsVqq+yQguDgxDoorjEzwbCeIhb79FOsXeaumiJird5sbr
- 2g/PeBB9u87eoalbUaukckm53a5qp3qdr5tb27Dbc0Pib/XrQrrbSd+be50cvo4aY8FZ
- bqpZ1QIMsyoCXGebe/HmBUfWDjYnU1huyVBw0DUZgiEN2RA/kMimiTBnPSUHWKNpehEa
- X+N4ebBwrfiOX4Zbph+suwdKVXRHYowi56Bq/I1heGJ3QFnECihqOdBXggwWPe2Sq5rL
- zBwqXVTLPedYXauuUC3MWxR/C3R9UJGcUkb4cFFCFchDZ+7oFMXCfYCV0vG9L/9te7sn
- NNlQ==
+ bh=vwdvyWrlvw60ZtE+i2fI3wCAbWwvi1H2EziU3JIpXg0=;
+ b=HTZGcFNoc8xYbw5KdsxeXuq/0IyBwSx1Lqxr3A50ai/3I63IxmTzyhu8xkV1NodqJJ
+ o7n0Myj97k1LVEYixf5dNj3t01RboDutqXqhubD4VLnaBlQvz51Tsm/aDyc210HVPTCJ
+ haO9tFqUMO8EKeHDPxg5uv6ggAEtL6Pgx+5gcrOvbM8Xqk02lLPrmQOL9EtW/E4u0j8+
+ T++IdOeI8nKEsxh/sVvShTrJlyqmgBiCWThezL6MYwNEpaNxHoDSzt2vjoYyUzfP1+cu
+ YFia8EgyOC2snlvFPi48wD16RzFX3iO+mFVsR84ukXz1RXJmA7TXcxYC7CEwFl6Z7stx
+ QAGQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:x-gm-message-state:from:to:cc:subject:date;
- bh=9dr7qJ7Qml93GSKT3iv83T/pfmaFSKB83Wj12OdpTQ8=;
- b=utPSCp4+JyRZSdRQSjCKn8eLp8uKfSKQxGhFq6E9/aanIgxKjbFD1JfeWYo4AEIrKB
- ymF34mUcT0KPmi4AqWQ/rhNHJWGpwu01KPuFrBDMWxZu1cq2vutyiNbEKCsJPxN7Migj
- vfNsyfzhZhX/LQGsxZZYNT0YEnqzemkoinAVLAnVQmQcPydBbm6IgRxHqzJlFkVp5Ub2
- beMubcUvY/5qStvQCc+Y0OE5FTqWamtShPas6WMR9xzagjHbldtpsBmdWv+hGvPRgBRU
- +tPH8LxF+LMzM7rRQatCJH40rtAwT2fT0w3Q6CYA5h7ScZL4b4B9pksJmD9Cr2Q06ESz
- PucQ==
-X-Gm-Message-State: ACrzQf1b3m6xlWDsBvncmvJhvsrEnQ02f6C5ksCTZvnNmurWW+R8vdb3
- oJ2CPbrd8e3ysGhjVidXcxX/ge7pHa0QPJYtM8Kqgw==
-X-Google-Smtp-Source: AMsMyM4GlEKH++HoB5HPsS9oEYIc89cjO+AgKYwLjkK0bJ21xdnrimtiaSFkoCg2fZuKNZ0WWx6CCLoFq3t7mgRVYEc=
-X-Received: by 2002:a5b:c:0:b0:6bd:f84c:b63e with SMTP id
- a12-20020a5b000c000000b006bdf84cb63emr7242772ybp.275.1664894761093; 
- Tue, 04 Oct 2022 07:46:01 -0700 (PDT)
+ bh=vwdvyWrlvw60ZtE+i2fI3wCAbWwvi1H2EziU3JIpXg0=;
+ b=EdUTiDQ9fUGUqEvZYj9+A3Y6v44lchFV7bdKECtJuPcy6rZBdtPTqO0ZhncgFBlJHx
+ 9rI5MjDadxhsFnDHEm4bD8YdsCMKT59OZnicVIVs+JJ2MjoHNjlCqJE3Zt+J4KMkselO
+ p3apaHzHmakIkN66+0xzsrxOfnng9R+qapfiGIRkLtb2J1U0+5iDT6k99vusQRR6Hiiz
+ 1XWiGcEy7swXG0lAdRBl9lLr8entlAre8NHowmCYJtqEAPIVE3xuGUU4rrnMI4eroe9a
+ xWPEt8kOkDYji6bjDCO909lnQru/icbbvRxgmn1jhgYqs3wHTNxh82s+zmJGR66rY5iX
+ 20Bg==
+X-Gm-Message-State: ACrzQf0Dk1CjrsR5I2uWBGmkLo324Gv6KHqsSuMjz+ELxM2xefkLFTvk
+ ot+xIAf26eGr++egRaDqx1+khGdreDezfq6CFhoSEQ==
+X-Google-Smtp-Source: AMsMyM7gGfJjzXw20rabjgjTCWaYPIIucUoWdH2sWkwdYGEtRTbhyv2CnW0RgC2wIU5NQY3wfxdLH4FKta0aW+BoiwU=
+X-Received: by 2002:a17:906:730e:b0:783:87a1:b5db with SMTP id
+ di14-20020a170906730e00b0078387a1b5dbmr20165683ejc.383.1664898963632; Tue, 04
+ Oct 2022 08:56:03 -0700 (PDT)
 MIME-Version: 1.0
-References: <20221001190807.358691-1-marijn.suijten@somainline.org>
- <20221001190807.358691-4-marijn.suijten@somainline.org>
-In-Reply-To: <20221001190807.358691-4-marijn.suijten@somainline.org>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Tue, 4 Oct 2022 17:45:50 +0300
-Message-ID: <CAA8EJppYJ-PYCsaKn=sGDpnJJdW2QBx=MOqUr6qzY0bAZtpGxA@mail.gmail.com>
-To: Marijn Suijten <marijn.suijten@somainline.org>
+References: <1661797363-7564-1-git-send-email-quic_abhinavk@quicinc.com>
+In-Reply-To: <1661797363-7564-1-git-send-email-quic_abhinavk@quicinc.com>
+From: Robert Foss <robert.foss@linaro.org>
+Date: Tue, 4 Oct 2022 17:55:52 +0200
+Message-ID: <CAG3jFytm-zGsB23j+-myS1pnZAY1y848qkr45ER4yvHv-annvw@mail.gmail.com>
+To: Abhinav Kumar <quic_abhinavk@quicinc.com>
 Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [PATCH 3/5] drm/msm/dsi: Account for DSC's
- bits_per_pixel having 4 fractional bits
+Subject: Re: [Freedreno] [PATCH] drm/bridge: adv7533: remove dynamic lane
+ switching from adv7533 bridge
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,167 +64,228 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: David Airlie <airlied@linux.ie>,
- Konrad Dybcio <konrad.dybcio@somainline.org>, dri-devel@lists.freedesktop.org,
- Javier Martinez Canillas <javierm@redhat.com>,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@somainline.org>,
- phone-devel@vger.kernel.org, Marek Vasut <marex@denx.de>,
- Rob Clark <robdclark@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- linux-arm-msm@vger.kernel.org, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Martin Botka <martin.botka@somainline.org>,
- ~postmarketos/upstreaming@lists.sr.ht, Sean Paul <sean@poorly.run>,
- Jami Kettunen <jami.kettunen@somainline.org>,
- Vladimir Lypak <vladimir.lypak@gmail.com>,
- Douglas Anderson <dianders@chromium.org>, linux-kernel@vger.kernel.org,
- Vinod Koul <vkoul@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Alex Deucher <alexander.deucher@amd.com>, freedreno@lists.freedesktop.org
+Cc: dri-devel@lists.freedesktop.org, swboyd@chromium.org, robdclark@gmail.com,
+ seanpaul@chromium.org, laurent.pinchart@ideasonboard.com, daniel@ffwll.ch,
+ dmitry.baryshkov@linaro.org, quic_jesszhan@quicinc.com,
+ quic_aravindh@quicinc.com, quic_khsieh@quicinc.com,
+ freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Sat, 1 Oct 2022 at 22:08, Marijn Suijten
-<marijn.suijten@somainline.org> wrote:
+On Mon, 29 Aug 2022 at 20:23, Abhinav Kumar <quic_abhinavk@quicinc.com> wrote:
 >
-> drm_dsc_config's bits_per_pixel field holds a fractional value with 4
-> bits, which all panel drivers should adhere to for
-> drm_dsc_pps_payload_pack() to generate a valid payload.  All code in the
-> DSI driver here seems to assume that this field doesn't contain any
-> fractional bits, hence resulting in the wrong values being computed.
-> Since none of the calculations leave any room for fractional bits or
-> seem to indicate any possible area of support, disallow such values
-> altogether.
+> adv7533 bridge tries to dynamically switch lanes based on the
+> mode by detaching and attaching the mipi dsi device.
 >
-> Fixes: b9080324d6ca ("drm/msm/dsi: add support for dsc data")
-> Signed-off-by: Marijn Suijten <marijn.suijten@somainline.org>
+> This approach is incorrect because this method of dynamic switch of
+> detaching and attaching the mipi dsi device also results in removing
+> and adding the component which is not necessary.
+>
+> This approach is also prone to deadlocks. So for example, on the
+> db410c whenever this path is executed with lockdep enabled,
+> this results in a deadlock due to below ordering of locks.
+>
+> -> #1 (crtc_ww_class_acquire){+.+.}-{0:0}:
+>         lock_acquire+0x6c/0x90
+>         drm_modeset_acquire_init+0xf4/0x150
+>         drmm_mode_config_init+0x220/0x770
+>         msm_drm_bind+0x13c/0x654
+>         try_to_bring_up_aggregate_device+0x164/0x1d0
+>         __component_add+0xa8/0x174
+>         component_add+0x18/0x2c
+>         dsi_dev_attach+0x24/0x30
+>         dsi_host_attach+0x98/0x14c
+>         devm_mipi_dsi_attach+0x38/0xb0
+>         adv7533_attach_dsi+0x8c/0x110
+>         adv7511_probe+0x5a0/0x930
+>         i2c_device_probe+0x30c/0x350
+>         really_probe.part.0+0x9c/0x2b0
+>         __driver_probe_device+0x98/0x144
+>         driver_probe_device+0xac/0x14c
+>         __device_attach_driver+0xbc/0x124
+>         bus_for_each_drv+0x78/0xd0
+>         __device_attach+0xa8/0x1c0
+>         device_initial_probe+0x18/0x24
+>         bus_probe_device+0xa0/0xac
+>         deferred_probe_work_func+0x90/0xd0
+>         process_one_work+0x28c/0x6b0
+>         worker_thread+0x240/0x444
+>         kthread+0x110/0x114
+>         ret_from_fork+0x10/0x20
+>
+> -> #0 (component_mutex){+.+.}-{3:3}:
+>         __lock_acquire+0x1280/0x20ac
+>         lock_acquire.part.0+0xe0/0x230
+>         lock_acquire+0x6c/0x90
+>         __mutex_lock+0x84/0x400
+>         mutex_lock_nested+0x3c/0x70
+>         component_del+0x34/0x170
+>         dsi_dev_detach+0x24/0x30
+>         dsi_host_detach+0x20/0x64
+>         mipi_dsi_detach+0x2c/0x40
+>         adv7533_mode_set+0x64/0x90
+>         adv7511_bridge_mode_set+0x210/0x214
+>         drm_bridge_chain_mode_set+0x5c/0x84
+>         crtc_set_mode+0x18c/0x1dc
+>         drm_atomic_helper_commit_modeset_disables+0x40/0x50
+>         msm_atomic_commit_tail+0x1d0/0x6e0
+>         commit_tail+0xa4/0x180
+>         drm_atomic_helper_commit+0x178/0x3b0
+>         drm_atomic_commit+0xa4/0xe0
+>         drm_client_modeset_commit_atomic+0x228/0x284
+>         drm_client_modeset_commit_locked+0x64/0x1d0
+>         drm_client_modeset_commit+0x34/0x60
+>         drm_fb_helper_lastclose+0x74/0xcc
+>         drm_lastclose+0x3c/0x80
+>         drm_release+0xfc/0x114
+>         __fput+0x70/0x224
+>         ____fput+0x14/0x20
+>         task_work_run+0x88/0x1a0
+>         do_exit+0x350/0xa50
+>         do_group_exit+0x38/0xa4
+>         __wake_up_parent+0x0/0x34
+>         invoke_syscall+0x48/0x114
+>         el0_svc_common.constprop.0+0x60/0x11c
+>         do_el0_svc+0x30/0xc0
+>         el0_svc+0x58/0x100
+>         el0t_64_sync_handler+0x1b0/0x1bc
+>         el0t_64_sync+0x18c/0x190
+>
+> Due to above reasons, remove the dynamic lane switching
+> code from adv7533 bridge chip and filter out the modes
+> which would need different number of lanes as compared
+> to the initialization time using the mode_valid callback.
+>
+> This can be potentially re-introduced by using the pre_enable()
+> callback but this needs to be evaluated first whether such an
+> approach will work so this will be done with a separate change.
+>
+> changes since RFC:
+>         - Fix commit text and add TODO comment
+>
+> Fixes: 62b2f026cd8e ("drm/bridge: adv7533: Change number of DSI lanes dynamically")
+> Closes: https://gitlab.freedesktop.org/drm/msm/-/issues/16
+> Suggested-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
 > ---
->  drivers/gpu/drm/msm/dsi/dsi_host.c | 34 +++++++++++++++++++++++-------
->  1 file changed, 26 insertions(+), 8 deletions(-)
+>  drivers/gpu/drm/bridge/adv7511/adv7511.h     |  3 ++-
+>  drivers/gpu/drm/bridge/adv7511/adv7511_drv.c | 18 ++++++++++++++----
+>  drivers/gpu/drm/bridge/adv7511/adv7533.c     | 25 +++++++++++++------------
+>  3 files changed, 29 insertions(+), 17 deletions(-)
 >
-> diff --git a/drivers/gpu/drm/msm/dsi/dsi_host.c b/drivers/gpu/drm/msm/dsi/dsi_host.c
-> index cb6f2fa11f58..42a5c9776f52 100644
-> --- a/drivers/gpu/drm/msm/dsi/dsi_host.c
-> +++ b/drivers/gpu/drm/msm/dsi/dsi_host.c
-> @@ -847,6 +847,11 @@ static void dsi_update_dsc_timing(struct msm_dsi_host *msm_host, bool is_cmd_mod
->         u32 pkt_per_line;
->         u32 bytes_in_slice;
->         u32 eol_byte_num;
-> +       int bpp = dsc->bits_per_pixel >> 4;
+> diff --git a/drivers/gpu/drm/bridge/adv7511/adv7511.h b/drivers/gpu/drm/bridge/adv7511/adv7511.h
+> index 9e3bb8a8ee40..0a7cec80b75d 100644
+> --- a/drivers/gpu/drm/bridge/adv7511/adv7511.h
+> +++ b/drivers/gpu/drm/bridge/adv7511/adv7511.h
+> @@ -417,7 +417,8 @@ static inline int adv7511_cec_init(struct device *dev, struct adv7511 *adv7511)
+>
+>  void adv7533_dsi_power_on(struct adv7511 *adv);
+>  void adv7533_dsi_power_off(struct adv7511 *adv);
+> -void adv7533_mode_set(struct adv7511 *adv, const struct drm_display_mode *mode);
+> +enum drm_mode_status adv7533_mode_valid(struct adv7511 *adv,
+> +               const struct drm_display_mode *mode);
+>  int adv7533_patch_registers(struct adv7511 *adv);
+>  int adv7533_patch_cec_registers(struct adv7511 *adv);
+>  int adv7533_attach_dsi(struct adv7511 *adv);
+> diff --git a/drivers/gpu/drm/bridge/adv7511/adv7511_drv.c b/drivers/gpu/drm/bridge/adv7511/adv7511_drv.c
+> index 5bb9300040dd..1115ef9be83c 100644
+> --- a/drivers/gpu/drm/bridge/adv7511/adv7511_drv.c
+> +++ b/drivers/gpu/drm/bridge/adv7511/adv7511_drv.c
+> @@ -697,7 +697,7 @@ adv7511_detect(struct adv7511 *adv7511, struct drm_connector *connector)
+>  }
+>
+>  static enum drm_mode_status adv7511_mode_valid(struct adv7511 *adv7511,
+> -                             struct drm_display_mode *mode)
+> +                             const struct drm_display_mode *mode)
+>  {
+>         if (mode->clock > 165000)
+>                 return MODE_CLOCK_HIGH;
+> @@ -791,9 +791,6 @@ static void adv7511_mode_set(struct adv7511 *adv7511,
+>         regmap_update_bits(adv7511->regmap, 0x17,
+>                 0x60, (vsync_polarity << 6) | (hsync_polarity << 5));
+>
+> -       if (adv7511->type == ADV7533 || adv7511->type == ADV7535)
+> -               adv7533_mode_set(adv7511, adj_mode);
+> -
+>         drm_mode_copy(&adv7511->curr_mode, adj_mode);
+>
+>         /*
+> @@ -913,6 +910,18 @@ static void adv7511_bridge_mode_set(struct drm_bridge *bridge,
+>         adv7511_mode_set(adv, mode, adj_mode);
+>  }
+>
+> +static enum drm_mode_status adv7511_bridge_mode_valid(struct drm_bridge *bridge,
+> +               const struct drm_display_info *info,
+> +               const struct drm_display_mode *mode)
+> +{
+> +       struct adv7511 *adv = bridge_to_adv7511(bridge);
 > +
-> +       if (dsc->bits_per_pixel & 0xf)
-> +               /* dsi_populate_dsc_params() already caught this case */
-> +               pr_err("DSI does not support fractional bits_per_pixel\n");
->
->         /* first calculate dsc parameters and then program
->          * compress mode registers
-> @@ -860,7 +865,7 @@ static void dsi_update_dsc_timing(struct msm_dsi_host *msm_host, bool is_cmd_mod
->         if (slice_per_intf > dsc->slice_count)
->                 dsc->slice_count = 1;
->
-> -       bytes_in_slice = DIV_ROUND_UP(dsc->slice_width * dsc->bits_per_pixel, 8);
-> +       bytes_in_slice = DIV_ROUND_UP(dsc->slice_width * bpp, 8);
-
-
-bytes_in_slice = DIV_ROUND_UP(dsc->slice_width * dsc->bits_per_pixel, 8 * 16); ?
-
->
->         dsc->slice_chunk_size = bytes_in_slice;
->
-> @@ -913,6 +918,7 @@ static void dsi_timing_setup(struct msm_dsi_host *msm_host, bool is_bonded_dsi)
->         u32 va_end = va_start + mode->vdisplay;
->         u32 hdisplay = mode->hdisplay;
->         u32 wc;
-> +       int ret;
->
->         DBG("");
->
-> @@ -948,7 +954,9 @@ static void dsi_timing_setup(struct msm_dsi_host *msm_host, bool is_bonded_dsi)
->                 /* we do the calculations for dsc parameters here so that
->                  * panel can use these parameters
->                  */
-> -               dsi_populate_dsc_params(dsc);
-> +               ret = dsi_populate_dsc_params(dsc);
-> +               if (ret)
-> +                       return;
->
->                 /* Divide the display by 3 but keep back/font porch and
->                  * pulse width same
-> @@ -1229,6 +1237,10 @@ static int dsi_cmd_dma_add(struct msm_dsi_host *msm_host,
->         if (packet.size < len)
->                 memset(data + packet.size, 0xff, len - packet.size);
->
-> +       if (msg->type == MIPI_DSI_PICTURE_PARAMETER_SET)
-> +               print_hex_dump(KERN_DEBUG, "ALL:", DUMP_PREFIX_NONE,
-> +                               16, 1, data, len, false);
+> +       if (adv->type == ADV7533 || adv->type == ADV7535)
+> +               return adv7533_mode_valid(adv, mode);
+> +       else
+> +               return adv7511_mode_valid(adv, mode);
+> +}
 > +
->         if (cfg_hnd->ops->tx_buf_put)
->                 cfg_hnd->ops->tx_buf_put(msm_host);
+>  static int adv7511_bridge_attach(struct drm_bridge *bridge,
+>                                  enum drm_bridge_attach_flags flags)
+>  {
+> @@ -960,6 +969,7 @@ static const struct drm_bridge_funcs adv7511_bridge_funcs = {
+>         .enable = adv7511_bridge_enable,
+>         .disable = adv7511_bridge_disable,
+>         .mode_set = adv7511_bridge_mode_set,
+> +       .mode_valid = adv7511_bridge_mode_valid,
+>         .attach = adv7511_bridge_attach,
+>         .detect = adv7511_bridge_detect,
+>         .get_edid = adv7511_bridge_get_edid,
+> diff --git a/drivers/gpu/drm/bridge/adv7511/adv7533.c b/drivers/gpu/drm/bridge/adv7511/adv7533.c
+> index ef6270806d1d..5f590abd6403 100644
+> --- a/drivers/gpu/drm/bridge/adv7511/adv7533.c
+> +++ b/drivers/gpu/drm/bridge/adv7511/adv7533.c
+> @@ -100,26 +100,27 @@ void adv7533_dsi_power_off(struct adv7511 *adv)
+>         regmap_write(adv->regmap_cec, 0x27, 0x0b);
+>  }
 >
-> @@ -1786,6 +1798,12 @@ static int dsi_populate_dsc_params(struct drm_dsc_config *dsc)
->         int data;
->         int final_value, final_scale;
->         int i;
-> +       int bpp = dsc->bits_per_pixel >> 4;
+> -void adv7533_mode_set(struct adv7511 *adv, const struct drm_display_mode *mode)
+> +enum drm_mode_status adv7533_mode_valid(struct adv7511 *adv,
+> +               const struct drm_display_mode *mode)
+>  {
+> +       int lanes;
+>         struct mipi_dsi_device *dsi = adv->dsi;
+> -       int lanes, ret;
+> -
+> -       if (adv->num_dsi_lanes != 4)
+> -               return;
+>
+>         if (mode->clock > 80000)
+>                 lanes = 4;
+>         else
+>                 lanes = 3;
+>
+> -       if (lanes != dsi->lanes) {
+> -               mipi_dsi_detach(dsi);
+> -               dsi->lanes = lanes;
+> -               ret = mipi_dsi_attach(dsi);
+> -               if (ret)
+> -                       dev_err(&dsi->dev, "failed to change host lanes\n");
+> -       }
+> +       /*
+> +        * TODO: add support for dynamic switching of lanes
+> +        * by using the bridge pre_enable() op . Till then filter
+> +        * out the modes which shall need different number of lanes
+> +        * than what was configured in the device tree.
+> +        */
+> +       if (lanes != dsi->lanes)
+> +               return MODE_BAD;
 > +
-> +       if (dsc->bits_per_pixel & 0xf) {
-> +               pr_err("DSI does not support fractional bits_per_pixel\n");
-> +               return -EINVAL;
-> +       }
+> +       return MODE_OK;
+>  }
 >
->         dsc->rc_model_size = 8192;
->         dsc->first_line_bpg_offset = 12;
-> @@ -1807,7 +1825,7 @@ static int dsi_populate_dsc_params(struct drm_dsc_config *dsc)
->         }
->
->         dsc->initial_offset = 6144; /* Not bpp 12 */
-> -       if (dsc->bits_per_pixel != 8)
-> +       if (bpp != 8)
->                 dsc->initial_offset = 2048;     /* bpp = 12 */
->
->         mux_words_size = 48;            /* bpc == 8/10 */
-> @@ -1830,16 +1848,16 @@ static int dsi_populate_dsc_params(struct drm_dsc_config *dsc)
->          * params are calculated
->          */
->         groups_per_line = DIV_ROUND_UP(dsc->slice_width, 3);
-> -       dsc->slice_chunk_size = dsc->slice_width * dsc->bits_per_pixel / 8;
-> -       if ((dsc->slice_width * dsc->bits_per_pixel) % 8)
-> +       dsc->slice_chunk_size = dsc->slice_width * bpp / 8;
-> +       if ((dsc->slice_width * bpp) % 8)
-
-One can use fixed point math here too:
-
-dsc->slice_chunk_size = (dsc->slice_width * dsc->bits_per_pixel  + 8 *
-16 - 1)/ (8 * 16);
-
->                 dsc->slice_chunk_size++;
->
->         /* rbs-min */
->         min_rate_buffer_size =  dsc->rc_model_size - dsc->initial_offset +
-> -                               dsc->initial_xmit_delay * dsc->bits_per_pixel +
-> +                               dsc->initial_xmit_delay * bpp +
->                                 groups_per_line * dsc->first_line_bpg_offset;
->
-> -       hrd_delay = DIV_ROUND_UP(min_rate_buffer_size, dsc->bits_per_pixel);
-> +       hrd_delay = DIV_ROUND_UP(min_rate_buffer_size, bpp);
->
->         dsc->initial_dec_delay = hrd_delay - dsc->initial_xmit_delay;
->
-> @@ -1862,7 +1880,7 @@ static int dsi_populate_dsc_params(struct drm_dsc_config *dsc)
->         data = 2048 * (dsc->rc_model_size - dsc->initial_offset + num_extra_mux_bits);
->         dsc->slice_bpg_offset = DIV_ROUND_UP(data, groups_total);
->
-> -       target_bpp_x16 = dsc->bits_per_pixel * 16;
-> +       target_bpp_x16 = bpp * 16;
->
->         data = (dsc->initial_xmit_delay * target_bpp_x16) / 16;
-
-It looks like this can be replaced with the direct multiplication
-instead, maybe with support for overflow/rounding.
-
->         final_value =  dsc->rc_model_size - data + num_extra_mux_bits;
+>  int adv7533_patch_registers(struct adv7511 *adv)
 > --
-> 2.37.3
+> 2.7.4
 >
 
+This patch has some checkpatch --style warnings, with those fixed feel
+free to add my r-b.
 
--- 
-With best wishes
-Dmitry
+Reviewed-by: Robert Foss <robert.foss@linaro.org>
