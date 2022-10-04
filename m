@@ -2,76 +2,92 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id CFC545F478D
-	for <lists+freedreno@lfdr.de>; Tue,  4 Oct 2022 18:28:17 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3CC345F4804
+	for <lists+freedreno@lfdr.de>; Tue,  4 Oct 2022 19:03:52 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E0DE510E0AE;
-	Tue,  4 Oct 2022 16:28:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5F1D710E04E;
+	Tue,  4 Oct 2022 17:03:47 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9030C10E0AE;
- Tue,  4 Oct 2022 16:28:12 +0000 (UTC)
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 294F89UI001775;
- Tue, 4 Oct 2022 16:28:02 GMT
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 03E3910E011;
+ Tue,  4 Oct 2022 17:03:42 +0000 (UTC)
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 294Gokcm000924;
+ Tue, 4 Oct 2022 17:03:13 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
  h=message-id : date :
  mime-version : subject : to : cc : references : from : in-reply-to :
  content-type : content-transfer-encoding; s=qcppdkim1;
- bh=er6WiFdir6EGtOJNKUaGEwi0MCH4cdt6wj/WNtIk28c=;
- b=gM63uEQl+NrPYdjvUp/K0JfGmBB8R9fV4mGkjS6iO+P8OXxTseH65+suTSsftmz4DbfV
- WIepsMJaW8FDJB6bIUmJJD/vL6tP22+T7hcRih5f7LRPLcviDXN5P2hC6w18IaY1VHrv
- room6h05PjpgeS4oodWOo8h4RdgC9ScG0p6fPKPPYJfGBrz+tddmp2nQ0LrcTCokPZ1S
- QDmrXMD0hVIT+WtHK9OYC/NdJ4TnZHOiRsZD1eUD0BSmdJS5OtEbc3SYgTOI6xJd7VO9
- o14mcYWBgCldXol9tqacWmkzBNw83UTveI8psPsaXARej0hulAPtTRwqjA8OEvJda806 Ww== 
-Received: from nalasppmta03.qualcomm.com (Global_NAT1.qualcomm.com
+ bh=AEYsfh/eAt8nDw1iuATZ7PecSdIMZP841nXjfzpjNoo=;
+ b=daszagFtoy1GJbxo+QhBtAoqxy7nSHXjCYF5M3+ZSmYrRiuK/mJga6rY9SQG7DbEQBfS
+ lGbYaY/UHescM4ZqIRZrIOOlkz5io2n7jAXnO4Jh5QlT7e9Cd+xUsYoDmVgdsinZXwVF
+ blzE1KHUbXPOAHPk8jfUD69jv4p0i6xNOD7H5cwLNU6Gv22qPXlsISSGVU0DvCBqWIoC
+ wSoyO+SWqDpQxwTZgduXzj7Zu+DCowZ0WG6kc0vM9TZSW2uosa63jh9fgLrPTtH/7Or1
+ FcNa7S21FYjmpF19cUTTNR6pl23hU5biRpbjq4lOrjUK1Ks8RaIbPy+1nkTWahlzqqdk Rg== 
+Received: from nalasppmta02.qualcomm.com (Global_NAT1.qualcomm.com
  [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3k0escs8r9-1
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3jxd58pd5d-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 04 Oct 2022 16:28:01 +0000
+ Tue, 04 Oct 2022 17:03:13 +0000
+Received: from pps.filterd (NALASPPMTA02.qualcomm.com [127.0.0.1])
+ by NALASPPMTA02.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTP id 294H1PAi003695; 
+ Tue, 4 Oct 2022 17:03:11 GMT
+Received: from pps.reinject (localhost [127.0.0.1])
+ by NALASPPMTA02.qualcomm.com (PPS) with ESMTPS id 3jxemkktrb-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 04 Oct 2022 17:03:11 +0000
+Received: from NALASPPMTA02.qualcomm.com (NALASPPMTA02.qualcomm.com
+ [127.0.0.1])
+ by pps.reinject (8.17.1.5/8.17.1.5) with ESMTP id 294H3B1c005319;
+ Tue, 4 Oct 2022 17:03:11 GMT
 Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
  [10.47.209.196])
- by NALASPPMTA03.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 294GS1qm032218
+ by NALASPPMTA02.qualcomm.com (PPS) with ESMTPS id 294H3BLF005318
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 4 Oct 2022 16:28:01 GMT
+ Tue, 04 Oct 2022 17:03:11 +0000
 Received: from [10.111.163.178] (10.80.80.8) by nalasex01a.na.qualcomm.com
  (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.29; Tue, 4 Oct 2022
- 09:27:58 -0700
-Message-ID: <fa74e1c0-53bb-4e73-4df5-c69cd455dd11@quicinc.com>
-Date: Tue, 4 Oct 2022 09:27:56 -0700
+ 10:03:08 -0700
+Message-ID: <7f7a5d78-e50f-b6af-bb3e-bbfbc7fa5f75@quicinc.com>
+Date: Tue, 4 Oct 2022 10:03:07 -0700
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
  Thunderbird/91.6.2
 Content-Language: en-US
-To: Chen Zhongjin <chenzhongjin@huawei.com>, <linux-kernel@vger.kernel.org>,
- <linux-arm-msm@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
- <freedreno@lists.freedesktop.org>
-References: <20221010024010.2873633-1-chenzhongjin@huawei.com>
+To: Marijn Suijten <marijn.suijten@somainline.org>,
+ <phone-devel@vger.kernel.org>, Rob Clark <robdclark@gmail.com>, Dmitry
+ Baryshkov <dmitry.baryshkov@linaro.org>, Vinod Koul <vkoul@kernel.org>
+References: <20221001190807.358691-1-marijn.suijten@somainline.org>
+ <20221001190807.358691-5-marijn.suijten@somainline.org>
 From: Abhinav Kumar <quic_abhinavk@quicinc.com>
-In-Reply-To: <20221010024010.2873633-1-chenzhongjin@huawei.com>
+In-Reply-To: <20221001190807.358691-5-marijn.suijten@somainline.org>
 Content-Type: text/plain; charset="UTF-8"; format=flowed
 Content-Transfer-Encoding: 7bit
 X-Originating-IP: [10.80.80.8]
 X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
  nalasex01a.na.qualcomm.com (10.47.209.196)
 X-QCInternal: smtphost
+X-QCInternal: smtphost
 X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
  signatures=585085
-X-Proofpoint-ORIG-GUID: eTWAbwP9wnza17SGp2NVwyKAzZq0dcIZ
-X-Proofpoint-GUID: eTWAbwP9wnza17SGp2NVwyKAzZq0dcIZ
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-GUID: pGloqYhjcMLdcZlFUuZu5eaz0S-vN8EE
+X-Proofpoint-ORIG-GUID: pGloqYhjcMLdcZlFUuZu5eaz0S-vN8EE
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.205,Aquarius:18.0.895,Hydra:6.0.528,FMLib:17.11.122.1
- definitions=2022-10-04_07,2022-09-29_03,2022-06-22_01
+ definitions=2022-10-04_08,2022-09-29_03,2022-06-22_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0
- malwarescore=0 adultscore=0 clxscore=1011 suspectscore=0 mlxscore=0
- mlxlogscore=999 impostorscore=0 spamscore=0 bulkscore=0 priorityscore=1501
- phishscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2209130000 definitions=main-2210040106
-Subject: Re: [Freedreno] [PATCH -next] drm/msm: Remove unused variables 'top'
+ impostorscore=0 phishscore=0
+ mlxscore=0 bulkscore=0 suspectscore=0 malwarescore=0 mlxlogscore=999
+ priorityscore=1501 clxscore=1015 spamscore=0 adultscore=0
+ lowpriorityscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2209130000 definitions=main-2210040110
+Subject: Re: [Freedreno] [PATCH 4/5] drm/msm/dpu1: Account for DSC's
+ bits_per_pixel having 4 fractional bits
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -84,47 +100,78 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: dmitry.baryshkov@linaro.org, andersson@kernel.org, sean@poorly.run,
- dianders@chromium.org, swboyd@chromium.org
+Cc: Sean Paul <sean@poorly.run>, Jami Kettunen <jami.kettunen@somainline.org>,
+ linux-arm-msm@vger.kernel.org, Konrad Dybcio <konrad.dybcio@somainline.org>,
+ Vladimir Lypak <vladimir.lypak@gmail.com>,
+ Douglas Anderson <dianders@chromium.org>, dri-devel@lists.freedesktop.org,
+ Javier Martinez Canillas <javierm@redhat.com>, David Airlie <airlied@linux.ie>,
+ Martin Botka <martin.botka@somainline.org>,
+ ~postmarketos/upstreaming@lists.sr.ht, Thomas Zimmermann <tzimmermann@suse.de>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@somainline.org>,
+ Alex Deucher <alexander.deucher@amd.com>, freedreno@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 
 
-On 10/9/2022 7:40 PM, Chen Zhongjin wrote:
-> 'commit 1e5df24b996c ("drm/msm/dpu: drop length from struct dpu_hw_blk_reg_map")'
-> 'commit 9403f9a42c88 ("drm/msm/dpu: merge base_off with blk_off in struct dpu_hw_blk_reg_map")'
-> These commits had merged hw.blk_off and hw.blk_off to mdp.
-> So we don't need to get dpu_hw_mdp in dpu_kms_mdp_snapshot() now.
+On 10/1/2022 12:08 PM, Marijn Suijten wrote:
+> According to the comment this DPU register contains the bits per pixel
+> as a 6.4 fractional value, conveniently matching the contents of
+> bits_per_pixel in struct drm_dsc_config which also uses 4 fractional
+> bits.  However, the downstream source this implementation was
+> copy-pasted from has its bpp field stored _without_ fractional part.
 > 
-> Since there is no code using 'top' in this function. Remove it.
+> This makes the entire convoluted math obsolete as it is impossible to
+> pull those 4 fractional bits out of thin air, by somehow trying to reuse
+> the lowest 2 bits of a non-fractional bpp (lsb = bpp % 4??).
 > 
-> Signed-off-by: Chen Zhongjin <chenzhongjin@huawei.com>
+> The rest of the code merely attempts to keep the integer part a multiple
+> of 4, which is rendered useless thanks to data |= dsc->bits_per_pixel <<
+> 12; already filling up those bits anyway (but not on downstream).
+> 
+> Fixes: c110cfd1753e ("drm/msm/disp/dpu1: Add support for DSC")
+> Signed-off-by: Marijn Suijten <marijn.suijten@somainline.org>
 
-This has already been fixed with:
+Many of this bugs are because the downstream code from which this 
+implementation was derived wasnt the latest perhaps?
 
-https://gitlab.freedesktop.org/drm/msm/-/commit/4bca876458caf7c105ab2ae9d80ff2cc9c60388d
+Earlier, downstream had its own DSC struct maybe leading to this 
+redundant math but now we have migrated over to use the upstream struct 
+drm_dsc_config.
 
-
+That being said, this patch LGTM
+Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
 > ---
->   drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c | 4 ----
->   1 file changed, 4 deletions(-)
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_dsc.c | 11 ++---------
+>   1 file changed, 2 insertions(+), 9 deletions(-)
 > 
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
-> index 008e1420e6e5..79e81f1443be 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
-> @@ -902,13 +902,9 @@ static void dpu_kms_mdp_snapshot(struct msm_disp_state *disp_state, struct msm_k
->   	int i;
->   	struct dpu_kms *dpu_kms;
->   	const struct dpu_mdss_cfg *cat;
-> -	struct dpu_hw_mdp *top;
->   
->   	dpu_kms = to_dpu_kms(kms);
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_dsc.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_dsc.c
+> index f2ddcfb6f7ee..3662df698dae 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_dsc.c
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_dsc.c
+> @@ -42,7 +42,7 @@ static void dpu_hw_dsc_config(struct dpu_hw_dsc *hw_dsc,
+>   			      u32 initial_lines)
+>   {
+>   	struct dpu_hw_blk_reg_map *c = &hw_dsc->hw;
+> -	u32 data, lsb, bpp;
+> +	u32 data;
+>   	u32 slice_last_group_size;
+>   	u32 det_thresh_flatness;
+>   	bool is_cmd_mode = !(mode & DSC_MODE_VIDEO);
+> @@ -56,14 +56,7 @@ static void dpu_hw_dsc_config(struct dpu_hw_dsc *hw_dsc,
+>   	data = (initial_lines << 20);
+>   	data |= ((slice_last_group_size - 1) << 18);
+>   	/* bpp is 6.4 format, 4 LSBs bits are for fractional part */
+> -	data |= dsc->bits_per_pixel << 12;
+> -	lsb = dsc->bits_per_pixel % 4;
+> -	bpp = dsc->bits_per_pixel / 4;
+> -	bpp *= 4;
+> -	bpp <<= 4;
+> -	bpp |= lsb;
 > -
->   	cat = dpu_kms->catalog;
-> -	top = dpu_kms->hw_mdp;
-> -
->   	pm_runtime_get_sync(&dpu_kms->pdev->dev);
->   
->   	/* dump CTL sub-blocks HW regs info */
+> -	data |= bpp << 8;
+> +	data |= (dsc->bits_per_pixel << 8);
+>   	data |= (dsc->block_pred_enable << 7);
+>   	data |= (dsc->line_buf_depth << 3);
+>   	data |= (dsc->simple_422 << 2);
