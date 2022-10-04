@@ -2,77 +2,45 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3C2B65F2B40
-	for <lists+freedreno@lfdr.de>; Mon,  3 Oct 2022 09:55:22 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1908A5F3A97
+	for <lists+freedreno@lfdr.de>; Tue,  4 Oct 2022 02:27:03 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E14D310E223;
-	Mon,  3 Oct 2022 07:55:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1999710E540;
+	Tue,  4 Oct 2022 00:27:01 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-x22d.google.com (mail-lj1-x22d.google.com
- [IPv6:2a00:1450:4864:20::22d])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C4A8210E243
- for <freedreno@lists.freedesktop.org>; Mon,  3 Oct 2022 07:55:17 +0000 (UTC)
-Received: by mail-lj1-x22d.google.com with SMTP id s17so541940ljs.12
- for <freedreno@lists.freedesktop.org>; Mon, 03 Oct 2022 00:55:17 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date;
- bh=AWWik7Ro2WMW3rP3zuTmOKWCoTINy486UbZe1BIOJ30=;
- b=jCc986gDVQOoJgz1tTSNWFlwcc7cwQUEYkuAkDH+Wwv/85G7GPheB8Q/gKpngA7LoW
- jOUYnmTNK9Idr/6yd2PkrpuIlZSg1F+cndMsuV0XBsl+0Mw1iRZyzH1rtt9Bp6zbbdsU
- yJqrpV9nZPfd87H+S89HyLHj/kF/gUF0AOb1QbD0U6Uq94NExN7tQ9MeWNLW3IwwPkVX
- E8L+D0XW1A/m/Ih//TlBtd+5c4aG8gE40FGFOAsiSJ60ySelzvnOEaqIIZ3NRyyfjh7l
- fNgXk8O7szMe1hqfPpMYHyhTOyvNJ3eEvqskNibXrPVVSPytOuLWwnAnBgoFdHNeRQxf
- GevA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date;
- bh=AWWik7Ro2WMW3rP3zuTmOKWCoTINy486UbZe1BIOJ30=;
- b=oyGK5FKQTeJt9QaYTSbokv5Dwy+gKG7xTncmWD5PdeoG2hwYYIF5gr8qtUmXUrRcPJ
- 8/WUQ9CGIZIyVVOiuh87LCpVSyMjgVVyxKFWdcske2UxQg4a7EcDMP5o5HbUZG/D7H4O
- XrhKV0I3WlZXc5cvBYjo6ZoaY6fNmxlDz2Lj326Q59Cnal31oUzGgHNOoqwUgPTKdCJk
- e3LUcx3InCWB4xHh0d8xoD49DrI7ighR0vy+4J7H/MeBQfGAVCnt5mFj0qSp1hakRW9a
- 0HvCjILBjLGTMWTRXVjrxBofoQRlMuWY++IOCfmoTN5cr0tuiOJWIleIxxWynZt9JKWd
- d9jg==
-X-Gm-Message-State: ACrzQf1FHMzRm1tVCtRehrUxhqPpTKwjWXplkMlnhAT649emTWmR2yj1
- r+fT5OPvstpZ70tM5M8gHV38CA==
-X-Google-Smtp-Source: AMsMyM6LazJpQxrBqhJQfb1vXbRFSUvDVP+Ts25muHd1R+0kQHdtCegacUeEqpXvowYR45JtZpfUqQ==
-X-Received: by 2002:a05:651c:11cc:b0:26c:16cd:f1ae with SMTP id
- z12-20020a05651c11cc00b0026c16cdf1aemr5941193ljo.59.1664783715938; 
- Mon, 03 Oct 2022 00:55:15 -0700 (PDT)
-Received: from [192.168.0.21] (78-11-189-27.static.ip.netia.com.pl.
- [78.11.189.27]) by smtp.gmail.com with ESMTPSA id
- s7-20020a2eb8c7000000b0026ddf39da47sm194830ljp.81.2022.10.03.00.55.14
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 03 Oct 2022 00:55:15 -0700 (PDT)
-Message-ID: <267c17b6-070c-8b77-8f52-75368c74d59d@linaro.org>
-Date: Mon, 3 Oct 2022 09:55:14 +0200
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 97D8510E520;
+ Tue,  4 Oct 2022 00:26:56 +0000 (UTC)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id DE30461230;
+ Tue,  4 Oct 2022 00:26:55 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C7D22C433D7;
+ Tue,  4 Oct 2022 00:26:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1664843215;
+ bh=OA9gALTKKnHQ120A5UTTlN4CPGY9ult7j6PDay+Yy1M=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=WvlPoU8Qd1mJV9iVXVfw9hRnqYx5Er1VAytV/1aNisZe+s16mCe1PL2MzcnVKRXxT
+ /MyXryezYGWaYGRXh+IRNOHf2aN5Al6WotSokibUKc2Zn6daKn6/LaLuvzDKtjuyVe
+ HRweKcWOi85Mw9y8Uh3V0VTW+Tv1vT7gsu8YkBf9CbbqXcI69TsqR5/Z+/DDv4RRDV
+ lJE61qV4IDqCf3xjFzRBq9Ihlt3332sGv/ozv12x98CnZiYQEt2n0Rz7Xv7tNdYYU8
+ mQYe2KbEdYzpWFkUpNrdrZRrNiwSqFOBkzkQTlZeQpFAE2hfGpmYzW6ZHgP8P7UAPE
+ yOX8EVzlxXYEA==
+Date: Mon, 3 Oct 2022 19:26:50 -0500
+From: Bjorn Andersson <andersson@kernel.org>
+To: Marijn Suijten <marijn.suijten@somainline.org>
+Message-ID: <20221004002650.joqwhmvzql55ospz@baldur>
+References: <20221001190807.358691-1-marijn.suijten@somainline.org>
+ <20221001190807.358691-2-marijn.suijten@somainline.org>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.3.0
-Content-Language: en-US
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Andy Gross <agross@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konrad.dybcio@somainline.org>, Rob Clark
- <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, Rob Herring <robh+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>
-References: <20220915133742.115218-1-dmitry.baryshkov@linaro.org>
- <20220915133742.115218-6-dmitry.baryshkov@linaro.org>
- <02b60bf8-70ac-eb7b-33d7-1c9b7a6f0a54@linaro.org>
- <168a46c3-2c0e-cd5c-e6f1-1e072c67d162@linaro.org>
- <d2af0a8e-63fe-221f-1c53-9fe1c43fa04d@linaro.org>
- <aeae567c-ccf7-de73-61eb-1f04772d3bba@linaro.org>
-From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-In-Reply-To: <aeae567c-ccf7-de73-61eb-1f04772d3bba@linaro.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH v7 05/12] dt-bindings: display/msm: move
- common MDSS properties to mdss-common.yaml
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20221001190807.358691-2-marijn.suijten@somainline.org>
+Subject: Re: [Freedreno] [PATCH 1/5] drm/msm/dsi: Remove useless math in DSC
+ calculation
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -85,45 +53,56 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: devicetree@vger.kernel.org, David Airlie <airlied@linux.ie>,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- Stephen Boyd <swboyd@chromium.org>, Daniel Vetter <daniel@ffwll.ch>,
- freedreno@lists.freedesktop.org
+Cc: David Airlie <airlied@linux.ie>,
+ Konrad Dybcio <konrad.dybcio@somainline.org>, dri-devel@lists.freedesktop.org,
+ Javier Martinez Canillas <javierm@redhat.com>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@somainline.org>,
+ phone-devel@vger.kernel.org, Marek Vasut <marex@denx.de>,
+ Rob Clark <robdclark@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ linux-arm-msm@vger.kernel.org, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Martin Botka <martin.botka@somainline.org>,
+ ~postmarketos/upstreaming@lists.sr.ht, Sean Paul <sean@poorly.run>,
+ Jami Kettunen <jami.kettunen@somainline.org>,
+ Vladimir Lypak <vladimir.lypak@gmail.com>,
+ Douglas Anderson <dianders@chromium.org>, linux-kernel@vger.kernel.org,
+ Vinod Koul <vkoul@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Alex Deucher <alexander.deucher@amd.com>, freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 23/09/2022 22:32, Dmitry Baryshkov wrote:
-> On 22/09/2022 15:28, Krzysztof Kozlowski wrote:
->> On 22/09/2022 13:46, Dmitry Baryshkov wrote:
->>>>> -  ranges: true
->>>>> +    maxItems: 2
->>>>>    
->>>>>      interconnects:
->>>>> -    items:
->>>>> -      - description: Interconnect path from mdp0 port to the data bus
->>>>> -      - description: Interconnect path from mdp1 port to the data bus
->>>>> +    maxItems: 2
->>>>
->>>> I think this is not equivalent now, because you have in total minItems:1
->>>> and maxItems:2, while in past minItems was 2.
->>>
->>> This means that I should have minItems:2, maxItems:2, which, if I got it
->>> right, is frowned upon. Let me doublecheck though if it works as expected.
->>
->> It is frowned upon only if it is alone, because for missing minItems,
->> maxItems implies minItems. Here you have minItems in other schema, so
->> there is no such case
+On Sat, Oct 01, 2022 at 09:08:03PM +0200, Marijn Suijten wrote:
+> Multiplying a value by 2 and adding 1 to it always results in a value
+> that is uneven, and that 1 gets truncated immediately when performing
+> integer division by 2 again.  There is no "rounding" possible here.
 > 
-> Well, I just checked, the schema will throw an error if I put a single 
-> interconnects or iommus entry. If I understand correctly these two 
-> clauses are evaluated separately. So, the dpu-common's clause tells 
-> minItems:1, maxItems:2. The platform schema file contains just 
-> maxItems:2, which implicitly adds minItems:2 to _this_ clause.
+> Fixes: b9080324d6ca ("drm/msm/dsi: add support for dsc data")
+> Signed-off-by: Marijn Suijten <marijn.suijten@somainline.org>
+
+Reviewed-by: Bjorn Andersson <andersson@kernel.org>
+
+> ---
+>  drivers/gpu/drm/msm/dsi/dsi_host.c | 7 +------
+>  1 file changed, 1 insertion(+), 6 deletions(-)
 > 
-> Thus I think I'll leave this part as is.
-
-Thanks for checking. It's good then.
-
-Best regards,
-Krzysztof
-
+> diff --git a/drivers/gpu/drm/msm/dsi/dsi_host.c b/drivers/gpu/drm/msm/dsi/dsi_host.c
+> index 8e4bc586c262..e05bae647431 100644
+> --- a/drivers/gpu/drm/msm/dsi/dsi_host.c
+> +++ b/drivers/gpu/drm/msm/dsi/dsi_host.c
+> @@ -1864,12 +1864,7 @@ static int dsi_populate_dsc_params(struct drm_dsc_config *dsc)
+>  	data = 2048 * (dsc->rc_model_size - dsc->initial_offset + num_extra_mux_bits);
+>  	dsc->slice_bpg_offset = DIV_ROUND_UP(data, groups_total);
+>  
+> -	/* bpp * 16 + 0.5 */
+> -	data = dsc->bits_per_pixel * 16;
+> -	data *= 2;
+> -	data++;
+> -	data /= 2;
+> -	target_bpp_x16 = data;
+> +	target_bpp_x16 = dsc->bits_per_pixel * 16;
+>  
+>  	data = (dsc->initial_xmit_delay * target_bpp_x16) / 16;
+>  	final_value =  dsc->rc_model_size - data + num_extra_mux_bits;
+> -- 
+> 2.37.3
+> 
