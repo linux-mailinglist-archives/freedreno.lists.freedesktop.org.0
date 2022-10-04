@@ -1,55 +1,59 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 198A75F404E
-	for <lists+freedreno@lfdr.de>; Tue,  4 Oct 2022 11:51:26 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 6F1095F4579
+	for <lists+freedreno@lfdr.de>; Tue,  4 Oct 2022 16:29:57 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 270DC10E4C8;
-	Tue,  4 Oct 2022 09:51:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2565310E61C;
+	Tue,  4 Oct 2022 14:29:49 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from relay07.th.seeweb.it (relay07.th.seeweb.it [5.144.164.168])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D1D3710E410
- for <freedreno@lists.freedesktop.org>; Tue,  4 Oct 2022 09:51:19 +0000 (UTC)
-Received: from SoMainline.org (94-209-172-39.cable.dynamic.v4.ziggo.nl
- [94.209.172.39])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest
- SHA256) (No client certificate requested)
- by m-r2.th.seeweb.it (Postfix) with ESMTPSA id 4972C3F2EB;
- Tue,  4 Oct 2022 11:51:16 +0200 (CEST)
-Date: Tue, 4 Oct 2022 11:51:14 +0200
-From: Marijn Suijten <marijn.suijten@somainline.org>
-To: Vinod Koul <vkoul@kernel.org>
-Message-ID: <20221004095114.tr2gk76epbycflfa@SoMainline.org>
-Mail-Followup-To: Marijn Suijten <marijn.suijten@somainline.org>,
- Vinod Koul <vkoul@kernel.org>, phone-devel@vger.kernel.org,
- Rob Clark <robdclark@gmail.com>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- ~postmarketos/upstreaming@lists.sr.ht,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@somainline.org>,
- Konrad Dybcio <konrad.dybcio@somainline.org>,
- Martin Botka <martin.botka@somainline.org>,
- Jami Kettunen <jami.kettunen@somainline.org>,
- David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Sean Paul <sean@poorly.run>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Javier Martinez Canillas <javierm@redhat.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- Douglas Anderson <dianders@chromium.org>,
- Vladimir Lypak <vladimir.lypak@gmail.com>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org
-References: <20221001190807.358691-1-marijn.suijten@somainline.org>
- <Yzu50ly1AxZwmyvi@matsya>
+Received: from mail-yb1-xb31.google.com (mail-yb1-xb31.google.com
+ [IPv6:2607:f8b0:4864:20::b31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EF5FA10E70A
+ for <freedreno@lists.freedesktop.org>; Tue,  4 Oct 2022 14:29:43 +0000 (UTC)
+Received: by mail-yb1-xb31.google.com with SMTP id y205so2708866yby.13
+ for <freedreno@lists.freedesktop.org>; Tue, 04 Oct 2022 07:29:43 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date;
+ bh=ijglwwuz/cduqjD9lRpSbWUxZDMZnR6XyBHWqgTpWi0=;
+ b=sgOv57fbnzKWTJ3Gj/s54GaCwDd1UqTCdivZvQD+c8GhR4b9Nab75SuhTmz6F87Ljr
+ 6CrbkuI6PBHC/i93xQbDbvJha0RrHnIfPykhn0SlbYTwTNiW3/bggwCbCroyCzciS36p
+ XuSu17T4meV0BJ6hsTEmhP/KuHx7gEuqPIyAij9yiClvri8W/QJasZzZqeDM5WYq7e0Q
+ p1AUVAwcuShxycjS2Qq/p6tQrwUUSGfSKQactRn7gCrUi+tcbzLeqF5QCFLG0/ZbbU/W
+ pNBN3wWbF5Uqg+d+RA1KXglMunSla72isdHYcfS/Kn2kk8pvCZf+AQQRzUgAX4iidL5f
+ S19Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date;
+ bh=ijglwwuz/cduqjD9lRpSbWUxZDMZnR6XyBHWqgTpWi0=;
+ b=eJphx8qLP9pR864+uJYPSaiQvYOtee1Muk4omZJACx5EQnyru4TS2OKcpiKxV0sNM6
+ zAa2qzWRIa6rv9sXBalJEYVjvRJbpceTqn75MNQ2aSusu6w7hdAn/hanY1hToeuwe/P3
+ Uqg6CzYodkW/ca0nOU1NVnWCM3ILOj0dM9ky5G/V20GQwrEsq9Phx8IsIVFnjme/FVDS
+ 5F+/IyVTDGchy3meHJJTJ6nuHgC152IRx04cGCa9SgQiQjsIradGnLmVM6jIyccgS7kQ
+ cAYYgu5LrlxuUlejFwKT9M+pMm/pj1OAahhjIzMibufFmuzZpK/tZ6x5V1GAOtCe/SaT
+ FKGw==
+X-Gm-Message-State: ACrzQf1hYY100w5yJ6OFpIZn+GQMb0OR5keXyUQkbkZ+J56Kot3n2Goz
+ 9t3xqseYjVjD1rg8KZjn/R8lePGO2SlNRkEqCSfoMw==
+X-Google-Smtp-Source: AMsMyM4fqrZVe/Y7fdfMeViSnsoegXnhSVJy2m+9q19ABJo2r3IrBSo1oIn+G4VDuqMN22gPmfDNipyrLxMAqjI1EJI=
+X-Received: by 2002:a25:a502:0:b0:6bc:2835:a88a with SMTP id
+ h2-20020a25a502000000b006bc2835a88amr25146371ybi.15.1664893783081; Tue, 04
+ Oct 2022 07:29:43 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <Yzu50ly1AxZwmyvi@matsya>
-Subject: Re: [Freedreno] [PATCH 0/5] drm: Fix math issues in MSM DSC
- implementation
+References: <20220924121900.222711-1-dmitry.baryshkov@linaro.org>
+ <20220924121900.222711-3-dmitry.baryshkov@linaro.org>
+ <20221001160054.gmrlnjvdwyn5ttzw@SoMainline.org>
+In-Reply-To: <20221001160054.gmrlnjvdwyn5ttzw@SoMainline.org>
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Date: Tue, 4 Oct 2022 17:29:32 +0300
+Message-ID: <CAA8EJpqX0PVkx9TWYHAHT-Rvne_9nzVnV-xcsHWYB0VTs6oRbA@mail.gmail.com>
+To: Marijn Suijten <marijn.suijten@somainline.org>
+Content-Type: text/plain; charset="UTF-8"
+Subject: Re: [Freedreno] [PATCH v3 2/2] drm/msm/dsi: Add phy configuration
+ for QCM2290
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,64 +66,109 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, Douglas Anderson <dianders@chromium.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Jami Kettunen <jami.kettunen@somainline.org>,
- Vladimir Lypak <vladimir.lypak@gmail.com>, linux-arm-msm@vger.kernel.org,
+Cc: devicetree@vger.kernel.org, Loic Poulain <loic.poulain@linaro.org>,
+ Daniel Vetter <daniel@ffwll.ch>, David Airlie <airlied@linux.ie>,
+ linux-arm-msm@vger.kernel.org, Bjorn Andersson <andersson@kernel.org>,
  Konrad Dybcio <konrad.dybcio@somainline.org>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
- Javier Martinez Canillas <javierm@redhat.com>, David Airlie <airlied@linux.ie>,
- Rob Clark <robdclark@gmail.com>, Martin Botka <martin.botka@somainline.org>,
- ~postmarketos/upstreaming@lists.sr.ht, Daniel Vetter <daniel@ffwll.ch>,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@somainline.org>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Alex Deucher <alexander.deucher@amd.com>, phone-devel@vger.kernel.org,
- Sean Paul <sean@poorly.run>, linux-kernel@vger.kernel.org
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, Rob Herring <robh+dt@kernel.org>,
+ Stephen Boyd <swboyd@chromium.org>, Rob Clark <robdclark@gmail.com>,
+ Andy Gross <agross@kernel.org>, dri-devel@lists.freedesktop.org,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ freedreno@lists.freedesktop.org, Sean Paul <sean@poorly.run>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 2022-10-04 10:12:58, Vinod Koul wrote:
-> On 01-10-22, 21:08, Marijn Suijten wrote:
-> > Various removals of complex yet unnecessary math, fixing all uses of
-> > drm_dsc_config::bits_per_pixel to deal with the fact that this field
-> > includes four fractional bits, and finally an approach for dealing with
-> > dsi_host setting negative values in range_bpg_offset, resulting in
-> > overflow inside drm_dsc_pps_payload_pack().
-> > 
-> > Note that updating the static bpg_offset array to limit the size of
-> > these negative values to 6 bits changes what would be written to the DPU
-> > hardware at register(s) DSC_RANGE_BPG_OFFSET, hence the choice has been
-> > made to cover up for this while packing the value into a smaller field
-> > instead.
-> 
-> Thanks for fixing these. I dont have my pixel3 availble but changes lgtm
-> 
-> Reviewed-by: Vinod Koul <vkoul@kernel.org>
+On Sat, 1 Oct 2022 at 19:00, Marijn Suijten
+<marijn.suijten@somainline.org> wrote:
+>
+> On 2022-09-24 15:19:00, Dmitry Baryshkov wrote:
+> > From: Loic Poulain <loic.poulain@linaro.org>
+> >
+> > The QCM2290 SoC a the 14nm (V2.0) single DSI phy. The platform is not
+> > fully compatible with the standard 14nm PHY, so it requires a separate
+> > compatible and config entry.
+> >
+> > Signed-off-by: Loic Poulain <loic.poulain@linaro.org>
+> > [DB: rebased and updated commit msg]
+> > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> > ---
+> >  drivers/gpu/drm/msm/dsi/phy/dsi_phy.c      |  2 ++
+> >  drivers/gpu/drm/msm/dsi/phy/dsi_phy.h      |  1 +
+> >  drivers/gpu/drm/msm/dsi/phy/dsi_phy_14nm.c | 17 +++++++++++++++++
+> >  3 files changed, 20 insertions(+)
+> >
+> > diff --git a/drivers/gpu/drm/msm/dsi/phy/dsi_phy.c b/drivers/gpu/drm/msm/dsi/phy/dsi_phy.c
+> > index 7fc0975cb869..ee6051367679 100644
+> > --- a/drivers/gpu/drm/msm/dsi/phy/dsi_phy.c
+> > +++ b/drivers/gpu/drm/msm/dsi/phy/dsi_phy.c
+> > @@ -549,6 +549,8 @@ static const struct of_device_id dsi_phy_dt_match[] = {
+> >  #ifdef CONFIG_DRM_MSM_DSI_14NM_PHY
+> >       { .compatible = "qcom,dsi-phy-14nm",
+> >         .data = &dsi_phy_14nm_cfgs },
+> > +     { .compatible = "qcom,dsi-phy-14nm-2290",
+> > +       .data = &dsi_phy_14nm_2290_cfgs },
+> >       { .compatible = "qcom,dsi-phy-14nm-660",
+> >         .data = &dsi_phy_14nm_660_cfgs },
+> >       { .compatible = "qcom,dsi-phy-14nm-8953",
+> > diff --git a/drivers/gpu/drm/msm/dsi/phy/dsi_phy.h b/drivers/gpu/drm/msm/dsi/phy/dsi_phy.h
+> > index 60a99c6525b2..1096afedd616 100644
+> > --- a/drivers/gpu/drm/msm/dsi/phy/dsi_phy.h
+> > +++ b/drivers/gpu/drm/msm/dsi/phy/dsi_phy.h
+> > @@ -50,6 +50,7 @@ extern const struct msm_dsi_phy_cfg dsi_phy_20nm_cfgs;
+> >  extern const struct msm_dsi_phy_cfg dsi_phy_28nm_8960_cfgs;
+> >  extern const struct msm_dsi_phy_cfg dsi_phy_14nm_cfgs;
+> >  extern const struct msm_dsi_phy_cfg dsi_phy_14nm_660_cfgs;
+> > +extern const struct msm_dsi_phy_cfg dsi_phy_14nm_2290_cfgs;
+>
+> following alphabetical sorting (same as the other locations in this
+> series), this should be above 660?
 
-Thanks; any comment on the self-review I sent in for patch 3 and 5?
+Ack
 
-> > Altogether this series is responsible for solving _all_ Display Stream
-> > Compression issues and artifacts on the Sony Tama (sdm845) Akatsuki
-> > smartphone (2880x1440p).
-> 
-> Does it need two dsi lanes?
+>
+> >  extern const struct msm_dsi_phy_cfg dsi_phy_14nm_8953_cfgs;
+> >  extern const struct msm_dsi_phy_cfg dsi_phy_10nm_cfgs;
+> >  extern const struct msm_dsi_phy_cfg dsi_phy_10nm_8998_cfgs;
+> > diff --git a/drivers/gpu/drm/msm/dsi/phy/dsi_phy_14nm.c b/drivers/gpu/drm/msm/dsi/phy/dsi_phy_14nm.c
+> > index 0f8f4ca46429..9f488adea7f5 100644
+> > --- a/drivers/gpu/drm/msm/dsi/phy/dsi_phy_14nm.c
+> > +++ b/drivers/gpu/drm/msm/dsi/phy/dsi_phy_14nm.c
+> > @@ -1081,3 +1081,20 @@ const struct msm_dsi_phy_cfg dsi_phy_14nm_8953_cfgs = {
+> >       .io_start = { 0x1a94400, 0x1a96400 },
+> >       .num_dsi_phy = 2,
+> >  };
+> > +
+> > +const struct msm_dsi_phy_cfg dsi_phy_14nm_2290_cfgs = {
+> > +     .has_phy_lane = true,
+> > +     .regulator_data = dsi_phy_14nm_17mA_regulators,
+> > +     .num_regulators = ARRAY_SIZE(dsi_phy_14nm_17mA_regulators),
+> > +     .ops = {
+> > +             .enable = dsi_14nm_phy_enable,
+> > +             .disable = dsi_14nm_phy_disable,
+> > +             .pll_init = dsi_pll_14nm_init,
+> > +             .save_pll_state = dsi_14nm_pll_save_state,
+> > +             .restore_pll_state = dsi_14nm_pll_restore_state,
+> > +     },
+> > +     .min_pll_rate = VCO_MIN_RATE,
+> > +     .max_pll_rate = VCO_MAX_RATE,
+> > +     .io_start = { 0x5e94400 },
+>
+> For sm6125 we also need this exact io_start (and a single PHY), do you
+> think it makes sense to add a compatible that reuses the same struct (I
+> can do that in a folloup patch) and/or generalize this struct (name)?
+>
+> However, our regulator setup appears to be different.  I recall not
+> finding any `vcca` supply in my downstream sources, and had this in my
+> notes for a similar dsi_phy_14nm.c patch:
+>
+>     sm6125 uses an RPM regulator
+>
+> https://github.com/sonyxperiadev/kernel/blob/f956fbd9a234033bd18234d456a2c32c126b38f3/arch/arm64/boot/dts/qcom/trinket-sde.dtsi#L388
 
-This panel has the default of four dsi data lanes enabled:
+I'd prefer a separate config for sm6125. This way you would be able to
+add voting on the MX domain if required.
 
-https://github.com/sonyxperiadev/kernel/blob/f956fbd9a234033bd18234d456a2c32c126b38f3/arch/arm64/boot/dts/qcom/dsi-panel-somc-akatsuki.dtsi#L74-L77
 
-Unless you are referring to dual-dsi (ctrl/phy); this panel doesn't have
-a dual connection, but I do have devices on sm8350/sm8450 with a
-"4k"@120Hz display that have this, in case you want it to be tested?
-
-However, for the time being I'm focussing on a similar panel (4 data
-lanes, single DSI ctrl/phy) on sm8250 which keeps showing corrupted /
-garbled data and resulting in ping-pong timeouts.  I haven't yet
-confirmed if this is due to the "integration" of the pingpong block with
-the intf (since relevant registers and interrupts still seem to be
-accessible), a mismatching resource topology, or a misconfiguration
-elswhere.  Relevant panel dts if you're interested:
-
-https://github.com/sonyxperiadev/kernel/blob/e70161ec43b147b0b02578d05ab64552fd2df2cd/arch/arm64/boot/dts/somc/dsi-panel-sofef03_m-fhd_plus.dtsi
-
-- Marijn
+-- 
+With best wishes
+Dmitry
