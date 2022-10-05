@@ -1,62 +1,59 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id BAD115F59DD
-	for <lists+freedreno@lfdr.de>; Wed,  5 Oct 2022 20:29:44 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id D67895F5A10
+	for <lists+freedreno@lfdr.de>; Wed,  5 Oct 2022 20:46:10 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 641B610E743;
-	Wed,  5 Oct 2022 18:29:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7BDC510E750;
+	Wed,  5 Oct 2022 18:46:08 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from relay06.th.seeweb.it (relay06.th.seeweb.it
  [IPv6:2001:4b7a:2000:18::167])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7DEBE10E74C
- for <freedreno@lists.freedesktop.org>; Wed,  5 Oct 2022 18:29:39 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 77EBC10E750
+ for <freedreno@lists.freedesktop.org>; Wed,  5 Oct 2022 18:46:01 +0000 (UTC)
 Received: from SoMainline.org (94-209-172-39.cable.dynamic.v4.ziggo.nl
  [94.209.172.39])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest
  SHA256) (No client certificate requested)
- by m-r2.th.seeweb.it (Postfix) with ESMTPSA id 789713EED5;
- Wed,  5 Oct 2022 20:29:37 +0200 (CEST)
-Date: Wed, 5 Oct 2022 20:29:35 +0200
+ by m-r2.th.seeweb.it (Postfix) with ESMTPSA id 13ECA3EEBA;
+ Wed,  5 Oct 2022 20:45:59 +0200 (CEST)
+Date: Wed, 5 Oct 2022 20:45:57 +0200
 From: Marijn Suijten <marijn.suijten@somainline.org>
 To: Abhinav Kumar <quic_abhinavk@quicinc.com>
-Message-ID: <20221005182935.7xdp5axnags5obu6@SoMainline.org>
+Message-ID: <20221005184557.pq5w33uo4sgwfnpy@SoMainline.org>
 Mail-Followup-To: Marijn Suijten <marijn.suijten@somainline.org>,
  Abhinav Kumar <quic_abhinavk@quicinc.com>,
  phone-devel@vger.kernel.org, Rob Clark <robdclark@gmail.com>,
  Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Vinod Koul <vkoul@kernel.org>,
+ Vinod Koul <vkoul@kernel.org>, freedreno@lists.freedesktop.org,
+ Douglas Anderson <dianders@chromium.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Jami Kettunen <jami.kettunen@somainline.org>,
+ Vladimir Lypak <vladimir.lypak@gmail.com>,
+ linux-arm-msm@vger.kernel.org,
+ Konrad Dybcio <konrad.dybcio@somainline.org>,
+ dri-devel@lists.freedesktop.org,
+ Javier Martinez Canillas <javierm@redhat.com>,
+ David Airlie <airlied@linux.ie>,
+ Martin Botka <martin.botka@somainline.org>,
  ~postmarketos/upstreaming@lists.sr.ht,
  AngeloGioacchino Del Regno <angelogioacchino.delregno@somainline.org>,
- Konrad Dybcio <konrad.dybcio@somainline.org>,
- Martin Botka <martin.botka@somainline.org>,
- Jami Kettunen <jami.kettunen@somainline.org>,
- David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
- Sean Paul <sean@poorly.run>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Javier Martinez Canillas <javierm@redhat.com>,
  Alex Deucher <alexander.deucher@amd.com>,
- Douglas Anderson <dianders@chromium.org>,
- Vladimir Lypak <vladimir.lypak@gmail.com>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
- Lyude Paul <lyude@redhat.com>
+ Sean Paul <sean@poorly.run>, linux-kernel@vger.kernel.org
 References: <20221001190807.358691-1-marijn.suijten@somainline.org>
- <20221001190807.358691-6-marijn.suijten@somainline.org>
- <55d7e20b-79cd-ece6-b643-8b542beb7474@quicinc.com>
- <20221004215745.zdfvulqx4exlujgk@SoMainline.org>
- <1a5ed43e-914e-079d-96bf-c9e3912a9473@quicinc.com>
- <20221004223940.stfsyvubx7ecd3a3@SoMainline.org>
- <57732804-9eb1-2f92-f2cd-0ae66f3e28cd@quicinc.com>
+ <20221001190807.358691-5-marijn.suijten@somainline.org>
+ <7f7a5d78-e50f-b6af-bb3e-bbfbc7fa5f75@quicinc.com>
+ <20221004221134.roino4u2waawgh6u@SoMainline.org>
+ <3bf05883-e8dc-5e11-ed83-7f8f7b801737@quicinc.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <57732804-9eb1-2f92-f2cd-0ae66f3e28cd@quicinc.com>
-Subject: Re: [Freedreno] [PATCH 5/5] drm/dsc: Prevent negative BPG offsets
- from shadowing adjacent bitfields
+In-Reply-To: <3bf05883-e8dc-5e11-ed83-7f8f7b801737@quicinc.com>
+Subject: Re: [Freedreno] [PATCH 4/5] drm/msm/dpu1: Account for DSC's
+ bits_per_pixel having 4 fractional bits
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,82 +66,79 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: David Airlie <airlied@linux.ie>,
- Konrad Dybcio <konrad.dybcio@somainline.org>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@somainline.org>,
- phone-devel@vger.kernel.org, Javier Martinez Canillas <javierm@redhat.com>,
- Rob Clark <robdclark@gmail.com>, Lyude Paul <lyude@redhat.com>,
- Daniel Vetter <daniel@ffwll.ch>, linux-arm-msm@vger.kernel.org,
- Alex Deucher <alexander.deucher@amd.com>,
+Cc: Sean Paul <sean@poorly.run>, Alex Deucher <alexander.deucher@amd.com>,
+ Jami Kettunen <jami.kettunen@somainline.org>, linux-arm-msm@vger.kernel.org,
+ Konrad Dybcio <konrad.dybcio@somainline.org>,
+ Vladimir Lypak <vladimir.lypak@gmail.com>, Vinod Koul <vkoul@kernel.org>,
+ dri-devel@lists.freedesktop.org, Douglas Anderson <dianders@chromium.org>,
+ David Airlie <airlied@linux.ie>, Rob Clark <robdclark@gmail.com>,
  Martin Botka <martin.botka@somainline.org>,
- ~postmarketos/upstreaming@lists.sr.ht, Sean Paul <sean@poorly.run>,
- Jami Kettunen <jami.kettunen@somainline.org>,
- Vladimir Lypak <vladimir.lypak@gmail.com>,
- Douglas Anderson <dianders@chromium.org>, Vinod Koul <vkoul@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
+ ~postmarketos/upstreaming@lists.sr.ht, Thomas Zimmermann <tzimmermann@suse.de>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@somainline.org>,
  Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- freedreno@lists.freedesktop.org
+ Javier Martinez Canillas <javierm@redhat.com>, phone-devel@vger.kernel.org,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 2022-10-05 08:33:23, Abhinav Kumar wrote:
-[..]
-> hmm .... downstream seems to have the & just before the reg write
-> 
-> https://git.codelinaro.org/clo/la/platform/vendor/opensource/display-drivers/-/blob/DISPLAY.LA.2.0.r1-08000-WAIPIO.0/msm/sde/sde_hw_dsc_1_2.c#L310
-
-https://git.codelinaro.org/clo/la/platform/vendor/opensource/display-drivers/-/blob/DISPLAY.LA.2.0.r1-08000-WAIPIO.0/msm/sde/sde_hw_dsc.c#L156
-
-The reference code for NON-v1.2 doesn't do this here, but you already
-confirmed by the docs - and I confirmed by testing a set of size #1 -
-that the register is fine with having only 6 bits.
-
-> But yes, we can move this to the dsi calculation to match what others 
-> are doing. I am fine with that.
-
-Thanks, done that in v2.
-
+On 2022-10-05 07:19:11, Abhinav Kumar wrote:
 > > [..]
+> > 
+> > Or are you suggesting to "redo" the DSC integration work based on a
+> > (much) newer display techpack (SDE driver)?
 > 
-> Even I wasnt. When I was reviewing this series, it seemed like a valid 
-> change so I checked the latest downstream code like i always do to see 
-> whether and how this is handled and found that these issues were 
-> addressed there so thought i would update that here.
+> There is no need to redo the DSC integration now.
+> 
+> The code I am referring to is here :
+> 
+> https://git.codelinaro.org/clo/la/platform/vendor/opensource/display-drivers/-/blob/DISPLAY.LA.2.0.r1-08000-WAIPIO.0/msm/sde_dsc_helper.c#L240
+> 
+> So with respect to the redundant math in patches 1/3/4/5 of this series, 
+> I dont see all the redundant math anymore in this calculation.
+> 
+> This is what i meant by my comment.
 
-Thanks for confirming that it was done in the correct/same way :)
+It all seems to have had a nice clean-up.  What I meant is that it might
+have been more efficient to copy-paste the cleaned-up, improved
+downstream implementation instead of individually trying to find and
+address all issues; either by running into these bugs on upstream (the
+way this patch series came to be), or by comparing the new/improved
+downstream with upstream.
 
-> > [..]
-> Its not really parallel development OR competing drivers.
-> The design of these features downstream (not just DSC but many others) 
-> is quite different because some of the downstream designs wont get 
-> accepted upstream as its tightly coupled with our 
-> compositor/device-tree. Thats where we are slowly trying to implement 
-> these in an upstream compatible way.
+> When DSC changes were pushed, they were indeed validated on sdm845 
+> devices by Vinod so there was a certain level of confidence on those 
+> changes.
 
-But this is what it feels like.
+Some branches seemed to have a display driver without the DCS PPS
+command, or with the command commented out (relying on the panel being
+configured for DSC by the bootloader).  The "4 fractional bits" issue
+might have gone unnoticed since the panel driver was writing, and both
+the DSI and DPU1 drivers were reading this field without those
+fractional bits.
 
-To me this sounds like downstream is more of a staging / prototyping
-area that is actively used in production, while the driver
-implementation is fleshed out and slowly brought to mainline in a
-careful and controlled manner.
+It's only a small bug (but with disastrous results on panel drivers with
+proper DCS PPS command), the rest is cruft that was copied from
+downstream but not filtered out in development nor review.
 
-That's not a bad thing, but it does mean that mainline always lags
-behind in terms of features and hardware support.  At least I'm glad
-to hear that downstream is slowly using more DRM primitives, and the
-driver is becoming more digestible as well.
+> At this point, we should just consider these as bug-fixes for upstream 
+> and keep going. A full redo is not required.
 
-> BTW, that being said. Its not always the case that every issue seen 
-> upstream has already been fixed downstream. In fact, on some occasions 
-> we found something fixed in upstream in a better way and ported them 
-> downstream too.
+Ack, at least that doesn't make this series/work obsolete :)
 
-I wasn't expecting anything else, as different drivers have inevitably
-different details and different bugs.  The issues this series fixes
-weren't applicable to the downstream kernel because it (at the time)
-wasn't even using this drm_dsc_config struct with different semantics.
-Regardless, it's good to hear that fixes are transplanted in both ways
-even if it does mean extra overhead maintaining and keeping tabs on two
-drivers at once.
+> At some point in the next couple of months, we plan to add DSC 1.2 
+> support to MSM.
+
+That's appreciated as all devices I have here (on newer SoCs with DSC
+1.2) also have high-resolution, high-fps panels that need DSC to
+function correctly.
+We'll see who gets to it first though :)
+
+> We will check for any missing changes (if any after this series of 
+> yours) and push those as part of that.
+
+There are a few, but it's hard to say until the panel is fully working.
+Current focus is on sm8250.
+We can discuss this at a more informal pace in #linux-msm if you're
+interested.
 
 - Marijn
