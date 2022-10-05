@@ -1,36 +1,37 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (unknown [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7DD285F59A8
-	for <lists+freedreno@lfdr.de>; Wed,  5 Oct 2022 20:17:38 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id E65195F59A2
+	for <lists+freedreno@lfdr.de>; Wed,  5 Oct 2022 20:17:26 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1A59B10E730;
-	Wed,  5 Oct 2022 18:17:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3608010E73C;
+	Wed,  5 Oct 2022 18:17:19 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from m-r2.th.seeweb.it (m-r2.th.seeweb.it
- [IPv6:2001:4b7a:2000:18::171])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 59A8010E307
- for <freedreno@lists.freedesktop.org>; Wed,  5 Oct 2022 18:17:11 +0000 (UTC)
+Received: from relay06.th.seeweb.it (relay06.th.seeweb.it [5.144.164.167])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 178FB10E730
+ for <freedreno@lists.freedesktop.org>; Wed,  5 Oct 2022 18:17:13 +0000 (UTC)
 Received: from localhost.localdomain (94-209-172-39.cable.dynamic.v4.ziggo.nl
  [94.209.172.39])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by m-r2.th.seeweb.it (Postfix) with ESMTPSA id CC8EB3F5B8;
- Wed,  5 Oct 2022 20:17:08 +0200 (CEST)
+ by m-r2.th.seeweb.it (Postfix) with ESMTPSA id D57D83F63B;
+ Wed,  5 Oct 2022 20:17:10 +0200 (CEST)
 From: Marijn Suijten <marijn.suijten@somainline.org>
 To: phone-devel@vger.kernel.org, Rob Clark <robdclark@gmail.com>,
  Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
  Vinod Koul <vkoul@kernel.org>
-Date: Wed,  5 Oct 2022 20:16:50 +0200
-Message-Id: <20221005181657.784375-1-marijn.suijten@somainline.org>
+Date: Wed,  5 Oct 2022 20:16:51 +0200
+Message-Id: <20221005181657.784375-2-marijn.suijten@somainline.org>
 X-Mailer: git-send-email 2.38.0
+In-Reply-To: <20221005181657.784375-1-marijn.suijten@somainline.org>
+References: <20221005181657.784375-1-marijn.suijten@somainline.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH v2 0/7] drm/msm: Fix math issues in MSM DSC
- implementation
+Subject: [Freedreno] [PATCH v2 1/7] drm/msm/dsi: Remove useless math in DSC
+ calculations
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -49,7 +50,7 @@ Cc: freedreno@lists.freedesktop.org, Douglas Anderson <dianders@chromium.org>,
  Vladimir Lypak <vladimir.lypak@gmail.com>, linux-arm-msm@vger.kernel.org,
  Konrad Dybcio <konrad.dybcio@somainline.org>,
  Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
- Javier Martinez Canillas <javierm@redhat.com>,
+ Javier Martinez Canillas <javierm@redhat.com>, David Airlie <airlied@linux.ie>,
  Martin Botka <martin.botka@somainline.org>,
  ~postmarketos/upstreaming@lists.sr.ht, Daniel Vetter <daniel@ffwll.ch>,
  AngeloGioacchino Del Regno <angelogioacchino.delregno@somainline.org>,
@@ -59,49 +60,48 @@ Cc: freedreno@lists.freedesktop.org, Douglas Anderson <dianders@chromium.org>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Various removals of complex yet unnecessary math, fixing all uses of
-drm_dsc_config::bits_per_pixel to deal with the fact that this field
-includes four fractional bits, and finally making sure that
-range_bpg_offset contains values 6-bits wide to prevent overflows in
-drm_dsc_pps_payload_pack().
+Multiplying a value by 2 and adding 1 to it always results in a value
+that is uneven, and that 1 gets truncated immediately when performing
+integer division by 2 again.  There is no "rounding" possible here.
 
-Altogether this series is responsible for solving _all_ Display Stream
-Compression issues and artifacts on the Sony Tama (sdm845) Akatsuki
-smartphone (2880x1440p).
+After that target_bpp_x16 is used to store a multiplication of
+bits_per_pixel by 16 which is only ever read to immediately be divided
+by 16 again, and is elided in much the same way.
 
-Changes since v1:
+Fixes: b9080324d6ca ("drm/msm/dsi: add support for dsc data")
+Signed-off-by: Marijn Suijten <marijn.suijten@somainline.org>
+---
+ drivers/gpu/drm/msm/dsi/dsi_host.c | 10 +---------
+ 1 file changed, 1 insertion(+), 9 deletions(-)
 
-- Propagate r-b's, except (obviously) in patches that were (heavily)
-  modified;
-- Remove accidental debug code in dsi_cmd_dma_add;
-- Move Range BPG Offset masking out of DCS PPS packing, back into the
-  DSI driver when it is assigned to drm_dsc_config (this series is now
-  strictly focusing on drm/msm again);
-- Replace modulo-check resulting in conditional increment with
-  DIV_ROUND_UP;
-- Remove repeated calculation of slice_chunk_size;
-- Use u16 instead of int when handling bits_per_pixel;
-- Use DRM_DEV_ERROR instead of pr_err in DSI code;
-- Also remove redundant target_bpp_x16 variable.
-
-v1: https://lore.kernel.org/linux-arm-msm/20221001190807.358691-1-marijn.suijten@somainline.org/T/#u
-
-Marijn Suijten (7):
-  drm/msm/dsi: Remove useless math in DSC calculations
-  drm/msm/dsi: Remove repeated calculation of slice_per_intf
-  drm/msm/dsi: Use DIV_ROUND_UP instead of conditional increment on
-    modulo
-  drm/msm/dsi: Reuse earlier computed dsc->slice_chunk_size
-  drm/msm/dsi: Account for DSC's bits_per_pixel having 4 fractional bits
-  drm/msm/dpu1: Account for DSC's bits_per_pixel having 4 fractional
-    bits
-  drm/msm/dsi: Prevent signed BPG offsets from bleeding into adjacent
-    bits
-
- drivers/gpu/drm/msm/disp/dpu1/dpu_hw_dsc.c | 11 +----
- drivers/gpu/drm/msm/dsi/dsi_host.c         | 56 ++++++++++------------
- 2 files changed, 28 insertions(+), 39 deletions(-)
-
---
+diff --git a/drivers/gpu/drm/msm/dsi/dsi_host.c b/drivers/gpu/drm/msm/dsi/dsi_host.c
+index 8e4bc586c262..70077d1f0f21 100644
+--- a/drivers/gpu/drm/msm/dsi/dsi_host.c
++++ b/drivers/gpu/drm/msm/dsi/dsi_host.c
+@@ -1784,7 +1784,6 @@ static int dsi_populate_dsc_params(struct drm_dsc_config *dsc)
+ 	int hrd_delay;
+ 	int pre_num_extra_mux_bits, num_extra_mux_bits;
+ 	int slice_bits;
+-	int target_bpp_x16;
+ 	int data;
+ 	int final_value, final_scale;
+ 	int i;
+@@ -1864,14 +1863,7 @@ static int dsi_populate_dsc_params(struct drm_dsc_config *dsc)
+ 	data = 2048 * (dsc->rc_model_size - dsc->initial_offset + num_extra_mux_bits);
+ 	dsc->slice_bpg_offset = DIV_ROUND_UP(data, groups_total);
+ 
+-	/* bpp * 16 + 0.5 */
+-	data = dsc->bits_per_pixel * 16;
+-	data *= 2;
+-	data++;
+-	data /= 2;
+-	target_bpp_x16 = data;
+-
+-	data = (dsc->initial_xmit_delay * target_bpp_x16) / 16;
++	data = dsc->initial_xmit_delay * dsc->bits_per_pixel;
+ 	final_value =  dsc->rc_model_size - data + num_extra_mux_bits;
+ 	dsc->final_offset = final_value;
+ 
+-- 
 2.38.0
 
