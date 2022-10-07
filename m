@@ -2,59 +2,145 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id A4B9B5F794D
-	for <lists+freedreno@lfdr.de>; Fri,  7 Oct 2022 15:56:34 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B5B935F79BE
+	for <lists+freedreno@lfdr.de>; Fri,  7 Oct 2022 16:34:44 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5580910E2E0;
-	Fri,  7 Oct 2022 13:56:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B703310E31A;
+	Fri,  7 Oct 2022 14:34:41 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ej1-x62d.google.com (mail-ej1-x62d.google.com
- [IPv6:2a00:1450:4864:20::62d])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2087F10E2EC
- for <freedreno@lists.freedesktop.org>; Fri,  7 Oct 2022 13:56:31 +0000 (UTC)
-Received: by mail-ej1-x62d.google.com with SMTP id k2so11540655ejr.2
- for <freedreno@lists.freedesktop.org>; Fri, 07 Oct 2022 06:56:31 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=gXZcvWqcPIpnVsMljnA1azLi0qLzNuQ/iTE6oM2LoVQ=;
- b=re+u4XD5diGGof3n+vKImJ2oty634MJyX7DysKZK8CPeaAuyLpLlM1RIDiVW7RfbQY
- Tgnj6J9nLicLi8tPlEFm2B53oc3zbfs19G+eTZDY5HtbjCk74T3fL8Jp/AUcJgEFWXu5
- uRBUwYTBlekXP1J5w1Sfjk7eeW3Y+LUqcm5RDzkyx8nwn71ybPw9QJaWFZtBaLHg//1v
- fdbmNstdYrVju5l8adtIEbs5zBV0sJgCOr5gyE4pFKfSN1kwb2Jbchc2LqCg6Dn8B+Bh
- cFdbG04qXNQO/3hf8GpEE0QtkiH2UsMKPCq0HhDKl/rm9K5ADcKJcz/6xWsgnokV5sQn
- Ycug==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=gXZcvWqcPIpnVsMljnA1azLi0qLzNuQ/iTE6oM2LoVQ=;
- b=neKUA3c9fbCdeny6cb7DEWSxWZkcXA3AYPWnCLnobO7Hf/N6pdYU23G1O8J0ggZ8Kr
- ESAjrPrCLEYjRUO6yb2AZupW3QvUnwnt9S/qVF5MehZ75IGLKiVQydt2L+DKs3FxbAY1
- 7shI684HQShLVkFy78P6rclIQsQwNzGdn3Ct4guWdgLxS1l/et1XEM+smA2iZssml5VM
- W5iXT5EMK6cKfXgN8jmitHBWaCY/q2/fc6Acyq0rjcCG5kZ/g/rCTapd7xUfxQGLrT+y
- tjclZ8bBRqz71a/ABZchOSoAICsMzGQpJscZmxEUx3V35luFATwtkDiyK3KCvpU0H5bO
- UCkg==
-X-Gm-Message-State: ACrzQf16FkDo0EpauTU+k5g3pWeKoXcGsyV8Ar4g0BeLKk9N6jzmy2zz
- wD8hT5+1niU6hUHsig8pSX7FK2hJ9K/iTbSobBMRnw==
-X-Google-Smtp-Source: AMsMyM4zEQkLi3IO+0gm/lEQGhpYUmcAvcXcnVDpqqPx8Nfz2JaMdYx+oOVCQkm5sdi1oVXUCc8XK/ShV6Vd/JRHOWE=
-X-Received: by 2002:a17:907:16a7:b0:78c:2c22:d331 with SMTP id
- hc39-20020a17090716a700b0078c2c22d331mr4225381ejc.580.1665150989300; Fri, 07
- Oct 2022 06:56:29 -0700 (PDT)
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9470C10E2AC;
+ Fri,  7 Oct 2022 14:34:36 +0000 (UTC)
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 297EQFPA003158;
+ Fri, 7 Oct 2022 14:34:34 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com;
+ h=from : to : cc :
+ subject : date : message-id : references : in-reply-to : content-type :
+ content-transfer-encoding : mime-version; s=qcppdkim1;
+ bh=/PVXKktjRfwXCB3WLecYGg4gYT4qWLshcAWi1sSNel4=;
+ b=etYZaeIk7Rx3l4kfwqac2p/Tw8AolTpTBtLFZAMJw6ev5AMw8EyPC5V56mBVF+sMl9ir
+ r5rswdw6jT3AkTdim9WDhsM3oOJDvNVQRsAMfj9ikajK8ONwz7H+BJgKTS01LbEs0RRL
+ jzU2Z8lQqicAZCXGdgKJquN1DbsYWjNzhi//HjyZYEbObjDqr85n+G4XdsAYmBdqgLVc
+ Yzj2X5C99YVpZmpyhphuGC9nb1JnToKWd+OGheKLZMemPOkOFD6XHr3fI8NiYyqCUGUH
+ LyaTJ7qpBabYa7+G64jsR9QwvuO1p2qW/EFAtJOKOiHWCKDVecSj3GrWi7nRhTiOmV/b Kg== 
+Received: from nam11-bn8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11lp2168.outbound.protection.outlook.com [104.47.58.168])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3k295e9d3h-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Fri, 07 Oct 2022 14:34:33 +0000
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=IbTVUUKXwckqH5djm2ZzPaB+QYlofcSK37CUBdH2Y9UVquRhlUNEKr4KKrchMji7H4afdO4po7Z4vbazg8bGAh+ofpZ+A1Ezwwkvzlk7FkXcj34Z5lkN3saGkGSmqdw/Sc8PZTWLLYeGPb9uOYF+McsO6yJudyhM6Fj0tTIiDOMsPcpVwRR5Td+m/FIcNQC13h3nrD/7r6z78C7Bsb2xH1zPptsEtE7Mq+Ldavh/EFYWa/9004ewnONp/l+bDqOCLS4V9/oGxcxt1zvnLAd5RtdSQDNhPXzAFZ8O6SLOHlsMvvx7HbgRJZntMixYDgGIKd9m5qX4uN48n8TkgU7D9Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=/PVXKktjRfwXCB3WLecYGg4gYT4qWLshcAWi1sSNel4=;
+ b=RJbuOYlu76/IGVOuWNEZyNcXnH0lOKXLRT9XgI5ZrhoZmEYtL/2m9s5sFfEEFp4VZnPNMn8V8Knc8rc5Ao02OEjpRDx31X0iG6EIQkp1bFQxvm2cSdSJxzlUDFfeHfR9w+h9ekGSVo1x1LiHg+etos8o0be8pVIZeql5btzN2ss5GUcTHw5iN6BD8FT8rYpr308SGrpVGwnSO3Upk3vft/iRXbZAr5UpCozlOgPvVGFM3wjWx/0PN5jaDkqvEj+AZtSH5T3lCYZUcCmkzWcUOL33Zz01dHj5IEfgab2uyNIRiUAgEu+2N4six7XAxgJKm7JI52du/QijcQ5hMq6VOg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=qti.qualcomm.com; dmarc=pass action=none
+ header.from=qti.qualcomm.com; dkim=pass header.d=qti.qualcomm.com; arc=none
+Received: from BN0PR02MB8142.namprd02.prod.outlook.com (2603:10b6:408:16a::19)
+ by PH0PR02MB7848.namprd02.prod.outlook.com (2603:10b6:510:5d::9) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5676.23; Fri, 7 Oct
+ 2022 14:34:24 +0000
+Received: from BN0PR02MB8142.namprd02.prod.outlook.com
+ ([fe80::60f2:dd20:67dc:8baf]) by BN0PR02MB8142.namprd02.prod.outlook.com
+ ([fe80::60f2:dd20:67dc:8baf%9]) with mapi id 15.20.5676.034; Fri, 7 Oct 2022
+ 14:34:23 +0000
+From: Kalyan Thota <kalyant@qti.qualcomm.com>
+To: "dmitry.baryshkov@linaro.org" <dmitry.baryshkov@linaro.org>, "Kalyan Thota
+ (QUIC)" <quic_kalyant@quicinc.com>
+Thread-Topic: [v6] drm/msm/disp/dpu1: add support for dspp sub block flush in
+ sc7280
+Thread-Index: AQHY1g07DGaOHAZ0WkOzMFWvelzODK3+UGiAgAMREDA=
+Date: Fri, 7 Oct 2022 14:34:23 +0000
+Message-ID: <BN0PR02MB81425BBF428308C3B2797320965F9@BN0PR02MB8142.namprd02.prod.outlook.com>
+References: <1664680506-8336-1-git-send-email-quic_kalyant@quicinc.com>
+ <CAA8EJpoLeo9EQnuOMhDh=SvYiRZsw-L-9L+62O39GAv8=6SaLw@mail.gmail.com>
+In-Reply-To: <CAA8EJpoLeo9EQnuOMhDh=SvYiRZsw-L-9L+62O39GAv8=6SaLw@mail.gmail.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: BN0PR02MB8142:EE_|PH0PR02MB7848:EE_
+x-ms-office365-filtering-correlation-id: a9f4a8b7-79da-4d58-29f7-08daa87107a8
+x-ld-processed: 98e9ba89-e1a1-4e38-9007-8bdabc25de1d,ExtAddr
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: rSBDkjVkex4tEKAf0ffhOj5DM8QpkD+/7e19s42Yo2BNzPFUuERzUuSEBdUREAhXcEsfDl99SeKKn5xTosOsvdfJqbyn9zScHhNxa5YP9zwU8B7RYwd2dw4bIhEC30cyyoPHADxzhAlygJB9gywBGWvsjYfzB6l/IByF69OZz7gx9ZWzDOypMt9glSQ2ACfDLogpFk3H/GpN93HM390Vizj+IknQGOIAj47ktES5euKtfST14WFqsGD0syTBQtTq7DfHK8CTJeysep5pcNN1rO/NYbwDA/gOinnHmBHZTM6Aprrwk/YUxkYv/w4pH/7+N65n2fPHYEfZLiSoiUS/PPcajCIWZZ+hyfqju3J8hL01dsEFqsx8+bGson2P7zw0t7cb045o3Se5B+F4LIn94BCTpse4wuGTUa6KaIXZgVQg6srzyfIrxX520QWNsZ9NGKb0NY1QmQD5BsMpsOrSlbdY9sXMr1YCpoSr8dvwrpVYfzmifvxBo816Wd7aMTI9+jjslURdyNiQ6y3WFaA2GU8YEoG8PESYUhLIIls5FK21tflhh2wEghvPh6VLM2OX81OFml+HP4FlPFFE5gcv6DVbPC9hT1NA/kUGDTFJehnBde3NWI5y3D/lnnMfpW+idgra1mVcbk+FrMmx51+7/Jq0VoRBMcra3MhjmWFOppey1sutA0ifAUNizThbiaC7rEkzgMgWKRVoO8JPAVq8VnHuw6qg2fTDWadGZEMRPMPVaFjy6uSaTvASpIfbux6qIkXGZKc3rOFJNNya2oXjZg==
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BN0PR02MB8142.namprd02.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230022)(4636009)(396003)(39860400002)(346002)(366004)(376002)(136003)(451199015)(478600001)(316002)(71200400001)(52536014)(8936002)(5660300002)(38070700005)(55016003)(86362001)(83380400001)(6506007)(107886003)(7696005)(41300700001)(2906002)(26005)(9686003)(38100700002)(122000001)(33656002)(186003)(66476007)(66556008)(8676002)(64756008)(66446008)(66946007)(4326008)(76116006)(54906003)(110136005);
+ DIR:OUT; SFP:1102; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?utf-8?B?dE9uR3hkKzUyQmgyb2s0a2NqeFpmMlVSeVJta2NFSkFlY1hhNGt3QnFwOHk5?=
+ =?utf-8?B?QU1Vd21wTTd0aytJbVVCc2d6T2VOVTVtMCtaY1J2eUhuSm9HdTA0UXlEL01q?=
+ =?utf-8?B?ZGtVUGpWclBBRisrdzdlQXdoV2g4QS9uRzUzcEV0enFmRUo4ZHhoSkRuS0hV?=
+ =?utf-8?B?eWRSSWpsR1VuNHk0ZDd2TnlzcWdZN0c0S3JVcUVJNEo4YjVFM3JWNkpMTFhj?=
+ =?utf-8?B?enR3SkNvd2lkeEtBYVRZUmk4a1UwZUFLb29XdW1mdmdhNHBweFdlTzJLaWND?=
+ =?utf-8?B?cDRqQUNCbmYvUjFHa2tSQWhvbXB3RFV1bGJMMXk5azNLUzAyMUxweGtkb09C?=
+ =?utf-8?B?dTQ5Q3dYYkgxQkx0dG8ydC9uUEllUHdZU2ZJbUFrL1VMRjNETXFjZVppNmhj?=
+ =?utf-8?B?U1Q4MkVpdVYyKy8wNDdLQzhYcHV1KzVab2FJUmFhMzIydkFGdTFSSys0SXRO?=
+ =?utf-8?B?by9zeEJXcnhtL3JZZFk1U3Y5T01uNzU3QjM2M1FxZzBRVHMrdGlRRXhuRkZh?=
+ =?utf-8?B?aDhHYVNxSFR6S3c3NkdUM1BmQ0VNTkIrTUh3UTlFWm5VQTVQQUhIcnZCRXpB?=
+ =?utf-8?B?NWlWVFdkd1pJZjlKL0FySDVkK2FlR0sySk9YNC94N251K3pMYmhpNWZneC96?=
+ =?utf-8?B?Z0Rya3BqNnU5VmFSc0V4RitrdnRsTG9mVnV3RDE3MHBTQkZWdnlxME5rWlJ1?=
+ =?utf-8?B?dVdIamszUzQrMmFIS2ZHcjV3clhXd25IOGsraXJPblhaTXRNYnRybU1FTStF?=
+ =?utf-8?B?MG45QXMxQmZSZE1UdmJPaFFPYkpVaUZDdmFaQzJVNWhVVmQvdUVTWkdlN1JZ?=
+ =?utf-8?B?bVBZUHdXdHUxYm1ublhPNWprMHIyMFFydFYzZlN0WkZEVnhlTmhEY2dEb2VL?=
+ =?utf-8?B?dkNhQjhPbHRsWU9iazJWUm12WTBKeUg1ek83Yy9pRkMrRTc1eDBsaDZFc1B2?=
+ =?utf-8?B?cHBXMThBNHBuZGE2cU1ySlphSUhNL3BJQ2ZDOEcrZXRZeDhQMTJVVGFQQXBn?=
+ =?utf-8?B?QnpVRHJVMGdqSWNMY0hlUUZSSExuSVVyeW9VWXVFVmxkcG40K0VTU0dWVVJl?=
+ =?utf-8?B?Wk9HRHNUWHkrcncvVC9KZHRLeW9EYzBwRVRPMDlrdDg0Zi9EMUQyaVN2WUVw?=
+ =?utf-8?B?eEVMU0VpS294MUxUdHVZQ0lkeGJ1OWsrQWZPcHJTVEs5dGtwUW5OK3dhRFJU?=
+ =?utf-8?B?aks3dnB4WEsvT1BYRnpUQi9uWG9IVWFSemNWb0FCZzV5Vkt3SFZLRU51UFkr?=
+ =?utf-8?B?T041T2tMQnU2SFlnVDV0MDNGS3VLVFpGSGJSMUtSRnFFUjVlaFN1SXBNR2ZE?=
+ =?utf-8?B?dUdyb3ZGNkVHenBQbUoydmRCYUFGcno1WndSZExRWlRLUE12VFh4blpVNzJW?=
+ =?utf-8?B?TVRNbGtMY3cvYi9ETUZlZjhYOGc1M1l2elhUNHBFSEJnazRJM3BhRnIrTjNW?=
+ =?utf-8?B?a1QrTnNJWGhRMloraU9TRUFtd1BTb3VkNHpPRE5JcUlnY2ZxbE9iRS9uc2dL?=
+ =?utf-8?B?YzVuN0RQY3NlVDlVcUptRVlyN3ZuY3hNeFJJUlpDVUF3dmZJU1I3aGhPMXJo?=
+ =?utf-8?B?Rk55NHp6bmhaZVhyNHYrQjlkcXNxeGN4WFRhYTRrWDZweHYvMGRyWFBldVB3?=
+ =?utf-8?B?QmNOWTlyOTNuNFJQZWpQMW9xbGJhVHJ1M0dtYzlYMDUrUWVRM2ZvbytUVG1V?=
+ =?utf-8?B?Y1FQN3gvLzdQeHVvYjhxT2V1TkcxbVhxWHhPRlJiaDBSdHpsZHIzSWh2bkJs?=
+ =?utf-8?B?RXlvalpEcFdEdXZ5VjFVV2hIeFlGY3hCSXFSYWxjaWVHUmJOUmt0M01Id0Mz?=
+ =?utf-8?B?NnZramJyMUtza2t1RW1UOVoyam9KaEd1UnVhM2RleDdNM1JRRkVEVk00WUdG?=
+ =?utf-8?B?eVF6d00xYUVHRzYvaWF4QnR5ZjJlRnRtQ01iRUE2RStYbVlURU1Ec1BHajls?=
+ =?utf-8?B?QmMrV2dBNHlHNFN1bTBMTjk0V3BzaXdHeHJ6QkxVcWxZMGtQUllQNnI3Zlpz?=
+ =?utf-8?B?eWxQS25PVzdPUDdYSXRIZlRrTEFOaFFJV0ZvbWIyMm1KcWZMbVZxbjFreHV2?=
+ =?utf-8?B?ckMvSnRweU9hbE5ac1pZaEV3aVNqUFp4Z3N5WVpsMTArcVJhVXlsSEpscHhz?=
+ =?utf-8?B?Mm5PU0NlSzZyazhvVk5TMnJacU1ZYkJHSzJQUjYxSzh4Q2tpSHhTZjFFTmNv?=
+ =?utf-8?B?b2c9PQ==?=
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 MIME-Version: 1.0
-References: <1661797363-7564-1-git-send-email-quic_abhinavk@quicinc.com>
- <CAG3jFytm-zGsB23j+-myS1pnZAY1y848qkr45ER4yvHv-annvw@mail.gmail.com>
- <c577e54e-675b-a9cb-556c-93ee122f2f6e@quicinc.com>
-In-Reply-To: <c577e54e-675b-a9cb-556c-93ee122f2f6e@quicinc.com>
-From: Robert Foss <robert.foss@linaro.org>
-Date: Fri, 7 Oct 2022 15:56:18 +0200
-Message-ID: <CAG3jFytrehQ0xK6f-ehF1wzsRfVv-2aivFfnWuU+qEZcXt5zXQ@mail.gmail.com>
-To: Abhinav Kumar <quic_abhinavk@quicinc.com>
-Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [PATCH] drm/bridge: adv7533: remove dynamic lane
- switching from adv7533 bridge
+X-OriginatorOrg: qti.qualcomm.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: BN0PR02MB8142.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: a9f4a8b7-79da-4d58-29f7-08daa87107a8
+X-MS-Exchange-CrossTenant-originalarrivaltime: 07 Oct 2022 14:34:23.8797 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 98e9ba89-e1a1-4e38-9007-8bdabc25de1d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: BZdeZLgD6GwFKqrOwCmu+jXw3SmJROk5gRP7aVEgG9gqsmCW5rkalCm7SkBsOGvoRfyXng3oSOtMzABct+m/zbjBiqSGXLifaqDPx6x8TQM=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR02MB7848
+X-Proofpoint-ORIG-GUID: CmjkrJMGohuoMr_aJl1XbiZP7e47Z09J
+X-Proofpoint-GUID: CmjkrJMGohuoMr_aJl1XbiZP7e47Z09J
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.205,Aquarius:18.0.895,Hydra:6.0.528,FMLib:17.11.122.1
+ definitions=2022-10-06_05,2022-10-07_01,2022-06-22_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501
+ phishscore=0 adultscore=0 mlxlogscore=999 impostorscore=0
+ lowpriorityscore=0 malwarescore=0 bulkscore=0 spamscore=0 clxscore=1011
+ mlxscore=0 suspectscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2209130000 definitions=main-2210070087
+Subject: Re: [Freedreno] [v6] drm/msm/disp/dpu1: add support for dspp sub
+ block flush in sc7280
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,247 +153,181 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: dri-devel@lists.freedesktop.org, swboyd@chromium.org, robdclark@gmail.com,
- seanpaul@chromium.org, laurent.pinchart@ideasonboard.com, daniel@ffwll.ch,
- dmitry.baryshkov@linaro.org, quic_jesszhan@quicinc.com,
- quic_aravindh@quicinc.com, quic_khsieh@quicinc.com,
- freedreno@lists.freedesktop.org
+Cc: "robdclark@chromium.org" <robdclark@chromium.org>,
+ "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+ "Abhinav Kumar \(QUIC\)" <quic_abhinavk@quicinc.com>,
+ "linux-arm-msm@vger.kernel.org" <linux-arm-msm@vger.kernel.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ "dianders@chromium.org" <dianders@chromium.org>,
+ "swboyd@chromium.org" <swboyd@chromium.org>,
+ "freedreno@lists.freedesktop.org" <freedreno@lists.freedesktop.org>, "Vinod
+ Polimera \(QUIC\)" <quic_vpolimer@quicinc.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Thu, 6 Oct 2022 at 17:07, Abhinav Kumar <quic_abhinavk@quicinc.com> wrote:
->
-> Hi Robert
->
-> Thanks for the review.
->
-> On 10/4/2022 8:55 AM, Robert Foss wrote:
-> > On Mon, 29 Aug 2022 at 20:23, Abhinav Kumar <quic_abhinavk@quicinc.com> wrote:
-> >>
-> >> adv7533 bridge tries to dynamically switch lanes based on the
-> >> mode by detaching and attaching the mipi dsi device.
-> >>
-> >> This approach is incorrect because this method of dynamic switch of
-> >> detaching and attaching the mipi dsi device also results in removing
-> >> and adding the component which is not necessary.
-> >>
-> >> This approach is also prone to deadlocks. So for example, on the
-> >> db410c whenever this path is executed with lockdep enabled,
-> >> this results in a deadlock due to below ordering of locks.
-> >>
-> >> -> #1 (crtc_ww_class_acquire){+.+.}-{0:0}:
-> >>          lock_acquire+0x6c/0x90
-> >>          drm_modeset_acquire_init+0xf4/0x150
-> >>          drmm_mode_config_init+0x220/0x770
-> >>          msm_drm_bind+0x13c/0x654
-> >>          try_to_bring_up_aggregate_device+0x164/0x1d0
-> >>          __component_add+0xa8/0x174
-> >>          component_add+0x18/0x2c
-> >>          dsi_dev_attach+0x24/0x30
-> >>          dsi_host_attach+0x98/0x14c
-> >>          devm_mipi_dsi_attach+0x38/0xb0
-> >>          adv7533_attach_dsi+0x8c/0x110
-> >>          adv7511_probe+0x5a0/0x930
-> >>          i2c_device_probe+0x30c/0x350
-> >>          really_probe.part.0+0x9c/0x2b0
-> >>          __driver_probe_device+0x98/0x144
-> >>          driver_probe_device+0xac/0x14c
-> >>          __device_attach_driver+0xbc/0x124
-> >>          bus_for_each_drv+0x78/0xd0
-> >>          __device_attach+0xa8/0x1c0
-> >>          device_initial_probe+0x18/0x24
-> >>          bus_probe_device+0xa0/0xac
-> >>          deferred_probe_work_func+0x90/0xd0
-> >>          process_one_work+0x28c/0x6b0
-> >>          worker_thread+0x240/0x444
-> >>          kthread+0x110/0x114
-> >>          ret_from_fork+0x10/0x20
-> >>
-> >> -> #0 (component_mutex){+.+.}-{3:3}:
-> >>          __lock_acquire+0x1280/0x20ac
-> >>          lock_acquire.part.0+0xe0/0x230
-> >>          lock_acquire+0x6c/0x90
-> >>          __mutex_lock+0x84/0x400
-> >>          mutex_lock_nested+0x3c/0x70
-> >>          component_del+0x34/0x170
-> >>          dsi_dev_detach+0x24/0x30
-> >>          dsi_host_detach+0x20/0x64
-> >>          mipi_dsi_detach+0x2c/0x40
-> >>          adv7533_mode_set+0x64/0x90
-> >>          adv7511_bridge_mode_set+0x210/0x214
-> >>          drm_bridge_chain_mode_set+0x5c/0x84
-> >>          crtc_set_mode+0x18c/0x1dc
-> >>          drm_atomic_helper_commit_modeset_disables+0x40/0x50
-> >>          msm_atomic_commit_tail+0x1d0/0x6e0
-> >>          commit_tail+0xa4/0x180
-> >>          drm_atomic_helper_commit+0x178/0x3b0
-> >>          drm_atomic_commit+0xa4/0xe0
-> >>          drm_client_modeset_commit_atomic+0x228/0x284
-> >>          drm_client_modeset_commit_locked+0x64/0x1d0
-> >>          drm_client_modeset_commit+0x34/0x60
-> >>          drm_fb_helper_lastclose+0x74/0xcc
-> >>          drm_lastclose+0x3c/0x80
-> >>          drm_release+0xfc/0x114
-> >>          __fput+0x70/0x224
-> >>          ____fput+0x14/0x20
-> >>          task_work_run+0x88/0x1a0
-> >>          do_exit+0x350/0xa50
-> >>          do_group_exit+0x38/0xa4
-> >>          __wake_up_parent+0x0/0x34
-> >>          invoke_syscall+0x48/0x114
-> >>          el0_svc_common.constprop.0+0x60/0x11c
-> >>          do_el0_svc+0x30/0xc0
-> >>          el0_svc+0x58/0x100
-> >>          el0t_64_sync_handler+0x1b0/0x1bc
-> >>          el0t_64_sync+0x18c/0x190
-> >>
-> >> Due to above reasons, remove the dynamic lane switching
-> >> code from adv7533 bridge chip and filter out the modes
-> >> which would need different number of lanes as compared
-> >> to the initialization time using the mode_valid callback.
-> >>
-> >> This can be potentially re-introduced by using the pre_enable()
-> >> callback but this needs to be evaluated first whether such an
-> >> approach will work so this will be done with a separate change.
-> >>
-> >> changes since RFC:
-> >>          - Fix commit text and add TODO comment
-> >>
-> >> Fixes: 62b2f026cd8e ("drm/bridge: adv7533: Change number of DSI lanes dynamically")
-> >> Closes: https://gitlab.freedesktop.org/drm/msm/-/issues/16
-> >> Suggested-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> >> Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
-> >> ---
-> >>   drivers/gpu/drm/bridge/adv7511/adv7511.h     |  3 ++-
-> >>   drivers/gpu/drm/bridge/adv7511/adv7511_drv.c | 18 ++++++++++++++----
-> >>   drivers/gpu/drm/bridge/adv7511/adv7533.c     | 25 +++++++++++++------------
-> >>   3 files changed, 29 insertions(+), 17 deletions(-)
-> >>
-> >> diff --git a/drivers/gpu/drm/bridge/adv7511/adv7511.h b/drivers/gpu/drm/bridge/adv7511/adv7511.h
-> >> index 9e3bb8a8ee40..0a7cec80b75d 100644
-> >> --- a/drivers/gpu/drm/bridge/adv7511/adv7511.h
-> >> +++ b/drivers/gpu/drm/bridge/adv7511/adv7511.h
-> >> @@ -417,7 +417,8 @@ static inline int adv7511_cec_init(struct device *dev, struct adv7511 *adv7511)
-> >>
-> >>   void adv7533_dsi_power_on(struct adv7511 *adv);
-> >>   void adv7533_dsi_power_off(struct adv7511 *adv);
-> >> -void adv7533_mode_set(struct adv7511 *adv, const struct drm_display_mode *mode);
-> >> +enum drm_mode_status adv7533_mode_valid(struct adv7511 *adv,
-> >> +               const struct drm_display_mode *mode);
-> >>   int adv7533_patch_registers(struct adv7511 *adv);
-> >>   int adv7533_patch_cec_registers(struct adv7511 *adv);
-> >>   int adv7533_attach_dsi(struct adv7511 *adv);
-> >> diff --git a/drivers/gpu/drm/bridge/adv7511/adv7511_drv.c b/drivers/gpu/drm/bridge/adv7511/adv7511_drv.c
-> >> index 5bb9300040dd..1115ef9be83c 100644
-> >> --- a/drivers/gpu/drm/bridge/adv7511/adv7511_drv.c
-> >> +++ b/drivers/gpu/drm/bridge/adv7511/adv7511_drv.c
-> >> @@ -697,7 +697,7 @@ adv7511_detect(struct adv7511 *adv7511, struct drm_connector *connector)
-> >>   }
-> >>
-> >>   static enum drm_mode_status adv7511_mode_valid(struct adv7511 *adv7511,
-> >> -                             struct drm_display_mode *mode)
-> >> +                             const struct drm_display_mode *mode)
-> >>   {
-> >>          if (mode->clock > 165000)
-> >>                  return MODE_CLOCK_HIGH;
-> >> @@ -791,9 +791,6 @@ static void adv7511_mode_set(struct adv7511 *adv7511,
-> >>          regmap_update_bits(adv7511->regmap, 0x17,
-> >>                  0x60, (vsync_polarity << 6) | (hsync_polarity << 5));
-> >>
-> >> -       if (adv7511->type == ADV7533 || adv7511->type == ADV7535)
-> >> -               adv7533_mode_set(adv7511, adj_mode);
-> >> -
-> >>          drm_mode_copy(&adv7511->curr_mode, adj_mode);
-> >>
-> >>          /*
-> >> @@ -913,6 +910,18 @@ static void adv7511_bridge_mode_set(struct drm_bridge *bridge,
-> >>          adv7511_mode_set(adv, mode, adj_mode);
-> >>   }
-> >>
-> >> +static enum drm_mode_status adv7511_bridge_mode_valid(struct drm_bridge *bridge,
-> >> +               const struct drm_display_info *info,
-> >> +               const struct drm_display_mode *mode)
-> >> +{
-> >> +       struct adv7511 *adv = bridge_to_adv7511(bridge);
-> >> +
-> >> +       if (adv->type == ADV7533 || adv->type == ADV7535)
-> >> +               return adv7533_mode_valid(adv, mode);
-> >> +       else
-> >> +               return adv7511_mode_valid(adv, mode);
-> >> +}
-> >> +
-> >>   static int adv7511_bridge_attach(struct drm_bridge *bridge,
-> >>                                   enum drm_bridge_attach_flags flags)
-> >>   {
-> >> @@ -960,6 +969,7 @@ static const struct drm_bridge_funcs adv7511_bridge_funcs = {
-> >>          .enable = adv7511_bridge_enable,
-> >>          .disable = adv7511_bridge_disable,
-> >>          .mode_set = adv7511_bridge_mode_set,
-> >> +       .mode_valid = adv7511_bridge_mode_valid,
-> >>          .attach = adv7511_bridge_attach,
-> >>          .detect = adv7511_bridge_detect,
-> >>          .get_edid = adv7511_bridge_get_edid,
-> >> diff --git a/drivers/gpu/drm/bridge/adv7511/adv7533.c b/drivers/gpu/drm/bridge/adv7511/adv7533.c
-> >> index ef6270806d1d..5f590abd6403 100644
-> >> --- a/drivers/gpu/drm/bridge/adv7511/adv7533.c
-> >> +++ b/drivers/gpu/drm/bridge/adv7511/adv7533.c
-> >> @@ -100,26 +100,27 @@ void adv7533_dsi_power_off(struct adv7511 *adv)
-> >>          regmap_write(adv->regmap_cec, 0x27, 0x0b);
-> >>   }
-> >>
-> >> -void adv7533_mode_set(struct adv7511 *adv, const struct drm_display_mode *mode)
-> >> +enum drm_mode_status adv7533_mode_valid(struct adv7511 *adv,
-> >> +               const struct drm_display_mode *mode)
-> >>   {
-> >> +       int lanes;
-> >>          struct mipi_dsi_device *dsi = adv->dsi;
-> >> -       int lanes, ret;
-> >> -
-> >> -       if (adv->num_dsi_lanes != 4)
-> >> -               return;
-> >>
-> >>          if (mode->clock > 80000)
-> >>                  lanes = 4;
-> >>          else
-> >>                  lanes = 3;
-> >>
-> >> -       if (lanes != dsi->lanes) {
-> >> -               mipi_dsi_detach(dsi);
-> >> -               dsi->lanes = lanes;
-> >> -               ret = mipi_dsi_attach(dsi);
-> >> -               if (ret)
-> >> -                       dev_err(&dsi->dev, "failed to change host lanes\n");
-> >> -       }
-> >> +       /*
-> >> +        * TODO: add support for dynamic switching of lanes
-> >> +        * by using the bridge pre_enable() op . Till then filter
-> >> +        * out the modes which shall need different number of lanes
-> >> +        * than what was configured in the device tree.
-> >> +        */
-> >> +       if (lanes != dsi->lanes)
-> >> +               return MODE_BAD;
-> >> +
-> >> +       return MODE_OK;
-> >>   }
-> >>
-> >>   int adv7533_patch_registers(struct adv7511 *adv)
-> >> --
-> >> 2.7.4
-> >>
-> >
-> > This patch has some checkpatch --style warnings, with those fixed feel
-> > free to add my r-b.
->
-> I checked just now. I dont see any checkpatch errors on my end.
-> I am not sure if we are running different versions of checkpatch but I
-> am using the one at the tip of msm-next.
->
-> https://gitlab.freedesktop.org/drm/msm/-/blob/msm-next/scripts/checkpatch.pl
-
-Ah, sorry. I made a typo in my above email. '--strict' not '--style'.
-
-checkpatch --strict
-
->
-> >
-> > Reviewed-by: Robert Foss <robert.foss@linaro.org>
+DQoNCj4tLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQ0KPkZyb206IERtaXRyeSBCYXJ5c2hrb3Yg
+PGRtaXRyeS5iYXJ5c2hrb3ZAbGluYXJvLm9yZz4NCj5TZW50OiBUdWVzZGF5LCBPY3RvYmVyIDQs
+IDIwMjIgODowMyBQTQ0KPlRvOiBLYWx5YW4gVGhvdGEgKFFVSUMpIDxxdWljX2thbHlhbnRAcXVp
+Y2luYy5jb20+DQo+Q2M6IGRyaS1kZXZlbEBsaXN0cy5mcmVlZGVza3RvcC5vcmc7IGxpbnV4LWFy
+bS1tc21Admdlci5rZXJuZWwub3JnOw0KPmZyZWVkcmVub0BsaXN0cy5mcmVlZGVza3RvcC5vcmc7
+IGRldmljZXRyZWVAdmdlci5rZXJuZWwub3JnOyBsaW51eC0NCj5rZXJuZWxAdmdlci5rZXJuZWwu
+b3JnOyByb2JkY2xhcmtAZ21haWwuY29tOyBkaWFuZGVyc0BjaHJvbWl1bS5vcmc7DQo+c3dib3lk
+QGNocm9taXVtLm9yZzsgVmlub2QgUG9saW1lcmEgKFFVSUMpIDxxdWljX3Zwb2xpbWVyQHF1aWNp
+bmMuY29tPjsNCj5BYmhpbmF2IEt1bWFyIChRVUlDKSA8cXVpY19hYmhpbmF2a0BxdWljaW5jLmNv
+bT4NCj5TdWJqZWN0OiBSZTogW3Y2XSBkcm0vbXNtL2Rpc3AvZHB1MTogYWRkIHN1cHBvcnQgZm9y
+IGRzcHAgc3ViIGJsb2NrIGZsdXNoIGluDQo+c2M3MjgwDQo+DQo+V0FSTklORzogVGhpcyBlbWFp
+bCBvcmlnaW5hdGVkIGZyb20gb3V0c2lkZSBvZiBRdWFsY29tbS4gUGxlYXNlIGJlIHdhcnkgb2YN
+Cj5hbnkgbGlua3Mgb3IgYXR0YWNobWVudHMsIGFuZCBkbyBub3QgZW5hYmxlIG1hY3Jvcy4NCj4N
+Cj5PbiBTdW4sIDIgT2N0IDIwMjIgYXQgMDY6MTUsIEthbHlhbiBUaG90YSA8cXVpY19rYWx5YW50
+QHF1aWNpbmMuY29tPiB3cm90ZToNCj4+DQo+PiBGbHVzaCBtZWNoYW5pc20gZm9yIERTUFAgYmxv
+Y2tzIGhhcyBjaGFuZ2VkIGluIHNjNzI4MCBmYW1pbHksIGl0DQo+PiBhbGxvd3MgaW5kaXZpZHVh
+bCBzdWIgYmxvY2tzIHRvIGJlIGZsdXNoZWQgaW4gY29vcmRpbmF0aW9uIHdpdGggbWFzdGVyDQo+
+PiBmbHVzaCBjb250cm9sLg0KPj4NCj4+IFJlcHJlc2VudGF0aW9uOiBtYXN0ZXJfZmx1c2ggJiYg
+KFBDQ19mbHVzaCB8IElHQ19mbHVzaCAuLiBldGMgKQ0KPj4NCj4+IFRoaXMgY2hhbmdlIGFkZHMg
+bmVjZXNzYXJ5IHN1cHBvcnQgZm9yIHRoZSBhYm92ZSBkZXNpZ24uDQo+Pg0KPj4gQ2hhbmdlcyBp
+biB2MToNCj4+IC0gRmV3IG5pdHMgKERvdWcsIERtaXRyeSkNCj4+IC0gUmVzdHJpY3Qgc3ViLWJs
+b2NrIGZsdXNoIHByb2dyYW1taW5nIHRvIGRwdV9od19jdGwgZmlsZSAoRG1pdHJ5KQ0KPj4NCj4+
+IENoYW5nZXMgaW4gdjI6DQo+PiAtIE1vdmUgdGhlIGFkZHJlc3Mgb2Zmc2V0IHRvIGZsdXNoIG1h
+Y3JvIChEbWl0cnkpDQo+PiAtIFNlcGVyYXRlIG9wcyBmb3IgdGhlIHN1YiBibG9jayBmbHVzaCAo
+RG1pdHJ5KQ0KPj4NCj4+IENoYW5nZXMgaW4gdjM6DQo+PiAtIFJldXNlIHRoZSBEUFVfRFNQUF94
+eCBlbnVtIGluc3RlYWQgb2YgYSBuZXcgb25lIChEbWl0cnkpDQo+Pg0KPj4gQ2hhbmdlcyBpbiB2
+NDoNCj4+IC0gVXNlIHNob3J0ZXIgdmVyc2lvbiBmb3IgdW5zaWduZWQgaW50IChTdGVwaGVuKQ0K
+Pj4NCj4+IENoYW5nZXMgaW4gdjU6DQo+PiAtIFNwdXJpb3VzIHBhdGNoIHBsZWFzZSBpZ25vcmUu
+DQo+Pg0KPj4gQ2hhbmdlcyBpbiB2NjoNCj4+IC0gQWRkIFNPQiB0YWcgKERvdWcsIERtaXRyeSkN
+Cj4+DQo+PiBTaWduZWQtb2ZmLWJ5OiBLYWx5YW4gVGhvdGEgPHF1aWNfa2FseWFudEBxdWljaW5j
+LmNvbT4NCj4+IFJldmlld2VkLWJ5OiBEbWl0cnkgQmFyeXNoa292IDxkbWl0cnkuYmFyeXNoa292
+QGxpbmFyby5vcmc+DQo+PiAtLS0NCj4+ICBkcml2ZXJzL2dwdS9kcm0vbXNtL2Rpc3AvZHB1MS9k
+cHVfY3J0Yy5jICAgICAgIHwgIDIgKy0NCj4+ICBkcml2ZXJzL2dwdS9kcm0vbXNtL2Rpc3AvZHB1
+MS9kcHVfaHdfY2F0YWxvZy5jIHwgIDUgKysrLQ0KPj4gZHJpdmVycy9ncHUvZHJtL21zbS9kaXNw
+L2RwdTEvZHB1X2h3X2NhdGFsb2cuaCB8ICA0ICsrKw0KPj4gIGRyaXZlcnMvZ3B1L2RybS9tc20v
+ZGlzcC9kcHUxL2RwdV9od19jdGwuYyAgICAgfCAzNQ0KPisrKysrKysrKysrKysrKysrKysrKysr
+Ky0tDQo+PiAgZHJpdmVycy9ncHUvZHJtL21zbS9kaXNwL2RwdTEvZHB1X2h3X2N0bC5oICAgICB8
+IDEwICsrKysrKy0tDQo+PiAgNSBmaWxlcyBjaGFuZ2VkLCA1MCBpbnNlcnRpb25zKCspLCA2IGRl
+bGV0aW9ucygtKQ0KPj4NCj4+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vbXNtL2Rpc3Av
+ZHB1MS9kcHVfY3J0Yy5jDQo+PiBiL2RyaXZlcnMvZ3B1L2RybS9tc20vZGlzcC9kcHUxL2RwdV9j
+cnRjLmMNCj4+IGluZGV4IDYwMWQ2ODcuLjQxNzBmYmUgMTAwNjQ0DQo+PiAtLS0gYS9kcml2ZXJz
+L2dwdS9kcm0vbXNtL2Rpc3AvZHB1MS9kcHVfY3J0Yy5jDQo+PiArKysgYi9kcml2ZXJzL2dwdS9k
+cm0vbXNtL2Rpc3AvZHB1MS9kcHVfY3J0Yy5jDQo+PiBAQCAtNzY2LDcgKzc2Niw3IEBAIHN0YXRp
+YyB2b2lkIF9kcHVfY3J0Y19zZXR1cF9jcF9ibG9ja3Moc3RydWN0DQo+PiBkcm1fY3J0YyAqY3J0
+YykNCj4+DQo+PiAgICAgICAgICAgICAgICAgLyogc3RhZ2UgY29uZmlnIGZsdXNoIG1hc2sgKi8N
+Cj4+ICAgICAgICAgICAgICAgICBjdGwtPm9wcy51cGRhdGVfcGVuZGluZ19mbHVzaF9kc3BwKGN0
+bCwNCj4+IC0gICAgICAgICAgICAgICAgICAgICAgIG1peGVyW2ldLmh3X2RzcHAtPmlkeCk7DQo+
+PiArICAgICAgICAgICAgICAgICAgICAgICBtaXhlcltpXS5od19kc3BwLT5pZHgsIERQVV9EU1BQ
+X1BDQyk7DQo+PiAgICAgICAgIH0NCj4+ICB9DQo+Pg0KPj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMv
+Z3B1L2RybS9tc20vZGlzcC9kcHUxL2RwdV9od19jYXRhbG9nLmMNCj4+IGIvZHJpdmVycy9ncHUv
+ZHJtL21zbS9kaXNwL2RwdTEvZHB1X2h3X2NhdGFsb2cuYw0KPj4gaW5kZXggMjdmMDI5Zi4uMGVl
+Y2IyZiAxMDA2NDQNCj4+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9tc20vZGlzcC9kcHUxL2RwdV9o
+d19jYXRhbG9nLmMNCj4+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9tc20vZGlzcC9kcHUxL2RwdV9o
+d19jYXRhbG9nLmMNCj4+IEBAIC02NSw3ICs2NSwxMCBAQA0KPj4gICAgICAgICAoUElOR1BPTkdf
+U0RNODQ1X01BU0sgfCBCSVQoRFBVX1BJTkdQT05HX1RFMikpDQo+Pg0KPj4gICNkZWZpbmUgQ1RM
+X1NDNzI4MF9NQVNLIFwNCj4+IC0gICAgICAgKEJJVChEUFVfQ1RMX0FDVElWRV9DRkcpIHwgQklU
+KERQVV9DVExfRkVUQ0hfQUNUSVZFKSB8DQo+QklUKERQVV9DVExfVk1fQ0ZHKSkNCj4+ICsgICAg
+ICAgKEJJVChEUFVfQ1RMX0FDVElWRV9DRkcpIHwgXA0KPj4gKyAgICAgICAgQklUKERQVV9DVExf
+RkVUQ0hfQUNUSVZFKSB8IFwNCj4+ICsgICAgICAgIEJJVChEUFVfQ1RMX1ZNX0NGRykgfCBcDQo+
+PiArICAgICAgICBCSVQoRFBVX0NUTF9EU1BQX1NVQl9CTE9DS19GTFVTSCkpDQo+Pg0KPj4gICNk
+ZWZpbmUgTUVSR0VfM0RfU004MTUwX01BU0sgKDApDQo+Pg0KPj4gZGlmZiAtLWdpdCBhL2RyaXZl
+cnMvZ3B1L2RybS9tc20vZGlzcC9kcHUxL2RwdV9od19jYXRhbG9nLmgNCj4+IGIvZHJpdmVycy9n
+cHUvZHJtL21zbS9kaXNwL2RwdTEvZHB1X2h3X2NhdGFsb2cuaA0KPj4gaW5kZXggMzhhYTM4YS4u
+ODE0OGU5MSAxMDA2NDQNCj4+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9tc20vZGlzcC9kcHUxL2Rw
+dV9od19jYXRhbG9nLmgNCj4+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9tc20vZGlzcC9kcHUxL2Rw
+dV9od19jYXRhbG9nLmgNCj4+IEBAIC0xNjEsMTAgKzE2MSwxMiBAQCBlbnVtIHsNCj4+ICAgKiBE
+U1BQIHN1Yi1ibG9ja3MNCj4+ICAgKiBARFBVX0RTUFBfUENDICAgICAgICAgICAgIFBhbmVsIGNv
+bG9yIGNvcnJlY3Rpb24gYmxvY2sNCj4+ICAgKiBARFBVX0RTUFBfR0MgICAgICAgICAgICAgIEdh
+bW1hIGNvcnJlY3Rpb24gYmxvY2sNCj4+ICsgKiBARFBVX0RTUFBfSUdDICAgICAgICAgICAgIElu
+dmVyc2UgR2FtbWEgY29ycmVjdGlvbiBibG9jaw0KPj4gICAqLw0KPj4gIGVudW0gew0KPj4gICAg
+ICAgICBEUFVfRFNQUF9QQ0MgPSAweDEsDQo+PiAgICAgICAgIERQVV9EU1BQX0dDLA0KPj4gKyAg
+ICAgICBEUFVfRFNQUF9JR0MsDQo+PiAgICAgICAgIERQVV9EU1BQX01BWA0KPj4gIH07DQo+Pg0K
+Pj4gQEAgLTE5MSw2ICsxOTMsNyBAQCBlbnVtIHsNCj4+ICAgKiBARFBVX0NUTF9TUExJVF9ESVNQ
+TEFZOiAgICAgQ1RMIHN1cHBvcnRzIHZpZGVvIG1vZGUgc3BsaXQgZGlzcGxheQ0KPj4gICAqIEBE
+UFVfQ1RMX0ZFVENIX0FDVElWRTogICAgICBBY3RpdmUgQ1RMIGZvciBmZXRjaCBIVyAoU1NQUHMp
+DQo+PiAgICogQERQVV9DVExfVk1fQ0ZHOiAgICAgICAgICAgIENUTCBjb25maWcgdG8gc3VwcG9y
+dCBtdWx0aXBsZSBWTXMNCj4+ICsgKiBARFBVX0NUTF9EU1BQX0JMT0NLX0ZMVVNIOiBDVEwgY29u
+ZmlnIHRvIHN1cHBvcnQgZHNwcCBzdWItYmxvY2sNCj4+ICsgZmx1c2gNCj4+ICAgKiBARFBVX0NU
+TF9NQVgNCj4+ICAgKi8NCj4+ICBlbnVtIHsNCj4+IEBAIC0xOTgsNiArMjAxLDcgQEAgZW51bSB7
+DQo+PiAgICAgICAgIERQVV9DVExfQUNUSVZFX0NGRywNCj4+ICAgICAgICAgRFBVX0NUTF9GRVRD
+SF9BQ1RJVkUsDQo+PiAgICAgICAgIERQVV9DVExfVk1fQ0ZHLA0KPj4gKyAgICAgICBEUFVfQ1RM
+X0RTUFBfU1VCX0JMT0NLX0ZMVVNILA0KPj4gICAgICAgICBEUFVfQ1RMX01BWA0KPj4gIH07DQo+
+Pg0KPj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9tc20vZGlzcC9kcHUxL2RwdV9od19j
+dGwuYw0KPj4gYi9kcml2ZXJzL2dwdS9kcm0vbXNtL2Rpc3AvZHB1MS9kcHVfaHdfY3RsLmMNCj4+
+IGluZGV4IGEzNWVjYjYuLmYyNmY0ODQgMTAwNjQ0DQo+PiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0v
+bXNtL2Rpc3AvZHB1MS9kcHVfaHdfY3RsLmMNCj4+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9tc20v
+ZGlzcC9kcHUxL2RwdV9od19jdGwuYw0KPj4gQEAgLTMzLDYgKzMzLDcgQEANCj4+ICAjZGVmaW5l
+ICAgQ1RMX0lOVEZfRkxVU0ggICAgICAgICAgICAgICAgMHgxMTANCj4+ICAjZGVmaW5lICAgQ1RM
+X0lOVEZfTUFTVEVSICAgICAgICAgICAgICAgMHgxMzQNCj4+ICAjZGVmaW5lICAgQ1RMX0ZFVENI
+X1BJUEVfQUNUSVZFICAgICAgICAgMHgwRkMNCj4+ICsjZGVmaW5lICAgQ1RMX0RTUFBfbl9GTFVT
+SChuKSAgICAgICAgICAoKDB4MTNDKSArICgobiAtIDEpICogNCkpDQo+Pg0KPj4gICNkZWZpbmUg
+Q1RMX01JWEVSX0JPUkRFUl9PVVQgICAgICAgICAgICBCSVQoMjQpDQo+PiAgI2RlZmluZSBDVExf
+RkxVU0hfTUFTS19DVEwgICAgICAgICAgICAgIEJJVCgxNykNCj4+IEBAIC0yODcsOCArMjg4LDkg
+QEAgc3RhdGljIHZvaWQNCj4+IGRwdV9od19jdGxfdXBkYXRlX3BlbmRpbmdfZmx1c2hfbWVyZ2Vf
+M2RfdjEoc3RydWN0IGRwdV9od19jdGwgKmN0eCwgIH0NCj4+DQo+PiAgc3RhdGljIHZvaWQgZHB1
+X2h3X2N0bF91cGRhdGVfcGVuZGluZ19mbHVzaF9kc3BwKHN0cnVjdCBkcHVfaHdfY3RsICpjdHgs
+DQo+PiAtICAgICAgIGVudW0gZHB1X2RzcHAgZHNwcCkNCj4+ICsgICAgICAgZW51bSBkcHVfZHNw
+cCBkc3BwLCB1MzIgZHNwcF9zdWJfYmxrKQ0KPj4gIHsNCj4+ICsNCj4+ICAgICAgICAgc3dpdGNo
+IChkc3BwKSB7DQo+PiAgICAgICAgIGNhc2UgRFNQUF8wOg0KPj4gICAgICAgICAgICAgICAgIGN0
+eC0+cGVuZGluZ19mbHVzaF9tYXNrIHw9IEJJVCgxMyk7IEBAIC0zMDcsNiArMzA5LDMxDQo+PiBA
+QCBzdGF0aWMgdm9pZCBkcHVfaHdfY3RsX3VwZGF0ZV9wZW5kaW5nX2ZsdXNoX2RzcHAoc3RydWN0
+IGRwdV9od19jdGwNCj4qY3R4LA0KPj4gICAgICAgICB9DQo+PiAgfQ0KPj4NCj4+ICtzdGF0aWMg
+dm9pZCBkcHVfaHdfY3RsX3VwZGF0ZV9wZW5kaW5nX2ZsdXNoX2RzcHBfc3ViYmxvY2tzKA0KPj4g
+KyAgICAgICBzdHJ1Y3QgZHB1X2h3X2N0bCAqY3R4LCBlbnVtIGRwdV9kc3BwIGRzcHAsIHUzMiBk
+c3BwX3N1Yl9ibGspDQo+PiArew0KPj4gKyAgICAgICB1MzIgZmx1c2hiaXRzID0gMCwgYWN0aXZl
+Ow0KPj4gKw0KPj4gKyAgICAgICBzd2l0Y2ggKGRzcHBfc3ViX2Jsaykgew0KPj4gKyAgICAgICBj
+YXNlIERQVV9EU1BQX0lHQzoNCj4+ICsgICAgICAgICAgICAgICBmbHVzaGJpdHMgPSBCSVQoMik7
+DQo+PiArICAgICAgICAgICAgICAgYnJlYWs7DQo+PiArICAgICAgIGNhc2UgRFBVX0RTUFBfUEND
+Og0KPj4gKyAgICAgICAgICAgICAgIGZsdXNoYml0cyA9IEJJVCg0KTsNCj4+ICsgICAgICAgICAg
+ICAgICBicmVhazsNCj4+ICsgICAgICAgY2FzZSBEUFVfRFNQUF9HQzoNCj4+ICsgICAgICAgICAg
+ICAgICBmbHVzaGJpdHMgPSBCSVQoNSk7DQo+PiArICAgICAgICAgICAgICAgYnJlYWs7DQo+PiAr
+ICAgICAgIGRlZmF1bHQ6DQo+PiArICAgICAgICAgICAgICAgcmV0dXJuOw0KPj4gKyAgICAgICB9
+DQo+PiArDQo+PiArICAgICAgIGFjdGl2ZSA9IERQVV9SRUdfUkVBRCgmY3R4LT5odywgQ1RMX0RT
+UFBfbl9GTFVTSChkc3BwKSk7DQo+PiArICAgICAgIERQVV9SRUdfV1JJVEUoJmN0eC0+aHcsIENU
+TF9EU1BQX25fRkxVU0goZHNwcCksIGFjdGl2ZSB8DQo+PiArIGZsdXNoYml0cyk7DQo+PiArDQo+
+PiArICAgICAgIGN0eC0+cGVuZGluZ19mbHVzaF9tYXNrIHw9IEJJVCgyOSk7IH0NCj4+ICsNCj4+
+ICBzdGF0aWMgdTMyIGRwdV9od19jdGxfcG9sbF9yZXNldF9zdGF0dXMoc3RydWN0IGRwdV9od19j
+dGwgKmN0eCwgdTMyDQo+PiB0aW1lb3V0X3VzKSAgew0KPj4gICAgICAgICBzdHJ1Y3QgZHB1X2h3
+X2Jsa19yZWdfbWFwICpjID0gJmN0eC0+aHc7IEBAIC02NzUsNyArNzAyLDExIEBADQo+PiBzdGF0
+aWMgdm9pZCBfc2V0dXBfY3RsX29wcyhzdHJ1Y3QgZHB1X2h3X2N0bF9vcHMgKm9wcywNCj4+ICAg
+ICAgICAgb3BzLT5zZXR1cF9ibGVuZHN0YWdlID0gZHB1X2h3X2N0bF9zZXR1cF9ibGVuZHN0YWdl
+Ow0KPj4gICAgICAgICBvcHMtPnVwZGF0ZV9wZW5kaW5nX2ZsdXNoX3NzcHAgPQ0KPmRwdV9od19j
+dGxfdXBkYXRlX3BlbmRpbmdfZmx1c2hfc3NwcDsNCj4+ICAgICAgICAgb3BzLT51cGRhdGVfcGVu
+ZGluZ19mbHVzaF9taXhlciA9DQo+ZHB1X2h3X2N0bF91cGRhdGVfcGVuZGluZ19mbHVzaF9taXhl
+cjsNCj4+IC0gICAgICAgb3BzLT51cGRhdGVfcGVuZGluZ19mbHVzaF9kc3BwID0NCj5kcHVfaHdf
+Y3RsX3VwZGF0ZV9wZW5kaW5nX2ZsdXNoX2RzcHA7DQo+PiArICAgICAgIGlmIChjYXAgJiBCSVQo
+RFBVX0NUTF9EU1BQX1NVQl9CTE9DS19GTFVTSCkpDQo+PiArICAgICAgICAgICAgICAgb3BzLT51
+cGRhdGVfcGVuZGluZ19mbHVzaF9kc3BwID0NCj5kcHVfaHdfY3RsX3VwZGF0ZV9wZW5kaW5nX2Zs
+dXNoX2RzcHBfc3ViYmxvY2tzOw0KPj4gKyAgICAgICBlbHNlDQo+PiArICAgICAgICAgICAgICAg
+b3BzLT51cGRhdGVfcGVuZGluZ19mbHVzaF9kc3BwID0NCj4+ICsgZHB1X2h3X2N0bF91cGRhdGVf
+cGVuZGluZ19mbHVzaF9kc3BwOw0KPj4gKw0KPj4gICAgICAgICBpZiAoY2FwICYgQklUKERQVV9D
+VExfRkVUQ0hfQUNUSVZFKSkNCj4+ICAgICAgICAgICAgICAgICBvcHMtPnNldF9hY3RpdmVfcGlw
+ZXMgPQ0KPj4gZHB1X2h3X2N0bF9zZXRfZmV0Y2hfcGlwZV9hY3RpdmU7ICB9OyBkaWZmIC0tZ2l0
+DQo+PiBhL2RyaXZlcnMvZ3B1L2RybS9tc20vZGlzcC9kcHUxL2RwdV9od19jdGwuaA0KPj4gYi9k
+cml2ZXJzL2dwdS9kcm0vbXNtL2Rpc3AvZHB1MS9kcHVfaHdfY3RsLmgNCj4+IGluZGV4IDk2YzAx
+MmUuLjE3NDM1NzIgMTAwNjQ0DQo+PiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vbXNtL2Rpc3AvZHB1
+MS9kcHVfaHdfY3RsLmgNCj4+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9tc20vZGlzcC9kcHUxL2Rw
+dV9od19jdGwuaA0KPj4gQEAgLTE0OSwxMiArMTQ5LDE4IEBAIHN0cnVjdCBkcHVfaHdfY3RsX29w
+cyB7DQo+Pg0KPj4gICAgICAgICAvKioNCj4+ICAgICAgICAgICogT1IgaW4gdGhlIGdpdmVuIGZs
+dXNoYml0cyB0byB0aGUgY2FjaGVkIHBlbmRpbmdfZmx1c2hfbWFzaw0KPj4gLSAgICAgICAgKiBO
+byBlZmZlY3Qgb24gaGFyZHdhcmUNCj4+ICsgICAgICAgICoNCj4+ICsgICAgICAgICogSWYgdGhl
+IGhhcmR3YXJlIHN1cHBvcnRzIGRzcHAgc3ViIGJsb2NrIGZsdXNoLCB0aGVuIHN1Yi1ibG9jaw0K
+Pj4gKyAgICAgICAgKiBmbHVzaGVzIGFyZSB3cml0dGVuIHRvIHRoZSBoYXJkd2FyZSBhbmQgbWFp
+biBkc3BwIGZsdXNoIHdpbGwNCj4+ICsgICAgICAgICogYmUgY2FjaGVkIGluIHRoZSBwZW5kaW5n
+X2ZsdXNoX21hc2suDQo+DQo+T2ssIHRoaXMgY2hhbmdlcyB0aGUgc2VtYW50aWMgb2YgdGhlIHVw
+ZGF0ZV9wZW5kaW5nX0ZPT19tYXNrLg0KPkNhbiB3ZSBjYWNoZSB0aGUgcGVuZGluZyBEU1BQIGJs
+b2NrcyBpbnN0ZWFkIGFuZCBmbHVzaCB0aGVtIHRvZ2V0aGVyIHdpdGggdGhlDQo+cmVzdCBvZiBw
+ZW5kaW5nIGZsdXNoZXM/DQo+DQpTdXJlLCBJIHRob3VnaHQgYWJvdXQgaXQgZHVyaW5nIGluaXRp
+YWwgaW1wbGVtZW50YXRpb24sIHRoZSBvbmx5IHJlYXNvbiB0byBwdWxsIGJhY2sgd2FzIHRoYXQg
+Y2FjaGluZyB0aGUgDQp2YWx1ZXMgd2lsbCBicmluZyBpbiBhZGRpdGlvbmFsIG92ZXJoZWFkIG9m
+IGNsZWFyaW5nIHRoZW0sIHdoZXJlYXMgSFcgd2lsbCBzZWxmLWNsZWFyIHRoZSBiaXRzIGFmdGVy
+IHRoZXkNCmFyZSBjb25zdW1lZCByZW1vdmluZyB0aGUgb3ZlcmhlYWQuIE1haW4gZmx1c2ggd2hp
+Y2ggaW5jbHVkZXMgbWFzdGVyIGRzcHAgZmx1c2ggYml0IGlzIGhvd2V2ZXIgY2xlYXJlZCBpbiB0
+aGUgY3VycmVudCBpbXBsZW1lbnRhdGlvbi4NCg0KTGV0IG1lIGtub3cgaWYgeW91IHRoaW5rIGRz
+cHAgZmx1c2ggY2FjaGluZyBpcyBiZXR0ZXIsIEknbGwgcHVzaCBhIHBhdGNoIGZvciBpdC4NCg0K
+Pj4gKyAgICAgICAgKg0KPj4gICAgICAgICAgKiBAY3R4ICAgICAgIDogY3RsIHBhdGggY3R4IHBv
+aW50ZXINCj4+ICAgICAgICAgICogQGJsayAgICAgICA6IERTUFAgYmxvY2sgaW5kZXgNCj4+ICsg
+ICAgICAgICogQGRzcHBfc3ViX2JsayA6IERTUFAgc3ViLWJsb2NrIGluZGV4DQo+PiAgICAgICAg
+ICAqLw0KPj4gICAgICAgICB2b2lkICgqdXBkYXRlX3BlbmRpbmdfZmx1c2hfZHNwcCkoc3RydWN0
+IGRwdV9od19jdGwgKmN0eCwNCj4+IC0gICAgICAgICAgICAgICBlbnVtIGRwdV9kc3BwIGJsayk7
+DQo+PiArICAgICAgICAgICAgICAgZW51bSBkcHVfZHNwcCBibGssICB1MzIgZHNwcF9zdWJfYmxr
+KTsNCj4+ICsNCj4+ICAgICAgICAgLyoqDQo+PiAgICAgICAgICAqIFdyaXRlIHRoZSB2YWx1ZSBv
+ZiB0aGUgcGVuZGluZ19mbHVzaF9tYXNrIHRvIGhhcmR3YXJlDQo+PiAgICAgICAgICAqIEBjdHgg
+ICAgICAgOiBjdGwgcGF0aCBjdHggcG9pbnRlcg0KPj4gLS0NCj4+IDIuNy40DQo+Pg0KPg0KPg0K
+Pi0tDQo+V2l0aCBiZXN0IHdpc2hlcw0KPkRtaXRyeQ0K
