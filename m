@@ -2,31 +2,28 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id C708C5F8D60
-	for <lists+freedreno@lfdr.de>; Sun,  9 Oct 2022 20:49:10 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 229675F8D66
+	for <lists+freedreno@lfdr.de>; Sun,  9 Oct 2022 20:51:45 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1129D10E536;
-	Sun,  9 Oct 2022 18:48:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B203210E096;
+	Sun,  9 Oct 2022 18:51:38 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from relay03.th.seeweb.it (relay03.th.seeweb.it
- [IPv6:2001:4b7a:2000:18::164])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EBB5D10E528
- for <freedreno@lists.freedesktop.org>; Sun,  9 Oct 2022 18:48:47 +0000 (UTC)
+Received: from m-r1.th.seeweb.it (m-r1.th.seeweb.it
+ [IPv6:2001:4b7a:2000:18::170])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A9D4910E096
+ for <freedreno@lists.freedesktop.org>; Sun,  9 Oct 2022 18:51:32 +0000 (UTC)
 Received: from localhost.localdomain (94-209-172-39.cable.dynamic.v4.ziggo.nl
  [94.209.172.39])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by m-r1.th.seeweb.it (Postfix) with ESMTPSA id 0FB301F963;
- Sun,  9 Oct 2022 20:48:46 +0200 (CEST)
+ by m-r1.th.seeweb.it (Postfix) with ESMTPSA id B9CBA1F986;
+ Sun,  9 Oct 2022 20:51:30 +0200 (CEST)
 From: Marijn Suijten <marijn.suijten@somainline.org>
-To: phone-devel@vger.kernel.org, Rob Clark <robdclark@gmail.com>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Vinod Koul <vkoul@kernel.org>
-Date: Sun,  9 Oct 2022 20:48:20 +0200
-Message-Id: <20221009184824.457416-7-marijn.suijten@somainline.org>
+To: phone-devel@vger.kernel.org
+Date: Sun,  9 Oct 2022 20:50:54 +0200
+Message-Id: <20221009185058.460688-1-marijn.suijten@somainline.org>
 X-Mailer: git-send-email 2.38.0
 In-Reply-To: <20221009184824.457416-1-marijn.suijten@somainline.org>
 References: <20221009184824.457416-1-marijn.suijten@somainline.org>
@@ -46,15 +43,19 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org,
- Jami Kettunen <jami.kettunen@somainline.org>, David Airlie <airlied@gmail.com>,
- linux-arm-msm@vger.kernel.org, Vladimir Lypak <vladimir.lypak@gmail.com>,
+Cc: Vinod Koul <vkoul@kernel.org>, Jami Kettunen <jami.kettunen@somainline.org>,
+ David Airlie <airlied@gmail.com>, linux-arm-msm@vger.kernel.org,
+ Vladimir Lypak <vladimir.lypak@gmail.com>,
  Konrad Dybcio <konrad.dybcio@somainline.org>,
- Douglas Anderson <dianders@chromium.org>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Martin Botka <martin.botka@somainline.org>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
+ Douglas Anderson <dianders@chromium.org>, Rob Clark <robdclark@gmail.com>,
+ Martin Botka <martin.botka@somainline.org>,
  ~postmarketos/upstreaming@lists.sr.ht, Daniel Vetter <daniel@ffwll.ch>,
  AngeloGioacchino Del Regno <angelogioacchino.delregno@somainline.org>,
- Marijn Suijten <marijn.suijten@somainline.org>, Sean Paul <sean@poorly.run>
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ freedreno@lists.freedesktop.org, Sean Paul <sean@poorly.run>,
+ linux-kernel@vger.kernel.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
