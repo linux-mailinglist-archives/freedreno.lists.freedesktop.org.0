@@ -1,36 +1,71 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id D12765F8D6C
-	for <lists+freedreno@lfdr.de>; Sun,  9 Oct 2022 20:52:13 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 0AA305F8D70
+	for <lists+freedreno@lfdr.de>; Sun,  9 Oct 2022 20:52:48 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E2F0410E096;
-	Sun,  9 Oct 2022 18:52:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B90B910E096;
+	Sun,  9 Oct 2022 18:52:46 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from relay02.th.seeweb.it (relay02.th.seeweb.it
- [IPv6:2001:4b7a:2000:18::163])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E6E4510E0A5
- for <freedreno@lists.freedesktop.org>; Sun,  9 Oct 2022 18:52:06 +0000 (UTC)
-Received: from localhost.localdomain (94-209-172-39.cable.dynamic.v4.ziggo.nl
- [94.209.172.39])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
- (No client certificate requested)
- by m-r1.th.seeweb.it (Postfix) with ESMTPSA id 050A41F95B;
- Sun,  9 Oct 2022 20:52:04 +0200 (CEST)
-From: Marijn Suijten <marijn.suijten@somainline.org>
-To: phone-devel@vger.kernel.org
-Date: Sun,  9 Oct 2022 20:51:46 +0200
-Message-Id: <20221009185150.461323-1-marijn.suijten@somainline.org>
-X-Mailer: git-send-email 2.38.0
-In-Reply-To: <20221009184824.457416-1-marijn.suijten@somainline.org>
-References: <20221009184824.457416-1-marijn.suijten@somainline.org>
+Received: from mail-lf1-x136.google.com (mail-lf1-x136.google.com
+ [IPv6:2a00:1450:4864:20::136])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2544610E530
+ for <freedreno@lists.freedesktop.org>; Sun,  9 Oct 2022 18:52:42 +0000 (UTC)
+Received: by mail-lf1-x136.google.com with SMTP id bp15so13816231lfb.13
+ for <freedreno@lists.freedesktop.org>; Sun, 09 Oct 2022 11:52:42 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=pIjqS6gdtTRggpFmsM12g61XiUJqlB1w3Lk7PGDiY4k=;
+ b=SQcpo++Aix4dizmqjgzZCFPDhj3ziY+qCd0ihacLAwRIKs5cxTL6R6IFiwqleLXyfT
+ ZoaANhOY75dDQTTP2FZZCS7I5A/N/GtWVvDdwEkh9uuwSincRBNQ+SsgPjTAGuMjBjHs
+ AuVmzhD3FwSbvERNUzd5SnRMVgElcZ3jOC4P5VcqD2K0iRVGb5DGBwXvBJOhQWF6JS+N
+ JpuXjzFv1bwvUq8YqN2QWFG+GH7B+m0P1kGqFm5EnakO6jP8tBTwh6fVS/m43l8rkWWh
+ OdpOwxcAdLo79dS/S95QLmIRXlTtpI4eWS/X4mi2waKPAt2/wdAllMAZQZCp7ax7Gvnp
+ rBTw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=pIjqS6gdtTRggpFmsM12g61XiUJqlB1w3Lk7PGDiY4k=;
+ b=gE/SnY4guTbT6cVHmyGf5mz9tZmcZHMVTYTVXIZWVEznwl6sr67wpuXIyEixsY2MYM
+ A56U7JY9Hr9STsFatqMl3CjwKt4nWFsZxBXG5omKuykP0QZcSZRqe7y6GzSu/0bMX8Og
+ yjzBkQUbOVEUJBKZOO89BpBasz2fCZFF7fAqSEK764kJyh1pP8SUrGcE5S7uOaNanoE1
+ 3JX6YmMZgHjAcO0UF/0lCMANFh9BkheetE1dOD1XNdYgpULMKRuxDNyrnRUG+BG/Vr83
+ ei4QzZEUSW0hslchqxooJsenI4CmSQA60UDA+XSkq3Xaxh5kPIfYFhgfJDowiL6GpWQa
+ +3Sw==
+X-Gm-Message-State: ACrzQf3NXvM453bgLrZE8EVBfWtDr/dsS9vrQazqH8ieB8Z93bMrCBy6
+ y4EvYqD51HTmF8xN1R7D4aR8gQ==
+X-Google-Smtp-Source: AMsMyM796VexOVGOSvF6wQDt52LNKPg+357XUoXWAH85pGOFs1V4DM5iIN+W/mnB4ZIqI0uNLyioQw==
+X-Received: by 2002:ac2:5931:0:b0:4a2:be5d:edac with SMTP id
+ v17-20020ac25931000000b004a2be5dedacmr3273463lfi.332.1665341561243; 
+ Sun, 09 Oct 2022 11:52:41 -0700 (PDT)
+Received: from [192.168.1.211] ([37.153.55.125])
+ by smtp.gmail.com with ESMTPSA id
+ q14-20020a056512210e00b00485caa0f5dfsm1114474lfr.44.2022.10.09.11.52.40
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Sun, 09 Oct 2022 11:52:40 -0700 (PDT)
+Message-ID: <3f5cb79b-f745-8b7b-bacd-f9ea2988baea@linaro.org>
+Date: Sun, 9 Oct 2022 21:52:40 +0300
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH v3 07/10] drm/msm/dsi: Disallow 8 BPC DSC
- configuration for alternative BPC values
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.3.1
+To: Marijn Suijten <marijn.suijten@somainline.org>,
+ phone-devel@vger.kernel.org, Rob Clark <robdclark@gmail.com>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, Vinod Koul <vkoul@kernel.org>
+References: <20221009184824.457416-1-marijn.suijten@somainline.org>
+ <20221009184824.457416-2-marijn.suijten@somainline.org>
+Content-Language: en-GB
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+In-Reply-To: <20221009184824.457416-2-marijn.suijten@somainline.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Subject: Re: [Freedreno] [PATCH v3 01/10] drm/msm/dsi: Remove useless math
+ in DSC calculations
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -43,53 +78,34 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Vinod Koul <vkoul@kernel.org>, Jami Kettunen <jami.kettunen@somainline.org>,
- David Airlie <airlied@gmail.com>, linux-arm-msm@vger.kernel.org,
- Vladimir Lypak <vladimir.lypak@gmail.com>,
+Cc: freedreno@lists.freedesktop.org,
+ Jami Kettunen <jami.kettunen@somainline.org>, David Airlie <airlied@gmail.com>,
+ linux-arm-msm@vger.kernel.org, Vladimir Lypak <vladimir.lypak@gmail.com>,
  Konrad Dybcio <konrad.dybcio@somainline.org>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
- Douglas Anderson <dianders@chromium.org>, Rob Clark <robdclark@gmail.com>,
- Martin Botka <martin.botka@somainline.org>,
+ Douglas Anderson <dianders@chromium.org>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Martin Botka <martin.botka@somainline.org>,
  ~postmarketos/upstreaming@lists.sr.ht, Daniel Vetter <daniel@ffwll.ch>,
  AngeloGioacchino Del Regno <angelogioacchino.delregno@somainline.org>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- freedreno@lists.freedesktop.org, Sean Paul <sean@poorly.run>,
- linux-kernel@vger.kernel.org
+ Sean Paul <sean@poorly.run>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-According to the `/* bpc 8 */` comment below only values for a
-bits_per_component of 8 are currently hardcoded in place.  This is
-further confirmed by downstream sources [1] containing different
-constants for other BPC values (and different initial_offset too,
-with an extra dependency on bits_per_pixel).  Prevent future mishaps by
-explicitly disallowing any other bits_per_component value until the
-right parameters are put in place and tested.
+On 09/10/2022 21:48, Marijn Suijten wrote:
+> Multiplying a value by 2 and adding 1 to it always results in a value
+> that is uneven, and that 1 gets truncated immediately when performing
+> integer division by 2 again.  There is no "rounding" possible here.
+> 
+> After that target_bpp_x16 is used to store a multiplication of
+> bits_per_pixel by 16 which is only ever read to immediately be divided
+> by 16 again, and is elided in much the same way.
+> 
+> Fixes: b9080324d6ca ("drm/msm/dsi: add support for dsc data")
+> Signed-off-by: Marijn Suijten <marijn.suijten@somainline.org>
+> Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
 
-[1]: https://git.codelinaro.org/clo/la/platform/vendor/opensource/display-drivers/-/blob/DISPLAY.LA.2.0.r1-08000-WAIPIO.0/msm/sde_dsc_helper.c#L110-139
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 
-Signed-off-by: Marijn Suijten <marijn.suijten@somainline.org>
----
- drivers/gpu/drm/msm/dsi/dsi_host.c | 5 +++++
- 1 file changed, 5 insertions(+)
-
-diff --git a/drivers/gpu/drm/msm/dsi/dsi_host.c b/drivers/gpu/drm/msm/dsi/dsi_host.c
-index 68c39debc22f..7e6b7e506ae8 100644
---- a/drivers/gpu/drm/msm/dsi/dsi_host.c
-+++ b/drivers/gpu/drm/msm/dsi/dsi_host.c
-@@ -1774,6 +1774,11 @@ static int dsi_populate_dsc_params(struct drm_dsc_config *dsc)
- {
- 	int i;
- 
-+	if (dsc->bits_per_component != 8) {
-+		DRM_DEV_ERROR(&msm_host->pdev->dev, "DSI does not support bits_per_component != 8 yet\n");
-+		return -EOPNOTSUPP;
-+	}
-+
- 	dsc->rc_model_size = 8192;
- 	dsc->first_line_bpg_offset = 12;
- 	dsc->rc_edge_factor = 6;
 -- 
-2.38.0
+With best wishes
+Dmitry
 
