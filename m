@@ -1,56 +1,56 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id C0FFF5F8D83
-	for <lists+freedreno@lfdr.de>; Sun,  9 Oct 2022 20:54:01 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 8C1855F8D88
+	for <lists+freedreno@lfdr.de>; Sun,  9 Oct 2022 20:54:59 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7F91E10E53F;
-	Sun,  9 Oct 2022 18:54:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0688510E067;
+	Sun,  9 Oct 2022 18:54:58 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x130.google.com (mail-lf1-x130.google.com
- [IPv6:2a00:1450:4864:20::130])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6233C10E541
- for <freedreno@lists.freedesktop.org>; Sun,  9 Oct 2022 18:53:56 +0000 (UTC)
-Received: by mail-lf1-x130.google.com with SMTP id a29so13860392lfo.1
- for <freedreno@lists.freedesktop.org>; Sun, 09 Oct 2022 11:53:56 -0700 (PDT)
+Received: from mail-lj1-x22c.google.com (mail-lj1-x22c.google.com
+ [IPv6:2a00:1450:4864:20::22c])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D805710E543
+ for <freedreno@lists.freedesktop.org>; Sun,  9 Oct 2022 18:54:50 +0000 (UTC)
+Received: by mail-lj1-x22c.google.com with SMTP id z15so3366982ljq.11
+ for <freedreno@lists.freedesktop.org>; Sun, 09 Oct 2022 11:54:50 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :from:to:cc:subject:date:message-id:reply-to;
- bh=7WCwiylqT6GqGn/jQAt5LTbt6Cb7+upuDOK5iWkS3jg=;
- b=Dr+PFWXcabmj8/2V1PzeN71F1E4EPjMkeUYtJFnsQHESjhxU3KvTPrTuD94jE3KuEI
- HiH+VvgGX+AZouib+u2vnBtJPxCnsaOoek4wTSf4WiVuoIDSdiIA6tjvk36Ir3j3EZz0
- Wrt7FkofRlb04ZybpjzJr3tgF0IbwbzAo8AEU9XUwFne2jBratY7GZFno7MRr7b3fwfa
- 0LC8kgDS4PyNnt/+1IOKXqHF4+zge3mmnBwJxbtSGREvuy4ac7hthsC70aGmmz3y43Do
- rPyOkNf4kurOLLC+jTJhExl9ANmUWgaSa123RRnFoAr5AgRSiWaaxZpNaN2AA6YL84Fy
- ojSw==
+ bh=HfHIwCu6ix9Kna+8PuTHr1cR5KLg2VwjNd612N/VBhk=;
+ b=icnrUwOEYqqXpM7lGG58XUOx4f2Lfbh+szDyq/Oe6bhXj/POCjjfWnVv56wQN0iwsJ
+ E6g1tPHS1qRwPYcYRhrBJ2Yxk1F+p+9FJK3NV/dtSPE05H37fPv7KlBx9pYr5hhzn2i7
+ KHh1zgLVPLyORveVb5L0CmFIzIo/GE2OjHF96QOJRzKH7W2E2MgHYhghbtizM+z5Gw50
+ Ivz/RRcDmG2BmoELfTXehCmSD6lD5ipKIPLIjVlHHPFpHhJ9b0aLqTwsX858zhDkixxx
+ j7kk/FEInm/WizXGsyU3JE1SDukQxNXNxQRM5BGqUGwl3PQYuFBQnzwdoptCVfX40AaS
+ R3Ew==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=7WCwiylqT6GqGn/jQAt5LTbt6Cb7+upuDOK5iWkS3jg=;
- b=wnokOEsw1efdltsK2KZogdOiV2OENUmKx5IzJEz45KNpYLGuHD5K2cImhIai720JsO
- 4Bq6HfWyoK+Q+O/gAxHxphQ9GWhusXhUlDaAIpJPr0W4/JBsU9Qkpo5L6ERD06TlJ0hM
- CQwM7GtbgsKvZKKlWql6BgcfVtwqwf5ItfvLzakcOnjTEuGQpcIJ68FuF/8JBGZkqZBS
- m3Jc3Ywk+jJlraFfwRPXJJqlBYXaT4/vOb2SfSyE1JsFc4NhaGNqt/hzGjfr9c5Xn7hh
- WuwvS29nOfkgQqtsxMwzWKLYC038DAlEwuPUiRxV6i37Z5XzFR6jzfqQrZmQS/XngzTn
- AxkA==
-X-Gm-Message-State: ACrzQf1h+sJxedunuNQuRgG9n4s7+srDlJzWk5d9kv+8wGDlVtROUt/3
- +kWqCsi3UPuCaHKlp2pV4ho0YQ==
-X-Google-Smtp-Source: AMsMyM49x3SFTxuNraxtl+xaUGhpszx7zJd4wy4vtk748DI0fbZBp5t1rl3xL96NhqsqzF3BC4RKcQ==
-X-Received: by 2002:ac2:5e79:0:b0:4a2:3eeb:a7cb with SMTP id
- a25-20020ac25e79000000b004a23eeba7cbmr4704971lfr.263.1665341634743; 
- Sun, 09 Oct 2022 11:53:54 -0700 (PDT)
+ bh=HfHIwCu6ix9Kna+8PuTHr1cR5KLg2VwjNd612N/VBhk=;
+ b=NatOx19ShH7xnMiOKD1tl44fFGQ0nrsm77NM4idTB9EB9V4WFr4ljUGUxdN/lgj5vp
+ dbJE6UK3BokPfXz2NM+EhaUWJVpqK+voqYmfNIT3OcLDbntZNEBcS6xJx76BMO0AmrNP
+ +06kk7BH0Wnxcpqdk7CT6uBkTkFpz2B2NL/BIPUIChGOOFw13aeGzc9B4WSz07XXi2VC
+ DvZ91ZIcrj5AtXqNv0eWbexrsyv5o5V6ZRiO44jvvm9IDj50JDrfvKlZ43jxE9fFBHac
+ QAq6VvE8paP4mNMkH/EQr3UDwgOoPbbcqm8xMkFSZ+sgLrl5ajzwyEENrtXK68xxS6R5
+ TEnA==
+X-Gm-Message-State: ACrzQf0w5eO/MiLjCFzSfZCNaSDbrz0pOGJ/YCA8Vnt3OX45soPi9dKi
+ 7/suKOWFRfW6BKsPLab2yEOoBA==
+X-Google-Smtp-Source: AMsMyM6CRg4uBwxkS7rjTe5Yf0/rhGdcCtjAb5V9AqMemVPwKziC/xVhAt3f7dUbsd0ZGixqPW5KAQ==
+X-Received: by 2002:a2e:9f51:0:b0:26c:3db9:3660 with SMTP id
+ v17-20020a2e9f51000000b0026c3db93660mr5559612ljk.528.1665341689141; 
+ Sun, 09 Oct 2022 11:54:49 -0700 (PDT)
 Received: from [192.168.1.211] ([37.153.55.125])
  by smtp.gmail.com with ESMTPSA id
- t27-20020a2e8e7b000000b0026dfe55be7fsm1306222ljk.63.2022.10.09.11.53.54
+ g3-20020a19ee03000000b00494716e4f23sm1113741lfb.111.2022.10.09.11.54.48
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sun, 09 Oct 2022 11:53:54 -0700 (PDT)
-Message-ID: <8fdeeefb-8410-98cb-0c2b-60a580fd0e36@linaro.org>
-Date: Sun, 9 Oct 2022 21:53:53 +0300
+ Sun, 09 Oct 2022 11:54:48 -0700 (PDT)
+Message-ID: <7b72e9bf-9736-59b7-7355-db6b1c643e85@linaro.org>
+Date: Sun, 9 Oct 2022 21:54:48 +0300
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.3.1
@@ -59,13 +59,13 @@ To: Marijn Suijten <marijn.suijten@somainline.org>,
  phone-devel@vger.kernel.org, Rob Clark <robdclark@gmail.com>,
  Abhinav Kumar <quic_abhinavk@quicinc.com>, Vinod Koul <vkoul@kernel.org>
 References: <20221009184824.457416-1-marijn.suijten@somainline.org>
- <20221009184824.457416-4-marijn.suijten@somainline.org>
+ <20221009184824.457416-5-marijn.suijten@somainline.org>
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-In-Reply-To: <20221009184824.457416-4-marijn.suijten@somainline.org>
+In-Reply-To: <20221009184824.457416-5-marijn.suijten@somainline.org>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH v3 03/10] drm/msm/dsi: Use DIV_ROUND_UP
- instead of conditional increment on modulo
+Subject: Re: [Freedreno] [PATCH v3 04/10] drm/msm/dsi: Reuse earlier
+ computed dsc->slice_chunk_size
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -91,15 +91,16 @@ Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 On 09/10/2022 21:48, Marijn Suijten wrote:
-> This exact same math is used to compute bytes_in_slice above in
-> dsi_update_dsc_timing(), also used to fill slice_chunk_size.
+> dsi_populate_dsc_params() is called prior to dsi_update_dsc_timing() and
+> already computes a value for slice_chunk_size, whose value doesn't need
+> to be recomputed and re-set here.
 > 
-> Fixes: b9080324d6ca ("drm/msm/dsi: add support for dsc data")
+> Fixes: 08802f515c3c ("drm/msm/dsi: Add support for DSC configuration")
 > Signed-off-by: Marijn Suijten <marijn.suijten@somainline.org>
 > Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
 > ---
->   drivers/gpu/drm/msm/dsi/dsi_host.c | 4 +---
->   1 file changed, 1 insertion(+), 3 deletions(-)
+>   drivers/gpu/drm/msm/dsi/dsi_host.c | 9 ++-------
+>   1 file changed, 2 insertions(+), 7 deletions(-)
 
 Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 
