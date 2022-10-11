@@ -1,60 +1,52 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (unknown [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id CAEC65FA7CC
-	for <lists+freedreno@lfdr.de>; Tue, 11 Oct 2022 00:45:41 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id D7CF75FADC9
+	for <lists+freedreno@lfdr.de>; Tue, 11 Oct 2022 09:51:29 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5734D10E379;
-	Mon, 10 Oct 2022 22:45:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8D0FD10E7D7;
+	Tue, 11 Oct 2022 07:51:28 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x12e.google.com (mail-lf1-x12e.google.com
- [IPv6:2a00:1450:4864:20::12e])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5A38910E379
- for <freedreno@lists.freedesktop.org>; Mon, 10 Oct 2022 22:45:26 +0000 (UTC)
-Received: by mail-lf1-x12e.google.com with SMTP id d6so18526499lfs.10
- for <freedreno@lists.freedesktop.org>; Mon, 10 Oct 2022 15:45:26 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=ojWSmygiziuSMKGh3XbZGWS7SbAi/9HsoxfpH+m8lLo=;
- b=gZlEGIYHv5Yda3m/gkN6SfDBeVu9EFOQN7P0fTjQQrMcfVmC7NQrf3NzO7a1N8a61F
- WlK08fZAnFbiTv5p15MktG9cXvHFZ8BEd117RCFUTZGABRsXmKrn56uy2bUtiHjBvItc
- P78Yy0pbqsLBVNrgT+e/yreJ7kJSSVvaNwSXUeuBr+yUov4qQYGXuvJJIXuT8CGZ8eYJ
- FfVcZnePCE8h1zeT1VsnXcsNzT7bKd4AvuMxO19ELCDOIaJhSBlRpYwlFhE2ucyZGsxx
- /74t3vcrO+lATfBoOkcvkgXYrDLQ2c44+R6NxhcoaXAK8HDDS2baUT4WS8wGoMsDhnXX
- iZcQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=ojWSmygiziuSMKGh3XbZGWS7SbAi/9HsoxfpH+m8lLo=;
- b=HYoSKeWPrHpiM/g1OfWl+7oqYvwRUa3ElPmz9pc/B7X2T1V9IAmi2WRmsAPFxMSvc0
- NCpOwD6wz28gMmsdvpEU/W63I+e3dHrWk2n4/pQTW5XxWsA/m9zCVyKrOytSveOwS6lt
- HFPbdJpQy/YnwPj55i9Y72Ex3vGE1HEyrpgG8HRmR6T6O7BZEDPRHZ9SPiA+THQvS/+b
- FzFK/woDrpPWqRfBArHvIMZNuh8jJYs9N8/t11vqBce3abIM2Huyy7a1j+989Aa9odCx
- spaRGm6/kq2UHDWKp3Cw5RAh/8EWGD+0rTy1LiAMzajumN3eBDqvSA85RQbPxBwLgYZB
- IAXA==
-X-Gm-Message-State: ACrzQf0wexKnTxMiW40Aze8xHppgxlV0z+fX7Cu+RQkql3RukvmOcfV5
- CTU4ZjTMHDU7l7j1Uq8eUQBI7Q==
-X-Google-Smtp-Source: AMsMyM5p1CJmxCtHf5WjzdKCcKLbCFjNxJi+YH+CB8LLEucq2hy6XvfgdYTs8HMsYomnPJ5aQHyC/Q==
-X-Received: by 2002:ac2:5a5d:0:b0:4a2:3d64:8ad3 with SMTP id
- r29-20020ac25a5d000000b004a23d648ad3mr7596244lfn.530.1665441925095; 
- Mon, 10 Oct 2022 15:45:25 -0700 (PDT)
-Received: from eriador.lan ([37.153.55.125]) by smtp.gmail.com with ESMTPSA id
- s16-20020ac24650000000b004994c190581sm1585272lfo.123.2022.10.10.15.45.24
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 10 Oct 2022 15:45:24 -0700 (PDT)
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-To: linux-firmware@kernel.org
-Date: Tue, 11 Oct 2022 01:45:23 +0300
-Message-Id: <20221010224523.3603000-1-dmitry.baryshkov@linaro.org>
-X-Mailer: git-send-email 2.35.1
+Received: from relay03.th.seeweb.it (relay03.th.seeweb.it [5.144.164.164])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6A05510E7D4
+ for <freedreno@lists.freedesktop.org>; Tue, 11 Oct 2022 07:51:24 +0000 (UTC)
+Received: from SoMainline.org (94-209-172-39.cable.dynamic.v4.ziggo.nl
+ [94.209.172.39])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest
+ SHA256) (No client certificate requested)
+ by m-r1.th.seeweb.it (Postfix) with ESMTPSA id 3D3FC2063E;
+ Tue, 11 Oct 2022 09:51:21 +0200 (CEST)
+Date: Tue, 11 Oct 2022 09:51:19 +0200
+From: Marijn Suijten <marijn.suijten@somainline.org>
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Message-ID: <20221011075119.tvn5j5jm6aqnhqv2@SoMainline.org>
+Mail-Followup-To: Marijn Suijten <marijn.suijten@somainline.org>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ phone-devel@vger.kernel.org, ~postmarketos/upstreaming@lists.sr.ht,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@somainline.org>,
+ Konrad Dybcio <konrad.dybcio@somainline.org>,
+ Martin Botka <martin.botka@somainline.org>,
+ Jami Kettunen <jami.kettunen@somainline.org>,
+ Rob Clark <robdclark@gmail.com>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Sean Paul <sean@poorly.run>, David Airlie <airlied@gmail.com>,
+ Daniel Vetter <daniel@ffwll.ch>, Vinod Koul <vkoul@kernel.org>,
+ Douglas Anderson <dianders@chromium.org>,
+ Vladimir Lypak <vladimir.lypak@gmail.com>,
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
+References: <20221009184824.457416-1-marijn.suijten@somainline.org>
+ <20221009185316.462522-3-marijn.suijten@somainline.org>
+ <408bf6a2-47fe-3eaf-7235-578d33a576c9@linaro.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PULL] qcom: add squashed version of a530 zap shader
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <408bf6a2-47fe-3eaf-7235-578d33a576c9@linaro.org>
+Subject: Re: [Freedreno] [PATCH v3 10/10] drm/msm/dsi: Prevent signed BPG
+ offsets from bleeding into adjacent bits
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,28 +59,48 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-arm-msm@vger.kernel.org, Bjorn Andersson <andersson@kernel.org>,
- freedreno@lists.freedesktop.org, Rob Clark <robdclark@gmail.com>
+Cc: Vinod Koul <vkoul@kernel.org>, Jami Kettunen <jami.kettunen@somainline.org>,
+ David Airlie <airlied@gmail.com>, linux-arm-msm@vger.kernel.org,
+ Vladimir Lypak <vladimir.lypak@gmail.com>,
+ Konrad Dybcio <konrad.dybcio@somainline.org>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
+ Douglas Anderson <dianders@chromium.org>, freedreno@lists.freedesktop.org,
+ Rob Clark <robdclark@gmail.com>, Martin Botka <martin.botka@somainline.org>,
+ ~postmarketos/upstreaming@lists.sr.ht, Daniel Vetter <daniel@ffwll.ch>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@somainline.org>,
+ phone-devel@vger.kernel.org, Sean Paul <sean@poorly.run>,
+ linux-kernel@vger.kernel.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-The following changes since commit fdf1a65258522edf18a0a1768fbafa61ed07e598:
+On 2022-10-09 22:14:16, Dmitry Baryshkov wrote:
+> On 09/10/2022 21:53, Marijn Suijten wrote:
+> > The bpg_offset array contains negative BPG offsets which fill the full 8
+> > bits of a char thanks to two's complement: this however results in those
+> > bits bleeding into the next field when the value is packed into DSC PPS
+> > by the drm_dsc_helper function, which only expects range_bpg_offset to
+> > contain 6-bit wide values.  As a consequence random slices appear
+> > corrupted on-screen (tested on a Sony Tama Akatsuki device with sdm845).
+> > 
+> > Use AND operators to limit these two's complement values to 6 bits,
+> > similar to the AMD and i915 drivers.
+> > 
+> > Fixes: b9080324d6ca ("drm/msm/dsi: add support for dsc data")
+> > Signed-off-by: Marijn Suijten <marijn.suijten@somainline.org>
+> 
+> 
+> Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> 
+> Side note: the DSC params tables are more or less common between amd, 
+> i916 and msm drivers. It might be worth moving them to the DSC helpers 
+> from the individual drivers. This would mean such masks handling can go 
+> into the helper too.
 
-  linux-firmware: Update AMD cpu microcode (2022-09-30 17:33:35 -0400)
+I'll queue this up in my list and perhaps tackle it in the next round of
+DSC fixes, assuming things don't get too big.
 
-are available in the Git repository at:
+If there are no more reviews I'll respin v4 with your review picked up
+and patch 7/10 reworked or reordered to have access to the msm_host
+pointer added in 8/10 (see kernel test robot mail).
 
-  https://github.com/lumag/linux-firmware a530-mbn
-
-for you to fetch changes up to 44fa25ddf7d803f347dcdb0ecc52f72268979b92:
-
-  qcom: add squashed version of a530 zap shader (2022-10-11 01:31:10 +0300)
-
-----------------------------------------------------------------
-Dmitry Baryshkov (1):
-      qcom: add squashed version of a530 zap shader
-
- WHENCE                    |   1 +
- qcom/apq8096/a530_zap.mbn | Bin 0 -> 17188 bytes
- 2 files changed, 1 insertion(+)
- create mode 100644 qcom/apq8096/a530_zap.mbn
+- Marijn
