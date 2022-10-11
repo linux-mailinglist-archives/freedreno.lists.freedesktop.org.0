@@ -1,57 +1,70 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id E330E5FB7CF
-	for <lists+freedreno@lfdr.de>; Tue, 11 Oct 2022 17:56:53 +0200 (CEST)
+Received: from gabe.freedesktop.org (unknown [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 0085D5FBCAF
+	for <lists+freedreno@lfdr.de>; Tue, 11 Oct 2022 23:11:39 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6C64F10E645;
-	Tue, 11 Oct 2022 15:56:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BAF2510E310;
+	Tue, 11 Oct 2022 21:11:18 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ua1-x929.google.com (mail-ua1-x929.google.com
- [IPv6:2607:f8b0:4864:20::929])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6A7D210E63A
- for <freedreno@lists.freedesktop.org>; Tue, 11 Oct 2022 15:56:45 +0000 (UTC)
-Received: by mail-ua1-x929.google.com with SMTP id i20so5183110ual.4
- for <freedreno@lists.freedesktop.org>; Tue, 11 Oct 2022 08:56:45 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=wH1Bl8itt96KxBsAlutBeKuPO2AccjwjUzu7pu+C0go=;
- b=cHQS7SWHH1gASscavrPWCc246E7BVCVrvaxgOLz953W9ZYcFihTNZv8KTxGIoPE6VO
- oxondL9qq+lJt4+IbHPqqpuaTIVC17a3n1VJ1GNQMzW5Pm1mS57FLx+5CAdHEkcfl7wu
- Wwm66Rp6rTnBPjtVSfACGBqcakSKTvYQ47tmUJBN0sqjUjgLWyAS3SJ/fPNfhEGngrt2
- 0ZoJeZbPXX2MoCGE4SpvxUHGHv/Ovju656QRtnZJsqWpbYmlQ7pygRvr4N6pOUPceDQl
- dwHTSyp+zflFhfPwKszINz4PuTsGqtK2Jefl0RHElZbs7PwM+DjGcWnKFSSCX9OIqkfU
- 4q6A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=wH1Bl8itt96KxBsAlutBeKuPO2AccjwjUzu7pu+C0go=;
- b=xC1h6IkK6RwuFeaTc1/h4dWCqMBbLscC2U8PD7zW6kleQ8fdhPVrYjVQhJXT8CwfyR
- OZB38k3pvtWsPZgRhk+pGEmXyRSShrcShfmjxcg2sqxQsxUD/E7WV2b5rwaZzNk8Q0VM
- aIoWA98u2R3Db4Dd+eVzd9L3A1eKKq3wOMOx5+QZPT0e1I8lA0+mSGmw2atzBDocLDhS
- kzmkQ4tcspjU72IVXqK+uTVuF6b+lhbnrV7EETgPtxxVcupemJbB9FDtZAMGuM0wMm1B
- NY0Y4J9PFz0qtfd1FelaFeMc59ggOpkLe72y5Fesv896JRSa9+LrzAldXJjkZg+iMigv
- CjLw==
-X-Gm-Message-State: ACrzQf1bSUVuAkVPv718elFbxEjhcYgT/gbiTS2kspKYoq8MzNro4FLZ
- 98TSLJnrv5OFwMT10hcWwdHd5iZm5bA/ADszkkJYjw==
-X-Google-Smtp-Source: AMsMyM7hO86TNlZ7RU1O5BbKxgzcrBU9iEjAHsEU8uEo45EdTTocB+iB/ZslSLRzKUzF+PENEMSkZ/nzKg+/gEiZ/rg=
-X-Received: by 2002:ab0:7a5b:0:b0:3b3:8eb9:5a25 with SMTP id
- a27-20020ab07a5b000000b003b38eb95a25mr11832841uat.55.1665503804335; Tue, 11
- Oct 2022 08:56:44 -0700 (PDT)
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E491810E310;
+ Tue, 11 Oct 2022 21:11:15 +0000 (UTC)
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 29BHS6J9006380;
+ Tue, 11 Oct 2022 21:11:09 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
+ h=from : to : cc :
+ subject : date : message-id : mime-version : content-type; s=qcppdkim1;
+ bh=vmhGTej9bCGsmDLQUdsqE59l69J9ovCUAJfkaTBGTcM=;
+ b=kkoETs4fpCdjX7WVbi0axHQJj3j4Srs4lg8pp43V1SinsbKivgHHt87j2Gaz2Pf1REIB
+ dTjykX9fQ86vDhN6t7E5sRdoP4r24aQavDYSr8oUTtnocB4hXHYkyH+SauFtX8DB/pTo
+ RtXpfXMHDnha3dT2nxsvooxDEPgCR5FjnWMNNaT5ZzkLZ7WGvt2+lMEJDJtk4AdwxxNV
+ o6VE9GUTl3EpbFDxCRB9bmAMG5TngA4haaL2tSHz4howFmqZ/pQKm/Q34dIOVedOuESh
+ MNjRjJvDoY0lPWzZ10CJ481znQeOv5SVV8uK7qVyAo693X693f1NWxXq8oIpTG4FI9hd Mw== 
+Received: from nalasppmta04.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3k4rwy483j-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 11 Oct 2022 21:11:08 +0000
+Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
+ [10.47.209.196])
+ by NALASPPMTA04.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 29BLB8WX007844
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 11 Oct 2022 21:11:08 GMT
+Received: from abhinavk-linux.qualcomm.com (10.80.80.8) by
+ nalasex01a.na.qualcomm.com (10.47.209.196) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.986.29; Tue, 11 Oct 2022 14:11:07 -0700
+From: Abhinav Kumar <quic_abhinavk@quicinc.com>
+To: <freedreno@lists.freedesktop.org>
+Date: Tue, 11 Oct 2022 14:10:49 -0700
+Message-ID: <1665522649-3423-1-git-send-email-quic_abhinavk@quicinc.com>
+X-Mailer: git-send-email 2.7.4
 MIME-Version: 1.0
-References: <20221011075519.3111928-1-shraash@google.com>
-In-Reply-To: <20221011075519.3111928-1-shraash@google.com>
-From: Guenter Roeck <groeck@google.com>
-Date: Tue, 11 Oct 2022 08:56:33 -0700
-Message-ID: <CABXOdTdum0q=2Fy3yM3OnGmHM9ZkNyEURx6C08879ND7ye=vxg@mail.gmail.com>
-To: Aashish Sharma <shraash@google.com>
-Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [PATCH] drm/msm: Remove redundant check for 'submit'
+Content-Type: text/plain
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-ORIG-GUID: 3H69OuX4vCIZtlJxEKs2d5uDIw6Ymshs
+X-Proofpoint-GUID: 3H69OuX4vCIZtlJxEKs2d5uDIw6Ymshs
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.205,Aquarius:18.0.895,Hydra:6.0.545,FMLib:17.11.122.1
+ definitions=2022-10-11_08,2022-10-11_02,2022-06-22_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015
+ priorityscore=1501 impostorscore=0 malwarescore=0 bulkscore=0 mlxscore=0
+ suspectscore=0 adultscore=0 mlxlogscore=999 phishscore=0
+ lowpriorityscore=0 spamscore=0 classifier=spam adjust=0 reason=mlx
+ scancount=1 engine=8.12.0-2209130000 definitions=main-2210110122
+Subject: [Freedreno] [PATCH v2] drm/bridge: adv7533: remove dynamic lane
+ switching from adv7533 bridge
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,61 +77,226 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno <freedreno@lists.freedesktop.org>,
- kernel test robot <lkp@intel.com>, David Airlie <airlied@gmail.com>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
- linux-kernel <linux-kernel@vger.kernel.org>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Rob Clark <robdclark@gmail.com>, linux-arm-msm <linux-arm-msm@vger.kernel.org>,
- Guenter Roeck <groeck@chromium.org>, Sean Paul <sean@poorly.run>,
- Dan Carpenter <dan.carpenter@oracle.com>
+Cc: Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
+ swboyd@chromium.org, robdclark@gmail.com, seanpaul@chromium.org,
+ robert.foss@linaro.org, daniel@ffwll.ch, dmitry.baryshkov@linaro.org,
+ quic_jesszhan@quicinc.com, quic_khsieh@quicinc.com,
+ laurent.pinchart@ideasonboard.com
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Tue, Oct 11, 2022 at 12:55 AM Aashish Sharma <shraash@google.com> wrote:
->
-> Rectify the below smatch warning:
-> drivers/gpu/drm/msm/msm_gem_submit.c:963 msm_ioctl_gem_submit() warn:
-> variable dereferenced before check 'submit'
->
-> 'submit' is normally error pointer or valid, so remove its NULL
-> initializer as it's confusing and also remove a redundant check for it's
-> value.
->
-> Signed-off-by: Aashish Sharma <shraash@google.com>
-> Reported-by: kernel test robot <lkp@intel.com>
-> Reported-by: Dan Carpenter <dan.carpenter@oracle.com>
+adv7533 bridge tries to dynamically switch lanes based on the
+mode by detaching and attaching the mipi dsi device.
 
-Reviewed-by: Guenter Roeck <groeck@chromium.org>
+This approach is incorrect because this method of dynamic switch of
+detaching and attaching the mipi dsi device also results in removing
+and adding the component which is not necessary.
 
-> ---
->  drivers/gpu/drm/msm/msm_gem_submit.c | 5 ++---
->  1 file changed, 2 insertions(+), 3 deletions(-)
->
-> diff --git a/drivers/gpu/drm/msm/msm_gem_submit.c b/drivers/gpu/drm/msm/msm_gem_submit.c
-> index 5599d93ec0d2..74fe1c56cd65 100644
-> --- a/drivers/gpu/drm/msm/msm_gem_submit.c
-> +++ b/drivers/gpu/drm/msm/msm_gem_submit.c
-> @@ -706,7 +706,7 @@ int msm_ioctl_gem_submit(struct drm_device *dev, void *data,
->         struct msm_drm_private *priv = dev->dev_private;
->         struct drm_msm_gem_submit *args = data;
->         struct msm_file_private *ctx = file->driver_priv;
-> -       struct msm_gem_submit *submit = NULL;
-> +       struct msm_gem_submit *submit;
->         struct msm_gpu *gpu = priv->gpu;
->         struct msm_gpu_submitqueue *queue;
->         struct msm_ringbuffer *ring;
-> @@ -946,8 +946,7 @@ int msm_ioctl_gem_submit(struct drm_device *dev, void *data,
->                 put_unused_fd(out_fence_fd);
->         mutex_unlock(&queue->lock);
->  out_post_unlock:
-> -       if (submit)
-> -               msm_gem_submit_put(submit);
-> +       msm_gem_submit_put(submit);
->         if (!IS_ERR_OR_NULL(post_deps)) {
->                 for (i = 0; i < args->nr_out_syncobjs; ++i) {
->                         kfree(post_deps[i].chain);
-> --
-> 2.38.0.rc2.412.g84df46c1b4-goog
->
+This approach is also prone to deadlocks. So for example, on the
+db410c whenever this path is executed with lockdep enabled,
+this results in a deadlock due to below ordering of locks.
+
+-> #1 (crtc_ww_class_acquire){+.+.}-{0:0}:
+        lock_acquire+0x6c/0x90
+        drm_modeset_acquire_init+0xf4/0x150
+        drmm_mode_config_init+0x220/0x770
+        msm_drm_bind+0x13c/0x654
+        try_to_bring_up_aggregate_device+0x164/0x1d0
+        __component_add+0xa8/0x174
+        component_add+0x18/0x2c
+        dsi_dev_attach+0x24/0x30
+        dsi_host_attach+0x98/0x14c
+        devm_mipi_dsi_attach+0x38/0xb0
+        adv7533_attach_dsi+0x8c/0x110
+        adv7511_probe+0x5a0/0x930
+        i2c_device_probe+0x30c/0x350
+        really_probe.part.0+0x9c/0x2b0
+        __driver_probe_device+0x98/0x144
+        driver_probe_device+0xac/0x14c
+        __device_attach_driver+0xbc/0x124
+        bus_for_each_drv+0x78/0xd0
+        __device_attach+0xa8/0x1c0
+        device_initial_probe+0x18/0x24
+        bus_probe_device+0xa0/0xac
+        deferred_probe_work_func+0x90/0xd0
+        process_one_work+0x28c/0x6b0
+        worker_thread+0x240/0x444
+        kthread+0x110/0x114
+        ret_from_fork+0x10/0x20
+
+-> #0 (component_mutex){+.+.}-{3:3}:
+        __lock_acquire+0x1280/0x20ac
+        lock_acquire.part.0+0xe0/0x230
+        lock_acquire+0x6c/0x90
+        __mutex_lock+0x84/0x400
+        mutex_lock_nested+0x3c/0x70
+        component_del+0x34/0x170
+        dsi_dev_detach+0x24/0x30
+        dsi_host_detach+0x20/0x64
+        mipi_dsi_detach+0x2c/0x40
+        adv7533_mode_set+0x64/0x90
+        adv7511_bridge_mode_set+0x210/0x214
+        drm_bridge_chain_mode_set+0x5c/0x84
+        crtc_set_mode+0x18c/0x1dc
+        drm_atomic_helper_commit_modeset_disables+0x40/0x50
+        msm_atomic_commit_tail+0x1d0/0x6e0
+        commit_tail+0xa4/0x180
+        drm_atomic_helper_commit+0x178/0x3b0
+        drm_atomic_commit+0xa4/0xe0
+        drm_client_modeset_commit_atomic+0x228/0x284
+        drm_client_modeset_commit_locked+0x64/0x1d0
+        drm_client_modeset_commit+0x34/0x60
+        drm_fb_helper_lastclose+0x74/0xcc
+        drm_lastclose+0x3c/0x80
+        drm_release+0xfc/0x114
+        __fput+0x70/0x224
+        ____fput+0x14/0x20
+        task_work_run+0x88/0x1a0
+        do_exit+0x350/0xa50
+        do_group_exit+0x38/0xa4
+        __wake_up_parent+0x0/0x34
+        invoke_syscall+0x48/0x114
+        el0_svc_common.constprop.0+0x60/0x11c
+        do_el0_svc+0x30/0xc0
+        el0_svc+0x58/0x100
+        el0t_64_sync_handler+0x1b0/0x1bc
+        el0t_64_sync+0x18c/0x190
+
+Due to above reasons, remove the dynamic lane switching
+code from adv7533 bridge chip and filter out the modes
+which would need different number of lanes as compared
+to the initialization time using the mode_valid callback.
+
+This can be potentially re-introduced by using the pre_enable()
+callback but this needs to be evaluated first whether such an
+approach will work so this will be done with a separate change.
+
+changes since RFC:
+	- Fix commit text and add TODO comment
+
+changes in v2:
+	- Fix checkpatch formatting errors
+
+Fixes: 62b2f026cd8e ("drm/bridge: adv7533: Change number of DSI lanes dynamically")
+Closes: https://gitlab.freedesktop.org/drm/msm/-/issues/16
+Suggested-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
+Reviewed-by: Robert Foss <robert.foss@linaro.org>
+Link: https://lore.kernel.org/r/1661797363-7564-1-git-send-email-quic_abhinavk@quicinc.com
+---
+ drivers/gpu/drm/bridge/adv7511/adv7511.h     |  3 ++-
+ drivers/gpu/drm/bridge/adv7511/adv7511_drv.c | 18 ++++++++++++++----
+ drivers/gpu/drm/bridge/adv7511/adv7533.c     | 25 +++++++++++++------------
+ 3 files changed, 29 insertions(+), 17 deletions(-)
+
+diff --git a/drivers/gpu/drm/bridge/adv7511/adv7511.h b/drivers/gpu/drm/bridge/adv7511/adv7511.h
+index a031a0cd1f18..1053d185b24c 100644
+--- a/drivers/gpu/drm/bridge/adv7511/adv7511.h
++++ b/drivers/gpu/drm/bridge/adv7511/adv7511.h
+@@ -405,7 +405,8 @@ static inline int adv7511_cec_init(struct device *dev, struct adv7511 *adv7511)
+ 
+ void adv7533_dsi_power_on(struct adv7511 *adv);
+ void adv7533_dsi_power_off(struct adv7511 *adv);
+-void adv7533_mode_set(struct adv7511 *adv, const struct drm_display_mode *mode);
++enum drm_mode_status adv7533_mode_valid(struct adv7511 *adv,
++					const struct drm_display_mode *mode);
+ int adv7533_patch_registers(struct adv7511 *adv);
+ int adv7533_patch_cec_registers(struct adv7511 *adv);
+ int adv7533_attach_dsi(struct adv7511 *adv);
+diff --git a/drivers/gpu/drm/bridge/adv7511/adv7511_drv.c b/drivers/gpu/drm/bridge/adv7511/adv7511_drv.c
+index 38bf28720f3a..4bc7aac94a16 100644
+--- a/drivers/gpu/drm/bridge/adv7511/adv7511_drv.c
++++ b/drivers/gpu/drm/bridge/adv7511/adv7511_drv.c
+@@ -697,7 +697,7 @@ adv7511_detect(struct adv7511 *adv7511, struct drm_connector *connector)
+ }
+ 
+ static enum drm_mode_status adv7511_mode_valid(struct adv7511 *adv7511,
+-			      struct drm_display_mode *mode)
++			      const struct drm_display_mode *mode)
+ {
+ 	if (mode->clock > 165000)
+ 		return MODE_CLOCK_HIGH;
+@@ -791,9 +791,6 @@ static void adv7511_mode_set(struct adv7511 *adv7511,
+ 	regmap_update_bits(adv7511->regmap, 0x17,
+ 		0x60, (vsync_polarity << 6) | (hsync_polarity << 5));
+ 
+-	if (adv7511->type == ADV7533 || adv7511->type == ADV7535)
+-		adv7533_mode_set(adv7511, adj_mode);
+-
+ 	drm_mode_copy(&adv7511->curr_mode, adj_mode);
+ 
+ 	/*
+@@ -913,6 +910,18 @@ static void adv7511_bridge_mode_set(struct drm_bridge *bridge,
+ 	adv7511_mode_set(adv, mode, adj_mode);
+ }
+ 
++static enum drm_mode_status adv7511_bridge_mode_valid(struct drm_bridge *bridge,
++						      const struct drm_display_info *info,
++		const struct drm_display_mode *mode)
++{
++	struct adv7511 *adv = bridge_to_adv7511(bridge);
++
++	if (adv->type == ADV7533 || adv->type == ADV7535)
++		return adv7533_mode_valid(adv, mode);
++	else
++		return adv7511_mode_valid(adv, mode);
++}
++
+ static int adv7511_bridge_attach(struct drm_bridge *bridge,
+ 				 enum drm_bridge_attach_flags flags)
+ {
+@@ -960,6 +969,7 @@ static const struct drm_bridge_funcs adv7511_bridge_funcs = {
+ 	.enable = adv7511_bridge_enable,
+ 	.disable = adv7511_bridge_disable,
+ 	.mode_set = adv7511_bridge_mode_set,
++	.mode_valid = adv7511_bridge_mode_valid,
+ 	.attach = adv7511_bridge_attach,
+ 	.detect = adv7511_bridge_detect,
+ 	.get_edid = adv7511_bridge_get_edid,
+diff --git a/drivers/gpu/drm/bridge/adv7511/adv7533.c b/drivers/gpu/drm/bridge/adv7511/adv7533.c
+index ef6270806d1d..258c79d4dab0 100644
+--- a/drivers/gpu/drm/bridge/adv7511/adv7533.c
++++ b/drivers/gpu/drm/bridge/adv7511/adv7533.c
+@@ -100,26 +100,27 @@ void adv7533_dsi_power_off(struct adv7511 *adv)
+ 	regmap_write(adv->regmap_cec, 0x27, 0x0b);
+ }
+ 
+-void adv7533_mode_set(struct adv7511 *adv, const struct drm_display_mode *mode)
++enum drm_mode_status adv7533_mode_valid(struct adv7511 *adv,
++					const struct drm_display_mode *mode)
+ {
++	int lanes;
+ 	struct mipi_dsi_device *dsi = adv->dsi;
+-	int lanes, ret;
+-
+-	if (adv->num_dsi_lanes != 4)
+-		return;
+ 
+ 	if (mode->clock > 80000)
+ 		lanes = 4;
+ 	else
+ 		lanes = 3;
+ 
+-	if (lanes != dsi->lanes) {
+-		mipi_dsi_detach(dsi);
+-		dsi->lanes = lanes;
+-		ret = mipi_dsi_attach(dsi);
+-		if (ret)
+-			dev_err(&dsi->dev, "failed to change host lanes\n");
+-	}
++	/*
++	 * TODO: add support for dynamic switching of lanes
++	 * by using the bridge pre_enable() op . Till then filter
++	 * out the modes which shall need different number of lanes
++	 * than what was configured in the device tree.
++	 */
++	if (lanes != dsi->lanes)
++		return MODE_BAD;
++
++	return MODE_OK;
+ }
+ 
+ int adv7533_patch_registers(struct adv7511 *adv)
+-- 
+2.7.4
+
