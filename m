@@ -1,79 +1,54 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 87DC45FC4E2
-	for <lists+freedreno@lfdr.de>; Wed, 12 Oct 2022 14:03:29 +0200 (CEST)
+Received: from gabe.freedesktop.org (unknown [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 69E695FC9B7
+	for <lists+freedreno@lfdr.de>; Wed, 12 Oct 2022 19:08:45 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 53F9610E47E;
-	Wed, 12 Oct 2022 12:03:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 65FBD10E6C8;
+	Wed, 12 Oct 2022 17:08:23 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BC63610E43D;
- Wed, 12 Oct 2022 12:02:55 +0000 (UTC)
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 29CAofXC019416;
- Wed, 12 Oct 2022 12:02:53 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
- h=from : to : cc :
- subject : date : message-id : in-reply-to : references; s=qcppdkim1;
- bh=5jYkfw8uF0wZhEX4SYCnpSA6qaL02kJLYhcKVZvnBOU=;
- b=DB1GyY78fXqDyzVcywz6lTBKXPIPfl278Lv/f6F4rnvIqYwLv2GgHky++fET0zhLw9f4
- NisoCCf2pri0inddVxdftHSfIqjmlc9ZhZeq7sq4jv2I8SsPHLpOOzhBky87pzazV4ru
- X1EdN3JreT8dSBOxEz2iyQAo6n0fDTVx+qc7Z8OOkgM5oVuUnIYmktPqKEbv4AA4lRP6
- mYrAoahweGD/rPmVLbHZQWNdve4/p26Htre2HtfowkIlnwYWt/fPe+MOClCZV+0IF6cc
- 4p4GgXZ6xIdVgVrtJBXL+qn6lrldefxcvM0fHNZ5jrhYrJaVnQvAiqd3RfbJ9LwwntcN Eg== 
-Received: from apblrppmta02.qualcomm.com
- (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com [103.229.18.19])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3k5e7fjbsk-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 12 Oct 2022 12:02:53 +0000
-Received: from pps.filterd (APBLRPPMTA02.qualcomm.com [127.0.0.1])
- by APBLRPPMTA02.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTP id 29CC2mtT026937; 
- Wed, 12 Oct 2022 12:02:50 GMT
-Received: from pps.reinject (localhost [127.0.0.1])
- by APBLRPPMTA02.qualcomm.com (PPS) with ESMTPS id 3k3jpu0t2p-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NO);
- Wed, 12 Oct 2022 12:02:49 +0000
-Received: from APBLRPPMTA02.qualcomm.com (APBLRPPMTA02.qualcomm.com
- [127.0.0.1])
- by pps.reinject (8.17.1.5/8.17.1.5) with ESMTP id 29CC2mwd026911;
- Wed, 12 Oct 2022 12:02:48 GMT
-Received: from vpolimer-linux.qualcomm.com (vpolimer-linux.qualcomm.com
- [10.204.67.235])
- by APBLRPPMTA02.qualcomm.com (PPS) with ESMTP id 29CC2mNp026872;
- Wed, 12 Oct 2022 12:02:48 +0000
-Received: by vpolimer-linux.qualcomm.com (Postfix, from userid 463814)
- id 700113F05; Wed, 12 Oct 2022 17:32:47 +0530 (IST)
-From: Vinod Polimera <quic_vpolimer@quicinc.com>
-To: dri-devel@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
- freedreno@lists.freedesktop.org, devicetree@vger.kernel.org
-Date: Wed, 12 Oct 2022 17:32:39 +0530
-Message-Id: <1665576159-3749-16-git-send-email-quic_vpolimer@quicinc.com>
-X-Mailer: git-send-email 2.7.4
-In-Reply-To: <1665576159-3749-1-git-send-email-quic_vpolimer@quicinc.com>
-References: <1665576159-3749-1-git-send-email-quic_vpolimer@quicinc.com>
-X-QCInternal: smtphost
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-ORIG-GUID: G9BcDfnJhs3mfkKTF0IyF7VKrcaqlS4G
-X-Proofpoint-GUID: G9BcDfnJhs3mfkKTF0IyF7VKrcaqlS4G
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.205,Aquarius:18.0.895,Hydra:6.0.545,FMLib:17.11.122.1
- definitions=2022-10-12_06,2022-10-12_01,2022-06-22_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- mlxlogscore=999 spamscore=0
- impostorscore=0 suspectscore=0 clxscore=1015 lowpriorityscore=0
- malwarescore=0 adultscore=0 mlxscore=0 priorityscore=1501 phishscore=0
- bulkscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2209130000 definitions=main-2210120079
-Subject: [Freedreno] [PATCH v8 15/15] drm/msm/disp/dpu: clear active
- interface in the datapath cleanup
+Received: from ams.source.kernel.org (ams.source.kernel.org
+ [IPv6:2604:1380:4601:e00::1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 72F0210E277
+ for <freedreno@lists.freedesktop.org>; Wed, 12 Oct 2022 17:08:19 +0000 (UTC)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by ams.source.kernel.org (Postfix) with ESMTPS id 9DD6EB81B80
+ for <freedreno@lists.freedesktop.org>; Wed, 12 Oct 2022 17:08:17 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 51050C433B5
+ for <freedreno@lists.freedesktop.org>; Wed, 12 Oct 2022 17:08:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1665594496;
+ bh=82JcEb/mOeuKvVFFth9N70IVoiMKS9+VBMUfpKHOQLA=;
+ h=References:In-Reply-To:From:Date:Subject:To:List-Id:Cc:From;
+ b=lOecsqDL5n5X+lEjCdAKBo32UwPxMsnl83JMhv4k3km1Y/oUswtVWwbW1lbnvm5Yz
+ AwBasXlOX/fys+MuiL8Jm51u9KZ8xRSkB78ePqVnXpgerqUb1MJswO8zpRm93z2iie
+ YR9K25aIbY0OlO84Nx7ptJ2pMjwWFFd/EzlGHirW8SLqAXygxdYJHNZAwb1MWX2S0B
+ xwTOREnB4LgTY3sbuHxsV/QVt8VGJPXBhijmolmg2EaZt5BCOxSOunQ9TxaKcSX7wn
+ UP7vWQ24Jlcy9dCiLR77els08wegRpp5/BfkGhOncD1vHYM6OrjSF4NpXFtjuhcE/L
+ hskfojXkcn/ng==
+Received: by mail-oo1-f51.google.com with SMTP id
+ c13-20020a4ac30d000000b0047663e3e16bso12546605ooq.6
+ for <freedreno@lists.freedesktop.org>; Wed, 12 Oct 2022 10:08:16 -0700 (PDT)
+X-Gm-Message-State: ACrzQf2DtaZjyVKqNMMg2mYhu1S/Ibs5oDWUkRepzKC7007tfYLF9CWY
+ w91sDrZ+fzWwN2+hrDcJDhtGxiMEwm9G1ei2nJc=
+X-Google-Smtp-Source: AMsMyM4qk3w6rDeoYnzq8IA9dBvLHotj7W1REdKbRhOxqltx7Z5SMfXisJDPj16EUmt0svsaHcXPJM4x3EEm+vAlssU=
+X-Received: by 2002:a05:6830:44aa:b0:661:955d:c346 with SMTP id
+ r42-20020a05683044aa00b00661955dc346mr8018042otv.160.1665594495432; Wed, 12
+ Oct 2022 10:08:15 -0700 (PDT)
+MIME-Version: 1.0
+References: <20221010224523.3603000-1-dmitry.baryshkov@linaro.org>
+In-Reply-To: <20221010224523.3603000-1-dmitry.baryshkov@linaro.org>
+From: Josh Boyer <jwboyer@kernel.org>
+Date: Wed, 12 Oct 2022 13:08:04 -0400
+X-Gmail-Original-Message-ID: <CA+5PVA7OHtAm9YBrWcgSrqn3U__QvdyxRFx1P2EFjAdnC_qmWA@mail.gmail.com>
+Message-ID: <CA+5PVA7OHtAm9YBrWcgSrqn3U__QvdyxRFx1P2EFjAdnC_qmWA@mail.gmail.com>
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Content-Type: text/plain; charset="UTF-8"
+Subject: Re: [Freedreno] [PULL] qcom: add squashed version of a530 zap shader
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -86,37 +61,37 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: quic_kalyant@quicinc.com, quic_sbillaka@quicinc.com,
- quic_bjorande@quicinc.com, quic_abhinavk@quicinc.com,
- quic_vproddut@quicinc.com, quic_khsieh@quicinc.com, dianders@chromium.org,
- linux-kernel@vger.kernel.org, robdclark@gmail.com, dmitry.baryshkov@linaro.org,
- quic_aravindh@quicinc.com, swboyd@chromium.org,
- Vinod Polimera <quic_vpolimer@quicinc.com>
+Cc: linux-arm-msm@vger.kernel.org, Bjorn Andersson <andersson@kernel.org>,
+ freedreno@lists.freedesktop.org, Rob Clark <robdclark@gmail.com>,
+ linux-firmware@kernel.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Clear interface active register from the datapath for a clean shutdown of
-the datapath.
+On Mon, Oct 10, 2022 at 6:45 PM Dmitry Baryshkov
+<dmitry.baryshkov@linaro.org> wrote:
+>
+> The following changes since commit fdf1a65258522edf18a0a1768fbafa61ed07e598:
+>
+>   linux-firmware: Update AMD cpu microcode (2022-09-30 17:33:35 -0400)
+>
+> are available in the Git repository at:
+>
+>   https://github.com/lumag/linux-firmware a530-mbn
+>
+> for you to fetch changes up to 44fa25ddf7d803f347dcdb0ecc52f72268979b92:
+>
+>   qcom: add squashed version of a530 zap shader (2022-10-11 01:31:10 +0300)
+>
+> ----------------------------------------------------------------
+> Dmitry Baryshkov (1):
+>       qcom: add squashed version of a530 zap shader
 
-Signed-off-by: Vinod Polimera <quic_vpolimer@quicinc.com>
----
- drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c | 3 +++
- 1 file changed, 3 insertions(+)
+Pulled and pushed out.  Thank you.
 
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-index 9f4f4e5..ab44016 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-@@ -2069,6 +2069,9 @@ void dpu_encoder_helper_phys_cleanup(struct dpu_encoder_phys *phys_enc)
- 	if (phys_enc->hw_pp->merge_3d)
- 		intf_cfg.merge_3d = phys_enc->hw_pp->merge_3d->idx;
- 
-+	if (phys_enc->hw_intf)
-+		intf_cfg.intf = phys_enc->hw_intf->idx;
-+
- 	if (ctl->ops.reset_intf_cfg)
- 		ctl->ops.reset_intf_cfg(ctl, &intf_cfg);
- 
--- 
-2.7.4
+josh
 
+>
+>  WHENCE                    |   1 +
+>  qcom/apq8096/a530_zap.mbn | Bin 0 -> 17188 bytes
+>  2 files changed, 1 insertion(+)
+>  create mode 100644 qcom/apq8096/a530_zap.mbn
