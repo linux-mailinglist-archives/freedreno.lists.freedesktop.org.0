@@ -1,56 +1,74 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 751E35FE627
-	for <lists+freedreno@lfdr.de>; Fri, 14 Oct 2022 02:19:36 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id B86E05FE918
+	for <lists+freedreno@lfdr.de>; Fri, 14 Oct 2022 08:50:21 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1DB0F10EA1A;
-	Fri, 14 Oct 2022 00:19:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 592BA10E395;
+	Fri, 14 Oct 2022 06:50:20 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ej1-x62c.google.com (mail-ej1-x62c.google.com
- [IPv6:2a00:1450:4864:20::62c])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 639A010EA19;
- Fri, 14 Oct 2022 00:19:31 +0000 (UTC)
-Received: by mail-ej1-x62c.google.com with SMTP id ot12so7339186ejb.1;
- Thu, 13 Oct 2022 17:19:31 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=YLUuEPbeHwPmQyYJMc73Q6jKpll4zmH7qmymoNKBPY8=;
- b=MDuWDD6o8ZR9Bgi3eqLk6EOdwaCfN8Eq7bbHZRgmQPrK8zE+sqSPh22Ar0bmDxG0Rv
- LKUp0DPSaWOG4LDRwB00jA2xXWeuPJine//GuOKf5cBC1u84YoM+tPQhoVlBBPEpN0bz
- M5l6FSQZ/usN9GLAcTv+JpVtLFq/LbffMHnigGj4FrkveUAg2Vrr8Ttedkz32fzoduu7
- QM/WwTgA/pPqmM/+N2N6rlF43yLzkYq5bCWzKjjgm+f4fiEzY9in0WszAw8zGPbqMCZL
- 0hCeNWv/07qBM18kl7HY1zBi8QqZseeV42GCgPxb4Xylq9Kx43mlLL4aG0rGuLDCiIn9
- eV2g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=YLUuEPbeHwPmQyYJMc73Q6jKpll4zmH7qmymoNKBPY8=;
- b=WvvLfw+O66Y9HM1rlWvz6+Whv88b4fwysimQTZl7KIlijrd/dETrctcFMNWCJH6IHf
- S8qM+FlZxr/xd7rxFhopyXn/Ql/qOLm15ibNW9b5MBHSCPPzGVj5L/hee9k+M+EBO9u1
- pfOEULIu85NhparqYIQz4oKRgUDJDXZTVH3cZ1yBFm6iqf9p9caqLMDvtj/JeroAt2Zd
- n2gEUTGIQT7u2ElTx4N9z81Rvk4tmkjWPttp8wuI1CC9RlU9XBXULQ+FA5a9KLEb5Z5J
- wXesNIkdfqkcDEHD6/0VfDXUPXZ1mZ5DpJIY1Q76e6AdrkFeRO2V49ubLtKELZLRqvPr
- ko0w==
-X-Gm-Message-State: ACrzQf0/Kc+h4BpDdmlIAAWYglUmfc2MYJgJt3VD5NWsmfqygZ4UX/ff
- Ms6fAiIO1GZR+vSePpwVvWDm/iAingp73U2eQUs=
-X-Google-Smtp-Source: AMsMyM4kPG7TtZnxn8Yo16eNXuFfUTOnLoHMOQilmDGRp4LO6S7BrxEk7p7tyizz3Ox6+tGDFEUmZku3Q0T8FO9NebU=
-X-Received: by 2002:a17:907:a052:b0:78d:8531:92b with SMTP id
- gz18-20020a170907a05200b0078d8531092bmr1674708ejc.37.1665706769713; Thu, 13
- Oct 2022 17:19:29 -0700 (PDT)
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 344BC10E430;
+ Fri, 14 Oct 2022 06:50:14 +0000 (UTC)
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 29E4rGIZ017587;
+ Fri, 14 Oct 2022 06:50:09 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
+ h=message-id : date :
+ mime-version : subject : to : cc : references : from : in-reply-to :
+ content-type : content-transfer-encoding; s=qcppdkim1;
+ bh=1aPiuWnwrNRS80PAw+LqPtVsj20pvfMR3mu5w9PJrfI=;
+ b=LdLIStacS1+b/6v/P31FL0QO9kh1BB1dYAxGyVbQsgpRCvz6tZZWFMNjEOYlwginW/Ul
+ wL94+32CZnSvjqu/SWoYA1dPGZ/HHRqhsUYCqibU5ry52UglCpjMwO48sE/mHzMBWMnD
+ 6YYeA5ACwL7Xd+wY8UH/H3P2xUc+b/7b9Ey+Pi1w9QRUHxnRDzAOivMUFLnxqqWmSgwL
+ msk8IlovYEzNGthpxZ06AXBrBEBsLkcEZcDJ1XPra5vd/ohgQaRTgdGN+I+YQxp+JOuL
+ C9PwloGVotMkCXq+h25WKxYr2po/Q4P6k9mPIaypoAxMI6XcVm2BXCgygwoN8RQWQFsj Dg== 
+Received: from nalasppmta02.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3k6mkdt5e9-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Fri, 14 Oct 2022 06:50:09 +0000
+Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
+ [10.47.209.196])
+ by NALASPPMTA02.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 29E6o8Oq011651
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Fri, 14 Oct 2022 06:50:08 GMT
+Received: from [10.216.46.129] (10.80.80.8) by nalasex01a.na.qualcomm.com
+ (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.29; Thu, 13 Oct
+ 2022 23:50:04 -0700
+Message-ID: <4c0509a3-0bb6-9615-61cb-d9003f8fc168@quicinc.com>
+Date: Fri, 14 Oct 2022 12:20:00 +0530
 MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
+ Thunderbird/91.3.2
+Content-Language: en-US
+To: Rob Clark <robdclark@gmail.com>, <dri-devel@lists.freedesktop.org>
 References: <20221013225520.371226-1-robdclark@gmail.com>
+From: Akhil P Oommen <quic_akhilpo@quicinc.com>
 In-Reply-To: <20221013225520.371226-1-robdclark@gmail.com>
-From: Chia-I Wu <olvaffe@gmail.com>
-Date: Thu, 13 Oct 2022 17:19:18 -0700
-Message-ID: <CAPaKu7SE+Vh9rW6MVr8fCUdrJM6f7O1ZOfSPFdzRaw9TjpG-FA@mail.gmail.com>
-To: Rob Clark <robdclark@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-GUID: Kh_dvyycQXOQvD7Ihzp34TLhej_FHZke
+X-Proofpoint-ORIG-GUID: Kh_dvyycQXOQvD7Ihzp34TLhej_FHZke
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.205,Aquarius:18.0.895,Hydra:6.0.545,FMLib:17.11.122.1
+ definitions=2022-10-14_03,2022-10-13_01,2022-06-22_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 spamscore=0
+ clxscore=1011 impostorscore=0 mlxscore=0 bulkscore=0 priorityscore=1501
+ lowpriorityscore=0 mlxlogscore=951 suspectscore=0 adultscore=0
+ phishscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2209130000 definitions=main-2210140039
 Subject: Re: [Freedreno] [PATCH 0/3] drm/msm/a6xx: devcore dump fixes
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -64,34 +82,33 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rob Clark <robdclark@chromium.org>, freedreno@lists.freedesktop.org,
- Emma Anholt <emma@anholt.net>, Akhil P Oommen <quic_akhilpo@quicinc.com>,
+Cc: Rob Clark <robdclark@chromium.org>, Emma Anholt <emma@anholt.net>,
  linux-arm-msm@vger.kernel.org, Douglas Anderson <dianders@chromium.org>,
- dri-devel@lists.freedesktop.org, open list <linux-kernel@vger.kernel.org>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>,
- Dan Carpenter <dan.carpenter@oracle.com>
+ open list <linux-kernel@vger.kernel.org>, Sean Paul <sean@poorly.run>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ freedreno@lists.freedesktop.org, Dan Carpenter <dan.carpenter@oracle.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Thu, Oct 13, 2022 at 3:55 PM Rob Clark <robdclark@gmail.com> wrote:
->
+On 10/14/2022 4:25 AM, Rob Clark wrote:
 > From: Rob Clark <robdclark@chromium.org>
 >
 > First patch fixes a recently introduced memory corruption, the remaining
 > two are cleanups.
-Series is
-
-Reviewed-by: Chia-I Wu <olvaffe@gmail.com>
-
+>
 > Rob Clark (3):
->   drm/msm/a6xx: Fix kvzalloc vs state_kcalloc usage
->   drm/msm/a6xx: Skip snapshotting unused GMU buffers
->   drm/msm/a6xx: Remove state objects from list before freeing
+>    drm/msm/a6xx: Fix kvzalloc vs state_kcalloc usage
+>    drm/msm/a6xx: Skip snapshotting unused GMU buffers
+>    drm/msm/a6xx: Remove state objects from list before freeing
 >
->  drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c | 18 ++++++++++++++++--
->  drivers/gpu/drm/msm/adreno/adreno_gpu.c     |  7 ++++++-
->  2 files changed, 22 insertions(+), 3 deletions(-)
->
-> --
-> 2.37.3
->
+>   drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c | 18 ++++++++++++++++--
+>   drivers/gpu/drm/msm/adreno/adreno_gpu.c     |  7 ++++++-
+>   2 files changed, 22 insertions(+), 3 deletions(-)
+For the entire series:
+
+Reviewed-by: Akhil P Oommen <quic_akhilpo@quicinc.com>
+
+
+-Akhil
+
+
