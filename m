@@ -1,65 +1,57 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 575FB5FE5AB
-	for <lists+freedreno@lfdr.de>; Fri, 14 Oct 2022 00:55:43 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 751E35FE627
+	for <lists+freedreno@lfdr.de>; Fri, 14 Oct 2022 02:19:36 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B739910E9C1;
-	Thu, 13 Oct 2022 22:55:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1DB0F10EA1A;
+	Fri, 14 Oct 2022 00:19:35 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-pl1-x631.google.com (mail-pl1-x631.google.com
- [IPv6:2607:f8b0:4864:20::631])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 06C9F10E9B8;
- Thu, 13 Oct 2022 22:55:21 +0000 (UTC)
-Received: by mail-pl1-x631.google.com with SMTP id o21so724738ple.5;
- Thu, 13 Oct 2022 15:55:21 -0700 (PDT)
+Received: from mail-ej1-x62c.google.com (mail-ej1-x62c.google.com
+ [IPv6:2a00:1450:4864:20::62c])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 639A010EA19;
+ Fri, 14 Oct 2022 00:19:31 +0000 (UTC)
+Received: by mail-ej1-x62c.google.com with SMTP id ot12so7339186ejb.1;
+ Thu, 13 Oct 2022 17:19:31 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=mZPNZ3VLE0Hgex87FN0OkV1DekcEt1bf70+VW9u0u5I=;
- b=XR4pOh/xQyh1rFhshT6o+clCP1DO1ClDFqI7cfZDk7kMzC3yec7YYkEYOChszeCWGr
- wAQvsbjAKyigjj2ez4ReqZ2Y7Cn40BHbeMfpeCluilMs33cFWOUoLnTpltyDzST1Et51
- pUMeyHwOnpRh5N7/mnLAlFO+8FxRM6LnOld79xUj7kA+o2sYaEom0MTPTc8+FeLiBhm0
- wwUXnkun4WKBcKd8XzEkxNTepq8zllGyVRnDhHc4uYQJ5EphYdlgjjjgA5xzBAlA+DXg
- jPd+FKWfFoe6WIoZ95vGLOMs/0a6UxmT8X6bfT6XiJHyF7RT45ALIWGIDgJDoBuNgH72
- nPug==
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=YLUuEPbeHwPmQyYJMc73Q6jKpll4zmH7qmymoNKBPY8=;
+ b=MDuWDD6o8ZR9Bgi3eqLk6EOdwaCfN8Eq7bbHZRgmQPrK8zE+sqSPh22Ar0bmDxG0Rv
+ LKUp0DPSaWOG4LDRwB00jA2xXWeuPJine//GuOKf5cBC1u84YoM+tPQhoVlBBPEpN0bz
+ M5l6FSQZ/usN9GLAcTv+JpVtLFq/LbffMHnigGj4FrkveUAg2Vrr8Ttedkz32fzoduu7
+ QM/WwTgA/pPqmM/+N2N6rlF43yLzkYq5bCWzKjjgm+f4fiEzY9in0WszAw8zGPbqMCZL
+ 0hCeNWv/07qBM18kl7HY1zBi8QqZseeV42GCgPxb4Xylq9Kx43mlLL4aG0rGuLDCiIn9
+ eV2g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=mZPNZ3VLE0Hgex87FN0OkV1DekcEt1bf70+VW9u0u5I=;
- b=tFKzt0py5sI2ohuv71HKdWqgaUIhYnFi+QC/o3UhzxkEj2byXhVkv+x+H/TFhZLbl7
- ZxQN0TGYNJ40HTZT2NwCDZSsxK2rtWOQZag1hxbESPpRhcTTJWegd2ymxAygbGRVaoRM
- oMnR2p4D9Zp0+2vwUA6C+koVJRp4wR2fpbPc/O4656k1avRHuZAHresGNm7OqHgeDAaA
- XP4gHUF/UhdF6YHbnXUBrw384VFH/5ZGcKXj1Ieh1mZZbHlSVkeN01C/sblojorg+LrC
- ig6jIRSR6dtrvDBqww+RvaWVVNg8J3z88NHH/obU86K6rlCiDhMw7pB/LS4dx6PxKshb
- lQdA==
-X-Gm-Message-State: ACrzQf3yxafK2OR4R24e8ieuns5S+pNvdQgWlhrHYgl81XEIy/lo5zM1
- f6NP0zupwXIjaYsx+TIVmeWwsii20Ns=
-X-Google-Smtp-Source: AMsMyM5SeaxGSOFjUEc1amD9PN0v9n6v+ZxTXU3WfxZU7s4Bd2Hpy5ww3QAawc27sjg9tF94dvu3JA==
-X-Received: by 2002:a17:902:cf03:b0:17e:c7a:678e with SMTP id
- i3-20020a170902cf0300b0017e0c7a678emr2034151plg.10.1665701720262; 
- Thu, 13 Oct 2022 15:55:20 -0700 (PDT)
-Received: from localhost ([2a00:79e1:abd:4a00:2703:3c72:eb1a:cffd])
- by smtp.gmail.com with ESMTPSA id
- h3-20020aa796c3000000b0055fc0a132aasm221198pfq.92.2022.10.13.15.55.19
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 13 Oct 2022 15:55:19 -0700 (PDT)
-From: Rob Clark <robdclark@gmail.com>
-To: dri-devel@lists.freedesktop.org
-Date: Thu, 13 Oct 2022 15:55:15 -0700
-Message-Id: <20221013225520.371226-4-robdclark@gmail.com>
-X-Mailer: git-send-email 2.37.3
-In-Reply-To: <20221013225520.371226-1-robdclark@gmail.com>
-References: <20221013225520.371226-1-robdclark@gmail.com>
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=YLUuEPbeHwPmQyYJMc73Q6jKpll4zmH7qmymoNKBPY8=;
+ b=WvvLfw+O66Y9HM1rlWvz6+Whv88b4fwysimQTZl7KIlijrd/dETrctcFMNWCJH6IHf
+ S8qM+FlZxr/xd7rxFhopyXn/Ql/qOLm15ibNW9b5MBHSCPPzGVj5L/hee9k+M+EBO9u1
+ pfOEULIu85NhparqYIQz4oKRgUDJDXZTVH3cZ1yBFm6iqf9p9caqLMDvtj/JeroAt2Zd
+ n2gEUTGIQT7u2ElTx4N9z81Rvk4tmkjWPttp8wuI1CC9RlU9XBXULQ+FA5a9KLEb5Z5J
+ wXesNIkdfqkcDEHD6/0VfDXUPXZ1mZ5DpJIY1Q76e6AdrkFeRO2V49ubLtKELZLRqvPr
+ ko0w==
+X-Gm-Message-State: ACrzQf0/Kc+h4BpDdmlIAAWYglUmfc2MYJgJt3VD5NWsmfqygZ4UX/ff
+ Ms6fAiIO1GZR+vSePpwVvWDm/iAingp73U2eQUs=
+X-Google-Smtp-Source: AMsMyM4kPG7TtZnxn8Yo16eNXuFfUTOnLoHMOQilmDGRp4LO6S7BrxEk7p7tyizz3Ox6+tGDFEUmZku3Q0T8FO9NebU=
+X-Received: by 2002:a17:907:a052:b0:78d:8531:92b with SMTP id
+ gz18-20020a170907a05200b0078d8531092bmr1674708ejc.37.1665706769713; Thu, 13
+ Oct 2022 17:19:29 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH 3/3] drm/msm/a6xx: Remove state objects from
- list before freeing
+References: <20221013225520.371226-1-robdclark@gmail.com>
+In-Reply-To: <20221013225520.371226-1-robdclark@gmail.com>
+From: Chia-I Wu <olvaffe@gmail.com>
+Date: Thu, 13 Oct 2022 17:19:18 -0700
+Message-ID: <CAPaKu7SE+Vh9rW6MVr8fCUdrJM6f7O1ZOfSPFdzRaw9TjpG-FA@mail.gmail.com>
+To: Rob Clark <robdclark@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Subject: Re: [Freedreno] [PATCH 0/3] drm/msm/a6xx: devcore dump fixes
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,43 +64,34 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rob Clark <robdclark@chromium.org>,
- Akhil P Oommen <quic_akhilpo@quicinc.com>, David Airlie <airlied@linux.ie>,
- linux-arm-msm@vger.kernel.org, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Douglas Anderson <dianders@chromium.org>, Sean Paul <sean@poorly.run>,
- Rob Clark <robdclark@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- freedreno@lists.freedesktop.org, open list <linux-kernel@vger.kernel.org>
+Cc: Rob Clark <robdclark@chromium.org>, freedreno@lists.freedesktop.org,
+ Emma Anholt <emma@anholt.net>, Akhil P Oommen <quic_akhilpo@quicinc.com>,
+ linux-arm-msm@vger.kernel.org, Douglas Anderson <dianders@chromium.org>,
+ dri-devel@lists.freedesktop.org, open list <linux-kernel@vger.kernel.org>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>,
+ Dan Carpenter <dan.carpenter@oracle.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-From: Rob Clark <robdclark@chromium.org>
+On Thu, Oct 13, 2022 at 3:55 PM Rob Clark <robdclark@gmail.com> wrote:
+>
+> From: Rob Clark <robdclark@chromium.org>
+>
+> First patch fixes a recently introduced memory corruption, the remaining
+> two are cleanups.
+Series is
 
-Technically it worked as it was before, only because it was using the
-_safe version of the iterator.  But it is sloppy practice to leave
-dangling pointers.
+Reviewed-by: Chia-I Wu <olvaffe@gmail.com>
 
-Signed-off-by: Rob Clark <robdclark@chromium.org>
----
- drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c b/drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c
-index b0124d0f286c..a5c3d1ed255a 100644
---- a/drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c
-+++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c
-@@ -1046,8 +1046,10 @@ static void a6xx_gpu_state_destroy(struct kref *kref)
- 	if (a6xx_state->gmu_debug)
- 		kvfree(a6xx_state->gmu_debug->data);
- 
--	list_for_each_entry_safe(obj, tmp, &a6xx_state->objs, node)
-+	list_for_each_entry_safe(obj, tmp, &a6xx_state->objs, node) {
-+		list_del(&obj->node);
- 		kvfree(obj);
-+	}
- 
- 	adreno_gpu_state_destroy(state);
- 	kfree(a6xx_state);
--- 
-2.37.3
-
+> Rob Clark (3):
+>   drm/msm/a6xx: Fix kvzalloc vs state_kcalloc usage
+>   drm/msm/a6xx: Skip snapshotting unused GMU buffers
+>   drm/msm/a6xx: Remove state objects from list before freeing
+>
+>  drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c | 18 ++++++++++++++++--
+>  drivers/gpu/drm/msm/adreno/adreno_gpu.c     |  7 ++++++-
+>  2 files changed, 22 insertions(+), 3 deletions(-)
+>
+> --
+> 2.37.3
+>
