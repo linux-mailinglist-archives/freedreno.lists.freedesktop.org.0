@@ -2,74 +2,38 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id B86E05FE918
-	for <lists+freedreno@lfdr.de>; Fri, 14 Oct 2022 08:50:21 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DE5EE6009AC
+	for <lists+freedreno@lfdr.de>; Mon, 17 Oct 2022 11:00:12 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 592BA10E395;
-	Fri, 14 Oct 2022 06:50:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4DE2D10ECFB;
+	Mon, 17 Oct 2022 09:00:11 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 344BC10E430;
- Fri, 14 Oct 2022 06:50:14 +0000 (UTC)
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 29E4rGIZ017587;
- Fri, 14 Oct 2022 06:50:09 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
- h=message-id : date :
- mime-version : subject : to : cc : references : from : in-reply-to :
- content-type : content-transfer-encoding; s=qcppdkim1;
- bh=1aPiuWnwrNRS80PAw+LqPtVsj20pvfMR3mu5w9PJrfI=;
- b=LdLIStacS1+b/6v/P31FL0QO9kh1BB1dYAxGyVbQsgpRCvz6tZZWFMNjEOYlwginW/Ul
- wL94+32CZnSvjqu/SWoYA1dPGZ/HHRqhsUYCqibU5ry52UglCpjMwO48sE/mHzMBWMnD
- 6YYeA5ACwL7Xd+wY8UH/H3P2xUc+b/7b9Ey+Pi1w9QRUHxnRDzAOivMUFLnxqqWmSgwL
- msk8IlovYEzNGthpxZ06AXBrBEBsLkcEZcDJ1XPra5vd/ohgQaRTgdGN+I+YQxp+JOuL
- C9PwloGVotMkCXq+h25WKxYr2po/Q4P6k9mPIaypoAxMI6XcVm2BXCgygwoN8RQWQFsj Dg== 
-Received: from nalasppmta02.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3k6mkdt5e9-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 14 Oct 2022 06:50:09 +0000
-Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
- [10.47.209.196])
- by NALASPPMTA02.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 29E6o8Oq011651
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 14 Oct 2022 06:50:08 GMT
-Received: from [10.216.46.129] (10.80.80.8) by nalasex01a.na.qualcomm.com
- (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.29; Thu, 13 Oct
- 2022 23:50:04 -0700
-Message-ID: <4c0509a3-0bb6-9615-61cb-d9003f8fc168@quicinc.com>
-Date: Fri, 14 Oct 2022 12:20:00 +0530
+Received: from m-r2.th.seeweb.it (m-r2.th.seeweb.it [5.144.164.171])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2620F10E3D2
+ for <freedreno@lists.freedesktop.org>; Mon, 17 Oct 2022 09:00:04 +0000 (UTC)
+Received: from SoMainline.org (D57D4C6E.static.ziggozakelijk.nl
+ [213.125.76.110])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest
+ SHA256) (No client certificate requested)
+ by m-r2.th.seeweb.it (Postfix) with ESMTPSA id 7F1683EED4;
+ Mon, 17 Oct 2022 11:00:01 +0200 (CEST)
+Date: Mon, 17 Oct 2022 10:59:44 +0200
+From: Marijn Suijten <marijn.suijten@somainline.org>
+To: Abhinav Kumar <quic_abhinavk@quicinc.com>
+Message-ID: <20221017085944.2r24uqg73irmziqm@SoMainline.org>
+References: <20221009184824.457416-1-marijn.suijten@somainline.org>
+ <20221009185058.460688-1-marijn.suijten@somainline.org>
+ <5c178d7e-5022-f5e5-791d-d3800114b42b@quicinc.com>
+ <20221013093646.c65mbjc6oekd7gha@SoMainline.org>
+ <32af4444-9c88-eb0f-eda7-24fa0418aff6@quicinc.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.3.2
-Content-Language: en-US
-To: Rob Clark <robdclark@gmail.com>, <dri-devel@lists.freedesktop.org>
-References: <20221013225520.371226-1-robdclark@gmail.com>
-From: Akhil P Oommen <quic_akhilpo@quicinc.com>
-In-Reply-To: <20221013225520.371226-1-robdclark@gmail.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-GUID: Kh_dvyycQXOQvD7Ihzp34TLhej_FHZke
-X-Proofpoint-ORIG-GUID: Kh_dvyycQXOQvD7Ihzp34TLhej_FHZke
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.205,Aquarius:18.0.895,Hydra:6.0.545,FMLib:17.11.122.1
- definitions=2022-10-14_03,2022-10-13_01,2022-06-22_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 spamscore=0
- clxscore=1011 impostorscore=0 mlxscore=0 bulkscore=0 priorityscore=1501
- lowpriorityscore=0 mlxlogscore=951 suspectscore=0 adultscore=0
- phishscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2209130000 definitions=main-2210140039
-Subject: Re: [Freedreno] [PATCH 0/3] drm/msm/a6xx: devcore dump fixes
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <32af4444-9c88-eb0f-eda7-24fa0418aff6@quicinc.com>
+Subject: Re: [Freedreno] [PATCH v3 06/10] drm/msm/dsi: Migrate to
+ drm_dsc_compute_rc_parameters()
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,33 +46,53 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rob Clark <robdclark@chromium.org>, Emma Anholt <emma@anholt.net>,
- linux-arm-msm@vger.kernel.org, Douglas Anderson <dianders@chromium.org>,
- open list <linux-kernel@vger.kernel.org>, Sean Paul <sean@poorly.run>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- freedreno@lists.freedesktop.org, Dan Carpenter <dan.carpenter@oracle.com>
+Cc: Sean Paul <sean@poorly.run>, Rob Clark <robdclark@gmail.com>,
+ Newbyte <newbie13xd@gmail.com>, Caleb Connolly <caleb@connolly.tech>,
+ Jami Kettunen <jami.kettunen@somainline.org>, linux-arm-msm@vger.kernel.org,
+ Konrad Dybcio <konrad.dybcio@somainline.org>,
+ Vladimir Lypak <vladimir.lypak@gmail.com>,
+ Douglas Anderson <dianders@chromium.org>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, freedreno@lists.freedesktop.org,
+ Vinod Koul <vkoul@kernel.org>, Martin Botka <martin.botka@somainline.org>,
+ ~postmarketos/upstreaming@lists.sr.ht, Daniel Vetter <daniel@ffwll.ch>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@somainline.org>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, phone-devel@vger.kernel.org,
+ David Airlie <airlied@gmail.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 10/14/2022 4:25 AM, Rob Clark wrote:
-> From: Rob Clark <robdclark@chromium.org>
->
-> First patch fixes a recently introduced memory corruption, the remaining
-> two are cleanups.
->
-> Rob Clark (3):
->    drm/msm/a6xx: Fix kvzalloc vs state_kcalloc usage
->    drm/msm/a6xx: Skip snapshotting unused GMU buffers
->    drm/msm/a6xx: Remove state objects from list before freeing
->
->   drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c | 18 ++++++++++++++++--
->   drivers/gpu/drm/msm/adreno/adreno_gpu.c     |  7 ++++++-
->   2 files changed, 22 insertions(+), 3 deletions(-)
-For the entire series:
+On 2022-10-13 09:02:44, Abhinav Kumar wrote:
+> On 10/13/2022 2:36 AM, Marijn Suijten wrote:
+> > On 2022-10-12 16:03:06, Abhinav Kumar wrote:
+> >> [..]
+> >> But I would like to hold back this change till Vinod clarifies because
+> >> Vinod had mentioned that with drm_dsc_compute_rc_parameters() he was
+> >> seeing a mismatch in the computation of two values.
+> >>
+> >> slice_bpg_offset and the final_offset.
+> > 
+> > Unsurprisingly so because final_offset, and slice_bpg_offset through
+> > initial_offset depend directly on bits_per_pixel.  The main takeaway of
+> > this series is that Vinod was interpreting this field as integer instead
+> > of containing 4 fractional bits.  If he updates his the panel driver [1]
+> > to set bits_per_pixel = 8 << 4 instead of just 8 to account for this,
+> > the values should check out once again.
+> > 
+> > [1]: https://git.linaro.org/people/vinod.koul/kernel.git/commit/?h=topic/pixel3_5.18-rc1&id=1d7d98ad564f1ec69e7525e07418918d90f247a1
+> > 
+> > Once Vinod (or someone else in the posession of a Pixel 3) confirms
+> > this, I can respin this series and more explicitly explain why the FIXME
+> > was put in place, instead of being resolved outright?
+> > 
+> > - Marijn
+> 
+> Makes perfect sense to me.
+> 
+> Will just wait for Vinod's tested-by.
 
-Reviewed-by: Akhil P Oommen <quic_akhilpo@quicinc.com>
+Unfortunately Vinod doesn't have access to this device anymore, but
+Caleb recently sent the support series including display driver for
+Pixel 3 and is picking up the testing.  User "Newbyte" from #linux-msm
+promised to test on the LG G7 to have even more input samples.
 
-
--Akhil
-
-
+- Marijn
