@@ -2,51 +2,47 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3FFC46021A6
-	for <lists+freedreno@lfdr.de>; Tue, 18 Oct 2022 05:06:42 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E3784602255
+	for <lists+freedreno@lfdr.de>; Tue, 18 Oct 2022 05:14:54 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AB44110E747;
-	Tue, 18 Oct 2022 03:06:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3CCB310E862;
+	Tue, 18 Oct 2022 03:14:53 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 960A210E73D;
- Tue, 18 Oct 2022 03:06:30 +0000 (UTC)
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6EDBA10E811;
+ Tue, 18 Oct 2022 03:14:44 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id EFD7A61369;
- Tue, 18 Oct 2022 03:06:29 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4D990C43143;
- Tue, 18 Oct 2022 03:06:28 +0000 (UTC)
+ by ams.source.kernel.org (Postfix) with ESMTPS id CA75CB81C68;
+ Tue, 18 Oct 2022 03:14:42 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7520CC43144;
+ Tue, 18 Oct 2022 03:14:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1666062389;
- bh=Hfd9BIUtESFczsoFDl8f6ULWns+IQqKn5CHgXX7RyWk=;
+ s=k20201202; t=1666062882;
+ bh=8WKZ20RAWTE5YoQcJD/xMfKZZcR1MfURos6xAwcaDSc=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=j0B0zfNmIrRExnUHPCdO+e7tRqm+HHe30oPWZtCXqOAtdl4Pj6mpADlzivNvjbjpZ
- n7/I3bbbHgN2XBkYTToqcD5kAA5aUmf/pgdH/vtbusFLAjRQbGaPSxoWYGbaEl8QcA
- FAxt84zTgxi3A1vpPu0p6f0qEdk4rLBe216cCnJJDYnw94WB4tGxm9/B5johfSdmtQ
- S8j0hV2buZYydK46ScZ+v9m9CNZUCVheSZzApzGA7IapQ0dGDcKsO7Lehv/4j8SIif
- H7tg5nv+n2oCGukikIuxUB2kIRqGZPXTDWIREljtY9uD91XsiChHzQX9mpR6tqRLu9
- yeIo7R7SCg8qQ==
+ b=sm2jTcm8vnHWfUnN1EDRCzPlp45S9l+6EUY9Bwu4X6QqvApFRmORoCqJXT7XWJ1Ly
+ uKh1W7mP3MaYrdgtfA7ET1m5x/vWGbXTJUq26xpoI7nM/W5hie1kqmJvTgkmPDbWTt
+ 6WQ6rdHvBMYdpnuZtBIXe972eymFkFi7zmKZiB/S+n7pYIDDOvpzC6wsURUM7ubVWt
+ ZIXRTceWJJKXV212dxZnmNtKSy5fyQdMPOkatx2dmyua807CEvROnYREc7s+JsVuH9
+ bBHvXEGmpmWQF0Yf1Aq+mxz2Ltv9Nd8+gDh7AIdzU4IdHjrZ/2Ec4oUrFADLDveGB0
+ 01xTXuV84o0bg==
 From: Bjorn Andersson <andersson@kernel.org>
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>,
- robh+dt@kernel.org, agross@kernel.org,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Rob Clark <robdclark@gmail.com>,
- Konrad Dybcio <konrad.dybcio@somainline.org>
-Date: Mon, 17 Oct 2022 22:05:10 -0500
-Message-Id: <166606235857.3553294.1408675874980992171.b4-ty@kernel.org>
+To: quic_rajeevny@quicinc.com, devicetree@vger.kernel.org,
+ freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org
+Date: Mon, 17 Oct 2022 22:14:32 -0500
+Message-Id: <166606235853.3553294.16555470123079506813.b4-ty@kernel.org>
 X-Mailer: git-send-email 2.37.1
-In-Reply-To: <20220924090108.166934-1-dmitry.baryshkov@linaro.org>
-References: <20220924090108.166934-1-dmitry.baryshkov@linaro.org>
+In-Reply-To: <1662550553-28933-1-git-send-email-quic_rajeevny@quicinc.com>
+References: <1662550553-28933-1-git-send-email-quic_rajeevny@quicinc.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Subject: Re: [Freedreno] (subset) [PATCH 0/9] arm: dts: qcom: rename DSI PHY
- nodes
+Subject: Re: [Freedreno] [v1] arm64: dts: qcom: sc7280: assign DSI clock
+ source parents
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,35 +55,22 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: devicetree@vger.kernel.org, airlied@linux.ie, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, Stephen Boyd <swboyd@chromium.org>,
- daniel@ffwll.ch, freedreno@lists.freedesktop.org
+Cc: quic_kalyant@quicinc.com, konrad.dybcio@somainline.org,
+ linux-kernel@vger.kernel.org, robh+dt@kernel.org, quic_abhinavk@quicinc.com,
+ robdclark@gmail.com, agross@kernel.org, dmitry.baryshkov@linaro.org,
+ sean@poorly.run
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Sat, 24 Sep 2022 12:00:59 +0300, Dmitry Baryshkov wrote:
-> Historically DSI PHY device tree nodes used the dsi-phy@ names. Replace
-> them with generic phy@ names.
+On Wed, 7 Sep 2022 17:05:53 +0530, Rajeev Nandan wrote:
+> Assign DSI clock source parents to DSI PHY clocks.
 > 
-> Dmitry Baryshkov (9):
->   ARM: dts: qcom-apq8064: change DSI PHY node name to generic one
->   ARM: dts: qcom-msm8974: change DSI PHY node name to generic one
->   arm64: dts: qcom: msm8916: change DSI PHY node name to generic one
->   arm64: dts: qcom: msm8996: change DSI PHY node name to generic one
->   arm64: dts: qcom: sc7180: change DSI PHY node name to generic one
->   arm64: dts: qcom: sdm630: change DSI PHY node name to generic one
->   arm64: dts: qcom: sdm660: change DSI PHY node name to generic one
->   arm64: dts: qcom: sdm845: change DSI PHY node name to generic one
->   arm64: dts: qcom: sm8250: change DSI PHY node name to generic one
 > 
-> [...]
 
 Applied, thanks!
 
-[1/9] ARM: dts: qcom-apq8064: change DSI PHY node name to generic one
-      commit: cf6cea98662dc9ecf7707076b10499785870ff23
-[2/9] ARM: dts: qcom-msm8974: change DSI PHY node name to generic one
-      commit: 798e65cdd910a59a34de365ff9e00c186fb568b4
+[1/1] arm64: dts: qcom: sc7280: assign DSI clock source parents
+      commit: 80edac18ac173f0f0130c2164f75ddadcd68fa7f
 
 Best regards,
 -- 
