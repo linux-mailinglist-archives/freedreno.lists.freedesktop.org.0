@@ -2,70 +2,55 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 26CA5603F12
-	for <lists+freedreno@lfdr.de>; Wed, 19 Oct 2022 11:27:30 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1B14D605CCF
+	for <lists+freedreno@lfdr.de>; Thu, 20 Oct 2022 12:38:16 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9313810F1BD;
-	Wed, 19 Oct 2022 09:27:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 813D710E76E;
+	Thu, 20 Oct 2022 10:38:09 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-x22e.google.com (mail-lj1-x22e.google.com
- [IPv6:2a00:1450:4864:20::22e])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 158F910F1BC
- for <freedreno@lists.freedesktop.org>; Wed, 19 Oct 2022 09:27:25 +0000 (UTC)
-Received: by mail-lj1-x22e.google.com with SMTP id b18so21343185ljr.13
- for <freedreno@lists.freedesktop.org>; Wed, 19 Oct 2022 02:27:24 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=cfXARYLAPAKPU+ts0JPN6WSMDNf2tPgtkDo7YOo0RzE=;
- b=aC1Rq9oRQvkYFkj/zSMB3cGfJmPvgA3ym7b0Aldx4sTYZ7nbJfYecv1+jCaryzsIpE
- gMs5WaFiZLV2+WGy07yI1VIZCPVdLMVCywN4zg3f0kObS8JlnY37PgSw6uGPex55FxqZ
- C8HCDRMyjI9KWk9y4dZYE/l4HDEYZUFbe9mnFxiN03LOJAxCRO+AJEOJwxUIFdDuoGH/
- NlQYKbfoOIYpXEWTaYHEQ9sX/KHuBRiKgdIrbdFfQJcr0F08HGt0TjE4J4pkshliHydO
- k2+6fJytl8F7e0TBpGD5N4O3Par23nLOl9lS/vM/pHW/y19v85vLlGhOuF8+fdLMUxaZ
- F8Dw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=cfXARYLAPAKPU+ts0JPN6WSMDNf2tPgtkDo7YOo0RzE=;
- b=W1TJRmf0PTzViYXsgwRyQHNIH8cCYZzkTAvw99Vlz95HHhxEOaIbcaDwETeC5Q8mq+
- vANmisbYByUmwfwChmaMn5OthvI8AiPZ2azy9yhN930rH6rw7ks57o0kEFhbUjnp6y+i
- oQgUQihsQ82o2WS2K3o3I+5+eGJLNeXRVcWyf0nAVVzC9l2pgXna+KAPuRjQ9WEz8RUH
- 7hXW1O8UhcyU1h6aCOqwPva54FcT1HHRmRe7aQ/Afjd0qbT75ZB1DRPFCHop3OHZ8E93
- gKRnoiE1ge4Q2G9I01UdmZv5dor2hApwgPdZd+8lP6ONRm3w+QXubfPkSEhe7sp0koG3
- YTJw==
-X-Gm-Message-State: ACrzQf2bgUhn2uO3rx2GKEKjbSmI3hFH4WMyVG9pTdTrwGDY1cMWL/7U
- y98VYHTI48t4CNUw5E2w3pwPFw==
-X-Google-Smtp-Source: AMsMyM4whuxT7+AoBpdG68cpyGwsuxGExvwb5YnVAEngbIbOYk7MlxvP+3mfP7XiBru3VnVLBrTyNA==
-X-Received: by 2002:a05:651c:1786:b0:26d:aaec:1487 with SMTP id
- bn6-20020a05651c178600b0026daaec1487mr2528273ljb.287.1666171643259; 
- Wed, 19 Oct 2022 02:27:23 -0700 (PDT)
-Received: from [10.27.10.248] ([195.165.23.90])
- by smtp.gmail.com with ESMTPSA id
- u13-20020a05651220cd00b0049f5358062dsm2218639lfr.98.2022.10.19.02.27.22
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 19 Oct 2022 02:27:22 -0700 (PDT)
-Message-ID: <09e82b02-dffd-8ec9-4851-11715a16b67b@linaro.org>
-Date: Wed, 19 Oct 2022 12:27:21 +0300
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BA91110E561;
+ Thu, 20 Oct 2022 10:38:00 +0000 (UTC)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 428851F93A;
+ Thu, 20 Oct 2022 10:37:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1666262277; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=Y7BdOtp6TFqwXPX3o6UHDb+9HmQzCsygQB8jvOJl5oY=;
+ b=pexEAXjK3+YaGpJd+JADtO15n0ydGTiAR9QdozIjQlWTGCJGvjDk3GLtnTjahBibfxqKn8
+ e0ZCiKKRAhP4pa+DGq9AHeQHkye84awc19SWK5FgvFa4p4jHOOLv6Ie/+7K77qgyduKGGP
+ 7xA6whgamY9hl61unJ7iRpO/wohJ91Q=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1666262277;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=Y7BdOtp6TFqwXPX3o6UHDb+9HmQzCsygQB8jvOJl5oY=;
+ b=CVcd7TwC6JyEu5wf89r3Wdsik/2sML9uk++MZ6TfBQTpvFyIWJxR+TOmqJlzmQsVkjVxBs
+ WhUhW1hA4SnyrHBQ==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id BE6B013AF5;
+ Thu, 20 Oct 2022 10:37:56 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id 8BWlLQQlUWPPYwAAMHmgww
+ (envelope-from <tzimmermann@suse.de>); Thu, 20 Oct 2022 10:37:56 +0000
+From: Thomas Zimmermann <tzimmermann@suse.de>
+To: daniel@ffwll.ch, airlied@gmail.com, sam@ravnborg.org, javierm@redhat.com,
+ mripard@kernel.org, maarten.lankhorst@linux.intel.com
+Date: Thu, 20 Oct 2022 12:37:34 +0200
+Message-Id: <20221020103755.24058-1-tzimmermann@suse.de>
+X-Mailer: git-send-email 2.38.0
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.3.2
-Content-Language: en-GB
-To: Marijn Suijten <marijn.suijten@somainline.org>
-References: <20220805115630.506391-1-dmitry.baryshkov@linaro.org>
- <20220805122406.x7xxywofeaquhfxg@SoMainline.org>
- <9e040bdb-4fc5-3c95-fcea-b6ac7fd8224b@linaro.org>
- <20221019091341.bqkro3zmnojcqvnu@SoMainline.org>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-In-Reply-To: <20221019091341.bqkro3zmnojcqvnu@SoMainline.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [RFC PATCH] drm/msm: lookup the ICC paths in both
- mdp5/dpu and mdss devices
+Content-Transfer-Encoding: 8bit
+Subject: [Freedreno] [PATCH 00/21] drm/fb-helper: Untangle fbdev emulation
+ and helpers
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,58 +63,193 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, Yassine Oudjana <y.oudjana@protonmail.com>,
- David Airlie <airlied@linux.ie>, linux-arm-msm@vger.kernel.org,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
- Stephen Boyd <swboyd@chromium.org>, Rob Clark <robdclark@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>, Bjorn Andersson <bjorn.andersson@linaro.org>,
- Sean Paul <sean@poorly.run>
+Cc: linux-hyperv@vger.kernel.org, linux-aspeed@lists.ozlabs.org,
+ nouveau@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ virtualization@lists.linux-foundation.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-samsung-soc@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, linux-rockchip@lists.infradead.org,
+ xen-devel@lists.xenproject.org, linux-sunxi@lists.linux.dev,
+ linux-arm-msm@vger.kernel.org, intel-gfx@lists.freedesktop.org,
+ etnaviv@lists.freedesktop.org, linux-mediatek@lists.infradead.org,
+ spice-devel@lists.freedesktop.org, linux-tegra@vger.kernel.org,
+ linux-amlogic@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
+ linux-mips@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
+ Thomas Zimmermann <tzimmermann@suse.de>, freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 19/10/2022 12:13, Marijn Suijten wrote:
-> On 2022-08-26 12:16:40, Dmitry Baryshkov wrote:
->> On 05/08/2022 15:24, Marijn Suijten wrote:
->>> On 2022-08-05 14:56:30, Dmitry Baryshkov wrote:
->>>> The commit 6874f48bb8b0 ("drm/msm: make mdp5/dpu devices master
->>>> components") changed the MDP5 driver to look for the interconnect paths
->>>> in the MDSS device rather than in the MDP5 device itself. This was left
->>>> unnoticed since on my testing devices the interconnects probably didn't
->>>> reach the sync state.
->>>>
->>>> Rather than just using the MDP5 device for ICC path lookups for the MDP5
->>>> devices, introduce an additional helper to check both MDP5/DPU and MDSS
->>>> nodes. This will be helpful for the MDP5->DPU conversion, since the
->>>> driver will have to check both nodes.
->>>>
->>>> Fixes: 6874f48bb8b0 ("drm/msm: make mdp5/dpu devices master components")
->>>> Reported-by: Marijn Suijten <marijn.suijten@somainline.org>
->>>> Reported-by: Yassine Oudjana <y.oudjana@protonmail.com>
->>>> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
->>>
->>> Tested-by: Marijn Suijten <marijn.suijten@somainline.org> # On sdm630
->>>
->>> But I'm not sure about giving my Reviewed-by to this, as I'd rather
->>> *correct* the DT bindings for sdm630 and msm8996 to provide
->>> interconnects in the MDSS node unless there are strong reasons not to
->>> (and I don't consider "backwards compatibility" to be one, this binding
->>> "never even existed" if mdp5.txt is to be believed).
->>
->> As a kind of a joke, I'd prefer to have interconnects in the mdp/dpu
->> device node. In the end, the interconnects describe the path between the
->> display controller and the DDR, not the path between the whole MDSS and DDR.
->>
->> So, for next chipsets I'd vote to move icc to dpu/mdp node (and maybe
->> even move existing inerconnects to the dpu node).
-> 
-> Sure.  In that case, do you want to rework this patch / code again to
-> only look in the DPU/MDP, and not at MDSS at all?  (Or is that another
-> DT API break we'd rather not make?)
+Separate generic fbdev emulation from the helper code that is shared
+among the various fbdev implementations within DRM. Affects many drivers.
 
-I'd rather not make this break. Let's keep backwards compatibility at 
-least for now.
+The goal of this patchset is to improve readability and streamline the
+fbdev helper code within DRM. In the long term, we want to get to a point
+where drivers or memory managers can pick and combine the various helpers
+for optimal fbdev support.
 
+Patches 1 to 8 start by preparing drivers. Setting lastclose is not
+required by generic fbdev emulation.
+
+Two drivers depend on fb helpers implicitly including other Linux header
+files. Fixing this in patches 9 and 10 allows to remove unnecesary include
+statements from the fb-helper header in patch 11.
+
+Do some renaming in patches 12 to 14.
+
+There are currently various implementation of the fbdev I/O helpers
+with varying feature sets. The fb helpers for fbdev I/O should all call
+fb_sync, which is what fbdev's internal implementation does. For DRM,
+damage handling needs to be performed after updating a framebuffer. The
+damage worker is part of the fb helpers, but the actual update logic only
+works with generic fbdev emulation. Separate the two, which also gives
+other drivers an option so set their own damage handling if neccessary.
+The full-featured I/O helpers can be moved under a shared implementation
+and called by all drivers. Patches 15 to 18 resolve these issues.
+
+Patch 19 changes fbdev disablement to work at the level of display
+detection. If disabled, generic fbdev emulation will be initialized,
+but no display will be detected. It can later be enabled by changing
+the parameter in sysfs and plugging in a connector.
+
+Patches 20 and 21 move the generic fbdev emulation into their own source
+and header files and clean up the include statements throughout DRM.
+Many drivers only call drm_fbdev_generic_setup() and can avoid including
+other Linux header files.
+
+Built on x86-64, aarch64, arm, ppc64le. Tested with various combinations
+of bochs, radeon, simpledrm.
+
+Thomas Zimmermann (21):
+  drm/amdgpu: Don't set struct drm_driver.lastclose
+  drm/imx: Don't set struct drm_driver.lastclose
+  drm/ingenic: Don't set struct drm_driver.lastclose
+  drm/komeda: Don't set struct drm_driver.lastclose
+  drm/logicvc: Don't set struct drm_driver.lastclose
+  drm/mcde: Don't set struct drm_driver.lastclose
+  drm/rockchip: Don't set struct drm_driver.lastclose
+  drm/vboxvideo: Don't set struct drm_driver.lastclose
+  drm/panel-ili9341: Include <linux/backlight.h>
+  drm/tve200: Include <linux/of.h>
+  drm/fb-helper: Cleanup include statements in header file
+  drm/fb_helper: Rename field fbdev to info in struct drm_fb_helper
+  drm/fb-helper: Rename drm_fb_helper_alloc_fbi() to use _info postfix
+  drm/fb-helper: Rename drm_fb_helper_unregister_fbi() to use _info
+    postfix
+  drm/fb-helper: Disconnect damage worker from update logic
+  drm/fb-helper: Call fb_sync in I/O functions
+  drm/fb-helper: Perform all fbdev I/O with the same implementation
+  drm/fb_helper: Minimize damage-helper overhead
+  drm/fb-helper: Always initialize generic fbdev emulation
+  drm/fb-helper: Move generic fbdev emulation into separate source file
+  drm/fb-helper: Remove unnecessary include statements
+
+ drivers/gpu/drm/Makefile                      |    2 +-
+ .../gpu/drm/amd/amdgpu/amdgpu_connectors.c    |    1 -
+ drivers/gpu/drm/amd/amdgpu/amdgpu_display.c   |    2 -
+ drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h      |    1 -
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |    2 -
+ .../gpu/drm/arm/display/komeda/komeda_drv.c   |    2 +-
+ .../gpu/drm/arm/display/komeda/komeda_kms.c   |    2 -
+ drivers/gpu/drm/arm/hdlcd_crtc.c              |    1 -
+ drivers/gpu/drm/arm/hdlcd_drv.c               |    2 +-
+ drivers/gpu/drm/arm/malidp_drv.c              |    2 +-
+ drivers/gpu/drm/armada/armada_fbdev.c         |    6 +-
+ drivers/gpu/drm/aspeed/aspeed_gfx_drv.c       |    2 +-
+ drivers/gpu/drm/ast/ast_drv.c                 |    1 +
+ drivers/gpu/drm/ast/ast_drv.h                 |    1 -
+ drivers/gpu/drm/atmel-hlcdc/atmel_hlcdc_dc.c  |    2 +-
+ drivers/gpu/drm/bridge/tc358762.c             |    2 +-
+ drivers/gpu/drm/drm_crtc_helper.c             |    1 -
+ drivers/gpu/drm/drm_fb_helper.c               | 1081 ++++++-----------
+ drivers/gpu/drm/drm_fbdev.c                   |  512 ++++++++
+ drivers/gpu/drm/drm_gem_framebuffer_helper.c  |    1 -
+ drivers/gpu/drm/drm_probe_helper.c            |    1 -
+ drivers/gpu/drm/etnaviv/etnaviv_drv.h         |    3 +-
+ drivers/gpu/drm/exynos/exynos_drm_fbdev.c     |    6 +-
+ drivers/gpu/drm/fsl-dcu/fsl_dcu_drm_drv.c     |    2 +-
+ drivers/gpu/drm/gma500/framebuffer.c          |    6 +-
+ drivers/gpu/drm/gud/gud_drv.c                 |    2 +-
+ .../gpu/drm/hisilicon/hibmc/hibmc_drm_drv.c   |    1 +
+ .../gpu/drm/hisilicon/hibmc/hibmc_drm_drv.h   |    1 -
+ .../gpu/drm/hisilicon/kirin/kirin_drm_drv.c   |    2 +-
+ drivers/gpu/drm/hyperv/hyperv_drm_drv.c       |    2 +-
+ drivers/gpu/drm/hyperv/hyperv_drm_modeset.c   |    1 -
+ drivers/gpu/drm/i915/display/intel_fbdev.c    |    8 +-
+ drivers/gpu/drm/imx/dcss/dcss-kms.c           |    3 +-
+ drivers/gpu/drm/imx/imx-drm-core.c            |    2 +-
+ drivers/gpu/drm/imx/imx-ldb.c                 |    2 +-
+ drivers/gpu/drm/imx/imx-tve.c                 |    1 -
+ drivers/gpu/drm/imx/parallel-display.c        |    2 +-
+ drivers/gpu/drm/ingenic/ingenic-drm-drv.c     |    3 +-
+ drivers/gpu/drm/kmb/kmb_drv.c                 |    2 +-
+ drivers/gpu/drm/kmb/kmb_plane.c               |    1 -
+ drivers/gpu/drm/logicvc/logicvc_drm.c         |    2 +-
+ drivers/gpu/drm/logicvc/logicvc_mode.c        |    2 -
+ drivers/gpu/drm/mcde/mcde_drv.c               |    3 +-
+ drivers/gpu/drm/mediatek/mtk_drm_drv.c        |    2 +-
+ drivers/gpu/drm/meson/meson_drv.c             |    2 +-
+ drivers/gpu/drm/mgag200/mgag200_drv.c         |    1 +
+ drivers/gpu/drm/mgag200/mgag200_drv.h         |    1 -
+ drivers/gpu/drm/msm/msm_fbdev.c               |    4 +-
+ drivers/gpu/drm/mxsfb/lcdif_drv.c             |    2 +-
+ drivers/gpu/drm/mxsfb/mxsfb_drv.c             |    2 +-
+ drivers/gpu/drm/nouveau/nouveau_fbcon.c       |   27 +-
+ drivers/gpu/drm/omapdrm/omap_fbdev.c          |    6 +-
+ drivers/gpu/drm/panel/panel-ilitek-ili9341.c  |    3 +-
+ drivers/gpu/drm/pl111/pl111_drv.c             |    2 +-
+ drivers/gpu/drm/qxl/qxl_drv.c                 |    1 +
+ drivers/gpu/drm/qxl/qxl_drv.h                 |    1 -
+ drivers/gpu/drm/radeon/radeon_fb.c            |    6 +-
+ drivers/gpu/drm/rcar-du/rcar_du_drv.c         |    2 +-
+ drivers/gpu/drm/rockchip/rockchip_drm_drv.c   |    2 +-
+ drivers/gpu/drm/rockchip/rockchip_drm_drv.h   |    2 +-
+ drivers/gpu/drm/rockchip/rockchip_drm_fb.c    |    2 -
+ drivers/gpu/drm/solomon/ssd130x.c             |    2 +-
+ drivers/gpu/drm/sti/sti_drv.c                 |    2 +-
+ drivers/gpu/drm/stm/drv.c                     |    2 +-
+ drivers/gpu/drm/sun4i/sun4i_drv.c             |    2 +-
+ drivers/gpu/drm/tegra/fb.c                    |    8 +-
+ drivers/gpu/drm/tidss/tidss_drv.c             |    2 +-
+ drivers/gpu/drm/tidss/tidss_kms.c             |    1 -
+ drivers/gpu/drm/tilcdc/tilcdc_drv.c           |    2 +-
+ drivers/gpu/drm/tiny/arcpgu.c                 |    2 +-
+ drivers/gpu/drm/tiny/bochs.c                  |    2 +-
+ drivers/gpu/drm/tiny/cirrus.c                 |    2 +-
+ drivers/gpu/drm/tiny/gm12u320.c               |    2 +-
+ drivers/gpu/drm/tiny/hx8357d.c                |    2 +-
+ drivers/gpu/drm/tiny/ili9163.c                |    2 +-
+ drivers/gpu/drm/tiny/ili9225.c                |    2 +-
+ drivers/gpu/drm/tiny/ili9341.c                |    2 +-
+ drivers/gpu/drm/tiny/ili9486.c                |    2 +-
+ drivers/gpu/drm/tiny/mi0283qt.c               |    2 +-
+ drivers/gpu/drm/tiny/ofdrm.c                  |    2 +-
+ drivers/gpu/drm/tiny/panel-mipi-dbi.c         |    2 +-
+ drivers/gpu/drm/tiny/repaper.c                |    2 +-
+ drivers/gpu/drm/tiny/simpledrm.c              |    2 +-
+ drivers/gpu/drm/tiny/st7586.c                 |    2 +-
+ drivers/gpu/drm/tiny/st7735r.c                |    2 +-
+ drivers/gpu/drm/tve200/tve200_drv.c           |    3 +-
+ drivers/gpu/drm/udl/udl_drv.c                 |    2 +-
+ drivers/gpu/drm/v3d/v3d_drv.c                 |    1 -
+ drivers/gpu/drm/vboxvideo/vbox_drv.c          |    4 +-
+ drivers/gpu/drm/vboxvideo/vbox_main.c         |    1 -
+ drivers/gpu/drm/vc4/vc4_drv.c                 |    2 +-
+ drivers/gpu/drm/virtio/virtgpu_drv.c          |    1 +
+ drivers/gpu/drm/virtio/virtgpu_drv.h          |    1 -
+ drivers/gpu/drm/vkms/vkms_drv.c               |    2 +-
+ drivers/gpu/drm/vmwgfx/vmwgfx_fb.c            |    3 +
+ drivers/gpu/drm/xen/xen_drm_front_gem.c       |    1 -
+ drivers/gpu/drm/xlnx/zynqmp_dpsub.c           |    2 +-
+ include/drm/drm_fb_helper.h                   |   59 +-
+ include/drm/drm_fbdev.h                       |   15 +
+ 99 files changed, 1019 insertions(+), 883 deletions(-)
+ create mode 100644 drivers/gpu/drm/drm_fbdev.c
+ create mode 100644 include/drm/drm_fbdev.h
+
+
+base-commit: 8c797a984264f04708d2099e83c85978a0fede89
+prerequisite-patch-id: c2b2f08f0eccc9f5df0c0da49fa1d36267deb11d
+prerequisite-patch-id: c67e5d886a47b7d0266d81100837557fda34cb24
+prerequisite-patch-id: 3f204510fcbf9530d6540bd8e6128cce598988b6
 -- 
-With best wishes
-Dmitry
+2.38.0
 
