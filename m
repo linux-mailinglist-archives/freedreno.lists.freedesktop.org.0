@@ -1,54 +1,76 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 70C9F608076
-	for <lists+freedreno@lfdr.de>; Fri, 21 Oct 2022 23:00:40 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 76556608100
+	for <lists+freedreno@lfdr.de>; Fri, 21 Oct 2022 23:58:59 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DC72610E16F;
-	Fri, 21 Oct 2022 21:00:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CBB3710E4D0;
+	Fri, 21 Oct 2022 21:58:53 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ot1-f42.google.com (mail-ot1-f42.google.com
- [209.85.210.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5ED7F10E16F
- for <freedreno@lists.freedesktop.org>; Fri, 21 Oct 2022 21:00:29 +0000 (UTC)
-Received: by mail-ot1-f42.google.com with SMTP id
- z11-20020a05683020cb00b00661a95cf920so2541652otq.5
- for <freedreno@lists.freedesktop.org>; Fri, 21 Oct 2022 14:00:29 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=date:subject:message-id:references:in-reply-to:cc:to:from
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=Jp5O+v/VR9Uxc6a9bxAqi2fjatkKvL4KNFA/YE6ATM4=;
- b=8Q3upa8Q5IVdkP4NIL6puaPH8uMmRr/k32JpbiXUiLptYEMTintxEloVH+BMXa8w9j
- o79EjhvXeg269v4glo3IycnO6Q7/0jUKSU7SCxF5NMYmkj6qsmXBdu1UNmZrXVGL2p08
- RuhIqR3qSuDnz67Re9kmpNx+z7lbLhqZTIybI3iGuvy0rD9Vp6aG8dEK1jTGHzZ7ZCdl
- qfXQoa4QdJONwLFsgmLb+qieIgMHmsj1FX5eRdQCnpaq/8JQl10mxfxoNo8o2kSdYrZM
- Ex5qjqNQAKxYNhCxgY3JlQjgU6lylJ7WON1mwkVEm93ji3y4klr7D3ygyBmEl0hul6Wo
- 9zug==
-X-Gm-Message-State: ACrzQf2Us2GInepuDqsBaTkvLge1dGXToQSakc3n9BecBgEOh8M5YH1M
- J0GZhTna7+/YFulu/QGL1A==
-X-Google-Smtp-Source: AMsMyM7d4LB4l4q8le8x1CWXfY+uasId0M+kGCbSwVnvSjOkI5HsMNG3Eu8V1sORN0mJObk7QNOP2g==
-X-Received: by 2002:a05:6830:440c:b0:661:e2ad:c599 with SMTP id
- q12-20020a056830440c00b00661e2adc599mr10066800otv.103.1666386028428; 
- Fri, 21 Oct 2022 14:00:28 -0700 (PDT)
-Received: from robh_at_kernel.org (66-90-144-107.dyn.grandenetworks.net.
- [66.90.144.107]) by smtp.gmail.com with ESMTPSA id
- e18-20020a056830201200b00661ad8741b4sm1579722otp.24.2022.10.21.14.00.27
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 21 Oct 2022 14:00:27 -0700 (PDT)
-Received: (nullmailer pid 314789 invoked by uid 1000);
- Fri, 21 Oct 2022 21:00:25 -0000
-From: Rob Herring <robh@kernel.org>
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-In-Reply-To: <20221021165534.2334329-3-dmitry.baryshkov@linaro.org>
-References: <20221021165534.2334329-1-dmitry.baryshkov@linaro.org>
- <20221021165534.2334329-3-dmitry.baryshkov@linaro.org>
-Message-Id: <166638584258.307638.14223403470296832950.robh@kernel.org>
-Date: Fri, 21 Oct 2022 16:00:25 -0500
-Subject: Re: [Freedreno] [RFC PATCH 2/9] dt-bindings: arm-smmu: fix
- clocks/clock-names schema
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 00E2B10E08D;
+ Fri, 21 Oct 2022 21:58:48 +0000 (UTC)
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 29LKf1IK004514;
+ Fri, 21 Oct 2022 21:58:37 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
+ h=message-id : date :
+ mime-version : subject : to : cc : references : from : in-reply-to :
+ content-type : content-transfer-encoding; s=qcppdkim1;
+ bh=G0y8yXOi0AMwy3r05tclL3Xy1hVN5riwv7bwfNItq9o=;
+ b=VmMnSdCs5hQWcspWfY9OI52vbAVKAfqyDVsVji9mtr0ifrE3PNZbXj6WE0kH3hyHxMwV
+ 5uYXkqC+i0yC1wPJT/KbLidQSRBovvpMtkTISGfLjt/5F7bbJm/bRqG2WRjIMp+EMu1Q
+ g5Drkl2aFyfyYrIu9DrGB3Wnb78P8TFGAgtLTBLmISk/Kd0sEYIdpCGQJ5lhYHB/G2Zg
+ u8v+U/4z89gK0xwQiYDog9q5Zm8+eu0K13mxMaqqpSRKXFij2uWXHPLG6qL1ZySeHZwW
+ 13AzeSCI42vY2TyGM6riUvBtraoJwvFqegNfAM+xooPOp9aZeLv94SBrSHBhBxiJiJiU Qg== 
+Received: from nalasppmta04.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3kbjcgbm16-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Fri, 21 Oct 2022 21:58:36 +0000
+Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
+ [10.47.209.196])
+ by NALASPPMTA04.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 29LLwZIk001937
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Fri, 21 Oct 2022 21:58:35 GMT
+Received: from [10.111.175.17] (10.80.80.8) by nalasex01a.na.qualcomm.com
+ (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.29; Fri, 21 Oct
+ 2022 14:58:33 -0700
+Message-ID: <778ae711-50a4-ae37-db18-8faa26f4c0ae@quicinc.com>
+Date: Fri, 21 Oct 2022 14:58:31 -0700
+MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
+ Thunderbird/91.6.2
+Content-Language: en-US
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Rob Clark
+ <robdclark@gmail.com>, Sean Paul <sean@poorly.run>
+References: <20221021192641.2423237-1-dmitry.baryshkov@linaro.org>
+From: Abhinav Kumar <quic_abhinavk@quicinc.com>
+In-Reply-To: <20221021192641.2423237-1-dmitry.baryshkov@linaro.org>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-GUID: l4mZ35VcisBCndwE8kD4EOBgyDO_s5GT
+X-Proofpoint-ORIG-GUID: l4mZ35VcisBCndwE8kD4EOBgyDO_s5GT
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.205,Aquarius:18.0.895,Hydra:6.0.545,FMLib:17.11.122.1
+ definitions=2022-10-21_04,2022-10-21_01,2022-06-22_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 bulkscore=0
+ suspectscore=0 phishscore=0 adultscore=0 mlxlogscore=999 clxscore=1015
+ mlxscore=0 priorityscore=1501 lowpriorityscore=0 impostorscore=0
+ spamscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2209130000 definitions=main-2210210127
+Subject: Re: [Freedreno] [PATCH v2] drm/msm/mdp5: stop overriding drvdata
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,57 +83,164 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org,
- Sai Prakash Ranjan <quic_saipraka@quicinc.com>, iommu@lists.linux.dev,
- devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- Joerg Roedel <joro@8bytes.org>, Konrad Dybcio <konrad.dybcio@somainline.org>,
- Vinod Koul <vkoul@kernel.org>, Rob Clark <robdclark@gmail.com>,
- Rob Herring <robh+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Will Deacon <will@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
- linux-arm-kernel@lists.infradead.org, Robin Murphy <robin.murphy@arm.com>
+Cc: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
+ Bjorn Andersson <andersson@kernel.org>, dri-devel@lists.freedesktop.org,
+ Stephen Boyd <swboyd@chromium.org>, Daniel Vetter <daniel@ffwll.ch>,
+ David Airlie <airlied@gmail.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Fri, 21 Oct 2022 19:55:27 +0300, Dmitry Baryshkov wrote:
-> Rework clocks/clock-names properties schema to property describe
-> possible usage cases.
+Hi Dmitry
+
+A couple of comments below.
+
+On 10/21/2022 12:26 PM, Dmitry Baryshkov wrote:
+> The rest of the code expects that master's device drvdata is the
+> struct msm_drm_private instance. Do not override the mdp5's drvdata.
 > 
+> Fixes: 6874f48bb8b0 ("drm/msm: make mdp5/dpu devices master components")
 > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
 > ---
->  .../devicetree/bindings/iommu/arm,smmu.yaml   | 129 ++++++++++++++++--
->  1 file changed, 121 insertions(+), 8 deletions(-)
+> Abhinav, Rob, please pick this for -fixes.
 > 
+> This is an updated version of [1]. Fixed the read_mdp_hw_revision()
+> function. PM runtime isn't available at the moment, as priv->kms is not
+> set.
 
-My bot found errors running 'make DT_CHECKER_FLAGS=-m dt_binding_check'
-on your patch (DT_CHECKER_FLAGS is new in v5.13):
+Can you split them into two changes?
 
-yamllint warnings/errors:
+Any reason fixing the read_mdp_hw_revision() needs to be in this?
+> 
+> [1] https://patchwork.freedesktop.org/patch/490326/?series=105392&rev=1
+> 
+> ---
+>   drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c | 37 ++++++++++++++----------
+>   1 file changed, 22 insertions(+), 15 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c b/drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c
+> index b0d21838a134..506c64940972 100644
+> --- a/drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c
+> +++ b/drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c
+> @@ -203,7 +203,7 @@ static int mdp5_set_split_display(struct msm_kms *kms,
+>   							  slave_encoder);
+>   }
+>   
+> -static void mdp5_destroy(struct platform_device *pdev);
+> +static void mdp5_destroy(struct mdp5_kms *mdp5_kms);
+>   
+>   static void mdp5_kms_destroy(struct msm_kms *kms)
+>   {
+> @@ -223,7 +223,7 @@ static void mdp5_kms_destroy(struct msm_kms *kms)
+>   	}
+>   
+>   	mdp_kms_destroy(&mdp5_kms->base);
+> -	mdp5_destroy(mdp5_kms->pdev);
+> +	mdp5_destroy(mdp5_kms);
+>   }
+>   
+>   #ifdef CONFIG_DEBUG_FS
+> @@ -519,9 +519,15 @@ static void read_mdp_hw_revision(struct mdp5_kms *mdp5_kms,
+>   	struct device *dev = &mdp5_kms->pdev->dev;
+>   	u32 version;
+>   
+> -	pm_runtime_get_sync(dev);
+> +	/* Manually enable the MDP5, as pm runtime isn't usable yet */
+> +	if (mdp5_enable(mdp5_kms)) {
 
-dtschema/dtc warnings/errors:
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/iommu/arm,smmu.example.dtb: iommu@d00000: 'anyOf' conditional failed, one must be fixed:
-	['bus', 'iface'] is too long
-	['bus', 'iface'] is too short
-	'iface' was expected
-	'iface-mm' was expected
-	'mem' was expected
-	'iface-smmu' was expected
-	[[4294967295, 123], [4294967295, 124]] is too long
-	[[4294967295, 123], [4294967295, 124]] is too short
-	From schema: /builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/iommu/arm,smmu.yaml
+mdp5_enable() always seems to return 0 so do we need this if block?
 
-doc reference errors (make refcheckdocs):
-
-See https://patchwork.ozlabs.org/patch/
-
-This check can fail if there are any dependencies. The base for a patch
-series is generally the most recent rc1.
-
-If you already ran 'make dt_binding_check' and didn't see the above
-error(s), then make sure 'yamllint' is installed and dt-schema is up to
-date:
-
-pip3 install dtschema --upgrade
-
-Please check and re-submit.
-
+> +		*major = 0;
+> +		*minor = 0;
+> +		return;
+> +	}
+> +
+>   	version = mdp5_read(mdp5_kms, REG_MDP5_HW_VERSION);
+> -	pm_runtime_put_sync(dev);
+> +	mdp5_disable(mdp5_kms);
+>   
+>   	*major = FIELD(version, MDP5_HW_VERSION_MAJOR);
+>   	*minor = FIELD(version, MDP5_HW_VERSION_MINOR);
+> @@ -559,6 +565,8 @@ static int mdp5_kms_init(struct drm_device *dev)
+>   	int irq, i, ret;
+>   
+>   	ret = mdp5_init(to_platform_device(dev->dev), dev);
+> +	if (ret)
+> +		return ret;
+>   
+>   	/* priv->kms would have been populated by the MDP5 driver */
+>   	kms = priv->kms;
+> @@ -632,9 +640,8 @@ static int mdp5_kms_init(struct drm_device *dev)
+>   	return ret;
+>   }
+>   
+> -static void mdp5_destroy(struct platform_device *pdev)
+> +static void mdp5_destroy(struct mdp5_kms *mdp5_kms)
+>   {
+> -	struct mdp5_kms *mdp5_kms = platform_get_drvdata(pdev);
+>   	int i;
+>   
+>   	if (mdp5_kms->ctlm)
+> @@ -648,7 +655,7 @@ static void mdp5_destroy(struct platform_device *pdev)
+>   		kfree(mdp5_kms->intfs[i]);
+>   
+>   	if (mdp5_kms->rpm_enabled)
+> -		pm_runtime_disable(&pdev->dev);
+> +		pm_runtime_disable(&mdp5_kms->pdev->dev);
+>   
+>   	drm_atomic_private_obj_fini(&mdp5_kms->glob_state);
+>   	drm_modeset_lock_fini(&mdp5_kms->glob_state_lock);
+> @@ -797,8 +804,6 @@ static int mdp5_init(struct platform_device *pdev, struct drm_device *dev)
+>   		goto fail;
+>   	}
+>   
+> -	platform_set_drvdata(pdev, mdp5_kms);
+> -
+>   	spin_lock_init(&mdp5_kms->resource_lock);
+>   
+>   	mdp5_kms->dev = dev;
+> @@ -839,9 +844,6 @@ static int mdp5_init(struct platform_device *pdev, struct drm_device *dev)
+>   	 */
+>   	clk_set_rate(mdp5_kms->core_clk, 200000000);
+>   
+> -	pm_runtime_enable(&pdev->dev);
+> -	mdp5_kms->rpm_enabled = true;
+> -
+>   	read_mdp_hw_revision(mdp5_kms, &major, &minor);
+>   
+>   	mdp5_kms->cfg = mdp5_cfg_init(mdp5_kms, major, minor);
+> @@ -893,10 +895,13 @@ static int mdp5_init(struct platform_device *pdev, struct drm_device *dev)
+>   	/* set uninit-ed kms */
+>   	priv->kms = &mdp5_kms->base.base;
+>   
+> +	pm_runtime_enable(&pdev->dev);
+> +	mdp5_kms->rpm_enabled = true;
+> +
+>   	return 0;
+>   fail:
+>   	if (mdp5_kms)
+> -		mdp5_destroy(pdev);
+> +		mdp5_destroy(mdp5_kms);
+>   	return ret;
+>   }
+>   
+> @@ -953,7 +958,8 @@ static int mdp5_dev_remove(struct platform_device *pdev)
+>   static __maybe_unused int mdp5_runtime_suspend(struct device *dev)
+>   {
+>   	struct platform_device *pdev = to_platform_device(dev);
+> -	struct mdp5_kms *mdp5_kms = platform_get_drvdata(pdev);
+> +	struct msm_drm_private *priv = platform_get_drvdata(pdev);
+> +	struct mdp5_kms *mdp5_kms = to_mdp5_kms(to_mdp_kms(priv->kms));
+>   
+>   	DBG("");
+>   
+> @@ -963,7 +969,8 @@ static __maybe_unused int mdp5_runtime_suspend(struct device *dev)
+>   static __maybe_unused int mdp5_runtime_resume(struct device *dev)
+>   {
+>   	struct platform_device *pdev = to_platform_device(dev);
+> -	struct mdp5_kms *mdp5_kms = platform_get_drvdata(pdev);
+> +	struct msm_drm_private *priv = platform_get_drvdata(pdev);
+> +	struct mdp5_kms *mdp5_kms = to_mdp5_kms(to_mdp_kms(priv->kms));
+>   
+>   	DBG("");
+>   
