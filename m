@@ -1,70 +1,62 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id D1275607CF7
-	for <lists+freedreno@lfdr.de>; Fri, 21 Oct 2022 18:56:01 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id E12F9607F05
+	for <lists+freedreno@lfdr.de>; Fri, 21 Oct 2022 21:26:53 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7757810E57B;
-	Fri, 21 Oct 2022 16:56:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 47C6910E0D0;
+	Fri, 21 Oct 2022 19:26:50 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-x229.google.com (mail-lj1-x229.google.com
- [IPv6:2a00:1450:4864:20::229])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CC58410E554
- for <freedreno@lists.freedesktop.org>; Fri, 21 Oct 2022 16:55:50 +0000 (UTC)
-Received: by mail-lj1-x229.google.com with SMTP id r22so4492029ljn.10
- for <freedreno@lists.freedesktop.org>; Fri, 21 Oct 2022 09:55:50 -0700 (PDT)
+Received: from mail-lj1-x22e.google.com (mail-lj1-x22e.google.com
+ [IPv6:2a00:1450:4864:20::22e])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0D52D10E66F
+ for <freedreno@lists.freedesktop.org>; Fri, 21 Oct 2022 19:26:44 +0000 (UTC)
+Received: by mail-lj1-x22e.google.com with SMTP id m23so5075700lji.2
+ for <freedreno@lists.freedesktop.org>; Fri, 21 Oct 2022 12:26:44 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=ZT9p+O8jS1617W9ayV/G2VKwq2HucMY9DBAQPNerHK4=;
- b=rJ0DwSGCkEIE25pd95phrfcMNfbybXvcvh4bDPLhBClsVFB1kJpdbY9ZXdeqI79FaF
- Mji8bX6GF893adMySxKCv20TEpdIH+G1UbtWU48em/BNNZ/GZAZoT5QG72X6+zIDo8lY
- sdc4jWx06elCJfG/o6UMB4Dyk+1+5i2QTvWx4L4j58QEDHZU3ExKddPnXhoJigwHkSpK
- wPSVgBpj8Dp2pZutXokdwh7d5VCOoiSWCOjIZmUR4pnfKTkI0JOACnpeuF/frwI1vveG
- Po6ZGlFKoSKU7CMLJgqZTMjUawtVPzcgMD4lBOr5G9gWBpZUjrVZqNQWwlRaxlWyVssW
- PRMA==
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=cwaXIne9/tESZg17OSM+CaHqqM5h7/O7wHnlJa8eBxQ=;
+ b=fRhXofGb9cOnPhQS9hLIzMl+L60HxccZ+eZsKCY+f1ulBEflyP7axwksg4YImuwdZG
+ 2I2tm/a2749Ob92vwTjhmSGMhvxpkxWxzXBmA4e5hJrfDjqRaXesyBLCQeQPXAgKzOfm
+ oaLTHsvetaybCZ1HwULDh6o8q5Mex7KKeli6PE439Lll3mh+I+wXKpqIZLf22fsH4srr
+ 7j/1dZGwmmj2WP7Thr3P7iS8htuSEO63KMJ67RRNzv+KSussjDS7sdlRc0HXeQXdxnKk
+ uS1D7V8kytITGW4Q23M126eKMRkqAb7maykTtPE0ocYEA9iog5e4IXnVUljTgR8zKL3A
+ z20A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=ZT9p+O8jS1617W9ayV/G2VKwq2HucMY9DBAQPNerHK4=;
- b=P/NAT8zNx0prtY1vK0vyEMmrid1upm2kjnBx+2S6mdVIGIQNijlY6VbF/2ZQUNPjFH
- caYrz3OXOfZyrRkdaPhzlxRduBIaKmy/OW9NmuqQcLLfbX+Vs2tv/ljXAR3CSK/Td7Xh
- u4toaKuEk2sdARsEohygxpd9bnpOaiqooRSQLOpJQ5B8aGPUPe16igIOMPmPVvtqTgAo
- uTC2wCRRgbXMZIvYePqOfkzIyyP8TWXbcS9mf/t6T4ge3yVs+vq23aI73+ethjICP6oh
- 4agylFcnADrQbUDhgjE/iKmpkQWu8AtCMckxXX5Xuu+YolQOuu1f9zMpvEAaYpt4DwJa
- +bHA==
-X-Gm-Message-State: ACrzQf2BUwxKzedpqO0SmJykPq8w9PGNUlEvVbCCdFEOedbnO5GtKYoG
- 0YLWT9Px0f4KZby9VJWHhpyWdw==
-X-Google-Smtp-Source: AMsMyM5DmLJ5rXTRgNdC7K58SnCb2aZlbYqY0kpaUJgU2Dzp2Oflwl8kkPrI4UQ6QWTOn0THOh0ktg==
-X-Received: by 2002:a2e:549:0:b0:26d:ff5f:53c1 with SMTP id
- 70-20020a2e0549000000b0026dff5f53c1mr7415424ljf.450.1666371349092; 
- Fri, 21 Oct 2022 09:55:49 -0700 (PDT)
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=cwaXIne9/tESZg17OSM+CaHqqM5h7/O7wHnlJa8eBxQ=;
+ b=4+YMUmQGsWMJCKpz2hT2h+IFWHuBDH+m/8rJMAtnUComEoC874uIqfgJRm1gzHPyV4
+ WOKTJxtcKgLDEE08UcNOasuO4MPGiNSuDiLSbH84oqrfHRRnFja5K9DLz9voaPKKBEOn
+ 1q0fAYw3YeQexBzoTeVrWoL04yyZTKOBuC5iM0ge24HLxFrduU5KT4TBBVZTfWO7GYfg
+ TjbDX6CVZy5Q++3v29cdec8fSWDCHis1Z+LQ/lT/1CnH5TNetmj5Js79Q/INj5qTsE9o
+ SMc0M6VegYxsArNlWx2fr9G9vc7tdCuMF0u9xBJOZK2RnS02xLHhDrBV6inm1TnEPrAk
+ hiwA==
+X-Gm-Message-State: ACrzQf14xmtwEShFKGf9P2RYDnHBY6xGcfUQfPbRozR6KkIKOdPdhaIt
+ lgXiuklKbJxyF6T0VCjrqBvZ6Q==
+X-Google-Smtp-Source: AMsMyM4URcKjhKDfjJeEk40K9eZOqmBNKS2DZOrzlHrnPBm/rYl5u6eIXMDc4mYJ0b1qm9YdbduYqQ==
+X-Received: by 2002:a2e:b8c9:0:b0:26f:e171:1bf with SMTP id
+ s9-20020a2eb8c9000000b0026fe17101bfmr7063691ljp.460.1666380402545; 
+ Fri, 21 Oct 2022 12:26:42 -0700 (PDT)
 Received: from eriador.unikie.fi ([192.130.178.91])
  by smtp.gmail.com with ESMTPSA id
- x4-20020a056512078400b004946e72711bsm3218532lfr.76.2022.10.21.09.55.48
+ d12-20020a056512368c00b00497a41b3a42sm3278341lfs.88.2022.10.21.12.26.41
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 21 Oct 2022 09:55:48 -0700 (PDT)
+ Fri, 21 Oct 2022 12:26:42 -0700 (PDT)
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-To: Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
- Joerg Roedel <joro@8bytes.org>, Rob Herring <robh+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konrad.dybcio@somainline.org>,
- Rob Clark <robdclark@gmail.com>
-Date: Fri, 21 Oct 2022 19:55:34 +0300
-Message-Id: <20221021165534.2334329-10-dmitry.baryshkov@linaro.org>
+To: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>
+Date: Fri, 21 Oct 2022 22:26:41 +0300
+Message-Id: <20221021192641.2423237-1-dmitry.baryshkov@linaro.org>
 X-Mailer: git-send-email 2.35.1
-In-Reply-To: <20221021165534.2334329-1-dmitry.baryshkov@linaro.org>
-References: <20221021165534.2334329-1-dmitry.baryshkov@linaro.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [RFC PATCH 9/9] iommu/arm-smmu-qcom: Add generic qcom,
- smmu-500 match entry
+Subject: [Freedreno] [PATCH v2] drm/msm/mdp5: stop overriding drvdata
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,43 +69,154 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: devicetree@vger.kernel.org, Sai Prakash Ranjan <quic_saipraka@quicinc.com>,
- linux-arm-msm@vger.kernel.org, iommu@lists.linux.dev,
- Vinod Koul <vkoul@kernel.org>, freedreno@lists.freedesktop.org,
- linux-arm-kernel@lists.infradead.org
+Cc: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
+ Bjorn Andersson <andersson@kernel.org>, dri-devel@lists.freedesktop.org,
+ Stephen Boyd <swboyd@chromium.org>, Daniel Vetter <daniel@ffwll.ch>,
+ David Airlie <airlied@gmail.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Add generic qcom,smmu-500 compatibility string. Newer platforms should
-use this generic entry rather than declaring per-SoC entries.
+The rest of the code expects that master's device drvdata is the
+struct msm_drm_private instance. Do not override the mdp5's drvdata.
 
+Fixes: 6874f48bb8b0 ("drm/msm: make mdp5/dpu devices master components")
 Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
 ---
- drivers/iommu/arm/arm-smmu/arm-smmu-qcom.c | 5 +++++
- 1 file changed, 5 insertions(+)
+Abhinav, Rob, please pick this for -fixes.
 
-diff --git a/drivers/iommu/arm/arm-smmu/arm-smmu-qcom.c b/drivers/iommu/arm/arm-smmu/arm-smmu-qcom.c
-index 9abc40c00f3e..3be81338a25b 100644
---- a/drivers/iommu/arm/arm-smmu/arm-smmu-qcom.c
-+++ b/drivers/iommu/arm/arm-smmu/arm-smmu-qcom.c
-@@ -493,6 +493,10 @@ static const struct qcom_smmu_match_data qcom_smmu_500_impl0_data = {
- 	.cfg = &qcom_smmu_impl0_cfg,
- };
+This is an updated version of [1]. Fixed the read_mdp_hw_revision()
+function. PM runtime isn't available at the moment, as priv->kms is not
+set.
+
+[1] https://patchwork.freedesktop.org/patch/490326/?series=105392&rev=1
+
+---
+ drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c | 37 ++++++++++++++----------
+ 1 file changed, 22 insertions(+), 15 deletions(-)
+
+diff --git a/drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c b/drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c
+index b0d21838a134..506c64940972 100644
+--- a/drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c
++++ b/drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c
+@@ -203,7 +203,7 @@ static int mdp5_set_split_display(struct msm_kms *kms,
+ 							  slave_encoder);
+ }
  
-+/*
-+ * Do not add any more qcom,SOC-smmu-500 entries to this list, unless they need
-+ * special handling and can not be covered by the qcom,smmu-500 entry.
-+ */
- static const struct of_device_id __maybe_unused qcom_smmu_impl_of_match[] = {
- 	{ .compatible = "qcom,msm8996-smmu-v2", .data = &msm8996_smmu_data },
- 	{ .compatible = "qcom,msm8998-smmu-v2", .data = &qcom_smmu_v2_data },
-@@ -511,6 +515,7 @@ static const struct of_device_id __maybe_unused qcom_smmu_impl_of_match[] = {
- 	{ .compatible = "qcom,sm8250-smmu-500", .data = &qcom_smmu_500_impl0_data },
- 	{ .compatible = "qcom,sm8350-smmu-500", .data = &qcom_smmu_500_impl0_data },
- 	{ .compatible = "qcom,sm8450-smmu-500", .data = &qcom_smmu_500_impl0_data },
-+	{ .compatible = "qcom,smmu-500", .data = &qcom_smmu_500_impl0_data },
- 	{ }
- };
+-static void mdp5_destroy(struct platform_device *pdev);
++static void mdp5_destroy(struct mdp5_kms *mdp5_kms);
+ 
+ static void mdp5_kms_destroy(struct msm_kms *kms)
+ {
+@@ -223,7 +223,7 @@ static void mdp5_kms_destroy(struct msm_kms *kms)
+ 	}
+ 
+ 	mdp_kms_destroy(&mdp5_kms->base);
+-	mdp5_destroy(mdp5_kms->pdev);
++	mdp5_destroy(mdp5_kms);
+ }
+ 
+ #ifdef CONFIG_DEBUG_FS
+@@ -519,9 +519,15 @@ static void read_mdp_hw_revision(struct mdp5_kms *mdp5_kms,
+ 	struct device *dev = &mdp5_kms->pdev->dev;
+ 	u32 version;
+ 
+-	pm_runtime_get_sync(dev);
++	/* Manually enable the MDP5, as pm runtime isn't usable yet */
++	if (mdp5_enable(mdp5_kms)) {
++		*major = 0;
++		*minor = 0;
++		return;
++	}
++
+ 	version = mdp5_read(mdp5_kms, REG_MDP5_HW_VERSION);
+-	pm_runtime_put_sync(dev);
++	mdp5_disable(mdp5_kms);
+ 
+ 	*major = FIELD(version, MDP5_HW_VERSION_MAJOR);
+ 	*minor = FIELD(version, MDP5_HW_VERSION_MINOR);
+@@ -559,6 +565,8 @@ static int mdp5_kms_init(struct drm_device *dev)
+ 	int irq, i, ret;
+ 
+ 	ret = mdp5_init(to_platform_device(dev->dev), dev);
++	if (ret)
++		return ret;
+ 
+ 	/* priv->kms would have been populated by the MDP5 driver */
+ 	kms = priv->kms;
+@@ -632,9 +640,8 @@ static int mdp5_kms_init(struct drm_device *dev)
+ 	return ret;
+ }
+ 
+-static void mdp5_destroy(struct platform_device *pdev)
++static void mdp5_destroy(struct mdp5_kms *mdp5_kms)
+ {
+-	struct mdp5_kms *mdp5_kms = platform_get_drvdata(pdev);
+ 	int i;
+ 
+ 	if (mdp5_kms->ctlm)
+@@ -648,7 +655,7 @@ static void mdp5_destroy(struct platform_device *pdev)
+ 		kfree(mdp5_kms->intfs[i]);
+ 
+ 	if (mdp5_kms->rpm_enabled)
+-		pm_runtime_disable(&pdev->dev);
++		pm_runtime_disable(&mdp5_kms->pdev->dev);
+ 
+ 	drm_atomic_private_obj_fini(&mdp5_kms->glob_state);
+ 	drm_modeset_lock_fini(&mdp5_kms->glob_state_lock);
+@@ -797,8 +804,6 @@ static int mdp5_init(struct platform_device *pdev, struct drm_device *dev)
+ 		goto fail;
+ 	}
+ 
+-	platform_set_drvdata(pdev, mdp5_kms);
+-
+ 	spin_lock_init(&mdp5_kms->resource_lock);
+ 
+ 	mdp5_kms->dev = dev;
+@@ -839,9 +844,6 @@ static int mdp5_init(struct platform_device *pdev, struct drm_device *dev)
+ 	 */
+ 	clk_set_rate(mdp5_kms->core_clk, 200000000);
+ 
+-	pm_runtime_enable(&pdev->dev);
+-	mdp5_kms->rpm_enabled = true;
+-
+ 	read_mdp_hw_revision(mdp5_kms, &major, &minor);
+ 
+ 	mdp5_kms->cfg = mdp5_cfg_init(mdp5_kms, major, minor);
+@@ -893,10 +895,13 @@ static int mdp5_init(struct platform_device *pdev, struct drm_device *dev)
+ 	/* set uninit-ed kms */
+ 	priv->kms = &mdp5_kms->base.base;
+ 
++	pm_runtime_enable(&pdev->dev);
++	mdp5_kms->rpm_enabled = true;
++
+ 	return 0;
+ fail:
+ 	if (mdp5_kms)
+-		mdp5_destroy(pdev);
++		mdp5_destroy(mdp5_kms);
+ 	return ret;
+ }
+ 
+@@ -953,7 +958,8 @@ static int mdp5_dev_remove(struct platform_device *pdev)
+ static __maybe_unused int mdp5_runtime_suspend(struct device *dev)
+ {
+ 	struct platform_device *pdev = to_platform_device(dev);
+-	struct mdp5_kms *mdp5_kms = platform_get_drvdata(pdev);
++	struct msm_drm_private *priv = platform_get_drvdata(pdev);
++	struct mdp5_kms *mdp5_kms = to_mdp5_kms(to_mdp_kms(priv->kms));
+ 
+ 	DBG("");
+ 
+@@ -963,7 +969,8 @@ static __maybe_unused int mdp5_runtime_suspend(struct device *dev)
+ static __maybe_unused int mdp5_runtime_resume(struct device *dev)
+ {
+ 	struct platform_device *pdev = to_platform_device(dev);
+-	struct mdp5_kms *mdp5_kms = platform_get_drvdata(pdev);
++	struct msm_drm_private *priv = platform_get_drvdata(pdev);
++	struct mdp5_kms *mdp5_kms = to_mdp5_kms(to_mdp_kms(priv->kms));
+ 
+ 	DBG("");
  
 -- 
 2.35.1
