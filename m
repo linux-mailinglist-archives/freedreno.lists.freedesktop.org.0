@@ -1,54 +1,54 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id D7C8D60AF38
-	for <lists+freedreno@lfdr.de>; Mon, 24 Oct 2022 17:39:53 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id B206560AF3A
+	for <lists+freedreno@lfdr.de>; Mon, 24 Oct 2022 17:39:54 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E35D610E898;
-	Mon, 24 Oct 2022 15:39:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 40A7810E893;
+	Mon, 24 Oct 2022 15:39:40 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-x232.google.com (mail-lj1-x232.google.com
- [IPv6:2a00:1450:4864:20::232])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3C75E10E22A
- for <freedreno@lists.freedesktop.org>; Mon, 24 Oct 2022 15:39:32 +0000 (UTC)
-Received: by mail-lj1-x232.google.com with SMTP id o4so8437228ljp.8
- for <freedreno@lists.freedesktop.org>; Mon, 24 Oct 2022 08:39:32 -0700 (PDT)
+Received: from mail-lf1-x135.google.com (mail-lf1-x135.google.com
+ [IPv6:2a00:1450:4864:20::135])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 08A3210E879
+ for <freedreno@lists.freedesktop.org>; Mon, 24 Oct 2022 15:39:35 +0000 (UTC)
+Received: by mail-lf1-x135.google.com with SMTP id b1so17369987lfs.7
+ for <freedreno@lists.freedesktop.org>; Mon, 24 Oct 2022 08:39:34 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=jshUQGH4UtEAs7tQmmFEpIMJkGozvqVnz1M3FYmS5xY=;
- b=tpjysAKOJ5VaFAPzmTJB/VM/VOuNF+MS6KNYzrqn6q9OuyQoxkmq9iayhnfoqRdYRP
- W3+YJycr9GYEwQZHeI4+a3MZ30C7NI1iETRhOHMVdXV1qUOzx8962R2dwNfRMSVAK0PP
- uuq2AHiqP+R5Yzq71Huizl57+nOYDicAur6FtnR1DERXhusyU1y1KXB1ubKrYVCk5luf
- ykWHt5FglTIRCvKdm9ydlpRZ3guNoa+wlj3wsLtQ3+b6c10PsdRRGBczM4eeMMOEHBRZ
- WXKEL1vrBZkh9nYm8AuR+TkwoYnpIDGIsrtXD6It2CSJ/18Ce8K4PqvwdCfIbBgpE+bH
- p+uw==
+ bh=lqeu0gWL+fbuCou+DZo8aED2KhTyfiRcmIANTVXwORA=;
+ b=Bhop75vDua+I6VnKKtIzGDOgMa/TkLWdFRQLohMlW1HvwtaoIZ8b2oBnHstkVtY6up
+ sJv/MkgH/m8TW4wysWYZltZ9eti515KpLLYjhQ0J8ZD2ex8gjXXiN8oGxCxa7+WGoWHj
+ ZLmomSsLPw8wVfiW1doVj3OgD8cqRvqIY0gMc7BPIbEmrWALGneXEKTfkV0dPn9B0tOu
+ KTmhg3Sck5dlZX+DZUW+tlACH3osvxzilo05OiffJ3BTj4985/p/Nnnt6bdPG28A9/SZ
+ yTlCuiBqT+U5WIM+ar01IAjCoLIeC5hMl9VoLfe+Rfq46v9blTEx0DFCHZMVGiC8FNOK
+ 7AWA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=jshUQGH4UtEAs7tQmmFEpIMJkGozvqVnz1M3FYmS5xY=;
- b=SEiY5CVaQ61uK17p10xsWHNOl8u5kqSeCh+D1VSwwGBUPCDptpbqee68C13Egww+iT
- AecXO4+IPKm4BWiAn046T3hv/AkYOjaHmfhTopEMmdMKD2HiTUUU2PxTtL41wkLbcrAq
- v/BSGdJvUeXRAQeWOjrzX6Z5kNlyG3n9NLaWIkj6cCqPEXLO+ArHmCGNO+EDe9Rn9K2l
- SbkerUvtoBl6mUCOCTDVO4TrlNfyULZZ7CGS4lqHhYN/0NQb1GP2bCCy5UMyLag1N6OR
- ikcdxjDcK62AKHy8fpaloBqUwTvc7PWEr3LQpfuqBW7Ies0DnkXM3GFjQAd8OHqwbwF1
- wToQ==
-X-Gm-Message-State: ACrzQf3cCUltmd/NJZHKzkArbY9l5nxbprWg4yiNca0tEEVKHohZNtQw
- 92ODHsBr9V4lqzgDFJrF4ou3cmxgTuyVT+Lz
-X-Google-Smtp-Source: AMsMyM79q8/bozlYbdMbYTfc4ZQ/uK1sOv8g0duf81dQ5KIoiK1riaEhzTxB4eepVuG/nr/YlUA6uw==
-X-Received: by 2002:a05:651c:12c6:b0:26f:c55a:a59b with SMTP id
- 6-20020a05651c12c600b0026fc55aa59bmr12126668lje.281.1666625971780; 
- Mon, 24 Oct 2022 08:39:31 -0700 (PDT)
+ bh=lqeu0gWL+fbuCou+DZo8aED2KhTyfiRcmIANTVXwORA=;
+ b=mhP2zYo6r9vVMCtntwukrVsK8c6Oxrsh5bY6cmlWnEx3lXCCK/DVPS3mrGxzIwdPa3
+ IwA9Q8DGkaA809tb+2bm87SMWF6JTvqli2W2z6w33ByH+QHS015P7WPK+fzDbK2VxS1K
+ YY/NEQTzIQYp27NbhCnnkqCtWk01rZoEwGdnl+j0WcvCeFsHlOdVEUaPDrb+QPN1qXgx
+ YRrUji0c6jU4Cj1xRJPo3OeB95aDd9msCirtQ1TgO+2rzam7FWr8r9kxSpmj1FyWKE32
+ ABGCo1vS48whaAxHkXU6UDc5tYYyw0oVyAgLsRy9FtzpskYNqWomzFtovhC5bkUZxInF
+ 2avg==
+X-Gm-Message-State: ACrzQf3iv8pl92AjOgDJxgCX5sBSx7FHMLETaVvzd3Muz2vLTUGf/n3M
+ 1ko93gkFUoDSl5sn8suscAvCzA==
+X-Google-Smtp-Source: AMsMyM4H3MypoErfub8/8Pg6YTAr0N0N1oputVQM9J4Dq5B073oP7x75ihH1LSiPR88OG4YJOAhABA==
+X-Received: by 2002:ac2:5928:0:b0:4a2:2819:4fb2 with SMTP id
+ v8-20020ac25928000000b004a228194fb2mr11388733lfi.183.1666625972493; 
+ Mon, 24 Oct 2022 08:39:32 -0700 (PDT)
 Received: from eriador.unikie.fi ([192.130.178.91])
  by smtp.gmail.com with ESMTPSA id
  f23-20020a19ae17000000b00497b198987bsm452181lfc.26.2022.10.24.08.39.31
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 24 Oct 2022 08:39:31 -0700 (PDT)
+ Mon, 24 Oct 2022 08:39:32 -0700 (PDT)
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Maxime Ripard <mripard@kernel.org>,
@@ -63,14 +63,14 @@ To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
  Abhinav Kumar <quic_abhinavk@quicinc.com>,
  Tomi Valkeinen <tomba@kernel.org>
-Date: Mon, 24 Oct 2022 18:39:24 +0300
-Message-Id: <20221024153926.3222225-6-dmitry.baryshkov@linaro.org>
+Date: Mon, 24 Oct 2022 18:39:25 +0300
+Message-Id: <20221024153926.3222225-7-dmitry.baryshkov@linaro.org>
 X-Mailer: git-send-email 2.35.1
 In-Reply-To: <20221024153926.3222225-1-dmitry.baryshkov@linaro.org>
 References: <20221024153926.3222225-1-dmitry.baryshkov@linaro.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH v2 5/7] drm/msm/hdmi: stop using
+Subject: [Freedreno] [PATCH v2 6/7] drm/omap: stop using
  drm_bridge_connector_en/disable_hpd()
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -95,22 +95,82 @@ drm_kms_poll helpers. Stop calling these functions manually.
 
 Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 ---
- drivers/gpu/drm/msm/hdmi/hdmi.c | 2 --
- 1 file changed, 2 deletions(-)
+ drivers/gpu/drm/omapdrm/omap_drv.c | 41 ------------------------------
+ 1 file changed, 41 deletions(-)
 
-diff --git a/drivers/gpu/drm/msm/hdmi/hdmi.c b/drivers/gpu/drm/msm/hdmi/hdmi.c
-index 93fe61b86967..a540c45d4fd3 100644
---- a/drivers/gpu/drm/msm/hdmi/hdmi.c
-+++ b/drivers/gpu/drm/msm/hdmi/hdmi.c
-@@ -348,8 +348,6 @@ int msm_hdmi_modeset_init(struct hdmi *hdmi,
- 		goto fail;
- 	}
+diff --git a/drivers/gpu/drm/omapdrm/omap_drv.c b/drivers/gpu/drm/omapdrm/omap_drv.c
+index eaf67b9e5f12..699ed814e021 100644
+--- a/drivers/gpu/drm/omapdrm/omap_drv.c
++++ b/drivers/gpu/drm/omapdrm/omap_drv.c
+@@ -545,44 +545,6 @@ static void omap_modeset_fini(struct drm_device *ddev)
+ 	drm_mode_config_cleanup(ddev);
+ }
  
--	drm_bridge_connector_enable_hpd(hdmi->connector);
+-/*
+- * Enable the HPD in external components if supported
+- */
+-static void omap_modeset_enable_external_hpd(struct drm_device *ddev)
+-{
+-	struct omap_drm_private *priv = ddev->dev_private;
+-	unsigned int i;
 -
- 	ret = msm_hdmi_hpd_enable(hdmi->bridge);
- 	if (ret < 0) {
- 		DRM_DEV_ERROR(&hdmi->pdev->dev, "failed to enable HPD: %d\n", ret);
+-	for (i = 0; i < priv->num_pipes; i++) {
+-		struct drm_connector *connector = priv->pipes[i].connector;
+-
+-		if (!connector)
+-			continue;
+-
+-		if (priv->pipes[i].output->bridge)
+-			drm_bridge_connector_enable_hpd(connector);
+-	}
+-}
+-
+-/*
+- * Disable the HPD in external components if supported
+- */
+-static void omap_modeset_disable_external_hpd(struct drm_device *ddev)
+-{
+-	struct omap_drm_private *priv = ddev->dev_private;
+-	unsigned int i;
+-
+-	for (i = 0; i < priv->num_pipes; i++) {
+-		struct drm_connector *connector = priv->pipes[i].connector;
+-
+-		if (!connector)
+-			continue;
+-
+-		if (priv->pipes[i].output->bridge)
+-			drm_bridge_connector_disable_hpd(connector);
+-	}
+-}
+-
+ /*
+  * drm ioctl funcs
+  */
+@@ -782,7 +744,6 @@ static int omapdrm_init(struct omap_drm_private *priv, struct device *dev)
+ 	omap_fbdev_init(ddev);
+ 
+ 	drm_kms_helper_poll_init(ddev);
+-	omap_modeset_enable_external_hpd(ddev);
+ 
+ 	/*
+ 	 * Register the DRM device with the core and the connectors with
+@@ -795,7 +756,6 @@ static int omapdrm_init(struct omap_drm_private *priv, struct device *dev)
+ 	return 0;
+ 
+ err_cleanup_helpers:
+-	omap_modeset_disable_external_hpd(ddev);
+ 	drm_kms_helper_poll_fini(ddev);
+ 
+ 	omap_fbdev_fini(ddev);
+@@ -822,7 +782,6 @@ static void omapdrm_cleanup(struct omap_drm_private *priv)
+ 
+ 	drm_dev_unregister(ddev);
+ 
+-	omap_modeset_disable_external_hpd(ddev);
+ 	drm_kms_helper_poll_fini(ddev);
+ 
+ 	omap_fbdev_fini(ddev);
 -- 
 2.35.1
 
