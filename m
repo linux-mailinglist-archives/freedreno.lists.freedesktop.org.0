@@ -2,61 +2,62 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3064260AE77
-	for <lists+freedreno@lfdr.de>; Mon, 24 Oct 2022 17:01:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6121360AEC1
+	for <lists+freedreno@lfdr.de>; Mon, 24 Oct 2022 17:14:51 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D4D8B10E80B;
-	Mon, 24 Oct 2022 15:01:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 056EE10E838;
+	Mon, 24 Oct 2022 15:14:50 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ot1-x334.google.com (mail-ot1-x334.google.com
- [IPv6:2607:f8b0:4864:20::334])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D193710E80B;
- Mon, 24 Oct 2022 15:01:46 +0000 (UTC)
-Received: by mail-ot1-x334.google.com with SMTP id
- p24-20020a9d6958000000b00661c528849eso6027260oto.9; 
- Mon, 24 Oct 2022 08:01:46 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=WrYoOZbKFCccOrtXPnngnmJRm0Dj9ejvdDDgWvdIOc4=;
- b=j2U/GyYCVlBhA/+vasoTYYyganc6QSHUuLmYGE461nM2B2j7L8BHyYJbCAxBhVG1XX
- acQEn8DfB15lQQ3cUHrYLqtiRlayPkTmfzIFDmBmW5dcYFdLQND9nnxZTdvKCr6uWVWP
- lQ/YxKxb8xTwyqrUVGSy4HmT9X8ii3nCf4v54hhleQEB63NKf+9vkZs57xlDOQZ3auCn
- ShBrinqTkg3S34wjdreAKCRKmFJec1d+fPErUSGV0Dis+Q+dbROR4jlIeogJ8DkVUOal
- yrAtF7Ri5T52VTE5VHwBXhGCANjLxUew9ZeBxt+lQ/waEnuFDltPYahUmXVQ3BlssTh+
- nQrA==
+Received: from mail-lf1-x136.google.com (mail-lf1-x136.google.com
+ [IPv6:2a00:1450:4864:20::136])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A02A610E838
+ for <freedreno@lists.freedesktop.org>; Mon, 24 Oct 2022 15:14:47 +0000 (UTC)
+Received: by mail-lf1-x136.google.com with SMTP id g1so17215179lfu.12
+ for <freedreno@lists.freedesktop.org>; Mon, 24 Oct 2022 08:14:47 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=uK2a3CldzNIRRMaqWYrmeMmnGxpuX490eqnTlz/whMk=;
+ b=zCxdchVyQR/EsF3KDKVvPTyTFbNr3vJ6GZoJwiSlyc31edKx3etrs+zUWQ+3KkyStR
+ xVW3JryyojbPz9qHUPJNmJLOuTzJt73PXsMo0gfusyqOcmGyO5eV/WhbksfVB+sZBTjT
+ MokD1XZzN5tPLqCny+tle4ot86hncH/9j/j0ahVKtxWEp3D9e6jXK7oj0PBODBaGbJpM
+ bBrwIVm8IHFeONzv/7Bd038k98oHWzjBNwB7ZyN8lNmo+09SzUOvZAzmCmr+8dWaBQ6N
+ xU8yp6UYjQkwD9/RlHHuDHrCnl1aRE3ZoZlS0D6pBYsjA8UofY8CzSOmBpzLQ2/0AKqF
+ 4AeA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=WrYoOZbKFCccOrtXPnngnmJRm0Dj9ejvdDDgWvdIOc4=;
- b=fyGbtDEWXn+84HpqysIMynEtyq0NFIkBcUAIjpY/wGDF+hhXp6uZQfyjJSnNqx9NyN
- Oqy8X/tbWi4J+ZRaf7vXGgug3iOmootWL7SQf4GJwH0zPvoIdQtfDtVKOtnxP60TDw5I
- CYEeNx065gpsUlQweCLWLj5PjCW46zRXV3AttKB0DrmAzl7JiL3VhkNN5Qd5+35FjJlG
- Jme7Lrmf3QNi0RM+9jCjrxCkAe0DI2Znsog3sW8iozR1tTsst3nJcCrkPOsRNa8bJknB
- KofQVSF99Dz5r1dM20hqUUTgH4yy0AMG6jIhEZtV5OGVwf4CZsdpviJQtyF/THI/8lzK
- oQyQ==
-X-Gm-Message-State: ACrzQf09w2ITihb4N9uyndagUmjSVELfr7ZXfe7GH+/8eC5GTleFVxel
- OjRH/Mlpw5lgr3Sm806CJhYJ+Pkyve4UfmHU64A=
-X-Google-Smtp-Source: AMsMyM6EvysaHiUabvYs4baVZTymhfLHCC/g/dii9bVMJWWAuOyZVdmdE7eqTdRMvsDXi3jbZf8C43NqJDJvCUeug1s=
-X-Received: by 2002:a9d:7859:0:b0:661:b842:80d2 with SMTP id
- c25-20020a9d7859000000b00661b84280d2mr16537790otm.328.1666623706022; Mon, 24
- Oct 2022 08:01:46 -0700 (PDT)
+ bh=uK2a3CldzNIRRMaqWYrmeMmnGxpuX490eqnTlz/whMk=;
+ b=tViKPHUUXhZv9l6nWJt/fU0MRU0ry2xrZk9x/ZqJznzioWo29CuxAnp/RToh1jbzQx
+ xxKCuHKLqm3kU02wuOJW+vC+pcSEARGzrvvGJoKM4ij6abqS8SUAMX/MkSNAiM6cyQqp
+ IJWt6GNWL1sOIvp30xnrnrYPPrtqhJ9T7KoMyCmWkTG2YNmGc4cHdmuDVScAr9aN0VN+
+ HBJTVx+jH//9PsvRTHe1dT8F7Y90XKJNi8yq9/b9IaYsVlUWsULnpOwp9DQZbMDEnkwa
+ j7iYyCeLfb/eMRkHwnYAkefEAu1RI0JQDENLxzSIX+jDD9++AEKRIsfvkx0MdaRHW45m
+ J0+A==
+X-Gm-Message-State: ACrzQf0dkBDyZG1gMhFSOhHHWlMwUO0+jJ0tUKO9hO0IH8x9n9XIZT12
+ CQgTCW2+LQN7pw4JkckV+jb+bg==
+X-Google-Smtp-Source: AMsMyM7I5Z7haqJvgbG39DqjwUq8Tj44k/VShJNksqgQgMrE+D1PnPgYL2ybE/orrPCVslMYmDzDwA==
+X-Received: by 2002:ac2:4d05:0:b0:4a7:7e1b:1c81 with SMTP id
+ r5-20020ac24d05000000b004a77e1b1c81mr7222973lfi.110.1666624485975; 
+ Mon, 24 Oct 2022 08:14:45 -0700 (PDT)
+Received: from eriador.unikie.fi ([192.130.178.91])
+ by smtp.gmail.com with ESMTPSA id
+ h7-20020a2ea487000000b002771057e0e5sm265943lji.76.2022.10.24.08.14.45
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 24 Oct 2022 08:14:45 -0700 (PDT)
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+To: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>
+Date: Mon, 24 Oct 2022 18:14:43 +0300
+Message-Id: <20221024151444.3208225-1-dmitry.baryshkov@linaro.org>
+X-Mailer: git-send-email 2.35.1
 MIME-Version: 1.0
-References: <20220913085320.8577-1-johan+linaro@kernel.org>
- <YymCll02tRIMb+9Z@hovoldconsulting.com>
- <Y1I77HYeOkx1fz1E@hovoldconsulting.com>
- <139426b9-0e5b-e4c3-27c6-584ab48517c2@quicinc.com>
- <Y1Z4HrEcLDhe6gQr@hovoldconsulting.com>
-In-Reply-To: <Y1Z4HrEcLDhe6gQr@hovoldconsulting.com>
-From: Rob Clark <robdclark@gmail.com>
-Date: Mon, 24 Oct 2022 08:01:55 -0700
-Message-ID: <CAF6AEGuMFCSN2YtXiPmzL_4t82PPp_-K6DB+UHtScygD8PCQHw@mail.gmail.com>
-To: Johan Hovold <johan@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [PATCH v2 00/10] drm/msm: probe deferral fixes
+Content-Transfer-Encoding: 8bit
+Subject: [Freedreno] [PATCH v2 1/2] drm/msm: remove duplicated code from
+ a6xx_create_address_space
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,87 +70,135 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: dri-devel@lists.freedesktop.org, Neil Armstrong <neil.armstrong@linaro.org>,
- Jernej Skrabec <jernej.skrabec@gmail.com>, linux-kernel@vger.kernel.org,
- Daniel Vetter <daniel@ffwll.ch>, Jonas Karlman <jonas@kwiboo.se>,
- Kuogee Hsieh <quic_khsieh@quicinc.com>, Bjorn Andersson <andersson@kernel.org>,
- freedreno@lists.freedesktop.org, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Robert Foss <robert.foss@linaro.org>, Douglas Anderson <dianders@chromium.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Andrzej Hajda <andrzej.hajda@intel.com>,
- Manivannan Sadhasivam <manivannan.sadhasivam@linaro.org>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, linux-arm-msm@vger.kernel.org,
- Stephen Boyd <swboyd@chromium.org>, Sean Paul <sean@poorly.run>,
- Steev Klimaszewski <steev@kali.org>
+Cc: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
+ Bjorn Andersson <andersson@kernel.org>, dri-devel@lists.freedesktop.org,
+ Stephen Boyd <swboyd@chromium.org>, Daniel Vetter <daniel@ffwll.ch>,
+ David Airlie <airlied@gmail.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Mon, Oct 24, 2022 at 4:34 AM Johan Hovold <johan@kernel.org> wrote:
->
-> On Fri, Oct 21, 2022 at 09:05:52AM -0700, Abhinav Kumar wrote:
-> > Hi Johan
-> >
-> > On 10/20/2022 11:27 PM, Johan Hovold wrote:
-> > > On Tue, Sep 20, 2022 at 11:06:30AM +0200, Johan Hovold wrote:
-> > >> On Tue, Sep 13, 2022 at 10:53:10AM +0200, Johan Hovold wrote:
-> > >>> The MSM DRM driver is currently broken in multiple ways with respect to
-> > >>> probe deferral. Not only does the driver currently fail to probe again
-> > >>> after a late deferral, but due to a related use-after-free bug this also
-> > >>> triggers NULL-pointer dereferences.
-> > >>>
-> > >>> These bugs are not new but have become critical with the release of
-> > >>> 5.19 where probe is deferred in case the aux-bus EP panel driver has not
-> > >>> yet been loaded.
-> > >>>
-> > >>> The underlying problem is lifetime issues due to careless use of
-> > >>> device-managed resources.
-> > >>
-> > >> Any chance of getting this merged for 6.1?
-> > >
-> > > Is anyone picking these up as fixes for 6.1-rc as we discussed?
-> > >
-> > > Johan
-> >
-> > All of these except the last two ( as discussed ) have landed in the
-> > -fixes tree
-> >
-> > https://gitlab.freedesktop.org/drm/msm/-/commit/6808abdb33bf90330e70a687d29f038507e06ebb
->
-> Ah, perfect, thanks.
->
-> When do you expect to send these on so that they end up in linux-next
-> and eventually Linus's tree?
+The function a6xx_create_address_space() is mostly a copy of
+adreno_iommu_create_address_space() with added quirk setting. Reuse the
+original function to do the work, while introducing the wrapper to set
+the quirk.
 
-I'll send a -fixes PR this week
+Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+---
+ drivers/gpu/drm/msm/adreno/a6xx_gpu.c   | 31 ++++---------------------
+ drivers/gpu/drm/msm/adreno/adreno_gpu.c |  4 ++--
+ drivers/gpu/drm/msm/adreno/adreno_gpu.h |  2 +-
+ drivers/gpu/drm/msm/msm_iommu.c         |  7 ++++++
+ drivers/gpu/drm/msm/msm_mmu.h           |  1 +
+ 5 files changed, 15 insertions(+), 30 deletions(-)
 
-> Note that it looks like something happened with the commit messages when
-> you applied these. Specifically, the Fixes tags appears to now have a
-> line break in them and there's also some random whitespace before your
-> SoB:
->
->         Fixes: c3bf8e21
->
->          ("drm/msm/dp: Add eDP support via aux_bus")
+diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+index fdc578016e0b..7640f5b960d6 100644
+--- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
++++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+@@ -1786,41 +1786,18 @@ a6xx_create_address_space(struct msm_gpu *gpu, struct platform_device *pdev)
+ {
+ 	struct adreno_gpu *adreno_gpu = to_adreno_gpu(gpu);
+ 	struct a6xx_gpu *a6xx_gpu = to_a6xx_gpu(adreno_gpu);
+-	struct iommu_domain *iommu;
+-	struct msm_mmu *mmu;
+ 	struct msm_gem_address_space *aspace;
+-	u64 start, size;
+ 
+-	iommu = iommu_domain_alloc(&platform_bus_type);
+-	if (!iommu)
+-		return NULL;
++	aspace = adreno_iommu_create_address_space(gpu, pdev);
++	if (IS_ERR_OR_NULL(aspace))
++		return ERR_CAST(aspace);
+ 
+ 	/*
+ 	 * This allows GPU to set the bus attributes required to use system
+ 	 * cache on behalf of the iommu page table walker.
+ 	 */
+ 	if (!IS_ERR_OR_NULL(a6xx_gpu->htw_llc_slice))
+-		adreno_set_llc_attributes(iommu);
+-
+-	mmu = msm_iommu_new(&pdev->dev, iommu);
+-	if (IS_ERR(mmu)) {
+-		iommu_domain_free(iommu);
+-		return ERR_CAST(mmu);
+-	}
+-
+-	/*
+-	 * Use the aperture start or SZ_16M, whichever is greater. This will
+-	 * ensure that we align with the allocated pagetable range while still
+-	 * allowing room in the lower 32 bits for GMEM and whatnot
+-	 */
+-	start = max_t(u64, SZ_16M, iommu->geometry.aperture_start);
+-	size = iommu->geometry.aperture_end - start + 1;
+-
+-	aspace = msm_gem_address_space_create(mmu, "gpu",
+-		start & GENMASK_ULL(48, 0), size);
+-
+-	if (IS_ERR(aspace) && !IS_ERR(mmu))
+-		mmu->funcs->destroy(mmu);
++		adreno_set_llc_attributes(aspace->mmu);
+ 
+ 	return aspace;
+ }
+diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.c b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
+index 382fb7f9e497..ed26b8dfc789 100644
+--- a/drivers/gpu/drm/msm/adreno/adreno_gpu.c
++++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
+@@ -191,9 +191,9 @@ int adreno_zap_shader_load(struct msm_gpu *gpu, u32 pasid)
+ 	return zap_shader_load_mdt(gpu, adreno_gpu->info->zapfw, pasid);
+ }
+ 
+-void adreno_set_llc_attributes(struct iommu_domain *iommu)
++void adreno_set_llc_attributes(struct msm_mmu *mmu)
+ {
+-	iommu_set_pgtable_quirks(iommu, IO_PGTABLE_QUIRK_ARM_OUTER_WBWA);
++	msm_iommu_set_pgtable_quirks(mmu, IO_PGTABLE_QUIRK_ARM_OUTER_WBWA);
+ }
+ 
+ struct msm_gem_address_space *
+diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.h b/drivers/gpu/drm/msm/adreno/adreno_gpu.h
+index e7adc5c632d0..723729e463e8 100644
+--- a/drivers/gpu/drm/msm/adreno/adreno_gpu.h
++++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.h
+@@ -338,7 +338,7 @@ struct msm_gem_address_space *
+ adreno_iommu_create_address_space(struct msm_gpu *gpu,
+ 		struct platform_device *pdev);
+ 
+-void adreno_set_llc_attributes(struct iommu_domain *iommu);
++void adreno_set_llc_attributes(struct msm_mmu *mmu);
+ 
+ int adreno_read_speedbin(struct device *dev, u32 *speedbin);
+ 
+diff --git a/drivers/gpu/drm/msm/msm_iommu.c b/drivers/gpu/drm/msm/msm_iommu.c
+index 5577cea7c009..768ab71cc43e 100644
+--- a/drivers/gpu/drm/msm/msm_iommu.c
++++ b/drivers/gpu/drm/msm/msm_iommu.c
+@@ -186,6 +186,13 @@ int msm_iommu_pagetable_params(struct msm_mmu *mmu,
+ 	return 0;
+ }
+ 
++int msm_iommu_set_pgtable_quirks(struct msm_mmu *mmu, unsigned long quirk)
++{
++	struct msm_iommu *iommu = to_msm_iommu(mmu);
++
++	return iommu_set_pgtable_quirks(iommu->domain, quirk);
++}
++
+ static const struct msm_mmu_funcs pagetable_funcs = {
+ 		.map = msm_iommu_pagetable_map,
+ 		.unmap = msm_iommu_pagetable_unmap,
+diff --git a/drivers/gpu/drm/msm/msm_mmu.h b/drivers/gpu/drm/msm/msm_mmu.h
+index de158e1bf765..d968d9f8e19c 100644
+--- a/drivers/gpu/drm/msm/msm_mmu.h
++++ b/drivers/gpu/drm/msm/msm_mmu.h
+@@ -58,5 +58,6 @@ void msm_gpummu_params(struct msm_mmu *mmu, dma_addr_t *pt_base,
+ 
+ int msm_iommu_pagetable_params(struct msm_mmu *mmu, phys_addr_t *ttbr,
+ 		int *asid);
++int msm_iommu_set_pgtable_quirks(struct msm_mmu *mmu, unsigned long quirk);
+ 
+ #endif /* __MSM_MMU_H__ */
+-- 
+2.35.1
 
-naw, that is just some problem with gitlab's html generation, the
-actual patch is fine ;-)
-
-BR,
--R
-
->         Cc: stable@vger.kernel.org      # 5.19
->         Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
->         Signed-off-by: Johan Hovold <johan+linaro@kernel.org>
->         Tested-by: Kuogee Hsieh <quic_khsieh@quicinc.com>
->         Reviewed-by: Kuogee Hsieh <quic_khsieh@quicinc.com>
->         Patchwork: https://patchwork.freedesktop.org/patch/502667/
->         Link: https://lore.kernel.org/r/20220913085320.8577-8-johan+linaro@kernel.org
->
->
->         Signed-off-by: Abhinav Kumar's avatarAbhinav Kumar <quic_abhinavk@quicinc.com>
->
-> It's possible just the gitlab UI that's messed up, but perhaps you can
-> double check before they hit linux-next, which should complain about
-> this otherwise.
->
-> Johan
