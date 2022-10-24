@@ -2,61 +2,73 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8385760AF00
-	for <lists+freedreno@lfdr.de>; Mon, 24 Oct 2022 17:26:49 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2997960AF32
+	for <lists+freedreno@lfdr.de>; Mon, 24 Oct 2022 17:39:35 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2541010E84B;
-	Mon, 24 Oct 2022 15:26:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A89F910E881;
+	Mon, 24 Oct 2022 15:39:33 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x136.google.com (mail-lf1-x136.google.com
- [IPv6:2a00:1450:4864:20::136])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F41ED10E84B
- for <freedreno@lists.freedesktop.org>; Mon, 24 Oct 2022 15:26:44 +0000 (UTC)
-Received: by mail-lf1-x136.google.com with SMTP id g12so6799989lfh.3
- for <freedreno@lists.freedesktop.org>; Mon, 24 Oct 2022 08:26:44 -0700 (PDT)
+Received: from mail-lj1-x22d.google.com (mail-lj1-x22d.google.com
+ [IPv6:2a00:1450:4864:20::22d])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B147610E22A
+ for <freedreno@lists.freedesktop.org>; Mon, 24 Oct 2022 15:39:29 +0000 (UTC)
+Received: by mail-lj1-x22d.google.com with SMTP id bs14so13307555ljb.9
+ for <freedreno@lists.freedesktop.org>; Mon, 24 Oct 2022 08:39:29 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=content-transfer-encoding:mime-version:message-id:date:subject:cc
  :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=pqRGLOBzaJQiPD69TI7ZYBGSuH1X+zWammokeoyKgYQ=;
- b=HkOaYkKKLa/BIyb+5jGjQbazDfUhDjOYuBGoLd5rCqFXMIL68wqRsnaWnolbGOC3Nm
- zcrNhuXpU1NHlUBHCJ2M4Y/EY4wLe9UgW9Cf81yClkr+I2v3/Y1O5hQmbEYWagLjyD1t
- D5GHDoZQsASaCwFHuZkngWmEa/ocmYphgM4ETi1rgJD484sqJX6pG258WQmqHf93ff1T
- HtR9tMdedYZ5tEw2E/l/vw7eADjsEHT/QrD55nADifCD+NNiu4rdBxtsC5XvITupwFn3
- 3jBk9J4zdCZQHP5nPCkypV2WFDZWg8MUEJ0EdktbNrYadFSDmcppLyp7G221T9Ffkdxh
- C6dA==
+ bh=4iRQ1ZLI8K+KKo3Mi3lCacL/2gYfLmhjW+eZ+G5VxR0=;
+ b=DK03fHAgU4BsXGUew2FzyG3+wVE1aU4jA6ElvQnlho0LEO32GQFcBY4dd/LkCacBJ2
+ jPIwbDMb2KnH0lLk1oaf7f2CmWkfUlIO1bnPfDHSgSmzMrI8sNmCR7B37cRbVo3Xb0qW
+ Dk4xPSNWnfO6MqLUqU0BwiV5QT7qiki/jvUIMYxU33HgObQCtr5I/qWByuNiyiQf7wyv
+ y0jFQqxx37K5dKOOaXLzRfVS5Uk5IOWF7L/jw3uXSTx5iFH2VfQzEKNAZHjY9kmLDE4E
+ LaHw9E2HVZl2VkJ5z3LuMkaH3FxatPfoF70MaFt456vIuB3oCBztawgsnK/cu0BcbnSj
+ EE8w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=content-transfer-encoding:mime-version:message-id:date:subject:cc
  :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=pqRGLOBzaJQiPD69TI7ZYBGSuH1X+zWammokeoyKgYQ=;
- b=vjD3q6+8optxoyFnX2HcJ1MXUrRaH9lAoAJ66nA3AwslWg80iCp2v6JyjwKea+xr5P
- HZUPhnqD5Oe0/3eakoBUpyiq0mG9d1u0bkeB77znMesIBZ4NbUghtr2xQaHgrttjSuBQ
- i1lOBTnzBkiGC5JmQj+boL1zitTwlXVwF/6Un2CSvUMEC4T6VT1Ze3t0jBqrnZWwNRdC
- cvhIkU62xDcsaEvWbs4zNzJqopwx4ZVMcEbUqEDpuWcDyBbNz3lTVKvKAyh5+/icOCqK
- aXbEUIqCjATXAoJ/TKbZz1ZxALmkSbz76N4fqaJX+aQtoiFC/k6y96w8Ua18unMxC2SK
- 6Ibw==
-X-Gm-Message-State: ACrzQf1jXXBwR754X+HSJEG+b0LkqSItyXTp6RFMnZcB7oOPrtf3CQwT
- 31OE9+8Gv/HEYlb1ZIA4DZl42w==
-X-Google-Smtp-Source: AMsMyM5fxtkvvqMZxj7sYGg5V2dnMN1M5jifAxQQ9eMylMBAIElzfvxtuf1imBSLvNUFesRVFPcZsg==
-X-Received: by 2002:a05:6512:3053:b0:4a2:6b9c:a853 with SMTP id
- b19-20020a056512305300b004a26b9ca853mr11555194lfb.666.1666625203332; 
- Mon, 24 Oct 2022 08:26:43 -0700 (PDT)
+ bh=4iRQ1ZLI8K+KKo3Mi3lCacL/2gYfLmhjW+eZ+G5VxR0=;
+ b=zFoW+h58YrVM7cweM1mU6iWXHsQKlL7NHskp+L6ReKqKJ2djmr6oTa+1njxn0ZeGEA
+ 1uHfw9rvgBSxRnSFu8FTt9R6/y+VrZ2Ifo/nsnSdcaGacNdq+6uqF+NZEwlraF0aLHYe
+ YqzU+1sbsXObp+krtOPC8/1eLIRr8srMYydJbx0Mu/Nbd3byFoy7Gn9jGDETeWkcmicd
+ hWgRWRJ6RIimdPwlmewdQZhiZalx5nU2vHnTmYc8hGQmo5RAVhE0dWauxKDYc7BhZhu2
+ +W4QOyYyy9cgUNBOoB4V9y2VC2Y8yasEiWltUKHx0si6JzuGQZ25FEpF+WC9JghOTBg6
+ DE2g==
+X-Gm-Message-State: ACrzQf2R/iuZXmw3OtlhOlOVqzjSup/GwkTrV1RPEsuFyuApRVgipZ5Q
+ ftN4m+LA1TnQe+dUoZrFaZGQoA==
+X-Google-Smtp-Source: AMsMyM6aZgyFcF24FEeW+Du1bHiLYldBNuRLnhbLGjWtlua2WDhhdBQOeIt39dXfHwX+IO0gs5LU4w==
+X-Received: by 2002:a05:651c:169a:b0:277:2ee:5e77 with SMTP id
+ bd26-20020a05651c169a00b0027702ee5e77mr4629293ljb.455.1666625968011; 
+ Mon, 24 Oct 2022 08:39:28 -0700 (PDT)
 Received: from eriador.unikie.fi ([192.130.178.91])
  by smtp.gmail.com with ESMTPSA id
- p11-20020a056512234b00b0049487818dd9sm4580617lfu.60.2022.10.24.08.26.42
+ f23-20020a19ae17000000b00497b198987bsm452181lfc.26.2022.10.24.08.39.27
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 24 Oct 2022 08:26:42 -0700 (PDT)
+ Mon, 24 Oct 2022 08:39:27 -0700 (PDT)
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-To: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>
-Date: Mon, 24 Oct 2022 18:26:42 +0300
-Message-Id: <20221024152642.3213488-1-dmitry.baryshkov@linaro.org>
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Daniel Vetter <daniel@ffwll.ch>,
+ Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>,
+ Lucas Stach <l.stach@pengutronix.de>,
+ Philipp Zabel <p.zabel@pengutronix.de>, Shawn Guo <shawnguo@kernel.org>,
+ Sascha Hauer <s.hauer@pengutronix.de>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Fabio Estevam <festevam@gmail.com>, NXP Linux Team <linux-imx@nxp.com>,
+ Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Tomi Valkeinen <tomba@kernel.org>
+Date: Mon, 24 Oct 2022 18:39:19 +0300
+Message-Id: <20221024153926.3222225-1-dmitry.baryshkov@linaro.org>
 X-Mailer: git-send-email 2.35.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH v3] drm/msm/mdp5: stop overriding drvdata
+Subject: [Freedreno] [PATCH v2 0/7] drm/bridge_connector: perform HPD
+ enablement automatically
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,158 +81,48 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
- Bjorn Andersson <andersson@kernel.org>, dri-devel@lists.freedesktop.org,
- Stephen Boyd <swboyd@chromium.org>, Daniel Vetter <daniel@ffwll.ch>,
- David Airlie <airlied@gmail.com>
+Cc: linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
+ linux-arm-kernel@lists.infradead.org, dri-devel@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-The rest of the code expects that master's device drvdata is the
-struct msm_drm_private instance. Do not override the mdp5's drvdata.
+From all the drivers using drm_bridge_connector only iMX/dcss and OMAP
+DRM driver do a proper work of calling
+drm_bridge_connector_en/disable_hpd() in right places. Rather than
+teaching each and every driver how to properly handle
+drm_bridge_connector's HPD, make that automatic.
 
-Fixes: 6874f48bb8b0 ("drm/msm: make mdp5/dpu devices master components")
-Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
----
-Abhinav, Rob, please pick this for -fixes.
-
-This is an updated version of [1]. Fixed the read_mdp_hw_revision()
-function. PM runtime isn't available at the moment, as priv->kms is not
-set.
-
-[1] https://patchwork.freedesktop.org/patch/490326/?series=105392&rev=1
-
-Changes since v2:
-- Removed the clause checking whether mdp5_enable() has failed (it can
-  not fail, noted by Abhinav)
+Add two additional drm_connector helper funcs: enable_hpd() and
+disable_hpd(). Make drm_kms_helper_poll_* functions call them (as this
+is the time where the drm_bridge_connector's functions are called by the
+drivers too).
 
 Changes since v1:
-- Expanded the patch to also handle the read_mdp_hw_revision() and also
-  to move pm enablement to the place where the pm_runtime can actually
-  be used.
+ - Rebased on top of v6.1-rc1
+ - Removed the drm_bridge_connector_enable_hpd() from
+   drm_bridge_connector_init()
+ - Removed extra underscore prefix from
+   drm_bridge_connector_en/disable_hpd() helpers
 
----
- drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c | 32 +++++++++++++-----------
- 1 file changed, 17 insertions(+), 15 deletions(-)
+Dmitry Baryshkov (7):
+  drm/poll-helper: merge drm_kms_helper_poll_disable() and _fini()
+  drm/probe-helper: enable and disable HPD on connectors
+  drm/bridge_connector: rely on drm_kms_helper_poll_* for HPD enablement
+  drm/imx/dcss: stop using drm_bridge_connector_en/disable_hpd()
+  drm/msm/hdmi: stop using drm_bridge_connector_en/disable_hpd()
+  drm/omap: stop using drm_bridge_connector_en/disable_hpd()
+  drm/bridge_connector: drop drm_bridge_connector_en/disable_hpd()
 
-diff --git a/drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c b/drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c
-index b0d21838a134..b46f983f2b46 100644
---- a/drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c
-+++ b/drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c
-@@ -203,7 +203,7 @@ static int mdp5_set_split_display(struct msm_kms *kms,
- 							  slave_encoder);
- }
- 
--static void mdp5_destroy(struct platform_device *pdev);
-+static void mdp5_destroy(struct mdp5_kms *mdp5_kms);
- 
- static void mdp5_kms_destroy(struct msm_kms *kms)
- {
-@@ -223,7 +223,7 @@ static void mdp5_kms_destroy(struct msm_kms *kms)
- 	}
- 
- 	mdp_kms_destroy(&mdp5_kms->base);
--	mdp5_destroy(mdp5_kms->pdev);
-+	mdp5_destroy(mdp5_kms);
- }
- 
- #ifdef CONFIG_DEBUG_FS
-@@ -519,9 +519,10 @@ static void read_mdp_hw_revision(struct mdp5_kms *mdp5_kms,
- 	struct device *dev = &mdp5_kms->pdev->dev;
- 	u32 version;
- 
--	pm_runtime_get_sync(dev);
-+	/* Manually enable the MDP5, as pm runtime isn't usable yet. */
-+	mdp5_enable(mdp5_kms);
- 	version = mdp5_read(mdp5_kms, REG_MDP5_HW_VERSION);
--	pm_runtime_put_sync(dev);
-+	mdp5_disable(mdp5_kms);
- 
- 	*major = FIELD(version, MDP5_HW_VERSION_MAJOR);
- 	*minor = FIELD(version, MDP5_HW_VERSION_MINOR);
-@@ -559,6 +560,8 @@ static int mdp5_kms_init(struct drm_device *dev)
- 	int irq, i, ret;
- 
- 	ret = mdp5_init(to_platform_device(dev->dev), dev);
-+	if (ret)
-+		return ret;
- 
- 	/* priv->kms would have been populated by the MDP5 driver */
- 	kms = priv->kms;
-@@ -632,9 +635,8 @@ static int mdp5_kms_init(struct drm_device *dev)
- 	return ret;
- }
- 
--static void mdp5_destroy(struct platform_device *pdev)
-+static void mdp5_destroy(struct mdp5_kms *mdp5_kms)
- {
--	struct mdp5_kms *mdp5_kms = platform_get_drvdata(pdev);
- 	int i;
- 
- 	if (mdp5_kms->ctlm)
-@@ -648,7 +650,7 @@ static void mdp5_destroy(struct platform_device *pdev)
- 		kfree(mdp5_kms->intfs[i]);
- 
- 	if (mdp5_kms->rpm_enabled)
--		pm_runtime_disable(&pdev->dev);
-+		pm_runtime_disable(&mdp5_kms->pdev->dev);
- 
- 	drm_atomic_private_obj_fini(&mdp5_kms->glob_state);
- 	drm_modeset_lock_fini(&mdp5_kms->glob_state_lock);
-@@ -797,8 +799,6 @@ static int mdp5_init(struct platform_device *pdev, struct drm_device *dev)
- 		goto fail;
- 	}
- 
--	platform_set_drvdata(pdev, mdp5_kms);
--
- 	spin_lock_init(&mdp5_kms->resource_lock);
- 
- 	mdp5_kms->dev = dev;
-@@ -839,9 +839,6 @@ static int mdp5_init(struct platform_device *pdev, struct drm_device *dev)
- 	 */
- 	clk_set_rate(mdp5_kms->core_clk, 200000000);
- 
--	pm_runtime_enable(&pdev->dev);
--	mdp5_kms->rpm_enabled = true;
--
- 	read_mdp_hw_revision(mdp5_kms, &major, &minor);
- 
- 	mdp5_kms->cfg = mdp5_cfg_init(mdp5_kms, major, minor);
-@@ -893,10 +890,13 @@ static int mdp5_init(struct platform_device *pdev, struct drm_device *dev)
- 	/* set uninit-ed kms */
- 	priv->kms = &mdp5_kms->base.base;
- 
-+	pm_runtime_enable(&pdev->dev);
-+	mdp5_kms->rpm_enabled = true;
-+
- 	return 0;
- fail:
- 	if (mdp5_kms)
--		mdp5_destroy(pdev);
-+		mdp5_destroy(mdp5_kms);
- 	return ret;
- }
- 
-@@ -953,7 +953,8 @@ static int mdp5_dev_remove(struct platform_device *pdev)
- static __maybe_unused int mdp5_runtime_suspend(struct device *dev)
- {
- 	struct platform_device *pdev = to_platform_device(dev);
--	struct mdp5_kms *mdp5_kms = platform_get_drvdata(pdev);
-+	struct msm_drm_private *priv = platform_get_drvdata(pdev);
-+	struct mdp5_kms *mdp5_kms = to_mdp5_kms(to_mdp_kms(priv->kms));
- 
- 	DBG("");
- 
-@@ -963,7 +964,8 @@ static __maybe_unused int mdp5_runtime_suspend(struct device *dev)
- static __maybe_unused int mdp5_runtime_resume(struct device *dev)
- {
- 	struct platform_device *pdev = to_platform_device(dev);
--	struct mdp5_kms *mdp5_kms = platform_get_drvdata(pdev);
-+	struct msm_drm_private *priv = platform_get_drvdata(pdev);
-+	struct mdp5_kms *mdp5_kms = to_mdp5_kms(to_mdp_kms(priv->kms));
- 
- 	DBG("");
- 
+ drivers/gpu/drm/drm_bridge_connector.c   | 27 +++-------------
+ drivers/gpu/drm/drm_probe_helper.c       | 40 ++++++++++++++++++-----
+ drivers/gpu/drm/imx/dcss/dcss-dev.c      |  4 ---
+ drivers/gpu/drm/imx/dcss/dcss-kms.c      |  2 --
+ drivers/gpu/drm/msm/hdmi/hdmi.c          |  2 --
+ drivers/gpu/drm/omapdrm/omap_drv.c       | 41 ------------------------
+ include/drm/drm_bridge_connector.h       |  2 --
+ include/drm/drm_modeset_helper_vtables.h | 22 +++++++++++++
+ 8 files changed, 59 insertions(+), 81 deletions(-)
+
 -- 
 2.35.1
 
