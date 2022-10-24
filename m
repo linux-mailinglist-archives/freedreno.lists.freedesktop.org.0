@@ -1,59 +1,67 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id B2FA560B0F2
-	for <lists+freedreno@lfdr.de>; Mon, 24 Oct 2022 18:13:01 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 929F660B208
+	for <lists+freedreno@lfdr.de>; Mon, 24 Oct 2022 18:42:35 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D850710E233;
-	Mon, 24 Oct 2022 16:12:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 30C7D10E443;
+	Mon, 24 Oct 2022 16:42:34 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-oa1-x29.google.com (mail-oa1-x29.google.com
- [IPv6:2001:4860:4864:20::29])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5E1E810E233;
- Mon, 24 Oct 2022 16:12:49 +0000 (UTC)
-Received: by mail-oa1-x29.google.com with SMTP id
- 586e51a60fabf-13bd19c3b68so1701477fac.7; 
- Mon, 24 Oct 2022 09:12:49 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=xeOhGRDgXDrLUtCw3GwUFAr/RTS5Lk92rkS+JxJfeEU=;
- b=XH04cOzdUK34weaVsyiw9zis6Gwdq9x/PfNnh18loM4pQ3aQalm4yiTb6XOKtuG4o0
- nrpOJ10hr/kNN/lTRewGGXEcTal1AFpiZyCHrAbX7hqMHuRXLRdwZpzkKj1cpS1M78Kh
- drkd4DuX4nBK93DVdvmeZ6vQb1CA3jwgzeZCVK6W65nwQ7OP25by0KVSbENSySvmW8oN
- vZ4Kr+PxJXy2HkitETdo+ZrM8X8jWhtlYrOYCk6BIWnPBDfsQHmJE9qdiPiDLwNKhHrF
- f4G3fmOgqbfqbWJSNC/lWDsX1UVoRH9kvhsfEf/gGr++9VS1uyTqJPN4vDkVy9YBEuRv
- xLDg==
+Received: from mail-lj1-x229.google.com (mail-lj1-x229.google.com
+ [IPv6:2a00:1450:4864:20::229])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B5AD810E43B
+ for <freedreno@lists.freedesktop.org>; Mon, 24 Oct 2022 16:42:28 +0000 (UTC)
+Received: by mail-lj1-x229.google.com with SMTP id z24so3530131ljn.4
+ for <freedreno@lists.freedesktop.org>; Mon, 24 Oct 2022 09:42:28 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=c08g93mBF9rHhNs3GF7QFErRxt7k1Q6/dC3x12TTUPQ=;
+ b=yUK2myVCWVcO34uSWy0fHghoA84NZxDo5TJhxBYUNSM900bXaQ9hLJ9qNgrQyLQp5f
+ +ELWvZryll9o+JUOYN7vMC9GLU9jJ7HBizm4RnFpYz3q5Br51TPu0ozqIUJrxMWc7Akm
+ djiqSsIgFpriscJEeqouabdM1nCxmfTeelRKcci0kpBMRHX2GuCmMUn6g3qBursFVcC1
+ E0t2CUrmKZGZz8+qYPVYoJbVbCu+N/i8J1XEnWKSg4u/HZ4UVCDmOPXKSRtf5fVxkGj5
+ fITajnhGSR1/VqpiUunvYkEuU317Jv8asdwtEd79t+YbufbVsba1gv352qtZH32/jhju
+ 6UvA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=xeOhGRDgXDrLUtCw3GwUFAr/RTS5Lk92rkS+JxJfeEU=;
- b=U+GBCQMQLW44HS+C0TJjBXXA6qakUCCQeKalGzoVSdHYQn7epGnJUU26ZAYrxhavtt
- uNXmTVGklpDpZIU5kX0XmQlGVwqLwNw6tEz5CxNgo2xCawjTY5E3pmReO8FRT26g82D9
- 7EhXIZsYrvP6snisakccx/DBDQDwcF+mKzN3eG8afWaGsfVRVo/c+Rsgmdd5ztp1fTGE
- pLKo5sO39i2eSF6QeUWV/FCvPIWfM4j649fQ5J3ATqSpG7KSpOFmrg5SLcD4l/IZXyA7
- sPxehcK1a4QxceKcpmBwlNe0SCjiVS39pyKZMo81VCpY6I2GmRS4NbHi1aVXTq4YBzd+
- wQaA==
-X-Gm-Message-State: ACrzQf3DmMrIPGteKZq987oEv5BqhgbHZhrlGpVpk51ba3T64SdMFvzi
- WlK7X5o24FpcTLcg3ukHcBwpMyRqCpgqKhFPpT4=
-X-Google-Smtp-Source: AMsMyM6nc4UrsZBx/PUrApBdClGODasswY8rPtxXwnmYhYIUI9EVl9V2f9+K3miL6Y7IoZvRI++1cAbcxJwNm2iuoG4=
-X-Received: by 2002:a05:6870:64a0:b0:13b:9044:d229 with SMTP id
- cz32-20020a05687064a000b0013b9044d229mr4651232oab.183.1666627968460; Mon, 24
- Oct 2022 09:12:48 -0700 (PDT)
+ bh=c08g93mBF9rHhNs3GF7QFErRxt7k1Q6/dC3x12TTUPQ=;
+ b=0enQlZLj7wgpj7IpErbMWziQAVNWgTKK8xacbwPQWg7pCiK0/K+hlDo9VbJb3t1tcO
+ ggWMvleGGWo3i5bWIsnH832KEA1aSzDkuAiM9NSWO4pfH8U1GbvCzGCHrd1TlWI9tOOP
+ jxtZdNnZtTsQI3AEDGicB8MdNsdhRjRBEBWWv8S8CKvoELwHA2/AwbjqGOaFAkmdK5zn
+ oM6Ur+oagW7F3BUwANjWqfdJlW6og/hKOkMLAtDi0KjSSPaSnHPdeoYKRxfHN7GL9AR6
+ FOpbrify7aE1PODXbjajNcmhZBVbM1610RqyYGhaTtX+QnrhUAi93RwYdfdEcWfcY3om
+ rpTA==
+X-Gm-Message-State: ACrzQf0p2WrFOUEbLfNgQH48iiNszQ9f9AaLNl5HWJ1HgNDdy2UEtZwA
+ Ssdo45KxAx4801GN2TvF+Z1Fbw==
+X-Google-Smtp-Source: AMsMyM6tFJiCqeATOg585ajkr5p5VpOPABLpiGqO7LfhXBC03jcNk0nMuWUmk3+wwHI9mYMZ/cL9HQ==
+X-Received: by 2002:a2e:a910:0:b0:261:b408:1169 with SMTP id
+ j16-20020a2ea910000000b00261b4081169mr13085322ljq.360.1666629746968; 
+ Mon, 24 Oct 2022 09:42:26 -0700 (PDT)
+Received: from eriador.unikie.fi ([192.130.178.91])
+ by smtp.gmail.com with ESMTPSA id
+ k14-20020ac2456e000000b004948378080csm4593978lfm.290.2022.10.24.09.42.26
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 24 Oct 2022 09:42:26 -0700 (PDT)
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+To: Andy Gross <agross@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konrad.dybcio@somainline.org>,
+ Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Rob Herring <robh+dt@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>
+Date: Mon, 24 Oct 2022 19:42:13 +0300
+Message-Id: <20221024164225.3236654-1-dmitry.baryshkov@linaro.org>
+X-Mailer: git-send-email 2.35.1
 MIME-Version: 1.0
-References: <20221024151444.3208225-1-dmitry.baryshkov@linaro.org>
-In-Reply-To: <20221024151444.3208225-1-dmitry.baryshkov@linaro.org>
-From: Rob Clark <robdclark@gmail.com>
-Date: Mon, 24 Oct 2022 09:12:57 -0700
-Message-ID: <CAF6AEGviTTOKcTH5YAQJAgzY9kbDD8fX+FrY5R8igamN22T-bg@mail.gmail.com>
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [PATCH v2 1/2] drm/msm: remove duplicated code from
- a6xx_create_address_space
+Content-Transfer-Encoding: 8bit
+Subject: [Freedreno] [PATCH v9 00/12] dt-bindings: display/msm: rework MDSS
+ and DPU bindings
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,148 +74,130 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, Sean Paul <sean@poorly.run>,
- Bjorn Andersson <andersson@kernel.org>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
- Stephen Boyd <swboyd@chromium.org>, Daniel Vetter <daniel@ffwll.ch>,
- linux-arm-msm@vger.kernel.org, David Airlie <airlied@gmail.com>
+Cc: devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, Stephen Boyd <swboyd@chromium.org>,
+ Daniel Vetter <daniel@ffwll.ch>, freedreno@lists.freedesktop.org,
+ David Airlie <airlied@gmail.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Mon, Oct 24, 2022 at 8:14 AM Dmitry Baryshkov
-<dmitry.baryshkov@linaro.org> wrote:
->
-> The function a6xx_create_address_space() is mostly a copy of
-> adreno_iommu_create_address_space() with added quirk setting. Reuse the
-> original function to do the work, while introducing the wrapper to set
-> the quirk.
->
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> ---
->  drivers/gpu/drm/msm/adreno/a6xx_gpu.c   | 31 ++++---------------------
->  drivers/gpu/drm/msm/adreno/adreno_gpu.c |  4 ++--
->  drivers/gpu/drm/msm/adreno/adreno_gpu.h |  2 +-
->  drivers/gpu/drm/msm/msm_iommu.c         |  7 ++++++
->  drivers/gpu/drm/msm/msm_mmu.h           |  1 +
->  5 files changed, 15 insertions(+), 30 deletions(-)
->
-> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-> index fdc578016e0b..7640f5b960d6 100644
-> --- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-> @@ -1786,41 +1786,18 @@ a6xx_create_address_space(struct msm_gpu *gpu, struct platform_device *pdev)
->  {
->         struct adreno_gpu *adreno_gpu = to_adreno_gpu(gpu);
->         struct a6xx_gpu *a6xx_gpu = to_a6xx_gpu(adreno_gpu);
-> -       struct iommu_domain *iommu;
-> -       struct msm_mmu *mmu;
->         struct msm_gem_address_space *aspace;
-> -       u64 start, size;
->
-> -       iommu = iommu_domain_alloc(&platform_bus_type);
-> -       if (!iommu)
-> -               return NULL;
-> +       aspace = adreno_iommu_create_address_space(gpu, pdev);
-> +       if (IS_ERR_OR_NULL(aspace))
-> +               return ERR_CAST(aspace);
->
->         /*
->          * This allows GPU to set the bus attributes required to use system
->          * cache on behalf of the iommu page table walker.
->          */
->         if (!IS_ERR_OR_NULL(a6xx_gpu->htw_llc_slice))
-> -               adreno_set_llc_attributes(iommu);
-> -
-> -       mmu = msm_iommu_new(&pdev->dev, iommu);
-> -       if (IS_ERR(mmu)) {
-> -               iommu_domain_free(iommu);
-> -               return ERR_CAST(mmu);
-> -       }
-> -
-> -       /*
-> -        * Use the aperture start or SZ_16M, whichever is greater. This will
-> -        * ensure that we align with the allocated pagetable range while still
-> -        * allowing room in the lower 32 bits for GMEM and whatnot
-> -        */
-> -       start = max_t(u64, SZ_16M, iommu->geometry.aperture_start);
-> -       size = iommu->geometry.aperture_end - start + 1;
-> -
-> -       aspace = msm_gem_address_space_create(mmu, "gpu",
-> -               start & GENMASK_ULL(48, 0), size);
-> -
-> -       if (IS_ERR(aspace) && !IS_ERR(mmu))
-> -               mmu->funcs->destroy(mmu);
-> +               adreno_set_llc_attributes(aspace->mmu);
->
->         return aspace;
->  }
-> diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.c b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
-> index 382fb7f9e497..ed26b8dfc789 100644
-> --- a/drivers/gpu/drm/msm/adreno/adreno_gpu.c
-> +++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
-> @@ -191,9 +191,9 @@ int adreno_zap_shader_load(struct msm_gpu *gpu, u32 pasid)
->         return zap_shader_load_mdt(gpu, adreno_gpu->info->zapfw, pasid);
->  }
->
-> -void adreno_set_llc_attributes(struct iommu_domain *iommu)
-> +void adreno_set_llc_attributes(struct msm_mmu *mmu)
->  {
-> -       iommu_set_pgtable_quirks(iommu, IO_PGTABLE_QUIRK_ARM_OUTER_WBWA);
-> +       msm_iommu_set_pgtable_quirks(mmu, IO_PGTABLE_QUIRK_ARM_OUTER_WBWA);
->  }
+Create separate YAML schema for MDSS devicesd$ (both for MDP5 and DPU
+devices). Cleanup DPU schema files, so that they do not contain schema
+for both MDSS and DPU nodes. Apply misc small fixes to the DPU schema
+afterwards. Add schema for the MDSS and DPU on sm8250 platform.
 
-This won't actually work.. looking at the arm-smmu code, the quirks
-need to be set before attaching the device.  But there is an even
-simpler way, just pass the quirks bitmask to msm_iommu_new() and get
-rid of adreno_set_llc_attributes(), and msm_iommu_set_pgtable_quirks()
+Soft dependency on [1] to define qcom,dsi-phy-14nm-2290 binding used in
+examples
 
-BR,
--R
+[1] https://lore.kernel.org/linux-arm-msm/20220924121900.222711-1-dmitry.baryshkov@linaro.org/
 
->
->  struct msm_gem_address_space *
-> diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.h b/drivers/gpu/drm/msm/adreno/adreno_gpu.h
-> index e7adc5c632d0..723729e463e8 100644
-> --- a/drivers/gpu/drm/msm/adreno/adreno_gpu.h
-> +++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.h
-> @@ -338,7 +338,7 @@ struct msm_gem_address_space *
->  adreno_iommu_create_address_space(struct msm_gpu *gpu,
->                 struct platform_device *pdev);
->
-> -void adreno_set_llc_attributes(struct iommu_domain *iommu);
-> +void adreno_set_llc_attributes(struct msm_mmu *mmu);
->
->  int adreno_read_speedbin(struct device *dev, u32 *speedbin);
->
-> diff --git a/drivers/gpu/drm/msm/msm_iommu.c b/drivers/gpu/drm/msm/msm_iommu.c
-> index 5577cea7c009..768ab71cc43e 100644
-> --- a/drivers/gpu/drm/msm/msm_iommu.c
-> +++ b/drivers/gpu/drm/msm/msm_iommu.c
-> @@ -186,6 +186,13 @@ int msm_iommu_pagetable_params(struct msm_mmu *mmu,
->         return 0;
->  }
->
-> +int msm_iommu_set_pgtable_quirks(struct msm_mmu *mmu, unsigned long quirk)
-> +{
-> +       struct msm_iommu *iommu = to_msm_iommu(mmu);
-> +
-> +       return iommu_set_pgtable_quirks(iommu->domain, quirk);
-> +}
-> +
->  static const struct msm_mmu_funcs pagetable_funcs = {
->                 .map = msm_iommu_pagetable_map,
->                 .unmap = msm_iommu_pagetable_unmap,
-> diff --git a/drivers/gpu/drm/msm/msm_mmu.h b/drivers/gpu/drm/msm/msm_mmu.h
-> index de158e1bf765..d968d9f8e19c 100644
-> --- a/drivers/gpu/drm/msm/msm_mmu.h
-> +++ b/drivers/gpu/drm/msm/msm_mmu.h
-> @@ -58,5 +58,6 @@ void msm_gpummu_params(struct msm_mmu *mmu, dma_addr_t *pt_base,
->
->  int msm_iommu_pagetable_params(struct msm_mmu *mmu, phys_addr_t *ttbr,
->                 int *asid);
-> +int msm_iommu_set_pgtable_quirks(struct msm_mmu *mmu, unsigned long quirk);
->
->  #endif /* __MSM_MMU_H__ */
-> --
-> 2.35.1
->
+Changes since v8:
+ - Dropped DSI/DSI-PHY examples from the first patch. Proper example
+   generate a pile of warnings because of DSI schema deficiencies. I'll
+   add these examples back, once DSI schema is fixed.
+
+Changes since v7:
+ - Expanded examples to include MDSS child nodes (Krzysztof)
+
+Changes since v6:
+ - Removed extra newlines (Krzysztof)
+ - Added $ref to dpu-common.yaml#/ports/port@foo to enforce schema
+   for the port nodes (Rob)
+ - Removed unused allOf's (Rob)
+ - Fixed repeated interconnects descriptions (Rob)
+ - Fixed dpu-common.yaml and mdss-common.yaml descriptions (Rob)
+ - Fixed intentation of examples (Krzysztof)
+ - Renamed MDSS and DPU schema to follow compat names (Rob)
+
+Changes since v5:
+ - Dropped the core clock from mdss.yaml. It will be handled in a
+   separate patchset together with adding the clock itself.
+ - Fixed a typo in two commit subjects (mdm -> msm).
+
+Changes since v4:
+ - Created separate mdss-common.yaml
+ - Rather than squashing everything into mdss.yaml, create individual
+   schema files for MDSS devices.
+
+Changes since v3:
+ - Changed mdss->(dpu, dsi, etc.) relationship into the tight binding
+   depending on the mdss compatible string.
+ - Added sm8250 dpu schema and added qcom,sm8250-mdss to mdss.yaml
+
+Changes since v2:
+ - Added a patch to allow opp-table under the dpu* nodes.
+ - Removed the c&p issue which allowed the @0 nodes under the MDSS
+   device node.
+
+Changes since v1:
+ - Renamed DPU device nodes from mdp@ to display-controller@
+ - Described removal of mistakenly mentioned "lut" clock
+ - Switched mdss.yaml to use $ref instead of fixing compatible strings
+ - Dropped mdp-opp-table description (renamed by Krzysztof in his
+   patchset)
+ - Reworked DPU's ports definitions. Dropped description of individual
+   ports, left only /ports $ref and description in dpu-common.yaml.
+
+Dmitry Baryshkov (12):
+  dt-bindings: display/msm: split qcom,mdss bindings
+  dt-bindings: display/msm: add gcc-bus clock to dpu-smd845
+  dt-bindings: display/msm: add interconnects property to
+    qcom,mdss-smd845
+  dt-bindings: display/msm: move common DPU properties to
+    dpu-common.yaml
+  dt-bindings: display/msm: move common MDSS properties to
+    mdss-common.yaml
+  dt-bindings: display/msm: split dpu-sc7180 into DPU and MDSS parts
+  dt-bindings: display/msm: split dpu-sc7280 into DPU and MDSS parts
+  dt-bindings: display/msm: split dpu-sdm845 into DPU and MDSS parts
+  dt-bindings: display/msm: split dpu-msm8998 into DPU and MDSS parts
+  dt-bindings: display/msm: split dpu-qcm2290 into DPU and MDSS parts
+  dt-bindings: display/msm: add missing device nodes to mdss-* schemas
+  dt-bindings: display/msm: add support for the display on SM8250
+
+ .../bindings/display/msm/dpu-common.yaml      |  52 +++
+ .../bindings/display/msm/dpu-msm8998.yaml     | 223 ---------
+ .../bindings/display/msm/dpu-qcm2290.yaml     | 222 ---------
+ .../bindings/display/msm/dpu-sc7180.yaml      | 235 ----------
+ .../bindings/display/msm/dpu-sc7280.yaml      | 239 ----------
+ .../bindings/display/msm/dpu-sdm845.yaml      | 217 ---------
+ .../devicetree/bindings/display/msm/mdp5.txt  |  30 +-
+ .../bindings/display/msm/mdss-common.yaml     |  83 ++++
+ .../bindings/display/msm/qcom,mdss.yaml       | 196 ++++++++
+ .../display/msm/qcom,msm8998-dpu.yaml         |  95 ++++
+ .../display/msm/qcom,msm8998-mdss.yaml        | 268 +++++++++++
+ .../display/msm/qcom,qcm2290-dpu.yaml         |  84 ++++
+ .../display/msm/qcom,qcm2290-mdss.yaml        | 198 ++++++++
+ .../bindings/display/msm/qcom,sc7180-dpu.yaml |  95 ++++
+ .../display/msm/qcom,sc7180-mdss.yaml         | 304 +++++++++++++
+ .../bindings/display/msm/qcom,sc7280-dpu.yaml |  98 ++++
+ .../display/msm/qcom,sc7280-mdss.yaml         | 422 ++++++++++++++++++
+ .../bindings/display/msm/qcom,sdm845-dpu.yaml |  90 ++++
+ .../display/msm/qcom,sdm845-mdss.yaml         | 270 +++++++++++
+ .../bindings/display/msm/qcom,sm8250-dpu.yaml |  92 ++++
+ .../display/msm/qcom,sm8250-mdss.yaml         | 330 ++++++++++++++
+ 21 files changed, 2678 insertions(+), 1165 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/display/msm/dpu-common.yaml
+ delete mode 100644 Documentation/devicetree/bindings/display/msm/dpu-msm8998.yaml
+ delete mode 100644 Documentation/devicetree/bindings/display/msm/dpu-qcm2290.yaml
+ delete mode 100644 Documentation/devicetree/bindings/display/msm/dpu-sc7180.yaml
+ delete mode 100644 Documentation/devicetree/bindings/display/msm/dpu-sc7280.yaml
+ delete mode 100644 Documentation/devicetree/bindings/display/msm/dpu-sdm845.yaml
+ create mode 100644 Documentation/devicetree/bindings/display/msm/mdss-common.yaml
+ create mode 100644 Documentation/devicetree/bindings/display/msm/qcom,mdss.yaml
+ create mode 100644 Documentation/devicetree/bindings/display/msm/qcom,msm8998-dpu.yaml
+ create mode 100644 Documentation/devicetree/bindings/display/msm/qcom,msm8998-mdss.yaml
+ create mode 100644 Documentation/devicetree/bindings/display/msm/qcom,qcm2290-dpu.yaml
+ create mode 100644 Documentation/devicetree/bindings/display/msm/qcom,qcm2290-mdss.yaml
+ create mode 100644 Documentation/devicetree/bindings/display/msm/qcom,sc7180-dpu.yaml
+ create mode 100644 Documentation/devicetree/bindings/display/msm/qcom,sc7180-mdss.yaml
+ create mode 100644 Documentation/devicetree/bindings/display/msm/qcom,sc7280-dpu.yaml
+ create mode 100644 Documentation/devicetree/bindings/display/msm/qcom,sc7280-mdss.yaml
+ create mode 100644 Documentation/devicetree/bindings/display/msm/qcom,sdm845-dpu.yaml
+ create mode 100644 Documentation/devicetree/bindings/display/msm/qcom,sdm845-mdss.yaml
+ create mode 100644 Documentation/devicetree/bindings/display/msm/qcom,sm8250-dpu.yaml
+ create mode 100644 Documentation/devicetree/bindings/display/msm/qcom,sm8250-mdss.yaml
+
+-- 
+2.35.1
+
