@@ -2,68 +2,59 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9681560B231
-	for <lists+freedreno@lfdr.de>; Mon, 24 Oct 2022 18:43:47 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D4E6D60BD78
+	for <lists+freedreno@lfdr.de>; Tue, 25 Oct 2022 00:34:12 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 636F310E08E;
-	Mon, 24 Oct 2022 16:43:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6E4B710E081;
+	Mon, 24 Oct 2022 22:34:10 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-x22d.google.com (mail-lj1-x22d.google.com
- [IPv6:2a00:1450:4864:20::22d])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F095710E457
- for <freedreno@lists.freedesktop.org>; Mon, 24 Oct 2022 16:43:43 +0000 (UTC)
-Received: by mail-lj1-x22d.google.com with SMTP id s24so3019300ljs.11
- for <freedreno@lists.freedesktop.org>; Mon, 24 Oct 2022 09:43:43 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=9cUcRgvDuS2FdlkngSV1eV1M4pSbO1RgL3WVenrZEqM=;
- b=lTjcO7aWNNwFI5Q/DRWunBH2OudfKaTdQb1plUG+yx3Y/4IHh0tTXP0iHPjaYsWlA8
- o2XJngE/k1dCnpMLMTTGwJl7cny9/K893Q1AmPzfHwzmXrjJEiDq9M03SyEfawS4GPVj
- xtQNKG0dULX9/f6dLom7f4G90qMKGoIVNpu+D24EtmVRRFnWZ/gIrv8JnBbhFuUQ/e1a
- gdGokhk5CwirNwqeJXPzjtOXnqSohjpIWn/d2jahOY+HYNc3LQgHcTXozcr1+vre85Af
- PSUgfZc0Bpp7yG6YPJFZUn2Dk5tJ5ok5JLXvsrXmd7GefEj9h3ZRWQ/YRpeAGOGGa1Vb
- SZ9Q==
+Received: from mail-oa1-x29.google.com (mail-oa1-x29.google.com
+ [IPv6:2001:4860:4864:20::29])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 104F310E080;
+ Mon, 24 Oct 2022 22:34:07 +0000 (UTC)
+Received: by mail-oa1-x29.google.com with SMTP id
+ 586e51a60fabf-13ae8117023so13535102fac.9; 
+ Mon, 24 Oct 2022 15:34:07 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=to:subject:message-id:date:from:mime-version:from:to:cc:subject
+ :date:message-id:reply-to;
+ bh=WEZlKPYChGQr1+VGAAt6W/HLpia5/ZeW0QQ5/N5bwR0=;
+ b=dW6LySjisQk//shmQcl7lUzXTj1nVF9WlPTS7i6LkISArKQSeQKwK18PPNx2JEsCfV
+ +0yr+7G+kJTwA1c8lqdkn4biKDpZWTsH1+8WQw4HrV71awfl0H+O070JALvJGK0v2xh2
+ dCOii3AQ2ysH6VDzv5WUnka79Lz1loNtqyUj+J2wms+7sNnFHH+mZBibFQM2+hSzWgpa
+ /ACraTdetdXfCX69CNC908LLgqrfob60Ont5WC197a0DL06uO2xU8sHdqYnbs6BVs4Ci
+ +puZO9qBYGB3JwSHjLMWyrjX52p3H7U5Z88ICz0d5HEeHWpPLTT6qvgCWcV3yiKn882z
+ 5M3g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=9cUcRgvDuS2FdlkngSV1eV1M4pSbO1RgL3WVenrZEqM=;
- b=0aNenHXgdtf2c4zHtQqEqxxaAWEGXcVLyrYuVonRGh4Jba7XDMFTI55n9QR2GSw4jH
- 6duDk2bj8S9ZaVwas0fHKBKQgDxDRfM2qDU1MdkF3sh2v0g0hyqB1UYBOatbVF3hw42f
- u0Ycpe/xemlZ2BpaH384K3+pZBeTSEawwSmgb4hyAl7An5q/46ycZ1b9knkadJCggxCF
- zq0mzV4Ftw8tBFy7sIDzqbOwM6xx+q3c8G38sBRRTy5tUXw61xgKs3kQvvV8WS5GuupO
- Cr0U1xX+MYdNFO5LbCGx7QisJ431cOopdGc5c2/nxnqAE3PiqOykwH71zYKOhXQj6b5+
- sQUw==
-X-Gm-Message-State: ACrzQf0pem4fJuUVBZktC/AV9Z8kRHWHJTq6XwlCoL/uCL+iTEdyt7Db
- n+SLAWYAexyHEdSnDGuTArp4VA==
-X-Google-Smtp-Source: AMsMyM6DOHX/aHxyM9UrOCKOSnbpOyhgqoUF8asmnF2FkGDn6FpJmXDsuHVFnaaCG64YZKQ3aPR/AA==
-X-Received: by 2002:a05:651c:1503:b0:277:9d8:d5a8 with SMTP id
- e3-20020a05651c150300b0027709d8d5a8mr2459679ljf.389.1666629822249; 
- Mon, 24 Oct 2022 09:43:42 -0700 (PDT)
-Received: from [10.10.15.130] ([192.130.178.91])
- by smtp.gmail.com with ESMTPSA id
- f19-20020a05651232d300b00498f77cfa63sm4589440lfg.280.2022.10.24.09.43.41
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 24 Oct 2022 09:43:41 -0700 (PDT)
-Message-ID: <4797d41a-146b-4862-1b93-4fa8736221d4@linaro.org>
-Date: Mon, 24 Oct 2022 19:43:41 +0300
+ h=to:subject:message-id:date:from:mime-version:x-gm-message-state
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=WEZlKPYChGQr1+VGAAt6W/HLpia5/ZeW0QQ5/N5bwR0=;
+ b=4tzk6ZvG5zdOSdDfdbmtWGXTVspTCq6hYbky+NUgCvJ74p8d3f9Er0+6XKNISoD5/A
+ GP9+VWVFQCwDqA1xtUNOM4mnaU+yVckSBjy0W75omz4g1wh18sku00kMWqviRsRCvlma
+ UDt8iDc7zzP/kwo7Cwi0eiki/pmPDD507kI/QYp3yOEPObeV2mhAZGOxknR39WH0FxiY
+ 8wOSoZK1U+bF1KymVDKyS56O9UHBbV3tSjCu+xgv4dJXJeVmwCG+OZFeIuv5VVXK2lb8
+ ch9iIXX86m8kVbd9Dr+MYyrA+YrJ9UokAdAvcd+YowJHDlXKZfkdUt8td2KBCRJ2cikl
+ g3RA==
+X-Gm-Message-State: ACrzQf3efFMPnp+sLR5znBTt47WjQNASfcHIeZ6YYUSdSaTewA/xWmC6
+ wWfqA6rTxI+8U501g7ffNnQVZVIAIDQPI9bo/NE=
+X-Google-Smtp-Source: AMsMyM5S3puKmXs+dNgDJ9sW/bgFwo+QT8mbJCuoqMrSpTojL+qxBiFfkuQW2TTs9sYvjk5HkEJjbAHOIqpfjY9AVG4=
+X-Received: by 2002:a05:6871:6a4:b0:13b:a056:f97f with SMTP id
+ l36-20020a05687106a400b0013ba056f97fmr5103622oao.38.1666650846113; Mon, 24
+ Oct 2022 15:34:06 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.3.3
-Content-Language: en-GB
-To: Rob Clark <robdclark@gmail.com>
-References: <20221024151444.3208225-1-dmitry.baryshkov@linaro.org>
- <CAF6AEGviTTOKcTH5YAQJAgzY9kbDD8fX+FrY5R8igamN22T-bg@mail.gmail.com>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-In-Reply-To: <CAF6AEGviTTOKcTH5YAQJAgzY9kbDD8fX+FrY5R8igamN22T-bg@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH v2 1/2] drm/msm: remove duplicated code from
- a6xx_create_address_space
+From: Rob Clark <robdclark@gmail.com>
+Date: Mon, 24 Oct 2022 15:34:15 -0700
+Message-ID: <CAF6AEGveadezhqm=Sra7Jq4A3tFAp_eBmKKOoHLnapN03pVoLw@mail.gmail.com>
+To: Dave Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>, 
+ dri-devel <dri-devel@lists.freedesktop.org>, 
+ freedreno <freedreno@lists.freedesktop.org>, 
+ linux-arm-msm <linux-arm-msm@vger.kernel.org>, 
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>
+Content-Type: text/plain; charset="UTF-8"
+Subject: [Freedreno] [pull] drm/msm: drm-msm-fixes-2022-10-24 for v6.1-rc3
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,157 +67,84 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, Sean Paul <sean@poorly.run>,
- Bjorn Andersson <andersson@kernel.org>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
- Stephen Boyd <swboyd@chromium.org>, Daniel Vetter <daniel@ffwll.ch>,
- linux-arm-msm@vger.kernel.org, David Airlie <airlied@gmail.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 24/10/2022 19:12, Rob Clark wrote:
-> On Mon, Oct 24, 2022 at 8:14 AM Dmitry Baryshkov
-> <dmitry.baryshkov@linaro.org> wrote:
->>
->> The function a6xx_create_address_space() is mostly a copy of
->> adreno_iommu_create_address_space() with added quirk setting. Reuse the
->> original function to do the work, while introducing the wrapper to set
->> the quirk.
->>
->> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
->> ---
->>   drivers/gpu/drm/msm/adreno/a6xx_gpu.c   | 31 ++++---------------------
->>   drivers/gpu/drm/msm/adreno/adreno_gpu.c |  4 ++--
->>   drivers/gpu/drm/msm/adreno/adreno_gpu.h |  2 +-
->>   drivers/gpu/drm/msm/msm_iommu.c         |  7 ++++++
->>   drivers/gpu/drm/msm/msm_mmu.h           |  1 +
->>   5 files changed, 15 insertions(+), 30 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
->> index fdc578016e0b..7640f5b960d6 100644
->> --- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
->> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
->> @@ -1786,41 +1786,18 @@ a6xx_create_address_space(struct msm_gpu *gpu, struct platform_device *pdev)
->>   {
->>          struct adreno_gpu *adreno_gpu = to_adreno_gpu(gpu);
->>          struct a6xx_gpu *a6xx_gpu = to_a6xx_gpu(adreno_gpu);
->> -       struct iommu_domain *iommu;
->> -       struct msm_mmu *mmu;
->>          struct msm_gem_address_space *aspace;
->> -       u64 start, size;
->>
->> -       iommu = iommu_domain_alloc(&platform_bus_type);
->> -       if (!iommu)
->> -               return NULL;
->> +       aspace = adreno_iommu_create_address_space(gpu, pdev);
->> +       if (IS_ERR_OR_NULL(aspace))
->> +               return ERR_CAST(aspace);
->>
->>          /*
->>           * This allows GPU to set the bus attributes required to use system
->>           * cache on behalf of the iommu page table walker.
->>           */
->>          if (!IS_ERR_OR_NULL(a6xx_gpu->htw_llc_slice))
->> -               adreno_set_llc_attributes(iommu);
->> -
->> -       mmu = msm_iommu_new(&pdev->dev, iommu);
->> -       if (IS_ERR(mmu)) {
->> -               iommu_domain_free(iommu);
->> -               return ERR_CAST(mmu);
->> -       }
->> -
->> -       /*
->> -        * Use the aperture start or SZ_16M, whichever is greater. This will
->> -        * ensure that we align with the allocated pagetable range while still
->> -        * allowing room in the lower 32 bits for GMEM and whatnot
->> -        */
->> -       start = max_t(u64, SZ_16M, iommu->geometry.aperture_start);
->> -       size = iommu->geometry.aperture_end - start + 1;
->> -
->> -       aspace = msm_gem_address_space_create(mmu, "gpu",
->> -               start & GENMASK_ULL(48, 0), size);
->> -
->> -       if (IS_ERR(aspace) && !IS_ERR(mmu))
->> -               mmu->funcs->destroy(mmu);
->> +               adreno_set_llc_attributes(aspace->mmu);
->>
->>          return aspace;
->>   }
->> diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.c b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
->> index 382fb7f9e497..ed26b8dfc789 100644
->> --- a/drivers/gpu/drm/msm/adreno/adreno_gpu.c
->> +++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
->> @@ -191,9 +191,9 @@ int adreno_zap_shader_load(struct msm_gpu *gpu, u32 pasid)
->>          return zap_shader_load_mdt(gpu, adreno_gpu->info->zapfw, pasid);
->>   }
->>
->> -void adreno_set_llc_attributes(struct iommu_domain *iommu)
->> +void adreno_set_llc_attributes(struct msm_mmu *mmu)
->>   {
->> -       iommu_set_pgtable_quirks(iommu, IO_PGTABLE_QUIRK_ARM_OUTER_WBWA);
->> +       msm_iommu_set_pgtable_quirks(mmu, IO_PGTABLE_QUIRK_ARM_OUTER_WBWA);
->>   }
-> 
-> This won't actually work.. looking at the arm-smmu code, the quirks
-> need to be set before attaching the device.  But there is an even
-> simpler way, just pass the quirks bitmask to msm_iommu_new() and get
-> rid of adreno_set_llc_attributes(), and msm_iommu_set_pgtable_quirks()
+Hi Dave,
 
-Ack, thanks for the idea!
+A few fixes for the v6.1 cycle.  Summary below.
 
-> 
-> BR,
-> -R
-> 
->>
->>   struct msm_gem_address_space *
->> diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.h b/drivers/gpu/drm/msm/adreno/adreno_gpu.h
->> index e7adc5c632d0..723729e463e8 100644
->> --- a/drivers/gpu/drm/msm/adreno/adreno_gpu.h
->> +++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.h
->> @@ -338,7 +338,7 @@ struct msm_gem_address_space *
->>   adreno_iommu_create_address_space(struct msm_gpu *gpu,
->>                  struct platform_device *pdev);
->>
->> -void adreno_set_llc_attributes(struct iommu_domain *iommu);
->> +void adreno_set_llc_attributes(struct msm_mmu *mmu);
->>
->>   int adreno_read_speedbin(struct device *dev, u32 *speedbin);
->>
->> diff --git a/drivers/gpu/drm/msm/msm_iommu.c b/drivers/gpu/drm/msm/msm_iommu.c
->> index 5577cea7c009..768ab71cc43e 100644
->> --- a/drivers/gpu/drm/msm/msm_iommu.c
->> +++ b/drivers/gpu/drm/msm/msm_iommu.c
->> @@ -186,6 +186,13 @@ int msm_iommu_pagetable_params(struct msm_mmu *mmu,
->>          return 0;
->>   }
->>
->> +int msm_iommu_set_pgtable_quirks(struct msm_mmu *mmu, unsigned long quirk)
->> +{
->> +       struct msm_iommu *iommu = to_msm_iommu(mmu);
->> +
->> +       return iommu_set_pgtable_quirks(iommu->domain, quirk);
->> +}
->> +
->>   static const struct msm_mmu_funcs pagetable_funcs = {
->>                  .map = msm_iommu_pagetable_map,
->>                  .unmap = msm_iommu_pagetable_unmap,
->> diff --git a/drivers/gpu/drm/msm/msm_mmu.h b/drivers/gpu/drm/msm/msm_mmu.h
->> index de158e1bf765..d968d9f8e19c 100644
->> --- a/drivers/gpu/drm/msm/msm_mmu.h
->> +++ b/drivers/gpu/drm/msm/msm_mmu.h
->> @@ -58,5 +58,6 @@ void msm_gpummu_params(struct msm_mmu *mmu, dma_addr_t *pt_base,
->>
->>   int msm_iommu_pagetable_params(struct msm_mmu *mmu, phys_addr_t *ttbr,
->>                  int *asid);
->> +int msm_iommu_set_pgtable_quirks(struct msm_mmu *mmu, unsigned long quirk);
->>
->>   #endif /* __MSM_MMU_H__ */
->> --
->> 2.35.1
->>
+The following changes since commit e8b595f7b058c7909e410f3e0736d95e8f909d01:
 
--- 
-With best wishes
-Dmitry
+  drm/msm/hdmi: make hdmi_phy_8996 OF clk provider (2022-09-18 09:38:07 -0700)
 
+are available in the Git repository at:
+
+  https://gitlab.freedesktop.org/drm/msm.git tags/drm-msm-fixes-2022-10-24
+
+for you to fetch changes up to e0e86f25fd469ca76c1b50091372aed1ff99ca1a:
+
+  drm/msm: Kconfig: Fix spelling mistake "throught" -> "through"
+(2022-10-14 09:33:12 -0700)
+
+----------------------------------------------------------------
+msm-fixes for v6.1
+
+- Fix shrinker deadlock
+- Fix crash during suspend after unbind
+- Fix IRQ lifetime issues
+- Fix potential memory corruption with too many bridges
+- Fix memory corruption on GPU state capture
+
+----------------------------------------------------------------
+Aashish Sharma (1):
+      drm/msm: Remove redundant check for 'submit'
+
+Akhil P Oommen (2):
+      drm/msm/a6xx: Replace kcalloc() with kvzalloc()
+      drm/msm/gpu: Fix crash during system suspend after unbind
+
+Colin Ian King (1):
+      drm/msm: Kconfig: Fix spelling mistake "throught" -> "through"
+
+Johan Hovold (8):
+      drm/msm: fix use-after-free on probe deferral
+      drm/msm/dp: fix memory corruption with too many bridges
+      drm/msm/dsi: fix memory corruption with too many bridges
+      drm/msm/hdmi: fix memory corruption with too many bridges
+      drm/msm/dp: fix IRQ lifetime
+      drm/msm/dp: fix aux-bus EP lifetime
+      drm/msm/dp: fix bridge lifetime
+      drm/msm/hdmi: fix IRQ lifetime
+
+Kuogee Hsieh (2):
+      drm/msm/dp: add atomic_check to bridge ops
+      drm/msm/dp: cleared DP_DOWNSPREAD_CTRL register before start link training
+
+Nathan Huckleberry (1):
+      drm/msm: Fix return type of mdp4_lvds_connector_mode_valid
+
+Rob Clark (4):
+      drm/msm/gem: Unpin objects slightly later
+      drm/msm/a6xx: Fix kvzalloc vs state_kcalloc usage
+      drm/msm/a6xx: Skip snapshotting unused GMU buffers
+      drm/msm/a6xx: Remove state objects from list before freeing
+
+ drivers/gpu/drm/msm/Kconfig                        |  2 +-
+ drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c        | 14 +++++++--
+ drivers/gpu/drm/msm/adreno/adreno_device.c         | 10 ++++++-
+ drivers/gpu/drm/msm/adreno/adreno_gpu.c            |  7 ++++-
+ .../gpu/drm/msm/disp/mdp4/mdp4_lvds_connector.c    |  5 ++--
+ drivers/gpu/drm/msm/dp/dp_ctrl.c                   | 13 ++++-----
+ drivers/gpu/drm/msm/dp/dp_display.c                | 23 +++++++++++++--
+ drivers/gpu/drm/msm/dp/dp_drm.c                    | 34 ++++++++++++++++++++++
+ drivers/gpu/drm/msm/dp/dp_parser.c                 |  6 ++--
+ drivers/gpu/drm/msm/dp/dp_parser.h                 |  5 ++--
+ drivers/gpu/drm/msm/dsi/dsi.c                      |  6 ++++
+ drivers/gpu/drm/msm/hdmi/hdmi.c                    |  7 ++++-
+ drivers/gpu/drm/msm/msm_drv.c                      |  1 +
+ drivers/gpu/drm/msm/msm_gem_submit.c               |  9 +++---
+ drivers/gpu/drm/msm/msm_gpu.c                      |  2 ++
+ drivers/gpu/drm/msm/msm_gpu.h                      |  4 +++
+ drivers/gpu/drm/msm/msm_ringbuffer.c               |  3 +-
+ 17 files changed, 120 insertions(+), 31 deletions(-)
