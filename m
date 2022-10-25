@@ -1,60 +1,63 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id D4E6D60BD78
-	for <lists+freedreno@lfdr.de>; Tue, 25 Oct 2022 00:34:12 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 0B01660D523
+	for <lists+freedreno@lfdr.de>; Tue, 25 Oct 2022 22:04:08 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6E4B710E081;
-	Mon, 24 Oct 2022 22:34:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D4F9510E16E;
+	Tue, 25 Oct 2022 20:04:05 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-oa1-x29.google.com (mail-oa1-x29.google.com
- [IPv6:2001:4860:4864:20::29])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 104F310E080;
- Mon, 24 Oct 2022 22:34:07 +0000 (UTC)
-Received: by mail-oa1-x29.google.com with SMTP id
- 586e51a60fabf-13ae8117023so13535102fac.9; 
- Mon, 24 Oct 2022 15:34:07 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=to:subject:message-id:date:from:mime-version:from:to:cc:subject
- :date:message-id:reply-to;
- bh=WEZlKPYChGQr1+VGAAt6W/HLpia5/ZeW0QQ5/N5bwR0=;
- b=dW6LySjisQk//shmQcl7lUzXTj1nVF9WlPTS7i6LkISArKQSeQKwK18PPNx2JEsCfV
- +0yr+7G+kJTwA1c8lqdkn4biKDpZWTsH1+8WQw4HrV71awfl0H+O070JALvJGK0v2xh2
- dCOii3AQ2ysH6VDzv5WUnka79Lz1loNtqyUj+J2wms+7sNnFHH+mZBibFQM2+hSzWgpa
- /ACraTdetdXfCX69CNC908LLgqrfob60Ont5WC197a0DL06uO2xU8sHdqYnbs6BVs4Ci
- +puZO9qBYGB3JwSHjLMWyrjX52p3H7U5Z88ICz0d5HEeHWpPLTT6qvgCWcV3yiKn882z
- 5M3g==
+Received: from mail-lj1-x233.google.com (mail-lj1-x233.google.com
+ [IPv6:2a00:1450:4864:20::233])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AB63F10E17D
+ for <freedreno@lists.freedesktop.org>; Tue, 25 Oct 2022 20:04:00 +0000 (UTC)
+Received: by mail-lj1-x233.google.com with SMTP id u2so9471920ljl.3
+ for <freedreno@lists.freedesktop.org>; Tue, 25 Oct 2022 13:04:00 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=YFJl/4cGNkCZP1NH99JYcngmGYwQXPAhMhIz5gxLTBA=;
+ b=R6dypa8AWI2UvZSLBjThDl80b/DPa37GxSaQaTA/kSSrqQMFeE0h3QaVyaxDBFxWls
+ Vb5jS92SLWmpF65G93NBsWZpbHz4p3tyN5chbRocvrKmJijCCgISVxtkEZgoo885dJJ0
+ LmP0z7U5rT7zQ/m+icAyhKrNXDRXZmFxZ2aodd6VVTBw7VibgwrUUnnaUog0LPZ2a+4V
+ ja2VON1lGj6OFjIInXSkOOPfnfXkVqCYakBinl7WsHHR3ofPq9DGopPE21kgECSlT6by
+ OqdNTxn/OcN7hPb6phQqJQwIREEImm7lAivxDD8kRs27Fdxyi3O6GaPMYuXkH+IUTLUe
+ 3PFA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=to:subject:message-id:date:from:mime-version:x-gm-message-state
- :from:to:cc:subject:date:message-id:reply-to;
- bh=WEZlKPYChGQr1+VGAAt6W/HLpia5/ZeW0QQ5/N5bwR0=;
- b=4tzk6ZvG5zdOSdDfdbmtWGXTVspTCq6hYbky+NUgCvJ74p8d3f9Er0+6XKNISoD5/A
- GP9+VWVFQCwDqA1xtUNOM4mnaU+yVckSBjy0W75omz4g1wh18sku00kMWqviRsRCvlma
- UDt8iDc7zzP/kwo7Cwi0eiki/pmPDD507kI/QYp3yOEPObeV2mhAZGOxknR39WH0FxiY
- 8wOSoZK1U+bF1KymVDKyS56O9UHBbV3tSjCu+xgv4dJXJeVmwCG+OZFeIuv5VVXK2lb8
- ch9iIXX86m8kVbd9Dr+MYyrA+YrJ9UokAdAvcd+YowJHDlXKZfkdUt8td2KBCRJ2cikl
- g3RA==
-X-Gm-Message-State: ACrzQf3efFMPnp+sLR5znBTt47WjQNASfcHIeZ6YYUSdSaTewA/xWmC6
- wWfqA6rTxI+8U501g7ffNnQVZVIAIDQPI9bo/NE=
-X-Google-Smtp-Source: AMsMyM5S3puKmXs+dNgDJ9sW/bgFwo+QT8mbJCuoqMrSpTojL+qxBiFfkuQW2TTs9sYvjk5HkEJjbAHOIqpfjY9AVG4=
-X-Received: by 2002:a05:6871:6a4:b0:13b:a056:f97f with SMTP id
- l36-20020a05687106a400b0013ba056f97fmr5103622oao.38.1666650846113; Mon, 24
- Oct 2022 15:34:06 -0700 (PDT)
-MIME-Version: 1.0
-From: Rob Clark <robdclark@gmail.com>
-Date: Mon, 24 Oct 2022 15:34:15 -0700
-Message-ID: <CAF6AEGveadezhqm=Sra7Jq4A3tFAp_eBmKKOoHLnapN03pVoLw@mail.gmail.com>
-To: Dave Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>, 
- dri-devel <dri-devel@lists.freedesktop.org>, 
- freedreno <freedreno@lists.freedesktop.org>, 
- linux-arm-msm <linux-arm-msm@vger.kernel.org>, 
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=YFJl/4cGNkCZP1NH99JYcngmGYwQXPAhMhIz5gxLTBA=;
+ b=IRn1ZtVqJMZRSpQDBPQn6nkj8TIRP9puBz5477tN/A0dpS0cs29+dDL/QuN/vlklOM
+ g8CvTuz66e3o0acGJL6NyS/QzsFyLnMal7ectQiqmdEZEPPTDi1GxMCWy74Q/Th4XN05
+ RM6DY9/X8/0wek/asRzUZ9Rxdvxq8EaygP/ZMLcfbCe166NA84k17Ngcd0TX8VdCgrcd
+ Tpen8M+f2upHwCZdh2ZOR0nK0vX+ViATWy3UQ97An2sc9FNjSIqW4K2446H4o0RtLjrn
+ bpKmmnOrzqPpWeYylW1B0+AQYXqpxPUdCu3O1bl/D5/mFX2ZfwasSDnDhwSSwk8sO905
+ LvSQ==
+X-Gm-Message-State: ACrzQf0A9My2ZcIsHegX6j3wLGvAYJ1B87JxuW6IPhBjxbSFa/AGAbsL
+ tkyHC8CMgxe+4l4LgHdEdKJoDw==
+X-Google-Smtp-Source: AMsMyM6pV+qirkwGMYAcS1uZ0I3LCkCdOZYsFxZ9cbWrrtukSGRqaIoFxdaotaZT+sBNn2oTAx4prw==
+X-Received: by 2002:a2e:9656:0:b0:277:55c:a2f6 with SMTP id
+ z22-20020a2e9656000000b00277055ca2f6mr6506458ljh.475.1666728238920; 
+ Tue, 25 Oct 2022 13:03:58 -0700 (PDT)
+Received: from localhost.localdomain ([195.165.23.90])
+ by smtp.gmail.com with ESMTPSA id
+ e6-20020a195006000000b00494a1e875a9sm550644lfb.191.2022.10.25.13.03.58
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 25 Oct 2022 13:03:58 -0700 (PDT)
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+To: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
  Abhinav Kumar <quic_abhinavk@quicinc.com>
-Content-Type: text/plain; charset="UTF-8"
-Subject: [Freedreno] [pull] drm/msm: drm-msm-fixes-2022-10-24 for v6.1-rc3
+Date: Tue, 25 Oct 2022 23:03:55 +0300
+Message-Id: <20221025200357.3637161-1-dmitry.baryshkov@linaro.org>
+X-Mailer: git-send-email 2.35.1
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Subject: [Freedreno] [PATCH v3 0/2] drm/msm: rework msm_iommu_new() and
+ .create_address_space cb
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,84 +70,44 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
+Cc: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
+ Bjorn Andersson <andersson@kernel.org>, dri-devel@lists.freedesktop.org,
+ Stephen Boyd <swboyd@chromium.org>, Daniel Vetter <daniel@ffwll.ch>,
+ David Airlie <airlied@gmail.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Hi Dave,
+Simplify the MSM IOMMU code a bit. This moves iommu_domain_alloc() and
+iommu_set_pgtable_quirks() calls to msm_iommu_new() to get rid of the
+disbalance, when the iommu domain is allocated by the caller of
+msm_iommu_new() and then it is freed by the msm_iommu code itself.
 
-A few fixes for the v6.1 cycle.  Summary below.
+Changes since v2:
+- Reorder the patches.
+- Move iommu_set_pgtable_quirks() to the msm_iommu_new() too. It will
+  not work if it's called after attaching the device.
 
-The following changes since commit e8b595f7b058c7909e410f3e0736d95e8f909d01:
+Changes since v1:
+- Fixed the uninitialized variable usage in a6xx_gmu_memory_probe()
+  (reported by lkp)
 
-  drm/msm/hdmi: make hdmi_phy_8996 OF clk provider (2022-09-18 09:38:07 -0700)
+Dmitry Baryshkov (2):
+  drm/msm: move domain allocation into msm_iommu_new()
+  drm/msm: remove duplicated code from a6xx_create_address_space
 
-are available in the Git repository at:
+ drivers/gpu/drm/msm/adreno/a3xx_gpu.c    |  2 +-
+ drivers/gpu/drm/msm/adreno/a4xx_gpu.c    |  2 +-
+ drivers/gpu/drm/msm/adreno/a5xx_gpu.c    |  2 +-
+ drivers/gpu/drm/msm/adreno/a6xx_gmu.c    | 12 ++++----
+ drivers/gpu/drm/msm/adreno/a6xx_gpu.c    | 36 +-----------------------
+ drivers/gpu/drm/msm/adreno/adreno_gpu.c  | 29 ++++++++++---------
+ drivers/gpu/drm/msm/adreno/adreno_gpu.h  |  9 ++++--
+ drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.c | 19 +++++++------
+ drivers/gpu/drm/msm/msm_drv.c            | 18 ++++++------
+ drivers/gpu/drm/msm/msm_iommu.c          | 20 +++++++++++--
+ drivers/gpu/drm/msm/msm_mmu.h            |  3 +-
+ 11 files changed, 67 insertions(+), 85 deletions(-)
 
-  https://gitlab.freedesktop.org/drm/msm.git tags/drm-msm-fixes-2022-10-24
+-- 
+2.35.1
 
-for you to fetch changes up to e0e86f25fd469ca76c1b50091372aed1ff99ca1a:
-
-  drm/msm: Kconfig: Fix spelling mistake "throught" -> "through"
-(2022-10-14 09:33:12 -0700)
-
-----------------------------------------------------------------
-msm-fixes for v6.1
-
-- Fix shrinker deadlock
-- Fix crash during suspend after unbind
-- Fix IRQ lifetime issues
-- Fix potential memory corruption with too many bridges
-- Fix memory corruption on GPU state capture
-
-----------------------------------------------------------------
-Aashish Sharma (1):
-      drm/msm: Remove redundant check for 'submit'
-
-Akhil P Oommen (2):
-      drm/msm/a6xx: Replace kcalloc() with kvzalloc()
-      drm/msm/gpu: Fix crash during system suspend after unbind
-
-Colin Ian King (1):
-      drm/msm: Kconfig: Fix spelling mistake "throught" -> "through"
-
-Johan Hovold (8):
-      drm/msm: fix use-after-free on probe deferral
-      drm/msm/dp: fix memory corruption with too many bridges
-      drm/msm/dsi: fix memory corruption with too many bridges
-      drm/msm/hdmi: fix memory corruption with too many bridges
-      drm/msm/dp: fix IRQ lifetime
-      drm/msm/dp: fix aux-bus EP lifetime
-      drm/msm/dp: fix bridge lifetime
-      drm/msm/hdmi: fix IRQ lifetime
-
-Kuogee Hsieh (2):
-      drm/msm/dp: add atomic_check to bridge ops
-      drm/msm/dp: cleared DP_DOWNSPREAD_CTRL register before start link training
-
-Nathan Huckleberry (1):
-      drm/msm: Fix return type of mdp4_lvds_connector_mode_valid
-
-Rob Clark (4):
-      drm/msm/gem: Unpin objects slightly later
-      drm/msm/a6xx: Fix kvzalloc vs state_kcalloc usage
-      drm/msm/a6xx: Skip snapshotting unused GMU buffers
-      drm/msm/a6xx: Remove state objects from list before freeing
-
- drivers/gpu/drm/msm/Kconfig                        |  2 +-
- drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c        | 14 +++++++--
- drivers/gpu/drm/msm/adreno/adreno_device.c         | 10 ++++++-
- drivers/gpu/drm/msm/adreno/adreno_gpu.c            |  7 ++++-
- .../gpu/drm/msm/disp/mdp4/mdp4_lvds_connector.c    |  5 ++--
- drivers/gpu/drm/msm/dp/dp_ctrl.c                   | 13 ++++-----
- drivers/gpu/drm/msm/dp/dp_display.c                | 23 +++++++++++++--
- drivers/gpu/drm/msm/dp/dp_drm.c                    | 34 ++++++++++++++++++++++
- drivers/gpu/drm/msm/dp/dp_parser.c                 |  6 ++--
- drivers/gpu/drm/msm/dp/dp_parser.h                 |  5 ++--
- drivers/gpu/drm/msm/dsi/dsi.c                      |  6 ++++
- drivers/gpu/drm/msm/hdmi/hdmi.c                    |  7 ++++-
- drivers/gpu/drm/msm/msm_drv.c                      |  1 +
- drivers/gpu/drm/msm/msm_gem_submit.c               |  9 +++---
- drivers/gpu/drm/msm/msm_gpu.c                      |  2 ++
- drivers/gpu/drm/msm/msm_gpu.h                      |  4 +++
- drivers/gpu/drm/msm/msm_ringbuffer.c               |  3 +-
- 17 files changed, 120 insertions(+), 31 deletions(-)
