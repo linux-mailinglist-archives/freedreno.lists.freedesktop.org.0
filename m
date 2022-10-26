@@ -1,74 +1,69 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 93C5260D9D5
-	for <lists+freedreno@lfdr.de>; Wed, 26 Oct 2022 05:27:28 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id EAC2D60DAF3
+	for <lists+freedreno@lfdr.de>; Wed, 26 Oct 2022 08:09:02 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8BD8310E311;
-	Wed, 26 Oct 2022 03:27:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5684E10E440;
+	Wed, 26 Oct 2022 06:09:01 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 14ABA10E336;
- Wed, 26 Oct 2022 03:26:43 +0000 (UTC)
-Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 29Q35AKi032475;
- Wed, 26 Oct 2022 03:26:39 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
- h=from : to : cc :
- subject : date : message-id : in-reply-to : references : mime-version :
- content-type; s=qcppdkim1;
- bh=jOi2zehc+JJuP6Py11pfvjsODO4s6ym2ltZ6IDLp8Tc=;
- b=m/flBsG3dbCz46urrYWpUpqujZja1/P420CKNn6Qu3MEGumfyYMxoC93PhyGxvAJxb7n
- LdcRsoiFBJg+ro+2PDULDndpMByzB/Ox23X5kQZJ+2I9XAthWQv8TweX4JFESF9ojnEb
- 96xCxpPe4t2T83xZED1zaZThnm8vBtzQvC04fjzUwj5UgamFCRMLQNkdyd7Vek5GKev2
- jkGIzo5yx/gjdIkKBDuUpBuyWHPIg/AwaVkNoaiNiQz0++yGbGehnCb1d/SEz9WCfY+d
- q0sdRVuK/p44ST8MCZXgc27BSUCCUzh0TBcHI+rAVTfzaCKDDn3548GnCG/egwJhXlFx qA== 
-Received: from nalasppmta05.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3keaf0j8mf-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 26 Oct 2022 03:26:39 +0000
-Received: from nalasex01c.na.qualcomm.com (nalasex01c.na.qualcomm.com
- [10.47.97.35])
- by NALASPPMTA05.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 29Q3Qckr011488
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 26 Oct 2022 03:26:38 GMT
-Received: from th-lint-050.qualcomm.com (10.80.80.8) by
- nalasex01c.na.qualcomm.com (10.47.97.35) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.986.29; Tue, 25 Oct 2022 20:26:37 -0700
-From: Bjorn Andersson <quic_bjorande@quicinc.com>
-To: Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Tue, 25 Oct 2022 20:26:24 -0700
-Message-ID: <20221026032624.30871-13-quic_bjorande@quicinc.com>
-X-Mailer: git-send-email 2.17.1
-In-Reply-To: <20221026032624.30871-1-quic_bjorande@quicinc.com>
+Received: from mail-lf1-x12c.google.com (mail-lf1-x12c.google.com
+ [IPv6:2a00:1450:4864:20::12c])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5966110E40A
+ for <freedreno@lists.freedesktop.org>; Wed, 26 Oct 2022 06:08:57 +0000 (UTC)
+Received: by mail-lf1-x12c.google.com with SMTP id be13so26631645lfb.4
+ for <freedreno@lists.freedesktop.org>; Tue, 25 Oct 2022 23:08:57 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=content-transfer-encoding:mime-version:message-id:references
+ :in-reply-to:user-agent:subject:cc:to:from:date:from:to:cc:subject
+ :date:message-id:reply-to;
+ bh=AQkFYRMFfXcuqnRcd5m+fYI759MoxQcwxUzEDkbo1SE=;
+ b=weuKcUHywG8ZesBbFANZ9FB0o9RqWvSCMP2tlTH+iTy81QUj/HHOydfK9fF46TXkVV
+ hn0aoQM/4wY04vxz/lHIFwW8KpuP1rJROqiGCoCmlxHUCgJybETGbvNzcdvbbq2kTfBd
+ FUwTqq+1dctUt2C/B72NWmH5BBJNErQ4i29z+/Sbn1dokL3edOjfqUuRiySRiQYSfMwS
+ ewLEzfs3QpAwPY+THp+zKuWET4/axtn4NnR+16aBdXfrXHu0QlXEgqKETc3e38lCzt7l
+ vL2ktf2IbcZbzjQNXA75f3nNvrX8hcm1dDgtZb1vAY+11heBsAfYwhdXvb1ebsRQvR8G
+ RpOg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=content-transfer-encoding:mime-version:message-id:references
+ :in-reply-to:user-agent:subject:cc:to:from:date:x-gm-message-state
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=AQkFYRMFfXcuqnRcd5m+fYI759MoxQcwxUzEDkbo1SE=;
+ b=piaqzCL7LtwuclEkDrNV4NzfG7PJLVbpyRt5ADZ08sjtNS6S9FfdlObslQwprbu6Yq
+ 6Gn7uXvX5bxJxnhp34ktFYeTiW4q+JfMYwoeMJaJPJBsL5I5XBezkXyC8n+4t56hEHBS
+ Q1De/sGY+TvmET5lTJkbN2NwyzioL88e/yu1BlhuSA3g8Jlj4JVuuzZlwUBSP+8fax2S
+ PXX+/Ir23qqNMMNGoCi+aAGpjSdjd9LWZF1VzdpDNmGh/2fCzalyXCU0LouDSLda9wkT
+ Yu6UTbbOldJSjlcAn8ii2a/6bJGGE+p6wrbnHTXYjYID/CmQTL158tOr9HHM5V++PSol
+ WTEw==
+X-Gm-Message-State: ACrzQf2lGE0q3iBy0OWKQXv5VcQ2weBy7Gn7qWGOxVlCSjhTQIBaH5XT
+ A+uZEY8mmdzVWOm0bRrepTRi+A==
+X-Google-Smtp-Source: AMsMyM7aBlusqzl2oZMMOP75nbW9SLTYRVvCS1Z9KkDA0+hM7L4qVTHgav6Vj9SBZUpunCdpnGWYEA==
+X-Received: by 2002:a05:6512:108a:b0:4a2:7ec0:2fb7 with SMTP id
+ j10-20020a056512108a00b004a27ec02fb7mr17134312lfg.553.1666764535618; 
+ Tue, 25 Oct 2022 23:08:55 -0700 (PDT)
+Received: from [127.0.0.1] (85-76-42-158-nat.elisa-mobile.fi. [85.76.42.158])
+ by smtp.gmail.com with ESMTPSA id
+ e11-20020a05651236cb00b0048af3c090f8sm726299lfs.13.2022.10.25.23.08.54
+ (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+ Tue, 25 Oct 2022 23:08:55 -0700 (PDT)
+Date: Wed, 26 Oct 2022 09:08:49 +0300
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+To: Bjorn Andersson <quic_bjorande@quicinc.com>,
+ Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>
+User-Agent: K-9 Mail for Android
+In-Reply-To: <20221026032624.30871-10-quic_bjorande@quicinc.com>
 References: <20221026032624.30871-1-quic_bjorande@quicinc.com>
+ <20221026032624.30871-10-quic_bjorande@quicinc.com>
+Message-ID: <5974CB5A-699F-4768-9DAA-FAE507CFAD53@linaro.org>
 MIME-Version: 1.0
-Content-Type: text/plain
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
- nalasex01c.na.qualcomm.com (10.47.97.35)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-GUID: x0d2j7CJgWoU20mixnET3TDtJWa0uk_h
-X-Proofpoint-ORIG-GUID: x0d2j7CJgWoU20mixnET3TDtJWa0uk_h
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.205,Aquarius:18.0.895,Hydra:6.0.545,FMLib:17.11.122.1
- definitions=2022-10-25_15,2022-10-25_01,2022-06-22_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 mlxlogscore=886
- priorityscore=1501 suspectscore=0 phishscore=0 spamscore=0 adultscore=0
- clxscore=1015 malwarescore=0 lowpriorityscore=0 mlxscore=0 impostorscore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2209130000
- definitions=main-2210260016
-Subject: [Freedreno] [PATCH v3 12/12] arm64: dts: qcom: sa8295-adp: Enable
- DP instances
+Content-Type: text/plain;
+ charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [Freedreno] [PATCH v3 09/12] drm/msm/dp: HPD handling relates
+ to next_bridge
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,302 +77,52 @@ List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
 Cc: freedreno@lists.freedesktop.org,
- Sankeerth Billakanti <quic_sbillaka@quicinc.com>, Daniel
- Vetter <daniel@ffwll.ch>, devicetree@vger.kernel.org,
+ Sankeerth Billakanti <quic_sbillaka@quicinc.com>,
+ Daniel Vetter <daniel@ffwll.ch>, devicetree@vger.kernel.org,
  Sean Paul <sean@poorly.run>, Bjorn Andersson <andersson@kernel.org>,
  Konrad Dybcio <konrad.dybcio@somainline.org>, Johan Hovold <johan@kernel.org>,
- dri-devel@lists.freedesktop.org, Kuogee
- Hsieh <quic_khsieh@quicinc.com>, Rob Herring <robh+dt@kernel.org>, Krzysztof
- Kozlowski <krzysztof.kozlowski+dt@linaro.org>, linux-arm-msm@vger.kernel.org,
- David Airlie <airlied@gmail.com>, linux-kernel@vger.kernel.org
+ dri-devel@lists.freedesktop.org, Kuogee Hsieh <quic_khsieh@quicinc.com>,
+ Rob Herring <robh+dt@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ linux-arm-msm@vger.kernel.org, David Airlie <airlied@gmail.com>,
+ linux-kernel@vger.kernel.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-From: Bjorn Andersson <bjorn.andersson@linaro.org>
 
-The SA8295P ADP has, among other interfaces, six MiniDP connectors which
-are connected to MDSS0 DP2 and DP3, and MDSS1 DP0 through DP3.
 
-Enable Display Clock controllers, MDSS instanced, MDPs, DP controllers,
-DP PHYs and link them all together.
+On 26 October 2022 06:26:21 EEST, Bjorn Andersson <quic_bjorande@quicinc=
+=2Ecom> wrote:
+>From: Bjorn Andersson <bjorn=2Eandersson@linaro=2Eorg>
+>
+>The DisplayPort controller's internal HPD interrupt handling is used for
+>cases where the HPD signal is connected to a GPIO which is pinmuxed into
+>the DisplayPort controller=2E
+>
+>Most of the logic for enabling and disabling the HPD-related interrupts
+>is conditioned on the presence of an EDP panel, but more generically
+>designs that has a downstream drm_bridge (next_bridge) could use this to
+>handle the HPD interrupts, instead of the internal mechanism=2E
+>
+>So replace the current is_edp-based guards with a check for the presence
+>of next_bridge=2E
 
-Signed-off-by: Bjorn Andersson <bjorn.andersson@linaro.org>
-Signed-off-by: Bjorn Andersson <quic_bjorande@quicinc.com>
----
+This does not sound correct=2E The next bridge might be a dummy bridge, no=
+t supporting the hpd=2E Please change this to use the enable_hpd()/disable_=
+hpd() callbacks=2E This way the drm_bridge_connector framework will make su=
+re to enable hpd handling for the bridge that is actually supposed to gener=
+ate hpd events=2E
 
-Changes since v2:
-- New patch on list
 
- arch/arm64/boot/dts/qcom/sa8295p-adp.dts | 244 ++++++++++++++++++++++-
- 1 file changed, 242 insertions(+), 2 deletions(-)
+>
+>Signed-off-by: Bjorn Andersson <bjorn=2Eandersson@linaro=2Eorg>
+>Signed-off-by: Bjorn Andersson <quic_bjorande@quicinc=2Ecom>
+>---
+>
+>Changes since v2:
+>- None
 
-diff --git a/arch/arm64/boot/dts/qcom/sa8295p-adp.dts b/arch/arm64/boot/dts/qcom/sa8295p-adp.dts
-index 2c62ba6a49c5..f35345115c85 100644
---- a/arch/arm64/boot/dts/qcom/sa8295p-adp.dts
-+++ b/arch/arm64/boot/dts/qcom/sa8295p-adp.dts
-@@ -23,6 +23,90 @@ aliases {
- 	chosen {
- 		stdout-path = "serial0:115200n8";
- 	};
-+
-+	dp2-connector {
-+		compatible = "dp-connector";
-+		label = "DP2";
-+		type = "mini";
-+
-+		hpd-gpios = <&tlmm 20 GPIO_ACTIVE_HIGH>;
-+
-+		port {
-+			dp2_connector_in: endpoint {
-+				remote-endpoint = <&mdss1_dp0_phy_out>;
-+			};
-+		};
-+	};
-+
-+	dp3-connector {
-+		compatible = "dp-connector";
-+		label = "DP3";
-+		type = "mini";
-+
-+		hpd-gpios = <&tlmm 45 GPIO_ACTIVE_HIGH>;
-+
-+		port {
-+			dp3_connector_in: endpoint {
-+				remote-endpoint = <&mdss1_dp1_phy_out>;
-+			};
-+		};
-+	};
-+
-+	edp0-connector {
-+		compatible = "dp-connector";
-+		label = "EDP0";
-+		type = "mini";
-+
-+		hpd-gpios = <&tlmm 2 GPIO_ACTIVE_HIGH>;
-+
-+		port {
-+			edp0_connector_in: endpoint {
-+				remote-endpoint = <&mdss0_dp2_phy_out>;
-+			};
-+		};
-+	};
-+
-+	edp1-connector {
-+		compatible = "dp-connector";
-+		label = "EDP1";
-+		type = "mini";
-+
-+		hpd-gpios = <&tlmm 3 GPIO_ACTIVE_HIGH>;
-+
-+		port {
-+			edp1_connector_in: endpoint {
-+				remote-endpoint = <&mdss0_dp3_phy_out>;
-+			};
-+		};
-+	};
-+
-+	edp2-connector {
-+		compatible = "dp-connector";
-+		label = "EDP2";
-+		type = "mini";
-+
-+		hpd-gpios = <&tlmm 7 GPIO_ACTIVE_HIGH>;
-+
-+		port {
-+			edp2_connector_in: endpoint {
-+				remote-endpoint = <&mdss1_dp2_phy_out>;
-+			};
-+		};
-+	};
-+
-+	edp3-connector {
-+		compatible = "dp-connector";
-+		label = "EDP3";
-+		type = "mini";
-+
-+		hpd-gpios = <&tlmm 6 GPIO_ACTIVE_HIGH>;
-+
-+		port {
-+			edp3_connector_in: endpoint {
-+				remote-endpoint = <&mdss1_dp3_phy_out>;
-+			};
-+		};
-+	};
- };
- 
- &apps_rsc {
-@@ -156,13 +240,169 @@ vreg_l7g: ldo7 {
- 
- 		vreg_l8g: ldo8 {
- 			regulator-name = "vreg_l8g";
--			regulator-min-microvolt = <880000>;
--			regulator-max-microvolt = <880000>;
-+			regulator-min-microvolt = <912000>;
-+			regulator-max-microvolt = <912000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+			regulator-allow-set-load;
-+		};
-+
-+		vreg_l11g: ldo11 {
-+			regulator-name = "vreg_l11g";
-+			regulator-min-microvolt = <912000>;
-+			regulator-max-microvolt = <912000>;
- 			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
- 		};
- 	};
- };
- 
-+&dispcc0 {
-+	status = "okay";
-+};
-+
-+&dispcc1 {
-+	status = "okay";
-+};
-+
-+&mdss0 {
-+	status = "okay";
-+};
-+
-+&mdss0_dp2 {
-+	status = "okay";
-+
-+	data-lanes = <0 1 2 3>;
-+
-+	ports {
-+		port@1 {
-+			reg = <1>;
-+			mdss0_dp2_phy_out: endpoint {
-+				remote-endpoint = <&edp0_connector_in>;
-+			};
-+		};
-+	};
-+};
-+
-+&mdss0_dp2_phy {
-+	status = "okay";
-+
-+	vdda-phy-supply = <&vreg_l8g>;
-+	vdda-pll-supply = <&vreg_l3g>;
-+};
-+
-+&mdss0_dp3 {
-+	status = "okay";
-+
-+	data-lanes = <0 1 2 3>;
-+
-+	ports {
-+		port@1 {
-+			reg = <1>;
-+			mdss0_dp3_phy_out: endpoint {
-+				remote-endpoint = <&edp1_connector_in>;
-+			};
-+		};
-+	};
-+};
-+
-+&mdss0_dp3_phy {
-+	status = "okay";
-+
-+	vdda-phy-supply = <&vreg_l8g>;
-+	vdda-pll-supply = <&vreg_l3g>;
-+};
-+
-+&mdss1 {
-+	status = "okay";
-+};
-+
-+&mdss1_dp0 {
-+	status = "okay";
-+
-+	data-lanes = <0 1 2 3>;
-+
-+	ports {
-+		port@1 {
-+			reg = <1>;
-+			mdss1_dp0_phy_out: endpoint {
-+				remote-endpoint = <&dp2_connector_in>;
-+			};
-+		};
-+	};
-+};
-+
-+&mdss1_dp0_phy {
-+	status = "okay";
-+
-+	vdda-phy-supply = <&vreg_l11g>;
-+	vdda-pll-supply = <&vreg_l3g>;
-+};
-+
-+&mdss1_dp1 {
-+	status = "okay";
-+
-+	data-lanes = <0 1 2 3>;
-+
-+	ports {
-+		port@1 {
-+			reg = <1>;
-+			mdss1_dp1_phy_out: endpoint {
-+				remote-endpoint = <&dp3_connector_in>;
-+			};
-+		};
-+	};
-+};
-+
-+&mdss1_dp1_phy {
-+	status = "okay";
-+
-+	vdda-phy-supply = <&vreg_l11g>;
-+	vdda-pll-supply = <&vreg_l3g>;
-+};
-+
-+&mdss1_dp2 {
-+	status = "okay";
-+
-+	data-lanes = <0 1 2 3>;
-+
-+	ports {
-+		port@1 {
-+			reg = <1>;
-+			mdss1_dp2_phy_out: endpoint {
-+				remote-endpoint = <&edp2_connector_in>;
-+			};
-+		};
-+	};
-+};
-+
-+&mdss1_dp2_phy {
-+	status = "okay";
-+
-+	vdda-phy-supply = <&vreg_l11g>;
-+	vdda-pll-supply = <&vreg_l3g>;
-+};
-+
-+&mdss1_dp3 {
-+	status = "okay";
-+
-+	data-lanes = <0 1 2 3>;
-+
-+	ports {
-+		port@1 {
-+			reg = <1>;
-+			mdss1_dp3_phy_out: endpoint {
-+				remote-endpoint = <&edp3_connector_in>;
-+			};
-+		};
-+	};
-+};
-+
-+&mdss1_dp3_phy {
-+	status = "okay";
-+
-+	vdda-phy-supply = <&vreg_l11g>;
-+	vdda-pll-supply = <&vreg_l3g>;
-+};
-+
- &qup2 {
- 	status = "okay";
- };
--- 
-2.37.3
 
+--=20
+With best wishes
+Dmitry
