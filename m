@@ -1,58 +1,36 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0227B60E6D4
-	for <lists+freedreno@lfdr.de>; Wed, 26 Oct 2022 19:54:47 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id EB2F560E740
+	for <lists+freedreno@lfdr.de>; Wed, 26 Oct 2022 20:28:41 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AD18D10E685;
-	Wed, 26 Oct 2022 17:54:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8F17C10E5CB;
+	Wed, 26 Oct 2022 18:28:40 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ot1-f41.google.com (mail-ot1-f41.google.com
- [209.85.210.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1B17C10E66D;
- Wed, 26 Oct 2022 17:54:41 +0000 (UTC)
-Received: by mail-ot1-f41.google.com with SMTP id
- m5-20020a9d73c5000000b0066738ce4f12so3266096otk.12; 
- Wed, 26 Oct 2022 10:54:41 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=zmbqUT3CmVbU0HzMpVAJyOgaDhVx3i4wGwXhoedlXNs=;
- b=gX5EYFmEKPAY9RYM3az+TEekQif5KQItcwE1QS7SsEQjozCKqEm38Y26O0wp4iK0ve
- k4ojfOViD0mf4NoRPv23vsy6zBQEp11Wesx9Xzgan4QlwfTSUwOIgad/RAxM7PtXzTDn
- Lj+3jvn3CrDPHoAtStptcGc74d4v8IKinXqmikUrrJzwSI5Q31tnSKj0UdsL6LkLKr//
- i851YvtHZojBaNQ6v6xkbmNi2lmU6SX5hCN8sgTomWyAuN3KGl19ZYfVCYMZhMYmNqa3
- BlCfwd+3Qsir1q58VG+srGgQpg4HQbqg7PYuES0PISroqQJOet8bF1jjVNDrWS6x1nxE
- xrqQ==
-X-Gm-Message-State: ACrzQf03DrDCNFEfsNkNa3h2yTOWmlFVEA5uPmS3G5omuZrRxchR/QWJ
- corMO4rk5JDCRHid8UtmqQ==
-X-Google-Smtp-Source: AMsMyM7u/5xsmyjQ88MnSABwibsj9ORVBkFwkQ3aUNkf/hBMroiSAacuWdQE9wICk8HxIgRsWTUPqg==
-X-Received: by 2002:a05:6830:d02:b0:661:9466:dfc3 with SMTP id
- bu2-20020a0568300d0200b006619466dfc3mr22434647otb.333.1666806880150; 
- Wed, 26 Oct 2022 10:54:40 -0700 (PDT)
-Received: from robh_at_kernel.org (66-90-144-107.dyn.grandenetworks.net.
- [66.90.144.107]) by smtp.gmail.com with ESMTPSA id
- n44-20020a056870972c00b0011f22e74d5fsm3405812oaq.20.2022.10.26.10.54.38
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 26 Oct 2022 10:54:39 -0700 (PDT)
-Received: (nullmailer pid 820018 invoked by uid 1000);
- Wed, 26 Oct 2022 17:54:41 -0000
-Date: Wed, 26 Oct 2022 12:54:41 -0500
-From: Rob Herring <robh@kernel.org>
-To: Bjorn Andersson <quic_bjorande@quicinc.com>
-Message-ID: <20221026175441.GA812056-robh@kernel.org>
-References: <20221026032624.30871-1-quic_bjorande@quicinc.com>
- <20221026032624.30871-2-quic_bjorande@quicinc.com>
+Received: from relay07.th.seeweb.it (relay07.th.seeweb.it [5.144.164.168])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5D67D10E5CB;
+ Wed, 26 Oct 2022 18:28:37 +0000 (UTC)
+Received: from localhost.localdomain (94-209-172-39.cable.dynamic.v4.ziggo.nl
+ [94.209.172.39])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ by m-r2.th.seeweb.it (Postfix) with ESMTPSA id 882063F33A;
+ Wed, 26 Oct 2022 20:28:33 +0200 (CEST)
+From: Marijn Suijten <marijn.suijten@somainline.org>
+To: phone-devel@vger.kernel.org, Rob Clark <robdclark@gmail.com>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Vinod Koul <vkoul@kernel.org>
+Date: Wed, 26 Oct 2022 20:28:14 +0200
+Message-Id: <20221026182824.876933-1-marijn.suijten@somainline.org>
+X-Mailer: git-send-email 2.38.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20221026032624.30871-2-quic_bjorande@quicinc.com>
-Subject: Re: [Freedreno] [PATCH v3 01/12] dt-bindings: display/msm: Add
- binding for SC8280XP MDSS
+Content-Transfer-Encoding: 8bit
+Subject: [Freedreno] [PATCH v4 00/10] drm/msm: Fix math issues in MSM DSC
+ implementation
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,99 +44,82 @@ List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
 Cc: freedreno@lists.freedesktop.org,
- Sankeerth Billakanti <quic_sbillaka@quicinc.com>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- devicetree@vger.kernel.org, Sean Paul <sean@poorly.run>,
- Bjorn Andersson <andersson@kernel.org>,
+ Jami Kettunen <jami.kettunen@somainline.org>, David Airlie <airlied@gmail.com>,
+ linux-arm-msm@vger.kernel.org, Vladimir Lypak <vladimir.lypak@gmail.com>,
  Konrad Dybcio <konrad.dybcio@somainline.org>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
- Kuogee Hsieh <quic_khsieh@quicinc.com>, Rob Clark <robdclark@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>, linux-arm-msm@vger.kernel.org,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Johan Hovold <johan@kernel.org>, David Airlie <airlied@gmail.com>,
- linux-kernel@vger.kernel.org
+ Douglas Anderson <dianders@chromium.org>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Martin Botka <martin.botka@somainline.org>,
+ ~postmarketos/upstreaming@lists.sr.ht, Daniel Vetter <daniel@ffwll.ch>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@somainline.org>,
+ Marijn Suijten <marijn.suijten@somainline.org>, Sean Paul <sean@poorly.run>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Tue, Oct 25, 2022 at 08:26:13PM -0700, Bjorn Andersson wrote:
-> From: Bjorn Andersson <bjorn.andersson@linaro.org>
-> 
-> Add binding for the display subsystem and display processing unit in the
-> Qualcomm SC8280XP platform.
-> 
-> Signed-off-by: Bjorn Andersson <bjorn.andersson@linaro.org>
-> Signed-off-by: Bjorn Andersson <quic_bjorande@quicinc.com>
-> ---
-> 
-> Changes since v2:
-> - Cleaned up description and interconnect definitions
-> - Added opp-table
-> 
->  .../bindings/display/msm/dpu-sc8280xp.yaml    | 287 ++++++++++++++++++
->  1 file changed, 287 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/display/msm/dpu-sc8280xp.yaml
+Various removals of complex yet unnecessary math, fixing all uses of
+drm_dsc_config::bits_per_pixel to deal with the fact that this field
+includes four fractional bits, and finally making sure that
+range_bpg_offset contains values 6-bits wide to prevent overflows in
+drm_dsc_pps_payload_pack().
 
-Doesn't this need to be reworked to match Dmitry's restructuring?
+Altogether this series is responsible for solving _all_ Display Stream
+Compression issues and artifacts on the Sony Tama (sdm845) Akatsuki
+smartphone (2880x1440p).
 
-> 
-> diff --git a/Documentation/devicetree/bindings/display/msm/dpu-sc8280xp.yaml b/Documentation/devicetree/bindings/display/msm/dpu-sc8280xp.yaml
-> new file mode 100644
-> index 000000000000..24e7a1562fe7
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/display/msm/dpu-sc8280xp.yaml
-> @@ -0,0 +1,287 @@
-> +# SPDX-License-Identifier: GPL-2.0-only or BSD-2-Clause
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/display/msm/dpu-sc8280xp.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: Qualcomm Display Processing Unit for SC8280XP
-> +
-> +maintainers:
-> +  - Bjorn Andersson <bjorn.andersson@linaro.org>
-> +
-> +description:
-> +  Device tree bindings for MSM Mobile Display Subsystem (MDSS) that encapsulates
-> +  sub-blocks like DPU display controller, DSI and DP interfaces etc.
-> +
-> +properties:
-> +  compatible:
-> +    const: qcom,sc8280xp-mdss
-> +
-> +  reg:
-> +    maxItems: 1
-> +
-> +  reg-names:
-> +    const: mdss
-> +
-> +  power-domains:
-> +    maxItems: 1
-> +
-> +  clocks:
-> +    items:
-> +      - description: Display AHB clock from gcc
-> +      - description: Display AHB clock from dispcc
-> +      - description: Display core clock
-> +
-> +  clock-names:
-> +    items:
-> +      - const: iface
-> +      - const: ahb
-> +      - const: core
-> +
-> +  interrupts:
-> +    maxItems: 1
-> +
-> +  interrupt-controller: true
-> +
+Changes since v3:
+- Swap patch 7 and 8 to make sure msm_host is available inside
+  dsi_populate_dsc_params();
+- Reword patch 6 (Migrate to drm_dsc_compute_rc_parameters()) to more
+  clearly explain why the FIXME wasn't solved initially, but why it can
+  (and should!) be resolved now.
 
-> +  "#address-cells": true
-> +
-> +  "#size-cells": true
+v3: https://lore.kernel.org/linux-arm-msm/20221009184824.457416-1-marijn.suijten@somainline.org/T/#u
 
-enum: [ 1, 2 ]
+Changes since v2:
+- Generalize mux_word_size setting depending on bits_per_component;
+- Migrate DSI's DSC calculations to drm_dsc_compute_rc_parameters(),
+  implicitly addressing existing math issues;
+- Disallow any bits_per_component other than 8, until hardcoded values
+  are updated and tested to support such cases.
 
-(Nothing else sets that)
+v2: https://lore.kernel.org/linux-arm-msm/20221005181657.784375-1-marijn.suijten@somainline.org/T/#u
 
-Rob
+Changes since v1:
+
+- Propagate r-b's, except (obviously) in patches that were (heavily)
+  modified;
+- Remove accidental debug code in dsi_cmd_dma_add;
+- Move Range BPG Offset masking out of DCS PPS packing, back into the
+  DSI driver when it is assigned to drm_dsc_config (this series is now
+  strictly focusing on drm/msm again);
+- Replace modulo-check resulting in conditional increment with
+  DIV_ROUND_UP;
+- Remove repeated calculation of slice_chunk_size;
+- Use u16 instead of int when handling bits_per_pixel;
+- Use DRM_DEV_ERROR instead of pr_err in DSI code;
+- Also remove redundant target_bpp_x16 variable.
+
+v1: https://lore.kernel.org/linux-arm-msm/20221001190807.358691-1-marijn.suijten@somainline.org/T/#u
+
+Marijn Suijten (10):
+  drm/msm/dsi: Remove useless math in DSC calculations
+  drm/msm/dsi: Remove repeated calculation of slice_per_intf
+  drm/msm/dsi: Use DIV_ROUND_UP instead of conditional increment on
+    modulo
+  drm/msm/dsi: Reuse earlier computed dsc->slice_chunk_size
+  drm/msm/dsi: Appropriately set dsc->mux_word_size based on bpc
+  drm/msm/dsi: Migrate to drm_dsc_compute_rc_parameters()
+  drm/msm/dsi: Account for DSC's bits_per_pixel having 4 fractional bits
+  drm/msm/dsi: Disallow 8 BPC DSC configuration for alternative BPC
+    values
+  drm/msm/dpu1: Account for DSC's bits_per_pixel having 4 fractional
+    bits
+  drm/msm/dsi: Prevent signed BPG offsets from bleeding into adjacent
+    bits
+
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_dsc.c |  11 +-
+ drivers/gpu/drm/msm/dsi/dsi_host.c         | 121 ++++++---------------
+ 2 files changed, 37 insertions(+), 95 deletions(-)
+
+--
+2.38.1
+
