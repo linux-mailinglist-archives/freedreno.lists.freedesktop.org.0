@@ -1,70 +1,68 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 93A4C60FC4F
-	for <lists+freedreno@lfdr.de>; Thu, 27 Oct 2022 17:49:37 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 69BBE60FF63
+	for <lists+freedreno@lfdr.de>; Thu, 27 Oct 2022 19:35:58 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 44B4A10E0BF;
-	Thu, 27 Oct 2022 15:49:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2D72F10E6B4;
+	Thu, 27 Oct 2022 17:35:55 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-x233.google.com (mail-lj1-x233.google.com
- [IPv6:2a00:1450:4864:20::233])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6701C10E0BF
- for <freedreno@lists.freedesktop.org>; Thu, 27 Oct 2022 15:49:33 +0000 (UTC)
-Received: by mail-lj1-x233.google.com with SMTP id b8so3334162ljf.0
- for <freedreno@lists.freedesktop.org>; Thu, 27 Oct 2022 08:49:33 -0700 (PDT)
+Received: from mail-lj1-x22e.google.com (mail-lj1-x22e.google.com
+ [IPv6:2a00:1450:4864:20::22e])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 631C610E282
+ for <freedreno@lists.freedesktop.org>; Thu, 27 Oct 2022 17:35:50 +0000 (UTC)
+Received: by mail-lj1-x22e.google.com with SMTP id bs14so4282062ljb.9
+ for <freedreno@lists.freedesktop.org>; Thu, 27 Oct 2022 10:35:50 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :from:to:cc:subject:date:message-id:reply-to;
- bh=WprwqfLl3Iivd950JkjtFAnJzh16n5EfJhXUamtdvGk=;
- b=s9rsDgGIhSLnoJ+ZtdB9NW8C+Ai94QFSWQtM4D1fcH4h1XqhgPdUBpeaKmGievQtuo
- ZKzasUpkZA70rskgweAjWvKoycL4UHgL2I5LqvaQAT2xIIS4GqD7VOcf6KIFDP3TJt7g
- QHbyfIiXrlGEC89cEj6w07bxb+4y26oGOkMA2eVXLxVhOOgWUYUZiQWTfMOtVB0y/ZhY
- m5rbPTLT/GF6nG+Ft9TJyn09UI0yzXuRcULwLY0XxfZcw+z/o8nHgl8JCCI/sLaoI/cV
- e0YVPaTs05xy1hrFif8WQ/l6Yg8t7icmn4wx9tTgcWH0gXFWxjqABuTC0zPxzJu3eQQQ
- TAPA==
+ bh=NDz4kWhLhEfZ2hWIeIjAeiEHpNZ8WN9F/kVUr2FsKOA=;
+ b=Dm9V1AUHif0mPsMXI2hZA+qzRs+USBMFDzHNIJIfeeS1gWBz3dLy41QQv4HNr4FsBf
+ g3gLAZ6xYr0n5WYoF1a/v8ArxcrTXwBFsF17Esnjc+1YR4WkdM4YbReJnN27TKFAGj2n
+ /TnLj9WZL3j0FuvTTrSkmys00kj/d7o2V1VjyuwAy2j9dCid5sFXssDXJw+Hc2FZxkHp
+ erCN9lZf9wyvDy7W+1G9NEiKt2rUzE5iIiD7UYyZ+cT8Oy3Rw85H4vpjcyAG0UnalxAY
+ G0GlCVcIW2OIW7pwBTr9x+SBl2LJPrG6u86x4JDLPYXpA8Cvm79g5coY7QYUF90VCqBl
+ 3ivw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=WprwqfLl3Iivd950JkjtFAnJzh16n5EfJhXUamtdvGk=;
- b=3D2szZZhocT/XUuBklv/eM1SOSAzsu2WB2NXne3xNvTSujg522oxpL/7CvvXsgejHj
- 3FvyURvCBxRe1ULSzTt7CTQ5m3pc5TWglJNfc81423CdJaSuPKYGQZCPP5Uw/ja2xBiu
- PO8CEfqN2qwZKPaPjsOVmIphrplZgND2Sm7BWYewtJht/4sTdrNmYdLKStsZE0VGyrti
- w3hJidaYecoFEbZ2l23YmVYZo/5Nc6MvHE4WGQ4EjGP22iGskDz4+vYZqiZ/6Bc+1zCw
- VvdUz5QTJ0siI2NkmB+wGbJl4OrtcHLsGCRTlGe9pJ5LFvQelSXivfk/sONsbHEmwC/m
- YSmw==
-X-Gm-Message-State: ACrzQf3tzMqQN7v5xtu7TnFTjNDD1WCzeRghbpLeq6LRBeDJyQTLQxNa
- 8QgkLn5HB2B2P7U/NAK68ZucqQ==
-X-Google-Smtp-Source: AMsMyM7Nmo34eZsrHJBFBvHH8HAtYk4C2XnKIK8GG8rrpGIy/J1cK9fezxUj/aJbbrXslARNuAtz1A==
-X-Received: by 2002:a2e:9650:0:b0:277:10f4:5d85 with SMTP id
- z16-20020a2e9650000000b0027710f45d85mr7295240ljh.253.1666885771679; 
- Thu, 27 Oct 2022 08:49:31 -0700 (PDT)
+ bh=NDz4kWhLhEfZ2hWIeIjAeiEHpNZ8WN9F/kVUr2FsKOA=;
+ b=DFCuJUoXspGmLML6sjhydik/0tXdCrg55k+GkkMFta/Q8Rv9qOgVddHUTJi3+ExPJA
+ rSnDCLvqD7vrKCkVMg5s1omlvbf9kmDlWRQFviNNTFtgdH0l65l9CDe6VXGqPidzk6Aw
+ HPGhe+3NrWMKi8EkFY2LYiYYc3RVT3nU3CrcGuyO0fjJjd7RGdHSIuykQ0pIzNTpViH2
+ l3jVtS6f1m2dj0q2zFxrPFn1BMGQUwa1IoEmopJoSGE3TJrhgLrnKJTYEkaOxo/G8HI2
+ dPhh0mnjtfpI52VNHliJcVe8k5mWoumxracHnTIap3CdxQ0NhNu4K9oCk1OXi+m7DLaF
+ nJcg==
+X-Gm-Message-State: ACrzQf1j2xnXtRGp8XDZB0SU/+vfEo3YjLTweSqyS/47UjN4MHIjsAAR
+ OXKxgsM1cYiLR1zOayexxacIwQ==
+X-Google-Smtp-Source: AMsMyM62y68hZk4W/jWGLk+/q/3HRaVrXfdskcaYsGCKHPtmVr51OQncH0BXyIUv6VXgiQmNf0K39w==
+X-Received: by 2002:a05:6512:b83:b0:4a1:ddb7:d9b5 with SMTP id
+ b3-20020a0565120b8300b004a1ddb7d9b5mr18067312lfv.439.1666892148336; 
+ Thu, 27 Oct 2022 10:35:48 -0700 (PDT)
 Received: from [10.27.10.248] ([195.165.23.90])
  by smtp.gmail.com with ESMTPSA id
- k7-20020a05651c10a700b002770c030dc0sm265525ljn.109.2022.10.27.08.49.30
+ v5-20020ac25b05000000b00494a11c5f52sm250923lfn.256.2022.10.27.10.35.47
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 27 Oct 2022 08:49:31 -0700 (PDT)
-Message-ID: <7fbde090-7c1a-48e6-13e0-73b673db847c@linaro.org>
-Date: Thu, 27 Oct 2022 18:49:30 +0300
+ Thu, 27 Oct 2022 10:35:47 -0700 (PDT)
+Message-ID: <dea86c81-449a-3296-d5de-c3b346f974e4@linaro.org>
+Date: Thu, 27 Oct 2022 20:35:46 +0300
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.3.3
 Content-Language: en-GB
-To: Rob Clark <robdclark@gmail.com>
-References: <20221025200357.3637161-1-dmitry.baryshkov@linaro.org>
- <20221025200357.3637161-2-dmitry.baryshkov@linaro.org>
- <CAF6AEGvhJzpX1sJ1+SE_FA0eL=XEyDKnvyLz_Q15-eJvvL65PQ@mail.gmail.com>
+To: Abhinav Kumar <quic_abhinavk@quicinc.com>, freedreno@lists.freedesktop.org
+References: <1663807768-23969-1-git-send-email-quic_abhinavk@quicinc.com>
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-In-Reply-To: <CAF6AEGvhJzpX1sJ1+SE_FA0eL=XEyDKnvyLz_Q15-eJvvL65PQ@mail.gmail.com>
+In-Reply-To: <1663807768-23969-1-git-send-email-quic_abhinavk@quicinc.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH v3 1/2] drm/msm: move domain allocation into
- msm_iommu_new()
+Subject: Re: [Freedreno] [PATCH 1/2] drm/msm/dsi: add a helper method to
+ compute the dsi byte clk
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,103 +75,112 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, kernel test robot <lkp@intel.com>,
- Sean Paul <sean@poorly.run>, Bjorn Andersson <andersson@kernel.org>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
- Stephen Boyd <swboyd@chromium.org>, Daniel Vetter <daniel@ffwll.ch>,
- linux-arm-msm@vger.kernel.org, David Airlie <airlied@gmail.com>
+Cc: dri-devel@lists.freedesktop.org, swboyd@chromium.org, robdclark@gmail.com,
+ seanpaul@chromium.org, daniel@ffwll.ch, quic_jesszhan@quicinc.com,
+ quic_khsieh@quicinc.com
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 27/10/2022 18:48, Rob Clark wrote:
-> On Tue, Oct 25, 2022 at 1:04 PM Dmitry Baryshkov
-> <dmitry.baryshkov@linaro.org> wrote:
->>
->> After the msm_iommu instance is created, the IOMMU domain is completely
->> handled inside the msm_iommu code. Move the iommu_domain_alloc() call
->> into the msm_iommu_new() to simplify callers code.
->>
->> Reported-by: kernel test robot <lkp@intel.com>
->> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
->> ---
->>   drivers/gpu/drm/msm/adreno/a6xx_gmu.c    | 12 +++++-------
->>   drivers/gpu/drm/msm/adreno/a6xx_gpu.c    | 25 +++++++++---------------
->>   drivers/gpu/drm/msm/adreno/adreno_gpu.c  | 25 +++++++++---------------
->>   drivers/gpu/drm/msm/adreno/adreno_gpu.h  |  2 --
->>   drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.c | 19 +++++++++---------
->>   drivers/gpu/drm/msm/msm_drv.c            | 18 ++++++++---------
->>   drivers/gpu/drm/msm/msm_iommu.c          | 20 ++++++++++++++++---
->>   drivers/gpu/drm/msm/msm_mmu.h            |  3 ++-
->>   8 files changed, 60 insertions(+), 64 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
->> index e033d6a67a20..6484b97c5344 100644
->> --- a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
->> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
->> @@ -1213,19 +1213,17 @@ static int a6xx_gmu_memory_alloc(struct a6xx_gmu *gmu, struct a6xx_gmu_bo *bo,
->>
->>   static int a6xx_gmu_memory_probe(struct a6xx_gmu *gmu)
->>   {
->> -       struct iommu_domain *domain;
->>          struct msm_mmu *mmu;
->>
->> -       domain = iommu_domain_alloc(&platform_bus_type);
->> -       if (!domain)
->> +       mmu = msm_iommu_new(gmu->dev, 0);
->> +       if (!mmu)
->>                  return -ENODEV;
->> +       if (IS_ERR(mmu))
->> +               return PTR_ERR(mmu);
->>
->> -       mmu = msm_iommu_new(gmu->dev, domain);
->>          gmu->aspace = msm_gem_address_space_create(mmu, "gmu", 0x0, 0x80000000);
->> -       if (IS_ERR(gmu->aspace)) {
->> -               iommu_domain_free(domain);
->> +       if (IS_ERR(gmu->aspace))
->>                  return PTR_ERR(gmu->aspace);
->> -       }
->>
->>          return 0;
->>   }
->> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
->> index fdc578016e0b..7a1b4397b842 100644
->> --- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
->> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
->> @@ -1784,37 +1784,30 @@ static void a6xx_gpu_set_freq(struct msm_gpu *gpu, struct dev_pm_opp *opp,
->>   static struct msm_gem_address_space *
->>   a6xx_create_address_space(struct msm_gpu *gpu, struct platform_device *pdev)
->>   {
->> -       struct adreno_gpu *adreno_gpu = to_adreno_gpu(gpu);
->> -       struct a6xx_gpu *a6xx_gpu = to_a6xx_gpu(adreno_gpu);
->> -       struct iommu_domain *iommu;
->>          struct msm_mmu *mmu;
->>          struct msm_gem_address_space *aspace;
->> +       struct iommu_domain_geometry *geometry;
->>          u64 start, size;
->>
->> -       iommu = iommu_domain_alloc(&platform_bus_type);
->> -       if (!iommu)
->> -               return NULL;
->> -
->>          /*
->>           * This allows GPU to set the bus attributes required to use system
->>           * cache on behalf of the iommu page table walker.
->>           */
->> -       if (!IS_ERR_OR_NULL(a6xx_gpu->htw_llc_slice))
->> -               adreno_set_llc_attributes(iommu);
->> -
->> -       mmu = msm_iommu_new(&pdev->dev, iommu);
->> -       if (IS_ERR(mmu)) {
->> -               iommu_domain_free(iommu);
->> +       mmu = msm_iommu_new(&pdev->dev, IO_PGTABLE_QUIRK_ARM_OUTER_WBWA);
+On 22/09/2022 03:49, Abhinav Kumar wrote:
+> Re-arrange the dsi_calc_pclk method to two helpers, one to
+> compute the DSI byte clk and the other to compute the pclk.
 > 
-> I think/assume the quirk still needs to be conditional on
-> a6xx_gpu->htw_llc_slice.. or at least I'm not sure what happens if we
-> set it but do not have an LLCC (or allocated slice)
+> This makes the separation of the two clean and also allows
+> clients to compute and use the dsi byte clk separately.
+> 
+> Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
+> ---
+>   drivers/gpu/drm/msm/dsi/dsi.h      |  2 ++
+>   drivers/gpu/drm/msm/dsi/dsi_host.c | 27 +++++++++++++++++++--------
+>   2 files changed, 21 insertions(+), 8 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/msm/dsi/dsi.h b/drivers/gpu/drm/msm/dsi/dsi.h
+> index 2a96b4fe7839..60ba8e67f550 100644
+> --- a/drivers/gpu/drm/msm/dsi/dsi.h
+> +++ b/drivers/gpu/drm/msm/dsi/dsi.h
+> @@ -118,6 +118,8 @@ int dsi_link_clk_enable_6g(struct msm_dsi_host *msm_host);
+>   int dsi_link_clk_enable_v2(struct msm_dsi_host *msm_host);
+>   void dsi_link_clk_disable_6g(struct msm_dsi_host *msm_host);
+>   void dsi_link_clk_disable_v2(struct msm_dsi_host *msm_host);
+> +unsigned long dsi_byte_clk_get_rate(struct mipi_dsi_host *host, bool is_bonded_dsi,
+> +		const struct drm_display_mode *mode);
+>   int dsi_tx_buf_alloc_6g(struct msm_dsi_host *msm_host, int size);
+>   int dsi_tx_buf_alloc_v2(struct msm_dsi_host *msm_host, int size);
+>   void *dsi_tx_buf_get_6g(struct msm_dsi_host *msm_host);
+> diff --git a/drivers/gpu/drm/msm/dsi/dsi_host.c b/drivers/gpu/drm/msm/dsi/dsi_host.c
+> index 57a4c0fa614b..32b35d4ac1d3 100644
+> --- a/drivers/gpu/drm/msm/dsi/dsi_host.c
+> +++ b/drivers/gpu/drm/msm/dsi/dsi_host.c
+> @@ -569,9 +569,8 @@ void dsi_link_clk_disable_v2(struct msm_dsi_host *msm_host)
+>   	clk_disable_unprepare(msm_host->byte_clk);
+>   }
+>   
+> -static unsigned long dsi_get_pclk_rate(struct msm_dsi_host *msm_host, bool is_bonded_dsi)
+> +static unsigned long dsi_get_pclk_rate(const struct drm_display_mode *mode, bool is_bonded_dsi)
+>   {
+> -	struct drm_display_mode *mode = msm_host->mode;
+>   	unsigned long pclk_rate;
+>   
+>   	pclk_rate = mode->clock * 1000;
+> @@ -588,12 +587,18 @@ static unsigned long dsi_get_pclk_rate(struct msm_dsi_host *msm_host, bool is_bo
+>   	return pclk_rate;
+>   }
+>   
+> -static void dsi_calc_pclk(struct msm_dsi_host *msm_host, bool is_bonded_dsi)
+> +unsigned long dsi_byte_clk_get_rate(struct mipi_dsi_host *host, bool is_bonded_dsi,
+> +		const struct drm_display_mode *mode)
+>   {
+> +	struct msm_dsi_host *msm_host = to_msm_dsi_host(host);
+>   	u8 lanes = msm_host->lanes;
+>   	u32 bpp = dsi_get_bpp(msm_host->format);
+> -	unsigned long pclk_rate = dsi_get_pclk_rate(msm_host, is_bonded_dsi);
+> -	u64 pclk_bpp = (u64)pclk_rate * bpp;
+> +	unsigned long pclk_rate;
+> +	u64 pclk_bpp;
+> +
+> +	pclk_rate = dsi_get_pclk_rate(mode, is_bonded_dsi);
+> +
+> +	pclk_bpp = (u64)pclk_rate * bpp;
+>   
+>   	if (lanes == 0) {
+>   		pr_err("%s: forcing mdss_dsi lanes to 1\n", __func__);
+> @@ -606,8 +611,14 @@ static void dsi_calc_pclk(struct msm_dsi_host *msm_host, bool is_bonded_dsi)
+>   	else
+>   		do_div(pclk_bpp, (8 * lanes));
+>   
+> -	msm_host->pixel_clk_rate = pclk_rate;
+> -	msm_host->byte_clk_rate = pclk_bpp;
+> +	return pclk_bpp;
+> +}
+> +
+> +static void dsi_calc_pclk(struct msm_dsi_host *msm_host, bool is_bonded_dsi)
+> +{
+> +	msm_host->pixel_clk_rate = dsi_get_pclk_rate(msm_host->mode, is_bonded_dsi);
+> +	msm_host->byte_clk_rate = dsi_byte_clk_get_rate(&msm_host->base, is_bonded_dsi,
+> +			msm_host->mode);
 
+This way you are calling dsi_get_pclk_rate twice(), which is slightly 
+inefficient. You can call it once (here) and then pass the resulting 
+pclk_rate as an argument to dsi_byte_clk_get_rate().
 
-Argh, I forgot the check while doing the refactoring. Will fix in v4.
+>   
+>   	DBG("pclk=%lu, bclk=%lu", msm_host->pixel_clk_rate,
+>   				msm_host->byte_clk_rate);
+> @@ -635,7 +646,7 @@ int dsi_calc_clk_rate_v2(struct msm_dsi_host *msm_host, bool is_bonded_dsi)
+>   
+>   	dsi_calc_pclk(msm_host, is_bonded_dsi);
+>   
+> -	pclk_bpp = (u64)dsi_get_pclk_rate(msm_host, is_bonded_dsi) * bpp;
+> +	pclk_bpp = (u64)dsi_get_pclk_rate(msm_host->mode, is_bonded_dsi) * bpp;
 
+So... We have calculated all rates, stored the pclk_rate in 
+msm_host->pixel_clk_rate. And now we are going to calculate it again. As 
+you are touching this line of code, I'd suggest to just use 
+msm_host->pixel_clk_rate instead of a function call.
+
+>   	do_div(pclk_bpp, 8);
+>   	msm_host->src_clk_rate = pclk_bpp;
+>   
 
 -- 
 With best wishes
