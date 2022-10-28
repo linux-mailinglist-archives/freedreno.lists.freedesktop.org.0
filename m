@@ -2,77 +2,70 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3C55A6105A1
-	for <lists+freedreno@lfdr.de>; Fri, 28 Oct 2022 00:22:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 477746110B0
+	for <lists+freedreno@lfdr.de>; Fri, 28 Oct 2022 14:08:27 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8C29310E72D;
-	Thu, 27 Oct 2022 22:22:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7FCC910E0CB;
+	Fri, 28 Oct 2022 12:08:25 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5CCAE10E72D;
- Thu, 27 Oct 2022 22:22:10 +0000 (UTC)
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 29RLuV8w029518;
- Thu, 27 Oct 2022 22:22:07 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
- h=message-id : date :
- mime-version : subject : to : cc : references : from : in-reply-to :
- content-type : content-transfer-encoding; s=qcppdkim1;
- bh=9KJPFhIEFY9BA5x73TAWoNvbCNQ3vDwl8MigbUBdUTw=;
- b=DUTciv26ZRvS6NodQpjlYl6BbamloaWNfHkYOwhgT+J8O5KTqvXlKnM/HQr92GEFMgrS
- V4BizkRmwH4JZ1kqEj13g1164RyoeJ93CFEST7Xm+YEvgF3FJwl6cTs2EgiZm4HcafiO
- QO6pE/puA++mz30mdzyKVMHmpEkyShVhuki7V2UUbyfnYTIXzBfNeyxSyt5QkTch+E5l
- L6eedgoqNfzr1aENSGRhHAQSyOq9a1za20oT05ERjM6Z48EtFNgRelabj1bVYj7Ih86e
- G8wvZA/o+06wJA9j0ntWzHwoeFJ+ThFdsl0vO2xrChOieNfJ1FOiWUzRf2dg22haFFWK wQ== 
-Received: from nalasppmta01.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3kfahvubvq-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 27 Oct 2022 22:22:07 +0000
-Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
- [10.47.209.196])
- by NALASPPMTA01.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 29RMM6HH010642
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 27 Oct 2022 22:22:06 GMT
-Received: from [10.38.246.117] (10.80.80.8) by nalasex01a.na.qualcomm.com
- (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.29; Thu, 27 Oct
- 2022 15:22:04 -0700
-Message-ID: <350c27fb-3d13-9252-6fa3-f67b7cc47444@quicinc.com>
-Date: Thu, 27 Oct 2022 15:22:02 -0700
+Received: from mail-ed1-x52a.google.com (mail-ed1-x52a.google.com
+ [IPv6:2a00:1450:4864:20::52a])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D1FF810E0CB
+ for <freedreno@lists.freedesktop.org>; Fri, 28 Oct 2022 12:08:19 +0000 (UTC)
+Received: by mail-ed1-x52a.google.com with SMTP id l11so6375108edb.4
+ for <freedreno@lists.freedesktop.org>; Fri, 28 Oct 2022 05:08:19 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:to
+ :from:from:to:cc:subject:date:message-id:reply-to;
+ bh=TuHMOYtgntRlqrUPHzqn+/W9rCLxqfiv1KR+wOTGa/o=;
+ b=qYLOPDk6E5l+vIE4I34Ig+IbPUBMvJLN3+xzmNbGft8VEMPxNPz2AQeynQxL73OhaQ
+ J0s/GY3/SM2OQIwylsa59J1MLNDYIw3VlTdD8Rpx5QHsNiBSGjJ4yUin1lkjZ5yhu0Tp
+ 8SKxBpCGevtEck6cPiHv4I3u6BKSlJBc7u4V9m1ScJygEwUuG5byF9zjNTY1JG0uw36u
+ nNJp5k7gZKyreb2Zrd5JkjkByHhVznRXxYW1dTksqL9Ykl/dQdirXJUv3qxgbe8aQ5+n
+ 4/o7bDduxmC7Si3Ua/eCFAru4hqq5quCw2Ue8osi4Nrfq7vX8PLhpCIh8p6gZztVtGfH
+ AyGg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:to
+ :from:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=TuHMOYtgntRlqrUPHzqn+/W9rCLxqfiv1KR+wOTGa/o=;
+ b=CeV0PELPUfG2hLO+dFT/LAZSaFXsowctv2DaykC77KveNxvLORDqyNz3ISzs5I1LDW
+ pjBCXMFKliNhJxieA/iQejidCO8DsTLOsP952q4NN745iTt2xSWNhDkvQVWDbxxZNOEu
+ YxaEXL4yxJg3VzIt1BnDXxzUi75BveT2m2vw4zBz8/OTcr7QOqnK9FFpqMDV2HPE6WN6
+ ZbC+TXwqY3sWzHyM3qIwiZluUf58YDQdLdpnxpiMAki20nlNije9eSzAugUpWEvae3Dv
+ z2UnDRuxlhkYAs0snXiPF3uGAHxh+0vVKk/8tLUFxQhj7+wN3qOFdiscyRjWM2kZPBYx
+ XddQ==
+X-Gm-Message-State: ACrzQf36TPDCuzrAYGIMOhoSJN+e3D4oVajP3stQ68PqVcvNHIcv2MZc
+ Ljs81h8FnUW2iLfdXiZTwDuUFg==
+X-Google-Smtp-Source: AMsMyM5OQSCfAm8WdRuXRXGqKjaB68/quVPLiq+P/+A/qL26ccve+eRNTxZenQ8jGwajbiZeyubHAw==
+X-Received: by 2002:a05:6402:298d:b0:451:5fc5:d423 with SMTP id
+ eq13-20020a056402298d00b004515fc5d423mr49793579edb.102.1666958898318; 
+ Fri, 28 Oct 2022 05:08:18 -0700 (PDT)
+Received: from prec5560.. (freifunk-gw.bsa1-cpe1.syseleven.net. [176.74.57.43])
+ by smtp.gmail.com with ESMTPSA id
+ u13-20020a170906124d00b00782e3cf7277sm2067258eja.120.2022.10.28.05.08.16
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 28 Oct 2022 05:08:17 -0700 (PDT)
+From: Robert Foss <robert.foss@linaro.org>
+To: agross@kernel.org, bjorn.andersson@linaro.org,
+ konrad.dybcio@somainline.org, robh+dt@kernel.org,
+ krzysztof.kozlowski+dt@linaro.org, robdclark@gmail.com,
+ quic_abhinavk@quicinc.com, dmitry.baryshkov@linaro.org, sean@poorly.run,
+ airlied@linux.ie, daniel@ffwll.ch, quic_kalyant@quicinc.com,
+ swboyd@chromium.org, robert.foss@linaro.org,
+ angelogioacchino.delregno@somainline.org, loic.poulain@linaro.org,
+ quic_vpolimer@quicinc.com, vkoul@kernel.org, dianders@chromium.org,
+ linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, Jonathan Marek <jonathan@marek.ca>,
+ vinod.koul@linaro.org, quic_jesszhan@quicinc.com
+Date: Fri, 28 Oct 2022 14:08:03 +0200
+Message-Id: <20221028120812.339100-1-robert.foss@linaro.org>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.6.2
-Content-Language: en-US
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- <freedreno@lists.freedesktop.org>
-References: <1663807768-23969-1-git-send-email-quic_abhinavk@quicinc.com>
- <dea86c81-449a-3296-d5de-c3b346f974e4@linaro.org>
-From: Abhinav Kumar <quic_abhinavk@quicinc.com>
-In-Reply-To: <dea86c81-449a-3296-d5de-c3b346f974e4@linaro.org>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
 Content-Transfer-Encoding: 8bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-ORIG-GUID: fIqJ0asLiMcJ1WNm5JuhimkAxJiXMlqr
-X-Proofpoint-GUID: fIqJ0asLiMcJ1WNm5JuhimkAxJiXMlqr
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.205,Aquarius:18.0.895,Hydra:6.0.545,FMLib:17.11.122.1
- definitions=2022-10-27_07,2022-10-27_01,2022-06-22_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 suspectscore=0
- impostorscore=0 priorityscore=1501 lowpriorityscore=0 mlxlogscore=999
- spamscore=0 phishscore=0 bulkscore=0 malwarescore=0 clxscore=1011
- mlxscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2210170000 definitions=main-2210270125
-Subject: Re: [Freedreno] [PATCH 1/2] drm/msm/dsi: add a helper method to
- compute the dsi byte clk
+Subject: [Freedreno] [PATCH v1 0/9] Enable Display for SM8350
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -85,133 +78,31 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: dri-devel@lists.freedesktop.org, swboyd@chromium.org, robdclark@gmail.com,
- seanpaul@chromium.org, daniel@ffwll.ch, quic_jesszhan@quicinc.com,
- quic_khsieh@quicinc.com
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
+This series implements display support for SM8350 and
+enables HDMI output for the SM8350-HDK platform.
 
+Robert Foss (9):
+  drm/msm: Add compatibles for SM8350 display
+  drm/msm/dpu: Refactor sc7280_pp location
+  drm/msm/dpu: Add SM8350 to hw catalog
+  arm64: dts: qcom: sm8350: Add &tlmm gpio-line-names
+  arm64: dts: qcom: sm8350: Remove mmxc power-domain-name
+  arm64: dts: qcom: sm8350: Use 2 interconnect cells
+  arm64: dts: qcom: sm8350: Add display system nodes
+  arm64: dts: qcom: sm8350-hdk: Enable display & dsi nodes
+  arm64: dts: qcom: sm8350-hdk: Enable lt9611uxc dsi-hdmi bridge
 
-On 10/27/2022 10:35 AM, Dmitry Baryshkov wrote:
-> On 22/09/2022 03:49, Abhinav Kumar wrote:
->> Re-arrange the dsi_calc_pclk method to two helpers, one to
->> compute the DSI byte clk and the other to compute the pclk.
->>
->> This makes the separation of the two clean and also allows
->> clients to compute and use the dsi byte clk separately.
->>
->> Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
->> ---
->>   drivers/gpu/drm/msm/dsi/dsi.h      |  2 ++
->>   drivers/gpu/drm/msm/dsi/dsi_host.c | 27 +++++++++++++++++++--------
->>   2 files changed, 21 insertions(+), 8 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/msm/dsi/dsi.h 
->> b/drivers/gpu/drm/msm/dsi/dsi.h
->> index 2a96b4fe7839..60ba8e67f550 100644
->> --- a/drivers/gpu/drm/msm/dsi/dsi.h
->> +++ b/drivers/gpu/drm/msm/dsi/dsi.h
->> @@ -118,6 +118,8 @@ int dsi_link_clk_enable_6g(struct msm_dsi_host 
->> *msm_host);
->>   int dsi_link_clk_enable_v2(struct msm_dsi_host *msm_host);
->>   void dsi_link_clk_disable_6g(struct msm_dsi_host *msm_host);
->>   void dsi_link_clk_disable_v2(struct msm_dsi_host *msm_host);
->> +unsigned long dsi_byte_clk_get_rate(struct mipi_dsi_host *host, bool 
->> is_bonded_dsi,
->> +        const struct drm_display_mode *mode);
->>   int dsi_tx_buf_alloc_6g(struct msm_dsi_host *msm_host, int size);
->>   int dsi_tx_buf_alloc_v2(struct msm_dsi_host *msm_host, int size);
->>   void *dsi_tx_buf_get_6g(struct msm_dsi_host *msm_host);
->> diff --git a/drivers/gpu/drm/msm/dsi/dsi_host.c 
->> b/drivers/gpu/drm/msm/dsi/dsi_host.c
->> index 57a4c0fa614b..32b35d4ac1d3 100644
->> --- a/drivers/gpu/drm/msm/dsi/dsi_host.c
->> +++ b/drivers/gpu/drm/msm/dsi/dsi_host.c
->> @@ -569,9 +569,8 @@ void dsi_link_clk_disable_v2(struct msm_dsi_host 
->> *msm_host)
->>       clk_disable_unprepare(msm_host->byte_clk);
->>   }
->> -static unsigned long dsi_get_pclk_rate(struct msm_dsi_host *msm_host, 
->> bool is_bonded_dsi)
->> +static unsigned long dsi_get_pclk_rate(const struct drm_display_mode 
->> *mode, bool is_bonded_dsi)
->>   {
->> -    struct drm_display_mode *mode = msm_host->mode;
->>       unsigned long pclk_rate;
->>       pclk_rate = mode->clock * 1000;
->> @@ -588,12 +587,18 @@ static unsigned long dsi_get_pclk_rate(struct 
->> msm_dsi_host *msm_host, bool is_bo
->>       return pclk_rate;
->>   }
->> -static void dsi_calc_pclk(struct msm_dsi_host *msm_host, bool 
->> is_bonded_dsi)
->> +unsigned long dsi_byte_clk_get_rate(struct mipi_dsi_host *host, bool 
->> is_bonded_dsi,
->> +        const struct drm_display_mode *mode)
->>   {
->> +    struct msm_dsi_host *msm_host = to_msm_dsi_host(host);
->>       u8 lanes = msm_host->lanes;
->>       u32 bpp = dsi_get_bpp(msm_host->format);
->> -    unsigned long pclk_rate = dsi_get_pclk_rate(msm_host, 
->> is_bonded_dsi);
->> -    u64 pclk_bpp = (u64)pclk_rate * bpp;
->> +    unsigned long pclk_rate;
->> +    u64 pclk_bpp;
->> +
->> +    pclk_rate = dsi_get_pclk_rate(mode, is_bonded_dsi);
->> +
->> +    pclk_bpp = (u64)pclk_rate * bpp;
->>       if (lanes == 0) {
->>           pr_err("%s: forcing mdss_dsi lanes to 1\n", __func__);
->> @@ -606,8 +611,14 @@ static void dsi_calc_pclk(struct msm_dsi_host 
->> *msm_host, bool is_bonded_dsi)
->>       else
->>           do_div(pclk_bpp, (8 * lanes));
->> -    msm_host->pixel_clk_rate = pclk_rate;
->> -    msm_host->byte_clk_rate = pclk_bpp;
->> +    return pclk_bpp;
->> +}
->> +
->> +static void dsi_calc_pclk(struct msm_dsi_host *msm_host, bool 
->> is_bonded_dsi)
->> +{
->> +    msm_host->pixel_clk_rate = dsi_get_pclk_rate(msm_host->mode, 
->> is_bonded_dsi);
->> +    msm_host->byte_clk_rate = dsi_byte_clk_get_rate(&msm_host->base, 
->> is_bonded_dsi,
->> +            msm_host->mode);
-> 
-> This way you are calling dsi_get_pclk_rate twice(), which is slightly 
-> inefficient. You can call it once (here) and then pass the resulting 
-> pclk_rate as an argument to dsi_byte_clk_get_rate().
+ arch/arm64/boot/dts/qcom/sm8350-hdk.dts       | 333 ++++++++++++++++++
+ arch/arm64/boot/dts/qcom/sm8350.dtsi          | 217 +++++++++++-
+ .../gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c    | 227 +++++++++++-
+ .../gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h    |   1 +
+ drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c       |   1 +
+ drivers/gpu/drm/msm/msm_mdss.c                |   1 +
+ 6 files changed, 760 insertions(+), 20 deletions(-)
 
-So the goal was to have two independent APIs to calculate byte and pixel 
-clk.
+-- 
+2.34.1
 
-If we pass the output of one as the input to the other we are making 
-them dependent.
-
-Thats why i kept it separate.
-
-> 
->>       DBG("pclk=%lu, bclk=%lu", msm_host->pixel_clk_rate,
->>                   msm_host->byte_clk_rate);
->> @@ -635,7 +646,7 @@ int dsi_calc_clk_rate_v2(struct msm_dsi_host 
->> *msm_host, bool is_bonded_dsi)
->>       dsi_calc_pclk(msm_host, is_bonded_dsi);
->> -    pclk_bpp = (u64)dsi_get_pclk_rate(msm_host, is_bonded_dsi) * bpp;
->> +    pclk_bpp = (u64)dsi_get_pclk_rate(msm_host->mode, is_bonded_dsi) 
->> * bpp;
-> 
-> So... We have calculated all rates, stored the pclk_rate in 
-> msm_host->pixel_clk_rate. And now we are going to calculate it again. As 
-> you are touching this line of code, I'd suggest to just use 
-> msm_host->pixel_clk_rate instead of a function call.
-
-Ack, I will fix this.
-
-> 
->>       do_div(pclk_bpp, 8);
->>       msm_host->src_clk_rate = pclk_bpp;
-> 
