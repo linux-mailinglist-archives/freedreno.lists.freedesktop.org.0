@@ -2,52 +2,52 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 691E06110B8
-	for <lists+freedreno@lfdr.de>; Fri, 28 Oct 2022 14:08:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DDCA26110B7
+	for <lists+freedreno@lfdr.de>; Fri, 28 Oct 2022 14:08:35 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2FEAC10E80D;
-	Fri, 28 Oct 2022 12:08:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 979C510E803;
+	Fri, 28 Oct 2022 12:08:34 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ed1-x52b.google.com (mail-ed1-x52b.google.com
- [IPv6:2a00:1450:4864:20::52b])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AF9CE10E80A
- for <freedreno@lists.freedesktop.org>; Fri, 28 Oct 2022 12:08:28 +0000 (UTC)
-Received: by mail-ed1-x52b.google.com with SMTP id v27so7595989eda.1
- for <freedreno@lists.freedesktop.org>; Fri, 28 Oct 2022 05:08:28 -0700 (PDT)
+Received: from mail-ej1-x62d.google.com (mail-ej1-x62d.google.com
+ [IPv6:2a00:1450:4864:20::62d])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EF4BD10E80A
+ for <freedreno@lists.freedesktop.org>; Fri, 28 Oct 2022 12:08:31 +0000 (UTC)
+Received: by mail-ej1-x62d.google.com with SMTP id k2so12491058ejr.2
+ for <freedreno@lists.freedesktop.org>; Fri, 28 Oct 2022 05:08:31 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:to:from:from:to:cc:subject:date:message-id
- :reply-to; bh=tH0W6Q+n5Go7kNaJjIz/J403hZWvc6cemePnkkWb/v0=;
- b=jZCmDi/vZzQNy7d4GxAhBFZ/91k5d8ROy2+hu1jZeMtzke4mIjrT3sud5B2OXykhOP
- LV5AZtC7r2+trbSqOOLUqlx5p2fgjUaZ9m/rhsoSjL1HhRQSbNDRK35X4Ua9SoK2mSct
- f8o1gC2rPVPHnmftfJnHSdqVa4jQbKZXw318LVgFJwBjMsdlvg84pHg7Gu03QsaOV05y
- vbq0g6D+qaEwe9QCWkmxgetjZBILtNe0VFNooGbgBswhL5daMluKxYw1wj5JqZ/SI5/K
- DH/Z5IMhrEuM0t6rnJG1H5CYgGXvh6eirB7RuUEbM+9+RUAMU5+Dzoo/uy/taFPeQRsc
- lq9g==
+ :reply-to; bh=GHQKP2WRD5u3btbTtOeqec49hRgZbwQ4CBFF9a5nqqE=;
+ b=aGwFe+cjRvwTlK/2papTY0NVUyA/CNvUDd7Ev8PSs7yCSU2oteW21EellklP66v9ds
+ KIYAGe72henmkXbOHWcpsAw58ZRYYMlpzkKBdaCouisIXGjNeM51l+fnfJRVxG1rletI
+ EPXzN4DAf60BpUAWAbETa5/POlpNbDYK+iYHgr7+UjWvlhn0BdPoajyLi7DiXjHXFwF7
+ 5TPDEa8qo7ijXEhleBE2QqZNKhrlKHap8MyfC1TGoapKM6mOWs2P/uSCQrd44bALdrCF
+ c11TcvVoG1zlPXxj+G4To9A4lW9xGGQgZppO0futtKUYoXc/s+PlauNCETyZezF549/e
+ GGQQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=tH0W6Q+n5Go7kNaJjIz/J403hZWvc6cemePnkkWb/v0=;
- b=ZiPIpXuazn4S9xE1uIn+LjX0gTgFv/lZO7Gpd7cE9hQXqW5n0pCYQQwZY+0j/Isl0f
- EhDganVjDe+3r8KOIUVlwHEXOhbclM05edHLXJhaIQqR+vzVvzLv7V8WUavxYl3B5a/0
- qVS80yJ1wl8Z4Gdw9AO3ocEXEYKcG0wR3w4gEAx4cMXKPduZf0MPU1agPayeK04jFyX0
- RVe2hGoo4JcdHguBFXjveOfK2XzHJSQ3Ikdl/JV5I2z+qlGlPCM94hNpWtWV6dd8greW
- FHZeNdKkVzwgRjvc0O9N0estwup7Nu8O49DNXqOPIdAd3Kq7YWHm1rt5DN7sTLrt/ZuQ
- Zt3g==
-X-Gm-Message-State: ACrzQf0DW5WaRZQPqco1D/ickaAIrWJAey+cG7V3zqMeiMost3nTQhqW
- L1PsPXAhON+MUWM1qi0qA2a3Qg==
-X-Google-Smtp-Source: AMsMyM7dTkRDm+xkFTqIll38vFAtoWst+r5WYu4OId+Foc+mOjTLvJ0JFepnemIwuBSPxhqtRjYRDw==
-X-Received: by 2002:a05:6402:2794:b0:461:d60c:30c7 with SMTP id
- b20-20020a056402279400b00461d60c30c7mr22573504ede.392.1666958908243; 
- Fri, 28 Oct 2022 05:08:28 -0700 (PDT)
+ bh=GHQKP2WRD5u3btbTtOeqec49hRgZbwQ4CBFF9a5nqqE=;
+ b=6l6lyhpBfrimzTLvmyzJTUOaQNImGusj2sK69bVUCvIdC0WnHiijh7fatjntSGRrB0
+ kkZKFS3CNuzC9UZ1HaJCW+QldUSiWmMsB7wWDc43pYiJgxb8QiXm3sEaLP3Bp43y+uML
+ C79Wb0hI9KdMnEU0tgm0iSvYH1ATpE8bvNuQJwigRSh6DCiQG/7sTMc/4oDOWLfScG+5
+ lcQOSNbSvDZfbVLZ0j2HmpaT0+nu0lMDlOKwIwsrsd2SDAUbhurAuST5BqCsciibBEYA
+ 27thsyevgvkgEnHrEVler5Qs9OzrdEgL2DzlPqcVh7mFT3WtNEIVYKj7sG9IRNiTSkll
+ AYxQ==
+X-Gm-Message-State: ACrzQf1zwZ2KHCEfck83P/oBfnLd38yledmfH7nzIdwTSK0Qe5ss5FUL
+ lP4m/oKhTK4AjNX+qp8Evmg6Tg==
+X-Google-Smtp-Source: AMsMyM6UPjeZggV2ofJpsk9MB/vfhKTLc/1WSnx0EL1Rb6b9o80UYFxJes1SuMKfqvZxbCq2MkoKbQ==
+X-Received: by 2002:a17:906:9c82:b0:781:5752:4f2b with SMTP id
+ fj2-20020a1709069c8200b0078157524f2bmr45370555ejc.561.1666958910136; 
+ Fri, 28 Oct 2022 05:08:30 -0700 (PDT)
 Received: from prec5560.. (freifunk-gw.bsa1-cpe1.syseleven.net. [176.74.57.43])
  by smtp.gmail.com with ESMTPSA id
- u13-20020a170906124d00b00782e3cf7277sm2067258eja.120.2022.10.28.05.08.26
+ u13-20020a170906124d00b00782e3cf7277sm2067258eja.120.2022.10.28.05.08.28
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 28 Oct 2022 05:08:27 -0700 (PDT)
+ Fri, 28 Oct 2022 05:08:29 -0700 (PDT)
 From: Robert Foss <robert.foss@linaro.org>
 To: agross@kernel.org, bjorn.andersson@linaro.org,
  konrad.dybcio@somainline.org, robh+dt@kernel.org,
@@ -61,15 +61,15 @@ To: agross@kernel.org, bjorn.andersson@linaro.org,
  linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
  freedreno@lists.freedesktop.org, Jonathan Marek <jonathan@marek.ca>,
  vinod.koul@linaro.org, quic_jesszhan@quicinc.com
-Date: Fri, 28 Oct 2022 14:08:07 +0200
-Message-Id: <20221028120812.339100-5-robert.foss@linaro.org>
+Date: Fri, 28 Oct 2022 14:08:08 +0200
+Message-Id: <20221028120812.339100-6-robert.foss@linaro.org>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20221028120812.339100-1-robert.foss@linaro.org>
 References: <20221028120812.339100-1-robert.foss@linaro.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH v1 4/9] arm64: dts: qcom: sm8350: Add &tlmm
- gpio-line-names
+Subject: [Freedreno] [PATCH v1 5/9] arm64: dts: qcom: sm8350: Remove mmxc
+ power-domain-name
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -85,229 +85,26 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Add GPIO line names as described by the sm8350-hdk schematic.
+The mmxc power-domain-name is not required, and is not
+used by either earlier or later SoC versions (sm8250 / sm8450).
 
 Signed-off-by: Robert Foss <robert.foss@linaro.org>
 ---
- arch/arm64/boot/dts/qcom/sm8350-hdk.dts | 205 ++++++++++++++++++++++++
- 1 file changed, 205 insertions(+)
+ arch/arm64/boot/dts/qcom/sm8350.dtsi | 1 -
+ 1 file changed, 1 deletion(-)
 
-diff --git a/arch/arm64/boot/dts/qcom/sm8350-hdk.dts b/arch/arm64/boot/dts/qcom/sm8350-hdk.dts
-index 0fcf5bd88fc7..e6deb08c6da0 100644
---- a/arch/arm64/boot/dts/qcom/sm8350-hdk.dts
-+++ b/arch/arm64/boot/dts/qcom/sm8350-hdk.dts
-@@ -233,6 +233,211 @@ &slpi {
+diff --git a/arch/arm64/boot/dts/qcom/sm8350.dtsi b/arch/arm64/boot/dts/qcom/sm8350.dtsi
+index e72a04411888..606fab087945 100644
+--- a/arch/arm64/boot/dts/qcom/sm8350.dtsi
++++ b/arch/arm64/boot/dts/qcom/sm8350.dtsi
+@@ -2557,7 +2557,6 @@ dispcc: clock-controller@af00000 {
+ 			#power-domain-cells = <1>;
  
- &tlmm {
- 	gpio-reserved-ranges = <52 8>;
-+
-+	gpio-line-names =
-+		"APPS_I2C_SDA", /* GPIO_0 */
-+		"APPS_I2C_SCL",
-+		"FSA_INT_N",
-+		"USER_LED3_EN",
-+		"SMBUS_SDA_1P8",
-+		"SMBUS_SCL_1P8",
-+		"2M2_3P3_EN",
-+		"ALERT_DUAL_M2_N",
-+		"EXP_UART_CTS",
-+		"EXP_UART_RFR",
-+		"EXP_UART_TX", /* GPIO_10 */
-+		"EXP_UART_RX",
-+		"NC",
-+		"NC",
-+		"RCM_MARKER1",
-+		"WSA0_EN",
-+		"CAM1_RESET_N",
-+		"CAM0_RESET_N",
-+		"DEBUG_UART_TX",
-+		"DEBUG_UART_RX",
-+		"TS_I2C_SDA", /* GPIO_20 */
-+		"TS_I2C_SCL",
-+		"TS_RESET_N",
-+		"TS_INT_N",
-+		"DISP0_RESET_N",
-+		"DISP1_RESET_N",
-+		"ETH_RESET",
-+		"RCM_MARKER2",
-+		"CAM_DC_MIPI_MUX_EN",
-+		"CAM_DC_MIPI_MUX_SEL",
-+		"AFC_PHY_TA_D_PLUS", /* GPIO_30 */
-+		"AFC_PHY_TA_D_MINUS",
-+		"PM8008_1_IRQ",
-+		"PM8008_1_RESET_N",
-+		"PM8008_2_IRQ",
-+		"PM8008_2_RESET_N",
-+		"CAM_DC_I3C_SDA",
-+		"CAM_DC_I3C_SCL",
-+		"FP_INT_N",
-+		"FP_WUHB_INT_N",
-+		"SMB_SPMI_DATA", /* GPIO_40 */
-+		"SMB_SPMI_CLK",
-+		"USB_HUB_RESET",
-+		"FORCE_USB_BOOT",
-+		"LRF_IRQ",
-+		"NC",
-+		"IMU2_INT",
-+		"HDMI_3P3_EN",
-+		"HDMI_RSTN",
-+		"HDMI_1P2_EN",
-+		"HDMI_INT", /* GPIO_50 */
-+		"USB1_ID",
-+		"FP_SPI_MISO",
-+		"FP_SPI_MOSI",
-+		"FP_SPI_CLK",
-+		"FP_SPI_CS_N",
-+		"NFC_ESE_SPI_MISO",
-+		"NFC_ESE_SPI_MOSI",
-+		"NFC_ESE_SPI_CLK",
-+		"NFC_ESE_SPI_CS",
-+		"NFC_I2C_SDA", /* GPIO_60 */
-+		"NFC_I2C_SCLC",
-+		"NFC_EN",
-+		"NFC_CLK_REQ",
-+		"HST_WLAN_EN",
-+		"HST_BT_EN",
-+		"HST_SW_CTRL",
-+		"NC",
-+		"HST_BT_UART_CTS",
-+		"HST_BT_UART_RFR",
-+		"HST_BT_UART_TX", /* GPIO_70 */
-+		"HST_BT_UART_RX",
-+		"CAM_DC_SPI0_MISO",
-+		"CAM_DC_SPI0_MOSI",
-+		"CAM_DC_SPI0_CLK",
-+		"CAM_DC_SPI0_CS_N",
-+		"CAM_DC_SPI1_MISO",
-+		"CAM_DC_SPI1_MOSI",
-+		"CAM_DC_SPI1_CLK",
-+		"CAM_DC_SPI1_CS_N",
-+		"HALL_INT_N", /* GPIO_80 */
-+		"USB_PHY_PS",
-+		"MDP_VSYNC_P",
-+		"MDP_VSYNC_S",
-+		"ETH_3P3_EN",
-+		"RADAR_INT",
-+		"NFC_DWL_REQ",
-+		"SM_GPIO_87",
-+		"WCD_RESET_N",
-+		"ALSP_INT_N",
-+		"PRESS_INT", /* GPIO_90 */
-+		"SAR_INT_N",
-+		"SD_CARD_DET_N",
-+		"NC",
-+		"PCIE0_RESET_N",
-+		"PCIE0_CLK_REQ_N",
-+		"PCIE0_WAKE_N",
-+		"PCIE1_RESET_N",
-+		"PCIE1_CLK_REQ_N",
-+		"PCIE1_WAKE_N",
-+		"CAM_MCLK0", /* GPIO_100 */
-+		"CAM_MCLK1",
-+		"CAM_MCLK2",
-+		"CAM_MCLK3",
-+		"CAM_MCLK4",
-+		"CAM_MCLK5",
-+		"CAM2_RESET_N",
-+		"CCI_I2C0_SDA",
-+		"CCI_I2C0_SCL",
-+		"CCI_I2C1_SDA",
-+		"CCI_I2C1_SCL", /* GPIO_110 */
-+		"CCI_I2C2_SDA",
-+		"CCI_I2C2_SCL",
-+		"CCI_I2C3_SDA",
-+		"CCI_I2C3_SCL",
-+		"CAM5_RESET_N",
-+		"CAM4_RESET_N",
-+		"CAM3_RESET_N",
-+		"IMU1_INT",
-+		"MAG_INT_N",
-+		"MI2S2_I2S_SCK", /* GPIO_120 */
-+		"MI2S2_I2S_DAT0",
-+		"MI2S2_I2S_WS",
-+		"HIFI_DAC_I2S_MCLK",
-+		"MI2S2_I2S_DAT1",
-+		"HIFI_DAC_I2S_SCK",
-+		"HIFI_DAC_I2S_DAT0",
-+		"NC",
-+		"HIFI_DAC_I2S_WS",
-+		"HST_BT_WLAN_SLIMBUS_CLK",
-+		"HST_BT_WLAN_SLIMBUS_DAT0", /* GPIO_130 */
-+		"BT_LED_EN",
-+		"WLAN_LED_EN",
-+		"NC",
-+		"NC",
-+		"NC",
-+		"UIM2_PRESENT",
-+		"NC",
-+		"NC",
-+		"NC",
-+		"UIM1_PRESENT", /* GPIO_140 */
-+		"NC",
-+		"SM_RFFE0_DATA",
-+		"NC",
-+		"SM_RFFE1_DATA",
-+		"SM_MSS_GRFC4",
-+		"SM_MSS_GRFC5",
-+		"SM_MSS_GRFC6",
-+		"SM_MSS_GRFC7",
-+		"SM_RFFE4_CLK",
-+		"SM_RFFE4_DATA", /* GPIO_150 */
-+		"WLAN_COEX_UART1_RX",
-+		"WLAN_COEX_UART1_TX",
-+		"HST_SW_CTRL",
-+		"DSI0_STATUS",
-+		"DSI1_STATUS",
-+		"APPS_PBL_BOOT_SPEED_1",
-+		"APPS_BOOT_FROM_ROM",
-+		"APPS_PBL_BOOT_SPEED_0",
-+		"QLINK0_REQ",
-+		"QLINK0_EN", /* GPIO_160 */
-+		"QLINK0_WMSS_RESET_N",
-+		"NC",
-+		"NC",
-+		"NC",
-+		"NC",
-+		"NC",
-+		"NC",
-+		"WCD_SWR_TX_CLK",
-+		"WCD_SWR_TX_DATA0",
-+		"WCD_SWR_TX_DATA1", /* GPIO_170 */
-+		"WCD_SWR_RX_CLK",
-+		"WCD_SWR_RX_DATA0",
-+		"WCD_SWR_RX_DATA1",
-+		"DMIC01_CLK",
-+		"DMIC01_DATA",
-+		"DMIC23_CLK",
-+		"DMIC23_DATA",
-+		"WSA_SWR_CLK",
-+		"WSA_SWR_DATA",
-+		"DMIC45_CLK", /* GPIO_180 */
-+		"DMIC45_DATA",
-+		"WCD_SWR_TX_DATA2",
-+		"SENSOR_I3C_SDA",
-+		"SENSOR_I3C_SCL",
-+		"CAM_OIS0_I3C_SDA",
-+		"CAM_OIS0_I3C_SCL",
-+		"IMU_SPI_MISO",
-+		"IMU_SPI_MOSI",
-+		"IMU_SPI_CLK",
-+		"IMU_SPI_CS_N", /* GPIO_190 */
-+		"MAG_I2C_SDA",
-+		"MAG_I2C_SCL",
-+		"SENSOR_I2C_SDA",
-+		"SENSOR_I2C_SCL",
-+		"RADAR_SPI_MISO",
-+		"RADAR_SPI_MOSI",
-+		"RADAR_SPI_CLK",
-+		"RADAR_SPI_CS_N",
-+		"HST_BLE_UART_TX",
-+		"HST_BLE_UART_RX", /* GPIO_200 */
-+		"HST_WLAN_UART_TX",
-+		"HST_WLAN_UART_RX";
- };
+ 			power-domains = <&rpmhpd SM8350_MMCX>;
+-			power-domain-names = "mmcx";
+ 		};
  
- &uart2 {
+ 		adsp: remoteproc@17300000 {
 -- 
 2.34.1
 
