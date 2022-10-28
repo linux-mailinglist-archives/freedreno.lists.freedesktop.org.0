@@ -1,46 +1,36 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id C67426113BE
-	for <lists+freedreno@lfdr.de>; Fri, 28 Oct 2022 15:57:32 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 58B7A6115C7
+	for <lists+freedreno@lfdr.de>; Fri, 28 Oct 2022 17:25:31 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 72C4A10E841;
-	Fri, 28 Oct 2022 13:57:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B206C10E852;
+	Fri, 28 Oct 2022 15:25:29 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 74B1410E840;
- Fri, 28 Oct 2022 13:57:25 +0000 (UTC)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 11EDBB82A38;
- Fri, 28 Oct 2022 13:57:24 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 974DFC433D6;
- Fri, 28 Oct 2022 13:57:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1666965442;
- bh=68AdUumEuf7Kqp2Im/gtt+S8SZW3EUB8HDavcQSGJLs=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=pHRHEFC99L308YV3BxPrWBpBKibqRfHG8eaaKtFK8S+2ZiM/rnzl5mga8aweUU/x0
- siK5MDJrQgu/Ad8BYndkjR1yA/U2aVXTcuamWm+eYoyd+qU//pjoGuVy/gqwJOkjUT
- 1yN7ocsMZxkKn3ck1QiRh1rE5DwI/tKitJgcWg0TkKw54ktvgHZ/p+XFsKyZysyHkA
- hsvgDi9qTQX9aclmHQfdFy3f10zPDrXKHL22zQ49gpfcooXqxtSRUwL7/7+2L+SB+2
- 7mtabVC3uUUuSkwWToXYI4zQn6MjKzsmidEbQOtAx6wxeyta5h1prWIkLDNBpDdmp9
- VQyXVF9KUYsIw==
-Date: Fri, 28 Oct 2022 08:57:18 -0500
-From: Bjorn Andersson <andersson@kernel.org>
-To: Robert Foss <robert.foss@linaro.org>
-Message-ID: <20221028135718.4pmh6moee2wx2lpf@baldur>
-References: <20221028120812.339100-1-robert.foss@linaro.org>
- <20221028120812.339100-10-robert.foss@linaro.org>
+Received: from relay07.th.seeweb.it (relay07.th.seeweb.it
+ [IPv6:2001:4b7a:2000:18::168])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5905F10E84E
+ for <freedreno@lists.freedesktop.org>; Fri, 28 Oct 2022 15:25:24 +0000 (UTC)
+Received: from SoMainline.org (94-209-172-39.cable.dynamic.v4.ziggo.nl
+ [94.209.172.39])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest
+ SHA256) (No client certificate requested)
+ by m-r2.th.seeweb.it (Postfix) with ESMTPSA id 743B73F114;
+ Fri, 28 Oct 2022 17:25:21 +0200 (CEST)
+Date: Fri, 28 Oct 2022 17:25:19 +0200
+From: Marijn Suijten <marijn.suijten@somainline.org>
+To: Kalyan Thota <quic_kalyant@quicinc.com>
+Message-ID: <20221028152519.szxtc635pcaectxp@SoMainline.org>
+References: <1664680506-8336-1-git-send-email-quic_kalyant@quicinc.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20221028120812.339100-10-robert.foss@linaro.org>
-Subject: Re: [Freedreno] [PATCH v1 9/9] arm64: dts: qcom: sm8350-hdk: Enable
- lt9611uxc dsi-hdmi bridge
+In-Reply-To: <1664680506-8336-1-git-send-email-quic_kalyant@quicinc.com>
+Subject: Re: [Freedreno] [v6] drm/msm/disp/dpu1: add support for dspp sub
+ block flush in sc7280
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,200 +43,224 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: airlied@linux.ie, konrad.dybcio@somainline.org,
- dri-devel@lists.freedesktop.org, bjorn.andersson@linaro.org,
- krzysztof.kozlowski+dt@linaro.org, angelogioacchino.delregno@somainline.org,
- vinod.koul@linaro.org, Jonathan Marek <jonathan@marek.ca>, robdclark@gmail.com,
- quic_vpolimer@quicinc.com, agross@kernel.org, quic_jesszhan@quicinc.com,
- devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- quic_abhinavk@quicinc.com, swboyd@chromium.org, robh+dt@kernel.org,
- sean@poorly.run, quic_kalyant@quicinc.com, loic.poulain@linaro.org,
- dianders@chromium.org, linux-kernel@vger.kernel.org, vkoul@kernel.org,
- daniel@ffwll.ch, dmitry.baryshkov@linaro.org, freedreno@lists.freedesktop.org
+Cc: devicetree@vger.kernel.org, quic_abhinavk@quicinc.com,
+ linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, dianders@chromium.org, robdclark@gmail.com,
+ dmitry.baryshkov@linaro.org, swboyd@chromium.org,
+ freedreno@lists.freedesktop.org, quic_vpolimer@quicinc.com
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Fri, Oct 28, 2022 at 02:08:12PM +0200, Robert Foss wrote:
-> The sm8350-hdk ships with the LT9611 UXC DSI/HDMI bridge chip.
+On 2022-10-01 20:15:06, Kalyan Thota wrote:
+> Flush mechanism for DSPP blocks has changed in sc7280 family, it
+> allows individual sub blocks to be flushed in coordination with
+> master flush control.
 > 
-> In order to toggle the board to enable the HDMI output,
-> switch #7 & #8 on the rightmost multi-switch package have
-> to be toggled to On.
+> Representation: master_flush && (PCC_flush | IGC_flush .. etc )
 > 
-> Signed-off-by: Robert Foss <robert.foss@linaro.org>
+> This change adds necessary support for the above design.
+> 
+> Changes in v1:
+> - Few nits (Doug, Dmitry)
+> - Restrict sub-block flush programming to dpu_hw_ctl file (Dmitry)
+> 
+> Changes in v2:
+> - Move the address offset to flush macro (Dmitry)
+> - Seperate ops for the sub block flush (Dmitry)
+> 
+> Changes in v3:
+> - Reuse the DPU_DSPP_xx enum instead of a new one (Dmitry)
+> 
+> Changes in v4:
+> - Use shorter version for unsigned int (Stephen)
+> 
+> Changes in v5:
+> - Spurious patch please ignore.
+> 
+> Changes in v6:
+> - Add SOB tag (Doug, Dmitry)
+> 
+> Signed-off-by: Kalyan Thota <quic_kalyant@quicinc.com>
+> Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 > ---
->  arch/arm64/boot/dts/qcom/sm8350-hdk.dts | 106 ++++++++++++++++++++++++
->  1 file changed, 106 insertions(+)
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c       |  2 +-
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c |  5 +++-
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h |  4 +++
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c     | 35 ++++++++++++++++++++++++--
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.h     | 10 ++++++--
+>  5 files changed, 50 insertions(+), 6 deletions(-)
 > 
-> diff --git a/arch/arm64/boot/dts/qcom/sm8350-hdk.dts b/arch/arm64/boot/dts/qcom/sm8350-hdk.dts
-> index 6e07feb4b3b2..6666b38b58f8 100644
-> --- a/arch/arm64/boot/dts/qcom/sm8350-hdk.dts
-> +++ b/arch/arm64/boot/dts/qcom/sm8350-hdk.dts
-> @@ -20,6 +20,17 @@ chosen {
->  		stdout-path = "serial0:115200n8";
->  	};
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
+> index 601d687..4170fbe 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
+> @@ -766,7 +766,7 @@ static void _dpu_crtc_setup_cp_blocks(struct drm_crtc *crtc)
 >  
-> +	hdmi-out {
-> +		compatible = "hdmi-connector";
-> +		type = "a";
-> +
-> +		port {
-> +			hdmi_con: endpoint {
-> +				remote-endpoint = <&lt9611_out>;
-> +			};
-> +		};
-> +	};
-> +
->  	vph_pwr: vph-pwr-regulator {
->  		compatible = "regulator-fixed";
->  		regulator-name = "vph_pwr";
-> @@ -29,6 +40,32 @@ vph_pwr: vph-pwr-regulator {
->  		regulator-always-on;
->  		regulator-boot-on;
->  	};
-> +
-> +	lt9611_1v2: lt9611-1v2 {
-> +		compatible = "regulator-fixed";
-> +		regulator-name = "LT9611_1V2";
-> +
-> +		vin-supply = <&vph_pwr>;
-> +		regulator-min-microvolt = <1200000>;
-> +		regulator-max-microvolt = <1200000>;
-> +		gpio = <&tlmm 49 GPIO_ACTIVE_HIGH>;
-> +		enable-active-high;
-> +		regulator-boot-on;
-> +		regulator-always-on;
+>  		/* stage config flush mask */
+>  		ctl->ops.update_pending_flush_dspp(ctl,
+> -			mixer[i].hw_dspp->idx);
+> +			mixer[i].hw_dspp->idx, DPU_DSPP_PCC);
+>  	}
+>  }
+>  
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
+> index 27f029f..0eecb2f 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
+> @@ -65,7 +65,10 @@
+>  	(PINGPONG_SDM845_MASK | BIT(DPU_PINGPONG_TE2))
+>  
+>  #define CTL_SC7280_MASK \
+> -	(BIT(DPU_CTL_ACTIVE_CFG) | BIT(DPU_CTL_FETCH_ACTIVE) | BIT(DPU_CTL_VM_CFG))
+> +	(BIT(DPU_CTL_ACTIVE_CFG) | \
+> +	 BIT(DPU_CTL_FETCH_ACTIVE) | \
+> +	 BIT(DPU_CTL_VM_CFG) | \
+> +	 BIT(DPU_CTL_DSPP_SUB_BLOCK_FLUSH))
+>  
+>  #define MERGE_3D_SM8150_MASK (0)
+>  
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h
+> index 38aa38a..8148e91 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h
+> @@ -161,10 +161,12 @@ enum {
+>   * DSPP sub-blocks
+>   * @DPU_DSPP_PCC             Panel color correction block
+>   * @DPU_DSPP_GC              Gamma correction block
+> + * @DPU_DSPP_IGC             Inverse Gamma correction block
 
-Why is this always-on?
+Lowercase G? Otherwise capitalize Correction as well to match the IGC
+abbrev., and do the same for the other abbreviations above.
 
-> +	};
-> +
-> +	lt9611_3v3: lt9611-3v3 {
-> +		compatible = "regulator-fixed";
-> +		regulator-name = "LT9611_3V3";
-> +
-> +		vin-supply = <&vreg_bob>;
-> +		gpio = <&tlmm 47 GPIO_ACTIVE_HIGH>;
-> +		regulator-min-microvolt = <3300000>;
-> +		regulator-max-microvolt = <3300000>;
-> +		enable-active-high;
-> +		regulator-boot-on;
-> +		regulator-always-on;
-> +	};
+>   */
+>  enum {
+>  	DPU_DSPP_PCC = 0x1,
+>  	DPU_DSPP_GC,
+> +	DPU_DSPP_IGC,
+>  	DPU_DSPP_MAX
 >  };
 >  
->  &adsp {
-> @@ -220,6 +257,15 @@ &dispcc {
->  &dsi0 {
->  	status = "okay";
->  	vdda-supply = <&vreg_l6b_1p2>;
-> +
-> +	ports {
-> +		port@1 {
-> +			endpoint {
-> +				remote-endpoint = <&lt9611_a>;
-> +				data-lanes = <0 1 2 3>;
-> +			};
-> +		};
-> +	};
+> @@ -191,6 +193,7 @@ enum {
+>   * @DPU_CTL_SPLIT_DISPLAY:	CTL supports video mode split display
+>   * @DPU_CTL_FETCH_ACTIVE:	Active CTL for fetch HW (SSPPs)
+>   * @DPU_CTL_VM_CFG:		CTL config to support multiple VMs
+> + * @DPU_CTL_DSPP_BLOCK_FLUSH: CTL config to support dspp sub-block flush
+>   * @DPU_CTL_MAX
+>   */
+>  enum {
+> @@ -198,6 +201,7 @@ enum {
+>  	DPU_CTL_ACTIVE_CFG,
+>  	DPU_CTL_FETCH_ACTIVE,
+>  	DPU_CTL_VM_CFG,
+> +	DPU_CTL_DSPP_SUB_BLOCK_FLUSH,
+>  	DPU_CTL_MAX
 >  };
 >  
->  &dsi0_phy  {
-> @@ -231,6 +277,48 @@ &gpi_dma1 {
->  	status = "okay";
->  };
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c
+> index a35ecb6..f26f484 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c
+> @@ -33,6 +33,7 @@
+>  #define   CTL_INTF_FLUSH                0x110
+>  #define   CTL_INTF_MASTER               0x134
+>  #define   CTL_FETCH_PIPE_ACTIVE         0x0FC
+> +#define   CTL_DSPP_n_FLUSH(n)		((0x13C) + ((n - 1) * 4))
+
+Use spaces for indentation just like the other defines.  Replace 1 with
+DSPP_0.
+
 >  
-> +&i2c15 {
-> +	status = "okay";
-
-Please keep status last. (Yes I see that it goes against the convention
-in this file, so let's update that at some point as well)
-
-> +	clock-frequency = <400000>;
-> +
-> +	lt9611_codec: hdmi-bridge@2b {
-> +		compatible = "lontium,lt9611uxc";
-> +		reg = <0x2b>;
-> +		status = "okay";
-
-This is the default, you can omit it.
-
-> +
-> +		interrupts-extended = <&tlmm 50 IRQ_TYPE_EDGE_FALLING>;
-> +		reset-gpios = <&tlmm 48 GPIO_ACTIVE_HIGH>;
-> +
-> +		vdd-supply = <&lt9611_1v2>;
-> +		vcc-supply = <&lt9611_3v3>;
-> +
-> +		pinctrl-names = "default";
-> +		pinctrl-0 = <&lt9611_irq_pin &lt9611_rst_pin>;
-> +
-> +		ports {
-> +			#address-cells = <1>;
-> +			#size-cells = <0>;
-> +
-> +			port@0 {
-> +				reg = <0>;
-> +
-> +				lt9611_a: endpoint {
-> +					remote-endpoint = <&dsi0_out>;
-> +				};
-> +			};
-> +
-> +			port@2 {
-> +				reg = <2>;
-> +
-> +				lt9611_out: endpoint {
-> +					remote-endpoint = <&hdmi_con>;
-> +				};
-> +			};
-> +
-> +		};
-> +	};
-> +};
-> +
->  &mdss {
->  	status = "okay";
->  };
-> @@ -248,6 +336,10 @@ &qupv3_id_0 {
->  	status = "okay";
->  };
+>  #define CTL_MIXER_BORDER_OUT            BIT(24)
+>  #define CTL_FLUSH_MASK_CTL              BIT(17)
+> @@ -287,8 +288,9 @@ static void dpu_hw_ctl_update_pending_flush_merge_3d_v1(struct dpu_hw_ctl *ctx,
+>  }
 >  
-> +&qupv3_id_2 {
-> +	status = "okay";
-> +};
+>  static void dpu_hw_ctl_update_pending_flush_dspp(struct dpu_hw_ctl *ctx,
+> -	enum dpu_dspp dspp)
+> +	enum dpu_dspp dspp, u32 dspp_sub_blk)
+>  {
 > +
->  &slpi {
->  	status = "okay";
->  	firmware-name = "qcom/sm8350/slpi.mbn";
-> @@ -544,4 +636,18 @@ usb_hub_enabled_state: usb-hub-enabled-state {
->  		drive-strength = <2>;
->  		output-low;
->  	};
+>  	switch (dspp) {
+>  	case DSPP_0:
+>  		ctx->pending_flush_mask |= BIT(13);
+> @@ -307,6 +309,31 @@ static void dpu_hw_ctl_update_pending_flush_dspp(struct dpu_hw_ctl *ctx,
+>  	}
+>  }
+>  
+> +static void dpu_hw_ctl_update_pending_flush_dspp_subblocks(
+> +	struct dpu_hw_ctl *ctx,	enum dpu_dspp dspp, u32 dspp_sub_blk)
+> +{
+> +	u32 flushbits = 0, active;
 > +
-> +	lt9611_rst_pin: lt9611-rst-state {
-> +		pins = "gpio48";
-> +		function = "normal";
+> +	switch (dspp_sub_blk) {
+> +	case DPU_DSPP_IGC:
+> +		flushbits = BIT(2);
+> +		break;
+> +	case DPU_DSPP_PCC:
+> +		flushbits = BIT(4);
+> +		break;
+> +	case DPU_DSPP_GC:
+> +		flushbits = BIT(5);
+> +		break;
+> +	default:
+> +		return;
+> +	}
 > +
-> +		output-high;
-> +		input-disable;
-> +	};
+> +	active = DPU_REG_READ(&ctx->hw, CTL_DSPP_n_FLUSH(dspp));
+> +	DPU_REG_WRITE(&ctx->hw, CTL_DSPP_n_FLUSH(dspp), active | flushbits);
 > +
-> +	lt9611_irq_pin: lt9611-irq {
-
-pinctrl state nodes should be suffixed with "-state".
-
-And you can lump the two pins into a single -state, with rst-pins and
-irq-pins as subnodes, defining the two pins.
-
-Regards,
-Bjorn
-
-> +		pins = "gpio50";
-> +		function = "gpio";
-> +		bias-disable;
-> +	};
+> +	ctx->pending_flush_mask |= BIT(29);
+> +}
+> +
+>  static u32 dpu_hw_ctl_poll_reset_status(struct dpu_hw_ctl *ctx, u32 timeout_us)
+>  {
+>  	struct dpu_hw_blk_reg_map *c = &ctx->hw;
+> @@ -675,7 +702,11 @@ static void _setup_ctl_ops(struct dpu_hw_ctl_ops *ops,
+>  	ops->setup_blendstage = dpu_hw_ctl_setup_blendstage;
+>  	ops->update_pending_flush_sspp = dpu_hw_ctl_update_pending_flush_sspp;
+>  	ops->update_pending_flush_mixer = dpu_hw_ctl_update_pending_flush_mixer;
+> -	ops->update_pending_flush_dspp = dpu_hw_ctl_update_pending_flush_dspp;
+> +	if (cap & BIT(DPU_CTL_DSPP_SUB_BLOCK_FLUSH))
+> +		ops->update_pending_flush_dspp = dpu_hw_ctl_update_pending_flush_dspp_subblocks;
+> +	else
+> +		ops->update_pending_flush_dspp = dpu_hw_ctl_update_pending_flush_dspp;
+> +
+>  	if (cap & BIT(DPU_CTL_FETCH_ACTIVE))
+>  		ops->set_active_pipes = dpu_hw_ctl_set_fetch_pipe_active;
 >  };
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.h
+> index 96c012e..1743572 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.h
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.h
+> @@ -149,12 +149,18 @@ struct dpu_hw_ctl_ops {
+>  
+>  	/**
+>  	 * OR in the given flushbits to the cached pending_flush_mask
+> -	 * No effect on hardware
+> +	 *
+> +	 * If the hardware supports dspp sub block flush, then sub-block
+
+sub[ -]block written with a space _and_ with a hyphen, what is it?
+
+> +	 * flushes are written to the hardware and main dspp flush will
+> +	 * be cached in the pending_flush_mask.
+> +	 *
+>  	 * @ctx       : ctl path ctx pointer
+>  	 * @blk       : DSPP block index
+> +	 * @dspp_sub_blk : DSPP sub-block index
+>  	 */
+>  	void (*update_pending_flush_dspp)(struct dpu_hw_ctl *ctx,
+> -		enum dpu_dspp blk);
+> +		enum dpu_dspp blk,  u32 dspp_sub_blk);
+
+Double space?
+
+- Marijn
+
+> +
+>  	/**
+>  	 * Write the value of the pending_flush_mask to hardware
+>  	 * @ctx       : ctl path ctx pointer
 > -- 
-> 2.34.1
+> 2.7.4
 > 
