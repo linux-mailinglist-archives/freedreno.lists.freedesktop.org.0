@@ -2,79 +2,46 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3C09461115B
-	for <lists+freedreno@lfdr.de>; Fri, 28 Oct 2022 14:29:33 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5B1DD61134E
+	for <lists+freedreno@lfdr.de>; Fri, 28 Oct 2022 15:44:48 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0268F10E81D;
-	Fri, 28 Oct 2022 12:29:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 134A910E830;
+	Fri, 28 Oct 2022 13:44:47 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-x22a.google.com (mail-lj1-x22a.google.com
- [IPv6:2a00:1450:4864:20::22a])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 53F7910E825
- for <freedreno@lists.freedesktop.org>; Fri, 28 Oct 2022 12:29:29 +0000 (UTC)
-Received: by mail-lj1-x22a.google.com with SMTP id j14so8124641ljh.12
- for <freedreno@lists.freedesktop.org>; Fri, 28 Oct 2022 05:29:29 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=content-transfer-encoding:in-reply-to:references:to:from
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=xhh2GfNPqccqHt9z7S0/T4lVRI1pm6I0GIyqBlDEE6Q=;
- b=Gv3mhdHv4vTqTawNHz1Bsh6DyvFILad7+MCdXJ/Kg9Hu8zE08m6fZ8RGYRwg76Qt7h
- xiVKcxSf9tQQxNOF007MpB2BTQUVbn3dCwuaS2V+PFtS2nPi0x0fe7DPKouC0o8+IPtF
- aKKWJX/UxIDkAf7/FTMYLYItVomf7DtW17XMYNjmxuMmB6cerpTlO1ofsONDt2eJoXSR
- peDoWokbyIryddPi1EUHNAj8obcrkfrzSmbmaEYDSy8nNcGWxisgLP0d77xdEaUIfyjX
- AC5eXEc1PmLjCOg7c3rOVB0LocXqV6ephnuD692n+5j0VW3Kfs6fluKoG3wpY47ezLvl
- cluA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=content-transfer-encoding:in-reply-to:references:to:from
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=xhh2GfNPqccqHt9z7S0/T4lVRI1pm6I0GIyqBlDEE6Q=;
- b=3oriebzkLdO80djquqgBsqrGjuQPvJIY8gdRO+RO0glI1Nh0uOKhMO/CjuTWRUgijh
- 6XTF+aCwzqRcf5GJTlp6/T6PM54VLSdPEFy0e3pGaVCpDzE/RUuvoh0mcJSZ1fimWZPN
- BNKY7+Xx/94DKSk3GMPvLhntaIaKKTqaaWFpVSfKrf/DsLygOxwtqVoot3OESIK3sFsU
- koBPH74Nq7MsgDhYv3jH1IwFQsd1flO4JTETlrx2TNhh8OyyS3cZvhVPcWAxNzC1WzNf
- InAZnwpAGgwjoH4reCCidJ82BYrGioJnK4M1mUgJDFGpP5rUIYAc2JFbhgnGsz0l17Tx
- vZDQ==
-X-Gm-Message-State: ACrzQf2M7A+mqq1VSWN0PdcEs6MV8NxnqaFe5J0Ohc7b6jY6QtpZnoOU
- AA7vSpbp1gTP1OCQ/34Fe90G8A==
-X-Google-Smtp-Source: AMsMyM4cqflCH7VKbXl6GhfGyt9BzQJBZMw3rl9thrFiCIpESo5T+Xin/zo7hOdtAxup19xhLpLF2w==
-X-Received: by 2002:a05:651c:111:b0:277:2451:816c with SMTP id
- a17-20020a05651c011100b002772451816cmr4467514ljb.17.1666960167619; 
- Fri, 28 Oct 2022 05:29:27 -0700 (PDT)
-Received: from [10.10.15.130] ([192.130.178.91])
- by smtp.gmail.com with ESMTPSA id
- z10-20020a05651c11ca00b00277074c12ddsm621018ljo.125.2022.10.28.05.29.26
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 28 Oct 2022 05:29:27 -0700 (PDT)
-Message-ID: <09a049cc-0514-2db3-0e8b-ff3dfa61d585@linaro.org>
-Date: Fri, 28 Oct 2022 15:29:26 +0300
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.3.3
-Content-Language: en-GB
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-To: Robert Foss <robert.foss@linaro.org>, agross@kernel.org,
- bjorn.andersson@linaro.org, konrad.dybcio@somainline.org,
- robh+dt@kernel.org, krzysztof.kozlowski+dt@linaro.org, robdclark@gmail.com,
- quic_abhinavk@quicinc.com, sean@poorly.run, airlied@linux.ie,
- daniel@ffwll.ch, quic_kalyant@quicinc.com, swboyd@chromium.org,
- angelogioacchino.delregno@somainline.org, loic.poulain@linaro.org,
- quic_vpolimer@quicinc.com, vkoul@kernel.org, dianders@chromium.org,
- linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, Jonathan Marek <jonathan@marek.ca>,
- vinod.koul@linaro.org, quic_jesszhan@quicinc.com
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8349F10E830;
+ Fri, 28 Oct 2022 13:44:44 +0000 (UTC)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id A79D5628A3;
+ Fri, 28 Oct 2022 13:44:43 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 64F03C4FF10;
+ Fri, 28 Oct 2022 13:44:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1666964683;
+ bh=LcKz3O85jBpORVzoqD8hoLCMY+nPoqxJwOLtUvB36iA=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=r37lpyLRxXnxvD0akaCLv34DqqisYLps+u/LHPs3w1mwog9eES0udif1wSfocOSZO
+ pkVjJWtwjzvzG/BqCatD7SGYXYlDl7eLokaLMRIJVOLidhIQAJG1PF2+PsJSdGylgN
+ RdRW6X8S647MQ/mQUOCXhH/KJBQajjjQX9rnuuH3HXKUFy9Hle646o8Wei9dIJr6q5
+ cIWks98dOZAZ+SQJJi4e635yOhVT1rbiV/HM+urocmQbWlIcckPTZLOXbUb6iJqea5
+ 2ycHu9aZGRaupG7zF/1CobmpTaPSGOATqfWziSh1PwA3ZLaVtF8u8qxIkUMXO/O5sO
+ DREHJfM+tVLLg==
+Date: Fri, 28 Oct 2022 08:44:39 -0500
+From: Bjorn Andersson <andersson@kernel.org>
+To: Robert Foss <robert.foss@linaro.org>
+Message-ID: <20221028134439.ugja55guopmql4nk@baldur>
 References: <20221028120812.339100-1-robert.foss@linaro.org>
- <20221028120812.339100-2-robert.foss@linaro.org>
- <0f8e73f6-d005-7e0b-ba38-c4d0161c1acd@linaro.org>
-In-Reply-To: <0f8e73f6-d005-7e0b-ba38-c4d0161c1acd@linaro.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-Subject: Re: [Freedreno] [PATCH v1 1/9] drm/msm: Add compatibles for SM8350
- display
+ <20221028120812.339100-7-robert.foss@linaro.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20221028120812.339100-7-robert.foss@linaro.org>
+Subject: Re: [Freedreno] [PATCH v1 6/9] arm64: dts: qcom: sm8350: Use 2
+ interconnect cells
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -87,50 +54,121 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
+Cc: airlied@linux.ie, konrad.dybcio@somainline.org,
+ dri-devel@lists.freedesktop.org, bjorn.andersson@linaro.org,
+ krzysztof.kozlowski+dt@linaro.org, angelogioacchino.delregno@somainline.org,
+ vinod.koul@linaro.org, Jonathan Marek <jonathan@marek.ca>, robdclark@gmail.com,
+ quic_vpolimer@quicinc.com, agross@kernel.org, quic_jesszhan@quicinc.com,
+ devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ quic_abhinavk@quicinc.com, swboyd@chromium.org, robh+dt@kernel.org,
+ sean@poorly.run, quic_kalyant@quicinc.com, loic.poulain@linaro.org,
+ dianders@chromium.org, linux-kernel@vger.kernel.org, vkoul@kernel.org,
+ daniel@ffwll.ch, dmitry.baryshkov@linaro.org, freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 28/10/2022 15:19, Dmitry Baryshkov wrote:
-> On 28/10/2022 15:08, Robert Foss wrote:
->> Add compatible string for "qcom,sm8350-dpu" and
->> "qcom,sm8350-mdss".
->>
->> Signed-off-by: Robert Foss <robert.foss@linaro.org>
->> ---
->>   drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c | 1 +
->>   drivers/gpu/drm/msm/msm_mdss.c          | 1 +
->>   2 files changed, 2 insertions(+)
+On Fri, Oct 28, 2022 at 02:08:09PM +0200, Robert Foss wrote:
+> Use two interconnect cells in order to optionally
+> support a path tag.
 > 
-> [skipped]
+> Signed-off-by: Robert Foss <robert.foss@linaro.org>
+> ---
+>  arch/arm64/boot/dts/qcom/sm8350.dtsi | 20 ++++++++++----------
+>  1 file changed, 10 insertions(+), 10 deletions(-)
 > 
->> diff --git a/drivers/gpu/drm/msm/msm_mdss.c 
->> b/drivers/gpu/drm/msm/msm_mdss.c
->> index e13c5c12b775..fd5a95cace16 100644
->> --- a/drivers/gpu/drm/msm/msm_mdss.c
->> +++ b/drivers/gpu/drm/msm/msm_mdss.c
->> @@ -447,6 +447,7 @@ static const struct of_device_id mdss_dt_match[] = {
->>       { .compatible = "qcom,sc8180x-mdss" },
->>       { .compatible = "qcom,sm8150-mdss" },
->>       { .compatible = "qcom,sm8250-mdss" },
->> +    { .compatible = "qcom,sm8350-mdss" },
->>       {}
->>   };
->>   MODULE_DEVICE_TABLE(of, mdss_dt_match);
+> diff --git a/arch/arm64/boot/dts/qcom/sm8350.dtsi b/arch/arm64/boot/dts/qcom/sm8350.dtsi
+> index 606fab087945..b6e44cd3b394 100644
+> --- a/arch/arm64/boot/dts/qcom/sm8350.dtsi
+> +++ b/arch/arm64/boot/dts/qcom/sm8350.dtsi
+> @@ -1543,56 +1543,56 @@ apps_smmu: iommu@15000000 {
+>  		config_noc: interconnect@1500000 {
+>  			compatible = "qcom,sm8350-config-noc";
+>  			reg = <0 0x01500000 0 0xa580>;
+> -			#interconnect-cells = <1>;
+> +			#interconnect-cells = <2>;
+
+You also need amend all the interconnects references with the additional
+tag cell.
+
+Regards,
+Bjorn
+
+>  			qcom,bcm-voters = <&apps_bcm_voter>;
+>  		};
+>  
+>  		mc_virt: interconnect@1580000 {
+>  			compatible = "qcom,sm8350-mc-virt";
+>  			reg = <0 0x01580000 0 0x1000>;
+> -			#interconnect-cells = <1>;
+> +			#interconnect-cells = <2>;
+>  			qcom,bcm-voters = <&apps_bcm_voter>;
+>  		};
+>  
+>  		system_noc: interconnect@1680000 {
+>  			compatible = "qcom,sm8350-system-noc";
+>  			reg = <0 0x01680000 0 0x1c200>;
+> -			#interconnect-cells = <1>;
+> +			#interconnect-cells = <2>;
+>  			qcom,bcm-voters = <&apps_bcm_voter>;
+>  		};
+>  
+>  		aggre1_noc: interconnect@16e0000 {
+>  			compatible = "qcom,sm8350-aggre1-noc";
+>  			reg = <0 0x016e0000 0 0x1f180>;
+> -			#interconnect-cells = <1>;
+> +			#interconnect-cells = <2>;
+>  			qcom,bcm-voters = <&apps_bcm_voter>;
+>  		};
+>  
+>  		aggre2_noc: interconnect@1700000 {
+>  			compatible = "qcom,sm8350-aggre2-noc";
+>  			reg = <0 0x01700000 0 0x33000>;
+> -			#interconnect-cells = <1>;
+> +			#interconnect-cells = <2>;
+>  			qcom,bcm-voters = <&apps_bcm_voter>;
+>  		};
+>  
+>  		mmss_noc: interconnect@1740000 {
+>  			compatible = "qcom,sm8350-mmss-noc";
+>  			reg = <0 0x01740000 0 0x1f080>;
+> -			#interconnect-cells = <1>;
+> +			#interconnect-cells = <2>;
+>  			qcom,bcm-voters = <&apps_bcm_voter>;
+>  		};
+>  
+>  		lpass_ag_noc: interconnect@3c40000 {
+>  			compatible = "qcom,sm8350-lpass-ag-noc";
+>  			reg = <0 0x03c40000 0 0xf080>;
+> -			#interconnect-cells = <1>;
+> +			#interconnect-cells = <2>;
+>  			qcom,bcm-voters = <&apps_bcm_voter>;
+>  		};
+>  
+>  		compute_noc: interconnect@a0c0000{
+>  			compatible = "qcom,sm8350-compute-noc";
+>  			reg = <0 0x0a0c0000 0 0xa180>;
+> -			#interconnect-cells = <1>;
+> +			#interconnect-cells = <2>;
+>  			qcom,bcm-voters = <&apps_bcm_voter>;
+>  		};
+>  
+> @@ -2420,14 +2420,14 @@ usb_2_ssphy: phy@88ebe00 {
+>  		dc_noc: interconnect@90c0000 {
+>  			compatible = "qcom,sm8350-dc-noc";
+>  			reg = <0 0x090c0000 0 0x4200>;
+> -			#interconnect-cells = <1>;
+> +			#interconnect-cells = <2>;
+>  			qcom,bcm-voters = <&apps_bcm_voter>;
+>  		};
+>  
+>  		gem_noc: interconnect@9100000 {
+>  			compatible = "qcom,sm8350-gem-noc";
+>  			reg = <0 0x09100000 0 0xb4000>;
+> -			#interconnect-cells = <1>;
+> +			#interconnect-cells = <2>;
+>  			qcom,bcm-voters = <&apps_bcm_voter>;
+>  		};
+>  
+> -- 
+> 2.34.1
 > 
-> 
-> BTW: you probably also have to update the msm_mdss_enable() function 
-> with the 8350-specific code.
-> 
-
-For mdss changes you can depend on [1], I plan to merge this patch in 
-this window.
-
-[1] https://patchwork.freedesktop.org/patch/489578/?series=105162&rev=1
-
-Also with the mdss changes, it would be good to split this patch into 
-dpu and mdss parts.
-
--- 
-With best wishes
-Dmitry
-
