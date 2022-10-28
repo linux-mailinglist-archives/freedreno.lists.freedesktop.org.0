@@ -2,55 +2,55 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id D38C06110F1
-	for <lists+freedreno@lfdr.de>; Fri, 28 Oct 2022 14:13:34 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DF2EB6110F9
+	for <lists+freedreno@lfdr.de>; Fri, 28 Oct 2022 14:14:33 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 71F1910E81C;
-	Fri, 28 Oct 2022 12:13:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6E94310E81C;
+	Fri, 28 Oct 2022 12:14:32 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x130.google.com (mail-lf1-x130.google.com
- [IPv6:2a00:1450:4864:20::130])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3BE7510E823
- for <freedreno@lists.freedesktop.org>; Fri, 28 Oct 2022 12:13:31 +0000 (UTC)
-Received: by mail-lf1-x130.google.com with SMTP id bp15so7911748lfb.13
- for <freedreno@lists.freedesktop.org>; Fri, 28 Oct 2022 05:13:31 -0700 (PDT)
+Received: from mail-lf1-x129.google.com (mail-lf1-x129.google.com
+ [IPv6:2a00:1450:4864:20::129])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D156D10E823
+ for <freedreno@lists.freedesktop.org>; Fri, 28 Oct 2022 12:14:30 +0000 (UTC)
+Received: by mail-lf1-x129.google.com with SMTP id r14so7995913lfm.2
+ for <freedreno@lists.freedesktop.org>; Fri, 28 Oct 2022 05:14:30 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=content-transfer-encoding:in-reply-to:from:references:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :from:to:cc:subject:date:message-id:reply-to;
- bh=xR6n4tPOTRtX/oPKaIWQlGUsVv0ju4GWJB4ChrEGNQs=;
- b=oTGAMQIRL9jE0Ap9S8AnYZna2RYYXpSYyRJjE50e+VKAoeJ7tdgFkXIeMlWTiLHpDq
- n8HT2ZWqqmSZyvC9flPK5Z3Pk4e1FE1vIewgY0/2he+JonIowrPmTDE6YUnxtZLQZXNg
- qUAuwp4HcJb8pq3OGaniff/LxuiHtYWB3a66H7j69IeV63zDkb1nNHMseyGxkmaKuzBu
- R09jekptyf45syURijFOjYJquuXlE/wa3iAd+MN1W+n9YtKSTTM75d1XLMq4YKhATXC2
- 1OEckM4LgtTsXAIQRXsskyWrYwN9we2m8NVVPy4jgR21tNGC49IJMwRSn5iw/vb1KfIL
- YfuA==
+ bh=BKq/BAGmscRdIakGFeHMFgaXLKmHS1XLU04+kzk8aUs=;
+ b=mv0vzwMwoeoZPKSMypkyY+Zixy9IODdXpl1NaNgcwFr13k/Cq3iR5BWo2kftrQBv2I
+ xq3dclF155wKsn4N/Ai4J63MUjsPzDyF8g9bUERvA6OQn63WM2qVUcpiRRcX1/g/T3JT
+ 0mpwwlsXkLy0VqTUCmtl/E2kXwWDazMjjJp0kvIhQu3+NofIePwF1G0E7lKYAflMm8nL
+ 35rtBStM1Mzd0GvnlN++VAzHn7rUdIfUvi7D+5H1T7NGpwXkCNGOwuAaTpNW7utfQuw0
+ GuHdIdeI2PYbRCLMw6j+DTyUn7duJp4b8zhRhCDbfFshKnWFcbji4WXU+TJD8lBq9vOW
+ BGNQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=content-transfer-encoding:in-reply-to:from:references:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=xR6n4tPOTRtX/oPKaIWQlGUsVv0ju4GWJB4ChrEGNQs=;
- b=4oh2wnWI/DlvTzy92Qi/NgHBZsFXqY8T7UPQL6NaEuphYOmjDTUwGs1VRs0tTqvLzd
- 3HIgiGrDr2l+z25t8CkKROlcASdlKgOGpSmRLjIEkZRZHuN03dQwAmEaHZexLpByZodA
- fOyG0RSLZG9Cp08Mi3mkEaO/1JprBcRzwq58CehRUQM+xCoDNCjB1P8YIhai+R9TN+sY
- EsYXdgRZiftrNDuEa+/ymkw5nIr4wws5sCnqqeA8UvRH3WoilPhDBHt2jpHh7M+4qMuH
- qmbmCG2B2eoWrwAGAePXir2WWeLoGjOkLhMXA0Ai75iowVDbJd9SRSWYYPFhIc2WfitI
- QGxg==
-X-Gm-Message-State: ACrzQf0IGAsmek39TqRD/n2WFln3dnswD/AhgcOD6FMGvZJjejipj1bu
- wRlcAsFTrMERvAEv7ta/otQwSA==
-X-Google-Smtp-Source: AMsMyM5MbTQFq5x3e6ONcHd6Es9SsNthXHhjHeyRI7uSJVr7cGXvBBvArBxWA4ttYfN0ItFnubGLHw==
-X-Received: by 2002:a05:6512:3110:b0:4af:7f73:4e9d with SMTP id
- n16-20020a056512311000b004af7f734e9dmr5132328lfb.588.1666959209457; 
- Fri, 28 Oct 2022 05:13:29 -0700 (PDT)
+ bh=BKq/BAGmscRdIakGFeHMFgaXLKmHS1XLU04+kzk8aUs=;
+ b=Zvg8k6NO3HiMguCSvRFqBIMpyYGpdJG4CIW9CHeIEEjmsQcwF90It0/AjlgZCdOhkX
+ nax1In5dvHEkIkQKNif7etYDpz8PCRO4zkCRSxL7YmtZaQDEbk3bmviC/yNezNLjzOdF
+ GPfbVDki8By6kPhukZfQH21wgGjkFAqbHuyqnmry/aTW3IzrGB+cEnMLz+GJV0rQ+oIt
+ LnIvZvQ5Bhe0hRQOrCzAPYROuPALvFx1VmwiRVk3fPMOTA8zcyspap+EKIndKFDs9ct+
+ 73icsyDNGuJLSyLu1ArdpsKYKg9oe4FvEmVQsQ1VXRvt62+QPlkKztLAD0sFVX8h6+BY
+ y63A==
+X-Gm-Message-State: ACrzQf3uz4GVxv9KK62VXYwS2tAirYBcnX66rPHtfSzd3/R6Ruerw8Ct
+ 7mg/ZAsNnVtQJ3pHrbIEys8Eig==
+X-Google-Smtp-Source: AMsMyM4eQd3Q/pRYd6iLWMrAfdgYq54z9EEnAEBplA25vQFQtwxb0tbZEkLhPVoctzD6fNHh+Ia1eQ==
+X-Received: by 2002:ac2:44b6:0:b0:4a2:5084:6163 with SMTP id
+ c22-20020ac244b6000000b004a250846163mr19435844lfm.446.1666959269207; 
+ Fri, 28 Oct 2022 05:14:29 -0700 (PDT)
 Received: from [10.10.15.130] ([192.130.178.91])
  by smtp.gmail.com with ESMTPSA id
- b14-20020a056512070e00b0049876c1bb24sm539842lfs.225.2022.10.28.05.13.28
+ c11-20020a056512324b00b0048af3c090f8sm544422lfr.13.2022.10.28.05.14.28
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 28 Oct 2022 05:13:29 -0700 (PDT)
-Message-ID: <cde17188-734d-8000-8ed8-82a406a2b079@linaro.org>
-Date: Fri, 28 Oct 2022 15:13:28 +0300
+ Fri, 28 Oct 2022 05:14:28 -0700 (PDT)
+Message-ID: <9cde097d-2cec-7222-7e38-efefc4ad1c94@linaro.org>
+Date: Fri, 28 Oct 2022 15:14:28 +0300
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.3.3
@@ -67,13 +67,13 @@ To: Robert Foss <robert.foss@linaro.org>, agross@kernel.org,
  freedreno@lists.freedesktop.org, Jonathan Marek <jonathan@marek.ca>,
  vinod.koul@linaro.org, quic_jesszhan@quicinc.com
 References: <20221028120812.339100-1-robert.foss@linaro.org>
- <20221028120812.339100-2-robert.foss@linaro.org>
+ <20221028120812.339100-3-robert.foss@linaro.org>
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-In-Reply-To: <20221028120812.339100-2-robert.foss@linaro.org>
+In-Reply-To: <20221028120812.339100-3-robert.foss@linaro.org>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH v1 1/9] drm/msm: Add compatibles for SM8350
- display
+Subject: Re: [Freedreno] [PATCH v1 2/9] drm/msm/dpu: Refactor sc7280_pp
+ location
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -90,14 +90,14 @@ Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 On 28/10/2022 15:08, Robert Foss wrote:
-> Add compatible string for "qcom,sm8350-dpu" and
-> "qcom,sm8350-mdss".
+> The sc7280_pp declaration is not located by the other _pp
+> declarations, but rather hidden around the _merge_3d
+> declarations. Let's fix this to avoid confusion.
 > 
 > Signed-off-by: Robert Foss <robert.foss@linaro.org>
 > ---
->   drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c | 1 +
->   drivers/gpu/drm/msm/msm_mdss.c          | 1 +
->   2 files changed, 2 insertions(+)
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c | 14 +++++++-------
+>   1 file changed, 7 insertions(+), 7 deletions(-)
 
 Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 
