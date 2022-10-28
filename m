@@ -2,51 +2,79 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id E82FF611B62
-	for <lists+freedreno@lfdr.de>; Fri, 28 Oct 2022 22:09:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 24508611D17
+	for <lists+freedreno@lfdr.de>; Sat, 29 Oct 2022 00:01:40 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8C28910E18F;
-	Fri, 28 Oct 2022 20:09:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 71A8010E8EA;
+	Fri, 28 Oct 2022 22:01:36 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from relay08.th.seeweb.it (relay08.th.seeweb.it [5.144.164.169])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3D46110E18F;
- Fri, 28 Oct 2022 20:09:19 +0000 (UTC)
-Received: from SoMainline.org (94-209-172-39.cable.dynamic.v4.ziggo.nl
- [94.209.172.39])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest
- SHA256) (No client certificate requested)
- by m-r2.th.seeweb.it (Postfix) with ESMTPSA id 804013F1D8;
- Fri, 28 Oct 2022 22:09:16 +0200 (CEST)
-Date: Fri, 28 Oct 2022 22:09:15 +0200
-From: Marijn Suijten <marijn.suijten@somainline.org>
-To: Abhinav Kumar <quic_abhinavk@quicinc.com>
-Message-ID: <20221028200823.s5ygokpfy5jz25ge@SoMainline.org>
-Mail-Followup-To: Marijn Suijten <marijn.suijten@somainline.org>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- phone-devel@vger.kernel.org, Rob Clark <robdclark@gmail.com>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Vinod Koul <vkoul@kernel.org>,
- ~postmarketos/upstreaming@lists.sr.ht,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@somainline.org>,
- Konrad Dybcio <konrad.dybcio@somainline.org>,
- Martin Botka <martin.botka@somainline.org>,
- Jami Kettunen <jami.kettunen@somainline.org>,
- Sean Paul <sean@poorly.run>, David Airlie <airlied@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>,
- Douglas Anderson <dianders@chromium.org>,
- Vladimir Lypak <vladimir.lypak@gmail.com>,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
-References: <20221026182824.876933-1-marijn.suijten@somainline.org>
- <99744fda-a3b8-f97a-294c-78e512d865bc@quicinc.com>
+Received: from mail-qt1-x833.google.com (mail-qt1-x833.google.com
+ [IPv6:2607:f8b0:4864:20::833])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 967F210E8EA
+ for <freedreno@lists.freedesktop.org>; Fri, 28 Oct 2022 22:01:32 +0000 (UTC)
+Received: by mail-qt1-x833.google.com with SMTP id w29so4344328qtv.9
+ for <freedreno@lists.freedesktop.org>; Fri, 28 Oct 2022 15:01:32 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=content-transfer-encoding:in-reply-to:from:references:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=yr8HUh+1Ce740LCeQRhqA45PIBCHDZMjS7OE/YrOh64=;
+ b=W9FqxqVnRpTbDGEs374QqsqI4sSBT2PWyKERYSuC+2neXgYNGwjuSYr2/ApwF+NVbA
+ Q0dM2jBrF/UfnRAISug35FgYcv+0fw1/fP8rQjcNcQqzwBX1dcTG2rjQR1QFp1y+jbUi
+ x/iJ2p04XhKdaEihWKAwmWZgdiFh5NgEZmNSQNVQGIFbWT5OGVgvuHZgAU/rKnCpX7K1
+ iEEBWzFeK7MFsIiUkty+mxSGdp7Nrm4qCKQ9JmB6yOiQmXHKkEOABaJPN7Z6qnDReXJL
+ tEDtNEtKQdTZGwleHGGLIGKq9hGWtKu8CTF4MgTEXtiMWesmIw1Pix067DtUo8NvsXSQ
+ NI6A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=content-transfer-encoding:in-reply-to:from:references:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=yr8HUh+1Ce740LCeQRhqA45PIBCHDZMjS7OE/YrOh64=;
+ b=RD6foSqbzBneSx5CObiPL9YKJ/sVdkbMoO7nNUOPhF5s+WD7817UlUfvpQk6zLDoJI
+ WD42Y2R6hd6lXFuP0WS8H0KBhZcrJIdTQeEGCQnASGY/fdvCVgPFSKcPCiaBbxsIM+qx
+ x+S06t+2uMZtyC4ljHXIlaZAUYV8HuGNj+lI+X5dQp9Wo95AwBonzXffxDl0UAH2bmz+
+ fmNOEG5XR/g9bbcmKm1oFzpak06XG3G02UwtjGop89iAzZlRW4xD3v0VviJnOOVrgYDJ
+ YQFQxQ/wxT51SeNzO/vEUKUpG+K7h/8Hvzh+67IrS8nOR5+3MyJOC4aCt7JP1ESE3VTp
+ AI7A==
+X-Gm-Message-State: ACrzQf1ImtyZPqm3X7cxaglfgHWyEgb86vtDKDh59Yd9H53o9zinRrXD
+ VLn7n51Q9gnbLX1IGpQYTV+lFw==
+X-Google-Smtp-Source: AMsMyM6orjMbEmKKnktdS6B4pHMzgMLO4tFbtwa8t4mwDA17uPa9xsXNo4D2AWjXskqRxr20EIO8Og==
+X-Received: by 2002:a05:622a:1114:b0:3a4:f4e4:6430 with SMTP id
+ e20-20020a05622a111400b003a4f4e46430mr1443085qty.337.1666994491244; 
+ Fri, 28 Oct 2022 15:01:31 -0700 (PDT)
+Received: from [192.168.1.11] ([64.57.193.93])
+ by smtp.gmail.com with ESMTPSA id
+ m8-20020a05620a24c800b006ce515196a7sm3784993qkn.8.2022.10.28.15.01.28
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 28 Oct 2022 15:01:30 -0700 (PDT)
+Message-ID: <c868e55d-b808-0ca9-4e84-baf94c469182@linaro.org>
+Date: Fri, 28 Oct 2022 18:01:27 -0400
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <99744fda-a3b8-f97a-294c-78e512d865bc@quicinc.com>
-Subject: Re: [Freedreno] [PATCH v4 00/10] drm/msm: Fix math issues in MSM
- DSC implementation
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.4.1
+Content-Language: en-US
+To: Robert Foss <robert.foss@linaro.org>, agross@kernel.org,
+ bjorn.andersson@linaro.org, konrad.dybcio@somainline.org,
+ robh+dt@kernel.org, krzysztof.kozlowski+dt@linaro.org, robdclark@gmail.com,
+ quic_abhinavk@quicinc.com, dmitry.baryshkov@linaro.org, sean@poorly.run,
+ airlied@linux.ie, daniel@ffwll.ch, quic_kalyant@quicinc.com,
+ swboyd@chromium.org, angelogioacchino.delregno@somainline.org,
+ loic.poulain@linaro.org, quic_vpolimer@quicinc.com, vkoul@kernel.org,
+ dianders@chromium.org, linux-arm-msm@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ Jonathan Marek <jonathan@marek.ca>, vinod.koul@linaro.org,
+ quic_jesszhan@quicinc.com, Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+References: <20221028120812.339100-1-robert.foss@linaro.org>
+ <20221028120812.339100-8-robert.foss@linaro.org>
+From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+In-Reply-To: <20221028120812.339100-8-robert.foss@linaro.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+Subject: Re: [Freedreno] [PATCH v1 7/9] arm64: dts: qcom: sm8350: Add
+ display system nodes
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,133 +87,220 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org,
- Jami Kettunen <jami.kettunen@somainline.org>, David Airlie <airlied@gmail.com>,
- linux-arm-msm@vger.kernel.org, Vladimir Lypak <vladimir.lypak@gmail.com>,
- Konrad Dybcio <konrad.dybcio@somainline.org>, Vinod Koul <vkoul@kernel.org>,
- dri-devel@lists.freedesktop.org, Douglas Anderson <dianders@chromium.org>,
- Rob Clark <robdclark@gmail.com>, Martin Botka <martin.botka@somainline.org>,
- ~postmarketos/upstreaming@lists.sr.ht, Daniel Vetter <daniel@ffwll.ch>,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@somainline.org>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, phone-devel@vger.kernel.org,
- Sean Paul <sean@poorly.run>, linux-kernel@vger.kernel.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Hi Abhinav,
-
-On 2022-10-28 11:33:21, Abhinav Kumar wrote:
-> Hi Marijn
+On 28/10/2022 08:08, Robert Foss wrote:
+> Add mdss, mdss_mdp, dsi0, dsi0_phy nodes. With these
+> nodes the display subsystem is configured to support
+> one DSI output.
 > 
-> On 10/26/2022 11:28 AM, Marijn Suijten wrote:
-> > Various removals of complex yet unnecessary math, fixing all uses of
-> > drm_dsc_config::bits_per_pixel to deal with the fact that this field
-> > includes four fractional bits, and finally making sure that
-> > range_bpg_offset contains values 6-bits wide to prevent overflows in
-> > drm_dsc_pps_payload_pack().
-> > 
-> > Altogether this series is responsible for solving _all_ Display Stream
-> > Compression issues and artifacts on the Sony Tama (sdm845) Akatsuki
-> > smartphone (2880x1440p).
-> > 
-> > Changes since v3:
-> > - Swap patch 7 and 8 to make sure msm_host is available inside
-> >    dsi_populate_dsc_params();
-> > - Reword patch 6 (Migrate to drm_dsc_compute_rc_parameters()) to more
-> >    clearly explain why the FIXME wasn't solved initially, but why it can
-> >    (and should!) be resolved now.
-> > 
-> > v3: https://lore.kernel.org/linux-arm-msm/20221009184824.457416-1-marijn.suijten@somainline.org/T/#u
-> > 
-> > Changes since v2:
-> > - Generalize mux_word_size setting depending on bits_per_component;
-> > - Migrate DSI's DSC calculations to drm_dsc_compute_rc_parameters(),
-> >    implicitly addressing existing math issues;
-> > - Disallow any bits_per_component other than 8, until hardcoded values
-> >    are updated and tested to support such cases.
-> > 
-> > v2: https://lore.kernel.org/linux-arm-msm/20221005181657.784375-1-marijn.suijten@somainline.org/T/#u
-> > 
-> > Changes since v1:
-> > 
-> > - Propagate r-b's, except (obviously) in patches that were (heavily)
-> >    modified;
-> > - Remove accidental debug code in dsi_cmd_dma_add;
-> > - Move Range BPG Offset masking out of DCS PPS packing, back into the
-> >    DSI driver when it is assigned to drm_dsc_config (this series is now
-> >    strictly focusing on drm/msm again);
-> > - Replace modulo-check resulting in conditional increment with
-> >    DIV_ROUND_UP;
-> > - Remove repeated calculation of slice_chunk_size;
-> > - Use u16 instead of int when handling bits_per_pixel;
-> > - Use DRM_DEV_ERROR instead of pr_err in DSI code;
-> > - Also remove redundant target_bpp_x16 variable.
-> > 
-> > v1: https://lore.kernel.org/linux-arm-msm/20221001190807.358691-1-marijn.suijten@somainline.org/T/#u
-> > 
-> > Marijn Suijten (10):
-> >    drm/msm/dsi: Remove useless math in DSC calculations
-> >    drm/msm/dsi: Remove repeated calculation of slice_per_intf
-> >    drm/msm/dsi: Use DIV_ROUND_UP instead of conditional increment on
-> >      modulo
-> >    drm/msm/dsi: Reuse earlier computed dsc->slice_chunk_size
-> >    drm/msm/dsi: Appropriately set dsc->mux_word_size based on bpc
-> >    drm/msm/dsi: Migrate to drm_dsc_compute_rc_parameters()
-> >    drm/msm/dsi: Account for DSC's bits_per_pixel having 4 fractional bits
-> >    drm/msm/dsi: Disallow 8 BPC DSC configuration for alternative BPC
-> >      values
-> >    drm/msm/dpu1: Account for DSC's bits_per_pixel having 4 fractional
-> >      bits
-> >    drm/msm/dsi: Prevent signed BPG offsets from bleeding into adjacent
-> >      bits
-> > 
-> >   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_dsc.c |  11 +-
-> >   drivers/gpu/drm/msm/dsi/dsi_host.c         | 121 ++++++---------------
-> >   2 files changed, 37 insertions(+), 95 deletions(-)
-> > 
-> > --
-> > 2.38.1
-> > 
+> Signed-off-by: Robert Foss <robert.foss@linaro.org>
+> ---
+>  arch/arm64/boot/dts/qcom/sm8350.dtsi | 196 ++++++++++++++++++++++++++-
+>  1 file changed, 192 insertions(+), 4 deletions(-)
 > 
-> To keep the -fixes cycle to have only critical fixes (others are 
-> important too but are cleanups), I was thinking of absorbing patches 
-> 7,8,9 and 10 alone in the -fixes cycle and for patches 1-6, will go 
-> through the 6.2 push.
-> 
-> Let me know if there are any concerns if we just take patches 7,8,9 and 
-> 10 separately.
+> diff --git a/arch/arm64/boot/dts/qcom/sm8350.dtsi b/arch/arm64/boot/dts/qcom/sm8350.dtsi
+> index b6e44cd3b394..eaa3cdee1860 100644
+> --- a/arch/arm64/boot/dts/qcom/sm8350.dtsi
+> +++ b/arch/arm64/boot/dts/qcom/sm8350.dtsi
+> @@ -3,6 +3,7 @@
+>   * Copyright (c) 2020, Linaro Limited
+>   */
+>  
+> +#include <dt-bindings/interconnect/qcom,sm8350.h>
+>  #include <dt-bindings/interrupt-controller/arm-gic.h>
+>  #include <dt-bindings/clock/qcom,dispcc-sm8350.h>
+>  #include <dt-bindings/clock/qcom,gcc-sm8350.h>
+> @@ -2535,14 +2536,200 @@ usb_2_dwc3: usb@a800000 {
+>  			};
+>  		};
+>  
+> +		mdss: mdss@ae00000 {
+> +			compatible = "qcom,sm8350-mdss";
+> +			reg = <0 0x0ae00000 0 0x1000>;
+> +			reg-names = "mdss";
+> +
+> +			interconnects = <&mmss_noc MASTER_MDP0 0 &mc_virt SLAVE_EBI1 0>,
+> +					<&mmss_noc MASTER_MDP1 0 &mc_virt SLAVE_EBI1 0>;
+> +			interconnect-names = "mdp0-mem", "mdp1-mem";
+> +
+> +			power-domains = <&dispcc MDSS_GDSC>;
+> +			resets = <&dispcc DISP_CC_MDSS_CORE_BCR>;
+> +
+> +			clocks = <&dispcc DISP_CC_MDSS_AHB_CLK>,
+> +				 <&gcc GCC_DISP_HF_AXI_CLK>,
+> +				 <&gcc GCC_DISP_SF_AXI_CLK>,
+> +				 <&dispcc DISP_CC_MDSS_MDP_CLK>;
+> +			clock-names = "iface", "bus", "nrt_bus", "core";
+> +
+> +			interrupts = <GIC_SPI 83 IRQ_TYPE_LEVEL_HIGH>;
+> +			interrupt-controller;
+> +			#interrupt-cells = <1>;
+> +
+> +			status = "ok";
 
-Unfortunately that isn't going to cut it.  For starters patch 8 is only
-introducing additional validation but as long as no panel drivers set
-bpc != 8, this doesn't change anything: it is not a critical fix.
+No need for this.
 
-Then, more importantly, as discussed in v2 reviews it was preferred to
-_not_ fix the broken code in dsi_populate_dsc_params() but migrate to
-drm_dsc_compute_rc_parameters() directly [1].  As such patch 6 (which
-performs the migration) is definitely a requirement for the fixes to be
-complete.  Then again this patch looks weird when 5 is not applied,
-since both refactor how dsc->mux_word_size is assigned.  At the same
-time it cannot be cleanly applied without patch 1 (Remove useless math
-in DSC calculations) nor patch 3 (Use DIV_ROUND_UP instead of
-conditional increment on modulo), but I just realized that patch 3 is
-now also useless as the code is being removed altogether while migrating
-to drm_dsc_compute_rc_parameters().
+> +
+> +			#address-cells = <2>;
+> +			#size-cells = <2>;
+> +			ranges;
+> +
+> +			mdss_mdp: mdp@ae01000 {
 
-Same for patch 4 (Reuse earlier computed dsc->slice_chunk_size): while
-it may not seem obvious at first, the original code uses bits_per_pixel
-without considering the fractional bits, again resulting invalid values.
-Perhaps this should have been mentioned in the patch description, but I
-did not want to create an even larger chain of references pointing back
-and forth to future patches fixing the exact same bug.  Unfortunately
-this patch doesn't apply cleanly without patch 2 (Remove repeated
-calculation of slice_per_intf) either.
+Node name: display-controller
+> +				compatible = "qcom,sm8350-dpu";
+> +				reg = <0 0x0ae01000 0 0x8f000>,
+> +				      <0 0x0aeb0000 0 0x2008>;
+> +				reg-names = "mdp", "vbif";
+> +				iommus = <&apps_smmu 0x820 0x402>;
+> +
+> +				clocks = <&gcc GCC_DISP_HF_AXI_CLK>,
+> +					<&gcc GCC_DISP_SF_AXI_CLK>,
+> +					<&dispcc DISP_CC_MDSS_AHB_CLK>,
+> +					<&dispcc DISP_CC_MDSS_MDP_LUT_CLK>,
+> +					<&dispcc DISP_CC_MDSS_MDP_CLK>,
+> +					<&dispcc DISP_CC_MDSS_VSYNC_CLK>;
+> +				clock-names = "bus",
+> +					      "nrt_bus",
+> +					      "iface",
+> +					      "lut",
+> +					      "core",
+> +					      "vsync";
+> +
+> +				assigned-clocks = <&dispcc DISP_CC_MDSS_VSYNC_CLK>;
+> +				assigned-clock-rates = <19200000>;
+> +
+> +				operating-points-v2 = <&mdp_opp_table>;
+> +				power-domains = <&rpmhpd SM8350_MMCX>;
+> +
+> +				interrupt-parent = <&mdss>;
+> +				interrupts = <0>;
+> +
+> +				status = "ok";
+> +
+> +				ports {
+> +					#address-cells = <1>;
+> +					#size-cells = <0>;
+> +
+> +					port@0 {
+> +						reg = <0>;
+> +						dpu_intf1_out: endpoint {
+> +							remote-endpoint = <&dsi0_in>;
+> +						};
+> +					};
+> +				};
+> +
+> +				mdp_opp_table: mdp-opp-table {
 
-All in all, applying this series piecemeal requires careful
-consideration which of the patches are actually fixing issues, and is
-terribly tricky considering code cleanups touching the same code and
-sitting right before the fixes (done intentionally to not distract diffs
-in bugfixes being surrounded by odd looking code).
+I have doubts that it passes dtbs_checks... opp-table
 
-[1]: https://lore.kernel.org/linux-arm-msm/CAA8EJpr=0w0KReqNW2jP8DzvXLgo_o6bKmwMOed2sXb6d8HKhg@mail.gmail.com/
+> +					compatible = "operating-points-v2";
+> +
+> +					opp-200000000 {
+> +						opp-hz = /bits/ 64 <200000000>;
+> +						required-opps = <&rpmhpd_opp_low_svs>;
+> +					};
+> +
+> +					opp-300000000 {
+> +						opp-hz = /bits/ 64 <300000000>;
+> +						required-opps = <&rpmhpd_opp_svs>;
+> +					};
+> +
+> +					opp-345000000 {
+> +						opp-hz = /bits/ 64 <345000000>;
+> +						required-opps = <&rpmhpd_opp_svs_l1>;
+> +					};
+> +
+> +					opp-460000000 {
+> +						opp-hz = /bits/ 64 <460000000>;
+> +						required-opps = <&rpmhpd_opp_nom>;
+> +					};
+> +				};
+> +			};
+> +
+> +			dsi0: dsi@ae94000 {
+> +				compatible = "qcom,mdss-dsi-ctrl";
+> +				reg = <0 0x0ae94000 0 0x400>;
+> +				reg-names = "dsi_ctrl";
+> +
+> +				interrupt-parent = <&mdss>;
+> +				interrupts = <4>;
+> +
+> +				clocks = <&dispcc DISP_CC_MDSS_BYTE0_CLK>,
+> +					 <&dispcc DISP_CC_MDSS_BYTE0_INTF_CLK>,
+> +					 <&dispcc DISP_CC_MDSS_PCLK0_CLK>,
+> +					 <&dispcc DISP_CC_MDSS_ESC0_CLK>,
+> +					 <&dispcc DISP_CC_MDSS_AHB_CLK>,
+> +					 <&gcc GCC_DISP_HF_AXI_CLK>;
+> +				clock-names = "byte",
+> +					      "byte_intf",
+> +					      "pixel",
+> +					      "core",
+> +					      "iface",
+> +					      "bus";
+> +
+> +				assigned-clocks = <&dispcc DISP_CC_MDSS_BYTE0_CLK_SRC>,
+> +						  <&dispcc DISP_CC_MDSS_PCLK0_CLK_SRC>;
+> +				assigned-clock-parents = <&dsi0_phy 0>,
+> +							 <&dsi0_phy 1>;
+> +
+> +				operating-points-v2 = <&dsi_opp_table>;
+> +				power-domains = <&rpmhpd SM8350_MMCX>;
+> +
+> +				phys = <&dsi0_phy>;
+> +				phy-names = "dsi";
+> +
+> +				status = "disabled";
+> +
+> +				ports {
+> +					#address-cells = <1>;
+> +					#size-cells = <0>;
+> +
+> +					port@0 {
+> +						reg = <0>;
+> +						dsi0_in: endpoint {
+> +							remote-endpoint = <&dpu_intf1_out>;
+> +						};
+> +					};
+> +
+> +					port@1 {
+> +						reg = <1>;
+> +						dsi0_out: endpoint {
+> +						};
+> +					};
+> +				};
+> +			};
+> +
+> +			dsi0_phy: dsi-phy@ae94400 {
 
-- Marijn
+Just "phy". I think Dmitry was renaming all of these.
+
+> +				compatible = "qcom,dsi-phy-5nm-8350";
+> +				reg = <0 0x0ae94400 0 0x200>,
+> +				      <0 0x0ae94600 0 0x280>,
+> +				      <0 0x0ae94900 0 0x260>;
+> +				reg-names = "dsi_phy",
+> +					    "dsi_phy_lane",
+> +					    "dsi_pll";
+> +
+> +				#clock-cells = <1>;
+> +				#phy-cells = <0>;
+> +
+> +				clocks = <&dispcc DISP_CC_MDSS_AHB_CLK>,
+> +					 <&rpmhcc RPMH_CXO_CLK>;
+> +				clock-names = "iface", "ref";
+> +
+> +				status = "disabled";
+> +
+> +				dsi_opp_table: dsi-opp-table {
+
+opp-table
+
+Run `make dtbs_check`
+
+
+Best regards,
+Krzysztof
+
