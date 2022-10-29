@@ -1,74 +1,69 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 990D4611DDE
-	for <lists+freedreno@lfdr.de>; Sat, 29 Oct 2022 01:00:40 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 1B3BB612252
+	for <lists+freedreno@lfdr.de>; Sat, 29 Oct 2022 13:23:22 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 232A610E8F8;
-	Fri, 28 Oct 2022 23:00:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9AE5B10E28C;
+	Sat, 29 Oct 2022 11:23:19 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8630110E8F8;
- Fri, 28 Oct 2022 23:00:33 +0000 (UTC)
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 29SMkqSa005267;
- Fri, 28 Oct 2022 23:00:19 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
- h=from : to : cc :
- subject : date : message-id : in-reply-to : references : mime-version :
- content-transfer-encoding : content-type; s=qcppdkim1;
- bh=wMRGGRgNrU7SvuXvBDADOkXmdgsMZCTv8afozyE0jUc=;
- b=GcxMA9N8pUyVhnYKlXqPVD3dix8j5Si6zJplAHibLvVJMPf4r3rvPLemZYnPO16lLTLU
- x8/hz2mVa34M7O5isIFnn7qTwbGfvUe5o0pqxL3Cok33GvDkiGMXjLPPXaaCszdnqH2k
- DIcHReuI487iutCQheoQ/aFxDFhAf54lM2xlBI7RY75jNvu2LjP3yn/M7egWTuAQcPbB
- B0o94gMQwz3GbikPnnK/Jjvxup6innQeimuOyFNWbQRhA6gesQQI/Rt+dsPYNhOblXAo
- xnmtJZ80ODM8VSZ8E8ksZCYbcCoeuKdXYCKbyZN6ldZZ89RCHnUIXrHEr9ph1ZhAgOIo nw== 
-Received: from nasanppmta05.qualcomm.com (i-global254.qualcomm.com
- [199.106.103.254])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3kg59akdgg-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 28 Oct 2022 23:00:19 +0000
-Received: from nasanex01b.na.qualcomm.com (nasanex01b.na.qualcomm.com
- [10.46.141.250])
- by NASANPPMTA05.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 29SN0I4I025316
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 28 Oct 2022 23:00:18 GMT
-Received: from JESSZHAN.qualcomm.com (10.80.80.8) by
- nasanex01b.na.qualcomm.com (10.46.141.250) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.986.29; Fri, 28 Oct 2022 16:00:18 -0700
-From: Jessica Zhang <quic_jesszhan@quicinc.com>
-To: <freedreno@lists.freedesktop.org>
-Date: Fri, 28 Oct 2022 15:59:52 -0700
-Message-ID: <20221028225952.160-4-quic_jesszhan@quicinc.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20221028225952.160-1-quic_jesszhan@quicinc.com>
-References: <20221028225952.160-1-quic_jesszhan@quicinc.com>
+Received: from mail-lj1-x22c.google.com (mail-lj1-x22c.google.com
+ [IPv6:2a00:1450:4864:20::22c])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CBB7110E28C
+ for <freedreno@lists.freedesktop.org>; Sat, 29 Oct 2022 11:23:14 +0000 (UTC)
+Received: by mail-lj1-x22c.google.com with SMTP id l8so369784ljh.13
+ for <freedreno@lists.freedesktop.org>; Sat, 29 Oct 2022 04:23:14 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=r2m2Jxq3gKGU0JnFmc/Do/Sg5oHX2DP+MMfqJOrJE74=;
+ b=s4rf9sqIIgwxSVLj0LRzbaeT9TcekLMo0PuzxvfuW7Zv+xfUaq36xQVH5xojfhPZwe
+ 9QuwCltJsYeSPfx6zoOM8dMYZwejwRTWDyK0OLwXFo5iKQgR1WBvhUNoTojfNWS5EYAJ
+ X4CSOlZ3+GrDsxeQQ2kJvoMV3YqLqeF4tu5gmYOf4fDDAXjKQ5hTBlcqfCm5goPb18Pp
+ AkrAk03ZNHzZvqExDvxakxlhI4xU34U5lJRfYLNBSJqgrh84ElhrvhFw2wNZb5ikuGxT
+ BoEh71e5HufiV8Rk8gi8JuoqZ3IBzN9+tp6Lgb9PP4EKLtvBLD640FsOhKIRR3L3WwXB
+ jDRw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=r2m2Jxq3gKGU0JnFmc/Do/Sg5oHX2DP+MMfqJOrJE74=;
+ b=pJDLfeCEFXiTrRQlpHvK0S3HXi/kM3o9MVqcZ4LVwH9R82x+JmWFd7EkwleD6/Ik5d
+ V/PYxV2V15hoR4hw3y6lag//k8nSxs3U4lmxAFi79K4MexATgridPDk3oWnETmXzCVBM
+ LGsGsq99jq7Et3UGPX6jJKbZ7UA16Xsza3ru6N/g00PdNR5d5AjLShGzdHEvTHFKRUUZ
+ V4vt/BSxUq2jozhziyLBZN5BweWxrtu3fBY+8ucB9ewjYFTkNhgYcY6a3x8SWDjM9B1z
+ QZ1BWdGOJ9/oLW2C4c1iCBaqavOCho+c8PZpM/oX4UKQw2+G0/cfWV4emeKBOqUzu5Q7
+ 8mgA==
+X-Gm-Message-State: ACrzQf2MWl0KuYAkl9s9Jt9SRL0wQBSSslEwOpAXhHO12OrZW0VW19ZT
+ sxi7832JRdWNJgB9toAoHORlYg==
+X-Google-Smtp-Source: AMsMyM475S54d28dmlf48ycynAt7vF/tSapLEbMKM3ZqHNp00m5ah5/rL1Wtemmgrz0XVp7u+pf3lg==
+X-Received: by 2002:a05:651c:1102:b0:26f:c343:f378 with SMTP id
+ e2-20020a05651c110200b0026fc343f378mr1349596ljo.261.1667042593045; 
+ Sat, 29 Oct 2022 04:23:13 -0700 (PDT)
+Received: from [10.27.10.248] ([195.165.23.90])
+ by smtp.gmail.com with ESMTPSA id
+ v20-20020a2e5054000000b0026fa73565b3sm180705ljd.112.2022.10.29.04.23.12
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Sat, 29 Oct 2022 04:23:12 -0700 (PDT)
+Message-ID: <eddf4726-3d7e-601a-51ac-03adb2dd822b@linaro.org>
+Date: Sat, 29 Oct 2022 14:23:11 +0300
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
- nasanex01b.na.qualcomm.com (10.46.141.250)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-GUID: bX0aUcNm09c9TFubp4VAB8xqgoIv0OmM
-X-Proofpoint-ORIG-GUID: bX0aUcNm09c9TFubp4VAB8xqgoIv0OmM
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.205,Aquarius:18.0.895,Hydra:6.0.545,FMLib:17.11.122.1
- definitions=2022-10-28_10,2022-10-27_01,2022-06-22_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 malwarescore=0
- clxscore=1015 mlxscore=0 suspectscore=0 mlxlogscore=999 bulkscore=0
- priorityscore=1501 spamscore=0 impostorscore=0 phishscore=0
- lowpriorityscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2210170000 definitions=main-2210280146
-Subject: [Freedreno] [RFC PATCH 3/3] drm/msm/dpu: Use color_fill property
- for DPU planes
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.3.3
+Content-Language: en-GB
+To: Jessica Zhang <quic_jesszhan@quicinc.com>, freedreno@lists.freedesktop.org
+References: <20221028225952.160-1-quic_jesszhan@quicinc.com>
+ <20221028225952.160-2-quic_jesszhan@quicinc.com>
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+In-Reply-To: <20221028225952.160-2-quic_jesszhan@quicinc.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Subject: Re: [Freedreno] [RFC PATCH 1/3] drm: Introduce color fill
+ properties for drm plane
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -84,183 +79,171 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Cc: linux-arm-msm@vger.kernel.org, quic_abhinavk@quicinc.com,
  dri-devel@lists.freedesktop.org, swboyd@chromium.org, daniel.vetter@ffwll.ch,
  robdclark@gmail.com, seanpaul@chromium.org, laurent.pinchart@ideasonboard.com,
- contact@emersion.fr, dmitry.baryshkov@linaro.org,
- Jessica Zhang <quic_jesszhan@quicinc.com>
+ contact@emersion.fr
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Initialize and use the color_fill properties for planes in DPU driver. In
-addition, relax framebuffer requirements within atomic commit path and
-add checks for NULL framebuffers.
+On 29/10/2022 01:59, Jessica Zhang wrote:
+> Add support for COLOR_FILL and COLOR_FILL_FORMAT properties for
+> drm_plane. In addition, add support for setting and getting the values
+> of these properties.
+> 
+> COLOR_FILL represents the color fill of a plane while COLOR_FILL_FORMAT
+> represents the format of the color fill. Userspace can set enable solid
+> fill on a plane by assigning COLOR_FILL to a uint64_t value, assigning
+> the COLOR_FILL_FORMAT property to a uint32_t value, and setting the
+> framebuffer to NULL.
 
-Signed-off-by: Jessica Zhang <quic_jesszhan@quicinc.com>
----
- drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c  |  7 ++-
- drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c | 66 ++++++++++++++---------
- 2 files changed, 48 insertions(+), 25 deletions(-)
+I suppose that COLOR_FILL should override framebuffer rather than 
+requiring that FB is set to NULL. In other words, if color_filL_format 
+is non-zero, it would make sense to ignore the FB. Then one can use the 
+color_fill_format property to quickly switch between filled plane and 
+FB-backed one.
 
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
-index 13ce321283ff..157698b4f234 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
-@@ -441,7 +441,12 @@ static void _dpu_crtc_blend_setup_mixer(struct drm_crtc *crtc,
- 				sspp_idx - SSPP_VIG0,
- 				state->fb ? state->fb->base.id : -1);
- 
--		format = to_dpu_format(msm_framebuffer_format(pstate->base.fb));
-+		if (pstate->base.fb)
-+			format = to_dpu_format(msm_framebuffer_format(pstate->base.fb));
-+		else if (state->color_fill && !state->color_fill_format)
-+			format = dpu_get_dpu_format(DRM_FORMAT_ABGR8888);
-+		else
-+			format = dpu_get_dpu_format(state->color_fill_format);
- 
- 		if (pstate->stage == DPU_STAGE_BASE && format->alpha_enable)
- 			bg_alpha_enable = true;
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
-index 658005f609f4..f3be37e97b64 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
-@@ -103,7 +103,6 @@ struct dpu_plane {
- 	enum dpu_sspp pipe;
- 
- 	struct dpu_hw_pipe *pipe_hw;
--	uint32_t color_fill;
- 	bool is_error;
- 	bool is_rt_pipe;
- 	const struct dpu_mdss_cfg *catalog;
-@@ -697,7 +696,10 @@ static int _dpu_plane_color_fill(struct dpu_plane *pdpu,
- 	 * select fill format to match user property expectation,
- 	 * h/w only supports RGB variants
- 	 */
--	fmt = dpu_get_dpu_format(DRM_FORMAT_ABGR8888);
-+	if (plane->state->color_fill && !plane->state->color_fill_format)
-+		fmt = dpu_get_dpu_format(DRM_FORMAT_ABGR8888);
-+	else
-+		fmt = dpu_get_dpu_format(plane->state->color_fill_format);
- 
- 	/* update sspp */
- 	if (fmt && pdpu->pipe_hw->ops.setup_solidfill) {
-@@ -720,6 +722,10 @@ static int _dpu_plane_color_fill(struct dpu_plane *pdpu,
- 					fmt, DPU_SSPP_SOLID_FILL,
- 					pstate->multirect_index);
- 
-+		/* skip remaining processing on color fill */
-+		if (!plane->state->fb)
-+			return 0;
-+
- 		if (pdpu->pipe_hw->ops.setup_rects)
- 			pdpu->pipe_hw->ops.setup_rects(pdpu->pipe_hw,
- 					&pipe_cfg,
-@@ -999,12 +1005,21 @@ static int dpu_plane_atomic_check(struct drm_plane *plane,
- 
- 	dst = drm_plane_state_dest(new_plane_state);
- 
--	fb_rect.x2 = new_plane_state->fb->width;
--	fb_rect.y2 = new_plane_state->fb->height;
-+	if (new_plane_state->fb) {
-+		fb_rect.x2 = new_plane_state->fb->width;
-+		fb_rect.y2 = new_plane_state->fb->height;
-+	}
- 
- 	max_linewidth = pdpu->catalog->caps->max_linewidth;
- 
--	fmt = to_dpu_format(msm_framebuffer_format(new_plane_state->fb));
-+	if (new_plane_state->fb) {
-+		fmt = to_dpu_format(msm_framebuffer_format(new_plane_state->fb));
-+	} else if (new_plane_state->color_fill) {
-+		if (new_plane_state->color_fill_format)
-+			fmt = dpu_get_dpu_format(new_plane_state->color_fill_format);
-+		else
-+			fmt = dpu_get_dpu_format(DRM_FORMAT_ABGR8888);
-+	}
- 
- 	min_src_size = DPU_FORMAT_IS_YUV(fmt) ? 2 : 1;
- 
-@@ -1016,7 +1031,7 @@ static int dpu_plane_atomic_check(struct drm_plane *plane,
- 		return -EINVAL;
- 
- 	/* check src bounds */
--	} else if (!dpu_plane_validate_src(&src, &fb_rect, min_src_size)) {
-+	} else if (new_plane_state->fb && !dpu_plane_validate_src(&src, &fb_rect, min_src_size)) {
- 		DPU_DEBUG_PLANE(pdpu, "invalid source " DRM_RECT_FMT "\n",
- 				DRM_RECT_ARG(&src));
- 		return -E2BIG;
-@@ -1084,9 +1099,9 @@ void dpu_plane_flush(struct drm_plane *plane)
- 	if (pdpu->is_error)
- 		/* force white frame with 100% alpha pipe output on error */
- 		_dpu_plane_color_fill(pdpu, 0xFFFFFF, 0xFF);
--	else if (pdpu->color_fill & DPU_PLANE_COLOR_FILL_FLAG)
-+	else if (!(plane->state->fb) && plane->state->color_fill)
- 		/* force 100% alpha */
--		_dpu_plane_color_fill(pdpu, pdpu->color_fill, 0xFF);
-+		_dpu_plane_color_fill(pdpu, plane->state->color_fill, 0xFF);
- 	else if (pdpu->pipe_hw && pdpu->pipe_hw->ops.setup_csc) {
- 		const struct dpu_format *fmt = to_dpu_format(msm_framebuffer_format(plane->state->fb));
- 		const struct dpu_csc_cfg *csc_ptr = _dpu_plane_get_csc(pdpu, fmt);
-@@ -1125,23 +1140,30 @@ static void dpu_plane_sspp_atomic_update(struct drm_plane *plane)
- 	struct drm_crtc *crtc = state->crtc;
- 	struct drm_framebuffer *fb = state->fb;
- 	bool is_rt_pipe, update_qos_remap;
--	const struct dpu_format *fmt =
--		to_dpu_format(msm_framebuffer_format(fb));
-+	const struct dpu_format *fmt;
- 	struct dpu_hw_pipe_cfg pipe_cfg;
- 
--	memset(&pipe_cfg, 0, sizeof(struct dpu_hw_pipe_cfg));
--
--	_dpu_plane_set_scanout(plane, pstate, &pipe_cfg, fb);
--
- 	pstate->pending = true;
- 
- 	is_rt_pipe = (dpu_crtc_get_client_type(crtc) != NRT_CLIENT);
- 	_dpu_plane_set_qos_ctrl(plane, false, DPU_PLANE_QOS_PANIC_CTRL);
- 
--	DPU_DEBUG_PLANE(pdpu, "FB[%u] " DRM_RECT_FP_FMT "->crtc%u " DRM_RECT_FMT
--			", %4.4s ubwc %d\n", fb->base.id, DRM_RECT_FP_ARG(&state->src),
--			crtc->base.id, DRM_RECT_ARG(&state->dst),
--			(char *)&fmt->base.pixel_format, DPU_FORMAT_IS_UBWC(fmt));
-+	/* override for color fill */
-+	if (!fb && plane->state->color_fill) {
-+		/* skip remaining processing on color fill */
-+		return;
-+	}
-+
-+	memset(&pipe_cfg, 0, sizeof(struct dpu_hw_pipe_cfg));
-+
-+	fmt = to_dpu_format(msm_framebuffer_format(fb));
-+	_dpu_plane_set_scanout(plane, pstate, &pipe_cfg, fb);
-+
-+	if (fb)
-+		DPU_DEBUG_PLANE(pdpu, "FB[%u] " DRM_RECT_FP_FMT "->crtc%u " DRM_RECT_FMT
-+				", %4.4s ubwc %d\n", fb->base.id, DRM_RECT_FP_ARG(&state->src),
-+				crtc->base.id, DRM_RECT_ARG(&state->dst),
-+				(char *)&fmt->base.pixel_format, DPU_FORMAT_IS_UBWC(fmt));
- 
- 	pipe_cfg.src_rect = state->src;
- 
-@@ -1153,12 +1175,6 @@ static void dpu_plane_sspp_atomic_update(struct drm_plane *plane)
- 
- 	pipe_cfg.dst_rect = state->dst;
- 
--	/* override for color fill */
--	if (pdpu->color_fill & DPU_PLANE_COLOR_FILL_FLAG) {
--		/* skip remaining processing on color fill */
--		return;
--	}
--
- 	if (pdpu->pipe_hw->ops.setup_rects) {
- 		pdpu->pipe_hw->ops.setup_rects(pdpu->pipe_hw,
- 				&pipe_cfg,
-@@ -1509,6 +1525,8 @@ struct drm_plane *dpu_plane_init(struct drm_device *dev,
- 		DPU_ERROR("failed to install zpos property, rc = %d\n", ret);
- 
- 	drm_plane_create_alpha_property(plane);
-+	drm_plane_create_color_fill_property(plane);
-+	drm_plane_create_color_fill_format_property(plane);
- 	drm_plane_create_blend_mode_property(plane,
- 			BIT(DRM_MODE_BLEND_PIXEL_NONE) |
- 			BIT(DRM_MODE_BLEND_PREMULTI) |
+> 
+> Signed-off-by: Jessica Zhang <quic_jesszhan@quicinc.com>
+> ---
+>   drivers/gpu/drm/drm_atomic_uapi.c |  8 +++++++
+>   drivers/gpu/drm/drm_blend.c       | 38 +++++++++++++++++++++++++++++++
+>   include/drm/drm_blend.h           |  2 ++
+>   include/drm/drm_plane.h           | 28 +++++++++++++++++++++++
+>   4 files changed, 76 insertions(+)
+> 
+> diff --git a/drivers/gpu/drm/drm_atomic_uapi.c b/drivers/gpu/drm/drm_atomic_uapi.c
+> index 79730fa1dd8e..e1664463fca4 100644
+> --- a/drivers/gpu/drm/drm_atomic_uapi.c
+> +++ b/drivers/gpu/drm/drm_atomic_uapi.c
+> @@ -544,6 +544,10 @@ static int drm_atomic_plane_set_property(struct drm_plane *plane,
+>   		state->src_w = val;
+>   	} else if (property == config->prop_src_h) {
+>   		state->src_h = val;
+> +	} else if (property == plane->color_fill_format_property) {
+> +		state->color_fill_format = val;
+> +	} else if (property == plane->color_fill_property) {
+> +		state->color_fill = val;
+>   	} else if (property == plane->alpha_property) {
+>   		state->alpha = val;
+>   	} else if (property == plane->blend_mode_property) {
+> @@ -616,6 +620,10 @@ drm_atomic_plane_get_property(struct drm_plane *plane,
+>   		*val = state->src_w;
+>   	} else if (property == config->prop_src_h) {
+>   		*val = state->src_h;
+> +	} else if (property == plane->color_fill_format_property) {
+> +		*val = state->color_fill_format;
+> +	} else if (property == plane->color_fill_property) {
+> +		*val = state->color_fill;
+>   	} else if (property == plane->alpha_property) {
+>   		*val = state->alpha;
+>   	} else if (property == plane->blend_mode_property) {
+> diff --git a/drivers/gpu/drm/drm_blend.c b/drivers/gpu/drm/drm_blend.c
+> index b4c8cab7158c..b8c2b263fa51 100644
+> --- a/drivers/gpu/drm/drm_blend.c
+> +++ b/drivers/gpu/drm/drm_blend.c
+> @@ -616,3 +616,41 @@ int drm_plane_create_blend_mode_property(struct drm_plane *plane,
+>   	return 0;
+>   }
+>   EXPORT_SYMBOL(drm_plane_create_blend_mode_property);
+> +
+> +int drm_plane_create_color_fill_property(struct drm_plane *plane)
+> +{
+> +	struct drm_property *prop;
+> +
+> +	prop = drm_property_create_range(plane->dev, 0, "color_fill",
+> +					 0, 0xffffffff);
+> +	if (!prop)
+> +		return -ENOMEM;
+> +
+> +	drm_object_attach_property(&plane->base, prop, 0);
+> +	plane->color_fill_property = prop;
+> +
+> +	if (plane->state)
+> +		plane->state->color_fill = 0;
+> +
+> +	return 0;
+> +}
+> +EXPORT_SYMBOL(drm_plane_create_color_fill_property);
+> +
+> +int drm_plane_create_color_fill_format_property(struct drm_plane *plane)
+> +{
+> +	struct drm_property *prop;
+> +
+> +	prop = drm_property_create_range(plane->dev, 0, "color_fill_format",
+> +					 0, 0xffffffff);
+> +	if (!prop)
+> +		return -ENOMEM;
+> +
+> +	drm_object_attach_property(&plane->base, prop, 0);
+> +	plane->color_fill_format_property = prop;
+> +
+> +	if (plane->state)
+> +		plane->state->color_fill_format = 0;
+
+Don't you also need to reset these properties in 
+__drm_atomic_helper_plane_state_reset() ?
+
+> +
+> +	return 0;
+> +}
+> +EXPORT_SYMBOL(drm_plane_create_color_fill_format_property);
+> diff --git a/include/drm/drm_blend.h b/include/drm/drm_blend.h
+> index 88bdfec3bd88..3e96f5e83cce 100644
+> --- a/include/drm/drm_blend.h
+> +++ b/include/drm/drm_blend.h
+> @@ -58,4 +58,6 @@ int drm_atomic_normalize_zpos(struct drm_device *dev,
+>   			      struct drm_atomic_state *state);
+>   int drm_plane_create_blend_mode_property(struct drm_plane *plane,
+>   					 unsigned int supported_modes);
+> +int drm_plane_create_color_fill_property(struct drm_plane *plane);
+> +int drm_plane_create_color_fill_format_property(struct drm_plane *plane);
+>   #endif
+> diff --git a/include/drm/drm_plane.h b/include/drm/drm_plane.h
+> index 89ea54652e87..dcbfdb0e1f71 100644
+> --- a/include/drm/drm_plane.h
+> +++ b/include/drm/drm_plane.h
+> @@ -116,6 +116,20 @@ struct drm_plane_state {
+>   	/** @src_h: height of visible portion of plane (in 16.16) */
+>   	uint32_t src_h, src_w;
+>   
+> +	/**
+> +	 * @color_fill_format:
+> +	 * Format of the color fill value.
+> +	 */
+> +	uint32_t color_fill_format;
+> +
+> +	/**
+> +	 * @color_fill:
+> +	 * Fill color of the plane with 0 as black and 0xffffffff as white.
+> +	 * Can be set by user by setting the COLOR_FILL property. See
+> +	 * drm_plane_create_color_fill_property() for more details.
+> +	 */
+> +	uint32_t color_fill;
+> +
+>   	/**
+>   	 * @alpha:
+>   	 * Opacity of the plane with 0 as completely transparent and 0xffff as
+> @@ -699,6 +713,20 @@ struct drm_plane {
+>   	 */
+>   	struct drm_plane_state *state;
+>   
+> +	/*
+> +	 * @color_fill_format_property:
+> +	 * Optional color fill format property for this plane. See
+> +	 * drm_plane_create_color_fill_format_property().
+> +	 */
+> +	struct drm_property *color_fill_format_property;
+> +
+> +	/*
+> +	 * @color_fill_property:
+> +	 * Optional color fill property for this plane. See
+> +	 * drm_plane_create_color_fill_property().
+> +	 */
+> +	struct drm_property *color_fill_property;
+> +
+>   	/**
+>   	 * @alpha_property:
+>   	 * Optional alpha property for this plane. See
+
 -- 
-2.38.0
+With best wishes
+Dmitry
 
