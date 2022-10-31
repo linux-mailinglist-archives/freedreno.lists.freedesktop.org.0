@@ -2,81 +2,72 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id AB4586137F9
-	for <lists+freedreno@lfdr.de>; Mon, 31 Oct 2022 14:27:35 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 72639613C25
+	for <lists+freedreno@lfdr.de>; Mon, 31 Oct 2022 18:27:51 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8519310E2A7;
-	Mon, 31 Oct 2022 13:27:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2C3C310E130;
+	Mon, 31 Oct 2022 17:27:50 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4DCEE10E2AD
- for <freedreno@lists.freedesktop.org>; Mon, 31 Oct 2022 13:27:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1667222838;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=GwqNSS0OJIleR6uoXEXg4AgYpmJqcWP2KGT201SIVMg=;
- b=W0vqrJETrrXTqQoG3vpBmoqKSRrJS1/Jq7LTpPu+mO9deitZfgbdUDFUfCZ5bixBYlMIUZ
- GrDC02uosAahqXIn6bqCVSZB6T87vh0yNDdytr1uBX2vmgQpsTb5GxCpQz186gv0yM5s91
- Ju+RHUdGinbYv4UwP1yzMQLflk8HTSQ=
-Received: from mail-wm1-f69.google.com (mail-wm1-f69.google.com
- [209.85.128.69]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_128_GCM_SHA256) id
- us-mta-673-2nfXXBvWOaaM9Q5cIu6nrQ-1; Mon, 31 Oct 2022 09:27:17 -0400
-X-MC-Unique: 2nfXXBvWOaaM9Q5cIu6nrQ-1
-Received: by mail-wm1-f69.google.com with SMTP id
- v23-20020a1cf717000000b003bff630f31aso2604933wmh.5
- for <freedreno@lists.freedesktop.org>; Mon, 31 Oct 2022 06:27:16 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=GwqNSS0OJIleR6uoXEXg4AgYpmJqcWP2KGT201SIVMg=;
- b=S5qkupqqk+MyVvbIr4vDBVwcT/odncMbWYwB+Iwsjc+uP2+nID2J4LulKgnv9AYhs3
- bVCDmxutvmO57KalHXCEatovXblUJJxN/i/gFWd0MMeCP+pQG6JWc0kFhJgZItKB+Zlm
- 2VX7u+d8o6XLvTG1smDhyhqoYtTgdtRW90QsJ/1xcPDC30436aFm6SncolzJOZJQDc+N
- iLhchTLj9VcLIkuQJN8GrgY+ZhzNVuxB1KAUQHrkUwCfc3Qp7HLerChtAwMb9mTQ5W5r
- UWlinraQUvyqn6KHQwY54lRb2LO1F+f8E6WQ/S4iU8lDrrcJYsnnFbWV1gVEGeaTlVHn
- u1Lw==
-X-Gm-Message-State: ACrzQf3tOauTPYwKK3jjov/MPggheDMQmVJNwuptMHKqvrtNfb0alMgj
- 4HoDxbkciQxLUeJMPHgFLL5R55Z6RgdTTpjDznATcq6VhFJ3a9LPNT805TNDIZtxzyy5pSyQfWJ
- 7ZOJF+9mSfZBQpUHDs1f6zQpot6uc
-X-Received: by 2002:adf:ec8a:0:b0:236:5b80:da83 with SMTP id
- z10-20020adfec8a000000b002365b80da83mr7858620wrn.509.1667222835968; 
- Mon, 31 Oct 2022 06:27:15 -0700 (PDT)
-X-Google-Smtp-Source: AMsMyM4XoYVkE5jE7vlhuKQ/BuqMv6qQj/pE66jVA36/qVXv1WZdIDiMFN0/ixJs2zjwBzGxtBPgyA==
-X-Received: by 2002:adf:ec8a:0:b0:236:5b80:da83 with SMTP id
- z10-20020adfec8a000000b002365b80da83mr7858599wrn.509.1667222835772; 
- Mon, 31 Oct 2022 06:27:15 -0700 (PDT)
-Received: from [192.168.1.130] (205.pool92-176-231.dynamic.orange.es.
- [92.176.231.205]) by smtp.gmail.com with ESMTPSA id
- bg37-20020a05600c3ca500b003b477532e66sm25116881wmb.2.2022.10.31.06.27.14
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 31 Oct 2022 06:27:15 -0700 (PDT)
-Message-ID: <0fe3974c-de66-9eaa-b56a-ed1d07644e4c@redhat.com>
-Date: Mon, 31 Oct 2022 14:27:13 +0100
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 08F5010E130;
+ Mon, 31 Oct 2022 17:27:44 +0000 (UTC)
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 29VHO0lt008142; Mon, 31 Oct 2022 17:27:33 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
+ h=from : to : cc :
+ subject : date : message-id : mime-version : content-type; s=qcppdkim1;
+ bh=O+w9lGOhPyqCtjmnPAnAruDm3ryHtBkHMrAOy4NESwE=;
+ b=ep2OIW84mP46Qf/oW+dXBwS32b1/ACYjxEKnqx9gY3UKrrvXYWEiBelMUgLvdgNKl6fq
+ WEmt0tZCYqoCcKzcIxUsmYiqykYYIPeK4+8P9bUoNITjzYD9gV1AVP3SIvjGjGAK73cv
+ 1Xejpz6cHOI7kDkdEKYeB6IABkde0srF91iJll9foGAsz1+eOAs9P7Fh5B8nO32zTAan
+ BMuutYlBwkMOc6l45QMEQNw+f7bEzwj9CzeZD96ttBNmGFNmMdPpDD915AWoQcG5Qyqg
+ U4iLRBDYBBhOwaOS1bSt78Dbb/Qlp/clWoOofPhioW6/i3XigVmvHpvDns/3s5jYHa7z Tg== 
+Received: from nalasppmta03.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3kjjqb00hr-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 31 Oct 2022 17:27:33 +0000
+Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
+ [10.47.209.196])
+ by NALASPPMTA03.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 29VHRWZh017547
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 31 Oct 2022 17:27:32 GMT
+Received: from khsieh-linux1.qualcomm.com (10.80.80.8) by
+ nalasex01a.na.qualcomm.com (10.47.209.196) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.986.29; Mon, 31 Oct 2022 10:27:32 -0700
+From: Kuogee Hsieh <quic_khsieh@quicinc.com>
+To: <robdclark@gmail.com>, <sean@poorly.run>, <swboyd@chromium.org>,
+ <dianders@chromium.org>, <vkoul@kernel.org>, <daniel@ffwll.ch>,
+ <airlied@linux.ie>, <agross@kernel.org>, <dmitry.baryshkov@linaro.org>,
+ <bjorn.andersson@linaro.org>
+Date: Mon, 31 Oct 2022 10:27:25 -0700
+Message-ID: <1667237245-24988-1-git-send-email-quic_khsieh@quicinc.com>
+X-Mailer: git-send-email 2.7.4
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.3.1
-To: Thomas Zimmermann <tzimmermann@suse.de>, daniel@ffwll.ch,
- airlied@gmail.com, sam@ravnborg.org, mripard@kernel.org,
- maarten.lankhorst@linux.intel.com
-References: <20221024111953.24307-1-tzimmermann@suse.de>
- <20221024111953.24307-15-tzimmermann@suse.de>
-From: Javier Martinez Canillas <javierm@redhat.com>
-In-Reply-To: <20221024111953.24307-15-tzimmermann@suse.de>
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Language: en-US
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH v2 14/21] drm/fb-helper: Rename
- drm_fb_helper_unregister_fbi() to use _info postfix
+Content-Type: text/plain
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-ORIG-GUID: B3uYstytrGzf9Q_1GyZqjspKPjlymOPk
+X-Proofpoint-GUID: B3uYstytrGzf9Q_1GyZqjspKPjlymOPk
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.205,Aquarius:18.0.895,Hydra:6.0.545,FMLib:17.11.122.1
+ definitions=2022-10-31_19,2022-10-31_01,2022-06-22_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1011 impostorscore=0
+ lowpriorityscore=0 adultscore=0 malwarescore=0 bulkscore=0 mlxscore=0
+ mlxlogscore=632 priorityscore=1501 spamscore=0 phishscore=0 suspectscore=0
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2210170000
+ definitions=main-2210310108
+Subject: [Freedreno] [PATCH] drm/msm/dp: remove limitation of link rate at
+ 5.4G to support HBR3
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -89,35 +80,39 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-hyperv@vger.kernel.org, linux-aspeed@lists.ozlabs.org,
- nouveau@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- virtualization@lists.linux-foundation.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-samsung-soc@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, linux-rockchip@lists.infradead.org,
- xen-devel@lists.xenproject.org, linux-sunxi@lists.linux.dev,
- linux-arm-msm@vger.kernel.org, intel-gfx@lists.freedesktop.org,
- etnaviv@lists.freedesktop.org, linux-mediatek@lists.infradead.org,
- spice-devel@lists.freedesktop.org, linux-tegra@vger.kernel.org,
- linux-amlogic@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
- linux-mips@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
- freedreno@lists.freedesktop.org
+Cc: quic_sbillaka@quicinc.com, linux-arm-msm@vger.kernel.org,
+ quic_abhinavk@quicinc.com, dri-devel@lists.freedesktop.org,
+ quic_khsieh@quicinc.com, freedreno@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 10/24/22 13:19, Thomas Zimmermann wrote:
-> Rename drm_fb_helper_unregister_fbi() to drm_fb_helper_unregister_info()
-> as part of unifying the naming within fbdev helpers. Adapt drivers. No
-> functional changes.
-> 
-> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
-> ---
+An HBR3-capable device shall also support TPS4. Since TPS4 feature
+had been implemented already, it is not necessary to limit link
+rate at HBR2 (5.4G). This patch remove this limitation to support
+HBR3 (8.1G) link rate.
 
-Reviewed-by: Javier Martinez Canillas <javierm@redhat.com>
+Signed-off-by: Kuogee Hsieh <quic_khsieh@quicinc.com>
+---
+ drivers/gpu/drm/msm/dp/dp_panel.c | 4 ----
+ 1 file changed, 4 deletions(-)
 
+diff --git a/drivers/gpu/drm/msm/dp/dp_panel.c b/drivers/gpu/drm/msm/dp/dp_panel.c
+index 5149ceb..3344f5a 100644
+--- a/drivers/gpu/drm/msm/dp/dp_panel.c
++++ b/drivers/gpu/drm/msm/dp/dp_panel.c
+@@ -78,10 +78,6 @@ static int dp_panel_read_dpcd(struct dp_panel *dp_panel)
+ 	if (link_info->num_lanes > dp_panel->max_dp_lanes)
+ 		link_info->num_lanes = dp_panel->max_dp_lanes;
+ 
+-	/* Limit support upto HBR2 until HBR3 support is added */
+-	if (link_info->rate >= (drm_dp_bw_code_to_link_rate(DP_LINK_BW_5_4)))
+-		link_info->rate = drm_dp_bw_code_to_link_rate(DP_LINK_BW_5_4);
+-
+ 	drm_dbg_dp(panel->drm_dev, "version: %d.%d\n", major, minor);
+ 	drm_dbg_dp(panel->drm_dev, "link_rate=%d\n", link_info->rate);
+ 	drm_dbg_dp(panel->drm_dev, "lane_count=%d\n", link_info->num_lanes);
 -- 
-Best regards,
-
-Javier Martinez Canillas
-Core Platforms
-Red Hat
+The Qualcomm Innovation Center, Inc. is a member of the Code Aurora Forum,
+a Linux Foundation Collaborative Project
 
