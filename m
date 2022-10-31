@@ -2,68 +2,81 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0787D6122C9
-	for <lists+freedreno@lfdr.de>; Sat, 29 Oct 2022 14:08:43 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1DE91613511
+	for <lists+freedreno@lfdr.de>; Mon, 31 Oct 2022 12:58:59 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B6E8C10E289;
-	Sat, 29 Oct 2022 12:08:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D39AF10E1AF;
+	Mon, 31 Oct 2022 11:58:57 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-x232.google.com (mail-lj1-x232.google.com
- [IPv6:2a00:1450:4864:20::232])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 48CA110E289
- for <freedreno@lists.freedesktop.org>; Sat, 29 Oct 2022 12:08:24 +0000 (UTC)
-Received: by mail-lj1-x232.google.com with SMTP id o4so11380303ljp.8
- for <freedreno@lists.freedesktop.org>; Sat, 29 Oct 2022 05:08:24 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=wXEZ0SiAJsDBx6kQwPJlcjj9GjZJFbTgLrn2PJu4DcQ=;
- b=suSMcqpRXIsoVwxg5CQFuNE+7xV6t597mjxo4naDfeQFSr84KTvQnthV826Nh49JQZ
- rr5b9fVXhBczMDIaILxd9d3uLpppWPQ6uymgOEhH/xKsLshyk/UYJxwqVlX+VQvYjPTa
- FwCHkTYVPY0FnGxLjGkufV11SlEhpKQxPfA0lhQrWroYo8XmEIkjSi/YZ4Hew/Gs9PUs
- H8X6Y8wba7o4/gCwhPaYyqULVDfldDQE8HR3BznhwUJxKyXulAlXciPG2+GTTbz2I6Bc
- kasO4guLOulskzUMM6LzsnZBGLs7TcFJ83YTrZtb0AplDwHJyes0ZK1hTUOwZHlc6iOv
- 4iNg==
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BE2D510E1B0
+ for <freedreno@lists.freedesktop.org>; Mon, 31 Oct 2022 11:58:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1667217534;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=NYUZwRg+lRYohe3+hrEekpmCQsb4LiBLuZ4BzJljYVc=;
+ b=Aq4ZBF4ZVamQvcwUjGrWN6SbfFODTTStAp6SHUNgwxI69310k/oVrQ32aVwOqmNcHvkD1S
+ NyA9Fv8isKswEA8UZ/oD88DxiBN2xKrAfsSn3loxs2qbJ8LfM6hGrcQbXNDBhAuPMxfsEf
+ JjQTBAQhaVEmZ7nv/LS1cRv9Wn/bw3s=
+Received: from mail-wm1-f69.google.com (mail-wm1-f69.google.com
+ [209.85.128.69]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_128_GCM_SHA256) id
+ us-mta-647-vQcwiofwM-aixPY_aTxzPA-1; Mon, 31 Oct 2022 07:58:52 -0400
+X-MC-Unique: vQcwiofwM-aixPY_aTxzPA-1
+Received: by mail-wm1-f69.google.com with SMTP id
+ 1-20020a05600c028100b003cf7833293cso208277wmk.3
+ for <freedreno@lists.freedesktop.org>; Mon, 31 Oct 2022 04:58:52 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=wXEZ0SiAJsDBx6kQwPJlcjj9GjZJFbTgLrn2PJu4DcQ=;
- b=39+Kam4/gCV3PiYMijfHiD2vvJiLaLflnRXTgLX6JqW8G5B5cGXGSi5+6+v7t1Dbyz
- RbM7pDb+QCXhIhB36r+JkVgyuu8Zc1uU/meIgbKAkmcp26UoBiJ3KOVPGyLI40ij0GlH
- tvE+X5dhIQhvBcg02M3O3hPegRyJb14j/0QWNWEeOawB3yBszkksiJSpOQWSiewEpoJm
- o2HupIoAyIlHHu5ctzT6M8puOYQlZysBVSn4rFayKJ13LvR+MYHrA5rMC062NHGo97zS
- LREoussdHSYFxabA5u1sk56WY3nMSh077Tw39XHkCNoQkgCL/Mh0eQSdkD+SSaRHfPiL
- anyw==
-X-Gm-Message-State: ACrzQf36U7FQjZaElP7yv0LKuRi4+S1JecB8fYl90yic+KDxjGS3HtoI
- e0ZhP6lDxKNszd124ppbhdah5A==
-X-Google-Smtp-Source: AMsMyM7QrN+wVCBWlK5JozAyEWh7jUIdwIrxna8eFiKA/cZuWW/mjCuWyQ/Piw0n5wA0Nn5Ik4iUMA==
-X-Received: by 2002:a2e:a5c2:0:b0:261:d23a:2009 with SMTP id
- n2-20020a2ea5c2000000b00261d23a2009mr1411058ljp.303.1667045302545; 
- Sat, 29 Oct 2022 05:08:22 -0700 (PDT)
-Received: from [10.27.10.248] ([195.165.23.90])
- by smtp.gmail.com with ESMTPSA id
- v3-20020a05651203a300b004a95d5098f2sm255836lfp.226.2022.10.29.05.08.21
+ bh=NYUZwRg+lRYohe3+hrEekpmCQsb4LiBLuZ4BzJljYVc=;
+ b=RZFfHmTFQS48P6b3ugkSoIA+a/H/FIdci5ZClgGXZH3cFZ1p+MPqRMp6GGCjkkfwww
+ Ageq08/eQplJZfxPhmkq/0TAGiUA9VvkU95/MMgM5Ij8yzmnCrvsAJ99u8Y3gKxtCXf/
+ l9+Wqvb1ltdE3vi7lx+O30IWyUAFxmtuBdJepJK3rXS59EaxjMf2XT52OLeVz/0amAsP
+ lu1aEPVyyg1gu9nwfMLzVdyqmzuMT8dD+p6HNAxSCJYjDhzM//IfKrIOvrLuQUtNeq1b
+ eGMx0T/gB8K513Ebk6l58CTNGaMIPjiuOlzQ9SWO/WMHUewARNKDAQr3B66/DBybJvm5
+ Byww==
+X-Gm-Message-State: ACrzQf3JQO9/6Z8cFLiln3ekYTmEFLKnvPi9v95ikTEC/0Orkyji4EmS
+ xVhbFGZWO6/WgWfae+rPR5oPrzttuB4Qd3LNtIP45Kfd2YLaEVuzaTi4H+qdHWtEcU+z1MCzvkH
+ ycv/pIBzRoxxaEBMaZ6u0ZtegvHnX
+X-Received: by 2002:adf:ee46:0:b0:236:57e4:60d9 with SMTP id
+ w6-20020adfee46000000b0023657e460d9mr7712396wro.208.1667217531291; 
+ Mon, 31 Oct 2022 04:58:51 -0700 (PDT)
+X-Google-Smtp-Source: AMsMyM5NlG/EcNgth7sygR/Y2wmF3YkVg5o1INpxQYpcg5X49eIhA0omsq50HY00GhqtS98H3T4hUQ==
+X-Received: by 2002:adf:ee46:0:b0:236:57e4:60d9 with SMTP id
+ w6-20020adfee46000000b0023657e460d9mr7712386wro.208.1667217531117; 
+ Mon, 31 Oct 2022 04:58:51 -0700 (PDT)
+Received: from [192.168.1.130] (205.pool92-176-231.dynamic.orange.es.
+ [92.176.231.205]) by smtp.gmail.com with ESMTPSA id
+ cc14-20020a5d5c0e000000b00228d67db06esm7103664wrb.21.2022.10.31.04.58.49
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sat, 29 Oct 2022 05:08:22 -0700 (PDT)
-Message-ID: <712a9a25-4c38-9da5-b1a6-39e4665b4d31@linaro.org>
-Date: Sat, 29 Oct 2022 15:08:20 +0300
+ Mon, 31 Oct 2022 04:58:50 -0700 (PDT)
+Message-ID: <365e1467-7dc2-42b4-b985-53323741dea8@redhat.com>
+Date: Mon, 31 Oct 2022 12:58:48 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.3.3
-Content-Language: en-GB
-To: Jessica Zhang <quic_jesszhan@quicinc.com>, freedreno@lists.freedesktop.org
-References: <20221028225952.160-1-quic_jesszhan@quicinc.com>
- <20221028225952.160-2-quic_jesszhan@quicinc.com>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-In-Reply-To: <20221028225952.160-2-quic_jesszhan@quicinc.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+ Thunderbird/102.3.1
+To: Thomas Zimmermann <tzimmermann@suse.de>, daniel@ffwll.ch,
+ airlied@gmail.com, sam@ravnborg.org, mripard@kernel.org,
+ maarten.lankhorst@linux.intel.com
+References: <20221024111953.24307-1-tzimmermann@suse.de>
+ <20221024111953.24307-2-tzimmermann@suse.de>
+From: Javier Martinez Canillas <javierm@redhat.com>
+In-Reply-To: <20221024111953.24307-2-tzimmermann@suse.de>
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Language: en-US
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [RFC PATCH 1/3] drm: Introduce color fill
- properties for drm plane
+Subject: Re: [Freedreno] [PATCH v2 01/21] drm/komeda: Don't set struct
+ drm_driver.lastclose
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,62 +89,36 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-arm-msm@vger.kernel.org, quic_abhinavk@quicinc.com,
- dri-devel@lists.freedesktop.org, swboyd@chromium.org, daniel.vetter@ffwll.ch,
- robdclark@gmail.com, seanpaul@chromium.org, laurent.pinchart@ideasonboard.com,
- contact@emersion.fr
+Cc: linux-hyperv@vger.kernel.org, linux-aspeed@lists.ozlabs.org,
+ nouveau@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ virtualization@lists.linux-foundation.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-samsung-soc@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, linux-rockchip@lists.infradead.org,
+ xen-devel@lists.xenproject.org, linux-sunxi@lists.linux.dev,
+ linux-arm-msm@vger.kernel.org, intel-gfx@lists.freedesktop.org,
+ etnaviv@lists.freedesktop.org, linux-mediatek@lists.infradead.org,
+ spice-devel@lists.freedesktop.org, linux-tegra@vger.kernel.org,
+ linux-amlogic@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
+ linux-mips@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
+ freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 29/10/2022 01:59, Jessica Zhang wrote:
-> Add support for COLOR_FILL and COLOR_FILL_FORMAT properties for
-> drm_plane. In addition, add support for setting and getting the values
-> of these properties.
+On 10/24/22 13:19, Thomas Zimmermann wrote:
+> Don't set struct drm_driver.lastclose. It's used to restore the
+> fbdev console. But as komeda uses generic fbdev emulation, the
+> console is being restored by the DRM client helpers already. See
+> the call to drm_client_dev_restore() in drm_lastclose().
 > 
-> COLOR_FILL represents the color fill of a plane while COLOR_FILL_FORMAT
-> represents the format of the color fill. Userspace can set enable solid
-> fill on a plane by assigning COLOR_FILL to a uint64_t value, assigning
-> the COLOR_FILL_FORMAT property to a uint32_t value, and setting the
-> framebuffer to NULL.
-> 
-> Signed-off-by: Jessica Zhang <quic_jesszhan@quicinc.com>
+> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+> ---
 
-Planes report supported formats using the drm_mode_getplane(). You'd 
-also need to tell userspace, which formats are supported for color fill. 
-I don't think one supports e.g. YV12.
-
-A bit of generic comment for the discussion (this is an RFC anyway). 
-Using color_fill/color_fill_format properties sounds simple, but this 
-might be not generic enough. Limiting color_fill to 32 bits would 
-prevent anybody from using floating point formats (e.g. 
-DRM_FORMAT_XRGB16161616F, 64-bit value). Yes, this can be solved with 
-e.g. using 64-bit for the color_fill value, but then this doesn't sound 
-extensible too much.
-
-So, a question for other hardware maintainers. Do we have hardware that 
-supports such 'color filled' planes? Do we want to support format 
-modifiers for filling color/data? Because what I have in mind is closer 
-to the blob structure, which can then be used for filling the plane:
-
-struct color_fill_blob {
-     u32 pixel_format;
-     u64 modifiers4];
-     u32 pixel_data_size; // fixme: is this necessary?
-     u8 pixel_data[];
-};
-
-And then... This sounds a lot like a custom framebuffer.
-
-So, maybe what should we do instead is to add new DRM_MODE_FB_COLOR_FILL 
-flag to the framebuffers, which would e.g. mean that the FB gets stamped 
-all over the plane. This would also save us from changing if (!fb) 
-checks all over the drm core.
-
-Another approach might be using a format modifier instead of the FB flag.
-
-What do you think?
+Reviewed-by: Javier Martinez Canillas <javierm@redhat.com>
 
 -- 
-With best wishes
-Dmitry
+Best regards,
+
+Javier Martinez Canillas
+Core Platforms
+Red Hat
 
