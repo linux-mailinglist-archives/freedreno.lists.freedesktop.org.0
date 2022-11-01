@@ -2,63 +2,68 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5E4956140F3
-	for <lists+freedreno@lfdr.de>; Mon, 31 Oct 2022 23:54:19 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7822861422B
+	for <lists+freedreno@lfdr.de>; Tue,  1 Nov 2022 01:14:15 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0AF5B10E22B;
-	Mon, 31 Oct 2022 22:54:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 24D3B10E25B;
+	Tue,  1 Nov 2022 00:14:09 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-pg1-x52c.google.com (mail-pg1-x52c.google.com
- [IPv6:2607:f8b0:4864:20::52c])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 374EF10E21B;
- Mon, 31 Oct 2022 22:54:11 +0000 (UTC)
-Received: by mail-pg1-x52c.google.com with SMTP id 78so11911036pgb.13;
- Mon, 31 Oct 2022 15:54:11 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=RiVXEvEzqUG+Z4LGnvslCa6bZT/BrJ9oTtksveCxmNM=;
- b=E2u7Itjt5rlL5oPtdrvjXaT8jUjC1BpZHzJNkPsRKyeuvtdKcahIvEGH7N+g+KuuRl
- VKGMtebR1fbRx0X/ZGYCVj0K+obNBIdYrqZTDVkU3KvinZPxNhuPVCtHiPw2nuNTaZ4M
- rkW/suo0u5Lu1JEYAsewsIcxitAo/AkmRazDwHzM4TkYuds1rHWpphg1y6bp8qPZmhrC
- BP9rVFfkfZeRueLvLObewS7kNqdWVlv+kyzNh1jDHz3Y6c3MF8Q6MR+97psgSufFfxOE
- rNOR9oW0eXUmaMJoCTDbrGIr8wgVnEX8gJZAmjIfUGjV3VBdKNPcv85K56C+YeDpGLbV
- viNw==
+Received: from mail-ed1-x536.google.com (mail-ed1-x536.google.com
+ [IPv6:2a00:1450:4864:20::536])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B99F410E25B
+ for <freedreno@lists.freedesktop.org>; Tue,  1 Nov 2022 00:14:05 +0000 (UTC)
+Received: by mail-ed1-x536.google.com with SMTP id a13so19763529edj.0
+ for <freedreno@lists.freedesktop.org>; Mon, 31 Oct 2022 17:14:05 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=NMxz0liguPdCL2/WpnddOh/DIdPoIOoiIe69SUq/QMU=;
+ b=gB9U2D3gVAPbsEs2QsqvPxMyMf8x1k/5bQSKqSqALrJcu5gTx/grfkJRhMMNVvdAXz
+ 94G6YftLtWqzQmvlZgLUxjEdVSuQNgu6aHwYhULB757WL7ZgxoWzFY16FzRVCvWVm5t/
+ S1HMcTK9WED5lfZ3UJpi2+zsCR0xlmfCljJ/o=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=RiVXEvEzqUG+Z4LGnvslCa6bZT/BrJ9oTtksveCxmNM=;
- b=JJWjYbBADobJ7VHgCbDCBODRBl4TSlu3u6IC4tVSKwy+lN12Ky/cqejdW/w5NVx9zT
- UItbWpp1bYKgHWTjDvxaMn3ZZ7x1Lkk83kqIfG5BrIZBp8BnhnK8fD3HUYuNUyGc1zMj
- TtlvRoC9PFyDUsr9fd53PF6lfR51p7tKggN/4RDKNkXd/kp9haguHgVV6IniDXHriRgm
- IXrU1rE2w5qHTmQPf5IAy60Pr21TnIZxdGIds8P8OWUpZO42eFpgE7NCPb7/0QIM4BvY
- XLye9mqDCbwdv/AkrSKcMNkjHoj717MfPEu5YIetkjC5abWCFvo2nLDoOMDjPulQSTIt
- HFow==
-X-Gm-Message-State: ACrzQf18bxspEnx7r28pWrj3dvOE7SqrT++JRXJrkwu8rx4P9L7OMuu5
- rIY5c7oHMSK7PwVAmwa8HK9tz5lrz18=
-X-Google-Smtp-Source: AMsMyM60J9LUoOFuV/UcqeY/BNTtBDPyBHOcnTH5UogjcyU8U6HEhocEoYxoxQ+SM2hfNaIpvPottw==
-X-Received: by 2002:a65:6bd3:0:b0:42b:9117:b9d1 with SMTP id
- e19-20020a656bd3000000b0042b9117b9d1mr14578565pgw.238.1667256850337; 
- Mon, 31 Oct 2022 15:54:10 -0700 (PDT)
-Received: from localhost ([2a00:79e1:abd:4a00:2703:3c72:eb1a:cffd])
- by smtp.gmail.com with ESMTPSA id
- b6-20020a170903228600b001869d71228bsm4937216plh.170.2022.10.31.15.54.09
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 31 Oct 2022 15:54:09 -0700 (PDT)
-From: Rob Clark <robdclark@gmail.com>
-To: dri-devel@lists.freedesktop.org
-Date: Mon, 31 Oct 2022 15:54:07 -0700
-Message-Id: <20221031225414.1280169-3-robdclark@gmail.com>
-X-Mailer: git-send-email 2.37.3
-In-Reply-To: <20221031225414.1280169-1-robdclark@gmail.com>
-References: <20221031225414.1280169-1-robdclark@gmail.com>
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=NMxz0liguPdCL2/WpnddOh/DIdPoIOoiIe69SUq/QMU=;
+ b=zzwf6BEf/t4AqMjLkh6uI64yC+nvF8sFi47MaNiLrOrINBW3KRU11GcLuR1z7nc1vF
+ JD4vU8Vh0RQAm1Lrtzad4jsvyAnBtnIngSYQ5E3KFvguIg8PMT751NJ5tG1LmWl8lNPt
+ SgV5QArX3WuT+iUyugih0NMoIJGgpsjoeyiQzjupy60tl2vnLfuoW0QkPQzNaWLbpgE0
+ RwHkWoK0xYW+M2GwVwEo7RjfJzkGiHwJ8IL+KQ+frinjMvVMhlmdQA4gh3qV03TH1J70
+ e1uxOdUYkPD1bqM1Ow+7Onks0dhFOeFr/IOPFha0PARQ67dXF7MD0z1SJKih3EZ9bXEb
+ XNhA==
+X-Gm-Message-State: ACrzQf0e74zMggxe9v/7dbLPxpy2XkmJE0cB3bo9iHwg/4bCUH05Aifs
+ ZYROn2rqmNQBNPCGfahvW/CGxflnuOCYa5jw
+X-Google-Smtp-Source: AMsMyM6cD3YUZYUZX3awnfnm3M0d0uYSu/eFmUYbFR+BasTUUTs2BcCDbv+NaEQjZ/jqoOb5i0eiqw==
+X-Received: by 2002:a05:6402:4446:b0:457:eebd:fe52 with SMTP id
+ o6-20020a056402444600b00457eebdfe52mr16193355edb.234.1667261643941; 
+ Mon, 31 Oct 2022 17:14:03 -0700 (PDT)
+Received: from mail-wr1-f45.google.com (mail-wr1-f45.google.com.
+ [209.85.221.45]) by smtp.gmail.com with ESMTPSA id
+ y20-20020a170906559400b007adbd01c566sm2864099ejp.146.2022.10.31.17.14.03
+ for <freedreno@lists.freedesktop.org>
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 31 Oct 2022 17:14:03 -0700 (PDT)
+Received: by mail-wr1-f45.google.com with SMTP id z14so18132078wrn.7
+ for <freedreno@lists.freedesktop.org>; Mon, 31 Oct 2022 17:14:03 -0700 (PDT)
+X-Received: by 2002:a5d:498f:0:b0:236:55e9:6c16 with SMTP id
+ r15-20020a5d498f000000b0023655e96c16mr9928075wrq.331.1667261321638; Mon, 31
+ Oct 2022 17:08:41 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH 2/2] drm/msm: Hangcheck progress detection
+References: <1667237245-24988-1-git-send-email-quic_khsieh@quicinc.com>
+ <94b507e8-5b94-12ae-4c81-95f5d36279d5@linaro.org>
+ <deb60200-5a37-ec77-9515-0c0c89022174@quicinc.com>
+In-Reply-To: <deb60200-5a37-ec77-9515-0c0c89022174@quicinc.com>
+From: Doug Anderson <dianders@chromium.org>
+Date: Mon, 31 Oct 2022 17:08:29 -0700
+X-Gmail-Original-Message-ID: <CAD=FV=X_fs_4JYcRvAwkU9mAafOten9WdyzPfSVWdAU=ZMo8zg@mail.gmail.com>
+Message-ID: <CAD=FV=X_fs_4JYcRvAwkU9mAafOten9WdyzPfSVWdAU=ZMo8zg@mail.gmail.com>
+To: Kuogee Hsieh <quic_khsieh@quicinc.com>
+Content-Type: text/plain; charset="UTF-8"
+Subject: Re: [Freedreno] [PATCH] drm/msm/dp: remove limitation of link rate
+ at 5.4G to support HBR3
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,215 +76,91 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rob Clark <robdclark@chromium.org>,
- Akhil P Oommen <quic_akhilpo@quicinc.com>, David Airlie <airlied@linux.ie>,
- linux-arm-msm@vger.kernel.org, Konrad Dybcio <konrad.dybcio@somainline.org>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Douglas Anderson <dianders@chromium.org>, Sean Paul <sean@poorly.run>,
- Rob Clark <robdclark@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- freedreno@lists.freedesktop.org, Chia-I Wu <olvaffe@gmail.com>,
- open list <linux-kernel@vger.kernel.org>
+Cc: quic_sbillaka@quicinc.com, quic_abhinavk@quicinc.com, airlied@linux.ie,
+ freedreno@lists.freedesktop.org, vkoul@kernel.org,
+ dri-devel@lists.freedesktop.org, swboyd@chromium.org, robdclark@gmail.com,
+ agross@kernel.org, daniel@ffwll.ch, linux-arm-msm@vger.kernel.org,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, bjorn.andersson@linaro.org,
+ sean@poorly.run, linux-kernel@vger.kernel.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-From: Rob Clark <robdclark@chromium.org>
+Hi,
 
-If the hangcheck timer expires, check if the fw's position in the
-cmdstream has advanced (changed) since last timer expiration, and
-allow it up to three additional "extensions" to it's alotted time.
-The intention is to continue to catch "shader stuck in a loop" type
-hangs quickly, but allow more time for things that are actually
-making forward progress.
+On Mon, Oct 31, 2022 at 2:11 PM Kuogee Hsieh <quic_khsieh@quicinc.com> wrote:
+>
+> Hi Dmitry,
+>
+>
+> Link rate is advertised by sink, but adjusted (reduced the link rate)
+> by host during link training.
+>
+> Therefore should be fine if host did not support HBR3 rate.
+>
+> It will reduce to lower link rate during link training procedures.
+>
+> kuogee
+>
+> On 10/31/2022 11:46 AM, Dmitry Baryshkov wrote:
+> > On 31/10/2022 20:27, Kuogee Hsieh wrote:
+> >> An HBR3-capable device shall also support TPS4. Since TPS4 feature
+> >> had been implemented already, it is not necessary to limit link
+> >> rate at HBR2 (5.4G). This patch remove this limitation to support
+> >> HBR3 (8.1G) link rate.
+> >
+> > The DP driver supports several platforms including sdm845 and can
+> > support, if I'm not mistaken, platforms up to msm8998/sdm630/660.
+> > Could you please confirm that all these SoCs have support for HBR3?
+> >
+> > With that fact being confirmed:
+> >
+> > Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> >
+> >
+> >>
+> >> Signed-off-by: Kuogee Hsieh <quic_khsieh@quicinc.com>
+> >> ---
+> >>   drivers/gpu/drm/msm/dp/dp_panel.c | 4 ----
+> >>   1 file changed, 4 deletions(-)
+> >>
+> >> diff --git a/drivers/gpu/drm/msm/dp/dp_panel.c
+> >> b/drivers/gpu/drm/msm/dp/dp_panel.c
+> >> index 5149ceb..3344f5a 100644
+> >> --- a/drivers/gpu/drm/msm/dp/dp_panel.c
+> >> +++ b/drivers/gpu/drm/msm/dp/dp_panel.c
+> >> @@ -78,10 +78,6 @@ static int dp_panel_read_dpcd(struct dp_panel
+> >> *dp_panel)
+> >>       if (link_info->num_lanes > dp_panel->max_dp_lanes)
+> >>           link_info->num_lanes = dp_panel->max_dp_lanes;
+> >>   -    /* Limit support upto HBR2 until HBR3 support is added */
+> >> -    if (link_info->rate >=
+> >> (drm_dp_bw_code_to_link_rate(DP_LINK_BW_5_4)))
+> >> -        link_info->rate = drm_dp_bw_code_to_link_rate(DP_LINK_BW_5_4);
+> >> -
+> >>       drm_dbg_dp(panel->drm_dev, "version: %d.%d\n", major, minor);
+> >>       drm_dbg_dp(panel->drm_dev, "link_rate=%d\n", link_info->rate);
+> >>       drm_dbg_dp(panel->drm_dev, "lane_count=%d\n",
+> >> link_info->num_lanes);
 
-Because we need to sample the CP state twice to detect if there has
-not been progress, this also cuts the the timer's duration in half.
+Stephen might remember better, but I could have sworn that the problem
+was that there might be something in the middle that couldn't support
+the higher link rate. In other words, I think we have:
 
-Signed-off-by: Rob Clark <robdclark@chromium.org>
----
- drivers/gpu/drm/msm/adreno/a6xx_gpu.c | 34 +++++++++++++++++++++++++++
- drivers/gpu/drm/msm/msm_drv.h         |  8 ++++++-
- drivers/gpu/drm/msm/msm_gpu.c         | 20 +++++++++++++++-
- drivers/gpu/drm/msm/msm_gpu.h         |  5 +++-
- drivers/gpu/drm/msm/msm_ringbuffer.h  | 24 +++++++++++++++++++
- 5 files changed, 88 insertions(+), 3 deletions(-)
+SoC <--> TypeC Port Controller <--> Display
 
-diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-index 1ff605c18ee6..3b8fb7a11dff 100644
---- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-+++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-@@ -1843,6 +1843,39 @@ static uint32_t a6xx_get_rptr(struct msm_gpu *gpu, struct msm_ringbuffer *ring)
- 	return ring->memptrs->rptr = gpu_read(gpu, REG_A6XX_CP_RB_RPTR);
- }
- 
-+static bool a6xx_progress(struct msm_gpu *gpu, struct msm_ringbuffer *ring)
-+{
-+	struct msm_cp_state cp_state = {
-+		.ib1_base = gpu_read64(gpu, REG_A6XX_CP_IB1_BASE),
-+		.ib2_base = gpu_read64(gpu, REG_A6XX_CP_IB2_BASE),
-+		.ib1_rem  = gpu_read(gpu, REG_A6XX_CP_IB1_REM_SIZE),
-+		.ib2_rem  = gpu_read(gpu, REG_A6XX_CP_IB2_REM_SIZE),
-+	};
-+	bool progress;
-+
-+	/*
-+	 * Adjust the remaining data to account for what has already been
-+	 * fetched from memory, but not yet consumed by the SQE.
-+	 *
-+	 * This is not *technically* correct, the amount buffered could
-+	 * exceed the IB size due to hw prefetching ahead, but:
-+	 *
-+	 * (1) We aren't trying to find the exact position, just whether
-+	 *     progress has been made
-+	 * (2) The CP_REG_TO_MEM at the end of a submit should be enough
-+	 *     to prevent prefetching into an unrelated submit.  (And
-+	 *     either way, at some point the ROQ will be full.)
-+	 */
-+	cp_state.ib1_rem += gpu_read(gpu, REG_A6XX_CP_CSQ_IB1_STAT) >> 16;
-+	cp_state.ib2_rem += gpu_read(gpu, REG_A6XX_CP_CSQ_IB1_STAT) >> 16;
-+
-+	progress = !!memcmp(&cp_state, &ring->last_cp_state, sizeof(cp_state));
-+
-+	ring->last_cp_state = cp_state;
-+
-+	return progress;
-+}
-+
- static u32 a618_get_speed_bin(u32 fuse)
- {
- 	if (fuse == 0)
-@@ -1961,6 +1994,7 @@ static const struct adreno_gpu_funcs funcs = {
- 		.create_address_space = a6xx_create_address_space,
- 		.create_private_address_space = a6xx_create_private_address_space,
- 		.get_rptr = a6xx_get_rptr,
-+		.progress = a6xx_progress,
- 	},
- 	.get_timestamp = a6xx_get_timestamp,
- };
-diff --git a/drivers/gpu/drm/msm/msm_drv.h b/drivers/gpu/drm/msm/msm_drv.h
-index efcd7260f428..970a1a0ab34f 100644
---- a/drivers/gpu/drm/msm/msm_drv.h
-+++ b/drivers/gpu/drm/msm/msm_drv.h
-@@ -226,7 +226,13 @@ struct msm_drm_private {
- 
- 	struct drm_atomic_state *pm_state;
- 
--	/* For hang detection, in ms */
-+	/**
-+	 * hangcheck_period: For hang detection, in ms
-+	 *
-+	 * Note that in practice, a submit/job will get at least two hangcheck
-+	 * periods, due to checking for progress being implemented as simply
-+	 * "have the CP position registers changed since last time?"
-+	 */
- 	unsigned int hangcheck_period;
- 
- 	/**
-diff --git a/drivers/gpu/drm/msm/msm_gpu.c b/drivers/gpu/drm/msm/msm_gpu.c
-index 3dffee54a951..136f5977b0bf 100644
---- a/drivers/gpu/drm/msm/msm_gpu.c
-+++ b/drivers/gpu/drm/msm/msm_gpu.c
-@@ -500,6 +500,21 @@ static void hangcheck_timer_reset(struct msm_gpu *gpu)
- 			round_jiffies_up(jiffies + msecs_to_jiffies(priv->hangcheck_period)));
- }
- 
-+static bool made_progress(struct msm_gpu *gpu, struct msm_ringbuffer *ring)
-+{
-+	if (ring->hangcheck_progress_retries >= DRM_MSM_HANGCHECK_PROGRESS_RETRIES)
-+		return false;
-+
-+	if (!gpu->funcs->progress)
-+		return false;
-+
-+	if (!gpu->funcs->progress(gpu, ring))
-+		return false;
-+
-+	ring->hangcheck_progress_retries++;
-+	return true;
-+}
-+
- static void hangcheck_handler(struct timer_list *t)
- {
- 	struct msm_gpu *gpu = from_timer(gpu, t, hangcheck_timer);
-@@ -511,9 +526,12 @@ static void hangcheck_handler(struct timer_list *t)
- 	if (fence != ring->hangcheck_fence) {
- 		/* some progress has been made.. ya! */
- 		ring->hangcheck_fence = fence;
--	} else if (fence_before(fence, ring->fctx->last_fence)) {
-+		ring->hangcheck_progress_retries = 0;
-+	} else if (fence_before(fence, ring->fctx->last_fence) &&
-+			!made_progress(gpu, ring)) {
- 		/* no progress and not done.. hung! */
- 		ring->hangcheck_fence = fence;
-+		ring->hangcheck_progress_retries = 0;
- 		DRM_DEV_ERROR(dev->dev, "%s: hangcheck detected gpu lockup rb %d!\n",
- 				gpu->name, ring->id);
- 		DRM_DEV_ERROR(dev->dev, "%s:     completed fence: %u\n",
-diff --git a/drivers/gpu/drm/msm/msm_gpu.h b/drivers/gpu/drm/msm/msm_gpu.h
-index 585fd9c8d45a..d8f355e9f0b2 100644
---- a/drivers/gpu/drm/msm/msm_gpu.h
-+++ b/drivers/gpu/drm/msm/msm_gpu.h
-@@ -78,6 +78,8 @@ struct msm_gpu_funcs {
- 	struct msm_gem_address_space *(*create_private_address_space)
- 		(struct msm_gpu *gpu);
- 	uint32_t (*get_rptr)(struct msm_gpu *gpu, struct msm_ringbuffer *ring);
-+
-+	bool (*progress)(struct msm_gpu *gpu, struct msm_ringbuffer *ring);
- };
- 
- /* Additional state for iommu faults: */
-@@ -236,7 +238,8 @@ struct msm_gpu {
- 	 */
- #define DRM_MSM_INACTIVE_PERIOD   66 /* in ms (roughly four frames) */
- 
--#define DRM_MSM_HANGCHECK_DEFAULT_PERIOD 500 /* in ms */
-+#define DRM_MSM_HANGCHECK_DEFAULT_PERIOD 250 /* in ms */
-+#define DRM_MSM_HANGCHECK_PROGRESS_RETRIES 3
- 	struct timer_list hangcheck_timer;
- 
- 	/* Fault info for most recent iova fault: */
-diff --git a/drivers/gpu/drm/msm/msm_ringbuffer.h b/drivers/gpu/drm/msm/msm_ringbuffer.h
-index 2a5045abe46e..e3d33bae3380 100644
---- a/drivers/gpu/drm/msm/msm_ringbuffer.h
-+++ b/drivers/gpu/drm/msm/msm_ringbuffer.h
-@@ -35,6 +35,11 @@ struct msm_rbmemptrs {
- 	volatile u64 ttbr0;
- };
- 
-+struct msm_cp_state {
-+	uint64_t ib1_base, ib2_base;
-+	uint32_t ib1_rem, ib2_rem;
-+};
-+
- struct msm_ringbuffer {
- 	struct msm_gpu *gpu;
- 	int id;
-@@ -64,6 +69,25 @@ struct msm_ringbuffer {
- 	uint64_t memptrs_iova;
- 	struct msm_fence_context *fctx;
- 
-+	/**
-+	 * hangcheck_progress_retries:
-+	 *
-+	 * The number of extra hangcheck duration cycles that we have given
-+	 * due to it appearing that the GPU is making forward progress.
-+	 *
-+	 * If the GPU appears to be making progress (ie. the CP has advanced
-+	 * in the command stream, we'll allow up to DRM_MSM_HANGCHECK_PROGRESS_RETRIES
-+	 * expirations of the hangcheck timer before killing the job.  In other
-+	 * words we'll let the submit run for up to
-+	 * DRM_MSM_HANGCHECK_DEFAULT_PERIOD *  DRM_MSM_HANGCHECK_PROGRESS_RETRIES
-+	 */
-+	int hangcheck_progress_retries;
-+
-+	/**
-+	 * last_cp_state: The state of the CP at the last call to gpu->progress()
-+	 */
-+	struct msm_cp_state last_cp_state;
-+
- 	/*
- 	 * preempt_lock protects preemption and serializes wptr updates against
- 	 * preemption.  Can be aquired from irq context.
--- 
-2.37.3
+The SoC might support HBR3 and the display might support HBR3, but the
+TCPC (Type C Port Controller) might not. I think that the TCPC is a
+silent/passive component so it can't really let anyone know about its
+limitations.
 
+In theory I guess you could rely on link training to just happen to
+fail if you drive the link too fast for the TCPC to handle. Does this
+actually work reliably?
+
+I think the other option that was discussed in the past was to add
+something in the device tree for this. Either you could somehow model
+the TCPC in DRM and thus know that a given model of TCPC limits the
+link rate or you could hack in a property in the DP controller to
+limit it.
+
+-Doug
