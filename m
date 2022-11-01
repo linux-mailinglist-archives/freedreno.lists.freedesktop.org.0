@@ -2,58 +2,75 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 400E66150CC
-	for <lists+freedreno@lfdr.de>; Tue,  1 Nov 2022 18:35:37 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C7E6961529B
+	for <lists+freedreno@lfdr.de>; Tue,  1 Nov 2022 20:54:49 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 88DB210E40C;
-	Tue,  1 Nov 2022 17:35:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5F58110E406;
+	Tue,  1 Nov 2022 19:54:48 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from alexa-out-sd-01.qualcomm.com (alexa-out-sd-01.qualcomm.com
- [199.106.114.38])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 81B6310E40C;
- Tue,  1 Nov 2022 17:35:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=quicinc.com; i=@quicinc.com; q=dns/txt; s=qcdkim;
- t=1667324130; x=1698860130;
- h=message-id:date:mime-version:subject:to:cc:references:
- from:in-reply-to:content-transfer-encoding;
- bh=+oB3JIjCqYiroW70MVyhN2JT3APB6a6Hd9Nqqp/NLNg=;
- b=irT5BFvUVNdUcQMgGiUcoNDfDrNsoAmqQCjdnQv5uVnnUxKts09rGPY9
- osAadML13yngqwAgYK0j6QvvgKtRscbSHEEuLnEHST5+TAio3fX/9OrzQ
- Fc9ZtRLi5PN4G4/lTCNV668TR7PimUbPrdeafTwk5MKXmMOLlXuaUzvBZ M=;
-Received: from unknown (HELO ironmsg04-sd.qualcomm.com) ([10.53.140.144])
- by alexa-out-sd-01.qualcomm.com with ESMTP; 01 Nov 2022 10:35:29 -0700
-X-QCInternal: smtphost
-Received: from nasanex01b.na.qualcomm.com ([10.46.141.250])
- by ironmsg04-sd.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Nov 2022 10:35:29 -0700
-Received: from [10.71.111.47] (10.80.80.8) by nasanex01b.na.qualcomm.com
- (10.46.141.250) with Microsoft SMTP Server (version=TLS1_2,
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3DBF310E406;
+ Tue,  1 Nov 2022 19:54:44 +0000 (UTC)
+Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 2A1JsfFZ025427; Tue, 1 Nov 2022 19:54:41 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
+ h=message-id : date :
+ mime-version : subject : to : cc : references : from : in-reply-to :
+ content-type : content-transfer-encoding; s=qcppdkim1;
+ bh=6zxzczJROcEEGeZcE8UuaeXsk7nWV0majcan5zRwn0E=;
+ b=DUKuKruHRhJNq/45ObDtqGsJi60nX7PnGiidoQjyzuRNPIDDb3boSaykFLGzgp2HPSWs
+ hMhHqUnkFk59PEJ7znYJAVANTZoLTqVOxCgfggRAWeEDXx0ziDQ9AXPPxK/hLJvgWbaT
+ ZeahVf4Z2uAibNOMs8EwJdB0trAT9REulJvJ0v0PKRCRWTzU8QAQj1iko03pLHBco0MX
+ 8iN/dkoHsUWoy0vcXotaGmbOKO90Cmvi1nkcWuYQkXXSRo6ee0+6rf3xSb1iVkmIZioX
+ LTJN1S9R5Ym2Z9Ms9/omZJOuVuBqJl0alka25oDzVeqO3qMyKfXocp5hW7SXOfSAgevt ZA== 
+Received: from nalasppmta05.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3kk7qng8kk-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 01 Nov 2022 19:54:40 +0000
+Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
+ [10.47.209.196])
+ by NALASPPMTA05.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 2A1JsdhX005617
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 1 Nov 2022 19:54:39 GMT
+Received: from [10.216.52.223] (10.80.80.8) by nalasex01a.na.qualcomm.com
+ (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.29; Tue, 1 Nov 2022
- 10:35:29 -0700
-Message-ID: <3f0de4cf-c38e-d4e5-6c0a-dee5667b0186@quicinc.com>
-Date: Tue, 1 Nov 2022 10:35:28 -0700
+ 12:54:12 -0700
+Message-ID: <fa56debb-41cb-6b91-3f22-f41ffca98fdc@quicinc.com>
+Date: Wed, 2 Nov 2022 01:24:08 +0530
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.2.2
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
+ Thunderbird/91.3.2
 Content-Language: en-US
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- <freedreno@lists.freedesktop.org>
-References: <20221028225952.160-1-quic_jesszhan@quicinc.com>
- <20221028225952.160-2-quic_jesszhan@quicinc.com>
- <712a9a25-4c38-9da5-b1a6-39e4665b4d31@linaro.org>
- <b890681d-9c40-32c6-061a-668dce01d89d@quicinc.com>
- <33ed79bf-3a05-0ae9-b3ef-d38608ff5c63@linaro.org>
-From: Jessica Zhang <quic_jesszhan@quicinc.com>
-In-Reply-To: <33ed79bf-3a05-0ae9-b3ef-d38608ff5c63@linaro.org>
+To: Rob Clark <robdclark@gmail.com>, <dri-devel@lists.freedesktop.org>
+References: <20221031225414.1280169-1-robdclark@gmail.com>
+ <20221031225414.1280169-3-robdclark@gmail.com>
+From: Akhil P Oommen <quic_akhilpo@quicinc.com>
+In-Reply-To: <20221031225414.1280169-3-robdclark@gmail.com>
 Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
- nasanex01b.na.qualcomm.com (10.46.141.250)
-Subject: Re: [Freedreno] [RFC PATCH 1/3] drm: Introduce color fill
- properties for drm plane
+X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-ORIG-GUID: BdB8hmq7x0ki3f4p7LzCxtiayf25gJFa
+X-Proofpoint-GUID: BdB8hmq7x0ki3f4p7LzCxtiayf25gJFa
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.205,Aquarius:18.0.895,Hydra:6.0.545,FMLib:17.11.122.1
+ definitions=2022-11-01_09,2022-11-01_02,2022-06-22_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 phishscore=0
+ mlxlogscore=999 malwarescore=0 lowpriorityscore=0 spamscore=0
+ priorityscore=1501 impostorscore=0 clxscore=1011 adultscore=0 bulkscore=0
+ mlxscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2210170000 definitions=main-2211010141
+Subject: Re: [Freedreno] [PATCH 2/2] drm/msm: Hangcheck progress detection
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,154 +83,218 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-arm-msm@vger.kernel.org, quic_abhinavk@quicinc.com,
- dri-devel@lists.freedesktop.org, swboyd@chromium.org, daniel.vetter@ffwll.ch,
- robdclark@gmail.com, seanpaul@chromium.org, laurent.pinchart@ideasonboard.com,
- contact@emersion.fr
+Cc: Rob Clark <robdclark@chromium.org>, freedreno@lists.freedesktop.org,
+ David Airlie <airlied@linux.ie>, linux-arm-msm@vger.kernel.org,
+ Konrad Dybcio <konrad.dybcio@somainline.org>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, Douglas
+ Anderson <dianders@chromium.org>, Daniel Vetter <daniel@ffwll.ch>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>,
+ Chia-I Wu <olvaffe@gmail.com>, open list <linux-kernel@vger.kernel.org>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
+On 11/1/2022 4:24 AM, Rob Clark wrote:
+> From: Rob Clark <robdclark@chromium.org>
+>
+> If the hangcheck timer expires, check if the fw's position in the
+> cmdstream has advanced (changed) since last timer expiration, and
+> allow it up to three additional "extensions" to it's alotted time.
+> The intention is to continue to catch "shader stuck in a loop" type
+> hangs quickly, but allow more time for things that are actually
+> making forward progress.
+>
+> Because we need to sample the CP state twice to detect if there has
+> not been progress, this also cuts the the timer's duration in half.
+>
+> Signed-off-by: Rob Clark <robdclark@chromium.org>
+> ---
+>   drivers/gpu/drm/msm/adreno/a6xx_gpu.c | 34 +++++++++++++++++++++++++++
+>   drivers/gpu/drm/msm/msm_drv.h         |  8 ++++++-
+>   drivers/gpu/drm/msm/msm_gpu.c         | 20 +++++++++++++++-
+>   drivers/gpu/drm/msm/msm_gpu.h         |  5 +++-
+>   drivers/gpu/drm/msm/msm_ringbuffer.h  | 24 +++++++++++++++++++
+>   5 files changed, 88 insertions(+), 3 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+> index 1ff605c18ee6..3b8fb7a11dff 100644
+> --- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+> @@ -1843,6 +1843,39 @@ static uint32_t a6xx_get_rptr(struct msm_gpu *gpu, struct msm_ringbuffer *ring)
+>   	return ring->memptrs->rptr = gpu_read(gpu, REG_A6XX_CP_RB_RPTR);
+>   }
+>   
+> +static bool a6xx_progress(struct msm_gpu *gpu, struct msm_ringbuffer *ring)
+> +{
+> +	struct msm_cp_state cp_state = {
+> +		.ib1_base = gpu_read64(gpu, REG_A6XX_CP_IB1_BASE),
+> +		.ib2_base = gpu_read64(gpu, REG_A6XX_CP_IB2_BASE),
+> +		.ib1_rem  = gpu_read(gpu, REG_A6XX_CP_IB1_REM_SIZE),
+> +		.ib2_rem  = gpu_read(gpu, REG_A6XX_CP_IB2_REM_SIZE),
+> +	};
+> +	bool progress;
+> +
+> +	/*
+> +	 * Adjust the remaining data to account for what has already been
+> +	 * fetched from memory, but not yet consumed by the SQE.
+> +	 *
+> +	 * This is not *technically* correct, the amount buffered could
+> +	 * exceed the IB size due to hw prefetching ahead, but:
+> +	 *
+> +	 * (1) We aren't trying to find the exact position, just whether
+> +	 *     progress has been made
+> +	 * (2) The CP_REG_TO_MEM at the end of a submit should be enough
+> +	 *     to prevent prefetching into an unrelated submit.  (And
+> +	 *     either way, at some point the ROQ will be full.)
+> +	 */
+> +	cp_state.ib1_rem += gpu_read(gpu, REG_A6XX_CP_CSQ_IB1_STAT) >> 16;
+> +	cp_state.ib2_rem += gpu_read(gpu, REG_A6XX_CP_CSQ_IB1_STAT) >> 16;
+REG_A6XX_CP_CSQ_IB1_STAT -> REG_A6XX_CP_CSQ_IB2_STAT
 
+With that, Reviewed-by: Akhil P Oommen <quic_akhilpo@quicinc.com>
 
-On 10/31/2022 5:11 PM, Dmitry Baryshkov wrote:
-> Hi,
-> 
-> On 01/11/2022 01:24, Jessica Zhang wrote:
->>
->>
->> On 10/29/2022 5:08 AM, Dmitry Baryshkov wrote:
->>> On 29/10/2022 01:59, Jessica Zhang wrote:
->>>> Add support for COLOR_FILL and COLOR_FILL_FORMAT properties for
->>>> drm_plane. In addition, add support for setting and getting the values
->>>> of these properties.
->>>>
->>>> COLOR_FILL represents the color fill of a plane while COLOR_FILL_FORMAT
->>>> represents the format of the color fill. Userspace can set enable solid
->>>> fill on a plane by assigning COLOR_FILL to a uint64_t value, assigning
->>>> the COLOR_FILL_FORMAT property to a uint32_t value, and setting the
->>>> framebuffer to NULL.
->>>>
->>>> Signed-off-by: Jessica Zhang <quic_jesszhan@quicinc.com> >
->>> Planes report supported formats using the drm_mode_getplane(). You'd 
->>> also need to tell userspace, which formats are supported for color 
->>> fill. I don't think one supports e.g. YV12.
->>
->> Hey Dmitry,
->>
->> Good point. Forgot to add this in the patch [3/3] commit message, but 
->> FWIW MSM DPU devices only support the RGB format variants [1].
->>
->> [1] 
->> https://gitlab.freedesktop.org/drm/msm/-/blob/msm-next/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c#L697
-> 
-> Ack. So you'd need to tell this to userspace.
-> 
->>
->>>
->>> A bit of generic comment for the discussion (this is an RFC anyway). 
->>> Using color_fill/color_fill_format properties sounds simple, but this 
->>> might be not generic enough. Limiting color_fill to 32 bits would 
->>> prevent anybody from using floating point formats (e.g. 
->>> DRM_FORMAT_XRGB16161616F, 64-bit value). Yes, this can be solved with 
->>> e.g. using 64-bit for the color_fill value, but then this doesn't 
->>> sound extensible too much.
->>
->> Hm... I can definitely change color_fill to use u64 instead. As for 
->> making it more extensible, do you have any suggestions?
-> 
-> No. Not u64. It is a blob. Basically because when designing API you can 
-> not guarantee that all fill values would fit into u64. Also see below.
-> 
->>
->>>
->>> So, a question for other hardware maintainers. Do we have hardware 
->>> that supports such 'color filled' planes? Do we want to support 
->>> format modifiers for filling color/data? Because what I have in mind 
->>> is closer to the blob structure, which can then be used for filling 
->>> the plane:
->>>
->>> struct color_fill_blob {
->>>      u32 pixel_format;
->>>      u64 modifiers4];
->>>      u32 pixel_data_size; // fixme: is this necessary?
->>>      u8 pixel_data[];
->>> };
->>
->> Just a question about this blob struct -- what is the purpose of 
->> pixel_data?
->>
->> At least for devices using the DPU driver, the only data needed to 
->> enable solid fill is color_fill and color_fill_format. I'd also be 
->> interested in knowing if there are other drivers support a similar 
->> feature and what is needed for them.
-> 
-> Yes. You are thinking from the DPU point of view. ARGB only. However as 
-> we are adding generic API, we should not limit ourselves to it. Other 
-> deivces might support other formats of fill data. For example using 
-> YUY2/UYVY for filling the plane. And such YUV data is not a colour 
-> anymore. It is a pixel data, just as I named it.
-> 
-> Another hardware might support some fill patterns. Or e.g. passing a 
-> compressed texels/macrotiles. So, pixel data. Note, I've added format 
-> modifiers. Maybe `u64 modifiers[4]` is an overkill, as we have just a 
-> single data plane. Maybe just `u64 modifier` would be enough.
+-Akhil.
+> +
+> +	progress = !!memcmp(&cp_state, &ring->last_cp_state, sizeof(cp_state));
+> +
+> +	ring->last_cp_state = cp_state;
+> +
+> +	return progress;
+> +}
+> +
+>   static u32 a618_get_speed_bin(u32 fuse)
+>   {
+>   	if (fuse == 0)
+> @@ -1961,6 +1994,7 @@ static const struct adreno_gpu_funcs funcs = {
+>   		.create_address_space = a6xx_create_address_space,
+>   		.create_private_address_space = a6xx_create_private_address_space,
+>   		.get_rptr = a6xx_get_rptr,
+> +		.progress = a6xx_progress,
+>   	},
+>   	.get_timestamp = a6xx_get_timestamp,
+>   };
+> diff --git a/drivers/gpu/drm/msm/msm_drv.h b/drivers/gpu/drm/msm/msm_drv.h
+> index efcd7260f428..970a1a0ab34f 100644
+> --- a/drivers/gpu/drm/msm/msm_drv.h
+> +++ b/drivers/gpu/drm/msm/msm_drv.h
+> @@ -226,7 +226,13 @@ struct msm_drm_private {
+>   
+>   	struct drm_atomic_state *pm_state;
+>   
+> -	/* For hang detection, in ms */
+> +	/**
+> +	 * hangcheck_period: For hang detection, in ms
+> +	 *
+> +	 * Note that in practice, a submit/job will get at least two hangcheck
+> +	 * periods, due to checking for progress being implemented as simply
+> +	 * "have the CP position registers changed since last time?"
+> +	 */
+>   	unsigned int hangcheck_period;
+>   
+>   	/**
+> diff --git a/drivers/gpu/drm/msm/msm_gpu.c b/drivers/gpu/drm/msm/msm_gpu.c
+> index 3dffee54a951..136f5977b0bf 100644
+> --- a/drivers/gpu/drm/msm/msm_gpu.c
+> +++ b/drivers/gpu/drm/msm/msm_gpu.c
+> @@ -500,6 +500,21 @@ static void hangcheck_timer_reset(struct msm_gpu *gpu)
+>   			round_jiffies_up(jiffies + msecs_to_jiffies(priv->hangcheck_period)));
+>   }
+>   
+> +static bool made_progress(struct msm_gpu *gpu, struct msm_ringbuffer *ring)
+> +{
+> +	if (ring->hangcheck_progress_retries >= DRM_MSM_HANGCHECK_PROGRESS_RETRIES)
+> +		return false;
+> +
+> +	if (!gpu->funcs->progress)
+> +		return false;
+> +
+> +	if (!gpu->funcs->progress(gpu, ring))
+> +		return false;
+> +
+> +	ring->hangcheck_progress_retries++;
+> +	return true;
+> +}
+> +
+>   static void hangcheck_handler(struct timer_list *t)
+>   {
+>   	struct msm_gpu *gpu = from_timer(gpu, t, hangcheck_timer);
+> @@ -511,9 +526,12 @@ static void hangcheck_handler(struct timer_list *t)
+>   	if (fence != ring->hangcheck_fence) {
+>   		/* some progress has been made.. ya! */
+>   		ring->hangcheck_fence = fence;
+> -	} else if (fence_before(fence, ring->fctx->last_fence)) {
+> +		ring->hangcheck_progress_retries = 0;
+> +	} else if (fence_before(fence, ring->fctx->last_fence) &&
+> +			!made_progress(gpu, ring)) {
+>   		/* no progress and not done.. hung! */
+>   		ring->hangcheck_fence = fence;
+> +		ring->hangcheck_progress_retries = 0;
+>   		DRM_DEV_ERROR(dev->dev, "%s: hangcheck detected gpu lockup rb %d!\n",
+>   				gpu->name, ring->id);
+>   		DRM_DEV_ERROR(dev->dev, "%s:     completed fence: %u\n",
+> diff --git a/drivers/gpu/drm/msm/msm_gpu.h b/drivers/gpu/drm/msm/msm_gpu.h
+> index 585fd9c8d45a..d8f355e9f0b2 100644
+> --- a/drivers/gpu/drm/msm/msm_gpu.h
+> +++ b/drivers/gpu/drm/msm/msm_gpu.h
+> @@ -78,6 +78,8 @@ struct msm_gpu_funcs {
+>   	struct msm_gem_address_space *(*create_private_address_space)
+>   		(struct msm_gpu *gpu);
+>   	uint32_t (*get_rptr)(struct msm_gpu *gpu, struct msm_ringbuffer *ring);
+> +
+> +	bool (*progress)(struct msm_gpu *gpu, struct msm_ringbuffer *ring);
+>   };
+>   
+>   /* Additional state for iommu faults: */
+> @@ -236,7 +238,8 @@ struct msm_gpu {
+>   	 */
+>   #define DRM_MSM_INACTIVE_PERIOD   66 /* in ms (roughly four frames) */
+>   
+> -#define DRM_MSM_HANGCHECK_DEFAULT_PERIOD 500 /* in ms */
+> +#define DRM_MSM_HANGCHECK_DEFAULT_PERIOD 250 /* in ms */
+> +#define DRM_MSM_HANGCHECK_PROGRESS_RETRIES 3
+>   	struct timer_list hangcheck_timer;
+>   
+>   	/* Fault info for most recent iova fault: */
+> diff --git a/drivers/gpu/drm/msm/msm_ringbuffer.h b/drivers/gpu/drm/msm/msm_ringbuffer.h
+> index 2a5045abe46e..e3d33bae3380 100644
+> --- a/drivers/gpu/drm/msm/msm_ringbuffer.h
+> +++ b/drivers/gpu/drm/msm/msm_ringbuffer.h
+> @@ -35,6 +35,11 @@ struct msm_rbmemptrs {
+>   	volatile u64 ttbr0;
+>   };
+>   
+> +struct msm_cp_state {
+> +	uint64_t ib1_base, ib2_base;
+> +	uint32_t ib1_rem, ib2_rem;
+> +};
+> +
+I think we can add CP_RB_RPTR too here.
+>   struct msm_ringbuffer {
+>   	struct msm_gpu *gpu;
+>   	int id;
+> @@ -64,6 +69,25 @@ struct msm_ringbuffer {
+>   	uint64_t memptrs_iova;
+>   	struct msm_fence_context *fctx;
+>   
+> +	/**
+> +	 * hangcheck_progress_retries:
+> +	 *
+> +	 * The number of extra hangcheck duration cycles that we have given
+> +	 * due to it appearing that the GPU is making forward progress.
+> +	 *
+> +	 * If the GPU appears to be making progress (ie. the CP has advanced
+> +	 * in the command stream, we'll allow up to DRM_MSM_HANGCHECK_PROGRESS_RETRIES
+> +	 * expirations of the hangcheck timer before killing the job.  In other
+> +	 * words we'll let the submit run for up to
+> +	 * DRM_MSM_HANGCHECK_DEFAULT_PERIOD *  DRM_MSM_HANGCHECK_PROGRESS_RETRIES
+> +	 */
+> +	int hangcheck_progress_retries;
+> +
+> +	/**
+> +	 * last_cp_state: The state of the CP at the last call to gpu->progress()
+> +	 */
+> +	struct msm_cp_state last_cp_state;
+> +
+>   	/*
+>   	 * preempt_lock protects preemption and serializes wptr updates against
+>   	 * preemption.  Can be aquired from irq context.
 
-Got it, I think that's reasonable then.
-
-> 
->>
->>>
->>> And then... This sounds a lot like a custom framebuffer.
->>>
->>> So, maybe what should we do instead is to add new 
->>> DRM_MODE_FB_COLOR_FILL flag to the framebuffers, which would e.g. 
->>> mean that the FB gets stamped all over the plane. This would also 
->>> save us from changing if (!fb) checks all over the drm core.
->>
->> JFYI we did originally consider using a custom 1x1 FB to for color 
->> fill [1], but decided to go with a plane property instead. IIRC the 
->> conclusion was that having color fill as a plane property is a cleaner 
->> solution.
->>
->> As for creating a new blob struct to hold all color fill info, I'm 
->> open to implementing that over having 2 separate properties.
->>
->> [1] https://oftc.irclog.whitequark.org/dri-devel/2022-09-23#31409842
-> 
-> Let me cite the conclusion form the IRC chat: `22:20 <robclark> 
-> abhinav__: kinda.. the proposal was that userspace creates a blob 
-> property with the solid fill color, and then attaches the blob-prop id 
-> to the plane's FB_ID`.
-> 
-> It's not a pair of properties. It is a blob, because it is not that 
-> limited as the pair of range properties is.
-> 
-> I will reread the log later, but just my 2c. Attaching the blob property 
-> as the FB_ID might confuse userspace. I'd be slightly biased to being 
-> more conservative here. However as the final proposal was to attach the 
-> blob ID, let's do it this way.
-
-Sounds good. Will spin up a v2 with the prop_blob implementation.
-
-Thanks,
-
-Jessica Zhang
-
-> 
->>
->>>
->>> Another approach might be using a format modifier instead of the FB 
->>> flag.
->> I like the idea of having a format modifier denoting if the driver 
->> supports color_fill for that specific format. This would allow 
->> userspace to know which formats are supported by solid fill planes.
-> 
-> Yes, exactly. It would come in a natural way.
-> 
-> [Rumbling: and then it's natural to have the fill data in FB. Dull mode 
-> off.]
-> 
-> -- 
-> With best wishes
-> Dmitry
-> 
