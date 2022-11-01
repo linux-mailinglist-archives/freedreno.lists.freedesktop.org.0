@@ -1,70 +1,70 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 164CE614234
-	for <lists+freedreno@lfdr.de>; Tue,  1 Nov 2022 01:20:36 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id BD3DF61423D
+	for <lists+freedreno@lfdr.de>; Tue,  1 Nov 2022 01:24:35 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8B68E10E277;
-	Tue,  1 Nov 2022 00:20:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7350310E277;
+	Tue,  1 Nov 2022 00:24:34 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x135.google.com (mail-lf1-x135.google.com
- [IPv6:2a00:1450:4864:20::135])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5C78E10E277
- for <freedreno@lists.freedesktop.org>; Tue,  1 Nov 2022 00:20:31 +0000 (UTC)
-Received: by mail-lf1-x135.google.com with SMTP id g12so21655030lfh.3
- for <freedreno@lists.freedesktop.org>; Mon, 31 Oct 2022 17:20:31 -0700 (PDT)
+Received: from mail-lf1-x12f.google.com (mail-lf1-x12f.google.com
+ [IPv6:2a00:1450:4864:20::12f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 00DD910E277
+ for <freedreno@lists.freedesktop.org>; Tue,  1 Nov 2022 00:24:31 +0000 (UTC)
+Received: by mail-lf1-x12f.google.com with SMTP id o12so21618033lfq.9
+ for <freedreno@lists.freedesktop.org>; Mon, 31 Oct 2022 17:24:31 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :from:to:cc:subject:date:message-id:reply-to;
- bh=ltVA0VEUWwJOZXNwFHdny7/I3PEIV7RG2e5fWcKzBQ8=;
- b=ynernax80c+tiaO3NNIs+GPZRJtUxlZG2ik1koxH4sC8uwwR6XiMZbaPqO2lL1NDcs
- 4LS/oL+6VPWjCasuv2i3hR5T/ZBbFQ0OeYxT7lEXTvGGX2T4M4268aVloAite1gS+RNv
- KB351DYB5KyspLRm7KFy3euJkcb7rQtq5rps25tGAx0oGFczKaytVEi4ElaNokglVHOW
- 3H7cLRex6VSaxTdXmniCg7D37yonGJ+iDODESba/RsTbO/74xSS4CLgAfvSGwLb8ZZrq
- V6Ck+5BkcstBo2ahF7G/TgnTtULnzThyTwfauTNTduB/cEaIykz8YAYVd3U/H0xt9ooa
- hIFg==
+ bh=+exwCng/IdD1MhFa/UI62X8vLjy6a/cFPmc8Y4Cwpo4=;
+ b=ZX7Wbo7qBX7YrGpC53w7yJrjIeHSz5R/Q0JB3s0DrLXFyyMcsZWhvz9kxFc1fTRGVX
+ 1UNr/sAcfCjkOTxQqFPG/oDt1/Pl70qKWKlHCTtVW0MZidYgelZ/Oc1L57iM1xmpUJlD
+ Wt1smVGbaTFzvNMbZDEzWTKzMpx0fGzb5MHujwCEi1k5ZLafxxEj11bmqfMwKjvGluMq
+ YGeeVufSU21qY5TptNFTLgAwTW8kw5VJuuR6Qe3uh1tqpzRxxUtqL4HatzNxeZEEsP9N
+ LVzPIaCqLPro4g7RHObvDLerXGEnAMbi3OBBu1Q2l1ltFMkyDwtFDo/MSwAoaOWqiUOT
+ yi4Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=ltVA0VEUWwJOZXNwFHdny7/I3PEIV7RG2e5fWcKzBQ8=;
- b=AkpV65kRKyuDoRP+5ARn4dUntaE+ctCEnCMvl/URMExwEHgQ70FMFhfI6nqhdZZ01k
- dDnGwkBEUzVpOb/xPzdWhKBwVZ8akJZSiemQkllM5quOyGqZJCpUpL5qG8Lc6p48Szaq
- v6cEAmvWTJWXrng9v6pCqWZ8AIXmBFaKr7DFLRlc+TptY/PL5USHHWKyJV5ai5NP9GCi
- bx+PKRd7vvY+ozHjHUW7+q6d9bHQVsk67fLmUMmvZG3A5U8vLumK2wYxkbYH4sOBj92Y
- dWbKtK8+tMgpH7BjuGdzNYg2irdt6kHqfmtVl4ttsFH1ayqaX4+xSopChJEIn0y3m/rg
- Qdbg==
-X-Gm-Message-State: ACrzQf3QAGXEcjmTcuvZmkbZcXFWYWXPTdd2BiXZMuOMYy9Lt4Sl1pE4
- i9CNK8rss58rS41YW9aPUjA2bg==
-X-Google-Smtp-Source: AMsMyM4Zoc7cRAvYcF98dy4VrumGZYvL4foPAVdEmemuIlPPH1lQjSnn0wW3UkUis3DI3XXtOW4T8g==
-X-Received: by 2002:ac2:47fa:0:b0:4a2:361d:da19 with SMTP id
- b26-20020ac247fa000000b004a2361dda19mr6257267lfp.548.1667262029463; 
- Mon, 31 Oct 2022 17:20:29 -0700 (PDT)
+ bh=+exwCng/IdD1MhFa/UI62X8vLjy6a/cFPmc8Y4Cwpo4=;
+ b=YLLniUH7W0Lj1HI59sVwrS0j+EP2wZEnRnxMnSuDhamVW9FfLJoTR13LbP69qZ2eBw
+ kOshtwNPp/lIWLvlqXkrwoNi/YLsrh1vvL2whJL6DNxH6TgMrKnynQ2vT6iukXYAbfVE
+ XJJYSw2tgDGB+E03hCUS0t9c4pkru7SfckPZ31Z9Ibgj/Mp8m2BXyOge0Sa0t+J5zp0O
+ dr1zmSUhWLO3Q672fqnJMkHG4bNd7lDAo/GpzS1WMepSsDXVjzCSw5vVrUstzejVaO8V
+ tzICc5tfX1Lc2g++oQsLp8RJnH/QDRUcS2vYeAvvkI9LQTVE727LbqxbCtGspIwjo3gM
+ mkvg==
+X-Gm-Message-State: ACrzQf2UMLVo1tL+evzm2pAPccQOb0yW/E3ZEaOxLoR9+jM8lvi8s9gz
+ KckXTZSPqT8Qb7alcH5ub12zqw==
+X-Google-Smtp-Source: AMsMyM49VFM7BsrC16yPhi+5RzKjTIKFsvAPXuTCBAVOtXH6jc6RySVnNUgcAbutYcvcQpME4YGKnA==
+X-Received: by 2002:a05:6512:2314:b0:4a2:6c4a:4fb9 with SMTP id
+ o20-20020a056512231400b004a26c4a4fb9mr6853631lfu.482.1667262270310; 
+ Mon, 31 Oct 2022 17:24:30 -0700 (PDT)
 Received: from [10.10.15.130] ([192.130.178.91])
  by smtp.gmail.com with ESMTPSA id
- c16-20020a056512239000b00497a61453a9sm229395lfv.243.2022.10.31.17.20.28
+ d2-20020ac244c2000000b004a27d2ea029sm1472345lfm.172.2022.10.31.17.24.29
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 31 Oct 2022 17:20:29 -0700 (PDT)
-Message-ID: <c77e5aad-d21c-e880-8ef3-081aeac86240@linaro.org>
-Date: Tue, 1 Nov 2022 03:20:28 +0300
+ Mon, 31 Oct 2022 17:24:29 -0700 (PDT)
+Message-ID: <1c735bcc-d4f7-333f-58a5-e3f463bab10d@linaro.org>
+Date: Tue, 1 Nov 2022 03:24:29 +0300
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.3.3
 Content-Language: en-GB
-To: Abhinav Kumar <quic_abhinavk@quicinc.com>, freedreno@lists.freedesktop.org
-References: <1663807768-23969-1-git-send-email-quic_abhinavk@quicinc.com>
- <dea86c81-449a-3296-d5de-c3b346f974e4@linaro.org>
- <350c27fb-3d13-9252-6fa3-f67b7cc47444@quicinc.com>
+To: Nathan Chancellor <nathan@kernel.org>,
+ Nathan Huckleberry <nhuck@google.com>
+References: <20220913205551.155128-1-nhuck@google.com>
+ <Y2BH7sx09nqwKNmt@dev-arch.thelio-3990X>
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-In-Reply-To: <350c27fb-3d13-9252-6fa3-f67b7cc47444@quicinc.com>
+In-Reply-To: <Y2BH7sx09nqwKNmt@dev-arch.thelio-3990X>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-Subject: Re: [Freedreno] [PATCH 1/2] drm/msm/dsi: add a helper method to
- compute the dsi byte clk
+Content-Transfer-Encoding: 7bit
+Subject: Re: [Freedreno] [PATCH] drm/msm: Fix return type of
+ mdp4_lvds_connector_mode_valid
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,144 +77,75 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: dri-devel@lists.freedesktop.org, swboyd@chromium.org, robdclark@gmail.com,
- seanpaul@chromium.org, daniel@ffwll.ch, quic_jesszhan@quicinc.com,
- quic_khsieh@quicinc.com
+Cc: freedreno@lists.freedesktop.org, Dan Carpenter <error27@gmail.com>,
+ David Airlie <airlied@linux.ie>, Tom Rix <trix@redhat.com>,
+ llvm@lists.linux.dev, Nick Desaulniers <ndesaulniers@google.com>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Rob Clark <robdclark@gmail.com>,
+ Daniel Vetter <daniel@ffwll.ch>, linux-arm-msm@vger.kernel.org,
+ Sean Paul <sean@poorly.run>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 28/10/2022 01:22, Abhinav Kumar wrote:
-> 
-> 
-> On 10/27/2022 10:35 AM, Dmitry Baryshkov wrote:
->> On 22/09/2022 03:49, Abhinav Kumar wrote:
->>> Re-arrange the dsi_calc_pclk method to two helpers, one to
->>> compute the DSI byte clk and the other to compute the pclk.
->>>
->>> This makes the separation of the two clean and also allows
->>> clients to compute and use the dsi byte clk separately.
->>>
->>> Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
->>> ---
->>>   drivers/gpu/drm/msm/dsi/dsi.h      |  2 ++
->>>   drivers/gpu/drm/msm/dsi/dsi_host.c | 27 +++++++++++++++++++--------
->>>   2 files changed, 21 insertions(+), 8 deletions(-)
->>>
->>> diff --git a/drivers/gpu/drm/msm/dsi/dsi.h 
->>> b/drivers/gpu/drm/msm/dsi/dsi.h
->>> index 2a96b4fe7839..60ba8e67f550 100644
->>> --- a/drivers/gpu/drm/msm/dsi/dsi.h
->>> +++ b/drivers/gpu/drm/msm/dsi/dsi.h
->>> @@ -118,6 +118,8 @@ int dsi_link_clk_enable_6g(struct msm_dsi_host 
->>> *msm_host);
->>>   int dsi_link_clk_enable_v2(struct msm_dsi_host *msm_host);
->>>   void dsi_link_clk_disable_6g(struct msm_dsi_host *msm_host);
->>>   void dsi_link_clk_disable_v2(struct msm_dsi_host *msm_host);
->>> +unsigned long dsi_byte_clk_get_rate(struct mipi_dsi_host *host, bool 
->>> is_bonded_dsi,
->>> +        const struct drm_display_mode *mode);
->>>   int dsi_tx_buf_alloc_6g(struct msm_dsi_host *msm_host, int size);
->>>   int dsi_tx_buf_alloc_v2(struct msm_dsi_host *msm_host, int size);
->>>   void *dsi_tx_buf_get_6g(struct msm_dsi_host *msm_host);
->>> diff --git a/drivers/gpu/drm/msm/dsi/dsi_host.c 
->>> b/drivers/gpu/drm/msm/dsi/dsi_host.c
->>> index 57a4c0fa614b..32b35d4ac1d3 100644
->>> --- a/drivers/gpu/drm/msm/dsi/dsi_host.c
->>> +++ b/drivers/gpu/drm/msm/dsi/dsi_host.c
->>> @@ -569,9 +569,8 @@ void dsi_link_clk_disable_v2(struct msm_dsi_host 
->>> *msm_host)
->>>       clk_disable_unprepare(msm_host->byte_clk);
->>>   }
->>> -static unsigned long dsi_get_pclk_rate(struct msm_dsi_host 
->>> *msm_host, bool is_bonded_dsi)
->>> +static unsigned long dsi_get_pclk_rate(const struct drm_display_mode 
->>> *mode, bool is_bonded_dsi)
->>>   {
->>> -    struct drm_display_mode *mode = msm_host->mode;
->>>       unsigned long pclk_rate;
->>>       pclk_rate = mode->clock * 1000;
->>> @@ -588,12 +587,18 @@ static unsigned long dsi_get_pclk_rate(struct 
->>> msm_dsi_host *msm_host, bool is_bo
->>>       return pclk_rate;
->>>   }
->>> -static void dsi_calc_pclk(struct msm_dsi_host *msm_host, bool 
->>> is_bonded_dsi)
->>> +unsigned long dsi_byte_clk_get_rate(struct mipi_dsi_host *host, bool 
->>> is_bonded_dsi,
->>> +        const struct drm_display_mode *mode)
->>>   {
->>> +    struct msm_dsi_host *msm_host = to_msm_dsi_host(host);
->>>       u8 lanes = msm_host->lanes;
->>>       u32 bpp = dsi_get_bpp(msm_host->format);
->>> -    unsigned long pclk_rate = dsi_get_pclk_rate(msm_host, 
->>> is_bonded_dsi);
->>> -    u64 pclk_bpp = (u64)pclk_rate * bpp;
->>> +    unsigned long pclk_rate;
->>> +    u64 pclk_bpp;
->>> +
->>> +    pclk_rate = dsi_get_pclk_rate(mode, is_bonded_dsi);
->>> +
->>> +    pclk_bpp = (u64)pclk_rate * bpp;
->>>       if (lanes == 0) {
->>>           pr_err("%s: forcing mdss_dsi lanes to 1\n", __func__);
->>> @@ -606,8 +611,14 @@ static void dsi_calc_pclk(struct msm_dsi_host 
->>> *msm_host, bool is_bonded_dsi)
->>>       else
->>>           do_div(pclk_bpp, (8 * lanes));
->>> -    msm_host->pixel_clk_rate = pclk_rate;
->>> -    msm_host->byte_clk_rate = pclk_bpp;
->>> +    return pclk_bpp;
->>> +}
->>> +
->>> +static void dsi_calc_pclk(struct msm_dsi_host *msm_host, bool 
->>> is_bonded_dsi)
->>> +{
->>> +    msm_host->pixel_clk_rate = dsi_get_pclk_rate(msm_host->mode, 
->>> is_bonded_dsi);
->>> +    msm_host->byte_clk_rate = dsi_byte_clk_get_rate(&msm_host->base, 
->>> is_bonded_dsi,
->>> +            msm_host->mode);
+On 01/11/2022 01:10, Nathan Chancellor wrote:
+> On Tue, Sep 13, 2022 at 01:55:48PM -0700, Nathan Huckleberry wrote:
+>> The mode_valid field in drm_connector_helper_funcs is expected to be of
+>> type:
+>> enum drm_mode_status (* mode_valid) (struct drm_connector *connector,
+>>                                       struct drm_display_mode *mode);
 >>
->> This way you are calling dsi_get_pclk_rate twice(), which is slightly 
->> inefficient. You can call it once (here) and then pass the resulting 
->> pclk_rate as an argument to dsi_byte_clk_get_rate().
+>> The mismatched return type breaks forward edge kCFI since the underlying
+>> function definition does not match the function hook definition.
+>>
+>> The return type of mdp4_lvds_connector_mode_valid should be changed from
+>> int to enum drm_mode_status.
+>>
+>> Reported-by: Dan Carpenter <error27@gmail.com>
+>> Link: https://github.com/ClangBuiltLinux/linux/issues/1703
+>> Cc: llvm@lists.linux.dev
+>> Signed-off-by: Nathan Huckleberry <nhuck@google.com>
+>> ---
+>>   drivers/gpu/drm/msm/disp/mdp4/mdp4_lvds_connector.c | 5 +++--
+>>   1 file changed, 3 insertions(+), 2 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/msm/disp/mdp4/mdp4_lvds_connector.c b/drivers/gpu/drm/msm/disp/mdp4/mdp4_lvds_connector.c
+>> index 7288041dd86a..7444b75c4215 100644
+>> --- a/drivers/gpu/drm/msm/disp/mdp4/mdp4_lvds_connector.c
+>> +++ b/drivers/gpu/drm/msm/disp/mdp4/mdp4_lvds_connector.c
+>> @@ -56,8 +56,9 @@ static int mdp4_lvds_connector_get_modes(struct drm_connector *connector)
+>>   	return ret;
+>>   }
+>>   
+>> -static int mdp4_lvds_connector_mode_valid(struct drm_connector *connector,
+>> -				 struct drm_display_mode *mode)
+>> +static enum drm_mode_status
+>> +mdp4_lvds_connector_mode_valid(struct drm_connector *connector,
+>> +			       struct drm_display_mode *mode)
+>>   {
+>>   	struct mdp4_lvds_connector *mdp4_lvds_connector =
+>>   			to_mdp4_lvds_connector(connector);
+>> -- 
+>> 2.37.2.789.g6183377224-goog
+>>
+>>
 > 
-> So the goal was to have two independent APIs to calculate byte and pixel 
-> clk.
+> Did this patch get lost somewhere? I do not see it picked up. It is
+> needed to avoid a new WIP warning from clang for catching these CFI
+> failures:
 > 
-> If we pass the output of one as the input to the other we are making 
-> them dependent.
-> 
-> Thats why i kept it separate.
+> drivers/gpu/drm/msm/disp/mdp4/mdp4_lvds_connector.c:89:16: error: incompatible function pointer types initializing 'enum drm_mode_status (*)(struct drm_connector *, struct drm_display_mode *)' with an expression of type 'int (struct drm_connector *, struct drm_display_mode *)' [-Werror,-Wincompatible-function-pointer-types-strict]
+>          .mode_valid = mdp4_lvds_connector_mode_valid,
+>                        ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+> 1 error generated.
 
-Calling one function from another clearly points that they are not 
-independent. And surely pixel and byte clocks can not be fully 
-independent. I see your point about getting only the byte clock. But I 
-think it would be easier to explicitly pass the pixel rate rather than 
-calculating it again under the hood.
+It will be picked into 6.1-rc and then propagate through the stable 
+kernel updates.
 
-> 
->>
->>>       DBG("pclk=%lu, bclk=%lu", msm_host->pixel_clk_rate,
->>>                   msm_host->byte_clk_rate);
->>> @@ -635,7 +646,7 @@ int dsi_calc_clk_rate_v2(struct msm_dsi_host 
->>> *msm_host, bool is_bonded_dsi)
->>>       dsi_calc_pclk(msm_host, is_bonded_dsi);
->>> -    pclk_bpp = (u64)dsi_get_pclk_rate(msm_host, is_bonded_dsi) * bpp;
->>> +    pclk_bpp = (u64)dsi_get_pclk_rate(msm_host->mode, is_bonded_dsi) 
->>> * bpp;
->>
->> So... We have calculated all rates, stored the pclk_rate in 
->> msm_host->pixel_clk_rate. And now we are going to calculate it again. 
->> As you are touching this line of code, I'd suggest to just use 
->> msm_host->pixel_clk_rate instead of a function call.
-> 
-> Ack, I will fix this.
-> 
->>
->>>       do_div(pclk_bpp, 8);
->>>       msm_host->src_clk_rate = pclk_bpp;
->>
+Anyway:
+
+Fixes: 3e87599b68e7 ("drm/msm/mdp4: add LVDS panel support")
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+
 
 -- 
 With best wishes
