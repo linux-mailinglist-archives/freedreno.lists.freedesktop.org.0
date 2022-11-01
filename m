@@ -1,71 +1,59 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id D6B05614CC0
-	for <lists+freedreno@lfdr.de>; Tue,  1 Nov 2022 15:37:53 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 400E66150CC
+	for <lists+freedreno@lfdr.de>; Tue,  1 Nov 2022 18:35:37 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8AB5610E3DA;
-	Tue,  1 Nov 2022 14:37:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 88DB210E40C;
+	Tue,  1 Nov 2022 17:35:34 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ed1-x533.google.com (mail-ed1-x533.google.com
- [IPv6:2a00:1450:4864:20::533])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 110CD10E3D4
- for <freedreno@lists.freedesktop.org>; Tue,  1 Nov 2022 14:37:50 +0000 (UTC)
-Received: by mail-ed1-x533.google.com with SMTP id u24so12815087edd.13
- for <freedreno@lists.freedesktop.org>; Tue, 01 Nov 2022 07:37:49 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=SgtoTIoJy9S3cxUJ6sw0M4fPt26RITcHwkYCKl6O/Bg=;
- b=JeHW0fb1128o+sH7HJOn49rh8Qwx7I8XiydSY//3MQLwswILpjmk87sU+vpVYKg/6o
- sD1zjXUyKoTbzPnH0FL5Yqar7+iW/pxN3F8RK7366udxwZPeWHVgzzRy5aiMEQL1jFC/
- KDwoonlGYhpqxY0pl9rj9cWtAh9J6e7eB9fT4=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=SgtoTIoJy9S3cxUJ6sw0M4fPt26RITcHwkYCKl6O/Bg=;
- b=3e7qZnZaMmCf9yPcvUPLDQIfphWCZiZ4LxGb42UXhiFXA86rj8wD7q0rhqCn3VV6Bo
- f+PJudY32u/3QbNEXuPPwdDOTlGR5UY1Z213H0ubW1V4ZdNG6FaKdrPO8vMdTbetCjer
- 1Obs4ulzjl1K8g/OvDxgO1xqNFxNBmcXXMDczKlWE9v+fL26EoNKgDqWRZ5H7hKDVk3g
- g4IrUeCU6OCCGNECc/e8hHvsbuVIcysKqAN1deqrgp9EZzs1U6vk9iUF2VSan1lo3uO/
- NTCkv9T8gB0PwpzgjpFJmvIUTfFG30lyZU9jUApplX8RoHY2WGgZLo/4S3R25mww5YCV
- RAPw==
-X-Gm-Message-State: ACrzQf3sGWR5L/g21F1Jp9zYkME5uo6D8eqSCXBrrcw6lyedcsM7F1xa
- wd8Sq+ITh33LaIfHPn3E90RbrH1JBsWSdJDC
-X-Google-Smtp-Source: AMsMyM6COjSR3013NmDNKCLltCb6JvIwnT1XCVwfQpZHoavjrgt8SXNsxTRkv4uOvRog6uvlfdltfA==
-X-Received: by 2002:aa7:da42:0:b0:461:9465:b019 with SMTP id
- w2-20020aa7da42000000b004619465b019mr20074600eds.144.1667313468145; 
- Tue, 01 Nov 2022 07:37:48 -0700 (PDT)
-Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com.
- [209.85.221.44]) by smtp.gmail.com with ESMTPSA id
- r10-20020a17090609ca00b00780ab5a9116sm4229534eje.211.2022.11.01.07.37.46
- for <freedreno@lists.freedesktop.org>
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 01 Nov 2022 07:37:46 -0700 (PDT)
-Received: by mail-wr1-f44.google.com with SMTP id j15so20447188wrq.3
- for <freedreno@lists.freedesktop.org>; Tue, 01 Nov 2022 07:37:46 -0700 (PDT)
-X-Received: by 2002:adf:d1ec:0:b0:236:880f:2adf with SMTP id
- g12-20020adfd1ec000000b00236880f2adfmr11978578wrd.617.1667313466088; Tue, 01
- Nov 2022 07:37:46 -0700 (PDT)
+Received: from alexa-out-sd-01.qualcomm.com (alexa-out-sd-01.qualcomm.com
+ [199.106.114.38])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 81B6310E40C;
+ Tue,  1 Nov 2022 17:35:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=quicinc.com; i=@quicinc.com; q=dns/txt; s=qcdkim;
+ t=1667324130; x=1698860130;
+ h=message-id:date:mime-version:subject:to:cc:references:
+ from:in-reply-to:content-transfer-encoding;
+ bh=+oB3JIjCqYiroW70MVyhN2JT3APB6a6Hd9Nqqp/NLNg=;
+ b=irT5BFvUVNdUcQMgGiUcoNDfDrNsoAmqQCjdnQv5uVnnUxKts09rGPY9
+ osAadML13yngqwAgYK0j6QvvgKtRscbSHEEuLnEHST5+TAio3fX/9OrzQ
+ Fc9ZtRLi5PN4G4/lTCNV668TR7PimUbPrdeafTwk5MKXmMOLlXuaUzvBZ M=;
+Received: from unknown (HELO ironmsg04-sd.qualcomm.com) ([10.53.140.144])
+ by alexa-out-sd-01.qualcomm.com with ESMTP; 01 Nov 2022 10:35:29 -0700
+X-QCInternal: smtphost
+Received: from nasanex01b.na.qualcomm.com ([10.46.141.250])
+ by ironmsg04-sd.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 01 Nov 2022 10:35:29 -0700
+Received: from [10.71.111.47] (10.80.80.8) by nasanex01b.na.qualcomm.com
+ (10.46.141.250) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.29; Tue, 1 Nov 2022
+ 10:35:29 -0700
+Message-ID: <3f0de4cf-c38e-d4e5-6c0a-dee5667b0186@quicinc.com>
+Date: Tue, 1 Nov 2022 10:35:28 -0700
 MIME-Version: 1.0
-References: <1667237245-24988-1-git-send-email-quic_khsieh@quicinc.com>
- <94b507e8-5b94-12ae-4c81-95f5d36279d5@linaro.org>
- <deb60200-5a37-ec77-9515-0c0c89022174@quicinc.com>
- <CAD=FV=X_fs_4JYcRvAwkU9mAafOten9WdyzPfSVWdAU=ZMo8zg@mail.gmail.com>
- <155e4171-187c-4ecf-5a9b-12f0c2207524@linaro.org>
-In-Reply-To: <155e4171-187c-4ecf-5a9b-12f0c2207524@linaro.org>
-From: Doug Anderson <dianders@chromium.org>
-Date: Tue, 1 Nov 2022 07:37:33 -0700
-X-Gmail-Original-Message-ID: <CAD=FV=Wk5rBSq9Mx1GCO0QFYckKV9KUFKL36Ld7dQX1ypHVcYw@mail.gmail.com>
-Message-ID: <CAD=FV=Wk5rBSq9Mx1GCO0QFYckKV9KUFKL36Ld7dQX1ypHVcYw@mail.gmail.com>
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [PATCH] drm/msm/dp: remove limitation of link rate
- at 5.4G to support HBR3
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.2.2
+Content-Language: en-US
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ <freedreno@lists.freedesktop.org>
+References: <20221028225952.160-1-quic_jesszhan@quicinc.com>
+ <20221028225952.160-2-quic_jesszhan@quicinc.com>
+ <712a9a25-4c38-9da5-b1a6-39e4665b4d31@linaro.org>
+ <b890681d-9c40-32c6-061a-668dce01d89d@quicinc.com>
+ <33ed79bf-3a05-0ae9-b3ef-d38608ff5c63@linaro.org>
+From: Jessica Zhang <quic_jesszhan@quicinc.com>
+In-Reply-To: <33ed79bf-3a05-0ae9-b3ef-d38608ff5c63@linaro.org>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
+ nasanex01b.na.qualcomm.com (10.46.141.250)
+Subject: Re: [Freedreno] [RFC PATCH 1/3] drm: Introduce color fill
+ properties for drm plane
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,114 +66,154 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: quic_sbillaka@quicinc.com, quic_abhinavk@quicinc.com, airlied@linux.ie,
- freedreno@lists.freedesktop.org, Bjorn Andersson <andersson@kernel.org>,
- vkoul@kernel.org, dri-devel@lists.freedesktop.org, swboyd@chromium.org,
- robdclark@gmail.com, agross@kernel.org, daniel@ffwll.ch,
- linux-arm-msm@vger.kernel.org, Kuogee Hsieh <quic_khsieh@quicinc.com>,
- sean@poorly.run, linux-kernel@vger.kernel.org
+Cc: linux-arm-msm@vger.kernel.org, quic_abhinavk@quicinc.com,
+ dri-devel@lists.freedesktop.org, swboyd@chromium.org, daniel.vetter@ffwll.ch,
+ robdclark@gmail.com, seanpaul@chromium.org, laurent.pinchart@ideasonboard.com,
+ contact@emersion.fr
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Hi,
 
-On Mon, Oct 31, 2022 at 5:15 PM Dmitry Baryshkov
-<dmitry.baryshkov@linaro.org> wrote:
->
-> On 01/11/2022 03:08, Doug Anderson wrote:
-> > Hi,
-> >
-> > On Mon, Oct 31, 2022 at 2:11 PM Kuogee Hsieh <quic_khsieh@quicinc.com> wrote:
-> >>
-> >> Hi Dmitry,
-> >>
-> >>
-> >> Link rate is advertised by sink, but adjusted (reduced the link rate)
-> >> by host during link training.
-> >>
-> >> Therefore should be fine if host did not support HBR3 rate.
-> >>
-> >> It will reduce to lower link rate during link training procedures.
-> >>
-> >> kuogee
-> >>
-> >> On 10/31/2022 11:46 AM, Dmitry Baryshkov wrote:
-> >>> On 31/10/2022 20:27, Kuogee Hsieh wrote:
-> >>>> An HBR3-capable device shall also support TPS4. Since TPS4 feature
-> >>>> had been implemented already, it is not necessary to limit link
-> >>>> rate at HBR2 (5.4G). This patch remove this limitation to support
-> >>>> HBR3 (8.1G) link rate.
-> >>>
-> >>> The DP driver supports several platforms including sdm845 and can
-> >>> support, if I'm not mistaken, platforms up to msm8998/sdm630/660.
-> >>> Could you please confirm that all these SoCs have support for HBR3?
-> >>>
-> >>> With that fact being confirmed:
-> >>>
-> >>> Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> >>>
-> >>>
-> >>>>
-> >>>> Signed-off-by: Kuogee Hsieh <quic_khsieh@quicinc.com>
-> >>>> ---
-> >>>>    drivers/gpu/drm/msm/dp/dp_panel.c | 4 ----
-> >>>>    1 file changed, 4 deletions(-)
-> >>>>
-> >>>> diff --git a/drivers/gpu/drm/msm/dp/dp_panel.c
-> >>>> b/drivers/gpu/drm/msm/dp/dp_panel.c
-> >>>> index 5149ceb..3344f5a 100644
-> >>>> --- a/drivers/gpu/drm/msm/dp/dp_panel.c
-> >>>> +++ b/drivers/gpu/drm/msm/dp/dp_panel.c
-> >>>> @@ -78,10 +78,6 @@ static int dp_panel_read_dpcd(struct dp_panel
-> >>>> *dp_panel)
-> >>>>        if (link_info->num_lanes > dp_panel->max_dp_lanes)
-> >>>>            link_info->num_lanes = dp_panel->max_dp_lanes;
-> >>>>    -    /* Limit support upto HBR2 until HBR3 support is added */
-> >>>> -    if (link_info->rate >=
-> >>>> (drm_dp_bw_code_to_link_rate(DP_LINK_BW_5_4)))
-> >>>> -        link_info->rate = drm_dp_bw_code_to_link_rate(DP_LINK_BW_5_4);
-> >>>> -
-> >>>>        drm_dbg_dp(panel->drm_dev, "version: %d.%d\n", major, minor);
-> >>>>        drm_dbg_dp(panel->drm_dev, "link_rate=%d\n", link_info->rate);
-> >>>>        drm_dbg_dp(panel->drm_dev, "lane_count=%d\n",
-> >>>> link_info->num_lanes);
-> >
-> > Stephen might remember better, but I could have sworn that the problem
-> > was that there might be something in the middle that couldn't support
-> > the higher link rate. In other words, I think we have:
-> >
-> > SoC <--> TypeC Port Controller <--> Display
-> >
-> > The SoC might support HBR3 and the display might support HBR3, but the
-> > TCPC (Type C Port Controller) might not. I think that the TCPC is a
-> > silent/passive component so it can't really let anyone know about its
-> > limitations.
-> >
-> > In theory I guess you could rely on link training to just happen to
-> > fail if you drive the link too fast for the TCPC to handle. Does this
-> > actually work reliably?
-> >
-> > I think the other option that was discussed in the past was to add
-> > something in the device tree for this. Either you could somehow model
-> > the TCPC in DRM and thus know that a given model of TCPC limits the
-> > link rate or you could hack in a property in the DP controller to
-> > limit it.
->
-> Latest pmic_glink proposal from Bjorn include adding the drm_bridge for
-> the TCPC. Such bridge can in theory limit supported modes and rates.
 
-Excellent! Even so, I think this isn't totally a solved problem,
-right? Even though a bridge seems like a good place for this, last I
-remember checking the bridge API wasn't expressive enough to solve
-this problem. A bridge could limit pixel clocks just fine, but here we
-need to take into account other considerations to know if a given
-pixel clock can work at 5.4 GHz or not. For instance, if we're at 4
-lanes we could maybe make a given pixel clock at 5.4 GHz but not if we
-only have 2 lanes. I don't think that the DP controller passes the
-number of lanes to other parts of the bridge chain, though maybe
-there's some trick for it?
+On 10/31/2022 5:11 PM, Dmitry Baryshkov wrote:
+> Hi,
+> 
+> On 01/11/2022 01:24, Jessica Zhang wrote:
+>>
+>>
+>> On 10/29/2022 5:08 AM, Dmitry Baryshkov wrote:
+>>> On 29/10/2022 01:59, Jessica Zhang wrote:
+>>>> Add support for COLOR_FILL and COLOR_FILL_FORMAT properties for
+>>>> drm_plane. In addition, add support for setting and getting the values
+>>>> of these properties.
+>>>>
+>>>> COLOR_FILL represents the color fill of a plane while COLOR_FILL_FORMAT
+>>>> represents the format of the color fill. Userspace can set enable solid
+>>>> fill on a plane by assigning COLOR_FILL to a uint64_t value, assigning
+>>>> the COLOR_FILL_FORMAT property to a uint32_t value, and setting the
+>>>> framebuffer to NULL.
+>>>>
+>>>> Signed-off-by: Jessica Zhang <quic_jesszhan@quicinc.com> >
+>>> Planes report supported formats using the drm_mode_getplane(). You'd 
+>>> also need to tell userspace, which formats are supported for color 
+>>> fill. I don't think one supports e.g. YV12.
+>>
+>> Hey Dmitry,
+>>
+>> Good point. Forgot to add this in the patch [3/3] commit message, but 
+>> FWIW MSM DPU devices only support the RGB format variants [1].
+>>
+>> [1] 
+>> https://gitlab.freedesktop.org/drm/msm/-/blob/msm-next/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c#L697
+> 
+> Ack. So you'd need to tell this to userspace.
+> 
+>>
+>>>
+>>> A bit of generic comment for the discussion (this is an RFC anyway). 
+>>> Using color_fill/color_fill_format properties sounds simple, but this 
+>>> might be not generic enough. Limiting color_fill to 32 bits would 
+>>> prevent anybody from using floating point formats (e.g. 
+>>> DRM_FORMAT_XRGB16161616F, 64-bit value). Yes, this can be solved with 
+>>> e.g. using 64-bit for the color_fill value, but then this doesn't 
+>>> sound extensible too much.
+>>
+>> Hm... I can definitely change color_fill to use u64 instead. As for 
+>> making it more extensible, do you have any suggestions?
+> 
+> No. Not u64. It is a blob. Basically because when designing API you can 
+> not guarantee that all fill values would fit into u64. Also see below.
+> 
+>>
+>>>
+>>> So, a question for other hardware maintainers. Do we have hardware 
+>>> that supports such 'color filled' planes? Do we want to support 
+>>> format modifiers for filling color/data? Because what I have in mind 
+>>> is closer to the blob structure, which can then be used for filling 
+>>> the plane:
+>>>
+>>> struct color_fill_blob {
+>>>      u32 pixel_format;
+>>>      u64 modifiers4];
+>>>      u32 pixel_data_size; // fixme: is this necessary?
+>>>      u8 pixel_data[];
+>>> };
+>>
+>> Just a question about this blob struct -- what is the purpose of 
+>> pixel_data?
+>>
+>> At least for devices using the DPU driver, the only data needed to 
+>> enable solid fill is color_fill and color_fill_format. I'd also be 
+>> interested in knowing if there are other drivers support a similar 
+>> feature and what is needed for them.
+> 
+> Yes. You are thinking from the DPU point of view. ARGB only. However as 
+> we are adding generic API, we should not limit ourselves to it. Other 
+> deivces might support other formats of fill data. For example using 
+> YUY2/UYVY for filling the plane. And such YUV data is not a colour 
+> anymore. It is a pixel data, just as I named it.
+> 
+> Another hardware might support some fill patterns. Or e.g. passing a 
+> compressed texels/macrotiles. So, pixel data. Note, I've added format 
+> modifiers. Maybe `u64 modifiers[4]` is an overkill, as we have just a 
+> single data plane. Maybe just `u64 modifier` would be enough.
 
-...I guess the other problem is that all existing users aren't
-currently modeling their TCPC in this way. What happens to them?
+Got it, I think that's reasonable then.
 
--Doug
+> 
+>>
+>>>
+>>> And then... This sounds a lot like a custom framebuffer.
+>>>
+>>> So, maybe what should we do instead is to add new 
+>>> DRM_MODE_FB_COLOR_FILL flag to the framebuffers, which would e.g. 
+>>> mean that the FB gets stamped all over the plane. This would also 
+>>> save us from changing if (!fb) checks all over the drm core.
+>>
+>> JFYI we did originally consider using a custom 1x1 FB to for color 
+>> fill [1], but decided to go with a plane property instead. IIRC the 
+>> conclusion was that having color fill as a plane property is a cleaner 
+>> solution.
+>>
+>> As for creating a new blob struct to hold all color fill info, I'm 
+>> open to implementing that over having 2 separate properties.
+>>
+>> [1] https://oftc.irclog.whitequark.org/dri-devel/2022-09-23#31409842
+> 
+> Let me cite the conclusion form the IRC chat: `22:20 <robclark> 
+> abhinav__: kinda.. the proposal was that userspace creates a blob 
+> property with the solid fill color, and then attaches the blob-prop id 
+> to the plane's FB_ID`.
+> 
+> It's not a pair of properties. It is a blob, because it is not that 
+> limited as the pair of range properties is.
+> 
+> I will reread the log later, but just my 2c. Attaching the blob property 
+> as the FB_ID might confuse userspace. I'd be slightly biased to being 
+> more conservative here. However as the final proposal was to attach the 
+> blob ID, let's do it this way.
+
+Sounds good. Will spin up a v2 with the prop_blob implementation.
+
+Thanks,
+
+Jessica Zhang
+
+> 
+>>
+>>>
+>>> Another approach might be using a format modifier instead of the FB 
+>>> flag.
+>> I like the idea of having a format modifier denoting if the driver 
+>> supports color_fill for that specific format. This would allow 
+>> userspace to know which formats are supported by solid fill planes.
+> 
+> Yes, exactly. It would come in a natural way.
+> 
+> [Rumbling: and then it's natural to have the fill data in FB. Dull mode 
+> off.]
+> 
+> -- 
+> With best wishes
+> Dmitry
+> 
