@@ -2,66 +2,59 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6866561705C
-	for <lists+freedreno@lfdr.de>; Wed,  2 Nov 2022 23:08:53 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9C728617174
+	for <lists+freedreno@lfdr.de>; Thu,  3 Nov 2022 00:10:57 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 310C210E688;
-	Wed,  2 Nov 2022 22:08:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 27F4510E53A;
+	Wed,  2 Nov 2022 23:10:49 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x130.google.com (mail-lf1-x130.google.com
- [IPv6:2a00:1450:4864:20::130])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AB87C10E688
- for <freedreno@lists.freedesktop.org>; Wed,  2 Nov 2022 22:08:47 +0000 (UTC)
-Received: by mail-lf1-x130.google.com with SMTP id d25so29973934lfb.7
- for <freedreno@lists.freedesktop.org>; Wed, 02 Nov 2022 15:08:47 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=Jxf+3weLPmHOsW22Oh8OM73R5y6QA68Q4Pf4wCJwkio=;
- b=kadRqGI+2FF/FktDUBYoVshyIJK/JqECqTbHQOsRSrf1S5ZqkiEbKFLtwsxtyTeof+
- 2tSR4KCYMsZT+20XewP5ZfOEaJhjU5uqQo6hdtSTIYwv1dXfmZtTj5uDOCKO6lWVb2uO
- Dl/Mi6TC+8pvMsT6aRkf2xBWxSjC358mPbLrSO71RkwylR2N2cY+QgND/cWJL6GrE9oi
- M4wT5LVk4cx5ug3SAabFNT+X1ITt/i9O6Y2MCsC3tcUZn6ge7WWG+AQ2PJFKu8XPj50n
- 5u+WzeWmAc32aivp8G16838VdohDWcAsVQR9BZr4/I4YlIK0CHwiQTVuZF6ttnVrnMTW
- SZMQ==
+Received: from mail-ot1-x32f.google.com (mail-ot1-x32f.google.com
+ [IPv6:2607:f8b0:4864:20::32f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2D78810E095;
+ Wed,  2 Nov 2022 23:10:44 +0000 (UTC)
+Received: by mail-ot1-x32f.google.com with SMTP id
+ p8-20020a056830130800b0066bb73cf3bcso87293otq.11; 
+ Wed, 02 Nov 2022 16:10:44 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=NOncMiS9A3RMWI4Y+kkqX5A0U4j9jibTTA2TcJiv65c=;
+ b=K1J7h4kOsvTI0XZqdd9KdfNxd8yDQGj7WTjtRsp4NkeHxD432DZhu7n9O+4+sxOCEI
+ RHjF2VR9BJZOi3qXg3L+3lA2PTVbmswiAoucH38ZJ7sErUCK6HEiDmqdUFegmfY0lBEn
+ UVtnfap6H+pn+qFFZ9kBiwBosVT7WEaeWFowQH+2lAc23QMeVZA00DYiGt4SyZBWeFrF
+ wf9DhP2C6d3YeIQ2UBU6sWRzfitBm3oQt5KSaSild8S4ee3jXSoVCiiUKHA7HSC64wlM
+ tiuqZYGEEa2A8ifZT3XkzHSUUm6JFquBNhCW2yXbj+RM7mXTNfuCCtqCSZL8WgmfASVD
+ XLLw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=Jxf+3weLPmHOsW22Oh8OM73R5y6QA68Q4Pf4wCJwkio=;
- b=ay6ex/vWRdkYakFhLbJ0JtLYtEEa0/DBu3IQdG2WOmmB+35q67LEBB7kW3fL0goi7z
- g8ufV3vz6/DETLJQBlclbSZOGTcrdr4PBRloKUcyMxFni50rlC+MhcWorDiunE8tAiP7
- 4osP3F+bNiFv6LkDBFJqKrMxwL2aYmuC0w/GNd0bojzTh3xb5LIrWzNfNvP8dHd/f5x3
- IT0yxPlUj8NYQqlcvU/cvP3HRDWtliRloULq0Yz/bqttkKjLmhxd6+g3KmpsHltsF2Id
- 4rK2dMgujUm6iqTlKi6Q6NfROouUbDbNbWIp7k29JgFCmMJCeLGioe6ey55zCznErelW
- 0EWg==
-X-Gm-Message-State: ACrzQf11jSgr0tvdg6qGIpJJaoWbBe5w9+wZD1FWaDk9837yeYq+PSJE
- cQy8t7ATBku8ylOW7o6Ecz7yLg==
-X-Google-Smtp-Source: AMsMyM451RSohmI/c32I5kiPLMPxKaS8IBsoqFGlV4uZyygNSQVGXqEiV1vMJ36TINWJ1bvsXOC8zA==
-X-Received: by 2002:a05:6512:314a:b0:4aa:2381:6fde with SMTP id
- s10-20020a056512314a00b004aa23816fdemr10944453lfi.36.1667426925866; 
- Wed, 02 Nov 2022 15:08:45 -0700 (PDT)
-Received: from localhost.localdomain ([195.165.23.90])
- by smtp.gmail.com with ESMTPSA id
- p20-20020a056512313400b00494747ba5f7sm2149212lfd.272.2022.11.02.15.08.44
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 02 Nov 2022 15:08:45 -0700 (PDT)
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-To: Andy Gross <agross@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konrad.dybcio@somainline.org>,
- Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Rob Herring <robh+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>
-Date: Thu,  3 Nov 2022 01:08:44 +0300
-Message-Id: <20221102220844.569977-1-dmitry.baryshkov@linaro.org>
-X-Mailer: git-send-email 2.35.1
+ bh=NOncMiS9A3RMWI4Y+kkqX5A0U4j9jibTTA2TcJiv65c=;
+ b=CpRv+pFrhKQsgq1GC075YCXFXKyz9q8ZomzxitRmizYg7M7gAbcl20g4DCgpJFNqGu
+ eD5JPU6YIKW6xoNIGHoOolEJ90K/AM8oR2RJBsqIbdX0lKJhu9Z7k+NJbUIalY+fwv+5
+ TDQNkB93NrT5vfsxt4y+QhgI3M6sl9d+5jm76hti9eYIv7U56unTsb+tICIZgTgYvGgl
+ /XpMpI6OOe5cBpkCYjDJB64JDq+g1TI4azOqTKRkac5PmMcLab4owi9gimc+Acsmcx0y
+ Fl0i/urcsBlr0xEWTsBCADq+l6HVBCMYhO5d1nXSuq0f2kaqTtjJIf8teH/mBVa7KxYa
+ S9ng==
+X-Gm-Message-State: ACrzQf1msS0nP/WeXzeli5BNoEccWZiBDaQjE+Q9/DBCKaD4xSlTafYr
+ KW4hS5+CpKRFnazhg3x0alnXqL6XYq9GaUcQ2mo=
+X-Google-Smtp-Source: AMsMyM7aAdGyrEVMAQJIv2QAvYrik0rpkB3tkTqmNr2RDY3d7+4gaTsHPcLASIg4LbCPwXB1FPdl/tE89CUOMGnbhao=
+X-Received: by 2002:a9d:20ea:0:b0:66b:234a:290a with SMTP id
+ x97-20020a9d20ea000000b0066b234a290amr13448405ota.328.1667430643060; Wed, 02
+ Nov 2022 16:10:43 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [RESEND PATCH v1] dt-bindings: display/msm: convert
- MDP5 schema to YAML format
+References: <20221102175449.452283-1-dmitry.baryshkov@linaro.org>
+ <20221102175449.452283-3-dmitry.baryshkov@linaro.org>
+In-Reply-To: <20221102175449.452283-3-dmitry.baryshkov@linaro.org>
+From: Rob Clark <robdclark@gmail.com>
+Date: Wed, 2 Nov 2022 16:10:59 -0700
+Message-ID: <CAF6AEGtKcreHkT0=ccHbFY=-cLhoMCzXQe3HYKCf31QhgESS-g@mail.gmail.com>
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Content-Type: text/plain; charset="UTF-8"
+Subject: Re: [Freedreno] [PATCH v4 2/2] drm/msm: remove duplicated code from
+ a6xx_create_address_space
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,315 +67,170 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, Stephen Boyd <swboyd@chromium.org>,
- Daniel Vetter <daniel@ffwll.ch>, freedreno@lists.freedesktop.org,
- David Airlie <airlied@gmail.com>
+Cc: freedreno@lists.freedesktop.org, Sean Paul <sean@poorly.run>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
+ Stephen Boyd <swboyd@chromium.org>, Daniel Vetter <daniel@ffwll.ch>,
+ linux-arm-msm@vger.kernel.org, David Airlie <airlied@gmail.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Convert the mdp5.txt into the yaml format. Changes to the existing (txt) schema:
- - MSM8996 has additional "iommu" clock, define it separately
- - Add new properties used on some of platforms:
-   - interconnects, interconnect-names
-   - iommus
-   - power-domains
-   - operating-points-v2, opp-table
+On Wed, Nov 2, 2022 at 10:54 AM Dmitry Baryshkov
+<dmitry.baryshkov@linaro.org> wrote:
+>
+> The function a6xx_create_address_space() is mostly a copy of
+> adreno_iommu_create_address_space() with added quirk setting. Rework
+> these two functions to be a thin wrappers around a common helper.
+>
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 
-Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
----
+Reviewed-by: Rob Clark <robdclark@gmail.com>
 
-Resending as I noticed that I didn't include devicetree maintainers and
-list in the first attempt.
 
----
- .../devicetree/bindings/display/msm/mdp5.txt  | 132 -----------------
- .../bindings/display/msm/qcom,mdp5.yaml       | 137 ++++++++++++++++++
- 2 files changed, 137 insertions(+), 132 deletions(-)
- delete mode 100644 Documentation/devicetree/bindings/display/msm/mdp5.txt
- create mode 100644 Documentation/devicetree/bindings/display/msm/qcom,mdp5.yaml
-
-diff --git a/Documentation/devicetree/bindings/display/msm/mdp5.txt b/Documentation/devicetree/bindings/display/msm/mdp5.txt
-deleted file mode 100644
-index 65d03c58dee6..000000000000
---- a/Documentation/devicetree/bindings/display/msm/mdp5.txt
-+++ /dev/null
-@@ -1,132 +0,0 @@
--Qualcomm adreno/snapdragon MDP5 display controller
--
--Description:
--
--This is the bindings documentation for the MDP5 display
--controller found in SoCs like MSM8974, APQ8084, MSM8916, MSM8994 and MSM8996.
--
--MDP5:
--Required properties:
--- compatible:
--  * "qcom,mdp5" - MDP5
--- reg: Physical base address and length of the controller's registers.
--- reg-names: The names of register regions. The following regions are required:
--  * "mdp_phys"
--- interrupts: Interrupt line from MDP5 to MDSS interrupt controller.
--- clocks: device clocks. See ../clocks/clock-bindings.txt for details.
--- clock-names: the following clocks are required.
---   * "bus"
---   * "iface"
---   * "core"
---   * "vsync"
--- ports: contains the list of output ports from MDP. These connect to interfaces
--  that are external to the MDP hardware, such as HDMI, DSI, EDP etc (LVDS is a
--  special case since it is a part of the MDP block itself).
--
--  Each output port contains an endpoint that describes how it is connected to an
--  external interface. These are described by the standard properties documented
--  here:
--	Documentation/devicetree/bindings/graph.txt
--	Documentation/devicetree/bindings/media/video-interfaces.txt
--
--  The availability of output ports can vary across SoC revisions:
--
--  For MSM8974 and APQ8084:
--	 Port 0 -> MDP_INTF0 (eDP)
--	 Port 1 -> MDP_INTF1 (DSI1)
--	 Port 2 -> MDP_INTF2 (DSI2)
--	 Port 3 -> MDP_INTF3 (HDMI)
--
--  For MSM8916:
--	 Port 0 -> MDP_INTF1 (DSI1)
--
--  For MSM8994 and MSM8996:
--	 Port 0 -> MDP_INTF1 (DSI1)
--	 Port 1 -> MDP_INTF2 (DSI2)
--	 Port 2 -> MDP_INTF3 (HDMI)
--
--Optional properties:
--- clock-names: the following clocks are optional:
--  * "lut"
--  * "tbu"
--  * "tbu_rt"
--
--Example:
--
--/ {
--	...
--
--	mdss: mdss@1a00000 {
--		compatible = "qcom,mdss";
--		reg = <0x1a00000 0x1000>,
--		      <0x1ac8000 0x3000>;
--		reg-names = "mdss_phys", "vbif_phys";
--
--		power-domains = <&gcc MDSS_GDSC>;
--
--		clocks = <&gcc GCC_MDSS_AHB_CLK>,
--			 <&gcc GCC_MDSS_AXI_CLK>,
--			 <&gcc GCC_MDSS_VSYNC_CLK>;
--		clock-names = "iface",
--			      "bus",
--			      "vsync"
--
--		interrupts = <0 72 0>;
--
--		interrupt-controller;
--		#interrupt-cells = <1>;
--
--		#address-cells = <1>;
--		#size-cells = <1>;
--		ranges;
--
--		mdp: mdp@1a01000 {
--			compatible = "qcom,mdp5";
--			reg = <0x1a01000 0x90000>;
--			reg-names = "mdp_phys";
--
--			interrupt-parent = <&mdss>;
--			interrupts = <0 0>;
--
--			clocks = <&gcc GCC_MDSS_AHB_CLK>,
--				 <&gcc GCC_MDSS_AXI_CLK>,
--				 <&gcc GCC_MDSS_MDP_CLK>,
--				 <&gcc GCC_MDSS_VSYNC_CLK>;
--			clock-names = "iface",
--				      "bus",
--				      "core",
--				      "vsync";
--
--			ports {
--				#address-cells = <1>;
--				#size-cells = <0>;
--
--				port@0 {
--					reg = <0>;
--					mdp5_intf1_out: endpoint {
--						remote-endpoint = <&dsi0_in>;
--					};
--				};
--			};
--		};
--
--		dsi0: dsi@1a98000 {
--			...
--			ports {
--				...
--				port@0 {
--					reg = <0>;
--					dsi0_in: endpoint {
--						remote-endpoint = <&mdp5_intf1_out>;
--					};
--				};
--				...
--			};
--			...
--		};
--
--		dsi_phy0: dsi-phy@1a98300 {
--			...
--		};
--	};
--};
-diff --git a/Documentation/devicetree/bindings/display/msm/qcom,mdp5.yaml b/Documentation/devicetree/bindings/display/msm/qcom,mdp5.yaml
-new file mode 100644
-index 000000000000..574e8b7bd67b
---- /dev/null
-+++ b/Documentation/devicetree/bindings/display/msm/qcom,mdp5.yaml
-@@ -0,0 +1,137 @@
-+# SPDX-License-Identifier: GPL-2.0-only or BSD-2-Clause
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/display/msm/qcom,mdp5.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Qualcomm Adreno/Snapdragon Mobile Display controller (MDP5)
-+
-+description: >
-+  MDP5 display controller found in SoCs like MSM8974, APQ8084, MSM8916, MSM8994
-+  and MSM8996.
-+
-+maintainers:
-+  - Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-+  - Rob Clark <robdclark@gmail.com>
-+
-+properties:
-+  compatible:
-+    const: qcom,mdp5
-+
-+  reg:
-+    maxItems: 1
-+
-+  reg-names:
-+    items:
-+      - const: mdp_phys
-+
-+  interrupts:
-+    maxItems: 1
-+
-+  clocks:
-+    minItems: 4
-+    maxItems: 7
-+
-+  clock-names:
-+    oneOf:
-+      - minItems: 4
-+        items:
-+          - const: iface
-+          - const: bus
-+          - const: core
-+          - const: vsync
-+          - const: lut
-+          - const: tbu
-+          - const: tbu_rt
-+        #MSM8996 has additional iommu clock
-+      - items:
-+          - const: iface
-+          - const: bus
-+          - const: core
-+          - const: iommu
-+          - const: vsync
-+
-+  interconnects:
-+    minItems: 1
-+    items:
-+      - description: Interconnect path from mdp0 (or a single mdp) port to the data bus
-+      - description: Interconnect path from mdp1 port to the data bus
-+      - description: Interconnect path from rotator port to the data bus
-+
-+  interconnect-names:
-+    minItems: 1
-+    items:
-+      - const: mdp0-mem
-+      - const: mdp1-mem
-+      - const: rotator-mem
-+
-+  iommus:
-+    items:
-+      - description: Phandle to apps_smmu node with SID mask for Hard-Fail port0
-+
-+  power-domains:
-+    maxItems: 1
-+
-+  operating-points-v2: true
-+  opp-table:
-+    type: object
-+
-+  ports:
-+    $ref: /schemas/graph.yaml#/properties/ports
-+    description: |
-+      Contains the list of output ports from DPU device. These ports
-+      connect to interfaces that are external to the DPU hardware,
-+      such as DSI, DP etc.
-+
-+    patternProperties:
-+      "^port@[0-9a-f]+$":
-+        $ref: /schemas/graph.yaml#/properties/port
-+
-+    # at least one port is required
-+    required:
-+      - port@0
-+
-+required:
-+  - compatible
-+  - reg
-+  - reg-names
-+  - clocks
-+  - clock-names
-+  - ports
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    #include <dt-bindings/clock/qcom,gcc-msm8916.h>
-+    #include <dt-bindings/interrupt-controller/arm-gic.h>
-+    mdp@1a01000 {
-+        compatible = "qcom,mdp5";
-+        reg = <0x1a01000 0x90000>;
-+        reg-names = "mdp_phys";
-+
-+        interrupt-parent = <&mdss>;
-+        interrupts = <0>;
-+
-+        clocks = <&gcc GCC_MDSS_AHB_CLK>,
-+                 <&gcc GCC_MDSS_AXI_CLK>,
-+                 <&gcc GCC_MDSS_MDP_CLK>,
-+                 <&gcc GCC_MDSS_VSYNC_CLK>;
-+        clock-names = "iface",
-+                      "bus",
-+                      "core",
-+                      "vsync";
-+
-+        ports {
-+            #address-cells = <1>;
-+            #size-cells = <0>;
-+
-+            port@0 {
-+                reg = <0>;
-+                endpoint {
-+                    remote-endpoint = <&dsi0_in>;
-+                };
-+            };
-+        };
-+    };
-+...
--- 
-2.35.1
-
+> ---
+>  drivers/gpu/drm/msm/adreno/a3xx_gpu.c   |  2 +-
+>  drivers/gpu/drm/msm/adreno/a4xx_gpu.c   |  2 +-
+>  drivers/gpu/drm/msm/adreno/a5xx_gpu.c   |  2 +-
+>  drivers/gpu/drm/msm/adreno/a6xx_gpu.c   | 28 +------------------------
+>  drivers/gpu/drm/msm/adreno/adreno_gpu.c | 12 +++++++++--
+>  drivers/gpu/drm/msm/adreno/adreno_gpu.h |  7 ++++++-
+>  6 files changed, 20 insertions(+), 33 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/msm/adreno/a3xx_gpu.c b/drivers/gpu/drm/msm/adreno/a3xx_gpu.c
+> index 2c8b9899625b..948785ed07bb 100644
+> --- a/drivers/gpu/drm/msm/adreno/a3xx_gpu.c
+> +++ b/drivers/gpu/drm/msm/adreno/a3xx_gpu.c
+> @@ -500,7 +500,7 @@ static const struct adreno_gpu_funcs funcs = {
+>  #endif
+>                 .gpu_state_get = a3xx_gpu_state_get,
+>                 .gpu_state_put = adreno_gpu_state_put,
+> -               .create_address_space = adreno_iommu_create_address_space,
+> +               .create_address_space = adreno_create_address_space,
+>                 .get_rptr = a3xx_get_rptr,
+>         },
+>  };
+> diff --git a/drivers/gpu/drm/msm/adreno/a4xx_gpu.c b/drivers/gpu/drm/msm/adreno/a4xx_gpu.c
+> index 7cb8d9849c07..2fb32d5552c4 100644
+> --- a/drivers/gpu/drm/msm/adreno/a4xx_gpu.c
+> +++ b/drivers/gpu/drm/msm/adreno/a4xx_gpu.c
+> @@ -635,7 +635,7 @@ static const struct adreno_gpu_funcs funcs = {
+>  #endif
+>                 .gpu_state_get = a4xx_gpu_state_get,
+>                 .gpu_state_put = adreno_gpu_state_put,
+> -               .create_address_space = adreno_iommu_create_address_space,
+> +               .create_address_space = adreno_create_address_space,
+>                 .get_rptr = a4xx_get_rptr,
+>         },
+>         .get_timestamp = a4xx_get_timestamp,
+> diff --git a/drivers/gpu/drm/msm/adreno/a5xx_gpu.c b/drivers/gpu/drm/msm/adreno/a5xx_gpu.c
+> index 3dcec7acb384..3c537c0016fa 100644
+> --- a/drivers/gpu/drm/msm/adreno/a5xx_gpu.c
+> +++ b/drivers/gpu/drm/msm/adreno/a5xx_gpu.c
+> @@ -1705,7 +1705,7 @@ static const struct adreno_gpu_funcs funcs = {
+>                 .gpu_busy = a5xx_gpu_busy,
+>                 .gpu_state_get = a5xx_gpu_state_get,
+>                 .gpu_state_put = a5xx_gpu_state_put,
+> -               .create_address_space = adreno_iommu_create_address_space,
+> +               .create_address_space = adreno_create_address_space,
+>                 .get_rptr = a5xx_get_rptr,
+>         },
+>         .get_timestamp = a5xx_get_timestamp,
+> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+> index db4b3a48c708..e87196457b9a 100644
+> --- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+> @@ -1786,10 +1786,6 @@ a6xx_create_address_space(struct msm_gpu *gpu, struct platform_device *pdev)
+>  {
+>         struct adreno_gpu *adreno_gpu = to_adreno_gpu(gpu);
+>         struct a6xx_gpu *a6xx_gpu = to_a6xx_gpu(adreno_gpu);
+> -       struct iommu_domain_geometry *geometry;
+> -       struct msm_mmu *mmu;
+> -       struct msm_gem_address_space *aspace;
+> -       u64 start, size;
+>         unsigned long quirks = 0;
+>
+>         /*
+> @@ -1799,29 +1795,7 @@ a6xx_create_address_space(struct msm_gpu *gpu, struct platform_device *pdev)
+>         if (!IS_ERR_OR_NULL(a6xx_gpu->htw_llc_slice))
+>                 quirks |= IO_PGTABLE_QUIRK_ARM_OUTER_WBWA;
+>
+> -       mmu = msm_iommu_new(&pdev->dev, quirks);
+> -       if (IS_ERR_OR_NULL(mmu))
+> -               return ERR_CAST(mmu);
+> -
+> -       geometry = msm_iommu_get_geometry(mmu);
+> -       if (IS_ERR(geometry))
+> -               return ERR_CAST(geometry);
+> -
+> -       /*
+> -        * Use the aperture start or SZ_16M, whichever is greater. This will
+> -        * ensure that we align with the allocated pagetable range while still
+> -        * allowing room in the lower 32 bits for GMEM and whatnot
+> -        */
+> -       start = max_t(u64, SZ_16M, geometry->aperture_start);
+> -       size = geometry->aperture_end - start + 1;
+> -
+> -       aspace = msm_gem_address_space_create(mmu, "gpu",
+> -               start & GENMASK_ULL(48, 0), size);
+> -
+> -       if (IS_ERR(aspace) && !IS_ERR(mmu))
+> -               mmu->funcs->destroy(mmu);
+> -
+> -       return aspace;
+> +       return adreno_iommu_create_address_space(gpu, pdev, quirks);
+>  }
+>
+>  static struct msm_gem_address_space *
+> diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.c b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
+> index 12d0497f57e1..12a964dc3b8d 100644
+> --- a/drivers/gpu/drm/msm/adreno/adreno_gpu.c
+> +++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
+> @@ -191,16 +191,24 @@ int adreno_zap_shader_load(struct msm_gpu *gpu, u32 pasid)
+>         return zap_shader_load_mdt(gpu, adreno_gpu->info->zapfw, pasid);
+>  }
+>
+> +struct msm_gem_address_space *
+> +adreno_create_address_space(struct msm_gpu *gpu,
+> +                           struct platform_device *pdev)
+> +{
+> +       return adreno_iommu_create_address_space(gpu, pdev, 0);
+> +}
+> +
+>  struct msm_gem_address_space *
+>  adreno_iommu_create_address_space(struct msm_gpu *gpu,
+> -               struct platform_device *pdev)
+> +                                 struct platform_device *pdev,
+> +                                 unsigned long quirks)
+>  {
+>         struct iommu_domain_geometry *geometry;
+>         struct msm_mmu *mmu;
+>         struct msm_gem_address_space *aspace;
+>         u64 start, size;
+>
+> -       mmu = msm_iommu_new(&pdev->dev, 0);
+> +       mmu = msm_iommu_new(&pdev->dev, quirks);
+>         if (IS_ERR_OR_NULL(mmu))
+>                 return ERR_CAST(mmu);
+>
+> diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.h b/drivers/gpu/drm/msm/adreno/adreno_gpu.h
+> index 707273339969..5d4b1c95033f 100644
+> --- a/drivers/gpu/drm/msm/adreno/adreno_gpu.h
+> +++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.h
+> @@ -335,8 +335,13 @@ void adreno_show_object(struct drm_printer *p, void **ptr, int len,
+>   * attached targets
+>   */
+>  struct msm_gem_address_space *
+> +adreno_create_address_space(struct msm_gpu *gpu,
+> +                           struct platform_device *pdev);
+> +
+> +struct msm_gem_address_space *
+>  adreno_iommu_create_address_space(struct msm_gpu *gpu,
+> -               struct platform_device *pdev);
+> +                                 struct platform_device *pdev,
+> +                                 unsigned long quirks);
+>
+>  int adreno_read_speedbin(struct device *dev, u32 *speedbin);
+>
+> --
+> 2.35.1
+>
