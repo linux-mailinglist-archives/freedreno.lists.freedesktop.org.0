@@ -1,54 +1,54 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5015E61719A
-	for <lists+freedreno@lfdr.de>; Thu,  3 Nov 2022 00:13:49 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id F2C0F617199
+	for <lists+freedreno@lfdr.de>; Thu,  3 Nov 2022 00:13:48 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3BBC910E55A;
-	Wed,  2 Nov 2022 23:13:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A941C10E558;
+	Wed,  2 Nov 2022 23:13:25 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x131.google.com (mail-lf1-x131.google.com
- [IPv6:2a00:1450:4864:20::131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A974310E53A
- for <freedreno@lists.freedesktop.org>; Wed,  2 Nov 2022 23:13:17 +0000 (UTC)
-Received: by mail-lf1-x131.google.com with SMTP id be13so189235lfb.4
- for <freedreno@lists.freedesktop.org>; Wed, 02 Nov 2022 16:13:17 -0700 (PDT)
+Received: from mail-lf1-x130.google.com (mail-lf1-x130.google.com
+ [IPv6:2a00:1450:4864:20::130])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C461310E53A
+ for <freedreno@lists.freedesktop.org>; Wed,  2 Nov 2022 23:13:18 +0000 (UTC)
+Received: by mail-lf1-x130.google.com with SMTP id j4so245484lfk.0
+ for <freedreno@lists.freedesktop.org>; Wed, 02 Nov 2022 16:13:18 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=jlP9nOL0nEzXJLWABMNdlQffQrykHT4joP6jF1+Vzog=;
- b=n5miaVRsjiaJARxVz3j1dIUKNTjHIm7TVRr5uwxQathzjf+B4n9f2XbtqawIy7oAAS
- 2rgg0WdDOARa+rbAkeT6c2g+14UQPG9Csw7aMQ4CpyZYSFisH6fpNvfiBp0f8ozICzOr
- GcFQD3AZMSydYH3reOUd3ss6wXGgvbdgZpjJqemyjCXlPsXTduRsYSLsoFnN8uoPMCmg
- jnWd2f6GUd4jXGd+aQ4JBrI1reX18NdRB5PTtboaUmZr2t5W+hbuOzif1NvbuuvkyOFm
- kPiWoe5qTL/SvOd8I+G5WbbHW4wROjBW/4tS6ODg9GJa0p2zGrKyEwWfpGeP+T75Fb14
- KB0w==
+ bh=c55txKhE8RFQaKFPB1LANvhtQdHp4s4KlPHFEvihAOs=;
+ b=JjgQyTbrvfrA0k4TOfGyJm2Bt9+7jLRS981xSiM0unzDPwxCu3uvZhVKwXJUdxuHW3
+ e4i9T6Ldpo5wCpNtLL3nXEPuw/u5BIidnhk5C8/cmAii4ZN0wKUoIMn4M/e/OI3BfhbJ
+ Ce0IkxtGUUr0jpkea8vHFKKZwUQDJPM+oPnOupN6SmqjJASahUPBk4B0dgboK97TNKrZ
+ liD82dmwCYksbpxVU0QUZOWrn3O21a4wiJFqNMt2APQBwgBdNmH7FGZ8f8OlKuSSR/O8
+ CcXvs5duxWXoPCrCB5n/FqZz7dqc09Tt/M0OhfgVJNEWuPWpzBjFrGsiqNpMBgnz08Ke
+ g1hg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=jlP9nOL0nEzXJLWABMNdlQffQrykHT4joP6jF1+Vzog=;
- b=ltSEg8cbJU/zvg/K9vGp2x6szr2bYFlFyAylzxCd/wOHt2kihPayH3EIE/qcF8MeAR
- N9nrs7/Tk4419MQxBQTRy5+oUcbr7lMNfhL3o/LbycUdQiZoWkbsYXZ7le98Ye/z5WJM
- jrRUU/06ScinA5MYT9WrkNXklOSnb2OXD0JTcKUiwdznawsxX96NHZorxmDqGes7tjp7
- 5zXRVIpjybQR89J/j3MGr4DHaUTAaR+2JFwiBn1is1dIl8bU1e0YdvS7oWT9q/A7NZ6F
- 5FVkEs7YEg/zTz+f5CcgRH9gM53nh/vtWgA910ooOcH6UEKY0lgcZN0Ua1EDrvRZy6kg
- s3SQ==
-X-Gm-Message-State: ACrzQf0QwU6CEeWaQkZ9cZC2v6n/+mK8j02CbE2XObO8/7qW07Jolyf6
- EN/nksdbZgaETpKtzdHwWyV7aA==
-X-Google-Smtp-Source: AMsMyM7M/mgRgW91t3eXTPJRtBHSK651g8/p++9q6pKQifOnkW/kSeP/+kiXivQ6gnqoRdQfs69QFg==
-X-Received: by 2002:a05:6512:1154:b0:4a2:7d6f:7814 with SMTP id
- m20-20020a056512115400b004a27d6f7814mr9515624lfg.342.1667430795823; 
- Wed, 02 Nov 2022 16:13:15 -0700 (PDT)
+ bh=c55txKhE8RFQaKFPB1LANvhtQdHp4s4KlPHFEvihAOs=;
+ b=C3I0LP3xux6zp0Qp3FiBnT2QeoyaXb+Wqps8LfavPejoFd4divefWoY4ruE0t4RM9R
+ rpio4YG8kUGPSRRkO/DsQkOQ1yLoYeKT8ju/r1LsSyyZpgYnOYbKguHC3X1O4vww0Vyo
+ Y79b4QPU2qoQT7Xd3sHWHvTlq+2RXgP+JrRnCCo8kP5Ewb51dIy9SAIU4QUAr/FPwyLj
+ 21rOy9oXz2P1rCvAC7QDs0XlspZRoJjSd7jscni4WIMKI6uzsYQTYQf37Oz5D6q85upj
+ 8EmsJTgfFgIoHVgw0vNYn3L/w6KDyrtq7OAyudMkm2ePoAIVHfOE3XNuCnoJuBocDSIu
+ uHZQ==
+X-Gm-Message-State: ACrzQf2ghErUeC5RPH96fWipJMnXzVBpepwpVjKw619CNtbX/vHBzLcl
+ KbDoLHt5C7ZH8AYGR8SFTqtzYQ==
+X-Google-Smtp-Source: AMsMyM6i8kH2PIK7323eH+pwjjpyWcRfkIoG7iuiAv+Uzo4hkPXJC1+aqzmz2hx5BpFsqt/p7M1Ekg==
+X-Received: by 2002:a05:6512:3446:b0:4b0:69b0:ba15 with SMTP id
+ j6-20020a056512344600b004b069b0ba15mr8900465lfr.184.1667430796785; 
+ Wed, 02 Nov 2022 16:13:16 -0700 (PDT)
 Received: from localhost.localdomain ([195.165.23.90])
  by smtp.gmail.com with ESMTPSA id
- m6-20020a056512114600b004b0a1e77cb6sm1636134lfg.139.2022.11.02.16.13.14
+ m6-20020a056512114600b004b0a1e77cb6sm1636134lfg.139.2022.11.02.16.13.15
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 02 Nov 2022 16:13:15 -0700 (PDT)
+ Wed, 02 Nov 2022 16:13:16 -0700 (PDT)
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 To: Andy Gross <agross@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
  Konrad Dybcio <konrad.dybcio@somainline.org>,
@@ -56,14 +56,15 @@ To: Andy Gross <agross@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
  Abhinav Kumar <quic_abhinavk@quicinc.com>,
  Rob Herring <robh+dt@kernel.org>,
  Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>
-Date: Thu,  3 Nov 2022 02:13:06 +0300
-Message-Id: <20221102231309.583587-6-dmitry.baryshkov@linaro.org>
+Date: Thu,  3 Nov 2022 02:13:07 +0300
+Message-Id: <20221102231309.583587-7-dmitry.baryshkov@linaro.org>
 X-Mailer: git-send-email 2.35.1
 In-Reply-To: <20221102231309.583587-1-dmitry.baryshkov@linaro.org>
 References: <20221102231309.583587-1-dmitry.baryshkov@linaro.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH v2 5/8] drm/msm/dsi: add support for DSI 2.6.0
+Subject: [Freedreno] [PATCH v2 6/8] drm/msm/dpu: add support for MDP_TOP
+ blackhole
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,41 +84,52 @@ Cc: devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Add support for DSI 2.6.0 (block used on sm8450).
+On sm8450 a register block was removed from MDP TOP. Accessing it during
+snapshotting results in NoC errors / immediate reboot. Skip accessing
+these registers during snapshot.
 
 Tested-by: Vinod Koul <vkoul@kernel.org>
 Reviewed-by: Vinod Koul <vkoul@kernel.org>
 Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 ---
- drivers/gpu/drm/msm/dsi/dsi_cfg.c | 2 ++
- drivers/gpu/drm/msm/dsi/dsi_cfg.h | 1 +
- 2 files changed, 3 insertions(+)
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h |  1 +
+ drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c        | 11 +++++++++--
+ 2 files changed, 10 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/msm/dsi/dsi_cfg.c b/drivers/gpu/drm/msm/dsi/dsi_cfg.c
-index 7e97c239ed48..59a4cc95a251 100644
---- a/drivers/gpu/drm/msm/dsi/dsi_cfg.c
-+++ b/drivers/gpu/drm/msm/dsi/dsi_cfg.c
-@@ -300,6 +300,8 @@ static const struct msm_dsi_cfg_handler dsi_cfg_handlers[] = {
- 		&sc7180_dsi_cfg, &msm_dsi_6g_v2_host_ops},
- 	{MSM_DSI_VER_MAJOR_6G, MSM_DSI_6G_VER_MINOR_V2_5_0,
- 		&sc7280_dsi_cfg, &msm_dsi_6g_v2_host_ops},
-+	{MSM_DSI_VER_MAJOR_6G, MSM_DSI_6G_VER_MINOR_V2_6_0,
-+		&sdm845_dsi_cfg, &msm_dsi_6g_v2_host_ops},
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h
+index 38aa38ab1568..4730f8268f2a 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h
+@@ -92,6 +92,7 @@ enum {
+ 	DPU_MDP_UBWC_1_0,
+ 	DPU_MDP_UBWC_1_5,
+ 	DPU_MDP_AUDIO_SELECT,
++	DPU_MDP_PERIPH_0_REMOVED,
+ 	DPU_MDP_MAX
  };
  
- const struct msm_dsi_cfg_handler *msm_dsi_cfg_get(u32 major, u32 minor)
-diff --git a/drivers/gpu/drm/msm/dsi/dsi_cfg.h b/drivers/gpu/drm/msm/dsi/dsi_cfg.h
-index 8f04e685a74e..95957fab499d 100644
---- a/drivers/gpu/drm/msm/dsi/dsi_cfg.h
-+++ b/drivers/gpu/drm/msm/dsi/dsi_cfg.h
-@@ -25,6 +25,7 @@
- #define MSM_DSI_6G_VER_MINOR_V2_4_0	0x20040000
- #define MSM_DSI_6G_VER_MINOR_V2_4_1	0x20040001
- #define MSM_DSI_6G_VER_MINOR_V2_5_0	0x20050000
-+#define MSM_DSI_6G_VER_MINOR_V2_6_0	0x20060000
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
+index f3660cd14f4f..67f2e5288b3c 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
+@@ -927,8 +927,15 @@ static void dpu_kms_mdp_snapshot(struct msm_disp_state *disp_state, struct msm_k
+ 		msm_disp_snapshot_add_block(disp_state, cat->wb[i].len,
+ 				dpu_kms->mmio + cat->wb[i].base, "wb_%d", i);
  
- #define MSM_DSI_V2_VER_MINOR_8064	0x0
+-	msm_disp_snapshot_add_block(disp_state, cat->mdp[0].len,
+-			dpu_kms->mmio + cat->mdp[0].base, "top");
++	if (top->caps->features & BIT(DPU_MDP_PERIPH_0_REMOVED)) {
++		msm_disp_snapshot_add_block(disp_state, 0x380,
++				dpu_kms->mmio + cat->mdp[0].base, "top");
++		msm_disp_snapshot_add_block(disp_state, cat->mdp[0].len - 0x3a8,
++				dpu_kms->mmio + cat->mdp[0].base + 0x3a8, "top_2");
++	} else {
++		msm_disp_snapshot_add_block(disp_state, cat->mdp[0].len,
++				dpu_kms->mmio + cat->mdp[0].base, "top");
++	}
  
+ 	pm_runtime_put_sync(&dpu_kms->pdev->dev);
+ }
 -- 
 2.35.1
 
