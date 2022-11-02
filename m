@@ -1,70 +1,73 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id DB634616A00
-	for <lists+freedreno@lfdr.de>; Wed,  2 Nov 2022 18:08:05 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id B4D50616A54
+	for <lists+freedreno@lfdr.de>; Wed,  2 Nov 2022 18:15:14 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8F6F410E50E;
-	Wed,  2 Nov 2022 17:08:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6134210E520;
+	Wed,  2 Nov 2022 17:15:13 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-x22c.google.com (mail-lj1-x22c.google.com
- [IPv6:2a00:1450:4864:20::22c])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C4E6C10E50E
- for <freedreno@lists.freedesktop.org>; Wed,  2 Nov 2022 17:07:59 +0000 (UTC)
-Received: by mail-lj1-x22c.google.com with SMTP id c25so12311695ljr.8
- for <freedreno@lists.freedesktop.org>; Wed, 02 Nov 2022 10:07:59 -0700 (PDT)
+Received: from mail-lj1-x236.google.com (mail-lj1-x236.google.com
+ [IPv6:2a00:1450:4864:20::236])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1CFBE10E520
+ for <freedreno@lists.freedesktop.org>; Wed,  2 Nov 2022 17:15:10 +0000 (UTC)
+Received: by mail-lj1-x236.google.com with SMTP id k19so25580770lji.2
+ for <freedreno@lists.freedesktop.org>; Wed, 02 Nov 2022 10:15:10 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :from:to:cc:subject:date:message-id:reply-to;
- bh=kyXR4AZe5V/4jtBvgZTO2g/zo75HfHyox2eOY6fukfE=;
- b=EZ5fXZ/T6cQIHYqYts4/sZPyfhiduno9I7y7q8/Gg8zjZyRfdYhnPmqzR/YUgl9fJA
- dXgHI1h+v+vjpBV4M7n6PrB1YrjVvLjzpolgwesg3h5Z/22EEbL92IcMQE+gSHdlRkR5
- OIRbpGJySfksVOWgdifuCPFOBlmzqI0eL6jiMmh6exyiHBYN9e8BUNGCeOKm5Cpieors
- B0ZQ0zauWC/3gBeMv3Yl/V1W6qAd1WjY/sw50d82pkeoaUlUbDtgQeNFGTQi2IbpJjIL
- kcJ+WfGIZqnmaKiAoQO1T+7OvNN79ljYe1Ig7FBqNNVbyrX0eqkPWswRDPdDHFLzs8Ul
- BMEA==
+ bh=Y2G9zAjcBQvptALVWhMCLTUKJpJ/ntkvAuBFzHIVao0=;
+ b=g8o78olqBCoQGPXOE8LAf1/SCjNxsUN6+HYFP69w+yKIO9hmeNBP7VLKjT9gpEckP1
+ QskGY4iIISNWtuuJ/lNwRFnhM93LvohbgyRZ5DtlJsFvaSkRgkUvqMoz/cARK5HC06Wu
+ Qu0tMtEl1EW3k8bNbW558NeZMGnOJnx4QSMt1CrK3tQ2LQypiq5SbndKfer4yvI/RnNw
+ Im1zqCzW1KbNwk7gsiNZoe/EFFQXoFVEZaZolmjFPPDX632UPYzIibz0NojKSR0tdSNt
+ aT5poRS0WfC57Ufdqtr2K/VgWu5lsHyxZRjTj0egVSXR7IjR22VBTRRGH9PLkFkaTWzs
+ CJjw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=kyXR4AZe5V/4jtBvgZTO2g/zo75HfHyox2eOY6fukfE=;
- b=tBFupRY9dF7tG8yLiv6zUHv2It/RHk3aVkdkdJI0hGHYzw718xEiPL89m8zoqYi2nf
- /899Iy0qM7JG9PBBZs2zhFU5PAgkVyvaxhbRhIGbXRbOTX6V4DY03XO9P+tRHSaIWmyE
- z7Ap1djzVXd5Ggc1ILmSRTzamwLLLfjGZDCwboi2bheZaTXb3QYK0GRp3BAb0GgjZOyX
- C05+FICAjvTkQQmoud8w98IXSXPPY7Bq8MENzI8CyFqxeMSNVAMo4SE/v/aNGjQ52tU2
- zf5aPUK1G0M+EB5eVUMLqWNmrnWQXZBuP0LagFDP6/N9dQWG+iJpz9dXjU2bHDqpcBmn
- p1RQ==
-X-Gm-Message-State: ACrzQf03mWTdNMSPy586jnaFN+/eRxZNpdnIMAwrO3TVvzdhpvafn0Lk
- LdEMDISYkH2OkG1CyL/HCqeTVw==
-X-Google-Smtp-Source: AMsMyM7l3cmc81phjhM94OiOlHQabL+MkoQsLl3UWuETm5HnK3TdXMpQFwwBLD2Q2msziF2Towml1w==
-X-Received: by 2002:a05:651c:b0b:b0:277:5c0a:f016 with SMTP id
- b11-20020a05651c0b0b00b002775c0af016mr5714901ljr.173.1667408877872; 
- Wed, 02 Nov 2022 10:07:57 -0700 (PDT)
+ bh=Y2G9zAjcBQvptALVWhMCLTUKJpJ/ntkvAuBFzHIVao0=;
+ b=Y3+hXrZMuoi0kvLUawYv6iP1rYaWw8/N8QDYKhcDDoHga7LvggY4qPRNzoCNvFzx2k
+ fxFg+ihPa0qp2F+lb9QG+KzBcqsOhNo8vtTQNOavBiUihf7YQIIaJ0vUW1RU68HXiSBc
+ juExG6w3ZwNpljdlzyNn6rFljtiZv2i98IvwCLJ7Pfi6uoKY8baqmfP3D1AiMfj50Huc
+ hEZvGG/2Bri+01Pk2/NoQ/2GAROX0CM1t/A7sL63tBXwtbB+3QivCE7RYf0z6a8GSSXo
+ X+b7h/pDjfXHu6hfn1C98uOMJw9zlRgHRwe7vNvZ5LATdf5eXk2DUpbXuta5zm4h0a+s
+ ZGTw==
+X-Gm-Message-State: ACrzQf3MbpgDpNZKYIjAb4FrhkdIvmiKyPnqk1EXRDkyNYbeK83aRBJr
+ KIyMm7sB7VWthsNIJfp2KhLNMQ==
+X-Google-Smtp-Source: AMsMyM6BVYOYmT8ompZoc+LlEr1AorwmGjZcVmWGutVwZqsdA1Tsvx9GKgqcDW220eOVU7tZn9PAUg==
+X-Received: by 2002:a05:651c:c90:b0:277:45f6:1b2c with SMTP id
+ bz16-20020a05651c0c9000b0027745f61b2cmr7949204ljb.15.1667409308240; 
+ Wed, 02 Nov 2022 10:15:08 -0700 (PDT)
 Received: from [10.10.15.130] ([192.130.178.91])
  by smtp.gmail.com with ESMTPSA id
- s15-20020a056512314f00b00497b198987bsm2075905lfi.26.2022.11.02.10.07.57
+ u7-20020a2e9f07000000b00276d2537921sm2250544ljk.59.2022.11.02.10.15.07
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 02 Nov 2022 10:07:57 -0700 (PDT)
-Message-ID: <863b4c93-1770-ecd4-9eb6-333b3e8ab7d2@linaro.org>
-Date: Wed, 2 Nov 2022 20:07:56 +0300
+ Wed, 02 Nov 2022 10:15:07 -0700 (PDT)
+Message-ID: <da9720c2-ddc7-1a00-2608-0ef64c072cdd@linaro.org>
+Date: Wed, 2 Nov 2022 20:15:06 +0300
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.4.0
 Content-Language: en-GB
-To: Kalyan Thota <quic_kalyant@quicinc.com>, dri-devel@lists.freedesktop.org, 
- linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
- devicetree@vger.kernel.org
-References: <1667300361-14572-1-git-send-email-quic_kalyant@quicinc.com>
+To: Doug Anderson <dianders@chromium.org>
+References: <1667237245-24988-1-git-send-email-quic_khsieh@quicinc.com>
+ <94b507e8-5b94-12ae-4c81-95f5d36279d5@linaro.org>
+ <deb60200-5a37-ec77-9515-0c0c89022174@quicinc.com>
+ <CAD=FV=X_fs_4JYcRvAwkU9mAafOten9WdyzPfSVWdAU=ZMo8zg@mail.gmail.com>
+ <155e4171-187c-4ecf-5a9b-12f0c2207524@linaro.org>
+ <CAD=FV=Wk5rBSq9Mx1GCO0QFYckKV9KUFKL36Ld7dQX1ypHVcYw@mail.gmail.com>
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-In-Reply-To: <1667300361-14572-1-git-send-email-quic_kalyant@quicinc.com>
+In-Reply-To: <CAD=FV=Wk5rBSq9Mx1GCO0QFYckKV9KUFKL36Ld7dQX1ypHVcYw@mail.gmail.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH] drm/msm/disp/dpu1: register crtc color
- management to first crtc in the list
+Subject: Re: [Freedreno] [PATCH] drm/msm/dp: remove limitation of link rate
+ at 5.4G to support HBR3
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,343 +80,123 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: dianders@chromium.org, quic_abhinavk@quicinc.com,
- linux-kernel@vger.kernel.org, quic_vpolimer@quicinc.com, robdclark@gmail.com,
- swboyd@chromium.org
+Cc: quic_sbillaka@quicinc.com, quic_abhinavk@quicinc.com, airlied@linux.ie,
+ freedreno@lists.freedesktop.org, Bjorn Andersson <andersson@kernel.org>,
+ vkoul@kernel.org, dri-devel@lists.freedesktop.org, swboyd@chromium.org,
+ robdclark@gmail.com, agross@kernel.org, daniel@ffwll.ch,
+ linux-arm-msm@vger.kernel.org, Kuogee Hsieh <quic_khsieh@quicinc.com>,
+ sean@poorly.run, linux-kernel@vger.kernel.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 01/11/2022 13:59, Kalyan Thota wrote:
-> This patch does the following:
+On 01/11/2022 17:37, Doug Anderson wrote:
+> Hi,
 > 
-> 1) Registers crtc color management to the first crtc in the list and
-> attach to an encoder which is neither pluggable nor virtual
-> 2) Pin 1 crtc to 1 encoder
-> 3) Assign dspp block if crtc supports color processing.
-
-A clear identifier that the patch should be split.
-
+> On Mon, Oct 31, 2022 at 5:15 PM Dmitry Baryshkov
+> <dmitry.baryshkov@linaro.org> wrote:
+>>
+>> On 01/11/2022 03:08, Doug Anderson wrote:
+>>> Hi,
+>>>
+>>> On Mon, Oct 31, 2022 at 2:11 PM Kuogee Hsieh <quic_khsieh@quicinc.com> wrote:
+>>>>
+>>>> Hi Dmitry,
+>>>>
+>>>>
+>>>> Link rate is advertised by sink, but adjusted (reduced the link rate)
+>>>> by host during link training.
+>>>>
+>>>> Therefore should be fine if host did not support HBR3 rate.
+>>>>
+>>>> It will reduce to lower link rate during link training procedures.
+>>>>
+>>>> kuogee
+>>>>
+>>>> On 10/31/2022 11:46 AM, Dmitry Baryshkov wrote:
+>>>>> On 31/10/2022 20:27, Kuogee Hsieh wrote:
+>>>>>> An HBR3-capable device shall also support TPS4. Since TPS4 feature
+>>>>>> had been implemented already, it is not necessary to limit link
+>>>>>> rate at HBR2 (5.4G). This patch remove this limitation to support
+>>>>>> HBR3 (8.1G) link rate.
+>>>>>
+>>>>> The DP driver supports several platforms including sdm845 and can
+>>>>> support, if I'm not mistaken, platforms up to msm8998/sdm630/660.
+>>>>> Could you please confirm that all these SoCs have support for HBR3?
+>>>>>
+>>>>> With that fact being confirmed:
+>>>>>
+>>>>> Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+>>>>>
+>>>>>
+>>>>>>
+>>>>>> Signed-off-by: Kuogee Hsieh <quic_khsieh@quicinc.com>
+>>>>>> ---
+>>>>>>     drivers/gpu/drm/msm/dp/dp_panel.c | 4 ----
+>>>>>>     1 file changed, 4 deletions(-)
+>>>>>>
+>>>>>> diff --git a/drivers/gpu/drm/msm/dp/dp_panel.c
+>>>>>> b/drivers/gpu/drm/msm/dp/dp_panel.c
+>>>>>> index 5149ceb..3344f5a 100644
+>>>>>> --- a/drivers/gpu/drm/msm/dp/dp_panel.c
+>>>>>> +++ b/drivers/gpu/drm/msm/dp/dp_panel.c
+>>>>>> @@ -78,10 +78,6 @@ static int dp_panel_read_dpcd(struct dp_panel
+>>>>>> *dp_panel)
+>>>>>>         if (link_info->num_lanes > dp_panel->max_dp_lanes)
+>>>>>>             link_info->num_lanes = dp_panel->max_dp_lanes;
+>>>>>>     -    /* Limit support upto HBR2 until HBR3 support is added */
+>>>>>> -    if (link_info->rate >=
+>>>>>> (drm_dp_bw_code_to_link_rate(DP_LINK_BW_5_4)))
+>>>>>> -        link_info->rate = drm_dp_bw_code_to_link_rate(DP_LINK_BW_5_4);
+>>>>>> -
+>>>>>>         drm_dbg_dp(panel->drm_dev, "version: %d.%d\n", major, minor);
+>>>>>>         drm_dbg_dp(panel->drm_dev, "link_rate=%d\n", link_info->rate);
+>>>>>>         drm_dbg_dp(panel->drm_dev, "lane_count=%d\n",
+>>>>>> link_info->num_lanes);
+>>>
+>>> Stephen might remember better, but I could have sworn that the problem
+>>> was that there might be something in the middle that couldn't support
+>>> the higher link rate. In other words, I think we have:
+>>>
+>>> SoC <--> TypeC Port Controller <--> Display
+>>>
+>>> The SoC might support HBR3 and the display might support HBR3, but the
+>>> TCPC (Type C Port Controller) might not. I think that the TCPC is a
+>>> silent/passive component so it can't really let anyone know about its
+>>> limitations.
+>>>
+>>> In theory I guess you could rely on link training to just happen to
+>>> fail if you drive the link too fast for the TCPC to handle. Does this
+>>> actually work reliably?
+>>>
+>>> I think the other option that was discussed in the past was to add
+>>> something in the device tree for this. Either you could somehow model
+>>> the TCPC in DRM and thus know that a given model of TCPC limits the
+>>> link rate or you could hack in a property in the DP controller to
+>>> limit it.
+>>
+>> Latest pmic_glink proposal from Bjorn include adding the drm_bridge for
+>> the TCPC. Such bridge can in theory limit supported modes and rates.
 > 
-> Signed-off-by: Kalyan Thota <quic_kalyant@quicinc.com>
-> ---
->   drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c    | 17 +++++++++++-
->   drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.h    | 23 ++++++++++++++++
->   drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c | 42 ++++++++++++++++++++++-------
->   drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.h | 16 ++++++++++-
->   drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c     | 14 +++++++---
->   drivers/gpu/drm/msm/dp/dp_display.c         |  5 ++++
->   drivers/gpu/drm/msm/msm_drv.h               |  7 ++++-
->   7 files changed, 109 insertions(+), 15 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
-> index 4170fbe..14ff7ca 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
-> @@ -18,6 +18,7 @@
->   #include <drm/drm_flip_work.h>
->   #include <drm/drm_framebuffer.h>
->   #include <drm/drm_mode.h>
-> +#include <drm/drm_mode_object.h>
->   #include <drm/drm_probe_helper.h>
->   #include <drm/drm_rect.h>
->   #include <drm/drm_vblank.h>
-> @@ -553,6 +554,17 @@ static void _dpu_crtc_complete_flip(struct drm_crtc *crtc)
->   	spin_unlock_irqrestore(&dev->event_lock, flags);
->   }
->   
-> +bool dpu_crtc_has_color_enabled(struct drm_crtc *crtc)
-> +{
-> +	u32 gamma_id = crtc->dev->mode_config.gamma_lut_property->base.id;
-> +	u32 degamma_id = crtc->dev->mode_config.degamma_lut_property->base.id;
-> +	u32 ctm_id = crtc->dev->mode_config.ctm_property->base.id;
-> +
-> +	return !!(find_prop_id(&crtc->base, gamma_id) ||
-> +		  find_prop_id(&crtc->base, degamma_id) ||
-> +		  find_prop_id(&crtc->base, ctm_id));
-> +}
-> +
->   enum dpu_intf_mode dpu_crtc_get_intf_mode(struct drm_crtc *crtc)
->   {
->   	struct drm_encoder *encoder;
-> @@ -1575,6 +1587,8 @@ struct drm_crtc *dpu_crtc_init(struct drm_device *dev, struct drm_plane *plane,
->   {
->   	struct drm_crtc *crtc = NULL;
->   	struct dpu_crtc *dpu_crtc = NULL;
-> +	struct msm_drm_private *priv = dev->dev_private;
-> +	struct dpu_kms *dpu_kms = to_dpu_kms(priv->kms);
->   	int i;
->   
->   	dpu_crtc = kzalloc(sizeof(*dpu_crtc), GFP_KERNEL);
-> @@ -1604,7 +1618,8 @@ struct drm_crtc *dpu_crtc_init(struct drm_device *dev, struct drm_plane *plane,
->   
->   	drm_crtc_helper_add(crtc, &dpu_crtc_helper_funcs);
->   
-> -	drm_crtc_enable_color_mgmt(crtc, 0, true, 0);
-> +	if (dpu_kms->catalog->dspp && drm_crtc_index(crtc) == 0)
+> Excellent! Even so, I think this isn't totally a solved problem,
+> right? Even though a bridge seems like a good place for this, last I
+> remember checking the bridge API wasn't expressive enough to solve
+> this problem. A bridge could limit pixel clocks just fine, but here we
+> need to take into account other considerations to know if a given
+> pixel clock can work at 5.4 GHz or not. For instance, if we're at 4
+> lanes we could maybe make a given pixel clock at 5.4 GHz but not if we
+> only have 2 lanes. I don't think that the DP controller passes the
+> number of lanes to other parts of the bridge chain, though maybe
+> there's some trick for it?
 
-This would limit color management to first CRTC. As each CRTC can use 
-not more than two LMs (and two DSPPs), we can support up to num_dspps / 
-2 color-mgmt-enabled CRTCs.
+I hope that somebody would fix MSM DP's data-lanes property usage to 
+follow the usual way (a part of DT graph). Then it would be possible to 
+query the amount of the lanes from the bridge.
 
-A side note: ideally we need a way to change color mgtm enablement in 
-runtime. Unfortunately with the current API this doesn't seem possible.
+> ...I guess the other problem is that all existing users aren't
+> currently modeling their TCPC in this way. What happens to them?
 
-> +		drm_crtc_enable_color_mgmt(crtc, 0, true, 0);
->   
->   	/* save user friendly CRTC name for later */
->   	snprintf(dpu_crtc->name, DPU_CRTC_NAME_SIZE, "crtc%u", crtc->base.id);
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.h
-> index 539b68b..164208e 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.h
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.h
-> @@ -240,6 +240,29 @@ static inline int dpu_crtc_frame_pending(struct drm_crtc *crtc)
->   }
->   
->   /**
-> + * find_prop_id - find the property for the drm object
-> + * @obj: Pointer to drm object
-> + * @prop_id: Property id.
-> + */
-> +static inline struct drm_property *find_prop_id(struct drm_mode_object *obj,
-> +					       uint32_t prop_id)
-> +{
-> +	int i;
-> +
-> +	for (i = 0; i < obj->properties->count; i++)
-> +		if (obj->properties->properties[i]->base.id == prop_id)
-> +			return obj->properties->properties[i];
-> +
-> +	return NULL;
-> +}
-
-Generic helper should go to drm core code.
-
-> +
-> +/**
-> + * dpu_crtc_has_color_enabled - check if the crtc has color management enabled
-> + * @crtc: Pointer to drm crtc object
-> + */
-> +bool dpu_crtc_has_color_enabled(struct drm_crtc *crtc);
-> +
-> +/**
->    * dpu_crtc_vblank - enable or disable vblanks for this crtc
->    * @crtc: Pointer to drm crtc object
->    * @en: true to enable vblanks, false to disable
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-> index 9c6817b..f09b957 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-> @@ -545,7 +545,8 @@ bool dpu_encoder_use_dsc_merge(struct drm_encoder *drm_enc)
->   static struct msm_display_topology dpu_encoder_get_topology(
->   			struct dpu_encoder_virt *dpu_enc,
->   			struct dpu_kms *dpu_kms,
-> -			struct drm_display_mode *mode)
-> +			struct drm_display_mode *mode,
-> +			struct drm_crtc *crtc)
->   {
->   	struct msm_display_topology topology = {0};
->   	int i, intf_count = 0;
-> @@ -573,11 +574,9 @@ static struct msm_display_topology dpu_encoder_get_topology(
->   	else
->   		topology.num_lm = (mode->hdisplay > MAX_HDISPLAY_SPLIT) ? 2 : 1;
->   
-> -	if (dpu_enc->disp_info.intf_type == DRM_MODE_ENCODER_DSI) {
-> -		if (dpu_kms->catalog->dspp &&
-> -			(dpu_kms->catalog->dspp_count >= topology.num_lm))
-> +	if (dpu_crtc_has_color_enabled(crtc) &&
-> +		(dpu_kms->catalog->dspp_count >= topology.num_lm))
->   			topology.num_dspp = topology.num_lm;
-
-This is incorect. We should check if there are enough spare DSPPs, not 
-if there are enough DSPPs at all. And no, telling that there is just a 
-single CTM-enabled CRTC is not an answer.
-
-> -	}
->   
->   	topology.num_enc = 0;
->   	topology.num_intf = intf_count;
-> @@ -643,7 +642,7 @@ static int dpu_encoder_virt_atomic_check(
->   		}
->   	}
->   
-> -	topology = dpu_encoder_get_topology(dpu_enc, dpu_kms, adj_mode);
-> +	topology = dpu_encoder_get_topology(dpu_enc, dpu_kms, adj_mode, crtc_state->crtc);
->   
->   	/* Reserve dynamic resources now. */
->   	if (!ret) {
-> @@ -2412,7 +2411,7 @@ int dpu_encoder_setup(struct drm_device *dev, struct drm_encoder *enc,
->   	struct dpu_kms *dpu_kms = to_dpu_kms(priv->kms);
->   	struct drm_encoder *drm_enc = NULL;
->   	struct dpu_encoder_virt *dpu_enc = NULL;
-> -	int ret = 0;
-> +	int ret = 0, intf_i;
->   
->   	dpu_enc = to_dpu_encoder_virt(enc);
->   
-> @@ -2424,13 +2423,16 @@ int dpu_encoder_setup(struct drm_device *dev, struct drm_encoder *enc,
->   	timer_setup(&dpu_enc->frame_done_timer,
->   			dpu_encoder_frame_done_timeout, 0);
->   
-> +	intf_i = disp_info->h_tile_instance[0];
->   	if (disp_info->intf_type == DRM_MODE_ENCODER_DSI)
->   		timer_setup(&dpu_enc->vsync_event_timer,
->   				dpu_encoder_vsync_event_handler,
->   				0);
-> -	else if (disp_info->intf_type == DRM_MODE_ENCODER_TMDS)
-> +	else if (disp_info->intf_type == DRM_MODE_ENCODER_TMDS) {
->   		dpu_enc->wide_bus_en = msm_dp_wide_bus_available(
-> -				priv->dp[disp_info->h_tile_instance[0]]);
-> +				priv->dp[intf_i]);
-> +		disp_info->is_pluggable = msm_dp_is_pluggable(priv->dp[intf_i]);
-> +	}
-
-And DSI can be pluggable too. Please enumerate connector types here 
-rather than doing that in DP driver.
-
->   
->   	INIT_DELAYED_WORK(&dpu_enc->delayed_off_work,
->   			dpu_encoder_off_work);
-> @@ -2455,6 +2457,28 @@ int dpu_encoder_setup(struct drm_device *dev, struct drm_encoder *enc,
->   
->   }
->   
-> +bool dpu_encoder_is_pluggable(struct drm_encoder *drm_enc)
-> +{
-> +	struct dpu_encoder_virt *dpu_enc;
-> +
-> +	if (!drm_enc)
-> +		return false;
-> +
-> +	dpu_enc = to_dpu_encoder_virt(drm_enc);
-> +	return dpu_enc->disp_info.is_pluggable;
-> +}
-> +
-> +bool dpu_encoder_is_virtual(struct drm_encoder *drm_enc)
-> +{
-> +	struct dpu_encoder_virt *dpu_enc;
-> +
-> +	if (!drm_enc)
-> +		return false;
-> +
-> +	dpu_enc = to_dpu_encoder_virt(drm_enc);
-> +	return (dpu_enc->disp_info.intf_type == DRM_MODE_ENCODER_VIRTUAL);
-> +}
-> +
->   struct drm_encoder *dpu_encoder_init(struct drm_device *dev,
->   		int drm_enc_mode)
->   {
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.h
-> index 9e7236e..209adb4 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.h
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.h
-> @@ -25,7 +25,8 @@
->    * @num_of_h_tiles:     Number of horizontal tiles in case of split interface
->    * @h_tile_instance:    Controller instance used per tile. Number of elements is
->    *                      based on num_of_h_tiles
-> - * @is_cmd_mode		Boolean to indicate if the CMD mode is requested
-> + * @is_cmd_mode:	Boolean to indicate if the CMD mode is requested
-> + * @is_pluggable:	Boolean to indicate if the intf is pluggable
->    * @is_te_using_watchdog_timer:  Boolean to indicate watchdog TE is
->    *				 used instead of panel TE in cmd mode panels
->    * @dsc:		DSC configuration data for DSC-enabled displays
-> @@ -35,6 +36,7 @@ struct msm_display_info {
->   	uint32_t num_of_h_tiles;
->   	uint32_t h_tile_instance[MAX_H_TILES_PER_DISPLAY];
->   	bool is_cmd_mode;
-> +	bool is_pluggable;
->   	bool is_te_using_watchdog_timer;
->   	struct drm_dsc_config *dsc;
->   };
-> @@ -128,6 +130,18 @@ enum dpu_intf_mode dpu_encoder_get_intf_mode(struct drm_encoder *encoder);
->   void dpu_encoder_virt_runtime_resume(struct drm_encoder *encoder);
->   
->   /**
-> + * dpu_encoder_is_pluggable - get pluggable info from the encoder.
-> + * @drm_enc:    Pointer to previously created drm encoder structure
-> + */
-> +bool dpu_encoder_is_pluggable(struct drm_encoder *drm_enc);
-> +
-> +/**
-> + * dpu_encoder_is_virtual - find if the encoder is of type virtual.
-> + * @drm_enc:    Pointer to previously created drm encoder structure
-> + */
-> +bool dpu_encoder_is_virtual(struct drm_encoder *drm_enc);
-> +
-> +/**
->    * dpu_encoder_init - initialize virtual encoder object
->    * @dev:        Pointer to drm device structure
->    * @disp_info:  Pointer to display information structure
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
-> index 7a5fabc..2b9c316 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
-> @@ -807,9 +807,17 @@ static int _dpu_kms_drm_obj_init(struct dpu_kms *dpu_kms)
->   		priv->crtcs[priv->num_crtcs++] = crtc;
->   	}
->   
-> -	/* All CRTCs are compatible with all encoders */
-> -	drm_for_each_encoder(encoder, dev)
-> -		encoder->possible_crtcs = (1 << priv->num_crtcs) - 1;
-> +	/* Pin 1 crtc for 1 encoder and crtc 0 for primary display as it has
-> +	 * color management registered
-> +	 */
-> +	i = 1;
-> +	drm_for_each_encoder(encoder, dev) {
-> +		if ((!dpu_encoder_is_pluggable(encoder) &&
-> +			!dpu_encoder_is_virtual(encoder)) || (num_encoders == 1))
-> +			encoder->possible_crtcs = 1 << drm_crtc_index(priv->crtcs[0]);
-> +		else
-> +			encoder->possible_crtcs = 1 << drm_crtc_index(priv->crtcs[i++]);
-
-This can be made much simpler. Allocate a single CRTC for each encoder, 
-disallowing CRTC switching. Then allocate as many CTM-enabled for 
-non-pluggable encoder-CRTC pairs as possible.
-
-> +	}
->   
->   	return 0;
->   }
-> diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
-> index bfd0aef..5690ea3 100644
-> --- a/drivers/gpu/drm/msm/dp/dp_display.c
-> +++ b/drivers/gpu/drm/msm/dp/dp_display.c
-> @@ -1509,6 +1509,11 @@ bool msm_dp_wide_bus_available(const struct msm_dp *dp_display)
->   	return dp->wide_bus_en;
->   }
->   
-> +bool msm_dp_is_pluggable(const struct msm_dp *dp_display)
-> +{
-> +	return (dp_display->connector_type == DRM_MODE_CONNECTOR_DisplayPort);
-> +}
-> +
->   void msm_dp_debugfs_init(struct msm_dp *dp_display, struct drm_minor *minor)
->   {
->   	struct dp_display_private *dp;
-> diff --git a/drivers/gpu/drm/msm/msm_drv.h b/drivers/gpu/drm/msm/msm_drv.h
-> index ea80846..b0d0546 100644
-> --- a/drivers/gpu/drm/msm/msm_drv.h
-> +++ b/drivers/gpu/drm/msm/msm_drv.h
-> @@ -331,7 +331,7 @@ void msm_dp_snapshot(struct msm_disp_state *disp_state, struct msm_dp *dp_displa
->   
->   void msm_dp_debugfs_init(struct msm_dp *dp_display, struct drm_minor *minor);
->   bool msm_dp_wide_bus_available(const struct msm_dp *dp_display);
-> -
-> +bool msm_dp_is_pluggable(const struct msm_dp *dp_display);
->   #else
->   static inline int __init msm_dp_register(void)
->   {
-> @@ -365,6 +365,11 @@ static inline bool msm_dp_wide_bus_available(const struct msm_dp *dp_display)
->   	return false;
->   }
->   
-> +static inline bool msm_dp_is_pluggable(const struct msm_dp *dp_display)
-> +{
-> +	return false;
-> +}
-> +
->   #endif
->   
->   #ifdef CONFIG_DRM_MSM_MDP4
+There are no existing users. Bryan implemented TCPM support at some 
+point, but we never pushed this upstream.
 
 -- 
 With best wishes
