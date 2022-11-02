@@ -1,73 +1,73 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 99B56616AAD
-	for <lists+freedreno@lfdr.de>; Wed,  2 Nov 2022 18:28:43 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 6ADD0616B16
+	for <lists+freedreno@lfdr.de>; Wed,  2 Nov 2022 18:42:55 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4B9C910E516;
-	Wed,  2 Nov 2022 17:28:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2434C10E263;
+	Wed,  2 Nov 2022 17:42:54 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ed1-x52a.google.com (mail-ed1-x52a.google.com
- [IPv6:2a00:1450:4864:20::52a])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D970A10E516
- for <freedreno@lists.freedesktop.org>; Wed,  2 Nov 2022 17:28:39 +0000 (UTC)
-Received: by mail-ed1-x52a.google.com with SMTP id 21so27585310edv.3
- for <freedreno@lists.freedesktop.org>; Wed, 02 Nov 2022 10:28:39 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=X2+9yxVt9jWEvW8G1POIGEGcQSupOLAIpJg0gweghVs=;
- b=EgGB89Zg2h2E8cHoQjjgPCz2n0IaFrtoRPxndhM06adDo28bUdZZyYjM7q7PGcAuCO
- qrK1/JRrMVIgQ54XSYURFj9EiicVAjN1F6gMP1c632DyLUMlyDJIn0yQ1+VaCn4KYaHU
- OW4PLBRpp/FdhTOokAVnaOpXhTYDriLrSphdI=
+Received: from mail-lj1-x22b.google.com (mail-lj1-x22b.google.com
+ [IPv6:2a00:1450:4864:20::22b])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8657810E516
+ for <freedreno@lists.freedesktop.org>; Wed,  2 Nov 2022 17:42:50 +0000 (UTC)
+Received: by mail-lj1-x22b.google.com with SMTP id x21so24622607ljg.10
+ for <freedreno@lists.freedesktop.org>; Wed, 02 Nov 2022 10:42:50 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=rM4/zDWnrP1JlS87NcnSps8mvH/BPBoF3XFA7KWQYag=;
+ b=R0QJvoUyTBqDa7/tsVAbtZlt7gwPXAyzRc27HvtU4qZ/4OazlMjIXVp8009FH3TfxD
+ UNtlE6ZCgxXFOds9UEktIunzf+GbIi+Q5p0Ot15OHhQUFB6u1h9cgIBcag6xDNlE7BZx
+ KIJxmxngUPQbK+bh0CoJEX/HsMhzf2G21GNkyF7qlyf/VgjEOWkQ8JLsCxtt67JAonbs
+ vXWZjV1FSlFwnbC99yjE428q8BAWupfrdQwnXmpU2Lp7KZQe48dpPasy6cVWWJ3vNGH0
+ bibstKcVk7qifej8+aL2a5U97HLkZtBi4SQ5ulNOunJhsHJollAOT1Uu//Ru2CAdY5Rz
+ PfPg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=X2+9yxVt9jWEvW8G1POIGEGcQSupOLAIpJg0gweghVs=;
- b=alGJhEhw9DADOQb4cfe3Py5Wg/lf+3hG2aTJhShkHQoMUfwb+o2Gt3fj/8U2/aCXjW
- sTQA8N64cBZsohWmu+kCXfBI3cyUJf/ujWoEvVfJYlGJ8572v0If52vPp55Z0uNOjFhq
- XWMxP2qHb+E5PVcTN+IaEspyX40QY3hRVDs3z51tq0q72dFxUJS4KUC0vQXz/wG0oizt
- Ba/lijc8z//gPf8GT/lP1P5dM03w0bPncilNaKMBs8csU2SqH3teKsNxc/zdXem5hYr6
- zDkK1mDZkNNgjjuGqCqlBEFMi188D6xNl6eCH8ck9r9R4778EP7ULYMk9u7xDShwiRRn
- vwrA==
-X-Gm-Message-State: ACrzQf03itC6fYvLBij1EYMIonQd0Z8+qf+alyS3X4cw1Xi/UY8fcvEb
- gS9OpO2idZXBgmanceyJEhsbUS/QYRUlp2G5
-X-Google-Smtp-Source: AMsMyM6OTInRkFlsAEd3/TdjKQKH+aM6+56kk0yL+E2Eja26G41Nr7QCVn7AqjOWQpr6/aN4CkGL1w==
-X-Received: by 2002:a05:6402:2893:b0:461:59fd:9b4 with SMTP id
- eg19-20020a056402289300b0046159fd09b4mr25683667edb.389.1667410117945; 
- Wed, 02 Nov 2022 10:28:37 -0700 (PDT)
-Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com.
- [209.85.128.48]) by smtp.gmail.com with ESMTPSA id
- x1-20020aa7dac1000000b00461bd82581asm6002640eds.84.2022.11.02.10.28.36
- for <freedreno@lists.freedesktop.org>
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=rM4/zDWnrP1JlS87NcnSps8mvH/BPBoF3XFA7KWQYag=;
+ b=aczOt3ow7VUAn8oW1+7+AJ2KAKKEgd3mLT6Jh7uicUJyrC/i01pM8G4F4ttoMca4mw
+ 58JyUUWi7BtoFCUOlAZVsNQ1IX5e5cqospxP9i2VS3frFGSfZIgCG4bOLsOXkOhFIO1j
+ LjOX0FbFKIEL+4AzfXNsuPbk7ansZWoeGd3ddZuw/TIY5ZPQcIeokiTLU/BYb/WcKVIa
+ 5NF/VPBDGSCx6YTB/zmlteKkKUlUxFInLNKc/FixzUF7aMf8eoqUzPpIG9QPK2IDTHWQ
+ +I1FVKOFOrS2TgIHportPG0jblY8Bm6WDaw94f7SS3Cue3GeyRe1rXk9s53NgsombJAx
+ vgYw==
+X-Gm-Message-State: ACrzQf38ptLm5cxfPBdU7uNk/He4T9tbZM54vmU/t/S3p+E452FzNUju
+ kSU/g4VsdwjcfvM1VGB6lHvmCQ==
+X-Google-Smtp-Source: AMsMyM6fPaTDx5FqLlQ7a03XS8Xkfw+eo+mLL6RI5R56mLh1lGsiI8/EUTz8YTin2qmDGHqqiGUKoQ==
+X-Received: by 2002:a05:651c:1786:b0:26d:aaec:1487 with SMTP id
+ bn6-20020a05651c178600b0026daaec1487mr9860074ljb.287.1667410968808; 
+ Wed, 02 Nov 2022 10:42:48 -0700 (PDT)
+Received: from [10.10.15.130] ([192.130.178.91])
+ by smtp.gmail.com with ESMTPSA id
+ h12-20020a2ea48c000000b00277041268absm2251848lji.78.2022.11.02.10.42.48
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 02 Nov 2022 10:28:37 -0700 (PDT)
-Received: by mail-wm1-f48.google.com with SMTP id
- i5-20020a1c3b05000000b003cf47dcd316so1728541wma.4
- for <freedreno@lists.freedesktop.org>; Wed, 02 Nov 2022 10:28:36 -0700 (PDT)
-X-Received: by 2002:a05:600c:2212:b0:3cf:6068:3c40 with SMTP id
- z18-20020a05600c221200b003cf60683c40mr16617338wml.57.1667410116349; Wed, 02
- Nov 2022 10:28:36 -0700 (PDT)
+ Wed, 02 Nov 2022 10:42:48 -0700 (PDT)
+Message-ID: <c97bbdc2-6487-32a2-bf16-a08803fa20b3@linaro.org>
+Date: Wed, 2 Nov 2022 20:42:47 +0300
 MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.4.0
+Content-Language: en-GB
+To: Doug Anderson <dianders@chromium.org>
 References: <1667237245-24988-1-git-send-email-quic_khsieh@quicinc.com>
  <94b507e8-5b94-12ae-4c81-95f5d36279d5@linaro.org>
  <deb60200-5a37-ec77-9515-0c0c89022174@quicinc.com>
  <CAD=FV=X_fs_4JYcRvAwkU9mAafOten9WdyzPfSVWdAU=ZMo8zg@mail.gmail.com>
  <155e4171-187c-4ecf-5a9b-12f0c2207524@linaro.org>
  <CAD=FV=Wk5rBSq9Mx1GCO0QFYckKV9KUFKL36Ld7dQX1ypHVcYw@mail.gmail.com>
- <CAD=FV=XTOUjVAGFWZ6xTkcNOrCT1p73aU-=KJNYUOxsS-BQsyA@mail.gmail.com>
- <c5aedb31-3881-50e7-f747-e75b18c3f4b8@linaro.org>
-In-Reply-To: <c5aedb31-3881-50e7-f747-e75b18c3f4b8@linaro.org>
-From: Doug Anderson <dianders@chromium.org>
-Date: Wed, 2 Nov 2022 10:28:22 -0700
-X-Gmail-Original-Message-ID: <CAD=FV=WPde5wVOGCKQYGuGwgCwRebox4FF0MgV_2pPCTsfo_UA@mail.gmail.com>
-Message-ID: <CAD=FV=WPde5wVOGCKQYGuGwgCwRebox4FF0MgV_2pPCTsfo_UA@mail.gmail.com>
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Content-Type: text/plain; charset="UTF-8"
+ <da9720c2-ddc7-1a00-2608-0ef64c072cdd@linaro.org>
+ <CAD=FV=V+ZgKaKbg5iX0i15ZfDO3MfBuHF8BGT3r8ZPmhTiNWDw@mail.gmail.com>
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+In-Reply-To: <CAD=FV=V+ZgKaKbg5iX0i15ZfDO3MfBuHF8BGT3r8ZPmhTiNWDw@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 Subject: Re: [Freedreno] [PATCH] drm/msm/dp: remove limitation of link rate
  at 5.4G to support HBR3
 X-BeenThere: freedreno@lists.freedesktop.org
@@ -91,41 +91,159 @@ Cc: quic_sbillaka@quicinc.com, quic_abhinavk@quicinc.com, airlied@linux.ie,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Hi,
+On 02/11/2022 20:25, Doug Anderson wrote:
+> Hi,
+> 
+> On Wed, Nov 2, 2022 at 10:15 AM Dmitry Baryshkov
+> <dmitry.baryshkov@linaro.org> wrote:
+>>
+>> On 01/11/2022 17:37, Doug Anderson wrote:
+>>> Hi,
+>>>
+>>> On Mon, Oct 31, 2022 at 5:15 PM Dmitry Baryshkov
+>>> <dmitry.baryshkov@linaro.org> wrote:
+>>>>
+>>>> On 01/11/2022 03:08, Doug Anderson wrote:
+>>>>> Hi,
+>>>>>
+>>>>> On Mon, Oct 31, 2022 at 2:11 PM Kuogee Hsieh <quic_khsieh@quicinc.com> wrote:
+>>>>>>
+>>>>>> Hi Dmitry,
+>>>>>>
+>>>>>>
+>>>>>> Link rate is advertised by sink, but adjusted (reduced the link rate)
+>>>>>> by host during link training.
+>>>>>>
+>>>>>> Therefore should be fine if host did not support HBR3 rate.
+>>>>>>
+>>>>>> It will reduce to lower link rate during link training procedures.
+>>>>>>
+>>>>>> kuogee
+>>>>>>
+>>>>>> On 10/31/2022 11:46 AM, Dmitry Baryshkov wrote:
+>>>>>>> On 31/10/2022 20:27, Kuogee Hsieh wrote:
+>>>>>>>> An HBR3-capable device shall also support TPS4. Since TPS4 feature
+>>>>>>>> had been implemented already, it is not necessary to limit link
+>>>>>>>> rate at HBR2 (5.4G). This patch remove this limitation to support
+>>>>>>>> HBR3 (8.1G) link rate.
+>>>>>>>
+>>>>>>> The DP driver supports several platforms including sdm845 and can
+>>>>>>> support, if I'm not mistaken, platforms up to msm8998/sdm630/660.
+>>>>>>> Could you please confirm that all these SoCs have support for HBR3?
+>>>>>>>
+>>>>>>> With that fact being confirmed:
+>>>>>>>
+>>>>>>> Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+>>>>>>>
+>>>>>>>
+>>>>>>>>
+>>>>>>>> Signed-off-by: Kuogee Hsieh <quic_khsieh@quicinc.com>
+>>>>>>>> ---
+>>>>>>>>      drivers/gpu/drm/msm/dp/dp_panel.c | 4 ----
+>>>>>>>>      1 file changed, 4 deletions(-)
+>>>>>>>>
+>>>>>>>> diff --git a/drivers/gpu/drm/msm/dp/dp_panel.c
+>>>>>>>> b/drivers/gpu/drm/msm/dp/dp_panel.c
+>>>>>>>> index 5149ceb..3344f5a 100644
+>>>>>>>> --- a/drivers/gpu/drm/msm/dp/dp_panel.c
+>>>>>>>> +++ b/drivers/gpu/drm/msm/dp/dp_panel.c
+>>>>>>>> @@ -78,10 +78,6 @@ static int dp_panel_read_dpcd(struct dp_panel
+>>>>>>>> *dp_panel)
+>>>>>>>>          if (link_info->num_lanes > dp_panel->max_dp_lanes)
+>>>>>>>>              link_info->num_lanes = dp_panel->max_dp_lanes;
+>>>>>>>>      -    /* Limit support upto HBR2 until HBR3 support is added */
+>>>>>>>> -    if (link_info->rate >=
+>>>>>>>> (drm_dp_bw_code_to_link_rate(DP_LINK_BW_5_4)))
+>>>>>>>> -        link_info->rate = drm_dp_bw_code_to_link_rate(DP_LINK_BW_5_4);
+>>>>>>>> -
+>>>>>>>>          drm_dbg_dp(panel->drm_dev, "version: %d.%d\n", major, minor);
+>>>>>>>>          drm_dbg_dp(panel->drm_dev, "link_rate=%d\n", link_info->rate);
+>>>>>>>>          drm_dbg_dp(panel->drm_dev, "lane_count=%d\n",
+>>>>>>>> link_info->num_lanes);
+>>>>>
+>>>>> Stephen might remember better, but I could have sworn that the problem
+>>>>> was that there might be something in the middle that couldn't support
+>>>>> the higher link rate. In other words, I think we have:
+>>>>>
+>>>>> SoC <--> TypeC Port Controller <--> Display
+>>>>>
+>>>>> The SoC might support HBR3 and the display might support HBR3, but the
+>>>>> TCPC (Type C Port Controller) might not. I think that the TCPC is a
+>>>>> silent/passive component so it can't really let anyone know about its
+>>>>> limitations.
+>>>>>
+>>>>> In theory I guess you could rely on link training to just happen to
+>>>>> fail if you drive the link too fast for the TCPC to handle. Does this
+>>>>> actually work reliably?
+>>>>>
+>>>>> I think the other option that was discussed in the past was to add
+>>>>> something in the device tree for this. Either you could somehow model
+>>>>> the TCPC in DRM and thus know that a given model of TCPC limits the
+>>>>> link rate or you could hack in a property in the DP controller to
+>>>>> limit it.
+>>>>
+>>>> Latest pmic_glink proposal from Bjorn include adding the drm_bridge for
+>>>> the TCPC. Such bridge can in theory limit supported modes and rates.
+>>>
+>>> Excellent! Even so, I think this isn't totally a solved problem,
+>>> right? Even though a bridge seems like a good place for this, last I
+>>> remember checking the bridge API wasn't expressive enough to solve
+>>> this problem. A bridge could limit pixel clocks just fine, but here we
+>>> need to take into account other considerations to know if a given
+>>> pixel clock can work at 5.4 GHz or not. For instance, if we're at 4
+>>> lanes we could maybe make a given pixel clock at 5.4 GHz but not if we
+>>> only have 2 lanes. I don't think that the DP controller passes the
+>>> number of lanes to other parts of the bridge chain, though maybe
+>>> there's some trick for it?
+>>
+>> I hope that somebody would fix MSM DP's data-lanes property usage to
+>> follow the usual way (a part of DT graph). Then it would be possible to
+>> query the amount of the lanes from the bridge.
+> 
+> Sorry, can you explain how exactly this works?
 
-On Wed, Nov 2, 2022 at 10:23 AM Dmitry Baryshkov
-<dmitry.baryshkov@linaro.org> wrote:
->
-> > 1. Someone figures out how to model this with the bridge chain and
-> > then we only allow HBR3 if we detect we've got a TCPC that supports
-> > it. This seems like the cleanest / best but feels like a long pole.
-> > Not only have we been trying to get the TCPC-modeled-as-a-bridge stuff
-> > landed for a long time but even when we do it we still don't have a
-> > solution for how to communicate the number of lanes and other stuff
-> > between the TCPC and the DP controller so we have to enrich the bridge
-> > interface.
->
-> I think we'd need some OOB interface. For example for DSI interfaces we
-> have mipi_dsi_device struct to communicate such OOB data.
->
-> Also take a note regarding data-lanes from my previous email.
+This was related to your point regarding communicating number of data 
+lanes. Currently DP nodes have data-lanes in the device node itself. 
+This contradicts with the typical definition and usage of the property - 
+to be used in the graph endpoint. Then the 
+drm_of_get_data_lanes_count() and drm_of_get_data_lanes_count_ep() 
+functions can be used to query data-lanes value.
 
-Right, we can somehow communicate the max link rate through the bridge
-chain to the DP controller in an OOB manner that would work.
+> I suspect that _somehow_ we need to get info from the TCPC to the DP
+> controller driver about the maximum link rate. I think anything where
+> the TCPC uses mode_valid() to reject modes and tries to make decisions
+> based on "pixel clock" is going to be bad. If nothing else, I think
+> that during link training that DP controller can try many different
+> things to see what works. It may try varying the number of lanes, the
+> BPC, the link rate, etc. I don't think mode_valid() is called each
+> time through here.
+
+In the worst case this can become the new max-data-rate propery. Or the 
+existing link-frequencies property. But this needs to defined in the 
+board file (or in the TCPC driver if that's the hardware limitation).
+
+Granted the existing dp_panel code I think that the fix can be to check 
+for the link-frequencies property and to limit the link_info->rate based 
+on the value.
 
 
-> > 2. We add in a DT property to the display controller node that says
-> > the max link rate for use on this board. This feels like a hack, but
-> > maybe it's not too bad. Certainly it would be incredibly simple to
-> > implement. Actually... ...one could argue that even if we later model
-> > the TCPC as a bridge that this property would still be valid / useful!
-> > You could certainly imagine that the SoC supports HBR3 and the TCPC
-> > supports HBR3 but that the board routing between the SoC and the TCPC
-> > is bad and only supports HBR2. In this case the only way out is
-> > essentially a "board constraint" AKA a DT property in the DP
-> > controller.
->
-> We have been discussing similar topics with Abhinav. Krzysztof suggested
-> using link-frequencies property to provide max and min values.
+>>> ...I guess the other problem is that all existing users aren't
+>>> currently modeling their TCPC in this way. What happens to them?
+>>
+>> There are no existing users. Bryan implemented TCPM support at some
+>> point, but we never pushed this upstream.
+> 
+> I mean existing DP users, like sc7180-trogdor devices. If the TCPC
+> isn't modeled, then these need to continue defaulting to HBR2 since at
+> least some of the boards have HBR2-only TCPCs.
 
-This sounds good to me and seems worth doing even if we eventually do #1.
+Ack. I think somebody has to describe the DP links properly on those 
+platforms. E.g. by adding the usb-connector nodes, etc (I assume that 
+existing sc7180/7280 platforms use USB-C connectors mixed with USB 
+rather than normal DP/uDP connectors). Let's see how Bjorn's proposal goes.
+
+
+-- 
+With best wishes
+Dmitry
+
