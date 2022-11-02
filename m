@@ -2,63 +2,81 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id CEBC5615513
-	for <lists+freedreno@lfdr.de>; Tue,  1 Nov 2022 23:34:12 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2CE42615ECA
+	for <lists+freedreno@lfdr.de>; Wed,  2 Nov 2022 10:04:14 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9690110E438;
-	Tue,  1 Nov 2022 22:34:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 29D6D10E454;
+	Wed,  2 Nov 2022 09:04:12 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-pg1-x52a.google.com (mail-pg1-x52a.google.com
- [IPv6:2607:f8b0:4864:20::52a])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7361D10E43B;
- Tue,  1 Nov 2022 22:33:58 +0000 (UTC)
-Received: by mail-pg1-x52a.google.com with SMTP id b62so4286458pgc.0;
- Tue, 01 Nov 2022 15:33:58 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=VxeOMGDEphJ5EBKU4t4wsdXzYKyxaBqm90z9B0rYTIU=;
- b=pYo5UhJPO3tW9ll+l2ZYyivpknW3o09rB6jysv+BKZWWoPct4H0/nfaIIiioNh5BwM
- x/Ymzu1fkDVE2e0MZ8gHuFkz3NrEU6trfYucHM2MhwjOQ4pxLanJcofV4rSM0m9w5qEd
- LWJB4NVUN2m+3de6oEshQ985mTcHs3C0QIfvuvWryCRYA1omADZDlMeKYXALB0Qt8VUh
- lwwO+F7oYNt3QKcFLsZFJFBk5eifU8ECcrCr5KIvrL787X2S2cY22lSxqrpVnaZZhrwB
- Q+pocQW1DVrOkeo6SvAinSDJYANlsJCWcxoXJqyl2/dWE03MNv5hbJOQH9Zwj66wDtnA
- 4TZQ==
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5A8E810E44F
+ for <freedreno@lists.freedesktop.org>; Wed,  2 Nov 2022 09:04:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1667379845;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=XBlp2DOijU5hXQ9AriUwp9vEVLgfxcCQxHX+sSZSvOs=;
+ b=OaN362jXxD0t4dOCZRX2dd3sbYT3c4rvUqGPjRzAoWlxVcQ3noz7A9mSZP0pqoPdGulVNu
+ x5p0M4I/g4cWA41Qp5IJJfhZ1Lps8hWIf1sKOQSCu8AkcSSrLk/VhEeuar6dESGemzLLzD
+ c1Om4CYhkuOD49/ikejseEpnQPzF5R8=
+Received: from mail-wr1-f71.google.com (mail-wr1-f71.google.com
+ [209.85.221.71]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_128_GCM_SHA256) id
+ us-mta-126-ycjtnmPENjOl2hzSsk39YQ-1; Wed, 02 Nov 2022 05:04:01 -0400
+X-MC-Unique: ycjtnmPENjOl2hzSsk39YQ-1
+Received: by mail-wr1-f71.google.com with SMTP id
+ u20-20020adfc654000000b0022cc05e9119so4582543wrg.16
+ for <freedreno@lists.freedesktop.org>; Wed, 02 Nov 2022 02:04:01 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=VxeOMGDEphJ5EBKU4t4wsdXzYKyxaBqm90z9B0rYTIU=;
- b=DbFTwrwdc61BTp3VZGtH/uK64Oc6zXe1bLjqef1PQhG8i16/09YVJmrQ6VCe6uNDOM
- /HPxH9ef2qTeKtbZAWlVCkiTLYjmxWCcbG0z8FSlAK8xUWllRpMD4rOuxNk/zuwyoTWY
- m4v2KDauA3v+ynJgszhkF7V286ctzpsZUJBJGEpGtb8LEboYdTNV/JTiUXqtxDOVpGrZ
- tOE8NOabEcwlka1rUtVS9kAIzQHUh1Z+5/HlQL/MbsuMOLFkSiDFcAxa5le0NJy+VSP5
- Nygx3Js9BdrDcFbjKX702bW8vzLpDeNyJevChgKVb2OAGG0sEQecQEi9fTYhy5NTmuRg
- 9gpA==
-X-Gm-Message-State: ACrzQf13eY9Ihqajr+9838HLyUrf3RyEc8QajO1XK2ZPClTDjkuva5My
- XgY9yyrTWx9H2zqSrPCXMbX+NyBTWu4=
-X-Google-Smtp-Source: AMsMyM7UgJJEBIxONS/22UTMuVhjZUPgXI7PICUOp4DVVBd1P2DyhU0Tdm/HAH38zo350WFXy+HtZg==
-X-Received: by 2002:a05:6a00:2187:b0:56c:7e85:c8f9 with SMTP id
- h7-20020a056a00218700b0056c7e85c8f9mr21939023pfi.75.1667342037228; 
- Tue, 01 Nov 2022 15:33:57 -0700 (PDT)
-Received: from localhost ([2a00:79e1:abd:4a00:2703:3c72:eb1a:cffd])
- by smtp.gmail.com with ESMTPSA id
- 65-20020a621644000000b0056bbcf88b93sm7032500pfw.42.2022.11.01.15.33.56
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 01 Nov 2022 15:33:56 -0700 (PDT)
-From: Rob Clark <robdclark@gmail.com>
-To: dri-devel@lists.freedesktop.org
-Date: Tue,  1 Nov 2022 15:33:10 -0700
-Message-Id: <20221101223319.165493-3-robdclark@gmail.com>
-X-Mailer: git-send-email 2.38.1
-In-Reply-To: <20221101223319.165493-1-robdclark@gmail.com>
-References: <20221101223319.165493-1-robdclark@gmail.com>
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=XBlp2DOijU5hXQ9AriUwp9vEVLgfxcCQxHX+sSZSvOs=;
+ b=QhmYhXPgWfimHeMAP/TorcXIyjQiTmO/UzZolP/m7ih/QC7T7+iQ9wJOszHLa2oiNW
+ f1v9HC/NOEQkEc4X0A8RZuO5BGyiezKxCKBMUvKl3kDcIDhwfQODTxkvStJdAE+NPT/3
+ CXGyxEBMKCqYEGEXSFMIo4Hhl5J0YeNh6A59yxroKuWiKsNyc94NaXkyFuTY89k05FWk
+ BuMVXWqoUh5uQoJl83R8FcirsJz1p99V91GLC+zasn8GDfbT6+g7OaK3Pb3aNSN6AB22
+ qLFBbgy7qgBtrJUMMjpG4u8lpzo5r/EoyU6iWR6dYt8pD8J2g4Mk3qdSBaU+ViXC2Ugi
+ GW7w==
+X-Gm-Message-State: ACrzQf00cYdhomMBZhQtDFfx+WAzYwnSNtB1GyFv+OWxK1i2pdN72vLJ
+ O5ifX6M54NKUKLKTGBD6oIx0AVBZFbr8heDlfl/VCts0WKG00GPArHsS89CFUHV0xTrQ1G8XL1o
+ V2ZLAVP5RfBzJtXP7/eY7tes3v2im
+X-Received: by 2002:a7b:c409:0:b0:3cf:4c81:8936 with SMTP id
+ k9-20020a7bc409000000b003cf4c818936mr24380811wmi.38.1667379840253; 
+ Wed, 02 Nov 2022 02:04:00 -0700 (PDT)
+X-Google-Smtp-Source: AMsMyM72ckpdUoZR+NwXtu1sv2+7NmgS+YMIWWHB7QdeKnWTKduGDRl7tg4bkpenTZv0mX1kFf34kw==
+X-Received: by 2002:a7b:c409:0:b0:3cf:4c81:8936 with SMTP id
+ k9-20020a7bc409000000b003cf4c818936mr24380784wmi.38.1667379840046; 
+ Wed, 02 Nov 2022 02:04:00 -0700 (PDT)
+Received: from [192.168.1.130] (205.pool92-176-231.dynamic.orange.es.
+ [92.176.231.205]) by smtp.gmail.com with ESMTPSA id
+ b13-20020a5d550d000000b002366b17ca8bsm14083933wrv.108.2022.11.02.02.03.58
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 02 Nov 2022 02:03:59 -0700 (PDT)
+Message-ID: <87284e5e-859e-3b1c-7142-28d4fa7a7939@redhat.com>
+Date: Wed, 2 Nov 2022 10:03:57 +0100
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH v2 2/2] drm/msm: Hangcheck progress detection
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.3.1
+To: Thomas Zimmermann <tzimmermann@suse.de>, daniel@ffwll.ch,
+ airlied@gmail.com, sam@ravnborg.org, mripard@kernel.org,
+ maarten.lankhorst@linux.intel.com
+References: <20221024111953.24307-1-tzimmermann@suse.de>
+ <20221024111953.24307-16-tzimmermann@suse.de>
+From: Javier Martinez Canillas <javierm@redhat.com>
+In-Reply-To: <20221024111953.24307-16-tzimmermann@suse.de>
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Language: en-US
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+Subject: Re: [Freedreno] [PATCH v2 15/21] drm/fb-helper: Disconnect damage
+ worker from update logic
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,247 +89,56 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rob Clark <robdclark@chromium.org>,
- Akhil P Oommen <quic_akhilpo@quicinc.com>, linux-arm-msm@vger.kernel.org,
- Konrad Dybcio <konrad.dybcio@somainline.org>,
- Vladimir Lypak <vladimir.lypak@gmail.com>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Douglas Anderson <dianders@chromium.org>, Sean Paul <sean@poorly.run>,
- Rob Clark <robdclark@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- David Airlie <airlied@gmail.com>, freedreno@lists.freedesktop.org,
- Chia-I Wu <olvaffe@gmail.com>, open list <linux-kernel@vger.kernel.org>
+Cc: linux-hyperv@vger.kernel.org, linux-aspeed@lists.ozlabs.org,
+ nouveau@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ virtualization@lists.linux-foundation.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-samsung-soc@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, linux-rockchip@lists.infradead.org,
+ xen-devel@lists.xenproject.org, linux-sunxi@lists.linux.dev,
+ linux-arm-msm@vger.kernel.org, intel-gfx@lists.freedesktop.org,
+ etnaviv@lists.freedesktop.org, linux-mediatek@lists.infradead.org,
+ spice-devel@lists.freedesktop.org, linux-tegra@vger.kernel.org,
+ linux-amlogic@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
+ linux-mips@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
+ freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-From: Rob Clark <robdclark@chromium.org>
+On 10/24/22 13:19, Thomas Zimmermann wrote:
+> The fbdev helpers implement a damage worker that forwards fbdev
+> updates to the DRM driver. The worker's update logic depends on
+> the generic fbdev emulation. Separate the two via function pointer.
+> 
+> The generic fbdev emulation sets struct drm_fb_helper_funcs.fb_dirty,
+> a new callback that hides the update logic from the damage worker.
+> It's not possible to use the generic logic with other fbdev emulation,
+> because it contains additional code for the shadow buffering that
+> the generic emulation employs.
+> 
+> DRM drivers with internal fbdev emulation can set fb_dirty to their
+> own implementation if they require damage handling; although no such
+> drivers currently exist.
+> 
+> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+> ---
 
-If the hangcheck timer expires, check if the fw's position in the
-cmdstream has advanced (changed) since last timer expiration, and
-allow it up to three additional "extensions" to it's alotted time.
-The intention is to continue to catch "shader stuck in a loop" type
-hangs quickly, but allow more time for things that are actually
-making forward progress.
+[...]
 
-Because we need to sample the CP state twice to detect if there has
-not been progress, this also cuts the the timer's duration in half.
+>  static void drm_fb_helper_damage_work(struct work_struct *work)
+>  {
+> -	struct drm_fb_helper *helper = container_of(work, struct drm_fb_helper,
+> -						    damage_work);
+> -	struct drm_device *dev = helper->dev;
+> +	struct drm_fb_helper *helper = container_of(work, struct drm_fb_helper, damage_work);
 
-v2: Fix typo (REG_A6XX_CP_CSQ_IB2_STAT), add comment
+This line is an unrelated code style change. But I guess it's OK.
 
-Signed-off-by: Rob Clark <robdclark@chromium.org>
-Reviewed-by: Akhil P Oommen <quic_akhilpo@quicinc.com>
----
- drivers/gpu/drm/msm/adreno/a5xx_gpu.c | 16 +++++++++++++
- drivers/gpu/drm/msm/adreno/a6xx_gpu.c | 34 +++++++++++++++++++++++++++
- drivers/gpu/drm/msm/msm_drv.h         |  8 ++++++-
- drivers/gpu/drm/msm/msm_gpu.c         | 20 +++++++++++++++-
- drivers/gpu/drm/msm/msm_gpu.h         |  5 +++-
- drivers/gpu/drm/msm/msm_ringbuffer.h  | 24 +++++++++++++++++++
- 6 files changed, 104 insertions(+), 3 deletions(-)
+Reviewed-by: Javier Martinez Canillas <javierm@redhat.com>
 
-diff --git a/drivers/gpu/drm/msm/adreno/a5xx_gpu.c b/drivers/gpu/drm/msm/adreno/a5xx_gpu.c
-index ba22d3c918bc..9638ce71e172 100644
---- a/drivers/gpu/drm/msm/adreno/a5xx_gpu.c
-+++ b/drivers/gpu/drm/msm/adreno/a5xx_gpu.c
-@@ -1677,6 +1677,22 @@ static uint32_t a5xx_get_rptr(struct msm_gpu *gpu, struct msm_ringbuffer *ring)
- 	return ring->memptrs->rptr = gpu_read(gpu, REG_A5XX_CP_RB_RPTR);
- }
- 
-+static bool a5xx_progress(struct msm_gpu *gpu, struct msm_ringbuffer *ring)
-+{
-+	struct msm_cp_state cp_state = {
-+		.ib1_base = gpu_read64(gpu, REG_A5XX_CP_IB1_BASE),
-+		.ib2_base = gpu_read64(gpu, REG_A5XX_CP_IB2_BASE),
-+		.ib1_rem  = gpu_read(gpu, REG_A5XX_CP_IB1_BUFSZ),
-+		.ib2_rem  = gpu_read(gpu, REG_A5XX_CP_IB2_BUFSZ),
-+	};
-+	bool progress =
-+		!!memcmp(&cp_state, &ring->last_cp_state, sizeof(cp_state));
-+
-+	ring->last_cp_state = cp_state;
-+
-+	return progress;
-+}
-+
- static const struct adreno_gpu_funcs funcs = {
- 	.base = {
- 		.get_param = adreno_get_param,
-diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-index 1ff605c18ee6..7fe60c65a1eb 100644
---- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-+++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-@@ -1843,6 +1843,39 @@ static uint32_t a6xx_get_rptr(struct msm_gpu *gpu, struct msm_ringbuffer *ring)
- 	return ring->memptrs->rptr = gpu_read(gpu, REG_A6XX_CP_RB_RPTR);
- }
- 
-+static bool a6xx_progress(struct msm_gpu *gpu, struct msm_ringbuffer *ring)
-+{
-+	struct msm_cp_state cp_state = {
-+		.ib1_base = gpu_read64(gpu, REG_A6XX_CP_IB1_BASE),
-+		.ib2_base = gpu_read64(gpu, REG_A6XX_CP_IB2_BASE),
-+		.ib1_rem  = gpu_read(gpu, REG_A6XX_CP_IB1_REM_SIZE),
-+		.ib2_rem  = gpu_read(gpu, REG_A6XX_CP_IB2_REM_SIZE),
-+	};
-+	bool progress;
-+
-+	/*
-+	 * Adjust the remaining data to account for what has already been
-+	 * fetched from memory, but not yet consumed by the SQE.
-+	 *
-+	 * This is not *technically* correct, the amount buffered could
-+	 * exceed the IB size due to hw prefetching ahead, but:
-+	 *
-+	 * (1) We aren't trying to find the exact position, just whether
-+	 *     progress has been made
-+	 * (2) The CP_REG_TO_MEM at the end of a submit should be enough
-+	 *     to prevent prefetching into an unrelated submit.  (And
-+	 *     either way, at some point the ROQ will be full.)
-+	 */
-+	cp_state.ib1_rem += gpu_read(gpu, REG_A6XX_CP_CSQ_IB1_STAT) >> 16;
-+	cp_state.ib2_rem += gpu_read(gpu, REG_A6XX_CP_CSQ_IB2_STAT) >> 16;
-+
-+	progress = !!memcmp(&cp_state, &ring->last_cp_state, sizeof(cp_state));
-+
-+	ring->last_cp_state = cp_state;
-+
-+	return progress;
-+}
-+
- static u32 a618_get_speed_bin(u32 fuse)
- {
- 	if (fuse == 0)
-@@ -1961,6 +1994,7 @@ static const struct adreno_gpu_funcs funcs = {
- 		.create_address_space = a6xx_create_address_space,
- 		.create_private_address_space = a6xx_create_private_address_space,
- 		.get_rptr = a6xx_get_rptr,
-+		.progress = a6xx_progress,
- 	},
- 	.get_timestamp = a6xx_get_timestamp,
- };
-diff --git a/drivers/gpu/drm/msm/msm_drv.h b/drivers/gpu/drm/msm/msm_drv.h
-index 0609daf4fa4c..876d8d5eec2f 100644
---- a/drivers/gpu/drm/msm/msm_drv.h
-+++ b/drivers/gpu/drm/msm/msm_drv.h
-@@ -225,7 +225,13 @@ struct msm_drm_private {
- 
- 	struct drm_atomic_state *pm_state;
- 
--	/* For hang detection, in ms */
-+	/**
-+	 * hangcheck_period: For hang detection, in ms
-+	 *
-+	 * Note that in practice, a submit/job will get at least two hangcheck
-+	 * periods, due to checking for progress being implemented as simply
-+	 * "have the CP position registers changed since last time?"
-+	 */
- 	unsigned int hangcheck_period;
- 
- 	/**
-diff --git a/drivers/gpu/drm/msm/msm_gpu.c b/drivers/gpu/drm/msm/msm_gpu.c
-index 3dffee54a951..136f5977b0bf 100644
---- a/drivers/gpu/drm/msm/msm_gpu.c
-+++ b/drivers/gpu/drm/msm/msm_gpu.c
-@@ -500,6 +500,21 @@ static void hangcheck_timer_reset(struct msm_gpu *gpu)
- 			round_jiffies_up(jiffies + msecs_to_jiffies(priv->hangcheck_period)));
- }
- 
-+static bool made_progress(struct msm_gpu *gpu, struct msm_ringbuffer *ring)
-+{
-+	if (ring->hangcheck_progress_retries >= DRM_MSM_HANGCHECK_PROGRESS_RETRIES)
-+		return false;
-+
-+	if (!gpu->funcs->progress)
-+		return false;
-+
-+	if (!gpu->funcs->progress(gpu, ring))
-+		return false;
-+
-+	ring->hangcheck_progress_retries++;
-+	return true;
-+}
-+
- static void hangcheck_handler(struct timer_list *t)
- {
- 	struct msm_gpu *gpu = from_timer(gpu, t, hangcheck_timer);
-@@ -511,9 +526,12 @@ static void hangcheck_handler(struct timer_list *t)
- 	if (fence != ring->hangcheck_fence) {
- 		/* some progress has been made.. ya! */
- 		ring->hangcheck_fence = fence;
--	} else if (fence_before(fence, ring->fctx->last_fence)) {
-+		ring->hangcheck_progress_retries = 0;
-+	} else if (fence_before(fence, ring->fctx->last_fence) &&
-+			!made_progress(gpu, ring)) {
- 		/* no progress and not done.. hung! */
- 		ring->hangcheck_fence = fence;
-+		ring->hangcheck_progress_retries = 0;
- 		DRM_DEV_ERROR(dev->dev, "%s: hangcheck detected gpu lockup rb %d!\n",
- 				gpu->name, ring->id);
- 		DRM_DEV_ERROR(dev->dev, "%s:     completed fence: %u\n",
-diff --git a/drivers/gpu/drm/msm/msm_gpu.h b/drivers/gpu/drm/msm/msm_gpu.h
-index 585fd9c8d45a..d8f355e9f0b2 100644
---- a/drivers/gpu/drm/msm/msm_gpu.h
-+++ b/drivers/gpu/drm/msm/msm_gpu.h
-@@ -78,6 +78,8 @@ struct msm_gpu_funcs {
- 	struct msm_gem_address_space *(*create_private_address_space)
- 		(struct msm_gpu *gpu);
- 	uint32_t (*get_rptr)(struct msm_gpu *gpu, struct msm_ringbuffer *ring);
-+
-+	bool (*progress)(struct msm_gpu *gpu, struct msm_ringbuffer *ring);
- };
- 
- /* Additional state for iommu faults: */
-@@ -236,7 +238,8 @@ struct msm_gpu {
- 	 */
- #define DRM_MSM_INACTIVE_PERIOD   66 /* in ms (roughly four frames) */
- 
--#define DRM_MSM_HANGCHECK_DEFAULT_PERIOD 500 /* in ms */
-+#define DRM_MSM_HANGCHECK_DEFAULT_PERIOD 250 /* in ms */
-+#define DRM_MSM_HANGCHECK_PROGRESS_RETRIES 3
- 	struct timer_list hangcheck_timer;
- 
- 	/* Fault info for most recent iova fault: */
-diff --git a/drivers/gpu/drm/msm/msm_ringbuffer.h b/drivers/gpu/drm/msm/msm_ringbuffer.h
-index 2a5045abe46e..e3d33bae3380 100644
---- a/drivers/gpu/drm/msm/msm_ringbuffer.h
-+++ b/drivers/gpu/drm/msm/msm_ringbuffer.h
-@@ -35,6 +35,11 @@ struct msm_rbmemptrs {
- 	volatile u64 ttbr0;
- };
- 
-+struct msm_cp_state {
-+	uint64_t ib1_base, ib2_base;
-+	uint32_t ib1_rem, ib2_rem;
-+};
-+
- struct msm_ringbuffer {
- 	struct msm_gpu *gpu;
- 	int id;
-@@ -64,6 +69,25 @@ struct msm_ringbuffer {
- 	uint64_t memptrs_iova;
- 	struct msm_fence_context *fctx;
- 
-+	/**
-+	 * hangcheck_progress_retries:
-+	 *
-+	 * The number of extra hangcheck duration cycles that we have given
-+	 * due to it appearing that the GPU is making forward progress.
-+	 *
-+	 * If the GPU appears to be making progress (ie. the CP has advanced
-+	 * in the command stream, we'll allow up to DRM_MSM_HANGCHECK_PROGRESS_RETRIES
-+	 * expirations of the hangcheck timer before killing the job.  In other
-+	 * words we'll let the submit run for up to
-+	 * DRM_MSM_HANGCHECK_DEFAULT_PERIOD *  DRM_MSM_HANGCHECK_PROGRESS_RETRIES
-+	 */
-+	int hangcheck_progress_retries;
-+
-+	/**
-+	 * last_cp_state: The state of the CP at the last call to gpu->progress()
-+	 */
-+	struct msm_cp_state last_cp_state;
-+
- 	/*
- 	 * preempt_lock protects preemption and serializes wptr updates against
- 	 * preemption.  Can be aquired from irq context.
 -- 
-2.38.1
+Best regards,
+
+Javier Martinez Canillas
+Core Platforms
+Red Hat
 
