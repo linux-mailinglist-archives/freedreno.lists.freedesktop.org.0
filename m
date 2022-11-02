@@ -2,64 +2,64 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9FFD2615FC4
-	for <lists+freedreno@lfdr.de>; Wed,  2 Nov 2022 10:32:20 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 660E2615FF8
+	for <lists+freedreno@lfdr.de>; Wed,  2 Nov 2022 10:39:41 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4FC2C10E0AA;
-	Wed,  2 Nov 2022 09:32:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C8F8C10E467;
+	Wed,  2 Nov 2022 09:39:35 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from us-smtp-delivery-124.mimecast.com
  (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9632110E453
- for <freedreno@lists.freedesktop.org>; Wed,  2 Nov 2022 09:32:17 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4814610E463
+ for <freedreno@lists.freedesktop.org>; Wed,  2 Nov 2022 09:39:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1667381536;
+ s=mimecast20190719; t=1667381966;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=qCDrX0xKXyu8erIDNjxDiJKuT0hxZZKKE3HXuUGBVDQ=;
- b=g86kVOmVqcJ3jvx7QLkap7dOJqWx4Jkz4xwCyM5E3D5uU39i8xAefQvqxOKN5H5LoxvUsS
- PIC72S+nNsAaw1AjBB0WT2jmkEDsxqvhrcNE9IXrbtcn7F5l8j3iSkrfnqjMOP901MtXZm
- CJcXGUj8XU5QGMG0V3YLjmFRZQfk710=
-Received: from mail-wm1-f71.google.com (mail-wm1-f71.google.com
- [209.85.128.71]) by relay.mimecast.com with ESMTP with STARTTLS
+ bh=RgeOXsRJ+XKaYoOYvxoyhBylXQrWD/HUrGfmQUHOZZs=;
+ b=Jio9JFQacF7FMi0mPUb743H5F84vjCUoxUEdOs4aCfEtqSNexXzNQhBZqnP+aEdEkKHJXh
+ URmHGjTMdLlBZMQtpImG0Y4/SH1ck9czoq54M3olm1njxLJsVz+LHQL3sTJgt66SNaM5Ds
+ +mvqMM0BCfe4PNY5ygcY3NKi7w2CfF8=
+Received: from mail-wr1-f72.google.com (mail-wr1-f72.google.com
+ [209.85.221.72]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_128_GCM_SHA256) id
- us-mta-658-yLMP8EDbNDKQgAG6T5uk0Q-1; Wed, 02 Nov 2022 05:32:15 -0400
-X-MC-Unique: yLMP8EDbNDKQgAG6T5uk0Q-1
-Received: by mail-wm1-f71.google.com with SMTP id
- f1-20020a1cc901000000b003cf703a4f08so267970wmb.2
- for <freedreno@lists.freedesktop.org>; Wed, 02 Nov 2022 02:32:15 -0700 (PDT)
+ us-mta-90-bDjyWllgNti2E7yuBRMauQ-1; Wed, 02 Nov 2022 05:39:25 -0400
+X-MC-Unique: bDjyWllgNti2E7yuBRMauQ-1
+Received: by mail-wr1-f72.google.com with SMTP id
+ e21-20020adfa455000000b002365c221b59so4665253wra.22
+ for <freedreno@lists.freedesktop.org>; Wed, 02 Nov 2022 02:39:25 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=qCDrX0xKXyu8erIDNjxDiJKuT0hxZZKKE3HXuUGBVDQ=;
- b=N+xrTLgmdUAtvn6NIo8FC8Po9lQihDadmDiLodKiE7UksTA+wbDlS+V1KpyMxp24Au
- UQFCh0icNZI9XjJUlM3vF1sKNJt1DBLpkpl9Rh/x7XJjMQnF0/uW/+h2eoC3uUGf7t6y
- 3GFFgJKAIG0/pBZOySuXSk95Pzqhuby8oss1ZuEf2Rux8rikAh6lnbYbXW8i5hX9IUcL
- PNKdDuBie2JuZSl+bP/ATcscYxgzN9N2Cut18T/zNDvnKb/c/nVUXWx9lGpZ7mIw1jKK
- u8tWEHNtJ1heOJzmnmWD4NB34gtXHCtxYjJ1H/qTW95UOICk6BhSyug0VOLWfvZl/KuF
- 8MSw==
-X-Gm-Message-State: ACrzQf2a9bb6dt860fa+lSclfuxmCjFkgEfr0KHA5Xwp7Pfo6Nmo0RQ4
- P0HxozXBvpGrI0kBGG4f4DproMSst+1H/brUSPix2Dmc+YStvfGnRGTTL/UzHVQg6GcqbUtqm0a
- McNucIiAVpaDDfKz+byLucy8YMN3A
-X-Received: by 2002:a05:600c:6023:b0:3cf:7dc1:e08e with SMTP id
- az35-20020a05600c602300b003cf7dc1e08emr5443615wmb.154.1667381534284; 
- Wed, 02 Nov 2022 02:32:14 -0700 (PDT)
-X-Google-Smtp-Source: AMsMyM7iks5yFnak5X2iZPcs6wSoPN4c8RmVdgyjVaQzUQOEwDY0j8GZM7MD/vLKrS0XyFefd22bEw==
-X-Received: by 2002:a05:600c:6023:b0:3cf:7dc1:e08e with SMTP id
- az35-20020a05600c602300b003cf7dc1e08emr5443583wmb.154.1667381533975; 
- Wed, 02 Nov 2022 02:32:13 -0700 (PDT)
+ bh=RgeOXsRJ+XKaYoOYvxoyhBylXQrWD/HUrGfmQUHOZZs=;
+ b=W4Rh8jt7HVf2tdByZM9gCjgUqwGr704IqvzSad5j5WyEHBci8eHDQrK3jYTejmCI6S
+ SckqU6iXzIgjGebwgWLZ8JbsCmPkklmttwkqlNHqq+NiRmPhTKE3h3RkdeYmDvbVhet3
+ WnYjjAxhjyl1AaeBVwOMq+/lUxzRmreSajQiettnGg2Gc1n9MwVyFLAfEtChIqEtKPkf
+ I2V8gGKlgpDnZtYbIQwNoZ33XhXE1w42qC20SbpaMEqDJdMyrN0E56mZ9EcB3Y/Rp/Vl
+ PYedI/lbcOw5v2GFFIGHabTE7j+eoOGz5aFzdtnlOyj+HPNCp/omK0EysFEvtAfR8hjO
+ go6g==
+X-Gm-Message-State: ACrzQf02IilE0WvNqSb0o2e4ZYYP0i10gW2EZHm5Q8YhcWK5ImumVKUN
+ NAYbRUTs0kxGJINbNPZkXH1SLnnzxjVhFFQfuEU4MkKnYiLCaEH54+7Ap504jmYUmqfaBBg8Z01
+ pYBdGbkkyHxBjCK9IT+hfme3sHUTu
+X-Received: by 2002:a5d:40d1:0:b0:236:786d:611e with SMTP id
+ b17-20020a5d40d1000000b00236786d611emr14871561wrq.355.1667381964726; 
+ Wed, 02 Nov 2022 02:39:24 -0700 (PDT)
+X-Google-Smtp-Source: AMsMyM4/k2KHrjikPXyIbTE3cWGjPi0EsRobUeOg55XAJjnO250x+w4Sp4JFFeS1nRK3GUJGY3QPnQ==
+X-Received: by 2002:a5d:40d1:0:b0:236:786d:611e with SMTP id
+ b17-20020a5d40d1000000b00236786d611emr14871522wrq.355.1667381964509; 
+ Wed, 02 Nov 2022 02:39:24 -0700 (PDT)
 Received: from [192.168.1.130] (205.pool92-176-231.dynamic.orange.es.
  [92.176.231.205]) by smtp.gmail.com with ESMTPSA id
- x21-20020a1c7c15000000b003b492753826sm1361990wmc.43.2022.11.02.02.32.12
+ dn12-20020a05600c654c00b003cf537ec2efsm1653185wmb.36.2022.11.02.02.39.22
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 02 Nov 2022 02:32:13 -0700 (PDT)
-Message-ID: <3ab32fc3-f2aa-1b42-fd87-557482ab56d5@redhat.com>
-Date: Wed, 2 Nov 2022 10:32:11 +0100
+ Wed, 02 Nov 2022 02:39:24 -0700 (PDT)
+Message-ID: <23b6c3ca-828a-5376-ae80-0b04202e190b@redhat.com>
+Date: Wed, 2 Nov 2022 10:39:22 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.3.1
@@ -67,16 +67,16 @@ To: Thomas Zimmermann <tzimmermann@suse.de>, daniel@ffwll.ch,
  airlied@gmail.com, sam@ravnborg.org, mripard@kernel.org,
  maarten.lankhorst@linux.intel.com
 References: <20221024111953.24307-1-tzimmermann@suse.de>
- <20221024111953.24307-18-tzimmermann@suse.de>
+ <20221024111953.24307-19-tzimmermann@suse.de>
 From: Javier Martinez Canillas <javierm@redhat.com>
-In-Reply-To: <20221024111953.24307-18-tzimmermann@suse.de>
+In-Reply-To: <20221024111953.24307-19-tzimmermann@suse.de>
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Language: en-US
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH v2 17/21] drm/fb-helper: Perform all fbdev
- I/O with the same implementation
+Subject: Re: [Freedreno] [PATCH v2 18/21] drm/fb_helper: Minimize
+ damage-helper overhead
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -105,92 +105,33 @@ Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 On 10/24/22 13:19, Thomas Zimmermann wrote:
-> Implement the fbdev's read/write helpers with the same functions. Use
-> the generic fbdev's code as template. Convert all drivers.
-> 
-> DRM's fb helpers must implement regular I/O functionality in struct
-> fb_ops and possibly perform a damage update. Handle all this in the
-> same functions and convert drivers. The functionality has been used
-> as part of the generic fbdev code for some time. The drivers don't
-> set struct drm_fb_helper.fb_dirty, so they will not be affected by
-> damage handling.
-> 
-> For I/O memory, fb helpers now provide drm_fb_helper_cfb_read() and
-> drm_fb_helper_cfb_write(). Several drivers require these. Until now
-> tegra used I/O read and write, although the memory buffer appears to
-> be in system memory. So use _sys_ helpers now.
+> Pull the test for fb_dirty into the caller to avoid extra work
+> if no callback has been set. In this case no damage handling is
+> required and no damage area needs to be computed. Print a warning
+> if the damage worker runs without getting an fb_dirty callback.
 > 
 > Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
 > ---
 
-[...]
+Reviewed-by: Javier Martinez Canillas <javierm@redhat.com>
 
-> +static ssize_t __drm_fb_helper_write(struct fb_info *info, const char __user *buf, size_t count,
-> +				     loff_t *ppos, drm_fb_helper_write_screen write_screen)
-> +{
+But I've a trivial comment below:
 
-[...]
+>  drivers/gpu/drm/drm_fb_helper.c | 90 ++++++++++++++++++++++-----------
+>  1 file changed, 60 insertions(+), 30 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/drm_fb_helper.c b/drivers/gpu/drm/drm_fb_helper.c
+> index 836523aef6a27..fbc5c5445fdb0 100644
+> --- a/drivers/gpu/drm/drm_fb_helper.c
+> +++ b/drivers/gpu/drm/drm_fb_helper.c
+> @@ -449,12 +449,13 @@ static int drm_fb_helper_damage_blit(struct drm_fb_helper *fb_helper,
+>  static void drm_fb_helper_damage_work(struct work_struct *work)
+>  {
+>  	struct drm_fb_helper *helper = container_of(work, struct drm_fb_helper, damage_work);
+> +	struct drm_device *dev = helper->dev;
 
-> +	/*
-> +	 * Copy to framebuffer even if we already logged an error. Emulates
-> +	 * the behavior of the original fbdev implementation.
-> +	 */
-> +	ret = write_screen(info, buf, count, pos);
-> +	if (ret < 0)
-> +		return ret; /* return last error, if any */
-> +	else if (!ret)
-> +		return err; /* return previous error, if any */
-> +
-> +	*ppos += ret;
-> +
-
-Should *ppos be incremented even if the previous error is returned?
-
-The write_screen() succeeded anyways, even when the count written was
-smaller than what the caller asked for.
-
->  /**
-> - * drm_fb_helper_sys_read - wrapper around fb_sys_read
-> + * drm_fb_helper_sys_read - Implements struct &fb_ops.fb_read for system memory
->   * @info: fb_info struct pointer
->   * @buf: userspace buffer to read from framebuffer memory
->   * @count: number of bytes to read from framebuffer memory
->   * @ppos: read offset within framebuffer memory
->   *
-> - * A wrapper around fb_sys_read implemented by fbdev core
-> + * Returns:
-> + * The number of read bytes on success, or an error code otherwise.
->   */
-
-This sentence sounds a little bit off to me. Shouldn't be "number of bytes read"
-instead? I'm not a native English speaker though, so feel free to just ignore me.
-
-[...]
-
->  
-> +static ssize_t fb_read_screen_base(struct fb_info *info, char __user *buf, size_t count,
-> +				   loff_t pos)
-> +{
-> +	const char __iomem *src = info->screen_base + pos;
-> +	size_t alloc_size = min_t(size_t, count, PAGE_SIZE);
-> +	ssize_t ret = 0;
-> +	int err = 0;
-
-Do you really need these two? AFAIK ssize_t is a signed type
-so you can just use the ret variable to store and return the
-errno value.
-
-[...]
-
-> +static ssize_t fb_write_screen_base(struct fb_info *info, const char __user *buf, size_t count,
-> +				    loff_t pos)
-> +{
-> +	char __iomem *dst = info->screen_base + pos;
-> +	size_t alloc_size = min_t(size_t, count, PAGE_SIZE);
-> +	ssize_t ret = 0;
-> +	int err = 0;
-
-Same here.
+You removed this in patch #15, maybe just leaving it in that patch if you
+plan to use it again here?
 
 -- 
 Best regards,
