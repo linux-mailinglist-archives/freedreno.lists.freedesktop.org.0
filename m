@@ -1,74 +1,60 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id EC331616683
-	for <lists+freedreno@lfdr.de>; Wed,  2 Nov 2022 16:51:48 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id C35256166BE
+	for <lists+freedreno@lfdr.de>; Wed,  2 Nov 2022 16:59:55 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 55B1610E4CF;
-	Wed,  2 Nov 2022 15:51:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6A05110E4D7;
+	Wed,  2 Nov 2022 15:59:54 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x130.google.com (mail-lf1-x130.google.com
- [IPv6:2a00:1450:4864:20::130])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BDCBE10E4D3
- for <freedreno@lists.freedesktop.org>; Wed,  2 Nov 2022 15:51:44 +0000 (UTC)
-Received: by mail-lf1-x130.google.com with SMTP id g7so28939172lfv.5
- for <freedreno@lists.freedesktop.org>; Wed, 02 Nov 2022 08:51:44 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=XkrttrP/8k6Uhj+JHOcFHyc8juhef2eGyny7iXFjWgw=;
- b=Z0VLSJzNCtq9E/ToW9yfbkWyLnA4YxfCOgY356IXchLTKymFr/drPoV6ftSoyyK1kx
- 7HNvXAtou0FZKenXDL6dfoFqMh7JInssILzSMMfBYEFJrWIEKLuCn+TApj49wJfEdvwl
- p2n3sIFPzHPnzLFUYRjh/oMxWAuMI3n7mTPhkKTJA4c5OIIKISCY5y550/FKvsJjLw9+
- 14vw+0YMXt+QXJJfB035YvPXV1Qxt2CBojYgM2PUJQ+Q/jfD7nlbjPZ8iYBn2xjOjtUK
- /gOyDngmmxbfzeWYJhhScq7bUEJu/MshMGh1kiS6U8iDcea209WtB1opX5Ut2oAR1N39
- PV+w==
+Received: from mail-qk1-x729.google.com (mail-qk1-x729.google.com
+ [IPv6:2607:f8b0:4864:20::729])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 07EE710E4D5;
+ Wed,  2 Nov 2022 15:59:51 +0000 (UTC)
+Received: by mail-qk1-x729.google.com with SMTP id l9so11995544qkk.11;
+ Wed, 02 Nov 2022 08:59:50 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=F/1grPaD+xMIby1Txd3zoCjkj1cuL2trjeEvsrdeQYk=;
+ b=pE+d2BMuxQjQYzxQqj4PXTA8MdpkV/KJe2dAN8yPM0xASyxTbxq9if/GzGXIwkEnkm
+ Zhq28XdD6jQ/2Ix6oTGL+2kJW+/C9S8DXs0WmmtbOwWoF4Fc/9Q2VlLDHMjAYS0aBhOI
+ 8QrjLRVd9u5A9F0OF6DkrHbdoqLDQQzShm7+B0hYX/wvOUoGswqKQt4l7RXX+gEwCpu9
+ h9Mtj97CQnB26geCAwTJr+LTcXYOQCqOISPZNaTmK3RCJKbGO2QgW9zjwgAQFBxAA2WW
+ Urz83q4xaNSKPMWBsS15Pju/tNWJnjU7O7ktboSF+MB3PDFm7tZw69e7zYLw8VeOiXJD
+ CT3g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=XkrttrP/8k6Uhj+JHOcFHyc8juhef2eGyny7iXFjWgw=;
- b=i79/dHECqMFxiN3NDmVv8ErPXyhiNTMN2JiZzeppkoEH3vrCkPPPF+syflnD//sQtD
- EPd5xdRwz4fy/Cl58xDFL/afRsbnFfl5PNUfgRrhXvYCubCZCO+ubIvb7T9VNetryWJD
- zvXcAQfS9BP4Upyp2sRJtGj3vChWs/LZ4XmMGpPC9TuVyeiNtd8OOdE9uRyxOmY1dOEN
- ohaBYVL8My7yiYKjSmBQzdl1IM3MyKT8/UvrVq1z+pdUWxwHWr6+4iF4Dtf3nc0bz8+f
- 2iehX7HWcRv9a4QLB4Uo2vboky98BPu8Rlvmk4NNaDEZOegniuLlSNdjBY5nTr9tLfMR
- M9Sw==
-X-Gm-Message-State: ACrzQf2MSWUBPcqqSNHrCuSNUUOwJDDaWjfVzh22epp9C7jo7d2vP3oo
- 0eY/zMai0/35HqfmN5a7txXgLQ==
-X-Google-Smtp-Source: AMsMyM5obyOxH5ml1zFCem7IPj8YH+crCGInHzB5mEhtge5d5tFEMYzt7zsPGDsbakKat45LEQ00pQ==
-X-Received: by 2002:ac2:51b4:0:b0:4b1:785c:7a5d with SMTP id
- f20-20020ac251b4000000b004b1785c7a5dmr349522lfk.261.1667404302716; 
- Wed, 02 Nov 2022 08:51:42 -0700 (PDT)
-Received: from [10.10.15.130] ([192.130.178.91])
- by smtp.gmail.com with ESMTPSA id
- u16-20020a2ea170000000b0026c3ecf9a39sm2192247ljl.38.2022.11.02.08.51.41
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 02 Nov 2022 08:51:42 -0700 (PDT)
-Message-ID: <b0663134-f1fe-9d14-44fb-145b95e5228c@linaro.org>
-Date: Wed, 2 Nov 2022 18:51:41 +0300
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=F/1grPaD+xMIby1Txd3zoCjkj1cuL2trjeEvsrdeQYk=;
+ b=URfWVJQincuOE3xbFf1fFUfdnjrp6UDiJ8PBAl69nLwbhjpt5Tewh64/SzsZntl4wh
+ d0V92VnMrvwDn4cYViazsTsYLrm7i02mlVcb1HVgbbPA+zP96iBBPAUUfy/reoLlSwv8
+ 3cGeNPXmAJjuiSVpO99DlwczZGSNB9z/vuHz1Qwe3Fghc59y4C3Rz3KH6i6p9Vy1jxNp
+ myUYEVIwbQ8uWm71LtUJdIemYnsr7M9ukZs06CEXTJ4eJCWlxpArKPSGJjGay2rGWM6q
+ W/1NBltlXYVH+JXGSL2XjX/JpwCwWvWPQJrxdfQRqdiEN1YGgqwXyZ0HKQoFH1SYV4g+
+ fqyQ==
+X-Gm-Message-State: ACrzQf3F6stXF3VWZDePyfx/kFt7oFocoBGXDoLMTUJH/M2Pxigpregt
+ HADfqd0jOtCNc3TZW++WIcNWfZPMbmnluXpOqeLqxjV7
+X-Google-Smtp-Source: AMsMyM4hLVYbFgPOuL0CR9Bpu/6eSDfsMz83d21/2tJDZhIHfJzJSngYiCH/QQcArG+V4Qg/WyZljtSopOCAqV2gAII=
+X-Received: by 2002:a05:620a:254e:b0:6c7:855c:6eb with SMTP id
+ s14-20020a05620a254e00b006c7855c06ebmr18731720qko.39.1667404790104; Wed, 02
+ Nov 2022 08:59:50 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.4.0
-Content-Language: en-GB
-To: Kuogee Hsieh <quic_khsieh@quicinc.com>, dri-devel@lists.freedesktop.org,
- robdclark@gmail.com, sean@poorly.run, swboyd@chromium.org,
- dianders@chromium.org, vkoul@kernel.org, daniel@ffwll.ch, airlied@linux.ie,
- agross@kernel.org, bjorn.andersson@linaro.org
-References: <1662999830-13916-1-git-send-email-quic_khsieh@quicinc.com>
- <1662999830-13916-4-git-send-email-quic_khsieh@quicinc.com>
- <067c7bc0-4746-f714-db56-a3c9e4f25588@linaro.org>
- <61d591ff-c5d8-a032-9eaa-6ab4c535a679@quicinc.com>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-In-Reply-To: <61d591ff-c5d8-a032-9eaa-6ab4c535a679@quicinc.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-Subject: Re: [Freedreno] [PATCH v5 3/3] drm/msm/dp: retry 3 times if set
- sink to D0 poweer state failed
+References: <20221101214051.159988-1-robdclark@gmail.com>
+ <044540cc-1d8b-45da-ac8b-ecc133b45dc1@amd.com>
+In-Reply-To: <044540cc-1d8b-45da-ac8b-ecc133b45dc1@amd.com>
+From: Rob Clark <robdclark@gmail.com>
+Date: Wed, 2 Nov 2022 09:00:06 -0700
+Message-ID: <CAF6AEGvFxU10Uu+eBRm0ChyVDPg3DMNoeHd4zCWHWwRzRBvP3Q@mail.gmail.com>
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [Freedreno] [PATCH] drm/msm: Remove exclusive-fence hack
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,73 +67,76 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-arm-msm@vger.kernel.org, quic_sbillaka@quicinc.com,
- freedreno@lists.freedesktop.org, quic_abhinavk@quicinc.com,
- linux-kernel@vger.kernel.org
+Cc: Rob Clark <robdclark@chromium.org>, linux-arm-msm@vger.kernel.org,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
+ open list <linux-kernel@vger.kernel.org>,
+ "moderated list:DMA BUFFER SHARING FRAMEWORK" <linaro-mm-sig@lists.linaro.org>,
+ Sean Paul <sean@poorly.run>, Daniel Vetter <daniel@ffwll.ch>,
+ Daniel Vetter <daniel.vetter@ffwll.ch>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ David Airlie <airlied@gmail.com>, freedreno@lists.freedesktop.org,
+ Sumit Semwal <sumit.semwal@linaro.org>,
+ "open list:DMA BUFFER SHARING FRAMEWORK" <linux-media@vger.kernel.org>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 12/09/2022 22:26, Kuogee Hsieh wrote:
-> 
-> On 9/12/2022 11:37 AM, Dmitry Baryshkov wrote:
->> On 12/09/2022 19:23, Kuogee Hsieh wrote:
->>> Bring sink out of D3 (power down) mode into D0 (normal operation) mode
->>> by setting DP_SET_POWER_D0 bit to DP_SET_POWER dpcd register. This
->>> patch will retry 3 times if written to DP_SET_POWER register failed.
->>
->> Could you please elaborate this change? Can the sink succeed in 
->> reading the DP_SET_POWER, but fail writing DP_SET_POWER?
-> 
-> yes, there is possible since it is not only set local sink device but 
-> also all downstream sink devices to D0 state.
+On Wed, Nov 2, 2022 at 3:46 AM Christian K=C3=B6nig <christian.koenig@amd.c=
+om> wrote:
+>
+> Am 01.11.22 um 22:40 schrieb Rob Clark:
+> > From: Rob Clark <robdclark@chromium.org>
+> >
+> > The workaround was initially necessary due to dma_resv having only a
+> > single exclusive fence slot, yet whe don't necessarily know what order
+> > the gpu scheduler will schedule jobs.  Unfortunately this workaround
+> > also has the result of forcing implicit sync, even when userspace does
+> > not want it.
+> >
+> > However, since commit 047a1b877ed4 ("dma-buf & drm/amdgpu: remove
+> > dma_resv workaround") the workaround is no longer needed.  So remove
+> > it.  This effectively reverts commit f1b3f696a084 ("drm/msm: Don't
+> > break exclusive fence ordering")
+> >
+> > Signed-off-by: Rob Clark <robdclark@chromium.org>
+>
+> Oh, yes please. I had that on my todo list for after the initial patch
+> had landed, but couldn't find the time to look into it once more.
+>
+> There was another case with one of the other ARM drivers which could be
+> cleaned up now, but I can't find it any more of hand.
+>
+> Anyway this patch here is Acked-by: Christian K=C3=B6nig
+> <christian.koenig@amd.com>.
 
-Ack. Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Thanks.. I had a quick look for the other driver but couldn't spot
+anything, so perhaps it has already been fixed?
 
-> 
->>
->>>
->>> Changes in v5:
->>> -- split into two patches
->>>
->>> Signed-off-by: Kuogee Hsieh <quic_khsieh@quicinc.com>
->>> ---
->>>   drivers/gpu/drm/msm/dp/dp_link.c | 13 ++++++++-----
->>>   1 file changed, 8 insertions(+), 5 deletions(-)
->>>
->>> diff --git a/drivers/gpu/drm/msm/dp/dp_link.c 
->>> b/drivers/gpu/drm/msm/dp/dp_link.c
->>> index 9d5381d..4360728 100644
->>> --- a/drivers/gpu/drm/msm/dp/dp_link.c
->>> +++ b/drivers/gpu/drm/msm/dp/dp_link.c
->>> @@ -50,6 +50,7 @@ static int dp_aux_link_power_up(struct drm_dp_aux 
->>> *aux,
->>>   {
->>>       u8 value;
->>>       ssize_t len;
->>> +    int i;
->>>         if (link->revision < 0x11)
->>>           return 0;
->>> @@ -61,11 +62,13 @@ static int dp_aux_link_power_up(struct drm_dp_aux 
->>> *aux,
->>>       value &= ~DP_SET_POWER_MASK;
->>>       value |= DP_SET_POWER_D0;
->>>   -    len = drm_dp_dpcd_writeb(aux, DP_SET_POWER, value);
->>> -    if (len < 0)
->>> -        return len;
->>> -
->>> -    usleep_range(1000, 2000);
->>> +    /* retry for 1ms to give the sink time to wake up */
->>> +    for (i = 0; i < 3; i++) {
->>> +        len = drm_dp_dpcd_writeb(aux, DP_SET_POWER, value);
->>> +        usleep_range(1000, 2000);
->>> +        if (len == 1)
->>> +            break;
->>> +    }
->>>         return 0;
->>>   }
->>
+BR,
+-R
 
--- 
-With best wishes
-Dmitry
-
+>
+> Regards,
+> Christian.
+>
+> > ---
+> >   drivers/gpu/drm/msm/msm_gem_submit.c | 3 +--
+> >   1 file changed, 1 insertion(+), 2 deletions(-)
+> >
+> > diff --git a/drivers/gpu/drm/msm/msm_gem_submit.c b/drivers/gpu/drm/msm=
+/msm_gem_submit.c
+> > index 5599d93ec0d2..cc48f73adadf 100644
+> > --- a/drivers/gpu/drm/msm/msm_gem_submit.c
+> > +++ b/drivers/gpu/drm/msm/msm_gem_submit.c
+> > @@ -334,8 +334,7 @@ static int submit_fence_sync(struct msm_gem_submit =
+*submit, bool no_implicit)
+> >               if (ret)
+> >                       return ret;
+> >
+> > -             /* exclusive fences must be ordered */
+> > -             if (no_implicit && !write)
+> > +             if (no_implicit)
+> >                       continue;
+> >
+> >               ret =3D drm_sched_job_add_implicit_dependencies(&submit->=
+base,
+>
