@@ -1,70 +1,74 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 98EE06172BB
-	for <lists+freedreno@lfdr.de>; Thu,  3 Nov 2022 00:36:58 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 1D282617E52
+	for <lists+freedreno@lfdr.de>; Thu,  3 Nov 2022 14:47:52 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5356D10E54F;
-	Wed,  2 Nov 2022 23:36:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AF54810E5DC;
+	Thu,  3 Nov 2022 13:47:50 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x134.google.com (mail-lf1-x134.google.com
- [IPv6:2a00:1450:4864:20::134])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 510D610E54B
- for <freedreno@lists.freedesktop.org>; Wed,  2 Nov 2022 23:36:54 +0000 (UTC)
-Received: by mail-lf1-x134.google.com with SMTP id d25so230075lfb.7
- for <freedreno@lists.freedesktop.org>; Wed, 02 Nov 2022 16:36:54 -0700 (PDT)
+Received: from mail-qv1-xf35.google.com (mail-qv1-xf35.google.com
+ [IPv6:2607:f8b0:4864:20::f35])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C43F010E5E2
+ for <freedreno@lists.freedesktop.org>; Thu,  3 Nov 2022 13:47:46 +0000 (UTC)
+Received: by mail-qv1-xf35.google.com with SMTP id x15so1137091qvp.1
+ for <freedreno@lists.freedesktop.org>; Thu, 03 Nov 2022 06:47:46 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :from:to:cc:subject:date:message-id:reply-to;
- bh=hVXT9xKOOQjMytFsPaMld5kkYAuqoQzWwoJxXPr+vis=;
- b=qq8uqswx+dq+fX6MQXKZl6KoVs/QJOKnrUR21/QGaU6BhmZyhop5mTLTMcB2X1PFDd
- f1EZKnHUbAaTDwqFK6CDEgmHT3QaWkO2Go4US8Uzmgve6OwhREBDpdTm2NuHcvVaJEa/
- XG/YO4EFStcH/Fw12QgGMcXXAlTmI80b2B03c+oCCYhCRfCOO+n+2K4aESl8w96LVBF1
- dvMPEDTp3LjBwX7H2N5lhMPGF95Fupvgiosxv9/Phyhuhn0iH3W15IWQb79RumpV0a+h
- p45tZIP4CAp5DvpvZ5yw7fHBIuKQxhFyo9VX9+r7+iAtxsyAYFdXdqU3khLDm4ajWozj
- 13/A==
+ bh=/2Nr5wIdGbAWm3WH/I4UVUKpbhCh82dprUQ26IZeMhc=;
+ b=qPv7iGDsarIyeVkPtASpJ9T0zxFA9vMYe5noup38EWHE174XLESSO8pOb+cAor4t9T
+ ohhqAr79b6QEkwtwsx1unZIDNieHhMgFD9w9spQ4q/VBD5K4xYW68UL2J9qaz1sr6Qt9
+ azDBNxlr5M/IQ4Ff9DHEhfwoCRVapzw1g0YsApKJoFs0cSqXJ2Q7SHX/X0YoeZbRbzOx
+ BymutPAUVmDMaT8ZbF4AFM7Ajszy/g2+5VFI3IeKTLVfTKsjqPpXt6WrbOUBszbc7IAe
+ /5k9YdNLB5XOFmjitCa51wUbm3bUWV+u5wZwSVmsl8M9vNCHMCGUzZFSZWkv8rLhmt9H
+ ye/g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=hVXT9xKOOQjMytFsPaMld5kkYAuqoQzWwoJxXPr+vis=;
- b=Ew3fGZ/pACF1mIZAIcXv+f5aZrMK8+ACUV48Pb/wlZ89oTjCoF2c0vSKpjDv8GG4CK
- kY9jdP08L7to9Cmo1ja27qFuzfQGP29ZjBQE6eJiWbIJ49uNUWnS3zBP98iyO1bnqFa4
- G2fP3jMZB0GI75QnM2SvttjR3roCwLPKIKmyuR6xvYGam6i8BNT175zUkqKr303wf+Bm
- sxY/zoglTqluJS7iTRzR4XdGcUgRGsDoFxTeOayChZ9s55HxYFHymhvUok0dZzoUlxir
- 6LJx3pY1MbjhIo6pZKFFL8H6Spo4Gyp6B8azlSC+nqF1XTJkJVLhgYcC7RNO3jxmtdKI
- 4ttw==
-X-Gm-Message-State: ACrzQf2NlwcU+7QnVvtmOXw/YNvtG5wySxVMlB1CBmelVlHeU8kYt3Oc
- v3/fAyK9gpBE17+z10WzgLpu+A==
-X-Google-Smtp-Source: AMsMyM5g0cJ6EynJYUzGsGjtwQSJNbnVjoJzqN+ZnX7lGyY2p2L9E9jV//Lks8s5mnLud82ZcRO4mw==
-X-Received: by 2002:ac2:4bcf:0:b0:4a2:c241:1979 with SMTP id
- o15-20020ac24bcf000000b004a2c2411979mr10626606lfq.89.1667432212678; 
- Wed, 02 Nov 2022 16:36:52 -0700 (PDT)
-Received: from [10.27.10.248] ([195.165.23.90])
+ bh=/2Nr5wIdGbAWm3WH/I4UVUKpbhCh82dprUQ26IZeMhc=;
+ b=Gm+PLi4ZBU5t3mLS1cIR/rFVJJ+p0MljtEG0ricY+9fI28XXYYY9m03ml+9s26Ypp4
+ 5uJtWj9xzcg+V3eb3pSJLdvMPHGNBHumdctcBXF7io47ECFCK6FJbUwitQy4cjixe44S
+ +dY8UIF4f4zsOCRwZBzI9UjpG45DhO94IgC5JRPujvmfKM9PF0uOzcrKjCuZLqNK4i42
+ EZbKItTv1W+JuFUKETY8WF6YxKFElbL5AB4yl7YUlWQFJzhuR2x2+bqYvmZ4MyAZLSLA
+ /lzZwBtjAKHNad2fPrbTTaAnlCkmIm6TMY6khXC151um7CiXtZGlHB3Q4fkVuVDZChx/
+ lmqg==
+X-Gm-Message-State: ACrzQf2rqU6+hs4+i9AV1idX8sqtVqUVTyTBkxYlMBT5qeTmPp95TyjC
+ /dc4I+7LpajvHTBwTAi+kAYuMQ==
+X-Google-Smtp-Source: AMsMyM4EEMjML/TvKjG45RThBKF8f13QmyxMU3XEC+DuAu8ouWpZko/uukZBffWcUYkLAXPI5btEJw==
+X-Received: by 2002:a05:6214:20aa:b0:4bb:7e1a:9df0 with SMTP id
+ 10-20020a05621420aa00b004bb7e1a9df0mr26673735qvd.34.1667483265779; 
+ Thu, 03 Nov 2022 06:47:45 -0700 (PDT)
+Received: from ?IPV6:2601:586:5000:570:a35d:9f85:e3f7:d9fb?
+ ([2601:586:5000:570:a35d:9f85:e3f7:d9fb])
  by smtp.gmail.com with ESMTPSA id
- q12-20020a2eb4ac000000b0026e90b478c6sm2364290ljm.114.2022.11.02.16.36.51
+ x17-20020a05620a449100b006fa31bf2f3dsm802424qkp.47.2022.11.03.06.47.44
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 02 Nov 2022 16:36:52 -0700 (PDT)
-Message-ID: <9f11fad1-2ecc-39a0-33c5-8fb28750686c@linaro.org>
-Date: Thu, 3 Nov 2022 02:36:51 +0300
+ Thu, 03 Nov 2022 06:47:45 -0700 (PDT)
+Message-ID: <07fca6e0-994f-ed08-632c-dd26bc7086b8@linaro.org>
+Date: Thu, 3 Nov 2022 09:47:43 -0400
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.4.0
-Content-Language: en-GB
-To: Bjorn Andersson <quic_bjorande@quicinc.com>,
- Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>
-References: <20221026032624.30871-1-quic_bjorande@quicinc.com>
- <20221026032624.30871-5-quic_bjorande@quicinc.com>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-In-Reply-To: <20221026032624.30871-5-quic_bjorande@quicinc.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+ Thunderbird/102.4.1
+Content-Language: en-US
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Andy Gross <agross@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konrad.dybcio@somainline.org>, Rob Clark
+ <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, Rob Herring <robh+dt@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>
+References: <20221102220844.569977-1-dmitry.baryshkov@linaro.org>
+From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+In-Reply-To: <20221102220844.569977-1-dmitry.baryshkov@linaro.org>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH v3 04/12] drm/msm/dp: Stop using DP id as
- index in desc
+Subject: Re: [Freedreno] [RESEND PATCH v1] dt-bindings: display/msm: convert
+ MDP5 schema to YAML format
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,43 +81,114 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org,
- Sankeerth Billakanti <quic_sbillaka@quicinc.com>,
- Daniel Vetter <daniel@ffwll.ch>, devicetree@vger.kernel.org,
- Sean Paul <sean@poorly.run>, Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konrad.dybcio@somainline.org>, Johan Hovold <johan@kernel.org>,
- dri-devel@lists.freedesktop.org, Kuogee Hsieh <quic_khsieh@quicinc.com>,
- Rob Herring <robh+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- linux-arm-msm@vger.kernel.org, David Airlie <airlied@gmail.com>,
- linux-kernel@vger.kernel.org
+Cc: devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, Stephen Boyd <swboyd@chromium.org>,
+ Daniel Vetter <daniel@ffwll.ch>, freedreno@lists.freedesktop.org,
+ David Airlie <airlied@gmail.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 26/10/2022 06:26, Bjorn Andersson wrote:
-> From: Bjorn Andersson <bjorn.andersson@linaro.org>
+On 02/11/2022 18:08, Dmitry Baryshkov wrote:
+> Convert the mdp5.txt into the yaml format. Changes to the existing (txt) schema:
+>  - MSM8996 has additional "iommu" clock, define it separately
+>  - Add new properties used on some of platforms:
+>    - interconnects, interconnect-names
+>    - iommus
+>    - power-domains
+>    - operating-points-v2, opp-table
 > 
-> In the SC8280XP platform there are two identical MDSS instances, each
-> with the same set of DisplayPort instances, at different addresses.
-> 
-> By not relying on the index to define the instance id it's possible to
-> describe them both in the same table and hence have a single compatible.
-> 
-> While at it, flatten the cfg/desc structure so that the match data is
-> just an array of descs.
-> 
-> Signed-off-by: Bjorn Andersson <bjorn.andersson@linaro.org>
-> Signed-off-by: Bjorn Andersson <quic_bjorande@quicinc.com>
 
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Thank you for your patch. There is something to discuss/improve.
 
-> ---
-> 
-> Changes since v2:
-> - None
-> 
->   drivers/gpu/drm/msm/dp/dp_display.c | 72 ++++++++++-------------------
->   1 file changed, 25 insertions(+), 47 deletions(-)-- 
-With best wishes
-Dmitry
+> +
+> +  clock-names:
+> +    oneOf:
+> +      - minItems: 4
+> +        items:
+> +          - const: iface
+> +          - const: bus
+> +          - const: core
+> +          - const: vsync
+> +          - const: lut
+> +          - const: tbu
+> +          - const: tbu_rt
+> +        #MSM8996 has additional iommu clock
+> +      - items:
+> +          - const: iface
+> +          - const: bus
+> +          - const: core
+> +          - const: iommu
+> +          - const: vsync
+> +
+> +  interconnects:
+> +    minItems: 1
+> +    items:
+> +      - description: Interconnect path from mdp0 (or a single mdp) port to the data bus
+> +      - description: Interconnect path from mdp1 port to the data bus
+> +      - description: Interconnect path from rotator port to the data bus
+> +
+> +  interconnect-names:
+> +    minItems: 1
+> +    items:
+> +      - const: mdp0-mem
+> +      - const: mdp1-mem
+> +      - const: rotator-mem
+> +
+> +  iommus:
+> +    items:
+> +      - description: Phandle to apps_smmu node with SID mask for Hard-Fail port0
+> +
+> +  power-domains:
+> +    maxItems: 1
+> +
+> +  operating-points-v2: true
+> +  opp-table:
+> +    type: object
+> +
+> +  ports:
+> +    $ref: /schemas/graph.yaml#/properties/ports
+> +    description: |
+> +      Contains the list of output ports from DPU device. These ports
+> +      connect to interfaces that are external to the DPU hardware,
+> +      such as DSI, DP etc.
+
+You could include here information about number of ports per variant.
+
+> +
+> +    patternProperties:
+> +      "^port@[0-9a-f]+$":
+
+[0-3]
+
+> +        $ref: /schemas/graph.yaml#/properties/port
+> +
+> +    # at least one port is required
+> +    required:
+> +      - port@0
+> +
+> +required:
+> +  - compatible
+> +  - reg
+> +  - reg-names
+> +  - clocks
+> +  - clock-names
+> +  - ports
+> +
+> +additionalProperties: false
+> +
+> +examples:
+> +  - |
+> +    #include <dt-bindings/clock/qcom,gcc-msm8916.h>
+> +    #include <dt-bindings/interrupt-controller/arm-gic.h>
+> +    mdp@1a01000 {
+
+display-controller@......
+
+> +        compatible = "qcom,mdp5";
+> +        reg = <0x1a01000 0x90000>;
+> +        reg-names = "mdp_phys";
+> +
+
+Best regards,
+Krzysztof
 
