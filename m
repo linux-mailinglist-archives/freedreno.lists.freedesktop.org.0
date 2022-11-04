@@ -1,54 +1,54 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8D12F6196E2
-	for <lists+freedreno@lfdr.de>; Fri,  4 Nov 2022 14:03:47 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 811786196E4
+	for <lists+freedreno@lfdr.de>; Fri,  4 Nov 2022 14:03:52 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 29FBA10E759;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8D7A910E75C;
 	Fri,  4 Nov 2022 13:03:39 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x130.google.com (mail-lf1-x130.google.com
- [IPv6:2a00:1450:4864:20::130])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7A6C510E751
- for <freedreno@lists.freedesktop.org>; Fri,  4 Nov 2022 13:03:31 +0000 (UTC)
-Received: by mail-lf1-x130.google.com with SMTP id g12so7334009lfh.3
- for <freedreno@lists.freedesktop.org>; Fri, 04 Nov 2022 06:03:31 -0700 (PDT)
+Received: from mail-lj1-x22a.google.com (mail-lj1-x22a.google.com
+ [IPv6:2a00:1450:4864:20::22a])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6A23D10E750
+ for <freedreno@lists.freedesktop.org>; Fri,  4 Nov 2022 13:03:32 +0000 (UTC)
+Received: by mail-lj1-x22a.google.com with SMTP id b9so6257498ljr.5
+ for <freedreno@lists.freedesktop.org>; Fri, 04 Nov 2022 06:03:32 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=QNrknjkwY6y7Nl2U9FfGOLqpO7+QERv2EXshAod3N+Q=;
- b=v0heW5S1Jn7iGCMqNDKVJf4qL/DJ0z8sJTh8IzmLrHaihk3vKDUNoB78z+Mgpv/GSI
- Ac7k/2QGz4IolW3GBdEogZxSURhotEJv1fazJHDzNpY29loarznugYLVjKNyW6v36oxC
- vquTkWKlonhinXx1gZlSAP2B5N3ckALJsMr76Jn0VrfKbLpQgzWCyfNZEniiOG6rvnPK
- m607J6LCHYRrQFcL7FXS3j7eGjdf2MgpN8PdbnEC9Xd43uRBvvy0tIv2dLy47NdWyXiJ
- DRUjiFyt8GJdN11lMXOrzaX+eg493NMWvdnNsDkJ7h5ADmju930sIZMDoOYy/FRzoYyN
- f0Ww==
+ bh=Eq+xrGXQkafyNxdD3bUOX4BO/00RbY/2YQOJ/yUkbp4=;
+ b=ZiAuXKe8Rzc52FzKCj1P6vLEukBXj5jyCz/b9mAAKh0BTHoyVAsE+eG77G3IjCP6/C
+ uf5M8d0DbcHOsA8nEm1G2+rgbkWmIwDYuDAfu8h2Bcto/uzfK+Uou1wzUnDNsixsxBRn
+ zGD1wzXUAfFppM5FiNoHnaVAi8tOAkcqHIkXJGMXLdzkn/EPaiDgXuU2zmQvENqU4dU+
+ dfzfVKvm8xgI7llaTDks/rkeLArgt6bW/08+cfLFElXOe+oUMT7LkSB0SljNstEE8tLX
+ v78biHFO4I2Q2LHBGwL2INNvRKIq763Cue0ATSMVKue4NusiX+lE4BV1A2yPQ9zlzx3U
+ PM0Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=QNrknjkwY6y7Nl2U9FfGOLqpO7+QERv2EXshAod3N+Q=;
- b=zBoPzznAxaMjv6JucoeCVAjvy0iVNA/ARotPhlu+mdIJ9UwWKflpb8VhJStrKZS7TP
- ZdgfNH0/dfNirhJ3VQ6tKWxXISCzERuNYGpMVqcPLfRJYq7rLy/fnOo/PSgZKlePYciS
- k3/QG3+fGl+bYrTliAjXar0xIeQaObyoaYqn2zqHSZFGWpWLRYQjNLForrO3A5pKou1g
- umUtRkjbTuWvv08oVuXOjy63Bmxv8zON0i8/Or1EKlg2YKJVdKMhlm5VjheFycoCXjh1
- Y/Libp++aptn4+NAgYhYxmJ4j8q3N49cyISrZcmBbgnQ2SOSYFuwxt4WGXRk9Aq3sItz
- sq/Q==
-X-Gm-Message-State: ACrzQf0yNXtfmyVuEblKiEbJ5Sr+O83tIAeG0bZZKsEjcdh/eNfxo07l
- 0jzPwApnPVlZGCpz1GlRVdY4+g==
-X-Google-Smtp-Source: AMsMyM4OhY9/soUr3/Yu6/mBlVo1w6eYUp/ojteavHzsT/k8xoq6igsCEFJ2PP/9/dtHSu6sdgKLZA==
-X-Received: by 2002:ac2:4c0f:0:b0:4af:e7d3:e97d with SMTP id
- t15-20020ac24c0f000000b004afe7d3e97dmr12943317lfq.467.1667567009346; 
- Fri, 04 Nov 2022 06:03:29 -0700 (PDT)
+ bh=Eq+xrGXQkafyNxdD3bUOX4BO/00RbY/2YQOJ/yUkbp4=;
+ b=bSWue8Vp5/pg1wDCMCVphjdH3DyqdR14CDUwYBKPUNCn7VWN2ZLa49gWZeUFjeD4aT
+ Iz7tgnaKNn6vurM79gW9sflMQfx5FonEQyfuUOpFwijA+aeYsD83TAbS5T7+Z54Zx3fd
+ V57WHGEF7oeFpLEGEw83CHTdk/q7NCGiCJEGnkKHSgI0tYGb+emzq7/UqlN5xrZLrkzX
+ hpgyTc8YBNQ01R1dtAB0zdtPrnbQYgJ9L942j3V1NarZ3x3C4JiS96TI5BTOzILQy3Xe
+ Vej3PMM4CvxXXcXvHqcFSZyUqqL9tf8Q8MnJlhfHmCv7wtKyi28OxExUtT9oSULvrFoS
+ 3+4A==
+X-Gm-Message-State: ACrzQf3S/ceDJFb0UfNOwEU1YhMpcN0zZXKIrPtSrsC4FnVe86xo6Tsb
+ 4BzjVfCZkgBaPHwrZJsdZuje0w==
+X-Google-Smtp-Source: AMsMyM5hN5nl5fyFXYAKV2CP6o7qjJSaNcDR/PFkXWZ8jUMBTE5L6jIxU05R9fdSkfnwDLw9Rst+xg==
+X-Received: by 2002:a2e:88d3:0:b0:275:ae74:c5ed with SMTP id
+ a19-20020a2e88d3000000b00275ae74c5edmr1901801ljk.13.1667567010388; 
+ Fri, 04 Nov 2022 06:03:30 -0700 (PDT)
 Received: from localhost.localdomain ([195.165.23.90])
  by smtp.gmail.com with ESMTPSA id
- s6-20020a2eb626000000b0026fe0a052c5sm419975ljn.129.2022.11.04.06.03.28
+ s6-20020a2eb626000000b0026fe0a052c5sm419975ljn.129.2022.11.04.06.03.29
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 04 Nov 2022 06:03:29 -0700 (PDT)
+ Fri, 04 Nov 2022 06:03:30 -0700 (PDT)
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 To: Andy Gross <agross@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
  Konrad Dybcio <konrad.dybcio@somainline.org>,
@@ -56,15 +56,15 @@ To: Andy Gross <agross@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
  Abhinav Kumar <quic_abhinavk@quicinc.com>,
  Rob Herring <robh+dt@kernel.org>,
  Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>
-Date: Fri,  4 Nov 2022 16:03:17 +0300
-Message-Id: <20221104130324.1024242-2-dmitry.baryshkov@linaro.org>
+Date: Fri,  4 Nov 2022 16:03:18 +0300
+Message-Id: <20221104130324.1024242-3-dmitry.baryshkov@linaro.org>
 X-Mailer: git-send-email 2.35.1
 In-Reply-To: <20221104130324.1024242-1-dmitry.baryshkov@linaro.org>
 References: <20221104130324.1024242-1-dmitry.baryshkov@linaro.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH v3 1/8] dt-bindings:
- display/msm/dsi-controller-main: allow defining opp-table
+Subject: [Freedreno] [PATCH v3 2/8] dt-bindings: display/msm: add sm8350 and
+ sm8450 DSI PHYs
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -85,28 +85,28 @@ Cc: devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Allow defining DSI OPP table inside the DSI controller node.
+SM8350 and SM8450 platforms use the same driver and same bindings as the
+existing 7nm DSI PHYs. Add corresponding compatibility strings.
 
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 ---
- .../devicetree/bindings/display/msm/dsi-controller-main.yaml   | 3 +++
- 1 file changed, 3 insertions(+)
+ Documentation/devicetree/bindings/display/msm/dsi-phy-7nm.yaml | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/Documentation/devicetree/bindings/display/msm/dsi-controller-main.yaml b/Documentation/devicetree/bindings/display/msm/dsi-controller-main.yaml
-index 3b609c19e0bc..c37dd9503da0 100644
---- a/Documentation/devicetree/bindings/display/msm/dsi-controller-main.yaml
-+++ b/Documentation/devicetree/bindings/display/msm/dsi-controller-main.yaml
-@@ -80,6 +80,9 @@ properties:
- 
-   operating-points-v2: true
- 
-+  opp-table:
-+    type: object
-+
-   ports:
-     $ref: "/schemas/graph.yaml#/properties/ports"
-     description: |
+diff --git a/Documentation/devicetree/bindings/display/msm/dsi-phy-7nm.yaml b/Documentation/devicetree/bindings/display/msm/dsi-phy-7nm.yaml
+index c851770bbdf2..bffd161fedfd 100644
+--- a/Documentation/devicetree/bindings/display/msm/dsi-phy-7nm.yaml
++++ b/Documentation/devicetree/bindings/display/msm/dsi-phy-7nm.yaml
+@@ -15,6 +15,8 @@ allOf:
+ properties:
+   compatible:
+     enum:
++      - qcom,dsi-phy-5nm-8350
++      - qcom,dsi-phy-5nm-8450
+       - qcom,dsi-phy-7nm
+       - qcom,dsi-phy-7nm-8150
+       - qcom,sc7280-dsi-phy-7nm
 -- 
 2.35.1
 
