@@ -2,25 +2,24 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0AC20619888
-	for <lists+freedreno@lfdr.de>; Fri,  4 Nov 2022 14:55:31 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6B8C56198A4
+	for <lists+freedreno@lfdr.de>; Fri,  4 Nov 2022 14:58:56 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A84F810E0C1;
-	Fri,  4 Nov 2022 13:55:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 19ED610E0C1;
+	Fri,  4 Nov 2022 13:58:55 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from relay05.th.seeweb.it (relay05.th.seeweb.it
- [IPv6:2001:4b7a:2000:18::166])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 60C3110E7D7
- for <freedreno@lists.freedesktop.org>; Fri,  4 Nov 2022 13:55:25 +0000 (UTC)
+Received: from relay05.th.seeweb.it (relay05.th.seeweb.it [5.144.164.166])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0D86910E7DF
+ for <freedreno@lists.freedesktop.org>; Fri,  4 Nov 2022 13:58:51 +0000 (UTC)
 Received: from [192.168.31.208] (unknown [194.29.137.22])
  (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by m-r2.th.seeweb.it (Postfix) with ESMTPSA id 7406B3EE24;
- Fri,  4 Nov 2022 14:55:22 +0100 (CET)
-Message-ID: <7a674e39-8c64-4cfb-5e0d-a50773b7460d@somainline.org>
-Date: Fri, 4 Nov 2022 14:55:21 +0100
+ by m-r2.th.seeweb.it (Postfix) with ESMTPSA id 5EE453F33F;
+ Fri,  4 Nov 2022 14:58:48 +0100 (CET)
+Message-ID: <b222a21c-a00f-8806-179c-f97bcb45c303@somainline.org>
+Date: Fri, 4 Nov 2022 14:58:47 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
  Gecko/20100101 Thunderbird/102.4.1
@@ -30,13 +29,13 @@ To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
  Abhinav Kumar <quic_abhinavk@quicinc.com>, Rob Herring <robh+dt@kernel.org>,
  Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>
 References: <20221104130324.1024242-1-dmitry.baryshkov@linaro.org>
- <20221104130324.1024242-6-dmitry.baryshkov@linaro.org>
+ <20221104130324.1024242-7-dmitry.baryshkov@linaro.org>
 From: Konrad Dybcio <konrad.dybcio@somainline.org>
-In-Reply-To: <20221104130324.1024242-6-dmitry.baryshkov@linaro.org>
+In-Reply-To: <20221104130324.1024242-7-dmitry.baryshkov@linaro.org>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH v3 5/8] drm/msm/dsi: add support for DSI
- 2.6.0
+Subject: Re: [Freedreno] [PATCH v3 6/8] drm/msm/dpu: add support for MDP_TOP
+ blackhole
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,44 +57,62 @@ Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 
 On 04/11/2022 14:03, Dmitry Baryshkov wrote:
-> Add support for DSI 2.6.0 (block used on sm8450).
+> On sm8450 a register block was removed from MDP TOP. Accessing it during
+> snapshotting results in NoC errors / immediate reboot. Skip accessing
+> these registers during snapshot.
+
+Must have been fun to debug..
+
+
 >
 > Tested-by: Vinod Koul <vkoul@kernel.org>
 > Reviewed-by: Vinod Koul <vkoul@kernel.org>
 > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 > ---
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h |  1 +
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c        | 11 +++++++++--
+>   2 files changed, 10 insertions(+), 2 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h
+> index 38aa38ab1568..4730f8268f2a 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h
+> @@ -92,6 +92,7 @@ enum {
+>   	DPU_MDP_UBWC_1_0,
+>   	DPU_MDP_UBWC_1_5,
+>   	DPU_MDP_AUDIO_SELECT,
+> +	DPU_MDP_PERIPH_0_REMOVED,
+>   	DPU_MDP_MAX
+>   };
+>   
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
+> index f3660cd14f4f..95d8765c1c53 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
+> @@ -927,8 +927,15 @@ static void dpu_kms_mdp_snapshot(struct msm_disp_state *disp_state, struct msm_k
+>   		msm_disp_snapshot_add_block(disp_state, cat->wb[i].len,
+>   				dpu_kms->mmio + cat->wb[i].base, "wb_%d", i);
+>   
+> -	msm_disp_snapshot_add_block(disp_state, cat->mdp[0].len,
+> -			dpu_kms->mmio + cat->mdp[0].base, "top");
+> +	if (dpu_kms->hw_mdp->caps->features & BIT(DPU_MDP_PERIPH_0_REMOVED)) {
+> +		msm_disp_snapshot_add_block(disp_state, 0x380,
+> +				dpu_kms->mmio + cat->mdp[0].base, "top");
+> +		msm_disp_snapshot_add_block(disp_state, cat->mdp[0].len - 0x3a8,
+> +				dpu_kms->mmio + cat->mdp[0].base + 0x3a8, "top_2");
 
-Reviewed-by: Konrad Dybcio <konrad.dybcio@somainline.org>
+Are these values expected to stay the same on different new-gen SoCs? 
+Maybe it would
+
+be worth making it dynamic.
 
 
 Konrad
 
->   drivers/gpu/drm/msm/dsi/dsi_cfg.c | 2 ++
->   drivers/gpu/drm/msm/dsi/dsi_cfg.h | 1 +
->   2 files changed, 3 insertions(+)
->
-> diff --git a/drivers/gpu/drm/msm/dsi/dsi_cfg.c b/drivers/gpu/drm/msm/dsi/dsi_cfg.c
-> index 7e97c239ed48..59a4cc95a251 100644
-> --- a/drivers/gpu/drm/msm/dsi/dsi_cfg.c
-> +++ b/drivers/gpu/drm/msm/dsi/dsi_cfg.c
-> @@ -300,6 +300,8 @@ static const struct msm_dsi_cfg_handler dsi_cfg_handlers[] = {
->   		&sc7180_dsi_cfg, &msm_dsi_6g_v2_host_ops},
->   	{MSM_DSI_VER_MAJOR_6G, MSM_DSI_6G_VER_MINOR_V2_5_0,
->   		&sc7280_dsi_cfg, &msm_dsi_6g_v2_host_ops},
-> +	{MSM_DSI_VER_MAJOR_6G, MSM_DSI_6G_VER_MINOR_V2_6_0,
-> +		&sdm845_dsi_cfg, &msm_dsi_6g_v2_host_ops},
->   };
+> +	} else {
+> +		msm_disp_snapshot_add_block(disp_state, cat->mdp[0].len,
+> +				dpu_kms->mmio + cat->mdp[0].base, "top");
+> +	}
 >   
->   const struct msm_dsi_cfg_handler *msm_dsi_cfg_get(u32 major, u32 minor)
-> diff --git a/drivers/gpu/drm/msm/dsi/dsi_cfg.h b/drivers/gpu/drm/msm/dsi/dsi_cfg.h
-> index 8f04e685a74e..95957fab499d 100644
-> --- a/drivers/gpu/drm/msm/dsi/dsi_cfg.h
-> +++ b/drivers/gpu/drm/msm/dsi/dsi_cfg.h
-> @@ -25,6 +25,7 @@
->   #define MSM_DSI_6G_VER_MINOR_V2_4_0	0x20040000
->   #define MSM_DSI_6G_VER_MINOR_V2_4_1	0x20040001
->   #define MSM_DSI_6G_VER_MINOR_V2_5_0	0x20050000
-> +#define MSM_DSI_6G_VER_MINOR_V2_6_0	0x20060000
->   
->   #define MSM_DSI_V2_VER_MINOR_8064	0x0
->   
+>   	pm_runtime_put_sync(&dpu_kms->pdev->dev);
+>   }
