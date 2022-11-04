@@ -2,81 +2,53 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 88C34619495
-	for <lists+freedreno@lfdr.de>; Fri,  4 Nov 2022 11:38:21 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0BDA5619622
+	for <lists+freedreno@lfdr.de>; Fri,  4 Nov 2022 13:21:40 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 37DD710E733;
-	Fri,  4 Nov 2022 10:38:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B555A10E0C5;
+	Fri,  4 Nov 2022 12:21:38 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7DEB810E731
- for <freedreno@lists.freedesktop.org>; Fri,  4 Nov 2022 10:38:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1667558293;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=M88yz4GfmbUNq4mWECugnsnJkV6z34uCwDqL3DFZ74U=;
- b=NSadry/5Xnc4ign0y3gVVb2HTrv/F/FD9j/CiHVuysim8WdGnCVFTxFC0Bkw1ns66oSUj7
- 08sWJWTaOupAbFycxQlJc243ZWqRbEwDmeVqNo9OfWQfhk1ZoMGeQOUc+YdBrdx1lToLO9
- gld/0xqzrqjagqe/BADmAjYB0EHRGa0=
-Received: from mail-wm1-f69.google.com (mail-wm1-f69.google.com
- [209.85.128.69]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_128_GCM_SHA256) id
- us-mta-554-dISzc9rENG6fxn5yD5bgrQ-1; Fri, 04 Nov 2022 06:38:10 -0400
-X-MC-Unique: dISzc9rENG6fxn5yD5bgrQ-1
-Received: by mail-wm1-f69.google.com with SMTP id
- p14-20020a05600c204e00b003cf4cce4da5so1556500wmg.0
- for <freedreno@lists.freedesktop.org>; Fri, 04 Nov 2022 03:38:10 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=M88yz4GfmbUNq4mWECugnsnJkV6z34uCwDqL3DFZ74U=;
- b=R5L2GtnXqJP2hGSHAWlL/HDxYCkx/ocliEvkQ0xtzLF6/KtTuGlvGHUFIAWvOlfT3b
- gehyo7t3gh4kYFduLpnHIQyQv0HUz3ge3InDZ0LGMIiaALhazdsHUg7SQEGRrS3yU5AM
- pL+ufOiawO/8Om/NLPVtffTVz2JU97Vp+JAml6J87UlXJx6Nm8iCI2flH4Ca8z4hCKuf
- KK+0H1e1ppiDeyKd0KuN0DsUXAAtqocmZTEzqEZi4TE4SqkYXiTBcAvLV+Lxm7o95cSY
- yGgMpyeK91PEGP8kq8j/7f8pfa/Hj6GWWQqPFtCq1vQJutXSPvoTSW59GLgzfglYuo4g
- wufA==
-X-Gm-Message-State: ACrzQf016i6zv/MNHcFba4LMRHZ3sQjuTmDbKe+8ROtHhEuU7WMJGDQP
- 4SaYkSjrzMCNyd3RREIwycHshChJMKpBGzc0NBoJY5BatxcFeh6+EWnk7S7pKKJI/2juhA3aLo9
- 8vXchMPQUwe+9vFaLKCLsdg+Ofg50
-X-Received: by 2002:adf:bc51:0:b0:236:8fa1:47ea with SMTP id
- a17-20020adfbc51000000b002368fa147eamr218091wrh.77.1667558289678; 
- Fri, 04 Nov 2022 03:38:09 -0700 (PDT)
-X-Google-Smtp-Source: AMsMyM6s9MOXnwXonR8VOapq6d4n3ZU7IGA+EIjACuJbvHHOLIXD7EQUkeJV/V+5P7qnQBQKVLAVkQ==
-X-Received: by 2002:adf:bc51:0:b0:236:8fa1:47ea with SMTP id
- a17-20020adfbc51000000b002368fa147eamr218064wrh.77.1667558289372; 
- Fri, 04 Nov 2022 03:38:09 -0700 (PDT)
-Received: from [192.168.1.130] (205.pool92-176-231.dynamic.orange.es.
- [92.176.231.205]) by smtp.gmail.com with ESMTPSA id
- k4-20020a05600c1c8400b003b4cba4ef71sm2534442wms.41.2022.11.04.03.38.07
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 04 Nov 2022 03:38:09 -0700 (PDT)
-Message-ID: <1f5e6de4-3fe2-7933-f8c0-5f13564595cc@redhat.com>
-Date: Fri, 4 Nov 2022 11:38:07 +0100
+Received: from ams.source.kernel.org (ams.source.kernel.org
+ [IPv6:2604:1380:4601:e00::1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8CEC210E0B9;
+ Fri,  4 Nov 2022 12:21:35 +0000 (UTC)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by ams.source.kernel.org (Postfix) with ESMTPS id D77BFB82D44;
+ Fri,  4 Nov 2022 12:21:33 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8E092C433D6;
+ Fri,  4 Nov 2022 12:21:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1667564492;
+ bh=ZXLJVpZXT+rWJ0ivseoUk9nwVTF3CBUlHi/ObsPKqIE=;
+ h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
+ b=OBM77ubcRT9a5w/v78iozP0L2hG7m4X1G75HVaBibLtU25YftqEBE5Ndooewxzy3c
+ ZeXDb/WzrIW3iDDeLe4Em83u0w93DhzPQmMtj9RmUOPO3XwS5XJdmqw0PsmMQsVLCx
+ 9ol/afe0iVZEJMgO1GrPZGrYleovk/ZymFAuCfLC8DSoEr7FUooH063SvS4K+7chmp
+ /3aBEwPTJ8JhMfRQcdmiwIdKPUIxu+WlNG4qvKCO9Dk5KZOq+fEq/zoRvG4nq3T8Ca
+ GsbV7XySi5YaUfX3FD4wdayFLaLd9CeQpzjgb1XkzZhgmaBjNT3riekPEAydEpBMDw
+ xKBYHv0MpVYIQ==
+Received: by mail-lf1-f43.google.com with SMTP id g7so7198670lfv.5;
+ Fri, 04 Nov 2022 05:21:32 -0700 (PDT)
+X-Gm-Message-State: ACrzQf1jpH2v1/mKzOjDgvXnMEaChEx0d3C3Y45lfbpI5TjsEpB9OkKj
+ a6bOi3eRgcjmJuZfM8GTDIsDTN+z3j+PlaTM6w==
+X-Google-Smtp-Source: AMsMyM5kTNZDfNz1NMagVWEucdPQHrDVvMm1GNlzFfBYpRDW2nbr0fXNbF2H0V1PLZq0+l5VjjjYUpUH27KcZlOR9e0=
+X-Received: by 2002:a19:5048:0:b0:4b1:3856:e422 with SMTP id
+ z8-20020a195048000000b004b13856e422mr5516827lfj.368.1667564490584; Fri, 04
+ Nov 2022 05:21:30 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.3.1
-To: Thomas Zimmermann <tzimmermann@suse.de>, daniel@ffwll.ch,
- airlied@gmail.com, sam@ravnborg.org, mripard@kernel.org,
- maarten.lankhorst@linux.intel.com
-References: <20221103151446.2638-1-tzimmermann@suse.de>
- <20221103151446.2638-24-tzimmermann@suse.de>
-From: Javier Martinez Canillas <javierm@redhat.com>
-In-Reply-To: <20221103151446.2638-24-tzimmermann@suse.de>
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Language: en-US
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH v3 23/23] drm/fb-helper: Clarify use of
- last_close and output_poll_changed
+References: <20221024164225.3236654-1-dmitry.baryshkov@linaro.org>
+In-Reply-To: <20221024164225.3236654-1-dmitry.baryshkov@linaro.org>
+From: Rob Herring <robh+dt@kernel.org>
+Date: Fri, 4 Nov 2022 07:21:21 -0500
+X-Gmail-Original-Message-ID: <CAL_Jsq+_p36jCUTE+9V+eAyxF9ETcgk4gBDN7-+mgJVd7-ZYzg@mail.gmail.com>
+Message-ID: <CAL_Jsq+_p36jCUTE+9V+eAyxF9ETcgk4gBDN7-+mgJVd7-ZYzg@mail.gmail.com>
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Content-Type: text/plain; charset="UTF-8"
+Subject: Re: [Freedreno] [PATCH v9 00/12] dt-bindings: display/msm: rework
+ MDSS and DPU bindings
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -89,34 +61,138 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, linux-samsung-soc@vger.kernel.org,
- linux-aspeed@lists.ozlabs.org, spice-devel@lists.freedesktop.org,
- nouveau@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- etnaviv@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- virtualization@lists.linux-foundation.org, linux-renesas-soc@vger.kernel.org,
- linux-rockchip@lists.infradead.org, linux-mediatek@lists.infradead.org,
- amd-gfx@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
- linux-tegra@vger.kernel.org, xen-devel@lists.xenproject.org,
- linux-amlogic@lists.infradead.org, linux-mips@vger.kernel.org,
- linux-sunxi@lists.linux.dev, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org
+Cc: devicetree@vger.kernel.org, Daniel Vetter <daniel@ffwll.ch>,
+ David Airlie <airlied@gmail.com>, Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konrad.dybcio@somainline.org>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
+ Stephen Boyd <swboyd@chromium.org>, Rob Clark <robdclark@gmail.com>,
+ Andy Gross <agross@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
+ Sean Paul <sean@poorly.run>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 11/3/22 16:14, Thomas Zimmermann wrote:
-> Clarify documentation in the use of struct drm_driver.last_close and
-> struct drm_mode_config_funcs.output_poll_changed. Those callbacks should
-> not be said for fbdev implementations on top of struct drm_client_funcs.
-> 
-> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
-> ---
+On Mon, Oct 24, 2022 at 11:42 AM Dmitry Baryshkov
+<dmitry.baryshkov@linaro.org> wrote:
+>
+> Create separate YAML schema for MDSS devicesd$ (both for MDP5 and DPU
+> devices). Cleanup DPU schema files, so that they do not contain schema
+> for both MDSS and DPU nodes. Apply misc small fixes to the DPU schema
+> afterwards. Add schema for the MDSS and DPU on sm8250 platform.
+>
+> Soft dependency on [1] to define qcom,dsi-phy-14nm-2290 binding used in
+> examples
+>
+> [1] https://lore.kernel.org/linux-arm-msm/20220924121900.222711-1-dmitry.baryshkov@linaro.org/
+>
+> Changes since v8:
+>  - Dropped DSI/DSI-PHY examples from the first patch. Proper example
+>    generate a pile of warnings because of DSI schema deficiencies. I'll
+>    add these examples back, once DSI schema is fixed.
+>
+> Changes since v7:
+>  - Expanded examples to include MDSS child nodes (Krzysztof)
+>
+> Changes since v6:
+>  - Removed extra newlines (Krzysztof)
+>  - Added $ref to dpu-common.yaml#/ports/port@foo to enforce schema
+>    for the port nodes (Rob)
+>  - Removed unused allOf's (Rob)
+>  - Fixed repeated interconnects descriptions (Rob)
+>  - Fixed dpu-common.yaml and mdss-common.yaml descriptions (Rob)
+>  - Fixed intentation of examples (Krzysztof)
+>  - Renamed MDSS and DPU schema to follow compat names (Rob)
+>
+> Changes since v5:
+>  - Dropped the core clock from mdss.yaml. It will be handled in a
+>    separate patchset together with adding the clock itself.
+>  - Fixed a typo in two commit subjects (mdm -> msm).
+>
+> Changes since v4:
+>  - Created separate mdss-common.yaml
+>  - Rather than squashing everything into mdss.yaml, create individual
+>    schema files for MDSS devices.
+>
+> Changes since v3:
+>  - Changed mdss->(dpu, dsi, etc.) relationship into the tight binding
+>    depending on the mdss compatible string.
+>  - Added sm8250 dpu schema and added qcom,sm8250-mdss to mdss.yaml
+>
+> Changes since v2:
+>  - Added a patch to allow opp-table under the dpu* nodes.
+>  - Removed the c&p issue which allowed the @0 nodes under the MDSS
+>    device node.
+>
+> Changes since v1:
+>  - Renamed DPU device nodes from mdp@ to display-controller@
+>  - Described removal of mistakenly mentioned "lut" clock
+>  - Switched mdss.yaml to use $ref instead of fixing compatible strings
+>  - Dropped mdp-opp-table description (renamed by Krzysztof in his
+>    patchset)
+>  - Reworked DPU's ports definitions. Dropped description of individual
+>    ports, left only /ports $ref and description in dpu-common.yaml.
+>
+> Dmitry Baryshkov (12):
+>   dt-bindings: display/msm: split qcom,mdss bindings
+>   dt-bindings: display/msm: add gcc-bus clock to dpu-smd845
+>   dt-bindings: display/msm: add interconnects property to
+>     qcom,mdss-smd845
+>   dt-bindings: display/msm: move common DPU properties to
+>     dpu-common.yaml
+>   dt-bindings: display/msm: move common MDSS properties to
+>     mdss-common.yaml
+>   dt-bindings: display/msm: split dpu-sc7180 into DPU and MDSS parts
+>   dt-bindings: display/msm: split dpu-sc7280 into DPU and MDSS parts
+>   dt-bindings: display/msm: split dpu-sdm845 into DPU and MDSS parts
+>   dt-bindings: display/msm: split dpu-msm8998 into DPU and MDSS parts
+>   dt-bindings: display/msm: split dpu-qcm2290 into DPU and MDSS parts
+>   dt-bindings: display/msm: add missing device nodes to mdss-* schemas
+>   dt-bindings: display/msm: add support for the display on SM8250
 
-Reviewed-by: Javier Martinez Canillas <javierm@redhat.com>
+This is now warning in linux-next:
 
--- 
-Best regards,
-
-Javier Martinez Canillas
-Core Platforms
-Red Hat
-
+/builds/robherring/linux-dt/Documentation/devicetree/bindings/display/msm/qcom,sc7180-mdss.example.dtb:
+dsi@ae94000: 'opp-table' does not match any of the regexes:
+'pinctrl-[0-9]+'
+        From schema:
+/builds/robherring/linux-dt/Documentation/devicetree/bindings/display/msm/dsi-controller-main.yaml
+/builds/robherring/linux-dt/Documentation/devicetree/bindings/display/msm/qcom,sm8250-mdss.example.dtb:
+dsi@ae94000: 'opp-table' does not match any of the regexes:
+'pinctrl-[0-9]+'
+        From schema:
+/builds/robherring/linux-dt/Documentation/devicetree/bindings/display/msm/dsi-controller-main.yaml
+/builds/robherring/linux-dt/Documentation/devicetree/bindings/display/msm/qcom,qcm2290-mdss.example.dtb:
+dsi@5e94000: compatible: 'oneOf' conditional failed, one must be
+fixed:
+        'qcom,dsi-ctrl-6g-qcm2290' does not match
+'^qcom,(apq|ipq|mdm|msm|qcm|qcs|sa|sc|sdm|sdx|sm)[0-9]+-.*$'
+        'qcom,dsi-ctrl-6g-qcm2290' does not match
+'^qcom,(sa|sc)8[0-9]+[a-z][a-z]?-.*$'
+        'qcom,dsi-ctrl-6g-qcm2290' does not match
+'^qcom,[ak]pss-wdt-(apq|ipq|mdm|msm|qcm|qcs|sa|sc|sdm|sdx|sm)[0-9]+.*$'
+        'qcom,dsi-ctrl-6g-qcm2290' does not match
+'^qcom,gcc-(apq|ipq|mdm|msm|qcm|qcs|sa|sc|sdm|sdx|sm)[0-9]+.*$'
+        'qcom,dsi-ctrl-6g-qcm2290' does not match
+'^qcom,mmcc-(apq|ipq|mdm|msm|qcm|qcs|sa|sc|sdm|sdx|sm)[0-9]+.*$'
+        'qcom,dsi-ctrl-6g-qcm2290' does not match
+'^qcom,pcie-(apq|ipq|mdm|msm|qcm|qcs|sa|sc|sdm|sdx|sm)[0-9]+.*$'
+        'qcom,dsi-ctrl-6g-qcm2290' does not match
+'^qcom,rpm-(apq|ipq|mdm|msm|qcm|qcs|sa|sc|sdm|sdx|sm)[0-9]+.*$'
+        'qcom,dsi-ctrl-6g-qcm2290' does not match
+'^qcom,scm-(apq|ipq|mdm|msm|qcm|qcs|sa|sc|sdm|sdx|sm)[0-9]+.*$'
+        'qcom,dsi-ctrl-6g-qcm2290' is not one of ['qcom,gpucc-sdm630',
+'qcom,gpucc-sdm660', 'qcom,lcc-apq8064', 'qcom,lcc-ipq8064',
+'qcom,lcc-mdm9615', 'qcom,lcc-msm8960', 'qcom,lpass-cpu-apq8016',
+'qcom,usb-ss-ipq4019-phy', 'qcom,usb-hs-ipq4019-phy',
+'qcom,vqmmc-ipq4019-regulator']
+        'qcom,dsi-ctrl-6g-qcm2290' is not one of ['qcom,ipq806x-gmac',
+'qcom,ipq806x-nand', 'qcom,ipq806x-sata-phy',
+'qcom,ipq806x-usb-phy-ss', 'qcom,ipq806x-usb-phy-hs']
+        From schema:
+/builds/robherring/linux-dt/Documentation/devicetree/bindings/arm/qcom-soc.yaml
+/builds/robherring/linux-dt/Documentation/devicetree/bindings/display/msm/qcom,sc7280-mdss.example.dtb:
+dsi@ae94000: 'opp-table' does not match any of the regexes:
+'pinctrl-[0-9]+'
+        From schema:
+/builds/robherring/linux-dt/Documentation/devicetree/bindings/display/msm/dsi-controller-main.yaml
