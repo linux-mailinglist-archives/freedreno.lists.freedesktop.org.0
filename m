@@ -2,46 +2,61 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 48669619B2B
-	for <lists+freedreno@lfdr.de>; Fri,  4 Nov 2022 16:15:23 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id BE381619C24
+	for <lists+freedreno@lfdr.de>; Fri,  4 Nov 2022 16:52:13 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0146510E873;
-	Fri,  4 Nov 2022 15:15:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6A73610E8B5;
+	Fri,  4 Nov 2022 15:52:12 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 972B410E873;
- Fri,  4 Nov 2022 15:15:19 +0000 (UTC)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id E909F62245;
- Fri,  4 Nov 2022 15:15:18 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 884BEC433C1;
- Fri,  4 Nov 2022 15:15:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1667574918;
- bh=qxe9QLnJVFO3g780VADLn9uwp3GHTLedQwLcrp06fI4=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=boAdFwdrgL0yEL9x07dMDkx+KrTxVQ+VR4NJuHsjCQ2bkL9aE+Qx8XTJiVprqQc1f
- FjUfgBPHrEPahhxIo2yNOvbRMsPJSEPBvHY1gE7JCQtkgZRvqADNzFmx2RmfZoXh6B
- VOo86va/4vFb6AZYtXgDLeAQgValHH0bD6HvCeQcG641fe6lnWVB1hoMkfZgDxWuta
- N00uf5hp3FhbKhweBZPT9Z9rKFiUAvZBU33SPD8Te4qTJgM1DDLyQd7dAJz7otu/Yz
- 8x8cEsq6z9BzS159ocTUETG1YgQR8CVBe5s2Jge+fwnzZgBSSs8u90KxTYy483J4Ip
- gVzglRNh+6tKw==
-Date: Fri, 4 Nov 2022 20:45:14 +0530
-From: Vinod Koul <vkoul@kernel.org>
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Message-ID: <Y2Usgs8XHgS/KkxN@matsya>
-References: <20221104131358.1025987-1-dmitry.baryshkov@linaro.org>
- <20221104131358.1025987-4-dmitry.baryshkov@linaro.org>
+Received: from mail-pj1-x1031.google.com (mail-pj1-x1031.google.com
+ [IPv6:2607:f8b0:4864:20::1031])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2AF1310E8B5;
+ Fri,  4 Nov 2022 15:52:08 +0000 (UTC)
+Received: by mail-pj1-x1031.google.com with SMTP id
+ d59-20020a17090a6f4100b00213202d77e1so8597134pjk.2; 
+ Fri, 04 Nov 2022 08:52:08 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=h91PY4kE003Fzt7Dp6s2LtF8+Ku5gtgrJGFgjbiXW0Y=;
+ b=fZfNmpLbARw2htsWecPLMgqjYPXVCha4yMS8ZDbD2ibFKN0J+n0z1donudEwT68czq
+ a0Napturob7ia7xuzL1aB8P2BRUnsbBoS56zzlP4bsMwS3v0iD1ekMG6/YiSja5OdMBh
+ ZCp/Zuw4eFXMl/9YJFXMK7h0CS5Ws0Jx7n+Kbc3sXjDM8Lu7Vg6FRDU0RqK/bDLQCZOi
+ obao476g+hOwqCoByP4oL/i2QR58pWgfSbrhdrn5d0YF+Ifeqb2RFpTqn99sjrMwzQva
+ xg2F99kYPErdBIQAkV2v+HdMxcyQ923U6Dvjb8E1W3FPlEvL4id57fFAJYKXEcJuUpNa
+ SVZg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=h91PY4kE003Fzt7Dp6s2LtF8+Ku5gtgrJGFgjbiXW0Y=;
+ b=mqsJGN0P7OZbcCZypkvZBCqXHN1PrGNvY1zwUfaZr/rZwzCSoj0IlzXmzGDlzaOF5u
+ 9tpbqxW17vVurU4jGuycBDlY2KnP2AqZ9TGkNTjoKx+Wt/uQCkX0INCtu1ymOTxFjH1w
+ YnIMpsyK3Pehtp54a+EhpuhX2jMdrSlazK09ix0hyUCx/PYvYJpsztSGjw4ETJQwGIzw
+ q59eL467nY0V/9RZ93VoKVZjGUpZkViSKiJMgZEKF9GCelt5ss76gMTomEOCBiB2mRJt
+ gkySYJIJPFGBw7LDWKzEWOE9OKGdaRYrkv5qa6y+a1i1sf+yV2iH2pmXMs1JHUhZ5bqQ
+ 7u0w==
+X-Gm-Message-State: ACrzQf0ptAccD70s7KLVNq/TQqZ7c6E3Gpn8xZuXqxz9HYs6LehCsr/E
+ krhqpRcNYyQTVw3w3Ul5Y7xfiRaqfRo=
+X-Google-Smtp-Source: AMsMyM6zNFvjaDiCUgUsJtKWxaFpLMuqPLYgtr1mX1+M2ATzrBZKD/U5nCh1sXRpFzk8ueJiv0U/Yg==
+X-Received: by 2002:a17:90b:152:b0:213:dfd6:3e5e with SMTP id
+ em18-20020a17090b015200b00213dfd63e5emr27484666pjb.229.1667577127429; 
+ Fri, 04 Nov 2022 08:52:07 -0700 (PDT)
+Received: from localhost ([2a00:79e1:abd:4a00:2703:3c72:eb1a:cffd])
+ by smtp.gmail.com with ESMTPSA id
+ j4-20020a17090ac48400b002130c269b6fsm1868454pjt.1.2022.11.04.08.52.06
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 04 Nov 2022 08:52:07 -0700 (PDT)
+From: Rob Clark <robdclark@gmail.com>
+To: dri-devel@lists.freedesktop.org
+Date: Fri,  4 Nov 2022 08:52:29 -0700
+Message-Id: <20221104155229.528193-1-robdclark@gmail.com>
+X-Mailer: git-send-email 2.38.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20221104131358.1025987-4-dmitry.baryshkov@linaro.org>
-Subject: Re: [Freedreno] [PATCH v1 3/5] arm64: dts: qcom: sm8450-hdk: enable
- display hardware
+Content-Transfer-Encoding: 8bit
+Subject: [Freedreno] [RFC] drm/msm: Boost on waits
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,60 +69,98 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: devicetree@vger.kernel.org, Daniel Vetter <daniel@ffwll.ch>,
- David Airlie <airlied@gmail.com>, Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konrad.dybcio@somainline.org>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, Rob Herring <robh+dt@kernel.org>,
- Stephen Boyd <swboyd@chromium.org>, Rob Clark <robdclark@gmail.com>,
- Andy Gross <agross@kernel.org>, dri-devel@lists.freedesktop.org,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
- Sean Paul <sean@poorly.run>
+Cc: Rob Clark <robdclark@chromium.org>, linux-arm-msm@vger.kernel.org,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ open list <linux-kernel@vger.kernel.org>, Sean Paul <sean@poorly.run>,
+ Rob Clark <robdclark@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ David Airlie <airlied@gmail.com>, freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 04-11-22, 16:13, Dmitry Baryshkov wrote:
-> Enable MDSS/DPU/DSI0 on SM8450-HDK device. Note, there is no panel
-> configuration (yet).
-> 
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> ---
->  arch/arm64/boot/dts/qcom/sm8450-hdk.dts | 18 ++++++++++++++++++
->  1 file changed, 18 insertions(+)
-> 
-> diff --git a/arch/arm64/boot/dts/qcom/sm8450-hdk.dts b/arch/arm64/boot/dts/qcom/sm8450-hdk.dts
-> index 38ccd44620d0..e1a4cf1ee51d 100644
-> --- a/arch/arm64/boot/dts/qcom/sm8450-hdk.dts
-> +++ b/arch/arm64/boot/dts/qcom/sm8450-hdk.dts
-> @@ -442,3 +442,21 @@ &usb_1_qmpphy {
->  	vdda-phy-supply = <&vreg_l6b_1p2>;
->  	vdda-pll-supply = <&vreg_l1b_0p91>;
->  };
-> +
-> +&mdss {
-> +	status = "okay";
-> +};
-> +
-> +&mdss_mdp {
-> +	status = "okay";
-> +};
-> +
-> +&dsi0 {
-> +	status = "okay";
-> +	vdda-supply = <&vreg_l6b_1p2>;
-> +};
-> +
-> +&dsi0_phy {
-> +	status = "okay";
-> +	vdds-supply = <&vreg_l5b_0p88>;
-> +};
+From: Rob Clark <robdclark@chromium.org>
 
-This is missing dispcc, please enable that node too.
+Minimize interactive latency by boosting frequency when userspace is
+waiting on the GPU to finish.
 
-Also, sort this please
+Signed-off-by: Rob Clark <robdclark@chromium.org>
+---
+I did contemplate also boosting on dma_fence_wait(), but (a) that would
+require some extra plumbing thru gpu-sched, (b) that only captures a
+sub-set of wait-on-dma-fence patterns, and (c) waiting on a dma-fence
+doesn't always imply urgency (for ex, virglrenderer poll()ing on a dma-
+fence to know when to send a fence irq to VM guest).  But the driver
+WAIT_FENCE and CPU_PREP ioctls map to things like glFinish() where it
+is pretty clear that there is something wishing the GPU would finish
+sooner.
 
-> -- 
-> 2.35.1
+ drivers/gpu/drm/msm/msm_drv.c         | 7 +++++--
+ drivers/gpu/drm/msm/msm_gem.c         | 6 ++++++
+ drivers/gpu/drm/msm/msm_gpu_devfreq.c | 2 +-
+ 3 files changed, 12 insertions(+), 3 deletions(-)
 
+diff --git a/drivers/gpu/drm/msm/msm_drv.c b/drivers/gpu/drm/msm/msm_drv.c
+index c3b77b44b2aa..017a512982a2 100644
+--- a/drivers/gpu/drm/msm/msm_drv.c
++++ b/drivers/gpu/drm/msm/msm_drv.c
+@@ -894,7 +894,7 @@ static int msm_ioctl_gem_info(struct drm_device *dev, void *data,
+ }
+ 
+ static int wait_fence(struct msm_gpu_submitqueue *queue, uint32_t fence_id,
+-		      ktime_t timeout)
++		      ktime_t timeout, struct msm_gpu *gpu)
+ {
+ 	struct dma_fence *fence;
+ 	int ret;
+@@ -924,6 +924,9 @@ static int wait_fence(struct msm_gpu_submitqueue *queue, uint32_t fence_id,
+ 	if (!fence)
+ 		return 0;
+ 
++	if (!dma_fence_is_signaled(fence))
++		msm_devfreq_boost(gpu, 2);
++
+ 	ret = dma_fence_wait_timeout(fence, true, timeout_to_jiffies(&timeout));
+ 	if (ret == 0) {
+ 		ret = -ETIMEDOUT;
+@@ -956,7 +959,7 @@ static int msm_ioctl_wait_fence(struct drm_device *dev, void *data,
+ 	if (!queue)
+ 		return -ENOENT;
+ 
+-	ret = wait_fence(queue, args->fence, to_ktime(args->timeout));
++	ret = wait_fence(queue, args->fence, to_ktime(args->timeout), priv->gpu);
+ 
+ 	msm_submitqueue_put(queue);
+ 
+diff --git a/drivers/gpu/drm/msm/msm_gem.c b/drivers/gpu/drm/msm/msm_gem.c
+index 1dee0d18abbb..fbda0e3a94f8 100644
+--- a/drivers/gpu/drm/msm/msm_gem.c
++++ b/drivers/gpu/drm/msm/msm_gem.c
+@@ -846,6 +846,12 @@ int msm_gem_cpu_prep(struct drm_gem_object *obj, uint32_t op, ktime_t *timeout)
+ 		op & MSM_PREP_NOSYNC ? 0 : timeout_to_jiffies(timeout);
+ 	long ret;
+ 
++	if (!dma_resv_test_signaled(obj->resv, dma_resv_usage_rw(write))) {
++		struct msm_drm_private *priv = obj->dev->dev_private;
++
++		msm_devfreq_boost(priv->gpu, 2);
++	}
++
+ 	ret = dma_resv_wait_timeout(obj->resv, dma_resv_usage_rw(write),
+ 				    true,  remain);
+ 	if (ret == 0)
+diff --git a/drivers/gpu/drm/msm/msm_gpu_devfreq.c b/drivers/gpu/drm/msm/msm_gpu_devfreq.c
+index 85c443a37e4e..025940eb08d1 100644
+--- a/drivers/gpu/drm/msm/msm_gpu_devfreq.c
++++ b/drivers/gpu/drm/msm/msm_gpu_devfreq.c
+@@ -305,7 +305,7 @@ void msm_devfreq_boost(struct msm_gpu *gpu, unsigned factor)
+ 	struct msm_gpu_devfreq *df = &gpu->devfreq;
+ 	uint64_t freq;
+ 
+-	if (!has_devfreq(gpu))
++	if (!gpu || !has_devfreq(gpu))
+ 		return;
+ 
+ 	freq = get_freq(gpu);
 -- 
-~Vinod
+2.38.1
+
