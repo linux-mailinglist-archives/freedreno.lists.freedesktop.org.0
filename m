@@ -2,57 +2,51 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1CBE9619F46
-	for <lists+freedreno@lfdr.de>; Fri,  4 Nov 2022 18:54:20 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7564F61A05F
+	for <lists+freedreno@lfdr.de>; Fri,  4 Nov 2022 19:57:47 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CED0410E980;
-	Fri,  4 Nov 2022 17:54:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C306D10E108;
+	Fri,  4 Nov 2022 18:57:42 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-oa1-f42.google.com (mail-oa1-f42.google.com
- [209.85.160.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AE98410E97F;
- Fri,  4 Nov 2022 17:54:15 +0000 (UTC)
-Received: by mail-oa1-f42.google.com with SMTP id
- 586e51a60fabf-13b23e29e36so6306243fac.8; 
- Fri, 04 Nov 2022 10:54:15 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=date:subject:message-id:references:in-reply-to:cc:to:from
- :mime-version:content-transfer-encoding:x-gm-message-state:from:to
- :cc:subject:date:message-id:reply-to;
- bh=u7AHuf0DqeM+V9xiT6efORX/S9z2qweBOkj1kn1GRs4=;
- b=ZUob0/lcHERXm9tKcG60YS/6kkCCq4Dwkhh+Ih0ZtC8apg+OomqbPq5THSYr+/Sso1
- EOZsfTBYws5c6kuPBmQHbWLkiQ2oevGlZRhaFAbsZZG1vRO6WQCArhZ3o92CtWjhs1Mj
- +bgi3wvUH3ft5+stJS0yD4ca36c4GFuwL2Khm0Iap9p0b5MYkgTmkzzMLo8eLHAYuuGM
- FJofsFpLl5VjyWqafL88h+7YWkJMVxPhT0qZZhdFRjw84sqvS60+CMeYpDrhPP2FVxnN
- pPBKAn23OX+GBYXDHH4+1iRTUMq5V4e5EpHHKQx2W607C8pI1xIy1ebA0cF/Zp+Oj+V4
- a8CQ==
-X-Gm-Message-State: ACrzQf0sXF53Ch5TAVSZ2YX2XYoEGu06XXjp6H4nndnGbdJVjECLAI7/
- 52gYyfd/iU3ooft9GJ/QCQ==
-X-Google-Smtp-Source: AMsMyM6kU+jqpdhuEc+A1TS9uvGNWlwogKOJv8gvkoL4lBPWHzE6K6dqi+QCXOj0qPtBg4le4Fab8Q==
-X-Received: by 2002:a05:6870:4284:b0:101:202e:a78d with SMTP id
- y4-20020a056870428400b00101202ea78dmr31712560oah.37.1667584454747; 
- Fri, 04 Nov 2022 10:54:14 -0700 (PDT)
-Received: from robh_at_kernel.org (66-90-144-107.dyn.grandenetworks.net.
- [66.90.144.107]) by smtp.gmail.com with ESMTPSA id
- o3-20020a544783000000b00342ded07a75sm1669705oic.18.2022.11.04.10.54.13
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 04 Nov 2022 10:54:14 -0700 (PDT)
-Received: (nullmailer pid 2078500 invoked by uid 1000);
- Fri, 04 Nov 2022 17:54:15 -0000
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2B18D10E093;
+ Fri,  4 Nov 2022 18:57:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1667588258; x=1699124258;
+ h=date:from:to:cc:subject:message-id:mime-version:
+ content-transfer-encoding;
+ bh=HfJ4nv8wN6briqCaEwDbiyyy2GoyauuVwacO9HR6vKQ=;
+ b=kjmZhArAuKFIKOVEaCUniP7Oi8hKyEcnOk9fcEUbd9PF2iDdgTY0vLuN
+ h1WhmlP4Ppmv7rFFk4SW9wA2gjUwrtXXMy4yFoc/Jj//KHQMayfNYAiH9
+ bo6cxlIzQFRhU88mX+rPAXkkN3n2A7ZqZ0GZkk9SXWwqCmoRXMOR7niWW
+ Cny8cgon7HarXsLbf7jVdjwwOntJ/cvR7KNPWPC6ARg7e+1xuUg0EU7g9
+ EWcMgdQ6hDEXFtrXLHQitVnxNWp8NjzVLCdIwF3l+cyqi3rv5oNMYR6KW
+ Lz2TrvXDTxBIQ3ve3JQU5eFO01GvZygUWOaxZJm/PwY1ij1RX6VVTxNgv w==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10521"; a="289772300"
+X-IronPort-AV: E=Sophos;i="5.96,138,1665471600"; d="scan'208";a="289772300"
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+ by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 04 Nov 2022 11:57:37 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6500,9779,10521"; a="777818230"
+X-IronPort-AV: E=Sophos;i="5.96,138,1665471600"; d="scan'208";a="777818230"
+Received: from lkp-server02.sh.intel.com (HELO b6d29c1a0365) ([10.239.97.151])
+ by fmsmga001.fm.intel.com with ESMTP; 04 Nov 2022 11:57:36 -0700
+Received: from kbuild by b6d29c1a0365 with local (Exim 4.96)
+ (envelope-from <lkp@intel.com>) id 1or1sl-000HFA-0j;
+ Fri, 04 Nov 2022 18:57:35 +0000
+Date: Sat, 05 Nov 2022 02:56:37 +0800
+From: kernel test robot <lkp@intel.com>
+To: Andrew Morton <akpm@linux-foundation.org>
+Message-ID: <63656065.kcx4EopdcPjzWJhq%lkp@intel.com>
+User-Agent: Heirloom mailx 12.5 6/20/10
 MIME-Version: 1.0
-From: Rob Herring <robh@kernel.org>
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-In-Reply-To: <20221104130324.1024242-4-dmitry.baryshkov@linaro.org>
-References: <20221104130324.1024242-1-dmitry.baryshkov@linaro.org>
- <20221104130324.1024242-4-dmitry.baryshkov@linaro.org>
-Message-Id: <166758411702.2065980.14252732148824060814.robh@kernel.org>
-Date: Fri, 04 Nov 2022 12:54:15 -0500
-Subject: Re: [Freedreno] [PATCH v3 3/8] dt-bindings: display/msm: add
- support for the display on SM8450
+Content-Type: text/plain; charset=us-ascii
+Content-Transfer-Encoding: 7bit
+Subject: [Freedreno] [linux-next:master] BUILD SUCCESS WITH WARNING
+ 0cdb3579f1ee4c1e55acf8dfb0697b660067b1f8
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,71 +59,151 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sean Paul <sean@poorly.run>, devicetree@vger.kernel.org,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, linux-arm-msm@vger.kernel.org,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konrad.dybcio@somainline.org>, Andy Gross <agross@kernel.org>,
- dri-devel@lists.freedesktop.org, Stephen Boyd <swboyd@chromium.org>,
- Rob Clark <robdclark@gmail.com>, Rob Herring <robh+dt@kernel.org>,
- Daniel Vetter <daniel@ffwll.ch>, David Airlie <airlied@gmail.com>,
- freedreno@lists.freedesktop.org
+Cc: linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ Linux Memory Management List <linux-mm@kvack.org>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
+tree/branch: https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git master
+branch HEAD: 0cdb3579f1ee4c1e55acf8dfb0697b660067b1f8  Add linux-next specific files for 20221104
 
-On Fri, 04 Nov 2022 16:03:19 +0300, Dmitry Baryshkov wrote:
-> Add DPU and MDSS schemas to describe MDSS and DPU blocks on the Qualcomm
-> SM8450 platform.
-> 
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> ---
->  .../bindings/display/msm/qcom,sm8450-dpu.yaml | 132 +++++++
->  .../display/msm/qcom,sm8450-mdss.yaml         | 347 ++++++++++++++++++
->  2 files changed, 479 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/display/msm/qcom,sm8450-dpu.yaml
->  create mode 100644 Documentation/devicetree/bindings/display/msm/qcom,sm8450-mdss.yaml
-> 
+Warning reports:
 
-My bot found errors running 'make DT_CHECKER_FLAGS=-m dt_binding_check'
-on your patch (DT_CHECKER_FLAGS is new in v5.13):
+https://lore.kernel.org/oe-kbuild-all/202211041320.coq8EELJ-lkp@intel.com
+https://lore.kernel.org/oe-kbuild-all/202211041654.zCUPre9o-lkp@intel.com
 
-yamllint warnings/errors:
+Warning: (recently discovered and may have been fixed)
 
-dtschema/dtc warnings/errors:
-./Documentation/devicetree/bindings/display/msm/qcom,sm8450-mdss.yaml: Unable to find schema file matching $id: http://devicetree.org/schemas/display/msm/mdss-common.yaml
-./Documentation/devicetree/bindings/display/msm/qcom,sm8450-dpu.yaml: Unable to find schema file matching $id: http://devicetree.org/schemas/display/msm/dpu-common.yaml
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sm8450-dpu.example.dtb: display-controller@ae01000: False schema does not allow {'compatible': ['qcom,sm8450-dpu'], 'reg': [[182456320, 585728], [183173120, 8200]], 'reg-names': ['mdp', 'vbif'], 'clocks': [[4294967295, 28], [4294967295, 29], [4294967295, 1], [4294967295, 63], [4294967295, 60], [4294967295, 75]], 'clock-names': ['bus', 'nrt_bus', 'iface', 'lut', 'core', 'vsync'], 'assigned-clocks': [[4294967295, 75]], 'assigned-clock-rates': [[19200000]], 'operating-points-v2': [[1]], 'power-domains': [[4294967295, 6]], 'interrupts': [[0]], 'ports': {'#address-cells': [[1]], '#size-cells': [[0]], 'port@0': {'reg': [[0]], 'endpoint': {'remote-endpoint': [[4294967295]]}}, 'port@1': {'reg': [[1]], 'endpoint': {'remote-endpoint': [[4294967295]]}}}, 'opp-table': {'compatible': ['operating-points-v2'], 'phandle': [[1]], 'opp-172000000': {'opp-hz': [[0], [172000000]], 'required-opps': [[4294967295]]}, 'o
- pp-200000000': {'opp-hz': [[0], [200000000]], 'required-opps': [[4294967295]]}, 'opp-325000000': {'opp-hz': [[0], [325000000]], 'required-opps': [[4294967295]]}, 'opp-375000000': {'opp-hz': [[0], [375000000]], 'required-opps': [[4294967295]]}, 'opp-500000000': {'opp-hz': [[0], [500000000]], 'required-opps': [[4294967295]]}}, '$nodename': ['display-controller@ae01000']}
-	From schema: /builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sm8450-dpu.yaml
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sm8450-dpu.example.dtb: display-controller@ae01000: Unevaluated properties are not allowed ('interrupts', 'operating-points-v2', 'opp-table', 'ports', 'power-domains' were unexpected)
-	From schema: /builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sm8450-dpu.yaml
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sm8450-mdss.example.dtb: display-subsystem@ae00000: False schema does not allow {'compatible': ['qcom,sm8450-mdss'], 'reg': [[182452224, 4096]], 'reg-names': ['mdss'], 'interconnects': [[4294967295, 14, 0, 4294967295, 3, 0], [4294967295, 14, 0, 4294967295, 3, 0]], 'interconnect-names': ['mdp0-mem', 'mdp1-mem'], 'resets': [[4294967295, 0]], 'power-domains': [[4294967295, 0]], 'clocks': [[4294967295, 1], [4294967295, 28], [4294967295, 29], [4294967295, 60]], 'clock-names': ['iface', 'bus', 'nrt_bus', 'core'], 'interrupts': [[0, 83, 4]], 'interrupt-controller': True, '#interrupt-cells': [[1]], 'iommus': [[4294967295, 10240, 1026]], '#address-cells': [[1]], '#size-cells': [[1]], 'ranges': True, 'display-controller@ae01000': {'compatible': ['qcom,sm8450-dpu'], 'reg': [[182456320, 585728], [183173120, 8200]], 'reg-names': ['mdp', 'vbif'], 'clocks': [[4294967295, 28], [4294967295, 29], [4294967295, 1], 
- [4294967295, 63], [4294967295, 60], [4294967295, 75]], 'clock-names': ['bus', 'nrt_bus', 'iface', 'lut', 'core', 'vsync'], 'assigned-clocks': [[4294967295, 75]], 'assigned-clock-rates': [[19200000]], 'operating-points-v2': [[1]], 'power-domains': [[4294967295, 6]], 'interrupts': [[0]], 'ports': {'#address-cells': [[1]], '#size-cells': [[0]], 'port@0': {'reg': [[0]], 'endpoint': {'remote-endpoint': [[2]], 'phandle': [[6]]}}, 'port@1': {'reg': [[1]], 'endpoint': {'remote-endpoint': [[3]], 'phandle': [[8]]}}}, 'opp-table': {'compatible': ['operating-points-v2'], 'phandle': [[1]], 'opp-172000000': {'opp-hz': [[0], [172000000]], 'required-opps': [[4294967295]]}, 'opp-200000000': {'opp-hz': [[0], [200000000]], 'required-opps': [[4294967295]]}, 'opp-325000000': {'opp-hz': [[0], [325000000]], 'required-opps': [[4294967295]]}, 'opp-375000000': {'opp-hz': [[0], [375000000]], 'required-opps': [[4294967295]]}, 'opp-500000000': {'opp-hz': [[0], [500000000]], 'required-opps': [[4294967295]]}}}, '
- dsi@ae94000': {'compatible': ['qcom,mdss-dsi-ctrl'], 'reg': [[183058432, 1024]], 'reg-names': ['dsi_ctrl'], 'interrupts': [[4]], 'clocks': [[4294967295, 3], [4294967295, 6], [4294967295, 65], [4294967295, 55], [4294967295, 1], [4294967295, 28]], 'clock-names': ['byte', 'byte_intf', 'pixel', 'core', 'iface', 'bus'], 'assigned-clocks': [[4294967295, 4], [4294967295, 66]], 'assigned-clock-parents': [[4, 0], [4, 1]], 'operating-points-v2': [[5]], 'power-domains': [[4294967295, 6]], 'phys': [[4]], 'phy-names': ['dsi'], '#address-cells': [[1]], '#size-cells': [[0]], 'ports': {'#address-cells': [[1]], '#size-cells': [[0]], 'port@0': {'reg': [[0]], 'endpoint': {'remote-endpoint': [[6]], 'phandle': [[2]]}}, 'port@1': {'reg': [[1]], 'endpoint': {}}}, 'opp-table': {'compatible': ['operating-points-v2'], 'phandle': [[5]], 'opp-160310000': {'opp-hz': [[0], [160310000]], 'required-opps': [[4294967295]]}, 'opp-187500000': {'opp-hz': [[0], [187500000]], 'required-opps': [[4294967295]]}, 'opp-300000
- 000': {'opp-hz': [[0], [300000000]], 'required-opps': [[4294967295]]}, 'opp-358000000': {'opp-hz': [[0], [358000000]], 'required-opps': [[4294967295]]}}}, 'phy@ae94400': {'compatible': ['qcom,dsi-phy-5nm-8450'], 'reg': [[183059456, 512], [183059968, 640], [183060736, 608]], 'reg-names': ['dsi_phy', 'dsi_phy_lane', 'dsi_pll'], '#clock-cells': [[1]], '#phy-cells': [[0]], 'clocks': [[4294967295, 1], [4294967295, 0]], 'clock-names': ['iface', 'ref'], 'vdds-supply': [[4294967295]], 'phandle': [[4]]}, 'dsi@ae96000': {'compatible': ['qcom,mdss-dsi-ctrl'], 'reg': [[183066624, 1024]], 'reg-names': ['dsi_ctrl'], 'interrupts': [[5]], 'clocks': [[4294967295, 7], [4294967295, 10], [4294967295, 67], [4294967295, 57], [4294967295, 1], [4294967295, 28]], 'clock-names': ['byte', 'byte_intf', 'pixel', 'core', 'iface', 'bus'], 'assigned-clocks': [[4294967295, 8], [4294967295, 68]], 'assigned-clock-parents': [[7, 0], [7, 1]], 'operating-points-v2': [[5]], 'power-domains': [[4294967295, 6]], 'phys': [[7
- ]], 'phy-names': ['dsi'], '#address-cells': [[1]], '#size-cells': [[0]], 'ports': {'#address-cells': [[1]], '#size-cells': [[0]], 'port@0': {'reg': [[0]], 'endpoint': {'remote-endpoint': [[8]], 'phandle': [[3]]}}, 'port@1': {'reg': [[1]], 'endpoint': {}}}}, 'phy@ae96400': {'compatible': ['qcom,dsi-phy-5nm-8450'], 'reg': [[183067648, 512], [183068160, 640], [183068928, 608]], 'reg-names': ['dsi_phy', 'dsi_phy_lane', 'dsi_pll'], '#clock-cells': [[1]], '#phy-cells': [[0]], 'clocks': [[4294967295, 1], [4294967295, 0]], 'clock-names': ['iface', 'ref'], 'vdds-supply': [[4294967295]], 'phandle': [[7]]}, '$nodename': ['display-subsystem@ae00000']}
-	From schema: /builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sm8450-mdss.yaml
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sm8450-mdss.example.dtb: display-subsystem@ae00000: Unevaluated properties are not allowed ('#address-cells', '#interrupt-cells', '#size-cells', 'interrupt-controller', 'interrupts', 'power-domains', 'ranges', 'reg', 'reg-names', 'resets' were unexpected)
-	From schema: /builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sm8450-mdss.yaml
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sm8450-mdss.example.dtb: display-controller@ae01000: False schema does not allow {'compatible': ['qcom,sm8450-dpu'], 'reg': [[182456320, 585728], [183173120, 8200]], 'reg-names': ['mdp', 'vbif'], 'clocks': [[4294967295, 28], [4294967295, 29], [4294967295, 1], [4294967295, 63], [4294967295, 60], [4294967295, 75]], 'clock-names': ['bus', 'nrt_bus', 'iface', 'lut', 'core', 'vsync'], 'assigned-clocks': [[4294967295, 75]], 'assigned-clock-rates': [[19200000]], 'operating-points-v2': [[1]], 'power-domains': [[4294967295, 6]], 'interrupts': [[0]], 'ports': {'#address-cells': [[1]], '#size-cells': [[0]], 'port@0': {'reg': [[0]], 'endpoint': {'remote-endpoint': [[2]], 'phandle': [[6]]}}, 'port@1': {'reg': [[1]], 'endpoint': {'remote-endpoint': [[3]], 'phandle': [[8]]}}}, 'opp-table': {'compatible': ['operating-points-v2'], 'phandle': [[1]], 'opp-172000000': {'opp-hz': [[0], [172000000]], 'required-opps': 
- [[4294967295]]}, 'opp-200000000': {'opp-hz': [[0], [200000000]], 'required-opps': [[4294967295]]}, 'opp-325000000': {'opp-hz': [[0], [325000000]], 'required-opps': [[4294967295]]}, 'opp-375000000': {'opp-hz': [[0], [375000000]], 'required-opps': [[4294967295]]}, 'opp-500000000': {'opp-hz': [[0], [500000000]], 'required-opps': [[4294967295]]}}, '$nodename': ['display-controller@ae01000']}
-	From schema: /builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sm8450-dpu.yaml
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sm8450-mdss.example.dtb: display-controller@ae01000: Unevaluated properties are not allowed ('interrupts', 'operating-points-v2', 'opp-table', 'ports', 'power-domains' were unexpected)
-	From schema: /builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sm8450-dpu.yaml
+drivers/gpu/drm/amd/amdgpu/../display/dc/core/dc.c:4878: warning: This comment starts with '/**', but isn't a kernel-doc comment. Refer Documentation/doc-guide/kernel-doc.rst
+drivers/gpu/drm/amd/amdgpu/../display/dc/core/dc_link_dp.c:5044:24: warning: implicit conversion from 'enum <anonymous>' to 'enum dc_status' [-Wenum-conversion]
+drivers/gpu/drm/msm/hdmi/hdmi.c:244:1: warning: 'static' is not at beginning of declaration [-Wold-style-declaration]
+drivers/gpu/drm/msm/hdmi/hdmi.c:251:1: warning: 'static' is not at beginning of declaration [-Wold-style-declaration]
 
-doc reference errors (make refcheckdocs):
+Warning ids grouped by kconfigs:
 
-See https://patchwork.ozlabs.org/patch/
+gcc_recent_errors
+|-- alpha-allyesconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc.c:warning:This-comment-starts-with-but-isn-t-a-kernel-doc-comment.-Refer-Documentation-doc-guide-kernel-doc.rst
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_link_dp.c:warning:implicit-conversion-from-enum-anonymous-to-enum-dc_status
+|   `-- drivers-gpu-drm-msm-hdmi-hdmi.c:warning:static-is-not-at-beginning-of-declaration
+|-- arc-allyesconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc.c:warning:This-comment-starts-with-but-isn-t-a-kernel-doc-comment.-Refer-Documentation-doc-guide-kernel-doc.rst
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_link_dp.c:warning:implicit-conversion-from-enum-anonymous-to-enum-dc_status
+|   `-- drivers-gpu-drm-msm-hdmi-hdmi.c:warning:static-is-not-at-beginning-of-declaration
+|-- arc-randconfig-r036-20221104
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_link_dp.c:warning:implicit-conversion-from-enum-anonymous-to-enum-dc_status
+|-- arc-randconfig-r043-20221104
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc.c:warning:This-comment-starts-with-but-isn-t-a-kernel-doc-comment.-Refer-Documentation-doc-guide-kernel-doc.rst
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_link_dp.c:warning:implicit-conversion-from-enum-anonymous-to-enum-dc_status
+|-- arm-allyesconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc.c:warning:This-comment-starts-with-but-isn-t-a-kernel-doc-comment.-Refer-Documentation-doc-guide-kernel-doc.rst
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_link_dp.c:warning:implicit-conversion-from-enum-anonymous-to-enum-dc_status
+|   `-- drivers-gpu-drm-msm-hdmi-hdmi.c:warning:static-is-not-at-beginning-of-declaration
+|-- arm-defconfig
+|   `-- drivers-gpu-drm-msm-hdmi-hdmi.c:warning:static-is-not-at-beginning-of-declaration
+|-- arm64-allyesconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc.c:warning:This-comment-starts-with-but-isn-t-a-kernel-doc-comment.-Refer-Documentation-doc-guide-kernel-doc.rst
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_link_dp.c:warning:implicit-conversion-from-enum-anonymous-to-enum-dc_status
+|   `-- drivers-gpu-drm-msm-hdmi-hdmi.c:warning:static-is-not-at-beginning-of-declaration
+|-- i386-allyesconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc.c:warning:This-comment-starts-with-but-isn-t-a-kernel-doc-comment.-Refer-Documentation-doc-guide-kernel-doc.rst
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_link_dp.c:warning:implicit-conversion-from-enum-anonymous-to-enum-dc_status
+|-- ia64-allmodconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc.c:warning:This-comment-starts-with-but-isn-t-a-kernel-doc-comment.-Refer-Documentation-doc-guide-kernel-doc.rst
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_link_dp.c:warning:implicit-conversion-from-enum-anonymous-to-enum-dc_status
+|-- ia64-buildonly-randconfig-r006-20221104
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc.c:warning:This-comment-starts-with-but-isn-t-a-kernel-doc-comment.-Refer-Documentation-doc-guide-kernel-doc.rst
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_link_dp.c:warning:implicit-conversion-from-enum-anonymous-to-enum-dc_status
+|-- m68k-allmodconfig
+|   `-- drivers-gpu-drm-msm-hdmi-hdmi.c:warning:static-is-not-at-beginning-of-declaration
+|-- m68k-allyesconfig
+|   `-- drivers-gpu-drm-msm-hdmi-hdmi.c:warning:static-is-not-at-beginning-of-declaration
+|-- mips-allyesconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc.c:warning:This-comment-starts-with-but-isn-t-a-kernel-doc-comment.-Refer-Documentation-doc-guide-kernel-doc.rst
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_link_dp.c:warning:implicit-conversion-from-enum-anonymous-to-enum-dc_status
+|   `-- drivers-gpu-drm-msm-hdmi-hdmi.c:warning:static-is-not-at-beginning-of-declaration
+|-- powerpc-allmodconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc.c:warning:This-comment-starts-with-but-isn-t-a-kernel-doc-comment.-Refer-Documentation-doc-guide-kernel-doc.rst
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_link_dp.c:warning:implicit-conversion-from-enum-anonymous-to-enum-dc_status
+|   `-- drivers-gpu-drm-msm-hdmi-hdmi.c:warning:static-is-not-at-beginning-of-declaration
+|-- riscv-randconfig-r042-20221104
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc.c:warning:This-comment-starts-with-but-isn-t-a-kernel-doc-comment.-Refer-Documentation-doc-guide-kernel-doc.rst
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_link_dp.c:warning:implicit-conversion-from-enum-anonymous-to-enum-dc_status
+|-- s390-allyesconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc.c:warning:This-comment-starts-with-but-isn-t-a-kernel-doc-comment.-Refer-Documentation-doc-guide-kernel-doc.rst
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_link_dp.c:warning:implicit-conversion-from-enum-anonymous-to-enum-dc_status
+clang_recent_errors
+`-- x86_64-randconfig-a016
+    `-- vmlinux.o:warning:objtool:handle_bug:call-to-kmsan_unpoison_entry_regs()-leaves-.noinstr.text-section
 
-This check can fail if there are any dependencies. The base for a patch
-series is generally the most recent rc1.
+elapsed time: 773m
 
-If you already ran 'make dt_binding_check' and didn't see the above
-error(s), then make sure 'yamllint' is installed and dt-schema is up to
-date:
+configs tested: 58
+configs skipped: 2
 
-pip3 install dtschema --upgrade
+gcc tested configs:
+um                             i386_defconfig
+um                           x86_64_defconfig
+i386                                defconfig
+riscv                randconfig-r042-20221104
+x86_64                              defconfig
+x86_64                        randconfig-a013
+arc                  randconfig-r043-20221104
+x86_64                        randconfig-a011
+arc                                 defconfig
+s390                 randconfig-r044-20221104
+s390                             allmodconfig
+x86_64                        randconfig-a015
+powerpc                           allnoconfig
+ia64                             allmodconfig
+x86_64                          rhel-8.3-func
+alpha                               defconfig
+x86_64                    rhel-8.3-kselftests
+x86_64                        randconfig-a004
+x86_64                           rhel-8.3-kvm
+s390                             allyesconfig
+s390                                defconfig
+x86_64                         rhel-8.3-kunit
+x86_64                        randconfig-a002
+x86_64                               rhel-8.3
+x86_64                           rhel-8.3-syz
+i386                             allyesconfig
+sh                               allmodconfig
+arc                              allyesconfig
+mips                             allyesconfig
+x86_64                        randconfig-a006
+powerpc                          allmodconfig
+alpha                            allyesconfig
+arm                                 defconfig
+m68k                             allyesconfig
+i386                          randconfig-a001
+i386                          randconfig-a003
+i386                          randconfig-a014
+x86_64                           allyesconfig
+i386                          randconfig-a012
+i386                          randconfig-a005
+i386                          randconfig-a016
+arm                              allyesconfig
+arm64                            allyesconfig
+m68k                             allmodconfig
 
-Please check and re-submit.
+clang tested configs:
+hexagon              randconfig-r041-20221104
+hexagon              randconfig-r045-20221104
+x86_64                        randconfig-a012
+x86_64                        randconfig-a014
+x86_64                        randconfig-a016
+x86_64                        randconfig-a001
+x86_64                        randconfig-a003
+x86_64                        randconfig-a005
+i386                          randconfig-a002
+i386                          randconfig-a004
+i386                          randconfig-a013
+i386                          randconfig-a006
+i386                          randconfig-a011
+i386                          randconfig-a015
 
+-- 
+0-DAY CI Kernel Test Service
+https://01.org/lkp
