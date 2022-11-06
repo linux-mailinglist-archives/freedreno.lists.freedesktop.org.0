@@ -2,46 +2,45 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5344861E042
-	for <lists+freedreno@lfdr.de>; Sun,  6 Nov 2022 05:30:22 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3204161E39D
+	for <lists+freedreno@lfdr.de>; Sun,  6 Nov 2022 18:03:55 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EB9E710E200;
-	Sun,  6 Nov 2022 04:30:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6BB0D10E1AD;
+	Sun,  6 Nov 2022 17:03:53 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from ams.source.kernel.org (ams.source.kernel.org
- [IPv6:2604:1380:4601:e00::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6BFAD10E200;
- Sun,  6 Nov 2022 04:30:17 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2858610E0BF;
+ Sun,  6 Nov 2022 17:03:50 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 7132FB80690;
- Sun,  6 Nov 2022 04:30:15 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0A597C433C1;
- Sun,  6 Nov 2022 04:30:12 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 734F760CE8;
+ Sun,  6 Nov 2022 17:03:49 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0A151C433C1;
+ Sun,  6 Nov 2022 17:03:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1667709014;
- bh=zrkn1G+w9Wm/7JS5FLoHzU9ltDXv9SgNtssolctSshw=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=JTlEEyeCq+jdsxB6DGbRvgG6hh9j0gwEOJDZRkFOSyWdc/wmIU3e/PlvQlMeGQcZW
- +1/mv85O3GiEh0ixlGFdOzNUH0cK0Ah9hrFOkp7wDxKlWmBFDU3SVR+5+vtmAZ4iku
- LDgIIhDmiWvCffgOT8hjBCNJXfbEGIhoKIVNSUOpdwRJLlp18fvZn5s35Xxxu2Wn3Z
- m4mXS15QD4jU+zWZIxgswsNH/CMexPDpNjFGOTe0w1i0iC1A5xdCbgBYomeigJvjC/
- FsAJYFdtP5iqdlEsqMl0YDqE0EP1GACqfiR6kBCoogo9+J+ZW3yPAjKy8NLJaygEfv
- uKo3apx6NNCsA==
-Date: Sat, 5 Nov 2022 23:30:11 -0500
-From: Bjorn Andersson <andersson@kernel.org>
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Message-ID: <20221106043011.pw5fqeame7otzdcn@builder.lan>
-References: <20221104131358.1025987-1-dmitry.baryshkov@linaro.org>
- <20221104131358.1025987-4-dmitry.baryshkov@linaro.org>
+ s=k20201202; t=1667754228;
+ bh=aBETzMf0OclZ0SaVEPr4il3hPRXeVDkWT00EYqZWNXQ=;
+ h=From:To:Cc:Subject:Date:From;
+ b=TPzKC7Mz5MCCkwQKeWtIvTNO2t34monjJW7W4WQ+kO2/kchlTWSjnmtLQeLVKoCJS
+ CA32IoDqYmv7LUGnj2hBVnVxa+HvRke2sBuo+u3AXU50yDLvJwMFI7/0p6f/dljrbG
+ E9m244vW//2NQm0+JWRkQKOxbmzlsN72qm36pyDTbblCrLyL6+Cvn36BTB4U200Hds
+ ZPSEBTlYdp7c2qgEt078ZLFB8kJKBv1zIWefdpNo2Q/uwH3aXsVKAAHr1flkYnA7mY
+ OwuN1wdYTQ6kDTWIgIC8gcy050ZA3IqaDVJVlD50nlqFo03BWlqfpooxZxQRCbSqZD
+ AOb5UXDJegE+w==
+From: Sasha Levin <sashal@kernel.org>
+To: linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Date: Sun,  6 Nov 2022 12:03:13 -0500
+Message-Id: <20221106170345.1579893-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.35.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20221104131358.1025987-4-dmitry.baryshkov@linaro.org>
-Subject: Re: [Freedreno] [PATCH v1 3/5] arm64: dts: qcom: sm8450-hdk: enable
- display hardware
+X-stable: review
+X-Patchwork-Hint: Ignore
+Content-Transfer-Encoding: 8bit
+Subject: [Freedreno] [PATCH AUTOSEL 6.0 01/30] drm/msm/gpu: Fix crash during
+ system suspend after unbind
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,60 +53,89 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: devicetree@vger.kernel.org, Daniel Vetter <daniel@ffwll.ch>,
- Vinod Koul <vkoul@kernel.org>, David Airlie <airlied@gmail.com>,
- Konrad Dybcio <konrad.dybcio@somainline.org>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, Rob Herring <robh+dt@kernel.org>,
- Stephen Boyd <swboyd@chromium.org>, Rob Clark <robdclark@gmail.com>,
- Andy Gross <agross@kernel.org>, dri-devel@lists.freedesktop.org,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
- Sean Paul <sean@poorly.run>
+Cc: Rob Clark <robdclark@chromium.org>, Sasha Levin <sashal@kernel.org>,
+ Akhil P Oommen <quic_akhilpo@quicinc.com>, vladimir.lypak@gmail.com,
+ andersson@kernel.org, konrad.dybcio@somainline.org, quic_abhinavk@quicinc.com,
+ dri-devel@lists.freedesktop.org, nathan@kernel.org, robdclark@gmail.com,
+ daniel@ffwll.ch, linux-arm-msm@vger.kernel.org, dmitry.baryshkov@linaro.org,
+ freedreno@lists.freedesktop.org, airlied@gmail.com, olvaffe@gmail.com,
+ angelogioacchino.delregno@collabora.com
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Fri, Nov 04, 2022 at 04:13:56PM +0300, Dmitry Baryshkov wrote:
-> Enable MDSS/DPU/DSI0 on SM8450-HDK device. Note, there is no panel
-> configuration (yet).
-> 
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> ---
->  arch/arm64/boot/dts/qcom/sm8450-hdk.dts | 18 ++++++++++++++++++
->  1 file changed, 18 insertions(+)
-> 
-> diff --git a/arch/arm64/boot/dts/qcom/sm8450-hdk.dts b/arch/arm64/boot/dts/qcom/sm8450-hdk.dts
-> index 38ccd44620d0..e1a4cf1ee51d 100644
-> --- a/arch/arm64/boot/dts/qcom/sm8450-hdk.dts
-> +++ b/arch/arm64/boot/dts/qcom/sm8450-hdk.dts
-> @@ -442,3 +442,21 @@ &usb_1_qmpphy {
->  	vdda-phy-supply = <&vreg_l6b_1p2>;
->  	vdda-pll-supply = <&vreg_l1b_0p91>;
->  };
-> +
-> +&mdss {
-> +	status = "okay";
-> +};
-> +
-> +&mdss_mdp {
-> +	status = "okay";
-> +};
-> +
-> +&dsi0 {
+From: Akhil P Oommen <quic_akhilpo@quicinc.com>
 
-Please prefix the labels with "mdss_" so that you can keep them sorted
-alphabetically.
+[ Upstream commit 76efc2453d0e8e5d6692ef69981b183ad674edea ]
 
-THanks,
-Bjorn
+In adreno_unbind, we should clean up gpu device's drvdata to avoid
+accessing a stale pointer during system suspend. Also, check for NULL
+ptr in both system suspend/resume callbacks.
 
-> +	status = "okay";
-> +	vdda-supply = <&vreg_l6b_1p2>;
-> +};
-> +
-> +&dsi0_phy {
-> +	status = "okay";
-> +	vdds-supply = <&vreg_l5b_0p88>;
-> +};
-> -- 
-> 2.35.1
-> 
+Signed-off-by: Akhil P Oommen <quic_akhilpo@quicinc.com>
+Patchwork: https://patchwork.freedesktop.org/patch/505075/
+Link: https://lore.kernel.org/r/20220928124830.2.I5ee0ac073ccdeb81961e5ec0cce5f741a7207a71@changeid
+Signed-off-by: Rob Clark <robdclark@chromium.org>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ drivers/gpu/drm/msm/adreno/adreno_device.c | 10 +++++++++-
+ drivers/gpu/drm/msm/msm_gpu.c              |  2 ++
+ drivers/gpu/drm/msm/msm_gpu.h              |  4 ++++
+ 3 files changed, 15 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/msm/adreno/adreno_device.c b/drivers/gpu/drm/msm/adreno/adreno_device.c
+index 24b489b6129a..628806423f7d 100644
+--- a/drivers/gpu/drm/msm/adreno/adreno_device.c
++++ b/drivers/gpu/drm/msm/adreno/adreno_device.c
+@@ -679,6 +679,9 @@ static int adreno_system_suspend(struct device *dev)
+ 	struct msm_gpu *gpu = dev_to_gpu(dev);
+ 	int remaining, ret;
+ 
++	if (!gpu)
++		return 0;
++
+ 	suspend_scheduler(gpu);
+ 
+ 	remaining = wait_event_timeout(gpu->retire_event,
+@@ -700,7 +703,12 @@ static int adreno_system_suspend(struct device *dev)
+ 
+ static int adreno_system_resume(struct device *dev)
+ {
+-	resume_scheduler(dev_to_gpu(dev));
++	struct msm_gpu *gpu = dev_to_gpu(dev);
++
++	if (!gpu)
++		return 0;
++
++	resume_scheduler(gpu);
+ 	return pm_runtime_force_resume(dev);
+ }
+ 
+diff --git a/drivers/gpu/drm/msm/msm_gpu.c b/drivers/gpu/drm/msm/msm_gpu.c
+index c2bfcf3f1f40..01aae792ffa9 100644
+--- a/drivers/gpu/drm/msm/msm_gpu.c
++++ b/drivers/gpu/drm/msm/msm_gpu.c
+@@ -993,4 +993,6 @@ void msm_gpu_cleanup(struct msm_gpu *gpu)
+ 	}
+ 
+ 	msm_devfreq_cleanup(gpu);
++
++	platform_set_drvdata(gpu->pdev, NULL);
+ }
+diff --git a/drivers/gpu/drm/msm/msm_gpu.h b/drivers/gpu/drm/msm/msm_gpu.h
+index 4d935fedd2ac..fd22cf4041af 100644
+--- a/drivers/gpu/drm/msm/msm_gpu.h
++++ b/drivers/gpu/drm/msm/msm_gpu.h
+@@ -282,6 +282,10 @@ struct msm_gpu {
+ static inline struct msm_gpu *dev_to_gpu(struct device *dev)
+ {
+ 	struct adreno_smmu_priv *adreno_smmu = dev_get_drvdata(dev);
++
++	if (!adreno_smmu)
++		return NULL;
++
+ 	return container_of(adreno_smmu, struct msm_gpu, adreno_smmu);
+ }
+ 
+-- 
+2.35.1
+
