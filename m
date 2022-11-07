@@ -1,52 +1,53 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 09D9361FE90
-	for <lists+freedreno@lfdr.de>; Mon,  7 Nov 2022 20:26:14 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id C3AC161FEC2
+	for <lists+freedreno@lfdr.de>; Mon,  7 Nov 2022 20:37:19 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C5BE510E3A7;
-	Mon,  7 Nov 2022 19:26:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C5BE310E3CB;
+	Mon,  7 Nov 2022 19:37:17 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D099F10E392;
- Mon,  7 Nov 2022 19:26:04 +0000 (UTC)
+Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 852D710E3BF;
+ Mon,  7 Nov 2022 19:37:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1667849164; x=1699385164;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=2bw5zKTHI9yIJMex3mKA2JskRc/jd7Risgf6Zf76vdU=;
- b=ADcUgeX5zBP3SnnsP4fFWGbRKB+pcED6yXiWSzfAVNqUizD8k4YHyJg+
- NayGg+Ma51hvpLsFXruQu8I9TrZV7jou6j8pgLEt4+CY8AQjktWBsBs2p
- UwQ7SPg58CEaBhNFl3ALbDm/XknlHWji55SSFFs6tH2HJ5h6sI0DmPuYd
- wtNnDTBTlPqGNqtieo9/aPP8TAmWz7SqPu7Wu+YQ9FrBF3CRdZVJCyd4O
- aWJamV/gLgLZ1e1OgF/0C62mykLfHWMbZwPutn4H5AXCy5sTrDne0UlLt
- PnIYyzerZ6WxjHxSmox+4Pdd3sRLHUmpmEBABsxWD1so0wS6iEfw8A5Rd g==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10524"; a="308125603"
-X-IronPort-AV: E=Sophos;i="5.96,145,1665471600"; d="scan'208";a="308125603"
-Received: from fmsmga004.fm.intel.com ([10.253.24.48])
- by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 07 Nov 2022 11:26:04 -0800
+ t=1667849833; x=1699385833;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:content-transfer-encoding:in-reply-to;
+ bh=r0vAOoO2Li7vvBK9JKjeTn5g1cV1l7oWFilSA5GEbYY=;
+ b=G0yu7Ezsf6BtM9zsiAmdd4WgroAP5oHYU8V4JOvEwoxekVa321v2/L0U
+ C7dm/gcfIYnCr0eDJkn3KQjQG/BPNZ8wBPnAJNVxoyvNWQuG9c++p9ekN
+ uI8DBfFq0+xQnBGiGQR8qkfsgoYerFeNM7pOJUDxghJ+xXop9xP+wMqN2
+ nLhK2SENPjoF48NpmojpL1mSfvIPgNkb/TM4jlCMKuz1jC8UVWE/lg61t
+ obEZpwYpiP8f0zqdFeK10fF1ifAcM0R553wlDmAmZbSEiQLEaRjYQ2N7y
+ bqqw3ZELBaEOPqy7HblKohLnpWPWxu2gRzNvR5HrqV9IvheY3LgdbywW/ w==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10524"; a="396801909"
+X-IronPort-AV: E=Sophos;i="5.96,145,1665471600"; d="scan'208";a="396801909"
+Received: from fmsmga005.fm.intel.com ([10.253.24.32])
+ by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 07 Nov 2022 11:37:13 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6500,9779,10524"; a="705009791"
-X-IronPort-AV: E=Sophos;i="5.96,145,1665471600"; d="scan'208";a="705009791"
+X-IronPort-AV: E=McAfee;i="6500,9779,10524"; a="965294238"
+X-IronPort-AV: E=Sophos;i="5.96,145,1665471600"; d="scan'208";a="965294238"
 Received: from stinkpipe.fi.intel.com (HELO stinkbox) ([10.237.72.191])
- by fmsmga004.fm.intel.com with SMTP; 07 Nov 2022 11:26:01 -0800
+ by fmsmga005.fm.intel.com with SMTP; 07 Nov 2022 11:37:09 -0800
 Received: by stinkbox (sSMTP sendmail emulation);
- Mon, 07 Nov 2022 21:26:00 +0200
-From: Ville Syrjala <ville.syrjala@linux.intel.com>
-To: dri-devel@lists.freedesktop.org
-Date: Mon,  7 Nov 2022 21:25:42 +0200
-Message-Id: <20221107192545.9896-5-ville.syrjala@linux.intel.com>
-X-Mailer: git-send-email 2.37.4
-In-Reply-To: <20221107192545.9896-1-ville.syrjala@linux.intel.com>
-References: <20221107192545.9896-1-ville.syrjala@linux.intel.com>
+ Mon, 07 Nov 2022 21:37:08 +0200
+Date: Mon, 7 Nov 2022 21:37:08 +0200
+From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
+To: Jessica Zhang <quic_jesszhan@quicinc.com>
+Message-ID: <Y2leZDfLj/5963wl@intel.com>
+References: <20221028225952.160-1-quic_jesszhan@quicinc.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH v2 4/7] drm/msm: Use drm_mode_copy()
+In-Reply-To: <20221028225952.160-1-quic_jesszhan@quicinc.com>
+X-Patchwork-Hint: comment
+Subject: Re: [Freedreno] [RFC PATCH 0/3] Support for Solid Fill Planes
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,96 +60,74 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sean Paul <sean@poorly.run>, linux-arm-msm@vger.kernel.org,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, Rob Clark <robdclark@gmail.com>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- freedreno@lists.freedesktop.org
+Cc: daniel.vetter@ffwll.ch, quic_abhinavk@quicinc.com,
+ dri-devel@lists.freedesktop.org, swboyd@chromium.org, seanpaul@chromium.org,
+ laurent.pinchart@ideasonboard.com, linux-arm-msm@vger.kernel.org,
+ dmitry.baryshkov@linaro.org, freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-From: Ville Syrjälä <ville.syrjala@linux.intel.com>
+On Fri, Oct 28, 2022 at 03:59:49PM -0700, Jessica Zhang wrote:
+> Introduce and add support for COLOR_FILL and COLOR_FILL_FORMAT
+> properties. When the color fill value is set, and the framebuffer is set
+> to NULL, memory fetch will be disabled.
 
-struct drm_display_mode embeds a list head, so overwriting
-the full struct with another one will corrupt the list
-(if the destination mode is on a list). Use drm_mode_copy()
-instead which explicitly preserves the list head of
-the destination mode.
+Thinking a bit more universally I wonder if there should be
+some kind of enum property:
 
-Even if we know the destination mode is not on any list
-using drm_mode_copy() seems decent as it sets a good
-example. Bad examples of not using it might eventually
-get copied into code where preserving the list head
-actually matters.
-
-Obviously one case not covered here is when the mode
-itself is embedded in a larger structure and the whole
-structure is copied. But if we are careful when copying
-into modes embedded in structures I think we can be a
-little more reassured that bogus list heads haven't been
-propagated in.
-
-@is_mode_copy@
-@@
-drm_mode_copy(...)
-{
-...
+enum plane_pixel_source {
+	FB,
+	COLOR,
+	LIVE_FOO,
+	LIVE_BAR,
+	...
 }
 
-@depends on !is_mode_copy@
-struct drm_display_mode *mode;
-expression E, S;
-@@
-(
-- *mode = E
-+ drm_mode_copy(mode, &E)
-|
-- memcpy(mode, E, S)
-+ drm_mode_copy(mode, E)
-)
+> In addition, loosen the NULL FB checks within the atomic commit callstack
+> to allow a NULL FB when color_fill is nonzero and add FB checks in
+> methods where the FB was previously assumed to be non-NULL.
+> 
+> Finally, have the DPU driver use drm_plane_state.color_fill and
+> drm_plane_state.color_fill_format instead of dpu_plane_state.color_fill,
+> and add extra checks in the DPU atomic commit callstack to account for a
+> NULL FB in cases where color_fill is set.
+> 
+> Some drivers support hardware that have optimizations for solid fill
+> planes. This series aims to expose these capabilities to userspace as
+> some compositors have a solid fill flag (ex. SOLID_COLOR in the Android
+> hardware composer HAL) that can be set by apps like the Android Gears
+> app.
+> 
+> Userspace can set the color_fill value by setting COLOR_FILL_FORMAT to a
+> DRM format, setting COLOR_FILL to a color fill value, and setting the
+> framebuffer to NULL.
 
-@depends on !is_mode_copy@
-struct drm_display_mode mode;
-expression E;
-@@
-(
-- mode = E
-+ drm_mode_copy(&mode, &E)
-|
-- memcpy(&mode, E, S)
-+ drm_mode_copy(&mode, E)
-)
+Is there some real reason for the format property? Ie. why not 
+just do what was the plan for the crttc background color and
+specify the color in full 16bpc format and just pick as many
+msbs from that as the hw can use?
 
-@@
-struct drm_display_mode *mode;
-@@
-- &*mode
-+ mode
+> 
+> Jessica Zhang (3):
+>   drm: Introduce color fill properties for drm plane
+>   drm: Adjust atomic checks for solid fill color
+>   drm/msm/dpu: Use color_fill property for DPU planes
+> 
+>  drivers/gpu/drm/drm_atomic.c              | 68 ++++++++++++-----------
+>  drivers/gpu/drm/drm_atomic_helper.c       | 34 +++++++-----
+>  drivers/gpu/drm/drm_atomic_uapi.c         |  8 +++
+>  drivers/gpu/drm/drm_blend.c               | 38 +++++++++++++
+>  drivers/gpu/drm/drm_plane.c               |  8 +--
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c  |  7 ++-
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c | 66 ++++++++++++++--------
+>  include/drm/drm_atomic_helper.h           |  5 +-
+>  include/drm/drm_blend.h                   |  2 +
+>  include/drm/drm_plane.h                   | 28 ++++++++++
+>  10 files changed, 188 insertions(+), 76 deletions(-)
+> 
+> -- 
+> 2.38.0
 
-Cc: Rob Clark <robdclark@gmail.com>
-Cc: Sean Paul <sean@poorly.run>
-Cc: Abhinav Kumar <quic_abhinavk@quicinc.com>
-Cc: linux-arm-msm@vger.kernel.org
-Cc: freedreno@lists.freedesktop.org
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
-Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
----
- drivers/gpu/drm/msm/dp/dp_display.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
-index a49f6dbbe888..c9d9b384ddd0 100644
---- a/drivers/gpu/drm/msm/dp/dp_display.c
-+++ b/drivers/gpu/drm/msm/dp/dp_display.c
-@@ -857,7 +857,7 @@ static int dp_display_set_mode(struct msm_dp *dp_display,
- 
- 	dp = container_of(dp_display, struct dp_display_private, dp_display);
- 
--	dp->panel->dp_mode.drm_mode = mode->drm_mode;
-+	drm_mode_copy(&dp->panel->dp_mode.drm_mode, &mode->drm_mode);
- 	dp->panel->dp_mode.bpp = mode->bpp;
- 	dp->panel->dp_mode.capabilities = mode->capabilities;
- 	dp_panel_init_panel_info(dp->panel);
 -- 
-2.37.4
-
+Ville Syrj�l�
+Intel
