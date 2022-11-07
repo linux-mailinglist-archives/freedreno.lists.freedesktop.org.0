@@ -1,46 +1,49 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3204161E39D
-	for <lists+freedreno@lfdr.de>; Sun,  6 Nov 2022 18:03:55 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 8BBB861E8F9
+	for <lists+freedreno@lfdr.de>; Mon,  7 Nov 2022 04:12:52 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6BB0D10E1AD;
-	Sun,  6 Nov 2022 17:03:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1CBD110E1D4;
+	Mon,  7 Nov 2022 03:12:49 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2858610E0BF;
- Sun,  6 Nov 2022 17:03:50 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C456110E041;
+ Mon,  7 Nov 2022 03:12:43 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 734F760CE8;
- Sun,  6 Nov 2022 17:03:49 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0A151C433C1;
- Sun,  6 Nov 2022 17:03:46 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id ED5AA60BF0;
+ Mon,  7 Nov 2022 03:12:42 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 43BF4C433C1;
+ Mon,  7 Nov 2022 03:12:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1667754228;
- bh=aBETzMf0OclZ0SaVEPr4il3hPRXeVDkWT00EYqZWNXQ=;
- h=From:To:Cc:Subject:Date:From;
- b=TPzKC7Mz5MCCkwQKeWtIvTNO2t34monjJW7W4WQ+kO2/kchlTWSjnmtLQeLVKoCJS
- CA32IoDqYmv7LUGnj2hBVnVxa+HvRke2sBuo+u3AXU50yDLvJwMFI7/0p6f/dljrbG
- E9m244vW//2NQm0+JWRkQKOxbmzlsN72qm36pyDTbblCrLyL6+Cvn36BTB4U200Hds
- ZPSEBTlYdp7c2qgEt078ZLFB8kJKBv1zIWefdpNo2Q/uwH3aXsVKAAHr1flkYnA7mY
- OwuN1wdYTQ6kDTWIgIC8gcy050ZA3IqaDVJVlD50nlqFo03BWlqfpooxZxQRCbSqZD
- AOb5UXDJegE+w==
-From: Sasha Levin <sashal@kernel.org>
-To: linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Date: Sun,  6 Nov 2022 12:03:13 -0500
-Message-Id: <20221106170345.1579893-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.35.1
+ s=k20201202; t=1667790762;
+ bh=wSGw+1ab0M0hKgWXdmnc430Sc24IHBbcUGFcWPL0QwM=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=XLX1Ki5lGjwO/KGG/AdqOInGVZX3fKiY2rjf8ytrME1jfDNeCnFBT1iS1Ghr5tciH
+ CuOS5N07fJDCQQoQm6uw2blbs22bBjJXrLQMrE4pS8qsa6tgtHVw2ojirKKipczsd2
+ F76nlTVsvvO7aduRjwkQvnstm8nWcG9svDOchNCqoCN5aVO96MekqDoUZEgAE51T/z
+ S4DgBrCzzq36mo1vw0w2ufSO0y1ki7ILpsgGFhxzNnPqz20jhvP9kyF1wn+HDwjxAD
+ 6rpI3m8hXFXj97u55KSCW1u3iGme6GxPAfrdrOQt4v1sL0jDn9nmk7VuriboYvG9Uz
+ bMQ1LyDnC0c/w==
+From: Bjorn Andersson <andersson@kernel.org>
+To: krzysztof.kozlowski+dt@linaro.org, dmitry.baryshkov@linaro.org,
+ sean@poorly.run, Rob Herring <robh+dt@kernel.org>,
+ quic_abhinavk@quicinc.com, konrad.dybcio@somainline.org,
+ robdclark@gmail.com, Andy Gross <agross@kernel.org>
+Date: Sun,  6 Nov 2022 21:12:00 -0600
+Message-Id: <166779074251.500303.3874190524418032312.b4-ty@kernel.org>
+X-Mailer: git-send-email 2.37.1
+In-Reply-To: <20220924094347.178666-1-dmitry.baryshkov@linaro.org>
+References: <20220924094347.178666-1-dmitry.baryshkov@linaro.org>
 MIME-Version: 1.0
-X-stable: review
-X-Patchwork-Hint: Ignore
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH AUTOSEL 6.0 01/30] drm/msm/gpu: Fix crash during
- system suspend after unbind
+Subject: Re: [Freedreno] (subset) [PATCH 0/2] arm: dts: qcom: rename HDMI
+ PHY nodes
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,89 +56,28 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rob Clark <robdclark@chromium.org>, Sasha Levin <sashal@kernel.org>,
- Akhil P Oommen <quic_akhilpo@quicinc.com>, vladimir.lypak@gmail.com,
- andersson@kernel.org, konrad.dybcio@somainline.org, quic_abhinavk@quicinc.com,
- dri-devel@lists.freedesktop.org, nathan@kernel.org, robdclark@gmail.com,
- daniel@ffwll.ch, linux-arm-msm@vger.kernel.org, dmitry.baryshkov@linaro.org,
- freedreno@lists.freedesktop.org, airlied@gmail.com, olvaffe@gmail.com,
- angelogioacchino.delregno@collabora.com
+Cc: devicetree@vger.kernel.org, airlied@linux.ie, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, swboyd@chromium.org, daniel@ffwll.ch,
+ freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-From: Akhil P Oommen <quic_akhilpo@quicinc.com>
+On Sat, 24 Sep 2022 12:43:45 +0300, Dmitry Baryshkov wrote:
+> Historically HDMI PHY device tree nodes used the hdmi-phy@ names.
+> Replace them with generic phy@ names.
+> 
+> While there is no such requirement in the DT schema, it's worth doing
+> that because:
+> 
+> 1) The recent qcom DT files already use just phy@ for most of PHY nodes
+> 
+> [...]
 
-[ Upstream commit 76efc2453d0e8e5d6692ef69981b183ad674edea ]
+Applied, thanks!
 
-In adreno_unbind, we should clean up gpu device's drvdata to avoid
-accessing a stale pointer during system suspend. Also, check for NULL
-ptr in both system suspend/resume callbacks.
+[1/2] ARM: dts: qcom-apq8064: change HDMI PHY node name to generic one
+      commit: 5743efe0e73e4e1c8d042e982e31bb8145e35baf
 
-Signed-off-by: Akhil P Oommen <quic_akhilpo@quicinc.com>
-Patchwork: https://patchwork.freedesktop.org/patch/505075/
-Link: https://lore.kernel.org/r/20220928124830.2.I5ee0ac073ccdeb81961e5ec0cce5f741a7207a71@changeid
-Signed-off-by: Rob Clark <robdclark@chromium.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- drivers/gpu/drm/msm/adreno/adreno_device.c | 10 +++++++++-
- drivers/gpu/drm/msm/msm_gpu.c              |  2 ++
- drivers/gpu/drm/msm/msm_gpu.h              |  4 ++++
- 3 files changed, 15 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/msm/adreno/adreno_device.c b/drivers/gpu/drm/msm/adreno/adreno_device.c
-index 24b489b6129a..628806423f7d 100644
---- a/drivers/gpu/drm/msm/adreno/adreno_device.c
-+++ b/drivers/gpu/drm/msm/adreno/adreno_device.c
-@@ -679,6 +679,9 @@ static int adreno_system_suspend(struct device *dev)
- 	struct msm_gpu *gpu = dev_to_gpu(dev);
- 	int remaining, ret;
- 
-+	if (!gpu)
-+		return 0;
-+
- 	suspend_scheduler(gpu);
- 
- 	remaining = wait_event_timeout(gpu->retire_event,
-@@ -700,7 +703,12 @@ static int adreno_system_suspend(struct device *dev)
- 
- static int adreno_system_resume(struct device *dev)
- {
--	resume_scheduler(dev_to_gpu(dev));
-+	struct msm_gpu *gpu = dev_to_gpu(dev);
-+
-+	if (!gpu)
-+		return 0;
-+
-+	resume_scheduler(gpu);
- 	return pm_runtime_force_resume(dev);
- }
- 
-diff --git a/drivers/gpu/drm/msm/msm_gpu.c b/drivers/gpu/drm/msm/msm_gpu.c
-index c2bfcf3f1f40..01aae792ffa9 100644
---- a/drivers/gpu/drm/msm/msm_gpu.c
-+++ b/drivers/gpu/drm/msm/msm_gpu.c
-@@ -993,4 +993,6 @@ void msm_gpu_cleanup(struct msm_gpu *gpu)
- 	}
- 
- 	msm_devfreq_cleanup(gpu);
-+
-+	platform_set_drvdata(gpu->pdev, NULL);
- }
-diff --git a/drivers/gpu/drm/msm/msm_gpu.h b/drivers/gpu/drm/msm/msm_gpu.h
-index 4d935fedd2ac..fd22cf4041af 100644
---- a/drivers/gpu/drm/msm/msm_gpu.h
-+++ b/drivers/gpu/drm/msm/msm_gpu.h
-@@ -282,6 +282,10 @@ struct msm_gpu {
- static inline struct msm_gpu *dev_to_gpu(struct device *dev)
- {
- 	struct adreno_smmu_priv *adreno_smmu = dev_get_drvdata(dev);
-+
-+	if (!adreno_smmu)
-+		return NULL;
-+
- 	return container_of(adreno_smmu, struct msm_gpu, adreno_smmu);
- }
- 
+Best regards,
 -- 
-2.35.1
-
+Bjorn Andersson <andersson@kernel.org>
