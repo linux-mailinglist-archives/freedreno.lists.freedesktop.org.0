@@ -2,40 +2,66 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id DB4C4620346
-	for <lists+freedreno@lfdr.de>; Tue,  8 Nov 2022 00:07:04 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C49E4620410
+	for <lists+freedreno@lfdr.de>; Tue,  8 Nov 2022 00:57:06 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 91F4110E5F8;
-	Mon,  7 Nov 2022 23:07:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8C53710E1F2;
+	Mon,  7 Nov 2022 23:57:03 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
- [213.167.242.64])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 18CC010E5F8;
- Mon,  7 Nov 2022 23:07:01 +0000 (UTC)
-Received: from pendragon.ideasonboard.com
- (117.145-247-81.adsl-dyn.isp.belgacom.be [81.247.145.117])
- by perceval.ideasonboard.com (Postfix) with ESMTPSA id 133C0492;
- Tue,  8 Nov 2022 00:06:59 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
- s=mail; t=1667862419;
- bh=N0sUr1gASY7tZbY60ADDHkTFGTrQM54JT8hf8XPS7DA=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=MmJTxFiCxVhUcC7KkJl56G9rUGL2Qai4zH66EbEGE/pY61UqOZQ0bdTVErENaMBZI
- 612iucMMpAOtQ+e20W/Vyj7VxrenUeEE51phbTPSxrpY6TTttfWPurl4aya9rdq0+k
- VUeiEchPrXCvG+HDSAMpg1E7+p3C7WRwTL0XS0KQ=
-Date: Tue, 8 Nov 2022 01:06:40 +0200
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: Ville =?utf-8?B?U3lyasOkbMOk?= <ville.syrjala@linux.intel.com>
-Message-ID: <Y2mPgB4LoOqhhOUe@pendragon.ideasonboard.com>
-References: <20221028225952.160-1-quic_jesszhan@quicinc.com>
- <Y2leZDfLj/5963wl@intel.com>
+Received: from mail-wr1-x434.google.com (mail-wr1-x434.google.com
+ [IPv6:2a00:1450:4864:20::434])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 558FC10E320
+ for <freedreno@lists.freedesktop.org>; Mon,  7 Nov 2022 23:56:59 +0000 (UTC)
+Received: by mail-wr1-x434.google.com with SMTP id v1so18482765wrt.11
+ for <freedreno@lists.freedesktop.org>; Mon, 07 Nov 2022 15:56:59 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=pgeozmPZqS6JXtBUtzz0XCzNbXeI8NLd/9teAZZ3ZoU=;
+ b=Kr118oU3tWMRM9OSMDTcbOgWvtcP8ZX+qbTofQqOopNwYkeh3XrjPqa6V6VvNQvFvT
+ buMppsTMAE9msYo92KDfPVh4w5Q5AkJkHxjoo21UDk4HoO7m0d+X3pqvW+c9s27zN6ji
+ eAigHkl7x8GNbTxMKA3UOLEG7iPFPB5grRdVTKEncCeZQ4X7dPzTrZgrBEm0vuImwSdf
+ GynTlyZRoiHPwRx0Z62w3A3uNl1VwtLVYX2fPCBpcT5fsD8hh1uopYrAGpCFro0X4IpW
+ qvF8BiG7AS+gO99UC3oUTN0mzWxrLTASTXcJ5NIw9J/z7pW88w5/W7GxGgtLNFgJgOGz
+ AwPA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=pgeozmPZqS6JXtBUtzz0XCzNbXeI8NLd/9teAZZ3ZoU=;
+ b=mwam76r0ELpdDRIGxmLYV5FBE53v4DW8p1n9nzjqJvVrKQMlQ2ybM9a3EtZf4OV2/g
+ OxhMRKx03EZqBNPBBTstg8kZlT6XYCxai3W/Byj5MlS9KGlsgKTgtrOwAx+ND8XvX2cm
+ EKOVm0bUPE/ys6bTs8k7Tte4f8R8oroSPNvBGPjIYqRKdFWScNptB7+rNQDzc78gCx2e
+ aj7mhOzmW+y/Xvj2M4+Uw4WeAVUWAXB5NvTxmEy8sIDjkaa9MkpTc9rK1R4CHcOuO5OX
+ OesfSNmpe2vs/8WklvCMgNKkK+o7X0V4GL7cXLSwxLEZ4wERXAvb1xmkvpPYcVQhfk6o
+ hDbA==
+X-Gm-Message-State: ACrzQf2/24HcaRPhyFnYs1YMnpuLjzU7i7IgCf/4ZK54S5JQkQAiymVo
+ cGYdVlj4fsFbz9eI7xPEn4fGVA==
+X-Google-Smtp-Source: AMsMyM6a2iAeeRzZq19eqEqkJIwF+xt4p4o6N4GE+PRqYk+U2IE/mi3aZrpaVlpQnpPKNsKNm05xHQ==
+X-Received: by 2002:adf:e44f:0:b0:236:59a3:c5a8 with SMTP id
+ t15-20020adfe44f000000b0023659a3c5a8mr34097585wrm.396.1667865417559; 
+ Mon, 07 Nov 2022 15:56:57 -0800 (PST)
+Received: from sagittarius-a.chello.ie (188-141-3-169.dynamic.upc.ie.
+ [188.141.3.169]) by smtp.gmail.com with ESMTPSA id
+ b18-20020a056000055200b00236545edc91sm8386161wrf.76.2022.11.07.15.56.56
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 07 Nov 2022 15:56:57 -0800 (PST)
+From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+To: robdclark@gmail.com, quic_abhinavk@quicinc.com,
+ dmitry.baryshkov@linaro.org, krzysztof.kozlowski+dt@linaro.org,
+ robh+dt@kernel.org, quic_mkrishn@quicinc.com, linux-arm-msm@vger.kernel.org
+Date: Mon,  7 Nov 2022 23:56:37 +0000
+Message-Id: <20221107235654.1769462-2-bryan.odonoghue@linaro.org>
+X-Mailer: git-send-email 2.38.1
+In-Reply-To: <20221107235654.1769462-1-bryan.odonoghue@linaro.org>
+References: <20221107235654.1769462-1-bryan.odonoghue@linaro.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <Y2leZDfLj/5963wl@intel.com>
-Subject: Re: [Freedreno] [RFC PATCH 0/3] Support for Solid Fill Planes
+Subject: [Freedreno] [PATCH v2 01/18] dt-bindings: msm: dsi-controller-main:
+ Fix operating-points-v2 constraint
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -48,79 +74,50 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-arm-msm@vger.kernel.org, quic_abhinavk@quicinc.com,
- dri-devel@lists.freedesktop.org, swboyd@chromium.org, seanpaul@chromium.org,
- daniel.vetter@ffwll.ch, dmitry.baryshkov@linaro.org,
- Jessica Zhang <quic_jesszhan@quicinc.com>, freedreno@lists.freedesktop.org
+Cc: freedreno@lists.freedesktop.org, devicetree@vger.kernel.org,
+ David Airlie <airlied@gmail.com>, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org,
+ Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
+ Daniel Vetter <daniel@ffwll.ch>, Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+ Sean Paul <sean@poorly.run>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Mon, Nov 07, 2022 at 09:37:08PM +0200, Ville Syrjälä wrote:
-> On Fri, Oct 28, 2022 at 03:59:49PM -0700, Jessica Zhang wrote:
-> > Introduce and add support for COLOR_FILL and COLOR_FILL_FORMAT
-> > properties. When the color fill value is set, and the framebuffer is set
-> > to NULL, memory fetch will be disabled.
-> 
-> Thinking a bit more universally I wonder if there should be
-> some kind of enum property:
-> 
-> enum plane_pixel_source {
-> 	FB,
-> 	COLOR,
-> 	LIVE_FOO,
-> 	LIVE_BAR,
-> 	...
-> }
+The existing msm8916.dtsi does not depend on nor require operating points.
 
-That's something I could use on (older) Renesas hardware, where planes
-can be fed with a live source. The issue there is that the live source
-is a compositor with multiple inputs, handled through the V4L2 API. How
-to synchronize the configuration of the compositor and the display
-engine is an unsolved problem at the moment, but it could be solved
-another day.
+Fixes: 4dbe55c97741 ("dt-bindings: msm: dsi: add yaml schemas for DSI bindings")
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+Cc: Rob Clark <robdclark@gmail.com>
+Cc: Abhinav Kumar <quic_abhinavk@quicinc.com>
+Cc: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Cc: Sean Paul <sean@poorly.run>
+Cc: David Airlie <airlied@gmail.com>
+Cc: Daniel Vetter <daniel@ffwll.ch>
+Cc: Rob Herring <robh+dt@kernel.org>
+Cc: Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>
+Cc: linux-arm-msm@vger.kernel.org
+Cc: dri-devel@lists.freedesktop.org
+Cc: freedreno@lists.freedesktop.org
+Cc: devicetree@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+Signed-off-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+---
+ .../devicetree/bindings/display/msm/dsi-controller-main.yaml     | 1 -
+ 1 file changed, 1 deletion(-)
 
-> > In addition, loosen the NULL FB checks within the atomic commit callstack
-> > to allow a NULL FB when color_fill is nonzero and add FB checks in
-> > methods where the FB was previously assumed to be non-NULL.
-> > 
-> > Finally, have the DPU driver use drm_plane_state.color_fill and
-> > drm_plane_state.color_fill_format instead of dpu_plane_state.color_fill,
-> > and add extra checks in the DPU atomic commit callstack to account for a
-> > NULL FB in cases where color_fill is set.
-> > 
-> > Some drivers support hardware that have optimizations for solid fill
-> > planes. This series aims to expose these capabilities to userspace as
-> > some compositors have a solid fill flag (ex. SOLID_COLOR in the Android
-> > hardware composer HAL) that can be set by apps like the Android Gears
-> > app.
-> > 
-> > Userspace can set the color_fill value by setting COLOR_FILL_FORMAT to a
-> > DRM format, setting COLOR_FILL to a color fill value, and setting the
-> > framebuffer to NULL.
-> 
-> Is there some real reason for the format property? Ie. why not 
-> just do what was the plan for the crttc background color and
-> specify the color in full 16bpc format and just pick as many
-> msbs from that as the hw can use?
-> 
-> > Jessica Zhang (3):
-> >   drm: Introduce color fill properties for drm plane
-> >   drm: Adjust atomic checks for solid fill color
-> >   drm/msm/dpu: Use color_fill property for DPU planes
-> > 
-> >  drivers/gpu/drm/drm_atomic.c              | 68 ++++++++++++-----------
-> >  drivers/gpu/drm/drm_atomic_helper.c       | 34 +++++++-----
-> >  drivers/gpu/drm/drm_atomic_uapi.c         |  8 +++
-> >  drivers/gpu/drm/drm_blend.c               | 38 +++++++++++++
-> >  drivers/gpu/drm/drm_plane.c               |  8 +--
-> >  drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c  |  7 ++-
-> >  drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c | 66 ++++++++++++++--------
-> >  include/drm/drm_atomic_helper.h           |  5 +-
-> >  include/drm/drm_blend.h                   |  2 +
-> >  include/drm/drm_plane.h                   | 28 ++++++++++
-> >  10 files changed, 188 insertions(+), 76 deletions(-)
-
+diff --git a/Documentation/devicetree/bindings/display/msm/dsi-controller-main.yaml b/Documentation/devicetree/bindings/display/msm/dsi-controller-main.yaml
+index 7782bff89afc7..27ebfd5ffb22f 100644
+--- a/Documentation/devicetree/bindings/display/msm/dsi-controller-main.yaml
++++ b/Documentation/devicetree/bindings/display/msm/dsi-controller-main.yaml
+@@ -135,7 +135,6 @@ required:
+   - assigned-clocks
+   - assigned-clock-parents
+   - power-domains
+-  - operating-points-v2
+   - ports
+ 
+ additionalProperties: false
 -- 
-Regards,
+2.38.1
 
-Laurent Pinchart
