@@ -1,53 +1,59 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id C3AC161FEC2
-	for <lists+freedreno@lfdr.de>; Mon,  7 Nov 2022 20:37:19 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 7857D6200D4
+	for <lists+freedreno@lfdr.de>; Mon,  7 Nov 2022 22:16:30 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C5BE310E3CB;
-	Mon,  7 Nov 2022 19:37:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B546110E4C1;
+	Mon,  7 Nov 2022 21:16:28 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 852D710E3BF;
- Mon,  7 Nov 2022 19:37:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1667849833; x=1699385833;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:content-transfer-encoding:in-reply-to;
- bh=r0vAOoO2Li7vvBK9JKjeTn5g1cV1l7oWFilSA5GEbYY=;
- b=G0yu7Ezsf6BtM9zsiAmdd4WgroAP5oHYU8V4JOvEwoxekVa321v2/L0U
- C7dm/gcfIYnCr0eDJkn3KQjQG/BPNZ8wBPnAJNVxoyvNWQuG9c++p9ekN
- uI8DBfFq0+xQnBGiGQR8qkfsgoYerFeNM7pOJUDxghJ+xXop9xP+wMqN2
- nLhK2SENPjoF48NpmojpL1mSfvIPgNkb/TM4jlCMKuz1jC8UVWE/lg61t
- obEZpwYpiP8f0zqdFeK10fF1ifAcM0R553wlDmAmZbSEiQLEaRjYQ2N7y
- bqqw3ZELBaEOPqy7HblKohLnpWPWxu2gRzNvR5HrqV9IvheY3LgdbywW/ w==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10524"; a="396801909"
-X-IronPort-AV: E=Sophos;i="5.96,145,1665471600"; d="scan'208";a="396801909"
-Received: from fmsmga005.fm.intel.com ([10.253.24.32])
- by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 07 Nov 2022 11:37:13 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6500,9779,10524"; a="965294238"
-X-IronPort-AV: E=Sophos;i="5.96,145,1665471600"; d="scan'208";a="965294238"
-Received: from stinkpipe.fi.intel.com (HELO stinkbox) ([10.237.72.191])
- by fmsmga005.fm.intel.com with SMTP; 07 Nov 2022 11:37:09 -0800
-Received: by stinkbox (sSMTP sendmail emulation);
- Mon, 07 Nov 2022 21:37:08 +0200
-Date: Mon, 7 Nov 2022 21:37:08 +0200
-From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
-To: Jessica Zhang <quic_jesszhan@quicinc.com>
-Message-ID: <Y2leZDfLj/5963wl@intel.com>
-References: <20221028225952.160-1-quic_jesszhan@quicinc.com>
+X-Greylist: delayed 2710 seconds by postgrey-1.36 at gabe;
+ Mon, 07 Nov 2022 21:12:47 UTC
+Received: from mail.kapsi.fi (mail.kapsi.fi [IPv6:2001:67c:1be8::25])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9EB6410E4C1;
+ Mon,  7 Nov 2022 21:12:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=kapsi.fi;
+ s=20161220; h=Subject:References:Cc:To:Message-ID:From:
+ Content-Transfer-Encoding:Content-Type:Date:MIME-Version:Sender:Reply-To:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:In-Reply-To:List-Id:List-Help:
+ List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=k3Hc9VlT5IfcVarqA/4VLSa+Nt0/6JpM9DtmCHRop6A=; b=05q59jeVHkJM4t8M9hhAvhJ1ys
+ 65amkC2aluXsjhUi+v+944MSikNitpecdWkxHZLz8u1liQdwCPXoaBHJWO16dK/qx+bLVt0x4xFQ/
+ fzWTkW9oNTxs7WS0+IpJvlc7BWX9UcxcB4mr9MOY4Rr8qytQuo1sI1dJPN17k7ZdHbaCr7Yc/dC9d
+ 9Fo3VYgCJXLuMTqhkbbBqhJRFRnkyxbZsqHxYNevlGOWofY+3xvaKkRkBppMO69pUDCOtOMAlXrxr
+ U0qbXD3gLReAP7EC6E9VAxU4RMtiK5G/0CkZ44lEScXK+/k/nY2KVnG7LtHMI38Ze7cszyHeXz+fY
+ bRd9nHLg==;
+Received: from [2001:67c:1be8::200] (helo=rainloop.kapsi.fi)
+ by mail.kapsi.fi with esmtpsa (TLS1.3) tls
+ TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.94.2)
+ (envelope-from <sarha@kapsi.fi>)
+ id 1os8hz-00CfOn-1k; Mon, 07 Nov 2022 22:27:03 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20221028225952.160-1-quic_jesszhan@quicinc.com>
-X-Patchwork-Hint: comment
-Subject: Re: [Freedreno] [RFC PATCH 0/3] Support for Solid Fill Planes
+Date: Mon, 07 Nov 2022 20:27:02 +0000
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+From: sarha@kapsi.fi
+Message-ID: <4ad0beebfea802c1caec176f4d71955407cd5c4f@kapsi.fi>
+To: "Sean Anderson" <sean.anderson@seco.com>, "David Airlie"
+ <airlied@gmail.com>, "Daniel Vetter" <daniel@ffwll.ch>, "Maarten
+ Lankhorst" <maarten.lankhorst@linux.intel.com>, "Maxime Ripard"
+ <mripard@kernel.org>, "Thomas Zimmermann" <tzimmermann@suse.de>,
+ dri-devel@lists.freedesktop.org
+References: undefined <20221103182222.2247724-1-sean.anderson@seco.com>
+X-SA-Exim-Connect-IP: 2001:67c:1be8::200
+X-SA-Exim-Mail-From: sarha@kapsi.fi
+X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on mail
+X-Spam-Level: 
+X-Spam-Status: No, score=-2.9 required=5.0 tests=ALL_TRUSTED,BAYES_00
+ autolearn=no autolearn_force=no version=3.4.6
+X-SA-Exim-Version: 4.2.1 (built Sat, 13 Feb 2021 17:57:42 +0000)
+X-SA-Exim-Scanned: Yes (on mail.kapsi.fi)
+X-Mailman-Approved-At: Mon, 07 Nov 2022 21:16:24 +0000
+Subject: Re: [Freedreno] [PATCH 2/2] drm: Convert users of
+ drm_of_component_match_add to component_match_add_of
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,74 +66,432 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: daniel.vetter@ffwll.ch, quic_abhinavk@quicinc.com,
- dri-devel@lists.freedesktop.org, swboyd@chromium.org, seanpaul@chromium.org,
- laurent.pinchart@ideasonboard.com, linux-arm-msm@vger.kernel.org,
- dmitry.baryshkov@linaro.org, freedreno@lists.freedesktop.org
+Cc: Xinliang Liu <xinliang.liu@linaro.org>, Liviu Dudau <liviu.dudau@arm.com>,
+ linux-mips@vger.kernel.org, Paul Cercueil <paul@crapouillou.net>,
+ John Stultz <jstultz@google.com>, Mihail Atanassov <mihail.atanassov@arm.com>,
+ Samuel Holland <samuel@sholland.org>, Russell King <linux@armlinux.org.uk>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>, Chen-Yu Tsai <wens@csie.org>,
+ Mali DP Maintainers <malidp@foss.arm.com>, linux-arm-msm@vger.kernel.org,
+ Alain Volmat <alain.volmat@foss.st.com>,
+ Xinwei Kong <kong.kongxinwei@hisilicon.com>, linux-sunxi@lists.linux.dev,
+ Chun-Kuang Hu <chunkuang.hu@kernel.org>, Chen Feng <puck.chen@hisilicon.com>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, etnaviv@lists.freedesktop.org,
+ Christian
+ Gmeiner <christian.gmeiner@gmail.com>, linux-mediatek@lists.infradead.org,
+ Matthias Brugger <matthias.bgg@gmail.com>, Sean Paul <sean@poorly.run>,
+ linux-arm-kernel@lists.infradead.org, Tomi Valkeinen <tomba@kernel.org>,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org, Rob
+ Clark <robdclark@gmail.com>, Philipp Zabel <p.zabel@pengutronix.de>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Tian Tao <tiantao6@hisilicon.com>, Jyri
+ Sarha <jyri.sarha@iki.fi>, Brian Starkey <brian.starkey@arm.com>, Lucas
+ Stach <l.stach@pengutronix.de>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Fri, Oct 28, 2022 at 03:59:49PM -0700, Jessica Zhang wrote:
-> Introduce and add support for COLOR_FILL and COLOR_FILL_FORMAT
-> properties. When the color fill value is set, and the framebuffer is set
-> to NULL, memory fetch will be disabled.
+November 3, 2022 at 8:22 PM, "Sean Anderson" <sean.anderson@seco.com mail=
+to:sean.anderson@seco.com?to=3D%22Sean%20Anderson%22%20%3Csean.anderson%4=
+0seco.com%3E > wrote:
 
-Thinking a bit more universally I wonder if there should be
-some kind of enum property:
+>=20
+>=20Every user of this function either uses component_compare_of or
+> something equivalent. Most of them immediately put the device node as
+> well. Convert these users to component_match_add_of and remove
+> drm_of_component_match_add.
+>=20
+>=20Signed-off-by: Sean Anderson <sean.anderson@seco.com>
 
-enum plane_pixel_source {
-	FB,
-	COLOR,
-	LIVE_FOO,
-	LIVE_BAR,
-	...
-}
+Acked-by: Jyri Sarha <jyri.sarha=C4=B1@iki.fi>
 
-> In addition, loosen the NULL FB checks within the atomic commit callstack
-> to allow a NULL FB when color_fill is nonzero and add FB checks in
-> methods where the FB was previously assumed to be non-NULL.
-> 
-> Finally, have the DPU driver use drm_plane_state.color_fill and
-> drm_plane_state.color_fill_format instead of dpu_plane_state.color_fill,
-> and add extra checks in the DPU atomic commit callstack to account for a
-> NULL FB in cases where color_fill is set.
-> 
-> Some drivers support hardware that have optimizations for solid fill
-> planes. This series aims to expose these capabilities to userspace as
-> some compositors have a solid fill flag (ex. SOLID_COLOR in the Android
-> hardware composer HAL) that can be set by apps like the Android Gears
-> app.
-> 
-> Userspace can set the color_fill value by setting COLOR_FILL_FORMAT to a
-> DRM format, setting COLOR_FILL to a color fill value, and setting the
-> framebuffer to NULL.
+Also tested that Beaglebone-Black HDMI audio, that relies on componet sys=
+tem, still works. So for tilcdc:
 
-Is there some real reason for the format property? Ie. why not 
-just do what was the plan for the crttc background color and
-specify the color in full 16bpc format and just pick as many
-msbs from that as the hw can use?
+Tested-by: Jyri Sarha <jyri.sarha@iki.fi>
 
-> 
-> Jessica Zhang (3):
->   drm: Introduce color fill properties for drm plane
->   drm: Adjust atomic checks for solid fill color
->   drm/msm/dpu: Use color_fill property for DPU planes
-> 
->  drivers/gpu/drm/drm_atomic.c              | 68 ++++++++++++-----------
->  drivers/gpu/drm/drm_atomic_helper.c       | 34 +++++++-----
->  drivers/gpu/drm/drm_atomic_uapi.c         |  8 +++
->  drivers/gpu/drm/drm_blend.c               | 38 +++++++++++++
->  drivers/gpu/drm/drm_plane.c               |  8 +--
->  drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c  |  7 ++-
->  drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c | 66 ++++++++++++++--------
->  include/drm/drm_atomic_helper.h           |  5 +-
->  include/drm/drm_blend.h                   |  2 +
->  include/drm/drm_plane.h                   | 28 ++++++++++
->  10 files changed, 188 insertions(+), 76 deletions(-)
-> 
-> -- 
-> 2.38.0
-
--- 
-Ville Syrjälä
-Intel
+> ---
+>=20
+>=20.../gpu/drm/arm/display/komeda/komeda_drv.c | 6 ++--
+> drivers/gpu/drm/arm/hdlcd_drv.c | 9 +-----
+> drivers/gpu/drm/arm/malidp_drv.c | 11 +------
+> drivers/gpu/drm/armada/armada_drv.c | 10 ++++---
+> drivers/gpu/drm/drm_of.c | 29 +++----------------
+> drivers/gpu/drm/etnaviv/etnaviv_drv.c | 4 +--
+> .../gpu/drm/hisilicon/kirin/kirin_drm_drv.c | 3 +-
+> drivers/gpu/drm/ingenic/ingenic-drm-drv.c | 3 +-
+> drivers/gpu/drm/mediatek/mtk_drm_drv.c | 4 +--
+> drivers/gpu/drm/msm/msm_drv.c | 14 ++++-----
+> drivers/gpu/drm/sti/sti_drv.c | 3 +-
+> drivers/gpu/drm/sun4i/sun4i_drv.c | 3 +-
+> drivers/gpu/drm/tilcdc/tilcdc_external.c | 10 ++-----
+> include/drm/drm_of.h | 12 --------
+> 14 files changed, 33 insertions(+), 88 deletions(-)
+>=20
+>=20diff --git a/drivers/gpu/drm/arm/display/komeda/komeda_drv.c b/driver=
+s/gpu/drm/arm/display/komeda/komeda_drv.c
+> index 9fce4239d4ad..e5bf439b799f 100644
+> --- a/drivers/gpu/drm/arm/display/komeda/komeda_drv.c
+> +++ b/drivers/gpu/drm/arm/display/komeda/komeda_drv.c
+> @@ -103,10 +103,8 @@ static void komeda_add_slave(struct device *master=
+,
+>  struct device_node *remote;
+>=20
+>=20 remote =3D of_graph_get_remote_node(np, port, endpoint);
+> - if (remote) {
+> - drm_of_component_match_add(master, match, component_compare_of, remot=
+e);
+> - of_node_put(remote);
+> - }
+> + if (remote)
+> + component_match_add_of(master, match, remote);
+> }
+>=20
+>=20static int komeda_platform_probe(struct platform_device *pdev)
+> diff --git a/drivers/gpu/drm/arm/hdlcd_drv.c b/drivers/gpu/drm/arm/hdlc=
+d_drv.c
+> index a032003c340c..18e58863a2f1 100644
+> --- a/drivers/gpu/drm/arm/hdlcd_drv.c
+> +++ b/drivers/gpu/drm/arm/hdlcd_drv.c
+> @@ -352,11 +352,6 @@ static const struct component_master_ops hdlcd_mas=
+ter_ops =3D {
+>  .unbind =3D hdlcd_drm_unbind,
+> };
+>=20
+>=20-static int compare_dev(struct device *dev, void *data)
+> -{
+> - return dev->of_node =3D=3D data;
+> -}
+> -
+> static int hdlcd_probe(struct platform_device *pdev)
+> {
+>  struct device_node *port;
+> @@ -367,9 +362,7 @@ static int hdlcd_probe(struct platform_device *pdev=
+)
+>  if (!port)
+>  return -ENODEV;
+>=20
+>=20- drm_of_component_match_add(&pdev->dev, &match, compare_dev, port);
+> - of_node_put(port);
+> -
+> + component_match_add_of(&pdev->dev, &match, port);
+>  return component_master_add_with_match(&pdev->dev, &hdlcd_master_ops,
+>  match);
+> }
+> diff --git a/drivers/gpu/drm/arm/malidp_drv.c b/drivers/gpu/drm/arm/mal=
+idp_drv.c
+> index 1d0b0c54ccc7..aace8b87c6d3 100644
+> --- a/drivers/gpu/drm/arm/malidp_drv.c
+> +++ b/drivers/gpu/drm/arm/malidp_drv.c
+> @@ -926,13 +926,6 @@ static const struct component_master_ops malidp_ma=
+ster_ops =3D {
+>  .unbind =3D malidp_unbind,
+> };
+>=20
+>=20-static int malidp_compare_dev(struct device *dev, void *data)
+> -{
+> - struct device_node *np =3D data;
+> -
+> - return dev->of_node =3D=3D np;
+> -}
+> -
+> static int malidp_platform_probe(struct platform_device *pdev)
+> {
+>  struct device_node *port;
+> @@ -946,9 +939,7 @@ static int malidp_platform_probe(struct platform_de=
+vice *pdev)
+>  if (!port)
+>  return -ENODEV;
+>=20
+>=20- drm_of_component_match_add(&pdev->dev, &match, malidp_compare_dev,
+> - port);
+> - of_node_put(port);
+> + component_match_add_of(&pdev->dev, &match, port);
+>  return component_master_add_with_match(&pdev->dev, &malidp_master_ops,
+>  match);
+> }
+> diff --git a/drivers/gpu/drm/armada/armada_drv.c b/drivers/gpu/drm/arma=
+da/armada_drv.c
+> index 0643887800b4..c0211ad7a45d 100644
+> --- a/drivers/gpu/drm/armada/armada_drv.c
+> +++ b/drivers/gpu/drm/armada/armada_drv.c
+> @@ -184,10 +184,12 @@ static void armada_add_endpoints(struct device *d=
+ev,
+>=20
+>=20 for_each_endpoint_of_node(dev_node, ep) {
+>  remote =3D of_graph_get_remote_port_parent(ep);
+> - if (remote of_device_is_available(remote))
+> - drm_of_component_match_add(dev, match, component_compare_of,
+> - remote);
+> - of_node_put(remote);
+> + if (remote) {
+> + if (of_device_is_available(remote))
+> + component_match_add_of(dev, match, remote);
+> + else
+> + of_node_put(remote);
+> + }
+>  }
+> }
+>=20
+>=20diff --git a/drivers/gpu/drm/drm_of.c b/drivers/gpu/drm/drm_of.c
+> index 7bbcb999bb75..0a474729ddf6 100644
+> --- a/drivers/gpu/drm/drm_of.c
+> +++ b/drivers/gpu/drm/drm_of.c
+> @@ -78,24 +78,6 @@ uint32_t drm_of_find_possible_crtcs(struct drm_devic=
+e *dev,
+> }
+> EXPORT_SYMBOL(drm_of_find_possible_crtcs);
+>=20
+>=20-/**
+> - * drm_of_component_match_add - Add a component helper OF node match r=
+ule
+> - * @master: master device
+> - * @matchptr: component match pointer
+> - * @compare: compare function used for matching component
+> - * @node: of_node
+> - */
+> -void drm_of_component_match_add(struct device *master,
+> - struct component_match **matchptr,
+> - int (*compare)(struct device *, void *),
+> - struct device_node *node)
+> -{
+> - of_node_get(node);
+> - component_match_add_release(master, matchptr, component_release_of,
+> - compare, node);
+> -}
+> -EXPORT_SYMBOL_GPL(drm_of_component_match_add);
+> -
+> /**
+> * drm_of_component_probe - Generic probe function for a component based=
+ master
+> * @dev: master device containing the OF node
+> @@ -130,10 +112,9 @@ int drm_of_component_probe(struct device *dev,
+>  break;
+>=20
+>=20 if (of_device_is_available(port->parent))
+> - drm_of_component_match_add(dev, &match, compare_of,
+> - port);
+> -
+> - of_node_put(port);
+> + component_match_add_of(dev, &match, port);
+> + else
+> + of_node_put(port);
+>  }
+>=20
+>=20 if (i =3D=3D 0) {
+> @@ -171,9 +152,7 @@ int drm_of_component_probe(struct device *dev,
+>  continue;
+>  }
+>=20
+>=20- drm_of_component_match_add(dev, &match, compare_of,
+> - remote);
+> - of_node_put(remote);
+> + component_match_add_of(dev, &match, remote);
+>  }
+>  of_node_put(port);
+>  }
+> diff --git a/drivers/gpu/drm/etnaviv/etnaviv_drv.c b/drivers/gpu/drm/et=
+naviv/etnaviv_drv.c
+> index 1d2b4fb4bcf8..4a0dba34a6e7 100644
+> --- a/drivers/gpu/drm/etnaviv/etnaviv_drv.c
+> +++ b/drivers/gpu/drm/etnaviv/etnaviv_drv.c
+> @@ -590,8 +590,8 @@ static int etnaviv_pdev_probe(struct platform_devic=
+e *pdev)
+>  if (!first_node)
+>  first_node =3D core_node;
+>=20
+>=20- drm_of_component_match_add(&pdev->dev, &match,
+> - component_compare_of, core_node);
+> + of_node_get(core_node);
+> + component_match_add_of(&pdev->dev, &match, core_node);
+>  }
+>  } else {
+>  char **names =3D dev->platform_data;
+> diff --git a/drivers/gpu/drm/hisilicon/kirin/kirin_drm_drv.c b/drivers/=
+gpu/drm/hisilicon/kirin/kirin_drm_drv.c
+> index 73ee7f25f734..fc736759274f 100644
+> --- a/drivers/gpu/drm/hisilicon/kirin/kirin_drm_drv.c
+> +++ b/drivers/gpu/drm/hisilicon/kirin/kirin_drm_drv.c
+> @@ -273,8 +273,7 @@ static int kirin_drm_platform_probe(struct platform=
+_device *pdev)
+>  if (!remote)
+>  return -ENODEV;
+>=20
+>=20- drm_of_component_match_add(dev, &match, component_compare_of, remot=
+e);
+> - of_node_put(remote);
+> + component_match_add_of(dev, &match, remote);
+>=20
+>=20 return component_master_add_with_match(dev, &kirin_drm_ops, match);
+> }
+> diff --git a/drivers/gpu/drm/ingenic/ingenic-drm-drv.c b/drivers/gpu/dr=
+m/ingenic/ingenic-drm-drv.c
+> index ab0515d2c420..75a19e6b85c0 100644
+> --- a/drivers/gpu/drm/ingenic/ingenic-drm-drv.c
+> +++ b/drivers/gpu/drm/ingenic/ingenic-drm-drv.c
+> @@ -1445,8 +1445,7 @@ static int ingenic_drm_probe(struct platform_devi=
+ce *pdev)
+>  if (!np)
+>  return ingenic_drm_bind(dev, false);
+>=20
+>=20- drm_of_component_match_add(dev, &match, component_compare_of, np);
+> - of_node_put(np);
+> + component_match_add_of(dev, &match, np);
+>=20
+>  return component_master_add_with_match(dev, &ingenic_master_ops, match=
+);
+> }
+> diff --git a/drivers/gpu/drm/mediatek/mtk_drm_drv.c b/drivers/gpu/drm/m=
+ediatek/mtk_drm_drv.c
+> index 91f58db5915f..9ca265129659 100644
+> --- a/drivers/gpu/drm/mediatek/mtk_drm_drv.c
+> +++ b/drivers/gpu/drm/mediatek/mtk_drm_drv.c
+> @@ -779,8 +779,8 @@ static int mtk_drm_probe(struct platform_device *pd=
+ev)
+>  comp_type =3D=3D MTK_DSI) {
+>  dev_info(dev, "Adding component match for %pOF\n",
+>  node);
+> - drm_of_component_match_add(dev, &match, component_compare_of,
+> - node);
+> + of_node_get(node);
+> + component_match_add_of(dev, &match, node);
+>  }
+>=20
+>=20 ret =3D mtk_ddp_comp_init(node, &private->ddp_comp[comp_id], comp_id=
+);
+> diff --git a/drivers/gpu/drm/msm/msm_drv.c b/drivers/gpu/drm/msm/msm_dr=
+v.c
+> index 28034c21f6bc..1152da3d58dc 100644
+> --- a/drivers/gpu/drm/msm/msm_drv.c
+> +++ b/drivers/gpu/drm/msm/msm_drv.c
+> @@ -5,6 +5,7 @@
+> * Author: Rob Clark <robdclark@gmail.com>
+> */
+>=20
+>=20+#include <linux/component.h>
+> #include <linux/dma-mapping.h>
+> #include <linux/fault-inject.h>
+> #include <linux/kthread.h>
+> @@ -1148,10 +1149,9 @@ static int add_components_mdp(struct device *mas=
+ter_dev,
+>  continue;
+>=20
+>=20 if (of_device_is_available(intf))
+> - drm_of_component_match_add(master_dev, matchptr,
+> - component_compare_of, intf);
+> -
+> - of_node_put(intf);
+> + component_match_add_of(master_dev, matchptr, intf);
+> + else
+> + of_node_put(intf);
+>  }
+>=20
+>=20 return 0;
+> @@ -1180,9 +1180,9 @@ static int add_gpu_components(struct device *dev,
+>  return 0;
+>=20
+>=20 if (of_device_is_available(np))
+> - drm_of_component_match_add(dev, matchptr, component_compare_of, np);
+> -
+> - of_node_put(np);
+> + component_match_add_of(dev, matchptr, np);
+> + else
+> + of_node_put(np);
+>=20
+>=20 return 0;
+> }
+> diff --git a/drivers/gpu/drm/sti/sti_drv.c b/drivers/gpu/drm/sti/sti_dr=
+v.c
+> index 7abf010a3293..3ae4b73dfa92 100644
+> --- a/drivers/gpu/drm/sti/sti_drv.c
+> +++ b/drivers/gpu/drm/sti/sti_drv.c
+> @@ -238,8 +238,7 @@ static int sti_platform_probe(struct platform_devic=
+e *pdev)
+>  child_np =3D of_get_next_available_child(node, NULL);
+>=20
+>=20 while (child_np) {
+> - drm_of_component_match_add(dev, &match, component_compare_of,
+> - child_np);
+> + component_match_add_of(dev, &match, child_np);
+>  child_np =3D of_get_next_available_child(node, child_np);
+>  }
+>=20
+>=20diff --git a/drivers/gpu/drm/sun4i/sun4i_drv.c b/drivers/gpu/drm/sun4=
+i/sun4i_drv.c
+> index d06ffd99d86e..a67c2010c7a2 100644
+> --- a/drivers/gpu/drm/sun4i/sun4i_drv.c
+> +++ b/drivers/gpu/drm/sun4i/sun4i_drv.c
+> @@ -323,7 +323,8 @@ static int sun4i_drv_add_endpoints(struct device *d=
+ev,
+>  of_device_is_available(node))) {
+>  /* Add current component */
+>  DRM_DEBUG_DRIVER("Adding component %pOF\n", node);
+> - drm_of_component_match_add(dev, match, component_compare_of, node);
+> + of_node_get(node);
+> + component_match_add_of(dev, match, node);
+>  count++;
+>  }
+>=20
+>=20diff --git a/drivers/gpu/drm/tilcdc/tilcdc_external.c b/drivers/gpu/d=
+rm/tilcdc/tilcdc_external.c
+> index 3b86d002ef62..0138ce02a64f 100644
+> --- a/drivers/gpu/drm/tilcdc/tilcdc_external.c
+> +++ b/drivers/gpu/drm/tilcdc/tilcdc_external.c
+> @@ -155,11 +155,6 @@ int tilcdc_attach_external_device(struct drm_devic=
+e *ddev)
+>  return ret;
+> }
+>=20
+>=20-static int dev_match_of(struct device *dev, void *data)
+> -{
+> - return dev->of_node =3D=3D data;
+> -}
+> -
+> int tilcdc_get_external_components(struct device *dev,
+>  struct component_match **match)
+> {
+> @@ -173,7 +168,8 @@ int tilcdc_get_external_components(struct device *d=
+ev,
+>  }
+>=20
+>=20 if (match)
+> - drm_of_component_match_add(dev, match, dev_match_of, node);
+> - of_node_put(node);
+> + component_match_add_of(dev, match, node);
+> + else
+> + of_node_put(node);
+>  return 1;
+> }
+> diff --git a/include/drm/drm_of.h b/include/drm/drm_of.h
+> index 10ab58c40746..685c44dc1dae 100644
+> --- a/include/drm/drm_of.h
+> +++ b/include/drm/drm_of.h
+> @@ -33,10 +33,6 @@ uint32_t drm_of_crtc_port_mask(struct drm_device *de=
+v,
+>  struct device_node *port);
+> uint32_t drm_of_find_possible_crtcs(struct drm_device *dev,
+>  struct device_node *port);
+> -void drm_of_component_match_add(struct device *master,
+> - struct component_match **matchptr,
+> - int (*compare)(struct device *, void *),
+> - struct device_node *node);
+> int drm_of_component_probe(struct device *dev,
+>  int (*compare_of)(struct device *, void *),
+>  const struct component_master_ops *m_ops);
+> @@ -69,14 +65,6 @@ static inline uint32_t drm_of_find_possible_crtcs(st=
+ruct drm_device *dev,
+>  return 0;
+> }
+>=20
+>=20-static inline void
+> -drm_of_component_match_add(struct device *master,
+> - struct component_match **matchptr,
+> - int (*compare)(struct device *, void *),
+> - struct device_node *node)
+> -{
+> -}
+> -
+> static inline int
+> drm_of_component_probe(struct device *dev,
+>  int (*compare_of)(struct device *, void *),
+> --=20
+>=202.35.1.1320.gc452695387.dirty
+>
