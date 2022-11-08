@@ -2,70 +2,71 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7213E6211BB
-	for <lists+freedreno@lfdr.de>; Tue,  8 Nov 2022 14:01:18 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0B5DA621703
+	for <lists+freedreno@lfdr.de>; Tue,  8 Nov 2022 15:42:16 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C1D5610E430;
-	Tue,  8 Nov 2022 13:01:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6A39110E28B;
+	Tue,  8 Nov 2022 14:42:11 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-x234.google.com (mail-lj1-x234.google.com
- [IPv6:2a00:1450:4864:20::234])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 459DA10E288
- for <freedreno@lists.freedesktop.org>; Tue,  8 Nov 2022 13:01:13 +0000 (UTC)
-Received: by mail-lj1-x234.google.com with SMTP id k19so20995291lji.2
- for <freedreno@lists.freedesktop.org>; Tue, 08 Nov 2022 05:01:13 -0800 (PST)
+Received: from mail-wr1-x429.google.com (mail-wr1-x429.google.com
+ [IPv6:2a00:1450:4864:20::429])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0BB4110E28A
+ for <freedreno@lists.freedesktop.org>; Tue,  8 Nov 2022 14:42:05 +0000 (UTC)
+Received: by mail-wr1-x429.google.com with SMTP id bs21so21331714wrb.4
+ for <freedreno@lists.freedesktop.org>; Tue, 08 Nov 2022 06:42:04 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :from:to:cc:subject:date:message-id:reply-to;
- bh=o2KBnjP+nSiovlrgCNq3pgnMfvwR/TgjyTkfX/lxAXY=;
- b=B1NLcQxYD/tx2pF3yzopjY1j/+5ZIQBGNS2nBPNbnSEbAaWVMjzgybAcu8U73wnSpS
- 2p6Wl/qwuoxfmZpHd4pLS6PNPs01SywKDuEOkq/q9Ll06Uhqm9dlrj5PlresGVgbve64
- 81jMN8Is3/iJqmZxDo7rnXCEDUqiUT60X5AEQtVsfFO+9JPBb1eHrIMgmHyC84lpfQty
- 9u8nsXg0URwU1h2oRYR5vAB2D5t6Snyqq+Yxr9V/yyuKVp2JYkbfKX1XfxXOF1yYSOwy
- F5+k72GuWuWwlibeltt6Y62hytjwcAWnJqWAeXfoAy6vj5S9H50BOjRbtsk+tq78j1X8
- 3IQg==
+ bh=W8UcJ0GaU+CjJ1uQZKnrPv8ndJ2BS66qRNxxSEafyKE=;
+ b=muz8Ab86BqaMTfG0PBWYuWzWU7rZMNLpVa+2bN/hRSDGr+1Pa/ucWfB8p0ROCZb/Ev
+ m35meCmJUyv14YfFOecebgNcU8vntDoSr6C1I01iAsyP4u+C5qFVpxWAB696bdRsgU/+
+ LOUoKnW6OW0qY/JG+WcNskD5992R0VJApE+RsCkRCx08Tx+Gsn6sC4y0wJZEArxLzZBy
+ nbMnKOWeJYtKzyME6LF97/TLGqqWDX39KFx6KqAYHprdac7XHWyONvgCXxjs1Rbr6qBu
+ GKsiKth9abImAXeUsFYs7uHCNlspBTbOfRz1vu8SwBbWGAy5aW9Cv1Oa5yBMn6h/9Hsp
+ R10A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=o2KBnjP+nSiovlrgCNq3pgnMfvwR/TgjyTkfX/lxAXY=;
- b=xm3jaGZG1+4jaCqrAcSJtxtRZh241gqZrU0KoUNqARkgaygMGn+dDXC+Pqrmw73SOB
- pqq3h390Z/fDwS7H8DAnR/tgFowtlbCUjnM3X+iZLoQs4Q//4NPg3SoWxP57xEMnFE8C
- 7UlXDgpCvbaA+k2XGLGJHbtLBujdKGXFHs9VFZeAx7EUoK7rxUZdDkfh6CKVbUlAu1Ct
- 2gxp6piyspS5YIUlSU3oy1hyyq9UP1UzXLhaBN9fminSd5HCdDJes70Owv2Ik5BFne9U
- DQYiuGQ993Lv0S4phndUWCUdXnavW1TWsMahWDcfYBjivR4Rtp6rocR9Mfhxh+bES2hM
- tz1g==
-X-Gm-Message-State: ACrzQf3oPYM4JJd32o+oh8SYd+GEPw+7BYcw0K5zRBmybLZF/ETn0vBX
- NOrxTc+kw8rJky7wHE0sdtLARw==
-X-Google-Smtp-Source: AMsMyM66xrug6V/sv7oOh3M+8rA31Sg6TAYX3OsMnAX7+YblTowGVcUPAZ+KslM0y4845evMIBVXVA==
-X-Received: by 2002:a05:651c:178a:b0:277:8a07:a558 with SMTP id
- bn10-20020a05651c178a00b002778a07a558mr5264594ljb.333.1667912471539; 
- Tue, 08 Nov 2022 05:01:11 -0800 (PST)
-Received: from [10.27.10.248] ([195.165.23.90])
+ bh=W8UcJ0GaU+CjJ1uQZKnrPv8ndJ2BS66qRNxxSEafyKE=;
+ b=0AbTu80zHPm6rYf8xuiTuV/yeLsRMOOaJA9/DyfeSCXbLTxjyIqcL20dg6tI8W3Pu7
+ QnHt5JArbBLWICyA6OLQtbeFvQLWQNOfkoog1/OgatOHOLh5l9ymV50i/EiZpUUqCYR1
+ Ib/6JRprRCsovPiOfJTxSclrhCr/M2PJNR4WGPR/+o2mK62A/+X/mIATUxI3hYlPhMeC
+ m7mdMoDPNwz/mKSnckceO5ud3K4gmAO/Dxzb2Ng/AlPKQ27mN5RZAHtC260Tfu0lD1qw
+ wmzEMZ+6SuE4NxqNo6bE5Qy2ZrzgikLozMHmFa03yx2mZJP01myNJBmaCYbaVULS0kDD
+ eS9A==
+X-Gm-Message-State: ACrzQf2+aRDfVChx535wgUtYoHIVwbdnn89vP1eSNnqUcNFC4V/eFTJw
+ rvjxSTiS+Rl85+YiqMmRs5LImA==
+X-Google-Smtp-Source: AMsMyM5oMvEjL2vTJwXTlTKP2P+NZu+skMaqMeBR7astV6rsRFfYVY7xi0BdMj1Uwee6UHnFtlR5Qg==
+X-Received: by 2002:a5d:4889:0:b0:22b:214:38dd with SMTP id
+ g9-20020a5d4889000000b0022b021438ddmr37505143wrq.32.1667918523474; 
+ Tue, 08 Nov 2022 06:42:03 -0800 (PST)
+Received: from [192.168.0.162] (188-141-3-169.dynamic.upc.ie. [188.141.3.169])
  by smtp.gmail.com with ESMTPSA id
- h7-20020ac250c7000000b004a2386b8cf5sm1767451lfm.215.2022.11.08.05.01.10
+ l12-20020a05600c2ccc00b003b47ff307e1sm12228666wmc.31.2022.11.08.06.42.02
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 08 Nov 2022 05:01:11 -0800 (PST)
-Message-ID: <228c9136-0c52-af0b-459e-23c9f7ee08f3@linaro.org>
-Date: Tue, 8 Nov 2022 16:01:10 +0300
+ Tue, 08 Nov 2022 06:42:03 -0800 (PST)
+Message-ID: <a8c36604-5f52-0be9-29d7-f64811541c97@linaro.org>
+Date: Tue, 8 Nov 2022 14:42:02 +0000
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.4.1
-Content-Language: en-GB
-To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>, robdclark@gmail.com,
+ Thunderbird/102.4.2
+Content-Language: en-US
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, robdclark@gmail.com,
  quic_abhinavk@quicinc.com, krzysztof.kozlowski+dt@linaro.org,
  robh+dt@kernel.org, quic_mkrishn@quicinc.com, linux-arm-msm@vger.kernel.org
 References: <20221107235654.1769462-1-bryan.odonoghue@linaro.org>
- <20221107235654.1769462-6-bryan.odonoghue@linaro.org>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-In-Reply-To: <20221107235654.1769462-6-bryan.odonoghue@linaro.org>
+ <20221107235654.1769462-4-bryan.odonoghue@linaro.org>
+ <ceffec42-f9af-6bde-8db1-076f0cc2a34f@linaro.org>
+From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+In-Reply-To: <ceffec42-f9af-6bde-8db1-076f0cc2a34f@linaro.org>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH v2 05/18] dt-bindings: msm:
- dsi-controller-main: Fix description of core clock
+Subject: Re: [Freedreno] [PATCH v2 03/18] dt-bindings: msm:
+ dsi-controller-main: Add vdd* descriptions back in
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -85,47 +86,282 @@ Cc: Sean Paul <sean@poorly.run>, devicetree@vger.kernel.org,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 08/11/2022 02:56, Bryan O'Donoghue wrote:
-> There's a typo in describing the core clock as an 'escape' clock. The
-> accurate description is 'core'.
+On 08/11/2022 12:59, Dmitry Baryshkov wrote:
+>>
+>> Warnings about missing regulators can be resolved by updating the 
+>> relevant
+>> dtsi files to point to fixed always-on regulators where appropriate.
 > 
-> Fixes: 4dbe55c97741 ("dt-bindings: msm: dsi: add yaml schemas for DSI bindings")
-> Cc: Rob Clark <robdclark@gmail.com>
-> Cc: Abhinav Kumar <quic_abhinavk@quicinc.com>
-> Cc: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> Cc: Sean Paul <sean@poorly.run>
-> Cc: David Airlie <airlied@gmail.com>
-> Cc: Daniel Vetter <daniel@ffwll.ch>
-> Cc: Rob Herring <robh+dt@kernel.org>
-> Cc: Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>
-> Cc: linux-arm-msm@vger.kernel.org
-> Cc: dri-devel@lists.freedesktop.org
-> Cc: freedreno@lists.freedesktop.org
-> Cc: devicetree@vger.kernel.org
-> Cc: linux-kernel@vger.kernel.org
-> Signed-off-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-> ---
->   .../devicetree/bindings/display/msm/dsi-controller-main.yaml    | 2 +-
->   1 file changed, 1 insertion(+), 1 deletion(-)
+> Ugh. Are they missing or are they optional/not used on these platforms?
 
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Some platforms either don't implement them or worse possibly do 
+implement but don't model them when they should.
 
-> 
-> diff --git a/Documentation/devicetree/bindings/display/msm/dsi-controller-main.yaml b/Documentation/devicetree/bindings/display/msm/dsi-controller-main.yaml
-> index cab38a20a54b0..a607ccd4a905a 100644
-> --- a/Documentation/devicetree/bindings/display/msm/dsi-controller-main.yaml
-> +++ b/Documentation/devicetree/bindings/display/msm/dsi-controller-main.yaml
-> @@ -32,7 +32,7 @@ properties:
->         - description: Display byte clock
->         - description: Display byte interface clock
->         - description: Display pixel clock
-> -      - description: Display escape clock
-> +      - description: Display core clock
->         - description: Display AHB clock
->         - description: Display AXI clock
->         - description: Core MultiMedia SubSystem clock
+> Can you possibly list all regulator warnings?
 
--- 
-With best wishes
-Dmitry
+
+Downstream we have
+
+arch/arm/boot/dts/qcom/msm8916-mdss.dtsi
+
+mdss_dsi0: qcom,mdss_dsi@1a98000 {
+	vdda-supply = <&pm8916_l2>;
+	vdd-supply = <&pm8916_l17>;
+	vddio-supply = <&pm8916_l6>;
+};
+
+Looking at something like
+
+arch/arm/boot/dts/qcom/msm8916-mtp.dtsi which references 
+arch/arm/boot/dts/qcom/dsi-panel-jdi-1080p-video.dtsi it doesn't appear 
+to delete andy of the vdd*-supply references
+
+apq8016-sbc.dtb: dsi@1a98000: 'vdd-supply' is a required property
+msm8916-samsung-a3u-eur.dtb: dsi@1a98000: 'vdd-supply' is a required 
+property
+msm8916-samsung-a5u-eur.dtb: dsi@1a98000: 'vdd-supply' is a required 
+property
+msm8916-samsung-e5.dtb: dsi@1a98000: 'vdd-supply' is a required property
+msm8916-samsung-e7.dtb: dsi@1a98000: 'vdd-supply' is a required property
+msm8916-samsung-grandmax.dtb: dsi@1a98000: 'vdd-supply' is a required 
+property
+msm8996-xiaomi-natrium.dtb: dsi@994000: 'panel@0', 'vcca-supply' do not 
+match any of the regexes: 'pinctrl-[0-9]+'
+msm8996-xiaomi-scorpio.dtb: dsi@994000: 'vdda-supply' is a required property
+qrb5165-rb5.dtb: dsi@ae94000: 'vdd-supply' is a required property
+qrb5165-rb5.dtb: dsi@ae94000: 'vddio-supply' is a required property
+sc7180-idp.dtb: dsi@ae94000: 'vdd-supply' is a required property
+sc7180-idp.dtb: dsi@ae94000: 'vddio-supply' is a required property
+sc7180-trogdor-coachz-r1.dtb: dsi@ae94000: 'vdd-supply' is a required 
+property
+sc7180-trogdor-coachz-r1.dtb: dsi@ae94000: 'vddio-supply' is a required 
+property
+sc7180-trogdor-coachz-r1-lte.dtb: dsi@ae94000: 'vdd-supply' is a 
+required property
+sc7180-trogdor-coachz-r1-lte.dtb: dsi@ae94000: 'vddio-supply' is a 
+required property
+sc7180-trogdor-coachz-r3.dtb: dsi@ae94000: 'vdd-supply' is a required 
+property
+sc7180-trogdor-coachz-r3.dtb: dsi@ae94000: 'vddio-supply' is a required 
+property
+sc7180-trogdor-coachz-r3-lte.dtb: dsi@ae94000: 'vdd-supply' is a 
+required property
+sc7180-trogdor-coachz-r3-lte.dtb: dsi@ae94000: 'vddio-supply' is a 
+required property
+sc7180-trogdor-homestar-r2.dtb: dsi@ae94000: 'vdd-supply' is a required 
+property
+sc7180-trogdor-homestar-r2.dtb: dsi@ae94000: 'vddio-supply' is a 
+required property
+sc7180-trogdor-homestar-r3.dtb: dsi@ae94000: 'vdd-supply' is a required 
+property
+sc7180-trogdor-homestar-r3.dtb: dsi@ae94000: 'vddio-supply' is a 
+required property
+sc7180-trogdor-homestar-r4.dtb: dsi@ae94000: 'vdd-supply' is a required 
+property
+sc7180-trogdor-homestar-r4.dtb: dsi@ae94000: 'vddio-supply' is a 
+required property
+sc7180-trogdor-kingoftown-r0.dtb: dsi@ae94000: 'vdd-supply' is a 
+required property
+sc7180-trogdor-kingoftown-r0.dtb: dsi@ae94000: 'vddio-supply' is a 
+required property
+sc7180-trogdor-kingoftown-r1.dtb: dsi@ae94000: 'vdd-supply' is a 
+required property
+sc7180-trogdor-kingoftown-r1.dtb: dsi@ae94000: 'vddio-supply' is a 
+required property
+sc7180-trogdor-lazor-r0.dtb: dsi@ae94000: 'vdd-supply' is a required 
+property
+sc7180-trogdor-lazor-r0.dtb: dsi@ae94000: 'vddio-supply' is a required 
+property
+sc7180-trogdor-lazor-r1.dtb: dsi@ae94000: 'vdd-supply' is a required 
+property
+sc7180-trogdor-lazor-r1.dtb: dsi@ae94000: 'vddio-supply' is a required 
+property
+sc7180-trogdor-lazor-r1-kb.dtb: dsi@ae94000: 'vdd-supply' is a required 
+property
+sc7180-trogdor-lazor-r1-kb.dtb: dsi@ae94000: 'vddio-supply' is a 
+required property
+sc7180-trogdor-lazor-r1-lte.dtb: dsi@ae94000: 'vdd-supply' is a required 
+property
+sc7180-trogdor-lazor-r1-lte.dtb: dsi@ae94000: 'vddio-supply' is a 
+required property
+sc7180-trogdor-lazor-r3.dtb: dsi@ae94000: 'vdd-supply' is a required 
+property
+sc7180-trogdor-lazor-r3.dtb: dsi@ae94000: 'vddio-supply' is a required 
+property
+sc7180-trogdor-lazor-r3-kb.dtb: dsi@ae94000: 'vdd-supply' is a required 
+property
+sc7180-trogdor-lazor-r3-kb.dtb: dsi@ae94000: 'vddio-supply' is a 
+required property
+sc7180-trogdor-lazor-r3-lte.dtb: dsi@ae94000: 'vdd-supply' is a required 
+property
+sc7180-trogdor-lazor-r3-lte.dtb: dsi@ae94000: 'vddio-supply' is a 
+required property
+sc7180-trogdor-lazor-r9.dtb: dsi@ae94000: 'vdd-supply' is a required 
+property
+sc7180-trogdor-lazor-r9.dtb: dsi@ae94000: 'vddio-supply' is a required 
+property
+sc7180-trogdor-lazor-r9-kb.dtb: dsi@ae94000: 'vdd-supply' is a required 
+property
+sc7180-trogdor-lazor-r9-kb.dtb: dsi@ae94000: 'vddio-supply' is a 
+required property
+sc7180-trogdor-lazor-r9-lte.dtb: dsi@ae94000: 'vdd-supply' is a required 
+property
+sc7180-trogdor-lazor-r9-lte.dtb: dsi@ae94000: 'vddio-supply' is a 
+required property
+sc7180-trogdor-lazor-limozeen-r4.dtb: dsi@ae94000: 'vdd-supply' is a 
+required property
+sc7180-trogdor-lazor-limozeen-r4.dtb: dsi@ae94000: 'vddio-supply' is a 
+required property
+sc7180-trogdor-lazor-limozeen-r9.dtb: dsi@ae94000: 'vdd-supply' is a 
+required property
+sc7180-trogdor-lazor-limozeen-r9.dtb: dsi@ae94000: 'vddio-supply' is a 
+required property
+sc7180-trogdor-lazor-limozeen-nots-r4.dtb: dsi@ae94000: 'vdd-supply' is 
+a required property
+sc7180-trogdor-lazor-limozeen-nots-r4.dtb: dsi@ae94000: 'vddio-supply' 
+is a required property
+sc7180-trogdor-lazor-limozeen-nots-r5.dtb: dsi@ae94000: 'vdd-supply' is 
+a required property
+sc7180-trogdor-lazor-limozeen-nots-r5.dtb: dsi@ae94000: 'vddio-supply' 
+is a required property
+sc7180-trogdor-lazor-limozeen-nots-r9.dtb: dsi@ae94000: 'vdd-supply' is 
+a required property
+sc7180-trogdor-lazor-limozeen-nots-r9.dtb: dsi@ae94000: 'vddio-supply' 
+is a required property
+sc7180-trogdor-mrbland-rev0-auo.dtb: dsi@ae94000: 'vdd-supply' is a 
+required property
+sc7180-trogdor-mrbland-rev0-auo.dtb: dsi@ae94000: 'vddio-supply' is a 
+required property
+sc7180-trogdor-mrbland-rev0-boe.dtb: dsi@ae94000: 'vdd-supply' is a 
+required property
+sc7180-trogdor-mrbland-rev0-boe.dtb: dsi@ae94000: 'vddio-supply' is a 
+required property
+sc7180-trogdor-mrbland-rev1-auo.dtb: dsi@ae94000: 'vdd-supply' is a 
+required property
+sc7180-trogdor-mrbland-rev1-auo.dtb: dsi@ae94000: 'vddio-supply' is a 
+required property
+sc7180-trogdor-mrbland-rev1-boe.dtb: dsi@ae94000: 'vdd-supply' is a 
+required property
+sc7180-trogdor-mrbland-rev1-boe.dtb: dsi@ae94000: 'vddio-supply' is a 
+required property
+sc7180-trogdor-pazquel-lte-parade.dtb: dsi@ae94000: 'vdd-supply' is a 
+required property
+sc7180-trogdor-pazquel-lte-parade.dtb: dsi@ae94000: 'vddio-supply' is a 
+required property
+sc7180-trogdor-pazquel-lte-ti.dtb: dsi@ae94000: 'vdd-supply' is a 
+required property
+sc7180-trogdor-pazquel-lte-ti.dtb: dsi@ae94000: 'vddio-supply' is a 
+required property
+sc7180-trogdor-pazquel-parade.dtb: dsi@ae94000: 'vdd-supply' is a 
+required property
+sc7180-trogdor-pazquel-parade.dtb: dsi@ae94000: 'vddio-supply' is a 
+required property
+sc7180-trogdor-pazquel-ti.dtb: dsi@ae94000: 'vdd-supply' is a required 
+property
+sc7180-trogdor-pazquel-ti.dtb: dsi@ae94000: 'vddio-supply' is a required 
+property
+sc7180-trogdor-pompom-r1.dtb: dsi@ae94000: 'vdd-supply' is a required 
+property
+sc7180-trogdor-pompom-r1.dtb: dsi@ae94000: 'vddio-supply' is a required 
+property
+sc7180-trogdor-pompom-r1-lte.dtb: dsi@ae94000: 'vdd-supply' is a 
+required property
+sc7180-trogdor-pompom-r1-lte.dtb: dsi@ae94000: 'vddio-supply' is a 
+required property
+sc7180-trogdor-pompom-r2.dtb: dsi@ae94000: 'vdd-supply' is a required 
+property
+sc7180-trogdor-pompom-r2.dtb: dsi@ae94000: 'vddio-supply' is a required 
+property
+sc7180-trogdor-pompom-r2-lte.dtb: dsi@ae94000: 'vdd-supply' is a 
+required property
+sc7180-trogdor-pompom-r2-lte.dtb: dsi@ae94000: 'vddio-supply' is a 
+required property
+sc7180-trogdor-pompom-r3.dtb: dsi@ae94000: 'vdd-supply' is a required 
+property
+sc7180-trogdor-pompom-r3.dtb: dsi@ae94000: 'vddio-supply' is a required 
+property
+sc7180-trogdor-pompom-r3-lte.dtb: dsi@ae94000: 'vdd-supply' is a 
+required property
+sc7180-trogdor-pompom-r3-lte.dtb: dsi@ae94000: 'vddio-supply' is a 
+required property
+sc7180-trogdor-quackingstick-r0.dtb: dsi@ae94000: 'vdd-supply' is a 
+required property
+sc7180-trogdor-quackingstick-r0.dtb: dsi@ae94000: 'vddio-supply' is a 
+required property
+sc7180-trogdor-quackingstick-r0-lte.dtb: dsi@ae94000: 'vdd-supply' is a 
+required property
+sc7180-trogdor-quackingstick-r0-lte.dtb: dsi@ae94000: 'vddio-supply' is 
+a required property
+sc7180-trogdor-wormdingler-rev0-boe.dtb: dsi@ae94000: 'vdd-supply' is a 
+required property
+sc7180-trogdor-wormdingler-rev0-boe.dtb: dsi@ae94000: 'vddio-supply' is 
+a required property
+sc7180-trogdor-wormdingler-rev0-inx.dtb: dsi@ae94000: 'vdd-supply' is a 
+required property
+sc7180-trogdor-wormdingler-rev0-inx.dtb: dsi@ae94000: 'vddio-supply' is 
+a required property
+sc7180-trogdor-wormdingler-rev1-boe.dtb: dsi@ae94000: 'vdd-supply' is a 
+required property
+sc7180-trogdor-wormdingler-rev1-boe.dtb: dsi@ae94000: 'vddio-supply' is 
+a required property
+sc7180-trogdor-wormdingler-rev1-inx.dtb: dsi@ae94000: 'vdd-supply' is a 
+required property
+sc7180-trogdor-wormdingler-rev1-inx.dtb: dsi@ae94000: 'vddio-supply' is 
+a required property
+sc7180-trogdor-wormdingler-rev1-inx-rt5682s.dtb: dsi@ae94000: 
+'vdd-supply' is a required property
+sc7180-trogdor-wormdingler-rev1-inx-rt5682s.dtb: dsi@ae94000: 
+'vddio-supply' is a required property
+sc7180-trogdor-wormdingler-rev1-boe-rt5682s.dtb: dsi@ae94000: 
+'vdd-supply' is a required property
+sc7180-trogdor-wormdingler-rev1-boe-rt5682s.dtb: dsi@ae94000: 
+'vddio-supply' is a required property
+sc7180-trogdor-r1.dtb: dsi@ae94000: 'vdd-supply' is a required property
+sc7180-trogdor-r1.dtb: dsi@ae94000: 'vddio-supply' is a required property
+sc7180-trogdor-r1-lte.dtb: dsi@ae94000: 'vdd-supply' is a required property
+sc7180-trogdor-r1-lte.dtb: dsi@ae94000: 'vddio-supply' is a required 
+property
+sda660-inforce-ifc6560.dtb: dsi@c994000: 'vdd-supply' is a required property
+sda660-inforce-ifc6560.dtb: dsi@c994000: 'vddio-supply' is a required 
+property
+sdm845-cheza-r1.dtb: dsi@ae94000: 'vdd-supply' is a required property
+sdm845-cheza-r1.dtb: dsi@ae94000: 'vddio-supply' is a required property
+sdm845-cheza-r2.dtb: dsi@ae94000: 'vdd-supply' is a required property
+sdm845-cheza-r2.dtb: dsi@ae94000: 'vddio-supply' is a required property
+sdm845-cheza-r3.dtb: dsi@ae94000: 'vdd-supply' is a required property
+sdm845-cheza-r3.dtb: dsi@ae94000: 'vddio-supply' is a required property
+sdm845-db845c.dtb: dsi@ae94000: 'vdd-supply' is a required property
+sdm845-db845c.dtb: dsi@ae94000: 'vddio-supply' is a required property
+sdm845-mtp.dtb: dsi@ae94000: 'vdd-supply' is a required property
+sdm845-mtp.dtb: dsi@ae94000: 'vddio-supply' is a required property
+sdm845-mtp.dtb: dsi@ae96000: 'vdd-supply' is a required property
+sdm845-mtp.dtb: dsi@ae96000: 'vddio-supply' is a required property
+sdm845-oneplus-enchilada.dtb: dsi@ae94000: 'vdd-supply' is a required 
+property
+sdm845-oneplus-enchilada.dtb: dsi@ae94000: 'vddio-supply' is a required 
+property
+sdm845-oneplus-fajita.dtb: dsi@ae94000: 'vdd-supply' is a required property
+sdm845-oneplus-fajita.dtb: dsi@ae94000: 'vddio-supply' is a required 
+property
+sdm845-xiaomi-beryllium.dtb: dsi@ae94000: 'vdd-supply' is a required 
+property
+sdm845-xiaomi-beryllium.dtb: dsi@ae94000: 'vddio-supply' is a required 
+property
+sdm845-xiaomi-polaris.dtb: dsi@ae94000: 'vdd-supply' is a required property
+sdm845-xiaomi-polaris.dtb: dsi@ae94000: 'vddio-supply' is a required 
+property
+sdm845-shift-axolotl.dtb: dsi@ae94000: 'vdd-supply' is a required property
+sdm845-shift-axolotl.dtb: dsi@ae94000: 'vddio-supply' is a required property
+sdm850-lenovo-yoga-c630.dtb: dsi@ae94000: 'vdd-supply' is a required 
+property
+sdm850-lenovo-yoga-c630.dtb: dsi@ae94000: 'vddio-supply' is a required 
+property
+
+apq8016-sbc.dtb: dsi@1a98000: 'vdd-supply' is a required property
+msm8916-samsung-a5u-eur.dtb: dsi@1a98000: 'vdd-supply' is a required 
+property
+sc7180-trogdor-homestar-r4.dtb: dsi@ae94000: 'vdd-supply' is a required 
+property
+sc7180-trogdor-homestar-r4.dtb: dsi@ae94000: 'vddio-supply' is a 
+required property
 
