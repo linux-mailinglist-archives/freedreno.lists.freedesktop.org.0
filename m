@@ -1,46 +1,73 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 80676621C7B
-	for <lists+freedreno@lfdr.de>; Tue,  8 Nov 2022 19:51:02 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 1616B621E3C
+	for <lists+freedreno@lfdr.de>; Tue,  8 Nov 2022 22:10:39 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D1A7C10E4F5;
-	Tue,  8 Nov 2022 18:50:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4F4D810E03C;
+	Tue,  8 Nov 2022 21:10:37 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-X-Greylist: delayed 1504 seconds by postgrey-1.36 at gabe;
- Tue, 08 Nov 2022 18:50:50 UTC
-Received: from mail-0201.mail-europe.com (mail-0201.mail-europe.com
- [51.77.79.158])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 38B4610E4EF
- for <freedreno@lists.freedesktop.org>; Tue,  8 Nov 2022 18:50:50 +0000 (UTC)
-Date: Tue, 08 Nov 2022 18:50:42 +0000
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=emersion.fr;
- s=protonmail3; t=1667933446; x=1668192646;
- bh=iR4z0fcOUj4kLBli87jk8SRgbWffMR5GcTiGRWNAqFU=;
- h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
- Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
- Message-ID:BIMI-Selector;
- b=iodNwh3Yn79pSho7+Gaty5eM6k9SHFtE74jY2vKRDnn+w8g9LiaBg59FbKx1ufA5/
- Vliap1b51XYM6e7cvCTNDAC+scDHnRXXxCnK3MnbV7V6KnoSyjneVAfCsPCb1FRqy5
- KYbLDG1WwxgPlYjNHMbOEuf+V7G5KJKf7N8seZBU1j5SzTx+LXagWr5pY3/VBAcfd6
- ipxtgQ0KuhhYGXsb8xvKJqI5dWWiytpvoP/7CaGd3+Ni5By2TNnSu3/tZGbviVbjhC
- ZaJlK0gyJAQYl99GXdjTIwG8Gec3yUWFn8xV35mCKMMDE66j0b0Ym0XCS9SIAvQVWn
- GjonFHFmCI8ZA==
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-From: Simon Ser <contact@emersion.fr>
-Message-ID: <U3Koc0-B-7C7sbIpcRWokBHPOQdrQl7azJxAUWFJ4nmsk5nPf9NnUgBr9HOFUZ9YLJOKREN878fXv_BeIc15Kh_jVAFCFbYr8XfS3s0Os_M=@emersion.fr>
-In-Reply-To: <712a9a25-4c38-9da5-b1a6-39e4665b4d31@linaro.org>
-References: <20221028225952.160-1-quic_jesszhan@quicinc.com>
- <20221028225952.160-2-quic_jesszhan@quicinc.com>
- <712a9a25-4c38-9da5-b1a6-39e4665b4d31@linaro.org>
-Feedback-ID: 1358184:user:proton
+Received: from mail-lj1-x22f.google.com (mail-lj1-x22f.google.com
+ [IPv6:2a00:1450:4864:20::22f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5FB6F10E521
+ for <freedreno@lists.freedesktop.org>; Tue,  8 Nov 2022 21:10:33 +0000 (UTC)
+Received: by mail-lj1-x22f.google.com with SMTP id s24so22947970ljs.11
+ for <freedreno@lists.freedesktop.org>; Tue, 08 Nov 2022 13:10:33 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=6ZAafqOZBdpxx83ZFYFN1Hi8JWgUTuB0MF2wqgfb+j0=;
+ b=BmbRlhuIxfQgv60+/uxmJD2mUTMS1D0a5vXHhZdSI+B0M5n7f+PY+aY+i3bYejK+47
+ QAdInA8SRHniQJjhhghXtj43Y63XNmSMkmmTfTfgYedB6o8JaZTnyatSRXboWFXzzkD8
+ g2QTiyGD9OFXonYu/wW1c7sVz7Lz7oaxfiWFJNRGfSlCfaPJrTkpgUNBuc9HeD98Ah24
+ YpHZNx0F0/+cfv0RdCs+sd/hp7I/iGeLbyq/AyZr/jaiGdiBxohdkNnS+fx/fy2Hpfyr
+ 3WxJzj5MdugdN3Sot7qFgjiKrVQpDMLOmwPQXKT4N6+Tmja50fD0vqu1PTZ0NNp4I0Lt
+ djPA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=6ZAafqOZBdpxx83ZFYFN1Hi8JWgUTuB0MF2wqgfb+j0=;
+ b=FfBMSdzx5/GkQ2JDaRMSt7bDP7inO8futGHA+An3Hu+0ksAVmNs5Zp5ZUKoCym3ktV
+ YYk9Re4lcv56msAKo4KmzGqpuBVj76bVuZdi5bdDwOQuLUp/+ehXQqqfjP5Fum3CEzCs
+ OWFLi3ZIwlW5+6gYCzEluqN/18316hYw74HhSRsJsf5xdlB0rZEtFWD5Wd1fOHaGtR9B
+ a1vSiRXaPDKw/9zspH5MguvHF1Vnle6myORNLronqbVcEDgmhl3nUBKAdWp3PbE8t+uJ
+ 1uGkYkgEjA/ELJ/Og8h24L88InOvJF0kvB04wrYNavA9uU5cTNCLksRSElWz0jgci4zD
+ gQDA==
+X-Gm-Message-State: ACrzQf3mo3O2fYo9LzTRVRXHcyzdCJ2dCE3kb3CCJU+0TRQHTixKiu+8
+ uHoBwUGjDO7YXMVKLIta7x1olQ==
+X-Google-Smtp-Source: AMsMyM4fusBtXtXt1yqqm9JfpkjsgoZrmDOHZ38/STvFvd3nHz0ohLlYZyuEMRbdkEJIFvFcju188w==
+X-Received: by 2002:a05:651c:1207:b0:277:276a:9d7b with SMTP id
+ i7-20020a05651c120700b00277276a9d7bmr19141181lja.129.1667941831467; 
+ Tue, 08 Nov 2022 13:10:31 -0800 (PST)
+Received: from [192.168.0.20]
+ (088156142199.dynamic-2-waw-k-3-2-0.vectranet.pl. [88.156.142.199])
+ by smtp.gmail.com with ESMTPSA id
+ q13-20020a056512210d00b0049c29292250sm1932529lfr.149.2022.11.08.13.10.29
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 08 Nov 2022 13:10:30 -0800 (PST)
+Message-ID: <b482360f-16d2-6a7d-2cbe-72f2a1c6f50f@linaro.org>
+Date: Tue, 8 Nov 2022 22:10:29 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [Freedreno] [RFC PATCH 1/3] drm: Introduce color fill
- properties for drm plane
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.4.2
+Content-Language: en-US
+To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>, robdclark@gmail.com,
+ quic_abhinavk@quicinc.com, dmitry.baryshkov@linaro.org,
+ krzysztof.kozlowski+dt@linaro.org, robh+dt@kernel.org,
+ quic_mkrishn@quicinc.com, linux-arm-msm@vger.kernel.org
+References: <20221107235654.1769462-1-bryan.odonoghue@linaro.org>
+ <20221107235654.1769462-3-bryan.odonoghue@linaro.org>
+From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+In-Reply-To: <20221107235654.1769462-3-bryan.odonoghue@linaro.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+Subject: Re: [Freedreno] [PATCH v2 02/18] dt-bindings: msm:
+ dsi-controller-main: Fix power-domain constraint
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,115 +80,54 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Pekka Paalanen <ppaalanen@gmail.com>, linux-arm-msm@vger.kernel.org,
- quic_abhinavk@quicinc.com, dri-devel@lists.freedesktop.org,
- swboyd@chromium.org, robdclark@gmail.com, seanpaul@chromium.org,
- laurent.pinchart@ideasonboard.com, daniel.vetter@ffwll.ch,
- Jessica Zhang <quic_jesszhan@quicinc.com>,
- wayland-devel <wayland-devel@lists.freedesktop.org>,
- freedreno@lists.freedesktop.org
+Cc: Sean Paul <sean@poorly.run>, devicetree@vger.kernel.org,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>,
+ David Airlie <airlied@gmail.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-cc'ing Pekka and wayland-devel for userspace devs feedback on the new uAPI.
+On 08/11/2022 00:56, Bryan O'Donoghue wrote:
+> power-domain is required for the sc7180 dispcc GDSC but not every qcom SoC
+> has a similar dependency for example the aqp8064.
+> 
+> Most Qcom SoC's using mdss-dsi-ctrl seem to have the ability to
+> power-collapse the MDP without collapsing DSI.
+> 
+> For example the qcom vendor kernel commit for apq8084, msm8226, msm8916, msm8974
+> 
+> https://review.carbonrom.org/plugins/gitiles/CarbonROM/android_kernel_oneplus_msm8994/+/7b5c011a770daa2811778937ed646237a28a8694
+> 
+> "ARM: dts: msm: add mdss gdsc supply to dsi controller device
+> 
+>  It is possible for the DSI controller to be active when MDP is
+>  power collapsed. DSI controller needs to have it's own vote for
+>  mdss gdsc to ensure that gdsc remains on in such cases."
+> 
+> This however doesn't appear to be the case for the apq8064 so we shouldn't
+> be marking power-domain as required in yaml checks.
+> 
+> Fixes: 4dbe55c97741 ("dt-bindings: msm: dsi: add yaml schemas for DSI bindings")
+> Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> Cc: Rob Clark <robdclark@gmail.com>
+> Cc: Abhinav Kumar <quic_abhinavk@quicinc.com>
+> Cc: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> Cc: Sean Paul <sean@poorly.run>
+> Cc: David Airlie <airlied@gmail.com>
+> Cc: Daniel Vetter <daniel@ffwll.ch>
+> Cc: Rob Herring <robh+dt@kernel.org>
+> Cc: Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>
+> Cc: linux-arm-msm@vger.kernel.org
+> Cc: dri-devel@lists.freedesktop.org
+> Cc: freedreno@lists.freedesktop.org
+> Cc: devicetree@vger.kernel.org
+> Cc: linux-kernel@vger.kernel.org
 
-On Saturday, October 29th, 2022 at 14:08, Dmitry Baryshkov <dmitry.baryshko=
-v@linaro.org> wrote:
+Your Cc list is huge and not necessary to store in git log. For example
+I am appearing there twice. Please keep it under '---'.
 
-> On 29/10/2022 01:59, Jessica Zhang wrote:
-> > Add support for COLOR_FILL and COLOR_FILL_FORMAT properties for
-> > drm_plane. In addition, add support for setting and getting the values
-> > of these properties.
-> >
-> > COLOR_FILL represents the color fill of a plane while COLOR_FILL_FORMAT
-> > represents the format of the color fill. Userspace can set enable solid
-> > fill on a plane by assigning COLOR_FILL to a uint64_t value, assigning
-> > the COLOR_FILL_FORMAT property to a uint32_t value, and setting the
-> > framebuffer to NULL.
-> >
-> > Signed-off-by: Jessica Zhang <quic_jesszhan@quicinc.com>
->=20
-> Planes report supported formats using the drm_mode_getplane(). You'd
-> also need to tell userspace, which formats are supported for color fill.
-> I don't think one supports e.g. YV12.
->=20
-> A bit of generic comment for the discussion (this is an RFC anyway).
-> Using color_fill/color_fill_format properties sounds simple, but this
-> might be not generic enough. Limiting color_fill to 32 bits would
-> prevent anybody from using floating point formats (e.g.
-> DRM_FORMAT_XRGB16161616F, 64-bit value). Yes, this can be solved with
-> e.g. using 64-bit for the color_fill value, but then this doesn't sound
-> extensible too much.
->=20
-> So, a question for other hardware maintainers. Do we have hardware that
-> supports such 'color filled' planes? Do we want to support format
-> modifiers for filling color/data? Because what I have in mind is closer
-> to the blob structure, which can then be used for filling the plane:
->=20
-> struct color_fill_blob {
->      u32 pixel_format;
->      u64 modifiers4];
->      u32 pixel_data_size; // fixme: is this necessary?
->      u8 pixel_data[];
-> };
->=20
-> And then... This sounds a lot like a custom framebuffer.
->=20
-> So, maybe what should we do instead is to add new DRM_MODE_FB_COLOR_FILL
-> flag to the framebuffers, which would e.g. mean that the FB gets stamped
-> all over the plane. This would also save us from changing if (!fb)
-> checks all over the drm core.
->=20
-> Another approach might be using a format modifier instead of the FB flag.
->=20
-> What do you think?
+Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 
-First off, we only need to represent the value of a single pixel here. So I=
-'m
-not quite following why we need format modifiers. Format modifiers describe=
- how
-pixels are laid out in memory. Since there's a single pixel described, this
-is non-sensical to me, the format modifier is always LINEAR.
+Best regards,
+Krzysztof
 
-Then, I can understand why putting the pixel_format in there is tempting to
-guarantee future extensibility, but it also adds complexity. For instance, =
-how
-does user-space figure out which formats can be used for COLOR_FILL? Can
-user-space use any format supported by the plane? What does it mean for
-multi-planar formats? Do we really want the kernel to have conversion logic=
- for
-all existing formats? Do we need to also add a new read-only blob prop to
-indicate supported COLOR_FILL formats?
-
-We've recently-ish standardized a new Wayland protocol [1] which has the sa=
-me
-purpose as this new kernel uAPI. The conclusion there was that using 32-bit
-values for each channel (R, G, B, A) would be enough for almost all use-cas=
-es.
-The driver can convert these high-precision values to what the hardware exp=
-ects.
-The only concern was about sending values outside of the [0.0, 1.0] range,
-which may have HDR use-cases.
-
-So, there are multiple ways to go about this. I can think of:
-
-- Put "RGBA32" in the name of the prop, and if we ever need a different
-  color format, pick a different name.
-- Define a struct with an enum of possible fill kinds:
-  #define FILL_COLOR_RGBA32 1
-  #define FILL_COLOR_F32 2
-  struct color_fill_blob { u32 kind; u8 data[]; };
-- Define a struct with a version and RGBA values:
-  struct color_fill_blob { u32 version; u32 rgba[4]; };
-  If we need to add more formats later, or new metadata:
-  struct color_fill_blob2 { u32 version; /* new fields */ };
-  where version must be set to 2.
-- Define a struct with a "pixel_format" prop, but force user-space to use a
-  fixed format for now. Later, if we need another format, add a new prop to
-  advertise supported formats.
-- More complicated solutions, e.g. advertise the list of supported formats =
-from
-  the start.
-
-[1]: https://gitlab.freedesktop.org/wayland/wayland-protocols/-/merge_reque=
-sts/104
