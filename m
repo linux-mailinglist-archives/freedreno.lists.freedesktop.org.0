@@ -1,56 +1,56 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5D7CA6211B2
-	for <lists+freedreno@lfdr.de>; Tue,  8 Nov 2022 14:00:37 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 7213E6211BB
+	for <lists+freedreno@lfdr.de>; Tue,  8 Nov 2022 14:01:18 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0582D10E050;
-	Tue,  8 Nov 2022 13:00:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C1D5610E430;
+	Tue,  8 Nov 2022 13:01:16 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-x231.google.com (mail-lj1-x231.google.com
- [IPv6:2a00:1450:4864:20::231])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1ED0B10E050
- for <freedreno@lists.freedesktop.org>; Tue,  8 Nov 2022 13:00:31 +0000 (UTC)
-Received: by mail-lj1-x231.google.com with SMTP id u2so21004254ljl.3
- for <freedreno@lists.freedesktop.org>; Tue, 08 Nov 2022 05:00:30 -0800 (PST)
+Received: from mail-lj1-x234.google.com (mail-lj1-x234.google.com
+ [IPv6:2a00:1450:4864:20::234])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 459DA10E288
+ for <freedreno@lists.freedesktop.org>; Tue,  8 Nov 2022 13:01:13 +0000 (UTC)
+Received: by mail-lj1-x234.google.com with SMTP id k19so20995291lji.2
+ for <freedreno@lists.freedesktop.org>; Tue, 08 Nov 2022 05:01:13 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :from:to:cc:subject:date:message-id:reply-to;
- bh=+kDjx/qzL2eh0m5wmlwsVx4x6L1R0dhYWzrrpOUccM0=;
- b=BQCNeJKIieoDBIAbTLQmr5SsfrzWxJdQ8odb739ZpsbXnIIoXJ6kKQ/uR5prOyAsIG
- E30yRLq11cpGe2l49t1UE5Anm28aOSCFL8ol1Mv2clj500sTbHvTz/+HqpzWjuvVE4mh
- lzxVUAG3FEKOwMU3Eo8n2YSjIwzipRG0K0eAuolBakV6utWJ3dhNe4gseNClVc4PD17P
- DNnOLCEKqJIu5AFswLkR2bFMniFJTvYL+NSfBdHlryHJtQteSOuUgcA+1QhEKSxl1/sk
- oJstNBKCEyiAEJ+APCyg0uVqXTrGpfLA0k6ca6mGu2Wem87mbFak5IoAcMX5He0Ibrah
- 9yOQ==
+ bh=o2KBnjP+nSiovlrgCNq3pgnMfvwR/TgjyTkfX/lxAXY=;
+ b=B1NLcQxYD/tx2pF3yzopjY1j/+5ZIQBGNS2nBPNbnSEbAaWVMjzgybAcu8U73wnSpS
+ 2p6Wl/qwuoxfmZpHd4pLS6PNPs01SywKDuEOkq/q9Ll06Uhqm9dlrj5PlresGVgbve64
+ 81jMN8Is3/iJqmZxDo7rnXCEDUqiUT60X5AEQtVsfFO+9JPBb1eHrIMgmHyC84lpfQty
+ 9u8nsXg0URwU1h2oRYR5vAB2D5t6Snyqq+Yxr9V/yyuKVp2JYkbfKX1XfxXOF1yYSOwy
+ F5+k72GuWuWwlibeltt6Y62hytjwcAWnJqWAeXfoAy6vj5S9H50BOjRbtsk+tq78j1X8
+ 3IQg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=+kDjx/qzL2eh0m5wmlwsVx4x6L1R0dhYWzrrpOUccM0=;
- b=Mzaw1TPWANvZ3d2SOZWVsGjxEj92Ya3zWeR7ugyJc0WyBoNS7qZ9tNhts5joit8Usd
- hxDxEcfXaP3JbYN/KWZp2wHIL5qbUxPF6+13qrFQm3RL8EpA5AZQd71JwvofnS8EGx/Q
- x2h7GqlUzZ5BQImib3P/vjAAPcau4Y6x2F2rR9MRdZrPXxG9RWfVe4GaWnRbrBbjqU0u
- ATVknNkm9YZwQaQ63R01lujbYayfv9+p+xD1Jiay6mVP1Gd1uFBKI3AumOTw9E2mJkuB
- hwdi0nrg0NMn8Lk1a4hp3xfl9C8ydFjLmWfqqakJqaYBrcDZ0BT/I29x0Ibyt1VaJm+p
- WtnA==
-X-Gm-Message-State: ACrzQf0OK4SSkZOANDxJImrgxUQ3IsgiY4rkwZX3Y+X6Tg8sYpRaAPHz
- T67uvOHUmski3LQeVrq6IBXanA==
-X-Google-Smtp-Source: AMsMyM6qrseYnJvmYhGPEvo2m0jeaZaM8yLMkfFFJSe2l9UtWRUdVcy9J/LnwHDzusZVXXYtM7zxpw==
-X-Received: by 2002:a2e:98d0:0:b0:277:979:85da with SMTP id
- s16-20020a2e98d0000000b00277097985damr18057672ljj.23.1667912429363; 
- Tue, 08 Nov 2022 05:00:29 -0800 (PST)
+ bh=o2KBnjP+nSiovlrgCNq3pgnMfvwR/TgjyTkfX/lxAXY=;
+ b=xm3jaGZG1+4jaCqrAcSJtxtRZh241gqZrU0KoUNqARkgaygMGn+dDXC+Pqrmw73SOB
+ pqq3h390Z/fDwS7H8DAnR/tgFowtlbCUjnM3X+iZLoQs4Q//4NPg3SoWxP57xEMnFE8C
+ 7UlXDgpCvbaA+k2XGLGJHbtLBujdKGXFHs9VFZeAx7EUoK7rxUZdDkfh6CKVbUlAu1Ct
+ 2gxp6piyspS5YIUlSU3oy1hyyq9UP1UzXLhaBN9fminSd5HCdDJes70Owv2Ik5BFne9U
+ DQYiuGQ993Lv0S4phndUWCUdXnavW1TWsMahWDcfYBjivR4Rtp6rocR9Mfhxh+bES2hM
+ tz1g==
+X-Gm-Message-State: ACrzQf3oPYM4JJd32o+oh8SYd+GEPw+7BYcw0K5zRBmybLZF/ETn0vBX
+ NOrxTc+kw8rJky7wHE0sdtLARw==
+X-Google-Smtp-Source: AMsMyM66xrug6V/sv7oOh3M+8rA31Sg6TAYX3OsMnAX7+YblTowGVcUPAZ+KslM0y4845evMIBVXVA==
+X-Received: by 2002:a05:651c:178a:b0:277:8a07:a558 with SMTP id
+ bn10-20020a05651c178a00b002778a07a558mr5264594ljb.333.1667912471539; 
+ Tue, 08 Nov 2022 05:01:11 -0800 (PST)
 Received: from [10.27.10.248] ([195.165.23.90])
  by smtp.gmail.com with ESMTPSA id
- m4-20020a056512114400b0049480c8e7bcsm1774176lfg.176.2022.11.08.05.00.28
+ h7-20020ac250c7000000b004a2386b8cf5sm1767451lfm.215.2022.11.08.05.01.10
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 08 Nov 2022 05:00:29 -0800 (PST)
-Message-ID: <eb36741a-6e07-402e-b707-0eb0708f6b9d@linaro.org>
-Date: Tue, 8 Nov 2022 16:00:28 +0300
+ Tue, 08 Nov 2022 05:01:11 -0800 (PST)
+Message-ID: <228c9136-0c52-af0b-459e-23c9f7ee08f3@linaro.org>
+Date: Tue, 8 Nov 2022 16:01:10 +0300
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.4.1
@@ -59,13 +59,13 @@ To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>, robdclark@gmail.com,
  quic_abhinavk@quicinc.com, krzysztof.kozlowski+dt@linaro.org,
  robh+dt@kernel.org, quic_mkrishn@quicinc.com, linux-arm-msm@vger.kernel.org
 References: <20221107235654.1769462-1-bryan.odonoghue@linaro.org>
- <20221107235654.1769462-5-bryan.odonoghue@linaro.org>
+ <20221107235654.1769462-6-bryan.odonoghue@linaro.org>
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-In-Reply-To: <20221107235654.1769462-5-bryan.odonoghue@linaro.org>
+In-Reply-To: <20221107235654.1769462-6-bryan.odonoghue@linaro.org>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH v2 04/18] dt-bindings: msm:
- dsi-controller-main: Fix clock declarations
+Subject: Re: [Freedreno] [PATCH v2 05/18] dt-bindings: msm:
+ dsi-controller-main: Fix description of core clock
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -86,12 +86,10 @@ Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 On 08/11/2022 02:56, Bryan O'Donoghue wrote:
-> When converting from .txt to .yaml dt-binding descriptions we appear to
-> have missed some of the previous detail on the number and names of
-> permissible clocks.
+> There's a typo in describing the core clock as an 'escape' clock. The
+> accurate description is 'core'.
 > 
 > Fixes: 4dbe55c97741 ("dt-bindings: msm: dsi: add yaml schemas for DSI bindings")
-> Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 > Cc: Rob Clark <robdclark@gmail.com>
 > Cc: Abhinav Kumar <quic_abhinavk@quicinc.com>
 > Cc: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
@@ -106,43 +104,26 @@ On 08/11/2022 02:56, Bryan O'Donoghue wrote:
 > Cc: devicetree@vger.kernel.org
 > Cc: linux-kernel@vger.kernel.org
 > Signed-off-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+> ---
+>   .../devicetree/bindings/display/msm/dsi-controller-main.yaml    | 2 +-
+>   1 file changed, 1 insertion(+), 1 deletion(-)
 
 Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 
-However it might be easier to move this patch after the patch adding the 
-per-platform compat strings. Then you can push these items into the 
-clauses where they are required.
-
-> ---
->   .../bindings/display/msm/dsi-controller-main.yaml         | 8 ++++++++
->   1 file changed, 8 insertions(+)
 > 
 > diff --git a/Documentation/devicetree/bindings/display/msm/dsi-controller-main.yaml b/Documentation/devicetree/bindings/display/msm/dsi-controller-main.yaml
-> index 0f7747e55b9be..cab38a20a54b0 100644
+> index cab38a20a54b0..a607ccd4a905a 100644
 > --- a/Documentation/devicetree/bindings/display/msm/dsi-controller-main.yaml
 > +++ b/Documentation/devicetree/bindings/display/msm/dsi-controller-main.yaml
-> @@ -35,6 +35,10 @@ properties:
->         - description: Display escape clock
+> @@ -32,7 +32,7 @@ properties:
+>         - description: Display byte clock
+>         - description: Display byte interface clock
+>         - description: Display pixel clock
+> -      - description: Display escape clock
+> +      - description: Display core clock
 >         - description: Display AHB clock
 >         - description: Display AXI clock
-> +      - description: Core MultiMedia SubSystem clock
-> +      - description: MDP Core clock
-> +      - description: MNOC clock
-> +    minItems: 6
->   
->     clock-names:
->       items:
-> @@ -44,6 +48,10 @@ properties:
->         - const: core
->         - const: iface
->         - const: bus
-> +      - const: core_mmss
-> +      - const: mdp_core
-> +      - const: mnoc
-> +    minItems: 6
->   
->     phys:
->       maxItems: 1
+>         - description: Core MultiMedia SubSystem clock
 
 -- 
 With best wishes
