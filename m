@@ -1,75 +1,71 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 39E77620E1D
-	for <lists+freedreno@lfdr.de>; Tue,  8 Nov 2022 12:05:29 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 6B32D621128
+	for <lists+freedreno@lfdr.de>; Tue,  8 Nov 2022 13:43:45 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D43C810E3D5;
-	Tue,  8 Nov 2022 11:05:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7B77410E42B;
+	Tue,  8 Nov 2022 12:43:43 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x12b.google.com (mail-lf1-x12b.google.com
- [IPv6:2a00:1450:4864:20::12b])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CB98B10E3BE
- for <freedreno@lists.freedesktop.org>; Tue,  8 Nov 2022 11:05:22 +0000 (UTC)
-Received: by mail-lf1-x12b.google.com with SMTP id g7so20742782lfv.5
- for <freedreno@lists.freedesktop.org>; Tue, 08 Nov 2022 03:05:22 -0800 (PST)
+Received: from mail-lj1-x22f.google.com (mail-lj1-x22f.google.com
+ [IPv6:2a00:1450:4864:20::22f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3E18C10E42B
+ for <freedreno@lists.freedesktop.org>; Tue,  8 Nov 2022 12:43:37 +0000 (UTC)
+Received: by mail-lj1-x22f.google.com with SMTP id b9so20911496ljr.5
+ for <freedreno@lists.freedesktop.org>; Tue, 08 Nov 2022 04:43:37 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :from:to:cc:subject:date:message-id:reply-to;
- bh=WmA4SwRAK4FKhvbkswEw6v9u4o5Xo6uAQ5jvXjJ9JHs=;
- b=x+lUOScQI2UK3mV8gMgM4ALhWKQ5J8qhEO23u/nHu/FkhLd3emRQJj/XilDluE9hYF
- cNz+e1I8EFkpjzlfTeJi7LFZwWpxK+X4144Czxh9WB4jILvjdJHgXT1zNxil4Xglpoj8
- 9OEkdh0B/f6bWlbhoq8zeTsDa/Fqz20UKwr02P93OCX3r7nQoux931fBNPein6IUt+pC
- qdTq+K+ExjQfP7DlrEDmYGTC3Y3GCHt2/e7i3RjWqbVAxJhgCNh8tDgmmwoTiR1hlBHo
- NMjqRZwBpqW9YdhXai7zBWusStWYzVYx3ocGxCOhJ5Mf/FO5ooETg4PzcTCZR4VlOVh9
- aI4A==
+ bh=L7CgUpuOhO0bb1QuM22uaBQfdN8D1V8Stm51wZ3T8Gg=;
+ b=LIsNsGwiOurmNx0OiaNbMbgKLGxxPZrE5Ef9wutqCgn7FlkzxjxESBTv3v5MOPksqR
+ +bn6BF7a8oe/Z+zDgdYcAe4OYq7KpJBO3vw2hQS1Jg6YpZK1J2wu4sAoGAyJw6QiArTT
+ 87uHy2JAD/DMD0745o4HuGf024W0kcucak9yYExf7+v8aMEXIW5G1KZhI24FlN4lISC+
+ f3dNPUor52xNTcG4+8WGROATKhFASFjr6G6F9q7MheigHNQ6HnovXw4Q1+3KB1OZEWjz
+ cZsaxh/f/tZPNUavangu+lnQoyisMrN/paYt1HmbeyX5gM7EGH5GR0WuzCqGSQ75spx9
+ 0IBg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=WmA4SwRAK4FKhvbkswEw6v9u4o5Xo6uAQ5jvXjJ9JHs=;
- b=TQ/5XWrY5KLe+6V5SyAlzIeWI2J6+HiLLqRY/WV6k7pSvI61YdmGS7F/roxdVbYhAa
- 8A9bov+qEnakO+10R4+4M3W+ZeUWiGrsBh+3DuGqD8jEbekWxapzjPNSahpkC4dVsvk6
- OHe/9B29JEBrZNCJmcuPMfTuMZsKWPTBNsWfY+JX3ap9otQEj4tS8EHX9qzVzkoh2iAp
- U9ICnLU2XXfsqjm7CXaH9kkbHgx1CI90ryXG/I1OFuYUlf1mnx8GIkpc6Cwwy0M1bKnD
- 6M+egYJ+aWGY+JmANWimOtVanYrtKSryIOtEewbqrFCx+6SLkeI6krYxtE4jmu78dd4J
- qHfA==
-X-Gm-Message-State: ACrzQf073SS/45quN+Qlx8wgzGFcQCDmRYVf8bPNemQNiwPYD/lzZxob
- KoIul184GlksO/B/Ya6Zc7ffwA==
-X-Google-Smtp-Source: AMsMyM4QCZNhzqj/hg5k7Q/ywTj5eooBtNeEJafutY0EP3/GsLy+44CVVIEhKeAoePc6bKJbhlxDYw==
-X-Received: by 2002:ac2:5dce:0:b0:4a2:2dad:7ad4 with SMTP id
- x14-20020ac25dce000000b004a22dad7ad4mr18570086lfq.654.1667905521139; 
- Tue, 08 Nov 2022 03:05:21 -0800 (PST)
-Received: from [192.168.0.20]
- (088156142199.dynamic-2-waw-k-3-2-0.vectranet.pl. [88.156.142.199])
+ bh=L7CgUpuOhO0bb1QuM22uaBQfdN8D1V8Stm51wZ3T8Gg=;
+ b=KI5OfEnC11TDFaZ7LCzGj/jB+OOvpUGcIqEh2bPbu/hN0F6JdordfVP75OiJc1RX8A
+ PsasRrN3VqoWw9fyt7jLeMJv1k2+Qu9pHfNa2MwrjsqrByA3aEW5YXhLVnGowUx7ZEyv
+ E5a8GC+9Gh3Mh1R1C+LX4n2ieM+WLr1mK+adfzkLQhIkToQ3iW0IeAjA4NshDTSrQsOB
+ Q1jPkhasS1WezT/G/KICX4JQ3a3UlDdTwOAQLxsiVeb9jsREXv1Flq4HmT+FIaHtgStX
+ /nL+Ok2w2z85ospK9E8NsFxq9hpBHGj5WhMQoh5VlxDrZq7NmuyNupWUhO6dnduucvC9
+ xQmQ==
+X-Gm-Message-State: ACrzQf0gJfne09nvHGNoQN6f/RENjo5vC9T8KWSMhVq2v/pj8en5+eDl
+ S0aji/CTBweu4883wxujDe64uQ==
+X-Google-Smtp-Source: AMsMyM4plXmGbRfyztNmF+l3FkFcv6jZ3fAguBNi/YGBes4B3ZKtrI2nDy+X8O0NPJiI8DvlCweMoQ==
+X-Received: by 2002:a2e:bcc5:0:b0:277:978:dae0 with SMTP id
+ z5-20020a2ebcc5000000b002770978dae0mr7218782ljp.475.1667911415455; 
+ Tue, 08 Nov 2022 04:43:35 -0800 (PST)
+Received: from [10.27.10.248] ([195.165.23.90])
  by smtp.gmail.com with ESMTPSA id
- i9-20020a2ea229000000b0027765fd616asm1705206ljm.20.2022.11.08.03.05.20
+ m4-20020a056512114400b004b0a1e77cb6sm1765227lfg.139.2022.11.08.04.43.34
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 08 Nov 2022 03:05:20 -0800 (PST)
-Message-ID: <f72aeaa0-0c0a-86d9-0b9b-db3810c35fad@linaro.org>
-Date: Tue, 8 Nov 2022 12:05:19 +0100
+ Tue, 08 Nov 2022 04:43:35 -0800 (PST)
+Message-ID: <d10bf67c-c21c-5096-d774-ff924bf1dd41@linaro.org>
+Date: Tue, 8 Nov 2022 15:43:34 +0300
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.4.2
-Content-Language: en-US
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Andy Gross <agross@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konrad.dybcio@somainline.org>, Rob Clark
- <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, Rob Herring <robh+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>
-References: <20221024164225.3236654-1-dmitry.baryshkov@linaro.org>
- <20221024164225.3236654-6-dmitry.baryshkov@linaro.org>
-From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-In-Reply-To: <20221024164225.3236654-6-dmitry.baryshkov@linaro.org>
-Content-Type: text/plain; charset=UTF-8
+ Thunderbird/102.4.1
+Content-Language: en-GB
+To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>, robdclark@gmail.com,
+ quic_abhinavk@quicinc.com, krzysztof.kozlowski+dt@linaro.org,
+ robh+dt@kernel.org, quic_mkrishn@quicinc.com, linux-arm-msm@vger.kernel.org
+References: <20221107235654.1769462-1-bryan.odonoghue@linaro.org>
+ <20221107235654.1769462-9-bryan.odonoghue@linaro.org>
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+In-Reply-To: <20221107235654.1769462-9-bryan.odonoghue@linaro.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH v9 05/12] dt-bindings: display/msm: move
- common MDSS properties to mdss-common.yaml
+Subject: Re: [Freedreno] [PATCH v2 08/18] dt-bindings: msm:
+ dsi-controller-main: Document clocks on a per compatible basis
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,57 +78,255 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: devicetree@vger.kernel.org, Rob Herring <robh@kernel.org>,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- Stephen Boyd <swboyd@chromium.org>, Daniel Vetter <daniel@ffwll.ch>,
- freedreno@lists.freedesktop.org, David Airlie <airlied@gmail.com>
+Cc: Sean Paul <sean@poorly.run>, devicetree@vger.kernel.org,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>,
+ David Airlie <airlied@gmail.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 24/10/2022 18:42, Dmitry Baryshkov wrote:
-> Move properties common to all MDSS DT nodes to the mdss-common.yaml.
+On 08/11/2022 02:56, Bryan O'Donoghue wrote:
+> Each compatible has a different set of clocks which are associated with it.
+> Add in the list of clocks for each compatible.
 > 
-> This extends qcom,msm8998-mdss schema to allow interconnect nodes, which
-> will be added later, once msm8998 gains interconnect support.
-
-
-(...)
-
-> +    minItems: 1
+> Cc: Rob Clark <robdclark@gmail.com>
+> Cc: Abhinav Kumar <quic_abhinavk@quicinc.com>
+> Cc: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> Cc: Sean Paul <sean@poorly.run>
+> Cc: David Airlie <airlied@gmail.com>
+> Cc: Daniel Vetter <daniel@ffwll.ch>
+> Cc: Rob Herring <robh+dt@kernel.org>
+> Cc: Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>
+> Cc: linux-arm-msm@vger.kernel.org
+> Cc: dri-devel@lists.freedesktop.org
+> Cc: freedreno@lists.freedesktop.org
+> Cc: devicetree@vger.kernel.org
+> Cc: linux-kernel@vger.kernel.org
+> Signed-off-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+> ---
+>   .../display/msm/dsi-controller-main.yaml      | 177 +++++++++++++++---
+>   1 file changed, 150 insertions(+), 27 deletions(-)
+> 
+> diff --git a/Documentation/devicetree/bindings/display/msm/dsi-controller-main.yaml b/Documentation/devicetree/bindings/display/msm/dsi-controller-main.yaml
+> index 9db3e63acda3d..c975df0ca22fc 100644
+> --- a/Documentation/devicetree/bindings/display/msm/dsi-controller-main.yaml
+> +++ b/Documentation/devicetree/bindings/display/msm/dsi-controller-main.yaml
+> @@ -9,24 +9,22 @@ title: Qualcomm Display DSI controller
+>   maintainers:
+>     - Krishna Manikandan <quic_mkrishn@quicinc.com>
+>   
+> -allOf:
+> -  - $ref: "../dsi-controller.yaml#"
+> -
+>   properties:
+>     compatible:
+> -    enum:
+> -      - qcom,dsi-ctrl-6g-qcm2290
+> -      - qcom,mdss-dsi-ctrl
+> -      - qcom,mdss-dsi-ctrl-apq8064
+> -      - qcom,mdss-dsi-ctrl-msm8916
+> -      - qcom,mdss-dsi-ctrl-msm8974
+> -      - qcom,mdss-dsi-ctrl-msm8996
+> -      - qcom,mdss-dsi-ctrl-sc7180
+> -      - qcom,mdss-dsi-ctrl-sc7280
+> -      - qcom,mdss-dsi-ctrl-sdm630
+> -      - qcom,mdss-dsi-ctrl-sdm660
+> -      - qcom,mdss-dsi-ctrl-sdm845
+> -      - qcom,mdss-dsi-ctrl-sm8250
 > +    items:
-> +      - description: Interconnect path from mdp0 (or a single mdp) port to the data bus
-> +      - description: Interconnect path from mdp1 port to the data bus
+> +      - enum:
+> +          - qcom,dsi-ctrl-6g-qcm2290
+> +          - qcom,mdss-dsi-ctrl-apq8064
+> +          - qcom,mdss-dsi-ctrl-msm8916
+> +          - qcom,mdss-dsi-ctrl-msm8974
+> +          - qcom,mdss-dsi-ctrl-msm8996
+> +          - qcom,mdss-dsi-ctrl-sc7180
+> +          - qcom,mdss-dsi-ctrl-sc7280
+> +          - qcom,mdss-dsi-ctrl-sdm630
+> +          - qcom,mdss-dsi-ctrl-sdm660
+> +          - qcom,mdss-dsi-ctrl-sdm845
+> +          - qcom,mdss-dsi-ctrl-sm8250
+> +      - const: qcom,mdss-dsi-ctrl
+
+I'd prefer to have this part squashed into the previous patch.
+
+>   
+>     reg:
+>       maxItems: 1
+> @@ -51,17 +49,8 @@ properties:
+>       minItems: 6
+>   
+>     clock-names:
+> -    items:
+> -      - const: byte
+> -      - const: byte_intf
+> -      - const: pixel
+> -      - const: core
+> -      - const: iface
+> -      - const: bus
+> -      - const: core_mmss
+> -      - const: mdp_core
+> -      - const: mnoc
+>       minItems: 6
+> +    maxItems: 9
+>   
+>     phys:
+>       maxItems: 1
+> @@ -169,6 +158,140 @@ required:
+>     - vddio-supply
+>     - vdda-supply
+>   
+> +allOf:
+> +  - $ref: "../dsi-controller.yaml#"
+> +  - if:
+> +      properties:
+> +        compatible:
+> +          contains:
+> +            enum:
+> +              - qcom,mdss-dsi-ctrl-apq8064
+> +    then:
+> +      properties:
+> +        clocks:
+> +          maxItems: 7
+> +        clock-names:
+> +          items:
+> +            - const: iface
+> +            - const: bus
+> +            - const: core_mmss
+> +            - const: src
+> +            - const: byte
+> +            - const: pixel
+> +            - const: core
+
+Empty lines between clauses please.
+
+> +  - if:
+> +      properties:
+> +        compatible:
+> +          contains:
+> +            enum:
+> +              - qcom,mdss-dsi-ctrl-msm8916
+> +    then:
+> +      properties:
+> +        clocks:
+> +          maxItems: 6
+> +        clock-names:
+> +          items:
+> +            - const: mdp_core
+> +            - const: iface
+> +            - const: bus
+> +            - const: byte
+> +            - const: pixel
+> +            - const: core
+> +  - if:
+> +      properties:
+> +        compatible:
+> +          contains:
+> +            enum:
+> +              - qcom,mdss-dsi-ctrl-msm8974
+> +    then:
+> +      properties:
+> +        clocks:
+> +          maxItems: 3
+> +        clock-names:
+> +          items:
+> +            - const: iface
+> +            - const: bus
+> +            - const: vsync
+> +  - if:
+> +      properties:
+> +        compatible:
+> +          contains:
+> +            enum:
+> +              - qcom,mdss-dsi-ctrl-msm8996
+> +    then:
+> +      properties:
+> +        clocks:
+> +          maxItems: 7
+> +        clock-names:
+> +          items:
+> +            - const: mdp_core
+> +            - const: byte
+> +            - const: iface
+> +            - const: bus
+> +            - const: core_mmss
+> +            - const: pixel
+> +            - const: core
+> +  - if:
+> +      properties:
+> +        compatible:
+> +          contains:
+> +            enum:
+> +              - qcom,mdss-dsi-ctrl-sc7180
+> +              - qcom,mdss-dsi-ctrl-sc7280
+> +              - qcom,mdss-dsi-ctrl-sm8250
+> +    then:
+> +      properties:
+> +        clocks:
+> +          maxItems: 6
+> +        clock-names:
+> +          items:
+> +            - const: byte
+> +            - const: byte_intf
+> +            - const: pixel
+> +            - const: core
+> +            - const: iface
+> +            - const: bus
+> +  - if:
+> +      properties:
+> +        compatible:
+> +          contains:
+> +            enum:
+> +              - qcom,mdss-dsi-ctrl-sdm630
+> +              - qcom,mdss-dsi-ctrl-sdm660
+> +    then:
+> +      properties:
+> +        clocks:
+> +          maxItems: 9
+> +        clock-names:
+> +          items:
+> +            - const: mdp_core
+> +            - const: byte
+> +            - const: byte_intf
+> +            - const: mnoc
+> +            - const: iface
+> +            - const: bus
+> +            - const: core_mmss
+> +            - const: pixel
+> +            - const: core
+> +  - if:
+> +      properties:
+> +        compatible:
+> +          contains:
+> +            enum:
+> +              - qcom,mdss-dsi-ctrl-sdm845
+> +    then:
+> +      properties:
+> +        clocks:
+> +          maxItems: 6
+> +        clock-names:
+> +          items:
+> +            - const: byte
+> +            - const: byte_intf
+> +            - const: pixel
+> +            - const: core
+> +            - const: iface
+> +            - const: bus
 > +
-> +  interconnect-names:
-> +    minItems: 1
-> +    items:
-> +      - const: mdp0-mem
-> +      - const: mdp1-mem
-> +
-> +  resets:
-> +    items:
-> +      - description: MDSS_CORE reset
-> +
-> +required:
-> +  - compatible
+>   additionalProperties: false
+>   
+>   examples:
+> @@ -179,7 +302,7 @@ examples:
+>        #include <dt-bindings/power/qcom-rpmpd.h>
+>   
+>        dsi@ae94000 {
+> -           compatible = "qcom,mdss-dsi-ctrl";
+> +           compatible = "qcom,mdss-dsi-ctrl-sc7180", "qcom,mdss-dsi-ctrl";
+>              reg = <0x0ae94000 0x400>;
+>              reg-names = "dsi_ctrl";
+>   
 
-For consistency this should not be required here, but in schema actually
-defining it.
-
-> +  - reg
-> +  - reg-names
-> +  - power-domains
-> +  - clocks
-> +  - interrupts
-> +  - interrupt-controller
-> +  - iommus
-> +  - ranges
-
-Keep the same order as in list of top-level properties.
-
-> +
-> +additionalProperties: true
-
-Best regards,
-Krzysztof
+-- 
+With best wishes
+Dmitry
 
