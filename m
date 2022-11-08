@@ -2,66 +2,55 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 66A0262043E
-	for <lists+freedreno@lfdr.de>; Tue,  8 Nov 2022 00:57:50 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1CCC96204A2
+	for <lists+freedreno@lfdr.de>; Tue,  8 Nov 2022 01:22:58 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2268410E3FC;
-	Mon,  7 Nov 2022 23:57:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C3F1B10E360;
+	Tue,  8 Nov 2022 00:22:56 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wm1-x333.google.com (mail-wm1-x333.google.com
- [IPv6:2a00:1450:4864:20::333])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D09A210E3F0
- for <freedreno@lists.freedesktop.org>; Mon,  7 Nov 2022 23:57:06 +0000 (UTC)
-Received: by mail-wm1-x333.google.com with SMTP id v7so7839972wmn.0
- for <freedreno@lists.freedesktop.org>; Mon, 07 Nov 2022 15:57:06 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=5H4aIH5vgrqEjkb0c4TPSI9rlEkjF0KuTX6JDaV2C+Q=;
- b=I8vHBi1wTF81RoXMibJDd+V1bea1cticVTZR4pKMBnuwoTwzVwfXple4alROtnU9tR
- P3wwltR+nDb6g+v+MJ+OxP5WniGWwjPRvbhc6W36L/uBwYdhLSi37N71OpLpIvs2qqx9
- IJf/JnQ1a3Rg+EuHzmJJM4A0sVT1d8Gq5Om6cLIKGUnibvbj/jXFmXm0zx2Rbg5NL5oJ
- ZQRA0PQtl0405XEhs6Or3yw4i/OwF54BKP5Uwp5XAjVQbZ4tKR2pU4HDuCqC4S0sL1j9
- p86GrpOSi45B+6Gj8wsE26GqdQGt8LNx3hlr1DPZ4DjIsFtavBOHF6Dyw6kZR5ZrzaDK
- lADw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=5H4aIH5vgrqEjkb0c4TPSI9rlEkjF0KuTX6JDaV2C+Q=;
- b=hsvjQ/seBmw3w/0GpTBjCBpqd9IGPy7ORAHJofm8yiYHVcl0GVTVqGpQ1/5qjoNSbs
- XUMB5eZAERZumJ2pkP/YQnZfOj3s1EUlTmBD4SLw9I50TYzZwGHReayTWbIGx4kHl3s9
- 7m/pDzw30VTlDwVTvzIP3NQL3ntjkijqc4B0ro7zVGDa/fQtxP99sKTGo3M8GFNyYfrj
- glAM3HsD1ds0WWoluFF5WOqBxbqwYO1OCWlF1/BkUcKcOAdGGI6WhY4b/E/3DyJUj2ke
- 1eHf3iwNq8EdMWmN0rji1TswwypIfYJasL2853XtNdncO3587S59sJS8lBbV4QMTfpU7
- 0yRw==
-X-Gm-Message-State: ACrzQf0Ql2oVEu+E2dj3O2E6IUyf5iH0R3bCldYLJuENfFwJS/sVnmBd
- bz1yPVE6UTf8W/T1XQqQ84Natg==
-X-Google-Smtp-Source: AMsMyM5PpcWg9aHzhtCQyM0rQQT6CqD/DaJpW9c3F0kxcx6U15WTxwlB0TibX2THeNPu7nZvd6GBjw==
-X-Received: by 2002:a05:600c:548a:b0:3cf:a358:ee3 with SMTP id
- iv10-20020a05600c548a00b003cfa3580ee3mr8953419wmb.12.1667865424999; 
- Mon, 07 Nov 2022 15:57:04 -0800 (PST)
-Received: from sagittarius-a.chello.ie (188-141-3-169.dynamic.upc.ie.
- [188.141.3.169]) by smtp.gmail.com with ESMTPSA id
- b18-20020a056000055200b00236545edc91sm8386161wrf.76.2022.11.07.15.57.04
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 07 Nov 2022 15:57:04 -0800 (PST)
-From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-To: robdclark@gmail.com, quic_abhinavk@quicinc.com,
- dmitry.baryshkov@linaro.org, krzysztof.kozlowski+dt@linaro.org,
- robh+dt@kernel.org, quic_mkrishn@quicinc.com, linux-arm-msm@vger.kernel.org
-Date: Mon,  7 Nov 2022 23:56:44 +0000
-Message-Id: <20221107235654.1769462-9-bryan.odonoghue@linaro.org>
-X-Mailer: git-send-email 2.38.1
-In-Reply-To: <20221107235654.1769462-1-bryan.odonoghue@linaro.org>
-References: <20221107235654.1769462-1-bryan.odonoghue@linaro.org>
+Received: from alexa-out-sd-01.qualcomm.com (alexa-out-sd-01.qualcomm.com
+ [199.106.114.38])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D7FD910E356;
+ Tue,  8 Nov 2022 00:22:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=quicinc.com; i=@quicinc.com; q=dns/txt; s=qcdkim;
+ t=1667866973; x=1699402973;
+ h=message-id:date:mime-version:subject:to:cc:references:
+ from:in-reply-to:content-transfer-encoding;
+ bh=FlMHoVGGx96A8CLQzFkB6RKzbHGwQWkSrPqZ7LElMVI=;
+ b=dSuJWvIVn2tZjzZiaUIQxPMA1bNwG0dQ6Oquygjgr82pZ6OTpkQbs5Iz
+ sT9Uo3vYqxORiQHRqJ4LyXfaAUxMldfd35OgOIkkItu3zAUGSf3V48VUt
+ h3QW5oIBKOH0DoOlnY9hHN9GRybUC6VfRHBxtBW8Q2TimO6VelMkpw9Vz g=;
+Received: from unknown (HELO ironmsg-SD-alpha.qualcomm.com) ([10.53.140.30])
+ by alexa-out-sd-01.qualcomm.com with ESMTP; 07 Nov 2022 16:22:53 -0800
+X-QCInternal: smtphost
+Received: from nasanex01b.na.qualcomm.com ([10.46.141.250])
+ by ironmsg-SD-alpha.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 07 Nov 2022 16:22:52 -0800
+Received: from [10.71.111.47] (10.80.80.8) by nasanex01b.na.qualcomm.com
+ (10.46.141.250) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.29; Mon, 7 Nov 2022
+ 16:22:52 -0800
+Message-ID: <c196f010-34e7-4c1c-4ca6-852a4c32b154@quicinc.com>
+Date: Mon, 7 Nov 2022 16:22:52 -0800
 MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.4.1
+Content-Language: en-US
+To: Rob Clark <robdclark@gmail.com>
+References: <20221028225952.160-1-quic_jesszhan@quicinc.com>
+ <Y2leZDfLj/5963wl@intel.com>
+ <5a9167d5-f88d-ed6b-abff-8ae39117feb1@quicinc.com>
+ <CAF6AEGtbwsvr5A+mX7BxP95u3RyRiUFzE6dfiZacS96WVBhuvw@mail.gmail.com>
+From: Jessica Zhang <quic_jesszhan@quicinc.com>
+In-Reply-To: <CAF6AEGtbwsvr5A+mX7BxP95u3RyRiUFzE6dfiZacS96WVBhuvw@mail.gmail.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
 Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH v2 08/18] dt-bindings: msm: dsi-controller-main:
- Document clocks on a per compatible basis
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
+ nasanex01b.na.qualcomm.com (10.46.141.250)
+Subject: Re: [Freedreno] [RFC PATCH 0/3] Support for Solid Fill Planes
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,247 +63,121 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sean Paul <sean@poorly.run>, devicetree@vger.kernel.org,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>,
- Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
- David Airlie <airlied@gmail.com>
+Cc: daniel.vetter@ffwll.ch, quic_abhinavk@quicinc.com,
+ dri-devel@lists.freedesktop.org, swboyd@chromium.org, seanpaul@chromium.org,
+ laurent.pinchart@ideasonboard.com, linux-arm-msm@vger.kernel.org,
+ dmitry.baryshkov@linaro.org, freedreno@lists.freedesktop.org,
+ =?UTF-8?B?VmlsbGUgU3lyasOkbMOk?= <ville.syrjala@linux.intel.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Each compatible has a different set of clocks which are associated with it.
-Add in the list of clocks for each compatible.
 
-Cc: Rob Clark <robdclark@gmail.com>
-Cc: Abhinav Kumar <quic_abhinavk@quicinc.com>
-Cc: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Cc: Sean Paul <sean@poorly.run>
-Cc: David Airlie <airlied@gmail.com>
-Cc: Daniel Vetter <daniel@ffwll.ch>
-Cc: Rob Herring <robh+dt@kernel.org>
-Cc: Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>
-Cc: linux-arm-msm@vger.kernel.org
-Cc: dri-devel@lists.freedesktop.org
-Cc: freedreno@lists.freedesktop.org
-Cc: devicetree@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org
-Signed-off-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
----
- .../display/msm/dsi-controller-main.yaml      | 177 +++++++++++++++---
- 1 file changed, 150 insertions(+), 27 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/display/msm/dsi-controller-main.yaml b/Documentation/devicetree/bindings/display/msm/dsi-controller-main.yaml
-index 9db3e63acda3d..c975df0ca22fc 100644
---- a/Documentation/devicetree/bindings/display/msm/dsi-controller-main.yaml
-+++ b/Documentation/devicetree/bindings/display/msm/dsi-controller-main.yaml
-@@ -9,24 +9,22 @@ title: Qualcomm Display DSI controller
- maintainers:
-   - Krishna Manikandan <quic_mkrishn@quicinc.com>
- 
--allOf:
--  - $ref: "../dsi-controller.yaml#"
--
- properties:
-   compatible:
--    enum:
--      - qcom,dsi-ctrl-6g-qcm2290
--      - qcom,mdss-dsi-ctrl
--      - qcom,mdss-dsi-ctrl-apq8064
--      - qcom,mdss-dsi-ctrl-msm8916
--      - qcom,mdss-dsi-ctrl-msm8974
--      - qcom,mdss-dsi-ctrl-msm8996
--      - qcom,mdss-dsi-ctrl-sc7180
--      - qcom,mdss-dsi-ctrl-sc7280
--      - qcom,mdss-dsi-ctrl-sdm630
--      - qcom,mdss-dsi-ctrl-sdm660
--      - qcom,mdss-dsi-ctrl-sdm845
--      - qcom,mdss-dsi-ctrl-sm8250
-+    items:
-+      - enum:
-+          - qcom,dsi-ctrl-6g-qcm2290
-+          - qcom,mdss-dsi-ctrl-apq8064
-+          - qcom,mdss-dsi-ctrl-msm8916
-+          - qcom,mdss-dsi-ctrl-msm8974
-+          - qcom,mdss-dsi-ctrl-msm8996
-+          - qcom,mdss-dsi-ctrl-sc7180
-+          - qcom,mdss-dsi-ctrl-sc7280
-+          - qcom,mdss-dsi-ctrl-sdm630
-+          - qcom,mdss-dsi-ctrl-sdm660
-+          - qcom,mdss-dsi-ctrl-sdm845
-+          - qcom,mdss-dsi-ctrl-sm8250
-+      - const: qcom,mdss-dsi-ctrl
- 
-   reg:
-     maxItems: 1
-@@ -51,17 +49,8 @@ properties:
-     minItems: 6
- 
-   clock-names:
--    items:
--      - const: byte
--      - const: byte_intf
--      - const: pixel
--      - const: core
--      - const: iface
--      - const: bus
--      - const: core_mmss
--      - const: mdp_core
--      - const: mnoc
-     minItems: 6
-+    maxItems: 9
- 
-   phys:
-     maxItems: 1
-@@ -169,6 +158,140 @@ required:
-   - vddio-supply
-   - vdda-supply
- 
-+allOf:
-+  - $ref: "../dsi-controller.yaml#"
-+  - if:
-+      properties:
-+        compatible:
-+          contains:
-+            enum:
-+              - qcom,mdss-dsi-ctrl-apq8064
-+    then:
-+      properties:
-+        clocks:
-+          maxItems: 7
-+        clock-names:
-+          items:
-+            - const: iface
-+            - const: bus
-+            - const: core_mmss
-+            - const: src
-+            - const: byte
-+            - const: pixel
-+            - const: core
-+  - if:
-+      properties:
-+        compatible:
-+          contains:
-+            enum:
-+              - qcom,mdss-dsi-ctrl-msm8916
-+    then:
-+      properties:
-+        clocks:
-+          maxItems: 6
-+        clock-names:
-+          items:
-+            - const: mdp_core
-+            - const: iface
-+            - const: bus
-+            - const: byte
-+            - const: pixel
-+            - const: core
-+  - if:
-+      properties:
-+        compatible:
-+          contains:
-+            enum:
-+              - qcom,mdss-dsi-ctrl-msm8974
-+    then:
-+      properties:
-+        clocks:
-+          maxItems: 3
-+        clock-names:
-+          items:
-+            - const: iface
-+            - const: bus
-+            - const: vsync
-+  - if:
-+      properties:
-+        compatible:
-+          contains:
-+            enum:
-+              - qcom,mdss-dsi-ctrl-msm8996
-+    then:
-+      properties:
-+        clocks:
-+          maxItems: 7
-+        clock-names:
-+          items:
-+            - const: mdp_core
-+            - const: byte
-+            - const: iface
-+            - const: bus
-+            - const: core_mmss
-+            - const: pixel
-+            - const: core
-+  - if:
-+      properties:
-+        compatible:
-+          contains:
-+            enum:
-+              - qcom,mdss-dsi-ctrl-sc7180
-+              - qcom,mdss-dsi-ctrl-sc7280
-+              - qcom,mdss-dsi-ctrl-sm8250
-+    then:
-+      properties:
-+        clocks:
-+          maxItems: 6
-+        clock-names:
-+          items:
-+            - const: byte
-+            - const: byte_intf
-+            - const: pixel
-+            - const: core
-+            - const: iface
-+            - const: bus
-+  - if:
-+      properties:
-+        compatible:
-+          contains:
-+            enum:
-+              - qcom,mdss-dsi-ctrl-sdm630
-+              - qcom,mdss-dsi-ctrl-sdm660
-+    then:
-+      properties:
-+        clocks:
-+          maxItems: 9
-+        clock-names:
-+          items:
-+            - const: mdp_core
-+            - const: byte
-+            - const: byte_intf
-+            - const: mnoc
-+            - const: iface
-+            - const: bus
-+            - const: core_mmss
-+            - const: pixel
-+            - const: core
-+  - if:
-+      properties:
-+        compatible:
-+          contains:
-+            enum:
-+              - qcom,mdss-dsi-ctrl-sdm845
-+    then:
-+      properties:
-+        clocks:
-+          maxItems: 6
-+        clock-names:
-+          items:
-+            - const: byte
-+            - const: byte_intf
-+            - const: pixel
-+            - const: core
-+            - const: iface
-+            - const: bus
-+
- additionalProperties: false
- 
- examples:
-@@ -179,7 +302,7 @@ examples:
-      #include <dt-bindings/power/qcom-rpmpd.h>
- 
-      dsi@ae94000 {
--           compatible = "qcom,mdss-dsi-ctrl";
-+           compatible = "qcom,mdss-dsi-ctrl-sc7180", "qcom,mdss-dsi-ctrl";
-            reg = <0x0ae94000 0x400>;
-            reg-names = "dsi_ctrl";
- 
--- 
-2.38.1
+On 11/7/2022 2:09 PM, Rob Clark wrote:
+> On Mon, Nov 7, 2022 at 1:32 PM Jessica Zhang <quic_jesszhan@quicinc.com> wrote:
+>>
+>>
+>>
+>> On 11/7/2022 11:37 AM, Ville Syrjälä wrote:
+>>> On Fri, Oct 28, 2022 at 03:59:49PM -0700, Jessica Zhang wrote:
+>>>> Introduce and add support for COLOR_FILL and COLOR_FILL_FORMAT
+>>>> properties. When the color fill value is set, and the framebuffer is set
+>>>> to NULL, memory fetch will be disabled.
+>>>
+>>> Thinking a bit more universally I wonder if there should be
+>>> some kind of enum property:
+>>>
+>>> enum plane_pixel_source {
+>>>        FB,
+>>>        COLOR,
+>>>        LIVE_FOO,
+>>>        LIVE_BAR,
+>>>        ...
+>>> }
+>>
+>> Hi Ville,
+>>
+>> Makes sense -- this way, we'd also lay some groundwork for cases where
+>> drivers want to use other non-FB sources.
+>>
+>>>
+>>>> In addition, loosen the NULL FB checks within the atomic commit callstack
+>>>> to allow a NULL FB when color_fill is nonzero and add FB checks in
+>>>> methods where the FB was previously assumed to be non-NULL.
+>>>>
+>>>> Finally, have the DPU driver use drm_plane_state.color_fill and
+>>>> drm_plane_state.color_fill_format instead of dpu_plane_state.color_fill,
+>>>> and add extra checks in the DPU atomic commit callstack to account for a
+>>>> NULL FB in cases where color_fill is set.
+>>>>
+>>>> Some drivers support hardware that have optimizations for solid fill
+>>>> planes. This series aims to expose these capabilities to userspace as
+>>>> some compositors have a solid fill flag (ex. SOLID_COLOR in the Android
+>>>> hardware composer HAL) that can be set by apps like the Android Gears
+>>>> app.
+>>>>
+>>>> Userspace can set the color_fill value by setting COLOR_FILL_FORMAT to a
+>>>> DRM format, setting COLOR_FILL to a color fill value, and setting the
+>>>> framebuffer to NULL.
+>>>
+>>> Is there some real reason for the format property? Ie. why not
+>>> just do what was the plan for the crttc background color and
+>>> specify the color in full 16bpc format and just pick as many
+>>> msbs from that as the hw can use?
+>>
+>> The format property was added because we can't assume that all hardware
+>> will support/use the same color format for solid fill planes. Even for
+>> just MSM devices, the hardware supports different variations of RGB
+>> formats [1].
+> 
+> Sure, but the driver can convert the format into whatever the hw
+> wants.  A 1x1 color conversion is not going to be problematic ;-)
 
+Hi Rob,
+
+Hm... that's also a fair point. Just wondering, is there any advantage 
+of having the driver convert the format, other than not having to 
+implement an extra format property?
+
+(In case we end up wrapping everything into a prop blob or something)
+
+Thanks,
+
+Jessica Zhang
+
+> 
+> BR,
+> -R
+> 
+>> Thanks,
+>>
+>> Jessica Zhang
+>>
+>> [1]
+>> https://gitlab.freedesktop.org/drm/msm/-/blob/msm-next/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c#L697
+>>
+>>>
+>>>>
+>>>> Jessica Zhang (3):
+>>>>     drm: Introduce color fill properties for drm plane
+>>>>     drm: Adjust atomic checks for solid fill color
+>>>>     drm/msm/dpu: Use color_fill property for DPU planes
+>>>>
+>>>>    drivers/gpu/drm/drm_atomic.c              | 68 ++++++++++++-----------
+>>>>    drivers/gpu/drm/drm_atomic_helper.c       | 34 +++++++-----
+>>>>    drivers/gpu/drm/drm_atomic_uapi.c         |  8 +++
+>>>>    drivers/gpu/drm/drm_blend.c               | 38 +++++++++++++
+>>>>    drivers/gpu/drm/drm_plane.c               |  8 +--
+>>>>    drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c  |  7 ++-
+>>>>    drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c | 66 ++++++++++++++--------
+>>>>    include/drm/drm_atomic_helper.h           |  5 +-
+>>>>    include/drm/drm_blend.h                   |  2 +
+>>>>    include/drm/drm_plane.h                   | 28 ++++++++++
+>>>>    10 files changed, 188 insertions(+), 76 deletions(-)
+>>>>
+>>>> --
+>>>> 2.38.0
+>>>
+>>> --
+>>> Ville Syrjälä
+>>> Intel
