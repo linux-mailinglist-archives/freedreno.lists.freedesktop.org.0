@@ -2,57 +2,74 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id EF293620B88
-	for <lists+freedreno@lfdr.de>; Tue,  8 Nov 2022 09:52:50 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0984C620E0A
+	for <lists+freedreno@lfdr.de>; Tue,  8 Nov 2022 12:02:31 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 304B110E3A1;
-	Tue,  8 Nov 2022 08:52:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E2DA510E3CC;
+	Tue,  8 Nov 2022 11:02:24 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5F70010E389;
- Tue,  8 Nov 2022 08:52:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1667897555; x=1699433555;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:content-transfer-encoding:in-reply-to;
- bh=m06uxXNv8cEYktANfB+cYRiTnAeOFpHhpoG4N4jsqRA=;
- b=k0Zjr26V2l6CfY4DNLl6FQtJZcB/gh5/BPJJWz7XmoIkTzmRPOQtirHG
- jlCH7FoX0OuAGf6vhnZ67Bh238zACBQaSJSH9AL4atT7jjnDwBx+YGIYb
- DeFXDI65BhFOPQVbhOMR4n9Z+E3GeSN4eDaRe0ztNxIaRhjTES4PeEQ8Z
- 8F3ONXr5K/GqwdfeAe5am03UyC4D8aNeoo9FOILOE+JSNB3MCT5rcWtjq
- YW1QLd7RSH5G5k+9t5rrxQOtA4gzSVuy08p+bFv1e+ynGAgeI8RSpySF+
- xEve6QYmZJpHFh/OH76i4cXuF0GEb7+1tPkIcsX2HbAmGvcc0rmDCy7pA A==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10524"; a="312435150"
-X-IronPort-AV: E=Sophos;i="5.96,147,1665471600"; d="scan'208";a="312435150"
-Received: from fmsmga007.fm.intel.com ([10.253.24.52])
- by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Nov 2022 00:52:34 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6500,9779,10524"; a="638717754"
-X-IronPort-AV: E=Sophos;i="5.96,147,1665471600"; d="scan'208";a="638717754"
-Received: from stinkpipe.fi.intel.com (HELO stinkbox) ([10.237.72.191])
- by fmsmga007.fm.intel.com with SMTP; 08 Nov 2022 00:52:30 -0800
-Received: by stinkbox (sSMTP sendmail emulation);
- Tue, 08 Nov 2022 10:52:29 +0200
-Date: Tue, 8 Nov 2022 10:52:29 +0200
-From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
-To: Rob Clark <robdclark@gmail.com>
-Message-ID: <Y2oYzdHKuSDKogkj@intel.com>
-References: <20221028225952.160-1-quic_jesszhan@quicinc.com>
- <Y2leZDfLj/5963wl@intel.com>
- <5a9167d5-f88d-ed6b-abff-8ae39117feb1@quicinc.com>
- <CAF6AEGtbwsvr5A+mX7BxP95u3RyRiUFzE6dfiZacS96WVBhuvw@mail.gmail.com>
- <c196f010-34e7-4c1c-4ca6-852a4c32b154@quicinc.com>
- <CAF6AEGtJcz6dK-vgnYuJsBqm2tDRUYB7Tg2jtQm1-KuTi+z8ZA@mail.gmail.com>
+Received: from mail-lj1-x236.google.com (mail-lj1-x236.google.com
+ [IPv6:2a00:1450:4864:20::236])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 60BDD10E25F
+ for <freedreno@lists.freedesktop.org>; Tue,  8 Nov 2022 11:02:19 +0000 (UTC)
+Received: by mail-lj1-x236.google.com with SMTP id d3so20544866ljl.1
+ for <freedreno@lists.freedesktop.org>; Tue, 08 Nov 2022 03:02:19 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=cn8xDfZvXsB41XkQwJ5O0ptc1Al1vldhnYatc7I/dps=;
+ b=HjVF5flkezC2CUkVw2fV7PUN3JxWfls0uUR864b8ktY560GsUH/fp8ti2i1GLLXkUu
+ YhNtFqzDqm2WGFB8iHUPUUkujF4RkVq8xWfOzoinJEipEprHeZM92gV2b57uGpI1uLTE
+ HyG/FVI8cbTym6wbNsWWmMbj8L3CeQgdAEjQFx7Ez2NhPXCtB+mKWpZsecGD+h6sLteM
+ b5YOTLYRoPO7pbDnT0dBRg0Fbav+FH8l7+ESgsJOtv1HafKmvNsLZlvMc7aqwRA/ek+o
+ DMtEH99PkRW2rc9X6v1XWUl5mTZ5AfounvVcXKcbYe270j3Kk489+7WMPqtAJ9yqOs+q
+ yVag==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=cn8xDfZvXsB41XkQwJ5O0ptc1Al1vldhnYatc7I/dps=;
+ b=OI8Ri4PfqnsqH9r/uv1KdxcUpK0umK2i36cyev7XUcequ9z4sf+Dd+FctQWHR/anJA
+ S7ycVOJZt4gDVeh9W/XolLSO7/JXFitqBk5rsoSl7OlI2w0LhrFD3tzzTmf2LO0Cqc0T
+ PVO7o0V3CQjfMljcXiF78H6WyT5fO790DuMbQ726/1JZUvfjlAhlwtHzmZ7HchRbVjHO
+ I77yE9c44cWYq6ftY+WkrKHjIWArElC1T5XHnepioXRiSwyYiQQrPf2CcQYq0dg25nZL
+ Y/xeOSMBkJDm9OmfPV+Xo62838L+FodFewdDxwu0BlPLEQ9NZEuQtuBAtI9ALvwjhQNL
+ Lvxg==
+X-Gm-Message-State: ACrzQf1CGybKwLosoghywF5pzc/aoPl24jz6iQeIFv/HM6ASj2NC8jvA
+ KRpj3DdFmln2nuJ7NsDYWyMybQ==
+X-Google-Smtp-Source: AMsMyM6HCaaxxudPzb046JtNcBohEMFbaPXk3HJh9n9Nw2CpwimyduwKlvf0NuOGh3LYP+a4btI0jA==
+X-Received: by 2002:a2e:8919:0:b0:277:22ee:ca2b with SMTP id
+ d25-20020a2e8919000000b0027722eeca2bmr18049090lji.465.1667905337655; 
+ Tue, 08 Nov 2022 03:02:17 -0800 (PST)
+Received: from [192.168.0.20]
+ (088156142199.dynamic-2-waw-k-3-2-0.vectranet.pl. [88.156.142.199])
+ by smtp.gmail.com with ESMTPSA id
+ bi27-20020a0565120e9b00b0049f9799d349sm1726558lfb.187.2022.11.08.03.02.16
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 08 Nov 2022 03:02:17 -0800 (PST)
+Message-ID: <e14a3e14-d0d7-f8f9-051c-3168a6457b8e@linaro.org>
+Date: Tue, 8 Nov 2022 12:02:16 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAF6AEGtJcz6dK-vgnYuJsBqm2tDRUYB7Tg2jtQm1-KuTi+z8ZA@mail.gmail.com>
-X-Patchwork-Hint: comment
-Subject: Re: [Freedreno] [RFC PATCH 0/3] Support for Solid Fill Planes
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.4.2
+Content-Language: en-US
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Andy Gross <agross@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konrad.dybcio@somainline.org>, Rob Clark
+ <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, Rob Herring <robh+dt@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>
+References: <20221104130324.1024242-1-dmitry.baryshkov@linaro.org>
+ <20221104130324.1024242-4-dmitry.baryshkov@linaro.org>
+From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+In-Reply-To: <20221104130324.1024242-4-dmitry.baryshkov@linaro.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+Subject: Re: [Freedreno] [PATCH v3 3/8] dt-bindings: display/msm: add
+ support for the display on SM8450
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,102 +82,243 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: daniel.vetter@ffwll.ch, quic_abhinavk@quicinc.com,
- dri-devel@lists.freedesktop.org, swboyd@chromium.org, seanpaul@chromium.org,
- laurent.pinchart@ideasonboard.com, linux-arm-msm@vger.kernel.org,
- dmitry.baryshkov@linaro.org, Jessica Zhang <quic_jesszhan@quicinc.com>,
- freedreno@lists.freedesktop.org
+Cc: devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, Stephen Boyd <swboyd@chromium.org>,
+ Daniel Vetter <daniel@ffwll.ch>, freedreno@lists.freedesktop.org,
+ David Airlie <airlied@gmail.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Mon, Nov 07, 2022 at 07:34:43PM -0800, Rob Clark wrote:
-> On Mon, Nov 7, 2022 at 4:22 PM Jessica Zhang <quic_jesszhan@quicinc.com> wrote:
-> >
-> >
-> >
-> > On 11/7/2022 2:09 PM, Rob Clark wrote:
-> > > On Mon, Nov 7, 2022 at 1:32 PM Jessica Zhang <quic_jesszhan@quicinc.com> wrote:
-> > >>
-> > >>
-> > >>
-> > >> On 11/7/2022 11:37 AM, Ville Syrjälä wrote:
-> > >>> On Fri, Oct 28, 2022 at 03:59:49PM -0700, Jessica Zhang wrote:
-> > >>>> Introduce and add support for COLOR_FILL and COLOR_FILL_FORMAT
-> > >>>> properties. When the color fill value is set, and the framebuffer is set
-> > >>>> to NULL, memory fetch will be disabled.
-> > >>>
-> > >>> Thinking a bit more universally I wonder if there should be
-> > >>> some kind of enum property:
-> > >>>
-> > >>> enum plane_pixel_source {
-> > >>>        FB,
-> > >>>        COLOR,
-> > >>>        LIVE_FOO,
-> > >>>        LIVE_BAR,
-> > >>>        ...
-> > >>> }
-> > >>
-> > >> Hi Ville,
-> > >>
-> > >> Makes sense -- this way, we'd also lay some groundwork for cases where
-> > >> drivers want to use other non-FB sources.
-> > >>
-> > >>>
-> > >>>> In addition, loosen the NULL FB checks within the atomic commit callstack
-> > >>>> to allow a NULL FB when color_fill is nonzero and add FB checks in
-> > >>>> methods where the FB was previously assumed to be non-NULL.
-> > >>>>
-> > >>>> Finally, have the DPU driver use drm_plane_state.color_fill and
-> > >>>> drm_plane_state.color_fill_format instead of dpu_plane_state.color_fill,
-> > >>>> and add extra checks in the DPU atomic commit callstack to account for a
-> > >>>> NULL FB in cases where color_fill is set.
-> > >>>>
-> > >>>> Some drivers support hardware that have optimizations for solid fill
-> > >>>> planes. This series aims to expose these capabilities to userspace as
-> > >>>> some compositors have a solid fill flag (ex. SOLID_COLOR in the Android
-> > >>>> hardware composer HAL) that can be set by apps like the Android Gears
-> > >>>> app.
-> > >>>>
-> > >>>> Userspace can set the color_fill value by setting COLOR_FILL_FORMAT to a
-> > >>>> DRM format, setting COLOR_FILL to a color fill value, and setting the
-> > >>>> framebuffer to NULL.
-> > >>>
-> > >>> Is there some real reason for the format property? Ie. why not
-> > >>> just do what was the plan for the crttc background color and
-> > >>> specify the color in full 16bpc format and just pick as many
-> > >>> msbs from that as the hw can use?
-> > >>
-> > >> The format property was added because we can't assume that all hardware
-> > >> will support/use the same color format for solid fill planes. Even for
-> > >> just MSM devices, the hardware supports different variations of RGB
-> > >> formats [1].
-> > >
-> > > Sure, but the driver can convert the format into whatever the hw
-> > > wants.  A 1x1 color conversion is not going to be problematic ;-)
-> >
-> > Hi Rob,
-> >
-> > Hm... that's also a fair point. Just wondering, is there any advantage
-> > of having the driver convert the format, other than not having to
-> > implement an extra format property?
-> >
-> > (In case we end up wrapping everything into a prop blob or something)
-> >
+On 04/11/2022 14:03, Dmitry Baryshkov wrote:
+> Add DPU and MDSS schemas to describe MDSS and DPU blocks on the Qualcomm
+> SM8450 platform.
 > 
-> It keeps the uabi simpler.. for obvious reasons you don't want the
-> driver to do cpu color conversion for an arbitrary size plane, which
-> is why we go to all the complexity to expose formats and modifiers for
-> "real" planes, but we are dealing with a single pixel value here,
-> let's not make the uabi more complex than we need to.  I'd propose
-> making it float32[4] if float weren't a pita for kernel/uabi, but
-> u16[4] or u32[4] should be fine, and drivers can translate that easily
-> into whatever weird formats their hw wants for solid-fill.
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> ---
+>  .../bindings/display/msm/qcom,sm8450-dpu.yaml | 132 +++++++
+>  .../display/msm/qcom,sm8450-mdss.yaml         | 347 ++++++++++++++++++
+>  2 files changed, 479 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/display/msm/qcom,sm8450-dpu.yaml
+>  create mode 100644 Documentation/devicetree/bindings/display/msm/qcom,sm8450-mdss.yaml
+> 
+> diff --git a/Documentation/devicetree/bindings/display/msm/qcom,sm8450-dpu.yaml b/Documentation/devicetree/bindings/display/msm/qcom,sm8450-dpu.yaml
+> new file mode 100644
+> index 000000000000..090a6506c8e9
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/display/msm/qcom,sm8450-dpu.yaml
+> @@ -0,0 +1,132 @@
+> +# SPDX-License-Identifier: GPL-2.0-only or BSD-2-Clause
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/display/msm/qcom,sm8450-dpu.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: Qualcomm SM8450 Display DPU
+> +
+> +maintainers:
+> +  - Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> +
+> +$ref: /schemas/display/msm/dpu-common.yaml#
+> +
+> +properties:
+> +  compatible:
+> +    const: qcom,sm8450-dpu
+> +
+> +  reg:
+> +    items:
+> +      - description: Address offset and size for mdp register set
+> +      - description: Address offset and size for vbif register set
+> +
+> +  reg-names:
+> +    items:
+> +      - const: mdp
+> +      - const: vbif
+> +
+> +  clocks:
+> +    items:
+> +      - description: Display hf axi
+> +      - description: Display sf axi
+> +      - description: Display ahb
+> +      - description: Display lut
+> +      - description: Display core
+> +      - description: Display vsync
+> +
+> +  clock-names:
+> +    items:
+> +      - const: bus
+> +      - const: nrt_bus
+> +      - const: iface
+> +      - const: lut
+> +      - const: core
+> +      - const: vsync
+> +
+> +unevaluatedProperties: false
 
-u16[4] fits into a single u64 property value.
+You should require here properties provided by this schema. Otherwise it
+is a bit trickier to get what is actually required. I'll comment on your
+dependency patchset as well.
 
-That was the plan for the background prop as well:
-https://lore.kernel.org/all/20190703125442.GW5942@intel.com/T/
+> +
+> +examples:
+> +  - |
+> +    #include <dt-bindings/clock/qcom,sm8450-dispcc.h>
+> +    #include <dt-bindings/clock/qcom,gcc-sm8450.h>
+> +    #include <dt-bindings/interrupt-controller/arm-gic.h>
+> +    #include <dt-bindings/interconnect/qcom,sm8450.h>
+> +    #include <dt-bindings/power/qcom-rpmpd.h>
+> +
+> +    display-controller@ae01000 {
+> +        compatible = "qcom,sm8450-dpu";
+> +        reg = <0x0ae01000 0x8f000>,
+> +              <0x0aeb0000 0x2008>;
+> +        reg-names = "mdp", "vbif";
+> +
+> +        clocks = <&gcc GCC_DISP_HF_AXI_CLK>,
+> +                <&gcc GCC_DISP_SF_AXI_CLK>,
+> +                <&dispcc DISP_CC_MDSS_AHB_CLK>,
+> +                <&dispcc DISP_CC_MDSS_MDP_LUT_CLK>,
+> +                <&dispcc DISP_CC_MDSS_MDP_CLK>,
+> +                <&dispcc DISP_CC_MDSS_VSYNC_CLK>;
+> +        clock-names = "bus",
+> +                      "nrt_bus",
+> +                      "iface",
+> +                      "lut",
+> +                      "core",
+> +                      "vsync";
+> +
+> +        assigned-clocks = <&dispcc DISP_CC_MDSS_VSYNC_CLK>;
+> +        assigned-clock-rates = <19200000>;
+> +
+> +        operating-points-v2 = <&mdp_opp_table>;
+> +        power-domains = <&rpmhpd SM8450_MMCX>;
+> +
+> +        interrupt-parent = <&mdss>;
+> +        interrupts = <0>;
+> +
+> +        ports {
+> +            #address-cells = <1>;
+> +            #size-cells = <0>;
+> +
+> +            port@0 {
+> +                reg = <0>;
+> +                dpu_intf1_out: endpoint {
+> +                    remote-endpoint = <&dsi0_in>;
+> +                };
+> +            };
+> +
+> +            port@1 {
+> +                reg = <1>;
+> +                dpu_intf2_out: endpoint {
+> +                    remote-endpoint = <&dsi1_in>;
+> +                };
+> +            };
+> +        };
+> +
+> +        mdp_opp_table: opp-table {
+> +            compatible = "operating-points-v2";
+> +
+> +            opp-172000000{
+> +                opp-hz = /bits/ 64 <172000000>;
+> +                required-opps = <&rpmhpd_opp_low_svs_d1>;
+> +            };
+> +
+> +            opp-200000000 {
+> +                opp-hz = /bits/ 64 <200000000>;
+> +                required-opps = <&rpmhpd_opp_low_svs>;
+> +            };
+> +
+> +            opp-325000000 {
+> +                opp-hz = /bits/ 64 <325000000>;
+> +                required-opps = <&rpmhpd_opp_svs>;
+> +            };
+> +
+> +            opp-375000000 {
+> +                opp-hz = /bits/ 64 <375000000>;
+> +                required-opps = <&rpmhpd_opp_svs_l1>;
+> +            };
+> +
+> +            opp-500000000 {
+> +                opp-hz = /bits/ 64 <500000000>;
+> +                required-opps = <&rpmhpd_opp_nom>;
+> +            };
+> +        };
+> +    };
+> +...
+> diff --git a/Documentation/devicetree/bindings/display/msm/qcom,sm8450-mdss.yaml b/Documentation/devicetree/bindings/display/msm/qcom,sm8450-mdss.yaml
+> new file mode 100644
+> index 000000000000..9b6e1e03dc78
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/display/msm/qcom,sm8450-mdss.yaml
+> @@ -0,0 +1,347 @@
+> +# SPDX-License-Identifier: GPL-2.0-only or BSD-2-Clause
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/display/msm/qcom,sm8450-mdss.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: Qualcomm SM8450 Display MDSS
+> +
+> +maintainers:
+> +  - Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> +
+> +description:
+> +  SM8450 MSM Mobile Display Subsystem(MDSS), which encapsulates sub-blocks like
+> +  DPU display controller, DSI and DP interfaces etc.
+> +
+> +$ref: /schemas/display/msm/mdss-common.yaml#
+> +
+> +properties:
+> +  compatible:
+> +    const: qcom,sm8450-mdss
+> +
+> +  clocks:
+> +    items:
+> +      - description: Display AHB
+> +      - description: Display hf AXI
+> +      - description: Display sf AXI
+> +      - description: Display core
+> +
+> +  clock-names:
+> +    items:
+> +      - const: iface
+> +      - const: bus
+> +      - const: nrt_bus
+> +      - const: core
+> +
+> +  iommus:
+> +    maxItems: 1
+> +
+> +  interconnects:
+> +    maxItems: 2
+> +
+> +  interconnect-names:
+> +    maxItems: 2
+> +
+> +patternProperties:
+> +  "^display-controller@[0-9a-f]+$":
+> +    type: object
+> +    properties:
+> +      compatible:
+> +        const: qcom,sm8450-dpu
+> +
+> +  "^dsi@[0-9a-f]+$":
+> +    type: object
+> +    properties:
+> +      compatible:
+> +        const: qcom,mdss-dsi-ctrl
+> +
+> +  "^phy@[0-9a-f]+$":
+> +    type: object
+> +    properties:
+> +      compatible:
+> +        const: qcom,dsi-phy-5nm-8450
+> +
+> +unevaluatedProperties: false
 
--- 
-Ville Syrjälä
-Intel
+Ditto
+
+
+
+Best regards,
+Krzysztof
+
