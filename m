@@ -2,72 +2,75 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4EFB0621EE9
-	for <lists+freedreno@lfdr.de>; Tue,  8 Nov 2022 23:14:21 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 62836622B2A
+	for <lists+freedreno@lfdr.de>; Wed,  9 Nov 2022 13:14:55 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 004BD10E2E0;
-	Tue,  8 Nov 2022 22:14:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2492910E4D1;
+	Wed,  9 Nov 2022 12:14:54 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 222F310E516
- for <freedreno@lists.freedesktop.org>; Tue,  8 Nov 2022 22:02:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1667944922;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=B4XOqV1gMleVpJRmsEaG0IDF2IsnRx/bBVmiudDCRhE=;
- b=U/4f468laQEdzCUAsyiTeWLvBNZAXt5uPw1x3L73MMAxxjI2P2C5m0ogQ7kxOl6/u0qt69
- aFht7XcccslU98p1MsVWXqUy5jkVRBVy2k9VdbiX0roZdAgDo9wZqU/ixl6pR25Omja9+r
- Imblz+y2XnZ4iRmPgHI+qkIYJCAwpjQ=
-Received: from mail-lf1-f69.google.com (mail-lf1-f69.google.com
- [209.85.167.69]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_128_GCM_SHA256) id
- us-mta-86-OqkQJASWOei5WWNPVwfgOQ-1; Tue, 08 Nov 2022 17:02:00 -0500
-X-MC-Unique: OqkQJASWOei5WWNPVwfgOQ-1
-Received: by mail-lf1-f69.google.com with SMTP id
- i9-20020ac25229000000b004a24f6e0f78so5371936lfl.23
- for <freedreno@lists.freedesktop.org>; Tue, 08 Nov 2022 14:02:00 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=B4XOqV1gMleVpJRmsEaG0IDF2IsnRx/bBVmiudDCRhE=;
- b=IAZRr/oY59KyaFNJjg+sfpJajplTSCJllQG7VEgYRBlMstfey4dVdb3wRMM7AlMzeZ
- CSYP+wuU7tAlsuqaqXIlvuEPzqOpmU+if9NkVYAShH7AKuIY0dTVzSdfKM+P6GvMBOtb
- HdIak4MeSG8ZgWHlMsacc1VBI5AFFyi2eyrJmFoN4/RyEz4kUaV3smA+2ZDCrjgVw3Na
- 1HK/prPOSDmgT9IRAddlr6z+ayutzHF+jlDXWjQSEA4AiYNMb/CWbEZ2T3Uoc9jo3f/C
- twYPEIWRD5G23+5J+ZH9S681D88T3eBWXll+6k/S3Q+/m6IZ10ssEbE3rkYbxx1e1fsg
- I6hw==
-X-Gm-Message-State: ACrzQf0XPYX0nvv7A/JVWd9Cnb662kPBiII7/WpdTMXUkhe2KjkeZAZF
- CqSCkSp5l9q+7XYpPgiy9OGP7ltE4/Qfi9wnNEoTYDG0pNEqPXw/T2y7FUbDiS7bw9xU+SaUBM4
- jInjuu+30td9l4w0Sha7WCQPWghqN5Vc1dnTG/rCw3+Iu
-X-Received: by 2002:ac2:5e35:0:b0:4a4:754f:e2d5 with SMTP id
- o21-20020ac25e35000000b004a4754fe2d5mr22681756lfg.77.1667944919422; 
- Tue, 08 Nov 2022 14:01:59 -0800 (PST)
-X-Google-Smtp-Source: AMsMyM52Mtsi7gjV6anF7IJB1SSAqcpPVaiT1aF3M6yT6qKnkUV02vegAu4K8KA7JqOQICiIS1ew+ggq+sGeNFvuceU=
-X-Received: by 2002:ac2:5e35:0:b0:4a4:754f:e2d5 with SMTP id
- o21-20020ac25e35000000b004a4754fe2d5mr22681740lfg.77.1667944919138; Tue, 08
- Nov 2022 14:01:59 -0800 (PST)
-MIME-Version: 1.0
-References: <20221028225952.160-1-quic_jesszhan@quicinc.com>
- <20221028225952.160-2-quic_jesszhan@quicinc.com>
- <712a9a25-4c38-9da5-b1a6-39e4665b4d31@linaro.org>
- <U3Koc0-B-7C7sbIpcRWokBHPOQdrQl7azJxAUWFJ4nmsk5nPf9NnUgBr9HOFUZ9YLJOKREN878fXv_BeIc15Kh_jVAFCFbYr8XfS3s0Os_M=@emersion.fr>
-In-Reply-To: <U3Koc0-B-7C7sbIpcRWokBHPOQdrQl7azJxAUWFJ4nmsk5nPf9NnUgBr9HOFUZ9YLJOKREN878fXv_BeIc15Kh_jVAFCFbYr8XfS3s0Os_M=@emersion.fr>
-From: Sebastian Wick <sebastian.wick@redhat.com>
-Date: Tue, 8 Nov 2022 23:01:47 +0100
-Message-ID: <CA+hFU4wrDtSpU5owaNVP=8F3bQCnFCaJ7RmGOS0y4cooKQ5+CQ@mail.gmail.com>
-To: Simon Ser <contact@emersion.fr>
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="UTF-8"
-X-Mailman-Approved-At: Tue, 08 Nov 2022 22:14:17 +0000
-Subject: Re: [Freedreno] [RFC PATCH 1/3] drm: Introduce color fill
- properties for drm plane
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0EF7110E4D1;
+ Wed,  9 Nov 2022 12:14:51 +0000 (UTC)
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 2A9Aw7rR030982; Wed, 9 Nov 2022 12:14:48 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
+ h=from : to : cc : subject : date : message-id; s=qcppdkim1;
+ bh=C5OOgI1LjpktKDvlDPjeZWN/9tRwltUt4Apw39MxR68=;
+ b=YFiZ+ogLFBO8v2aWXcm7EACJCzUJ2778NxE44Ht6ye6yc0lLvVWS3Uh74UzjLTv9BZTC
+ zdSkLgisSdWb/5d6PUnGP/L4EZ8N7vP58gudfTrw04adbIwu4Y+UI5CHQqxaTLP0rdEz
+ brYi1U/mD3EbUvj8F3dI+9cay5FuFBpMthv6eivt9IIUdnNZSOnQQreuOXLzsyfrnFh8
+ 80z60g8MgyP6iNdMwsu0Az/4BmrsF57ElQVTFjg9/mSBnVZau/2iMuNj6EM9aKVw0FSy
+ KjJvRi1iCvUivrDmrDBONCtDjEIB5SpT8mZtCMdNJqGeZvYamNU4taWdiUwCqmnRfHFI Nw== 
+Received: from apblrppmta01.qualcomm.com
+ (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com [103.229.18.19])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3kr68m10e0-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 09 Nov 2022 12:14:48 +0000
+Received: from pps.filterd (APBLRPPMTA01.qualcomm.com [127.0.0.1])
+ by APBLRPPMTA01.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTP id 2A9CEiA7004804; 
+ Wed, 9 Nov 2022 12:14:44 GMT
+Received: from pps.reinject (localhost [127.0.0.1])
+ by APBLRPPMTA01.qualcomm.com (PPS) with ESMTPS id 3kngwkn0n1-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NO);
+ Wed, 09 Nov 2022 12:14:44 +0000
+Received: from APBLRPPMTA01.qualcomm.com (APBLRPPMTA01.qualcomm.com
+ [127.0.0.1])
+ by pps.reinject (8.17.1.5/8.17.1.5) with ESMTP id 2A9CEiQL004798;
+ Wed, 9 Nov 2022 12:14:44 GMT
+Received: from kalyant-linux.qualcomm.com (kalyant-linux.qualcomm.com
+ [10.204.66.210])
+ by APBLRPPMTA01.qualcomm.com (PPS) with ESMTP id 2A9CEhN0004797;
+ Wed, 09 Nov 2022 12:14:44 +0000
+Received: by kalyant-linux.qualcomm.com (Postfix, from userid 94428)
+ id D33614887; Wed,  9 Nov 2022 04:14:42 -0800 (PST)
+From: Kalyan Thota <quic_kalyant@quicinc.com>
+To: dri-devel@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
+ freedreno@lists.freedesktop.org, devicetree@vger.kernel.org
+Date: Wed,  9 Nov 2022 04:14:40 -0800
+Message-Id: <1667996080-23870-1-git-send-email-quic_kalyant@quicinc.com>
+X-Mailer: git-send-email 2.7.4
+X-QCInternal: smtphost
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-GUID: V696zhe61KZx-kvWgX4Q_hen59hLNhzV
+X-Proofpoint-ORIG-GUID: V696zhe61KZx-kvWgX4Q_hen59hLNhzV
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.219,Aquarius:18.0.895,Hydra:6.0.545,FMLib:17.11.122.1
+ definitions=2022-11-09_05,2022-11-09_01,2022-06-22_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501
+ malwarescore=0 bulkscore=0 suspectscore=0 spamscore=0 lowpriorityscore=0
+ mlxscore=0 impostorscore=0 clxscore=1011 mlxlogscore=999 adultscore=0
+ phishscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2210170000 definitions=main-2211090094
+Subject: [Freedreno] [v8] drm/msm/disp/dpu1: add support for dspp sub block
+ flush in sc7280
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,121 +83,284 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: robdclark@gmail.com, linux-arm-msm@vger.kernel.org,
- quic_abhinavk@quicinc.com, dri-devel@lists.freedesktop.org,
- swboyd@chromium.org, Pekka Paalanen <ppaalanen@gmail.com>,
- seanpaul@chromium.org, laurent.pinchart@ideasonboard.com,
- daniel.vetter@ffwll.ch, Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Jessica Zhang <quic_jesszhan@quicinc.com>,
- wayland-devel <wayland-devel@lists.freedesktop.org>,
- freedreno@lists.freedesktop.org
+Cc: Kalyan Thota <quic_kalyant@quicinc.com>, robdclark@chromium.org,
+ dianders@chromium.org, quic_abhinavk@quicinc.com, linux-kernel@vger.kernel.org,
+ swboyd@chromium.org, dmitry.baryshkov@linaro.org, quic_vpolimer@quicinc.com
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Tue, Nov 8, 2022 at 7:51 PM Simon Ser <contact@emersion.fr> wrote:
->
-> cc'ing Pekka and wayland-devel for userspace devs feedback on the new uAPI.
->
-> On Saturday, October 29th, 2022 at 14:08, Dmitry Baryshkov <dmitry.baryshkov@linaro.org> wrote:
->
-> > On 29/10/2022 01:59, Jessica Zhang wrote:
-> > > Add support for COLOR_FILL and COLOR_FILL_FORMAT properties for
-> > > drm_plane. In addition, add support for setting and getting the values
-> > > of these properties.
-> > >
-> > > COLOR_FILL represents the color fill of a plane while COLOR_FILL_FORMAT
-> > > represents the format of the color fill. Userspace can set enable solid
-> > > fill on a plane by assigning COLOR_FILL to a uint64_t value, assigning
-> > > the COLOR_FILL_FORMAT property to a uint32_t value, and setting the
-> > > framebuffer to NULL.
-> > >
-> > > Signed-off-by: Jessica Zhang <quic_jesszhan@quicinc.com>
-> >
-> > Planes report supported formats using the drm_mode_getplane(). You'd
-> > also need to tell userspace, which formats are supported for color fill.
-> > I don't think one supports e.g. YV12.
-> >
-> > A bit of generic comment for the discussion (this is an RFC anyway).
-> > Using color_fill/color_fill_format properties sounds simple, but this
-> > might be not generic enough. Limiting color_fill to 32 bits would
-> > prevent anybody from using floating point formats (e.g.
-> > DRM_FORMAT_XRGB16161616F, 64-bit value). Yes, this can be solved with
-> > e.g. using 64-bit for the color_fill value, but then this doesn't sound
-> > extensible too much.
-> >
-> > So, a question for other hardware maintainers. Do we have hardware that
-> > supports such 'color filled' planes? Do we want to support format
-> > modifiers for filling color/data? Because what I have in mind is closer
-> > to the blob structure, which can then be used for filling the plane:
-> >
-> > struct color_fill_blob {
-> >      u32 pixel_format;
-> >      u64 modifiers4];
-> >      u32 pixel_data_size; // fixme: is this necessary?
-> >      u8 pixel_data[];
-> > };
-> >
-> > And then... This sounds a lot like a custom framebuffer.
-> >
-> > So, maybe what should we do instead is to add new DRM_MODE_FB_COLOR_FILL
-> > flag to the framebuffers, which would e.g. mean that the FB gets stamped
-> > all over the plane. This would also save us from changing if (!fb)
-> > checks all over the drm core.
-> >
-> > Another approach might be using a format modifier instead of the FB flag.
-> >
-> > What do you think?
->
-> First off, we only need to represent the value of a single pixel here. So I'm
-> not quite following why we need format modifiers. Format modifiers describe how
-> pixels are laid out in memory. Since there's a single pixel described, this
-> is non-sensical to me, the format modifier is always LINEAR.
->
-> Then, I can understand why putting the pixel_format in there is tempting to
-> guarantee future extensibility, but it also adds complexity. For instance, how
-> does user-space figure out which formats can be used for COLOR_FILL? Can
-> user-space use any format supported by the plane? What does it mean for
-> multi-planar formats? Do we really want the kernel to have conversion logic for
-> all existing formats? Do we need to also add a new read-only blob prop to
-> indicate supported COLOR_FILL formats?
->
-> We've recently-ish standardized a new Wayland protocol [1] which has the same
-> purpose as this new kernel uAPI. The conclusion there was that using 32-bit
-> values for each channel (R, G, B, A) would be enough for almost all use-cases.
-> The driver can convert these high-precision values to what the hardware expects.
-> The only concern was about sending values outside of the [0.0, 1.0] range,
-> which may have HDR use-cases.
->
-> So, there are multiple ways to go about this. I can think of:
->
-> - Put "RGBA32" in the name of the prop, and if we ever need a different
->   color format, pick a different name.
-> - Define a struct with an enum of possible fill kinds:
->   #define FILL_COLOR_RGBA32 1
->   #define FILL_COLOR_F32 2
->   struct color_fill_blob { u32 kind; u8 data[]; };
-> - Define a struct with a version and RGBA values:
->   struct color_fill_blob { u32 version; u32 rgba[4]; };
->   If we need to add more formats later, or new metadata:
->   struct color_fill_blob2 { u32 version; /* new fields */ };
->   where version must be set to 2.
-> - Define a struct with a "pixel_format" prop, but force user-space to use a
->   fixed format for now. Later, if we need another format, add a new prop to
->   advertise supported formats.
-> - More complicated solutions, e.g. advertise the list of supported formats from
->   the start.
->
-> [1]: https://gitlab.freedesktop.org/wayland/wayland-protocols/-/merge_requests/104
->
+Flush mechanism for DSPP blocks has changed in sc7280 family, it
+allows individual sub blocks to be flushed in coordination with
+master flush control.
 
-Agreeing with most of what you said here. However, what's the idea
-behind a format anyway? The 4 values provided here are fed directly
-into the color pipeline which seems to define the color channels it's
-working on as RGBA (or doesn't define anything at all). The only
-reason I can think of is that hardware might support only ingesting
-values either in a format with high bit depth color channels and no
-alpha or a format with low bit depth color but with alpha, so choosing
-between the formats provides a real trade-off. Is that actually
-something hardware might be restricted to or do they all just support
-ingesting the color data with enough precision on every channel?
+Representation: master_flush && (PCC_flush | IGC_flush .. etc )
+
+This change adds necessary support for the above design.
+
+Changes in v1:
+- Few nits (Doug, Dmitry)
+- Restrict sub-block flush programming to dpu_hw_ctl file (Dmitry)
+
+Changes in v2:
+- Move the address offset to flush macro (Dmitry)
+- Seperate ops for the sub block flush (Dmitry)
+
+Changes in v3:
+- Reuse the DPU_DSPP_xx enum instead of a new one (Dmitry)
+
+Changes in v4:
+- Use shorter version for unsigned int (Stephen)
+
+Changes in v5:
+- Spurious patch please ignore.
+
+Changes in v6:
+- Add SOB tag (Doug, Dmitry)
+
+Changes in v7:
+- Cache flush mask per dspp (Dmitry)
+- Few nits (Marijn)
+
+Changes in v8:
+- Few nits (Marijn)
+
+Signed-off-by: Kalyan Thota <quic_kalyant@quicinc.com>
+---
+ drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c       |  2 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c |  5 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h | 12 +++--
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c     | 66 +++++++++++++++++++++-----
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.h     |  7 ++-
+ 5 files changed, 72 insertions(+), 20 deletions(-)
+
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
+index 601d687..4170fbe 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
+@@ -766,7 +766,7 @@ static void _dpu_crtc_setup_cp_blocks(struct drm_crtc *crtc)
+ 
+ 		/* stage config flush mask */
+ 		ctl->ops.update_pending_flush_dspp(ctl,
+-			mixer[i].hw_dspp->idx);
++			mixer[i].hw_dspp->idx, DPU_DSPP_PCC);
+ 	}
+ }
+ 
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
+index 27f029f..0eecb2f 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
+@@ -65,7 +65,10 @@
+ 	(PINGPONG_SDM845_MASK | BIT(DPU_PINGPONG_TE2))
+ 
+ #define CTL_SC7280_MASK \
+-	(BIT(DPU_CTL_ACTIVE_CFG) | BIT(DPU_CTL_FETCH_ACTIVE) | BIT(DPU_CTL_VM_CFG))
++	(BIT(DPU_CTL_ACTIVE_CFG) | \
++	 BIT(DPU_CTL_FETCH_ACTIVE) | \
++	 BIT(DPU_CTL_VM_CFG) | \
++	 BIT(DPU_CTL_DSPP_SUB_BLOCK_FLUSH))
+ 
+ #define MERGE_3D_SM8150_MASK (0)
+ 
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h
+index 38aa38a..35f4810 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h
+@@ -161,10 +161,12 @@ enum {
+  * DSPP sub-blocks
+  * @DPU_DSPP_PCC             Panel color correction block
+  * @DPU_DSPP_GC              Gamma correction block
++ * @DPU_DSPP_IGC             Inverse gamma correction block
+  */
+ enum {
+ 	DPU_DSPP_PCC = 0x1,
+ 	DPU_DSPP_GC,
++	DPU_DSPP_IGC,
+ 	DPU_DSPP_MAX
+ };
+ 
+@@ -188,16 +190,18 @@ enum {
+ 
+ /**
+  * CTL sub-blocks
+- * @DPU_CTL_SPLIT_DISPLAY:	CTL supports video mode split display
+- * @DPU_CTL_FETCH_ACTIVE:	Active CTL for fetch HW (SSPPs)
+- * @DPU_CTL_VM_CFG:		CTL config to support multiple VMs
+- * @DPU_CTL_MAX
++ * @DPU_CTL_SPLIT_DISPLAY     CTL supports video mode split display
++ * @DPU_CTL_FETCH_ACTIVE      Active CTL for fetch HW (SSPPs)
++ * @DPU_CTL_VM_CFG            CTL config to support multiple VMs
++ * @DPU_CTL_DSPP_BLOCK_FLUSH  CTL config to support dspp sub-block flush
++ * @DPU_CTL_MAX               Maximum value
+  */
+ enum {
+ 	DPU_CTL_SPLIT_DISPLAY = 0x1,
+ 	DPU_CTL_ACTIVE_CFG,
+ 	DPU_CTL_FETCH_ACTIVE,
+ 	DPU_CTL_VM_CFG,
++	DPU_CTL_DSPP_SUB_BLOCK_FLUSH,
+ 	DPU_CTL_MAX
+ };
+ 
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c
+index a35ecb6..29821ea 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c
+@@ -28,22 +28,23 @@
+ #define   CTL_INTF_ACTIVE               0x0F4
+ #define   CTL_MERGE_3D_FLUSH            0x100
+ #define   CTL_DSC_ACTIVE                0x0E8
+-#define   CTL_DSC_FLUSH                0x104
++#define   CTL_DSC_FLUSH                 0x104
+ #define   CTL_WB_FLUSH                  0x108
+ #define   CTL_INTF_FLUSH                0x110
+ #define   CTL_INTF_MASTER               0x134
+ #define   CTL_FETCH_PIPE_ACTIVE         0x0FC
++#define   CTL_DSPP_n_FLUSH(n)           ((0x13C) + ((n) * 4))
+ 
+-#define CTL_MIXER_BORDER_OUT            BIT(24)
+-#define CTL_FLUSH_MASK_CTL              BIT(17)
++#define   CTL_MIXER_BORDER_OUT          BIT(24)
++#define   CTL_FLUSH_MASK_CTL            BIT(17)
+ 
+-#define DPU_REG_RESET_TIMEOUT_US        2000
+-#define  MERGE_3D_IDX   23
+-#define  DSC_IDX        22
+-#define  INTF_IDX       31
+-#define WB_IDX          16
+-#define CTL_INVALID_BIT                 0xffff
+-#define CTL_DEFAULT_GROUP_ID		0xf
++#define   DPU_REG_RESET_TIMEOUT_US      2000
++#define   MERGE_3D_IDX                  23
++#define   DSC_IDX                       22
++#define   INTF_IDX                      31
++#define   WB_IDX                        16
++#define   CTL_INVALID_BIT               0xffff
++#define   CTL_DEFAULT_GROUP_ID          0xf
+ 
+ static const u32 fetch_tbl[SSPP_MAX] = {CTL_INVALID_BIT, 16, 17, 18, 19,
+ 	CTL_INVALID_BIT, CTL_INVALID_BIT, CTL_INVALID_BIT, CTL_INVALID_BIT, 0,
+@@ -110,9 +111,14 @@ static inline void dpu_hw_ctl_trigger_pending(struct dpu_hw_ctl *ctx)
+ 
+ static inline void dpu_hw_ctl_clear_pending_flush(struct dpu_hw_ctl *ctx)
+ {
++	int i;
++
+ 	trace_dpu_hw_ctl_clear_pending_flush(ctx->pending_flush_mask,
+ 				     dpu_hw_ctl_get_flush_register(ctx));
+ 	ctx->pending_flush_mask = 0x0;
++
++	for(i = 0; i < ARRAY_SIZE(ctx->pending_dspp_flush_mask); i++)
++		ctx->pending_dspp_flush_mask[i] = 0x0;
+ }
+ 
+ static inline void dpu_hw_ctl_update_pending_flush(struct dpu_hw_ctl *ctx,
+@@ -130,6 +136,8 @@ static u32 dpu_hw_ctl_get_pending_flush(struct dpu_hw_ctl *ctx)
+ 
+ static inline void dpu_hw_ctl_trigger_flush_v1(struct dpu_hw_ctl *ctx)
+ {
++	int i;
++
+ 	if (ctx->pending_flush_mask & BIT(MERGE_3D_IDX))
+ 		DPU_REG_WRITE(&ctx->hw, CTL_MERGE_3D_FLUSH,
+ 				ctx->pending_merge_3d_flush_mask);
+@@ -140,6 +148,11 @@ static inline void dpu_hw_ctl_trigger_flush_v1(struct dpu_hw_ctl *ctx)
+ 		DPU_REG_WRITE(&ctx->hw, CTL_WB_FLUSH,
+ 				ctx->pending_wb_flush_mask);
+ 
++	for(i = 0; i < ARRAY_SIZE(ctx->pending_dspp_flush_mask); i++)
++		if (ctx->pending_dspp_flush_mask[i])
++			DPU_REG_WRITE(&ctx->hw, CTL_DSPP_n_FLUSH(i),
++				ctx->pending_dspp_flush_mask[i]);
++
+ 	DPU_REG_WRITE(&ctx->hw, CTL_FLUSH, ctx->pending_flush_mask);
+ }
+ 
+@@ -287,8 +300,9 @@ static void dpu_hw_ctl_update_pending_flush_merge_3d_v1(struct dpu_hw_ctl *ctx,
+ }
+ 
+ static void dpu_hw_ctl_update_pending_flush_dspp(struct dpu_hw_ctl *ctx,
+-	enum dpu_dspp dspp)
++	enum dpu_dspp dspp, u32 dspp_sub_blk)
+ {
++
+ 	switch (dspp) {
+ 	case DSPP_0:
+ 		ctx->pending_flush_mask |= BIT(13);
+@@ -307,6 +321,30 @@ static void dpu_hw_ctl_update_pending_flush_dspp(struct dpu_hw_ctl *ctx,
+ 	}
+ }
+ 
++static void dpu_hw_ctl_update_pending_flush_dspp_subblocks(
++	struct dpu_hw_ctl *ctx,	enum dpu_dspp dspp, u32 dspp_sub_blk)
++{
++
++	if (dspp >= DSPP_MAX)
++		return;
++
++	switch (dspp_sub_blk) {
++	case DPU_DSPP_IGC:
++		ctx->pending_dspp_flush_mask[dspp - DSPP_0] |= BIT(2);
++		break;
++	case DPU_DSPP_PCC:
++		ctx->pending_dspp_flush_mask[dspp - DSPP_0] |= BIT(4);
++		break;
++	case DPU_DSPP_GC:
++		ctx->pending_dspp_flush_mask[dspp - DSPP_0] |= BIT(5);
++		break;
++	default:
++		return;
++	}
++
++	ctx->pending_flush_mask |= BIT(29);
++}
++
+ static u32 dpu_hw_ctl_poll_reset_status(struct dpu_hw_ctl *ctx, u32 timeout_us)
+ {
+ 	struct dpu_hw_blk_reg_map *c = &ctx->hw;
+@@ -675,7 +713,11 @@ static void _setup_ctl_ops(struct dpu_hw_ctl_ops *ops,
+ 	ops->setup_blendstage = dpu_hw_ctl_setup_blendstage;
+ 	ops->update_pending_flush_sspp = dpu_hw_ctl_update_pending_flush_sspp;
+ 	ops->update_pending_flush_mixer = dpu_hw_ctl_update_pending_flush_mixer;
+-	ops->update_pending_flush_dspp = dpu_hw_ctl_update_pending_flush_dspp;
++	if (cap & BIT(DPU_CTL_DSPP_SUB_BLOCK_FLUSH))
++		ops->update_pending_flush_dspp = dpu_hw_ctl_update_pending_flush_dspp_subblocks;
++	else
++		ops->update_pending_flush_dspp = dpu_hw_ctl_update_pending_flush_dspp;
++
+ 	if (cap & BIT(DPU_CTL_FETCH_ACTIVE))
+ 		ops->set_active_pipes = dpu_hw_ctl_set_fetch_pipe_active;
+ };
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.h
+index 96c012e..ff4e92c 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.h
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.h
+@@ -148,13 +148,15 @@ struct dpu_hw_ctl_ops {
+ 		enum dpu_lm blk);
+ 
+ 	/**
+-	 * OR in the given flushbits to the cached pending_flush_mask
++	 * OR in the given flushbits to the cached pending_dspp_flush_mask
+ 	 * No effect on hardware
+ 	 * @ctx       : ctl path ctx pointer
+ 	 * @blk       : DSPP block index
++	 * @dspp_sub_blk : DSPP sub-block index
+ 	 */
+ 	void (*update_pending_flush_dspp)(struct dpu_hw_ctl *ctx,
+-		enum dpu_dspp blk);
++		enum dpu_dspp blk, u32 dspp_sub_blk);
++
+ 	/**
+ 	 * Write the value of the pending_flush_mask to hardware
+ 	 * @ctx       : ctl path ctx pointer
+@@ -242,6 +244,7 @@ struct dpu_hw_ctl {
+ 	u32 pending_intf_flush_mask;
+ 	u32 pending_wb_flush_mask;
+ 	u32 pending_merge_3d_flush_mask;
++	u32 pending_dspp_flush_mask[DSPP_MAX - DSPP_0];
+ 
+ 	/* ops */
+ 	struct dpu_hw_ctl_ops ops;
+-- 
+2.7.4
 
