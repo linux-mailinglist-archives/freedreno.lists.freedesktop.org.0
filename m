@@ -1,37 +1,74 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0A36E624703
-	for <lists+freedreno@lfdr.de>; Thu, 10 Nov 2022 17:31:13 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id C8496624B9F
+	for <lists+freedreno@lfdr.de>; Thu, 10 Nov 2022 21:19:22 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A644310E002;
-	Thu, 10 Nov 2022 16:31:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7C9C410E166;
+	Thu, 10 Nov 2022 20:19:21 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by gabe.freedesktop.org (Postfix) with ESMTP id E6D3910E002
- for <freedreno@lists.freedesktop.org>; Thu, 10 Nov 2022 16:31:08 +0000 (UTC)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id CC0CB1FB
- for <freedreno@lists.freedesktop.org>; Thu, 10 Nov 2022 08:31:14 -0800 (PST)
-Received: from e110455-lin.cambridge.arm.com (usa-sjc-imap-foss1.foss.arm.com
- [10.121.207.14])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 6685D3F703
- for <freedreno@lists.freedesktop.org>; Thu, 10 Nov 2022 08:31:08 -0800 (PST)
-Date: Thu, 10 Nov 2022 16:30:45 +0000
-From: Liviu Dudau <liviu.dudau@arm.com>
-To: Gaosheng Cui <cuigaosheng1@huawei.com>
-Message-ID: <Y20nNWA1U+vJBl9y@e110455-lin.cambridge.arm.com>
-References: <20221110094445.2930509-1-cuigaosheng1@huawei.com>
- <20221110094445.2930509-5-cuigaosheng1@huawei.com>
+Received: from mail-lj1-x22e.google.com (mail-lj1-x22e.google.com
+ [IPv6:2a00:1450:4864:20::22e])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9879710E85D
+ for <freedreno@lists.freedesktop.org>; Thu, 10 Nov 2022 20:19:18 +0000 (UTC)
+Received: by mail-lj1-x22e.google.com with SMTP id d20so2207604ljc.12
+ for <freedreno@lists.freedesktop.org>; Thu, 10 Nov 2022 12:19:18 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=OS7XyVksmzpOUyGa1jMZ/h64iPb1v90uhSS96NI+hnc=;
+ b=AyjI1s8wkcqvZki+gAQw0dHrM7EdydF05RbKxMfiF56rroBE6j+5b5jbS0ciLKzm7x
+ cXXYFApXEkBbPa0l7LdiFs54GOgJiAZmg0MbJ6S/XlZojbW5Z+IqMT2mSud0ldOxeyar
+ WJg3G6OTTDlZw8H+Vbo5xYgyKrys+4xJFFPcS1o18t6Q1lXSev94/UaVWGvY188ZsXcj
+ Fqecq03rVXjB+9D9GOPocw/URAMUjmWfhvhgBLTEqTzOd8hxW2F+GvAGTD27TRXF7Rma
+ yKCRF+Ly5Ui/L+9QmopH9zLidhSM22McxX5rNUK2/KiHwh5Nl+Jp+J3N7wn6Srtu1bmL
+ FNLw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=OS7XyVksmzpOUyGa1jMZ/h64iPb1v90uhSS96NI+hnc=;
+ b=wOghIiu3tglmtHGDDqXZjPFBHi66bCmpq17/zNoMhC1RprMi+umoLxyqPeqAjQklYz
+ 6JwC4UXIoqYrqa3X+HNocaXtjqppvqg3ejxZmkTIt9nLuY/wsahc1ub0h/XEEWcR+vyy
+ PzMwc/wBFMJbwhrymfMXhr72u1MzxcAJNUcBAAu9ZyEcc8XtZOJ5Y90rZ7LpPuHHhMhZ
+ uywp3n/RQlcq1l3u7rkZz1YsdqlMn5sKgZKKk6sEpZ/dNr/HqNrKmbgUgIKkr4N3emqe
+ LBliuBwDjaH9YGsFOMA88E2KRGMaJUklNvVdGb2zJ/e0UqbCmjxZFi/1KXdLGA0n7NuN
+ ndXg==
+X-Gm-Message-State: ACrzQf2DCyHNbLr+rm+f/UaU0a52/BE3g9YHW0UFGe5PxrQLPyXMdPFA
+ UBeMBQ0h8nFyBP8aJFKZA3R/hg==
+X-Google-Smtp-Source: AMsMyM5S+ddzaFFtds21QOVZIP9rP/fgoTUCdxiCOScazXTBOHhsmOcY5bl4KsrkL7CUttPgs4zQcA==
+X-Received: by 2002:a05:651c:2382:b0:26c:4c27:a478 with SMTP id
+ bk2-20020a05651c238200b0026c4c27a478mr8713424ljb.92.1668111556787; 
+ Thu, 10 Nov 2022 12:19:16 -0800 (PST)
+Received: from [10.10.15.130] ([192.130.178.91])
+ by smtp.gmail.com with ESMTPSA id
+ v2-20020a056512348200b0049485e2cb91sm2732lfr.231.2022.11.10.12.19.15
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 10 Nov 2022 12:19:16 -0800 (PST)
+Message-ID: <5c791922-1371-c9e7-4bdc-e1909956633f@linaro.org>
+Date: Thu, 10 Nov 2022 23:19:15 +0300
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.4.1
+Content-Language: en-GB
+To: Konrad Dybcio <konrad.dybcio@somainline.org>,
+ Andy Gross <agross@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
+ Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, Rob Herring <robh+dt@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>
+References: <20221104130324.1024242-1-dmitry.baryshkov@linaro.org>
+ <20221104130324.1024242-7-dmitry.baryshkov@linaro.org>
+ <b222a21c-a00f-8806-179c-f97bcb45c303@somainline.org>
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+In-Reply-To: <b222a21c-a00f-8806-179c-f97bcb45c303@somainline.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20221110094445.2930509-5-cuigaosheng1@huawei.com>
-Subject: Re: [Freedreno] [PATCH 4/5] drm/komeda: Fix IS_ERR() vs NULL check
- in komeda_component_get_avail_scaler()
+Subject: Re: [Freedreno] [PATCH v3 6/8] drm/msm/dpu: add support for MDP_TOP
+ blackhole
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -44,58 +81,82 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: emma@anholt.net, quic_akhilpo@quicinc.com, dri-devel@lists.freedesktop.org,
- thierry.reding@gmail.com, angelogioacchino.delregno@somainline.org,
- marijn.suijten@somainline.org, mihail.atanassov@arm.com, sam@ravnborg.org,
- airlied@gmail.com, james.qian.wang@arm.com, olvaffe@gmail.com,
- linux-arm-msm@vger.kernel.org, quic_abhinavk@quicinc.com, mripard@kernel.org,
- sean@poorly.run, vladimir.lypak@gmail.com, dianders@chromium.org,
- robdclark@gmail.com, daniel@ffwll.ch, dmitry.baryshkov@linaro.org,
- freedreno@lists.freedesktop.org, brian.starkey@arm.com
+Cc: devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, Stephen Boyd <swboyd@chromium.org>,
+ Vinod Koul <vkoul@kernel.org>, Daniel Vetter <daniel@ffwll.ch>,
+ freedreno@lists.freedesktop.org, David Airlie <airlied@gmail.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Thu, Nov 10, 2022 at 05:44:44PM +0800, Gaosheng Cui wrote:
-> The komeda_pipeline_get_state() returns an ERR_PTR() on failure, we should
-> use IS_ERR() to check the return value.
+On 04/11/2022 16:58, Konrad Dybcio wrote:
 > 
-> Fixes: 502932a03fce ("drm/komeda: Add the initial scaler support for CORE")
-> Signed-off-by: Gaosheng Cui <cuigaosheng1@huawei.com>
-
-Acked-by: Liviu Dudau <liviu.dudau@arm.com>
-
-Thanks for the fix!
-
-Best regards,
-Liviu
-
-> ---
->  drivers/gpu/drm/arm/display/komeda/komeda_pipeline_state.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
+> On 04/11/2022 14:03, Dmitry Baryshkov wrote:
+>> On sm8450 a register block was removed from MDP TOP. Accessing it during
+>> snapshotting results in NoC errors / immediate reboot. Skip accessing
+>> these registers during snapshot.
 > 
-> diff --git a/drivers/gpu/drm/arm/display/komeda/komeda_pipeline_state.c b/drivers/gpu/drm/arm/display/komeda/komeda_pipeline_state.c
-> index 3276a3e82c62..e9c92439398d 100644
-> --- a/drivers/gpu/drm/arm/display/komeda/komeda_pipeline_state.c
-> +++ b/drivers/gpu/drm/arm/display/komeda/komeda_pipeline_state.c
-> @@ -259,7 +259,7 @@ komeda_component_get_avail_scaler(struct komeda_component *c,
->  	u32 avail_scalers;
->  
->  	pipe_st = komeda_pipeline_get_state(c->pipeline, state);
-> -	if (!pipe_st)
-> +	if (IS_ERR(pipe_st))
->  		return NULL;
->  
->  	avail_scalers = (pipe_st->active_comps & KOMEDA_PIPELINE_SCALERS) ^
-> -- 
-> 2.25.1
+> Must have been fun to debug..
 > 
+> 
+>>
+>> Tested-by: Vinod Koul <vkoul@kernel.org>
+>> Reviewed-by: Vinod Koul <vkoul@kernel.org>
+>> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+>> ---
+>>   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h |  1 +
+>>   drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c        | 11 +++++++++--
+>>   2 files changed, 10 insertions(+), 2 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h 
+>> b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h
+>> index 38aa38ab1568..4730f8268f2a 100644
+>> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h
+>> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h
+>> @@ -92,6 +92,7 @@ enum {
+>>       DPU_MDP_UBWC_1_0,
+>>       DPU_MDP_UBWC_1_5,
+>>       DPU_MDP_AUDIO_SELECT,
+>> +    DPU_MDP_PERIPH_0_REMOVED,
+>>       DPU_MDP_MAX
+>>   };
+>> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c 
+>> b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
+>> index f3660cd14f4f..95d8765c1c53 100644
+>> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
+>> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
+>> @@ -927,8 +927,15 @@ static void dpu_kms_mdp_snapshot(struct 
+>> msm_disp_state *disp_state, struct msm_k
+>>           msm_disp_snapshot_add_block(disp_state, cat->wb[i].len,
+>>                   dpu_kms->mmio + cat->wb[i].base, "wb_%d", i);
+>> -    msm_disp_snapshot_add_block(disp_state, cat->mdp[0].len,
+>> -            dpu_kms->mmio + cat->mdp[0].base, "top");
+>> +    if (dpu_kms->hw_mdp->caps->features & 
+>> BIT(DPU_MDP_PERIPH_0_REMOVED)) {
+>> +        msm_disp_snapshot_add_block(disp_state, 0x380,
+>> +                dpu_kms->mmio + cat->mdp[0].base, "top");
+>> +        msm_disp_snapshot_add_block(disp_state, cat->mdp[0].len - 0x3a8,
+>> +                dpu_kms->mmio + cat->mdp[0].base + 0x3a8, "top_2");
+> 
+> Are these values expected to stay the same on different new-gen SoCs? 
+> Maybe it would
+> 
+> be worth making it dynamic.
+
+I do not want to overcomplicate this. Let's make it dynamic once there 
+is need for that. For now I expect this will be static.
+
+> 
+> 
+> Konrad
+> 
+>> +    } else {
+>> +        msm_disp_snapshot_add_block(disp_state, cat->mdp[0].len,
+>> +                dpu_kms->mmio + cat->mdp[0].base, "top");
+>> +    }
+>>       pm_runtime_put_sync(&dpu_kms->pdev->dev);
+>>   }
 
 -- 
-====================
-| I would like to |
-| fix the world,  |
-| but they're not |
-| giving me the   |
- \ source code!  /
-  ---------------
-    ¯\_(ツ)_/¯
+With best wishes
+Dmitry
+
