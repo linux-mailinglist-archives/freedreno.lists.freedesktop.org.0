@@ -2,89 +2,36 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id B2ADB6241CA
-	for <lists+freedreno@lfdr.de>; Thu, 10 Nov 2022 12:56:01 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0A36E624703
+	for <lists+freedreno@lfdr.de>; Thu, 10 Nov 2022 17:31:13 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 60ECE10E73A;
-	Thu, 10 Nov 2022 11:56:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A644310E002;
+	Thu, 10 Nov 2022 16:31:11 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-X-Greylist: delayed 577 seconds by postgrey-1.36 at gabe;
- Thu, 10 Nov 2022 11:55:55 UTC
-Received: from out3-smtp.messagingengine.com (out3-smtp.messagingengine.com
- [66.111.4.27])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9C1D910E73A
- for <freedreno@lists.freedesktop.org>; Thu, 10 Nov 2022 11:55:55 +0000 (UTC)
-Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.nyi.internal (Postfix) with ESMTP id 577025C016A;
- Thu, 10 Nov 2022 06:46:14 -0500 (EST)
-Received: from mailfrontend2 ([10.202.2.163])
- by compute4.internal (MEProxy); Thu, 10 Nov 2022 06:46:14 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cerno.tech; h=cc
- :cc:content-transfer-encoding:content-type:date:date:from:from
- :in-reply-to:in-reply-to:message-id:mime-version:references
- :reply-to:sender:subject:subject:to:to; s=fm2; t=1668080774; x=
- 1668167174; bh=BsR56HSej5wLEnQIbihgAJ8HcMDp/WjCOHTnYkSXCSc=; b=a
- JM8tc/TDyL0JuttNSK85/27V0lax0sxopBq2dEqHVaBvZjuGYNYVZ0Yupc+ZDGf4
- Nlkrv3/l4hENMq6pe0WVQF7ahh4b9Q7bElOPVER37Y79lI/HKxsdHeTJD3sdqhk/
- b6DhEbU0HZx+0XCyeCy8X8WYyWJhAkzTiz6phhLfArbE6i3CIlReCV27EA4jiFnQ
- c1+JCoBrU9Ztqi7ktk7ZVEZZ7Cxrnfs3s325gH6VcPQ6wTbjyS6RBLLJH9SxVdXp
- O0yMgfNhoKK8TL2itWKzEa6e0qDpX9ZOeodOk/zk0tjshA18uOe9jBnbWmc5Ur4W
- bjIzKFxELs1Bg0vULQUJQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:cc:content-transfer-encoding
- :content-type:date:date:feedback-id:feedback-id:from:from
- :in-reply-to:in-reply-to:message-id:mime-version:references
- :reply-to:sender:subject:subject:to:to:x-me-proxy:x-me-proxy
- :x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1668080774; x=
- 1668167174; bh=BsR56HSej5wLEnQIbihgAJ8HcMDp/WjCOHTnYkSXCSc=; b=g
- ROc3FIYhnO5/VpJJTOrNoyJ0QVKhKZJ6IXReYR/CkFHl03mJQRWXQ/01k1nRZ7dc
- LiD1FFGRIY6pIybtBjpOBSPJ6kYKIBSb4YzP+iPDpkbCYQ2RcA7nb0BdCC/xMiTa
- OTVtJxBNxM7VDWX/XpKUfM1KsSe8up5kfJNJt8G8ADNqERlCOdkGe5ht9RmJIAYl
- c87OTpgWGZzmWctSUPelc8+Nn+JqefaxOxv4GWA4OLxB/MXqAgNPrGe+LFjW+tGg
- UAeABcLxTDx1gB8yAmlYqS0Cc46kzn2VgNCEK2Z6itbAL+iVlDsdrNvbJWI3bk1c
- XDfJSrSLTncrsYtj0DdkQ==
-X-ME-Sender: <xms:heRsY0jsD-cArDSmxlAx6-ZnYz5dxCC6GrsUgvobauPUQj5qsArW4g>
- <xme:heRsY9BmZjrjMJ3cjTMwfBv8-OEi4daGtz_afAdFppUVik7v4grdAKu8h-ZmJ4QUW
- vBebA71E7GmdCO7Sl8>
-X-ME-Received: <xmr:heRsY8H-GP2nyxk-0ORlzWUGJ5F1q510yzefUHMxMEYsH9kGxWGlTbBcAhxej2MtvH2LSPSnlI3w-ZgA08kA2gfEMC7mbH7RJt8S0m2JU5-2uw>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvgedrfeeggdefvdcutefuodetggdotefrodftvf
- curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
- uegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenuc
- fjughrpefhvfevjghfuffkffggtgfgofesthekredtredtjeenucfhrhhomhepofgrgihi
- mhgvucftihhprghrugcuoehmrgigihhmvgestggvrhhnohdrthgvtghhqeenucggtffrrg
- htthgvrhhnpeeifeeigeelhfehkeeltdetjeetueelteeuveekueevffduhefffefhhfeh
- gfehieenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpe
- hmrgigihhmvgestggvrhhnohdrthgvtghh
-X-ME-Proxy: <xmx:heRsY1RKVbXkpoRjDaBAvP8voJX7kY3RumtVNUWgY9sHYDgudbDoPw>
- <xmx:heRsYxziy2-f9hjmnmgzGqJkqrGhmvEwZZdhVRmYzOh5EASSu_Oeiw>
- <xmx:heRsYz4KqwFD6CWLBDYu3xeZkNuXEweBpmX59TR8RLufxQ607jeXEA>
- <xmx:huRsY4jKGMjMpzG0tJVFayEhRmgq-tyD5yOtfEDCHAz4P_qESK7X0w>
-Feedback-ID: i8771445c:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
- 10 Nov 2022 06:46:12 -0500 (EST)
-From: Maxime Ripard <maxime@cerno.tech>
-To: brian.starkey@arm.com, liviu.dudau@arm.com,
- angelogioacchino.delregno@somainline.org, mihail.atanassov@arm.com, 
- robdclark@gmail.com, mripard@kernel.org, vladimir.lypak@gmail.com,
- olvaffe@gmail.com, dianders@chromium.org, 
- daniel@ffwll.ch, quic_abhinavk@quicinc.com, airlied@gmail.com, sean@poorly.run,
- james.qian.wang@arm.com, 
- emma@anholt.net, quic_akhilpo@quicinc.com, marijn.suijten@somainline.org,
- thierry.reding@gmail.com, 
- Gaosheng Cui <cuigaosheng1@huawei.com>, dmitry.baryshkov@linaro.org,
- sam@ravnborg.org
-In-Reply-To: <20221110094445.2930509-6-cuigaosheng1@huawei.com>
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by gabe.freedesktop.org (Postfix) with ESMTP id E6D3910E002
+ for <freedreno@lists.freedesktop.org>; Thu, 10 Nov 2022 16:31:08 +0000 (UTC)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id CC0CB1FB
+ for <freedreno@lists.freedesktop.org>; Thu, 10 Nov 2022 08:31:14 -0800 (PST)
+Received: from e110455-lin.cambridge.arm.com (usa-sjc-imap-foss1.foss.arm.com
+ [10.121.207.14])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 6685D3F703
+ for <freedreno@lists.freedesktop.org>; Thu, 10 Nov 2022 08:31:08 -0800 (PST)
+Date: Thu, 10 Nov 2022 16:30:45 +0000
+From: Liviu Dudau <liviu.dudau@arm.com>
+To: Gaosheng Cui <cuigaosheng1@huawei.com>
+Message-ID: <Y20nNWA1U+vJBl9y@e110455-lin.cambridge.arm.com>
 References: <20221110094445.2930509-1-cuigaosheng1@huawei.com>
- <20221110094445.2930509-6-cuigaosheng1@huawei.com>
-Message-Id: <166808077078.1000366.11533322573210640041.b4-ty@cerno.tech>
-Date: Thu, 10 Nov 2022 12:46:10 +0100
+ <20221110094445.2930509-5-cuigaosheng1@huawei.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-X-Mailer: b4 0.11.0-dev-99e3a
-Subject: Re: [Freedreno] (subset) [PATCH 5/5] drm/vc4: kms: Fix IS_ERR() vs
- NULL check for vc4_kms
+In-Reply-To: <20221110094445.2930509-5-cuigaosheng1@huawei.com>
+Subject: Re: [Freedreno] [PATCH 4/5] drm/komeda: Fix IS_ERR() vs NULL check
+ in komeda_component_get_avail_scaler()
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -97,23 +44,58 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org
+Cc: emma@anholt.net, quic_akhilpo@quicinc.com, dri-devel@lists.freedesktop.org,
+ thierry.reding@gmail.com, angelogioacchino.delregno@somainline.org,
+ marijn.suijten@somainline.org, mihail.atanassov@arm.com, sam@ravnborg.org,
+ airlied@gmail.com, james.qian.wang@arm.com, olvaffe@gmail.com,
+ linux-arm-msm@vger.kernel.org, quic_abhinavk@quicinc.com, mripard@kernel.org,
+ sean@poorly.run, vladimir.lypak@gmail.com, dianders@chromium.org,
+ robdclark@gmail.com, daniel@ffwll.ch, dmitry.baryshkov@linaro.org,
+ freedreno@lists.freedesktop.org, brian.starkey@arm.com
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Thu, 10 Nov 2022 17:44:45 +0800, Gaosheng Cui wrote:
-> The drm_atomic_get_new_private_obj_state() function returns NULL
-> on error path, drm_atomic_get_old_private_obj_state() function
-> returns NULL on error path, too, they does not return error pointers.
+On Thu, Nov 10, 2022 at 05:44:44PM +0800, Gaosheng Cui wrote:
+> The komeda_pipeline_get_state() returns an ERR_PTR() on failure, we should
+> use IS_ERR() to check the return value.
 > 
-> By the way, vc4_hvs_get_new/old_global_state() should return
-> ERR_PTR(-EINVAL), otherwise there will be null-ptr-defer issue,
-> such as follows:
+> Fixes: 502932a03fce ("drm/komeda: Add the initial scaler support for CORE")
+> Signed-off-by: Gaosheng Cui <cuigaosheng1@huawei.com>
+
+Acked-by: Liviu Dudau <liviu.dudau@arm.com>
+
+Thanks for the fix!
+
+Best regards,
+Liviu
+
+> ---
+>  drivers/gpu/drm/arm/display/komeda/komeda_pipeline_state.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
 > 
-> [...]
+> diff --git a/drivers/gpu/drm/arm/display/komeda/komeda_pipeline_state.c b/drivers/gpu/drm/arm/display/komeda/komeda_pipeline_state.c
+> index 3276a3e82c62..e9c92439398d 100644
+> --- a/drivers/gpu/drm/arm/display/komeda/komeda_pipeline_state.c
+> +++ b/drivers/gpu/drm/arm/display/komeda/komeda_pipeline_state.c
+> @@ -259,7 +259,7 @@ komeda_component_get_avail_scaler(struct komeda_component *c,
+>  	u32 avail_scalers;
+>  
+>  	pipe_st = komeda_pipeline_get_state(c->pipeline, state);
+> -	if (!pipe_st)
+> +	if (IS_ERR(pipe_st))
+>  		return NULL;
+>  
+>  	avail_scalers = (pipe_st->active_comps & KOMEDA_PIPELINE_SCALERS) ^
+> -- 
+> 2.25.1
+> 
 
-Applied to drm/drm-misc (drm-misc-fixes).
-
-Thanks!
-Maxime
+-- 
+====================
+| I would like to |
+| fix the world,  |
+| but they're not |
+| giving me the   |
+ \ source code!  /
+  ---------------
+    ¯\_(ツ)_/¯
