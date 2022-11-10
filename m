@@ -1,83 +1,79 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 763A962391A
-	for <lists+freedreno@lfdr.de>; Thu, 10 Nov 2022 02:44:52 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 1E37E623CDF
+	for <lists+freedreno@lfdr.de>; Thu, 10 Nov 2022 08:44:09 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 184F210E647;
-	Thu, 10 Nov 2022 01:44:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B2C7110E673;
+	Thu, 10 Nov 2022 07:44:07 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D443910E646;
- Thu, 10 Nov 2022 01:44:47 +0000 (UTC)
-Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 2AA0WjW0015498; Thu, 10 Nov 2022 01:44:40 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
- h=message-id : date :
- mime-version : subject : to : cc : references : from : in-reply-to :
- content-type : content-transfer-encoding; s=qcppdkim1;
- bh=OdLE+TuxhRZtAUF+DVlWvnXLX0aWwsGqekatk5qNFpo=;
- b=eGALCP4T6iqtlx4uRSOhFZMBRLzM4rDWasd5w3dN6EY4fAQTWWjJlrXHMJz+6r8h6EDb
- FaeKYC6zmVY/Hq8dNlNGdm3jUngPxxy+YMgUlvr7jE/Cny1ktDZxzM72UaV2oPsPA7Xe
- nJddz4V4Vu07mpZyuZx+kih7F5PRVZ8F5CvkboLYKJV2KMaest4fMfdAefYSc2zMwEHO
- 8PUdvCdRCQZjTNPXio0UZrq/2gbh7vHK2Fq/L4RbZCeaNNIJvB0bBUN1fgs6aebIpolV
- shCusRM68CtyKaRhr7Lk11M0T/SBJfb9p6Id839Fw94cX3P8tahgFrHcs3vDJzGKjUBr VA== 
-Received: from nasanppmta04.qualcomm.com (i-global254.qualcomm.com
- [199.106.103.254])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3kqugbbx9s-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 10 Nov 2022 01:44:40 +0000
-Received: from nasanex01b.na.qualcomm.com (nasanex01b.na.qualcomm.com
- [10.46.141.250])
- by NASANPPMTA04.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 2AA1ich7008279
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 10 Nov 2022 01:44:38 GMT
-Received: from [10.71.111.47] (10.80.80.8) by nasanex01b.na.qualcomm.com
- (10.46.141.250) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.29; Wed, 9 Nov 2022
- 17:44:38 -0800
-Message-ID: <1f291321-1319-f6d8-b2cb-85ddbe970766@quicinc.com>
-Date: Wed, 9 Nov 2022 17:44:37 -0800
+Received: from mail-lf1-x129.google.com (mail-lf1-x129.google.com
+ [IPv6:2a00:1450:4864:20::129])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F130310E672
+ for <freedreno@lists.freedesktop.org>; Thu, 10 Nov 2022 07:44:02 +0000 (UTC)
+Received: by mail-lf1-x129.google.com with SMTP id p8so1585251lfu.11
+ for <freedreno@lists.freedesktop.org>; Wed, 09 Nov 2022 23:44:02 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=5jfTJLbOMPdujf4x0+Dv265P0Iq2mzeM6nHnDg9MXeg=;
+ b=AXwl/poTGLi7lfFlrmGBXrzE66dtjO4OOVqM19FCmrI0ZwQk+LqY6zACq8/X3twNXw
+ Zkg4YXiiJBB7svvXzW+DAjry/BczhfMokjWFSHB9DdwBd+PCMlfrrd9BpSXLo1Azvqdw
+ IyoV4L60VRlmSScFkCcEblUj5Hjo0UjXGCglUEsuacHEFFZslnmknVAvccWKI2MwkxFE
+ exLejtP3Ua2z6/vAsau2/nrzgUQkskdDC0wqmI/DQbFn36KTlW3fGv0CX4V8EStT5apn
+ WEyDPLFJHfUS9yO3Yw6S9ZNG5y+7qsmLf9uCIJGhgOlqBllr7qwIN8DBCsS+xNk4LqnT
+ HKig==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=5jfTJLbOMPdujf4x0+Dv265P0Iq2mzeM6nHnDg9MXeg=;
+ b=0vQlqOxBCsICHIR7PySfa7g+zJY4UtGsdmQrP0BEKZTWLqiSMbR80drSiG2CQCH+Kv
+ +OYayoOXQNNHXZbezcmK/8lCPMb/tRQzRDjJmLvg9RZ0GmeJbL3ONeqYFn12MQsAN3xs
+ OEoZEaQxVASVhSksh9gFaHlNjjwZO41gFg4hUY3c2dyfBmoeQpTM+mpVyQ5mHnH/9qA9
+ +WRVDFmDhSDB81OxheM4DEkiAJznPGkpk/wOVEx7gM21e+vWWlZHZyOlufnfDikg2vaw
+ /EinNwl/fnbgcgk03+R6ULzbB88Cg16vdHAA1rcJ3iKraMLBBcmSGa6Av8laxQV1g2jw
+ f4ng==
+X-Gm-Message-State: ANoB5pmepcG58pUc3UOlwyl1lESbI3TzsgXgF7LuIK6pBrLwtQ7rs5nL
+ nrlpuL/ZF3ANI7O9enkJdixcig==
+X-Google-Smtp-Source: AA0mqf6rw5MRmht/n8jPYKogCphtvDWLgob4EoxUlawBLfCzM2NwRPQeACStT3Jcqs183rS14NBW8g==
+X-Received: by 2002:a05:6512:758:b0:4b4:ead:697c with SMTP id
+ c24-20020a056512075800b004b40ead697cmr2859653lfs.25.1668066241090; 
+ Wed, 09 Nov 2022 23:44:01 -0800 (PST)
+Received: from [10.27.10.248] ([195.165.23.90])
+ by smtp.gmail.com with ESMTPSA id
+ k4-20020a05651239c400b00499cf3e3edcsm1227599lfu.296.2022.11.09.23.43.59
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 09 Nov 2022 23:44:00 -0800 (PST)
+Message-ID: <adf5f80a-17e5-1163-a93c-2759ae57d77d@linaro.org>
+Date: Thu, 10 Nov 2022 10:43:59 +0300
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.4.1
-Content-Language: en-US
-To: Daniel Vetter <daniel@ffwll.ch>, Dmitry Baryshkov
- <dmitry.baryshkov@linaro.org>
-References: <20221028225952.160-1-quic_jesszhan@quicinc.com>
- <20221028225952.160-2-quic_jesszhan@quicinc.com>
- <eddf4726-3d7e-601a-51ac-03adb2dd822b@linaro.org>
- <fqY-wVvRxd553E0flH80_NaZMpmiVTIdhvu6F31qM9T4yQ0L5fbT9JiixWIhDcDAt3Hxy1roQxwntvgVEnqm5WK6dzEIKqXnlLRcywGhYH4=@emersion.fr>
- <Y2uwjKCN4KGzm3aN@phenom.ffwll.local>
- <ee755c43-434a-a990-0efa-ed5c6baa237e@linaro.org>
- <Y2uyOcVbadRwr9/O@phenom.ffwll.local>
-From: Jessica Zhang <quic_jesszhan@quicinc.com>
-In-Reply-To: <Y2uyOcVbadRwr9/O@phenom.ffwll.local>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Language: en-GB
+To: Kuogee Hsieh <quic_khsieh@quicinc.com>,
+ Doug Anderson <dianders@chromium.org>
+References: <1667237245-24988-1-git-send-email-quic_khsieh@quicinc.com>
+ <94b507e8-5b94-12ae-4c81-95f5d36279d5@linaro.org>
+ <deb60200-5a37-ec77-9515-0c0c89022174@quicinc.com>
+ <CAD=FV=X_fs_4JYcRvAwkU9mAafOten9WdyzPfSVWdAU=ZMo8zg@mail.gmail.com>
+ <155e4171-187c-4ecf-5a9b-12f0c2207524@linaro.org>
+ <CAD=FV=Wk5rBSq9Mx1GCO0QFYckKV9KUFKL36Ld7dQX1ypHVcYw@mail.gmail.com>
+ <CAD=FV=XTOUjVAGFWZ6xTkcNOrCT1p73aU-=KJNYUOxsS-BQsyA@mail.gmail.com>
+ <c5aedb31-3881-50e7-f747-e75b18c3f4b8@linaro.org>
+ <CAD=FV=WPde5wVOGCKQYGuGwgCwRebox4FF0MgV_2pPCTsfo_UA@mail.gmail.com>
+ <60643572-4148-cea5-e64d-ec6534b0c407@linaro.org>
+ <a4127ba2-5968-e8a9-da63-fd709aa01e7f@quicinc.com>
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+In-Reply-To: <a4127ba2-5968-e8a9-da63-fd709aa01e7f@quicinc.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
- nasanex01b.na.qualcomm.com (10.46.141.250)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-GUID: g36m7ROXu3t7PPwc0PyEZ9tfpCOqEndQ
-X-Proofpoint-ORIG-GUID: g36m7ROXu3t7PPwc0PyEZ9tfpCOqEndQ
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.219,Aquarius:18.0.895,Hydra:6.0.545,FMLib:17.11.122.1
- definitions=2022-11-09_06,2022-11-09_01,2022-06-22_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 spamscore=0
- mlxlogscore=999 clxscore=1011 phishscore=0 mlxscore=0 lowpriorityscore=0
- adultscore=0 bulkscore=0 suspectscore=0 priorityscore=1501 impostorscore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2210170000
- definitions=main-2211100010
-Subject: Re: [Freedreno] [RFC PATCH 1/3] drm: Introduce color fill
- properties for drm plane
+Subject: Re: [Freedreno] [PATCH] drm/msm/dp: remove limitation of link rate
+ at 5.4G to support HBR3
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -90,84 +86,91 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Simon Ser <contact@emersion.fr>, quic_abhinavk@quicinc.com,
- dri-devel@lists.freedesktop.org, swboyd@chromium.org, daniel.vetter@ffwll.ch,
- robdclark@gmail.com, seanpaul@chromium.org, laurent.pinchart@ideasonboard.com,
- linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org
+Cc: quic_sbillaka@quicinc.com, quic_abhinavk@quicinc.com, airlied@linux.ie,
+ freedreno@lists.freedesktop.org, Bjorn Andersson <andersson@kernel.org>,
+ vkoul@kernel.org, dri-devel@lists.freedesktop.org, swboyd@chromium.org,
+ robdclark@gmail.com, agross@kernel.org, daniel@ffwll.ch,
+ linux-arm-msm@vger.kernel.org, sean@poorly.run, linux-kernel@vger.kernel.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-
-
-On 11/9/2022 5:59 AM, Daniel Vetter wrote:
-> On Wed, Nov 09, 2022 at 04:53:45PM +0300, Dmitry Baryshkov wrote:
->> On 09/11/2022 16:52, Daniel Vetter wrote:
->>> On Tue, Nov 08, 2022 at 06:25:29PM +0000, Simon Ser wrote:
->>>> On Saturday, October 29th, 2022 at 13:23, Dmitry Baryshkov <dmitry.baryshkov@linaro.org> wrote:
->>>>
->>>>> On 29/10/2022 01:59, Jessica Zhang wrote:
->>>>>
->>>>>> Add support for COLOR_FILL and COLOR_FILL_FORMAT properties for
->>>>>> drm_plane. In addition, add support for setting and getting the values
->>>>>> of these properties.
->>>>>>
->>>>>> COLOR_FILL represents the color fill of a plane while COLOR_FILL_FORMAT
->>>>>> represents the format of the color fill. Userspace can set enable solid
->>>>>> fill on a plane by assigning COLOR_FILL to a uint64_t value, assigning
->>>>>> the COLOR_FILL_FORMAT property to a uint32_t value, and setting the
->>>>>> framebuffer to NULL.
->>>>>
->>>>> I suppose that COLOR_FILL should override framebuffer rather than
->>>>> requiring that FB is set to NULL. In other words, if color_filL_format
->>>>> is non-zero, it would make sense to ignore the FB. Then one can use the
->>>>> color_fill_format property to quickly switch between filled plane and
->>>>> FB-backed one.
->>>>
->>>> That would be inconsistent with the rest of the KMS uAPI. For instance,
->>>> the kernel will error out if CRTC has active=0 but a connector is still
->>>> linked to the CRTC. IOW, the current uAPI errors out if the KMS state
->>>> is inconsistent.
+On 10/11/2022 02:47, Kuogee Hsieh wrote:
+> 
+> On 11/2/2022 11:04 AM, Dmitry Baryshkov wrote:
+>> On 02/11/2022 20:28, Doug Anderson wrote:
+>>> Hi,
 >>>
->>> So if the use-case here really is to solid-fill a plane (and not just
->>> provide a background color for the crtc overall), then I guess we could
->>> also extend addfb to make that happen. We've talked in the past about
->>> propertery-fying framebuffer objects, and that would sort out this uapi
->>> wart. And I agree the color fill vs PLANE_ID issue is a bit ugly at least.
+>>> On Wed, Nov 2, 2022 at 10:23 AM Dmitry Baryshkov
+>>> <dmitry.baryshkov@linaro.org> wrote:
+>>>>
+>>>>> 1. Someone figures out how to model this with the bridge chain and
+>>>>> then we only allow HBR3 if we detect we've got a TCPC that supports
+>>>>> it. This seems like the cleanest / best but feels like a long pole.
+>>>>> Not only have we been trying to get the TCPC-modeled-as-a-bridge stuff
+>>>>> landed for a long time but even when we do it we still don't have a
+>>>>> solution for how to communicate the number of lanes and other stuff
+>>>>> between the TCPC and the DP controller so we have to enrich the bridge
+>>>>> interface.
+>>>>
+>>>> I think we'd need some OOB interface. For example for DSI interfaces we
+>>>> have mipi_dsi_device struct to communicate such OOB data.
+>>>>
+>>>> Also take a note regarding data-lanes from my previous email.
 >>>
->>> But if the use-cases are all background color then just doing the crtc
->>> background color would be tons simpler (and likely also easier to support
->>> for more hardware).
+>>> Right, we can somehow communicate the max link rate through the bridge
+>>> chain to the DP controller in an OOB manner that would work.
 >>
->> No. The hardware supports multiple color-filled planes, which do not have to
->> cover the whole CRTC.
+>> I'd note that our dp_panel has some notion of such OOB data. So do AUX 
+>> drivers including the panel-edp. My suggestion would be to consider 
+>> both of them while modelling the OOB data.
+>>
+>>>
+>>>
+>>>>> 2. We add in a DT property to the display controller node that says
+>>>>> the max link rate for use on this board. This feels like a hack, but
+>>>>> maybe it's not too bad. Certainly it would be incredibly simple to
+>>>>> implement. Actually... ...one could argue that even if we later model
+>>>>> the TCPC as a bridge that this property would still be valid / useful!
+>>>>> You could certainly imagine that the SoC supports HBR3 and the TCPC
+>>>>> supports HBR3 but that the board routing between the SoC and the TCPC
+>>>>> is bad and only supports HBR2. In this case the only way out is
+>>>>> essentially a "board constraint" AKA a DT property in the DP
+>>>>> controller.
+>>>>
+>>>> We have been discussing similar topics with Abhinav. Krzysztof 
+>>>> suggested
+>>>> using link-frequencies property to provide max and min values.
 > 
-> The use case here means the userspace use-case. What the hw can do on any
-> given chip kinda doesnt matter, which is why I'm asking. KMD uapi is not
-> meant to reflect 100% exactly what a specific chip can do, but instead:
-> - provide features userspace actually needs. If you want per-plane fill,
->    you need userspace that makes use of per-plane fill, and if all you have
->    is crtc background, then that's it.
-
-Hey Daniel,
-
-The userspace use case we're trying to support is the Android HWC 
-SOLID_FILL hint here [1], which is specifying per-plane fill.
-
-Thanks,
-
-Jessica Zhang
-
-[1] 
-https://android.googlesource.com/platform/hardware/interfaces/+/refs/heads/master/graphics/composer/aidl/android/hardware/graphics/composer3/Composition.aidl#52
-
-> - we should create uapi with an eye towards what's actually possible on a
->    reasonable set of drivers and hw. Sometimes that means a slightly more
->    restricted set so that it's possible to implement in more places,
->    especially if that restricted feature set still gets the job done for
->    userspace.
+> questions,
 > 
-> Cheers, Daniel
-> -- 
-> Daniel Vetter
-> Software Engineer, Intel Corporation
-> http://blog.ffwll.ch
+> 1)is Krzysztof suggested had been implemented?
+
+I can not parse this question, please excuse me.
+
+Yes, Krzysztof suggested this being implemented as a link property, see 
+media/video-interfaces.txt.
+
+Moreover your implementation goes against both the existing definition 
+(array with the list of frequencies) and Krzysztof's suggested extension 
+(min and max). Listing just a single frequency goes against both these 
+suggestions. In case of DP we have a fixed set of frequencies. Thus I'd 
+suggest listing all supported frequencies instead.
+
+> 2) where is link property i can add link-frequencies?
+
+link node. Create outbound graph node, add link-frequencies there. Also 
+as you are touching this part, please move the data-lanes property too.
+
+> 
+> 
+>>>
+>>> This sounds good to me and seems worth doing even if we eventually do 
+>>> #1.
+>>
+>> And the bonus point is that it can be done easily.
+>>
+
+-- 
+With best wishes
+Dmitry
+
