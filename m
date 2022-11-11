@@ -1,57 +1,57 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1C54E625E25
-	for <lists+freedreno@lfdr.de>; Fri, 11 Nov 2022 16:19:12 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 4B880625E38
+	for <lists+freedreno@lfdr.de>; Fri, 11 Nov 2022 16:20:58 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C375D10E83E;
-	Fri, 11 Nov 2022 15:19:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E730B10E849;
+	Fri, 11 Nov 2022 15:20:56 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ej1-x636.google.com (mail-ej1-x636.google.com
- [IPv6:2a00:1450:4864:20::636])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 095F510E195
- for <freedreno@lists.freedesktop.org>; Fri, 11 Nov 2022 15:19:07 +0000 (UTC)
-Received: by mail-ej1-x636.google.com with SMTP id 13so13319941ejn.3
- for <freedreno@lists.freedesktop.org>; Fri, 11 Nov 2022 07:19:06 -0800 (PST)
+Received: from mail-ej1-x635.google.com (mail-ej1-x635.google.com
+ [IPv6:2a00:1450:4864:20::635])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7CABF10E85C
+ for <freedreno@lists.freedesktop.org>; Fri, 11 Nov 2022 15:20:53 +0000 (UTC)
+Received: by mail-ej1-x635.google.com with SMTP id i10so4604385ejg.6
+ for <freedreno@lists.freedesktop.org>; Fri, 11 Nov 2022 07:20:53 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=yFYxsUt8J7JFyjoGzzxtslLaD/ewaDBkERXxUBqCLSg=;
- b=VQdGlhldW/8GeoluOliWmXmwXcC+nSlOEjPM8Nvh2WMSXVa69KLhNUpGTXJn9Vk/D7
- iLHOU2H09lxRXOosRu0BkP292TglEvYi6sDCJi8rHSCJ1AlYsXyKiJ25P7jzLBWja6Ih
- D0/IGqoAvnT20Otev1EIstuGjC49PyiBC6VrhzOIAf6+tQqsJOv1Y0y/PqurhytXD4qb
- SLSP06QhwIX5jw4rFzLvvqYmrdKBITtFuvP1HwbBH5miQsGugrxa6zmrphfdAhIElli3
- TDGtySGjGHDIAEoXus/vo9HvFfCYoB0MbG/kMAZGTOXobVcwOfd5VfmkJi9tvon7LyR4
- Le5A==
+ bh=8E9Cs3yaXWgz5mOChIlIQoUDfwsWjoZPtNVw+9K0m3M=;
+ b=mmcX345GCDy3+LQ6q+Pzy0ZCoNRRPkcF3ifoBsQAl68YLYZ10/NiQVgutItk1xYMaL
+ 7IpvVyhFokDN+fcDLMgYYQQvESiT1V94tZbiKwBnIwhS5k7dciPLhbow33wC0dcD1Hse
+ g1yCT9x2epWf+2mHnesm6kOmE5FS0XjWFyzeqBNezQPZijMZLOh5LBRB2mr5qzqMyKkT
+ Zc7VZjiPmDYc60LEcsLoRmTX71rq7dzSQziWDaMazdAaLxHE8bm0EvGaiARlfQnCs+sG
+ TLD2wzWUqo4dnNQ2byCnVQEndzseTqwfeKlho10WOkqYgpJ0hHVFAdrwaABZFsnrm2ON
+ qbIg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=yFYxsUt8J7JFyjoGzzxtslLaD/ewaDBkERXxUBqCLSg=;
- b=5j/CBSATTb3dQGb/71CDA+0TfjcDOo4l1+soxMfVT4F6Du7knTGheno1j8g539fkFR
- eTx/P9T84vbO6v+ssAYK02B6LxcUba8LE2rCMmwnRCEpg0SV8/1QffW71sr/2XVr6ko3
- 48rGbUL9EhPhy1b4CzsUlWWXmc2tElg5ai2MezxhdFT9NwQkMWLZV5hIOgas8B6OR7bo
- Pv4DjgbYKDmI0qSK/4rol9frpp3twJ48mO9ZDoja9k2C4nvBE3Q+ILpT9bD+wxt53Smg
- oGi6tBHA/eGSJUCeU7v2OrBd9jEAlSjbd6hpfRZm2mqY1daSO4tfur7Dn1CnuSvZPUyi
- ugtg==
-X-Gm-Message-State: ANoB5pmmX08QulG5dBxZaeCMHwaRAW0iFKdfEUNSEqz+wCXs0n3TkEyY
- kdyP0UmNxEpNoRw2FSL/mpqFffJnuLqvR7mHbQbxIQ==
-X-Google-Smtp-Source: AA0mqf5fs7r3Q7Hcn5cGYKrcbBrTcAMt3nlR6oESsPm8IGvQ9qSyz68bnViPR0UgeDZioWu9KPrylyB19pftcoM03mo=
-X-Received: by 2002:a17:906:dc1:b0:7ae:6d3e:a02e with SMTP id
- p1-20020a1709060dc100b007ae6d3ea02emr2091354eji.626.1668179945517; Fri, 11
- Nov 2022 07:19:05 -0800 (PST)
+ bh=8E9Cs3yaXWgz5mOChIlIQoUDfwsWjoZPtNVw+9K0m3M=;
+ b=BeuvESPSHXk5I/QyWGVTjM6wlYFNT7/j1g15JWmT/cpMUfscN4fTxrPGLWxbYn0nnT
+ KTVZ8YdxlAwFTKPNrnSfKQI63Of/cRoHzz71ZQPeHbo4U0sFMkSJOUa8ZXcosKPHRGIO
+ sT4b+jcAhUPgRjqsZhwvZONBbuTSUhQwBqWBlIgRaGtoSSjHc3UhT9DWvoDWU1geupee
+ ertDAOYRIppMm3u+sQ5YFd/zgAhOGrGGq4xj+hvvV0G+1yqgKnospQSpt/mhIKGWAP6A
+ lYlXabC7EfJZ9juhwOD9lskycHpzxQTYsGJLXkR+jYCKco2ZQMvMaWLDqrMWHOfiwuCT
+ Grjg==
+X-Gm-Message-State: ANoB5plfEwFokkesPduy20klzmQ7sf+YiYvvmAhMn8gtp9oqqG9jwKu8
+ P708f1RcTUJSRIAOmF9oOxs8wiPe9uC8BNIScV+3kw==
+X-Google-Smtp-Source: AA0mqf5F1dF3oI4lEMZel6lUNLdl92gcf9qtQZbBA0ZEZW8n4zJvZRo9IKm7wRimlZusvKqtya6WCuvYLzPh4/aStTM=
+X-Received: by 2002:a17:906:2ecf:b0:778:f9b6:6fc with SMTP id
+ s15-20020a1709062ecf00b00778f9b606fcmr2245177eji.580.1668180051848; Fri, 11
+ Nov 2022 07:20:51 -0800 (PST)
 MIME-Version: 1.0
 References: <20221028120812.339100-1-robert.foss@linaro.org>
  <20221028120812.339100-10-robert.foss@linaro.org>
- <20221028135718.4pmh6moee2wx2lpf@baldur>
-In-Reply-To: <20221028135718.4pmh6moee2wx2lpf@baldur>
+ <408b7b0c-ce30-134e-9b1f-f77c1f03f5c9@linaro.org>
+In-Reply-To: <408b7b0c-ce30-134e-9b1f-f77c1f03f5c9@linaro.org>
 From: Robert Foss <robert.foss@linaro.org>
-Date: Fri, 11 Nov 2022 16:18:54 +0100
-Message-ID: <CAG3jFyt_Aws4_aW4ocQwtAh3XwRGFK-u7BeRszjmJ7Z715dmwA@mail.gmail.com>
-To: Bjorn Andersson <andersson@kernel.org>
+Date: Fri, 11 Nov 2022 16:20:40 +0100
+Message-ID: <CAG3jFytHzSNohr85R_uOHqn6eeour37c4=MXkaS=0JzKK4-z9Q@mail.gmail.com>
+To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 Content-Type: text/plain; charset="UTF-8"
 Subject: Re: [Freedreno] [PATCH v1 9/9] arm64: dts: qcom: sm8350-hdk: Enable
  lt9611uxc dsi-hdmi bridge
@@ -80,9 +80,10 @@ Cc: airlied@linux.ie, konrad.dybcio@somainline.org,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Fri, 28 Oct 2022 at 15:57, Bjorn Andersson <andersson@kernel.org> wrote:
+On Sat, 29 Oct 2022 at 00:06, Krzysztof Kozlowski
+<krzysztof.kozlowski@linaro.org> wrote:
 >
-> On Fri, Oct 28, 2022 at 02:08:12PM +0200, Robert Foss wrote:
+> On 28/10/2022 08:08, Robert Foss wrote:
 > > The sm8350-hdk ships with the LT9611 UXC DSI/HDMI bridge chip.
 > >
 > > In order to toggle the board to enable the HDMI output,
@@ -103,6 +104,12 @@ On Fri, 28 Oct 2022 at 15:57, Bjorn Andersson <andersson@kernel.org> wrote:
 > >       };
 > >
 > > +     hdmi-out {
+>
+> Generic node names, so hdmi-connector or just connector.
+
+Ack.
+
+>
 > > +             compatible = "hdmi-connector";
 > > +             type = "a";
 > > +
@@ -122,6 +129,13 @@ On Fri, 28 Oct 2022 at 15:57, Bjorn Andersson <andersson@kernel.org> wrote:
 > >       };
 > > +
 > > +     lt9611_1v2: lt9611-1v2 {
+>
+> Node names should be generic.
+> https://devicetree-specification.readthedocs.io/en/latest/chapter2-devicetree-basics.html#generic-names-recommendation
+
+Ack.
+
+>
 > > +             compatible = "regulator-fixed";
 > > +             regulator-name = "LT9611_1V2";
 > > +
@@ -132,15 +146,16 @@ On Fri, 28 Oct 2022 at 15:57, Bjorn Andersson <andersson@kernel.org> wrote:
 > > +             enable-active-high;
 > > +             regulator-boot-on;
 > > +             regulator-always-on;
->
-> Why is this always-on?
-
-It shouldn't be. Removing this in v2.
-
->
 > > +     };
 > > +
 > > +     lt9611_3v3: lt9611-3v3 {
+>
+> Ditto
+
+Ack.
+
+>
+>
 > > +             compatible = "regulator-fixed";
 > > +             regulator-name = "LT9611_3V3";
 > > +
@@ -178,8 +193,7 @@ It shouldn't be. Removing this in v2.
 > > +&i2c15 {
 > > +     status = "okay";
 >
-> Please keep status last. (Yes I see that it goes against the convention
-> in this file, so let's update that at some point as well)
+> status is the last property
 
 Ack.
 
@@ -191,9 +205,9 @@ Ack.
 > > +             reg = <0x2b>;
 > > +             status = "okay";
 >
-> This is the default, you can omit it.
+> Why status?
 
-Ack.
+It should be removed. Fixing in v2.
 
 >
 > > +
@@ -226,6 +240,12 @@ Ack.
 > > +                             };
 > > +                     };
 > > +
+>
+> No need for blank line
+
+Ack
+
+>
 > > +             };
 > > +     };
 > > +};
@@ -259,19 +279,23 @@ Ack.
 > > +
 > > +     lt9611_irq_pin: lt9611-irq {
 >
-> pinctrl state nodes should be suffixed with "-state".
+> Missing suffix 'state'.
+
+Ack.
+
 >
-> And you can lump the two pins into a single -state, with rst-pins and
-> irq-pins as subnodes, defining the two pins.
+> Does not look like you tested the DTS against bindings. Please run `make
+> dtbs_check` (see Documentation/devicetree/bindings/writing-schema.rst
+> for instructions).
+
+v1 was missing the bindings, v2 will include bindings for there parts.
+
 >
-> Regards,
-> Bjorn
+> Rebase your changes on last linux-next.
+
+Ack.
+
 >
-> > +             pins = "gpio50";
-> > +             function = "gpio";
-> > +             bias-disable;
-> > +     };
-> >  };
-> > --
-> > 2.34.1
-> >
+> Best regards,
+> Krzysztof
+>
