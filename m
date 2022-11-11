@@ -1,60 +1,60 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id C4375625E13
-	for <lists+freedreno@lfdr.de>; Fri, 11 Nov 2022 16:17:28 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 1C54E625E25
+	for <lists+freedreno@lfdr.de>; Fri, 11 Nov 2022 16:19:12 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5D0C810E849;
-	Fri, 11 Nov 2022 15:17:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C375D10E83E;
+	Fri, 11 Nov 2022 15:19:10 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ed1-x530.google.com (mail-ed1-x530.google.com
- [IPv6:2a00:1450:4864:20::530])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C51BC10E85C
- for <freedreno@lists.freedesktop.org>; Fri, 11 Nov 2022 15:17:23 +0000 (UTC)
-Received: by mail-ed1-x530.google.com with SMTP id u24so7997496edd.13
- for <freedreno@lists.freedesktop.org>; Fri, 11 Nov 2022 07:17:23 -0800 (PST)
+Received: from mail-ej1-x636.google.com (mail-ej1-x636.google.com
+ [IPv6:2a00:1450:4864:20::636])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 095F510E195
+ for <freedreno@lists.freedesktop.org>; Fri, 11 Nov 2022 15:19:07 +0000 (UTC)
+Received: by mail-ej1-x636.google.com with SMTP id 13so13319941ejn.3
+ for <freedreno@lists.freedesktop.org>; Fri, 11 Nov 2022 07:19:06 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=496UFFIC10qt1M6UVRQKPJnGchRATjnymhhjWaLmr1w=;
- b=RSyI8hdVimJvxqP1L25E2r+IvvfMghhQQhG4xOOGVGNagBkKs6PdvtDlIFJedry2gy
- c4NW9SoTQO+eAxMKq9tmrqF+NJVhiOQvpkx7SAriIF+w8Fa/PfUuCJkpNNmzTkfgxyWe
- mFLzBV3BZO794b6pKcm/Gfvtjgus14npORj6oBVn7ULgjX/RZckFZLa316Wk7nrU3doP
- /4PuEyIa+MCiCVTrIVb1gTKTM4y8FKJa+1AL90s5UDqqVSPNYnC1JP7oAZPUvt08XcKz
- qhPCywtOwwhNgCRuc+ykquvOBHCdJ90Z1WHv+UypB4qihvG51Pxrd9HhHzZlfD3roSPn
- MzhQ==
+ bh=yFYxsUt8J7JFyjoGzzxtslLaD/ewaDBkERXxUBqCLSg=;
+ b=VQdGlhldW/8GeoluOliWmXmwXcC+nSlOEjPM8Nvh2WMSXVa69KLhNUpGTXJn9Vk/D7
+ iLHOU2H09lxRXOosRu0BkP292TglEvYi6sDCJi8rHSCJ1AlYsXyKiJ25P7jzLBWja6Ih
+ D0/IGqoAvnT20Otev1EIstuGjC49PyiBC6VrhzOIAf6+tQqsJOv1Y0y/PqurhytXD4qb
+ SLSP06QhwIX5jw4rFzLvvqYmrdKBITtFuvP1HwbBH5miQsGugrxa6zmrphfdAhIElli3
+ TDGtySGjGHDIAEoXus/vo9HvFfCYoB0MbG/kMAZGTOXobVcwOfd5VfmkJi9tvon7LyR4
+ Le5A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=496UFFIC10qt1M6UVRQKPJnGchRATjnymhhjWaLmr1w=;
- b=TcvIQa9wAkRGBSI+6semgK3wVLbD3Wm8vGZbwbP2LbfC5+1LDKS9Q0DgofrlM8CU4x
- r+/d8+VS0sCIW2HtG3FFwE0fG38SYD3886IG8p87nbkdu2PBOhqWa3d3wXf3ZiMRu1pG
- PvhGC7jTj5bGyIv1tb6rdwsRi+JHWW/PXR6Z1N03fYwTdbQDx7GObbVSbbcbKRNHQ4jx
- rtz6AWnNlpuAl8TsUHlMdY040jEXMVFaa10F2faHp6Rk/qu3VBoC5tLWkBZI4HuYwbIC
- Z+eLe/07XoX/QIA+/HjJnw7kuy++pWvO46rpqsxvC4WPL2rzi++e7xTB1pp2I9KVkGNl
- ul+g==
-X-Gm-Message-State: ANoB5plhT6Gn7Reu8ME+RvkCqn0g7J1mT/Q47jnoMFaS4F5moM18LW0r
- 2qyN0qFog8Zhs4Nez/dwRSksk/lxZ3P4y2jTkjhqdA==
-X-Google-Smtp-Source: AA0mqf7rUnO1t4y0ADfVMEYjKFri9CWgvqhmDL2US1Uq9KFQrYcX4hZNCB5JQzEzP8ka8n7ON29oaQb+5yBamEHWx7E=
-X-Received: by 2002:a05:6402:298a:b0:461:4c59:12d6 with SMTP id
- eq10-20020a056402298a00b004614c5912d6mr1877018edb.250.1668179842232; Fri, 11
- Nov 2022 07:17:22 -0800 (PST)
+ bh=yFYxsUt8J7JFyjoGzzxtslLaD/ewaDBkERXxUBqCLSg=;
+ b=5j/CBSATTb3dQGb/71CDA+0TfjcDOo4l1+soxMfVT4F6Du7knTGheno1j8g539fkFR
+ eTx/P9T84vbO6v+ssAYK02B6LxcUba8LE2rCMmwnRCEpg0SV8/1QffW71sr/2XVr6ko3
+ 48rGbUL9EhPhy1b4CzsUlWWXmc2tElg5ai2MezxhdFT9NwQkMWLZV5hIOgas8B6OR7bo
+ Pv4DjgbYKDmI0qSK/4rol9frpp3twJ48mO9ZDoja9k2C4nvBE3Q+ILpT9bD+wxt53Smg
+ oGi6tBHA/eGSJUCeU7v2OrBd9jEAlSjbd6hpfRZm2mqY1daSO4tfur7Dn1CnuSvZPUyi
+ ugtg==
+X-Gm-Message-State: ANoB5pmmX08QulG5dBxZaeCMHwaRAW0iFKdfEUNSEqz+wCXs0n3TkEyY
+ kdyP0UmNxEpNoRw2FSL/mpqFffJnuLqvR7mHbQbxIQ==
+X-Google-Smtp-Source: AA0mqf5fs7r3Q7Hcn5cGYKrcbBrTcAMt3nlR6oESsPm8IGvQ9qSyz68bnViPR0UgeDZioWu9KPrylyB19pftcoM03mo=
+X-Received: by 2002:a17:906:dc1:b0:7ae:6d3e:a02e with SMTP id
+ p1-20020a1709060dc100b007ae6d3ea02emr2091354eji.626.1668179945517; Fri, 11
+ Nov 2022 07:19:05 -0800 (PST)
 MIME-Version: 1.0
 References: <20221028120812.339100-1-robert.foss@linaro.org>
- <20221028120812.339100-9-robert.foss@linaro.org>
- <eeeefa55-1782-2768-8d47-0f315ed9888b@linaro.org>
-In-Reply-To: <eeeefa55-1782-2768-8d47-0f315ed9888b@linaro.org>
+ <20221028120812.339100-10-robert.foss@linaro.org>
+ <20221028135718.4pmh6moee2wx2lpf@baldur>
+In-Reply-To: <20221028135718.4pmh6moee2wx2lpf@baldur>
 From: Robert Foss <robert.foss@linaro.org>
-Date: Fri, 11 Nov 2022 16:17:11 +0100
-Message-ID: <CAG3jFyvp1q=VvL6XXLTtkF2BsxUbXCu5+3-psi80A=avkgrAoA@mail.gmail.com>
-To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+Date: Fri, 11 Nov 2022 16:18:54 +0100
+Message-ID: <CAG3jFyt_Aws4_aW4ocQwtAh3XwRGFK-u7BeRszjmJ7Z715dmwA@mail.gmail.com>
+To: Bjorn Andersson <andersson@kernel.org>
 Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [PATCH v1 8/9] arm64: dts: qcom: sm8350-hdk: Enable
- display & dsi nodes
+Subject: Re: [Freedreno] [PATCH v1 9/9] arm64: dts: qcom: sm8350-hdk: Enable
+ lt9611uxc dsi-hdmi bridge
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,39 +80,198 @@ Cc: airlied@linux.ie, konrad.dybcio@somainline.org,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Sat, 29 Oct 2022 at 00:03, Krzysztof Kozlowski
-<krzysztof.kozlowski@linaro.org> wrote:
+On Fri, 28 Oct 2022 at 15:57, Bjorn Andersson <andersson@kernel.org> wrote:
 >
-> On 28/10/2022 08:08, Robert Foss wrote:
-> > Enable the display subsystem and the dsi0 output for
-> > the sm8350-hdk board.
+> On Fri, Oct 28, 2022 at 02:08:12PM +0200, Robert Foss wrote:
+> > The sm8350-hdk ships with the LT9611 UXC DSI/HDMI bridge chip.
+> >
+> > In order to toggle the board to enable the HDMI output,
+> > switch #7 & #8 on the rightmost multi-switch package have
+> > to be toggled to On.
 > >
 > > Signed-off-by: Robert Foss <robert.foss@linaro.org>
 > > ---
-> >  arch/arm64/boot/dts/qcom/sm8350-hdk.dts | 22 ++++++++++++++++++++++
-> >  1 file changed, 22 insertions(+)
+> >  arch/arm64/boot/dts/qcom/sm8350-hdk.dts | 106 ++++++++++++++++++++++++
+> >  1 file changed, 106 insertions(+)
 > >
 > > diff --git a/arch/arm64/boot/dts/qcom/sm8350-hdk.dts b/arch/arm64/boot/dts/qcom/sm8350-hdk.dts
-> > index e6deb08c6da0..6e07feb4b3b2 100644
+> > index 6e07feb4b3b2..6666b38b58f8 100644
 > > --- a/arch/arm64/boot/dts/qcom/sm8350-hdk.dts
 > > +++ b/arch/arm64/boot/dts/qcom/sm8350-hdk.dts
-> > @@ -213,10 +213,32 @@ &cdsp {
-> >       firmware-name = "qcom/sm8350/cdsp.mbn";
+> > @@ -20,6 +20,17 @@ chosen {
+> >               stdout-path = "serial0:115200n8";
+> >       };
+> >
+> > +     hdmi-out {
+> > +             compatible = "hdmi-connector";
+> > +             type = "a";
+> > +
+> > +             port {
+> > +                     hdmi_con: endpoint {
+> > +                             remote-endpoint = <&lt9611_out>;
+> > +                     };
+> > +             };
+> > +     };
+> > +
+> >       vph_pwr: vph-pwr-regulator {
+> >               compatible = "regulator-fixed";
+> >               regulator-name = "vph_pwr";
+> > @@ -29,6 +40,32 @@ vph_pwr: vph-pwr-regulator {
+> >               regulator-always-on;
+> >               regulator-boot-on;
+> >       };
+> > +
+> > +     lt9611_1v2: lt9611-1v2 {
+> > +             compatible = "regulator-fixed";
+> > +             regulator-name = "LT9611_1V2";
+> > +
+> > +             vin-supply = <&vph_pwr>;
+> > +             regulator-min-microvolt = <1200000>;
+> > +             regulator-max-microvolt = <1200000>;
+> > +             gpio = <&tlmm 49 GPIO_ACTIVE_HIGH>;
+> > +             enable-active-high;
+> > +             regulator-boot-on;
+> > +             regulator-always-on;
+>
+> Why is this always-on?
+
+It shouldn't be. Removing this in v2.
+
+>
+> > +     };
+> > +
+> > +     lt9611_3v3: lt9611-3v3 {
+> > +             compatible = "regulator-fixed";
+> > +             regulator-name = "LT9611_3V3";
+> > +
+> > +             vin-supply = <&vreg_bob>;
+> > +             gpio = <&tlmm 47 GPIO_ACTIVE_HIGH>;
+> > +             regulator-min-microvolt = <3300000>;
+> > +             regulator-max-microvolt = <3300000>;
+> > +             enable-active-high;
+> > +             regulator-boot-on;
+> > +             regulator-always-on;
+> > +     };
 > >  };
 > >
-> > +&dispcc {
-> > +     status = "okay";
-> > +};
+> >  &adsp {
+> > @@ -220,6 +257,15 @@ &dispcc {
+> >  &dsi0 {
+> >       status = "okay";
+> >       vdda-supply = <&vreg_l6b_1p2>;
 > > +
-> > +&dsi0 {
+> > +     ports {
+> > +             port@1 {
+> > +                     endpoint {
+> > +                             remote-endpoint = <&lt9611_a>;
+> > +                             data-lanes = <0 1 2 3>;
+> > +                     };
+> > +             };
+> > +     };
+> >  };
+> >
+> >  &dsi0_phy  {
+> > @@ -231,6 +277,48 @@ &gpi_dma1 {
+> >       status = "okay";
+> >  };
+> >
+> > +&i2c15 {
 > > +     status = "okay";
 >
-> Status is the last property.
+> Please keep status last. (Yes I see that it goes against the convention
+> in this file, so let's update that at some point as well)
 
 Ack.
 
 >
+> > +     clock-frequency = <400000>;
+> > +
+> > +     lt9611_codec: hdmi-bridge@2b {
+> > +             compatible = "lontium,lt9611uxc";
+> > +             reg = <0x2b>;
+> > +             status = "okay";
 >
-> Best regards,
-> Krzysztof
+> This is the default, you can omit it.
+
+Ack.
+
 >
+> > +
+> > +             interrupts-extended = <&tlmm 50 IRQ_TYPE_EDGE_FALLING>;
+> > +             reset-gpios = <&tlmm 48 GPIO_ACTIVE_HIGH>;
+> > +
+> > +             vdd-supply = <&lt9611_1v2>;
+> > +             vcc-supply = <&lt9611_3v3>;
+> > +
+> > +             pinctrl-names = "default";
+> > +             pinctrl-0 = <&lt9611_irq_pin &lt9611_rst_pin>;
+> > +
+> > +             ports {
+> > +                     #address-cells = <1>;
+> > +                     #size-cells = <0>;
+> > +
+> > +                     port@0 {
+> > +                             reg = <0>;
+> > +
+> > +                             lt9611_a: endpoint {
+> > +                                     remote-endpoint = <&dsi0_out>;
+> > +                             };
+> > +                     };
+> > +
+> > +                     port@2 {
+> > +                             reg = <2>;
+> > +
+> > +                             lt9611_out: endpoint {
+> > +                                     remote-endpoint = <&hdmi_con>;
+> > +                             };
+> > +                     };
+> > +
+> > +             };
+> > +     };
+> > +};
+> > +
+> >  &mdss {
+> >       status = "okay";
+> >  };
+> > @@ -248,6 +336,10 @@ &qupv3_id_0 {
+> >       status = "okay";
+> >  };
+> >
+> > +&qupv3_id_2 {
+> > +     status = "okay";
+> > +};
+> > +
+> >  &slpi {
+> >       status = "okay";
+> >       firmware-name = "qcom/sm8350/slpi.mbn";
+> > @@ -544,4 +636,18 @@ usb_hub_enabled_state: usb-hub-enabled-state {
+> >               drive-strength = <2>;
+> >               output-low;
+> >       };
+> > +
+> > +     lt9611_rst_pin: lt9611-rst-state {
+> > +             pins = "gpio48";
+> > +             function = "normal";
+> > +
+> > +             output-high;
+> > +             input-disable;
+> > +     };
+> > +
+> > +     lt9611_irq_pin: lt9611-irq {
+>
+> pinctrl state nodes should be suffixed with "-state".
+>
+> And you can lump the two pins into a single -state, with rst-pins and
+> irq-pins as subnodes, defining the two pins.
+>
+> Regards,
+> Bjorn
+>
+> > +             pins = "gpio50";
+> > +             function = "gpio";
+> > +             bias-disable;
+> > +     };
+> >  };
+> > --
+> > 2.34.1
+> >
