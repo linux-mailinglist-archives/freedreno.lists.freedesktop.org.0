@@ -2,60 +2,60 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 84964626B17
-	for <lists+freedreno@lfdr.de>; Sat, 12 Nov 2022 19:44:22 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 17F55626FB8
+	for <lists+freedreno@lfdr.de>; Sun, 13 Nov 2022 14:28:42 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 562EE10E1DA;
-	Sat, 12 Nov 2022 18:44:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A066F10E214;
+	Sun, 13 Nov 2022 13:28:40 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-oa1-x2a.google.com (mail-oa1-x2a.google.com
- [IPv6:2001:4860:4864:20::2a])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E2EBF10E1D6;
- Sat, 12 Nov 2022 18:44:13 +0000 (UTC)
-Received: by mail-oa1-x2a.google.com with SMTP id
- 586e51a60fabf-13ae8117023so8611998fac.9; 
- Sat, 12 Nov 2022 10:44:13 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=RW2ierpmO9Ob9gBGCgFgoR5MnOmGKRHEK26wUjbjR4A=;
- b=GCOaqdr4YOF0FX/9QEEFwpEW0tOXrQcDyze2xaDGpwIzqDuQbOC/dX+y+Yc8zz1Xmw
- hb2z3xqDXKT2Sg2chXVIo8rgQLtWi/5iGHeUydXd8DWV/IY/eaIACoM3kF7gppmR944z
- Nq3glLGU1AffkDUlsOgg4B5YtDqNtesEhGQXvUlzfj3BH7ptOujETRIFXeMxN/uuRVn/
- tUil3PE7NlXPqXwHUOHEzCgeakanqIPT0hr7NYguCypMMRnzawy/NDadT5yBNBcfzW8R
- wHjRDt0k87kdZs1sOaaak8tzxu9+pZ4Ax4UiDTjzZBr+/d4G/gUK6ZX6zEpNexpfWh6Y
- 7yNw==
+Received: from mail-yw1-x112e.google.com (mail-yw1-x112e.google.com
+ [IPv6:2607:f8b0:4864:20::112e])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2B7F910E214
+ for <freedreno@lists.freedesktop.org>; Sun, 13 Nov 2022 13:28:34 +0000 (UTC)
+Received: by mail-yw1-x112e.google.com with SMTP id
+ 00721157ae682-370547b8ca0so83888737b3.0
+ for <freedreno@lists.freedesktop.org>; Sun, 13 Nov 2022 05:28:34 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=RBRObaACq4skoaxVBrtZ8v0pRx/dpMfq/nTCZQT1EHw=;
+ b=VDVypVr2NsABEUCO9Cj6h0vr/oZ1XbPzamFb8IxL8D+6CoUairk26NtyP6QzbbxX+e
+ VdZTX7UXqnsgeqSPb/WvaNYDVRUL13ZXpU9K5J+1/u2vv7aYyRZpk/5nTCoIAVCN2Plx
+ riQN8+haehHwRzcRBIUuyv/3WDKweKIUVAvFxie/6POJBP9YNHk4I7/VztlXUew0DhpT
+ fzerrqtrkdY8oyOOpGoH3mMJy2SMWc+IPGFBNaRU28FR64AGGi3twcm+2kmT1IwB9Bz/
+ dbMclVr/Hm77ubm3BlLJa0wzjpFThvPjZczK97kfxtu1weYiryhFjWX+1wd8XYaCd4kC
+ +zIQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=RW2ierpmO9Ob9gBGCgFgoR5MnOmGKRHEK26wUjbjR4A=;
- b=KKLx57rm6uPpXrZV+xTLAXeNq///B4K44xOtQQmMd7XNNlJM7xYuMjFVaO1ubeg+Ve
- /gdaIZFhfJAJTr6XSTpleqEtVom25as4430qJytRmiBMUOAeSvAEnUT1WkFZIuvwj6v+
- IJgg20PSoG+aMg/AorkpiR/l1NakhaDUd4zw297Vo0T+2zSOpjQeXnsBF8QawZeCLAL8
- cBogGUEOeSXo4rz0MqbNg5d/OzOmw7NEeeXS0FqUAS+x+4+CK79sZf9QbrUCSaaLNITa
- +m4mLI1L7FDStDz6OENgxnYSqP3JCGhq2j+WvxiHJF1UafauT920jij5u0sGoTvpyNYV
- frKg==
-X-Gm-Message-State: ANoB5pnYstASOoG62u6VlaO3Bh+xZjWuDJTqPyciuscMUsxduPGAtqOX
- zJbwS3mY3WljrzR5Go3hnvNGy9PB8GBDcd7GCmg=
-X-Google-Smtp-Source: AA0mqf4kaFqXtJ+RO4j7D+L1kwF4/PLgS1JnevXdJ1cEwhQKGJm/s6jrSY7XjKorOAs03anRZVUAIivVVjk+JpiIeBY=
-X-Received: by 2002:a05:6870:1f15:b0:131:f559:461b with SMTP id
- pd21-20020a0568701f1500b00131f559461bmr3779869oab.38.1668278653159; Sat, 12
- Nov 2022 10:44:13 -0800 (PST)
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=RBRObaACq4skoaxVBrtZ8v0pRx/dpMfq/nTCZQT1EHw=;
+ b=suQkae5MD6iUdFWdoLdSnnk0SIHw0zJHoCNWCCpcZ7uOWfgE/MTx2po4BXpAgkcJJ2
+ bwKZ4e5STGkCw5jRfVCp4ch0KQLOBgHRkffbF39hTvdT6smK2rL7rpLPtYGyelQYTyUF
+ pmE5Vl/81IsmpEPtgyxuv+QGM3IjhPcyBfXnq8TMVEnefMGa96owjzMMkFtb8H1085tw
+ HCmr8+zlUqAcqvASbaVhfa7BcQP40lF+vVPGCDs9W32DPweFR9oX2KCMs/dMHIZd3RFM
+ 4h+z6orvxp28QnNwiBzZA9Jg3qCPSlv5FUKplUgnXeJLarv70e1/o7S3UqN0xyjqLwJT
+ SDtQ==
+X-Gm-Message-State: ANoB5pl0knIHeBIfviLh/nRKElFgX7tfyV6x3VHadVwk3jrg7AuX6cuw
+ FMSMMqjo8tUgxZMcfB5JjYwC7wg5QWnzY1YonTKW9w==
+X-Google-Smtp-Source: AA0mqf5/V8vAkG5yu8rfNBpBbPJKTqV98nZ/6hF0TeBD4mhjv0NsSJ3V9OLj2ZBQHss3zSAeh3o2CXznf0PuDUzBWmc=
+X-Received: by 2002:a0d:d84d:0:b0:37b:e3ae:decc with SMTP id
+ a74-20020a0dd84d000000b0037be3aedeccmr8432724ywe.418.1668346113283; Sun, 13
+ Nov 2022 05:28:33 -0800 (PST)
 MIME-Version: 1.0
-References: <20221111194957.4046771-1-joel@joelfernandes.org>
- <B336E259-FB18-4E16-8BC7-2117614ABE4D@joelfernandes.org>
-In-Reply-To: <B336E259-FB18-4E16-8BC7-2117614ABE4D@joelfernandes.org>
-From: Rob Clark <robdclark@gmail.com>
-Date: Sat, 12 Nov 2022 10:44:33 -0800
-Message-ID: <CAF6AEGvsmXZkw2epEE3y8hksQea0xW8TAhgitiGJY66PiQPaPA@mail.gmail.com>
-To: Joel Fernandes <joel@joelfernandes.org>
+References: <0abf1924-485b-8f1c-c8c8-d14dcccc3a27@quicinc.com>
+ <0Co5PrfVEsYkXu9wz6ixpiFl0aWmXfIng6NSPOiYNcrAfHZx0w2crkWN7InPdtR-YTAb1IxLovgcEHCmFpmaqA==@protonmail.internalid>
+ <20220712132258.671263-1-dmitry.baryshkov@linaro.org>
+ <1892d0af-8aa4-dc03-887a-e44bb623b836@linaro.org>
+In-Reply-To: <1892d0af-8aa4-dc03-887a-e44bb623b836@linaro.org>
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Date: Sun, 13 Nov 2022 16:28:22 +0300
+Message-ID: <CAA8EJpq_9iC1rkiZVom28Kv_B3QLd4pBgFObxBfSpJ+Xh=Mp1g@mail.gmail.com>
+To: Caleb Connolly <caleb.connolly@linaro.org>
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [Freedreno] [PATCH 1/2] adreno: Shutdown the GPU properly
+Subject: Re: [Freedreno] [PATCH v2.5] drm/msm/dsi: switch to DRM_PANEL_BRIDGE
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,127 +68,87 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rob Clark <robdclark@chromium.org>, Emma Anholt <emma@anholt.net>,
- Akhil P Oommen <quic_akhilpo@quicinc.com>, freedreno@lists.freedesktop.org,
- linux-arm-msm@vger.kernel.org, Ricardo Ribalda <ribalda@chromium.org>,
- Vladimir Lypak <vladimir.lypak@gmail.com>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Steven Rostedt <rostedt@goodmis.org>, linux-kernel@vger.kernel.org,
- Sean Paul <sean@poorly.run>, dri-devel@lists.freedesktop.org,
- Daniel Vetter <daniel@ffwll.ch>, Ross Zwisler <zwisler@kernel.org>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- David Airlie <airlied@gmail.com>
+Cc: freedreno@lists.freedesktop.org, David Airlie <airlied@linux.ie>,
+ linux-arm-msm@vger.kernel.org, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ dri-devel@lists.freedesktop.org, Stephen Boyd <swboyd@chromium.org>,
+ Rob Clark <robdclark@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Bjorn Andersson <bjorn.andersson@linaro.org>, Sean Paul <sean@poorly.run>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Fri, Nov 11, 2022 at 1:08 PM Joel Fernandes <joel@joelfernandes.org> wro=
-te:
+Hi Caleb,
+
+On Fri, 11 Nov 2022 at 18:30, Caleb Connolly <caleb.connolly@linaro.org> wrote:
 >
+> Hi,
 >
+> This patch has caused a regression on 6.1-rc for some devices that use
+> DSI panels. The new behaviour results in the DSI controller being
+> switched off before the panel unprepare hook is called. As a result,
+> panel drivers which call mipi_dsi_dcs_write() or similar in
+> unprepare() fail.
+
+Thanks for the notice. Can you move your command stream to
+panel_disable() hook? (even if it's just as a temporary workaround)
+
+From what I see from other panels, some of them call
+mipi_dsi_dcs_set_display_off() in the unprepare() hook, while others
+do it in disable().
+
+Yes, this is (again) the DSI host vs device order here. Short story:
+the DRM has a notion of 'the display pipe (i.e. clocks and timing
+signals) feeding the bridge being running'. That's the difference
+between enable/pre_enable and disable/post_disable. For the DSI we
+have a third state, when the DSI clock and ln0 allow transferring
+commands to the panel, but the image is not enabled.
+
+There was a somewhat promising patchset at [1], but it seems it went
+out of the radar. I can try working on an alternative (explicit)
+approach if I have time.
+
+With respect to your panel. Let me quote the docs: 'Before stopping
+video transmission from the display controller it can be necessary to
+turn off the panel to avoid visual glitches. This is done in the
+.disable() function. Analogously to .enable() this typically involves
+turning off the backlight and waiting for some time to make sure no
+image is visible on the panel. It is then safe for the display
+controller to cease transmission of video data.'
+
+So, if we stop the call chain after switching the DSI host off but
+before calling the panel's unprepare() hook, will we see any
+artifacts/image leftover/etc. on the panel? Generally I have the
+feeling that all panels should call mipi_dsi_dcs_set_display_off() in
+the .disable() hook, not in the .unprepare() one.
+
+[1] https://lore.kernel.org/dri-devel/cover.1646406653.git.dave.stevenson@raspberrypi.com/
+
 >
-> > On Nov 11, 2022, at 2:50 PM, Joel Fernandes (Google) <joel@joelfernande=
-s.org> wrote:
+> I've noticed it specifically on the OnePlus 6 (with upstream Samsung
+> s0fef00 panel driver) and the SHIFT6mq with an out of tree driver.
+>
+> On 12/07/2022 14:22, Dmitry Baryshkov wrote:
+> > Currently the DSI driver has two separate paths: one if the next device
+> > in a chain is a bridge and another one if the panel is connected
+> > directly to the DSI host. Simplify the code path by using panel-bridge
+> > driver (already selected in Kconfig) and dropping support for
+> > handling the panel directly.
 > >
-> > =EF=BB=BFDuring kexec on ARM device, we notice that device_shutdown() o=
-nly calls
-> > pm_runtime_force_suspend() while shutting down the GPU. This means the =
-GPU
-> > kthread is still running and further, there maybe active submits.
-> >
-> > This causes all kinds of issues during a kexec reboot:
-> >
-> > Warning from shutdown path:
-> >
-> > [  292.509662] WARNING: CPU: 0 PID: 6304 at [...] adreno_runtime_suspen=
-d+0x3c/0x44
-> > [  292.509863] Hardware name: Google Lazor (rev3 - 8) with LTE (DT)
-> > [  292.509872] pstate: 80400009 (Nzcv daif +PAN -UAO -TCO -DIT -SSBS BT=
-YPE=3D--)
-> > [  292.509881] pc : adreno_runtime_suspend+0x3c/0x44
-> > [  292.509891] lr : pm_generic_runtime_suspend+0x30/0x44
-> > [  292.509905] sp : ffffffc014473bf0
-> > [...]
-> > [  292.510043] Call trace:
-> > [  292.510051]  adreno_runtime_suspend+0x3c/0x44
-> > [  292.510061]  pm_generic_runtime_suspend+0x30/0x44
-> > [  292.510071]  pm_runtime_force_suspend+0x54/0xc8
-> > [  292.510081]  adreno_shutdown+0x1c/0x28
-> > [  292.510090]  platform_shutdown+0x2c/0x38
-> > [  292.510104]  device_shutdown+0x158/0x210
-> > [  292.510119]  kernel_restart_prepare+0x40/0x4c
-> >
-> > And here from GPU kthread, an SError OOPs:
-> >
-> > [  192.648789]  el1h_64_error+0x7c/0x80
-> > [  192.648812]  el1_interrupt+0x20/0x58
-> > [  192.648833]  el1h_64_irq_handler+0x18/0x24
-> > [  192.648854]  el1h_64_irq+0x7c/0x80
-> > [  192.648873]  local_daif_inherit+0x10/0x18
-> > [  192.648900]  el1h_64_sync_handler+0x48/0xb4
-> > [  192.648921]  el1h_64_sync+0x7c/0x80
-> > [  192.648941]  a6xx_gmu_set_oob+0xbc/0x1fc
-> > [  192.648968]  a6xx_hw_init+0x44/0xe38
-> > [  192.648991]  msm_gpu_hw_init+0x48/0x80
-> > [  192.649013]  msm_gpu_submit+0x5c/0x1a8
-> > [  192.649034]  msm_job_run+0xb0/0x11c
-> > [  192.649058]  drm_sched_main+0x170/0x434
-> > [  192.649086]  kthread+0x134/0x300
-> > [  192.649114]  ret_from_fork+0x10/0x20
-> >
-> > Fix by calling adreno_system_suspend() in the device_shutdown() path.
-> >
-> > Cc: Rob Clark <robdclark@chromium.org>
-> > Cc: Steven Rostedt <rostedt@goodmis.org>
-> > Cc: Ricardo Ribalda <ribalda@chromium.org>
-> > Cc: Ross Zwisler <zwisler@kernel.org>
-> > Signed-off-by: Joel Fernandes (Google) <joel@joelfernandes.org>
+> > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 > > ---
-> > drivers/gpu/drm/msm/adreno/adreno_device.c | 5 ++++-
-> > 1 file changed, 4 insertions(+), 1 deletion(-)
 > >
-> > diff --git a/drivers/gpu/drm/msm/adreno/adreno_device.c b/drivers/gpu/d=
-rm/msm/adreno/adreno_device.c
-> > index 24b489b6129a..f0cff62812c3 100644
-> > --- a/drivers/gpu/drm/msm/adreno/adreno_device.c
-> > +++ b/drivers/gpu/drm/msm/adreno/adreno_device.c
-> > @@ -607,9 +607,12 @@ static int adreno_remove(struct platform_device *p=
-dev)
-> >    return 0;
-> > }
+> > I'm not sending this as a separate patchset (I'd like to sort out mdp5
+> > first), but more of a preview of changes related to
+> > msm_dsi_manager_ext_bridge_init().
 > >
-> > +static int adreno_system_suspend(struct device *dev);
-> > static void adreno_shutdown(struct platform_device *pdev)
-> > {
-> > -    pm_runtime_force_suspend(&pdev->dev);
-> > +    struct msm_gpu *gpu =3D dev_to_gpu(&pdev->dev);
-> > +
->
-> This local variable definition should go to patch 2/2. Will fix in v2.
->
-> Thanks,
->
->  - Joel
->
->
-> > +    WARN_ON_ONCE(adreno_system_suspend(&pdev->dev));
+> > ---
+> >   drivers/gpu/drm/msm/dsi/dsi.c         |  35 +---
+> >   drivers/gpu/drm/msm/dsi/dsi.h         |  16 +-
+> >   drivers/gpu/drm/msm/dsi/dsi_host.c    |  25 ---
+> >   drivers/gpu/drm/msm/dsi/dsi_manager.c | 283 +++-----------------------
+> >   4 files changed, 36 insertions(+), 323 deletions(-)
 
-I think maybe adreno_unbind() needs the same treatment?  Any path
-where we yank out the power cord without ensuring the scheduler is
-parked means we'd be racing with jobs in the scheduler queue.  Ie.
-userspace could queue a job before it is frozen, but the drm/scheduler
-kthread hasn't yet called the msm_job_run() callback (which does
-various touching of the now powered off hw).  So I think we need to
-ensure that the scheduler is parked in all paths that call
-pm_runtime_force_suspend() (as that bypasses the runpm reference that
-would otherwise unsure the hw is powered before msm_job_run pokes at
-registers)
+[skipped the patch itself]
 
-BR,
--R
-
-> > }
-> >
-> > static const struct of_device_id dt_match[] =3D {
-> > --
-> > 2.38.1.493.g58b659f92b-goog
-> >
+-- 
+With best wishes
+Dmitry
