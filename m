@@ -1,53 +1,53 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7C15A628695
-	for <lists+freedreno@lfdr.de>; Mon, 14 Nov 2022 18:06:53 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 65BD4628690
+	for <lists+freedreno@lfdr.de>; Mon, 14 Nov 2022 18:06:50 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A97DF10E2F8;
-	Mon, 14 Nov 2022 17:06:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B7FD910E2FA;
+	Mon, 14 Nov 2022 17:06:46 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x12d.google.com (mail-lf1-x12d.google.com
- [IPv6:2a00:1450:4864:20::12d])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DF11710E210
- for <freedreno@lists.freedesktop.org>; Mon, 14 Nov 2022 17:06:38 +0000 (UTC)
-Received: by mail-lf1-x12d.google.com with SMTP id p8so20306224lfu.11
- for <freedreno@lists.freedesktop.org>; Mon, 14 Nov 2022 09:06:38 -0800 (PST)
+Received: from mail-lj1-x229.google.com (mail-lj1-x229.google.com
+ [IPv6:2a00:1450:4864:20::229])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C7A7C10E210
+ for <freedreno@lists.freedesktop.org>; Mon, 14 Nov 2022 17:06:39 +0000 (UTC)
+Received: by mail-lj1-x229.google.com with SMTP id h12so14046526ljg.9
+ for <freedreno@lists.freedesktop.org>; Mon, 14 Nov 2022 09:06:39 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=JM4WornFiW01h+ev1IYYNxP6M56aNDzG1elE0bGknSE=;
- b=R2I/GCNsc2V2QEHtzal1Vp90xDpVkZt8NWKcqYZoTid6E4u1u+kTkRMftrL6ttqebF
- d/+Lbqs2xyFhGfz7IWQ5f0kg41q2bHlKbOdW2J+/1eKPbCGwXq9lyNTVQ074YWSDeDc/
- 9MyquEiEUbyctMIbk4sy2GkMW9igw4O/0Qbl690o83VYDAySX9UhvLsEDH+ZFCGqSDo8
- 0CQkuQaUZ3I5hyEMMzLUh/fdXEr2h7IvahInxgRZoVdE290Q4xcW/NV4B+/PfsfbfjoO
- 7bpIDD2mKn1BKZZDh6HY7Jw37Poaeyvx+1qEgK+td3RalSsJ+5IejQHx3D1087h2uA6L
- bTPQ==
+ bh=ea5Uaq+yCu3Bhg+2skGWB1tgC1rGJXv0/NT43e/8qQ0=;
+ b=gjzX28jYfag2dKv8gVZOhtav4Divmseos/wBBPN3VoteTHb6/blQR9C5ozteNi2WH6
+ KbVvFDYsC9Gkby2CwIeURC4WDENucrfJo4x0P6DNQPCPzk+xeV3zrhVGDRvj2QoqNb3t
+ 6HyGLmlSwciCqIwKT5T7xVUk7+cMLh+ZFoO7HOq1fo9mkKsO+FFlmMfvB/siQxU9yv5g
+ cCPAxj468p1SonFJZc+SvW91CdECzKbZwgtRhozNZCaweP8CzjWwOnmivn3RU23X3jpN
+ PX6294xUYpeqCkA22Ov1lr6nx+L3QrIYNdjeaE/AovHJaIuTbocjA9Frf6Hh8cmOKvcz
+ ddRA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=JM4WornFiW01h+ev1IYYNxP6M56aNDzG1elE0bGknSE=;
- b=FfiDzqV6PuMeLVbsFOVPKqxJMgpzvxsl3QSKnV9En8GoJWVq/lz9c3YVYfJ8nFrEOU
- 5gxPrVeIv3dCJlVtWDz7POb1q4QcGmNiKD2ZJwAo/sONiK7vzXdAOe4VzimMMAy/sP2d
- /4cJoOSdx1Dqy4XwFhFoF9JXnFtcYLC15jmh5lpd+JZJFz0aBjEVJ+0vlBC/ovMuOdfm
- 0NjP8MMSXiWUZOFJoVINg/Bb7NkNRM6vKmG7UO3L+/66edK7AcW5qsMjAK8SZTHKJ+Nm
- TAZiaBB785mn6ygi+ViETl8IVtyibxxaWiBsWhwzm/qJrrLliMBMDJlyk63bBemzyxWV
- W3aA==
-X-Gm-Message-State: ANoB5pnPv31kg3LoHyLfUunydVv0Q++2PMEMWKrmz4An9KslE49EI8G/
- PaMJDVsodWnLYu/HJ9lkpZkQvg==
-X-Google-Smtp-Source: AA0mqf6cFV84uzJTbEzIvJ0qgqEPH88ulOsRSQtdVR/y0a4388kfPltmL6scgFiIjbUz32mKcUEg2g==
-X-Received: by 2002:a05:6512:3590:b0:4ae:611c:6549 with SMTP id
- m16-20020a056512359000b004ae611c6549mr5098036lfr.231.1668445597211; 
+ bh=ea5Uaq+yCu3Bhg+2skGWB1tgC1rGJXv0/NT43e/8qQ0=;
+ b=6sMM/dP2/aim3Eh5/7seZXx6mGn+Rmrfj/eW9zEWQyxWF9pkSwdmXoMk5tpTvmKOPp
+ HwPzqUCk6Bc2N95vy1e4FUsRHrxRw+Un999a3lFmCQoZZ9pMrEdeMzRCitPcOFuZc5Tw
+ u/hwmPQ7k8aOeKhtrGdyYeF2saosKR9pFOpQqGWIkuS2EV1RcuI2VDL4xtf8v8VANzpE
+ axHt4rK4YtJ0uC7it4BbBioykxwdv1FHbzCZgDy/WuaoNofAyx04d0MyFuJ+Ha2oD86P
+ B5QZU5tHwbKkhyy2cr/ScGlvlKBzUCmxdkYkU8yGS/DGJTMCo/FVHfFMOck5uOleni/6
+ zwLw==
+X-Gm-Message-State: ANoB5pk5lgvaE7jEIPmN07HAV0cdtim09uA3xgg/LXPzJdBzRqmqSC9A
+ M1IeRto8FB7YFK8Pjdzsj7VOuQ==
+X-Google-Smtp-Source: AA0mqf5ujGOmfS1y4Y7C9QcGvLTvnfjct6sVPJ9etlukkDP5+lSoQjsAVoqfVDJMHpPtEo7lPHDTow==
+X-Received: by 2002:a2e:9e46:0:b0:26c:5cf3:cc89 with SMTP id
+ g6-20020a2e9e46000000b0026c5cf3cc89mr4610957ljk.483.1668445597957; 
  Mon, 14 Nov 2022 09:06:37 -0800 (PST)
 Received: from eriador.lan ([37.153.55.125]) by smtp.gmail.com with ESMTPSA id
- q7-20020a056512210700b004a2ae643b99sm1896344lfr.170.2022.11.14.09.06.36
+ q7-20020a056512210700b004a2ae643b99sm1896344lfr.170.2022.11.14.09.06.37
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 14 Nov 2022 09:06:36 -0800 (PST)
+ Mon, 14 Nov 2022 09:06:37 -0800 (PST)
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 To: Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
  Joerg Roedel <joro@8bytes.org>, Rob Herring <robh+dt@kernel.org>,
@@ -55,15 +55,15 @@ To: Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
  Bjorn Andersson <andersson@kernel.org>,
  Konrad Dybcio <konrad.dybcio@somainline.org>,
  Rob Clark <robdclark@gmail.com>
-Date: Mon, 14 Nov 2022 20:06:26 +0300
-Message-Id: <20221114170635.1406534-2-dmitry.baryshkov@linaro.org>
+Date: Mon, 14 Nov 2022 20:06:27 +0300
+Message-Id: <20221114170635.1406534-3-dmitry.baryshkov@linaro.org>
 X-Mailer: git-send-email 2.35.1
 In-Reply-To: <20221114170635.1406534-1-dmitry.baryshkov@linaro.org>
 References: <20221114170635.1406534-1-dmitry.baryshkov@linaro.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH v1 01/10] dt-bindings: arm-smmu: Add missing
- Qualcomm SMMU compatibles
+Subject: [Freedreno] [PATCH v1 02/10] dt-bindings: arm-smmu: fix
+ clocks/clock-names schema
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -84,48 +84,164 @@ Cc: devicetree@vger.kernel.org, Sai Prakash Ranjan <quic_saipraka@quicinc.com>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Add missing compatibles used for Adreno SMMU on sc7280 and sm8450
-platforms and for the Qualcomm v2 SMMU used on SDM630 platform.
+Rework clocks/clock-names properties schema to properly describe
+possible usage cases.
 
 Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 ---
- Documentation/devicetree/bindings/iommu/arm,smmu.yaml | 11 +++++++++++
- 1 file changed, 11 insertions(+)
+ .../devicetree/bindings/iommu/arm,smmu.yaml   | 129 ++++++++++++++++--
+ 1 file changed, 121 insertions(+), 8 deletions(-)
 
 diff --git a/Documentation/devicetree/bindings/iommu/arm,smmu.yaml b/Documentation/devicetree/bindings/iommu/arm,smmu.yaml
-index 3ade2dbca70e..aa863811996f 100644
+index aa863811996f..99f34a40cfe2 100644
 --- a/Documentation/devicetree/bindings/iommu/arm,smmu.yaml
 +++ b/Documentation/devicetree/bindings/iommu/arm,smmu.yaml
-@@ -28,6 +28,7 @@ properties:
-           - enum:
-               - qcom,msm8996-smmu-v2
-               - qcom,msm8998-smmu-v2
-+              - qcom,sdm630-smmu-v2
-           - const: qcom,smmu-v2
+@@ -161,16 +161,12 @@ properties:
+       present in such cases.
  
-       - description: Qcom SoCs implementing "arm,mmu-500"
-@@ -51,10 +52,20 @@ properties:
-               - qcom,sm8350-smmu-500
-               - qcom,sm8450-smmu-500
-           - const: arm,mmu-500
-+
-+      - description: Qcom Adreno GPUs implementing "arm,smmu-500"
-+        items:
-+          - enum:
-+              - qcom,sc7280-smmu-500
-+              - qcom,sm8250-smmu-500
-+          - const: qcom,adreno-smmu
-+          - const: arm,mmu-500
-       - description: Qcom Adreno GPUs implementing "arm,smmu-v2"
-         items:
-           - enum:
-+              - qcom,msm8996-smmu-v2
-               - qcom,sc7180-smmu-v2
+   clock-names:
+-    items:
+-      - const: bus
+-      - const: iface
++    minItems: 1
++    maxItems: 7
+ 
+   clocks:
+-    items:
+-      - description: bus clock required for downstream bus access and for the
+-          smmu ptw
+-      - description: interface clock required to access smmu's registers
+-          through the TCU's programming interface.
++    minItems: 1
++    maxItems: 7
+ 
+   power-domains:
+     maxItems: 1
+@@ -220,6 +216,123 @@ allOf:
+         reg:
+           maxItems: 1
+ 
++  - if:
++      properties:
++        compatible:
++          contains:
++            enum:
++              - qcom,msm8998-smmu-v2
 +              - qcom,sdm630-smmu-v2
-               - qcom,sdm845-smmu-v2
-           - const: qcom,adreno-smmu
-           - const: qcom,smmu-v2
++    then:
++      anyOf:
++        - properties:
++            clock-names:
++              items:
++                - const: bus
++            clocks:
++              items:
++                - description: bus clock required for downstream bus access and for
++                    the smmu ptw
++        - properties:
++            clock-names:
++              items:
++                - const: iface
++                - const: mem
++                - const: mem_iface
++            clocks:
++              items:
++                - description: interface clock required to access smmu's registers
++                    through the TCU's programming interface.
++                - description: bus clock required for memory access
++                - description: bus clock required for GPU memory access
++        - properties:
++            clock-names:
++              items:
++                - const: iface-mm
++                - const: iface-smmu
++                - const: bus-mm
++                - const: bus-smmu
++            clocks:
++              items:
++                - description: interface clock required to access mnoc's registers
++                    through the TCU's programming interface.
++                - description: interface clock required to access smmu's registers
++                    through the TCU's programming interface.
++                - description: bus clock required for downstream bus access
++                - description: bus clock required for the smmu ptw
++
++  - if:
++      properties:
++        compatible:
++          contains:
++            enum:
++              - qcom,msm8996-smmu-v2
++              - qcom,sc7180-smmu-v2
++              - qcom,sdm845-smmu-v2
++    then:
++      properties:
++        clock-names:
++          items:
++            - const: bus
++            - const: iface
++
++        clocks:
++          items:
++            - description: bus clock required for downstream bus access and for
++                the smmu ptw
++            - description: interface clock required to access smmu's registers
++                through the TCU's programming interface.
++
++  - if:
++      properties:
++        compatible:
++          contains:
++            const: qcom,sc7280-smmu-500
++    then:
++      properties:
++        clock-names:
++          items:
++            - const: gcc_gpu_memnoc_gfx_clk
++            - const: gcc_gpu_snoc_dvm_gfx_clk
++            - const: gpu_cc_ahb_clk
++            - const: gpu_cc_hlos1_vote_gpu_smmu_clk
++            - const: gpu_cc_cx_gmu_clk
++            - const: gpu_cc_hub_cx_int_clk
++            - const: gpu_cc_hub_aon_clk
++
++        clocks:
++          items:
++            - description: GPU memnoc_gfx clock
++            - description: GPU snoc_dvm_gfx clock
++            - description: GPU ahb clock
++            - description: GPU hlos1_vote_GPU smmu clock
++            - description: GPU cx_gmu clock
++            - description: GPU hub_cx_int clock
++            - description: GPU hub_aon clock
++
++  - if:
++      properties:
++        compatible:
++          contains:
++            enum:
++              - qcom,sm8150-smmu-500
++              - qcom,sm8250-smmu-500
++    then:
++      properties:
++        clock-names:
++          items:
++            - const: ahb
++            - const: bus
++            - const: iface
++
++        clocks:
++          items:
++            - description: bus clock required for AHB bus access
++            - description: bus clock required for downstream bus access and for
++                the smmu ptw
++            - description: interface clock required to access smmu's registers
++                through the TCU's programming interface.
++
+ examples:
+   - |+
+     /* SMMU with stream matching or stream indexing */
 -- 
 2.35.1
 
