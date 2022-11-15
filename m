@@ -1,67 +1,35 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 086B1628B21
-	for <lists+freedreno@lfdr.de>; Mon, 14 Nov 2022 22:11:52 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id B3C1B628F95
+	for <lists+freedreno@lfdr.de>; Tue, 15 Nov 2022 02:54:25 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C0A8010E31B;
-	Mon, 14 Nov 2022 21:11:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6069F10E0DE;
+	Tue, 15 Nov 2022 01:54:24 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ej1-x633.google.com (mail-ej1-x633.google.com
- [IPv6:2a00:1450:4864:20::633])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9F04010E31B
- for <freedreno@lists.freedesktop.org>; Mon, 14 Nov 2022 21:11:46 +0000 (UTC)
-Received: by mail-ej1-x633.google.com with SMTP id k2so31479873ejr.2
- for <freedreno@lists.freedesktop.org>; Mon, 14 Nov 2022 13:11:46 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=nYM63RRvqlC+PbmanyesAjjHnH9NOqGbj+n/5jkMu0U=;
- b=f6dGIMl/KDjY03GU6eHJICav9uByHOVeuMW5WTXsr/PPVzAO2OVCrNu3ZCYaiWIXQC
- xddtEHYtvDDIjNVmfmQu7E8l8/gRZfKcaEjXgcRTZTgugEbXu+NbNtCF5jDwvbV1zA4B
- R8ogtQrLOKDOxW3o/ArmlL52u2IMNNZtB0amA=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=nYM63RRvqlC+PbmanyesAjjHnH9NOqGbj+n/5jkMu0U=;
- b=IWx2h/YAHjtzRTF8vGfklsruk4dLPyYxrH9UJInoAwTx6BCt7Qr5yuaEOTlbjZ8Dv+
- 42BOt2WFpwNr6SbHsDnfYe/jD5/rFwiNA1ce+ZG0b7TVXods2LQZq83rEeUuejjssaQE
- VpTsqbSqw7V0lJRY9ERoGx9DYgAl0emw5ee4lr2wB0FZ0B2frWznvkJcG6MgadavtfZj
- xvk47eWmGqy/o+XJZXN944ko7l3AdmNZMzNnYTX1LSgIYZwRPf2lWv4h1+bR62CertTk
- Dmgf4mjgE5nL+9a3R8CsJiQepC318sb/4SFMfxvmRwUBZF3PoiVMWTS7ic8RD1WjYv21
- /qqQ==
-X-Gm-Message-State: ANoB5pn4xz1OHXXnVfdoOUJ5A0GXMoOftlnYN8tz+uHOoAYhfAlDuyzY
- 3jJNXnnhgVI9neRHSRYKKwrhqXNZfYqMUpkN
-X-Google-Smtp-Source: AA0mqf6JjqM/vXvHLL1DJhkEnaTXlJPE6uh1s2HT3BG09Li6jk12n1wfDcibWdvic7cKD/22wzVlOQ==
-X-Received: by 2002:a17:906:a144:b0:7ad:79c0:4662 with SMTP id
- bu4-20020a170906a14400b007ad79c04662mr11666216ejb.400.1668460305162; 
- Mon, 14 Nov 2022 13:11:45 -0800 (PST)
-Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com.
- [209.85.221.49]) by smtp.gmail.com with ESMTPSA id
- 13-20020a170906318d00b0077e6be40e4asm4679448ejy.175.2022.11.14.13.11.44
- for <freedreno@lists.freedesktop.org>
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 14 Nov 2022 13:11:44 -0800 (PST)
-Received: by mail-wr1-f49.google.com with SMTP id l14so20674833wrw.2
- for <freedreno@lists.freedesktop.org>; Mon, 14 Nov 2022 13:11:44 -0800 (PST)
-X-Received: by 2002:a05:6000:1376:b0:236:7741:fa7b with SMTP id
- q22-20020a056000137600b002367741fa7bmr8968202wrz.138.1668460304144; Mon, 14
- Nov 2022 13:11:44 -0800 (PST)
+X-Greylist: delayed 308 seconds by postgrey-1.36 at gabe;
+ Tue, 15 Nov 2022 01:54:19 UTC
+Received: from out199-18.us.a.mail.aliyun.com (out199-18.us.a.mail.aliyun.com
+ [47.90.199.18])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6846F10E0DE
+ for <freedreno@lists.freedesktop.org>; Tue, 15 Nov 2022 01:54:18 +0000 (UTC)
+X-Alimail-AntiSpam: AC=PASS; BC=-1|-1; BR=01201311R161e4; CH=green; DM=||false|;
+ DS=||; FP=0|-1|-1|-1|0|-1|-1|-1; HT=ay29a033018046049;
+ MF=yang.lee@linux.alibaba.com; NM=1; PH=DS; RN=12; SR=0;
+ TI=SMTPD_---0VUqrO2I_1668476944; 
+Received: from localhost(mailfrom:yang.lee@linux.alibaba.com
+ fp:SMTPD_---0VUqrO2I_1668476944) by smtp.aliyun-inc.com;
+ Tue, 15 Nov 2022 09:49:05 +0800
+From: Yang Li <yang.lee@linux.alibaba.com>
+To: robdclark@gmail.com
+Date: Tue, 15 Nov 2022 09:49:02 +0800
+Message-Id: <20221115014902.45240-1-yang.lee@linux.alibaba.com>
+X-Mailer: git-send-email 2.20.1.7.g153144c
 MIME-Version: 1.0
-References: <20221114205055.1547497-1-robdclark@gmail.com>
-In-Reply-To: <20221114205055.1547497-1-robdclark@gmail.com>
-From: Doug Anderson <dianders@chromium.org>
-Date: Mon, 14 Nov 2022 13:11:31 -0800
-X-Gmail-Original-Message-ID: <CAD=FV=XbYYxP4kFBeGP3AGOwvbc8qNn746qpcZ8zVPc8re0o5Q@mail.gmail.com>
-Message-ID: <CAD=FV=XbYYxP4kFBeGP3AGOwvbc8qNn746qpcZ8zVPc8re0o5Q@mail.gmail.com>
-To: Rob Clark <robdclark@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [PATCH v2] drm/msm/a6xx: Fix speed-bin detection vs
- probe-defer
+Content-Transfer-Encoding: 8bit
+Subject: [Freedreno] [PATCH -next] drm/msm/dpu: Fix some kernel-doc comments
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,76 +42,50 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rob Clark <robdclark@chromium.org>,
- Akhil P Oommen <quic_akhilpo@quicinc.com>, linux-arm-msm@vger.kernel.org,
- Konrad Dybcio <konrad.dybcio@somainline.org>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
- open list <linux-kernel@vger.kernel.org>, Sean Paul <sean@poorly.run>,
- Daniel Vetter <daniel@ffwll.ch>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- David Airlie <airlied@gmail.com>, freedreno@lists.freedesktop.org,
- Chia-I Wu <olvaffe@gmail.com>
+Cc: freedreno@lists.freedesktop.org, sean@poorly.run,
+ Abaci Robot <abaci@linux.alibaba.com>, quic_abhinavk@quicinc.com,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Yang Li <yang.lee@linux.alibaba.com>, daniel@ffwll.ch,
+ linux-arm-msm@vger.kernel.org, dmitry.baryshkov@linaro.org, airlied@gmail.com
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Hi,
+Make the description of @init to @p in dpu_encoder_phys_wb_init()
+and remove @wb_roi in dpu_encoder_phys_wb_setup_fb() to clear the below
+warnings:
 
-On Mon, Nov 14, 2022 at 12:50 PM Rob Clark <robdclark@gmail.com> wrote:
->
-> From: Rob Clark <robdclark@chromium.org>
->
-> If we get an error (other than -ENOENT) we need to propagate that up the
-> stack.  Otherwise if the nvmem driver hasn't probed yet, we'll end up
-> end up claiming that we support all the OPPs which is not likely to be
-> true (and on some generations impossible to be true, ie. if there are
-> conflicting OPPs).
->
-> v2: Update commit msg, gc unused label, etc
->
-> Fixed: fe7952c629da ("drm/msm: Add speed-bin support to a618 gpu")
-> Signed-off-by: Rob Clark <robdclark@chromium.org>
-> ---
->  drivers/gpu/drm/msm/adreno/a6xx_gpu.c | 10 ++++------
->  1 file changed, 4 insertions(+), 6 deletions(-)
->
-> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-> index 7fe60c65a1eb..6ae77e88060f 100644
-> --- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-> @@ -1941,7 +1941,7 @@ static u32 fuse_to_supp_hw(struct device *dev, struct adreno_rev rev, u32 fuse)
->
->  static int a6xx_set_supported_hw(struct device *dev, struct adreno_rev rev)
->  {
-> -       u32 supp_hw = UINT_MAX;
-> +       u32 supp_hw;
->         u32 speedbin;
->         int ret;
->
-> @@ -1953,15 +1953,13 @@ static int a6xx_set_supported_hw(struct device *dev, struct adreno_rev rev)
->         if (ret == -ENOENT) {
->                 return 0;
->         } else if (ret) {
-> -               DRM_DEV_ERROR(dev,
-> -                             "failed to read speed-bin (%d). Some OPPs may not be supported by hardware",
-> -                             ret);
-> -               goto done;
-> +               dev_err_probe(dev, ret,
-> +                             "failed to read speed-bin. Some OPPs may not be supported by hardware");
-> +               return ret;
+drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_wb.c:139: warning: Excess function parameter 'wb_roi' description in 'dpu_encoder_phys_wb_setup_fb'
+drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_wb.c:699: warning: Function parameter or member 'p' not described in 'dpu_encoder_phys_wb_init'
+drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_wb.c:699: warning: Excess function parameter 'init' description in 'dpu_encoder_phys_wb_init'
 
-Both before and after this change, I think you're missing a "\n" at
-the end of your error string?
+Link: https://bugzilla.openanolis.cn/show_bug.cgi?id=3067
+Reported-by: Abaci Robot <abaci@linux.alibaba.com>
+Signed-off-by: Yang Li <yang.lee@linux.alibaba.com>
+---
+ drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_wb.c | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
 
-If you want to get even fancier, dev_err_probe is designed to run
-"braceless" and returns "ret" as its return value. This you could do:
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_wb.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_wb.c
+index 7cbcef6efe17..62f6ff6abf41 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_wb.c
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_wb.c
+@@ -132,7 +132,6 @@ static void dpu_encoder_phys_wb_set_qos(struct dpu_encoder_phys *phys_enc)
+  * dpu_encoder_phys_wb_setup_fb - setup output framebuffer
+  * @phys_enc:	Pointer to physical encoder
+  * @fb:		Pointer to output framebuffer
+- * @wb_roi:	Pointer to output region of interest
+  */
+ static void dpu_encoder_phys_wb_setup_fb(struct dpu_encoder_phys *phys_enc,
+ 		struct drm_framebuffer *fb)
+@@ -692,7 +691,7 @@ static void dpu_encoder_phys_wb_init_ops(struct dpu_encoder_phys_ops *ops)
+ 
+ /**
+  * dpu_encoder_phys_wb_init - initialize writeback encoder
+- * @init:	Pointer to init info structure with initialization params
++ * @p:	Pointer to init info structure with initialization params
+  */
+ struct dpu_encoder_phys *dpu_encoder_phys_wb_init(
+ 		struct dpu_enc_phys_init_params *p)
+-- 
+2.20.1.7.g153144c
 
-if (ret == -ENOENT)
-  return ret;
-else if (ret)
-  return dev_err_probe(dev, ret, ...)
-
-After adding the "\n" then either with the extra fanciness or as you have it:
-
-Reviewed-by: Douglas Anderson <dianders@chromium.org>
-
--Doug
