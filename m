@@ -2,65 +2,60 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 00CF8629E55
-	for <lists+freedreno@lfdr.de>; Tue, 15 Nov 2022 17:01:36 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id F3936629F37
+	for <lists+freedreno@lfdr.de>; Tue, 15 Nov 2022 17:41:53 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8B83410E419;
-	Tue, 15 Nov 2022 16:01:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6121010E044;
+	Tue, 15 Nov 2022 16:41:52 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ed1-x536.google.com (mail-ed1-x536.google.com
- [IPv6:2a00:1450:4864:20::536])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F1D0210E161
- for <freedreno@lists.freedesktop.org>; Tue, 15 Nov 2022 16:01:31 +0000 (UTC)
-Received: by mail-ed1-x536.google.com with SMTP id x2so22553214edd.2
- for <freedreno@lists.freedesktop.org>; Tue, 15 Nov 2022 08:01:31 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=YCH6PtmHj3XKQVwXY2Gm1n1n5KTgNrZ2aoxjacIPkLA=;
- b=XSZ1UsKd72WGVsU13AkxPx13kvV7eBMN2rk9mYv5/1BlvJuWdPfmvCjHqGY1YHuX1S
- ZKcO4QYOE4Wc2+/sm0oCJqKm0mbgDpEta1QZXmLqmoik9/WEh1cA5d8rjRXkfeZwUrS2
- t1agO5hRMm5K5WuuenC90gkUkRgs3BSOw1BPI=
+Received: from mail-pg1-x533.google.com (mail-pg1-x533.google.com
+ [IPv6:2607:f8b0:4864:20::533])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5A28510E044;
+ Tue, 15 Nov 2022 16:41:49 +0000 (UTC)
+Received: by mail-pg1-x533.google.com with SMTP id q71so13755501pgq.8;
+ Tue, 15 Nov 2022 08:41:49 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=+Vs3kQEHL0oTrTy5MR4m4bXaJPdcU0IKOmmtigZy0RQ=;
+ b=j1uDJjjED/dprSEJEMlZ1yfYS2WQkBO0HzjJ8V6lD93UppX4bhNioJRu/1W1T22Nma
+ w6kGSPxjxKRdya3t1xIGPPkhmONCkzLKlXjQNkkqBk6Ps0/eR1H4zpabOP2tJ4ZxbVo6
+ 37ZEz5k6P/3ar+DOP7F735TH8riybkRhQOEE4916Rja/Tifsq2caYJG9Wx40EoNQcK2a
+ PAqV40oRIg+nuIX2CUSA+jeZOZjqBdqE2tVBl/b7IvDvWSnXBl+1/WRyIAQnnF4Hrc2k
+ fTAYMvbufVg14/I/hH4b3FdFAcErksij/c7UmLsnVi8znWi5pXJcVxqt9kIlnQoHVL/e
+ q7mg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=YCH6PtmHj3XKQVwXY2Gm1n1n5KTgNrZ2aoxjacIPkLA=;
- b=1w7RxCKXKn0du78/e8Bw8iZGizb5QSBi03KR7w9qWFT/PYMKdpX8UjGcHVqP4MG3sn
- 77DAJnCsf1sdVVUH35gaXlvC6N22ZwnngxSLmVfgGqpCrD2GSbSGTrouHy83qeKfxdUt
- IgRrQ6qNel9K8DN3+21voIAYmfuv/GldA3GsfWswQ85NZbAPT5MNIeOC4Pfja+A+t1SF
- +z0u7Ta2WEJupalkYasZeiasDqHtsIInn39PtJJ7046TyNnZzwJByw3N8PlU/LeoXv5t
- ToCXyhKoBkviLExBnwSza5VU110gJ0YBEz9+sDkEa1U4x48HKDZIxm0KLsYBmdeSNVFe
- n43g==
-X-Gm-Message-State: ANoB5pkvAU3l7Vk6mC1UjZaXoE5SH+E633acJCAyCYGBmaSqofZOd5ZR
- IOteka1EPFA/We0K3ndII8VzsMggPWDyOFnQ
-X-Google-Smtp-Source: AA0mqf61BPNHX7T80zm8EyvZulsq/HdNOrSxVS14prMCPfmDo6NSQHBIcoeoF6F9NcRlxJAppJoehg==
-X-Received: by 2002:a05:6402:3983:b0:467:69e3:c25b with SMTP id
- fk3-20020a056402398300b0046769e3c25bmr14296514edb.3.1668528090132; 
- Tue, 15 Nov 2022 08:01:30 -0800 (PST)
-Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com.
- [209.85.221.51]) by smtp.gmail.com with ESMTPSA id
- hw20-20020a170907a0d400b00779cde476e4sm5656304ejc.62.2022.11.15.08.01.28
- for <freedreno@lists.freedesktop.org>
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 15 Nov 2022 08:01:29 -0800 (PST)
-Received: by mail-wr1-f51.google.com with SMTP id j15so25080170wrq.3
- for <freedreno@lists.freedesktop.org>; Tue, 15 Nov 2022 08:01:28 -0800 (PST)
-X-Received: by 2002:adf:f145:0:b0:236:5270:735e with SMTP id
- y5-20020adff145000000b002365270735emr10938918wro.659.1668528084437; Tue, 15
- Nov 2022 08:01:24 -0800 (PST)
+ bh=+Vs3kQEHL0oTrTy5MR4m4bXaJPdcU0IKOmmtigZy0RQ=;
+ b=AE8s9hDtLKbLam7005EOxMEOC7Sq+PPpHrRHNp1NmiAWgAB7ZsCZogztJXlfzJK2q7
+ l5siKXgRCNP/RNHxxsQNCiuG48m9qUAzhevI2dhu/LAiVBZrGmkfcNOv3YnSChNffAfS
+ b+wbR0v79k+lv39K2hdFHAlyviMBSHk0yIR1exNCIQScN4vTwBN9c3IBU2mP1jQWEzox
+ Icooy++jkS97Tr6NlfX9ifgiGgkrFxsTK8QlWm61loMFF6Q7PThh2dI2zrbrj+/T0dtE
+ 5GVsd/AoRorN6w5+bi+Qqq197+4OViINdPtCN5x5gntmUPGCSM5QfIvBYUocux8658t3
+ Mofg==
+X-Gm-Message-State: ANoB5plUt7n/39Kf5xkB+gg1PdWczXkYUqQnqTg9gi8ocdqdrR0o41NO
+ GcT2yhHPbWHRFI7AM/h1UP1JMxaiPeE=
+X-Google-Smtp-Source: AA0mqf7djbrriQQMP2iaGU82u/FSoTUimc0HOuiGEe1GjVChTbR5YA+6lXVDqIK3EDM8kWDtP5UF0Q==
+X-Received: by 2002:a63:4d1d:0:b0:44b:d27e:520d with SMTP id
+ a29-20020a634d1d000000b0044bd27e520dmr16272720pgb.124.1668530508704; 
+ Tue, 15 Nov 2022 08:41:48 -0800 (PST)
+Received: from localhost ([2a00:79e1:abd:4a00:2703:3c72:eb1a:cffd])
+ by smtp.gmail.com with ESMTPSA id
+ n12-20020a170902e54c00b00186f608c543sm10211678plf.304.2022.11.15.08.41.48
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 15 Nov 2022 08:41:48 -0800 (PST)
+From: Rob Clark <robdclark@gmail.com>
+To: dri-devel@lists.freedesktop.org
+Date: Tue, 15 Nov 2022 08:42:12 -0800
+Message-Id: <20221115164212.1619306-1-robdclark@gmail.com>
+X-Mailer: git-send-email 2.38.1
 MIME-Version: 1.0
-References: <20221115155535.1615278-1-robdclark@gmail.com>
-In-Reply-To: <20221115155535.1615278-1-robdclark@gmail.com>
-From: Doug Anderson <dianders@chromium.org>
-Date: Tue, 15 Nov 2022 08:01:10 -0800
-X-Gmail-Original-Message-ID: <CAD=FV=VJKTHf7qLZkygfnMRSjXEdQ09opCpFM2brUc=uiTGyTw@mail.gmail.com>
-Message-ID: <CAD=FV=VJKTHf7qLZkygfnMRSjXEdQ09opCpFM2brUc=uiTGyTw@mail.gmail.com>
-To: Rob Clark <robdclark@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [PATCH] drm/msm: Enable clamp_to_idle for 7c3
+Content-Transfer-Encoding: 8bit
+Subject: [Freedreno] [PATCH] drm/msm: Enable unpin/eviction by default
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,29 +68,38 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rob Clark <robdclark@chromium.org>,
- Akhil P Oommen <quic_akhilpo@quicinc.com>, linux-arm-msm@vger.kernel.org,
- Konrad Dybcio <konrad.dybcio@somainline.org>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
+Cc: Rob Clark <robdclark@chromium.org>, linux-arm-msm@vger.kernel.org,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
  open list <linux-kernel@vger.kernel.org>, Sean Paul <sean@poorly.run>,
- Daniel Vetter <daniel@ffwll.ch>,
+ Rob Clark <robdclark@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
  Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- David Airlie <airlied@gmail.com>, freedreno@lists.freedesktop.org,
- Chia-I Wu <olvaffe@gmail.com>
+ David Airlie <airlied@gmail.com>, freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Hi,
+From: Rob Clark <robdclark@chromium.org>
 
-On Tue, Nov 15, 2022 at 7:55 AM Rob Clark <robdclark@gmail.com> wrote:
->
-> From: Rob Clark <robdclark@chromium.org>
->
-> This was overlooked.
->
-> Signed-off-by: Rob Clark <robdclark@chromium.org>
-> ---
->  drivers/gpu/drm/msm/adreno/a6xx_gpu.c | 14 +++++++-------
->  1 file changed, 7 insertions(+), 7 deletions(-)
+We've had this enabled in the CrOS kernel for a while now without seeing
+issues, so let's flip the switch upstream now.
 
-Reviewed-by: Douglas Anderson <dianders@chromium.org>
+Signed-off-by: Rob Clark <robdclark@chromium.org>
+---
+ drivers/gpu/drm/msm/msm_gem_shrinker.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/msm/msm_gem_shrinker.c b/drivers/gpu/drm/msm/msm_gem_shrinker.c
+index 8f83454ceedf..f6de1bd9d2e1 100644
+--- a/drivers/gpu/drm/msm/msm_gem_shrinker.c
++++ b/drivers/gpu/drm/msm/msm_gem_shrinker.c
+@@ -16,7 +16,7 @@
+ /* Default disabled for now until it has some more testing on the different
+  * iommu combinations that can be paired with the driver:
+  */
+-static bool enable_eviction = false;
++static bool enable_eviction = true;
+ MODULE_PARM_DESC(enable_eviction, "Enable swappable GEM buffers");
+ module_param(enable_eviction, bool, 0600);
+ 
+-- 
+2.38.1
+
