@@ -1,79 +1,58 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5323A629B00
-	for <lists+freedreno@lfdr.de>; Tue, 15 Nov 2022 14:47:29 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 092FA629B98
+	for <lists+freedreno@lfdr.de>; Tue, 15 Nov 2022 15:11:20 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1005010E3F9;
-	Tue, 15 Nov 2022 13:47:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A06E010E402;
+	Tue, 15 Nov 2022 14:11:18 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x131.google.com (mail-lf1-x131.google.com
- [IPv6:2a00:1450:4864:20::131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2875A10E3F6
- for <freedreno@lists.freedesktop.org>; Tue, 15 Nov 2022 13:47:21 +0000 (UTC)
-Received: by mail-lf1-x131.google.com with SMTP id bp15so24418581lfb.13
- for <freedreno@lists.freedesktop.org>; Tue, 15 Nov 2022 05:47:21 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=content-transfer-encoding:in-reply-to:from:references:to:subject
- :user-agent:mime-version:date:message-id:from:to:cc:subject:date
- :message-id:reply-to;
- bh=D1lsJdjigIX8ZDz/U2Ud7ZNMW6v6rQsSpoxZd5XzRCU=;
- b=toZYMHYHTMpkCtWeEVOJGZddt5opCfkJre25TDxhpInMjQ13zbH8ndmt4JbDPDyKI4
- Ygx606/KjsyiP9FDUiRTSLYEi74hurhoTA7pAnMO6MPGAo4dMHHNSYB4LivXKi1OhD2g
- NHRGtdtq6I3izbstBC7OHL8IaIp+njwTn3PVXkgEW+lUru48QoI0Kl7XEhbjxepVLfcU
- RaDN3MdNZBt+bdUYqvAUiQBQJbv1nMxRKGcVg9sqH3E8pUlXZjWBBBaM4CnhM5yybMsw
- Zkacv+sfli28hw4WE59YZhDvPNk9rvkIMtfQGQUQSlwOposIpikkeUJ6TJu7lG1eujoe
- fTyQ==
+Received: from mail-ot1-f41.google.com (mail-ot1-f41.google.com
+ [209.85.210.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6017110E402;
+ Tue, 15 Nov 2022 14:11:16 +0000 (UTC)
+Received: by mail-ot1-f41.google.com with SMTP id
+ m7-20020a9d6447000000b0066da0504b5eso2225684otl.13; 
+ Tue, 15 Nov 2022 06:11:16 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=content-transfer-encoding:in-reply-to:from:references:to:subject
- :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
+ h=date:subject:message-id:references:in-reply-to:cc:to:from
+ :mime-version:content-transfer-encoding:x-gm-message-state:from:to
  :cc:subject:date:message-id:reply-to;
- bh=D1lsJdjigIX8ZDz/U2Ud7ZNMW6v6rQsSpoxZd5XzRCU=;
- b=TuruYTu08AMnzA+wkDFEFVK2TtKfrfndQAUL9DtB/RQropiT5SYezNfT1VroMbhvm1
- ++FS4vaG0Grhmb6lZzyRN4834z7iX16U8y0S4dZ+RaTv91ocsHjckVCMZ56Qmuf+JeV+
- Jxc3aBkalTpJE3jv6SFn/DfUH9EbsDaOSAOZNp0ihkN8fy9IpIUjNlGV1HG4ZtiJ13t7
- bO5r02fp/BTmCBUR4oAIsjylaUzB6NeX/BcvX+LldrMLZPpOGZEtgnF13qU358A8vnpe
- afp7K7LoyWhpVzxOtJC2AxGbAqvIiKah53lYhocU+zccIRmKqz342/v4rV0qaoLV7Jyz
- Uydw==
-X-Gm-Message-State: ANoB5pmMMHBbQ+99iDV6TYAlNHDrpCtKT1xZmR9X0hB3OB1NYkZhD0Dw
- ppKqItvX9Or8OAG6VlHJGIiUyg==
-X-Google-Smtp-Source: AA0mqf5xZIdpKC+8d2I3BbXfsVS3Y6jQcYqCsbUQ+AHMtLAbUdSpt3NQjEc8eMotSJsgEv7BcpI0qQ==
-X-Received: by 2002:a19:e01a:0:b0:4b1:61a6:fc45 with SMTP id
- x26-20020a19e01a000000b004b161a6fc45mr5503018lfg.224.1668520039387; 
- Tue, 15 Nov 2022 05:47:19 -0800 (PST)
-Received: from [192.168.31.208] ([194.29.137.22])
- by smtp.gmail.com with ESMTPSA id
- q23-20020a056512211700b0049e9122bd1bsm2209533lfr.164.2022.11.15.05.47.17
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 15 Nov 2022 05:47:18 -0800 (PST)
-Message-ID: <dc138171-f7b1-2761-d800-620e85afd6d9@linaro.org>
-Date: Tue, 15 Nov 2022 14:47:12 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
- Gecko/20100101 Thunderbird/102.4.2
-To: Robert Foss <robert.foss@linaro.org>, robdclark@gmail.com,
- quic_abhinavk@quicinc.com, dmitry.baryshkov@linaro.org, sean@poorly.run,
- airlied@linux.ie, daniel@ffwll.ch, robh+dt@kernel.org,
- krzysztof.kozlowski+dt@linaro.org, agross@kernel.org,
- bjorn.andersson@linaro.org, quic_kalyant@quicinc.com, swboyd@chromium.org,
- angelogioacchino.delregno@somainline.org, loic.poulain@linaro.org,
- quic_khsieh@quicinc.com, quic_vpolimer@quicinc.com, vkoul@kernel.org,
- dianders@chromium.org, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- Jonathan Marek <jonathan@marek.ca>, vinod.koul@linaro.org,
- quic_jesszhan@quicinc.com, andersson@kernel.org
-References: <20221115133105.980877-1-robert.foss@linaro.org>
- <20221115133105.980877-11-robert.foss@linaro.org>
-From: Konrad Dybcio <konrad.dybcio@linaro.org>
-In-Reply-To: <20221115133105.980877-11-robert.foss@linaro.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+ bh=EqWqP263F0VBi+wp6NIdMw44Os0nhYFuBkjSSobCBrM=;
+ b=0Tb/q8nJwg9EcTzaQKBdb06kMe4v5YoKTSVsoaAkcN45NOBeBxlQQMgb1ux5roCiO9
+ LCU4fPhQZtRDMOPfzWE8ZJ4+QGI8H68edwludNJ2N37LjwKnlTgFhpc8QM/d/k+OOpMG
+ 6N0kWL/KyM7viQYM3m1r5v6XQvLcm9WKiYz5QhvJoPY8bPiIF/9h0vRUJIelq1q7rc+6
+ GumpEDCjjTYcrDfEMLQAuOckFiQEhGy72eK9jcoCqkrGfVU+pLDf7d5VJfIEI/M3Y8DJ
+ xQ7bN4Qqk8+sjX0+W+PbwbhOAXImH0HUKZzEoc8wVeEPZ/BQihNp6Pka6gB+h2rVvry6
+ cA6A==
+X-Gm-Message-State: ANoB5pk29pd9QDW5IA/DWNSCFmYmfw7TQAgkRLPgAbZbP4VSFXgmMtoe
+ L0j9gEfpJ8Q7JHT58U/0serA5ecXWA==
+X-Google-Smtp-Source: AA0mqf79qA6Fs+UZ4mUVQEbyhd/P9Pj/81uhRm470TyNwj7sRxVAqBNhJBdEn+OuAqL6o613cSb4XA==
+X-Received: by 2002:a05:6830:20ca:b0:66c:4f87:fd14 with SMTP id
+ z10-20020a05683020ca00b0066c4f87fd14mr8909225otq.159.1668521475440; 
+ Tue, 15 Nov 2022 06:11:15 -0800 (PST)
+Received: from robh_at_kernel.org (66-90-144-107.dyn.grandenetworks.net.
+ [66.90.144.107]) by smtp.gmail.com with ESMTPSA id
+ 185-20020aca06c2000000b0035a5b95bd38sm4915712oig.54.2022.11.15.06.11.13
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 15 Nov 2022 06:11:14 -0800 (PST)
+Received: (nullmailer pid 908582 invoked by uid 1000);
+ Tue, 15 Nov 2022 14:11:14 -0000
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH v2 10/12] arm64: dts: qcom: sm8350: Add
- display system nodes
+MIME-Version: 1.0
+From: Rob Herring <robh@kernel.org>
+To: Robert Foss <robert.foss@linaro.org>
+In-Reply-To: <20221115111721.891404-2-robert.foss@linaro.org>
+References: <20221115111721.891404-1-robert.foss@linaro.org>
+ <20221115111721.891404-2-robert.foss@linaro.org>
+Message-Id: <166851961813.867662.5795540352280640159.robh@kernel.org>
+Date: Tue, 15 Nov 2022 08:11:14 -0600
+Subject: Re: [Freedreno] [PATCH v2 01/12] dt-bindings: display: msm: Add
+ qcom, sm8350-dpu binding
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -86,252 +65,58 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
+Cc: airlied@linux.ie, konrad.dybcio@somainline.org,
+ dri-devel@lists.freedesktop.org, dianders@chromium.org,
+ krzysztof.kozlowski+dt@linaro.org, angelogioacchino.delregno@somainline.org,
+ vinod.koul@linaro.org, Jonathan Marek <jonathan@marek.ca>, robdclark@gmail.com,
+ quic_vpolimer@quicinc.com, agross@kernel.org, quic_jesszhan@quicinc.com,
+ devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ quic_abhinavk@quicinc.com, swboyd@chromium.org, robh+dt@kernel.org,
+ bjorn.andersson@linaro.org, sean@poorly.run, quic_kalyant@quicinc.com,
+ loic.poulain@linaro.org, andersson@kernel.org, linux-kernel@vger.kernel.org,
+ vkoul@kernel.org, daniel@ffwll.ch, dmitry.baryshkov@linaro.org,
+ freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 
-
-On 15/11/2022 14:31, Robert Foss wrote:
-> Add mdss, mdss_mdp, dsi0, dsi0_phy nodes. With these
-> nodes the display subsystem is configured to support
-> one DSI output.
+On Tue, 15 Nov 2022 12:17:10 +0100, Robert Foss wrote:
+> Mobile Display Subsystem (MDSS) encapsulates sub-blocks
+> like DPU display controller, DSI etc. Add YAML schema for DPU device
+> tree bindings
 > 
 > Signed-off-by: Robert Foss <robert.foss@linaro.org>
 > ---
->   arch/arm64/boot/dts/qcom/sm8350.dtsi | 197 ++++++++++++++++++++++++++-
->   1 file changed, 193 insertions(+), 4 deletions(-)
+>  .../bindings/display/msm/qcom,sm8350-dpu.yaml | 120 ++++++++++++++++++
+>  1 file changed, 120 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/display/msm/qcom,sm8350-dpu.yaml
 > 
-> diff --git a/arch/arm64/boot/dts/qcom/sm8350.dtsi b/arch/arm64/boot/dts/qcom/sm8350.dtsi
-> index 434f8e8b12c1..5c98e5cf5ad0 100644
-> --- a/arch/arm64/boot/dts/qcom/sm8350.dtsi
-> +++ b/arch/arm64/boot/dts/qcom/sm8350.dtsi
-> @@ -3,6 +3,7 @@
->    * Copyright (c) 2020, Linaro Limited
->    */
->   
-> +#include <dt-bindings/interconnect/qcom,sm8350.h>
->   #include <dt-bindings/interrupt-controller/arm-gic.h>
->   #include <dt-bindings/clock/qcom,dispcc-sm8350.h>
->   #include <dt-bindings/clock/qcom,gcc-sm8350.h>
-> @@ -2536,14 +2537,201 @@ usb_2_dwc3: usb@a800000 {
->   			};
->   		};
->   
-> +		mdss: mdss@ae00000 {
-> +			compatible = "qcom,sm8350-mdss";
-> +			reg = <0 0x0ae00000 0 0x1000>;
-> +			reg-names = "mdss";
-> +
-> +			interconnects = <&mmss_noc MASTER_MDP0 0 &mc_virt SLAVE_EBI1 0>,
-> +					<&mmss_noc MASTER_MDP1 0 &mc_virt SLAVE_EBI1 0>;
-> +			interconnect-names = "mdp0-mem", "mdp1-mem";
-> +
-> +			power-domains = <&dispcc MDSS_GDSC>;
-> +			resets = <&dispcc DISP_CC_MDSS_CORE_BCR>;
-> +
-> +			clocks = <&dispcc DISP_CC_MDSS_AHB_CLK>,
-> +				 <&gcc GCC_DISP_HF_AXI_CLK>,
-> +				 <&gcc GCC_DISP_SF_AXI_CLK>,
-> +				 <&dispcc DISP_CC_MDSS_MDP_CLK>;
-> +			clock-names = "iface", "bus", "nrt_bus", "core";
-> +
-> +			interrupts = <GIC_SPI 83 IRQ_TYPE_LEVEL_HIGH>;
-> +			interrupt-controller;
-> +			#interrupt-cells = <1>;
-> +
-> +			iommus = <&apps_smmu 0x820 0x402>;
-> +
-> +			status = "disabled";
-> +
-> +			#address-cells = <2>;
-> +			#size-cells = <2>;
-> +			ranges;
-> +
-> +			mdss_mdp: display-controller@ae01000 {
-> +				compatible = "qcom,sm8350-dpu";
-> +				reg = <0 0x0ae01000 0 0x8f000>,
-> +				      <0 0x0aeb0000 0 0x2008>;
-> +				reg-names = "mdp", "vbif";
-> +
-> +				clocks = <&gcc GCC_DISP_HF_AXI_CLK>,
-> +					<&gcc GCC_DISP_SF_AXI_CLK>,
-> +					<&dispcc DISP_CC_MDSS_AHB_CLK>,
-> +					<&dispcc DISP_CC_MDSS_MDP_LUT_CLK>,
-> +					<&dispcc DISP_CC_MDSS_MDP_CLK>,
-> +					<&dispcc DISP_CC_MDSS_VSYNC_CLK>;
-> +				clock-names = "bus",
-> +					      "nrt_bus",
-> +					      "iface",
-> +					      "lut",
-> +					      "core",
-> +					      "vsync";
-> +
-> +				assigned-clocks = <&dispcc DISP_CC_MDSS_VSYNC_CLK>;
-> +				assigned-clock-rates = <19200000>;
-> +
-> +				operating-points-v2 = <&mdp_opp_table>;
-> +				power-domains = <&rpmhpd SM8350_MMCX>;
-> +
-> +				interrupt-parent = <&mdss>;
-> +				interrupts = <0>;
-> +
-> +				status = "disabled";
-It doesn't make sense to disable mdp separately, as mdss is essentially 
-useless without it.
 
-> +
-> +				ports {
-> +					#address-cells = <1>;
-> +					#size-cells = <0>;
-> +
-> +					port@0 {
-> +						reg = <0>;
-> +						dpu_intf1_out: endpoint {
-> +							remote-endpoint = <&dsi0_in>;
-> +						};
-> +					};
-> +				};
-> +
-> +				mdp_opp_table: opp-table {
-> +					compatible = "operating-points-v2";
-> +
-> +					opp-200000000 {
-> +						opp-hz = /bits/ 64 <200000000>;
-> +						required-opps = <&rpmhpd_opp_low_svs>;
-> +					};
-> +
-> +					opp-300000000 {
-> +						opp-hz = /bits/ 64 <300000000>;
-> +						required-opps = <&rpmhpd_opp_svs>;
-> +					};
-> +
-> +					opp-345000000 {
-> +						opp-hz = /bits/ 64 <345000000>;
-> +						required-opps = <&rpmhpd_opp_svs_l1>;
-> +					};
-> +
-> +					opp-460000000 {
-> +						opp-hz = /bits/ 64 <460000000>;
-> +						required-opps = <&rpmhpd_opp_nom>;
-> +					};
-> +				};
-> +			};
-> +
-> +			dsi0: dsi@ae94000 {
-> +				compatible = "qcom,mdss-dsi-ctrl";
-> +				reg = <0 0x0ae94000 0 0x400>;
-> +				reg-names = "dsi_ctrl";
-> +
-> +				interrupt-parent = <&mdss>;
-> +				interrupts = <4>;
-> +
-> +				clocks = <&dispcc DISP_CC_MDSS_BYTE0_CLK>,
-> +					 <&dispcc DISP_CC_MDSS_BYTE0_INTF_CLK>,
-> +					 <&dispcc DISP_CC_MDSS_PCLK0_CLK>,
-> +					 <&dispcc DISP_CC_MDSS_ESC0_CLK>,
-> +					 <&dispcc DISP_CC_MDSS_AHB_CLK>,
-> +					 <&gcc GCC_DISP_HF_AXI_CLK>;
-> +				clock-names = "byte",
-> +					      "byte_intf",
-> +					      "pixel",
-> +					      "core",
-> +					      "iface",
-> +					      "bus";
-> +
-> +				assigned-clocks = <&dispcc DISP_CC_MDSS_BYTE0_CLK_SRC>,
-> +						  <&dispcc DISP_CC_MDSS_PCLK0_CLK_SRC>;
-> +				assigned-clock-parents = <&dsi0_phy 0>,
-> +							 <&dsi0_phy 1>;
-> +
-> +				operating-points-v2 = <&dsi_opp_table>;
-> +				power-domains = <&rpmhpd SM8350_MMCX>;
-> +
-> +				phys = <&dsi0_phy>;
-> +				phy-names = "dsi";
-I think that was dropped as of late.
+My bot found errors running 'make DT_CHECKER_FLAGS=-m dt_binding_check'
+on your patch (DT_CHECKER_FLAGS is new in v5.13):
 
-> +
-> +				status = "disabled";
-> +
-> +				ports {
-> +					#address-cells = <1>;
-> +					#size-cells = <0>;
-> +
-> +					port@0 {
-> +						reg = <0>;
-> +						dsi0_in: endpoint {
-> +							remote-endpoint = <&dpu_intf1_out>;
-> +						};
-> +					};
-> +
-> +					port@1 {
-> +						reg = <1>;
-> +						dsi0_out: endpoint {
-> +						};
-> +					};
-> +				};
-> +			};
-> +
-> +			dsi0_phy: phy@ae94400 {
-> +				compatible = "qcom,dsi-phy-5nm-8350";
-> +				reg = <0 0x0ae94400 0 0x200>,
-> +				      <0 0x0ae94600 0 0x280>,
-> +				      <0 0x0ae94900 0 0x260>;
-> +				reg-names = "dsi_phy",
-> +					    "dsi_phy_lane",
-> +					    "dsi_pll";
-> +
-> +				#clock-cells = <1>;
-> +				#phy-cells = <0>;
-> +
-> +				clocks = <&dispcc DISP_CC_MDSS_AHB_CLK>,
-> +					 <&rpmhcc RPMH_CXO_CLK>;
-> +				clock-names = "iface", "ref";
-> +
-> +				status = "disabled";
-> +
-> +				dsi_opp_table: dsi-opp-table {
-> +					compatible = "operating-points-v2";
-> +
-> +					opp-187500000 {
-> +						opp-hz = /bits/ 64 <187500000>;
-> +						required-opps = <&rpmhpd_opp_low_svs>;
-> +					};
-> +
-> +					opp-300000000 {
-> +						opp-hz = /bits/ 64 <300000000>;
-> +						required-opps = <&rpmhpd_opp_svs>;
-> +					};
-> +
-> +					opp-358000000 {
-> +						opp-hz = /bits/ 64 <358000000>;
-> +						required-opps = <&rpmhpd_opp_svs_l1>;
-> +					};
-> +				};
-> +			};
-> +		};
-> +
->   		dispcc: clock-controller@af00000 {
->   			compatible = "qcom,sm8350-dispcc";
->   			reg = <0 0x0af00000 0 0x10000>;
->   			clocks = <&rpmhcc RPMH_CXO_CLK>,
-> -				 <0>,
-> -				 <0>,
-> -				 <0>,
-> -				 <0>,
-> +				 <&dsi0_phy 0>, <&dsi0_phy 1>,
-> +				 <0>, <0>,
->   				 <0>,
->   				 <0>;
->   			clock-names = "bi_tcxo",
-> @@ -2558,6 +2746,7 @@ dispcc: clock-controller@af00000 {
->   			#power-domain-cells = <1>;
->   
->   			power-domains = <&rpmhpd SM8350_MMCX>;
-> +			required-opps = <&rpmhpd_opp_turbo>;
-A turbo vote is required for it to function? Seems a bit high..
+yamllint warnings/errors:
 
-Konrad
->   		};
->   
->   		adsp: remoteproc@17300000 {
+dtschema/dtc warnings/errors:
+./Documentation/devicetree/bindings/display/msm/qcom,sm8350-dpu.yaml: Unable to find schema file matching $id: http://devicetree.org/schemas/display/msm/dpu-common.yaml
+/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sm8350-dpu.example.dtb: display-controller@ae01000: False schema does not allow {'compatible': ['qcom,sm8350-dpu'], 'reg': [[182456320, 585728], [183173120, 8200]], 'reg-names': ['mdp', 'vbif'], 'clocks': [[4294967295, 27], [4294967295, 28], [4294967295, 0], [4294967295, 34], [4294967295, 32], [4294967295, 44]], 'clock-names': ['bus', 'nrt_bus', 'iface', 'lut', 'core', 'vsync'], 'assigned-clocks': [[4294967295, 44]], 'assigned-clock-rates': [[19200000]], 'operating-points-v2': [[1]], 'power-domains': [[4294967295, 6]], 'interrupts': [[0]], 'ports': {'#address-cells': [[1]], '#size-cells': [[0]], 'port@0': {'reg': [[0]], 'endpoint': {'remote-endpoint': [[4294967295]]}}}, 'opp-table': {'compatible': ['operating-points-v2'], 'phandle': [[1]], 'opp-200000000': {'opp-hz': [[0], [200000000]], 'required-opps': [[4294967295]]}, 'opp-300000000': {'opp-hz': [[0], [300000000]], 'required-opps': [[4294967295
+ ]]}, 'opp-345000000': {'opp-hz': [[0], [345000000]], 'required-opps': [[4294967295]]}, 'opp-460000000': {'opp-hz': [[0], [460000000]], 'required-opps': [[4294967295]]}}, '$nodename': ['display-controller@ae01000']}
+	From schema: /builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sm8350-dpu.yaml
+/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sm8350-dpu.example.dtb: display-controller@ae01000: Unevaluated properties are not allowed ('interrupts', 'operating-points-v2', 'opp-table', 'ports', 'power-domains' were unexpected)
+	From schema: /builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sm8350-dpu.yaml
+
+doc reference errors (make refcheckdocs):
+
+See https://patchwork.ozlabs.org/patch/
+
+This check can fail if there are any dependencies. The base for a patch
+series is generally the most recent rc1.
+
+If you already ran 'make dt_binding_check' and didn't see the above
+error(s), then make sure 'yamllint' is installed and dt-schema is up to
+date:
+
+pip3 install dtschema --upgrade
+
+Please check and re-submit.
+
