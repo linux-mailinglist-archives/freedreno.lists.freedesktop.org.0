@@ -2,57 +2,79 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3BCDC629B9E
-	for <lists+freedreno@lfdr.de>; Tue, 15 Nov 2022 15:11:25 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 24B6D629D48
+	for <lists+freedreno@lfdr.de>; Tue, 15 Nov 2022 16:23:52 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7875310E400;
-	Tue, 15 Nov 2022 14:11:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 17B8D10E412;
+	Tue, 15 Nov 2022 15:23:39 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ot1-f43.google.com (mail-ot1-f43.google.com
- [209.85.210.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 41DA010E401;
- Tue, 15 Nov 2022 14:11:18 +0000 (UTC)
-Received: by mail-ot1-f43.google.com with SMTP id
- db10-20020a0568306b0a00b0066d43e80118so8406360otb.1; 
- Tue, 15 Nov 2022 06:11:18 -0800 (PST)
+Received: from mail-lj1-x22e.google.com (mail-lj1-x22e.google.com
+ [IPv6:2a00:1450:4864:20::22e])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EC95110E410
+ for <freedreno@lists.freedesktop.org>; Tue, 15 Nov 2022 15:23:33 +0000 (UTC)
+Received: by mail-lj1-x22e.google.com with SMTP id x21so17939045ljg.10
+ for <freedreno@lists.freedesktop.org>; Tue, 15 Nov 2022 07:23:33 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=content-transfer-encoding:in-reply-to:from:references:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=xLKS/17GpYY4MgR4/+gEylG604Jj9+YJ2C6BLpGM54Y=;
+ b=LYkbwLcE94T02m+S8klc61BdLgSw8W4InLpW5Q6gh9TUg136iEgHNKLzg8Tm4FHm8U
+ aOg4Do2GSIOXi7sGolkSuBk9k+R25thUGno+VbjD0A2gQu4+xJj0h3rkjhsZRsKgxGD6
+ j3G5C+tWgoHNxi1ZDXc6ob607kOUAs0bn6hUqt22dnZDbqUO4EKRDA+Zk0ULrO/wa7nw
+ r4VSX+vj1eh7rb3ImE/XWYRFCZxo91NwirRshRlmgG2Fzgwavpq1g2CwDONt9DDnRPwd
+ dC2sCKroneKdVoqhoxHO2HghWXHbKK9HHDppXpBZUnVJ0/L80e1UHn5QpQFAf/Aj29uF
+ R5bw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=date:subject:message-id:references:in-reply-to:cc:to:from
- :mime-version:content-transfer-encoding:x-gm-message-state:from:to
- :cc:subject:date:message-id:reply-to;
- bh=TacVoOO9NDNFIMt31qzCtRgln1ccwtifAk7PyC4xZ0s=;
- b=G8jaMA4qGzVNU5n4ikSLm5E03a6TTkhAIboKMh7y+w2Bgl0YJta6VEQYAALENnL6aA
- 3khHR/ef3tPATGavqlclB4m8gcII4jrzCyyS9uUPqQ0veyZ76FRPbJ3aW3j9IMhs/Bwd
- rZcasUSZxp6AARg1NKumHVNgAuqR4kUoz/w9W5ATlEy7M9x29dXrCelrmodX+i+mevMl
- vro97kEi1LvS5uH5q2oOB3I6pfxpaXCbgZuCpbHgBi1uBBv42j4RvA2M30Lt+xqU1IvX
- AZBQM86WHzaSX3DZKru61iO/e05v44KUi9G6IINdyuzfJsM21Q4JVv1yD327xO4P+Tj5
- QzZQ==
-X-Gm-Message-State: ANoB5pkHH323pxXrHWyMTnT8iP/cPc7cQLcSaQrENcQs2+0T+B5nxuwk
- yk0Vm9E/wr8nh12ZlqVtvg==
-X-Google-Smtp-Source: AA0mqf41qwNznHD4daQ+Mhz0sumypTqDXe1dh5cjhOzl/ybpdXvQQEyrHv+3a+htI5DwxWlPOz3B+g==
-X-Received: by 2002:a05:6830:153:b0:66c:a3a8:3870 with SMTP id
- j19-20020a056830015300b0066ca3a83870mr8901401otp.54.1668521477402; 
- Tue, 15 Nov 2022 06:11:17 -0800 (PST)
-Received: from robh_at_kernel.org (66-90-144-107.dyn.grandenetworks.net.
- [66.90.144.107]) by smtp.gmail.com with ESMTPSA id
- s5-20020a4adb85000000b00499527def25sm4840834oou.47.2022.11.15.06.11.15
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 15 Nov 2022 06:11:16 -0800 (PST)
-Received: (nullmailer pid 908584 invoked by uid 1000);
- Tue, 15 Nov 2022 14:11:14 -0000
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+ h=content-transfer-encoding:in-reply-to:from:references:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=xLKS/17GpYY4MgR4/+gEylG604Jj9+YJ2C6BLpGM54Y=;
+ b=STo1eyOcH17Su5vn6H6BUHy7wRbgOrt3PYsruzh4yy7jzENK1mFPHTI5C0WYm6Cier
+ oql85h2AUYZGUzyqUs49FyLqCyFYkfNOqzL+Qur+EvvGSnaspuTCMm/4gmRw54AmLdbw
+ X3h4hItrw7eIb8newzAExvN+SOzuUxz32XwFwT/X/+WAZ/q5hm2a9fTO06lv+iOQogmT
+ BE8R0yFX6mNwKXkXC01k0VMNgjEmDmGslnKzsR9c4d5IQ6/JobDiHjgMDscqDat3CEci
+ J1lYv6N1+eoWoXSJom1rEVCdN221C54FgVW4NSdoySwNZ7q/7cRLiMEDba1c9hiojLC7
+ 2H/w==
+X-Gm-Message-State: ANoB5pla/DnfI4rlEfFazlyZ4CWlUauJ5P3VvZ+dlh2dgX7WLYNEwenG
+ 8oLoycAgn/PtV0i9Nk7zThb6BA==
+X-Google-Smtp-Source: AA0mqf5usyXx6gAprC2KqXwUCKgLy2D00K8A1R/p5KXWhg4DJKBRIIA+Yqk/jAqdlUOURDEc2BvSfw==
+X-Received: by 2002:a2e:b4a9:0:b0:26d:cf5f:6a22 with SMTP id
+ q9-20020a2eb4a9000000b0026dcf5f6a22mr5875512ljm.508.1668525812254; 
+ Tue, 15 Nov 2022 07:23:32 -0800 (PST)
+Received: from [192.168.0.20]
+ (088156142067.dynamic-2-waw-k-3-2-0.vectranet.pl. [88.156.142.67])
+ by smtp.gmail.com with ESMTPSA id
+ w26-20020ac2443a000000b004acbfa4a18bsm2245731lfl.173.2022.11.15.07.23.30
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 15 Nov 2022 07:23:31 -0800 (PST)
+Message-ID: <bbc08d1e-62fc-b0e2-15e1-76802ed3c4fc@linaro.org>
+Date: Tue, 15 Nov 2022 16:23:29 +0100
 MIME-Version: 1.0
-From: Rob Herring <robh@kernel.org>
-To: Robert Foss <robert.foss@linaro.org>
-In-Reply-To: <20221115111721.891404-3-robert.foss@linaro.org>
-References: <20221115111721.891404-1-robert.foss@linaro.org>
- <20221115111721.891404-3-robert.foss@linaro.org>
-Message-Id: <166851961892.867704.17058917320073105789.robh@kernel.org>
-Date: Tue, 15 Nov 2022 08:11:14 -0600
-Subject: Re: [Freedreno] [PATCH v2 02/12] dt-bindings: display: msm: Add
- qcom, sm8350-mdss binding
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.4.2
+Content-Language: en-US
+To: Robert Foss <robert.foss@linaro.org>, robdclark@gmail.com,
+ quic_abhinavk@quicinc.com, dmitry.baryshkov@linaro.org, sean@poorly.run,
+ airlied@linux.ie, daniel@ffwll.ch, robh+dt@kernel.org,
+ krzysztof.kozlowski+dt@linaro.org, agross@kernel.org,
+ bjorn.andersson@linaro.org, konrad.dybcio@somainline.org,
+ quic_kalyant@quicinc.com, swboyd@chromium.org,
+ angelogioacchino.delregno@somainline.org, loic.poulain@linaro.org,
+ quic_khsieh@quicinc.com, quic_vpolimer@quicinc.com, vkoul@kernel.org,
+ dianders@chromium.org, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Jonathan Marek <jonathan@marek.ca>, vinod.koul@linaro.org,
+ quic_jesszhan@quicinc.com, andersson@kernel.org
+References: <20221115133105.980877-1-robert.foss@linaro.org>
+From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+In-Reply-To: <20221115133105.980877-1-robert.foss@linaro.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+Subject: Re: [Freedreno] [PATCH v2 00/12] Enable Display for SM8350
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,59 +87,25 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: airlied@linux.ie, konrad.dybcio@somainline.org,
- dri-devel@lists.freedesktop.org, bjorn.andersson@linaro.org,
- krzysztof.kozlowski+dt@linaro.org, angelogioacchino.delregno@somainline.org,
- vinod.koul@linaro.org, Jonathan Marek <jonathan@marek.ca>, robdclark@gmail.com,
- quic_vpolimer@quicinc.com, agross@kernel.org, quic_jesszhan@quicinc.com,
- devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- quic_abhinavk@quicinc.com, swboyd@chromium.org, robh+dt@kernel.org,
- sean@poorly.run, quic_kalyant@quicinc.com, loic.poulain@linaro.org,
- andersson@kernel.org, dianders@chromium.org, linux-kernel@vger.kernel.org,
- vkoul@kernel.org, daniel@ffwll.ch, dmitry.baryshkov@linaro.org,
- freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-
-On Tue, 15 Nov 2022 12:17:11 +0100, Robert Foss wrote:
-> Mobile Display Subsystem (MDSS) encapsulates sub-blocks
-> like DPU display controller, DSI etc. Add YAML schema for MDSS device
-> tree bindings
+On 15/11/2022 14:30, Robert Foss wrote:
+> Dependencies:
+> https://lore.kernel.org/all/20221102231309.583587-1-dmitry.baryshkov@linaro.org/
+> https://lore.kernel.org/all/20221024164225.3236654-1-dmitry.baryshkov@linaro.org/
+> https://lore.kernel.org/all/20221104130324.1024242-5-dmitry.baryshkov@linaro.org/
 > 
-> Signed-off-by: Robert Foss <robert.foss@linaro.org>
-> ---
->  .../display/msm/qcom,sm8350-mdss.yaml         | 240 ++++++++++++++++++
->  1 file changed, 240 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/display/msm/qcom,sm8350-mdss.yaml
+> Branch:
+> https://git.linaro.org/people/robert.foss/linux.git/log/?h=sm8350_dsi_v2
+> 
+> This series implements display support for SM8350 and
+> enables HDMI output for the SM8350-HDK platform.
 > 
 
-My bot found errors running 'make DT_CHECKER_FLAGS=-m dt_binding_check'
-on your patch (DT_CHECKER_FLAGS is new in v5.13):
+I received two of these patchsets... Which one is valid? Folks also
+review in both...
 
-yamllint warnings/errors:
-
-dtschema/dtc warnings/errors:
-./Documentation/devicetree/bindings/display/msm/qcom,sm8350-mdss.yaml: Unable to find schema file matching $id: http://devicetree.org/schemas/display/msm/mdss-common.yaml
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sm8350-mdss.example.dtb: display-subsystem@ae00000: False schema does not allow {'compatible': ['qcom,sm8350-mdss'], 'reg': [[182452224, 4096]], 'reg-names': ['mdss'], 'interconnects': [[4294967295, 7, 0, 4294967295, 1, 0], [4294967295, 8, 0, 4294967295, 1, 0]], 'interconnect-names': ['mdp0-mem', 'mdp1-mem'], 'power-domains': [[4294967295, 0]], 'resets': [[4294967295, 0]], 'clocks': [[4294967295, 0], [4294967295, 27], [4294967295, 28], [4294967295, 32]], 'clock-names': ['iface', 'bus', 'nrt_bus', 'core'], 'iommus': [[4294967295, 2080, 1026]], 'interrupts': [[0, 83, 4]], 'interrupt-controller': True, '#interrupt-cells': [[1]], '#address-cells': [[1]], '#size-cells': [[1]], 'ranges': True, 'display-controller@ae01000': {'compatible': ['qcom,sm8350-dpu'], 'reg': [[182456320, 585728], [183173120, 8200]], 'reg-names': ['mdp', 'vbif'], 'clocks': [[4294967295, 27], [4294967295, 28], [4294967295, 0], [42
- 94967295, 34], [4294967295, 32], [4294967295, 44]], 'clock-names': ['bus', 'nrt_bus', 'iface', 'lut', 'core', 'vsync'], 'assigned-clocks': [[4294967295, 44]], 'assigned-clock-rates': [[19200000]], 'operating-points-v2': [[1]], 'power-domains': [[4294967295, 6]], 'interrupts': [[0]], 'ports': {'#address-cells': [[1]], '#size-cells': [[0]], 'port@0': {'reg': [[0]], 'endpoint': {'remote-endpoint': [[2]], 'phandle': [[4]]}}}, 'opp-table': {'compatible': ['operating-points-v2'], 'phandle': [[1]], 'opp-200000000': {'opp-hz': [[0], [200000000]], 'required-opps': [[4294967295]]}, 'opp-300000000': {'opp-hz': [[0], [300000000]], 'required-opps': [[4294967295]]}, 'opp-345000000': {'opp-hz': [[0], [345000000]], 'required-opps': [[4294967295]]}, 'opp-460000000': {'opp-hz': [[0], [460000000]], 'required-opps': [[4294967295]]}}}, 'dsi@ae94000': {'compatible': ['qcom,mdss-dsi-ctrl'], 'reg': [[183058432, 1024]], 'reg-names': ['dsi_ctrl'], 'interrupts': [[4]], 'clocks': [[4294967295, 2], [4294967295,
-  5], [4294967295, 36], [4294967295, 28], [4294967295, 0], [4294967295, 27]], 'clock-names': ['byte', 'byte_intf', 'pixel', 'core', 'iface', 'bus'], 'assigned-clocks': [[4294967295, 3], [4294967295, 37]], 'assigned-clock-parents': [[3, 0], [3, 1]], 'operating-points-v2': [[4294967295]], 'power-domains': [[4294967295, 6]], 'phys': [[3]], 'phy-names': ['dsi'], 'ports': {'#address-cells': [[1]], '#size-cells': [[0]], 'port@0': {'reg': [[0]], 'endpoint': {'remote-endpoint': [[4]], 'phandle': [[2]]}}, 'port@1': {'reg': [[1]], 'endpoint': {}}}}, 'phy@ae94400': {'compatible': ['qcom,dsi-phy-5nm-8350'], 'reg': [[183059456, 512], [183059968, 640], [183060736, 608]], 'reg-names': ['dsi_phy', 'dsi_phy_lane', 'dsi_pll'], '#clock-cells': [[1]], '#phy-cells': [[0]], 'clocks': [[4294967295, 0], [4294967295, 0]], 'clock-names': ['iface', 'ref'], 'vdds-supply': [[4294967295]], 'phandle': [[3]]}, '$nodename': ['display-subsystem@ae00000']}
-	From schema: /builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sm8350-mdss.yaml
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sm8350-mdss.example.dtb: display-subsystem@ae00000: Unevaluated properties are not allowed ('#address-cells', '#interrupt-cells', '#size-cells', 'interrupt-controller', 'interrupts', 'power-domains', 'ranges', 'reg', 'reg-names', 'resets' were unexpected)
-	From schema: /builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sm8350-mdss.yaml
-
-doc reference errors (make refcheckdocs):
-
-See https://patchwork.ozlabs.org/patch/
-
-This check can fail if there are any dependencies. The base for a patch
-series is generally the most recent rc1.
-
-If you already ran 'make dt_binding_check' and didn't see the above
-error(s), then make sure 'yamllint' is installed and dt-schema is up to
-date:
-
-pip3 install dtschema --upgrade
-
-Please check and re-submit.
+Best regards,
+Krzysztof
 
