@@ -2,62 +2,75 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 49615629B40
-	for <lists+freedreno@lfdr.de>; Tue, 15 Nov 2022 14:56:11 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id F27A6629A03
+	for <lists+freedreno@lfdr.de>; Tue, 15 Nov 2022 14:23:47 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EE8BC10E066;
-	Tue, 15 Nov 2022 13:56:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9607810E3D4;
+	Tue, 15 Nov 2022 13:23:46 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wm1-x32a.google.com (mail-wm1-x32a.google.com
- [IPv6:2a00:1450:4864:20::32a])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3ADC610E3C7;
- Tue, 15 Nov 2022 13:03:28 +0000 (UTC)
-Received: by mail-wm1-x32a.google.com with SMTP id
- m7-20020a05600c090700b003cf8a105d9eso10165807wmp.5; 
- Tue, 15 Nov 2022 05:03:28 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=content-disposition:mime-version:message-id:subject:cc:to:from:date
- :from:to:cc:subject:date:message-id:reply-to;
- bh=2YXSEudsc9acCjyZ9gI8tQXstRzlGGklsZOdLPbwiNo=;
- b=PMayZRM3eFKCloLvTyzjYH6LundInUpmC31aN3lOF2x/ELF21FR0on5O7mVTSts3wO
- g6qm9lIbCtI8Tu8FHtJix+MBnLjKr1/rkxg/+WE9K9PKjLveqXUvHcQ85bWBsSDINlSr
- NrpD7YfIdnWlboCxGpzoS3BzxReT2llXaselZxlKWSyqXa4VfI+0D8cdeBnK2GSvVVSi
- 6njp/YfDclStsXVecpjj6FjKKKFzw4TMCIafqnL7riRl+pFgXkts9fkurtXGeyEqTs7C
- bmGnN9KdjMwud2LsVHKBIE3ht7urWyxIWIv5WLaXjQr2dE5th7oKBXOc0xOaz/UcvLoZ
- ZSeg==
+Received: from mail-lf1-x133.google.com (mail-lf1-x133.google.com
+ [IPv6:2a00:1450:4864:20::133])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DD23710E3D7
+ for <freedreno@lists.freedesktop.org>; Tue, 15 Nov 2022 13:23:42 +0000 (UTC)
+Received: by mail-lf1-x133.google.com with SMTP id a29so24378340lfj.9
+ for <freedreno@lists.freedesktop.org>; Tue, 15 Nov 2022 05:23:42 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=content-transfer-encoding:in-reply-to:from:references:to:subject
+ :user-agent:mime-version:date:message-id:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=FqH00M5tmI+hJaxcTJuo6fH1GrWWsoOr/MknXsui2eE=;
+ b=Nltim8rZvpTvTZ7pTQ+/8Gx82aBXz5lw5ke1QBpq3c+LocGqtCtn1/6Stckq+Il3zV
+ 5ruuF/Zqqjx4K9dLBDERJDofKCMxQ9ufaPTL9SFIUGO0wRyG5qrAt9ihgo6fQduY2fTi
+ TuYCM7r61DP2vrSEGfsF1W1mk3hBrZwNrnO751Pi0ExY1UW47kjy3Qmrctr0IEdgabTd
+ +h1H/5wtUK8b7DsKZ028xikl8tyFKr7zj8a4r43m2RTGoW+RhaygRJWL7C+QPruO/k+U
+ g19v1kZYLqb6PqnECKVDKoO9fz4HVwfPoD4hR+R50WlQAdCtbg9PztoCOccxW9RCl0yK
+ 0m/g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=content-disposition:mime-version:message-id:subject:cc:to:from:date
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=2YXSEudsc9acCjyZ9gI8tQXstRzlGGklsZOdLPbwiNo=;
- b=RmyQfF727YfALsR3GI/VOxCOKLp379a0bHvolRZcF6LKdLiVLd99W5agluUGT0ILbf
- GXElEMp+mws22OqwE638LRIcczHCixZL1hJP8CqYiXDHiMT+rJutLinnfhGUcpTERlj/
- 4NbWSYAlcXc5f+qTP8vrr6gZJgOimAHQB/7l9VWaTdJm+3pc4nVjVLtnM/ThGG5zYRJt
- zVk6auUzLGg4IkFhC4zcaPNf+Da7w1RkcnvBjNmKGekhVX1e69pbrxkNNDxwBXc1mxfZ
- MJHpooFj001mroZqxJ6GNtcXAg0cG2HFeFNMxSiXqV1M+R6ZXMwhLydb50F1zroQLcRC
- HsaQ==
-X-Gm-Message-State: ANoB5pmZ3xSmOTbGjWZEyVrx/TSvIIndOpZNBJhuZJ9yBmM54lZe6g5D
- ldzOKqMjFWVvPRItFUfD9dk=
-X-Google-Smtp-Source: AA0mqf71K83H64nJ0Vkrsq1NmTXORfV6reFULGsEXiSiBsSthy861Vt8C3VPP8OLOOHxWLuqHMIZ4Q==
-X-Received: by 2002:a1c:740c:0:b0:3cf:b49e:1638 with SMTP id
- p12-20020a1c740c000000b003cfb49e1638mr1449541wmc.50.1668517406464; 
- Tue, 15 Nov 2022 05:03:26 -0800 (PST)
-Received: from localhost ([102.36.222.112]) by smtp.gmail.com with ESMTPSA id
- c2-20020a05600c0a4200b003cfd4cf0761sm13933778wmq.1.2022.11.15.05.03.25
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 15 Nov 2022 05:03:26 -0800 (PST)
-Date: Tue, 15 Nov 2022 16:03:22 +0300
-From: Dan Carpenter <error27@gmail.com>
-To: Rob Clark <robdclark@gmail.com>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Message-ID: <Y2o0TKZ5WRYnQXna@kili>
+ h=content-transfer-encoding:in-reply-to:from:references:to:subject
+ :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
+ :cc:subject:date:message-id:reply-to;
+ bh=FqH00M5tmI+hJaxcTJuo6fH1GrWWsoOr/MknXsui2eE=;
+ b=ZwhmfMX6gwUFg7AcpUXXuek0HcZ3wij9msYhJTuGlzUbF/mJiD4yjVYKO5DIUh1l9U
+ cyi+9TMYiMM/CHvdn06QYWFCj23ooJ2FkdZFAWR5etnpk2fxX7rtGyO0BT/yri03+yIF
+ OIKH71j1tHfryR1VA7/IWU+1RGk5HfcbGtEkfVOKJqpBFi3s9ucaBKFnO/foctVr+zkO
+ YjWvyIaFiRKBgcLgV30utG/6CCpGL6CMQZ2i+hwpYdK+WMRzBwoOWTHX0S3publXBwwV
+ bWWNZ+TVenRhsuK+sVxRv63vGbJWeTSvt9rESOcZVLd/yV1RxFEQgz1xpRr0Junj4/Gu
+ P/GA==
+X-Gm-Message-State: ANoB5pmhZCm/OSemlu4LqUVarJxSJGEpvJKsZXU/Ap/nPoiEyNI30z1E
+ GcwCez/XGnBYqv9ptkUXBlPuiw==
+X-Google-Smtp-Source: AA0mqf5RdniR/Ee7x0mXUJxIEQ22iEk//HmT/2HMJe3jl/3wCB3uyHvScYI+6SXd/oMtdJrhfu1akw==
+X-Received: by 2002:a05:6512:329c:b0:494:79b6:c7a2 with SMTP id
+ p28-20020a056512329c00b0049479b6c7a2mr6218139lfe.513.1668518621156; 
+ Tue, 15 Nov 2022 05:23:41 -0800 (PST)
+Received: from [192.168.31.208] ([194.29.137.22])
+ by smtp.gmail.com with ESMTPSA id
+ p12-20020a2eb98c000000b00278e7800715sm2402884ljp.16.2022.11.15.05.23.39
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 15 Nov 2022 05:23:40 -0800 (PST)
+Message-ID: <d2ed5161-7411-359c-021f-548fa45352ac@linaro.org>
+Date: Tue, 15 Nov 2022 14:23:34 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-X-Mailer: git-send-email haha only kidding
-X-Mailman-Approved-At: Tue, 15 Nov 2022 13:56:08 +0000
-Subject: [Freedreno] [PATCH] drm/msm/hdmi: remove unnecessary NULL check
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
+ Gecko/20100101 Thunderbird/102.4.2
+To: Robert Foss <robert.foss@linaro.org>, robdclark@gmail.com,
+ quic_abhinavk@quicinc.com, dmitry.baryshkov@linaro.org, sean@poorly.run,
+ airlied@linux.ie, daniel@ffwll.ch, robh+dt@kernel.org,
+ krzysztof.kozlowski+dt@linaro.org, agross@kernel.org,
+ bjorn.andersson@linaro.org, quic_kalyant@quicinc.com, swboyd@chromium.org,
+ angelogioacchino.delregno@somainline.org, loic.poulain@linaro.org,
+ vkoul@kernel.org, quic_vpolimer@quicinc.com, dianders@chromium.org,
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Jonathan Marek <jonathan@marek.ca>,
+ vinod.koul@linaro.org, quic_jesszhan@quicinc.com, andersson@kernel.org
+References: <20221115111721.891404-1-robert.foss@linaro.org>
+From: Konrad Dybcio <konrad.dybcio@linaro.org>
+In-Reply-To: <20221115111721.891404-1-robert.foss@linaro.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Subject: Re: [Freedreno] [PATCH v2 00/12] Enable Display for SM8350
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,41 +83,68 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, Sean Paul <sean@poorly.run>,
- kernel-janitors@vger.kernel.org, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- dri-devel@lists.freedesktop.org, Stephen Boyd <swboyd@chromium.org>,
- Daniel Vetter <daniel@ffwll.ch>, linux-arm-msm@vger.kernel.org,
- Kuogee Hsieh <quic_khsieh@quicinc.com>, David Airlie <airlied@gmail.com>,
- Johan Hovold <johan+linaro@kernel.org>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-This code was refactored in commit 69a88d8633ec ("drm/msm/hdmi: move
-resource allocation to probe function") and now the "hdmi" pointer can't
-be NULL.  Checking causes a Smatch warning:
 
-    drivers/gpu/drm/msm/hdmi/hdmi.c:141 msm_hdmi_init()
-    warn: variable dereferenced before check 'hdmi' (see line 119)
 
-Signed-off-by: Dan Carpenter <error27@gmail.com>
----
- drivers/gpu/drm/msm/hdmi/hdmi.c | 3 +--
- 1 file changed, 1 insertion(+), 2 deletions(-)
+On 15/11/2022 12:17, Robert Foss wrote:
+> Dependencies:
+> https://lore.kernel.org/all/20221102231309.583587-1-dmitry.baryshkov@linaro.org/
+> https://lore.kernel.org/all/20221024164225.3236654-1-dmitry.baryshkov@linaro.org/
+> https://lore.kernel.org/all/20221104130324.1024242-5-dmitry.baryshkov@linaro.org/
+> 
+Looks like only patches 0-3 reached linux-arm-msm and freedreno lists?
 
-diff --git a/drivers/gpu/drm/msm/hdmi/hdmi.c b/drivers/gpu/drm/msm/hdmi/hdmi.c
-index 7001fabd0977..4d3fdc806bef 100644
---- a/drivers/gpu/drm/msm/hdmi/hdmi.c
-+++ b/drivers/gpu/drm/msm/hdmi/hdmi.c
-@@ -138,8 +138,7 @@ static int msm_hdmi_init(struct hdmi *hdmi)
- 	return 0;
- 
- fail:
--	if (hdmi)
--		msm_hdmi_destroy(hdmi);
-+	msm_hdmi_destroy(hdmi);
- 
- 	return ret;
- }
--- 
-2.35.1
-
+Konrad
+> Branch:
+> https://git.linaro.org/people/robert.foss/linux.git/log/?h=sm8350_dsi_v2
+> 
+> This series implements display support for SM8350 and
+> enables HDMI output for the SM8350-HDK platform.
+> 
+> Changes from v1:
+>   - Added R-b tags from v1
+>   - Added qcom,sm8350-dpu binding patch
+>   - Added qcom,sm8350-mdss binding patch
+>   - Corrected sm8350.dtsi according to new dpu/mdss bindings
+>   - Bjorn: Removed regulator-always-on property from lt9611_1v2 regulator
+>   - Bjorn: Moved lt9611 pinctl pins into a common node
+>   - Bjorn/Krzysztof: Moved status property to last in node
+>   - Krzysztof: Changed hdmi-out to hdmi-connector
+>   - Krzysztof: Fixed regulator node name
+>   - Krzysztof: Changed &mdss to status=disabled as default
+>   - Krzysztof: Changed &mdss_mdp node name to display-controller
+>   - Krzysztof: Fixed opp-table node name
+>   - Krzysztof: Fixed phy node name
+>   - Dmitry: Split commit containing dpu & mdss compatibles string
+>   - Dmitry: Added msm_mdss_enable case
+>   - Dmitry: Fixed dpu ctl features
+>   
+> 
+> Robert Foss (12):
+>    dt-bindings: display: msm: Add qcom,sm8350-dpu binding
+>    dt-bindings: display: msm: Add qcom,sm8350-mdss binding
+>    drm/msm/dpu: Refactor sc7280_pp location
+>    drm/msm/dpu: Add SM8350 to hw catalog
+>    drm/msm/dpu: Add support for SM8350
+>    drm/msm: Add support for SM8350
+>    arm64: dts: qcom: sm8350: Add &tlmm gpio-line-names
+>    arm64: dts: qcom: sm8350: Remove mmxc power-domain-name
+>    arm64: dts: qcom: sm8350: Use 2 interconnect cells
+>    arm64: dts: qcom: sm8350: Add display system nodes
+>    arm64: dts: qcom: sm8350-hdk: Enable display & dsi nodes
+>    arm64: dts: qcom: sm8350-hdk: Enable lt9611uxc dsi-hdmi bridge
+> 
+>   .../bindings/display/msm/qcom,sm8350-dpu.yaml | 120 +++++++
+>   .../display/msm/qcom,sm8350-mdss.yaml         | 240 +++++++++++++
+>   arch/arm64/boot/dts/qcom/sm8350-hdk.dts       | 332 ++++++++++++++++++
+>   arch/arm64/boot/dts/qcom/sm8350.dtsi          | 226 +++++++++++-
+>   .../gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c    | 210 ++++++++++-
+>   .../gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h    |   1 +
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c       |   1 +
+>   drivers/gpu/drm/msm/msm_mdss.c                |   4 +
+>   8 files changed, 1108 insertions(+), 26 deletions(-)
+>   create mode 100644 Documentation/devicetree/bindings/display/msm/qcom,sm8350-dpu.yaml
+>   create mode 100644 Documentation/devicetree/bindings/display/msm/qcom,sm8350-mdss.yaml
+> 
