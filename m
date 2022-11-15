@@ -1,61 +1,66 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4989A629E2E
-	for <lists+freedreno@lfdr.de>; Tue, 15 Nov 2022 16:55:17 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 00CF8629E55
+	for <lists+freedreno@lfdr.de>; Tue, 15 Nov 2022 17:01:36 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5B41B10E422;
-	Tue, 15 Nov 2022 15:55:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8B83410E419;
+	Tue, 15 Nov 2022 16:01:34 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-pg1-x529.google.com (mail-pg1-x529.google.com
- [IPv6:2607:f8b0:4864:20::529])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7DC9110E41B;
- Tue, 15 Nov 2022 15:55:09 +0000 (UTC)
-Received: by mail-pg1-x529.google.com with SMTP id o13so13628101pgu.7;
- Tue, 15 Nov 2022 07:55:09 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=C2pdDGcHzEOrC/CxVz6JXzn+8ROQCVIB4tco+V8khKI=;
- b=lmxiKTwU9EufjzjCqWK+4zeLsUn2z1+RhlDqnBGWCUbHSaVqWEsuteZADyBl0p5Jc1
- WS9Z28Ldft+0gHcHHNZo06DlJlxmD/EMdyHuIqgK0sKGn8mjn30raRGlh4kLzc6XvX0O
- WTUpPQfBNSOCuy8NeIZwUmXr8MO0JpTz4RR71M/U8parEak+4kx83OnhITFwli8nDzsL
- dZ0F5lnDFvo2Xw3CG7x8jG0turoh91KDLgHzCtpU3hBYfIA2jOcfyX1LivQl7Wsl38Fi
- gZcrBjAgiuMo+zjVeVbvuUW713bauncKWonnGhRFhD6L825P5jovH2qcszZgfSlMXhNc
- A/+Q==
+Received: from mail-ed1-x536.google.com (mail-ed1-x536.google.com
+ [IPv6:2a00:1450:4864:20::536])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F1D0210E161
+ for <freedreno@lists.freedesktop.org>; Tue, 15 Nov 2022 16:01:31 +0000 (UTC)
+Received: by mail-ed1-x536.google.com with SMTP id x2so22553214edd.2
+ for <freedreno@lists.freedesktop.org>; Tue, 15 Nov 2022 08:01:31 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=YCH6PtmHj3XKQVwXY2Gm1n1n5KTgNrZ2aoxjacIPkLA=;
+ b=XSZ1UsKd72WGVsU13AkxPx13kvV7eBMN2rk9mYv5/1BlvJuWdPfmvCjHqGY1YHuX1S
+ ZKcO4QYOE4Wc2+/sm0oCJqKm0mbgDpEta1QZXmLqmoik9/WEh1cA5d8rjRXkfeZwUrS2
+ t1agO5hRMm5K5WuuenC90gkUkRgs3BSOw1BPI=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=C2pdDGcHzEOrC/CxVz6JXzn+8ROQCVIB4tco+V8khKI=;
- b=q0CVi1cA4XoGJRqLeO1QhRjoI8imVfANv7rytUMfvGDFOmpd/aKf+rxhPgc7LmWC0x
- jJtd6CDTr3DUpbiKiVkrtvcioWw5AH2sT6RviVXJWyE6hrxy9bAWiRMXozI2KlfYboWP
- VWmcKquK8UfQEwUsmgHwNxmPqr2ExSsEE4F4o9QDQdM9yQGY9y4OGmWKux0hGqc5p7Xb
- 6WzLW9E5sHpU+yddWZ7WY4yTnzzDt2hMwzHmR5D6uASun6Ub8Zi/VPCzLzjQmOfUu1od
- fCMmZpbzr1/TF8dfGo51sJbt+JKB6pgkeLubSieOz7fQmG4OzbLDCK9SpEF016V/1Fjw
- ksvA==
-X-Gm-Message-State: ANoB5pn+1yPpdoE+Zqd/ZCEeLrEdvEekDFOiJoom5NjJ4YIG94rH7Pkd
- tGGNbJ+XSBl0Te/C98Qv13tsf65VjrI=
-X-Google-Smtp-Source: AA0mqf7v++J8wJlYIvd1JnXUJ2bJZVcaeIiHA7I/qToy2tlaCkZ7E0JMANpQu1t9KdE4xkibKJLdaA==
-X-Received: by 2002:a63:6742:0:b0:46f:59af:c1f4 with SMTP id
- b63-20020a636742000000b0046f59afc1f4mr15728710pgc.344.1668527708582; 
- Tue, 15 Nov 2022 07:55:08 -0800 (PST)
-Received: from localhost ([2a00:79e1:abd:4a00:2703:3c72:eb1a:cffd])
- by smtp.gmail.com with ESMTPSA id
- h2-20020a170902f7c200b00176ab6a0d5fsm10014905plw.54.2022.11.15.07.55.07
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 15 Nov 2022 07:55:08 -0800 (PST)
-From: Rob Clark <robdclark@gmail.com>
-To: dri-devel@lists.freedesktop.org
-Date: Tue, 15 Nov 2022 07:55:33 -0800
-Message-Id: <20221115155535.1615278-1-robdclark@gmail.com>
-X-Mailer: git-send-email 2.38.1
+ bh=YCH6PtmHj3XKQVwXY2Gm1n1n5KTgNrZ2aoxjacIPkLA=;
+ b=1w7RxCKXKn0du78/e8Bw8iZGizb5QSBi03KR7w9qWFT/PYMKdpX8UjGcHVqP4MG3sn
+ 77DAJnCsf1sdVVUH35gaXlvC6N22ZwnngxSLmVfgGqpCrD2GSbSGTrouHy83qeKfxdUt
+ IgRrQ6qNel9K8DN3+21voIAYmfuv/GldA3GsfWswQ85NZbAPT5MNIeOC4Pfja+A+t1SF
+ +z0u7Ta2WEJupalkYasZeiasDqHtsIInn39PtJJ7046TyNnZzwJByw3N8PlU/LeoXv5t
+ ToCXyhKoBkviLExBnwSza5VU110gJ0YBEz9+sDkEa1U4x48HKDZIxm0KLsYBmdeSNVFe
+ n43g==
+X-Gm-Message-State: ANoB5pkvAU3l7Vk6mC1UjZaXoE5SH+E633acJCAyCYGBmaSqofZOd5ZR
+ IOteka1EPFA/We0K3ndII8VzsMggPWDyOFnQ
+X-Google-Smtp-Source: AA0mqf61BPNHX7T80zm8EyvZulsq/HdNOrSxVS14prMCPfmDo6NSQHBIcoeoF6F9NcRlxJAppJoehg==
+X-Received: by 2002:a05:6402:3983:b0:467:69e3:c25b with SMTP id
+ fk3-20020a056402398300b0046769e3c25bmr14296514edb.3.1668528090132; 
+ Tue, 15 Nov 2022 08:01:30 -0800 (PST)
+Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com.
+ [209.85.221.51]) by smtp.gmail.com with ESMTPSA id
+ hw20-20020a170907a0d400b00779cde476e4sm5656304ejc.62.2022.11.15.08.01.28
+ for <freedreno@lists.freedesktop.org>
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 15 Nov 2022 08:01:29 -0800 (PST)
+Received: by mail-wr1-f51.google.com with SMTP id j15so25080170wrq.3
+ for <freedreno@lists.freedesktop.org>; Tue, 15 Nov 2022 08:01:28 -0800 (PST)
+X-Received: by 2002:adf:f145:0:b0:236:5270:735e with SMTP id
+ y5-20020adff145000000b002365270735emr10938918wro.659.1668528084437; Tue, 15
+ Nov 2022 08:01:24 -0800 (PST)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH] drm/msm: Enable clamp_to_idle for 7c3
+References: <20221115155535.1615278-1-robdclark@gmail.com>
+In-Reply-To: <20221115155535.1615278-1-robdclark@gmail.com>
+From: Doug Anderson <dianders@chromium.org>
+Date: Tue, 15 Nov 2022 08:01:10 -0800
+X-Gmail-Original-Message-ID: <CAD=FV=VJKTHf7qLZkygfnMRSjXEdQ09opCpFM2brUc=uiTGyTw@mail.gmail.com>
+Message-ID: <CAD=FV=VJKTHf7qLZkygfnMRSjXEdQ09opCpFM2brUc=uiTGyTw@mail.gmail.com>
+To: Rob Clark <robdclark@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Subject: Re: [Freedreno] [PATCH] drm/msm: Enable clamp_to_idle for 7c3
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,56 +76,26 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Cc: Rob Clark <robdclark@chromium.org>,
  Akhil P Oommen <quic_akhilpo@quicinc.com>, linux-arm-msm@vger.kernel.org,
  Konrad Dybcio <konrad.dybcio@somainline.org>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Douglas Anderson <dianders@chromium.org>, Sean Paul <sean@poorly.run>,
- Rob Clark <robdclark@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
+ open list <linux-kernel@vger.kernel.org>, Sean Paul <sean@poorly.run>,
+ Daniel Vetter <daniel@ffwll.ch>,
  Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
  David Airlie <airlied@gmail.com>, freedreno@lists.freedesktop.org,
- Chia-I Wu <olvaffe@gmail.com>, open list <linux-kernel@vger.kernel.org>
+ Chia-I Wu <olvaffe@gmail.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-From: Rob Clark <robdclark@chromium.org>
+Hi,
 
-This was overlooked.
+On Tue, Nov 15, 2022 at 7:55 AM Rob Clark <robdclark@gmail.com> wrote:
+>
+> From: Rob Clark <robdclark@chromium.org>
+>
+> This was overlooked.
+>
+> Signed-off-by: Rob Clark <robdclark@chromium.org>
+> ---
+>  drivers/gpu/drm/msm/adreno/a6xx_gpu.c | 14 +++++++-------
+>  1 file changed, 7 insertions(+), 7 deletions(-)
 
-Signed-off-by: Rob Clark <robdclark@chromium.org>
----
- drivers/gpu/drm/msm/adreno/a6xx_gpu.c | 14 +++++++-------
- 1 file changed, 7 insertions(+), 7 deletions(-)
-
-diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-index ebe9599a8316..e495d8e192db 100644
---- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-+++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-@@ -2029,13 +2029,6 @@ struct msm_gpu *a6xx_gpu_init(struct drm_device *dev)
- 			adreno_cmp_rev(ADRENO_REV(6, 3, 5, ANY_ID), info->rev)))
- 		adreno_gpu->base.hw_apriv = true;
- 
--	/*
--	 * For now only clamp to idle freq for devices where this is known not
--	 * to cause power supply issues:
--	 */
--	if (info && (info->revn == 618))
--		gpu->clamp_to_idle = true;
--
- 	a6xx_llc_slices_init(pdev, a6xx_gpu);
- 
- 	ret = a6xx_set_supported_hw(&pdev->dev, config->rev);
-@@ -2050,6 +2043,13 @@ struct msm_gpu *a6xx_gpu_init(struct drm_device *dev)
- 		return ERR_PTR(ret);
- 	}
- 
-+	/*
-+	 * For now only clamp to idle freq for devices where this is known not
-+	 * to cause power supply issues:
-+	 */
-+	if (adreno_is_a618(adreno_gpu) || adreno_is_7c3(adreno_gpu))
-+		gpu->clamp_to_idle = true;
-+
- 	/* Check if there is a GMU phandle and set it up */
- 	node = of_parse_phandle(pdev->dev.of_node, "qcom,gmu", 0);
- 
--- 
-2.38.1
-
+Reviewed-by: Douglas Anderson <dianders@chromium.org>
