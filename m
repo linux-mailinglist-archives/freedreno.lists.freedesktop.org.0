@@ -1,56 +1,56 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 12AF2629ADE
-	for <lists+freedreno@lfdr.de>; Tue, 15 Nov 2022 14:43:02 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 4A67D629AE4
+	for <lists+freedreno@lfdr.de>; Tue, 15 Nov 2022 14:44:28 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B40B210E3F4;
-	Tue, 15 Nov 2022 13:43:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CF58910E3FE;
+	Tue, 15 Nov 2022 13:44:26 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-x230.google.com (mail-lj1-x230.google.com
- [IPv6:2a00:1450:4864:20::230])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2B92910E3F4
- for <freedreno@lists.freedesktop.org>; Tue, 15 Nov 2022 13:42:57 +0000 (UTC)
-Received: by mail-lj1-x230.google.com with SMTP id d20so17517060ljc.12
- for <freedreno@lists.freedesktop.org>; Tue, 15 Nov 2022 05:42:57 -0800 (PST)
+Received: from mail-lf1-x132.google.com (mail-lf1-x132.google.com
+ [IPv6:2a00:1450:4864:20::132])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3C2B010E3F6
+ for <freedreno@lists.freedesktop.org>; Tue, 15 Nov 2022 13:44:24 +0000 (UTC)
+Received: by mail-lf1-x132.google.com with SMTP id r12so24485442lfp.1
+ for <freedreno@lists.freedesktop.org>; Tue, 15 Nov 2022 05:44:24 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=content-transfer-encoding:in-reply-to:from:references:to:subject
  :user-agent:mime-version:date:message-id:from:to:cc:subject:date
  :message-id:reply-to;
- bh=fCqAsBzIYqwnKg+sxRUK0clUHkV80l++z9LwleH3TLc=;
- b=AUHd9Vl5XP7LwggKtY0uN5sgsYZiCX11QgiYSD/c+2+rtQ6+Jout/Ghg6QdWN2Qbo9
- x5sSBRJ5fWqochfRzBHxwpEJ3eWCKo0vZ0EJkYX0sXssEZul7nrA+GuFTiRVN+Cc+drY
- zGeVJUBf4HXYPi+Ry4d0vSfJWJznx2ZPxGh9CAA+98EdXmjm17QHoPIHllnON+AA1NXp
- QJZmkTvQJUALIfdpm/INLAuq6SFbvq75Z2AYmM7cLD9I5q5qVrcWZ9hPZpbJ/T6fljgw
- CPm00n1HJQDmrJG8PqqJxutx3LaeUVa0R4f7IFQ6q9VZPQVnSDtV+kEn+Zw5muVgjdRR
- USgA==
+ bh=rdaHmrZopow0cZrS7QRhB/XmFkl/A5fmUKYPPGyHrPQ=;
+ b=ycizX72uD0PnQmkCOgJqAakMV2BZT7P/463tJ48Di3wgsFQuRWUW5BbRx5OScawtiB
+ RIqqRnnWzGAdh7G81shiXKHpxIwOspFS8e6VJSVJFu7FALGX2tT7HADcaoCwHYMa1Xt5
+ a8cPAQTbMJyeKfZFl8zdn9LV+ch5IZMEBgPeiGzVceiKzscwkdDkYr9sb2pY0+W0doyB
+ 5X4JA2EaOjA9vhFQfUqL6UB+rKaPY+R0//XOmJjKyI8c+mYexXEcIWr6G1oA7V5ao27h
+ L4W38YOvFj5a7m7/KMZl53EwN6USaEN1Lk1YNj/H7IwbzKOqi3cbXA1a5HEGFeeY+DQ9
+ sKuQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=content-transfer-encoding:in-reply-to:from:references:to:subject
  :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
  :cc:subject:date:message-id:reply-to;
- bh=fCqAsBzIYqwnKg+sxRUK0clUHkV80l++z9LwleH3TLc=;
- b=HS4kXHT8Skr9A2c20MTsj11azqPiwpDxBDc4ra4OlqTeQSr9ON42SRCBK3xSNkdmwL
- VrrnkTaxoJaCyB0sramoBIJGm7f1zJx16ZoP8wXOUimXstldUTF9XceeYPvksCPiJGFI
- YJpp0BTno0xCVadlNJRkwwsIrQJuoJC/oWYGShZfLoBeOl037zsOdIy6O5MpuVsUDEj+
- +VwTIOBiSdUt9kJe8sTiOHFNaqGf0M+8nriKypIU5yRY/haq486fCrCc+4NOTDBIgyLr
- h6F+lzgBFnjWhycniRYwAkvVTWj0QW6zce/8e/iFKRIS5j4aXcKRrf++MwpGblzDRKFD
- 1Khw==
-X-Gm-Message-State: ANoB5pkBqgplrf3LiXR1alX7c3q33OrcqJmDzoPCR9LkeGMkvgDDCRRz
- I+GIkvGMbwxaXIHOWBgNxG7Dow==
-X-Google-Smtp-Source: AA0mqf4jM/aaIEgxVl/vgYByJ08SwHmGqaXCY2GmD+dfUWrVFiHIuOPXAH4wPeBOtq/q5Y2zoAogbA==
-X-Received: by 2002:a2e:9a88:0:b0:276:b134:b04c with SMTP id
- p8-20020a2e9a88000000b00276b134b04cmr5684299lji.492.1668519775520; 
- Tue, 15 Nov 2022 05:42:55 -0800 (PST)
+ bh=rdaHmrZopow0cZrS7QRhB/XmFkl/A5fmUKYPPGyHrPQ=;
+ b=Idbplse7g08Q9ajjQZRC36mT6RsqtiZKBfx341QcfRfSyPIE80T8WvkTzGoEy/+Tou
+ 6dvsSyWI1tvUZHREb/dRII0UpO6qxXvo5SoNin0f3f1cpA5Nngp2+1lshXtsVTcETavF
+ x5gb1CZ4VIEeIefuhkWQtUsqCv0BY089J9VwuEYgJjeX7kpnTFz2+3oo4RvMnoWeu3iJ
+ GN6K87ZFoxDBPOEjHthsmXKJBpPjYq7+2GIw/AdA32t4azG2xETwcJsPQbV9zB4xQCkY
+ 4WI0mTArU2hvWD36exaOZWucFfNWjRgZJwt9gseBuvhSAIY9flv/abyERaRjCfVTRrau
+ 5OUA==
+X-Gm-Message-State: ANoB5plJex8drFFhZg2ssd7ldLwEGBJoCIF+KKXJZgiKyHlXg3/rCKye
+ KjUJ+2zUZcB/OxxkM92SCnwWOQ==
+X-Google-Smtp-Source: AA0mqf7gFOTN3V/Hzzq2wgjXL7xVmz53u/5hppb8CWem6NjgH646duFocYVW9tk/Vyy7OF99ZPKYjw==
+X-Received: by 2002:ac2:41d4:0:b0:4a2:4d53:8294 with SMTP id
+ d20-20020ac241d4000000b004a24d538294mr5110012lfi.263.1668519862567; 
+ Tue, 15 Nov 2022 05:44:22 -0800 (PST)
 Received: from [192.168.31.208] ([194.29.137.22])
  by smtp.gmail.com with ESMTPSA id
- d13-20020ac244cd000000b004ac980a1ba1sm2215836lfm.24.2022.11.15.05.42.53
+ s13-20020ac25c4d000000b004a91d1b3070sm2207716lfp.308.2022.11.15.05.44.21
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 15 Nov 2022 05:42:55 -0800 (PST)
-Message-ID: <fed78af8-015b-e57d-76c7-68c8ba317952@linaro.org>
-Date: Tue, 15 Nov 2022 14:42:49 +0100
+ Tue, 15 Nov 2022 05:44:22 -0800 (PST)
+Message-ID: <c4db1802-9aac-7fd6-605d-cac4b62b25d9@linaro.org>
+Date: Tue, 15 Nov 2022 14:44:16 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
  Gecko/20100101 Thunderbird/102.4.2
@@ -67,12 +67,13 @@ To: Robert Foss <robert.foss@linaro.org>, robdclark@gmail.com,
  Jonathan Marek <jonathan@marek.ca>, vinod.koul@linaro.org,
  quic_jesszhan@quicinc.com, andersson@kernel.org
 References: <20221115133105.980877-1-robert.foss@linaro.org>
- <20221115133105.980877-7-robert.foss@linaro.org>
+ <20221115133105.980877-9-robert.foss@linaro.org>
 From: Konrad Dybcio <konrad.dybcio@linaro.org>
-In-Reply-To: <20221115133105.980877-7-robert.foss@linaro.org>
+In-Reply-To: <20221115133105.980877-9-robert.foss@linaro.org>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH v2 06/12] drm/msm: Add support for SM8350
+Subject: Re: [Freedreno] [PATCH v2 08/12] arm64: dts: qcom: sm8350: Remove
+ mmxc power-domain-name
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -90,37 +91,27 @@ Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 
 
-On 15/11/2022 14:30, Robert Foss wrote:
-> Add compatibles string, "qcom,sm8350-mdss", for the multimedia display
-> subsystem unit used on Qualcomm SM8350 platform.
+On 15/11/2022 14:31, Robert Foss wrote:
+> The mmxc power-domain-name is not required, and is not
+> used by either earlier or later SoC versions (sm8250 / sm8450).
 > 
 > Signed-off-by: Robert Foss <robert.foss@linaro.org>
 > ---
->   drivers/gpu/drm/msm/msm_mdss.c | 4 ++++
->   1 file changed, 4 insertions(+)
-> 
-> diff --git a/drivers/gpu/drm/msm/msm_mdss.c b/drivers/gpu/drm/msm/msm_mdss.c
-> index a2264fb517a1..39746b972cdd 100644
-> --- a/drivers/gpu/drm/msm/msm_mdss.c
-> +++ b/drivers/gpu/drm/msm/msm_mdss.c
-> @@ -293,6 +293,9 @@ static int msm_mdss_enable(struct msm_mdss *msm_mdss)
->   		/* UBWC_2_0 */
->   		msm_mdss_setup_ubwc_dec_20(msm_mdss, 0x1e);
->   		break;
-> +	case DPU_HW_VER_700:
-> +		msm_mdss_setup_ubwc_dec_40(msm_mdss, UBWC_4_0, 6, 1, 1, 1);
-> +		break;
-Shouldn't the second-last argument be 2 or 3 depending on DDR type?
+Reviewed-by: Konrad Dybcio <konrad.dybcio@linaro.org>
 
 Konrad
->   	case DPU_HW_VER_720:
->   		msm_mdss_setup_ubwc_dec_40(msm_mdss, UBWC_3_0, 6, 1, 1, 1);
->   		break;
-> @@ -530,6 +533,7 @@ static const struct of_device_id mdss_dt_match[] = {
->   	{ .compatible = "qcom,sc8180x-mdss" },
->   	{ .compatible = "qcom,sm8150-mdss" },
->   	{ .compatible = "qcom,sm8250-mdss" },
-> +	{ .compatible = "qcom,sm8350-mdss" },
->   	{ .compatible = "qcom,sm8450-mdss" },
->   	{}
->   };
+>   arch/arm64/boot/dts/qcom/sm8350.dtsi | 1 -
+>   1 file changed, 1 deletion(-)
+> 
+> diff --git a/arch/arm64/boot/dts/qcom/sm8350.dtsi b/arch/arm64/boot/dts/qcom/sm8350.dtsi
+> index cbd48f248df4..805d53d91952 100644
+> --- a/arch/arm64/boot/dts/qcom/sm8350.dtsi
+> +++ b/arch/arm64/boot/dts/qcom/sm8350.dtsi
+> @@ -2558,7 +2558,6 @@ dispcc: clock-controller@af00000 {
+>   			#power-domain-cells = <1>;
+>   
+>   			power-domains = <&rpmhpd SM8350_MMCX>;
+> -			power-domain-names = "mmcx";
+>   		};
+>   
+>   		adsp: remoteproc@17300000 {
