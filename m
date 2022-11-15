@@ -1,75 +1,63 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 63725629719
-	for <lists+freedreno@lfdr.de>; Tue, 15 Nov 2022 12:17:54 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 49615629B40
+	for <lists+freedreno@lfdr.de>; Tue, 15 Nov 2022 14:56:11 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E945710E3AA;
-	Tue, 15 Nov 2022 11:17:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EE8BC10E066;
+	Tue, 15 Nov 2022 13:56:09 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ed1-x532.google.com (mail-ed1-x532.google.com
- [IPv6:2a00:1450:4864:20::532])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CBB5A10E3A9
- for <freedreno@lists.freedesktop.org>; Tue, 15 Nov 2022 11:17:47 +0000 (UTC)
-Received: by mail-ed1-x532.google.com with SMTP id x2so21415141edd.2
- for <freedreno@lists.freedesktop.org>; Tue, 15 Nov 2022 03:17:47 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:to:from:from:to:cc:subject:date:message-id
- :reply-to; bh=hrGveRHtb758Cq8dNpj5YeNPoOq0dxmeWZsx/PFkuqU=;
- b=wPIr2QyM4TXPHxrBhk86NI7MLxmXhxV5fy1U8mplxl2k9kUPlNoatw8IkmpXjiF37n
- Azcs0Z6Du0JONg81MSZ3MVxtXek5uDq5mX0MpGDVPt+WdGu3smpVIoxp5xzRFKQ9gFWP
- bzAoMXm+B3dOgDTFeltMu/dStKrvH2014zbEDSlIoXeQgKk6jHJixKSCBLvX9HLsTMko
- B3MKnL5ZbtyOXiwzNHvoGGDH2Z8qq/gpcuQqXz6b/UJEp/eCsZMzpTynJa06FsiLK6J2
- vELCmCPNkM5icGYA3Uoq8uXyJCDwM2cC1ZlPIP+GTxu2BnPWr5qwmuiQJluN9EDkU0tO
- d1Rg==
+Received: from mail-wm1-x32a.google.com (mail-wm1-x32a.google.com
+ [IPv6:2a00:1450:4864:20::32a])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3ADC610E3C7;
+ Tue, 15 Nov 2022 13:03:28 +0000 (UTC)
+Received: by mail-wm1-x32a.google.com with SMTP id
+ m7-20020a05600c090700b003cf8a105d9eso10165807wmp.5; 
+ Tue, 15 Nov 2022 05:03:28 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=content-disposition:mime-version:message-id:subject:cc:to:from:date
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=2YXSEudsc9acCjyZ9gI8tQXstRzlGGklsZOdLPbwiNo=;
+ b=PMayZRM3eFKCloLvTyzjYH6LundInUpmC31aN3lOF2x/ELF21FR0on5O7mVTSts3wO
+ g6qm9lIbCtI8Tu8FHtJix+MBnLjKr1/rkxg/+WE9K9PKjLveqXUvHcQ85bWBsSDINlSr
+ NrpD7YfIdnWlboCxGpzoS3BzxReT2llXaselZxlKWSyqXa4VfI+0D8cdeBnK2GSvVVSi
+ 6njp/YfDclStsXVecpjj6FjKKKFzw4TMCIafqnL7riRl+pFgXkts9fkurtXGeyEqTs7C
+ bmGnN9KdjMwud2LsVHKBIE3ht7urWyxIWIv5WLaXjQr2dE5th7oKBXOc0xOaz/UcvLoZ
+ ZSeg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=hrGveRHtb758Cq8dNpj5YeNPoOq0dxmeWZsx/PFkuqU=;
- b=6vqZ03IluwOPfguGicQU4bJ3rDDvTPi+dJ4tOwM/Zeo1QsSxivTIfdhLrjzpm3nA/2
- ue/lRRnsS7BtbaucZf6o7rr2CfdIT2J9zNIaHGiag2KN4Wu/4JA5rO0J2mwAO12NoPTT
- FFabn/Q6ZsUDqN85p2rr/q6kKeIOUa/0AL6h+DysHLdZ2i/JqmHcgTjPg1Aa9qyQmhJp
- /MPKaUtanLcZ+URGCBYcNVO8copAqUhHn1bqBOn4fRQaSwNFcgvQ6AM4TTC0bg4LRHrl
- u+no4Dk0URJMjnhDPEXNVQh/6nF6D1gubwUsLKifFaN8ECsnNs84j0tzYw+SGB5eayqg
- vMQg==
-X-Gm-Message-State: ANoB5plprL4cgHBWRVCkvI+GHwwKmDUnyiZEvJBLq7GxRX2c4RcH14NH
- cs6bZlrJaj+Ki1BpbWb+HsI71g==
-X-Google-Smtp-Source: AA0mqf78alD/NNz9Bp9fD990P3oo3VlMa/dbTMy/fN7ovaLbWIJVLcruichbaiGy5WkmIGuoUEDBig==
-X-Received: by 2002:a05:6402:1141:b0:467:3ea2:3ec4 with SMTP id
- g1-20020a056402114100b004673ea23ec4mr14673116edw.351.1668511065973; 
- Tue, 15 Nov 2022 03:17:45 -0800 (PST)
-Received: from prec5560.. (freifunk-gw.bsa1-cpe1.syseleven.net. [176.74.57.43])
- by smtp.gmail.com with ESMTPSA id
- eg25-20020a056402289900b00457b5ba968csm5973519edb.27.2022.11.15.03.17.43
+ h=content-disposition:mime-version:message-id:subject:cc:to:from:date
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=2YXSEudsc9acCjyZ9gI8tQXstRzlGGklsZOdLPbwiNo=;
+ b=RmyQfF727YfALsR3GI/VOxCOKLp379a0bHvolRZcF6LKdLiVLd99W5agluUGT0ILbf
+ GXElEMp+mws22OqwE638LRIcczHCixZL1hJP8CqYiXDHiMT+rJutLinnfhGUcpTERlj/
+ 4NbWSYAlcXc5f+qTP8vrr6gZJgOimAHQB/7l9VWaTdJm+3pc4nVjVLtnM/ThGG5zYRJt
+ zVk6auUzLGg4IkFhC4zcaPNf+Da7w1RkcnvBjNmKGekhVX1e69pbrxkNNDxwBXc1mxfZ
+ MJHpooFj001mroZqxJ6GNtcXAg0cG2HFeFNMxSiXqV1M+R6ZXMwhLydb50F1zroQLcRC
+ HsaQ==
+X-Gm-Message-State: ANoB5pmZ3xSmOTbGjWZEyVrx/TSvIIndOpZNBJhuZJ9yBmM54lZe6g5D
+ ldzOKqMjFWVvPRItFUfD9dk=
+X-Google-Smtp-Source: AA0mqf71K83H64nJ0Vkrsq1NmTXORfV6reFULGsEXiSiBsSthy861Vt8C3VPP8OLOOHxWLuqHMIZ4Q==
+X-Received: by 2002:a1c:740c:0:b0:3cf:b49e:1638 with SMTP id
+ p12-20020a1c740c000000b003cfb49e1638mr1449541wmc.50.1668517406464; 
+ Tue, 15 Nov 2022 05:03:26 -0800 (PST)
+Received: from localhost ([102.36.222.112]) by smtp.gmail.com with ESMTPSA id
+ c2-20020a05600c0a4200b003cfd4cf0761sm13933778wmq.1.2022.11.15.05.03.25
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 15 Nov 2022 03:17:45 -0800 (PST)
-From: Robert Foss <robert.foss@linaro.org>
-To: robdclark@gmail.com, quic_abhinavk@quicinc.com,
- dmitry.baryshkov@linaro.org, sean@poorly.run, airlied@linux.ie,
- daniel@ffwll.ch, robh+dt@kernel.org, krzysztof.kozlowski+dt@linaro.org,
- agross@kernel.org, bjorn.andersson@linaro.org,
- konrad.dybcio@somainline.org, quic_kalyant@quicinc.com,
- swboyd@chromium.org, robert.foss@linaro.org,
- angelogioacchino.delregno@somainline.org, loic.poulain@linaro.org,
- vkoul@kernel.org, quic_vpolimer@quicinc.com, dianders@chromium.org,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, Jonathan Marek <jonathan@marek.ca>,
- vinod.koul@linaro.org, quic_jesszhan@quicinc.com, andersson@kernel.org
-Date: Tue, 15 Nov 2022 12:17:12 +0100
-Message-Id: <20221115111721.891404-4-robert.foss@linaro.org>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20221115111721.891404-1-robert.foss@linaro.org>
-References: <20221115111721.891404-1-robert.foss@linaro.org>
+ Tue, 15 Nov 2022 05:03:26 -0800 (PST)
+Date: Tue, 15 Nov 2022 16:03:22 +0300
+From: Dan Carpenter <error27@gmail.com>
+To: Rob Clark <robdclark@gmail.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Message-ID: <Y2o0TKZ5WRYnQXna@kili>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH v2 03/12] drm/msm/dpu: Refactor sc7280_pp
- location
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+X-Mailer: git-send-email haha only kidding
+X-Mailman-Approved-At: Tue, 15 Nov 2022 13:56:08 +0000
+Subject: [Freedreno] [PATCH] drm/msm/hdmi: remove unnecessary NULL check
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,51 +70,41 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
+Cc: freedreno@lists.freedesktop.org, Sean Paul <sean@poorly.run>,
+ kernel-janitors@vger.kernel.org, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ dri-devel@lists.freedesktop.org, Stephen Boyd <swboyd@chromium.org>,
+ Daniel Vetter <daniel@ffwll.ch>, linux-arm-msm@vger.kernel.org,
+ Kuogee Hsieh <quic_khsieh@quicinc.com>, David Airlie <airlied@gmail.com>,
+ Johan Hovold <johan+linaro@kernel.org>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-The sc7280_pp declaration is not located by the other _pp
-declarations, but rather hidden around the _merge_3d
-declarations. Let's fix this to avoid confusion.
+This code was refactored in commit 69a88d8633ec ("drm/msm/hdmi: move
+resource allocation to probe function") and now the "hdmi" pointer can't
+be NULL.  Checking causes a Smatch warning:
 
-Signed-off-by: Robert Foss <robert.foss@linaro.org>
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+    drivers/gpu/drm/msm/hdmi/hdmi.c:141 msm_hdmi_init()
+    warn: variable dereferenced before check 'hdmi' (see line 119)
+
+Signed-off-by: Dan Carpenter <error27@gmail.com>
 ---
- drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c | 14 +++++++-------
- 1 file changed, 7 insertions(+), 7 deletions(-)
+ drivers/gpu/drm/msm/hdmi/hdmi.c | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
-index 4dac90ee5b8a..8f2d634f7b6b 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
-@@ -1294,6 +1294,13 @@ static const struct dpu_pingpong_cfg sm8150_pp[] = {
- 			-1),
- };
+diff --git a/drivers/gpu/drm/msm/hdmi/hdmi.c b/drivers/gpu/drm/msm/hdmi/hdmi.c
+index 7001fabd0977..4d3fdc806bef 100644
+--- a/drivers/gpu/drm/msm/hdmi/hdmi.c
++++ b/drivers/gpu/drm/msm/hdmi/hdmi.c
+@@ -138,8 +138,7 @@ static int msm_hdmi_init(struct hdmi *hdmi)
+ 	return 0;
  
-+static const struct dpu_pingpong_cfg sc7280_pp[] = {
-+	PP_BLK("pingpong_0", PINGPONG_0, 0x59000, 0, sc7280_pp_sblk, -1, -1),
-+	PP_BLK("pingpong_1", PINGPONG_1, 0x6a000, 0, sc7280_pp_sblk, -1, -1),
-+	PP_BLK("pingpong_2", PINGPONG_2, 0x6b000, 0, sc7280_pp_sblk, -1, -1),
-+	PP_BLK("pingpong_3", PINGPONG_3, 0x6c000, 0, sc7280_pp_sblk, -1, -1),
-+};
-+
- static struct dpu_pingpong_cfg qcm2290_pp[] = {
- 	PP_BLK("pingpong_0", PINGPONG_0, 0x70000, 0, sdm845_pp_sblk,
- 		DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 8),
-@@ -1352,13 +1359,6 @@ static const struct dpu_merge_3d_cfg sm8450_merge_3d[] = {
- 	MERGE_3D_BLK("merge_3d_3", MERGE_3D_3, 0x65f00),
- };
+ fail:
+-	if (hdmi)
+-		msm_hdmi_destroy(hdmi);
++	msm_hdmi_destroy(hdmi);
  
--static const struct dpu_pingpong_cfg sc7280_pp[] = {
--	PP_BLK("pingpong_0", PINGPONG_0, 0x59000, 0, sc7280_pp_sblk, -1, -1),
--	PP_BLK("pingpong_1", PINGPONG_1, 0x6a000, 0, sc7280_pp_sblk, -1, -1),
--	PP_BLK("pingpong_2", PINGPONG_2, 0x6b000, 0, sc7280_pp_sblk, -1, -1),
--	PP_BLK("pingpong_3", PINGPONG_3, 0x6c000, 0, sc7280_pp_sblk, -1, -1),
--};
--
- /*************************************************************
-  * DSC sub blocks config
-  *************************************************************/
+ 	return ret;
+ }
 -- 
-2.34.1
+2.35.1
 
