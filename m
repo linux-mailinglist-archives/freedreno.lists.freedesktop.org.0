@@ -2,76 +2,80 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6F57662BC23
-	for <lists+freedreno@lfdr.de>; Wed, 16 Nov 2022 12:37:50 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D99AC62BFAA
+	for <lists+freedreno@lfdr.de>; Wed, 16 Nov 2022 14:40:15 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9286D10E48D;
-	Wed, 16 Nov 2022 11:37:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 937A910E306;
+	Wed, 16 Nov 2022 13:40:14 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 59CA710E48A;
- Wed, 16 Nov 2022 11:37:40 +0000 (UTC)
-Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 2AGBFuUn019569; Wed, 16 Nov 2022 11:37:35 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
- h=message-id : date :
- mime-version : subject : to : cc : references : from : in-reply-to :
- content-type : content-transfer-encoding; s=qcppdkim1;
- bh=mYWyqR0JxIsWxTN/dLRBhftkgrfE7nEPqDROuKX2JFc=;
- b=hBdyAQ6dnjo8Zl+K64QGFAFnAZYNUqp94/AWYghy62X3zJ+odz7CEnbD2SgirMJkaWV5
- jkEimyOOC0uSDsdwRaadmutn9EhTwqQXE7PhVWUwU0R8UJRIEYrNMRBk6CGeseJJSkGT
- WI0cmBZsicKvuhgKxpRrNZd1ua4V9qKthe7p9ukLdAjdKASMt74QVybCIE+5SMbcxy/8
- MhwkP8i+avFPqHiaYK3RW7os5L7UYJQp82ohskeUTNK1BGvLpFgWdroPJ6m5k8RODrlL
- Av9c28P/HSb41PNFmkXBD2V6gLHDdCMYCaGkk3nbgB7EwK3YmgRoaEUbjiBX8XxED6dZ 7Q== 
-Received: from nalasppmta05.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3kvwwg84sd-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 16 Nov 2022 11:37:35 +0000
-Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
- [10.47.209.196])
- by NALASPPMTA05.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 2AGBbYr8025278
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 16 Nov 2022 11:37:34 GMT
-Received: from [10.216.25.63] (10.80.80.8) by nalasex01a.na.qualcomm.com
- (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.29; Wed, 16 Nov
- 2022 03:37:28 -0800
-Message-ID: <4f872825-e646-8a8c-dbd0-112328b9b5f2@quicinc.com>
-Date: Wed, 16 Nov 2022 03:37:25 -0800
+Received: from mail-lj1-x233.google.com (mail-lj1-x233.google.com
+ [IPv6:2a00:1450:4864:20::233])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B1F1310E306
+ for <freedreno@lists.freedesktop.org>; Wed, 16 Nov 2022 13:40:09 +0000 (UTC)
+Received: by mail-lj1-x233.google.com with SMTP id h12so21857928ljg.9
+ for <freedreno@lists.freedesktop.org>; Wed, 16 Nov 2022 05:40:09 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=FX8GOOnP8ZSHhFFHMXCztbsOldYRDIsb+WpAuI+TEYY=;
+ b=G0sSQZ+ZXtWza2AMGO5KtIK3UUOSszCPt0Ds4x2tbPyvXoCP1N4XsDJajiJjAoPVz3
+ S597ujYXmn7p1BIoDzoV7st9ACahbFha6DFkOwZHiT7UG8HvLqxwVSP2XvXpPCOkXTI7
+ Cv2ApHXlWau+FpdOor2E4l3G5+gt7SiHyJ+muVXdBrmsJsQPwja0dlNn4LK9kEpXL237
+ V9ov0VTesXcp4REzRPvKNuzrsBE3JQLzojsZVuX1XjQwYHYCnGNGir8DRVex9qNXg/x6
+ dRWipbefTwIgPOq93TA5nf3ICzojrsgKd85962ypqbCpznOOZPrjUJKx/rtnvzhsEADU
+ gItg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=FX8GOOnP8ZSHhFFHMXCztbsOldYRDIsb+WpAuI+TEYY=;
+ b=nyOGY148+RMXVYREusljhIznY/YkA0f6DOk7KVR8+sd1JLc6Pt6FeaIrTtQkg96Z6Q
+ 5FS8k6gJVu1Pthyb1ufDByuQ1vw/oQDBJyJRn6DnotDBd+1YdEa/zql9yT8imXajr/5j
+ birTEUgAz3rvMUEw3y3O4otWTQVr6FFDcCGdmiiwNLyrMnvXvW0htu0vVRh00c3heAy1
+ QD/dg71Qp0j68vZ8rWQEgd8jl6DS3i9GPhPhxNLan/6PK+3E2t6oaP5JEWPSyi356jc1
+ 1em1kha/p1qr2Eajiyl2NTDCYP3fPVGarzaw42CC7OC9QCT0iewsT+1siI3JwqKGZRn3
+ s6xg==
+X-Gm-Message-State: ANoB5pnjneur5RUnvEk6INEtPcaKo+C9cEYo60u/i5Ot0KysPezd9zZI
+ jSrd6ROJAedVm5Iuh4ygPInqMQ==
+X-Google-Smtp-Source: AA0mqf4Xa+9O40J4HIpQQrKtCOdBgL3RPVHzmGhM1GxAcMR09YAelDkNslDme++FbVKiCuGubiRdHQ==
+X-Received: by 2002:a2e:a30a:0:b0:277:6231:5a7 with SMTP id
+ l10-20020a2ea30a000000b00277623105a7mr7166027lje.300.1668606007736; 
+ Wed, 16 Nov 2022 05:40:07 -0800 (PST)
+Received: from [10.10.15.130] ([192.130.178.91])
+ by smtp.gmail.com with ESMTPSA id
+ v14-20020a056512096e00b0048af9576d30sm2596273lft.83.2022.11.16.05.40.06
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 16 Nov 2022 05:40:07 -0800 (PST)
+Message-ID: <e85245a8-480a-0b1f-0e10-6a6d64ae76ec@linaro.org>
+Date: Wed, 16 Nov 2022 16:40:06 +0300
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.6.2
-Content-Language: en-US
-To: Konrad Dybcio <konrad.dybcio@linaro.org>, <linux-arm-msm@vger.kernel.org>, 
- <andersson@kernel.org>, <agross@kernel.org>
-References: <20221107103739.8993-1-konrad.dybcio@linaro.org>
-From: Abhinav Kumar <quic_abhinavk@quicinc.com>
-In-Reply-To: <20221107103739.8993-1-konrad.dybcio@linaro.org>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.4.1
+Content-Language: en-GB
+To: Kuogee Hsieh <quic_khsieh@quicinc.com>,
+ Doug Anderson <dianders@chromium.org>
+References: <1667237245-24988-1-git-send-email-quic_khsieh@quicinc.com>
+ <94b507e8-5b94-12ae-4c81-95f5d36279d5@linaro.org>
+ <deb60200-5a37-ec77-9515-0c0c89022174@quicinc.com>
+ <CAD=FV=X_fs_4JYcRvAwkU9mAafOten9WdyzPfSVWdAU=ZMo8zg@mail.gmail.com>
+ <155e4171-187c-4ecf-5a9b-12f0c2207524@linaro.org>
+ <CAD=FV=Wk5rBSq9Mx1GCO0QFYckKV9KUFKL36Ld7dQX1ypHVcYw@mail.gmail.com>
+ <CAD=FV=XTOUjVAGFWZ6xTkcNOrCT1p73aU-=KJNYUOxsS-BQsyA@mail.gmail.com>
+ <c5aedb31-3881-50e7-f747-e75b18c3f4b8@linaro.org>
+ <CAD=FV=WPde5wVOGCKQYGuGwgCwRebox4FF0MgV_2pPCTsfo_UA@mail.gmail.com>
+ <60643572-4148-cea5-e64d-ec6534b0c407@linaro.org>
+ <a4127ba2-5968-e8a9-da63-fd709aa01e7f@quicinc.com>
+ <adf5f80a-17e5-1163-a93c-2759ae57d77d@linaro.org>
+ <dcddd992-60e9-b802-b7a3-bab877545761@quicinc.com>
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+In-Reply-To: <dcddd992-60e9-b802-b7a3-bab877545761@quicinc.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-GUID: pn3OuoK3orfG4eeic5NRvt8rfaiM8CS_
-X-Proofpoint-ORIG-GUID: pn3OuoK3orfG4eeic5NRvt8rfaiM8CS_
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.219,Aquarius:18.0.895,Hydra:6.0.545,FMLib:17.11.122.1
- definitions=2022-11-16_03,2022-11-16_01,2022-06-22_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0
- malwarescore=0 spamscore=0 impostorscore=0 clxscore=1011 adultscore=0
- bulkscore=0 mlxscore=0 suspectscore=0 priorityscore=1501 phishscore=0
- mlxlogscore=999 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2210170000 definitions=main-2211160082
-Subject: Re: [Freedreno] [PATCH] drm/msm/dpu1: Remove INTF4 IRQ from SDM845
- IRQ mask
+Subject: Re: [Freedreno] [PATCH] drm/msm/dp: remove limitation of link rate
+ at 5.4G to support HBR3
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -84,52 +88,109 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Kalyan Thota <quic_kalyant@quicinc.com>, freedreno@lists.freedesktop.org,
- Loic Poulain <loic.poulain@linaro.org>, patches@linaro.org,
- David Airlie <airlied@gmail.com>, Konrad Dybcio <konrad.dybcio@somainline.org>,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- Rob Clark <robdclark@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@somainline.org>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>
+Cc: quic_sbillaka@quicinc.com, quic_abhinavk@quicinc.com, airlied@linux.ie,
+ freedreno@lists.freedesktop.org, Bjorn Andersson <andersson@kernel.org>,
+ vkoul@kernel.org, dri-devel@lists.freedesktop.org, swboyd@chromium.org,
+ robdclark@gmail.com, agross@kernel.org, daniel@ffwll.ch,
+ linux-arm-msm@vger.kernel.org, sean@poorly.run, linux-kernel@vger.kernel.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-
-
-On 11/7/2022 2:37 AM, Konrad Dybcio wrote:
-> From: Konrad Dybcio <konrad.dybcio@somainline.org>
+On 15/11/2022 21:43, Kuogee Hsieh wrote:
 > 
-> SDM845 only has INTF0-3 and has no business caring about the INTF4 irq.
+> On 11/9/2022 11:43 PM, Dmitry Baryshkov wrote:
+>> On 10/11/2022 02:47, Kuogee Hsieh wrote:
+>>>
+>>> On 11/2/2022 11:04 AM, Dmitry Baryshkov wrote:
+>>>> On 02/11/2022 20:28, Doug Anderson wrote:
+>>>>> Hi,
+>>>>>
+>>>>> On Wed, Nov 2, 2022 at 10:23 AM Dmitry Baryshkov
+>>>>> <dmitry.baryshkov@linaro.org> wrote:
+>>>>>>
+>>>>>>> 1. Someone figures out how to model this with the bridge chain and
+>>>>>>> then we only allow HBR3 if we detect we've got a TCPC that supports
+>>>>>>> it. This seems like the cleanest / best but feels like a long pole.
+>>>>>>> Not only have we been trying to get the TCPC-modeled-as-a-bridge 
+>>>>>>> stuff
+>>>>>>> landed for a long time but even when we do it we still don't have a
+>>>>>>> solution for how to communicate the number of lanes and other stuff
+>>>>>>> between the TCPC and the DP controller so we have to enrich the 
+>>>>>>> bridge
+>>>>>>> interface.
+>>>>>>
+>>>>>> I think we'd need some OOB interface. For example for DSI 
+>>>>>> interfaces we
+>>>>>> have mipi_dsi_device struct to communicate such OOB data.
+>>>>>>
+>>>>>> Also take a note regarding data-lanes from my previous email.
+>>>>>
+>>>>> Right, we can somehow communicate the max link rate through the bridge
+>>>>> chain to the DP controller in an OOB manner that would work.
+>>>>
+>>>> I'd note that our dp_panel has some notion of such OOB data. So do 
+>>>> AUX drivers including the panel-edp. My suggestion would be to 
+>>>> consider both of them while modelling the OOB data.
+>>>>
+>>>>>
+>>>>>
+>>>>>>> 2. We add in a DT property to the display controller node that says
+>>>>>>> the max link rate for use on this board. This feels like a hack, but
+>>>>>>> maybe it's not too bad. Certainly it would be incredibly simple to
+>>>>>>> implement. Actually... ...one could argue that even if we later 
+>>>>>>> model
+>>>>>>> the TCPC as a bridge that this property would still be valid / 
+>>>>>>> useful!
+>>>>>>> You could certainly imagine that the SoC supports HBR3 and the TCPC
+>>>>>>> supports HBR3 but that the board routing between the SoC and the 
+>>>>>>> TCPC
+>>>>>>> is bad and only supports HBR2. In this case the only way out is
+>>>>>>> essentially a "board constraint" AKA a DT property in the DP
+>>>>>>> controller.
+>>>>>>
+>>>>>> We have been discussing similar topics with Abhinav. Krzysztof 
+>>>>>> suggested
+>>>>>> using link-frequencies property to provide max and min values.
+>>>
+>>> questions,
+>>>
+>>> 1)is Krzysztof suggested had been implemented?
+>>
+>> I can not parse this question, please excuse me.
+>>
+>> Yes, Krzysztof suggested this being implemented as a link property, 
+>> see media/video-interfaces.txt.
+>>
+>> Moreover your implementation goes against both the existing definition 
+>> (array with the list of frequencies) and Krzysztof's suggested 
+>> extension (min and max). Listing just a single frequency goes against 
+>> both these suggestions. In case of DP we have a fixed set of 
+>> frequencies. Thus I'd suggest listing all supported frequencies instead.
 > 
-> Suggested-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> Signed-off-by: Konrad Dybcio <konrad.dybcio@somainline.org>
-> Signed-off-by: Konrad Dybcio <konrad.dybcio@linaro.org>
-
-It is true that SDM845 doesnt have INTF4. I was a bit concerned whether 
-this would impact SM8150 as that re-uses the IRQ_SDM845_MASK but even 
-SM8150 doesnt have INTF4.
-
-A minor nit, the subject convention in this file seems to be drm/msm/dpu 
-and not drm/msm/dpu1.
-
-Other than that,
-
-Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
-
-
-> ---
->   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c | 1 -
->   1 file changed, 1 deletion(-)
+> I think this proposal is kind of strange.
 > 
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
-> index 27f029fdc682..06897a497eb7 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
-> @@ -86,7 +86,6 @@
->   			 BIT(MDP_INTF1_INTR) | \
->   			 BIT(MDP_INTF2_INTR) | \
->   			 BIT(MDP_INTF3_INTR) | \
-> -			 BIT(MDP_INTF4_INTR) | \
->   			 BIT(MDP_AD4_0_INTR) | \
->   			 BIT(MDP_AD4_1_INTR))
->   
+> According to DP spec, if a link support 5,4G, then it must support 1.6, 
+> 2.7 and 5.4.
+> 
+> If it support 8.1G, then it must support 1.6 , 2.7 and 5.4.
+> 
+> There is no link can only support 2.7 and 5.4G without supporting 1.6G.
+
+Let me quote the docs.
+
+   link-frequencies:
+     $ref: /schemas/types.yaml#/definitions/uint64-array
+     description:
+       Allowed data bus frequencies. For MIPI CSI-2, for instance, this 
+is the
+       actual frequency of the bus, not bits per clock per lane value. 
+An array
+       of 64-bit unsigned integers.
+
+Note. 'allowed data bus frequencies'. So by listing only the max 
+frequency you'd break this description.
+
+-- 
+With best wishes
+Dmitry
+
