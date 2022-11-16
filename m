@@ -2,80 +2,73 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6B98262C2B1
-	for <lists+freedreno@lfdr.de>; Wed, 16 Nov 2022 16:35:33 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id EAEB962C32B
+	for <lists+freedreno@lfdr.de>; Wed, 16 Nov 2022 16:55:34 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 12BE710E121;
-	Wed, 16 Nov 2022 15:35:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A000910E4C7;
+	Wed, 16 Nov 2022 15:55:33 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 350FD10E06A;
- Wed, 16 Nov 2022 15:35:27 +0000 (UTC)
-Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 2AGDFiDp027890; Wed, 16 Nov 2022 15:35:25 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
- h=message-id : date :
- mime-version : subject : to : cc : references : from : in-reply-to :
- content-type : content-transfer-encoding; s=qcppdkim1;
- bh=4bgSVWe2DupxOwRr4EOFbsHDsofmk+PFg9oISOvq07w=;
- b=AcC0d+H6Ykx45QyKTs91JvR5oMly//xnEMmuafbJ+4j5AFxQqRpBhfUI3lY3qBvo35U+
- w2tVbt3T66tD+Ep+qW3ZkpgjSikFo66wyZtdYgGVaD8PwpvmkCCd336cOSdWyxZfnQ4M
- Ar3WwuMqL9aOOQhxnO41GD6zp+hpdLrdriRjtnOdgSkQj4uC7LndSiM0kvzTHbMqXHzZ
- XVR9iQerh42i3I0+TNT2BrflTvF4cOOEGaFDyOhGC8PPouo4Op2/OMHyryA6juE16+27
- Vxnx1ZDH/LaQunuf9GW73GokZgHsU1esihFCQnR4bvRdhIBM/6n/Bcl6DxIl7L3kXSd1 Dw== 
-Received: from nalasppmta01.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3kw03a8bcj-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 16 Nov 2022 15:35:24 +0000
-Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
- [10.47.209.196])
- by NALASPPMTA01.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 2AGFZNNY015031
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 16 Nov 2022 15:35:23 GMT
-Received: from [10.216.25.63] (10.80.80.8) by nalasex01a.na.qualcomm.com
- (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.29; Wed, 16 Nov
- 2022 07:35:19 -0800
-Message-ID: <0dd3e096-84ac-da81-ad43-bf07485e7b65@quicinc.com>
-Date: Wed, 16 Nov 2022 07:35:16 -0800
+Received: from mail-lf1-x12e.google.com (mail-lf1-x12e.google.com
+ [IPv6:2a00:1450:4864:20::12e])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1B5D310E4DD
+ for <freedreno@lists.freedesktop.org>; Wed, 16 Nov 2022 15:55:30 +0000 (UTC)
+Received: by mail-lf1-x12e.google.com with SMTP id a29so30187691lfj.9
+ for <freedreno@lists.freedesktop.org>; Wed, 16 Nov 2022 07:55:30 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=JxJZcTMnZ0d8Rsb8gNwZY8DF8ihKF/f84NGyK8FI2+k=;
+ b=OdkrzXZlviJotbnbYNfqAkvuWplWuARldk3To5s7pFnXd/3r98N9A4cNVBCikMwbWf
+ B7v1LwzTvzJlJZMQVXWmsxnR2BvMYuvc1t7w++68g90WR52ySHXwiLiFutmbCiU9wzP8
+ 3AhWOySw97TIcS3tY9q65L1Jbw0eBiCe9WhM1ni1LIgOqQEoVHuyBt0ViF56w4IS6Pxt
+ h7No72Gmqm+3fMn9T+fu/YHKk7ey9ZuHSMLP/CVjWZr+4o7Jczg8NPe9JVW3ooTVFfag
+ zBmdZ7uxz34baQmj9gWHOklkyvKd0kzXNqXTYqZKR/43M8rqBS2GC/4fDfPITR0WTmLz
+ XaDQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=JxJZcTMnZ0d8Rsb8gNwZY8DF8ihKF/f84NGyK8FI2+k=;
+ b=Ra7k6pmwrrsmV/OBUzbiK2OvRXJoC69VIzrEQkIqb4/TGdCAsX8rHz+Va7oLBnJxNE
+ flxOF7tAfXWC67VIhWhMVukp7ZhhPE1qT+vh6NE6rU3JCKMSOZWNvCxpam0Zv9Lijc7w
+ KmmjyRSow/sCoE8ik8nU9o5HlqyOfQbFc3g4JZlJ1/Vo40Z5O6Zy0f882OtIsYiB3wbh
+ cHe+9T+GGMFXyU+ODc56byrHs2dCmoxO0+PxHaVkMLuIhi0AUIFt3zioTQ4k7O0yjAAf
+ aOCA5PxMsS8x89i/NcUpTBO6XEE3+kNjFmdvR18PSk9zyKrgYccKEPr2PiA1WIvEjRvu
+ ikug==
+X-Gm-Message-State: ANoB5pmd2EkUbTMH78z5X0lIM9I0iH9xtNl+8jweQrwPDUfqs1muYTQ6
+ GAoeo9mOqmCvMCL8irQSWjJm2g==
+X-Google-Smtp-Source: AA0mqf7GsGMN50F7hT+H8jQgsK382YAdUeXB75eSqqC6j3C8P+jtqJP4ldEXggpFL79RpOksVSV1Sw==
+X-Received: by 2002:a19:6449:0:b0:4ae:5dc5:82c5 with SMTP id
+ b9-20020a196449000000b004ae5dc582c5mr8330451lfj.2.1668614128063; 
+ Wed, 16 Nov 2022 07:55:28 -0800 (PST)
+Received: from [10.10.15.130] ([192.130.178.91])
+ by smtp.gmail.com with ESMTPSA id
+ g3-20020a05651222c300b00497feee98basm2626991lfu.274.2022.11.16.07.55.27
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 16 Nov 2022 07:55:27 -0800 (PST)
+Message-ID: <dc656c7a-eab4-f547-ca52-51f7510c2858@linaro.org>
+Date: Wed, 16 Nov 2022 17:55:27 +0200
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.6.2
-Content-Language: en-US
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Kalyan Thota
- <quic_kalyant@quicinc.com>,
- <dri-devel@lists.freedesktop.org>, <linux-arm-msm@vger.kernel.org>,
- <freedreno@lists.freedesktop.org>, <devicetree@vger.kernel.org>
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.4.1
+Content-Language: en-GB
+To: Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Kalyan Thota <quic_kalyant@quicinc.com>, dri-devel@lists.freedesktop.org,
+ linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
+ devicetree@vger.kernel.org
 References: <1668609040-2549-1-git-send-email-quic_kalyant@quicinc.com>
  <1668609040-2549-3-git-send-email-quic_kalyant@quicinc.com>
  <e049f5b1-da41-6854-4731-b6697770ffde@linaro.org>
  <6b1907db-3fdb-8fe0-e5e3-21ea17021925@quicinc.com>
  <bf14540a-745c-c378-520a-f8edfd3e3adf@linaro.org>
-From: Abhinav Kumar <quic_abhinavk@quicinc.com>
-In-Reply-To: <bf14540a-745c-c378-520a-f8edfd3e3adf@linaro.org>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
+ <0dd3e096-84ac-da81-ad43-bf07485e7b65@quicinc.com>
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+In-Reply-To: <0dd3e096-84ac-da81-ad43-bf07485e7b65@quicinc.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-GUID: nvibYndKs-Sx2SNACmfVRs8TtFf1DTqK
-X-Proofpoint-ORIG-GUID: nvibYndKs-Sx2SNACmfVRs8TtFf1DTqK
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.219,Aquarius:18.0.895,Hydra:6.0.545,FMLib:17.11.122.1
- definitions=2022-11-16_03,2022-11-16_01,2022-06-22_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 mlxscore=0
- lowpriorityscore=0 adultscore=0 phishscore=0 impostorscore=0
- malwarescore=0 spamscore=0 mlxlogscore=999 bulkscore=0 suspectscore=0
- clxscore=1015 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2210170000 definitions=main-2211160107
 Subject: Re: [Freedreno] [PATCH v2 2/3] drm/msm/disp/dpu1: add helper to
  know if display is pluggable
 X-BeenThere: freedreno@lists.freedesktop.org
@@ -95,99 +88,130 @@ Cc: robdclark@chromium.org, quic_vpolimer@quicinc.com, swboyd@chromium.org,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-
-
-On 11/16/2022 7:18 AM, Dmitry Baryshkov wrote:
-> On 16/11/2022 18:11, Abhinav Kumar wrote:
->>
->>
->> On 11/16/2022 7:08 AM, Dmitry Baryshkov wrote:
->>> On 16/11/2022 17:30, Kalyan Thota wrote:
->>>> Since DRM encoder type for few encoders can be similar
->>>> (like eDP and DP) find out if the interface supports HPD
->>>> from encoder bridge to differentiate between builtin
->>>> and pluggable displays.
->>>>
->>>> Changes in v1:
->>>> - add connector type in the disp_info (Dmitry)
->>>> - add helper functions to know encoder type
->>>> - update commit text reflecting the change
->>>>
->>>> Changes in v2:
->>>> - avoid hardcode of connector type for DSI as it may not be true 
->>>> (Dmitry)
->>>> - get the HPD information from encoder bridge
->>>>
->>>> Signed-off-by: Kalyan Thota <quic_kalyant@quicinc.com>
->>>> ---
->>>>   drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c | 16 ++++++++++++++++
->>>>   drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.h |  6 ++++++
->>>>   2 files changed, 22 insertions(+)
->>>>
->>>> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c 
->>>> b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
->>>> index 9c6817b..be93269 100644
->>>> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
->>>> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
->>>> @@ -15,6 +15,7 @@
->>>>   #include <drm/drm_crtc.h>
->>>>   #include <drm/drm_file.h>
->>>>   #include <drm/drm_probe_helper.h>
->>>> +#include <drm/drm_bridge.h>
->>>>   #include "msm_drv.h"
->>>>   #include "dpu_kms.h"
->>>> @@ -217,6 +218,21 @@ static u32 dither_matrix[DITHER_MATRIX_SZ] = {
->>>>       15, 7, 13, 5, 3, 11, 1, 9, 12, 4, 14, 6, 0, 8, 2, 10
->>>>   };
->>>> +bool dpu_encoder_is_pluggable(struct drm_encoder *encoder)
->>>> +{
->>>> +    struct drm_bridge *bridge;
->>>> +    int ops = 0;
->>>> +
->>>> +    if (!encoder)
->>>> +        return false;
->>>> +
->>>> +    /* Get last bridge in the chain to determine pluggable state */
->>>> +    drm_for_each_bridge_in_chain(encoder, bridge)
->>>> +        if (!drm_bridge_get_next_bridge(bridge))
->>>> +            ops = bridge->ops;
->>>> +
->>>> +    return ops & DRM_BRIDGE_OP_HPD;
+On 16/11/2022 18:35, Abhinav Kumar wrote:
+> 
+> 
+> On 11/16/2022 7:18 AM, Dmitry Baryshkov wrote:
+>> On 16/11/2022 18:11, Abhinav Kumar wrote:
 >>>
->>> No. This is not what you should be checking (hint: polled connectors 
->>> also can be pluggable).
 >>>
->>> Please check the type of the actual connector connected to this encoder.
+>>> On 11/16/2022 7:08 AM, Dmitry Baryshkov wrote:
+>>>> On 16/11/2022 17:30, Kalyan Thota wrote:
+>>>>> Since DRM encoder type for few encoders can be similar
+>>>>> (like eDP and DP) find out if the interface supports HPD
+>>>>> from encoder bridge to differentiate between builtin
+>>>>> and pluggable displays.
+>>>>>
+>>>>> Changes in v1:
+>>>>> - add connector type in the disp_info (Dmitry)
+>>>>> - add helper functions to know encoder type
+>>>>> - update commit text reflecting the change
+>>>>>
+>>>>> Changes in v2:
+>>>>> - avoid hardcode of connector type for DSI as it may not be true 
+>>>>> (Dmitry)
+>>>>> - get the HPD information from encoder bridge
+>>>>>
+>>>>> Signed-off-by: Kalyan Thota <quic_kalyant@quicinc.com>
+>>>>> ---
+>>>>>   drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c | 16 ++++++++++++++++
+>>>>>   drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.h |  6 ++++++
+>>>>>   2 files changed, 22 insertions(+)
+>>>>>
+>>>>> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c 
+>>>>> b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+>>>>> index 9c6817b..be93269 100644
+>>>>> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+>>>>> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+>>>>> @@ -15,6 +15,7 @@
+>>>>>   #include <drm/drm_crtc.h>
+>>>>>   #include <drm/drm_file.h>
+>>>>>   #include <drm/drm_probe_helper.h>
+>>>>> +#include <drm/drm_bridge.h>
+>>>>>   #include "msm_drv.h"
+>>>>>   #include "dpu_kms.h"
+>>>>> @@ -217,6 +218,21 @@ static u32 dither_matrix[DITHER_MATRIX_SZ] = {
+>>>>>       15, 7, 13, 5, 3, 11, 1, 9, 12, 4, 14, 6, 0, 8, 2, 10
+>>>>>   };
+>>>>> +bool dpu_encoder_is_pluggable(struct drm_encoder *encoder)
+>>>>> +{
+>>>>> +    struct drm_bridge *bridge;
+>>>>> +    int ops = 0;
+>>>>> +
+>>>>> +    if (!encoder)
+>>>>> +        return false;
+>>>>> +
+>>>>> +    /* Get last bridge in the chain to determine pluggable state */
+>>>>> +    drm_for_each_bridge_in_chain(encoder, bridge)
+>>>>> +        if (!drm_bridge_get_next_bridge(bridge))
+>>>>> +            ops = bridge->ops;
+>>>>> +
+>>>>> +    return ops & DRM_BRIDGE_OP_HPD;
+>>>>
+>>>> No. This is not what you should be checking (hint: polled connectors 
+>>>> also can be pluggable).
+>>>>
+>>>> Please check the type of the actual connector connected to this 
+>>>> encoder.
+>>>>
 >>>
+>>> Even if we check the connector type as DSI or eDP that does not 
+>>> necessarily mean its built-in.
+>>>
+>>> We can even use DSI or eDP as a pluggable display.
 >>
->> Even if we check the connector type as DSI or eDP that does not 
->> necessarily mean its built-in.
+>> Well, I don't think so. eDP and DSI connectors are not pluggable per 
+>> design. One can use them so, but they are not thought to be used this 
+>> way. Unlike e.g. HDMI, DP, VGA, etc.
 >>
->> We can even use DSI or eDP as a pluggable display.
 > 
-> Well, I don't think so. eDP and DSI connectors are not pluggable per 
-> design. One can use them so, but they are not thought to be used this 
-> way. Unlike e.g. HDMI, DP, VGA, etc.
+> We have had many products where we used HDMI as the primary display 
+> where the HPD line was disconnected in the design, so now if we 
+> generalize all HDMI connectors to be pluggable we can never enable color 
+> management on those even though DSI is not even used in that product.
+
+Did they use HDMI connector internally? Or was it just a panel wired 
+somehow to the HDMI pins?
+
+If the former is true, then they still are pluggable. Even if you don't 
+have a way to detect that via the HPD pin.
+
+If the later is the case, then it shouldn't be DRM_MODE_CONNECTOR_HDMI.
+Well, even if this is an internal HDMI, I'd still use some other 
+connector (e.g. DRM_MODE_CONNECTOR_Unknown) just to point out that this 
+is not an externally visible HDMI connector one assumes to be able to 
+find on the body of the device.
+
+Last, but not least, how would you remove DRM_BRIDGE_OPS_HPD from the 
+corresponding bridge driver?
+
+
+> Thats why I felt we should rely on the HPD_OPS as that way we know that 
+> it will be set only if HPD will be used.
 > 
+> Wouldnt it be just better to also check polling displays to complete 
+> this check? Is there a way to do it?
 
-We have had many products where we used HDMI as the primary display 
-where the HPD line was disconnected in the design, so now if we 
-generalize all HDMI connectors to be pluggable we can never enable color 
-management on those even though DSI is not even used in that product.
 
-Thats why I felt we should rely on the HPD_OPS as that way we know that 
-it will be set only if HPD will be used.
+Yes, check DRM_BRIDGE_OP_DETECT. But as I noted, there is a list of 
+connectors that will not ever have HPD or polling, but still always are 
+external. Well, even for VGA there is no good way to detect whether it 
+is plugged in or not (see the comment in display-connector.c).
 
-Wouldnt it be just better to also check polling displays to complete 
-this check? Is there a way to do it?
 
-> I would say LVDS, eDP, DSI, DPI and SPI can be assumed to be constantly 
-> plugged.
-> 
-> Compare this with Composite, SVIDEO, 9PinDIN, TV. They can be assumed to 
-> be external even if they do not have the HPD (or even polling). And 
-> these connectors usually don't have it.
-> 
+
+>> I would say LVDS, eDP, DSI, DPI and SPI can be assumed to be 
+>> constantly plugged.
 >>
->> Thats why we thought of this check.
+>> Compare this with Composite, SVIDEO, 9PinDIN, TV. They can be assumed 
+>> to be external even if they do not have the HPD (or even polling). And 
+>> these connectors usually don't have it.
 >>
+>>>
+>>> Thats why we thought of this check.
+>>>
+
+-- 
+With best wishes
+Dmitry
+
