@@ -1,76 +1,90 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 462F562D8A4
-	for <lists+freedreno@lfdr.de>; Thu, 17 Nov 2022 11:57:48 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 5D81962DCEE
+	for <lists+freedreno@lfdr.de>; Thu, 17 Nov 2022 14:37:49 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A553810E07E;
-	Thu, 17 Nov 2022 10:57:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E6ED310E5F5;
+	Thu, 17 Nov 2022 13:37:45 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
  [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0E0CF10E07E;
- Thu, 17 Nov 2022 10:57:41 +0000 (UTC)
-Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 80C0110E5F5;
+ Thu, 17 Nov 2022 13:37:41 +0000 (UTC)
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
  by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 2AH6nwhY000845; Thu, 17 Nov 2022 10:57:39 GMT
+ 2AHBQYOH015054; Thu, 17 Nov 2022 13:37:30 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
  h=message-id : date :
- mime-version : subject : to : cc : references : from : in-reply-to :
+ mime-version : subject : to : references : from : in-reply-to :
  content-type : content-transfer-encoding; s=qcppdkim1;
- bh=F0pGU1BlNM79za83vEB5fdDsZRyTyENXL11lu+0vAWI=;
- b=XnKTGrX5RA3CffErTysra0/6A8G5d11s16zOCoGIxx4eVBEhps9KX0LmTBXUCzyLFtHc
- 6DDsR1ON+HaoAqtLbfoX2R2Fn9auQpcG3MYWJBoNVkR4NSMy46v6b/94niuqQuyQ85gZ
- HwXXy/fNNsPQPb+udjW7xGjAvI/y6Ycev0K+AITeweBw0xobn/pFZizlCUtidkegOi82
- m5hdjsrSUI7qB6W2pUcH1qJWd3JysP3n4xEGuB4L4DSfQsr6TAGxGdqT3PAccDIYYGff
- JC0GsysjYG0LYHRtbO3ccA2PVXsjSwVRQ5LR+qCom5qZD3GTo9idq9wCd6DCg68SFUMC 4A== 
+ bh=uEplLWzWASejo+99geU63RDGo9jF1pVm8nthEcH5omk=;
+ b=MyGn3rXLQ0/hFrhWGxawIT0ptHtF2UJDao6q0iOMa8h3bC1bP19rh7hor4Rfwn83RyRw
+ oFO/9pnuOkaG9YV+R2KXKGNHtkB8aD85TYavfuoB9gfWPojWR19w/KIJ227NGz0R3dKk
+ zeJ4yhhY25IQ/7hRHpB9BOTrgV6LVcWxEsjo78Nbdp+pi5Gwhw9+7S3C9GAsuQv8WKNw
+ I318f+OmIWe4A62a+K4/huR8i9FFGX8SHR0rKfwe8bp+ujqNHxETqb0rbdD3diZLjZ2f
+ auP/9ce+t2EN1ciZ0Yl/xS+c4x41bRwFg5qlat1+BhwEDKcsa8u70d9wm3qGc+ZSpEqT yA== 
 Received: from nalasppmta02.qualcomm.com (Global_NAT1.qualcomm.com
  [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3kwg1mrt8e-1
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3kwm36gfep-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 17 Nov 2022 10:57:39 +0000
-Received: from nalasex01b.na.qualcomm.com (nalasex01b.na.qualcomm.com
- [10.47.209.197])
- by NALASPPMTA02.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 2AHAvcFd011626
+ Thu, 17 Nov 2022 13:37:30 +0000
+Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
+ [10.47.209.196])
+ by NALASPPMTA02.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 2AHDbT1q030354
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 17 Nov 2022 10:57:38 GMT
-Received: from [10.216.1.87] (10.80.80.8) by nalasex01b.na.qualcomm.com
- (10.47.209.197) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.29; Thu, 17 Nov
- 2022 02:57:32 -0800
-Message-ID: <ee436c31-6b38-4c1c-8d40-865e57750e6f@quicinc.com>
-Date: Thu, 17 Nov 2022 16:27:28 +0530
+ Thu, 17 Nov 2022 13:37:29 GMT
+Received: from [10.216.25.63] (10.80.80.8) by nalasex01a.na.qualcomm.com
+ (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.36; Thu, 17 Nov
+ 2022 05:37:20 -0800
+Message-ID: <6c45c99c-1c27-8a5b-55d9-5242fdc4d234@quicinc.com>
+Date: Thu, 17 Nov 2022 05:37:14 -0800
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.3.2
+ Thunderbird/91.6.2
 Content-Language: en-US
-To: Rob Clark <robdclark@gmail.com>, <dri-devel@lists.freedesktop.org>
-References: <20221115154637.1613968-1-robdclark@gmail.com>
-From: Akhil P Oommen <quic_akhilpo@quicinc.com>
-In-Reply-To: <20221115154637.1613968-1-robdclark@gmail.com>
+To: Robert Foss <robert.foss@linaro.org>, <robdclark@gmail.com>,
+ <dmitry.baryshkov@linaro.org>, <sean@poorly.run>, <airlied@linux.ie>,
+ <daniel@ffwll.ch>, <robh+dt@kernel.org>,
+ <krzysztof.kozlowski+dt@linaro.org>, <agross@kernel.org>,
+ <bjorn.andersson@linaro.org>, <konrad.dybcio@somainline.org>,
+ <quic_kalyant@quicinc.com>, <swboyd@chromium.org>,
+ <angelogioacchino.delregno@somainline.org>, <loic.poulain@linaro.org>,
+ <quic_khsieh@quicinc.com>, <quic_vpolimer@quicinc.com>,
+ <vkoul@kernel.org>, <dianders@chromium.org>,
+ <linux-arm-msm@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
+ <freedreno@lists.freedesktop.org>, <devicetree@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>, Jonathan Marek <jonathan@marek.ca>,
+ <vinod.koul@linaro.org>, <quic_jesszhan@quicinc.com>,
+ <andersson@kernel.org>
+References: <20221115133105.980877-1-robert.foss@linaro.org>
+ <20221115133105.980877-4-robert.foss@linaro.org>
+From: Abhinav Kumar <quic_abhinavk@quicinc.com>
+In-Reply-To: <20221115133105.980877-4-robert.foss@linaro.org>
 Content-Type: text/plain; charset="UTF-8"; format=flowed
 Content-Transfer-Encoding: 7bit
 X-Originating-IP: [10.80.80.8]
 X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
- nalasex01b.na.qualcomm.com (10.47.209.197)
+ nalasex01a.na.qualcomm.com (10.47.209.196)
 X-QCInternal: smtphost
 X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
  signatures=585085
-X-Proofpoint-GUID: UL_coQY-6jlE9drln0tJpKU__dSx8ogz
-X-Proofpoint-ORIG-GUID: UL_coQY-6jlE9drln0tJpKU__dSx8ogz
+X-Proofpoint-GUID: DgjysGU7gCAzOJJtp4-Jp-LiMGlkiHji
+X-Proofpoint-ORIG-GUID: DgjysGU7gCAzOJJtp4-Jp-LiMGlkiHji
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.219,Aquarius:18.0.895,Hydra:6.0.545,FMLib:17.11.122.1
  definitions=2022-11-17_06,2022-11-17_01,2022-06-22_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 spamscore=0
- phishscore=0 adultscore=0 impostorscore=0 lowpriorityscore=0
- malwarescore=0 priorityscore=1501 bulkscore=0 clxscore=1015 mlxscore=0
- mlxlogscore=999 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2210170000 definitions=main-2211170083
-Subject: Re: [Freedreno] [PATCH v3] drm/msm/a6xx: Fix speed-bin detection vs
- probe-defer
+ lowpriorityscore=0
+ spamscore=0 clxscore=1011 impostorscore=0 suspectscore=0 malwarescore=0
+ bulkscore=0 priorityscore=1501 mlxscore=0 mlxlogscore=999 adultscore=0
+ phishscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2210170000 definitions=main-2211170103
+Subject: Re: [Freedreno] [PATCH v2 03/12] drm/msm/dpu: Refactor sc7280_pp
+ location
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,79 +97,54 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rob Clark <robdclark@chromium.org>, linux-arm-msm@vger.kernel.org,
- Konrad Dybcio <konrad.dybcio@somainline.org>,
- Douglas Anderson <dianders@chromium.org>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>,
- Daniel Vetter <daniel@ffwll.ch>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- David Airlie <airlied@gmail.com>, freedreno@lists.freedesktop.org,
- Chia-I Wu <olvaffe@gmail.com>, open list <linux-kernel@vger.kernel.org>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 11/15/2022 9:16 PM, Rob Clark wrote:
-> From: Rob Clark <robdclark@chromium.org>
->
-> If we get an error (other than -ENOENT) we need to propagate that up the
-> stack.  Otherwise if the nvmem driver hasn't probed yet, we'll end up
-> end up claiming that we support all the OPPs which is not likely to be
-> true (and on some generations impossible to be true, ie. if there are
-> conflicting OPPs).
->
-> v2: Update commit msg, gc unused label, etc
-> v3: Add previously missing \n's
->
-> Fixed: fe7952c629da ("drm/msm: Add speed-bin support to a618 gpu")
-> Signed-off-by: Rob Clark <robdclark@chromium.org>
-> Reviewed-by: Douglas Anderson <dianders@chromium.org>
+
+
+On 11/15/2022 5:30 AM, Robert Foss wrote:
+> The sc7280_pp declaration is not located by the other _pp
+> declarations, but rather hidden around the _merge_3d
+> declarations. Let's fix this to avoid confusion.
+> 
+> Signed-off-by: Robert Foss <robert.foss@linaro.org>
+> Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+
+Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
+
 > ---
->   drivers/gpu/drm/msm/adreno/a6xx_gpu.c | 12 +++++-------
->   1 file changed, 5 insertions(+), 7 deletions(-)
->
-> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-> index 7fe60c65a1eb..ebe9599a8316 100644
-> --- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-> @@ -1931,7 +1931,7 @@ static u32 fuse_to_supp_hw(struct device *dev, struct adreno_rev rev, u32 fuse)
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c | 14 +++++++-------
+>   1 file changed, 7 insertions(+), 7 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
+> index 4dac90ee5b8a..8f2d634f7b6b 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
+> @@ -1294,6 +1294,13 @@ static const struct dpu_pingpong_cfg sm8150_pp[] = {
+>   			-1),
+>   };
 >   
->   	if (val == UINT_MAX) {
->   		DRM_DEV_ERROR(dev,
-> -			"missing support for speed-bin: %u. Some OPPs may not be supported by hardware",
-> +			"missing support for speed-bin: %u. Some OPPs may not be supported by hardware\n",
->   			fuse);
->   		return UINT_MAX;
->   	}
-> @@ -1941,7 +1941,7 @@ static u32 fuse_to_supp_hw(struct device *dev, struct adreno_rev rev, u32 fuse)
+> +static const struct dpu_pingpong_cfg sc7280_pp[] = {
+> +	PP_BLK("pingpong_0", PINGPONG_0, 0x59000, 0, sc7280_pp_sblk, -1, -1),
+> +	PP_BLK("pingpong_1", PINGPONG_1, 0x6a000, 0, sc7280_pp_sblk, -1, -1),
+> +	PP_BLK("pingpong_2", PINGPONG_2, 0x6b000, 0, sc7280_pp_sblk, -1, -1),
+> +	PP_BLK("pingpong_3", PINGPONG_3, 0x6c000, 0, sc7280_pp_sblk, -1, -1),
+> +};
+> +
+>   static struct dpu_pingpong_cfg qcm2290_pp[] = {
+>   	PP_BLK("pingpong_0", PINGPONG_0, 0x70000, 0, sdm845_pp_sblk,
+>   		DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 8),
+> @@ -1352,13 +1359,6 @@ static const struct dpu_merge_3d_cfg sm8450_merge_3d[] = {
+>   	MERGE_3D_BLK("merge_3d_3", MERGE_3D_3, 0x65f00),
+>   };
 >   
->   static int a6xx_set_supported_hw(struct device *dev, struct adreno_rev rev)
->   {
-> -	u32 supp_hw = UINT_MAX;
-> +	u32 supp_hw;
->   	u32 speedbin;
->   	int ret;
->   
-> @@ -1953,15 +1953,13 @@ static int a6xx_set_supported_hw(struct device *dev, struct adreno_rev rev)
->   	if (ret == -ENOENT) {
->   		return 0;
->   	} else if (ret) {
-> -		DRM_DEV_ERROR(dev,
-> -			      "failed to read speed-bin (%d). Some OPPs may not be supported by hardware",
-> -			      ret);
-> -		goto done;
-> +		dev_err_probe(dev, ret,
-> +			      "failed to read speed-bin. Some OPPs may not be supported by hardware\n");
-> +		return ret;
->   	}
->   
->   	supp_hw = fuse_to_supp_hw(dev, rev, speedbin);
->   
-> -done:
->   	ret = devm_pm_opp_set_supported_hw(dev, &supp_hw, 1);
->   	if (ret)
->   		return ret;
-
-Reviewed-by: Akhil P Oommen <quic_akhilpo@quicinc.com>
-
-
--Akhil.
+> -static const struct dpu_pingpong_cfg sc7280_pp[] = {
+> -	PP_BLK("pingpong_0", PINGPONG_0, 0x59000, 0, sc7280_pp_sblk, -1, -1),
+> -	PP_BLK("pingpong_1", PINGPONG_1, 0x6a000, 0, sc7280_pp_sblk, -1, -1),
+> -	PP_BLK("pingpong_2", PINGPONG_2, 0x6b000, 0, sc7280_pp_sblk, -1, -1),
+> -	PP_BLK("pingpong_3", PINGPONG_3, 0x6c000, 0, sc7280_pp_sblk, -1, -1),
+> -};
+> -
+>   /*************************************************************
+>    * DSC sub blocks config
+>    *************************************************************/
