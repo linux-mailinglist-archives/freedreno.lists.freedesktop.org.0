@@ -2,76 +2,75 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id CB37E62F7FE
-	for <lists+freedreno@lfdr.de>; Fri, 18 Nov 2022 15:45:33 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0FAFD62F89E
+	for <lists+freedreno@lfdr.de>; Fri, 18 Nov 2022 16:00:46 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 504D010E720;
-	Fri, 18 Nov 2022 14:45:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B731010E75D;
+	Fri, 18 Nov 2022 15:00:44 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id ED9758984C;
- Fri, 18 Nov 2022 14:45:25 +0000 (UTC)
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 2AIDnVpO003487; Fri, 18 Nov 2022 14:45:18 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
- h=message-id : date :
- mime-version : subject : to : cc : references : from : in-reply-to :
- content-type : content-transfer-encoding; s=qcppdkim1;
- bh=45szKB9HMCIjJIaxReIAixbIr8tB0OeHjY0Ybc5AIGA=;
- b=lij3t1SQHo50m8fvVqbT1bWDD1n9cUD7mzGjaibWkq24SQdxwsc5q+ZUmIescptPHjk1
- k5LU0bu3BP6OhTodN4aJ20+piv/T+H3lemwz5koJMT+dpAw1VXOXxT9rxEUOjDbmT1/v
- ZYM8dx1yO+uJIJMxisu1AIJVZwckinwEgTmeSVWisTTI5/1cpkp+eUaJwhBvb085HSdZ
- wqqDaGhAmkWZbER3U70tKeZDmXQhKLwIvkvVTz6S47eslG249UqzFh4YLphH+tZsV0T2
- SyWy9ejV762Jn4v3MfHxSs+5FIUX5Wjk0C1jXlkWZHXhUf7EXr0/Z8uh1oSwxcNlZPgb pQ== 
-Received: from nalasppmta02.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3kx0s5hxxr-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 18 Nov 2022 14:45:18 +0000
-Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
- [10.47.209.196])
- by NALASPPMTA02.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 2AIEjHh8028370
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 18 Nov 2022 14:45:17 GMT
-Received: from [10.216.25.63] (10.80.80.8) by nalasex01a.na.qualcomm.com
- (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.36; Fri, 18 Nov
- 2022 06:45:13 -0800
-Message-ID: <78794d47-8e58-6586-6798-e8ac169a55fa@quicinc.com>
-Date: Fri, 18 Nov 2022 06:45:09 -0800
+Received: from mail-lf1-x136.google.com (mail-lf1-x136.google.com
+ [IPv6:2a00:1450:4864:20::136])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E9A4C10E762
+ for <freedreno@lists.freedesktop.org>; Fri, 18 Nov 2022 15:00:38 +0000 (UTC)
+Received: by mail-lf1-x136.google.com with SMTP id s8so8596999lfc.8
+ for <freedreno@lists.freedesktop.org>; Fri, 18 Nov 2022 07:00:38 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=+ejPHwWhRmHSRQorQPyiZQmxAgpus80eMs4KMNjOC6I=;
+ b=Fp3bwh5Qttpmf5pwrLNjCu8SC5IeWJltXikOyixAv8EulOPlAOwhCIr6Ou4zAyhsUl
+ 0YEfGTyOREhf9RDGoRv3jCzRP+QuhKAEa9QWVoZed/KkvDmKiOOBA7Hkg6uSqcPy5I9/
+ +BEzmzxoOXn4z9wxnvosYjzi93R3+rKsHsc7zka+Ear3Sw5QYN3JmgfIxybm3lpyNWES
+ au7dZSbb5GDnNtgwGIELHN2ACEEu6vXl2FCduW5/Fn8zICKH7KzcEqyqZQp4vqJNVCok
+ TESes1mLW5kwjoruMU/RhMQIiMBjrS8li/Fs9Mdst7EuHfU5VRUMx9ypuWU1ijUNmOwk
+ 1qLQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=+ejPHwWhRmHSRQorQPyiZQmxAgpus80eMs4KMNjOC6I=;
+ b=acOTigVSPjbPxpApiWOTRxnoF30QbRzOH4j9Gcmhb5e+vKnILthXp7EA8FI/9Nx7/C
+ RK8NGbICqNCXpnL42PZLmhZml1mCeAHWGBaDIXCx/OJT8pWWrO3ko+J6b3AnNOGTMzOv
+ U58JcLIdhz7Z9QFYUqpgHeQ7j6D3DG5vg2NuUjw9cVAaUGqo+uiZ90+nRRQHnA5rT0sP
+ S8ryxge+wwyD1ktEeSoEfnF2RRb644OeCC0t4Hc4iu+GfRKBtQL8cb/2S8vH+wby6xry
+ M5zLQzSum11MdN7uWwOvpHOWu2H5Uc37tqTXUzlezuKl91vlsljJ2jNgO7/jOkP39ov4
+ BLWA==
+X-Gm-Message-State: ANoB5pmJEGyDh5SKK5X58DsdDMMdf7y43BTSxoRJr9AClCoHCdiqKSsx
+ QLZrrFU07aojfMt8MCREFf4XnA==
+X-Google-Smtp-Source: AA0mqf7It8sdcMVMFx689iqJi2eBfnhzy6hh6ZyVvqfeeu3/XoOFjwvWqSXJ4zQX/L9AwR9aEE26dw==
+X-Received: by 2002:a19:ae18:0:b0:4aa:c879:5bc with SMTP id
+ f24-20020a19ae18000000b004aac87905bcmr2471996lfc.498.1668783636900; 
+ Fri, 18 Nov 2022 07:00:36 -0800 (PST)
+Received: from [10.10.15.130] ([192.130.178.91])
+ by smtp.gmail.com with ESMTPSA id
+ s12-20020a056512314c00b004b0317a1035sm692304lfi.109.2022.11.18.07.00.36
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 18 Nov 2022 07:00:36 -0800 (PST)
+Message-ID: <8b2999d9-87e4-fe29-6283-15200a052131@linaro.org>
+Date: Fri, 18 Nov 2022 17:00:35 +0200
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.6.2
-Content-Language: en-US
-To: Dan Carpenter <error27@gmail.com>, Rob Clark <robdclark@gmail.com>,
- "Dmitry Baryshkov" <dmitry.baryshkov@linaro.org>
-References: <Y3eCqQ2pm1uQnktV@kadam>
-From: Abhinav Kumar <quic_abhinavk@quicinc.com>
-In-Reply-To: <Y3eCqQ2pm1uQnktV@kadam>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.4.1
+Content-Language: en-GB
+To: Kalyan Thota <kalyant@qti.qualcomm.com>,
+ "Kalyan Thota (QUIC)" <quic_kalyant@quicinc.com>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ "linux-arm-msm@vger.kernel.org" <linux-arm-msm@vger.kernel.org>,
+ "freedreno@lists.freedesktop.org" <freedreno@lists.freedesktop.org>,
+ "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>
+References: <1668773807-19598-1-git-send-email-quic_kalyant@quicinc.com>
+ <1668773807-19598-3-git-send-email-quic_kalyant@quicinc.com>
+ <5dddeaa9-aab1-e437-a3ed-8ad242d50171@linaro.org>
+ <BN0PR02MB81424044EB8F918A99ECE3ED96099@BN0PR02MB8142.namprd02.prod.outlook.com>
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+In-Reply-To: <BN0PR02MB81424044EB8F918A99ECE3ED96099@BN0PR02MB8142.namprd02.prod.outlook.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-GUID: oiMrFxQ69HnT3JqLXuoYKAu4mfcfFEq1
-X-Proofpoint-ORIG-GUID: oiMrFxQ69HnT3JqLXuoYKAu4mfcfFEq1
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.219,Aquarius:18.0.895,Hydra:6.0.545,FMLib:17.11.122.1
- definitions=2022-11-18_02,2022-11-18_01,2022-06-22_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015
- priorityscore=1501 lowpriorityscore=0 spamscore=0 phishscore=0
- malwarescore=0 bulkscore=0 mlxlogscore=999 suspectscore=0 impostorscore=0
- adultscore=0 mlxscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2210170000 definitions=main-2211180086
-Subject: Re: [Freedreno] [PATCH v2] drm/msm/hdmi: remove unnecessary NULL
- check
+Subject: Re: [Freedreno] [PATCH v3 2/3] drm/msm/disp/dpu1: add helper to
+ know if display is builtin
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -84,44 +83,174 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, Sean Paul <sean@poorly.run>,
- kernel-janitors@vger.kernel.org, dri-devel@lists.freedesktop.org,
- Kuogee Hsieh <quic_khsieh@quicinc.com>, Daniel
- Vetter <daniel@ffwll.ch>, linux-arm-msm@vger.kernel.org,
- Stephen Boyd <swboyd@chromium.org>, David Airlie <airlied@gmail.com>,
- Johan Hovold <johan+linaro@kernel.org>
+Cc: "robdclark@chromium.org" <robdclark@chromium.org>,
+ "dianders@chromium.org" <dianders@chromium.org>,
+ "Abhinav Kumar \(QUIC\)" <quic_abhinavk@quicinc.com>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "Vinod Polimera \(QUIC\)" <quic_vpolimer@quicinc.com>,
+ "swboyd@chromium.org" <swboyd@chromium.org>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
+On 18/11/2022 16:37, Kalyan Thota wrote:
+> 
+> 
+>> -----Original Message-----
+>> From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+>> Sent: Friday, November 18, 2022 6:09 PM
+>> To: Kalyan Thota (QUIC) <quic_kalyant@quicinc.com>; dri-
+>> devel@lists.freedesktop.org; linux-arm-msm@vger.kernel.org;
+>> freedreno@lists.freedesktop.org; devicetree@vger.kernel.org
+>> Cc: linux-kernel@vger.kernel.org; robdclark@chromium.org;
+>> dianders@chromium.org; swboyd@chromium.org; Vinod Polimera (QUIC)
+>> <quic_vpolimer@quicinc.com>; Abhinav Kumar (QUIC)
+>> <quic_abhinavk@quicinc.com>
+>> Subject: Re: [PATCH v3 2/3] drm/msm/disp/dpu1: add helper to know if display is
+>> builtin
+>>
+>> WARNING: This email originated from outside of Qualcomm. Please be wary of
+>> any links or attachments, and do not enable macros.
+>>
+>> On 18/11/2022 15:16, Kalyan Thota wrote:
+>>> Since DRM encoder type for few encoders can be similar (like eDP and
+>>> DP) find out if the interface supports HPD from encoder bridge to
+>>> differentiate between builtin and pluggable displays.
+>>>
+>>> Changes in v1:
+>>> - add connector type in the disp_info (Dmitry)
+>>> - add helper functions to know encoder type
+>>> - update commit text reflecting the change
+>>>
+>>> Changes in v2:
+>>> - avoid hardcode of connector type for DSI as it may not be true
+>>> (Dmitry)
+>>> - get the HPD information from encoder bridge
+>>>
+>>> Changes in v3:
+>>> - use bridge type instead of bridge ops in determining connector
+>>> (Dmitry)
+>>>
+>>> Signed-off-by: Kalyan Thota <quic_kalyant@quicinc.com>
+>>> ---
+>>>    drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c | 27
+>> +++++++++++++++++++++++++++
+>>>    drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.h |  6 ++++++
+>>>    2 files changed, 33 insertions(+)
+>>>
+>>> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+>>> b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+>>> index 9c6817b..574f2b0 100644
+>>> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+>>> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+>>> @@ -15,6 +15,7 @@
+>>>    #include <drm/drm_crtc.h>
+>>>    #include <drm/drm_file.h>
+>>>    #include <drm/drm_probe_helper.h>
+>>> +#include <drm/drm_bridge.h>
+>>>
+>>>    #include "msm_drv.h"
+>>>    #include "dpu_kms.h"
+>>> @@ -217,6 +218,32 @@ static u32 dither_matrix[DITHER_MATRIX_SZ] = {
+>>>        15, 7, 13, 5, 3, 11, 1, 9, 12, 4, 14, 6, 0, 8, 2, 10
+>>>    };
+>>>
+>>> +bool dpu_encoder_is_builtin(struct drm_encoder *encoder) {
+>>> +     struct drm_bridge *bridge;
+>>> +     int ops = 0;
+>>> +
+>>> +     if (!encoder)
+>>> +             return false;
+>>> +
+>>> +     /* Get last bridge in the chain to determine connector type */
+>>> +     drm_for_each_bridge_in_chain(encoder, bridge)
+>>> +             if (!drm_bridge_get_next_bridge(bridge))
+>>> +                     ops = bridge->type;
+>>
+>> Why don't we check the connector type directly? You should not assume that
+>> connector's type is equal to the latest bridge's type.
+> 
+> if we need to get the type from connector, need to do something as below.
+> Are you thinking on the same lines ?
+> 
+> "to_drm_bridge_connector" macro needs to be moved to drm_bridge_connector.h
+> 
+> struct drm_bridge_connector *bridge_connector;
+> 
+> drm_connector_list_iter_begin(dev, &conn_iter);
+> 	drm_for_each_connector_iter(connector, &conn_iter) {
+> 
+> 		bridge_connector = to_drm_bridge_connector(connector);
+> 		if (bridge_connector->encoder == encoder) {
+> 			type = connector->connector_type;
+> 			break;
+> 		}
+> 	}
+> drm_connector_list_iter_end(&conn_iter);
+
+No. You can not depend on the idea that every connector is 
+drm_bridge_connector. Some bridges might create their own connectors. 
+However you can do it in the following way:
+
+drm_connector_list_iter_begin(dev, &iter);
+drm_for_each_connector_iter(connector, &iter) {
+  if (connector->possible_encoders & drm_encoder_mask(encoder)) {
+     builtin = (connector->connector_type == DRM_MODE_CONNECTOR_LVDS) || 
+...;
+     break;
+   }
+}
+drm_connector_list_iter_end(&iter);
+
+return builtin;
 
 
-On 11/18/2022 5:03 AM, Dan Carpenter wrote:
-> This code was recently refactored in commit and now the "hdmi" pointer
-> can't be NULL.  Checking for NULL leads to a Smatch warning:
 > 
->      drivers/gpu/drm/msm/hdmi/hdmi.c:141 msm_hdmi_init()
->      warn: variable dereferenced before check 'hdmi' (see line 119)
 > 
-> Fixes: 69a88d8633ec ("drm/msm/hdmi: move resource allocation to probe function")
-> Signed-off-by: Dan Carpenter <error27@gmail.com>
-Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
-> ---
-> v2: Add a Fixes tag.  Re-work the commit message.
+>>> +
+>>> +     switch (ops) {
+>>> +     case DRM_MODE_CONNECTOR_Unknown:
+>>> +     case DRM_MODE_CONNECTOR_LVDS:
+>>> +     case DRM_MODE_CONNECTOR_eDP:
+>>> +     case DRM_MODE_CONNECTOR_DSI:
+>>> +     case DRM_MODE_CONNECTOR_DPI:
+>>> +     case DRM_MODE_CONNECTOR_WRITEBACK:
+>>> +     case DRM_MODE_CONNECTOR_VIRTUAL:
+>>
+>> Unknown, WRITEBACK and VIRTUAL are not builtin (for the point of CTM at
+>> least).
+>>
+>>> +             return true;
+>>> +     default:
+>>> +             return false;
+>>> +     }
+>>> +}
+>>>
+>>>    bool dpu_encoder_is_widebus_enabled(const struct drm_encoder *drm_enc)
+>>>    {
+>>> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.h
+>>> b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.h
+>>> index 9e7236e..7f3d823 100644
+>>> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.h
+>>> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.h
+>>> @@ -224,4 +224,10 @@ void dpu_encoder_cleanup_wb_job(struct
+>> drm_encoder *drm_enc,
+>>>     */
+>>>    bool dpu_encoder_is_valid_for_commit(struct drm_encoder *drm_enc);
+>>>
+>>> +/**
+>>> + * dpu_encoder_is_builtin - find if the encoder is of type builtin
+>>> + * @drm_enc:    Pointer to previously created drm encoder structure
+>>> + */
+>>> +bool dpu_encoder_is_builtin(struct drm_encoder *drm_enc);
+>>> +
+>>>    #endif /* __DPU_ENCODER_H__ */
+>>
+>> --
+>> With best wishes
+>> Dmitry
 > 
->   drivers/gpu/drm/msm/hdmi/hdmi.c | 3 +--
->   1 file changed, 1 insertion(+), 2 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/msm/hdmi/hdmi.c b/drivers/gpu/drm/msm/hdmi/hdmi.c
-> index 7001fabd0977..4d3fdc806bef 100644
-> --- a/drivers/gpu/drm/msm/hdmi/hdmi.c
-> +++ b/drivers/gpu/drm/msm/hdmi/hdmi.c
-> @@ -138,8 +138,7 @@ static int msm_hdmi_init(struct hdmi *hdmi)
->   	return 0;
->   
->   fail:
-> -	if (hdmi)
-> -		msm_hdmi_destroy(hdmi);
-> +	msm_hdmi_destroy(hdmi);
->   
->   	return ret;
->   }
+
+-- 
+With best wishes
+Dmitry
+
