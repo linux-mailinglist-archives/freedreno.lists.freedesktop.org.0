@@ -1,71 +1,62 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 870B062FA6F
-	for <lists+freedreno@lfdr.de>; Fri, 18 Nov 2022 17:38:50 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 3735262FDD2
+	for <lists+freedreno@lfdr.de>; Fri, 18 Nov 2022 20:16:18 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CA19F10E776;
-	Fri, 18 Nov 2022 16:38:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 48BA610E23A;
+	Fri, 18 Nov 2022 19:16:16 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x12c.google.com (mail-lf1-x12c.google.com
- [IPv6:2a00:1450:4864:20::12c])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7925E10E773
- for <freedreno@lists.freedesktop.org>; Fri, 18 Nov 2022 16:38:43 +0000 (UTC)
-Received: by mail-lf1-x12c.google.com with SMTP id b3so9081229lfv.2
- for <freedreno@lists.freedesktop.org>; Fri, 18 Nov 2022 08:38:43 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=//tIyOnKPA/iZeg3Et4uYN9NmJnJYA0WTAZ1QiP08n8=;
- b=vKdrftphtMtov+8nlbBce6xE5zlGdHxeDTePcVcvufdsz77Yfps0DeXayZrmIOM3CF
- ICuPDaCEsuf9SmG4WLgQm4Hp31jctQPoNDGoyxfsuF/Iq7//1AIYUDlMH6vZBKQ48Gk1
- wYkCI6ul0gXegOxFElSAlFiFP2gGLNwr+lfSXY3BjbQwIJMWI4FzzJOOeSFCAdpidimj
- cWyeTpNSzEcmTnStP9Z0WxldfLqUtw6cuw4M/pAWHiyTGJn6tVKv1bc7ZCaX00tnmUQL
- 0z+t1iLuReVzr3+1QxXNmbENNzFmIU82+3jvVUhybQP0ZshXj8OR4UfV8nq3Y/kdTwa0
- FqLA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=//tIyOnKPA/iZeg3Et4uYN9NmJnJYA0WTAZ1QiP08n8=;
- b=aFyzkSaUMTLRLPaCbJvEteVzYmw6OJY9WXusqwucOCH+rtoKKH1c7vL2OmFu6vpuwy
- 5oDSKMpZzJTL5739Uh6vIS3YpkouaUmeu/9G224Ouh9oRoFT2bDV21JzGa1pv0+w0rsL
- 8bjsMlVRtjs4BOQRawf8TmnVlInd3CIiVZrPu4CROAyTCR6vuHkhiNggGN2zW8lFr4vb
- mqz7epoW2q102fBLWaikBrhojVvXAgkEyzeECW7inRCyQN2bQugAdECE9XDz814NLlH4
- amfcvAwc+q+lzyUtJCXDny+J2PYnTjCDufL1ejiUWZC/IN6m53lwMpuQA0EtpuI0MHNM
- Vsmw==
-X-Gm-Message-State: ANoB5pmQExiNBfK04fSfg4fcSFPou0h2D9/9uEvP86rFBEr8qNss6bv8
- y24lOAdSQ1gO4pRe2fNgBPAXag==
-X-Google-Smtp-Source: AA0mqf67eaKlAXmxGcQbSZPBKb/PDZ/zIfqG8B4OZOOEkWap6/wMTj9F/yrMbuK1asszhID7j7JRWw==
-X-Received: by 2002:ac2:58ee:0:b0:4b4:af5d:1e22 with SMTP id
- v14-20020ac258ee000000b004b4af5d1e22mr2552908lfo.660.1668789521735; 
- Fri, 18 Nov 2022 08:38:41 -0800 (PST)
-Received: from [10.10.15.130] ([192.130.178.91])
- by smtp.gmail.com with ESMTPSA id
- n25-20020a195519000000b004ae394b6a6fsm724080lfe.246.2022.11.18.08.38.41
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 18 Nov 2022 08:38:41 -0800 (PST)
-Message-ID: <137c685c-f889-e29f-af0f-67c3395fc7f4@linaro.org>
-Date: Fri, 18 Nov 2022 18:38:40 +0200
+Received: from alexa-out-sd-01.qualcomm.com (alexa-out-sd-01.qualcomm.com
+ [199.106.114.38])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D0B2610E7B2;
+ Fri, 18 Nov 2022 19:16:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=quicinc.com; i=@quicinc.com; q=dns/txt; s=qcdkim;
+ t=1668798970; x=1700334970;
+ h=message-id:date:mime-version:subject:to:cc:references:
+ from:in-reply-to:content-transfer-encoding;
+ bh=4c0RnUr6SOsHxsYhuejWyDU/paf7akST0jijN6gV6T4=;
+ b=sdApPgKux3ZsVrX7F2se8jXeb+BItYD1njI1BChK5Yj+FQ6zvtHuQ7kI
+ FlinFYxus/RnJx29kj9mhBsJFUdSpFASgW6XMLMfotTQxjAWWw21U8DgJ
+ 8RaLtdl7EMRp2+u9HrAgwr+wWo/2uHSd76CiF06mr+P2jFhSnUOm4YTHk E=;
+Received: from unknown (HELO ironmsg-SD-alpha.qualcomm.com) ([10.53.140.30])
+ by alexa-out-sd-01.qualcomm.com with ESMTP; 18 Nov 2022 11:16:09 -0800
+X-QCInternal: smtphost
+Received: from nasanex01b.na.qualcomm.com ([10.46.141.250])
+ by ironmsg-SD-alpha.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 18 Nov 2022 11:16:09 -0800
+Received: from [10.71.111.47] (10.80.80.8) by nasanex01b.na.qualcomm.com
+ (10.46.141.250) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.36; Fri, 18 Nov
+ 2022 11:16:08 -0800
+Message-ID: <fd363264-8f91-6155-6a74-1dd3b12e7cdd@quicinc.com>
+Date: Fri, 18 Nov 2022 11:15:49 -0800
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
  Thunderbird/102.4.1
-Content-Language: en-GB
-To: Kuogee Hsieh <quic_khsieh@quicinc.com>, dri-devel@lists.freedesktop.org,
- robdclark@gmail.com, sean@poorly.run, swboyd@chromium.org,
- dianders@chromium.org, vkoul@kernel.org, daniel@ffwll.ch, airlied@linux.ie,
- agross@kernel.org, bjorn.andersson@linaro.org
-References: <1668789389-14617-1-git-send-email-quic_khsieh@quicinc.com>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-In-Reply-To: <1668789389-14617-1-git-send-email-quic_khsieh@quicinc.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+To: Daniel Vetter <daniel@ffwll.ch>
+References: <20221028225952.160-1-quic_jesszhan@quicinc.com>
+ <20221028225952.160-2-quic_jesszhan@quicinc.com>
+ <eddf4726-3d7e-601a-51ac-03adb2dd822b@linaro.org>
+ <fqY-wVvRxd553E0flH80_NaZMpmiVTIdhvu6F31qM9T4yQ0L5fbT9JiixWIhDcDAt3Hxy1roQxwntvgVEnqm5WK6dzEIKqXnlLRcywGhYH4=@emersion.fr>
+ <Y2uwjKCN4KGzm3aN@phenom.ffwll.local>
+ <ee755c43-434a-a990-0efa-ed5c6baa237e@linaro.org>
+ <Y2uyOcVbadRwr9/O@phenom.ffwll.local>
+ <1f291321-1319-f6d8-b2cb-85ddbe970766@quicinc.com>
+ <Y24ZsAhAscVJd4Uf@phenom.ffwll.local>
+Content-Language: en-US
+From: Jessica Zhang <quic_jesszhan@quicinc.com>
+In-Reply-To: <Y24ZsAhAscVJd4Uf@phenom.ffwll.local>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
 Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH v4 0/2] Add data-lanes and link-frequencies
- to dp_out endpoint
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
+ nasanex01b.na.qualcomm.com (10.46.141.250)
+Subject: Re: [Freedreno] [RFC PATCH 1/3] drm: Introduce color fill
+ properties for drm plane
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,35 +69,122 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-arm-msm@vger.kernel.org, quic_sbillaka@quicinc.com,
- freedreno@lists.freedesktop.org, quic_abhinavk@quicinc.com,
- linux-kernel@vger.kernel.org
+Cc: Simon Ser <contact@emersion.fr>, quic_abhinavk@quicinc.com,
+ dri-devel@lists.freedesktop.org, swboyd@chromium.org, daniel.vetter@ffwll.ch,
+ robdclark@gmail.com, seanpaul@chromium.org, laurent.pinchart@ideasonboard.com,
+ linux-arm-msm@vger.kernel.org, Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 18/11/2022 18:36, Kuogee Hsieh wrote:
-> Add DP both data-lanes and link-frequencies property to dp_out endpoint and support
-> functions to DP driver.
+
+
+On 11/11/2022 1:45 AM, Daniel Vetter wrote:
+> On Wed, Nov 09, 2022 at 05:44:37PM -0800, Jessica Zhang wrote:
+>>
+>>
+>> On 11/9/2022 5:59 AM, Daniel Vetter wrote:
+>>> On Wed, Nov 09, 2022 at 04:53:45PM +0300, Dmitry Baryshkov wrote:
+>>>> On 09/11/2022 16:52, Daniel Vetter wrote:
+>>>>> On Tue, Nov 08, 2022 at 06:25:29PM +0000, Simon Ser wrote:
+>>>>>> On Saturday, October 29th, 2022 at 13:23, Dmitry Baryshkov <dmitry.baryshkov@linaro.org> wrote:
+>>>>>>
+>>>>>>> On 29/10/2022 01:59, Jessica Zhang wrote:
+>>>>>>>
+>>>>>>>> Add support for COLOR_FILL and COLOR_FILL_FORMAT properties for
+>>>>>>>> drm_plane. In addition, add support for setting and getting the values
+>>>>>>>> of these properties.
+>>>>>>>>
+>>>>>>>> COLOR_FILL represents the color fill of a plane while COLOR_FILL_FORMAT
+>>>>>>>> represents the format of the color fill. Userspace can set enable solid
+>>>>>>>> fill on a plane by assigning COLOR_FILL to a uint64_t value, assigning
+>>>>>>>> the COLOR_FILL_FORMAT property to a uint32_t value, and setting the
+>>>>>>>> framebuffer to NULL.
+>>>>>>>
+>>>>>>> I suppose that COLOR_FILL should override framebuffer rather than
+>>>>>>> requiring that FB is set to NULL. In other words, if color_filL_format
+>>>>>>> is non-zero, it would make sense to ignore the FB. Then one can use the
+>>>>>>> color_fill_format property to quickly switch between filled plane and
+>>>>>>> FB-backed one.
+>>>>>>
+>>>>>> That would be inconsistent with the rest of the KMS uAPI. For instance,
+>>>>>> the kernel will error out if CRTC has active=0 but a connector is still
+>>>>>> linked to the CRTC. IOW, the current uAPI errors out if the KMS state
+>>>>>> is inconsistent.
+>>>>>
+>>>>> So if the use-case here really is to solid-fill a plane (and not just
+>>>>> provide a background color for the crtc overall), then I guess we could
+>>>>> also extend addfb to make that happen. We've talked in the past about
+>>>>> propertery-fying framebuffer objects, and that would sort out this uapi
+>>>>> wart. And I agree the color fill vs PLANE_ID issue is a bit ugly at least.
+>>>>>
+>>>>> But if the use-cases are all background color then just doing the crtc
+>>>>> background color would be tons simpler (and likely also easier to support
+>>>>> for more hardware).
+>>>>
+>>>> No. The hardware supports multiple color-filled planes, which do not have to
+>>>> cover the whole CRTC.
+>>>
+>>> The use case here means the userspace use-case. What the hw can do on any
+>>> given chip kinda doesnt matter, which is why I'm asking. KMD uapi is not
+>>> meant to reflect 100% exactly what a specific chip can do, but instead:
+>>> - provide features userspace actually needs. If you want per-plane fill,
+>>>     you need userspace that makes use of per-plane fill, and if all you have
+>>>     is crtc background, then that's it.
+>>
+>> Hey Daniel,
+>>
+>> The userspace use case we're trying to support is the Android HWC SOLID_FILL
+>> hint here [1], which is specifying per-plane fill.
 > 
-> Kuogee Hsieh (2):
->    arm64: dts: qcom: add data-lanes and link-freuencies into dp_out
->      endpoint
->    drm/msm/dp: add support of max dp link rate
+> Does surfaceflinger actually use this for more than background fills? Yes
+> I'm annoying, but if we can simplify the kernel driver implementation
+> burden by asking compositors to do the math and simplify things, then I
+> think we should.
+
+AFAIK surfaceflinger allows apps to use this for cases beyond just 
+background fill -- an app, for example, can pass the hint for a plane 
+that only partially covers a screen and the driver would be expected to 
+fill just that ROI.
+
 > 
->   arch/arm64/boot/dts/qcom/sc7180-trogdor.dtsi   |  9 +++++++-
->   arch/arm64/boot/dts/qcom/sc7180.dtsi           |  5 ----
->   arch/arm64/boot/dts/qcom/sc7280-herobrine.dtsi | 10 +++++++-
->   arch/arm64/boot/dts/qcom/sc7280.dtsi           |  6 +----
->   drivers/gpu/drm/msm/dp/dp_display.c            |  4 ++++
->   drivers/gpu/drm/msm/dp/dp_panel.c              |  7 +++---
->   drivers/gpu/drm/msm/dp/dp_panel.h              |  1 +
->   drivers/gpu/drm/msm/dp/dp_parser.c             | 32 +++++++++++++++++++-------
->   drivers/gpu/drm/msm/dp/dp_parser.h             |  2 ++
->   9 files changed, 53 insertions(+), 23 deletions(-)
+> We also need an open source implementation for this that works and is
+> tested end-to-end. There's the drm_hwc project, but last time I've checked
+> there's really not much happpening there unfortunately.
 
-NAK. See comments to v3. They all apply to v4, except the removed pr_err.
+FWIW, Simon mentioned in a separate reply that Wayland supports a 1x1 FB 
+support protocol [1] for a similar purpose as this RFC series. I can 
+also create an IGT test meanwhile showing an example of E2E usage.
 
--- 
-With best wishes
-Dmitry
+Thanks,
 
+Jessica
+
+[1] 
+https://gitlab.freedesktop.org/wayland/wayland-protocols/-/merge_requests/104
+
+> -Daniel
+> 
+>>
+>> Thanks,
+>>
+>> Jessica Zhang
+>>
+>> [1] https://android.googlesource.com/platform/hardware/interfaces/+/refs/heads/master/graphics/composer/aidl/android/hardware/graphics/composer3/Composition.aidl#52
+>>
+>>> - we should create uapi with an eye towards what's actually possible on a
+>>>     reasonable set of drivers and hw. Sometimes that means a slightly more
+>>>     restricted set so that it's possible to implement in more places,
+>>>     especially if that restricted feature set still gets the job done for
+>>>     userspace.
+>>>
+>>> Cheers, Daniel
+>>> -- 
+>>> Daniel Vetter
+>>> Software Engineer, Intel Corporation
+>>> http://blog.ffwll.ch
+> 
+> -- 
+> Daniel Vetter
+> Software Engineer, Intel Corporation
+> http://blog.ffwll.ch
