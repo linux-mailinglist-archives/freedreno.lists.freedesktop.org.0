@@ -1,47 +1,73 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0354262F60C
-	for <lists+freedreno@lfdr.de>; Fri, 18 Nov 2022 14:30:24 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id BA26B62F612
+	for <lists+freedreno@lfdr.de>; Fri, 18 Nov 2022 14:30:41 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9FE5A10E088;
-	Fri, 18 Nov 2022 13:30:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5FB0810E746;
+	Fri, 18 Nov 2022 13:30:40 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4D37D10E088
- for <freedreno@lists.freedesktop.org>; Fri, 18 Nov 2022 13:30:18 +0000 (UTC)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 8F81C62523;
- Fri, 18 Nov 2022 13:30:17 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1507AC433C1;
- Fri, 18 Nov 2022 13:30:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1668778217;
- bh=DVByPI99cziskeMpw3/H3Sw35EfmuI4W+QBBcElCutc=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=q9ycSFlGC0m5cG9RlAnwnYROpSROstzfMcobdK7fyIuqni/nBCox5zZU8Zxm5JPQU
- 0NKbCmOwLN6yHLstgSag0cb2GLcS31zJxM9bJyFPJoQbzVy0V+liMcYT8YrNRwTQeL
- qSmMkZ5+8tMznQrISNGyBBCqpy/mixDrZFEFn29bfIz6oaPXPdMENCV02yPhFm3bUK
- OvRzNp9qluquzn86ncaH7paGu3Fl+Wb1WI3H/owbh/Ebept7Fs7ZUMT0DXwOR40Mrr
- GFtFiDEUOAwpp8v8bklsGXmYphMFUeCoL9ls0we38VSPdLs4lerFm/lfDqQXfsdhW6
- /XmJuSgBbZbLQ==
-Date: Fri, 18 Nov 2022 13:30:10 +0000
-From: Will Deacon <will@kernel.org>
-To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-Message-ID: <20221118133009.GA4046@willie-the-truck>
-References: <20221114170635.1406534-1-dmitry.baryshkov@linaro.org>
- <e3c8121a-5234-1051-40c7-3989189badfa@linaro.org>
+Received: from mail-lf1-x131.google.com (mail-lf1-x131.google.com
+ [IPv6:2a00:1450:4864:20::131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B4F2F10E73D
+ for <freedreno@lists.freedesktop.org>; Fri, 18 Nov 2022 13:30:34 +0000 (UTC)
+Received: by mail-lf1-x131.google.com with SMTP id p8so8188446lfu.11
+ for <freedreno@lists.freedesktop.org>; Fri, 18 Nov 2022 05:30:34 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=hoPLnQIWHGZiBfocuqhD68DppPhxPPYZcsfi2ooXQ0Q=;
+ b=LIBcnPcwE+cq0K/MX/yErC/yiG5Fh34Sxfgouazyo+Nr92ett/A8koHUpXDvSIuoht
+ GqW/7DNDALIw3qJmw1Np6hqudkyBT1e9jPwRAJUAKZsl8v2xEaCnOxeuDFnvQYN29H7B
+ 3xTznZiyn1IWlcMhz9lR6f3ullk5BVoMvATZLIfxLcycI3GMVeKCXmmm1GsNTmT0e3Cj
+ qVoL9GDlznpB+M54vNS4apZHCx6W4r3tvnKbIwnM++DcK4alWYgup38PROQRQU68c8tu
+ gCILPLcbNNB0oZ/kcMFZjsKfyno5MdA5dMB3oYHzpJsJL9rKxVWTWJE9CzO2EeL6P841
+ UIXw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=hoPLnQIWHGZiBfocuqhD68DppPhxPPYZcsfi2ooXQ0Q=;
+ b=1AdN74Il6gPYJ8SI4hf0t3hHdvXixw5eml3bC3MJ73XubQup1P8vzDJvb0dRS2ZI4I
+ LJ/s0NDhP8PQ9ZK9md1AMdLlDSoYpKyLhmyWsEPnVnd2noMKdGX+A3556Awx7P4umQRR
+ qeyOorIBYRDyLMuFTKy+ryOAmGcCU3EBqvano4+XLxfSGMD424ry1JifAaxExS6Gl+6S
+ Aop8fMIh1Si0GbU/Mw5EF6Ip300c8Zs/kG6GAVxeQ5nUiAjTA2tYcP37HM8i9zXNwjzL
+ 2t1JH9YOLrEzarJrItmq8hO0Ld+EcP8WGqBmviCYcCa9cfknDs6QFkVdEaFHfqfA98Bx
+ fnew==
+X-Gm-Message-State: ANoB5pnF4tWMZAknVw0iYlrMdoIJHfGrw6Vx6Iw8rVGPvfsxStCs5ex6
+ 2SExA+NhUYcaGKRBsZFIKyoV5w==
+X-Google-Smtp-Source: AA0mqf7OZT9f7s8VRA0spaiqh80uqrm8D1jurdI5s/WAmu9eeAg1h/N5A/QUUqt1bvuMp8kMxtO90g==
+X-Received: by 2002:ac2:454b:0:b0:4a2:3f01:8669 with SMTP id
+ j11-20020ac2454b000000b004a23f018669mr2290100lfm.305.1668778232687; 
+ Fri, 18 Nov 2022 05:30:32 -0800 (PST)
+Received: from [10.10.15.130] ([192.130.178.91])
+ by smtp.gmail.com with ESMTPSA id
+ w25-20020a19c519000000b00498f3ebffb2sm661763lfe.25.2022.11.18.05.30.31
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 18 Nov 2022 05:30:32 -0800 (PST)
+Message-ID: <361a94f8-280c-89de-0681-9b662b67d7ba@linaro.org>
+Date: Fri, 18 Nov 2022 15:30:31 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <e3c8121a-5234-1051-40c7-3989189badfa@linaro.org>
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Subject: Re: [Freedreno] [PATCH v1 00/10] iommu/arm-smmu-qcom: Rework
- Qualcomm SMMU bindings and implementation
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.4.1
+Content-Language: en-GB
+To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>, robdclark@gmail.com,
+ quic_abhinavk@quicinc.com, krzysztof.kozlowski+dt@linaro.org,
+ robh+dt@kernel.org, quic_mkrishn@quicinc.com, linux-arm-msm@vger.kernel.org
+References: <20221107235654.1769462-1-bryan.odonoghue@linaro.org>
+ <20221107235654.1769462-8-bryan.odonoghue@linaro.org>
+ <aeb59d3c-34d0-f00a-bfc3-524cd03acb71@linaro.org>
+ <0993d2bd-c0f2-8139-8f02-84abe6b8ad8b@linaro.org>
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+In-Reply-To: <0993d2bd-c0f2-8139-8f02-84abe6b8ad8b@linaro.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+Subject: Re: [Freedreno] [PATCH v2 07/18] dt-bindings: msm:
+ dsi-controller-main: Add compatible strings for every current SoC
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,41 +80,51 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: devicetree@vger.kernel.org, Sai Prakash Ranjan <quic_saipraka@quicinc.com>,
- iommu@lists.linux.dev, linux-arm-msm@vger.kernel.org,
- Joerg Roedel <joro@8bytes.org>, Konrad Dybcio <konrad.dybcio@somainline.org>,
- Vinod Koul <vkoul@kernel.org>, Rob Clark <robdclark@gmail.com>,
- Rob Herring <robh+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- freedreno@lists.freedesktop.org, Robin Murphy <robin.murphy@arm.com>,
- Bjorn Andersson <andersson@kernel.org>, linux-arm-kernel@lists.infradead.org
+Cc: Sean Paul <sean@poorly.run>, devicetree@vger.kernel.org,
+ Loic Poulain <loic.poulain@linaro.org>, freedreno@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ Daniel Vetter <daniel@ffwll.ch>, Shawn Guo <shawn.guo@linaro.org>,
+ David Airlie <airlied@gmail.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Fri, Nov 18, 2022 at 01:41:24PM +0100, Krzysztof Kozlowski wrote:
-> On 14/11/2022 18:06, Dmitry Baryshkov wrote:
-> > The main goal of this patchset is to define a generic qcom,smmu-500
-> > binding to be used by newer Qualcomm platforms instead of defining each
-> > and every SoC line with no actual differences between the compats.
-> > 
-> > While preparing this change it was required to cleanup the existing
-> > bindings and to rework the way the arm-smmu-qcom implementation handles
-> > binding to IOMMU devices.
-> > 
-> > Changes since RFC v2:
-> >  - Dropped the dts patch, picked up by Bjorn
-> >  - Fixed minor nits in commit messages and in-file comments (noted by
-> >    Krzysztof and Richard Acayan)
-> > 
-> > Changes since RFC v1:
-> >  - Added the dts patch fixing order of clocks in msm8996.dtsi
-> >  - Fixed the DT bot errors
-> >  - Added separate clause for Google Cheza devices
+On 18/11/2022 15:29, Bryan O'Donoghue wrote:
+> On 08/11/2022 12:46, Dmitry Baryshkov wrote:
+>> On 08/11/2022 02:56, Bryan O'Donoghue wrote:
+>>> Currently we do not differentiate between the various users of the
+>>> qcom,mdss-dsi-ctrl. The driver is flexible enough to operate from one
+>>> compatible string but, the hardware does have some significant 
+>>> differences
+>>> in the number of clocks.
+>>>
+>>> To facilitate documenting the clocks add the following compatible 
+>>> strings
+>>>
+>>> - qcom,mdss-dsi-ctrl-apq8064
+>>
+>> Generic comment: I think we'd better follow the arm/qcom-soc.yaml and 
+>> use qcom,soc-something as compat string. This would leave us with 
+>> qcom,apq8064-dsi-ctrl
+>>
+>> I'm not sure if we want to follow the qcm2290 approach and encode the 
+>> DSI ctrl revision here (6g vs v2).
 > 
-> Please continue the version numbering. RFC is also a patch and also a
-> version. This is v3. Your next will be v4.
+> For qcm2290 I'm thinking qcm2290-dsi-ctrl - without the 6g piece.
 
-I queued this already, so hopefully there won't be a next version!
+This sounds good too.
 
-Will
+> 
+> a) Nobody is using the compat at the moment
+> b) I'm not sure what - if any real information the silicon version
+>     number conveys here.
+> 
+> + Loic, Shawn
+> 
+> ---
+> bod
+> 
+
+-- 
+With best wishes
+Dmitry
+
