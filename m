@@ -2,56 +2,73 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5AF07631544
-	for <lists+freedreno@lfdr.de>; Sun, 20 Nov 2022 17:53:25 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1EB69631C66
+	for <lists+freedreno@lfdr.de>; Mon, 21 Nov 2022 10:08:32 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0393510E138;
-	Sun, 20 Nov 2022 16:53:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8E65F10E180;
+	Mon, 21 Nov 2022 09:08:30 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ot1-f41.google.com (mail-ot1-f41.google.com
- [209.85.210.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5ACC110E138;
- Sun, 20 Nov 2022 16:53:22 +0000 (UTC)
-Received: by mail-ot1-f41.google.com with SMTP id
- p8-20020a056830130800b0066bb73cf3bcso6058611otq.11; 
- Sun, 20 Nov 2022 08:53:22 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=aoQ4zuyTd7evirB3DHF86QcOknBwVYfLo01LRkadhOQ=;
- b=7IjHyOC4Hzez0FoRbWkjInHemNkvbDyM7THavScRwMy/SCA1PBzemRvp+d9W4pMImQ
- KRBqFjIfqXL+8hgwKcfTdj4NDbwlzQUCMo35+hJ59NjgGamWVmz9vApDfovOHPXGuUDT
- 2dL4Apj5ipTX4pvMY6SvvM1uOAiVt0ehT4emOrI5sPol29QgptV4Ccvjjo/k+PXsUGLP
- CkT5NTm/qr18OssGqk+CSvDrDRArgixUmXz+zSxd2S6xhW3PCX4/rSv7Iq6/27RukXbk
- lBivroOtmSJpPy5efaTjduL6K1hgWVYQteVAHLVusTO1kKIrCG8vAbdUnIxuDcuqiu++
- Fz+w==
-X-Gm-Message-State: ANoB5plnMZhjoN75ltjODyV6FRvoYrsk+LljZGh/sQ8bFBUF3zMonGa2
- uQ8MaqSkL5ANkHYl3czgXQ==
-X-Google-Smtp-Source: AA0mqf7VoumVeOat8gcKUatjmfqniX6zO3MOiPw3zmmtuxnZ2rqYap6OXiFNILEtWXSN+2z5E8jX9A==
-X-Received: by 2002:a9d:7e9a:0:b0:66c:6096:1878 with SMTP id
- m26-20020a9d7e9a000000b0066c60961878mr634215otp.203.1668963201355; 
- Sun, 20 Nov 2022 08:53:21 -0800 (PST)
-Received: from robh_at_kernel.org ([2605:ef80:80f8:5cb3:df5a:23c3:86fb:15a6])
- by smtp.gmail.com with ESMTPSA id
- k5-20020a056870d0c500b0014185b2b3d5sm2833328oaa.18.2022.11.20.08.53.19
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 20 Nov 2022 08:53:20 -0800 (PST)
-Received: (nullmailer pid 3191260 invoked by uid 1000);
- Sun, 20 Nov 2022 16:53:22 -0000
-Date: Sun, 20 Nov 2022 10:53:22 -0600
-From: Rob Herring <robh@kernel.org>
-To: Konrad Dybcio <konrad.dybcio@linaro.org>
-Message-ID: <166896320103.3191204.6491707287483372164.robh@kernel.org>
-References: <20221116163218.42449-1-konrad.dybcio@linaro.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20221116163218.42449-1-konrad.dybcio@linaro.org>
-Subject: Re: [Freedreno] [PATCH] dt-bindings: msm/dsi: Don't require
- vdds-supply on 10nm PHY
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 64D4710E174;
+ Mon, 21 Nov 2022 09:08:27 +0000 (UTC)
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 2AL8QEW8008997; Mon, 21 Nov 2022 09:08:23 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
+ h=from : to : cc : subject : date : message-id; s=qcppdkim1;
+ bh=dN/1OORLXDrlZjcUzz/iXvTANCZiAd8xkDrk+zHW4pA=;
+ b=AgcEVlua7hAsgrsGAq4gQFJW+Qf/YK/gP8yxKe3zYWZQHRQgkz58OPpF9qILR8MUTp7w
+ fsU1ZbUqk4ShFdgOfhi4e2hLZdYp7R3nPI3H04KOPTEVTJ9Fdx8o1CI0XQ3NllYVniy4
+ SojZmso1+neKXI4eqI44SUk+3oLUIpvJRuzxDubahEh582M30vtFz82bk49SPW2vYBf+
+ R48dbUapzCBqjxq3QY3uQ5TqhVgKUaIlFjTw5rck8qn8PB62W+7OJ0dwNgVEVplHSNkk
+ sU1VvXuseqTCi00sG+j3WaUBK6uVteWAP/gvlMoQmTeAErw5o1cJGWGZ5DpLEWrk38bv Tg== 
+Received: from apblrppmta02.qualcomm.com
+ (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com [103.229.18.19])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3kxraubyp3-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 21 Nov 2022 09:08:23 +0000
+Received: from pps.filterd (APBLRPPMTA02.qualcomm.com [127.0.0.1])
+ by APBLRPPMTA02.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTP id 2AL98JbC032742; 
+ Mon, 21 Nov 2022 09:08:19 GMT
+Received: from pps.reinject (localhost [127.0.0.1])
+ by APBLRPPMTA02.qualcomm.com (PPS) with ESMTP id 3kxr7k3t7q-1;
+ Mon, 21 Nov 2022 09:08:19 +0000
+Received: from APBLRPPMTA02.qualcomm.com (APBLRPPMTA02.qualcomm.com
+ [127.0.0.1])
+ by pps.reinject (8.17.1.5/8.17.1.5) with ESMTP id 2AL98JXD032737;
+ Mon, 21 Nov 2022 09:08:19 GMT
+Received: from kalyant-linux.qualcomm.com (kalyant-linux.qualcomm.com
+ [10.204.66.210])
+ by APBLRPPMTA02.qualcomm.com (PPS) with ESMTP id 2AL98J3u032736;
+ Mon, 21 Nov 2022 09:08:19 +0000
+Received: by kalyant-linux.qualcomm.com (Postfix, from userid 94428)
+ id 4939A349C; Mon, 21 Nov 2022 01:08:18 -0800 (PST)
+From: Kalyan Thota <quic_kalyant@quicinc.com>
+To: dri-devel@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
+ freedreno@lists.freedesktop.org, devicetree@vger.kernel.org
+Date: Mon, 21 Nov 2022 01:08:12 -0800
+Message-Id: <1669021695-4397-1-git-send-email-quic_kalyant@quicinc.com>
+X-Mailer: git-send-email 2.7.4
+X-QCInternal: smtphost
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-GUID: m01uVsgwOT6c2IUr64XUT93OOfpZtC0h
+X-Proofpoint-ORIG-GUID: m01uVsgwOT6c2IUr64XUT93OOfpZtC0h
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.219,Aquarius:18.0.895,Hydra:6.0.545,FMLib:17.11.122.1
+ definitions=2022-11-21_05,2022-11-18_01,2022-06-22_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0
+ malwarescore=0 adultscore=0 mlxlogscore=563 priorityscore=1501
+ suspectscore=0 phishscore=0 lowpriorityscore=0 clxscore=1015 spamscore=0
+ mlxscore=0 bulkscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2210170000 definitions=main-2211210071
+Subject: [Freedreno] [PATCH v4 0/3] add color management support for the crtc
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,29 +81,27 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: devicetree@vger.kernel.org,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>, patches@linaro.org,
- David Airlie <airlied@gmail.com>, andersson@kernel.org,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, Rob Herring <robh+dt@kernel.org>,
- linux-kernel@vger.kernel.org, krzysztof.kozlowski@linaro.org,
- Rob Clark <robdclark@gmail.com>, agross@kernel.org,
- Krishna Manikandan <quic_mkrishn@quicinc.com>, dri-devel@lists.freedesktop.org,
- Daniel Vetter <daniel@ffwll.ch>, linux-arm-msm@vger.kernel.org,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- freedreno@lists.freedesktop.org, Sean Paul <sean@poorly.run>
+Cc: Kalyan Thota <quic_kalyant@quicinc.com>, robdclark@chromium.org,
+ dianders@chromium.org, quic_abhinavk@quicinc.com, linux-kernel@vger.kernel.org,
+ swboyd@chromium.org, dmitry.baryshkov@linaro.org, quic_vpolimer@quicinc.com
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
+Add color management support for the crtc provided there are
+enough dspps that can be allocated from the catalog
 
-On Wed, 16 Nov 2022 17:32:18 +0100, Konrad Dybcio wrote:
-> On some SoCs (hello SM6350) vdds-supply is not wired to any smd-rpm
-> or rpmh regulator, but instead powered by the VDD_MX/mx.lvl line,
-> which is voted for in the DSI ctrl node.
-> 
-> Signed-off-by: Konrad Dybcio <konrad.dybcio@linaro.org>
-> ---
->  Documentation/devicetree/bindings/display/msm/dsi-phy-10nm.yaml | 1 -
->  1 file changed, 1 deletion(-)
-> 
+Kalyan Thota (3):
+  drm/msm/disp/dpu1: pin 1 crtc to 1 encoder
+  drm/msm/disp/dpu1: add helper to know if display is builtin
+  drm/msm/disp/dpu1: add color management support for the crtc
 
-Acked-by: Rob Herring <robh@kernel.org>
+ drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c    |  5 +++--
+ drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.h    |  5 ++++-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c | 33 +++++++++++++++++++++++++++--
+ drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.h |  6 ++++++
+ drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c     | 24 ++++++++++++++-------
+ 5 files changed, 60 insertions(+), 13 deletions(-)
+
+-- 
+2.7.4
+
