@@ -2,38 +2,66 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id A1E1F633198
-	for <lists+freedreno@lfdr.de>; Tue, 22 Nov 2022 01:49:45 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 344BA634ABB
+	for <lists+freedreno@lfdr.de>; Wed, 23 Nov 2022 00:12:45 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 63D8410E35A;
-	Tue, 22 Nov 2022 00:49:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4983510E496;
+	Tue, 22 Nov 2022 23:12:43 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-X-Greylist: delayed 344 seconds by postgrey-1.36 at gabe;
- Mon, 21 Nov 2022 22:41:34 UTC
-Received: from relay03.th.seeweb.it (relay03.th.seeweb.it [5.144.164.164])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BC03510E33D;
- Mon, 21 Nov 2022 22:41:34 +0000 (UTC)
-Received: from [127.0.0.1] (bband-dyn193.178-41-216.t-com.sk [178.41.216.193])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
- (No client certificate requested)
- by m-r1.th.seeweb.it (Postfix) with ESMTPSA id 8150C1F8A5;
- Mon, 21 Nov 2022 23:35:48 +0100 (CET)
-Date: Mon, 21 Nov 2022 23:35:46 +0100
-From: Martin Botka <martin.botka@somainline.org>
-To: Marijn Suijten <marijn.suijten@somainline.org>, phone-devel@vger.kernel.org
-User-Agent: K-9 Mail for Android
-In-Reply-To: <20221121222456.437815-1-marijn.suijten@somainline.org>
-References: <20221121222456.437815-1-marijn.suijten@somainline.org>
-Message-ID: <60E46E34-763F-4D03-B0CC-70B5A8AA660D@somainline.org>
+Received: from mail-lf1-x130.google.com (mail-lf1-x130.google.com
+ [IPv6:2a00:1450:4864:20::130])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9247310E492
+ for <freedreno@lists.freedesktop.org>; Tue, 22 Nov 2022 23:12:38 +0000 (UTC)
+Received: by mail-lf1-x130.google.com with SMTP id b3so25752854lfv.2
+ for <freedreno@lists.freedesktop.org>; Tue, 22 Nov 2022 15:12:38 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=J1gWrn0pcXs3uSjKX4NQp7ZNjC8bDzD46IGCBdiL8A4=;
+ b=hurVIlBGZMTymS/LMR33lOAvHLflxlLtSaY1ntMBPP1Y13KywoAQr3aZN3P8YFpquD
+ 3KYMAw6fVOg+6R320wOS39+NY9lq5Dibe+TWcUm70+ypU4z3uKcseJ5AJ130HyV6ZJ2W
+ uu7U9xfQHVUcWBLI5RSHlB/TS9mKGDK6nDt3vsIux+6mpMkLWWgu/fnM27aR0O/DvFoh
+ DbaVxOr32HdZGi/ocNd4ogO6FcDTAZPPK9AmCdiNwqbCxnWS/UanxtgyrV3Em4IQW5I1
+ AKnt4jnTCgiap/FrFjPZ3EoAslHPoNM6Qttcw2T1iBMYuW6/Vfl7PqEJjG/z9o54bDd5
+ XOng==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=J1gWrn0pcXs3uSjKX4NQp7ZNjC8bDzD46IGCBdiL8A4=;
+ b=LcYeNSjFaziGovjSqbolHXJcg9cII6ZApqoESBKyfPwzaUWahD4MjhZ3XWC+VO1bwA
+ OlWa9Ky4WSp+ReJNu0riWI3JsKBiSGIOGAyxQkpPxmwEBw0hPzorPrAX5A9BuPt92WRL
+ yHWM5ftafjQaxkNbvbDooQvye48tb5R/oYE3foEhRpJtnl6m4pzei/EYrtfegjKfSydu
+ D15IOseg/JZpjCAXN1SSPKoM4UbvaqiVB0JeBll37eNtKQS4ZpqSWlObFWYo5nuM+nZz
+ DfT46e2hWUCWFg7AoN+t9Jo8pBJOrd6xFjd684HF0A66WDQABTTgD8bko2JM/WAe5Cob
+ JiZA==
+X-Gm-Message-State: ANoB5pk2EIZEXC147DybWxWXllftqhUltqICluCcH+ZPnfLQXYE7RMMu
+ uZ+PzpskkVAjScgC6ZT502Hb/w==
+X-Google-Smtp-Source: AA0mqf6aXeYuDtL1qHbnUTh+9VAOhAsOxSLMS8lmOymFs2SMmb+EUbwpUVZh/N2anuTmHGazZBLXng==
+X-Received: by 2002:a05:6512:12ca:b0:4aa:e519:a065 with SMTP id
+ p10-20020a05651212ca00b004aae519a065mr3593416lfg.455.1669158756344; 
+ Tue, 22 Nov 2022 15:12:36 -0800 (PST)
+Received: from eriador.lumag.spb.ru
+ (dzpbkzhtyyyyyyyyyyyyt-3.rev.dnainternet.fi. [2001:14ba:a302:8a1a::1])
+ by smtp.gmail.com with ESMTPSA id
+ q18-20020ac246f2000000b00497feee98basm2617541lfo.274.2022.11.22.15.12.35
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 22 Nov 2022 15:12:35 -0800 (PST)
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+To: Andy Gross <agross@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konrad.dybcio@somainline.org>,
+ Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Rob Herring <robh+dt@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>
+Date: Wed, 23 Nov 2022 01:12:23 +0200
+Message-Id: <20221122231235.3299737-1-dmitry.baryshkov@linaro.org>
+X-Mailer: git-send-email 2.35.1
 MIME-Version: 1.0
-Content-Type: text/plain;
- charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-X-Mailman-Approved-At: Tue, 22 Nov 2022 00:49:42 +0000
-Subject: Re: [Freedreno] [PATCH] drm/msm/dpu: Print interrupt index in
- addition to the mask
+Content-Transfer-Encoding: 8bit
+Subject: [Freedreno] [PATCH v4 00/11] drm/msm: add support for SM8450
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -46,92 +74,80 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Vinod Koul <vkoul@kernel.org>, linux-kernel@vger.kernel.org,
- Jami Kettunen <jami.kettunen@somainline.org>, David Airlie <airlied@gmail.com>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konrad.dybcio@somainline.org>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
- Stephen Boyd <swboyd@chromium.org>, freedreno@lists.freedesktop.org,
- Rob Clark <robdclark@gmail.com>, ~postmarketos/upstreaming@lists.sr.ht,
- Daniel Vetter <daniel@ffwll.ch>,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@somainline.org>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Vinod Polimera <quic_vpolimer@quicinc.com>, Sean Paul <sean@poorly.run>,
- linux-arm-msm@vger.kernel.org
+Cc: devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, Stephen Boyd <swboyd@chromium.org>,
+ Daniel Vetter <daniel@ffwll.ch>, freedreno@lists.freedesktop.org,
+ David Airlie <airlied@gmail.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
+This adds support for the MDSS/DPU/DSI on the Qualcomm SM8450 platform.
 
+Dependencies for the DT bindings: [1].
 
-On November 21, 2022 11:24:55 PM GMT+01:00, Marijn Suijten <marijn=2Esuijt=
-en@somainline=2Eorg> wrote:
->The mask only describes the `irq_idx % 32` part, making it generally
->impossible to deduce what interrupt is being enabled/disabled=2E  Since
->`debug/core_irq` in debugfs (and other prints) also include the full
->`DPU_IRQ_IDX()` value, print the same full value here for easier
->correlation instead of only adding the `irq_idx / 32` part=2E
->
->Furthermore, make the dbgstr messages more consistent=2E
->
->Signed-off-by: Marijn Suijten <marijn=2Esuijten@somainline=2Eorg>
->---
-> drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts=2Ec | 12 ++++++------
-> 1 file changed, 6 insertions(+), 6 deletions(-)
->
->diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts=2Ec b/driver=
-s/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts=2Ec
->index cf1b6d84c18a=2E=2E64589a9c2c51 100644
->--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts=2Ec
->+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts=2Ec
->@@ -252,9 +252,9 @@ static int dpu_hw_intr_enable_irq_locked(struct dpu_h=
-w_intr *intr, int irq_idx)
->=20
-> 	cache_irq_mask =3D intr->cache_irq_mask[reg_idx];
-> 	if (cache_irq_mask & DPU_IRQ_MASK(irq_idx)) {
->-		dbgstr =3D "DPU IRQ already set:";
->+		dbgstr =3D "already ";
-> 	} else {
->-		dbgstr =3D "DPU IRQ enabled:";
->+		dbgstr =3D "";
->=20
-> 		cache_irq_mask |=3D DPU_IRQ_MASK(irq_idx);
-> 		/* Cleaning any pending interrupt */
->@@ -268,7 +268,7 @@ static int dpu_hw_intr_enable_irq_locked(struct dpu_h=
-w_intr *intr, int irq_idx)
-> 		intr->cache_irq_mask[reg_idx] =3D cache_irq_mask;
-> 	}
->=20
->-	pr_debug("%s MASK:0x%=2E8lx, CACHE-MASK:0x%=2E8x\n", dbgstr,
->+	pr_debug("DPU IRQ %d %senabled: MASK:0x%=2E8lx, CACHE-MASK:0x%=2E8x\n",=
- irq_idx, dbgstr,
-> 			DPU_IRQ_MASK(irq_idx), cache_irq_mask);
->=20
-> 	return 0;
->@@ -301,9 +301,9 @@ static int dpu_hw_intr_disable_irq_locked(struct dpu_=
-hw_intr *intr, int irq_idx)
->=20
-> 	cache_irq_mask =3D intr->cache_irq_mask[reg_idx];
-> 	if ((cache_irq_mask & DPU_IRQ_MASK(irq_idx)) =3D=3D 0) {
->-		dbgstr =3D "DPU IRQ is already cleared:";
->+		dbgstr =3D "already ";
-> 	} else {
->-		dbgstr =3D "DPU IRQ mask disable:";
->+		dbgstr =3D "";
->=20
-> 		cache_irq_mask &=3D ~DPU_IRQ_MASK(irq_idx);
-> 		/* Disable interrupts based on the new mask */
->@@ -317,7 +317,7 @@ static int dpu_hw_intr_disable_irq_locked(struct dpu_=
-hw_intr *intr, int irq_idx)
-> 		intr->cache_irq_mask[reg_idx] =3D cache_irq_mask;
-> 	}
->=20
->-	pr_debug("%s MASK:0x%=2E8lx, CACHE-MASK:0x%=2E8x\n", dbgstr,
->+	pr_debug("DPU IRQ %d %sdisabled: MASK:0x%=2E8lx, CACHE-MASK:0x%=2E8x\n"=
-, irq_idx, dbgstr,
-> 			DPU_IRQ_MASK(irq_idx), cache_irq_mask);
->=20
-> 	return 0;
+[1] https://lore.kernel.org/all/20221024164225.3236654-1-dmitry.baryshkov@linaro.org/
 
-Looks good to me=2E
+Change since v3:
+- Reworked the dpu-common.yaml / mdss-common.yaml to require properties
+  from the same schema where they are defined (Krzysztof)
+- Reworked PHY register settings to make it easier to understand
+  (Konrad)
 
-Reviewed-by: Martin Botka <martin=2Ebotka@somainline=2Eorg>
+Change since v2:
+- Rebased onto msm-next-lumag
+- Cleaned up bindings according to Krzysztof's suggestions
+
+Change since v1:
+- Fixed the regdma pointer in sm8450_dpu_cfg
+- Rebased onto pending msm-next-lumag
+- Added DT bindings for corresponding devices
+
+Dmitry Baryshkov (11):
+  dt-bindings: display/msm: *dpu.yaml: split required properties clauses
+  dt-bindings: display/msm: *mdss.yaml: split required properties
+    clauses
+  dt-bindings: display/msm: mdss-common: make clock-names required
+  dt-bindings: display/msm: add sm8350 and sm8450 DSI PHYs
+  dt-bindings: display/msm: add support for the display on SM8450
+  drm/msm/dsi/phy: rework register setting for 7nm PHY
+  drm/msm/dsi: add support for DSI-PHY on SM8350 and SM8450
+  drm/msm/dsi: add support for DSI 2.6.0
+  drm/msm/dpu: add support for MDP_TOP blackhole
+  drm/msm/dpu: add support for SM8450
+  drm/msm: mdss add support for SM8450
+
+ .../bindings/display/msm/dpu-common.yaml      |   4 -
+ .../bindings/display/msm/dsi-phy-7nm.yaml     |   2 +
+ .../bindings/display/msm/mdss-common.yaml     |   2 +-
+ .../display/msm/qcom,msm8998-dpu.yaml         |   7 +
+ .../display/msm/qcom,msm8998-mdss.yaml        |   3 +
+ .../display/msm/qcom,qcm2290-dpu.yaml         |   7 +
+ .../display/msm/qcom,qcm2290-mdss.yaml        |   3 +
+ .../bindings/display/msm/qcom,sc7180-dpu.yaml |   7 +
+ .../display/msm/qcom,sc7180-mdss.yaml         |   3 +
+ .../bindings/display/msm/qcom,sc7280-dpu.yaml |   7 +
+ .../display/msm/qcom,sc7280-mdss.yaml         |   3 +
+ .../bindings/display/msm/qcom,sdm845-dpu.yaml |   7 +
+ .../display/msm/qcom,sdm845-mdss.yaml         |   3 +
+ .../bindings/display/msm/qcom,sm8250-dpu.yaml |   7 +
+ .../display/msm/qcom,sm8250-mdss.yaml         |   3 +
+ .../bindings/display/msm/qcom,sm8450-dpu.yaml | 139 +++++++
+ .../display/msm/qcom,sm8450-mdss.yaml         | 352 ++++++++++++++++++
+ drivers/gpu/drm/msm/Kconfig                   |   6 +-
+ .../gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c    | 224 +++++++++++
+ .../gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h    |   2 +
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_mdss.h   |   3 +
+ drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c       |  12 +-
+ drivers/gpu/drm/msm/dsi/dsi_cfg.c             |   2 +
+ drivers/gpu/drm/msm/dsi/dsi_cfg.h             |   1 +
+ drivers/gpu/drm/msm/dsi/phy/dsi_phy.c         |   4 +
+ drivers/gpu/drm/msm/dsi/phy/dsi_phy.h         |   2 +
+ drivers/gpu/drm/msm/dsi/phy/dsi_phy_7nm.c     | 141 +++++--
+ drivers/gpu/drm/msm/msm_mdss.c                |   5 +
+ 28 files changed, 930 insertions(+), 31 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/display/msm/qcom,sm8450-dpu.yaml
+ create mode 100644 Documentation/devicetree/bindings/display/msm/qcom,sm8450-mdss.yaml
+
+-- 
+2.35.1
+
