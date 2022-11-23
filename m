@@ -1,70 +1,81 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 262FA634B61
-	for <lists+freedreno@lfdr.de>; Wed, 23 Nov 2022 00:54:17 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id F0DDD634FB0
+	for <lists+freedreno@lfdr.de>; Wed, 23 Nov 2022 06:37:13 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 35CDC10E4A8;
-	Tue, 22 Nov 2022 23:54:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 941CB10E4E9;
+	Wed, 23 Nov 2022 05:37:12 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-x235.google.com (mail-lj1-x235.google.com
- [IPv6:2a00:1450:4864:20::235])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A71F910E4AC
- for <freedreno@lists.freedesktop.org>; Tue, 22 Nov 2022 23:54:09 +0000 (UTC)
-Received: by mail-lj1-x235.google.com with SMTP id l8so19641291ljh.13
- for <freedreno@lists.freedesktop.org>; Tue, 22 Nov 2022 15:54:09 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=vSQxsfoYnD2A3tH+O3pkstLuZIwU+jkrLdSB14gdhug=;
- b=vBWoS7NGEmZ4M8NUTF4f50mMJ+CyxMmbJWmVfdhdi/wQYco0DXDHWbkO+kq5K7tbfl
- dSpgdY1eGcCZ3wmETUxnjEVWKJsvzMefqQktCpYXzKBshcAUdKPXNSeinyxRWjyLtb37
- elrtpxMEA88/Sp5Oh64GPVBahbh4PsS0mmS68O/krFQhSTIXOrq/pSfWjwi29l8r2fpI
- kkngvioKMztgCcyDN1NStajFyOmsnh3r/mGcNKaPR4mUqMe+vZnqVLaeyHJtbrHQGiVK
- 7CIx6R0Grk/B7CkoxN25PHIonDDP6SYQDunqvK/4damSUlCizO2yQV5xaS+TRcPDn0r8
- dCOw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=vSQxsfoYnD2A3tH+O3pkstLuZIwU+jkrLdSB14gdhug=;
- b=y8rshqcK/SL9S2CHvN2/LPPGtWMjrfNzEfjGnDbXXR6cnJYLxmRZmbBbUSez0+gISp
- 6MO9MMD0300HgVJ0yDY0vZSIyFiJNq/w1iGIeWJI1EDm3i4GHWHZc2rWIIYuFsNcUFaw
- Y0ipX1IM842PlecNhjOz1MogDtBMTU/z8Z7h801ZjgHQ4jAfTe29yFNkxVmywtfnwKRr
- rTkBho3y0yv9CCi61BHfnqi7uzmfKd9mYxUGZZmIFB4UNSfsGEZXi2MWvRE4UWAKWGPy
- NvBc8OsCJ9Bsws4aFtMm9Q+hWb5zq/8fkoeijjjDAW4pA08Ps1ILEcNx/O7112V52i1W
- k70Q==
-X-Gm-Message-State: ANoB5pksz093eSEGqwK1i48MQpFFIgCW7d06XdqLvSDgG937+fHSzpHB
- opO3uJrC4bMPOBx4l4olKIqGBg==
-X-Google-Smtp-Source: AA0mqf6qg6QL8mtw0Y4ZgkbmPG9ZL4mch+rv29n4tkp7iw2Xw+a/UuSczczoRzzpOUoRBvOKd8bU1w==
-X-Received: by 2002:a05:651c:158c:b0:26c:90f:f8fe with SMTP id
- h12-20020a05651c158c00b0026c090ff8femr8807484ljq.2.1669161247954; 
- Tue, 22 Nov 2022 15:54:07 -0800 (PST)
-Received: from ?IPV6:2001:14ba:a302:8a1a::1?
- (dzpbkzhtyyyyyyyyyyyyt-3.rev.dnainternet.fi. [2001:14ba:a302:8a1a::1])
- by smtp.gmail.com with ESMTPSA id
- o19-20020ac24e93000000b004acd6e441cesm2663361lfr.205.2022.11.22.15.54.07
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 22 Nov 2022 15:54:07 -0800 (PST)
-Message-ID: <f39ae6c3-e156-7366-6802-c392f1b1246e@linaro.org>
-Date: Wed, 23 Nov 2022 01:54:07 +0200
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DADF010E4E9;
+ Wed, 23 Nov 2022 05:37:09 +0000 (UTC)
+Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 2AN4to6o026311; Wed, 23 Nov 2022 05:37:04 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
+ h=message-id : date :
+ mime-version : subject : to : cc : references : from : in-reply-to :
+ content-type : content-transfer-encoding; s=qcppdkim1;
+ bh=i5cQM6Zb0RFIDomP7VSgalfTUBrkgnb5lgnwKHZmF8U=;
+ b=XHcfT8kbNGPaAPfZ0z5N2sNbZiLK59CuK4/SwFaH5GnCemrX8el/UPfMS9rnQr5aSX0I
+ 7oZ5zCRisubNWBuXQFDaY4YG+Cx5T7QQxWfefpN+17JrZ0wC3S381GYilu2TSyi9oTkD
+ bLXn1ehSITVYaTm1o4O0+clcaoCCRZi5YWXYT7H+CjUPjhFwj41Sc+rRWboSE9BQcYfD
+ hafKPUCtvAANeEQ8NsehcMiqZF/8vZIBv7Vm6dlzq4GfJqzRGIii6/g+mREwkhfWVUPP
+ b4b+OQnAtYraBtDauq2swRgm36I7ZHiQuz4xqVUwpoEQCauY3T9T59LkJ+CfQnkO2xRX 5g== 
+Received: from nalasppmta05.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3m0nsjb0nd-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 23 Nov 2022 05:37:04 +0000
+Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
+ [10.47.209.196])
+ by NALASPPMTA05.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 2AN5b3wK014141
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 23 Nov 2022 05:37:03 GMT
+Received: from [10.216.38.33] (10.80.80.8) by nalasex01a.na.qualcomm.com
+ (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.36; Tue, 22 Nov
+ 2022 21:36:57 -0800
+Message-ID: <7b6d7d2b-f8e7-f85c-ba39-70582225f6c4@quicinc.com>
+Date: Tue, 22 Nov 2022 21:36:46 -0800
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.5.0
-Content-Language: en-GB
-To: Adam Skladowski <a39.skl@gmail.com>
-References: <20221120133744.24808-1-a39.skl@gmail.com>
- <20221120133744.24808-3-a39.skl@gmail.com>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-In-Reply-To: <20221120133744.24808-3-a39.skl@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
+ Thunderbird/91.6.2
+Content-Language: en-US
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Andy Gross
+ <agross@kernel.org>, Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio
+ <konrad.dybcio@somainline.org>, Rob Clark <robdclark@gmail.com>, Sean Paul
+ <sean@poorly.run>, Rob Herring <robh+dt@kernel.org>, Krzysztof Kozlowski
+ <krzysztof.kozlowski+dt@linaro.org>
+References: <20221122231235.3299737-1-dmitry.baryshkov@linaro.org>
+ <20221122231235.3299737-10-dmitry.baryshkov@linaro.org>
+From: Abhinav Kumar <quic_abhinavk@quicinc.com>
+In-Reply-To: <20221122231235.3299737-10-dmitry.baryshkov@linaro.org>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
 Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH 2/2] drm/msm/disp/dpu1: add support for
- display on SM6115
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-GUID: Y1VPpCf_zvYWACEGEHCS3Vb6WbifQBOh
+X-Proofpoint-ORIG-GUID: Y1VPpCf_zvYWACEGEHCS3Vb6WbifQBOh
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.219,Aquarius:18.0.895,Hydra:6.0.545,FMLib:17.11.122.1
+ definitions=2022-11-23_02,2022-11-18_01,2022-06-22_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0
+ lowpriorityscore=0 clxscore=1015 phishscore=0 mlxscore=0 adultscore=0
+ impostorscore=0 bulkscore=0 spamscore=0 priorityscore=1501 suspectscore=0
+ mlxlogscore=999 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2210170000 definitions=main-2211230040
+Subject: Re: [Freedreno] [PATCH v4 09/11] drm/msm/dpu: add support for
+ MDP_TOP blackhole
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,70 +88,65 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@somainline.org>,
- phone-devel@vger.kernel.org, David Airlie <airlied@gmail.com>,
- Adam Skladowski <a_skl39@protonmail.com>, Rob Clark <robdclark@gmail.com>,
- Vinod Polimera <quic_vpolimer@quicinc.com>,
- Jessica Zhang <quic_jesszhan@quicinc.com>, devicetree@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Stephen Boyd <swboyd@chromium.org>, Rob Herring <robh+dt@kernel.org>,
- Jason Wang <wangborong@cdjrlc.com>, Sean Paul <sean@poorly.run>,
- Kalyan Thota <quic_kalyant@quicinc.com>,
- Loic Poulain <loic.poulain@linaro.org>,
- Douglas Anderson <dianders@chromium.org>, Vinod Koul <vkoul@kernel.org>,
+Cc: devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, Stephen Boyd <swboyd@chromium.org>,
+ Konrad Dybcio <konrad.dybcio@linaro.org>, Vinod Koul <vkoul@kernel.org>,
  Daniel Vetter <daniel@ffwll.ch>, freedreno@lists.freedesktop.org,
- ~postmarketos/upstreaming@lists.sr.ht
+ David Airlie <airlied@gmail.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 20/11/2022 15:37, Adam Skladowski wrote:
-> Add required display hw catalog changes for SM6115.
+
+
+On 11/22/2022 3:12 PM, Dmitry Baryshkov wrote:
+> On sm8450 a register block was removed from MDP TOP. Accessing it during
+> snapshotting results in NoC errors / immediate reboot. Skip accessing
+> these registers during snapshot.
 > 
-> Signed-off-by: Adam Skladowski <a39.skl@gmail.com>
+> Tested-by: Vinod Koul <vkoul@kernel.org>
+> Reviewed-by: Vinod Koul <vkoul@kernel.org>
+> Reviewed-by: Konrad Dybcio <konrad.dybcio@linaro.org>
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 > ---
->   .../gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c    | 87 +++++++++++++++++++
->   .../gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h    |  1 +
->   drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c       |  1 +
->   drivers/gpu/drm/msm/msm_mdss.c                |  5 ++
->   4 files changed, 94 insertions(+)
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h |  1 +
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c        | 11 +++++++++--
+>   2 files changed, 10 insertions(+), 2 deletions(-)
 > 
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h
+> index 38aa38ab1568..4730f8268f2a 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h
+> @@ -92,6 +92,7 @@ enum {
+>   	DPU_MDP_UBWC_1_0,
+>   	DPU_MDP_UBWC_1_5,
+>   	DPU_MDP_AUDIO_SELECT,
+> +	DPU_MDP_PERIPH_0_REMOVED,
+>   	DPU_MDP_MAX
+>   };
 
-[skipped]
+Please update the enum documentation as already requested in the 
+previous patchset.
 
-> diff --git a/drivers/gpu/drm/msm/msm_mdss.c b/drivers/gpu/drm/msm/msm_mdss.c
-> index 6a4549ef34d4..86b28add1fff 100644
-> --- a/drivers/gpu/drm/msm/msm_mdss.c
-> +++ b/drivers/gpu/drm/msm/msm_mdss.c
-> @@ -280,6 +280,10 @@ static int msm_mdss_enable(struct msm_mdss *msm_mdss)
->   		/* UBWC_2_0 */
->   		msm_mdss_setup_ubwc_dec_20(msm_mdss, 0x1e);
->   		break;
-> +	case DPU_HW_VER_630:
-> +		/* UBWC_2_0 */
-> +		msm_mdss_setup_ubwc_dec_20(msm_mdss, 0x11f);
-> +		break;
-
-According to the vendor dtsi the sm6115 is UBWC 1.0, not 2.0
-
-Could you please doublecheck?
-
-Looks good to me otherwise.
-
->   	case DPU_HW_VER_720:
->   		msm_mdss_setup_ubwc_dec_40(msm_mdss, UBWC_3_0, 6, 1, 1, 1);
->   		break;
-> @@ -509,6 +513,7 @@ static const struct of_device_id mdss_dt_match[] = {
->   	{ .compatible = "qcom,sc7180-mdss" },
->   	{ .compatible = "qcom,sc7280-mdss" },
->   	{ .compatible = "qcom,sc8180x-mdss" },
-> +	{ .compatible = "qcom,sm6115-mdss" },
->   	{ .compatible = "qcom,sm8150-mdss" },
->   	{ .compatible = "qcom,sm8250-mdss" },
->   	{}
-
--- 
-With best wishes
-Dmitry
-
+>   
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
+> index f3660cd14f4f..67f2e5288b3c 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
+> @@ -927,8 +927,15 @@ static void dpu_kms_mdp_snapshot(struct msm_disp_state *disp_state, struct msm_k
+>   		msm_disp_snapshot_add_block(disp_state, cat->wb[i].len,
+>   				dpu_kms->mmio + cat->wb[i].base, "wb_%d", i);
+>   
+> -	msm_disp_snapshot_add_block(disp_state, cat->mdp[0].len,
+> -			dpu_kms->mmio + cat->mdp[0].base, "top");
+> +	if (top->caps->features & BIT(DPU_MDP_PERIPH_0_REMOVED)) {
+> +		msm_disp_snapshot_add_block(disp_state, 0x380,
+> +				dpu_kms->mmio + cat->mdp[0].base, "top");
+> +		msm_disp_snapshot_add_block(disp_state, cat->mdp[0].len - 0x3a8,
+> +				dpu_kms->mmio + cat->mdp[0].base + 0x3a8, "top_2");
+> +	} else {
+> +		msm_disp_snapshot_add_block(disp_state, cat->mdp[0].len,
+> +				dpu_kms->mmio + cat->mdp[0].base, "top");
+> +	}
+>   
+>   	pm_runtime_put_sync(&dpu_kms->pdev->dev);
+>   }
