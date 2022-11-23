@@ -1,56 +1,56 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 977276369DB
-	for <lists+freedreno@lfdr.de>; Wed, 23 Nov 2022 20:26:00 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 34A99636AB9
+	for <lists+freedreno@lfdr.de>; Wed, 23 Nov 2022 21:18:21 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 43B0310E601;
-	Wed, 23 Nov 2022 19:25:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CCBB410E611;
+	Wed, 23 Nov 2022 20:18:19 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-x22a.google.com (mail-lj1-x22a.google.com
- [IPv6:2a00:1450:4864:20::22a])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6118610E601
- for <freedreno@lists.freedesktop.org>; Wed, 23 Nov 2022 19:25:55 +0000 (UTC)
-Received: by mail-lj1-x22a.google.com with SMTP id q7so2069858ljp.9
- for <freedreno@lists.freedesktop.org>; Wed, 23 Nov 2022 11:25:55 -0800 (PST)
+Received: from mail-lf1-x12a.google.com (mail-lf1-x12a.google.com
+ [IPv6:2a00:1450:4864:20::12a])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3E86F10E611
+ for <freedreno@lists.freedesktop.org>; Wed, 23 Nov 2022 20:18:16 +0000 (UTC)
+Received: by mail-lf1-x12a.google.com with SMTP id be13so29807448lfb.4
+ for <freedreno@lists.freedesktop.org>; Wed, 23 Nov 2022 12:18:16 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :from:to:cc:subject:date:message-id:reply-to;
- bh=t1DObvPh+Rx+Hqegn0XLyYJdliwmlAQX29QBWofxvPA=;
- b=zusNWTQ0ZtK82/Ue7pGOHYNeKWcg2Ze4ZkbOTBvSyG4O9vOzVzpYdgtbzTQSADp2O0
- vYDxc7B4D1FK1U7DuxqIKxfpDF/Of+Pp7MPdvTk0HyTvUgWAKXEGrXxhNzeP2i+LyrUo
- BSQTTlJ5Qr0BSru3RYd2CIxZ0ApnHiuvpBLQzmCKW2/nUSkfyQCSMIcuYRUGcoy1kdAz
- 8UsvIRYvXSnsnZC6brAQOvdNsqdrjnZ6InTX2p2yaHZORdrIC9HRRUGI99+eXjPu7sjU
- VUDluoan1yjaBrHZBnampED/dPUujN6SmSB7wjm13/mUqHHS5JN7cjH8tkSctlPYst2/
- U1ig==
+ bh=ecST9nT/YcQwW35//EplrlkRqIWIVC66eBdnZLwwM+4=;
+ b=QZQ/jJ7LjkL8hAeYXlFlOg1bxlT95iqex3nxXJ24iN/ZfpuN3mB3zvf2T4zslMD+g5
+ mfAYwNdQ5MUD0WvmDjTILGmB+zMgPGuI/FlxGarsrblHRVx7MBK/nLJ4RxOYD2NTjtIt
+ 0O6YEh/5AfLIrLQvawbJ/bWrFyEYAldFCnTNedKUDQ3c82n1BwVBPztKsvXMujwNaQhL
+ 1mruzN2ERFvlhdgYLHD9qpYTI5CPlFN3JJjRMvrfDDZZE3DOblGKNG7oBnAdEmm/s03z
+ golL4ZLItXDI0sNKPuKdkgp6cwsBWlQi7rS4T/DN8EKetDXdStgx2GF5dKsKBvc5HZIB
+ 4Jqw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=t1DObvPh+Rx+Hqegn0XLyYJdliwmlAQX29QBWofxvPA=;
- b=dmfIyK3GsRze2vE6s5FHCYss31TkHvws18Rsl1QbQ3kFdG7Hy7fXgx/c46ZeljP/Pj
- somn+qE1BQ68PkzK7u9O1MLhlsdyW+gObowHaCj8SMbW1QgoCTX8Ze/Nt07il3KoK1G+
- mFoS3yqchd7Hr2gC0F10m+/jth/zONvxVFzaLVhl3YKnTosqi7exmhtUhur1bswNVpLu
- zaxnTFX/c7Klpe4PShBAfyvQLvYLo8aD08zvOVU6ZuYrFzCuJjojkMzWj62IgUWXsexl
- W9QQkfZJFk/K7YlhrS7yxS7mko5oWh9wm9xqk0xQQQfnaQkiIef0RJxQTnUICf623vDQ
- MUvg==
-X-Gm-Message-State: ANoB5pmBpVwIJHcejhfmgiJfT6YtpjaYxn4JM5Jpcxe50PfggyJ/UbaD
- IcO//ta6+ABPW88kkiBK3nWBwg==
-X-Google-Smtp-Source: AA0mqf6sCm6NBHdvo+56rXL7omxWiAryfayByRNrgP0gPV7565DlqGRPl39qHB5E1kDK52xUUGeikg==
-X-Received: by 2002:a2e:a375:0:b0:277:7c00:e130 with SMTP id
- i21-20020a2ea375000000b002777c00e130mr3104784ljn.268.1669231553655; 
- Wed, 23 Nov 2022 11:25:53 -0800 (PST)
+ bh=ecST9nT/YcQwW35//EplrlkRqIWIVC66eBdnZLwwM+4=;
+ b=ehnMZdlpVcAQ9zTaPZxzoDwtHndXHKtD2N7sM6/818xHeLmbM+mKUU2VJrM0Iy5KcH
+ PFhAvvkopH5QVdI/yMVpcY4FtqCB1kOiK65EbjFkNU19Gecqf199B5TPPk/dheyCvnhs
+ LnuNuWkap98P94m2P9ZQRxRA5Xb/YehgNJHO3hlA3UJqCrFy7pbFzT0QbfPYf4cS+6A6
+ 30nnMvB2k0Kr/yjagND+AFYCdEADisU3uM9JiDRHcWk5mW8poerGwzLF1oXyIfmVZn4L
+ CDCWhaDvPjpc20MfjqzMx/KQVJnxgNsqruf9N/3vMOpYf75xjraF14T8acEXAk3sayj2
+ 2VpQ==
+X-Gm-Message-State: ANoB5pnGLbTsZ4c92zQ+q4v+yk8v7QEgNZkv51+LWHFE7xgW7e6rL8r7
+ BBjcW1buDGSw/ZLC4Lq7ZBXOkQ==
+X-Google-Smtp-Source: AA0mqf4BQ4FuKuZDygKHET70fMHELwqB+ogCPgJHghJ08EZZIhz4651jCGxWeDveGnGlGKWQHheJXg==
+X-Received: by 2002:ac2:43d9:0:b0:4a4:3059:af15 with SMTP id
+ u25-20020ac243d9000000b004a43059af15mr4353327lfl.258.1669234694420; 
+ Wed, 23 Nov 2022 12:18:14 -0800 (PST)
 Received: from [10.10.15.130] ([192.130.178.91])
  by smtp.gmail.com with ESMTPSA id
- i29-20020a196d1d000000b004a459799bc3sm2996182lfc.283.2022.11.23.11.25.52
+ v17-20020ac258f1000000b004a03eb21c4fsm81985lfo.288.2022.11.23.12.18.13
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 23 Nov 2022 11:25:53 -0800 (PST)
-Message-ID: <879739ef-41a7-3470-da0d-6aa7c8654e0a@linaro.org>
-Date: Wed, 23 Nov 2022 21:25:52 +0200
+ Wed, 23 Nov 2022 12:18:13 -0800 (PST)
+Message-ID: <5fd29bdb-c93c-fa77-19ce-175fbfb8e639@linaro.org>
+Date: Wed, 23 Nov 2022 22:18:13 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.5.0
@@ -62,14 +62,14 @@ To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
  Abhinav Kumar <quic_abhinavk@quicinc.com>, Rob Herring <robh+dt@kernel.org>,
  Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>
 References: <20221122231235.3299737-1-dmitry.baryshkov@linaro.org>
- <20221122231235.3299737-2-dmitry.baryshkov@linaro.org>
- <3f796546-f9ac-353c-9f5b-870f77726da6@linaro.org>
+ <20221122231235.3299737-4-dmitry.baryshkov@linaro.org>
+ <40d5c7f3-148a-a5fa-fdf7-6fd301ec3a2d@linaro.org>
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-In-Reply-To: <3f796546-f9ac-353c-9f5b-870f77726da6@linaro.org>
+In-Reply-To: <40d5c7f3-148a-a5fa-fdf7-6fd301ec3a2d@linaro.org>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH v4 01/11] dt-bindings: display/msm:
- *dpu.yaml: split required properties clauses
+Subject: Re: [Freedreno] [PATCH v4 03/11] dt-bindings: display/msm:
+ mdss-common: make clock-names required
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -89,27 +89,21 @@ Cc: devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 23/11/2022 12:15, Krzysztof Kozlowski wrote:
+On 23/11/2022 12:19, Krzysztof Kozlowski wrote:
 > On 23/11/2022 00:12, Dmitry Baryshkov wrote:
->> Per Krzysztof's request, move a clause requiring certain properties to
->> the file where they are declared.
->>
+>> Mark clock-names property as required to be used on all MDSS devices.
 > 
-> Commit msg could be a bit more generic, without naming me (there are few
-> Krzysztofs), e.g.:
-> 
-> Require only properties declared in given schema, which makes the code a
-> bit more readable and easy to follow.
-> 
-> Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-> Suggested-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+> This we see from the diff. Please tell why you are doing it. In some
+> other recent bindings we dropped clock-names from required, so this is
+> confusing.
 
-Ack, thank you
+Thanks for the question. It looks like you are correct and we do not 
+need clock-names for the new mdss devices (only for the DPU devices and 
+for the old qcom,mdss binding, but it's another story).
 
-> 
-> Best regards,
-> Krzysztof
-> 
+So, I'll drop this patch from the series. And for the next cycle I will 
+check whether we can drop the clock-names from existing dtsi files (and 
+from schema too).
 
 -- 
 With best wishes
