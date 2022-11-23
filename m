@@ -1,75 +1,43 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 68E466353E0
-	for <lists+freedreno@lfdr.de>; Wed, 23 Nov 2022 10:01:58 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id BE714635963
+	for <lists+freedreno@lfdr.de>; Wed, 23 Nov 2022 11:12:51 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1CD2A10E522;
-	Wed, 23 Nov 2022 09:01:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8C32010E1B7;
+	Wed, 23 Nov 2022 10:12:49 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x131.google.com (mail-lf1-x131.google.com
- [IPv6:2a00:1450:4864:20::131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0A3FC10E522
- for <freedreno@lists.freedesktop.org>; Wed, 23 Nov 2022 09:01:54 +0000 (UTC)
-Received: by mail-lf1-x131.google.com with SMTP id bp15so27175605lfb.13
- for <freedreno@lists.freedesktop.org>; Wed, 23 Nov 2022 01:01:53 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=WA7wcqap9FFSojyAIedMI2HkYd/yBUkUMbNf1qYRGDQ=;
- b=oiepXkfX2ozhXYoitSiMJdedTucyjr0vbG8Y331jpwhNAtO377avpdEIUokHvGP+z8
- 2R5Mono0FGVQ8SvDeDRuABrB86bgCw9ZUBFRzkyRn4uWVdOb+VVFH/d0IuRel+dlkIIo
- A9j5MNM6BaIMvYxWOu//+UBLalE0ailN4OANyohJOKboO2GRbFxNxjbJIrWTGiosbOQR
- KHCLnp2akVpoftWmwiDgDgon7I+JLxcNKbL64wp+8rAHpFGm5g4rIWgEJkN0cjgr4mY7
- lFQNaMWatYJcUXTkKFKSwmXTbNEc6d7VeRdx1DbbfAThVk3T6CQTDvSc/yxDQyEM2jGZ
- jRAg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=WA7wcqap9FFSojyAIedMI2HkYd/yBUkUMbNf1qYRGDQ=;
- b=Oz2o73fir2uB/xU2F8ZUbWKe5qlR+gLp7fUUbQ7o4hEHoE3oEqzsnfS02JBtNF5yaG
- Ss6IqTM1421azd+yRNJUFNJWZ+WceT6Vs49QDSMcOmwZSwtVj+nCTDNh3UKTuIfo58zi
- L6ECJYYYrFkP6/+goUPj7X2Mzw0SV7Z9DG/l3hkaI3yEJAiGoKbkf5msknCVE26QH4db
- Huy+k+jng1v15B/g4QlwYPFAXn9yuiCwjK1bnDyyKWk3sm+4zuJrX5n3c7Rm1dabeuFN
- sypvx1YKQN8c54cRIul5YDlHk8PHSMNcuuMKZPT5+TYBVqigV3cS2/6YlIT73J/VWtph
- gMuw==
-X-Gm-Message-State: ANoB5plMa0Ar3d2AdRaJSYSNQxQ7JPSpOFHNhU5A2F05uzLDE390OUd0
- x047GoNktzNLrvM5OxbIIW2Gtg==
-X-Google-Smtp-Source: AA0mqf6Jf0/+ltsRerqajN32SESPAarDvzpQCu/W4nX4wn56+27rFasS+QC5XNK+JMyEiI6Uf9n6/w==
-X-Received: by 2002:a05:6512:128d:b0:4b4:b645:6303 with SMTP id
- u13-20020a056512128d00b004b4b6456303mr3117475lfs.475.1669194112270; 
- Wed, 23 Nov 2022 01:01:52 -0800 (PST)
-Received: from [192.168.0.20]
- (088156142067.dynamic-2-waw-k-3-2-0.vectranet.pl. [88.156.142.67])
- by smtp.gmail.com with ESMTPSA id
- b17-20020a196451000000b00498f23c249dsm2779102lfj.74.2022.11.23.01.01.50
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 23 Nov 2022 01:01:51 -0800 (PST)
-Message-ID: <ac216c05-d939-0045-9a32-c874b584ee2d@linaro.org>
-Date: Wed, 23 Nov 2022 10:01:50 +0100
+Received: from wp530.webpack.hosteurope.de (wp530.webpack.hosteurope.de
+ [80.237.130.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8584410E1B7;
+ Wed, 23 Nov 2022 10:12:47 +0000 (UTC)
+Received: from [2a02:8108:963f:de38:eca4:7d19:f9a2:22c5]; authenticated
+ by wp530.webpack.hosteurope.de running ExIM with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128)
+ id 1oxmkG-0003GP-J1; Wed, 23 Nov 2022 11:12:44 +0100
+Message-ID: <b5ba4e16-ed09-2893-53ed-9803fd2b00d5@leemhuis.info>
+Date: Wed, 23 Nov 2022 11:12:44 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.5.0
-Content-Language: en-US
+ Thunderbird/102.4.1
+Content-Language: en-US, de-DE
 To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Andy Gross <agross@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konrad.dybcio@somainline.org>, Rob Clark
- <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, Rob Herring <robh+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>
-References: <20221122233659.3308175-1-dmitry.baryshkov@linaro.org>
- <20221122233659.3308175-5-dmitry.baryshkov@linaro.org>
-From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-In-Reply-To: <20221122233659.3308175-5-dmitry.baryshkov@linaro.org>
+ Caleb Connolly <caleb.connolly@linaro.org>
+References: <0abf1924-485b-8f1c-c8c8-d14dcccc3a27@quicinc.com>
+ <0Co5PrfVEsYkXu9wz6ixpiFl0aWmXfIng6NSPOiYNcrAfHZx0w2crkWN7InPdtR-YTAb1IxLovgcEHCmFpmaqA==@protonmail.internalid>
+ <20220712132258.671263-1-dmitry.baryshkov@linaro.org>
+ <1892d0af-8aa4-dc03-887a-e44bb623b836@linaro.org>
+ <CAA8EJpq_9iC1rkiZVom28Kv_B3QLd4pBgFObxBfSpJ+Xh=Mp1g@mail.gmail.com>
+From: Thorsten Leemhuis <regressions@leemhuis.info>
+In-Reply-To: <CAA8EJpq_9iC1rkiZVom28Kv_B3QLd4pBgFObxBfSpJ+Xh=Mp1g@mail.gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH v2 4/5] arm64: dts: qcom: sm8450-hdk: Add
- LT9611uxc HDMI bridge
+X-bounce-key: webpack.hosteurope.de; regressions@leemhuis.info; 1669198367;
+ 7b4741fb; 
+X-HE-SMSGID: 1oxmkG-0003GP-J1
+Subject: Re: [Freedreno] [PATCH v2.5] drm/msm/dsi: switch to DRM_PANEL_BRIDGE
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,54 +50,101 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+Cc: Sean Paul <sean@poorly.run>, David Airlie <airlied@linux.ie>,
+ linux-arm-msm@vger.kernel.org, Abhinav Kumar <quic_abhinavk@quicinc.com>,
  dri-devel@lists.freedesktop.org, Stephen Boyd <swboyd@chromium.org>,
- Vinod Koul <vkoul@kernel.org>, Daniel Vetter <daniel@ffwll.ch>,
- freedreno@lists.freedesktop.org, David Airlie <airlied@gmail.com>
+ Bjorn Andersson <bjorn.andersson@linaro.org>, freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 23/11/2022 00:36, Dmitry Baryshkov wrote:
-> From: Vinod Koul <vkoul@kernel.org>
+Hi, this is your Linux kernel regression tracker.
+
+On 13.11.22 14:28, Dmitry Baryshkov wrote:
+> Hi Caleb,
 > 
-> Add the LT9611uxc DSI-HDMI bridge and supplies
+> On Fri, 11 Nov 2022 at 18:30, Caleb Connolly <caleb.connolly@linaro.org> wrote:
+>>
+>> Hi,
+>>
+>> This patch has caused a regression on 6.1-rc for some devices that use
+>> DSI panels. The new behaviour results in the DSI controller being
+>> switched off before the panel unprepare hook is called. As a result,
+>> panel drivers which call mipi_dsi_dcs_write() or similar in
+>> unprepare() fail.
 > 
-> Signed-off-by: Vinod Koul <vkoul@kernel.org>
-> Reviewed-by: Konrad Dybcio <konrad.dybcio@somainline.org>
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> ---
+> Thanks for the notice. Can you move your command stream to
+> panel_disable() hook? (even if it's just as a temporary workaround)
 
-> +
->  &sdhc_2 {
->  	cd-gpios = <&tlmm 92 GPIO_ACTIVE_HIGH>;
->  	pinctrl-names = "default", "sleep";
-> @@ -431,6 +478,20 @@ &sdhc_2 {
->  &tlmm {
->  	gpio-reserved-ranges = <28 4>, <36 4>;
->  
-> +	lt9611_irq_pin: lt9611-irq {
+Caleb, did you look into what Dmitry suggested? This issue is on my list
+of tracked regressions in 6.1 and time is running out to get it fixed
+before the release.
 
--state suffix
+Or was there any progress to get this fixed and I just missed it?
 
-And test DTS against bindings (`make dtbs_check`).
+Ciao, Thorsten (wearing his 'the Linux kernel's regression tracker' hat)
 
-> +		pins = "gpio44";
-> +		function = "gpio";
-> +		bias-disable;
-> +	};
-> +
-> +	lt9611_rst_pin: lt9611-rst-state {
-> +		pins = "gpio107";
-> +		function = "normal";
-> +
-> +		output-high;
-> +		input-disable;
-> +	};
-> +
->  	sdc2_card_det_n: sd-card-det-n-state {
->  		pins = "gpio92";
->  		function = "gpio";
+P.S.: As the Linux kernel's regression tracker I deal with a lot of
+reports and sometimes miss something important when writing mails like
+this. If that's the case here, don't hesitate to tell me in a public
+reply, it's in everyone's interest to set the public record straight.
 
-Best regards,
-Krzysztof
+#regzbot ignore-activity
 
+> From what I see from other panels, some of them call
+> mipi_dsi_dcs_set_display_off() in the unprepare() hook, while others
+> do it in disable().
+> 
+> Yes, this is (again) the DSI host vs device order here. Short story:
+> the DRM has a notion of 'the display pipe (i.e. clocks and timing
+> signals) feeding the bridge being running'. That's the difference
+> between enable/pre_enable and disable/post_disable. For the DSI we
+> have a third state, when the DSI clock and ln0 allow transferring
+> commands to the panel, but the image is not enabled.
+> 
+> There was a somewhat promising patchset at [1], but it seems it went
+> out of the radar. I can try working on an alternative (explicit)
+> approach if I have time.
+> 
+> With respect to your panel. Let me quote the docs: 'Before stopping
+> video transmission from the display controller it can be necessary to
+> turn off the panel to avoid visual glitches. This is done in the
+> .disable() function. Analogously to .enable() this typically involves
+> turning off the backlight and waiting for some time to make sure no
+> image is visible on the panel. It is then safe for the display
+> controller to cease transmission of video data.'
+> 
+> So, if we stop the call chain after switching the DSI host off but
+> before calling the panel's unprepare() hook, will we see any
+> artifacts/image leftover/etc. on the panel? Generally I have the
+> feeling that all panels should call mipi_dsi_dcs_set_display_off() in
+> the .disable() hook, not in the .unprepare() one.
+> 
+> [1] https://lore.kernel.org/dri-devel/cover.1646406653.git.dave.stevenson@raspberrypi.com/
+> 
+>>
+>> I've noticed it specifically on the OnePlus 6 (with upstream Samsung
+>> s0fef00 panel driver) and the SHIFT6mq with an out of tree driver.
+>>
+>> On 12/07/2022 14:22, Dmitry Baryshkov wrote:
+>>> Currently the DSI driver has two separate paths: one if the next device
+>>> in a chain is a bridge and another one if the panel is connected
+>>> directly to the DSI host. Simplify the code path by using panel-bridge
+>>> driver (already selected in Kconfig) and dropping support for
+>>> handling the panel directly.
+>>>
+>>> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+>>> ---
+>>>
+>>> I'm not sending this as a separate patchset (I'd like to sort out mdp5
+>>> first), but more of a preview of changes related to
+>>> msm_dsi_manager_ext_bridge_init().
+>>>
+>>> ---
+>>>   drivers/gpu/drm/msm/dsi/dsi.c         |  35 +---
+>>>   drivers/gpu/drm/msm/dsi/dsi.h         |  16 +-
+>>>   drivers/gpu/drm/msm/dsi/dsi_host.c    |  25 ---
+>>>   drivers/gpu/drm/msm/dsi/dsi_manager.c | 283 +++-----------------------
+>>>   4 files changed, 36 insertions(+), 323 deletions(-)
+> 
+> [skipped the patch itself]
+> 
