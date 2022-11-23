@@ -1,70 +1,70 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5A748636C07
-	for <lists+freedreno@lfdr.de>; Wed, 23 Nov 2022 22:07:35 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id DE208636E22
+	for <lists+freedreno@lfdr.de>; Thu, 24 Nov 2022 00:11:30 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CC43910E638;
-	Wed, 23 Nov 2022 21:07:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9EB9610E653;
+	Wed, 23 Nov 2022 23:11:29 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x130.google.com (mail-lf1-x130.google.com
- [IPv6:2a00:1450:4864:20::130])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5E9DB89798
- for <freedreno@lists.freedesktop.org>; Wed, 23 Nov 2022 21:07:27 +0000 (UTC)
-Received: by mail-lf1-x130.google.com with SMTP id g7so29983059lfv.5
- for <freedreno@lists.freedesktop.org>; Wed, 23 Nov 2022 13:07:27 -0800 (PST)
+Received: from mail-lf1-x129.google.com (mail-lf1-x129.google.com
+ [IPv6:2a00:1450:4864:20::129])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 381FB10E654
+ for <freedreno@lists.freedesktop.org>; Wed, 23 Nov 2022 23:11:28 +0000 (UTC)
+Received: by mail-lf1-x129.google.com with SMTP id d6so13765lfs.10
+ for <freedreno@lists.freedesktop.org>; Wed, 23 Nov 2022 15:11:28 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=LPFkruvlU7zrVvNuMEiG7x7XIlavtbJemFv/UB71t34=;
- b=F6ODKLmGxaxZW6vrrJASjd7RYxvVoh0jxNIA8rLALctVGGE73TsNfN4AZPPnDev61q
- IjX72koFK2Ry33aDAItXV3x9eShK9V4E8P9ybkrW6C1Dg59p35V1Tw8sbbx4jzwvOyt4
- uZZS3KghlICehz6d7tEriFcQ6ifr/QS4sJo9ezP9JBdjRrrA8x2DVso/EhxgKObN8Bcp
- TuyYpLB0aUZAuKbLDtaplF0+CAct+HE7Xdbms3h3crc+jFe9z5Wbu6dTbmJwlqpotdO2
- C/beoA+C3ZLea5xXQWXum9nLcT2oJpxdmJCYCGQAtq2c/QDmr2zTeejGEMgRPRBXUp+g
- J6Ag==
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=7XcTTI3VTKH5Ew7b4w2Gn9cRXjRHQBtu6NQmXOetUGw=;
+ b=SYoOY7rZftTsDa3r7rI6AIPmcr8sI5HSxxE/rCN+yjg6qQdWiKjKfjvLLKYXxHupWv
+ qJwWaOf9Y+turS/k7IgQSFxXa3nmviUxOc9BUdkt98fICFMHeKroBhjTnTxcrrb1mplc
+ lu8mryjd6BP7jPvu60q4RS/CKJ9prs+0t/QYjA9j2Q4/LxR2vns6EgMixVHpg7U7n3tb
+ l5znAXSfUDcBeF+BF0pFx6QIzR9P+WX9/yu+4ZeN+ahgOET9V6osdxQBtsVCfiXkmM+l
+ Ki/j+GjPmTeA5RkxRsBdi9EQXUqLvcDHvr1QIRFvP2+bhWfGZAbdDVvAgHYfc6yNt2gV
+ 3eLQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=LPFkruvlU7zrVvNuMEiG7x7XIlavtbJemFv/UB71t34=;
- b=KZLw9154KTCkp7C0ZiAd6AKhIKxbpcPR0HQucEheAEHFin108FhG+fYBQAKxBRDa7L
- nsKmGiJ0sTJsRRJpMy0W2tV2IDboOYVCTBls5o2fNNbYxUQOb6AdNVDyBfWgVKwYvq1a
- p6TnXVoY+WMrBMOsz22Kt5JLm4QiixULsSrSpNstbP23dTd79DRaFjcnrBjWpDQFHGGl
- iGTYNHOjIgPHAkuGlCUsD88cRf6vUEqD46jQpf89tOEheTEJEHeoGE5TsURTsoZ3ZKNL
- Vvtsl+bB2K/fvTyY8+ywU4YlCqTWdgSIbEPyRwaRLzosI8ZdTkyzkg2f4lHfJJ614APr
- Z3ZA==
-X-Gm-Message-State: ANoB5pk9IJBvPoaKol3sJXiwnNqW3EgCaPAjzXh+PKMeTMjO7GphNkS9
- /MPLM8aHPV1jggujNhWeK029+Q==
-X-Google-Smtp-Source: AA0mqf5SBnxq9+i0brSVlopHzdm/rGVGjlMXO2yXI5bC57Mcjvqs5hb/nqZ4lNLNJSReLXCETX2SZQ==
-X-Received: by 2002:a05:6512:1184:b0:4af:a588:e8bd with SMTP id
- g4-20020a056512118400b004afa588e8bdmr9672840lfr.173.1669237645436; 
- Wed, 23 Nov 2022 13:07:25 -0800 (PST)
-Received: from eriador.unikie.fi ([192.130.178.91])
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=7XcTTI3VTKH5Ew7b4w2Gn9cRXjRHQBtu6NQmXOetUGw=;
+ b=eD2faToeJ1d6Vkyw70xgvE8gmA2IygHrvnx8evfq3fBPrAR4laSGx7twk+iKLpDWyw
+ PXfH5YpBQLKK7rxc+FwiCDWQbOeO6VfcfORg6B6lJvwrwVqsWxVfS0K6ss7bFfTCXLJ/
+ X8xCZr8G/WkgxzOfOOLSTABvhgX5W2qWB6ssAdx2n1FiQvTNmBu+/J/23wdhPBkUZrZL
+ cHBTJ2DmdNDl3wanZBvq83Rmx/NtWzAkYz8Z0Mvl9Zupp7O1a/oLYi7eCQpVYgYqdNf0
+ +YQIqjFtoXUAwaASItG30LP+/X+/nGU8jqBc+8Qza6Sv2P570c21tup+ng2rYCyNiB+p
+ fgmA==
+X-Gm-Message-State: ANoB5pnge6qjcQhwHgBMAeSzgezJdgSujv1IhThwuNAep48ML7/WrnqD
+ /nTz0bekMNB9NhS0ZooEXLKhpA==
+X-Google-Smtp-Source: AA0mqf4ap4rSKu1q4RzaMVU+Ew9bLfwjunXcWBhERA8AnppBDiepmkCDzvZejuLLCMPYFng6xbdf+A==
+X-Received: by 2002:a05:6512:2591:b0:4ae:c2b5:29c4 with SMTP id
+ bf17-20020a056512259100b004aec2b529c4mr4605476lfb.614.1669245086436; 
+ Wed, 23 Nov 2022 15:11:26 -0800 (PST)
+Received: from ?IPV6:2001:14ba:a302:192b::1?
+ (dzpbbwm4yyyyyyyyyyyyt-3.rev.dnainternet.fi. [2001:14ba:a302:192b::1])
  by smtp.gmail.com with ESMTPSA id
- c26-20020ac2415a000000b0048a8c907fe9sm3024119lfi.167.2022.11.23.13.07.24
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 23 Nov 2022 13:07:24 -0800 (PST)
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-To: Andy Gross <agross@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konrad.dybcio@somainline.org>,
- Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Rob Herring <robh+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>
-Date: Wed, 23 Nov 2022 23:07:20 +0200
-Message-Id: <20221123210720.3593671-6-dmitry.baryshkov@linaro.org>
-X-Mailer: git-send-email 2.35.1
-In-Reply-To: <20221123210720.3593671-1-dmitry.baryshkov@linaro.org>
-References: <20221123210720.3593671-1-dmitry.baryshkov@linaro.org>
+ c4-20020ac25304000000b0049fff3f645esm3017256lfh.70.2022.11.23.15.11.25
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 23 Nov 2022 15:11:25 -0800 (PST)
+Message-ID: <1ad9d68a-8735-07cf-e279-503d9ba63878@linaro.org>
+Date: Thu, 24 Nov 2022 01:11:25 +0200
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH v3 5/5] arm64: dts: qcom: sm8450-hdk: Enable
- HDMI Display
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.5.0
+Content-Language: en-GB
+To: Adam Skladowski <a39.skl@gmail.com>
+References: <20221120133744.24808-1-a39.skl@gmail.com>
+ <20221120133744.24808-2-a39.skl@gmail.com>
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+In-Reply-To: <20221120133744.24808-2-a39.skl@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Subject: Re: [Freedreno] [PATCH 1/2] dt-bindings: display/msm: add support
+ for the display
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,87 +77,331 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
- dri-devel@lists.freedesktop.org, Stephen Boyd <swboyd@chromium.org>,
- Vinod Koul <vkoul@kernel.org>, Daniel Vetter <daniel@ffwll.ch>,
- freedreno@lists.freedesktop.org, David Airlie <airlied@gmail.com>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@somainline.org>,
+ phone-devel@vger.kernel.org, David Airlie <airlied@gmail.com>,
+ Adam Skladowski <a_skl39@protonmail.com>, Rob Clark <robdclark@gmail.com>,
+ Vinod Polimera <quic_vpolimer@quicinc.com>,
+ Jessica Zhang <quic_jesszhan@quicinc.com>, devicetree@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Stephen Boyd <swboyd@chromium.org>, Rob Herring <robh+dt@kernel.org>,
+ Jason Wang <wangborong@cdjrlc.com>, Sean Paul <sean@poorly.run>,
+ Kalyan Thota <quic_kalyant@quicinc.com>,
+ Loic Poulain <loic.poulain@linaro.org>, Bjorn Andersson <andersson@kernel.org>,
+ Douglas Anderson <dianders@chromium.org>, Vinod Koul <vkoul@kernel.org>,
+ Daniel Vetter <daniel@ffwll.ch>, freedreno@lists.freedesktop.org,
+ ~postmarketos/upstreaming@lists.sr.ht
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-From: Vinod Koul <vkoul@kernel.org>
+On 20/11/2022 15:37, Adam Skladowski wrote:
+> Add DPU and MDSS schemas to describe MDSS and DPU blocks on the Qualcomm
+> SM6115 platform.
+> Configuration for DSI/PHY is shared with QCM2290 so compatibles are reused.
+> Lack of dsi phy supply in example is intended
+> due to fact on qcm2290, sm6115 and sm6125
+> this phy is supplied via power domain, not regulator.
+> 
+> Signed-off-by: Adam Skladowski <a39.skl@gmail.com>
+> ---
+>   .../bindings/display/msm/qcom,sm6115-dpu.yaml |  87 ++++++++
+>   .../display/msm/qcom,sm6115-mdss.yaml         | 187 ++++++++++++++++++
+>   2 files changed, 274 insertions(+)
+>   create mode 100644 Documentation/devicetree/bindings/display/msm/qcom,sm6115-dpu.yaml
+>   create mode 100644 Documentation/devicetree/bindings/display/msm/qcom,sm6115-mdss.yaml
+> 
+> diff --git a/Documentation/devicetree/bindings/display/msm/qcom,sm6115-dpu.yaml b/Documentation/devicetree/bindings/display/msm/qcom,sm6115-dpu.yaml
+> new file mode 100644
+> index 000000000000..cc77675ec4f6
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/display/msm/qcom,sm6115-dpu.yaml
+> @@ -0,0 +1,87 @@
+> +# SPDX-License-Identifier: GPL-2.0-only or BSD-2-Clause
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/display/msm/qcom,sm6115-dpu.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: Qualcomm Display DPU dt properties for SM6115 target
+> +
+> +maintainers:
+> +  - Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> +
+> +$ref: /schemas/display/msm/dpu-common.yaml#
+> +
+> +properties:
+> +  compatible:
+> +    items:
+> +      - const: qcom,sm6115-dpu
+> +
+> +  reg:
+> +    items:
+> +      - description: Address offset and size for mdp register set
+> +      - description: Address offset and size for vbif register set
+> +
+> +  reg-names:
+> +    items:
+> +      - const: mdp
+> +      - const: vbif
+> +
+> +  clocks:
+> +    items:
+> +      - description: Display AXI clock from gcc
+> +      - description: Display AHB clock from dispcc
+> +      - description: Display core clock from dispcc
+> +      - description: Display lut clock from dispcc
+> +      - description: Display rotator clock from dispcc
+> +      - description: Display vsync clock from dispcc
+> +
+> +  clock-names:
+> +    items:
+> +      - const: bus
+> +      - const: iface
+> +      - const: core
+> +      - const: lut
+> +      - const: rot
+> +      - const: vsync
+> +
+> +unevaluatedProperties: false
+> +
+> +examples:
+> +  - |
+> +    #include <dt-bindings/clock/qcom,sm6115-dispcc.h>
+> +    #include <dt-bindings/clock/qcom,gcc-sm6115.h>
+> +    #include <dt-bindings/power/qcom-rpmpd.h>
+> +
+> +    display-controller@5e01000 {
+> +        compatible = "qcom,sm6115-dpu";
+> +        reg = <0x05e01000 0x8f000>,
+> +              <0x05eb0000 0x2008>;
+> +        reg-names = "mdp", "vbif";
+> +
+> +        clocks = <&gcc GCC_DISP_HF_AXI_CLK>,
+> +                 <&dispcc DISP_CC_MDSS_AHB_CLK>,
+> +                 <&dispcc DISP_CC_MDSS_MDP_CLK>,
+> +                 <&dispcc DISP_CC_MDSS_MDP_LUT_CLK>,
+> +                 <&dispcc DISP_CC_MDSS_ROT_CLK>,
+> +                 <&dispcc DISP_CC_MDSS_VSYNC_CLK>;
+> +        clock-names = "bus", "iface", "core", "lut", "rot", "vsync";
+> +
+> +        operating-points-v2 = <&mdp_opp_table>;
+> +        power-domains = <&rpmpd SM6115_VDDCX>;
+> +
+> +        interrupt-parent = <&mdss>;
+> +        interrupts = <0>;
+> +
+> +        ports {
+> +            #address-cells = <1>;
+> +            #size-cells = <0>;
+> +
+> +            port@0 {
+> +                reg = <0>;
+> +                endpoint {
+> +                    remote-endpoint = <&dsi0_in>;
+> +                };
+> +            };
+> +        };
+> +    };
+> +...
+> diff --git a/Documentation/devicetree/bindings/display/msm/qcom,sm6115-mdss.yaml b/Documentation/devicetree/bindings/display/msm/qcom,sm6115-mdss.yaml
+> new file mode 100644
+> index 000000000000..af721aa05b22
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/display/msm/qcom,sm6115-mdss.yaml
+> @@ -0,0 +1,187 @@
+> +# SPDX-License-Identifier: GPL-2.0-only or BSD-2-Clause
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/display/msm/qcom,sm6115-mdss.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: Qualcomm SM6115 Display MDSS
+> +
+> +maintainers:
+> +  - Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> +
+> +description:
+> +  Device tree bindings for MSM Mobile Display Subsystem(MDSS) that encapsulates
+> +  sub-blocks like DPU display controller and DSI. Device tree bindings of MDSS
+> +  are mentioned for SM6115 target.
+> +
+> +$ref: /schemas/display/msm/mdss-common.yaml#
+> +
+> +properties:
+> +  compatible:
+> +    items:
+> +      - const: qcom,sm6115-mdss
+> +
+> +  clocks:
+> +    items:
+> +      - description: Display AHB clock from gcc
+> +      - description: Display AXI clock
+> +      - description: Display core clock
+> +
+> +  clock-names:
+> +    items:
+> +      - const: iface
+> +      - const: bus
+> +      - const: core
 
-Add the HDMI display nodes and link it to DSI.
+I think you can drop clock-names from the MDSS node.
 
-Signed-off-by: Vinod Koul <vkoul@kernel.org>
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-Reviewed-by: Konrad Dybcio <konrad.dybcio@somainline.org>
-Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
----
- arch/arm64/boot/dts/qcom/sm8450-hdk.dts | 36 +++++++++++++++++++++++++
- 1 file changed, 36 insertions(+)
+> +
+> +  iommus:
+> +    maxItems: 2
+> +
+> +patternProperties:
+> +  "^display-controller@[0-9a-f]+$":
+> +    type: object
+> +    properties:
+> +      compatible:
+> +        const: qcom,sm6115-dpu
+> +
+> +  "^dsi@[0-9a-f]+$":
+> +    type: object
+> +    properties:
+> +      compatible:
+> +        const: qcom,dsi-ctrl-6g-qcm2290
+> +
+> +  "^phy@[0-9a-f]+$":
+> +    type: object
+> +    properties:
+> +      compatible:
+> +        const: qcom,dsi-phy-14nm-2290
+> +
+> +unevaluatedProperties: false
+> +
+> +examples:
+> +  - |
+> +    #include <dt-bindings/clock/qcom,sm6115-dispcc.h>
+> +    #include <dt-bindings/clock/qcom,gcc-sm6115.h>
+> +    #include <dt-bindings/clock/qcom,rpmcc.h>
+> +    #include <dt-bindings/interrupt-controller/arm-gic.h>
+> +    #include <dt-bindings/power/qcom-rpmpd.h>
+> +
+> +    mdss@5e00000 {
+> +        #address-cells = <1>;
+> +        #size-cells = <1>;
+> +        compatible = "qcom,sm6115-mdss";
+> +        reg = <0x05e00000 0x1000>;
+> +        reg-names = "mdss";
+> +        power-domains = <&dispcc MDSS_GDSC>;
+> +        clocks = <&gcc GCC_DISP_AHB_CLK>,
+> +                 <&gcc GCC_DISP_HF_AXI_CLK>,
+> +                 <&dispcc DISP_CC_MDSS_MDP_CLK>;
+> +        clock-names = "iface", "bus", "core";
+> +
+> +        interrupts = <GIC_SPI 186 IRQ_TYPE_LEVEL_HIGH>;
+> +        interrupt-controller;
+> +        #interrupt-cells = <1>;
+> +
+> +        iommus = <&apps_smmu 0x420 0x2>,
+> +                 <&apps_smmu 0x421 0x0>;
+> +        ranges;
+> +
+> +        display-controller@5e01000 {
+> +            compatible = "qcom,sm6115-dpu";
+> +            reg = <0x05e01000 0x8f000>,
+> +                  <0x05eb0000 0x2008>;
+> +            reg-names = "mdp", "vbif";
+> +
+> +            clocks = <&gcc GCC_DISP_HF_AXI_CLK>,
+> +                     <&dispcc DISP_CC_MDSS_AHB_CLK>,
+> +                     <&dispcc DISP_CC_MDSS_MDP_CLK>,
+> +                     <&dispcc DISP_CC_MDSS_MDP_LUT_CLK>,
+> +                     <&dispcc DISP_CC_MDSS_ROT_CLK>,
+> +                     <&dispcc DISP_CC_MDSS_VSYNC_CLK>;
+> +            clock-names = "bus", "iface", "core", "lut", "rot", "vsync";
+> +
+> +            operating-points-v2 = <&mdp_opp_table>;
+> +            power-domains = <&rpmpd SM6115_VDDCX>;
+> +
+> +            interrupt-parent = <&mdss>;
+> +            interrupts = <0>;
+> +
+> +            ports {
+> +                #address-cells = <1>;
+> +                #size-cells = <0>;
+> +
+> +                port@0 {
+> +                    reg = <0>;
+> +                    dpu_intf1_out: endpoint {
+> +                        remote-endpoint = <&dsi0_in>;
+> +                    };
+> +                };
+> +            };
+> +        };
+> +
+> +        dsi@5e94000 {
+> +            compatible = "qcom,dsi-ctrl-6g-qcm2290";
+> +            reg = <0x05e94000 0x400>;
+> +            reg-names = "dsi_ctrl";
+> +
+> +            interrupt-parent = <&mdss>;
+> +            interrupts = <4>;
+> +
+> +            clocks = <&dispcc DISP_CC_MDSS_BYTE0_CLK>,
+> +                     <&dispcc DISP_CC_MDSS_BYTE0_INTF_CLK>,
+> +                     <&dispcc DISP_CC_MDSS_PCLK0_CLK>,
+> +                     <&dispcc DISP_CC_MDSS_ESC0_CLK>,
+> +                     <&dispcc DISP_CC_MDSS_AHB_CLK>,
+> +                     <&gcc GCC_DISP_HF_AXI_CLK>;
+> +            clock-names = "byte",
+> +                          "byte_intf",
+> +                          "pixel",
+> +                          "core",
+> +                          "iface",
+> +                          "bus";
+> +            assigned-clocks = <&dispcc DISP_CC_MDSS_BYTE0_CLK_SRC>, <&dispcc DISP_CC_MDSS_PCLK0_CLK_SRC>;
+> +            assigned-clock-parents = <&dsi0_phy 0>, <&dsi0_phy 1>;
+> +
+> +            operating-points-v2 = <&dsi_opp_table>;
+> +            power-domains = <&rpmpd SM6115_VDDCX>;
+> +            phys = <&dsi0_phy>;
+> +            phy-names = "dsi";
+> +
+> +            #address-cells = <1>;
+> +            #size-cells = <0>;
+> +
+> +            ports {
+> +                #address-cells = <1>;
+> +                #size-cells = <0>;
+> +
+> +                port@0 {
+> +                    reg = <0>;
+> +                    dsi0_in: endpoint {
+> +                        remote-endpoint = <&dpu_intf1_out>;
+> +                    };
+> +                };
+> +
+> +                port@1 {
+> +                    reg = <1>;
+> +                    dsi0_out: endpoint {
+> +                    };
+> +                };
+> +            };
+> +        };
+> +
+> +        dsi0_phy: phy@5e94400 {
+> +            compatible = "qcom,dsi-phy-14nm-2290";
+> +            reg = <0x05e94400 0x100>,
+> +                  <0x05e94500 0x300>,
+> +                  <0x05e94800 0x188>;
+> +            reg-names = "dsi_phy",
+> +                        "dsi_phy_lane",
+> +                        "dsi_pll";
+> +
+> +            #clock-cells = <1>;
+> +            #phy-cells = <0>;
+> +
+> +            clocks = <&dispcc DISP_CC_MDSS_AHB_CLK>, <&rpmcc RPM_SMD_XO_CLK_SRC>;
+> +            clock-names = "iface", "ref";
+> +        };
+> +    };
+> +...
 
-diff --git a/arch/arm64/boot/dts/qcom/sm8450-hdk.dts b/arch/arm64/boot/dts/qcom/sm8450-hdk.dts
-index d1635c9de6f3..01f65a0e3ca1 100644
---- a/arch/arm64/boot/dts/qcom/sm8450-hdk.dts
-+++ b/arch/arm64/boot/dts/qcom/sm8450-hdk.dts
-@@ -20,6 +20,17 @@ chosen {
- 		stdout-path = "serial0:115200n8";
- 	};
- 
-+	hdmi-out {
-+		compatible = "hdmi-connector";
-+		type = "a";
-+
-+		port {
-+			hdmi_con: endpoint {
-+				remote-endpoint = <&lt9611_out>;
-+			};
-+		};
-+	};
-+
- 	lt9611_1v2: lt9611-vdd12-regulator {
- 		compatible = "regulator-fixed";
- 		regulator-name = "LT9611_1V2";
-@@ -393,6 +404,26 @@ lt9611_codec: hdmi-bridge@2b {
- 		pinctrl-names = "default";
- 		pinctrl-0 = <&lt9611_irq_pin &lt9611_rst_pin>;
- 
-+		ports {
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+
-+			port@0 {
-+				reg = <0>;
-+
-+				lt9611_a: endpoint {
-+					remote-endpoint = <&mdss_dsi0_out>;
-+				};
-+			};
-+
-+			port@2 {
-+				reg = <2>;
-+
-+				lt9611_out: endpoint {
-+					remote-endpoint = <&hdmi_con>;
-+				};
-+			};
-+		};
- 	};
- };
- 
-@@ -405,6 +436,11 @@ &mdss_dsi0 {
- 	status = "okay";
- };
- 
-+&mdss_dsi0_out {
-+	remote-endpoint = <&lt9611_a>;
-+	data-lanes = <0 1 2 3>;
-+};
-+
- &mdss_dsi0_phy {
- 	vdds-supply = <&vreg_l5b_0p88>;
- 	status = "okay";
 -- 
-2.35.1
+With best wishes
+Dmitry
 
