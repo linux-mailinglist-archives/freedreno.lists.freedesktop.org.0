@@ -2,56 +2,63 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 72B36637E61
-	for <lists+freedreno@lfdr.de>; Thu, 24 Nov 2022 18:39:32 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id CFB246381D7
+	for <lists+freedreno@lfdr.de>; Fri, 25 Nov 2022 01:02:27 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0E75F10E1DD;
-	Thu, 24 Nov 2022 17:39:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 65AA910E104;
+	Fri, 25 Nov 2022 00:02:23 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-il1-f182.google.com (mail-il1-f182.google.com
- [209.85.166.182])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D9AA310E162;
- Thu, 24 Nov 2022 17:39:27 +0000 (UTC)
-Received: by mail-il1-f182.google.com with SMTP id d12so1041479ilv.4;
- Thu, 24 Nov 2022 09:39:27 -0800 (PST)
+Received: from mail-lj1-x236.google.com (mail-lj1-x236.google.com
+ [IPv6:2a00:1450:4864:20::236])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A3A5E10E063
+ for <freedreno@lists.freedesktop.org>; Fri, 25 Nov 2022 00:02:17 +0000 (UTC)
+Received: by mail-lj1-x236.google.com with SMTP id q7so3463963ljp.9
+ for <freedreno@lists.freedesktop.org>; Thu, 24 Nov 2022 16:02:17 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=kgbhuavqT9sjFGfJG8BukwmDaC1jAhXZDZa+W9QfoOs=;
+ b=AttiVNDUP6q1hbgT3P7MqNSQtLZrHqsVnDdbXCUpoH/DRw81lKJ9U9TjW4yGE9iUhG
+ 91wZbIoMaKmXxQ1Ql9laxvr6gaMT8+86Zooaje0tdZ4QTgEHVNCet6CTPd8VlhIOfufQ
+ vatIj4lhmP7EfhkJnNVrzul4WxkWFZbYOtLuSEklG29QMTvFEW3zhjPXr6ij7GEqlclx
+ EFnoXc6WgZgv4NAyc0qKOxeLKrGsUxmEK7xJ9cMxVo5jVyGqtVuOXgSCfjBapJc8p+JL
+ OavrXMfI0gjhgGBJsRiij7X9VywYLZNGueOJeLy22DV5GCHqv1dtiqBgHKAZBKu4ixsP
+ tMQA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=date:subject:message-id:references:in-reply-to:cc:to:from
- :mime-version:content-transfer-encoding:x-gm-message-state:from:to
- :cc:subject:date:message-id:reply-to;
- bh=GUtAsbJjtVstvd/b0ZGms/6XAruxEAzhFNxybJwuAKI=;
- b=MyxI/M6KeLFhUcENaD3HldesHB8H6iBzw9URcpF11jkB9+nEXImIq9J9wfL+8foj2g
- jfSJW2hZWfNIGUE5TKZK2uPFq3WmBDbsFFGo9dC8omJ2Q5j2MirjRwyULmNSbQ5Vnz+H
- z3maaGFLxns8NGgBZjM/nBZwAPGhaK5sCLac5mZpyWVlFyHwCpN4KJ+pOlulRh2DTpWn
- 4UFfOJQJamHN7NPHYqDRb1M6chw3zB4yptBEmsBElimlOxXPNJhL4MiKf5EW+dNiDCvI
- rOr87lLGkg9QRjGlqaV3W64OezEegjMqqn2j7a06E3Hghm1hUjlszRa20T7ajL7qjbl4
- h4Wg==
-X-Gm-Message-State: ANoB5pkSDEw5BeuQXvTwjvaPLKZQkW1wtwc+FJWQlS0RTtSc1WHBl/w8
- afujj5gbfzKhsBLkirhiXA==
-X-Google-Smtp-Source: AA0mqf5LnzuB0Q7FUVU6kDolp5fz6a9D/ptnXBsEj4VJRjUHp9cPfRVI5EbQBTT+LdQ+G2TVumuDcw==
-X-Received: by 2002:a05:6e02:1d17:b0:302:9392:5a01 with SMTP id
- i23-20020a056e021d1700b0030293925a01mr6314525ila.268.1669311566801; 
- Thu, 24 Nov 2022 09:39:26 -0800 (PST)
-Received: from robh_at_kernel.org ([64.188.179.252])
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=kgbhuavqT9sjFGfJG8BukwmDaC1jAhXZDZa+W9QfoOs=;
+ b=PsQ9DkUES16kZ4R00hl5c+10gAuHXzuu2x1A3W7ePRCEwxNrGDwekqZEpHGXWlXYM9
+ 5q88XDqJBuZRbHVP677YjQf7UVGAsZDufytRXNhWPI3fjsSeZaQHtnKHPtKHLuGQQFdY
+ LQ8WEmRsXYuM4/vJLFx3OX33+Hc/meFoi89pbLYSW/zdQOi62WWwv8E7FDqYNDzjZO8o
+ OBZQs7/sKr4LmboqLLuPd7jupLV3h+dhBfPaS55tTcDisgIG/pCB7tRX2aFdYDvmvq5L
+ qB3tGruygm/sdv2hcMl0KwJlPuIED8rVzLRxML4l3UJVsiBsupHgl5CumocGfg+aWuia
+ 28ig==
+X-Gm-Message-State: ANoB5plOCBYA2V5/MgyN3DQgxxFJgCDp+WGcFY3+ivP83JWE0qROdqSi
+ pmLt5j/k1FiCfONByw4jkg7iug==
+X-Google-Smtp-Source: AA0mqf6OFOdHi5pJvaT0uHSnNXd+1KRmGHNzFVp7W64gh0yMz+Di3gBC2VTSNSsqns9Xj8BY9iMqHg==
+X-Received: by 2002:a2e:9615:0:b0:278:e939:4eca with SMTP id
+ v21-20020a2e9615000000b00278e9394ecamr10519315ljh.95.1669334535428; 
+ Thu, 24 Nov 2022 16:02:15 -0800 (PST)
+Received: from eriador.lumag.spb.ru
+ (dzpy175yyyyyyyyyyyyyt-3.rev.dnainternet.fi. [2001:14ba:a301:5de4::1])
  by smtp.gmail.com with ESMTPSA id
- s193-20020a0251ca000000b00375b5370314sm617539jaa.62.2022.11.24.09.39.25
+ b23-20020ac247f7000000b004aa95889063sm293806lfp.43.2022.11.24.16.02.14
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 24 Nov 2022 09:39:26 -0800 (PST)
-Received: (nullmailer pid 4182339 invoked by uid 1000);
- Thu, 24 Nov 2022 17:39:27 -0000
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+ Thu, 24 Nov 2022 16:02:14 -0800 (PST)
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+To: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>
+Date: Fri, 25 Nov 2022 02:02:13 +0200
+Message-Id: <20221125000213.252115-1-dmitry.baryshkov@linaro.org>
+X-Mailer: git-send-email 2.35.1
 MIME-Version: 1.0
-From: Rob Herring <robh@kernel.org>
-To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-In-Reply-To: <20221124004801.361232-5-bryan.odonoghue@linaro.org>
-References: <20221124004801.361232-1-bryan.odonoghue@linaro.org>
- <20221124004801.361232-5-bryan.odonoghue@linaro.org>
-Message-Id: <166930149919.3946571.17568259975526028936.robh@kernel.org>
-Date: Thu, 24 Nov 2022 11:39:27 -0600
-Subject: Re: [Freedreno] [PATCH v3 04/18] dt-bindings: msm:
- dsi-controller-main: Add compatible strings for every current SoC
+Content-Transfer-Encoding: 8bit
+Subject: [Freedreno] [PATCH] drm/msm/mdp5: fix reading hw revision on db410c
+ platform
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,67 +71,69 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: devicetree@vger.kernel.org, krzysztof.kozlowski+dt@linaro.org,
- quic_abhinavk@quicinc.com, airlied@gmail.com, konrad.dybcio@somainline.org,
- freedreno@lists.freedesktop.org, dianders@chromium.org, david@ixit.cz,
- linux-kernel@vger.kernel.org, robh+dt@kernel.org, robdclark@gmail.com,
- agross@kernel.org, dri-devel@lists.freedesktop.org, daniel@ffwll.ch,
- linux-arm-msm@vger.kernel.org, dmitry.baryshkov@linaro.org,
- swboyd@chromium.org, sean@poorly.run, andersson@kernel.org
+Cc: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
+ Bjorn Andersson <andersson@kernel.org>, dri-devel@lists.freedesktop.org,
+ Stephen Boyd <swboyd@chromium.org>, Daniel Vetter <daniel@ffwll.ch>,
+ David Airlie <airlied@gmail.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
+Since the commit commit c6122688f265 ("drm/msm/mdp5: stop overriding
+drvdata") reading the MDP5 hw revision on db410c will crash the board
+as the MDSS_GDSC is not enabled. Revert a part of the offending commit
+(moving rpm enablement) and set priv->kms earlier. This make it possible
+to use pm_runtime_get_sync() during read_mdp_hw_revision(), which will
+power up both the MDP5 and MDSS devices.
 
-On Thu, 24 Nov 2022 00:47:47 +0000, Bryan O'Donoghue wrote:
-> Currently we do not differentiate between the various users of the
-> qcom,mdss-dsi-ctrl. The driver is flexible enough to operate from one
-> compatible string but, the hardware does have some significant differences
-> in the number of clocks.
-> 
-> To facilitate documenting the clocks add the following compatible strings
-> 
-> - qcom,apq8064-dsi-ctrl
-> - qcom,msm8916-dsi-ctrl
-> - qcom,msm8974-dsi-ctrl
-> - qcom,msm8996-dsi-ctrl
-> - qcom,sc7180-dsi-ctrl
-> - qcom,sc7280-dsi-ctrl
-> - qcom,sdm630-dsi-ctrl
-> - qcom,sdm660-dsi-ctrl
-> - qcom,sdm845-dsi-ctrl
-> - qcom,sm8250-dsi-ctrl
-> 
-> Each SoC dtsi should declare "qcom,socname-dsi-ctrl", "qcom,mdss-dsi-ctrl";
-> 
-> Signed-off-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-> ---
->  .../display/msm/dsi-controller-main.yaml        | 17 ++++++++++++++---
->  1 file changed, 14 insertions(+), 3 deletions(-)
-> 
+Fixes: c6122688f265 ("drm/msm/mdp5: stop overriding drvdata")
+Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+---
+ drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c | 17 ++++++++---------
+ 1 file changed, 8 insertions(+), 9 deletions(-)
 
-My bot found errors running 'make DT_CHECKER_FLAGS=-m dt_binding_check'
-on your patch (DT_CHECKER_FLAGS is new in v5.13):
-
-yamllint warnings/errors:
-
-dtschema/dtc warnings/errors:
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/dsi-controller-main.example.dtb: dsi@ae94000: compatible:0: 'qcom,mdss-dsi-ctrl' is not one of ['qcom,apq8064-dsi-ctrl', 'qcom,msm8916-dsi-ctrl', 'qcom,msm8974-dsi-ctrl', 'qcom,msm8996-dsi-ctrl', 'qcom,qcm2290-dsi-ctrl', 'qcom,sc7180-dsi-ctrl', 'qcom,sc7280-dsi-ctrl', 'qcom,sdm630-dsi-ctrl', 'qcom,sdm660-dsi-ctrl', 'qcom,sdm845-dsi-ctrl', 'qcom,sm8250-dsi-ctrl']
-	From schema: /builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/dsi-controller-main.yaml
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/dsi-controller-main.example.dtb: dsi@ae94000: compatible: ['qcom,mdss-dsi-ctrl'] is too short
-	From schema: /builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/dsi-controller-main.yaml
-
-doc reference errors (make refcheckdocs):
-
-See https://patchwork.ozlabs.org/project/devicetree-bindings/patch/20221124004801.361232-5-bryan.odonoghue@linaro.org
-
-This check can fail if there are any dependencies. The base for a patch
-series is generally the most recent rc1.
-
-If you already ran 'make dt_binding_check' and didn't see the above
-error(s), then make sure 'yamllint' is installed and dt-schema is up to
-date:
-
-pip3 install dtschema --upgrade
-
-Please check and re-submit after running the above command.
+diff --git a/drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c b/drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c
+index b46f983f2b46..29ae5c9613f3 100644
+--- a/drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c
++++ b/drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c
+@@ -519,10 +519,9 @@ static void read_mdp_hw_revision(struct mdp5_kms *mdp5_kms,
+ 	struct device *dev = &mdp5_kms->pdev->dev;
+ 	u32 version;
+ 
+-	/* Manually enable the MDP5, as pm runtime isn't usable yet. */
+-	mdp5_enable(mdp5_kms);
++	pm_runtime_get_sync(dev);
+ 	version = mdp5_read(mdp5_kms, REG_MDP5_HW_VERSION);
+-	mdp5_disable(mdp5_kms);
++	pm_runtime_put_sync(dev);
+ 
+ 	*major = FIELD(version, MDP5_HW_VERSION_MAJOR);
+ 	*minor = FIELD(version, MDP5_HW_VERSION_MINOR);
+@@ -839,6 +838,12 @@ static int mdp5_init(struct platform_device *pdev, struct drm_device *dev)
+ 	 */
+ 	clk_set_rate(mdp5_kms->core_clk, 200000000);
+ 
++	/* set uninit-ed kms */
++	priv->kms = &mdp5_kms->base.base;
++
++	pm_runtime_enable(&pdev->dev);
++	mdp5_kms->rpm_enabled = true;
++
+ 	read_mdp_hw_revision(mdp5_kms, &major, &minor);
+ 
+ 	mdp5_kms->cfg = mdp5_cfg_init(mdp5_kms, major, minor);
+@@ -887,12 +892,6 @@ static int mdp5_init(struct platform_device *pdev, struct drm_device *dev)
+ 	if (ret)
+ 		goto fail;
+ 
+-	/* set uninit-ed kms */
+-	priv->kms = &mdp5_kms->base.base;
+-
+-	pm_runtime_enable(&pdev->dev);
+-	mdp5_kms->rpm_enabled = true;
+-
+ 	return 0;
+ fail:
+ 	if (mdp5_kms)
+-- 
+2.35.1
 
