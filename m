@@ -1,56 +1,56 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7121E6397C7
-	for <lists+freedreno@lfdr.de>; Sat, 26 Nov 2022 19:59:16 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 2E6AF6397CE
+	for <lists+freedreno@lfdr.de>; Sat, 26 Nov 2022 19:59:32 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 73F4410E159;
-	Sat, 26 Nov 2022 18:59:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 844FC10E15B;
+	Sat, 26 Nov 2022 18:59:30 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x12c.google.com (mail-lf1-x12c.google.com
- [IPv6:2a00:1450:4864:20::12c])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D2A0110E159
- for <freedreno@lists.freedesktop.org>; Sat, 26 Nov 2022 18:59:08 +0000 (UTC)
-Received: by mail-lf1-x12c.google.com with SMTP id u27so505429lfc.9
- for <freedreno@lists.freedesktop.org>; Sat, 26 Nov 2022 10:59:08 -0800 (PST)
+Received: from mail-lf1-x12e.google.com (mail-lf1-x12e.google.com
+ [IPv6:2a00:1450:4864:20::12e])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 47DC710E15A
+ for <freedreno@lists.freedesktop.org>; Sat, 26 Nov 2022 18:59:18 +0000 (UTC)
+Received: by mail-lf1-x12e.google.com with SMTP id g12so11538763lfh.3
+ for <freedreno@lists.freedesktop.org>; Sat, 26 Nov 2022 10:59:18 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :from:to:cc:subject:date:message-id:reply-to;
- bh=er4AsguWaCVLCPaCC8qHTQyTFYIRisL3iymu/a9XzeQ=;
- b=ma5RLRn8Rh9XM0IxVM5st+yHs8WdgVUKclfDsiDkq7eCkuATcELlG4VRGdzLo6sm2G
- uFtosykVKUoP4njrClBqVsgTvm7z3pLioXR3CcH5ru/XfsSOG1REtZCqH0rHUIkgFXnk
- Tem5scUEc4VNmR+aXB6CUikIFneyL8TlYNccGnZaf140Cpi1tZKxmK+tLc4ReHPUo/nl
- NlIIjv5t+Cxbm+JJP+K9XMCESmvTeLSyjxLGRbOm0/EM6sO0gaCUEKjfCpWCb0mvvq6Q
- qgKuvev5v5fgxlKJvqQhSJY5DVYkEqPqqQwXxoGnAOIsCXNQ8iJIrIMlOiBZakoNyTxc
- h/RA==
+ bh=9dPNvqf/nW/Gl7aRq2n+ie1oFu43zgJVOTcJXhFlCP4=;
+ b=gfd+al0NKAYkhHejNHt4tGjHFPyPvShABp+kCQ8jvDoBkxmXgKqaDieUr7U+ch9jip
+ L2GMwi07CTqA/XKFWt1Qwv8ytUFeXFi0I6zXw706W+i4koDxfL6cOiC96BWW8fc5uB3M
+ pEGdoLnSDYR1BXmpjYlkneXn9gFnVjrSZD8ypSeZcgTTzhU+oa/yZl2wnQ/eKhrAGFxD
+ dnbmzhQsfWwf0f0a1044K32Jtkq+5aFqcxiY4l/BA5W7BETRw5PIW7QCw6K9tlRjXf9c
+ KhZ30ntZCS1uTx/t0QVznNDaV9Oq5Zw8wIA6nmhD2egkWZkOQdBipGmxaaptELUGJt83
+ WIBQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=er4AsguWaCVLCPaCC8qHTQyTFYIRisL3iymu/a9XzeQ=;
- b=7MS2i/11p8xshVdup9Q9MxZ+xIOp38izte9livYiQE2fjx6RijPqWTaAyJhGRd4kTn
- P/hvVm5D3kLuyc9O3zGqzoLDYh/1EZ77Jucr9rU4YIHrrB/PRt+qKYqRkWEpV3wXD899
- D/6SQCxOEQa3xMBhmqA4tvgVzO9NkrJ/ZXJ5M+c2xVhjjxf1lC73K4T9A1wUDWZyDf9L
- +7sdutfGGDzBRJbn5N7Uz+WRiu4godh/SYi+InKNRwX1MWls6seiOndqKUsHuGJlis6i
- wp95se+z/TwlaeNWaCHJZbHVh87EXQkKpdBFYw2VP+OMtCxBk5bSf8GgekF7sSnADqXE
- NT9Q==
-X-Gm-Message-State: ANoB5pnSOmKvYhO6Esao72u9y/ClhHzZYFA/rTiPuzHyNT8OWJc11aGn
- wHv6SXvimE8a4vFZyxMTyxG/mA==
-X-Google-Smtp-Source: AA0mqf7iPaJzB/3B4H5X+5nP1/A2zhsLLWNvT+/MERr3nL41JIjU/Ao9sKFPloBHutd/jbipKRPIJQ==
-X-Received: by 2002:ac2:4216:0:b0:4b4:a5b5:1a04 with SMTP id
- y22-20020ac24216000000b004b4a5b51a04mr14515913lfh.142.1669489148415; 
- Sat, 26 Nov 2022 10:59:08 -0800 (PST)
+ bh=9dPNvqf/nW/Gl7aRq2n+ie1oFu43zgJVOTcJXhFlCP4=;
+ b=2ywkqRDQ4nslBvZag7ezvUrJxS2dECa9YpoY/BjPhjgi+5CgvtTzP7HeyJaGpNJAPD
+ vVGew2mtn9639Rf/bUZklQ/DaFHIiuLij1W/Bobs88zfACawjmTpBMF2Y/WgLf7ln3Vd
+ XgGRcNGLgBRRRJ/plKxS6iJTWhxxl84bU13LjNMSbx8TLuSv2B4JYlDAydVb64n63yGt
+ QsR3uJ1BfUww7gKyzcZ+ytND2KfXVUCYQPfBQ0kdmrfxDM0NTZqx2Uxkgc1+09UpRpaN
+ byPKWTmulicsReMupbUmgAnC3BpnGxPyZoWa83v/aT2JaD2S0fYZt+ahQ3rXMbdtIU+h
+ OVxg==
+X-Gm-Message-State: ANoB5pnwRrM9sFE+1EDli6fpk2lvlV9rfqmRmUHjB42+U9yNrqiFnZio
+ ION2Z6tgKKBd57DJzbFOfBQveA==
+X-Google-Smtp-Source: AA0mqf7dtJSa1X6rpHx8sJKrn3MVILRRe3MDDJBNhKwyPFRmZtKaAjIvKABpV4rjdL+t4mvK2Nl6AA==
+X-Received: by 2002:a05:6512:2242:b0:4b4:b6b2:aad with SMTP id
+ i2-20020a056512224200b004b4b6b20aadmr8607501lfu.543.1669489156645; 
+ Sat, 26 Nov 2022 10:59:16 -0800 (PST)
 Received: from [192.168.1.8] ([185.24.52.156])
  by smtp.gmail.com with ESMTPSA id
- x41-20020a2ea9a9000000b0027781448499sm732306ljq.85.2022.11.26.10.59.07
+ bi26-20020a0565120e9a00b004b4b0a68f67sm1004708lfb.185.2022.11.26.10.59.15
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sat, 26 Nov 2022 10:59:08 -0800 (PST)
-Message-ID: <cbc3b4a9-e199-3a72-e4d8-e65bfa9c7e43@linaro.org>
-Date: Sat, 26 Nov 2022 20:59:07 +0200
+ Sat, 26 Nov 2022 10:59:16 -0800 (PST)
+Message-ID: <b3143072-6af0-de26-402c-5cf93918145a@linaro.org>
+Date: Sat, 26 Nov 2022 20:59:15 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.5.0
@@ -59,13 +59,13 @@ To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
  linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
  devicetree@vger.kernel.org
 References: <20221125123638.823261-1-bryan.odonoghue@linaro.org>
- <20221125123638.823261-11-bryan.odonoghue@linaro.org>
+ <20221125123638.823261-12-bryan.odonoghue@linaro.org>
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-In-Reply-To: <20221125123638.823261-11-bryan.odonoghue@linaro.org>
+In-Reply-To: <20221125123638.823261-12-bryan.odonoghue@linaro.org>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH v4 10/18] ARM: dts: qcom: msm8974: Add
- compat qcom, msm8974-dsi-ctrl
+Subject: Re: [Freedreno] [PATCH v4 11/18] arm64: dts: qcom: msm8916: Add
+ compat qcom, msm8916-dsi-ctrl
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -87,13 +87,13 @@ Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 On 25/11/2022 14:36, Bryan O'Donoghue wrote:
-> Add silicon specific compatible qcom,msm8974-dsi-ctrl to the
+> Add silicon specific compatible qcom,msm8916-dsi-ctrl to the
 > mdss-dsi-ctrl block. This allows us to differentiate the specific bindings
-> for msm8974 against the yaml documentation.
+> for msm8916 against the yaml documentation.
 > 
 > Signed-off-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
 > ---
->   arch/arm/boot/dts/qcom-msm8974.dtsi | 3 ++-
+>   arch/arm64/boot/dts/qcom/msm8916.dtsi | 3 ++-
 >   1 file changed, 2 insertions(+), 1 deletion(-)
 
 Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
