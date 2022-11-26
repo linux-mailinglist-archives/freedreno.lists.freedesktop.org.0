@@ -1,72 +1,73 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 087D263969E
-	for <lists+freedreno@lfdr.de>; Sat, 26 Nov 2022 15:46:35 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id D8FFB63978F
+	for <lists+freedreno@lfdr.de>; Sat, 26 Nov 2022 19:09:04 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A494410E14B;
-	Sat, 26 Nov 2022 14:46:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7896010E121;
+	Sat, 26 Nov 2022 18:09:02 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-x229.google.com (mail-lj1-x229.google.com
- [IPv6:2a00:1450:4864:20::229])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1D63510E150
- for <freedreno@lists.freedesktop.org>; Sat, 26 Nov 2022 14:46:31 +0000 (UTC)
-Received: by mail-lj1-x229.google.com with SMTP id j2so5685196ljg.10
- for <freedreno@lists.freedesktop.org>; Sat, 26 Nov 2022 06:46:31 -0800 (PST)
+Received: from mail-wr1-x430.google.com (mail-wr1-x430.google.com
+ [IPv6:2a00:1450:4864:20::430])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 18B6D10E06A
+ for <freedreno@lists.freedesktop.org>; Sat, 26 Nov 2022 18:08:58 +0000 (UTC)
+Received: by mail-wr1-x430.google.com with SMTP id cl5so10951634wrb.9
+ for <freedreno@lists.freedesktop.org>; Sat, 26 Nov 2022 10:08:58 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :from:to:cc:subject:date:message-id:reply-to;
- bh=6cZq8OT8F2u1G+4KG5gAMpwVp5A0HMoWu/Eqh8dw+/I=;
- b=O/f4KfYlk4WCT/fyRp+lpMRV2476Va8uYDvN74Dii3D2KJinIBhs0Gw9QTEW898DI+
- OBNZr3b9HiW8hk/34tqUR0bdke9WGmA8/cnQ6HL+XoOkT/N6VKwA+GX17LCzNjZzTsUS
- cp7zcm1rguf4JKlilXLNBPA8UYruJpz2BdenOFaTqps8YIQQ6f/TR2tSiUJSiQSwEWq0
- 7mTTMtYIuraGbbGGWDXOWz3j1Uz/8hRHW8jfRvCBABRDT9MmaHH/umQENZciqdJP2uF+
- EVpH0/z1W2RdNudceST+0Lok3UaGNMgZkxNzuzS+Y8vDesoXbUjBRNOKN4eKX6dbrHrD
- r54g==
+ bh=14HxlRV+SCHhU12Rhd+agDyzR52gxT5y8aPZsUnVBcQ=;
+ b=JSUOpnXVUL/GtjGB+U5r8O3XJS4oO27vbjQDsLdJ/FGIJwOWh64sgz7OetrwgWMst1
+ KrwUMvbwqF2PHIhNvMwFnwMJwvCh5oCq9NeTbMC0koYwiyCcUMUfFWMoNBgWQWIi2JbK
+ KclHHIy1Bl2rI4igM/+Z0pkMB2rCxdjNgOr/NllrCeUSiSA+YGceRa5Z76k6Buc4lU5u
+ y5iNQcvrw2ImTH9iCOLtAwOCuuuWrS2+AYNeNdF3amFmXCsGGX0GM01XcoyI6loLInRP
+ uVsBJMKKeKn2nDwhkRwsy/Ba4ft5IAxbKs8jRxMXRKnmlbHVpo0zW8c/PPvtVotGuUlC
+ U8Tg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=6cZq8OT8F2u1G+4KG5gAMpwVp5A0HMoWu/Eqh8dw+/I=;
- b=EnN1z/+0ptKkZ5gDDOO+9r7fq47DxamkuZmbOzwXbUwhMq6nKeVqfwSUGDAJIXg0aL
- Mfa3IktlXiNp/ei9afBRDf9UuBuCr1yZ+iBFATFXLy21uU3hPTU+uVIuTfMZ43Vw2MZt
- GpXH+ilVuQ+MQSsmw/Q1sUKU5p3JdXd6eOX7dVa9Yq3m55Fbyrnk9MeTrQ3QRZTS3VHz
- F96g2VNwnGF20j8W0h+hH65NWjV7sTdfWeBB+r/xdlParQnWe/qW+qoo2CSNcxDopN28
- ISKPWiVAY3DvX7UB5/kYwCvfH/1R9evEiNIXoj31SkGxQKTuXciMZtrkbIMrjXKWLjoL
- g4Xg==
-X-Gm-Message-State: ANoB5pnU5pjLN3l1+BhafMdLRHEuF2OEZDohMY9t+ZUtJqNCTRxqMyiw
- SwGGnbtx2o/7zjUEzn8jLwbLvw==
-X-Google-Smtp-Source: AA0mqf7l3fakUd44VH4Y1atC95rlxJUi7tt32oesGR4CbTxFRdKiko9XXZCSiCq5OA1bGwKmQYKjyA==
-X-Received: by 2002:a2e:3a1a:0:b0:278:f073:d3c0 with SMTP id
- h26-20020a2e3a1a000000b00278f073d3c0mr15168000lja.357.1669473989436; 
- Sat, 26 Nov 2022 06:46:29 -0800 (PST)
-Received: from [192.168.0.20]
- (088156142067.dynamic-2-waw-k-3-2-0.vectranet.pl. [88.156.142.67])
+ bh=14HxlRV+SCHhU12Rhd+agDyzR52gxT5y8aPZsUnVBcQ=;
+ b=fPoqS2hsHFqyLLL6EfC2DSQXQRux0Shyd0YjGHvareK0cAjhqapLOSO0PiF1/v2x/I
+ Ff8arJ4h1qfkLLg6hpuM5tmFrmRm7w80etK9crropDXrcOXvbI1TLYtcYliiSZ5BKrvQ
+ JNKTX5r1PvApGNwIJ7M0sr9II1d0VxZKpwKpH0xBHRx1u9DAPu8SR/c8m4/A/8IqCD3X
+ 6IwGIgOFsx7xXCsmCIw9LVqyZmOWjOsR/+naHkdkACVFOPPOqeeON41ZwxFyCJ67D4zd
+ gBC+VYkOInG4EXN8Url17rvc01gHSrYxpPy+YsA5EGIBbCwVpkq2dxRSRH2u9OwhtKzr
+ UPRg==
+X-Gm-Message-State: ANoB5pnSgeCRgVVXgf7BtRLGIlm59rNYGXR6s9/WXNyKjOpXrx5rKbXj
+ 8gmths1QkRXUK0ipTLZ3Ro7rJw==
+X-Google-Smtp-Source: AA0mqf46lNLHAVNwE5GbJ272Q83inWMEqFqLSYa4pDcNM0EpPB/YRth9LRxuNf6zHFVz4J8/8Pl5fQ==
+X-Received: by 2002:a05:6000:886:b0:241:b933:34a1 with SMTP id
+ ca6-20020a056000088600b00241b93334a1mr17565403wrb.550.1669486137356; 
+ Sat, 26 Nov 2022 10:08:57 -0800 (PST)
+Received: from [192.168.0.162] (188-141-3-169.dynamic.upc.ie. [188.141.3.169])
  by smtp.gmail.com with ESMTPSA id
- b12-20020a05651c032c00b0027741daec09sm643691ljp.107.2022.11.26.06.46.28
+ l11-20020a5d668b000000b00241bc4880fesm6383609wru.111.2022.11.26.10.08.55
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sat, 26 Nov 2022 06:46:29 -0800 (PST)
-Message-ID: <b3a9f5e2-56ca-b112-e0f5-563404dcb05e@linaro.org>
-Date: Sat, 26 Nov 2022 15:46:27 +0100
+ Sat, 26 Nov 2022 10:08:56 -0800 (PST)
+Message-ID: <26f9ff51-b6ee-5d2b-fc8b-93f7778d99a4@linaro.org>
+Date: Sat, 26 Nov 2022 18:08:55 +0000
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.5.0
+ Thunderbird/102.4.2
 Content-Language: en-US
-To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
  linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
  devicetree@vger.kernel.org
 References: <20221124004801.361232-1-bryan.odonoghue@linaro.org>
- <20221124004801.361232-9-bryan.odonoghue@linaro.org>
-From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-In-Reply-To: <20221124004801.361232-9-bryan.odonoghue@linaro.org>
-Content-Type: text/plain; charset=UTF-8
+ <20221124004801.361232-4-bryan.odonoghue@linaro.org>
+ <4fd1500d-e3ca-45fd-1cc8-81783697b809@linaro.org>
+From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+In-Reply-To: <4fd1500d-e3ca-45fd-1cc8-81783697b809@linaro.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH v3 08/18] dt-bindings: msm:
- dsi-controller-main: Add vdd* descriptions back in
+Subject: Re: [Freedreno] [PATCH v3 03/18] dt-bindings: msm:
+ dsi-controller-main: Rename qcom, dsi-ctrl-6g-qcm2290 to qcom,
+ qcm2290-dsi-ctrl
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -88,57 +89,13 @@ Cc: dri-devel@lists.freedesktop.org, krzysztof.kozlowski+dt@linaro.org,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 24/11/2022 01:47, Bryan O'Donoghue wrote:
-> When converting from .txt to .yaml we didn't include descriptions for the
-> existing regulator supplies.
+On 26/11/2022 14:36, Krzysztof Kozlowski wrote:
+> That's a bit surprising. Did we discuss it? It breaks the ABI, so I
+> doubt (driver/bindings were already upstreamed).
 > 
-> - vdd
-> - vdda
-> - vddio
-> 
-> Add those descriptions into the yaml now as they were prior to the
-> conversion. In the .txt description we marked these regulators as required,
-> however, that requirement appears to have been in error.
-> 
-> Taking the example of sc7180-trogdor-wormdingler.dtsi. The avdd and avee
-> come from GPIO controlled external regulators, not the SoC and in this case
-> there's no need for vddio to power an I/O bus. Similarly the regulators for
-> the LCD are controlled by the panel driver not by the dsi-ctrl driver.
-> 
-> It would be possible to connect a different type of panel to the DSI bus
-> here in which case we may or may not want to make use of vdd, vdda or
-> vddio.
-> 
-> This is also the case for older chipsets like apq8064, msm8916 etc the vdd*
-> regulators in the dsi-ctrl block are helpers not dependencies.
-> 
-> Add the description of vdd, vdda and vddio back in for the existing
-> upstream dts where vdd, vdda or vddio are already declared but, don't
-> declare those regulators required - they are not SoC requirements.
-> 
-> Fixes: 4dbe55c97741 ("dt-bindings: msm: dsi: add yaml schemas for DSI bindings")
-> Signed-off-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-> ---
->  .../bindings/display/msm/dsi-controller-main.yaml    | 12 ++++++++++++
->  1 file changed, 12 insertions(+)
-> 
-> diff --git a/Documentation/devicetree/bindings/display/msm/dsi-controller-main.yaml b/Documentation/devicetree/bindings/display/msm/dsi-controller-main.yaml
-> index 0fbb0c04f4b06..bcbcbdca1a78a 100644
-> --- a/Documentation/devicetree/bindings/display/msm/dsi-controller-main.yaml
-> +++ b/Documentation/devicetree/bindings/display/msm/dsi-controller-main.yaml
-> @@ -133,6 +133,18 @@ properties:
->        - port@0
->        - port@1
->  
-> +  vdd-supply:
-> +    description:
-> +      vdd regulator device node
+> Best regards,
+> Krzysztof
 
-I see my comment was not really implemented. I asked:
-1. vdd->VDD
-2. Drop "device node". It's not a device node. It's a VDD regulator.
+We did discuss it but, apparently didn't grep it.
 
-
-Best regards,
-Krzysztof
-
+I'll drop this
