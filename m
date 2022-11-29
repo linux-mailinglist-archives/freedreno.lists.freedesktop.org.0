@@ -1,73 +1,61 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 69E1063C8DE
-	for <lists+freedreno@lfdr.de>; Tue, 29 Nov 2022 20:59:24 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id A956D63C98F
+	for <lists+freedreno@lfdr.de>; Tue, 29 Nov 2022 21:47:09 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F3CF810E367;
-	Tue, 29 Nov 2022 19:59:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7C58410E3E2;
+	Tue, 29 Nov 2022 20:47:00 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-x22f.google.com (mail-lj1-x22f.google.com
- [IPv6:2a00:1450:4864:20::22f])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 142DF10E35D
- for <freedreno@lists.freedesktop.org>; Tue, 29 Nov 2022 19:59:12 +0000 (UTC)
-Received: by mail-lj1-x22f.google.com with SMTP id n1so13834788ljg.3
- for <freedreno@lists.freedesktop.org>; Tue, 29 Nov 2022 11:59:11 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=AmnMdhMIbuK+ioOE5wyae0BlwkJ1ypVUOrJTSmxMhn8=;
- b=dgFKKoEXnI+rRu0A8nhpr9dIH8IXvWuvvzO9BpJZlIKDLavNMwYCmA5eeVuu55peXf
- OBEEo8a7yZU4vrsEm2H9LcvLtSKiOMsQfsN/a6uiTGDgv3q0PIt4aMkxxCnKKoAfChIf
- auDiKy0ExYOszLxQT+sUCwlIX3ceL1iohbJ6pSzgtfjHtDXGSHFH2fpD3hCTEOIxBYMS
- 4zV1sVz31MK4SLt5UeGdBkqc9H9+2U0224CKZI5tRM8f2YxywtP5EMkDcrNDOH3I9c0m
- /mB/uykcptyuDWlMtDH+4v1WoybyWJkBPKsHxYX3g9h5hz/TugzFJ6dOnu78AiQGAW9W
- hcKg==
+Received: from mail-lf1-x131.google.com (mail-lf1-x131.google.com
+ [IPv6:2a00:1450:4864:20::131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 286C810E09D;
+ Tue, 29 Nov 2022 20:46:54 +0000 (UTC)
+Received: by mail-lf1-x131.google.com with SMTP id p8so23876229lfu.11;
+ Tue, 29 Nov 2022 12:46:54 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=9nBlhEXGFP581Y5583VUeZuiA62uk4fX/W8dDpQUeXY=;
+ b=UM37Cd47j+DlXqKSgZOHsv26pCEotZ/Wrxx95lPNw8D+tAVl3/a8Zfw1MEbFyBhP7c
+ WzQWuQ0N0dSCvZOFOb18luPjCy5fJCR9uccqUhb9KcbB8PUo84+5/pM8L43Q+67Z5Htq
+ IgMFP6W/BwjPenEaxLsODAvjIEBB3j7OUJjIO49RA/zAkP6045pqMi4oOH5mL+J8hjl7
+ ZMs9wbzfL5xc11ueLLi5UF+NYOqCCS8yeM/3H1GAf8o7n6O6+MUwKs1c+LybnHa+FkWy
+ KphPYXOXOUDnycBrvlHY0woHxGslNgvljLQt4irjB/fRt0r9lHpxK4uRFNgM7OzXm1Do
+ jx9Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=AmnMdhMIbuK+ioOE5wyae0BlwkJ1ypVUOrJTSmxMhn8=;
- b=KCcd8gG9TGxxGi//6IvzvpSgZG//onGBcb325QfcY4jzhcUFvwGtAu+2iIbU28kxZR
- R3EnfdLBvR9T47WXVs2LSE3aXu/hJeFTQ7dByKRnvqQ4vI5SQP3buBarQGzXL7+MQr/S
- lVRDReagsH6MPcYbBaYmMlP8o8vSvJ4mxhayeHRqMWoKMYkTWl/0wSOuu/c9G7YFNlKn
- Lz9JKRCO1Ei4mWW967h/KB203iXNAnVThj6SOfmdco/lbGBV+IWuUbSMkAJ6MnaL/sh1
- ITZecKMDTRIcMB9NJN4Tw/8QXkEPWUA0YV1p2LZPtqkMcitibSEHR8kQUVe+EbH1NqN4
- ewwA==
-X-Gm-Message-State: ANoB5pny91z1ZOWPBCNywWtVqLXF0KaMjPZAr+HIydVRIS/Ur0C9niEa
- w5BPNJOEWxuuSlvcs4JUqmD2qtDnQlY8Cg==
-X-Google-Smtp-Source: AA0mqf6eEb4mm4hewBmMNDBECy0NIbeDiiZarC+hAyVtbboS9KaMxc0n1e9xi4MDoQXy+dx122HEUg==
-X-Received: by 2002:a2e:930f:0:b0:279:a72b:815b with SMTP id
- e15-20020a2e930f000000b00279a72b815bmr3336062ljh.490.1669751950146; 
- Tue, 29 Nov 2022 11:59:10 -0800 (PST)
-Received: from ?IPV6:2001:14ba:a085:4d00::8a5?
- (dzccz6yyyyyyyyyyybcwt-3.rev.dnainternet.fi. [2001:14ba:a085:4d00::8a5])
- by smtp.gmail.com with ESMTPSA id
- x7-20020ac259c7000000b004b529517d95sm321732lfn.40.2022.11.29.11.59.06
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 29 Nov 2022 11:59:06 -0800 (PST)
-Message-ID: <a1046ae6-cffb-2dbf-0bfd-3787eafe9a0d@linaro.org>
-Date: Tue, 29 Nov 2022 21:59:05 +0200
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=9nBlhEXGFP581Y5583VUeZuiA62uk4fX/W8dDpQUeXY=;
+ b=xMS1mFaqEEfuSJeFwkOglac06WjquJVN6ei9tHK6imhs5gD0QspLNMBvQ23yuqtwYz
+ 0BAsOjUwFHpZshtjarHp+Wyx5+l4xUVthf6Fa3aCz6vjhayV3hfOygF/vG5l+6QWXaAa
+ 8UITR0SHDMK+49Kfy+l3t2HInLrQsiNrb6KfPE84QvaIP1u7wHslqZ05A7din6xFJxmS
+ ADSuiWDJDdAVoH6giuy1WMCIBkUuwTE/Exg5RNjXpygHF3mFYAUd6uZ6L+NSDwYlE5DP
+ RwRGfi2mLVXVYfZAan7pR62H5B9wV792d5Ho1ZAHzKXUJrm33iu6PZQ0bSH3qoZlZ38R
+ 46LQ==
+X-Gm-Message-State: ANoB5pmLLLCbG3z2NAAZlXx3VpcoIodIRcdaHH0OKEArVrzrzhckM5zF
+ 38XRXiTAj3C8tjyZ3ArrrCY=
+X-Google-Smtp-Source: AA0mqf4Mv1+eooDcZ78yPM1Tk5qnDC5+ZsfajUK8m+kcJhpput/JgZy0e4DzicKvHFPPgRSezFRQTA==
+X-Received: by 2002:a05:6512:3187:b0:4b3:ec7a:6752 with SMTP id
+ i7-20020a056512318700b004b3ec7a6752mr17419404lfe.79.1669754812055; 
+ Tue, 29 Nov 2022 12:46:52 -0800 (PST)
+Received: from localhost.localdomain (ccy110.neoplus.adsl.tpnet.pl.
+ [83.30.148.110]) by smtp.gmail.com with ESMTPSA id
+ o11-20020ac24e8b000000b004ae24368195sm2325620lfr.233.2022.11.29.12.46.50
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 29 Nov 2022 12:46:51 -0800 (PST)
+From: Adam Skladowski <a39.skl@gmail.com>
+To: 
+Date: Tue, 29 Nov 2022 21:46:04 +0100
+Message-Id: <20221129204616.47006-1-a39.skl@gmail.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.5.0
-Content-Language: en-GB
-To: Robert Foss <robert.foss@linaro.org>,
- Konrad Dybcio <konrad.dybcio@linaro.org>
-References: <20221115133105.980877-1-robert.foss@linaro.org>
- <20221115133105.980877-11-robert.foss@linaro.org>
- <dc138171-f7b1-2761-d800-620e85afd6d9@linaro.org>
- <CAG3jFyuC59iX9p9eB7WT0Lx34DszZrwbOSnRyV_X02=TnVs6tg@mail.gmail.com>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-In-Reply-To: <CAG3jFyuC59iX9p9eB7WT0Lx34DszZrwbOSnRyV_X02=TnVs6tg@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH v2 10/12] arm64: dts: qcom: sm8350: Add
- display system nodes
+Content-Transfer-Encoding: 8bit
+Subject: [Freedreno] [PATCH 00/12] SM6115 DTS changes
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,288 +68,47 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: airlied@linux.ie, dri-devel@lists.freedesktop.org,
- bjorn.andersson@linaro.org, krzysztof.kozlowski+dt@linaro.org,
- angelogioacchino.delregno@somainline.org, quic_vpolimer@quicinc.com,
- vinod.koul@linaro.org, Jonathan Marek <jonathan@marek.ca>, robdclark@gmail.com,
- quic_khsieh@quicinc.com, agross@kernel.org, quic_jesszhan@quicinc.com,
- devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- quic_abhinavk@quicinc.com, swboyd@chromium.org, robh+dt@kernel.org,
- sean@poorly.run, quic_kalyant@quicinc.com, loic.poulain@linaro.org,
- andersson@kernel.org, dianders@chromium.org, linux-kernel@vger.kernel.org,
- vkoul@kernel.org, daniel@ffwll.ch, freedreno@lists.freedesktop.org
+Cc: "Rafael J. Wysocki" <rafael@kernel.org>, Amit Kucheria <amitk@kernel.org>,
+ dri-devel@lists.freedesktop.org,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ phone-devel@vger.kernel.org, David Airlie <airlied@gmail.com>,
+ Daniel Lezcano <daniel.lezcano@linaro.org>, Andy Gross <agross@kernel.org>,
+ Zhang Rui <rui.zhang@intel.com>, devicetree@vger.kernel.org,
+ Thara Gopinath <thara.gopinath@gmail.com>, linux-pm@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, Adam Skladowski <a39.skl@gmail.com>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, Rob Herring <robh+dt@kernel.org>,
+ ~postmarketos/upstreaming@lists.sr.ht, Sean Paul <sean@poorly.run>,
+ Loic Poulain <loic.poulain@linaro.org>, Bjorn Andersson <andersson@kernel.org>,
+ linux-kernel@vger.kernel.org, Konrad Dybcio <konrad.dybcio@linaro.org>,
+ Rob Clark <robdclark@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 29/11/2022 18:47, Robert Foss wrote:
-> On Tue, 15 Nov 2022 at 14:47, Konrad Dybcio <konrad.dybcio@linaro.org> wrote:
->>
->>
->>
->> On 15/11/2022 14:31, Robert Foss wrote:
->>> Add mdss, mdss_mdp, dsi0, dsi0_phy nodes. With these
->>> nodes the display subsystem is configured to support
->>> one DSI output.
->>>
->>> Signed-off-by: Robert Foss <robert.foss@linaro.org>
->>> ---
->>>    arch/arm64/boot/dts/qcom/sm8350.dtsi | 197 ++++++++++++++++++++++++++-
->>>    1 file changed, 193 insertions(+), 4 deletions(-)
->>>
->>> diff --git a/arch/arm64/boot/dts/qcom/sm8350.dtsi b/arch/arm64/boot/dts/qcom/sm8350.dtsi
->>> index 434f8e8b12c1..5c98e5cf5ad0 100644
->>> --- a/arch/arm64/boot/dts/qcom/sm8350.dtsi
->>> +++ b/arch/arm64/boot/dts/qcom/sm8350.dtsi
->>> @@ -3,6 +3,7 @@
->>>     * Copyright (c) 2020, Linaro Limited
->>>     */
->>>
->>> +#include <dt-bindings/interconnect/qcom,sm8350.h>
->>>    #include <dt-bindings/interrupt-controller/arm-gic.h>
->>>    #include <dt-bindings/clock/qcom,dispcc-sm8350.h>
->>>    #include <dt-bindings/clock/qcom,gcc-sm8350.h>
->>> @@ -2536,14 +2537,201 @@ usb_2_dwc3: usb@a800000 {
->>>                        };
->>>                };
->>>
->>> +             mdss: mdss@ae00000 {
->>> +                     compatible = "qcom,sm8350-mdss";
->>> +                     reg = <0 0x0ae00000 0 0x1000>;
->>> +                     reg-names = "mdss";
->>> +
->>> +                     interconnects = <&mmss_noc MASTER_MDP0 0 &mc_virt SLAVE_EBI1 0>,
->>> +                                     <&mmss_noc MASTER_MDP1 0 &mc_virt SLAVE_EBI1 0>;
->>> +                     interconnect-names = "mdp0-mem", "mdp1-mem";
->>> +
->>> +                     power-domains = <&dispcc MDSS_GDSC>;
->>> +                     resets = <&dispcc DISP_CC_MDSS_CORE_BCR>;
->>> +
->>> +                     clocks = <&dispcc DISP_CC_MDSS_AHB_CLK>,
->>> +                              <&gcc GCC_DISP_HF_AXI_CLK>,
->>> +                              <&gcc GCC_DISP_SF_AXI_CLK>,
->>> +                              <&dispcc DISP_CC_MDSS_MDP_CLK>;
->>> +                     clock-names = "iface", "bus", "nrt_bus", "core";
->>> +
->>> +                     interrupts = <GIC_SPI 83 IRQ_TYPE_LEVEL_HIGH>;
->>> +                     interrupt-controller;
->>> +                     #interrupt-cells = <1>;
->>> +
->>> +                     iommus = <&apps_smmu 0x820 0x402>;
->>> +
->>> +                     status = "disabled";
->>> +
->>> +                     #address-cells = <2>;
->>> +                     #size-cells = <2>;
->>> +                     ranges;
->>> +
->>> +                     mdss_mdp: display-controller@ae01000 {
->>> +                             compatible = "qcom,sm8350-dpu";
->>> +                             reg = <0 0x0ae01000 0 0x8f000>,
->>> +                                   <0 0x0aeb0000 0 0x2008>;
->>> +                             reg-names = "mdp", "vbif";
->>> +
->>> +                             clocks = <&gcc GCC_DISP_HF_AXI_CLK>,
->>> +                                     <&gcc GCC_DISP_SF_AXI_CLK>,
->>> +                                     <&dispcc DISP_CC_MDSS_AHB_CLK>,
->>> +                                     <&dispcc DISP_CC_MDSS_MDP_LUT_CLK>,
->>> +                                     <&dispcc DISP_CC_MDSS_MDP_CLK>,
->>> +                                     <&dispcc DISP_CC_MDSS_VSYNC_CLK>;
->>> +                             clock-names = "bus",
->>> +                                           "nrt_bus",
->>> +                                           "iface",
->>> +                                           "lut",
->>> +                                           "core",
->>> +                                           "vsync";
->>> +
->>> +                             assigned-clocks = <&dispcc DISP_CC_MDSS_VSYNC_CLK>;
->>> +                             assigned-clock-rates = <19200000>;
->>> +
->>> +                             operating-points-v2 = <&mdp_opp_table>;
->>> +                             power-domains = <&rpmhpd SM8350_MMCX>;
->>> +
->>> +                             interrupt-parent = <&mdss>;
->>> +                             interrupts = <0>;
->>> +
->>> +                             status = "disabled";
->> It doesn't make sense to disable mdp separately, as mdss is essentially
->> useless without it.
-> 
-> Ack
-> 
->>
->>> +
->>> +                             ports {
->>> +                                     #address-cells = <1>;
->>> +                                     #size-cells = <0>;
->>> +
->>> +                                     port@0 {
->>> +                                             reg = <0>;
->>> +                                             dpu_intf1_out: endpoint {
->>> +                                                     remote-endpoint = <&dsi0_in>;
->>> +                                             };
->>> +                                     };
->>> +                             };
->>> +
->>> +                             mdp_opp_table: opp-table {
->>> +                                     compatible = "operating-points-v2";
->>> +
->>> +                                     opp-200000000 {
->>> +                                             opp-hz = /bits/ 64 <200000000>;
->>> +                                             required-opps = <&rpmhpd_opp_low_svs>;
->>> +                                     };
->>> +
->>> +                                     opp-300000000 {
->>> +                                             opp-hz = /bits/ 64 <300000000>;
->>> +                                             required-opps = <&rpmhpd_opp_svs>;
->>> +                                     };
->>> +
->>> +                                     opp-345000000 {
->>> +                                             opp-hz = /bits/ 64 <345000000>;
->>> +                                             required-opps = <&rpmhpd_opp_svs_l1>;
->>> +                                     };
->>> +
->>> +                                     opp-460000000 {
->>> +                                             opp-hz = /bits/ 64 <460000000>;
->>> +                                             required-opps = <&rpmhpd_opp_nom>;
->>> +                                     };
->>> +                             };
->>> +                     };
->>> +
->>> +                     dsi0: dsi@ae94000 {
->>> +                             compatible = "qcom,mdss-dsi-ctrl";
->>> +                             reg = <0 0x0ae94000 0 0x400>;
->>> +                             reg-names = "dsi_ctrl";
->>> +
->>> +                             interrupt-parent = <&mdss>;
->>> +                             interrupts = <4>;
->>> +
->>> +                             clocks = <&dispcc DISP_CC_MDSS_BYTE0_CLK>,
->>> +                                      <&dispcc DISP_CC_MDSS_BYTE0_INTF_CLK>,
->>> +                                      <&dispcc DISP_CC_MDSS_PCLK0_CLK>,
->>> +                                      <&dispcc DISP_CC_MDSS_ESC0_CLK>,
->>> +                                      <&dispcc DISP_CC_MDSS_AHB_CLK>,
->>> +                                      <&gcc GCC_DISP_HF_AXI_CLK>;
->>> +                             clock-names = "byte",
->>> +                                           "byte_intf",
->>> +                                           "pixel",
->>> +                                           "core",
->>> +                                           "iface",
->>> +                                           "bus";
->>> +
->>> +                             assigned-clocks = <&dispcc DISP_CC_MDSS_BYTE0_CLK_SRC>,
->>> +                                               <&dispcc DISP_CC_MDSS_PCLK0_CLK_SRC>;
->>> +                             assigned-clock-parents = <&dsi0_phy 0>,
->>> +                                                      <&dsi0_phy 1>;
->>> +
->>> +                             operating-points-v2 = <&dsi_opp_table>;
->>> +                             power-domains = <&rpmhpd SM8350_MMCX>;
->>> +
->>> +                             phys = <&dsi0_phy>;
->>> +                             phy-names = "dsi";
->> I think that was dropped as of late.
-> 
-> Ack
-> 
->>
->>> +
->>> +                             status = "disabled";
->>> +
->>> +                             ports {
->>> +                                     #address-cells = <1>;
->>> +                                     #size-cells = <0>;
->>> +
->>> +                                     port@0 {
->>> +                                             reg = <0>;
->>> +                                             dsi0_in: endpoint {
->>> +                                                     remote-endpoint = <&dpu_intf1_out>;
->>> +                                             };
->>> +                                     };
->>> +
->>> +                                     port@1 {
->>> +                                             reg = <1>;
->>> +                                             dsi0_out: endpoint {
->>> +                                             };
->>> +                                     };
->>> +                             };
->>> +                     };
->>> +
->>> +                     dsi0_phy: phy@ae94400 {
->>> +                             compatible = "qcom,dsi-phy-5nm-8350";
->>> +                             reg = <0 0x0ae94400 0 0x200>,
->>> +                                   <0 0x0ae94600 0 0x280>,
->>> +                                   <0 0x0ae94900 0 0x260>;
->>> +                             reg-names = "dsi_phy",
->>> +                                         "dsi_phy_lane",
->>> +                                         "dsi_pll";
->>> +
->>> +                             #clock-cells = <1>;
->>> +                             #phy-cells = <0>;
->>> +
->>> +                             clocks = <&dispcc DISP_CC_MDSS_AHB_CLK>,
->>> +                                      <&rpmhcc RPMH_CXO_CLK>;
->>> +                             clock-names = "iface", "ref";
->>> +
->>> +                             status = "disabled";
->>> +
->>> +                             dsi_opp_table: dsi-opp-table {
->>> +                                     compatible = "operating-points-v2";
->>> +
->>> +                                     opp-187500000 {
->>> +                                             opp-hz = /bits/ 64 <187500000>;
->>> +                                             required-opps = <&rpmhpd_opp_low_svs>;
->>> +                                     };
->>> +
->>> +                                     opp-300000000 {
->>> +                                             opp-hz = /bits/ 64 <300000000>;
->>> +                                             required-opps = <&rpmhpd_opp_svs>;
->>> +                                     };
->>> +
->>> +                                     opp-358000000 {
->>> +                                             opp-hz = /bits/ 64 <358000000>;
->>> +                                             required-opps = <&rpmhpd_opp_svs_l1>;
->>> +                                     };
->>> +                             };
->>> +                     };
->>> +             };
->>> +
->>>                dispcc: clock-controller@af00000 {
->>>                        compatible = "qcom,sm8350-dispcc";
->>>                        reg = <0 0x0af00000 0 0x10000>;
->>>                        clocks = <&rpmhcc RPMH_CXO_CLK>,
->>> -                              <0>,
->>> -                              <0>,
->>> -                              <0>,
->>> -                              <0>,
->>> +                              <&dsi0_phy 0>, <&dsi0_phy 1>,
->>> +                              <0>, <0>,
->>>                                 <0>,
->>>                                 <0>;
->>>                        clock-names = "bi_tcxo",
->>> @@ -2558,6 +2746,7 @@ dispcc: clock-controller@af00000 {
->>>                        #power-domain-cells = <1>;
->>>
->>>                        power-domains = <&rpmhpd SM8350_MMCX>;
->>> +                     required-opps = <&rpmhpd_opp_turbo>;
->> A turbo vote is required for it to function? Seems a bit high..
-> 
-> Dmitry hit a snag using &rpmhpd_opp_low_svs, so this was a dummy
-> value. I can't replicate that issue, but am having a conversation with
-> him off-list about this.
-> 
-> On my sm8350-hdk board &rpmhpd_opp_low_svs is working fine.
+This patch series adds bunch of new nodes
+also it fixes some small nitpicks in yamls and adds compatible.
 
-Maybe this is related to the bootloader setting up the mode or maybe it 
-was caused by the fact that I have the drm_msm set up as built-in rather 
-than a module.
+Adam Skladowski (12):
+  dt-bindings: display: msm: Replace mdss with display-subsystem
+  dt-bindings: thermal: tsens: Add SM6115 compatible
+  arm64: dts: qcom: sm6115: Add cpufreq-hw support
+  arm64: dts: qcom: sm6115: Add TSENS node
+  arm64: dts: qcom: sm6115: Add PRNG node
+  arm64: dts: qcom: sm6115: Add rpm-stats node
+  arm64: dts: qcom: sm6115: Add dispcc node
+  arm64: dts: qcom: sm6115: Add mdss/dpu node
+  arm64: dts: qcom: sm6115: Add GPI DMA
+  arm64: dts: qcom: sm6115: Add i2c/spi nodes
+  arm64: dts: qcom: sm6115: Add WCN node.
+  arm64: dts: qcom: sm6115: Fallback smmu to qcom generic compatible
 
-> 
->>
->> Konrad
->>>                };
->>>
->>>                adsp: remoteproc@17300000 {
+ .../display/msm/qcom,qcm2290-mdss.yaml        |   2 +-
+ .../display/msm/qcom,sm6115-mdss.yaml         |   2 +-
+ .../bindings/thermal/qcom-tsens.yaml          |   1 +
+ arch/arm64/boot/dts/qcom/sm6115.dtsi          | 562 +++++++++++++++++-
+ 4 files changed, 564 insertions(+), 3 deletions(-)
 
 -- 
-With best wishes
-Dmitry
+2.25.1
 
