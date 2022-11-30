@@ -2,64 +2,58 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 936F063E146
-	for <lists+freedreno@lfdr.de>; Wed, 30 Nov 2022 21:10:45 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id DE23F63E2F3
+	for <lists+freedreno@lfdr.de>; Wed, 30 Nov 2022 22:51:19 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4F3A410E4E5;
-	Wed, 30 Nov 2022 20:10:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7F65E10E4DC;
+	Wed, 30 Nov 2022 21:51:18 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-x229.google.com (mail-lj1-x229.google.com
- [IPv6:2a00:1450:4864:20::229])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B73CB10E4E7;
- Wed, 30 Nov 2022 20:10:25 +0000 (UTC)
-Received: by mail-lj1-x229.google.com with SMTP id z24so22174158ljn.4;
- Wed, 30 Nov 2022 12:10:25 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=ZI36fDcXOdBjV+BrFI2iVTCVlIJAblM9KI9TL7sAns8=;
- b=TLnqAXll6nYU3/cRmZ9Qb5BrSLih5PKDpNI/nN0IqYBT75P7ZTfcaSxQ1vzQCOphf1
- 4dH78gHGmendt1LXrbeD4+DgE4L5Q1Ar+dpwrJTJMLQoLLsfPNSXb3aLBhgIo2QXxUIl
- z2EHmQR9O+O9Fg8sPELylItlPE2bC+O3x2pQWtdtBbdg8MHUolxP0hjRyK8m1z3Y1EET
- sQMvyqPamW2HGY3/x76DRMZILwQ9/RCxhVcN4en3dfpiWOo+DoydkfsH17u5YcVTIdaj
- DN1oVmz6ath7K/OXtf+KBHb9dGM8mYbWxhNJs3RT7M0HOFbjak8fiQp/42Njrl4Z/GiB
- NcYw==
+Received: from mail-oi1-f173.google.com (mail-oi1-f173.google.com
+ [209.85.167.173])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2282E10E4DC;
+ Wed, 30 Nov 2022 21:51:12 +0000 (UTC)
+Received: by mail-oi1-f173.google.com with SMTP id t62so28793oib.12;
+ Wed, 30 Nov 2022 13:51:12 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=ZI36fDcXOdBjV+BrFI2iVTCVlIJAblM9KI9TL7sAns8=;
- b=rtte7Pwl+KvTkegENiynb9MF67Mp9lCJh8Fuc0su6lAG6fNMuSDT9AgEXsKom/9dXE
- ePN6ogAEtX5SCSPMGluFtZwdWW+AKcOaLacRyIZ0K2JaBF7rRpw8daJ7WkLDfwwtiKBX
- l6F42ig0HyXbTL6z36FTHThPDT1GLWo/DpRmU6cEPl6HmIhZ4Q3WSp1o0hFuc++yqARK
- nJUGYURem/ztnm/yzla31j4Ghcex7CfrzoPvjBGnMhxrdDHSalKL3KD8H7zHK4Rp6V5b
- oux42XmLzTC1MYNw8PaxQmpQa8yxmdEySybqE9oCYnQ+/mmzbw4jSciZ9IEf7wBnxPGU
- Nz5Q==
-X-Gm-Message-State: ANoB5pl+2dhNXp1C3dWW0IBFQt7Qb6MplTD6A844H23jftCHM3WSDa2L
- mZF3DqyDqiSGD+nwfWuruA8=
-X-Google-Smtp-Source: AA0mqf6fR/tKq40y1o1ew89Q6kWJtu3M42/4bXxdpMmVeT0mXXt9SSBGrAf8yGd0Pz6k3OUuLYKWqA==
-X-Received: by 2002:a2e:be08:0:b0:277:857:87ab with SMTP id
- z8-20020a2ebe08000000b00277085787abmr13626350ljq.442.1669839023684; 
- Wed, 30 Nov 2022 12:10:23 -0800 (PST)
-Received: from localhost.localdomain (ccy110.neoplus.adsl.tpnet.pl.
- [83.30.148.110]) by smtp.gmail.com with ESMTPSA id
- a25-20020a056512201900b004b4e9580b1asm369754lfb.66.2022.11.30.12.10.22
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=Ed0ydWV+6MGo0R7QavnrcUotFip+FDP5jOASQ/l4gg4=;
+ b=gBC+MlSDIUjZruoCy5Z2sVoz4Nfvjq69y2svWVY1T1kPym8l++zsNRADAPxjztrhXo
+ bd+g21Be0YfVBmGPOTSN+GBrVLnmMOJEBUjnEWUOXvoIoBAZVblTm5ttIWeV6SzyRwF0
+ JR2yD8LB1HZgJCTk7aw4r8rUE4D91rwOeaUXSyXlUlhZ34xiuwzCKZX9IXOzBz6Z1Tw5
+ Abt8l76sWT1AACdr/82ntjLRpE8x1Rr8B7ELDxjlfTG1RAd8Dtf0Yo8BLFP/v005xpuz
+ FzrG2pUX4IM4qF20q28kvgtvRattXHDd34qcFdGJfATA11HvP9XXh6AjBiFsLJZncuIr
+ fFfw==
+X-Gm-Message-State: ANoB5pmmVhdkD+Vw9WP6SkT4OtKf/cSCzCBvmCeftC652EeP3olPGQCg
+ qtNAxrjoI8ABjSiLDpDUrg==
+X-Google-Smtp-Source: AA0mqf7J8e2oXFovz2VgTSEz3/EdPmTWw6BjtL7XC784CxAbJ1Z+zs/qpUiq5LLxHKDpZyxShWaJRA==
+X-Received: by 2002:a05:6808:14d1:b0:35b:92a4:fcae with SMTP id
+ f17-20020a05680814d100b0035b92a4fcaemr13100578oiw.102.1669845071240; 
+ Wed, 30 Nov 2022 13:51:11 -0800 (PST)
+Received: from robh_at_kernel.org (66-90-144-107.dyn.grandenetworks.net.
+ [66.90.144.107]) by smtp.gmail.com with ESMTPSA id
+ 185-20020aca05c2000000b0035b7002af8csm1057826oif.56.2022.11.30.13.51.10
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 30 Nov 2022 12:10:23 -0800 (PST)
-From: Adam Skladowski <a39.skl@gmail.com>
-To: 
-Date: Wed, 30 Nov 2022 21:09:50 +0100
-Message-Id: <20221130200950.144618-13-a39.skl@gmail.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20221130200950.144618-1-a39.skl@gmail.com>
-References: <20221130200950.144618-1-a39.skl@gmail.com>
+ Wed, 30 Nov 2022 13:51:10 -0800 (PST)
+Received: (nullmailer pid 2988879 invoked by uid 1000);
+ Wed, 30 Nov 2022 21:51:09 -0000
+Date: Wed, 30 Nov 2022 15:51:09 -0600
+From: Rob Herring <robh@kernel.org>
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Message-ID: <20221130215109.GA2986716-robh@kernel.org>
+References: <20221125123638.823261-1-bryan.odonoghue@linaro.org>
+ <20221125123638.823261-4-bryan.odonoghue@linaro.org>
+ <dc5df66c-2e2b-14f1-ce88-705d831f37d9@linaro.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH v2 12/12] arm64: dts: qcom: sm6115: Add smmu
- fallback to qcom generic compatible
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <dc5df66c-2e2b-14f1-ce88-705d831f37d9@linaro.org>
+Subject: Re: [Freedreno] [PATCH v4 03/18] dt-bindings: msm:
+ dsi-controller-main: Rename qcom, dsi-ctrl-6g-qcm2290 to qcom,
+ qcm2290-dsi-ctrl
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,44 +66,28 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Rafael J. Wysocki" <rafael@kernel.org>, Amit Kucheria <amitk@kernel.org>,
- dri-devel@lists.freedesktop.org,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- phone-devel@vger.kernel.org, David Airlie <airlied@gmail.com>,
- Daniel Lezcano <daniel.lezcano@linaro.org>, Andy Gross <agross@kernel.org>,
- Zhang Rui <rui.zhang@intel.com>, devicetree@vger.kernel.org,
- Thara Gopinath <thara.gopinath@gmail.com>, linux-pm@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, Adam Skladowski <a39.skl@gmail.com>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, Rob Herring <robh+dt@kernel.org>,
- ~postmarketos/upstreaming@lists.sr.ht, Sean Paul <sean@poorly.run>,
- Loic Poulain <loic.poulain@linaro.org>, Bjorn Andersson <andersson@kernel.org>,
- linux-kernel@vger.kernel.org, Konrad Dybcio <konrad.dybcio@linaro.org>,
- Rob Clark <robdclark@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- freedreno@lists.freedesktop.org
+Cc: sean@poorly.run, devicetree@vger.kernel.org,
+ krzysztof.kozlowski+dt@linaro.org, linux-arm-msm@vger.kernel.org,
+ andersson@kernel.org, konrad.dybcio@somainline.org, quic_abhinavk@quicinc.com,
+ david@ixit.cz, dianders@chromium.org, robdclark@gmail.com, agross@kernel.org,
+ dri-devel@lists.freedesktop.org, daniel@ffwll.ch,
+ Bryan O'Donoghue <bryan.odonoghue@linaro.org>, airlied@gmail.com,
+ swboyd@chromium.org, freedreno@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Add fallback to generic qcom mmu-500 implementation.
+On Sat, Nov 26, 2022 at 08:54:11PM +0200, Dmitry Baryshkov wrote:
+> On 25/11/2022 14:36, Bryan O'Donoghue wrote:
+> > We will add in a number of compat strings to dsi-controller-main.yaml in
+> > the format "qcom,socname-dsi-ctrl" convert the currently unused
+> > qcom,dsi-ctrl-6g-qcm2290 to qcom,qcm2290-dsi-ctrl.
+> > 
+> > Signed-off-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+> 
+> I'd say, as you are going to introduce new bindings using two compat
+> strings, just leave this binding as is, marking it as deprecated.
 
-Signed-off-by: Adam Skladowski <a39.skl@gmail.com>
----
- arch/arm64/boot/dts/qcom/sm6115.dtsi | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+But if it was unused, then it's okay to just change it.
 
-diff --git a/arch/arm64/boot/dts/qcom/sm6115.dtsi b/arch/arm64/boot/dts/qcom/sm6115.dtsi
-index 38b903592a57..572bf04adf90 100644
---- a/arch/arm64/boot/dts/qcom/sm6115.dtsi
-+++ b/arch/arm64/boot/dts/qcom/sm6115.dtsi
-@@ -1233,7 +1233,7 @@ dispcc: clock-controller@5f00000 {
- 		};
- 
- 		apps_smmu: iommu@c600000 {
--			compatible = "qcom,sm6115-smmu-500", "arm,mmu-500";
-+			compatible = "qcom,sm6115-smmu-500", "qcom,smmu-500", "arm,mmu-500";
- 			reg = <0x0c600000 0x80000>;
- 			#iommu-cells = <2>;
- 			#global-interrupts = <1>;
--- 
-2.25.1
-
+Rob
