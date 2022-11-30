@@ -2,76 +2,56 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id EF40E63CC5B
-	for <lists+freedreno@lfdr.de>; Wed, 30 Nov 2022 01:13:04 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id AA8CD63CF78
+	for <lists+freedreno@lfdr.de>; Wed, 30 Nov 2022 08:02:12 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B3AFA10E3FF;
-	Wed, 30 Nov 2022 00:13:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6715610E411;
+	Wed, 30 Nov 2022 07:02:11 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7A19C10E3F9;
- Wed, 30 Nov 2022 00:13:00 +0000 (UTC)
-Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 2ATM00Ua019913; Wed, 30 Nov 2022 00:12:54 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
- h=from : to : cc :
- subject : date : message-id : in-reply-to : references : mime-version :
- content-type; s=qcppdkim1;
- bh=v5DuWFtn8vMwlS5IpeHthC3h0h52Kw9NJ9pLumbQV60=;
- b=k+2qbwYorUUFGnxsnidBjUYYRauXu7dmFYDWAZHqJunIUUVsmtI4JiUfmEAE3TFlttFX
- KkarVhCxgfd8Ll6IeqBCDd4v/Q5T13IU9YpYg1tOjDaLcn9J74/9/FW3/VCt7u2X1ncP
- 8WSK5nfDRJIZlqgRYulF/q2vNljb3P5loJQ2K4fir28Q2mGjKQ4q1A+Smos4Sm19FsIS
- ycmy8D5B5hyhPO7Y4o5hEMrDyVeGZe3TuGYK25iGuOKl3048nMKGFvgss0Jg8nH2pWWO
- W3VME3Xmg41QSrh13yDMkhRuvdiWXCXxPKHYCyBzJ4jvu7E307lBC8OdMLCuyXbeKx73 9g== 
-Received: from nalasppmta01.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3m5a7faw53-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 30 Nov 2022 00:12:54 +0000
-Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
- [10.47.209.196])
- by NALASPPMTA01.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 2AU0CqWK015635
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 30 Nov 2022 00:12:52 GMT
-Received: from khsieh-linux1.qualcomm.com (10.80.80.8) by
- nalasex01a.na.qualcomm.com (10.47.209.196) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.986.36; Tue, 29 Nov 2022 16:12:52 -0800
-From: Kuogee Hsieh <quic_khsieh@quicinc.com>
-To: <dri-devel@lists.freedesktop.org>, <robdclark@gmail.com>,
- <sean@poorly.run>, <swboyd@chromium.org>, <dianders@chromium.org>,
- <vkoul@kernel.org>, <daniel@ffwll.ch>, <airlied@linux.ie>,
- <agross@kernel.org>, <dmitry.baryshkov@linaro.org>,
- <bjorn.andersson@linaro.org>
-Date: Tue, 29 Nov 2022 16:12:11 -0800
-Message-ID: <1669767131-13854-4-git-send-email-quic_khsieh@quicinc.com>
-X-Mailer: git-send-email 2.7.4
-In-Reply-To: <1669767131-13854-1-git-send-email-quic_khsieh@quicinc.com>
-References: <1669767131-13854-1-git-send-email-quic_khsieh@quicinc.com>
+Received: from mail-qv1-xf36.google.com (mail-qv1-xf36.google.com
+ [IPv6:2607:f8b0:4864:20::f36])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A0AEB10E411;
+ Wed, 30 Nov 2022 07:02:08 +0000 (UTC)
+Received: by mail-qv1-xf36.google.com with SMTP id e18so10006151qvs.1;
+ Tue, 29 Nov 2022 23:02:08 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=MX8+ScqgMkNWVVKFC1541ti9ztTE5Za3sJFUouR4qhY=;
+ b=GPb7sIK3zjeOjR3Rf2GsiQsE/ZQMZWlzSOh5AHm2ncvQ3K+L3L92jcR4MvedIVNrIE
+ lKNaF3GRiJtZGILICEG+4ZxoRRNGgaPfuFxMgiZENRu6zUn0HA4E5vs5+uxxM2qD4D//
+ azPFlmk5hhWxXTXdH5dh0naxwlEnW5kUH88p4u89LtFbRset/bhOg3Q4/yblTdogl1nz
+ lZWfY+l0L1XAyx7YH2d/2YWXzXqJD5fpdgYsGlu8UafoS62RVHcahfPMGV9Y2cKYfPLm
+ p4cuy1Lt49joKIHP0r6eKluyxvW3Fk1PjiSMZw+ds3DtT/H0005jo4/Shea/32OaAqXc
+ bZbA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=MX8+ScqgMkNWVVKFC1541ti9ztTE5Za3sJFUouR4qhY=;
+ b=8Ak5PIkcgIALflCANnEUB5ehX+lLpJ0kr54vB80ccUgZ6XhclhLOBzSlTA0CvjvlpW
+ Kgd3UwzxrAtiUpqX325qFWxp5znw8rRI8OPYjsPRW0PtvpcXlD5iTeyL+qKmgu95BkOl
+ IZWb8uXbcN7FKUtFH2cqaS1Bec9l5v6DYUrHft+dBi4tTHRihut7HKaGTh5Jn0ntSQ2N
+ nKutb8r0eJkPyELhjEUOZbFxlebty63jfKVsR8N98ffGqdW10M1gyKLXy+GCPgmDf4tI
+ UBXVFPATNSpG+vDoBKZimQE16ynfu6VqcuhTMEqFmTZbUdcaa2bDUqOnmofnte98oESf
+ TeKQ==
+X-Gm-Message-State: ANoB5pnWRoKkrfsi8U0MWDohB5vjRfwONO1E3HpC8xfAKjJoGLbMRBTE
+ s019iWOVvvknG3tU0cIXdCLhlE096w1Y0Cu4ZkE=
+X-Google-Smtp-Source: AA0mqf687Y7b39WvvKHXpsOxzFT/gd8jGoPGBJwgVqWIe7XdK0x0dkkSbIBzQwKC9SDUl6CKWQ9HtgR1llNM1r4VeJ4=
+X-Received: by 2002:a05:6214:3712:b0:4bb:9358:2a1e with SMTP id
+ np18-20020a056214371200b004bb93582a1emr24147726qvb.97.1669791727574; Tue, 29
+ Nov 2022 23:02:07 -0800 (PST)
 MIME-Version: 1.0
-Content-Type: text/plain
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-GUID: uD_LucqgL_7xih-67jlIFFRmkJamIoPC
-X-Proofpoint-ORIG-GUID: uD_LucqgL_7xih-67jlIFFRmkJamIoPC
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.219,Aquarius:18.0.895,Hydra:6.0.545,FMLib:17.11.122.1
- definitions=2022-11-29_13,2022-11-29_01,2022-06-22_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 impostorscore=0
- mlxscore=0 bulkscore=0 malwarescore=0 mlxlogscore=999 spamscore=0
- lowpriorityscore=0 priorityscore=1501 phishscore=0 suspectscore=0
- adultscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2210170000 definitions=main-2211290146
-Subject: [Freedreno] [PATCH v5 3/3] drm/msm/dp: add support of max dp link
- rate
+References: <20221126102141.721353-1-dmitry.baryshkov@linaro.org>
+In-Reply-To: <20221126102141.721353-1-dmitry.baryshkov@linaro.org>
+From: Dave Airlie <airlied@gmail.com>
+Date: Wed, 30 Nov 2022 17:01:56 +1000
+Message-ID: <CAPM=9tyjMCOY3-tJASxNg6dFizfaivqfSrhSG1otFTvfuSg=dQ@mail.gmail.com>
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Content-Type: text/plain; charset="UTF-8"
+Subject: Re: [Freedreno] [pull] drm/msm: drm-msm-display-for-6.2
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -84,83 +64,72 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: quic_sbillaka@quicinc.com, linux-arm-msm@vger.kernel.org,
- quic_abhinavk@quicinc.com, linux-kernel@vger.kernel.org,
- Kuogee Hsieh <quic_khsieh@quicinc.com>, freedreno@lists.freedesktop.org
+Cc: linux-arm-msm@vger.kernel.org, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ dri-devel@lists.freedesktop.org, Stephen Boyd <swboyd@chromium.org>,
+ Rob Clark <robdclark@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-By default, HBR2 (5.4G) is the max link link be supported. This patch add
-the capability to support max link rate at HBR3 (8.1G).
+On Sat, 26 Nov 2022 at 20:21, Dmitry Baryshkov
+<dmitry.baryshkov@linaro.org> wrote:
+>
+> Hi Dave,
+>
+> As agreed with Rob Clark, a pull request for the non-GPU part of the drm/msm driver. Summary below.
+>
+> The following changes since commit 7f7a942c0a338c4a2a7b359bdb2b68e9896122ec:
+>
+>   Merge tag 'drm-next-20221025' of git://linuxtv.org/pinchartl/media into drm-next (2022-10-27 14:44:15 +1000)
+>
+> are available in the Git repository at:
+>
+>   https://gitlab.freedesktop.org/lumag/msm.git tags/drm-msm-display-for-6.2
+>
+> for you to fetch changes up to 8d1d17d47eaebe4466459846d07e4ba8953fa585:
+>
+>   Merge branches 'msm-next-lumag-core', 'msm-next-lumag-dpu', 'msm-next-lumag-dp', 'msm-next-lumag-dsi', 'msm-next-lumag-hdmi' and 'msm-next-lumag-mdp5' into msm-next-lumag (2022-11-26 12:06:29 +0200)
+>
+> ----------------------------------------------------------------
+> drm/msm updates for 6.2
+>
+> Core:
+> - MSM_INFO_GET_FLAGS support
+> - Cleaned up MSM IOMMU wrapper code
+>
+> DPU:
+> - Added support for XR30 and P010 image formats
+> - Reworked MDSS/DPU schema, added SM8250 MDSS bindings
+> - Added Qualcomm SM6115 support
+>
+> DP:
+> - Dropped unsane sanity checks
+>
+> DSI:
+> - Fix calculation of DSC pps payload
+>
+> DSI PHY:
+> - DSI PHY support for QCM2290
+>
+> HDMI:
+> - Reworked dev init path
+>
+> ----------------------------------------------------------------
+> Adam Skladowski (2):
+>       dt-bindings: display/msm: add support for SM6115
+>       drm/msm/disp/dpu1: add support for display on SM6115
+>
+> Bryan O'Donoghue (1):
+>       dt-bindings: msm: dsi-controller-main: Drop redundant phy-names
+>
+> Dan Carpenter (1):
+>       drm/msm/hdmi: remove unnecessary NULL check
+>
+> Dmitry Baryshkov (25):
+>       Merge remote-tracking branch 'msm/msm-fixes' into HEAD
 
-Changes in v2:
--- add max link rate from dtsi
+This commit has no justification or signed off by line, I'll let it
+slide this once, but no backmerges without justification and please
+sign off merges.
 
-Changes in v3:
--- parser max_data_lanes and max_dp_link_rate from dp_out endpoint
-
-Changes in v4:
--- delete unnecessary pr_err
-
-Changes in v5:
--- split parser function into different patch
-
-Signed-off-by: Kuogee Hsieh <quic_khsieh@quicinc.com>
----
- drivers/gpu/drm/msm/dp/dp_display.c | 4 ++++
- drivers/gpu/drm/msm/dp/dp_panel.c   | 7 ++++---
- drivers/gpu/drm/msm/dp/dp_panel.h   | 1 +
- 3 files changed, 9 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
-index 29c9845..4fe2092 100644
---- a/drivers/gpu/drm/msm/dp/dp_display.c
-+++ b/drivers/gpu/drm/msm/dp/dp_display.c
-@@ -390,6 +390,10 @@ static int dp_display_process_hpd_high(struct dp_display_private *dp)
- 	struct edid *edid;
- 
- 	dp->panel->max_dp_lanes = dp->parser->max_dp_lanes;
-+	dp->panel->max_dp_link_rate = dp->parser->max_dp_link_rate;
-+
-+	drm_dbg_dp(dp->drm_dev, "max_lanes=%d max_link_rate=%d\n",
-+		dp->panel->max_dp_lanes, dp->panel->max_dp_link_rate);
- 
- 	rc = dp_panel_read_sink_caps(dp->panel, dp->dp_display.connector);
- 	if (rc)
-diff --git a/drivers/gpu/drm/msm/dp/dp_panel.c b/drivers/gpu/drm/msm/dp/dp_panel.c
-index 5149ceb..933fa9c 100644
---- a/drivers/gpu/drm/msm/dp/dp_panel.c
-+++ b/drivers/gpu/drm/msm/dp/dp_panel.c
-@@ -75,12 +75,13 @@ static int dp_panel_read_dpcd(struct dp_panel *dp_panel)
- 	link_info->rate = drm_dp_bw_code_to_link_rate(dpcd[DP_MAX_LINK_RATE]);
- 	link_info->num_lanes = dpcd[DP_MAX_LANE_COUNT] & DP_MAX_LANE_COUNT_MASK;
- 
-+	/* Limit data lanes from data-lanes of endpoint properity of dtsi */
- 	if (link_info->num_lanes > dp_panel->max_dp_lanes)
- 		link_info->num_lanes = dp_panel->max_dp_lanes;
- 
--	/* Limit support upto HBR2 until HBR3 support is added */
--	if (link_info->rate >= (drm_dp_bw_code_to_link_rate(DP_LINK_BW_5_4)))
--		link_info->rate = drm_dp_bw_code_to_link_rate(DP_LINK_BW_5_4);
-+	/* Limit link rate from link-frequencies of endpoint properity of dtsi */
-+	if (link_info->rate > dp_panel->max_dp_link_rate)
-+		link_info->rate = dp_panel->max_dp_link_rate;
- 
- 	drm_dbg_dp(panel->drm_dev, "version: %d.%d\n", major, minor);
- 	drm_dbg_dp(panel->drm_dev, "link_rate=%d\n", link_info->rate);
-diff --git a/drivers/gpu/drm/msm/dp/dp_panel.h b/drivers/gpu/drm/msm/dp/dp_panel.h
-index d861197a..f04d021 100644
---- a/drivers/gpu/drm/msm/dp/dp_panel.h
-+++ b/drivers/gpu/drm/msm/dp/dp_panel.h
-@@ -50,6 +50,7 @@ struct dp_panel {
- 
- 	u32 vic;
- 	u32 max_dp_lanes;
-+	u32 max_dp_link_rate;
- 
- 	u32 max_bw_code;
- };
--- 
-The Qualcomm Innovation Center, Inc. is a member of the Code Aurora Forum,
-a Linux Foundation Collaborative Project
-
+Dave.
