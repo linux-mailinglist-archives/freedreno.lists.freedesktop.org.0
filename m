@@ -1,59 +1,59 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6DC3D63D1AC
-	for <lists+freedreno@lfdr.de>; Wed, 30 Nov 2022 10:22:42 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 5F79463D1BC
+	for <lists+freedreno@lfdr.de>; Wed, 30 Nov 2022 10:23:55 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 23BB610E438;
-	Wed, 30 Nov 2022 09:22:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1926410E43E;
+	Wed, 30 Nov 2022 09:23:54 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-yw1-x112f.google.com (mail-yw1-x112f.google.com
- [IPv6:2607:f8b0:4864:20::112f])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AD10310E439
- for <freedreno@lists.freedesktop.org>; Wed, 30 Nov 2022 09:22:38 +0000 (UTC)
-Received: by mail-yw1-x112f.google.com with SMTP id
- 00721157ae682-3704852322fso164874107b3.8
- for <freedreno@lists.freedesktop.org>; Wed, 30 Nov 2022 01:22:38 -0800 (PST)
+Received: from mail-yb1-xb34.google.com (mail-yb1-xb34.google.com
+ [IPv6:2607:f8b0:4864:20::b34])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 673F910E43F
+ for <freedreno@lists.freedesktop.org>; Wed, 30 Nov 2022 09:23:49 +0000 (UTC)
+Received: by mail-yb1-xb34.google.com with SMTP id 136so1725926ybl.4
+ for <freedreno@lists.freedesktop.org>; Wed, 30 Nov 2022 01:23:49 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=esqAkKsNPNa+vWU1VEu3p5pJm5olzNFS6cZhKN5g6K8=;
- b=OH1nH0cfbXVH7lX96inipfihQDqcAzOBuPL6pnQ6uFYs+2t8n0RmwCJCpEqhJG6hMy
- gEd3CZlJJCZIDT4OrLt0d+L61dZuYlVu07TGc6SOGDgVrzdUlItR9clJ4k/tBn+WvfFu
- SwRR9u1dwsdHThjGptZYZGzIL4PxFiBxXdqCeDJmIGW8kjvUHjWDfuFso7i9fh5/OisF
- obXKDXIO981BzKPuhy+U7vgvLsJDsZL89AOBwJgnrDdNDqGZaE8BgoqEed9Oe8D6CSIy
- ODu58bEWerMuu1XCJWXaEAXXs4DEKWCsa4cHNQOtgxscHMdKl3u+JdM/8LcLXkz+oUba
- SccA==
+ bh=Io0nMOCW8iv7C49ek7QosikEfryx1Mcozl2/XH3V0Ys=;
+ b=khEWx9lfrWvp89T043eZD6ERveqt4wO+YC+qtJJEgowPCNksgMASbx2w5juuA1QJfW
+ xzfa6R57wEYrj63BCKjGDeo78fdo4pudjo0qr3KIf+0l4jM/460zHOSPxNvBJjv+BfJJ
+ KCCDtzW8YiPu/q894Brfyi4YJ39Y4UXvgCEsruXea6YhZ3DWgWl6oKzt1NAbE3REd/6m
+ BKiLEFhPp8hCuAmV9c/X28X0Tn/8uJl6DcC6lqEDuxBbM0H4+cmXSmJuJ4LHQpGG4Iyb
+ ighRJJyOwJcUgbeiUSMt1NAOYKlEZzvSH9G771paKQwK4iOv+NXB9JLL4qxsSBcnUVKk
+ ov+g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=esqAkKsNPNa+vWU1VEu3p5pJm5olzNFS6cZhKN5g6K8=;
- b=rRjvvFf3yEHleKh0TfPpJoHdgtZBUtDffvAb1+DS7KatRWAIn5UDSfEmozpPvTJiDA
- y9+SuBxzaiezNDkD21FbOc/3TO3zIV2WeFCX572EBHgtbQTs6+iuexvDBlnXJlfLvaFd
- aHCdI/PUY7JFoWA7+ZfizCpZpPdlQYgxmJ53SL63G1ZVeb+o7VajVZJrJ5HIL+iWeZ5S
- q03ECOp2Rrrat3LlHJqrJrb2GlqY7KgQibKnWauLx13LsJQJZhDxTckjGl+2G5EW6+JG
- NniwQb8MsLoiXeAVrTJ709lb5p1u7omvOOkzhjxQO0zaOpe6iuI96IYFW8Q11MRElpNx
- 9jJg==
-X-Gm-Message-State: ANoB5pkfchsPfVmu7dWhpmGhg4tj9Obhs0QRUc1WHSf1luFXpC/C/5ek
- b2epo8dtuZ1nd4xZG4uAAmJ6xH1ifSh8mHvnSrNj4w==
-X-Google-Smtp-Source: AA0mqf6eRY6wdCOqxX33Z4M4u21qczGijL4HTcdnMMJLEpRYeSokHrYtqrqbnwCO4ETK0bWEGQxk+x9Y9p+wGxJYsRc=
-X-Received: by 2002:a81:598b:0:b0:3b7:78c8:a205 with SMTP id
- n133-20020a81598b000000b003b778c8a205mr26625010ywb.188.1669800157826; Wed, 30
- Nov 2022 01:22:37 -0800 (PST)
+ bh=Io0nMOCW8iv7C49ek7QosikEfryx1Mcozl2/XH3V0Ys=;
+ b=Dq8B2UqeIGTg2PMp25CcidRqjm1O0ihN2RtZHJvS+7EcEf0mQ/6AuAI17AuuI/02w/
+ Ann6sEB7xpAj3hG08VHAQryehVrbhcS9QXQErgbetxS6pMKDBR1QHGaujCch942GYO52
+ EoVbJ747DNYSJXhBpJ2azB/r4z2p9Hta5ScR5IWEEs4Q+LJx3UwAwrAqv2cq+h0qt7JV
+ ITUk54w99K+Dynrx3teNRqvkGo0T9XT6CRo9/yMgMbnUXX14on8K1jWjfoXK6Vt3hrl8
+ P4B8uExht/bYRLNQ9SuFrJS0XKQAekCAIL7mO8Jz5xxeXPlxckS7oYxIhy9+WjPJQybP
+ V0DA==
+X-Gm-Message-State: ANoB5pkO5HeWMjViTmKewY5TVW6zp6RHGeboNfoAW0p/En6ShVJsdzTo
+ 2LelWGlQtOzgDbtrsb29471XrE+vfTUqARiq+JKnlw==
+X-Google-Smtp-Source: AA0mqf4uTlRldLTHNX9Oy3lllFzfrO81W9GITTh4EKjh0UYYdSLL/UJzmCpC2WM9mGacYzXPaMI7WE8830cjJzkNgmU=
+X-Received: by 2002:a25:cf4b:0:b0:6f4:6cd2:501b with SMTP id
+ f72-20020a25cf4b000000b006f46cd2501bmr21007224ybg.194.1669800228605; Wed, 30
+ Nov 2022 01:23:48 -0800 (PST)
 MIME-Version: 1.0
-References: <20221126102141.721353-1-dmitry.baryshkov@linaro.org>
- <CAPM=9tyjMCOY3-tJASxNg6dFizfaivqfSrhSG1otFTvfuSg=dQ@mail.gmail.com>
-In-Reply-To: <CAPM=9tyjMCOY3-tJASxNg6dFizfaivqfSrhSG1otFTvfuSg=dQ@mail.gmail.com>
+References: <1669767131-13854-1-git-send-email-quic_khsieh@quicinc.com>
+ <1669767131-13854-4-git-send-email-quic_khsieh@quicinc.com>
+In-Reply-To: <1669767131-13854-4-git-send-email-quic_khsieh@quicinc.com>
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Wed, 30 Nov 2022 11:22:27 +0200
-Message-ID: <CAA8EJpoN7HAkdRnJHFCqTxF__L7QwyDK4hLuFKn63A3TgosOsQ@mail.gmail.com>
-To: Dave Airlie <airlied@gmail.com>
+Date: Wed, 30 Nov 2022 11:23:37 +0200
+Message-ID: <CAA8EJppAPCLj0JZf7v8ThFq1C=Ngx3AdzReatRwGC-_jhrANFA@mail.gmail.com>
+To: Kuogee Hsieh <quic_khsieh@quicinc.com>
 Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [pull] drm/msm: drm-msm-display-for-6.2
+Subject: Re: [Freedreno] [PATCH v5 3/3] drm/msm/dp: add support of max dp
+ link rate
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,78 +66,40 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-arm-msm@vger.kernel.org, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- dri-devel@lists.freedesktop.org, Stephen Boyd <swboyd@chromium.org>,
- Rob Clark <robdclark@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- freedreno@lists.freedesktop.org
+Cc: quic_sbillaka@quicinc.com, quic_abhinavk@quicinc.com, airlied@linux.ie,
+ freedreno@lists.freedesktop.org, robdclark@gmail.com,
+ dri-devel@lists.freedesktop.org, dianders@chromium.org, vkoul@kernel.org,
+ agross@kernel.org, bjorn.andersson@linaro.org, daniel@ffwll.ch,
+ linux-arm-msm@vger.kernel.org, swboyd@chromium.org, sean@poorly.run,
+ linux-kernel@vger.kernel.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Wed, 30 Nov 2022 at 09:02, Dave Airlie <airlied@gmail.com> wrote:
+On Wed, 30 Nov 2022 at 02:12, Kuogee Hsieh <quic_khsieh@quicinc.com> wrote:
 >
-> On Sat, 26 Nov 2022 at 20:21, Dmitry Baryshkov
-> <dmitry.baryshkov@linaro.org> wrote:
-> >
-> > Hi Dave,
-> >
-> > As agreed with Rob Clark, a pull request for the non-GPU part of the drm/msm driver. Summary below.
-> >
-> > The following changes since commit 7f7a942c0a338c4a2a7b359bdb2b68e9896122ec:
-> >
-> >   Merge tag 'drm-next-20221025' of git://linuxtv.org/pinchartl/media into drm-next (2022-10-27 14:44:15 +1000)
-> >
-> > are available in the Git repository at:
-> >
-> >   https://gitlab.freedesktop.org/lumag/msm.git tags/drm-msm-display-for-6.2
-> >
-> > for you to fetch changes up to 8d1d17d47eaebe4466459846d07e4ba8953fa585:
-> >
-> >   Merge branches 'msm-next-lumag-core', 'msm-next-lumag-dpu', 'msm-next-lumag-dp', 'msm-next-lumag-dsi', 'msm-next-lumag-hdmi' and 'msm-next-lumag-mdp5' into msm-next-lumag (2022-11-26 12:06:29 +0200)
-> >
-> > ----------------------------------------------------------------
-> > drm/msm updates for 6.2
-> >
-> > Core:
-> > - MSM_INFO_GET_FLAGS support
-> > - Cleaned up MSM IOMMU wrapper code
-> >
-> > DPU:
-> > - Added support for XR30 and P010 image formats
-> > - Reworked MDSS/DPU schema, added SM8250 MDSS bindings
-> > - Added Qualcomm SM6115 support
-> >
-> > DP:
-> > - Dropped unsane sanity checks
-> >
-> > DSI:
-> > - Fix calculation of DSC pps payload
-> >
-> > DSI PHY:
-> > - DSI PHY support for QCM2290
-> >
-> > HDMI:
-> > - Reworked dev init path
-> >
-> > ----------------------------------------------------------------
-> > Adam Skladowski (2):
-> >       dt-bindings: display/msm: add support for SM6115
-> >       drm/msm/disp/dpu1: add support for display on SM6115
-> >
-> > Bryan O'Donoghue (1):
-> >       dt-bindings: msm: dsi-controller-main: Drop redundant phy-names
-> >
-> > Dan Carpenter (1):
-> >       drm/msm/hdmi: remove unnecessary NULL check
-> >
-> > Dmitry Baryshkov (25):
-> >       Merge remote-tracking branch 'msm/msm-fixes' into HEAD
+> By default, HBR2 (5.4G) is the max link link be supported. This patch add
+> the capability to support max link rate at HBR3 (8.1G).
 >
-> This commit has no justification or signed off by line, I'll let it
-> slide this once, but no backmerges without justification and please
-> sign off merges.
+> Changes in v2:
+> -- add max link rate from dtsi
+>
+> Changes in v3:
+> -- parser max_data_lanes and max_dp_link_rate from dp_out endpoint
+>
+> Changes in v4:
+> -- delete unnecessary pr_err
+>
+> Changes in v5:
+> -- split parser function into different patch
+>
+> Signed-off-by: Kuogee Hsieh <quic_khsieh@quicinc.com>
+> ---
+>  drivers/gpu/drm/msm/dp/dp_display.c | 4 ++++
+>  drivers/gpu/drm/msm/dp/dp_panel.c   | 7 ++++---
+>  drivers/gpu/drm/msm/dp/dp_panel.h   | 1 +
+>  3 files changed, 9 insertions(+), 3 deletions(-)
 
-Roger.
-
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 
 -- 
 With best wishes
