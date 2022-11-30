@@ -1,69 +1,69 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 89D8863D429
-	for <lists+freedreno@lfdr.de>; Wed, 30 Nov 2022 12:17:24 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id A245A63D42F
+	for <lists+freedreno@lfdr.de>; Wed, 30 Nov 2022 12:17:45 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4316810E257;
-	Wed, 30 Nov 2022 11:17:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 52AE510E446;
+	Wed, 30 Nov 2022 11:17:44 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-x22b.google.com (mail-lj1-x22b.google.com
- [IPv6:2a00:1450:4864:20::22b])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4E82510E257
- for <freedreno@lists.freedesktop.org>; Wed, 30 Nov 2022 11:17:19 +0000 (UTC)
-Received: by mail-lj1-x22b.google.com with SMTP id l8so20457497ljh.13
- for <freedreno@lists.freedesktop.org>; Wed, 30 Nov 2022 03:17:19 -0800 (PST)
+Received: from mail-lj1-x22d.google.com (mail-lj1-x22d.google.com
+ [IPv6:2a00:1450:4864:20::22d])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CD20210E060
+ for <freedreno@lists.freedesktop.org>; Wed, 30 Nov 2022 11:17:41 +0000 (UTC)
+Received: by mail-lj1-x22d.google.com with SMTP id d3so20513718ljl.1
+ for <freedreno@lists.freedesktop.org>; Wed, 30 Nov 2022 03:17:41 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :from:to:cc:subject:date:message-id:reply-to;
- bh=afzp4FWEpwSn4P0lsi57nrF3Llc8uEfxBSb17oyT0Dc=;
- b=OFZnac3RQf0g0XdLHH+pZFgz2YWG12V3IOmX0UZWiEPxbfeLPv5iBAnVeM4cgXhRD4
- fcIxZhBGT52Ey+cpPhoL+XbWEo8TsCjMBfvLZaJxCZJiCf634DrjexXY1gEdKHMyTbDI
- AqXS0pv5qPLY3vEiDdzsCfGa0aXrY8DMtgomWD0esDjxzQlU+qH6J4+I9b/HTQ29HOQF
- Zx7vUvSerVFo1/wUo+AVdDY7Ob8kxPhRRztn5iQWT3+alJBGj0vQUB5Jsljm0gb+qko0
- g4WrgvOBeRHunQm3/r0fjVRKt+23QtsBpPnqoGAACBcphshprWFUaSk2bE5Qwfg730Z6
- XaFQ==
+ bh=DghhzdLC70p88Ph3mhaw98h7VRYL9qUr3MH4/vlNzpU=;
+ b=pk2KRXvukRhqgVJJ2HWK9+/xZSC8gf1lZmcPUA7LHq5GXsNg6AGRRUS4lRYB6yRxPX
+ SxFOIYM3+sncwsmGoDUpXXdWiA+zE5JtPKkqOpFGaOThZ3lfUNm6lHaPxIP9sheMaFgi
+ G/iAZWe/ZM/w8hEvpd5in4w6pZU4clr0BxvT4e1XZ5bTcZ+Sz6Qj+xTz9Od2n1SetIvS
+ xTK1MBgKxc2kyS+heZJDRA2FklCoYpNnIWYPwFi4Ep4DZd9uJCEkObi0HGpXQV4oGYqu
+ qFz4MXJlIk2dq12cfnEiidPD4InWa/WW1fng7QEU7ZcgpZ+EHVlkevvXXVk4CmGNjCdo
+ /0oQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=afzp4FWEpwSn4P0lsi57nrF3Llc8uEfxBSb17oyT0Dc=;
- b=2xzVRBLqd2t/9uk5IsKoojDlAB3fgPLehdHhtWigTTJs73qJ3L4Piq6C5/Jastwer2
- IbK4dThVnUeKvZjiEnmPryq/A8JHPtsdtv5vxvzXqETv2Iks8NVRCsTOPzIWB6Rs+wSe
- ExPMMdF4sP+V1CfBcv27QrPQ500qf+CcJlcgzXkzxBQotnMCp1Ma+t3wHtsimRJtsdpa
- 9asARijUzAFznA4XUTtqiLemyDNVbcza29aWJQeZ2PJS8VPoprUEF1opgMHRJrczY4By
- sHsHgKZEf4aYgLGmsnLtUNNJfWuP5PtJeOEf9qydQpFWsn/tlpvEOLLQV+vceggneHx6
- EEOw==
-X-Gm-Message-State: ANoB5pnF32Icfzv0Cf7l4Vh5UmoH+T03UJYNjgE3RLsz3wn37NToWKFA
- 8SCTbERYKUzU+0tqeIzbrnA8jw==
-X-Google-Smtp-Source: AA0mqf5mC/ri0BgfaDrZbrRFbczWPWfnOC6qwQb/WrdmleMZypvwB+lzH+SCuVbRmHd+GgSIBBwL3A==
-X-Received: by 2002:a05:651c:ba5:b0:279:9a7c:ed14 with SMTP id
- bg37-20020a05651c0ba500b002799a7ced14mr6401877ljb.351.1669807037688; 
- Wed, 30 Nov 2022 03:17:17 -0800 (PST)
+ bh=DghhzdLC70p88Ph3mhaw98h7VRYL9qUr3MH4/vlNzpU=;
+ b=wQVHLTNAefMxc+BfVr3/67f0NAraCQDiKwDY8lUXuSBNeLKDWNDJPX1O3jCn/bNYUy
+ 9tY3lTu7doENu1p9zHpe/KZrSmMt6NxkuXcbfcXBD9SKvtWUFZibL3t12jqsBtnJny9B
+ OWcLma7AvJ0J1VfNbF/HRh6dq778C8kjM9+aqTkLO4zSJYu7LZRjkZCMItB5v0wjCG3H
+ 49zlGG/roQsJYU9mcvrmqK5VCwFnSdjyC19hcRm3/Uha5QjILKSQwp7CTLaZtvZdsxzK
+ B7/SSISUNKW1hLPegRxviCM0wY7eOffFjNcZsDpvyQLt1ZMUVIywSlj46zB/1KQHQcBw
+ Xy7g==
+X-Gm-Message-State: ANoB5pl0JlxMSwt8yt3+wh9JGjzgSwYAQQzztiYobIV5ZQ8+2U/tXHhz
+ QPZKGRzDi8g2iiqKb0sJWWs72g==
+X-Google-Smtp-Source: AA0mqf7FAZUmUwdxZIfnK1o0qwCU14VpcIfdB0vtB8H9/H3zj6Ulagqt8uLHVWQ63VwAvOGTlNU2hQ==
+X-Received: by 2002:a2e:9c4e:0:b0:26e:2bda:1821 with SMTP id
+ t14-20020a2e9c4e000000b0026e2bda1821mr14090758ljj.241.1669807060137; 
+ Wed, 30 Nov 2022 03:17:40 -0800 (PST)
 Received: from [192.168.1.101] (95.49.125.236.neoplus.adsl.tpnet.pl.
  [95.49.125.236]) by smtp.gmail.com with ESMTPSA id
- a15-20020a19f80f000000b004949f7cbb6esm219873lff.79.2022.11.30.03.17.15
+ s22-20020a056512315600b0049ade93ad24sm218501lfi.156.2022.11.30.03.17.35
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 30 Nov 2022 03:17:16 -0800 (PST)
-Message-ID: <7169238b-becd-2702-278c-f355df66ea97@linaro.org>
-Date: Wed, 30 Nov 2022 12:17:14 +0100
+ Wed, 30 Nov 2022 03:17:37 -0800 (PST)
+Message-ID: <f508a01d-55e3-259b-d648-7125a2606c96@linaro.org>
+Date: Wed, 30 Nov 2022 12:17:34 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.5.0
 Content-Language: en-US
 To: Adam Skladowski <a39.skl@gmail.com>
 References: <20221129204616.47006-1-a39.skl@gmail.com>
- <20221129204616.47006-6-a39.skl@gmail.com>
+ <20221129204616.47006-7-a39.skl@gmail.com>
 From: Konrad Dybcio <konrad.dybcio@linaro.org>
-In-Reply-To: <20221129204616.47006-6-a39.skl@gmail.com>
+In-Reply-To: <20221129204616.47006-7-a39.skl@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH 05/12] arm64: dts: qcom: sm6115: Add PRNG
- node
+Subject: Re: [Freedreno] [PATCH 06/12] arm64: dts: qcom: sm6115: Add
+ rpm-stats node
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -96,33 +96,29 @@ Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 
 On 29.11.2022 21:46, Adam Skladowski wrote:
-> Add a node for the PRNG to enable hw-accelerated pseudo-random number
-> generation.
+> Add rpm stats node.
 > 
 > Signed-off-by: Adam Skladowski <a39.skl@gmail.com>
 > ---
->  ar
 Reviewed-by: Konrad Dybcio <konrad.dybcio@linaro.org>
 
 Konrad
-ch/arm64/boot/dts/qcom/sm6115.dtsi | 7 +++++++
->  1 file changed, 7 insertions(+)
+>  arch/arm64/boot/dts/qcom/sm6115.dtsi | 5 +++++
+>  1 file changed, 5 insertions(+)
 > 
 > diff --git a/arch/arm64/boot/dts/qcom/sm6115.dtsi b/arch/arm64/boot/dts/qcom/sm6115.dtsi
-> index decbf7ca8a03..04620c272227 100644
+> index 04620c272227..6d14bbcda9d3 100644
 > --- a/arch/arm64/boot/dts/qcom/sm6115.dtsi
 > +++ b/arch/arm64/boot/dts/qcom/sm6115.dtsi
-> @@ -497,6 +497,13 @@ qusb2_hstx_trim: hstx-trim@25b {
->  			};
+> @@ -538,6 +538,11 @@ rpm_msg_ram: sram@45f0000 {
+>  			reg = <0x045f0000 0x7000>;
 >  		};
 >  
-> +		rng: rng@1b53000 {
-> +			compatible = "qcom,prng-ee";
-> +			reg = <0x01b53000 0x1000>;
-> +			clocks = <&gcc GCC_PRNG_AHB_CLK>;
-> +			clock-names = "core";
+> +		sram@4690000 {
+> +			compatible = "qcom,rpm-stats";
+> +			reg = <0x04690000 0x10000>;
 > +		};
 > +
->  		spmi_bus: spmi@1c40000 {
->  			compatible = "qcom,spmi-pmic-arb";
->  			reg = <0x01c40000 0x1100>,
+>  		sdhc_1: mmc@4744000 {
+>  			compatible = "qcom,sm6115-sdhci", "qcom,sdhci-msm-v5";
+>  			reg = <0x04744000 0x1000>, <0x04745000 0x1000>, <0x04748000 0x8000>;
