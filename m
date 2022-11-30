@@ -2,59 +2,68 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id A77D963D276
-	for <lists+freedreno@lfdr.de>; Wed, 30 Nov 2022 10:51:05 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id CCF1E63D423
+	for <lists+freedreno@lfdr.de>; Wed, 30 Nov 2022 12:17:06 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4FCD810E23B;
-	Wed, 30 Nov 2022 09:51:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9332910E060;
+	Wed, 30 Nov 2022 11:17:05 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-yw1-x112f.google.com (mail-yw1-x112f.google.com
- [IPv6:2607:f8b0:4864:20::112f])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B58A910E191
- for <freedreno@lists.freedesktop.org>; Wed, 30 Nov 2022 09:50:59 +0000 (UTC)
-Received: by mail-yw1-x112f.google.com with SMTP id
- 00721157ae682-3bfd998fa53so112612597b3.5
- for <freedreno@lists.freedesktop.org>; Wed, 30 Nov 2022 01:50:59 -0800 (PST)
+Received: from mail-lj1-x235.google.com (mail-lj1-x235.google.com
+ [IPv6:2a00:1450:4864:20::235])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 00FFF10E24C
+ for <freedreno@lists.freedesktop.org>; Wed, 30 Nov 2022 11:17:03 +0000 (UTC)
+Received: by mail-lj1-x235.google.com with SMTP id z24so20495528ljn.4
+ for <freedreno@lists.freedesktop.org>; Wed, 30 Nov 2022 03:17:03 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=85CBpe8h6suPlC2YlUqV3pCbiuyIDeu7NL7tAzWSq04=;
- b=WMQHbII59gMQ0BlEfRQu/mx7qNJjrPJO7OqapZERyzpNTOsYZeo79HPXvNUQb2WH/g
- IsVteDPqxVox+ZFHzsroABU1M9JcDSi9MSNK0CmQpoLfJlERObQjoZlYfyCXinMQBfK4
- Iys+Lm0Fp4z5uqFibE++OQPIYgruCqrIIfoonVqw+S5Jwr13dyHJjwXmZykNsxMwUB4E
- S7h1Xhfo8AlwrrLbn876IzrNOITSfHH20iPy6R1kSMirhzHRdOMuNVF+/tUBGGY6JFIn
- Gbn2SoJ+Gkhud76kOUhRyP3c7q6ZuM9HJ1V2QQUn67MAqC5gVATxLXOacvAs2Gd/oKeg
- 4ZKg==
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=93Fl7WiTCHJeIgakKDaYI1Qsq+II/EWb0Q1aTHCr7pA=;
+ b=uL1Ic/P3fR5OXGJkEoD9BOkPINXKzVlvBXwRHreFGxX7vqQdYxlkqKhKU46HMaQ4SS
+ 9r/5h+zENHT7VKjhFy3k62I2oHurEg7Yy6DT6kKIiQpFad9GZLPzTJr3cVBVLqi5R5wv
+ 0/JSe2TJaa2kuX10sIjQ3u0bbU2S4ydAZsOByR2JNemAcPUbNVCdt/IalgIKjOaaYjY1
+ HWKSZMOXfqvkSwuPCTcNMYXwVEBXljjoiR/8xSDxDYHEsH5K0cyLB2mRunlXz0JtZipQ
+ iQesDJwc6oMQGp4UT9hQgTX5wk8LkCogzzqef2SiQHY7EBXY9qxMTbmjDwee+66MgliN
+ 9kcA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=85CBpe8h6suPlC2YlUqV3pCbiuyIDeu7NL7tAzWSq04=;
- b=lJAN+F+C9A/MpLGmZpC+rltNfWznLK7PiyPUuoN6bYXu9HU5c1qvOtPmq9G0z4bdOH
- dgUmKeKSWrDdZi5gBh6YO70BC3XDj+5DEjZhMg3ugtLiXl7PXzcVwNExGlEprxpWr9uW
- LF9LhzAZ+mPVa8cWDtBEN3Bu5XsN4N1cVxE7UMeTDx4c2jzPxht/p5tmPQG55CKqU96Q
- NGrx017xrt6b+u4xydvopEDlIV2Y5cZeU71BwIlBsifVTQYjEumLQNvdpwvzHh8tcCQU
- 8nCYoQEHobXaLisJUGE01L1rYkFxrf6WDm2IvAFe5/4OQ+eDY8b4Y5rBqrmMmnlprowq
- diXQ==
-X-Gm-Message-State: ANoB5pkgwqXSLPqin0p7tZjgr9rNSCbJ21DSIsdWD1zUEaMh7Wn4I4wA
- YzRS25XAMNM3Rha/vu/FXHYsZlTgzwKduf4x2oag2w==
-X-Google-Smtp-Source: AA0mqf5nA1N+rUMCNTWTlTmneC+iJIjUIdYRscTuKjxKx6GwENB0YR1xBSvYfk36+SLH/PPzg8wy1CB+3xgKhh7YJcA=
-X-Received: by 2002:a0d:db15:0:b0:3d6:2151:4038 with SMTP id
- d21-20020a0ddb15000000b003d621514038mr1132331ywe.418.1669801858887; Wed, 30
- Nov 2022 01:50:58 -0800 (PST)
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=93Fl7WiTCHJeIgakKDaYI1Qsq+II/EWb0Q1aTHCr7pA=;
+ b=OOkky8pDab7J8npB0ciPN3z+yMxTNb5lnUQinZ2Tkis6/+HZo/D1pwT2Yd4Q9eMq07
+ yIGNC4LkNRL89/k4/94bfjr6FXGDQOvao2TiYHZN9Uh3OZJooze1qtDBARfIZpA/ckYT
+ /GQPHABIwnefA4qt3waxQP6cFK6x3NTE3TpvuYseSWNZIuCBagMvmREjSERY5yXsDtMb
+ nfEja0dYwW1uruQFDf17Yjn+yOAh2AqYYJto4kPUgexYdDDOFrKI2DfRTRwlUqIp+HJL
+ mE37zuOSkaqjKWMOxCBnVllKXZs97O/z/nhrmsh0Tm4UQj2SR4s6xSemjCK3KPhTNmHx
+ yBpA==
+X-Gm-Message-State: ANoB5pktR4dpIARYPO5HlGBKp/MirVXV2FHmCgxqENTIRJdqVZ+RKbWx
+ GzjM0w8yIJbH+2+5vS128pg2Rw==
+X-Google-Smtp-Source: AA0mqf72zkzsX2t1JV2GlLC/Mt2x0wSRYPI7aozVNCnP7S0yBQycAUQytTfBHQ3TV8fKZr6qfgmiUA==
+X-Received: by 2002:a05:651c:158c:b0:26c:90f:f8fe with SMTP id
+ h12-20020a05651c158c00b0026c090ff8femr20603495ljq.2.1669807022044; 
+ Wed, 30 Nov 2022 03:17:02 -0800 (PST)
+Received: from [192.168.1.101] (95.49.125.236.neoplus.adsl.tpnet.pl.
+ [95.49.125.236]) by smtp.gmail.com with ESMTPSA id
+ q15-20020a2e914f000000b0027706d22878sm104656ljg.94.2022.11.30.03.16.59
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 30 Nov 2022 03:17:01 -0800 (PST)
+Message-ID: <8a57c06c-e755-c298-a9d6-3f2a431b3f5d@linaro.org>
+Date: Wed, 30 Nov 2022 12:16:58 +0100
 MIME-Version: 1.0
-References: <1669767131-13854-1-git-send-email-quic_khsieh@quicinc.com>
- <1669767131-13854-3-git-send-email-quic_khsieh@quicinc.com>
-In-Reply-To: <1669767131-13854-3-git-send-email-quic_khsieh@quicinc.com>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Wed, 30 Nov 2022 11:50:48 +0200
-Message-ID: <CAA8EJppEHrPeoCxZUerf4MjDVkYEm7EvTcsm8eTAQBUVMqc_cA@mail.gmail.com>
-To: Kuogee Hsieh <quic_khsieh@quicinc.com>
-Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [PATCH v5 2/3] drm/msm/dp: parser data-lanes and
- link-frequencies from endpoint node
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.5.0
+Content-Language: en-US
+To: Adam Skladowski <a39.skl@gmail.com>
+References: <20221129204616.47006-1-a39.skl@gmail.com>
+ <20221129204616.47006-5-a39.skl@gmail.com>
+From: Konrad Dybcio <konrad.dybcio@linaro.org>
+In-Reply-To: <20221129204616.47006-5-a39.skl@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+Subject: Re: [Freedreno] [PATCH 04/12] arm64: dts: qcom: sm6115: Add TSENS
+ node
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,137 +76,55 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: quic_sbillaka@quicinc.com, quic_abhinavk@quicinc.com, airlied@linux.ie,
- freedreno@lists.freedesktop.org, robdclark@gmail.com,
- dri-devel@lists.freedesktop.org, dianders@chromium.org, vkoul@kernel.org,
- agross@kernel.org, bjorn.andersson@linaro.org, daniel@ffwll.ch,
- linux-arm-msm@vger.kernel.org, swboyd@chromium.org, sean@poorly.run,
- linux-kernel@vger.kernel.org
+Cc: "Rafael J. Wysocki" <rafael@kernel.org>,
+ Thara Gopinath <thara.gopinath@gmail.com>, dri-devel@lists.freedesktop.org,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ phone-devel@vger.kernel.org, David Airlie <airlied@gmail.com>,
+ Daniel Lezcano <daniel.lezcano@linaro.org>, Andy Gross <agross@kernel.org>,
+ Zhang Rui <rui.zhang@intel.com>, devicetree@vger.kernel.org,
+ Amit Kucheria <amitk@kernel.org>, linux-pm@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Rob Herring <robh+dt@kernel.org>, ~postmarketos/upstreaming@lists.sr.ht,
+ Sean Paul <sean@poorly.run>, Loic Poulain <loic.poulain@linaro.org>,
+ Bjorn Andersson <andersson@kernel.org>, linux-kernel@vger.kernel.org,
+ Rob Clark <robdclark@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Wed, 30 Nov 2022 at 02:12, Kuogee Hsieh <quic_khsieh@quicinc.com> wrote:
->
-> Both data-lanes and link-frequencies are property of endpoint. This
-> patch parser endpoint to retrieve max data lanes and max link rate
-> supported specified at dp_out endpoint. In the case where no endpoint
-> specified, then 4 data lanes with HBR2 link rate (5.4G) will be the
-> default link configuration.
 
-So, you have two changes in a single patch.
-1) Moving the data-lanes to the endpoint
-2) Adding link-frequencies.
 
-Please split the patch accordingly. Also keep in mind that you have to
-provide backwards compatibility for the data-lanes property.
-
->
-> Signed-off-by: Kuogee Hsieh <quic_khsieh@quicinc.com>
+On 29.11.2022 21:46, Adam Skladowski wrote:
+> Add nodes required for TSENS block using the common qcom,tsens-v2 binding.
+> 
+> Signed-off-by: Adam Skladowski <a39.skl@gmail.com>
 > ---
->  drivers/gpu/drm/msm/dp/dp_parser.c | 34 ++++++++++++++++++++++++++--------
->  drivers/gpu/drm/msm/dp/dp_parser.h |  2 ++
->  2 files changed, 28 insertions(+), 8 deletions(-)
->
-> diff --git a/drivers/gpu/drm/msm/dp/dp_parser.c b/drivers/gpu/drm/msm/dp/dp_parser.c
-> index dd73221..9367f8c 100644
-> --- a/drivers/gpu/drm/msm/dp/dp_parser.c
-> +++ b/drivers/gpu/drm/msm/dp/dp_parser.c
-> @@ -94,16 +94,34 @@ static int dp_parser_ctrl_res(struct dp_parser *parser)
->  static int dp_parser_misc(struct dp_parser *parser)
->  {
->         struct device_node *of_node = parser->pdev->dev.of_node;
-> -       int len;
-> -
-> -       len = drm_of_get_data_lanes_count(of_node, 1, DP_MAX_NUM_DP_LANES);
-> -       if (len < 0) {
-> -               DRM_WARN("Invalid property \"data-lanes\", default max DP lanes = %d\n",
-> -                        DP_MAX_NUM_DP_LANES);
-> -               len = DP_MAX_NUM_DP_LANES;
-> +       struct device_node *endpoint;
-> +       int cnt;
-> +       u64 frequence[4];
+Reviewed-by: Konrad Dybcio <konrad.dybcio@linaro.org>
 
-frequency
-
+Konrad
+>  arch/arm64/boot/dts/qcom/sm6115.dtsi | 11 +++++++++++
+>  1 file changed, 11 insertions(+)
+> 
+> diff --git a/arch/arm64/boot/dts/qcom/sm6115.dtsi b/arch/arm64/boot/dts/qcom/sm6115.dtsi
+> index 2003a2519a54..decbf7ca8a03 100644
+> --- a/arch/arm64/boot/dts/qcom/sm6115.dtsi
+> +++ b/arch/arm64/boot/dts/qcom/sm6115.dtsi
+> @@ -515,6 +515,17 @@ spmi_bus: spmi@1c40000 {
+>  			#interrupt-cells = <4>;
+>  		};
+>  
+> +		tsens0: thermal-sensor@4410000 {
+> +			compatible = "qcom,sm6115-tsens", "qcom,tsens-v2";
+> +			reg = <0x04411000 0x1ff>, /* TM */
+> +			      <0x04410000 0x8>; /* SROT */
+> +			#qcom,sensors = <16>;
+> +			interrupts = <GIC_SPI 275 IRQ_TYPE_LEVEL_HIGH>,
+> +				     <GIC_SPI 190 IRQ_TYPE_LEVEL_HIGH>;
+> +			interrupt-names = "uplow", "critical";
+> +			#thermal-sensor-cells = <1>;
+> +		};
 > +
-> +       endpoint = of_graph_get_endpoint_by_regs(of_node, 1, 0); /* port@1 */
-> +       if (endpoint) {
-> +               cnt = of_property_count_u32_elems(endpoint, "data-lanes");
-> +               if (cnt < 0)
-> +                       parser->max_dp_lanes = DP_MAX_NUM_DP_LANES; /* 4 lanes */
-> +               else
-> +                       parser->max_dp_lanes = cnt;
-> +
-> +               cnt = of_property_count_u64_elems(endpoint, "link-frequencies");
-> +               if (cnt < 0) {
-> +                       parser->max_dp_link_rate = DP_LINK_FREQUENCY_HBR2; /* 54000 khz */
-
-Wrong number of zeroes
-
-> +               } else {
-> +                       if (cnt > 4)    /* 4 frequency at most */
-> +                               cnt = 4;
-
-'4 frequencies'. Not to mention that magic '4' should be defined
-somewhere. Or removed completely. See below.
-
-> +                       of_property_read_u64_array(endpoint, "link-frequencies", frequence, cnt);
-
-Can you please use of_property_read_u64_index() instead? It also has a
-nice feature of modifying the out_value only if the proper data was
-found. So you can set the default and then override it with the
-of_property_read function. And then divide it by 1000 to get the value
-in KHz.
-
-> +                       parser->max_dp_link_rate = (u32)frequence[cnt  -1];
-> +                       parser->max_dp_link_rate /= 1000;       /* khz */
-
-The HDR3 rate is 8100 Mb/s. 8 100 000 000. This doesn't fit into u32
-(U32_MAX = 4 294 967 295).
-
-> +               }
-> +       } else {
-> +               /* default */
-> +               parser->max_dp_lanes = DP_MAX_NUM_DP_LANES; /* 4 lanes */
-> +               parser->max_dp_link_rate = DP_LINK_FREQUENCY_HBR2; /* 54000 khz */
-
-Wrong number of zeroes. Better use Mb/s or Gb/s directly. Also it is a
-rate, not a frequency, so the define should also use 'RATE' in its
-name.
-
->         }
->
-> -       parser->max_dp_lanes = len;
->         return 0;
->  }
->
-> diff --git a/drivers/gpu/drm/msm/dp/dp_parser.h b/drivers/gpu/drm/msm/dp/dp_parser.h
-> index 866c1a8..76ddb751 100644
-> --- a/drivers/gpu/drm/msm/dp/dp_parser.h
-> +++ b/drivers/gpu/drm/msm/dp/dp_parser.h
-> @@ -15,6 +15,7 @@
->  #define DP_LABEL "MDSS DP DISPLAY"
->  #define DP_MAX_PIXEL_CLK_KHZ   675000
->  #define DP_MAX_NUM_DP_LANES    4
-> +#define DP_LINK_FREQUENCY_HBR2 540000
->
->  enum dp_pm_type {
->         DP_CORE_PM,
-> @@ -119,6 +120,7 @@ struct dp_parser {
->         struct dp_io io;
->         struct dp_display_data disp_data;
->         u32 max_dp_lanes;
-> +       u32 max_dp_link_rate;
->         struct drm_bridge *next_bridge;
->
->         int (*parse)(struct dp_parser *parser);
-> --
-> The Qualcomm Innovation Center, Inc. is a member of the Code Aurora Forum,
-> a Linux Foundation Collaborative Project
->
-
-
---
-With best wishes
-
-Dmitry
+>  		rpm_msg_ram: sram@45f0000 {
+>  			compatible = "qcom,rpm-msg-ram";
+>  			reg = <0x045f0000 0x7000>;
