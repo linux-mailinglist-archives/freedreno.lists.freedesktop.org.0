@@ -1,70 +1,83 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 67D8F63EE01
-	for <lists+freedreno@lfdr.de>; Thu,  1 Dec 2022 11:38:25 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 6E48363F624
+	for <lists+freedreno@lfdr.de>; Thu,  1 Dec 2022 18:32:27 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A231910E129;
-	Thu,  1 Dec 2022 10:38:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8289710E06D;
+	Thu,  1 Dec 2022 17:32:25 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x131.google.com (mail-lf1-x131.google.com
- [IPv6:2a00:1450:4864:20::131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2DE1F10E5AE
- for <freedreno@lists.freedesktop.org>; Thu,  1 Dec 2022 10:38:20 +0000 (UTC)
-Received: by mail-lf1-x131.google.com with SMTP id f21so948436lfm.9
- for <freedreno@lists.freedesktop.org>; Thu, 01 Dec 2022 02:38:20 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=ir3uvErgUob4NFVyXZ4JMzbDFyUKCFAp6JFwnKMpYXU=;
- b=sDiCfmTwLAL+IKSK6fOyjJI03hKdZIxAwTN23mUq3iwImjKp2FQBCLSi5GOXxBPsHz
- BdYaxRl6VVlyvlU6jG9NE6ZG8rv3Yj0JnmFXHJTRlzsuIL78G6czmw1vTpU9BjChZF3M
- rmMJqL65R3fZNXf0/E6oOy/hBWLN3/iir5072tqA+HRaWY7fBEiO0FbK5YJ6YijcnQ8a
- +mTJELLZsdyHs4cGNDjena94bfmGvZYxnw5jMqOsrOF0BvuaxqpN8pcLqOkR+sqcjRqy
- tsqki7IGeJr9MY0ED0VxJTG89l+ku1voRYszZZ+iJsbbJXKsZ69oEGGy6biAIZwn2wYU
- wjLA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=ir3uvErgUob4NFVyXZ4JMzbDFyUKCFAp6JFwnKMpYXU=;
- b=aKSTQ5gllJkSscffPFBO9SDWxXSUX+haJD6No3RRL9uPVLrxLx7mAdh6Cm/7pcBc8b
- AH54p0JHtyjO14RVUKwaarAIWLu+r8PwVSXhvR1Bc+eG0qZjcEkRYRe6l7U6c6JKT0he
- DwBzr+VYv1gr4KOvdM5Ieqx2xR2XKHRTcJo4fmV19SekMsmzwupaJ21AwaOSau6Y9VJ7
- ATJJ1nDgjMXHPjK57jA9/i4ANMcCL7StUWqpYbVdYcAq6/upW7CS0cUo1LGG8GXIowBU
- oFtgDcvLz2e2d1h1LQ6B5LLWMNfnGBsryJ07yiVtellcNQnyIEoqudJJJ98wEtM/UOYg
- iUNA==
-X-Gm-Message-State: ANoB5pmqbMhlKL7y8klUdgDU7HuN+72RKBY3YgpH2AA71TYqMe5YxgKY
- SnsPmcv8N/X0ljbnN4V1e/i8tg==
-X-Google-Smtp-Source: AA0mqf5fOBE5NhPN7Xd+BTF4xDsWEodGVKp8iN4/HOQ8OyxhgwJEhznyaRqPwZeYHiXu0T46gbRvmQ==
-X-Received: by 2002:a05:6512:3983:b0:4b4:f88:90d3 with SMTP id
- j3-20020a056512398300b004b40f8890d3mr23278296lfu.37.1669891098347; 
- Thu, 01 Dec 2022 02:38:18 -0800 (PST)
-Received: from [192.168.0.20]
- (088156142067.dynamic-2-waw-k-3-2-0.vectranet.pl. [88.156.142.67])
- by smtp.gmail.com with ESMTPSA id
- k29-20020a192d1d000000b004b5138d82b3sm601559lfj.76.2022.12.01.02.38.16
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 01 Dec 2022 02:38:17 -0800 (PST)
-Message-ID: <382df687-c535-4dd6-125a-5f3b6022cbd2@linaro.org>
-Date: Thu, 1 Dec 2022 11:38:16 +0100
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B219410E06D;
+ Thu,  1 Dec 2022 17:32:18 +0000 (UTC)
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 2B1ANN74005503; Thu, 1 Dec 2022 17:32:11 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
+ h=message-id : date :
+ mime-version : subject : to : cc : references : from : in-reply-to :
+ content-type : content-transfer-encoding; s=qcppdkim1;
+ bh=cH4X/9hp42Ht1t4/gAdjt5IqVXmrBA6lZWKRLIVyAgM=;
+ b=Jfq7/YXqfA72R1xnxGuLP9AsKQX7Aqh77e6Z7O69zwnRdSZz7JpQYL1OTDGA/+k4EHJs
+ CHSGGJ5mV/47i/d2enpz6xUQjLDJakZklVJ6UCbcTo74VdAXa7cYAnDLTB6aC3hKy9vI
+ bUYHc0nxLsOnWwpDJzGxc5u+qDaRwa9EtazSCtebBoFgBSwu3kyMURdjq4O9AYvhcPfm
+ Q6BDWRYBX5py0WO2/Cg6LdqiFugmBsAmAuw2usJZoMl51kIfTyoUWuslBI8DPAxoEIPS
+ FjciAXRQPA3CSKtVjhCnaDKP2mIid496XdcsYxYiGLtdy5hQgmYRZtV4Ovqc0NnA+vTt mA== 
+Received: from nalasppmta04.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3m6k6xjypx-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 01 Dec 2022 17:32:11 +0000
+Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
+ [10.47.209.196])
+ by NALASPPMTA04.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 2B1HWAYq008297
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 1 Dec 2022 17:32:10 GMT
+Received: from [10.110.18.228] (10.80.80.8) by nalasex01a.na.qualcomm.com
+ (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.36; Thu, 1 Dec 2022
+ 09:32:03 -0800
+Message-ID: <f03233b4-2850-c206-724c-0b6568b6a876@quicinc.com>
+Date: Thu, 1 Dec 2022 09:32:02 -0800
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
  Thunderbird/102.5.0
 Content-Language: en-US
-To: Adam Skladowski <a39.skl@gmail.com>
-References: <20221130200950.144618-1-a39.skl@gmail.com>
- <20221130200950.144618-12-a39.skl@gmail.com>
-From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-In-Reply-To: <20221130200950.144618-12-a39.skl@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH v2 11/12] arm64: dts: qcom: sm6115: Add WCN
- node.
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ <dri-devel@lists.freedesktop.org>, <robdclark@gmail.com>,
+ <sean@poorly.run>, <swboyd@chromium.org>, <dianders@chromium.org>,
+ <vkoul@kernel.org>, <daniel@ffwll.ch>, <airlied@linux.ie>,
+ <agross@kernel.org>, <bjorn.andersson@linaro.org>
+References: <1669852310-22360-1-git-send-email-quic_khsieh@quicinc.com>
+ <1669852310-22360-2-git-send-email-quic_khsieh@quicinc.com>
+ <7bf73466-e476-4a1d-5dc0-1b63ea742226@linaro.org>
+ <29d12e26-b3c8-dbf6-de1f-5c6ae4a5a705@linaro.org>
+From: Kuogee Hsieh <quic_khsieh@quicinc.com>
+In-Reply-To: <29d12e26-b3c8-dbf6-de1f-5c6ae4a5a705@linaro.org>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-GUID: Jn-ucERJMZDvW0JL7kgkMjrfX0k8G9-R
+X-Proofpoint-ORIG-GUID: Jn-ucERJMZDvW0JL7kgkMjrfX0k8G9-R
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.219,Aquarius:18.0.923,Hydra:6.0.545,FMLib:17.11.122.1
+ definitions=2022-12-01_12,2022-12-01_01,2022-06-22_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 spamscore=0
+ malwarescore=0 lowpriorityscore=0 bulkscore=0 impostorscore=0 phishscore=0
+ mlxscore=0 mlxlogscore=999 priorityscore=1501 clxscore=1015 adultscore=0
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2210170000
+ definitions=main-2212010131
+Subject: Re: [Freedreno] [PATCH v6 1/4] arm64: dts: qcom: add data-lanes and
+ link-freuencies into dp_out endpoint
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,30 +90,157 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Rafael J. Wysocki" <rafael@kernel.org>,
- Thara Gopinath <thara.gopinath@gmail.com>, dri-devel@lists.freedesktop.org,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- phone-devel@vger.kernel.org, David Airlie <airlied@gmail.com>,
- Daniel Lezcano <daniel.lezcano@linaro.org>, Andy Gross <agross@kernel.org>,
- Zhang Rui <rui.zhang@intel.com>, devicetree@vger.kernel.org,
- Amit Kucheria <amitk@kernel.org>, linux-pm@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Rob Herring <robh+dt@kernel.org>, ~postmarketos/upstreaming@lists.sr.ht,
- Sean Paul <sean@poorly.run>, Loic Poulain <loic.poulain@linaro.org>,
- Bjorn Andersson <andersson@kernel.org>, linux-kernel@vger.kernel.org,
- Konrad Dybcio <konrad.dybcio@linaro.org>, Rob Clark <robdclark@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- freedreno@lists.freedesktop.org
+Cc: linux-arm-msm@vger.kernel.org, quic_sbillaka@quicinc.com,
+ freedreno@lists.freedesktop.org, quic_abhinavk@quicinc.com,
+ linux-kernel@vger.kernel.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 30/11/2022 21:09, Adam Skladowski wrote:
-> Add WCN node to allow using wifi module.
-> 
 
-A nit: Drop full stop from commit subject.
+On 11/30/2022 4:21 PM, Dmitry Baryshkov wrote:
+> On 01/12/2022 02:07, Dmitry Baryshkov wrote:
+>> On 01/12/2022 01:51, Kuogee Hsieh wrote:
+>>> Move data-lanes property from mdss_dp node to dp_out endpoint. Also
+>>> add link-frequencies property into dp_out endpoint as well. The last
+>>> frequency specified at link-frequencies will be the max link rate
+>>> supported by DP.
+>>>
+>>> Changes in v5:
+>>> -- revert changes at sc7180.dtsi and sc7280.dtsi
+>>> -- add &dp_out to sc7180-trogdor.dtsi and sc7280-herobrine.dtsi
+>>>
+>>> Changes in v6:
+>>> -- add data-lanes and link-frequencies to yaml
+>>>
+>>> Signed-off-by: Kuogee Hsieh <quic_khsieh@quicinc.com>
+>>> ---
+>>>   .../devicetree/bindings/display/msm/dp-controller.yaml  | 17 
+>>> +++++++++++++++++
+>>
+>> Separate patch. Also you didn't check the get_maintainers output, so 
+>> required parties were not included into the distribution.
+>>
+>> Also as you'd check the get_maintainers output, please fix other 
+>> email addresses too.
+>>
+>>> arch/arm64/boot/dts/qcom/sc7180-trogdor.dtsi            |  6 +++++-
+>>>   arch/arm64/boot/dts/qcom/sc7280-herobrine.dtsi          |  6 +++++-
+>>>   3 files changed, 27 insertions(+), 2 deletions(-)
+>>>
+>>> diff --git 
+>>> a/Documentation/devicetree/bindings/display/msm/dp-controller.yaml 
+>>> b/Documentation/devicetree/bindings/display/msm/dp-controller.yaml
+>>> index 94bc6e1..af70343 100644
+>>> --- a/Documentation/devicetree/bindings/display/msm/dp-controller.yaml
+>>> +++ b/Documentation/devicetree/bindings/display/msm/dp-controller.yaml
+>>> @@ -90,6 +90,20 @@ properties:
+>>>           $ref: /schemas/graph.yaml#/properties/port
+>>>           description: Output endpoint of the controller
+>>> +        properties:
+>>> +          endpoint:
+>>> +            $ref: /schemas/media/video-interfaces.yaml#
+>>> +
+>>> +          properties:
+>>> +            link-frequencies: true
+>>> +            data-lanes: true
+>>
+>> No. Use $ref for both of them.
+>>
+>>> +
+>>> +          required:
+>>> +            - link-frequencies
+>>> +            - data-lanes
+>>
+>> No, they are not required.
+>>
+>>> +
+>>> +          additionalProperties: false
+>>> +
+>>
+>> deprecation of old data-lanes property?
+>>
+>>>   required:
+>>>     - compatible
+>>>     - reg
+>>> @@ -158,6 +172,9 @@ examples:
+>>>                   reg = <1>;
+>>>                   endpoint {
+>>>                       remote-endpoint = <&typec>;
+>>> +                    data-lanes = <1 2>;
+>>> +                    link-frequencies = /bits/ 64 <160000000 270000000
+>
+> s/1600/1620
+>
+>>> + 540000000 810000000>;
+>>
+>> I guess the number of zeroes is wrong here. This is 160 MHz ... 810 
+>> Mhz, rather than 1.6 GHz ... 8.1 GHz
+>
+> Ok, I was wrong here. The old code definitely defaults to 570 
+> mega-something. Now I'd really like to read your description for the 
+> link-frequencies property, because the 
+> phy_configure_opts_dp::link_rate is clearly specified in Mb/s and it 
+> takes a fixed set of values from 1.62 Gb/s up to 8.1 Gb/s.
+>
+> I think the drm_dp_bw_code_to_link_rate() function is incorrect by 
+> itself, as it multiplies with 27000 (27 Mbps) rather than 270000 (0.27 
+> Gbps) as required by the standard. So first, we should fix the 
+> function, then all the rates would become logical.
 
-Best regards,
-Krzysztof
+no, drm_dp_bw_code_to_link_rate() is correct and should not be changes 
+since it impact to other dp drivers too.
 
+0.27Gbps/lane is specified at DP spec.
+
+DP use 8b/10b coding rule (10 bits symbol contains 8 bits data).
+
+
+>
+>
+>>
+>>>                   };
+>>>               };
+>>>           };
+>>> diff --git a/arch/arm64/boot/dts/qcom/sc7180-trogdor.dtsi 
+>>> b/arch/arm64/boot/dts/qcom/sc7180-trogdor.dtsi
+>>> index 754d2d6..39f0844 100644
+>>> --- a/arch/arm64/boot/dts/qcom/sc7180-trogdor.dtsi
+>>> +++ b/arch/arm64/boot/dts/qcom/sc7180-trogdor.dtsi
+>>> @@ -812,7 +812,11 @@ hp_i2c: &i2c9 {
+>>>       status = "okay";
+>>>       pinctrl-names = "default";
+>>>       pinctrl-0 = <&dp_hot_plug_det>;
+>>> -    data-lanes = <0 1>;
+>>> +};
+>>> +
+>>> +&dp_out {
+>>> +    data-lanes = <0  1>;
+>>> +    link-frequencies = /bits/ 64 <160000000 270000000 540000000>;
+>>
+>> Same comment here.
+>>
+>>>   };
+>>>   &pm6150_adc {
+>>> diff --git a/arch/arm64/boot/dts/qcom/sc7280-herobrine.dtsi 
+>>> b/arch/arm64/boot/dts/qcom/sc7280-herobrine.dtsi
+>>> index 93e39fc..b7c343d 100644
+>>> --- a/arch/arm64/boot/dts/qcom/sc7280-herobrine.dtsi
+>>> +++ b/arch/arm64/boot/dts/qcom/sc7280-herobrine.dtsi
+>>> @@ -440,7 +440,11 @@ ap_i2c_tpm: &i2c14 {
+>>>       status = "okay";
+>>>       pinctrl-names = "default";
+>>>       pinctrl-0 = <&dp_hot_plug_det>;
+>>> -    data-lanes = <0 1>;
+>>> +};
+>>> +
+>>> +&dp_out {
+>>> +    data-lanes = <0  1>;
+>>> +    link-frequencies = /bits/ 64 <160000000 270000000 540000000 
+>>> 810000000>;
+>>
+>> And here.
+>>
+>>>   };
+>>>   &mdss_mdp {
+>>
+>
