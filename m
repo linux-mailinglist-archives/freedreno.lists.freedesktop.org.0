@@ -2,74 +2,58 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 013BF63F6D1
-	for <lists+freedreno@lfdr.de>; Thu,  1 Dec 2022 18:50:06 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4A9CC63F79D
+	for <lists+freedreno@lfdr.de>; Thu,  1 Dec 2022 19:42:36 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A58D910E65F;
-	Thu,  1 Dec 2022 17:50:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 12EA410E12F;
+	Thu,  1 Dec 2022 18:42:35 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x132.google.com (mail-lf1-x132.google.com
- [IPv6:2a00:1450:4864:20::132])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8A99E10E65F
- for <freedreno@lists.freedesktop.org>; Thu,  1 Dec 2022 17:49:59 +0000 (UTC)
-Received: by mail-lf1-x132.google.com with SMTP id f13so3630397lfa.6
- for <freedreno@lists.freedesktop.org>; Thu, 01 Dec 2022 09:49:59 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=4KQ3/tBCCX08RqaHAVKz1V3BoqU0bl5hV6otFx1dW9g=;
- b=qzvdvgQzom2VSHmp9Pezrsgvfsgdx+1z0vQpUjMuSyJOYGThCuYIN19bHsD9U0KkfT
- +qvq46IyIYOML0N35RAyZyeonNmEaibF+N8yNdYlEINzYjDRjvPmcb9sYP+Qfh3hShza
- UNLWwlkzviQm9Ik+FYjKiByYpvj9ZTJ6p3VbrAt01t3BPq/Q3/hCCwvyUjE5GNPaWCHH
- q8OdAD4EWvLOBT/+AsUq0HSM0GMKxMM+IhgAuMJ5JRvtzp3A8niKzyLbdjwm078ZdH4z
- jZnACrkTEbwqgeJbStuYuqFxh7ZJiLaYEHTMO5wbAbIhOEfBGi2frFJNLgUH2H8Z70Lh
- vbkw==
+Received: from mail-lj1-x232.google.com (mail-lj1-x232.google.com
+ [IPv6:2a00:1450:4864:20::232])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4170810E61D
+ for <freedreno@lists.freedesktop.org>; Thu,  1 Dec 2022 18:42:33 +0000 (UTC)
+Received: by mail-lj1-x232.google.com with SMTP id d3so2922508ljl.1
+ for <freedreno@lists.freedesktop.org>; Thu, 01 Dec 2022 10:42:33 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=joelfernandes.org; s=google;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=1CLbb6gTftbtF04ieLZupgrbYGtIY4aNewsRQHGXS6s=;
+ b=dsvo2cqfA/yq8gXZkDeCq0csmaMzd28okmfLdJz/BTzyZVPeRJhidpo3VrmNeuYbjF
+ E9CvUjhxBZB6bxMl9x7/AlWP58UVZZ015Dfj5bj0LS0ihq7tnZ/J51SBNt+V9uwtu12p
+ jd/VFmVjrbBXK+34fz51MYy0DzmPcKpeHcODg=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=4KQ3/tBCCX08RqaHAVKz1V3BoqU0bl5hV6otFx1dW9g=;
- b=1+A+bpBr7mzGoQFpMjblXltJrDkyvzNPTTK/cwoWJZXSk+ej4s/eDs3mVzff+Sm8QE
- Tq9XVkPEF944k2u3NcGpQY0WbVwS/dheHOV8Yu4g6wafT4wN0Vcw0ts3MJ883ejKACnS
- ArQI85KnsnSSJhkVm5w+83wT6ZbGmbv4ZD8siRXUaeZuLwmswUedrdxskryfgsuMF4sv
- kopiQ4D9d2T1LY4Sfyl1djoJPJuR0yf+XTmeI7wQcjylg/H1I1mcaA4eHn3ke+f++g/z
- 8D6xnSJQLBEMiIQKukIFaDJcdfnmsooN2DnO9+r7tCoxlIDCUvXu+rgjSA+xcPVXvs9E
- eo3A==
-X-Gm-Message-State: ANoB5plly9lQcU8bwFXbq/vr7XxahBYnhX7E+8GcRCYU/Ygh+WvURH+Y
- ZM0He1PLph7sNMrKNhQb22EHJQ==
-X-Google-Smtp-Source: AA0mqf4zoEW9WRjyxsPxOYTuP8r4W8DGIvfaMHnxjM9PP0VrEWHzZMXjvjkYJoov0C9kqXwic6F9TA==
-X-Received: by 2002:ac2:5e2c:0:b0:4a2:243a:ef6e with SMTP id
- o12-20020ac25e2c000000b004a2243aef6emr18500552lfg.454.1669916997677; 
- Thu, 01 Dec 2022 09:49:57 -0800 (PST)
-Received: from [10.10.15.130] ([192.130.178.91])
- by smtp.gmail.com with ESMTPSA id
- e1-20020a195001000000b0048aee825e2esm713823lfb.282.2022.12.01.09.49.56
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 01 Dec 2022 09:49:57 -0800 (PST)
-Message-ID: <4ff2a5f9-1fc9-a431-b5f1-f65df7e47caa@linaro.org>
-Date: Thu, 1 Dec 2022 19:49:56 +0200
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=1CLbb6gTftbtF04ieLZupgrbYGtIY4aNewsRQHGXS6s=;
+ b=hoZmq40eSTxqh1V18+Exqlu9yP1yKqG1ogCVEKkSA50AkDrs9HV/30/hSFiPXoNuhe
+ 8ZjeS6K6a7P0/L3vJ3GWxLLslXf17y8gz1jfZ3PmLJKywy2SSEsaJaQVJrW/3h8e6Tmm
+ CeUQIRmn/uBhrTeQA9phGl160KJ4NJ8CDlpIWmF/ykhpwVDUgCFCwYQTrgZbnjXkL0Yl
+ fUhiS4Xt1ZJ0SC4prwKE9YS56mhkN6tIYD1R4atO18v3ofFNku6G4bCKzHkDqrh5xTLr
+ xMAHlK1vUaq1wOFi+HKQ4SjlcoWBFU5RMthC/z+h+AY9ooVIJQPiAn8mID4TUQoPjfCR
+ 11NQ==
+X-Gm-Message-State: ANoB5pkXFQ9CrZ4opRvOCiCwB0PqqqpdsFueUnsCrAHq3jXq+kIT457w
+ kbjoKpAbS8uLx4wtQvZV7QWhQGcnsL8CFQyZeEOHSg==
+X-Google-Smtp-Source: AA0mqf4fvcwVwiyOPO0pR1jsWW+malSFBhqOGx6XKlbbPNc/fFRtj0pXjbzI6sMxRmJDPvQ07LOAJWr7sDPUxWd9Mfc=
+X-Received: by 2002:a05:651c:1a2b:b0:277:5545:2ee5 with SMTP id
+ by43-20020a05651c1a2b00b0027755452ee5mr17328949ljb.313.1669920151465; Thu, 01
+ Dec 2022 10:42:31 -0800 (PST)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.5.0
-Content-Language: en-GB
-To: Kuogee Hsieh <quic_khsieh@quicinc.com>, dri-devel@lists.freedesktop.org,
- robdclark@gmail.com, sean@poorly.run, swboyd@chromium.org,
- dianders@chromium.org, vkoul@kernel.org, daniel@ffwll.ch, airlied@linux.ie,
- agross@kernel.org, bjorn.andersson@linaro.org
-References: <1669852310-22360-1-git-send-email-quic_khsieh@quicinc.com>
- <1669852310-22360-2-git-send-email-quic_khsieh@quicinc.com>
- <7bf73466-e476-4a1d-5dc0-1b63ea742226@linaro.org>
- <29d12e26-b3c8-dbf6-de1f-5c6ae4a5a705@linaro.org>
- <f03233b4-2850-c206-724c-0b6568b6a876@quicinc.com>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-In-Reply-To: <f03233b4-2850-c206-724c-0b6568b6a876@quicinc.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-Subject: Re: [Freedreno] [PATCH v6 1/4] arm64: dts: qcom: add data-lanes and
- link-freuencies into dp_out endpoint
+References: <20221111194957.4046771-1-joel@joelfernandes.org>
+ <20221111194957.4046771-2-joel@joelfernandes.org>
+ <899db0f8-7b8a-ed8f-30b8-4f630da1298d@quicinc.com>
+ <CAF6AEGtEswqCRXkrd+tWKb_1N1UXgQ=EVMTZAgxxpNcD2vYGHQ@mail.gmail.com>
+In-Reply-To: <CAF6AEGtEswqCRXkrd+tWKb_1N1UXgQ=EVMTZAgxxpNcD2vYGHQ@mail.gmail.com>
+From: Joel Fernandes <joel@joelfernandes.org>
+Date: Thu, 1 Dec 2022 18:42:20 +0000
+Message-ID: <CAEXW_YSKBsVKBqJHB=9dQYV9XboTnsNb10ESJk1S_ia0gyKbuw@mail.gmail.com>
+To: Rob Clark <robdclark@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Subject: Re: [Freedreno] [PATCH 2/2] adreno: Detect shutdown during
+ get_param()
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,166 +66,145 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-arm-msm@vger.kernel.org, quic_sbillaka@quicinc.com,
- freedreno@lists.freedesktop.org, quic_abhinavk@quicinc.com,
- linux-kernel@vger.kernel.org
+Cc: Rob Clark <robdclark@chromium.org>, Emma Anholt <emma@anholt.net>,
+ Akhil P Oommen <quic_akhilpo@quicinc.com>, freedreno@lists.freedesktop.org,
+ linux-arm-msm@vger.kernel.org, Ricardo Ribalda <ribalda@chromium.org>,
+ Vladimir Lypak <vladimir.lypak@gmail.com>, linux-kernel@vger.kernel.org,
+ Steven Rostedt <rostedt@goodmis.org>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>,
+ dri-devel@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>,
+ Ross Zwisler <zwisler@kernel.org>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ David Airlie <airlied@gmail.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 01/12/2022 19:32, Kuogee Hsieh wrote:
-> 
-> On 11/30/2022 4:21 PM, Dmitry Baryshkov wrote:
->> On 01/12/2022 02:07, Dmitry Baryshkov wrote:
->>> On 01/12/2022 01:51, Kuogee Hsieh wrote:
->>>> Move data-lanes property from mdss_dp node to dp_out endpoint. Also
->>>> add link-frequencies property into dp_out endpoint as well. The last
->>>> frequency specified at link-frequencies will be the max link rate
->>>> supported by DP.
->>>>
->>>> Changes in v5:
->>>> -- revert changes at sc7180.dtsi and sc7280.dtsi
->>>> -- add &dp_out to sc7180-trogdor.dtsi and sc7280-herobrine.dtsi
->>>>
->>>> Changes in v6:
->>>> -- add data-lanes and link-frequencies to yaml
->>>>
->>>> Signed-off-by: Kuogee Hsieh <quic_khsieh@quicinc.com>
->>>> ---
->>>>   .../devicetree/bindings/display/msm/dp-controller.yaml  | 17 
->>>> +++++++++++++++++
->>>
->>> Separate patch. Also you didn't check the get_maintainers output, so 
->>> required parties were not included into the distribution.
->>>
->>> Also as you'd check the get_maintainers output, please fix other 
->>> email addresses too.
->>>
->>>> arch/arm64/boot/dts/qcom/sc7180-trogdor.dtsi            |  6 +++++-
->>>>   arch/arm64/boot/dts/qcom/sc7280-herobrine.dtsi          |  6 +++++-
->>>>   3 files changed, 27 insertions(+), 2 deletions(-)
->>>>
->>>> diff --git 
->>>> a/Documentation/devicetree/bindings/display/msm/dp-controller.yaml 
->>>> b/Documentation/devicetree/bindings/display/msm/dp-controller.yaml
->>>> index 94bc6e1..af70343 100644
->>>> --- a/Documentation/devicetree/bindings/display/msm/dp-controller.yaml
->>>> +++ b/Documentation/devicetree/bindings/display/msm/dp-controller.yaml
->>>> @@ -90,6 +90,20 @@ properties:
->>>>           $ref: /schemas/graph.yaml#/properties/port
->>>>           description: Output endpoint of the controller
->>>> +        properties:
->>>> +          endpoint:
->>>> +            $ref: /schemas/media/video-interfaces.yaml#
->>>> +
->>>> +          properties:
->>>> +            link-frequencies: true
->>>> +            data-lanes: true
->>>
->>> No. Use $ref for both of them.
->>>
->>>> +
->>>> +          required:
->>>> +            - link-frequencies
->>>> +            - data-lanes
->>>
->>> No, they are not required.
->>>
->>>> +
->>>> +          additionalProperties: false
->>>> +
->>>
->>> deprecation of old data-lanes property?
->>>
->>>>   required:
->>>>     - compatible
->>>>     - reg
->>>> @@ -158,6 +172,9 @@ examples:
->>>>                   reg = <1>;
->>>>                   endpoint {
->>>>                       remote-endpoint = <&typec>;
->>>> +                    data-lanes = <1 2>;
->>>> +                    link-frequencies = /bits/ 64 <160000000 270000000
->>
->> s/1600/1620
->>
->>>> + 540000000 810000000>;
->>>
->>> I guess the number of zeroes is wrong here. This is 160 MHz ... 810 
->>> Mhz, rather than 1.6 GHz ... 8.1 GHz
->>
->> Ok, I was wrong here. The old code definitely defaults to 570 
->> mega-something. Now I'd really like to read your description for the 
->> link-frequencies property, because the 
->> phy_configure_opts_dp::link_rate is clearly specified in Mb/s and it 
->> takes a fixed set of values from 1.62 Gb/s up to 8.1 Gb/s.
->>
->> I think the drm_dp_bw_code_to_link_rate() function is incorrect by 
->> itself, as it multiplies with 27000 (27 Mbps) rather than 270000 (0.27 
->> Gbps) as required by the standard. So first, we should fix the 
->> function, then all the rates would become logical.
-> 
-> no, drm_dp_bw_code_to_link_rate() is correct and should not be changes 
-> since it impact to other dp drivers too.
-> 
-> 0.27Gbps/lane is specified at DP spec.
-> 
-> DP use 8b/10b coding rule (10 bits symbol contains 8 bits data).
+On Sat, Nov 12, 2022 at 6:35 PM Rob Clark <robdclark@gmail.com> wrote:
+>
+> On Fri, Nov 11, 2022 at 1:28 PM Akhil P Oommen <quic_akhilpo@quicinc.com> wrote:
+> >
+> > On 11/12/2022 1:19 AM, Joel Fernandes (Google) wrote:
+> > > Even though the GPU is shut down, during kexec reboot we can have userspace
+> > > still running. This is especially true if KEXEC_JUMP is not enabled, because we
+> > > do not freeze userspace in this case.
+> > >
+> > > To prevent crashes, track that the GPU is shutdown and prevent get_param() from
+> > > accessing GPU resources if we find it shutdown.
+> > >
+> > > This fixes the following crash during kexec reboot on an ARM64 device with adreno GPU:
+> > >
+> > > [  292.534314] Kernel panic - not syncing: Asynchronous SError Interrupt
+> > > [  292.534323] Hardware name: Google Lazor (rev3 - 8) with LTE (DT)
+> > > [  292.534326] Call trace:
+> > > [  292.534328]  dump_backtrace+0x0/0x1d4
+> > > [  292.534337]  show_stack+0x20/0x2c
+> > > [  292.534342]  dump_stack_lvl+0x60/0x78
+> > > [  292.534347]  dump_stack+0x18/0x38
+> > > [  292.534352]  panic+0x148/0x3b0
+> > > [  292.534357]  nmi_panic+0x80/0x94
+> > > [  292.534364]  arm64_serror_panic+0x70/0x7c
+> > > [  292.534369]  do_serror+0x0/0x7c
+> > > [  292.534372]  do_serror+0x54/0x7c
+> > > [  292.534377]  el1h_64_error_handler+0x34/0x4c
+> > > [  292.534381]  el1h_64_error+0x7c/0x80
+> > > [  292.534386]  el1_interrupt+0x20/0x58
+> > > [  292.534389]  el1h_64_irq_handler+0x18/0x24
+> > > [  292.534395]  el1h_64_irq+0x7c/0x80
+> > > [  292.534399]  local_daif_inherit+0x10/0x18
+> > > [  292.534405]  el1h_64_sync_handler+0x48/0xb4
+> > > [  292.534410]  el1h_64_sync+0x7c/0x80
+> > > [  292.534414]  a6xx_gmu_set_oob+0xbc/0x1fc
+> > > [  292.534422]  a6xx_get_timestamp+0x40/0xb4
+> > > [  292.534426]  adreno_get_param+0x12c/0x1e0
+> > > [  292.534433]  msm_ioctl_get_param+0x64/0x70
+> > > [  292.534440]  drm_ioctl_kernel+0xe8/0x158
+> > > [  292.534448]  drm_ioctl+0x208/0x320
+> > > [  292.534453]  __arm64_sys_ioctl+0x98/0xd0
+> > > [  292.534461]  invoke_syscall+0x4c/0x118
+> > > [  292.534467]  el0_svc_common+0x98/0x104
+> > > [  292.534473]  do_el0_svc+0x30/0x80
+> > > [  292.534478]  el0_svc+0x20/0x50
+> > > [  292.534481]  el0t_64_sync_handler+0x78/0x108
+> > > [  292.534485]  el0t_64_sync+0x1a4/0x1a8
+> > > [  292.534632] Kernel Offset: 0x1a5f800000 from 0xffffffc008000000
+> > > [  292.534635] PHYS_OFFSET: 0x80000000
+> > > [  292.534638] CPU features: 0x40018541,a3300e42
+> > > [  292.534644] Memory Limit: none
+> > >
+> > > Cc: Rob Clark <robdclark@chromium.org>
+> > > Cc: Steven Rostedt <rostedt@goodmis.org>
+> > > Cc: Ricardo Ribalda <ribalda@chromium.org>
+> > > Cc: Ross Zwisler <zwisler@kernel.org>
+> > > Signed-off-by: Joel Fernandes (Google) <joel@joelfernandes.org>
+> > > ---
+> > >   drivers/gpu/drm/msm/adreno/adreno_device.c | 1 +
+> > >   drivers/gpu/drm/msm/adreno/adreno_gpu.c    | 2 +-
+> > >   drivers/gpu/drm/msm/msm_gpu.h              | 3 +++
+> > >   3 files changed, 5 insertions(+), 1 deletion(-)
+> > >
+> > > diff --git a/drivers/gpu/drm/msm/adreno/adreno_device.c b/drivers/gpu/drm/msm/adreno/adreno_device.c
+> > > index f0cff62812c3..03d912dc0130 100644
+> > > --- a/drivers/gpu/drm/msm/adreno/adreno_device.c
+> > > +++ b/drivers/gpu/drm/msm/adreno/adreno_device.c
+> > > @@ -612,6 +612,7 @@ static void adreno_shutdown(struct platform_device *pdev)
+> > >   {
+> > >       struct msm_gpu *gpu = dev_to_gpu(&pdev->dev);
+> > >
+> > > +     gpu->is_shutdown = true;
+> > >       WARN_ON_ONCE(adreno_system_suspend(&pdev->dev));
+> > >   }
+> > >
+> > > diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.c b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
+> > > index 382fb7f9e497..6903c6892469 100644
+> > > --- a/drivers/gpu/drm/msm/adreno/adreno_gpu.c
+> > > +++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
+> > > @@ -251,7 +251,7 @@ int adreno_get_param(struct msm_gpu *gpu, struct msm_file_private *ctx,
+> > >       struct adreno_gpu *adreno_gpu = to_adreno_gpu(gpu);
+> > >
+> > >       /* No pointer params yet */
+> > > -     if (*len != 0)
+> > > +     if (*len != 0 || gpu->is_shutdown)
+> > >               return -EINVAL;
+> > This will race with shutdown. Probably, propagating back the return
+> > value of pm_runtime_get() in every possible ioctl call path is the right
+> > thing to do.
+> >
+> > I have never thought about this scenario. Do you know why userspace is
+> > not freezed before kexec?
+>
+> So userspace not being frozen seems like the root issue, and is likely
+> to cause all sorts of other whack-a-mole problems.  I guess I'd like
+> to know if this is the expected behavior?
 
-At least it should get documentation that it returns Kylo-bytes per second.
+We tried that. Freezing before kexec seems to cause issues for ALSA as
+Ricardo found:
+https://lore.kernel.org/lkml/202211281209.mnBLzQ2I-lkp@intel.com/T/
 
-But, getting back to link-frequencies. The documentation clearly says 
-that it should be allowed data bus _frequencies_. And frequencies are 
-measured in Hz, not in bits/sec or bytes/sec.
+That patch is still TBD due to disagreement on the right approach to
+fix, so I don't think freezing before shutting down devices is viable
+at the moment.
 
+I am checking Ricardo if we can do something like util-linux's
+shutdown code which sends SIGTERM to all processes:
+https://kernel.googlesource.com/pub/scm/utils/util-linux/util-linux/+/v2.8/login-utils/shutdown.c#273
+, before issuing the kexec-reboot.
 
->>>>                   };
->>>>               };
->>>>           };
->>>> diff --git a/arch/arm64/boot/dts/qcom/sc7180-trogdor.dtsi 
->>>> b/arch/arm64/boot/dts/qcom/sc7180-trogdor.dtsi
->>>> index 754d2d6..39f0844 100644
->>>> --- a/arch/arm64/boot/dts/qcom/sc7180-trogdor.dtsi
->>>> +++ b/arch/arm64/boot/dts/qcom/sc7180-trogdor.dtsi
->>>> @@ -812,7 +812,11 @@ hp_i2c: &i2c9 {
->>>>       status = "okay";
->>>>       pinctrl-names = "default";
->>>>       pinctrl-0 = <&dp_hot_plug_det>;
->>>> -    data-lanes = <0 1>;
->>>> +};
->>>> +
->>>> +&dp_out {
->>>> +    data-lanes = <0  1>;
->>>> +    link-frequencies = /bits/ 64 <160000000 270000000 540000000>;
->>>
->>> Same comment here.
->>>
->>>>   };
->>>>   &pm6150_adc {
->>>> diff --git a/arch/arm64/boot/dts/qcom/sc7280-herobrine.dtsi 
->>>> b/arch/arm64/boot/dts/qcom/sc7280-herobrine.dtsi
->>>> index 93e39fc..b7c343d 100644
->>>> --- a/arch/arm64/boot/dts/qcom/sc7280-herobrine.dtsi
->>>> +++ b/arch/arm64/boot/dts/qcom/sc7280-herobrine.dtsi
->>>> @@ -440,7 +440,11 @@ ap_i2c_tpm: &i2c14 {
->>>>       status = "okay";
->>>>       pinctrl-names = "default";
->>>>       pinctrl-0 = <&dp_hot_plug_det>;
->>>> -    data-lanes = <0 1>;
->>>> +};
->>>> +
->>>> +&dp_out {
->>>> +    data-lanes = <0  1>;
->>>> +    link-frequencies = /bits/ 64 <160000000 270000000 540000000 
->>>> 810000000>;
->>>
->>> And here.
->>>
->>>>   };
->>>>   &mdss_mdp {
->>>
->>
+Maybe, a more graceful shutdown from kexec-lite, will prevent the
+kexec-reboot it does from crashing? Though in my view that would still
+be a small copout instead of fixing the real issue, which is the
+kernel crashing for any reason.
 
--- 
-With best wishes
-Dmitry
+> If so, we should probably look at
+> drm_dev_is_unplugged()/drm_dev_unplug()/etc rather than trying to NIH
+> that mechanism.  We would need to sprinkle drm_dev_is_unplugged()
+> checks more widely, and also ensure that the scheduler kthread(s) gets
+> parked.  But it would be nice to know first if we are just trying to
+> paper over a kexec bug.
 
+Agreed. I think we still patch 1/2 whether the SIGTERM trick mentioned
+above, works or not. I will await discussions with Ricardo before
+reposting that one.
+
+Cheers,
+
+ -- Joel
