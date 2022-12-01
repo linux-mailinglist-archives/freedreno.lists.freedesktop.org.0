@@ -2,72 +2,69 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 85B9263E674
-	for <lists+freedreno@lfdr.de>; Thu,  1 Dec 2022 01:26:27 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C0D4063EDFA
+	for <lists+freedreno@lfdr.de>; Thu,  1 Dec 2022 11:37:37 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3550E10E13C;
-	Thu,  1 Dec 2022 00:26:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 68F8410E129;
+	Thu,  1 Dec 2022 10:37:36 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x134.google.com (mail-lf1-x134.google.com
- [IPv6:2a00:1450:4864:20::134])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CD39A10E13C
- for <freedreno@lists.freedesktop.org>; Thu,  1 Dec 2022 00:26:21 +0000 (UTC)
-Received: by mail-lf1-x134.google.com with SMTP id d6so25639lfs.10
- for <freedreno@lists.freedesktop.org>; Wed, 30 Nov 2022 16:26:21 -0800 (PST)
+Received: from mail-lj1-x22c.google.com (mail-lj1-x22c.google.com
+ [IPv6:2a00:1450:4864:20::22c])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E2BFE10E129
+ for <freedreno@lists.freedesktop.org>; Thu,  1 Dec 2022 10:37:32 +0000 (UTC)
+Received: by mail-lj1-x22c.google.com with SMTP id a19so1434352ljk.0
+ for <freedreno@lists.freedesktop.org>; Thu, 01 Dec 2022 02:37:32 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :from:to:cc:subject:date:message-id:reply-to;
- bh=IigBehPc+Em/qusf/7j6u/r/e7HcF8wFshWUasQJ9B8=;
- b=jgQJptowxk+tpWm5JxfxLPZwgR+m+Otq4kBaWUfskKldD7GOkjHQI8c1yN6MFxojOn
- OJ6TBG7mwc0Tbr4l/vtUCCgley8qf2inX64QF059GLKiCOEeGuO//CjDxYsziREdqREF
- PwaIzaWDzaMiar5Ynyc2kgkNc91VZ/q2xLMvFZPuYfuqs4+1ZRxXvgvacj7F8Wue40Cc
- A2SDp/u46syaVrCHgAxDcU79nj779XG5rnceNUJtIbeG0pDpdtJP1hTB2NLGTMeD2I+H
- QLtpdoxtZzTuzLo6dK2dmNChr0r9f1j79Tm7nKvD1rbU2pV1XZ+COTVnPvFDvJwjpsbT
- mG1g==
+ bh=CIit3J5M4bcdITVWI6ie/I3FGXLXgR6m6GwfusmdrJE=;
+ b=oRuEXXERKZYYDV9WimFhxi+n+W16yYt2dtOc7P5QG08IRUKnts1REggwWcSWA2K7GS
+ CFWqZfYbNsg/vcgWQQ6gDHeVl1xTmW6BEWAWnS5pbY+gqcMzZsnq8L7hVPgEOrI+27Hw
+ SPbvb6eW8+fT07BwkeFkFtubmtV5KF3Jvsky2iUBjMnzlpMQycRNe3Ezvx7xJEAcUhNG
+ +Lgp1rl1ekNfciXbfK+C+cv2ofczu6yn0K8XW9aEDCNpWEGEK8awHimGAY5/lhZxjwwj
+ 5mTVf+6Jg1X0Nm1Krh54WT05EljJ43fEtjcKBJ7mDa00Sxbyc6tQuE766VVTCZjfEOXZ
+ igYQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=IigBehPc+Em/qusf/7j6u/r/e7HcF8wFshWUasQJ9B8=;
- b=Z/MwqSn6uJNRh3/9Brge6bcg75uZHOdOZNRSsD4zcvlr9c6U0lYss17qMjXyqCEm40
- /ikG9xnkux4Ck8fa4tTrEbkZJBEJcV6CLibWhtDOclKEFzjXRR/e9138j+Xejof8T06d
- lJcKEEIVbAehe2GmuEsgdaH+Qa1UKX7YkJo07OFcNZ91DDMG4MMJGkNlD1PRazVdqbuh
- ni3YIIoTzI4y7Vu7qk0ZsIHtZ1Xzq9I2UKKjet2DtLbs/Xzr/ZWS46TtvlQL8mUxpv8j
- TKswThddCn1NHq2fHpDw/W2gvdryqQ9gtvKqJWkEm4oL7g/hi06kn5eXzvN+wnhoOlrk
- L7Dw==
-X-Gm-Message-State: ANoB5pmUWMTNugjsLGfMltqIFlxWJMv5Vy5PQRFd0qUkMoT/BT12YOBL
- RdlrL87AxNPldb+QN7yfvxeiRA==
-X-Google-Smtp-Source: AA0mqf6Y/rBxKmL6xGjcEbKjQtStZUc7jyTJiN1dVB/hUBKz123VUR/fTeFuMFM5wE5Gj9ziDBr4Lg==
-X-Received: by 2002:a05:6512:15a8:b0:4a6:3ed2:3717 with SMTP id
- bp40-20020a05651215a800b004a63ed23717mr16703128lfb.637.1669854380184; 
- Wed, 30 Nov 2022 16:26:20 -0800 (PST)
-Received: from ?IPV6:2001:14ba:a085:4d00::8a5?
- (dzccz6yyyyyyyyyyybcwt-3.rev.dnainternet.fi. [2001:14ba:a085:4d00::8a5])
+ bh=CIit3J5M4bcdITVWI6ie/I3FGXLXgR6m6GwfusmdrJE=;
+ b=hUn6prj5gahaRNroYgyVIvQA6HDTamaMpIBr4+3ObegJSlsNrFZcVR2trFEZhC/+5b
+ 8fGNGMjU6hvGYPN+zgHBhGgEbAWBM3ylwM8LSo0199RMSERyJa5KeGb044spmXWmWi06
+ 6jaPRUOu9/7RR092zavczKgblesJzpMwniwWd45v6sIGB2p29xK4OYirIWM8X7nHLDOR
+ FYhBvn7ldBaXuqUQDcsvoXSmz5hibCNR/31rh8/j7Yl1SvJE6tZkmbcQU99bbW8zOe2c
+ RRT685jHtpOLJusdSRBZhiFEMlomFWRueTpCI/BQkw4S6sBDUUvhCYd7EsNy2OcmQWzN
+ 0YXg==
+X-Gm-Message-State: ANoB5pm4FtXL+Ift3wLtNA0TGvV3Tn0AiHFOX79WDC7vdFou9XQD0BgO
+ WESV1fUQMY2g39NHvsKg/3BWbw==
+X-Google-Smtp-Source: AA0mqf7ynKkshYTZoTQ3GRH//Z1ZR04OWdvwe5TEjKbt7pYwLviofbMpiBkGttO94vlLg2DiroAsTg==
+X-Received: by 2002:a2e:940f:0:b0:277:5df:9728 with SMTP id
+ i15-20020a2e940f000000b0027705df9728mr14128145ljh.337.1669891050977; 
+ Thu, 01 Dec 2022 02:37:30 -0800 (PST)
+Received: from [192.168.0.20]
+ (088156142067.dynamic-2-waw-k-3-2-0.vectranet.pl. [88.156.142.67])
  by smtp.gmail.com with ESMTPSA id
- t15-20020a056512208f00b004b4ec76016esm426881lfr.113.2022.11.30.16.26.19
+ s21-20020a056512203500b004ab98cd5644sm601503lfs.182.2022.12.01.02.37.28
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 30 Nov 2022 16:26:19 -0800 (PST)
-Message-ID: <3ead3652-1241-89bd-3441-8ca4a4c8df57@linaro.org>
-Date: Thu, 1 Dec 2022 02:26:19 +0200
+ Thu, 01 Dec 2022 02:37:30 -0800 (PST)
+Message-ID: <dfd2d1b5-4d1b-2381-ad11-5ea9e6654a55@linaro.org>
+Date: Thu, 1 Dec 2022 11:37:27 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.5.0
-Content-Language: en-GB
-To: Kuogee Hsieh <quic_khsieh@quicinc.com>, dri-devel@lists.freedesktop.org,
- robdclark@gmail.com, sean@poorly.run, swboyd@chromium.org,
- dianders@chromium.org, vkoul@kernel.org, daniel@ffwll.ch, airlied@linux.ie,
- agross@kernel.org, bjorn.andersson@linaro.org
-References: <1669852310-22360-1-git-send-email-quic_khsieh@quicinc.com>
- <1669852310-22360-4-git-send-email-quic_khsieh@quicinc.com>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-In-Reply-To: <1669852310-22360-4-git-send-email-quic_khsieh@quicinc.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Language: en-US
+To: Adam Skladowski <a39.skl@gmail.com>
+References: <20221130200950.144618-1-a39.skl@gmail.com>
+ <20221130200950.144618-2-a39.skl@gmail.com>
+From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+In-Reply-To: <20221130200950.144618-2-a39.skl@gmail.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH v6 3/4] drm/msm/dp: parser link-frequencies
- as property of dp_out endpoint
+Subject: Re: [Freedreno] [PATCH v2 01/12] dt-bindings: display: msm: Rename
+ mdss node name in example
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,103 +77,32 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-arm-msm@vger.kernel.org, quic_sbillaka@quicinc.com,
- freedreno@lists.freedesktop.org, quic_abhinavk@quicinc.com,
- linux-kernel@vger.kernel.org
+Cc: "Rafael J. Wysocki" <rafael@kernel.org>,
+ Thara Gopinath <thara.gopinath@gmail.com>, dri-devel@lists.freedesktop.org,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ phone-devel@vger.kernel.org, David Airlie <airlied@gmail.com>,
+ Daniel Lezcano <daniel.lezcano@linaro.org>, Andy Gross <agross@kernel.org>,
+ Zhang Rui <rui.zhang@intel.com>, devicetree@vger.kernel.org,
+ Amit Kucheria <amitk@kernel.org>, linux-pm@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Rob Herring <robh+dt@kernel.org>, ~postmarketos/upstreaming@lists.sr.ht,
+ Sean Paul <sean@poorly.run>, Loic Poulain <loic.poulain@linaro.org>,
+ Bjorn Andersson <andersson@kernel.org>, linux-kernel@vger.kernel.org,
+ Konrad Dybcio <konrad.dybcio@linaro.org>, Rob Clark <robdclark@gmail.com>,
+ Daniel Vetter <daniel@ffwll.ch>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 01/12/2022 01:51, Kuogee Hsieh wrote:
-> Add capability to parser and retrieve max DP link supported rate from
-> link-frequencies property of dp_out endpoint.
+On 30/11/2022 21:09, Adam Skladowski wrote:
+> Follow other YAMLs and replace mdss name into display-subystem.
 > 
-> Changes in v6:
-> -- second patch after split parser patch into two patches
-> 
-> Signed-off-by: Kuogee Hsieh <quic_khsieh@quicinc.com>
-> ---
->   drivers/gpu/drm/msm/dp/dp_parser.c | 16 ++++++++++++++++
->   drivers/gpu/drm/msm/dp/dp_parser.h |  2 ++
->   2 files changed, 18 insertions(+)
-> 
-> diff --git a/drivers/gpu/drm/msm/dp/dp_parser.c b/drivers/gpu/drm/msm/dp/dp_parser.c
-> index b06ff60..2006341 100644
-> --- a/drivers/gpu/drm/msm/dp/dp_parser.c
-> +++ b/drivers/gpu/drm/msm/dp/dp_parser.c
-> @@ -95,6 +95,7 @@ static int dp_parser_misc(struct dp_parser *parser)
->   {
->   	struct device_node *of_node = parser->pdev->dev.of_node;
->   	struct device_node *endpoint;
-> +	u64 frequency;
->   	int cnt;
->   
->   	/*
-> @@ -103,6 +104,7 @@ static int dp_parser_misc(struct dp_parser *parser)
->   	cnt = drm_of_get_data_lanes_count(of_node, 1, DP_MAX_NUM_DP_LANES);
->   	if (cnt > 0) {
->   		parser->max_dp_lanes = cnt;
-> +		parser->max_dp_link_rate = DP_LINK_RATE_HBR2; /* 540000 khz */
->   		return 0;
->   	}
->   
-> @@ -116,8 +118,22 @@ static int dp_parser_misc(struct dp_parser *parser)
->   			parser->max_dp_lanes = DP_MAX_NUM_DP_LANES; /* 4 lanes */
->   		else
->   			parser->max_dp_lanes = cnt;
-> +
-> +		cnt = of_property_count_u64_elems(endpoint, "link-frequencies");
-> +		if (cnt < 0) {
-> +			parser->max_dp_link_rate = DP_LINK_RATE_HBR2; /* 540000 khz */
-> +		} else {
-> +			if (cnt > DP_MAX_NUM_DP_LANES)
-> +				cnt = DP_MAX_NUM_DP_LANES;
+> Signed-off-by: Adam Skladowski <a39.skl@gmail.com>
 
-Why are you comparing the number of link frequencies with the number of 
-lanes? You don't need the comparison at all.
 
-> +
-> +			of_property_read_u64_index(endpoint, "link-frequencies",
-> +							cnt - 1, &frequency);
+Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 
-Checking of the return value?
-
-> +
-> +			parser->max_dp_link_rate = (frequency / 1000); /* kbits */
-> +		}
->   	} else {
->   		parser->max_dp_lanes = DP_MAX_NUM_DP_LANES; /* 4 lanes */
-> +		parser->max_dp_link_rate = DP_LINK_RATE_HBR2; /* 540000 khz */
-
-Instead of having all the nested if's and setting of max_dp_link rate in 
-several branches, please add a function that returns either a valid rate 
-or an error. Then you can simply check the result of that function and 
-set the default.
-
->   	}
->   
->   	return 0;
-> diff --git a/drivers/gpu/drm/msm/dp/dp_parser.h b/drivers/gpu/drm/msm/dp/dp_parser.h
-> index 866c1a8..3ddf639 100644
-> --- a/drivers/gpu/drm/msm/dp/dp_parser.h
-> +++ b/drivers/gpu/drm/msm/dp/dp_parser.h
-> @@ -15,6 +15,7 @@
->   #define DP_LABEL "MDSS DP DISPLAY"
->   #define DP_MAX_PIXEL_CLK_KHZ	675000
->   #define DP_MAX_NUM_DP_LANES	4
-> +#define DP_LINK_RATE_HBR2       540000
->   
->   enum dp_pm_type {
->   	DP_CORE_PM,
-> @@ -119,6 +120,7 @@ struct dp_parser {
->   	struct dp_io io;
->   	struct dp_display_data disp_data;
->   	u32 max_dp_lanes;
-> +	u32 max_dp_link_rate;
->   	struct drm_bridge *next_bridge;
->   
->   	int (*parse)(struct dp_parser *parser);
-
--- 
-With best wishes
-Dmitry
+Best regards,
+Krzysztof
 
