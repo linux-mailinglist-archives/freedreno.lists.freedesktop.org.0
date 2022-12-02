@@ -2,46 +2,71 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id E5F9563FB05
-	for <lists+freedreno@lfdr.de>; Thu,  1 Dec 2022 23:57:14 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id AC029640029
+	for <lists+freedreno@lfdr.de>; Fri,  2 Dec 2022 07:15:42 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 37F0A10E680;
-	Thu,  1 Dec 2022 22:57:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5DDB710E071;
+	Fri,  2 Dec 2022 06:15:41 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id ECDA010E680;
- Thu,  1 Dec 2022 22:57:09 +0000 (UTC)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 5AC0962178;
- Thu,  1 Dec 2022 22:57:09 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 158DCC433C1;
- Thu,  1 Dec 2022 22:57:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1669935428;
- bh=Iece4Ggdjnc0zgVTxLn8Qf6TaPc+ROmQXehO4YnTyUk=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=Dhi9a4n1MDkugPm6zzlyfa1b463Z4vsP2TF/EUCWg0UeTI/wZXo9HV75Wrqt9ktiN
- 0VE/7gjmbALvarkSaaTK2vduEPR3b0vHlQ8YRjQW8VWmt3r+0KG1ZSer25P2FwUi4j
- cIPN0/vWkJ8U0tyCI294h+QP/yExXFxgYvLJKem9oRgF7bqTyzY4Cwk8MzOUMgialh
- XqMJ+4y7T+NuC9fDSOQlLlGdDWFmKH7jGWrxKiw6TPwsijz0ec+D7b7uT0a9dTAuWG
- W4sAIyUbit8zbldtmN0SLaKsxMhCJgIrQev/i8YLwVihXjXRSQEWEKeAiL1dqsFWj6
- m/m92RAlKTIxA==
-Date: Thu, 1 Dec 2022 16:57:05 -0600
-From: Bjorn Andersson <andersson@kernel.org>
-To: Akhil P Oommen <quic_akhilpo@quicinc.com>,
- Ulf Hansson <ulf.hansson@linaro.org>
-Message-ID: <20221201225705.46r2m35ketvzipox@builder.lan>
-References: <1664960824-20951-1-git-send-email-quic_akhilpo@quicinc.com>
+Received: from mail-lf1-x12d.google.com (mail-lf1-x12d.google.com
+ [IPv6:2a00:1450:4864:20::12d])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D20D910E071
+ for <freedreno@lists.freedesktop.org>; Fri,  2 Dec 2022 06:15:37 +0000 (UTC)
+Received: by mail-lf1-x12d.google.com with SMTP id g7so5933674lfv.5
+ for <freedreno@lists.freedesktop.org>; Thu, 01 Dec 2022 22:15:37 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=VN8FP/RUaV+zUxP2MmDTHFuGbxLaXmlrobBE54QvUGU=;
+ b=B94KH7/+MPgOOldQUJtFKXLx5k5rPJMWPagVyNJqTBYAPrKqi/XKTfF6WLkdJvWgta
+ dmpuqYq45laZOgEl1c1kLoYYvcSLvmc4H2Zd76TW3xYfFn91QQs6ehRu/cluqsWhEch/
+ X0WM0mKItuypItMrH9UpXMBrOlAc5KgZPb+cyoHmDZ128enPn2/eg8Ptb4CfkhUs60oy
+ 21zxBARtPO+jHwnKOSPKHns9UBkn72Dd2V6tG3Ne++lM4+FCnJaEgUhWAGfD3Xv0Qs0W
+ na8wgzCJYIKNryoFVJnZnVaN6KPhqYq5quC5ih1NKbov6bceCxZhuUspXkbHbYY+9kz9
+ iBxw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=VN8FP/RUaV+zUxP2MmDTHFuGbxLaXmlrobBE54QvUGU=;
+ b=3DG8YsIzxccD0lcHYrBNFyKMr5zXyzZLNuWjB2FKfZlmRpVgNSB2pHLl3O+xjSvSCq
+ l6Uxhh15KmtLsekqd0qHlceHp2ttXGJR2jR37XcnOL48dlp6/a7MzK3kWPWn8dxdHh+N
+ dJnZt+Pe3olYuY8x3AFhy9bxwBS+LBSaae3EmIfWpX65mYwBR6kQSLvQczOvnhSqSylK
+ JJ3CYcQTcUH6q6Oodt3lGXhBBswDvheuRpdVVgwtnr6jjTrBBaoQuIllvPfxjQqk1Snc
+ qMi6VfK2zlD73hLJlOwDGD7FptsLQ/ZYtW0bH9zF93hYWDM9sC2p6jaxV2wkuIVcjoaI
+ pD2w==
+X-Gm-Message-State: ANoB5pllitDIWyevv6wwE3kefIHI/gl9tD2jVEZ4aSaGKMJItYCc7uYq
+ l5xLM5/S5hBZ0hIKLM/tTUJeIw==
+X-Google-Smtp-Source: AA0mqf7H3gdqVppExL9ZynWx8Zj/mUNe7AYQKRTJ1LKfkyvfhfWKsGnBzHLDWHjb/V05OjYT9/3snQ==
+X-Received: by 2002:ac2:58d7:0:b0:4b4:fbce:606b with SMTP id
+ u23-20020ac258d7000000b004b4fbce606bmr11712982lfo.27.1669961736149; 
+ Thu, 01 Dec 2022 22:15:36 -0800 (PST)
+Received: from ?IPV6:2001:14ba:a085:4d00::8a5?
+ (dzccz6yyyyyyyyyyybcwt-3.rev.dnainternet.fi. [2001:14ba:a085:4d00::8a5])
+ by smtp.gmail.com with ESMTPSA id
+ i14-20020a2e940e000000b0026dcf81d804sm521425ljh.31.2022.12.01.22.15.35
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 01 Dec 2022 22:15:35 -0800 (PST)
+Message-ID: <37ab278b-7f32-b162-c62d-79e695ff82ed@linaro.org>
+Date: Fri, 2 Dec 2022 08:15:34 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <1664960824-20951-1-git-send-email-quic_akhilpo@quicinc.com>
-Subject: Re: [Freedreno] [PATCH v7 0/6] clk/qcom: Support gdsc collapse
- polling using 'reset' interface
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.5.0
+Content-Language: en-GB
+To: Kuogee Hsieh <quic_khsieh@quicinc.com>, robdclark@gmail.com,
+ sean@poorly.run, swboyd@chromium.org, dianders@chromium.org,
+ vkoul@kernel.org, daniel@ffwll.ch, airlied@linux.ie, agross@kernel.org,
+ bjorn.andersson@linaro.org
+References: <1669933049-13106-1-git-send-email-quic_khsieh@quicinc.com>
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+In-Reply-To: <1669933049-13106-1-git-send-email-quic_khsieh@quicinc.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Subject: Re: [Freedreno] [PATCH v7 0/5] Add data-lanes and link-frequencies
+ to dp_out endpoint
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,103 +79,40 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: David Airlie <airlied@linux.ie>,
- Michael Turquette <mturquette@baylibre.com>,
- Konrad Dybcio <konrad.dybcio@somainline.org>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- linux-clk@vger.kernel.org, Rob Clark <robdclark@gmail.com>,
- Andy Gross <agross@kernel.org>, devicetree@vger.kernel.org,
- Philipp Zabel <p.zabel@pengutronix.de>, linux-arm-msm@vger.kernel.org,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, Stephen Boyd <swboyd@chromium.org>,
- Rob Herring <robh+dt@kernel.org>, Sean Paul <sean@poorly.run>,
- Stephen Boyd <sboyd@kernel.org>, Douglas Anderson <dianders@chromium.org>,
- krzysztof.kozlowski@linaro.org, Daniel Vetter <daniel@ffwll.ch>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- freedreno <freedreno@lists.freedesktop.org>
+Cc: quic_sbillaka@quicinc.com, linux-arm-msm@vger.kernel.org,
+ quic_abhinavk@quicinc.com, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Wed, Oct 05, 2022 at 02:36:58PM +0530, Akhil P Oommen wrote:
+On 02/12/2022 00:17, Kuogee Hsieh wrote:
+> Add DP both data-lanes and link-frequencies property to dp_out endpoint and support
+> functions to DP driver.
 > 
+> Kuogee Hsieh (5):
+>    arm64: dts: qcom: add data-lanes and link-freuencies into dp_out
+>      endpoint
+>    dt-bindings: msm/dp: add data-lanes and link-frequencies property
+>    drm/msm/dp: parser data-lanes as property of dp_out endpoint
+>    drm/msm/dp: parser link-frequencies as property of dp_out endpoint
+>    drm/msm/dp: add support of max dp link rate
 
-@Ulf, Akhil has a power-domain for a piece of hardware which may be
-voted active by multiple different subsystems (co-processors/execution
-contexts) in the system.
-
-As such, during the powering down sequence we don't wait for the
-power-domain to turn off. But in the event of an error, the recovery
-mechanism relies on waiting for the hardware to settle in a powered off
-state.
-
-The proposal here is to use the reset framework to wait for this state
-to be reached, before continuing with the recovery mechanism in the
-client driver.
-
-Given our other discussions on quirky behavior, do you have any
-input/suggestions on this?
-
-> Some clients like adreno gpu driver would like to ensure that its gdsc
-> is collapsed at hardware during a gpu reset sequence. This is because it
-> has a votable gdsc which could be ON due to a vote from another subsystem
-> like tz, hyp etc or due to an internal hardware signal. To allow
-> this, gpucc driver can expose an interface to the client driver using
-> reset framework. Using this the client driver can trigger a polling within
-> the gdsc driver.
-
-@Akhil, this description is fairly generic. As we've reached the state
-where the hardware has settled and we return to the client, what
-prevents it from being powered up again?
-
-Or is it simply a question of it hitting the powered-off state, not
-necessarily staying there?
-
-Regards,
-Bjorn
+Patches 1-3 are missing, patches 4 and 5 don't have proper threading. 
+Please resend the whole series using a single git send-email command.
 
 > 
-> This series is rebased on top of qcom/linux:for-next branch.
+>   .../bindings/display/msm/dp-controller.yaml        | 22 +++++++++----
+>   arch/arm64/boot/dts/qcom/sc7180-trogdor.dtsi       |  6 +++-
+>   arch/arm64/boot/dts/qcom/sc7280-herobrine.dtsi     |  6 +++-
+>   drivers/gpu/drm/msm/dp/dp_display.c                |  4 +++
+>   drivers/gpu/drm/msm/dp/dp_panel.c                  |  7 ++--
+>   drivers/gpu/drm/msm/dp/dp_panel.h                  |  1 +
+>   drivers/gpu/drm/msm/dp/dp_parser.c                 | 38 ++++++++++++++++++----
+>   drivers/gpu/drm/msm/dp/dp_parser.h                 |  2 ++
+>   8 files changed, 68 insertions(+), 18 deletions(-)
 > 
-> Related discussion: https://patchwork.freedesktop.org/patch/493144/
-> 
-> Changes in v7:
-> - Update commit message (Bjorn)
-> - Rebased on top of qcom/linux:for-next branch.
-> 
-> Changes in v6:
-> - No code changes in this version. Just captured the Acked-by tags
-> 
-> Changes in v5:
-> - Nit: Remove a duplicate blank line (Krzysztof)
-> 
-> Changes in v4:
-> - Update gpu dt-binding schema
-> - Typo fix in commit text
-> 
-> Changes in v3:
-> - Use pointer to const for "struct qcom_reset_ops" in qcom_reset_map (Krzysztof)
-> 
-> Changes in v2:
-> - Return error when a particular custom reset op is not implemented. (Dmitry)
-> 
-> Akhil P Oommen (6):
->   dt-bindings: clk: qcom: Support gpu cx gdsc reset
->   clk: qcom: Allow custom reset ops
->   clk: qcom: gdsc: Add a reset op to poll gdsc collapse
->   clk: qcom: gpucc-sc7280: Add cx collapse reset support
->   dt-bindings: drm/msm/gpu: Add optional resets
->   arm64: dts: qcom: sc7280: Add Reset support for gpu
-> 
->  .../devicetree/bindings/display/msm/gpu.yaml       |  6 +++++
->  arch/arm64/boot/dts/qcom/sc7280.dtsi               |  3 +++
->  drivers/clk/qcom/gdsc.c                            | 23 ++++++++++++++----
->  drivers/clk/qcom/gdsc.h                            |  7 ++++++
->  drivers/clk/qcom/gpucc-sc7280.c                    | 10 ++++++++
->  drivers/clk/qcom/reset.c                           | 27 +++++++++++++++++++++-
->  drivers/clk/qcom/reset.h                           |  8 +++++++
->  include/dt-bindings/clock/qcom,gpucc-sc7280.h      |  3 +++
->  8 files changed, 82 insertions(+), 5 deletions(-)
-> 
-> -- 
-> 2.7.4
-> 
+
+-- 
+With best wishes
+Dmitry
+
