@@ -2,77 +2,68 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6EE1E6400C9
-	for <lists+freedreno@lfdr.de>; Fri,  2 Dec 2022 08:01:46 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id BACF864052A
+	for <lists+freedreno@lfdr.de>; Fri,  2 Dec 2022 11:51:33 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BFC1310E18E;
-	Fri,  2 Dec 2022 07:01:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7B13C10E6CB;
+	Fri,  2 Dec 2022 10:51:32 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4951E10E18E;
- Fri,  2 Dec 2022 07:01:41 +0000 (UTC)
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 2B26tWk6012953; Fri, 2 Dec 2022 07:01:33 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
- h=message-id : date :
- mime-version : subject : to : cc : references : from : in-reply-to :
- content-type : content-transfer-encoding; s=qcppdkim1;
- bh=g8AaoOcWjav9yHhLtP7OkCP+s8hEiKhuF1saYLuGe7E=;
- b=KB0Roms5bEV/DUcuOTPl7tY69igol1ym+43F2DQ1yza2KRkfQD2RQsfEHRlp3PdtGYhX
- ndFrKTnzjbY0abjGvKg0z7n0BlHw3C8G4J4FCD+iXzfMp8oM8DY8SaKU6zAgtJURdyco
- yEvI7f1DZwrHE0POKXfZXLl/5DqDcirPQ8D/RM9O1c0Ym+ODGp+m7QyWGBWjJyJrP+GY
- OsuSaU0QktbBYdDt51U6IFhR3CXVWJLiYyTuNlF2qM+ADmv0U8dGA3FKAbtr8pu8EVnf
- cgjgCv4CxW13sVQdaufDGgOcRjEMPBEzMcBkE9ROf/dGSWqB7vEA8xnoYpjfJ6SgBaLY TA== 
-Received: from nalasppmta04.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3m6k3qv3nh-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 02 Dec 2022 07:01:33 +0000
-Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
- [10.47.209.196])
- by NALASPPMTA04.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 2B271VpH022412
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 2 Dec 2022 07:01:31 GMT
-Received: from [10.216.20.84] (10.80.80.8) by nalasex01a.na.qualcomm.com
- (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.36; Thu, 1 Dec 2022
- 23:01:24 -0800
-Message-ID: <a0544298-f463-4994-1cf4-9e290f85bf37@quicinc.com>
-Date: Fri, 2 Dec 2022 12:30:43 +0530
+Received: from mail-lj1-x22b.google.com (mail-lj1-x22b.google.com
+ [IPv6:2a00:1450:4864:20::22b])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EECC610E6D4
+ for <freedreno@lists.freedesktop.org>; Fri,  2 Dec 2022 10:51:29 +0000 (UTC)
+Received: by mail-lj1-x22b.google.com with SMTP id l8so4962858ljh.13
+ for <freedreno@lists.freedesktop.org>; Fri, 02 Dec 2022 02:51:29 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=iXC6cS5eGCHlEenV07SWq3mzDPAluIVl75tanNPQOpc=;
+ b=MpyWZcQdqt6tTfz5gQA4V8BmkCOTx5xB6cJ4AKTOTn5i4pdtKMb78vr6stuSMptga9
+ eJTCsouTRd3/a5yUv9oSAoCye9ODIF8pqn30+KheCXi3KuxpsUgRFOBQxdPyld9N+UOe
+ jf+XhAqrXfxvS2u1+wumYsms3s//6OZFKdTt3DNr/+8GuLffU1Dd+nFmfwin2VYu+f0Q
+ qv3KwWFdENsskX/BKRa7tMD80/vAsQ2IhlKgnLzqDiwMtqPxacHg9A8nschAvrpHY6WF
+ JCpICRmw9jH1fJB9EYxiPESzf3+4s2WSiqA7RMXADDZODcfW9x/UjP3GPrNlph48pVMr
+ fb0A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=iXC6cS5eGCHlEenV07SWq3mzDPAluIVl75tanNPQOpc=;
+ b=gwNY02o6j8jdwURxVjTRrovubk6LTh8PrixmmEGRvZtBjXibAXp1wAzFki48Fstdas
+ QnZu+FeAoRUW5bhtGh9GdMHhuokdqi1J/gKdcTycH7W4gB9QzLQwZq/MpnW3yxVrAcju
+ ag5w1aHLECGlPUyTmZXdiA2pobTwZGvanx4xJXo8JV0mj9jcetEREKtroFG2Flcttutc
+ 4hwDEsZ3nsK1h1Q1H9YS+9vNUnrA2KTfbxJrdWHIqnukPwNiFrZUpwnLb/GFGLL+QMhC
+ 0IVKzF0X7stiHCMioABu3mosLEWpojFe5Us1G8uFyxPvVP9WbzWp+0IxAWAE/DPdlUyj
+ 9CQQ==
+X-Gm-Message-State: ANoB5pmCR5tdDWWVt45PjIYfLmUY9w1hjiNYBPGc9JPu0LtVBiFcRvRE
+ /M6pdZ5bz2SgDZuK6CjI90NWHg==
+X-Google-Smtp-Source: AA0mqf6r8dPUNIkST30ne6G3/+l1gl+MJYWN3vbRn2dPNEpYV0U2iLt6t0RNaiAKykeBuTt2oBJvUQ==
+X-Received: by 2002:a2e:be87:0:b0:277:f0f:927e with SMTP id
+ a7-20020a2ebe87000000b002770f0f927emr23763568ljr.138.1669978288257; 
+ Fri, 02 Dec 2022 02:51:28 -0800 (PST)
+Received: from [192.168.1.101] (95.49.125.2.neoplus.adsl.tpnet.pl.
+ [95.49.125.2]) by smtp.gmail.com with ESMTPSA id
+ u4-20020a056512040400b00492f1b2ac0bsm986347lfk.101.2022.12.02.02.51.25
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 02 Dec 2022 02:51:27 -0800 (PST)
+Message-ID: <5b6a160a-f2fd-28fc-b980-3d2a52a9b394@linaro.org>
+Date: Fri, 2 Dec 2022 11:51:24 +0100
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.3.2
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.5.1
 Content-Language: en-US
-To: Bjorn Andersson <andersson@kernel.org>, Ulf Hansson
- <ulf.hansson@linaro.org>
-References: <1664960824-20951-1-git-send-email-quic_akhilpo@quicinc.com>
- <20221201225705.46r2m35ketvzipox@builder.lan>
-From: Akhil P Oommen <quic_akhilpo@quicinc.com>
-In-Reply-To: <20221201225705.46r2m35ketvzipox@builder.lan>
-Content-Type: text/plain; charset="UTF-8"
+To: Adam Skladowski <a39.skl@gmail.com>
+References: <20221130200950.144618-1-a39.skl@gmail.com>
+ <20221130200950.144618-11-a39.skl@gmail.com>
+From: Konrad Dybcio <konrad.dybcio@linaro.org>
+In-Reply-To: <20221130200950.144618-11-a39.skl@gmail.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-GUID: _AKOKXU5dPUjwI0r9ojqEgdd0efFi5BV
-X-Proofpoint-ORIG-GUID: _AKOKXU5dPUjwI0r9ojqEgdd0efFi5BV
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.219,Aquarius:18.0.923,Hydra:6.0.545,FMLib:17.11.122.1
- definitions=2022-12-02_03,2022-12-01_01,2022-06-22_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0
- mlxlogscore=999 bulkscore=0 suspectscore=0 lowpriorityscore=0 mlxscore=0
- adultscore=0 spamscore=0 priorityscore=1501 clxscore=1011 phishscore=0
- malwarescore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2210170000 definitions=main-2212020053
-Subject: Re: [Freedreno] [PATCH v7 0/6] clk/qcom: Support gdsc collapse
- polling using 'reset' interface
+Subject: Re: [Freedreno] [PATCH v2 10/12] arm64: dts: qcom: sm6115: Add
+ i2c/spi nodes
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -85,104 +76,348 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: David Airlie <airlied@linux.ie>,
- Michael Turquette <mturquette@baylibre.com>,
- Konrad Dybcio <konrad.dybcio@somainline.org>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Krzysztof
- Kozlowski <krzysztof.kozlowski+dt@linaro.org>, linux-clk@vger.kernel.org,
- Rob Clark <robdclark@gmail.com>, Andy Gross <agross@kernel.org>,
- devicetree@vger.kernel.org, Daniel Vetter <daniel@ffwll.ch>,
+Cc: "Rafael J. Wysocki" <rafael@kernel.org>,
+ Thara Gopinath <thara.gopinath@gmail.com>, dri-devel@lists.freedesktop.org,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ phone-devel@vger.kernel.org, David Airlie <airlied@gmail.com>,
+ Daniel Lezcano <daniel.lezcano@linaro.org>, Andy Gross <agross@kernel.org>,
+ Zhang Rui <rui.zhang@intel.com>, devicetree@vger.kernel.org,
+ Amit Kucheria <amitk@kernel.org>, linux-pm@vger.kernel.org,
  linux-arm-msm@vger.kernel.org, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Stephen Boyd <swboyd@chromium.org>, Rob Herring <robh+dt@kernel.org>, Sean
- Paul <sean@poorly.run>, Stephen Boyd <sboyd@kernel.org>,
- Douglas Anderson <dianders@chromium.org>, krzysztof.kozlowski@linaro.org,
- Philipp Zabel <p.zabel@pengutronix.de>,
+ Rob Herring <robh+dt@kernel.org>, ~postmarketos/upstreaming@lists.sr.ht,
+ Sean Paul <sean@poorly.run>, Loic Poulain <loic.poulain@linaro.org>,
+ Bjorn Andersson <andersson@kernel.org>, linux-kernel@vger.kernel.org,
+ Rob Clark <robdclark@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
  Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- freedreno <freedreno@lists.freedesktop.org>
+ freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 12/2/2022 4:27 AM, Bjorn Andersson wrote:
-> On Wed, Oct 05, 2022 at 02:36:58PM +0530, Akhil P Oommen wrote:
-> @Ulf, Akhil has a power-domain for a piece of hardware which may be
-> voted active by multiple different subsystems (co-processors/execution
-> contexts) in the system.
->
-> As such, during the powering down sequence we don't wait for the
-> power-domain to turn off. But in the event of an error, the recovery
-> mechanism relies on waiting for the hardware to settle in a powered off
-> state.
->
-> The proposal here is to use the reset framework to wait for this state
-> to be reached, before continuing with the recovery mechanism in the
-> client driver.
->
-> Given our other discussions on quirky behavior, do you have any
-> input/suggestions on this?
->
->> Some clients like adreno gpu driver would like to ensure that its gdsc
->> is collapsed at hardware during a gpu reset sequence. This is because it
->> has a votable gdsc which could be ON due to a vote from another subsystem
->> like tz, hyp etc or due to an internal hardware signal. To allow
->> this, gpucc driver can expose an interface to the client driver using
->> reset framework. Using this the client driver can trigger a polling within
->> the gdsc driver.
-> @Akhil, this description is fairly generic. As we've reached the state
-> where the hardware has settled and we return to the client, what
-> prevents it from being powered up again?
->
-> Or is it simply a question of it hitting the powered-off state, not
-> necessarily staying there?
-Correct. It doesn't need to stay there. The intention is to hit the powered-off state at least once to clear all the internal hw states (basically a hw reset).
 
--Akhil.
->
-> Regards,
-> Bjorn
->
->> This series is rebased on top of qcom/linux:for-next branch.
->>
->> Related discussion: https://patchwork.freedesktop.org/patch/493144/
->>
->> Changes in v7:
->> - Update commit message (Bjorn)
->> - Rebased on top of qcom/linux:for-next branch.
->>
->> Changes in v6:
->> - No code changes in this version. Just captured the Acked-by tags
->>
->> Changes in v5:
->> - Nit: Remove a duplicate blank line (Krzysztof)
->>
->> Changes in v4:
->> - Update gpu dt-binding schema
->> - Typo fix in commit text
->>
->> Changes in v3:
->> - Use pointer to const for "struct qcom_reset_ops" in qcom_reset_map (Krzysztof)
->>
->> Changes in v2:
->> - Return error when a particular custom reset op is not implemented. (Dmitry)
->>
->> Akhil P Oommen (6):
->>   dt-bindings: clk: qcom: Support gpu cx gdsc reset
->>   clk: qcom: Allow custom reset ops
->>   clk: qcom: gdsc: Add a reset op to poll gdsc collapse
->>   clk: qcom: gpucc-sc7280: Add cx collapse reset support
->>   dt-bindings: drm/msm/gpu: Add optional resets
->>   arm64: dts: qcom: sc7280: Add Reset support for gpu
->>
->>  .../devicetree/bindings/display/msm/gpu.yaml       |  6 +++++
->>  arch/arm64/boot/dts/qcom/sc7280.dtsi               |  3 +++
->>  drivers/clk/qcom/gdsc.c                            | 23 ++++++++++++++----
->>  drivers/clk/qcom/gdsc.h                            |  7 ++++++
->>  drivers/clk/qcom/gpucc-sc7280.c                    | 10 ++++++++
->>  drivers/clk/qcom/reset.c                           | 27 +++++++++++++++++++++-
->>  drivers/clk/qcom/reset.h                           |  8 +++++++
->>  include/dt-bindings/clock/qcom,gpucc-sc7280.h      |  3 +++
->>  8 files changed, 82 insertions(+), 5 deletions(-)
->>
->> -- 
->> 2.7.4
->>
 
+On 30.11.2022 21:09, Adam Skladowski wrote:
+> Add I2C/SPI nodes for SM6115.
+> 
+> Signed-off-by: Adam Skladowski <a39.skl@gmail.com>
+> ---
+Reviewed-by: Konrad Dybcio <konrad.dybcio@linaro.org>
+
+Konrad
+>  arch/arm64/boot/dts/qcom/sm6115.dtsi | 290 +++++++++++++++++++++++++++
+>  1 file changed, 290 insertions(+)
+> 
+> diff --git a/arch/arm64/boot/dts/qcom/sm6115.dtsi b/arch/arm64/boot/dts/qcom/sm6115.dtsi
+> index b30a5485671d..e676b9d117e3 100644
+> --- a/arch/arm64/boot/dts/qcom/sm6115.dtsi
+> +++ b/arch/arm64/boot/dts/qcom/sm6115.dtsi
+> @@ -6,6 +6,7 @@
+>  #include <dt-bindings/clock/qcom,gcc-sm6115.h>
+>  #include <dt-bindings/clock/qcom,sm6115-dispcc.h>
+>  #include <dt-bindings/clock/qcom,rpmcc.h>
+> +#include <dt-bindings/dma/qcom-gpi.h>
+>  #include <dt-bindings/gpio/gpio.h>
+>  #include <dt-bindings/interrupt-controller/arm-gic.h>
+>  #include <dt-bindings/power/qcom-rpmpd.h>
+> @@ -365,6 +366,90 @@ tlmm: pinctrl@500000 {
+>  			interrupt-controller;
+>  			#interrupt-cells = <2>;
+>  
+> +			qup_i2c0_default: qup-i2c0-default-state {
+> +				pins = "gpio0", "gpio1";
+> +				function = "qup0";
+> +				drive-strength = <2>;
+> +				bias-pull-up;
+> +			};
+> +
+> +			qup_i2c1_default: qup-i2c1-default-state {
+> +				pins = "gpio4", "gpio5";
+> +				function = "qup1";
+> +				drive-strength = <2>;
+> +				bias-pull-up;
+> +			};
+> +
+> +			qup_i2c2_default: qup-i2c2-default-state {
+> +				pins = "gpio6", "gpio7";
+> +				function = "qup2";
+> +				drive-strength = <2>;
+> +				bias-pull-up;
+> +			};
+> +
+> +			qup_i2c3_default: qup-i2c3-default-state {
+> +				pins = "gpio8", "gpio9";
+> +				function = "qup3";
+> +				drive-strength = <2>;
+> +				bias-pull-up;
+> +			};
+> +
+> +			qup_i2c4_default: qup-i2c4-default-state {
+> +				pins = "gpio12", "gpio13";
+> +				function = "qup4";
+> +				drive-strength = <2>;
+> +				bias-pull-up;
+> +			};
+> +
+> +			qup_i2c5_default: qup-i2c5-default-state {
+> +				pins = "gpio14", "gpio15";
+> +				function = "qup5";
+> +				drive-strength = <2>;
+> +				bias-pull-up;
+> +			};
+> +
+> +			qup_spi0_default: qup-spi0-default-state {
+> +				pins = "gpio0", "gpio1","gpio2", "gpio3";
+> +				function = "qup0";
+> +				drive-strength = <2>;
+> +				bias-pull-up;
+> +			};
+> +
+> +			qup_spi1_default: qup-spi1-default-state {
+> +				pins = "gpio4", "gpio5", "gpio69", "gpio70";
+> +				function = "qup1";
+> +				drive-strength = <2>;
+> +				bias-pull-up;
+> +			};
+> +
+> +			qup_spi2_default: qup-spi2-default-state {
+> +				pins = "gpio6", "gpio7", "gpio71", "gpio80";
+> +				function = "qup2";
+> +				drive-strength = <2>;
+> +				bias-pull-up;
+> +			};
+> +
+> +			qup_spi3_default: qup-spi3-default-state {
+> +				pins = "gpio8", "gpio9", "gpio10", "gpio11";
+> +				function = "qup3";
+> +				drive-strength = <2>;
+> +				bias-pull-up;
+> +			};
+> +
+> +			qup_spi4_default: qup-spi4-default-state {
+> +				pins = "gpio12", "gpio13", "gpio96", "gpio97";
+> +				function = "qup4";
+> +				drive-strength = <2>;
+> +				bias-pull-up;
+> +			};
+> +
+> +			qup_spi5_default: qup-spi5-default-state {
+> +				pins = "gpio14", "gpio15", "gpio16", "gpio17";
+> +				function = "qup5";
+> +				drive-strength = <2>;
+> +				bias-pull-up;
+> +			};
+> +
+>  			sdc1_state_on: sdc1-on-state {
+>  				clk-pins {
+>  					pins = "sdc1_clk";
+> @@ -701,6 +786,211 @@ gpi_dma0: dma-controller@4a00000 {
+>  			status = "disabled";
+>  		};
+>  
+> +		qupv3_id_0: geniqup@4ac0000 {
+> +			compatible = "qcom,geni-se-qup";
+> +			reg = <0x04ac0000 0x2000>;
+> +			clock-names = "m-ahb", "s-ahb";
+> +			clocks = <&gcc GCC_QUPV3_WRAP_0_M_AHB_CLK>,
+> +				 <&gcc GCC_QUPV3_WRAP_0_S_AHB_CLK>;
+> +			#address-cells = <1>;
+> +			#size-cells = <1>;
+> +			iommus = <&apps_smmu 0xe3 0x0>;
+> +			ranges;
+> +			status = "disabled";
+> +
+> +			i2c0: i2c@4a80000 {
+> +				compatible = "qcom,geni-i2c";
+> +				reg = <0x04a80000 0x4000>;
+> +				clock-names = "se";
+> +				clocks = <&gcc GCC_QUPV3_WRAP0_S0_CLK>;
+> +				pinctrl-names = "default";
+> +				pinctrl-0 = <&qup_i2c0_default>;
+> +				interrupts = <GIC_SPI 327 IRQ_TYPE_LEVEL_HIGH>;
+> +				dmas = <&gpi_dma0 0 0 QCOM_GPI_I2C>,
+> +				       <&gpi_dma0 1 0 QCOM_GPI_I2C>;
+> +				dma-names = "tx", "rx";
+> +				#address-cells = <1>;
+> +				#size-cells = <0>;
+> +				status = "disabled";
+> +			};
+> +
+> +			spi0: spi@4a80000 {
+> +				compatible = "qcom,geni-spi";
+> +				reg = <0x04a80000 0x4000>;
+> +				clock-names = "se";
+> +				clocks = <&gcc GCC_QUPV3_WRAP0_S0_CLK>;
+> +				pinctrl-names = "default";
+> +				pinctrl-0 = <&qup_spi0_default>;
+> +				interrupts = <GIC_SPI 327 IRQ_TYPE_LEVEL_HIGH>;
+> +				dmas = <&gpi_dma0 0 0 QCOM_GPI_SPI>,
+> +				       <&gpi_dma0 1 0 QCOM_GPI_SPI>;
+> +				dma-names = "tx", "rx";
+> +				#address-cells = <1>;
+> +				#size-cells = <0>;
+> +				status = "disabled";
+> +			};
+> +
+> +			i2c1: i2c@4a84000 {
+> +				compatible = "qcom,geni-i2c";
+> +				reg = <0x04a84000 0x4000>;
+> +				clock-names = "se";
+> +				clocks = <&gcc GCC_QUPV3_WRAP0_S1_CLK>;
+> +				pinctrl-names = "default";
+> +				pinctrl-0 = <&qup_i2c1_default>;
+> +				interrupts = <GIC_SPI 328 IRQ_TYPE_LEVEL_HIGH>;
+> +				dmas = <&gpi_dma0 0 1 QCOM_GPI_I2C>,
+> +				       <&gpi_dma0 1 1 QCOM_GPI_I2C>;
+> +				dma-names = "tx", "rx";
+> +				#address-cells = <1>;
+> +				#size-cells = <0>;
+> +				status = "disabled";
+> +			};
+> +
+> +			spi1: spi@4a84000 {
+> +				compatible = "qcom,geni-spi";
+> +				reg = <0x04a84000 0x4000>;
+> +				clock-names = "se";
+> +				clocks = <&gcc GCC_QUPV3_WRAP0_S1_CLK>;
+> +				pinctrl-names = "default";
+> +				pinctrl-0 = <&qup_spi1_default>;
+> +				interrupts = <GIC_SPI 328 IRQ_TYPE_LEVEL_HIGH>;
+> +				dmas = <&gpi_dma0 0 1 QCOM_GPI_SPI>,
+> +				       <&gpi_dma0 1 1 QCOM_GPI_SPI>;
+> +				dma-names = "tx", "rx";
+> +				#address-cells = <1>;
+> +				#size-cells = <0>;
+> +				status = "disabled";
+> +			};
+> +
+> +			i2c2: i2c@4a88000 {
+> +				compatible = "qcom,geni-i2c";
+> +				reg = <0x04a88000 0x4000>;
+> +				clock-names = "se";
+> +				clocks = <&gcc GCC_QUPV3_WRAP0_S2_CLK>;
+> +				pinctrl-names = "default";
+> +				pinctrl-0 = <&qup_i2c2_default>;
+> +				interrupts = <GIC_SPI 329 IRQ_TYPE_LEVEL_HIGH>;
+> +				dmas = <&gpi_dma0 0 2 QCOM_GPI_I2C>,
+> +				       <&gpi_dma0 1 2 QCOM_GPI_I2C>;
+> +				dma-names = "tx", "rx";
+> +				#address-cells = <1>;
+> +				#size-cells = <0>;
+> +				status = "disabled";
+> +			};
+> +
+> +			spi2: spi@4a88000 {
+> +				compatible = "qcom,geni-spi";
+> +				reg = <0x04a88000 0x4000>;
+> +				clock-names = "se";
+> +				clocks = <&gcc GCC_QUPV3_WRAP0_S2_CLK>;
+> +				pinctrl-names = "default";
+> +				pinctrl-0 = <&qup_spi2_default>;
+> +				interrupts = <GIC_SPI 329 IRQ_TYPE_LEVEL_HIGH>;
+> +				dmas = <&gpi_dma0 0 2 QCOM_GPI_SPI>,
+> +				       <&gpi_dma0 1 2 QCOM_GPI_SPI>;
+> +				dma-names = "tx", "rx";
+> +				#address-cells = <1>;
+> +				#size-cells = <0>;
+> +				status = "disabled";
+> +			};
+> +
+> +			i2c3: i2c@4a8c000 {
+> +				compatible = "qcom,geni-i2c";
+> +				reg = <0x04a8c000 0x4000>;
+> +				clock-names = "se";
+> +				clocks = <&gcc GCC_QUPV3_WRAP0_S3_CLK>;
+> +				pinctrl-names = "default";
+> +				pinctrl-0 = <&qup_i2c3_default>;
+> +				interrupts = <GIC_SPI 330 IRQ_TYPE_LEVEL_HIGH>;
+> +				dmas = <&gpi_dma0 0 3 QCOM_GPI_I2C>,
+> +				       <&gpi_dma0 1 3 QCOM_GPI_I2C>;
+> +				dma-names = "tx", "rx";
+> +				#address-cells = <1>;
+> +				#size-cells = <0>;
+> +				status = "disabled";
+> +			};
+> +
+> +			spi3: spi@4a8c000 {
+> +				compatible = "qcom,geni-spi";
+> +				reg = <0x04a8c000 0x4000>;
+> +				clock-names = "se";
+> +				clocks = <&gcc GCC_QUPV3_WRAP0_S3_CLK>;
+> +				pinctrl-names = "default";
+> +				pinctrl-0 = <&qup_spi3_default>;
+> +				interrupts = <GIC_SPI 330 IRQ_TYPE_LEVEL_HIGH>;
+> +				dmas = <&gpi_dma0 0 3 QCOM_GPI_SPI>,
+> +				       <&gpi_dma0 1 3 QCOM_GPI_SPI>;
+> +				dma-names = "tx", "rx";
+> +				#address-cells = <1>;
+> +				#size-cells = <0>;
+> +				status = "disabled";
+> +			};
+> +
+> +			i2c4: i2c@4a90000 {
+> +				compatible = "qcom,geni-i2c";
+> +				reg = <0x04a90000 0x4000>;
+> +				clock-names = "se";
+> +				clocks = <&gcc GCC_QUPV3_WRAP0_S4_CLK>;
+> +				pinctrl-names = "default";
+> +				pinctrl-0 = <&qup_i2c4_default>;
+> +				interrupts = <GIC_SPI 331 IRQ_TYPE_LEVEL_HIGH>;
+> +				dmas = <&gpi_dma0 0 4 QCOM_GPI_I2C>,
+> +				       <&gpi_dma0 1 4 QCOM_GPI_I2C>;
+> +				dma-names = "tx", "rx";
+> +				#address-cells = <1>;
+> +				#size-cells = <0>;
+> +				status = "disabled";
+> +			};
+> +
+> +			spi4: spi@4a90000 {
+> +				compatible = "qcom,geni-spi";
+> +				reg = <0x04a90000 0x4000>;
+> +				clock-names = "se";
+> +				clocks = <&gcc GCC_QUPV3_WRAP0_S4_CLK>;
+> +				pinctrl-names = "default";
+> +				pinctrl-0 = <&qup_spi4_default>;
+> +				interrupts = <GIC_SPI 331 IRQ_TYPE_LEVEL_HIGH>;
+> +				dmas = <&gpi_dma0 0 4 QCOM_GPI_SPI>,
+> +				       <&gpi_dma0 1 4 QCOM_GPI_SPI>;
+> +				dma-names = "tx", "rx";
+> +				#address-cells = <1>;
+> +				#size-cells = <0>;
+> +				status = "disabled";
+> +			};
+> +
+> +			i2c5: i2c@4a94000 {
+> +				compatible = "qcom,geni-i2c";
+> +				reg = <0x04a94000 0x4000>;
+> +				clock-names = "se";
+> +				clocks = <&gcc GCC_QUPV3_WRAP0_S5_CLK>;
+> +				pinctrl-names = "default";
+> +				pinctrl-0 = <&qup_i2c5_default>;
+> +				interrupts = <GIC_SPI 332 IRQ_TYPE_LEVEL_HIGH>;
+> +				dmas = <&gpi_dma0 0 5 QCOM_GPI_I2C>,
+> +				       <&gpi_dma0 1 5 QCOM_GPI_I2C>;
+> +				dma-names = "tx", "rx";
+> +				#address-cells = <1>;
+> +				#size-cells = <0>;
+> +				status = "disabled";
+> +			};
+> +
+> +			spi5: spi@4a94000 {
+> +				compatible = "qcom,geni-spi";
+> +				reg = <0x04a94000 0x4000>;
+> +				clock-names = "se";
+> +				clocks = <&gcc GCC_QUPV3_WRAP0_S5_CLK>;
+> +				pinctrl-names = "default";
+> +				pinctrl-0 = <&qup_spi5_default>;
+> +				interrupts = <GIC_SPI 332 IRQ_TYPE_LEVEL_HIGH>;
+> +				dmas = <&gpi_dma0 0 5 QCOM_GPI_SPI>,
+> +				       <&gpi_dma0 1 5 QCOM_GPI_SPI>;
+> +				dma-names = "tx", "rx";
+> +				#address-cells = <1>;
+> +				#size-cells = <0>;
+> +				status = "disabled";
+> +			};
+> +		};
+> +
+>  		usb_1: usb@4ef8800 {
+>  			compatible = "qcom,sm6115-dwc3", "qcom,dwc3";
+>  			reg = <0x04ef8800 0x400>;
