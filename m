@@ -2,78 +2,68 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2BEA6642D8E
-	for <lists+freedreno@lfdr.de>; Mon,  5 Dec 2022 17:50:07 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D5B58642F0A
+	for <lists+freedreno@lfdr.de>; Mon,  5 Dec 2022 18:44:50 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 47A6010E25A;
-	Mon,  5 Dec 2022 16:50:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2D34A10E0C4;
+	Mon,  5 Dec 2022 17:44:49 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ed1-x52d.google.com (mail-ed1-x52d.google.com
- [IPv6:2a00:1450:4864:20::52d])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D004510E0A2
- for <freedreno@lists.freedesktop.org>; Mon,  5 Dec 2022 16:49:57 +0000 (UTC)
-Received: by mail-ed1-x52d.google.com with SMTP id d20so16688344edn.0
- for <freedreno@lists.freedesktop.org>; Mon, 05 Dec 2022 08:49:57 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=content-transfer-encoding:in-reply-to:from:references:to:subject
- :user-agent:mime-version:date:message-id:from:to:cc:subject:date
- :message-id:reply-to;
- bh=OmbRhFoEX+2zLzyBtDeN3v1+jbWEErrwHpEUGgptp/s=;
- b=AKa7bBrXUFLEo7+yTlrl43wgFvRNWWkV/Oj65/9/+1YnvHZTc+WJ0k2vMjmgRSzL8/
- mA5bGTfRdoJpS+SKKk5AKd9GrO4IOASpNnpk8E5/plwvWjdGvTQvkFf5PWIy7K6AXDvh
- +XY5UHN099TZISLy+svWHn9s15kI2+kVsmg9qYt5plmPFTM2ngb2uzrMuSMYGOL7kNcG
- BNc3u89omhfkSToSE8ZgbSvmJY1cnch4+prEHR80dzCZMBxhADoJPAyXDpwZJ8Y1Fn6w
- en7FcksBtb8w5kKXN+jIsD6JpsR+zasnPe52nZh5rQPH4haozYxV9oruTF19X/zpUvJS
- 03EQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=content-transfer-encoding:in-reply-to:from:references:to:subject
- :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
- :cc:subject:date:message-id:reply-to;
- bh=OmbRhFoEX+2zLzyBtDeN3v1+jbWEErrwHpEUGgptp/s=;
- b=DgXVJMuuMkljxW19XdD2VqZXkkIxALEzWMkDjzwvJC03GgfS/xNztx2l6yisppLHUY
- Yeon8q2UGKLsyrTINiuZ/TiylPcg/PRSi3IRV1uthCWeaNHSWewTLzNxLwNg+XcMJv3Q
- vWZIwALb1TrMYVC/iS41DLvNlPjHRKR8cPpeV18Xd3ugwr9XwnlDCe4kROwoqyifqLMN
- Oe9Es0v1Pf6B8sOLQfc9pyGwTM1MNQxe4w7sLK8ufbcbTmCVeRaFLyvSP4WO36NcBHSM
- Tb7iZ7X3Jz1BGR1zz94GXNBkko3T0mPfKbqhUmgR7VlOaaWRSISOc7kqte8/AsgJ7mxO
- 1/gQ==
-X-Gm-Message-State: ANoB5pmg2j5RzVRcl0sxeqdDwPBldwArmxsEZ1pb182SG8qrMkCsxdrm
- +DbCuV0L52RPDvwYngtkl86bTw==
-X-Google-Smtp-Source: AA0mqf5VU9XSaeM55klchfdUEM78X31MeC820ny7k7ADhRph1/Zd+ruLYwdKvh0Y6mNhHK1R4eoTwA==
-X-Received: by 2002:aa7:d659:0:b0:46b:1687:2e5d with SMTP id
- v25-20020aa7d659000000b0046b16872e5dmr33667281edr.136.1670258996422; 
- Mon, 05 Dec 2022 08:49:56 -0800 (PST)
-Received: from [192.168.31.208] ([194.29.137.22])
- by smtp.gmail.com with ESMTPSA id
- ku11-20020a170907788b00b007c0c91eae04sm3900313ejc.151.2022.12.05.08.49.53
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 05 Dec 2022 08:49:55 -0800 (PST)
-Message-ID: <5aea6717-8a16-0316-ae6e-d89082d390a8@linaro.org>
-Date: Mon, 5 Dec 2022 17:49:52 +0100
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 91CAB10E0C4;
+ Mon,  5 Dec 2022 17:44:45 +0000 (UTC)
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 2B5GX1dv008535; Mon, 5 Dec 2022 17:44:40 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
+ h=from : to : cc :
+ subject : date : message-id : mime-version : content-type; s=qcppdkim1;
+ bh=n71Q8U1lxaO4T7pMOJN2dnk3bwSwPz23bo7YNGLuTZU=;
+ b=cWTTpNA4MPr2QZ9xYuYu4WZuHh2akoP77O3q3wThM1hGFGE78jHMtkfKjMlsxqVO63fk
+ KU0egHHHd3f0mBuRmKVJjrU/2KUE9uMnmTkylQyCcljOqio+OONFjHOF+wmAUXlpgbFF
+ s0AaXStjSp/hst89Za0mOPumQK9RhnT8F+UYeigmJqA5uNqj0/Jr/RH9y7uh36u6bgIq
+ JKDy6XyAesnOF6SKf7WNK+LClpcK0l1fuAOTcPGsZi6iYuN99pg8+bKh7EivgUaRipfl
+ p47BQOhyQ9Zn83u/8nVWB9wTw2952W9CY+YywmcOLsZ9TwLmKFwQTc9ErK75TC+uonTC uQ== 
+Received: from nalasppmta02.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3m7wdxvv8g-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 05 Dec 2022 17:44:40 +0000
+Received: from nalasex01c.na.qualcomm.com (nalasex01c.na.qualcomm.com
+ [10.47.97.35])
+ by NALASPPMTA02.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 2B5Hid9e006219
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 5 Dec 2022 17:44:39 GMT
+Received: from th-lint-050.qualcomm.com (10.80.80.8) by
+ nalasex01c.na.qualcomm.com (10.47.97.35) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.986.36; Mon, 5 Dec 2022 09:44:39 -0800
+From: Bjorn Andersson <quic_bjorande@quicinc.com>
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Date: Mon, 5 Dec 2022 09:44:20 -0800
+Message-ID: <20221205174433.16847-1-quic_bjorande@quicinc.com>
+X-Mailer: git-send-email 2.17.1
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
- Gecko/20100101 Thunderbird/102.5.0
-To: Robert Foss <robert.foss@linaro.org>, robdclark@gmail.com,
- quic_abhinavk@quicinc.com, dmitry.baryshkov@linaro.org, sean@poorly.run,
- airlied@linux.ie, daniel@ffwll.ch, robh+dt@kernel.org,
- krzysztof.kozlowski+dt@linaro.org, agross@kernel.org,
- bjorn.andersson@linaro.org, quic_kalyant@quicinc.com,
- angelogioacchino.delregno@somainline.org, loic.poulain@linaro.org,
- swboyd@chromium.org, quic_vpolimer@quicinc.com, vkoul@kernel.org,
- dianders@chromium.org, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- Jonathan Marek <jonathan@marek.ca>, vinod.koul@linaro.org,
- quic_jesszhan@quicinc.com, andersson@kernel.org
-References: <20221205163754.221139-1-robert.foss@linaro.org>
- <20221205163754.221139-10-robert.foss@linaro.org>
-From: Konrad Dybcio <konrad.dybcio@linaro.org>
-In-Reply-To: <20221205163754.221139-10-robert.foss@linaro.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH v3 09/11] arm64: dts: qcom: sm8350: Add
- display system nodes
+Content-Type: text/plain
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
+ nalasex01c.na.qualcomm.com (10.47.97.35)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-GUID: udJ2iLcOG7coSnHp6qB7GtdrraaRRo8D
+X-Proofpoint-ORIG-GUID: udJ2iLcOG7coSnHp6qB7GtdrraaRRo8D
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.205,Aquarius:18.0.923,Hydra:6.0.545,FMLib:17.11.122.1
+ definitions=2022-12-05_01,2022-12-05_01,2022-06-22_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 impostorscore=0
+ clxscore=1011 adultscore=0 mlxscore=0 phishscore=0 spamscore=0
+ priorityscore=1501 malwarescore=0 suspectscore=0 lowpriorityscore=0
+ mlxlogscore=999 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2210170000 definitions=main-2212050146
+Subject: [Freedreno] [PATCH v4 00/13] drm/msm: Add SC8280XP support
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -86,263 +76,71 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
+Cc: Kalyan Thota <quic_kalyant@quicinc.com>, freedreno@lists.freedesktop.org,
+ Sankeerth Billakanti <quic_sbillaka@quicinc.com>, linux-kernel@vger.kernel.org,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ devicetree@vger.kernel.org, Sean Paul <sean@poorly.run>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
+ Kuogee Hsieh <quic_khsieh@quicinc.com>,
+ Konrad Dybcio <konrad.dybcio@linaro.org>, Rob Clark <robdclark@gmail.com>,
+ Rob Herring <robh+dt@kernel.org>, Daniel Vetter <daniel@ffwll.ch>,
+ linux-arm-msm@vger.kernel.org, Jessica Zhang <quic_jesszhan@quicinc.com>,
+ David Airlie <airlied@gmail.com>, Johan Hovold <johan+linaro@kernel.org>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
+This introduces support for the SC8280XP platform in the MDSS, DPU and
+DP driver. It reworks the HDP handling in the DP driver to support
+external HPD sources - such as the dp-connector, or USB Type-C altmode.
+
+It then introduces the display clock controllers, mdss, dpu and
+displayport controllers and link everything together, for both the MDSS
+instances on the platform, and lastly enables EDP on the compute
+reference device and 6 of the MiniDP outputs on the automotive
+development platform.
 
 
-On 05/12/2022 17:37, Robert Foss wrote:
-> Add mdss, mdss_mdp, dsi0, dsi0_phy nodes. With these
-> nodes the display subsystem is configured to support
-> one DSI output.
-> 
-> Signed-off-by: Robert Foss <robert.foss@linaro.org>
-> ---
->   arch/arm64/boot/dts/qcom/sm8350.dtsi | 199 ++++++++++++++++++++++++++-
->   1 file changed, 195 insertions(+), 4 deletions(-)
-> 
-> diff --git a/arch/arm64/boot/dts/qcom/sm8350.dtsi b/arch/arm64/boot/dts/qcom/sm8350.dtsi
-> index 434f8e8b12c1..fb1c616c5e89 100644
-> --- a/arch/arm64/boot/dts/qcom/sm8350.dtsi
-> +++ b/arch/arm64/boot/dts/qcom/sm8350.dtsi
-> @@ -3,6 +3,7 @@
->    * Copyright (c) 2020, Linaro Limited
->    */
->   
-> +#include <dt-bindings/interconnect/qcom,sm8350.h>
->   #include <dt-bindings/interrupt-controller/arm-gic.h>
->   #include <dt-bindings/clock/qcom,dispcc-sm8350.h>
->   #include <dt-bindings/clock/qcom,gcc-sm8350.h>
-> @@ -2536,14 +2537,203 @@ usb_2_dwc3: usb@a800000 {
->   			};
->   		};
->   
-> +		mdss: mdss@ae00000 {
-> +			compatible = "qcom,sm8350-mdss";
-> +			reg = <0 0x0ae00000 0 0x1000>;
-> +			reg-names = "mdss";
-> +
-> +			interconnects = <&mmss_noc MASTER_MDP0 0 &mc_virt SLAVE_EBI1 0>,
-> +					<&mmss_noc MASTER_MDP1 0 &mc_virt SLAVE_EBI1 0>;
-> +			interconnect-names = "mdp0-mem", "mdp1-mem";
-> +
-> +			power-domains = <&dispcc MDSS_GDSC>;
-> +			resets = <&dispcc DISP_CC_MDSS_CORE_BCR>;
-> +
-> +			clocks = <&dispcc DISP_CC_MDSS_AHB_CLK>,
-> +				 <&gcc GCC_DISP_HF_AXI_CLK>,
-> +				 <&gcc GCC_DISP_SF_AXI_CLK>,
-> +				 <&dispcc DISP_CC_MDSS_MDP_CLK>;
-> +			clock-names = "iface", "bus", "nrt_bus", "core";
-> +
-> +			interrupts = <GIC_SPI 83 IRQ_TYPE_LEVEL_HIGH>;
-> +			interrupt-controller;
-> +			#interrupt-cells = <1>;
-> +
-> +			iommus = <&apps_smmu 0x820 0x402>;
-> +
-> +			status = "disabled";
-> +
-> +			#address-cells = <2>;
-> +			#size-cells = <2>;
-> +			ranges;
-> +
-> +			mdss_mdp: display-controller@ae01000 {
-> +				compatible = "qcom,sm8350-dpu";
-> +				reg = <0 0x0ae01000 0 0x8f000>,
-> +				      <0 0x0aeb0000 0 0x2008>;
-> +				reg-names = "mdp", "vbif";
-> +
-> +				clocks = <&gcc GCC_DISP_HF_AXI_CLK>,
-> +					<&gcc GCC_DISP_SF_AXI_CLK>,
-> +					<&dispcc DISP_CC_MDSS_AHB_CLK>,
-> +					<&dispcc DISP_CC_MDSS_MDP_LUT_CLK>,
-> +					<&dispcc DISP_CC_MDSS_MDP_CLK>,
-> +					<&dispcc DISP_CC_MDSS_VSYNC_CLK>;
-> +				clock-names = "bus",
-> +					      "nrt_bus",
-> +					      "iface",
-> +					      "lut",
-> +					      "core",
-> +					      "vsync";
-> +
-> +				assigned-clocks = <&dispcc DISP_CC_MDSS_VSYNC_CLK>;
-> +				assigned-clock-rates = <19200000>;
-> +
-> +				operating-points-v2 = <&mdp_opp_table>;
-> +				power-domains = <&rpmhpd SM8350_MMCX>;
-> +
-> +				interrupt-parent = <&mdss>;
-> +				interrupts = <0>;
-> +
-> +				ports {
-> +					#address-cells = <1>;
-> +					#size-cells = <0>;
-> +
-> +					port@0 {
-> +						reg = <0>;
-> +						dpu_intf1_out: endpoint {
-> +							remote-endpoint = <&dsi0_in>;
-> +						};
-> +					};
-> +				};
-> +			};
-> +
-> +			dsi0: dsi@ae94000 {
-With the 8280 patchset [1], it was decided that mdss nodes should now 
-have a mdss_ prefix in their labels, to keep them near each other when 
-referencing them in device DTSes.
+The patches was previously sent separately, but submitting them together
+here as they (except dts addition) goes in the same tree.
 
+Bjorn Andersson (13):
+  dt-bindings: display/msm: Add binding for SC8280XP MDSS
+  drm/msm/dpu: Introduce SC8280XP
+  drm/msm: Introduce SC8280XP MDSS
+  dt-bindings: msm/dp: Add SDM845 and SC8280XP compatibles
+  drm/msm/dp: Stop using DP id as index in desc
+  drm/msm/dp: Add DP and EDP compatibles for SC8280XP
+  drm/msm/dp: Add SDM845 DisplayPort instance
+  drm/msm/dp: Implement hpd_notify()
+  drm/msm/dp: Don't enable HPD interrupts for edp
+  drm/msm/dp: Rely on hpd_enable/disable callbacks
+  arm64: dts: qcom: sc8280xp: Define some of the display blocks
+  arm64: dts: qcom: sc8280xp-crd: Enable EDP
+  arm64: dts: qcom: sa8295-adp: Enable DP instances
 
-> +				compatible = "qcom,mdss-dsi-ctrl";
-> +				reg = <0 0x0ae94000 0 0x400>;
-> +				reg-names = "dsi_ctrl";
-> +
-> +				interrupt-parent = <&mdss>;
-> +				interrupts = <4>;
-> +
-> +				clocks = <&dispcc DISP_CC_MDSS_BYTE0_CLK>,
-> +					 <&dispcc DISP_CC_MDSS_BYTE0_INTF_CLK>,
-> +					 <&dispcc DISP_CC_MDSS_PCLK0_CLK>,
-> +					 <&dispcc DISP_CC_MDSS_ESC0_CLK>,
-> +					 <&dispcc DISP_CC_MDSS_AHB_CLK>,
-> +					 <&gcc GCC_DISP_HF_AXI_CLK>;
-> +				clock-names = "byte",
-> +					      "byte_intf",
-> +					      "pixel",
-> +					      "core",
-> +					      "iface",
-> +					      "bus";
-> +
-> +				assigned-clocks = <&dispcc DISP_CC_MDSS_BYTE0_CLK_SRC>,
-> +						  <&dispcc DISP_CC_MDSS_PCLK0_CLK_SRC>;
-> +				assigned-clock-parents = <&dsi0_phy 0>,
-> +							 <&dsi0_phy 1>;
-> +
-> +				operating-points-v2 = <&dsi_opp_table>;
-> +				power-domains = <&rpmhpd SM8350_MMCX>;
-> +
-> +				phys = <&dsi0_phy>;
-> +
-> +				status = "disabled";
-> +
-> +				ports {
-> +					#address-cells = <1>;
-> +					#size-cells = <0>;
-> +
-> +					port@0 {
-> +						reg = <0>;
-> +						dsi0_in: endpoint {
-> +							remote-endpoint = <&dpu_intf1_out>;
-> +						};
-> +					};
-> +
-> +					port@1 {
-> +						reg = <1>;
-> +						dsi0_out: endpoint {
-> +						};
-> +					};
-> +				};
-> +
-> +				mdp_opp_table: opp-table {
-> +					compatible = "operating-points-v2";
-> +
-> +					/* TODO: opp-200000000 should work with
-/*
-  * TODO:
+ .../bindings/display/msm/dp-controller.yaml   |   3 +
+ .../display/msm/qcom,sc8280xp-dpu.yaml        | 122 +++
+ .../display/msm/qcom,sc8280xp-mdss.yaml       | 143 +++
+ arch/arm64/boot/dts/qcom/sa8295p-adp.dts      | 243 ++++-
+ arch/arm64/boot/dts/qcom/sc8280xp-crd.dts     |  72 +-
+ arch/arm64/boot/dts/qcom/sc8280xp.dtsi        | 838 ++++++++++++++++++
+ .../gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c    | 216 +++++
+ .../gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h    |   1 +
+ .../gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c |  18 +
+ .../gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.h |   3 +
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_mdss.h   |   2 +
+ drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c       |   1 +
+ drivers/gpu/drm/msm/dp/dp_display.c           | 151 ++--
+ drivers/gpu/drm/msm/dp/dp_display.h           |   1 +
+ drivers/gpu/drm/msm/dp/dp_drm.c               |   3 +
+ drivers/gpu/drm/msm/dp/dp_drm.h               |   4 +
+ drivers/gpu/drm/msm/msm_drv.h                 |   1 +
+ drivers/gpu/drm/msm/msm_mdss.c                |   4 +
+ 18 files changed, 1769 insertions(+), 57 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/display/msm/qcom,sc8280xp-dpu.yaml
+ create mode 100644 Documentation/devicetree/bindings/display/msm/qcom,sc8280xp-mdss.yaml
 
-and the wrapping looks rather weird.. or is that my email client?
+-- 
+2.37.3
 
-
-Other than that, lgtm!
-
-Konrad
-
-[1] 
-https://lore.kernel.org/linux-arm-msm/20221130200739.ube7hvobythkbhuy@builder.lan/T/#m93e15b290b40c2d2c2ec6f639135ffa38882d0b2
-> +					 * &rpmhpd_opp_low_svs, but one some of
-> +					 * sm8350_hdk boards reboot using this
-> +					 * opp.
-> +					 */
-> +					opp-200000000 {
-> +						opp-hz = /bits/ 64 <200000000>;
-> +						required-opps = <&rpmhpd_opp_svs>;
-> +					};
-> +
-> +					opp-300000000 {
-> +						opp-hz = /bits/ 64 <300000000>;
-> +						required-opps = <&rpmhpd_opp_svs>;
-> +					};
-> +
-> +					opp-345000000 {
-> +						opp-hz = /bits/ 64 <345000000>;
-> +						required-opps = <&rpmhpd_opp_svs_l1>;
-> +					};
-> +
-> +					opp-460000000 {
-> +						opp-hz = /bits/ 64 <460000000>;
-> +						required-opps = <&rpmhpd_opp_nom>;
-> +					};
-> +				};
-> +			};
-> +
-> +			dsi0_phy: phy@ae94400 {
-> +				compatible = "qcom,dsi-phy-5nm-8350";
-> +				reg = <0 0x0ae94400 0 0x200>,
-> +				      <0 0x0ae94600 0 0x280>,
-> +				      <0 0x0ae94900 0 0x260>;
-> +				reg-names = "dsi_phy",
-> +					    "dsi_phy_lane",
-> +					    "dsi_pll";
-> +
-> +				#clock-cells = <1>;
-> +				#phy-cells = <0>;
-> +
-> +				clocks = <&dispcc DISP_CC_MDSS_AHB_CLK>,
-> +					 <&rpmhcc RPMH_CXO_CLK>;
-> +				clock-names = "iface", "ref";
-> +
-> +				status = "disabled";
-> +
-> +				dsi_opp_table: dsi-opp-table {
-> +					compatible = "operating-points-v2";
-> +
-> +					opp-187500000 {
-> +						opp-hz = /bits/ 64 <187500000>;
-> +						required-opps = <&rpmhpd_opp_low_svs>;
-> +					};
-> +
-> +					opp-300000000 {
-> +						opp-hz = /bits/ 64 <300000000>;
-> +						required-opps = <&rpmhpd_opp_svs>;
-> +					};
-> +
-> +					opp-358000000 {
-> +						opp-hz = /bits/ 64 <358000000>;
-> +						required-opps = <&rpmhpd_opp_svs_l1>;
-> +					};
-> +				};
-> +			};
-> +		};
-> +
->   		dispcc: clock-controller@af00000 {
->   			compatible = "qcom,sm8350-dispcc";
->   			reg = <0 0x0af00000 0 0x10000>;
->   			clocks = <&rpmhcc RPMH_CXO_CLK>,
-> -				 <0>,
-> -				 <0>,
-> -				 <0>,
-> -				 <0>,
-> +				 <&dsi0_phy 0>, <&dsi0_phy 1>,
-> +				 <0>, <0>,
->   				 <0>,
->   				 <0>;
->   			clock-names = "bi_tcxo",
-> @@ -2558,6 +2748,7 @@ dispcc: clock-controller@af00000 {
->   			#power-domain-cells = <1>;
->   
->   			power-domains = <&rpmhpd SM8350_MMCX>;
-> +			required-opps = <&rpmhpd_opp_low_svs>;
->   		};
->   
->   		adsp: remoteproc@17300000 {
