@@ -2,71 +2,46 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 65CF76436EF
-	for <lists+freedreno@lfdr.de>; Mon,  5 Dec 2022 22:34:29 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id EEDDF6437F9
+	for <lists+freedreno@lfdr.de>; Mon,  5 Dec 2022 23:23:19 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0772210E2B1;
-	Mon,  5 Dec 2022 21:34:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A1FC410E08C;
+	Mon,  5 Dec 2022 22:23:18 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-x234.google.com (mail-lj1-x234.google.com
- [IPv6:2a00:1450:4864:20::234])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 04A7410E2B0
- for <freedreno@lists.freedesktop.org>; Mon,  5 Dec 2022 21:34:20 +0000 (UTC)
-Received: by mail-lj1-x234.google.com with SMTP id h10so15054816ljk.11
- for <freedreno@lists.freedesktop.org>; Mon, 05 Dec 2022 13:34:19 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=content-transfer-encoding:mime-version:message-id:references
- :in-reply-to:user-agent:subject:cc:to:from:date:from:to:cc:subject
- :date:message-id:reply-to;
- bh=/AFtgz+lK9M2V4Cs5/9PoWBFJhdcyuHdw2Q3pWcGYM0=;
- b=YUevHO9XgqPvry6HSJ6/W2BJQQU25R4upN0Typd6FaqC5gRATvHgY7MXNV3I064Uit
- nFsS1oQIWZ3bcFOEW6RP4tJmb543mBunzrJK8QjQGHoK97Z2MLio0b4rznLjay2U+afj
- qFly6OL7t9m2GhCC4P35fJtgFIlVWHZNDMbCCDlzD7b9IbaX2rscEBxya/UMGCZaB/3w
- GInkZJ0435TBwAFZ8J1xMD60ZjO52UhcbdKENSnASGDa464v/GDfgTWMCd5VjEfcVZql
- W1Ky8ikqcdYSkWb8EGPrM+UV08V3XNFDa/1OWa93VsbsAn0buH6/OpKDGu3YNWUYmVfr
- tfFA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=content-transfer-encoding:mime-version:message-id:references
- :in-reply-to:user-agent:subject:cc:to:from:date:x-gm-message-state
- :from:to:cc:subject:date:message-id:reply-to;
- bh=/AFtgz+lK9M2V4Cs5/9PoWBFJhdcyuHdw2Q3pWcGYM0=;
- b=42ltLQm3E3Ygwi7/qGriT+LRDd9MYWrPOFgf0s0CnhBjIe5KiES/MwnxKa0X+b7l5D
- hSUNhW7hWtmYyswBnWH0PQivushoWsw4Yf66rQnRtFnnmz2bQWE1Zhx4KXgDGBlUcVGF
- +uOZbkevjyInWZu/X87Tljo9KYRDolnqspI2U3ZB5EUSUCbsU0aQqlUhthg/fdhSjUvX
- ffD9pCEOgOI5TMyvGxJwdREX0CLwdGuWM5mMrbY0GGpAonJmgHr+PWBKNZgVm4ZIwZwb
- Ut2IFakZ10MgPW8STMS2bWOZtvlEP9nJUAG/aAcXeIqKrHM0rDR9q1eQ1VaBAfT3CNKl
- D9pA==
-X-Gm-Message-State: ANoB5pmrtC67Lmxc6jl2fthQKoMxrLPhTJAt4rDqpT+dIzzMy+ZWaqKa
- oR1D+NPlNXc0rDsTDar1u+DzAQ==
-X-Google-Smtp-Source: AA0mqf4BfnB/i1w1SRHpcZzPmtxt7+I3WAaF8JW8L4rYmlZYdEqUFnQ4Z7gOet/Ue5qWPSJ4tfTtbA==
-X-Received: by 2002:a2e:b4a3:0:b0:279:edbf:118c with SMTP id
- q3-20020a2eb4a3000000b00279edbf118cmr3085208ljm.425.1670276058362; 
- Mon, 05 Dec 2022 13:34:18 -0800 (PST)
-Received: from [127.0.0.1] ([94.25.229.129]) by smtp.gmail.com with ESMTPSA id
- s8-20020a2eb628000000b002776eb5b1cesm1516828ljn.8.2022.12.05.13.34.17
- (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Mon, 05 Dec 2022 13:34:18 -0800 (PST)
-Date: Tue, 06 Dec 2022 00:34:10 +0300
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-To: Kuogee Hsieh <quic_khsieh@quicinc.com>, dri-devel@lists.freedesktop.org,
- robdclark@gmail.com, sean@poorly.run, swboyd@chromium.org,
- dianders@chromium.org, vkoul@kernel.org, daniel@ffwll.ch, airlied@linux.ie,
- agross@kernel.org, andersson@kernel.org, konrad.dybcio@somainline.org,
- robh+dt@kernel.org, krzysztof.kozlowski+dt@linaro.org,
- devicetree@vger.kernel.org, airlied@gmail.com
-User-Agent: K-9 Mail for Android
-In-Reply-To: <1670267670-15832-3-git-send-email-quic_khsieh@quicinc.com>
-References: <1670267670-15832-1-git-send-email-quic_khsieh@quicinc.com>
- <1670267670-15832-3-git-send-email-quic_khsieh@quicinc.com>
-Message-ID: <5552E92A-2059-4D1E-AC88-3214D93D93E3@linaro.org>
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AA51710E08C;
+ Mon,  5 Dec 2022 22:23:16 +0000 (UTC)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 0E1136148E;
+ Mon,  5 Dec 2022 22:23:16 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1A8C2C433C1;
+ Mon,  5 Dec 2022 22:23:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1670278995;
+ bh=r7Zbs6ql/zVmwGxY0A2vvhLYDbx61rLzdNI7bJloNmM=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=N25sRvjt9ynOVmKtUWr0551Jy3GiEGY9HV0ZbMTMbrQhtsBGGuL+iODpFpZh9eC57
+ 1VK5Lk6yv6A0eaec8NaewtUYlPqqQuIg87EkXNMhgKHy9I9fwBdoEx51CSZGGJbIpk
+ geaYrLTRQTPmafEXuW4dElMoWSHXSqulhMgtI+5ACu5dXmSQqlY3K3DjOnmGSVci0J
+ HI+cIbhqJw+7EqnCAcjjw/HOopBqtWv2ixtqM2TRhzdtOZTrJKQtmPcR0SgFreDZDk
+ Lrhn6rLJqLZSqTA7XxIepXKyRODqo9QYmRUtONBdWqPG9HGX6/YWug4tB6VObC/Qx0
+ kb5rT6Xk3Sm9g==
+Date: Mon, 5 Dec 2022 16:23:12 -0600
+From: Bjorn Andersson <andersson@kernel.org>
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Message-ID: <20221205222312.gmg65h35d44zigg4@builder.lan>
+References: <20221205174433.16847-1-quic_bjorande@quicinc.com>
+ <20221205174433.16847-9-quic_bjorande@quicinc.com>
+ <4E586110-168A-4D47-966F-357DF042AFC7@linaro.org>
 MIME-Version: 1.0
-Content-Type: text/plain;
- charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [Freedreno] [PATCH v8 2/5] dt-bindings: msm/dp: add data-lanes
- and link-frequencies property
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <4E586110-168A-4D47-966F-357DF042AFC7@linaro.org>
+Subject: Re: [Freedreno] [PATCH v4 08/13] drm/msm/dp: Implement hpd_notify()
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,89 +54,122 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-arm-msm@vger.kernel.org, quic_sbillaka@quicinc.com,
- freedreno@lists.freedesktop.org, quic_abhinavk@quicinc.com,
- linux-kernel@vger.kernel.org
+Cc: Kalyan Thota <quic_kalyant@quicinc.com>, freedreno@lists.freedesktop.org,
+ Sankeerth Billakanti <quic_sbillaka@quicinc.com>,
+ Bjorn Andersson <quic_bjorande@quicinc.com>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ devicetree@vger.kernel.org, David Airlie <airlied@gmail.com>,
+ linux-kernel@vger.kernel.org, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ dri-devel@lists.freedesktop.org, Kuogee Hsieh <quic_khsieh@quicinc.com>,
+ Konrad Dybcio <konrad.dybcio@linaro.org>, Rob Clark <robdclark@gmail.com>,
+ Rob Herring <robh+dt@kernel.org>, Daniel Vetter <daniel@ffwll.ch>,
+ linux-arm-msm@vger.kernel.org, Jessica Zhang <quic_jesszhan@quicinc.com>,
+ Sean Paul <sean@poorly.run>, Johan Hovold <johan+linaro@kernel.org>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
+On Tue, Dec 06, 2022 at 12:29:13AM +0300, Dmitry Baryshkov wrote:
+> 
+> 
+> On 5 December 2022 20:44:28 GMT+03:00, Bjorn Andersson <quic_bjorande@quicinc.com> wrote:
+> >From: Bjorn Andersson <bjorn.andersson@linaro.org>
+> >
+> >The DisplayPort controller's hot-plug mechanism is based on pinmuxing a
+> >physical signal on a GPIO pin into the controller. This is not always
+> >possible, either because there aren't dedicated GPIOs available or
+> >because the hot-plug signal is a virtual notification, in cases such as
+> >USB Type-C.
+> >
+> >For these cases, by implementing the hpd_notify() callback for the
+> >DisplayPort controller's drm_bridge, a downstream drm_bridge
+> >(next_bridge) can be used to track and signal the connection status
+> >changes.
+> >
+> >This makes it possible to use downstream drm_bridges such as
+> >display-connector or any virtual mechanism, as long as they are
+> >implemented as a drm_bridge.
+> >
+> >Signed-off-by: Bjorn Andersson <bjorn.andersson@linaro.org>
+> >[bjorn: Drop connector->fwnode assignment and dev from struct msm_dp]
+> >Signed-off-by: Bjorn Andersson <quic_bjorande@quicinc.com>
+> 
+> Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> 
+> Minor nit: if for the next revision you reorder the patches to have
+> hpd_enable first, then missing conditions, then this patch, it will
+> look more logical.
 
+You're right, that will look better. I'll do so.
 
-On 5 December 2022 22:14:27 GMT+03:00, Kuogee Hsieh <quic_khsieh@quicinc=
-=2Ecom> wrote:
->Add both data-lanes and link-frequencies property into endpoint
->
->Changes in v7:
->-- split yaml out of dtsi patch
->-- link-frequencies from link rate to symbol rate
->-- deprecation of old data-lanes property
->
->Changes in v8:
->-- correct Bjorn mail address to kernel=2Eorg
->
->Signed-off-by: Kuogee Hsieh <quic_khsieh@quicinc=2Ecom>
->---
-> =2E=2E=2E/bindings/display/msm/dp-controller=2Eyaml        | 22 ++++++++=
-++++++++------
-> 1 file changed, 16 insertions(+), 6 deletions(-)
->
->diff --git a/Documentation/devicetree/bindings/display/msm/dp-controller=
-=2Eyaml b/Documentation/devicetree/bindings/display/msm/dp-controller=2Eyam=
-l
->index f2515af=2E=2E13d2c3c 100644
->--- a/Documentation/devicetree/bindings/display/msm/dp-controller=2Eyaml
->+++ b/Documentation/devicetree/bindings/display/msm/dp-controller=2Eyaml
->@@ -79,12 +79,6 @@ properties:
->   aux-bus:
->     $ref: /schemas/display/dp-aux-bus=2Eyaml#
->=20
->-  data-lanes:
->-    $ref: /schemas/types=2Eyaml#/definitions/uint32-array
->-    minItems: 1
->-    maxItems: 4
->-    items:
->-      maximum: 3
+Thanks,
+Bjorn
 
-These properties can still be used, e=2Eg=2E Bjorn is submitting patches w=
-ith the old property=2E I think this should be marked with deprecated: true=
- instead of removal=2E
-
->=20
->   "#sound-dai-cells":
->     const: 0
->@@ -105,6 +99,19 @@ properties:
->         $ref: /schemas/graph=2Eyaml#/properties/port
->         description: Output endpoint of the controller
->=20
->+        properties:
->+          endpoint:
->+            $ref: /schemas/media/video-interfaces=2Eyaml#
->+
->+          properties:
->+            data-lanes:
->+              $ref: /schemas/types=2Eyaml#/definitions/uint32-array
->+
->+            link-frequencies:
->+              $ref: /schemas/types=2Eyaml#/definitions/uint64-array
->+
->+          additionalProperties: false
->+
-> required:
->   - compatible
->   - reg
->@@ -193,6 +200,9 @@ examples:
->                 reg =3D <1>;
->                 endpoint {
->                     remote-endpoint =3D <&typec>;
->+                    data-lanes =3D <1 2>;
->+                    link-frequencies =3D /bits/ 64 <1620000000 270000000=
-0
->+                                                  5400000000 8100000000>=
-;
->                 };
->             };
->         };
-
---=20
-With best wishes
-Dmitry
+> 
+> >---
+> >
+> >Changes since v3:
+> >- None
+> >
+> > drivers/gpu/drm/msm/dp/dp_display.c | 22 ++++++++++++++++++++++
+> > drivers/gpu/drm/msm/dp/dp_drm.c     |  1 +
+> > drivers/gpu/drm/msm/dp/dp_drm.h     |  2 ++
+> > 3 files changed, 25 insertions(+)
+> >
+> >diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
+> >index 666b45c8ab80..17fcf8cd84cd 100644
+> >--- a/drivers/gpu/drm/msm/dp/dp_display.c
+> >+++ b/drivers/gpu/drm/msm/dp/dp_display.c
+> >@@ -1772,3 +1772,25 @@ void dp_bridge_mode_set(struct drm_bridge *drm_bridge,
+> > 	dp_display->dp_mode.h_active_low =
+> > 		!!(dp_display->dp_mode.drm_mode.flags & DRM_MODE_FLAG_NHSYNC);
+> > }
+> >+
+> >+void dp_bridge_hpd_notify(struct drm_bridge *bridge,
+> >+			  enum drm_connector_status status)
+> >+{
+> >+	struct msm_dp_bridge *dp_bridge = to_dp_bridge(bridge);
+> >+	struct msm_dp *dp_display = dp_bridge->dp_display;
+> >+	struct dp_display_private *dp = container_of(dp_display, struct dp_display_private, dp_display);
+> >+
+> >+	/* Without next_bridge interrupts are handled by the DP core directly */
+> >+	if (!dp_display->next_bridge)
+> >+		return;
+> >+
+> >+	if (!dp->core_initialized) {
+> >+		drm_dbg_dp(dp->drm_dev, "not initialized\n");
+> >+		return;
+> >+	}
+> >+
+> >+	if (!dp_display->is_connected && status == connector_status_connected)
+> >+		dp_add_event(dp, EV_HPD_PLUG_INT, 0, 0);
+> >+	else if (dp_display->is_connected && status == connector_status_disconnected)
+> >+		dp_add_event(dp, EV_HPD_UNPLUG_INT, 0, 0);
+> >+}
+> >diff --git a/drivers/gpu/drm/msm/dp/dp_drm.c b/drivers/gpu/drm/msm/dp/dp_drm.c
+> >index 6db82f9b03af..3898366ebd5e 100644
+> >--- a/drivers/gpu/drm/msm/dp/dp_drm.c
+> >+++ b/drivers/gpu/drm/msm/dp/dp_drm.c
+> >@@ -102,6 +102,7 @@ static const struct drm_bridge_funcs dp_bridge_ops = {
+> > 	.get_modes    = dp_bridge_get_modes,
+> > 	.detect       = dp_bridge_detect,
+> > 	.atomic_check = dp_bridge_atomic_check,
+> >+	.hpd_notify   = dp_bridge_hpd_notify,
+> > };
+> > 
+> > struct drm_bridge *dp_bridge_init(struct msm_dp *dp_display, struct drm_device *dev,
+> >diff --git a/drivers/gpu/drm/msm/dp/dp_drm.h b/drivers/gpu/drm/msm/dp/dp_drm.h
+> >index 82035dbb0578..79e6b2cf2d25 100644
+> >--- a/drivers/gpu/drm/msm/dp/dp_drm.h
+> >+++ b/drivers/gpu/drm/msm/dp/dp_drm.h
+> >@@ -32,5 +32,7 @@ enum drm_mode_status dp_bridge_mode_valid(struct drm_bridge *bridge,
+> > void dp_bridge_mode_set(struct drm_bridge *drm_bridge,
+> > 			const struct drm_display_mode *mode,
+> > 			const struct drm_display_mode *adjusted_mode);
+> >+void dp_bridge_hpd_notify(struct drm_bridge *bridge,
+> >+			  enum drm_connector_status status);
+> > 
+> > #endif /* _DP_DRM_H_ */
+> 
+> -- 
+> With best wishes
+> Dmitry
