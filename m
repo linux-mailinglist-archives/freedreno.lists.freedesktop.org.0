@@ -2,58 +2,57 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 171B36431D2
-	for <lists+freedreno@lfdr.de>; Mon,  5 Dec 2022 20:19:52 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 09ED3643518
+	for <lists+freedreno@lfdr.de>; Mon,  5 Dec 2022 20:59:10 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A677910E11C;
-	Mon,  5 Dec 2022 19:19:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5D77210E296;
+	Mon,  5 Dec 2022 19:59:08 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from ams.source.kernel.org (ams.source.kernel.org
- [IPv6:2604:1380:4601:e00::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2111010E11C;
- Mon,  5 Dec 2022 19:19:47 +0000 (UTC)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 72CB3B80EFD;
- Mon,  5 Dec 2022 19:19:45 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D0A03C433D6;
- Mon,  5 Dec 2022 19:19:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1670267984;
- bh=FZHTOaos5sxsoVzWostw+hca7YvkdqEguBNcKHP2FoE=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=ukY3FQ2NI2bH5nXNzjfkqd2AOzA4oM3OGJCZ9aV69IR6lbbf0OsaSruYTbc/Fo+dM
- 267faZVMAmn+Tqtxzc6EgI2NgTCAJk95gs3dBR5g4+mpDW5W6ddACzzi3jTU601Kfg
- XWi+eGZNlI0qSkmiHjYjRkQNC2IJ2moJU5UkTnEhDuuYuW0M6L/4d0h8FnkFz7C5Nw
- IqoeHQocE2MRBKHS7XVZaVgqvioh9/IbzS3sfJpSdFTtOK12Cyq/bfm9ScDm7ReLSt
- vs1rwdWtWQJUfaqnKr7wAVdR6oO9SofCjhYTsoscnWoafMBY2Q2l6o6t7dDTNn/lPB
- xu7wsJRgARF6A==
-Message-ID: <60884c0e-7533-788b-2f93-c128cf7d27fd@kernel.org>
-Date: Mon, 5 Dec 2022 21:19:32 +0200
+Received: from mail-oa1-f50.google.com (mail-oa1-f50.google.com
+ [209.85.160.50])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AA38910E295;
+ Mon,  5 Dec 2022 19:59:05 +0000 (UTC)
+Received: by mail-oa1-f50.google.com with SMTP id
+ 586e51a60fabf-1447c7aa004so6607697fac.11; 
+ Mon, 05 Dec 2022 11:59:05 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=jEAnu7uzdyKxi6uACyBWEuDTuRvgDtHrA+B4q7yunNI=;
+ b=uCoNxAuJOa3PEHXu3Dcv2SERavpLvGrKr07OOW9hhXJ3FkZ1pfEmF0yvq1/zoU+imO
+ QG7kIqCKHv0GE2qjVMUHbZl29t7zY3ZN7D5AhrbVIu6kErUGvW0LEiYz3owwN5m9kIJH
+ KC+3/srnonmDFHJUr5EOMF9VoUf99uYvDzvQ/qZqKVLVwDG5IjjFE37aygsU2IOxl/0/
+ OL7B2cd9tG8Im8aO8IB/dYY63NRFm6D5iIW+oi18vV25JvKxilQ1dLHuR6Y7GTFMARG5
+ PzdI0nOC2RSymYdMpFWAztnowLtp14xN5CvXRn4kmxJ8cigM6pf+zpvWl7O46GTARK5/
+ Op6g==
+X-Gm-Message-State: ANoB5pmOQ5gjpOSTh8cg+Lw5P94a0BGVdqQbf93zWimOrgsOj2NfVvNO
+ jT1HsWtN2gIKMGwl081DLA==
+X-Google-Smtp-Source: AA0mqf7fMiFCbI8Ep2v3J4RDnUbCcrXNHnij3aDhkcB8B5lNYqwmPndSfV/2xe9bU+mWpxxsCJnq7w==
+X-Received: by 2002:a05:6870:9a8c:b0:144:9227:7292 with SMTP id
+ hp12-20020a0568709a8c00b0014492277292mr3959634oab.10.1670270343555; 
+ Mon, 05 Dec 2022 11:59:03 -0800 (PST)
+Received: from robh_at_kernel.org (66-90-144-107.dyn.grandenetworks.net.
+ [66.90.144.107]) by smtp.gmail.com with ESMTPSA id
+ c14-20020a9d784e000000b0066e83a74b99sm5256954otm.35.2022.12.05.11.59.02
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 05 Dec 2022 11:59:03 -0800 (PST)
+Received: (nullmailer pid 2494946 invoked by uid 1000);
+ Mon, 05 Dec 2022 19:59:02 -0000
+Date: Mon, 5 Dec 2022 13:59:02 -0600
+From: Rob Herring <robh@kernel.org>
+To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+Message-ID: <167027034166.2494886.3657636401660788311.robh@kernel.org>
+References: <20221125123638.823261-1-bryan.odonoghue@linaro.org>
+ <20221125123638.823261-6-bryan.odonoghue@linaro.org>
 MIME-Version: 1.0
-Content-Language: en-US
-To: Robert Foss <robert.foss@linaro.org>, robdclark@gmail.com,
- quic_abhinavk@quicinc.com, dmitry.baryshkov@linaro.org, sean@poorly.run,
- airlied@linux.ie, daniel@ffwll.ch, robh+dt@kernel.org,
- krzysztof.kozlowski+dt@linaro.org, agross@kernel.org,
- bjorn.andersson@linaro.org, konrad.dybcio@somainline.org,
- quic_kalyant@quicinc.com, angelogioacchino.delregno@somainline.org,
- loic.poulain@linaro.org, swboyd@chromium.org, quic_vpolimer@quicinc.com,
- vkoul@kernel.org, dianders@chromium.org, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- Jonathan Marek <jonathan@marek.ca>, vinod.koul@linaro.org,
- quic_jesszhan@quicinc.com, andersson@kernel.org
-References: <20221205163754.221139-1-robert.foss@linaro.org>
- <20221205163754.221139-9-robert.foss@linaro.org>
-From: Georgi Djakov <djakov@kernel.org>
-In-Reply-To: <20221205163754.221139-9-robert.foss@linaro.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH v3 08/11] arm64: dts: qcom: sm8350: Use 2
- interconnect cells
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20221125123638.823261-6-bryan.odonoghue@linaro.org>
+Subject: Re: [Freedreno] [PATCH v4 05/18] dt-bindings: msm:
+ dsi-controller-main: Document clocks on a per compatible basis
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,94 +65,26 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Konrad Dybcio <konrad.dybcio@linaro.org>
+Cc: devicetree@vger.kernel.org, dianders@chromium.org, daniel@ffwll.ch,
+ linux-arm-msm@vger.kernel.org, andersson@kernel.org,
+ konrad.dybcio@somainline.org, quic_abhinavk@quicinc.com,
+ dri-devel@lists.freedesktop.org, swboyd@chromium.org, robh+dt@kernel.org,
+ robdclark@gmail.com, agross@kernel.org, david@ixit.cz,
+ krzysztof.kozlowski+dt@linaro.org, dmitry.baryshkov@linaro.org,
+ airlied@gmail.com, freedreno@lists.freedesktop.org, sean@poorly.run,
+ linux-kernel@vger.kernel.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Hi Robert,
 
-On 5.12.22 18:37, Robert Foss wrote:
-> Use two interconnect cells in order to optionally
-> support a path tag.
+On Fri, 25 Nov 2022 12:36:25 +0000, Bryan O'Donoghue wrote:
+> Each compatible has a different set of clocks which are associated with it.
+> Add in the list of clocks for each compatible.
 > 
-> Signed-off-by: Robert Foss <robert.foss@linaro.org>
-> Reviewed-by: Konrad Dybcio <konrad.dybcio@linaro.org>
+> Signed-off-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
 > ---
->   arch/arm64/boot/dts/qcom/sm8350.dtsi | 28 ++++++++++++++--------------
->   1 file changed, 14 insertions(+), 14 deletions(-)
+>  .../display/msm/dsi-controller-main.yaml      | 152 ++++++++++++++++--
+>  1 file changed, 142 insertions(+), 10 deletions(-)
 > 
-> diff --git a/arch/arm64/boot/dts/qcom/sm8350.dtsi b/arch/arm64/boot/dts/qcom/sm8350.dtsi
-> index 805d53d91952..434f8e8b12c1 100644
-> --- a/arch/arm64/boot/dts/qcom/sm8350.dtsi
-> +++ b/arch/arm64/boot/dts/qcom/sm8350.dtsi
-> @@ -1543,56 +1543,56 @@ apps_smmu: iommu@15000000 {
->   		config_noc: interconnect@1500000 {
->   			compatible = "qcom,sm8350-config-noc";
->   			reg = <0 0x01500000 0 0xa580>;
-> -			#interconnect-cells = <1>;
-> +			#interconnect-cells = <2>;
->   			qcom,bcm-voters = <&apps_bcm_voter>;
->   		};
->   
->   		mc_virt: interconnect@1580000 {
->   			compatible = "qcom,sm8350-mc-virt";
->   			reg = <0 0x01580000 0 0x1000>;
-> -			#interconnect-cells = <1>;
-> +			#interconnect-cells = <2>;
->   			qcom,bcm-voters = <&apps_bcm_voter>;
->   		};
-[..]
-> @@ -1620,8 +1620,8 @@ ipa: ipa@1e40000 {
->   			clocks = <&rpmhcc RPMH_IPA_CLK>;
->   			clock-names = "core";
->   
-> -			interconnects = <&aggre2_noc MASTER_IPA &mc_virt SLAVE_EBI1>,
-> -					<&gem_noc MASTER_APPSS_PROC &config_noc SLAVE_IPA_CFG>;
-> +			interconnects = <&aggre2_noc MASTER_IPA 0 &mc_virt SLAVE_EBI1 0>,
-> +					<&gem_noc MASTER_APPSS_PROC 0 &config_noc SLAVE_IPA_CFG 0>;
->   			interconnect-names = "memory",
->   					     "config";
->   
-> @@ -1661,7 +1661,7 @@ mpss: remoteproc@4080000 {
->   					<&rpmhpd SM8350_MSS>;
->   			power-domain-names = "cx", "mss";
->   
-> -			interconnects = <&mc_virt MASTER_LLCC &mc_virt SLAVE_EBI1>;
-> +			interconnects = <&mc_virt MASTER_LLCC &mc_virt SLAVE_EBI1 0>;
 
-The second cell for the first endpoint is missing, so this should be:
-	interconnects = <&mc_virt MASTER_LLCC 0 &mc_virt SLAVE_EBI1 0>;
-
-Thanks,
-Georgi
-
->   
->   			memory-region = <&pil_modem_mem>;
->   
-> @@ -2239,7 +2239,7 @@ cdsp: remoteproc@98900000 {
->   					<&rpmhpd SM8350_MXC>;
->   			power-domain-names = "cx", "mxc";
->   
-> -			interconnects = <&compute_noc MASTER_CDSP_PROC &mc_virt SLAVE_EBI1>;
-> +			interconnects = <&compute_noc MASTER_CDSP_PROC 0 &mc_virt SLAVE_EBI1 0>;
->   
->   			memory-region = <&pil_cdsp_mem>;
->   
-> @@ -2421,14 +2421,14 @@ usb_2_ssphy: phy@88ebe00 {
->   		dc_noc: interconnect@90c0000 {
->   			compatible = "qcom,sm8350-dc-noc";
->   			reg = <0 0x090c0000 0 0x4200>;
-> -			#interconnect-cells = <1>;
-> +			#interconnect-cells = <2>;
->   			qcom,bcm-voters = <&apps_bcm_voter>;
->   		};
->   
->   		gem_noc: interconnect@9100000 {
->   			compatible = "qcom,sm8350-gem-noc";
->   			reg = <0 0x09100000 0 0xb4000>;
-> -			#interconnect-cells = <1>;
-> +			#interconnect-cells = <2>;
->   			qcom,bcm-voters = <&apps_bcm_voter>;
->   		};
->   
-
+Acked-by: Rob Herring <robh@kernel.org>
