@@ -2,74 +2,70 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id A54C3642C18
-	for <lists+freedreno@lfdr.de>; Mon,  5 Dec 2022 16:42:15 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 244DF642D04
+	for <lists+freedreno@lfdr.de>; Mon,  5 Dec 2022 17:38:06 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F1A4310E245;
-	Mon,  5 Dec 2022 15:42:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D79DC10E0A2;
+	Mon,  5 Dec 2022 16:38:04 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-x233.google.com (mail-lj1-x233.google.com
- [IPv6:2a00:1450:4864:20::233])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E2AFC10E243
- for <freedreno@lists.freedesktop.org>; Mon,  5 Dec 2022 15:42:10 +0000 (UTC)
-Received: by mail-lj1-x233.google.com with SMTP id z4so13980721ljq.6
- for <freedreno@lists.freedesktop.org>; Mon, 05 Dec 2022 07:42:10 -0800 (PST)
+Received: from mail-ej1-x629.google.com (mail-ej1-x629.google.com
+ [IPv6:2a00:1450:4864:20::629])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DFFF110E0DC
+ for <freedreno@lists.freedesktop.org>; Mon,  5 Dec 2022 16:38:00 +0000 (UTC)
+Received: by mail-ej1-x629.google.com with SMTP id t17so3851888eju.1
+ for <freedreno@lists.freedesktop.org>; Mon, 05 Dec 2022 08:38:00 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=/TZQ/0zpx/j06MJim410qkeF/d2Q1Gh1lZXRpTFgdTE=;
- b=h8toFZhjhBtsFxjfPPLQdJCQIu6a04PHORQN+ppqGbZ8cLbolNzMINANXlw0VPLw0m
- Cv/JbQ3WGGgY2yUpbi9Q/VNL6OCN0Pqw05zNDe+HHn66F4gOooJQUishWya2KuC+7n2X
- +a05LYzYnr5eMeyxzDCSrWV+FY73QTFlkcbyet7K+tH9fR/PdAnmBajTgrK7dohp8ztP
- FZpcphS3n4castnrRiLEfdt/OfzQNoNJkLCVWtr1ga4P67Jef4RNXcBJ27H+tpvGFC7p
- QnGO3Oxmr7vUjv14VR7SKiZVzZokITOguUHIqsbJHLci1FQAUsHS2DPePAck2OEGUnXH
- 55Rw==
+ h=content-transfer-encoding:mime-version:message-id:date:subject:to
+ :from:from:to:cc:subject:date:message-id:reply-to;
+ bh=vw1KzIGH3Ss6fc3E2pWM7Y1p2LnTyddlJD34yedCJAo=;
+ b=pTffiomX2l7lpqqQICVRZW2YjRrUfsAG9YcxMc6p6E3UP+pPkbCOkb9YR3AoCGXC4c
+ uJeTGVrrIGm4cp5rb4tLmQqoMEBwH+Tgh3t9WBD0IeGETbJjDsFTV9nDJeLhc5XdWhsZ
+ eHUU9Jx0Gczcn80vfl33SKaNwgzfLSf3bQmGGT/8P3kz0DLCaBlG/gAZZP1CozHMziKF
+ cLZ0eADIBn4sz2f+tKf+06++2PynfoQbijcqj7zvIHcFRFWXN+DodmbngpiV8Jl7ehoy
+ OFEzrEaSVGT0abiluET+em7HubIg+MQvZjm8YmSTRyjaTrEBD/wm9UEIhqqHLQxGSQqi
+ xFDw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=/TZQ/0zpx/j06MJim410qkeF/d2Q1Gh1lZXRpTFgdTE=;
- b=h/PlSN3hJhI19gt81F4HJ6uvM1lPXnxM2mMvyfoDIFbq36tE3MKG7KJyiGRhRPTpz0
- 2yH1/2njRlSTDJajXDK6ZHDTvlKnWDDA4V6BRkWsURGr4UWSZc6Ji0/Nf9XuPxIDdC6/
- aCxkpo7Dy/ALftOhlHRilNNr0cOANvNcsVwgFXyktI9LRiI3MOaBiLUL3tiYxx1FPdi6
- 0u939PgmwJaj5TG66+if+6OUlH/ES3aYOZSkwR6Wfee/c43STFmDkYCL/oYsXh+I7TC+
- 5DR6QQuJAseaYHUA86jgG2yojsOlDdedPZGJlyWVRKSneKeAj3hCc6ysOQUFV2p7eiv4
- zbbg==
-X-Gm-Message-State: ANoB5plY/+kyFXy+fs8MUV5GH/Tx01LntNKsAlutYhc3z4zqiqS+L9s7
- eju6TyWIebs2BEmGkRfUi/1rpg==
-X-Google-Smtp-Source: AA0mqf6KcVNSOMb6YgXi8fU/AWTRWz5x/ZjvdsN8KIsX3BgfrtfY9oSBDJEJcHyD7B/1FUhKOMWLzg==
-X-Received: by 2002:a2e:a58b:0:b0:277:278:de24 with SMTP id
- m11-20020a2ea58b000000b002770278de24mr18956576ljp.388.1670254929275; 
- Mon, 05 Dec 2022 07:42:09 -0800 (PST)
-Received: from [192.168.0.20]
- (088156142067.dynamic-2-waw-k-3-2-0.vectranet.pl. [88.156.142.67])
- by smtp.gmail.com with ESMTPSA id
- d23-20020ac244d7000000b004b5748fa3afsm476899lfm.107.2022.12.05.07.42.08
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 05 Dec 2022 07:42:08 -0800 (PST)
-Message-ID: <c9ea96f9-a212-b693-12f2-b28a545b93e8@linaro.org>
-Date: Mon, 5 Dec 2022 16:42:07 +0100
+ h=content-transfer-encoding:mime-version:message-id:date:subject:to
+ :from:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=vw1KzIGH3Ss6fc3E2pWM7Y1p2LnTyddlJD34yedCJAo=;
+ b=HyOQ4FssBfpl8urFnoMNlsv2593kiVwDfoAbBDXKpLWreLKC3snwK+aRCaqfXBv/Ux
+ VcwtisDcGsNeYTDd50YbFXqZiicaXxUDqIQrPR7felQ/CYP2lFczMctRnONZ19vyYDBm
+ Rf3APKsfSyYP54nHHJWWhwDPB7PXFd4K7JVniSVgU4MYBLkbA4m52rhc2qYRJIhhy5HP
+ OSHGi1/dFlw4utBYm9hNcB4ze5vdM9B+vANAdoZ0p/ihxW11Fswa5XyQp4140aKEyNVy
+ yZBTlDXLTqoQpuaCBMTQ0b54MVjmepQd2HioyBp4XPDszCvaVSRchJxSiNWveeViWLGR
+ Te6Q==
+X-Gm-Message-State: ANoB5pk0FAVUlV9x9UUSt9hl13HWpO8PSU5DQ5hakcgTq4gDkiI5Mji6
+ jhPV2taPwZFj0dMKEkOvYY9lBw==
+X-Google-Smtp-Source: AA0mqf5eJN8MzV9ViJA/mumudvzKh8vziLSQLFAlZs+wrELKleuv/lGeIxtJNoSPv68nbYDzR5yvAw==
+X-Received: by 2002:a17:906:240f:b0:7c0:f7b0:fbbb with SMTP id
+ z15-20020a170906240f00b007c0f7b0fbbbmr4155635eja.266.1670258279325; 
+ Mon, 05 Dec 2022 08:37:59 -0800 (PST)
+Received: from prec5560.localdomain (ip5f58f364.dynamic.kabel-deutschland.de.
+ [95.88.243.100]) by smtp.gmail.com with ESMTPSA id
+ e21-20020a170906315500b007bed316a6d9sm6413610eje.18.2022.12.05.08.37.57
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 05 Dec 2022 08:37:58 -0800 (PST)
+From: Robert Foss <robert.foss@linaro.org>
+To: robdclark@gmail.com, quic_abhinavk@quicinc.com,
+ dmitry.baryshkov@linaro.org, sean@poorly.run, airlied@linux.ie,
+ daniel@ffwll.ch, robh+dt@kernel.org, krzysztof.kozlowski+dt@linaro.org,
+ agross@kernel.org, bjorn.andersson@linaro.org,
+ konrad.dybcio@somainline.org, quic_kalyant@quicinc.com,
+ angelogioacchino.delregno@somainline.org, robert.foss@linaro.org,
+ loic.poulain@linaro.org, swboyd@chromium.org, quic_vpolimer@quicinc.com,
+ vkoul@kernel.org, dianders@chromium.org, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Jonathan Marek <jonathan@marek.ca>, vinod.koul@linaro.org,
+ quic_jesszhan@quicinc.com, andersson@kernel.org
+Date: Mon,  5 Dec 2022 17:37:43 +0100
+Message-Id: <20221205163754.221139-1-robert.foss@linaro.org>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.5.1
-Content-Language: en-US
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Andy Gross <agross@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konrad.dybcio@somainline.org>, Rob Clark
- <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, Rob Herring <robh+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>
-References: <20221123210720.3593671-1-dmitry.baryshkov@linaro.org>
- <20221123210720.3593671-5-dmitry.baryshkov@linaro.org>
-From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-In-Reply-To: <20221123210720.3593671-5-dmitry.baryshkov@linaro.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH v3 4/5] arm64: dts: qcom: sm8450-hdk: Add
- LT9611uxc HDMI bridge
+Content-Transfer-Encoding: 8bit
+Subject: [Freedreno] [PATCH v3 00/11] Enable Display for SM8350
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,58 +78,79 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, Stephen Boyd <swboyd@chromium.org>,
- Vinod Koul <vkoul@kernel.org>, Daniel Vetter <daniel@ffwll.ch>,
- freedreno@lists.freedesktop.org, David Airlie <airlied@gmail.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 23/11/2022 22:07, Dmitry Baryshkov wrote:
-> From: Vinod Koul <vkoul@kernel.org>
-> 
-> Add the LT9611uxc DSI-HDMI bridge and supplies
-> 
-> Signed-off-by: Vinod Koul <vkoul@kernel.org>
-> Reviewed-by: Konrad Dybcio <konrad.dybcio@somainline.org>
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> ---
->  arch/arm64/boot/dts/qcom/sm8450-hdk.dts | 59 +++++++++++++++++++++++++
->  1 file changed, 59 insertions(+)
-> 
+Dependencies:
+https://lore.kernel.org/all/20221102231309.583587-1-dmitry.baryshkov@linaro.org/
+https://lore.kernel.org/all/20221024164225.3236654-1-dmitry.baryshkov@linaro.org/
+https://lore.kernel.org/all/20221104130324.1024242-5-dmitry.baryshkov@linaro.org/
 
-(...)
+Branch:
+https://git.linaro.org/people/robert.foss/linux.git/log/?h=sm8350_dsi_v3
 
->  	vph_pwr: vph-pwr-regulator {
->  		compatible = "regulator-fixed";
->  		regulator-name = "vph_pwr";
-> @@ -353,6 +375,27 @@ &dispcc {
->  	status = "okay";
->  };
->  
-> +&i2c9 {
-> +	clock-frequency = <400000>;
-> +	status = "okay";
-> +
-> +	lt9611_codec: hdmi-bridge@2b {
-> +		compatible = "lontium,lt9611uxc";
-> +		reg = <0x2b>;
-> +
-> +		interrupts-extended = <&tlmm 44 IRQ_TYPE_EDGE_FALLING>;
-> +
-> +		reset-gpios = <&tlmm 107 GPIO_ACTIVE_HIGH>;
-> +
-> +		vdd-supply = <&lt9611_1v2>;
-> +		vcc-supply = <&lt9611_3v3>;
-> +
-> +		pinctrl-names = "default";
-> +		pinctrl-0 = <&lt9611_irq_pin &lt9611_rst_pin>;
-> +
 
-Drop blank line.
+This series implements display support for SM8350 and
+enables HDMI output for the SM8350-HDK platform.
 
-> +	};
-> +};
-Best regards,
-Krzysztof
+
+Changes from v1:
+ - Added R-b tags from v1
+ - Added qcom,sm8350-dpu binding patch
+ - Added qcom,sm8350-mdss binding patch
+ - Corrected sm8350.dtsi according to new dpu/mdss bindings
+ - Bjorn: Removed regulator-always-on property from lt9611_1v2 regulator
+ - Bjorn: Moved lt9611 pinctl pins into a common node
+ - Bjorn/Krzysztof: Moved status property to last in node
+ - Krzysztof: Changed hdmi-out to hdmi-connector
+ - Krzysztof: Fixed regulator node name
+ - Krzysztof: Changed &mdss to status=disabled as default
+ - Krzysztof: Changed &mdss_mdp node name to display-controller
+ - Krzysztof: Fixed opp-table node name
+ - Krzysztof: Fixed phy node name
+ - Dmitry: Split commit containing dpu & mdss compatibles string
+ - Dmitry: Added msm_mdss_enable case
+ - Dmitry: Fixed dpu ctl features
+ 
+Changes from v2:
+ - Rob: Added r-b
+ - Rob: Improved mdss binding description
+ - Rob: Added interconnect names for mdss-binding
+ - Rob: Removed phy from example
+ - Konrad: Remove sc7280_pp refactor patch
+ - Konrad: Fixed upper case hex in dpu_hw_catalog
+ - Konrad: Fixed various downstream dts based values for dpu_hw_catalog
+ - Konrad: Removed status=disabled from mdss_mdp
+ - Konrad: Removed phy-names from dsi nodes
+ - Konrad/Dmitry: Change mdp_opp_table opp-200000000 to use &rpmhpd_opp_svs, add comment
+ - Dmitry: Move mdp_opp_table to dsi0 node
+
+
+Robert Foss (11):
+  dt-bindings: display: msm: Add qcom,sm8350-dpu binding
+  dt-bindings: display: msm: Add qcom,sm8350-mdss binding
+  drm/msm/dpu: Add SM8350 to hw catalog
+  drm/msm/dpu: Add support for SM8350
+  drm/msm: Add support for SM8350
+  arm64: dts: qcom: sm8350: Add &tlmm gpio-line-names
+  arm64: dts: qcom: sm8350: Remove mmxc power-domain-name
+  arm64: dts: qcom: sm8350: Use 2 interconnect cells
+  arm64: dts: qcom: sm8350: Add display system nodes
+  arm64: dts: qcom: sm8350-hdk: Enable display & dsi nodes
+  arm64: dts: qcom: sm8350-hdk: Enable lt9611uxc dsi-hdmi bridge
+
+ .../bindings/display/msm/qcom,sm8350-dpu.yaml | 120 +++++++
+ .../display/msm/qcom,sm8350-mdss.yaml         | 221 ++++++++++++
+ arch/arm64/boot/dts/qcom/sm8350-hdk.dts       | 332 ++++++++++++++++++
+ arch/arm64/boot/dts/qcom/sm8350.dtsi          | 228 +++++++++++-
+ .../gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c    | 196 +++++++++++
+ .../gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h    |   1 +
+ drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c       |   1 +
+ drivers/gpu/drm/msm/msm_mdss.c                |   4 +
+ 8 files changed, 1084 insertions(+), 19 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/display/msm/qcom,sm8350-dpu.yaml
+ create mode 100644 Documentation/devicetree/bindings/display/msm/qcom,sm8350-mdss.yaml
+
+-- 
+2.34.1
 
