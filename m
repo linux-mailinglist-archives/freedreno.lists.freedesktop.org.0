@@ -1,47 +1,48 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id EEDDF6437F9
-	for <lists+freedreno@lfdr.de>; Mon,  5 Dec 2022 23:23:19 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 049EA64385B
+	for <lists+freedreno@lfdr.de>; Mon,  5 Dec 2022 23:49:38 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A1FC410E08C;
-	Mon,  5 Dec 2022 22:23:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AD5CE10E08C;
+	Mon,  5 Dec 2022 22:49:36 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from dfw.source.kernel.org (dfw.source.kernel.org
  [IPv6:2604:1380:4641:c500::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AA51710E08C;
- Mon,  5 Dec 2022 22:23:16 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 47D0A10E08C;
+ Mon,  5 Dec 2022 22:49:34 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 0E1136148E;
- Mon,  5 Dec 2022 22:23:16 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1A8C2C433C1;
- Mon,  5 Dec 2022 22:23:14 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id AEF33611D5;
+ Mon,  5 Dec 2022 22:49:33 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5A49CC433D6;
+ Mon,  5 Dec 2022 22:49:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1670278995;
- bh=r7Zbs6ql/zVmwGxY0A2vvhLYDbx61rLzdNI7bJloNmM=;
+ s=k20201202; t=1670280573;
+ bh=vtkCzJjaJz2NbCG4zHvNZrsu3+zbmbPfubvrskhvQBA=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=N25sRvjt9ynOVmKtUWr0551Jy3GiEGY9HV0ZbMTMbrQhtsBGGuL+iODpFpZh9eC57
- 1VK5Lk6yv6A0eaec8NaewtUYlPqqQuIg87EkXNMhgKHy9I9fwBdoEx51CSZGGJbIpk
- geaYrLTRQTPmafEXuW4dElMoWSHXSqulhMgtI+5ACu5dXmSQqlY3K3DjOnmGSVci0J
- HI+cIbhqJw+7EqnCAcjjw/HOopBqtWv2ixtqM2TRhzdtOZTrJKQtmPcR0SgFreDZDk
- Lrhn6rLJqLZSqTA7XxIepXKyRODqo9QYmRUtONBdWqPG9HGX6/YWug4tB6VObC/Qx0
- kb5rT6Xk3Sm9g==
-Date: Mon, 5 Dec 2022 16:23:12 -0600
+ b=QhX4/H7ukZhrhq3B+SvY//EcSTOKrlc87WikbOP91kXi5/d/i7lhqXJuZOOwGP793
+ Mq/V/RRiUjq1NJNe/7Zgg+GmY/GE7Z0+NAG/qlOBABZ+C46Gz0mkTJP4/7VispO9CP
+ o2kATitKDlvHTbV7ENWP/NNF/lZZ+gtqO2E6ugeuz+ZtIFep4mDRc7RBLelT9LFzdR
+ rVYEVWVQLNP/88/PAAe4RheFAQ7FCGvjJs+JtvtSpSNkaHZDuUUtVVzQElTqrckGk7
+ QAxK9FYAq4zpGHbO5oMfXo7IvhD4JMUB3KEcdEiNIXQjzFHDUfymy1wwKd8Gfe4CYb
+ 6wcjeazDtR/vQ==
+Date: Mon, 5 Dec 2022 16:49:29 -0600
 From: Bjorn Andersson <andersson@kernel.org>
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Message-ID: <20221205222312.gmg65h35d44zigg4@builder.lan>
-References: <20221205174433.16847-1-quic_bjorande@quicinc.com>
- <20221205174433.16847-9-quic_bjorande@quicinc.com>
- <4E586110-168A-4D47-966F-357DF042AFC7@linaro.org>
+To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+Message-ID: <20221205224929.jlvrgrt4nth2bd7u@builder.lan>
+References: <20221130200950.144618-1-a39.skl@gmail.com>
+ <20221130200950.144618-12-a39.skl@gmail.com>
+ <382df687-c535-4dd6-125a-5f3b6022cbd2@linaro.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <4E586110-168A-4D47-966F-357DF042AFC7@linaro.org>
-Subject: Re: [Freedreno] [PATCH v4 08/13] drm/msm/dp: Implement hpd_notify()
+In-Reply-To: <382df687-c535-4dd6-125a-5f3b6022cbd2@linaro.org>
+Subject: Re: [Freedreno] [PATCH v2 11/12] arm64: dts: qcom: sm6115: Add WCN
+ node.
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,122 +55,37 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Kalyan Thota <quic_kalyant@quicinc.com>, freedreno@lists.freedesktop.org,
- Sankeerth Billakanti <quic_sbillaka@quicinc.com>,
- Bjorn Andersson <quic_bjorande@quicinc.com>,
+Cc: "Rafael J. Wysocki" <rafael@kernel.org>, Amit Kucheria <amitk@kernel.org>,
+ dri-devel@lists.freedesktop.org,
  Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- devicetree@vger.kernel.org, David Airlie <airlied@gmail.com>,
- linux-kernel@vger.kernel.org, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- dri-devel@lists.freedesktop.org, Kuogee Hsieh <quic_khsieh@quicinc.com>,
+ phone-devel@vger.kernel.org, David Airlie <airlied@gmail.com>,
+ Daniel Lezcano <daniel.lezcano@linaro.org>, Andy Gross <agross@kernel.org>,
+ Zhang Rui <rui.zhang@intel.com>, devicetree@vger.kernel.org,
+ Thara Gopinath <thara.gopinath@gmail.com>, linux-pm@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, Adam Skladowski <a39.skl@gmail.com>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, Rob Herring <robh+dt@kernel.org>,
+ ~postmarketos/upstreaming@lists.sr.ht, Sean Paul <sean@poorly.run>,
+ Loic Poulain <loic.poulain@linaro.org>, linux-kernel@vger.kernel.org,
  Konrad Dybcio <konrad.dybcio@linaro.org>, Rob Clark <robdclark@gmail.com>,
- Rob Herring <robh+dt@kernel.org>, Daniel Vetter <daniel@ffwll.ch>,
- linux-arm-msm@vger.kernel.org, Jessica Zhang <quic_jesszhan@quicinc.com>,
- Sean Paul <sean@poorly.run>, Johan Hovold <johan+linaro@kernel.org>
+ Daniel Vetter <daniel@ffwll.ch>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Tue, Dec 06, 2022 at 12:29:13AM +0300, Dmitry Baryshkov wrote:
+On Thu, Dec 01, 2022 at 11:38:16AM +0100, Krzysztof Kozlowski wrote:
+> On 30/11/2022 21:09, Adam Skladowski wrote:
+> > Add WCN node to allow using wifi module.
+> > 
 > 
+> A nit: Drop full stop from commit subject.
 > 
-> On 5 December 2022 20:44:28 GMT+03:00, Bjorn Andersson <quic_bjorande@quicinc.com> wrote:
-> >From: Bjorn Andersson <bjorn.andersson@linaro.org>
-> >
-> >The DisplayPort controller's hot-plug mechanism is based on pinmuxing a
-> >physical signal on a GPIO pin into the controller. This is not always
-> >possible, either because there aren't dedicated GPIOs available or
-> >because the hot-plug signal is a virtual notification, in cases such as
-> >USB Type-C.
-> >
-> >For these cases, by implementing the hpd_notify() callback for the
-> >DisplayPort controller's drm_bridge, a downstream drm_bridge
-> >(next_bridge) can be used to track and signal the connection status
-> >changes.
-> >
-> >This makes it possible to use downstream drm_bridges such as
-> >display-connector or any virtual mechanism, as long as they are
-> >implemented as a drm_bridge.
-> >
-> >Signed-off-by: Bjorn Andersson <bjorn.andersson@linaro.org>
-> >[bjorn: Drop connector->fwnode assignment and dev from struct msm_dp]
-> >Signed-off-by: Bjorn Andersson <quic_bjorande@quicinc.com>
-> 
-> Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> 
-> Minor nit: if for the next revision you reorder the patches to have
-> hpd_enable first, then missing conditions, then this patch, it will
-> look more logical.
 
-You're right, that will look better. I'll do so.
+Done. Thanks for pointing it out :)
 
-Thanks,
+Regards,
 Bjorn
 
+> Best regards,
+> Krzysztof
 > 
-> >---
-> >
-> >Changes since v3:
-> >- None
-> >
-> > drivers/gpu/drm/msm/dp/dp_display.c | 22 ++++++++++++++++++++++
-> > drivers/gpu/drm/msm/dp/dp_drm.c     |  1 +
-> > drivers/gpu/drm/msm/dp/dp_drm.h     |  2 ++
-> > 3 files changed, 25 insertions(+)
-> >
-> >diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
-> >index 666b45c8ab80..17fcf8cd84cd 100644
-> >--- a/drivers/gpu/drm/msm/dp/dp_display.c
-> >+++ b/drivers/gpu/drm/msm/dp/dp_display.c
-> >@@ -1772,3 +1772,25 @@ void dp_bridge_mode_set(struct drm_bridge *drm_bridge,
-> > 	dp_display->dp_mode.h_active_low =
-> > 		!!(dp_display->dp_mode.drm_mode.flags & DRM_MODE_FLAG_NHSYNC);
-> > }
-> >+
-> >+void dp_bridge_hpd_notify(struct drm_bridge *bridge,
-> >+			  enum drm_connector_status status)
-> >+{
-> >+	struct msm_dp_bridge *dp_bridge = to_dp_bridge(bridge);
-> >+	struct msm_dp *dp_display = dp_bridge->dp_display;
-> >+	struct dp_display_private *dp = container_of(dp_display, struct dp_display_private, dp_display);
-> >+
-> >+	/* Without next_bridge interrupts are handled by the DP core directly */
-> >+	if (!dp_display->next_bridge)
-> >+		return;
-> >+
-> >+	if (!dp->core_initialized) {
-> >+		drm_dbg_dp(dp->drm_dev, "not initialized\n");
-> >+		return;
-> >+	}
-> >+
-> >+	if (!dp_display->is_connected && status == connector_status_connected)
-> >+		dp_add_event(dp, EV_HPD_PLUG_INT, 0, 0);
-> >+	else if (dp_display->is_connected && status == connector_status_disconnected)
-> >+		dp_add_event(dp, EV_HPD_UNPLUG_INT, 0, 0);
-> >+}
-> >diff --git a/drivers/gpu/drm/msm/dp/dp_drm.c b/drivers/gpu/drm/msm/dp/dp_drm.c
-> >index 6db82f9b03af..3898366ebd5e 100644
-> >--- a/drivers/gpu/drm/msm/dp/dp_drm.c
-> >+++ b/drivers/gpu/drm/msm/dp/dp_drm.c
-> >@@ -102,6 +102,7 @@ static const struct drm_bridge_funcs dp_bridge_ops = {
-> > 	.get_modes    = dp_bridge_get_modes,
-> > 	.detect       = dp_bridge_detect,
-> > 	.atomic_check = dp_bridge_atomic_check,
-> >+	.hpd_notify   = dp_bridge_hpd_notify,
-> > };
-> > 
-> > struct drm_bridge *dp_bridge_init(struct msm_dp *dp_display, struct drm_device *dev,
-> >diff --git a/drivers/gpu/drm/msm/dp/dp_drm.h b/drivers/gpu/drm/msm/dp/dp_drm.h
-> >index 82035dbb0578..79e6b2cf2d25 100644
-> >--- a/drivers/gpu/drm/msm/dp/dp_drm.h
-> >+++ b/drivers/gpu/drm/msm/dp/dp_drm.h
-> >@@ -32,5 +32,7 @@ enum drm_mode_status dp_bridge_mode_valid(struct drm_bridge *bridge,
-> > void dp_bridge_mode_set(struct drm_bridge *drm_bridge,
-> > 			const struct drm_display_mode *mode,
-> > 			const struct drm_display_mode *adjusted_mode);
-> >+void dp_bridge_hpd_notify(struct drm_bridge *bridge,
-> >+			  enum drm_connector_status status);
-> > 
-> > #endif /* _DP_DRM_H_ */
-> 
-> -- 
-> With best wishes
-> Dmitry
