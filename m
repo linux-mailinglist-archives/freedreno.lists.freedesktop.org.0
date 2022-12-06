@@ -2,67 +2,77 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id A6A0A64482F
-	for <lists+freedreno@lfdr.de>; Tue,  6 Dec 2022 16:40:58 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 98B9B644954
+	for <lists+freedreno@lfdr.de>; Tue,  6 Dec 2022 17:35:00 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8ADCC10E124;
-	Tue,  6 Dec 2022 15:40:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5A1BB10E32E;
+	Tue,  6 Dec 2022 16:34:58 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ej1-x635.google.com (mail-ej1-x635.google.com
- [IPv6:2a00:1450:4864:20::635])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B392210E05A
- for <freedreno@lists.freedesktop.org>; Tue,  6 Dec 2022 15:40:50 +0000 (UTC)
-Received: by mail-ej1-x635.google.com with SMTP id bj12so7091673ejb.13
- for <freedreno@lists.freedesktop.org>; Tue, 06 Dec 2022 07:40:50 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=VQDzBqsBTE8WLwYAzMMGHQmUn+CuZZVkF9Y36XFfYec=;
- b=kLrPEpykbsLXwkED/QlJ1FLFFvX9oUCpMJKPH4x0GiU8byIpo6HmWG9Xl4xlk8maqA
- aKCRmP7kd8Dz9IRbEOKS5YbYuuxkhhJl9Q5sjHr0iuB9l2Et/XZi1FDpz4I54nt6Dtg4
- Xp+7QF9vE9mokQorQF9Rn7+Mt/gaqnt96+GEY=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=VQDzBqsBTE8WLwYAzMMGHQmUn+CuZZVkF9Y36XFfYec=;
- b=fihmcxNu4LXi8k8B6/+X0YvRQrrJF/M66CpReUufWsA08+BvSJlJVs1rc1Ky+2rATL
- CP5uYEeyWJ16Zh4rcns3G/8Skwg+X1p2tZ/lmn+nO3Dkz/myo1ZDLz6rGFMNCqnsBjsF
- fLCc7TT0Ss5ej6EzEA/HJyi5ebL4EIAHhegGBQSbpO13Q45xnR0tlMOya2VSCzCVXFUZ
- +TuBB/AdmKvgUxgGVxIjlVN9dTbAbPacemG9m6kxyGNDugbCcMB9K/s29JVR6RjjPEPu
- YhKKnL8cSWpsKMcx26QSR5qZpG8TMtOfyXthk7P8uhOGQZI/hfd/W4EbcrJs4Pyxm6H2
- VzoQ==
-X-Gm-Message-State: ANoB5pmuIwAn6EwkFCIzxaiUrIirHq98cyWQnjvzLiZHepJvWpGifmEu
- MP5jlga/jvfDPqTxGnjHRxBjmE50e2DITsQflds=
-X-Google-Smtp-Source: AA0mqf44VS0OY11ge25gBpUa0vHmMMxzeIuDTEHrnzWw4UKvNbqHd4EUaYUBqXJlwXdTs6ADZeP7OA==
-X-Received: by 2002:a17:906:c18f:b0:7c0:b604:9ee3 with SMTP id
- g15-20020a170906c18f00b007c0b6049ee3mr156518ejz.68.1670341249132; 
- Tue, 06 Dec 2022 07:40:49 -0800 (PST)
-Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com.
- [209.85.128.53]) by smtp.gmail.com with ESMTPSA id
- i5-20020aa7c705000000b00463a83ce063sm1086060edq.96.2022.12.06.07.40.46
- for <freedreno@lists.freedesktop.org>
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 06 Dec 2022 07:40:47 -0800 (PST)
-Received: by mail-wm1-f53.google.com with SMTP id
- m4-20020a05600c3b0400b003d1cb516ce0so903076wms.4
- for <freedreno@lists.freedesktop.org>; Tue, 06 Dec 2022 07:40:46 -0800 (PST)
-X-Received: by 2002:a05:600c:3c8e:b0:3d0:69f4:d3d0 with SMTP id
- bg14-20020a05600c3c8e00b003d069f4d3d0mr23096034wmb.93.1670341245678; Tue, 06
- Dec 2022 07:40:45 -0800 (PST)
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 59E5010E150;
+ Tue,  6 Dec 2022 16:34:52 +0000 (UTC)
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 2B6CocaG002924; Tue, 6 Dec 2022 16:34:22 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
+ h=message-id : date :
+ mime-version : subject : to : cc : references : from : in-reply-to :
+ content-type : content-transfer-encoding; s=qcppdkim1;
+ bh=LW1f2IGMYZaNZzh1IJS2Bnc7VQ7uiD6eYe+j3zm60ns=;
+ b=CJbxX3s+Ay54pAxxfKwTvFQdncVC6EBS1Cu5SkAjoMUfd92FQryHILIGGTG73p1n+iJM
+ dhm22ErIksRopV9xXIMxaJ/+8ktG6TxyC6t/JrWYFuJEI/OvGAysSRAQy9sc8npV0AUB
+ nFbMiXN1M2FNZjTSS6lJ4mN7144TeLEvRwZZbA5I15nvvSVIuzuL0yi5OfVqdYLN1+gL
+ Ro2UV6F5aYgHpkDpoWB9H4KrzRKrsie+1GD75YD/orSmHBR2Qd5kCAzi6Yh29jveCI5q
+ aNvBRbW8mvzSSp/QAQgu6Cvbele1SV2neL0lbD5w6gVmsgl86t1O/DB5rvzY+oQAe1V5 Kw== 
+Received: from nalasppmta05.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3ma21us03v-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 06 Dec 2022 16:34:21 +0000
+Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
+ [10.47.209.196])
+ by NALASPPMTA05.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 2B6GYKev032197
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 6 Dec 2022 16:34:20 GMT
+Received: from [10.38.242.71] (10.80.80.8) by nalasex01a.na.qualcomm.com
+ (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.36; Tue, 6 Dec 2022
+ 08:34:16 -0800
+Message-ID: <339d9ec4-a554-d468-51f4-498d785685b6@quicinc.com>
+Date: Tue, 6 Dec 2022 08:32:14 -0800
 MIME-Version: 1.0
-References: <20221206075512.812389-1-linmq006@gmail.com>
-In-Reply-To: <20221206075512.812389-1-linmq006@gmail.com>
-From: Doug Anderson <dianders@chromium.org>
-Date: Tue, 6 Dec 2022 07:40:33 -0800
-X-Gmail-Original-Message-ID: <CAD=FV=XXoue_vkuM7TmxnECfT3-p9d-OH=H_dyeoOk_Kp4kK2w@mail.gmail.com>
-Message-ID: <CAD=FV=XXoue_vkuM7TmxnECfT3-p9d-OH=H_dyeoOk_Kp4kK2w@mail.gmail.com>
-To: Miaoqian Lin <linmq006@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [PATCH] drm/msm/dpu: Fix memory leak in
- msm_mdss_parse_data_bus_icc_path
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
+ Thunderbird/91.6.2
+Content-Language: en-US
+To: Jiasheng Jiang <jiasheng@iscas.ac.cn>, <robdclark@gmail.com>,
+ <dmitry.baryshkov@linaro.org>, <sean@poorly.run>, <airlied@gmail.com>,
+ <daniel@ffwll.ch>, <quic_jesszhan@quicinc.com>,
+ <ville.syrjala@linux.intel.com>, <yang.lee@linux.alibaba.com>
+References: <20221206080517.43786-1-jiasheng@iscas.ac.cn>
+From: Abhinav Kumar <quic_abhinavk@quicinc.com>
+In-Reply-To: <20221206080517.43786-1-jiasheng@iscas.ac.cn>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-ORIG-GUID: W-0oiKh5bFbTd5KjY0sWwCZq1_tqM6nB
+X-Proofpoint-GUID: W-0oiKh5bFbTd5KjY0sWwCZq1_tqM6nB
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.205,Aquarius:18.0.923,Hydra:6.0.545,FMLib:17.11.122.1
+ definitions=2022-12-06_10,2022-12-06_01,2022-06-22_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1011
+ lowpriorityscore=0 mlxscore=0 mlxlogscore=999 malwarescore=0 bulkscore=0
+ phishscore=0 spamscore=0 impostorscore=0 priorityscore=1501 adultscore=0
+ suspectscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2210170000 definitions=main-2212060137
+Subject: Re: [Freedreno] [PATCH] drm/msm/dpu: Add check for cstate
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,73 +85,46 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, Sean Paul <sean@poorly.run>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
- Stephen Boyd <swboyd@chromium.org>, Rob Clark <robdclark@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>, linux-arm-msm@vger.kernel.org,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- David Airlie <airlied@gmail.com>, linux-kernel@vger.kernel.org
+Cc: linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Hi,
 
-On Mon, Dec 5, 2022 at 11:55 PM Miaoqian Lin <linmq006@gmail.com> wrote:
->
-> of_icc_get() alloc resources for path1, we should release it when not
-> need anymore. Early return when IS_ERR_OR_NULL(path0) may leak path1.
-> Add icc_put(path1) in the error path to fix this.
->
-> Fixes: b9364eed9232 ("drm/msm/dpu: Move min BW request and full BW disable back to mdss")
-> Signed-off-by: Miaoqian Lin <linmq006@gmail.com>
+
+On 12/6/2022 12:05 AM, Jiasheng Jiang wrote:
+> As kzalloc may fail and return NULL pointer,
+> it should be better to check cstate
+> in order to avoid the NULL pointer dereference
+> in __drm_atomic_helper_crtc_reset.
+
+You have wrapped around your lines too short. Please try to utilize the 
+full word limit for each line.
+
+With that fixed,
+
+Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
+
+> 
+> Fixes: 1cff7440a86e ("drm/msm: Convert to using __drm_atomic_helper_crtc_reset() for reset.")
+> Signed-off-by: Jiasheng Jiang <jiasheng@iscas.ac.cn>
 > ---
->  drivers/gpu/drm/msm/msm_mdss.c | 4 +++-
->  1 file changed, 3 insertions(+), 1 deletion(-)
->
-> diff --git a/drivers/gpu/drm/msm/msm_mdss.c b/drivers/gpu/drm/msm/msm_mdss.c
-> index e13c5c12b775..a38fa9a9a3d6 100644
-> --- a/drivers/gpu/drm/msm/msm_mdss.c
-> +++ b/drivers/gpu/drm/msm/msm_mdss.c
-> @@ -49,8 +49,10 @@ static int msm_mdss_parse_data_bus_icc_path(struct device *dev,
->         struct icc_path *path0 = of_icc_get(dev, "mdp0-mem");
->         struct icc_path *path1 = of_icc_get(dev, "mdp1-mem");
->
-> -       if (IS_ERR_OR_NULL(path0))
-> +       if (IS_ERR_OR_NULL(path0)) {
-> +               icc_put(path1);
->                 return PTR_ERR_OR_ZERO(path0);
-> +       }
->
->         msm_mdss->path[0] = path0;
->         msm_mdss->num_paths = 1;
-
-Hmmm. I guess the original author of the code (which wasn't me--I just
-restored the code that was deleted by a previous change) was assuming
-that if mdp0-mem had a problem that mdp1-mem would also have a
-problem. That would mean that you wouldn't need to call icc_put() on
-it.
-
-...and, in fact, your patch doesn't handle that case, does it? If
-_both_ of the two are error or NULL then you'll be calling icc_put()
-on something invalid. I guess icc_put() handles those cases without
-crashing but it will give a WARN_ON() splat if it happens to be an
-error...
-
-Really, there's a better solution anyway. Instead, you should do:
-
-path0 = of_icc_get(dev, "mdp0-mem");
-if (IS_ERR_OR_NULL(path0))
-  return PTR_ERR_OR_ZERO(path0);
-
-msm_mdss->path[0] = path0;
-msm_mdss->num_paths = 1;
-
-path1 = of_icc_get(dev, "mdp1-mem");
-if (!IS_ERR_OR_NULL(path1)) {
- ...
-}
-
-In other words just defer getting path1 until after you've checked
-path0 for an error.
-
--Doug
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c | 5 ++++-
+>   1 file changed, 4 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
+> index 13ce321283ff..22c2787b7b38 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
+> @@ -968,7 +968,10 @@ static void dpu_crtc_reset(struct drm_crtc *crtc)
+>   	if (crtc->state)
+>   		dpu_crtc_destroy_state(crtc, crtc->state);
+>   
+> -	__drm_atomic_helper_crtc_reset(crtc, &cstate->base);
+> +	if (cstate)
+> +		__drm_atomic_helper_crtc_reset(crtc, &cstate->base);
+> +	else
+> +		__drm_atomic_helper_crtc_reset(crtc, NULL);
+>   }
+>   
+>   /**
