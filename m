@@ -2,57 +2,67 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 00C17644368
-	for <lists+freedreno@lfdr.de>; Tue,  6 Dec 2022 13:47:37 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A6A0A64482F
+	for <lists+freedreno@lfdr.de>; Tue,  6 Dec 2022 16:40:58 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1497C10E31E;
-	Tue,  6 Dec 2022 12:47:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8ADCC10E124;
+	Tue,  6 Dec 2022 15:40:55 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-oa1-f47.google.com (mail-oa1-f47.google.com
- [209.85.160.47])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D09CE10E31A;
- Tue,  6 Dec 2022 12:47:28 +0000 (UTC)
-Received: by mail-oa1-f47.google.com with SMTP id
- 586e51a60fabf-14455716674so11106328fac.7; 
- Tue, 06 Dec 2022 04:47:28 -0800 (PST)
+Received: from mail-ej1-x635.google.com (mail-ej1-x635.google.com
+ [IPv6:2a00:1450:4864:20::635])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B392210E05A
+ for <freedreno@lists.freedesktop.org>; Tue,  6 Dec 2022 15:40:50 +0000 (UTC)
+Received: by mail-ej1-x635.google.com with SMTP id bj12so7091673ejb.13
+ for <freedreno@lists.freedesktop.org>; Tue, 06 Dec 2022 07:40:50 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=VQDzBqsBTE8WLwYAzMMGHQmUn+CuZZVkF9Y36XFfYec=;
+ b=kLrPEpykbsLXwkED/QlJ1FLFFvX9oUCpMJKPH4x0GiU8byIpo6HmWG9Xl4xlk8maqA
+ aKCRmP7kd8Dz9IRbEOKS5YbYuuxkhhJl9Q5sjHr0iuB9l2Et/XZi1FDpz4I54nt6Dtg4
+ Xp+7QF9vE9mokQorQF9Rn7+Mt/gaqnt96+GEY=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=date:subject:message-id:references:in-reply-to:cc:to:from
- :mime-version:content-transfer-encoding:x-gm-message-state:from:to
- :cc:subject:date:message-id:reply-to;
- bh=jRbJnoAPdyVeKSpAdDaecdS/ZR6oAJxEcKGzEYJMYw0=;
- b=que+cAU46YIEye+RpLEBPorAsAacRwqRQGBeLGGgb+3TZj1qrXTgMykoGE9C/CJIGn
- dIYArkaVbslgbNbMB3lAYAxLHzK+nakRfB2UzAbBsAa10O6/wrh1GM23/Z9MvJQU/z8N
- WJgjQlIlb6FmqCbBQS3nyfVdJs/kISwkF2JG1zPcJOPodvpscueo0gS3UdL6AqjQD0fS
- VY/y+cGJdIuj1RWcpg+dcGJrWJRsWEaRh+fJRTbFYoCPUrpG5gts6RQzVheC5t26Pfds
- xJ2QRmOkZrnXe/rpdUi/9x8md/03mzXXFAxuiLyibzBrW9h03jvGcVIoTaAliitHEDVy
- fLLQ==
-X-Gm-Message-State: ANoB5pkB1tnfuBew6huDxcwE04sS1RDTBCsbh/ZLpOEQqW1D5OlFUawG
- hdql/KbEej3sFx7AqTJV6g==
-X-Google-Smtp-Source: AA0mqf5Rm0o3BU5PrNXKP/4vKT9EPUdrmyLN5uG/7ZjQ/O4xf0ra3tTsNcE89VV/V15aEllCorbAZw==
-X-Received: by 2002:a05:6870:5781:b0:13b:c610:e30b with SMTP id
- i1-20020a056870578100b0013bc610e30bmr39970200oap.134.1670330848000; 
- Tue, 06 Dec 2022 04:47:28 -0800 (PST)
-Received: from robh_at_kernel.org (66-90-144-107.dyn.grandenetworks.net.
- [66.90.144.107]) by smtp.gmail.com with ESMTPSA id
- r16-20020a4a3710000000b004a0b424f99dsm3656548oor.43.2022.12.06.04.47.26
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 06 Dec 2022 04:47:27 -0800 (PST)
-Received: (nullmailer pid 176446 invoked by uid 1000);
- Tue, 06 Dec 2022 12:47:26 -0000
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=VQDzBqsBTE8WLwYAzMMGHQmUn+CuZZVkF9Y36XFfYec=;
+ b=fihmcxNu4LXi8k8B6/+X0YvRQrrJF/M66CpReUufWsA08+BvSJlJVs1rc1Ky+2rATL
+ CP5uYEeyWJ16Zh4rcns3G/8Skwg+X1p2tZ/lmn+nO3Dkz/myo1ZDLz6rGFMNCqnsBjsF
+ fLCc7TT0Ss5ej6EzEA/HJyi5ebL4EIAHhegGBQSbpO13Q45xnR0tlMOya2VSCzCVXFUZ
+ +TuBB/AdmKvgUxgGVxIjlVN9dTbAbPacemG9m6kxyGNDugbCcMB9K/s29JVR6RjjPEPu
+ YhKKnL8cSWpsKMcx26QSR5qZpG8TMtOfyXthk7P8uhOGQZI/hfd/W4EbcrJs4Pyxm6H2
+ VzoQ==
+X-Gm-Message-State: ANoB5pmuIwAn6EwkFCIzxaiUrIirHq98cyWQnjvzLiZHepJvWpGifmEu
+ MP5jlga/jvfDPqTxGnjHRxBjmE50e2DITsQflds=
+X-Google-Smtp-Source: AA0mqf44VS0OY11ge25gBpUa0vHmMMxzeIuDTEHrnzWw4UKvNbqHd4EUaYUBqXJlwXdTs6ADZeP7OA==
+X-Received: by 2002:a17:906:c18f:b0:7c0:b604:9ee3 with SMTP id
+ g15-20020a170906c18f00b007c0b6049ee3mr156518ejz.68.1670341249132; 
+ Tue, 06 Dec 2022 07:40:49 -0800 (PST)
+Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com.
+ [209.85.128.53]) by smtp.gmail.com with ESMTPSA id
+ i5-20020aa7c705000000b00463a83ce063sm1086060edq.96.2022.12.06.07.40.46
+ for <freedreno@lists.freedesktop.org>
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 06 Dec 2022 07:40:47 -0800 (PST)
+Received: by mail-wm1-f53.google.com with SMTP id
+ m4-20020a05600c3b0400b003d1cb516ce0so903076wms.4
+ for <freedreno@lists.freedesktop.org>; Tue, 06 Dec 2022 07:40:46 -0800 (PST)
+X-Received: by 2002:a05:600c:3c8e:b0:3d0:69f4:d3d0 with SMTP id
+ bg14-20020a05600c3c8e00b003d069f4d3d0mr23096034wmb.93.1670341245678; Tue, 06
+ Dec 2022 07:40:45 -0800 (PST)
 MIME-Version: 1.0
-From: Rob Herring <robh@kernel.org>
-To: Kuogee Hsieh <quic_khsieh@quicinc.com>
-In-Reply-To: <1670281694-13281-3-git-send-email-quic_khsieh@quicinc.com>
-References: <1670281694-13281-1-git-send-email-quic_khsieh@quicinc.com>
- <1670281694-13281-3-git-send-email-quic_khsieh@quicinc.com>
-Message-Id: <167033052405.165993.699264089064134340.robh@kernel.org>
-Date: Tue, 06 Dec 2022 06:47:26 -0600
-Subject: Re: [Freedreno] [PATCH v9 2/5] dt-bindings: msm/dp: add data-lanes
- and link-frequencies property
+References: <20221206075512.812389-1-linmq006@gmail.com>
+In-Reply-To: <20221206075512.812389-1-linmq006@gmail.com>
+From: Doug Anderson <dianders@chromium.org>
+Date: Tue, 6 Dec 2022 07:40:33 -0800
+X-Gmail-Original-Message-ID: <CAD=FV=XXoue_vkuM7TmxnECfT3-p9d-OH=H_dyeoOk_Kp4kK2w@mail.gmail.com>
+Message-ID: <CAD=FV=XXoue_vkuM7TmxnECfT3-p9d-OH=H_dyeoOk_Kp4kK2w@mail.gmail.com>
+To: Miaoqian Lin <linmq006@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Subject: Re: [Freedreno] [PATCH] drm/msm/dpu: Fix memory leak in
+ msm_mdss_parse_data_bus_icc_path
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,64 +75,73 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: vkoul@kernel.org, quic_sbillaka@quicinc.com, dianders@chromium.org,
- daniel@ffwll.ch, devicetree@vger.kernel.org, airlied@linux.ie, sean@poorly.run,
- andersson@kernel.org, konrad.dybcio@somainline.org,
- linux-kernel@vger.kernel.org, robh+dt@kernel.org, quic_abhinavk@quicinc.com,
- robdclark@gmail.com, agross@kernel.org, dri-devel@lists.freedesktop.org,
- krzysztof.kozlowski+dt@linaro.org, linux-arm-msm@vger.kernel.org,
- dmitry.baryshkov@linaro.org, airlied@gmail.com, swboyd@chromium.org,
- freedreno@lists.freedesktop.org
+Cc: freedreno@lists.freedesktop.org, Sean Paul <sean@poorly.run>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
+ Stephen Boyd <swboyd@chromium.org>, Rob Clark <robdclark@gmail.com>,
+ Daniel Vetter <daniel@ffwll.ch>, linux-arm-msm@vger.kernel.org,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ David Airlie <airlied@gmail.com>, linux-kernel@vger.kernel.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
+Hi,
 
-On Mon, 05 Dec 2022 15:08:11 -0800, Kuogee Hsieh wrote:
-> Add both data-lanes and link-frequencies property into endpoint
-> 
-> Changes in v7:
-> -- split yaml out of dtsi patch
-> -- link-frequencies from link rate to symbol rate
-> -- deprecation of old data-lanes property
-> 
-> Changes in v8:
-> -- correct Bjorn mail address to kernel.org
-> 
-> Signed-off-by: Kuogee Hsieh <quic_khsieh@quicinc.com>`
+On Mon, Dec 5, 2022 at 11:55 PM Miaoqian Lin <linmq006@gmail.com> wrote:
+>
+> of_icc_get() alloc resources for path1, we should release it when not
+> need anymore. Early return when IS_ERR_OR_NULL(path0) may leak path1.
+> Add icc_put(path1) in the error path to fix this.
+>
+> Fixes: b9364eed9232 ("drm/msm/dpu: Move min BW request and full BW disable back to mdss")
+> Signed-off-by: Miaoqian Lin <linmq006@gmail.com>
 > ---
->  Documentation/devicetree/bindings/display/msm/dp-controller.yaml | 9 +++++++++
->  1 file changed, 9 insertions(+)
-> 
+>  drivers/gpu/drm/msm/msm_mdss.c | 4 +++-
+>  1 file changed, 3 insertions(+), 1 deletion(-)
+>
+> diff --git a/drivers/gpu/drm/msm/msm_mdss.c b/drivers/gpu/drm/msm/msm_mdss.c
+> index e13c5c12b775..a38fa9a9a3d6 100644
+> --- a/drivers/gpu/drm/msm/msm_mdss.c
+> +++ b/drivers/gpu/drm/msm/msm_mdss.c
+> @@ -49,8 +49,10 @@ static int msm_mdss_parse_data_bus_icc_path(struct device *dev,
+>         struct icc_path *path0 = of_icc_get(dev, "mdp0-mem");
+>         struct icc_path *path1 = of_icc_get(dev, "mdp1-mem");
+>
+> -       if (IS_ERR_OR_NULL(path0))
+> +       if (IS_ERR_OR_NULL(path0)) {
+> +               icc_put(path1);
+>                 return PTR_ERR_OR_ZERO(path0);
+> +       }
+>
+>         msm_mdss->path[0] = path0;
+>         msm_mdss->num_paths = 1;
 
-My bot found errors running 'make DT_CHECKER_FLAGS=-m dt_binding_check'
-on your patch (DT_CHECKER_FLAGS is new in v5.13):
+Hmmm. I guess the original author of the code (which wasn't me--I just
+restored the code that was deleted by a previous change) was assuming
+that if mdp0-mem had a problem that mdp1-mem would also have a
+problem. That would mean that you wouldn't need to call icc_put() on
+it.
 
-yamllint warnings/errors:
-./Documentation/devicetree/bindings/display/msm/dp-controller.yaml:108:21: [error] syntax error: mapping values are not allowed here (syntax)
+...and, in fact, your patch doesn't handle that case, does it? If
+_both_ of the two are error or NULL then you'll be calling icc_put()
+on something invalid. I guess icc_put() handles those cases without
+crashing but it will give a WARN_ON() splat if it happens to be an
+error...
 
-dtschema/dtc warnings/errors:
-make[1]: *** Deleting file 'Documentation/devicetree/bindings/display/msm/dp-controller.example.dts'
-Documentation/devicetree/bindings/display/msm/dp-controller.yaml:108:21: mapping values are not allowed here
-make[1]: *** [Documentation/devicetree/bindings/Makefile:26: Documentation/devicetree/bindings/display/msm/dp-controller.example.dts] Error 1
-make[1]: *** Waiting for unfinished jobs....
-./Documentation/devicetree/bindings/display/msm/dp-controller.yaml:108:21: mapping values are not allowed here
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/dp-controller.yaml: ignoring, error parsing file
-make: *** [Makefile:1492: dt_binding_check] Error 2
+Really, there's a better solution anyway. Instead, you should do:
 
-doc reference errors (make refcheckdocs):
+path0 = of_icc_get(dev, "mdp0-mem");
+if (IS_ERR_OR_NULL(path0))
+  return PTR_ERR_OR_ZERO(path0);
 
-See https://patchwork.ozlabs.org/project/devicetree-bindings/patch/1670281694-13281-3-git-send-email-quic_khsieh@quicinc.com
+msm_mdss->path[0] = path0;
+msm_mdss->num_paths = 1;
 
-The base for the series is generally the latest rc1. A different dependency
-should be noted in *this* patch.
+path1 = of_icc_get(dev, "mdp1-mem");
+if (!IS_ERR_OR_NULL(path1)) {
+ ...
+}
 
-If you already ran 'make dt_binding_check' and didn't see the above
-error(s), then make sure 'yamllint' is installed and dt-schema is up to
-date:
+In other words just defer getting path1 until after you've checked
+path0 for an error.
 
-pip3 install dtschema --upgrade
-
-Please check and re-submit after running the above command yourself. Note
-that DT_SCHEMA_FILES can be set to your schema file to speed up checking
-your schema. However, it must be unset to test all examples with your schema.
-
+-Doug
