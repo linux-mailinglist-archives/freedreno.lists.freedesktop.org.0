@@ -1,50 +1,58 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id E5983643E0D
-	for <lists+freedreno@lfdr.de>; Tue,  6 Dec 2022 09:05:29 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 00C17644368
+	for <lists+freedreno@lfdr.de>; Tue,  6 Dec 2022 13:47:37 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 22B0210E2FD;
-	Tue,  6 Dec 2022 08:05:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1497C10E31E;
+	Tue,  6 Dec 2022 12:47:33 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from cstnet.cn (smtp84.cstnet.cn [159.226.251.84])
- by gabe.freedesktop.org (Postfix) with ESMTP id 14BA110E0F7;
- Tue,  6 Dec 2022 08:05:21 +0000 (UTC)
-Received: from localhost.localdomain (unknown [124.16.138.125])
- by APP-05 (Coremail) with SMTP id zQCowACnx8y+945j3c05BQ--.56942S2;
- Tue, 06 Dec 2022 16:05:18 +0800 (CST)
-From: Jiasheng Jiang <jiasheng@iscas.ac.cn>
-To: robdclark@gmail.com, quic_abhinavk@quicinc.com,
- dmitry.baryshkov@linaro.org, sean@poorly.run, airlied@gmail.com,
- daniel@ffwll.ch, quic_jesszhan@quicinc.com, ville.syrjala@linux.intel.com,
- yang.lee@linux.alibaba.com
-Date: Tue,  6 Dec 2022 16:05:17 +0800
-Message-Id: <20221206080517.43786-1-jiasheng@iscas.ac.cn>
-X-Mailer: git-send-email 2.25.1
+Received: from mail-oa1-f47.google.com (mail-oa1-f47.google.com
+ [209.85.160.47])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D09CE10E31A;
+ Tue,  6 Dec 2022 12:47:28 +0000 (UTC)
+Received: by mail-oa1-f47.google.com with SMTP id
+ 586e51a60fabf-14455716674so11106328fac.7; 
+ Tue, 06 Dec 2022 04:47:28 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=date:subject:message-id:references:in-reply-to:cc:to:from
+ :mime-version:content-transfer-encoding:x-gm-message-state:from:to
+ :cc:subject:date:message-id:reply-to;
+ bh=jRbJnoAPdyVeKSpAdDaecdS/ZR6oAJxEcKGzEYJMYw0=;
+ b=que+cAU46YIEye+RpLEBPorAsAacRwqRQGBeLGGgb+3TZj1qrXTgMykoGE9C/CJIGn
+ dIYArkaVbslgbNbMB3lAYAxLHzK+nakRfB2UzAbBsAa10O6/wrh1GM23/Z9MvJQU/z8N
+ WJgjQlIlb6FmqCbBQS3nyfVdJs/kISwkF2JG1zPcJOPodvpscueo0gS3UdL6AqjQD0fS
+ VY/y+cGJdIuj1RWcpg+dcGJrWJRsWEaRh+fJRTbFYoCPUrpG5gts6RQzVheC5t26Pfds
+ xJ2QRmOkZrnXe/rpdUi/9x8md/03mzXXFAxuiLyibzBrW9h03jvGcVIoTaAliitHEDVy
+ fLLQ==
+X-Gm-Message-State: ANoB5pkB1tnfuBew6huDxcwE04sS1RDTBCsbh/ZLpOEQqW1D5OlFUawG
+ hdql/KbEej3sFx7AqTJV6g==
+X-Google-Smtp-Source: AA0mqf5Rm0o3BU5PrNXKP/4vKT9EPUdrmyLN5uG/7ZjQ/O4xf0ra3tTsNcE89VV/V15aEllCorbAZw==
+X-Received: by 2002:a05:6870:5781:b0:13b:c610:e30b with SMTP id
+ i1-20020a056870578100b0013bc610e30bmr39970200oap.134.1670330848000; 
+ Tue, 06 Dec 2022 04:47:28 -0800 (PST)
+Received: from robh_at_kernel.org (66-90-144-107.dyn.grandenetworks.net.
+ [66.90.144.107]) by smtp.gmail.com with ESMTPSA id
+ r16-20020a4a3710000000b004a0b424f99dsm3656548oor.43.2022.12.06.04.47.26
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 06 Dec 2022 04:47:27 -0800 (PST)
+Received: (nullmailer pid 176446 invoked by uid 1000);
+ Tue, 06 Dec 2022 12:47:26 -0000
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID: zQCowACnx8y+945j3c05BQ--.56942S2
-X-Coremail-Antispam: 1UD129KBjvdXoW7Jw4kAw4rXF45tFyDKryUWrg_yoWDuFc_WF
- 45Cr1DtrW7C3Wvg3Wjywn3Kr10kr9a9F48Xw4kta4fArWavrnrCwsIq3y8Gr13uF1UtFyD
- A3W7try3ArsxAjkaLaAFLSUrUUUUUb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
- 9fnUUIcSsGvfJTRUUUbV8FF20E14v26r4j6ryUM7CY07I20VC2zVCF04k26cxKx2IYs7xG
- 6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4kI8w
- A2z4x0Y4vE2Ix0cI8IcVAFwI0_Gr0_Xr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_Cr0_
- Gr1UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I8E87Iv6xkF7I0E14v26rxl6s
- 0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xII
- jxv20xvE14v26r1Y6r17McIj6I8E87Iv67AKxVW8JVWxJwAm72CE4IkC6x0Yz7v_Jr0_Gr
- 1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7M4IIrI8v6xkF7I0E8cxa
- n2IY04v7MxkIecxEwVAFwVW8ZwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJV
- W8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF
- 1VAFwI0_Jw0_GFylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6x
- IIjxv20xvEc7CjxVAFwI0_Gr0_Cr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvE
- x4A2jsIE14v26r1j6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr0_Gr1UYxBIdaVFxhVjvj
- DU0xZFpf9x0JUsF4iUUUUU=
-X-Originating-IP: [124.16.138.125]
-X-CM-SenderInfo: pmld2xxhqjqxpvfd2hldfou0/
-Subject: [Freedreno] [PATCH] drm/msm/dpu: Add check for cstate
+From: Rob Herring <robh@kernel.org>
+To: Kuogee Hsieh <quic_khsieh@quicinc.com>
+In-Reply-To: <1670281694-13281-3-git-send-email-quic_khsieh@quicinc.com>
+References: <1670281694-13281-1-git-send-email-quic_khsieh@quicinc.com>
+ <1670281694-13281-3-git-send-email-quic_khsieh@quicinc.com>
+Message-Id: <167033052405.165993.699264089064134340.robh@kernel.org>
+Date: Tue, 06 Dec 2022 06:47:26 -0600
+Subject: Re: [Freedreno] [PATCH v9 2/5] dt-bindings: msm/dp: add data-lanes
+ and link-frequencies property
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,39 +65,64 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-arm-msm@vger.kernel.org, Jiasheng Jiang <jiasheng@iscas.ac.cn>,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org
+Cc: vkoul@kernel.org, quic_sbillaka@quicinc.com, dianders@chromium.org,
+ daniel@ffwll.ch, devicetree@vger.kernel.org, airlied@linux.ie, sean@poorly.run,
+ andersson@kernel.org, konrad.dybcio@somainline.org,
+ linux-kernel@vger.kernel.org, robh+dt@kernel.org, quic_abhinavk@quicinc.com,
+ robdclark@gmail.com, agross@kernel.org, dri-devel@lists.freedesktop.org,
+ krzysztof.kozlowski+dt@linaro.org, linux-arm-msm@vger.kernel.org,
+ dmitry.baryshkov@linaro.org, airlied@gmail.com, swboyd@chromium.org,
+ freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-As kzalloc may fail and return NULL pointer,
-it should be better to check cstate
-in order to avoid the NULL pointer dereference
-in __drm_atomic_helper_crtc_reset.
 
-Fixes: 1cff7440a86e ("drm/msm: Convert to using __drm_atomic_helper_crtc_reset() for reset.")
-Signed-off-by: Jiasheng Jiang <jiasheng@iscas.ac.cn>
----
- drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
+On Mon, 05 Dec 2022 15:08:11 -0800, Kuogee Hsieh wrote:
+> Add both data-lanes and link-frequencies property into endpoint
+> 
+> Changes in v7:
+> -- split yaml out of dtsi patch
+> -- link-frequencies from link rate to symbol rate
+> -- deprecation of old data-lanes property
+> 
+> Changes in v8:
+> -- correct Bjorn mail address to kernel.org
+> 
+> Signed-off-by: Kuogee Hsieh <quic_khsieh@quicinc.com>`
+> ---
+>  Documentation/devicetree/bindings/display/msm/dp-controller.yaml | 9 +++++++++
+>  1 file changed, 9 insertions(+)
+> 
 
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
-index 13ce321283ff..22c2787b7b38 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
-@@ -968,7 +968,10 @@ static void dpu_crtc_reset(struct drm_crtc *crtc)
- 	if (crtc->state)
- 		dpu_crtc_destroy_state(crtc, crtc->state);
- 
--	__drm_atomic_helper_crtc_reset(crtc, &cstate->base);
-+	if (cstate)
-+		__drm_atomic_helper_crtc_reset(crtc, &cstate->base);
-+	else
-+		__drm_atomic_helper_crtc_reset(crtc, NULL);
- }
- 
- /**
--- 
-2.25.1
+My bot found errors running 'make DT_CHECKER_FLAGS=-m dt_binding_check'
+on your patch (DT_CHECKER_FLAGS is new in v5.13):
+
+yamllint warnings/errors:
+./Documentation/devicetree/bindings/display/msm/dp-controller.yaml:108:21: [error] syntax error: mapping values are not allowed here (syntax)
+
+dtschema/dtc warnings/errors:
+make[1]: *** Deleting file 'Documentation/devicetree/bindings/display/msm/dp-controller.example.dts'
+Documentation/devicetree/bindings/display/msm/dp-controller.yaml:108:21: mapping values are not allowed here
+make[1]: *** [Documentation/devicetree/bindings/Makefile:26: Documentation/devicetree/bindings/display/msm/dp-controller.example.dts] Error 1
+make[1]: *** Waiting for unfinished jobs....
+./Documentation/devicetree/bindings/display/msm/dp-controller.yaml:108:21: mapping values are not allowed here
+/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/dp-controller.yaml: ignoring, error parsing file
+make: *** [Makefile:1492: dt_binding_check] Error 2
+
+doc reference errors (make refcheckdocs):
+
+See https://patchwork.ozlabs.org/project/devicetree-bindings/patch/1670281694-13281-3-git-send-email-quic_khsieh@quicinc.com
+
+The base for the series is generally the latest rc1. A different dependency
+should be noted in *this* patch.
+
+If you already ran 'make dt_binding_check' and didn't see the above
+error(s), then make sure 'yamllint' is installed and dt-schema is up to
+date:
+
+pip3 install dtschema --upgrade
+
+Please check and re-submit after running the above command yourself. Note
+that DT_SCHEMA_FILES can be set to your schema file to speed up checking
+your schema. However, it must be unset to test all examples with your schema.
 
