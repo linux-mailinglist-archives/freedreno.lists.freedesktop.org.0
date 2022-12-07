@@ -2,73 +2,68 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 70A6364622D
-	for <lists+freedreno@lfdr.de>; Wed,  7 Dec 2022 21:13:30 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 70E9B646391
+	for <lists+freedreno@lfdr.de>; Wed,  7 Dec 2022 23:00:32 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1CF7710E41A;
-	Wed,  7 Dec 2022 20:13:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1CEF310E421;
+	Wed,  7 Dec 2022 22:00:31 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x130.google.com (mail-lf1-x130.google.com
- [IPv6:2a00:1450:4864:20::130])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BCBDB10E41C
- for <freedreno@lists.freedesktop.org>; Wed,  7 Dec 2022 20:13:25 +0000 (UTC)
-Received: by mail-lf1-x130.google.com with SMTP id p36so26080725lfa.12
- for <freedreno@lists.freedesktop.org>; Wed, 07 Dec 2022 12:13:25 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=wVVhjsKNZ110uihq4o15WbXBuFAJxL7HSRoRDMGRsAY=;
- b=D+O6QwDXnzj3Qj99Yu3Iwzt/hjB6AUqp0FkJde2gGViZZGJ+64qxPZsFpe/v/EqHuk
- CFY+5zz1axumiZuHQYIsPVo6Hx9qzvewkgoBSZljEUzdgiLgZg5DvzYcsziTszD/eYrm
- IfhEYjOHK7NoR0yvmyOhjHvtfQlaRoPbqlxbPrVQPZVjJEiok2m/0xZOGTjEOXCZn5K2
- vacTsOd4dI1JQ9XX+N38CXMqhNNycNLFQ7sE8cPsXS58PSZzrM2EXRvNkimexnz8GCOl
- KZu/IoGqobMloRxJCQYYlh/KaQYDV6OOaxaDOfzt9EuDeLsZpmXiKPjfSdFWIyozoKJE
- yNAQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=wVVhjsKNZ110uihq4o15WbXBuFAJxL7HSRoRDMGRsAY=;
- b=ZuiRXiZfipZF9nuAdrG2BY0+kVUu7q6uWqkT62OLO3M6zFK54Q4mRcr4LUdMTYj9LE
- dwd6Kl46Td9cVKPaUlwUWGYrgLXtwdZi35rPNcbdHI7fXtwBF1cTxqN1dIfQMPafYOz0
- OvIoUlqIOMnW5TIbfn2Ckr5LgYrNbVYElCL3+AH+8TZhGRpU0D6afI5Z2Ed1G/nIIoPt
- bqXLMlj9T9fWCOg0e9lPlOX0J1Ja7dLLuuVRLiufiAuQLHGjphkCjB00oRwgklYTwx7C
- TLqNPGc1J/EG3nRBS0fNs9vRtUmUzfUZj/I0bfEBAPRgMZenV23LNAfkik3gSasv8sM2
- taQQ==
-X-Gm-Message-State: ANoB5pnk21zmKvYxzpp6kLcHrIuCJ8pkB4hWIRfbq2QXHQMHwIkUF88q
- hjP7Or56x3L1xD27C1owFdAgfg==
-X-Google-Smtp-Source: AA0mqf7JoScIJJQdmqKUzoSq0YX20EvSrl9WjrveHwsafWCUiTZfwCKztEInSYOc8oM3yv8kYBk3yg==
-X-Received: by 2002:a05:6512:3e23:b0:4b5:8f93:c129 with SMTP id
- i35-20020a0565123e2300b004b58f93c129mr1854617lfv.188.1670444004117; 
- Wed, 07 Dec 2022 12:13:24 -0800 (PST)
-Received: from [10.10.15.130] ([192.130.178.91])
- by smtp.gmail.com with ESMTPSA id
- o17-20020ac24e91000000b004a2550db9ddsm2993654lfr.245.2022.12.07.12.13.23
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 07 Dec 2022 12:13:23 -0800 (PST)
-Message-ID: <d17a595c-9561-1efa-b72e-15c535ef31eb@linaro.org>
-Date: Wed, 7 Dec 2022 22:13:23 +0200
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CE17A10E420;
+ Wed,  7 Dec 2022 22:00:27 +0000 (UTC)
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 2B7KtpkW022795; Wed, 7 Dec 2022 22:00:19 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
+ h=from : to : cc :
+ subject : date : message-id : mime-version : content-type; s=qcppdkim1;
+ bh=JPXoq1IFqoOnCKk5Pmg/8TT1x/drI+wYVh5KWLZu3EI=;
+ b=Z4f3xyfy4hqEVCocoPeBvi+6JQbMoq5nacXQqVg7lxW1vX9tJ38aQJZ4XwNggoLLF8hV
+ YuoGXMV1+aRc4CnRdv4WYDOZBKT907r6bAx5CAmFEEvdM8ZFnK/mZNUREvmIfVpF6awg
+ Gj9V2SkACiNsh9dpIk6cE82h0J9HxTUojWwlovD4tg8H2z+AqSj0CGl9igEKmQOaCI1G
+ U5P1Aa7ScnVNOc3jZecSpJ9OwYgHe4AlovbJ/hhivpcxNFvXR1CF2m5R2xsQg8C2KacF
+ +yP/Eiw4nubuois15x9ewfz7AgLzFRF8LOpvQitx7S47Biupu5Ctmx78k44ye8Vml1q6 XA== 
+Received: from nalasppmta04.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3majt4a5q6-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 07 Dec 2022 22:00:19 +0000
+Received: from nalasex01c.na.qualcomm.com (nalasex01c.na.qualcomm.com
+ [10.47.97.35])
+ by NALASPPMTA04.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 2B7M0Ior027882
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 7 Dec 2022 22:00:18 GMT
+Received: from th-lint-050.qualcomm.com (10.80.80.8) by
+ nalasex01c.na.qualcomm.com (10.47.97.35) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.986.36; Wed, 7 Dec 2022 14:00:17 -0800
+From: Bjorn Andersson <quic_bjorande@quicinc.com>
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Date: Wed, 7 Dec 2022 14:00:00 -0800
+Message-ID: <20221207220012.16529-1-quic_bjorande@quicinc.com>
+X-Mailer: git-send-email 2.17.1
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.5.0
-Content-Language: en-GB
-To: Kuogee Hsieh <quic_khsieh@quicinc.com>, dri-devel@lists.freedesktop.org,
- robdclark@gmail.com, sean@poorly.run, swboyd@chromium.org,
- dianders@chromium.org, vkoul@kernel.org, daniel@ffwll.ch, airlied@linux.ie,
- agross@kernel.org, andersson@kernel.org, konrad.dybcio@somainline.org,
- robh+dt@kernel.org, krzysztof.kozlowski+dt@linaro.org,
- devicetree@vger.kernel.org, airlied@gmail.com
-References: <1670432278-30643-1-git-send-email-quic_khsieh@quicinc.com>
- <1670432278-30643-5-git-send-email-quic_khsieh@quicinc.com>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-In-Reply-To: <1670432278-30643-5-git-send-email-quic_khsieh@quicinc.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH v10 4/5] drm/msm/dp: parser link-frequencies
- as property of dp_out endpoint
+Content-Type: text/plain
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
+ nalasex01c.na.qualcomm.com (10.47.97.35)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-GUID: ifjefZuldzsU08NeFsTk4XpTyOsnVym4
+X-Proofpoint-ORIG-GUID: ifjefZuldzsU08NeFsTk4XpTyOsnVym4
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.205,Aquarius:18.0.923,Hydra:6.0.545,FMLib:17.11.122.1
+ definitions=2022-12-07_11,2022-12-07_01,2022-06-22_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0
+ mlxlogscore=999 bulkscore=0 clxscore=1015 adultscore=0 mlxscore=0
+ priorityscore=1501 impostorscore=0 phishscore=0 spamscore=0 malwarescore=0
+ lowpriorityscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2210170000 definitions=main-2212070186
+Subject: [Freedreno] [PATCH v5 00/12] drm/msm: Add SC8280XP support
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,128 +76,70 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-arm-msm@vger.kernel.org, quic_sbillaka@quicinc.com,
- freedreno@lists.freedesktop.org, quic_abhinavk@quicinc.com,
- linux-kernel@vger.kernel.org
+Cc: Kalyan Thota <quic_kalyant@quicinc.com>, freedreno@lists.freedesktop.org,
+ Sankeerth Billakanti <quic_sbillaka@quicinc.com>, linux-kernel@vger.kernel.org,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ devicetree@vger.kernel.org, Sean Paul <sean@poorly.run>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
+ Kuogee Hsieh <quic_khsieh@quicinc.com>,
+ Konrad Dybcio <konrad.dybcio@linaro.org>, Rob Clark <robdclark@gmail.com>,
+ Rob Herring <robh+dt@kernel.org>, Daniel Vetter <daniel@ffwll.ch>,
+ linux-arm-msm@vger.kernel.org, Jessica Zhang <quic_jesszhan@quicinc.com>,
+ David Airlie <airlied@gmail.com>, Johan Hovold <johan+linaro@kernel.org>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 07/12/2022 18:57, Kuogee Hsieh wrote:
-> Add capability to parser and retrieve max DP link supported rate from
-> link-frequencies property of dp_out endpoint.
-> 
-> Changes in v6:
-> -- second patch after split parser patch into two patches
-> 
-> Changes in v7:
-> -- without checking cnt against DP_MAX_NUM_DP_LANES to retrieve link rate
-> 
-> Changes in v9:
-> -- separate parser link-frequencies out of data-lanes
-> 
-> Changes in v10:
-> -- add dp_parser_link_frequencies()
-> 
-> Signed-off-by: Kuogee Hsieh <quic_khsieh@quicinc.com>
-> ---
->   drivers/gpu/drm/msm/dp/dp_parser.c | 27 +++++++++++++++++++++++++++
->   drivers/gpu/drm/msm/dp/dp_parser.h |  2 ++
->   2 files changed, 29 insertions(+)
-> 
-> diff --git a/drivers/gpu/drm/msm/dp/dp_parser.c b/drivers/gpu/drm/msm/dp/dp_parser.c
-> index b5f7e70..9398abe 100644
-> --- a/drivers/gpu/drm/msm/dp/dp_parser.c
-> +++ b/drivers/gpu/drm/msm/dp/dp_parser.c
-> @@ -91,6 +91,28 @@ static int dp_parser_ctrl_res(struct dp_parser *parser)
->   	return 0;
->   }
->   
-> +static u32 dp_parser_link_frequencies(struct device_node *of_node)
-> +{
-> +	struct device_node *endpoint;
-> +	u64 frequency = 0;
-> +	int cnt = 0;
-> +
-> +	endpoint = of_graph_get_endpoint_by_regs(of_node, 1, 0); /* port@1 */
+This introduces support for the SC8280XP platform in the MDSS, DPU and
+DP driver. It reworks the HDP handling in the DP driver to support
+external HPD sources - such as the dp-connector, or USB Type-C altmode.
 
-if (!endpoint)
-   return -ENODEV; (or 0, as you have u32)
+It then introduces the display clock controllers, mdss, dpu and
+displayport controllers and link everything together, for both the MDSS
+instances on the platform, and lastly enables EDP on the compute
+reference device and 6 of the MiniDP outputs on the automotive
+development platform.
 
-It's much easier IMO.
 
-> +	if (endpoint)
-> +		cnt = of_property_count_u64_elems(endpoint, "link-frequencies");
-> +
-> +	if (cnt > 0) {
-> +		of_property_read_u64_index(endpoint, "link-frequencies",
-> +						cnt - 1, &frequency);
-> +		frequency /= 10;	/* from symbol rate to link rate */
-> +		frequency /= 1000;	/* kbits */
+The patches was previously sent separately, but submitting them together
+here as they (except dts addition) goes in the same tree.
 
-kbytes?
+Bjorn Andersson (12):
+  dt-bindings: display/msm: Add binding for SC8280XP MDSS
+  drm/msm/dpu: Introduce SC8280XP
+  drm/msm: Introduce SC8280XP MDSS
+  dt-bindings: msm/dp: Add SDM845 and SC8280XP compatibles
+  drm/msm/dp: Stop using DP id as index in desc
+  drm/msm/dp: Add DP and EDP compatibles for SC8280XP
+  drm/msm/dp: Add SDM845 DisplayPort instance
+  drm/msm/dp: Rely on hpd_enable/disable callbacks
+  drm/msm/dp: Implement hpd_notify()
+  arm64: dts: qcom: sc8280xp: Define some of the display blocks
+  arm64: dts: qcom: sc8280xp-crd: Enable EDP
+  arm64: dts: qcom: sa8295-adp: Enable DP instances
 
-> +	}
-> +
-> +	of_node_put(endpoint);
-
-Even easier:
-
-cnt = of_property_count(...);
-if (cnt > 0)
-     of_property_read_u64_index(...);
-of_node_put(endpoint);
-
-frequency /= 10;
-frequency /= 1000;
-
-return frequency;
-
-> +
-> +	return (u32)frequency;
-> +}
-> +
->   static int dp_parser_misc(struct dp_parser *parser)
->   {
->   	struct device_node *of_node = parser->pdev->dev.of_node;
-> @@ -113,6 +135,11 @@ static int dp_parser_misc(struct dp_parser *parser)
->   			parser->max_dp_lanes = DP_MAX_NUM_DP_LANES; /* 4 lanes */
->   	}
->   
-> +	parser->max_dp_link_rate = dp_parser_link_frequencies(of_node);
-> +
-
-Drop the empty line please. The if checks the result of the previous 
-assignment. It's easier to comprehend if they visually belong to the 
-same code block.
-
-> +	if (!parser->max_dp_link_rate)
-> +                parser->max_dp_link_rate = DP_LINK_RATE_HBR2; /* 540000 khz */
-> +
->   	return 0;
->   }
->   
-> diff --git a/drivers/gpu/drm/msm/dp/dp_parser.h b/drivers/gpu/drm/msm/dp/dp_parser.h
-> index 866c1a8..6b10c3e 100644
-> --- a/drivers/gpu/drm/msm/dp/dp_parser.h
-> +++ b/drivers/gpu/drm/msm/dp/dp_parser.h
-> @@ -15,6 +15,7 @@
->   #define DP_LABEL "MDSS DP DISPLAY"
->   #define DP_MAX_PIXEL_CLK_KHZ	675000
->   #define DP_MAX_NUM_DP_LANES	4
-> +#define DP_LINK_RATE_HBR2	540000 /* khz */
->   
->   enum dp_pm_type {
->   	DP_CORE_PM,
-> @@ -119,6 +120,7 @@ struct dp_parser {
->   	struct dp_io io;
->   	struct dp_display_data disp_data;
->   	u32 max_dp_lanes;
-> +	u32 max_dp_link_rate;
->   	struct drm_bridge *next_bridge;
->   
->   	int (*parse)(struct dp_parser *parser);
+ .../bindings/display/msm/dp-controller.yaml   |   3 +
+ .../display/msm/qcom,sc8280xp-dpu.yaml        | 122 +++
+ .../display/msm/qcom,sc8280xp-mdss.yaml       | 143 +++
+ arch/arm64/boot/dts/qcom/sa8295p-adp.dts      | 243 ++++-
+ arch/arm64/boot/dts/qcom/sc8280xp-crd.dts     |  72 +-
+ arch/arm64/boot/dts/qcom/sc8280xp.dtsi        | 838 ++++++++++++++++++
+ .../gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c    | 217 +++++
+ .../gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h    |   1 +
+ .../gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c |  18 +
+ .../gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.h |   3 +
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_mdss.h   |   2 +
+ drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c       |   1 +
+ drivers/gpu/drm/msm/dp/dp_display.c           | 151 ++--
+ drivers/gpu/drm/msm/dp/dp_display.h           |   1 +
+ drivers/gpu/drm/msm/dp/dp_drm.c               |   3 +
+ drivers/gpu/drm/msm/dp/dp_drm.h               |   4 +
+ drivers/gpu/drm/msm/msm_drv.h                 |   1 +
+ drivers/gpu/drm/msm/msm_mdss.c                |   4 +
+ 18 files changed, 1770 insertions(+), 57 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/display/msm/qcom,sc8280xp-dpu.yaml
+ create mode 100644 Documentation/devicetree/bindings/display/msm/qcom,sc8280xp-mdss.yaml
 
 -- 
-With best wishes
-Dmitry
+2.37.3
 
