@@ -1,57 +1,69 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2054064643F
-	for <lists+freedreno@lfdr.de>; Wed,  7 Dec 2022 23:47:37 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id E7A9564651F
+	for <lists+freedreno@lfdr.de>; Thu,  8 Dec 2022 00:30:57 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B54A910E42E;
-	Wed,  7 Dec 2022 22:47:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8CF1D10E42E;
+	Wed,  7 Dec 2022 23:30:56 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-oi1-f180.google.com (mail-oi1-f180.google.com
- [209.85.167.180])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 34AE410E42E;
- Wed,  7 Dec 2022 22:47:21 +0000 (UTC)
-Received: by mail-oi1-f180.google.com with SMTP id t62so22384800oib.12;
- Wed, 07 Dec 2022 14:47:21 -0800 (PST)
+Received: from mail-lj1-x233.google.com (mail-lj1-x233.google.com
+ [IPv6:2a00:1450:4864:20::233])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5A76810E42E
+ for <freedreno@lists.freedesktop.org>; Wed,  7 Dec 2022 23:30:51 +0000 (UTC)
+Received: by mail-lj1-x233.google.com with SMTP id f20so9461996lja.4
+ for <freedreno@lists.freedesktop.org>; Wed, 07 Dec 2022 15:30:51 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=cCy2Oynps+usLlSqo5MKgBsH0XBjtXporBPmYeMsTLw=;
+ b=LnK3kJU0TS633BxPFn1ZNY1SWTM4AuFmGvDxnA8qwVFmdCTj3MEdmPUKHbESast9XQ
+ MKIiRy+cthbV8CcyjLhGzbAPiHFvlem7yorV+z+u9ILLkxAWA8Ah4ZcAh9Mv9Mg/sPir
+ 7WfUOepVnRXp0s0IiRZq4Z/ZucGERD4vRj5yDeY+Bg42Am+ks1I0vrJywvRXgk/WZmXk
+ pVN5XmKYoZgwCVn3GCohyxtKqcJz6okakxCmV7cZqcFau+0ertQwejroFEzjmPUMvLW9
+ j2A/F7dbkD7MlzcPRsa3yoMlOOpLh+MdrAd+K1RynWGr+9nBbQ3Y1BWss6tUdoplMzSA
+ UUDw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=date:subject:message-id:references:in-reply-to:cc:to:from
- :mime-version:content-transfer-encoding:x-gm-message-state:from:to
- :cc:subject:date:message-id:reply-to;
- bh=5cRmcqMTQRbqCVVPhtzGwVwk+S86YVEqZnamcUPsWuw=;
- b=5z3NinMSM5t1QzGAqYFDvc4V8C3kj0I26bojFJ7ef6pZc4biB3Q6+d89cDCw6qg9dJ
- X69b2mxU54opP5S1U8uIBX0fGfaAUNzJFuMlStrXgI4Ctmm3ZkQtqdc3OWfFws+pGPoV
- xcJHOcqpgXrHOSAmDx3F3pGACV9hoXNsiOnQUKE456NymPrAXxcV2JBucSanF4so7OoJ
- 0hx8/B9Ew4l4SwmW3+FkUgoyKW9k1MvBE6te1HLOag+u3FIDPYSTz6Ud78wX0vbYY4+0
- Ik4yWVsltoA5qdHYGFiaHBoO1f45SMYCX3e5aH67JxmGWjwGmUdsywYn1f9pozhl5+Cb
- ujxg==
-X-Gm-Message-State: ANoB5pn2NNC+XTSf7RmAgfZ18gytnoTP2k0tXfUEr/uD3oc2IyvhBVM9
- 23ubNvaTw35WNhTRYNk0aV46HZCapQ==
-X-Google-Smtp-Source: AA0mqf5UlSOz+vfnlBDLHjJdPNx/RAAKOFNV0hMbjpB8wdnbtdb+4ZbqIsJvE/QfEIFpIlrXEl8IaQ==
-X-Received: by 2002:a54:4506:0:b0:35b:9cc2:bfa7 with SMTP id
- l6-20020a544506000000b0035b9cc2bfa7mr26513888oil.263.1670453240350; 
- Wed, 07 Dec 2022 14:47:20 -0800 (PST)
-Received: from robh_at_kernel.org (66-90-144-107.dyn.grandenetworks.net.
- [66.90.144.107]) by smtp.gmail.com with ESMTPSA id
- d15-20020a056830138f00b0066e64c59bbcsm10705775otq.6.2022.12.07.14.47.19
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 07 Dec 2022 14:47:19 -0800 (PST)
-Received: (nullmailer pid 3099979 invoked by uid 1000);
- Wed, 07 Dec 2022 22:47:18 -0000
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=cCy2Oynps+usLlSqo5MKgBsH0XBjtXporBPmYeMsTLw=;
+ b=ih3KeyGPiBNmPpaY+qHs01FOXX/yLBXZvBDQFbk4LoyXlwa4saMbOCWTc3aum08B0F
+ 1tMVGWJUSUcAdmNRxGBNiUCm2qLthKBaVCvZqJ5LBdg07alcXjUj0rKRHS9tVLYoduPH
+ O5REGWNzF+bHhPkWtPDOuRyKfWfGS/j36S5Z+2TsTcemTXuO/vq994PPzuSe9fafCaDR
+ 7XSrB9TexmxiNP9Esj3pe0qPYbpwrj7psuFlyq9aKWAwr32Qs62B3Z4zZCfJ22PEEs2h
+ 8oZ+r2B8QiRiHer+TqDdIvKggN1b3hJv1g5CQPqRoEOyMHfQ2ck3yKBqhWMdU7zjdoFf
+ P2DA==
+X-Gm-Message-State: ANoB5pntiIg0oH/MoMxYJHBA/qPIsvSaHOhRhhvKS0lWcoWja9G+V/0E
+ B93WrzoKhlSOuePaA3XEBG61GA==
+X-Google-Smtp-Source: AA0mqf5Hg/AtPjCgCvfnCKNswL/KM0uv8sg7P5kVGrchRPVVGJIYTgKpXDXs4HQY6rXA/qV+AqZ+Bw==
+X-Received: by 2002:a2e:9415:0:b0:279:82f1:f858 with SMTP id
+ i21-20020a2e9415000000b0027982f1f858mr18794077ljh.336.1670455849430; 
+ Wed, 07 Dec 2022 15:30:49 -0800 (PST)
+Received: from ?IPV6:2001:14ba:a085:4d00::8a5?
+ (dzccz6yyyyyyyyyyybcwt-3.rev.dnainternet.fi. [2001:14ba:a085:4d00::8a5])
+ by smtp.gmail.com with ESMTPSA id
+ 6-20020ac25f06000000b00498fbec3f8asm3074376lfq.129.2022.12.07.15.30.48
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 07 Dec 2022 15:30:48 -0800 (PST)
+Message-ID: <26d8c71b-d555-be3d-06b6-7bad0f5f6948@linaro.org>
+Date: Thu, 8 Dec 2022 01:30:48 +0200
 MIME-Version: 1.0
-From: Rob Herring <robh@kernel.org>
-To: Kuogee Hsieh <quic_khsieh@quicinc.com>
-In-Reply-To: <1670432278-30643-3-git-send-email-quic_khsieh@quicinc.com>
-References: <1670432278-30643-1-git-send-email-quic_khsieh@quicinc.com>
- <1670432278-30643-3-git-send-email-quic_khsieh@quicinc.com>
-Message-Id: <167045316457.3098064.10722096707360943971.robh@kernel.org>
-Date: Wed, 07 Dec 2022 16:47:18 -0600
-Subject: Re: [Freedreno] [PATCH v10 2/5] dt-bindings: msm/dp: add data-lanes
- and link-frequencies property
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.5.0
+Content-Language: en-GB
+To: Bjorn Andersson <quic_bjorande@quicinc.com>
+References: <20221207220012.16529-1-quic_bjorande@quicinc.com>
+ <20221207220012.16529-3-quic_bjorande@quicinc.com>
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+In-Reply-To: <20221207220012.16529-3-quic_bjorande@quicinc.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Subject: Re: [Freedreno] [PATCH v5 02/12] drm/msm/dpu: Introduce SC8280XP
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,67 +76,40 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: devicetree@vger.kernel.org, quic_sbillaka@quicinc.com,
- dianders@chromium.org, krzysztof.kozlowski+dt@linaro.org, vkoul@kernel.org,
- airlied@linux.ie, linux-arm-msm@vger.kernel.org, andersson@kernel.org,
- konrad.dybcio@somainline.org, quic_abhinavk@quicinc.com,
- dri-devel@lists.freedesktop.org, swboyd@chromium.org, robh+dt@kernel.org,
- robdclark@gmail.com, agross@kernel.org, daniel@ffwll.ch,
- dmitry.baryshkov@linaro.org, airlied@gmail.com,
- freedreno@lists.freedesktop.org, sean@poorly.run, linux-kernel@vger.kernel.org
+Cc: Kalyan Thota <quic_kalyant@quicinc.com>, freedreno@lists.freedesktop.org,
+ Sankeerth Billakanti <quic_sbillaka@quicinc.com>, linux-kernel@vger.kernel.org,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ devicetree@vger.kernel.org, Sean Paul <sean@poorly.run>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
+ Kuogee Hsieh <quic_khsieh@quicinc.com>,
+ Konrad Dybcio <konrad.dybcio@linaro.org>, Rob Clark <robdclark@gmail.com>,
+ Rob Herring <robh+dt@kernel.org>, Daniel Vetter <daniel@ffwll.ch>,
+ linux-arm-msm@vger.kernel.org, Jessica Zhang <quic_jesszhan@quicinc.com>,
+ David Airlie <airlied@gmail.com>, Johan Hovold <johan+linaro@kernel.org>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-
-On Wed, 07 Dec 2022 08:57:55 -0800, Kuogee Hsieh wrote:
-> Add both data-lanes and link-frequencies property into endpoint
+On 08/12/2022 00:00, Bjorn Andersson wrote:
+> From: Bjorn Andersson <bjorn.andersson@linaro.org>
 > 
-> Changes in v7:
-> -- split yaml out of dtsi patch
-> -- link-frequencies from link rate to symbol rate
-> -- deprecation of old data-lanes property
+> The Qualcomm SC8280XP platform contains DPU version 8.0.0, has 9
+> interfaces, 2 DSI controllers and 4 DisplayPort controllers. Extend the
+> necessary definitions and describe the DPU in the SC8280XP.
 > 
-> Changes in v8:
-> -- correct Bjorn mail address to kernel.org
-> 
-> Changes in v10:
-> -- add menu item to data-lanes and link-frequecnis
-> 
-> Signed-off-by: Kuogee Hsieh <quic_khsieh@quicinc.com>`
+> Signed-off-by: Bjorn Andersson <bjorn.andersson@linaro.org>
+> Signed-off-by: Bjorn Andersson <quic_bjorande@quicinc.com>
 > ---
->  .../devicetree/bindings/display/msm/dp-controller.yaml      | 13 +++++++++++++
->  1 file changed, 13 insertions(+)
+> 
+> Changes since v4:
+> - Fix highest_bank_bit, based on downstream
+> - Add ubwc_swizzle
+> - Use CTL_SC7280_MASK instead of listing the bits directly
 > 
 
-My bot found errors running 'make DT_CHECKER_FLAGS=-m dt_binding_check'
-on your patch (DT_CHECKER_FLAGS is new in v5.13):
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 
-yamllint warnings/errors:
-./Documentation/devicetree/bindings/display/msm/dp-controller.yaml:108:21: [error] syntax error: mapping values are not allowed here (syntax)
-
-dtschema/dtc warnings/errors:
-make[1]: *** Deleting file 'Documentation/devicetree/bindings/display/msm/dp-controller.example.dts'
-Documentation/devicetree/bindings/display/msm/dp-controller.yaml:108:21: mapping values are not allowed in this context
-make[1]: *** [Documentation/devicetree/bindings/Makefile:26: Documentation/devicetree/bindings/display/msm/dp-controller.example.dts] Error 1
-make[1]: *** Waiting for unfinished jobs....
-./Documentation/devicetree/bindings/display/msm/dp-controller.yaml:108:21: mapping values are not allowed in this context
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/dp-controller.yaml: ignoring, error parsing file
-make: *** [Makefile:1492: dt_binding_check] Error 2
-
-doc reference errors (make refcheckdocs):
-
-See https://patchwork.ozlabs.org/project/devicetree-bindings/patch/1670432278-30643-3-git-send-email-quic_khsieh@quicinc.com
-
-The base for the series is generally the latest rc1. A different dependency
-should be noted in *this* patch.
-
-If you already ran 'make dt_binding_check' and didn't see the above
-error(s), then make sure 'yamllint' is installed and dt-schema is up to
-date:
-
-pip3 install dtschema --upgrade
-
-Please check and re-submit after running the above command yourself. Note
-that DT_SCHEMA_FILES can be set to your schema file to speed up checking
-your schema. However, it must be unset to test all examples with your schema.
+-- 
+With best wishes
+Dmitry
 
