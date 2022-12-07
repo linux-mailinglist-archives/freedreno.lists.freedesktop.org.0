@@ -1,69 +1,80 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id E7A9564651F
-	for <lists+freedreno@lfdr.de>; Thu,  8 Dec 2022 00:30:57 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 74B24646538
+	for <lists+freedreno@lfdr.de>; Thu,  8 Dec 2022 00:40:02 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8CF1D10E42E;
-	Wed,  7 Dec 2022 23:30:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1F8D210E426;
+	Wed,  7 Dec 2022 23:40:01 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-x233.google.com (mail-lj1-x233.google.com
- [IPv6:2a00:1450:4864:20::233])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5A76810E42E
- for <freedreno@lists.freedesktop.org>; Wed,  7 Dec 2022 23:30:51 +0000 (UTC)
-Received: by mail-lj1-x233.google.com with SMTP id f20so9461996lja.4
- for <freedreno@lists.freedesktop.org>; Wed, 07 Dec 2022 15:30:51 -0800 (PST)
+Received: from mail-lf1-x130.google.com (mail-lf1-x130.google.com
+ [IPv6:2a00:1450:4864:20::130])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AD9EE10E045
+ for <freedreno@lists.freedesktop.org>; Wed,  7 Dec 2022 23:39:54 +0000 (UTC)
+Received: by mail-lf1-x130.google.com with SMTP id 1so17523614lfz.4
+ for <freedreno@lists.freedesktop.org>; Wed, 07 Dec 2022 15:39:54 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ h=content-transfer-encoding:in-reply-to:from:references:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :from:to:cc:subject:date:message-id:reply-to;
- bh=cCy2Oynps+usLlSqo5MKgBsH0XBjtXporBPmYeMsTLw=;
- b=LnK3kJU0TS633BxPFn1ZNY1SWTM4AuFmGvDxnA8qwVFmdCTj3MEdmPUKHbESast9XQ
- MKIiRy+cthbV8CcyjLhGzbAPiHFvlem7yorV+z+u9ILLkxAWA8Ah4ZcAh9Mv9Mg/sPir
- 7WfUOepVnRXp0s0IiRZq4Z/ZucGERD4vRj5yDeY+Bg42Am+ks1I0vrJywvRXgk/WZmXk
- pVN5XmKYoZgwCVn3GCohyxtKqcJz6okakxCmV7cZqcFau+0ertQwejroFEzjmPUMvLW9
- j2A/F7dbkD7MlzcPRsa3yoMlOOpLh+MdrAd+K1RynWGr+9nBbQ3Y1BWss6tUdoplMzSA
- UUDw==
+ bh=sQsKIcCdzyM/hxU1vTX53YJsTECfqz+4juz8Z09tavk=;
+ b=vQ2MR+tZcIQSqQjlGjX9cVvOPW3/tzWzG2hBBwVvrMi1/Jx3jmPn6ctF0fLvWWaH/E
+ Rjut/gAv42bmDxKnPSLyMSyu2260o5unY+9Nobtb3G0RkxXl5mwOdcfQdbbZLFy1JNLZ
+ PYjH6Af5L8Wah9K/SCXBrr/Ea5ILGRiaHwb3plkzRCdDs+gWZxrFYdH4mlDYXvW9Yc95
+ q0p7zhsxubXkF/GZuv4v2qcw/JH6Yjf2wFUohcHn8kddfWmLzRMeSUcbK+ntrLUXrIuH
+ 3GMhPQjnRBI3utbH262STK+SpbbBJNEGfNbsrhEQoc5kI7TZ9iajV2TuVt16v5pj1Ttb
+ J17Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ h=content-transfer-encoding:in-reply-to:from:references:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=cCy2Oynps+usLlSqo5MKgBsH0XBjtXporBPmYeMsTLw=;
- b=ih3KeyGPiBNmPpaY+qHs01FOXX/yLBXZvBDQFbk4LoyXlwa4saMbOCWTc3aum08B0F
- 1tMVGWJUSUcAdmNRxGBNiUCm2qLthKBaVCvZqJ5LBdg07alcXjUj0rKRHS9tVLYoduPH
- O5REGWNzF+bHhPkWtPDOuRyKfWfGS/j36S5Z+2TsTcemTXuO/vq994PPzuSe9fafCaDR
- 7XSrB9TexmxiNP9Esj3pe0qPYbpwrj7psuFlyq9aKWAwr32Qs62B3Z4zZCfJ22PEEs2h
- 8oZ+r2B8QiRiHer+TqDdIvKggN1b3hJv1g5CQPqRoEOyMHfQ2ck3yKBqhWMdU7zjdoFf
- P2DA==
-X-Gm-Message-State: ANoB5pntiIg0oH/MoMxYJHBA/qPIsvSaHOhRhhvKS0lWcoWja9G+V/0E
- B93WrzoKhlSOuePaA3XEBG61GA==
-X-Google-Smtp-Source: AA0mqf5Hg/AtPjCgCvfnCKNswL/KM0uv8sg7P5kVGrchRPVVGJIYTgKpXDXs4HQY6rXA/qV+AqZ+Bw==
-X-Received: by 2002:a2e:9415:0:b0:279:82f1:f858 with SMTP id
- i21-20020a2e9415000000b0027982f1f858mr18794077ljh.336.1670455849430; 
- Wed, 07 Dec 2022 15:30:49 -0800 (PST)
+ bh=sQsKIcCdzyM/hxU1vTX53YJsTECfqz+4juz8Z09tavk=;
+ b=6HFkwtbsuQH6Z/gjJNRguUmlznPzoRD4wZSEPPJ0u5G0191VfgcKAPoVQOjZFRQN94
+ 32Yy+hdrl64OSHXfqFMbbMeRDORIBhGCUY1ACl8WeOIsqJrXQAZSv79eHoasv+4rsCg5
+ QodOMex2HstuCJJXD/z3X64VHOhsIiqVtksL9dsMprnoUAO8YcdI2NmXE3ztoT1YNEH0
+ L+hRb+IDv76t6kIMxeSggaJ1SVJ1ViG1YSRo2X6hmLSrjMzS9vtxV+32tNFn3O05E19g
+ LAL4n7IReF+51YwUG9RZ/zSs0mQqgOoblehvm9ChGyz2QPFEl/h2vm1CxQD0BOyWQWlg
+ Z71w==
+X-Gm-Message-State: ANoB5pm28k3PzlfLLzPAYDdlxMBNXLvl/qq/66Lxt5jPm+kYmSj2j3NJ
+ g79iKhxBPFDkNLoElSXSkibHwg==
+X-Google-Smtp-Source: AA0mqf5qNWE7YV82uGi1hd/CZolTO0wo/632z+Sben7CoWeguGZ29Lp0/Gy1NzncQmdwAIYohdbrFg==
+X-Received: by 2002:a19:ca15:0:b0:4b5:9845:c89f with SMTP id
+ a21-20020a19ca15000000b004b59845c89fmr923833lfg.127.1670456393030; 
+ Wed, 07 Dec 2022 15:39:53 -0800 (PST)
 Received: from ?IPV6:2001:14ba:a085:4d00::8a5?
  (dzccz6yyyyyyyyyyybcwt-3.rev.dnainternet.fi. [2001:14ba:a085:4d00::8a5])
  by smtp.gmail.com with ESMTPSA id
- 6-20020ac25f06000000b00498fbec3f8asm3074376lfq.129.2022.12.07.15.30.48
+ l1-20020a19c201000000b004b5831b69dcsm914414lfc.140.2022.12.07.15.39.51
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 07 Dec 2022 15:30:48 -0800 (PST)
-Message-ID: <26d8c71b-d555-be3d-06b6-7bad0f5f6948@linaro.org>
-Date: Thu, 8 Dec 2022 01:30:48 +0200
+ Wed, 07 Dec 2022 15:39:52 -0800 (PST)
+Message-ID: <4a9621e8-e95d-d74f-5740-8d7810853bd2@linaro.org>
+Date: Thu, 8 Dec 2022 01:39:51 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.5.0
 Content-Language: en-GB
-To: Bjorn Andersson <quic_bjorande@quicinc.com>
-References: <20221207220012.16529-1-quic_bjorande@quicinc.com>
- <20221207220012.16529-3-quic_bjorande@quicinc.com>
+To: Robert Foss <robert.foss@linaro.org>, robdclark@gmail.com,
+ quic_abhinavk@quicinc.com, sean@poorly.run, airlied@linux.ie,
+ daniel@ffwll.ch, robh+dt@kernel.org, krzysztof.kozlowski+dt@linaro.org,
+ agross@kernel.org, bjorn.andersson@linaro.org, konrad.dybcio@somainline.org,
+ quic_kalyant@quicinc.com, angelogioacchino.delregno@somainline.org,
+ loic.poulain@linaro.org, swboyd@chromium.org, quic_vpolimer@quicinc.com,
+ vkoul@kernel.org, dianders@chromium.org, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Jonathan Marek <jonathan@marek.ca>, vinod.koul@linaro.org,
+ quic_jesszhan@quicinc.com, andersson@kernel.org
+References: <20221205163754.221139-1-robert.foss@linaro.org>
+ <20221205163754.221139-4-robert.foss@linaro.org>
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-In-Reply-To: <20221207220012.16529-3-quic_bjorande@quicinc.com>
+In-Reply-To: <20221205163754.221139-4-robert.foss@linaro.org>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH v5 02/12] drm/msm/dpu: Introduce SC8280XP
+Subject: Re: [Freedreno] [PATCH v3 03/11] drm/msm/dpu: Add SM8350 to hw
+ catalog
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,38 +87,102 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Kalyan Thota <quic_kalyant@quicinc.com>, freedreno@lists.freedesktop.org,
- Sankeerth Billakanti <quic_sbillaka@quicinc.com>, linux-kernel@vger.kernel.org,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- devicetree@vger.kernel.org, Sean Paul <sean@poorly.run>,
- Bjorn Andersson <andersson@kernel.org>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
- Kuogee Hsieh <quic_khsieh@quicinc.com>,
- Konrad Dybcio <konrad.dybcio@linaro.org>, Rob Clark <robdclark@gmail.com>,
- Rob Herring <robh+dt@kernel.org>, Daniel Vetter <daniel@ffwll.ch>,
- linux-arm-msm@vger.kernel.org, Jessica Zhang <quic_jesszhan@quicinc.com>,
- David Airlie <airlied@gmail.com>, Johan Hovold <johan+linaro@kernel.org>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 08/12/2022 00:00, Bjorn Andersson wrote:
-> From: Bjorn Andersson <bjorn.andersson@linaro.org>
+On 05/12/2022 18:37, Robert Foss wrote:
+> Add compatibility for SM8350 display subsystem, including
+> required entries in DPU hw catalog.
 > 
-> The Qualcomm SC8280XP platform contains DPU version 8.0.0, has 9
-> interfaces, 2 DSI controllers and 4 DisplayPort controllers. Extend the
-> necessary definitions and describe the DPU in the SC8280XP.
-> 
-> Signed-off-by: Bjorn Andersson <bjorn.andersson@linaro.org>
-> Signed-off-by: Bjorn Andersson <quic_bjorande@quicinc.com>
-> ---
-> 
-> Changes since v4:
-> - Fix highest_bank_bit, based on downstream
-> - Add ubwc_swizzle
-> - Use CTL_SC7280_MASK instead of listing the bits directly
-> 
+> Signed-off-by: Robert Foss <robert.foss@linaro.org>
 
 Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+
+Minor nit below.
+
+> ---
+>   .../gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c    | 196 ++++++++++++++++++
+>   .../gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h    |   1 +
+>   2 files changed, 197 insertions(+)
+> 
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
+> index 4dac90ee5b8a..ba26af73be53 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
+> @@ -112,6 +112,15 @@
+>   			 BIT(MDP_INTF3_INTR) | \
+>   			 BIT(MDP_INTF4_INTR))
+>   
+> +#define IRQ_SM8350_MASK (BIT(MDP_SSPP_TOP0_INTR) | \
+> +			 BIT(MDP_SSPP_TOP0_INTR2) | \
+> +			 BIT(MDP_SSPP_TOP0_HIST_INTR) | \
+> +			 BIT(MDP_INTF0_7xxx_INTR) | \
+> +			 BIT(MDP_INTF1_7xxx_INTR) | \
+> +			 BIT(MDP_INTF2_7xxx_INTR) | \
+> +			 BIT(MDP_INTF3_7xxx_INTR) | \
+> +			 0)
+> +
+>   #define IRQ_SC8180X_MASK (BIT(MDP_SSPP_TOP0_INTR) | \
+>   			  BIT(MDP_SSPP_TOP0_INTR2) | \
+>   			  BIT(MDP_SSPP_TOP0_HIST_INTR) | \
+> @@ -375,6 +384,20 @@ static const struct dpu_caps sm8250_dpu_caps = {
+>   	.pixel_ram_size = DEFAULT_PIXEL_RAM_SIZE,
+>   };
+>   
+> +static const struct dpu_caps sm8350_dpu_caps = {
+> +	.max_mixer_width = DEFAULT_DPU_OUTPUT_LINE_WIDTH,
+> +	.max_mixer_blendstages = 0xb,
+> +	.qseed_type = DPU_SSPP_SCALER_QSEED3LITE,
+> +	.smart_dma_rev = DPU_SSPP_SMART_DMA_V2, /* TODO: v2.5 */
+> +	.ubwc_version = DPU_HW_UBWC_VER_40,
+> +	.has_src_split = true,
+> +	.has_dim_layer = true,
+> +	.has_idle_pc = true,
+> +	.has_3d_merge = true,
+> +	.max_linewidth = 4096,
+> +	.pixel_ram_size = DEFAULT_PIXEL_RAM_SIZE,
+> +};
+> +
+>   static const struct dpu_caps sm8450_dpu_caps = {
+>   	.max_mixer_width = DEFAULT_DPU_OUTPUT_LINE_WIDTH,
+>   	.max_mixer_blendstages = 0xb,
+> @@ -526,6 +549,33 @@ static const struct dpu_mdp_cfg sm8250_mdp[] = {
+>   	},
+>   };
+>   
+> +static const struct dpu_mdp_cfg sm8350_mdp[] = {
+> +	{
+> +	.name = "top_0", .id = MDP_TOP,
+> +	.base = 0x0, .len = 0x494,
+> +	.features = 0,
+> +	.highest_bank_bit = 0x3, /* TODO: 2 for LP_DDR4 */
+
+Missing ubwc_swizzle. I'll probably fix it as a followup or when 
+applying the patch.
+
+> +	.clk_ctrls[DPU_CLK_CTRL_VIG0] = {
+> +			.reg_off = 0x2ac, .bit_off = 0},
+> +	.clk_ctrls[DPU_CLK_CTRL_VIG1] = {
+> +			.reg_off = 0x2b4, .bit_off = 0},
+> +	.clk_ctrls[DPU_CLK_CTRL_VIG2] = {
+> +			.reg_off = 0x2bc, .bit_off = 0},
+> +	.clk_ctrls[DPU_CLK_CTRL_VIG3] = {
+> +			.reg_off = 0x2c4, .bit_off = 0},
+> +	.clk_ctrls[DPU_CLK_CTRL_DMA0] = {
+> +			.reg_off = 0x2ac, .bit_off = 8},
+> +	.clk_ctrls[DPU_CLK_CTRL_DMA1] = {
+> +			.reg_off = 0x2b4, .bit_off = 8},
+> +	.clk_ctrls[DPU_CLK_CTRL_CURSOR0] = {
+> +			.reg_off = 0x2bc, .bit_off = 8},
+> +	.clk_ctrls[DPU_CLK_CTRL_CURSOR1] = {
+> +			.reg_off = 0x2c4, .bit_off = 8},
+> +	.clk_ctrls[DPU_CLK_CTRL_REG_DMA] = {
+> +			.reg_off = 0x2bc, .bit_off = 20},
+> +	},
+> +};
+> +
+
+>   
 
 -- 
 With best wishes
