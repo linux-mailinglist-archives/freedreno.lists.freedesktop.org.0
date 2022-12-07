@@ -2,68 +2,67 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5D397645132
-	for <lists+freedreno@lfdr.de>; Wed,  7 Dec 2022 02:28:33 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 82A2964544C
+	for <lists+freedreno@lfdr.de>; Wed,  7 Dec 2022 07:59:39 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AC9EF10E17B;
-	Wed,  7 Dec 2022 01:28:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5E2FF10E14F;
+	Wed,  7 Dec 2022 06:59:37 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x132.google.com (mail-lf1-x132.google.com
- [IPv6:2a00:1450:4864:20::132])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C7A4C10E17B
- for <freedreno@lists.freedesktop.org>; Wed,  7 Dec 2022 01:28:10 +0000 (UTC)
-Received: by mail-lf1-x132.google.com with SMTP id 1so12798896lfz.4
- for <freedreno@lists.freedesktop.org>; Tue, 06 Dec 2022 17:28:10 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=usZC8CFKIGNnvjFpBH+SET7VsIUOeyE2acRZh0YmuAw=;
- b=sfndZZ8LPJdrMvH71iPAy6zfrtiZRSGV1kuYFJQVisH20EjFlZyBt0qbSiF7M1ZCE3
- Ad0zmflQQJqNlTlziMyiYQdRalgMHFJn+FAKbM9xRwdpI7YB3EFGbyOKyLPBrD29sWwW
- ABGMADJE/XL7HxA/P8hU22at5gMewpcKhdTzfIQRuu/YYb2O/3qNfDNzr1WZeDbDxzx5
- IeZ+FtNX/Y/gj+YDQIR62AhuCKucelw0wDjFCRyHS3Lu63cy2kZrhte/FKv4XT9FFUTg
- V2QCCGQF/lehjLJsnfRriVswxolFkGmth0okcgh69dd3uP0hifKZhcHoFQMSNlSAbam5
- AT4A==
+Received: from mail-pl1-x62e.google.com (mail-pl1-x62e.google.com
+ [IPv6:2607:f8b0:4864:20::62e])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3867A10E0C2;
+ Wed,  7 Dec 2022 06:59:34 +0000 (UTC)
+Received: by mail-pl1-x62e.google.com with SMTP id p24so16221234plw.1;
+ Tue, 06 Dec 2022 22:59:34 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=URJLtETWn+YZV56sYZN2y9Ammv06Km5wjcz9Xfa36wA=;
+ b=lBKqGEScVr/kOYKmMuclGkO9cibboL2kFQ5OW7GPQGtifD5zo2uyHZcJ6yi5AJ4YAD
+ NooMxx80w9ItHZM2XHVzTUxK3+UGh+Vl+Y4H8VZYum6RJuL5jTWIQVRZ5axYjsXnrkO0
+ QO0EgX2CXhC0MOZvtHfobb/n4Bg+Gu/pQ7E619gb7VORVJnKjTdeLd+i67FMj1hour71
+ L7dOkmXXWUsc1YGY7Pz8hFqPGZEtn8PMoDr2VCiq6Mtwy/LUAL5tuFez/d20X06qURi2
+ bGBt4UMmlvBQrUHE0RSeqwbpHOjH+Gw6HAQEc0vsN1Mbfgqdzp3bgFE3BGmo9n7b7Js9
+ dJvg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=usZC8CFKIGNnvjFpBH+SET7VsIUOeyE2acRZh0YmuAw=;
- b=y0p22Aiyn6RMOJ24UM3phDMtCWqIcNv3PGvSKZBp81mOsTaWtzZ5lKORUbH6GA6U+2
- orYQEynndNeBZqrHPYzxuACsZQfPK5R7/56N2EsGzhurZrse//ZIyNIlFW6WftLUWAYQ
- h8EeBzyr9GNKHPIkeO218UVnA53UwI9ipOwf7Z652HLGvdHPa5Vp5HuH8rEV/FMUl2K0
- a4cjzg/fAQCRpoT3pGB0XGmWlBgukFuxg/qefzJ7gZ9D77ByDyqwhsJ84HoatCBd77Z/
- aZaSZ+iLpbGX64/ICpYKekHmR3F4t/dhjFDvHX2plXE7emeObeMD/iui8To8Pm3VDrua
- R2lg==
-X-Gm-Message-State: ANoB5pk0UOF0JEKDXgMbtT7P0Zzhjw7fZVSFvnkTlzPcGKpF267CEa5c
- 6G80NTg8uOkgRYyBcZH5zVDfkA==
-X-Google-Smtp-Source: AA0mqf5XUSJd46BzRdQjE/d0PZsIJxwKuDRCp9/AXcfACW+MK0n5DxetfpDGRxbrEShmiMzspu2VQQ==
-X-Received: by 2002:a05:6512:32b2:b0:4b5:2dc:8107 with SMTP id
- q18-20020a05651232b200b004b502dc8107mr17295741lfe.209.1670376488647; 
- Tue, 06 Dec 2022 17:28:08 -0800 (PST)
-Received: from eriador.lan (dzccz6yyyyyyyyyyybcwt-3.rev.dnainternet.fi.
- [2001:14ba:a085:4d00::8a5]) by smtp.gmail.com with ESMTPSA id
- n26-20020a05651203fa00b004b5626ef9f4sm1461157lfq.262.2022.12.06.17.28.07
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=URJLtETWn+YZV56sYZN2y9Ammv06Km5wjcz9Xfa36wA=;
+ b=vtVHElfqBuKK+AdXdot7zPpUHQ/kKIP8OABxSbHqyDmhHQQzX6k77Ss2+g9zd3BjPS
+ ErWhza4iOSHgWOzEyqbOG2POW/4OCrW5Rbvp2GTMnehtnCQtFF9P5bCrQ08rULU856qf
+ ix0z0SgfnOKqcX238+pw/1WXGw6GKu4SjhFL9L1MZ7ytfTkHYVavM/FbJcy0UVIZt5FZ
+ O5oKotETgO0JcfEYoeQ0F1mtNHj3SDrY+s/IHhY3BakI1uqIb7E4sgYKq338W2U5g7k6
+ myPRVZoLSCFrZKBddk96LJOnmNfjywfeujsfXtwRaFKFFfC4VUtnRWGeAcQFZsDOHmcQ
+ +3jA==
+X-Gm-Message-State: ANoB5plRXXFHcQQd07CtZLHnkXej4yDRpkNZl2CW4fo+vDvIDclgtmZV
+ AJ9IfUprXhNLmluJJp2FhraDwHvbl5DWF0Nh
+X-Google-Smtp-Source: AA0mqf6beKWDf3dqOMpuuZAuHED3fpDTatCs+YeGixJMzVPTqS2PO3y/S6m/UXrq7oz9e89qo+0Vxg==
+X-Received: by 2002:a17:902:e8c3:b0:186:5de2:e17e with SMTP id
+ v3-20020a170902e8c300b001865de2e17emr76737175plg.35.1670396373706; 
+ Tue, 06 Dec 2022 22:59:33 -0800 (PST)
+Received: from localhost.localdomain ([202.120.234.246])
+ by smtp.googlemail.com with ESMTPSA id
+ 18-20020a17090a001200b002086ac07041sm472055pja.44.2022.12.06.22.59.27
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 06 Dec 2022 17:28:08 -0800 (PST)
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-To: Andy Gross <agross@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konrad.dybcio@linaro.org>, Rob Clark <robdclark@gmail.com>,
- Sean Paul <sean@poorly.run>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Rob Herring <robh+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>
-Date: Wed,  7 Dec 2022 03:28:03 +0200
-Message-Id: <20221207012803.114959-6-dmitry.baryshkov@linaro.org>
-X-Mailer: git-send-email 2.35.1
-In-Reply-To: <20221207012803.114959-1-dmitry.baryshkov@linaro.org>
-References: <20221207012803.114959-1-dmitry.baryshkov@linaro.org>
+ Tue, 06 Dec 2022 22:59:32 -0800 (PST)
+From: Miaoqian Lin <linmq006@gmail.com>
+To: Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Sean Paul <sean@poorly.run>, David Airlie <airlied@gmail.com>,
+ Daniel Vetter <daniel@ffwll.ch>, Douglas Anderson <dianders@chromium.org>,
+ Stephen Boyd <swboyd@chromium.org>, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Date: Wed,  7 Dec 2022 10:59:22 +0400
+Message-Id: <20221207065922.2086368-1-linmq006@gmail.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH v4 5/5] arm64: dts: qcom: sm8450-hdk: Enable
- HDMI Display
+Subject: [Freedreno] [PATCH v2] drm/msm/dpu: Fix memory leak in
+ msm_mdss_parse_data_bus_icc_path
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,89 +75,47 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- Konrad Dybcio <konrad.dybcio@somainline.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
- dri-devel@lists.freedesktop.org, Stephen Boyd <swboyd@chromium.org>,
- Vinod Koul <vkoul@kernel.org>, Daniel Vetter <daniel@ffwll.ch>,
- freedreno@lists.freedesktop.org, David Airlie <airlied@gmail.com>
+Cc: linmq006@gmail.com
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-From: Vinod Koul <vkoul@kernel.org>
+of_icc_get() alloc resources for path1, we should release it when not
+need anymore. Early return when IS_ERR_OR_NULL(path0) may leak path1.
+Defer getting path1 to fix this.
 
-Add the HDMI display nodes and link it to DSI.
-
-Signed-off-by: Vinod Koul <vkoul@kernel.org>
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-Reviewed-by: Konrad Dybcio <konrad.dybcio@somainline.org>
-Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Fixes: b9364eed9232 ("drm/msm/dpu: Move min BW request and full BW disable back to mdss")
+Signed-off-by: Miaoqian Lin <linmq006@gmail.com>
 ---
- arch/arm64/boot/dts/qcom/sm8450-hdk.dts | 37 +++++++++++++++++++++++++
- 1 file changed, 37 insertions(+)
+changes in v2:
+- move getting path1 after error check for path0.
+---
+ drivers/gpu/drm/msm/msm_mdss.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
 
-diff --git a/arch/arm64/boot/dts/qcom/sm8450-hdk.dts b/arch/arm64/boot/dts/qcom/sm8450-hdk.dts
-index 4f345786352a..166458963c2f 100644
---- a/arch/arm64/boot/dts/qcom/sm8450-hdk.dts
-+++ b/arch/arm64/boot/dts/qcom/sm8450-hdk.dts
-@@ -20,6 +20,17 @@ chosen {
- 		stdout-path = "serial0:115200n8";
- 	};
+diff --git a/drivers/gpu/drm/msm/msm_mdss.c b/drivers/gpu/drm/msm/msm_mdss.c
+index e13c5c12b775..3b8d6991b04e 100644
+--- a/drivers/gpu/drm/msm/msm_mdss.c
++++ b/drivers/gpu/drm/msm/msm_mdss.c
+@@ -46,15 +46,17 @@ struct msm_mdss {
+ static int msm_mdss_parse_data_bus_icc_path(struct device *dev,
+ 					    struct msm_mdss *msm_mdss)
+ {
+-	struct icc_path *path0 = of_icc_get(dev, "mdp0-mem");
+-	struct icc_path *path1 = of_icc_get(dev, "mdp1-mem");
++	struct icc_path *path0;
++	struct icc_path *path1;
  
-+	hdmi-out {
-+		compatible = "hdmi-connector";
-+		type = "a";
-+
-+		port {
-+			hdmi_connector_out: endpoint {
-+				remote-endpoint = <&lt9611_out>;
-+			};
-+		};
-+	};
-+
- 	lt9611_1v2: lt9611-vdd12-regulator {
- 		compatible = "regulator-fixed";
- 		regulator-name = "LT9611_1V2";
-@@ -392,6 +403,27 @@ lt9611_codec: hdmi-bridge@2b {
++	path0 = of_icc_get(dev, "mdp0-mem");
+ 	if (IS_ERR_OR_NULL(path0))
+ 		return PTR_ERR_OR_ZERO(path0);
  
- 		pinctrl-names = "default";
- 		pinctrl-0 = <&lt9611_irq_pin &lt9611_rst_pin>;
-+
-+		ports {
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+
-+			port@0 {
-+				reg = <0>;
-+
-+				lt9611_a: endpoint {
-+					remote-endpoint = <&mdss_dsi0_out>;
-+				};
-+			};
-+
-+			port@2 {
-+				reg = <2>;
-+
-+				lt9611_out: endpoint {
-+					remote-endpoint = <&hdmi_connector_out>;
-+				};
-+			};
-+		};
- 	};
- };
+ 	msm_mdss->path[0] = path0;
+ 	msm_mdss->num_paths = 1;
  
-@@ -404,6 +436,11 @@ &mdss_dsi0 {
- 	status = "okay";
- };
- 
-+&mdss_dsi0_out {
-+	remote-endpoint = <&lt9611_a>;
-+	data-lanes = <0 1 2 3>;
-+};
-+
- &mdss_dsi0_phy {
- 	vdds-supply = <&vreg_l5b_0p88>;
- 	status = "okay";
++	path1 = of_icc_get(dev, "mdp1-mem");
+ 	if (!IS_ERR_OR_NULL(path1)) {
+ 		msm_mdss->path[1] = path1;
+ 		msm_mdss->num_paths++;
 -- 
-2.35.1
+2.25.1
 
