@@ -1,68 +1,69 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5DB31645107
-	for <lists+freedreno@lfdr.de>; Wed,  7 Dec 2022 02:23:16 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id D7C5264510C
+	for <lists+freedreno@lfdr.de>; Wed,  7 Dec 2022 02:23:30 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6453610E178;
-	Wed,  7 Dec 2022 01:22:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 656A310E176;
+	Wed,  7 Dec 2022 01:22:54 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x134.google.com (mail-lf1-x134.google.com
- [IPv6:2a00:1450:4864:20::134])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AC2B410E167
- for <freedreno@lists.freedesktop.org>; Wed,  7 Dec 2022 01:22:38 +0000 (UTC)
-Received: by mail-lf1-x134.google.com with SMTP id j4so26450564lfk.0
- for <freedreno@lists.freedesktop.org>; Tue, 06 Dec 2022 17:22:38 -0800 (PST)
+Received: from mail-lf1-x133.google.com (mail-lf1-x133.google.com
+ [IPv6:2a00:1450:4864:20::133])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1B84C10E165
+ for <freedreno@lists.freedesktop.org>; Wed,  7 Dec 2022 01:22:41 +0000 (UTC)
+Received: by mail-lf1-x133.google.com with SMTP id p8so26377079lfu.11
+ for <freedreno@lists.freedesktop.org>; Tue, 06 Dec 2022 17:22:41 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=i5Gb3UnijTffvUZ5061n1gC+IjflOu8fq8L5Sow654E=;
- b=PIC9qUOax1lNgU52qpQYQPGzpNY6onUZwdx1GC5dBi8GZ5KIIX1IH1816QuhdOXiwx
- ha+jpxvYJTivgjLrmBQGwtztQ0B4nzzQwvBzW2zHBaqiWETCr4QO05o/5KhNpGISkdCj
- MM9AbRVI2YhmnmBSCE/m6OPmmrcn4d9O4kLiX0ZwJxKQ3tXdiVBQDkF+8MLOlNnru18O
- JxBo3V/JaW+SgMUZwxM/U5cgc5IqzGO4JkzTW6VDXGSrprceqoeqsBA/BwutQrweXM6p
- ukTzwOevaxwp8C2Utv5P1fDfM/WHRw1xPUgwMhY0FvACJTzjR7NA8S77F4zb2onc1cjp
- irog==
+ bh=xDsYBVCwBeS0Phubq4Y5R1Q3bo1kNIeEHtnGSCsuvdc=;
+ b=WIeRLvryx3Aig7sR+0eNRODQewWhB11fKBZEyycLmhb2SPYjCKnIKl02tC8ABUfos1
+ qjk7fmZldSf8gmuwaLzRmyYivjrfXEvylLhukbhF9dUrorJBj9PiInkmFBwaizq0W3bq
+ C+3LYqTpyii6bEI8z9wBwPrdT2nzLbP9vKTomKHqwIgQ2eGGGrjZVkIlZPL4Ydjk7WWa
+ 0AA4T1BMjwMaSKOsPhD0Xv2G61t94X2qZHnIfi5nKWxLyb4pEDIoyExTqRCPcJMR1YS0
+ xs7eKGrNezMjBo8cTg2BM9EcZ0fBVYjwDL0P0uc+H5/7dz9JyMw0eGjHHO6yYJhSBlyg
+ fMmg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=i5Gb3UnijTffvUZ5061n1gC+IjflOu8fq8L5Sow654E=;
- b=urOiZdiQtUAMdsam9EXvhzdfru8mjLCjtImCSFD5wTwKvAY/e4iowQu+HvT4mJkoah
- InvDBTbrf8+N00HKyBgnKW504G0GhBymr99dKef6tGQVQO+/9NAM0m7qYqgynF7xgo+J
- yQi/crBisKGS8qLHnwUvNt+/wo+RLJgreth/rr8cP0hFbJIyWeAxf3ss5kFg4VLrkc1Q
- LtSXVT1pHNlfMSNe8AIoLXRXlrFfs0D58kqjPEoDu6sqdUmq8GAWSX2k8YUMdc5NLfvp
- Di3Lr986EVKzHfK0QB3uHP3xzCxVClEhn7mDzVxBHv5hE5WztttMKA8uBy9t/CaAp8Gp
- oV9w==
-X-Gm-Message-State: ANoB5pnz5yJVho1xIsQVEXLpfHlGxIm/w/VOBoXLWnOxGWjv7UEDzfDP
- 2LuEVImYF1GNxS9aKtlJiUijXw==
-X-Google-Smtp-Source: AA0mqf6Y5qfBgtZkDtnlFNGlVjbAh8hjm8ugydhK0fpipiipoIX5woUHt+dDaRsGdsJ8ncbiA2718g==
-X-Received: by 2002:a05:6512:3b0d:b0:4b4:7cb4:f932 with SMTP id
- f13-20020a0565123b0d00b004b47cb4f932mr24777704lfv.243.1670376158245; 
- Tue, 06 Dec 2022 17:22:38 -0800 (PST)
+ bh=xDsYBVCwBeS0Phubq4Y5R1Q3bo1kNIeEHtnGSCsuvdc=;
+ b=bFf3Lpuc/iaLN/dpYc5oeUKsB9w9bYjM7RG7v7bLdvWjtYwNt8AcSGaiQtzyQeZzJo
+ fXWVU+XJANORHemCG7LjHAtE+3MomyOX6sk6tXwWv+opaiTPN8Ru8zp7jdRzo4fOQROU
+ 36wk9btdXHE4Swbqew88i5P2EZXzjOt3ZyPpBVLZq2WhtQYBe2YujHfM5n9zy908UAG9
+ DZmt9clJcoHrdZqbYGSQ7X51f2nTmBP00KIBsLhi8Ah6w6rzarm5FO5bnIegLYrYwLtB
+ 0byF9x7La2EtkwheJak2vof9TvZiqMMZMQCs4krPj0KKwwcmOxj/GdleY6fhOUQQXJSR
+ wkrQ==
+X-Gm-Message-State: ANoB5pkFw2MG1T0gMuXEcAtW4ifulNcP976EyKKV04dAbmzhoW6N7OEQ
+ PbkXaxxQ0pD8JvDzgy17Opv/dynja9yUypAIzxaB+g==
+X-Google-Smtp-Source: AA0mqf72ZeS3Bvn49p/dDmTgu2JYJRpMCCYkvQjZJPMT+0IsM2oqrwbbL2aUpYZPBAHHEOp7Ow9aPA==
+X-Received: by 2002:a19:2d52:0:b0:4b1:dc42:6f85 with SMTP id
+ t18-20020a192d52000000b004b1dc426f85mr28435282lft.568.1670376159274; 
+ Tue, 06 Dec 2022 17:22:39 -0800 (PST)
 Received: from eriador.lan (dzccz6yyyyyyyyyyybcwt-3.rev.dnainternet.fi.
  [2001:14ba:a085:4d00::8a5]) by smtp.gmail.com with ESMTPSA id
- a11-20020ac25e6b000000b0048a9e899693sm2678916lfr.16.2022.12.06.17.22.37
+ a11-20020ac25e6b000000b0048a9e899693sm2678916lfr.16.2022.12.06.17.22.38
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 06 Dec 2022 17:22:37 -0800 (PST)
+ Tue, 06 Dec 2022 17:22:38 -0800 (PST)
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 To: Andy Gross <agross@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
  Konrad Dybcio <konrad.dybcio@linaro.org>, Rob Clark <robdclark@gmail.com>,
  Sean Paul <sean@poorly.run>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
  Rob Herring <robh+dt@kernel.org>,
  Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>
-Date: Wed,  7 Dec 2022 03:22:27 +0200
-Message-Id: <20221207012231.112059-8-dmitry.baryshkov@linaro.org>
+Date: Wed,  7 Dec 2022 03:22:28 +0200
+Message-Id: <20221207012231.112059-9-dmitry.baryshkov@linaro.org>
 X-Mailer: git-send-email 2.35.1
 In-Reply-To: <20221207012231.112059-1-dmitry.baryshkov@linaro.org>
 References: <20221207012231.112059-1-dmitry.baryshkov@linaro.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH v6 07/11] drm/msm/dsi: add support for DSI 2.6.0
+Subject: [Freedreno] [PATCH v6 08/11] drm/msm/dpu: merge all MDP TOP
+ registers to dpu_hwio.h
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,48 +78,119 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
 Cc: devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org,
  dri-devel@lists.freedesktop.org, Stephen Boyd <swboyd@chromium.org>,
- Vinod Koul <vkoul@kernel.org>, Daniel Vetter <daniel@ffwll.ch>,
- freedreno@lists.freedesktop.org, David Airlie <airlied@gmail.com>
+ Daniel Vetter <daniel@ffwll.ch>, freedreno@lists.freedesktop.org,
+ David Airlie <airlied@gmail.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Add support for DSI 2.6.0 (block used on sm8450).
+There is a separate header containing some of MDP TOP register
+definitions, dpu_hwio.h. Move missing register definitions from
+dpu_hw_top.c to the mentioned header.
 
-Tested-by: Vinod Koul <vkoul@kernel.org>
-Reviewed-by: Vinod Koul <vkoul@kernel.org>
-Reviewed-by: Konrad Dybcio <konrad.dybcio@linaro.org>
-Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
 Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 ---
- drivers/gpu/drm/msm/dsi/dsi_cfg.c | 2 ++
- drivers/gpu/drm/msm/dsi/dsi_cfg.h | 1 +
- 2 files changed, 3 insertions(+)
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_top.c | 25 ----------------------
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hwio.h   | 18 ++++++++++++++++
+ 2 files changed, 18 insertions(+), 25 deletions(-)
 
-diff --git a/drivers/gpu/drm/msm/dsi/dsi_cfg.c b/drivers/gpu/drm/msm/dsi/dsi_cfg.c
-index 7e97c239ed48..59a4cc95a251 100644
---- a/drivers/gpu/drm/msm/dsi/dsi_cfg.c
-+++ b/drivers/gpu/drm/msm/dsi/dsi_cfg.c
-@@ -300,6 +300,8 @@ static const struct msm_dsi_cfg_handler dsi_cfg_handlers[] = {
- 		&sc7180_dsi_cfg, &msm_dsi_6g_v2_host_ops},
- 	{MSM_DSI_VER_MAJOR_6G, MSM_DSI_6G_VER_MINOR_V2_5_0,
- 		&sc7280_dsi_cfg, &msm_dsi_6g_v2_host_ops},
-+	{MSM_DSI_VER_MAJOR_6G, MSM_DSI_6G_VER_MINOR_V2_6_0,
-+		&sdm845_dsi_cfg, &msm_dsi_6g_v2_host_ops},
- };
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_top.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_top.c
+index c3110a25a30d..2bb02e17ee52 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_top.c
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_top.c
+@@ -7,40 +7,17 @@
+ #include "dpu_hw_top.h"
+ #include "dpu_kms.h"
  
- const struct msm_dsi_cfg_handler *msm_dsi_cfg_get(u32 major, u32 minor)
-diff --git a/drivers/gpu/drm/msm/dsi/dsi_cfg.h b/drivers/gpu/drm/msm/dsi/dsi_cfg.h
-index 8f04e685a74e..95957fab499d 100644
---- a/drivers/gpu/drm/msm/dsi/dsi_cfg.h
-+++ b/drivers/gpu/drm/msm/dsi/dsi_cfg.h
-@@ -25,6 +25,7 @@
- #define MSM_DSI_6G_VER_MINOR_V2_4_0	0x20040000
- #define MSM_DSI_6G_VER_MINOR_V2_4_1	0x20040001
- #define MSM_DSI_6G_VER_MINOR_V2_5_0	0x20050000
-+#define MSM_DSI_6G_VER_MINOR_V2_6_0	0x20060000
+-#define SSPP_SPARE                        0x28
+-
+ #define FLD_SPLIT_DISPLAY_CMD             BIT(1)
+ #define FLD_SMART_PANEL_FREE_RUN          BIT(2)
+ #define FLD_INTF_1_SW_TRG_MUX             BIT(4)
+ #define FLD_INTF_2_SW_TRG_MUX             BIT(8)
+ #define FLD_TE_LINE_INTER_WATERLEVEL_MASK 0xFFFF
  
- #define MSM_DSI_V2_VER_MINOR_8064	0x0
+-#define DANGER_STATUS                     0x360
+-#define SAFE_STATUS                       0x364
+-
+-#define TE_LINE_INTERVAL                  0x3F4
+-
+ #define TRAFFIC_SHAPER_EN                 BIT(31)
+ #define TRAFFIC_SHAPER_RD_CLIENT(num)     (0x030 + (num * 4))
+ #define TRAFFIC_SHAPER_WR_CLIENT(num)     (0x060 + (num * 4))
+ #define TRAFFIC_SHAPER_FIXPOINT_FACTOR    4
  
+-#define MDP_WD_TIMER_0_CTL                0x380
+-#define MDP_WD_TIMER_0_CTL2               0x384
+-#define MDP_WD_TIMER_0_LOAD_VALUE         0x388
+-#define MDP_WD_TIMER_1_CTL                0x390
+-#define MDP_WD_TIMER_1_CTL2               0x394
+-#define MDP_WD_TIMER_1_LOAD_VALUE         0x398
+-#define MDP_WD_TIMER_2_CTL                0x420
+-#define MDP_WD_TIMER_2_CTL2               0x424
+-#define MDP_WD_TIMER_2_LOAD_VALUE         0x428
+-#define MDP_WD_TIMER_3_CTL                0x430
+-#define MDP_WD_TIMER_3_CTL2               0x434
+-#define MDP_WD_TIMER_3_LOAD_VALUE         0x438
+-#define MDP_WD_TIMER_4_CTL                0x440
+-#define MDP_WD_TIMER_4_CTL2               0x444
+-#define MDP_WD_TIMER_4_LOAD_VALUE         0x448
+-
+ #define MDP_TICK_COUNT                    16
+ #define XO_CLK_RATE                       19200
+ #define MS_TICKS_IN_SEC                   1000
+@@ -48,8 +25,6 @@
+ #define CALCULATE_WD_LOAD_VALUE(fps) \
+ 	((uint32_t)((MS_TICKS_IN_SEC * XO_CLK_RATE)/(MDP_TICK_COUNT * fps)))
+ 
+-#define DCE_SEL                           0x450
+-
+ static void dpu_hw_setup_split_pipe(struct dpu_hw_mdp *mdp,
+ 		struct split_pipe_cfg *cfg)
+ {
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hwio.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_hwio.h
+index c8156ed4b7fb..86c423e63b61 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hwio.h
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hwio.h
+@@ -16,6 +16,7 @@
+ #define INTR_CLEAR                      0x018
+ #define INTR2_EN                        0x008
+ #define INTR2_STATUS                    0x00c
++#define SSPP_SPARE                      0x028
+ #define INTR2_CLEAR                     0x02c
+ #define HIST_INTR_EN                    0x01c
+ #define HIST_INTR_STATUS                0x020
+@@ -28,7 +29,15 @@
+ #define DSPP_IGC_COLOR0_RAM_LUTN        0x300
+ #define DSPP_IGC_COLOR1_RAM_LUTN        0x304
+ #define DSPP_IGC_COLOR2_RAM_LUTN        0x308
++#define DANGER_STATUS                   0x360
++#define SAFE_STATUS                     0x364
+ #define HW_EVENTS_CTL                   0x37C
++#define MDP_WD_TIMER_0_CTL              0x380
++#define MDP_WD_TIMER_0_CTL2             0x384
++#define MDP_WD_TIMER_0_LOAD_VALUE       0x388
++#define MDP_WD_TIMER_1_CTL              0x390
++#define MDP_WD_TIMER_1_CTL2             0x394
++#define MDP_WD_TIMER_1_LOAD_VALUE       0x398
+ #define CLK_CTRL3                       0x3A8
+ #define CLK_STATUS3                     0x3AC
+ #define CLK_CTRL4                       0x3B0
+@@ -43,6 +52,15 @@
+ #define HDMI_DP_CORE_SELECT             0x408
+ #define MDP_OUT_CTL_0                   0x410
+ #define MDP_VSYNC_SEL                   0x414
++#define MDP_WD_TIMER_2_CTL              0x420
++#define MDP_WD_TIMER_2_CTL2             0x424
++#define MDP_WD_TIMER_2_LOAD_VALUE       0x428
++#define MDP_WD_TIMER_3_CTL              0x430
++#define MDP_WD_TIMER_3_CTL2             0x434
++#define MDP_WD_TIMER_3_LOAD_VALUE       0x438
++#define MDP_WD_TIMER_4_CTL              0x440
++#define MDP_WD_TIMER_4_CTL2             0x444
++#define MDP_WD_TIMER_4_LOAD_VALUE       0x448
+ #define DCE_SEL                         0x450
+ 
+ #endif /*_DPU_HWIO_H */
 -- 
 2.35.1
 
