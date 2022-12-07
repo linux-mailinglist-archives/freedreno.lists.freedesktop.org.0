@@ -1,69 +1,69 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 02747645100
-	for <lists+freedreno@lfdr.de>; Wed,  7 Dec 2022 02:23:05 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id F18AD6450FC
+	for <lists+freedreno@lfdr.de>; Wed,  7 Dec 2022 02:22:52 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0807410E168;
-	Wed,  7 Dec 2022 01:22:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 06A2310E165;
+	Wed,  7 Dec 2022 01:22:44 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-x234.google.com (mail-lj1-x234.google.com
- [IPv6:2a00:1450:4864:20::234])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0943E10E161
+Received: from mail-lf1-x132.google.com (mail-lf1-x132.google.com
+ [IPv6:2a00:1450:4864:20::132])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C1F8A10E165
  for <freedreno@lists.freedesktop.org>; Wed,  7 Dec 2022 01:22:36 +0000 (UTC)
-Received: by mail-lj1-x234.google.com with SMTP id a19so19281182ljk.0
- for <freedreno@lists.freedesktop.org>; Tue, 06 Dec 2022 17:22:35 -0800 (PST)
+Received: by mail-lf1-x132.google.com with SMTP id g7so26432555lfv.5
+ for <freedreno@lists.freedesktop.org>; Tue, 06 Dec 2022 17:22:36 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=vH5onZ6G5nHVXUuxsOV7O5x3nmGGqIdn9uYRWyyU+hw=;
- b=WNrT5KLXbERejtLzT8j1Ao2VR0MLAbAVxeNQkaTbSGugvL2IwxD/vmDEgvPMFCLfja
- ouWj1QHDyweIhAPDrwQJHF3Oh/IHD7nzpQG+dwqjr3C2Y85xa5Qf+tOcSlFIW5gadFaU
- GRmjSOJg2dtVnLCHM5YBrtoqLd1Hrak1Yi5lzLV+TJckpkda2ZmLRBJVr9SEVDHaXGKr
- kHoc4000Swrhb9mBMaBZKr/ODxv6Ysr1/hNhyUi9oQwSw2U/SdvgJur3PtXd+Get1uCG
- 18tIsZiBbto+k3GXloCpiSrg4PZfF0gZ+43Cd3UazM0vjivGfQqfT4oeY8wbOvFRnlcW
- nx6A==
+ bh=Eq+xrGXQkafyNxdD3bUOX4BO/00RbY/2YQOJ/yUkbp4=;
+ b=a0KPp17aX3VBhc6WjLD33V4Bh8koqCHY8U9RWH5IQ4VswKF6JwBL77ccq3GkvUSuCG
+ CfcsmPnoeTmb0MXYFkygNmqMDwSh3U0bt4gN9f/GPC2QcWTe3FYGN2k1ZLSvo5wKmbKD
+ 0QJ6MwsKVZfu5FtYxhI36mleqBEXd9txqpdxAcbjt7s/AHztZ9tzJa3aud1wvjJiI6bg
+ WXxZbnDlyDeJWmJ03UbuoSKidB8q1wZJzGTuqjdBkUIDiUaOZmRR+Jof0KsfaxvL9Afm
+ D0Hd0I+7hx8XDp5cDzRLOz//uyrFxL14eF0UzMitdjKc7/PpjhiDn2j1iOOW4WFOHaTN
+ enUw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=vH5onZ6G5nHVXUuxsOV7O5x3nmGGqIdn9uYRWyyU+hw=;
- b=INv/2sq2CdWiZCohWqhjacxW6EziWGAmmkPkX6m3At0GB7Qyy4/uMJ+5Cu2p5O3gpQ
- MoSmVlqCAIzdXMmyljlm+qdblE+m2vEy+Geb2G0M1P7Mgi1EkqIMezp30jLdfRkzoAiD
- i7QkUfh38ycqdTaQPuPF0DuCGA299QMll7k0rfZRe8pssQf6eITIwFAMvLdIOCBCqbLy
- ugnM0zhmEdH830FvEUfUJ84qozw/vlYVOcAdMY0WsghrvREwJ+I172cnhCvRCVOxjoVf
- FCjtycOjTD1psC3n9mAnVUKEruwRNdXPXXWsDmy2ETmVOT/4/ZtcQ1y6fwi+oDArDOHR
- Vj5A==
-X-Gm-Message-State: ANoB5pkx0LN6VanSD7DVwo71kfGjCBWlvlxHwbpm0uuslPh68iqTBvdm
- LyemZJecS3rXgCSWx0NsNi1oPQ==
-X-Google-Smtp-Source: AA0mqf6fi1hiXU+A0Yc+BiCcoTZA2YFsEyBBDgmcmynInrGxQJgqsmpk4jKnnLuIioTyOSNsMR/JkA==
-X-Received: by 2002:a2e:a9a0:0:b0:278:f1a5:a365 with SMTP id
- x32-20020a2ea9a0000000b00278f1a5a365mr26649093ljq.29.1670376153857; 
- Tue, 06 Dec 2022 17:22:33 -0800 (PST)
+ bh=Eq+xrGXQkafyNxdD3bUOX4BO/00RbY/2YQOJ/yUkbp4=;
+ b=riL7JvoPeu/04u9vHTXBb72bQ2YJldq32WNFV/UIWohhJMIldf8iRJhcelao6ronH3
+ qaMI0Mzo7mRNm3vZ+O8+HlE7zmwMknVBO5PtvrwoJGDvazQIvA1hCL98wJggXzRoodUu
+ 3E62FgcfX/RcxtCcKxFWZkdMDX3FEvopPmGlbaZPxwzEu3MgDnhGu5KJSNjbj5AFLA+M
+ YaLXaurhH3juw4l45k+jlE9qJyl0Y0ajEVg98OYkj2n+fZzad9rmlvbPCElhsd0Dq9HU
+ uwTtCx+ZubCY1yS2o3LMob85WaKhZDj+q8ZmbrIuQSF8Bjig31/GKJfAMkOUjrcG/ojY
+ 49Wg==
+X-Gm-Message-State: ANoB5pnPYkLPyXKV5CeGwQpXuSujtrRZYB2FSNu4VQD7pfA9/YmT3VGr
+ PC2pLupGYTZ7/orJlSo8NtqN2w==
+X-Google-Smtp-Source: AA0mqf5ap13IUItCE4FmOqAO8pw758yyVeEppRzmSs+FcStpWVjmZzxb6Uw1+fWgo8fH5Y1OVrUGkA==
+X-Received: by 2002:a05:6512:400e:b0:4b5:5da1:4bc7 with SMTP id
+ br14-20020a056512400e00b004b55da14bc7mr5831301lfb.485.1670376154848; 
+ Tue, 06 Dec 2022 17:22:34 -0800 (PST)
 Received: from eriador.lan (dzccz6yyyyyyyyyyybcwt-3.rev.dnainternet.fi.
  [2001:14ba:a085:4d00::8a5]) by smtp.gmail.com with ESMTPSA id
  a11-20020ac25e6b000000b0048a9e899693sm2678916lfr.16.2022.12.06.17.22.33
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 06 Dec 2022 17:22:33 -0800 (PST)
+ Tue, 06 Dec 2022 17:22:34 -0800 (PST)
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 To: Andy Gross <agross@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
  Konrad Dybcio <konrad.dybcio@linaro.org>, Rob Clark <robdclark@gmail.com>,
  Sean Paul <sean@poorly.run>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
  Rob Herring <robh+dt@kernel.org>,
  Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>
-Date: Wed,  7 Dec 2022 03:22:22 +0200
-Message-Id: <20221207012231.112059-3-dmitry.baryshkov@linaro.org>
+Date: Wed,  7 Dec 2022 03:22:23 +0200
+Message-Id: <20221207012231.112059-4-dmitry.baryshkov@linaro.org>
 X-Mailer: git-send-email 2.35.1
 In-Reply-To: <20221207012231.112059-1-dmitry.baryshkov@linaro.org>
 References: <20221207012231.112059-1-dmitry.baryshkov@linaro.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH v6 02/11] dt-bindings: display/msm: *mdss.yaml:
- split required properties clauses
+Subject: [Freedreno] [PATCH v6 03/11] dt-bindings: display/msm: add sm8350
+ and sm8450 DSI PHYs
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -84,118 +84,28 @@ Cc: devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Require only properties declared in given schema, which makes the code a
-bit more readable and easy to follow.
+SM8350 and SM8450 platforms use the same driver and same bindings as the
+existing 7nm DSI PHYs. Add corresponding compatibility strings.
 
-Suggested-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 ---
- Documentation/devicetree/bindings/display/msm/mdss-common.yaml | 1 -
- .../devicetree/bindings/display/msm/qcom,msm8998-mdss.yaml     | 3 +++
- .../devicetree/bindings/display/msm/qcom,qcm2290-mdss.yaml     | 3 +++
- .../devicetree/bindings/display/msm/qcom,sc7180-mdss.yaml      | 3 +++
- .../devicetree/bindings/display/msm/qcom,sc7280-mdss.yaml      | 3 +++
- .../devicetree/bindings/display/msm/qcom,sdm845-mdss.yaml      | 3 +++
- .../devicetree/bindings/display/msm/qcom,sm8250-mdss.yaml      | 3 +++
- 7 files changed, 18 insertions(+), 1 deletion(-)
+ Documentation/devicetree/bindings/display/msm/dsi-phy-7nm.yaml | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/Documentation/devicetree/bindings/display/msm/mdss-common.yaml b/Documentation/devicetree/bindings/display/msm/mdss-common.yaml
-index 27d7242657b2..59f17ac898aa 100644
---- a/Documentation/devicetree/bindings/display/msm/mdss-common.yaml
-+++ b/Documentation/devicetree/bindings/display/msm/mdss-common.yaml
-@@ -70,7 +70,6 @@ properties:
-       - description: MDSS_CORE reset
- 
- required:
--  - compatible
-   - reg
-   - reg-names
-   - power-domains
-diff --git a/Documentation/devicetree/bindings/display/msm/qcom,msm8998-mdss.yaml b/Documentation/devicetree/bindings/display/msm/qcom,msm8998-mdss.yaml
-index cf52ff77a41a..fc6969c9c52e 100644
---- a/Documentation/devicetree/bindings/display/msm/qcom,msm8998-mdss.yaml
-+++ b/Documentation/devicetree/bindings/display/msm/qcom,msm8998-mdss.yaml
-@@ -55,6 +55,9 @@ patternProperties:
-       compatible:
-         const: qcom,dsi-phy-10nm-8998
- 
-+required:
-+  - compatible
-+
- unevaluatedProperties: false
- 
- examples:
-diff --git a/Documentation/devicetree/bindings/display/msm/qcom,qcm2290-mdss.yaml b/Documentation/devicetree/bindings/display/msm/qcom,qcm2290-mdss.yaml
-index d6f043a4b08d..0c2f9755125e 100644
---- a/Documentation/devicetree/bindings/display/msm/qcom,qcm2290-mdss.yaml
-+++ b/Documentation/devicetree/bindings/display/msm/qcom,qcm2290-mdss.yaml
-@@ -61,6 +61,9 @@ patternProperties:
-       compatible:
-         const: qcom,dsi-phy-14nm-2290
- 
-+required:
-+  - compatible
-+
- unevaluatedProperties: false
- 
- examples:
-diff --git a/Documentation/devicetree/bindings/display/msm/qcom,sc7180-mdss.yaml b/Documentation/devicetree/bindings/display/msm/qcom,sc7180-mdss.yaml
-index 13e396d61a51..fb835a4d9114 100644
---- a/Documentation/devicetree/bindings/display/msm/qcom,sc7180-mdss.yaml
-+++ b/Documentation/devicetree/bindings/display/msm/qcom,sc7180-mdss.yaml
-@@ -67,6 +67,9 @@ patternProperties:
-       compatible:
-         const: qcom,dsi-phy-10nm
- 
-+required:
-+  - compatible
-+
- unevaluatedProperties: false
- 
- examples:
-diff --git a/Documentation/devicetree/bindings/display/msm/qcom,sc7280-mdss.yaml b/Documentation/devicetree/bindings/display/msm/qcom,sc7280-mdss.yaml
-index a3de1744ba11..a4e3ada2affc 100644
---- a/Documentation/devicetree/bindings/display/msm/qcom,sc7280-mdss.yaml
-+++ b/Documentation/devicetree/bindings/display/msm/qcom,sc7280-mdss.yaml
-@@ -74,6 +74,9 @@ patternProperties:
-           - qcom,sc7280-dsi-phy-7nm
-           - qcom,sc7280-edp-phy
- 
-+required:
-+  - compatible
-+
- unevaluatedProperties: false
- 
- examples:
-diff --git a/Documentation/devicetree/bindings/display/msm/qcom,sdm845-mdss.yaml b/Documentation/devicetree/bindings/display/msm/qcom,sdm845-mdss.yaml
-index 31ca6f99fc22..2a0960bf3052 100644
---- a/Documentation/devicetree/bindings/display/msm/qcom,sdm845-mdss.yaml
-+++ b/Documentation/devicetree/bindings/display/msm/qcom,sdm845-mdss.yaml
-@@ -59,6 +59,9 @@ patternProperties:
-       compatible:
-         const: qcom,dsi-phy-10nm
- 
-+required:
-+  - compatible
-+
- unevaluatedProperties: false
- 
- examples:
-diff --git a/Documentation/devicetree/bindings/display/msm/qcom,sm8250-mdss.yaml b/Documentation/devicetree/bindings/display/msm/qcom,sm8250-mdss.yaml
-index 0d3be5386b3f..d752fd022ac5 100644
---- a/Documentation/devicetree/bindings/display/msm/qcom,sm8250-mdss.yaml
-+++ b/Documentation/devicetree/bindings/display/msm/qcom,sm8250-mdss.yaml
-@@ -63,6 +63,9 @@ patternProperties:
-       compatible:
-         const: qcom,dsi-phy-7nm
- 
-+required:
-+  - compatible
-+
- unevaluatedProperties: false
- 
- examples:
+diff --git a/Documentation/devicetree/bindings/display/msm/dsi-phy-7nm.yaml b/Documentation/devicetree/bindings/display/msm/dsi-phy-7nm.yaml
+index c851770bbdf2..bffd161fedfd 100644
+--- a/Documentation/devicetree/bindings/display/msm/dsi-phy-7nm.yaml
++++ b/Documentation/devicetree/bindings/display/msm/dsi-phy-7nm.yaml
+@@ -15,6 +15,8 @@ allOf:
+ properties:
+   compatible:
+     enum:
++      - qcom,dsi-phy-5nm-8350
++      - qcom,dsi-phy-5nm-8450
+       - qcom,dsi-phy-7nm
+       - qcom,dsi-phy-7nm-8150
+       - qcom,sc7280-dsi-phy-7nm
 -- 
 2.35.1
 
