@@ -2,67 +2,38 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 82A2964544C
-	for <lists+freedreno@lfdr.de>; Wed,  7 Dec 2022 07:59:39 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 15D56645751
+	for <lists+freedreno@lfdr.de>; Wed,  7 Dec 2022 11:15:43 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5E2FF10E14F;
-	Wed,  7 Dec 2022 06:59:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CD5E710E381;
+	Wed,  7 Dec 2022 10:15:41 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-pl1-x62e.google.com (mail-pl1-x62e.google.com
- [IPv6:2607:f8b0:4864:20::62e])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3867A10E0C2;
- Wed,  7 Dec 2022 06:59:34 +0000 (UTC)
-Received: by mail-pl1-x62e.google.com with SMTP id p24so16221234plw.1;
- Tue, 06 Dec 2022 22:59:34 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=URJLtETWn+YZV56sYZN2y9Ammv06Km5wjcz9Xfa36wA=;
- b=lBKqGEScVr/kOYKmMuclGkO9cibboL2kFQ5OW7GPQGtifD5zo2uyHZcJ6yi5AJ4YAD
- NooMxx80w9ItHZM2XHVzTUxK3+UGh+Vl+Y4H8VZYum6RJuL5jTWIQVRZ5axYjsXnrkO0
- QO0EgX2CXhC0MOZvtHfobb/n4Bg+Gu/pQ7E619gb7VORVJnKjTdeLd+i67FMj1hour71
- L7dOkmXXWUsc1YGY7Pz8hFqPGZEtn8PMoDr2VCiq6Mtwy/LUAL5tuFez/d20X06qURi2
- bGBt4UMmlvBQrUHE0RSeqwbpHOjH+Gw6HAQEc0vsN1Mbfgqdzp3bgFE3BGmo9n7b7Js9
- dJvg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=URJLtETWn+YZV56sYZN2y9Ammv06Km5wjcz9Xfa36wA=;
- b=vtVHElfqBuKK+AdXdot7zPpUHQ/kKIP8OABxSbHqyDmhHQQzX6k77Ss2+g9zd3BjPS
- ErWhza4iOSHgWOzEyqbOG2POW/4OCrW5Rbvp2GTMnehtnCQtFF9P5bCrQ08rULU856qf
- ix0z0SgfnOKqcX238+pw/1WXGw6GKu4SjhFL9L1MZ7ytfTkHYVavM/FbJcy0UVIZt5FZ
- O5oKotETgO0JcfEYoeQ0F1mtNHj3SDrY+s/IHhY3BakI1uqIb7E4sgYKq338W2U5g7k6
- myPRVZoLSCFrZKBddk96LJOnmNfjywfeujsfXtwRaFKFFfC4VUtnRWGeAcQFZsDOHmcQ
- +3jA==
-X-Gm-Message-State: ANoB5plRXXFHcQQd07CtZLHnkXej4yDRpkNZl2CW4fo+vDvIDclgtmZV
- AJ9IfUprXhNLmluJJp2FhraDwHvbl5DWF0Nh
-X-Google-Smtp-Source: AA0mqf6beKWDf3dqOMpuuZAuHED3fpDTatCs+YeGixJMzVPTqS2PO3y/S6m/UXrq7oz9e89qo+0Vxg==
-X-Received: by 2002:a17:902:e8c3:b0:186:5de2:e17e with SMTP id
- v3-20020a170902e8c300b001865de2e17emr76737175plg.35.1670396373706; 
- Tue, 06 Dec 2022 22:59:33 -0800 (PST)
-Received: from localhost.localdomain ([202.120.234.246])
- by smtp.googlemail.com with ESMTPSA id
- 18-20020a17090a001200b002086ac07041sm472055pja.44.2022.12.06.22.59.27
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 06 Dec 2022 22:59:32 -0800 (PST)
-From: Miaoqian Lin <linmq006@gmail.com>
-To: Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Sean Paul <sean@poorly.run>, David Airlie <airlied@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>, Douglas Anderson <dianders@chromium.org>,
- Stephen Boyd <swboyd@chromium.org>, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Date: Wed,  7 Dec 2022 10:59:22 +0400
-Message-Id: <20221207065922.2086368-1-linmq006@gmail.com>
-X-Mailer: git-send-email 2.25.1
+Received: from metis.ext.pengutronix.de (metis.ext.pengutronix.de
+ [IPv6:2001:67c:670:201:290:27ff:fe1d:cc33])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3FD5310E381
+ for <freedreno@lists.freedesktop.org>; Wed,  7 Dec 2022 10:15:37 +0000 (UTC)
+Received: from ptz.office.stw.pengutronix.de ([2a0a:edc0:0:900:1d::77]
+ helo=[IPv6:::1]) by metis.ext.pengutronix.de with esmtps
+ (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
+ (envelope-from <l.stach@pengutronix.de>)
+ id 1p2rSa-0001Ko-Bo; Wed, 07 Dec 2022 11:15:28 +0100
+Message-ID: <d3433e207ff8ea243ff1d4cceeea19e4676c97c5.camel@pengutronix.de>
+From: Lucas Stach <l.stach@pengutronix.de>
+To: Rob Clark <robdclark@gmail.com>, dri-devel@lists.freedesktop.org
+Date: Wed, 07 Dec 2022 11:15:25 +0100
+In-Reply-To: <20221206192123.661448-1-robdclark@gmail.com>
+References: <20221206192123.661448-1-robdclark@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+User-Agent: Evolution 3.40.4 (3.40.4-1.fc34) 
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH v2] drm/msm/dpu: Fix memory leak in
- msm_mdss_parse_data_bus_icc_path
+Content-Transfer-Encoding: 7bit
+X-SA-Exim-Connect-IP: 2a0a:edc0:0:900:1d::77
+X-SA-Exim-Mail-From: l.stach@pengutronix.de
+X-SA-Exim-Scanned: No (on metis.ext.pengutronix.de);
+ SAEximRunCond expanded to false
+X-PTX-Original-Recipient: freedreno@lists.freedesktop.org
+Subject: Re: [Freedreno] [PATCH] drm/msm: Add MSM_SUBMIT_BO_NO_IMPLICIT
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,47 +46,95 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: linmq006@gmail.com
+Cc: Rob Clark <robdclark@chromium.org>, freedreno@lists.freedesktop.org,
+ linux-arm-msm@vger.kernel.org, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ open list <linux-kernel@vger.kernel.org>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-of_icc_get() alloc resources for path1, we should release it when not
-need anymore. Early return when IS_ERR_OR_NULL(path0) may leak path1.
-Defer getting path1 to fix this.
+Hi Rob,
 
-Fixes: b9364eed9232 ("drm/msm/dpu: Move min BW request and full BW disable back to mdss")
-Signed-off-by: Miaoqian Lin <linmq006@gmail.com>
----
-changes in v2:
-- move getting path1 after error check for path0.
----
- drivers/gpu/drm/msm/msm_mdss.c | 6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
+Am Dienstag, dem 06.12.2022 um 11:21 -0800 schrieb Rob Clark:
+> From: Rob Clark <robdclark@chromium.org>
+> 
+> In cases where implicit sync is used, it is still useful (for things
+> like sub-allocation, etc) to allow userspace to opt-out of implicit
+> sync on per-BO basis.
+> 
+Out of curiosity and because I have been thinking about something like
+that for etnaviv for while: do you only use this for immutable buffers
+or do you have some kind of userspace fencing in place for the
+suballocated buffers?
 
-diff --git a/drivers/gpu/drm/msm/msm_mdss.c b/drivers/gpu/drm/msm/msm_mdss.c
-index e13c5c12b775..3b8d6991b04e 100644
---- a/drivers/gpu/drm/msm/msm_mdss.c
-+++ b/drivers/gpu/drm/msm/msm_mdss.c
-@@ -46,15 +46,17 @@ struct msm_mdss {
- static int msm_mdss_parse_data_bus_icc_path(struct device *dev,
- 					    struct msm_mdss *msm_mdss)
- {
--	struct icc_path *path0 = of_icc_get(dev, "mdp0-mem");
--	struct icc_path *path1 = of_icc_get(dev, "mdp1-mem");
-+	struct icc_path *path0;
-+	struct icc_path *path1;
- 
-+	path0 = of_icc_get(dev, "mdp0-mem");
- 	if (IS_ERR_OR_NULL(path0))
- 		return PTR_ERR_OR_ZERO(path0);
- 
- 	msm_mdss->path[0] = path0;
- 	msm_mdss->num_paths = 1;
- 
-+	path1 = of_icc_get(dev, "mdp1-mem");
- 	if (!IS_ERR_OR_NULL(path1)) {
- 		msm_mdss->path[1] = path1;
- 		msm_mdss->num_paths++;
--- 
-2.25.1
+Regards,
+Lucas
+
+> Signed-off-by: Rob Clark <robdclark@chromium.org>
+> ---
+>  drivers/gpu/drm/msm/msm_drv.c        |  3 ++-
+>  drivers/gpu/drm/msm/msm_gem_submit.c | 11 +++++++++++
+>  include/uapi/drm/msm_drm.h           |  4 +++-
+>  3 files changed, 16 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/msm/msm_drv.c b/drivers/gpu/drm/msm/msm_drv.c
+> index 017a512982a2..e0e1199a822f 100644
+> --- a/drivers/gpu/drm/msm/msm_drv.c
+> +++ b/drivers/gpu/drm/msm/msm_drv.c
+> @@ -45,9 +45,10 @@
+>   * - 1.7.0 - Add MSM_PARAM_SUSPENDS to access suspend count
+>   * - 1.8.0 - Add MSM_BO_CACHED_COHERENT for supported GPUs (a6xx)
+>   * - 1.9.0 - Add MSM_SUBMIT_FENCE_SN_IN
+> + * - 1.10.0 - Add MSM_SUBMIT_BO_NO_IMPLICIT
+>   */
+>  #define MSM_VERSION_MAJOR	1
+> -#define MSM_VERSION_MINOR	9
+> +#define MSM_VERSION_MINOR	10
+>  #define MSM_VERSION_PATCHLEVEL	0
+>  
+>  static const struct drm_mode_config_funcs mode_config_funcs = {
+> diff --git a/drivers/gpu/drm/msm/msm_gem_submit.c b/drivers/gpu/drm/msm/msm_gem_submit.c
+> index eb3536e3d66a..8bad07a04f85 100644
+> --- a/drivers/gpu/drm/msm/msm_gem_submit.c
+> +++ b/drivers/gpu/drm/msm/msm_gem_submit.c
+> @@ -334,9 +334,20 @@ static int submit_fence_sync(struct msm_gem_submit *submit, bool no_implicit)
+>  		if (ret)
+>  			return ret;
+>  
+> +		/* If userspace has determined that explicit fencing is
+> +		 * used, it can disable implicit sync on the entire
+> +		 * submit:
+> +		 */
+>  		if (no_implicit)
+>  			continue;
+>  
+> +		/* Otherwise userspace can ask for implicit sync to be
+> +		 * disabled on specific buffers.  This is useful for internal
+> +		 * usermode driver managed buffers, suballocation, etc.
+> +		 */
+> +		if (submit->bos[i].flags & MSM_SUBMIT_BO_NO_IMPLICIT)
+> +			continue;
+> +
+>  		ret = drm_sched_job_add_implicit_dependencies(&submit->base,
+>  							      obj,
+>  							      write);
+> diff --git a/include/uapi/drm/msm_drm.h b/include/uapi/drm/msm_drm.h
+> index f54b48ef6a2d..329100016e7c 100644
+> --- a/include/uapi/drm/msm_drm.h
+> +++ b/include/uapi/drm/msm_drm.h
+> @@ -222,10 +222,12 @@ struct drm_msm_gem_submit_cmd {
+>  #define MSM_SUBMIT_BO_READ             0x0001
+>  #define MSM_SUBMIT_BO_WRITE            0x0002
+>  #define MSM_SUBMIT_BO_DUMP             0x0004
+> +#define MSM_SUBMIT_BO_NO_IMPLICIT      0x0008
+>  
+>  #define MSM_SUBMIT_BO_FLAGS            (MSM_SUBMIT_BO_READ | \
+>  					MSM_SUBMIT_BO_WRITE | \
+> -					MSM_SUBMIT_BO_DUMP)
+> +					MSM_SUBMIT_BO_DUMP | \
+> +					MSM_SUBMIT_BO_NO_IMPLICIT)
+>  
+>  struct drm_msm_gem_submit_bo {
+>  	__u32 flags;          /* in, mask of MSM_SUBMIT_BO_x */
+
 
