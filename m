@@ -1,69 +1,62 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9435F64662C
-	for <lists+freedreno@lfdr.de>; Thu,  8 Dec 2022 01:55:34 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id F2B056470F3
+	for <lists+freedreno@lfdr.de>; Thu,  8 Dec 2022 14:41:37 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 88D2C10E140;
-	Thu,  8 Dec 2022 00:55:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7BA9B10E49F;
+	Thu,  8 Dec 2022 13:41:36 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x12e.google.com (mail-lf1-x12e.google.com
- [IPv6:2a00:1450:4864:20::12e])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C0F8810E447
- for <freedreno@lists.freedesktop.org>; Thu,  8 Dec 2022 00:55:04 +0000 (UTC)
-Received: by mail-lf1-x12e.google.com with SMTP id p8so31334261lfu.11
- for <freedreno@lists.freedesktop.org>; Wed, 07 Dec 2022 16:55:04 -0800 (PST)
+Received: from mail-pl1-x62c.google.com (mail-pl1-x62c.google.com
+ [IPv6:2607:f8b0:4864:20::62c])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C873710E49F
+ for <freedreno@lists.freedesktop.org>; Thu,  8 Dec 2022 13:41:32 +0000 (UTC)
+Received: by mail-pl1-x62c.google.com with SMTP id a9so1524172pld.7
+ for <freedreno@lists.freedesktop.org>; Thu, 08 Dec 2022 05:41:32 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=qdPmvvZXSRXEgFCUhOrLI3O1LCoqsr5bQT79OYES7MA=;
- b=bZeWsgjSdtb1EfFEhdB3DnwLB5u6mzHuCkIQDNxYA7Ar57IKdpfvCL5sVdua/eGgZY
- XGzloWvKPu2aIz1a+SpZXzzOdkTpFZ9BME4lfc1/pAEW9TKpDz3ql91zQZzJ5AWhuQJb
- 7BgRy3qsymgVho4YXMAakC7CC3j6MDWezr64gHzZM5r5rDu0NRtAEa9hd0+L76IZMop/
- 0Xn8G78GxByGFFmr+n1eBmW6LIRSIStlMKr68J61MWouCTFV8J2Dc1V7V67bp+z3EI/f
- DpJN1/lM4KLfCCiggd41WL7MAG7cf0SGwzbtjFLLD3dt2Hi/AU70ddYr17EnWCS3ryFH
- Us0A==
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=nsVDMGdrrcenDbAQ2t+1J/nqCclkhOqEn3pqIwRUG2w=;
+ b=uQy/0f7YV2jnlbCc1jSFqVrE4lbQvl+RRAJkhOLwNKMTRwuan4cjvWkayuWGs0R8oL
+ vnygiP558bf0VxQTsmO1gMaSyfuPFtroV61zbBi/whfupcirDxi2CZL1YSNKEfXqDE+T
+ 5piNZUnqR67+TNZqTfGGTQsSVyDTmdMKrUSaB/GcKRURw0DdMy1ZRW3zLz+Mm9NTRcz4
+ dXo/Fy6vLBQU6ntaMD3EpYjq2lVYXCLz0x7AANz9QfcsPOPKY33HoqaaBT3zcY9lcMkH
+ yXHm35VDMvBDL6KcyGNoNfTrflmO5iPsaeb9inrWk2puhSN2S/QjoIr7Dnn/InlZbwtU
+ f9Dw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=qdPmvvZXSRXEgFCUhOrLI3O1LCoqsr5bQT79OYES7MA=;
- b=xTtbw9RjX3F/JTZRd7VaovbvWttM2x+p4LD6TJlkUG2XnbDD594FuCLALcSbW6V8RL
- RTvT4h5tdPGPcYRL8sDBfdHBZBPYCdxis2xyFhiZBFYYePIcBKvY9OYBuO+kDWLFHCZ6
- +6T1KK1gyrASrO5axGfPzZHeSYru6GEfHfDFRGPNYi6IXNrZLf/HojkMeOzEHphRHQY6
- 6Ir+LJWc3BcrxkfAkJ0+RNSHQMddeks6mLjOVwSuae9RA51VpE56oRAfZgt5Y9mnSOWa
- gdbwszPZM4x7ABXpeLG0wZ1DrxQOwr9CzhTNG/D4FzhdaD3RXarvvs1sCdaUsktUR0Vd
- TKUA==
-X-Gm-Message-State: ANoB5plZgw/f3MLyug8Ulnx4yIASIL8+IpwU/MnkG+1QhdmKPR3z7Md8
- KnTo9nVspsYyl0OL6GHyIlAFcg==
-X-Google-Smtp-Source: AA0mqf7pJeeDPb8xpY6IkZxk/PYM2KwYfDnCCCrsNPl9x/edm5ZyBYm5JrGPsZ7c2irAfCJcfzmQSg==
-X-Received: by 2002:a05:6512:3414:b0:4b5:9510:e61 with SMTP id
- i20-20020a056512341400b004b595100e61mr1326135lfr.192.1670460902493; 
- Wed, 07 Dec 2022 16:55:02 -0800 (PST)
-Received: from eriador.lan (dzccz6yyyyyyyyyyybcwt-3.rev.dnainternet.fi.
- [2001:14ba:a085:4d00::8a5]) by smtp.gmail.com with ESMTPSA id
- f27-20020a19381b000000b0049fff3f645esm3064159lfa.70.2022.12.07.16.55.01
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 07 Dec 2022 16:55:02 -0800 (PST)
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-To: Andy Gross <agross@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konrad.dybcio@linaro.org>, Rob Clark <robdclark@gmail.com>,
- Sean Paul <sean@poorly.run>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Rob Herring <robh+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>
-Date: Thu,  8 Dec 2022 02:54:58 +0200
-Message-Id: <20221208005458.328196-5-dmitry.baryshkov@linaro.org>
-X-Mailer: git-send-email 2.35.1
-In-Reply-To: <20221208005458.328196-1-dmitry.baryshkov@linaro.org>
-References: <20221208005458.328196-1-dmitry.baryshkov@linaro.org>
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=nsVDMGdrrcenDbAQ2t+1J/nqCclkhOqEn3pqIwRUG2w=;
+ b=ZvO4R9ngsPSCTYDZW8TZuQCxzZPKojsqB/Ylib2iNJJ4J/QTdlaUvm4SMIPDyjbwSC
+ XJm3hY/+g+lc5u4RGt74YjxUqP45AIlR088Tu/vd+b+WtftrV/OkDfFG2wbq+xcmDyy6
+ m57jpuoC+CWMZKij+Q0Zrw/yEyE+TT+SJ+dkxTT5gHL96W2Li2rBY0tMuE5muY+drSKv
+ 0gkkuiK2Pma14TQobllti49VIY3iJGZ/4JmX8fNFUoW8uxEaKjhJvYcFYYwvBFQFnjME
+ IX2oGCYNm+C2+m/pCsmfQegk7C7tABMhFZ0irPx8Yho5qFsYskgvrDmJNQi8Mf3ErB/v
+ k24w==
+X-Gm-Message-State: ANoB5pnnWNERSbhpyKnbTMSomii6lAjvOLUkzMLPthxvYhhwLXZeYE9n
+ a9jkVjfwV8vo4OSBZRMcnPbP+4d8MJ9RUhsmKaJO6w==
+X-Google-Smtp-Source: AA0mqf7MdR24OCVzRBWFHBA1Ih0rv9hUVtp5dojJr48004Fk2Ur1P7IRRT950dIzOhONwDL/P4n1lllvwgn2ibEO+gk=
+X-Received: by 2002:a17:903:40c6:b0:189:f799:676e with SMTP id
+ t6-20020a17090340c600b00189f799676emr6120063pld.148.1670506892322; Thu, 08
+ Dec 2022 05:41:32 -0800 (PST)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH v2 4/4] arm64: dts: qcom: add SoC specific
- compat strings to mdp5 nodes
+References: <1664960824-20951-1-git-send-email-quic_akhilpo@quicinc.com>
+ <20221201225705.46r2m35ketvzipox@builder.lan>
+ <CAPDyKFofsqcoFbYt-9BcisbPdreLGqAAMWorqHi0_D1kwCdYhg@mail.gmail.com>
+ <20221207165457.kwdwwiycbwjpogxl@builder.lan>
+In-Reply-To: <20221207165457.kwdwwiycbwjpogxl@builder.lan>
+From: Ulf Hansson <ulf.hansson@linaro.org>
+Date: Thu, 8 Dec 2022 14:40:55 +0100
+Message-ID: <CAPDyKFpYgYkDdJ79xxkwr-Mqnj5CoBrV+ZZe6Xz4hGLNR4zUVw@mail.gmail.com>
+To: Akhil P Oommen <quic_akhilpo@quicinc.com>,
+ Bjorn Andersson <andersson@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Subject: Re: [Freedreno] [PATCH v7 0/6] clk/qcom: Support gdsc collapse
+ polling using 'reset' interface
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,76 +69,124 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, Stephen Boyd <swboyd@chromium.org>,
- Daniel Vetter <daniel@ffwll.ch>, freedreno@lists.freedesktop.org,
- David Airlie <airlied@gmail.com>
+Cc: David Airlie <airlied@linux.ie>,
+ Michael Turquette <mturquette@baylibre.com>,
+ Konrad Dybcio <konrad.dybcio@somainline.org>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ linux-clk@vger.kernel.org, Rob Clark <robdclark@gmail.com>,
+ Andy Gross <agross@kernel.org>, devicetree@vger.kernel.org,
+ Philipp Zabel <p.zabel@pengutronix.de>, linux-arm-msm@vger.kernel.org,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, Stephen Boyd <swboyd@chromium.org>,
+ Rob Herring <robh+dt@kernel.org>, Sean Paul <sean@poorly.run>,
+ Stephen Boyd <sboyd@kernel.org>, Douglas Anderson <dianders@chromium.org>,
+ krzysztof.kozlowski@linaro.org, Daniel Vetter <daniel@ffwll.ch>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ freedreno <freedreno@lists.freedesktop.org>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Add SoC-specific compat string to the MDP5 device nodes to ease
-distinguishing between various platforms.
+On Wed, 7 Dec 2022 at 17:55, Bjorn Andersson <andersson@kernel.org> wrote:
+>
+> On Wed, Dec 07, 2022 at 05:00:51PM +0100, Ulf Hansson wrote:
+> > On Thu, 1 Dec 2022 at 23:57, Bjorn Andersson <andersson@kernel.org> wrote:
+> > >
+> > > On Wed, Oct 05, 2022 at 02:36:58PM +0530, Akhil P Oommen wrote:
+> > > >
+> > >
+> > > @Ulf, Akhil has a power-domain for a piece of hardware which may be
+> > > voted active by multiple different subsystems (co-processors/execution
+> > > contexts) in the system.
+> > >
+> > > As such, during the powering down sequence we don't wait for the
+> > > power-domain to turn off. But in the event of an error, the recovery
+> > > mechanism relies on waiting for the hardware to settle in a powered off
+> > > state.
+> > >
+> > > The proposal here is to use the reset framework to wait for this state
+> > > to be reached, before continuing with the recovery mechanism in the
+> > > client driver.
+> >
+> > I tried to review the series (see my other replies), but I am not sure
+> > I fully understand the consumer part.
+> >
+> > More exactly, when and who is going to pull the reset and at what point?
+> >
+> > >
+> > > Given our other discussions on quirky behavior, do you have any
+> > > input/suggestions on this?
+> > >
+> > > > Some clients like adreno gpu driver would like to ensure that its gdsc
+> > > > is collapsed at hardware during a gpu reset sequence. This is because it
+> > > > has a votable gdsc which could be ON due to a vote from another subsystem
+> > > > like tz, hyp etc or due to an internal hardware signal. To allow
+> > > > this, gpucc driver can expose an interface to the client driver using
+> > > > reset framework. Using this the client driver can trigger a polling within
+> > > > the gdsc driver.
+> > >
+> > > @Akhil, this description is fairly generic. As we've reached the state
+> > > where the hardware has settled and we return to the client, what
+> > > prevents it from being powered up again?
+> > >
+> > > Or is it simply a question of it hitting the powered-off state, not
+> > > necessarily staying there?
+> >
+> > Okay, so it's indeed the GPU driver that is going to assert/de-assert
+> > the reset at some point. Right?
+> >
+> > That seems like a reasonable approach to me, even if it's a bit
+> > unclear under what conditions that could happen.
+> >
+>
+> Generally the disable-path of the power-domain does not check that the
+> power-domain is actually turned off, because the status might indicate
+> that the hardware is voting for the power-domain to be on.
 
-Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
----
- arch/arm64/boot/dts/qcom/msm8916.dtsi | 2 +-
- arch/arm64/boot/dts/qcom/msm8996.dtsi | 2 +-
- arch/arm64/boot/dts/qcom/sdm630.dtsi  | 2 +-
- arch/arm64/boot/dts/qcom/sdm660.dtsi  | 2 ++
- 4 files changed, 5 insertions(+), 3 deletions(-)
+Is there a good reason why the HW needs to vote too, when the GPU
+driver is already in control?
 
-diff --git a/arch/arm64/boot/dts/qcom/msm8916.dtsi b/arch/arm64/boot/dts/qcom/msm8916.dtsi
-index 2ca8e977fc2a..0a23fb6efae8 100644
---- a/arch/arm64/boot/dts/qcom/msm8916.dtsi
-+++ b/arch/arm64/boot/dts/qcom/msm8916.dtsi
-@@ -989,7 +989,7 @@ mdss: mdss@1a00000 {
- 			ranges;
- 
- 			mdp: mdp@1a01000 {
--				compatible = "qcom,mdp5";
-+				compatible = "qcom,msm8916-mdp5", "qcom,mdp5";
- 				reg = <0x01a01000 0x89000>;
- 				reg-names = "mdp_phys";
- 
-diff --git a/arch/arm64/boot/dts/qcom/msm8996.dtsi b/arch/arm64/boot/dts/qcom/msm8996.dtsi
-index d31464204f69..b5cd1bcad5eb 100644
---- a/arch/arm64/boot/dts/qcom/msm8996.dtsi
-+++ b/arch/arm64/boot/dts/qcom/msm8996.dtsi
-@@ -931,7 +931,7 @@ mdss: mdss@900000 {
- 			status = "disabled";
- 
- 			mdp: mdp@901000 {
--				compatible = "qcom,mdp5";
-+				compatible = "qcom,msm8996-mdp5", "qcom,mdp5";
- 				reg = <0x00901000 0x90000>;
- 				reg-names = "mdp_phys";
- 
-diff --git a/arch/arm64/boot/dts/qcom/sdm630.dtsi b/arch/arm64/boot/dts/qcom/sdm630.dtsi
-index 13e6a4fbba27..65addd4c672e 100644
---- a/arch/arm64/boot/dts/qcom/sdm630.dtsi
-+++ b/arch/arm64/boot/dts/qcom/sdm630.dtsi
-@@ -1498,7 +1498,7 @@ mdss: mdss@c900000 {
- 			status = "disabled";
- 
- 			mdp: mdp@c901000 {
--				compatible = "qcom,mdp5";
-+				compatible = "qcom,sdm630-mdp5", "qcom,mdp5";
- 				reg = <0x0c901000 0x89000>;
- 				reg-names = "mdp_phys";
- 
-diff --git a/arch/arm64/boot/dts/qcom/sdm660.dtsi b/arch/arm64/boot/dts/qcom/sdm660.dtsi
-index d52123cb5cd3..cdaa0d7a66f3 100644
---- a/arch/arm64/boot/dts/qcom/sdm660.dtsi
-+++ b/arch/arm64/boot/dts/qcom/sdm660.dtsi
-@@ -142,6 +142,8 @@ &gpucc {
- };
- 
- &mdp {
-+	compatible = "qcom,sdm660-mdp5", "qcom,mdp5";
-+
- 	ports {
- 		port@1 {
- 			reg = <1>;
--- 
-2.35.1
+Or perhaps that depends on the running use case?
 
+>
+> As part of the recovery of the GPU after some fatal fault, the GPU
+> driver does something which will cause the hardware votes for the
+> power-domain to be let go, and then the driver does pm_runtime_put().
+
+Okay. That "something", sounds like a device specific setting for the
+corresponding gdsc, right?
+
+So somehow the GPU driver needs to manage that setting, right?
+
+>
+> But in this case the GPU driver wants to ensure that the power-domain is
+> actually powered down, before it does pm_runtime_get() again. To ensure
+> that the hardware lost its state...
+
+I see.
+
+>
+> The proposal here is to use a reset to reach into the power-domain
+> provider and wait for the hardware to be turned off, before the GPU
+> driver attempts turning the power-domain on again.
+>
+>
+> In other words, there is no reset. This is a hack to make a normally
+> asynchronous pd.power_off() to be synchronous in this particular case.
+
+Alright, assuming I understood your clarifications above correctly
+(thanks!), I think I have got a much better picture now.
+
+Rather than abusing the reset interface, I think we should manage this
+through the genpd's power on/off notifiers (GENPD_NOTIFY_OFF). The GPU
+driver should register its corresponding device for them
+(dev_pm_genpd_add_notifier()).
+
+The trick however, is to make the behaviour of the power-domain for
+the gdsc (the genpd->power_off() callback) conditional on whether the
+HW is configured to vote or not. If the HW can vote, it should not
+poll for the state - and vice versa when the HW can't vote.
+
+Would this work?
+
+Kind regards
+Uffe
