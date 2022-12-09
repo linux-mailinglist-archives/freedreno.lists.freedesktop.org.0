@@ -2,59 +2,56 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id BB0666481BC
-	for <lists+freedreno@lfdr.de>; Fri,  9 Dec 2022 12:30:30 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id EA08C648242
+	for <lists+freedreno@lfdr.de>; Fri,  9 Dec 2022 13:15:00 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 02CA310E524;
-	Fri,  9 Dec 2022 11:30:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2328810E530;
+	Fri,  9 Dec 2022 12:14:56 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-yw1-x112c.google.com (mail-yw1-x112c.google.com
- [IPv6:2607:f8b0:4864:20::112c])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7534610E521
- for <freedreno@lists.freedesktop.org>; Fri,  9 Dec 2022 11:30:17 +0000 (UTC)
-Received: by mail-yw1-x112c.google.com with SMTP id
- 00721157ae682-3b48b139b46so47768507b3.12
- for <freedreno@lists.freedesktop.org>; Fri, 09 Dec 2022 03:30:17 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=MjK0sQNHkAnOyNoLULfLFC8tBks0VDS2+NJ4Yo442sA=;
- b=AfRGQFHE/4QABp88WIfbgyfDOy81cfakm17TWf4F5AZL2sftwRWRi4Lw8wdfsJhsF3
- Y7mvb184t/fForLJn9H4L30W4vGAdc1fvQk1YT8e/fsDDvqK6BPEzt9vIWoW4xLTJ1Sw
- ZEkV3zIA5IhMlYnmP4JqG0FBq8VX+S+ik/Tt9nKw5zzKB+tlYDBxAcApE6tfkoJVO69X
- LLqFzyoEeXimzaNT/pDC/c+oR8nmUxjvdX9ynIITarYmjtFbIFpgDlmKR0r1O7OxuqGD
- Vzpiivqk31devP9yFcv5nS0EIae97Jm6xS+ZZKzZ1Tq68Qk3vGm+2RoBEoGO90972p/f
- H0yg==
+Received: from mail-oi1-f177.google.com (mail-oi1-f177.google.com
+ [209.85.167.177])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2750110E52F;
+ Fri,  9 Dec 2022 12:14:52 +0000 (UTC)
+Received: by mail-oi1-f177.google.com with SMTP id m204so4331029oib.6;
+ Fri, 09 Dec 2022 04:14:52 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=MjK0sQNHkAnOyNoLULfLFC8tBks0VDS2+NJ4Yo442sA=;
- b=ShF1vi9qajAdmZHREvdAT0jeOErVh9elq2q38BcNRfMH6mPgMIE62eDYcBAP9+ZBey
- +LKbkRujNjurYyVz3a/z5nk+LXn9UFJgb3CyMH9eo5BiqCcoop5CwYyjxol5xPkh85We
- iqjl17k1gMUcL6zt6kZZVw3U6uj6pq3Wxrg/ETqREuVyS5xsJqhsPnPbVo4TOtRlWl44
- 8GyYLmDPRCVwNbhAgHt+owRG4NSNM5Ln+VOaBc05Gr7z8OjCD+9/RS3tdsuy0Cdp3L0U
- RNxk0+foA/c3th0Znp9BlTSJ3+7Yr62z6Q20kAYFpe27W4Q7bU5Z6ODa468UmL1Rk2oD
- 3+ZQ==
-X-Gm-Message-State: ANoB5plF62uodtRpu5wDPhy1IEFaHb7jRKnPTjZmhxj234mzq99h9UUD
- no+UQ1Kon3reJwajz0VpxQPzlCa7aTMOMeR/QV9CiA==
-X-Google-Smtp-Source: AA0mqf7pP+1F8DEdZRZp5BrYvfzyUJzKOuvAkltgXILih6wgXJxMU+qZ+fTFB9kxIvC7pN/xfkx/C4gAsxyb+DTEbmc=
-X-Received: by 2002:a0d:db15:0:b0:3d6:2151:4038 with SMTP id
- d21-20020a0ddb15000000b003d621514038mr36253472ywe.418.1670585416427; Fri, 09
- Dec 2022 03:30:16 -0800 (PST)
+ h=date:subject:message-id:references:in-reply-to:cc:to:from
+ :mime-version:content-transfer-encoding:x-gm-message-state:from:to
+ :cc:subject:date:message-id:reply-to;
+ bh=kI7BbdyAUV/eNarvTgWcZoX1xauTnHS7x8JJjE7aAYY=;
+ b=xsdiFy0r0IeL8AiFyYo4S/uheZOfI8bFxEfknVXWmsWDIP3rxio3q7MRryOLeqPtcF
+ EXNGV61ofiupS8nb42hw2DE1jEMVielIEaZZalO/YfVyMDaALgi0wQHvc3AgorffzLuo
+ +KLO9WFTUxiTHGVHKK7/WiR3EUYwVZf6Ofi/+45BKTA/UxJHm6xZRV8ShYXPG3FuI7Ip
+ XauPOAZpeWI9BJ7mF8+cD5Z5XseKlmyOa5FTBGULAMuk966vDReka4fabQOxsL5Yy0jC
+ UDBd5As+mVUK9g7aA/byeuszmDwI/O9LAElpAjv5r5EXhfCjxFzb8PxTWfetd1PQtKco
+ Ec5Q==
+X-Gm-Message-State: ANoB5pkSDHaRZJL+8LYC49UZXH60gXLqetSJQjSAx2gaD1oxYu//VDpd
+ GbHX7ONAuc9FnWViCp3xjQ==
+X-Google-Smtp-Source: AA0mqf4FRI86zMRlAtzC+h2pF/uE9HwQGgMNCY3G4dmWrGrHC4nf3HUzituKruhqW4XxFd90+aIcLQ==
+X-Received: by 2002:aca:3dd5:0:b0:35a:3c3d:34d5 with SMTP id
+ k204-20020aca3dd5000000b0035a3c3d34d5mr2111798oia.14.1670588091153; 
+ Fri, 09 Dec 2022 04:14:51 -0800 (PST)
+Received: from robh_at_kernel.org (66-90-144-107.dyn.grandenetworks.net.
+ [66.90.144.107]) by smtp.gmail.com with ESMTPSA id
+ b23-20020aca2217000000b0035b99bbe30bsm447422oic.54.2022.12.09.04.14.50
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 09 Dec 2022 04:14:50 -0800 (PST)
+Received: (nullmailer pid 2822350 invoked by uid 1000);
+ Fri, 09 Dec 2022 12:14:49 -0000
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 MIME-Version: 1.0
-References: <20221207220012.16529-1-quic_bjorande@quicinc.com>
- <20221207220012.16529-12-quic_bjorande@quicinc.com>
-In-Reply-To: <20221207220012.16529-12-quic_bjorande@quicinc.com>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Fri, 9 Dec 2022 13:30:05 +0200
-Message-ID: <CAA8EJpp8oSW=yEi_QvL1PzF5yhfHsbC7WLD8Lic1R5A_o0i9SA@mail.gmail.com>
-To: Bjorn Andersson <quic_bjorande@quicinc.com>
-Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [PATCH v5 11/12] arm64: dts: qcom: sc8280xp-crd:
- Enable EDP
+From: Rob Herring <robh@kernel.org>
+To: Kuogee Hsieh <quic_khsieh@quicinc.com>
+In-Reply-To: <1670539015-11808-3-git-send-email-quic_khsieh@quicinc.com>
+References: <1670539015-11808-1-git-send-email-quic_khsieh@quicinc.com>
+ <1670539015-11808-3-git-send-email-quic_khsieh@quicinc.com>
+Message-Id: <167058798233.2819544.12292613321491007286.robh@kernel.org>
+Date: Fri, 09 Dec 2022 06:14:49 -0600
+Subject: Re: [Freedreno] [PATCH v11 2/5] dt-bindings: msm/dp: add data-lanes
+ and link-frequencies property
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,121 +64,69 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Kalyan Thota <quic_kalyant@quicinc.com>, freedreno@lists.freedesktop.org,
- Sankeerth Billakanti <quic_sbillaka@quicinc.com>, linux-kernel@vger.kernel.org,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- devicetree@vger.kernel.org, Sean Paul <sean@poorly.run>,
- Bjorn Andersson <andersson@kernel.org>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
- Kuogee Hsieh <quic_khsieh@quicinc.com>,
- Konrad Dybcio <konrad.dybcio@linaro.org>, Rob Clark <robdclark@gmail.com>,
- Rob Herring <robh+dt@kernel.org>, Daniel Vetter <daniel@ffwll.ch>,
- linux-arm-msm@vger.kernel.org, Jessica Zhang <quic_jesszhan@quicinc.com>,
- David Airlie <airlied@gmail.com>, Johan Hovold <johan+linaro@kernel.org>
+Cc: sean@poorly.run, robdclark@gmail.com, quic_sbillaka@quicinc.com,
+ krzysztof.kozlowski+dt@linaro.org, quic_abhinavk@quicinc.com,
+ devicetree@vger.kernel.org, airlied@linux.ie, linux-kernel@vger.kernel.org,
+ andersson@kernel.org, konrad.dybcio@somainline.org, agross@kernel.org,
+ dri-devel@lists.freedesktop.org, dianders@chromium.org, vkoul@kernel.org,
+ robh+dt@kernel.org, daniel@ffwll.ch, linux-arm-msm@vger.kernel.org,
+ dmitry.baryshkov@linaro.org, airlied@gmail.com, swboyd@chromium.org,
+ freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Thu, 8 Dec 2022 at 00:00, Bjorn Andersson <quic_bjorande@quicinc.com> wrote:
->
-> From: Bjorn Andersson <bjorn.andersson@linaro.org>
->
-> The SC8280XP CRD has a EDP display on MDSS0 DP3, enable relevant nodes
-> and link it together with the backlight control.
->
-> Signed-off-by: Bjorn Andersson <bjorn.andersson@linaro.org>
-> Signed-off-by: Bjorn Andersson <quic_bjorande@quicinc.com>
+
+On Thu, 08 Dec 2022 14:36:52 -0800, Kuogee Hsieh wrote:
+> Add both data-lanes and link-frequencies property into endpoint
+> 
+> Changes in v7:
+> -- split yaml out of dtsi patch
+> -- link-frequencies from link rate to symbol rate
+> -- deprecation of old data-lanes property
+> 
+> Changes in v8:
+> -- correct Bjorn mail address to kernel.org
+> 
+> Changes in v10:
+> -- add menu item to data-lanes and link-frequecnis
+> 
+> Changes in v11:
+> -- add endpoint property at port@1
+> 
+> Signed-off-by: Kuogee Hsieh <quic_khsieh@quicinc.com>`
 > ---
->
-> Changes since v4:
-> - None
->
->  arch/arm64/boot/dts/qcom/sc8280xp-crd.dts | 72 ++++++++++++++++++++++-
->  1 file changed, 71 insertions(+), 1 deletion(-)
->
-> diff --git a/arch/arm64/boot/dts/qcom/sc8280xp-crd.dts b/arch/arm64/boot/dts/qcom/sc8280xp-crd.dts
-> index f09810e3d956..a7d2384cbbe8 100644
+>  .../bindings/display/msm/dp-controller.yaml        | 27 ++++++++++++++++++++++
+>  1 file changed, 27 insertions(+)
+> 
 
-[skipped]
+My bot found errors running 'make DT_CHECKER_FLAGS=-m dt_binding_check'
+on your patch (DT_CHECKER_FLAGS is new in v5.13):
 
-> @@ -230,6 +246,54 @@ vreg_l9d: ldo9 {
->         };
->  };
->
-> +&dispcc0 {
-> +       status = "okay";
-> +};
-> +
-> +&mdss0 {
-> +       status = "okay";
-> +};
-> +
-> +&mdss0_dp3 {
-> +       compatible = "qcom,sc8280xp-edp";
-> +       status = "okay";
-> +
-> +       data-lanes = <0 1 2 3>;
+yamllint warnings/errors:
 
-I hope to land Kuogee patches that move data-lanes to the endpoint
-node, where they belong. Do we have any good way to proceed here?
-Or would it be easier to land this patch as is and then, maybe next
-cycle, move the property?
+dtschema/dtc warnings/errors:
+/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/dp-controller.yaml: properties:required: ['port@0', 'port@1'] is not of type 'object', 'boolean'
+	from schema $id: http://json-schema.org/draft-07/schema#
+/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/dp-controller.yaml: properties: 'required' should not be valid under {'$ref': '#/definitions/json-schema-prop-names'}
+	hint: A json-schema keyword was found instead of a DT property name.
+	from schema $id: http://devicetree.org/meta-schemas/keywords.yaml#
+/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/dp-controller.yaml: ignoring, error in schema: properties: required
+Documentation/devicetree/bindings/display/msm/dp-controller.example.dtb:0:0: /example-0/displayport-controller@ae90000: failed to match any schema with compatible: ['qcom,sc7180-dp']
 
-> +
-> +       aux-bus {
-> +               panel {
-> +                       compatible = "edp-panel";
-> +                       power-supply = <&vreg_edp_3p3>;
-> +
-> +                       backlight = <&backlight>;
-> +
-> +                       ports {
-> +                               port {
-> +                                       edp_panel_in: endpoint {
-> +                                               remote-endpoint = <&mdss0_dp3_out>;
-> +                                       };
-> +                               };
-> +                       };
-> +               };
-> +       };
-> +
-> +       ports {
-> +               port@1 {
-> +                       reg = <1>;
-> +                       mdss0_dp3_out: endpoint {
-> +                               remote-endpoint = <&edp_panel_in>;
-> +                       };
-> +               };
-> +       };
-> +};
-> +
-> +&mdss0_dp3_phy {
-> +       status = "okay";
-> +
-> +       vdda-phy-supply = <&vreg_l6b>;
-> +       vdda-pll-supply = <&vreg_l3b>;
-> +};
-> +
->  &pcie2a {
->         perst-gpios = <&tlmm 143 GPIO_ACTIVE_LOW>;
->         wake-gpios = <&tlmm 145 GPIO_ACTIVE_LOW>;
-> @@ -496,6 +560,12 @@ hastings_reg_en: hastings-reg-en-state {
->  &tlmm {
->         gpio-reserved-ranges = <74 6>, <83 4>, <125 2>, <128 2>, <154 7>;
->
-> +       edp_reg_en: edp-reg-en-state {
-> +               pins = "gpio25";
-> +               function = "gpio";
-> +               output-enable;
-> +       };
-> +
->         kybd_default: kybd-default-state {
->                 disable-pins {
->                         pins = "gpio102";
-> --
-> 2.37.3
->
+doc reference errors (make refcheckdocs):
 
+See https://patchwork.ozlabs.org/project/devicetree-bindings/patch/1670539015-11808-3-git-send-email-quic_khsieh@quicinc.com
 
--- 
-With best wishes
-Dmitry
+The base for the series is generally the latest rc1. A different dependency
+should be noted in *this* patch.
+
+If you already ran 'make dt_binding_check' and didn't see the above
+error(s), then make sure 'yamllint' is installed and dt-schema is up to
+date:
+
+pip3 install dtschema --upgrade
+
+Please check and re-submit after running the above command yourself. Note
+that DT_SCHEMA_FILES can be set to your schema file to speed up checking
+your schema. However, it must be unset to test all examples with your schema.
+
