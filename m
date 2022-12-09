@@ -1,79 +1,57 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 208ED647AD2
-	for <lists+freedreno@lfdr.de>; Fri,  9 Dec 2022 01:35:55 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 2B971647C64
+	for <lists+freedreno@lfdr.de>; Fri,  9 Dec 2022 03:49:29 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C3F9910E206;
-	Fri,  9 Dec 2022 00:35:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D049610E03C;
+	Fri,  9 Dec 2022 02:49:27 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x12f.google.com (mail-lf1-x12f.google.com
- [IPv6:2a00:1450:4864:20::12f])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 45EB710E209
- for <freedreno@lists.freedesktop.org>; Fri,  9 Dec 2022 00:35:48 +0000 (UTC)
-Received: by mail-lf1-x12f.google.com with SMTP id d6so4598636lfs.10
- for <freedreno@lists.freedesktop.org>; Thu, 08 Dec 2022 16:35:48 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=u9i6tSwEYMMAQhxXNd22Ibb8itC1fP4PyffqUvO3Sp0=;
- b=w0dCi8LMFFLIwv9l8ZHEkvSMj0cu9rLyqukdYLaOGOhZdP5ShfHSzL1DFsug8nOW2U
- 7Hv32ruiYInr8Zz72srEFfkLY522kax3mnidwyoSp59oBxJcCrOrtmtZ10RKx1pxkGs7
- /mZK2JvRnhX8tNPCCPKno/nePmAcuMD3rUzYkNPn/SUdBQoj5cioWtcaXJmAJEqDxlsO
- kXUx/kJGdyo7Iddd+BIiswkWaaKvYo+KiWhm56KBO+n0ZcLHApOD6JoXz+3ZcfceBZcZ
- IhKDod81lUt8DaXm57bK0lWbAULZACw42SZ9hZJuCwSVjUkOVFh3YVxZ1QWIgFy5lqyu
- +tGg==
+Received: from mail-ej1-x629.google.com (mail-ej1-x629.google.com
+ [IPv6:2a00:1450:4864:20::629])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 828F610E21E
+ for <freedreno@lists.freedesktop.org>; Fri,  9 Dec 2022 02:49:23 +0000 (UTC)
+Received: by mail-ej1-x629.google.com with SMTP id vv4so8475165ejc.2
+ for <freedreno@lists.freedesktop.org>; Thu, 08 Dec 2022 18:49:23 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kali.org; s=google;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=53YW0ORFneqyG93srJ8jF+XX7zmPAnIboOzrEPTG0Ts=;
+ b=THue66vB24/bYK1OKRCFn3bh/J/RhSIiO/22Xzu3S1OMJvLXwxUmZzaqbERTDmNPxX
+ QG0p0q4606ivku/eGXQWQOeiIDGlgB5VSdhbxtsaFHyeVmlMcQ41A6JCmWrIFMjeLbed
+ 1QPWt9QMzlb32nmtD26qU5ryEWB5T3z82YP51rFbEtE90bFRGxb4WH0CwWFZ9sNZBDie
+ YpGntb2COBf6JNsjRbynRwGQ5E9OEJXMlPt6aroZeRuLOjBeyF6GVdtPNDf/rxNqW9gD
+ L5jh4FvWCbafrPqPi9eRB4EyDyH9EMgnUDC9O/kvvfbe8z/Ww1BknWX/k4YRHHKzjFg+
+ S5oA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=u9i6tSwEYMMAQhxXNd22Ibb8itC1fP4PyffqUvO3Sp0=;
- b=scv4ELyBy/l1pgqKCN0ShNSq7cuCc6f3wrZ2K0z44Q9OQpFZlvKcQ2MUpQAu/RFEHz
- lPs4yY4fZtQh/t+hK/oRyBDX1t3pC6zmdHz+g7KSgNf7lE3oY+pY4q2fCRkHXimLyDaD
- Ck/pbaoSkgC7eJVcKyzM93ia5arUfvWh/Xc/odYZQwwjnlQpFlw2/PKhK+SEOte0LWa+
- JyMWKbnQcxp+bHBZTY5RjiNC2QMXLJtgm4wbrS9m/PblRD9r4G9iPl9Jdi1egvvY+9YR
- pGxuInVbLbohUrSRoSO+SK1P3il/e8YuJqfKz4M9T7eLTKATxKD+X2F623HUcSBV6R0G
- VPDA==
-X-Gm-Message-State: ANoB5pm7bdh8yCEZY2FDiIJT7J7DEVQXCkEQoGZhAAutrYs+9IGcZZkw
- gDUw2p6QQ1nW3bzuCnjni6UUBw==
-X-Google-Smtp-Source: AA0mqf7I3ZRSP2xjQAxL8LPJRhqpQO/Grjq0p57nj0CmHvYCy7hYf+K/liWo0VkYQwpbumlYCYOjmg==
-X-Received: by 2002:a05:6512:1394:b0:4b5:de9:a12f with SMTP id
- p20-20020a056512139400b004b50de9a12fmr1417991lfa.12.1670546146352; 
- Thu, 08 Dec 2022 16:35:46 -0800 (PST)
-Received: from ?IPV6:2001:14ba:a085:4d00::8a5?
- (dzccz6yyyyyyyyyyybcwt-3.rev.dnainternet.fi. [2001:14ba:a085:4d00::8a5])
- by smtp.gmail.com with ESMTPSA id
- bt14-20020a056512260e00b004a44ffb1023sm19597lfb.57.2022.12.08.16.35.45
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 08 Dec 2022 16:35:45 -0800 (PST)
-Message-ID: <e53844b7-601b-f355-302b-cc871962a446@linaro.org>
-Date: Fri, 9 Dec 2022 02:35:44 +0200
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=53YW0ORFneqyG93srJ8jF+XX7zmPAnIboOzrEPTG0Ts=;
+ b=77LGmbt0C2BDiOG8kEOJMtUk7dzQA8MtTT87BWM3UvcSo2YJuLb98pOCvk40qJn3Gu
+ tYo77+4TYu0DgPBboAMXUAiJv4xbXHuw3bc0pTlNmaMby3OTu6ZJKhP45NSv/m5eCOqt
+ 6ou26bUwA0oj7DYZAR99OWb5ahjYwJD7j0Rc3D5zK0LNBeJbceXeWB8vdSuauQ5whL4x
+ ZY3pwVq267nue7RZDGVfCFDw23i/1wxD5iWFc7sq3e8+e9dKJyNp5KMVkirKJM9sM3JP
+ VeTMMvjxdA3X06GqPQDWiTrFlRY8dCSoumlL9Y6ksa6DWpdh8xwpn+YjBLa/vuWWmSwT
+ +USg==
+X-Gm-Message-State: ANoB5plVHUJwxD/IqELykNPRW29o0DRbG1l7HPHrQag0wYpFmzDtlumm
+ RedBucNKMn5OMwyW1Pu4d4o68jvBTmDkwZ4kbDvcDw==
+X-Google-Smtp-Source: AA0mqf6doDwZB2F+lKd6wShNarKCxmm1N6/epMJ03LBGs+paMSVEE2cZP89QidB84RL5HCl7NJLWWsopNGHRAj14smU=
+X-Received: by 2002:a17:906:c44a:b0:7c0:d6bb:fd7 with SMTP id
+ ck10-20020a170906c44a00b007c0d6bb0fd7mr18360425ejb.726.1670554161785; Thu, 08
+ Dec 2022 18:49:21 -0800 (PST)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.5.1
-Content-Language: en-GB
-To: Kuogee Hsieh <quic_khsieh@quicinc.com>, dri-devel@lists.freedesktop.org,
- robdclark@gmail.com, sean@poorly.run, swboyd@chromium.org,
- dianders@chromium.org, vkoul@kernel.org, daniel@ffwll.ch, airlied@linux.ie,
- agross@kernel.org, andersson@kernel.org, konrad.dybcio@somainline.org,
- robh+dt@kernel.org, krzysztof.kozlowski+dt@linaro.org,
- devicetree@vger.kernel.org, airlied@gmail.com
-References: <1670539015-11808-1-git-send-email-quic_khsieh@quicinc.com>
- <1670539015-11808-3-git-send-email-quic_khsieh@quicinc.com>
- <5a3865ed-8847-db04-3d60-f35438250bef@linaro.org>
- <5aa16223-dbf6-996c-1985-794302dcce91@quicinc.com>
- <be1411e8-1d07-7643-977c-a306016fd660@linaro.org>
- <b6d90c1f-5365-7197-be63-96c3d8cf0746@quicinc.com>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-In-Reply-To: <b6d90c1f-5365-7197-be63-96c3d8cf0746@quicinc.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-Subject: Re: [Freedreno] [PATCH v11 2/5] dt-bindings: msm/dp: add data-lanes
- and link-frequencies property
+References: <20221207220012.16529-1-quic_bjorande@quicinc.com>
+In-Reply-To: <20221207220012.16529-1-quic_bjorande@quicinc.com>
+From: Steev Klimaszewski <steev@kali.org>
+Date: Thu, 8 Dec 2022 20:49:10 -0600
+Message-ID: <CAKXuJqirYDCGfOP=YMOGdacB_v0GNty7HZ+p0U19a8DpBMDGKQ@mail.gmail.com>
+To: Bjorn Andersson <quic_bjorande@quicinc.com>
+Content-Type: text/plain; charset="UTF-8"
+Subject: Re: [Freedreno] [PATCH v5 00/12] drm/msm: Add SC8280XP support
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -86,198 +64,77 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-arm-msm@vger.kernel.org, quic_sbillaka@quicinc.com,
- freedreno@lists.freedesktop.org, quic_abhinavk@quicinc.com,
- linux-kernel@vger.kernel.org
+Cc: Kalyan Thota <quic_kalyant@quicinc.com>, freedreno@lists.freedesktop.org,
+ Sankeerth Billakanti <quic_sbillaka@quicinc.com>, linux-kernel@vger.kernel.org,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ devicetree@vger.kernel.org, Sean Paul <sean@poorly.run>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
+ Kuogee Hsieh <quic_khsieh@quicinc.com>,
+ Konrad Dybcio <konrad.dybcio@linaro.org>, Rob Clark <robdclark@gmail.com>,
+ Rob Herring <robh+dt@kernel.org>, Daniel Vetter <daniel@ffwll.ch>,
+ linux-arm-msm@vger.kernel.org, Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Jessica Zhang <quic_jesszhan@quicinc.com>, David Airlie <airlied@gmail.com>,
+ Johan Hovold <johan+linaro@kernel.org>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 09/12/2022 02:22, Kuogee Hsieh wrote:
-> 
-> On 12/8/2022 4:11 PM, Dmitry Baryshkov wrote:
->> On 09/12/2022 01:38, Kuogee Hsieh wrote:
->>>
->>> On 12/8/2022 3:33 PM, Dmitry Baryshkov wrote:
->>>> On 09/12/2022 00:36, Kuogee Hsieh wrote:
->>>>> Add both data-lanes and link-frequencies property into endpoint
->>>>>
->>>>> Changes in v7:
->>>>> -- split yaml out of dtsi patch
->>>>> -- link-frequencies from link rate to symbol rate
->>>>> -- deprecation of old data-lanes property
->>>>>
->>>>> Changes in v8:
->>>>> -- correct Bjorn mail address to kernel.org
->>>>>
->>>>> Changes in v10:
->>>>> -- add menu item to data-lanes and link-frequecnis
->>>>>
->>>>> Changes in v11:
->>>>> -- add endpoint property at port@1
->>>>>
->>>>> Signed-off-by: Kuogee Hsieh <quic_khsieh@quicinc.com>`
->>>>
->>>> Applying: dt-bindings: msm/dp: add data-lanes and link-frequencies 
->>>> property
->>>> .git/rebase-apply/patch:47: trailing whitespace.
->>>>
->>>> .git/rebase-apply/patch:51: trailing whitespace.
->>>>
->>>>
->>>> Also the dt_binding_check fails with an error for this schema. And 
->>>> after fixing the error in the schema I faced an example validation 
->>>> error. Did you check that the schema is correct and that the example 
->>>> validates against the schema?
->>>
->>> yes, but i run "make dt_binding_check 
->>> DT_SCHEMA_FILES=Documentation/devicetree/bindings/display/msm/dp-controller.yaml" at mu v5.15 branch since
->>
->> I wouldn't ask you to post the log here. But I don't think that either 
->> of the errors that I see here is related to 5.15 vs 6.1-rc.
->>
->> In fact after applying this patch against 5.15 I saw the expected 
->> failure:
->>
->> Documentation/devicetree/bindings/display/msm/dp-controller.yaml: 
->> properties:required: ['port@0', 'port@1'] is not of type 'object', 
->> 'boolean'
->> Documentation/devicetree/bindings/display/msm/dp-controller.yaml: 
->> properties: 'required' should not be valid under {'$ref': 
->> '#/definitions/json-schema-prop-names'}
->> Documentation/devicetree/bindings/display/msm/dp-controller.yaml: 
->> ignoring, error in schema: properties: required
->>
->>>
->>> "make dt_binding_check" does not work at msm-next branch.
->>
->> I went ahead and just checked.
->>
->> `make dt_binding_check DT_SCHEMA_FILES=display/msm`  works cleanly in 
->> msm-next and reports a single example-related warning in 
->> msm-next-lumag. I pushed a patch to fix that warning (wich can 
->> hopefully be picked up by Abhinav into msm-fixes). So you can assume 
->> that both these branches have consistent error-free display/msm schemas.
->>
-> I have clean msm-next branch (without my data-lines yaml patch applied) 
-> and run "make dt_binding_check 
-> DT_SCHEMA_FILES=Documentation/devicetree/bindings/display/msm/dp-controller.yaml", then I saw below error messages.
-> 
-> Have you run into this problem?
+On Wed, Dec 7, 2022 at 4:00 PM Bjorn Andersson
+<quic_bjorande@quicinc.com> wrote:
+>
+> This introduces support for the SC8280XP platform in the MDSS, DPU and
+> DP driver. It reworks the HDP handling in the DP driver to support
+> external HPD sources - such as the dp-connector, or USB Type-C altmode.
+>
+> It then introduces the display clock controllers, mdss, dpu and
+> displayport controllers and link everything together, for both the MDSS
+> instances on the platform, and lastly enables EDP on the compute
+> reference device and 6 of the MiniDP outputs on the automotive
+> development platform.
+>
+>
+> The patches was previously sent separately, but submitting them together
+> here as they (except dts addition) goes in the same tree.
+>
+> Bjorn Andersson (12):
+>   dt-bindings: display/msm: Add binding for SC8280XP MDSS
+>   drm/msm/dpu: Introduce SC8280XP
+>   drm/msm: Introduce SC8280XP MDSS
+>   dt-bindings: msm/dp: Add SDM845 and SC8280XP compatibles
+>   drm/msm/dp: Stop using DP id as index in desc
+>   drm/msm/dp: Add DP and EDP compatibles for SC8280XP
+>   drm/msm/dp: Add SDM845 DisplayPort instance
+>   drm/msm/dp: Rely on hpd_enable/disable callbacks
+>   drm/msm/dp: Implement hpd_notify()
+>   arm64: dts: qcom: sc8280xp: Define some of the display blocks
+>   arm64: dts: qcom: sc8280xp-crd: Enable EDP
+>   arm64: dts: qcom: sa8295-adp: Enable DP instances
+>
+>  .../bindings/display/msm/dp-controller.yaml   |   3 +
+>  .../display/msm/qcom,sc8280xp-dpu.yaml        | 122 +++
+>  .../display/msm/qcom,sc8280xp-mdss.yaml       | 143 +++
+>  arch/arm64/boot/dts/qcom/sa8295p-adp.dts      | 243 ++++-
+>  arch/arm64/boot/dts/qcom/sc8280xp-crd.dts     |  72 +-
+>  arch/arm64/boot/dts/qcom/sc8280xp.dtsi        | 838 ++++++++++++++++++
+>  .../gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c    | 217 +++++
+>  .../gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h    |   1 +
+>  .../gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c |  18 +
+>  .../gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.h |   3 +
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_mdss.h   |   2 +
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c       |   1 +
+>  drivers/gpu/drm/msm/dp/dp_display.c           | 151 ++--
+>  drivers/gpu/drm/msm/dp/dp_display.h           |   1 +
+>  drivers/gpu/drm/msm/dp/dp_drm.c               |   3 +
+>  drivers/gpu/drm/msm/dp/dp_drm.h               |   4 +
+>  drivers/gpu/drm/msm/msm_drv.h                 |   1 +
+>  drivers/gpu/drm/msm/msm_mdss.c                |   4 +
+>  18 files changed, 1770 insertions(+), 57 deletions(-)
+>  create mode 100644 Documentation/devicetree/bindings/display/msm/qcom,sc8280xp-dpu.yaml
+>  create mode 100644 Documentation/devicetree/bindings/display/msm/qcom,sc8280xp-mdss.yaml
+>
+> --
+> 2.37.3
+>
 
-No.
-
-> 
->    HOSTCC  scripts/basic/fixdep
->    HOSTCC  scripts/dtc/dtc.o
->    HOSTCC  scripts/dtc/flattree.o
->    HOSTCC  scripts/dtc/fstree.o
->    HOSTCC  scripts/dtc/data.o
->    HOSTCC  scripts/dtc/livetree.o
->    HOSTCC  scripts/dtc/treesource.o
->    HOSTCC  scripts/dtc/srcpos.o
->    HOSTCC  scripts/dtc/checks.o
->    HOSTCC  scripts/dtc/util.o
->    LEX     scripts/dtc/dtc-lexer.lex.c
->    HOSTCC  scripts/dtc/dtc-lexer.lex.o
->    HOSTCC  scripts/dtc/dtc-parser.tab.o
->    HOSTLD  scripts/dtc/dtc
-> sort: -:2: disorder: 2022.1
-> ERROR: dtschema minimum version is v2022.3
-> make[2]: *** [check_dtschema_version] Error 1
-> make[1]: *** [dt_binding_check] Error 2
-> make: *** [__sub-make] Error 2
-
-This means that somewhere in your path you have an older dtschema instance.
-
-When you sent me a question regarding this error, I asked for the 
-additional info. You provided none. Instead you went on sending the 
-untested patch that doesn't work.
-
-> 
->>>
->>> But I did not check trainiling whitespace this time.
->>>
->>>>
->>>>> ---
->>>>>   .../bindings/display/msm/dp-controller.yaml        | 27 
->>>>> ++++++++++++++++++++++
->>>>>   1 file changed, 27 insertions(+)
->>>>>
->>>>> diff --git 
->>>>> a/Documentation/devicetree/bindings/display/msm/dp-controller.yaml 
->>>>> b/Documentation/devicetree/bindings/display/msm/dp-controller.yaml
->>>>> index f2515af..2a7fdef8 100644
->>>>> --- a/Documentation/devicetree/bindings/display/msm/dp-controller.yaml
->>>>> +++ b/Documentation/devicetree/bindings/display/msm/dp-controller.yaml
->>>>> @@ -81,6 +81,7 @@ properties:
->>>>>       data-lanes:
->>>>>       $ref: /schemas/types.yaml#/definitions/uint32-array
->>>>> +    deprecated: true
->>>>>       minItems: 1
->>>>>       maxItems: 4
->>>>>       items:
->>>>> @@ -96,6 +97,7 @@ properties:
->>>>>       ports:
->>>>>       $ref: /schemas/graph.yaml#/properties/ports
->>>>> +
->>>>>       properties:
->>>>>         port@0:
->>>>>           $ref: /schemas/graph.yaml#/properties/port
->>>>> @@ -105,6 +107,29 @@ properties:
->>>>>           $ref: /schemas/graph.yaml#/properties/port
->>>>>           description: Output endpoint of the controller
->>>>>   +        properties:
->>>>> +          endpoint:
->>>>> +            $ref: /schemas/media/video-interfaces.yaml#
->>>>> +
->>>>> +            properties:
->>>>> +              remote-endpoint: true
->>>>
->>>> PLease add empty lines between the property definitions
->>>>
->>>>> +              data-lanes:
->>>>> +                $ref: /schemas/types.yaml#/definitions/uint32-array
->>>>
->>>> This is already a part of video-interfaces, so you don't need $ref
->>>>
->>>>> +                minItems: 1
->>>>> +                maxItems: 4
->>>>> +                items:
->>>>> +                  maximum: 3
->>>>
->>>> enum: [0, 1, 2, 3]
->>>>
->>>>> +              link-frequencies:
->>>>> +                $ref: /schemas/types.yaml#/definitions/uint64-array
->>>>> +                minItems: 1
->>>>> +                maxItems: 4
->>>>> +                items:
->>>>> +                  maximum: 8100000000
->>>>
->>>> I think we can have enum here too.
->>>>
->>>>> +
->>>>> +  required:
->>>>> +    - port@0
->>>>> +    - port@1
->>>>> +
->>>>>   required:
->>>>>     - compatible
->>>>>     - reg
->>>>> @@ -193,6 +218,8 @@ examples:
->>>>>                   reg = <1>;
->>>>>                   endpoint {
->>>>>                       remote-endpoint = <&typec>;
->>>>> +                    data-lanes = <0 1>;
->>>>> +                    link-frequencies = /bits/ 64 <1620000000 
->>>>> 2700000000 5400000000 8100000000>;
->>>>>                   };
->>>>>               };
->>>>>           };
->>>>
->>
-
--- 
-With best wishes
-Dmitry
-
+Tested on Lenovo Thinkpad X13s
+Tested-by: Steev Klimaszewski <steev@kali.org>
