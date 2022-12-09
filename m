@@ -2,74 +2,49 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 26999647F57
-	for <lists+freedreno@lfdr.de>; Fri,  9 Dec 2022 09:36:42 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E472864810D
+	for <lists+freedreno@lfdr.de>; Fri,  9 Dec 2022 11:35:18 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D29F010E4FA;
-	Fri,  9 Dec 2022 08:36:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7194410E518;
+	Fri,  9 Dec 2022 10:35:17 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x12e.google.com (mail-lf1-x12e.google.com
- [IPv6:2a00:1450:4864:20::12e])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 857C010E4FA
- for <freedreno@lists.freedesktop.org>; Fri,  9 Dec 2022 08:36:36 +0000 (UTC)
-Received: by mail-lf1-x12e.google.com with SMTP id b13so5956505lfo.3
- for <freedreno@lists.freedesktop.org>; Fri, 09 Dec 2022 00:36:36 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=1ATYGxO1sTs91TaW6maJCLm8Gd+RaeReYPdI6Fodf9A=;
- b=meqQp03LMgWNDbw+pdJT8X6utDkTAoQX3VUWHpaEWCZLzMA9tlO51nB4hpMjiyF9a0
- mk0izmVu1XI2V7M7NX/khO7jJBA8k5Hec/liN9hhR6rD/5wALwI3tH5OBeHFEDI8AAHE
- UJeXWrDF7jqaEZSjBBHJ8MTIHswbX2i6oHcbwBvTmS3zgxFBzmIn41aN17jr3jgZaI37
- ZCrWPw1k4G7A6BfdSsMvttNl4opRMDGtCvMGirt0PyXA6lojZ64rd9pux3koxuthZKoH
- SAlKMQhypVrPwrNxiixYQgkdsuGKq0mml3DxKRPGIiEeyhhZfJBtTOfn5S6j7/nhjhz1
- 17oQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=1ATYGxO1sTs91TaW6maJCLm8Gd+RaeReYPdI6Fodf9A=;
- b=AcQ/FWELkakUoQajnZryh19Ipc4lg5vgVts+zk10Zgb4k+6KogUVMb+pr5ycHnvxSb
- ufcRWsJ5YQPhXIUNTYbbrhuM9WdYihSKJfLQtApJ5gtvIefuaQf4DH6ni2677oQ3jEha
- KWhNViHc3IMlo/pgTTIRLD7ZgnwU55f0Da10tE+XkejFy9AD2h+mREVGg8SSYd4QXclm
- jxHxDKlSST+9fWN0EiWTZMy6/M4jFSij9dZSodhWYUIhPpIE2qCKbQSObafQIKpwfgjj
- fPi8CdL6PPAjgP1zJAE7gJowC9uq03H85HXh+AT+4jCPZur/LtF2SsrWBPGJbIaLFTpe
- 3nWg==
-X-Gm-Message-State: ANoB5plqpsc1vimJoifY2EQIHZLP5X0mR418eHJTYOSK5C481BgOYlst
- LSWWfQLTDgNdWcQJ+oy4nc9EOQ==
-X-Google-Smtp-Source: AA0mqf4Wq5sWCL3W0p5uvCPmZ9iCdkhJiLBNbXL7CWZj6BZMyk2uRE0dU6cQIbi8tnWtpcvM5VQ6fQ==
-X-Received: by 2002:a05:6512:10ca:b0:4a4:68b7:e71a with SMTP id
- k10-20020a05651210ca00b004a468b7e71amr1733526lfg.4.1670574994825; 
- Fri, 09 Dec 2022 00:36:34 -0800 (PST)
-Received: from [192.168.0.20]
- (088156142067.dynamic-2-waw-k-3-2-0.vectranet.pl. [88.156.142.67])
- by smtp.gmail.com with ESMTPSA id
- b15-20020a056512070f00b004b40c2fccfdsm168627lfs.59.2022.12.09.00.36.33
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 09 Dec 2022 00:36:34 -0800 (PST)
-Message-ID: <806ca75b-99a6-237d-a5d0-70e67348e183@linaro.org>
-Date: Fri, 9 Dec 2022 09:36:33 +0100
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9CFDF10E516;
+ Fri,  9 Dec 2022 10:35:09 +0000 (UTC)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id B341F621F5;
+ Fri,  9 Dec 2022 10:35:08 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 17D56C433EF;
+ Fri,  9 Dec 2022 10:35:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1670582108;
+ bh=PbFsUHk4QB3SheUZeaBJ+DTccJM/jAn1azV/1OPQDew=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=QaV6YIgDXEc4jFY5js+aO1Ha8BsrodSkdpSfqjfqk6HIoC9G7JpHVvM7ErzIjmWb5
+ VeuIcs7IrpxW3tADlxosfhxiZfasS/br6b03tMgE0EVwaNEif7vltZ0Wj5lD5yQngm
+ byvLWIfYCnppwzl8BUlEWjVUWn20mdofspfEktEZc1ULBuxGdqaj8erYXKdt8BXLiO
+ TN6Ibs3RrADv6iwuMN7i95z5RY8hTes/EtQmQ7btkEsO/lrkL7aRI6icla3dAHul1j
+ xR2L4ycN77f9/+sETRb8FveqXRlxqROUBeUFcmHiZIar6uI4XlxFxlVtJJa2ZDYUf1
+ ELoNcmBZ6DHYw==
+Received: from johan by xi.lan with local (Exim 4.94.2)
+ (envelope-from <johan@kernel.org>)
+ id 1p3aix-0003iO-Su; Fri, 09 Dec 2022 11:35:23 +0100
+Date: Fri, 9 Dec 2022 11:35:23 +0100
+From: Johan Hovold <johan@kernel.org>
+To: Bjorn Andersson <quic_bjorande@quicinc.com>
+Message-ID: <Y5MPa9l4btcDG9GP@hovoldconsulting.com>
+References: <20221207220012.16529-1-quic_bjorande@quicinc.com>
+ <20221207220012.16529-12-quic_bjorande@quicinc.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.5.1
-Content-Language: en-US
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Andy Gross <agross@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konrad.dybcio@linaro.org>, Rob Clark <robdclark@gmail.com>,
- Sean Paul <sean@poorly.run>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Rob Herring <robh+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>
-References: <20221208005458.328196-1-dmitry.baryshkov@linaro.org>
- <20221208005458.328196-3-dmitry.baryshkov@linaro.org>
-From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-In-Reply-To: <20221208005458.328196-3-dmitry.baryshkov@linaro.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH v2 2/4] dt-bindings: display/msm: add
- SoC-specific compats to qcom, mdp5.yaml
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20221207220012.16529-12-quic_bjorande@quicinc.com>
+Subject: Re: [Freedreno] [PATCH v5 11/12] arm64: dts: qcom: sc8280xp-crd:
+ Enable EDP
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,57 +57,156 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, Stephen Boyd <swboyd@chromium.org>,
- Daniel Vetter <daniel@ffwll.ch>, freedreno@lists.freedesktop.org,
- David Airlie <airlied@gmail.com>
+Cc: Kalyan Thota <quic_kalyant@quicinc.com>, freedreno@lists.freedesktop.org,
+ Sankeerth Billakanti <quic_sbillaka@quicinc.com>, linux-kernel@vger.kernel.org,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ devicetree@vger.kernel.org, Sean Paul <sean@poorly.run>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
+ Kuogee Hsieh <quic_khsieh@quicinc.com>,
+ Konrad Dybcio <konrad.dybcio@linaro.org>, Rob Clark <robdclark@gmail.com>,
+ Rob Herring <robh+dt@kernel.org>, Daniel Vetter <daniel@ffwll.ch>,
+ linux-arm-msm@vger.kernel.org, Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Jessica Zhang <quic_jesszhan@quicinc.com>, David Airlie <airlied@gmail.com>,
+ Johan Hovold <johan+linaro@kernel.org>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 08/12/2022 01:54, Dmitry Baryshkov wrote:
-> Add platform-specific compatible entries to the qcom,mdp5.yaml to allow
-> distinguishing between various platforms.
+On Wed, Dec 07, 2022 at 02:00:11PM -0800, Bjorn Andersson wrote:
+> From: Bjorn Andersson <bjorn.andersson@linaro.org>
 > 
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> The SC8280XP CRD has a EDP display on MDSS0 DP3, enable relevant nodes
+> and link it together with the backlight control.
+> 
+> Signed-off-by: Bjorn Andersson <bjorn.andersson@linaro.org>
+> Signed-off-by: Bjorn Andersson <quic_bjorande@quicinc.com>
 > ---
->  .../bindings/display/msm/qcom,mdp5.yaml       | 19 ++++++++++++++++++-
->  1 file changed, 18 insertions(+), 1 deletion(-)
 > 
-> diff --git a/Documentation/devicetree/bindings/display/msm/qcom,mdp5.yaml b/Documentation/devicetree/bindings/display/msm/qcom,mdp5.yaml
-> index cbcbe8b47e9b..a7a97a4c46b4 100644
-> --- a/Documentation/devicetree/bindings/display/msm/qcom,mdp5.yaml
-> +++ b/Documentation/devicetree/bindings/display/msm/qcom,mdp5.yaml
-> @@ -16,7 +16,24 @@ maintainers:
+> Changes since v4:
+> - None
+> 
+>  arch/arm64/boot/dts/qcom/sc8280xp-crd.dts | 72 ++++++++++++++++++++++-
+>  1 file changed, 71 insertions(+), 1 deletion(-)
+> 
+> diff --git a/arch/arm64/boot/dts/qcom/sc8280xp-crd.dts b/arch/arm64/boot/dts/qcom/sc8280xp-crd.dts
+> index f09810e3d956..a7d2384cbbe8 100644
+> --- a/arch/arm64/boot/dts/qcom/sc8280xp-crd.dts
+> +++ b/arch/arm64/boot/dts/qcom/sc8280xp-crd.dts
+> @@ -20,7 +20,7 @@ aliases {
+>  		serial0 = &qup2_uart17;
+>  	};
 >  
->  properties:
->    compatible:
-> -    const: qcom,mdp5
-> +    oneOf:
-> +      - const: qcom,mdp5
-> +        deprecated: true
-> +      - items:
-> +          - enum:
-> +            # msm8998 should either use old single-string compat or new
-
-There is no msm8998 in the list, so what is "new". I propose to use the
-new, bu tyou need to add it below.
-
-> +            # qcom,msm8998-dpu
-> +              - qcom,apq8084-mdp5
-> +              - qcom,msm8916-mdp5
-> +              - qcom,msm8917-mdp5
-> +              - qcom,msm8953-mdp5
-> +              - qcom,msm8974-mdp5
-> +              - qcom,msm8976-mdp5
-> +              - qcom,msm8994-mdp5
-> +              - qcom,msm8996-mdp5
-> +              - qcom,sdm630-mdp5
-> +              - qcom,sdm660-mdp5
-> +          - const: qcom,mdp5
+> -	backlight {
+> +	backlight: backlight {
+>  		compatible = "pwm-backlight";
+>  		pwms = <&pmc8280c_lpg 3 1000000>;
+>  		enable-gpios = <&pmc8280_1_gpios 8 GPIO_ACTIVE_HIGH>;
+> @@ -34,6 +34,22 @@ chosen {
+>  		stdout-path = "serial0:115200n8";
+>  	};
 >  
->    reg:
->      maxItems: 1
+> +	vreg_edp_3p3: regulator-edp-3p3 {
+> +		compatible = "regulator-fixed";
+> +
+> +		regulator-name = "VREG_EDP_3P3";
 
-Best regards,
-Krzysztof
+Please use the net name from the schematics here (i.e. "VCC3LCD").
 
+> +		regulator-min-microvolt = <3300000>;
+> +		regulator-max-microvolt = <3300000>;
+> +
+> +		gpio = <&tlmm 25 GPIO_ACTIVE_HIGH>;
+> +		enable-active-high;
+> +
+> +		pinctrl-names = "default";
+> +		pinctrl-0 = <&edp_reg_en>;
+> +
+> +		regulator-boot-on;
+> +	};
+> +
+>  	vreg_edp_bl: regulator-edp-bl {
+>  		compatible = "regulator-fixed";
+>  
+> @@ -230,6 +246,54 @@ vreg_l9d: ldo9 {
+>  	};
+>  };
+>  
+> +&dispcc0 {
+> +	status = "okay";
+> +};
+> +
+> +&mdss0 {
+> +	status = "okay";
+> +};
+> +
+> +&mdss0_dp3 {
+> +	compatible = "qcom,sc8280xp-edp";
+> +	status = "okay";
+
+Please move the status property last (i.e. after data-lanes).
+
+> +
+> +	data-lanes = <0 1 2 3>;
+> +
+> +	aux-bus {
+> +		panel {
+> +			compatible = "edp-panel";
+> +			power-supply = <&vreg_edp_3p3>;
+> +
+> +			backlight = <&backlight>;
+> +
+> +			ports {
+> +				port {
+> +					edp_panel_in: endpoint {
+> +						remote-endpoint = <&mdss0_dp3_out>;
+> +					};
+> +				};
+> +			};
+> +		};
+> +	};
+> +
+> +	ports {
+> +		port@1 {
+> +			reg = <1>;
+> +			mdss0_dp3_out: endpoint {
+> +				remote-endpoint = <&edp_panel_in>;
+> +			};
+> +		};
+> +	};
+> +};
+> +
+> +&mdss0_dp3_phy {
+> +	status = "okay";
+
+Same here.
+
+> +
+> +	vdda-phy-supply = <&vreg_l6b>;
+> +	vdda-pll-supply = <&vreg_l3b>;
+> +};
+> +
+>  &pcie2a {
+>  	perst-gpios = <&tlmm 143 GPIO_ACTIVE_LOW>;
+>  	wake-gpios = <&tlmm 145 GPIO_ACTIVE_LOW>;
+> @@ -496,6 +560,12 @@ hastings_reg_en: hastings-reg-en-state {
+>  &tlmm {
+>  	gpio-reserved-ranges = <74 6>, <83 4>, <125 2>, <128 2>, <154 7>;
+>  
+> +	edp_reg_en: edp-reg-en-state {
+> +		pins = "gpio25";
+> +		function = "gpio";
+> +		output-enable;
+
+'output-enable' is not valid for tlmm and causes the settings to be
+rejected:
+
+	sc8280xp-tlmm f100000.pinctrl: pin_config_group_set op failed for group 25
+	reg-fixed-voltage regulator-edp-3p3: Error applying setting, reverse things back
+
+> +	};
+> +
+>  	kybd_default: kybd-default-state {
+>  		disable-pins {
+>  			pins = "gpio102";
+
+Johan
