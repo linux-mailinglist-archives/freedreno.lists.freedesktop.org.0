@@ -2,78 +2,64 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id BF439648471
-	for <lists+freedreno@lfdr.de>; Fri,  9 Dec 2022 15:59:37 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 347F06487D5
+	for <lists+freedreno@lfdr.de>; Fri,  9 Dec 2022 18:37:06 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6ECF910E536;
-	Fri,  9 Dec 2022 14:59:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F3D5210E56A;
+	Fri,  9 Dec 2022 17:37:00 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x12e.google.com (mail-lf1-x12e.google.com
- [IPv6:2a00:1450:4864:20::12e])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CF7AD10E029
- for <freedreno@lists.freedesktop.org>; Fri,  9 Dec 2022 14:59:32 +0000 (UTC)
-Received: by mail-lf1-x12e.google.com with SMTP id bp15so7383321lfb.13
- for <freedreno@lists.freedesktop.org>; Fri, 09 Dec 2022 06:59:32 -0800 (PST)
+Received: from mail-pj1-x1036.google.com (mail-pj1-x1036.google.com
+ [IPv6:2607:f8b0:4864:20::1036])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 161C410E56A
+ for <freedreno@lists.freedesktop.org>; Fri,  9 Dec 2022 17:36:55 +0000 (UTC)
+Received: by mail-pj1-x1036.google.com with SMTP id
+ w4-20020a17090ac98400b002186f5d7a4cso8880298pjt.0
+ for <freedreno@lists.freedesktop.org>; Fri, 09 Dec 2022 09:36:55 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=NmUjgK6FRZP94VzXlEtRsOKP6XhurDo3G4diN6JCplI=;
- b=P8OnmuYZn6zJLbKrlsyvKSV9tB35MUH5ctJxAmFnSNvn0KUTWbxJdmhVBTw1BgS93i
- x770KSz59P6Uo/5f8buDoSrOejFOOoBC5waY9P/hnB+BZtwZqNlbG46/0srjzEQEZMZW
- vHiX0HTGon/Z0tgiO52+J2gSp9DhIZQGSA50DBdeCkQ0wp2MKYgk+cv6Y6iEdaMSjIDI
- eU95bFy3CO9Wjwh+XzE2+wPw9NegXtBmxw71hp9yVQpEOVkHARivNXgl+EK2YaYRSubY
- fBt6PaInWybgAgqa3YzEk3grxkTSnoi4olLnlhKbrgwjtcWloZ2kLes9mK40we0kvByZ
- c5aw==
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=qXsbmkoodLU/AwJjQ4JXkNGpOiLYdE4+WQE1E7o+Bwo=;
+ b=t86EOBMhIP/ldR8nxcwebrMd9ocR8tExby0yg2pG8hDVAeplTlpkAB6UlHdjUGL2b5
+ OQ8Ls6Okk6+BnUPMmDzTmJqEM8BRuNIHYChWzI/RnpKmNMT3ipirfQ/ZKwIDn+n9H+Ac
+ dFa1a+3eO+2Sw6svqf5F6CPOssBlL7/HJcVRRKRV6zreayrpLDquE0Zg8Jcfyxo/Y4pg
+ CjscTZcU+4ZQQmGN89+YHXMn6iH0H9Ihsfug23tfhKLS0dOfdg/fgggBFiLKd7soUUc3
+ KivDhsoDilYjezLZhtQUMnYVSn2EnUpu+jrvaa46iK29QVFbKVNkTS58yaBOx42Nd/w5
+ oyHQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=NmUjgK6FRZP94VzXlEtRsOKP6XhurDo3G4diN6JCplI=;
- b=lpFg8WKZnOFBLSODR88qyjxB6gFspZKDR6cu69K3oa9qEKYfZIKFgcX9qPHjrcf8g2
- 10gNaHn2vPkIWdVWupHN0nphItSEHinoLVSt7WhhvnIzJA2oBu188t9WifIMcfBlx8+B
- ONVObR4Le8CBhFSZRTpKsh7H0PVD1NKP3pjXoH2BwVQECZSCs/56/B75eFRkYETWLu2C
- m6E3dYxNTZAVMfP4rZD4t/LJeATDNJ/MxgXh9UuD+nu5roryVvtLL/RWvUzlOav0odXh
- ikjc3nJA49pkoGmc5eEYT9RfV6IoEkLuEc1CfhFOu+Joh9op+VIgbsG+cN6U8R+Etaej
- n2Bw==
-X-Gm-Message-State: ANoB5pn5HjYyqA6cQbh8MpAB+jZeVWQ+qUQJ7ggc2ELOhDKypX5S+HJn
- zxMzhpWdEuz43qe3fShv3ZHT4xRqcvhjBomifRg=
-X-Google-Smtp-Source: AA0mqf6EqdK2TYO+O/G2pbCffiYehV+tErEFWtMasQhx6QhqtEcO7WPCkUlL0TWrsKOSCnZJv+emBA==
-X-Received: by 2002:a05:6512:ba0:b0:4b1:44a4:a717 with SMTP id
- b32-20020a0565120ba000b004b144a4a717mr2003791lfv.61.1670597971148; 
- Fri, 09 Dec 2022 06:59:31 -0800 (PST)
-Received: from [192.168.0.20]
- (088156142067.dynamic-2-waw-k-3-2-0.vectranet.pl. [88.156.142.67])
- by smtp.gmail.com with ESMTPSA id
- v12-20020a056512348c00b004b5b4126237sm154851lfr.67.2022.12.09.06.59.29
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 09 Dec 2022 06:59:30 -0800 (PST)
-Message-ID: <0fb1b2e4-6e07-f976-0103-d04d89677576@linaro.org>
-Date: Fri, 9 Dec 2022 15:59:28 +0100
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=qXsbmkoodLU/AwJjQ4JXkNGpOiLYdE4+WQE1E7o+Bwo=;
+ b=b98rxrHnOqn80lwNaG3ASGKJAgfIN76tycc7AA4sIgmU1Wt1IyQpStiZ36mXUAvqtn
+ bB3kpThiGOj7OKuzPKN7kGyoti1mTdMBnQzBsLtswxCYQ6dOTI19OrUNj12M417yEHRk
+ eUx7ugmPQS7HKLOeVoT+6nCrRXWiLy/zdCwaJ1MMSFDy6g0gblrWhaFRDW81NiQMapWi
+ YdtAs67L4w3MlRV+8abnGaWhOQxlpoow9zfJ9yFA65wgnd1JYUQ+S6g8O6KYMDC1878a
+ ih59c5FxI2kapdi5SlU7qWCtn6EmzTwRQ1h3jV29YTn8yWVQQPQCvzRoo27jNN9/4qB0
+ QZqA==
+X-Gm-Message-State: ANoB5pkuShprB27IzQ6hM9ZEnn5vmF0TDIt1qSJnnpYxaYVeAcTSHR4X
+ /aEt0zuRTvTcBZOq5U64Kzd5eSoXC0o7c58xkEdgjf3jwzFGgVIp
+X-Google-Smtp-Source: AA0mqf7ateMtxBRPd0IFutE2MIFyHz0rRGBmqts6dBrsLB2FgXxkLDLjQoTz8MBCRkUTjg8zk1rHSrEfMZ8gVlOEGUM=
+X-Received: by 2002:a17:90a:7485:b0:219:ef02:a5eb with SMTP id
+ p5-20020a17090a748500b00219ef02a5ebmr15259474pjk.84.1670607414431; Fri, 09
+ Dec 2022 09:36:54 -0800 (PST)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.5.1
-Content-Language: en-US
-To: Kuogee Hsieh <quic_khsieh@quicinc.com>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- dri-devel@lists.freedesktop.org, robdclark@gmail.com, sean@poorly.run,
- swboyd@chromium.org, dianders@chromium.org, vkoul@kernel.org,
- daniel@ffwll.ch, airlied@linux.ie, agross@kernel.org, andersson@kernel.org,
- konrad.dybcio@somainline.org, robh+dt@kernel.org,
- krzysztof.kozlowski+dt@linaro.org, devicetree@vger.kernel.org,
- airlied@gmail.com
-References: <1670539015-11808-1-git-send-email-quic_khsieh@quicinc.com>
- <1670539015-11808-3-git-send-email-quic_khsieh@quicinc.com>
- <5a3865ed-8847-db04-3d60-f35438250bef@linaro.org>
- <5aa16223-dbf6-996c-1985-794302dcce91@quicinc.com>
-From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-In-Reply-To: <5aa16223-dbf6-996c-1985-794302dcce91@quicinc.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH v11 2/5] dt-bindings: msm/dp: add data-lanes
- and link-frequencies property
+References: <1664960824-20951-1-git-send-email-quic_akhilpo@quicinc.com>
+ <20221201225705.46r2m35ketvzipox@builder.lan>
+ <CAPDyKFofsqcoFbYt-9BcisbPdreLGqAAMWorqHi0_D1kwCdYhg@mail.gmail.com>
+ <20221207165457.kwdwwiycbwjpogxl@builder.lan>
+ <CAPDyKFpYgYkDdJ79xxkwr-Mqnj5CoBrV+ZZe6Xz4hGLNR4zUVw@mail.gmail.com>
+ <20221208210622.x656vbf7rum5hrl7@builder.lan>
+In-Reply-To: <20221208210622.x656vbf7rum5hrl7@builder.lan>
+From: Ulf Hansson <ulf.hansson@linaro.org>
+Date: Fri, 9 Dec 2022 18:36:18 +0100
+Message-ID: <CAPDyKFpSXjcJZ=H491s74BChAV89pQ1Wm8PSdU0nVRfroK1=4A@mail.gmail.com>
+To: Akhil P Oommen <quic_akhilpo@quicinc.com>,
+ Bjorn Andersson <andersson@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Subject: Re: [Freedreno] [PATCH v7 0/6] clk/qcom: Support gdsc collapse
+ polling using 'reset' interface
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -86,60 +72,172 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-arm-msm@vger.kernel.org, quic_sbillaka@quicinc.com,
- freedreno@lists.freedesktop.org, quic_abhinavk@quicinc.com,
- linux-kernel@vger.kernel.org
+Cc: David Airlie <airlied@linux.ie>,
+ Michael Turquette <mturquette@baylibre.com>,
+ Konrad Dybcio <konrad.dybcio@somainline.org>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ linux-clk@vger.kernel.org, Rob Clark <robdclark@gmail.com>,
+ Andy Gross <agross@kernel.org>, devicetree@vger.kernel.org,
+ Philipp Zabel <p.zabel@pengutronix.de>, linux-arm-msm@vger.kernel.org,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, Stephen Boyd <swboyd@chromium.org>,
+ Rob Herring <robh+dt@kernel.org>, Sean Paul <sean@poorly.run>,
+ Stephen Boyd <sboyd@kernel.org>, Douglas Anderson <dianders@chromium.org>,
+ krzysztof.kozlowski@linaro.org, Daniel Vetter <daniel@ffwll.ch>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ freedreno <freedreno@lists.freedesktop.org>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 09/12/2022 00:38, Kuogee Hsieh wrote:
-> 
-> On 12/8/2022 3:33 PM, Dmitry Baryshkov wrote:
->> On 09/12/2022 00:36, Kuogee Hsieh wrote:
->>> Add both data-lanes and link-frequencies property into endpoint
->>>
->>> Changes in v7:
->>> -- split yaml out of dtsi patch
->>> -- link-frequencies from link rate to symbol rate
->>> -- deprecation of old data-lanes property
->>>
->>> Changes in v8:
->>> -- correct Bjorn mail address to kernel.org
->>>
->>> Changes in v10:
->>> -- add menu item to data-lanes and link-frequecnis
->>>
->>> Changes in v11:
->>> -- add endpoint property at port@1
->>>
->>> Signed-off-by: Kuogee Hsieh <quic_khsieh@quicinc.com>`
->>
->> Applying: dt-bindings: msm/dp: add data-lanes and link-frequencies 
->> property
->> .git/rebase-apply/patch:47: trailing whitespace.
->>
->> .git/rebase-apply/patch:51: trailing whitespace.
->>
->>
->> Also the dt_binding_check fails with an error for this schema. And 
->> after fixing the error in the schema I faced an example validation 
->> error. Did you check that the schema is correct and that the example 
->> validates against the schema?
-> 
-> yes, but i run "make dt_binding_check 
-> DT_SCHEMA_FILES=Documentation/devicetree/bindings/display/msm/dp-controller.yaml" 
-> at mu v5.15 branch since
+On Thu, 8 Dec 2022 at 22:06, Bjorn Andersson <andersson@kernel.org> wrote:
+>
+> On Thu, Dec 08, 2022 at 02:40:55PM +0100, Ulf Hansson wrote:
+> > On Wed, 7 Dec 2022 at 17:55, Bjorn Andersson <andersson@kernel.org> wrote:
+> > >
+> > > On Wed, Dec 07, 2022 at 05:00:51PM +0100, Ulf Hansson wrote:
+> > > > On Thu, 1 Dec 2022 at 23:57, Bjorn Andersson <andersson@kernel.org> wrote:
+> > > > >
+> > > > > On Wed, Oct 05, 2022 at 02:36:58PM +0530, Akhil P Oommen wrote:
+> > > > > >
+> > > > >
+> > > > > @Ulf, Akhil has a power-domain for a piece of hardware which may be
+> > > > > voted active by multiple different subsystems (co-processors/execution
+> > > > > contexts) in the system.
+> > > > >
+> > > > > As such, during the powering down sequence we don't wait for the
+> > > > > power-domain to turn off. But in the event of an error, the recovery
+> > > > > mechanism relies on waiting for the hardware to settle in a powered off
+> > > > > state.
+> > > > >
+> > > > > The proposal here is to use the reset framework to wait for this state
+> > > > > to be reached, before continuing with the recovery mechanism in the
+> > > > > client driver.
+> > > >
+> > > > I tried to review the series (see my other replies), but I am not sure
+> > > > I fully understand the consumer part.
+> > > >
+> > > > More exactly, when and who is going to pull the reset and at what point?
+> > > >
+> > > > >
+> > > > > Given our other discussions on quirky behavior, do you have any
+> > > > > input/suggestions on this?
+> > > > >
+> > > > > > Some clients like adreno gpu driver would like to ensure that its gdsc
+> > > > > > is collapsed at hardware during a gpu reset sequence. This is because it
+> > > > > > has a votable gdsc which could be ON due to a vote from another subsystem
+> > > > > > like tz, hyp etc or due to an internal hardware signal. To allow
+> > > > > > this, gpucc driver can expose an interface to the client driver using
+> > > > > > reset framework. Using this the client driver can trigger a polling within
+> > > > > > the gdsc driver.
+> > > > >
+> > > > > @Akhil, this description is fairly generic. As we've reached the state
+> > > > > where the hardware has settled and we return to the client, what
+> > > > > prevents it from being powered up again?
+> > > > >
+> > > > > Or is it simply a question of it hitting the powered-off state, not
+> > > > > necessarily staying there?
+> > > >
+> > > > Okay, so it's indeed the GPU driver that is going to assert/de-assert
+> > > > the reset at some point. Right?
+> > > >
+> > > > That seems like a reasonable approach to me, even if it's a bit
+> > > > unclear under what conditions that could happen.
+> > > >
+> > >
+> > > Generally the disable-path of the power-domain does not check that the
+> > > power-domain is actually turned off, because the status might indicate
+> > > that the hardware is voting for the power-domain to be on.
+> >
+> > Is there a good reason why the HW needs to vote too, when the GPU
+> > driver is already in control?
+> >
+> > Or perhaps that depends on the running use case?
+> >
+> > >
+> > > As part of the recovery of the GPU after some fatal fault, the GPU
+> > > driver does something which will cause the hardware votes for the
+> > > power-domain to be let go, and then the driver does pm_runtime_put().
+> >
+> > Okay. That "something", sounds like a device specific setting for the
+> > corresponding gdsc, right?
+> >
+> > So somehow the GPU driver needs to manage that setting, right?
+> >
+> > >
+> > > But in this case the GPU driver wants to ensure that the power-domain is
+> > > actually powered down, before it does pm_runtime_get() again. To ensure
+> > > that the hardware lost its state...
+> >
+> > I see.
+> >
+> > >
+> > > The proposal here is to use a reset to reach into the power-domain
+> > > provider and wait for the hardware to be turned off, before the GPU
+> > > driver attempts turning the power-domain on again.
+> > >
+> > >
+> > > In other words, there is no reset. This is a hack to make a normally
+> > > asynchronous pd.power_off() to be synchronous in this particular case.
+> >
+> > Alright, assuming I understood your clarifications above correctly
+> > (thanks!), I think I have got a much better picture now.
+> >
+> > Rather than abusing the reset interface, I think we should manage this
+> > through the genpd's power on/off notifiers (GENPD_NOTIFY_OFF). The GPU
+> > driver should register its corresponding device for them
+> > (dev_pm_genpd_add_notifier()).
+> >
+> > The trick however, is to make the behaviour of the power-domain for
+> > the gdsc (the genpd->power_off() callback) conditional on whether the
+> > HW is configured to vote or not. If the HW can vote, it should not
+> > poll for the state - and vice versa when the HW can't vote.
+> >
+>
+> Per Akhil's description I misunderstood who the other voters are; but
+> either way it's not the same "HW configured" mechanism as the one we're
+> already discussing.
 
-v5.15 branch is not correct branch to work on a kernel. Please do not
-send patches based on this. You must work on mainline, maintainer's next
-branch or linux-next.
+Okay, so this is another thing then.
 
-> 
-> "make dt_binding_check" does not work at msm-next branch.
+>
+>
+> But if we based on similar means could control if the power_off() ops
+> should be blocking, waiting for the status indication to show that the
+> hardware is indeed powered down, I think this would meet the needs.
 
-Why would it not work there? I doubt that msm-next broke anything...
+Right.
 
+>
+> And GENPD_NOTIFY_OFF seems to provide the notification that it was
+> successful (i.e. happened within the timeout etc).
+>
+> > Would this work?
+> >
+>
+> If we can control the behavior of the genpd, I think it would.
 
-Best regards,
-Krzysztof
+Okay, it seems like we need a new dev_pm_genpd_* interface that
+consumers can call to instruct the genpd provider, that its
+->power_off() callback needs to temporarily switch to become
+synchronous.
 
+I guess this could be useful for other similar cases too, where the
+corresponding PM domain isn't actually being powered off, but rather
+just voted for to become powered off, thus relying on the HW to do the
+aggregation.
+
+In any case, I am still a bit skeptical of the reset approach, as is
+being suggested in the $subject series. Even if it's rather nice and
+clean (but somewhat abusing the interface), it looks like there will
+be synchronization problems between the calls to the
+pm_runtime_put_sync() and reset_control_reset() in the GPU driver. The
+"reset" may actually already have happened when the call to
+reset_control_reset() is done, so we may fail to detect the power
+collapse, right!?
+
+Let me cook a patch for the new genpd interface that I have in mind,
+then we can see how that plays out together with the other parts. I
+will post it on Monday!
+
+Kind regards
+Uffe
