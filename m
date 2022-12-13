@@ -2,69 +2,50 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id ED5B164B885
-	for <lists+freedreno@lfdr.de>; Tue, 13 Dec 2022 16:35:36 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4DA6664B99C
+	for <lists+freedreno@lfdr.de>; Tue, 13 Dec 2022 17:26:20 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8AF4310E335;
-	Tue, 13 Dec 2022 15:35:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E982C10E1E7;
+	Tue, 13 Dec 2022 16:26:18 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x12c.google.com (mail-lf1-x12c.google.com
- [IPv6:2a00:1450:4864:20::12c])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9C15510E334
- for <freedreno@lists.freedesktop.org>; Tue, 13 Dec 2022 15:35:00 +0000 (UTC)
-Received: by mail-lf1-x12c.google.com with SMTP id z26so5502759lfu.8
- for <freedreno@lists.freedesktop.org>; Tue, 13 Dec 2022 07:35:00 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=y8vVbjqanYrGCXOfeKuV4b4So0udrFNnXHVcrF7wyxU=;
- b=rejw52LTgB29C7W/cCkFInXwaYdOjKdIK/Dyp68WRtGnifK/FvgmyyWIiajyX8D5eE
- itpYE1WGMWzthGAI0xKSktWLWeGCAIalpFgVRA+N/tzQ+XKbbbPRRhbjwCGAgNh4d5mi
- ZznfVnd0NAG8gQO7Tn1KgDb42WwK1OWauMTT1kMzpcMOkIZ/2lgERnbD3UyCtqOvmf/M
- 8UbSK7Q1T7EIYfcMv0kkRnAKMk9Srj60NyyMM2QeyyAPxdN5MNNmbsLcCJRgia8CIENL
- FSDTeOUHMXIqEjgfEG59YRFJ0HsMrnZKgV/wXW+fHxUFzU32J4dY/jF4ohlfvunp7YM7
- GXAA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=y8vVbjqanYrGCXOfeKuV4b4So0udrFNnXHVcrF7wyxU=;
- b=0Gx5PgDAkZwPZJcu/BZ0g9fIt/Ar1KH245r8t9l26fflykEY26rbyc5z8z9qTsNNVO
- SJ0Wswh5z8RVsdZQcoBaY0JoFIgtqcY7lNyyuUVS8cfbcpbqtM/Q34X5l0WkutjRs8t5
- bmGnbaiEpGqxHqkiwAyDQ+nOJh0pEtcST+HvOX37HFURioq3gFN9rVqrKns+Z1SM0/0h
- lE8dYoOXwY3dNr/xiSiQL0mdrtBYrfJ+JxSrdXAzykFR1m3n668S9TT11zNyzPE6d7p5
- 6Lbnu55Ow17OCc0F9v/KyU1SVWO4iHDZdgFQw7pMTw/vJQlrhg8fZwsHXizjySS713Tx
- OiIw==
-X-Gm-Message-State: ANoB5plg6BhKT7ktb+8AnUeSwl4bKftIG0HJeoGcPsJ0NpRYc+6fqi8c
- s2hEACntcx5io474ryQL9Bc6Cw==
-X-Google-Smtp-Source: AA0mqf5WlSauCJELuZCcs4LWl3+VRfp8Lq0O7eAOrC7PK3kPa1vZKkiqpgeCSdbQu75jdV5vdi2Nug==
-X-Received: by 2002:a19:ad49:0:b0:4b5:c489:8cf8 with SMTP id
- s9-20020a19ad49000000b004b5c4898cf8mr3108286lfd.61.1670945698746; 
- Tue, 13 Dec 2022 07:34:58 -0800 (PST)
-Received: from [192.168.1.101] (abxh44.neoplus.adsl.tpnet.pl. [83.9.1.44])
- by smtp.gmail.com with ESMTPSA id
- v7-20020a056512348700b004a2511b8224sm413426lfr.103.2022.12.13.07.34.57
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 13 Dec 2022 07:34:58 -0800 (PST)
-Message-ID: <7df05698-0aef-7c9c-4577-3d400c631da8@linaro.org>
-Date: Tue, 13 Dec 2022 16:34:56 +0100
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D338B10E1E7;
+ Tue, 13 Dec 2022 16:26:14 +0000 (UTC)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 1EAD7615C6;
+ Tue, 13 Dec 2022 16:26:11 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 61393C433EF;
+ Tue, 13 Dec 2022 16:26:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1670948770;
+ bh=NkxDPuLY7Zyb3KNbQ2lo6DdobBvEk1ck2GXb4Yzjh1E=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=bXuoP9G941WQ5H778c1k+WBpRS0EI10F6D4Uvuf0wcMz0tXCHBB/WAK8HCq5NG0jh
+ ZOtOAd6LyWTZPFdX03soWBTweC7dFblKrBbBcuLpds634TEMyF5GrJnQw4L4pqJKSD
+ 3Arihx7ASAzJLghNk6VlEa2Zs981Ddv58J7TzjoZ3zD2Oo/SP9nCFbsbfSDAsZSJzQ
+ j502/OsTxh7P4rtt0Q1DbJ6pqeT5bguLMcC/FvTelgxdyjr6lxeviNEXhIFudTnqId
+ AyEWY8B7gqOg8xDpZCe/H84DHm4N8vWdRLkodOPZCasaje3f3JyXvKtrRv19lkculb
+ mxL5sVVRFczOg==
+Received: from johan by xi.lan with local (Exim 4.94.2)
+ (envelope-from <johan@kernel.org>)
+ id 1p5872-0005vC-Dy; Tue, 13 Dec 2022 17:26:36 +0100
+Date: Tue, 13 Dec 2022 17:26:36 +0100
+From: Johan Hovold <johan@kernel.org>
+To: Bjorn Andersson <quic_bjorande@quicinc.com>
+Message-ID: <Y5invNFKLBKy30v1@hovoldconsulting.com>
+References: <20221207220012.16529-1-quic_bjorande@quicinc.com>
+ <20221207220012.16529-12-quic_bjorande@quicinc.com>
+ <Y5MPa9l4btcDG9GP@hovoldconsulting.com>
+ <20221213151012.GB16520@core-thresher1.qualcomm.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.5.1
-Content-Language: en-US
-To: Doug Anderson <dianders@chromium.org>
-References: <20221213002423.259039-1-konrad.dybcio@linaro.org>
- <20221213002423.259039-5-konrad.dybcio@linaro.org>
- <CAD=FV=U+prbiaQfWRcqp17oRgxFV=JvmweNFoK0+xYcnfoJr=A@mail.gmail.com>
-From: Konrad Dybcio <konrad.dybcio@linaro.org>
-In-Reply-To: <CAD=FV=U+prbiaQfWRcqp17oRgxFV=JvmweNFoK0+xYcnfoJr=A@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH 4/7] drm/msm/a6xx: Add support for A650
- speed binning
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20221213151012.GB16520@core-thresher1.qualcomm.com>
+Subject: Re: [Freedreno] [PATCH v5 11/12] arm64: dts: qcom: sc8280xp-crd:
+ Enable EDP
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,80 +58,41 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, Akhil P Oommen <quic_akhilpo@quicinc.com>,
- linux-arm-msm@vger.kernel.org, andersson@kernel.org,
- krzysztof.kozlowski@linaro.org, dri-devel@lists.freedesktop.org,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, Rob Clark <robdclark@gmail.com>,
- agross@kernel.org, Daniel Vetter <daniel@ffwll.ch>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, marijn.suijten@somainline.org,
- David Airlie <airlied@gmail.com>, Sean Paul <sean@poorly.run>,
- Chia-I Wu <olvaffe@gmail.com>, linux-kernel@vger.kernel.org
+Cc: Kalyan Thota <quic_kalyant@quicinc.com>, freedreno@lists.freedesktop.org,
+ Sankeerth Billakanti <quic_sbillaka@quicinc.com>, linux-kernel@vger.kernel.org,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ devicetree@vger.kernel.org, Sean Paul <sean@poorly.run>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
+ Kuogee Hsieh <quic_khsieh@quicinc.com>,
+ Konrad Dybcio <konrad.dybcio@linaro.org>, Rob Clark <robdclark@gmail.com>,
+ Rob Herring <robh+dt@kernel.org>, Daniel Vetter <daniel@ffwll.ch>,
+ linux-arm-msm@vger.kernel.org, Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Jessica Zhang <quic_jesszhan@quicinc.com>, David Airlie <airlied@gmail.com>,
+ Johan Hovold <johan+linaro@kernel.org>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
+On Tue, Dec 13, 2022 at 07:10:14AM -0800, Bjorn Andersson wrote:
+> On Fri, Dec 09, 2022 at 11:35:23AM +0100, Johan Hovold wrote:
+ 
+> > > +	edp_reg_en: edp-reg-en-state {
+> > > +		pins = "gpio25";
+> > > +		function = "gpio";
+> > > +		output-enable;
+> > 
+> > 'output-enable' is not valid for tlmm and causes the settings to be
+> > rejected:
+> > 
+> > 	sc8280xp-tlmm f100000.pinctrl: pin_config_group_set op failed for group 25
+> > 	reg-fixed-voltage regulator-edp-3p3: Error applying setting, reverse things back
+> > 
+> 
+> Thanks for spotting that, it doesn't seem to be needed for the gpio-regulator
+> driver anyways...
 
+I noticed that the firmware on both CRD and X13s sets the drive strength
+to 16 here. Should we specify that too (and disable the pull up)
+instead of relying on the firmware configuration?
 
-On 13.12.2022 16:23, Doug Anderson wrote:
-> Hi,
-> 
-> On Mon, Dec 12, 2022 at 4:24 PM Konrad Dybcio <konrad.dybcio@linaro.org> wrote:
->>
->> Add support for matching QFPROM fuse values to get the correct speed bin
->> on A650 (SM8250) GPUs.
->>
->> Signed-off-by: Konrad Dybcio <konrad.dybcio@linaro.org>
->> ---
->>  drivers/gpu/drm/msm/adreno/a6xx_gpu.c | 17 +++++++++++++++++
->>  1 file changed, 17 insertions(+)
->>
->> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
->> index 2c1630f0c04c..f139ec57c32d 100644
->> --- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
->> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
->> @@ -1887,6 +1887,20 @@ static u32 a640_get_speed_bin(u32 fuse)
->>         return UINT_MAX;
->>  }
->>
->> +static u32 a650_get_speed_bin(u32 fuse)
->> +{
->> +       if (fuse == 0)
->> +               return 0;
->> +       else if (fuse == 1)
->> +               return 1;
->> +       else if (fuse == 2)
->> +               return 2;
->> +       else if (fuse == 3)
->> +               return 3;
->> +
->> +       return UINT_MAX;
-> 
-> Unlike some of the other functions, you don't need any complexity. Just do:
-> 
-> if (fuse <= 3)
->   return fuse;
-> 
-> return UINT_MAX;
-I'd prefer to keep it open-coded, it's just 8150 and 8250 that have
-these simple fuse values, other SoCs have random numbers (check A618/
-619 above, for example).. Plus the returned values might as well be
-made-up, as it's just for opp matching.
-
-
-> 
-> 
-> I'd also suggest that perhaps "UINT_MAX" isn't exactly the right
-> return value for when we have an unrecognized fuse. The return type
-> for the function is "u32" which is a fixed size type. UINT_MAX,
-> however, is a type that is automatically sized by the compiler. Though
-> it's unlikely, theoretically a compiler could be configured such that
-> "unsigned int" was something other than 32 bits. Ideally either the
-> return type would be changed to "unsigned int" or you'd return
-> 0xffffffff as the sentinel value.
-That's out of the scope of this patch, as it concerns all the
-speedbin-supported GPUs. The returned value feeds 1<<ret, which
-should be capped a bit lower than UINT_MAX, anyway. But I can
-look into that in a separate patchset.
-
-Konrad
-> 
-> -Doug
+Johan
