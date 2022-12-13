@@ -2,79 +2,56 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1171664B5CF
-	for <lists+freedreno@lfdr.de>; Tue, 13 Dec 2022 14:13:46 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 367DC64B742
+	for <lists+freedreno@lfdr.de>; Tue, 13 Dec 2022 15:23:23 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BAD5810E0F0;
-	Tue, 13 Dec 2022 13:13:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4009510E327;
+	Tue, 13 Dec 2022 14:22:49 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x131.google.com (mail-lf1-x131.google.com
- [IPv6:2a00:1450:4864:20::131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A74C910E0F0
- for <freedreno@lists.freedesktop.org>; Tue, 13 Dec 2022 13:13:40 +0000 (UTC)
-Received: by mail-lf1-x131.google.com with SMTP id b13so4837502lfo.3
- for <freedreno@lists.freedesktop.org>; Tue, 13 Dec 2022 05:13:40 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=vd3T8ah0dWWDH2U5v0IMPHsJRf7PThuVXGlxa+Fk7UM=;
- b=V1fR4x97oaWfy1VMojxg6M8O2dPqeQVawUxtzpzfwbxeCJOzWCJmgQcNe8l22OI1k9
- UaJ06VWqGFv8hCDEuZth1+8OH+LI5MeQ1oK+ZdqHZ2dDwj3DZoumzNSLSu/m/7O6u5Z0
- tRDwRsta6XHOMSBHDue+xmitUdWdjlUYvLKE3aBX+gFymGdKjiJ+5xLke/pqW0Ayn/Lo
- SZ6vDRn4XE5bL1WcmnFRlMyuiAIIv2UHBig4XRzBv4vdDd2JGwA2cZik9/iHF91X/XWy
- q2OepdSYTD629UA1O7uWAQ0KOa+xHKscbiiTm6fegvMtXfJm/yn06Qs6oFQZ/oPMIWNq
- 6yiA==
+Received: from mail-oo1-f53.google.com (mail-oo1-f53.google.com
+ [209.85.161.53])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E09AF10E325;
+ Tue, 13 Dec 2022 14:22:42 +0000 (UTC)
+Received: by mail-oo1-f53.google.com with SMTP id
+ t15-20020a4a96cf000000b0049f7e18db0dso2376155ooi.10; 
+ Tue, 13 Dec 2022 06:22:42 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=vd3T8ah0dWWDH2U5v0IMPHsJRf7PThuVXGlxa+Fk7UM=;
- b=qnoPoCoLLBYWchLYfUzkV5onxRFMgyL5Z1e45MSZSWAe4HW3YsRfHCsoAUgBT0CoEG
- 6pikzXZqkf53mXoeNqg76cSlrOIL1II5xZY02g2RE9dK0PlKB4432La2595w1aKHUb9C
- mA1/55Y3uZ5MkWANFV+IMLLAvSxbbwbHrggBO/Ob3xS/K2f8YswNwZ+8qZ6/1ptDrVZj
- BAIke6HEwZt6Q49fNwgnaJxoL/ajQZgyqlP8TwiUH8Ei5brgueLMbrsEU0Q7etrJWjBC
- NtaC/D56qC7jJnIZZHizXD3AVqcD0kKdrufDQ50OPv9i/5uMQutOypzUdE3A2ETQW5+z
- lMIQ==
-X-Gm-Message-State: ANoB5pmrhpIDS03o1eUpUAjrt7yUkX+69xHZ9JOQTnK07uKjEmsJ2AsW
- P5nlNS5CLUylR69Aut/am4j9KQ==
-X-Google-Smtp-Source: AA0mqf5wXBdUAnvmZIvysTHRCIWUkZNsPqVOmaLbYbtInVwUKBFj2syz/R6zVfkeLETTtp1+isewQQ==
-X-Received: by 2002:a05:6512:6d1:b0:4b4:91e2:7864 with SMTP id
- u17-20020a05651206d100b004b491e27864mr6016763lff.26.1670937219058; 
- Tue, 13 Dec 2022 05:13:39 -0800 (PST)
-Received: from [192.168.0.20]
- (088156142067.dynamic-2-waw-k-3-2-0.vectranet.pl. [88.156.142.67])
- by smtp.gmail.com with ESMTPSA id
- 25-20020ac24839000000b004b5979f9ba8sm360705lft.210.2022.12.13.05.13.37
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 13 Dec 2022 05:13:38 -0800 (PST)
-Message-ID: <bca77270-f3ac-f23f-ef96-43f9f7d574c4@linaro.org>
-Date: Tue, 13 Dec 2022 14:13:37 +0100
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=9nPYc70xBGK0Wj8psANEn98FZZPcSq92yTHRO99EQSs=;
+ b=2agEKmqnwUkwhVetF15etLgeg4xAbyhMgU2NxZAkn+dFViNxoG6rf876znZcqwnZuO
+ BF6f0cLB+Rv5PHCveueUV2jxROHIq7sq4BvsyyXcWOt+SGlKRv5xXjUT0QzE7hGZY1xa
+ X59OH4pTqdQchxT0sWAWv47kIe1WpKASxsRfpJI9y4EzKC8zLDhiCa1wvmnMGKmqh3pa
+ OFnZs1q3JcmQijmgnse3gUwW5ryRRJIl+2OllM/lI3KsgkT4AxRxUYy3ve9WGAOauPp0
+ YEyhH+1sxQuCMrDiVBE77lxXTtwGY73a6emEgK3j52p7XYuMuw64inQmTIZZnV3UgcmU
+ 1wRQ==
+X-Gm-Message-State: ANoB5pldsGAGmvLOYUoagDw8VnpB1mOZqH9mtNteLCe1KbCuFNlcWmIy
+ YEEkuHQ/GMiT66cToRNfsw==
+X-Google-Smtp-Source: AA0mqf4KHNeZUBFBK8Dd0lGGuku2C3O9bcj5/PiV07nJKuDygyrL2XX0a1nldxe/GxB6Cg/4thpJPQ==
+X-Received: by 2002:a4a:d84c:0:b0:4a3:986e:3e07 with SMTP id
+ g12-20020a4ad84c000000b004a3986e3e07mr8839675oov.5.1670941361968; 
+ Tue, 13 Dec 2022 06:22:41 -0800 (PST)
+Received: from robh_at_kernel.org (66-90-144-107.dyn.grandenetworks.net.
+ [66.90.144.107]) by smtp.gmail.com with ESMTPSA id
+ z15-20020a4a304f000000b004a065c72a05sm1206791ooz.2.2022.12.13.06.22.40
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 13 Dec 2022 06:22:41 -0800 (PST)
+Received: (nullmailer pid 958687 invoked by uid 1000);
+ Tue, 13 Dec 2022 14:22:40 -0000
+Date: Tue, 13 Dec 2022 08:22:40 -0600
+From: Rob Herring <robh@kernel.org>
+To: Konrad Dybcio <konrad.dybcio@linaro.org>
+Message-ID: <167094136007.958629.14485580510491889552.robh@kernel.org>
+References: <20221212093315.11390-1-konrad.dybcio@linaro.org>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.5.1
-Content-Language: en-US
-To: Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Kuogee Hsieh <quic_khsieh@quicinc.com>
-References: <1670539015-11808-1-git-send-email-quic_khsieh@quicinc.com>
- <1670539015-11808-3-git-send-email-quic_khsieh@quicinc.com>
- <5a3865ed-8847-db04-3d60-f35438250bef@linaro.org>
- <5aa16223-dbf6-996c-1985-794302dcce91@quicinc.com>
- <be1411e8-1d07-7643-977c-a306016fd660@linaro.org>
- <b6d90c1f-5365-7197-be63-96c3d8cf0746@quicinc.com>
- <e53844b7-601b-f355-302b-cc871962a446@linaro.org>
- <8b306c8f-3089-4aaf-7fc1-038a8330c89a@quicinc.com>
- <CAA8EJpr5RYyQa7xu1_xJ0F-dn-H9aOf0KE-CDgDCwnZu3HPgXg@mail.gmail.com>
- <a9e2f269-b9df-814f-adcd-f5577f590fa7@quicinc.com>
-From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-In-Reply-To: <a9e2f269-b9df-814f-adcd-f5577f590fa7@quicinc.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH v11 2/5] dt-bindings: msm/dp: add data-lanes
- and link-frequencies property
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20221212093315.11390-1-konrad.dybcio@linaro.org>
+Subject: Re: [Freedreno] [PATCH 1/3] dt-bindings: display/msm: Add SM8150
+ MDSS & DPU
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -87,34 +64,30 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: devicetree@vger.kernel.org, quic_sbillaka@quicinc.com,
- freedreno@lists.freedesktop.org, krzysztof.kozlowski+dt@linaro.org,
- airlied@gmail.com, andersson@kernel.org, konrad.dybcio@somainline.org,
- robdclark@gmail.com, dri-devel@lists.freedesktop.org, dianders@chromium.org,
- robh+dt@kernel.org, vkoul@kernel.org, agross@kernel.org, daniel@ffwll.ch,
- linux-arm-msm@vger.kernel.org, swboyd@chromium.org, sean@poorly.run,
+Cc: freedreno@lists.freedesktop.org,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ andersson@kernel.org, krzysztof.kozlowski@linaro.org,
+ dri-devel@lists.freedesktop.org, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Rob Clark <robdclark@gmail.com>, Rob Herring <robh+dt@kernel.org>,
+ agross@kernel.org, Daniel Vetter <daniel@ffwll.ch>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, marijn.suijten@somainline.org,
+ David Airlie <airlied@gmail.com>, Sean Paul <sean@poorly.run>,
  linux-kernel@vger.kernel.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 13/12/2022 00:41, Abhinav Kumar wrote:
->>>
->>> besides, i think i have to sent the whole series patches include this
->>> one to address your new comments on other patch.
->>>
->>> is this correct?
->>
->> No. Please fix your system first, validate your patches and send them
->> afterwards. You can not expect others to do your job.
->>
+
+On Mon, 12 Dec 2022 10:33:12 +0100, Konrad Dybcio wrote:
+> Add bindings for the display hardware on SM8150.
 > 
-> Just finished working with kuogee on this. This issue had been reported 
-> by few others earlier (example 
-> https://lore.kernel.org/lkml/bc9be279-a130-d5e7-4397-bbb389d14403@intel.com/T/).
+> Signed-off-by: Konrad Dybcio <konrad.dybcio@linaro.org>
+> ---
+>  .../bindings/display/msm/qcom,sm8150-dpu.yaml |  92 +++++
+>  .../display/msm/qcom,sm8150-mdss.yaml         | 330 ++++++++++++++++++
+>  2 files changed, 422 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/display/msm/qcom,sm8150-dpu.yaml
+>  create mode 100644 Documentation/devicetree/bindings/display/msm/qcom,sm8150-mdss.yaml
+> 
 
-This report says:
-"Sorry for the inconvenience, please ignore this false positive."
-
-Best regards,
-Krzysztof
-
+Reviewed-by: Rob Herring <robh@kernel.org>
