@@ -2,78 +2,73 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0C96C64BED7
-	for <lists+freedreno@lfdr.de>; Tue, 13 Dec 2022 22:54:17 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 789C764BF0B
+	for <lists+freedreno@lfdr.de>; Tue, 13 Dec 2022 23:06:14 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 285788933E;
-	Tue, 13 Dec 2022 21:54:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1597310E368;
+	Tue, 13 Dec 2022 22:05:43 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 60805892C1;
- Tue, 13 Dec 2022 21:54:02 +0000 (UTC)
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 2BDK04DG007911; Tue, 13 Dec 2022 21:53:55 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
- h=message-id : date :
- mime-version : subject : to : cc : references : from : in-reply-to :
- content-type : content-transfer-encoding; s=qcppdkim1;
- bh=U0bHcGZ5jMCQNvUVO0KJzmC5eku0GSm+9Z5Ov0Z3S8s=;
- b=C0IxivsSmG0yPAOfnusAZm2AWkouuLJTBzK67jxG0oa96lmrbTizRXjLBqMoVtpgrDq6
- BR2ILtN4nooFMb3AxuXk9t7W/QK8SOLpANPf2MT90Wnbv4vNtvUWnpf3AB89wKcnNE1Q
- 4hWWeYIBdC8xKcpUWD9qQECmfaD6rjKmnD/cr/jkrOmltVhKMJpuFcmUHT5h2hTyhhM0
- p4EZgVVygFbKTGUKDN2+tkh0ldf661jVbtFbKMIzuv16BQtM/a2m8j0nQJiK8LI5uiSS
- WEDKab0F9oNO8W1o4n65W74PrSRJKwPvylOTR+uKeXuczrtWT7xpMYMYlwnSJffPgFvo fQ== 
-Received: from nalasppmta04.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3meyfw0dp5-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 13 Dec 2022 21:53:55 +0000
-Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
- [10.47.209.196])
- by NALASPPMTA04.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 2BDLrrc7002666
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 13 Dec 2022 21:53:53 GMT
-Received: from [10.111.167.12] (10.80.80.8) by nalasex01a.na.qualcomm.com
- (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.36; Tue, 13 Dec
- 2022 13:53:50 -0800
-Message-ID: <ad7ecffc-3fc9-7859-82b7-9d161fc28cae@quicinc.com>
-Date: Tue, 13 Dec 2022 13:53:48 -0800
+Received: from mail-lf1-x12b.google.com (mail-lf1-x12b.google.com
+ [IPv6:2a00:1450:4864:20::12b])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7F1AD10E1F6
+ for <freedreno@lists.freedesktop.org>; Tue, 13 Dec 2022 22:05:36 +0000 (UTC)
+Received: by mail-lf1-x12b.google.com with SMTP id 1so7328826lfz.4
+ for <freedreno@lists.freedesktop.org>; Tue, 13 Dec 2022 14:05:36 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=content-transfer-encoding:mime-version:message-id:references
+ :in-reply-to:user-agent:subject:cc:to:from:date:from:to:cc:subject
+ :date:message-id:reply-to;
+ bh=YcFX+pC6oKMWEjAMll8cWnWDKBHIN45PyY2bvtn3d+4=;
+ b=usp6+i4vosXV1+xTbRN/vYaZVxRdMMNfEe1WR8pKwy4u7Ks/30SM8nW8UDMm/hgBbh
+ 2dFrC3/sHZ83NhRcskOmh0psxlnDaPxMv5c5rt69R80ywtXSocj7r+uUYs6WlXo6vL2a
+ +Y+1AEF6AjEEVPDpadS4kOTIJaq1rxjItRD6RepIhvu7KlFeEN8ftMxG+uLmOvnoUKCa
+ P/+rZHrrhcKenm0wSzwoFyOglRv/68qI/SA3hI9fLkUGjN2CduFVQcThfXxd7gBmwasI
+ SMqpWetp7X6WFGzUAxh5r0AWyG6qkLQdynaQDm10Y1Z1Wsuenr2JW/pdb5TCSAouNLPD
+ EGww==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=content-transfer-encoding:mime-version:message-id:references
+ :in-reply-to:user-agent:subject:cc:to:from:date:x-gm-message-state
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=YcFX+pC6oKMWEjAMll8cWnWDKBHIN45PyY2bvtn3d+4=;
+ b=M82o4YdYqkYSeEea+3axuTU95JrQDZL756j+67Y+Qhe6D6BlEAYPaKtRIQaeuOhMaH
+ FJa5LhfydnWiuU8hcJNRRgYPA8kw3vZhadTzqQMg+pD80FHdnWuD5nCTMuTJa0iWWQ25
+ xOtdU7/2h+SxfcXgg9yntttGqihZt4WQsp/4awiCFdWh2VOCnDuj+EZM5THQChacmCuO
+ ewQK91TybjVJzj6g2w+qEIh+RegtBxGEip/S30QpYxQ1XfztPRL+c6cxkLz33YkADlYm
+ CDxe6487MndNf2PYrcvwaz8n80L0cDB+QX/RViZDyJiLRhXHfGNLELdnPzh/BBoW4RpA
+ 1Izw==
+X-Gm-Message-State: ANoB5pmpYbYl0eKBubgTnJTiLJoSuhQbmo3RWw/+j7yZQc8IwZ/J2G/o
+ NTBDNFKEsSad3jyXYHqR0W9acw==
+X-Google-Smtp-Source: AA0mqf5M8Djzuycc38JR/hFtxMBw3/6t86+xUx1PIWOq9IMKdUk8BXmlYzR/Kxn2wDeAA8cXFQOYUQ==
+X-Received: by 2002:ac2:4902:0:b0:4b7:8291:d4b with SMTP id
+ n2-20020ac24902000000b004b782910d4bmr263779lfi.13.1670969134795; 
+ Tue, 13 Dec 2022 14:05:34 -0800 (PST)
+Received: from ?IPv6:::1? (dzccz6yfpdgdc5vwjcs5y-3.rev.dnainternet.fi.
+ [2001:14ba:a085:4d00:8c19:462c:c647:13f2])
+ by smtp.gmail.com with ESMTPSA id
+ z14-20020a056512370e00b004aa95889063sm534262lfr.43.2022.12.13.14.05.33
+ (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+ Tue, 13 Dec 2022 14:05:34 -0800 (PST)
+Date: Wed, 14 Dec 2022 00:02:59 +0200
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+To: Kuogee Hsieh <quic_khsieh@quicinc.com>, dri-devel@lists.freedesktop.org,
+ robdclark@gmail.com, sean@poorly.run, swboyd@chromium.org,
+ dianders@chromium.org, vkoul@kernel.org, daniel@ffwll.ch, agross@kernel.org,
+ andersson@kernel.org, konrad.dybcio@somainline.org, robh+dt@kernel.org,
+ krzysztof.kozlowski+dt@linaro.org, devicetree@vger.kernel.org,
+ airlied@gmail.com
+User-Agent: K-9 Mail for Android
+In-Reply-To: <1670967848-31475-3-git-send-email-quic_khsieh@quicinc.com>
+References: <1670967848-31475-1-git-send-email-quic_khsieh@quicinc.com>
+ <1670967848-31475-3-git-send-email-quic_khsieh@quicinc.com>
+Message-ID: <04C3BCD6-5ABE-45FF-995E-DB7E60E8406C@linaro.org>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.6.2
-Content-Language: en-US
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Adam Skladowski
- <a39.skl@gmail.com>
-References: <20221130200950.144618-1-a39.skl@gmail.com>
- <20221130200950.144618-2-a39.skl@gmail.com>
- <19e78a06-2f3d-92af-1988-b22dc3ffc84e@linaro.org>
-From: Abhinav Kumar <quic_abhinavk@quicinc.com>
-In-Reply-To: <19e78a06-2f3d-92af-1988-b22dc3ffc84e@linaro.org>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-ORIG-GUID: qYalVvqLD40rRT2LHIiWecj1GJBgVGZT
-X-Proofpoint-GUID: qYalVvqLD40rRT2LHIiWecj1GJBgVGZT
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.205,Aquarius:18.0.923,Hydra:6.0.545,FMLib:17.11.122.1
- definitions=2022-12-13_03,2022-12-13_01,2022-06-22_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0
- priorityscore=1501 lowpriorityscore=0 adultscore=0 spamscore=0
- suspectscore=0 mlxlogscore=999 mlxscore=0 impostorscore=0 bulkscore=0
- phishscore=0 clxscore=1011 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2212070000 definitions=main-2212130190
-Subject: Re: [Freedreno] [PATCH v2 01/12] dt-bindings: display: msm: Rename
- mdss node name in example
+Content-Type: text/plain;
+ charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [Freedreno] [PATCH v12 2/5] dt-bindings: msm/dp: add data-lanes
+ and link-frequencies property
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -86,84 +81,115 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Rafael J. Wysocki" <rafael@kernel.org>,
- Thara Gopinath <thara.gopinath@gmail.com>, dri-devel@lists.freedesktop.org,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- phone-devel@vger.kernel.org, David Airlie <airlied@gmail.com>,
- Daniel Lezcano <daniel.lezcano@linaro.org>, Andy Gross <agross@kernel.org>,
- Zhang Rui <rui.zhang@intel.com>, devicetree@vger.kernel.org,
- Amit Kucheria <amitk@kernel.org>, linux-pm@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, Rob Herring <robh+dt@kernel.org>,
- ~postmarketos/upstreaming@lists.sr.ht, Sean Paul <sean@poorly.run>,
- Loic Poulain <loic.poulain@linaro.org>, Bjorn Andersson <andersson@kernel.org>,
- linux-kernel@vger.kernel.org, Konrad Dybcio <konrad.dybcio@linaro.org>,
- Rob Clark <robdclark@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- freedreno@lists.freedesktop.org
+Cc: linux-arm-msm@vger.kernel.org, quic_sbillaka@quicinc.com,
+ freedreno@lists.freedesktop.org, quic_abhinavk@quicinc.com,
+ linux-kernel@vger.kernel.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 
 
-On 12/1/2022 11:54 AM, Dmitry Baryshkov wrote:
-> On 30/11/2022 22:09, Adam Skladowski wrote:
->> Follow other YAMLs and replace mdss name into display-subystem.
->>
->> Signed-off-by: Adam Skladowski <a39.skl@gmail.com>
-> 
-> Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+On 13 December 2022 23:44:05 EET, Kuogee Hsieh <quic_khsieh@quicinc=2Ecom>=
+ wrote:
+>Add both data-lanes and link-frequencies property into endpoint
+>
+>Changes in v7:
+>-- split yaml out of dtsi patch
+>-- link-frequencies from link rate to symbol rate
+>-- deprecation of old data-lanes property
+>
+>Changes in v8:
+>-- correct Bjorn mail address to kernel=2Eorg
+>
+>Changes in v10:
+>-- add menu item to data-lanes and link-frequecnis
+>
+>Changes in v11:
+>-- add endpoint property at port@1
+>
+>Changes in v12:
+>-- use enum for item at data-lanes and link-frequencies
 
-Going to add two fixes tags here as we are touching two chipsets:
+This is not a full list of changes
 
-Fixes: b93bdff44a85 ("dt-bindings: display/msm: add support for SM6115")
-Fixes: 06097b13ef97 ("dt-bindings: display/msm: split dpu-qcm2290 into 
-DPU and MDSS parts")
+>
+>Signed-off-by: Kuogee Hsieh <quic_khsieh@quicinc=2Ecom>`
+>---
+> =2E=2E=2E/bindings/display/msm/dp-controller=2Eyaml        | 30 ++++++++=
+++++++++++++--
+> 1 file changed, 28 insertions(+), 2 deletions(-)
+>
+>diff --git a/Documentation/devicetree/bindings/display/msm/dp-controller=
+=2Eyaml b/Documentation/devicetree/bindings/display/msm/dp-controller=2Eyam=
+l
+>index f2515af=2E=2E8fb9fa5 100644
+>--- a/Documentation/devicetree/bindings/display/msm/dp-controller=2Eyaml
+>+++ b/Documentation/devicetree/bindings/display/msm/dp-controller=2Eyaml
+>@@ -81,6 +81,7 @@ properties:
+>=20
+>   data-lanes:
+>     $ref: /schemas/types=2Eyaml#/definitions/uint32-array
+>+    deprecated: true
+>     minItems: 1
+>     maxItems: 4
+>     items:
+>@@ -96,14 +97,37 @@ properties:
+>=20
+>   ports:
+>     $ref: /schemas/graph=2Eyaml#/properties/ports
+>+
+>     properties:
+>       port@0:
+>-        $ref: /schemas/graph=2Eyaml#/properties/port
+>+        $ref: "/schemas/graph=2Eyaml#/$defs/port-base"
+>         description: Input endpoint of the controller
+>+        properties:
+>+          endpoint:
+>+            $ref: /schemas/media/video-interfaces=2Eyaml#
 
-Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
 
-> 
-> We will pick this into msm-fixes during the next cycle.
+I'd keep it as is=2E There are no video properties at this side of the gra=
+ph=2E
 
-Yes, we can with the above fixes tags but first, can you please send a 
-MR from msm-next-lumag to msm-next? So that I can send a MR for fixes to 
-msm-next.
+>=20
+>       port@1:
+>-        $ref: /schemas/graph=2Eyaml#/properties/port
+>+        $ref: "/schemas/graph=2Eyaml#/$defs/port-base"
+>         description: Output endpoint of the controller
+>+        properties:
+>+          endpoint:
+>+            $ref: /schemas/media/video-interfaces=2Eyaml#
+>+            properties:
+>+              data-lanes:
+>+                minItems: 1
+>+                maxItems: 4
+>+                items:
+>+                  enum: [ 0, 1, 2, 3 ]
+>+
+>+              link-frequencies:
+>+                minItems: 1
+>+                maxItems: 4
+>+                items:
+>+                  enum: [ 1620000000, 2700000000, 5400000000, 8100000000=
+ ]
+>+
+>+    required:
+>+      - port@0
+>+      - port@1
+>=20
+> required:
+>   - compatible
+>@@ -193,6 +217,8 @@ examples:
+>                 reg =3D <1>;
+>                 endpoint {
+>                     remote-endpoint =3D <&typec>;
+>+                    data-lanes =3D <0 1>;
+>+                    link-frequencies =3D /bits/ 64 <1620000000 270000000=
+0 5400000000 8100000000>;=20
+>                 };
+>             };
+>         };
 
-ATM, they are out of sync.
-
-
-> 
->> ---
->>   .../devicetree/bindings/display/msm/qcom,qcm2290-mdss.yaml      | 2 +-
->>   .../devicetree/bindings/display/msm/qcom,sm6115-mdss.yaml       | 2 +-
->>   2 files changed, 2 insertions(+), 2 deletions(-)
->>
->> diff --git 
->> a/Documentation/devicetree/bindings/display/msm/qcom,qcm2290-mdss.yaml 
->> b/Documentation/devicetree/bindings/display/msm/qcom,qcm2290-mdss.yaml
->> index d6f043a4b08d..4795e13c7b59 100644
->> --- 
->> a/Documentation/devicetree/bindings/display/msm/qcom,qcm2290-mdss.yaml
->> +++ 
->> b/Documentation/devicetree/bindings/display/msm/qcom,qcm2290-mdss.yaml
->> @@ -72,7 +72,7 @@ examples:
->>       #include <dt-bindings/interconnect/qcom,qcm2290.h>
->>       #include <dt-bindings/power/qcom-rpmpd.h>
->> -    mdss@5e00000 {
->> +    display-subsystem@5e00000 {
->>           #address-cells = <1>;
->>           #size-cells = <1>;
->>           compatible = "qcom,qcm2290-mdss";
->> diff --git 
->> a/Documentation/devicetree/bindings/display/msm/qcom,sm6115-mdss.yaml 
->> b/Documentation/devicetree/bindings/display/msm/qcom,sm6115-mdss.yaml
->> index a86d7f53fa84..886858ef6700 100644
->> --- a/Documentation/devicetree/bindings/display/msm/qcom,sm6115-mdss.yaml
->> +++ b/Documentation/devicetree/bindings/display/msm/qcom,sm6115-mdss.yaml
->> @@ -62,7 +62,7 @@ examples:
->>       #include <dt-bindings/interrupt-controller/arm-gic.h>
->>       #include <dt-bindings/power/qcom-rpmpd.h>
->> -    mdss@5e00000 {
->> +    display-subsystem@5e00000 {
->>           #address-cells = <1>;
->>           #size-cells = <1>;
->>           compatible = "qcom,sm6115-mdss";
-> 
+--=20
+With best wishes
+Dmitry
