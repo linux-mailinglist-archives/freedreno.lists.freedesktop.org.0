@@ -2,84 +2,65 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 09A6E64ABAA
-	for <lists+freedreno@lfdr.de>; Tue, 13 Dec 2022 00:42:26 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9CE5E64AC5B
+	for <lists+freedreno@lfdr.de>; Tue, 13 Dec 2022 01:25:10 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C866510E2A9;
-	Mon, 12 Dec 2022 23:42:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4AEE210E2BC;
+	Tue, 13 Dec 2022 00:24:39 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5E7E710E29A;
- Mon, 12 Dec 2022 23:42:10 +0000 (UTC)
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 2BCJRoxi026341; Mon, 12 Dec 2022 23:42:02 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
- h=message-id : date :
- mime-version : subject : to : cc : references : from : in-reply-to :
- content-type : content-transfer-encoding; s=qcppdkim1;
- bh=L/poYETk+wIVyz1oXWjHBXrsVN/2ZAsZsP2YCOt/i+A=;
- b=iAcr0dQWynlN367mCvsp3RfT1brcr1hECIrQmVeE31esGebBwOt+1gRTKQiQLJOSct7y
- 5zPiBh5aE6Q/F4ZU+f/TucUe3SfIOjeUgXtbYNI9PeI6BeJ0S9v0Jmokg82ioQTOOi/o
- conXC5/IEeu2mQXGYCVJ5/e6Pt1BPqsWZGWBMB2VumyHqqYBIFZTyLD9CnpRPo4oV1bB
- FhxKGzZXA5DzU5KLV/GGAZEY+2dyquTWngTiExGEfJJ0cuwNzpjb+s/FVS38EmNQ3Vjn
- N2ECVNJQ6Hr8qmhFj9DLa6ChoGbtHVievuthtGFvL9byGbPzmeiu/RvEuvwxGmifZExp jw== 
-Received: from nalasppmta01.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3mcjb95hmp-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 12 Dec 2022 23:42:02 +0000
-Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
- [10.47.209.196])
- by NALASPPMTA01.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 2BCNg0xq012161
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 12 Dec 2022 23:42:00 GMT
-Received: from [10.111.167.12] (10.80.80.8) by nalasex01a.na.qualcomm.com
- (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.36; Mon, 12 Dec
- 2022 15:41:57 -0800
-Message-ID: <a9e2f269-b9df-814f-adcd-f5577f590fa7@quicinc.com>
-Date: Mon, 12 Dec 2022 15:41:55 -0800
+Received: from mail-lf1-x136.google.com (mail-lf1-x136.google.com
+ [IPv6:2a00:1450:4864:20::136])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ADD9A10E2BC
+ for <freedreno@lists.freedesktop.org>; Tue, 13 Dec 2022 00:24:34 +0000 (UTC)
+Received: by mail-lf1-x136.google.com with SMTP id z26so2304815lfu.8
+ for <freedreno@lists.freedesktop.org>; Mon, 12 Dec 2022 16:24:34 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=EuRIOsbxJSRJCVkuwOFtkE5bn27vzsbdYBn710S1tsE=;
+ b=lmwePmqSEsF3OnAp9cC6PduAdpMwYQXJYh2fNPY863g5M9oD9ZWSLPEBTqvp3ngl4o
+ 9ySGQONxcxowsk7bT5fAzavUXJFT2Mm+pOmUafAwshUkw50rBcmP2m1ZHzBfyWvUtz0Q
+ sDk7fOuV3OjsEv1vhYNCb3FY7izl6cNJg7dHscP3ev+wJlHMdNFYNc71G4Ld0ybIzEEi
+ 0F9Grk4PBB8kEWXbSDxhmnT4EKJ/XMDY8X+odIVwZaTSvKTInZK6MGwuMXWXvBkbdVyf
+ nALPrAHoNvXCh7amnOwUIcnLg6b5FyAoJ/kvP8QNoNHNogg5RzE1a5yhoyrkJJx0HNvp
+ rTZw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=EuRIOsbxJSRJCVkuwOFtkE5bn27vzsbdYBn710S1tsE=;
+ b=6VQtShoPITgZEZ+gG4FIWhv5HZhXZRN92g9hV0Pim2glMTtIAGlFl0ldnJkknGW9jo
+ HOwY+WcMr83TgIgLBqeA40stcnX23C1VIDANYnSlcn/oV5X0eVFSMg/CmNJ4Xpnqbn5f
+ fbVJBtwcu9dqtRdwIk/wLiTvAimwiImtL8SER5sNhB/mW6sEEQ6hWzF+GKpsbRttEcMf
+ SQZmplHSmlOC+mJR1S6jBk8OS0tQVP70Zl3RDnVRp6UNidq6zkyK4R85URDPK+kQS8hC
+ R1ygpAd2nw9jm6JO5+zwbFeqTseU0u3SnLapBiOECwSvSd13K++R+II89O55ghlLCSgk
+ q3PQ==
+X-Gm-Message-State: ANoB5plR89u1YzGOhkAUbNpZyiI5tYh8G8JSp8dBXR5e3+LEpvnFbe80
+ DGRm9FZX2oTS5X/25hNR9OuCZA==
+X-Google-Smtp-Source: AA0mqf7FsYGwTEB0R89kNgfKs8NWR0YiZJmq+AA0ekGPv+hZSJMEhTrIOyi72Pmtjg6fC0kbmH3mpQ==
+X-Received: by 2002:a05:6512:150c:b0:4b4:b8fc:4ac5 with SMTP id
+ bq12-20020a056512150c00b004b4b8fc4ac5mr5905858lfb.3.1670891072964; 
+ Mon, 12 Dec 2022 16:24:32 -0800 (PST)
+Received: from localhost.localdomain (abxh44.neoplus.adsl.tpnet.pl.
+ [83.9.1.44]) by smtp.gmail.com with ESMTPSA id
+ m23-20020ac24257000000b004978e51b691sm137352lfl.266.2022.12.12.16.24.31
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 12 Dec 2022 16:24:32 -0800 (PST)
+From: Konrad Dybcio <konrad.dybcio@linaro.org>
+To: linux-arm-msm@vger.kernel.org, andersson@kernel.org, agross@kernel.org,
+ krzysztof.kozlowski@linaro.org
+Date: Tue, 13 Dec 2022 01:24:19 +0100
+Message-Id: <20221213002423.259039-4-konrad.dybcio@linaro.org>
+X-Mailer: git-send-email 2.39.0
+In-Reply-To: <20221213002423.259039-1-konrad.dybcio@linaro.org>
+References: <20221213002423.259039-1-konrad.dybcio@linaro.org>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.6.2
-Content-Language: en-US
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Kuogee Hsieh
- <quic_khsieh@quicinc.com>
-References: <1670539015-11808-1-git-send-email-quic_khsieh@quicinc.com>
- <1670539015-11808-3-git-send-email-quic_khsieh@quicinc.com>
- <5a3865ed-8847-db04-3d60-f35438250bef@linaro.org>
- <5aa16223-dbf6-996c-1985-794302dcce91@quicinc.com>
- <be1411e8-1d07-7643-977c-a306016fd660@linaro.org>
- <b6d90c1f-5365-7197-be63-96c3d8cf0746@quicinc.com>
- <e53844b7-601b-f355-302b-cc871962a446@linaro.org>
- <8b306c8f-3089-4aaf-7fc1-038a8330c89a@quicinc.com>
- <CAA8EJpr5RYyQa7xu1_xJ0F-dn-H9aOf0KE-CDgDCwnZu3HPgXg@mail.gmail.com>
-From: Abhinav Kumar <quic_abhinavk@quicinc.com>
-In-Reply-To: <CAA8EJpr5RYyQa7xu1_xJ0F-dn-H9aOf0KE-CDgDCwnZu3HPgXg@mail.gmail.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-GUID: O1WJpTrNUTLNvhSKUJjGEuvxD9McfxPt
-X-Proofpoint-ORIG-GUID: O1WJpTrNUTLNvhSKUJjGEuvxD9McfxPt
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.205,Aquarius:18.0.923,Hydra:6.0.545,FMLib:17.11.122.1
- definitions=2022-12-12_02,2022-12-12_02,2022-06-22_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 adultscore=0
- priorityscore=1501 lowpriorityscore=0 bulkscore=0 mlxscore=0
- malwarescore=0 suspectscore=0 impostorscore=0 spamscore=0 mlxlogscore=999
- clxscore=1015 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2210170000 definitions=main-2212120204
-Subject: Re: [Freedreno] [PATCH v11 2/5] dt-bindings: msm/dp: add data-lanes
- and link-frequencies property
+Content-Transfer-Encoding: 8bit
+Subject: [Freedreno] [PATCH 3/7] drm/msm/a6xx: Add support for A640 speed
+ binning
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -92,206 +73,56 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: devicetree@vger.kernel.org, quic_sbillaka@quicinc.com,
- freedreno@lists.freedesktop.org, krzysztof.kozlowski+dt@linaro.org,
- airlied@gmail.com, andersson@kernel.org, konrad.dybcio@somainline.org,
- robdclark@gmail.com, dri-devel@lists.freedesktop.org, dianders@chromium.org,
- robh+dt@kernel.org, vkoul@kernel.org, agross@kernel.org, daniel@ffwll.ch,
- linux-arm-msm@vger.kernel.org, swboyd@chromium.org, sean@poorly.run,
+Cc: freedreno@lists.freedesktop.org, Akhil P Oommen <quic_akhilpo@quicinc.com>,
+ David Airlie <airlied@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ dri-devel@lists.freedesktop.org, Douglas Anderson <dianders@chromium.org>,
+ Konrad Dybcio <konrad.dybcio@linaro.org>, Rob Clark <robdclark@gmail.com>,
+ Daniel Vetter <daniel@ffwll.ch>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, marijn.suijten@somainline.org,
+ Sean Paul <sean@poorly.run>, Chia-I Wu <olvaffe@gmail.com>,
  linux-kernel@vger.kernel.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Hi Dmitry
+Add support for matching QFPROM fuse values to get the correct speed bin
+on A640 (SM8150) GPUs.
 
-On 12/12/2022 2:35 PM, Dmitry Baryshkov wrote:
-> On Mon, 12 Dec 2022 at 19:51, Kuogee Hsieh <quic_khsieh@quicinc.com> wrote:
->>
->>
->> On 12/8/2022 4:35 PM, Dmitry Baryshkov wrote:
->>> On 09/12/2022 02:22, Kuogee Hsieh wrote:
->>>>
->>>> On 12/8/2022 4:11 PM, Dmitry Baryshkov wrote:
->>>>> On 09/12/2022 01:38, Kuogee Hsieh wrote:
->>>>>>
->>>>>> On 12/8/2022 3:33 PM, Dmitry Baryshkov wrote:
->>>>>>> On 09/12/2022 00:36, Kuogee Hsieh wrote:
->>>>>>>> Add both data-lanes and link-frequencies property into endpoint
->>>>>>>>
->>>>>>>> Changes in v7:
->>>>>>>> -- split yaml out of dtsi patch
->>>>>>>> -- link-frequencies from link rate to symbol rate
->>>>>>>> -- deprecation of old data-lanes property
->>>>>>>>
->>>>>>>> Changes in v8:
->>>>>>>> -- correct Bjorn mail address to kernel.org
->>>>>>>>
->>>>>>>> Changes in v10:
->>>>>>>> -- add menu item to data-lanes and link-frequecnis
->>>>>>>>
->>>>>>>> Changes in v11:
->>>>>>>> -- add endpoint property at port@1
->>>>>>>>
->>>>>>>> Signed-off-by: Kuogee Hsieh <quic_khsieh@quicinc.com>`
->>>>>>>
->>>>>>> Applying: dt-bindings: msm/dp: add data-lanes and link-frequencies
->>>>>>> property
->>>>>>> .git/rebase-apply/patch:47: trailing whitespace.
->>>>>>>
->>>>>>> .git/rebase-apply/patch:51: trailing whitespace.
->>>>>>>
->>>>>>>
->>>>>>> Also the dt_binding_check fails with an error for this schema. And
->>>>>>> after fixing the error in the schema I faced an example validation
->>>>>>> error. Did you check that the schema is correct and that the
->>>>>>> example validates against the schema?
->>>>>>
->>>>>> yes, but i run "make dt_binding_check
->>>>>> DT_SCHEMA_FILES=Documentation/devicetree/bindings/display/msm/dp-controller.yaml"
->>>>>> at mu v5.15 branch since
->>>>>
->>>>> I wouldn't ask you to post the log here. But I don't think that
->>>>> either of the errors that I see here is related to 5.15 vs 6.1-rc.
->>>>>
->>>>> In fact after applying this patch against 5.15 I saw the expected
->>>>> failure:
->>>>>
->>>>> Documentation/devicetree/bindings/display/msm/dp-controller.yaml:
->>>>> properties:required: ['port@0', 'port@1'] is not of type 'object',
->>>>> 'boolean'
->>>>> Documentation/devicetree/bindings/display/msm/dp-controller.yaml:
->>>>> properties: 'required' should not be valid under {'$ref':
->>>>> '#/definitions/json-schema-prop-names'}
->>>>> Documentation/devicetree/bindings/display/msm/dp-controller.yaml:
->>>>> ignoring, error in schema: properties: required
->>>>>
->>>>>>
->>>>>> "make dt_binding_check" does not work at msm-next branch.
->>>>>
->>>>> I went ahead and just checked.
->>>>>
->>>>> `make dt_binding_check DT_SCHEMA_FILES=display/msm`  works cleanly
->>>>> in msm-next and reports a single example-related warning in
->>>>> msm-next-lumag. I pushed a patch to fix that warning (wich can
->>>>> hopefully be picked up by Abhinav into msm-fixes). So you can assume
->>>>> that both these branches have consistent error-free display/msm
->>>>> schemas.
->>>>>
->>>> I have clean msm-next branch (without my data-lines yaml patch
->>>> applied) and run "make dt_binding_check
->>>> DT_SCHEMA_FILES=Documentation/devicetree/bindings/display/msm/dp-controller.yaml",
->>>> then I saw below error messages.
->>>>
->>>> Have you run into this problem?
->>>
->>> No.
->>
->> Did you do anything to fix "older dtschema instance"?
-> 
-> I did not since I hadn't had such a problem. I can refer again to the
-> steps I provided you beforehand. The email was sent 6 days ago. No
-> answer from your side since that time.
-> 
->> I had run  "pip3 install dtschema --upgrade" and still not work.
-> 
-> Can you please post a full log of this command?
-> 
->>
->> D you know how to fix this problem?
->>
->> Thanks,
->>
->> kuogee
->>
->> sort: -:2: disorder: 2022.1
->> ERROR: dtschema minimum version is v2022.3
->> make[2]: *** [check_dtschema_version] Error 1
->> make[1]: *** [dt_binding_check] Error 2
->> make: *** [__sub-make] Error 2
-> 
-> Please add the output of:
-> 
-> which dt-validate
-> dt-validate -V
-> 
-> And also a full log of your failing kernel build.
-> 
-> 
-> 
->> I had run "pip3 install dtschema --upgrade" according Rob Herring response.
->> but it still shows same problem.
->> Please let know how can I fix this problem.
->>
->>>
->>>>
->>>>     HOSTCC  scripts/basic/fixdep
->>>>     HOSTCC  scripts/dtc/dtc.o
->>>>     HOSTCC  scripts/dtc/flattree.o
->>>>     HOSTCC  scripts/dtc/fstree.o
->>>>     HOSTCC  scripts/dtc/data.o
->>>>     HOSTCC  scripts/dtc/livetree.o
->>>>     HOSTCC  scripts/dtc/treesource.o
->>>>     HOSTCC  scripts/dtc/srcpos.o
->>>>     HOSTCC  scripts/dtc/checks.o
->>>>     HOSTCC  scripts/dtc/util.o
->>>>     LEX     scripts/dtc/dtc-lexer.lex.c
->>>>     HOSTCC  scripts/dtc/dtc-lexer.lex.o
->>>>     HOSTCC  scripts/dtc/dtc-parser.tab.o
->>>>     HOSTLD  scripts/dtc/dtc
->>>> sort: -:2: disorder: 2022.1
->>>> ERROR: dtschema minimum version is v2022.3
->>>> make[2]: *** [check_dtschema_version] Error 1
->>>> make[1]: *** [dt_binding_check] Error 2
->>>> make: *** [__sub-make] Error 2
->>>
->>> This means that somewhere in your path you have an older dtschema
->>> instance.
->>>
->>> When you sent me a question regarding this error, I asked for the
->>> additional info. You provided none. Instead you went on sending the
->>> untested patch that doesn't work.
->>
->> since i can not test it on msm-next so that I did test it at my v5-15
->> branch.
-> 
-> Wrong.
-> 
->>
->> besides, i think i have to sent the whole series patches include this
->> one to address your new comments on other patch.
->>
->> is this correct?
-> 
-> No. Please fix your system first, validate your patches and send them
-> afterwards. You can not expect others to do your job.
-> 
+Signed-off-by: Konrad Dybcio <konrad.dybcio@linaro.org>
+---
+ drivers/gpu/drm/msm/adreno/a6xx_gpu.c | 13 +++++++++++++
+ 1 file changed, 13 insertions(+)
 
-Just finished working with kuogee on this. This issue had been reported 
-by few others earlier (example 
-https://lore.kernel.org/lkml/bc9be279-a130-d5e7-4397-bbb389d14403@intel.com/T/).
+diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+index 36c8fb699b56..2c1630f0c04c 100644
+--- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
++++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+@@ -1877,6 +1877,16 @@ static u32 a619_get_speed_bin(u32 fuse)
+ 	return UINT_MAX;
+ }
+ 
++static u32 a640_get_speed_bin(u32 fuse)
++{
++	if (fuse == 0)
++		return 0;
++	else if (fuse == 1)
++		return 1;
++
++	return UINT_MAX;
++}
++
+ static u32 adreno_7c3_get_speed_bin(u32 fuse)
+ {
+ 	if (fuse == 0)
+@@ -1902,6 +1912,9 @@ static u32 fuse_to_supp_hw(struct device *dev, struct adreno_rev rev, u32 fuse)
+ 	if (adreno_cmp_rev(ADRENO_REV(6, 3, 5, ANY_ID), rev))
+ 		val = adreno_7c3_get_speed_bin(fuse);
+ 
++	if (adreno_cmp_rev(ADRENO_REV(6, 4, 0, ANY_ID), rev))
++		val = a640_get_speed_bin(fuse);
++
+ 	if (val == UINT_MAX) {
+ 		DRM_DEV_ERROR(dev,
+ 			"missing support for speed-bin: %u. Some OPPs may not be supported by hardware\n",
+-- 
+2.39.0
 
-So let me summarize the fix:
-
-1) We do need up upgrade the dtschema first
-
-pip3 install git+https://github.com/devicetree-org/dt-schema.git@main
-
-2) Python version issues were hitting some of the developers so even if 
-we had the right version installed the PATH wasnt pointing to the right one
-
-3) We had to install yamllint
-
-We have documented these now for the benefit of others internally.
-
-With all these 3 done, we can compile msm-next-lumag using
-make dt_binding_check DT_SCHEMA_FILES=display/msm
-
-Apologies for the setup issues on our end. These are resolved now and 
-kuogee will post a v12 for this.
-
-Thanks
-
-Abhinav
-> --
-> With best wishes
-> Dmitry
