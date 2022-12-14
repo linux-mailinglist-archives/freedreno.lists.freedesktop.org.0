@@ -2,62 +2,36 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1EA9C64D01C
-	for <lists+freedreno@lfdr.de>; Wed, 14 Dec 2022 20:32:55 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 184A664D196
+	for <lists+freedreno@lfdr.de>; Wed, 14 Dec 2022 22:05:38 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B9F4010E460;
-	Wed, 14 Dec 2022 19:32:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B15F810E06C;
+	Wed, 14 Dec 2022 21:05:36 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from relay03.th.seeweb.it (relay03.th.seeweb.it [5.144.164.164])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DFF4810E45F;
- Wed, 14 Dec 2022 19:32:17 +0000 (UTC)
+Received: from m-r2.th.seeweb.it (m-r2.th.seeweb.it [5.144.164.171])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DB7B410E48B
+ for <freedreno@lists.freedesktop.org>; Wed, 14 Dec 2022 21:05:26 +0000 (UTC)
 Received: from SoMainline.org (94-209-172-39.cable.dynamic.v4.ziggo.nl
  [94.209.172.39])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest
  SHA256) (No client certificate requested)
- by m-r1.th.seeweb.it (Postfix) with ESMTPSA id 80F2B1F541;
- Wed, 14 Dec 2022 20:31:45 +0100 (CET)
-Date: Wed, 14 Dec 2022 20:31:44 +0100
+ by m-r2.th.seeweb.it (Postfix) with ESMTPSA id 983FE3F790;
+ Wed, 14 Dec 2022 22:05:17 +0100 (CET)
+Date: Wed, 14 Dec 2022 22:05:16 +0100
 From: Marijn Suijten <marijn.suijten@somainline.org>
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Message-ID: <20221214193144.to6yk5tr46akfy5m@SoMainline.org>
-Mail-Followup-To: Marijn Suijten <marijn.suijten@somainline.org>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- phone-devel@vger.kernel.org, Rob Clark <robdclark@gmail.com>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Vinod Koul <vkoul@kernel.org>,
- ~postmarketos/upstreaming@lists.sr.ht,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@somainline.org>,
- Konrad Dybcio <konrad.dybcio@somainline.org>,
- Martin Botka <martin.botka@somainline.org>,
- Jami Kettunen <jami.kettunen@somainline.org>,
- Sean Paul <sean@poorly.run>, David Airlie <airlied@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>, Stephen Boyd <swboyd@chromium.org>,
- Bjorn Andersson <andersson@kernel.org>,
- Jessica Zhang <quic_jesszhan@quicinc.com>,
- Ville =?utf-8?B?U3lyasOkbMOk?= <ville.syrjala@linux.intel.com>,
- Kuogee Hsieh <quic_khsieh@quicinc.com>,
- Jani Nikula <jani.nikula@intel.com>,
- sunliming <sunliming@kylinos.cn>, Sam Ravnborg <sam@ravnborg.org>,
- Haowen Bai <baihaowen@meizu.com>,
- Konrad Dybcio <konrad.dybcio@linaro.org>,
- Loic Poulain <loic.poulain@linaro.org>,
- Vinod Polimera <quic_vpolimer@quicinc.com>,
- Douglas Anderson <dianders@chromium.org>,
- Vladimir Lypak <vladimir.lypak@gmail.com>,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
-References: <20221213232207.113607-1-marijn.suijten@somainline.org>
- <20221213232207.113607-7-marijn.suijten@somainline.org>
- <4b7b4fb0-b99b-1022-b0f6-e91a84e8d082@linaro.org>
+To: Kalyan Thota <kalyant@qti.qualcomm.com>
+Message-ID: <20221214210516.u7drmdhc74a7rxvk@SoMainline.org>
+References: <1670417963-19426-1-git-send-email-quic_kalyant@quicinc.com>
+ <20221207140832.6r2kznoulfek7yye@SoMainline.org>
+ <BN0PR02MB81425C5E341E0FF1C374A3A496E29@BN0PR02MB8142.namprd02.prod.outlook.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <4b7b4fb0-b99b-1022-b0f6-e91a84e8d082@linaro.org>
-Subject: Re: [Freedreno] [RFC PATCH 6/6] drm/msm/dpu: Disallow unallocated
- (DSC) resources to be returned
+In-Reply-To: <BN0PR02MB81425C5E341E0FF1C374A3A496E29@BN0PR02MB8142.namprd02.prod.outlook.com>
+Subject: Re: [Freedreno] [v10] drm/msm/disp/dpu1: add support for dspp sub
+ block flush in sc7280
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,94 +44,56 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Konrad Dybcio <konrad.dybcio@somainline.org>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@somainline.org>,
- phone-devel@vger.kernel.org, Sam Ravnborg <sam@ravnborg.org>,
- Ville =?utf-8?B?U3lyasOkbMOk?= <ville.syrjala@linux.intel.com>,
- Haowen Bai <baihaowen@meizu.com>, David Airlie <airlied@gmail.com>,
- Vinod Koul <vkoul@kernel.org>, Kuogee Hsieh <quic_khsieh@quicinc.com>,
- Jessica Zhang <quic_jesszhan@quicinc.com>, Jani Nikula <jani.nikula@intel.com>,
- linux-arm-msm@vger.kernel.org, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Stephen Boyd <swboyd@chromium.org>, Martin Botka <martin.botka@somainline.org>,
- ~postmarketos/upstreaming@lists.sr.ht, Sean Paul <sean@poorly.run>,
- Loic Poulain <loic.poulain@linaro.org>,
- Jami Kettunen <jami.kettunen@somainline.org>,
- Bjorn Andersson <andersson@kernel.org>,
- Vladimir Lypak <vladimir.lypak@gmail.com>,
- Douglas Anderson <dianders@chromium.org>,
- Konrad Dybcio <konrad.dybcio@linaro.org>, Rob Clark <robdclark@gmail.com>,
- sunliming <sunliming@kylinos.cn>, Daniel Vetter <daniel@ffwll.ch>,
- freedreno@lists.freedesktop.org, Vinod Polimera <quic_vpolimer@quicinc.com>
+Cc: "Kalyan Thota \(QUIC\)" <quic_kalyant@quicinc.com>,
+ "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+ "Abhinav Kumar \(QUIC\)" <quic_abhinavk@quicinc.com>,
+ "linux-arm-msm@vger.kernel.org" <linux-arm-msm@vger.kernel.org>,
+ "swboyd@chromium.org" <swboyd@chromium.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ "dianders@chromium.org" <dianders@chromium.org>,
+ "dmitry.baryshkov@linaro.org" <dmitry.baryshkov@linaro.org>,
+ "robdclark@chromium.org" <robdclark@chromium.org>,
+ "freedreno@lists.freedesktop.org" <freedreno@lists.freedesktop.org>,
+ "Vinod Polimera \(QUIC\)" <quic_vpolimer@quicinc.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 2022-12-14 20:56:30, Dmitry Baryshkov wrote:
-> On 14/12/2022 01:22, Marijn Suijten wrote:
-> > In the event that the topology requests resources that have not been
-> > created by the system (because they are typically not represented in
-> > dpu_mdss_cfg ^1), the resource(s) in global_state (in this case DSC
-> > blocks) remain NULL but will still be returned out of
-> > dpu_rm_get_assigned_resources, where the caller expects to get an array
-> > containing num_blks valid pointers (but instead gets these NULLs).
-> > 
-> > To prevent this from happening, where null-pointer dereferences
-> > typically result in a hard-to-debug platform lockup, num_blks shouldn't
-> > increase past NULL blocks and will print an error and break instead.
-> > After all, max_blks represents the static size of the maximum number of
-> > blocks whereas the actual amount varies per platform.
-> > 
-> > In the specific case of DSC initial resource allocation should behave
-> > more like LMs and CTLs where NULL resources are skipped.  The current
-> > hardcoded mapping of DSC blocks should be loosened separately as DPU
-> > 5.0.0 introduced a crossbar where DSC blocks can be "somewhat" freely
-> > bound to any PP and CTL, but that hardcoding currently means that we
-> > will return an error when the topology reserves a DSC that isn't
-> > available, instead of looking for the next free one.
-> > 
-> > ^1: which can happen after a git rebase ended up moving additions to
-> > _dpu_cfg to a different struct which has the same patch context.
-> > 
-> > Signed-off-by: Marijn Suijten <marijn.suijten@somainline.org>
-> > ---
-> >   drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c | 10 ++++++++++
-> >   1 file changed, 10 insertions(+)
-> > 
-> > diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c
-> > index 73b3442e7467..dcbf03d2940a 100644
-> > --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c
-> > +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c
-> > @@ -496,6 +496,11 @@ static int _dpu_rm_reserve_dsc(struct dpu_rm *rm,
-> >   
-> >   	/* check if DSC required are allocated or not */
-> >   	for (i = 0; i < num_dsc; i++) {
-> > +		if (!rm->dsc_blks[i]) {
-> > +			DPU_ERROR("DSC %d does not exist\n", i);
-> > +			return -EIO;
-> > +		}
-> > +
-> >   		if (global_state->dsc_to_enc_id[i]) {
-> >   			DPU_ERROR("DSC %d is already allocated\n", i);
-> >   			return -EIO;
-> > @@ -660,6 +665,11 @@ int dpu_rm_get_assigned_resources(struct dpu_rm *rm,
-> >   				  blks_size, enc_id);
-> >   			break;
-> >   		}
-> > +		if (!hw_blks[i]) {
-> > +			DPU_ERROR("No more resource %d available to assign to enc %d\n",
-> > +				  type, enc_id);
-> > +			break;
-> > +		}
-> >   		blks[num_blks++] = hw_blks[i];
-> >   	}
-> >  
-> 
-> These two chunks should come as two separate patches, each having it's 
-> own Fixes tag.
+On 2022-12-12 11:35:15, Kalyan Thota wrote:
+> [..]
+> >> +             if (ctx->pending_dspp_flush_mask[dspp - DSPP_0])
+> >> +                     DPU_REG_WRITE(&ctx->hw, CTL_DSPP_n_FLUSH(dspp - DSPP_0),
+> >> +                             ctx->pending_dspp_flush_mask[dspp -
+> >> + DSPP_0]);
+> >
+> >Shouldn't this loop as a whole check if _any_ DSPP flush is requested via
+> >`pending_flush_mask & BIT(29)`?  The other flushes don't check the per-block
+> >mask value either (and could write zero that way) but only base this check on the
+> >presence of a global flush mask for that block.
+> >
+> BIT(29) enables dspp flush only from DPU rev 7.x.x where hierarchal flush is introduced. For other targets that supports CTL_ACTIVE, it's a NOP.
 
-Ack.  They are indeed addressing different issues (with the same
-outcome) with differing "backportability".  Will address in v2, thanks
-for pointing it out (and missing a Fixes: in the first place, of which
-we already have so many...).
+The only way this patch ever writes pending_dspp_flush_mask is followed
+by unconditionally setting BIT(29) in pending_flush_mask.  I was under
+the assumption that pending_dspp_flush_mask should be considered invalid
+or irrelevant unless BIT(29) is set.
+
+> With the check "pending_flush_mask & BIT(29)", unintended DSPP registers for that CTL path will be programmed to "0" which is not correct IMO.
+
+You can also keep the second `if` to guard against that; as said the
+code above does exactly this though, but I think we could assume that
+if a pending sub-block flush is set, pending_dspp_flush_mask is nonzero?
+
+> Secondly "pending_flush_mask & BIT(29)" although will not be true for DPU 6.x.x versions but can be confusing w.r.t code readability.
+> Let me know your thoughts.
+
+Ack, it is /super/ confusing that BIT(29) is used for DSPP (sub-block)
+flush, but also to flash INTF_2??
+
+In fact there are many overlapping flush bits used for different
+components.  Only few are clarified via a #define.  Can you confirm
+whether this is correct?  And whether these should all be pulled out
+into numerically-sorted defines to improve readability and document
+intentional overlap?
 
 - Marijn
