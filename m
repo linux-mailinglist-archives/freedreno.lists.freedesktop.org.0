@@ -2,62 +2,71 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 57C2064C52A
-	for <lists+freedreno@lfdr.de>; Wed, 14 Dec 2022 09:39:14 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E3FE264C620
+	for <lists+freedreno@lfdr.de>; Wed, 14 Dec 2022 10:40:43 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EDAC810E226;
-	Wed, 14 Dec 2022 08:38:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A28A110E39B;
+	Wed, 14 Dec 2022 09:40:39 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from m-r2.th.seeweb.it (m-r2.th.seeweb.it [5.144.164.171])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B93BB10E226
- for <freedreno@lists.freedesktop.org>; Wed, 14 Dec 2022 08:38:35 +0000 (UTC)
-Received: from SoMainline.org (94-209-172-39.cable.dynamic.v4.ziggo.nl
- [94.209.172.39])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest
- SHA256) (No client certificate requested)
- by m-r2.th.seeweb.it (Postfix) with ESMTPSA id 2B4FD3F3E7;
- Wed, 14 Dec 2022 09:38:30 +0100 (CET)
-Date: Wed, 14 Dec 2022 09:38:28 +0100
-From: Marijn Suijten <marijn.suijten@somainline.org>
-To: Konrad Dybcio <konrad.dybcio@linaro.org>
-Message-ID: <20221214083828.3jblczd5h5vyp3o5@SoMainline.org>
-Mail-Followup-To: Marijn Suijten <marijn.suijten@somainline.org>,
- Konrad Dybcio <konrad.dybcio@linaro.org>,
- phone-devel@vger.kernel.org, Rob Clark <robdclark@gmail.com>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Vinod Koul <vkoul@kernel.org>,
- ~postmarketos/upstreaming@lists.sr.ht,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@somainline.org>,
- Konrad Dybcio <konrad.dybcio@somainline.org>,
- Martin Botka <martin.botka@somainline.org>,
- Jami Kettunen <jami.kettunen@somainline.org>,
- Sean Paul <sean@poorly.run>, David Airlie <airlied@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>, Stephen Boyd <swboyd@chromium.org>,
- Bjorn Andersson <andersson@kernel.org>,
- Jessica Zhang <quic_jesszhan@quicinc.com>,
- Ville =?utf-8?B?U3lyasOkbMOk?= <ville.syrjala@linux.intel.com>,
- Kuogee Hsieh <quic_khsieh@quicinc.com>,
- Jani Nikula <jani.nikula@intel.com>,
- sunliming <sunliming@kylinos.cn>, Sam Ravnborg <sam@ravnborg.org>,
- Haowen Bai <baihaowen@meizu.com>,
- Loic Poulain <loic.poulain@linaro.org>,
- Vinod Polimera <quic_vpolimer@quicinc.com>,
- Douglas Anderson <dianders@chromium.org>,
- Vladimir Lypak <vladimir.lypak@gmail.com>,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
-References: <20221213232207.113607-1-marijn.suijten@somainline.org>
- <20221213232207.113607-6-marijn.suijten@somainline.org>
- <c5e33d9f-0dc4-fdd2-244a-3d463be1c4e8@linaro.org>
+Received: from mail-lf1-x134.google.com (mail-lf1-x134.google.com
+ [IPv6:2a00:1450:4864:20::134])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A603510E39B
+ for <freedreno@lists.freedesktop.org>; Wed, 14 Dec 2022 09:40:33 +0000 (UTC)
+Received: by mail-lf1-x134.google.com with SMTP id q6so9442478lfm.10
+ for <freedreno@lists.freedesktop.org>; Wed, 14 Dec 2022 01:40:33 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=content-transfer-encoding:mime-version:message-id:references
+ :in-reply-to:user-agent:subject:cc:to:from:date:from:to:cc:subject
+ :date:message-id:reply-to;
+ bh=Na1nf8qjjb1uMGoebJs/VqSMr6q5uwCqvQJ2Ul04o+w=;
+ b=YBVPuBr0jQKvXOKcWIdTT4V+PF+IEh9EFO+h1JTbjhB86iMmEgTMXkROy9xjNdDqx4
+ jpGYcATEhqkzZ9RjQomgPHMwbMFBmfCT+MuIFYt4KAU/hZ/3PtVIf0k7OgAC/Oy+Gz7t
+ pu5Sde0A8HvWabj8UWSQd1hR+2bRnXI8l5G3BWDfayRUqbnVAnABL83boyiBoI4g1KjP
+ JCUJaCqOtHUfyIybEzQgcI0ItHC1kgpfx9SXRrszffu05E/dzlJ0kMahaf4hsPK+J4gv
+ bYTywPFS6eB5+Bj1CjC+ywEQIULQgC5wjCG7SLXM+Obb4EKuOfB+Jg+UCnvECyGA1/aW
+ XeDg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=content-transfer-encoding:mime-version:message-id:references
+ :in-reply-to:user-agent:subject:cc:to:from:date:x-gm-message-state
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=Na1nf8qjjb1uMGoebJs/VqSMr6q5uwCqvQJ2Ul04o+w=;
+ b=O/gWSqdL2FJ7YiH4lGevPUWYaiOabK024SbxZY6YsM2/QRg8hOL4j0MkkvNz0c9qeV
+ VyBSQULNhMK141kMhYREtExl7EnRziec9A6WuutZWm+aWXzwrT+7M0Al7ZPKdQQ7MBnF
+ tCTH/HFFgmL8SDz5iKdQm63ICqm3fdyLMWbEaW9OqLVeinzkkNf/lrp9HeHx6NRKvgw0
+ k2uJpxzmMcACNmnZFw9rU6oVx24Q5783hMZUrsAYFpEHeR0QgKNh//DH2cGo+9p5XeWf
+ oUY3nEhdQzRDhMO81OZk5KSacIVA/w+M/pzcyNc4uGF6eFB3u3RQ00axGznH3o6+hQ7a
+ DuOQ==
+X-Gm-Message-State: ANoB5pkOxYBA1M9fNxohJ5fkrbN0DTyyIWWE8/qU3+KnbTtYvM4LNxBb
+ 8G3MSvejmDo4dW5k0Tuzaghavg==
+X-Google-Smtp-Source: AA0mqf5bAzf6oxaXCjoLImk3QkwtNBbzrPPDJ1DfSP1B46ND5nVtJkfVfzcY7e3jBODV9kNLTtpEMQ==
+X-Received: by 2002:a05:6512:308b:b0:4b6:e4b3:d82d with SMTP id
+ z11-20020a056512308b00b004b6e4b3d82dmr4229361lfd.7.1671010831840; 
+ Wed, 14 Dec 2022 01:40:31 -0800 (PST)
+Received: from [127.0.0.1] (85-76-128-40-nat.elisa-mobile.fi. [85.76.128.40])
+ by smtp.gmail.com with ESMTPSA id
+ p7-20020a2e9ac7000000b0026c2d2a9b92sm544123ljj.101.2022.12.14.01.40.31
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 14 Dec 2022 01:40:31 -0800 (PST)
+Date: Wed, 14 Dec 2022 11:40:29 +0200
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+To: Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Adam Skladowski <a39.skl@gmail.com>
+User-Agent: K-9 Mail for Android
+In-Reply-To: <86FA3AF9-5B35-4E27-80DA-8B5BF9E6B3AC@linaro.org>
+References: <20221130200950.144618-1-a39.skl@gmail.com>
+ <20221130200950.144618-2-a39.skl@gmail.com>
+ <19e78a06-2f3d-92af-1988-b22dc3ffc84e@linaro.org>
+ <ad7ecffc-3fc9-7859-82b7-9d161fc28cae@quicinc.com>
+ <86FA3AF9-5B35-4E27-80DA-8B5BF9E6B3AC@linaro.org>
+Message-ID: <558C636F-850D-41AF-9CA1-CC3E8E5C04F9@linaro.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <c5e33d9f-0dc4-fdd2-244a-3d463be1c4e8@linaro.org>
-Subject: Re: [Freedreno] [RFC PATCH 5/6] drm/msm/dsi: Flip greater-than
- check for slice_count and slice_per_intf
+Content-Type: text/plain;
+ charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [Freedreno] [PATCH v2 01/12] dt-bindings: display: msm: Rename
+ mdss node name in example
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,66 +79,51 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Konrad Dybcio <konrad.dybcio@somainline.org>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@somainline.org>,
- phone-devel@vger.kernel.org, Sam Ravnborg <sam@ravnborg.org>,
- Ville =?utf-8?B?U3lyasOkbMOk?= <ville.syrjala@linux.intel.com>,
- Haowen Bai <baihaowen@meizu.com>, David Airlie <airlied@gmail.com>,
- Vinod Koul <vkoul@kernel.org>, Kuogee Hsieh <quic_khsieh@quicinc.com>,
- Jessica Zhang <quic_jesszhan@quicinc.com>, Jani Nikula <jani.nikula@intel.com>,
- linux-arm-msm@vger.kernel.org, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Stephen Boyd <swboyd@chromium.org>, Martin Botka <martin.botka@somainline.org>,
+Cc: "Rafael J. Wysocki" <rafael@kernel.org>,
+ Thara Gopinath <thara.gopinath@gmail.com>, dri-devel@lists.freedesktop.org,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ phone-devel@vger.kernel.org, David Airlie <airlied@gmail.com>,
+ Daniel Lezcano <daniel.lezcano@linaro.org>, Andy Gross <agross@kernel.org>,
+ Zhang Rui <rui.zhang@intel.com>, devicetree@vger.kernel.org,
+ Amit Kucheria <amitk@kernel.org>, linux-pm@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, Rob Herring <robh+dt@kernel.org>,
  ~postmarketos/upstreaming@lists.sr.ht, Sean Paul <sean@poorly.run>,
- Loic Poulain <loic.poulain@linaro.org>,
- Jami Kettunen <jami.kettunen@somainline.org>,
- Bjorn Andersson <andersson@kernel.org>,
- Vladimir Lypak <vladimir.lypak@gmail.com>,
- Douglas Anderson <dianders@chromium.org>, Rob Clark <robdclark@gmail.com>,
- sunliming <sunliming@kylinos.cn>, Daniel Vetter <daniel@ffwll.ch>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- freedreno@lists.freedesktop.org, Vinod Polimera <quic_vpolimer@quicinc.com>
+ Loic Poulain <loic.poulain@linaro.org>, Bjorn Andersson <andersson@kernel.org>,
+ linux-kernel@vger.kernel.org, Konrad Dybcio <konrad.dybcio@linaro.org>,
+ Rob Clark <robdclark@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 2022-12-14 01:02:14, Konrad Dybcio wrote:
-> 
-> 
-> On 14.12.2022 00:22, Marijn Suijten wrote:
-> > According to downstream /and the comment copied from it/ this comparison
-> > should be the other way around.  In other words, when the panel driver
-> > requests to use more slices per packet than what could be sent over this
-> > interface, it is bumped down to only use a single slice per packet (and
-> > strangely not the number of slices that could fit on the interface).
-> > 
-> > Fixes: 08802f515c3c ("drm/msm/dsi: Add support for DSC configuration")
+14 =D0=B4=D0=B5=D0=BA=D0=B0=D0=B1=D1=80=D1=8F 2022 =D0=B3=2E 00:11:58 GMT+0=
+2:00, Dmitry Baryshkov <dmitry=2Ebaryshkov@linaro=2Eorg> =D0=BF=D0=B8=D1=88=
+=D0=B5=D1=82:
+>
+>
+>On 13 December 2022 23:53:48 EET, Abhinav Kumar <quic_abhinavk@quicinc=2E=
+com> wrote:
+>>
+>>
+>>On 12/1/2022 11:54 AM, Dmitry Baryshkov wrote:
+>>> On 30/11/2022 22:09, Adam Skladowski wrote:
+>>
+>>>=20
+>>> We will pick this into msm-fixes during the next cycle=2E
+>>
+>>Yes, we can with the above fixes tags but first, can you please send a M=
+R from msm-next-lumag to msm-next? So that I can send a MR for fixes to msm=
+-next=2E
+>
+>This would create an additional merge commit in msm-next for no particula=
+r reason=2E You can branch -fixes from rc1, or from the msm-next-lumag and =
+then send MR to msm-next=2E
 
-Signed-off-by: Marijn Suijten <marijn.suijten@somainline.org>
+Another option would be to base msm-fixes on drm-next directly=2E
 
-> > ---
-> Missing s-o-b
+>
+>>
+>>ATM, they are out of sync=2E
+>>
+>>
 
-Thanks for catching, checkpatch would've pointed this out (in addition
-to a typo in the cover letter) if I had ran it.
 
-> >  drivers/gpu/drm/msm/dsi/dsi_host.c | 4 ++--
-> >  1 file changed, 2 insertions(+), 2 deletions(-)
-> > 
-> > diff --git a/drivers/gpu/drm/msm/dsi/dsi_host.c b/drivers/gpu/drm/msm/dsi/dsi_host.c
-> > index 0686c35a6fd4..9bdfa0864cdf 100644
-> > --- a/drivers/gpu/drm/msm/dsi/dsi_host.c
-> > +++ b/drivers/gpu/drm/msm/dsi/dsi_host.c
-> > @@ -855,11 +855,11 @@ static void dsi_update_dsc_timing(struct msm_dsi_host *msm_host, bool is_cmd_mod
-> >  	 */
-> >  	slice_per_intf = DIV_ROUND_UP(hdisplay, dsc->slice_width);
-> >  
-> > -	/* If slice_per_pkt is greater than slice_per_intf
-> > +	/* If slice_count is greater than slice_per_intf
-> >  	 * then default to 1. This can happen during partial
-> >  	 * update.
-> >  	 */
-> > -	if (slice_per_intf > dsc->slice_count)
-> > +	if (dsc->slice_count > slice_per_intf)
-> >  		dsc->slice_count = 1;
-> >  
-> >  	total_bytes_per_intf = dsc->slice_chunk_size * slice_per_intf;
