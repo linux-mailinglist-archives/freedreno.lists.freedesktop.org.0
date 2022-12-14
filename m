@@ -2,57 +2,69 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id BFE7564CDD6
-	for <lists+freedreno@lfdr.de>; Wed, 14 Dec 2022 17:20:04 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B932264CF8A
+	for <lists+freedreno@lfdr.de>; Wed, 14 Dec 2022 19:40:48 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F382510E429;
-	Wed, 14 Dec 2022 16:20:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A244510E44C;
+	Wed, 14 Dec 2022 18:40:16 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-oa1-f52.google.com (mail-oa1-f52.google.com
- [209.85.160.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EB22310E429;
- Wed, 14 Dec 2022 16:19:58 +0000 (UTC)
-Received: by mail-oa1-f52.google.com with SMTP id
- 586e51a60fabf-1442977d77dso17229799fac.6; 
- Wed, 14 Dec 2022 08:19:58 -0800 (PST)
+Received: from mail-lf1-x134.google.com (mail-lf1-x134.google.com
+ [IPv6:2a00:1450:4864:20::134])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 309E210E44C
+ for <freedreno@lists.freedesktop.org>; Wed, 14 Dec 2022 18:40:09 +0000 (UTC)
+Received: by mail-lf1-x134.google.com with SMTP id z26so11949895lfu.8
+ for <freedreno@lists.freedesktop.org>; Wed, 14 Dec 2022 10:40:09 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=84PVzy06Jez7WrqpA7scvmaFQfIAuLwwfaDiUooPlFI=;
+ b=gR3RUbdtP2h5rhjbu9ETN1ccQZp6hk7IaSQibahbKZZXwXTSnp2ECnJDrlylJ+3Pss
+ 3v4rTXnsLW1NgvfHGi1LkaSvMo65xG1F1zka65Yiszsmd2AePNGZH1GkKM1OgvbKJ/1t
+ oGmX0Fy5dluJbI+LK9yOhT2hO6h36iaiuPHxXifUHvV71nucTO83hZChn6a71Z6sgeVz
+ SW5u/8R2anqRl+qwBkF44JOBU9ewze/ElC2l5Vu8BXLv7wXLhOqpU0USfBkxVO1O67RZ
+ cKyMrT7oGQ6jCy0oUw+B2UuuoJ753yzWd/JI9P7frzi9p9xwfUY0x7zNAeyulvEFyeDu
+ Ewzw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=pmxnkBtZ4+9GBAc6tSJuQtB+ybkrmuXMMJ4mdgofo5Q=;
- b=Eh6PGELkNvp5+fB9AXwncO0BfNF/uK8mN1UXraDwsEd/M7iZKg4MgA4ThGGA3XfX4+
- yrSI0PvrLP7XG/SmQkmUS+E71v0IscOFEE5oysKofgW5iA8nrwZg1ArSpjP2mKbYCEP4
- f5X8JOWfuW4aJ/1wgdopjNrUTEsX8DyLdU5z8AnIn0/PkoZ2a6yGiIHUF+ppQZfAQGHZ
- 9e6ypvdBcL4SBukoETi9vVREuW6jVjsya4Z6wbTY/PZVLGoMDGq1YG/0wv5wC/iyScH7
- AxSIy1P0Lyy8p0SDp+ASWVrKcbXQs4Ie5MVwdbhSSCwLIcuYHyYQNTKbZ6FIWyGd+K77
- K+IA==
-X-Gm-Message-State: ANoB5pnWbQfh/xk3uRjwELgb8MoYVz1jn+s7a+VxHlQLHUSH4P5i3mIn
- 2plKIrSgATNyB8ZFVN8eGA==
-X-Google-Smtp-Source: AA0mqf6e3VGZKdUfXLywAorV3vsZOOgy1lwiko6BtumOLTx0JRi0nVu+raQ/iZcLaTVqcLb++8wnEw==
-X-Received: by 2002:a05:6871:213:b0:142:9258:b78d with SMTP id
- t19-20020a056871021300b001429258b78dmr12829578oad.12.1671034798148; 
- Wed, 14 Dec 2022 08:19:58 -0800 (PST)
-Received: from robh_at_kernel.org (rrcs-98-6-157-194.sw.biz.rr.com.
- [98.6.157.194]) by smtp.gmail.com with ESMTPSA id
- h4-20020a056870170400b0011f22e74d5fsm2888651oae.20.2022.12.14.08.19.45
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 14 Dec 2022 08:19:56 -0800 (PST)
-Received: (nullmailer pid 1168312 invoked by uid 1000);
- Wed, 14 Dec 2022 16:19:38 -0000
-Date: Wed, 14 Dec 2022 10:19:38 -0600
-From: Rob Herring <robh@kernel.org>
-To: Kuogee Hsieh <quic_khsieh@quicinc.com>
-Message-ID: <20221214161938.GA1164047-robh@kernel.org>
-References: <1670972181-4961-1-git-send-email-quic_khsieh@quicinc.com>
- <1670972181-4961-3-git-send-email-quic_khsieh@quicinc.com>
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=84PVzy06Jez7WrqpA7scvmaFQfIAuLwwfaDiUooPlFI=;
+ b=n1f5GTcqzK1aqP9FmOlJCJ+wmOR+3/2nLBi8Hl3FZZjvX8195TGq3ayopSHIQ8qw5U
+ AfMnurblJ5JxARd4O9TsfJegXqO8Rs+WVKzxnCfKlHH4vFHU5cfT8RTCObd/xkWR9d6S
+ 6ePHE47zKo919psqwu8W/PLe+L7uxC4B3DBQw6eKVwHxYYOfIdwmBC1RI/SDDCiVMYRd
+ qW9r7WKzO3Ac6995zD7GRib2rVyjP/6Ih6Hkvy7yJ9nvNlfCoBoV64KjTa9yR7pcc8nE
+ eI4a8th5PjEKrXQTjm16FE6DisVfHOyu1NolgtZl/qCz8SzQyEySIUXniOG2SZs3dz1/
+ 7rZw==
+X-Gm-Message-State: ANoB5pn1S6lb9tB4iBJ616JlTOa7qU4++8kmf7d4UzSLubb6JHCkcvb6
+ zpQXBt5WGN5loa5x0NliZpRX/Q==
+X-Google-Smtp-Source: AA0mqf5huwxvJLpqWw8CtVjdxW1TVZkauT4Q4In5DVwTzyMs2NKw3KRNjJwviMs2hFfphsK4vzn7Pw==
+X-Received: by 2002:ac2:4f0e:0:b0:4a4:68b9:19e1 with SMTP id
+ k14-20020ac24f0e000000b004a468b919e1mr7586088lfr.9.1671043207234; 
+ Wed, 14 Dec 2022 10:40:07 -0800 (PST)
+Received: from [10.10.15.130] ([192.130.178.91])
+ by smtp.gmail.com with ESMTPSA id
+ a23-20020a19f817000000b0049465afdd38sm901628lff.108.2022.12.14.10.40.06
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 14 Dec 2022 10:40:06 -0800 (PST)
+Message-ID: <154b2e08-25a0-c8b7-1dc8-2d41b8787f05@linaro.org>
+Date: Wed, 14 Dec 2022 20:40:06 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <1670972181-4961-3-git-send-email-quic_khsieh@quicinc.com>
-Subject: Re: [Freedreno] [PATCH v13 2/5] dt-bindings: msm/dp: add data-lanes
- and link-frequencies property
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.5.1
+Content-Language: en-GB
+To: Marijn Suijten <marijn.suijten@somainline.org>,
+ phone-devel@vger.kernel.org, Rob Clark <robdclark@gmail.com>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, Vinod Koul <vkoul@kernel.org>
+References: <20221213232207.113607-1-marijn.suijten@somainline.org>
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+In-Reply-To: <20221213232207.113607-1-marijn.suijten@somainline.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Subject: Re: [Freedreno] [RFC PATCH 0/6] drm/msm: DSC Electric Boogaloo for
+ sm8[12]50
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,111 +77,87 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: devicetree@vger.kernel.org, quic_sbillaka@quicinc.com,
- krzysztof.kozlowski+dt@linaro.org, quic_abhinavk@quicinc.com,
- airlied@gmail.com, andersson@kernel.org, konrad.dybcio@somainline.org,
- robdclark@gmail.com, dri-devel@lists.freedesktop.org, dianders@chromium.org,
- freedreno@lists.freedesktop.org, vkoul@kernel.org, agross@kernel.org,
- daniel@ffwll.ch, linux-arm-msm@vger.kernel.org, dmitry.baryshkov@linaro.org,
- swboyd@chromium.org, sean@poorly.run, linux-kernel@vger.kernel.org
+Cc: Konrad Dybcio <konrad.dybcio@somainline.org>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@somainline.org>,
+ Vinod Polimera <quic_vpolimer@quicinc.com>, Sam Ravnborg <sam@ravnborg.org>,
+ =?UTF-8?B?VmlsbGUgU3lyasOkbMOk?= <ville.syrjala@linux.intel.com>,
+ Haowen Bai <baihaowen@meizu.com>, David Airlie <airlied@gmail.com>,
+ Kuogee Hsieh <quic_khsieh@quicinc.com>,
+ Jessica Zhang <quic_jesszhan@quicinc.com>, Jani Nikula <jani.nikula@intel.com>,
+ linux-arm-msm@vger.kernel.org, Stephen Boyd <swboyd@chromium.org>,
+ Martin Botka <martin.botka@somainline.org>,
+ ~postmarketos/upstreaming@lists.sr.ht, Sean Paul <sean@poorly.run>,
+ Loic Poulain <loic.poulain@linaro.org>,
+ Jami Kettunen <jami.kettunen@somainline.org>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Vladimir Lypak <vladimir.lypak@gmail.com>,
+ Douglas Anderson <dianders@chromium.org>,
+ Konrad Dybcio <konrad.dybcio@linaro.org>, sunliming <sunliming@kylinos.cn>,
+ Daniel Vetter <daniel@ffwll.ch>, freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Tue, Dec 13, 2022 at 02:56:18PM -0800, Kuogee Hsieh wrote:
-> Add both data-lanes and link-frequencies property into endpoint
+On 14/12/2022 01:22, Marijn Suijten wrote:
+> This preliminary Display Stream Compression support package for
+> (initially tested on) sm8[12]50 is based on comparing DSC behaviour
+> between downstream and mainline.  Some new callbacks are added (for
+> binding blocks on active CTLs), logic bugs are corrected, zeroed struct
+> members are now assigned proper values, and RM allocation and hw block
+> retrieval now hand out (or not) DSC blocks without causing null-pointer
+> dereferences.
 > 
-> Changes in v7:
-> -- split yaml out of dtsi patch
-> -- link-frequencies from link rate to symbol rate
-> -- deprecation of old data-lanes property
+> Unfortunately it is not yet enough to get rid of completely corrupted
+> display output on the boards I tested here:
+> - Sony Xperia 1 (sm8150), 1644x3840 or 1096x2560 pixels;
+> - Sony Xperia 5II (sm8250), 1080x2520, at 60 or 120Hz;
+> - (can include more Xperia boards if desired)
 > 
-> Changes in v8:
-> -- correct Bjorn mail address to kernel.org
+> Both devices use the DUALPIPE_DSCMERGE topology downstream: dual LM, PP
+> and DSC, but only a single INTF/encoder/DSI-link.
 > 
-> Changes in v10:
-> -- add menu item to data-lanes and link-frequecnis
+> Hopefully this spawns some community/upstream interest to help rootcause
+> our corruption issues (after we open a drm/msm report on GitLab for more
+> appropriate tracking).
 > 
-> Changes in v11:
-> -- add endpoint property at port@1
+> The Sony Xperia XZ3 (sdm845) was fully tested and validated with this
+> series to not cause any regressions (an one of the math fixes now allows
+> us to change slice_count in the panel driver, which would corrupt
+> previously).
 > 
-> Changes in v12:
-> -- use enum for item at data-lanes and link-frequencies
-> 
-> Changes in v13:
-> -- revised changes at port@0
-> -- use correct ref schemas for both port@0 and port@1
-> -- mark both port@0 and port@1 are required
-> -- add line between data-lanes and link-frequencies properties
-> 
-> Signed-off-by: Kuogee Hsieh <quic_khsieh@quicinc.com>`
-> ---
->  .../bindings/display/msm/dp-controller.yaml        | 26 ++++++++++++++++++++--
->  1 file changed, 24 insertions(+), 2 deletions(-)
-> 
-> diff --git a/Documentation/devicetree/bindings/display/msm/dp-controller.yaml b/Documentation/devicetree/bindings/display/msm/dp-controller.yaml
-> index f2515af..9d002de 100644
-> --- a/Documentation/devicetree/bindings/display/msm/dp-controller.yaml
-> +++ b/Documentation/devicetree/bindings/display/msm/dp-controller.yaml
-> @@ -81,6 +81,7 @@ properties:
->  
->    data-lanes:
->      $ref: /schemas/types.yaml#/definitions/uint32-array
-> +    deprecated: true
->      minItems: 1
->      maxItems: 4
->      items:
-> @@ -98,12 +99,31 @@ properties:
->      $ref: /schemas/graph.yaml#/properties/ports
->      properties:
->        port@0:
-> -        $ref: /schemas/graph.yaml#/properties/port
-> +        $ref: "/schemas/graph.yaml#/$defs/port-base"
+> Marijn Suijten (6):
+>    drm/msm/dpu1: Implement DSC binding to PP block for CTL V1
+>    drm/msm/dpu1: Add DSC config for sm8150 and sm8250
+>    drm/msm/dpu1: Wire up DSC mask for active CTL configuration
+>    drm/msm/dsi: Use DSC slice(s) packet size to compute word count
+>    drm/msm/dsi: Flip greater-than check for slice_count and
+>      slice_per_intf
+>    drm/msm/dpu: Disallow unallocated (DSC) resources to be returned
 
-This means you have extra properties to add in the endpoint, but you 
-didn't define any.
+General comment: patches with Fixes ideally should come first. Usually 
+they are picked into -fixes and/or stable kernels. If the Fixes patches 
+are in the middle of the series, one can not be sure that they do not 
+have dependencies on previous patches. If there is one, it should 
+probably be stated clearly to ease work on backporting them.
 
->          description: Input endpoint of the controller
->  
->        port@1:
-> -        $ref: /schemas/graph.yaml#/properties/port
-> +        $ref: "/schemas/graph.yaml#/$defs/port-base"
-
-Don't need quotes. Why did you add them?
-
->          description: Output endpoint of the controller
-> +        properties:
-> +          endpoint:
-> +            $ref: /schemas/media/video-interfaces.yaml#
-> +            properties:
-> +              data-lanes:
-> +                minItems: 1
-> +                maxItems: 4
-> +                items:
-> +                  enum: [ 0, 1, 2, 3 ]
-> +
-> +              link-frequencies:
-> +                minItems: 1
-> +                maxItems: 4
-> +                items:
-> +                  enum: [ 1620000000, 2700000000, 5400000000, 8100000000 ]
-> +
-> +    required:
-> +      - port@0
-> +      - port@1
->  
->  required:
->    - compatible
-> @@ -193,6 +213,8 @@ examples:
->                  reg = <1>;
->                  endpoint {
->                      remote-endpoint = <&typec>;
-> +                    data-lanes = <0 1>;
-> +                    link-frequencies = /bits/ 64 <1620000000 2700000000 5400000000 8100000000>; 
->                  };
->              };
->          };
-> -- 
-> The Qualcomm Innovation Center, Inc. is a member of the Code Aurora Forum,
-> a Linux Foundation Collaborative Project
 > 
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c   |  3 +++
+>   .../drm/msm/disp/dpu1/dpu_encoder_phys_cmd.c  |  1 +
+>   .../drm/msm/disp/dpu1/dpu_encoder_phys_vid.c  |  1 +
+>   .../drm/msm/disp/dpu1/dpu_encoder_phys_wb.c   |  2 ++
+>   .../gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c    | 23 +++++++++++-----
+>   .../gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h    |  9 +++++++
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_dsc.c    | 27 +++++++++++++++++++
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_dsc.h    |  4 +++
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c        | 10 +++++++
+>   drivers/gpu/drm/msm/dsi/dsi_host.c            |  6 ++---
+>   10 files changed, 77 insertions(+), 9 deletions(-)
 > 
+> --
+> 2.38.1
+> 
+
+-- 
+With best wishes
+Dmitry
+
