@@ -2,67 +2,83 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0E2C364D262
-	for <lists+freedreno@lfdr.de>; Wed, 14 Dec 2022 23:29:44 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A975564D2A2
+	for <lists+freedreno@lfdr.de>; Wed, 14 Dec 2022 23:56:43 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C1B7010E080;
-	Wed, 14 Dec 2022 22:29:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 66C5610E4A9;
+	Wed, 14 Dec 2022 22:56:42 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ed1-x52b.google.com (mail-ed1-x52b.google.com
- [IPv6:2a00:1450:4864:20::52b])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3158810E080
- for <freedreno@lists.freedesktop.org>; Wed, 14 Dec 2022 22:29:39 +0000 (UTC)
-Received: by mail-ed1-x52b.google.com with SMTP id e13so24664855edj.7
- for <freedreno@lists.freedesktop.org>; Wed, 14 Dec 2022 14:29:39 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=1bSdi2nTZFfN0KO3twl810Uns3X1CbpenS2xYlJiGPM=;
- b=QS+/BUVNsbN6h+tQwIBW7N0LXW4/Jg584fdK+n867YoxGH2EVT3pvpOv0U+9ZxfOF/
- rC+A8JiiEJr2R7MGbILNYNFTad0rr0C8KD/sy/c1V8PbqBkKH32/xb29IPq+heVzZkXp
- klpRQ11wYfFmdLXqkEepJLbDXUndJHe8njFAk=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=1bSdi2nTZFfN0KO3twl810Uns3X1CbpenS2xYlJiGPM=;
- b=v0PyltC3Emu+xkakzBhbjxlkfyBc5rW3KnCmM947BbnYKGbzphRiApJQhnNuXfiwOG
- GhTB6gdHZSYoyLZyw75SSCysGCgECjPEToRM7TVIkvcq/9U40NZZSnVTTXjI5k+OJfUM
- O4tyGVu2UHVkAlaL58ZpqglJxm8Aka1mu85CDVNNA6G4NIedssaeu73ZjZRI3dzcfsio
- M/fivjC65cqJKhXl6ne2kcdAsENvgLvYNuB3OXld951QFOFQLTV9QyABtXNdwsORgXDG
- VH8TTh59qwn1VynV87mJLp6UR0R7Rp3Qaoow4cFBB4vMC9tE9FQiw+4mfuEKb/TsY8EF
- N/Uw==
-X-Gm-Message-State: AFqh2kpPW2+arGdxBCtfcRbu+zS3gltocHsswUjzLnjEE3s+xR7mwMa0
- rbqRvZkHnreR5IF6YEP+1mne9uquCh//GInjg8E=
-X-Google-Smtp-Source: AMrXdXtOTHlAq6+7IohQOM0F5P4Ssf+IwxgRQHgMmZJ4GpxqaQle/nXFg4qV4QonYK3rY7QiRqFaPA==
-X-Received: by 2002:a50:ee17:0:b0:473:bd4:84ca with SMTP id
- g23-20020a50ee17000000b004730bd484camr1657802eds.6.1671056977728; 
- Wed, 14 Dec 2022 14:29:37 -0800 (PST)
-Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com.
- [209.85.128.53]) by smtp.gmail.com with ESMTPSA id
- v17-20020a170906293100b0078e0973d1f5sm6325369ejd.0.2022.12.14.14.29.35
- for <freedreno@lists.freedesktop.org>
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 14 Dec 2022 14:29:35 -0800 (PST)
-Received: by mail-wm1-f53.google.com with SMTP id
- ay14-20020a05600c1e0e00b003cf6ab34b61so517082wmb.2
- for <freedreno@lists.freedesktop.org>; Wed, 14 Dec 2022 14:29:35 -0800 (PST)
-X-Received: by 2002:a05:600c:2d91:b0:3d0:69f4:d3d0 with SMTP id
- i17-20020a05600c2d9100b003d069f4d3d0mr191822wmg.93.1671056974914; Wed, 14 Dec
- 2022 14:29:34 -0800 (PST)
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0088F10E4A9;
+ Wed, 14 Dec 2022 22:56:38 +0000 (UTC)
+Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 2BEMovT3028406; Wed, 14 Dec 2022 22:56:33 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
+ h=message-id : date :
+ mime-version : subject : to : cc : references : from : in-reply-to :
+ content-type : content-transfer-encoding; s=qcppdkim1;
+ bh=NXwWqQ8KqZlBEtO0zZqASpt3pzZ+eDE/Zpa6hLScZbk=;
+ b=MGv2rLe0AJ1lq4FmszX2pMcCFlE6O8orHtaDd5D9zGd+1Spgv6Q+ectQND3uKz95HOnx
+ YDUn5w1jC/V/9EYKBToO1qwT7hGiW5wrH8p+OMf4JrVMqUOySgwkzXoFGF/gs5PQM+bj
+ bgLPSWtdylpwIOkc5Qn9kQgdtFdi/6cKa2AXl5FHwAjHcsDzqAe+XXsGoWdIyfVIu2Gc
+ /cqijbbbjfaSryABJykbhKK8flAFHm+332DYCKrvvqyFnYYMMlpEnulH40b1/Uxyz/NK
+ gOPWtd8isC77I+bCZw8M5/mIL4YsuBEr8g9lCTU/qdKg+h/WXzI3Lmc+GJ8gl9Yv97jl kA== 
+Received: from nalasppmta04.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3mf6rcjhve-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 14 Dec 2022 22:56:32 +0000
+Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
+ [10.47.209.196])
+ by NALASPPMTA04.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 2BEMuVjV015837
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 14 Dec 2022 22:56:31 GMT
+Received: from [10.110.66.74] (10.80.80.8) by nalasex01a.na.qualcomm.com
+ (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.36; Wed, 14 Dec
+ 2022 14:56:30 -0800
+Message-ID: <b38af164-08bc-07e7-dfaf-fb4d6d89d7db@quicinc.com>
+Date: Wed, 14 Dec 2022 14:56:23 -0800
 MIME-Version: 1.0
-References: <1671052890-11627-1-git-send-email-quic_khsieh@quicinc.com>
-In-Reply-To: <1671052890-11627-1-git-send-email-quic_khsieh@quicinc.com>
-From: Doug Anderson <dianders@chromium.org>
-Date: Wed, 14 Dec 2022 14:29:21 -0800
-X-Gmail-Original-Message-ID: <CAD=FV=UTeCU7BcfPMXz8J-9uOp_7Fn9PFdtFMsu46x5wKa0RyQ@mail.gmail.com>
-Message-ID: <CAD=FV=UTeCU7BcfPMXz8J-9uOp_7Fn9PFdtFMsu46x5wKa0RyQ@mail.gmail.com>
-To: Kuogee Hsieh <quic_khsieh@quicinc.com>
-Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [PATCH] drm/msm/dp: do not complete
- dp_aux_cmd_fifo_tx() if irq is not for aux transfer
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.5.1
+To: Stephen Boyd <swboyd@chromium.org>, <agross@kernel.org>,
+ <airlied@gmail.com>, <andersson@kernel.org>, <daniel@ffwll.ch>,
+ <devicetree@vger.kernel.org>, <dianders@chromium.org>,
+ <dmitry.baryshkov@linaro.org>, <dri-devel@lists.freedesktop.org>,
+ <konrad.dybcio@somainline.org>, <krzysztof.kozlowski+dt@linaro.org>,
+ <robdclark@gmail.com>, <robh+dt@kernel.org>, <sean@poorly.run>,
+ <vkoul@kernel.org>
+References: <1670967848-31475-1-git-send-email-quic_khsieh@quicinc.com>
+ <1670967848-31475-3-git-send-email-quic_khsieh@quicinc.com>
+ <CAE-0n52eHYCqxUJqQXoaQ8vyqCk-QfouSun+zUp3yo5DufWbwg@mail.gmail.com>
+Content-Language: en-US
+From: Kuogee Hsieh <quic_khsieh@quicinc.com>
+In-Reply-To: <CAE-0n52eHYCqxUJqQXoaQ8vyqCk-QfouSun+zUp3yo5DufWbwg@mail.gmail.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-GUID: U29_nJSgdccaCRtFNjrWHW3FJNaCHDJO
+X-Proofpoint-ORIG-GUID: U29_nJSgdccaCRtFNjrWHW3FJNaCHDJO
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.205,Aquarius:18.0.923,Hydra:6.0.545,FMLib:17.11.122.1
+ definitions=2022-12-14_11,2022-12-14_01,2022-06-22_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 suspectscore=0
+ phishscore=0 clxscore=1015 impostorscore=0 adultscore=0 priorityscore=1501
+ malwarescore=0 spamscore=0 mlxlogscore=999 mlxscore=0 lowpriorityscore=0
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2212070000
+ definitions=main-2212140187
+Subject: Re: [Freedreno] [PATCH v12 2/5] dt-bindings: msm/dp: add data-lanes
+ and link-frequencies property
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,73 +91,154 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, quic_sbillaka@quicinc.com,
- quic_abhinavk@quicinc.com, sean@poorly.run, andersson@kernel.org,
- vkoul@kernel.org, dri-devel@lists.freedesktop.org, swboyd@chromium.org,
- robdclark@gmail.com, agross@kernel.org, daniel@ffwll.ch,
- linux-arm-msm@vger.kernel.org, dmitry.baryshkov@linaro.org, airlied@gmail.com,
+Cc: linux-arm-msm@vger.kernel.org, quic_sbillaka@quicinc.com,
+ freedreno@lists.freedesktop.org, quic_abhinavk@quicinc.com,
  linux-kernel@vger.kernel.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Hi,
 
-On Wed, Dec 14, 2022 at 1:21 PM Kuogee Hsieh <quic_khsieh@quicinc.com> wrote:
+On 12/13/2022 3:06 PM, Stephen Boyd wrote:
+> Quoting Kuogee Hsieh (2022-12-13 13:44:05)
+>> Add both data-lanes and link-frequencies property into endpoint
+> Why do we care? Please tell us why it's important.
 >
-> There are 3 possible interrupt sources are handled by DP controller,
-> HPDstatus, Controller state changes and Aux read/write transaction.
-> At every irq, DP controller have to check isr status of every interrupt
-> sources and service the interrupt if its isr status bits shows interrupts
-> are pending. There is potential race condition may happen at current aux
-> isr handler implementation since it is always complete dp_aux_cmd_fifo_tx()
-> even irq is not for aux read or write transaction. This may cause aux read
-> transaction return premature if host aux data read is in the middle of
-> waiting for sink to complete transferring data to host while irq happen.
-> This will cause host's receiving buffer contains unexpected data. This
-> patch fixes this problem by checking aux isr and return immediately at
-> aux isr handler if there are no any isr status bits set.
+>> Changes in v7:
+>> -- split yaml out of dtsi patch
+>> -- link-frequencies from link rate to symbol rate
+>> -- deprecation of old data-lanes property
+>>
+>> Changes in v8:
+>> -- correct Bjorn mail address to kernel.org
+>>
+>> Changes in v10:
+>> -- add menu item to data-lanes and link-frequecnis
+>>
+>> Changes in v11:
+>> -- add endpoint property at port@1
+>>
+>> Changes in v12:
+>> -- use enum for item at data-lanes and link-frequencies
+>>
+>> Signed-off-by: Kuogee Hsieh <quic_khsieh@quicinc.com>`
+>                                                         ^
+> Stray ` here? -----------------------------------------/
 >
-> Follows are the signature at kernel logs when problem happen,
-> EDID has corrupt header
-> panel-simple-dp-aux aux-aea0000.edp: Couldn't identify panel via EDID
-> panel-simple-dp-aux aux-aea0000.edp: error -EIO: Couldn't detect panel nor find a fallback
+>> ---
+>>   .../bindings/display/msm/dp-controller.yaml        | 30 ++++++++++++++++++++--
+>>   1 file changed, 28 insertions(+), 2 deletions(-)
+>>
+>> diff --git a/Documentation/devicetree/bindings/display/msm/dp-controller.yaml b/Documentation/devicetree/bindings/display/msm/dp-controller.yaml
+>> index f2515af..8fb9fa5 100644
+>> --- a/Documentation/devicetree/bindings/display/msm/dp-controller.yaml
+>> +++ b/Documentation/devicetree/bindings/display/msm/dp-controller.yaml
+>> @@ -96,14 +97,37 @@ properties:
+>>
+>>     ports:
+>>       $ref: /schemas/graph.yaml#/properties/ports
+>> +
+>>       properties:
+>>         port@0:
+>> -        $ref: /schemas/graph.yaml#/properties/port
+>> +        $ref: "/schemas/graph.yaml#/$defs/port-base"
+>>           description: Input endpoint of the controller
+>> +        properties:
+>> +          endpoint:
+>> +            $ref: /schemas/media/video-interfaces.yaml#
+>>
+>>         port@1:
+>> -        $ref: /schemas/graph.yaml#/properties/port
+>> +        $ref: "/schemas/graph.yaml#/$defs/port-base"
+> I thought the quotes weren't needed?
 >
-> Signed-off-by: Kuogee Hsieh <quic_khsieh@quicinc.com>
-> ---
->  drivers/gpu/drm/msm/dp/dp_aux.c | 7 +++++++
->  1 file changed, 7 insertions(+)
+>>           description: Output endpoint of the controller
+>> +        properties:
+>> +          endpoint:
+>> +            $ref: /schemas/media/video-interfaces.yaml#
+> Does this need 'unevaluatedProperties: false' here?
 >
-> diff --git a/drivers/gpu/drm/msm/dp/dp_aux.c b/drivers/gpu/drm/msm/dp/dp_aux.c
-> index d030a93..8f8b12a 100644
-> --- a/drivers/gpu/drm/msm/dp/dp_aux.c
-> +++ b/drivers/gpu/drm/msm/dp/dp_aux.c
-> @@ -423,6 +423,13 @@ void dp_aux_isr(struct drm_dp_aux *dp_aux)
+>> +            properties:
+>> +              data-lanes:
+>> +                minItems: 1
+>> +                maxItems: 4
+>> +                items:
+>> +                  enum: [ 0, 1, 2, 3 ]
+>> +
+>> +              link-frequencies:
+>> +                minItems: 1
+>> +                maxItems: 4
+>> +                items:
+>> +                  enum: [ 1620000000, 2700000000, 5400000000, 8100000000 ]
+>> +
+>> +    required:
+>> +      - port@0
+>> +      - port@1
+>>
+>>   required:
+>>     - compatible
+>> @@ -193,6 +217,8 @@ examples:
+>>                   reg = <1>;
+>>                   endpoint {
+>>                       remote-endpoint = <&typec>;
+>> +                    data-lanes = <0 1>;
+>> +                    link-frequencies = /bits/ 64 <1620000000 2700000000 5400000000 8100000000>;
+>>                   };
+> So far we haven't used the output port on the DP controller in DT.
 >
->         isr = dp_catalog_aux_get_irq(aux->catalog);
+> I'm still not clear on what we should do in general for DP because
+> there's a PHY that actually controls a lane count and lane mapping. In
+> my mental model of the SoC, this DP controller's output port is
+> connected to the DP PHY, which then sends the DP lanes out of the SoC to
+> the next downstream device (i.e. a DP connector or type-c muxer). Having
+> a remote-endpoint property with a phandle to typec doesn't fit my mental
+> model. I'd expect it to be the typec PHY.
+ack
 >
-> +       /*
-> +        * if this irq is not for aux transfer,
-> +        * then return immediately
-> +        */
+> That brings up the question: when we have 2 lanes vs. 4 lanes will we
+> duplicate the data-lanes property in the PHY binding? I suspect we'll
+> have to. Hopefully that sort of duplication is OK?
+Current we have limitation by reserve 2 data lanes for usb2, i am not 
+sure duplication to 4 lanes will work automatically.
+>
+> Similarly, we may have a redriver that limits the link-frequencies
+> property further (e.g. only support <= 2.7GHz). Having multiple
+> link-frequencies along the graph is OK, right? And isn't the
+> link-frequencies property known here by fact that the DP controller
+> tells us which SoC this controller is for, and thus we already know the
+> supported link frequencies?
+>
+> Finally, I wonder if we should put any of this in the DP controller's
+> output endpoint, or if we can put these sorts of properties in the DP
+> PHY binding directly? Can't we do that and then when the DP controller
+> tries to set 4 lanes, the PHY immediately fails the call and the link
+> training algorithm does its thing and tries fewer lanes? And similarly,
+> if link-frequencies were in the PHY's binding, the PHY could fail to set
+> those frequencies during link training, returning an error to the DP
+> controller, letting the training move on to a lower frequency. If we did
+> that this patch series would largely be about modifying the PHY binding,
+> updating the PHY driver to enforce constraints, and handling errors
+> during link training in the DP controller (which may already be done? I
+> didn't check).
 
-Why do you need 4 lines for a comment that fits on one line?
 
-> +       if (!isr)
-> +               return;
+phy/pll have different configuration base on link lanes and rate.
 
-I can confirm that this works for me. I could reproduce the EDID
-problems in the past and I can't after this patch. ...so I could give
-a:
+it has to be set up before link training can start.
 
-Tested-by: Douglas Anderson <dianders@chromium.org>
+Once link training start, then there are no any interactions between 
+controller and phy during link training session.
 
-I'm not an expert on this part of the code, so feel free to ignore my
-other comments if everyone else thinks this patch is fine as-is, but
-to me something here feels a little fragile. It feels a little weird
-that we'll "complete" for _any_ interrupt that comes through now
-rather than relying on dp_aux_native_handler() / dp_aux_i2c_handler()
-to specifically identify interrupts that caused the end of the
-transfer. I guess that idea is that every possible interrupt we get
-causes the end of the transfer?
+Link training only happen between dp controller and sink since link 
+status is reported by sink (read back from sink's dpcd register directly).
 
--Doug
+T achieve link symbol locked, link training will start from reduce link 
+rate until lowest rate, if it still failed, then it will reduce lanes 
+with highest rate and start training  again.
+
+it will repeat same process until lowest lane (one lane), if it still 
+failed, then it will give up and declare link training failed.
+
+Therefore I think add data-lanes and link-frequencies properties in the 
+DP PHY binding directly will not helps.
+
+
