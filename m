@@ -2,75 +2,85 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2A72364DD71
-	for <lists+freedreno@lfdr.de>; Thu, 15 Dec 2022 16:12:39 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6CB1E64DF54
+	for <lists+freedreno@lfdr.de>; Thu, 15 Dec 2022 18:08:26 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7A45810E39F;
-	Thu, 15 Dec 2022 15:12:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3723F10E3D1;
+	Thu, 15 Dec 2022 17:08:20 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
  [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 161A210E377;
- Thu, 15 Dec 2022 15:11:59 +0000 (UTC)
-Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0941510E3C4;
+ Thu, 15 Dec 2022 17:08:13 +0000 (UTC)
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
  by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 2BFE2fkI022795; Thu, 15 Dec 2022 15:11:53 GMT
+ 2BFAx4PE032127; Thu, 15 Dec 2022 17:08:08 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
- h=from : to : cc :
- subject : date : message-id : in-reply-to : references : mime-version :
- content-type; s=qcppdkim1;
- bh=+TNCVzAQc98dTTmqznrkrdANu0/8YBru4BYnBEttDw4=;
- b=hdst9ulbSI8EKLG2AfSiiebuGOmV7B8u+j6qYdk6JZ5HXf3T5cVgrO/CKd0E2NFlZFaj
- DhtUG9py5pTS/jwmFUVi8QM/vATFOJWEMMTcnitvA2at54nYXUFZyI3i2JzpdI1U6gjA
- EWMjPml/UmAfleqzWYMh31dJcCQhOuBWLbMZuNY1ZVvJ0K+E7iE5a5RGUC3ovhnYyXqS
- zu2S+JwY1/Sgke6i9/eOCwoQz//xBO4Qd7zUO/quTrD+7bu7SQqh57JP+rg6cwcQ/3QD
- Lln2C1tfW3h4XZ52ugcemPyVqv7YRXFC2crZ1A7MvZJl+SyeICAizDvEHu0h70MR68Bu RA== 
-Received: from nalasppmta01.qualcomm.com (Global_NAT1.qualcomm.com
+ h=message-id : date :
+ mime-version : subject : to : cc : references : from : in-reply-to :
+ content-type : content-transfer-encoding; s=qcppdkim1;
+ bh=M0OvoBEarEDDSW9TE5oRDZThFsRuINIsSjYUPWCjjWQ=;
+ b=FBoFICHuxW+Zy7yyKyJIop8ZZmswoLcurntZVxSbuQSyleesRylbUOCH2Pweeo1v0ZRa
+ LwUCO1IK4fYXSKa2/tLJyo4b6WXpUOl1QHWr7E8Y5IjWXPysj0nMK+xGf5kQsq0OIP3Y
+ KqcOHYmpfTsj8Za+1VxOh06WnBvte3h4V7swpUZ9vc+HHuIJ313hoEBCaESt9lQ5HCa/
+ q49ssUCacIr34aMITCeiTvJVO6474rxbjHRCGk6Pfnge6n73ULk8QTTKhWyz8qfwNESj
+ sIl0A+FguAmC9qUuW7hFTPkltVlGd7czn/r4TuRBZYvDK9rvg72yGfl2+sR/TmxBsrq/ Og== 
+Received: from nalasppmta04.qualcomm.com (Global_NAT1.qualcomm.com
  [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3mf6rrmxk0-1
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3mfxse9svc-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 15 Dec 2022 15:11:53 +0000
+ Thu, 15 Dec 2022 17:08:07 +0000
 Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
  [10.47.209.196])
- by NALASPPMTA01.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 2BFFBoSB003106
+ by NALASPPMTA04.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 2BFH86JD025829
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 15 Dec 2022 15:11:51 GMT
-Received: from hyd-lnxbld559.qualcomm.com (10.80.80.8) by
- nalasex01a.na.qualcomm.com (10.47.209.196) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.986.36; Thu, 15 Dec 2022 07:11:44 -0800
-From: Akhil P Oommen <quic_akhilpo@quicinc.com>
-To: freedreno <freedreno@lists.freedesktop.org>,
- <dri-devel@lists.freedesktop.org>, <linux-arm-msm@vger.kernel.org>,
- Rob Clark <robdclark@gmail.com>, Ulf Hansson <ulf.hansson@linaro.org>,
- Bjorn Andersson <andersson@kernel.org>
-Date: Thu, 15 Dec 2022 20:41:01 +0530
-Message-ID: <20221215203751.5.I9e10545c6a448d5eb1b734839b871d1b3146dac3@changeid>
-X-Mailer: git-send-email 2.7.4
-In-Reply-To: <1671117062-26276-1-git-send-email-quic_akhilpo@quicinc.com>
-References: <1671117062-26276-1-git-send-email-quic_akhilpo@quicinc.com>
+ Thu, 15 Dec 2022 17:08:06 GMT
+Received: from [10.110.66.74] (10.80.80.8) by nalasex01a.na.qualcomm.com
+ (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.36; Thu, 15 Dec
+ 2022 09:08:05 -0800
+Message-ID: <98cc6d55-f9c7-a369-6004-42b242d01339@quicinc.com>
+Date: Thu, 15 Dec 2022 09:08:04 -0800
 MIME-Version: 1.0
-Content-Type: text/plain
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.5.1
+Content-Language: en-US
+To: Stephen Boyd <swboyd@chromium.org>, <agross@kernel.org>,
+ <airlied@gmail.com>, <andersson@kernel.org>, <daniel@ffwll.ch>,
+ <devicetree@vger.kernel.org>, <dianders@chromium.org>,
+ <dmitry.baryshkov@linaro.org>, <dri-devel@lists.freedesktop.org>,
+ <konrad.dybcio@somainline.org>, <krzysztof.kozlowski+dt@linaro.org>,
+ <robdclark@gmail.com>, <robh+dt@kernel.org>, <sean@poorly.run>,
+ <vkoul@kernel.org>
+References: <1670967848-31475-1-git-send-email-quic_khsieh@quicinc.com>
+ <1670967848-31475-3-git-send-email-quic_khsieh@quicinc.com>
+ <CAE-0n52eHYCqxUJqQXoaQ8vyqCk-QfouSun+zUp3yo5DufWbwg@mail.gmail.com>
+ <b38af164-08bc-07e7-dfaf-fb4d6d89d7db@quicinc.com>
+ <CAE-0n53Cb6TFGfM6AYup5aP4=24j0ujVPi463oVqmzfNV2B4RA@mail.gmail.com>
+From: Kuogee Hsieh <quic_khsieh@quicinc.com>
+In-Reply-To: <CAE-0n53Cb6TFGfM6AYup5aP4=24j0ujVPi463oVqmzfNV2B4RA@mail.gmail.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 8bit
 X-Originating-IP: [10.80.80.8]
 X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
  nalasex01a.na.qualcomm.com (10.47.209.196)
 X-QCInternal: smtphost
 X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
  signatures=585085
-X-Proofpoint-GUID: zeDPXzdPU7fKN7rVHZn3xom3pZpOjTQV
-X-Proofpoint-ORIG-GUID: zeDPXzdPU7fKN7rVHZn3xom3pZpOjTQV
+X-Proofpoint-ORIG-GUID: 5LPWoTS4BoluYneg5ILBA4kZFgz2ChaE
+X-Proofpoint-GUID: 5LPWoTS4BoluYneg5ILBA4kZFgz2ChaE
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.205,Aquarius:18.0.923,Hydra:6.0.545,FMLib:17.11.122.1
- definitions=2022-12-15_08,2022-12-15_02,2022-06-22_01
+ definitions=2022-12-15_10,2022-12-15_02,2022-06-22_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- mlxlogscore=999
- suspectscore=0 phishscore=0 malwarescore=0 impostorscore=0 adultscore=0
- clxscore=1015 priorityscore=1501 lowpriorityscore=0 bulkscore=0 mlxscore=0
- spamscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2212070000 definitions=main-2212150123
-Subject: [Freedreno] [PATCH 5/5] drm/msm/a6xx: Use genpd notifier to ensure
- cx-gdsc collapse
+ impostorscore=0 adultscore=0
+ clxscore=1015 spamscore=0 phishscore=0 priorityscore=1501 malwarescore=0
+ suspectscore=0 mlxscore=0 bulkscore=0 lowpriorityscore=0 mlxlogscore=999
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2212070000
+ definitions=main-2212150141
+Subject: Re: [Freedreno] [PATCH v12 2/5] dt-bindings: msm/dp: add data-lanes
+ and link-frequencies property
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,134 +93,119 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-kernel@vger.kernel.org, Akhil P Oommen <quic_akhilpo@quicinc.com>,
- Sean Paul <sean@poorly.run>, Konrad Dybcio <konrad.dybcio@somainline.org>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Douglas Anderson <dianders@chromium.org>,
- Geert Uytterhoeven <geert@linux-m68k.org>, Daniel Vetter <daniel@ffwll.ch>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- David Airlie <airlied@gmail.com>, Chia-I Wu <olvaffe@gmail.com>,
- Guenter Roeck <linux@roeck-us.net>
+Cc: linux-arm-msm@vger.kernel.org, quic_sbillaka@quicinc.com,
+ freedreno@lists.freedesktop.org, quic_abhinavk@quicinc.com,
+ linux-kernel@vger.kernel.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-As per the recommended recovery sequence of adreno gpu, cx gdsc should
-collapse at hardware before it is turned back ON. This helps to clear
-out the stale states in hardware before it is reinitialized. Use the
-genpd notifier along with the newly introduced
-dev_pm_genpd_synced_poweroff() api to ensure that cx gdsc has collapsed
-before we turn it back ON.
 
-Signed-off-by: Akhil P Oommen <quic_akhilpo@quicinc.com>
----
+On 12/14/2022 4:38 PM, Stephen Boyd wrote:
+> Quoting Kuogee Hsieh (2022-12-14 14:56:23)
+>> On 12/13/2022 3:06 PM, Stephen Boyd wrote:
+>>> Quoting Kuogee Hsieh (2022-12-13 13:44:05)
+>>>> Add both data-lanes and link-frequencies property into endpoint
+>>> Why do we care? Please tell us why it's important.
+> Any response?
+yes, i did that at my local patch already.
+>
+>>>> @@ -193,6 +217,8 @@ examples:
+>>>>                    reg = <1>;
+>>>>                    endpoint {
+>>>>                        remote-endpoint = <&typec>;
+>>>> +                    data-lanes = <0 1>;
+>>>> +                    link-frequencies = /bits/ 64 <1620000000 2700000000 5400000000 8100000000>;
+>>>>                    };
+>>> So far we haven't used the output port on the DP controller in DT.
+>>>
+>>> I'm still not clear on what we should do in general for DP because
+>>> there's a PHY that actually controls a lane count and lane mapping. In
+>>> my mental model of the SoC, this DP controller's output port is
+>>> connected to the DP PHY, which then sends the DP lanes out of the SoC to
+>>> the next downstream device (i.e. a DP connector or type-c muxer). Having
+>>> a remote-endpoint property with a phandle to typec doesn't fit my mental
+>>> model. I'd expect it to be the typec PHY.
+>> ack
+>>> That brings up the question: when we have 2 lanes vs. 4 lanes will we
+>>> duplicate the data-lanes property in the PHY binding? I suspect we'll
+>>> have to. Hopefully that sort of duplication is OK?
+>> Current we have limitation by reserve 2 data lanes for usb2, i am not
+>> sure duplication to 4 lanes will work automatically.
+>>> Similarly, we may have a redriver that limits the link-frequencies
+>>> property further (e.g. only support <= 2.7GHz). Having multiple
+>>> link-frequencies along the graph is OK, right? And isn't the
+>>> link-frequencies property known here by fact that the DP controller
+>>> tells us which SoC this controller is for, and thus we already know the
+>>> supported link frequencies?
+>>>
+>>> Finally, I wonder if we should put any of this in the DP controller's
+>>> output endpoint, or if we can put these sorts of properties in the DP
+>>> PHY binding directly? Can't we do that and then when the DP controller
+>>> tries to set 4 lanes, the PHY immediately fails the call and the link
+>>> training algorithm does its thing and tries fewer lanes? And similarly,
+>>> if link-frequencies were in the PHY's binding, the PHY could fail to set
+>>> those frequencies during link training, returning an error to the DP
+>>> controller, letting the training move on to a lower frequency. If we did
+>>> that this patch series would largely be about modifying the PHY binding,
+>>> updating the PHY driver to enforce constraints, and handling errors
+>>> during link training in the DP controller (which may already be done? I
+>>> didn't check).
+>>
+>> phy/pll have different configuration base on link lanes and rate.
+>>
+>> it has to be set up before link training can start.
+>>
+>> Once link training start, then there are no any interactions between
+>> controller and phy during link training session.
+> What do you mean? The DP controller calls phy_configure() and changes
+> the link rate. The return value from phy_configure() should be checked
+> and link training should skip link rates that aren't supported and/or
+> number of lanes that aren't supported.
+>
+>> Link training only happen between dp controller and sink since link
+>> status is reported by sink (read back from sink's dpcd register directly).
+>>
+>> T achieve link symbol locked, link training will start from reduce link
+>> rate until lowest rate, if it still failed, then it will reduce lanes
+>> with highest rate and start training  again.
+>>
+>> it will repeat same process until lowest lane (one lane), if it still
+>> failed, then it will give up and declare link training failed.
+> Yes, that describes the link training algorithm. I don't see why
+> phy_configure() return value can't be checked and either number of lanes
+> or link frequencies be checked. If only two lanes are supported, then
+> phy_configure() will fail for the 4 link rates and the algorithm will
+> reduce the number of lanes and go back to the highest rate. Then when
+> the highest rate isn't supported it will drop link rate until the link
+> rate is supported.
+>
+>> Therefore I think add data-lanes and link-frequencies properties in the
+>> DP PHY binding directly will not helps.
+>>
+> I didn't follow your logic. Sorry.
 
- drivers/gpu/drm/msm/adreno/a6xx_gmu.c | 15 +++++++++++++++
- drivers/gpu/drm/msm/adreno/a6xx_gmu.h |  6 ++++++
- drivers/gpu/drm/msm/adreno/a6xx_gpu.c | 11 +++++++++++
- 3 files changed, 32 insertions(+)
+Sorry, probably i did not understand your proposal clearly.
 
-diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
-index 1580d0090f35..c03830957c26 100644
---- a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
-+++ b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
-@@ -1507,6 +1507,17 @@ void a6xx_gmu_remove(struct a6xx_gpu *a6xx_gpu)
- 	gmu->initialized = false;
- }
- 
-+static int cxpd_notifier_cb(struct notifier_block *nb,
-+			unsigned long action, void *data)
-+{
-+	struct a6xx_gmu *gmu = container_of(nb, struct a6xx_gmu, pd_nb);
-+
-+	if (action == GENPD_NOTIFY_OFF)
-+		complete_all(&gmu->pd_gate);
-+
-+	return 0;
-+}
-+
- int a6xx_gmu_init(struct a6xx_gpu *a6xx_gpu, struct device_node *node)
- {
- 	struct adreno_gpu *adreno_gpu = &a6xx_gpu->base;
-@@ -1640,6 +1651,10 @@ int a6xx_gmu_init(struct a6xx_gpu *a6xx_gpu, struct device_node *node)
- 		goto detach_cxpd;
- 	}
- 
-+	init_completion(&gmu->pd_gate);
-+	complete_all(&gmu->pd_gate);
-+	gmu->pd_nb.notifier_call = cxpd_notifier_cb;
-+
- 	/*
- 	 * Get a link to the GX power domain to reset the GPU in case of GMU
- 	 * crash
-diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gmu.h b/drivers/gpu/drm/msm/adreno/a6xx_gmu.h
-index 5a42dd4dd31f..0bc3eb443fec 100644
---- a/drivers/gpu/drm/msm/adreno/a6xx_gmu.h
-+++ b/drivers/gpu/drm/msm/adreno/a6xx_gmu.h
-@@ -4,8 +4,10 @@
- #ifndef _A6XX_GMU_H_
- #define _A6XX_GMU_H_
- 
-+#include <linux/completion.h>
- #include <linux/iopoll.h>
- #include <linux/interrupt.h>
-+#include <linux/notifier.h>
- #include "msm_drv.h"
- #include "a6xx_hfi.h"
- 
-@@ -90,6 +92,10 @@ struct a6xx_gmu {
- 	bool initialized;
- 	bool hung;
- 	bool legacy; /* a618 or a630 */
-+
-+	/* For power domain callback */
-+	struct notifier_block pd_nb;
-+	struct completion pd_gate;
- };
- 
- static inline u32 gmu_read(struct a6xx_gmu *gmu, u32 offset)
-diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-index 4b16e75dfa50..dd618b099110 100644
---- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-+++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-@@ -10,6 +10,7 @@
- 
- #include <linux/bitfield.h>
- #include <linux/devfreq.h>
-+#include <linux/pm_domain.h>
- #include <linux/soc/qcom/llcc-qcom.h>
- 
- #define GPU_PAS_ID 13
-@@ -1258,6 +1259,7 @@ static void a6xx_recover(struct msm_gpu *gpu)
- {
- 	struct adreno_gpu *adreno_gpu = to_adreno_gpu(gpu);
- 	struct a6xx_gpu *a6xx_gpu = to_a6xx_gpu(adreno_gpu);
-+	struct a6xx_gmu *gmu = &a6xx_gpu->gmu;
- 	int i, active_submits;
- 
- 	adreno_dump_info(gpu);
-@@ -1290,6 +1292,10 @@ static void a6xx_recover(struct msm_gpu *gpu)
- 	 */
- 	gpu->active_submits = 0;
- 
-+	reinit_completion(&gmu->pd_gate);
-+	dev_pm_genpd_add_notifier(gmu->cxpd, &gmu->pd_nb);
-+	dev_pm_genpd_synced_poweroff(gmu->cxpd);
-+
- 	/* Drop the rpm refcount from active submits */
- 	if (active_submits)
- 		pm_runtime_put(&gpu->pdev->dev);
-@@ -1297,6 +1303,11 @@ static void a6xx_recover(struct msm_gpu *gpu)
- 	/* And the final one from recover worker */
- 	pm_runtime_put_sync(&gpu->pdev->dev);
- 
-+	if (!wait_for_completion_timeout(&gmu->pd_gate, msecs_to_jiffies(1000)))
-+		DRM_DEV_ERROR(&gpu->pdev->dev, "cx gdsc didn't collapse\n");
-+
-+	dev_pm_genpd_remove_notifier(gmu->cxpd);
-+
- 	pm_runtime_use_autosuspend(&gpu->pdev->dev);
- 
- 	if (active_submits)
--- 
-2.7.4
+1) move both data-lanes and link-frequencies property from dp controller 
+endpoint to phy
+
+2) phy_configure() return succeed if both data-lanes and link 
+frequencies are supported. otherwise return failed.
+
+is above two summary items correct?
+
+Currently phy_configure()  is part of link training process and called 
+if link lanes or rate changes.
+
+however, since current phy_configure() implementation always return 0, 
+the return value is not checking.
+
+This proposal is new, can we discuss more detail at meeting and decide 
+to implement it or not.
+
+Meanwhile can we merge current implementation (both data-lanes and 
+link-frequqncies at dp controller end point) first?
+
+
+
 
