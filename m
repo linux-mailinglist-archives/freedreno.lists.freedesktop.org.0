@@ -2,69 +2,59 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9657364E13B
-	for <lists+freedreno@lfdr.de>; Thu, 15 Dec 2022 19:47:20 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6894164E228
+	for <lists+freedreno@lfdr.de>; Thu, 15 Dec 2022 21:10:19 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 26E9610E4D3;
-	Thu, 15 Dec 2022 18:46:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 01AA610E561;
+	Thu, 15 Dec 2022 20:10:18 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x12f.google.com (mail-lf1-x12f.google.com
- [IPv6:2a00:1450:4864:20::12f])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 36CF210E4DF
- for <freedreno@lists.freedesktop.org>; Thu, 15 Dec 2022 18:46:45 +0000 (UTC)
-Received: by mail-lf1-x12f.google.com with SMTP id j4so17129035lfk.0
- for <freedreno@lists.freedesktop.org>; Thu, 15 Dec 2022 10:46:45 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=Ow/jl7Lq41cBFQ0kKYmK3RpwA+PwdFmm0JCIINqkeK0=;
- b=PdRHvaroyyS1RdpumfsfR6h4Wj9Lu9gS/2+GiHYn0w0gdLNVkPwX7FmIcY67+eLRUI
- M6zO+sKFhu76hMlzRNbAmhGibi8Cp5uhwF1xKhRMP0LIbZx+3ZWrfPG5oov2XIJrnLrB
- rCLgtPgM5q083f8xPuyeIN0Q8sxH9rMMF2fjyc8+1soo4NvPkusUz/OC2pN+QDuJJPuI
- bBuQeuC8JUcvQODphD+ceDTSoY1kdXbbksdhqFMQSZjJwkGBuHA1lhx9Zrj0XTK3TUbb
- aUa7O0ckOwF89ju+CIFtmnECwLtGrwmdVFqG3OlMJGmYcR7zNX3RrkAb806NT/P6fZXo
- XMMw==
+Received: from mail-lj1-x234.google.com (mail-lj1-x234.google.com
+ [IPv6:2a00:1450:4864:20::234])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 93CAF10E55E
+ for <freedreno@lists.freedesktop.org>; Thu, 15 Dec 2022 20:10:11 +0000 (UTC)
+Received: by mail-lj1-x234.google.com with SMTP id f20so120800lja.4
+ for <freedreno@lists.freedesktop.org>; Thu, 15 Dec 2022 12:10:11 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
+ h=cc:to:subject:message-id:date:user-agent:from:references
+ :in-reply-to:mime-version:from:to:cc:subject:date:message-id
+ :reply-to; bh=hIS0EaGXTjCRXER8GI+dNLF12wjq2q+2o8WGX76WmuM=;
+ b=AZZq5PUnZFfrNHwv7HNiSHWCLeR7RR8le4981nYRfDcS/ru+GZCfjF9myTcDec3B82
+ mQ2GZURB0mLaYbyVBtGJ1NFHjPo+S8Ar/iMl/x6SnWZIdiR5UPHYRSs5fzuQuqgP3aaO
+ fSc/9GAnzacM7M1X/ZpuSegZbsPHV8l1Y5Xms=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=Ow/jl7Lq41cBFQ0kKYmK3RpwA+PwdFmm0JCIINqkeK0=;
- b=H3IIRnHpWS7dl6AQgtPy/9vSPfy6h7Bf5ihWZs4XSaJTQYCPjhypsUHl03Wzdw/Mun
- tIasVYmZMlh9vdeAGHFFY7OCLAkW0zkl4os31C8FebJHCDp3BFFGrgyxgSJ/e9WlgRhF
- vi2xoVcnSY6zKVeeHy1N6WxnEm8o8Sbn+pjzNGOLV3ch/qYVq0V17VOun7InZKTxKC8P
- fRw/4jCEyttxZaXhi10jywJPLNvpi5XnZRk7D4C879Zx5EUutKFAqCoapIuOW+UvamCx
- KrPOwsNAZM3r3yjMZdLQsFS5c1myiS3CRnuVTzVMIAwa20TbfnWiGeid2XZ12XxMZ4IR
- KLAw==
-X-Gm-Message-State: ANoB5pnddq2BEPFQ0peR6ifgyL2qsjq24LK0BAT/ehouPLRjuTnJX+SD
- qNwOoCjbG2wGSeCAZEuUIVIYaQ==
-X-Google-Smtp-Source: AA0mqf7SeygvyCy/5X5fmIjhgJWnrVBU9vsPrvMp3HwiuIP9qbAaMQeoO/WKQxgAYzcVKUrpIDjcKg==
-X-Received: by 2002:a05:6512:15a7:b0:4b6:e494:a98d with SMTP id
- bp39-20020a05651215a700b004b6e494a98dmr7751372lfb.44.1671130003399; 
- Thu, 15 Dec 2022 10:46:43 -0800 (PST)
-Received: from ?IPV6:2001:14ba:a085:4d00::8a5?
- (dzccz6yyyyyyyyyyybcwt-3.rev.dnainternet.fi. [2001:14ba:a085:4d00::8a5])
- by smtp.gmail.com with ESMTPSA id
- c15-20020a056512074f00b004b5774726dcsm1225419lfs.236.2022.12.15.10.46.42
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 15 Dec 2022 10:46:42 -0800 (PST)
-Message-ID: <ca15a54b-8040-5e4f-a78e-12b7f8a554e1@linaro.org>
-Date: Thu, 15 Dec 2022 20:46:42 +0200
+ h=cc:to:subject:message-id:date:user-agent:from:references
+ :in-reply-to:mime-version:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=hIS0EaGXTjCRXER8GI+dNLF12wjq2q+2o8WGX76WmuM=;
+ b=UWMstL1xFFlxM3T5G1VaajXRty1uPpUTOa+pQtvV3FxVFjAE/C4zLI8sGb7Kf5Ahtx
+ eCLk78zkwv/xxmqjq/R+AIvPQquhSP0goigOOBw0uQ5Ur1AnNv7f6+y5fqUSOdzY9fwt
+ GFLZwFvRYdhI6ZCcTw0IZXAU8ZentSUzvzAXNnqUwB6CAVNDM+7sH0FsfPvwKT4AVc5+
+ pPcAB8mvtaQ5P7ovJT3+maZpjHLTlhkY8yIHpE4iu628CxEecEi8GctcGpMowhf3+IS2
+ 5Dukstt4/TV/vBIMNNClnEU2mSM/t9ZzKnxqI9WWzAGE0pbR+ltfU0dktBgO2qVoPlwn
+ pBlg==
+X-Gm-Message-State: ANoB5plTdkQIcGIMRcvvobUdCiKi/0NKrD0kip5yvBXEegV+tKuUTAOK
+ pMelQ+wokJ/YAPLtVpWsn84IRuEmbEsjSNaTZTc5PA==
+X-Google-Smtp-Source: AA0mqf4Tx6gctjKCY4dC7SXXC0K/mpFF/gMRMqZIcP3KQUC32WpR7lr/tv9LCeuvBxDdF2/qWtwf4i+PNBpUR6inRKk=
+X-Received: by 2002:a05:651c:221e:b0:277:6231:5a7 with SMTP id
+ y30-20020a05651c221e00b00277623105a7mr23597850ljq.300.1671135009730; Thu, 15
+ Dec 2022 12:10:09 -0800 (PST)
+Received: from 753933720722 named unknown by gmailapi.google.com with
+ HTTPREST; Thu, 15 Dec 2022 15:10:09 -0500
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.5.1
-Content-Language: en-GB
-To: Kuogee Hsieh <quic_khsieh@quicinc.com>, robdclark@gmail.com,
- sean@poorly.run, swboyd@chromium.org, dianders@chromium.org,
- vkoul@kernel.org, daniel@ffwll.ch, airlied@gmail.com, agross@kernel.org,
- andersson@kernel.org
+In-Reply-To: <ca15a54b-8040-5e4f-a78e-12b7f8a554e1@linaro.org>
 References: <1671129159-31105-1-git-send-email-quic_khsieh@quicinc.com>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-In-Reply-To: <1671129159-31105-1-git-send-email-quic_khsieh@quicinc.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+ <ca15a54b-8040-5e4f-a78e-12b7f8a554e1@linaro.org>
+From: Stephen Boyd <swboyd@chromium.org>
+User-Agent: alot/0.10
+Date: Thu, 15 Dec 2022 15:10:09 -0500
+Message-ID: <CAE-0n53bREwEMV4aP=ySPuPP8mMbDr=Unbjw_bW0MNN7hTsWRw@mail.gmail.com>
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Kuogee Hsieh <quic_khsieh@quicinc.com>, 
+ agross@kernel.org, airlied@gmail.com, andersson@kernel.org, daniel@ffwll.ch, 
+ dianders@chromium.org, robdclark@gmail.com, sean@poorly.run, vkoul@kernel.org
+Content-Type: text/plain; charset="UTF-8"
 Subject: Re: [Freedreno] [PATCH v2] drm/msm/dp: do not complete
  dp_aux_cmd_fifo_tx() if irq is not for aux transfer
 X-BeenThere: freedreno@lists.freedesktop.org
@@ -85,206 +75,27 @@ Cc: quic_sbillaka@quicinc.com, linux-arm-msm@vger.kernel.org,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 15/12/2022 20:32, Kuogee Hsieh wrote:
-> There are 3 possible interrupt sources are handled by DP controller,
-> HPDstatus, Controller state changes and Aux read/write transaction.
-> At every irq, DP controller have to check isr status of every interrupt
-> sources and service the interrupt if its isr status bits shows interrupts
-> are pending. There is potential race condition may happen at current aux
-> isr handler implementation since it is always complete dp_aux_cmd_fifo_tx()
-> even irq is not for aux read or write transaction. This may cause aux read
-> transaction return premature if host aux data read is in the middle of
-> waiting for sink to complete transferring data to host while irq happen.
-> This will cause host's receiving buffer contains unexpected data. This
-> patch fixes this problem by checking aux isr and return immediately at
-> aux isr handler if there are no any isr status bits set.
-> 
-> Current there is a bug report regrading eDP edid corruption happen during
-> system booting up. After lengthy debugging to found that VIDEO_READY
-> interrupt was continuously firing during system booting up which cause
-> dp_aux_isr() to complete dp_aux_cmd_fifo_tx() prematurely to retrieve data
-> from aux hardware buffer which is not yet contains complete data transfer
-> from sink. This cause edid corruption.
-> 
-> Follows are the signature at kernel logs when problem happen,
-> EDID has corrupt header
-> panel-simple-dp-aux aux-aea0000.edp: Couldn't identify panel via EDID
-> panel-simple-dp-aux aux-aea0000.edp: error -EIO: Couldn't detect panel nor find a fallback
-> 
-> Changes in v2:
-> -- do complete if (ret == IRQ_HANDLED) ay dp-aux_isr()
-> -- add more commit text
+Quoting Dmitry Baryshkov (2022-12-15 10:46:42)
+> On 15/12/2022 20:32, Kuogee Hsieh wrote:
+> >       if (!aux->cmd_busy)
+> >               return;
+> >
+> >       if (aux->native)
+> > -             dp_aux_native_handler(aux, isr);
+> > +             ret = dp_aux_native_handler(aux, isr);
+> >       else
+> > -             dp_aux_i2c_handler(aux, isr);
+> > +             ret = dp_aux_i2c_handler(aux, isr);
+> >
+> > -     complete(&aux->comp);
+> > +     if (ret == IRQ_HANDLED)
+> > +             complete(&aux->comp);
+>
+> Can you just move the complete() into the individual handling functions?
+> Then you won't have to return the error code from dp_aux_*_handler() at
+> all. You can check `isr' in that function and call complete if there was
+> any error.
 
-Usually it's a single dash.
-
-> 
-> Fixes: c943b4948b58 ("drm/msm/dp: add displayPort driver support")
-> 
-> Signed-off-by: Kuogee Hsieh <quic_khsieh@quicinc.com>
-
-There should be no empty lines between the tags.
-
-> Tested-by: Douglas Anderson <dianders@chromium.org>
-> Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
-> ---
->   drivers/gpu/drm/msm/dp/dp_aux.c | 87 +++++++++++++++++++++++++++++------------
->   1 file changed, 63 insertions(+), 24 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/msm/dp/dp_aux.c b/drivers/gpu/drm/msm/dp/dp_aux.c
-> index d030a93..f31e5c1 100644
-> --- a/drivers/gpu/drm/msm/dp/dp_aux.c
-> +++ b/drivers/gpu/drm/msm/dp/dp_aux.c
-> @@ -162,45 +162,78 @@ static ssize_t dp_aux_cmd_fifo_rx(struct dp_aux_private *aux,
->   	return i;
->   }
->   
-> -static void dp_aux_native_handler(struct dp_aux_private *aux, u32 isr)
-> +static irqreturn_t dp_aux_native_handler(struct dp_aux_private *aux, u32 isr)
->   {
-> -	if (isr & DP_INTR_AUX_I2C_DONE)
-> +	irqreturn_t ret = IRQ_NONE;
-> +
-> +	if (isr & DP_INTR_AUX_I2C_DONE) {
->   		aux->aux_error_num = DP_AUX_ERR_NONE;
-> -	else if (isr & DP_INTR_WRONG_ADDR)
-> +		ret = IRQ_HANDLED;
-> +	} else if (isr & DP_INTR_WRONG_ADDR) {
->   		aux->aux_error_num = DP_AUX_ERR_ADDR;
-> -	else if (isr & DP_INTR_TIMEOUT)
-> +		ret = IRQ_HANDLED;
-> +	} else if (isr & DP_INTR_TIMEOUT) {
->   		aux->aux_error_num = DP_AUX_ERR_TOUT;
-> -	if (isr & DP_INTR_NACK_DEFER)
-> +		ret = IRQ_HANDLED;
-> +	}
-> +
-> +	if (isr & DP_INTR_NACK_DEFER) {
->   		aux->aux_error_num = DP_AUX_ERR_NACK;
-> +		ret = IRQ_HANDLED;
-> +	}
-> +
->   	if (isr & DP_INTR_AUX_ERROR) {
->   		aux->aux_error_num = DP_AUX_ERR_PHY;
->   		dp_catalog_aux_clear_hw_interrupts(aux->catalog);
-> +		ret = IRQ_HANDLED;
->   	}
-> +
-> +	return ret;
->   }
->   
-> -static void dp_aux_i2c_handler(struct dp_aux_private *aux, u32 isr)
-> +static irqreturn_t dp_aux_i2c_handler(struct dp_aux_private *aux, u32 isr)
->   {
-> +	irqreturn_t ret = IRQ_NONE;
-> +
->   	if (isr & DP_INTR_AUX_I2C_DONE) {
->   		if (isr & (DP_INTR_I2C_NACK | DP_INTR_I2C_DEFER))
->   			aux->aux_error_num = DP_AUX_ERR_NACK;
->   		else
->   			aux->aux_error_num = DP_AUX_ERR_NONE;
-> -	} else {
-> -		if (isr & DP_INTR_WRONG_ADDR)
-> -			aux->aux_error_num = DP_AUX_ERR_ADDR;
-> -		else if (isr & DP_INTR_TIMEOUT)
-> -			aux->aux_error_num = DP_AUX_ERR_TOUT;
-> -		if (isr & DP_INTR_NACK_DEFER)
-> -			aux->aux_error_num = DP_AUX_ERR_NACK_DEFER;
-> -		if (isr & DP_INTR_I2C_NACK)
-> -			aux->aux_error_num = DP_AUX_ERR_NACK;
-> -		if (isr & DP_INTR_I2C_DEFER)
-> -			aux->aux_error_num = DP_AUX_ERR_DEFER;
-> -		if (isr & DP_INTR_AUX_ERROR) {
-> -			aux->aux_error_num = DP_AUX_ERR_PHY;
-> -			dp_catalog_aux_clear_hw_interrupts(aux->catalog);
-> -		}
-> +
-> +		return IRQ_HANDLED;
-> +	}
-> +
-> +	if (isr & DP_INTR_WRONG_ADDR) {
-> +		aux->aux_error_num = DP_AUX_ERR_ADDR;
-> +		ret = IRQ_HANDLED;
-> +	} else if (isr & DP_INTR_TIMEOUT) {
-> +		aux->aux_error_num = DP_AUX_ERR_TOUT;
-> +		ret = IRQ_HANDLED;
->   	}
-> +
-> +	if (isr & DP_INTR_NACK_DEFER) {
-> +		aux->aux_error_num = DP_AUX_ERR_NACK_DEFER;
-> +		ret = IRQ_HANDLED;
-> +	}
-> +
-> +	if (isr & DP_INTR_I2C_NACK) {
-> +		aux->aux_error_num = DP_AUX_ERR_NACK;
-> +		ret = IRQ_HANDLED;
-> +	}
-> +
-> +	if (isr & DP_INTR_I2C_DEFER) {
-> +		aux->aux_error_num = DP_AUX_ERR_DEFER;
-> +		ret = IRQ_HANDLED;
-> +	}
-> +
-> +	if (isr & DP_INTR_AUX_ERROR) {
-> +		aux->aux_error_num = DP_AUX_ERR_PHY;
-> +		dp_catalog_aux_clear_hw_interrupts(aux->catalog);
-> +		ret = IRQ_HANDLED;
-> +	}
-> +
-> +	return ret;
->   }
->   
->   static void dp_aux_update_offset_and_segment(struct dp_aux_private *aux,
-> @@ -413,6 +446,7 @@ void dp_aux_isr(struct drm_dp_aux *dp_aux)
->   {
->   	u32 isr;
->   	struct dp_aux_private *aux;
-> +	irqreturn_t ret = IRQ_NONE;
-
-No need to assign a value here. It will be overwritten in both of code 
-branches.
-
->   
->   	if (!dp_aux) {
->   		DRM_ERROR("invalid input\n");
-> @@ -423,15 +457,20 @@ void dp_aux_isr(struct drm_dp_aux *dp_aux)
->   
->   	isr = dp_catalog_aux_get_irq(aux->catalog);
->   
-> +	/* no interrupts pending, return immediately */
-> +	if (!isr)
-> +		return;
-> +
-
-A separate commit please.
-
->   	if (!aux->cmd_busy)
->   		return;
->   
->   	if (aux->native)
-> -		dp_aux_native_handler(aux, isr);
-> +		ret = dp_aux_native_handler(aux, isr);
->   	else
-> -		dp_aux_i2c_handler(aux, isr);
-> +		ret = dp_aux_i2c_handler(aux, isr);
->   
-> -	complete(&aux->comp);
-> +	if (ret == IRQ_HANDLED)
-> +		complete(&aux->comp);
-
-Can you just move the complete() into the individual handling functions? 
-Then you won't have to return the error code from dp_aux_*_handler() at 
-all. You can check `isr' in that function and call complete if there was 
-any error.
-
-Also could you please describe, why is it necessary to complete() 
-condition at all? Judging from your commit message the `if (!isr) 
-return;' part should be enough.
-
->   }
->   
->   void dp_aux_reconfig(struct drm_dp_aux *dp_aux)
-
--- 
-With best wishes
-Dmitry
-
+I'd prefer we apply my patch and pass the irqreturn_t variable to the
+caller of this function so spurious irqs are shutdown. Should I send it
+as a proper patch?
