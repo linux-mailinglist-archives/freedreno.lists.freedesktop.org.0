@@ -2,78 +2,75 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id C6E9464F2B5
-	for <lists+freedreno@lfdr.de>; Fri, 16 Dec 2022 21:53:57 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8042464F366
+	for <lists+freedreno@lfdr.de>; Fri, 16 Dec 2022 22:45:54 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 75D5210E154;
-	Fri, 16 Dec 2022 20:53:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2670F10E63D;
+	Fri, 16 Dec 2022 21:45:23 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5F1D410E065;
- Fri, 16 Dec 2022 20:53:23 +0000 (UTC)
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 84FF210E63B;
+ Fri, 16 Dec 2022 21:45:18 +0000 (UTC)
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
  by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 2BGJBBgr024824; Fri, 16 Dec 2022 20:53:12 GMT
+ 2BGKvYqD016777; Fri, 16 Dec 2022 21:45:12 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
- h=message-id : date :
- mime-version : subject : to : cc : references : from : in-reply-to :
- content-type : content-transfer-encoding; s=qcppdkim1;
- bh=hw/esT0/XM4a+KpFYJ83ZxORLOabu0x7zhPJi2KNuQ0=;
- b=X5IxmXkRVMJ/ncRYWrhcfMNfP9RLCCPVeyx+6OCx+GD8XrI8LasiYMX4LYFesTAj9ipY
- +IVlQ5BxWuWKALjtqg8BKeNjakMW2upvBjIIX5vh0a7NswdThTZ1eA7sxDt6O62MRYhO
- ulhMMoOhP8x4Va+/AoKbQSVyuk7BhnHl5r5FekG2uphC+Hd/Wvv8xXFQ0zivUCQ9WXP5
- MG8fHyZgfHIzxdMJPcbkkfljOsxSGTsr52rFrXpnaQa+x6KMT7e36fKi4/z+ipWYYn9l
- 4Fj2IUKVXUAULDIyD3sql37qyd+tkBDRKu4onhLDMbOz3Hmz2IjjD7CPvDtdXfLl6yH7 7w== 
-Received: from nalasppmta03.qualcomm.com (Global_NAT1.qualcomm.com
+ h=from : to : cc :
+ subject : date : message-id : mime-version : content-type; s=qcppdkim1;
+ bh=/DpM4lS1iEF8fb5OIUdAjxkvnMu6ssge6xQo4LyLuz0=;
+ b=HGWZNtgiuE9SjZL429zX3tdJ/5X1ZrFFrW45Z+lY8asrrF9iDm/Rkc6cYrfnZvo+fKY7
+ vUH0D03H12O22pCsosiBWAXWk1u324RKx3dNnM57C3UAVWhzwGidsCXjWMb3Suq3/jgp
+ Fe1ks/QEHs4CZBTiSon/xwcdkywJDBWWGnBUSVR63OnsWgLGJ3rFqXHdhltmclO+J6r8
+ O1lQjnAjjq2RjMLeEVlOdm63y05/GeQ1NB45IE1rBENbHDZvQ5IWyBrqJDevBLc5NAG5
+ 2gc4MefvTCc/oDUNMaWKu1NpYgtp9BKSTrlzFkRvSp9ho+bYglWIFO/94E/CUTlbh0IL 8A== 
+Received: from nalasppmta01.qualcomm.com (Global_NAT1.qualcomm.com
  [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3mg2895qn6-1
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3mg8e6bta6-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 16 Dec 2022 20:53:12 +0000
+ Fri, 16 Dec 2022 21:45:12 +0000
 Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
  [10.47.209.196])
- by NALASPPMTA03.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 2BGKrAx7004922
+ by NALASPPMTA01.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 2BGLjBrf003803
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 16 Dec 2022 20:53:10 GMT
-Received: from [10.110.127.101] (10.80.80.8) by nalasex01a.na.qualcomm.com
- (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.36; Fri, 16 Dec
- 2022 12:53:08 -0800
-Message-ID: <cee94281-07a5-42b7-3d60-6ef6367ff915@quicinc.com>
-Date: Fri, 16 Dec 2022 12:53:08 -0800
+ Fri, 16 Dec 2022 21:45:11 GMT
+Received: from khsieh-linux1.qualcomm.com (10.80.80.8) by
+ nalasex01a.na.qualcomm.com (10.47.209.196) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.986.36; Fri, 16 Dec 2022 13:45:10 -0800
+From: Kuogee Hsieh <quic_khsieh@quicinc.com>
+To: <dri-devel@lists.freedesktop.org>, <robdclark@gmail.com>,
+ <sean@poorly.run>, <swboyd@chromium.org>, <dianders@chromium.org>,
+ <vkoul@kernel.org>, <daniel@ffwll.ch>, <agross@kernel.org>,
+ <dmitry.baryshkov@linaro.org>, <andersson@kernel.org>,
+ <konrad.dybcio@somainline.org>, <robh+dt@kernel.org>,
+ <krzysztof.kozlowski+dt@linaro.org>, <devicetree@vger.kernel.org>,
+ <airlied@gmail.com>
+Date: Fri, 16 Dec 2022 13:44:57 -0800
+Message-ID: <1671227102-21717-1-git-send-email-quic_khsieh@quicinc.com>
+X-Mailer: git-send-email 2.7.4
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.6.2
-Content-Language: en-US
-To: Marijn Suijten <marijn.suijten@somainline.org>,
- <phone-devel@vger.kernel.org>, Rob Clark <robdclark@gmail.com>, "Dmitry
- Baryshkov" <dmitry.baryshkov@linaro.org>, Vinod Koul <vkoul@kernel.org>
-References: <20221213232207.113607-1-marijn.suijten@somainline.org>
- <20221213232207.113607-3-marijn.suijten@somainline.org>
-From: Abhinav Kumar <quic_abhinavk@quicinc.com>
-In-Reply-To: <20221213232207.113607-3-marijn.suijten@somainline.org>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain
 X-Originating-IP: [10.80.80.8]
 X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
  nalasex01a.na.qualcomm.com (10.47.209.196)
 X-QCInternal: smtphost
 X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
  signatures=585085
-X-Proofpoint-GUID: 1bRcK7Mx4X9HduAcyW6FAX9RncDD9be6
-X-Proofpoint-ORIG-GUID: 1bRcK7Mx4X9HduAcyW6FAX9RncDD9be6
+X-Proofpoint-GUID: JuMh4I74UZm0ACkOkudVMovIVhzCx755
+X-Proofpoint-ORIG-GUID: JuMh4I74UZm0ACkOkudVMovIVhzCx755
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.205,Aquarius:18.0.923,Hydra:6.0.545,FMLib:17.11.122.1
  definitions=2022-12-16_14,2022-12-15_02,2022-06-22_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 mlxscore=0
- lowpriorityscore=0 bulkscore=0 spamscore=0 priorityscore=1501 phishscore=0
- impostorscore=0 suspectscore=0 malwarescore=0 adultscore=0 mlxlogscore=999
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2212070000
- definitions=main-2212160185
-Subject: Re: [Freedreno] [RFC PATCH 2/6] drm/msm/dpu1: Add DSC config for
- sm8150 and sm8250
+ malwarescore=0
+ mlxlogscore=949 priorityscore=1501 lowpriorityscore=0 spamscore=0
+ suspectscore=0 clxscore=1015 phishscore=0 mlxscore=0 adultscore=0
+ bulkscore=0 impostorscore=0 classifier=spam adjust=0 reason=mlx
+ scancount=1 engine=8.12.0-2212070000 definitions=main-2212160194
+Subject: [Freedreno] [PATCH v15 0/5] Add data-lanes and link-frequencies to
+ dp_out endpoint
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -86,90 +83,35 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Konrad Dybcio <konrad.dybcio@somainline.org>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@somainline.org>, Vinod
- Polimera <quic_vpolimer@quicinc.com>, Sam Ravnborg <sam@ravnborg.org>,
- =?UTF-8?B?VmlsbGUgU3lyasOkbMOk?= <ville.syrjala@linux.intel.com>,
- Haowen Bai <baihaowen@meizu.com>, David Airlie <airlied@gmail.com>,
- Kuogee Hsieh <quic_khsieh@quicinc.com>, Jessica
- Zhang <quic_jesszhan@quicinc.com>, Jani Nikula <jani.nikula@intel.com>,
- linux-arm-msm@vger.kernel.org, Stephen
- Boyd <swboyd@chromium.org>, Martin Botka <martin.botka@somainline.org>,
- ~postmarketos/upstreaming@lists.sr.ht, Sean Paul <sean@poorly.run>,
- Loic Poulain <loic.poulain@linaro.org>,
- Jami Kettunen <jami.kettunen@somainline.org>,
- Bjorn Andersson <andersson@kernel.org>,
- Vladimir Lypak <vladimir.lypak@gmail.com>,
- Douglas Anderson <dianders@chromium.org>,
- Konrad Dybcio <konrad.dybcio@linaro.org>, sunliming <sunliming@kylinos.cn>,
- Daniel Vetter <daniel@ffwll.ch>, freedreno@lists.freedesktop.org
+Cc: quic_sbillaka@quicinc.com, linux-arm-msm@vger.kernel.org,
+ quic_abhinavk@quicinc.com, linux-kernel@vger.kernel.org,
+ Kuogee Hsieh <quic_khsieh@quicinc.com>, freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
+Add DP both data-lanes and link-frequencies property to dp_out endpoint and support
+functions to DP driver.
 
+Kuogee Hsieh (5):
+  arm64: dts: qcom: add data-lanes and link-freuencies into dp_out
+    endpoint
+  dt-bindings: msm/dp: add data-lanes and link-frequencies property
+  drm/msm/dp: parse data-lanes as property of dp_out endpoint
+  Add capability to parser and retrieve max DP link supported rate from 
+       link-frequencies property of dp_out endpoint.
+  drm/msm/dp: add support of max dp link rate
 
-On 12/13/2022 3:22 PM, Marijn Suijten wrote:
-> These blocks on CTL V1 support setting a PINGPONG idx to send pixel
-> output to.
-> 
-> Signed-off-by: Marijn Suijten <marijn.suijten@somainline.org>
-Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
-> ---
->   .../gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c    | 23 ++++++++++++++-----
->   1 file changed, 17 insertions(+), 6 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
-> index 318f0b4dbf6e..114ad8ca4554 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
-> @@ -1566,18 +1566,25 @@ static const struct dpu_merge_3d_cfg sm8150_merge_3d[] = {
->   /*************************************************************
->    * DSC sub blocks config
->    *************************************************************/
-> -#define DSC_BLK(_name, _id, _base) \
-> +#define DSC_BLK(_name, _id, _base, _features) \
->   	{\
->   	.name = _name, .id = _id, \
->   	.base = _base, .len = 0x140, \
-> -	.features = 0, \
-> +	.features = _features, \
->   	}
->   
->   static struct dpu_dsc_cfg sdm845_dsc[] = {
-> -	DSC_BLK("dsc_0", DSC_0, 0x80000),
-> -	DSC_BLK("dsc_1", DSC_1, 0x80400),
-> -	DSC_BLK("dsc_2", DSC_2, 0x80800),
-> -	DSC_BLK("dsc_3", DSC_3, 0x80c00),
-> +	DSC_BLK("dsc_0", DSC_0, 0x80000, 0),
-> +	DSC_BLK("dsc_1", DSC_1, 0x80400, 0),
-> +	DSC_BLK("dsc_2", DSC_2, 0x80800, 0),
-> +	DSC_BLK("dsc_3", DSC_3, 0x80c00, 0),
-> +};
-> +
-> +static struct dpu_dsc_cfg sm8150_dsc[] = {
-> +	DSC_BLK("dsc_0", DSC_0, 0x80000, BIT(DPU_DSC_OUTPUT_CTRL)),
-> +	DSC_BLK("dsc_1", DSC_1, 0x80400, BIT(DPU_DSC_OUTPUT_CTRL)),
-> +	DSC_BLK("dsc_2", DSC_2, 0x80800, BIT(DPU_DSC_OUTPUT_CTRL)),
-> +	DSC_BLK("dsc_3", DSC_3, 0x80c00, BIT(DPU_DSC_OUTPUT_CTRL)),
->   };
->   
->   /*************************************************************
-> @@ -2474,6 +2481,8 @@ static const struct dpu_mdss_cfg sm8150_dpu_cfg = {
->   	.mixer = sm8150_lm,
->   	.dspp_count = ARRAY_SIZE(sm8150_dspp),
->   	.dspp = sm8150_dspp,
-> +	.dsc_count = ARRAY_SIZE(sm8150_dsc),
-> +	.dsc = sm8150_dsc,
->   	.pingpong_count = ARRAY_SIZE(sm8150_pp),
->   	.pingpong = sm8150_pp,
->   	.merge_3d_count = ARRAY_SIZE(sm8150_merge_3d),
-> @@ -2524,6 +2533,8 @@ static const struct dpu_mdss_cfg sm8250_dpu_cfg = {
->   	.mixer = sm8150_lm,
->   	.dspp_count = ARRAY_SIZE(sm8150_dspp),
->   	.dspp = sm8150_dspp,
-> +	.dsc_count = ARRAY_SIZE(sm8150_dsc),
-> +	.dsc = sm8150_dsc,
->   	.pingpong_count = ARRAY_SIZE(sm8150_pp),
->   	.pingpong = sm8150_pp,
->   	.merge_3d_count = ARRAY_SIZE(sm8150_merge_3d),
+ .../bindings/display/msm/dp-controller.yaml        | 25 ++++++++++-
+ arch/arm64/boot/dts/qcom/sc7180-trogdor.dtsi       |  4 ++
+ arch/arm64/boot/dts/qcom/sc7280-herobrine.dtsi     |  4 ++
+ drivers/gpu/drm/msm/dp/dp_display.c                |  4 ++
+ drivers/gpu/drm/msm/dp/dp_panel.c                  |  7 +--
+ drivers/gpu/drm/msm/dp/dp_panel.h                  |  1 +
+ drivers/gpu/drm/msm/dp/dp_parser.c                 | 50 ++++++++++++++++++----
+ drivers/gpu/drm/msm/dp/dp_parser.h                 |  2 +
+ 8 files changed, 85 insertions(+), 12 deletions(-)
+
+-- 
+The Qualcomm Innovation Center, Inc. is a member of the Code Aurora Forum,
+a Linux Foundation Collaborative Project
+
