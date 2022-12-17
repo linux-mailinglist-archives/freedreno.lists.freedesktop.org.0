@@ -2,46 +2,46 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id D84A364F498
-	for <lists+freedreno@lfdr.de>; Sat, 17 Dec 2022 00:02:48 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 837FE64F64F
+	for <lists+freedreno@lfdr.de>; Sat, 17 Dec 2022 01:32:33 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E786010E63E;
-	Fri, 16 Dec 2022 23:02:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 36FDE10E653;
+	Sat, 17 Dec 2022 00:32:20 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
  [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CEB6110E05A;
- Fri, 16 Dec 2022 23:02:16 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2D24F10E0FF;
+ Sat, 17 Dec 2022 00:32:12 +0000 (UTC)
 Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
  by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 2BGJm5JO019918; Fri, 16 Dec 2022 23:02:01 GMT
+ 2BGNvgfc025586; Sat, 17 Dec 2022 00:31:59 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
  h=message-id : date :
  mime-version : subject : to : cc : references : from : in-reply-to :
  content-type : content-transfer-encoding; s=qcppdkim1;
- bh=wkAj1MqVUEUqVrts+r6w461mhCeY7+AtODOdcPBWifA=;
- b=jFFyarm4sH6y6S/YTc9hEbUBqaVYemzv3s3/ooulAQcnoosgJVVP6Q3lxKtAxUu2LwZJ
- OA1RPm8PYaGleEBlF9P8GBUGdy3FFRanjtkmybOsRklfWhsOOz57jK+PYWf3jm/3pTbU
- 1UIkgtJBhGtB6IdBiaH65Nc11oKE9vr18BpJ75iWd1RDl90J4Li387dj1WbT46RskWKj
- ychvsv7UnF9Nh/K2MImLHRxE/Dm632eAsCrMm/L4atmXsKyhuMowjzu0cVvt10FOvj4c
- BNBHG2mCBDx3jdGMxFG2uugMe8XkmtTAq720EgUHT3R9pTLfGghFkACtXTnuKP1GhUlM IQ== 
-Received: from nalasppmta04.qualcomm.com (Global_NAT1.qualcomm.com
+ bh=FafqiLihfvYH5H7Y7SIlIE8yTDE/hyI2tDCM/GdByH8=;
+ b=hTic8mXYodZ8Xrhu5RrCiezRSrJeg6os5cFO1ymuYJApKOxRW2adj0FaqubJoKa76ffh
+ JM1aPZGtc3QdMpnmMrGZY97aYr++qwYmfsf18W4iGqopYzYyhdBRuXHi+j3cf9Dtl+jv
+ iDVgcI5QYCZZhjl2TmioZP/ht9tMwTVHjKVqqXd+Rmqwj4MhK78nOi3LDa3nY9L2CyGn
+ G+hC4FD68Ni4jrU07CsEkPiWcva+/iLwqPaN1XU5wQDI3JRiO9tiQmKYJQIk9m3jUrJ5
+ LuDd6J1j12DB4pcnnlqVFwrs+vTEeTsQLhM6kefqxMl1oqZJ98+NwRBZzP7aPYDgbz0y +g== 
+Received: from nalasppmta05.qualcomm.com (Global_NAT1.qualcomm.com
  [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3mg2vwdgvw-1
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3mg2vwdp4s-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 16 Dec 2022 23:02:00 +0000
+ Sat, 17 Dec 2022 00:31:59 +0000
 Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
  [10.47.209.196])
- by NALASPPMTA04.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 2BGN1xk1007518
+ by NALASPPMTA05.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 2BH0VvwA007108
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 16 Dec 2022 23:01:59 GMT
+ Sat, 17 Dec 2022 00:31:57 GMT
 Received: from [10.110.127.101] (10.80.80.8) by nalasex01a.na.qualcomm.com
  (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.36; Fri, 16 Dec
- 2022 15:01:58 -0800
-Message-ID: <9a1db357-9cd4-1217-83b0-c146e7e29233@quicinc.com>
-Date: Fri, 16 Dec 2022 15:01:57 -0800
+ 2022 16:31:55 -0800
+Message-ID: <642b0063-b3b1-fb01-b761-dfd30cea1c8c@quicinc.com>
+Date: Fri, 16 Dec 2022 16:31:55 -0800
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
  Thunderbird/91.6.2
@@ -50,30 +50,30 @@ To: Marijn Suijten <marijn.suijten@somainline.org>,
  <phone-devel@vger.kernel.org>, Rob Clark <robdclark@gmail.com>, "Dmitry
  Baryshkov" <dmitry.baryshkov@linaro.org>, Vinod Koul <vkoul@kernel.org>
 References: <20221213232207.113607-1-marijn.suijten@somainline.org>
- <20221213232207.113607-5-marijn.suijten@somainline.org>
+ <20221213232207.113607-6-marijn.suijten@somainline.org>
 From: Abhinav Kumar <quic_abhinavk@quicinc.com>
-In-Reply-To: <20221213232207.113607-5-marijn.suijten@somainline.org>
+In-Reply-To: <20221213232207.113607-6-marijn.suijten@somainline.org>
 Content-Type: text/plain; charset="UTF-8"; format=flowed
 Content-Transfer-Encoding: 7bit
 X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
+X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
  nalasex01a.na.qualcomm.com (10.47.209.196)
 X-QCInternal: smtphost
 X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
  signatures=585085
-X-Proofpoint-GUID: YXCtgRzGELZyiA7aU8oSVhMnNTf3DWRf
-X-Proofpoint-ORIG-GUID: YXCtgRzGELZyiA7aU8oSVhMnNTf3DWRf
+X-Proofpoint-GUID: FK0lp_-c3vUi5LUMC6uEjQ8ZD6Xz6TkT
+X-Proofpoint-ORIG-GUID: FK0lp_-c3vUi5LUMC6uEjQ8ZD6Xz6TkT
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.205,Aquarius:18.0.923,Hydra:6.0.545,FMLib:17.11.122.1
- definitions=2022-12-16_14,2022-12-15_02,2022-06-22_01
+ definitions=2022-12-16_15,2022-12-15_02,2022-06-22_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
  mlxscore=0 suspectscore=0
  clxscore=1015 phishscore=0 malwarescore=0 lowpriorityscore=0 spamscore=0
  bulkscore=0 impostorscore=0 mlxlogscore=999 adultscore=0
  priorityscore=1501 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2212070000 definitions=main-2212160203
-Subject: Re: [Freedreno] [RFC PATCH 4/6] drm/msm/dsi: Use DSC slice(s)
- packet size to compute word count
+ engine=8.12.0-2212070000 definitions=main-2212170002
+Subject: Re: [Freedreno] [RFC PATCH 5/6] drm/msm/dsi: Flip greater-than
+ check for slice_count and slice_per_intf
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -110,39 +110,35 @@ Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 
 On 12/13/2022 3:22 PM, Marijn Suijten wrote:
-> According to downstream the value to use for WORD_COUNT is
-> bytes_per_pkt, which denotes the number of bytes in a packet based on
-> how many slices have been configured by the panel driver times the
-> width of a slice times the number of bytes per pixel.
-> 
-> The DSC panels seen thus far use one byte per pixel, only one slice
-> per packet, and a slice width of half the panel width leading to the
-> desired bytes_per_pkt+1 value to be equal to hdisplay/2+1.  This however
-> isn't the case anymore for panels that configure two slices per packet,
-> where the value should now be hdisplay+1.
-> 
-> Note that the aforementioned panel (on a Sony Xperia XZ3, sdm845) with
-> slice_count=1 has also been tested to successfully accept slice_count=2,
-> which would have shown corrupted output previously.
+> According to downstream /and the comment copied from it/ this comparison
+> should be the other way around.  In other words, when the panel driver
+> requests to use more slices per packet than what could be sent over this
+> interface, it is bumped down to only use a single slice per packet (and
+> strangely not the number of slices that could fit on the interface).
 > 
 > Fixes: 08802f515c3c ("drm/msm/dsi: Add support for DSC configuration")
-> Signed-off-by: Marijn Suijten <marijn.suijten@somainline.org>
 
+Like others have said, with SOB,
 Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
 > ---
->   drivers/gpu/drm/msm/dsi/dsi_host.c | 2 +-
->   1 file changed, 1 insertion(+), 1 deletion(-)
+>   drivers/gpu/drm/msm/dsi/dsi_host.c | 4 ++--
+>   1 file changed, 2 insertions(+), 2 deletions(-)
 > 
 > diff --git a/drivers/gpu/drm/msm/dsi/dsi_host.c b/drivers/gpu/drm/msm/dsi/dsi_host.c
-> index b83cf70b1adb..0686c35a6fd4 100644
+> index 0686c35a6fd4..9bdfa0864cdf 100644
 > --- a/drivers/gpu/drm/msm/dsi/dsi_host.c
 > +++ b/drivers/gpu/drm/msm/dsi/dsi_host.c
-> @@ -989,7 +989,7 @@ static void dsi_timing_setup(struct msm_dsi_host *msm_host, bool is_bonded_dsi)
->   		if (!msm_host->dsc)
->   			wc = hdisplay * dsi_get_bpp(msm_host->format) / 8 + 1;
->   		else
-> -			wc = mode->hdisplay / 2 + 1;
-> +			wc = msm_host->dsc->slice_chunk_size * msm_host->dsc->slice_count + 1;
+> @@ -855,11 +855,11 @@ static void dsi_update_dsc_timing(struct msm_dsi_host *msm_host, bool is_cmd_mod
+>   	 */
+>   	slice_per_intf = DIV_ROUND_UP(hdisplay, dsc->slice_width);
 >   
->   		dsi_write(msm_host, REG_DSI_CMD_MDP_STREAM0_CTRL,
->   			DSI_CMD_MDP_STREAM0_CTRL_WORD_COUNT(wc) |
+> -	/* If slice_per_pkt is greater than slice_per_intf
+> +	/* If slice_count is greater than slice_per_intf
+>   	 * then default to 1. This can happen during partial
+>   	 * update.
+>   	 */
+> -	if (slice_per_intf > dsc->slice_count)
+> +	if (dsc->slice_count > slice_per_intf)
+>   		dsc->slice_count = 1;
+>   
+>   	total_bytes_per_intf = dsc->slice_chunk_size * slice_per_intf;
