@@ -2,47 +2,47 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id B712A650069
-	for <lists+freedreno@lfdr.de>; Sun, 18 Dec 2022 17:14:24 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 07DB66500AD
+	for <lists+freedreno@lfdr.de>; Sun, 18 Dec 2022 17:17:59 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5C18710E1E5;
-	Sun, 18 Dec 2022 16:14:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9F13E10E26E;
+	Sun, 18 Dec 2022 16:17:27 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E5FB810E1E5;
- Sun, 18 Dec 2022 16:14:20 +0000 (UTC)
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5545D10E267;
+ Sun, 18 Dec 2022 16:17:24 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 6E1CF60DD0;
- Sun, 18 Dec 2022 16:14:20 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 083F4C433EF;
- Sun, 18 Dec 2022 16:14:17 +0000 (UTC)
+ by ams.source.kernel.org (Postfix) with ESMTPS id 00AD3B80BD1;
+ Sun, 18 Dec 2022 16:17:23 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DE358C433F0;
+ Sun, 18 Dec 2022 16:17:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1671380059;
- bh=3pFuYycp5XaySMSnYBC9uKdZny+VGlfNZ0G0lpWOGrM=;
+ s=k20201202; t=1671380240;
+ bh=FX7HYEbBIhWrHLNd17fteXtIabssxjGxuMAlpWlubRM=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=cDTHbTmgbBqZsrw1LlPmUiiE0xgFCDMDqDPh2oPEE3pdcYn4PEQUKjJtEqg8rQ1Ru
- qRQKWpiUhy7b3FwEg5tW/TSajdDMc7YOJintgxLmIm1QbxOPnowTO2TgGYV+O6EO95
- 7K8Av9K4E6IWwAtwD2TmHHakMZ4E/VX+4MBlAo2iKWgqLaZmQxuV7ctACIp8eMvm2B
- v7EY4Wyt3bSrpqsAFKcA5lDIsV9giZku1b9yO5NCa7h5LkE4Fg5/QLCj+uxn9C+ak1
- Fk2QkQhk01s3I5EAmROCKihbAuls3Q92JW8ycyEKjcNPg/YkjyShwYENTdRDMDJv1x
- 7qIdTI1HIwmJw==
+ b=EDihH7QAiCq7UtFfQPGuF9M4kJcyC4KmNi4FwbIBO+Fx+h0pjaBPE+FlBkj1r4CBj
+ BNO63Ei7xcTMfat2wa3l50i4VHspDJmEDDJw2IO1XxjJ9DDS55A/S9o5Glkak0hoO0
+ Hd4NHVUN5xTuw0f7E+/o/6rCcpCOROO1qaDdBfU2CMlZ/7iU8FMkUCH8MY5oDePgzW
+ dwE5RcxA5wHq+C8qBeSbQVZPqAmRs/IvxPTomLxwwvBkUWidR3FrL9Ft8Ck9M4anh+
+ RRxy45Q/3NVBYIWT10dQXOTTsvCJGPq4aEZKDTtTHipJS4vLa1OFjks6Qv5qZmKWyp
+ BBE0e/oW5SJVg==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Date: Sun, 18 Dec 2022 11:12:19 -0500
-Message-Id: <20221218161244.930785-21-sashal@kernel.org>
+Date: Sun, 18 Dec 2022 11:15:39 -0500
+Message-Id: <20221218161559.932604-19-sashal@kernel.org>
 X-Mailer: git-send-email 2.35.1
-In-Reply-To: <20221218161244.930785-1-sashal@kernel.org>
-References: <20221218161244.930785-1-sashal@kernel.org>
+In-Reply-To: <20221218161559.932604-1-sashal@kernel.org>
+References: <20221218161559.932604-1-sashal@kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 X-stable: review
 X-Patchwork-Hint: Ignore
 Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH AUTOSEL 5.15 21/46] drm/msm: Use drm_mode_copy()
+Subject: [Freedreno] [PATCH AUTOSEL 5.10 19/39] drm/msm: Use drm_mode_copy()
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -142,10 +142,10 @@ Signed-off-by: Sasha Levin <sashal@kernel.org>
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
-index d13fd39f05de..15e38ad7aefb 100644
+index 5a152d505dfb..1c3dcbc6cce8 100644
 --- a/drivers/gpu/drm/msm/dp/dp_display.c
 +++ b/drivers/gpu/drm/msm/dp/dp_display.c
-@@ -840,7 +840,7 @@ static int dp_display_set_mode(struct msm_dp *dp_display,
+@@ -848,7 +848,7 @@ static int dp_display_set_mode(struct msm_dp *dp_display,
  
  	dp = container_of(dp_display, struct dp_display_private, dp_display);
  
