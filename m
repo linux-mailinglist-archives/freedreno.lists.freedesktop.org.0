@@ -2,47 +2,47 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4A9C164FF9D
-	for <lists+freedreno@lfdr.de>; Sun, 18 Dec 2022 17:04:55 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 46443650023
+	for <lists+freedreno@lfdr.de>; Sun, 18 Dec 2022 17:10:25 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id ECF5E10E1D8;
-	Sun, 18 Dec 2022 16:04:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CBC7410E23B;
+	Sun, 18 Dec 2022 16:09:53 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 11B0C10E1D8;
- Sun, 18 Dec 2022 16:04:20 +0000 (UTC)
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 068C810E23A;
+ Sun, 18 Dec 2022 16:09:47 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 8ECA560DCC;
- Sun, 18 Dec 2022 16:04:19 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A797CC433F1;
- Sun, 18 Dec 2022 16:04:16 +0000 (UTC)
+ by ams.source.kernel.org (Postfix) with ESMTPS id 998FFB80B43;
+ Sun, 18 Dec 2022 16:09:46 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9772FC433D2;
+ Sun, 18 Dec 2022 16:09:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1671379458;
+ s=k20201202; t=1671379785;
  bh=I9Gx9m76r4Ac5f8DVvtK63xglKXDOM6E0OjZCYSrZJo=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=WJXWUSLI+dwBtTc1XNqWDoTC3RpLWUmRFrv6kJFk/YQoG6B3mvAZ/Gdoebt0GgIce
- CJCg/KCBigkibEMuIRaO5q2DFioTY7qBxcSJxh0ZESquUUIDkzjmGToITI5E0n0SHH
- B/+0RM/xYGQ9C33w0YPwKusmTndHwfHECEITQSeGdbXMZWA0d/tlLjH3c3MF9QL5bm
- SNse5iSJ+Mb+i0e8+QlPnAuZcFkGhWT3MDagcyp8PX75JMY6q5QfyfNHCMGao/DccH
- pSJLSh0u8eAXtHV58hkTAYdo2lTuZmOBXVqOWysfzh+HjgPxzpgXbn/qZq+bwvW6Jk
- FqD2b/AflJ2cw==
+ b=rqIb8w3cyTn9mZxuE0gWXseAQl+j97DRoAUltdx73lnSzTIN9yFxA4YlHlWDl80T1
+ /eOHmM6pC/9BfKJoVsK1qrboXRRwz0QZ9LvuVzgQOBGAOinRtcqyKPGFxzS5RYIgVs
+ DExiurm3ciVtva8Z5ISHJkoFYShY9ls3I7XWZCLo5n5bbByMeG5StU+76/ASnfaOZ5
+ OQPzMYPTrYPhahFC1X3HR6X2j91rhV/Lx+US3r5b6qMZB4FL5m7OMPe9sBaqjn9Q8G
+ j/6bUGe7/QwkuspmTCwzVM6K93/FCkKIKIavQDtmzyNuG4SL0tfTNopWPSiKyKio5R
+ M1sRjFcSRlcig==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Date: Sun, 18 Dec 2022 11:00:55 -0500
-Message-Id: <20221218160142.925394-38-sashal@kernel.org>
+Date: Sun, 18 Dec 2022 11:07:00 -0500
+Message-Id: <20221218160741.927862-32-sashal@kernel.org>
 X-Mailer: git-send-email 2.35.1
-In-Reply-To: <20221218160142.925394-1-sashal@kernel.org>
-References: <20221218160142.925394-1-sashal@kernel.org>
+In-Reply-To: <20221218160741.927862-1-sashal@kernel.org>
+References: <20221218160741.927862-1-sashal@kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 X-stable: review
 X-Patchwork-Hint: Ignore
 Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH AUTOSEL 6.1 38/85] drm/msm: Use drm_mode_copy()
+Subject: [Freedreno] [PATCH AUTOSEL 6.0 32/73] drm/msm: Use drm_mode_copy()
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
