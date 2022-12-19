@@ -2,47 +2,60 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 07DB66500AD
-	for <lists+freedreno@lfdr.de>; Sun, 18 Dec 2022 17:17:59 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id DC709650FFD
+	for <lists+freedreno@lfdr.de>; Mon, 19 Dec 2022 17:12:07 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9F13E10E26E;
-	Sun, 18 Dec 2022 16:17:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9F04910E231;
+	Mon, 19 Dec 2022 16:12:06 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5545D10E267;
- Sun, 18 Dec 2022 16:17:24 +0000 (UTC)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 00AD3B80BD1;
- Sun, 18 Dec 2022 16:17:23 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DE358C433F0;
- Sun, 18 Dec 2022 16:17:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1671380240;
- bh=FX7HYEbBIhWrHLNd17fteXtIabssxjGxuMAlpWlubRM=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=EDihH7QAiCq7UtFfQPGuF9M4kJcyC4KmNi4FwbIBO+Fx+h0pjaBPE+FlBkj1r4CBj
- BNO63Ei7xcTMfat2wa3l50i4VHspDJmEDDJw2IO1XxjJ9DDS55A/S9o5Glkak0hoO0
- Hd4NHVUN5xTuw0f7E+/o/6rCcpCOROO1qaDdBfU2CMlZ/7iU8FMkUCH8MY5oDePgzW
- dwE5RcxA5wHq+C8qBeSbQVZPqAmRs/IvxPTomLxwwvBkUWidR3FrL9Ft8Ck9M4anh+
- RRxy45Q/3NVBYIWT10dQXOTTsvCJGPq4aEZKDTtTHipJS4vLa1OFjks6Qv5qZmKWyp
- BBE0e/oW5SJVg==
-From: Sasha Levin <sashal@kernel.org>
-To: linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Date: Sun, 18 Dec 2022 11:15:39 -0500
-Message-Id: <20221218161559.932604-19-sashal@kernel.org>
-X-Mailer: git-send-email 2.35.1
-In-Reply-To: <20221218161559.932604-1-sashal@kernel.org>
-References: <20221218161559.932604-1-sashal@kernel.org>
+Received: from mail-oa1-x2a.google.com (mail-oa1-x2a.google.com
+ [IPv6:2001:4860:4864:20::2a])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D7C4610E231
+ for <freedreno@lists.freedesktop.org>; Mon, 19 Dec 2022 16:12:03 +0000 (UTC)
+Received: by mail-oa1-x2a.google.com with SMTP id
+ 586e51a60fabf-144bd860fdbso12141622fac.0
+ for <freedreno@lists.freedesktop.org>; Mon, 19 Dec 2022 08:12:03 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=opNyEy4Hga2S+HSZGwYoo4n70oAUrhY/I95QJwBLXGw=;
+ b=GLXF0a9hN4NDrxSiyquzet3CYHgBek4M8xB9NgCoRur+3SiWUQ7U0TpQ80vS2Ey3yF
+ 7Z9I/KAw6ATX613YDJ3PomP8p4XMs41nnalAMwU6+QkQFUhMm8vvsM/K4MpnHj4V1b0x
+ +YaWd5cjgjBFDIyenlffSYdjzvSma6xkeJIJvjxWrd9sI8mBIlSsddTfnkbhYVUCIDzB
+ Lw7vc0hRHHp2zRSkxqQG/nmlTh1KEbHJdzruUiUK2ggEdHmzJdhNBQQ55yhkimSIbzcJ
+ ORq78PFUdH2Oq9tfhYAjIghbEMkSxUcC+jVPPGxbu/HWGDnWbImG5UrI6v8+r37GhsdB
+ tXKg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=opNyEy4Hga2S+HSZGwYoo4n70oAUrhY/I95QJwBLXGw=;
+ b=hC4Mz8dFrYwCBPZZe4EgfPQvtk/yJtQ0Zwx0sImS+KNKSZHV5bzTQYIuc036ZTKBCB
+ //GGf4EB2axoQdoz6ocihgpzm3/fMakUG49LNjFWoDSDcpoJiQI/zAtALaI0WQggbiQK
+ k6Wlx71vKq//QKKfVySpSq8cu+rLiqOpzLzCW9hMLfhKZ4B4LgJpnamXogVxSgo3ad54
+ UgQGXRS9oY7/1Lcqh1FFICHcQvNYxT4YArosPo3AfYcG1yDYl8kcnxE84mlTXBLV4dxo
+ DUtSOups9mp0ZmyWdH4tVP20RzXSuYg9Dy024Z4EUzeXBOjassY/QWQzNfyf7Ef2u5Ax
+ tqpA==
+X-Gm-Message-State: AFqh2kqUUc+m0faazUCKBhbyHPN9ST1npf3eDLTZiraFzDRE7jFuBaUi
+ 2YSo43aTP5cQhmZNevY5QZqpSOEA5dPDCcS5Ps4m2w==
+X-Google-Smtp-Source: AA0mqf55kS80V69FV3FbQLl+xTi2OHqecJQT7VNkb/GHotEghsH04avx+8ln6J+VXS2w3SXe+3JAgEmw1jbdGZgvIyg=
+X-Received: by 2002:a05:6870:9e4c:b0:13c:33d0:22e2 with SMTP id
+ pt12-20020a0568709e4c00b0013c33d022e2mr1717322oab.14.1671466323100; Mon, 19
+ Dec 2022 08:12:03 -0800 (PST)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-X-stable: review
-X-Patchwork-Hint: Ignore
-Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH AUTOSEL 5.10 19/39] drm/msm: Use drm_mode_copy()
+References: <20221205163754.221139-1-robert.foss@linaro.org>
+ <20221205163754.221139-11-robert.foss@linaro.org>
+ <853d49f9-cd97-e8a0-53fd-9f673c2720a1@linaro.org>
+In-Reply-To: <853d49f9-cd97-e8a0-53fd-9f673c2720a1@linaro.org>
+From: Robert Foss <robert.foss@linaro.org>
+Date: Mon, 19 Dec 2022 17:11:52 +0100
+Message-ID: <CAG3jFysRXykUgOqRiPVYSRtjQ5Rfj+DQQqPzhzA8j9B9LToj5g@mail.gmail.com>
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Content-Type: text/plain; charset="UTF-8"
+Subject: Re: [Freedreno] [PATCH v3 10/11] arm64: dts: qcom: sm8350-hdk:
+ Enable display & dsi nodes
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,105 +68,77 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sean Paul <sean@poorly.run>, Sasha Levin <sashal@kernel.org>,
- quic_sbillaka@quicinc.com, linux-arm-msm@vger.kernel.org, andersson@kernel.org,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
- swboyd@chromium.org, Rob Clark <robdclark@gmail.com>, johan+linaro@kernel.org,
- daniel@ffwll.ch, Daniel Vetter <daniel.vetter@ffwll.ch>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, airlied@gmail.com,
- quic_khsieh@quicinc.com, freedreno@lists.freedesktop.org,
- =?UTF-8?q?Ville=20Syrj=C3=A4l=C3=A4?= <ville.syrjala@linux.intel.com>
+Cc: airlied@linux.ie, konrad.dybcio@somainline.org,
+ dri-devel@lists.freedesktop.org, bjorn.andersson@linaro.org,
+ krzysztof.kozlowski+dt@linaro.org, angelogioacchino.delregno@somainline.org,
+ vinod.koul@linaro.org, Jonathan Marek <jonathan@marek.ca>, robdclark@gmail.com,
+ quic_vpolimer@quicinc.com, agross@kernel.org, quic_jesszhan@quicinc.com,
+ devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ quic_abhinavk@quicinc.com, swboyd@chromium.org, robh+dt@kernel.org,
+ sean@poorly.run, quic_kalyant@quicinc.com, loic.poulain@linaro.org,
+ andersson@kernel.org, dianders@chromium.org, linux-kernel@vger.kernel.org,
+ vkoul@kernel.org, daniel@ffwll.ch, freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-From: Ville Syrjälä <ville.syrjala@linux.intel.com>
+On Mon, 5 Dec 2022 at 17:44, Dmitry Baryshkov
+<dmitry.baryshkov@linaro.org> wrote:
+>
+> On 05/12/2022 18:37, Robert Foss wrote:
+> > Enable the display subsystem and the dsi0 output for
+> > the sm8350-hdk board.
+> >
+> > Signed-off-by: Robert Foss <robert.foss@linaro.org>
+> > ---
+> >   arch/arm64/boot/dts/qcom/sm8350-hdk.dts | 22 ++++++++++++++++++++++
+> >   1 file changed, 22 insertions(+)
+> >
+> > diff --git a/arch/arm64/boot/dts/qcom/sm8350-hdk.dts b/arch/arm64/boot/dts/qcom/sm8350-hdk.dts
+> > index e6deb08c6da0..39462c659c58 100644
+> > --- a/arch/arm64/boot/dts/qcom/sm8350-hdk.dts
+> > +++ b/arch/arm64/boot/dts/qcom/sm8350-hdk.dts
+> > @@ -213,10 +213,32 @@ &cdsp {
+> >       firmware-name = "qcom/sm8350/cdsp.mbn";
+> >   };
+> >
+> > +&dispcc {
+> > +     status = "okay";
+> > +};
+> > +
+> > +&dsi0 {
+>
+> Bjorn suggested using mdss_dsi0 / mdss_dsi0_phy labels for DSI host and
+> PHY, as it allows us to group them nicely. WDYT?
 
-[ Upstream commit b2a1c5ca50db22b3677676dd5bad5f6092429acf ]
+Sounds quite reasonable, fixing it in dts/dtsi/binding.
 
-struct drm_display_mode embeds a list head, so overwriting
-the full struct with another one will corrupt the list
-(if the destination mode is on a list). Use drm_mode_copy()
-instead which explicitly preserves the list head of
-the destination mode.
-
-Even if we know the destination mode is not on any list
-using drm_mode_copy() seems decent as it sets a good
-example. Bad examples of not using it might eventually
-get copied into code where preserving the list head
-actually matters.
-
-Obviously one case not covered here is when the mode
-itself is embedded in a larger structure and the whole
-structure is copied. But if we are careful when copying
-into modes embedded in structures I think we can be a
-little more reassured that bogus list heads haven't been
-propagated in.
-
-@is_mode_copy@
-@@
-drm_mode_copy(...)
-{
-...
-}
-
-@depends on !is_mode_copy@
-struct drm_display_mode *mode;
-expression E, S;
-@@
-(
-- *mode = E
-+ drm_mode_copy(mode, &E)
-|
-- memcpy(mode, E, S)
-+ drm_mode_copy(mode, E)
-)
-
-@depends on !is_mode_copy@
-struct drm_display_mode mode;
-expression E;
-@@
-(
-- mode = E
-+ drm_mode_copy(&mode, &E)
-|
-- memcpy(&mode, E, S)
-+ drm_mode_copy(&mode, E)
-)
-
-@@
-struct drm_display_mode *mode;
-@@
-- &*mode
-+ mode
-
-Cc: Rob Clark <robdclark@gmail.com>
-Cc: Sean Paul <sean@poorly.run>
-Cc: Abhinav Kumar <quic_abhinavk@quicinc.com>
-Cc: linux-arm-msm@vger.kernel.org
-Cc: freedreno@lists.freedesktop.org
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
-Reviewed-by: Daniel Vetter <daniel.vetter@ffwll.ch>
-Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
-Link: https://patchwork.freedesktop.org/patch/msgid/20221107192545.9896-5-ville.syrjala@linux.intel.com
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- drivers/gpu/drm/msm/dp/dp_display.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
-index 5a152d505dfb..1c3dcbc6cce8 100644
---- a/drivers/gpu/drm/msm/dp/dp_display.c
-+++ b/drivers/gpu/drm/msm/dp/dp_display.c
-@@ -848,7 +848,7 @@ static int dp_display_set_mode(struct msm_dp *dp_display,
- 
- 	dp = container_of(dp_display, struct dp_display_private, dp_display);
- 
--	dp->panel->dp_mode.drm_mode = mode->drm_mode;
-+	drm_mode_copy(&dp->panel->dp_mode.drm_mode, &mode->drm_mode);
- 	dp->panel->dp_mode.bpp = mode->bpp;
- 	dp->panel->dp_mode.capabilities = mode->capabilities;
- 	dp_panel_init_panel_info(dp->panel);
--- 
-2.35.1
-
+>
+> > +     vdda-supply = <&vreg_l6b_1p2>;
+> > +     status = "okay";
+> > +};
+> > +
+> > +&dsi0_phy  {
+> > +     vdds-supply = <&vreg_l5b_0p88>;
+> > +     status = "okay";
+> > +};
+> > +
+> >   &gpi_dma1 {
+> >       status = "okay";
+> >   };
+> >
+> > +&mdss {
+> > +     status = "okay";
+> > +};
+> > +
+> > +&mdss_mdp {
+> > +     status = "okay";
+> > +};
+> > +
+> >   &mpss {
+> >       status = "okay";
+> >       firmware-name = "qcom/sm8350/modem.mbn";
+>
+> --
+> With best wishes
+> Dmitry
+>
