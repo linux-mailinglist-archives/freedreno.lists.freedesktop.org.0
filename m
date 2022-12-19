@@ -2,60 +2,59 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id DC709650FFD
-	for <lists+freedreno@lfdr.de>; Mon, 19 Dec 2022 17:12:07 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0AC4665101A
+	for <lists+freedreno@lfdr.de>; Mon, 19 Dec 2022 17:16:44 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9F04910E231;
-	Mon, 19 Dec 2022 16:12:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 983B810E2BB;
+	Mon, 19 Dec 2022 16:16:12 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-oa1-x2a.google.com (mail-oa1-x2a.google.com
- [IPv6:2001:4860:4864:20::2a])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D7C4610E231
- for <freedreno@lists.freedesktop.org>; Mon, 19 Dec 2022 16:12:03 +0000 (UTC)
-Received: by mail-oa1-x2a.google.com with SMTP id
- 586e51a60fabf-144bd860fdbso12141622fac.0
- for <freedreno@lists.freedesktop.org>; Mon, 19 Dec 2022 08:12:03 -0800 (PST)
+Received: from mail-oi1-x235.google.com (mail-oi1-x235.google.com
+ [IPv6:2607:f8b0:4864:20::235])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AB3C710E2D0
+ for <freedreno@lists.freedesktop.org>; Mon, 19 Dec 2022 16:16:07 +0000 (UTC)
+Received: by mail-oi1-x235.google.com with SMTP id k189so8237697oif.7
+ for <freedreno@lists.freedesktop.org>; Mon, 19 Dec 2022 08:16:07 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=opNyEy4Hga2S+HSZGwYoo4n70oAUrhY/I95QJwBLXGw=;
- b=GLXF0a9hN4NDrxSiyquzet3CYHgBek4M8xB9NgCoRur+3SiWUQ7U0TpQ80vS2Ey3yF
- 7Z9I/KAw6ATX613YDJ3PomP8p4XMs41nnalAMwU6+QkQFUhMm8vvsM/K4MpnHj4V1b0x
- +YaWd5cjgjBFDIyenlffSYdjzvSma6xkeJIJvjxWrd9sI8mBIlSsddTfnkbhYVUCIDzB
- Lw7vc0hRHHp2zRSkxqQG/nmlTh1KEbHJdzruUiUK2ggEdHmzJdhNBQQ55yhkimSIbzcJ
- ORq78PFUdH2Oq9tfhYAjIghbEMkSxUcC+jVPPGxbu/HWGDnWbImG5UrI6v8+r37GhsdB
- tXKg==
+ bh=t1fQ3HMUMjTYp4HukGDzZcKzvdvCdzA+hW6xmFvbLbk=;
+ b=mawyphQIqE/IdbX4iuJqDAYHDp5dpI18h3M1s3GRCCdPuxswNYEyIw5fHZQFOnfCY6
+ FpWMaNjIDZm3APc6kJC+1BW7xR4j+GQjkB8yxswZCpxJYY9aMDZ8fTW/T1TCpcB9691x
+ 9iH+FqFzci8DHbP8Y0LJFA5xRdCCEs3Jnt8zRjEpzhHV66DyJdoFEjhIbrPVQoK+bdLk
+ xP3lRf0tc3U1nCc2OHxbNEuzy87zfwvbcHUjE0bXNpmVPmb4b2ELg37PtmFIpmVqFt3B
+ mpCA9xzo6u+DN+X60gwbKU77Uu8NYE/Lj9yBO1y7pJU/p/8pcIzmGy8G0XmYhUbbvAII
+ plFQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=opNyEy4Hga2S+HSZGwYoo4n70oAUrhY/I95QJwBLXGw=;
- b=hC4Mz8dFrYwCBPZZe4EgfPQvtk/yJtQ0Zwx0sImS+KNKSZHV5bzTQYIuc036ZTKBCB
- //GGf4EB2axoQdoz6ocihgpzm3/fMakUG49LNjFWoDSDcpoJiQI/zAtALaI0WQggbiQK
- k6Wlx71vKq//QKKfVySpSq8cu+rLiqOpzLzCW9hMLfhKZ4B4LgJpnamXogVxSgo3ad54
- UgQGXRS9oY7/1Lcqh1FFICHcQvNYxT4YArosPo3AfYcG1yDYl8kcnxE84mlTXBLV4dxo
- DUtSOups9mp0ZmyWdH4tVP20RzXSuYg9Dy024Z4EUzeXBOjassY/QWQzNfyf7Ef2u5Ax
- tqpA==
-X-Gm-Message-State: AFqh2kqUUc+m0faazUCKBhbyHPN9ST1npf3eDLTZiraFzDRE7jFuBaUi
- 2YSo43aTP5cQhmZNevY5QZqpSOEA5dPDCcS5Ps4m2w==
-X-Google-Smtp-Source: AA0mqf55kS80V69FV3FbQLl+xTi2OHqecJQT7VNkb/GHotEghsH04avx+8ln6J+VXS2w3SXe+3JAgEmw1jbdGZgvIyg=
-X-Received: by 2002:a05:6870:9e4c:b0:13c:33d0:22e2 with SMTP id
- pt12-20020a0568709e4c00b0013c33d022e2mr1717322oab.14.1671466323100; Mon, 19
- Dec 2022 08:12:03 -0800 (PST)
+ bh=t1fQ3HMUMjTYp4HukGDzZcKzvdvCdzA+hW6xmFvbLbk=;
+ b=o+SVPz6tf5OdYen4GljaosREDIqPVGQy+5rZ70fY/lDjLON/SYftfIZ8UJYEoz5dKB
+ dD1+KzOrM+Rv12Q6fEqNyscgTkZ7hIDTLA93/7vXwEPHy2325ezZzCeAUiylPgaIKNhU
+ +A0FvTuvS8LgV+H/I5xfGFwDXYHn38AgdxRWjWgdYkXaWckRumsp0TLPHYfPjQUCEIqM
+ L85r8T6htSZvKJDKpDjfSgMK1GmKvTzuSAbIlwQ4/tJIa94KMBD+JASGbKTSFSEI40EY
+ xL801XybD+sEfUFK11lTV5Vq5jrXUffiGXUevitCSiLuYxXrFzrVEMtirOOU0+HgmQAQ
+ Llog==
+X-Gm-Message-State: ANoB5pl1aKqkWOPQJ99m5S9c16JyFhDZyrK84ZdXGceioLg0ryJLFpTx
+ QS3+ZukPpheThzZa8fdFUk/eQAKWq40ZUIhXQ6JXYQ==
+X-Google-Smtp-Source: AA0mqf4S6tnPPRCOQWCsOq5kuksb7+u/7cQmv2C9BJe4b2BQ//W8JNd2zSsEQvuXeFLOKtkDMW4ei0zslW/NQI2W9RI=
+X-Received: by 2002:aca:1c07:0:b0:359:ef86:2f4f with SMTP id
+ c7-20020aca1c07000000b00359ef862f4fmr1016768oic.14.1671466566962; Mon, 19 Dec
+ 2022 08:16:06 -0800 (PST)
 MIME-Version: 1.0
 References: <20221205163754.221139-1-robert.foss@linaro.org>
- <20221205163754.221139-11-robert.foss@linaro.org>
- <853d49f9-cd97-e8a0-53fd-9f673c2720a1@linaro.org>
-In-Reply-To: <853d49f9-cd97-e8a0-53fd-9f673c2720a1@linaro.org>
+ <20221205163754.221139-9-robert.foss@linaro.org>
+ <60884c0e-7533-788b-2f93-c128cf7d27fd@kernel.org>
+In-Reply-To: <60884c0e-7533-788b-2f93-c128cf7d27fd@kernel.org>
 From: Robert Foss <robert.foss@linaro.org>
-Date: Mon, 19 Dec 2022 17:11:52 +0100
-Message-ID: <CAG3jFysRXykUgOqRiPVYSRtjQ5Rfj+DQQqPzhzA8j9B9LToj5g@mail.gmail.com>
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Date: Mon, 19 Dec 2022 17:15:56 +0100
+Message-ID: <CAG3jFyuoXekXN48jAgXxLMy8yGAzK9oJH_1HHYAuRLBCzyordQ@mail.gmail.com>
+To: Georgi Djakov <djakov@kernel.org>
 Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [PATCH v3 10/11] arm64: dts: qcom: sm8350-hdk:
- Enable display & dsi nodes
+Subject: Re: [Freedreno] [PATCH v3 08/11] arm64: dts: qcom: sm8350: Use 2
+ interconnect cells
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,68 +76,100 @@ Cc: airlied@linux.ie, konrad.dybcio@somainline.org,
  quic_abhinavk@quicinc.com, swboyd@chromium.org, robh+dt@kernel.org,
  sean@poorly.run, quic_kalyant@quicinc.com, loic.poulain@linaro.org,
  andersson@kernel.org, dianders@chromium.org, linux-kernel@vger.kernel.org,
- vkoul@kernel.org, daniel@ffwll.ch, freedreno@lists.freedesktop.org
+ Konrad Dybcio <konrad.dybcio@linaro.org>, vkoul@kernel.org, daniel@ffwll.ch,
+ dmitry.baryshkov@linaro.org, freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Mon, 5 Dec 2022 at 17:44, Dmitry Baryshkov
-<dmitry.baryshkov@linaro.org> wrote:
+On Mon, 5 Dec 2022 at 20:19, Georgi Djakov <djakov@kernel.org> wrote:
 >
-> On 05/12/2022 18:37, Robert Foss wrote:
-> > Enable the display subsystem and the dsi0 output for
-> > the sm8350-hdk board.
+> Hi Robert,
+>
+> On 5.12.22 18:37, Robert Foss wrote:
+> > Use two interconnect cells in order to optionally
+> > support a path tag.
 > >
 > > Signed-off-by: Robert Foss <robert.foss@linaro.org>
+> > Reviewed-by: Konrad Dybcio <konrad.dybcio@linaro.org>
 > > ---
-> >   arch/arm64/boot/dts/qcom/sm8350-hdk.dts | 22 ++++++++++++++++++++++
-> >   1 file changed, 22 insertions(+)
+> >   arch/arm64/boot/dts/qcom/sm8350.dtsi | 28 ++++++++++++++--------------
+> >   1 file changed, 14 insertions(+), 14 deletions(-)
 > >
-> > diff --git a/arch/arm64/boot/dts/qcom/sm8350-hdk.dts b/arch/arm64/boot/dts/qcom/sm8350-hdk.dts
-> > index e6deb08c6da0..39462c659c58 100644
-> > --- a/arch/arm64/boot/dts/qcom/sm8350-hdk.dts
-> > +++ b/arch/arm64/boot/dts/qcom/sm8350-hdk.dts
-> > @@ -213,10 +213,32 @@ &cdsp {
-> >       firmware-name = "qcom/sm8350/cdsp.mbn";
-> >   };
+> > diff --git a/arch/arm64/boot/dts/qcom/sm8350.dtsi b/arch/arm64/boot/dts/qcom/sm8350.dtsi
+> > index 805d53d91952..434f8e8b12c1 100644
+> > --- a/arch/arm64/boot/dts/qcom/sm8350.dtsi
+> > +++ b/arch/arm64/boot/dts/qcom/sm8350.dtsi
+> > @@ -1543,56 +1543,56 @@ apps_smmu: iommu@15000000 {
+> >               config_noc: interconnect@1500000 {
+> >                       compatible = "qcom,sm8350-config-noc";
+> >                       reg = <0 0x01500000 0 0xa580>;
+> > -                     #interconnect-cells = <1>;
+> > +                     #interconnect-cells = <2>;
+> >                       qcom,bcm-voters = <&apps_bcm_voter>;
+> >               };
 > >
-> > +&dispcc {
-> > +     status = "okay";
-> > +};
-> > +
-> > +&dsi0 {
+> >               mc_virt: interconnect@1580000 {
+> >                       compatible = "qcom,sm8350-mc-virt";
+> >                       reg = <0 0x01580000 0 0x1000>;
+> > -                     #interconnect-cells = <1>;
+> > +                     #interconnect-cells = <2>;
+> >                       qcom,bcm-voters = <&apps_bcm_voter>;
+> >               };
+> [..]
+> > @@ -1620,8 +1620,8 @@ ipa: ipa@1e40000 {
+> >                       clocks = <&rpmhcc RPMH_IPA_CLK>;
+> >                       clock-names = "core";
+> >
+> > -                     interconnects = <&aggre2_noc MASTER_IPA &mc_virt SLAVE_EBI1>,
+> > -                                     <&gem_noc MASTER_APPSS_PROC &config_noc SLAVE_IPA_CFG>;
+> > +                     interconnects = <&aggre2_noc MASTER_IPA 0 &mc_virt SLAVE_EBI1 0>,
+> > +                                     <&gem_noc MASTER_APPSS_PROC 0 &config_noc SLAVE_IPA_CFG 0>;
+> >                       interconnect-names = "memory",
+> >                                            "config";
+> >
+> > @@ -1661,7 +1661,7 @@ mpss: remoteproc@4080000 {
+> >                                       <&rpmhpd SM8350_MSS>;
+> >                       power-domain-names = "cx", "mss";
+> >
+> > -                     interconnects = <&mc_virt MASTER_LLCC &mc_virt SLAVE_EBI1>;
+> > +                     interconnects = <&mc_virt MASTER_LLCC &mc_virt SLAVE_EBI1 0>;
 >
-> Bjorn suggested using mdss_dsi0 / mdss_dsi0_phy labels for DSI host and
-> PHY, as it allows us to group them nicely. WDYT?
+> The second cell for the first endpoint is missing, so this should be:
+>         interconnects = <&mc_virt MASTER_LLCC 0 &mc_virt SLAVE_EBI1 0>;
 
-Sounds quite reasonable, fixing it in dts/dtsi/binding.
+Nice catch, thanks!
 
 >
-> > +     vdda-supply = <&vreg_l6b_1p2>;
-> > +     status = "okay";
-> > +};
-> > +
-> > +&dsi0_phy  {
-> > +     vdds-supply = <&vreg_l5b_0p88>;
-> > +     status = "okay";
-> > +};
-> > +
-> >   &gpi_dma1 {
-> >       status = "okay";
-> >   };
-> >
-> > +&mdss {
-> > +     status = "okay";
-> > +};
-> > +
-> > +&mdss_mdp {
-> > +     status = "okay";
-> > +};
-> > +
-> >   &mpss {
-> >       status = "okay";
-> >       firmware-name = "qcom/sm8350/modem.mbn";
+> Thanks,
+> Georgi
 >
-> --
-> With best wishes
-> Dmitry
+> >
+> >                       memory-region = <&pil_modem_mem>;
+> >
+> > @@ -2239,7 +2239,7 @@ cdsp: remoteproc@98900000 {
+> >                                       <&rpmhpd SM8350_MXC>;
+> >                       power-domain-names = "cx", "mxc";
+> >
+> > -                     interconnects = <&compute_noc MASTER_CDSP_PROC &mc_virt SLAVE_EBI1>;
+> > +                     interconnects = <&compute_noc MASTER_CDSP_PROC 0 &mc_virt SLAVE_EBI1 0>;
+> >
+> >                       memory-region = <&pil_cdsp_mem>;
+> >
+> > @@ -2421,14 +2421,14 @@ usb_2_ssphy: phy@88ebe00 {
+> >               dc_noc: interconnect@90c0000 {
+> >                       compatible = "qcom,sm8350-dc-noc";
+> >                       reg = <0 0x090c0000 0 0x4200>;
+> > -                     #interconnect-cells = <1>;
+> > +                     #interconnect-cells = <2>;
+> >                       qcom,bcm-voters = <&apps_bcm_voter>;
+> >               };
+> >
+> >               gem_noc: interconnect@9100000 {
+> >                       compatible = "qcom,sm8350-gem-noc";
+> >                       reg = <0 0x09100000 0 0xb4000>;
+> > -                     #interconnect-cells = <1>;
+> > +                     #interconnect-cells = <2>;
+> >                       qcom,bcm-voters = <&apps_bcm_voter>;
+> >               };
+> >
 >
