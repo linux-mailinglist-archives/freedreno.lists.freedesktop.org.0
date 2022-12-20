@@ -2,57 +2,66 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4A2CC652685
-	for <lists+freedreno@lfdr.de>; Tue, 20 Dec 2022 19:46:43 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id AD693652918
+	for <lists+freedreno@lfdr.de>; Tue, 20 Dec 2022 23:33:15 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EBDD710E102;
-	Tue, 20 Dec 2022 18:46:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 607A310E044;
+	Tue, 20 Dec 2022 22:32:44 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-oa1-f48.google.com (mail-oa1-f48.google.com
- [209.85.160.48])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 30B0A10E102;
- Tue, 20 Dec 2022 18:46:10 +0000 (UTC)
-Received: by mail-oa1-f48.google.com with SMTP id
- 586e51a60fabf-14449b7814bso16492943fac.3; 
- Tue, 20 Dec 2022 10:46:10 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=BtGYA4nYrfpj33PGdbVkenftz/iHxuFbKXLM7Hq+aW4=;
- b=Zu9QRgjPcJq1rooUJzozGY5UHx03eNl9pUc4iyEQrvgab9gAzFgkx8y8Ye0EF5sf63
- J3kBiAONZstBhl14vMdcwo4F5Wz52pC4hQ8CBJFFqegzY0/gkYcvxeKSQEuird2lTh/H
- MHq69orh725woQloYDiV28UsvophVQVTNKjsvTZ73XX8KUH1sNU2E31SMGsAOdVF54/J
- 5+4oI2OTWpcO++42N8dgKtrV3k+WOATRCghZWXsUldo7CUv9TeGmaFfoK7tdFe+CCRiy
- zuWtfMbNDwY8ak8DoRK1wbnISYzI/swZTem0CAxtulgLi4gkfk26Y8nalc4FJnF2MbMZ
- 2foQ==
-X-Gm-Message-State: ANoB5plSt7o7O4/aRByX89QRjb0MiyJxUC/1MMI73yxRNRet8Iv2/UIg
- 3MJPrCrwUikfdfSa32iw3w==
-X-Google-Smtp-Source: AA0mqf4O68SSZaVnZpk87bzzNvcns3v8OXsGoUJYBI+nOMXBUa8lR9WDvgexUnTy4bpkQsGY4tiZWg==
-X-Received: by 2002:a05:6870:ec87:b0:144:6a45:bafb with SMTP id
- eo7-20020a056870ec8700b001446a45bafbmr25763414oab.42.1671561969241; 
- Tue, 20 Dec 2022 10:46:09 -0800 (PST)
-Received: from robh_at_kernel.org (66-90-144-107.dyn.grandenetworks.net.
- [66.90.144.107]) by smtp.gmail.com with ESMTPSA id
- eh5-20020a056870f58500b001446480a042sm6309134oab.58.2022.12.20.10.46.08
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 20 Dec 2022 10:46:08 -0800 (PST)
-Received: (nullmailer pid 893173 invoked by uid 1000);
- Tue, 20 Dec 2022 18:46:07 -0000
-Date: Tue, 20 Dec 2022 12:46:07 -0600
-From: Rob Herring <robh@kernel.org>
-To: Kuogee Hsieh <quic_khsieh@quicinc.com>
-Message-ID: <167156196670.893113.12368377615757761659.robh@kernel.org>
-References: <1671227102-21717-1-git-send-email-quic_khsieh@quicinc.com>
- <1671227102-21717-3-git-send-email-quic_khsieh@quicinc.com>
+Received: from relay02.th.seeweb.it (relay02.th.seeweb.it [5.144.164.163])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BCCDA10E044;
+ Tue, 20 Dec 2022 22:32:42 +0000 (UTC)
+Received: from SoMainline.org (94-209-172-39.cable.dynamic.v4.ziggo.nl
+ [94.209.172.39])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest
+ SHA256) (No client certificate requested)
+ by m-r1.th.seeweb.it (Postfix) with ESMTPSA id 477B2201D6;
+ Tue, 20 Dec 2022 23:32:06 +0100 (CET)
+Date: Tue, 20 Dec 2022 23:32:04 +0100
+From: Marijn Suijten <marijn.suijten@somainline.org>
+To: Abhinav Kumar <quic_abhinavk@quicinc.com>
+Message-ID: <20221220223204.i3tfa2biq7bgkg5o@SoMainline.org>
+Mail-Followup-To: Marijn Suijten <marijn.suijten@somainline.org>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ phone-devel@vger.kernel.org, Rob Clark <robdclark@gmail.com>,
+ Vinod Koul <vkoul@kernel.org>,
+ ~postmarketos/upstreaming@lists.sr.ht,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@somainline.org>,
+ Konrad Dybcio <konrad.dybcio@somainline.org>,
+ Martin Botka <martin.botka@somainline.org>,
+ Jami Kettunen <jami.kettunen@somainline.org>,
+ Sean Paul <sean@poorly.run>, David Airlie <airlied@gmail.com>,
+ Daniel Vetter <daniel@ffwll.ch>, Stephen Boyd <swboyd@chromium.org>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Jessica Zhang <quic_jesszhan@quicinc.com>,
+ Ville =?utf-8?B?U3lyasOkbMOk?= <ville.syrjala@linux.intel.com>,
+ Kuogee Hsieh <quic_khsieh@quicinc.com>,
+ Jani Nikula <jani.nikula@intel.com>,
+ sunliming <sunliming@kylinos.cn>, Sam Ravnborg <sam@ravnborg.org>,
+ Haowen Bai <baihaowen@meizu.com>,
+ Konrad Dybcio <konrad.dybcio@linaro.org>,
+ Loic Poulain <loic.poulain@linaro.org>,
+ Vinod Polimera <quic_vpolimer@quicinc.com>,
+ Douglas Anderson <dianders@chromium.org>,
+ Vladimir Lypak <vladimir.lypak@gmail.com>,
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
+References: <20221213232207.113607-1-marijn.suijten@somainline.org>
+ <20221213232207.113607-4-marijn.suijten@somainline.org>
+ <184d22f1-7ed1-4a67-1c25-9fafeb94db83@linaro.org>
+ <20221214193026.dv2fuubysctcvlkg@SoMainline.org>
+ <658da2cf-1e1a-af27-b085-edf0887b8dae@linaro.org>
+ <8f33c1d0-a2ca-dc49-1884-01541ad83d49@quicinc.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=iso-8859-1
 Content-Disposition: inline
-In-Reply-To: <1671227102-21717-3-git-send-email-quic_khsieh@quicinc.com>
-Subject: Re: [Freedreno] [PATCH v15 2/5] dt-bindings: msm/dp: add data-lanes
- and link-frequencies property
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <8f33c1d0-a2ca-dc49-1884-01541ad83d49@quicinc.com>
+Subject: Re: [Freedreno] [RFC PATCH 3/6] drm/msm/dpu1: Wire up DSC mask for
+ active CTL configuration
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,59 +74,65 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: devicetree@vger.kernel.org, quic_sbillaka@quicinc.com, daniel@ffwll.ch,
- vkoul@kernel.org, linux-arm-msm@vger.kernel.org, andersson@kernel.org,
- konrad.dybcio@somainline.org, dianders@chromium.org,
- dri-devel@lists.freedesktop.org, quic_abhinavk@quicinc.com,
- freedreno@lists.freedesktop.org, robdclark@gmail.com, robh+dt@kernel.org,
- agross@kernel.org, krzysztof.kozlowski+dt@linaro.org,
- dmitry.baryshkov@linaro.org, airlied@gmail.com, swboyd@chromium.org,
- sean@poorly.run, linux-kernel@vger.kernel.org
+Cc: Konrad Dybcio <konrad.dybcio@somainline.org>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@somainline.org>,
+ phone-devel@vger.kernel.org, Sam Ravnborg <sam@ravnborg.org>,
+ Ville =?utf-8?B?U3lyasOkbMOk?= <ville.syrjala@linux.intel.com>,
+ Haowen Bai <baihaowen@meizu.com>, David Airlie <airlied@gmail.com>,
+ Rob Clark <robdclark@gmail.com>, Kuogee Hsieh <quic_khsieh@quicinc.com>,
+ Jessica Zhang <quic_jesszhan@quicinc.com>, Jani Nikula <jani.nikula@intel.com>,
+ linux-arm-msm@vger.kernel.org, Stephen Boyd <swboyd@chromium.org>,
+ Martin Botka <martin.botka@somainline.org>,
+ ~postmarketos/upstreaming@lists.sr.ht, Sean Paul <sean@poorly.run>,
+ Loic Poulain <loic.poulain@linaro.org>,
+ Jami Kettunen <jami.kettunen@somainline.org>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Vladimir Lypak <vladimir.lypak@gmail.com>,
+ Douglas Anderson <dianders@chromium.org>,
+ Konrad Dybcio <konrad.dybcio@linaro.org>, Vinod Koul <vkoul@kernel.org>,
+ sunliming <sunliming@kylinos.cn>, Daniel Vetter <daniel@ffwll.ch>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ freedreno@lists.freedesktop.org, Vinod Polimera <quic_vpolimer@quicinc.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
+On 2022-12-16 14:20:52, Abhinav Kumar wrote:
+> 
+> 
+> On 12/14/2022 5:08 PM, Dmitry Baryshkov wrote:
+> > On 14/12/2022 21:30, Marijn Suijten wrote:
+> >> On 2022-12-14 20:43:29, Dmitry Baryshkov wrote:
+> >>> On 14/12/2022 01:22, Marijn Suijten wrote:
+> >>>> [..]
+> >>> We usually don't have DSC with the writeback, don't we?
+> >>
+> >> I am unsure so ended up adding them in writeback regardless.  Downstream
+> >> uses a separate callback to process intf_cfg.dsc instead of going
+> >> through setup_intf_cfg().
+> >>
+> >> To prevent these from being missed again (in the case of copy&paste),
+> >> how about instead having some function that sets up intf_cfg with these
+> >> default values from a phys_enc?  That way most of this remains oblivious
+> >> to the caller.
+> > 
+> > I'm not sure this is possible. E.g. intf_cfg.dsc should not be set for 
+> > the WB.
+> > 
+> 
+> Although this change is harmless because 
+> dpu_encoder_helper_get_dsc(phys_enc) will not return a valid DSC mask 
+> for the WB encoder, hence the setup_intf_cfg will just skip the DSC 
+> programming, I also agree that we can skip setting the intf_cfg.dsc for 
+> the writeback encoder in this patch.
 
-On Fri, 16 Dec 2022 13:44:59 -0800, Kuogee Hsieh wrote:
-> To increase the flexibility of supporting different DP main link configuration
-> at different platform, add both data-lanes and link-frequencies property
-> into endpoint so that different platform can specify its own main link
-> combination of both data lanes and max supported link rate.
-> 
-> Changes in v7:
-> -- split yaml out of dtsi patch
-> -- link-frequencies from link rate to symbol rate
-> -- deprecation of old data-lanes property
-> 
-> Changes in v8:
-> -- correct Bjorn mail address to kernel.org
-> 
-> Changes in v10:
-> -- add menu item to data-lanes and link-frequecnis
-> 
-> Changes in v11:
-> -- add endpoint property at port@1
-> 
-> Changes in v12:
-> -- use enum for item at data-lanes and link-frequencies
-> 
-> Changes in v13:
-> -- revised changes at port@0
-> -- use correct ref schemas for both port@0 and port@1
-> -- mark both port@0 and port@1 are required
-> -- add line between data-lanes and link-frequencies properties
-> 
-> Changes in v14:
-> -- add "unevaluatedProperties: false: to endpoint at port@1
-> -- remove unnecessary quote to $ref
-> -- re store "$ref: /schemas/graph.yaml#/properties/port" to port@0
-> 
-> Changes in v15:
-> -- re store desciption of port@0
-> 
-> Signed-off-by: Kuogee Hsieh <quic_khsieh@quicinc.com>
-> ---
->  .../bindings/display/msm/dp-controller.yaml        | 25 +++++++++++++++++++++-
->  1 file changed, 24 insertions(+), 1 deletion(-)
-> 
+Since both of you agree that it is useless I'll drop this in V2.  Have
+to confess that I know nothing about the writeback interface and haven't
+even read the code; does it run in parallel to a "physical" (e.g.
+DP/DSI) interface to capture screenshots (or even video) of what is
+currently being shown on the screen?  By that logic the WB may have
+needed to know what is going on in the HW, but it wouldn't have made any
+sense regardless if the presented planes first pass through DSC before
+being captured.  Something for me to read up on :)
 
-Reviewed-by: Rob Herring <robh@kernel.org>
+- Marijn
