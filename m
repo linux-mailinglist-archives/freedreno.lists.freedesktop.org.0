@@ -2,76 +2,61 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 730DC651BE3
-	for <lists+freedreno@lfdr.de>; Tue, 20 Dec 2022 08:45:35 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 502FF65208D
+	for <lists+freedreno@lfdr.de>; Tue, 20 Dec 2022 13:37:18 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DB05010E345;
-	Tue, 20 Dec 2022 07:45:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 115F510E3A0;
+	Tue, 20 Dec 2022 12:36:46 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5378610E33F;
- Tue, 20 Dec 2022 07:45:14 +0000 (UTC)
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 2BK5o1aw018062; Tue, 20 Dec 2022 07:45:07 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
- h=from : to : cc :
- subject : date : message-id : in-reply-to : references : mime-version :
- content-type; s=qcppdkim1;
- bh=pMcUY3LZvoRiFLzqqVqggek7oRF2En4eDVRgrrIAbns=;
- b=IVG7iBww4kEh3HeoOxwdONDbmp6O3PM4nBafnkOMNZdZyljyZTKwxBF+Y0P8ZfAGLTQl
- VDe+FAc/TqatIkPjfEN89m+hzfSfWerxjUMhZc1fmkHMvRhCv1RbGBaC1eS0FdDo0Lq3
- TuV3QgLkBKruALCaOUouIB1inFC1jXJE5Hofmi3x29fK2p+QsVGbmd0DvqvIMVKACwbY
- UeF7ava5wAVoFVXb5HPtduUBwPOsTHBop8oG5d5YOj3jSFynXmIwU0ZLzq4m9ypXoJ2Y
- A61jf7+2i99NMUTBm3XL2jKkUNussZ0r8nNh21hya57Axv+iucruvnySU4bphS3yFPBO 0Q== 
-Received: from nalasppmta05.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3mk39t8n81-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 20 Dec 2022 07:45:06 +0000
-Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
- [10.47.209.196])
- by NALASPPMTA05.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 2BK7j6iA031321
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 20 Dec 2022 07:45:06 GMT
-Received: from hyd-lnxbld559.qualcomm.com (10.80.80.8) by
- nalasex01a.na.qualcomm.com (10.47.209.196) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.986.36; Mon, 19 Dec 2022 23:45:00 -0800
-From: Akhil P Oommen <quic_akhilpo@quicinc.com>
-To: freedreno <freedreno@lists.freedesktop.org>,
- <dri-devel@lists.freedesktop.org>, <linux-arm-msm@vger.kernel.org>,
- Rob Clark <robdclark@gmail.com>, Ulf Hansson <ulf.hansson@linaro.org>,
- Bjorn Andersson <andersson@kernel.org>, Stephen Boyd <sboyd@kernel.org>,
- Philipp Zabel <p.zabel@pengutronix.de>
-Date: Tue, 20 Dec 2022 13:14:17 +0530
-Message-ID: <20221220131255.v3.5.I9e10545c6a448d5eb1b734839b871d1b3146dac3@changeid>
-X-Mailer: git-send-email 2.7.4
-In-Reply-To: <1671522257-38778-1-git-send-email-quic_akhilpo@quicinc.com>
-References: <1671522257-38778-1-git-send-email-quic_akhilpo@quicinc.com>
+Received: from mail-wr1-x42b.google.com (mail-wr1-x42b.google.com
+ [IPv6:2a00:1450:4864:20::42b])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 161EA10E37D
+ for <freedreno@lists.freedesktop.org>; Tue, 20 Dec 2022 12:36:39 +0000 (UTC)
+Received: by mail-wr1-x42b.google.com with SMTP id w15so11576346wrl.9
+ for <freedreno@lists.freedesktop.org>; Tue, 20 Dec 2022 04:36:38 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=YZugwc/t/ZJz6w/djvKK9nUP1aiYFAKi2NzgJ26Xsqc=;
+ b=O/D7iMUnkCQJjmK1NOzj8UzCydsf1KMAt58QAorUK0RoBo9wwo+OIQzJr3vE4uEOgF
+ 0dv9KjJY8MJby4yfNjmrisKRiEv2uIF7EBvADYyUjA+q+XDOieRnz1+TPwRKd/2dPofP
+ H6V6SlWi1ig3FmXUICAP2UqsJVdI2aBspfOy/K2sNbgbw0oTVbYVfVA8y6tJ6GbKrdP3
+ s6QN5iHR8LEidv0LlZT0n1q/JnekeR2cX5e2GHTGS45sKHjwwdFmVCv94E4hU6JquO2Y
+ F9R86zcfgedOe7Rf8WiMCdWw7izU2Ms4rFQoiWpz7Vu9W67gvP2EBlg6lUjHcPYi6W3M
+ hNLw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=YZugwc/t/ZJz6w/djvKK9nUP1aiYFAKi2NzgJ26Xsqc=;
+ b=28mHsnA0IjSkAwjL6vdBnBIi8ZDf12G4E0JDjuSaCVQZeq3v50Eoai8LxB89tnzU5V
+ yaUjv4XuGc3xic2FIn5CvA/sVYuos7LlQJBJJ9RSJuDYBEDq6s43jI+Hoeo3uozNWBGa
+ qlFxIfbAhhrXbJwEQzOg9WhW+mncAuWdqoFztz6xP/KA5Nu6Te+lLEjTaBEBZCrN5elV
+ SOe+sj5WVyDQ+EQzYV4nYwXNqUEiQkI67trtS6Dqv8qzTExltqeQhZqCGiPMRqntewc/
+ DdtUa53w0jVDfw8qe/cIFtyVSCYk571bMP7Ch054MssQ0iJHbDmr1BWxCH9YWpiz1kJW
+ /arw==
+X-Gm-Message-State: ANoB5pnLkMf29Q82IxxVn1/3QNGrSxHR8HNgup6yNS9C942D7Kfg5pYX
+ TlgHVpaeyTfRmtJAuOlUBpErsg==
+X-Google-Smtp-Source: AA0mqf7iEUd3ZUsc2l/5OvGsGvshsOZUpsxm9RxTXn1RYcv03TDyxEBakFAj0tedvJCg6jhwf5zcgA==
+X-Received: by 2002:a5d:6a12:0:b0:242:63de:2f57 with SMTP id
+ m18-20020a5d6a12000000b0024263de2f57mr38944318wru.26.1671539797040; 
+ Tue, 20 Dec 2022 04:36:37 -0800 (PST)
+Received: from sagittarius-a.chello.ie (188-141-3-169.dynamic.upc.ie.
+ [188.141.3.169]) by smtp.gmail.com with ESMTPSA id
+ da13-20020a056000408d00b00242257f2672sm12641208wrb.77.2022.12.20.04.36.35
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 20 Dec 2022 04:36:36 -0800 (PST)
+From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+To: linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
+ devicetree@vger.kernel.org
+Date: Tue, 20 Dec 2022 12:36:13 +0000
+Message-Id: <20221220123634.382970-1-bryan.odonoghue@linaro.org>
+X-Mailer: git-send-email 2.38.1
 MIME-Version: 1.0
-Content-Type: text/plain
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-ORIG-GUID: _rivRPUKHNOu7VWyE5S17WqfbouO3nfw
-X-Proofpoint-GUID: _rivRPUKHNOu7VWyE5S17WqfbouO3nfw
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.205,Aquarius:18.0.923,Hydra:6.0.545,FMLib:17.11.122.1
- definitions=2022-12-20_01,2022-12-15_02,2022-06-22_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0
- mlxlogscore=999 spamscore=0 clxscore=1015 adultscore=0 priorityscore=1501
- impostorscore=0 phishscore=0 lowpriorityscore=0 malwarescore=0 mlxscore=0
- bulkscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2212070000 definitions=main-2212200064
-Subject: [Freedreno] [PATCH v3 5/5] drm/msm/a6xx: Use genpd notifier to
- ensure cx-gdsc collapse
+Content-Transfer-Encoding: 8bit
+Subject: [Freedreno] [PATCH v5 00/21] mdss-dsi-ctrl binding and dts fixes
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -84,152 +69,144 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-kernel@vger.kernel.org, Akhil P Oommen <quic_akhilpo@quicinc.com>,
- Sean Paul <sean@poorly.run>, Konrad Dybcio <konrad.dybcio@somainline.org>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Douglas Anderson <dianders@chromium.org>,
- Geert Uytterhoeven <geert@linux-m68k.org>, Daniel Vetter <daniel@ffwll.ch>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- David Airlie <airlied@gmail.com>, Chia-I Wu <olvaffe@gmail.com>,
- Guenter Roeck <linux@roeck-us.net>
+Cc: dri-devel@lists.freedesktop.org, krzysztof.kozlowski+dt@linaro.org,
+ sean@poorly.run, andersson@kernel.org, konrad.dybcio@somainline.org,
+ quic_abhinavk@quicinc.com, david@ixit.cz, dianders@chromium.org,
+ robdclark@gmail.com, robh+dt@kernel.org, agross@kernel.org, daniel@ffwll.ch,
+ dmitry.baryshkov@linaro.org, bryan.odonoghue@linaro.org, swboyd@chromium.org,
+ airlied@gmail.com, linux-kernel@vger.kernel.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-As per the recommended recovery sequence of adreno gpu, cx gdsc should
-collapse at hardware before it is turned back ON. This helps to clear
-out the stale states in hardware before it is reinitialized. Use the
-genpd notifier along with the newly introduced
-dev_pm_genpd_synced_poweroff() api to ensure that cx gdsc has collapsed
-before we turn it back ON.
+V5:
+- Adds compat strings to bindings/display/msm/qcom,SoC-mdss.yaml - Dmitry
+- Re-orders simple fixes to the start of the series to allow backports - Dmitry 
+- VDDA and drop of node-names - Krzysztof
+- Deprecates qcom,dsi-ctrl-6g-qcm2290 - Krzysztof, Dmitry
+- Expands set of updated files to include new msm8953 - bod
+- Converts to agreed compat string qcom,SoC-dsi-ctrl hence
+  -              - qcom,mdss-dsi-ctrl-msm8996
+  +              - qcom,msm8996-dsi-ctrl
+- Adds RB where indicated for the compat strings.
+V4:
+- Moves the update of the example from patch #5 to patch #4
 
-Signed-off-by: Akhil P Oommen <quic_akhilpo@quicinc.com>
----
+V3:
+- Moves declaration of mdss-dsi-ctrl into compat string declaration
+  patch - Krzysztof, Dmitry
+- Renames qcm-2290 compat string to agreed compat "qcom,socname-dsi-ctrl"
+  Dmirty, Krzysztof
+- Adds empty line after if clause in yaml control flow section - Dmirty
+- Adds Rb/Ack - Krzysztof, Dmitry, Doug, David
+- vdd*
+  Looking into this some more, I don't believe vdd, vdda, vddio ought to be
+  required properties. Its up to the PCB manufacturer and the panel in-use
+  how that panel is powered. Powering the panel is not something that
+  even necessarily needs to be done from the dsi-ctrl driver.
+  Originally marking vdd* as required in the .txt was an error, its not a
+  SoC level dtsi requirement.
+- clock-names
+  Rather than replicate the clock-name in each if block I listed them with
+  a specific description from a similar reference in usb/qcom,dwc3.yaml.
+ 
+https://lore.kernel.org/linux-arm-msm/eb80681f-2e0b-605f-0444-ec65562f74b8@linaro.org/
 
-(no changes since v2)
+V2:
+https://www.spinics.net/lists/linux-arm-msm/msg116326.html
 
-Changes in v2:
-- Select PM_GENERIC_DOMAINS from Kconfig
+- Moves the DSI PHY changes to a different later series.
+  There are enough dsi-controller-main changes to justify its own
+  standalone series.
 
- drivers/gpu/drm/msm/Kconfig           |  1 +
- drivers/gpu/drm/msm/adreno/a6xx_gmu.c | 15 +++++++++++++++
- drivers/gpu/drm/msm/adreno/a6xx_gmu.h |  6 ++++++
- drivers/gpu/drm/msm/adreno/a6xx_gpu.c | 11 +++++++++++
- 4 files changed, 33 insertions(+)
+- The original phy-name binding change given discussion with Rob and
+  Krzysztof became its own standalone series that has since been merged.
+  https://www.mail-archive.com/dri-devel@lists.freedesktop.org/msg403214.html
 
-diff --git a/drivers/gpu/drm/msm/Kconfig b/drivers/gpu/drm/msm/Kconfig
-index 3c9dfdb0b328..74f5916f5ca5 100644
---- a/drivers/gpu/drm/msm/Kconfig
-+++ b/drivers/gpu/drm/msm/Kconfig
-@@ -28,6 +28,7 @@ config DRM_MSM
- 	select SYNC_FILE
- 	select PM_OPP
- 	select NVMEM
-+	select PM_GENERIC_DOMAINS
- 	help
- 	  DRM/KMS driver for MSM/snapdragon.
+- Retains the drop of power-domain from yaml as a required property.
+  I dug into the available dtsi. The apq8064 doesn't appear to have any
+  GDSC which can be attached as a power-domain, which means the
+  power-domain requirement is not universal across the various silicon
+  versions.
+
+- Adds Dmitry's RB to power-domain drop
+
+- For the clock declarations I've
+  * I noticed that the simple change I had worked for msm8939 but
+    subsquently broke other dtsi which drove a bigger change to document
+    the clocks on a per compatible basis.
+  * Added compat strings in yaml.
+  * Moved the allOf down later in the file to acomodate the if/then.
+  * Number of clocks validated on a per compatible basis
+  * The driver code which doesn't care about the number of clocks
+    can still operate on the mdss-dsi-ctrl compat but the dts checks will
+    validate against the compat string and yaml.
+
+- vdd descriptions
+  Took the previous text I missed from the .txt file - Krzysztof, Dmitry
+  Adds vdd, vdda and vddio to the required list. This exposes warnings in
+  existing dtsi but the previous .txt declared these regulators as
+  required. - Krzysztof
  
-diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
-index 1580d0090f35..c03830957c26 100644
---- a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
-+++ b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
-@@ -1507,6 +1507,17 @@ void a6xx_gmu_remove(struct a6xx_gpu *a6xx_gpu)
- 	gmu->initialized = false;
- }
- 
-+static int cxpd_notifier_cb(struct notifier_block *nb,
-+			unsigned long action, void *data)
-+{
-+	struct a6xx_gmu *gmu = container_of(nb, struct a6xx_gmu, pd_nb);
-+
-+	if (action == GENPD_NOTIFY_OFF)
-+		complete_all(&gmu->pd_gate);
-+
-+	return 0;
-+}
-+
- int a6xx_gmu_init(struct a6xx_gpu *a6xx_gpu, struct device_node *node)
- {
- 	struct adreno_gpu *adreno_gpu = &a6xx_gpu->base;
-@@ -1640,6 +1651,10 @@ int a6xx_gmu_init(struct a6xx_gpu *a6xx_gpu, struct device_node *node)
- 		goto detach_cxpd;
- 	}
- 
-+	init_completion(&gmu->pd_gate);
-+	complete_all(&gmu->pd_gate);
-+	gmu->pd_nb.notifier_call = cxpd_notifier_cb;
-+
- 	/*
- 	 * Get a link to the GX power domain to reset the GPU in case of GMU
- 	 * crash
-diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gmu.h b/drivers/gpu/drm/msm/adreno/a6xx_gmu.h
-index 5a42dd4dd31f..0bc3eb443fec 100644
---- a/drivers/gpu/drm/msm/adreno/a6xx_gmu.h
-+++ b/drivers/gpu/drm/msm/adreno/a6xx_gmu.h
-@@ -4,8 +4,10 @@
- #ifndef _A6XX_GMU_H_
- #define _A6XX_GMU_H_
- 
-+#include <linux/completion.h>
- #include <linux/iopoll.h>
- #include <linux/interrupt.h>
-+#include <linux/notifier.h>
- #include "msm_drv.h"
- #include "a6xx_hfi.h"
- 
-@@ -90,6 +92,10 @@ struct a6xx_gmu {
- 	bool initialized;
- 	bool hung;
- 	bool legacy; /* a618 or a630 */
-+
-+	/* For power domain callback */
-+	struct notifier_block pd_nb;
-+	struct completion pd_gate;
- };
- 
- static inline u32 gmu_read(struct a6xx_gmu *gmu, u32 offset)
-diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-index 4b16e75dfa50..dd618b099110 100644
---- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-+++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-@@ -10,6 +10,7 @@
- 
- #include <linux/bitfield.h>
- #include <linux/devfreq.h>
-+#include <linux/pm_domain.h>
- #include <linux/soc/qcom/llcc-qcom.h>
- 
- #define GPU_PAS_ID 13
-@@ -1258,6 +1259,7 @@ static void a6xx_recover(struct msm_gpu *gpu)
- {
- 	struct adreno_gpu *adreno_gpu = to_adreno_gpu(gpu);
- 	struct a6xx_gpu *a6xx_gpu = to_a6xx_gpu(adreno_gpu);
-+	struct a6xx_gmu *gmu = &a6xx_gpu->gmu;
- 	int i, active_submits;
- 
- 	adreno_dump_info(gpu);
-@@ -1290,6 +1292,10 @@ static void a6xx_recover(struct msm_gpu *gpu)
- 	 */
- 	gpu->active_submits = 0;
- 
-+	reinit_completion(&gmu->pd_gate);
-+	dev_pm_genpd_add_notifier(gmu->cxpd, &gmu->pd_nb);
-+	dev_pm_genpd_synced_poweroff(gmu->cxpd);
-+
- 	/* Drop the rpm refcount from active submits */
- 	if (active_submits)
- 		pm_runtime_put(&gpu->pdev->dev);
-@@ -1297,6 +1303,11 @@ static void a6xx_recover(struct msm_gpu *gpu)
- 	/* And the final one from recover worker */
- 	pm_runtime_put_sync(&gpu->pdev->dev);
- 
-+	if (!wait_for_completion_timeout(&gmu->pd_gate, msecs_to_jiffies(1000)))
-+		DRM_DEV_ERROR(&gpu->pdev->dev, "cx gdsc didn't collapse\n");
-+
-+	dev_pm_genpd_remove_notifier(gmu->cxpd);
-+
- 	pm_runtime_use_autosuspend(&gpu->pdev->dev);
- 
- 	if (active_submits)
+V1:
+This series fixes up a number of dtbs checks which are being flagged adding
+in the msm8939 dtsi.
+
+
+When converting from .txt to .yaml a number of the parameters for the older
+msm8916 silicon were not transmitted into the yaml.
+
+Adding in the msm8939 which is a near 1:1 copy of the msm8916 in terms of
+dtsi triggers a rake of dtbs checks as a result.
+
+https://www.mail-archive.com/dri-devel@lists.freedesktop.org/msg403211.html
+
+Bryan O'Donoghue (21):
+  dt-bindings: msm: dsi-controller-main: Fix operating-points-v2
+    constraint
+  dt-bindings: msm: dsi-controller-main: Fix power-domain constraint
+  dt-bindings: msm: dsi-controller-main: Fix description of core clock
+  dt-bindings: msm: dsi-controller-main: Add compatible strings for
+    every current SoC
+  dt-bindings: msm: dsi-controller-main: Deprecate
+    qcom,dsi-ctrl-6g-qcm2290 in favour of qcom,qcm2290-dsi-ctrl
+  dt-bindings: msm: dsi-controller-main: Document clocks on a per
+    compatible basis
+  dt-bindings: msm: dsi-controller-main: Fix clock declarations
+  dt-bindings: msm: dsi-controller-main: Add vdd* descriptions back in
+  dt-bindings: display/msm: Add list of mdss-dsi-ctrl compats
+  dt-bindings: display/msm: Update MDSS dsi compat strings
+  ARM: dts: qcom: apq8064: add compat qcom,apq8064-dsi-ctrl
+  ARM: dts: qcom: msm8974: Add compat qcom,msm8974-dsi-ctrl
+  arm64: dts: qcom: msm8916: Add compat qcom,msm8916-dsi-ctrl
+  arm64: dts: qcom: msm8953: Add compat qcom,msm8953-dsi-ctrl
+  arm64: dts: qcom: msm8996: Add compat qcom,msm8996-dsi-ctrl
+  arm64: dts: qcom: sc7180: Add compat qcom,sc7180-dsi-ctrl
+  arm64: dts: qcom: sc7280: Add compat qcom,sc7280-dsi-ctrl
+  arm64: dts: qcom: sdm630: Add compat qcom,sdm660-dsi-ctrl
+  arm64: dts: qcom: sdm660: Add compat qcom,sdm660-dsi-ctrl
+  arm64: dts: qcom: sdm845: Add compat qcom,sdm845-dsi-ctrl
+  arm64: dts: qcom: sm8250: Add compat qcom,sm8250-dsi-ctrl
+
+ .../display/msm/dsi-controller-main.yaml      | 250 ++++++++++++++++--
+ .../bindings/display/msm/qcom,mdss.yaml       |  16 +-
+ .../display/msm/qcom,msm8998-mdss.yaml        |   8 +-
+ .../display/msm/qcom,sc7180-mdss.yaml         |   6 +-
+ .../display/msm/qcom,sc7280-mdss.yaml         |   6 +-
+ .../display/msm/qcom,sdm845-mdss.yaml         |   8 +-
+ .../display/msm/qcom,sm8250-mdss.yaml         |   8 +-
+ arch/arm/boot/dts/qcom-apq8064.dtsi           |   3 +-
+ arch/arm/boot/dts/qcom-msm8974.dtsi           |   3 +-
+ arch/arm64/boot/dts/qcom/msm8916.dtsi         |   3 +-
+ arch/arm64/boot/dts/qcom/msm8953.dtsi         |   4 +-
+ arch/arm64/boot/dts/qcom/msm8996.dtsi         |   6 +-
+ arch/arm64/boot/dts/qcom/sc7180.dtsi          |   3 +-
+ arch/arm64/boot/dts/qcom/sc7280.dtsi          |   3 +-
+ arch/arm64/boot/dts/qcom/sdm630.dtsi          |   3 +-
+ arch/arm64/boot/dts/qcom/sdm660.dtsi          |   3 +-
+ arch/arm64/boot/dts/qcom/sdm845.dtsi          |   6 +-
+ arch/arm64/boot/dts/qcom/sm8250.dtsi          |   6 +-
+ 18 files changed, 293 insertions(+), 52 deletions(-)
+
 -- 
-2.7.4
+2.38.1
 
