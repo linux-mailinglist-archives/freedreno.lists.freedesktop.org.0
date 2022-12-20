@@ -2,56 +2,57 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5B12D6524EE
-	for <lists+freedreno@lfdr.de>; Tue, 20 Dec 2022 17:49:52 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4A2CC652685
+	for <lists+freedreno@lfdr.de>; Tue, 20 Dec 2022 19:46:43 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 92C3D10E39C;
-	Tue, 20 Dec 2022 16:49:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EBDD710E102;
+	Tue, 20 Dec 2022 18:46:11 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-oi1-f178.google.com (mail-oi1-f178.google.com
- [209.85.167.178])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0514B10E0EC;
- Tue, 20 Dec 2022 16:49:47 +0000 (UTC)
-Received: by mail-oi1-f178.google.com with SMTP id t62so11033937oib.12;
- Tue, 20 Dec 2022 08:49:46 -0800 (PST)
+Received: from mail-oa1-f48.google.com (mail-oa1-f48.google.com
+ [209.85.160.48])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 30B0A10E102;
+ Tue, 20 Dec 2022 18:46:10 +0000 (UTC)
+Received: by mail-oa1-f48.google.com with SMTP id
+ 586e51a60fabf-14449b7814bso16492943fac.3; 
+ Tue, 20 Dec 2022 10:46:10 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to;
- bh=wpjiiMMEKUx7aLu2jmHLYDP5YyYL+OfcLX43RIXmyx8=;
- b=aapSFwuNHizWzSreJMVZxwcfOrfChEwocFbRSr4qnh+yAq8qdcRiw69YP3KsnvQF9z
- 0RNHiOTXaXAzjSYkRBpeIw+cntpN7eIsvo+Icbk7/2uHhm1x2yjlVQ3WIzCFfOxdc5Ph
- MhJP+NhdaIGlWxrR30CMR7xhiiXtJ6bQarpNl+nsgNq0kQIhBXHAqaantvg6dVVdvyqm
- jDAFHwtC0e2ehPCjU/aGqA47ZCkNJWKWKw7yfZm3mn09JjgPKONR7Rk67yM6pqkixlLZ
- H5djqsXzCPcPwrEnlKouGF7jHUio+f4mLPHN3HpLDHCkzrshHAicAtQ7a8JpOobr916z
- dwcQ==
-X-Gm-Message-State: AFqh2koIWL4WaoNadyPKytFS6gNbA/8ZX6iWAmqxcsZXXu/4UKSjuQet
- RSK5uaKyiyPWWQPcwcFhOg==
-X-Google-Smtp-Source: AMrXdXucVzUYs3Qv4dUgwQz43Bm+id6hoba4q8xaAN5FGBFUMAmXiZFy27bVsiKNTFbzkSXCaWXFtw==
-X-Received: by 2002:a05:6808:1525:b0:35c:3e8e:de6e with SMTP id
- u37-20020a056808152500b0035c3e8ede6emr8244033oiw.22.1671554986222; 
- Tue, 20 Dec 2022 08:49:46 -0800 (PST)
+ bh=BtGYA4nYrfpj33PGdbVkenftz/iHxuFbKXLM7Hq+aW4=;
+ b=Zu9QRgjPcJq1rooUJzozGY5UHx03eNl9pUc4iyEQrvgab9gAzFgkx8y8Ye0EF5sf63
+ J3kBiAONZstBhl14vMdcwo4F5Wz52pC4hQ8CBJFFqegzY0/gkYcvxeKSQEuird2lTh/H
+ MHq69orh725woQloYDiV28UsvophVQVTNKjsvTZ73XX8KUH1sNU2E31SMGsAOdVF54/J
+ 5+4oI2OTWpcO++42N8dgKtrV3k+WOATRCghZWXsUldo7CUv9TeGmaFfoK7tdFe+CCRiy
+ zuWtfMbNDwY8ak8DoRK1wbnISYzI/swZTem0CAxtulgLi4gkfk26Y8nalc4FJnF2MbMZ
+ 2foQ==
+X-Gm-Message-State: ANoB5plSt7o7O4/aRByX89QRjb0MiyJxUC/1MMI73yxRNRet8Iv2/UIg
+ 3MJPrCrwUikfdfSa32iw3w==
+X-Google-Smtp-Source: AA0mqf4O68SSZaVnZpk87bzzNvcns3v8OXsGoUJYBI+nOMXBUa8lR9WDvgexUnTy4bpkQsGY4tiZWg==
+X-Received: by 2002:a05:6870:ec87:b0:144:6a45:bafb with SMTP id
+ eo7-20020a056870ec8700b001446a45bafbmr25763414oab.42.1671561969241; 
+ Tue, 20 Dec 2022 10:46:09 -0800 (PST)
 Received: from robh_at_kernel.org (66-90-144-107.dyn.grandenetworks.net.
  [66.90.144.107]) by smtp.gmail.com with ESMTPSA id
- l19-20020a544513000000b0035b7002af8csm5688297oil.56.2022.12.20.08.49.45
+ eh5-20020a056870f58500b001446480a042sm6309134oab.58.2022.12.20.10.46.08
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 20 Dec 2022 08:49:45 -0800 (PST)
-Received: (nullmailer pid 726623 invoked by uid 1000);
- Tue, 20 Dec 2022 16:49:44 -0000
-Date: Tue, 20 Dec 2022 10:49:44 -0600
+ Tue, 20 Dec 2022 10:46:08 -0800 (PST)
+Received: (nullmailer pid 893173 invoked by uid 1000);
+ Tue, 20 Dec 2022 18:46:07 -0000
+Date: Tue, 20 Dec 2022 12:46:07 -0600
 From: Rob Herring <robh@kernel.org>
-To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-Message-ID: <167155489243.724404.14934163321956490554.robh@kernel.org>
-References: <20221220123634.382970-1-bryan.odonoghue@linaro.org>
- <20221220123634.382970-7-bryan.odonoghue@linaro.org>
+To: Kuogee Hsieh <quic_khsieh@quicinc.com>
+Message-ID: <167156196670.893113.12368377615757761659.robh@kernel.org>
+References: <1671227102-21717-1-git-send-email-quic_khsieh@quicinc.com>
+ <1671227102-21717-3-git-send-email-quic_khsieh@quicinc.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20221220123634.382970-7-bryan.odonoghue@linaro.org>
-Subject: Re: [Freedreno] [PATCH v5 06/21] dt-bindings: msm:
- dsi-controller-main: Document clocks on a per compatible basis
+In-Reply-To: <1671227102-21717-3-git-send-email-quic_khsieh@quicinc.com>
+Subject: Re: [Freedreno] [PATCH v15 2/5] dt-bindings: msm/dp: add data-lanes
+ and link-frequencies property
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,37 +65,59 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: sean@poorly.run, devicetree@vger.kernel.org,
- krzysztof.kozlowski+dt@linaro.org, quic_abhinavk@quicinc.com,
- linux-arm-msm@vger.kernel.org, andersson@kernel.org,
- konrad.dybcio@somainline.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, dianders@chromium.org,
+Cc: devicetree@vger.kernel.org, quic_sbillaka@quicinc.com, daniel@ffwll.ch,
+ vkoul@kernel.org, linux-arm-msm@vger.kernel.org, andersson@kernel.org,
+ konrad.dybcio@somainline.org, dianders@chromium.org,
+ dri-devel@lists.freedesktop.org, quic_abhinavk@quicinc.com,
  freedreno@lists.freedesktop.org, robdclark@gmail.com, robh+dt@kernel.org,
- agross@kernel.org, daniel@ffwll.ch, dmitry.baryshkov@linaro.org,
- swboyd@chromium.org, airlied@gmail.com, david@ixit.cz
+ agross@kernel.org, krzysztof.kozlowski+dt@linaro.org,
+ dmitry.baryshkov@linaro.org, airlied@gmail.com, swboyd@chromium.org,
+ sean@poorly.run, linux-kernel@vger.kernel.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 
-On Tue, 20 Dec 2022 12:36:19 +0000, Bryan O'Donoghue wrote:
-> Each compatible has a different set of clocks which are associated with it.
-> Add in the list of clocks for each compatible.
+On Fri, 16 Dec 2022 13:44:59 -0800, Kuogee Hsieh wrote:
+> To increase the flexibility of supporting different DP main link configuration
+> at different platform, add both data-lanes and link-frequencies property
+> into endpoint so that different platform can specify its own main link
+> combination of both data lanes and max supported link rate.
 > 
-> Signed-off-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+> Changes in v7:
+> -- split yaml out of dtsi patch
+> -- link-frequencies from link rate to symbol rate
+> -- deprecation of old data-lanes property
+> 
+> Changes in v8:
+> -- correct Bjorn mail address to kernel.org
+> 
+> Changes in v10:
+> -- add menu item to data-lanes and link-frequecnis
+> 
+> Changes in v11:
+> -- add endpoint property at port@1
+> 
+> Changes in v12:
+> -- use enum for item at data-lanes and link-frequencies
+> 
+> Changes in v13:
+> -- revised changes at port@0
+> -- use correct ref schemas for both port@0 and port@1
+> -- mark both port@0 and port@1 are required
+> -- add line between data-lanes and link-frequencies properties
+> 
+> Changes in v14:
+> -- add "unevaluatedProperties: false: to endpoint at port@1
+> -- remove unnecessary quote to $ref
+> -- re store "$ref: /schemas/graph.yaml#/properties/port" to port@0
+> 
+> Changes in v15:
+> -- re store desciption of port@0
+> 
+> Signed-off-by: Kuogee Hsieh <quic_khsieh@quicinc.com>
 > ---
->  .../display/msm/dsi-controller-main.yaml      | 189 +++++++++++++++++-
->  1 file changed, 179 insertions(+), 10 deletions(-)
+>  .../bindings/display/msm/dp-controller.yaml        | 25 +++++++++++++++++++++-
+>  1 file changed, 24 insertions(+), 1 deletion(-)
 > 
 
-
-Please add Acked-by/Reviewed-by tags when posting new versions. However,
-there's no need to repost patches *only* to add the tags. The upstream
-maintainer will do that for acks received on the version they apply.
-
-If a tag was not added on purpose, please state why and what changed.
-
-Missing tags:
-
-Acked-by: Rob Herring <robh@kernel.org>
-
-
+Reviewed-by: Rob Herring <robh@kernel.org>
