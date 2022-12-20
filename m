@@ -2,58 +2,72 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4ECB3651029
-	for <lists+freedreno@lfdr.de>; Mon, 19 Dec 2022 17:19:46 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 820E0651BEA
+	for <lists+freedreno@lfdr.de>; Tue, 20 Dec 2022 08:45:51 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 97CFD10E2D9;
-	Mon, 19 Dec 2022 16:19:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D610810E341;
+	Tue, 20 Dec 2022 07:45:00 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-oi1-x231.google.com (mail-oi1-x231.google.com
- [IPv6:2607:f8b0:4864:20::231])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3E26B10E2DA
- for <freedreno@lists.freedesktop.org>; Mon, 19 Dec 2022 16:19:09 +0000 (UTC)
-Received: by mail-oi1-x231.google.com with SMTP id r11so8211377oie.13
- for <freedreno@lists.freedesktop.org>; Mon, 19 Dec 2022 08:19:09 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=FzfwFyE+sSo7ANEauBVW9ZLP3F3r13UfuJs8RcyCrw8=;
- b=NhV5Tw8ZgsfyFjwkPlchKtqK1L2895WBh+U3hylBRokB378KBrak4q5ikdIN1YCHb8
- gE6xYOOI+AwuoBssFtnr1hYKA7N6nJ5+rKlsbOyi7yZndY4ts91E0gEMpiikil7MdjaO
- WvFRhuAaOVjZKma2c/ElhriNgPTK/j05nUguqrNpsacCSQK/wo6g08O+fKTgdrXo3YMc
- eAUpG41yfCHljt2CVqn7m1znKJU57Em/dMeRhApo+O8Q3SGOPwMtcVFH0pk4uy4CurEz
- qMyFTMRq8PHYUIalhIGoR9aYTmvrODCi5d1toApLLUH35MZJgW086Z8BO1WIzFzdAv9u
- z4eg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=FzfwFyE+sSo7ANEauBVW9ZLP3F3r13UfuJs8RcyCrw8=;
- b=PlHxsnfRT16tpRk+rnxTh+bIrxbx8jRVHJ/dobl6NJ4u1aPC3PNZHwPezyRNtHhBJZ
- ACmrszRur9vV1/2OYhlbIjfsDGjZ0732bqf1ckcXHW6eLx2VBbp3fywJNJF49GJjlvPz
- 8gwU0JHIO2cBe7r1NgZUy8phcH+j4oL4WlbbLr4IsLgqrjAeKl2/sjY/1aj5SBMgMhWO
- BEf66c6ladwbQe5J6nbX4bdvJGWJvQWUSrTIaT98V97Bbb+PZJsTubVMuYa4DaGcolnD
- aKFdJVAN0BqZkZck8FJuTXlgv9M7bCp8LuUSkxDlDT9tqxfBP0QH2nHr8yRXGHj/ysOz
- /77Q==
-X-Gm-Message-State: ANoB5pn5Oe0dGOGrR18yzha+zWgAGnysymB/g3TpW0+u7iqOIkgrHvgp
- ELrft5x+wa5+1ns6GcUPngRZtkEId0knVIDCQ+8CLQ==
-X-Google-Smtp-Source: AA0mqf7on98KXtfG6FXd1XYA9zHC5OaIHzJz81TJPiavIoA4qtg8I+HyZWzvci+P6yoDgTZYZpTHsplgpSVeBuN966o=
-X-Received: by 2002:aca:1c07:0:b0:359:ef86:2f4f with SMTP id
- c7-20020aca1c07000000b00359ef862f4fmr1017340oic.14.1671466748381; Mon, 19 Dec
- 2022 08:19:08 -0800 (PST)
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A2F4710E2DE;
+ Tue, 20 Dec 2022 07:44:49 +0000 (UTC)
+Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 2BK6pRC6004460; Tue, 20 Dec 2022 07:44:39 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
+ h=from : to : cc :
+ subject : date : message-id : mime-version : content-type; s=qcppdkim1;
+ bh=GU/43o5aYgQU494/wwpx1NXvBoK3twBIVcRyWPGgpG8=;
+ b=MwyqbcjbughfVljkZOKSxIVdVZVm1BluZTXBlXawCiEiWKYMmTdA9PBmktLdd5hMLVmp
+ kgF71rzukz76deCfpatr4DCTeSUUyvgyu0zEVRylQUb9s20Sz8IY0SPhLBl7rFwm71Eo
+ yI7gA/ZwlsWt+8utJVgs/0nfUtMk1gOW5hgZVXSHNn8lrm1AYTxPpu46ZVH4KSVvqPgv
+ 0oOc7swSUIXbROarDsVsEZctY/1tTY5dVHQuEOgXqNRlJ3UYBqZj3wEabrR4qaeYMXgn
+ ep+KDu5yhKJyJGqkhx4geLeFQojwzSXtOHCqQTmoOniNIeiKUEwxWwc5/pmoxx+Oeo2Q Aw== 
+Received: from nalasppmta04.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3mk83xr4k2-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 20 Dec 2022 07:44:39 +0000
+Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
+ [10.47.209.196])
+ by NALASPPMTA04.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 2BK7ibkA017977
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 20 Dec 2022 07:44:37 GMT
+Received: from hyd-lnxbld559.qualcomm.com (10.80.80.8) by
+ nalasex01a.na.qualcomm.com (10.47.209.196) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.986.36; Mon, 19 Dec 2022 23:44:29 -0800
+From: Akhil P Oommen <quic_akhilpo@quicinc.com>
+To: freedreno <freedreno@lists.freedesktop.org>,
+ <dri-devel@lists.freedesktop.org>, <linux-arm-msm@vger.kernel.org>,
+ Rob Clark <robdclark@gmail.com>, Ulf Hansson <ulf.hansson@linaro.org>,
+ Bjorn Andersson <andersson@kernel.org>, Stephen Boyd <sboyd@kernel.org>,
+ Philipp Zabel <p.zabel@pengutronix.de>
+Date: Tue, 20 Dec 2022 13:14:12 +0530
+Message-ID: <1671522257-38778-1-git-send-email-quic_akhilpo@quicinc.com>
+X-Mailer: git-send-email 2.7.4
 MIME-Version: 1.0
-References: <20221205163754.221139-1-robert.foss@linaro.org>
- <20221205163754.221139-6-robert.foss@linaro.org>
- <feda0561-1291-daa7-ea01-db5729a1a415@linaro.org>
-In-Reply-To: <feda0561-1291-daa7-ea01-db5729a1a415@linaro.org>
-From: Robert Foss <robert.foss@linaro.org>
-Date: Mon, 19 Dec 2022 17:18:57 +0100
-Message-ID: <CAG3jFyuku05O_7oQhYCeOKmkZzEipASyJX0yBcJAHxP8HGOtaQ@mail.gmail.com>
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [PATCH v3 05/11] drm/msm: Add support for SM8350
+Content-Type: text/plain
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-ORIG-GUID: MZw744GSw6qEKIu2d7SsqSrh8Y93nJJs
+X-Proofpoint-GUID: MZw744GSw6qEKIu2d7SsqSrh8Y93nJJs
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.205,Aquarius:18.0.923,Hydra:6.0.545,FMLib:17.11.122.1
+ definitions=2022-12-20_01,2022-12-15_02,2022-06-22_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ mlxscore=0 mlxlogscore=999
+ clxscore=1015 bulkscore=0 phishscore=0 impostorscore=0 lowpriorityscore=0
+ adultscore=0 priorityscore=1501 spamscore=0 suspectscore=0 malwarescore=0
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2212070000
+ definitions=main-2212200063
+Subject: [Freedreno] [PATCH v3 0/5] Improve GPU reset sequence for Adreno GPU
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,62 +80,67 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: airlied@linux.ie, konrad.dybcio@somainline.org,
- dri-devel@lists.freedesktop.org, bjorn.andersson@linaro.org,
- krzysztof.kozlowski+dt@linaro.org, angelogioacchino.delregno@somainline.org,
- vinod.koul@linaro.org, Jonathan Marek <jonathan@marek.ca>, robdclark@gmail.com,
- quic_vpolimer@quicinc.com, agross@kernel.org, quic_jesszhan@quicinc.com,
- devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- quic_abhinavk@quicinc.com, swboyd@chromium.org, robh+dt@kernel.org,
- sean@poorly.run, quic_kalyant@quicinc.com, loic.poulain@linaro.org,
- andersson@kernel.org, dianders@chromium.org, linux-kernel@vger.kernel.org,
- vkoul@kernel.org, daniel@ffwll.ch, freedreno@lists.freedesktop.org
+Cc: "Rafael J. Wysocki" <rafael@kernel.org>,
+ Akhil P Oommen <quic_akhilpo@quicinc.com>,
+ Michael Turquette <mturquette@baylibre.com>,
+ Konrad Dybcio <konrad.dybcio@somainline.org>, Douglas
+ Anderson <dianders@chromium.org>, Pavel Machek <pavel@ucw.cz>,
+ David Airlie <airlied@gmail.com>, linux-clk@vger.kernel.org,
+ Kevin Hilman <khilman@kernel.org>, Andy Gross <agross@kernel.org>,
+ Geert Uytterhoeven <geert@linux-m68k.org>, Chia-I Wu <olvaffe@gmail.com>,
+ Guenter Roeck <linux@roeck-us.net>, Len Brown <len.brown@intel.com>,
+ linux-pm@vger.kernel.org, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Sean Paul <sean@poorly.run>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ linux-kernel@vger.kernel.org, Konrad Dybcio <konrad.dybcio@linaro.org>,
+ Daniel Vetter <daniel@ffwll.ch>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Thu, 8 Dec 2022 at 00:50, Dmitry Baryshkov
-<dmitry.baryshkov@linaro.org> wrote:
->
-> On 05/12/2022 18:37, Robert Foss wrote:
-> > Add compatibles string, "qcom,sm8350-mdss", for the multimedia display
-> > subsystem unit used on Qualcomm SM8350 platform.
-> >
-> > Signed-off-by: Robert Foss <robert.foss@linaro.org>
-> > ---
-> >   drivers/gpu/drm/msm/msm_mdss.c | 4 ++++
-> >   1 file changed, 4 insertions(+)
-> >
-> > diff --git a/drivers/gpu/drm/msm/msm_mdss.c b/drivers/gpu/drm/msm/msm_mdss.c
-> > index a2264fb517a1..39746b972cdd 100644
-> > --- a/drivers/gpu/drm/msm/msm_mdss.c
-> > +++ b/drivers/gpu/drm/msm/msm_mdss.c
-> > @@ -293,6 +293,9 @@ static int msm_mdss_enable(struct msm_mdss *msm_mdss)
-> >               /* UBWC_2_0 */
-> >               msm_mdss_setup_ubwc_dec_20(msm_mdss, 0x1e);
-> >               break;
-> > +     case DPU_HW_VER_700:
-> > +             msm_mdss_setup_ubwc_dec_40(msm_mdss, UBWC_4_0, 6, 1, 1, 1);
-> > +             break;
->
-> Judging from the vendor kernel, the highest_rank_bit is 3, with usual
-> todo for 2 for LP_DDR4.
 
-Thanks! Will fix.
+This is a rework of [1] using genpd instead of 'reset' framework.
 
->
-> >       case DPU_HW_VER_720:
-> >               msm_mdss_setup_ubwc_dec_40(msm_mdss, UBWC_3_0, 6, 1, 1, 1);
-> >               break;
-> > @@ -530,6 +533,7 @@ static const struct of_device_id mdss_dt_match[] = {
-> >       { .compatible = "qcom,sc8180x-mdss" },
-> >       { .compatible = "qcom,sm8150-mdss" },
-> >       { .compatible = "qcom,sm8250-mdss" },
-> > +     { .compatible = "qcom,sm8350-mdss" },
-> >       { .compatible = "qcom,sm8450-mdss" },
-> >       {}
-> >   };
->
-> --
-> With best wishes
-> Dmitry
->
+As per the recommended reset sequence of Adreno gpu, we should ensure that
+gpucc-cx-gdsc has collapsed at hardware to reset gpu's internal hardware states.
+Because this gdsc is implemented as 'votable', gdsc driver doesn't poll and
+wait until its hw status says OFF.
+
+So use the newly introduced genpd api (dev_pm_genpd_synced_poweroff()) to
+provide a hint to the gdsc driver to poll for the hw status and use genpd
+notifier to wait from adreno gpu driver until gdsc is turned OFF.
+
+This series is rebased on top of linux-next (20221215) since the changes span
+multiple drivers.
+
+[1] https://patchwork.freedesktop.org/series/107507/
+
+Changes in v3:
+- Rename the var 'force_sync' to 'wait (Stephen)
+
+Changes in v2:
+- Minor formatting fix
+- Select PM_GENERIC_DOMAINS from Kconfig
+
+Akhil P Oommen (4):
+  clk: qcom: gdsc: Support 'synced_poweroff' genpd flag
+  drm/msm/a6xx: Vote for cx gdsc from gpu driver
+  drm/msm/a6xx: Remove cx gdsc polling using 'reset'
+  drm/msm/a6xx: Use genpd notifier to ensure cx-gdsc collapse
+
+Ulf Hansson (1):
+  PM: domains: Allow a genpd consumer to require a synced power off
+
+ drivers/base/power/domain.c           | 23 ++++++++++++++++++
+ drivers/clk/qcom/gdsc.c               | 11 +++++----
+ drivers/gpu/drm/msm/Kconfig           |  1 +
+ drivers/gpu/drm/msm/adreno/a6xx_gmu.c | 46 ++++++++++++++++++++++++++++++++---
+ drivers/gpu/drm/msm/adreno/a6xx_gmu.h |  7 ++++++
+ drivers/gpu/drm/msm/adreno/a6xx_gpu.c | 13 +++++++---
+ drivers/gpu/drm/msm/msm_gpu.c         |  4 ---
+ drivers/gpu/drm/msm/msm_gpu.h         |  4 ---
+ include/linux/pm_domain.h             |  5 ++++
+ 9 files changed, 94 insertions(+), 20 deletions(-)
+
+-- 
+2.7.4
+
