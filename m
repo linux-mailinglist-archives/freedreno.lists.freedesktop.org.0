@@ -2,65 +2,65 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7FA1B652085
-	for <lists+freedreno@lfdr.de>; Tue, 20 Dec 2022 13:37:05 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E508A6520A3
+	for <lists+freedreno@lfdr.de>; Tue, 20 Dec 2022 13:37:42 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E058C10E3AA;
-	Tue, 20 Dec 2022 12:36:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6D81810E37D;
+	Tue, 20 Dec 2022 12:36:58 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wr1-x42c.google.com (mail-wr1-x42c.google.com
- [IPv6:2a00:1450:4864:20::42c])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 863DB10E37D
- for <freedreno@lists.freedesktop.org>; Tue, 20 Dec 2022 12:36:40 +0000 (UTC)
-Received: by mail-wr1-x42c.google.com with SMTP id co23so11606223wrb.4
- for <freedreno@lists.freedesktop.org>; Tue, 20 Dec 2022 04:36:40 -0800 (PST)
+Received: from mail-wm1-x32d.google.com (mail-wm1-x32d.google.com
+ [IPv6:2a00:1450:4864:20::32d])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6FDC810E3A6
+ for <freedreno@lists.freedesktop.org>; Tue, 20 Dec 2022 12:36:41 +0000 (UTC)
+Received: by mail-wm1-x32d.google.com with SMTP id o15so8588968wmr.4
+ for <freedreno@lists.freedesktop.org>; Tue, 20 Dec 2022 04:36:41 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=2Hu/pgFNNxfeH2Gjp98s64ccughmNvrwi5MiArHpcHo=;
- b=s9TvukM0HHt40g/oUshz08pAm1Q1CZk37Hc7ZgrtA3pTX4P91kpKacGCvFtDDOoiaq
- Urn5YBNn4KxB1wJO1kdfafpEsrPXw36E4c7WENt6I6mQPmIrZsMnGJTy/rEE7aW8dO0g
- cKHpiKtUnWfHzu9GWeGowNCRfFmI3odBfpK6TsDi8arGXgPQTwpRpnH2DC3V63DAcdtS
- E5s93nHUYDlGSl+M21R13xcFyCdZDMABI+KcM5itdy4YP++wWYgApDgatkGwdHDXIlhZ
- 5Q2tGXAd0iZm6sTDHhEURgfRmWR2CPCdQ969Vz/CsMDlyV3YdyehIIx/DY/AaPxk5lnN
- hkEw==
+ bh=u+Ok/Y8Pr2ds0xVbkzxTKyFSBfTt/36m9CaPlTa4hTI=;
+ b=Ag1chGkW8b+L6VHPtMej8JYigTy4MJpq9bKbqyfbscX949mD/b1DQh1u7rZ0YUA72a
+ DYpejL92sBjCMJ4cSf0UjL4aVuySRIE7A78VGq+pWP2agojIl7kKufLjRoEe7ADrrNc+
+ T1os/kTg5MJ4cmk/LcNEpRDf1f5M+09GI/YP99Op/Ep+1gVRzAhHxVrsxRFWis9LqBFY
+ r8s8yjwoDnBT4w7dLISdmxSAU0FOTCgzrYkA8JVa00QpiF2MCO8/uOIlLG6w57ePuDwi
+ buHZhv2+Rm+Juu4VhZf8EH+Jq7ANjWC2WupAosZk1GaSFuqvb9CRG6qgU43bPygym6i4
+ NO/g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=2Hu/pgFNNxfeH2Gjp98s64ccughmNvrwi5MiArHpcHo=;
- b=alfsyPrbKCerbF5pWSD4TCDNnUUfu3TzqlE4Tv/hWL3lPd0ThsgTzmHpKj3PflC+zm
- cCnIkQ1U5PehGX/QIndbjY9LaCkBqjUiOdDfJhldKl8X6TIZCO3WUf4iQ70O+PF+XwGO
- ITCwZa91Tovx99CSlZQRVn5bDujon8niijUrubLwQP8UrkLBvSoGsCvlLjfCd8w2jHWr
- RJ/u/+OBH9GgBJb8tI0U0hScgfyklwxMEca0B04AR8yNAND33hSADGa431edAt8cAfkJ
- 1UZtKfnoj+mWwdNde8Axj+vXyFfximsNK9r19dWrPYmtpvD9xYZPXWVq14A+NzA+Cq9P
- keoA==
-X-Gm-Message-State: ANoB5pkQm2v+RTAGMS5fTaRJ6g+RszZM0stuJr8OEQoOcJ61KT78D9sG
- MeEjBs1ptrO2+OZF3mCl+b9pjw==
-X-Google-Smtp-Source: AA0mqf5FEsKG8y0jl+VlJ7xAJlAbyC8Axb0e+cF5OkY4VbTKZbsDhwKFiVS4XiDLWAZv0WxJaHGpiQ==
-X-Received: by 2002:adf:f205:0:b0:242:1809:7e17 with SMTP id
- p5-20020adff205000000b0024218097e17mr28988045wro.6.1671539798229; 
- Tue, 20 Dec 2022 04:36:38 -0800 (PST)
+ bh=u+Ok/Y8Pr2ds0xVbkzxTKyFSBfTt/36m9CaPlTa4hTI=;
+ b=sMTXMsx9fqx2L9p3C1D63bb0D1CCH0ODdWLCJN8vfyPb9sbFC1EzOk8P7SM3Dq4rRq
+ FlJ8YXewUMC8Y+/QtEUxCl7B0dBemR7caMHY2JZQ6BeSZA//HvJC+9OnH4ilzaqif53Z
+ tpT4kbFGHbFIxdWsGvWySxwCOrWs2t8o8xMBrg6oejm18F+rd6OsYmAq1KXjbCbCSFbi
+ I5R7JlFj7FKI96i815rPmf3R1BMs61GDpc4NhMCik3Q2AZT/2Q31P95u7/DXJlze+zfT
+ ETV88I7ja59tJVkjgg6CWO45MnKTBXwWw4UoqJGZAC1PY2iFvVWqmjleVno1Tbruqz8P
+ M0Pg==
+X-Gm-Message-State: ANoB5pkYQJbDJ1SV4Ut7BVYCCwiKUerfDnMqPxvIjX003TdgLUQpKR2R
+ w/OvZdq9ISUtxZMCKJ/9vPtJSA==
+X-Google-Smtp-Source: AA0mqf4PxgQM04G2ksh2FXeAbW88jOU2n+w0+LzI66CabwqjcV7HzBb9OwQuhQwrv1iFoIAvaAAg5Q==
+X-Received: by 2002:a05:600c:42c2:b0:3d2:24d2:d02b with SMTP id
+ j2-20020a05600c42c200b003d224d2d02bmr25615593wme.29.1671539799584; 
+ Tue, 20 Dec 2022 04:36:39 -0800 (PST)
 Received: from sagittarius-a.chello.ie (188-141-3-169.dynamic.upc.ie.
  [188.141.3.169]) by smtp.gmail.com with ESMTPSA id
- da13-20020a056000408d00b00242257f2672sm12641208wrb.77.2022.12.20.04.36.37
+ da13-20020a056000408d00b00242257f2672sm12641208wrb.77.2022.12.20.04.36.38
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 20 Dec 2022 04:36:37 -0800 (PST)
+ Tue, 20 Dec 2022 04:36:39 -0800 (PST)
 From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
 To: linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
  devicetree@vger.kernel.org
-Date: Tue, 20 Dec 2022 12:36:14 +0000
-Message-Id: <20221220123634.382970-2-bryan.odonoghue@linaro.org>
+Date: Tue, 20 Dec 2022 12:36:15 +0000
+Message-Id: <20221220123634.382970-3-bryan.odonoghue@linaro.org>
 X-Mailer: git-send-email 2.38.1
 In-Reply-To: <20221220123634.382970-1-bryan.odonoghue@linaro.org>
 References: <20221220123634.382970-1-bryan.odonoghue@linaro.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH v5 01/21] dt-bindings: msm: dsi-controller-main:
- Fix operating-points-v2 constraint
+Subject: [Freedreno] [PATCH v5 02/21] dt-bindings: msm: dsi-controller-main:
+ Fix power-domain constraint
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,7 +83,25 @@ Cc: dri-devel@lists.freedesktop.org, krzysztof.kozlowski+dt@linaro.org,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-The existing msm8916.dtsi does not depend on nor require operating points.
+power-domain is required for the sc7180 dispcc GDSC but not every qcom SoC
+has a similar dependency for example the apq8064.
+
+Most Qcom SoC's using mdss-dsi-ctrl seem to have the ability to
+power-collapse the MDP without collapsing DSI.
+
+For example the qcom vendor kernel commit for apq8084, msm8226, msm8916,
+msm8974.
+
+https://review.carbonrom.org/plugins/gitiles/CarbonROM/android_kernel_oneplus_msm8994/+/7b5c011a770daa2811778937ed646237a28a8694
+
+"ARM: dts: msm: add mdss gdsc supply to dsi controller device
+
+ It is possible for the DSI controller to be active when MDP is
+ power collapsed. DSI controller needs to have it's own vote for
+ mdss gdsc to ensure that gdsc remains on in such cases."
+
+This however doesn't appear to be the case for the apq8064 so we shouldn't
+be marking power-domain as required in yaml checks.
 
 Fixes: 4dbe55c97741 ("dt-bindings: msm: dsi: add yaml schemas for DSI bindings")
 Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
@@ -94,14 +112,14 @@ Signed-off-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
  1 file changed, 1 deletion(-)
 
 diff --git a/Documentation/devicetree/bindings/display/msm/dsi-controller-main.yaml b/Documentation/devicetree/bindings/display/msm/dsi-controller-main.yaml
-index f2c143730a551..55bfe1101d6f4 100644
+index 55bfe1101d6f4..8ba61fef576a5 100644
 --- a/Documentation/devicetree/bindings/display/msm/dsi-controller-main.yaml
 +++ b/Documentation/devicetree/bindings/display/msm/dsi-controller-main.yaml
-@@ -138,7 +138,6 @@ required:
+@@ -137,7 +137,6 @@ required:
+   - phys
    - assigned-clocks
    - assigned-clock-parents
-   - power-domains
--  - operating-points-v2
+-  - power-domains
    - ports
  
  additionalProperties: false
