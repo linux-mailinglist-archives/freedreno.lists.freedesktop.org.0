@@ -2,52 +2,52 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5E5336532F4
-	for <lists+freedreno@lfdr.de>; Wed, 21 Dec 2022 16:10:40 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9BA546534CC
+	for <lists+freedreno@lfdr.de>; Wed, 21 Dec 2022 18:15:12 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 243FE10E45E;
-	Wed, 21 Dec 2022 15:10:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0B07710E46A;
+	Wed, 21 Dec 2022 17:14:39 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
  [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8B4E010E45E;
- Wed, 21 Dec 2022 15:10:37 +0000 (UTC)
-Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 86C5010E469;
+ Wed, 21 Dec 2022 17:14:35 +0000 (UTC)
+Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
  by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 2BLE0lxc028034; Wed, 21 Dec 2022 15:10:34 GMT
+ 2BLDqBvK018901; Wed, 21 Dec 2022 17:14:26 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
  h=from : to : cc :
- subject : date : message-id : in-reply-to : references : mime-version :
- content-type; s=qcppdkim1;
- bh=fVnX5b5aJ7SnNmdlJAhHOuUH1mBH9lDjJvrZFN7ZAIg=;
- b=KVs9X1e21qacKIsdl8UjDm2U2i/rn/2MajLudhrC4QIESiYhP9nyqx76L7FEG4mKQnjR
- d5xiXq/NgDmI+THcT1w30Ozt5vwpWBB46orrlc8fWYJkuWlsDvkQCUq8aT4V53/lF45y
- Lre/1oDbGcXNqT3lSNXT4VShGlVQmZyzee7D/fqzv0bdctd2kF5AYD44V5jtLN7dKQYH
- dQychZalB8NCNt9xWTYY7p2SCewcqVRiiZITVSvigBV2Ah590XP7ZgXpzpiODQeLk2Y5
- 7sZLl+3nfGMi3BNwzSfpshts9n9z2bGVj4caQ7fJVUp3vLADzZi/kFYvNf7b1KRsPYQQ Nw== 
-Received: from nalasppmta05.qualcomm.com (Global_NAT1.qualcomm.com
+ subject : date : message-id : mime-version : content-type; s=qcppdkim1;
+ bh=gBhHKx02h6Axdy+iRKzp80j+cKaack/GA8r6SHvEQjg=;
+ b=Hcq/uMmEZDfqTcvh88boF5kjeDCqSG+DcwHnt/fnoOnlJG3QDe4SgGBF2t/67L3e2FPU
+ ZNrRm6kYOVdHoHfHgDhYRoNYnZ81ttlsTjafzlTkB+w0+l8uTTd1DbfhjkMy5UN2WmPq
+ UGJjSMekoOuPsQLpVl/iBIZumje8tw6gkmTKB+1M9hGojm9CB49dcag7M/qmX3QzUzeP
+ g7LCK8T5jpf2ODJ0qUqInUiDyNgQUZ+zMooGK8NEnq6yul0+qGGUqPd5ta1jJz+/u8Tt
+ F30lPx84kDXdpbxRZfcAXNYWLMkgenaqLqny1tsSi3Sza5/uWFWOI1SigfFXoxL7AySC AA== 
+Received: from nalasppmta03.qualcomm.com (Global_NAT1.qualcomm.com
  [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3mm3cjr5w7-1
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3mm2brrjcb-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 21 Dec 2022 15:10:34 +0000
+ Wed, 21 Dec 2022 17:14:26 +0000
 Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
  [10.47.209.196])
- by NALASPPMTA05.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 2BLFAR8a014467
+ by NALASPPMTA03.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 2BLHEOd0024082
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 21 Dec 2022 15:10:27 GMT
+ Wed, 21 Dec 2022 17:14:24 GMT
 Received: from hyd-lnxbld559.qualcomm.com (10.80.80.8) by
  nalasex01a.na.qualcomm.com (10.47.209.196) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.986.36; Wed, 21 Dec 2022 07:10:23 -0800
+ 15.2.986.36; Wed, 21 Dec 2022 09:14:16 -0800
 From: Akhil P Oommen <quic_akhilpo@quicinc.com>
 To: freedreno <freedreno@lists.freedesktop.org>,
- <dri-devel@lists.freedesktop.org>, <linux-arm-msm@vger.kernel.org>
-Date: Wed, 21 Dec 2022 20:39:59 +0530
-Message-ID: <20221221203925.v2.4.I07f22966395eb045f6b312710f53890d5d7e69d4@changeid>
+ <dri-devel@lists.freedesktop.org>, <linux-arm-msm@vger.kernel.org>,
+ Rob Clark <robdclark@gmail.com>, Ulf Hansson <ulf.hansson@linaro.org>,
+ Bjorn Andersson <andersson@kernel.org>, Stephen Boyd <sboyd@kernel.org>,
+ Philipp Zabel <p.zabel@pengutronix.de>
+Date: Wed, 21 Dec 2022 22:43:58 +0530
+Message-ID: <1671642843-5244-1-git-send-email-quic_akhilpo@quicinc.com>
 X-Mailer: git-send-email 2.7.4
-In-Reply-To: <20221221203925.v2.1.Ib978de92c4bd000b515486aad72e96c2481f84d0@changeid>
-References: <20221221203925.v2.1.Ib978de92c4bd000b515486aad72e96c2481f84d0@changeid>
 MIME-Version: 1.0
 Content-Type: text/plain
 X-Originating-IP: [10.80.80.8]
@@ -56,18 +56,18 @@ X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
 X-QCInternal: smtphost
 X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
  signatures=585085
-X-Proofpoint-GUID: 47La4lSc63Tptsc_23PNt4bC996neI6k
-X-Proofpoint-ORIG-GUID: 47La4lSc63Tptsc_23PNt4bC996neI6k
+X-Proofpoint-ORIG-GUID: A7scqoT25a38Jvcnb90YnPX4YI2t75XX
+X-Proofpoint-GUID: A7scqoT25a38Jvcnb90YnPX4YI2t75XX
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.205,Aquarius:18.0.923,Hydra:6.0.545,FMLib:17.11.122.1
- definitions=2022-12-21_08,2022-12-21_01,2022-06-22_01
+ definitions=2022-12-21_09,2022-12-21_01,2022-06-22_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- mlxscore=0 mlxlogscore=863
- impostorscore=0 spamscore=0 phishscore=0 clxscore=1015 priorityscore=1501
- suspectscore=0 malwarescore=0 lowpriorityscore=0 adultscore=0 bulkscore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2212070000
- definitions=main-2212210126
-Subject: [Freedreno] [PATCH v2 4/4] drm/msm/a6xx: Update ROQ size in coredump
+ mlxlogscore=999 adultscore=0
+ priorityscore=1501 clxscore=1015 mlxscore=0 lowpriorityscore=0
+ malwarescore=0 spamscore=0 suspectscore=0 phishscore=0 bulkscore=0
+ impostorscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2212070000 definitions=main-2212210143
+Subject: [Freedreno] [PATCH v4 0/5] Improve GPU reset sequence for Adreno GPU
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,96 +80,70 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Akhil P Oommen <quic_akhilpo@quicinc.com>, Sean Paul <sean@poorly.run>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, linux-kernel@vger.kernel.org, Rob
- Clark <robdclark@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- David Airlie <airlied@gmail.com>
+Cc: "Rafael J. Wysocki" <rafael@kernel.org>,
+ Akhil P Oommen <quic_akhilpo@quicinc.com>,
+ Michael Turquette <mturquette@baylibre.com>,
+ Konrad Dybcio <konrad.dybcio@somainline.org>, Douglas
+ Anderson <dianders@chromium.org>, Pavel Machek <pavel@ucw.cz>,
+ David Airlie <airlied@gmail.com>, linux-clk@vger.kernel.org,
+ Kevin Hilman <khilman@kernel.org>, Andy Gross <agross@kernel.org>,
+ Geert Uytterhoeven <geert@linux-m68k.org>, Chia-I Wu <olvaffe@gmail.com>,
+ Guenter Roeck <linux@roeck-us.net>, Len Brown <len.brown@intel.com>,
+ linux-pm@vger.kernel.org, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Sean Paul <sean@poorly.run>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ linux-kernel@vger.kernel.org, Konrad Dybcio <konrad.dybcio@linaro.org>,
+ Daniel Vetter <daniel@ffwll.ch>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Since RoQ size differs between generations, calculate dynamically the
-RoQ size while capturing coredump.
 
-Signed-off-by: Akhil P Oommen <quic_akhilpo@quicinc.com>
----
+This is a rework of [1] using genpd instead of 'reset' framework.
 
-(no changes since v1)
+As per the recommended reset sequence of Adreno gpu, we should ensure that
+gpucc-cx-gdsc has collapsed at hardware to reset gpu's internal hardware states.
+Because this gdsc is implemented as 'votable', gdsc driver doesn't poll and
+wait until its hw status says OFF.
 
- drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c | 11 ++++++++++-
- drivers/gpu/drm/msm/adreno/a6xx_gpu_state.h | 17 ++++++++++-------
- 2 files changed, 20 insertions(+), 8 deletions(-)
+So use the newly introduced genpd api (dev_pm_genpd_synced_poweroff()) to
+provide a hint to the gdsc driver to poll for the hw status and use genpd
+notifier to wait from adreno gpu driver until gdsc is turned OFF.
 
-diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c b/drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c
-index da190b6ddba0..80e60e34ce7d 100644
---- a/drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c
-+++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c
-@@ -939,15 +939,24 @@ static void a6xx_get_registers(struct msm_gpu *gpu,
- 			dumper);
- }
- 
-+static u32 a6xx_get_cp_roq_size(struct msm_gpu *gpu)
-+{
-+	/* The value at [16:31] is in 4dword units. Convert it to dwords */
-+	return gpu_read(gpu, REG_A6XX_CP_ROQ_THRESHOLDS_2) >> 14;
-+}
-+
- /* Read a block of data from an indexed register pair */
- static void a6xx_get_indexed_regs(struct msm_gpu *gpu,
- 		struct a6xx_gpu_state *a6xx_state,
--		const struct a6xx_indexed_registers *indexed,
-+		struct a6xx_indexed_registers *indexed,
- 		struct a6xx_gpu_state_obj *obj)
- {
- 	int i;
- 
- 	obj->handle = (const void *) indexed;
-+	if (indexed->count_fn)
-+		indexed->count = indexed->count_fn(gpu);
-+
- 	obj->data = state_kcalloc(a6xx_state, indexed->count, sizeof(u32));
- 	if (!obj->data)
- 		return;
-diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu_state.h b/drivers/gpu/drm/msm/adreno/a6xx_gpu_state.h
-index 808121c88662..790f55e24533 100644
---- a/drivers/gpu/drm/msm/adreno/a6xx_gpu_state.h
-+++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu_state.h
-@@ -383,25 +383,28 @@ static const struct a6xx_registers a6xx_gmu_reglist[] = {
- 	REGS(a6xx_gmu_gx_registers, 0, 0),
- };
- 
--static const struct a6xx_indexed_registers {
-+static u32 a6xx_get_cp_roq_size(struct msm_gpu *gpu);
-+
-+static struct a6xx_indexed_registers {
- 	const char *name;
- 	u32 addr;
- 	u32 data;
- 	u32 count;
-+	u32 (*count_fn)(struct msm_gpu *gpu);
- } a6xx_indexed_reglist[] = {
- 	{ "CP_SQE_STAT", REG_A6XX_CP_SQE_STAT_ADDR,
--		REG_A6XX_CP_SQE_STAT_DATA, 0x33 },
-+		REG_A6XX_CP_SQE_STAT_DATA, 0x33, NULL },
- 	{ "CP_DRAW_STATE", REG_A6XX_CP_DRAW_STATE_ADDR,
--		REG_A6XX_CP_DRAW_STATE_DATA, 0x100 },
-+		REG_A6XX_CP_DRAW_STATE_DATA, 0x100, NULL },
- 	{ "CP_UCODE_DBG_DATA", REG_A6XX_CP_SQE_UCODE_DBG_ADDR,
--		REG_A6XX_CP_SQE_UCODE_DBG_DATA, 0x6000 },
-+		REG_A6XX_CP_SQE_UCODE_DBG_DATA, 0x8000, NULL },
- 	{ "CP_ROQ", REG_A6XX_CP_ROQ_DBG_ADDR,
--		REG_A6XX_CP_ROQ_DBG_DATA, 0x400 },
-+		REG_A6XX_CP_ROQ_DBG_DATA, 0, a6xx_get_cp_roq_size},
- };
- 
--static const struct a6xx_indexed_registers a6xx_cp_mempool_indexed = {
-+static struct a6xx_indexed_registers a6xx_cp_mempool_indexed = {
- 	"CP_MEMPOOL", REG_A6XX_CP_MEM_POOL_DBG_ADDR,
--		REG_A6XX_CP_MEM_POOL_DBG_DATA, 0x2060,
-+		REG_A6XX_CP_MEM_POOL_DBG_DATA, 0x2060, NULL,
- };
- 
- #define DEBUGBUS(_id, _count) { .id = _id, .name = #_id, .count = _count }
+This series is rebased on top of linux-next (20221215) since the changes span
+multiple drivers.
+
+[1] https://patchwork.freedesktop.org/series/107507/
+
+Changes in v4:
+- Update genpd function documentation (Ulf)
+
+Changes in v3:
+- Rename the var 'force_sync' to 'wait (Stephen)
+
+Changes in v2:
+- Minor formatting fix
+- Select PM_GENERIC_DOMAINS from Kconfig
+
+Akhil P Oommen (4):
+  clk: qcom: gdsc: Support 'synced_poweroff' genpd flag
+  drm/msm/a6xx: Vote for cx gdsc from gpu driver
+  drm/msm/a6xx: Remove cx gdsc polling using 'reset'
+  drm/msm/a6xx: Use genpd notifier to ensure cx-gdsc collapse
+
+Ulf Hansson (1):
+  PM: domains: Allow a genpd consumer to require a synced power off
+
+ drivers/base/power/domain.c           | 26 ++++++++++++++++++++
+ drivers/clk/qcom/gdsc.c               | 11 +++++----
+ drivers/gpu/drm/msm/Kconfig           |  1 +
+ drivers/gpu/drm/msm/adreno/a6xx_gmu.c | 46 ++++++++++++++++++++++++++++++++---
+ drivers/gpu/drm/msm/adreno/a6xx_gmu.h |  7 ++++++
+ drivers/gpu/drm/msm/adreno/a6xx_gpu.c | 13 +++++++---
+ drivers/gpu/drm/msm/msm_gpu.c         |  4 ---
+ drivers/gpu/drm/msm/msm_gpu.h         |  4 ---
+ include/linux/pm_domain.h             |  5 ++++
+ 9 files changed, 97 insertions(+), 20 deletions(-)
+
 -- 
 2.7.4
 
