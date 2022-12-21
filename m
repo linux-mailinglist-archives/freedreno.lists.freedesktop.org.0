@@ -2,76 +2,35 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 192FF65372E
-	for <lists+freedreno@lfdr.de>; Wed, 21 Dec 2022 20:44:37 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 611366539B4
+	for <lists+freedreno@lfdr.de>; Thu, 22 Dec 2022 00:20:29 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 197F610E492;
-	Wed, 21 Dec 2022 19:43:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DF82C10E137;
+	Wed, 21 Dec 2022 23:20:27 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-x233.google.com (mail-lj1-x233.google.com
- [IPv6:2a00:1450:4864:20::233])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7A42410E48E
- for <freedreno@lists.freedesktop.org>; Wed, 21 Dec 2022 19:43:50 +0000 (UTC)
-Received: by mail-lj1-x233.google.com with SMTP id g14so16683464ljh.10
- for <freedreno@lists.freedesktop.org>; Wed, 21 Dec 2022 11:43:50 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=kYmaas5EgsqwB1HZHnQkYwwmJtIimjHn5rSwR1jMRh0=;
- b=v6SpFvK9pqLxtQJZSExisnllyUO5wL73hlJENBwKhFmAVeWsDZmMrAOssuVNLLXZPP
- a/EoWYwqC8hZyl6twcKu42TJH/hdDVeruuwKIk2mAcoVrBArxzardjkjf9uk2G/Xf+VV
- HcvU11Pou5FtThGqIXJ7vRAM1JAJNABhC8J5+4cRss1hPzukvKw0ZN4hJBRF9xRzLKiu
- Gtf/zc3tKlKVdGq8bd3IVtedrHdpr+fwNk8Wjc93zAnyTL1J2hYYKLs2qHx6SL7PGVjo
- 2Wh5E1UfbKuzDZ+l6ybAaLBio+P65xEfZBPz0agfYoOYz/Uh+Tq+p/1IsBklWSwJl63Q
- wh6w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=kYmaas5EgsqwB1HZHnQkYwwmJtIimjHn5rSwR1jMRh0=;
- b=MwTmMtbplFjIJDAllT5M++HWVS7CZCMRDJnpJuEL+B2APPpog4TGwFtzTBGBFT79Ix
- IIJfyA2TMpeYEcuw0xQgs2edI7KtydpjR5AdFY/B33rKYG7g5PSA5dKhK6BA6/95nTOe
- wn1ia2uu3aJyAexHgerTOnhZcow3dvP+pWiQqEoHBxsZrXG3CmpQKimMlecqjJN0IY3X
- J6kJ5UIq2GMrzFWlO8viWg6k9V3Fo7idnvLpFcfweMAWgkQVy5wLghj5a99GSEKwCGJb
- PIoJMGKvZylUskZI8oNLYLvQFBVp7mo/F4viywnOhgu9fyHIcVKsgIRpRhJIWk6nE93G
- y5WA==
-X-Gm-Message-State: AFqh2kqzLQS70MkX1wrrTdpzGQW26GZRlBg0+Sai0njNv7MCgQ/gBR/I
- yUMYEo783rQuClmniVWmSBUtZA==
-X-Google-Smtp-Source: AMrXdXvHM+AHzDjoRaw3LDYEcNpdxHutKCs+iwgoETz5JMAamSxV72aBEHSOtLDaXf47nSnSHLlFnw==
-X-Received: by 2002:a2e:3303:0:b0:27b:5a9b:a3c7 with SMTP id
- d3-20020a2e3303000000b0027b5a9ba3c7mr866009ljc.50.1671651828562; 
- Wed, 21 Dec 2022 11:43:48 -0800 (PST)
-Received: from ?IPV6:2001:14ba:a085:4d00::8a5?
- (dzccz6yyyyyyyyyyybcwt-3.rev.dnainternet.fi. [2001:14ba:a085:4d00::8a5])
- by smtp.gmail.com with ESMTPSA id
- i26-20020a2ea23a000000b0027f94a09cb4sm501415ljm.135.2022.12.21.11.43.47
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 21 Dec 2022 11:43:47 -0800 (PST)
-Message-ID: <87837483-93eb-823a-508a-4e163f969de0@linaro.org>
-Date: Wed, 21 Dec 2022 21:43:47 +0200
+Received: from relay04.th.seeweb.it (relay04.th.seeweb.it [5.144.164.165])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 552B610E137
+ for <freedreno@lists.freedesktop.org>; Wed, 21 Dec 2022 23:20:25 +0000 (UTC)
+Received: from localhost.localdomain (94-209-172-39.cable.dynamic.v4.ziggo.nl
+ [94.209.172.39])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ by m-r1.th.seeweb.it (Postfix) with ESMTPSA id 161BF203BA;
+ Thu, 22 Dec 2022 00:19:52 +0100 (CET)
+From: Marijn Suijten <marijn.suijten@somainline.org>
+To: phone-devel@vger.kernel.org, Rob Clark <robdclark@gmail.com>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Vinod Koul <vkoul@kernel.org>
+Date: Thu, 22 Dec 2022 00:19:35 +0100
+Message-Id: <20221221231943.1961117-1-marijn.suijten@somainline.org>
+X-Mailer: git-send-email 2.39.0
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.5.1
-Content-Language: en-GB
-To: Vinod Polimera <vpolimer@qti.qualcomm.com>,
- "Vinod Polimera (QUIC)" <quic_vpolimer@quicinc.com>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- "linux-arm-msm@vger.kernel.org" <linux-arm-msm@vger.kernel.org>,
- "freedreno@lists.freedesktop.org" <freedreno@lists.freedesktop.org>,
- "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>
-References: <1671012352-1825-1-git-send-email-quic_vpolimer@quicinc.com>
- <1671012352-1825-2-git-send-email-quic_vpolimer@quicinc.com>
- <7ad7654a-b0a0-c08a-d111-cd34d38c36e0@linaro.org>
- <BN0PR02MB8173B06FA578D6BC22AC6424E4EB9@BN0PR02MB8173.namprd02.prod.outlook.com>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-In-Reply-To: <BN0PR02MB8173B06FA578D6BC22AC6424E4EB9@BN0PR02MB8173.namprd02.prod.outlook.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH v9 01/15] drm/msm/disp/dpu: clear
- dpu_assign_crtc and get crtc from connector state instead of dpu_enc
+Content-Transfer-Encoding: 8bit
+Subject: [Freedreno] [PATCH v2 0/8] drm/msm: DSC Electric Boogaloo for
+ sm8[12]50
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -84,233 +43,89 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Kalyan Thota \(QUIC\)" <quic_kalyant@quicinc.com>,
- "Sankeerth Billakanti \(QUIC\)" <quic_sbillaka@quicinc.com>,
- "dianders@chromium.org" <dianders@chromium.org>,
- "Bjorn Andersson \(QUIC\)" <quic_bjorande@quicinc.com>,
- "Abhinav Kumar \(QUIC\)" <quic_abhinavk@quicinc.com>,
- "Vishnuvardhan Prodduturi \(QUIC\)" <quic_vproddut@quicinc.com>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "Kuogee Hsieh \(QUIC\)" <quic_khsieh@quicinc.com>,
- "robdclark@gmail.com" <robdclark@gmail.com>,
- "Aravind Venkateswaran \(QUIC\)" <quic_aravindh@quicinc.com>,
- "swboyd@chromium.org" <swboyd@chromium.org>
+Cc: Konrad Dybcio <konrad.dybcio@somainline.org>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@somainline.org>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ Vinod Polimera <quic_vpolimer@quicinc.com>, David Airlie <airlied@gmail.com>,
+ =?UTF-8?q?Ville=20Syrj=C3=A4l=C3=A4?= <ville.syrjala@linux.intel.com>,
+ Haowen Bai <baihaowen@meizu.com>, Sam Ravnborg <sam@ravnborg.org>,
+ Kuogee Hsieh <quic_khsieh@quicinc.com>,
+ Jessica Zhang <quic_jesszhan@quicinc.com>, Jani Nikula <jani.nikula@intel.com>,
+ linux-arm-msm@vger.kernel.org, Stephen Boyd <swboyd@chromium.org>,
+ Martin Botka <martin.botka@somainline.org>,
+ ~postmarketos/upstreaming@lists.sr.ht, Sean Paul <sean@poorly.run>,
+ Loic Poulain <loic.poulain@linaro.org>,
+ Jami Kettunen <jami.kettunen@somainline.org>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Vladimir Lypak <vladimir.lypak@gmail.com>,
+ Douglas Anderson <dianders@chromium.org>,
+ Konrad Dybcio <konrad.dybcio@linaro.org>, sunliming <sunliming@kylinos.cn>,
+ Daniel Vetter <daniel@ffwll.ch>, freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 21/12/2022 16:10, Vinod Polimera wrote:
-> 
-> 
->> -----Original Message-----
->> From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
->> Sent: Wednesday, December 14, 2022 9:05 PM
->> To: Vinod Polimera (QUIC) <quic_vpolimer@quicinc.com>; dri-
->> devel@lists.freedesktop.org; linux-arm-msm@vger.kernel.org;
->> freedreno@lists.freedesktop.org; devicetree@vger.kernel.org
->> Cc: linux-kernel@vger.kernel.org; robdclark@gmail.com;
->> dianders@chromium.org; swboyd@chromium.org; Kalyan Thota (QUIC)
->> <quic_kalyant@quicinc.com>; Kuogee Hsieh (QUIC)
->> <quic_khsieh@quicinc.com>; Vishnuvardhan Prodduturi (QUIC)
->> <quic_vproddut@quicinc.com>; Bjorn Andersson (QUIC)
->> <quic_bjorande@quicinc.com>; Aravind Venkateswaran (QUIC)
->> <quic_aravindh@quicinc.com>; Abhinav Kumar (QUIC)
->> <quic_abhinavk@quicinc.com>; Sankeerth Billakanti (QUIC)
->> <quic_sbillaka@quicinc.com>
->> Subject: Re: [PATCH v9 01/15] drm/msm/disp/dpu: clear dpu_assign_crtc and
->> get crtc from connector state instead of dpu_enc
->>
->> WARNING: This email originated from outside of Qualcomm. Please be wary
->> of any links or attachments, and do not enable macros.
->>
->> On 14/12/2022 12:05, Vinod Polimera wrote:
->>> Update crtc retrieval from dpu_enc to dpu_enc connector state,
->>> since new links get set as part of the dpu enc virt mode set.
->>> The dpu_enc->crtc cache is no more needed, hence cleaning it as
->>> part of this change.
->>>
->>> This patch is dependent on the series:
->>> https://patchwork.freedesktop.org/series/110969/
->>>
->>> Signed-off-by: Vinod Polimera <quic_vpolimer@quicinc.com>
->>> ---
->>>    drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c    |  4 ---
->>>    drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c | 42 +++++++++---------
->> -----------
->>>    drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.h |  8 ------
->>>    3 files changed, 13 insertions(+), 41 deletions(-)
->>>
->>> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
->> b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
->>> index 3f72d38..289d51e 100644
->>> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
->>> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
->>> @@ -1029,7 +1029,6 @@ static void dpu_crtc_disable(struct drm_crtc *crtc,
->>>                 */
->>>                if (dpu_encoder_get_intf_mode(encoder) == INTF_MODE_VIDEO)
->>>                        release_bandwidth = true;
->>> -             dpu_encoder_assign_crtc(encoder, NULL);
->>>        }
->>>
->>>        /* wait for frame_event_done completion */
->>> @@ -1099,9 +1098,6 @@ static void dpu_crtc_enable(struct drm_crtc *crtc,
->>>        trace_dpu_crtc_enable(DRMID(crtc), true, dpu_crtc);
->>>        dpu_crtc->enabled = true;
->>>
->>> -     drm_for_each_encoder_mask(encoder, crtc->dev, crtc->state-
->>> encoder_mask)
->>> -             dpu_encoder_assign_crtc(encoder, crtc);
->>> -
->>>        /* Enable/restore vblank irq handling */
->>>        drm_crtc_vblank_on(crtc);
->>>    }
->>> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
->> b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
->>> index a585036..b9b254d 100644
->>> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
->>> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
->>> @@ -132,11 +132,6 @@ enum dpu_enc_rc_states {
->>>     * @intfs_swapped:  Whether or not the phys_enc interfaces have been
->> swapped
->>>     *                  for partial update right-only cases, such as pingpong
->>>     *                  split where virtual pingpong does not generate IRQs
->>> - * @crtc:            Pointer to the currently assigned crtc. Normally you
->>> - *                   would use crtc->state->encoder_mask to determine the
->>> - *                   link between encoder/crtc. However in this case we need
->>> - *                   to track crtc in the disable() hook which is called
->>> - *                   _after_ encoder_mask is cleared.
->>>     * @connector:              If a mode is set, cached pointer to the active
->> connector
->>>     * @crtc_kickoff_cb:                Callback into CRTC that will flush & start
->>>     *                          all CTL paths
->>> @@ -181,7 +176,6 @@ struct dpu_encoder_virt {
->>>
->>>        bool intfs_swapped;
->>>
->>> -     struct drm_crtc *crtc;
->>>        struct drm_connector *connector;
->>>
->>>        struct dentry *debugfs_root;
->>> @@ -1317,7 +1311,7 @@ static void dpu_encoder_vblank_callback(struct
->> drm_encoder *drm_enc,
->>>                struct dpu_encoder_phys *phy_enc)
->>>    {
->>>        struct dpu_encoder_virt *dpu_enc = NULL;
->>> -     unsigned long lock_flags;
->>> +     struct drm_crtc *crtc;
->>>
->>>        if (!drm_enc || !phy_enc)
->>>                return;
->>> @@ -1325,12 +1319,13 @@ static void dpu_encoder_vblank_callback(struct
->> drm_encoder *drm_enc,
->>>        DPU_ATRACE_BEGIN("encoder_vblank_callback");
->>>        dpu_enc = to_dpu_encoder_virt(drm_enc);
->>>
->>> -     atomic_inc(&phy_enc->vsync_cnt);
->>> +     if (!dpu_enc->connector || !dpu_enc->connector->state ||
->>> +         !dpu_enc->connector->state->crtc)
->>> +             return;
->>>
->>> -     spin_lock_irqsave(&dpu_enc->enc_spinlock, lock_flags);
->>> -     if (dpu_enc->crtc)
->>> -             dpu_crtc_vblank_callback(dpu_enc->crtc);
->>> -     spin_unlock_irqrestore(&dpu_enc->enc_spinlock, lock_flags);
->>> +     atomic_inc(&phy_enc->vsync_cnt);
->>> +     crtc = dpu_enc->connector->state->crtc;
->>> +     dpu_crtc_vblank_callback(crtc);
->>>
->>>        DPU_ATRACE_END("encoder_vblank_callback");
->>>    }
->>> @@ -1353,33 +1348,22 @@ static void
->> dpu_encoder_underrun_callback(struct drm_encoder *drm_enc,
->>>        DPU_ATRACE_END("encoder_underrun_callback");
->>>    }
->>>
->>> -void dpu_encoder_assign_crtc(struct drm_encoder *drm_enc, struct
->> drm_crtc *crtc)
->>> -{
->>> -     struct dpu_encoder_virt *dpu_enc = to_dpu_encoder_virt(drm_enc);
->>> -     unsigned long lock_flags;
->>> -
->>> -     spin_lock_irqsave(&dpu_enc->enc_spinlock, lock_flags);
->>> -     /* crtc should always be cleared before re-assigning */
->>> -     WARN_ON(crtc && dpu_enc->crtc);
->>> -     dpu_enc->crtc = crtc;
->>> -     spin_unlock_irqrestore(&dpu_enc->enc_spinlock, lock_flags);
->>> -}
->>> -
->>>    void dpu_encoder_toggle_vblank_for_crtc(struct drm_encoder
->> *drm_enc,
->>>                                        struct drm_crtc *crtc, bool enable)
->>>    {
->>>        struct dpu_encoder_virt *dpu_enc = to_dpu_encoder_virt(drm_enc);
->>> -     unsigned long lock_flags;
->>> +     struct drm_crtc *new_crtc;
->>>        int i;
->>>
->>>        trace_dpu_enc_vblank_cb(DRMID(drm_enc), enable);
->>>
->>> -     spin_lock_irqsave(&dpu_enc->enc_spinlock, lock_flags);
->>> -     if (dpu_enc->crtc != crtc) {
->>> -             spin_unlock_irqrestore(&dpu_enc->enc_spinlock, lock_flags);
->>> +     if (!dpu_enc->connector || !dpu_enc->connector->state)
->>> +             return;
->>> +
->>> +     new_crtc = dpu_enc->connector->state->crtc;
->>> +     if (!new_crtc || new_crtc != crtc) {
->>
->> I don't like going through all the pointers and states without locks.
->> The connector->state can potentially check. So, I'd propose even simpler
->> solution: just store the crtc in the dpu_enc at the creation time. Then
->> you can use the rest of the current dpu_enc->crtc as expected.
-> 
-> Can i do as below.
-> After encoder to crtc is pinned, i can update dpu_encoder structure that is attached with drm_enc with the crtc created during drm_obj_init
-> 
-> @@ -816,6 +816,7 @@ static int _dpu_kms_drm_obj_init(struct dpu_kms *dpu_kms)
->                  }
->                  priv->crtcs[priv->num_crtcs++] = crtc;
->                  encoder->possible_crtcs = 1 << drm_crtc_index(crtc);
->                + dpu_encoder_assign_crtc(encoder, crtc);
->                  i++;
->          }
+This preliminary Display Stream Compression support package for
+(initially tested on) sm8[12]50 is based on comparing DSC behaviour
+between downstream and mainline.  Some new callbacks are added (for
+binding blocks on active CTLs), logic bugs are corrected, zeroed struct
+members are now assigned proper values, and RM allocation and hw block
+retrieval now hand out (or not) DSC blocks without causing null-pointer
+dereferences.
 
-Yes.
+Unfortunately it is not yet enough to get rid of completely corrupted
+display output on the boards I tested here:
+- Sony Xperia 1 (sm8150), 1644x3840 or 1096x2560 pixels;
+- Sony Xperia 5II (sm8250), 1080x2520, at 60 or 120Hz;
+- (can include more Xperia boards if desired)
 
->>
->>>                return;
->>>        }
->>> -     spin_unlock_irqrestore(&dpu_enc->enc_spinlock, lock_flags);
->>>
->>>        for (i = 0; i < dpu_enc->num_phys_encs; i++) {
->>>                struct dpu_encoder_phys *phys = dpu_enc->phys_encs[i];
->>> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.h
->> b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.h
->>> index 7f3d823..eb9fc7c 100644
->>> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.h
->>> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.h
->>> @@ -40,14 +40,6 @@ struct msm_display_info {
->>>    };
->>>
->>>    /**
->>> - * dpu_encoder_assign_crtc - Link the encoder to the crtc it's assigned to
->>> - * @encoder: encoder pointer
->>> - * @crtc:    crtc pointer
->>> - */
->>> -void dpu_encoder_assign_crtc(struct drm_encoder *encoder,
->>> -                          struct drm_crtc *crtc);
->>> -
->>> -/**
->>>     * dpu_encoder_toggle_vblank_for_crtc - Toggles vblank interrupts on or
->> off if
->>>     *  the encoder is assigned to the given crtc
->>>     * @encoder:        encoder pointer
->>
->> --
->> With best wishes
->> Dmitry
-> 
+Both devices use the DUALPIPE_DSCMERGE topology downstream: dual LM, PP
+and DSC, but only a single INTF/encoder/DSI-link.
 
--- 
-With best wishes
-Dmitry
+Hopefully this spawns some community/upstream interest to help rootcause
+our corruption issues (after we open a drm/msm report on GitLab for more
+appropriate tracking).
+
+The Sony Xperia XZ3 (sdm845) was fully tested and validated with this
+series to not cause any regressions (and one of the math fixes now
+allows us to change slice_count in the panel driver, which would corrupt
+previously).
+
+Changes since v1:
+
+- Split patch 6 into two separately backportable Fixes: patches;
+- Additionally remove num_enc from msm_display_topology in favour of
+  num_dsc;
+- Reorder patches to have all Fixes: at the beginning for easier
+  picking;
+- Fix existing multiline comment while editing it anyway;
+- Add missing Signed-off-by to patch 5.
+
+v1: https://lore.kernel.org/linux-arm-msm/20221213232207.113607-1-marijn.suijten@somainline.org/T/#u
+
+Marijn Suijten (8):
+  drm/msm/dpu: Wire up DSC mask for active CTL configuration
+  drm/msm/dsi: Use DSC slice(s) packet size to compute word count
+  drm/msm/dsi: Flip greater-than check for slice_count and
+    slice_per_intf
+  drm/msm/dpu: Disallow unallocated resources to be returned
+  drm/msm/dpu: Reject topologies for which no DSC blocks are available
+  drm/msm/dpu: Remove num_enc from topology struct in favour of num_dsc
+  drm/msm/dpu: Implement DSC binding to PP block for CTL V1
+  drm/msm/dpu: Add DSC configuration for SM8150 and SM8250
+
+ drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c   | 12 +++++----
+ .../drm/msm/disp/dpu1/dpu_encoder_phys_cmd.c  |  1 +
+ .../drm/msm/disp/dpu1/dpu_encoder_phys_vid.c  |  1 +
+ .../gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c    | 23 +++++++++++-----
+ .../gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h    |  9 +++++++
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_dsc.c    | 27 +++++++++++++++++++
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_dsc.h    |  4 +++
+ drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c        | 14 ++++++++--
+ drivers/gpu/drm/msm/dsi/dsi_host.c            |  7 ++---
+ drivers/gpu/drm/msm/msm_drv.h                 |  2 --
+ 10 files changed, 82 insertions(+), 18 deletions(-)
+
+--
+2.39.0
 
