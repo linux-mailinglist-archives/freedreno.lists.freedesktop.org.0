@@ -2,77 +2,76 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 666826534D6
-	for <lists+freedreno@lfdr.de>; Wed, 21 Dec 2022 18:15:51 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 192FF65372E
+	for <lists+freedreno@lfdr.de>; Wed, 21 Dec 2022 20:44:37 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 246F310E48E;
-	Wed, 21 Dec 2022 17:15:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 197F610E492;
+	Wed, 21 Dec 2022 19:43:54 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B7FB410E46A;
- Wed, 21 Dec 2022 17:15:47 +0000 (UTC)
-Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 2BLFsCh4010831; Wed, 21 Dec 2022 17:15:40 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
- h=message-id : date :
- mime-version : subject : to : cc : references : from : in-reply-to :
- content-type : content-transfer-encoding; s=qcppdkim1;
- bh=1oxQmQwiIenoFfxBXVP/PxDgwVG72FR62Q+9mRgzxps=;
- b=Z8ObkR+wJaOsGV3+N4M4pUt3zlAz45cFfkX0nlySOZ4nuYIMYbfW4duGCgUHF/S8aRzZ
- uO+MGXDBwxDxGsn6PrwogMsXSr9KAYDzfnk/xms/MRUmx2qD9Uxx+qqUBH4kTvdGoq1j
- SKe18fgfFhPaOETT9RiR4CfyffVD3QhUjZj+KQVPZPqUVzuPmCODr5CQoQvDyPQOsOOy
- +ELK1dowxJurCFuVI8/YxZEplRNwR/CE8WSk6A+EhCd98u9vjsnSLQtRd7sNEIAKHAkw
- L9+nB/zJ6AVrcTbK5alBMXtb6Me1sCEMGkOoMXzeX43h9/lLd5q3REOjGn514ljZD7rr uQ== 
-Received: from nalasppmta04.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3mm3cjrdwm-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 21 Dec 2022 17:15:40 +0000
-Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
- [10.47.209.196])
- by NALASPPMTA04.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 2BLHFcnw003686
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 21 Dec 2022 17:15:38 GMT
-Received: from [10.216.38.32] (10.80.80.8) by nalasex01a.na.qualcomm.com
- (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.36; Wed, 21 Dec
- 2022 09:15:33 -0800
-Message-ID: <84ab14d8-8177-a921-7ae2-7d05248a190b@quicinc.com>
-Date: Wed, 21 Dec 2022 22:45:29 +0530
+Received: from mail-lj1-x233.google.com (mail-lj1-x233.google.com
+ [IPv6:2a00:1450:4864:20::233])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7A42410E48E
+ for <freedreno@lists.freedesktop.org>; Wed, 21 Dec 2022 19:43:50 +0000 (UTC)
+Received: by mail-lj1-x233.google.com with SMTP id g14so16683464ljh.10
+ for <freedreno@lists.freedesktop.org>; Wed, 21 Dec 2022 11:43:50 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=kYmaas5EgsqwB1HZHnQkYwwmJtIimjHn5rSwR1jMRh0=;
+ b=v6SpFvK9pqLxtQJZSExisnllyUO5wL73hlJENBwKhFmAVeWsDZmMrAOssuVNLLXZPP
+ a/EoWYwqC8hZyl6twcKu42TJH/hdDVeruuwKIk2mAcoVrBArxzardjkjf9uk2G/Xf+VV
+ HcvU11Pou5FtThGqIXJ7vRAM1JAJNABhC8J5+4cRss1hPzukvKw0ZN4hJBRF9xRzLKiu
+ Gtf/zc3tKlKVdGq8bd3IVtedrHdpr+fwNk8Wjc93zAnyTL1J2hYYKLs2qHx6SL7PGVjo
+ 2Wh5E1UfbKuzDZ+l6ybAaLBio+P65xEfZBPz0agfYoOYz/Uh+Tq+p/1IsBklWSwJl63Q
+ wh6w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=kYmaas5EgsqwB1HZHnQkYwwmJtIimjHn5rSwR1jMRh0=;
+ b=MwTmMtbplFjIJDAllT5M++HWVS7CZCMRDJnpJuEL+B2APPpog4TGwFtzTBGBFT79Ix
+ IIJfyA2TMpeYEcuw0xQgs2edI7KtydpjR5AdFY/B33rKYG7g5PSA5dKhK6BA6/95nTOe
+ wn1ia2uu3aJyAexHgerTOnhZcow3dvP+pWiQqEoHBxsZrXG3CmpQKimMlecqjJN0IY3X
+ J6kJ5UIq2GMrzFWlO8viWg6k9V3Fo7idnvLpFcfweMAWgkQVy5wLghj5a99GSEKwCGJb
+ PIoJMGKvZylUskZI8oNLYLvQFBVp7mo/F4viywnOhgu9fyHIcVKsgIRpRhJIWk6nE93G
+ y5WA==
+X-Gm-Message-State: AFqh2kqzLQS70MkX1wrrTdpzGQW26GZRlBg0+Sai0njNv7MCgQ/gBR/I
+ yUMYEo783rQuClmniVWmSBUtZA==
+X-Google-Smtp-Source: AMrXdXvHM+AHzDjoRaw3LDYEcNpdxHutKCs+iwgoETz5JMAamSxV72aBEHSOtLDaXf47nSnSHLlFnw==
+X-Received: by 2002:a2e:3303:0:b0:27b:5a9b:a3c7 with SMTP id
+ d3-20020a2e3303000000b0027b5a9ba3c7mr866009ljc.50.1671651828562; 
+ Wed, 21 Dec 2022 11:43:48 -0800 (PST)
+Received: from ?IPV6:2001:14ba:a085:4d00::8a5?
+ (dzccz6yyyyyyyyyyybcwt-3.rev.dnainternet.fi. [2001:14ba:a085:4d00::8a5])
+ by smtp.gmail.com with ESMTPSA id
+ i26-20020a2ea23a000000b0027f94a09cb4sm501415ljm.135.2022.12.21.11.43.47
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 21 Dec 2022 11:43:47 -0800 (PST)
+Message-ID: <87837483-93eb-823a-508a-4e163f969de0@linaro.org>
+Date: Wed, 21 Dec 2022 21:43:47 +0200
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.3.2
-Content-Language: en-US
-To: Ulf Hansson <ulf.hansson@linaro.org>
-References: <1671522257-38778-1-git-send-email-quic_akhilpo@quicinc.com>
- <20221220131255.v3.1.I3e6b1f078ad0f1ca9358c573daa7b70ec132cdbe@changeid>
- <CAPDyKFr6Hf5gbJ9T9scYqDrg9tmKmVAm=h1J7r3GZzcogk5HpQ@mail.gmail.com>
-From: Akhil P Oommen <quic_akhilpo@quicinc.com>
-In-Reply-To: <CAPDyKFr6Hf5gbJ9T9scYqDrg9tmKmVAm=h1J7r3GZzcogk5HpQ@mail.gmail.com>
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.5.1
+Content-Language: en-GB
+To: Vinod Polimera <vpolimer@qti.qualcomm.com>,
+ "Vinod Polimera (QUIC)" <quic_vpolimer@quicinc.com>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ "linux-arm-msm@vger.kernel.org" <linux-arm-msm@vger.kernel.org>,
+ "freedreno@lists.freedesktop.org" <freedreno@lists.freedesktop.org>,
+ "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>
+References: <1671012352-1825-1-git-send-email-quic_vpolimer@quicinc.com>
+ <1671012352-1825-2-git-send-email-quic_vpolimer@quicinc.com>
+ <7ad7654a-b0a0-c08a-d111-cd34d38c36e0@linaro.org>
+ <BN0PR02MB8173B06FA578D6BC22AC6424E4EB9@BN0PR02MB8173.namprd02.prod.outlook.com>
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+In-Reply-To: <BN0PR02MB8173B06FA578D6BC22AC6424E4EB9@BN0PR02MB8173.namprd02.prod.outlook.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-GUID: okB0CZmVtG-v0eCEsgLc9zJvsRiBbtBG
-X-Proofpoint-ORIG-GUID: okB0CZmVtG-v0eCEsgLc9zJvsRiBbtBG
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.205,Aquarius:18.0.923,Hydra:6.0.545,FMLib:17.11.122.1
- definitions=2022-12-21_10,2022-12-21_01,2022-06-22_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- mlxscore=0 mlxlogscore=999
- impostorscore=0 spamscore=0 phishscore=0 clxscore=1015 priorityscore=1501
- suspectscore=0 malwarescore=0 lowpriorityscore=0 adultscore=0 bulkscore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2212070000
- definitions=main-2212210144
-Subject: Re: [Freedreno] [PATCH v3 1/5] PM: domains: Allow a genpd consumer
- to require a synced power off
+Subject: Re: [Freedreno] [PATCH v9 01/15] drm/msm/disp/dpu: clear
+ dpu_assign_crtc and get crtc from connector state instead of dpu_enc
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -85,128 +84,233 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Len Brown <len.brown@intel.com>, Pavel Machek <pavel@ucw.cz>,
- Kevin Hilman <khilman@kernel.org>, Stephen Boyd <sboyd@kernel.org>,
- linux-arm-msm@vger.kernel.org, Bjorn Andersson <andersson@kernel.org>,
- "Rafael J. Wysocki" <rafael@kernel.org>, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, Rob Clark <robdclark@gmail.com>,
- Philipp Zabel <p.zabel@pengutronix.de>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, linux-pm@vger.kernel.org,
- freedreno <freedreno@lists.freedesktop.org>
+Cc: "Kalyan Thota \(QUIC\)" <quic_kalyant@quicinc.com>,
+ "Sankeerth Billakanti \(QUIC\)" <quic_sbillaka@quicinc.com>,
+ "dianders@chromium.org" <dianders@chromium.org>,
+ "Bjorn Andersson \(QUIC\)" <quic_bjorande@quicinc.com>,
+ "Abhinav Kumar \(QUIC\)" <quic_abhinavk@quicinc.com>,
+ "Vishnuvardhan Prodduturi \(QUIC\)" <quic_vproddut@quicinc.com>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "Kuogee Hsieh \(QUIC\)" <quic_khsieh@quicinc.com>,
+ "robdclark@gmail.com" <robdclark@gmail.com>,
+ "Aravind Venkateswaran \(QUIC\)" <quic_aravindh@quicinc.com>,
+ "swboyd@chromium.org" <swboyd@chromium.org>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 12/21/2022 8:13 PM, Ulf Hansson wrote:
-> On Tue, 20 Dec 2022 at 08:44, Akhil P Oommen <quic_akhilpo@quicinc.com> wrote:
->> From: Ulf Hansson <ulf.hansson@linaro.org>
+On 21/12/2022 16:10, Vinod Polimera wrote:
+> 
+> 
+>> -----Original Message-----
+>> From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+>> Sent: Wednesday, December 14, 2022 9:05 PM
+>> To: Vinod Polimera (QUIC) <quic_vpolimer@quicinc.com>; dri-
+>> devel@lists.freedesktop.org; linux-arm-msm@vger.kernel.org;
+>> freedreno@lists.freedesktop.org; devicetree@vger.kernel.org
+>> Cc: linux-kernel@vger.kernel.org; robdclark@gmail.com;
+>> dianders@chromium.org; swboyd@chromium.org; Kalyan Thota (QUIC)
+>> <quic_kalyant@quicinc.com>; Kuogee Hsieh (QUIC)
+>> <quic_khsieh@quicinc.com>; Vishnuvardhan Prodduturi (QUIC)
+>> <quic_vproddut@quicinc.com>; Bjorn Andersson (QUIC)
+>> <quic_bjorande@quicinc.com>; Aravind Venkateswaran (QUIC)
+>> <quic_aravindh@quicinc.com>; Abhinav Kumar (QUIC)
+>> <quic_abhinavk@quicinc.com>; Sankeerth Billakanti (QUIC)
+>> <quic_sbillaka@quicinc.com>
+>> Subject: Re: [PATCH v9 01/15] drm/msm/disp/dpu: clear dpu_assign_crtc and
+>> get crtc from connector state instead of dpu_enc
 >>
->> Some genpd providers doesn't ensure that it has turned off at hardware.
->> This is fine until the consumer really requires during some special
->> scenarios that the power domain collapse at hardware before it is
->> turned ON again.
+>> WARNING: This email originated from outside of Qualcomm. Please be wary
+>> of any links or attachments, and do not enable macros.
 >>
->> An example is the reset sequence of Adreno GPU which requires that the
->> 'gpucc cx gdsc' power domain should move to OFF state in hardware at
->> least once before turning in ON again to clear the internal state.
+>> On 14/12/2022 12:05, Vinod Polimera wrote:
+>>> Update crtc retrieval from dpu_enc to dpu_enc connector state,
+>>> since new links get set as part of the dpu enc virt mode set.
+>>> The dpu_enc->crtc cache is no more needed, hence cleaning it as
+>>> part of this change.
+>>>
+>>> This patch is dependent on the series:
+>>> https://patchwork.freedesktop.org/series/110969/
+>>>
+>>> Signed-off-by: Vinod Polimera <quic_vpolimer@quicinc.com>
+>>> ---
+>>>    drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c    |  4 ---
+>>>    drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c | 42 +++++++++---------
+>> -----------
+>>>    drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.h |  8 ------
+>>>    3 files changed, 13 insertions(+), 41 deletions(-)
+>>>
+>>> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
+>> b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
+>>> index 3f72d38..289d51e 100644
+>>> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
+>>> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
+>>> @@ -1029,7 +1029,6 @@ static void dpu_crtc_disable(struct drm_crtc *crtc,
+>>>                 */
+>>>                if (dpu_encoder_get_intf_mode(encoder) == INTF_MODE_VIDEO)
+>>>                        release_bandwidth = true;
+>>> -             dpu_encoder_assign_crtc(encoder, NULL);
+>>>        }
+>>>
+>>>        /* wait for frame_event_done completion */
+>>> @@ -1099,9 +1098,6 @@ static void dpu_crtc_enable(struct drm_crtc *crtc,
+>>>        trace_dpu_crtc_enable(DRMID(crtc), true, dpu_crtc);
+>>>        dpu_crtc->enabled = true;
+>>>
+>>> -     drm_for_each_encoder_mask(encoder, crtc->dev, crtc->state-
+>>> encoder_mask)
+>>> -             dpu_encoder_assign_crtc(encoder, crtc);
+>>> -
+>>>        /* Enable/restore vblank irq handling */
+>>>        drm_crtc_vblank_on(crtc);
+>>>    }
+>>> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+>> b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+>>> index a585036..b9b254d 100644
+>>> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+>>> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+>>> @@ -132,11 +132,6 @@ enum dpu_enc_rc_states {
+>>>     * @intfs_swapped:  Whether or not the phys_enc interfaces have been
+>> swapped
+>>>     *                  for partial update right-only cases, such as pingpong
+>>>     *                  split where virtual pingpong does not generate IRQs
+>>> - * @crtc:            Pointer to the currently assigned crtc. Normally you
+>>> - *                   would use crtc->state->encoder_mask to determine the
+>>> - *                   link between encoder/crtc. However in this case we need
+>>> - *                   to track crtc in the disable() hook which is called
+>>> - *                   _after_ encoder_mask is cleared.
+>>>     * @connector:              If a mode is set, cached pointer to the active
+>> connector
+>>>     * @crtc_kickoff_cb:                Callback into CRTC that will flush & start
+>>>     *                          all CTL paths
+>>> @@ -181,7 +176,6 @@ struct dpu_encoder_virt {
+>>>
+>>>        bool intfs_swapped;
+>>>
+>>> -     struct drm_crtc *crtc;
+>>>        struct drm_connector *connector;
+>>>
+>>>        struct dentry *debugfs_root;
+>>> @@ -1317,7 +1311,7 @@ static void dpu_encoder_vblank_callback(struct
+>> drm_encoder *drm_enc,
+>>>                struct dpu_encoder_phys *phy_enc)
+>>>    {
+>>>        struct dpu_encoder_virt *dpu_enc = NULL;
+>>> -     unsigned long lock_flags;
+>>> +     struct drm_crtc *crtc;
+>>>
+>>>        if (!drm_enc || !phy_enc)
+>>>                return;
+>>> @@ -1325,12 +1319,13 @@ static void dpu_encoder_vblank_callback(struct
+>> drm_encoder *drm_enc,
+>>>        DPU_ATRACE_BEGIN("encoder_vblank_callback");
+>>>        dpu_enc = to_dpu_encoder_virt(drm_enc);
+>>>
+>>> -     atomic_inc(&phy_enc->vsync_cnt);
+>>> +     if (!dpu_enc->connector || !dpu_enc->connector->state ||
+>>> +         !dpu_enc->connector->state->crtc)
+>>> +             return;
+>>>
+>>> -     spin_lock_irqsave(&dpu_enc->enc_spinlock, lock_flags);
+>>> -     if (dpu_enc->crtc)
+>>> -             dpu_crtc_vblank_callback(dpu_enc->crtc);
+>>> -     spin_unlock_irqrestore(&dpu_enc->enc_spinlock, lock_flags);
+>>> +     atomic_inc(&phy_enc->vsync_cnt);
+>>> +     crtc = dpu_enc->connector->state->crtc;
+>>> +     dpu_crtc_vblank_callback(crtc);
+>>>
+>>>        DPU_ATRACE_END("encoder_vblank_callback");
+>>>    }
+>>> @@ -1353,33 +1348,22 @@ static void
+>> dpu_encoder_underrun_callback(struct drm_encoder *drm_enc,
+>>>        DPU_ATRACE_END("encoder_underrun_callback");
+>>>    }
+>>>
+>>> -void dpu_encoder_assign_crtc(struct drm_encoder *drm_enc, struct
+>> drm_crtc *crtc)
+>>> -{
+>>> -     struct dpu_encoder_virt *dpu_enc = to_dpu_encoder_virt(drm_enc);
+>>> -     unsigned long lock_flags;
+>>> -
+>>> -     spin_lock_irqsave(&dpu_enc->enc_spinlock, lock_flags);
+>>> -     /* crtc should always be cleared before re-assigning */
+>>> -     WARN_ON(crtc && dpu_enc->crtc);
+>>> -     dpu_enc->crtc = crtc;
+>>> -     spin_unlock_irqrestore(&dpu_enc->enc_spinlock, lock_flags);
+>>> -}
+>>> -
+>>>    void dpu_encoder_toggle_vblank_for_crtc(struct drm_encoder
+>> *drm_enc,
+>>>                                        struct drm_crtc *crtc, bool enable)
+>>>    {
+>>>        struct dpu_encoder_virt *dpu_enc = to_dpu_encoder_virt(drm_enc);
+>>> -     unsigned long lock_flags;
+>>> +     struct drm_crtc *new_crtc;
+>>>        int i;
+>>>
+>>>        trace_dpu_enc_vblank_cb(DRMID(drm_enc), enable);
+>>>
+>>> -     spin_lock_irqsave(&dpu_enc->enc_spinlock, lock_flags);
+>>> -     if (dpu_enc->crtc != crtc) {
+>>> -             spin_unlock_irqrestore(&dpu_enc->enc_spinlock, lock_flags);
+>>> +     if (!dpu_enc->connector || !dpu_enc->connector->state)
+>>> +             return;
+>>> +
+>>> +     new_crtc = dpu_enc->connector->state->crtc;
+>>> +     if (!new_crtc || new_crtc != crtc) {
 >>
->> Signed-off-by: Ulf Hansson <ulf.hansson@linaro.org>
->> Signed-off-by: Akhil P Oommen <quic_akhilpo@quicinc.com>
->> ---
->>
->> (no changes since v2)
->>
->> Changes in v2:
->> - Minor formatting fix
->>
->>  drivers/base/power/domain.c | 23 +++++++++++++++++++++++
->>  include/linux/pm_domain.h   |  5 +++++
->>  2 files changed, 28 insertions(+)
->>
->> diff --git a/drivers/base/power/domain.c b/drivers/base/power/domain.c
->> index 967bcf9d415e..53524a102321 100644
->> --- a/drivers/base/power/domain.c
->> +++ b/drivers/base/power/domain.c
->> @@ -519,6 +519,28 @@ ktime_t dev_pm_genpd_get_next_hrtimer(struct device *dev)
->>  }
->>  EXPORT_SYMBOL_GPL(dev_pm_genpd_get_next_hrtimer);
->>
->> +/*
->> + * dev_pm_genpd_synced_poweroff - Next power off should be synchronous
->> + *
->> + * @dev: A device that is attached to the genpd.
->> + *
->> + * Allows a consumer of the genpd to notify the provider that the next power off
->> + * should be synchronous.
-> Nitpick; similar to other dev_pm_genpd_* function-descriptions, I
-> think it's important to add the below information.
->
-> "It is assumed that the users guarantee that the genpd wouldn't be
-> detached while this routine is getting called."
->
-> Can you please add that?
-Thanks. Fixed in revision 4.
+>> I don't like going through all the pointers and states without locks.
+>> The connector->state can potentially check. So, I'd propose even simpler
+>> solution: just store the crtc in the dpu_enc at the creation time. Then
+>> you can use the rest of the current dpu_enc->crtc as expected.
+> 
+> Can i do as below.
+> After encoder to crtc is pinned, i can update dpu_encoder structure that is attached with drm_enc with the crtc created during drm_obj_init
+> 
+> @@ -816,6 +816,7 @@ static int _dpu_kms_drm_obj_init(struct dpu_kms *dpu_kms)
+>                  }
+>                  priv->crtcs[priv->num_crtcs++] = crtc;
+>                  encoder->possible_crtcs = 1 << drm_crtc_index(crtc);
+>                + dpu_encoder_assign_crtc(encoder, crtc);
+>                  i++;
+>          }
 
--Akhil.
->
->> + */
->> +void dev_pm_genpd_synced_poweroff(struct device *dev)
->> +{
->> +       struct generic_pm_domain *genpd;
->> +
->> +       genpd = dev_to_genpd_safe(dev);
->> +       if (!genpd)
->> +               return;
->> +
->> +       genpd_lock(genpd);
->> +       genpd->synced_poweroff = true;
->> +       genpd_unlock(genpd);
->> +}
->> +EXPORT_SYMBOL_GPL(dev_pm_genpd_synced_poweroff);
->> +
->>  static int _genpd_power_on(struct generic_pm_domain *genpd, bool timed)
->>  {
->>         unsigned int state_idx = genpd->state_idx;
->> @@ -562,6 +584,7 @@ static int _genpd_power_on(struct generic_pm_domain *genpd, bool timed)
+Yes.
+
 >>
->>  out:
->>         raw_notifier_call_chain(&genpd->power_notifiers, GENPD_NOTIFY_ON, NULL);
->> +       genpd->synced_poweroff = false;
->>         return 0;
->>  err:
->>         raw_notifier_call_chain(&genpd->power_notifiers, GENPD_NOTIFY_OFF,
->> diff --git a/include/linux/pm_domain.h b/include/linux/pm_domain.h
->> index 1cd41bdf73cf..f776fb93eaa0 100644
->> --- a/include/linux/pm_domain.h
->> +++ b/include/linux/pm_domain.h
->> @@ -136,6 +136,7 @@ struct generic_pm_domain {
->>         unsigned int prepared_count;    /* Suspend counter of prepared devices */
->>         unsigned int performance_state; /* Aggregated max performance state */
->>         cpumask_var_t cpus;             /* A cpumask of the attached CPUs */
->> +       bool synced_poweroff;           /* A consumer needs a synced poweroff */
->>         int (*power_off)(struct generic_pm_domain *domain);
->>         int (*power_on)(struct generic_pm_domain *domain);
->>         struct raw_notifier_head power_notifiers; /* Power on/off notifiers */
->> @@ -235,6 +236,7 @@ int dev_pm_genpd_add_notifier(struct device *dev, struct notifier_block *nb);
->>  int dev_pm_genpd_remove_notifier(struct device *dev);
->>  void dev_pm_genpd_set_next_wakeup(struct device *dev, ktime_t next);
->>  ktime_t dev_pm_genpd_get_next_hrtimer(struct device *dev);
->> +void dev_pm_genpd_synced_poweroff(struct device *dev);
+>>>                return;
+>>>        }
+>>> -     spin_unlock_irqrestore(&dpu_enc->enc_spinlock, lock_flags);
+>>>
+>>>        for (i = 0; i < dpu_enc->num_phys_encs; i++) {
+>>>                struct dpu_encoder_phys *phys = dpu_enc->phys_encs[i];
+>>> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.h
+>> b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.h
+>>> index 7f3d823..eb9fc7c 100644
+>>> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.h
+>>> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.h
+>>> @@ -40,14 +40,6 @@ struct msm_display_info {
+>>>    };
+>>>
+>>>    /**
+>>> - * dpu_encoder_assign_crtc - Link the encoder to the crtc it's assigned to
+>>> - * @encoder: encoder pointer
+>>> - * @crtc:    crtc pointer
+>>> - */
+>>> -void dpu_encoder_assign_crtc(struct drm_encoder *encoder,
+>>> -                          struct drm_crtc *crtc);
+>>> -
+>>> -/**
+>>>     * dpu_encoder_toggle_vblank_for_crtc - Toggles vblank interrupts on or
+>> off if
+>>>     *  the encoder is assigned to the given crtc
+>>>     * @encoder:        encoder pointer
 >>
->>  extern struct dev_power_governor simple_qos_governor;
->>  extern struct dev_power_governor pm_domain_always_on_gov;
->> @@ -300,6 +302,9 @@ static inline ktime_t dev_pm_genpd_get_next_hrtimer(struct device *dev)
->>  {
->>         return KTIME_MAX;
->>  }
->> +static inline void dev_pm_genpd_synced_poweroff(struct device *dev)
->> +{ }
->> +
->>  #define simple_qos_governor            (*(struct dev_power_governor *)(NULL))
->>  #define pm_domain_always_on_gov                (*(struct dev_power_governor *)(NULL))
->>  #endif
 >> --
->> 2.7.4
->>
-> Kind regards
-> Uffe
+>> With best wishes
+>> Dmitry
+> 
+
+-- 
+With best wishes
+Dmitry
 
