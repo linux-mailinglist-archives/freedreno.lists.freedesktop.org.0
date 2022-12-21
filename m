@@ -2,59 +2,70 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2D1F2653290
-	for <lists+freedreno@lfdr.de>; Wed, 21 Dec 2022 15:43:42 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 304CA6532F7
+	for <lists+freedreno@lfdr.de>; Wed, 21 Dec 2022 16:10:53 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CD3F810E455;
-	Wed, 21 Dec 2022 14:43:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C5BBD10E457;
+	Wed, 21 Dec 2022 15:10:21 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-pj1-x1033.google.com (mail-pj1-x1033.google.com
- [IPv6:2607:f8b0:4864:20::1033])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9EE7C10E455
- for <freedreno@lists.freedesktop.org>; Wed, 21 Dec 2022 14:43:38 +0000 (UTC)
-Received: by mail-pj1-x1033.google.com with SMTP id
- hd14-20020a17090b458e00b0021909875bccso3520122pjb.1
- for <freedreno@lists.freedesktop.org>; Wed, 21 Dec 2022 06:43:38 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=IyW++2grHjl8J45d/2q3DxB6TJXLGyoaKqQ8S90iPAw=;
- b=JwcBi8Mk+n+BRfCLl7cSqbrJjPeQAMpIMzuzVVbz7UEk9bGfgDNKY8nXyg0CyOyIt/
- ubbg606HpZ/6sJlH/0CZitVijUPDKFXn69O+XpmGg6+dLyrQysjwKEpLZM+HMcSFFeqU
- T3IRNg6mZ4F/aqnC/4beIRjC33YQwVSPSixMeE23GyB3wSywM1HVdTOaD8dktnTVMMrK
- dl7QplP1kP60YXb5UK1GvRUH5B+Zj/cyt/XD4X2nH4arqpOqBJJD44ljqlSbMP2xXsLW
- zS+NvuqhG8MTh1LmpSe/CVuOy1AMoHw+vHzsEtnHD/7qTFy45Auw9eJZTJQTLts8KxhS
- jkvQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=IyW++2grHjl8J45d/2q3DxB6TJXLGyoaKqQ8S90iPAw=;
- b=spYNgr1mS1wLeG1QkmIeHMdfh0dLXSuDIYzbqnjjcCSWX7b/KiUFEf7iAzf38CfcsD
- jhi6QqwbAnJ79UALLsj40+1CmzGGnYoutwh+/wyrLZcf9ZN5x+JBpo/R40idtRc9Auy+
- HR7hjDeeREMern2HojajSWNJIDlKk+iUNPO171qJO4ogagsRZJyEqCQDWGuPShtXRbae
- NzC8gKk+ss+jpTCfSJfaqemHE2plbqHPNkwsUVgEvCTSnMShKzoNyzDwHIVVjPibsXNg
- nNA+bc8ziKB8VA8roa/e341XAc+mm1jhTkSSijsRZWfrgCUUm2YwXQHcjwXVXjUwywEu
- 8okA==
-X-Gm-Message-State: AFqh2koMW+sNGooYUdke/xUUhzmnK321CXTxFIQ93oi9fvHdIeFumwD+
- LdzeTcIu6hcsifmQYzETGuRwSKstSQqR8d61r+Uu8w==
-X-Google-Smtp-Source: AMrXdXvCHGKgNiRJjAKvBrn8TFRX9lSKbtiwl6JC1JfpRNHfJRtETCwT+Zv/FXciPqBeqqKNLPL9r+PBfxqx5PpG9q0=
-X-Received: by 2002:a17:90a:be0c:b0:219:ef02:a5eb with SMTP id
- a12-20020a17090abe0c00b00219ef02a5ebmr226260pjs.84.1671633818076; Wed, 21 Dec
- 2022 06:43:38 -0800 (PST)
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 37DA610E130;
+ Wed, 21 Dec 2022 15:10:19 +0000 (UTC)
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 2BLDonRx012598; Wed, 21 Dec 2022 15:10:15 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
+ h=from : to : cc :
+ subject : date : message-id : mime-version : content-type; s=qcppdkim1;
+ bh=s/n7LfhKNXMJO7cKF05rI7a8p2Cj1T1UqOe64kYAbq4=;
+ b=d2jnJcU6KjXbGyOLhl1xxvIWSrOapQzvy4aVfZ3UL+MzubDAuiVJwKoN1PvADJRs4n9d
+ 2vd6KDxcdeWXf/4ipeA/IylslYA4uPOq2Ec6/OrQ65JuKH4af0qdBK6/oQArUdlFxz9P
+ DTD665E+uYBkSxd5gffEhP3AvDLm8AqCVeeR6WoleGRVeoFZ7ou4vJ9doXIOQVaagx96
+ e/fvKRTwYVqjpwBKczYfNVFGDNmC72k6t1WoOwmvAVBFyt1oP9WWeWHsmcKakXwOYr+R
+ P37ilpp/wWSEd446K+MMLEdi8CyFmrhNof5bXgMNbi+zH70UUfniFON745BM4b/OTCPF rw== 
+Received: from nalasppmta01.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3mkcxvb3sn-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 21 Dec 2022 15:10:15 +0000
+Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
+ [10.47.209.196])
+ by NALASPPMTA01.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 2BLFAEq9001881
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 21 Dec 2022 15:10:14 GMT
+Received: from hyd-lnxbld559.qualcomm.com (10.80.80.8) by
+ nalasex01a.na.qualcomm.com (10.47.209.196) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.986.36; Wed, 21 Dec 2022 07:10:09 -0800
+From: Akhil P Oommen <quic_akhilpo@quicinc.com>
+To: freedreno <freedreno@lists.freedesktop.org>,
+ <dri-devel@lists.freedesktop.org>, <linux-arm-msm@vger.kernel.org>
+Date: Wed, 21 Dec 2022 20:39:56 +0530
+Message-ID: <20221221203925.v2.1.Ib978de92c4bd000b515486aad72e96c2481f84d0@changeid>
+X-Mailer: git-send-email 2.7.4
 MIME-Version: 1.0
-References: <1671522257-38778-1-git-send-email-quic_akhilpo@quicinc.com>
- <20221220131255.v3.1.I3e6b1f078ad0f1ca9358c573daa7b70ec132cdbe@changeid>
-In-Reply-To: <20221220131255.v3.1.I3e6b1f078ad0f1ca9358c573daa7b70ec132cdbe@changeid>
-From: Ulf Hansson <ulf.hansson@linaro.org>
-Date: Wed, 21 Dec 2022 15:43:01 +0100
-Message-ID: <CAPDyKFr6Hf5gbJ9T9scYqDrg9tmKmVAm=h1J7r3GZzcogk5HpQ@mail.gmail.com>
-To: Akhil P Oommen <quic_akhilpo@quicinc.com>
-Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [PATCH v3 1/5] PM: domains: Allow a genpd consumer
- to require a synced power off
+Content-Type: text/plain
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-GUID: lCwHDYWW87FrXWVrycegm73ushsI0UHO
+X-Proofpoint-ORIG-GUID: lCwHDYWW87FrXWVrycegm73ushsI0UHO
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.205,Aquarius:18.0.923,Hydra:6.0.545,FMLib:17.11.122.1
+ definitions=2022-12-21_08,2022-12-21_01,2022-06-22_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501
+ adultscore=0 impostorscore=0 clxscore=1011 lowpriorityscore=0 mlxscore=0
+ suspectscore=0 malwarescore=0 spamscore=0 mlxlogscore=999 bulkscore=0
+ phishscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2212070000 definitions=main-2212210126
+Subject: [Freedreno] [PATCH v2 1/4] drm/msm/adreno: Fix null ptr access in
+ adreno_gpu_cleanup()
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,126 +78,91 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Len Brown <len.brown@intel.com>, Pavel Machek <pavel@ucw.cz>,
- Kevin Hilman <khilman@kernel.org>, Stephen Boyd <sboyd@kernel.org>,
- linux-arm-msm@vger.kernel.org, Bjorn Andersson <andersson@kernel.org>,
- "Rafael J. Wysocki" <rafael@kernel.org>, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, Rob Clark <robdclark@gmail.com>,
- Philipp Zabel <p.zabel@pengutronix.de>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, linux-pm@vger.kernel.org,
- freedreno <freedreno@lists.freedesktop.org>
+Cc: Sean Paul <sean@poorly.run>, Dan Carpenter <error27@gmail.com>,
+ Emma Anholt <emma@anholt.net>, Akhil P Oommen <quic_akhilpo@quicinc.com>,
+ Maximilian Luz <luzmaximilian@gmail.com>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, linux-kernel@vger.kernel.org,
+ Luca Weiss <luca@z3ntu.xyz>, Rob Clark <robdclark@gmail.com>,
+ Jonathan Marek <jonathan@marek.ca>, Daniel Vetter <daniel@ffwll.ch>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ David Airlie <airlied@gmail.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Tue, 20 Dec 2022 at 08:44, Akhil P Oommen <quic_akhilpo@quicinc.com> wrote:
->
-> From: Ulf Hansson <ulf.hansson@linaro.org>
->
-> Some genpd providers doesn't ensure that it has turned off at hardware.
-> This is fine until the consumer really requires during some special
-> scenarios that the power domain collapse at hardware before it is
-> turned ON again.
->
-> An example is the reset sequence of Adreno GPU which requires that the
-> 'gpucc cx gdsc' power domain should move to OFF state in hardware at
-> least once before turning in ON again to clear the internal state.
->
-> Signed-off-by: Ulf Hansson <ulf.hansson@linaro.org>
-> Signed-off-by: Akhil P Oommen <quic_akhilpo@quicinc.com>
-> ---
->
-> (no changes since v2)
->
-> Changes in v2:
-> - Minor formatting fix
->
->  drivers/base/power/domain.c | 23 +++++++++++++++++++++++
->  include/linux/pm_domain.h   |  5 +++++
->  2 files changed, 28 insertions(+)
->
-> diff --git a/drivers/base/power/domain.c b/drivers/base/power/domain.c
-> index 967bcf9d415e..53524a102321 100644
-> --- a/drivers/base/power/domain.c
-> +++ b/drivers/base/power/domain.c
-> @@ -519,6 +519,28 @@ ktime_t dev_pm_genpd_get_next_hrtimer(struct device *dev)
->  }
->  EXPORT_SYMBOL_GPL(dev_pm_genpd_get_next_hrtimer);
->
-> +/*
-> + * dev_pm_genpd_synced_poweroff - Next power off should be synchronous
-> + *
-> + * @dev: A device that is attached to the genpd.
-> + *
-> + * Allows a consumer of the genpd to notify the provider that the next power off
-> + * should be synchronous.
+Fix the below kernel panic due to null pointer access:
+[   18.504431] Unable to handle kernel NULL pointer dereference at virtual address 0000000000000048
+[   18.513464] Mem abort info:
+[   18.516346]   ESR = 0x0000000096000005
+[   18.520204]   EC = 0x25: DABT (current EL), IL = 32 bits
+[   18.525706]   SET = 0, FnV = 0
+[   18.528878]   EA = 0, S1PTW = 0
+[   18.532117]   FSC = 0x05: level 1 translation fault
+[   18.537138] Data abort info:
+[   18.540110]   ISV = 0, ISS = 0x00000005
+[   18.544060]   CM = 0, WnR = 0
+[   18.547109] user pgtable: 4k pages, 39-bit VAs, pgdp=0000000112826000
+[   18.553738] [0000000000000048] pgd=0000000000000000, p4d=0000000000000000, pud=0000000000000000
+[   18.562690] Internal error: Oops: 0000000096000005 [#1] PREEMPT SMP
+**Snip**
+[   18.696758] Call trace:
+[   18.699278]  adreno_gpu_cleanup+0x30/0x88
+[   18.703396]  a6xx_destroy+0xc0/0x130
+[   18.707066]  a6xx_gpu_init+0x308/0x424
+[   18.710921]  adreno_bind+0x178/0x288
+[   18.714590]  component_bind_all+0xe0/0x214
+[   18.718797]  msm_drm_bind+0x1d4/0x614
+[   18.722566]  try_to_bring_up_aggregate_device+0x16c/0x1b8
+[   18.728105]  __component_add+0xa0/0x158
+[   18.732048]  component_add+0x20/0x2c
+[   18.735719]  adreno_probe+0x40/0xc0
+[   18.739300]  platform_probe+0xb4/0xd4
+[   18.743068]  really_probe+0xfc/0x284
+[   18.746738]  __driver_probe_device+0xc0/0xec
+[   18.751129]  driver_probe_device+0x48/0x110
+[   18.755421]  __device_attach_driver+0xa8/0xd0
+[   18.759900]  bus_for_each_drv+0x90/0xdc
+[   18.763843]  __device_attach+0xfc/0x174
+[   18.767786]  device_initial_probe+0x20/0x2c
+[   18.772090]  bus_probe_device+0x40/0xa0
+[   18.776032]  deferred_probe_work_func+0x94/0xd0
+[   18.780686]  process_one_work+0x190/0x3d0
+[   18.784805]  worker_thread+0x280/0x3d4
+[   18.788659]  kthread+0x104/0x1c0
+[   18.791981]  ret_from_fork+0x10/0x20
+[   18.795654] Code: f9400408 aa0003f3 aa1f03f4 91142015 (f9402516)
+[   18.801913] ---[ end trace 0000000000000000 ]---
+[   18.809039] Kernel panic - not syncing: Oops: Fatal exception
 
-Nitpick; similar to other dev_pm_genpd_* function-descriptions, I
-think it's important to add the below information.
+Fixes: 17e822f7591f ("drm/msm: fix unbalanced pm_runtime_enable in adreno_gpu_{init, cleanup}")
+Signed-off-by: Akhil P Oommen <quic_akhilpo@quicinc.com>
+---
 
-"It is assumed that the users guarantee that the genpd wouldn't be
-detached while this routine is getting called."
+Changes in v2:
+- Added 'Fixes' tag (Dan Carpenter)
 
-Can you please add that?
+ drivers/gpu/drm/msm/adreno/adreno_gpu.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-> + */
-> +void dev_pm_genpd_synced_poweroff(struct device *dev)
-> +{
-> +       struct generic_pm_domain *genpd;
-> +
-> +       genpd = dev_to_genpd_safe(dev);
-> +       if (!genpd)
-> +               return;
-> +
-> +       genpd_lock(genpd);
-> +       genpd->synced_poweroff = true;
-> +       genpd_unlock(genpd);
-> +}
-> +EXPORT_SYMBOL_GPL(dev_pm_genpd_synced_poweroff);
-> +
->  static int _genpd_power_on(struct generic_pm_domain *genpd, bool timed)
->  {
->         unsigned int state_idx = genpd->state_idx;
-> @@ -562,6 +584,7 @@ static int _genpd_power_on(struct generic_pm_domain *genpd, bool timed)
->
->  out:
->         raw_notifier_call_chain(&genpd->power_notifiers, GENPD_NOTIFY_ON, NULL);
-> +       genpd->synced_poweroff = false;
->         return 0;
->  err:
->         raw_notifier_call_chain(&genpd->power_notifiers, GENPD_NOTIFY_OFF,
-> diff --git a/include/linux/pm_domain.h b/include/linux/pm_domain.h
-> index 1cd41bdf73cf..f776fb93eaa0 100644
-> --- a/include/linux/pm_domain.h
-> +++ b/include/linux/pm_domain.h
-> @@ -136,6 +136,7 @@ struct generic_pm_domain {
->         unsigned int prepared_count;    /* Suspend counter of prepared devices */
->         unsigned int performance_state; /* Aggregated max performance state */
->         cpumask_var_t cpus;             /* A cpumask of the attached CPUs */
-> +       bool synced_poweroff;           /* A consumer needs a synced poweroff */
->         int (*power_off)(struct generic_pm_domain *domain);
->         int (*power_on)(struct generic_pm_domain *domain);
->         struct raw_notifier_head power_notifiers; /* Power on/off notifiers */
-> @@ -235,6 +236,7 @@ int dev_pm_genpd_add_notifier(struct device *dev, struct notifier_block *nb);
->  int dev_pm_genpd_remove_notifier(struct device *dev);
->  void dev_pm_genpd_set_next_wakeup(struct device *dev, ktime_t next);
->  ktime_t dev_pm_genpd_get_next_hrtimer(struct device *dev);
-> +void dev_pm_genpd_synced_poweroff(struct device *dev);
->
->  extern struct dev_power_governor simple_qos_governor;
->  extern struct dev_power_governor pm_domain_always_on_gov;
-> @@ -300,6 +302,9 @@ static inline ktime_t dev_pm_genpd_get_next_hrtimer(struct device *dev)
->  {
->         return KTIME_MAX;
->  }
-> +static inline void dev_pm_genpd_synced_poweroff(struct device *dev)
-> +{ }
-> +
->  #define simple_qos_governor            (*(struct dev_power_governor *)(NULL))
->  #define pm_domain_always_on_gov                (*(struct dev_power_governor *)(NULL))
->  #endif
-> --
-> 2.7.4
->
+diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.c b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
+index 382fb7f9e497..118d07e5c66c 100644
+--- a/drivers/gpu/drm/msm/adreno/adreno_gpu.c
++++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
+@@ -1073,13 +1073,13 @@ int adreno_gpu_init(struct drm_device *drm, struct platform_device *pdev,
+ void adreno_gpu_cleanup(struct adreno_gpu *adreno_gpu)
+ {
+ 	struct msm_gpu *gpu = &adreno_gpu->base;
+-	struct msm_drm_private *priv = gpu->dev->dev_private;
++	struct msm_drm_private *priv = gpu->dev ? gpu->dev->dev_private : NULL;
+ 	unsigned int i;
+ 
+ 	for (i = 0; i < ARRAY_SIZE(adreno_gpu->info->fw); i++)
+ 		release_firmware(adreno_gpu->fw[i]);
+ 
+-	if (pm_runtime_enabled(&priv->gpu_pdev->dev))
++	if (priv && pm_runtime_enabled(&priv->gpu_pdev->dev))
+ 		pm_runtime_disable(&priv->gpu_pdev->dev);
+ 
+ 	msm_gpu_cleanup(&adreno_gpu->base);
+-- 
+2.7.4
 
-Kind regards
-Uffe
