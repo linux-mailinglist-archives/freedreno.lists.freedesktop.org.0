@@ -2,72 +2,69 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 71D31654143
-	for <lists+freedreno@lfdr.de>; Thu, 22 Dec 2022 13:46:30 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B8F9165439F
+	for <lists+freedreno@lfdr.de>; Thu, 22 Dec 2022 16:05:28 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B3EFA10E11C;
-	Thu, 22 Dec 2022 12:46:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7812810E04D;
+	Thu, 22 Dec 2022 15:05:27 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wr1-x42f.google.com (mail-wr1-x42f.google.com
- [IPv6:2a00:1450:4864:20::42f])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 982B510E157
- for <freedreno@lists.freedesktop.org>; Thu, 22 Dec 2022 12:46:02 +0000 (UTC)
-Received: by mail-wr1-x42f.google.com with SMTP id z10so1493723wrh.10
- for <freedreno@lists.freedesktop.org>; Thu, 22 Dec 2022 04:46:02 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=6n0bW6AEyag4Yz/fTHAES88HSyxxmFvstBuhh9x5saw=;
- b=KOROV8lX7w89xX5ufKygg/XiKOHbwq+ahSq/EFXdClSz6A6PPIASH93vwSblhvyfvP
- z065xKqyID4B23C5FKRtCNBRT7EZeHKqBaXWbTm25nv5NSIM4YVpd6sapwFwIVxhDl9W
- vgS1DDELxOfO9UFeHBkuF3kXiBeX2Z9lJnUFB7VxxeWgDG2J9dKD9d4mhaDEElya+7OC
- J/Ifu+V/cIVhsVdOkWv9imdoqJp91AmZx3BU1lsgG0BAioTGznMGTy/nSQNLUBVfUTbu
- 59/w/iEnZzmu8sYKq1kwC+RZvZABDeTzNELZU1mol/HdAZezfgpti3m/1ZYHUj2Ma+AJ
- OpWg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=6n0bW6AEyag4Yz/fTHAES88HSyxxmFvstBuhh9x5saw=;
- b=uHXhyjZawNie3BgS0kKxHzuSU54ysruDF6VuE3NEJh1Bp6ZACKJkxZ7X2hSq9gF5r2
- cw7SXkoL85iuOsSQBh/UMg4lZGvNpf1/nLyfg6xIiMpIH1Mq46KP1A+6d1oyXCse/5OJ
- WZkOnWxIA6FoctTHiT1/QkkNTbwUAyuvMo/AqxLqKLjs4y5ZItcAhGeEnYrfRtsSokdR
- BPNhZPNK/c8C+AyE+1d41gic/fVi0am2spRTdKi1JSUlTpdkxhQ3nAdwA/oLVrbsNB04
- OePEcKZNA4+rr1kdVzYkbS7JcUJpiAN6u+uwOI9EjHJsyFcI0pHt9GUf07zc4cGOmcrD
- cBCA==
-X-Gm-Message-State: AFqh2kpjANpGvVoEFc1Z6nWBgJWuL0EisYCkCisRNIntExhqCLI/X4Z/
- GNOXUamPaJECkSsMWKCD/sBwJQ==
-X-Google-Smtp-Source: AMrXdXv2CMOs1kyvXBletImJqlJC+DtSfV8o0e7xTIWzSkmMqSaL7v/keKysbviY3GcBchUTo4+AIw==
-X-Received: by 2002:adf:fd4a:0:b0:242:593e:ee08 with SMTP id
- h10-20020adffd4a000000b00242593eee08mr3616514wrs.36.1671713160841; 
- Thu, 22 Dec 2022 04:46:00 -0800 (PST)
-Received: from [192.168.0.162] (188-141-3-169.dynamic.upc.ie. [188.141.3.169])
- by smtp.gmail.com with ESMTPSA id
- o2-20020a5d58c2000000b0026a4bb75477sm456705wrf.28.2022.12.22.04.45.59
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 22 Dec 2022 04:46:00 -0800 (PST)
-Message-ID: <b1f9dd11-b626-26d8-c6bd-7b5af7340dbb@linaro.org>
-Date: Thu, 22 Dec 2022 12:45:59 +0000
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 93BE310E04D;
+ Thu, 22 Dec 2022 15:05:26 +0000 (UTC)
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 2BMBHvfi030992; Thu, 22 Dec 2022 15:05:22 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
+ h=from : to : cc :
+ subject : date : message-id : mime-version : content-type; s=qcppdkim1;
+ bh=Gya7rubpAwJcrKugU9ig5Vdy5rjuPokrmgg+3DKAtFk=;
+ b=W0RqP4Dq2OBOzNLn6gZb6rUfLk8x6Z/rG9hyBW8mNCzROWsEMOhJywywVW+5JoRqvwmY
+ Yie1al1eODBfLtBYWbHQYYu6JIOdV09vpQxhefzUGKIobx9FDPGgOYoezI7xO3dOBpuK
+ E/3vSNmK10OrxfITNQzJubngwMgBe1n30XKPunppmFTvrS5I20v/L/3FLNH5uy1G9dhP
+ PtfunxJm/WZjeW22bXFxImB9ERCfLlJQZQtzX7o5uvqFDAwPrNHFu++rcs+NTPiTdHSP
+ XntvLcLQNA76zLotTswX6HaQAN+3kVDUOZ5PJIRGuj84sK9Vz/LeifrYku3LuuhfJIom 4g== 
+Received: from nalasppmta01.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3mm8x4j1t1-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 22 Dec 2022 15:05:22 +0000
+Received: from nalasex01b.na.qualcomm.com (nalasex01b.na.qualcomm.com
+ [10.47.209.197])
+ by NALASPPMTA01.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 2BMF5LIp005563
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 22 Dec 2022 15:05:21 GMT
+Received: from vpolimer-linux.qualcomm.com (10.80.80.8) by
+ nalasex01b.na.qualcomm.com (10.47.209.197) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.986.36; Thu, 22 Dec 2022 06:59:47 -0800
+From: Vinod Polimera <quic_vpolimer@quicinc.com>
+To: <dri-devel@lists.freedesktop.org>, <linux-arm-msm@vger.kernel.org>,
+ <freedreno@lists.freedesktop.org>, <devicetree@vger.kernel.org>
+Date: Thu, 22 Dec 2022 20:29:17 +0530
+Message-ID: <1671721172-16078-1-git-send-email-quic_vpolimer@quicinc.com>
+X-Mailer: git-send-email 2.7.4
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.5.0
-Content-Language: en-US
-To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
- linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
- devicetree@vger.kernel.org
-References: <20221220123634.382970-1-bryan.odonoghue@linaro.org>
- <20221220123634.382970-6-bryan.odonoghue@linaro.org>
- <4115ec26-dedf-ca80-b81a-409d9db88f52@linaro.org>
-From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-In-Reply-To: <4115ec26-dedf-ca80-b81a-409d9db88f52@linaro.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH v5 05/21] dt-bindings: msm:
- dsi-controller-main: Deprecate qcom, dsi-ctrl-6g-qcm2290 in favour of qcom,
- qcm2290-dsi-ctrl
+Content-Type: text/plain
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
+ nalasex01b.na.qualcomm.com (10.47.209.197)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-GUID: yH708T5851oBYUFtCaW4hvIU3w8DFhUO
+X-Proofpoint-ORIG-GUID: yH708T5851oBYUFtCaW4hvIU3w8DFhUO
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.205,Aquarius:18.0.923,Hydra:6.0.545,FMLib:17.11.122.1
+ definitions=2022-12-22_08,2022-12-22_03,2022-06-22_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 clxscore=1015
+ suspectscore=0 phishscore=0 priorityscore=1501 impostorscore=0 bulkscore=0
+ lowpriorityscore=0 mlxscore=0 mlxlogscore=999 adultscore=0 malwarescore=0
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2212070000
+ definitions=main-2212220131
+Subject: [Freedreno] [PATCH v10 00/15] Add PSR support for eDP
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,76 +77,117 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: dri-devel@lists.freedesktop.org, krzysztof.kozlowski+dt@linaro.org,
- sean@poorly.run, andersson@kernel.org, konrad.dybcio@somainline.org,
- quic_abhinavk@quicinc.com, david@ixit.cz, dianders@chromium.org,
- robdclark@gmail.com, robh+dt@kernel.org, agross@kernel.org, daniel@ffwll.ch,
- dmitry.baryshkov@linaro.org, swboyd@chromium.org, airlied@gmail.com,
- linux-kernel@vger.kernel.org
+Cc: quic_kalyant@quicinc.com, quic_sbillaka@quicinc.com,
+ quic_bjorande@quicinc.com, quic_abhinavk@quicinc.com,
+ quic_vproddut@quicinc.com, quic_khsieh@quicinc.com, dianders@chromium.org,
+ linux-kernel@vger.kernel.org, robdclark@gmail.com, dmitry.baryshkov@linaro.org,
+ swboyd@chromium.org, Vinod Polimera <quic_vpolimer@quicinc.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 22/12/2022 11:50, Krzysztof Kozlowski wrote:
-> On 20/12/2022 13:36, Bryan O'Donoghue wrote:
->> Deprecate qcom,dsi-ctrl-6g-qcm2290 in favour of the desired format
->> qcom,qcm2290-dsi-ctrl.
->>
->> Signed-off-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
->> ---
->>   .../display/msm/dsi-controller-main.yaml      | 36 +++++++++++--------
->>   1 file changed, 21 insertions(+), 15 deletions(-)
->>
->> diff --git a/Documentation/devicetree/bindings/display/msm/dsi-controller-main.yaml b/Documentation/devicetree/bindings/display/msm/dsi-controller-main.yaml
->> index 01afa9e9c4b3c..98d54a7ee28d4 100644
->> --- a/Documentation/devicetree/bindings/display/msm/dsi-controller-main.yaml
->> +++ b/Documentation/devicetree/bindings/display/msm/dsi-controller-main.yaml
->> @@ -14,21 +14,27 @@ allOf:
->>   
->>   properties:
->>     compatible:
->> -    items:
->> -      - enum:
->> -          - qcom,apq8064-dsi-ctrl
->> -          - qcom,msm8916-dsi-ctrl
->> -          - qcom,msm8953-dsi-ctrl
->> -          - qcom,msm8974-dsi-ctrl
->> -          - qcom,msm8996-dsi-ctrl
->> -          - qcom,msm8998-dsi-ctrl
->> -          - qcom,dsi-ctrl-6g-qcm2290
->> -          - qcom,sc7180-dsi-ctrl
->> -          - qcom,sc7280-dsi-ctrl
->> -          - qcom,sdm660-dsi-ctrl
->> -          - qcom,sdm845-dsi-ctrl
->> -          - qcom,sm8250-dsi-ctrl
->> -      - const: qcom,mdss-dsi-ctrl
->> +    oneOf:
->> +      - items:
->> +          - enum:
->> +              - qcom,apq8064-dsi-ctrl
->> +              - qcom,msm8916-dsi-ctrl
->> +              - qcom,msm8953-dsi-ctrl
->> +              - qcom,msm8974-dsi-ctrl
->> +              - qcom,msm8996-dsi-ctrl
->> +              - qcom,msm8998-dsi-ctrl
->> +              - qcom,qcm2290-dsi-ctrl
->> +              - qcom,sc7180-dsi-ctrl
->> +              - qcom,sc7280-dsi-ctrl
->> +              - qcom,sdm660-dsi-ctrl
->> +              - qcom,sdm845-dsi-ctrl
->> +              - qcom,sm8250-dsi-ctrl
->> +          - const: qcom,mdss-dsi-ctrl
->> +      - items:
-> 
-> I would just squash it with previous. You are adding some code and in
-> next patch immediately:
-> 1. re-indent it,
-> 2. remove it (qcom,dsi-ctrl-6g-qcm2290)
-> 
-> 
-> Best regards,
-> Krzysztof
-> 
+Changes in v2:
+  - Use dp bridge to set psr entry/exit instead of dpu_enocder.
+  - Don't modify whitespaces.
+  - Set self refresh aware from atomic_check.
+  - Set self refresh aware only if psr is supported.
+  - Provide a stub for msm_dp_display_set_psr.
+  - Move dp functions to bridge code.
 
-Just to make sure.
+Changes in v3:
+  - Change callback names to reflect atomic interfaces.
+  - Move bridge callback change to separate patch as suggested by Dmitry.
+  - Remove psr function declaration from msm_drv.h.
+  - Set self_refresh_aware flag only if psr is supported.
+  - Modify the variable names to simpler form.
+  - Define bit fields for PSR settings.
+  - Add comments explaining the steps to enter/exit psr.
+  - Change DRM_INFO to drm_dbg_db. 
 
-I'll squash this patch down in the previous and include your RB.
+Changes in v4:
+  - Move the get crtc functions to drm_atomic.
+  - Add atomic functions for DP bridge too.
+  - Add ternary operator to choose eDP or DP ops.
+  - Return true/false instead of 1/0.
+  - mode_valid missing in the eDP bridge ops.
+  - Move the functions to get crtc into drm_atomic.c.
+  - Fix compilation issues.
+  - Remove dpu_assign_crtc and get crtc from drm_enc instead of dpu_enc.
+  - Check for crtc state enable while reserving resources.
+
+Changes in v5:
+  - Move the mode_valid changes into a different patch.
+  - Complete psr_op_comp only when isr is set.
+  - Move the DP atomic callback changes to a different patch.
+  - Get crtc from drm connector state crtc.
+  - Move to separate patch for check for crtc state enable while
+reserving resources.
+
+Changes in v6:
+  - Remove crtc from dpu_encoder_virt struct.
+  - fix crtc check during vblank toggle crtc.
+  - Misc changes. 
+
+Changes in v7:
+  - Add fix for underrun issue on kasan build.
+
+Changes in v8:
+  - Drop the enc spinlock as it won't serve any purpose in
+protetcing conn state.(Dmitry/Doug)
+
+Changes in v9:
+  - Update commit message and fix alignment using spaces.(Marijn)
+  - Misc changes.(Marijn)
+
+Changes in v10:
+  - get crtc cached in dpu_enc during obj init.(Dmitry)
+
+Sankeerth Billakanti (1):
+  drm/msm/dp: disable self_refresh_aware after entering psr
+
+Vinod Polimera (14):
+  drm/msm/disp/dpu: cache crtc obj in the dpu_encoder during
+    initialization
+  drm: add helper functions to retrieve old and new crtc
+  drm/msm/dp: use atomic callbacks for DP bridge ops
+  drm/msm/dp: Add basic PSR support for eDP
+  drm/msm/dp: use the eDP bridge ops to validate eDP modes
+  drm/bridge: use atomic enable/disable callbacks for panel bridge
+  drm/bridge: add psr support for panel bridge callbacks
+  drm/msm/disp/dpu: use atomic enable/disable callbacks for encoder
+    functions
+  drm/msm/disp/dpu: check for crtc enable rather than crtc active to
+    release shared resources
+  drm/msm/disp/dpu: add PSR support for eDP interface in dpu driver
+  drm/msm/disp/dpu: get timing engine status from intf status register
+  drm/msm/disp/dpu: wait for extra vsync till timing engine status is
+    disabled
+  drm/msm/disp/dpu: reset the datapath after timing engine disable
+  drm/msm/disp/dpu: clear active interface in the datapath cleanup
+
+ drivers/gpu/drm/bridge/panel.c                     |  68 ++++++-
+ drivers/gpu/drm/drm_atomic.c                       |  60 ++++++
+ drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c           |  17 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c        |  45 +++--
+ .../gpu/drm/msm/disp/dpu1/dpu_encoder_phys_vid.c   |  22 +++
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c     |   3 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h     |  12 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.c        |   8 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c            |   3 +-
+ drivers/gpu/drm/msm/dp/dp_catalog.c                |  80 ++++++++
+ drivers/gpu/drm/msm/dp/dp_catalog.h                |   4 +
+ drivers/gpu/drm/msm/dp/dp_ctrl.c                   |  80 ++++++++
+ drivers/gpu/drm/msm/dp/dp_ctrl.h                   |   3 +
+ drivers/gpu/drm/msm/dp/dp_display.c                |  36 ++--
+ drivers/gpu/drm/msm/dp/dp_display.h                |   2 +
+ drivers/gpu/drm/msm/dp/dp_drm.c                    | 206 ++++++++++++++++++++-
+ drivers/gpu/drm/msm/dp/dp_drm.h                    |   9 +-
+ drivers/gpu/drm/msm/dp/dp_link.c                   |  36 ++++
+ drivers/gpu/drm/msm/dp/dp_panel.c                  |  22 +++
+ drivers/gpu/drm/msm/dp/dp_panel.h                  |   6 +
+ drivers/gpu/drm/msm/dp/dp_reg.h                    |  27 +++
+ include/drm/drm_atomic.h                           |   7 +
+ 22 files changed, 696 insertions(+), 60 deletions(-)
+
+-- 
+2.7.4
+
