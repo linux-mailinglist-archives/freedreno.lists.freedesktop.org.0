@@ -2,72 +2,72 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9EA91653F87
-	for <lists+freedreno@lfdr.de>; Thu, 22 Dec 2022 12:49:01 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7F1DF653FC2
+	for <lists+freedreno@lfdr.de>; Thu, 22 Dec 2022 12:50:55 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4B0E810E4FB;
-	Thu, 22 Dec 2022 11:48:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 386C710E0C2;
+	Thu, 22 Dec 2022 11:50:24 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x12b.google.com (mail-lf1-x12b.google.com
- [IPv6:2a00:1450:4864:20::12b])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0DF8D10E4F7
- for <freedreno@lists.freedesktop.org>; Thu, 22 Dec 2022 11:48:22 +0000 (UTC)
-Received: by mail-lf1-x12b.google.com with SMTP id x11so2421943lfn.0
- for <freedreno@lists.freedesktop.org>; Thu, 22 Dec 2022 03:48:21 -0800 (PST)
+Received: from mail-lj1-x232.google.com (mail-lj1-x232.google.com
+ [IPv6:2a00:1450:4864:20::232])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7853A10E4EE
+ for <freedreno@lists.freedesktop.org>; Thu, 22 Dec 2022 11:50:21 +0000 (UTC)
+Received: by mail-lj1-x232.google.com with SMTP id v11so1617821ljk.12
+ for <freedreno@lists.freedesktop.org>; Thu, 22 Dec 2022 03:50:21 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=content-transfer-encoding:in-reply-to:references:cc:to:from
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :from:to:cc:subject:date:message-id:reply-to;
- bh=NVCRdiTbSjX2av+xZv+BZhudvMB52xvAnvKnjqYLwtI=;
- b=neyzDcMzrRlme9nTb9aFRxmG4XH6Wq/HLlBwDfyliA3EUnc71x6JEkiVUvxjvz9xva
- PSeeOI/d5nT/oJxic1y7j66cOCI51cEjFZGnvCE19Bv26qY0oZQOMOR6CkE2v5/0K+K0
- 81ncLH3XAZ377wX4RbVT9KZNbP38anzoVC0zRkiq7DVxRJzcK/GQLYXe6If//wK4vKGn
- KauB/VLKTs4DSoLx+dx5VlAg7EnT+F3hqL3G+9J4ITpxlj4kiUytma0+mPRMlUJQSGFa
- zECgZAZfxc0RStMP8sbzA+Or+hfM4Xf4OTi+aqcX6aA9JlqSbG9hj4vEBW+fRNyUZ1P/
- KOxA==
+ bh=Y6zbNVvUnUZ8o4kZcOTLR6KagKMfi5R7wiaU4278DEU=;
+ b=a/zmMZNdXQeHq719bi47ZJCtdikNXOc0xis60e5rgzIAMoUR/FScBMs7i7jjbgSIrC
+ VR2YS+apShCH1+PhG9sTCNYAa9OozWx7Yp2EpmMf0jLBLLrOJt5BJ7BEQJMgRgpm7kVQ
+ 6HIoCjSFNOBCq30HVlhHtHuD8Lx9vzYKqD4MspTgltifTgPEwsvaZbbCNacUDbSpVaW3
+ 0QGMxaEx/4hzxqiO1mP+v64VnnB4UXfkADDkL3YnN3m4IAYtrYjXTo/P7j9IkIeP2E2I
+ P2knlEf/rmUoY2MD7CAFzZNDH9nVkHLkB4vVSGkHQZOrAGCoEksRXMP8Z/DzayIJ3Ob3
+ kfdA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=content-transfer-encoding:in-reply-to:references:cc:to:from
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=NVCRdiTbSjX2av+xZv+BZhudvMB52xvAnvKnjqYLwtI=;
- b=tXeLJpH1/xcjc/MydnzOIkQ6Ij3Ku9RMI9ihmyHw3Unca3A3F7CjqbSzfbw95M+Ays
- JK/v5izqsjLRJAxDE9Lw11Czq+YPE6zfr0ifGaG2VT1YnxyZOMY5OLK3FLS4sYLqrjk7
- fnHJ0Ym3teZT8oYuhAFpb0pDk2PGdHOPr8o8+xD/HZCye/NApwy6b4NJ88nRJCYtrhc9
- kZz9+DW4KloWkPJE8w8k7Qeb7bqDhbbglsB99wKyiVQmNaZaApN2d73yOWQuj3qZ5dHh
- /QChOupTmV5E1buJIGCWbcY9pZ53RlKUQ/yGoWVJYahZ0z/pnEFvyYLcN+7m9IWaRRkI
- ccJw==
-X-Gm-Message-State: AFqh2kpuMPzY2zv/3fHXI6fhV6fHTDMlGVf0qz5mSRYjilVlwu+ENCMF
- diHFbaAiGOwMyCC0cPYnMCUEXQ==
-X-Google-Smtp-Source: AMrXdXtX5DD1vsG47Vq+ym2gFuOKPYuvtXbBe41PUSZX9Q2fU9J9oRs2DwUEp7aURJKPeUocqleA2A==
-X-Received: by 2002:ac2:4d87:0:b0:4c0:2d9e:f9d9 with SMTP id
- g7-20020ac24d87000000b004c02d9ef9d9mr1684900lfe.22.1671709700360; 
- Thu, 22 Dec 2022 03:48:20 -0800 (PST)
+ bh=Y6zbNVvUnUZ8o4kZcOTLR6KagKMfi5R7wiaU4278DEU=;
+ b=XeRoZysLDb7p8bQWCul7lkXiDyKOSKXMxiTLXJEnvnxZEFOAjYjHFgtp2dkKbWpzJy
+ L1KWriEC+js2hDYAMg5doVQHLc4Nlo1ZL0LLPX2LcsX67K5gFxpScfoR4LWvkRGNVOxX
+ 0/KaMpe5dQd+Na7TCh9v22zPgkt/M0iGilLT1Icesr2n6mxNdBYc81yrVhII2Nx22Z9c
+ tw6fx89ky5xTctbT2UEbokVEgH1qYy1Xpl19EDO7lrQCYFzeM0pxe99gpYf7GF/FzFMO
+ ic+rfTaEFE/u4iKGE2tCERsPr5cgVLi4fl1xr7OezI6e/U7Mk21yac1ymXTSBVfJ/XDU
+ hApg==
+X-Gm-Message-State: AFqh2kqmKODrP/ts/8BmPzsXwGJZcq7GJEXwI4MX7fuBLH4dR8wZaaiF
+ xFVhkT50IDiJBhFX7H3ZqaYe9A==
+X-Google-Smtp-Source: AMrXdXtFCO9TlMOcSbYrHeCeIWjx6v7GVy95v/qvA+USs+fHF3IExmCDsebPaR9GuVGgSfO7psI7SQ==
+X-Received: by 2002:a2e:99d4:0:b0:279:e84f:cd08 with SMTP id
+ l20-20020a2e99d4000000b00279e84fcd08mr1314614ljj.48.1671709819749; 
+ Thu, 22 Dec 2022 03:50:19 -0800 (PST)
 Received: from [192.168.0.20]
  (088156142067.dynamic-2-waw-k-3-2-0.vectranet.pl. [88.156.142.67])
  by smtp.gmail.com with ESMTPSA id
- c14-20020ac25f6e000000b004b5821219fbsm47643lfc.60.2022.12.22.03.48.19
+ l4-20020a2ea304000000b00279f3c58278sm26857lje.51.2022.12.22.03.50.18
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 22 Dec 2022 03:48:19 -0800 (PST)
-Message-ID: <00bcc651-3540-04b1-e0c0-d80335bf1bff@linaro.org>
-Date: Thu, 22 Dec 2022 12:48:18 +0100
+ Thu, 22 Dec 2022 03:50:19 -0800 (PST)
+Message-ID: <4115ec26-dedf-ca80-b81a-409d9db88f52@linaro.org>
+Date: Thu, 22 Dec 2022 12:50:17 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.6.0
 Content-Language: en-US
-From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
  linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
  devicetree@vger.kernel.org
 References: <20221220123634.382970-1-bryan.odonoghue@linaro.org>
- <20221220123634.382970-5-bryan.odonoghue@linaro.org>
- <51770a1c-45f6-9f5a-871d-022cd78a0d4b@linaro.org>
-In-Reply-To: <51770a1c-45f6-9f5a-871d-022cd78a0d4b@linaro.org>
+ <20221220123634.382970-6-bryan.odonoghue@linaro.org>
+From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+In-Reply-To: <20221220123634.382970-6-bryan.odonoghue@linaro.org>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH v5 04/21] dt-bindings: msm:
- dsi-controller-main: Add compatible strings for every current SoC
+Subject: Re: [Freedreno] [PATCH v5 05/21] dt-bindings: msm:
+ dsi-controller-main: Deprecate qcom, dsi-ctrl-6g-qcm2290 in favour of qcom,
+ qcm2290-dsi-ctrl
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -89,66 +89,61 @@ Cc: dri-devel@lists.freedesktop.org, krzysztof.kozlowski+dt@linaro.org,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 22/12/2022 12:47, Krzysztof Kozlowski wrote:
-> On 20/12/2022 13:36, Bryan O'Donoghue wrote:
->> Currently we do not differentiate between the various users of the
->> qcom,mdss-dsi-ctrl. The driver is flexible enough to operate from one
->> compatible string but, the hardware does have some significant differences
->> in the number of clocks.
->>
->> To facilitate documenting the clocks add the following compatible strings
->>
->> - qcom,apq8064-dsi-ctrl
->> - qcom,msm8916-dsi-ctrl
->> - qcom,msm8953-dsi-ctrl
->> - qcom,msm8974-dsi-ctrl
->> - qcom,msm8996-dsi-ctrl
->> - qcom,msm8998-dsi-ctrl
->> - qcom,sc7180-dsi-ctrl
->> - qcom,sc7280-dsi-ctrl
->> - qcom,sdm660-dsi-ctrl
->> - qcom,sdm845-dsi-ctrl
->> - qcom,sm8250-dsi-ctrl
->>
->> Each SoC dtsi should declare "qcom,socname-dsi-ctrl", "qcom,mdss-dsi-ctrl";
->>
->> Signed-off-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
->> ---
->>  .../display/msm/dsi-controller-main.yaml      | 20 +++++++++++++++----
->>  1 file changed, 16 insertions(+), 4 deletions(-)
->>
->> diff --git a/Documentation/devicetree/bindings/display/msm/dsi-controller-main.yaml b/Documentation/devicetree/bindings/display/msm/dsi-controller-main.yaml
->> index 6e2fd6e9fa7f0..01afa9e9c4b3c 100644
->> --- a/Documentation/devicetree/bindings/display/msm/dsi-controller-main.yaml
->> +++ b/Documentation/devicetree/bindings/display/msm/dsi-controller-main.yaml
->> @@ -14,9 +14,21 @@ allOf:
->>  
->>  properties:
->>    compatible:
->> -    enum:
->> -      - qcom,mdss-dsi-ctrl
->> -      - qcom,dsi-ctrl-6g-qcm2290
->> +    items:
->> +      - enum:
->> +          - qcom,apq8064-dsi-ctrl
->> +          - qcom,msm8916-dsi-ctrl
->> +          - qcom,msm8953-dsi-ctrl
->> +          - qcom,msm8974-dsi-ctrl
->> +          - qcom,msm8996-dsi-ctrl
->> +          - qcom,msm8998-dsi-ctrl
->> +          - qcom,dsi-ctrl-6g-qcm2290
->> +          - qcom,sc7180-dsi-ctrl
->> +          - qcom,sc7280-dsi-ctrl
->> +          - qcom,sdm660-dsi-ctrl
->> +          - qcom,sdm845-dsi-ctrl
->> +          - qcom,sm8250-dsi-ctrl
+On 20/12/2022 13:36, Bryan O'Donoghue wrote:
+> Deprecate qcom,dsi-ctrl-6g-qcm2290 in favour of the desired format
+> qcom,qcm2290-dsi-ctrl.
 > 
-> Usual comment: can we keep the list sorted?
+> Signed-off-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+> ---
+>  .../display/msm/dsi-controller-main.yaml      | 36 +++++++++++--------
+>  1 file changed, 21 insertions(+), 15 deletions(-)
+> 
+> diff --git a/Documentation/devicetree/bindings/display/msm/dsi-controller-main.yaml b/Documentation/devicetree/bindings/display/msm/dsi-controller-main.yaml
+> index 01afa9e9c4b3c..98d54a7ee28d4 100644
+> --- a/Documentation/devicetree/bindings/display/msm/dsi-controller-main.yaml
+> +++ b/Documentation/devicetree/bindings/display/msm/dsi-controller-main.yaml
+> @@ -14,21 +14,27 @@ allOf:
+>  
+>  properties:
+>    compatible:
+> -    items:
+> -      - enum:
+> -          - qcom,apq8064-dsi-ctrl
+> -          - qcom,msm8916-dsi-ctrl
+> -          - qcom,msm8953-dsi-ctrl
+> -          - qcom,msm8974-dsi-ctrl
+> -          - qcom,msm8996-dsi-ctrl
+> -          - qcom,msm8998-dsi-ctrl
+> -          - qcom,dsi-ctrl-6g-qcm2290
+> -          - qcom,sc7180-dsi-ctrl
+> -          - qcom,sc7280-dsi-ctrl
+> -          - qcom,sdm660-dsi-ctrl
+> -          - qcom,sdm845-dsi-ctrl
+> -          - qcom,sm8250-dsi-ctrl
+> -      - const: qcom,mdss-dsi-ctrl
+> +    oneOf:
+> +      - items:
+> +          - enum:
+> +              - qcom,apq8064-dsi-ctrl
+> +              - qcom,msm8916-dsi-ctrl
+> +              - qcom,msm8953-dsi-ctrl
+> +              - qcom,msm8974-dsi-ctrl
+> +              - qcom,msm8996-dsi-ctrl
+> +              - qcom,msm8998-dsi-ctrl
+> +              - qcom,qcm2290-dsi-ctrl
+> +              - qcom,sc7180-dsi-ctrl
+> +              - qcom,sc7280-dsi-ctrl
+> +              - qcom,sdm660-dsi-ctrl
+> +              - qcom,sdm845-dsi-ctrl
+> +              - qcom,sm8250-dsi-ctrl
+> +          - const: qcom,mdss-dsi-ctrl
+> +      - items:
 
-Actually it is sorted, except the qcom,dsi-ctrl-6g-qcm2290. Please move
-it after apq.
+I would just squash it with previous. You are adding some code and in
+next patch immediately:
+1. re-indent it,
+2. remove it (qcom,dsi-ctrl-6g-qcm2290)
 
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 
 Best regards,
 Krzysztof
