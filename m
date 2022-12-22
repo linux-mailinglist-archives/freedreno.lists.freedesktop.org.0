@@ -2,56 +2,56 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5BB95653FFE
-	for <lists+freedreno@lfdr.de>; Thu, 22 Dec 2022 12:52:42 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 01C9265402C
+	for <lists+freedreno@lfdr.de>; Thu, 22 Dec 2022 12:54:28 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D50EE10E106;
-	Thu, 22 Dec 2022 11:52:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C088B10E0D4;
+	Thu, 22 Dec 2022 11:54:26 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x134.google.com (mail-lf1-x134.google.com
- [IPv6:2a00:1450:4864:20::134])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6286B10E0D4
- for <freedreno@lists.freedesktop.org>; Thu, 22 Dec 2022 11:52:07 +0000 (UTC)
-Received: by mail-lf1-x134.google.com with SMTP id bp15so2329100lfb.13
- for <freedreno@lists.freedesktop.org>; Thu, 22 Dec 2022 03:52:07 -0800 (PST)
+Received: from mail-lf1-x12f.google.com (mail-lf1-x12f.google.com
+ [IPv6:2a00:1450:4864:20::12f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 45B9810E0D4
+ for <freedreno@lists.freedesktop.org>; Thu, 22 Dec 2022 11:54:25 +0000 (UTC)
+Received: by mail-lf1-x12f.google.com with SMTP id m29so2347238lfo.11
+ for <freedreno@lists.freedesktop.org>; Thu, 22 Dec 2022 03:54:25 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :from:to:cc:subject:date:message-id:reply-to;
- bh=M30y/3TxbO371CJNFGIt6ImCkcVESnuhbBT4xUOz+H4=;
- b=BZvKlfrnICVEkblXCG720FtFMEMhogYR+lUIo7UKozU5kskYXNCjGqbDX2DQduc9bJ
- 3SJFqtwcKgerB0HCmvjxF3RufKGCqcp1U1zfB6qHZ8ucxb8tAM/EwqKQ7ye2G/4ZLngr
- Jfe+gdK1CTW0QUCi9QHwEI1hkrxc9tBZnpAu+lCmwndjpQWzrxLjKEgrzSVzDPPZbdya
- bxEs3iflfgI13yP0t6dmTaoihJSVYTWUV2wnjQflNJatJRzMvT9LtU0RJeCDv1UBYYQK
- QphUcLMtjoSNYiYUhV5q5XGKbSoBJvKxYyYoeCEeK+NmtfVu1pZoeaMRCmGZRIF6XGTF
- vRJQ==
+ bh=X9EoBcFcr53BTbI8NLGBFcA7SGUwn8mmf9pGDxbWrjw=;
+ b=ltUUyIxFmAaCCU3K8fji72mezO1sOZfzxlQy1hicVdGCCFEpK1YliunaefhbfBcWdJ
+ 4+ihkXYqnYePmqVq5a5O4BJKutu1jqz2+zGv2jI4t6LoT4nLPvUNiOU0rz0B5i99WkkK
+ bygT4FMTn1zt5VmzT26PbjddUvF6jVOKRmFh/KSPbto9V/jYeOPfO68U/MXO3Jq0wBq7
+ oFo7kW96M4XGvpeusRqjKGwHThoFk8tUuhsXRK61mqJH3iAo3ttp1vQJ+DescoK4u1xN
+ WFWuTYzoDlLxyMj24g9fM0eUzj8iX0EkpTM/BND8fb5hz4UCgSg4HS9001LVZoob0HqB
+ CHWA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=M30y/3TxbO371CJNFGIt6ImCkcVESnuhbBT4xUOz+H4=;
- b=FaQoEl2/tmZ7bWmGnPKORcBERH99TqONA7w7UdsAVJywyVG3Rsoo8aympR+bDLZ2DL
- Cc0Ysv7A5Kr765NxQTROkLNXcpx05fuvKK1Z7aojVp496M4uPUbY+VU/Qgt8FTWLcKSr
- E8zlA97teCxMDqiARn2KH3vZ36j/BHkkmBF2hobs/gRfBMI99mq2lMhW8PtSmTH+Bh6P
- PJNPgqVVUbNWqlaNljkiAowJ8Ux0XfsVsCibQ8WAdC69TaeAFudqvn0gjaIcwIF+NCmu
- BcMF6XjS++zN7474uk4Qb/5b8AK/JSjptXkgdu6BgYg2r6hxpzwqxnkg1TgJa1+wtSNq
- CX9w==
-X-Gm-Message-State: AFqh2kq2NRZWIOBckOx6PisF4xR0Bbq+mkFZkF6xoPe4AMnMiznPl8fD
- IBVhBfUf6spTaQAWNYIHI44WZQ==
-X-Google-Smtp-Source: AMrXdXsDYcBW3ugj0qOFlwHwHKZiQ1w0s1KXbyUzMNViPONGJA9/7MRgcCx6WVU4EGLf4Zlr/CYoZQ==
-X-Received: by 2002:a05:6512:3d2a:b0:4b4:b8fc:4aba with SMTP id
- d42-20020a0565123d2a00b004b4b8fc4abamr2100655lfv.25.1671709925720; 
- Thu, 22 Dec 2022 03:52:05 -0800 (PST)
+ bh=X9EoBcFcr53BTbI8NLGBFcA7SGUwn8mmf9pGDxbWrjw=;
+ b=Iv65n0K0K/Q6osjytXeIQBsN3gHj/233nEhaRXh8dr7of7RmTwPOOhmI1p4FMRQ1s+
+ iiMajhc9IGamE3PHahmkdPpQzcL3ZT6IzMYkGi49nUiiU6R+k4TzDp3/8bA3d+EOdz3Y
+ b1CbeTgJIujG+Km7PvxozN3D6D/CC0HAhq2wZZpmsHtF6eIHw2lnbijg+73TyOgcjCVn
+ A8s04/qmhv5IprM3rjjSWLvlEHbjVD5CrximHwtbWv4EOuEWL0hk+eOFp+u/N7oO4nW5
+ V7pm/YFfDQFDIMOPt3vhnEmmxBUgN9f5gYH7LdSfjXVLnlnTJ6dxiwkViUcNPxPcTEcC
+ Tr3w==
+X-Gm-Message-State: AFqh2kothFvQT08jvJADvYqa9k2DcLKmPMpnoknk4sSEdCpjPRz40aYK
+ NS1DH7R811eZ0PgekWxZ0IidFw==
+X-Google-Smtp-Source: AMrXdXuMEMS4ZAdZYRoxvWSmL5geV2FFazuPdHHRVejnluBwFSosVnViUal3BytGSYAMPvyirJ7lXw==
+X-Received: by 2002:ac2:5e6a:0:b0:4b0:f376:225a with SMTP id
+ a10-20020ac25e6a000000b004b0f376225amr1559959lfr.63.1671710063624; 
+ Thu, 22 Dec 2022 03:54:23 -0800 (PST)
 Received: from [192.168.0.20]
  (088156142067.dynamic-2-waw-k-3-2-0.vectranet.pl. [88.156.142.67])
  by smtp.gmail.com with ESMTPSA id
- z14-20020ac24f8e000000b004b55cebdbd7sm47193lfs.120.2022.12.22.03.52.04
+ bq25-20020a056512151900b004b592043413sm50426lfb.12.2022.12.22.03.54.22
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 22 Dec 2022 03:52:05 -0800 (PST)
-Message-ID: <42eec0d7-9c6d-108a-cb91-8cc069fc97e1@linaro.org>
-Date: Thu, 22 Dec 2022 12:52:03 +0100
+ Thu, 22 Dec 2022 03:54:23 -0800 (PST)
+Message-ID: <d4962a5c-7fa3-e5d7-51a8-7ae8fc54e053@linaro.org>
+Date: Thu, 22 Dec 2022 12:54:21 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.6.0
@@ -60,13 +60,13 @@ To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
  linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
  devicetree@vger.kernel.org
 References: <20221220123634.382970-1-bryan.odonoghue@linaro.org>
- <20221220123634.382970-7-bryan.odonoghue@linaro.org>
+ <20221220123634.382970-8-bryan.odonoghue@linaro.org>
 From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-In-Reply-To: <20221220123634.382970-7-bryan.odonoghue@linaro.org>
+In-Reply-To: <20221220123634.382970-8-bryan.odonoghue@linaro.org>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH v5 06/21] dt-bindings: msm:
- dsi-controller-main: Document clocks on a per compatible basis
+Subject: Re: [Freedreno] [PATCH v5 07/21] dt-bindings: msm:
+ dsi-controller-main: Fix clock declarations
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -89,57 +89,20 @@ Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 On 20/12/2022 13:36, Bryan O'Donoghue wrote:
-> Each compatible has a different set of clocks which are associated with it.
-> Add in the list of clocks for each compatible.
+> When converting from .txt to .yaml dt-binding descriptions we appear to
+> have missed some of the previous detail on the number and names of
+> permissible clocks.
 > 
+> Fix this by listing the clock descriptions against the clock names at a
+> high level.
+> 
+> Fixes: 4dbe55c97741 ("dt-bindings: msm: dsi: add yaml schemas for DSI bindings")
 > Signed-off-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
 > ---
->  .../display/msm/dsi-controller-main.yaml      | 189 +++++++++++++++++-
->  1 file changed, 179 insertions(+), 10 deletions(-)
-> 
-> diff --git a/Documentation/devicetree/bindings/display/msm/dsi-controller-main.yaml b/Documentation/devicetree/bindings/display/msm/dsi-controller-main.yaml
-> index 98d54a7ee28d4..ce103e3ec4db3 100644
-> --- a/Documentation/devicetree/bindings/display/msm/dsi-controller-main.yaml
-> +++ b/Documentation/devicetree/bindings/display/msm/dsi-controller-main.yaml
-> @@ -9,9 +9,6 @@ title: Qualcomm Display DSI controller
->  maintainers:
->    - Krishna Manikandan <quic_mkrishn@quicinc.com>
->  
-> -allOf:
-> -  - $ref: "../dsi-controller.yaml#"
-> -
->  properties:
->    compatible:
->      oneOf:
-> @@ -55,13 +52,8 @@ properties:
->        - description: Display AXI clock
->  
->    clock-names:
-> -    items:
-> -      - const: byte
-> -      - const: byte_intf
-> -      - const: pixel
-> -      - const: core
-> -      - const: iface
-> -      - const: bus
-> +    minItems: 3
-> +    maxItems: 9
->  
->    phys:
->      maxItems: 1
-> @@ -157,6 +149,183 @@ required:
->    - assigned-clock-parents
->    - ports
->  
-> +allOf:
-> +  - $ref: "../dsi-controller.yaml#"
 
-Drop the quotes.
-
-Add missing Ack.
-
-
-Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+I don't think this can be on its own. Clocks and clock-names go together
+and your previous patch already changed from 6 to 3-9 entries. Splitting
+these make them non-bisectable and confusing.
 
 Best regards,
 Krzysztof
