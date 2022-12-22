@@ -2,75 +2,71 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id BAB7F653E87
-	for <lists+freedreno@lfdr.de>; Thu, 22 Dec 2022 11:48:40 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id F2882653F46
+	for <lists+freedreno@lfdr.de>; Thu, 22 Dec 2022 12:48:00 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7F9B710E542;
-	Thu, 22 Dec 2022 10:48:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6815310E049;
+	Thu, 22 Dec 2022 11:47:28 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x133.google.com (mail-lf1-x133.google.com
- [IPv6:2a00:1450:4864:20::133])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B189310E542
- for <freedreno@lists.freedesktop.org>; Thu, 22 Dec 2022 10:48:36 +0000 (UTC)
-Received: by mail-lf1-x133.google.com with SMTP id b3so2171660lfv.2
- for <freedreno@lists.freedesktop.org>; Thu, 22 Dec 2022 02:48:36 -0800 (PST)
+Received: from mail-lf1-x136.google.com (mail-lf1-x136.google.com
+ [IPv6:2a00:1450:4864:20::136])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CADA510E03D
+ for <freedreno@lists.freedesktop.org>; Thu, 22 Dec 2022 11:47:26 +0000 (UTC)
+Received: by mail-lf1-x136.google.com with SMTP id m29so2323283lfo.11
+ for <freedreno@lists.freedesktop.org>; Thu, 22 Dec 2022 03:47:26 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :from:to:cc:subject:date:message-id:reply-to;
- bh=Ia8KJdyr/weiXXqDeFy3RTipajicAjUGTpWBPLkZVJ0=;
- b=MzAOSxLWjD0lC/pnVpkUG4qU7fFfbpeMEKTypsZlFhqZWKl2Q6t+wZieDQLuJDcdSY
- rQL0ddVlYCruoBG9VqMAmT5nGxkx0dKT5rLygLRsR3Vs2WyiABzv7VeU2l5ptt9Zkvbv
- kSDxSFKUsQicfk+teRXS5v2RbSgqCvWSy+fJ8Q22G618W8YmR/seO+/JEi5nNw4rADos
- v1uAq0AKukd3y0ouieyOeiH+AUal0vIRa6f6rU2wGtt/9e4Pusbk8/NnsG6XgfFP6UCB
- gfgMRNJpyjk3qvFjWdM8ZViqIvTzA4JYqohRIyKqvuLHIlgIXHo35nrcibFKk52py7db
- XbEw==
+ bh=0EHYXR6sSgB5vdGVmrtOtKLZP6yhiJpLufZUquvuMTM=;
+ b=pn1uImfgSjqommdSMhzsURLzDugGu0FTd7vckLh0eIppD+Hkw6yti7KierhwC+ebZK
+ YF138uC/8YhdSSV20XcVnzKKwga9gEKb1OcBV+e08oHnK+JtwEPEbB735yPazKU/no34
+ XDTspm8RPAH0vFr4eyWfXAmb8lnd2u+PpHJBrEeIE8NyCKdi4D61hKBafoBeLdnKj14V
+ mMeoiV/ttwezyotlUUS5QQqu0dXsDHglxuBhKe49Qn9dWEmYTIa7TYC8tFmAugoJS5/B
+ r0XnifxQkvH4tQF90cwlwL7BOj8N0wx2F/WMw04riTFamr+FzXbqRhlobs1jLiN4TepR
+ ny4Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=Ia8KJdyr/weiXXqDeFy3RTipajicAjUGTpWBPLkZVJ0=;
- b=W7NbV+4SyYiB0lnBfWdBUMSvScp0hNYtjZ4kea0z1Tp7mZq3SVOeUFUb1cyrZQU5Tp
- 7/ahNEjtynmVSH5SOrm4U32YTmtrl/6fDnDx4OgjcLmk8qbWBK97UvKcz3hxkNowkh5M
- UZ1ZOx1RSUmI/Pa3eHDfAlQLOR9AHZXuezUvjz66GeFypaqmbl6jwh38U8uifJ7m3UEI
- aQn+vg45MYt9bMKbzLhIJySY2Ly+v0Ko3GyX03Oqida3kIQvrBaj2E+IGqaqYcFOzYL9
- HzuJ7Tb6vl2wo3yvgtN6xd2W3n+mrUXlk0yRjCInoGvYOy3avXpBqyLIWnUWT8XySoGa
- noPg==
-X-Gm-Message-State: AFqh2korG+J5kmDQMqPhzPUUxcuxv9URhoWZRHv63jMQP1s9Gf6qiIYs
- hXHATOPMrQfthnT5qvg35vQ7XQ==
-X-Google-Smtp-Source: AMrXdXsDo+FPzvd6zDJCEeGLBfA4RrWUpce4uDKCGO5owSQeUsOnswwVLMSAN96lC8QBw7TJDLei/Q==
-X-Received: by 2002:a05:6512:4014:b0:4b6:f22c:8001 with SMTP id
- br20-20020a056512401400b004b6f22c8001mr2181830lfb.56.1671706115054; 
- Thu, 22 Dec 2022 02:48:35 -0800 (PST)
+ bh=0EHYXR6sSgB5vdGVmrtOtKLZP6yhiJpLufZUquvuMTM=;
+ b=iAPrGFskYsER2O0GtvhJ8TPpJ0ybE5B5T05/y8mGcnEamBTwinLOA5YKuBrfzc5acn
+ 7bJW06y/m34twaoXID/viHVLneZwvatmN9wFD9xYWys9onk2jOV839xzbpa4cLioJf/J
+ YXZnZPgmd4T5LMVQPkzOr6cQjeZX1emxlTsjGVpB50Ota2/SZCGMTtpHpCdSRACfZDc6
+ H21Ylp1vW9Ls9mIBFxmP4OGLe/qErPdkqjSp6wy+5so0H4SpJrA9l17QfelNoRsrGSb2
+ gy69f5kMgfAbv87TYt4KV8plU3KXNGOpOkempQr0SGvk+hs+GXoLOPdbkV+HgafPiaJ+
+ 4UYA==
+X-Gm-Message-State: AFqh2ko11Yt8LMYs74BwlgffWt+89ZaqbAKPMsulQW+qmQDLYWP+ghxW
+ DMrM70MD6wCDLn8DV1FXbwQjnw==
+X-Google-Smtp-Source: AMrXdXvejv9SNAwlLbnZmw6FcDQmaKFCvnGJeIOT1kCLtjTtnwqqgUvY/tTwCYifiYAFep31jdzGkA==
+X-Received: by 2002:a05:6512:1582:b0:4b6:e494:a98d with SMTP id
+ bp2-20020a056512158200b004b6e494a98dmr2133911lfb.44.1671709645143; 
+ Thu, 22 Dec 2022 03:47:25 -0800 (PST)
 Received: from [192.168.0.20]
  (088156142067.dynamic-2-waw-k-3-2-0.vectranet.pl. [88.156.142.67])
  by smtp.gmail.com with ESMTPSA id
- m12-20020a19710c000000b004b700ba3cf3sm29773lfc.203.2022.12.22.02.48.33
+ r12-20020ac25a4c000000b00492d064e8f8sm42937lfn.263.2022.12.22.03.47.23
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 22 Dec 2022 02:48:34 -0800 (PST)
-Message-ID: <a9cf2812-bf12-0127-d156-1cbdc133f6b5@linaro.org>
-Date: Thu, 22 Dec 2022 11:48:33 +0100
+ Thu, 22 Dec 2022 03:47:24 -0800 (PST)
+Message-ID: <51770a1c-45f6-9f5a-871d-022cd78a0d4b@linaro.org>
+Date: Thu, 22 Dec 2022 12:47:23 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.6.0
 Content-Language: en-US
-To: Kuogee Hsieh <quic_khsieh@quicinc.com>, dri-devel@lists.freedesktop.org,
- robdclark@gmail.com, sean@poorly.run, swboyd@chromium.org,
- dianders@chromium.org, vkoul@kernel.org, daniel@ffwll.ch, agross@kernel.org,
- dmitry.baryshkov@linaro.org, andersson@kernel.org,
- konrad.dybcio@somainline.org, robh+dt@kernel.org,
- krzysztof.kozlowski+dt@linaro.org, devicetree@vger.kernel.org,
- airlied@gmail.com
-References: <1671227102-21717-1-git-send-email-quic_khsieh@quicinc.com>
- <1671227102-21717-2-git-send-email-quic_khsieh@quicinc.com>
+To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+ linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
+ devicetree@vger.kernel.org
+References: <20221220123634.382970-1-bryan.odonoghue@linaro.org>
+ <20221220123634.382970-5-bryan.odonoghue@linaro.org>
 From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-In-Reply-To: <1671227102-21717-2-git-send-email-quic_khsieh@quicinc.com>
+In-Reply-To: <20221220123634.382970-5-bryan.odonoghue@linaro.org>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH v15 1/5] arm64: dts: qcom: add data-lanes
- and link-freuencies into dp_out endpoint
+Subject: Re: [Freedreno] [PATCH v5 04/21] dt-bindings: msm:
+ dsi-controller-main: Add compatible strings for every current SoC
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,61 +79,69 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-arm-msm@vger.kernel.org, quic_sbillaka@quicinc.com,
- freedreno@lists.freedesktop.org, quic_abhinavk@quicinc.com,
+Cc: dri-devel@lists.freedesktop.org, krzysztof.kozlowski+dt@linaro.org,
+ sean@poorly.run, andersson@kernel.org, konrad.dybcio@somainline.org,
+ quic_abhinavk@quicinc.com, david@ixit.cz, dianders@chromium.org,
+ robdclark@gmail.com, robh+dt@kernel.org, agross@kernel.org, daniel@ffwll.ch,
+ dmitry.baryshkov@linaro.org, swboyd@chromium.org, airlied@gmail.com,
  linux-kernel@vger.kernel.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 16/12/2022 22:44, Kuogee Hsieh wrote:
-> Move data-lanes property from mdss_dp node to dp_out endpoint. Also
-> add link-frequencies property into dp_out endpoint as well. The last
-> frequency specified at link-frequencies will be the max link rate
-> supported by DP.
+On 20/12/2022 13:36, Bryan O'Donoghue wrote:
+> Currently we do not differentiate between the various users of the
+> qcom,mdss-dsi-ctrl. The driver is flexible enough to operate from one
+> compatible string but, the hardware does have some significant differences
+> in the number of clocks.
 > 
-> Changes in v5:
-> -- revert changes at sc7180.dtsi and sc7280.dtsi
-> -- add &dp_out to sc7180-trogdor.dtsi and sc7280-herobrine.dtsi
+> To facilitate documenting the clocks add the following compatible strings
 > 
-> Changes in v6:
-> -- add data-lanes and link-frequencies to yaml
+> - qcom,apq8064-dsi-ctrl
+> - qcom,msm8916-dsi-ctrl
+> - qcom,msm8953-dsi-ctrl
+> - qcom,msm8974-dsi-ctrl
+> - qcom,msm8996-dsi-ctrl
+> - qcom,msm8998-dsi-ctrl
+> - qcom,sc7180-dsi-ctrl
+> - qcom,sc7280-dsi-ctrl
+> - qcom,sdm660-dsi-ctrl
+> - qcom,sdm845-dsi-ctrl
+> - qcom,sm8250-dsi-ctrl
 > 
-> Changes in v7:
-> -- change 160000000 to 1620000000
-> -- separate yaml to different patch
+> Each SoC dtsi should declare "qcom,socname-dsi-ctrl", "qcom,mdss-dsi-ctrl";
 > 
-> Changes in v8:
-> -- correct Bjorn mail address to kernel.org
-> 
-> Changes in v9:
-> -- use symbol rate (hz) for link-frequencies at dp_out at sc7180_trogdor.dtsi
-> 
-> Changes in v13:
-> -- delete an extra space at data-lanes
-> 
-> Changes in v15:
-> -- replace space with tab at sc7180-trogdor.dtsi
-> 
-> Signed-off-by: Kuogee Hsieh <quic_khsieh@quicinc.com>
+> Signed-off-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
 > ---
->  arch/arm64/boot/dts/qcom/sc7180-trogdor.dtsi   | 4 ++++
->  arch/arm64/boot/dts/qcom/sc7280-herobrine.dtsi | 4 ++++
->  2 files changed, 8 insertions(+)
+>  .../display/msm/dsi-controller-main.yaml      | 20 +++++++++++++++----
+>  1 file changed, 16 insertions(+), 4 deletions(-)
 > 
-> diff --git a/arch/arm64/boot/dts/qcom/sc7180-trogdor.dtsi b/arch/arm64/boot/dts/qcom/sc7180-trogdor.dtsi
-> index eae22e6..ad98a87 100644
-> --- a/arch/arm64/boot/dts/qcom/sc7180-trogdor.dtsi
-> +++ b/arch/arm64/boot/dts/qcom/sc7180-trogdor.dtsi
-> @@ -814,7 +814,11 @@ hp_i2c: &i2c9 {
->  	status = "okay";
->  	pinctrl-names = "default";
->  	pinctrl-0 = <&dp_hot_plug_det>;
-> +};
-> +
-> +&dp_out {
+> diff --git a/Documentation/devicetree/bindings/display/msm/dsi-controller-main.yaml b/Documentation/devicetree/bindings/display/msm/dsi-controller-main.yaml
+> index 6e2fd6e9fa7f0..01afa9e9c4b3c 100644
+> --- a/Documentation/devicetree/bindings/display/msm/dsi-controller-main.yaml
+> +++ b/Documentation/devicetree/bindings/display/msm/dsi-controller-main.yaml
+> @@ -14,9 +14,21 @@ allOf:
+>  
+>  properties:
+>    compatible:
+> -    enum:
+> -      - qcom,mdss-dsi-ctrl
+> -      - qcom,dsi-ctrl-6g-qcm2290
+> +    items:
+> +      - enum:
+> +          - qcom,apq8064-dsi-ctrl
+> +          - qcom,msm8916-dsi-ctrl
+> +          - qcom,msm8953-dsi-ctrl
+> +          - qcom,msm8974-dsi-ctrl
+> +          - qcom,msm8996-dsi-ctrl
+> +          - qcom,msm8998-dsi-ctrl
+> +          - qcom,dsi-ctrl-6g-qcm2290
+> +          - qcom,sc7180-dsi-ctrl
+> +          - qcom,sc7280-dsi-ctrl
+> +          - qcom,sdm660-dsi-ctrl
+> +          - qcom,sdm845-dsi-ctrl
+> +          - qcom,sm8250-dsi-ctrl
 
-Still wrong order, I think.
-
+Usual comment: can we keep the list sorted?
 
 Best regards,
 Krzysztof
