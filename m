@@ -2,69 +2,77 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id B8FF2654BA0
-	for <lists+freedreno@lfdr.de>; Fri, 23 Dec 2022 04:13:12 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6B4F7654D19
+	for <lists+freedreno@lfdr.de>; Fri, 23 Dec 2022 08:58:11 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 57AB810E1A0;
-	Fri, 23 Dec 2022 03:12:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 16DD210E16A;
+	Fri, 23 Dec 2022 07:57:40 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x134.google.com (mail-lf1-x134.google.com
- [IPv6:2a00:1450:4864:20::134])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F1F1610E5A1
- for <freedreno@lists.freedesktop.org>; Fri, 23 Dec 2022 03:12:36 +0000 (UTC)
-Received: by mail-lf1-x134.google.com with SMTP id m29so5395286lfo.11
- for <freedreno@lists.freedesktop.org>; Thu, 22 Dec 2022 19:12:36 -0800 (PST)
+Received: from mail-lj1-x232.google.com (mail-lj1-x232.google.com
+ [IPv6:2a00:1450:4864:20::232])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C788D10E16A
+ for <freedreno@lists.freedesktop.org>; Fri, 23 Dec 2022 07:57:37 +0000 (UTC)
+Received: by mail-lj1-x232.google.com with SMTP id s10so4262076ljg.1
+ for <freedreno@lists.freedesktop.org>; Thu, 22 Dec 2022 23:57:37 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :from:to:cc:subject:date:message-id:reply-to;
- bh=bsf04gE/unfn1bQOs3ZV28sbbvxagn2uxB1k5VEvcXw=;
- b=VKE3sPEq00+uFBR1wUP0d2anZUH3XnNSEWit0xAENbgpiTGLP/Lr0pI5VZrqBLQMCc
- 7TN0doYFQpP3gQA78iRM+6ux0clqJTYeFFJVQ+9TVHrH25G3QcyKZdDELWnoa/fnOaiX
- UO1qGA+h/GJi6OZmWzt7UtoVs4CIfUu2kmIY3BRXnJCf/OAXvfmFhUl5vL/aRG/4g+Z0
- Fcj4jAF15xrC761Hoxkp3bHGeziMqikHUBxMoE+wLxIzpAC1GtwKlRbA8dSyPF/+PISr
- 86DEzueAptYuebrcZvSyRiAiUQrLnR7FE+iZuf1vsrSr1NKbTf0HE6+AOaOUjUQ6Ji0q
- aL1w==
+ bh=zBvQKOto+vmplvuOPy0PMGPzXwMlPMKtXIbJlmwmhJM=;
+ b=hXvibYBkLGjTrJYbsFqKhXLOegd4W20iLdjD3iKt01q1zPltmfjZY8kX+oOr8XLO5Y
+ LpdkD//YhwUuB5g0E1vllQlEFb61gRUI3OKL1z4E9UuCAWbSEuByLrEUpa1+crvaugV4
+ v8m9+iz35sStKAUq4inDeaI6AVbvGxu1r0p+HjAIq31Uw9Q4XJbtj6xK5Z7Pn1lx+RiB
+ kOUoZnU6h0sLNpwcJUp18PRU8gGMrcGF0xqm7aMS6YDVFl/qDOy/qf6WhuCHSIlIpqrD
+ UM4t4L1sKbP+/1oOucr3Hryzx4Srk3FFC2Vg4Tz70g4If7xafsB/VPOirUUMTmbTcn9C
+ Q+cg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=bsf04gE/unfn1bQOs3ZV28sbbvxagn2uxB1k5VEvcXw=;
- b=Te1xb/99I3lOL9hw+dWdpZn3sYEJ9J/Z5Ya/Hr+wR1WB/soMYjcPxI9q9tlObMXkiE
- lM8nC0HeKesz1dGvV56Y9ArK8DGNQ++HW+Uum5+GdTPTc273SHn51HSf50uKxp7HEewN
- dv0DyxorqN/vQKZD4yv0+FFGge1jYjQwo9LrOg191an8T+1m1bNKmiKiwHLP3WSKmKw4
- CZ/do9i/mP0GbUkWVM7+BzqxbM0eFOrH9YKpYOhVaF6kJfS0Gluh7GFTY8143WwLXE+a
- PpJC0gIL7pP0PrVNJm8nxzC0O8oLd+PksFwF8wQz02jSGh32/v4NmKzuIuZYb6NTHVpM
- QZWQ==
-X-Gm-Message-State: AFqh2konjyhr5v9CrdcXrr9eemGnSlZl7VNoqO137s4L6h5PEnq/7VSE
- XLUi/SKkEO5XE/ZLnNvjAkRgpg==
-X-Google-Smtp-Source: AMrXdXs3kSvnFcd3TXTJu7Cxuftcu/NrSbT+/GCThNklQdJBV8oeo9Da0Ea5xy5IrebGZKGePRUXQw==
-X-Received: by 2002:a05:6512:398c:b0:4ac:ec52:e063 with SMTP id
- j12-20020a056512398c00b004acec52e063mr2501264lfu.29.1671765155077; 
- Thu, 22 Dec 2022 19:12:35 -0800 (PST)
-Received: from ?IPV6:2001:14ba:a085:4d00::8a5?
- (dzccz6yyyyyyyyyyybcwt-3.rev.dnainternet.fi. [2001:14ba:a085:4d00::8a5])
+ bh=zBvQKOto+vmplvuOPy0PMGPzXwMlPMKtXIbJlmwmhJM=;
+ b=mXrt95HBBr4BejRwJUvUmTsgenh7EZhcgHg90xM5eJUlJ4SQ8H3+B9nnhuU/LH9hOG
+ YsaCo4rfoH+ZMfX1sCLZbdmGGBj2kRUyxGo6Z3YYnnwoivigVQYbvpmOjGhoeYE0U1Nv
+ wdYEA/8le34tCLs+cuu5zwFnS6gt0Tp9Dppaomk1EtOE5DmNNLELbUmZezPzlO57T4HB
+ Zye+41uiluNo8mRSR/Ke6tToF1J9xWJdpSLRrFjoF3+LgDtZXt6Ru+P4ZonOW6jyTMlJ
+ 97qnsItYiOfELsCmxXvpRPXC5HJiYo+IG4PL9RZrX3YOjQ+W1VhIaJOrpgUhuirKFuBw
+ jv1A==
+X-Gm-Message-State: AFqh2kr16YzKg4Smor7SJk1MGNJhMtg6KhP85rrO1O4z/4EVOGfMUxKe
+ 7npJj9GTtfJ+blT/KTD+Q3cAog==
+X-Google-Smtp-Source: AMrXdXsZDZ5XmTLs7XUsj5QJeRBTIPRou5NU5Myhiv5VfkgR31vazIcUFlwh0ULYxb6j2gSaFSMQRA==
+X-Received: by 2002:a05:651c:b94:b0:277:3b1:7017 with SMTP id
+ bg20-20020a05651c0b9400b0027703b17017mr3520368ljb.33.1671782255306; 
+ Thu, 22 Dec 2022 23:57:35 -0800 (PST)
+Received: from [192.168.0.20]
+ (088156142067.dynamic-2-waw-k-3-2-0.vectranet.pl. [88.156.142.67])
  by smtp.gmail.com with ESMTPSA id
- d17-20020a056512369100b00492dba3c85asm320956lfs.220.2022.12.22.19.12.34
+ e3-20020a2e8183000000b002778d482800sm306576ljg.59.2022.12.22.23.57.33
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 22 Dec 2022 19:12:34 -0800 (PST)
-Message-ID: <fd9a9aca-8225-6cd1-ff5e-19f0a39bf49c@linaro.org>
-Date: Fri, 23 Dec 2022 05:12:34 +0200
+ Thu, 22 Dec 2022 23:57:34 -0800 (PST)
+Message-ID: <f8ed0927-a97e-9395-1297-addb57ecd855@linaro.org>
+Date: Fri, 23 Dec 2022 08:57:33 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.5.1
-Content-Language: en-GB
-To: Jessica Zhang <quic_jesszhan@quicinc.com>, freedreno@lists.freedesktop.org
-References: <20221222221441.6980-1-quic_jesszhan@quicinc.com>
- <20221222221441.6980-4-quic_jesszhan@quicinc.com>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-In-Reply-To: <20221222221441.6980-4-quic_jesszhan@quicinc.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+ Thunderbird/102.6.0
+Content-Language: en-US
+To: Kuogee Hsieh <quic_khsieh@quicinc.com>, dri-devel@lists.freedesktop.org,
+ robdclark@gmail.com, sean@poorly.run, swboyd@chromium.org,
+ dianders@chromium.org, vkoul@kernel.org, daniel@ffwll.ch, agross@kernel.org,
+ dmitry.baryshkov@linaro.org, andersson@kernel.org,
+ konrad.dybcio@somainline.org, robh+dt@kernel.org,
+ krzysztof.kozlowski+dt@linaro.org, devicetree@vger.kernel.org,
+ airlied@gmail.com
+References: <1671217893-17496-1-git-send-email-quic_khsieh@quicinc.com>
+ <1671217893-17496-2-git-send-email-quic_khsieh@quicinc.com>
+ <1a5cc3d3-ac2d-52c8-79f4-b13252a4bb86@linaro.org>
+ <54bd8b85-8b68-4b28-ec68-28edf9a8a097@quicinc.com>
+From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+In-Reply-To: <54bd8b85-8b68-4b28-ec68-28edf9a8a097@quicinc.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [RFC PATCH v2 3/3] drm/msm/dpu: Use color_fill
- property for DPU planes
+Subject: Re: [Freedreno] [PATCH v14 1/5] arm64: dts: qcom: add data-lanes
+ and link-freuencies into dp_out endpoint
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,213 +85,68 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: sebastian.wick@redhat.com, ppaalanen@gmail.com,
- linux-arm-msm@vger.kernel.org, quic_abhinavk@quicinc.com,
- dri-devel@lists.freedesktop.org, swboyd@chromium.org, daniel.vetter@ffwll.ch,
- robdclark@gmail.com, seanpaul@chromium.org, laurent.pinchart@ideasonboard.com,
- contact@emersion.fr, wayland-devel@lists.freedesktop.org,
- ville.syrjala@linux.intel.com
+Cc: linux-arm-msm@vger.kernel.org, quic_sbillaka@quicinc.com,
+ freedreno@lists.freedesktop.org, quic_abhinavk@quicinc.com,
+ linux-kernel@vger.kernel.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 23/12/2022 00:14, Jessica Zhang wrote:
-> Initialize and use the color_fill properties for planes in DPU driver. In
-> addition, relax framebuffer requirements within atomic commit path and
-> add checks for NULL framebuffers. Finally, drop DPU_PLANE_COLOR_FILL_FLAG
-> as it's unused.
+On 22/12/2022 17:22, Kuogee Hsieh wrote:
 > 
-> Changes since V2:
-> - Fixed dropped 'const' warning
-> - Dropped use of solid_fill_format
-> - Switched to using drm_plane_solid_fill_enabled helper method
-> - Added helper to convert color fill to BGR888 (Rob)
-> - Added support for solid fill on planes of varying sizes
-> - Removed DPU_PLANE_COLOR_FILL_FLAG
+> On 12/22/2022 2:47 AM, Krzysztof Kozlowski wrote:
+>> On 16/12/2022 20:11, Kuogee Hsieh wrote:
+>>> Move data-lanes property from mdss_dp node to dp_out endpoint. Also
+>>> add link-frequencies property into dp_out endpoint as well. The last
+>>> frequency specified at link-frequencies will be the max link rate
+>>> supported by DP.
+>>>
+>>> Changes in v5:
+>>> -- revert changes at sc7180.dtsi and sc7280.dtsi
+>>> -- add &dp_out to sc7180-trogdor.dtsi and sc7280-herobrine.dtsi
+>>>
+>>> Changes in v6:
+>>> -- add data-lanes and link-frequencies to yaml
+>>>
+>>> Changes in v7:
+>>> -- change 160000000 to 1620000000
+>>> -- separate yaml to different patch
+>>>
+>>> Changes in v8:
+>>> -- correct Bjorn mail address to kernel.org
+>>>
+>>> Changes in v9:
+>>> -- use symbol rate (hz) for link-frequencies at dp_out at sc7180_trogdor.dtsi
+>>>
+>>> Changes in v13:
+>>> -- delete an extra space at data-lanes
+>>>
+>>> Signed-off-by: Kuogee Hsieh <quic_khsieh@quicinc.com>
+>>> ---
+>>>   arch/arm64/boot/dts/qcom/sc7180-trogdor.dtsi   | 6 +++++-
+>>>   arch/arm64/boot/dts/qcom/sc7280-herobrine.dtsi | 4 ++++
+>>>   2 files changed, 9 insertions(+), 1 deletion(-)
+>>>
+>>> diff --git a/arch/arm64/boot/dts/qcom/sc7180-trogdor.dtsi b/arch/arm64/boot/dts/qcom/sc7180-trogdor.dtsi
+>>> index eae22e6..e2783dd 100644
+>>> --- a/arch/arm64/boot/dts/qcom/sc7180-trogdor.dtsi
+>>> +++ b/arch/arm64/boot/dts/qcom/sc7180-trogdor.dtsi
+>>> @@ -814,7 +814,11 @@ hp_i2c: &i2c9 {
+>>>   	status = "okay";
+>>>   	pinctrl-names = "default";
+>>>   	pinctrl-0 = <&dp_hot_plug_det>;
+>>> -	data-lanes = <0 1>;
+>>> +};
+>>> +
+>>> +&dp_out {
+>>> +    data-lanes = <0 1>;
+>>> +    link-frequencies = /bits/ 64 <1620000000 2700000000 5400000000>;
+>> Messed order of nodes.
 > 
-> Signed-off-by: Jessica Zhang <quic_jesszhan@quicinc.com>
-> ---
->   drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c  |  9 +++-
->   drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c | 65 ++++++++++++++---------
->   2 files changed, 49 insertions(+), 25 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
-> index 13ce321283ff..0695b70ea1b7 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
-> @@ -409,6 +409,7 @@ static void _dpu_crtc_blend_setup_mixer(struct drm_crtc *crtc,
->   	struct drm_plane_state *state;
->   	struct dpu_crtc_state *cstate = to_dpu_crtc_state(crtc->state);
->   	struct dpu_plane_state *pstate = NULL;
-> +	const struct msm_format *fmt;
->   	struct dpu_format *format;
->   	struct dpu_hw_ctl *ctl = mixer->lm_ctl;
->   
-> @@ -441,7 +442,13 @@ static void _dpu_crtc_blend_setup_mixer(struct drm_crtc *crtc,
->   				sspp_idx - SSPP_VIG0,
->   				state->fb ? state->fb->base.id : -1);
->   
-> -		format = to_dpu_format(msm_framebuffer_format(pstate->base.fb));
-> +		if (pstate->base.fb)
-> +			fmt = msm_framebuffer_format(pstate->base.fb);
-> +		else
-> +			fmt = dpu_get_msm_format(&_dpu_crtc_get_kms(crtc)->base,
-> +					DRM_FORMAT_ABGR8888, 0);
-> +
-> +		format = to_dpu_format(fmt);
->   
->   		if (pstate->stage == DPU_STAGE_BASE && format->alpha_enable)
->   			bg_alpha_enable = true;
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
-> index 86719020afe2..51a7507373f7 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
-> @@ -44,7 +44,6 @@
->   
->   #define DPU_NAME_SIZE  12
->   
-> -#define DPU_PLANE_COLOR_FILL_FLAG	BIT(31)
->   #define DPU_ZPOS_MAX 255
->   
->   /* multirect rect index */
-> @@ -105,7 +104,6 @@ struct dpu_plane {
->   	enum dpu_sspp pipe;
->   
->   	struct dpu_hw_pipe *pipe_hw;
-> -	uint32_t color_fill;
->   	bool is_error;
->   	bool is_rt_pipe;
->   	const struct dpu_mdss_cfg *catalog;
-> @@ -678,6 +676,17 @@ static void _dpu_plane_setup_scaler(struct dpu_plane *pdpu,
->   				&scaler3_cfg);
->   }
->   
-> +static uint32_t _dpu_plane_get_fill_color(struct drm_solid_fill solid_fill)
-> +{
-> +	uint32_t ret = 0;
-> +
-> +	ret |= ((uint8_t) solid_fill.b) << 16;
-> +	ret |= ((uint8_t) solid_fill.g) << 8;
-> +	ret |= ((uint8_t) solid_fill.r);
-> +
-> +	return ret;
-> +}
-> +
->   /**
->    * _dpu_plane_color_fill - enables color fill on plane
->    * @pdpu:   Pointer to DPU plane object
-> @@ -1001,12 +1010,17 @@ static int dpu_plane_atomic_check(struct drm_plane *plane,
->   
->   	dst = drm_plane_state_dest(new_plane_state);
->   
-> -	fb_rect.x2 = new_plane_state->fb->width;
-> -	fb_rect.y2 = new_plane_state->fb->height;
-> +	if (new_plane_state->fb) {
-> +		fb_rect.x2 = new_plane_state->fb->width;
-> +		fb_rect.y2 = new_plane_state->fb->height;
-> +	}
->   
->   	max_linewidth = pdpu->catalog->caps->max_linewidth;
->   
-> -	fmt = to_dpu_format(msm_framebuffer_format(new_plane_state->fb));
-> +	if (new_plane_state->fb)
-> +		fmt = to_dpu_format(msm_framebuffer_format(new_plane_state->fb));
-> +	else
-> +		fmt = dpu_get_dpu_format(DRM_FORMAT_ABGR8888);
->   
->   	min_src_size = DPU_FORMAT_IS_YUV(fmt) ? 2 : 1;
->   
-> @@ -1018,7 +1032,7 @@ static int dpu_plane_atomic_check(struct drm_plane *plane,
->   		return -EINVAL;
->   
->   	/* check src bounds */
-> -	} else if (!dpu_plane_validate_src(&src, &fb_rect, min_src_size)) {
-> +	} else if (new_plane_state->fb && !dpu_plane_validate_src(&src, &fb_rect, min_src_size)) {
->   		DPU_DEBUG_PLANE(pdpu, "invalid source " DRM_RECT_FMT "\n",
->   				DRM_RECT_ARG(&src));
->   		return -E2BIG;
-> @@ -1086,9 +1100,10 @@ void dpu_plane_flush(struct drm_plane *plane)
->   	if (pdpu->is_error)
->   		/* force white frame with 100% alpha pipe output on error */
->   		_dpu_plane_color_fill(pdpu, 0xFFFFFF, 0xFF);
-> -	else if (pdpu->color_fill & DPU_PLANE_COLOR_FILL_FLAG)
-> +	else if (!(plane->state->fb) && drm_plane_solid_fill_enabled(plane->state))
+> can you please give me more details and how should i fixed it?
 
-And what if the plane has both fb and solid_fill proprety?
+Node overrides/extends are more or less ordered by name. dp should not
+be around mdp, but for example dsi.
 
->   		/* force 100% alpha */
-> -		_dpu_plane_color_fill(pdpu, pdpu->color_fill, 0xFF);
-> +		_dpu_plane_color_fill(pdpu, _dpu_plane_get_fill_color(plane->state->solid_fill),
-> +				0xFF);
->   	else if (pdpu->pipe_hw && pdpu->pipe_hw->ops.setup_csc) {
->   		const struct dpu_format *fmt = to_dpu_format(msm_framebuffer_format(plane->state->fb));
->   		const struct dpu_csc_cfg *csc_ptr = _dpu_plane_get_csc(pdpu, fmt);
-> @@ -1127,23 +1142,30 @@ static void dpu_plane_sspp_atomic_update(struct drm_plane *plane)
->   	struct drm_crtc *crtc = state->crtc;
->   	struct drm_framebuffer *fb = state->fb;
->   	bool is_rt_pipe, update_qos_remap;
-> -	const struct dpu_format *fmt =
-> -		to_dpu_format(msm_framebuffer_format(fb));
-> +	const struct dpu_format *fmt;
->   	struct dpu_hw_pipe_cfg pipe_cfg;
->   
-> -	memset(&pipe_cfg, 0, sizeof(struct dpu_hw_pipe_cfg));
-> -
-> -	_dpu_plane_set_scanout(plane, pstate, &pipe_cfg, fb);
-> -
->   	pstate->pending = true;
->   
->   	is_rt_pipe = (dpu_crtc_get_client_type(crtc) != NRT_CLIENT);
->   	_dpu_plane_set_qos_ctrl(plane, false, DPU_PLANE_QOS_PANIC_CTRL);
->   
-> -	DPU_DEBUG_PLANE(pdpu, "FB[%u] " DRM_RECT_FP_FMT "->crtc%u " DRM_RECT_FMT
-> -			", %4.4s ubwc %d\n", fb->base.id, DRM_RECT_FP_ARG(&state->src),
-> -			crtc->base.id, DRM_RECT_ARG(&state->dst),
-> -			(char *)&fmt->base.pixel_format, DPU_FORMAT_IS_UBWC(fmt));
-> +	/* override for color fill */
-> +	if (!fb && drm_plane_solid_fill_enabled(plane->state)) {
-
-And here too.
-
-> +		/* skip remaining processing on color fill */
-> +		return;
-> +	}
-> +
-> +	memset(&pipe_cfg, 0, sizeof(struct dpu_hw_pipe_cfg));
-> +
-> +	fmt = to_dpu_format(msm_framebuffer_format(fb));
-> +	_dpu_plane_set_scanout(plane, pstate, &pipe_cfg, fb);
-> +
-> +	if (fb)
-> +		DPU_DEBUG_PLANE(pdpu, "FB[%u] " DRM_RECT_FP_FMT "->crtc%u " DRM_RECT_FMT
-> +				", %4.4s ubwc %d\n", fb->base.id, DRM_RECT_FP_ARG(&state->src),
-> +				crtc->base.id, DRM_RECT_ARG(&state->dst),
-> +				(char *)&fmt->base.pixel_format, DPU_FORMAT_IS_UBWC(fmt));
->   
->   	pipe_cfg.src_rect = state->src;
->   
-> @@ -1155,12 +1177,6 @@ static void dpu_plane_sspp_atomic_update(struct drm_plane *plane)
->   
->   	pipe_cfg.dst_rect = state->dst;
->   
-> -	/* override for color fill */
-> -	if (pdpu->color_fill & DPU_PLANE_COLOR_FILL_FLAG) {
-> -		/* skip remaining processing on color fill */
-> -		return;
-> -	}
-> -
->   	if (pdpu->pipe_hw->ops.setup_rects) {
->   		pdpu->pipe_hw->ops.setup_rects(pdpu->pipe_hw,
->   				&pipe_cfg,
-> @@ -1511,6 +1527,7 @@ struct drm_plane *dpu_plane_init(struct drm_device *dev,
->   		DPU_ERROR("failed to install zpos property, rc = %d\n", ret);
->   
->   	drm_plane_create_alpha_property(plane);
-> +	drm_plane_create_solid_fill_property(plane);
->   	drm_plane_create_blend_mode_property(plane,
->   			BIT(DRM_MODE_BLEND_PIXEL_NONE) |
->   			BIT(DRM_MODE_BLEND_PREMULTI) |
-
--- 
-With best wishes
-Dmitry
+Best regards,
+Krzysztof
 
