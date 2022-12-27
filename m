@@ -2,74 +2,75 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id D4B5F655D07
-	for <lists+freedreno@lfdr.de>; Sun, 25 Dec 2022 12:59:33 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C64C2656D91
+	for <lists+freedreno@lfdr.de>; Tue, 27 Dec 2022 18:45:27 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3F6F610E0A0;
-	Sun, 25 Dec 2022 11:59:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7C3C710E164;
+	Tue, 27 Dec 2022 17:45:26 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x12c.google.com (mail-lf1-x12c.google.com
- [IPv6:2a00:1450:4864:20::12c])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C06D710E0A4
- for <freedreno@lists.freedesktop.org>; Sun, 25 Dec 2022 11:59:30 +0000 (UTC)
-Received: by mail-lf1-x12c.google.com with SMTP id cf42so12901708lfb.1
- for <freedreno@lists.freedesktop.org>; Sun, 25 Dec 2022 03:59:30 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=DpO2mOjemVEh3PAsRoqwlQ/H7YfF7zaImpMPnEr2kkE=;
- b=WQ9gIrxIlkm1Bi3dBa3sXbnKWg3Q6+9M7yX1DJuLWzwUXDr6C9w9JgzsBHC5tLnwdK
- VVWiwAxxEYutZypfXYJlwWnW8Kw/LXGV60gOlJT69vJsPjgSZpRlVB7YuuR7eCz1Jq5t
- g0urP0hgZMtbFQN9kg7S8FUuMLk4ZjSwpD0SRNiMjbpVHe67g4qlHnvgEmL7P4ZLJNYF
- omP7CeTpAL7RRSgyZ+LQDW2qHeYj1VFCiG1IlcIvSko5qiI6FoP6p3Dtwo/8Y4HUUVZt
- c/q76xmPAe0jKlu0AksRHVjkwPflv9XBTs7Zfd7x3IlFWV3nPmTF/W+3ytbV8mtqSnFL
- UVZA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=DpO2mOjemVEh3PAsRoqwlQ/H7YfF7zaImpMPnEr2kkE=;
- b=an9OnD/oOKhqCoF+vHAnWtzFT9EAYTrUrTV+/k/+k+mme+YMdV/YJbsL3oe2up7F9e
- PRWsxklRxQ9IP8oks81BPLAM0ltpNpIeNVIe7/rd8X4JdNPV07ephb+pywSePEStAoO3
- MD3d09HPrQCoXj+szR6601MDEhb1nP5PgyB2MhZ4HDgedZki2bNj8UlzBsoUSSM9yAAP
- Q6FF2sjK8mqtNQ5TRhYBtSqDj6hIKS1PRr8AWWoKQCFLoXmTaKJ7Hy8jNQmmswmvSIok
- iQbC0rfTG/oh3KE1LBnSOchVZYHWBoszq0g1XoVohERSdlAtnqClMP1Y0m939jY9J5Gz
- Lzdg==
-X-Gm-Message-State: AFqh2kpH+SI0xLOY64WG5I6zBzfvCxjCN/9YkGpD9Zdg05HKxxbRfnk6
- t0cBGPS3n1HoaJKkc2SWwOIGtg==
-X-Google-Smtp-Source: AMrXdXuKBP7b/Q0FfTlpsV5HqeYYSwCA0PmQAWCBg3FaLBiMZtQ03yvUXAxoTp6x8h1hfEoWYwZD4A==
-X-Received: by 2002:a05:6512:1111:b0:4b5:43ef:a552 with SMTP id
- l17-20020a056512111100b004b543efa552mr4951726lfg.16.1671969569066; 
- Sun, 25 Dec 2022 03:59:29 -0800 (PST)
-Received: from krzk-bin.NAT.warszawa.vectranet.pl
- (088156142067.dynamic-2-waw-k-3-2-0.vectranet.pl. [88.156.142.67])
- by smtp.gmail.com with ESMTPSA id
- r4-20020ac252a4000000b004a25bb4494fsm1336911lfm.178.2022.12.25.03.59.28
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 25 Dec 2022 03:59:28 -0800 (PST)
-From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-To: Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Sean Paul <sean@poorly.run>, David Airlie <airlied@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>, Rob Herring <robh+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Krishna Manikandan <quic_mkrishn@quicinc.com>,
- Del Regno <angelogioacchino.delregno@somainline.org>,
- Loic Poulain <loic.poulain@linaro.org>, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Date: Sun, 25 Dec 2022 12:59:25 +0100
-Message-Id: <20221225115925.55337-2-krzysztof.kozlowski@linaro.org>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20221225115925.55337-1-krzysztof.kozlowski@linaro.org>
-References: <20221225115925.55337-1-krzysztof.kozlowski@linaro.org>
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E565310E164;
+ Tue, 27 Dec 2022 17:45:23 +0000 (UTC)
+Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 2BREKhbG013874; Tue, 27 Dec 2022 17:45:19 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
+ h=from : to : cc :
+ subject : date : message-id : mime-version : content-type; s=qcppdkim1;
+ bh=iGoMfYwcrH+Jcp2jv5FIP/2WGmaaA59uhBPLBmwuRH4=;
+ b=bFap5HINZ3a3/P3qHO2g2QiNWuk+OSIUoMp6w+1wrEOJKhiz9Fta9va48J/UHOvtIDtv
+ igSrjonYzA174DBNyIzU4ysA2f9H8ojr73i8sdtj9Gc7jvSD/FjdZ0/vJsjaUqcNiO16
+ 7+hBfW6REyEb9Jzl4eRyZRsxQ6zQ0zD4UPZ5UlpuFCfCFELy+q4gScsltAez6WNUQC4P
+ JjR3zC2OTlnKgRf9A6D1iEOgTBgeXCz+UapTZdCYf8YGpY6b47oDaVy4XW8r+eyQPpxq
+ 4CGjdNydUIyZVvqfdEoynLaz6TDRsGs6vish56IZDORtvBGqalAWPuDS7OK4PCUsMrbo OA== 
+Received: from nalasppmta02.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3mnreg5scd-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 27 Dec 2022 17:45:18 +0000
+Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
+ [10.47.209.196])
+ by NALASPPMTA02.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 2BRHjHBp008760
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 27 Dec 2022 17:45:17 GMT
+Received: from khsieh-linux1.qualcomm.com (10.80.80.8) by
+ nalasex01a.na.qualcomm.com (10.47.209.196) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.986.36; Tue, 27 Dec 2022 09:45:16 -0800
+From: Kuogee Hsieh <quic_khsieh@quicinc.com>
+To: <dri-devel@lists.freedesktop.org>, <robdclark@gmail.com>,
+ <sean@poorly.run>, <swboyd@chromium.org>, <dianders@chromium.org>,
+ <vkoul@kernel.org>, <daniel@ffwll.ch>, <agross@kernel.org>,
+ <dmitry.baryshkov@linaro.org>, <andersson@kernel.org>,
+ <konrad.dybcio@somainline.org>, <robh+dt@kernel.org>,
+ <krzysztof.kozlowski+dt@linaro.org>, <devicetree@vger.kernel.org>,
+ <airlied@gmail.com>
+Date: Tue, 27 Dec 2022 09:44:58 -0800
+Message-ID: <1672163103-31254-1-git-send-email-quic_khsieh@quicinc.com>
+X-Mailer: git-send-email 2.7.4
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH 2/2] dt-bindings: display: msm: drop unneeded
- list for single compatible
+Content-Type: text/plain
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-GUID: q-0fHFYfu9EsSAzLjXccDkQExYE70H-4
+X-Proofpoint-ORIG-GUID: q-0fHFYfu9EsSAzLjXccDkQExYE70H-4
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.205,Aquarius:18.0.923,Hydra:6.0.545,FMLib:17.11.122.1
+ definitions=2022-12-27_13,2022-12-27_01,2022-06-22_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ lowpriorityscore=0
+ adultscore=0 mlxlogscore=938 spamscore=0 clxscore=1015 suspectscore=0
+ priorityscore=1501 malwarescore=0 phishscore=0 bulkscore=0 mlxscore=0
+ impostorscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2212070000 definitions=main-2212270145
+Subject: [Freedreno] [PATCH v16 0/5] Add data-lanes and link-frequencies to
+ dp_out endpoint
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,181 +83,37 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+Cc: quic_sbillaka@quicinc.com, linux-arm-msm@vger.kernel.org,
+ quic_abhinavk@quicinc.com, linux-kernel@vger.kernel.org,
+ Kuogee Hsieh <quic_khsieh@quicinc.com>, freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-With only one compatible, there is no need to define it as list (items).
+Add DP both data-lanes and link-frequencies property to dp_out endpoint and support
+functions to DP driver.
 
-Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
----
- .../devicetree/bindings/display/msm/qcom,msm8998-dpu.yaml      | 3 +--
- .../devicetree/bindings/display/msm/qcom,msm8998-mdss.yaml     | 3 +--
- .../devicetree/bindings/display/msm/qcom,qcm2290-dpu.yaml      | 3 +--
- .../devicetree/bindings/display/msm/qcom,qcm2290-mdss.yaml     | 3 +--
- .../devicetree/bindings/display/msm/qcom,sc7180-dpu.yaml       | 3 +--
- .../devicetree/bindings/display/msm/qcom,sc7180-mdss.yaml      | 3 +--
- .../devicetree/bindings/display/msm/qcom,sdm845-dpu.yaml       | 3 +--
- .../devicetree/bindings/display/msm/qcom,sdm845-mdss.yaml      | 3 +--
- .../devicetree/bindings/display/msm/qcom,sm6115-dpu.yaml       | 3 +--
- .../devicetree/bindings/display/msm/qcom,sm6115-mdss.yaml      | 3 +--
- .../devicetree/bindings/display/msm/qcom,sm8250-mdss.yaml      | 3 +--
- 11 files changed, 11 insertions(+), 22 deletions(-)
+Kuogee Hsieh (5):
+  arm64: dts: qcom: add data-lanes and link-freuencies into dp_out
+    endpoint
+  dt-bindings: msm/dp: add data-lanes and link-frequencies property
+  drm/msm/dp: parse data-lanes as property of dp_out endpoint
+  Add capability to parser and retrieve max DP link supported rate from 
+       link-frequencies property of dp_out endpoint.
+  drm/msm/dp: add support of max dp link rate
 
-diff --git a/Documentation/devicetree/bindings/display/msm/qcom,msm8998-dpu.yaml b/Documentation/devicetree/bindings/display/msm/qcom,msm8998-dpu.yaml
-index 727a20c4375c..943b6f017f7c 100644
---- a/Documentation/devicetree/bindings/display/msm/qcom,msm8998-dpu.yaml
-+++ b/Documentation/devicetree/bindings/display/msm/qcom,msm8998-dpu.yaml
-@@ -13,8 +13,7 @@ $ref: /schemas/display/msm/dpu-common.yaml#
- 
- properties:
-   compatible:
--    items:
--      - const: qcom,msm8998-dpu
-+    const: qcom,msm8998-dpu
- 
-   reg:
-     items:
-diff --git a/Documentation/devicetree/bindings/display/msm/qcom,msm8998-mdss.yaml b/Documentation/devicetree/bindings/display/msm/qcom,msm8998-mdss.yaml
-index cf52ff77a41a..f67632a7e8fa 100644
---- a/Documentation/devicetree/bindings/display/msm/qcom,msm8998-mdss.yaml
-+++ b/Documentation/devicetree/bindings/display/msm/qcom,msm8998-mdss.yaml
-@@ -18,8 +18,7 @@ $ref: /schemas/display/msm/mdss-common.yaml#
- 
- properties:
-   compatible:
--    items:
--      - const: qcom,msm8998-mdss
-+    const: qcom,msm8998-mdss
- 
-   clocks:
-     items:
-diff --git a/Documentation/devicetree/bindings/display/msm/qcom,qcm2290-dpu.yaml b/Documentation/devicetree/bindings/display/msm/qcom,qcm2290-dpu.yaml
-index a2fd9f8e456c..6c234b3b2765 100644
---- a/Documentation/devicetree/bindings/display/msm/qcom,qcm2290-dpu.yaml
-+++ b/Documentation/devicetree/bindings/display/msm/qcom,qcm2290-dpu.yaml
-@@ -13,8 +13,7 @@ $ref: /schemas/display/msm/dpu-common.yaml#
- 
- properties:
-   compatible:
--    items:
--      - const: qcom,qcm2290-dpu
-+    const: qcom,qcm2290-dpu
- 
-   reg:
-     items:
-diff --git a/Documentation/devicetree/bindings/display/msm/qcom,qcm2290-mdss.yaml b/Documentation/devicetree/bindings/display/msm/qcom,qcm2290-mdss.yaml
-index 4795e13c7b59..f5b24f81f382 100644
---- a/Documentation/devicetree/bindings/display/msm/qcom,qcm2290-mdss.yaml
-+++ b/Documentation/devicetree/bindings/display/msm/qcom,qcm2290-mdss.yaml
-@@ -18,8 +18,7 @@ $ref: /schemas/display/msm/mdss-common.yaml#
- 
- properties:
-   compatible:
--    items:
--      - const: qcom,qcm2290-mdss
-+    const: qcom,qcm2290-mdss
- 
-   clocks:
-     items:
-diff --git a/Documentation/devicetree/bindings/display/msm/qcom,sc7180-dpu.yaml b/Documentation/devicetree/bindings/display/msm/qcom,sc7180-dpu.yaml
-index 2ade94a216a8..86cfa3ddce62 100644
---- a/Documentation/devicetree/bindings/display/msm/qcom,sc7180-dpu.yaml
-+++ b/Documentation/devicetree/bindings/display/msm/qcom,sc7180-dpu.yaml
-@@ -13,8 +13,7 @@ $ref: /schemas/display/msm/dpu-common.yaml#
- 
- properties:
-   compatible:
--    items:
--      - const: qcom,sc7180-dpu
-+    const: qcom,sc7180-dpu
- 
-   reg:
-     items:
-diff --git a/Documentation/devicetree/bindings/display/msm/qcom,sc7180-mdss.yaml b/Documentation/devicetree/bindings/display/msm/qcom,sc7180-mdss.yaml
-index 13e396d61a51..2a1d4510db6d 100644
---- a/Documentation/devicetree/bindings/display/msm/qcom,sc7180-mdss.yaml
-+++ b/Documentation/devicetree/bindings/display/msm/qcom,sc7180-mdss.yaml
-@@ -18,8 +18,7 @@ $ref: /schemas/display/msm/mdss-common.yaml#
- 
- properties:
-   compatible:
--    items:
--      - const: qcom,sc7180-mdss
-+    const: qcom,sc7180-mdss
- 
-   clocks:
-     items:
-diff --git a/Documentation/devicetree/bindings/display/msm/qcom,sdm845-dpu.yaml b/Documentation/devicetree/bindings/display/msm/qcom,sdm845-dpu.yaml
-index a2f305b04ee1..5cabb899977d 100644
---- a/Documentation/devicetree/bindings/display/msm/qcom,sdm845-dpu.yaml
-+++ b/Documentation/devicetree/bindings/display/msm/qcom,sdm845-dpu.yaml
-@@ -13,8 +13,7 @@ $ref: /schemas/display/msm/dpu-common.yaml#
- 
- properties:
-   compatible:
--    items:
--      - const: qcom,sdm845-dpu
-+    const: qcom,sdm845-dpu
- 
-   reg:
-     items:
-diff --git a/Documentation/devicetree/bindings/display/msm/qcom,sdm845-mdss.yaml b/Documentation/devicetree/bindings/display/msm/qcom,sdm845-mdss.yaml
-index 31ca6f99fc22..289d61debc38 100644
---- a/Documentation/devicetree/bindings/display/msm/qcom,sdm845-mdss.yaml
-+++ b/Documentation/devicetree/bindings/display/msm/qcom,sdm845-mdss.yaml
-@@ -18,8 +18,7 @@ $ref: /schemas/display/msm/mdss-common.yaml#
- 
- properties:
-   compatible:
--    items:
--      - const: qcom,sdm845-mdss
-+    const: qcom,sdm845-mdss
- 
-   clocks:
-     items:
-diff --git a/Documentation/devicetree/bindings/display/msm/qcom,sm6115-dpu.yaml b/Documentation/devicetree/bindings/display/msm/qcom,sm6115-dpu.yaml
-index 6ad828a20332..bf62c2f5325a 100644
---- a/Documentation/devicetree/bindings/display/msm/qcom,sm6115-dpu.yaml
-+++ b/Documentation/devicetree/bindings/display/msm/qcom,sm6115-dpu.yaml
-@@ -13,8 +13,7 @@ $ref: /schemas/display/msm/dpu-common.yaml#
- 
- properties:
-   compatible:
--    items:
--      - const: qcom,sm6115-dpu
-+    const: qcom,sm6115-dpu
- 
-   reg:
-     items:
-diff --git a/Documentation/devicetree/bindings/display/msm/qcom,sm6115-mdss.yaml b/Documentation/devicetree/bindings/display/msm/qcom,sm6115-mdss.yaml
-index 886858ef6700..2491cb100b33 100644
---- a/Documentation/devicetree/bindings/display/msm/qcom,sm6115-mdss.yaml
-+++ b/Documentation/devicetree/bindings/display/msm/qcom,sm6115-mdss.yaml
-@@ -18,8 +18,7 @@ $ref: /schemas/display/msm/mdss-common.yaml#
- 
- properties:
-   compatible:
--    items:
--      - const: qcom,sm6115-mdss
-+    const: qcom,sm6115-mdss
- 
-   clocks:
-     items:
-diff --git a/Documentation/devicetree/bindings/display/msm/qcom,sm8250-mdss.yaml b/Documentation/devicetree/bindings/display/msm/qcom,sm8250-mdss.yaml
-index 0d3be5386b3f..753bc99c868a 100644
---- a/Documentation/devicetree/bindings/display/msm/qcom,sm8250-mdss.yaml
-+++ b/Documentation/devicetree/bindings/display/msm/qcom,sm8250-mdss.yaml
-@@ -18,8 +18,7 @@ $ref: /schemas/display/msm/mdss-common.yaml#
- 
- properties:
-   compatible:
--    items:
--      - const: qcom,sm8250-mdss
-+    const: qcom,sm8250-mdss
- 
-   clocks:
-     items:
+ .../bindings/display/msm/dp-controller.yaml        | 25 ++++++++++-
+ arch/arm64/boot/dts/qcom/sc7180-trogdor.dtsi       |  4 ++
+ arch/arm64/boot/dts/qcom/sc7180.dtsi               |  2 +-
+ arch/arm64/boot/dts/qcom/sc7280-herobrine.dtsi     |  4 ++
+ arch/arm64/boot/dts/qcom/sc7280.dtsi               |  2 +-
+ drivers/gpu/drm/msm/dp/dp_display.c                |  4 ++
+ drivers/gpu/drm/msm/dp/dp_panel.c                  |  7 +--
+ drivers/gpu/drm/msm/dp/dp_panel.h                  |  1 +
+ drivers/gpu/drm/msm/dp/dp_parser.c                 | 50 ++++++++++++++++++----
+ drivers/gpu/drm/msm/dp/dp_parser.h                 |  2 +
+ 10 files changed, 87 insertions(+), 14 deletions(-)
+
 -- 
-2.34.1
+The Qualcomm Innovation Center, Inc. is a member of the Code Aurora Forum,
+a Linux Foundation Collaborative Project
 
