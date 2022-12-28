@@ -2,68 +2,42 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6811A6576D3
-	for <lists+freedreno@lfdr.de>; Wed, 28 Dec 2022 14:11:50 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3C6EB6582CC
+	for <lists+freedreno@lfdr.de>; Wed, 28 Dec 2022 17:41:54 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D2EAC10E3A3;
-	Wed, 28 Dec 2022 13:11:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E212F10E3CE;
+	Wed, 28 Dec 2022 16:41:27 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ej1-x636.google.com (mail-ej1-x636.google.com
- [IPv6:2a00:1450:4864:20::636])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6E2CD10E1A2
- for <freedreno@lists.freedesktop.org>; Wed, 28 Dec 2022 13:11:15 +0000 (UTC)
-Received: by mail-ej1-x636.google.com with SMTP id bj12so38213308ejb.13
- for <freedreno@lists.freedesktop.org>; Wed, 28 Dec 2022 05:11:15 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=yIvj6CLKAGPbCzVViYil+tBlKneBu3LIA/3PrIIlxx4=;
- b=DRQ24GnDGTJCp91rOOPpd4MtC7ukbeiX4EMp7aaJqkpCm2c4YkEhnQWvzuFja3CjCQ
- xI8qWXKmegyowqhNcU0SRG6LG/3GTHzQVxYleWpeTMVFfvPr7egRzwtTTWtdAUS8KHRO
- szlcy8xQTiLOXFeK0pyHFjIIfvlKZynD1wkg68WL3IGYgSEl67eXeV9d/EvA/oEkJV/1
- GMf0IFUgvhrMLi2dGnhjqq2drvfm7x3zG1+No14q//ZhIWA14kk3GPU+MXbaNLB38jvA
- JNIql6COciiep7X4T8M1aFIBNsgChvXrzni5hhVsOsLBBV5BarNDFp4VFceKo2y4iE8s
- N6hw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=yIvj6CLKAGPbCzVViYil+tBlKneBu3LIA/3PrIIlxx4=;
- b=7J0v/GBF1LSOYo9Je4n2i264En2OE0F1cCQ5AASKpKYZ6QtMG8F2xKm7Nb2qroYfPU
- GzNg02mdt/0t6UFBVim/y1l2LEd3IxtJ0Fid7eDEzsElAtm/jzGH2Sm/eA4jwJdFk1Xq
- TOe7mqOBm38yyPsbxiLpcBJPhIVAwK+FekXpzRGHzl+/0WUxVkwjtD092GEt8rh+xSFY
- a/MpM04rYB2B8VPbFjsHXZkX/65YfE37cD7Ieccx6dfzFGqpL///Azb6f3u+w0mhu0T7
- Dv/5+Tta5cS1GE8rcsmEwQPV/JVMlh0GOQtoSO7kj3NoDTt0vAYhDx1EcE3EL6yT0Jmz
- q9jA==
-X-Gm-Message-State: AFqh2krQ9SwD646+iV4LZEfCIUkS/lc8KAXUGVAm+N6pWIdO8LhcDQ6r
- 4miii4TLVqSc8AOip0T5ZKft9A==
-X-Google-Smtp-Source: AMrXdXvpJhSvObvLScgLH6nL9n1cKt22C9piLD5CYaGNWqas2AZDzHDkw5CZGHCuOLlqJ7typZS3DQ==
-X-Received: by 2002:a17:906:6b96:b0:7c1:4bb2:f62b with SMTP id
- l22-20020a1709066b9600b007c14bb2f62bmr21246963ejr.27.1672233073820; 
- Wed, 28 Dec 2022 05:11:13 -0800 (PST)
-Received: from planet9.chello.ie
- (2001-1c06-2302-5600-85f6-04b5-1651-3b6c.cable.dynamic.v6.ziggo.nl.
- [2001:1c06:2302:5600:85f6:4b5:1651:3b6c])
- by smtp.gmail.com with ESMTPSA id
- g11-20020a056402180b00b0046bb7503d9asm7099545edy.24.2022.12.28.05.11.12
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 28 Dec 2022 05:11:13 -0800 (PST)
-From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-To: robdclark@gmail.com, quic_abhinavk@quicinc.com,
- dmitry.baryshkov@linaro.org, sean@poorly.run, airlied@gmail.com,
- daniel@ffwll.ch, robh+dt@kernel.org, krzysztof.kozlowski+dt@linaro.org
-Date: Wed, 28 Dec 2022 13:11:10 +0000
-Message-Id: <20221228131110.213116-2-bryan.odonoghue@linaro.org>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20221228131110.213116-1-bryan.odonoghue@linaro.org>
-References: <20221228131110.213116-1-bryan.odonoghue@linaro.org>
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5466010E3CE
+ for <freedreno@lists.freedesktop.org>; Wed, 28 Dec 2022 16:41:24 +0000 (UTC)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by ams.source.kernel.org (Postfix) with ESMTPS id 02BD9B817AC;
+ Wed, 28 Dec 2022 16:41:23 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2DE7AC433D2;
+ Wed, 28 Dec 2022 16:41:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
+ s=korg; t=1672245681;
+ bh=I9Gx9m76r4Ac5f8DVvtK63xglKXDOM6E0OjZCYSrZJo=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=mLY25z9V0Ax80WB5biEifGkfb4prtQ9MaEErlhyNUYy6xM21oRgxyL0tKEATqGvXc
+ cR5P8ImsgzWL26REr7XHuB9oqv8PWdaKQyJOhVcVvF9epRdRDt8S9lGC0jKCJUTMnw
+ p2b/OkLN9bHe6yQHLW2mP+nyqi/VgbaGHVagVelc=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
+Date: Wed, 28 Dec 2022 15:42:05 +0100
+Message-Id: <20221228144353.479905766@linuxfoundation.org>
+X-Mailer: git-send-email 2.39.0
+In-Reply-To: <20221228144328.162723588@linuxfoundation.org>
+References: <20221228144328.162723588@linuxfoundation.org>
+User-Agent: quilt/0.67
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH v2 1/1] dt-bindings: msm: dsi-phy-28nm: Add
- missing qcom, dsi-phy-regulator-ldo-mode
+Subject: [Freedreno] [PATCH 6.0 0937/1073] drm/msm: Use drm_mode_copy()
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,38 +50,106 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- andersson@kernel.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, swboyd@chromium.org, quic_mkrishn@quicinc.com,
- bryan.odonoghue@linaro.org, freedreno@lists.freedesktop.org
+Cc: Sasha Levin <sashal@kernel.org>, freedreno@lists.freedesktop.org,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, patches@lists.linux.dev,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Daniel Vetter <daniel.vetter@ffwll.ch>, Rob Clark <robdclark@gmail.com>,
+ linux-arm-msm@vger.kernel.org, Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Sean Paul <sean@poorly.run>,
+ =?UTF-8?q?Ville=20Syrj=C3=A4l=C3=A4?= <ville.syrjala@linux.intel.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Add in missing qcom,dsi-phy-regulator-ldo-mode to the 28nm DSI PHY.
-When converting from .txt to .yaml we missed this one.
+From: Ville Syrjälä <ville.syrjala@linux.intel.com>
 
-Fixes: 4dbe55c97741 ("dt-bindings: msm: dsi: add yaml schemas for DSI bindings")
+[ Upstream commit b2a1c5ca50db22b3677676dd5bad5f6092429acf ]
+
+struct drm_display_mode embeds a list head, so overwriting
+the full struct with another one will corrupt the list
+(if the destination mode is on a list). Use drm_mode_copy()
+instead which explicitly preserves the list head of
+the destination mode.
+
+Even if we know the destination mode is not on any list
+using drm_mode_copy() seems decent as it sets a good
+example. Bad examples of not using it might eventually
+get copied into code where preserving the list head
+actually matters.
+
+Obviously one case not covered here is when the mode
+itself is embedded in a larger structure and the whole
+structure is copied. But if we are careful when copying
+into modes embedded in structures I think we can be a
+little more reassured that bogus list heads haven't been
+propagated in.
+
+@is_mode_copy@
+@@
+drm_mode_copy(...)
+{
+...
+}
+
+@depends on !is_mode_copy@
+struct drm_display_mode *mode;
+expression E, S;
+@@
+(
+- *mode = E
++ drm_mode_copy(mode, &E)
+|
+- memcpy(mode, E, S)
++ drm_mode_copy(mode, E)
+)
+
+@depends on !is_mode_copy@
+struct drm_display_mode mode;
+expression E;
+@@
+(
+- mode = E
++ drm_mode_copy(&mode, &E)
+|
+- memcpy(&mode, E, S)
++ drm_mode_copy(&mode, E)
+)
+
+@@
+struct drm_display_mode *mode;
+@@
+- &*mode
++ mode
+
+Cc: Rob Clark <robdclark@gmail.com>
+Cc: Sean Paul <sean@poorly.run>
+Cc: Abhinav Kumar <quic_abhinavk@quicinc.com>
+Cc: linux-arm-msm@vger.kernel.org
+Cc: freedreno@lists.freedesktop.org
 Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Signed-off-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
+Reviewed-by: Daniel Vetter <daniel.vetter@ffwll.ch>
+Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
+Link: https://patchwork.freedesktop.org/patch/msgid/20221107192545.9896-5-ville.syrjala@linux.intel.com
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- .../devicetree/bindings/display/msm/dsi-phy-28nm.yaml         | 4 ++++
- 1 file changed, 4 insertions(+)
+ drivers/gpu/drm/msm/dp/dp_display.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/Documentation/devicetree/bindings/display/msm/dsi-phy-28nm.yaml b/Documentation/devicetree/bindings/display/msm/dsi-phy-28nm.yaml
-index 3d8540a06fe22..95076c90ea171 100644
---- a/Documentation/devicetree/bindings/display/msm/dsi-phy-28nm.yaml
-+++ b/Documentation/devicetree/bindings/display/msm/dsi-phy-28nm.yaml
-@@ -25,6 +25,10 @@ properties:
-       - description: dsi phy register set
-       - description: dsi phy regulator register set
+diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
+index a49f6dbbe888..c9d9b384ddd0 100644
+--- a/drivers/gpu/drm/msm/dp/dp_display.c
++++ b/drivers/gpu/drm/msm/dp/dp_display.c
+@@ -857,7 +857,7 @@ static int dp_display_set_mode(struct msm_dp *dp_display,
  
-+  qcom,dsi-phy-regulator-ldo-mode:
-+    type: boolean
-+    description: Indicates if the LDO mode PHY regulator is wanted.
-+
-   reg-names:
-     items:
-       - const: dsi_pll
+ 	dp = container_of(dp_display, struct dp_display_private, dp_display);
+ 
+-	dp->panel->dp_mode.drm_mode = mode->drm_mode;
++	drm_mode_copy(&dp->panel->dp_mode.drm_mode, &mode->drm_mode);
+ 	dp->panel->dp_mode.bpp = mode->bpp;
+ 	dp->panel->dp_mode.capabilities = mode->capabilities;
+ 	dp_panel_init_panel_info(dp->panel);
 -- 
-2.34.1
+2.35.1
+
+
 
