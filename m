@@ -2,42 +2,42 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3C6EB6582CC
-	for <lists+freedreno@lfdr.de>; Wed, 28 Dec 2022 17:41:54 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id AED536583E6
+	for <lists+freedreno@lfdr.de>; Wed, 28 Dec 2022 17:53:29 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E212F10E3CE;
-	Wed, 28 Dec 2022 16:41:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 709B510E3CE;
+	Wed, 28 Dec 2022 16:53:28 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5466010E3CE
- for <freedreno@lists.freedesktop.org>; Wed, 28 Dec 2022 16:41:24 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 08AC610E3CE
+ for <freedreno@lists.freedesktop.org>; Wed, 28 Dec 2022 16:53:26 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 02BD9B817AC;
- Wed, 28 Dec 2022 16:41:23 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2DE7AC433D2;
- Wed, 28 Dec 2022 16:41:21 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id C801B6156C;
+ Wed, 28 Dec 2022 16:53:23 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B394DC433D2;
+ Wed, 28 Dec 2022 16:53:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
- s=korg; t=1672245681;
+ s=korg; t=1672246403;
  bh=I9Gx9m76r4Ac5f8DVvtK63xglKXDOM6E0OjZCYSrZJo=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=mLY25z9V0Ax80WB5biEifGkfb4prtQ9MaEErlhyNUYy6xM21oRgxyL0tKEATqGvXc
- cR5P8ImsgzWL26REr7XHuB9oqv8PWdaKQyJOhVcVvF9epRdRDt8S9lGC0jKCJUTMnw
- p2b/OkLN9bHe6yQHLW2mP+nyqi/VgbaGHVagVelc=
+ b=mA4MkdlWKDnFwtzfEOZFZczppF+d7MN6wSdN7pJeYrJyaUN6NRl0zyVA3h/K5dOIZ
+ 80llZZ0wtIxQ63HVpv4AkYDBeeCrSBIrWNpcEKIZoCGiVeYcyt3rPB6T/uQUfEaIS1
+ QCA04cPa2FijzKZ4JOOMpao/t5U166oZc6x7VmPI=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
-Date: Wed, 28 Dec 2022 15:42:05 +0100
-Message-Id: <20221228144353.479905766@linuxfoundation.org>
+Date: Wed, 28 Dec 2022 15:42:21 +0100
+Message-Id: <20221228144357.585675422@linuxfoundation.org>
 X-Mailer: git-send-email 2.39.0
-In-Reply-To: <20221228144328.162723588@linuxfoundation.org>
-References: <20221228144328.162723588@linuxfoundation.org>
+In-Reply-To: <20221228144330.180012208@linuxfoundation.org>
+References: <20221228144330.180012208@linuxfoundation.org>
 User-Agent: quilt/0.67
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH 6.0 0937/1073] drm/msm: Use drm_mode_copy()
+Subject: [Freedreno] [PATCH 6.1 1002/1146] drm/msm: Use drm_mode_copy()
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
