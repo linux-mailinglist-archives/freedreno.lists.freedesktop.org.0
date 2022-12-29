@@ -2,59 +2,64 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1C1DB658C49
-	for <lists+freedreno@lfdr.de>; Thu, 29 Dec 2022 12:39:00 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 17042658CC3
+	for <lists+freedreno@lfdr.de>; Thu, 29 Dec 2022 13:44:58 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id ACF5C10E25E;
-	Thu, 29 Dec 2022 11:38:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 56BA910E1F2;
+	Thu, 29 Dec 2022 12:44:55 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-yw1-x112c.google.com (mail-yw1-x112c.google.com
- [IPv6:2607:f8b0:4864:20::112c])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8304810E25F
- for <freedreno@lists.freedesktop.org>; Thu, 29 Dec 2022 11:38:36 +0000 (UTC)
-Received: by mail-yw1-x112c.google.com with SMTP id
- 00721157ae682-43ea87d0797so257084527b3.5
- for <freedreno@lists.freedesktop.org>; Thu, 29 Dec 2022 03:38:36 -0800 (PST)
+Received: from mail-ej1-x635.google.com (mail-ej1-x635.google.com
+ [IPv6:2a00:1450:4864:20::635])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2BF1D10E1F0
+ for <freedreno@lists.freedesktop.org>; Thu, 29 Dec 2022 12:44:51 +0000 (UTC)
+Received: by mail-ej1-x635.google.com with SMTP id kw15so44628335ejc.10
+ for <freedreno@lists.freedesktop.org>; Thu, 29 Dec 2022 04:44:51 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=QzVijDpOmDlJ/TO0wgjRtfeBQOxC0cctQS/eEfP3SpY=;
- b=WhascANlVjl5U5gZFZPJX1JCvzaY0eFSP57cDDpyQWbsemmdB+gKOGNgG9ea0ke1Wo
- INWSY6J4eO1atBRfG7CHK0mNffIF3QX3IiegBrcTUIoNlJhGvCJpzQD8Hd9E/59NaKyR
- E6z/EKVKXOU+DwZsRme7VUyXydyN/i2j+jRHB3cIxlk6iYeIsU934d2wN9H10OBM27bq
- IwFyHbWsFtyoz7IXv+sK0MzmD9O6BQEk+zi5AoTstfJSVX5hHt8lKQkGKdwKB80MhFJM
- N84++q/77POvO4qIxhkcTodWOnIxPNRZ6EQI6I0r88YkSCDMtzVkk7gT4nv8CjQJriC4
- C8rA==
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=0TFFrUt4LQqfMqFPZcUCojOx9RB3FN3rW7wfQoSwSrA=;
+ b=TeL5UAmg/6zgmU3Ix28zmrwTqBsHNJFuE74+7sO8tbSEZvyyync000drkXXuU7p7Qu
+ uWs8ItZm1xA60PyUHCQ4vjfgR1btDJlWhhOXEICIjjAByseTXkqiBDiLXuzM0xSHEAPG
+ PscC83Wj4yyfgO8RPMXih7sZs+cuK3LU30TzeHlUxLr8PcFcr89x4uzUpAtNHidk4j/4
+ X3x7y8dy69BrnH2ecBlszIw+3IZjK6mHfeppnulHSfG9PnIdZjrWDvS6aNAvRNOJXV++
+ 3yFKJs46Mj3QS6GIEamPrFslAvLRuROgSJs+z7geztMtCTPcDD5mcWCA/PbzaiHl6c3O
+ r9pg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=QzVijDpOmDlJ/TO0wgjRtfeBQOxC0cctQS/eEfP3SpY=;
- b=Bo0PIDGh3cdL6pk5qxC8vpPlkjBQyVnctIKp8HW+D/zISYMwJ77TzoN43Y7tV1M8Wg
- 5iNOUtlnwjlc1JvkUrX/ObWt9cnMVbZydujU3CShvB6d++JuYYOhg0iskPmaMMmnIWEq
- rm1E0Mprma87Ww2CtgKcIGan8PG3uZcgSM9a86Ao7pefYbj9oGVVbUHsUNndCqwY3FMM
- Jf8EKgF3VY1FLeSjwyNg0RDwknL2gK+wBztKFYsXEKKuomZs8g6krcbAv86i8tH4JOpL
- W41Oa2XgFJPWTaioHJh7nDIQ0mbfzsOHRuBgvZra3Xf0e5ywakSXUNKFpZLNU5Snu+xM
- Eg+g==
-X-Gm-Message-State: AFqh2kpqOROlfPZXMCxP38p8z3sJpcOQ4IMLILc9ic33o5Uu3V7rr5JX
- YzlN/H6SeY5Rwx/ZvO5g8m5iXStRphItyXOUtJTXiA==
-X-Google-Smtp-Source: AMrXdXv9e+eV4tISPHDx2U7r7Ck2jrKmPt6GILLj/sOAVw2uAMBZi0tErVUE4qTF18qsGZPTIq0H1EH0sOHq3nJLvRY=
-X-Received: by 2002:a0d:dc86:0:b0:3d5:ecbb:2923 with SMTP id
- f128-20020a0ddc86000000b003d5ecbb2923mr3630692ywe.485.1672313915726; Thu, 29
- Dec 2022 03:38:35 -0800 (PST)
+ bh=0TFFrUt4LQqfMqFPZcUCojOx9RB3FN3rW7wfQoSwSrA=;
+ b=wxHh42VPXSocm41R2wzoY3Xhf9A8X/OQz6KgEpWlMEJY66RJ+CnCm7pgKwqFSuRCgM
+ c6OQl7H5Z4+Glj1e4ZEQPG9r2r8k56sp+efPGI3+ysJxnDmoS+0B+lliJH/Jf0xOqxGB
+ cvQEB51y6/ql9YBpuVOE/wuIuavoBCgelNNTHZlpB4ag/qfqWZaQ78HMLVr0erufXiXs
+ 59ZBqHSpikgmc7usV69GDUXL/1De7XiZvYgH+c+FhnF7gytmxhy3YSAejZ8amQEGJ5Bu
+ sEdJvrXbIPhsCm6xW5TFPhvTRQAOYxl2Th4RSwtt1voYp+nQ5s8m1poifrMZQoZAPlSK
+ ksrw==
+X-Gm-Message-State: AFqh2krJ/ZaDi4VAiTMqQnncXoIOA1eMhLK6ndF3l6BvAVtuhquLIbET
+ lmugq74fcbJGdaizKgP9nZEqRA==
+X-Google-Smtp-Source: AMrXdXssBXJ2oUDdvTt+u35WNx5VyF+QRRodDl/adWaxq1LEm/yYsY4FbIIzuvo6lICBCR3ElLA3BA==
+X-Received: by 2002:a17:906:18e2:b0:7c1:4bb:b157 with SMTP id
+ e2-20020a17090618e200b007c104bbb157mr30451069ejf.4.1672317889933; 
+ Thu, 29 Dec 2022 04:44:49 -0800 (PST)
+Received: from planet9.chello.ie
+ (2001-1c06-2302-5600-12a8-8cf4-e3f6-f90f.cable.dynamic.v6.ziggo.nl.
+ [2001:1c06:2302:5600:12a8:8cf4:e3f6:f90f])
+ by smtp.gmail.com with ESMTPSA id
+ 15-20020a170906318f00b0078db5bddd9csm8483461ejy.22.2022.12.29.04.44.48
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 29 Dec 2022 04:44:49 -0800 (PST)
+From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+To: robdclark@gmail.com, quic_abhinavk@quicinc.com,
+ dmitry.baryshkov@linaro.org, sean@poorly.run, airlied@gmail.com,
+ daniel@ffwll.ch, robh+dt@kernel.org, krzysztof.kozlowski+dt@linaro.org
+Date: Thu, 29 Dec 2022 12:44:37 +0000
+Message-Id: <20221229124438.504770-1-bryan.odonoghue@linaro.org>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-References: <20221229100511.979972-1-konrad.dybcio@linaro.org>
- <20221229100511.979972-2-konrad.dybcio@linaro.org>
-In-Reply-To: <20221229100511.979972-2-konrad.dybcio@linaro.org>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Thu, 29 Dec 2022 13:38:24 +0200
-Message-ID: <CAA8EJpr2AzT9W44mR4=5QBcmQzsznvO7XROObFGiSv+T3kJznA@mail.gmail.com>
-To: Konrad Dybcio <konrad.dybcio@linaro.org>
-Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [PATCH v2 2/3] arm64: dts: qcom: sm8150: Add DISPCC
- node
+Content-Transfer-Encoding: 8bit
+Subject: [Freedreno] [PATCH v3 0/1] Fixup documentation for dsi-phy-28nm
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,78 +72,32 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- andersson@kernel.org, Rob Clark <robdclark@gmail.com>,
- Rob Herring <robh+dt@kernel.org>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- krzysztof.kozlowski@linaro.org, agross@kernel.org,
- dri-devel@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>,
- marijn.suijten@somainline.org, David Airlie <airlied@gmail.com>,
- freedreno@lists.freedesktop.org, Sean Paul <sean@poorly.run>,
- linux-kernel@vger.kernel.org
+Cc: devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ andersson@kernel.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, swboyd@chromium.org, quic_mkrishn@quicinc.com,
+ bryan.odonoghue@linaro.org, freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Thu, 29 Dec 2022 at 12:05, Konrad Dybcio <konrad.dybcio@linaro.org> wrote:
->
-> Years after the SoC support has been added, it's high time for it to
-> get dispcc going. Add the node to ensure that.
->
-> Tested-by: Marijn Suijten <marijn.suijten@somainline.org> # Xperia 5
-> Reviewed-by: Marijn Suijten <marijn.suijten@somainline.org>
-> Signed-off-by: Konrad Dybcio <konrad.dybcio@linaro.org>
+V3:
+Moves change to last item in list so as not to break-up grouping of reg/reg-names
 
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+V2:
+This is the one remaining patch I had from a previous series for
+mdss-dsi-ctrl and the dsi-phy. The mdss-dsi-ctrl set became a bigger so I
+split out the 28nm phy fixes.
 
+I'm resubmitting with Dmitry's RB as a standalone.
 
-> ---
-> v1 -> v2:
-> - Pick up tags
-> - Remove required-opps
-> - Move power-domains up
->  arch/arm64/boot/dts/qcom/sm8150.dtsi | 23 +++++++++++++++++++++++
->  1 file changed, 23 insertions(+)
->
-> diff --git a/arch/arm64/boot/dts/qcom/sm8150.dtsi b/arch/arm64/boot/dts/qcom/sm8150.dtsi
-> index a0c57fb798d3..c7935f7a2926 100644
-> --- a/arch/arm64/boot/dts/qcom/sm8150.dtsi
-> +++ b/arch/arm64/boot/dts/qcom/sm8150.dtsi
-> @@ -3579,6 +3579,29 @@ camnoc_virt: interconnect@ac00000 {
->                         qcom,bcm-voters = <&apps_bcm_voter>;
->                 };
->
-> +               dispcc: clock-controller@af00000 {
-> +                       compatible = "qcom,sm8150-dispcc";
-> +                       reg = <0 0x0af00000 0 0x10000>;
-> +                       clocks = <&rpmhcc RPMH_CXO_CLK>,
-> +                                <0>,
-> +                                <0>,
-> +                                <0>,
-> +                                <0>,
-> +                                <0>,
-> +                                <0>;
-> +                       clock-names = "bi_tcxo",
-> +                                     "dsi0_phy_pll_out_byteclk",
-> +                                     "dsi0_phy_pll_out_dsiclk",
-> +                                     "dsi1_phy_pll_out_byteclk",
-> +                                     "dsi1_phy_pll_out_dsiclk",
-> +                                     "dp_phy_pll_link_clk",
-> +                                     "dp_phy_pll_vco_div_clk";
-> +                       power-domains = <&rpmhpd SM8150_MMCX>;
-> +                       #clock-cells = <1>;
-> +                       #reset-cells = <1>;
-> +                       #power-domain-cells = <1>;
-> +               };
-> +
->                 pdc: interrupt-controller@b220000 {
->                         compatible = "qcom,sm8150-pdc", "qcom,pdc";
->                         reg = <0 0x0b220000 0 0x400>;
-> --
-> 2.39.0
->
+Old: https://lore.kernel.org/all/20220630120845.3356144-1-bryan.odonoghue@linaro.org/
 
+Bryan O'Donoghue (1):
+  dt-bindings: msm: dsi-phy-28nm: Add missing
+    qcom,dsi-phy-regulator-ldo-mode
+
+ .../devicetree/bindings/display/msm/dsi-phy-28nm.yaml         | 4 ++++
+ 1 file changed, 4 insertions(+)
 
 -- 
-With best wishes
-Dmitry
+2.34.1
+
