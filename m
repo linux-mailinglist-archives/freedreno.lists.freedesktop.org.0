@@ -2,36 +2,72 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0949E6587D2
-	for <lists+freedreno@lfdr.de>; Thu, 29 Dec 2022 00:12:01 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 394C9658A81
+	for <lists+freedreno@lfdr.de>; Thu, 29 Dec 2022 09:26:09 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B19C010E230;
-	Wed, 28 Dec 2022 23:11:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DA6D210E242;
+	Thu, 29 Dec 2022 08:26:05 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from relay02.th.seeweb.it (relay02.th.seeweb.it [5.144.164.163])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2123510E230
- for <freedreno@lists.freedesktop.org>; Wed, 28 Dec 2022 23:11:28 +0000 (UTC)
-Received: from SoMainline.org (94-211-6-86.cable.dynamic.v4.ziggo.nl
- [94.211.6.86])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest
- SHA256) (No client certificate requested)
- by m-r1.th.seeweb.it (Postfix) with ESMTPSA id D1053200C9;
- Thu, 29 Dec 2022 00:10:54 +0100 (CET)
-Date: Thu, 29 Dec 2022 00:10:53 +0100
-From: Marijn Suijten <marijn.suijten@somainline.org>
-To: Bjorn Andersson <andersson@kernel.org>
-Message-ID: <20221228231053.46fclmazl5qrjbmo@SoMainline.org>
-References: <20221212093315.11390-1-konrad.dybcio@linaro.org>
- <20221212093315.11390-2-konrad.dybcio@linaro.org>
- <20221228041658.hpmlspnhm2ssinai@builder.lan>
+Received: from mail-lj1-x22a.google.com (mail-lj1-x22a.google.com
+ [IPv6:2a00:1450:4864:20::22a])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D26BE10E242
+ for <freedreno@lists.freedesktop.org>; Thu, 29 Dec 2022 08:26:03 +0000 (UTC)
+Received: by mail-lj1-x22a.google.com with SMTP id s22so18749674ljp.5
+ for <freedreno@lists.freedesktop.org>; Thu, 29 Dec 2022 00:26:03 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=2jD6n3VI4U3d7CzDLMYOr4tAgBELkqFchc0PWmapwU8=;
+ b=qhEE4crGFgsdwFNKY2hdx6b7U+9CNNrQU/L8EM7pLIpvdLqLPQ/X0IBU6xWI/+Tjsb
+ 9FjNHb7ac8oTGST4Pbt4LqMouaI7o6ptRX4gxrDV+DY0BsNtQ6dSwvr001n+5/bQS1TW
+ dOYdrUbb3v+dkIbYWz8iLCg7x3t4MMPZ2yEMkhH+Z1WWRJ5+yQu/egLPHHwdl+1Fnl0r
+ PuT+vKRtc4y/RnrOZISux3vGOnMZ5wVwplKkBDryIN5kA1LWgtUpYvt5rXpBwKcDY8L/
+ 6qQO0TjZcXtrHmmg4U1cLbF5ONgdzmJSCfn+i6u1lzyWWaYS2DnxoS5MODp9cAuXOAFC
+ PUxA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=2jD6n3VI4U3d7CzDLMYOr4tAgBELkqFchc0PWmapwU8=;
+ b=V3Kqtxh5RakYhHXhfQGj2L5xhAlXoVtYwHCs40fTZLxyI1fq5v5p4KEfjCb30vW+LP
+ Gde30tGZ4XyPXexTt/0NzJ5Pm3IhssNmfiFdMiS/XiQfvU0HUaTC4vAur9Ff/1KQwSQS
+ 2bnbBl5fDkiaxJDQFsLUSp51+vccLhXCldSeoXWE+qk1JIlB4lLcr1iWZchw1DmGObKs
+ 1LjxkxdP1b2SR9kogxm1n8S0kOJiC6uocqueiPJPTVysffdgP9kWiF5hVX3S2DoIGPfn
+ DMwZqJwsthfnv5xVQLry1ipAJARGdtlGGXlTZP16FsT6O3DT7i1fA6RJpOXlxzqCSpaP
+ J4hQ==
+X-Gm-Message-State: AFqh2koSd/fQKEz2G8F6pfw/sK956grwTmzGl/Z/9Y5o/1TZtI4p8mIQ
+ 6NmFl/cSvzKKBRnSLIN2GhsV4w==
+X-Google-Smtp-Source: AMrXdXtydbHGlVS8vt7G1ajfd6J2r0uGDhywhmHhWEcVTDCakT7GghbtMJ0/ytEappMkCSN9KHVobg==
+X-Received: by 2002:a05:651c:1a2c:b0:27f:cccc:1df3 with SMTP id
+ by44-20020a05651c1a2c00b0027fcccc1df3mr2208846ljb.41.1672302361996; 
+ Thu, 29 Dec 2022 00:26:01 -0800 (PST)
+Received: from [192.168.0.20]
+ (088156142067.dynamic-2-waw-k-3-2-0.vectranet.pl. [88.156.142.67])
+ by smtp.gmail.com with ESMTPSA id
+ p5-20020a2eb105000000b0027f77c96339sm2257519ljl.0.2022.12.29.00.26.00
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 29 Dec 2022 00:26:01 -0800 (PST)
+Message-ID: <06a46227-1a0c-aa5b-0b06-f202a5eff05b@linaro.org>
+Date: Thu, 29 Dec 2022 09:26:00 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20221228041658.hpmlspnhm2ssinai@builder.lan>
-Subject: Re: [Freedreno] [PATCH 2/3] arm64: dts: qcom: sm8150: Add DISPCC
- node
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.6.1
+Content-Language: en-US
+To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>, robdclark@gmail.com,
+ quic_abhinavk@quicinc.com, dmitry.baryshkov@linaro.org, sean@poorly.run,
+ airlied@gmail.com, daniel@ffwll.ch, robh+dt@kernel.org,
+ krzysztof.kozlowski+dt@linaro.org
+References: <20221228131110.213116-1-bryan.odonoghue@linaro.org>
+ <20221228131110.213116-2-bryan.odonoghue@linaro.org>
+From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+In-Reply-To: <20221228131110.213116-2-bryan.odonoghue@linaro.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+Subject: Re: [Freedreno] [PATCH v2 1/1] dt-bindings: msm: dsi-phy-28nm: Add
+ missing qcom, dsi-phy-regulator-ldo-mode
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -44,37 +80,38 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- Rob Clark <robdclark@gmail.com>, Rob Herring <robh+dt@kernel.org>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Konrad Dybcio <konrad.dybcio@linaro.org>, krzysztof.kozlowski@linaro.org,
- agross@kernel.org, dri-devel@lists.freedesktop.org,
- Daniel Vetter <daniel@ffwll.ch>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- David Airlie <airlied@gmail.com>, Sean Paul <sean@poorly.run>,
- linux-kernel@vger.kernel.org
+Cc: devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ andersson@kernel.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, swboyd@chromium.org, quic_mkrishn@quicinc.com,
+ freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 2022-12-27 22:16:58, Bjorn Andersson wrote:
-> On Mon, Dec 12, 2022 at 10:33:13AM +0100, Konrad Dybcio wrote:
-> > [..]
-> > +			power-domains = <&rpmhpd SM8150_MMCX>;
-> > +			/* TODO: Maybe rpmhpd_opp_min_svs could work as well? */
+On 28/12/2022 14:11, Bryan O'Donoghue wrote:
+> Add in missing qcom,dsi-phy-regulator-ldo-mode to the 28nm DSI PHY.
+> When converting from .txt to .yaml we missed this one.
 > 
-> The power-domain being not disabled should be sufficient for us to
-> access the dispcc. Beyond that votes would be needed for particular
-> frequencies, and that goes in the client nodes/opp-tables.
+> Fixes: 4dbe55c97741 ("dt-bindings: msm: dsi: add yaml schemas for DSI bindings")
+> Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> Signed-off-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+> ---
+>  .../devicetree/bindings/display/msm/dsi-phy-28nm.yaml         | 4 ++++
+>  1 file changed, 4 insertions(+)
 > 
-> So you should be able to drop this comment and the required-opps.
-> 
-> Regards,
-> Bjorn
-> 
-> > +			required-opps = <&rpmhpd_opp_low_svs>;
+> diff --git a/Documentation/devicetree/bindings/display/msm/dsi-phy-28nm.yaml b/Documentation/devicetree/bindings/display/msm/dsi-phy-28nm.yaml
+> index 3d8540a06fe22..95076c90ea171 100644
+> --- a/Documentation/devicetree/bindings/display/msm/dsi-phy-28nm.yaml
+> +++ b/Documentation/devicetree/bindings/display/msm/dsi-phy-28nm.yaml
+> @@ -25,6 +25,10 @@ properties:
+>        - description: dsi phy register set
+>        - description: dsi phy regulator register set
+>  
+> +  qcom,dsi-phy-regulator-ldo-mode:
+> +    type: boolean
+> +    description: Indicates if the LDO mode PHY regulator is wanted.
+> +
+Do not add it between reg/reg-names (or any other grouped properties).
+Should go after reg-names.
 
-Tested the removal of this on Xperia 5, no regressions.
+Krzysztof
 
-- Marijn
