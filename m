@@ -2,60 +2,70 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id BBD9B659262
-	for <lists+freedreno@lfdr.de>; Thu, 29 Dec 2022 23:10:40 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D57E66599C6
+	for <lists+freedreno@lfdr.de>; Fri, 30 Dec 2022 16:36:07 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D853010E41E;
-	Thu, 29 Dec 2022 22:10:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 50E2710E140;
+	Fri, 30 Dec 2022 15:36:06 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-pl1-x62d.google.com (mail-pl1-x62d.google.com
- [IPv6:2607:f8b0:4864:20::62d])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A521110E41D;
- Thu, 29 Dec 2022 22:10:35 +0000 (UTC)
-Received: by mail-pl1-x62d.google.com with SMTP id d3so20145536plr.10;
- Thu, 29 Dec 2022 14:10:35 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=kRyde3/fSKsKjFS+aPwf5uEQhzkfhK22Fr/7tHCPJdA=;
- b=DQdMsvS8ZUtWgRPvyO7PU438V0JhSyDrONOmWpJBDzHacXngRgWBil64F+xY7I5Zw6
- mKfnUjRbKIaspnl8Uazvq624XhEO8gli3jD54oIXccMxNbSedIUMEU7xPE/xGJ7pUSce
- 0PZ0e7oWp6XZCLlv18zWDQc3GVfNk3u6rhhyFHnjjiGlyipe+054J8NjhzDzcm16ZuKN
- fDG9W8W9Yt214FezG1878nP7+vVTKXqU9I9X0TbuSM06W/OYakvGSiu/MGaMtjRJgaLd
- nVDBJMclGQ70Fq1HLBbJ/PeQG2zWalG467/ATKzC63fN1PcxN5mlKur+ThePH09nPXZo
- KRqw==
+Received: from mail-wr1-x435.google.com (mail-wr1-x435.google.com
+ [IPv6:2a00:1450:4864:20::435])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8901710E141
+ for <freedreno@lists.freedesktop.org>; Fri, 30 Dec 2022 15:36:03 +0000 (UTC)
+Received: by mail-wr1-x435.google.com with SMTP id y8so20142697wrl.13
+ for <freedreno@lists.freedesktop.org>; Fri, 30 Dec 2022 07:36:03 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:to
+ :from:from:to:cc:subject:date:message-id:reply-to;
+ bh=c9FYypUZxhVnipSoAtLo7GGj9WnmgyVtuwl9yefi90s=;
+ b=J5msw1dZTdnUCMgZxUFQAt34cNNcRzEAfRyGMXeLNyoXYLmGDuMPW6gmrzHRReNXMQ
+ EfLg7XionD7Lsf3mca9wLAPUtZxh3PMn5lygfzvmFzusYZvgVIdQ7HMJZ744GFFGpqlr
+ Nfj/IFeetd13nZlYEh/aj0WCHYvq87uAJGLE0IHk1y60lHt7CCdXTAAWIOjTsNOFR1AR
+ TsVgG+2w4ju/ZRaP1ATLzw8W9q7FlAXhQwFyxD7+JX31BxXA89sIwCsGhXcyhC6sjmQ5
+ vW+WjR1T22nu7hyRMVmiChyY29C0vNgMUrLf3biak5vufgcfydFHlyjZ9ICDS5tl1g+G
+ Isig==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=kRyde3/fSKsKjFS+aPwf5uEQhzkfhK22Fr/7tHCPJdA=;
- b=i0EiA8MfQyx8n9fhM+0HqdaEpqkmQDXmBaelJ3A9Qx8m6yuZFl/QRVaw33FDvtYYNT
- 4M/LXpSW02fFkbVAHsD6svsFgbPiLD1vau9rKj7S+VpWh8p0QTns/Aq9QxsZ3+2yfyVx
- 4GKpQwmZjPm84WFY8Ow7kLjplOqbfL+XGMzsy6rCFFFE+ahFKwLyb7igzKSN5NV+YRqb
- ebEZIdkgaer5vRx5pFkjyKwxsVZOWVIuvGVXmiRTyyfC0n2YYywfuwi1S70gTVhcBvJe
- ud1/ZI+R9bjDgxhiroiU+40EFC+/oRx4e0jLqs1dX2Sjdr3+wZGN93NnPdELbX9DfFHq
- bcJQ==
-X-Gm-Message-State: AFqh2kroriWvXkJ9/rYhbbIcTeFByaxfn3+Pcq4uQsBtwm3XawS59qF/
- rK1Q/uB8fRZvZaRodRoyKg0J9sXgXik=
-X-Google-Smtp-Source: AMrXdXtk9ysIPzG6lLR3ceBm7y+Qz32EHSryZjB+EMiLeHjPoXCqYtH6t3LaPxb14AMfH+lilsf4vg==
-X-Received: by 2002:a17:902:70cb:b0:189:cada:4294 with SMTP id
- l11-20020a17090270cb00b00189cada4294mr29391770plt.5.1672351834917; 
- Thu, 29 Dec 2022 14:10:34 -0800 (PST)
-Received: from localhost (c-73-67-135-195.hsd1.or.comcast.net. [73.67.135.195])
+ h=content-transfer-encoding:mime-version:message-id:date:subject:to
+ :from:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=c9FYypUZxhVnipSoAtLo7GGj9WnmgyVtuwl9yefi90s=;
+ b=Ws6NaJzsuQXPkQY/NYjt0DXKHgfIg560Fn4BknioSR3P5o/lN/UdrjeZOtlBuw01Df
+ nMhKh7O6j5QltEpB/PwIGRnAzbjUWhPBxUcMFZsftR7gfVWYbA3moLVoGrPxtM5cCQ31
+ kPXp4Ikwpl4rt+4GuYy/WHLuHpF1Mckla/j73DCldpdKUjI+NZrg38n3WkkznoUyxjat
+ jHUE5xGG9sQB4vC49rsUHlDj+gaGZAu4CotQNLHhYeFtISVyiet4t8pc5G5VIthVQd2S
+ +bYklhEgLnQ53m2U6/2mwrTDBqOdrzaE7KafhZEgrZK7H1sQDD54mdA9h7lUg3vnDR75
+ 0vuA==
+X-Gm-Message-State: AFqh2kqK5CTMU5ns2L89yM7/gg2HsXeL9ruW3HRWJjFV+i9rkaXrMyf4
+ zY0wT/NGPO59y0bEMSKCnjAinA==
+X-Google-Smtp-Source: AMrXdXv7NkkzLCn2dX8D1EQI3XuO6+dd5wfHyEZf5EVn5PrA4DPy/SvDGi+zAQdDINfRD5/Ox40xUg==
+X-Received: by 2002:adf:f590:0:b0:242:5cf0:2039 with SMTP id
+ f16-20020adff590000000b002425cf02039mr19609196wro.65.1672414561886; 
+ Fri, 30 Dec 2022 07:36:01 -0800 (PST)
+Received: from prec5560.. (freifunk-gw.bsa1-cpe1.syseleven.net. [176.74.57.43])
  by smtp.gmail.com with ESMTPSA id
- n3-20020a170902e54300b001745662d568sm13469088plf.278.2022.12.29.14.10.34
+ l42-20020a05600c1d2a00b003cfbbd54178sm49857993wms.2.2022.12.30.07.36.00
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 29 Dec 2022 14:10:34 -0800 (PST)
-From: Rob Clark <robdclark@gmail.com>
-To: dri-devel@lists.freedesktop.org
-Date: Thu, 29 Dec 2022 14:10:27 -0800
-Message-Id: <20221229221031.775463-1-robdclark@gmail.com>
-X-Mailer: git-send-email 2.38.1
+ Fri, 30 Dec 2022 07:36:01 -0800 (PST)
+From: Robert Foss <robert.foss@linaro.org>
+To: robdclark@gmail.com, quic_abhinavk@quicinc.com,
+ dmitry.baryshkov@linaro.org, sean@poorly.run, airlied@gmail.com,
+ daniel@ffwll.ch, robh+dt@kernel.org, krzysztof.kozlowski+dt@linaro.org,
+ agross@kernel.org, andersson@kernel.org, konrad.dybcio@somainline.org,
+ quic_jesszhan@quicinc.com, robert.foss@linaro.org,
+ angelogioacchino.delregno@somainline.org, loic.poulain@linaro.org,
+ vkoul@kernel.org, a39.skl@gmail.com, quic_khsieh@quicinc.com,
+ quic_vpolimer@quicinc.com, swboyd@chromium.org, dianders@chromium.org,
+ liushixin2@huawei.com, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Jonathan Marek <jonathan@marek.ca>, vinod.koul@linaro.org
+Date: Fri, 30 Dec 2022 16:35:43 +0100
+Message-Id: <20221230153554.105856-1-robert.foss@linaro.org>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [RFC] drm/msm/a6xx: Fix devcore register range bugs
+Subject: [Freedreno] [PATCH v4 00/11] Enable Display for SM8350
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,57 +78,100 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rob Clark <robdclark@chromium.org>,
- Akhil P Oommen <quic_akhilpo@quicinc.com>, Sean Paul <sean@poorly.run>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- open list <linux-kernel@vger.kernel.org>, Rob Clark <robdclark@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>,
- "open list:DRM DRIVER FOR MSM ADRENO GPU" <linux-arm-msm@vger.kernel.org>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- David Airlie <airlied@gmail.com>, freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-From: Rob Clark <robdclark@chromium.org>
+Dependencies:
+https://lore.kernel.org/all/20221102231309.583587-1-dmitry.baryshkov@linaro.org/
+https://lore.kernel.org/all/20221024164225.3236654-1-dmitry.baryshkov@linaro.org/
+https://lore.kernel.org/all/20221104130324.1024242-5-dmitry.baryshkov@linaro.org/
 
-RB_MRT_FLAG_BUFFER is 0x8903->0xa91a inclusive.. don't split it (with a
-hole) in the ps_cluster_rac and don't accidentially re-dump part of the
-range in ps_cluster_rbp.
+Branch:
+https://git.linaro.org/people/robert.foss/linux.git/log/?h=sm8350_dsi_v4
 
-Signed-off-by: Rob Clark <robdclark@chromium.org>
----
-I'm not 100% sure about this, because the RB_RB_SUB_BLOCK_SEL_CNTL_CD
-stuff makes me think the registers dumped are not what the offsets
-imply.  But if this is the case, the devcore doesn't capture enough
-information to decode these regs properly in the first place!  Either
-way there is *something* wrong.
 
-I noticed this because these result in the crashdec tool encountering
-only _LO or _HI components of 64b regs that it expects to come in
-pairs of 32b dwords.
+This series implements display support for SM8350 and
+enables HDMI output for the SM8350-HDK platform.
 
- drivers/gpu/drm/msm/adreno/a6xx_gpu_state.h | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu_state.h b/drivers/gpu/drm/msm/adreno/a6xx_gpu_state.h
-index 2fb58b7098e4..a03891d844a5 100644
---- a/drivers/gpu/drm/msm/adreno/a6xx_gpu_state.h
-+++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu_state.h
-@@ -18,12 +18,12 @@ static const u32 a6xx_gras_cluster[] = {
- static const u32 a6xx_ps_cluster_rac[] = {
- 	0x8800, 0x8806, 0x8809, 0x8811, 0x8818, 0x881e, 0x8820, 0x8865,
- 	0x8870, 0x8879, 0x8880, 0x8889, 0x8890, 0x8891, 0x8898, 0x8898,
--	0x88c0, 0x88c1, 0x88d0, 0x88e3, 0x8900, 0x890c, 0x890f, 0x891a,
-+	0x88c0, 0x88c1, 0x88d0, 0x88e3, 0x8900, 0x891a,
- 	0x8c00, 0x8c01, 0x8c08, 0x8c10, 0x8c17, 0x8c1f, 0x8c26, 0x8c33,
- };
+Changes from v1:
+ - Added R-b tags from v1
+ - Added qcom,sm8350-dpu binding patch
+ - Added qcom,sm8350-mdss binding patch
+ - Corrected sm8350.dtsi according to new dpu/mdss bindings
+ - Bjorn: Removed regulator-always-on property from lt9611_1v2 regulator
+ - Bjorn: Moved lt9611 pinctl pins into a common node
+ - Bjorn/Krzysztof: Moved status property to last in node
+ - Krzysztof: Changed hdmi-out to hdmi-connector
+ - Krzysztof: Fixed regulator node name
+ - Krzysztof: Changed &mdss to status=disabled as default
+ - Krzysztof: Changed &mdss_mdp node name to display-controller
+ - Krzysztof: Fixed opp-table node name
+ - Krzysztof: Fixed phy node name
+ - Dmitry: Split commit containing dpu & mdss compatibles string
+ - Dmitry: Added msm_mdss_enable case
+ - Dmitry: Fixed dpu ctl features
  
- static const u32 a6xx_ps_cluster_rbp[] = {
--	0x88f0, 0x88f3, 0x890d, 0x890e, 0x8927, 0x8928, 0x8bf0, 0x8bf1,
-+	0x88f0, 0x88f3, 0x8927, 0x8928, 0x8bf0, 0x8bf1,
- 	0x8c02, 0x8c07, 0x8c11, 0x8c16, 0x8c20, 0x8c25,
- };
- 
+Changes from v2:
+ - Rob: Added r-b
+ - Rob: Improved mdss binding description
+ - Rob: Added interconnect names for mdss-binding
+ - Rob: Removed phy from example
+ - Konrad: Remove sc7280_pp refactor patch
+ - Konrad: Fixed upper case hex in dpu_hw_catalog
+ - Konrad: Fixed various downstream dts based values for dpu_hw_catalog
+ - Konrad: Removed status=disabled from mdss_mdp
+ - Konrad: Removed phy-names from dsi nodes
+ - Konrad/Dmitry: Change mdp_opp_table opp-200000000 to use &rpmhpd_opp_svs, add comment
+ - Dmitry: Move mdp_opp_table to dsi0 node
+
+Changes from v3:
+ - Rebased on drm-msm-display-for-6.2
+ - Abhinav: Remove dsc_2 block
+ - Bjorn/Dmitry: Add "mdss_" prefix for dsi & dsi_phy nodes
+ - Dmitry: Add r-b
+ - Dmitry: Fixed msm_mdss_setup_ubwc_dec_40 arguments
+ - Dmitry: Changed &mdss to use display-subsystem@
+ - Dmitry: Moved &mdp_opp_table to &display-subsystem node
+ - Dmitry: Chancged &mdp_opp_table to &dpu_upp_table
+ - Dmitry: Correct opp-table disclaimer & fix opp
+ - Dmitry: Move dsi_opp_table from &mdss_dsi0_phy to &mdss_dsi0
+ - Dmitry: Add dsi1
+ - Dmitry: Remove dispcc required opp
+ - Georgi: Add missing interconnect cell
+ - Krzysztof: Fix underscores in sm8350-hdk.dts node names
+ - Krzysztof: Change dsi-opp-table to opp-table
+ - Rob: Add r-b tags
+
+
+
+
+
+Robert Foss (11):
+  dt-bindings: display: msm: Add qcom,sm8350-dpu binding
+  dt-bindings: display: msm: Add qcom,sm8350-mdss binding
+  drm/msm/dpu: Add SM8350 to hw catalog
+  drm/msm/dpu: Add support for SM8350
+  drm/msm: Add support for SM8350
+  arm64: dts: qcom: sm8350: Add &tlmm gpio-line-names
+  arm64: dts: qcom: sm8350: Remove mmxc power-domain-name
+  arm64: dts: qcom: sm8350: Use 2 interconnect cells
+  arm64: dts: qcom: sm8350: Add display system nodes
+  arm64: dts: qcom: sm8350-hdk: Enable display & dsi nodes
+  arm64: dts: qcom: sm8350-hdk: Enable lt9611uxc dsi-hdmi bridge
+
+ .../bindings/display/msm/qcom,sm8350-dpu.yaml | 120 +++++++
+ .../display/msm/qcom,sm8350-mdss.yaml         | 221 ++++++++++++
+ arch/arm64/boot/dts/qcom/sm8350-hdk.dts       | 332 ++++++++++++++++++
+ arch/arm64/boot/dts/qcom/sm8350.dtsi          | 326 ++++++++++++++++-
+ .../gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c    | 195 ++++++++++
+ .../gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h    |   1 +
+ drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c       |   1 +
+ drivers/gpu/drm/msm/msm_mdss.c                |   5 +
+ 8 files changed, 1182 insertions(+), 19 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/display/msm/qcom,sm8350-dpu.yaml
+ create mode 100644 Documentation/devicetree/bindings/display/msm/qcom,sm8350-mdss.yaml
+
 -- 
-2.38.1
+2.34.1
 
