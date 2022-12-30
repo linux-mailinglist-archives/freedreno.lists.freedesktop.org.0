@@ -2,59 +2,65 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 781766599EB
-	for <lists+freedreno@lfdr.de>; Fri, 30 Dec 2022 16:36:42 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 18A98659A6A
+	for <lists+freedreno@lfdr.de>; Fri, 30 Dec 2022 17:12:26 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 68F8F10E17D;
-	Fri, 30 Dec 2022 15:36:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A31A510E058;
+	Fri, 30 Dec 2022 16:12:23 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wm1-x32c.google.com (mail-wm1-x32c.google.com
- [IPv6:2a00:1450:4864:20::32c])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5C74810E450
- for <freedreno@lists.freedesktop.org>; Fri, 30 Dec 2022 15:36:22 +0000 (UTC)
-Received: by mail-wm1-x32c.google.com with SMTP id
- i17-20020a05600c355100b003d99434b1cfso5199609wmq.1
- for <freedreno@lists.freedesktop.org>; Fri, 30 Dec 2022 07:36:22 -0800 (PST)
+Received: from mail-lf1-x130.google.com (mail-lf1-x130.google.com
+ [IPv6:2a00:1450:4864:20::130])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4A3D010E058
+ for <freedreno@lists.freedesktop.org>; Fri, 30 Dec 2022 16:12:21 +0000 (UTC)
+Received: by mail-lf1-x130.google.com with SMTP id p36so32248617lfa.12
+ for <freedreno@lists.freedesktop.org>; Fri, 30 Dec 2022 08:12:21 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:to:from:from:to:cc:subject:date:message-id
- :reply-to; bh=ctxOvK28D28f3o6Pe3qUkH7ZxEJEHxVrpCcUg+NUh04=;
- b=g+KWhYGJxl7BWHkPVNQW1thWA8kAFGFXKPDHOZ373tFmfHrrrPrIE8mDNU+pEvbUcv
- sYbdVvT4u8d+m/kCUGSTSPZsQvC4+rrnz6+zgo+346ucE9ZCvb/Wx3BHgmR92wKGPbmi
- T9oHmoYYv3xuSLBhnj1fxSNfm4vVXAFA2EG6KHsA5TKAo5ifpHxLny4+OExRO6+uUwXJ
- g5T18A0HRPaIxiNXHMIaIrcovFujD0egizRlMXz6MTMPwMy9FQhJvlyxMmkiIxEx+sBS
- 2BnoQnguqkD7JYL3lq4S4xSpGPaW/fkXLLIbdC3L7QDhqaBbrEf8dYHKOhPgJUwEykwA
- Z0kw==
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=GBbD6UJxbg5TeHZvm6bxZJed/H/TqNWwFVXvTuH++oI=;
+ b=YuGLUyTlg0z3sWXGPKIe87R6tClSoUEotXhn0yxmvxF1WcLoL8KDnAa7iMezRL1VR0
+ KrTpcFUnzEspHqJXyiuxm+bwvdj7qHL7fJQMRNjQZevRHtNOF+1Kmia0zBfGjucqC8ci
+ xKp0AfwHXUYK8+JbwDiXz6tG2tgv1NLYCiBNOQ/FOXNM/3eFm/rK2aXujZAN96HdnTll
+ Snl8z4QWDYjygcR45jTCNZANm3cFsHOxdZA/VpGnj2DvlnPvit5MA7w/zU9XV+1q2jva
+ ZRNYowto8UFSOg8JsWDNgoTBaTF9rp6B2bGxRCMmP2q6QJDaVpBs77VWXmG5USPRTQeT
+ jrkA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=ctxOvK28D28f3o6Pe3qUkH7ZxEJEHxVrpCcUg+NUh04=;
- b=xmK2ix69DozB20ZFlKXEnARMPd/+N0ratgqFYgNxispHhpfTwAsdWapoKYXYnTvYxE
- 7r5+c2iRUIlRqpWA5HqCpF5PXz1VmZfOkJZ1AKL9evkIeNb4VRO3qHX1tea2HgiWZYRq
- ilfQPUf8UhGRoqKnKOxwmXhkH4DnfA/xpscebArpfab8vbv0hSHf7fyIJNpwfMmcCzVX
- OvtM5oq5qFUhL9O5kpHUefmBRfbYsZ0o2/HYuXNzMBdDJ/4uXgw75pC3vWnbheNEqRVM
- UwKSAVcwameL47hELFF9131MH07B+zQw5WwKnzRPBLe1VuocPYxtwtoxYTfqWIhcH2wR
- OLXQ==
-X-Gm-Message-State: AFqh2krMElgBk5k1Vv/zm0x9bZAwjn/CpD4Al5NFnJRHxTlTK2ReFaSn
- AAZ3MkEFw2mB+FAE8bFxIjhB4g==
-X-Google-Smtp-Source: AMrXdXupiR1KHz1rC6eEmvSjNUuoXVux4kIV6jTnI6HXoz6vZWYwnghGJbUlafDEiY/R85jV3v2VKw==
-X-Received: by 2002:a05:600c:4995:b0:3d3:4f43:fbc2 with SMTP id
- h21-20020a05600c499500b003d34f43fbc2mr23117665wmp.41.1672414580409; 
- Fri, 30 Dec 2022 07:36:20 -0800 (PST)
-Received: from prec5560.. (freifunk-gw.bsa1-cpe1.syseleven.net. [176.74.57.43])
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=GBbD6UJxbg5TeHZvm6bxZJed/H/TqNWwFVXvTuH++oI=;
+ b=5fVOOqt/tjgc5IsiWo5hsw9s2QQXpeFBn9svqrIaDoAeKdVvBi7f7EFfrIz18zvGIw
+ UynKHfCqUlf3NBoWpTZfuaBepiIwycWSHsLZ/0DK+sl7/b+CchJiLaTTMNgC8JCvMWpl
+ b/e0KTTDse/8c/dq0wKEJvXrJCOaqsLbRqYuyngoXcDToUSwW3KXOavOgXQz2GO2iViI
+ Z0Ikm0YsGhBLeBcttewSTAmEIwlBnsD7PHg6XNcPc/LX7JximCg/NOE9zfAMhMSLLRz5
+ 5Dyul3ayFRJWatopDoZIcs9MNvw6VmeRKwpzqFCuUzJ4Jpoh2s0SJmXQ14vo9KLQRTqz
+ PxfA==
+X-Gm-Message-State: AFqh2kq/YzpjowP+67+z77RxlwNwZQsBqbNgG/n/+ow/8k59qcZMVHjT
+ MKsUwKqOD/O20vK2TwpctXe2cw==
+X-Google-Smtp-Source: AMrXdXtvYA8wjxT8SRcJt+MfkDiV6OP17b2Fh0czUZwLZzNjAkGXbZD61rZlVwh+ZeU9wafo9PeAeA==
+X-Received: by 2002:a05:6512:4015:b0:4b7:31c:7779 with SMTP id
+ br21-20020a056512401500b004b7031c7779mr10401585lfb.4.1672416739493; 
+ Fri, 30 Dec 2022 08:12:19 -0800 (PST)
+Received: from [192.168.0.20]
+ (088156142067.dynamic-2-waw-k-3-2-0.vectranet.pl. [88.156.142.67])
  by smtp.gmail.com with ESMTPSA id
- l42-20020a05600c1d2a00b003cfbbd54178sm49857993wms.2.2022.12.30.07.36.18
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 30 Dec 2022 07:36:20 -0800 (PST)
-From: Robert Foss <robert.foss@linaro.org>
-To: robdclark@gmail.com, quic_abhinavk@quicinc.com,
- dmitry.baryshkov@linaro.org, sean@poorly.run, airlied@gmail.com,
- daniel@ffwll.ch, robh+dt@kernel.org, krzysztof.kozlowski+dt@linaro.org,
- agross@kernel.org, andersson@kernel.org, konrad.dybcio@somainline.org,
- quic_jesszhan@quicinc.com, robert.foss@linaro.org,
+ o22-20020a056512051600b004a44ffb1050sm3509314lfb.171.2022.12.30.08.12.17
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 30 Dec 2022 08:12:18 -0800 (PST)
+Message-ID: <deb17787-1a5a-89a3-3ecf-7690b4149f5c@linaro.org>
+Date: Fri, 30 Dec 2022 17:12:17 +0100
+MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.6.1
+Content-Language: en-US
+To: Robert Foss <robert.foss@linaro.org>, robdclark@gmail.com,
+ quic_abhinavk@quicinc.com, dmitry.baryshkov@linaro.org, sean@poorly.run,
+ airlied@gmail.com, daniel@ffwll.ch, robh+dt@kernel.org,
+ krzysztof.kozlowski+dt@linaro.org, agross@kernel.org, andersson@kernel.org,
+ konrad.dybcio@somainline.org, quic_jesszhan@quicinc.com,
  angelogioacchino.delregno@somainline.org, loic.poulain@linaro.org,
  vkoul@kernel.org, a39.skl@gmail.com, quic_khsieh@quicinc.com,
  quic_vpolimer@quicinc.com, swboyd@chromium.org, dianders@chromium.org,
@@ -62,15 +68,14 @@ To: robdclark@gmail.com, quic_abhinavk@quicinc.com,
  dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
  devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
  Jonathan Marek <jonathan@marek.ca>, vinod.koul@linaro.org
-Date: Fri, 30 Dec 2022 16:35:54 +0100
-Message-Id: <20221230153554.105856-12-robert.foss@linaro.org>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20221230153554.105856-1-robert.foss@linaro.org>
 References: <20221230153554.105856-1-robert.foss@linaro.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH v4 11/11] arm64: dts: qcom: sm8350-hdk: Enable
- lt9611uxc dsi-hdmi bridge
+ <20221230153554.105856-9-robert.foss@linaro.org>
+From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+In-Reply-To: <20221230153554.105856-9-robert.foss@linaro.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+Subject: Re: [Freedreno] [PATCH v4 08/11] arm64: dts: qcom: sm8350: Use 2
+ interconnect cells
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,169 +88,26 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
+Cc: Konrad Dybcio <konrad.dybcio@linaro.org>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-The sm8350-hdk ships with the LT9611 UXC DSI/HDMI bridge chip.
+On 30/12/2022 16:35, Robert Foss wrote:
+> Use two interconnect cells in order to optionally
+> support a path tag.
+> 
+> Signed-off-by: Robert Foss <robert.foss@linaro.org>
+> Reviewed-by: Konrad Dybcio <konrad.dybcio@linaro.org>
+> ---
+>  arch/arm64/boot/dts/qcom/sm8350.dtsi | 28 ++++++++++++++--------------
+>  1 file changed, 14 insertions(+), 14 deletions(-)
+> 
 
-In order to toggle the board to enable the HDMI output,
-switch #7 & #8 on the rightmost multi-switch package have
-to be toggled to On.
+I think you need to rebase to include:
+https://lore.kernel.org/all/167233461761.1099840.5517525898039031248.b4-ty@kernel.org/
 
-Signed-off-by: Robert Foss <robert.foss@linaro.org>
----
- arch/arm64/boot/dts/qcom/sm8350-hdk.dts | 105 ++++++++++++++++++++++++
- 1 file changed, 105 insertions(+)
+On which tree/revision did you base this?
 
-diff --git a/arch/arm64/boot/dts/qcom/sm8350-hdk.dts b/arch/arm64/boot/dts/qcom/sm8350-hdk.dts
-index 1961f941ff83..6b21897c92dc 100644
---- a/arch/arm64/boot/dts/qcom/sm8350-hdk.dts
-+++ b/arch/arm64/boot/dts/qcom/sm8350-hdk.dts
-@@ -20,6 +20,17 @@ chosen {
- 		stdout-path = "serial0:115200n8";
- 	};
- 
-+	hdmi-connector {
-+		compatible = "hdmi-connector";
-+		type = "a";
-+
-+		port {
-+			hdmi_con: endpoint {
-+				remote-endpoint = <&lt9611_out>;
-+			};
-+		};
-+	};
-+
- 	vph_pwr: vph-pwr-regulator {
- 		compatible = "regulator-fixed";
- 		regulator-name = "vph_pwr";
-@@ -29,6 +40,31 @@ vph_pwr: vph-pwr-regulator {
- 		regulator-always-on;
- 		regulator-boot-on;
- 	};
-+
-+	lt9611_1v2: lt9611-1v2-regulator {
-+		compatible = "regulator-fixed";
-+		regulator-name = "LT9611_1V2";
-+
-+		vin-supply = <&vph_pwr>;
-+		regulator-min-microvolt = <1200000>;
-+		regulator-max-microvolt = <1200000>;
-+		gpio = <&tlmm 49 GPIO_ACTIVE_HIGH>;
-+		enable-active-high;
-+		regulator-boot-on;
-+	};
-+
-+	lt9611_3v3: lt9611-3v3-regulator {
-+		compatible = "regulator-fixed";
-+		regulator-name = "LT9611_3V3";
-+
-+		vin-supply = <&vreg_bob>;
-+		gpio = <&tlmm 47 GPIO_ACTIVE_HIGH>;
-+		regulator-min-microvolt = <3300000>;
-+		regulator-max-microvolt = <3300000>;
-+		enable-active-high;
-+		regulator-boot-on;
-+		regulator-always-on;
-+	};
- };
- 
- &adsp {
-@@ -220,6 +256,15 @@ &dispcc {
- &mdss_dsi0 {
- 	vdda-supply = <&vreg_l6b_1p2>;
- 	status = "okay";
-+
-+	ports {
-+		port@1 {
-+			endpoint {
-+				remote-endpoint = <&lt9611_a>;
-+				data-lanes = <0 1 2 3>;
-+			};
-+		};
-+	};
- };
- 
- &mdss_dsi0_phy  {
-@@ -231,6 +276,46 @@ &gpi_dma1 {
- 	status = "okay";
- };
- 
-+&i2c15 {
-+	clock-frequency = <400000>;
-+	status = "okay";
-+
-+	lt9611_codec: hdmi-bridge@2b {
-+		compatible = "lontium,lt9611uxc";
-+		reg = <0x2b>;
-+
-+		interrupts-extended = <&tlmm 50 IRQ_TYPE_EDGE_FALLING>;
-+		reset-gpios = <&tlmm 48 GPIO_ACTIVE_HIGH>;
-+
-+		vdd-supply = <&lt9611_1v2>;
-+		vcc-supply = <&lt9611_3v3>;
-+
-+		pinctrl-names = "default";
-+		pinctrl-0 = <&lt9611_state>;
-+
-+		ports {
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+
-+			port@0 {
-+				reg = <0>;
-+
-+				lt9611_a: endpoint {
-+					remote-endpoint = <&dsi0_out>;
-+				};
-+			};
-+
-+			port@2 {
-+				reg = <2>;
-+
-+				lt9611_out: endpoint {
-+					remote-endpoint = <&hdmi_con>;
-+				};
-+			};
-+		};
-+	};
-+};
-+
- &mdss {
- 	status = "okay";
- };
-@@ -248,6 +333,10 @@ &qupv3_id_0 {
- 	status = "okay";
- };
- 
-+&qupv3_id_2 {
-+	status = "okay";
-+};
-+
- &slpi {
- 	status = "okay";
- 	firmware-name = "qcom/sm8350/slpi.mbn";
-@@ -544,4 +633,20 @@ usb_hub_enabled_state: usb-hub-enabled-state {
- 		drive-strength = <2>;
- 		output-low;
- 	};
-+
-+	lt9611_state: lt9611-state {
-+		rst {
-+			pins = "gpio48";
-+			function = "normal";
-+
-+			output-high;
-+			input-disable;
-+		};
-+
-+		irq {
-+			pins = "gpio50";
-+			function = "gpio";
-+			bias-disable;
-+		};
-+	};
- };
--- 
-2.34.1
+Best regards,
+Krzysztof
 
