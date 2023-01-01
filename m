@@ -1,57 +1,57 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id B1E1065A8CD
-	for <lists+freedreno@lfdr.de>; Sun,  1 Jan 2023 05:18:49 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 2C49565A8D3
+	for <lists+freedreno@lfdr.de>; Sun,  1 Jan 2023 05:28:38 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8D35310E075;
-	Sun,  1 Jan 2023 04:18:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B0DC810E150;
+	Sun,  1 Jan 2023 04:28:29 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x132.google.com (mail-lf1-x132.google.com
- [IPv6:2a00:1450:4864:20::132])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C07EE10E05A
- for <freedreno@lists.freedesktop.org>; Sun,  1 Jan 2023 04:18:44 +0000 (UTC)
-Received: by mail-lf1-x132.google.com with SMTP id 1so37258423lfz.4
- for <freedreno@lists.freedesktop.org>; Sat, 31 Dec 2022 20:18:44 -0800 (PST)
+Received: from mail-lf1-x12d.google.com (mail-lf1-x12d.google.com
+ [IPv6:2a00:1450:4864:20::12d])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 906E810E0F7
+ for <freedreno@lists.freedesktop.org>; Sun,  1 Jan 2023 04:28:26 +0000 (UTC)
+Received: by mail-lf1-x12d.google.com with SMTP id cf42so37285122lfb.1
+ for <freedreno@lists.freedesktop.org>; Sat, 31 Dec 2022 20:28:26 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :from:to:cc:subject:date:message-id:reply-to;
- bh=69gDuhyvyskPxkoiJfXY3XwAwa6ovH+bzxQjyk8p6KY=;
- b=l75jACFlTzZ9CieQRawrOxUg5PWkxRFz+86CrBn677QHCKCfG2gPbyJASTfn/6+uBm
- BM6oD3FiM0qTj8qhD5xcn6xRGIvWhmCt5PGXYOpQUEiWbNKDUgTnZOca63a9Q/xqQf0E
- PNyLL15uP4oXeFivahExuqn4zvti81uw7NUuUfILsnzXclFaIi6aijc0oBElIYhzih5/
- KXqmS5ZFpxkKDOAsK/n4QERCbvUalyKmWjagkcbRmJb4hyaRQUJktAFBwrYAzy5V285R
- Wdp3OCprWRMEOYj8OgHJ9cz/tX/eglUbOmoN8/oGWtmttI4p1GoF1mBKdRPGnqf574Cx
- Uy0Q==
+ bh=oH8K9f7UyJRuodGJ3yPCdaObtlNSOzXxH0uzeAO3bPo=;
+ b=Ai8jQqzHZ/LlGgMhch3jtj6uaayE2qcuJ/awNPLcOAGYEutF/BCD/xQ4x9QmWBbMsM
+ NNsbwmrdzyV5c1AOzeCM0PlMw7PYo7mb2RI7VSAIdhkzOv34o9lmx3SnTH955c5q/WK6
+ jMYvr4atUtZLWFb4O3qwdUO56X/5UXfWbkx56FoJufUfjwMDvPfDT0DYnndlzw2MP21S
+ weVijkSrjak1l122uNmTlM+8NLna10CIXMSBaMsysgZ0mmgHOJluexlb17P3x9D4UJ3c
+ BAmwlcXQy6NRS8KYMu1xR2XgQUNtR0dMX3fuhuMRTP7SL04dXgFI+oRf/lgohIMuailC
+ OHvg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=69gDuhyvyskPxkoiJfXY3XwAwa6ovH+bzxQjyk8p6KY=;
- b=pUAD5Sxv9J+8EVu6s53gxPTgd35MfAHUPa1aeEDKMtDRjiFL87NMIqTlhdKVC/3XxK
- +mmhRm1Xr/IUCkNwTYIxWzHGXHJ5u/d/rDlSDTOsYRix9KtMLGiXo7XShjVy0N2AE5jv
- vh/RjZxRKWBDYkTESKvqtYshEJ1ZczaO18QMB3ltzPLUgylbWWHmhIZPUd/IYu8blgqc
- aKFObGkwzLt5G79kSlWTutAI3vQuyVnYKMVfdrnJ9vXrVwXSZxVx2n/Xvami/Uqhi3Bs
- FYievaqGOpw12u1WGHczaXSRC15+c0R9Kqt2/vqGTitBnNBCIxFg80FiAJL/FY5kweUt
- BMAw==
-X-Gm-Message-State: AFqh2kr4k6Fr9aJpJ0afNFb+iw1pM6y/ctnFdXqSy8WEg3Npq8i9T/de
- h50GIuHv0rxFrpDvPmbLbyDwtA==
-X-Google-Smtp-Source: AMrXdXuE4021vfsazj1mMsaa3Yx8JAAGxKmqnSmp/m8F5gbAZyIiSwE+7HkewlYDM12pbtMgJpxSuQ==
-X-Received: by 2002:a05:6512:2385:b0:4b5:90be:33c8 with SMTP id
- c5-20020a056512238500b004b590be33c8mr11384536lfv.48.1672546722649; 
- Sat, 31 Dec 2022 20:18:42 -0800 (PST)
+ bh=oH8K9f7UyJRuodGJ3yPCdaObtlNSOzXxH0uzeAO3bPo=;
+ b=ysV6wkXm1KzZaPHkSJRqTTfX3KVpbuxhmtoPJ1IMtrnGGt5aRqi/6qs6TWKmmNoxv4
+ YCy4C7VgeRchMIsTL+WQEgXxf9B6aKL3EdSEd7aI8C+qQdsaCAIhxnrSHys4UsbugnyI
+ v6oQrrwcKXhGLgV83BTFTKFdRXytIymRMvb+OU1lnyBUNMRc7/vn/ZR/j0FXASVlQD12
+ PmC4raiU4Va5Qcghft67rVAbKfrVJ7cSBu7PDllei5jdJs3YuyBRr3OPrpWIhs6bxJHS
+ p2qYP7QEPrTA2jYRgebQOjcDTZR8KzMUEf93kMXShc/fnY/evfIpZzV/rKxHW5Jwiu54
+ 0jCg==
+X-Gm-Message-State: AFqh2kqLsNra0NFqDwUTKwIxyE/32qwtrpXy1qZI3Tr/PoDdpqG/WKPS
+ XR34Q0ilTYfB1IdA6TDVxJBw+g==
+X-Google-Smtp-Source: AMrXdXvo4ZJmLN9FDqA8FOdIn63YSqaUle9vpmVE/whEmg6m1YU/5EVmBxKcIamme2TyWCUSLBEWBw==
+X-Received: by 2002:ac2:4894:0:b0:4bb:710e:bf8 with SMTP id
+ x20-20020ac24894000000b004bb710e0bf8mr10208282lfc.16.1672547304783; 
+ Sat, 31 Dec 2022 20:28:24 -0800 (PST)
 Received: from ?IPV6:2001:14ba:a085:4d00::8a5?
  (dzccz6yyyyyyyyyyybcwt-3.rev.dnainternet.fi. [2001:14ba:a085:4d00::8a5])
  by smtp.gmail.com with ESMTPSA id
- p2-20020ac246c2000000b004b5a85e369asm4047378lfo.252.2022.12.31.20.18.41
+ v20-20020ac258f4000000b004cb23904bd9sm971539lfo.144.2022.12.31.20.28.23
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sat, 31 Dec 2022 20:18:42 -0800 (PST)
-Message-ID: <1f887a99-8184-44f7-204e-ff0a2dd98ec5@linaro.org>
-Date: Sun, 1 Jan 2023 06:18:41 +0200
+ Sat, 31 Dec 2022 20:28:24 -0800 (PST)
+Message-ID: <925e8214-4193-bee3-c26b-f7679a60484e@linaro.org>
+Date: Sun, 1 Jan 2023 06:28:23 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.6.0
@@ -60,13 +60,13 @@ To: Marijn Suijten <marijn.suijten@somainline.org>,
  phone-devel@vger.kernel.org, Abhinav Kumar <quic_abhinavk@quicinc.com>,
  Neil Armstrong <neil.armstrong@linaro.org>
 References: <20221231215006.211860-1-marijn.suijten@somainline.org>
- <20221231215006.211860-2-marijn.suijten@somainline.org>
+ <20221231215006.211860-3-marijn.suijten@somainline.org>
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-In-Reply-To: <20221231215006.211860-2-marijn.suijten@somainline.org>
+In-Reply-To: <20221231215006.211860-3-marijn.suijten@somainline.org>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [RFC PATCH 1/7] drm/msm/dpu: Remove unused INTF0
- interrupt mask from sm6115/qcm2290
+Subject: Re: [Freedreno] [RFC PATCH 2/7] drm/msm/dpu: Disable pingpong TE on
+ DPU 5.0.0 and above
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -97,17 +97,204 @@ Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 On 31/12/2022 23:50, Marijn Suijten wrote:
-> Neither of these SoCs has INTF0, they only have a DSI interface on index
-> 1.  Stop enabling an interrupt that can't fire.
+> Since hardware revision 5.0.0 the TE configuration moved out of the
+> PINGPONG block into the INTF block.  Writing these registers has no
+> effect, and is omitted downstream via the DPU/SDE_PINGPONG_TE feature
+> flag.  This flag is only added to PINGPONG blocks used by hardware prior
+> to 5.0.0.
 > 
-> Fixes: 3581b7062cec ("drm/msm/disp/dpu1: add support for display on SM6115")
-> Fixes: 5334087ee743 ("drm/msm: add support for QCM2290 MDSS")
+> The code that writes to these registers in the INTF block will follow in
+> subsequent patches.
+> 
 > Signed-off-by: Marijn Suijten <marijn.suijten@somainline.org>
 > ---
->   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c | 9 +++++++--
->   1 file changed, 7 insertions(+), 2 deletions(-)
+>   .../drm/msm/disp/dpu1/dpu_encoder_phys_cmd.c  |  5 +-
+>   .../gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c    | 53 +++++++++++--------
+>   .../gpu/drm/msm/disp/dpu1/dpu_hw_pingpong.c   | 18 ++++---
+>   3 files changed, 44 insertions(+), 32 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_cmd.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_cmd.c
+> index ae28b2b93e69..7e5ba52197cd 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_cmd.c
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_cmd.c
+> @@ -582,7 +582,7 @@ static bool dpu_encoder_phys_cmd_is_ongoing_pptx(
+>   {
+>   	struct dpu_hw_pp_vsync_info info;
+>   
+> -	if (!phys_enc)
+> +	if (!phys_enc || !phys_enc->hw_pp->ops.get_vsync_info)
+>   		return false;
+>   
+>   	phys_enc->hw_pp->ops.get_vsync_info(phys_enc->hw_pp, &info);
+> @@ -607,6 +607,9 @@ static void dpu_encoder_phys_cmd_prepare_commit(
 
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+This function works only with the hw_pp and if I'm not mistaken it 
+becomes void for newer platforms. Please consider moving completely to 
+the dpu_hw_pp.c Then we'd have a single optional callback instead of 
+having a pile of them.
+
+>   	if (!dpu_encoder_phys_cmd_is_master(phys_enc))
+>   		return;
+>   
+> +	if (!phys_enc->hw_pp->ops.get_autorefresh || !phys_enc->hw_pp->ops.setup_autorefresh)
+> +		return;
+> +
+>   	/* If autorefresh is already disabled, we have nothing to do */
+>   	if (!phys_enc->hw_pp->ops.get_autorefresh(phys_enc->hw_pp, NULL))
+>   		return;
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
+> index 9814ad52cc04..39d4b293710c 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
+> @@ -59,11 +59,18 @@
+>   #define MIXER_SC7180_MASK \
+>   	(BIT(DPU_DIM_LAYER) | BIT(DPU_MIXER_COMBINED_ALPHA))
+>   
+> -#define PINGPONG_SDM845_MASK BIT(DPU_PINGPONG_DITHER)
+> +#define PINGPONG_SDM845_MASK \
+> +	(BIT(DPU_PINGPONG_DITHER) | BIT(DPU_PINGPONG_TE))
+>   
+> -#define PINGPONG_SDM845_SPLIT_MASK \
+> +#define PINGPONG_SDM845_TE2_MASK \
+>   	(PINGPONG_SDM845_MASK | BIT(DPU_PINGPONG_TE2))
+>   
+> +#define PINGPONG_SM8150_MASK \
+> +	(BIT(DPU_PINGPONG_DITHER))
+> +
+> +#define PINGPONG_SM8150_TE2_MASK \
+> +	(PINGPONG_SM8150_MASK | BIT(DPU_PINGPONG_TE2))
+> +
+>   #define CTL_SC7280_MASK \
+>   	(BIT(DPU_CTL_ACTIVE_CFG) | BIT(DPU_CTL_FETCH_ACTIVE) | BIT(DPU_CTL_VM_CFG))
+>   
+> @@ -1156,21 +1163,21 @@ static const struct dpu_pingpong_sub_blks sc7280_pp_sblk = {
+>   	.len = 0x20, .version = 0x20000},
+>   };
+>   
+> -#define PP_BLK_TE(_name, _id, _base, _merge_3d, _sblk, _done, _rdptr) \
+> +#define PP_BLK_TE(_name, _id, _base, _features, _merge_3d, _sblk, _done, _rdptr) \
+>   	{\
+>   	.name = _name, .id = _id, \
+>   	.base = _base, .len = 0xd4, \
+> -	.features = PINGPONG_SDM845_SPLIT_MASK, \
+> +	.features = _features, \
+>   	.merge_3d = _merge_3d, \
+>   	.sblk = &_sblk, \
+>   	.intr_done = _done, \
+>   	.intr_rdptr = _rdptr, \
+>   	}
+> -#define PP_BLK(_name, _id, _base, _merge_3d, _sblk, _done, _rdptr) \
+> +#define PP_BLK(_name, _id, _base, _features, _merge_3d, _sblk, _done, _rdptr) \
+>   	{\
+>   	.name = _name, .id = _id, \
+>   	.base = _base, .len = 0xd4, \
+> -	.features = PINGPONG_SDM845_MASK, \
+> +	.features = _features, \
+>   	.merge_3d = _merge_3d, \
+>   	.sblk = &_sblk, \
+>   	.intr_done = _done, \
+> @@ -1178,55 +1185,55 @@ static const struct dpu_pingpong_sub_blks sc7280_pp_sblk = {
+>   	}
+>   
+>   static const struct dpu_pingpong_cfg sdm845_pp[] = {
+> -	PP_BLK_TE("pingpong_0", PINGPONG_0, 0x70000, 0, sdm845_pp_sblk_te,
+> +	PP_BLK_TE("pingpong_0", PINGPONG_0, 0x70000, PINGPONG_SDM845_TE2_MASK, 0, sdm845_pp_sblk_te,
+>   			DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 8),
+>   			DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 12)),
+> -	PP_BLK_TE("pingpong_1", PINGPONG_1, 0x70800, 0, sdm845_pp_sblk_te,
+> +	PP_BLK_TE("pingpong_1", PINGPONG_1, 0x70800, PINGPONG_SDM845_TE2_MASK, 0, sdm845_pp_sblk_te,
+>   			DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 9),
+>   			DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 13)),
+> -	PP_BLK("pingpong_2", PINGPONG_2, 0x71000, 0, sdm845_pp_sblk,
+> +	PP_BLK("pingpong_2", PINGPONG_2, 0x71000, PINGPONG_SDM845_MASK, 0, sdm845_pp_sblk,
+>   			DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 10),
+>   			DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 14)),
+> -	PP_BLK("pingpong_3", PINGPONG_3, 0x71800, 0, sdm845_pp_sblk,
+> +	PP_BLK("pingpong_3", PINGPONG_3, 0x71800, PINGPONG_SDM845_MASK, 0, sdm845_pp_sblk,
+>   			DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 11),
+>   			DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 15)),
+>   };
+>   
+>   static struct dpu_pingpong_cfg sc7180_pp[] = {
+> -	PP_BLK_TE("pingpong_0", PINGPONG_0, 0x70000, 0, sdm845_pp_sblk_te, -1, -1),
+> -	PP_BLK_TE("pingpong_1", PINGPONG_1, 0x70800, 0, sdm845_pp_sblk_te, -1, -1),
+> +	PP_BLK_TE("pingpong_0", PINGPONG_0, 0x70000, PINGPONG_SM8150_TE2_MASK, 0, sdm845_pp_sblk_te, -1, -1),
+> +	PP_BLK_TE("pingpong_1", PINGPONG_1, 0x70800, PINGPONG_SM8150_TE2_MASK, 0, sdm845_pp_sblk_te, -1, -1),
+>   };
+>   
+>   static const struct dpu_pingpong_cfg sm8150_pp[] = {
+> -	PP_BLK_TE("pingpong_0", PINGPONG_0, 0x70000, MERGE_3D_0, sdm845_pp_sblk_te,
+> +	PP_BLK_TE("pingpong_0", PINGPONG_0, 0x70000, PINGPONG_SM8150_TE2_MASK, MERGE_3D_0, sdm845_pp_sblk_te,
+>   			DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 8),
+>   			DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 12)),
+> -	PP_BLK_TE("pingpong_1", PINGPONG_1, 0x70800, MERGE_3D_0, sdm845_pp_sblk_te,
+> +	PP_BLK_TE("pingpong_1", PINGPONG_1, 0x70800, PINGPONG_SM8150_TE2_MASK, MERGE_3D_0, sdm845_pp_sblk_te,
+>   			DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 9),
+>   			DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 13)),
+> -	PP_BLK("pingpong_2", PINGPONG_2, 0x71000, MERGE_3D_1, sdm845_pp_sblk,
+> +	PP_BLK("pingpong_2", PINGPONG_2, 0x71000, PINGPONG_SM8150_MASK, MERGE_3D_1, sdm845_pp_sblk,
+>   			DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 10),
+>   			DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 14)),
+> -	PP_BLK("pingpong_3", PINGPONG_3, 0x71800, MERGE_3D_1, sdm845_pp_sblk,
+> +	PP_BLK("pingpong_3", PINGPONG_3, 0x71800, PINGPONG_SM8150_MASK, MERGE_3D_1, sdm845_pp_sblk,
+>   			DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 11),
+>   			DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 15)),
+> -	PP_BLK("pingpong_4", PINGPONG_4, 0x72000, MERGE_3D_2, sdm845_pp_sblk,
+> +	PP_BLK("pingpong_4", PINGPONG_4, 0x72000, PINGPONG_SM8150_MASK, MERGE_3D_2, sdm845_pp_sblk,
+>   			DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR2, 30),
+>   			-1),
+> -	PP_BLK("pingpong_5", PINGPONG_5, 0x72800, MERGE_3D_2, sdm845_pp_sblk,
+> +	PP_BLK("pingpong_5", PINGPONG_5, 0x72800, PINGPONG_SM8150_MASK, MERGE_3D_2, sdm845_pp_sblk,
+>   			DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR2, 31),
+>   			-1),
+>   };
+>   
+>   static const struct dpu_pingpong_cfg sc7280_pp[] = {
+> -	PP_BLK("pingpong_0", PINGPONG_0, 0x59000, 0, sc7280_pp_sblk, -1, -1),
+> -	PP_BLK("pingpong_1", PINGPONG_1, 0x6a000, 0, sc7280_pp_sblk, -1, -1),
+> -	PP_BLK("pingpong_2", PINGPONG_2, 0x6b000, 0, sc7280_pp_sblk, -1, -1),
+> -	PP_BLK("pingpong_3", PINGPONG_3, 0x6c000, 0, sc7280_pp_sblk, -1, -1),
+> +	PP_BLK("pingpong_0", PINGPONG_0, 0x59000, PINGPONG_SM8150_MASK, 0, sc7280_pp_sblk, -1, -1),
+> +	PP_BLK("pingpong_1", PINGPONG_1, 0x6a000, PINGPONG_SM8150_MASK, 0, sc7280_pp_sblk, -1, -1),
+> +	PP_BLK("pingpong_2", PINGPONG_2, 0x6b000, PINGPONG_SM8150_MASK, 0, sc7280_pp_sblk, -1, -1),
+> +	PP_BLK("pingpong_3", PINGPONG_3, 0x6c000, PINGPONG_SM8150_MASK, 0, sc7280_pp_sblk, -1, -1),
+>   };
+>   
+>   static struct dpu_pingpong_cfg qcm2290_pp[] = {
+> -	PP_BLK("pingpong_0", PINGPONG_0, 0x70000, 0, sdm845_pp_sblk,
+> +	PP_BLK("pingpong_0", PINGPONG_0, 0x70000, PINGPONG_SM8150_MASK, 0, sdm845_pp_sblk,
+>   		DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 8),
+>   		DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 12)),
+>   };
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_pingpong.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_pingpong.c
+> index 0fcad9760b6f..30896c057f87 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_pingpong.c
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_pingpong.c
+> @@ -274,14 +274,16 @@ static int dpu_hw_pp_setup_dsc(struct dpu_hw_pingpong *pp)
+>   static void _setup_pingpong_ops(struct dpu_hw_pingpong *c,
+>   				unsigned long features)
+>   {
+> -	c->ops.setup_tearcheck = dpu_hw_pp_setup_te_config;
+> -	c->ops.enable_tearcheck = dpu_hw_pp_enable_te;
+> -	c->ops.connect_external_te = dpu_hw_pp_connect_external_te;
+> -	c->ops.get_vsync_info = dpu_hw_pp_get_vsync_info;
+> -	c->ops.setup_autorefresh = dpu_hw_pp_setup_autorefresh_config;
+> -	c->ops.get_autorefresh = dpu_hw_pp_get_autorefresh_config;
+> -	c->ops.poll_timeout_wr_ptr = dpu_hw_pp_poll_timeout_wr_ptr;
+> -	c->ops.get_line_count = dpu_hw_pp_get_line_count;
+> +	if (test_bit(DPU_PINGPONG_TE, &features)) {
+> +		c->ops.setup_tearcheck = dpu_hw_pp_setup_te_config;
+> +		c->ops.enable_tearcheck = dpu_hw_pp_enable_te;
+> +		c->ops.connect_external_te = dpu_hw_pp_connect_external_te;
+> +		c->ops.get_vsync_info = dpu_hw_pp_get_vsync_info;
+> +		c->ops.setup_autorefresh = dpu_hw_pp_setup_autorefresh_config;
+> +		c->ops.get_autorefresh = dpu_hw_pp_get_autorefresh_config;
+> +		c->ops.poll_timeout_wr_ptr = dpu_hw_pp_poll_timeout_wr_ptr;
+> +		c->ops.get_line_count = dpu_hw_pp_get_line_count;
+> +	}
+>   	c->ops.setup_dsc = dpu_hw_pp_setup_dsc;
+>   	c->ops.enable_dsc = dpu_hw_pp_dsc_enable;
+>   	c->ops.disable_dsc = dpu_hw_pp_dsc_disable;
 
 -- 
 With best wishes
