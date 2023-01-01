@@ -2,69 +2,59 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8A29865AABC
-	for <lists+freedreno@lfdr.de>; Sun,  1 Jan 2023 17:48:28 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id CEE4B65AC09
+	for <lists+freedreno@lfdr.de>; Sun,  1 Jan 2023 23:18:28 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CA5F710E084;
-	Sun,  1 Jan 2023 16:48:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9E19D10E170;
+	Sun,  1 Jan 2023 22:18:26 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-x234.google.com (mail-lj1-x234.google.com
- [IPv6:2a00:1450:4864:20::234])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 98E4110E084
- for <freedreno@lists.freedesktop.org>; Sun,  1 Jan 2023 16:48:25 +0000 (UTC)
-Received: by mail-lj1-x234.google.com with SMTP id g14so27048762ljh.10
- for <freedreno@lists.freedesktop.org>; Sun, 01 Jan 2023 08:48:25 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=Ge4PP1SVJmKzIUfpzygbNjv7xfpf7GwfAHU5wdsn3v8=;
- b=iyWofjg1cuc1wFt7FbNU03134Ig4lU4d7FLbhbPl/5XKtZZzoggW9hhf/5Bn+T6NRV
- vyntxu9tdPh1FFPRtc2lY87M26ZGGIJvH+dsuUEHpuuTK3+I2rrTkAMDLJJEDFotdKTu
- poawfAgq6/2fO+SRgzqMWgpDpBv8DpBjh57Bmg3fVlvJ5YcrAG3/2X4uuAUeNeZI/ALY
- PvcQkh+5DnchCubmpZoa2BeP/bFzZsL4cO1PNVoidx0jjCQGZaR2PpUGEIp7uwaL8hhu
- IV19ZfdqZlmWN41RXaFzCWFCpY61XLp2dAJuKLIjTyK4ooYqDjR36JiFbpihzlNBi+xx
- VIcQ==
+Received: from mail-oa1-x2f.google.com (mail-oa1-x2f.google.com
+ [IPv6:2001:4860:4864:20::2f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C365710E170;
+ Sun,  1 Jan 2023 22:18:24 +0000 (UTC)
+Received: by mail-oa1-x2f.google.com with SMTP id
+ 586e51a60fabf-12c8312131fso31558985fac.4; 
+ Sun, 01 Jan 2023 14:18:24 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=yy52nz5EWhcJsvWpjun3W8BAed7Pu6I0tRm9djceBtE=;
+ b=aUKgOPghXlTvzrc6u7k5kEW3PvtUpuXnRdFSLQ/HFxtA6NEyFCGeIJl5XEM3oSYvMf
+ yYBCOvMvrbLLqsn3ljLul0VQ5m1mief/TwD2BvREIf58XjoWaiKgm+6hfJ6TI46cjZEe
+ AaJGQ+Nuy/06MFO1sIE2johDMzmR9gjbY6uzGckDHw+JpdCEZlGlfMQVIzZe4KgGTlXj
+ /Kzwr9YunMYk8/bflwQVODouOYRc9Da+KNWAaky0VoTNcP3OzsJbGd/mSE90Knh8mm3k
+ uhoVFbWcZ8nqA4GFNaw4ztPW1vXQ6waLEtTUg0JNhL7Q1TwR0Bwj91flhywYpdXOApta
+ N/1g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=Ge4PP1SVJmKzIUfpzygbNjv7xfpf7GwfAHU5wdsn3v8=;
- b=DIJCVkVAu0SLHnPExrZn14adNzDck3LgMhTgNcHoM9kxVhhLtXt5YO3OnPBUOCTWgG
- Xt0t0pYMK0W+h/fPwNAiJVwePRD3tMaweLm5mHjYGOxg6eOjcoxEhsyPOyrO6EFHrhAd
- yisznY34DXrbcK4E/4o0ZbhQBSmd5FUvZ0DsG5OsDeeVyvF2ITG9f57XUcKbfZhTg6Vn
- 43+SA7whORiCNUCNHT1vieVaoxySSgViYc+LHpAVh6bxfczcsRyamqF47vsVBVZdXGPc
- aTWou9Wxun3GeN3rHEoINVnA2R58x2uBP876O5Nt3JlLseg4SpMciR7cBvBNZwulm9fx
- 8ktQ==
-X-Gm-Message-State: AFqh2kol9Ed9CUJljxXK2sTdvRiiw5gINlLHUJCDDGUSRrNEM3tgL2ve
- AtfUGwr9k6z+cSdMqygApyheGA==
-X-Google-Smtp-Source: AMrXdXsbed8972ttl4tuW+r6II/l4+IDIN3XfWFXtwKU+S+h7RqPDrhNKmmYR0qUvjU6oenThQCNSA==
-X-Received: by 2002:a2e:88c2:0:b0:27f:d050:d95c with SMTP id
- a2-20020a2e88c2000000b0027fd050d95cmr4172562ljk.10.1672591703879; 
- Sun, 01 Jan 2023 08:48:23 -0800 (PST)
-Received: from ?IPV6:2001:14ba:a085:4d00::8a5?
- (dzccz6yyyyyyyyyyybcwt-3.rev.dnainternet.fi. [2001:14ba:a085:4d00::8a5])
- by smtp.gmail.com with ESMTPSA id
- e26-20020a05651c039a00b0027e4da2d952sm3014101ljp.68.2023.01.01.08.48.23
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sun, 01 Jan 2023 08:48:23 -0800 (PST)
-Message-ID: <9d77ed88-a6b7-74f0-4f0e-f67b3ab15982@linaro.org>
-Date: Sun, 1 Jan 2023 18:48:22 +0200
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=yy52nz5EWhcJsvWpjun3W8BAed7Pu6I0tRm9djceBtE=;
+ b=R6AlniXLPKB9reyGkm2uJr3vHi37ygrs1pByU06VUB+EwgU3nBQKLA3nN0J5vwINb1
+ aWgz9/hRF5Fy8WzFTEm/xDtlFWKtkQ6TfrTBmA+xNvMhg870V4sDV2v6WzBs2VHN1pmB
+ hqtXi1NbTSXzXuz7Yxq5bsWIqC4OTI9umCRXfA5fkfgj9N9kPIcNBdgo8qHN115cglSr
+ PQ10X3FumJr294f65RyM9TcoYOakq6KKdrFFSDqF1h5o9TJJF7C5XSvnlmVNQcrTEYrg
+ OemBjsLvR5KE2ciJV4HzOSWaJ593lYvHQggdVJUQwHdf0V55nSRXCVJF8UsDTr+wUHtd
+ lyVA==
+X-Gm-Message-State: AFqh2koSKMxQpDq1IIeZH+HT31q7lVQv8iA3DoJFoStxbKFf27tgzGSR
+ THvVd7fqzfZxwi/q/O+gTh1qTwD4VPJZZo1fO1E=
+X-Google-Smtp-Source: AMrXdXte8iX8MMHmEPzIXd/8vUmQGEbPcEziUE4Pov+05WakJv8QOTo5ISycioy38t6wUo32zfYPD4Qn9C2ptiMz+wk=
+X-Received: by 2002:a05:6870:513:b0:13d:51fe:3404 with SMTP id
+ j19-20020a056870051300b0013d51fe3404mr2226606oao.183.1672611504025; Sun, 01
+ Jan 2023 14:18:24 -0800 (PST)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.6.0
-Content-Language: en-GB
-To: Fabio Estevam <festevam@gmail.com>
-References: <20230101155753.779176-1-dmitry.baryshkov@linaro.org>
- <CAOMZO5AaZrXe8w7XhzG5LzCxdodOde-5ACV6Kgd8B+uYneKxWA@mail.gmail.com>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-In-Reply-To: <CAOMZO5AaZrXe8w7XhzG5LzCxdodOde-5ACV6Kgd8B+uYneKxWA@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH] drm/msm/a2xx: support loading legacy (iMX)
- firmware
+References: <20221229101846.981223-1-konrad.dybcio@linaro.org>
+ <20221229104730.guopbgyleb6hif4h@SoMainline.org>
+In-Reply-To: <20221229104730.guopbgyleb6hif4h@SoMainline.org>
+From: Rob Clark <robdclark@gmail.com>
+Date: Sun, 1 Jan 2023 14:18:11 -0800
+Message-ID: <CAF6AEGvCT5S0KhcnUwGAbVqZXKxAQk4gfCegucAfQvy+Pgr4+A@mail.gmail.com>
+To: Marijn Suijten <marijn.suijten@somainline.org>
+Content-Type: text/plain; charset="UTF-8"
+Subject: Re: [Freedreno] [PATCH] drm/msm/adreno: Make adreno quirks not
+ overwrite each other
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,40 +67,84 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Jonathan Marek <jonathan@marek.ca>, Sean Paul <sean@poorly.run>,
- Bjorn Andersson <andersson@kernel.org>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
- Stephen Boyd <swboyd@chromium.org>, Rob Clark <robdclark@gmail.com>,
- linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org
+Cc: freedreno@lists.freedesktop.org, Emma Anholt <emma@anholt.net>,
+ Akhil P Oommen <quic_akhilpo@quicinc.com>, linux-arm-msm@vger.kernel.org,
+ andersson@kernel.org, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ dri-devel@lists.freedesktop.org, Jordan Crouse <jordan@cosmicpenguin.net>,
+ Konrad Dybcio <konrad.dybcio@linaro.org>, krzysztof.kozlowski@linaro.org,
+ agross@kernel.org, Daniel Vetter <daniel@ffwll.ch>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ David Airlie <airlied@gmail.com>, Sean Paul <sean@poorly.run>,
+ linux-kernel@vger.kernel.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 01/01/2023 18:38, Fabio Estevam wrote:
-> Hi Dmitry,
-> 
-> On Sun, Jan 1, 2023 at 12:58 PM Dmitry Baryshkov
-> <dmitry.baryshkov@linaro.org> wrote:
->>
->> Support loading A200 firmware generated from the iMX firmware header
->> files. The firmware lacks protection support, however it allows GPU to
->> function properly while using the firmware files with clear license
->> which allows redistribution.
-> 
-> Could you please share more details as to what firmware you are using
-> with the i.MX53?
+On Thu, Dec 29, 2022 at 2:47 AM Marijn Suijten
+<marijn.suijten@somainline.org> wrote:
+>
+> On 2022-12-29 11:18:45, Konrad Dybcio wrote:
+> > So far the adreno quirks have all been assigned with an OR operator,
+> > which is problematic, because they were assigned consecutive integer
+> > values, which makes checking them with an AND operator kind of no bueno..
+> >
+> > Switch to using BIT(n) so that only the quirks that the programmer chose
+> > are taken into account when evaluating info->quirks & ADRENO_QUIRK_...
+> >
+> > Fixes: b5f103ab98c7 ("drm/msm: gpu: Add A5XX target support")
+> > Signed-off-by: Konrad Dybcio <konrad.dybcio@linaro.org>
+>
+> Nice catch!
+>
+> Reviewed-by: Marijn Suijten <marijn.suijten@somainline.org>
+>
+> Not sure if it's the right Fixes commit though, as it would have worked
+> when ADRENO_QUIRK_LMLOADKILL_DISABLE was added with constant 4 instead
+> of 3 in 370063ee427a ("drm/msm/adreno: Add A540 support"), but then
+> using bitflags in an enum value type is invalid anyway, AFAIK.
 
-I have been testing i.MX53 with the firmware generated from EfikaMX 
-generated files 
-(https://github.com/genesi/linux-legacy/tree/master/drivers/mxc/amd-gpu).
+It isn't a thing that c++ like so much, but for c code, gdb will
+decode enum bitfields in a sensible way (IIRC).  Also, maybe it
+doesn't matter at this point, but it would conflict for stable
+backports prior to adding LMLOADKILL_DISABLE.
 
-> Is it available on the linux-firmare repository?
+with the fixes msg corrected,
 
-Not yet. As the firmware have clear attribution and clear licence 
-(BSD-3) which allows redistribution, I'm going to send pull request to 
-linux-firmware as soon as the approach, presented in this patch, is 
-accepted by Rob.
+Reviewed-by: Rob Clark <robdclark@gmail.com>
 
--- 
-With best wishes
-Dmitry
-
+> - Marijn
+>
+> > ---
+> >  drivers/gpu/drm/msm/adreno/adreno_gpu.h | 10 ++++------
+> >  1 file changed, 4 insertions(+), 6 deletions(-)
+> >
+> > diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.h b/drivers/gpu/drm/msm/adreno/adreno_gpu.h
+> > index c85857c0a228..5eb254c9832a 100644
+> > --- a/drivers/gpu/drm/msm/adreno/adreno_gpu.h
+> > +++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.h
+> > @@ -29,11 +29,9 @@ enum {
+> >       ADRENO_FW_MAX,
+> >  };
+> >
+> > -enum adreno_quirks {
+> > -     ADRENO_QUIRK_TWO_PASS_USE_WFI = 1,
+> > -     ADRENO_QUIRK_FAULT_DETECT_MASK = 2,
+> > -     ADRENO_QUIRK_LMLOADKILL_DISABLE = 3,
+> > -};
+> > +#define ADRENO_QUIRK_TWO_PASS_USE_WFI                BIT(0)
+> > +#define ADRENO_QUIRK_FAULT_DETECT_MASK               BIT(1)
+> > +#define ADRENO_QUIRK_LMLOADKILL_DISABLE              BIT(2)
+> >
+> >  struct adreno_rev {
+> >       uint8_t  core;
+> > @@ -65,7 +63,7 @@ struct adreno_info {
+> >       const char *name;
+> >       const char *fw[ADRENO_FW_MAX];
+> >       uint32_t gmem;
+> > -     enum adreno_quirks quirks;
+> > +     u64 quirks;
+> >       struct msm_gpu *(*init)(struct drm_device *dev);
+> >       const char *zapfw;
+> >       u32 inactive_period;
+> > --
+> > 2.39.0
+> >
