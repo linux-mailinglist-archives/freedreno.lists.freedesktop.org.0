@@ -2,69 +2,59 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6399165B476
-	for <lists+freedreno@lfdr.de>; Mon,  2 Jan 2023 16:52:42 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6E09165B5A7
+	for <lists+freedreno@lfdr.de>; Mon,  2 Jan 2023 18:11:04 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2356E10E359;
-	Mon,  2 Jan 2023 15:52:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0A14D10E1B5;
+	Mon,  2 Jan 2023 17:11:03 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x131.google.com (mail-lf1-x131.google.com
- [IPv6:2a00:1450:4864:20::131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5B07210E359
- for <freedreno@lists.freedesktop.org>; Mon,  2 Jan 2023 15:52:39 +0000 (UTC)
-Received: by mail-lf1-x131.google.com with SMTP id bq39so34264523lfb.0
- for <freedreno@lists.freedesktop.org>; Mon, 02 Jan 2023 07:52:39 -0800 (PST)
+Received: from mail-oi1-x233.google.com (mail-oi1-x233.google.com
+ [IPv6:2607:f8b0:4864:20::233])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2BD3710E1B5
+ for <freedreno@lists.freedesktop.org>; Mon,  2 Jan 2023 17:11:01 +0000 (UTC)
+Received: by mail-oi1-x233.google.com with SMTP id d127so24002787oif.12
+ for <freedreno@lists.freedesktop.org>; Mon, 02 Jan 2023 09:11:01 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=uIB/5bHUrZzNsC9yit8NcJgWuAABAvHpydAaIbNKh6w=;
- b=n2pEoBXz3GS/RUK1I0VXyzBtJyBv2kqEUYb0KGV/n02XADMcUn+U9U+9t49LEeGlk9
- fWY3e7NwYNnpWPVFUbttFjYH+OP/IwinONFnjC9sYzMuswUASugLtEVm5jOm0eXwxSxz
- hDaeSBilAOTzVbZiVjwWruR61eQ/mHsOV/zOYQJHj+cWWTd2CFynAsmcjiu9ldjrK8qD
- O2O7KxD9MCDa0XSD8GoVABc148fZ7w2i0FlqSU6Cj9rvrUgNjoNioZ7yUdZGwHH1HKfy
- 8Q6y24tbqPbg99UxgYgRMF4ZVRzBs0YpXWzZW6qOzbnMP3zvN/4mV0R9ufY4oZNApI5U
- 5tpA==
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=fkrlTW01QZiW+rfRh4HCDBkrk4FHHNPvdhykJiEQI9E=;
+ b=PSrfo52rXafgrME6wfouzPUZakPSi4zMi0esKLyfcUTdw3ZaLwczE7cqwq4+MAKDTp
+ OPl7k/UcH/KvwiuB2Ijya3ZTt/RKJkdMX+lFk1LSSQFO/zSpVva0jt/XMT+DFhJyXmtv
+ Dlg+29EtE39mSsu0+YR5gcVXPIgrI3oD6ZWMXHSW6Ja0FiNjgFuWd/WMvpBPRYm+Y2/M
+ 58YQCvE3Lxv7wYTUSWuWAcFMnMtr18bpUR8C+elEZ83RfcTyOs+rzRY011f1EPN5s+pi
+ XWz0wLru8QmRF8N+6vF7Vn/3sS3eBC51zuFFPivBzOGyGSRasKOasO1UrkShD5TdzviP
+ m9HA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=uIB/5bHUrZzNsC9yit8NcJgWuAABAvHpydAaIbNKh6w=;
- b=LX5OlUwpy9KZuNH5QjL8kLQ1N/USC4/fb5gzvDiAPU1oA8zvZxfuOuaMV0jHzbNA0+
- 0DSxkQ9jVaeAPD4pje8E5kD0wQU8RnXYyV8y1Oe1liqG6x8jG2rkTftZ2Kad515ZnOVO
- gEKYvTEbhMkniIjyszSc3dlrKBIDaqLgYIkzsECOFYmjLqsmk4+o7grAS2Ejc25cUgE1
- TN3CJjLrDS/ocowHZ3bYUB0Y3RDxpLeFZyk/Vu3x2Oah0nQsaWv20WwQGgRQCtG0gPR4
- Rs6j8saHUj8Eut8afQ+1bTDMpYQVjH1CsZFZVjGNaLn2h5kFxESIGg3eR6Vbke3YVkCQ
- AzBg==
-X-Gm-Message-State: AFqh2ko0gDQO0Ke6MGj0k4D8N6zvEv+tDBt85/k38PspMsecdzJsD5So
- GNqbaEDDuF77rWnnXajEUI+GrQjIPr803oUJ
-X-Google-Smtp-Source: AMrXdXvddvHdzrpXQdwSWx/8hQ2XjKT9aAox5/Kx1PUttalQ4jgtb007U9JOYEQ20Ke8g8BnAwgwlQ==
-X-Received: by 2002:a05:6512:3194:b0:4b0:2a2f:ea6d with SMTP id
- i20-20020a056512319400b004b02a2fea6dmr13769966lfe.35.1672674757361; 
- Mon, 02 Jan 2023 07:52:37 -0800 (PST)
-Received: from ?IPV6:2001:14ba:a085:4d00::8a5?
- (dzccz6yyyyyyyyyyybcwt-3.rev.dnainternet.fi. [2001:14ba:a085:4d00::8a5])
- by smtp.gmail.com with ESMTPSA id
- m28-20020a056512015c00b004b580a526c3sm4514903lfo.295.2023.01.02.07.52.36
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 02 Jan 2023 07:52:36 -0800 (PST)
-Message-ID: <0db74f94-e385-6329-c1e6-7c94805b718f@linaro.org>
-Date: Mon, 2 Jan 2023 17:52:35 +0200
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=fkrlTW01QZiW+rfRh4HCDBkrk4FHHNPvdhykJiEQI9E=;
+ b=7640poaHJDatK3jyljvDj6WNxNOV0nDtAZmdXmH511pmViS2GgWVXYIoOk6hTIn839
+ /cY1+ijtJRhLDKXFrsgUAdGXJKI4hD9YtBT+nW5biykSSaAgVVIkmBM6bJrmJI0SX9Vk
+ tTGpF6C9HFx0xdStpXOOGb/IenBPoz/zIdwv7uhkSVmToQL7iwZZyIRIWUV9QcYXWDaj
+ C3s9APTa3NJXC6yYd5nKWs5PCxgdT5U9vAWMqlEof4RoWV0fPlaIu9w/NG6djrqoc9Et
+ fo40xoAc2n4bJgr1IdGRtPSWTqlHUhIXoWE64ESw+5Sxzx+sM3839X+trVg4EKw+ZFvY
+ yqXw==
+X-Gm-Message-State: AFqh2kr6UDuZo3RPIN8WgZ7X/SfxBNfnHmbW8Zw7RuvPyvIM+zyceLfK
+ PrDvovi1Cv/sBhiN9tU/eSZI0PvpnyoAyp531EqhXw==
+X-Google-Smtp-Source: AMrXdXudAWzRSkReGXrlA2k8y1GjMgzJ0Sqz2gL9E0bvitUpLzt30zx7sw5KpOjYmAMpIKholY97galZNRmQhhE4MY4=
+X-Received: by 2002:a05:6808:3090:b0:35e:5a1b:825c with SMTP id
+ bl16-20020a056808309000b0035e5a1b825cmr2536418oib.155.1672679460249; Mon, 02
+ Jan 2023 09:11:00 -0800 (PST)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.6.0
-Content-Language: en-GB
-To: Rob Clark <robdclark@gmail.com>
-References: <20230101155753.779176-1-dmitry.baryshkov@linaro.org>
- <CAF6AEGvG9UJzvjvvfBeO6tC+APqOStAHBgeRwsuHUFSozyE8oA@mail.gmail.com>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-In-Reply-To: <CAF6AEGvG9UJzvjvvfBeO6tC+APqOStAHBgeRwsuHUFSozyE8oA@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH] drm/msm/a2xx: support loading legacy (iMX)
- firmware
+References: <20221230153554.105856-1-robert.foss@linaro.org>
+ <20221230153554.105856-9-robert.foss@linaro.org>
+ <deb17787-1a5a-89a3-3ecf-7690b4149f5c@linaro.org>
+In-Reply-To: <deb17787-1a5a-89a3-3ecf-7690b4149f5c@linaro.org>
+From: Robert Foss <robert.foss@linaro.org>
+Date: Mon, 2 Jan 2023 18:10:49 +0100
+Message-ID: <CAG3jFysU84LRcqQOspub+9vtsP3syiksrGX6D7i3ff+X6+mbTA@mail.gmail.com>
+To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+Content-Type: text/plain; charset="UTF-8"
+Subject: Re: [Freedreno] [PATCH v4 08/11] arm64: dts: qcom: sm8350: Use 2
+ interconnect cells
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,129 +67,46 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, Jonathan Marek <jonathan@marek.ca>,
- Sean Paul <sean@poorly.run>, Bjorn Andersson <andersson@kernel.org>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
- Stephen Boyd <swboyd@chromium.org>, Daniel Vetter <daniel@ffwll.ch>,
- linux-arm-msm@vger.kernel.org, David Airlie <airlied@gmail.com>
+Cc: konrad.dybcio@somainline.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, liushixin2@huawei.com,
+ krzysztof.kozlowski+dt@linaro.org, angelogioacchino.delregno@somainline.org,
+ quic_vpolimer@quicinc.com, airlied@gmail.com, vinod.koul@linaro.org,
+ Jonathan Marek <jonathan@marek.ca>, robdclark@gmail.com,
+ quic_khsieh@quicinc.com, agross@kernel.org, quic_jesszhan@quicinc.com,
+ devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org, a39.skl@gmail.com,
+ quic_abhinavk@quicinc.com, swboyd@chromium.org, robh+dt@kernel.org,
+ sean@poorly.run, loic.poulain@linaro.org, andersson@kernel.org,
+ dianders@chromium.org, Konrad Dybcio <konrad.dybcio@linaro.org>,
+ vkoul@kernel.org, daniel@ffwll.ch, dmitry.baryshkov@linaro.org,
+ freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 02/01/2023 03:39, Rob Clark wrote:
-> On Sun, Jan 1, 2023 at 7:57 AM Dmitry Baryshkov
-> <dmitry.baryshkov@linaro.org> wrote:
->>
->> Support loading A200 firmware generated from the iMX firmware header
->> files. The firmware lacks protection support, however it allows GPU to
->> function properly while using the firmware files with clear license
->> which allows redistribution.
->>
->> Cc: Jonathan Marek <jonathan@marek.ca>
->> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
->> ---
->>   drivers/gpu/drm/msm/adreno/a2xx_gpu.c | 27 +++++++++++++++++++++++----
->>   drivers/gpu/drm/msm/adreno/a2xx_gpu.h |  1 +
->>   2 files changed, 24 insertions(+), 4 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/msm/adreno/a2xx_gpu.c b/drivers/gpu/drm/msm/adreno/a2xx_gpu.c
->> index 6c9a747eb4ad..c67089a7ebc1 100644
->> --- a/drivers/gpu/drm/msm/adreno/a2xx_gpu.c
->> +++ b/drivers/gpu/drm/msm/adreno/a2xx_gpu.c
->> @@ -53,6 +53,8 @@ static void a2xx_submit(struct msm_gpu *gpu, struct msm_gem_submit *submit)
->>
->>   static bool a2xx_me_init(struct msm_gpu *gpu)
->>   {
->> +       struct adreno_gpu *adreno_gpu = to_adreno_gpu(gpu);
->> +       struct a2xx_gpu *a2xx_gpu = to_a2xx_gpu(adreno_gpu);
->>          struct msm_ringbuffer *ring = gpu->rb[0];
->>
->>          OUT_PKT3(ring, CP_ME_INIT, 18);
->> @@ -84,15 +86,20 @@ static bool a2xx_me_init(struct msm_gpu *gpu)
->>          /* NQ and External Memory Swap */
->>          OUT_RING(ring, 0x00000000);
->>          /* protected mode error checking (0x1f2 is REG_AXXX_CP_INT_CNTL) */
->> -       OUT_RING(ring, 0x200001f2);
->> +       if (a2xx_gpu->protection_disabled)
->> +               OUT_RING(ring, 0x00000000);
->> +       else
->> +               OUT_RING(ring, 0x200001f2);
->>          /* Disable header dumping and Header dump address */
->>          OUT_RING(ring, 0x00000000);
->>          /* Header dump size */
->>          OUT_RING(ring, 0x00000000);
->>
->> -       /* enable protected mode */
->> -       OUT_PKT3(ring, CP_SET_PROTECTED_MODE, 1);
->> -       OUT_RING(ring, 1);
->> +       if (!a2xx_gpu->protection_disabled) {
->> +               /* enable protected mode */
->> +               OUT_PKT3(ring, CP_SET_PROTECTED_MODE, 1);
->> +               OUT_RING(ring, 1);
->> +       }
->>
->>          adreno_flush(gpu, ring, REG_AXXX_CP_RB_WPTR);
->>          return a2xx_idle(gpu);
->> @@ -101,6 +108,7 @@ static bool a2xx_me_init(struct msm_gpu *gpu)
->>   static int a2xx_hw_init(struct msm_gpu *gpu)
->>   {
->>          struct adreno_gpu *adreno_gpu = to_adreno_gpu(gpu);
->> +       struct a2xx_gpu *a2xx_gpu = to_a2xx_gpu(adreno_gpu);
->>          dma_addr_t pt_base, tran_error;
->>          uint32_t *ptr, len;
->>          int i, ret;
->> @@ -221,6 +229,17 @@ static int a2xx_hw_init(struct msm_gpu *gpu)
->>          len = adreno_gpu->fw[ADRENO_FW_PM4]->size / 4;
->>          DBG("loading PM4 ucode version: %x", ptr[1]);
->>
->> +       /*
->> +        * New firmware files seem to have GPU and firmware version in this
->> +        * word (0x20xxxx for A200, 0x220xxx for A220, 0x225xxx for A225).
->> +        * Older firmware files, which lack protection support, have 0 instead.
->> +        */
->> +       if (ptr[1] == 0) {
-> 
-> I don't really have a good enough picture about all the possible fw
-> versions floating around out there, esp back to the pre-qc days, to
-> know if this is a good enough check.  But I guess we can go with it,
-> and in the worst case later add an allowlist table of fw checksums (or
-> similar) if this doesn't turn out to be sufficient, so the overall
-> approach isn't painting us into a corner.
-> 
-> Reviewed-by: Rob Clark <robdclark@gmail.com>
+On Fri, 30 Dec 2022 at 17:12, Krzysztof Kozlowski
+<krzysztof.kozlowski@linaro.org> wrote:
+>
+> On 30/12/2022 16:35, Robert Foss wrote:
+> > Use two interconnect cells in order to optionally
+> > support a path tag.
+> >
+> > Signed-off-by: Robert Foss <robert.foss@linaro.org>
+> > Reviewed-by: Konrad Dybcio <konrad.dybcio@linaro.org>
+> > ---
+> >  arch/arm64/boot/dts/qcom/sm8350.dtsi | 28 ++++++++++++++--------------
+> >  1 file changed, 14 insertions(+), 14 deletions(-)
+> >
+>
+> I think you need to rebase to include:
+> https://lore.kernel.org/all/167233461761.1099840.5517525898039031248.b4-ty@kernel.org/
 
-For the reference. I have pushed existing redistributable firmware files 
-to https://github.com/lumag/yamato-firmware.git (I can move the repo to 
-some other location, e.g. to gitlab.fdo.org/msm if that's a better place).
+Ah, I see. Functionally I seemed to do fine without those commits.
 
-I've also sent a patch to linux-firmware, so at some point we should be 
-able to use a200 with the default setup.
+>
+> On which tree/revision did you base this?
 
-> 
->> +               dev_warn(gpu->dev->dev,
->> +                        "Legacy firmware detected, disabling protection support\n");
->> +               a2xx_gpu->protection_disabled = true;
->> +       }
->> +
->>          gpu_write(gpu, REG_AXXX_CP_DEBUG,
->>                          AXXX_CP_DEBUG_MIU_128BIT_WRITE_ENABLE);
->>          gpu_write(gpu, REG_AXXX_CP_ME_RAM_WADDR, 0);
->> diff --git a/drivers/gpu/drm/msm/adreno/a2xx_gpu.h b/drivers/gpu/drm/msm/adreno/a2xx_gpu.h
->> index 02fba2cb8932..161a075f94af 100644
->> --- a/drivers/gpu/drm/msm/adreno/a2xx_gpu.h
->> +++ b/drivers/gpu/drm/msm/adreno/a2xx_gpu.h
->> @@ -15,6 +15,7 @@
->>   struct a2xx_gpu {
->>          struct adreno_gpu base;
->>          bool pm_enabled;
->> +       bool protection_disabled;
->>   };
->>   #define to_a2xx_gpu(x) container_of(x, struct a2xx_gpu, base)
->>
->> --
->> 2.39.0
->>
+msm/drm-msm-display-for-6.2
 
--- 
-With best wishes
-Dmitry
-
+>
+> Best regards,
+> Krzysztof
+>
