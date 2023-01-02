@@ -2,71 +2,69 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4FA8865B46C
-	for <lists+freedreno@lfdr.de>; Mon,  2 Jan 2023 16:48:21 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6399165B476
+	for <lists+freedreno@lfdr.de>; Mon,  2 Jan 2023 16:52:42 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 14D6C10E35C;
-	Mon,  2 Jan 2023 15:48:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2356E10E359;
+	Mon,  2 Jan 2023 15:52:41 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x130.google.com (mail-lf1-x130.google.com
- [IPv6:2a00:1450:4864:20::130])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5302910E35C
- for <freedreno@lists.freedesktop.org>; Mon,  2 Jan 2023 15:48:08 +0000 (UTC)
-Received: by mail-lf1-x130.google.com with SMTP id cf42so42030512lfb.1
- for <freedreno@lists.freedesktop.org>; Mon, 02 Jan 2023 07:48:08 -0800 (PST)
+Received: from mail-lf1-x131.google.com (mail-lf1-x131.google.com
+ [IPv6:2a00:1450:4864:20::131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5B07210E359
+ for <freedreno@lists.freedesktop.org>; Mon,  2 Jan 2023 15:52:39 +0000 (UTC)
+Received: by mail-lf1-x131.google.com with SMTP id bq39so34264523lfb.0
+ for <freedreno@lists.freedesktop.org>; Mon, 02 Jan 2023 07:52:39 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :from:to:cc:subject:date:message-id:reply-to;
- bh=JLhB96nzXR995vwlWtOxjtyo6Ty4CvdVwhCta/qDQVM=;
- b=hIwLxetn6E8peUbkigA8o3oTAgx4NBrisgfst2hWtTPWYilt6McSbZCvUyBCdypeXK
- j6EgNGXIcwUc5WldbFcp16J2vHgXNck6qVQUp57SPOEUBd8wQV7mymilxYQY3GkI3SZa
- 19YKgLJ4wlcgojJ2jzC/5ioCywWv6OqGiL+irNDNhxpU7xezLTzMwkv46thdjV7J4NvM
- ri8Gl/kwNqmnLrJX6XYqRCN+WeYqtReIFaIvNFKbOzosJfRplWw6Bz+viGS+y9tNwljE
- dnkGSQ7GuYIuYtzaRbMEQv3BvBjfH3KDPxGAYOeXSfJUnUhVqjaFv1cT9xwv/NCxpTHJ
- UEEg==
+ bh=uIB/5bHUrZzNsC9yit8NcJgWuAABAvHpydAaIbNKh6w=;
+ b=n2pEoBXz3GS/RUK1I0VXyzBtJyBv2kqEUYb0KGV/n02XADMcUn+U9U+9t49LEeGlk9
+ fWY3e7NwYNnpWPVFUbttFjYH+OP/IwinONFnjC9sYzMuswUASugLtEVm5jOm0eXwxSxz
+ hDaeSBilAOTzVbZiVjwWruR61eQ/mHsOV/zOYQJHj+cWWTd2CFynAsmcjiu9ldjrK8qD
+ O2O7KxD9MCDa0XSD8GoVABc148fZ7w2i0FlqSU6Cj9rvrUgNjoNioZ7yUdZGwHH1HKfy
+ 8Q6y24tbqPbg99UxgYgRMF4ZVRzBs0YpXWzZW6qOzbnMP3zvN/4mV0R9ufY4oZNApI5U
+ 5tpA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=JLhB96nzXR995vwlWtOxjtyo6Ty4CvdVwhCta/qDQVM=;
- b=g2KLgRSVfka0PfVSRGbcXuksLXTo6tbe0eOX3sA4Sg3dFSstYtBvTGUTAEhPShYEuK
- fVg9pCJAC8AWRzvb3sWizTvHHwHEEHtjoVFmtiKmpGzKdRJ+xlI6Ad5Df8dCDOHunT+m
- lnPd4qZTEaO5oaI0opSW0BTt1ElDJWDtXHTK9wJ40LvqYGyYQir7csECSin6f+0yWrft
- uLP/YBt5456RSZXnsOW/BbDghm39dKgtJbIIJ/NqnHp7UdCn5GSGFCbyeyxQSqFIKKNz
- XwKZFTYK8wFRTRkN4JVOssYP4V+mpstWH8kjjSvvEM1ZWQEGep2JEbsD2Xx+wBr8IZX1
- 9NGw==
-X-Gm-Message-State: AFqh2koasFj6pCqDcTg1u6yHrhrw2vKv5PFduMS8WgDhyZU7aWIcSMtj
- 84xoJ6n2xFmyWh5XZmmej+7ykQ==
-X-Google-Smtp-Source: AMrXdXslp9+Rv4Ppo3PahufHoX7PDinOnA4PYnvRwT6b6QMNohNcbxo2yLRFaxhgrOI9gW54b8wgvA==
-X-Received: by 2002:a05:6512:3f9c:b0:4b6:e4e7:624c with SMTP id
- x28-20020a0565123f9c00b004b6e4e7624cmr12920310lfa.0.1672674486581; 
- Mon, 02 Jan 2023 07:48:06 -0800 (PST)
+ bh=uIB/5bHUrZzNsC9yit8NcJgWuAABAvHpydAaIbNKh6w=;
+ b=LX5OlUwpy9KZuNH5QjL8kLQ1N/USC4/fb5gzvDiAPU1oA8zvZxfuOuaMV0jHzbNA0+
+ 0DSxkQ9jVaeAPD4pje8E5kD0wQU8RnXYyV8y1Oe1liqG6x8jG2rkTftZ2Kad515ZnOVO
+ gEKYvTEbhMkniIjyszSc3dlrKBIDaqLgYIkzsECOFYmjLqsmk4+o7grAS2Ejc25cUgE1
+ TN3CJjLrDS/ocowHZ3bYUB0Y3RDxpLeFZyk/Vu3x2Oah0nQsaWv20WwQGgRQCtG0gPR4
+ Rs6j8saHUj8Eut8afQ+1bTDMpYQVjH1CsZFZVjGNaLn2h5kFxESIGg3eR6Vbke3YVkCQ
+ AzBg==
+X-Gm-Message-State: AFqh2ko0gDQO0Ke6MGj0k4D8N6zvEv+tDBt85/k38PspMsecdzJsD5So
+ GNqbaEDDuF77rWnnXajEUI+GrQjIPr803oUJ
+X-Google-Smtp-Source: AMrXdXvddvHdzrpXQdwSWx/8hQ2XjKT9aAox5/Kx1PUttalQ4jgtb007U9JOYEQ20Ke8g8BnAwgwlQ==
+X-Received: by 2002:a05:6512:3194:b0:4b0:2a2f:ea6d with SMTP id
+ i20-20020a056512319400b004b02a2fea6dmr13769966lfe.35.1672674757361; 
+ Mon, 02 Jan 2023 07:52:37 -0800 (PST)
 Received: from ?IPV6:2001:14ba:a085:4d00::8a5?
  (dzccz6yyyyyyyyyyybcwt-3.rev.dnainternet.fi. [2001:14ba:a085:4d00::8a5])
  by smtp.gmail.com with ESMTPSA id
- y17-20020ac24e71000000b00492e3c8a986sm4514273lfs.264.2023.01.02.07.48.05
+ m28-20020a056512015c00b004b580a526c3sm4514903lfo.295.2023.01.02.07.52.36
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 02 Jan 2023 07:48:06 -0800 (PST)
-Message-ID: <2f22ea19-1b97-6a21-99c0-9ba1bb322af4@linaro.org>
-Date: Mon, 2 Jan 2023 17:48:05 +0200
+ Mon, 02 Jan 2023 07:52:36 -0800 (PST)
+Message-ID: <0db74f94-e385-6329-c1e6-7c94805b718f@linaro.org>
+Date: Mon, 2 Jan 2023 17:52:35 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.6.0
 Content-Language: en-GB
-To: Marijn Suijten <marijn.suijten@somainline.org>
-References: <20221231215006.211860-1-marijn.suijten@somainline.org>
- <20221231215006.211860-7-marijn.suijten@somainline.org>
- <593cae1c-ade3-c68a-25d3-84ba1b968175@linaro.org>
- <20230102110611.e3k36evk23ai35gg@SoMainline.org>
+To: Rob Clark <robdclark@gmail.com>
+References: <20230101155753.779176-1-dmitry.baryshkov@linaro.org>
+ <CAF6AEGvG9UJzvjvvfBeO6tC+APqOStAHBgeRwsuHUFSozyE8oA@mail.gmail.com>
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-In-Reply-To: <20230102110611.e3k36evk23ai35gg@SoMainline.org>
+In-Reply-To: <CAF6AEGvG9UJzvjvvfBeO6tC+APqOStAHBgeRwsuHUFSozyE8oA@mail.gmail.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [RFC PATCH 6/7] drm/msm/dpu: Implement tearcheck
- support on INTF block
+Subject: Re: [Freedreno] [PATCH] drm/msm/a2xx: support loading legacy (iMX)
+ firmware
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,262 +77,127 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Konrad Dybcio <konrad.dybcio@somainline.org>,
- dri-devel@lists.freedesktop.org,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@somainline.org>,
- phone-devel@vger.kernel.org, David Airlie <airlied@gmail.com>,
- Rob Clark <robdclark@gmail.com>, Kuogee Hsieh <quic_khsieh@quicinc.com>,
- Jessica Zhang <quic_jesszhan@quicinc.com>, linux-arm-msm@vger.kernel.org,
- Adam Skladowski <a39.skl@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Stephen Boyd <swboyd@chromium.org>, Martin Botka <martin.botka@somainline.org>,
- ~postmarketos/upstreaming@lists.sr.ht, Sean Paul <sean@poorly.run>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Loic Poulain <loic.poulain@linaro.org>,
- Jami Kettunen <jami.kettunen@somainline.org>,
- Bjorn Andersson <andersson@kernel.org>, linux-kernel@vger.kernel.org,
- Konrad Dybcio <konrad.dybcio@linaro.org>, Vinod Koul <vkoul@kernel.org>,
- Daniel Vetter <daniel@ffwll.ch>, freedreno@lists.freedesktop.org,
- Vinod Polimera <quic_vpolimer@quicinc.com>
+Cc: freedreno@lists.freedesktop.org, Jonathan Marek <jonathan@marek.ca>,
+ Sean Paul <sean@poorly.run>, Bjorn Andersson <andersson@kernel.org>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
+ Stephen Boyd <swboyd@chromium.org>, Daniel Vetter <daniel@ffwll.ch>,
+ linux-arm-msm@vger.kernel.org, David Airlie <airlied@gmail.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 02/01/2023 13:06, Marijn Suijten wrote:
-> On 2023-01-01 15:32:11, Dmitry Baryshkov wrote:
->> On 31/12/2022 23:50, Marijn Suijten wrote:
->>> Since DPU 5.0.0 the TEARCHECK registers and interrupts moved out of the
->>> PINGPONG block and into the INTF.  Implement the necessary callbacks in
->>> the INTF block, and use these callbacks together with the INTF_TEAR
->>> interrupts
->>>
->>> Signed-off-by: Marijn Suijten <marijn.suijten@somainline.org>
+On 02/01/2023 03:39, Rob Clark wrote:
+> On Sun, Jan 1, 2023 at 7:57 AM Dmitry Baryshkov
+> <dmitry.baryshkov@linaro.org> wrote:
 >>
->> Generally I have the same question as for the patch 2. Can we have some
->> higher level functions in the hw_pp and hw_intf files?
-> 
-> That is mostly because patch 2 only cleaned up non-optional handling of
-> hw_pp callbacks in dpu_encoder_phys_cmd_prepare_commit, which utilizes
-> hw_intf's autorefresh callbacks since this patch.  I don't think there's
-> any logic in the encoder currently that is unique to either PP or INTF?
-
-I think it would be better to duplicate the logic rather than having a 
-spaghetti of hw_pp and hw_intf calls.
-
-> There are quite a few functions that check for NULL hw_pp only, while -
-> especially after this patch - should also check hw_intf to raise
-> "invalid encoder".  Should I extend those checks as well?
-
-I think so. However in most of cases these checks should be void, since 
-cmd encoder can not be instantiated without intf.
-
->> Moreover, as I
->> review your patch I have the feeling that it would make sense to have to
->> two sets of encoder callbacks, one for the hw_pp tearing handling and
->> another set for hw_intf-based one.
-> 
-> Do you mean to duplicate most phy_cmd functions and switch them based on
-> has_intf_te in dpu_encoder_phys_cmd_init_ops?  Or introduce an entirely
-> new set of callbacks that simply hide / abstract away the check on
-> has_intf_te?  The former would duplicate a bunch of code unless that is
-> abstracted away into other functions, mainly in
-> dpu_encoder_phys_cmd_tearcheck_config and
-> dpu_encoder_phys_cmd_prepare_commit.
-
-
-For the dpu_encoder_phys_cmd_tearcheck_config() it seems logical to fill 
-in the tc_cfg and then to call either the single hw_pp callback or a 
-single hw_intf callback.
-
-I'd move most of the code from prepare_commit to dpu_hw_pp and then 
-duplicate it to dpu_hw_intf. This seems like the lesser evil.
-This function really stands out, since if you inline 
-_dpu_encoder_phys_cmd_connect_te() and 
-dpu_encoder_phys_cmd_is_ongoing_pptx() it becomes obvious that the whole 
-function is a mixture of linked calls to hw_pp ops. And judging from 
-your patch it doesn't make sense to check them one by one. Either we 
-have all of them, or none.
-
-> 
-> Alternatively, could we find a way where these PP and INTF ops share the
-> same struct and function signature?  That might be tricky for passing in
-> the hw_pp or hw_intf struct without leaking those details to the
-> callback and/or have the switching logic in there.
-> 
->>> ---
->>>    drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c   |  11 +
->>>    .../gpu/drm/msm/disp/dpu1/dpu_encoder_phys.h  |  10 +-
->>>    .../drm/msm/disp/dpu1/dpu_encoder_phys_cmd.c  | 113 +++++++---
->>>    drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.c   | 206 ++++++++++++++++++
->>>    drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.h   |  29 +++
->>>    drivers/gpu/drm/msm/disp/dpu1/dpu_hw_mdss.h   |   2 +
->>>    6 files changed, 340 insertions(+), 31 deletions(-)
->>>
->>> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
->>> index 9c6817b5a194..8b9070220ab2 100644
->>> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
->>> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
->>> @@ -673,6 +673,7 @@ static void _dpu_encoder_update_vsync_source(struct dpu_encoder_virt *dpu_enc,
->>>    	struct dpu_kms *dpu_kms;
->>>    	struct dpu_hw_mdp *hw_mdptop;
->>>    	struct drm_encoder *drm_enc;
->>> +	struct dpu_encoder_phys *phys_enc;
->>>    	int i;
->>>    
->>>    	if (!dpu_enc || !disp_info) {
->>> @@ -703,12 +704,22 @@ static void _dpu_encoder_update_vsync_source(struct dpu_encoder_virt *dpu_enc,
->>>    			vsync_cfg.ppnumber[i] = dpu_enc->hw_pp[i]->idx;
->>>    
->>>    		vsync_cfg.pp_count = dpu_enc->num_phys_encs;
->>> +		vsync_cfg.frame_rate = drm_mode_vrefresh(&dpu_enc->base.crtc->state->adjusted_mode);
->>> +
->>>    		if (disp_info->is_te_using_watchdog_timer)
->>>    			vsync_cfg.vsync_source = DPU_VSYNC_SOURCE_WD_TIMER_0;
->>>    		else
->>>    			vsync_cfg.vsync_source = DPU_VSYNC0_SOURCE_GPIO;
->>>    
->>>    		hw_mdptop->ops.setup_vsync_source(hw_mdptop, &vsync_cfg);
->>> +
->>> +		for (i = 0; i < dpu_enc->num_phys_encs; i++) {
->>> +			phys_enc = dpu_enc->phys_encs[i];
->>> +
->>> +			if (phys_enc->has_intf_te && phys_enc->hw_intf->ops.vsync_sel)
->>> +				phys_enc->hw_intf->ops.vsync_sel(phys_enc->hw_intf,
->>> +						vsync_cfg.vsync_source);
->>> +		}
->>>    	}
->>>    }
->>>    
->>> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys.h
->>> index f2af07d87f56..47e79401032c 100644
->>> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys.h
->>> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys.h
->>> @@ -148,10 +148,10 @@ struct dpu_encoder_phys_ops {
->>>    /**
->>>     * enum dpu_intr_idx - dpu encoder interrupt index
->>>     * @INTR_IDX_VSYNC:    Vsync interrupt for video mode panel
->>> - * @INTR_IDX_PINGPONG: Pingpong done unterrupt for cmd mode panel
->>> - * @INTR_IDX_UNDERRUN: Underrun unterrupt for video and cmd mode panel
->>> - * @INTR_IDX_RDPTR:    Readpointer done unterrupt for cmd mode panel
->>> - * @INTR_IDX_WB_DONE:  Writeback fone interrupt for virtual connector
->>> + * @INTR_IDX_PINGPONG: Pingpong done interrupt for cmd mode panel
->>> + * @INTR_IDX_UNDERRUN: Underrun interrupt for video and cmd mode panel
->>> + * @INTR_IDX_RDPTR:    Readpointer done interrupt for cmd mode panel
->>> + * @INTR_IDX_WB_DONE:  Writeback done interrupt for virtual connector
->>>     */
->>>    enum dpu_intr_idx {
->>>    	INTR_IDX_VSYNC,
->>> @@ -195,6 +195,7 @@ enum dpu_intr_idx {
->>>     *                              pending.
->>>     * @pending_kickoff_wq:		Wait queue for blocking until kickoff completes
->>>     * @irq:			IRQ indices
->>> + * @has_intf_te:		Interface TE configuration support
->>>     */
->>>    struct dpu_encoder_phys {
->>>    	struct drm_encoder *parent;
->>> @@ -220,6 +221,7 @@ struct dpu_encoder_phys {
->>>    	atomic_t pending_kickoff_cnt;
->>>    	wait_queue_head_t pending_kickoff_wq;
->>>    	int irq[INTR_IDX_MAX];
->>> +	bool has_intf_te;
->>>    };
->>>    
->>>    static inline int dpu_encoder_phys_inc_pending(struct dpu_encoder_phys *phys)
->>> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_cmd.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_cmd.c
->>> index 7e5ba52197cd..ca44a8087f01 100644
->>> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_cmd.c
->>> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_cmd.c
->>> @@ -100,12 +100,12 @@ static void dpu_encoder_phys_cmd_pp_tx_done_irq(void *arg, int irq_idx)
->>>    	DPU_ATRACE_END("pp_done_irq");
->>>    }
->>>    
->>> -static void dpu_encoder_phys_cmd_pp_rd_ptr_irq(void *arg, int irq_idx)
->>> +static void dpu_encoder_phys_cmd_te_rd_ptr_irq(void *arg, int irq_idx)
->>>    {
->>>    	struct dpu_encoder_phys *phys_enc = arg;
->>>    	struct dpu_encoder_phys_cmd *cmd_enc;
->>>    
->>> -	if (!phys_enc->hw_pp)
->>> +	if (!phys_enc->hw_pp || !phys_enc->hw_intf)
->>>    		return;
->>>    
->>>    	DPU_ATRACE_BEGIN("rd_ptr_irq");
->>> @@ -147,11 +147,19 @@ static void dpu_encoder_phys_cmd_atomic_mode_set(
->>>    		struct drm_crtc_state *crtc_state,
->>>    		struct drm_connector_state *conn_state)
->>>    {
->>> +	if (phys_enc->has_intf_te && !phys_enc->hw_intf) {
->>> +		DPU_ERROR("invalid intf configuration\n");
->>> +		return;
->>> +	}
->>> +
->>>    	phys_enc->irq[INTR_IDX_CTL_START] = phys_enc->hw_ctl->caps->intr_start;
->>>    
->>>    	phys_enc->irq[INTR_IDX_PINGPONG] = phys_enc->hw_pp->caps->intr_done;
->>>    
->>> -	phys_enc->irq[INTR_IDX_RDPTR] = phys_enc->hw_pp->caps->intr_rdptr;
->>> +	if (phys_enc->has_intf_te)
->>> +		phys_enc->irq[INTR_IDX_RDPTR] = phys_enc->hw_intf->cap->intr_tear_rd_ptr;
->>> +	else
->>> +		phys_enc->irq[INTR_IDX_RDPTR] = phys_enc->hw_pp->caps->intr_rdptr;
->>>    
->>>    	phys_enc->irq[INTR_IDX_UNDERRUN] = phys_enc->hw_intf->cap->intr_underrun;
->>>    }
->>> @@ -264,7 +272,7 @@ static int dpu_encoder_phys_cmd_control_vblank_irq(
->>>    	if (enable && atomic_inc_return(&phys_enc->vblank_refcount) == 1)
->>>    		ret = dpu_core_irq_register_callback(phys_enc->dpu_kms,
->>>    				phys_enc->irq[INTR_IDX_RDPTR],
->>> -				dpu_encoder_phys_cmd_pp_rd_ptr_irq,
->>> +				dpu_encoder_phys_cmd_te_rd_ptr_irq,
->>>    				phys_enc);
->>>    	else if (!enable && atomic_dec_return(&phys_enc->vblank_refcount) == 0)
->>>    		ret = dpu_core_irq_unregister_callback(phys_enc->dpu_kms,
-> 
-> Fwiw looks like this function is a prime candidate to get updated with
-> hw_intf information (in error checking and logging), as this callback is
-> now shared between PP and INTF.
-> 
->>> @@ -336,10 +344,18 @@ static void dpu_encoder_phys_cmd_tearcheck_config(
->>>    
->>>    	DPU_DEBUG_CMDENC(cmd_enc, "pp %d\n", phys_enc->hw_pp->idx - PINGPONG_0);
->>>    
->>> -	if (!phys_enc->hw_pp->ops.setup_tearcheck ||
->>> -		!phys_enc->hw_pp->ops.enable_tearcheck) {
->>> -		DPU_DEBUG_CMDENC(cmd_enc, "tearcheck not supported\n");
->>> -		return;
->>> +	if (phys_enc->has_intf_te) {
->>> +		if (!phys_enc->hw_intf->ops.setup_tearcheck ||
->>> +			!phys_enc->hw_intf->ops.enable_tearcheck) {
->>> +			DPU_DEBUG_CMDENC(cmd_enc, "tearcheck not supported\n");
->>> +			return;
->>> +		}
->>> +	} else {
->>> +		if (!phys_enc->hw_pp->ops.setup_tearcheck ||
->>> +			!phys_enc->hw_pp->ops.enable_tearcheck) {
->>> +			DPU_DEBUG_CMDENC(cmd_enc, "tearcheck not supported\n");
->>> +			return;
->>> +		}
->>>    	}
->>>    
->>>    	dpu_kms = phys_enc->dpu_kms;
->>> @@ -392,8 +408,13 @@ static void dpu_encoder_phys_cmd_tearcheck_config(
->>>    		phys_enc->hw_pp->idx - PINGPONG_0, tc_cfg.sync_cfg_height,
->>>    		tc_cfg.sync_threshold_start, tc_cfg.sync_threshold_continue);
->>>    
->>> -	phys_enc->hw_pp->ops.setup_tearcheck(phys_enc->hw_pp, &tc_cfg);
->>> -	phys_enc->hw_pp->ops.enable_tearcheck(phys_enc->hw_pp, tc_enable);
+>> Support loading A200 firmware generated from the iMX firmware header
+>> files. The firmware lacks protection support, however it allows GPU to
+>> function properly while using the firmware files with clear license
+>> which allows redistribution.
 >>
->> A simple random example: setup_tearcheck is always followed with the
->> enable_tearcheck. If we merge them, the code would be simpler.
+>> Cc: Jonathan Marek <jonathan@marek.ca>
+>> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+>> ---
+>>   drivers/gpu/drm/msm/adreno/a2xx_gpu.c | 27 +++++++++++++++++++++++----
+>>   drivers/gpu/drm/msm/adreno/a2xx_gpu.h |  1 +
+>>   2 files changed, 24 insertions(+), 4 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/msm/adreno/a2xx_gpu.c b/drivers/gpu/drm/msm/adreno/a2xx_gpu.c
+>> index 6c9a747eb4ad..c67089a7ebc1 100644
+>> --- a/drivers/gpu/drm/msm/adreno/a2xx_gpu.c
+>> +++ b/drivers/gpu/drm/msm/adreno/a2xx_gpu.c
+>> @@ -53,6 +53,8 @@ static void a2xx_submit(struct msm_gpu *gpu, struct msm_gem_submit *submit)
+>>
+>>   static bool a2xx_me_init(struct msm_gpu *gpu)
+>>   {
+>> +       struct adreno_gpu *adreno_gpu = to_adreno_gpu(gpu);
+>> +       struct a2xx_gpu *a2xx_gpu = to_a2xx_gpu(adreno_gpu);
+>>          struct msm_ringbuffer *ring = gpu->rb[0];
+>>
+>>          OUT_PKT3(ring, CP_ME_INIT, 18);
+>> @@ -84,15 +86,20 @@ static bool a2xx_me_init(struct msm_gpu *gpu)
+>>          /* NQ and External Memory Swap */
+>>          OUT_RING(ring, 0x00000000);
+>>          /* protected mode error checking (0x1f2 is REG_AXXX_CP_INT_CNTL) */
+>> -       OUT_RING(ring, 0x200001f2);
+>> +       if (a2xx_gpu->protection_disabled)
+>> +               OUT_RING(ring, 0x00000000);
+>> +       else
+>> +               OUT_RING(ring, 0x200001f2);
+>>          /* Disable header dumping and Header dump address */
+>>          OUT_RING(ring, 0x00000000);
+>>          /* Header dump size */
+>>          OUT_RING(ring, 0x00000000);
+>>
+>> -       /* enable protected mode */
+>> -       OUT_PKT3(ring, CP_SET_PROTECTED_MODE, 1);
+>> -       OUT_RING(ring, 1);
+>> +       if (!a2xx_gpu->protection_disabled) {
+>> +               /* enable protected mode */
+>> +               OUT_PKT3(ring, CP_SET_PROTECTED_MODE, 1);
+>> +               OUT_RING(ring, 1);
+>> +       }
+>>
+>>          adreno_flush(gpu, ring, REG_AXXX_CP_RB_WPTR);
+>>          return a2xx_idle(gpu);
+>> @@ -101,6 +108,7 @@ static bool a2xx_me_init(struct msm_gpu *gpu)
+>>   static int a2xx_hw_init(struct msm_gpu *gpu)
+>>   {
+>>          struct adreno_gpu *adreno_gpu = to_adreno_gpu(gpu);
+>> +       struct a2xx_gpu *a2xx_gpu = to_a2xx_gpu(adreno_gpu);
+>>          dma_addr_t pt_base, tran_error;
+>>          uint32_t *ptr, len;
+>>          int i, ret;
+>> @@ -221,6 +229,17 @@ static int a2xx_hw_init(struct msm_gpu *gpu)
+>>          len = adreno_gpu->fw[ADRENO_FW_PM4]->size / 4;
+>>          DBG("loading PM4 ucode version: %x", ptr[1]);
+>>
+>> +       /*
+>> +        * New firmware files seem to have GPU and firmware version in this
+>> +        * word (0x20xxxx for A200, 0x220xxx for A220, 0x225xxx for A225).
+>> +        * Older firmware files, which lack protection support, have 0 instead.
+>> +        */
+>> +       if (ptr[1] == 0) {
 > 
-> setup_tearcheck could include this functionality, but note that
-> dpu_encoder_phys_cmd_disable currently calls enable_tearcheck(false)
-> without setup_tearcheck.
+> I don't really have a good enough picture about all the possible fw
+> versions floating around out there, esp back to the pre-qc days, to
+> know if this is a good enough check.  But I guess we can go with it,
+> and in the worst case later add an allowlist table of fw checksums (or
+> similar) if this doesn't turn out to be sufficient, so the overall
+> approach isn't painting us into a corner.
+> 
+> Reviewed-by: Rob Clark <robdclark@gmail.com>
 
-Yes, so enable_tearcheck() and disable_tearcheck() sound more useful.
+For the reference. I have pushed existing redistributable firmware files 
+to https://github.com/lumag/yamato-firmware.git (I can move the repo to 
+some other location, e.g. to gitlab.fdo.org/msm if that's a better place).
+
+I've also sent a patch to linux-firmware, so at some point we should be 
+able to use a200 with the default setup.
 
 > 
-> - Marijn
-> 
->>> <snip>
+>> +               dev_warn(gpu->dev->dev,
+>> +                        "Legacy firmware detected, disabling protection support\n");
+>> +               a2xx_gpu->protection_disabled = true;
+>> +       }
+>> +
+>>          gpu_write(gpu, REG_AXXX_CP_DEBUG,
+>>                          AXXX_CP_DEBUG_MIU_128BIT_WRITE_ENABLE);
+>>          gpu_write(gpu, REG_AXXX_CP_ME_RAM_WADDR, 0);
+>> diff --git a/drivers/gpu/drm/msm/adreno/a2xx_gpu.h b/drivers/gpu/drm/msm/adreno/a2xx_gpu.h
+>> index 02fba2cb8932..161a075f94af 100644
+>> --- a/drivers/gpu/drm/msm/adreno/a2xx_gpu.h
+>> +++ b/drivers/gpu/drm/msm/adreno/a2xx_gpu.h
+>> @@ -15,6 +15,7 @@
+>>   struct a2xx_gpu {
+>>          struct adreno_gpu base;
+>>          bool pm_enabled;
+>> +       bool protection_disabled;
+>>   };
+>>   #define to_a2xx_gpu(x) container_of(x, struct a2xx_gpu, base)
+>>
+>> --
+>> 2.39.0
+>>
 
 -- 
 With best wishes
