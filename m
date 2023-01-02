@@ -1,78 +1,37 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8A41265AFF2
-	for <lists+freedreno@lfdr.de>; Mon,  2 Jan 2023 11:52:13 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 89AD265B044
+	for <lists+freedreno@lfdr.de>; Mon,  2 Jan 2023 12:06:19 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 557FD10E304;
-	Mon,  2 Jan 2023 10:52:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E6D0310E311;
+	Mon,  2 Jan 2023 11:06:17 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2187A10E304;
- Mon,  2 Jan 2023 10:52:10 +0000 (UTC)
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 3026HN3k029485; Mon, 2 Jan 2023 10:52:05 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
- h=message-id : date :
- mime-version : subject : to : cc : references : from : in-reply-to :
- content-type : content-transfer-encoding; s=qcppdkim1;
- bh=k9REcPPrfNLOnnRfbJEOwMzUHLTFcqDeBqHrIzrPZOs=;
- b=f5cr7ktYzDXoug42tSlpeFq45m4mqSb0GfrHrYMziVuoFUeQzh1w/eW26lBAF4nzqG51
- LDtlqQzFdWr8WTVnZS8EA8sHeK4PTZxyGVQqlQx6FZjZM6q+bdZQvzY648PSlh5bo9zd
- 9uZwZek2tX7jVyZaBwDXD1mtRogaOSUDHfbQXL8MenyoAMlmexRq0J+xKk7nVXrQncux
- OnU/w99OlVDTzA9PSXtdkoW9bzg3qoyO0qIjyZTrwIOju8ik64PRUGcCQhYGr8UBtFUL
- dbol51+Cm3Aqj/zoRYStmL7x1W5isBxrZIXDn20kyt6oamTrsUxGTZeIHjy/LkORdgN8 bA== 
-Received: from nalasppmta02.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3mtduqaman-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 02 Jan 2023 10:52:05 +0000
-Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
- [10.47.209.196])
- by NALASPPMTA02.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 302Aq4gx022354
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 2 Jan 2023 10:52:04 GMT
-Received: from [10.216.21.21] (10.80.80.8) by nalasex01a.na.qualcomm.com
- (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.36; Mon, 2 Jan 2023
- 02:51:58 -0800
-Message-ID: <442519fd-1bb7-1200-6b0f-97ddd5226411@quicinc.com>
-Date: Mon, 2 Jan 2023 16:21:55 +0530
+Received: from relay03.th.seeweb.it (relay03.th.seeweb.it [5.144.164.164])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 182D510E310
+ for <freedreno@lists.freedesktop.org>; Mon,  2 Jan 2023 11:06:15 +0000 (UTC)
+Received: from SoMainline.org (D57D4C6E.static.ziggozakelijk.nl
+ [213.125.76.110])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest
+ SHA256) (No client certificate requested)
+ by m-r1.th.seeweb.it (Postfix) with ESMTPSA id 5CEAF1F54F;
+ Mon,  2 Jan 2023 12:06:12 +0100 (CET)
+Date: Mon, 2 Jan 2023 12:06:11 +0100
+From: Marijn Suijten <marijn.suijten@somainline.org>
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Message-ID: <20230102110611.e3k36evk23ai35gg@SoMainline.org>
+References: <20221231215006.211860-1-marijn.suijten@somainline.org>
+ <20221231215006.211860-7-marijn.suijten@somainline.org>
+ <593cae1c-ade3-c68a-25d3-84ba1b968175@linaro.org>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.3.2
-Content-Language: en-US
-To: Konrad Dybcio <konrad.dybcio@linaro.org>, <linux-arm-msm@vger.kernel.org>, 
- <andersson@kernel.org>, <agross@kernel.org>,
- <krzysztof.kozlowski@linaro.org>
-References: <20230102100201.77286-1-konrad.dybcio@linaro.org>
-From: Akhil P Oommen <quic_akhilpo@quicinc.com>
-In-Reply-To: <20230102100201.77286-1-konrad.dybcio@linaro.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-GUID: eNSBRZwgmE1BbAY9QzFGp5PvshGW6Csy
-X-Proofpoint-ORIG-GUID: eNSBRZwgmE1BbAY9QzFGp5PvshGW6Csy
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.205,Aquarius:18.0.923,Hydra:6.0.545,FMLib:17.11.122.1
- definitions=2023-01-02_06,2022-12-30_01,2022-06-22_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0
- mlxlogscore=999 adultscore=0 malwarescore=0 priorityscore=1501 mlxscore=0
- spamscore=0 clxscore=1011 impostorscore=0 phishscore=0 bulkscore=0
- lowpriorityscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2212070000 definitions=main-2301020098
-Subject: Re: [Freedreno] [PATCH v2] drm/msm/adreno: Make adreno quirks not
- overwrite each other
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <593cae1c-ade3-c68a-25d3-84ba1b968175@linaro.org>
+Subject: Re: [Freedreno] [RFC PATCH 6/7] drm/msm/dpu: Implement tearcheck
+ support on INTF block
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -85,66 +44,234 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sean Paul <sean@poorly.run>, Jeffrey Hugo <jeffrey.l.hugo@gmail.com>,
- freedreno@lists.freedesktop.org, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- dri-devel@lists.freedesktop.org, Jordan Crouse <jordan@cosmicpenguin.net>,
- Rob Clark <robdclark@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, marijn.suijten@somainline.org,
- David Airlie <airlied@gmail.com>, linux-kernel@vger.kernel.org
+Cc: Konrad Dybcio <konrad.dybcio@somainline.org>,
+ dri-devel@lists.freedesktop.org,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@somainline.org>,
+ phone-devel@vger.kernel.org, David Airlie <airlied@gmail.com>,
+ Rob Clark <robdclark@gmail.com>, Kuogee Hsieh <quic_khsieh@quicinc.com>,
+ Jessica Zhang <quic_jesszhan@quicinc.com>, linux-arm-msm@vger.kernel.org,
+ Adam Skladowski <a39.skl@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Stephen Boyd <swboyd@chromium.org>, Martin Botka <martin.botka@somainline.org>,
+ ~postmarketos/upstreaming@lists.sr.ht, Sean Paul <sean@poorly.run>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Loic Poulain <loic.poulain@linaro.org>,
+ Jami Kettunen <jami.kettunen@somainline.org>,
+ Bjorn Andersson <andersson@kernel.org>, linux-kernel@vger.kernel.org,
+ Konrad Dybcio <konrad.dybcio@linaro.org>, Vinod Koul <vkoul@kernel.org>,
+ Daniel Vetter <daniel@ffwll.ch>, freedreno@lists.freedesktop.org,
+ Vinod Polimera <quic_vpolimer@quicinc.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 1/2/2023 3:32 PM, Konrad Dybcio wrote:
-> So far the adreno quirks have all been assigned with an OR operator,
-> which is problematic, because they were assigned consecutive integer
-> values, which makes checking them with an AND operator kind of no bueno..
->
-> Switch to using BIT(n) so that only the quirks that the programmer chose
-> are taken into account when evaluating info->quirks & ADRENO_QUIRK_...
->
-> Fixes: 370063ee427a ("drm/msm/adreno: Add A540 support")
-> Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> Reviewed-by: Marijn Suijten <marijn.suijten@somainline.org>
-> Reviewed-by: Rob Clark <robdclark@gmail.com>
-> Signed-off-by: Konrad Dybcio <konrad.dybcio@linaro.org>
-> ---
-> v1 -> v2:
-> - pick up tags
-> - correct the Fixes: tag
->
->  drivers/gpu/drm/msm/adreno/adreno_gpu.h | 10 ++++------
->  1 file changed, 4 insertions(+), 6 deletions(-)
->
-> diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.h b/drivers/gpu/drm/msm/adreno/adreno_gpu.h
-> index c85857c0a228..5eb254c9832a 100644
-> --- a/drivers/gpu/drm/msm/adreno/adreno_gpu.h
-> +++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.h
-> @@ -29,11 +29,9 @@ enum {
->  	ADRENO_FW_MAX,
->  };
->  
-> -enum adreno_quirks {
-> -	ADRENO_QUIRK_TWO_PASS_USE_WFI = 1,
-> -	ADRENO_QUIRK_FAULT_DETECT_MASK = 2,
-> -	ADRENO_QUIRK_LMLOADKILL_DISABLE = 3,
-> -};
-> +#define ADRENO_QUIRK_TWO_PASS_USE_WFI		BIT(0)
-> +#define ADRENO_QUIRK_FAULT_DETECT_MASK		BIT(1)
-> +#define ADRENO_QUIRK_LMLOADKILL_DISABLE		BIT(2)
->  
->  struct adreno_rev {
->  	uint8_t  core;
-> @@ -65,7 +63,7 @@ struct adreno_info {
->  	const char *name;
->  	const char *fw[ADRENO_FW_MAX];
->  	uint32_t gmem;
-> -	enum adreno_quirks quirks;
-> +	u64 quirks;
->  	struct msm_gpu *(*init)(struct drm_device *dev);
->  	const char *zapfw;
->  	u32 inactive_period;
+On 2023-01-01 15:32:11, Dmitry Baryshkov wrote:
+> On 31/12/2022 23:50, Marijn Suijten wrote:
+> > Since DPU 5.0.0 the TEARCHECK registers and interrupts moved out of the
+> > PINGPONG block and into the INTF.  Implement the necessary callbacks in
+> > the INTF block, and use these callbacks together with the INTF_TEAR
+> > interrupts
+> > 
+> > Signed-off-by: Marijn Suijten <marijn.suijten@somainline.org>
+> 
+> Generally I have the same question as for the patch 2. Can we have some 
+> higher level functions in the hw_pp and hw_intf files?
 
-Reviewed-by: Akhil P Oommen <quic_akhilpo@quicinc.com>
+That is mostly because patch 2 only cleaned up non-optional handling of
+hw_pp callbacks in dpu_encoder_phys_cmd_prepare_commit, which utilizes
+hw_intf's autorefresh callbacks since this patch.  I don't think there's
+any logic in the encoder currently that is unique to either PP or INTF?
 
+There are quite a few functions that check for NULL hw_pp only, while -
+especially after this patch - should also check hw_intf to raise
+"invalid encoder".  Should I extend those checks as well?
 
--Akhil.
+> Moreover, as I
+> review your patch I have the feeling that it would make sense to have to 
+> two sets of encoder callbacks, one for the hw_pp tearing handling and 
+> another set for hw_intf-based one.
+
+Do you mean to duplicate most phy_cmd functions and switch them based on
+has_intf_te in dpu_encoder_phys_cmd_init_ops?  Or introduce an entirely
+new set of callbacks that simply hide / abstract away the check on
+has_intf_te?  The former would duplicate a bunch of code unless that is
+abstracted away into other functions, mainly in
+dpu_encoder_phys_cmd_tearcheck_config and
+dpu_encoder_phys_cmd_prepare_commit.
+
+Alternatively, could we find a way where these PP and INTF ops share the
+same struct and function signature?  That might be tricky for passing in
+the hw_pp or hw_intf struct without leaking those details to the
+callback and/or have the switching logic in there.
+
+> > ---
+> >   drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c   |  11 +
+> >   .../gpu/drm/msm/disp/dpu1/dpu_encoder_phys.h  |  10 +-
+> >   .../drm/msm/disp/dpu1/dpu_encoder_phys_cmd.c  | 113 +++++++---
+> >   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.c   | 206 ++++++++++++++++++
+> >   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.h   |  29 +++
+> >   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_mdss.h   |   2 +
+> >   6 files changed, 340 insertions(+), 31 deletions(-)
+> > 
+> > diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+> > index 9c6817b5a194..8b9070220ab2 100644
+> > --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+> > +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+> > @@ -673,6 +673,7 @@ static void _dpu_encoder_update_vsync_source(struct dpu_encoder_virt *dpu_enc,
+> >   	struct dpu_kms *dpu_kms;
+> >   	struct dpu_hw_mdp *hw_mdptop;
+> >   	struct drm_encoder *drm_enc;
+> > +	struct dpu_encoder_phys *phys_enc;
+> >   	int i;
+> >   
+> >   	if (!dpu_enc || !disp_info) {
+> > @@ -703,12 +704,22 @@ static void _dpu_encoder_update_vsync_source(struct dpu_encoder_virt *dpu_enc,
+> >   			vsync_cfg.ppnumber[i] = dpu_enc->hw_pp[i]->idx;
+> >   
+> >   		vsync_cfg.pp_count = dpu_enc->num_phys_encs;
+> > +		vsync_cfg.frame_rate = drm_mode_vrefresh(&dpu_enc->base.crtc->state->adjusted_mode);
+> > +
+> >   		if (disp_info->is_te_using_watchdog_timer)
+> >   			vsync_cfg.vsync_source = DPU_VSYNC_SOURCE_WD_TIMER_0;
+> >   		else
+> >   			vsync_cfg.vsync_source = DPU_VSYNC0_SOURCE_GPIO;
+> >   
+> >   		hw_mdptop->ops.setup_vsync_source(hw_mdptop, &vsync_cfg);
+> > +
+> > +		for (i = 0; i < dpu_enc->num_phys_encs; i++) {
+> > +			phys_enc = dpu_enc->phys_encs[i];
+> > +
+> > +			if (phys_enc->has_intf_te && phys_enc->hw_intf->ops.vsync_sel)
+> > +				phys_enc->hw_intf->ops.vsync_sel(phys_enc->hw_intf,
+> > +						vsync_cfg.vsync_source);
+> > +		}
+> >   	}
+> >   }
+> >   
+> > diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys.h
+> > index f2af07d87f56..47e79401032c 100644
+> > --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys.h
+> > +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys.h
+> > @@ -148,10 +148,10 @@ struct dpu_encoder_phys_ops {
+> >   /**
+> >    * enum dpu_intr_idx - dpu encoder interrupt index
+> >    * @INTR_IDX_VSYNC:    Vsync interrupt for video mode panel
+> > - * @INTR_IDX_PINGPONG: Pingpong done unterrupt for cmd mode panel
+> > - * @INTR_IDX_UNDERRUN: Underrun unterrupt for video and cmd mode panel
+> > - * @INTR_IDX_RDPTR:    Readpointer done unterrupt for cmd mode panel
+> > - * @INTR_IDX_WB_DONE:  Writeback fone interrupt for virtual connector
+> > + * @INTR_IDX_PINGPONG: Pingpong done interrupt for cmd mode panel
+> > + * @INTR_IDX_UNDERRUN: Underrun interrupt for video and cmd mode panel
+> > + * @INTR_IDX_RDPTR:    Readpointer done interrupt for cmd mode panel
+> > + * @INTR_IDX_WB_DONE:  Writeback done interrupt for virtual connector
+> >    */
+> >   enum dpu_intr_idx {
+> >   	INTR_IDX_VSYNC,
+> > @@ -195,6 +195,7 @@ enum dpu_intr_idx {
+> >    *                              pending.
+> >    * @pending_kickoff_wq:		Wait queue for blocking until kickoff completes
+> >    * @irq:			IRQ indices
+> > + * @has_intf_te:		Interface TE configuration support
+> >    */
+> >   struct dpu_encoder_phys {
+> >   	struct drm_encoder *parent;
+> > @@ -220,6 +221,7 @@ struct dpu_encoder_phys {
+> >   	atomic_t pending_kickoff_cnt;
+> >   	wait_queue_head_t pending_kickoff_wq;
+> >   	int irq[INTR_IDX_MAX];
+> > +	bool has_intf_te;
+> >   };
+> >   
+> >   static inline int dpu_encoder_phys_inc_pending(struct dpu_encoder_phys *phys)
+> > diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_cmd.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_cmd.c
+> > index 7e5ba52197cd..ca44a8087f01 100644
+> > --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_cmd.c
+> > +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_cmd.c
+> > @@ -100,12 +100,12 @@ static void dpu_encoder_phys_cmd_pp_tx_done_irq(void *arg, int irq_idx)
+> >   	DPU_ATRACE_END("pp_done_irq");
+> >   }
+> >   
+> > -static void dpu_encoder_phys_cmd_pp_rd_ptr_irq(void *arg, int irq_idx)
+> > +static void dpu_encoder_phys_cmd_te_rd_ptr_irq(void *arg, int irq_idx)
+> >   {
+> >   	struct dpu_encoder_phys *phys_enc = arg;
+> >   	struct dpu_encoder_phys_cmd *cmd_enc;
+> >   
+> > -	if (!phys_enc->hw_pp)
+> > +	if (!phys_enc->hw_pp || !phys_enc->hw_intf)
+> >   		return;
+> >   
+> >   	DPU_ATRACE_BEGIN("rd_ptr_irq");
+> > @@ -147,11 +147,19 @@ static void dpu_encoder_phys_cmd_atomic_mode_set(
+> >   		struct drm_crtc_state *crtc_state,
+> >   		struct drm_connector_state *conn_state)
+> >   {
+> > +	if (phys_enc->has_intf_te && !phys_enc->hw_intf) {
+> > +		DPU_ERROR("invalid intf configuration\n");
+> > +		return;
+> > +	}
+> > +
+> >   	phys_enc->irq[INTR_IDX_CTL_START] = phys_enc->hw_ctl->caps->intr_start;
+> >   
+> >   	phys_enc->irq[INTR_IDX_PINGPONG] = phys_enc->hw_pp->caps->intr_done;
+> >   
+> > -	phys_enc->irq[INTR_IDX_RDPTR] = phys_enc->hw_pp->caps->intr_rdptr;
+> > +	if (phys_enc->has_intf_te)
+> > +		phys_enc->irq[INTR_IDX_RDPTR] = phys_enc->hw_intf->cap->intr_tear_rd_ptr;
+> > +	else
+> > +		phys_enc->irq[INTR_IDX_RDPTR] = phys_enc->hw_pp->caps->intr_rdptr;
+> >   
+> >   	phys_enc->irq[INTR_IDX_UNDERRUN] = phys_enc->hw_intf->cap->intr_underrun;
+> >   }
+> > @@ -264,7 +272,7 @@ static int dpu_encoder_phys_cmd_control_vblank_irq(
+> >   	if (enable && atomic_inc_return(&phys_enc->vblank_refcount) == 1)
+> >   		ret = dpu_core_irq_register_callback(phys_enc->dpu_kms,
+> >   				phys_enc->irq[INTR_IDX_RDPTR],
+> > -				dpu_encoder_phys_cmd_pp_rd_ptr_irq,
+> > +				dpu_encoder_phys_cmd_te_rd_ptr_irq,
+> >   				phys_enc);
+> >   	else if (!enable && atomic_dec_return(&phys_enc->vblank_refcount) == 0)
+> >   		ret = dpu_core_irq_unregister_callback(phys_enc->dpu_kms,
+
+Fwiw looks like this function is a prime candidate to get updated with
+hw_intf information (in error checking and logging), as this callback is
+now shared between PP and INTF.
+
+> > @@ -336,10 +344,18 @@ static void dpu_encoder_phys_cmd_tearcheck_config(
+> >   
+> >   	DPU_DEBUG_CMDENC(cmd_enc, "pp %d\n", phys_enc->hw_pp->idx - PINGPONG_0);
+> >   
+> > -	if (!phys_enc->hw_pp->ops.setup_tearcheck ||
+> > -		!phys_enc->hw_pp->ops.enable_tearcheck) {
+> > -		DPU_DEBUG_CMDENC(cmd_enc, "tearcheck not supported\n");
+> > -		return;
+> > +	if (phys_enc->has_intf_te) {
+> > +		if (!phys_enc->hw_intf->ops.setup_tearcheck ||
+> > +			!phys_enc->hw_intf->ops.enable_tearcheck) {
+> > +			DPU_DEBUG_CMDENC(cmd_enc, "tearcheck not supported\n");
+> > +			return;
+> > +		}
+> > +	} else {
+> > +		if (!phys_enc->hw_pp->ops.setup_tearcheck ||
+> > +			!phys_enc->hw_pp->ops.enable_tearcheck) {
+> > +			DPU_DEBUG_CMDENC(cmd_enc, "tearcheck not supported\n");
+> > +			return;
+> > +		}
+> >   	}
+> >   
+> >   	dpu_kms = phys_enc->dpu_kms;
+> > @@ -392,8 +408,13 @@ static void dpu_encoder_phys_cmd_tearcheck_config(
+> >   		phys_enc->hw_pp->idx - PINGPONG_0, tc_cfg.sync_cfg_height,
+> >   		tc_cfg.sync_threshold_start, tc_cfg.sync_threshold_continue);
+> >   
+> > -	phys_enc->hw_pp->ops.setup_tearcheck(phys_enc->hw_pp, &tc_cfg);
+> > -	phys_enc->hw_pp->ops.enable_tearcheck(phys_enc->hw_pp, tc_enable);
+> 
+> A simple random example: setup_tearcheck is always followed with the 
+> enable_tearcheck. If we merge them, the code would be simpler.
+
+setup_tearcheck could include this functionality, but note that
+dpu_encoder_phys_cmd_disable currently calls enable_tearcheck(false)
+without setup_tearcheck.
+
+- Marijn
+
+> > <snip>
