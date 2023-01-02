@@ -2,47 +2,61 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7C80765B414
-	for <lists+freedreno@lfdr.de>; Mon,  2 Jan 2023 16:21:51 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4BE0865B468
+	for <lists+freedreno@lfdr.de>; Mon,  2 Jan 2023 16:48:04 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0D0DB10E350;
-	Mon,  2 Jan 2023 15:21:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0A11210E359;
+	Mon,  2 Jan 2023 15:47:53 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from metis.ext.pengutronix.de (metis.ext.pengutronix.de
- [IPv6:2001:67c:670:201:290:27ff:fe1d:cc33])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 36FA010E34F
- for <freedreno@lists.freedesktop.org>; Mon,  2 Jan 2023 15:21:47 +0000 (UTC)
-Received: from ptx.hi.pengutronix.de ([2001:67c:670:100:1d::c0])
- by metis.ext.pengutronix.de with esmtps
- (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
- (envelope-from <pza@pengutronix.de>)
- id 1pCMdF-0005jz-F4; Mon, 02 Jan 2023 16:21:45 +0100
-Received: from pza by ptx.hi.pengutronix.de with local (Exim 4.92)
- (envelope-from <pza@pengutronix.de>)
- id 1pCMdB-0007uo-Tn; Mon, 02 Jan 2023 16:21:41 +0100
-Date: Mon, 2 Jan 2023 16:21:41 +0100
-From: Philipp Zabel <p.zabel@pengutronix.de>
-To: Akhil P Oommen <quic_akhilpo@quicinc.com>
-Message-ID: <20230102152141.GA30338@pengutronix.de>
-References: <1672656511-1931-1-git-send-email-quic_akhilpo@quicinc.com>
- <20230102161757.v5.4.I96e0bf9eaf96dd866111c1eec8a4c9b70fd7cbcb@changeid>
+Received: from mail-lj1-x22b.google.com (mail-lj1-x22b.google.com
+ [IPv6:2a00:1450:4864:20::22b])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 07C7510E359
+ for <freedreno@lists.freedesktop.org>; Mon,  2 Jan 2023 15:47:51 +0000 (UTC)
+Received: by mail-lj1-x22b.google.com with SMTP id q2so29348349ljp.6
+ for <freedreno@lists.freedesktop.org>; Mon, 02 Jan 2023 07:47:50 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=3X4rS6IqtlOWNA27c1QwOJm/MJFS9Uk/57wqKVZrpek=;
+ b=N+vnpILuMrT0941oMT9dsnWm26ZvY0h2Ue2PZa4+OkRbPGzxg+lTGa4nI/QBvIq7XE
+ tCBjfLCBSagUHy6ofRTiBBPSUiRuzY8xcozAIEiKaEDhg/xjihrcfEupn7fBMpX6vafd
+ eflB+MjIPWIAR6SiKAczsjL5rWA5LGqaxAdWtsn4fAMpBfTEgoQUpDmAveUFiwCup0wB
+ AnOJdUy73yz07sCh7hs40LlmZNc9+WUmADN0uTL/o1+ViJjpjkoFTf72xKKPoeXqSwb+
+ 1+Z0vWrCRWg03haw1vxJag5Q6tCphNyjADt6T7eNGOEMIvUoAZVBk/9qNu/JG/3bt//3
+ s2mg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=3X4rS6IqtlOWNA27c1QwOJm/MJFS9Uk/57wqKVZrpek=;
+ b=Rpdh900H3XpH3ncZQ+lIHUSElCLI87Px7Lv5LphE1/yEqMNFdsU1TWkWEFxwn6D8N0
+ cX1fkZ5iGKZQAB5pTvh0+nHDTi5vs68lMe3h4g3n7zUJ4GSXzBFlNujbbraYe5FEiklE
+ zlcaFmHRbSKNOYCtuWSOybTDwtQtZELQ3mzKkPUJ+XzgFUIB4m9CGKQoN53+pfsITa24
+ e1kcDiL2W0f3SCU2RvY1rv77oIYevnG0nU0yIdZnA9/giRtwvysmE8iSKGqMA7MIqavc
+ CMVZ4Ld+wwOkZumpGYakaJ55VKC6cIhgwrhOlCuC9p1BEPa57urFD0srWwjFuFW8lZLI
+ XJFQ==
+X-Gm-Message-State: AFqh2krH+gcUDnH0QM1Ar0tA+X/DKXWt7SsbZ9ZG+WnEhfmC4Bw6Kbgi
+ AgQ8to+wkVWv4x0Zud6ahM5MoA==
+X-Google-Smtp-Source: AMrXdXs3K7FUqD1uVevHvgnPfDqHLT7siin2aHJwBI/y4nWkIxWRXtrwGfuSe38tGQZtF3WPM7nJvA==
+X-Received: by 2002:a05:651c:149:b0:27f:f268:d737 with SMTP id
+ c9-20020a05651c014900b0027ff268d737mr919095ljd.40.1672674469263; 
+ Mon, 02 Jan 2023 07:47:49 -0800 (PST)
+Received: from eriador.lan (dzccz6yyyyyyyyyyybcwt-3.rev.dnainternet.fi.
+ [2001:14ba:a085:4d00::8a5]) by smtp.gmail.com with ESMTPSA id
+ s24-20020a2eb638000000b00279cbcfd7dbsm3290054ljn.30.2023.01.02.07.47.48
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 02 Jan 2023 07:47:48 -0800 (PST)
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+To: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>
+Date: Mon,  2 Jan 2023 17:47:47 +0200
+Message-Id: <20230102154748.951328-1-dmitry.baryshkov@linaro.org>
+X-Mailer: git-send-email 2.39.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20230102161757.v5.4.I96e0bf9eaf96dd866111c1eec8a4c9b70fd7cbcb@changeid>
-X-Sent-From: Pengutronix Hildesheim
-X-URL: http://www.pengutronix.de/
-X-Accept-Language: de,en
-X-Accept-Content-Type: text/plain
-User-Agent: Mutt/1.10.1 (2018-07-13)
-X-SA-Exim-Connect-IP: 2001:67c:670:100:1d::c0
-X-SA-Exim-Mail-From: pza@pengutronix.de
-X-SA-Exim-Scanned: No (on metis.ext.pengutronix.de);
- SAEximRunCond expanded to false
-X-PTX-Original-Recipient: freedreno@lists.freedesktop.org
-Subject: Re: [Freedreno] [PATCH v5 4/5] drm/msm/a6xx: Remove cx gdsc polling
- using 'reset'
+Content-Transfer-Encoding: 8bit
+Subject: [Freedreno] [PATCH 1/2] drm/msm/dpu: remove dpu_encoder_virt_ops
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,32 +69,305 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sean Paul <sean@poorly.run>, Ulf Hansson <ulf.hansson@linaro.org>,
- Stephen Boyd <sboyd@kernel.org>, linux-arm-msm@vger.kernel.org,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konrad.dybcio@somainline.org>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
- Douglas Anderson <dianders@chromium.org>, Rob Clark <robdclark@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- David Airlie <airlied@gmail.com>, freedreno <freedreno@lists.freedesktop.org>,
- Chia-I Wu <olvaffe@gmail.com>, linux-kernel@vger.kernel.org
+Cc: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
+ Bjorn Andersson <andersson@kernel.org>, dri-devel@lists.freedesktop.org,
+ Stephen Boyd <swboyd@chromium.org>, Daniel Vetter <daniel@ffwll.ch>,
+ David Airlie <airlied@gmail.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Mon, Jan 02, 2023 at 04:18:30PM +0530, Akhil P Oommen wrote:
-> Remove the unused 'reset' interface which was supposed to help to ensure
-> that cx gdsc has collapsed during gpu recovery. This is was not enabled
-> so far due to missing gpucc driver support. Similar functionality using
-> genpd framework will be implemented in the upcoming patch.
-> 
-> This effectively reverts commit 1f6cca404918
-> ("drm/msm/a6xx: Ensure CX collapse during gpu recovery").
-> 
-> Signed-off-by: Akhil P Oommen <quic_akhilpo@quicinc.com>
-> Reviewed-by: Ulf Hansson <ulf.hansson@linaro.org>
+Struct dpu_encoder_virt_ops is used to provide several callbacks to the
+phys_enc backends. However these ops are static and are not supposed to
+change in the foreseeble future. Drop the indirection and call
+corresponding functions directly.
 
-Reviewed-by: Philipp Zabel <p.zabel@pengutronix.de>
+Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+---
+ drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c   | 17 ++-----
+ .../gpu/drm/msm/disp/dpu1/dpu_encoder_phys.h  | 47 ++++++++++---------
+ .../drm/msm/disp/dpu1/dpu_encoder_phys_cmd.c  | 17 ++-----
+ .../drm/msm/disp/dpu1/dpu_encoder_phys_vid.c  | 11 ++---
+ .../drm/msm/disp/dpu1/dpu_encoder_phys_wb.c   | 13 ++---
+ 5 files changed, 40 insertions(+), 65 deletions(-)
 
-regards
-Philipp
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+index 9c6817b5a194..84f8c8a1b049 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+@@ -340,9 +340,7 @@ void dpu_encoder_helper_report_irq_timeout(struct dpu_encoder_phys *phys_enc,
+ 			phys_enc->intf_idx - INTF_0, phys_enc->wb_idx - WB_0,
+ 			phys_enc->hw_pp->idx - PINGPONG_0, intr_idx);
+ 
+-	if (phys_enc->parent_ops->handle_frame_done)
+-		phys_enc->parent_ops->handle_frame_done(
+-				phys_enc->parent, phys_enc,
++	dpu_encoder_frame_done_callback(phys_enc->parent, phys_enc,
+ 				DPU_ENCODER_FRAME_EVENT_ERROR);
+ }
+ 
+@@ -1284,7 +1282,7 @@ static enum dpu_wb dpu_encoder_get_wb(const struct dpu_mdss_cfg *catalog,
+ 	return WB_MAX;
+ }
+ 
+-static void dpu_encoder_vblank_callback(struct drm_encoder *drm_enc,
++void dpu_encoder_vblank_callback(struct drm_encoder *drm_enc,
+ 		struct dpu_encoder_phys *phy_enc)
+ {
+ 	struct dpu_encoder_virt *dpu_enc = NULL;
+@@ -1306,7 +1304,7 @@ static void dpu_encoder_vblank_callback(struct drm_encoder *drm_enc,
+ 	DPU_ATRACE_END("encoder_vblank_callback");
+ }
+ 
+-static void dpu_encoder_underrun_callback(struct drm_encoder *drm_enc,
++void dpu_encoder_underrun_callback(struct drm_encoder *drm_enc,
+ 		struct dpu_encoder_phys *phy_enc)
+ {
+ 	if (!phy_enc)
+@@ -1382,7 +1380,7 @@ void dpu_encoder_register_frame_event_callback(struct drm_encoder *drm_enc,
+ 	spin_unlock_irqrestore(&dpu_enc->enc_spinlock, lock_flags);
+ }
+ 
+-static void dpu_encoder_frame_done_callback(
++void dpu_encoder_frame_done_callback(
+ 		struct drm_encoder *drm_enc,
+ 		struct dpu_encoder_phys *ready_phys, u32 event)
+ {
+@@ -2233,12 +2231,6 @@ static int dpu_encoder_virt_add_phys_encs(
+ 	return 0;
+ }
+ 
+-static const struct dpu_encoder_virt_ops dpu_encoder_parent_ops = {
+-	.handle_vblank_virt = dpu_encoder_vblank_callback,
+-	.handle_underrun_virt = dpu_encoder_underrun_callback,
+-	.handle_frame_done = dpu_encoder_frame_done_callback,
+-};
+-
+ static int dpu_encoder_setup_display(struct dpu_encoder_virt *dpu_enc,
+ 				 struct dpu_kms *dpu_kms,
+ 				 struct msm_display_info *disp_info)
+@@ -2258,7 +2250,6 @@ static int dpu_encoder_setup_display(struct dpu_encoder_virt *dpu_enc,
+ 	memset(&phys_params, 0, sizeof(phys_params));
+ 	phys_params.dpu_kms = dpu_kms;
+ 	phys_params.parent = &dpu_enc->base;
+-	phys_params.parent_ops = &dpu_encoder_parent_ops;
+ 	phys_params.enc_spinlock = &dpu_enc->enc_spinlock;
+ 
+ 	switch (disp_info->intf_type) {
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys.h
+index f2af07d87f56..1d434b22180d 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys.h
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys.h
+@@ -60,25 +60,6 @@ enum dpu_enc_enable_state {
+ 
+ struct dpu_encoder_phys;
+ 
+-/**
+- * struct dpu_encoder_virt_ops - Interface the containing virtual encoder
+- *	provides for the physical encoders to use to callback.
+- * @handle_vblank_virt:	Notify virtual encoder of vblank IRQ reception
+- *			Note: This is called from IRQ handler context.
+- * @handle_underrun_virt: Notify virtual encoder of underrun IRQ reception
+- *			Note: This is called from IRQ handler context.
+- * @handle_frame_done:	Notify virtual encoder that this phys encoder
+- *			completes last request frame.
+- */
+-struct dpu_encoder_virt_ops {
+-	void (*handle_vblank_virt)(struct drm_encoder *,
+-			struct dpu_encoder_phys *phys);
+-	void (*handle_underrun_virt)(struct drm_encoder *,
+-			struct dpu_encoder_phys *phys);
+-	void (*handle_frame_done)(struct drm_encoder *,
+-			struct dpu_encoder_phys *phys, u32 event);
+-};
+-
+ /**
+  * struct dpu_encoder_phys_ops - Interface the physical encoders provide to
+  *	the containing virtual encoder.
+@@ -199,7 +180,6 @@ enum dpu_intr_idx {
+ struct dpu_encoder_phys {
+ 	struct drm_encoder *parent;
+ 	struct dpu_encoder_phys_ops ops;
+-	const struct dpu_encoder_virt_ops *parent_ops;
+ 	struct dpu_hw_mdp *hw_mdptop;
+ 	struct dpu_hw_ctl *hw_ctl;
+ 	struct dpu_hw_pingpong *hw_pp;
+@@ -283,7 +263,6 @@ struct dpu_encoder_phys_cmd {
+ struct dpu_enc_phys_init_params {
+ 	struct dpu_kms *dpu_kms;
+ 	struct drm_encoder *parent;
+-	const struct dpu_encoder_virt_ops *parent_ops;
+ 	enum dpu_enc_split_role split_role;
+ 	enum dpu_intf intf_idx;
+ 	enum dpu_wb wb_idx;
+@@ -400,4 +379,30 @@ int dpu_encoder_helper_wait_for_irq(struct dpu_encoder_phys *phys_enc,
+  */
+ void dpu_encoder_helper_phys_cleanup(struct dpu_encoder_phys *phys_enc);
+ 
++/**
++ * dpu_encoder_vblank_callback - Notify virtual encoder of vblank IRQ reception
++ * @drm_enc:    Pointer to drm encoder structure
++ * @phys_enc:	Pointer to physical encoder
++ * Note: This is called from IRQ handler context.
++ */
++void dpu_encoder_vblank_callback(struct drm_encoder *drm_enc,
++				 struct dpu_encoder_phys *phy_enc);
++
++/** dpu_encoder_underrun_callback - Notify virtual encoder of underrun IRQ reception
++ * @drm_enc:    Pointer to drm encoder structure
++ * @phys_enc:	Pointer to physical encoder
++ * Note: This is called from IRQ handler context.
++ */
++void dpu_encoder_underrun_callback(struct drm_encoder *drm_enc,
++				   struct dpu_encoder_phys *phy_enc);
++
++/** dpu_encoder_frame_done_callback -- Notify virtual encoder that this phys encoder completes last request frame
++ * @drm_enc:    Pointer to drm encoder structure
++ * @phys_enc:	Pointer to physical encoder
++ * @event:	Event to process
++ */
++void dpu_encoder_frame_done_callback(
++		struct drm_encoder *drm_enc,
++		struct dpu_encoder_phys *ready_phys, u32 event);
++
+ #endif /* __dpu_encoder_phys_H__ */
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_cmd.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_cmd.c
+index ae28b2b93e69..41bd7dd2b482 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_cmd.c
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_cmd.c
+@@ -83,9 +83,7 @@ static void dpu_encoder_phys_cmd_pp_tx_done_irq(void *arg, int irq_idx)
+ 
+ 	DPU_ATRACE_BEGIN("pp_done_irq");
+ 	/* notify all synchronous clients first, then asynchronous clients */
+-	if (phys_enc->parent_ops->handle_frame_done)
+-		phys_enc->parent_ops->handle_frame_done(phys_enc->parent,
+-				phys_enc, event);
++	dpu_encoder_frame_done_callback(phys_enc->parent, phys_enc, event);
+ 
+ 	spin_lock_irqsave(phys_enc->enc_spinlock, lock_flags);
+ 	new_cnt = atomic_add_unless(&phys_enc->pending_kickoff_cnt, -1, 0);
+@@ -111,9 +109,7 @@ static void dpu_encoder_phys_cmd_pp_rd_ptr_irq(void *arg, int irq_idx)
+ 	DPU_ATRACE_BEGIN("rd_ptr_irq");
+ 	cmd_enc = to_dpu_encoder_phys_cmd(phys_enc);
+ 
+-	if (phys_enc->parent_ops->handle_vblank_virt)
+-		phys_enc->parent_ops->handle_vblank_virt(phys_enc->parent,
+-			phys_enc);
++	dpu_encoder_vblank_callback(phys_enc->parent, phys_enc);
+ 
+ 	atomic_add_unless(&cmd_enc->pending_vblank_cnt, -1, 0);
+ 	wake_up_all(&cmd_enc->pending_vblank_wq);
+@@ -137,9 +133,7 @@ static void dpu_encoder_phys_cmd_underrun_irq(void *arg, int irq_idx)
+ {
+ 	struct dpu_encoder_phys *phys_enc = arg;
+ 
+-	if (phys_enc->parent_ops->handle_underrun_virt)
+-		phys_enc->parent_ops->handle_underrun_virt(phys_enc->parent,
+-			phys_enc);
++	dpu_encoder_underrun_callback(phys_enc->parent, phys_enc);
+ }
+ 
+ static void dpu_encoder_phys_cmd_atomic_mode_set(
+@@ -202,9 +196,7 @@ static int _dpu_encoder_phys_cmd_handle_ppdone_timeout(
+ 	/* request a ctl reset before the next kickoff */
+ 	phys_enc->enable_state = DPU_ENC_ERR_NEEDS_HW_RESET;
+ 
+-	if (phys_enc->parent_ops->handle_frame_done)
+-		phys_enc->parent_ops->handle_frame_done(
+-				drm_enc, phys_enc, frame_event);
++	dpu_encoder_frame_done_callback(phys_enc->parent, phys_enc, frame_event);
+ 
+ 	return -ETIMEDOUT;
+ }
+@@ -780,7 +772,6 @@ struct dpu_encoder_phys *dpu_encoder_phys_cmd_init(
+ 
+ 	dpu_encoder_phys_cmd_init_ops(&phys_enc->ops);
+ 	phys_enc->parent = p->parent;
+-	phys_enc->parent_ops = p->parent_ops;
+ 	phys_enc->dpu_kms = p->dpu_kms;
+ 	phys_enc->split_role = p->split_role;
+ 	phys_enc->intf_mode = INTF_MODE_CMD;
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_vid.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_vid.c
+index 0f71e8fe7be7..39ca1b305114 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_vid.c
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_vid.c
+@@ -308,9 +308,7 @@ static void dpu_encoder_phys_vid_vblank_irq(void *arg, int irq_idx)
+ 
+ 	DPU_ATRACE_BEGIN("vblank_irq");
+ 
+-	if (phys_enc->parent_ops->handle_vblank_virt)
+-		phys_enc->parent_ops->handle_vblank_virt(phys_enc->parent,
+-				phys_enc);
++	dpu_encoder_vblank_callback(phys_enc->parent, phys_enc);
+ 
+ 	atomic_read(&phys_enc->pending_kickoff_cnt);
+ 
+@@ -330,7 +328,7 @@ static void dpu_encoder_phys_vid_vblank_irq(void *arg, int irq_idx)
+ 	/* Signal any waiting atomic commit thread */
+ 	wake_up_all(&phys_enc->pending_kickoff_wq);
+ 
+-	phys_enc->parent_ops->handle_frame_done(phys_enc->parent, phys_enc,
++	dpu_encoder_frame_done_callback(phys_enc->parent, phys_enc,
+ 			DPU_ENCODER_FRAME_EVENT_DONE);
+ 
+ 	DPU_ATRACE_END("vblank_irq");
+@@ -340,9 +338,7 @@ static void dpu_encoder_phys_vid_underrun_irq(void *arg, int irq_idx)
+ {
+ 	struct dpu_encoder_phys *phys_enc = arg;
+ 
+-	if (phys_enc->parent_ops->handle_underrun_virt)
+-		phys_enc->parent_ops->handle_underrun_virt(phys_enc->parent,
+-			phys_enc);
++	dpu_encoder_underrun_callback(phys_enc->parent, phys_enc);
+ }
+ 
+ static bool dpu_encoder_phys_vid_needs_single_flush(
+@@ -700,7 +696,6 @@ struct dpu_encoder_phys *dpu_encoder_phys_vid_init(
+ 
+ 	dpu_encoder_phys_vid_init_ops(&phys_enc->ops);
+ 	phys_enc->parent = p->parent;
+-	phys_enc->parent_ops = p->parent_ops;
+ 	phys_enc->dpu_kms = p->dpu_kms;
+ 	phys_enc->split_role = p->split_role;
+ 	phys_enc->intf_mode = INTF_MODE_VIDEO;
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_wb.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_wb.c
+index 7cbcef6efe17..c5146b6477d6 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_wb.c
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_wb.c
+@@ -365,13 +365,9 @@ static void _dpu_encoder_phys_wb_frame_done_helper(void *arg)
+ 
+ 	DPU_DEBUG("[wb:%d]\n", hw_wb->idx - WB_0);
+ 
+-	if (phys_enc->parent_ops->handle_frame_done)
+-		phys_enc->parent_ops->handle_frame_done(phys_enc->parent,
+-				phys_enc, event);
++	dpu_encoder_frame_done_callback(phys_enc->parent, phys_enc, event);
+ 
+-	if (phys_enc->parent_ops->handle_vblank_virt)
+-		phys_enc->parent_ops->handle_vblank_virt(phys_enc->parent,
+-				phys_enc);
++	dpu_encoder_vblank_callback(phys_enc->parent, phys_enc);
+ 
+ 	spin_lock_irqsave(phys_enc->enc_spinlock, lock_flags);
+ 	atomic_add_unless(&phys_enc->pending_kickoff_cnt, -1, 0);
+@@ -441,9 +437,7 @@ static void _dpu_encoder_phys_wb_handle_wbdone_timeout(
+ 	if (wb_enc->wb_conn)
+ 		drm_writeback_signal_completion(wb_enc->wb_conn, 0);
+ 
+-	if (phys_enc->parent_ops->handle_frame_done)
+-		phys_enc->parent_ops->handle_frame_done(
+-				phys_enc->parent, phys_enc, frame_event);
++	dpu_encoder_frame_done_callback(phys_enc->parent, phys_enc, frame_event);
+ }
+ 
+ /**
+@@ -723,7 +717,6 @@ struct dpu_encoder_phys *dpu_encoder_phys_wb_init(
+ 
+ 	dpu_encoder_phys_wb_init_ops(&phys_enc->ops);
+ 	phys_enc->parent = p->parent;
+-	phys_enc->parent_ops = p->parent_ops;
+ 	phys_enc->dpu_kms = p->dpu_kms;
+ 	phys_enc->split_role = p->split_role;
+ 	phys_enc->intf_mode = INTF_MODE_WB_LINE;
+-- 
+2.39.0
+
