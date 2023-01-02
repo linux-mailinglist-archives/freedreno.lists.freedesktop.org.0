@@ -1,37 +1,73 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0714365AFA7
-	for <lists+freedreno@lfdr.de>; Mon,  2 Jan 2023 11:38:47 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 4F00465AFC6
+	for <lists+freedreno@lfdr.de>; Mon,  2 Jan 2023 11:49:13 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AC00810E2FD;
-	Mon,  2 Jan 2023 10:38:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B6C9510E302;
+	Mon,  2 Jan 2023 10:49:02 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from relay05.th.seeweb.it (relay05.th.seeweb.it [5.144.164.166])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E977F10E2F7
- for <freedreno@lists.freedesktop.org>; Mon,  2 Jan 2023 10:38:38 +0000 (UTC)
-Received: from SoMainline.org (D57D4C6E.static.ziggozakelijk.nl
- [213.125.76.110])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest
- SHA256) (No client certificate requested)
- by m-r2.th.seeweb.it (Postfix) with ESMTPSA id 3B1ED3EE8C;
- Mon,  2 Jan 2023 11:38:36 +0100 (CET)
-Date: Mon, 2 Jan 2023 11:38:34 +0100
-From: Marijn Suijten <marijn.suijten@somainline.org>
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Message-ID: <20230102103834.v37rv7i72sysruko@SoMainline.org>
-References: <20221231215006.211860-1-marijn.suijten@somainline.org>
- <20221231215006.211860-6-marijn.suijten@somainline.org>
- <ccd35acf-15b5-91c7-606a-b327229cb255@linaro.org>
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5B2CA10E2F3;
+ Mon,  2 Jan 2023 10:49:00 +0000 (UTC)
+Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 302AAvrD012099; Mon, 2 Jan 2023 10:48:51 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
+ h=from : to : cc :
+ subject : date : message-id : mime-version : content-type; s=qcppdkim1;
+ bh=RSf8P3pVo0pQ3dKKyoCr9K8iN7clmptkqL8x8ilOuQk=;
+ b=bSfhQs7Nwy6pULR2796STV+GUkaHZhgGYuDWmlftjVtHvy02+x6NJv1hrvip3o2MLf14
+ 6oP5OL/5trRww1mu9bKTA4jmRuRfbM7peLUpVZ/Kji3K35SH0YZYrtO0t8f8TOVxBKPh
+ 4/kYOkaiRvSLlTcSDNk/o21kV0vKqofbY/70IRnDQFTR6+vNMaVIhk5nf+QTDJsgCkA3
+ q9qMkkKsE8N1WwIg9jqWuyRlhSjuXKBADx3/60zwFHSjZB5Ac9bVm6Bt8kTRNUtWFT2A
+ n7S/e61UjwoRpd/8EAiicGSuPZzuPbTRRqofcayshjnzOiYcVBaDanuzQi1l63txT0WB dw== 
+Received: from nalasppmta03.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3mtcdsjwxa-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 02 Jan 2023 10:48:50 +0000
+Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
+ [10.47.209.196])
+ by NALASPPMTA03.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 302AmnDE012583
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 2 Jan 2023 10:48:49 GMT
+Received: from hyd-lnxbld559.qualcomm.com (10.80.80.8) by
+ nalasex01a.na.qualcomm.com (10.47.209.196) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.986.36; Mon, 2 Jan 2023 02:48:40 -0800
+From: Akhil P Oommen <quic_akhilpo@quicinc.com>
+To: freedreno <freedreno@lists.freedesktop.org>,
+ <dri-devel@lists.freedesktop.org>, <linux-arm-msm@vger.kernel.org>,
+ Rob Clark <robdclark@gmail.com>, Ulf Hansson <ulf.hansson@linaro.org>,
+ Bjorn Andersson <andersson@kernel.org>, Stephen Boyd <sboyd@kernel.org>,
+ Philipp Zabel <p.zabel@pengutronix.de>
+Date: Mon, 2 Jan 2023 16:18:26 +0530
+Message-ID: <1672656511-1931-1-git-send-email-quic_akhilpo@quicinc.com>
+X-Mailer: git-send-email 2.7.4
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <ccd35acf-15b5-91c7-606a-b327229cb255@linaro.org>
-Subject: Re: [Freedreno] [RFC PATCH 5/7] drm/msm/dpu: Document and enable
- TEAR interrupts on DSI interfaces
+Content-Type: text/plain
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-ORIG-GUID: jSLXBoal9ABZNoKgyxYqjiPhCZZiQZoA
+X-Proofpoint-GUID: jSLXBoal9ABZNoKgyxYqjiPhCZZiQZoA
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.205,Aquarius:18.0.923,Hydra:6.0.545,FMLib:17.11.122.1
+ definitions=2023-01-02_06,2022-12-30_01,2022-06-22_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501
+ lowpriorityscore=0 bulkscore=0 mlxlogscore=974 phishscore=0 suspectscore=0
+ spamscore=0 adultscore=0 mlxscore=0 malwarescore=0 impostorscore=0
+ clxscore=1015 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2212070000 definitions=main-2301020098
+Subject: [Freedreno] [PATCH v5 0/5] Improve GPU reset sequence for Adreno GPU
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -44,59 +80,73 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Konrad Dybcio <konrad.dybcio@somainline.org>,
- dri-devel@lists.freedesktop.org,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@somainline.org>,
- phone-devel@vger.kernel.org, David Airlie <airlied@gmail.com>,
- Rob Clark <robdclark@gmail.com>, Kuogee Hsieh <quic_khsieh@quicinc.com>,
- Jessica Zhang <quic_jesszhan@quicinc.com>, linux-arm-msm@vger.kernel.org,
- Adam Skladowski <a39.skl@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Stephen Boyd <swboyd@chromium.org>, Martin Botka <martin.botka@somainline.org>,
- ~postmarketos/upstreaming@lists.sr.ht, Sean Paul <sean@poorly.run>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Loic Poulain <loic.poulain@linaro.org>,
- Jami Kettunen <jami.kettunen@somainline.org>,
- Bjorn Andersson <andersson@kernel.org>, linux-kernel@vger.kernel.org,
- Konrad Dybcio <konrad.dybcio@linaro.org>, Vinod Koul <vkoul@kernel.org>,
- Daniel Vetter <daniel@ffwll.ch>, freedreno@lists.freedesktop.org,
- Vinod Polimera <quic_vpolimer@quicinc.com>
+Cc: "Rafael J. Wysocki" <rafael@kernel.org>,
+ Akhil P Oommen <quic_akhilpo@quicinc.com>,
+ Michael Turquette <mturquette@baylibre.com>,
+ Konrad Dybcio <konrad.dybcio@somainline.org>, Douglas
+ Anderson <dianders@chromium.org>, Pavel Machek <pavel@ucw.cz>,
+ David Airlie <airlied@gmail.com>, linux-clk@vger.kernel.org,
+ Kevin Hilman <khilman@kernel.org>, Andy Gross <agross@kernel.org>,
+ Geert Uytterhoeven <geert@linux-m68k.org>, Chia-I Wu <olvaffe@gmail.com>,
+ Guenter Roeck <linux@roeck-us.net>, Len Brown <len.brown@intel.com>,
+ linux-pm@vger.kernel.org, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Sean Paul <sean@poorly.run>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ linux-kernel@vger.kernel.org, Konrad Dybcio <konrad.dybcio@linaro.org>,
+ Daniel Vetter <daniel@ffwll.ch>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 2023-01-01 15:12:35, Dmitry Baryshkov wrote:
-> On 31/12/2022 23:50, Marijn Suijten wrote:
-> > <snip>
-> > -#define INTF_BLK(_name, _id, _base, _type, _ctrl_id, _progfetch, _features, _reg, _underrun_bit, _vsync_bit) \
-> > +#define INTF_BLK(_name, _id, _base, _len, _type, _ctrl_id, _progfetch, _features, _reg, _underrun_bit, _vsync_bit, _tear_reg, _tear_rd_ptr_bit) \
-> >   	{\
-> >   	.name = _name, .id = _id, \
-> > -	.base = _base, .len = 0x280, \
-> > +	.base = _base, .len = _len, \
-> 
-> Please move .len setting to a separate patch, it is not direclty related 
-> to tear interrupt addition.
 
-It is directly related in that the TE registers reside in the extra
-space beyond 0x280, but I can surely make that explicit in a separate
-patch.
+This is a rework of [1] using genpd instead of 'reset' framework.
 
-> >   	.features = _features, \
-> >   	.type = _type, \
-> >   	.controller_id = _ctrl_id, \
-> >   	.prog_fetch_lines_worst_case = _progfetch, \
-> >   	.intr_underrun = DPU_IRQ_IDX(_reg, _underrun_bit), \
-> >   	.intr_vsync = DPU_IRQ_IDX(_reg, _vsync_bit), \
-> > +	.intr_tear_rd_ptr = DPU_IRQ_IDX(_tear_reg, _tear_rd_ptr_bit), \
-> 
-> Initially I added separate _reg and _bit settings because reg was common 
-> to both interrupts. However now as tear interrups use different reg it 
-> might be better to first move DPU_IRQ_IDX out of this macro () and then 
-> to add your tear_rd_ptr_intr as a single intr_idx.
+As per the recommended reset sequence of Adreno gpu, we should ensure that
+gpucc-cx-gdsc has collapsed at hardware to reset gpu's internal hardware states.
+Because this gdsc is implemented as 'votable', gdsc driver doesn't poll and
+wait until its hw status says OFF.
 
-I assumed as much; then we do get the duplication of _reg but I guess
-it's not too bad if the lines are nicely wrapped like in _pp[].  I'll do
-so in a separate patch.
+So use the newly introduced genpd api (dev_pm_genpd_synced_poweroff()) to
+provide a hint to the gdsc driver to poll for the hw status and use genpd
+notifier to wait from adreno gpu driver until gdsc is turned OFF.
 
-- Marijn
+This series is rebased on top of linux-next (20221215) since the changes span
+multiple drivers.
 
-<snip>
+[1] https://patchwork.freedesktop.org/series/107507/
+
+Changes in v5:
+- Capture all Reviewed-by tags
+
+Changes in v4:
+- Update genpd function documentation (Ulf)
+
+Changes in v3:
+- Rename the var 'force_sync' to 'wait (Stephen)
+
+Changes in v2:
+- Minor formatting fix
+- Select PM_GENERIC_DOMAINS from Kconfig
+
+Akhil P Oommen (4):
+  clk: qcom: gdsc: Support 'synced_poweroff' genpd flag
+  drm/msm/a6xx: Vote for cx gdsc from gpu driver
+  drm/msm/a6xx: Remove cx gdsc polling using 'reset'
+  drm/msm/a6xx: Use genpd notifier to ensure cx-gdsc collapse
+
+Ulf Hansson (1):
+  PM: domains: Allow a genpd consumer to require a synced power off
+
+ drivers/base/power/domain.c           | 26 ++++++++++++++++++++
+ drivers/clk/qcom/gdsc.c               | 11 +++++----
+ drivers/gpu/drm/msm/Kconfig           |  1 +
+ drivers/gpu/drm/msm/adreno/a6xx_gmu.c | 46 ++++++++++++++++++++++++++++++++---
+ drivers/gpu/drm/msm/adreno/a6xx_gmu.h |  7 ++++++
+ drivers/gpu/drm/msm/adreno/a6xx_gpu.c | 13 +++++++---
+ drivers/gpu/drm/msm/msm_gpu.c         |  4 ---
+ drivers/gpu/drm/msm/msm_gpu.h         |  4 ---
+ include/linux/pm_domain.h             |  5 ++++
+ 9 files changed, 97 insertions(+), 20 deletions(-)
+
+-- 
+2.7.4
+
