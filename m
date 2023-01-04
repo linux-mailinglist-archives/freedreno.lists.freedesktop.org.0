@@ -1,69 +1,72 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 44CFC65CF33
-	for <lists+freedreno@lfdr.de>; Wed,  4 Jan 2023 10:09:13 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id D8EB365CFC0
+	for <lists+freedreno@lfdr.de>; Wed,  4 Jan 2023 10:38:04 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 08FE010E50B;
-	Wed,  4 Jan 2023 09:08:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5D27410E519;
+	Wed,  4 Jan 2023 09:38:03 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wm1-x332.google.com (mail-wm1-x332.google.com
- [IPv6:2a00:1450:4864:20::332])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D09F410E513
- for <freedreno@lists.freedesktop.org>; Wed,  4 Jan 2023 09:08:54 +0000 (UTC)
-Received: by mail-wm1-x332.google.com with SMTP id ja17so25065986wmb.3
- for <freedreno@lists.freedesktop.org>; Wed, 04 Jan 2023 01:08:54 -0800 (PST)
+Received: from mail-lf1-x132.google.com (mail-lf1-x132.google.com
+ [IPv6:2a00:1450:4864:20::132])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2F7DF10E510
+ for <freedreno@lists.freedesktop.org>; Wed,  4 Jan 2023 09:38:00 +0000 (UTC)
+Received: by mail-lf1-x132.google.com with SMTP id m6so39244782lfj.11
+ for <freedreno@lists.freedesktop.org>; Wed, 04 Jan 2023 01:38:00 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=RW8zq/j/mruXN6/WTKeap/h29XYUPaSNwCYMmo6FJKQ=;
- b=nMMd/v3HFY4szFYLEaKcpk0c7SiE4v2hmay0BJN0rm4EPyuTnUt7yH9fmMkpWpYQ1x
- kv1GxehAQfBLQpUThWtUZkXRmS3BCK/RKPUVkkP7ieceowGRkjGW1Vx7Rn2ZAzofiIgT
- Lmk7XGz1HaB0HEYWNZFP1lA9hopNgFGdtdj5seBbURcaFn31wgaXvIqSkeO4Ja7CQluD
- VFIwcMtpzoXmHvJLfiJI0WPTjY6w6Za/SRQ9BWV39o800kr+LlYJfZ6hWYtmOXvYHoht
- qa2FcB1Oncjo1An90deepimnrlPzGUBh1gIk4SvwDZ8Bbpe5tdEeEy0dC/xF1Ecr0Gzo
- v2EA==
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=LStRUu9LwhR/TLTpxI+ph/EG2JmByBMx76WWbcsIEGQ=;
+ b=n1EKwCfP30SS7eMuLGG5SZWDkdxiFLj4uBKPHOJMBY/IRxyxNzc6vTJT05hyYTLHiz
+ RD+YYw5zt5wuKnPh8Wso6oavgDC/Izy9JHdlTaotQGIUDxxOzn6HQbJ6VKCaYrxT0IbT
+ rbdtdh8s6Zq8gaHPDCcb1rMOLluqMMePsJy5jFLrtSiFtf1GIcZgTph03anmF+5lX4tD
+ jvWb+D58ATK9y+bOcDUcSFM4hReWn6+Lqw/XiLYW3ZWHGuSQwvAXieilpqrLnzYEQ/dB
+ nZu8yb4PNqWNRaNv3mVfyxu68xoLhMcWPTK0bKn6k0cGur0pKOLTriytieWMdV1QJbiA
+ jAaQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=RW8zq/j/mruXN6/WTKeap/h29XYUPaSNwCYMmo6FJKQ=;
- b=U0mAI21dsuOtfkbzmnQ83Dds1l1JuFXKCQCnw7wfqjFaR/IzpUz0xJNBOw3BzPB2J6
- XFH8JzmPhwQqeWIjwwOQqoY+Xt5h5U+s53rkuq3yRPzOuOqhbWcXike3PTepOJr43dg6
- Mw/JFS9C769ikenhRrzCfuO9GvVDwl6ky1SpmtvPO9ORMctFSgkGCDVkAF3Gnj6tffpg
- NaJei+aR6VUiB8eSeOiPMPS81qp5njUWXMaZ4HpQPWRNh72T1qjiYxJNP+CI484kJQ+U
- hlz4HmViyxQt1XYB88pyaqWYJ6JQI9tGCDC9ErBIvsfm/0wDbs5YtNZsDS1Mhlo3wzGy
- yCUw==
-X-Gm-Message-State: AFqh2kqt/SMzH3fLTRrf4TWuo284Of89H2k8RuBWu6qMW5IcoCp1nYCP
- 83BdY8vjohNzlQ9xSY7Ll3U7Kw==
-X-Google-Smtp-Source: AMrXdXtTn0L2mtxXUP6CMnmtcwC9FWRBQC4xzA90BRPGajQqe4oSN3qZ4i7MrOggned3SnNYib/zUw==
-X-Received: by 2002:a05:600c:c8a:b0:3d9:7062:e0b7 with SMTP id
- fj10-20020a05600c0c8a00b003d97062e0b7mr27355377wmb.33.1672823333305; 
- Wed, 04 Jan 2023 01:08:53 -0800 (PST)
-Received: from arrakeen.starnux.net ([2a01:e0a:982:cbb0:52eb:f6ff:feb3:451a])
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=LStRUu9LwhR/TLTpxI+ph/EG2JmByBMx76WWbcsIEGQ=;
+ b=6u4/sA5rismadtEHEUNCGqKciQ/haqW1QVN0NjPAJf88KbcFOi5jybZV8+opTM/leS
+ Dn6uT3wNSIc8h8Fy3kEJlclFHi3JrJN716SIFSERBs7SM5lRmRiyzEbmW+gcU1M7UlvO
+ /uuayDsUOGfPGbwuf/oNHoPxYaxJcxk00pch3CijeSLqTK81w4iN9UD5Mp/9NKeiv9Lc
+ ZFRev98glyg4cRU27JVtwtl3XxV2S+pAjQeSvsRLJlhUccnFo57+2h/rDFYxGNYm6GtK
+ 1ciR6EZN2mxPPVtRoi2L36PwrE/SEwYir3WoTn8IrpdhISyHnVrqChySLgXij5oSEiA1
+ nyog==
+X-Gm-Message-State: AFqh2koCoyjNb7xmg/hynJDIPSBK64MPltl+XtgupTFu29cg2sDNMxxA
+ UuMHRxI0K/5O5zFBZJ5KVo8obA==
+X-Google-Smtp-Source: AMrXdXt5+ZnAW0pVabAyBzRs7eYzNqgxPSx9qoK3UOe6tmlJo0GsVQUuCGGk/1nlGNDSgAf06ZIYbw==
+X-Received: by 2002:ac2:5503:0:b0:4b5:9845:c8a9 with SMTP id
+ j3-20020ac25503000000b004b59845c8a9mr12497800lfk.47.1672825078391; 
+ Wed, 04 Jan 2023 01:37:58 -0800 (PST)
+Received: from ?IPV6:2001:14ba:a085:4d00::8a5?
+ (dzccz6yyyyyyyyyyybcwt-3.rev.dnainternet.fi. [2001:14ba:a085:4d00::8a5])
  by smtp.gmail.com with ESMTPSA id
- j34-20020a05600c1c2200b003d98438a43asm36124622wms.34.2023.01.04.01.08.52
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 04 Jan 2023 01:08:52 -0800 (PST)
-From: Neil Armstrong <neil.armstrong@linaro.org>
-Date: Wed, 04 Jan 2023 10:08:48 +0100
+ bu20-20020a056512169400b004cb02ed464esm3991641lfb.196.2023.01.04.01.37.57
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 04 Jan 2023 01:37:57 -0800 (PST)
+Message-ID: <8a68bb5c-6006-c852-227d-d68751258a61@linaro.org>
+Date: Wed, 4 Jan 2023 11:37:56 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.6.0
+Content-Language: en-GB
+To: Rob Herring <robh@kernel.org>,
+ Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+References: <20221223021025.1646636-1-bryan.odonoghue@linaro.org>
+ <20221223021025.1646636-8-bryan.odonoghue@linaro.org>
+ <20230104002905.GA134092-robh@kernel.org>
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+In-Reply-To: <20230104002905.GA134092-robh@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Message-Id: <20230103-topic-sm8550-upstream-mdss-dsi-v1-6-9ccd7e652fcd@linaro.org>
-References: <20230103-topic-sm8550-upstream-mdss-dsi-v1-0-9ccd7e652fcd@linaro.org>
-In-Reply-To: <20230103-topic-sm8550-upstream-mdss-dsi-v1-0-9ccd7e652fcd@linaro.org>
-To: Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>,
- David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- Rob Herring <robh+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Jonathan Marek <jonathan@marek.ca>
-X-Mailer: b4 0.11.1
-Subject: [Freedreno] [PATCH 6/6] drm/msm/dsi: add support for DSI 2.7.0
+Subject: Re: [Freedreno] [PATCH v6 07/18] dt-bindings: display/msm: Add list
+ of mdss-dsi-ctrl compats
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,66 +79,76 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Neil Armstrong <neil.armstrong@linaro.org>, devicetree@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org
+Cc: freedreno@lists.freedesktop.org, krzysztof.kozlowski+dt@linaro.org,
+ devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ andersson@kernel.org, konrad.dybcio@somainline.org, quic_abhinavk@quicinc.com,
+ david@ixit.cz, dianders@chromium.org, robdclark@gmail.com, agross@kernel.org,
+ dri-devel@lists.freedesktop.org, daniel@ffwll.ch, airlied@gmail.com,
+ swboyd@chromium.org, sean@poorly.run, linux-kernel@vger.kernel.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Add support for DSI 2.7.0 (block used on sm8550).
+On 04/01/2023 02:29, Rob Herring wrote:
+> On Fri, Dec 23, 2022 at 02:10:14AM +0000, Bryan O'Donoghue wrote:
+>> Add the list of current compats absent the deprecated qcm2290 to the list
+>> of dsi compats listed here.
+>>
+>> Several MDSS yaml files exist which document the dsi sub-node.
+>> For each existing SoC MDSS yaml, provide the right dsi compat string.
+>>
+>> Signed-off-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+>> ---
+>>   .../bindings/display/msm/qcom,mdss.yaml          | 16 +++++++++++++++-
+>>   .../bindings/display/msm/qcom,msm8998-mdss.yaml  |  8 +++++---
+>>   .../bindings/display/msm/qcom,sc7180-mdss.yaml   |  6 ++++--
+>>   .../bindings/display/msm/qcom,sc7280-mdss.yaml   |  6 ++++--
+>>   .../bindings/display/msm/qcom,sdm845-mdss.yaml   |  8 +++++---
+>>   .../bindings/display/msm/qcom,sm8250-mdss.yaml   |  8 +++++---
+>>   6 files changed, 38 insertions(+), 14 deletions(-)
+>>
+>> diff --git a/Documentation/devicetree/bindings/display/msm/qcom,mdss.yaml b/Documentation/devicetree/bindings/display/msm/qcom,mdss.yaml
+>> index ba0460268731b..86bb43489bf4a 100644
+>> --- a/Documentation/devicetree/bindings/display/msm/qcom,mdss.yaml
+>> +++ b/Documentation/devicetree/bindings/display/msm/qcom,mdss.yaml
+>> @@ -94,7 +94,21 @@ patternProperties:
+>>       type: object
+>>       properties:
+>>         compatible:
+>> -        const: qcom,mdss-dsi-ctrl
+>> +        items:
+>> +          - enum:
+>> +              - qcom,apq8064-dsi-ctrl
+>> +              - qcom,msm8916-dsi-ctrl
+>> +              - qcom,msm8953-dsi-ctrl
+>> +              - qcom,msm8974-dsi-ctrl
+>> +              - qcom,msm8996-dsi-ctrl
+>> +              - qcom,msm8998-dsi-ctrl
+>> +              - qcom,qcm2290-dsi-ctrl
+>> +              - qcom,sc7180-dsi-ctrl
+>> +              - qcom,sc7280-dsi-ctrl
+>> +              - qcom,sdm660-dsi-ctrl
+>> +              - qcom,sdm845-dsi-ctrl
+>> +              - qcom,sm8250-dsi-ctrl
+>> +          - const: qcom,mdss-dsi-ctrl
+> 
+> No need to have an exact match here. Just this is enough:
+> 
+> compatible:
+>    contains:
+>      const: qcom,mdss-dsi-ctrl
+> 
+> Then the DSI schema will check the rest.
 
-Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
----
- drivers/gpu/drm/msm/dsi/dsi_cfg.c | 16 ++++++++++++++++
- drivers/gpu/drm/msm/dsi/dsi_cfg.h |  1 +
- 2 files changed, 17 insertions(+)
+I think the intent here should have been to list DSI variants usable 
+with the qcom,mdss device. But then the list should be shortened a bit. 
+E.g. apq8064 is pre-MDSS  and sc7180/7280 and sm8250 are used with 
+qcom,SoC-mdss devices rather than just qcom,mdss.
 
-diff --git a/drivers/gpu/drm/msm/dsi/dsi_cfg.c b/drivers/gpu/drm/msm/dsi/dsi_cfg.c
-index 59a4cc95a251..33884ebd2f86 100644
---- a/drivers/gpu/drm/msm/dsi/dsi_cfg.c
-+++ b/drivers/gpu/drm/msm/dsi/dsi_cfg.c
-@@ -181,6 +181,20 @@ static const struct msm_dsi_config sdm845_dsi_cfg = {
- 	.num_dsi = 2,
- };
- 
-+static const struct regulator_bulk_data sm8550_dsi_regulators[] = {
-+	{ .supply = "vdda", .init_load_uA = 16800 },	/* 1.2 V */
-+};
-+
-+static const struct msm_dsi_config sm8550_dsi_cfg = {
-+	.io_offset = DSI_6G_REG_SHIFT,
-+	.regulator_data = sm8550_dsi_regulators,
-+	.num_regulators = ARRAY_SIZE(sm8550_dsi_regulators),
-+	.bus_clk_names = dsi_sdm845_bus_clk_names,
-+	.num_bus_clks = ARRAY_SIZE(dsi_sdm845_bus_clk_names),
-+	.io_start = { 0xae94000, 0xae96000 },
-+	.num_dsi = 2,
-+};
-+
- static const struct regulator_bulk_data sc7180_dsi_regulators[] = {
- 	{ .supply = "vdda", .init_load_uA = 21800 },	/* 1.2 V */
- };
-@@ -302,6 +316,8 @@ static const struct msm_dsi_cfg_handler dsi_cfg_handlers[] = {
- 		&sc7280_dsi_cfg, &msm_dsi_6g_v2_host_ops},
- 	{MSM_DSI_VER_MAJOR_6G, MSM_DSI_6G_VER_MINOR_V2_6_0,
- 		&sdm845_dsi_cfg, &msm_dsi_6g_v2_host_ops},
-+	{MSM_DSI_VER_MAJOR_6G, MSM_DSI_6G_VER_MINOR_V2_7_0,
-+		&sm8550_dsi_cfg, &msm_dsi_6g_v2_host_ops},
- };
- 
- const struct msm_dsi_cfg_handler *msm_dsi_cfg_get(u32 major, u32 minor)
-diff --git a/drivers/gpu/drm/msm/dsi/dsi_cfg.h b/drivers/gpu/drm/msm/dsi/dsi_cfg.h
-index 95957fab499d..44be4a88aa83 100644
---- a/drivers/gpu/drm/msm/dsi/dsi_cfg.h
-+++ b/drivers/gpu/drm/msm/dsi/dsi_cfg.h
-@@ -26,6 +26,7 @@
- #define MSM_DSI_6G_VER_MINOR_V2_4_1	0x20040001
- #define MSM_DSI_6G_VER_MINOR_V2_5_0	0x20050000
- #define MSM_DSI_6G_VER_MINOR_V2_6_0	0x20060000
-+#define MSM_DSI_6G_VER_MINOR_V2_7_0	0x20070000
- 
- #define MSM_DSI_V2_VER_MINOR_8064	0x0
- 
+> Same for the rest.
+> 
+> Rob
 
 -- 
-2.34.1
+With best wishes
+Dmitry
+
