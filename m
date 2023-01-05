@@ -1,83 +1,77 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5878C65EE64
-	for <lists+freedreno@lfdr.de>; Thu,  5 Jan 2023 15:09:58 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id CE8D265EE73
+	for <lists+freedreno@lfdr.de>; Thu,  5 Jan 2023 15:12:12 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 43C9E10E739;
-	Thu,  5 Jan 2023 14:09:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 45DE610E73C;
+	Thu,  5 Jan 2023 14:12:11 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wm1-x330.google.com (mail-wm1-x330.google.com
- [IPv6:2a00:1450:4864:20::330])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 06B8E10E737
- for <freedreno@lists.freedesktop.org>; Thu,  5 Jan 2023 14:09:54 +0000 (UTC)
-Received: by mail-wm1-x330.google.com with SMTP id ay40so28138902wmb.2
- for <freedreno@lists.freedesktop.org>; Thu, 05 Jan 2023 06:09:53 -0800 (PST)
+Received: from mail-wm1-x32b.google.com (mail-wm1-x32b.google.com
+ [IPv6:2a00:1450:4864:20::32b])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2306910E73B
+ for <freedreno@lists.freedesktop.org>; Thu,  5 Jan 2023 14:12:07 +0000 (UTC)
+Received: by mail-wm1-x32b.google.com with SMTP id
+ p1-20020a05600c1d8100b003d8c9b191e0so1399210wms.4
+ for <freedreno@lists.freedesktop.org>; Thu, 05 Jan 2023 06:12:07 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=content-transfer-encoding:in-reply-to:organization:from:references
- :cc:to:content-language:subject:reply-to:user-agent:mime-version
- :date:message-id:from:to:cc:subject:date:message-id:reply-to;
- bh=P1d2K6EBLa0i9DYaOKFUZQuPA0/Q9AJBs0TBBGG9+5A=;
- b=fn3+0a53GsD702FNVt2A2IeOlAl+jUqW5lYG0rbNJBErCRhu8dhmNB5chNV3Z712bV
- evZ5jv/7fR2HkKkAntN+zVrbFkzu/MaVYym+TPJ50CEOasGEQyb96g6Amhyf/78faxft
- STG1mF8FmnAIVNyfzx+ckQAtTWDHok66ImQccOLaAnIl/oN71WSFJox0EVFLkvyDe8KZ
- KCuyruYiVt43gKRVz5kBurjPIQ7Etd8uN6xzvDptt41Kubux6E824NBRMF1vJCXoTCxl
- bI8x2lG56dXPQ8+3SFa2zWVUtowN4qSUWIG6lF+EXSGg7sxT0WV7SttZ7grcxk1FFydf
- B/Ag==
+ h=content-transfer-encoding:mime-version:date:message-id:subject
+ :references:in-reply-to:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=/1Sw99W6AD4VBBtNM6/KnSxgPA1tuM9aVniZbjeLNUQ=;
+ b=dndeRrTz+wqs8In2KApAdlet27T+y1cxMYoI4Bo+6D0fSn8oPeh9mZIfRF1sL9KmG4
+ MaVCMwTg3T0rP8LeRIn1Z0lXHWB4m4LKZ5ev5OMBRgpVTVzJgjVTsmNHVLj+5/uFEfL/
+ yTI+S3Nv0iAGMW3BYwDaTFY0l9tMsQXTZNvnd6ZoONumeV859H+sqF9NEcVLj5E8BlDH
+ BBiaOhIlFgdsWzBIMyDNwvcd6WLvtEa6b3rdEbM8jOFIr1mNpyKAYCv3wCuueasG9k1k
+ 7adtp5bOfUKZKUkG2/PsPUFg0LAmVA1yRVqRNXwPdTrEPLEEB0fgFBtXt4pfWQ69dQ6y
+ +JrQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=content-transfer-encoding:in-reply-to:organization:from:references
- :cc:to:content-language:subject:reply-to:user-agent:mime-version
- :date:message-id:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=P1d2K6EBLa0i9DYaOKFUZQuPA0/Q9AJBs0TBBGG9+5A=;
- b=Km8AsuH8UEOvtbNK2XoV+3IpFqE7q1m/9tDZWIcWzZ5QNZfxhR3zH7XeiRdse2Wocv
- pPLtmZXqBxqwxFXLXmH/bDj5e1J4Zw3Bd3M3PbpJTXK9GIS6cTUpZ/TyU4XO4xmFPHuC
- kqtKRfg0hx+XGM3Vt9fJ+cmJ/G+ARWRe0FYWm8Jow53xMHUR7spZc3Z6hnClXL9/PlQD
- VYXv8BllcfWjdFaHHJgzcEFO6ArT53a4J3BPPnwtkNrhPNL9UVvfp7wYQ4IUrDWWVfTs
- txTlMfrXhe8sPsMY1bM1LM+H6ltL0vSFkgy/3P5kc0l9nGzja3K8r9qRBdP+T8FY4zRQ
- GJXw==
-X-Gm-Message-State: AFqh2kr1gWdvwkiuN7HR7dsOKCS12mgHcCWRt6MGS85ezs+tdXa7wigL
- 7zBs306YblBFyrnEXmb6LQLYLA==
-X-Google-Smtp-Source: AMrXdXthpMyfs3cO+WKLMQ4K1r95WyC+VFsKtEiWz6BGuZw4n1JeOQmBiUhRbgIDSc9jVBl8lIuWcw==
-X-Received: by 2002:a05:600c:4b1b:b0:3d2:1d51:2477 with SMTP id
- i27-20020a05600c4b1b00b003d21d512477mr44697947wmp.11.1672927792485; 
- Thu, 05 Jan 2023 06:09:52 -0800 (PST)
-Received: from ?IPV6:2a01:e0a:982:cbb0:1e12:c16d:1898:607c?
- ([2a01:e0a:982:cbb0:1e12:c16d:1898:607c])
+ h=content-transfer-encoding:mime-version:date:message-id:subject
+ :references:in-reply-to:cc:to:from:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=/1Sw99W6AD4VBBtNM6/KnSxgPA1tuM9aVniZbjeLNUQ=;
+ b=pZAkA7DZg3LnVTSPoVarVJW9sCKGCnBdg0U7kRA77nblqiscCdaIeoclqgElmzkTmD
+ hjUqqBqMcvvgw4qlrI1MQbBN3QRliUTG1nci6Ze1A3WLye+oMSkXKSslFp5RLROargv+
+ mPfgnKQJdyHTFpzfs18ZOuZLf3DyZWTsCPrM6mR+heuF8ftVZ8FQIqX95+S9ZbxWKwAs
+ iCc2mIOlbgJsgODpglWJK8KEtqiFHYAPCgSVX1e++CrIUz6i/98xzx5Mz1SHzI3QbmED
+ nc+hikiocM84IcQxRChFBc4rs/SfreHChyNSyToK8hXlITXVweLHS721zAHJ0Ao1G2Is
+ NdoQ==
+X-Gm-Message-State: AFqh2koIdKxMMu0dFMOWlKvl0yFna7ebQSj/yhYBO+Fds15evlFeGzzX
+ QAIx3wrgfl52s3GutUIXeQUBiw==
+X-Google-Smtp-Source: AMrXdXtk3+2kUAUc9npvsbsWnPLk3CUPQAucwULlpN9hXbjbabnKvCpzfBOXp5cMfL13XUcPcOA85g==
+X-Received: by 2002:a05:600c:246:b0:3d3:3deb:d91f with SMTP id
+ 6-20020a05600c024600b003d33debd91fmr38985696wmj.5.1672927925529; 
+ Thu, 05 Jan 2023 06:12:05 -0800 (PST)
+Received: from arrakeen.starnux.net ([2a01:e0a:982:cbb0:52eb:f6ff:feb3:451a])
  by smtp.gmail.com with ESMTPSA id
- f19-20020a05600c155300b003d98a7aa12csm2914216wmg.16.2023.01.05.06.09.51
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 05 Jan 2023 06:09:52 -0800 (PST)
-Message-ID: <36ea5022-f915-11d5-068a-e5680faf67ba@linaro.org>
-Date: Thu, 5 Jan 2023 15:09:50 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.6.0
-Content-Language: en-US
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ d17-20020adffd91000000b002882600e8a0sm22250322wrr.12.2023.01.05.06.12.04
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 05 Jan 2023 06:12:05 -0800 (PST)
+From: Neil Armstrong <neil.armstrong@linaro.org>
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
  David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
  Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>,
- Lucas Stach <l.stach@pengutronix.de>, Philipp Zabel
- <p.zabel@pengutronix.de>, Shawn Guo <shawnguo@kernel.org>,
- Sascha Hauer <s.hauer@pengutronix.de>,
+ Lucas Stach <l.stach@pengutronix.de>, Philipp Zabel <p.zabel@pengutronix.de>, 
+ Shawn Guo <shawnguo@kernel.org>, Sascha Hauer <s.hauer@pengutronix.de>,
  Pengutronix Kernel Team <kernel@pengutronix.de>,
  Fabio Estevam <festevam@gmail.com>, NXP Linux Team <linux-imx@nxp.com>,
  Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, Tomi Valkeinen <tomba@kernel.org>
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, Tomi Valkeinen <tomba@kernel.org>, 
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+In-Reply-To: <20221102180705.459294-1-dmitry.baryshkov@linaro.org>
 References: <20221102180705.459294-1-dmitry.baryshkov@linaro.org>
- <20221102180705.459294-5-dmitry.baryshkov@linaro.org>
-From: Neil Armstrong <neil.armstrong@linaro.org>
-Organization: Linaro Developer Services
-In-Reply-To: <20221102180705.459294-5-dmitry.baryshkov@linaro.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-Subject: Re: [Freedreno] [PATCH v3 4/7] drm/imx/dcss: stop using
- drm_bridge_connector_en/disable_hpd()
+Message-Id: <167292792435.748499.5644887130722114887.b4-ty@linaro.org>
+Date: Thu, 05 Jan 2023 15:12:04 +0100
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.11.1
+Subject: Re: [Freedreno] [PATCH v3 0/7] drm/bridge_connector: perform HPD
+ enablement automatically
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -90,77 +84,43 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: neil.armstrong@linaro.org
 Cc: linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
  linux-arm-kernel@lists.infradead.org, dri-devel@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 02/11/2022 19:07, Dmitry Baryshkov wrote:
-> The functionality of drm_bridge_connector_enable_hpd() and
-> drm_bridge_connector_disable_hpd() is provided automatically by the
-> drm_kms_poll helpers. Stop calling these functions manually.
+Hi,
+
+On Wed, 02 Nov 2022 21:06:58 +0300, Dmitry Baryshkov wrote:
+> From all the drivers using drm_bridge_connector only iMX/dcss and OMAP
+> DRM driver do a proper work of calling
+> drm_bridge_connector_en/disable_hpd() in right places. Rather than
+> teaching each and every driver how to properly handle
+> drm_bridge_connector's HPD, make that automatic.
 > 
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> ---
->   drivers/gpu/drm/imx/dcss/dcss-dev.c | 4 ----
->   drivers/gpu/drm/imx/dcss/dcss-kms.c | 2 --
->   2 files changed, 6 deletions(-)
+> Add two additional drm_connector helper funcs: enable_hpd() and
+> disable_hpd(). Make drm_kms_helper_poll_* functions call them (as this
+> is the time where the drm_bridge_connector's functions are called by the
+> drivers too).
 > 
-> diff --git a/drivers/gpu/drm/imx/dcss/dcss-dev.c b/drivers/gpu/drm/imx/dcss/dcss-dev.c
-> index 3f5750cc2673..0d8e44f20ec4 100644
-> --- a/drivers/gpu/drm/imx/dcss/dcss-dev.c
-> +++ b/drivers/gpu/drm/imx/dcss/dcss-dev.c
-> @@ -257,8 +257,6 @@ int dcss_dev_suspend(struct device *dev)
->   	struct dcss_kms_dev *kms = container_of(ddev, struct dcss_kms_dev, base);
->   	int ret;
->   
-> -	drm_bridge_connector_disable_hpd(kms->connector);
-> -
->   	drm_mode_config_helper_suspend(ddev);
->   
->   	if (pm_runtime_suspended(dev))
-> @@ -292,8 +290,6 @@ int dcss_dev_resume(struct device *dev)
->   
->   	drm_mode_config_helper_resume(ddev);
->   
-> -	drm_bridge_connector_enable_hpd(kms->connector);
-> -
->   	return 0;
->   }
->   #endif /* CONFIG_PM_SLEEP */
-> diff --git a/drivers/gpu/drm/imx/dcss/dcss-kms.c b/drivers/gpu/drm/imx/dcss/dcss-kms.c
-> index b4f82ebca532..16ef8aa6da37 100644
-> --- a/drivers/gpu/drm/imx/dcss/dcss-kms.c
-> +++ b/drivers/gpu/drm/imx/dcss/dcss-kms.c
-> @@ -151,7 +151,6 @@ struct dcss_kms_dev *dcss_kms_attach(struct dcss_dev *dcss)
->   	return kms;
->   
->   cleanup_crtc:
-> -	drm_bridge_connector_disable_hpd(kms->connector);
->   	drm_kms_helper_poll_fini(drm);
->   	dcss_crtc_deinit(crtc, drm);
->   
-> @@ -167,7 +166,6 @@ void dcss_kms_detach(struct dcss_kms_dev *kms)
->   	struct drm_device *drm = &kms->base;
->   
->   	drm_dev_unregister(drm);
-> -	drm_bridge_connector_disable_hpd(kms->connector);
->   	drm_kms_helper_poll_fini(drm);
->   	drm_atomic_helper_shutdown(drm);
->   	drm_crtc_vblank_off(&kms->crtc.base);
+> [...]
 
+Thanks, Applied to https://anongit.freedesktop.org/git/drm/drm-misc.git (drm-misc-next)
 
-I get:
-/drivers/gpu/drm/imx/dcss/dcss-dev.c: In function ‘dcss_dev_suspend’:
-/drivers/gpu/drm/imx/dcss/dcss-dev.c:256:23: warning: unused variable ‘kms’ [-Wunused-variable]
-   256 |  struct dcss_kms_dev *kms = container_of(ddev, struct dcss_kms_dev, base);
-       |                       ^~~
-/drivers/gpu/drm/imx/dcss/dcss-dev.c: In function ‘dcss_dev_resume’:
-/drivers/gpu/drm/imx/dcss/dcss-dev.c:277:23: warning: unused variable ‘kms’ [-Wunused-variable]
-   277 |  struct dcss_kms_dev *kms = container_of(ddev, struct dcss_kms_dev, base);
-       |                       ^~~
+[1/7] drm/poll-helper: merge drm_kms_helper_poll_disable() and _fini()
+      https://cgit.freedesktop.org/drm/drm-misc/commit/?id=78b991ccfa64a438e2d8c2997d22d55621ab277d
+[2/7] drm/probe-helper: enable and disable HPD on connectors
+      https://cgit.freedesktop.org/drm/drm-misc/commit/?id=c8268795c9a9cc7be50f78d4502fad83a2a4f8df
+[3/7] drm/bridge_connector: rely on drm_kms_helper_poll_* for HPD enablement
+      https://cgit.freedesktop.org/drm/drm-misc/commit/?id=92d755d8f13b6791c72d4e980c09f054d8175c94
+[4/7] drm/imx/dcss: stop using drm_bridge_connector_en/disable_hpd()
+      https://cgit.freedesktop.org/drm/drm-misc/commit/?id=60c376e4549b6844af94cf319960ef48080230a8
+[5/7] drm/msm/hdmi: stop using drm_bridge_connector_en/disable_hpd()
+      https://cgit.freedesktop.org/drm/drm-misc/commit/?id=9e954403bc9cc024cf052e9429c0e6db86ffe0f7
+[6/7] drm/omap: stop using drm_bridge_connector_en/disable_hpd()
+      https://cgit.freedesktop.org/drm/drm-misc/commit/?id=c4f5538fa65dd093b71859c4792afd4e13fae5f1
+[7/7] drm/bridge_connector: drop drm_bridge_connector_en/disable_hpd()
+      https://cgit.freedesktop.org/drm/drm-misc/commit/?id=4c00ac500d0edd1a6730c4e8293834a694c1b304
 
-I'll fix while applying,
-
+-- 
 Neil
