@@ -2,73 +2,62 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5D74165E10C
-	for <lists+freedreno@lfdr.de>; Thu,  5 Jan 2023 00:41:24 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A84DA65E2A3
+	for <lists+freedreno@lfdr.de>; Thu,  5 Jan 2023 02:47:50 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1BD3F10E479;
-	Wed,  4 Jan 2023 23:41:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B05EE10E61B;
+	Thu,  5 Jan 2023 01:47:48 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CF42310E478;
- Wed,  4 Jan 2023 23:41:19 +0000 (UTC)
-Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 304N5CaE016615; Wed, 4 Jan 2023 23:41:06 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
- h=from : to : cc :
- subject : date : message-id : in-reply-to : references : mime-version :
- content-transfer-encoding : content-type; s=qcppdkim1;
- bh=rLCLAkCOSO5a6DBivav4Cuv7JOvOGIwCLvYQv7LH0UU=;
- b=B9hhiO3PjVIpnPMoDvIsMscfOtbHirHQTmJgIVqrw5cW1E2ctx6BsjxaITz1Uaov96bd
- LyJ3N+Oj6ap4GdzOINGh2ylYK0fDdiyp3Sgx7464shzZLTMFAEYYzwa0XU3YpEFPwaJg
- d+xAZ3UoS+tP4BKGKj87SbyEnk7FOl6cJ3TNt5nqgIFUZWett1dwOuj3Hd9/8GLmuBoz
- rbDDx/dvH3kyG6qWZaCKEayzgdQJM+3i3jfDlWDce5Yex5OSha+r793e8dY+5/zc6eHG
- T7uk39/1mbyKEA8bMndmLmOmjiAe/Dkdw7Xtuae1bjRaLlxeGMMlzAGlwcElpcswD9YE iA== 
-Received: from nasanppmta03.qualcomm.com (i-global254.qualcomm.com
- [199.106.103.254])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3mvsvwu2fp-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 04 Jan 2023 23:41:06 +0000
-Received: from nasanex01b.na.qualcomm.com (corens_vlan604_snip.qualcomm.com
- [10.53.140.1])
- by NASANPPMTA03.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 304Nf5Y7010620
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 4 Jan 2023 23:41:05 GMT
-Received: from JESSZHAN.qualcomm.com (10.80.80.8) by
- nasanex01b.na.qualcomm.com (10.46.141.250) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.986.36; Wed, 4 Jan 2023 15:41:03 -0800
-From: Jessica Zhang <quic_jesszhan@quicinc.com>
-To: <freedreno@lists.freedesktop.org>
-Date: Wed, 4 Jan 2023 15:40:36 -0800
-Message-ID: <20230104234036.636-4-quic_jesszhan@quicinc.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20230104234036.636-1-quic_jesszhan@quicinc.com>
-References: <20230104234036.636-1-quic_jesszhan@quicinc.com>
+Received: from mail-lf1-x12d.google.com (mail-lf1-x12d.google.com
+ [IPv6:2a00:1450:4864:20::12d])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3A4BE10E61C
+ for <freedreno@lists.freedesktop.org>; Thu,  5 Jan 2023 01:47:47 +0000 (UTC)
+Received: by mail-lf1-x12d.google.com with SMTP id y25so53102135lfa.9
+ for <freedreno@lists.freedesktop.org>; Wed, 04 Jan 2023 17:47:46 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=zPMYwSsk8tBoD9ByCV2R49R0agpdKXec85LETf3uKYU=;
+ b=LBfL8CYGYhc/3vgFJirN4UZ6A+3/Wj5BWlntHllyOgaB6lTGYn8qn/Z79zB8JBRSW/
+ yUT+PCkX+hVyPyELWkiKNr66E0FyIlGi1niHhZoF4A/bfQ7wIBMST5WZ2LIHMR6e+dSm
+ UYge1uWut6MLHQMBHBHGGD7jp6KyjsLOhyrzAc6hKIqD/qbUgzDUftiru6XZPlHzmAcA
+ MEAfegV3eXTT1qLVbdWJaUC+stcb2VFyuRrh5K6N3L9xFqg9kiyRIpMhNk5dsMUyVR0F
+ hRSyJeAPeay4b9MgHSHXL28EcaBaWdZ/JhfCoPwiH3YCTI8EzzbifHyZpAXeigPv7C+c
+ 5KjQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=zPMYwSsk8tBoD9ByCV2R49R0agpdKXec85LETf3uKYU=;
+ b=DDkmOPuTT7AVXOqRhIGE+GYS+DV7YgLxzXvowSP3bI949KR2ki3I5hik3fkZ8HXk74
+ ykJvhZQOIiXYWt6TeUae2zJk724jUYhdmIfz/npX+02ecHmIsyW6l4zl2iWeFr71F19w
+ GJretyQmGQQ/jYgrvB+zzdh6f+xdtBgw/GOPMZcLu8DY9POKk9fE9sxmrDhAPPFhvfcO
+ TDlTl9nbRaEmzcr4Z2pzjE2Fdg6EU+8w52g3S+X2kz7CFdVg+sS5t12wI5s5zlyv9A4n
+ BycAyHEeP8b0dnSvnAM4p8S7hhqxwOiEET9eZI1Tdx2Gcd5ZaXAnm1/8Wecl3pO0fNAh
+ SzUw==
+X-Gm-Message-State: AFqh2kppnaPp3FI3i/MZWCXn1JihoFGrOcdfln3S4oFcZJ0oaQ6wOOAn
+ Eotp35bP5IXfMJweidL7B86AFQ==
+X-Google-Smtp-Source: AMrXdXsiB7Ag4h8E8vqkQZVzO528e8rhNG57Ky2RNhxWQlVTjf5k9GweVngAHvzUc/7o8EtSzVS6aw==
+X-Received: by 2002:a05:6512:1116:b0:4a4:68b7:dee8 with SMTP id
+ l22-20020a056512111600b004a468b7dee8mr17017669lfg.68.1672883265175; 
+ Wed, 04 Jan 2023 17:47:45 -0800 (PST)
+Received: from eriador.lan (dzccz6yyyyyyyyyyybcwt-3.rev.dnainternet.fi.
+ [2001:14ba:a085:4d00::8a5]) by smtp.gmail.com with ESMTPSA id
+ o5-20020ac24e85000000b004c2e1d7d9a3sm5302124lfr.146.2023.01.04.17.47.44
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 04 Jan 2023 17:47:44 -0800 (PST)
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+To: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>
+Date: Thu,  5 Jan 2023 03:47:43 +0200
+Message-Id: <20230105014743.1478110-1-dmitry.baryshkov@linaro.org>
+X-Mailer: git-send-email 2.39.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
- nasanex01b.na.qualcomm.com (10.46.141.250)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-GUID: oWkokOxed0tOHCxQJuWyVkGrA9tJUIry
-X-Proofpoint-ORIG-GUID: oWkokOxed0tOHCxQJuWyVkGrA9tJUIry
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.205,Aquarius:18.0.923,Hydra:6.0.545,FMLib:17.11.122.1
- definitions=2023-01-04_07,2023-01-04_02,2022-06-22_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 spamscore=0
- mlxlogscore=955 phishscore=0 clxscore=1015 malwarescore=0 impostorscore=0
- lowpriorityscore=0 suspectscore=0 mlxscore=0 adultscore=0
- priorityscore=1501 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2212070000 definitions=main-2301040193
-Subject: [Freedreno] [RFC PATCH v3 3/3] drm/msm/dpu: Use color_fill property
- for DPU planes
+Subject: [Freedreno] [PATCH v3] drm/msm: another fix for the headless Adreno
+ GPU
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,205 +70,113 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: sebastian.wick@redhat.com, ppaalanen@gmail.com,
- linux-arm-msm@vger.kernel.org, quic_abhinavk@quicinc.com,
- dri-devel@lists.freedesktop.org, swboyd@chromium.org, daniel.vetter@ffwll.ch,
- robdclark@gmail.com, seanpaul@chromium.org, laurent.pinchart@ideasonboard.com,
- contact@emersion.fr, dmitry.baryshkov@linaro.org,
- Jessica Zhang <quic_jesszhan@quicinc.com>, wayland-devel@lists.freedesktop.org,
- ville.syrjala@linux.intel.com
+Cc: freedreno@lists.freedesktop.org, kernel test robot <lkp@intel.com>,
+ linux-arm-msm@vger.kernel.org, Bjorn Andersson <andersson@kernel.org>,
+ dri-devel@lists.freedesktop.org, Stephen Boyd <swboyd@chromium.org>,
+ Daniel Vetter <daniel@ffwll.ch>, David Airlie <airlied@gmail.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Initialize and use the color_fill properties for planes in DPU driver. In
-addition, relax framebuffer requirements within atomic commit path and
-add checks for NULL framebuffers. Finally, drop DPU_PLANE_COLOR_FILL_FLAG
-as it's unused.
+Fix another oops reproducible when rebooting the board with the Adreno
+GPU working in the headless mode (e.g. iMX platforms).
 
-Changes since V2:
-- Fixed dropped 'const' warning
-- Dropped use of solid_fill_format
-- Switched to using drm_plane_solid_fill_enabled helper method
-- Added helper to convert color fill to BGR888 (Rob)
-- Added support for solid fill on planes of varying sizes
-- Removed DPU_PLANE_COLOR_FILL_FLAG
+Unable to handle kernel NULL pointer dereference at virtual address 00000000 when read
+[00000000] *pgd=74936831, *pte=00000000, *ppte=00000000
+Internal error: Oops: 17 [#1] ARM
+CPU: 0 PID: 51 Comm: reboot Not tainted 6.2.0-rc1-dirty #11
+Hardware name: Freescale i.MX53 (Device Tree Support)
+PC is at msm_atomic_commit_tail+0x50/0x970
+LR is at commit_tail+0x9c/0x188
+pc : [<c06aa430>]    lr : [<c067a214>]    psr: 600e0013
+sp : e0851d30  ip : ee4eb7eb  fp : 00090acc
+r10: 00000058  r9 : c2193014  r8 : c4310000
+r7 : c4759380  r6 : 07bef61d  r5 : 00000000  r4 : 00000000
+r3 : c44cc440  r2 : 00000000  r1 : 00000000  r0 : 00000000
+Flags: nZCv  IRQs on  FIQs on  Mode SVC_32  ISA ARM  Segment none
+Control: 10c5387d  Table: 74910019  DAC: 00000051
+Register r0 information: NULL pointer
+Register r1 information: NULL pointer
+Register r2 information: NULL pointer
+Register r3 information: slab kmalloc-1k start c44cc400 pointer offset 64 size 1024
+Register r4 information: NULL pointer
+Register r5 information: NULL pointer
+Register r6 information: non-paged memory
+Register r7 information: slab kmalloc-128 start c4759380 pointer offset 0 size 128
+Register r8 information: slab kmalloc-2k start c4310000 pointer offset 0 size 2048
+Register r9 information: non-slab/vmalloc memory
+Register r10 information: non-paged memory
+Register r11 information: non-paged memory
+Register r12 information: non-paged memory
+Process reboot (pid: 51, stack limit = 0xc80046d9)
+Stack: (0xe0851d30 to 0xe0852000)
+1d20:                                     c4759380 fbd77200 000005ff 002b9c70
+1d40: c4759380 c4759380 00000000 07bef61d 00000600 c0d6fe7c c2193014 00000058
+1d60: 00090acc c067a214 00000000 c4759380 c4310000 00000000 c44cc854 c067a89c
+1d80: 00000000 00000000 00000000 c4310468 00000000 c4759380 c4310000 c4310468
+1da0: c4310470 c0643258 c4759380 00000000 00000000 c0c4ee24 00000000 c44cc810
+1dc0: 00000000 c0c4ee24 00000000 c44cc810 00000000 0347d2a8 e0851e00 e0851e00
+1de0: c4759380 c067ad20 c4310000 00000000 c44cc810 c27f8718 c44cc854 c067adb8
+1e00: c4933000 00000002 00000001 00000000 00000000 c2130850 00000000 c2130854
+1e20: c25fc488 00000000 c0ff162c 00000000 00000001 00000002 00000000 00000000
+1e40: c43102c0 c43102c0 00000000 0347d2a8 c44cc810 c44cc814 c2133da8 c06d1a60
+1e60: 00000000 00000000 00079028 c2012f24 fee1dead c4933000 00000058 c01431e4
+1e80: 01234567 c0143a20 00000000 00000000 00000000 00000000 00000000 00000000
+1ea0: 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000
+1ec0: 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000
+1ee0: 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000
+1f00: 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000
+1f20: 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000
+1f40: 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000
+1f60: 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000
+1f80: 00000000 00000000 00000000 0347d2a8 00000002 00000004 00000078 00000058
+1fa0: c010028c c0100060 00000002 00000004 fee1dead 28121969 01234567 00079028
+1fc0: 00000002 00000004 00000078 00000058 0002fdc5 00000000 00000000 00090acc
+1fe0: 00000058 becc9c64 b6e97e05 b6e0e5f6 600e0030 fee1dead 00000000 00000000
+ msm_atomic_commit_tail from commit_tail+0x9c/0x188
+ commit_tail from drm_atomic_helper_commit+0x160/0x188
+ drm_atomic_helper_commit from drm_atomic_commit+0xac/0xe0
+ drm_atomic_commit from drm_atomic_helper_disable_all+0x1b0/0x1c0
+ drm_atomic_helper_disable_all from drm_atomic_helper_shutdown+0x88/0x140
+ drm_atomic_helper_shutdown from device_shutdown+0x16c/0x240
+ device_shutdown from kernel_restart+0x38/0x90
+ kernel_restart from __do_sys_reboot+0x174/0x224
+ __do_sys_reboot from ret_fast_syscall+0x0/0x1c
+Exception stack(0xe0851fa8 to 0xe0851ff0)
+1fa0:                   00000002 00000004 fee1dead 28121969 01234567 00079028
+1fc0: 00000002 00000004 00000078 00000058 0002fdc5 00000000 00000000 00090acc
+1fe0: 00000058 becc9c64 b6e97e05 b6e0e5f6
+Code: 15922088 1184421c e1500003 1afffff8 (e5953000)
+---[ end trace 0000000000000000 ]---
 
-Signed-off-by: Jessica Zhang <quic_jesszhan@quicinc.com>
+Fixes: 0a58d2ae572a ("drm/msm: Make .remove and .shutdown HW shutdown consistent")
+Reported-by: kernel test robot <lkp@intel.com>
+Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 ---
- drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c  |  9 +++-
- drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c | 65 ++++++++++++++---------
- 2 files changed, 49 insertions(+), 25 deletions(-)
 
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
-index 13ce321283ff..0695b70ea1b7 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
-@@ -409,6 +409,7 @@ static void _dpu_crtc_blend_setup_mixer(struct drm_crtc *crtc,
- 	struct drm_plane_state *state;
- 	struct dpu_crtc_state *cstate = to_dpu_crtc_state(crtc->state);
- 	struct dpu_plane_state *pstate = NULL;
-+	const struct msm_format *fmt;
- 	struct dpu_format *format;
- 	struct dpu_hw_ctl *ctl = mixer->lm_ctl;
- 
-@@ -441,7 +442,13 @@ static void _dpu_crtc_blend_setup_mixer(struct drm_crtc *crtc,
- 				sspp_idx - SSPP_VIG0,
- 				state->fb ? state->fb->base.id : -1);
- 
--		format = to_dpu_format(msm_framebuffer_format(pstate->base.fb));
-+		if (pstate->base.fb)
-+			fmt = msm_framebuffer_format(pstate->base.fb);
-+		else
-+			fmt = dpu_get_msm_format(&_dpu_crtc_get_kms(crtc)->base,
-+					DRM_FORMAT_ABGR8888, 0);
-+
-+		format = to_dpu_format(fmt);
- 
- 		if (pstate->stage == DPU_STAGE_BASE && format->alpha_enable)
- 			bg_alpha_enable = true;
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
-index 86719020afe2..51a7507373f7 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
-@@ -44,7 +44,6 @@
- 
- #define DPU_NAME_SIZE  12
- 
--#define DPU_PLANE_COLOR_FILL_FLAG	BIT(31)
- #define DPU_ZPOS_MAX 255
- 
- /* multirect rect index */
-@@ -105,7 +104,6 @@ struct dpu_plane {
- 	enum dpu_sspp pipe;
- 
- 	struct dpu_hw_pipe *pipe_hw;
--	uint32_t color_fill;
- 	bool is_error;
- 	bool is_rt_pipe;
- 	const struct dpu_mdss_cfg *catalog;
-@@ -678,6 +676,17 @@ static void _dpu_plane_setup_scaler(struct dpu_plane *pdpu,
- 				&scaler3_cfg);
+Changes since v2:
+- Moved the condition check from msm_atomic_commit_tail() to msm_drv_shutdown()
+
+Changes since v1:
+- Moved setting of `async' before the call to trace to fix the
+  uninitialized variable warning
+
+---
+ drivers/gpu/drm/msm/msm_drv.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/msm/msm_drv.c b/drivers/gpu/drm/msm/msm_drv.c
+index 8b0b0ac74a6f..45e81eb148a8 100644
+--- a/drivers/gpu/drm/msm/msm_drv.c
++++ b/drivers/gpu/drm/msm/msm_drv.c
+@@ -1278,7 +1278,7 @@ void msm_drv_shutdown(struct platform_device *pdev)
+ 	 * msm_drm_init, drm_dev->registered is used as an indicator that the
+ 	 * shutdown will be successful.
+ 	 */
+-	if (drm && drm->registered)
++	if (drm && drm->registered && priv->kms)
+ 		drm_atomic_helper_shutdown(drm);
  }
  
-+static uint32_t _dpu_plane_get_fill_color(struct drm_solid_fill solid_fill)
-+{
-+	uint32_t ret = 0;
-+
-+	ret |= ((uint8_t) solid_fill.b) << 16;
-+	ret |= ((uint8_t) solid_fill.g) << 8;
-+	ret |= ((uint8_t) solid_fill.r);
-+
-+	return ret;
-+}
-+
- /**
-  * _dpu_plane_color_fill - enables color fill on plane
-  * @pdpu:   Pointer to DPU plane object
-@@ -1001,12 +1010,17 @@ static int dpu_plane_atomic_check(struct drm_plane *plane,
- 
- 	dst = drm_plane_state_dest(new_plane_state);
- 
--	fb_rect.x2 = new_plane_state->fb->width;
--	fb_rect.y2 = new_plane_state->fb->height;
-+	if (new_plane_state->fb) {
-+		fb_rect.x2 = new_plane_state->fb->width;
-+		fb_rect.y2 = new_plane_state->fb->height;
-+	}
- 
- 	max_linewidth = pdpu->catalog->caps->max_linewidth;
- 
--	fmt = to_dpu_format(msm_framebuffer_format(new_plane_state->fb));
-+	if (new_plane_state->fb)
-+		fmt = to_dpu_format(msm_framebuffer_format(new_plane_state->fb));
-+	else
-+		fmt = dpu_get_dpu_format(DRM_FORMAT_ABGR8888);
- 
- 	min_src_size = DPU_FORMAT_IS_YUV(fmt) ? 2 : 1;
- 
-@@ -1018,7 +1032,7 @@ static int dpu_plane_atomic_check(struct drm_plane *plane,
- 		return -EINVAL;
- 
- 	/* check src bounds */
--	} else if (!dpu_plane_validate_src(&src, &fb_rect, min_src_size)) {
-+	} else if (new_plane_state->fb && !dpu_plane_validate_src(&src, &fb_rect, min_src_size)) {
- 		DPU_DEBUG_PLANE(pdpu, "invalid source " DRM_RECT_FMT "\n",
- 				DRM_RECT_ARG(&src));
- 		return -E2BIG;
-@@ -1086,9 +1100,10 @@ void dpu_plane_flush(struct drm_plane *plane)
- 	if (pdpu->is_error)
- 		/* force white frame with 100% alpha pipe output on error */
- 		_dpu_plane_color_fill(pdpu, 0xFFFFFF, 0xFF);
--	else if (pdpu->color_fill & DPU_PLANE_COLOR_FILL_FLAG)
-+	else if (!(plane->state->fb) && drm_plane_solid_fill_enabled(plane->state))
- 		/* force 100% alpha */
--		_dpu_plane_color_fill(pdpu, pdpu->color_fill, 0xFF);
-+		_dpu_plane_color_fill(pdpu, _dpu_plane_get_fill_color(plane->state->solid_fill),
-+				0xFF);
- 	else if (pdpu->pipe_hw && pdpu->pipe_hw->ops.setup_csc) {
- 		const struct dpu_format *fmt = to_dpu_format(msm_framebuffer_format(plane->state->fb));
- 		const struct dpu_csc_cfg *csc_ptr = _dpu_plane_get_csc(pdpu, fmt);
-@@ -1127,23 +1142,30 @@ static void dpu_plane_sspp_atomic_update(struct drm_plane *plane)
- 	struct drm_crtc *crtc = state->crtc;
- 	struct drm_framebuffer *fb = state->fb;
- 	bool is_rt_pipe, update_qos_remap;
--	const struct dpu_format *fmt =
--		to_dpu_format(msm_framebuffer_format(fb));
-+	const struct dpu_format *fmt;
- 	struct dpu_hw_pipe_cfg pipe_cfg;
- 
--	memset(&pipe_cfg, 0, sizeof(struct dpu_hw_pipe_cfg));
--
--	_dpu_plane_set_scanout(plane, pstate, &pipe_cfg, fb);
--
- 	pstate->pending = true;
- 
- 	is_rt_pipe = (dpu_crtc_get_client_type(crtc) != NRT_CLIENT);
- 	_dpu_plane_set_qos_ctrl(plane, false, DPU_PLANE_QOS_PANIC_CTRL);
- 
--	DPU_DEBUG_PLANE(pdpu, "FB[%u] " DRM_RECT_FP_FMT "->crtc%u " DRM_RECT_FMT
--			", %4.4s ubwc %d\n", fb->base.id, DRM_RECT_FP_ARG(&state->src),
--			crtc->base.id, DRM_RECT_ARG(&state->dst),
--			(char *)&fmt->base.pixel_format, DPU_FORMAT_IS_UBWC(fmt));
-+	/* override for color fill */
-+	if (!fb && drm_plane_solid_fill_enabled(plane->state)) {
-+		/* skip remaining processing on color fill */
-+		return;
-+	}
-+
-+	memset(&pipe_cfg, 0, sizeof(struct dpu_hw_pipe_cfg));
-+
-+	fmt = to_dpu_format(msm_framebuffer_format(fb));
-+	_dpu_plane_set_scanout(plane, pstate, &pipe_cfg, fb);
-+
-+	if (fb)
-+		DPU_DEBUG_PLANE(pdpu, "FB[%u] " DRM_RECT_FP_FMT "->crtc%u " DRM_RECT_FMT
-+				", %4.4s ubwc %d\n", fb->base.id, DRM_RECT_FP_ARG(&state->src),
-+				crtc->base.id, DRM_RECT_ARG(&state->dst),
-+				(char *)&fmt->base.pixel_format, DPU_FORMAT_IS_UBWC(fmt));
- 
- 	pipe_cfg.src_rect = state->src;
- 
-@@ -1155,12 +1177,6 @@ static void dpu_plane_sspp_atomic_update(struct drm_plane *plane)
- 
- 	pipe_cfg.dst_rect = state->dst;
- 
--	/* override for color fill */
--	if (pdpu->color_fill & DPU_PLANE_COLOR_FILL_FLAG) {
--		/* skip remaining processing on color fill */
--		return;
--	}
--
- 	if (pdpu->pipe_hw->ops.setup_rects) {
- 		pdpu->pipe_hw->ops.setup_rects(pdpu->pipe_hw,
- 				&pipe_cfg,
-@@ -1511,6 +1527,7 @@ struct drm_plane *dpu_plane_init(struct drm_device *dev,
- 		DPU_ERROR("failed to install zpos property, rc = %d\n", ret);
- 
- 	drm_plane_create_alpha_property(plane);
-+	drm_plane_create_solid_fill_property(plane);
- 	drm_plane_create_blend_mode_property(plane,
- 			BIT(DRM_MODE_BLEND_PIXEL_NONE) |
- 			BIT(DRM_MODE_BLEND_PREMULTI) |
 -- 
-2.38.1
+2.39.0
 
