@@ -2,63 +2,79 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id C19E165EFC6
-	for <lists+freedreno@lfdr.de>; Thu,  5 Jan 2023 16:17:02 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3E59765F0A1
+	for <lists+freedreno@lfdr.de>; Thu,  5 Jan 2023 16:58:15 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8571489B66;
-	Thu,  5 Jan 2023 15:17:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D05D610E74E;
+	Thu,  5 Jan 2023 15:58:09 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-oi1-x231.google.com (mail-oi1-x231.google.com
- [IPv6:2607:f8b0:4864:20::231])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 94FAD89B66;
- Thu,  5 Jan 2023 15:17:00 +0000 (UTC)
-Received: by mail-oi1-x231.google.com with SMTP id h185so9694255oif.5;
- Thu, 05 Jan 2023 07:17:00 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=24UNF4Nyk0Kbxc7GRNV5skO81MTN7TJ8OcXlAfM9Q8g=;
- b=iAyGq3FS9YpAvZ2C88B0Xfx5QtyULHmECESrxMpN5n2oRbK33Q73iZsy6WcBEZDNAU
- 9hmnDzdNgdXQYXVfhmDHLzcAo/bAYrkN2LpE6rI7mK8XIsB9sNL+dkcsg/zXC7vr4WjS
- ylVsRYApEkcBDxBKhIYFVg3zRdVXROy06qvtHk283x2ephk9aWZItZnc7lJ+7PEV2QKp
- uQP6vGOS6mw7w0mcxNOyBuJQhEONZ6cHU/z7kOlc9i6ws130exGe801fhkQJfER0Sgwd
- giEDRmOw8SdRINDhUzAX1q5ViIvvMRSBgHNRfHmwAj59kk/cMXRt8JAuPYch8TNt9HVJ
- FiJA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=24UNF4Nyk0Kbxc7GRNV5skO81MTN7TJ8OcXlAfM9Q8g=;
- b=dFyZiLn6bM7NtArJe6SptPf/tLrrKLj+hN57dgJZdR4WHSAy//6f30yEtjEHgOLIrd
- 7oRlwAmuu9KxOyTuyW/SAAi3LLqfWU+2pA++ru4kKAKH7ivVTQyB1CYh+ruFly6BorTY
- 7yrQ0lmUs5PvCdYebMjNZujEVqJirdxZycLYbzH+nwF2ti6zJkui+MBxdebHQ3A+zhFc
- neZDP4iGzvgOqG0CO1/UjRpV3cPIq5qfP9j9cNVeHkDg9cIlIBoY6rIL92OS9DoETDR3
- dLgxVMYHmDCQutABzncWWksNIN8Q9tS4GUtRsYX0KxZkcCf3sh0JYd+feTwZ8d/478tL
- /sTA==
-X-Gm-Message-State: AFqh2krtWG1NqQ4D0u7KJMIC/CRHMwtrfn11gpGbkss+1NPe64ePOBot
- T7HE8M3qwxZhnLOc6cw9b6KTcXxTbBv4w+2gbO+kMjb4
-X-Google-Smtp-Source: AMrXdXuIzYO6DzzH3XiiBRSxjygf86gCUAQbJkE0kNfiuo/1yB3J6EBHAWs3Jfj71oNMOMaXjfucPY5hpgX25+tmEPE=
-X-Received: by 2002:a05:6870:513:b0:13d:51fe:3404 with SMTP id
- j19-20020a056870051300b0013d51fe3404mr3053712oao.183.1672930267752; Thu, 05
- Jan 2023 06:51:07 -0800 (PST)
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 07D7210E74C;
+ Thu,  5 Jan 2023 15:58:06 +0000 (UTC)
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 305DiZt4026500; Thu, 5 Jan 2023 15:57:59 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
+ h=message-id : date :
+ mime-version : subject : to : cc : references : from : in-reply-to :
+ content-type : content-transfer-encoding; s=qcppdkim1;
+ bh=NKtvogDaPYyPUNQMzj8aHf0a2laXGrzKV9ziz2vVcng=;
+ b=XAVvKw3sxOMdKRtQhOuvWb1luBDkQV/EAMLLsOGDno/DNXByWlvEr8JdTRPSrQbmdoag
+ 1UbvAutGhSpAtXGmMvFeonpX8K5m4O16bHD0evuKEvpgtTvZNMHcPYbfiGOeZ+ooVn9t
+ UQB+yYxrB/XcgIAxLEDqcy5BSt69XwE3m1VqzXy71SvF55lII9TOVw0VCA9F5NwLH6Up
+ xVKc4MCgfrzvemWq4n1Ud1UWrNXgAZc+cWmWyUeV9Gcc4V5Ur7WQVLtPs9lBwzZdJn+b
+ X8X9miuops/WCFwoAmWNj/NjGXzAT0mW6NXpmeA4TxIMkDHO76QeZREdaKnirTnI/o65 sg== 
+Received: from nasanppmta05.qualcomm.com (i-global254.qualcomm.com
+ [199.106.103.254])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3mwj4p9paq-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 05 Jan 2023 15:57:58 +0000
+Received: from nasanex01b.na.qualcomm.com (corens_vlan604_snip.qualcomm.com
+ [10.53.140.1])
+ by NASANPPMTA05.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 305Fvvfa027218
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 5 Jan 2023 15:57:57 GMT
+Received: from [10.110.122.212] (10.80.80.8) by nasanex01b.na.qualcomm.com
+ (10.46.141.250) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.36; Thu, 5 Jan 2023
+ 07:57:55 -0800
+Message-ID: <0c4f2985-4ad8-5dd3-a1f7-003624994de4@quicinc.com>
+Date: Thu, 5 Jan 2023 07:57:54 -0800
 MIME-Version: 1.0
-References: <20221206192123.661448-1-robdclark@gmail.com>
- <Y7bHcRAvk6GgMi5F@phenom.ffwll.local>
-In-Reply-To: <Y7bHcRAvk6GgMi5F@phenom.ffwll.local>
-From: Rob Clark <robdclark@gmail.com>
-Date: Thu, 5 Jan 2023 06:51:01 -0800
-Message-ID: <CAF6AEGsB=ngkTDCUoFo5anZaFMswArpe-Uzt0j+Dcm1F7RFbGA@mail.gmail.com>
-To: Rob Clark <robdclark@gmail.com>, dri-devel@lists.freedesktop.org, 
- freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org, 
- Chia-I Wu <olvaffe@gmail.com>, Rob Clark <robdclark@chromium.org>, 
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, 
- Sean Paul <sean@poorly.run>, David Airlie <airlied@gmail.com>, 
- open list <linux-kernel@vger.kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [PATCH] drm/msm: Add MSM_SUBMIT_BO_NO_IMPLICIT
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.5.1
+Content-Language: en-US
+To: Sebastian Wick <sebastian.wick@redhat.com>
+References: <20221222221441.6980-1-quic_jesszhan@quicinc.com>
+ <20221222221441.6980-4-quic_jesszhan@quicinc.com>
+ <fd9a9aca-8225-6cd1-ff5e-19f0a39bf49c@linaro.org>
+ <66072aca-c8c5-db21-64c1-5d23762dc338@quicinc.com>
+ <CA+hFU4yySWjEjJc2Ay=ygJGSa2CzRMiDSLVHD5kpcZ5RWxydow@mail.gmail.com>
+From: Jessica Zhang <quic_jesszhan@quicinc.com>
+In-Reply-To: <CA+hFU4yySWjEjJc2Ay=ygJGSa2CzRMiDSLVHD5kpcZ5RWxydow@mail.gmail.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
+ nasanex01b.na.qualcomm.com (10.46.141.250)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-GUID: thxUvxKJFDhGQO5sTVaGT3ZQ9c1tGJ6F
+X-Proofpoint-ORIG-GUID: thxUvxKJFDhGQO5sTVaGT3ZQ9c1tGJ6F
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.205,Aquarius:18.0.923,Hydra:6.0.545,FMLib:17.11.122.1
+ definitions=2023-01-05_06,2023-01-05_01,2022-06-22_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 suspectscore=0
+ adultscore=0 priorityscore=1501 bulkscore=0 mlxlogscore=999 malwarescore=0
+ phishscore=0 lowpriorityscore=0 mlxscore=0 impostorscore=0 clxscore=1015
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2212070000
+ definitions=main-2301050125
+Subject: Re: [Freedreno] [RFC PATCH v2 3/3] drm/msm/dpu: Use color_fill
+ property for DPU planes
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,121 +87,245 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Daniel Vetter <daniel@ffwll.ch>
+Cc: ppaalanen@gmail.com, linux-arm-msm@vger.kernel.org,
+ quic_abhinavk@quicinc.com, dri-devel@lists.freedesktop.org,
+ swboyd@chromium.org, daniel.vetter@ffwll.ch, robdclark@gmail.com,
+ seanpaul@chromium.org, laurent.pinchart@ideasonboard.com, contact@emersion.fr,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ wayland-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ ville.syrjala@linux.intel.com
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Thu, Jan 5, 2023 at 4:49 AM Daniel Vetter <daniel@ffwll.ch> wrote:
->
-> On Tue, Dec 06, 2022 at 11:21:23AM -0800, Rob Clark wrote:
-> > From: Rob Clark <robdclark@chromium.org>
-> >
-> > In cases where implicit sync is used, it is still useful (for things
-> > like sub-allocation, etc) to allow userspace to opt-out of implicit
-> > sync on per-BO basis.
-> >
-> > Signed-off-by: Rob Clark <robdclark@chromium.org>
-> > ---
-> >  drivers/gpu/drm/msm/msm_drv.c        |  3 ++-
-> >  drivers/gpu/drm/msm/msm_gem_submit.c | 11 +++++++++++
-> >  include/uapi/drm/msm_drm.h           |  4 +++-
-> >  3 files changed, 16 insertions(+), 2 deletions(-)
-> >
-> > diff --git a/drivers/gpu/drm/msm/msm_drv.c b/drivers/gpu/drm/msm/msm_drv.c
-> > index 017a512982a2..e0e1199a822f 100644
-> > --- a/drivers/gpu/drm/msm/msm_drv.c
-> > +++ b/drivers/gpu/drm/msm/msm_drv.c
-> > @@ -45,9 +45,10 @@
-> >   * - 1.7.0 - Add MSM_PARAM_SUSPENDS to access suspend count
-> >   * - 1.8.0 - Add MSM_BO_CACHED_COHERENT for supported GPUs (a6xx)
-> >   * - 1.9.0 - Add MSM_SUBMIT_FENCE_SN_IN
-> > + * - 1.10.0 - Add MSM_SUBMIT_BO_NO_IMPLICIT
-> >   */
-> >  #define MSM_VERSION_MAJOR    1
-> > -#define MSM_VERSION_MINOR    9
-> > +#define MSM_VERSION_MINOR    10
-> >  #define MSM_VERSION_PATCHLEVEL       0
-> >
-> >  static const struct drm_mode_config_funcs mode_config_funcs = {
-> > diff --git a/drivers/gpu/drm/msm/msm_gem_submit.c b/drivers/gpu/drm/msm/msm_gem_submit.c
-> > index eb3536e3d66a..8bad07a04f85 100644
-> > --- a/drivers/gpu/drm/msm/msm_gem_submit.c
-> > +++ b/drivers/gpu/drm/msm/msm_gem_submit.c
-> > @@ -334,9 +334,20 @@ static int submit_fence_sync(struct msm_gem_submit *submit, bool no_implicit)
-> >               if (ret)
-> >                       return ret;
-> >
-> > +             /* If userspace has determined that explicit fencing is
-> > +              * used, it can disable implicit sync on the entire
-> > +              * submit:
-> > +              */
-> >               if (no_implicit)
-> >                       continue;
-> >
-> > +             /* Otherwise userspace can ask for implicit sync to be
-> > +              * disabled on specific buffers.  This is useful for internal
-> > +              * usermode driver managed buffers, suballocation, etc.
-> > +              */
-> > +             if (submit->bos[i].flags & MSM_SUBMIT_BO_NO_IMPLICIT)
-> > +                     continue;
-> > +
-> >               ret = drm_sched_job_add_implicit_dependencies(&submit->base,
->
-> Won't this break shrinkers and fun stuff like that? It's why we added the
-> new USAGE_OTHER fence slot at least, and also why I wonder whether we
 
-Only if the entire explicit sync path was busted.. My daily driver for
-email/docs/meet/chat/corpstuff is a 4G device and CrOS is all explicit
-sync.. I would have found out rapidly and dramatically if it was
-busted :-P
 
-But seriously, this doesn't change what fences we attach to buffers,
-only what the sched job waits on
+On 1/5/2023 6:49 AM, Sebastian Wick wrote:
+> On Wed, Jan 4, 2023 at 2:10 AM Jessica Zhang <quic_jesszhan@quicinc.com> wrote:
+>>
+>>
+>>
+>> On 12/22/2022 7:12 PM, Dmitry Baryshkov wrote:
+>>> On 23/12/2022 00:14, Jessica Zhang wrote:
+>>>> Initialize and use the color_fill properties for planes in DPU driver. In
+>>>> addition, relax framebuffer requirements within atomic commit path and
+>>>> add checks for NULL framebuffers. Finally, drop DPU_PLANE_COLOR_FILL_FLAG
+>>>> as it's unused.
+>>>>
+>>>> Changes since V2:
+>>>> - Fixed dropped 'const' warning
+>>>> - Dropped use of solid_fill_format
+>>>> - Switched to using drm_plane_solid_fill_enabled helper method
+>>>> - Added helper to convert color fill to BGR888 (Rob)
+>>>> - Added support for solid fill on planes of varying sizes
+>>>> - Removed DPU_PLANE_COLOR_FILL_FLAG
+>>>>
+>>>> Signed-off-by: Jessica Zhang <quic_jesszhan@quicinc.com>
+>>>> ---
+>>>>    drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c  |  9 +++-
+>>>>    drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c | 65 ++++++++++++++---------
+>>>>    2 files changed, 49 insertions(+), 25 deletions(-)
+>>>>
+>>>> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
+>>>> b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
+>>>> index 13ce321283ff..0695b70ea1b7 100644
+>>>> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
+>>>> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
+>>>> @@ -409,6 +409,7 @@ static void _dpu_crtc_blend_setup_mixer(struct
+>>>> drm_crtc *crtc,
+>>>>        struct drm_plane_state *state;
+>>>>        struct dpu_crtc_state *cstate = to_dpu_crtc_state(crtc->state);
+>>>>        struct dpu_plane_state *pstate = NULL;
+>>>> +    const struct msm_format *fmt;
+>>>>        struct dpu_format *format;
+>>>>        struct dpu_hw_ctl *ctl = mixer->lm_ctl;
+>>>> @@ -441,7 +442,13 @@ static void _dpu_crtc_blend_setup_mixer(struct
+>>>> drm_crtc *crtc,
+>>>>                    sspp_idx - SSPP_VIG0,
+>>>>                    state->fb ? state->fb->base.id : -1);
+>>>> -        format = to_dpu_format(msm_framebuffer_format(pstate->base.fb));
+>>>> +        if (pstate->base.fb)
+>>>> +            fmt = msm_framebuffer_format(pstate->base.fb);
+>>>> +        else
+>>>> +            fmt = dpu_get_msm_format(&_dpu_crtc_get_kms(crtc)->base,
+>>>> +                    DRM_FORMAT_ABGR8888, 0);
+>>>> +
+>>>> +        format = to_dpu_format(fmt);
+>>>>            if (pstate->stage == DPU_STAGE_BASE && format->alpha_enable)
+>>>>                bg_alpha_enable = true;
+>>>> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
+>>>> b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
+>>>> index 86719020afe2..51a7507373f7 100644
+>>>> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
+>>>> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
+>>>> @@ -44,7 +44,6 @@
+>>>>    #define DPU_NAME_SIZE  12
+>>>> -#define DPU_PLANE_COLOR_FILL_FLAG    BIT(31)
+>>>>    #define DPU_ZPOS_MAX 255
+>>>>    /* multirect rect index */
+>>>> @@ -105,7 +104,6 @@ struct dpu_plane {
+>>>>        enum dpu_sspp pipe;
+>>>>        struct dpu_hw_pipe *pipe_hw;
+>>>> -    uint32_t color_fill;
+>>>>        bool is_error;
+>>>>        bool is_rt_pipe;
+>>>>        const struct dpu_mdss_cfg *catalog;
+>>>> @@ -678,6 +676,17 @@ static void _dpu_plane_setup_scaler(struct
+>>>> dpu_plane *pdpu,
+>>>>                    &scaler3_cfg);
+>>>>    }
+>>>> +static uint32_t _dpu_plane_get_fill_color(struct drm_solid_fill
+>>>> solid_fill)
+>>>> +{
+>>>> +    uint32_t ret = 0;
+>>>> +
+>>>> +    ret |= ((uint8_t) solid_fill.b) << 16;
+>>>> +    ret |= ((uint8_t) solid_fill.g) << 8;
+>>>> +    ret |= ((uint8_t) solid_fill.r);
+>>>> +
+>>>> +    return ret;
+>>>> +}
+>>>> +
+>>>>    /**
+>>>>     * _dpu_plane_color_fill - enables color fill on plane
+>>>>     * @pdpu:   Pointer to DPU plane object
+>>>> @@ -1001,12 +1010,17 @@ static int dpu_plane_atomic_check(struct
+>>>> drm_plane *plane,
+>>>>        dst = drm_plane_state_dest(new_plane_state);
+>>>> -    fb_rect.x2 = new_plane_state->fb->width;
+>>>> -    fb_rect.y2 = new_plane_state->fb->height;
+>>>> +    if (new_plane_state->fb) {
+>>>> +        fb_rect.x2 = new_plane_state->fb->width;
+>>>> +        fb_rect.y2 = new_plane_state->fb->height;
+>>>> +    }
+>>>>        max_linewidth = pdpu->catalog->caps->max_linewidth;
+>>>> -    fmt = to_dpu_format(msm_framebuffer_format(new_plane_state->fb));
+>>>> +    if (new_plane_state->fb)
+>>>> +        fmt =
+>>>> to_dpu_format(msm_framebuffer_format(new_plane_state->fb));
+>>>> +    else
+>>>> +        fmt = dpu_get_dpu_format(DRM_FORMAT_ABGR8888);
+>>>>        min_src_size = DPU_FORMAT_IS_YUV(fmt) ? 2 : 1;
+>>>> @@ -1018,7 +1032,7 @@ static int dpu_plane_atomic_check(struct
+>>>> drm_plane *plane,
+>>>>            return -EINVAL;
+>>>>        /* check src bounds */
+>>>> -    } else if (!dpu_plane_validate_src(&src, &fb_rect, min_src_size)) {
+>>>> +    } else if (new_plane_state->fb && !dpu_plane_validate_src(&src,
+>>>> &fb_rect, min_src_size)) {
+>>>>            DPU_DEBUG_PLANE(pdpu, "invalid source " DRM_RECT_FMT "\n",
+>>>>                    DRM_RECT_ARG(&src));
+>>>>            return -E2BIG;
+>>>> @@ -1086,9 +1100,10 @@ void dpu_plane_flush(struct drm_plane *plane)
+>>>>        if (pdpu->is_error)
+>>>>            /* force white frame with 100% alpha pipe output on error */
+>>>>            _dpu_plane_color_fill(pdpu, 0xFFFFFF, 0xFF);
+>>>> -    else if (pdpu->color_fill & DPU_PLANE_COLOR_FILL_FLAG)
+>>>> +    else if (!(plane->state->fb) &&
+>>>> drm_plane_solid_fill_enabled(plane->state))
+>>>
+>>> And what if the plane has both fb and solid_fill proprety?
+>>
+>> Hi Dmitry,
+>>
+>> If both the FB and solid_fill are set, then the driver should prioritize
+>> the FB over the solid_fill.
+> 
+> Please add this to the documentation of the property as well.
 
-> shouldn't push this into the helper to make the right call. Every driver
-> kinda needs the same wheel.
+Hi Sebastian,
 
-We kinda already have moved everything we can (with the current
-driver-specific-uabi model) to helpers, what is left is driver
-specific ioctl parsing.  We absolutely should take a step back and
-re-evaluate this before anyone else adds a new submit/execbuf ioctl.
-For example, the driver specific ioctl could just have a pointer to a
-drm_gem_submit_bo_table type structure, and then we could move the
-whole thing to a helper.  Short of breaking the submit ioctl up (which
-a uring type uabi would let us do), I think the next best thing is to
-split out common cross-driver structs for common parts of
-submit/execbuf.
+Noted, will add this in the v4.
 
-BR,
--R
+Thanks,
 
-> -Daniel
->
-> >                                                             obj,
-> >                                                             write);
-> > diff --git a/include/uapi/drm/msm_drm.h b/include/uapi/drm/msm_drm.h
-> > index f54b48ef6a2d..329100016e7c 100644
-> > --- a/include/uapi/drm/msm_drm.h
-> > +++ b/include/uapi/drm/msm_drm.h
-> > @@ -222,10 +222,12 @@ struct drm_msm_gem_submit_cmd {
-> >  #define MSM_SUBMIT_BO_READ             0x0001
-> >  #define MSM_SUBMIT_BO_WRITE            0x0002
-> >  #define MSM_SUBMIT_BO_DUMP             0x0004
-> > +#define MSM_SUBMIT_BO_NO_IMPLICIT      0x0008
-> >
-> >  #define MSM_SUBMIT_BO_FLAGS            (MSM_SUBMIT_BO_READ | \
-> >                                       MSM_SUBMIT_BO_WRITE | \
-> > -                                     MSM_SUBMIT_BO_DUMP)
-> > +                                     MSM_SUBMIT_BO_DUMP | \
-> > +                                     MSM_SUBMIT_BO_NO_IMPLICIT)
-> >
-> >  struct drm_msm_gem_submit_bo {
-> >       __u32 flags;          /* in, mask of MSM_SUBMIT_BO_x */
-> > --
-> > 2.38.1
-> >
->
-> --
-> Daniel Vetter
-> Software Engineer, Intel Corporation
-> http://blog.ffwll.ch
+Jessica Zhang
+
+> 
+>>
+>> Thanks,
+>>
+>> Jessica Zhang
+>>
+>>>
+>>>>            /* force 100% alpha */
+>>>> -        _dpu_plane_color_fill(pdpu, pdpu->color_fill, 0xFF);
+>>>> +        _dpu_plane_color_fill(pdpu,
+>>>> _dpu_plane_get_fill_color(plane->state->solid_fill),
+>>>> +                0xFF);
+>>>>        else if (pdpu->pipe_hw && pdpu->pipe_hw->ops.setup_csc) {
+>>>>            const struct dpu_format *fmt =
+>>>> to_dpu_format(msm_framebuffer_format(plane->state->fb));
+>>>>            const struct dpu_csc_cfg *csc_ptr = _dpu_plane_get_csc(pdpu,
+>>>> fmt);
+>>>> @@ -1127,23 +1142,30 @@ static void
+>>>> dpu_plane_sspp_atomic_update(struct drm_plane *plane)
+>>>>        struct drm_crtc *crtc = state->crtc;
+>>>>        struct drm_framebuffer *fb = state->fb;
+>>>>        bool is_rt_pipe, update_qos_remap;
+>>>> -    const struct dpu_format *fmt =
+>>>> -        to_dpu_format(msm_framebuffer_format(fb));
+>>>> +    const struct dpu_format *fmt;
+>>>>        struct dpu_hw_pipe_cfg pipe_cfg;
+>>>> -    memset(&pipe_cfg, 0, sizeof(struct dpu_hw_pipe_cfg));
+>>>> -
+>>>> -    _dpu_plane_set_scanout(plane, pstate, &pipe_cfg, fb);
+>>>> -
+>>>>        pstate->pending = true;
+>>>>        is_rt_pipe = (dpu_crtc_get_client_type(crtc) != NRT_CLIENT);
+>>>>        _dpu_plane_set_qos_ctrl(plane, false, DPU_PLANE_QOS_PANIC_CTRL);
+>>>> -    DPU_DEBUG_PLANE(pdpu, "FB[%u] " DRM_RECT_FP_FMT "->crtc%u "
+>>>> DRM_RECT_FMT
+>>>> -            ", %4.4s ubwc %d\n", fb->base.id,
+>>>> DRM_RECT_FP_ARG(&state->src),
+>>>> -            crtc->base.id, DRM_RECT_ARG(&state->dst),
+>>>> -            (char *)&fmt->base.pixel_format, DPU_FORMAT_IS_UBWC(fmt));
+>>>> +    /* override for color fill */
+>>>> +    if (!fb && drm_plane_solid_fill_enabled(plane->state)) {
+>>>
+>>> And here too.
+>>>
+>>>> +        /* skip remaining processing on color fill */
+>>>> +        return;
+>>>> +    }
+>>>> +
+>>>> +    memset(&pipe_cfg, 0, sizeof(struct dpu_hw_pipe_cfg));
+>>>> +
+>>>> +    fmt = to_dpu_format(msm_framebuffer_format(fb));
+>>>> +    _dpu_plane_set_scanout(plane, pstate, &pipe_cfg, fb);
+>>>> +
+>>>> +    if (fb)
+>>>> +        DPU_DEBUG_PLANE(pdpu, "FB[%u] " DRM_RECT_FP_FMT "->crtc%u "
+>>>> DRM_RECT_FMT
+>>>> +                ", %4.4s ubwc %d\n", fb->base.id,
+>>>> DRM_RECT_FP_ARG(&state->src),
+>>>> +                crtc->base.id, DRM_RECT_ARG(&state->dst),
+>>>> +                (char *)&fmt->base.pixel_format,
+>>>> DPU_FORMAT_IS_UBWC(fmt));
+>>>>        pipe_cfg.src_rect = state->src;
+>>>> @@ -1155,12 +1177,6 @@ static void dpu_plane_sspp_atomic_update(struct
+>>>> drm_plane *plane)
+>>>>        pipe_cfg.dst_rect = state->dst;
+>>>> -    /* override for color fill */
+>>>> -    if (pdpu->color_fill & DPU_PLANE_COLOR_FILL_FLAG) {
+>>>> -        /* skip remaining processing on color fill */
+>>>> -        return;
+>>>> -    }
+>>>> -
+>>>>        if (pdpu->pipe_hw->ops.setup_rects) {
+>>>>            pdpu->pipe_hw->ops.setup_rects(pdpu->pipe_hw,
+>>>>                    &pipe_cfg,
+>>>> @@ -1511,6 +1527,7 @@ struct drm_plane *dpu_plane_init(struct
+>>>> drm_device *dev,
+>>>>            DPU_ERROR("failed to install zpos property, rc = %d\n", ret);
+>>>>        drm_plane_create_alpha_property(plane);
+>>>> +    drm_plane_create_solid_fill_property(plane);
+>>>>        drm_plane_create_blend_mode_property(plane,
+>>>>                BIT(DRM_MODE_BLEND_PIXEL_NONE) |
+>>>>                BIT(DRM_MODE_BLEND_PREMULTI) |
+>>>
+>>> --
+>>> With best wishes
+>>> Dmitry
+>>>
+>>
+> 
