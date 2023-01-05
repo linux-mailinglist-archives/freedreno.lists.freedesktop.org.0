@@ -2,63 +2,74 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id E5B0D65E4B1
-	for <lists+freedreno@lfdr.de>; Thu,  5 Jan 2023 05:37:16 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 00C6765E87E
+	for <lists+freedreno@lfdr.de>; Thu,  5 Jan 2023 10:59:37 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9E18110E0C9;
-	Thu,  5 Jan 2023 04:37:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B720310E6DF;
+	Thu,  5 Jan 2023 09:59:35 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wr1-x42d.google.com (mail-wr1-x42d.google.com
- [IPv6:2a00:1450:4864:20::42d])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 09F8010E0C9;
- Thu,  5 Jan 2023 04:37:12 +0000 (UTC)
-Received: by mail-wr1-x42d.google.com with SMTP id az7so10619633wrb.5;
- Wed, 04 Jan 2023 20:37:12 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=in-reply-to:content-disposition:mime-version:message-id:subject:cc
- :to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=V8n4KZU3ErLZb7D+5oV5JKZTvhpFWTfVUw/4LSSiqWc=;
- b=T1QBcW/bIgzKPnVeL59jcQEp1vZU40PnLLKdMX6yYF0va5o0MbdVKdVFMz9QrQdS0l
- Yt0Xs6/NsGHezhsriK5sZ4sYw2H/SuTxo5h8+6Bc3TcyQc8pP0TcjJBiYHJgX02FQan5
- rUYWSmhY+M0qbWO43UYTMqaCtiJAJJ8XIQkhbNF03YM37VN55TaeXVA7yKf+WjWwt2EB
- hMgMOj1eV4wMxwLCnSbJJ0hfeVFgRUBwUHuuYY08yHZaGuLomJ5ubCds7DiXUZiD5M/0
- 4qG/mavSBdUCvfIM7arRtQjJP3UmFfsTkw6aKEx7d0xiVeXJi0lT8pKVf4aTJEtlYN/t
- vO2w==
+Received: from mail-wm1-x336.google.com (mail-wm1-x336.google.com
+ [IPv6:2a00:1450:4864:20::336])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E867F10E6DC
+ for <freedreno@lists.freedesktop.org>; Thu,  5 Jan 2023 09:59:32 +0000 (UTC)
+Received: by mail-wm1-x336.google.com with SMTP id
+ bi26-20020a05600c3d9a00b003d3404a89faso1965373wmb.1
+ for <freedreno@lists.freedesktop.org>; Thu, 05 Jan 2023 01:59:32 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=content-transfer-encoding:in-reply-to:organization:references:cc:to
+ :content-language:subject:reply-to:from:user-agent:mime-version:date
+ :message-id:from:to:cc:subject:date:message-id:reply-to;
+ bh=TzUHuJF+1GtjKbGnuP0VxWAofVGSsonV8HAjRWPNYtE=;
+ b=vuI5XC/ElzTz0lZgBI1+7M7TkLcYdoazvJmSS7s/KySvZKg8Xqo/F0UKxcKCsnqvKk
+ hQ+bN+pWIJt0ozmieFOEO+AqGHLbZq2AKjcUZ4DAKfuAiyvTEmgd/+QN+d+LUfy8xqOW
+ pdyUt70nhyPPiToCRx/FwjsjeciPCvGJadPS9KZH0i2omvLfRXZduVybqTmclWzoSBgV
+ 9JcElXb9LClrjpqomBtinyS5eHmmE1D7ctf5rt0GNa1SKClf+jKx3YFUTSdClpTpb0Vu
+ c0klsP4V3JNpqIZ7UGy7wEd6zIABAZPZy1XGY788ZsVOA7Gg6cFuL8+uP9d5wKbGFvbj
+ l49Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=in-reply-to:content-disposition:mime-version:message-id:subject:cc
- :to:from:date:x-gm-message-state:from:to:cc:subject:date:message-id
+ h=content-transfer-encoding:in-reply-to:organization:references:cc:to
+ :content-language:subject:reply-to:from:user-agent:mime-version:date
+ :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=V8n4KZU3ErLZb7D+5oV5JKZTvhpFWTfVUw/4LSSiqWc=;
- b=PrdClMAlk6u41jJOAZB+IaJ+2iaCq84yM37KdT5kj+P451s2OWwa48IK8rv3YH4LCP
- MOMyra4RhvWMd2K7VNOynF87/zO/sHtPW4N8JupYEihs0Bigq2FMpt1LKb5xfinugEaK
- H+Zxz3uPI6rsreRblKKPF4yXSJf7ZJlgJ4uggXXmrv5AsbO6cbnXF9Mng24QEAhZHsFT
- yLUT1Wj02sDVoWMt6E49yxg9MnSJURJZa8pAPrP1J0UnzgkM5tXysjMvxJQV91tN2FEP
- dnMxYw5tnZjve/Oi/iIukxtuBU3oc/bt2gIfLzD/r0MZjmQFZn/uWqETQeu/TajQTo1H
- AoPg==
-X-Gm-Message-State: AFqh2kpD6X8NrgeNXc2GgWD+5Vo/9OCGUjWYD1IvmvT6x5+UTggDyUFy
- 1nBrXj/enSfBb2VuDSYx6KU=
-X-Google-Smtp-Source: AMrXdXt/yqQWzK0JIKHjU/7CDgvchWlRfZKhJFMKPVJnTZ3cGXeN8hOkB/m/K6zF7kNjhTkMv6m3QA==
-X-Received: by 2002:adf:e690:0:b0:2b3:f6f:293b with SMTP id
- r16-20020adfe690000000b002b30f6f293bmr335845wrm.47.1672893431502; 
- Wed, 04 Jan 2023 20:37:11 -0800 (PST)
-Received: from localhost ([102.36.222.112]) by smtp.gmail.com with ESMTPSA id
- m16-20020adffe50000000b00241bd7a7165sm39712107wrs.82.2023.01.04.20.37.10
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 04 Jan 2023 20:37:10 -0800 (PST)
-Date: Thu, 5 Jan 2023 07:37:08 +0300
-From: Dan Carpenter <error27@gmail.com>
-To: oe-kbuild@lists.linux.dev, Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>
-Message-ID: <202301050715.xoGxiXQq-lkp@intel.com>
+ bh=TzUHuJF+1GtjKbGnuP0VxWAofVGSsonV8HAjRWPNYtE=;
+ b=3GVyAkvrPCssCQCOXcW0KPrjSlkSZeCYyn/ChqzMxwlPW3PjAxctuH4wljbTT5HLs5
+ Txn9NT8MkzAM4iAVSpCfzaya3CDbVFhf0xUvLQgws+HYUalY5pxYOzW6PwExWvHvrmxl
+ MRP86m/QYuAHzpbp6ebD2K3HoAIMA7h2X+lxhNZBL4Gb3y6ldhObwqkycIjEZcQA4LdG
+ 1EiOupXVordYOGgbYXFDuefgobc3UuW4pLzWL6OqcUyKgVknebqt2Z0d8VDW38BnGiIM
+ FmOdPq7jV5gx+AvEVkOTRVXTaH3PYR+bXN4vZSY/BB1rz8EQmHEho4UNPqiNjVUIr/UG
+ vuXA==
+X-Gm-Message-State: AFqh2kqPwmsk19UMZg4N8VKbvUGEw7c/3xv/BE10KNneMPfP6v0eG1qL
+ EI17+0Sk3spsyYLC5Bv45dk/NQ==
+X-Google-Smtp-Source: AMrXdXsQZ0DK0v9sW/V/Gfm1iQioAHO/VQix/Tw5Y8roIvVtwON8/NprodDB8Q5coTZo2iLhNB4AVw==
+X-Received: by 2002:a05:600c:1d89:b0:3d3:5cd6:781 with SMTP id
+ p9-20020a05600c1d8900b003d35cd60781mr35095929wms.37.1672912771401; 
+ Thu, 05 Jan 2023 01:59:31 -0800 (PST)
+Received: from ?IPV6:2a01:e0a:982:cbb0:1e12:c16d:1898:607c?
+ ([2a01:e0a:982:cbb0:1e12:c16d:1898:607c])
+ by smtp.gmail.com with ESMTPSA id
+ g41-20020a05600c4ca900b003cfd0bd8c0asm1652910wmp.30.2023.01.05.01.59.30
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 05 Jan 2023 01:59:30 -0800 (PST)
+Message-ID: <342119d7-87fb-2880-2729-4c173ce60d4d@linaro.org>
+Date: Thu, 5 Jan 2023 10:59:29 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20221231022937.286491-1-dmitry.baryshkov@linaro.org>
-Subject: Re: [Freedreno] [PATCH] drm/msm: another fix for the headless
- Adreno GPU
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.6.0
+From: neil.armstrong@linaro.org
+Content-Language: en-US
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+References: <20230103-topic-sm8550-upstream-mdss-dsi-v1-0-9ccd7e652fcd@linaro.org>
+ <20230103-topic-sm8550-upstream-mdss-dsi-v1-3-9ccd7e652fcd@linaro.org>
+ <96ccae6f-3788-e030-480f-7aa2478ca560@linaro.org>
+ <de3860ba-40f9-cdd5-097c-e015f6b19255@linaro.org>
+ <CAA8EJpoi8QFpvR0qWpNpenZKzEZAQpwp3gNpGd3RwHovgC+Odw@mail.gmail.com>
+Organization: Linaro Developer Services
+In-Reply-To: <CAA8EJpoi8QFpvR0qWpNpenZKzEZAQpwp3gNpGd3RwHovgC+Odw@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Subject: Re: [Freedreno] [PATCH 3/6] drm/msm/dpu: add support for SM8550
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,52 +82,148 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: lkp@intel.com, linux-arm-msm@vger.kernel.org,
- Bjorn Andersson <andersson@kernel.org>, dri-devel@lists.freedesktop.org,
- Stephen Boyd <swboyd@chromium.org>, oe-kbuild-all@lists.linux.dev,
- freedreno@lists.freedesktop.org
+Reply-To: neil.armstrong@linaro.org
+Cc: freedreno@lists.freedesktop.org,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Jonathan Marek <jonathan@marek.ca>, devicetree@vger.kernel.org,
+ Sean Paul <sean@poorly.run>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Rob Clark <robdclark@gmail.com>, Rob Herring <robh+dt@kernel.org>,
+ Daniel Vetter <daniel@ffwll.ch>, linux-arm-msm@vger.kernel.org,
+ David Airlie <airlied@gmail.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Hi Dmitry,
+On 04/01/2023 18:48, Dmitry Baryshkov wrote:
+> On Wed, 4 Jan 2023 at 12:08, Neil Armstrong <neil.armstrong@linaro.org> wrote:
+>>
+>> On 04/01/2023 10:45, Dmitry Baryshkov wrote:
+>>> On 04/01/2023 11:08, Neil Armstrong wrote:
+>>>> Add definitions for the display hardware used on Qualcomm SM8550
+>>>> platform.
+>>>>
+>>>> Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
+>>>> ---
+>>>>    drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c | 197 +++++++++++++++++++++++++
+>>>>    drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h |   1 +
+>>>>    drivers/gpu/drm/msm/disp/dpu1/dpu_hw_mdss.h    |   2 +
+>>>>    drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c        |   1 +
+>>>>    4 files changed, 201 insertions(+)
+>>>>
+>>>> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
+>>>> index b4ca123d8e69..adf5e25269dc 100644
+>>>> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
+>>>> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
+>>
+>> <snip>
+>>
+>>>> @@ -776,6 +821,45 @@ static const struct dpu_ctl_cfg sm8450_ctl[] = {
+>>>>        },
+>>>>    };
+>>>> +static const struct dpu_ctl_cfg sm8550_ctl[] = {
+>>>> +    {
+>>>> +    .name = "ctl_0", .id = CTL_0,
+>>>> +    .base = 0x15000, .len = 0x290,?
+>>>> +    .features = BIT(DPU_CTL_ACTIVE_CFG) | BIT(DPU_CTL_SPLIT_DISPLAY) | BIT(DPU_CTL_FETCH_ACTIVE),
+>>>
+>>> CTL_SC7280_MASK | BIT(DPU_CTL_SPLIT_DISPLAY) ?
+>>
+>> Indeed DPU_CTL_VM_CFG is missing, will switch to that.
+>>
+>>>
+>>>> +    .intr_start = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR2, 9),
+>>>> +    },
+>>>> +    {
+>>>> +    .name = "ctl_1", .id = CTL_1,
+>>>> +    .base = 0x16000, .len = 0x290,
+>>>> +    .features = BIT(DPU_CTL_ACTIVE_CFG) | BIT(DPU_CTL_SPLIT_DISPLAY) | BIT(DPU_CTL_FETCH_ACTIVE),
+>>>> +    .intr_start = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR2, 10),
+>>>> +    },
+>>>> +    {
+>>>> +    .name = "ctl_2", .id = CTL_2,
+>>>> +    .base = 0x17000, .len = 0x290,
+>>>> +    .features = BIT(DPU_CTL_ACTIVE_CFG) | BIT(DPU_CTL_FETCH_ACTIVE),
+>>>
+>>> CTL_SC7280_MASK?
+>>
+>> Ack
+>>
+>>>
+>>>> +    .intr_start = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR2, 11),
+>>>> +    },
+>>>> +    {
+>>>> +    .name = "ctl_3", .id = CTL_3,
+>>>> +    .base = 0x18000, .len = 0x290,
+>>>> +    .features = BIT(DPU_CTL_ACTIVE_CFG) | BIT(DPU_CTL_FETCH_ACTIVE),
+>>>> +    .intr_start = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR2, 12),
+>>>> +    },
+>>>> +    {
+>>>> +    .name = "ctl_4", .id = CTL_4,
+>>>> +    .base = 0x19000, .len = 0x290,
+>>>> +    .features = BIT(DPU_CTL_ACTIVE_CFG) | BIT(DPU_CTL_FETCH_ACTIVE),
+>>>> +    .intr_start = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR2, 13),
+>>>> +    },
+>>>> +    {
+>>>> +    .name = "ctl_5", .id = CTL_5,
+>>>> +    .base = 0x1a000, .len = 0x290,
+>>>> +    .features = BIT(DPU_CTL_ACTIVE_CFG) | BIT(DPU_CTL_FETCH_ACTIVE),
+>>>> +    .intr_start = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR2, 23),
+>>>> +    },
+>>>> +};
+>>>> +
+>>>>    static const struct dpu_ctl_cfg sc7280_ctl[] = {
+>>>>        {
+>>>>        .name = "ctl_0", .id = CTL_0,
+>>
+>> <snip>
+>>
+>>>> @@ -1268,6 +1386,16 @@ static const struct dpu_pingpong_sub_blks sc7280_pp_sblk = {
+>>>>        .len = 0x20, .version = 0x20000},
+>>>>    };
+>>>> +#define PP_BLK_DIPHER(_name, _id, _base, _merge_3d, _sblk, _done, _rdptr) \
+>>>> +    {\
+>>>> +    .name = _name, .id = _id, \
+>>>> +    .base = _base, .len = 0, \
+>>>
+>>> len = 0 looks incorrect. Any particular reason why can't we use plain PP_BLK here?
+>>
+>> The TE block has been moved to the DSI INTF blocks since SM8350 I think, or earlier.
+> 
+> I think, 8150. Marijn has been working on adding support for INTF-based TE.
+> 
+>> This removes the DPU_PINGPONG_DITHER feature used downstream to enable the PP TE callbacks.
+>> Since there's only the DIPHER sub-block remaining, this is why I set len to 0.
+> 
+> I went on with some research. Usually PP len is 0xd4. However it seems
+> since 8350 (since the change of DSC block) the PP size should be 0x0),
+> despite dowsnstream DTs having sde-pp-size=0xd4 for sm8350 and sm8450
+> (or 0x4 for neo, DPU 9.1.0).
 
-https://git-scm.com/docs/git-format-patch#_base_tree_information]
+Perhaps neo has a single register at PP base address, on 8550 there's none.
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Dmitry-Baryshkov/drm-msm-another-fix-for-the-headless-Adreno-GPU/20221231-103022
-base:   git://anongit.freedesktop.org/drm/drm-misc drm-misc-next
-patch link:    https://lore.kernel.org/r/20221231022937.286491-1-dmitry.baryshkov%40linaro.org
-patch subject: [PATCH] drm/msm: another fix for the headless Adreno GPU
-config: loongarch-randconfig-m031-20230101
-compiler: loongarch64-linux-gcc (GCC) 12.1.0
+> So, it looks like you are correct here (and we should fix 8350/8450
+> patches instead).
 
-If you fix the issue, kindly add following tag where applicable
-| Reported-by: kernel test robot <lkp@intel.com>
-| Reported-by: Dan Carpenter <error27@gmail.com>
+Yes it must be because with the new DSC block, the PP DCE_DATA_XX_SWAP/DSC_MODE registers were removed,
+so I expect they are still present in 8150 & 8250.
 
-smatch warnings:
-drivers/gpu/drm/msm/msm_atomic.c:194 msm_atomic_commit_tail() error: uninitialized symbol 'async'.
+Neil
 
-vim +/async +194 drivers/gpu/drm/msm/msm_atomic.c
-
-d4d2c60497cfc5 Rob Clark        2019-08-29  181  
-d14659f5de7d28 Sean Paul        2018-02-28  182  void msm_atomic_commit_tail(struct drm_atomic_state *state)
-cf3a7e4ce08e68 Rob Clark        2014-11-08  183  {
-cf3a7e4ce08e68 Rob Clark        2014-11-08  184  	struct drm_device *dev = state->dev;
-0b776d457b9476 Rob Clark        2015-01-30  185  	struct msm_drm_private *priv = dev->dev_private;
-0b776d457b9476 Rob Clark        2015-01-30  186  	struct msm_kms *kms = priv->kms;
-2d99ced787e3d0 Rob Clark        2019-08-29  187  	struct drm_crtc *async_crtc = NULL;
-d4d2c60497cfc5 Rob Clark        2019-08-29  188  	unsigned crtc_mask = get_crtc_mask(state);
-91a514e50f1157 Dmitry Baryshkov 2022-12-31  189  	bool async;
-                                                        ^^^^^^^^^^^
-91a514e50f1157 Dmitry Baryshkov 2022-12-31  190  
-91a514e50f1157 Dmitry Baryshkov 2022-12-31  191  	if (!kms)
-91a514e50f1157 Dmitry Baryshkov 2022-12-31  192  		return;
-0b776d457b9476 Rob Clark        2015-01-30  193  
-d934a712c5e6a3 Rob Clark        2019-08-29 @194  	trace_msm_atomic_commit_tail_start(async, crtc_mask);
-                                                                                           ^^^^^
-Unitialized.
-
--- 
-0-DAY CI Kernel Test Service
-https://01.org/lkp
+> 
+>>
+>>>
+>>>> +    .features = BIT(DPU_PINGPONG_DITHER), \
+>>>> +    .merge_3d = _merge_3d, \
+>>>> +    .sblk = &_sblk, \
+>>>> +    .intr_done = _done, \
+>>>> +    .intr_rdptr = _rdptr, \
+>>>> +    }
+>>>>    #define PP_BLK_TE(_name, _id, _base, _merge_3d, _sblk, _done, _rdptr) \
+>>>>        {\
+>>>>        .name = _name, .id = _id, \
+>>
+>> <snip>
+>>
+> 
+> 
 
