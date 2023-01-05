@@ -1,77 +1,83 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7B2C065ECA1
-	for <lists+freedreno@lfdr.de>; Thu,  5 Jan 2023 14:16:17 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 5878C65EE64
+	for <lists+freedreno@lfdr.de>; Thu,  5 Jan 2023 15:09:58 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3AF8710E712;
-	Thu,  5 Jan 2023 13:16:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 43C9E10E739;
+	Thu,  5 Jan 2023 14:09:56 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x12e.google.com (mail-lf1-x12e.google.com
- [IPv6:2a00:1450:4864:20::12e])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5C3A010E712
- for <freedreno@lists.freedesktop.org>; Thu,  5 Jan 2023 13:16:14 +0000 (UTC)
-Received: by mail-lf1-x12e.google.com with SMTP id bu8so5924002lfb.4
- for <freedreno@lists.freedesktop.org>; Thu, 05 Jan 2023 05:16:14 -0800 (PST)
+Received: from mail-wm1-x330.google.com (mail-wm1-x330.google.com
+ [IPv6:2a00:1450:4864:20::330])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 06B8E10E737
+ for <freedreno@lists.freedesktop.org>; Thu,  5 Jan 2023 14:09:54 +0000 (UTC)
+Received: by mail-wm1-x330.google.com with SMTP id ay40so28138902wmb.2
+ for <freedreno@lists.freedesktop.org>; Thu, 05 Jan 2023 06:09:53 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=content-transfer-encoding:in-reply-to:from:references:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=JxxqW2U4VV6Fh7w9J7Z3fimLOgBH/JK80j7RpKFTc0s=;
- b=PTD+Rt+3JSezzXjzDA6SPux9bO6VcdDD8B2UgufvaMXU3gdVRYcPaslvOzToI9taoV
- WAzYP6ZU2BVVl6y0U6c/lxb7XMIp3KC9LOyYTzs7WFpTu2XSyJKULd04UAMcecEvZGPc
- 8WMunjDLIltqmrGC+q2GTZ8ZvlrrBfyd4aYv5D728gGh4DTTZ6InRTDX1N16v2LjkJFO
- SYeTQp73rcmExGawY3JyaASMUhtjV6KmGmx8eO5wGfMRO7cX1KJ1gThqY76yARojMNa2
- sZL918uFGQcoBmSeWxfluV9RNSLALNZ1iriTGu1mE5oCjv6gPw6qfidt4XlfeDrduZ/S
- PaHg==
+ h=content-transfer-encoding:in-reply-to:organization:from:references
+ :cc:to:content-language:subject:reply-to:user-agent:mime-version
+ :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+ bh=P1d2K6EBLa0i9DYaOKFUZQuPA0/Q9AJBs0TBBGG9+5A=;
+ b=fn3+0a53GsD702FNVt2A2IeOlAl+jUqW5lYG0rbNJBErCRhu8dhmNB5chNV3Z712bV
+ evZ5jv/7fR2HkKkAntN+zVrbFkzu/MaVYym+TPJ50CEOasGEQyb96g6Amhyf/78faxft
+ STG1mF8FmnAIVNyfzx+ckQAtTWDHok66ImQccOLaAnIl/oN71WSFJox0EVFLkvyDe8KZ
+ KCuyruYiVt43gKRVz5kBurjPIQ7Etd8uN6xzvDptt41Kubux6E824NBRMF1vJCXoTCxl
+ bI8x2lG56dXPQ8+3SFa2zWVUtowN4qSUWIG6lF+EXSGg7sxT0WV7SttZ7grcxk1FFydf
+ B/Ag==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=content-transfer-encoding:in-reply-to:from:references:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=JxxqW2U4VV6Fh7w9J7Z3fimLOgBH/JK80j7RpKFTc0s=;
- b=Lucs16+JoVV6V2tmWvC1+NubrX3UB7TjRMwMUoZbyfNvy4xospxu/COJtifQ15U751
- iM2NV+7tlHPJQeHh9bMClHLqNZqMiwogMGYaYeo6WGc4xslI9zBhYPtTm5pTv2UB54fQ
- zGAp8DBltav5ioV+cQ7NhRUuelTq7g0PIINPTvOYVkpV3+0LibQx5N669foTZab8Tr3N
- sHIcQ2KpyJUm9EJCNpb8PWQMYXl558RmjxZmH58d8Ox6la5zO8X4APaLiNvKMeGGwre6
- J3c51Srm9FewLKg41pyRjpAmk7J0AjXRRRjTzFpxEFEZxDxuKDWFY0LcP9mRLRU1kP2m
- 1AkA==
-X-Gm-Message-State: AFqh2kpmBxsZjW0sNvTldhpxJ4iRQJLKpUwjQFwLeghhM6l0jiNcNkuT
- rN5pqkWMhyUPEsepcIJRCacxsw==
-X-Google-Smtp-Source: AMrXdXvbg2vxFXLTao4kRQnA/Il84ArFmU6NTMdpRsur7+pI2j1P8LoLMHueA5P1bWzcYWx6nOx5tw==
-X-Received: by 2002:ac2:4c8e:0:b0:4b6:ee97:36d2 with SMTP id
- d14-20020ac24c8e000000b004b6ee9736d2mr14003242lfl.40.1672924572561; 
- Thu, 05 Jan 2023 05:16:12 -0800 (PST)
-Received: from ?IPV6:2001:14ba:a085:4d00::8a5?
- (dzccz6yyyyyyyyyyybcwt-3.rev.dnainternet.fi. [2001:14ba:a085:4d00::8a5])
+ h=content-transfer-encoding:in-reply-to:organization:from:references
+ :cc:to:content-language:subject:reply-to:user-agent:mime-version
+ :date:message-id:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=P1d2K6EBLa0i9DYaOKFUZQuPA0/Q9AJBs0TBBGG9+5A=;
+ b=Km8AsuH8UEOvtbNK2XoV+3IpFqE7q1m/9tDZWIcWzZ5QNZfxhR3zH7XeiRdse2Wocv
+ pPLtmZXqBxqwxFXLXmH/bDj5e1J4Zw3Bd3M3PbpJTXK9GIS6cTUpZ/TyU4XO4xmFPHuC
+ kqtKRfg0hx+XGM3Vt9fJ+cmJ/G+ARWRe0FYWm8Jow53xMHUR7spZc3Z6hnClXL9/PlQD
+ VYXv8BllcfWjdFaHHJgzcEFO6ArT53a4J3BPPnwtkNrhPNL9UVvfp7wYQ4IUrDWWVfTs
+ txTlMfrXhe8sPsMY1bM1LM+H6ltL0vSFkgy/3P5kc0l9nGzja3K8r9qRBdP+T8FY4zRQ
+ GJXw==
+X-Gm-Message-State: AFqh2kr1gWdvwkiuN7HR7dsOKCS12mgHcCWRt6MGS85ezs+tdXa7wigL
+ 7zBs306YblBFyrnEXmb6LQLYLA==
+X-Google-Smtp-Source: AMrXdXthpMyfs3cO+WKLMQ4K1r95WyC+VFsKtEiWz6BGuZw4n1JeOQmBiUhRbgIDSc9jVBl8lIuWcw==
+X-Received: by 2002:a05:600c:4b1b:b0:3d2:1d51:2477 with SMTP id
+ i27-20020a05600c4b1b00b003d21d512477mr44697947wmp.11.1672927792485; 
+ Thu, 05 Jan 2023 06:09:52 -0800 (PST)
+Received: from ?IPV6:2a01:e0a:982:cbb0:1e12:c16d:1898:607c?
+ ([2a01:e0a:982:cbb0:1e12:c16d:1898:607c])
  by smtp.gmail.com with ESMTPSA id
- o5-20020ac24e85000000b004c2e1d7d9a3sm5469102lfr.146.2023.01.05.05.16.11
+ f19-20020a05600c155300b003d98a7aa12csm2914216wmg.16.2023.01.05.06.09.51
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 05 Jan 2023 05:16:12 -0800 (PST)
-Message-ID: <47cd5078-f994-e05a-624c-4e221dc74294@linaro.org>
-Date: Thu, 5 Jan 2023 15:16:11 +0200
+ Thu, 05 Jan 2023 06:09:52 -0800 (PST)
+Message-ID: <36ea5022-f915-11d5-068a-e5680faf67ba@linaro.org>
+Date: Thu, 5 Jan 2023 15:09:50 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.6.0
-Content-Language: en-GB
-To: Vinod Polimera <quic_vpolimer@quicinc.com>,
- dri-devel@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
- freedreno@lists.freedesktop.org, devicetree@vger.kernel.org,
- quic_kalyant@quicinc.com, quic_sbillaka@quicinc.com,
- quic_bjorande@quicinc.com, quic_abhinavk@quicinc.com,
- quic_vproddut@quicinc.com, quic_khsieh@quicinc.com, dianders@chromium.org,
- linux-kernel@vger.kernel.org, quic_aravindh@quicinc.com, swboyd@chromium.org
-References: <1671012352-1825-1-git-send-email-quic_vpolimer@quicinc.com>
- <1671012352-1825-9-git-send-email-quic_vpolimer@quicinc.com>
- <Y7bMcLHr79uhfJv2@phenom.ffwll.local>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-In-Reply-To: <Y7bMcLHr79uhfJv2@phenom.ffwll.local>
+Content-Language: en-US
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>,
+ Lucas Stach <l.stach@pengutronix.de>, Philipp Zabel
+ <p.zabel@pengutronix.de>, Shawn Guo <shawnguo@kernel.org>,
+ Sascha Hauer <s.hauer@pengutronix.de>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Fabio Estevam <festevam@gmail.com>, NXP Linux Team <linux-imx@nxp.com>,
+ Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, Tomi Valkeinen <tomba@kernel.org>
+References: <20221102180705.459294-1-dmitry.baryshkov@linaro.org>
+ <20221102180705.459294-5-dmitry.baryshkov@linaro.org>
+From: Neil Armstrong <neil.armstrong@linaro.org>
+Organization: Linaro Developer Services
+In-Reply-To: <20221102180705.459294-5-dmitry.baryshkov@linaro.org>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH v9 08/15] drm/bridge: add psr support for
- panel bridge callbacks
+Content-Transfer-Encoding: 8bit
+Subject: Re: [Freedreno] [PATCH v3 4/7] drm/imx/dcss: stop using
+ drm_bridge_connector_en/disable_hpd()
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -84,121 +90,77 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: neil.armstrong@linaro.org
+Cc: linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
+ linux-arm-kernel@lists.infradead.org, dri-devel@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 05/01/2023 15:11, Daniel Vetter wrote:
-> On Wed, Dec 14, 2022 at 03:35:45PM +0530, Vinod Polimera wrote:
->> This change will handle the psr entry exit cases in the panel
->> bridge atomic callback functions. For example, the panel power
->> should not turn off if the panel is entering psr.
->>
->> Signed-off-by: Sankeerth Billakanti <quic_sbillaka@quicinc.com>
->> Signed-off-by: Vinod Polimera <quic_vpolimer@quicinc.com>
+On 02/11/2022 19:07, Dmitry Baryshkov wrote:
+> The functionality of drm_bridge_connector_enable_hpd() and
+> drm_bridge_connector_disable_hpd() is provided automatically by the
+> drm_kms_poll helpers. Stop calling these functions manually.
 > 
-> I think this is all a nice integration of the sr helpers and bridge stuff
-> and makes sense to me. For the 2 bridge patches and the drm core atomic
-> patch:
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> ---
+>   drivers/gpu/drm/imx/dcss/dcss-dev.c | 4 ----
+>   drivers/gpu/drm/imx/dcss/dcss-kms.c | 2 --
+>   2 files changed, 6 deletions(-)
 > 
-> Reviewed-by: Daniel Vetter <daniel.vetter@ffwll.ch>
+> diff --git a/drivers/gpu/drm/imx/dcss/dcss-dev.c b/drivers/gpu/drm/imx/dcss/dcss-dev.c
+> index 3f5750cc2673..0d8e44f20ec4 100644
+> --- a/drivers/gpu/drm/imx/dcss/dcss-dev.c
+> +++ b/drivers/gpu/drm/imx/dcss/dcss-dev.c
+> @@ -257,8 +257,6 @@ int dcss_dev_suspend(struct device *dev)
+>   	struct dcss_kms_dev *kms = container_of(ddev, struct dcss_kms_dev, base);
+>   	int ret;
+>   
+> -	drm_bridge_connector_disable_hpd(kms->connector);
+> -
+>   	drm_mode_config_helper_suspend(ddev);
+>   
+>   	if (pm_runtime_suspended(dev))
+> @@ -292,8 +290,6 @@ int dcss_dev_resume(struct device *dev)
+>   
+>   	drm_mode_config_helper_resume(ddev);
+>   
+> -	drm_bridge_connector_enable_hpd(kms->connector);
+> -
+>   	return 0;
+>   }
+>   #endif /* CONFIG_PM_SLEEP */
+> diff --git a/drivers/gpu/drm/imx/dcss/dcss-kms.c b/drivers/gpu/drm/imx/dcss/dcss-kms.c
+> index b4f82ebca532..16ef8aa6da37 100644
+> --- a/drivers/gpu/drm/imx/dcss/dcss-kms.c
+> +++ b/drivers/gpu/drm/imx/dcss/dcss-kms.c
+> @@ -151,7 +151,6 @@ struct dcss_kms_dev *dcss_kms_attach(struct dcss_dev *dcss)
+>   	return kms;
+>   
+>   cleanup_crtc:
+> -	drm_bridge_connector_disable_hpd(kms->connector);
+>   	drm_kms_helper_poll_fini(drm);
+>   	dcss_crtc_deinit(crtc, drm);
+>   
+> @@ -167,7 +166,6 @@ void dcss_kms_detach(struct dcss_kms_dev *kms)
+>   	struct drm_device *drm = &kms->base;
+>   
+>   	drm_dev_unregister(drm);
+> -	drm_bridge_connector_disable_hpd(kms->connector);
+>   	drm_kms_helper_poll_fini(drm);
+>   	drm_atomic_helper_shutdown(drm);
+>   	drm_crtc_vblank_off(&kms->crtc.base);
 
-Thank you! I was looking at the patchset and wondering if anybody from 
-drm core can actually review the core bits.
 
-Could you please send all r-b letters, so that we don't loose them when 
-applying the patches from patchwork?
+I get:
+/drivers/gpu/drm/imx/dcss/dcss-dev.c: In function ‘dcss_dev_suspend’:
+/drivers/gpu/drm/imx/dcss/dcss-dev.c:256:23: warning: unused variable ‘kms’ [-Wunused-variable]
+   256 |  struct dcss_kms_dev *kms = container_of(ddev, struct dcss_kms_dev, base);
+       |                       ^~~
+/drivers/gpu/drm/imx/dcss/dcss-dev.c: In function ‘dcss_dev_resume’:
+/drivers/gpu/drm/imx/dcss/dcss-dev.c:277:23: warning: unused variable ‘kms’ [-Wunused-variable]
+   277 |  struct dcss_kms_dev *kms = container_of(ddev, struct dcss_kms_dev, base);
+       |                       ^~~
 
-> 
->> ---
->>   drivers/gpu/drm/bridge/panel.c | 48 ++++++++++++++++++++++++++++++++++++++++++
->>   1 file changed, 48 insertions(+)
->>
->> diff --git a/drivers/gpu/drm/bridge/panel.c b/drivers/gpu/drm/bridge/panel.c
->> index 3558cbf..5e77e38 100644
->> --- a/drivers/gpu/drm/bridge/panel.c
->> +++ b/drivers/gpu/drm/bridge/panel.c
->> @@ -113,6 +113,18 @@ static void panel_bridge_atomic_pre_enable(struct drm_bridge *bridge,
->>   				struct drm_bridge_state *old_bridge_state)
->>   {
->>   	struct panel_bridge *panel_bridge = drm_bridge_to_panel_bridge(bridge);
->> +	struct drm_atomic_state *atomic_state = old_bridge_state->base.state;
->> +	struct drm_encoder *encoder = bridge->encoder;
->> +	struct drm_crtc *crtc;
->> +	struct drm_crtc_state *old_crtc_state;
->> +
->> +	crtc = drm_atomic_get_new_crtc_for_encoder(atomic_state, encoder);
->> +	if (!crtc)
->> +		return;
->> +
->> +	old_crtc_state = drm_atomic_get_old_crtc_state(atomic_state, crtc);
->> +	if (old_crtc_state && old_crtc_state->self_refresh_active)
->> +		return;
->>   
->>   	drm_panel_prepare(panel_bridge->panel);
->>   }
->> @@ -121,6 +133,18 @@ static void panel_bridge_atomic_enable(struct drm_bridge *bridge,
->>   				struct drm_bridge_state *old_bridge_state)
->>   {
->>   	struct panel_bridge *panel_bridge = drm_bridge_to_panel_bridge(bridge);
->> +	struct drm_atomic_state *atomic_state = old_bridge_state->base.state;
->> +	struct drm_encoder *encoder = bridge->encoder;
->> +	struct drm_crtc *crtc;
->> +	struct drm_crtc_state *old_crtc_state;
->> +
->> +	crtc = drm_atomic_get_new_crtc_for_encoder(atomic_state, encoder);
->> +	if (!crtc)
->> +		return;
->> +
->> +	old_crtc_state = drm_atomic_get_old_crtc_state(atomic_state, crtc);
->> +	if (old_crtc_state && old_crtc_state->self_refresh_active)
->> +		return;
->>   
->>   	drm_panel_enable(panel_bridge->panel);
->>   }
->> @@ -129,6 +153,18 @@ static void panel_bridge_atomic_disable(struct drm_bridge *bridge,
->>   				struct drm_bridge_state *old_bridge_state)
->>   {
->>   	struct panel_bridge *panel_bridge = drm_bridge_to_panel_bridge(bridge);
->> +	struct drm_atomic_state *atomic_state = old_bridge_state->base.state;
->> +	struct drm_encoder *encoder = bridge->encoder;
->> +	struct drm_crtc *crtc;
->> +	struct drm_crtc_state *new_crtc_state;
->> +
->> +	crtc = drm_atomic_get_old_crtc_for_encoder(atomic_state, encoder);
->> +	if (!crtc)
->> +		return;
->> +
->> +	new_crtc_state = drm_atomic_get_new_crtc_state(atomic_state, crtc);
->> +	if (new_crtc_state && new_crtc_state->self_refresh_active)
->> +		return;
->>   
->>   	drm_panel_disable(panel_bridge->panel);
->>   }
->> @@ -137,6 +173,18 @@ static void panel_bridge_atomic_post_disable(struct drm_bridge *bridge,
->>   				struct drm_bridge_state *old_bridge_state)
->>   {
->>   	struct panel_bridge *panel_bridge = drm_bridge_to_panel_bridge(bridge);
->> +	struct drm_atomic_state *atomic_state = old_bridge_state->base.state;
->> +	struct drm_encoder *encoder = bridge->encoder;
->> +	struct drm_crtc *crtc;
->> +	struct drm_crtc_state *new_crtc_state;
->> +
->> +	crtc = drm_atomic_get_old_crtc_for_encoder(atomic_state, encoder);
->> +	if (!crtc)
->> +		return;
->> +
->> +	new_crtc_state = drm_atomic_get_new_crtc_state(atomic_state, crtc);
->> +	if (new_crtc_state && new_crtc_state->self_refresh_active)
->> +		return;
->>   
->>   	drm_panel_unprepare(panel_bridge->panel);
->>   }
->> -- 
->> 2.7.4
->>
-> 
+I'll fix while applying,
 
--- 
-With best wishes
-Dmitry
-
+Neil
