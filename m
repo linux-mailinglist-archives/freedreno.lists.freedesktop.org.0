@@ -2,74 +2,60 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 00C6765E87E
-	for <lists+freedreno@lfdr.de>; Thu,  5 Jan 2023 10:59:37 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 12B2F65E9EF
+	for <lists+freedreno@lfdr.de>; Thu,  5 Jan 2023 12:33:32 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B720310E6DF;
-	Thu,  5 Jan 2023 09:59:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CCA8610E056;
+	Thu,  5 Jan 2023 11:33:30 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wm1-x336.google.com (mail-wm1-x336.google.com
- [IPv6:2a00:1450:4864:20::336])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E867F10E6DC
- for <freedreno@lists.freedesktop.org>; Thu,  5 Jan 2023 09:59:32 +0000 (UTC)
-Received: by mail-wm1-x336.google.com with SMTP id
- bi26-20020a05600c3d9a00b003d3404a89faso1965373wmb.1
- for <freedreno@lists.freedesktop.org>; Thu, 05 Jan 2023 01:59:32 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=content-transfer-encoding:in-reply-to:organization:references:cc:to
- :content-language:subject:reply-to:from:user-agent:mime-version:date
- :message-id:from:to:cc:subject:date:message-id:reply-to;
- bh=TzUHuJF+1GtjKbGnuP0VxWAofVGSsonV8HAjRWPNYtE=;
- b=vuI5XC/ElzTz0lZgBI1+7M7TkLcYdoazvJmSS7s/KySvZKg8Xqo/F0UKxcKCsnqvKk
- hQ+bN+pWIJt0ozmieFOEO+AqGHLbZq2AKjcUZ4DAKfuAiyvTEmgd/+QN+d+LUfy8xqOW
- pdyUt70nhyPPiToCRx/FwjsjeciPCvGJadPS9KZH0i2omvLfRXZduVybqTmclWzoSBgV
- 9JcElXb9LClrjpqomBtinyS5eHmmE1D7ctf5rt0GNa1SKClf+jKx3YFUTSdClpTpb0Vu
- c0klsP4V3JNpqIZ7UGy7wEd6zIABAZPZy1XGY788ZsVOA7Gg6cFuL8+uP9d5wKbGFvbj
- l49Q==
+Received: from mail-wr1-x42f.google.com (mail-wr1-x42f.google.com
+ [IPv6:2a00:1450:4864:20::42f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AA39410E056
+ for <freedreno@lists.freedesktop.org>; Thu,  5 Jan 2023 11:33:28 +0000 (UTC)
+Received: by mail-wr1-x42f.google.com with SMTP id h16so35764013wrz.12
+ for <freedreno@lists.freedesktop.org>; Thu, 05 Jan 2023 03:33:28 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=bmS4PAGHcVbGZlpkKy86Md90VMMV13dwm3OXcRRsgUM=;
+ b=CHMVLVNjjjvnLzx8m5710t27TL0/V6f6c0eGy/sp48YPfI+6l7YXfXgbTJNMDbieoa
+ 76pQhFqmW6V5hQw++IL+fpkdVo398h6ZXSJPKdynoiUhUGQq0rdT4tgAm0cuvauLdWvL
+ C2wBCufTvnCMblfNAAdC4jNnvxNQ5YYLiJ1/c=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=content-transfer-encoding:in-reply-to:organization:references:cc:to
- :content-language:subject:reply-to:from:user-agent:mime-version:date
- :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=TzUHuJF+1GtjKbGnuP0VxWAofVGSsonV8HAjRWPNYtE=;
- b=3GVyAkvrPCssCQCOXcW0KPrjSlkSZeCYyn/ChqzMxwlPW3PjAxctuH4wljbTT5HLs5
- Txn9NT8MkzAM4iAVSpCfzaya3CDbVFhf0xUvLQgws+HYUalY5pxYOzW6PwExWvHvrmxl
- MRP86m/QYuAHzpbp6ebD2K3HoAIMA7h2X+lxhNZBL4Gb3y6ldhObwqkycIjEZcQA4LdG
- 1EiOupXVordYOGgbYXFDuefgobc3UuW4pLzWL6OqcUyKgVknebqt2Z0d8VDW38BnGiIM
- FmOdPq7jV5gx+AvEVkOTRVXTaH3PYR+bXN4vZSY/BB1rz8EQmHEho4UNPqiNjVUIr/UG
- vuXA==
-X-Gm-Message-State: AFqh2kqPwmsk19UMZg4N8VKbvUGEw7c/3xv/BE10KNneMPfP6v0eG1qL
- EI17+0Sk3spsyYLC5Bv45dk/NQ==
-X-Google-Smtp-Source: AMrXdXsQZ0DK0v9sW/V/Gfm1iQioAHO/VQix/Tw5Y8roIvVtwON8/NprodDB8Q5coTZo2iLhNB4AVw==
-X-Received: by 2002:a05:600c:1d89:b0:3d3:5cd6:781 with SMTP id
- p9-20020a05600c1d8900b003d35cd60781mr35095929wms.37.1672912771401; 
- Thu, 05 Jan 2023 01:59:31 -0800 (PST)
-Received: from ?IPV6:2a01:e0a:982:cbb0:1e12:c16d:1898:607c?
- ([2a01:e0a:982:cbb0:1e12:c16d:1898:607c])
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=bmS4PAGHcVbGZlpkKy86Md90VMMV13dwm3OXcRRsgUM=;
+ b=yiLZXkWHLMYLBTcrvVYFQUMb0LiurnRMdI8L6CXuyzr+6eA8z2CbTkIG/QUHAKM44Z
+ vNTgrMn4Tpc5dzPULXE2EfqTBaXeBzE8gZyfXR7LBm1x4fD3Hfk25Xeh93gK6EVkib+3
+ sm/HOCamTHgPe6Rj7D5kyiaoRJWhCndHM5mzpKPBT6e+BBAcdM6xK3O9l1S6Vskj628c
+ EGZqUOMLDgOKfYT9/rO6/vDCLUrEq1WugETdZ2TZA2jjt99USBcxhc//rWENgd/Ub5I/
+ dPHGF0tkhKISqQfqkh7wLvqlIJCTL12YHMn3GRxPahLCDY+lPQlFpRQjD3MKGsb7LRWu
+ GnrQ==
+X-Gm-Message-State: AFqh2kog879JmyBqn7MBieIw/vpRwmOmfsRwqVNViK1/gbDXYhewqs1S
+ bqY1cvRwHpW7Gscj6aQNg6Xjpw==
+X-Google-Smtp-Source: AMrXdXuVRuYY3YBW6EmjwRuOwr6fyV2psCV2g9MIXd0Lo7tdd6J2nfCKHwKAWUoY4YFL2qj9+3O7aw==
+X-Received: by 2002:a5d:4e4a:0:b0:2a1:aa5f:8675 with SMTP id
+ r10-20020a5d4e4a000000b002a1aa5f8675mr4901321wrt.31.1672918407211; 
+ Thu, 05 Jan 2023 03:33:27 -0800 (PST)
+Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
  by smtp.gmail.com with ESMTPSA id
- g41-20020a05600c4ca900b003cfd0bd8c0asm1652910wmp.30.2023.01.05.01.59.30
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 05 Jan 2023 01:59:30 -0800 (PST)
-Message-ID: <342119d7-87fb-2880-2729-4c173ce60d4d@linaro.org>
-Date: Thu, 5 Jan 2023 10:59:29 +0100
+ e16-20020adfdbd0000000b002362f6fcaf5sm36245365wrj.48.2023.01.05.03.33.25
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 05 Jan 2023 03:33:26 -0800 (PST)
+Date: Thu, 5 Jan 2023 12:33:24 +0100
+From: Daniel Vetter <daniel@ffwll.ch>
+To: Jessica Zhang <quic_jesszhan@quicinc.com>
+Message-ID: <Y7a1hCmsvJHKdW1Y@phenom.ffwll.local>
+References: <20230104234036.636-1-quic_jesszhan@quicinc.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.6.0
-From: neil.armstrong@linaro.org
-Content-Language: en-US
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-References: <20230103-topic-sm8550-upstream-mdss-dsi-v1-0-9ccd7e652fcd@linaro.org>
- <20230103-topic-sm8550-upstream-mdss-dsi-v1-3-9ccd7e652fcd@linaro.org>
- <96ccae6f-3788-e030-480f-7aa2478ca560@linaro.org>
- <de3860ba-40f9-cdd5-097c-e015f6b19255@linaro.org>
- <CAA8EJpoi8QFpvR0qWpNpenZKzEZAQpwp3gNpGd3RwHovgC+Odw@mail.gmail.com>
-Organization: Linaro Developer Services
-In-Reply-To: <CAA8EJpoi8QFpvR0qWpNpenZKzEZAQpwp3gNpGd3RwHovgC+Odw@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH 3/6] drm/msm/dpu: add support for SM8550
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20230104234036.636-1-quic_jesszhan@quicinc.com>
+X-Operating-System: Linux phenom 5.19.0-2-amd64 
+Subject: Re: [Freedreno] [RFC PATCH v3 0/3] Support for Solid Fill Planes
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,148 +68,95 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: neil.armstrong@linaro.org
-Cc: freedreno@lists.freedesktop.org,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Jonathan Marek <jonathan@marek.ca>, devicetree@vger.kernel.org,
- Sean Paul <sean@poorly.run>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Rob Clark <robdclark@gmail.com>, Rob Herring <robh+dt@kernel.org>,
- Daniel Vetter <daniel@ffwll.ch>, linux-arm-msm@vger.kernel.org,
- David Airlie <airlied@gmail.com>
+Cc: sebastian.wick@redhat.com, ppaalanen@gmail.com,
+ linux-arm-msm@vger.kernel.org, quic_abhinavk@quicinc.com,
+ dri-devel@lists.freedesktop.org, swboyd@chromium.org, daniel.vetter@ffwll.ch,
+ robdclark@gmail.com, seanpaul@chromium.org, laurent.pinchart@ideasonboard.com,
+ contact@emersion.fr, dmitry.baryshkov@linaro.org,
+ wayland-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ ville.syrjala@linux.intel.com
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 04/01/2023 18:48, Dmitry Baryshkov wrote:
-> On Wed, 4 Jan 2023 at 12:08, Neil Armstrong <neil.armstrong@linaro.org> wrote:
->>
->> On 04/01/2023 10:45, Dmitry Baryshkov wrote:
->>> On 04/01/2023 11:08, Neil Armstrong wrote:
->>>> Add definitions for the display hardware used on Qualcomm SM8550
->>>> platform.
->>>>
->>>> Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
->>>> ---
->>>>    drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c | 197 +++++++++++++++++++++++++
->>>>    drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h |   1 +
->>>>    drivers/gpu/drm/msm/disp/dpu1/dpu_hw_mdss.h    |   2 +
->>>>    drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c        |   1 +
->>>>    4 files changed, 201 insertions(+)
->>>>
->>>> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
->>>> index b4ca123d8e69..adf5e25269dc 100644
->>>> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
->>>> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
->>
->> <snip>
->>
->>>> @@ -776,6 +821,45 @@ static const struct dpu_ctl_cfg sm8450_ctl[] = {
->>>>        },
->>>>    };
->>>> +static const struct dpu_ctl_cfg sm8550_ctl[] = {
->>>> +    {
->>>> +    .name = "ctl_0", .id = CTL_0,
->>>> +    .base = 0x15000, .len = 0x290,?
->>>> +    .features = BIT(DPU_CTL_ACTIVE_CFG) | BIT(DPU_CTL_SPLIT_DISPLAY) | BIT(DPU_CTL_FETCH_ACTIVE),
->>>
->>> CTL_SC7280_MASK | BIT(DPU_CTL_SPLIT_DISPLAY) ?
->>
->> Indeed DPU_CTL_VM_CFG is missing, will switch to that.
->>
->>>
->>>> +    .intr_start = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR2, 9),
->>>> +    },
->>>> +    {
->>>> +    .name = "ctl_1", .id = CTL_1,
->>>> +    .base = 0x16000, .len = 0x290,
->>>> +    .features = BIT(DPU_CTL_ACTIVE_CFG) | BIT(DPU_CTL_SPLIT_DISPLAY) | BIT(DPU_CTL_FETCH_ACTIVE),
->>>> +    .intr_start = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR2, 10),
->>>> +    },
->>>> +    {
->>>> +    .name = "ctl_2", .id = CTL_2,
->>>> +    .base = 0x17000, .len = 0x290,
->>>> +    .features = BIT(DPU_CTL_ACTIVE_CFG) | BIT(DPU_CTL_FETCH_ACTIVE),
->>>
->>> CTL_SC7280_MASK?
->>
->> Ack
->>
->>>
->>>> +    .intr_start = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR2, 11),
->>>> +    },
->>>> +    {
->>>> +    .name = "ctl_3", .id = CTL_3,
->>>> +    .base = 0x18000, .len = 0x290,
->>>> +    .features = BIT(DPU_CTL_ACTIVE_CFG) | BIT(DPU_CTL_FETCH_ACTIVE),
->>>> +    .intr_start = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR2, 12),
->>>> +    },
->>>> +    {
->>>> +    .name = "ctl_4", .id = CTL_4,
->>>> +    .base = 0x19000, .len = 0x290,
->>>> +    .features = BIT(DPU_CTL_ACTIVE_CFG) | BIT(DPU_CTL_FETCH_ACTIVE),
->>>> +    .intr_start = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR2, 13),
->>>> +    },
->>>> +    {
->>>> +    .name = "ctl_5", .id = CTL_5,
->>>> +    .base = 0x1a000, .len = 0x290,
->>>> +    .features = BIT(DPU_CTL_ACTIVE_CFG) | BIT(DPU_CTL_FETCH_ACTIVE),
->>>> +    .intr_start = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR2, 23),
->>>> +    },
->>>> +};
->>>> +
->>>>    static const struct dpu_ctl_cfg sc7280_ctl[] = {
->>>>        {
->>>>        .name = "ctl_0", .id = CTL_0,
->>
->> <snip>
->>
->>>> @@ -1268,6 +1386,16 @@ static const struct dpu_pingpong_sub_blks sc7280_pp_sblk = {
->>>>        .len = 0x20, .version = 0x20000},
->>>>    };
->>>> +#define PP_BLK_DIPHER(_name, _id, _base, _merge_3d, _sblk, _done, _rdptr) \
->>>> +    {\
->>>> +    .name = _name, .id = _id, \
->>>> +    .base = _base, .len = 0, \
->>>
->>> len = 0 looks incorrect. Any particular reason why can't we use plain PP_BLK here?
->>
->> The TE block has been moved to the DSI INTF blocks since SM8350 I think, or earlier.
+On Wed, Jan 04, 2023 at 03:40:33PM -0800, Jessica Zhang wrote:
+> Introduce and add support for a solid_fill property. When the solid_fill
+> property is set, and the framebuffer is set to NULL, memory fetch will be
+> disabled.
 > 
-> I think, 8150. Marijn has been working on adding support for INTF-based TE.
+> In addition, loosen the NULL FB checks within the atomic commit callstack
+> to allow a NULL FB when the solid_fill property is set and add FB checks
+> in methods where the FB was previously assumed to be non-NULL.
 > 
->> This removes the DPU_PINGPONG_DITHER feature used downstream to enable the PP TE callbacks.
->> Since there's only the DIPHER sub-block remaining, this is why I set len to 0.
+> Finally, have the DPU driver use drm_plane_state.solid_fill and instead of
+> dpu_plane_state.color_fill, and add extra checks in the DPU atomic commit
+> callstack to account for a NULL FB in cases where solid_fill is set.
 > 
-> I went on with some research. Usually PP len is 0xd4. However it seems
-> since 8350 (since the change of DSC block) the PP size should be 0x0),
-> despite dowsnstream DTs having sde-pp-size=0xd4 for sm8350 and sm8450
-> (or 0x4 for neo, DPU 9.1.0).
+> Some drivers support hardware that have optimizations for solid fill
+> planes. This series aims to expose these capabilities to userspace as
+> some compositors have a solid fill flag (ex. SOLID_COLOR in the Android
+> hardware composer HAL) that can be set by apps like the Android Gears
+> app.
+> 
+> Userspace can set the solid_fill property to a blob containing the
+> appropriate version number and solid fill color (in RGB323232 format) and
+> setting the framebuffer to NULL.
+> 
+> Note: Currently, there's only one version of the solid_fill blob property.
+> However if other drivers want to support a similar feature, but require
+> more than just the solid fill color, they can extend this feature by
+> creating additional versions of the drm_solid_fill struct.
+> 
+> Changes in V2:
+> - Dropped SOLID_FILL_FORMAT property (Simon)
+> - Switched to implementing solid_fill property as a blob (Simon, Dmitry)
+> - Changed to checks for if solid_fill_blob is set (Dmitry)
+> - Abstracted (plane_state && !solid_fill_blob) checks to helper method
+>   (Dmitry)
+> - Removed DPU_PLANE_COLOR_FILL_FLAG
+> - Fixed whitespace and indentation issues (Dmitry)
 
-Perhaps neo has a single register at PP base address, on 8550 there's none.
+Now that this is a blob, I do wonder again whether it's not cleaner to set
+the blob as the FB pointer. Or create some kind other kind of special data
+source objects (because solid fill is by far not the only such thing).
 
-> So, it looks like you are correct here (and we should fix 8350/8450
-> patches instead).
+We'd still end up in special cases like when userspace that doesn't
+understand solid fill tries to read out such a framebuffer, but these
+cases already exist anyway for lack of priviledges.
 
-Yes it must be because with the new DSC block, the PP DCE_DATA_XX_SWAP/DSC_MODE registers were removed,
-so I expect they are still present in 8150 & 8250.
-
-Neil
+So I still think that feels like the more consistent way to integrate this
+feature. Which doesn't mean it has to happen like that, but the
+patches/cover letter should at least explain why we don't do it like this.
+-Daniel
 
 > 
->>
->>>
->>>> +    .features = BIT(DPU_PINGPONG_DITHER), \
->>>> +    .merge_3d = _merge_3d, \
->>>> +    .sblk = &_sblk, \
->>>> +    .intr_done = _done, \
->>>> +    .intr_rdptr = _rdptr, \
->>>> +    }
->>>>    #define PP_BLK_TE(_name, _id, _base, _merge_3d, _sblk, _done, _rdptr) \
->>>>        {\
->>>>        .name = _name, .id = _id, \
->>
->> <snip>
->>
+> Changes in V3:
+> - Fixed some logic errors in atomic checks (Dmitry)
+> - Introduced drm_plane_has_visible_data() and drm_atomic_check_fb() helper
+>   methods (Dmitry)
 > 
+> Jessica Zhang (3):
+>   drm: Introduce solid fill property for drm plane
+>   drm: Adjust atomic checks for solid fill color
+>   drm/msm/dpu: Use color_fill property for DPU planes
+> 
+>  drivers/gpu/drm/drm_atomic.c              | 136 +++++++++++++---------
+>  drivers/gpu/drm/drm_atomic_helper.c       |  34 +++---
+>  drivers/gpu/drm/drm_atomic_state_helper.c |   9 ++
+>  drivers/gpu/drm/drm_atomic_uapi.c         |  59 ++++++++++
+>  drivers/gpu/drm/drm_blend.c               |  17 +++
+>  drivers/gpu/drm/drm_plane.c               |   8 +-
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c  |   9 +-
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c |  65 +++++++----
+>  include/drm/drm_atomic_helper.h           |   5 +-
+>  include/drm/drm_blend.h                   |   1 +
+>  include/drm/drm_plane.h                   |  62 ++++++++++
+>  11 files changed, 302 insertions(+), 103 deletions(-)
+> 
+> -- 
+> 2.38.1
 > 
 
+-- 
+Daniel Vetter
+Software Engineer, Intel Corporation
+http://blog.ffwll.ch
