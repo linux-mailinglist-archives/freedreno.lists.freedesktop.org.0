@@ -2,69 +2,73 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8DAAD65EAFD
-	for <lists+freedreno@lfdr.de>; Thu,  5 Jan 2023 13:50:01 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2C14E65EC86
+	for <lists+freedreno@lfdr.de>; Thu,  5 Jan 2023 14:11:22 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CC3CC10E70A;
-	Thu,  5 Jan 2023 12:49:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2241310E719;
+	Thu,  5 Jan 2023 13:11:19 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wr1-x42a.google.com (mail-wr1-x42a.google.com
- [IPv6:2a00:1450:4864:20::42a])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 72AF510E709
- for <freedreno@lists.freedesktop.org>; Thu,  5 Jan 2023 12:49:57 +0000 (UTC)
-Received: by mail-wr1-x42a.google.com with SMTP id h16so35960727wrz.12
- for <freedreno@lists.freedesktop.org>; Thu, 05 Jan 2023 04:49:57 -0800 (PST)
+Received: from mail-wm1-x329.google.com (mail-wm1-x329.google.com
+ [IPv6:2a00:1450:4864:20::329])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F372B10E713
+ for <freedreno@lists.freedesktop.org>; Thu,  5 Jan 2023 13:11:16 +0000 (UTC)
+Received: by mail-wm1-x329.google.com with SMTP id
+ m8-20020a05600c3b0800b003d96f801c48so1289808wms.0
+ for <freedreno@lists.freedesktop.org>; Thu, 05 Jan 2023 05:11:16 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
  h=in-reply-to:content-disposition:mime-version:references
  :mail-followup-to:message-id:subject:cc:to:from:date:from:to:cc
  :subject:date:message-id:reply-to;
- bh=T3qMRF1GNRdJeDqkXuS2/nTO+iJTQuqw4vXy5aAbbK8=;
- b=X+2PEgw8rt7VT+EdaBphMOTic4+GLKrNo5BKPs7V4isiRAFuLwaAvBB6hEhMvsxkTp
- TfkDrSAUw0xWRoTQPLvLromGbOrePs0K7f+ta91kcazZvGWcblftX3Med5BuNdwvXdw1
- N0Uwmd5JJ+ifHeVx/lfVVXJJBgQUokhffq46c=
+ bh=epo4NuCr+R0WCc3ZS+TmM2VQF2a+mloAFRnhMBihugE=;
+ b=duzWfuiaiDnHSzdqXc0CHu1JETDMs23u6PwEyxrReeZ2pcHD7wg36yyPob3yPiqF79
+ p54dRd8VgvKhNpXBOqzbFJi/g/7LyHax6lWVK1NSkr/W7Ij8PDWdyUJy/MzUqA5quR/p
+ C2lyEJ1rIOxvNJHCw636pxMWbETY1v5kfnHM8=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=in-reply-to:content-disposition:mime-version:references
  :mail-followup-to:message-id:subject:cc:to:from:date
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=T3qMRF1GNRdJeDqkXuS2/nTO+iJTQuqw4vXy5aAbbK8=;
- b=O5rTmf2zsvpCtFI+hrHZPaHI+7zTN8u69126UYKX8wY/6soryhG3ucCjyyEshRMgMS
- rbnbCrPT5j8tH5ENMowTeP6LBCC/m9lVDP/tWHyJhlHfb1h5mGNhqqLb7DfAGxUZz8Vi
- bkdPYbVUMHXgtICn+YYnFh/7y/cIyWgiwdS94oRPfl2IZt/uLYjZuFv8QVyFyasFrDg9
- NII1kpIv/RNZBk2LftCs5vBcM4mjGD0xMJM/8IUpbfeDLgrd08Luq9vgeIQQOZfEZsLk
- ctDgBoCDv9HfHoPOVY3TevlbjP7P5eilRdMJw3N4sTPadvbwExxeRWRcjKO2L55Xeft4
- qtBQ==
-X-Gm-Message-State: AFqh2kpoN5KeidFy+ZIj/lzIp65Roumx9rmuXnVmWaCO9PsUPG/qvgP6
- MSkhZmuidfsrh3m8Z3PwJRwGxg==
-X-Google-Smtp-Source: AMrXdXszzCjklGnfpRwtfSRuYLCAYmB6iRZ01GByyDPZYpy5kgOcT+REOcuLIRSEsB2bdG+WQDpvAw==
-X-Received: by 2002:a5d:5965:0:b0:27f:1c70:58c3 with SMTP id
- e37-20020a5d5965000000b0027f1c7058c3mr22851191wri.24.1672922995942; 
- Thu, 05 Jan 2023 04:49:55 -0800 (PST)
+ bh=epo4NuCr+R0WCc3ZS+TmM2VQF2a+mloAFRnhMBihugE=;
+ b=LtoxoDGERILdiCevzKQra4yLl0LWMIoVi3t6+88VLK2bp1jQhA2ozotc2uRUjTcBiE
+ L579RXRgOgMfXgC6shnuZNXBqhEhxfQsjbj2/3SaVMgq+0r5T4EUgYtB5QuZff7aWEpD
+ i3RZfYsgxhotJheRCgr/gVe/ZNwtPpAfl3R97da3XpPBqW7V76OueS45Unnp8d0spuBC
+ wtRt30UA24NOdXHDgB3Hkdv+22FqncosYjU7+41PYvrx0z3Dbdyio8Y7eRyqJzyLCC4M
+ 9pUP1zZZy1BW3cdGd1/xZgIy94KMRrYep+YuMGN9KGYYEZ4gj1aOOotqb+QNCc1AE5my
+ 9B0Q==
+X-Gm-Message-State: AFqh2krX4bj4m5JDVCYQpiUD85JFuRrMBVAw/GB0s3dvVk2JruT9tUtJ
+ 8lqNzBprfQsfTcRhnAFyIcED0w==
+X-Google-Smtp-Source: AMrXdXv/jh051xUt17UFK3vfd0Ya/xZZjvYng3OETahVuoWkb274Fuqt6WI0eN29vKK3LjAETkh/8g==
+X-Received: by 2002:a05:600c:1f0e:b0:3cf:497c:c59e with SMTP id
+ bd14-20020a05600c1f0e00b003cf497cc59emr37030168wmb.6.1672924275463; 
+ Thu, 05 Jan 2023 05:11:15 -0800 (PST)
 Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
  by smtp.gmail.com with ESMTPSA id
- c11-20020a5d4ccb000000b002b6bcc0b64dsm382668wrt.4.2023.01.05.04.49.54
+ p3-20020a05600c358300b003d1f2c3e571sm2634955wmq.33.2023.01.05.05.11.13
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 05 Jan 2023 04:49:55 -0800 (PST)
-Date: Thu, 5 Jan 2023 13:49:53 +0100
+ Thu, 05 Jan 2023 05:11:14 -0800 (PST)
+Date: Thu, 5 Jan 2023 14:11:12 +0100
 From: Daniel Vetter <daniel@ffwll.ch>
-To: Rob Clark <robdclark@gmail.com>
-Message-ID: <Y7bHcRAvk6GgMi5F@phenom.ffwll.local>
-Mail-Followup-To: Rob Clark <robdclark@gmail.com>,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- linux-arm-msm@vger.kernel.org, Chia-I Wu <olvaffe@gmail.com>,
- Rob Clark <robdclark@chromium.org>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Sean Paul <sean@poorly.run>, David Airlie <airlied@gmail.com>,
- open list <linux-kernel@vger.kernel.org>
-References: <20221206192123.661448-1-robdclark@gmail.com>
+To: Vinod Polimera <quic_vpolimer@quicinc.com>
+Message-ID: <Y7bMcLHr79uhfJv2@phenom.ffwll.local>
+Mail-Followup-To: Vinod Polimera <quic_vpolimer@quicinc.com>,
+ dri-devel@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
+ freedreno@lists.freedesktop.org, devicetree@vger.kernel.org,
+ quic_kalyant@quicinc.com, quic_sbillaka@quicinc.com,
+ quic_bjorande@quicinc.com, quic_abhinavk@quicinc.com,
+ quic_vproddut@quicinc.com, quic_khsieh@quicinc.com,
+ dianders@chromium.org, linux-kernel@vger.kernel.org,
+ dmitry.baryshkov@linaro.org, quic_aravindh@quicinc.com,
+ swboyd@chromium.org
+References: <1671012352-1825-1-git-send-email-quic_vpolimer@quicinc.com>
+ <1671012352-1825-9-git-send-email-quic_vpolimer@quicinc.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20221206192123.661448-1-robdclark@gmail.com>
+In-Reply-To: <1671012352-1825-9-git-send-email-quic_vpolimer@quicinc.com>
 X-Operating-System: Linux phenom 5.19.0-2-amd64 
-Subject: Re: [Freedreno] [PATCH] drm/msm: Add MSM_SUBMIT_BO_NO_IMPLICIT
+Subject: Re: [Freedreno] [PATCH v9 08/15] drm/bridge: add psr support for
+ panel bridge callbacks
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,98 +81,116 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rob Clark <robdclark@chromium.org>, linux-arm-msm@vger.kernel.org,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
- open list <linux-kernel@vger.kernel.org>, Sean Paul <sean@poorly.run>,
- Daniel Vetter <daniel@ffwll.ch>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- David Airlie <airlied@gmail.com>, freedreno@lists.freedesktop.org,
- Chia-I Wu <olvaffe@gmail.com>
+Cc: quic_kalyant@quicinc.com, devicetree@vger.kernel.org,
+ quic_sbillaka@quicinc.com, dianders@chromium.org, quic_bjorande@quicinc.com,
+ quic_vproddut@quicinc.com, linux-arm-msm@vger.kernel.org,
+ quic_abhinavk@quicinc.com, dri-devel@lists.freedesktop.org,
+ quic_khsieh@quicinc.com, dmitry.baryshkov@linaro.org,
+ quic_aravindh@quicinc.com, swboyd@chromium.org,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Tue, Dec 06, 2022 at 11:21:23AM -0800, Rob Clark wrote:
-> From: Rob Clark <robdclark@chromium.org>
+On Wed, Dec 14, 2022 at 03:35:45PM +0530, Vinod Polimera wrote:
+> This change will handle the psr entry exit cases in the panel
+> bridge atomic callback functions. For example, the panel power
+> should not turn off if the panel is entering psr.
 > 
-> In cases where implicit sync is used, it is still useful (for things
-> like sub-allocation, etc) to allow userspace to opt-out of implicit
-> sync on per-BO basis.
-> 
-> Signed-off-by: Rob Clark <robdclark@chromium.org>
+> Signed-off-by: Sankeerth Billakanti <quic_sbillaka@quicinc.com>
+> Signed-off-by: Vinod Polimera <quic_vpolimer@quicinc.com>
+
+I think this is all a nice integration of the sr helpers and bridge stuff
+and makes sense to me. For the 2 bridge patches and the drm core atomic
+patch:
+
+Reviewed-by: Daniel Vetter <daniel.vetter@ffwll.ch>
+
 > ---
->  drivers/gpu/drm/msm/msm_drv.c        |  3 ++-
->  drivers/gpu/drm/msm/msm_gem_submit.c | 11 +++++++++++
->  include/uapi/drm/msm_drm.h           |  4 +++-
->  3 files changed, 16 insertions(+), 2 deletions(-)
+>  drivers/gpu/drm/bridge/panel.c | 48 ++++++++++++++++++++++++++++++++++++++++++
+>  1 file changed, 48 insertions(+)
 > 
-> diff --git a/drivers/gpu/drm/msm/msm_drv.c b/drivers/gpu/drm/msm/msm_drv.c
-> index 017a512982a2..e0e1199a822f 100644
-> --- a/drivers/gpu/drm/msm/msm_drv.c
-> +++ b/drivers/gpu/drm/msm/msm_drv.c
-> @@ -45,9 +45,10 @@
->   * - 1.7.0 - Add MSM_PARAM_SUSPENDS to access suspend count
->   * - 1.8.0 - Add MSM_BO_CACHED_COHERENT for supported GPUs (a6xx)
->   * - 1.9.0 - Add MSM_SUBMIT_FENCE_SN_IN
-> + * - 1.10.0 - Add MSM_SUBMIT_BO_NO_IMPLICIT
->   */
->  #define MSM_VERSION_MAJOR	1
-> -#define MSM_VERSION_MINOR	9
-> +#define MSM_VERSION_MINOR	10
->  #define MSM_VERSION_PATCHLEVEL	0
->  
->  static const struct drm_mode_config_funcs mode_config_funcs = {
-> diff --git a/drivers/gpu/drm/msm/msm_gem_submit.c b/drivers/gpu/drm/msm/msm_gem_submit.c
-> index eb3536e3d66a..8bad07a04f85 100644
-> --- a/drivers/gpu/drm/msm/msm_gem_submit.c
-> +++ b/drivers/gpu/drm/msm/msm_gem_submit.c
-> @@ -334,9 +334,20 @@ static int submit_fence_sync(struct msm_gem_submit *submit, bool no_implicit)
->  		if (ret)
->  			return ret;
->  
-> +		/* If userspace has determined that explicit fencing is
-> +		 * used, it can disable implicit sync on the entire
-> +		 * submit:
-> +		 */
->  		if (no_implicit)
->  			continue;
->  
-> +		/* Otherwise userspace can ask for implicit sync to be
-> +		 * disabled on specific buffers.  This is useful for internal
-> +		 * usermode driver managed buffers, suballocation, etc.
-> +		 */
-> +		if (submit->bos[i].flags & MSM_SUBMIT_BO_NO_IMPLICIT)
-> +			continue;
+> diff --git a/drivers/gpu/drm/bridge/panel.c b/drivers/gpu/drm/bridge/panel.c
+> index 3558cbf..5e77e38 100644
+> --- a/drivers/gpu/drm/bridge/panel.c
+> +++ b/drivers/gpu/drm/bridge/panel.c
+> @@ -113,6 +113,18 @@ static void panel_bridge_atomic_pre_enable(struct drm_bridge *bridge,
+>  				struct drm_bridge_state *old_bridge_state)
+>  {
+>  	struct panel_bridge *panel_bridge = drm_bridge_to_panel_bridge(bridge);
+> +	struct drm_atomic_state *atomic_state = old_bridge_state->base.state;
+> +	struct drm_encoder *encoder = bridge->encoder;
+> +	struct drm_crtc *crtc;
+> +	struct drm_crtc_state *old_crtc_state;
 > +
->  		ret = drm_sched_job_add_implicit_dependencies(&submit->base,
-
-Won't this break shrinkers and fun stuff like that? It's why we added the
-new USAGE_OTHER fence slot at least, and also why I wonder whether we
-shouldn't push this into the helper to make the right call. Every driver
-kinda needs the same wheel.
--Daniel
-
->  							      obj,
->  							      write);
-> diff --git a/include/uapi/drm/msm_drm.h b/include/uapi/drm/msm_drm.h
-> index f54b48ef6a2d..329100016e7c 100644
-> --- a/include/uapi/drm/msm_drm.h
-> +++ b/include/uapi/drm/msm_drm.h
-> @@ -222,10 +222,12 @@ struct drm_msm_gem_submit_cmd {
->  #define MSM_SUBMIT_BO_READ             0x0001
->  #define MSM_SUBMIT_BO_WRITE            0x0002
->  #define MSM_SUBMIT_BO_DUMP             0x0004
-> +#define MSM_SUBMIT_BO_NO_IMPLICIT      0x0008
+> +	crtc = drm_atomic_get_new_crtc_for_encoder(atomic_state, encoder);
+> +	if (!crtc)
+> +		return;
+> +
+> +	old_crtc_state = drm_atomic_get_old_crtc_state(atomic_state, crtc);
+> +	if (old_crtc_state && old_crtc_state->self_refresh_active)
+> +		return;
 >  
->  #define MSM_SUBMIT_BO_FLAGS            (MSM_SUBMIT_BO_READ | \
->  					MSM_SUBMIT_BO_WRITE | \
-> -					MSM_SUBMIT_BO_DUMP)
-> +					MSM_SUBMIT_BO_DUMP | \
-> +					MSM_SUBMIT_BO_NO_IMPLICIT)
+>  	drm_panel_prepare(panel_bridge->panel);
+>  }
+> @@ -121,6 +133,18 @@ static void panel_bridge_atomic_enable(struct drm_bridge *bridge,
+>  				struct drm_bridge_state *old_bridge_state)
+>  {
+>  	struct panel_bridge *panel_bridge = drm_bridge_to_panel_bridge(bridge);
+> +	struct drm_atomic_state *atomic_state = old_bridge_state->base.state;
+> +	struct drm_encoder *encoder = bridge->encoder;
+> +	struct drm_crtc *crtc;
+> +	struct drm_crtc_state *old_crtc_state;
+> +
+> +	crtc = drm_atomic_get_new_crtc_for_encoder(atomic_state, encoder);
+> +	if (!crtc)
+> +		return;
+> +
+> +	old_crtc_state = drm_atomic_get_old_crtc_state(atomic_state, crtc);
+> +	if (old_crtc_state && old_crtc_state->self_refresh_active)
+> +		return;
 >  
->  struct drm_msm_gem_submit_bo {
->  	__u32 flags;          /* in, mask of MSM_SUBMIT_BO_x */
+>  	drm_panel_enable(panel_bridge->panel);
+>  }
+> @@ -129,6 +153,18 @@ static void panel_bridge_atomic_disable(struct drm_bridge *bridge,
+>  				struct drm_bridge_state *old_bridge_state)
+>  {
+>  	struct panel_bridge *panel_bridge = drm_bridge_to_panel_bridge(bridge);
+> +	struct drm_atomic_state *atomic_state = old_bridge_state->base.state;
+> +	struct drm_encoder *encoder = bridge->encoder;
+> +	struct drm_crtc *crtc;
+> +	struct drm_crtc_state *new_crtc_state;
+> +
+> +	crtc = drm_atomic_get_old_crtc_for_encoder(atomic_state, encoder);
+> +	if (!crtc)
+> +		return;
+> +
+> +	new_crtc_state = drm_atomic_get_new_crtc_state(atomic_state, crtc);
+> +	if (new_crtc_state && new_crtc_state->self_refresh_active)
+> +		return;
+>  
+>  	drm_panel_disable(panel_bridge->panel);
+>  }
+> @@ -137,6 +173,18 @@ static void panel_bridge_atomic_post_disable(struct drm_bridge *bridge,
+>  				struct drm_bridge_state *old_bridge_state)
+>  {
+>  	struct panel_bridge *panel_bridge = drm_bridge_to_panel_bridge(bridge);
+> +	struct drm_atomic_state *atomic_state = old_bridge_state->base.state;
+> +	struct drm_encoder *encoder = bridge->encoder;
+> +	struct drm_crtc *crtc;
+> +	struct drm_crtc_state *new_crtc_state;
+> +
+> +	crtc = drm_atomic_get_old_crtc_for_encoder(atomic_state, encoder);
+> +	if (!crtc)
+> +		return;
+> +
+> +	new_crtc_state = drm_atomic_get_new_crtc_state(atomic_state, crtc);
+> +	if (new_crtc_state && new_crtc_state->self_refresh_active)
+> +		return;
+>  
+>  	drm_panel_unprepare(panel_bridge->panel);
+>  }
 > -- 
-> 2.38.1
+> 2.7.4
 > 
 
 -- 
