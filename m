@@ -1,76 +1,51 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 428D765F833
-	for <lists+freedreno@lfdr.de>; Fri,  6 Jan 2023 01:38:32 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 61E3965F991
+	for <lists+freedreno@lfdr.de>; Fri,  6 Jan 2023 03:30:24 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2CDCD10E2A5;
-	Fri,  6 Jan 2023 00:38:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DC49A10E00F;
+	Fri,  6 Jan 2023 02:30:21 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BBB8C10E065;
- Fri,  6 Jan 2023 00:38:25 +0000 (UTC)
-Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 305Maj3C017984; Fri, 6 Jan 2023 00:38:12 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
- h=message-id : date :
- mime-version : subject : to : cc : references : from : in-reply-to :
- content-type : content-transfer-encoding; s=qcppdkim1;
- bh=8MnO5LKnGXyOh3r2gvQJz5eW936KrvN13lmARg/MQlY=;
- b=AZ3ftcxg6kfbrQIBH++dWSQ65X1TadZ2RFaVU9jgfSvHBFFwfSWqbt46gQkkRtLlwM0q
- 7fsNtNO+qT6fngcBF6yjOW06vO6cyxruQZe27lVVK/rhhd3LbKT/USCsbAjwWOGrYpph
- 2YPM4TXSRIE4t0DAmEip3E7pjt5hXiwm0bb9Pkmn+Q6aYiEMAze42FsYIwBAIDPkw5HP
- l9+heHiIMsmfPneOQ83WCIXdYZD+Jm877PYfFEqc4XfrfIiuJKmiv6LrEmE2LE9ukNUP
- E8h5rM6pBdXAbhkV9vK79rdu647zNSS62MmAOfH9iJeFMLd2t+VpCZ06qWPbvGNMDrqT hw== 
-Received: from nasanppmta02.qualcomm.com (i-global254.qualcomm.com
- [199.106.103.254])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3mx3f30p68-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 06 Jan 2023 00:38:11 +0000
-Received: from nasanex01b.na.qualcomm.com (corens_vlan604_snip.qualcomm.com
- [10.53.140.1])
- by NASANPPMTA02.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 3060cA4c028306
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 6 Jan 2023 00:38:10 GMT
-Received: from [10.110.20.194] (10.80.80.8) by nasanex01b.na.qualcomm.com
- (10.46.141.250) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.36; Thu, 5 Jan 2023
- 16:38:08 -0800
-Message-ID: <58caf08c-3a02-82ce-4452-8ae7f22f373d@quicinc.com>
-Date: Thu, 5 Jan 2023 16:37:55 -0800
+Received: from cstnet.cn (smtp23.cstnet.cn [159.226.251.23])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 3D82210E00F;
+ Fri,  6 Jan 2023 02:30:19 +0000 (UTC)
+Received: from localhost.localdomain (unknown [124.16.138.125])
+ by APP-03 (Coremail) with SMTP id rQCowACXnJS1h7djpmO9Cg--.9869S2;
+ Fri, 06 Jan 2023 10:30:13 +0800 (CST)
+From: Jiasheng Jiang <jiasheng@iscas.ac.cn>
+To: robdclark@gmail.com, quic_abhinavk@quicinc.com,
+ dmitry.baryshkov@linaro.org, sean@poorly.run, airlied@gmail.com,
+ daniel@ffwll.ch, swboyd@chromium.org, quic_khsieh@quicinc.com,
+ johan+linaro@kernel.org
+Date: Fri,  6 Jan 2023 10:30:11 +0800
+Message-Id: <20230106023011.3985-1-jiasheng@iscas.ac.cn>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.5.1
-To: Daniel Vetter <daniel@ffwll.ch>
-References: <20230104234036.636-1-quic_jesszhan@quicinc.com>
- <Y7a1hCmsvJHKdW1Y@phenom.ffwll.local>
-Content-Language: en-US
-From: Jessica Zhang <quic_jesszhan@quicinc.com>
-In-Reply-To: <Y7a1hCmsvJHKdW1Y@phenom.ffwll.local>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
- nasanex01b.na.qualcomm.com (10.46.141.250)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-GUID: 0c_L9KDKb3tkV8WUcYv3lnNK0ScRYop7
-X-Proofpoint-ORIG-GUID: 0c_L9KDKb3tkV8WUcYv3lnNK0ScRYop7
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.205,Aquarius:18.0.923,Hydra:6.0.545,FMLib:17.11.122.1
- definitions=2023-01-05_13,2023-01-05_02,2022-06-22_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 spamscore=0
- phishscore=0 suspectscore=0 lowpriorityscore=0 malwarescore=0
- clxscore=1015 priorityscore=1501 bulkscore=0 mlxscore=0 mlxlogscore=999
- adultscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2212070000 definitions=main-2301060002
-Subject: Re: [Freedreno] [RFC PATCH v3 0/3] Support for Solid Fill Planes
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID: rQCowACXnJS1h7djpmO9Cg--.9869S2
+X-Coremail-Antispam: 1UD129KBjvdXoW7Jr18urW3GF47Xr17KFyrtFb_yoWfGrg_Wa
+ 4fCrnxurW7KFnxtw1xAr1Syryvyr109rW8WFn8ta4aya9rW3s2qr4qkFW3Zry7uFy5ZF1D
+ Za10vry5ZrnrCjkaLaAFLSUrUUUUUb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+ 9fnUUIcSsGvfJTRUUUbsAFF20E14v26r4j6ryUM7CY07I20VC2zVCF04k26cxKx2IYs7xG
+ 6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4kI8w
+ A2z4x0Y4vE2Ix0cI8IcVAFwI0_JFI_Gr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_Gr0_
+ Cr1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_GcCE3s
+ 1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E2Ix0
+ cI8IcVAFwI0_JF0_Jw1lYx0Ex4A2jsIE14v26r4j6F4UMcvjeVCFs4IE7xkEbVWUJVW8Jw
+ ACjcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1lFIxGxcIEc7CjxVA2Y2ka
+ 0xkIwI1lc2xSY4AK67AK6r4UMxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r
+ 4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF
+ 67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2I
+ x0cI8IcVCY1x0267AKxVW8JVWxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2
+ z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2KfnxnU
+ UI43ZEXa7VUb5l1PUUUUU==
+X-Originating-IP: [124.16.138.125]
+X-CM-SenderInfo: pmld2xxhqjqxpvfd2hldfou0/
+Subject: [Freedreno] [PATCH] drm/msm/hdmi: Add missing check for
+ alloc_ordered_workqueue
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,112 +58,37 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: sebastian.wick@redhat.com, ppaalanen@gmail.com,
- linux-arm-msm@vger.kernel.org, quic_abhinavk@quicinc.com,
- dri-devel@lists.freedesktop.org, swboyd@chromium.org, daniel.vetter@ffwll.ch,
- robdclark@gmail.com, seanpaul@chromium.org, laurent.pinchart@ideasonboard.com,
- contact@emersion.fr, dmitry.baryshkov@linaro.org,
- wayland-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- ville.syrjala@linux.intel.com
+Cc: linux-arm-msm@vger.kernel.org, Jiasheng Jiang <jiasheng@iscas.ac.cn>,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
+Add check for the return value of alloc_ordered_workqueue as it may return
+NULL pointer and cause NULL pointer dereference in `hdmi_hdcp.c` and
+`hdmi_hpd.c`.
 
+Fixes: c6a57a50ad56 ("drm/msm/hdmi: add hdmi hdcp support (V3)")
+Signed-off-by: Jiasheng Jiang <jiasheng@iscas.ac.cn>
+---
+ drivers/gpu/drm/msm/hdmi/hdmi.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-On 1/5/2023 3:33 AM, Daniel Vetter wrote:
-> On Wed, Jan 04, 2023 at 03:40:33PM -0800, Jessica Zhang wrote:
->> Introduce and add support for a solid_fill property. When the solid_fill
->> property is set, and the framebuffer is set to NULL, memory fetch will be
->> disabled.
->>
->> In addition, loosen the NULL FB checks within the atomic commit callstack
->> to allow a NULL FB when the solid_fill property is set and add FB checks
->> in methods where the FB was previously assumed to be non-NULL.
->>
->> Finally, have the DPU driver use drm_plane_state.solid_fill and instead of
->> dpu_plane_state.color_fill, and add extra checks in the DPU atomic commit
->> callstack to account for a NULL FB in cases where solid_fill is set.
->>
->> Some drivers support hardware that have optimizations for solid fill
->> planes. This series aims to expose these capabilities to userspace as
->> some compositors have a solid fill flag (ex. SOLID_COLOR in the Android
->> hardware composer HAL) that can be set by apps like the Android Gears
->> app.
->>
->> Userspace can set the solid_fill property to a blob containing the
->> appropriate version number and solid fill color (in RGB323232 format) and
->> setting the framebuffer to NULL.
->>
->> Note: Currently, there's only one version of the solid_fill blob property.
->> However if other drivers want to support a similar feature, but require
->> more than just the solid fill color, they can extend this feature by
->> creating additional versions of the drm_solid_fill struct.
->>
->> Changes in V2:
->> - Dropped SOLID_FILL_FORMAT property (Simon)
->> - Switched to implementing solid_fill property as a blob (Simon, Dmitry)
->> - Changed to checks for if solid_fill_blob is set (Dmitry)
->> - Abstracted (plane_state && !solid_fill_blob) checks to helper method
->>    (Dmitry)
->> - Removed DPU_PLANE_COLOR_FILL_FLAG
->> - Fixed whitespace and indentation issues (Dmitry)
-> 
-> Now that this is a blob, I do wonder again whether it's not cleaner to set
-> the blob as the FB pointer. Or create some kind other kind of special data
-> source objects (because solid fill is by far not the only such thing).
-> 
-> We'd still end up in special cases like when userspace that doesn't
-> understand solid fill tries to read out such a framebuffer, but these
-> cases already exist anyway for lack of priviledges.
-> 
-> So I still think that feels like the more consistent way to integrate this
-> feature. Which doesn't mean it has to happen like that, but the
-> patches/cover letter should at least explain why we don't do it like this.
+diff --git a/drivers/gpu/drm/msm/hdmi/hdmi.c b/drivers/gpu/drm/msm/hdmi/hdmi.c
+index 4d3fdc806bef..8e801ec0b33f 100644
+--- a/drivers/gpu/drm/msm/hdmi/hdmi.c
++++ b/drivers/gpu/drm/msm/hdmi/hdmi.c
+@@ -120,6 +120,10 @@ static int msm_hdmi_init(struct hdmi *hdmi)
+ 	int ret;
+ 
+ 	hdmi->workq = alloc_ordered_workqueue("msm_hdmi", 0);
++	if (!hdmi->workq) {
++		ret = -ENOMEM;
++		goto fail;
++	}
+ 
+ 	hdmi->i2c = msm_hdmi_i2c_init(hdmi);
+ 	if (IS_ERR(hdmi->i2c)) {
+-- 
+2.25.1
 
-Hi Daniel,
-
-IIRC we were facing some issues with this check [1] when trying to set 
-FB to a PROP_BLOB instead. Which is why we went with making it a 
-separate property instead. Will mention this in the cover letter.
-
-[1] 
-https://gitlab.freedesktop.org/drm/msm/-/blob/msm-next/drivers/gpu/drm/drm_property.c#L71
-
-Thanks,
-
-Jessica Zhang
-
-> -Daniel
-> 
->>
->> Changes in V3:
->> - Fixed some logic errors in atomic checks (Dmitry)
->> - Introduced drm_plane_has_visible_data() and drm_atomic_check_fb() helper
->>    methods (Dmitry)
->>
->> Jessica Zhang (3):
->>    drm: Introduce solid fill property for drm plane
->>    drm: Adjust atomic checks for solid fill color
->>    drm/msm/dpu: Use color_fill property for DPU planes
->>
->>   drivers/gpu/drm/drm_atomic.c              | 136 +++++++++++++---------
->>   drivers/gpu/drm/drm_atomic_helper.c       |  34 +++---
->>   drivers/gpu/drm/drm_atomic_state_helper.c |   9 ++
->>   drivers/gpu/drm/drm_atomic_uapi.c         |  59 ++++++++++
->>   drivers/gpu/drm/drm_blend.c               |  17 +++
->>   drivers/gpu/drm/drm_plane.c               |   8 +-
->>   drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c  |   9 +-
->>   drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c |  65 +++++++----
->>   include/drm/drm_atomic_helper.h           |   5 +-
->>   include/drm/drm_blend.h                   |   1 +
->>   include/drm/drm_plane.h                   |  62 ++++++++++
->>   11 files changed, 302 insertions(+), 103 deletions(-)
->>
->> -- 
->> 2.38.1
->>
-> 
-> -- 
-> Daniel Vetter
-> Software Engineer, Intel Corporation
-> http://blog.ffwll.ch
