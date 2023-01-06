@@ -2,59 +2,60 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id D59C565FA75
-	for <lists+freedreno@lfdr.de>; Fri,  6 Jan 2023 04:43:38 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id EF8E665FBC5
+	for <lists+freedreno@lfdr.de>; Fri,  6 Jan 2023 08:16:18 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8064D10E82F;
-	Fri,  6 Jan 2023 03:43:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AB1D010E2CE;
+	Fri,  6 Jan 2023 07:16:14 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-yw1-x112e.google.com (mail-yw1-x112e.google.com
- [IPv6:2607:f8b0:4864:20::112e])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5AF9110E82F
- for <freedreno@lists.freedesktop.org>; Fri,  6 Jan 2023 03:43:36 +0000 (UTC)
-Received: by mail-yw1-x112e.google.com with SMTP id
- 00721157ae682-4b718cab0e4so7021367b3.9
- for <freedreno@lists.freedesktop.org>; Thu, 05 Jan 2023 19:43:36 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=JEsTjNJVQDsSZ8QOj6qukGfsPbMSwGpsRqPchQGQyPc=;
- b=M7v2+kZrhHVh4TIFfRcuhHCps8bquSoibCqJOIKcsl5fCyT2xCL9ockbu5ZAB68AUn
- X3+cSAWgx2D6h30BIkYZILJuxNUMppOSVLKyxDkVCAkyq7UAn1eNvc+zbSWvZDqQ6/3O
- wW6YU1vbHSKXu9eS3mPC6E6VFxFe11JHX1gzGk7m84LM+6/B3/V2D+8fAhS3HE8Emsbb
- GdjsfNyM1CTEAt1VoNRvOzXQOqZpeb7tquScJpwvpNKhWAlnMAXR0qrw+XtejwU5XrUy
- etx4eFnIeXIe7JI7qKo48qfhHvnPRpgg03ryLCX/y+M+THUfrhdXrS+T7zIvlWTS9SLF
- I5Zg==
+Received: from mail-oi1-x231.google.com (mail-oi1-x231.google.com
+ [IPv6:2607:f8b0:4864:20::231])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 20A5D10E2CE
+ for <freedreno@lists.freedesktop.org>; Fri,  6 Jan 2023 07:16:12 +0000 (UTC)
+Received: by mail-oi1-x231.google.com with SMTP id n8so508612oih.0
+ for <freedreno@lists.freedesktop.org>; Thu, 05 Jan 2023 23:16:12 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kali.org; s=google;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=3rrp6V7KWYZFDRr1re6vLXoec41Prjw9aIuZx3KbAjE=;
+ b=hkSiAvZQ5q7niMrgTomLfzJbqJJ/y3VphW3KaB3hIgfneZUn6KtYbtnN9CVk1dZ80M
+ S9WFDJb+OLC9+FZdZKPICuEorPEB7oLsq9c26ygU+XxZws0TqeJgbTzr6/EIVLtp4yA7
+ /ySS0U1uhVo2lw5Q/teBBNvrz06FTo7U8cezt7jSYNzfa3U4PVTo2FN9Cfl1cIA16AIB
+ ha/0NKomsCYw3MRO17h/tXbtnusSebPxaq/FeWsgH2cSY2zWJGs5T+47ZwSuASUgDj0O
+ eWgs2aJ3HlBrWZ1Sr13PxTgZ71azW1FxRq175F3z8R7yS/X9Z+v3Ezh8EeBhgyzCL3cC
+ XHjQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=JEsTjNJVQDsSZ8QOj6qukGfsPbMSwGpsRqPchQGQyPc=;
- b=gXXsdj4io1ni7SLL/EhyvPypUhu5WwQnr6LfvTiBNw0PSftOxq5BwPt2urSH7Ao4Vv
- 74bvKztm7O3Jn1iW+a9b9aNqbozyNiGt2PLjvjd1aWupLIB9XrbFMpM7A86wnLFQeeU8
- mWFouLrqPKaZa67hOg9q20ycUCL9rvj0nbQ12y8y2H/Jc+AcgcN8eknmjzYaEonhpsIG
- VcPlyuFe0PRub//irXncwOp1LbGFkRbMhPs23BsibzE9OsXWYGwFHCcsYHYHY9xnNz9K
- sXlGnBkX5WkSxJdIxb1fp5CxF98LxuF9oNn06NUjHy5UCwGAPDUX0BtZKWnDueL1wzdK
- 182A==
-X-Gm-Message-State: AFqh2kqJ60F9yBUtywJpnobu+ictAdNOFHY+mMo1MtE2zLaUjnoSXUWx
- ALeVe/EC3BXgFLZyqYYaTP1YM/XkjscdMk2GbYAJGQ==
-X-Google-Smtp-Source: AMrXdXvdTNmOI0wPfuf98BUEjbUDLpvXd/Rvgmo3E1ZTVrjetFxMdyLyO6+OsMPfX+cKZ9SdJm6NYNI59oOY9R4DSyk=
-X-Received: by 2002:a05:690c:fd5:b0:4a4:7135:9214 with SMTP id
- dg21-20020a05690c0fd500b004a471359214mr2978765ywb.378.1672976615362; Thu, 05
- Jan 2023 19:43:35 -0800 (PST)
+ bh=3rrp6V7KWYZFDRr1re6vLXoec41Prjw9aIuZx3KbAjE=;
+ b=K7jJT01NKcFSLBA2YL51F2d+rLXwqlNEYPihPm24bWKRPU6afSEvEFJHeK5RsQLDWm
+ JSonPlniCPTpWudzKJXNUEdTusIe8evz7fDcUYz1pMc2uN++bIr97lM8PgOFLvQ54B8d
+ KcdTRaxvJwWeKOxnJJzEb60dchYY0lKmIBliRZ6vz1EX9/cXteKRsj5sythU00qRPL+U
+ wRNySXhN6Smybbbhg98+98k716xeqTDK6h+eKltsaCTWJKr9aD5Ebd5u4W5Izwo7ZHqx
+ h3/0JjnKC+hxGRGx5irJd7qFM/w068roPeVbWKeBC0BLLn5ZMCw/qINBz6ljAhtiHqmt
+ ah7g==
+X-Gm-Message-State: AFqh2krVbjbLm0Ptl8zT5hHT7MKoQIihQh2CqI31Lqk3H+SPaAN/sNpx
+ aKliLPW3xSN985OBfKaQk8qq4g==
+X-Google-Smtp-Source: AMrXdXud5KDhZQApL7a3qEoR2W/iDOw8JuWICERDCbrP2ehGJAMny4mSwd3IA4pPORyRy6Mbqj9iYA==
+X-Received: by 2002:aca:4207:0:b0:360:bc5d:2ed2 with SMTP id
+ p7-20020aca4207000000b00360bc5d2ed2mr20527042oia.53.1672989371307; 
+ Thu, 05 Jan 2023 23:16:11 -0800 (PST)
+Received: from localhost (23-118-233-243.lightspeed.snantx.sbcglobal.net.
+ [23.118.233.243]) by smtp.gmail.com with ESMTPSA id
+ p3-20020aca5b03000000b0035c073aa0d8sm126616oib.18.2023.01.05.23.16.10
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 05 Jan 2023 23:16:10 -0800 (PST)
+From: Steev Klimaszewski <steev@kali.org>
+To: steev@kali.org
+Date: Fri,  6 Jan 2023 01:16:09 -0600
+Message-Id: <20230106071609.3948-1-steev@kali.org>
+X-Mailer: git-send-email 2.39.0
 MIME-Version: 1.0
-References: <20230104234036.636-1-quic_jesszhan@quicinc.com>
- <Y7a1hCmsvJHKdW1Y@phenom.ffwll.local>
- <58caf08c-3a02-82ce-4452-8ae7f22f373d@quicinc.com>
-In-Reply-To: <58caf08c-3a02-82ce-4452-8ae7f22f373d@quicinc.com>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Fri, 6 Jan 2023 05:43:23 +0200
-Message-ID: <CAA8EJppnAmN6+S-emEfXJEc1iVf+DjeLBmCQpGd-nRY2M2AAQQ@mail.gmail.com>
-To: Jessica Zhang <quic_jesszhan@quicinc.com>
-Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [RFC PATCH v3 0/3] Support for Solid Fill Planes
+Content-Transfer-Encoding: 8bit
+Subject: [Freedreno] [PATCH] drm/msm: Set preferred depth.
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,123 +68,90 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: sebastian.wick@redhat.com, ppaalanen@gmail.com,
- linux-arm-msm@vger.kernel.org, quic_abhinavk@quicinc.com,
- dri-devel@lists.freedesktop.org, swboyd@chromium.org, daniel.vetter@ffwll.ch,
- robdclark@gmail.com, seanpaul@chromium.org, laurent.pinchart@ideasonboard.com,
- Daniel Vetter <daniel@ffwll.ch>, contact@emersion.fr,
- wayland-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- ville.syrjala@linux.intel.com
+Cc: freedreno@lists.freedesktop.org, Sean Paul <sean@poorly.run>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Rob Clark <robdclark@gmail.com>,
+ Daniel Vetter <daniel@ffwll.ch>, linux-arm-msm@vger.kernel.org,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ David Airlie <airlied@gmail.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Fri, 6 Jan 2023 at 02:38, Jessica Zhang <quic_jesszhan@quicinc.com> wrote:
->
->
->
-> On 1/5/2023 3:33 AM, Daniel Vetter wrote:
-> > On Wed, Jan 04, 2023 at 03:40:33PM -0800, Jessica Zhang wrote:
-> >> Introduce and add support for a solid_fill property. When the solid_fill
-> >> property is set, and the framebuffer is set to NULL, memory fetch will be
-> >> disabled.
-> >>
-> >> In addition, loosen the NULL FB checks within the atomic commit callstack
-> >> to allow a NULL FB when the solid_fill property is set and add FB checks
-> >> in methods where the FB was previously assumed to be non-NULL.
-> >>
-> >> Finally, have the DPU driver use drm_plane_state.solid_fill and instead of
-> >> dpu_plane_state.color_fill, and add extra checks in the DPU atomic commit
-> >> callstack to account for a NULL FB in cases where solid_fill is set.
-> >>
-> >> Some drivers support hardware that have optimizations for solid fill
-> >> planes. This series aims to expose these capabilities to userspace as
-> >> some compositors have a solid fill flag (ex. SOLID_COLOR in the Android
-> >> hardware composer HAL) that can be set by apps like the Android Gears
-> >> app.
-> >>
-> >> Userspace can set the solid_fill property to a blob containing the
-> >> appropriate version number and solid fill color (in RGB323232 format) and
-> >> setting the framebuffer to NULL.
-> >>
-> >> Note: Currently, there's only one version of the solid_fill blob property.
-> >> However if other drivers want to support a similar feature, but require
-> >> more than just the solid fill color, they can extend this feature by
-> >> creating additional versions of the drm_solid_fill struct.
-> >>
-> >> Changes in V2:
-> >> - Dropped SOLID_FILL_FORMAT property (Simon)
-> >> - Switched to implementing solid_fill property as a blob (Simon, Dmitry)
-> >> - Changed to checks for if solid_fill_blob is set (Dmitry)
-> >> - Abstracted (plane_state && !solid_fill_blob) checks to helper method
-> >>    (Dmitry)
-> >> - Removed DPU_PLANE_COLOR_FILL_FLAG
-> >> - Fixed whitespace and indentation issues (Dmitry)
-> >
-> > Now that this is a blob, I do wonder again whether it's not cleaner to set
-> > the blob as the FB pointer. Or create some kind other kind of special data
-> > source objects (because solid fill is by far not the only such thing).
-> >
-> > We'd still end up in special cases like when userspace that doesn't
-> > understand solid fill tries to read out such a framebuffer, but these
-> > cases already exist anyway for lack of priviledges.
-> >
-> > So I still think that feels like the more consistent way to integrate this
-> > feature. Which doesn't mean it has to happen like that, but the
-> > patches/cover letter should at least explain why we don't do it like this.
->
-> Hi Daniel,
->
-> IIRC we were facing some issues with this check [1] when trying to set
-> FB to a PROP_BLOB instead. Which is why we went with making it a
-> separate property instead. Will mention this in the cover letter.
+As of commit 37c90d589dc0 ("drm/fb-helper: Fix single-probe color-format
+selection"), if no supported color formats are found, it tries to use the
+driver provided default, which msm didn't have set and leads to the
+following output:
 
-What kind of issues? Could you please describe them?
+msm_dpu ae01000.display-controller: [drm] bpp/depth value of 32/0 not supported
+msm_dpu ae01000.display-controller: [drm] bpp/depth value of 32/0 not supported
+msm_dpu ae01000.display-controller: [drm] bpp/depth value of 32/0 not supported
+msm_dpu ae01000.display-controller: [drm] No compatible format found
+------------[ cut here ]------------
+WARNING: CPU: 0 PID: 73 at drivers/gpu/drm/drm_atomic.c:1604 __drm_atomic_helper_set_config+0x240/0x33c
+Modules linked in: ext4 mbcache jbd2 msm mdt_loader ocmem gpu_sched llcc_qcom gpio_keys qrtr
+CPU: 0 PID: 73 Comm: kworker/u16:2 Not tainted 6.2.0-rc2-next-20230106 #53
+Hardware name: LENOVO 21BX0015US/21BX0015US, BIOS N3HET74W (1.46 ) 10/12/2022
+Workqueue: events_unbound deferred_probe_work_func
+pstate: 80400005 (Nzcv daif +PAN -UAO -TCO -DIT -SSBS BTYPE=--)
+pc : __drm_atomic_helper_set_config+0x240/0x33c
+lr : __drm_atomic_helper_set_config+0x68/0x33c
+sp : ffff800008a7b790
+x29: ffff800008a7b790 x28: ffff73ee3e130a00 x27: 0000000000000000
+x26: ffff73ee3d256e00 x25: 0000000000000038 x24: ffff73e6c0d65e00
+x23: ffff73e6c17a7800 x22: ffff73e6c0d64e00 x21: ffff73e79c025e00
+x20: 00000000c0d64e00 x19: ffff73ee3e130a00 x18: ffffffffffffffff
+x17: 662074616d726f66 x16: 20656c6269746170 x15: 0000000000000000
+x14: 0000000000000000 x13: 0000000000000000 x12: 0000000000000000
+x11: 0000000000000000 x10: 0000000000000000 x9 : ffffa829144ff8bc
+x8 : 0000000000000000 x7 : 0000000000000000 x6 : 0000000000000000
+x5 : ffff73e6c0d65f50 x4 : ffff73ee3d254950 x3 : ffff73e6c0d65ec0
+x2 : ffff73ee3c953a00 x1 : ffff73e79c025580 x0 : 0000000000000000
+Call trace:
+__drm_atomic_helper_set_config+0x240/0x33c
+drm_client_modeset_commit_atomic+0x160/0x280
+drm_client_modeset_commit_locked+0x64/0x194
+drm_client_modeset_commit+0x38/0x60
+__drm_fb_helper_initial_config_and_unlock+0x528/0x63c
+drm_fb_helper_initial_config+0x54/0x64
+msm_fbdev_init+0x94/0xfc [msm]
+msm_drm_bind+0x548/0x614 [msm]
+try_to_bring_up_aggregate_device+0x1e4/0x2d0
+__component_add+0xc4/0x1c0
+component_add+0x1c/0x2c
+dp_display_probe+0x2a4/0x460 [msm]
+platform_probe+0x70/0xcc
+really_probe+0xc8/0x3e0
+__driver_probe_device+0x84/0x190
+driver_probe_device+0x44/0x120
+__device_attach_driver+0xc4/0x160
+bus_for_each_drv+0x84/0xe0
+__device_attach+0xa4/0x1cc
+device_initial_probe+0x1c/0x2c
+bus_probe_device+0xa4/0xb0
+deferred_probe_work_func+0xc0/0x114
+process_one_work+0x1ec/0x470
+worker_thread+0x74/0x410
+kthread+0xfc/0x110
+ret_from_fork+0x10/0x20
+---[ end trace 0000000000000000 ]---
 
->
-> [1]
-> https://gitlab.freedesktop.org/drm/msm/-/blob/msm-next/drivers/gpu/drm/drm_property.c#L71
->
-> Thanks,
->
-> Jessica Zhang
->
-> > -Daniel
-> >
-> >>
-> >> Changes in V3:
-> >> - Fixed some logic errors in atomic checks (Dmitry)
-> >> - Introduced drm_plane_has_visible_data() and drm_atomic_check_fb() helper
-> >>    methods (Dmitry)
-> >>
-> >> Jessica Zhang (3):
-> >>    drm: Introduce solid fill property for drm plane
-> >>    drm: Adjust atomic checks for solid fill color
-> >>    drm/msm/dpu: Use color_fill property for DPU planes
-> >>
-> >>   drivers/gpu/drm/drm_atomic.c              | 136 +++++++++++++---------
-> >>   drivers/gpu/drm/drm_atomic_helper.c       |  34 +++---
-> >>   drivers/gpu/drm/drm_atomic_state_helper.c |   9 ++
-> >>   drivers/gpu/drm/drm_atomic_uapi.c         |  59 ++++++++++
-> >>   drivers/gpu/drm/drm_blend.c               |  17 +++
-> >>   drivers/gpu/drm/drm_plane.c               |   8 +-
-> >>   drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c  |   9 +-
-> >>   drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c |  65 +++++++----
-> >>   include/drm/drm_atomic_helper.h           |   5 +-
-> >>   include/drm/drm_blend.h                   |   1 +
-> >>   include/drm/drm_plane.h                   |  62 ++++++++++
-> >>   11 files changed, 302 insertions(+), 103 deletions(-)
-> >>
-> >> --
-> >> 2.38.1
-> >>
-> >
-> > --
-> > Daniel Vetter
-> > Software Engineer, Intel Corporation
-> > http://blog.ffwll.ch
+Signed-off-by: Steev Klimaszewski <steev@kali.org>
+---
+ drivers/gpu/drm/msm/msm_drv.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-
-
+diff --git a/drivers/gpu/drm/msm/msm_drv.c b/drivers/gpu/drm/msm/msm_drv.c
+index 8b0b0ac74a6f..65c4c93c311e 100644
+--- a/drivers/gpu/drm/msm/msm_drv.c
++++ b/drivers/gpu/drm/msm/msm_drv.c
+@@ -479,6 +479,7 @@ static int msm_drm_init(struct device *dev, const struct drm_driver *drv)
+ 
+ 	drm_helper_move_panel_connectors_to_head(ddev);
+ 
++	ddev->mode_config.preferred_depth = 24;
+ 	ddev->mode_config.funcs = &mode_config_funcs;
+ 	ddev->mode_config.helper_private = &mode_config_helper_funcs;
+ 
 -- 
-With best wishes
-Dmitry
+2.39.0
+
