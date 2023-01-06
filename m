@@ -1,70 +1,74 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id A801265FD44
-	for <lists+freedreno@lfdr.de>; Fri,  6 Jan 2023 10:04:42 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 04E8F660384
+	for <lists+freedreno@lfdr.de>; Fri,  6 Jan 2023 16:40:03 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3EB2610E841;
-	Fri,  6 Jan 2023 09:04:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5DB7C10E87F;
+	Fri,  6 Jan 2023 15:40:00 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wr1-x42d.google.com (mail-wr1-x42d.google.com
- [IPv6:2a00:1450:4864:20::42d])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 80C9F10E02D
- for <freedreno@lists.freedesktop.org>; Fri,  6 Jan 2023 09:04:38 +0000 (UTC)
-Received: by mail-wr1-x42d.google.com with SMTP id co23so695671wrb.4
- for <freedreno@lists.freedesktop.org>; Fri, 06 Jan 2023 01:04:38 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
- h=in-reply-to:content-disposition:mime-version:references
- :mail-followup-to:message-id:subject:cc:to:from:date:from:to:cc
- :subject:date:message-id:reply-to;
- bh=7oh+tO4VAYKsBsuVwmWetnQdvzWD6pRcTuec9yQCMBE=;
- b=VcaBOgij5Nk7bOXAUDlWpO3pECWUZyZWpSZ9DBn9QmP8brgHn/moTN+rNHmuO6cOtC
- asHTEQw18D4FXFnaijCwcAt7eYm/Kh2f4vnvOhoSe5bCickgXh6TdjnkDr+bByGv+i1w
- H24kaMd/bbmMxayX/wnQyntJY1KG+9uUD+jnY=
+Received: from mail-wr1-x435.google.com (mail-wr1-x435.google.com
+ [IPv6:2a00:1450:4864:20::435])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C430910E87C
+ for <freedreno@lists.freedesktop.org>; Fri,  6 Jan 2023 15:39:57 +0000 (UTC)
+Received: by mail-wr1-x435.google.com with SMTP id r2so1598490wrv.7
+ for <freedreno@lists.freedesktop.org>; Fri, 06 Jan 2023 07:39:57 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=gdITn0BNEFwYE+yxhugbd2XPXZtNiB3TXaZnxOed4cM=;
+ b=XAZHSD3rziy8mh+f+LxkAIsDMq75Ed2nYqzR5a8pLK8MdmDxNycMZo2uBSd+w3+tOZ
+ jDO2BOkVUczCNMKIs8Jqe6CMdteBNLpuTtkRSKyXc+kebufsq046ykhjwHJCksQIjFNH
+ Dex1OSUe0jwFTGJh6WWwiE5RB9x3eMXmpOJUlSwh4ck8oxUQx4pllvSF0y/mqIv24HrC
+ XMW/+SEMAZh6KMeHjXh0xjr7LmBDg6IeOjEGSasnFcVJgi5PaBzmru0epLLF5nQuT18w
+ id/+1uIfG4YIb6JEqiiWrsImoWSdY1tJWj7jDB/u2D/7dQP84kjFns7NYmFiyZSsmpHY
+ 6htw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=in-reply-to:content-disposition:mime-version:references
- :mail-followup-to:message-id:subject:cc:to:from:date
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=7oh+tO4VAYKsBsuVwmWetnQdvzWD6pRcTuec9yQCMBE=;
- b=JhIUVxTws0SOGdzUn3ArtmiFyuDl+fyeXC4+l0JTW2WQ6toinrAJus6eIcH1byy5Du
- GbiTP+yvEVDGHmBOsAu4R/zHuh7rMRWFP511pq7Yp5skBITuCYE4Mm6Ub/5ovHo9BwAB
- 1QxDoKAC2wtH8XTOdrnqafKlmPHjvwfvWPDT8gxwJjkXzZktQRi5RKygo/Ec+G8fHfYv
- XpSmGm2LP7V+EuOsLEdznUUsHUp5SWk6iazUnTdajQEvXL5Ld2EepPk9LYeECTVGXneO
- Nacqpxvntre6Qxcz2wRGXu4N4/UR0Zn/TQZ+8cKK9Vj5jwxGjX2Qx047kx0QwFsVmlbG
- yOEQ==
-X-Gm-Message-State: AFqh2kqaoBS51DokUrwnAepi7jsRKG2k5hanlcDgp8zAlBBurTfsJ7wU
- mcZlmREFtzhsiKGeMoZjuytDaw==
-X-Google-Smtp-Source: AMrXdXsF6r0whrWtJmT10SJbfExjNBDHpWpevEeXU/qX5vrGPfkbuLARTKy9wemqwWZrlmIvuLuqHw==
-X-Received: by 2002:a5d:48c6:0:b0:242:844a:835d with SMTP id
- p6-20020a5d48c6000000b00242844a835dmr30521789wrs.65.1672995876891; 
- Fri, 06 Jan 2023 01:04:36 -0800 (PST)
-Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
+ bh=gdITn0BNEFwYE+yxhugbd2XPXZtNiB3TXaZnxOed4cM=;
+ b=bhLUPoqd0WoljHZgqSPmPmRIE5TDsDphYSc4sMl1Dp6RYwEMh7F9Ev5f4CcS7TO/cJ
+ BSnOsVy+ebab6M8Jd8LEt1grGegBYvHsNXlV0chX+BWUmzLwuVnV5xnfiNpAwNEseAdP
+ TRamaGHrDD+nqK/axGdgjQ1EWACVS+2UIGA7vG6LsCG5e1xbLT5W0TV/R3tHqYC5jPwm
+ IvgYaYnWGOy8r1NWir/eZA95vDwo49zBoNHaYQLqwdPFVS+ARP/vjwqYGgqB4Dt4k777
+ +8fmZKl2clBag7h098+fbmukRIekmHLFMt/Z4im3vpEe+WGC7bFIy1ZWvLCBI4lPFsJS
+ M3EQ==
+X-Gm-Message-State: AFqh2kpYLYNc1yXDXCtWz7IxhH/zvCScLCnKyl/UAaoO0sinjYXfTF2C
+ XbPqJxFRa5nZd1TTo4QSJPCJNw==
+X-Google-Smtp-Source: AMrXdXs/RYhlbOq3F2sJdykuBYlTqYFsB43Tc1Tc0FcoMHlw98bKEbw4cUWU/Q2XI1SyQwLrccM29w==
+X-Received: by 2002:a5d:4ad0:0:b0:27f:43c6:9ab0 with SMTP id
+ y16-20020a5d4ad0000000b0027f43c69ab0mr23839427wrs.20.1673019596308; 
+ Fri, 06 Jan 2023 07:39:56 -0800 (PST)
+Received: from [192.168.1.109] ([178.197.216.144])
  by smtp.gmail.com with ESMTPSA id
- a14-20020adff7ce000000b002549b649b62sm569112wrq.50.2023.01.06.01.04.35
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 06 Jan 2023 01:04:36 -0800 (PST)
-Date: Fri, 6 Jan 2023 10:04:34 +0100
-From: Daniel Vetter <daniel@ffwll.ch>
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Message-ID: <Y7fkIvBRHcsgHR0l@phenom.ffwll.local>
-Mail-Followup-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Steev Klimaszewski <steev@kali.org>,
- Rob Clark <robdclark@gmail.com>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Sean Paul <sean@poorly.run>, David Airlie <airlied@gmail.com>,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
-References: <20230106071609.3948-1-steev@kali.org>
- <f52cca60-ab6a-460a-65f9-367c083b51fa@linaro.org>
+ f11-20020a05600c4e8b00b003d04e4ed873sm7466724wmq.22.2023.01.06.07.39.53
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 06 Jan 2023 07:39:55 -0800 (PST)
+Message-ID: <ccbb47e4-d780-0b1d-814e-27e86b6c369c@linaro.org>
+Date: Fri, 6 Jan 2023 16:39:52 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <f52cca60-ab6a-460a-65f9-367c083b51fa@linaro.org>
-X-Operating-System: Linux phenom 5.19.0-2-amd64 
-Subject: Re: [Freedreno] [PATCH] drm/msm: Set preferred depth.
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.6.1
+Content-Language: en-US
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Andy Gross <agross@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konrad.dybcio@linaro.org>, Rob Clark <robdclark@gmail.com>,
+ Sean Paul <sean@poorly.run>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Rob Herring <robh+dt@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>
+References: <20221207012231.112059-1-dmitry.baryshkov@linaro.org>
+ <20221207012231.112059-4-dmitry.baryshkov@linaro.org>
+From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+In-Reply-To: <20221207012231.112059-4-dmitry.baryshkov@linaro.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+Subject: Re: [Freedreno] [PATCH v6 03/11] dt-bindings: display/msm: add
+ sm8350 and sm8450 DSI PHYs
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,87 +81,45 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, Sean Paul <sean@poorly.run>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, Steev Klimaszewski <steev@kali.org>,
- linux-kernel@vger.kernel.org, Rob Clark <robdclark@gmail.com>,
- dri-devel@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>,
- linux-arm-msm@vger.kernel.org, David Airlie <airlied@gmail.com>
+Cc: devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, Stephen Boyd <swboyd@chromium.org>,
+ Daniel Vetter <daniel@ffwll.ch>, freedreno@lists.freedesktop.org,
+ David Airlie <airlied@gmail.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Fri, Jan 06, 2023 at 09:18:21AM +0200, Dmitry Baryshkov wrote:
-> On 06/01/2023 09:16, Steev Klimaszewski wrote:
-> > As of commit 37c90d589dc0 ("drm/fb-helper: Fix single-probe color-format
-> > selection"), if no supported color formats are found, it tries to use the
-> > driver provided default, which msm didn't have set and leads to the
-> > following output:
-> > 
-> > msm_dpu ae01000.display-controller: [drm] bpp/depth value of 32/0 not supported
-> > msm_dpu ae01000.display-controller: [drm] bpp/depth value of 32/0 not supported
-> > msm_dpu ae01000.display-controller: [drm] bpp/depth value of 32/0 not supported
-> > msm_dpu ae01000.display-controller: [drm] No compatible format found
-> > ------------[ cut here ]------------
-> > WARNING: CPU: 0 PID: 73 at drivers/gpu/drm/drm_atomic.c:1604 __drm_atomic_helper_set_config+0x240/0x33c
-> > Modules linked in: ext4 mbcache jbd2 msm mdt_loader ocmem gpu_sched llcc_qcom gpio_keys qrtr
-> > CPU: 0 PID: 73 Comm: kworker/u16:2 Not tainted 6.2.0-rc2-next-20230106 #53
-> > Hardware name: LENOVO 21BX0015US/21BX0015US, BIOS N3HET74W (1.46 ) 10/12/2022
-> > Workqueue: events_unbound deferred_probe_work_func
-> > pstate: 80400005 (Nzcv daif +PAN -UAO -TCO -DIT -SSBS BTYPE=--)
-> > pc : __drm_atomic_helper_set_config+0x240/0x33c
-> > lr : __drm_atomic_helper_set_config+0x68/0x33c
-> > sp : ffff800008a7b790
-> > x29: ffff800008a7b790 x28: ffff73ee3e130a00 x27: 0000000000000000
-> > x26: ffff73ee3d256e00 x25: 0000000000000038 x24: ffff73e6c0d65e00
-> > x23: ffff73e6c17a7800 x22: ffff73e6c0d64e00 x21: ffff73e79c025e00
-> > x20: 00000000c0d64e00 x19: ffff73ee3e130a00 x18: ffffffffffffffff
-> > x17: 662074616d726f66 x16: 20656c6269746170 x15: 0000000000000000
-> > x14: 0000000000000000 x13: 0000000000000000 x12: 0000000000000000
-> > x11: 0000000000000000 x10: 0000000000000000 x9 : ffffa829144ff8bc
-> > x8 : 0000000000000000 x7 : 0000000000000000 x6 : 0000000000000000
-> > x5 : ffff73e6c0d65f50 x4 : ffff73ee3d254950 x3 : ffff73e6c0d65ec0
-> > x2 : ffff73ee3c953a00 x1 : ffff73e79c025580 x0 : 0000000000000000
-> > Call trace:
-> > __drm_atomic_helper_set_config+0x240/0x33c
-> > drm_client_modeset_commit_atomic+0x160/0x280
-> > drm_client_modeset_commit_locked+0x64/0x194
-> > drm_client_modeset_commit+0x38/0x60
-> > __drm_fb_helper_initial_config_and_unlock+0x528/0x63c
-> > drm_fb_helper_initial_config+0x54/0x64
-> > msm_fbdev_init+0x94/0xfc [msm]
-> > msm_drm_bind+0x548/0x614 [msm]
-> > try_to_bring_up_aggregate_device+0x1e4/0x2d0
-> > __component_add+0xc4/0x1c0
-> > component_add+0x1c/0x2c
-> > dp_display_probe+0x2a4/0x460 [msm]
-> > platform_probe+0x70/0xcc
-> > really_probe+0xc8/0x3e0
-> > __driver_probe_device+0x84/0x190
-> > driver_probe_device+0x44/0x120
-> > __device_attach_driver+0xc4/0x160
-> > bus_for_each_drv+0x84/0xe0
-> > __device_attach+0xa4/0x1cc
-> > device_initial_probe+0x1c/0x2c
-> > bus_probe_device+0xa4/0xb0
-> > deferred_probe_work_func+0xc0/0x114
-> > process_one_work+0x1ec/0x470
-> > worker_thread+0x74/0x410
-> > kthread+0xfc/0x110
-> > ret_from_fork+0x10/0x20
-> > ---[ end trace 0000000000000000 ]---
-> > 
-> > Signed-off-by: Steev Klimaszewski <steev@kali.org>
-> > ---
-> >   drivers/gpu/drm/msm/msm_drv.c | 1 +
-> >   1 file changed, 1 insertion(+)
+On 07/12/2022 02:22, Dmitry Baryshkov wrote:
+> SM8350 and SM8450 platforms use the same driver and same bindings as the
+> existing 7nm DSI PHYs. Add corresponding compatibility strings.
 > 
-> Suggested-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> ---
+>  Documentation/devicetree/bindings/display/msm/dsi-phy-7nm.yaml | 2 ++
+>  1 file changed, 2 insertions(+)
+> 
+> diff --git a/Documentation/devicetree/bindings/display/msm/dsi-phy-7nm.yaml b/Documentation/devicetree/bindings/display/msm/dsi-phy-7nm.yaml
+> index c851770bbdf2..bffd161fedfd 100644
+> --- a/Documentation/devicetree/bindings/display/msm/dsi-phy-7nm.yaml
+> +++ b/Documentation/devicetree/bindings/display/msm/dsi-phy-7nm.yaml
+> @@ -15,6 +15,8 @@ allOf:
+>  properties:
+>    compatible:
+>      enum:
+> +      - qcom,dsi-phy-5nm-8350
+> +      - qcom,dsi-phy-5nm-8450
 
-I think a documentation patch that preferred_depth = 0 actually means
-xrgb8888 would be good, since we seem to have a serious confusion going on
-here?
--Daniel
--- 
-Daniel Vetter
-Software Engineer, Intel Corporation
-http://blog.ffwll.ch
+If this patch was not merged (so far nothing in next), can we make it
+proper SoC compatible?
+
+qcom,sm8450-dsi-phy-5nm
+
+The SC7280 already uses such pattern.
+
+>        - qcom,dsi-phy-7nm
+>        - qcom,dsi-phy-7nm-8150
+>        - qcom,sc7280-dsi-phy-7nm
+
+Best regards,
+Krzysztof
+
