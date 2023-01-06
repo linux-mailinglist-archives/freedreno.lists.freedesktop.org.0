@@ -2,66 +2,60 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id B556465FBD0
-	for <lists+freedreno@lfdr.de>; Fri,  6 Jan 2023 08:18:27 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7F32F65FCC4
+	for <lists+freedreno@lfdr.de>; Fri,  6 Jan 2023 09:31:40 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7185310E2CE;
-	Fri,  6 Jan 2023 07:18:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7ADD710E578;
+	Fri,  6 Jan 2023 08:31:38 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x133.google.com (mail-lf1-x133.google.com
- [IPv6:2a00:1450:4864:20::133])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E6C5010E2E3
- for <freedreno@lists.freedesktop.org>; Fri,  6 Jan 2023 07:18:24 +0000 (UTC)
-Received: by mail-lf1-x133.google.com with SMTP id bp15so860686lfb.13
- for <freedreno@lists.freedesktop.org>; Thu, 05 Jan 2023 23:18:24 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=fwNOkK/619F6kwc/0Tj1pDo4Y9cxK12cXZ8QRlsLr6c=;
- b=JYJ70ritw2cx4/IvR9IiIbsgwqw4HWs/g4hPHX5vB+Fsokz0YvbAkV+WT8PMDX3Yrv
- o1pI0tIcLqzWLHzSWTosiOtxcIE2Q79xD3r2kBD1KlCfS8P3OreyFq39ARAthzF7dUaW
- 0k44EHlzwnAMW1ZhKTHumoJz/TemXhH3+CVxBLTUW4Vsv9U5tGm8VrmLXp/aVXFRRJwu
- chqKdo7ZT5FExXxJSE3ck4oltx83rsKafIBfjQ2enm2ymVH5Idk6bRj1o/DeWE0jVxo5
- yJlgrF3e1cGCBjesc0AZACf9j7oRegCzyHa+PjrvlX01fjVSHEw0eKJu5MuCuuXRctO0
- /y0g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=fwNOkK/619F6kwc/0Tj1pDo4Y9cxK12cXZ8QRlsLr6c=;
- b=76paWv/tGXLuT1Yj1k+irqH0cQ1yZaCe41p+HUkAnx6NsHT9g966e1ZLVKMHPRNbG5
- LDSqc8zYv6DzVkj53cxbqQtBy6Pe0QGH+V/KNlRME/PR1YmkWCyGXQ8Ip+GnPYBjyGxG
- 8fWhA6Du8wHg+BhIp4XPg5dH2dGuhzMsKewfG9E3l90cNFIK185T0zmFIxYaC7FgMMHW
- LWKRznJtg2TsrxVKTwMRlOWsr1UZjjKZY1LRT+YUkWhubNqtu2J34D3tOyx8v3w89iJT
- 1fc/dcJJcxFeo/pg3my6JW9BXBHZ6ucsmG5CqnbhMSQ2wy5D+BzHcBQLhAgy39sAbFrw
- ZIRQ==
-X-Gm-Message-State: AFqh2krg6IONxG6x4fdq9fiPj6zzYOiYo1dDFAz3ZDeNgfGILJn/KXeH
- Z008x3k6dQGZI0HrW6QTZl9ScQ==
-X-Google-Smtp-Source: AMrXdXtkBlNpkecak93UASBcKEuMXUx4GuG2RT59y+bG+p5w0zFuJUEV6ziyHNppyL41uyZ+n65U3g==
-X-Received: by 2002:a05:6512:3c9e:b0:4b6:a6e4:ab7a with SMTP id
- h30-20020a0565123c9e00b004b6a6e4ab7amr17977799lfv.8.1672989503149; 
- Thu, 05 Jan 2023 23:18:23 -0800 (PST)
-Received: from ?IPV6:2001:14ba:a085:4d00::8a5?
- (dzccz6yyyyyyyyyyybcwt-3.rev.dnainternet.fi. [2001:14ba:a085:4d00::8a5])
- by smtp.gmail.com with ESMTPSA id
- y8-20020ac255a8000000b004a9b9ccfbe6sm57707lfg.51.2023.01.05.23.18.22
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 05 Jan 2023 23:18:22 -0800 (PST)
-Message-ID: <f52cca60-ab6a-460a-65f9-367c083b51fa@linaro.org>
-Date: Fri, 6 Jan 2023 09:18:21 +0200
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4CDAE10E515
+ for <freedreno@lists.freedesktop.org>; Fri,  6 Jan 2023 08:31:35 +0000 (UTC)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 0B17738A6E;
+ Fri,  6 Jan 2023 08:31:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1672993892; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=HG1VqAwzoLeMkfon6c+nZLmv9coQSK3o4+pfHb3CeAw=;
+ b=NoX5RFb6zK2YVm2+vR3LiHdW4UBKWSh3wN/nD0QeDs2C+rje7RfMG5BQsUxNYP/h7Qh5Rt
+ l7aLOMgSCiwFeuvLfO2LGxV8a8sIubJoszqvXYzaDxYbniK4ljpMPSzuoj4ijuLiCTRimV
+ 3wcTSscD19vSYcYwnLEvOpiTJt8MyLk=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1672993892;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=HG1VqAwzoLeMkfon6c+nZLmv9coQSK3o4+pfHb3CeAw=;
+ b=yrp1I4d1sGrbzbllhID7u+FA43a1VUOLvW7ruw2EiVKKe/CwuIJuizJvLP7K+GMYQHJCUV
+ GAh2nL0gCL0+kKDw==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id CE83B139D5;
+ Fri,  6 Jan 2023 08:31:31 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id 2ydUMWPct2PiTgAAMHmgww
+ (envelope-from <tzimmermann@suse.de>); Fri, 06 Jan 2023 08:31:31 +0000
+Message-ID: <98a30f00-c98f-cecb-d681-30b55caf2f8a@suse.de>
+Date: Fri, 6 Jan 2023 09:31:31 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.6.0
-Content-Language: en-GB
+ Thunderbird/102.6.1
+Content-Language: en-US
 To: Steev Klimaszewski <steev@kali.org>
 References: <20230106071609.3948-1-steev@kali.org>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+From: Thomas Zimmermann <tzimmermann@suse.de>
 In-Reply-To: <20230106071609.3948-1-steev@kali.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="------------JI9jOwOV1NZL9FyAbPKlkCdo"
 Subject: Re: [Freedreno] [PATCH] drm/msm: Set preferred depth.
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -75,82 +69,127 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, Sean Paul <sean@poorly.run>,
+Cc: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
  Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Rob Clark <robdclark@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>, linux-arm-msm@vger.kernel.org,
- David Airlie <airlied@gmail.com>
+ linux-kernel@vger.kernel.org, Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Sean Paul <sean@poorly.run>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 06/01/2023 09:16, Steev Klimaszewski wrote:
-> As of commit 37c90d589dc0 ("drm/fb-helper: Fix single-probe color-format
-> selection"), if no supported color formats are found, it tries to use the
-> driver provided default, which msm didn't have set and leads to the
-> following output:
-> 
-> msm_dpu ae01000.display-controller: [drm] bpp/depth value of 32/0 not supported
-> msm_dpu ae01000.display-controller: [drm] bpp/depth value of 32/0 not supported
-> msm_dpu ae01000.display-controller: [drm] bpp/depth value of 32/0 not supported
-> msm_dpu ae01000.display-controller: [drm] No compatible format found
-> ------------[ cut here ]------------
-> WARNING: CPU: 0 PID: 73 at drivers/gpu/drm/drm_atomic.c:1604 __drm_atomic_helper_set_config+0x240/0x33c
-> Modules linked in: ext4 mbcache jbd2 msm mdt_loader ocmem gpu_sched llcc_qcom gpio_keys qrtr
-> CPU: 0 PID: 73 Comm: kworker/u16:2 Not tainted 6.2.0-rc2-next-20230106 #53
-> Hardware name: LENOVO 21BX0015US/21BX0015US, BIOS N3HET74W (1.46 ) 10/12/2022
-> Workqueue: events_unbound deferred_probe_work_func
-> pstate: 80400005 (Nzcv daif +PAN -UAO -TCO -DIT -SSBS BTYPE=--)
-> pc : __drm_atomic_helper_set_config+0x240/0x33c
-> lr : __drm_atomic_helper_set_config+0x68/0x33c
-> sp : ffff800008a7b790
-> x29: ffff800008a7b790 x28: ffff73ee3e130a00 x27: 0000000000000000
-> x26: ffff73ee3d256e00 x25: 0000000000000038 x24: ffff73e6c0d65e00
-> x23: ffff73e6c17a7800 x22: ffff73e6c0d64e00 x21: ffff73e79c025e00
-> x20: 00000000c0d64e00 x19: ffff73ee3e130a00 x18: ffffffffffffffff
-> x17: 662074616d726f66 x16: 20656c6269746170 x15: 0000000000000000
-> x14: 0000000000000000 x13: 0000000000000000 x12: 0000000000000000
-> x11: 0000000000000000 x10: 0000000000000000 x9 : ffffa829144ff8bc
-> x8 : 0000000000000000 x7 : 0000000000000000 x6 : 0000000000000000
-> x5 : ffff73e6c0d65f50 x4 : ffff73ee3d254950 x3 : ffff73e6c0d65ec0
-> x2 : ffff73ee3c953a00 x1 : ffff73e79c025580 x0 : 0000000000000000
-> Call trace:
-> __drm_atomic_helper_set_config+0x240/0x33c
-> drm_client_modeset_commit_atomic+0x160/0x280
-> drm_client_modeset_commit_locked+0x64/0x194
-> drm_client_modeset_commit+0x38/0x60
-> __drm_fb_helper_initial_config_and_unlock+0x528/0x63c
-> drm_fb_helper_initial_config+0x54/0x64
-> msm_fbdev_init+0x94/0xfc [msm]
-> msm_drm_bind+0x548/0x614 [msm]
-> try_to_bring_up_aggregate_device+0x1e4/0x2d0
-> __component_add+0xc4/0x1c0
-> component_add+0x1c/0x2c
-> dp_display_probe+0x2a4/0x460 [msm]
-> platform_probe+0x70/0xcc
-> really_probe+0xc8/0x3e0
-> __driver_probe_device+0x84/0x190
-> driver_probe_device+0x44/0x120
-> __device_attach_driver+0xc4/0x160
-> bus_for_each_drv+0x84/0xe0
-> __device_attach+0xa4/0x1cc
-> device_initial_probe+0x1c/0x2c
-> bus_probe_device+0xa4/0xb0
-> deferred_probe_work_func+0xc0/0x114
-> process_one_work+0x1ec/0x470
-> worker_thread+0x74/0x410
-> kthread+0xfc/0x110
-> ret_from_fork+0x10/0x20
-> ---[ end trace 0000000000000000 ]---
-> 
-> Signed-off-by: Steev Klimaszewski <steev@kali.org>
-> ---
->   drivers/gpu/drm/msm/msm_drv.c | 1 +
->   1 file changed, 1 insertion(+)
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------------JI9jOwOV1NZL9FyAbPKlkCdo
+Content-Type: multipart/mixed; boundary="------------M0Cns4x27DWohdLULB6u10DY";
+ protected-headers="v1"
+From: Thomas Zimmermann <tzimmermann@suse.de>
+To: Steev Klimaszewski <steev@kali.org>
+Cc: freedreno@lists.freedesktop.org, Sean Paul <sean@poorly.run>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Message-ID: <98a30f00-c98f-cecb-d681-30b55caf2f8a@suse.de>
+Subject: Re: [PATCH] drm/msm: Set preferred depth.
+References: <20230106071609.3948-1-steev@kali.org>
+In-Reply-To: <20230106071609.3948-1-steev@kali.org>
 
-Suggested-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+--------------M0Cns4x27DWohdLULB6u10DY
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: base64
 
--- 
-With best wishes
-Dmitry
+SGkNCg0KQW0gMDYuMDEuMjMgdW0gMDg6MTYgc2NocmllYiBTdGVldiBLbGltYXN6ZXdza2k6
+DQo+IEFzIG9mIGNvbW1pdCAzN2M5MGQ1ODlkYzAgKCJkcm0vZmItaGVscGVyOiBGaXggc2lu
+Z2xlLXByb2JlIGNvbG9yLWZvcm1hdA0KPiBzZWxlY3Rpb24iKSwgaWYgbm8gc3VwcG9ydGVk
+IGNvbG9yIGZvcm1hdHMgYXJlIGZvdW5kLCBpdCB0cmllcyB0byB1c2UgdGhlDQo+IGRyaXZl
+ciBwcm92aWRlZCBkZWZhdWx0LCB3aGljaCBtc20gZGlkbid0IGhhdmUgc2V0IGFuZCBsZWFk
+cyB0byB0aGUNCj4gZm9sbG93aW5nIG91dHB1dDoNCj4gDQo+IG1zbV9kcHUgYWUwMTAwMC5k
+aXNwbGF5LWNvbnRyb2xsZXI6IFtkcm1dIGJwcC9kZXB0aCB2YWx1ZSBvZiAzMi8wIG5vdCBz
+dXBwb3J0ZWQNCj4gbXNtX2RwdSBhZTAxMDAwLmRpc3BsYXktY29udHJvbGxlcjogW2RybV0g
+YnBwL2RlcHRoIHZhbHVlIG9mIDMyLzAgbm90IHN1cHBvcnRlZA0KPiBtc21fZHB1IGFlMDEw
+MDAuZGlzcGxheS1jb250cm9sbGVyOiBbZHJtXSBicHAvZGVwdGggdmFsdWUgb2YgMzIvMCBu
+b3Qgc3VwcG9ydGVkDQo+IG1zbV9kcHUgYWUwMTAwMC5kaXNwbGF5LWNvbnRyb2xsZXI6IFtk
+cm1dIE5vIGNvbXBhdGlibGUgZm9ybWF0IGZvdW5kDQo+IC0tLS0tLS0tLS0tLVsgY3V0IGhl
+cmUgXS0tLS0tLS0tLS0tLQ0KPiBXQVJOSU5HOiBDUFU6IDAgUElEOiA3MyBhdCBkcml2ZXJz
+L2dwdS9kcm0vZHJtX2F0b21pYy5jOjE2MDQgX19kcm1fYXRvbWljX2hlbHBlcl9zZXRfY29u
+ZmlnKzB4MjQwLzB4MzNjDQo+IE1vZHVsZXMgbGlua2VkIGluOiBleHQ0IG1iY2FjaGUgamJk
+MiBtc20gbWR0X2xvYWRlciBvY21lbSBncHVfc2NoZWQgbGxjY19xY29tIGdwaW9fa2V5cyBx
+cnRyDQo+IENQVTogMCBQSUQ6IDczIENvbW06IGt3b3JrZXIvdTE2OjIgTm90IHRhaW50ZWQg
+Ni4yLjAtcmMyLW5leHQtMjAyMzAxMDYgIzUzDQo+IEhhcmR3YXJlIG5hbWU6IExFTk9WTyAy
+MUJYMDAxNVVTLzIxQlgwMDE1VVMsIEJJT1MgTjNIRVQ3NFcgKDEuNDYgKSAxMC8xMi8yMDIy
+DQo+IFdvcmtxdWV1ZTogZXZlbnRzX3VuYm91bmQgZGVmZXJyZWRfcHJvYmVfd29ya19mdW5j
+DQo+IHBzdGF0ZTogODA0MDAwMDUgKE56Y3YgZGFpZiArUEFOIC1VQU8gLVRDTyAtRElUIC1T
+U0JTIEJUWVBFPS0tKQ0KPiBwYyA6IF9fZHJtX2F0b21pY19oZWxwZXJfc2V0X2NvbmZpZysw
+eDI0MC8weDMzYw0KPiBsciA6IF9fZHJtX2F0b21pY19oZWxwZXJfc2V0X2NvbmZpZysweDY4
+LzB4MzNjDQo+IHNwIDogZmZmZjgwMDAwOGE3Yjc5MA0KPiB4Mjk6IGZmZmY4MDAwMDhhN2I3
+OTAgeDI4OiBmZmZmNzNlZTNlMTMwYTAwIHgyNzogMDAwMDAwMDAwMDAwMDAwMA0KPiB4MjY6
+IGZmZmY3M2VlM2QyNTZlMDAgeDI1OiAwMDAwMDAwMDAwMDAwMDM4IHgyNDogZmZmZjczZTZj
+MGQ2NWUwMA0KPiB4MjM6IGZmZmY3M2U2YzE3YTc4MDAgeDIyOiBmZmZmNzNlNmMwZDY0ZTAw
+IHgyMTogZmZmZjczZTc5YzAyNWUwMA0KPiB4MjA6IDAwMDAwMDAwYzBkNjRlMDAgeDE5OiBm
+ZmZmNzNlZTNlMTMwYTAwIHgxODogZmZmZmZmZmZmZmZmZmZmZg0KPiB4MTc6IDY2MjA3NDYx
+NmQ3MjZmNjYgeDE2OiAyMDY1NmM2MjY5NzQ2MTcwIHgxNTogMDAwMDAwMDAwMDAwMDAwMA0K
+PiB4MTQ6IDAwMDAwMDAwMDAwMDAwMDAgeDEzOiAwMDAwMDAwMDAwMDAwMDAwIHgxMjogMDAw
+MDAwMDAwMDAwMDAwMA0KPiB4MTE6IDAwMDAwMDAwMDAwMDAwMDAgeDEwOiAwMDAwMDAwMDAw
+MDAwMDAwIHg5IDogZmZmZmE4MjkxNDRmZjhiYw0KPiB4OCA6IDAwMDAwMDAwMDAwMDAwMDAg
+eDcgOiAwMDAwMDAwMDAwMDAwMDAwIHg2IDogMDAwMDAwMDAwMDAwMDAwMA0KPiB4NSA6IGZm
+ZmY3M2U2YzBkNjVmNTAgeDQgOiBmZmZmNzNlZTNkMjU0OTUwIHgzIDogZmZmZjczZTZjMGQ2
+NWVjMA0KPiB4MiA6IGZmZmY3M2VlM2M5NTNhMDAgeDEgOiBmZmZmNzNlNzljMDI1NTgwIHgw
+IDogMDAwMDAwMDAwMDAwMDAwMA0KPiBDYWxsIHRyYWNlOg0KPiBfX2RybV9hdG9taWNfaGVs
+cGVyX3NldF9jb25maWcrMHgyNDAvMHgzM2MNCj4gZHJtX2NsaWVudF9tb2Rlc2V0X2NvbW1p
+dF9hdG9taWMrMHgxNjAvMHgyODANCj4gZHJtX2NsaWVudF9tb2Rlc2V0X2NvbW1pdF9sb2Nr
+ZWQrMHg2NC8weDE5NA0KPiBkcm1fY2xpZW50X21vZGVzZXRfY29tbWl0KzB4MzgvMHg2MA0K
+PiBfX2RybV9mYl9oZWxwZXJfaW5pdGlhbF9jb25maWdfYW5kX3VubG9jaysweDUyOC8weDYz
+Yw0KPiBkcm1fZmJfaGVscGVyX2luaXRpYWxfY29uZmlnKzB4NTQvMHg2NA0KPiBtc21fZmJk
+ZXZfaW5pdCsweDk0LzB4ZmMgW21zbV0NCj4gbXNtX2RybV9iaW5kKzB4NTQ4LzB4NjE0IFtt
+c21dDQo+IHRyeV90b19icmluZ191cF9hZ2dyZWdhdGVfZGV2aWNlKzB4MWU0LzB4MmQwDQo+
+IF9fY29tcG9uZW50X2FkZCsweGM0LzB4MWMwDQo+IGNvbXBvbmVudF9hZGQrMHgxYy8weDJj
+DQo+IGRwX2Rpc3BsYXlfcHJvYmUrMHgyYTQvMHg0NjAgW21zbV0NCj4gcGxhdGZvcm1fcHJv
+YmUrMHg3MC8weGNjDQo+IHJlYWxseV9wcm9iZSsweGM4LzB4M2UwDQo+IF9fZHJpdmVyX3By
+b2JlX2RldmljZSsweDg0LzB4MTkwDQo+IGRyaXZlcl9wcm9iZV9kZXZpY2UrMHg0NC8weDEy
+MA0KPiBfX2RldmljZV9hdHRhY2hfZHJpdmVyKzB4YzQvMHgxNjANCj4gYnVzX2Zvcl9lYWNo
+X2RydisweDg0LzB4ZTANCj4gX19kZXZpY2VfYXR0YWNoKzB4YTQvMHgxY2MNCj4gZGV2aWNl
+X2luaXRpYWxfcHJvYmUrMHgxYy8weDJjDQo+IGJ1c19wcm9iZV9kZXZpY2UrMHhhNC8weGIw
+DQo+IGRlZmVycmVkX3Byb2JlX3dvcmtfZnVuYysweGMwLzB4MTE0DQo+IHByb2Nlc3Nfb25l
+X3dvcmsrMHgxZWMvMHg0NzANCj4gd29ya2VyX3RocmVhZCsweDc0LzB4NDEwDQo+IGt0aHJl
+YWQrMHhmYy8weDExMA0KPiByZXRfZnJvbV9mb3JrKzB4MTAvMHgyMA0KPiAtLS1bIGVuZCB0
+cmFjZSAwMDAwMDAwMDAwMDAwMDAwIF0tLS0NCj4gDQo+IFNpZ25lZC1vZmYtYnk6IFN0ZWV2
+IEtsaW1hc3pld3NraSA8c3RlZXZAa2FsaS5vcmc+DQo+IC0tLQ0KPiAgIGRyaXZlcnMvZ3B1
+L2RybS9tc20vbXNtX2Rydi5jIHwgMSArDQo+ICAgMSBmaWxlIGNoYW5nZWQsIDEgaW5zZXJ0
+aW9uKCspDQo+IA0KPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL21zbS9tc21fZHJ2
+LmMgYi9kcml2ZXJzL2dwdS9kcm0vbXNtL21zbV9kcnYuYw0KPiBpbmRleCA4YjBiMGFjNzRh
+NmYuLjY1YzRjOTNjMzExZSAxMDA2NDQNCj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL21zbS9t
+c21fZHJ2LmMNCj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL21zbS9tc21fZHJ2LmMNCj4gQEAg
+LTQ3OSw2ICs0NzksNyBAQCBzdGF0aWMgaW50IG1zbV9kcm1faW5pdChzdHJ1Y3QgZGV2aWNl
+ICpkZXYsIGNvbnN0IHN0cnVjdCBkcm1fZHJpdmVyICpkcnYpDQo+ICAgDQo+ICAgCWRybV9o
+ZWxwZXJfbW92ZV9wYW5lbF9jb25uZWN0b3JzX3RvX2hlYWQoZGRldik7DQo+ICAgDQo+ICsJ
+ZGRldi0+bW9kZV9jb25maWcucHJlZmVycmVkX2RlcHRoID0gMjQ7DQoNClJldmlld2VkLWJ5
+OiBUaG9tYXMgWmltbWVybWFubiA8dHppbW1lcm1hbm5Ac3VzZS5kZT4NCg0KQmVzdCByZWdh
+cmRzDQpUaG9tYXMNCg0KPiAgIAlkZGV2LT5tb2RlX2NvbmZpZy5mdW5jcyA9ICZtb2RlX2Nv
+bmZpZ19mdW5jczsNCj4gICAJZGRldi0+bW9kZV9jb25maWcuaGVscGVyX3ByaXZhdGUgPSAm
+bW9kZV9jb25maWdfaGVscGVyX2Z1bmNzOw0KPiAgIA0KDQotLSANClRob21hcyBaaW1tZXJt
+YW5uDQpHcmFwaGljcyBEcml2ZXIgRGV2ZWxvcGVyDQpTVVNFIFNvZnR3YXJlIFNvbHV0aW9u
+cyBHZXJtYW55IEdtYkgNCk1heGZlbGRzdHIuIDUsIDkwNDA5IE7DvHJuYmVyZywgR2VybWFu
+eQ0KKEhSQiAzNjgwOSwgQUcgTsO8cm5iZXJnKQ0KR2VzY2jDpGZ0c2bDvGhyZXI6IEl2byBU
+b3Rldg0K
 
+--------------M0Cns4x27DWohdLULB6u10DY--
+
+--------------JI9jOwOV1NZL9FyAbPKlkCdo
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature"
+
+-----BEGIN PGP SIGNATURE-----
+
+wsF5BAABCAAjFiEExndm/fpuMUdwYFFolh/E3EQov+AFAmO33GMFAwAAAAAACgkQlh/E3EQov+Cz
+zg//U02GWbJfriXZpRxffIMuJBmMFNl6B4fhJnfUCaKP8qRYMsX8aFqj+IgeSDa+7eRKX7hp5MGS
+sYQHzLEFTNspZhpjTkYjWnIlvtg5rALKMDZaE4G6ephEP9GoR350V8qKJsqMcI+2VlqnB7E7viNH
+UXMqQur/HJhPcSoolUu2+OSBBgoARP9EISz+LPOP/EeHxT2+PnNw348WbHvz9ykS4M6d7QdRSgTt
+6hVmbXMnENbH/oVut/S3WRT3RMgZzf7SYg0XCr7z9Eq8gBqBFroS6xam98x97I5Yh/1JWngHiaXv
+H6oHVA4ADhOHimjMAZbC9j+veAUKsVzRDP6cvJniKreEAD2LOLQl7EuZZgmag97Bpphjd2Zh5vzi
+XDsmL0NxFqAmNx/5rzKg6zyK7nMri9r4rN5c3oOiJCh0fyHd81miQOhgTmCwHUDliasUx03diV2s
+m05LWxGS3JdtVUo5sKYqFnV3jqktBf336ayElRlaTwmYrYD8PRQQ1qIYDQ0Dxt+ykuxSKjdx2Ca7
+GgSzhMXJ3au8u9pdLrVcRgtRThFq1FsktCu98KyJPIlFR7fB+AVxmaVHOWyYziJtiQzipHEzQc2D
+Oo02YyDYYh3yDUhCrSFT+fI/IN4lQKHr5Y/rcp+CtrYNCXkWLTa62tefIH9I054j9ZxiZ/gV/SR6
+EFo=
+=mTAV
+-----END PGP SIGNATURE-----
+
+--------------JI9jOwOV1NZL9FyAbPKlkCdo--
