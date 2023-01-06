@@ -1,61 +1,68 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id EF8E665FBC5
-	for <lists+freedreno@lfdr.de>; Fri,  6 Jan 2023 08:16:18 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id B556465FBD0
+	for <lists+freedreno@lfdr.de>; Fri,  6 Jan 2023 08:18:27 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AB1D010E2CE;
-	Fri,  6 Jan 2023 07:16:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7185310E2CE;
+	Fri,  6 Jan 2023 07:18:26 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-oi1-x231.google.com (mail-oi1-x231.google.com
- [IPv6:2607:f8b0:4864:20::231])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 20A5D10E2CE
- for <freedreno@lists.freedesktop.org>; Fri,  6 Jan 2023 07:16:12 +0000 (UTC)
-Received: by mail-oi1-x231.google.com with SMTP id n8so508612oih.0
- for <freedreno@lists.freedesktop.org>; Thu, 05 Jan 2023 23:16:12 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kali.org; s=google;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=3rrp6V7KWYZFDRr1re6vLXoec41Prjw9aIuZx3KbAjE=;
- b=hkSiAvZQ5q7niMrgTomLfzJbqJJ/y3VphW3KaB3hIgfneZUn6KtYbtnN9CVk1dZ80M
- S9WFDJb+OLC9+FZdZKPICuEorPEB7oLsq9c26ygU+XxZws0TqeJgbTzr6/EIVLtp4yA7
- /ySS0U1uhVo2lw5Q/teBBNvrz06FTo7U8cezt7jSYNzfa3U4PVTo2FN9Cfl1cIA16AIB
- ha/0NKomsCYw3MRO17h/tXbtnusSebPxaq/FeWsgH2cSY2zWJGs5T+47ZwSuASUgDj0O
- eWgs2aJ3HlBrWZ1Sr13PxTgZ71azW1FxRq175F3z8R7yS/X9Z+v3Ezh8EeBhgyzCL3cC
- XHjQ==
+Received: from mail-lf1-x133.google.com (mail-lf1-x133.google.com
+ [IPv6:2a00:1450:4864:20::133])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E6C5010E2E3
+ for <freedreno@lists.freedesktop.org>; Fri,  6 Jan 2023 07:18:24 +0000 (UTC)
+Received: by mail-lf1-x133.google.com with SMTP id bp15so860686lfb.13
+ for <freedreno@lists.freedesktop.org>; Thu, 05 Jan 2023 23:18:24 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=fwNOkK/619F6kwc/0Tj1pDo4Y9cxK12cXZ8QRlsLr6c=;
+ b=JYJ70ritw2cx4/IvR9IiIbsgwqw4HWs/g4hPHX5vB+Fsokz0YvbAkV+WT8PMDX3Yrv
+ o1pI0tIcLqzWLHzSWTosiOtxcIE2Q79xD3r2kBD1KlCfS8P3OreyFq39ARAthzF7dUaW
+ 0k44EHlzwnAMW1ZhKTHumoJz/TemXhH3+CVxBLTUW4Vsv9U5tGm8VrmLXp/aVXFRRJwu
+ chqKdo7ZT5FExXxJSE3ck4oltx83rsKafIBfjQ2enm2ymVH5Idk6bRj1o/DeWE0jVxo5
+ yJlgrF3e1cGCBjesc0AZACf9j7oRegCzyHa+PjrvlX01fjVSHEw0eKJu5MuCuuXRctO0
+ /y0g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=3rrp6V7KWYZFDRr1re6vLXoec41Prjw9aIuZx3KbAjE=;
- b=K7jJT01NKcFSLBA2YL51F2d+rLXwqlNEYPihPm24bWKRPU6afSEvEFJHeK5RsQLDWm
- JSonPlniCPTpWudzKJXNUEdTusIe8evz7fDcUYz1pMc2uN++bIr97lM8PgOFLvQ54B8d
- KcdTRaxvJwWeKOxnJJzEb60dchYY0lKmIBliRZ6vz1EX9/cXteKRsj5sythU00qRPL+U
- wRNySXhN6Smybbbhg98+98k716xeqTDK6h+eKltsaCTWJKr9aD5Ebd5u4W5Izwo7ZHqx
- h3/0JjnKC+hxGRGx5irJd7qFM/w068roPeVbWKeBC0BLLn5ZMCw/qINBz6ljAhtiHqmt
- ah7g==
-X-Gm-Message-State: AFqh2krVbjbLm0Ptl8zT5hHT7MKoQIihQh2CqI31Lqk3H+SPaAN/sNpx
- aKliLPW3xSN985OBfKaQk8qq4g==
-X-Google-Smtp-Source: AMrXdXud5KDhZQApL7a3qEoR2W/iDOw8JuWICERDCbrP2ehGJAMny4mSwd3IA4pPORyRy6Mbqj9iYA==
-X-Received: by 2002:aca:4207:0:b0:360:bc5d:2ed2 with SMTP id
- p7-20020aca4207000000b00360bc5d2ed2mr20527042oia.53.1672989371307; 
- Thu, 05 Jan 2023 23:16:11 -0800 (PST)
-Received: from localhost (23-118-233-243.lightspeed.snantx.sbcglobal.net.
- [23.118.233.243]) by smtp.gmail.com with ESMTPSA id
- p3-20020aca5b03000000b0035c073aa0d8sm126616oib.18.2023.01.05.23.16.10
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 05 Jan 2023 23:16:10 -0800 (PST)
-From: Steev Klimaszewski <steev@kali.org>
-To: steev@kali.org
-Date: Fri,  6 Jan 2023 01:16:09 -0600
-Message-Id: <20230106071609.3948-1-steev@kali.org>
-X-Mailer: git-send-email 2.39.0
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=fwNOkK/619F6kwc/0Tj1pDo4Y9cxK12cXZ8QRlsLr6c=;
+ b=76paWv/tGXLuT1Yj1k+irqH0cQ1yZaCe41p+HUkAnx6NsHT9g966e1ZLVKMHPRNbG5
+ LDSqc8zYv6DzVkj53cxbqQtBy6Pe0QGH+V/KNlRME/PR1YmkWCyGXQ8Ip+GnPYBjyGxG
+ 8fWhA6Du8wHg+BhIp4XPg5dH2dGuhzMsKewfG9E3l90cNFIK185T0zmFIxYaC7FgMMHW
+ LWKRznJtg2TsrxVKTwMRlOWsr1UZjjKZY1LRT+YUkWhubNqtu2J34D3tOyx8v3w89iJT
+ 1fc/dcJJcxFeo/pg3my6JW9BXBHZ6ucsmG5CqnbhMSQ2wy5D+BzHcBQLhAgy39sAbFrw
+ ZIRQ==
+X-Gm-Message-State: AFqh2krg6IONxG6x4fdq9fiPj6zzYOiYo1dDFAz3ZDeNgfGILJn/KXeH
+ Z008x3k6dQGZI0HrW6QTZl9ScQ==
+X-Google-Smtp-Source: AMrXdXtkBlNpkecak93UASBcKEuMXUx4GuG2RT59y+bG+p5w0zFuJUEV6ziyHNppyL41uyZ+n65U3g==
+X-Received: by 2002:a05:6512:3c9e:b0:4b6:a6e4:ab7a with SMTP id
+ h30-20020a0565123c9e00b004b6a6e4ab7amr17977799lfv.8.1672989503149; 
+ Thu, 05 Jan 2023 23:18:23 -0800 (PST)
+Received: from ?IPV6:2001:14ba:a085:4d00::8a5?
+ (dzccz6yyyyyyyyyyybcwt-3.rev.dnainternet.fi. [2001:14ba:a085:4d00::8a5])
+ by smtp.gmail.com with ESMTPSA id
+ y8-20020ac255a8000000b004a9b9ccfbe6sm57707lfg.51.2023.01.05.23.18.22
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 05 Jan 2023 23:18:22 -0800 (PST)
+Message-ID: <f52cca60-ab6a-460a-65f9-367c083b51fa@linaro.org>
+Date: Fri, 6 Jan 2023 09:18:21 +0200
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH] drm/msm: Set preferred depth.
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.6.0
+Content-Language: en-GB
+To: Steev Klimaszewski <steev@kali.org>
+References: <20230106071609.3948-1-steev@kali.org>
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+In-Reply-To: <20230106071609.3948-1-steev@kali.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Subject: Re: [Freedreno] [PATCH] drm/msm: Set preferred depth.
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,86 +79,78 @@ Cc: freedreno@lists.freedesktop.org, Sean Paul <sean@poorly.run>,
  Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
  linux-kernel@vger.kernel.org, Rob Clark <robdclark@gmail.com>,
  Daniel Vetter <daniel@ffwll.ch>, linux-arm-msm@vger.kernel.org,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
  David Airlie <airlied@gmail.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-As of commit 37c90d589dc0 ("drm/fb-helper: Fix single-probe color-format
-selection"), if no supported color formats are found, it tries to use the
-driver provided default, which msm didn't have set and leads to the
-following output:
+On 06/01/2023 09:16, Steev Klimaszewski wrote:
+> As of commit 37c90d589dc0 ("drm/fb-helper: Fix single-probe color-format
+> selection"), if no supported color formats are found, it tries to use the
+> driver provided default, which msm didn't have set and leads to the
+> following output:
+> 
+> msm_dpu ae01000.display-controller: [drm] bpp/depth value of 32/0 not supported
+> msm_dpu ae01000.display-controller: [drm] bpp/depth value of 32/0 not supported
+> msm_dpu ae01000.display-controller: [drm] bpp/depth value of 32/0 not supported
+> msm_dpu ae01000.display-controller: [drm] No compatible format found
+> ------------[ cut here ]------------
+> WARNING: CPU: 0 PID: 73 at drivers/gpu/drm/drm_atomic.c:1604 __drm_atomic_helper_set_config+0x240/0x33c
+> Modules linked in: ext4 mbcache jbd2 msm mdt_loader ocmem gpu_sched llcc_qcom gpio_keys qrtr
+> CPU: 0 PID: 73 Comm: kworker/u16:2 Not tainted 6.2.0-rc2-next-20230106 #53
+> Hardware name: LENOVO 21BX0015US/21BX0015US, BIOS N3HET74W (1.46 ) 10/12/2022
+> Workqueue: events_unbound deferred_probe_work_func
+> pstate: 80400005 (Nzcv daif +PAN -UAO -TCO -DIT -SSBS BTYPE=--)
+> pc : __drm_atomic_helper_set_config+0x240/0x33c
+> lr : __drm_atomic_helper_set_config+0x68/0x33c
+> sp : ffff800008a7b790
+> x29: ffff800008a7b790 x28: ffff73ee3e130a00 x27: 0000000000000000
+> x26: ffff73ee3d256e00 x25: 0000000000000038 x24: ffff73e6c0d65e00
+> x23: ffff73e6c17a7800 x22: ffff73e6c0d64e00 x21: ffff73e79c025e00
+> x20: 00000000c0d64e00 x19: ffff73ee3e130a00 x18: ffffffffffffffff
+> x17: 662074616d726f66 x16: 20656c6269746170 x15: 0000000000000000
+> x14: 0000000000000000 x13: 0000000000000000 x12: 0000000000000000
+> x11: 0000000000000000 x10: 0000000000000000 x9 : ffffa829144ff8bc
+> x8 : 0000000000000000 x7 : 0000000000000000 x6 : 0000000000000000
+> x5 : ffff73e6c0d65f50 x4 : ffff73ee3d254950 x3 : ffff73e6c0d65ec0
+> x2 : ffff73ee3c953a00 x1 : ffff73e79c025580 x0 : 0000000000000000
+> Call trace:
+> __drm_atomic_helper_set_config+0x240/0x33c
+> drm_client_modeset_commit_atomic+0x160/0x280
+> drm_client_modeset_commit_locked+0x64/0x194
+> drm_client_modeset_commit+0x38/0x60
+> __drm_fb_helper_initial_config_and_unlock+0x528/0x63c
+> drm_fb_helper_initial_config+0x54/0x64
+> msm_fbdev_init+0x94/0xfc [msm]
+> msm_drm_bind+0x548/0x614 [msm]
+> try_to_bring_up_aggregate_device+0x1e4/0x2d0
+> __component_add+0xc4/0x1c0
+> component_add+0x1c/0x2c
+> dp_display_probe+0x2a4/0x460 [msm]
+> platform_probe+0x70/0xcc
+> really_probe+0xc8/0x3e0
+> __driver_probe_device+0x84/0x190
+> driver_probe_device+0x44/0x120
+> __device_attach_driver+0xc4/0x160
+> bus_for_each_drv+0x84/0xe0
+> __device_attach+0xa4/0x1cc
+> device_initial_probe+0x1c/0x2c
+> bus_probe_device+0xa4/0xb0
+> deferred_probe_work_func+0xc0/0x114
+> process_one_work+0x1ec/0x470
+> worker_thread+0x74/0x410
+> kthread+0xfc/0x110
+> ret_from_fork+0x10/0x20
+> ---[ end trace 0000000000000000 ]---
+> 
+> Signed-off-by: Steev Klimaszewski <steev@kali.org>
+> ---
+>   drivers/gpu/drm/msm/msm_drv.c | 1 +
+>   1 file changed, 1 insertion(+)
 
-msm_dpu ae01000.display-controller: [drm] bpp/depth value of 32/0 not supported
-msm_dpu ae01000.display-controller: [drm] bpp/depth value of 32/0 not supported
-msm_dpu ae01000.display-controller: [drm] bpp/depth value of 32/0 not supported
-msm_dpu ae01000.display-controller: [drm] No compatible format found
-------------[ cut here ]------------
-WARNING: CPU: 0 PID: 73 at drivers/gpu/drm/drm_atomic.c:1604 __drm_atomic_helper_set_config+0x240/0x33c
-Modules linked in: ext4 mbcache jbd2 msm mdt_loader ocmem gpu_sched llcc_qcom gpio_keys qrtr
-CPU: 0 PID: 73 Comm: kworker/u16:2 Not tainted 6.2.0-rc2-next-20230106 #53
-Hardware name: LENOVO 21BX0015US/21BX0015US, BIOS N3HET74W (1.46 ) 10/12/2022
-Workqueue: events_unbound deferred_probe_work_func
-pstate: 80400005 (Nzcv daif +PAN -UAO -TCO -DIT -SSBS BTYPE=--)
-pc : __drm_atomic_helper_set_config+0x240/0x33c
-lr : __drm_atomic_helper_set_config+0x68/0x33c
-sp : ffff800008a7b790
-x29: ffff800008a7b790 x28: ffff73ee3e130a00 x27: 0000000000000000
-x26: ffff73ee3d256e00 x25: 0000000000000038 x24: ffff73e6c0d65e00
-x23: ffff73e6c17a7800 x22: ffff73e6c0d64e00 x21: ffff73e79c025e00
-x20: 00000000c0d64e00 x19: ffff73ee3e130a00 x18: ffffffffffffffff
-x17: 662074616d726f66 x16: 20656c6269746170 x15: 0000000000000000
-x14: 0000000000000000 x13: 0000000000000000 x12: 0000000000000000
-x11: 0000000000000000 x10: 0000000000000000 x9 : ffffa829144ff8bc
-x8 : 0000000000000000 x7 : 0000000000000000 x6 : 0000000000000000
-x5 : ffff73e6c0d65f50 x4 : ffff73ee3d254950 x3 : ffff73e6c0d65ec0
-x2 : ffff73ee3c953a00 x1 : ffff73e79c025580 x0 : 0000000000000000
-Call trace:
-__drm_atomic_helper_set_config+0x240/0x33c
-drm_client_modeset_commit_atomic+0x160/0x280
-drm_client_modeset_commit_locked+0x64/0x194
-drm_client_modeset_commit+0x38/0x60
-__drm_fb_helper_initial_config_and_unlock+0x528/0x63c
-drm_fb_helper_initial_config+0x54/0x64
-msm_fbdev_init+0x94/0xfc [msm]
-msm_drm_bind+0x548/0x614 [msm]
-try_to_bring_up_aggregate_device+0x1e4/0x2d0
-__component_add+0xc4/0x1c0
-component_add+0x1c/0x2c
-dp_display_probe+0x2a4/0x460 [msm]
-platform_probe+0x70/0xcc
-really_probe+0xc8/0x3e0
-__driver_probe_device+0x84/0x190
-driver_probe_device+0x44/0x120
-__device_attach_driver+0xc4/0x160
-bus_for_each_drv+0x84/0xe0
-__device_attach+0xa4/0x1cc
-device_initial_probe+0x1c/0x2c
-bus_probe_device+0xa4/0xb0
-deferred_probe_work_func+0xc0/0x114
-process_one_work+0x1ec/0x470
-worker_thread+0x74/0x410
-kthread+0xfc/0x110
-ret_from_fork+0x10/0x20
----[ end trace 0000000000000000 ]---
+Suggested-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 
-Signed-off-by: Steev Klimaszewski <steev@kali.org>
----
- drivers/gpu/drm/msm/msm_drv.c | 1 +
- 1 file changed, 1 insertion(+)
-
-diff --git a/drivers/gpu/drm/msm/msm_drv.c b/drivers/gpu/drm/msm/msm_drv.c
-index 8b0b0ac74a6f..65c4c93c311e 100644
---- a/drivers/gpu/drm/msm/msm_drv.c
-+++ b/drivers/gpu/drm/msm/msm_drv.c
-@@ -479,6 +479,7 @@ static int msm_drm_init(struct device *dev, const struct drm_driver *drv)
- 
- 	drm_helper_move_panel_connectors_to_head(ddev);
- 
-+	ddev->mode_config.preferred_depth = 24;
- 	ddev->mode_config.funcs = &mode_config_funcs;
- 	ddev->mode_config.helper_private = &mode_config_helper_funcs;
- 
 -- 
-2.39.0
+With best wishes
+Dmitry
 
