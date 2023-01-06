@@ -2,75 +2,64 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 96EC5660397
-	for <lists+freedreno@lfdr.de>; Fri,  6 Jan 2023 16:42:20 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7441866067E
+	for <lists+freedreno@lfdr.de>; Fri,  6 Jan 2023 19:41:35 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5CE2910E875;
-	Fri,  6 Jan 2023 15:42:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3EE5C10E8B6;
+	Fri,  6 Jan 2023 18:41:34 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x12d.google.com (mail-lf1-x12d.google.com
- [IPv6:2a00:1450:4864:20::12d])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E6C5D10E87C
- for <freedreno@lists.freedesktop.org>; Fri,  6 Jan 2023 15:42:17 +0000 (UTC)
-Received: by mail-lf1-x12d.google.com with SMTP id y25so2454262lfa.9
- for <freedreno@lists.freedesktop.org>; Fri, 06 Jan 2023 07:42:17 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=S8DsZ4xDi7WGGGxSEqK1CF2GfXaRjgknBXXbDJzfuIc=;
- b=ItGYGwkXvY1/pRaKVx9JjcCPiEdo3rOFFI5QTSZ6uwD392GsRfAZPt7KVNfViDE5sE
- 5ecejYwh58e+71+mMOzy/i0GF5b4LKxkflRM4KmoUp7GO3gESVJOSQCSBx7DVR+PDo+a
- w/tufrmMOvygcvBLD8rJEyNnebstsCOkGq58Z2WKPNiiE55efO3SXwnLTApy6WiyLbLU
- JoEsCKHan+YYWRQ0hdohVHLWlP+GEiKFVAJzUPNNJJtD6zWs56i4YxmJK74vX1u2r+u+
- u1HG0GT2ggvxHApkpiPippaW1/88xjjfj/syaMnnsQOnWvZArAVTjxW7eGEvkrxiyWYO
- kzaw==
+Received: from mail-wm1-x32f.google.com (mail-wm1-x32f.google.com
+ [IPv6:2a00:1450:4864:20::32f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0226710E8B6
+ for <freedreno@lists.freedesktop.org>; Fri,  6 Jan 2023 18:41:32 +0000 (UTC)
+Received: by mail-wm1-x32f.google.com with SMTP id
+ m26-20020a05600c3b1a00b003d9811fcaafso1683504wms.5
+ for <freedreno@lists.freedesktop.org>; Fri, 06 Jan 2023 10:41:32 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=c07bHaLSKmBiOqJY8rgwXLQ5WTN3Pxi4bzCJ/GSn/gM=;
+ b=QLPcCaDJq5/uEvmqB7qDUmoRPmaWLCOHw0HWAxKcqFfQdDIAWb/8ZjmEj/AfsJaAmV
+ WsI9cb64kgzlxx7zrNFZ6Tos6h998azqjfLDjLegWXcq/bnASQ4tJqrKpBgWSIW4JLnh
+ BiovGNQBb89ZokWPrC7+AMdKB//UrselhKH3s=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=S8DsZ4xDi7WGGGxSEqK1CF2GfXaRjgknBXXbDJzfuIc=;
- b=HYX0lRijcmVZSKzwOdzP5Pg/E26ii7E2thbVjomxfqFwksyDiEyXhBbdyG12nmKoDm
- gh9TlSzxNA23OXXuHfkS8GPfe0OdvbNHMYS7jV3tJEJf3gGNFcyfBC0KdzuAP51NmXkW
- BRr5uhyn2hD+fPyfrgDbYm6IO95utBHHPabvyMQCRMSUx1uGpDMvG26jrWXvPM0fR/Tg
- xhso0XovUKJqRrhGLDrvbCu4+mZxw6JaxRyh7YLXwzxrQa87Eg9iFfUy042e3fSivw5S
- MWVqfO8qxpJPIXfU4GmocGUsSLnHHX0m83bdgZ48M37YyEjDBXNQw2NqNxdOSK0vCPww
- iYAA==
-X-Gm-Message-State: AFqh2krzACpRgE6BqrI3GkEyJywqwjAIG6A4q1CRer33WjJmJpm3Rc00
- HmsTIZjPDTBAZ9VgQlIUk6oDXg==
-X-Google-Smtp-Source: AMrXdXt8ZYswXAWp2K4iWM76QSXCXc1N6nCQi4oAWyZRzrTPjidUFRKcUo2QORTmpEDbAASVsaojgQ==
-X-Received: by 2002:a05:6512:c14:b0:4b5:abe3:c63d with SMTP id
- z20-20020a0565120c1400b004b5abe3c63dmr19055796lfu.42.1673019736162; 
- Fri, 06 Jan 2023 07:42:16 -0800 (PST)
-Received: from ?IPV6:2001:14ba:a085:4d00::8a5?
- (dzccz6yyyyyyyyyyybcwt-3.rev.dnainternet.fi. [2001:14ba:a085:4d00::8a5])
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=c07bHaLSKmBiOqJY8rgwXLQ5WTN3Pxi4bzCJ/GSn/gM=;
+ b=nYoRDd3F9zMeySmctjO3pj0coQEuDWt6o6GHihJRUr6t/NoJz0gWUVEseQuC0XVXcF
+ 8da1vMNeUSd6c+CnBkOAhu2nEsgAWVp+AjHZLGG31fPwZT6tfcR4jk0vx/IcOvgcutMV
+ kIOJDpZ7MgHB7reGU3UXxciKRS0H0AXfc9cJTyG9KfnPWcmXXHJyJSzS8VA33UuHUTq6
+ /JExO3ibuXwxXw1dSKm7U+QM5fMt3eLBDP+7MsnqLrKbGTr1wcBpONYtDHiDaAKRT73N
+ QAcS6jWwUglxj+vQ6u0EPze3ynKV4mQ9kd9KCuvlhDLRBgSOG/RzPw8xcOfsO7rm+ooT
+ FMtg==
+X-Gm-Message-State: AFqh2krUkExZpbwNH+aISZnVTjX6r/p0kOUr44A6Ozh7+JHBE9E4CC4h
+ hxnjjSi5JwqvglDZTg5OEngPag==
+X-Google-Smtp-Source: AMrXdXtER5plfyMNb7JNmJyudQYH8E45d2Fn30YgM+7oylC5086tPOdmOMDT1j3tU5wMs+o2prheLQ==
+X-Received: by 2002:a05:600c:a0f:b0:3cf:7704:50ce with SMTP id
+ z15-20020a05600c0a0f00b003cf770450cemr41156452wmp.38.1673030491541; 
+ Fri, 06 Jan 2023 10:41:31 -0800 (PST)
+Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
  by smtp.gmail.com with ESMTPSA id
- v14-20020a05651203ae00b004b4b5da5f80sm187271lfp.219.2023.01.06.07.42.15
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 06 Jan 2023 07:42:15 -0800 (PST)
-Message-ID: <c0051467-e8c3-1897-fcf5-b9140a7039bd@linaro.org>
-Date: Fri, 6 Jan 2023 17:42:14 +0200
+ az28-20020a05600c601c00b003cf57329221sm7100927wmb.14.2023.01.06.10.41.30
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 06 Jan 2023 10:41:30 -0800 (PST)
+Date: Fri, 6 Jan 2023 19:41:28 +0100
+From: Daniel Vetter <daniel@ffwll.ch>
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Message-ID: <Y7hrWDpg8msuefgZ@phenom.ffwll.local>
+References: <20230104234036.636-1-quic_jesszhan@quicinc.com>
+ <Y7a1hCmsvJHKdW1Y@phenom.ffwll.local>
+ <58caf08c-3a02-82ce-4452-8ae7f22f373d@quicinc.com>
+ <CAA8EJppnAmN6+S-emEfXJEc1iVf+DjeLBmCQpGd-nRY2M2AAQQ@mail.gmail.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.6.0
-Content-Language: en-GB
-To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
- Andy Gross <agross@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konrad.dybcio@linaro.org>, Rob Clark <robdclark@gmail.com>,
- Sean Paul <sean@poorly.run>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Rob Herring <robh+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>
-References: <20221207012231.112059-1-dmitry.baryshkov@linaro.org>
- <20221207012231.112059-4-dmitry.baryshkov@linaro.org>
- <ccbb47e4-d780-0b1d-814e-27e86b6c369c@linaro.org>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-In-Reply-To: <ccbb47e4-d780-0b1d-814e-27e86b6c369c@linaro.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH v6 03/11] dt-bindings: display/msm: add
- sm8350 and sm8450 DSI PHYs
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CAA8EJppnAmN6+S-emEfXJEc1iVf+DjeLBmCQpGd-nRY2M2AAQQ@mail.gmail.com>
+X-Operating-System: Linux phenom 5.19.0-2-amd64 
+Subject: Re: [Freedreno] [RFC PATCH v3 0/3] Support for Solid Fill Planes
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,54 +72,145 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, Stephen Boyd <swboyd@chromium.org>,
- Daniel Vetter <daniel@ffwll.ch>, freedreno@lists.freedesktop.org,
- David Airlie <airlied@gmail.com>
+Cc: sebastian.wick@redhat.com, ppaalanen@gmail.com,
+ linux-arm-msm@vger.kernel.org, quic_abhinavk@quicinc.com,
+ dri-devel@lists.freedesktop.org, swboyd@chromium.org, daniel.vetter@ffwll.ch,
+ robdclark@gmail.com, seanpaul@chromium.org, laurent.pinchart@ideasonboard.com,
+ Daniel Vetter <daniel@ffwll.ch>, contact@emersion.fr,
+ Jessica Zhang <quic_jesszhan@quicinc.com>, wayland-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, ville.syrjala@linux.intel.com
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 06/01/2023 17:39, Krzysztof Kozlowski wrote:
-> On 07/12/2022 02:22, Dmitry Baryshkov wrote:
->> SM8350 and SM8450 platforms use the same driver and same bindings as the
->> existing 7nm DSI PHYs. Add corresponding compatibility strings.
->>
->> Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
->> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
->> ---
->>   Documentation/devicetree/bindings/display/msm/dsi-phy-7nm.yaml | 2 ++
->>   1 file changed, 2 insertions(+)
->>
->> diff --git a/Documentation/devicetree/bindings/display/msm/dsi-phy-7nm.yaml b/Documentation/devicetree/bindings/display/msm/dsi-phy-7nm.yaml
->> index c851770bbdf2..bffd161fedfd 100644
->> --- a/Documentation/devicetree/bindings/display/msm/dsi-phy-7nm.yaml
->> +++ b/Documentation/devicetree/bindings/display/msm/dsi-phy-7nm.yaml
->> @@ -15,6 +15,8 @@ allOf:
->>   properties:
->>     compatible:
->>       enum:
->> +      - qcom,dsi-phy-5nm-8350
->> +      - qcom,dsi-phy-5nm-8450
+On Fri, Jan 06, 2023 at 05:43:23AM +0200, Dmitry Baryshkov wrote:
+> On Fri, 6 Jan 2023 at 02:38, Jessica Zhang <quic_jesszhan@quicinc.com> wrote:
+> >
+> >
+> >
+> > On 1/5/2023 3:33 AM, Daniel Vetter wrote:
+> > > On Wed, Jan 04, 2023 at 03:40:33PM -0800, Jessica Zhang wrote:
+> > >> Introduce and add support for a solid_fill property. When the solid_fill
+> > >> property is set, and the framebuffer is set to NULL, memory fetch will be
+> > >> disabled.
+> > >>
+> > >> In addition, loosen the NULL FB checks within the atomic commit callstack
+> > >> to allow a NULL FB when the solid_fill property is set and add FB checks
+> > >> in methods where the FB was previously assumed to be non-NULL.
+> > >>
+> > >> Finally, have the DPU driver use drm_plane_state.solid_fill and instead of
+> > >> dpu_plane_state.color_fill, and add extra checks in the DPU atomic commit
+> > >> callstack to account for a NULL FB in cases where solid_fill is set.
+> > >>
+> > >> Some drivers support hardware that have optimizations for solid fill
+> > >> planes. This series aims to expose these capabilities to userspace as
+> > >> some compositors have a solid fill flag (ex. SOLID_COLOR in the Android
+> > >> hardware composer HAL) that can be set by apps like the Android Gears
+> > >> app.
+> > >>
+> > >> Userspace can set the solid_fill property to a blob containing the
+> > >> appropriate version number and solid fill color (in RGB323232 format) and
+> > >> setting the framebuffer to NULL.
+> > >>
+> > >> Note: Currently, there's only one version of the solid_fill blob property.
+> > >> However if other drivers want to support a similar feature, but require
+> > >> more than just the solid fill color, they can extend this feature by
+> > >> creating additional versions of the drm_solid_fill struct.
+> > >>
+> > >> Changes in V2:
+> > >> - Dropped SOLID_FILL_FORMAT property (Simon)
+> > >> - Switched to implementing solid_fill property as a blob (Simon, Dmitry)
+> > >> - Changed to checks for if solid_fill_blob is set (Dmitry)
+> > >> - Abstracted (plane_state && !solid_fill_blob) checks to helper method
+> > >>    (Dmitry)
+> > >> - Removed DPU_PLANE_COLOR_FILL_FLAG
+> > >> - Fixed whitespace and indentation issues (Dmitry)
+> > >
+> > > Now that this is a blob, I do wonder again whether it's not cleaner to set
+> > > the blob as the FB pointer. Or create some kind other kind of special data
+> > > source objects (because solid fill is by far not the only such thing).
+> > >
+> > > We'd still end up in special cases like when userspace that doesn't
+> > > understand solid fill tries to read out such a framebuffer, but these
+> > > cases already exist anyway for lack of priviledges.
+> > >
+> > > So I still think that feels like the more consistent way to integrate this
+> > > feature. Which doesn't mean it has to happen like that, but the
+> > > patches/cover letter should at least explain why we don't do it like this.
+> >
+> > Hi Daniel,
+> >
+> > IIRC we were facing some issues with this check [1] when trying to set
+> > FB to a PROP_BLOB instead. Which is why we went with making it a
+> > separate property instead. Will mention this in the cover letter.
 > 
-> If this patch was not merged (so far nothing in next), can we make it
-> proper SoC compatible?
+> What kind of issues? Could you please describe them?
 
-Ack. Bjorn has merged the dtsi bits, but I'll send a fixup.
+We switched from bitmask to enum style for prop types, which means it's
+not possible to express with the current uapi a property which accepts
+both an object or a blob.
+
+Which yeah sucks a bit ...
+
+But!
+
+blob properties are kms objects (like framebuffers), so it should be
+possible to stuff a blob into an object property as-is. Of course you need
+to update the validation code to make sure we accept either an fb or a
+blob for the internal representation. But that kind of split internally is
+required no matter what I think.
+-Daniel
 
 > 
-> qcom,sm8450-dsi-phy-5nm
+> >
+> > [1]
+> > https://gitlab.freedesktop.org/drm/msm/-/blob/msm-next/drivers/gpu/drm/drm_property.c#L71
+> >
+> > Thanks,
+> >
+> > Jessica Zhang
+> >
+> > > -Daniel
+> > >
+> > >>
+> > >> Changes in V3:
+> > >> - Fixed some logic errors in atomic checks (Dmitry)
+> > >> - Introduced drm_plane_has_visible_data() and drm_atomic_check_fb() helper
+> > >>    methods (Dmitry)
+> > >>
+> > >> Jessica Zhang (3):
+> > >>    drm: Introduce solid fill property for drm plane
+> > >>    drm: Adjust atomic checks for solid fill color
+> > >>    drm/msm/dpu: Use color_fill property for DPU planes
+> > >>
+> > >>   drivers/gpu/drm/drm_atomic.c              | 136 +++++++++++++---------
+> > >>   drivers/gpu/drm/drm_atomic_helper.c       |  34 +++---
+> > >>   drivers/gpu/drm/drm_atomic_state_helper.c |   9 ++
+> > >>   drivers/gpu/drm/drm_atomic_uapi.c         |  59 ++++++++++
+> > >>   drivers/gpu/drm/drm_blend.c               |  17 +++
+> > >>   drivers/gpu/drm/drm_plane.c               |   8 +-
+> > >>   drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c  |   9 +-
+> > >>   drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c |  65 +++++++----
+> > >>   include/drm/drm_atomic_helper.h           |   5 +-
+> > >>   include/drm/drm_blend.h                   |   1 +
+> > >>   include/drm/drm_plane.h                   |  62 ++++++++++
+> > >>   11 files changed, 302 insertions(+), 103 deletions(-)
+> > >>
+> > >> --
+> > >> 2.38.1
+> > >>
+> > >
+> > > --
+> > > Daniel Vetter
+> > > Software Engineer, Intel Corporation
+> > > http://blog.ffwll.ch
 > 
-> The SC7280 already uses such pattern.
 > 
->>         - qcom,dsi-phy-7nm
->>         - qcom,dsi-phy-7nm-8150
->>         - qcom,sc7280-dsi-phy-7nm
 > 
-> Best regards,
-> Krzysztof
-> 
+> -- 
+> With best wishes
+> Dmitry
 
 -- 
-With best wishes
-Dmitry
-
+Daniel Vetter
+Software Engineer, Intel Corporation
+http://blog.ffwll.ch
