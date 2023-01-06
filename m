@@ -1,61 +1,62 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id D61B26608EB
-	for <lists+freedreno@lfdr.de>; Fri,  6 Jan 2023 22:49:50 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 407BF660901
+	for <lists+freedreno@lfdr.de>; Fri,  6 Jan 2023 22:57:01 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 89C4310E169;
-	Fri,  6 Jan 2023 21:49:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 11B6F10E8FC;
+	Fri,  6 Jan 2023 21:57:00 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-yb1-xb33.google.com (mail-yb1-xb33.google.com
- [IPv6:2607:f8b0:4864:20::b33])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3F89710E169
- for <freedreno@lists.freedesktop.org>; Fri,  6 Jan 2023 21:49:47 +0000 (UTC)
-Received: by mail-yb1-xb33.google.com with SMTP id l139so3224221ybl.12
- for <freedreno@lists.freedesktop.org>; Fri, 06 Jan 2023 13:49:47 -0800 (PST)
+Received: from mail-yw1-x1133.google.com (mail-yw1-x1133.google.com
+ [IPv6:2607:f8b0:4864:20::1133])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4AE7B10E900
+ for <freedreno@lists.freedesktop.org>; Fri,  6 Jan 2023 21:56:59 +0000 (UTC)
+Received: by mail-yw1-x1133.google.com with SMTP id
+ 00721157ae682-4c58b07d32dso1497807b3.2
+ for <freedreno@lists.freedesktop.org>; Fri, 06 Jan 2023 13:56:59 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=daORM5azLSvNqEbm20aAyWdSOeJFRbH238ckKtg/tu0=;
- b=kbjLsiELG9KMAFBdCircvd1SwQx+ZLcbxd7GMJkn7ow3OkRoohiVtiWzt5xWPc8305
- hm3+Af2MOsrJC5YI8I2VbyRZjB6U/iavEUc38y0StRkKvvI4HgDsvfo5rkM3yn5Cw1Y1
- tenf6pITishRwZDyiQ5lEvtlUGgkkCHoXRYABNUNOBbWkwLLqJc+jkkGQ93WnZrF2Odb
- GbESVWI4lXdDqJ3YfI44HiXxSgtE1WVn67+Xl02CUuIixmhvYFI9Dmx2WIvq+I0dCSeR
- 2wFieLsjf0QI9l6oq4cZy1xeGVmgxt8QnjDACV2l67Uqahgu3R9ymTgDH9SacWs0mmLx
- tJIg==
+ bh=yURizICzWNmVt4WSBC2l5bUComb3tT4KsRBDfo5r7sA=;
+ b=bf2DVvfMT3v/7IRlng0JZyteNEPVZloq+pSkiVMt3vqwy6d4PcymGuna2iKFa2L90h
+ 3xKxNParaiTCmIthyeSB2NhzmHWQRrO8NekICx/AFoVO/CpWHxAlwo6MWQgzD8Q3D1V+
+ JWpw/cGtNyTiqtOw8kXwxbDFPDKlDZKtJ5IKgj/8B/M912es82seJdGdAkX71/Uzit4y
+ iXUFQRpNgqGA+ccf2PGj6ym0/j+4JJQQgCVgHh7HhxxfZaX/6/Esy57OedKkABbDdw0U
+ 5Ruv0MEAk3v8wwByVmlWoMOQrSUkiZgHmT/kr0/idYj1Rbd/jY+V+yCuw40g9lAI5r3R
+ L9BA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=daORM5azLSvNqEbm20aAyWdSOeJFRbH238ckKtg/tu0=;
- b=CsBpDRJSZ4T94PI3HM3KCtHpQZUkMUJ8tvbaLA8XTppyDwXyEkaQgrOMo7fdZ9+8o0
- uw+QQN4uk9sk+IQohxQTWDoHR/is5JXE5rmImjmwSKpNiax3y+oxX1tofXItNVjfXUoL
- kJ/22Fis3hBfn2OF8vBHoBs+U85rrjNiEY7wkHI8bmXTNCaHcoh5l0oIxabj6sO/0pJK
- 8h4O63oDJlAdilaMdGfJaTdesSKSGliDWbleetDeWU5WfjYZClPmaAAq+GORSVDKLteN
- qaIxSWdedt/PaQCrnWCgJTne2SRxWPrxAJz4IDkgEdOUoIQmlghTAcmDXSf9X6v80CWi
- AQOg==
-X-Gm-Message-State: AFqh2kpGRQVVsQcVoxGYRRGUXF/uGa+nkXztfJuHUFV4HIqL+H1tGn1t
- MAwuKyriTt8/0Jc/lBz4xo6CN00+RHJQiDOCQ8oJkg==
-X-Google-Smtp-Source: AMrXdXtTexTtbAdJnEAEoI95xNx4TvEDUwzxuwS70gRNai2lJrRrVcq78GJmRo8MkM/VWZXSoGPXx0JzLcctElTuWzs=
-X-Received: by 2002:a25:b794:0:b0:723:5b57:cde9 with SMTP id
- n20-20020a25b794000000b007235b57cde9mr6884900ybh.194.1673041786342; Fri, 06
- Jan 2023 13:49:46 -0800 (PST)
+ bh=yURizICzWNmVt4WSBC2l5bUComb3tT4KsRBDfo5r7sA=;
+ b=Z4lpZDNQbaJ3nNFrvoEs76BsGOhu6DFXdhAZXbEz17bf8nsFdJ8srZ3PwKu2BMqvVo
+ 0J/x7tvkZ3n/AtASYtjptMH4m2IhZgo/8P9o0Ince7JF8sF824bbafIfXrLSpcopvtuK
+ KcKsIXpTgG+Id/efoRaFJF/+3HRnt+md0oCZk5bYLLsW3h2U3fMIK0jOzLnqgocwngiJ
+ ii1dLG3QH3G3ZtKjMnEliVfiH876BTwadee2VIBONuFj8jpRsW1wAY+THKoqQu/6WiFl
+ wqHCXkSiF151o3YhlVu+qeTY0JVOck/RfoO3NX+RWrTLfE0BBe5wHdOm6JMPUJ7nH/aN
+ DZ6g==
+X-Gm-Message-State: AFqh2krKZa1vwQHoYTf8Vk00xASYVlQEzCynjAhEPifIIFdCV3ERlCqs
+ rv0dW23fuP6kpXnSWMgEEI5EMNQLwPDyAL8dm+FF3w==
+X-Google-Smtp-Source: AMrXdXu1ecowIJMb20Ss0toVvgXmYrv0ANIdEA802RgHL2TDAnWQDDYBKuo+qePZEW8M6LQUXv2oCf6Vmegm27oawh8=
+X-Received: by 2002:a05:690c:fd5:b0:4a4:7135:9214 with SMTP id
+ dg21-20020a05690c0fd500b004a471359214mr3456604ywb.378.1673042218312; Fri, 06
+ Jan 2023 13:56:58 -0800 (PST)
 MIME-Version: 1.0
 References: <20230104234036.636-1-quic_jesszhan@quicinc.com>
- <Y7a1hCmsvJHKdW1Y@phenom.ffwll.local>
- <58caf08c-3a02-82ce-4452-8ae7f22f373d@quicinc.com>
- <CAA8EJppnAmN6+S-emEfXJEc1iVf+DjeLBmCQpGd-nRY2M2AAQQ@mail.gmail.com>
- <Y7hrWDpg8msuefgZ@phenom.ffwll.local>
-In-Reply-To: <Y7hrWDpg8msuefgZ@phenom.ffwll.local>
+ <20230104234036.636-4-quic_jesszhan@quicinc.com>
+ <d352312a-9916-934c-0a1c-e79b7eb3c7e6@linaro.org>
+ <60af746f-e88a-c78f-de36-7409a13006de@quicinc.com>
+In-Reply-To: <60af746f-e88a-c78f-de36-7409a13006de@quicinc.com>
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Fri, 6 Jan 2023 23:49:34 +0200
-Message-ID: <CAA8EJppoejPPNhu3eHBc_vsstHvEEwYx67HZLo8+4W3K-gHkag@mail.gmail.com>
-To: Daniel Vetter <daniel@ffwll.ch>
+Date: Fri, 6 Jan 2023 23:56:47 +0200
+Message-ID: <CAA8EJpq8PQyoZNGOC+urvdG2A864R8DC=EsDmpDnJ8D_7cP=8g@mail.gmail.com>
+To: Jessica Zhang <quic_jesszhan@quicinc.com>
 Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [RFC PATCH v3 0/3] Support for Solid Fill Planes
+Subject: Re: [Freedreno] [RFC PATCH v3 3/3] drm/msm/dpu: Use color_fill
+ property for DPU planes
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,113 +69,167 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: sebastian.wick@redhat.com, ppaalanen@gmail.com,
+Cc: robdclark@gmail.com, sebastian.wick@redhat.com, contact@emersion.fr,
  linux-arm-msm@vger.kernel.org, quic_abhinavk@quicinc.com,
- dri-devel@lists.freedesktop.org, swboyd@chromium.org, daniel.vetter@ffwll.ch,
- robdclark@gmail.com, seanpaul@chromium.org, laurent.pinchart@ideasonboard.com,
- contact@emersion.fr, Jessica Zhang <quic_jesszhan@quicinc.com>,
- wayland-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- ville.syrjala@linux.intel.com
+ dri-devel@lists.freedesktop.org, swboyd@chromium.org, ppaalanen@gmail.com,
+ seanpaul@chromium.org, laurent.pinchart@ideasonboard.com,
+ daniel.vetter@ffwll.ch, wayland-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, ville.syrjala@linux.intel.com
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Fri, 6 Jan 2023 at 20:41, Daniel Vetter <daniel@ffwll.ch> wrote:
->
-> On Fri, Jan 06, 2023 at 05:43:23AM +0200, Dmitry Baryshkov wrote:
-> > On Fri, 6 Jan 2023 at 02:38, Jessica Zhang <quic_jesszhan@quicinc.com> wrote:
-> > >
-> > >
-> > >
-> > > On 1/5/2023 3:33 AM, Daniel Vetter wrote:
-> > > > On Wed, Jan 04, 2023 at 03:40:33PM -0800, Jessica Zhang wrote:
-> > > >> Introduce and add support for a solid_fill property. When the solid_fill
-> > > >> property is set, and the framebuffer is set to NULL, memory fetch will be
-> > > >> disabled.
-> > > >>
-> > > >> In addition, loosen the NULL FB checks within the atomic commit callstack
-> > > >> to allow a NULL FB when the solid_fill property is set and add FB checks
-> > > >> in methods where the FB was previously assumed to be non-NULL.
-> > > >>
-> > > >> Finally, have the DPU driver use drm_plane_state.solid_fill and instead of
-> > > >> dpu_plane_state.color_fill, and add extra checks in the DPU atomic commit
-> > > >> callstack to account for a NULL FB in cases where solid_fill is set.
-> > > >>
-> > > >> Some drivers support hardware that have optimizations for solid fill
-> > > >> planes. This series aims to expose these capabilities to userspace as
-> > > >> some compositors have a solid fill flag (ex. SOLID_COLOR in the Android
-> > > >> hardware composer HAL) that can be set by apps like the Android Gears
-> > > >> app.
-> > > >>
-> > > >> Userspace can set the solid_fill property to a blob containing the
-> > > >> appropriate version number and solid fill color (in RGB323232 format) and
-> > > >> setting the framebuffer to NULL.
-> > > >>
-> > > >> Note: Currently, there's only one version of the solid_fill blob property.
-> > > >> However if other drivers want to support a similar feature, but require
-> > > >> more than just the solid fill color, they can extend this feature by
-> > > >> creating additional versions of the drm_solid_fill struct.
-> > > >>
-> > > >> Changes in V2:
-> > > >> - Dropped SOLID_FILL_FORMAT property (Simon)
-> > > >> - Switched to implementing solid_fill property as a blob (Simon, Dmitry)
-> > > >> - Changed to checks for if solid_fill_blob is set (Dmitry)
-> > > >> - Abstracted (plane_state && !solid_fill_blob) checks to helper method
-> > > >>    (Dmitry)
-> > > >> - Removed DPU_PLANE_COLOR_FILL_FLAG
-> > > >> - Fixed whitespace and indentation issues (Dmitry)
-> > > >
-> > > > Now that this is a blob, I do wonder again whether it's not cleaner to set
-> > > > the blob as the FB pointer. Or create some kind other kind of special data
-> > > > source objects (because solid fill is by far not the only such thing).
-> > > >
-> > > > We'd still end up in special cases like when userspace that doesn't
-> > > > understand solid fill tries to read out such a framebuffer, but these
-> > > > cases already exist anyway for lack of priviledges.
-> > > >
-> > > > So I still think that feels like the more consistent way to integrate this
-> > > > feature. Which doesn't mean it has to happen like that, but the
-> > > > patches/cover letter should at least explain why we don't do it like this.
-> > >
-> > > Hi Daniel,
-> > >
-> > > IIRC we were facing some issues with this check [1] when trying to set
-> > > FB to a PROP_BLOB instead. Which is why we went with making it a
-> > > separate property instead. Will mention this in the cover letter.
+On Fri, 6 Jan 2023 at 22:57, Jessica Zhang <quic_jesszhan@quicinc.com> wrote:
+> On 1/4/2023 6:16 PM, Dmitry Baryshkov wrote:
+> > On 05/01/2023 01:40, Jessica Zhang wrote:
+> >> Initialize and use the color_fill properties for planes in DPU driver. In
+> >> addition, relax framebuffer requirements within atomic commit path and
+> >> add checks for NULL framebuffers. Finally, drop DPU_PLANE_COLOR_FILL_FLAG
+> >> as it's unused.
+> >>
+> >> Changes since V2:
+> >> - Fixed dropped 'const' warning
+> >> - Dropped use of solid_fill_format
+> >> - Switched to using drm_plane_solid_fill_enabled helper method
+> >> - Added helper to convert color fill to BGR888 (Rob)
+> >> - Added support for solid fill on planes of varying sizes
+> >> - Removed DPU_PLANE_COLOR_FILL_FLAG
+> >>
+> >> Signed-off-by: Jessica Zhang <quic_jesszhan@quicinc.com>
+> >> ---
+> >>   drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c  |  9 +++-
+> >>   drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c | 65 ++++++++++++++---------
+> >>   2 files changed, 49 insertions(+), 25 deletions(-)
+> >>
+> >> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
+> >> b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
+> >> index 13ce321283ff..0695b70ea1b7 100644
+> >> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
+> >> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
+> >> @@ -409,6 +409,7 @@ static void _dpu_crtc_blend_setup_mixer(struct
+> >> drm_crtc *crtc,
+> >>       struct drm_plane_state *state;
+> >>       struct dpu_crtc_state *cstate = to_dpu_crtc_state(crtc->state);
+> >>       struct dpu_plane_state *pstate = NULL;
+> >> +    const struct msm_format *fmt;
+> >>       struct dpu_format *format;
+> >>       struct dpu_hw_ctl *ctl = mixer->lm_ctl;
+> >> @@ -441,7 +442,13 @@ static void _dpu_crtc_blend_setup_mixer(struct
+> >> drm_crtc *crtc,
+> >>                   sspp_idx - SSPP_VIG0,
+> >>                   state->fb ? state->fb->base.id : -1);
+> >> -        format = to_dpu_format(msm_framebuffer_format(pstate->base.fb));
+> >> +        if (pstate->base.fb)
+> >> +            fmt = msm_framebuffer_format(pstate->base.fb);
+> >> +        else
+> >> +            fmt = dpu_get_msm_format(&_dpu_crtc_get_kms(crtc)->base,
+> >> +                    DRM_FORMAT_ABGR8888, 0);
+> >> +
+> >> +        format = to_dpu_format(fmt);
+> >>           if (pstate->stage == DPU_STAGE_BASE && format->alpha_enable)
+> >>               bg_alpha_enable = true;
+> >> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
+> >> b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
+> >> index 86719020afe2..51a7507373f7 100644
+> >> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
+> >> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
+> >> @@ -44,7 +44,6 @@
+> >>   #define DPU_NAME_SIZE  12
+> >> -#define DPU_PLANE_COLOR_FILL_FLAG    BIT(31)
+> >>   #define DPU_ZPOS_MAX 255
+> >>   /* multirect rect index */
+> >> @@ -105,7 +104,6 @@ struct dpu_plane {
+> >>       enum dpu_sspp pipe;
+> >>       struct dpu_hw_pipe *pipe_hw;
+> >> -    uint32_t color_fill;
+> >>       bool is_error;
+> >>       bool is_rt_pipe;
+> >>       const struct dpu_mdss_cfg *catalog;
+> >> @@ -678,6 +676,17 @@ static void _dpu_plane_setup_scaler(struct
+> >> dpu_plane *pdpu,
+> >>                   &scaler3_cfg);
+> >>   }
+> >> +static uint32_t _dpu_plane_get_fill_color(struct drm_solid_fill
+> >> solid_fill)
+> >> +{
+> >> +    uint32_t ret = 0;
+> >> +
+> >> +    ret |= ((uint8_t) solid_fill.b) << 16;
+> >> +    ret |= ((uint8_t) solid_fill.g) << 8;
+> >> +    ret |= ((uint8_t) solid_fill.r);
+> >> +
+> >> +    return ret;
+> >> +}
+> >> +
+> >>   /**
+> >>    * _dpu_plane_color_fill - enables color fill on plane
+> >>    * @pdpu:   Pointer to DPU plane object
+> >> @@ -1001,12 +1010,17 @@ static int dpu_plane_atomic_check(struct
+> >> drm_plane *plane,
+> >>       dst = drm_plane_state_dest(new_plane_state);
+> >> -    fb_rect.x2 = new_plane_state->fb->width;
+> >> -    fb_rect.y2 = new_plane_state->fb->height;
+> >> +    if (new_plane_state->fb) {
+> >> +        fb_rect.x2 = new_plane_state->fb->width;
+> >> +        fb_rect.y2 = new_plane_state->fb->height;
+> >> +    }
+> >>       max_linewidth = pdpu->catalog->caps->max_linewidth;
+> >> -    fmt = to_dpu_format(msm_framebuffer_format(new_plane_state->fb));
+> >> +    if (new_plane_state->fb)
+> >> +        fmt =
+> >> to_dpu_format(msm_framebuffer_format(new_plane_state->fb));
+> >> +    else
+> >> +        fmt = dpu_get_dpu_format(DRM_FORMAT_ABGR8888);
 > >
-> > What kind of issues? Could you please describe them?
+> > I think this should be more explicit:
+> >
+> > if (solid_fill)
+> >     fmt = dpu_get_dpu_format(...)
+> > else
+> >     fmt = to_dpu_format(msm_framebuffer_format(...).
+> >
+> > And in the _dpu_crtc_blend_setup_mixer() too.
 >
-> We switched from bitmask to enum style for prop types, which means it's
-> not possible to express with the current uapi a property which accepts
-> both an object or a blob.
+> Hi Dmitry,
 >
-> Which yeah sucks a bit ...
->
-> But!
->
-> blob properties are kms objects (like framebuffers), so it should be
-> possible to stuff a blob into an object property as-is. Of course you need
-> to update the validation code to make sure we accept either an fb or a
-> blob for the internal representation. But that kind of split internally is
-> required no matter what I think.
-
-I checked your idea and notes from Jessica. So while we can pass blobs
-to property objects, the prop_fb_id is created as an object property
-with the type DRM_MODE_OBJECT_FB. Passing DRM_MODE_OBJECT_BLOB would
-fail a check in drm_property_change_valid_get() ->
-__drm_mode_object_find(). And I don't think that we should break the
-existing validation code for this special case.
-
-If you insist on using FB_ID for passing solid_fill information, I'd
-ask you to reconsider using a 1x1 framebuffer. It would be fully
-compatible with the existing userspace, which can then treat it
-seamlessly.
-
-> -Daniel
+> Noted.
 >
 > >
-> > >
-> > > [1]
-> > > https://gitlab.freedesktop.org/drm/msm/-/blob/msm-next/drivers/gpu/drm/drm_property.c#L71
+> > Maybe the code can be extracted to a helper.
+> >
+> >>       min_src_size = DPU_FORMAT_IS_YUV(fmt) ? 2 : 1;
+> >> @@ -1018,7 +1032,7 @@ static int dpu_plane_atomic_check(struct
+> >> drm_plane *plane,
+> >>           return -EINVAL;
+> >>       /* check src bounds */
+> >> -    } else if (!dpu_plane_validate_src(&src, &fb_rect, min_src_size)) {
+> >> +    } else if (new_plane_state->fb && !dpu_plane_validate_src(&src,
+> >> &fb_rect, min_src_size)) {
+> >>           DPU_DEBUG_PLANE(pdpu, "invalid source " DRM_RECT_FMT "\n",
+> >>                   DRM_RECT_ARG(&src));
+> >>           return -E2BIG;
+> >> @@ -1086,9 +1100,10 @@ void dpu_plane_flush(struct drm_plane *plane)
+> >>       if (pdpu->is_error)
+> >>           /* force white frame with 100% alpha pipe output on error */
+> >>           _dpu_plane_color_fill(pdpu, 0xFFFFFF, 0xFF);
+> >> -    else if (pdpu->color_fill & DPU_PLANE_COLOR_FILL_FLAG)
+> >> +    else if (!(plane->state->fb) &&
+> >> drm_plane_solid_fill_enabled(plane->state))
+> >>           /* force 100% alpha */
+> >> -        _dpu_plane_color_fill(pdpu, pdpu->color_fill, 0xFF);
+> >> +        _dpu_plane_color_fill(pdpu,
+> >> _dpu_plane_get_fill_color(plane->state->solid_fill),
+> >> +                0xFF);
+> >
+> > I'd push alpha into _dpu_plane_get_fill_color(). Then adding alpha
+> > support would be more transparent.
+>
+> Acked.
+
+Actually after our discussion I wanted to discuss this with you. We
+pass the plane's alpha value and blending mode using LM_BLEND*
+registers. Does that integrate correctly with the alpha part of
+SSPP_SRC_CONSTANT_COLOR?
+
 
 -- 
 With best wishes
