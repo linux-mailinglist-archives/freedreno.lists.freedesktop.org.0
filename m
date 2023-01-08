@@ -2,51 +2,51 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8376F66170F
-	for <lists+freedreno@lfdr.de>; Sun,  8 Jan 2023 17:57:38 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4B9E76616FD
+	for <lists+freedreno@lfdr.de>; Sun,  8 Jan 2023 17:57:17 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 506AC10E237;
-	Sun,  8 Jan 2023 16:57:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5DD2A10E1F6;
+	Sun,  8 Jan 2023 16:57:05 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x12f.google.com (mail-lf1-x12f.google.com
- [IPv6:2a00:1450:4864:20::12f])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C55D910E07D
- for <freedreno@lists.freedesktop.org>; Sun,  8 Jan 2023 16:57:01 +0000 (UTC)
-Received: by mail-lf1-x12f.google.com with SMTP id j17so9544303lfr.3
- for <freedreno@lists.freedesktop.org>; Sun, 08 Jan 2023 08:57:01 -0800 (PST)
+Received: from mail-lf1-x132.google.com (mail-lf1-x132.google.com
+ [IPv6:2a00:1450:4864:20::132])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9F7C510E1F0
+ for <freedreno@lists.freedesktop.org>; Sun,  8 Jan 2023 16:57:02 +0000 (UTC)
+Received: by mail-lf1-x132.google.com with SMTP id y25so9521766lfa.9
+ for <freedreno@lists.freedesktop.org>; Sun, 08 Jan 2023 08:57:02 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=MojOF/93S3oRnJzgKxf5e9Ahv/idd5WHTFRxpckdje4=;
- b=NVoMZ4UsQCrJrNJ7HOzJjuxjLBZIqv0YV6mjO8mPCnwLdIhMPLMGTK53xmunEV2Uzi
- 6Q4YontEyKBHramQL4VWbOCJDfdqtbE/1yr2XqSrk/W63H+f4OWFwEWlDwbY97+62CC7
- Dk3a1TvVlwmYtiPQV6XU1msAMT7CvhAcxg1Xv38EY6iYvOlm7CjKx4lHyuVlwKtKBwnn
- 2cHn6MP9rmyTJDx4dhgsZdjAMIH+vX3Lzjz5IP35TJqiPcbcpobNPt5FWNpP85FYjCSS
- IdD1xXAJa5ZcAafeg9mjlXClHWDL7+CbKvWt9K49DkB8Z/YUD0KFOL8EHEtuKgSQW/ia
- C2cA==
+ bh=C5ihh3g6iNgJiC7zRiEmt/AFsjwhqCmHhXCZopRf9qg=;
+ b=au5mlBLngo5aQphj6Qo5sCvsVWk3KrTubxzRUEKvMm2OUTgpH26AdjgZemt3YxW8fm
+ VsouXPpNz7Hyyjrp7CFOEqIJzfFvfst8AtVNf8e3PmfI8J/H6zoBM0HQrB4ImO8mtbjf
+ WI7tvyCjRBWohgsNfRkG9jiwcelexz2eugv4vAtQL51of9SR5JChUjoCLiyzOOXdq4T1
+ 9M/pHYgjBSa2e5RrbJ+fZpd+q5aTKLbJqBmGAEvroA/Xko08nZf28p/TBvCfnW3o3iPf
+ yFUHlucVkSezVVgqOoeSluDpK6rSYqm+v3nG2kKCLjQ3Pencj+rYLTV2zF/llVMgCSUm
+ SCgQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=MojOF/93S3oRnJzgKxf5e9Ahv/idd5WHTFRxpckdje4=;
- b=r8eEH5E8TZ+3HHcehXlbX5jFoFdwMShOf/Jlj0D2NzC81+PIWO3Ln1GVfZeL/V8s8D
- X0j74ZDqTeNiFUb7gFurFJSLnjw0qfCV9vTkyLTD6g+KNokiTBCfOScjBf87fPzQnxTF
- l9uqITAGk7plxU5EoEJrQXj656w03TJDcYuhArdqtj7ORY2hw8ufhdv6xSjiMCEO3PBO
- vtglMNkxRFonyHa6M13fODF+J+0xrI+/aUAFIH1aIEb4KjlvTvx8Wq31oJVNZ9s+b4Hu
- Xz0MF17jcsHqMPTICjP6J3blljQaeCdfCPE6L7x9yYSiYnUFot9UpJ2YydSQ44g5983u
- hbGQ==
-X-Gm-Message-State: AFqh2kpjqNYkE8T7okrRJkU99V9bZ8ZZ+RuT2IIDd/dGQhWZYg+85KDk
- kSTYY3kcN8CbyaVFQt25WMXIzQ==
-X-Google-Smtp-Source: AMrXdXunAi3Qs/UsltE/4C3BiyKCtj35mVl/rTsTQ1cm7lLeqYZjG3D7mOMqNozk8oB+vMDfwPSXFQ==
-X-Received: by 2002:a05:6512:2349:b0:4a4:68b9:66cd with SMTP id
- p9-20020a056512234900b004a468b966cdmr17233207lfu.24.1673197021375; 
- Sun, 08 Jan 2023 08:57:01 -0800 (PST)
+ bh=C5ihh3g6iNgJiC7zRiEmt/AFsjwhqCmHhXCZopRf9qg=;
+ b=GPVv46BJkqU95pUjRbQaGTo6ObzqhbeLLd/4oKhiMeFIZArSsZ7yl46cutga8qj577
+ FG1VMG80lb3yKBp9MLeOPdubtxV2p9zK/G7vlqcRcvYSliZSdnRQCUY2TM3FEKRfwY6S
+ 9PV1LlbEjVa25O+s7Tm+EmG6FOMRICSAT8U2bBLy5LzqJDHPgHGFRctABaLwKdp3DKs4
+ V06aEK0tky9TfCtk9s/vuaR27YwmO7IIqkqp8jpj6U0U6nPx/exu17TnYPzNChCtne93
+ /Dgaie2KHwpunpYmEhY/27QAZpShXi4wDIf8ip/IGD3+kkWhErv4ZG9kOXhnQBd8U4CZ
+ pGeA==
+X-Gm-Message-State: AFqh2kq+ni9KMaa1h71nspd5ZEYlpmkzz4YjcyUENjTGWzsMV66JUNqw
+ 8p8kU6JB35LKFH3adnV/lVeTJw==
+X-Google-Smtp-Source: AMrXdXs9tehp0AeUOGWV0u7MoShAVtbfl2A4h8VIPWPLu41zitPoXPnm0P+YDLpkJ2d9/trIymatIw==
+X-Received: by 2002:a05:6512:22d3:b0:4b7:66:8231 with SMTP id
+ g19-20020a05651222d300b004b700668231mr20113767lfu.58.1673197022219; 
+ Sun, 08 Jan 2023 08:57:02 -0800 (PST)
 Received: from eriador.lan (dzccz6yyyyyyyyyyybcwt-3.rev.dnainternet.fi.
  [2001:14ba:a085:4d00::8a5]) by smtp.gmail.com with ESMTPSA id
- s2-20020a056512202200b004b561b211adsm1138323lfs.254.2023.01.08.08.57.00
+ s2-20020a056512202200b004b561b211adsm1138323lfs.254.2023.01.08.08.57.01
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
  Sun, 08 Jan 2023 08:57:01 -0800 (PST)
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
@@ -55,15 +55,15 @@ To: Vinod Koul <vkoul@kernel.org>, Andrzej Hajda <andrzej.hajda@intel.com>,
  Robert Foss <robert.foss@linaro.org>,
  Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
  Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>
-Date: Sun,  8 Jan 2023 18:56:48 +0200
-Message-Id: <20230108165656.136871-6-dmitry.baryshkov@linaro.org>
+Date: Sun,  8 Jan 2023 18:56:49 +0200
+Message-Id: <20230108165656.136871-7-dmitry.baryshkov@linaro.org>
 X-Mailer: git-send-email 2.39.0
 In-Reply-To: <20230108165656.136871-1-dmitry.baryshkov@linaro.org>
 References: <20230108165656.136871-1-dmitry.baryshkov@linaro.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH v2 05/13] drm/bridge: lt9611: fix clock
- calculation
+Subject: [Freedreno] [PATCH v2 06/13] drm/bridge: lt9611: pass a pointer to
+ the of node
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,96 +82,27 @@ Cc: freedreno@lists.freedesktop.org, David Airlie <airlied@gmail.com>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Instead of having several fixed values for the pcr register, calculate
-it before programming. This allows the bridge to support most of the
-display modes.
+Pass a pointer to the OF node while registering lt9611 MIPI device.
 
 Fixes: 23278bf54afe ("drm/bridge: Introduce LT9611 DSI to HDMI bridge")
 Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 ---
- drivers/gpu/drm/bridge/lontium-lt9611.c | 32 +++++++++++--------------
- 1 file changed, 14 insertions(+), 18 deletions(-)
+ drivers/gpu/drm/bridge/lontium-lt9611.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/drivers/gpu/drm/bridge/lontium-lt9611.c b/drivers/gpu/drm/bridge/lontium-lt9611.c
-index f377052a45a4..e2799a0df8f8 100644
+index e2799a0df8f8..3b77238ca4af 100644
 --- a/drivers/gpu/drm/bridge/lontium-lt9611.c
 +++ b/drivers/gpu/drm/bridge/lontium-lt9611.c
-@@ -192,8 +192,9 @@ static void lt9611_mipi_video_setup(struct lt9611 *lt9611,
- 	regmap_write(lt9611->regmap, 0x831b, (u8)(hsync_porch % 256));
- }
- 
--static void lt9611_pcr_setup(struct lt9611 *lt9611, const struct drm_display_mode *mode)
-+static void lt9611_pcr_setup(struct lt9611 *lt9611, const struct drm_display_mode *mode, unsigned int postdiv)
+@@ -769,7 +769,7 @@ static const struct drm_connector_funcs lt9611_bridge_connector_funcs = {
+ static struct mipi_dsi_device *lt9611_attach_dsi(struct lt9611 *lt9611,
+ 						 struct device_node *dsi_node)
  {
-+	unsigned int pcr_m = mode->clock * 5 * postdiv / 27000;
- 	const struct reg_sequence reg_cfg[] = {
- 		{ 0x830b, 0x01 },
- 		{ 0x830c, 0x10 },
-@@ -236,24 +237,14 @@ static void lt9611_pcr_setup(struct lt9611 *lt9611, const struct drm_display_mod
- 	else
- 		regmap_multi_reg_write(lt9611->regmap, reg_cfg, ARRAY_SIZE(reg_cfg));
- 
--	switch (mode->hdisplay) {
--	case 640:
--		regmap_write(lt9611->regmap, 0x8326, 0x14);
--		break;
--	case 1920:
--		regmap_write(lt9611->regmap, 0x8326, 0x37);
--		break;
--	case 3840:
--		regmap_write(lt9611->regmap, 0x8326, 0x37);
--		break;
--	}
-+	regmap_write(lt9611->regmap, 0x8326, pcr_m);
- 
- 	/* pcr rst */
- 	regmap_write(lt9611->regmap, 0x8011, 0x5a);
- 	regmap_write(lt9611->regmap, 0x8011, 0xfa);
- }
- 
--static int lt9611_pll_setup(struct lt9611 *lt9611, const struct drm_display_mode *mode)
-+static int lt9611_pll_setup(struct lt9611 *lt9611, const struct drm_display_mode *mode, unsigned int *postdiv)
- {
- 	unsigned int pclk = mode->clock;
- 	const struct reg_sequence reg_cfg[] = {
-@@ -271,12 +262,16 @@ static int lt9611_pll_setup(struct lt9611 *lt9611, const struct drm_display_mode
- 
- 	regmap_multi_reg_write(lt9611->regmap, reg_cfg, ARRAY_SIZE(reg_cfg));
- 
--	if (pclk > 150000)
-+	if (pclk > 150000) {
- 		regmap_write(lt9611->regmap, 0x812d, 0x88);
--	else if (pclk > 70000)
-+		*postdiv = 1;
-+	} else if (pclk > 70000) {
- 		regmap_write(lt9611->regmap, 0x812d, 0x99);
--	else
-+		*postdiv = 2;
-+	} else {
- 		regmap_write(lt9611->regmap, 0x812d, 0xaa);
-+		*postdiv = 4;
-+	}
- 
- 	/*
- 	 * first divide pclk by 2 first
-@@ -895,14 +890,15 @@ static void lt9611_bridge_mode_set(struct drm_bridge *bridge,
- {
- 	struct lt9611 *lt9611 = bridge_to_lt9611(bridge);
- 	struct hdmi_avi_infoframe avi_frame;
-+	unsigned int postdiv;
- 	int ret;
- 
- 	lt9611_bridge_pre_enable(bridge);
- 
- 	lt9611_mipi_input_digital(lt9611, mode);
--	lt9611_pll_setup(lt9611, mode);
-+	lt9611_pll_setup(lt9611, mode, &postdiv);
- 	lt9611_mipi_video_setup(lt9611, mode);
--	lt9611_pcr_setup(lt9611, mode);
-+	lt9611_pcr_setup(lt9611, mode, postdiv);
- 
- 	ret = drm_hdmi_avi_infoframe_from_display_mode(&avi_frame,
- 						       &lt9611->connector,
+-	const struct mipi_dsi_device_info info = { "lt9611", 0, NULL };
++	const struct mipi_dsi_device_info info = { "lt9611", 0, lt9611->dev->of_node};
+ 	struct mipi_dsi_device *dsi;
+ 	struct mipi_dsi_host *host;
+ 	struct device *dev = lt9611->dev;
 -- 
 2.39.0
 
