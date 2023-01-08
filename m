@@ -1,57 +1,79 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id AE437661858
-	for <lists+freedreno@lfdr.de>; Sun,  8 Jan 2023 19:50:01 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id DBED3661965
+	for <lists+freedreno@lfdr.de>; Sun,  8 Jan 2023 21:37:50 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 298DE10E227;
-	Sun,  8 Jan 2023 18:49:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8ABEC10E206;
+	Sun,  8 Jan 2023 20:37:45 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-il1-f180.google.com (mail-il1-f180.google.com
- [209.85.166.180])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3C0AD10E052;
- Sun,  8 Jan 2023 18:49:52 +0000 (UTC)
-Received: by mail-il1-f180.google.com with SMTP id i1so393526ilu.8;
- Sun, 08 Jan 2023 10:49:52 -0800 (PST)
+Received: from mail-lf1-x130.google.com (mail-lf1-x130.google.com
+ [IPv6:2a00:1450:4864:20::130])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ED10310E07A
+ for <freedreno@lists.freedesktop.org>; Sun,  8 Jan 2023 20:37:42 +0000 (UTC)
+Received: by mail-lf1-x130.google.com with SMTP id y25so10036061lfa.9
+ for <freedreno@lists.freedesktop.org>; Sun, 08 Jan 2023 12:37:42 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:to:subject:user-agent:mime-version:date:message-id:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=2wjZyCiu39kHUTVUWrdgmj76POWhIfcwRPWfaQQRFjg=;
+ b=r7U+cjr4XjIRJ9ex/9VUYCK6QbDVM2k6XxYJarY5oqgtych3zMU0OX5lHjddibz04M
+ qNApQuNg3HCaTvcp+5ZeDJ79AT5Quf0tsM7GO9marhR3t0bLDVG1TaSHnqamFSFgpYQd
+ LuV1w7WKR0aGgUdI/IfD3JHLKs9HxwE154N641TQQ5HdzUeoqu+abHuDiq2k0ViFYyrS
+ PFOKnb3Xieu0FeOBgDtn/543Wo0jIhIkEbOrW/NqtJKolWDkeqAUQb4aPQx95C/qLplA
+ EGmcov6zshQTAmhSwGALPOmrlBw+WBEALuQcI+BOs/IIz2RE8IQHkzOzl7pPXEf1c/MB
+ P1AQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=QBfc6frQTYTBFojIsbaKyBhhX3b6E0jigcJZMgl0JrQ=;
- b=sfSechtZYHdoy4XUkTqLdI/ty0SqbftnZBerwj1a4+Z/boUe2AcusDcLsqLdcHKki3
- bUV95JE7+CCBg0d8K6S+iiNMUg2YUv6uD7uAu6Nn57GgHoRgnBWs575tiIEyr8AOk0Mu
- id9MFhziEyfk5cZxKJIrIOpSLf8zwwL8/By6eMUQgso2jot4146Lj0UpX/tWBWZq7mHh
- M2aYBVO5vSGXDV+O4taBOYxahXIv+D9tZg4x1HFMPZHP6E6trMAukYw0WUpqUr9Bx+0o
- Ena7RLUSfoGXKH//QT622MZromh5j7CiuuSZSg5vHhXJPct7xtw2+cpMz4WcQEhhiYwa
- BRGA==
-X-Gm-Message-State: AFqh2kr0TZUuWA0vi+a3JzLf2dQ1QzDsd2xaAf+AOl6kE7FKXChD1id/
- vWzYA1zZavDpg6Vl9aLgmQ==
-X-Google-Smtp-Source: AMrXdXvo7DMW/eAXa4+8ljdaOX7G+IzIj8Y/rjrLDEP2koe94ISfRyigR9jNMkceX3Z/Wfm9LeXAZQ==
-X-Received: by 2002:a05:6e02:112:b0:30c:3204:5fbd with SMTP id
- t18-20020a056e02011200b0030c32045fbdmr22652957ilm.31.1673203791274; 
- Sun, 08 Jan 2023 10:49:51 -0800 (PST)
-Received: from robh_at_kernel.org ([2605:ef80:8069:516a:f2b0:691e:4315:7c0f])
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=2wjZyCiu39kHUTVUWrdgmj76POWhIfcwRPWfaQQRFjg=;
+ b=4pkRJZv3M1rYcek4UAucG8NunFLslB7czTliZVPHO2qd4XrFRXedmC9bCpiA5uvNMm
+ I97BhfsNJG0095U78bERC0KRlhb9EawG1zrph0bD9YgdggyYW18uzbGBunuPlDl/z88l
+ EVQltqYEWKG4Qxhz0t12FEaBf6eaBeHeDQhLnkvl7TiOwOGWotMyToBVzC0Jpu2ruRMJ
+ jWGucXQdTe05bJm3vMMEVLvgkeTovPo6bhkeauNGsthg+//bKsYxjvg7Ll6/tMl0zXDF
+ u+tobe56Y/xpnd21JRlvw2G5fck4O0dr7+/WbfpziMnfIfHlWE6sFonheyNhoc/6cnH7
+ Bn9Q==
+X-Gm-Message-State: AFqh2krAS91Do1+QFSTbIs7BXbwiCgWRpjijOisxnY2mCJSmI0nkQ/Br
+ oIhoGHMn/ALKVm+uUA2MAGbBVQ==
+X-Google-Smtp-Source: AMrXdXtgtS0VMjYKAzLIJTHfulWhxtMeF0KdIBMpQ/AdWm6YN0w9H1vHgNvF0Y+GlLFsKuiokwi7Ag==
+X-Received: by 2002:a05:6512:1049:b0:4b6:edce:a192 with SMTP id
+ c9-20020a056512104900b004b6edcea192mr19485618lfb.4.1673210261249; 
+ Sun, 08 Jan 2023 12:37:41 -0800 (PST)
+Received: from ?IPV6:2001:14ba:a085:4d00::8a5?
+ (dzccz6yyyyyyyyyyybcwt-3.rev.dnainternet.fi. [2001:14ba:a085:4d00::8a5])
  by smtp.gmail.com with ESMTPSA id
- e32-20020a026d60000000b0039e583abceasm2160636jaf.68.2023.01.08.10.49.48
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 08 Jan 2023 10:49:50 -0800 (PST)
-Received: (nullmailer pid 198525 invoked by uid 1000);
- Sun, 08 Jan 2023 18:49:47 -0000
-Date: Sun, 8 Jan 2023 12:49:47 -0600
-From: Rob Herring <robh@kernel.org>
-To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-Message-ID: <167320378648.198458.147612299624075109.robh@kernel.org>
-References: <20221229124438.504770-1-bryan.odonoghue@linaro.org>
- <20221229124438.504770-2-bryan.odonoghue@linaro.org>
+ u16-20020a05651220d000b004cc8207741fsm295936lfr.93.2023.01.08.12.37.40
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Sun, 08 Jan 2023 12:37:40 -0800 (PST)
+Message-ID: <2f6ea88f-9b84-3a8b-dacf-41af80f8574d@linaro.org>
+Date: Sun, 8 Jan 2023 22:37:39 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20221229124438.504770-2-bryan.odonoghue@linaro.org>
-Subject: Re: [Freedreno] [PATCH v3 1/1] dt-bindings: msm: dsi-phy-28nm: Add
- missing qcom, dsi-phy-regulator-ldo-mode
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.6.0
+To: Robert Foss <robert.foss@linaro.org>, robdclark@gmail.com,
+ quic_abhinavk@quicinc.com, sean@poorly.run, airlied@gmail.com,
+ daniel@ffwll.ch, robh+dt@kernel.org, krzysztof.kozlowski+dt@linaro.org,
+ agross@kernel.org, andersson@kernel.org, konrad.dybcio@somainline.org,
+ quic_jesszhan@quicinc.com, angelogioacchino.delregno@somainline.org,
+ loic.poulain@linaro.org, vkoul@kernel.org, a39.skl@gmail.com,
+ quic_khsieh@quicinc.com, quic_vpolimer@quicinc.com, swboyd@chromium.org,
+ dianders@chromium.org, liushixin2@huawei.com, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Jonathan Marek <jonathan@marek.ca>, vinod.koul@linaro.org
+References: <20221230153554.105856-1-robert.foss@linaro.org>
+ <20221230153554.105856-5-robert.foss@linaro.org>
+Content-Language: en-GB
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+In-Reply-To: <20221230153554.105856-5-robert.foss@linaro.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Subject: Re: [Freedreno] [PATCH v4 04/11] drm/msm/dpu: Add support for SM8350
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,26 +86,21 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: devicetree@vger.kernel.org, krzysztof.kozlowski+dt@linaro.org,
- sean@poorly.run, andersson@kernel.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, quic_abhinavk@quicinc.com,
- robdclark@gmail.com, robh+dt@kernel.org, quic_mkrishn@quicinc.com,
- daniel@ffwll.ch, linux-arm-msm@vger.kernel.org, dmitry.baryshkov@linaro.org,
- swboyd@chromium.org, freedreno@lists.freedesktop.org, airlied@gmail.com
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-
-On Thu, 29 Dec 2022 12:44:38 +0000, Bryan O'Donoghue wrote:
-> Add in missing qcom,dsi-phy-regulator-ldo-mode to the 28nm DSI PHY.
-> When converting from .txt to .yaml we missed this one.
+On 30/12/2022 17:35, Robert Foss wrote:
+> Add compatibles string, "qcom,sm8350-dpu", for the display processing unit
+> used on Qualcomm SM8350 platform.
 > 
-> Fixes: 4dbe55c97741 ("dt-bindings: msm: dsi: add yaml schemas for DSI bindings")
-> Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> Signed-off-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+> Signed-off-by: Robert Foss <robert.foss@linaro.org>
 > ---
->  .../devicetree/bindings/display/msm/dsi-phy-28nm.yaml         | 4 ++++
->  1 file changed, 4 insertions(+)
-> 
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c | 1 +
+>   1 file changed, 1 insertion(+)
 
-Acked-by: Rob Herring <robh@kernel.org>
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+
+-- 
+With best wishes
+Dmitry
+
