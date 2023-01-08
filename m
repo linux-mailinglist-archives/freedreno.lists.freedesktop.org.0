@@ -1,69 +1,69 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id EB6A5661705
-	for <lists+freedreno@lfdr.de>; Sun,  8 Jan 2023 17:57:28 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id CECDE661717
+	for <lists+freedreno@lfdr.de>; Sun,  8 Jan 2023 17:57:42 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C277A10E1F9;
-	Sun,  8 Jan 2023 16:57:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8324210E241;
+	Sun,  8 Jan 2023 16:57:19 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x132.google.com (mail-lf1-x132.google.com
- [IPv6:2a00:1450:4864:20::132])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9755310E1F4
- for <freedreno@lists.freedesktop.org>; Sun,  8 Jan 2023 16:57:05 +0000 (UTC)
-Received: by mail-lf1-x132.google.com with SMTP id y25so9521875lfa.9
- for <freedreno@lists.freedesktop.org>; Sun, 08 Jan 2023 08:57:05 -0800 (PST)
+Received: from mail-lf1-x12a.google.com (mail-lf1-x12a.google.com
+ [IPv6:2a00:1450:4864:20::12a])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 602A310E1FA
+ for <freedreno@lists.freedesktop.org>; Sun,  8 Jan 2023 16:57:06 +0000 (UTC)
+Received: by mail-lf1-x12a.google.com with SMTP id bu8so9541340lfb.4
+ for <freedreno@lists.freedesktop.org>; Sun, 08 Jan 2023 08:57:06 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=VF5ULjO8Nsom9+kPMKOkmOPhLqLOBqB6rEP7ZLKg/cg=;
- b=fCuyGkhONFBFCIntZiPzrNU6TIwzenYQIrN2R9WluJ7c5pJmfRL/hGq7p1CfhPwoYS
- T3gMB0GBRTcfxJNpUap29X/mSZXIx+gpsfsUVZGw/zx83UW6KHr5lffAQ3wQD2ey31Sm
- uyp+IdZRJNbIZqgEGPBdHYxsjr75Rw3u+MIbKEkJ8wLfU7MFy/HS2fi8epUfGSoHbKy5
- cZf8OLn4AUbqyTRZ6SASGaqJUx6BZJw0CAHH0k+5mJSKPaD3jlewnQweY7Pq9hvs/r+X
- 9cI4NS0bWZQuSXmTPvWItQyi4khjU0NSW3nKokb4r7rkKgCXJGnnln03au5am3UEC+lN
- 8oXA==
+ bh=NkbWmLh0SyTbaJmj6lwX2gXRB2ciA0Sqr8sImuCDU5U=;
+ b=t/OPt5eqc5RSKisaYoSDzCFgW8txaePdKAsYlpPoSdjRUJ62Z4O3EQ9tQty0KqTP1/
+ z4fNXZIFVHrTfbf2EoG393nzT5+gQNGyqy+KnmxtulEh4p+7+oQLsTBprXnLYDNRUYCB
+ TkWcA/OTycjxb6dmmlAOsyFJ7gYpgEfCf6wJvp888o3BcQVuif8SCZNe9S7KJ6PFYT8G
+ o2L3DfuNlcPQXvzXilTdLto/v34pGsjcOPf6dV0+SVNydaqjds57tgZ320Z5csaHrtkH
+ 0kL3K3MnkfAZ0/KJE3ofmVAk6WEE2AUcBNO3yR56QgmLjQZ/JNoPaxIUbWFrBNOXfi5g
+ Ba8w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=VF5ULjO8Nsom9+kPMKOkmOPhLqLOBqB6rEP7ZLKg/cg=;
- b=DG2ZzwvpDNyp0aycTvZ+/BVIL626OiCW6mIq1w8xcR0S37mofhMi1tQAEqqWMd8WeR
- trgEX+jkCnnEJqq2yKFd2Bx0nHvqrxiUMGGZkuICPlI8m3ZFgy91cGItIdjmoIH8GCCi
- p7LkBE35YqZXKRILSJ9F0KrS5SsXxEbMDZN0UJUzYZnMh/BM2So8+ngLA30fBzlu19at
- LBR6IdRqZK+q91mD8C0izv/FliOlyyYv4aOP8adM8Sxb7VFEHoawm7JMhIvQWBYn8rCI
- odsYbwUSJiXD83Gvp/Yml36QI/B32AwXPprEB/BjJRZWbF1cyqvvu9hiGE5ezGoH6Hub
- MWDQ==
-X-Gm-Message-State: AFqh2krrWaEnXcsHYOxWDaU7VPhUWE0t7I3Q8Ln46nO7I4ShosXU2X5e
- qaevnwcsPPKLAQN0WR7RDDO/dw==
-X-Google-Smtp-Source: AMrXdXsBGlNd7jK7tTazi2o3aynBgbzQGJUlQBLnfvsAvlKqPQVEbViC06RKS6edaTT+EN8Tr5e30w==
-X-Received: by 2002:ac2:4adb:0:b0:4cc:83a5:e64e with SMTP id
- m27-20020ac24adb000000b004cc83a5e64emr75825lfp.60.1673197025158; 
+ bh=NkbWmLh0SyTbaJmj6lwX2gXRB2ciA0Sqr8sImuCDU5U=;
+ b=mgCYt7y0hfz/uLshOVwBeMWYqciAC0o6C007VxeVJY6Ywcg7h+oiTv98Fs/9fpCnah
+ E6TOkTrtqO/ZLITCvcSy7HklzoHjeY8C89sHDSNaN8zHMABTApyVegVazZmVICMlpaR7
+ 52ZisOuJDA59W+76aIcgHFbVwVRNwlfn+l50iXoIksbfWB/Z+Pt5DvMXE3gbKqrauC5i
+ 8qNSvEwENIMSz0Q7YPNqoD3S+IJZk5WriF0CUVOa+sdUZMunJgleoJbRR1pTc/aL6q1l
+ OmN0Tj27XKmRUAxotD2cN6VvJNN2PNac354oKKP/4j0hhjyEPEovzdGFf4dE4FMfV5KD
+ 4ynA==
+X-Gm-Message-State: AFqh2kp2Wgv1dLMbMk0+C9diDU5HPGQTdSJBqo1++fOFMec+6dXuPYQl
+ 2Pmv8tPq6b41ylo5rKsBTIVmvg==
+X-Google-Smtp-Source: AMrXdXul4ElWAGTLI45n3QNgcosJtHB69zyQadqjy9RiIsTe16NpflE4ek+tcOTf8Fgv+MpywYe/cQ==
+X-Received: by 2002:a05:6512:259e:b0:4a4:68b8:c2af with SMTP id
+ bf30-20020a056512259e00b004a468b8c2afmr19374040lfb.6.1673197025968; 
  Sun, 08 Jan 2023 08:57:05 -0800 (PST)
 Received: from eriador.lan (dzccz6yyyyyyyyyyybcwt-3.rev.dnainternet.fi.
  [2001:14ba:a085:4d00::8a5]) by smtp.gmail.com with ESMTPSA id
- s2-20020a056512202200b004b561b211adsm1138323lfs.254.2023.01.08.08.57.04
+ s2-20020a056512202200b004b561b211adsm1138323lfs.254.2023.01.08.08.57.05
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 08 Jan 2023 08:57:04 -0800 (PST)
+ Sun, 08 Jan 2023 08:57:05 -0800 (PST)
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 To: Vinod Koul <vkoul@kernel.org>, Andrzej Hajda <andrzej.hajda@intel.com>,
  Neil Armstrong <neil.armstrong@linaro.org>,
  Robert Foss <robert.foss@linaro.org>,
  Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
  Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>
-Date: Sun,  8 Jan 2023 18:56:53 +0200
-Message-Id: <20230108165656.136871-11-dmitry.baryshkov@linaro.org>
+Date: Sun,  8 Jan 2023 18:56:54 +0200
+Message-Id: <20230108165656.136871-12-dmitry.baryshkov@linaro.org>
 X-Mailer: git-send-email 2.39.0
 In-Reply-To: <20230108165656.136871-1-dmitry.baryshkov@linaro.org>
 References: <20230108165656.136871-1-dmitry.baryshkov@linaro.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH v2 10/13] drm/bridge: lt9611: simplify video
- timings programming
+Subject: [Freedreno] [PATCH v2 11/13] drm/bridge: lt9611: rework infoframes
+ handling
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,33 +82,114 @@ Cc: freedreno@lists.freedesktop.org, David Airlie <airlied@gmail.com>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Inline calculated values to simplify the calculation in
-lt9611_mipi_video_setup().
+Rework handling infoframes:
+- Write full HDMI AVI infoframe instead of just fixing the VIC value
+- Also send the HDMI Vendor Specific infoframe, as recommended by the
+  HDMI spec.
 
 Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 ---
- drivers/gpu/drm/bridge/lontium-lt9611.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/bridge/lontium-lt9611.c | 57 +++++++++++++++++++------
+ 1 file changed, 44 insertions(+), 13 deletions(-)
 
 diff --git a/drivers/gpu/drm/bridge/lontium-lt9611.c b/drivers/gpu/drm/bridge/lontium-lt9611.c
-index 7f9be74acf0d..1396ab081f61 100644
+index 1396ab081f61..82af1f954cc6 100644
 --- a/drivers/gpu/drm/bridge/lontium-lt9611.c
 +++ b/drivers/gpu/drm/bridge/lontium-lt9611.c
-@@ -155,12 +155,12 @@ static void lt9611_mipi_video_setup(struct lt9611 *lt9611,
- 	hactive = mode->hdisplay;
- 	hsync_len = mode->hsync_end - mode->hsync_start;
- 	hfront_porch = mode->hsync_start - mode->hdisplay;
--	hsync_porch = hsync_len + mode->htotal - mode->hsync_end;
-+	hsync_porch = mode->htotal - mode->hsync_start;
+@@ -59,7 +59,6 @@ struct lt9611 {
+ 	enum drm_connector_status status;
  
- 	vactive = mode->vdisplay;
- 	vsync_len = mode->vsync_end - mode->vsync_start;
- 	vfront_porch = mode->vsync_start - mode->vdisplay;
--	vsync_porch = vsync_len + mode->vtotal - mode->vsync_end;
-+	vsync_porch = mode->vtotal - mode->vsync_start;
+ 	u8 edid_buf[EDID_SEG_SIZE];
+-	u32 vic;
+ };
  
- 	regmap_write(lt9611->regmap, 0x830d, (u8)(v_total / 256));
- 	regmap_write(lt9611->regmap, 0x830e, (u8)(v_total % 256));
+ #define LT9611_PAGE_CONTROL	0xff
+@@ -352,12 +351,51 @@ static int lt9611_video_check(struct lt9611 *lt9611)
+ 	return temp;
+ }
+ 
+-static void lt9611_hdmi_tx_digital(struct lt9611 *lt9611, bool is_hdmi)
++static void lt9611_hdmi_set_infoframes(struct lt9611 *lt9611,
++				       struct drm_connector *connector,
++				       struct drm_display_mode *mode)
+ {
+-	regmap_write(lt9611->regmap, 0x8443, 0x46 - lt9611->vic);
+-	regmap_write(lt9611->regmap, 0x8447, lt9611->vic);
+-	regmap_write(lt9611->regmap, 0x843d, 0x0a); /* UD1 infoframe */
++	union hdmi_infoframe infoframe;
++	ssize_t len;
++	u8 iframes = 0x0a; /* UD1 infoframe */
++	u8 buf[32];
++	int ret;
++	int i;
++
++	ret = drm_hdmi_avi_infoframe_from_display_mode(&infoframe.avi,
++						       connector,
++						       mode);
++	if (ret < 0)
++		goto out;
++
++	len = hdmi_infoframe_pack(&infoframe, buf, sizeof(buf));
++	if (len < 0)
++		goto out;
++
++	for (i = 0; i < len; i++)
++		regmap_write(lt9611->regmap, 0x8440 + i, buf[i]);
++
++	ret = drm_hdmi_vendor_infoframe_from_display_mode(&infoframe.vendor.hdmi,
++							  connector,
++							  mode);
++	if (ret < 0)
++		goto out;
++
++	len = hdmi_infoframe_pack(&infoframe, buf, sizeof(buf));
++	if (len < 0)
++		goto out;
+ 
++	for (i = 0; i < len; i++)
++		regmap_write(lt9611->regmap, 0x8474 + i, buf[i]);
++
++	iframes |= 0x20;
++
++out:
++	regmap_write(lt9611->regmap, 0x843d, iframes); /* UD1 infoframe */
++}
++
++static void lt9611_hdmi_tx_digital(struct lt9611 *lt9611, bool is_hdmi)
++{
+ 	if (is_hdmi)
+ 		regmap_write(lt9611->regmap, 0x82d6, 0x8c);
+ 	else
+@@ -687,9 +725,7 @@ lt9611_bridge_atomic_enable(struct drm_bridge *bridge,
+ 	struct drm_connector_state *conn_state;
+ 	struct drm_crtc_state *crtc_state;
+ 	struct drm_display_mode *mode;
+-	struct hdmi_avi_infoframe avi_frame;
+ 	unsigned int postdiv;
+-	int ret;
+ 
+ 	connector = drm_atomic_get_new_connector_for_encoder(state, bridge->encoder);
+ 	if (WARN_ON(!connector))
+@@ -710,18 +746,13 @@ lt9611_bridge_atomic_enable(struct drm_bridge *bridge,
+ 	lt9611_mipi_video_setup(lt9611, mode);
+ 	lt9611_pcr_setup(lt9611, mode, postdiv);
+ 
+-	ret = drm_hdmi_avi_infoframe_from_display_mode(&avi_frame,
+-						       connector,
+-						       mode);
+-	if (!ret)
+-		lt9611->vic = avi_frame.video_code;
+-
+ 	if (lt9611_power_on(lt9611)) {
+ 		dev_err(lt9611->dev, "power on failed\n");
+ 		return;
+ 	}
+ 
+ 	lt9611_mipi_input_analog(lt9611);
++	lt9611_hdmi_set_infoframes(lt9611, connector, mode);
+ 	lt9611_hdmi_tx_digital(lt9611, connector->display_info.is_hdmi);
+ 	lt9611_hdmi_tx_phy(lt9611);
+ 
 -- 
 2.39.0
 
