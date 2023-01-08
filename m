@@ -1,66 +1,69 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8A36C6616E1
-	for <lists+freedreno@lfdr.de>; Sun,  8 Jan 2023 17:57:02 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id B2F6B6616E2
+	for <lists+freedreno@lfdr.de>; Sun,  8 Jan 2023 17:57:03 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 417EA10E05E;
-	Sun,  8 Jan 2023 16:57:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6E8C210E070;
+	Sun,  8 Jan 2023 16:57:02 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x12f.google.com (mail-lf1-x12f.google.com
- [IPv6:2a00:1450:4864:20::12f])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8633410E05E
- for <freedreno@lists.freedesktop.org>; Sun,  8 Jan 2023 16:56:59 +0000 (UTC)
-Received: by mail-lf1-x12f.google.com with SMTP id j17so9544175lfr.3
+Received: from mail-lf1-x132.google.com (mail-lf1-x132.google.com
+ [IPv6:2a00:1450:4864:20::132])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0D7CE10E05E
+ for <freedreno@lists.freedesktop.org>; Sun,  8 Jan 2023 16:57:00 +0000 (UTC)
+Received: by mail-lf1-x132.google.com with SMTP id y25so9521627lfa.9
  for <freedreno@lists.freedesktop.org>; Sun, 08 Jan 2023 08:56:59 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=O+gZSEXgo3d9wOINWDK6xDs3+kicBr/DPouYqs1r8x0=;
- b=uYauKdgwq2husrEqlbthANQI+mK+yFDi8k3sa0byDLOOm+6NyM/tTVNf0gooCDRvHh
- TreprhmfQ6gm1B340FRGqx4ILphCrkz+5EeRV4ds91FpVi+31sN6Zi+COdCxf+U/6k5C
- 2QUn6q5Y5+f7phN5GgGVAj2AHxJu/kepcl3lDu7/jmXMK20+vpUqaN6ITOz+vyA6f/xW
- GIAyIECVGh2FA6NqaiOB0I+NQSDktLdnks6obnsGLQLVx0QLkTv73+CNPnzmN+BNWlY4
- g7jBtiXgDA17+YtIntY+3KWaoT/MnV+T3nLGi7RzMCm0VOH3zLYyotu+qAST257Nobdv
- x7vg==
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=bMcMgMN2h9pQ0++woqWQkTwB0DopoRxUXMW3C3/QKYc=;
+ b=P9dqkZZfHOIrHOTu0QxjNN5J0k/OqwxrnUDvwRdcdF/erP0JK2wzbixjkCGmcn8AmP
+ CxTtz7XvXAHP1NZ2aTtfEhBhTKh4jO/WFzht4gw5vbgTiivyjH5nZYW+XDSykIgoNfC9
+ 1n6uEb7M/WOgAKBqodZb9Y5Ozwy1Dr6hKuaOkf8FdUNhtHW4lg500zrJYeEpMzKiJgPm
+ zyz+vTfWDUIptKZyD9Ps6REXcCzOSau25MqKEBMU8o0saEyA0v5gKpq2dOOVFlUpBdOp
+ r9SmnN0By/RWCTOUFjwhQywtH1zgb9Ha3WEUh38MPzN0a/icfRdSpq7S5xfXCvnRdXxg
+ ZmeQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=O+gZSEXgo3d9wOINWDK6xDs3+kicBr/DPouYqs1r8x0=;
- b=6OPXDoo/p9/2dGm9fNNgfYVVjv9SoTsEbQAWJ6ElO4EUJNvpW7FEoR4sMveSJRO/X1
- FCo4LeLC9iie0PqHZuufddFuAzKc4bcth4YKTBy3XgmjFU3nxdOLmARuqN0r4te2JGYO
- d8FWPay0yg886sW0RkW8L8R6IcU3VHEuKIyS0QxVzkH66m/4C2iyuEVLPCkvobokYLGL
- Dg0g5Jv9akL/8wLi3Xk8yrEozTLTti1Dmr38rZytwPxMDLJOJH7R/xd/1jsz891hBWpE
- u7sDSRhM6kKsIeXrJRXzU2q5Ul8nXj1ZURSpDgMqQ5NnO1NQBqoAJ2rHoD3Q/xjFcY1K
- 9How==
-X-Gm-Message-State: AFqh2ko82fzim5nSO/o+cEiwksgYGjNlaapWr8yKiMh28mEAupOBQ1I1
- 5GBb/6AZdITb5KbtWQfDagS+LQ==
-X-Google-Smtp-Source: AMrXdXtmsgU+7bRE7IrRO3c8IZ4YXWbGiOa2nHIZQcjxsFyGPcOy9ExkJhV3ACmWtJvJnAMZ07mZQw==
-X-Received: by 2002:ac2:5088:0:b0:4b5:688e:ee10 with SMTP id
- f8-20020ac25088000000b004b5688eee10mr18367932lfm.16.1673197017690; 
- Sun, 08 Jan 2023 08:56:57 -0800 (PST)
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=bMcMgMN2h9pQ0++woqWQkTwB0DopoRxUXMW3C3/QKYc=;
+ b=IW5wsa2uxNmrWC49WvlyJ4YNI57N3lCD4qZYvxypoC7EPw8+QhBQe9eueSRCic48Sg
+ fCY6W+doUS9hw7l9VSLmIAZEv2N63wTibid17A2gCXa69I6HWT0lzbT71vZ6VdYO1aWn
+ zaZMedzWDW0R5QahogIjXO+Y3/3cbYd84o2zkX4868lRTTDfN56jBVUPLU0Egv1m7/QY
+ vitimutiO/qqBmXbeTwxD5E7IMea7T2ilnwWNLf8EVfm/57Hm/YZYn147rwYEhHgkWGv
+ CXblFvXbd51E48q0FwOLS8Y9XuNe+p8+DgDobkr4dncWWVq1Y85a1rL89L0cUmmydY0i
+ uXPA==
+X-Gm-Message-State: AFqh2kqvexse1NwZ/v0kK7iUTkplLMEjA8G5+ReyTuCPtVGj+bKB4cmt
+ PE/H0MRNGbyJ0el0vnj9xj28LQ==
+X-Google-Smtp-Source: AMrXdXsSRYg+KJGElLjXPWCsXo8ii+CcZrDyeAXlnwyYhDZJuGqnEvGXDw/1RjhMYPVSdS2EH1jOmQ==
+X-Received: by 2002:a05:6512:3f0c:b0:4b5:2ef3:fd2b with SMTP id
+ y12-20020a0565123f0c00b004b52ef3fd2bmr20160912lfa.18.1673197018396; 
+ Sun, 08 Jan 2023 08:56:58 -0800 (PST)
 Received: from eriador.lan (dzccz6yyyyyyyyyyybcwt-3.rev.dnainternet.fi.
  [2001:14ba:a085:4d00::8a5]) by smtp.gmail.com with ESMTPSA id
- s2-20020a056512202200b004b561b211adsm1138323lfs.254.2023.01.08.08.56.56
+ s2-20020a056512202200b004b561b211adsm1138323lfs.254.2023.01.08.08.56.57
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 08 Jan 2023 08:56:57 -0800 (PST)
+ Sun, 08 Jan 2023 08:56:58 -0800 (PST)
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 To: Vinod Koul <vkoul@kernel.org>, Andrzej Hajda <andrzej.hajda@intel.com>,
  Neil Armstrong <neil.armstrong@linaro.org>,
  Robert Foss <robert.foss@linaro.org>,
  Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
  Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>
-Date: Sun,  8 Jan 2023 18:56:43 +0200
-Message-Id: <20230108165656.136871-1-dmitry.baryshkov@linaro.org>
+Date: Sun,  8 Jan 2023 18:56:44 +0200
+Message-Id: <20230108165656.136871-2-dmitry.baryshkov@linaro.org>
 X-Mailer: git-send-email 2.39.0
+In-Reply-To: <20230108165656.136871-1-dmitry.baryshkov@linaro.org>
+References: <20230108165656.136871-1-dmitry.baryshkov@linaro.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH v2 00/13] drm/bridge: lt9611: several fixes and
- improvements
+Subject: [Freedreno] [PATCH v2 01/13] drm/bridge: lt9611: fix sleep mode
+ setup
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,34 +82,36 @@ Cc: freedreno@lists.freedesktop.org, David Airlie <airlied@gmail.com>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-A series of patches to fix mode programming for the Lontium lt9611
-DSI-to-HDMI bridge (found e.g. on the Thundercomm RB3/Dragonboard845c
-platform).
+On atomic_post_disable the bridge goes to the low power state. However
+the code disables too much of the chip, so the HPD event is not being
+detected and delivered to the host. Reduce the power saving in order to
+get the HPD event.
 
-Changes since v1:
- - Fixed the double-DSI check to look for the lt9611->dsi1_node rather
-   than lt9611->dsi1, modesetting happens before lt9611->dsi1 is set.
+Fixes: 23278bf54afe ("drm/bridge: Introduce LT9611 DSI to HDMI bridge")
+Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+---
+ drivers/gpu/drm/bridge/lontium-lt9611.c | 5 ++---
+ 1 file changed, 2 insertions(+), 3 deletions(-)
 
- - Added full dual-DSI support, properly enabling the 4k modes on RB3.
-
-Dmitry Baryshkov (13):
-  drm/bridge: lt9611: fix sleep mode setup
-  drm/bridge: lt9611: fix HPD reenablement
-  drm/bridge: lt9611: fix polarity programming
-  drm/bridge: lt9611: fix programming of video modes
-  drm/bridge: lt9611: fix clock calculation
-  drm/bridge: lt9611: pass a pointer to the of node
-  drm/bridge: lt9611: rework the mode_set function
-  drm/bridge: lt9611: attach to the next bridge
-  drm/bridge: lt9611: fix sync polarity for DVI output
-  drm/bridge: lt9611: simplify video timings programming
-  drm/bridge: lt9611: rework infoframes handling
-  drm/bridge: lt9611: stop filtering modes via the table
-  drm/bridge: lt9611: properly program the dual host mode
-
- drivers/gpu/drm/bridge/lontium-lt9611.c | 332 ++++++++++--------------
- 1 file changed, 133 insertions(+), 199 deletions(-)
-
+diff --git a/drivers/gpu/drm/bridge/lontium-lt9611.c b/drivers/gpu/drm/bridge/lontium-lt9611.c
+index 7c0a99173b39..2714184cc53f 100644
+--- a/drivers/gpu/drm/bridge/lontium-lt9611.c
++++ b/drivers/gpu/drm/bridge/lontium-lt9611.c
+@@ -448,12 +448,11 @@ static void lt9611_sleep_setup(struct lt9611 *lt9611)
+ 		{ 0x8023, 0x01 },
+ 		{ 0x8157, 0x03 }, /* set addr pin as output */
+ 		{ 0x8149, 0x0b },
+-		{ 0x8151, 0x30 }, /* disable IRQ */
++
+ 		{ 0x8102, 0x48 }, /* MIPI Rx power down */
+ 		{ 0x8123, 0x80 },
+ 		{ 0x8130, 0x00 },
+-		{ 0x8100, 0x01 }, /* bandgap power down */
+-		{ 0x8101, 0x00 }, /* system clk power down */
++		{ 0x8011, 0x0a },
+ 	};
+ 
+ 	regmap_multi_reg_write(lt9611->regmap,
 -- 
 2.39.0
 
