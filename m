@@ -2,68 +2,55 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 65DCF661707
-	for <lists+freedreno@lfdr.de>; Sun,  8 Jan 2023 17:57:31 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0811F6617DA
+	for <lists+freedreno@lfdr.de>; Sun,  8 Jan 2023 19:10:58 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 17A6A10E070;
-	Sun,  8 Jan 2023 16:57:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BEDCE10E1FE;
+	Sun,  8 Jan 2023 18:10:56 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x134.google.com (mail-lf1-x134.google.com
- [IPv6:2a00:1450:4864:20::134])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 17E9C10E223
- for <freedreno@lists.freedesktop.org>; Sun,  8 Jan 2023 16:57:08 +0000 (UTC)
-Received: by mail-lf1-x134.google.com with SMTP id bt23so9496836lfb.5
- for <freedreno@lists.freedesktop.org>; Sun, 08 Jan 2023 08:57:08 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=Jsw80iE4Bz5Oyb4Yui9qzxM/xJUIMCcqN7Ll6Uw4NDY=;
- b=alH/lGvw0HcCLjFAslrqET+DjUrHL52unC6JngmkQo3R+u4GToTofXI41ORv5lGv3x
- V6lJn+39OHyT5/6+l2VRTjDOV8APqJVdBOmtqskna7BCh+31sle2sstwtuPOApV10Vtb
- 2pTnwOmsuzCPUBnyDh6ZyuOU67os8gdzmNqeVTcZrECtTijODRYtMLJD26M2gH9Tan3H
- Ko1KerXL7SWgPX5UN0kCSgkvBLQcpE8kHH44fDzM4rILX0Ep/BwtLhkgsDC56+WsYCRg
- JHSQWRaZvVIE8xk6XoK5VJBrqS0DfVHbrfbmXSdeWSLIVD9Cgi99blLEw+R9W5f+E4HV
- Ejow==
+Received: from mail-io1-f45.google.com (mail-io1-f45.google.com
+ [209.85.166.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9571E10E1FE;
+ Sun,  8 Jan 2023 18:10:55 +0000 (UTC)
+Received: by mail-io1-f45.google.com with SMTP id e129so3516153iof.3;
+ Sun, 08 Jan 2023 10:10:55 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=Jsw80iE4Bz5Oyb4Yui9qzxM/xJUIMCcqN7Ll6Uw4NDY=;
- b=zR6JcZRnTqP0bWJWy9BchmplIOgwi8+uDt5R9oCHp4u9LYFAUuEpyIRDtI93U3wece
- XO8ZDtSShotxxHjGI/NOD8AK6gy3xX1ODjlXAh1qj38tkjeYrH7/NropZ5s/Uxp++Nkt
- WEHAQYqJLabWo797KFxR3jcCjqiSR9MLKaUox0ziXkrA5d9RWJ0+bSctNQh8FD2zmtpV
- W8wAR3tR4sqF6LI2VZHz5072jgk4txV5yRBoHiyVVKNKjFPqM0eSo1nJIvThrHoAqPGA
- DCx+JGEIW+xbcFHWQ1KUcn/DO6jpk5JzavQtcz4tSTMlSw+L02asc4Fwxb/qem0AdTW2
- Ct5Q==
-X-Gm-Message-State: AFqh2koqY+wLWpacIhcs61hcg44kO3ZCVqjbi9PyeY6L3GRsdjpNa6nP
- EsUeewLlbG792Rq5rskvQMoChg==
-X-Google-Smtp-Source: AMrXdXtFKEVoP2iuRUwM0axgQM+w8vmZcyRa7+dy2pWh64vnZwOeWLem/37rL7Xv8qcFt0EsZpOOQA==
-X-Received: by 2002:a05:6512:3e1b:b0:4b5:5616:ecd2 with SMTP id
- i27-20020a0565123e1b00b004b55616ecd2mr21993729lfv.55.1673197027668; 
- Sun, 08 Jan 2023 08:57:07 -0800 (PST)
-Received: from eriador.lan (dzccz6yyyyyyyyyyybcwt-3.rev.dnainternet.fi.
- [2001:14ba:a085:4d00::8a5]) by smtp.gmail.com with ESMTPSA id
- s2-20020a056512202200b004b561b211adsm1138323lfs.254.2023.01.08.08.57.06
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=VaYtJSbg0m1h9v/y0oGBIF5OJEkln4UIHXOm49qosbk=;
+ b=OQTSGGB4CBuhYcj5YgQ9xaZtPOorJt5+UdoC3vsd+NtuuMHa8CH+sxqjLO9/Y4xg72
+ zFA/UWnEz83ylLD/P5aEArXh0nRJ7fl4FRi6Plv/7awnSJH1BzJMuFlqqDSzYpQ95AQP
+ JoFAxlMHcJAu5Bxx+juEPKLrXQYyWUMV5SDzn8QXhs3w2yvL/jFTLy/sUWEslPPIC5fS
+ 3tmjJleCWR5br2yKv/Tis2SXirg0CivuRJiKqlwL6qtaNqQaWp/M1XNl7uMmYkZgtGv3
+ F0tSoaUoM8kReIheCyGSE6pF2thofbs5fr99hQMnzRZe/35jSroU0woG0z2QcmgfsEWa
+ d5nQ==
+X-Gm-Message-State: AFqh2kpvL7SPBRbCAJ82jDF7hdKdL3YPjY5KGho6rBw8/K2ypO/suLA7
+ jecqsx+wTaIoZwgbwtNnFA==
+X-Google-Smtp-Source: AMrXdXvgwhlFhigBTBW17M60+YlCLJ0HiW7wQwdHfJos1G0hDrrz6tu/pH11pfTsb5vfGyTuyIE+Zw==
+X-Received: by 2002:a05:6602:2183:b0:6bd:196e:da3 with SMTP id
+ b3-20020a056602218300b006bd196e0da3mr40568542iob.8.1673201454659; 
+ Sun, 08 Jan 2023 10:10:54 -0800 (PST)
+Received: from robh_at_kernel.org ([2605:ef80:8069:516a:f2b0:691e:4315:7c0f])
+ by smtp.gmail.com with ESMTPSA id
+ d16-20020a6b6810000000b006de73a731dbsm2347201ioc.51.2023.01.08.10.10.52
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 08 Jan 2023 08:57:07 -0800 (PST)
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-To: Vinod Koul <vkoul@kernel.org>, Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Robert Foss <robert.foss@linaro.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>
-Date: Sun,  8 Jan 2023 18:56:56 +0200
-Message-Id: <20230108165656.136871-14-dmitry.baryshkov@linaro.org>
-X-Mailer: git-send-email 2.39.0
-In-Reply-To: <20230108165656.136871-1-dmitry.baryshkov@linaro.org>
-References: <20230108165656.136871-1-dmitry.baryshkov@linaro.org>
+ Sun, 08 Jan 2023 10:10:54 -0800 (PST)
+Received: (nullmailer pid 154605 invoked by uid 1000);
+ Sun, 08 Jan 2023 18:10:51 -0000
+Date: Sun, 8 Jan 2023 12:10:51 -0600
+From: Rob Herring <robh@kernel.org>
+To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+Message-ID: <167320145082.154531.12469565468633338851.robh@kernel.org>
+References: <20221225115925.55337-1-krzysztof.kozlowski@linaro.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH v2 13/13] drm/bridge: lt9611: properly program
- the dual host mode
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20221225115925.55337-1-krzysztof.kozlowski@linaro.org>
+Subject: Re: [Freedreno] [PATCH 1/2] dt-bindings: display: msm: drop
+ redundant part of title
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,74 +63,34 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, David Airlie <airlied@gmail.com>,
- dri-devel@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>,
- linux-arm-msm@vger.kernel.org
+Cc: freedreno@lists.freedesktop.org, Loic Poulain <loic.poulain@linaro.org>,
+ Daniel Vetter <daniel@ffwll.ch>, devicetree@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Rob Clark <robdclark@gmail.com>, Rob Herring <robh+dt@kernel.org>,
+ Krishna Manikandan <quic_mkrishn@quicinc.com>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Del Regno <angelogioacchino.delregno@somainline.org>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ David Airlie <airlied@gmail.com>, Sean Paul <sean@poorly.run>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-If the bridge is connected using both DSI ports, the driver should use
-both of them all the time. Correct programming sequence to always use
-dual-port mode if both dsi0 and dsi1 are connected.
 
-Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
----
- drivers/gpu/drm/bridge/lontium-lt9611.c | 28 ++++++++++++-------------
- 1 file changed, 13 insertions(+), 15 deletions(-)
+On Sun, 25 Dec 2022 12:59:24 +0100, Krzysztof Kozlowski wrote:
+> The Devicetree bindings document does not have to say in the title that
+> contains "DT properties", but instead just describe the hardware.
+> 
+> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+> ---
+>  .../devicetree/bindings/display/msm/dsi-phy-common.yaml    | 7 +++----
+>  .../devicetree/bindings/display/msm/qcom,msm8998-dpu.yaml  | 2 +-
+>  .../devicetree/bindings/display/msm/qcom,qcm2290-dpu.yaml  | 2 +-
+>  .../devicetree/bindings/display/msm/qcom,sc7180-dpu.yaml   | 2 +-
+>  .../devicetree/bindings/display/msm/qcom,sc7280-dpu.yaml   | 2 +-
+>  .../devicetree/bindings/display/msm/qcom,sdm845-dpu.yaml   | 2 +-
+>  .../devicetree/bindings/display/msm/qcom,sm6115-dpu.yaml   | 2 +-
+>  7 files changed, 9 insertions(+), 10 deletions(-)
+> 
 
-diff --git a/drivers/gpu/drm/bridge/lontium-lt9611.c b/drivers/gpu/drm/bridge/lontium-lt9611.c
-index df9f015aa3a0..561da6bd2698 100644
---- a/drivers/gpu/drm/bridge/lontium-lt9611.c
-+++ b/drivers/gpu/drm/bridge/lontium-lt9611.c
-@@ -118,7 +118,7 @@ static int lt9611_mipi_input_digital(struct lt9611 *lt9611,
- 		{ 0x8306, 0x0a },
- 	};
- 
--	if (mode->hdisplay == 3840)
-+	if (lt9611->dsi1_node)
- 		reg_cfg[1].def = 0x03;
- 
- 	return regmap_multi_reg_write(lt9611->regmap, reg_cfg, ARRAY_SIZE(reg_cfg));
-@@ -191,16 +191,6 @@ static void lt9611_pcr_setup(struct lt9611 *lt9611, const struct drm_display_mod
- 		{ 0x832d, 0x38 },
- 		{ 0x8331, 0x08 },
- 	};
--	const struct reg_sequence reg_cfg2[] = {
--		{ 0x830b, 0x03 },
--		{ 0x830c, 0xd0 },
--		{ 0x8348, 0x03 },
--		{ 0x8349, 0xe0 },
--		{ 0x8324, 0x72 },
--		{ 0x8325, 0x00 },
--		{ 0x832a, 0x01 },
--		{ 0x834a, 0x10 },
--	};
- 	u8 pol = 0x10;
- 
- 	if (mode->flags & DRM_MODE_FLAG_NHSYNC)
-@@ -209,10 +199,18 @@ static void lt9611_pcr_setup(struct lt9611 *lt9611, const struct drm_display_mod
- 		pol |= 0x1;
- 	regmap_write(lt9611->regmap, 0x831d, pol);
- 
--	if (mode->hdisplay == 3840)
--		regmap_multi_reg_write(lt9611->regmap, reg_cfg2, ARRAY_SIZE(reg_cfg2));
--	else
--		regmap_multi_reg_write(lt9611->regmap, reg_cfg, ARRAY_SIZE(reg_cfg));
-+	regmap_multi_reg_write(lt9611->regmap, reg_cfg, ARRAY_SIZE(reg_cfg));
-+	if (lt9611->dsi1_node) {
-+		unsigned int hact = mode->hdisplay;
-+
-+		hact >>= 2;
-+		hact += 0x50;
-+		hact = min(hact, 0x3e0U);
-+		regmap_write(lt9611->regmap, 0x830b, hact / 256);
-+		regmap_write(lt9611->regmap, 0x830c, hact % 256);
-+		regmap_write(lt9611->regmap, 0x8348, hact / 256);
-+		regmap_write(lt9611->regmap, 0x8349, hact % 256);
-+	}
- 
- 	regmap_write(lt9611->regmap, 0x8326, pcr_m);
- 
--- 
-2.39.0
-
+Acked-by: Rob Herring <robh@kernel.org>
