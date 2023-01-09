@@ -1,58 +1,58 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 16A7D662885
-	for <lists+freedreno@lfdr.de>; Mon,  9 Jan 2023 15:30:56 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id AB06B662883
+	for <lists+freedreno@lfdr.de>; Mon,  9 Jan 2023 15:30:52 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 01BD110E42F;
-	Mon,  9 Jan 2023 14:30:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DFF7C10E42D;
+	Mon,  9 Jan 2023 14:30:46 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ot1-f48.google.com (mail-ot1-f48.google.com
- [209.85.210.48])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6B95910E42B;
- Mon,  9 Jan 2023 14:30:45 +0000 (UTC)
-Received: by mail-ot1-f48.google.com with SMTP id
- i26-20020a9d68da000000b00672301a1664so5251893oto.6; 
- Mon, 09 Jan 2023 06:30:45 -0800 (PST)
+Received: from mail-ot1-f43.google.com (mail-ot1-f43.google.com
+ [209.85.210.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0E66010E1E7;
+ Mon,  9 Jan 2023 14:30:42 +0000 (UTC)
+Received: by mail-ot1-f43.google.com with SMTP id
+ r2-20020a9d7cc2000000b006718a7f7fbaso5251233otn.2; 
+ Mon, 09 Jan 2023 06:30:42 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=date:subject:message-id:references:in-reply-to:cc:to:from
  :mime-version:content-transfer-encoding:x-gm-message-state:from:to
  :cc:subject:date:message-id:reply-to;
- bh=lnvWjGkJXKCbxJNpIXGvIrUGwer2KE72GLT13UzJPJM=;
- b=DRqP6nzDrXaa2/2i9TdXTpYe+l8yDDkBhrdIm5WxGdzzsQJBtutqUljgcV7wAZ29i4
- 86PvI1UpGETO6MDhAzHzZAHbH+HU86YSqkfXHjKNuGKemLw8NY0FvScmmB3ByA9F5l1o
- hhx6RmpryZt0bYjHX0UwR2KzAi5ICKNvypYwhApRRyF/N7MSqB6H8hsaRfJ75YhJ0LPE
- EEEsByUvD6LahwlwYffvfdU0A7AeKg9CBmQd1Ciq/GVmuXtcRlz6iG9pfdBNUkRgDPcE
- DYuadSmm5tUAqkqzjXEKBoG86547qYdI5bxAk52+f4TFJwZg4xrGcBhg2UOE6IfcY1nY
- BpZQ==
-X-Gm-Message-State: AFqh2kq4rTozRNkswD+W5O52J6LlwOSQ1zQfwLBLL1XRJpu+mLw+SCbG
- 6GL4NAclFOHLNZ6bpIjDRg==
-X-Google-Smtp-Source: AMrXdXsbnWLocs9cJBrnQ0sJkMZX7KSKHILdb1IwjdJTuilsjNdiW3psm5xNI4+SRYShJnGsLC5OAg==
-X-Received: by 2002:a9d:69c4:0:b0:66e:a5db:c553 with SMTP id
- v4-20020a9d69c4000000b0066ea5dbc553mr35961709oto.19.1673274644592; 
- Mon, 09 Jan 2023 06:30:44 -0800 (PST)
+ bh=UE++8EdSaegTLJvzSEIrReUrSk6uUX3CF0ejl5VTJTI=;
+ b=Qoplc4yXu9swRBXtDeO+zfqmfKkrTdMW8L96GI87E2AIQX62vG6yz7I1VjZjacAeci
+ Et34pn4e4p7J7+80QLeB5zJsat9yEcGV6ZszdBCX5YRAaY22oiZtx1V/IqfER9z9hBXq
+ 0wmASWeCqaVQRG3fcc3c6NObQnWWIgvJxf5Ug/nw1yvBPVbf5W3nGl60FtJFDgDoVn1h
+ LxmB14cYiF3wPOKRmXW4Tj8wArGKayBcWOPChvuF5H4b0IPonraa46zoAtkRB+YqUK+K
+ pv7ykqRhK3384hYBsvQlTrVvx0NNJqQO/H9my1popjlY/UBe6KPOAez0Cwzr09RUeDrM
+ zCUw==
+X-Gm-Message-State: AFqh2kqFbnBqHnkCfCwcNWU6/ZDEds4ywvEpwwKv/lawC+G7Ygt7gpll
+ N2QLEAVta19mqYGQLMjV+A==
+X-Google-Smtp-Source: AMrXdXsMx6Hp7QO+rlvaMC7V61ifGq2ozMwS7h1TMz+wwTEzEqLkxvI56aVPEgKY0QSPaC7YYZhgzg==
+X-Received: by 2002:a05:6830:1da6:b0:670:a09e:c7d2 with SMTP id
+ z6-20020a0568301da600b00670a09ec7d2mr41532583oti.30.1673274641141; 
+ Mon, 09 Jan 2023 06:30:41 -0800 (PST)
 Received: from robh_at_kernel.org (66-90-144-107.dyn.grandenetworks.net.
  [66.90.144.107]) by smtp.gmail.com with ESMTPSA id
- b19-20020a9d6b93000000b0066ca61230casm4615429otq.8.2023.01.09.06.30.43
+ l21-20020a9d7a95000000b0067c87f23476sm4554359otn.57.2023.01.09.06.30.39
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 09 Jan 2023 06:30:43 -0800 (PST)
-Received: (nullmailer pid 237517 invoked by uid 1000);
+ Mon, 09 Jan 2023 06:30:39 -0800 (PST)
+Received: (nullmailer pid 237527 invoked by uid 1000);
  Mon, 09 Jan 2023 14:30:36 -0000
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
 From: Rob Herring <robh@kernel.org>
-To: Neil Armstrong <neil.armstrong@linaro.org>
-In-Reply-To: <20230103-topic-sm8550-upstream-mdss-dsi-v3-3-660c3bcb127f@linaro.org>
-References: <20230103-topic-sm8550-upstream-mdss-dsi-v3-0-660c3bcb127f@linaro.org>
- <20230103-topic-sm8550-upstream-mdss-dsi-v3-3-660c3bcb127f@linaro.org>
-Message-Id: <167327376817.61320.5444570222214850129.robh@kernel.org>
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+In-Reply-To: <20230109050152.316606-2-dmitry.baryshkov@linaro.org>
+References: <20230109050152.316606-1-dmitry.baryshkov@linaro.org>
+ <20230109050152.316606-2-dmitry.baryshkov@linaro.org>
+Message-Id: <167327380589.69610.9769499605356993935.robh@kernel.org>
 Date: Mon, 09 Jan 2023 08:30:36 -0600
-Subject: Re: [Freedreno] [PATCH v3 3/7] dt-bindings: display/msm: document
- MDSS on SM8550
+Subject: Re: [Freedreno] [PATCH v5 1/4] dt-bindings: display/msm: convert
+ MDP5 schema to YAML format
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,57 +65,50 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: devicetree@vger.kernel.org, Daniel Vetter <daniel@ffwll.ch>,
- Jonathan Marek <jonathan@marek.ca>, Sean Paul <sean@poorly.run>,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
- Rob Clark <robdclark@gmail.com>, Rob Herring <robh+dt@kernel.org>,
+Cc: freedreno@lists.freedesktop.org,
  Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- linux-arm-msm@vger.kernel.org, Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- David Airlie <airlied@gmail.com>, freedreno@lists.freedesktop.org
+ devicetree@vger.kernel.org, Sean Paul <sean@poorly.run>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, Rob Herring <robh+dt@kernel.org>,
+ Stephen Boyd <swboyd@chromium.org>, Konrad Dybcio <konrad.dybcio@linaro.org>,
+ Rob Clark <robdclark@gmail.com>, Andy Gross <agross@kernel.org>,
+ dri-devel@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>,
+ linux-arm-msm@vger.kernel.org, David Airlie <airlied@gmail.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 
-On Mon, 09 Jan 2023 11:15:19 +0100, Neil Armstrong wrote:
-> Document the MDSS hardware found on the Qualcomm SM8550 platform.
+On Mon, 09 Jan 2023 07:01:49 +0200, Dmitry Baryshkov wrote:
+> Convert the mdp5.txt into the yaml format. Changes to the existing (txt) schema:
+>  - MSM8996 has additional "iommu" clock, define it separately
+>  - Add new properties used on some of platforms:
+>    - interconnects, interconnect-names
+>    - iommus
+>    - power-domains
+>    - operating-points-v2, opp-table
 > 
-> Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-> Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 > ---
->  .../bindings/display/msm/qcom,sm8550-mdss.yaml     | 331 +++++++++++++++++++++
->  1 file changed, 331 insertions(+)
+>  .../devicetree/bindings/display/msm/mdp5.txt  | 132 -----------------
+>  .../bindings/display/msm/qcom,mdp5.yaml       | 138 ++++++++++++++++++
+>  2 files changed, 138 insertions(+), 132 deletions(-)
+>  delete mode 100644 Documentation/devicetree/bindings/display/msm/mdp5.txt
+>  create mode 100644 Documentation/devicetree/bindings/display/msm/qcom,mdp5.yaml
 > 
 
-My bot found errors running 'make DT_CHECKER_FLAGS=-m dt_binding_check'
-on your patch (DT_CHECKER_FLAGS is new in v5.13):
+Running 'make dtbs_check' with the schema in this patch gives the
+following warnings. Consider if they are expected or the schema is
+incorrect. These may not be new warnings.
 
-yamllint warnings/errors:
+Note that it is not yet a requirement to have 0 warnings for dtbs_check.
+This will change in the future.
 
-dtschema/dtc warnings/errors:
-Documentation/devicetree/bindings/display/msm/qcom,sm8550-mdss.example.dts:21:18: fatal error: dt-bindings/clock/qcom,sm8550-dispcc.h: No such file or directory
-   21 |         #include <dt-bindings/clock/qcom,sm8550-dispcc.h>
-      |                  ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-compilation terminated.
-make[1]: *** [scripts/Makefile.lib:434: Documentation/devicetree/bindings/display/msm/qcom,sm8550-mdss.example.dtb] Error 1
-make[1]: *** Waiting for unfinished jobs....
-make: *** [Makefile:1508: dt_binding_check] Error 2
+Full log is available here: https://patchwork.ozlabs.org/project/devicetree-bindings/patch/20230109050152.316606-2-dmitry.baryshkov@linaro.org
 
-doc reference errors (make refcheckdocs):
 
-See https://patchwork.ozlabs.org/project/devicetree-bindings/patch/20230103-topic-sm8550-upstream-mdss-dsi-v3-3-660c3bcb127f@linaro.org
+mdp@1a01000: compatible:0: 'qcom,mdp5' was expected
+	arch/arm64/boot/dts/qcom/sdm632-fairphone-fp3.dtb
 
-The base for the series is generally the latest rc1. A different dependency
-should be noted in *this* patch.
-
-If you already ran 'make dt_binding_check' and didn't see the above
-error(s), then make sure 'yamllint' is installed and dt-schema is up to
-date:
-
-pip3 install dtschema --upgrade
-
-Please check and re-submit after running the above command yourself. Note
-that DT_SCHEMA_FILES can be set to your schema file to speed up checking
-your schema. However, it must be unset to test all examples with your schema.
+mdp@1a01000: compatible: ['qcom,msm8953-mdp5', 'qcom,mdp5'] is too long
+	arch/arm64/boot/dts/qcom/sdm632-fairphone-fp3.dtb
 
