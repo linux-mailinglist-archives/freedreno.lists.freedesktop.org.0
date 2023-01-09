@@ -1,76 +1,68 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 22ACF663542
-	for <lists+freedreno@lfdr.de>; Tue, 10 Jan 2023 00:30:14 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 02139663549
+	for <lists+freedreno@lfdr.de>; Tue, 10 Jan 2023 00:30:16 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E82B710E0CF;
-	Mon,  9 Jan 2023 23:30:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 27F2A10E514;
+	Mon,  9 Jan 2023 23:30:14 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x12c.google.com (mail-lf1-x12c.google.com
- [IPv6:2a00:1450:4864:20::12c])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D0E6510E096;
- Mon,  9 Jan 2023 23:16:31 +0000 (UTC)
-Received: by mail-lf1-x12c.google.com with SMTP id y25so15529176lfa.9;
- Mon, 09 Jan 2023 15:16:31 -0800 (PST)
+Received: from mail-lf1-x134.google.com (mail-lf1-x134.google.com
+ [IPv6:2a00:1450:4864:20::134])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 40BC610E0E4;
+ Mon,  9 Jan 2023 23:16:18 +0000 (UTC)
+Received: by mail-lf1-x134.google.com with SMTP id m6so15504832lfj.11;
+ Mon, 09 Jan 2023 15:16:18 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=content-transfer-encoding:mime-version:date:message-id:subject
- :references:in-reply-to:to:from:from:to:cc:subject:date:message-id
- :reply-to; bh=Fcv1oFN64qJbUFhacrhJqgn8l/kgjLzAdWsUtFoBwMI=;
- b=nBdqaJGPr/nRqiCZKqfaB1HQdy85AAh1ZQqHWisT9yDwtkhoPZXkKF7qRcING1Gzup
- Uwwla3Pj8/L696BkpNLVsLz7x6fei2MZy2fzk1P0wvqBSVqvT5sYt4feMLxjjjmLVEpJ
- e13sfdL4Yg7pkuIDOQsGNRn4d0RLWivD8Y2vHOSAb02bJyq12Naag37tHw56u7SlphtW
- vG8BhN0CmrFdC7wiB6Jijei+yfRFNGaMVHH/Hy5Bso8hQjsoT1Ezxgc4VA1wJh/avvIO
- R8Qp6sw54FQBsCc9HJmLB8BNumhP/pcVSKefZUQ+AEWAMFhwKcGIV2kUxyNZ6WyT5k/r
- 1eug==
+ :references:in-reply-to:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=P2ILC0s/EAU+DV83P6Wz26LirhdaLi4CEI3lPCyUm7s=;
+ b=R5hdRClHSsFgrLu08jbXwr8RDUQz8uRVSgPGqGd/Q0bf3I7UMc/Bpq8489et9duwNv
+ fvhSTkvbyLzrCFCNmecmO3KYjH9BVN1mhlyGsfzZG5LxAvxkg/5OmW/uTwaGltlQxG79
+ XMQmP4QwHF+1dJbVzz+b/wvhWyA70LkTnjhdEB8Yi0Unxm74OtIXM8pkk62IxTQ2UGWF
+ CC9C8djPLnL5uBe2OXkqiBtYtW2qg5vsMwJu0u8GgqQsKHHeJFm4ebhcLL5GYtAfPghq
+ outVRhhrISh85kgdJ50lxP3uze/PJnhbmCTuNILAODeel+M5f2UkZIGkjl59Idxwqkg5
+ IUTg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=content-transfer-encoding:mime-version:date:message-id:subject
- :references:in-reply-to:to:from:x-gm-message-state:from:to:cc
+ :references:in-reply-to:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=Fcv1oFN64qJbUFhacrhJqgn8l/kgjLzAdWsUtFoBwMI=;
- b=Kq+8cbtrdW9ZBv0j/4Gi45S6V4qwGTm/clr5pZCZgnwRHmcRweJW/bX1KJrrTu4QUO
- jXzRJm7qQNhJsB1a/mH3lKYaRWnbNjKWDQgJa3Gi2WKfXKlrkpqj1EM+7rpyZU1mjwIr
- ZizvdqtS4FnUeVVuscfV89IYMqHf57Zt9h+bSq6IdK7FlfurFZBZF2aOgjdaXRpquxBO
- xMDLdtvFE3FPzwXl2abkpJL1ERn9Lxa9VwF/etbUaLH3Q/VBiS9wbDh47Y1R0VTSeXmP
- ssm3mynGas+4Ez3rjq/i4w5dQXHMgxUOCUi198MD0VKdfepc7Ye2RGwNOe0WmNPipvCZ
- AHoQ==
-X-Gm-Message-State: AFqh2kp67qA/879cYWBHaTulRsZ3lCXCyOAU/XAcH0AyEnD8F4JPiIQd
- xJYSRI62hNGpQDRIkmmgFq8=
-X-Google-Smtp-Source: AMrXdXtXMWbO88qPnq745Od9/2z5JfHQSbibEexSfpksdpgkjdwJBwliMQal1f7GVguXLEPln76qHQ==
-X-Received: by 2002:ac2:52ba:0:b0:4cb:445c:dc7d with SMTP id
- r26-20020ac252ba000000b004cb445cdc7dmr5998193lfm.26.1673306191279; 
- Mon, 09 Jan 2023 15:16:31 -0800 (PST)
+ bh=P2ILC0s/EAU+DV83P6Wz26LirhdaLi4CEI3lPCyUm7s=;
+ b=2Vm5vT2BrCi6VqMxC74iHFrWHZwXO89fzkZl6A2GLkn/g1tNlSuotMW78v2YBbj/kZ
+ Xbz9n0pxaidIQ1FJYXja51QlFgPnen5X/yw9Z/c2y9hfMGktfjs86qODEI36OIusz9dx
+ MeVwucwTBVp7sKj009KZpknKaELKgyN2gyY/Ie4ayHyDVb1saiV9tryyY8cN8Ixdf9Zc
+ 75HVmyA+cPJBlABfxkIaugcGHXLY1Xyyp6naieoVFUcn262rD1blXpIoRsPoA7cfCIwn
+ 3wO3p0Dcv3fRalooykpbq4oPPXKC2hv8xa1G2D+jiLO2dUVlLo+PNZO3ap0F/rOojKBL
+ T8Xw==
+X-Gm-Message-State: AFqh2kptAa5fmWdF2lLzdmPNod8GUrhd73qQQDIgLou/zsNX1BsXjcSe
+ 1aTgUGvZFT3uMHxYjFspJg4=
+X-Google-Smtp-Source: AMrXdXt+4HvEAapKTb53PbhYPGBm9J7HGYKBL4awae8GqqtQDzoGqThLIPrGSJ+EzVWhuzLjCrkZHA==
+X-Received: by 2002:a05:6512:2a8e:b0:4b6:e4b3:d82d with SMTP id
+ dt14-20020a0565122a8e00b004b6e4b3d82dmr17401516lfb.7.1673306176410; 
+ Mon, 09 Jan 2023 15:16:16 -0800 (PST)
 Received: from localhost (dzccz6yyyyyyyyyyybcwt-3.rev.dnainternet.fi.
  [2001:14ba:a085:4d00::8a5]) by smtp.gmail.com with ESMTPSA id
- br11-20020a056512400b00b0048a934168c0sm1831364lfb.35.2023.01.09.15.16.29
+ t18-20020a192d52000000b004cc66d4419asm1846562lft.39.2023.01.09.15.16.15
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 09 Jan 2023 15:16:30 -0800 (PST)
+ Mon, 09 Jan 2023 15:16:15 -0800 (PST)
 From: Dmitry Baryshkov <dbaryshkov@gmail.com>
 X-Google-Original-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-To: robdclark@gmail.com, quic_abhinavk@quicinc.com, sean@poorly.run,
- airlied@gmail.com, daniel@ffwll.ch, robh+dt@kernel.org,
- krzysztof.kozlowski+dt@linaro.org, agross@kernel.org, andersson@kernel.org,
- konrad.dybcio@somainline.org, quic_jesszhan@quicinc.com,
- angelogioacchino.delregno@somainline.org, loic.poulain@linaro.org,
- vkoul@kernel.org, a39.skl@gmail.com, quic_khsieh@quicinc.com,
- quic_vpolimer@quicinc.com, swboyd@chromium.org, dianders@chromium.org,
- liushixin2@huawei.com, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- Jonathan Marek <jonathan@marek.ca>, vinod.koul@linaro.org,
- Robert Foss <robert.foss@linaro.org>
-In-Reply-To: <20221230153554.105856-1-robert.foss@linaro.org>
-References: <20221230153554.105856-1-robert.foss@linaro.org>
-Message-Id: <167330408775.609993.7646803775858639381.b4-ty@linaro.org>
+To: linux-arm-msm@vger.kernel.org, andersson@kernel.org, agross@kernel.org,
+ krzysztof.kozlowski@linaro.org, Konrad Dybcio <konrad.dybcio@linaro.org>
+In-Reply-To: <20221229100511.979972-1-konrad.dybcio@linaro.org>
+References: <20221229100511.979972-1-konrad.dybcio@linaro.org>
+Message-Id: <167330408777.609993.10625838053126899594.b4-ty@linaro.org>
 Date: Tue, 10 Jan 2023 00:41:27 +0200
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
 X-Mailman-Approved-At: Mon, 09 Jan 2023 23:30:11 +0000
-Subject: Re: [Freedreno] [PATCH v4 00/11] Enable Display for SM8350
+Subject: Re: [Freedreno] [PATCH v2 1/3] dt-bindings: display/msm: Add SM8150
+ MDSS & DPU
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,33 +75,27 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
+Cc: Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ devicetree@vger.kernel.org, David Airlie <airlied@gmail.com>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Rob Clark <robdclark@gmail.com>,
+ Rob Herring <robh+dt@kernel.org>, Daniel Vetter <daniel@ffwll.ch>,
+ marijn.suijten@somainline.org, freedreno@lists.freedesktop.org,
+ Sean Paul <sean@poorly.run>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 
-On Fri, 30 Dec 2022 16:35:43 +0100, Robert Foss wrote:
-> Dependencies:
-> https://lore.kernel.org/all/20221102231309.583587-1-dmitry.baryshkov@linaro.org/
-> https://lore.kernel.org/all/20221024164225.3236654-1-dmitry.baryshkov@linaro.org/
-> https://lore.kernel.org/all/20221104130324.1024242-5-dmitry.baryshkov@linaro.org/
+On Thu, 29 Dec 2022 11:05:08 +0100, Konrad Dybcio wrote:
+> Add bindings for the display hardware on SM8150.
 > 
-> Branch:
-> https://git.linaro.org/people/robert.foss/linux.git/log/?h=sm8350_dsi_v4
 > 
-> [...]
 
 Applied, thanks!
 
-[01/11] dt-bindings: display: msm: Add qcom,sm8350-dpu binding
-        https://gitlab.freedesktop.org/lumag/msm/-/commit/7a0c3d0025de
-[02/11] dt-bindings: display: msm: Add qcom,sm8350-mdss binding
-        https://gitlab.freedesktop.org/lumag/msm/-/commit/ddcf30003b92
-[03/11] drm/msm/dpu: Add SM8350 to hw catalog
-        https://gitlab.freedesktop.org/lumag/msm/-/commit/0a72f23f6ef8
-[04/11] drm/msm/dpu: Add support for SM8350
-        https://gitlab.freedesktop.org/lumag/msm/-/commit/a596a6078586
-[05/11] drm/msm: Add support for SM8350
-        https://gitlab.freedesktop.org/lumag/msm/-/commit/3d6287e64cbd
+[1/3] dt-bindings: display/msm: Add SM8150 MDSS & DPU
+      https://gitlab.freedesktop.org/lumag/msm/-/commit/9ffbefc1553c
 
 Best regards,
 -- 
