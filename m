@@ -2,71 +2,68 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7F683663553
-	for <lists+freedreno@lfdr.de>; Tue, 10 Jan 2023 00:30:18 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B881466354C
+	for <lists+freedreno@lfdr.de>; Tue, 10 Jan 2023 00:30:16 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 27EBC10E524;
-	Mon,  9 Jan 2023 23:30:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 937D510E51C;
+	Mon,  9 Jan 2023 23:30:14 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x136.google.com (mail-lf1-x136.google.com
- [IPv6:2a00:1450:4864:20::136])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7DDCE10E0BB;
- Mon,  9 Jan 2023 23:16:09 +0000 (UTC)
-Received: by mail-lf1-x136.google.com with SMTP id g13so15531492lfv.7;
- Mon, 09 Jan 2023 15:16:09 -0800 (PST)
+Received: from mail-lf1-x12d.google.com (mail-lf1-x12d.google.com
+ [IPv6:2a00:1450:4864:20::12d])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A28F710E0D6;
+ Mon,  9 Jan 2023 23:16:22 +0000 (UTC)
+Received: by mail-lf1-x12d.google.com with SMTP id bu8so15527388lfb.4;
+ Mon, 09 Jan 2023 15:16:22 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=content-transfer-encoding:mime-version:date:message-id:subject
  :references:in-reply-to:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=qvBs6bEDKtP8wO7hsql6N2nN0eBA0Rd5yITdA/W0fD0=;
- b=G1y9r7t4uOCT+XdxQUuK+QFse1xo3Fgg68VHXsdMy7a3yMPp2VvWQi3dyyzq1lsMJE
- ycjOspEcV+5KAwycp/9gt/B0b/q9MsAR+6GHUdfrCIPsqo2y94XTY3b86kcKouCWILVy
- ig1Ec1VD/mqbY+PrPi4XaDUIDj0fG6ygmh+gROdhiVMMv0hYNO0NnoYLQo4kOpipTRn/
- knjLYn8tv5mBwf5l/EeNDAt45GAXJq+TK+G/r2bJB2H/Vq9AQwwt60GNjYdOBultHthj
- cjYKp/yGxh+4WoMCFoC7Gv8JWc19d997yq4cFjO+PbdHWzjWnbVIziX4apnyfLka3K7T
- g8jA==
+ bh=oUSIRNZZE79nkyMU9G9AqBIuhvo2pozCegvf/Srh544=;
+ b=e5vEgs1AJgdX8KOL3CKz7nrWRVPue1VdOQbOGTsXxqs0J1Ygz1ssgdEMVmvs/YirWX
+ LiwCOS72zz28SQ80nm3FhaRsPrW9Yd5eb53o+UvnMnlmxNknc7I3IV523jLxA7OWbGxa
+ 5M/T3fQP1Ms0UatoLVeCNBZW7a2C7C6BorIB+3xcb9lF/AMG4Lb5ZFWBRVm0CXtWeijb
+ b/nEic1A/Smb3ZMm5DUyYMpdMhAaY1wVGn0ZDqkyt0ibU12xoz7ESSapK8jCqfo+uaBL
+ kz+O7R4SHFgOmPjZJvU+XbEwNuSeyHQfR9kx8kx1JVYSfWFQbxYy6D90J1PIKz7lPoJJ
+ fwKQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=content-transfer-encoding:mime-version:date:message-id:subject
  :references:in-reply-to:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=qvBs6bEDKtP8wO7hsql6N2nN0eBA0Rd5yITdA/W0fD0=;
- b=VeifCNenx/ptGpbzEi1L3ekmuYSDuvQvjQ74A0bDP491gbThj0VFQQ6JWP0ALs98QY
- SooEd3nAHpVmhJQhHClEL2bjKvvVt3MGFvmxPsXRjvY87mAzk40OPNWnSZQ0VxwstMhJ
- mVqBgc3Gd0sQ4Kaq++mHX6pRcGVQjp83dIJ8g/iDwhlewdl09/16Re/gYanlG1VpIk4m
- c3uYpnHCusB5Rg0vd1oFYCaoNS6jUPzFu5u4HwfHLpbXq4rFkQpnQku/WX+PqL/dxJM2
- 2vKnlbfkRNhhyf6shVUH2Ap+EEfjHetTQGirFo+tsNgYrIpj63x4w3/GLGCtGnKKiS7a
- LcrQ==
-X-Gm-Message-State: AFqh2ko6UVb0uWOYhRKKBjOGyNqCePMFA2F+qraDWDS1FafZRe2sHFtS
- b8cWRDaBazcsEXjwnEzTjyY=
-X-Google-Smtp-Source: AMrXdXvOHAyy+z2Kd3L2Xj5tL7nzBB++EQoQPSpNA3MZ4zv9ECLiz2BDQH1aR1LezSkl6ePebDCh8g==
-X-Received: by 2002:a05:6512:2a96:b0:4aa:8811:4c59 with SMTP id
- dt22-20020a0565122a9600b004aa88114c59mr18254342lfb.28.1673306167695; 
- Mon, 09 Jan 2023 15:16:07 -0800 (PST)
+ bh=oUSIRNZZE79nkyMU9G9AqBIuhvo2pozCegvf/Srh544=;
+ b=0iJ3LQteb7i06y7xTQVtHdrl4MydnxQSlPKA5qVooDOLdjdXwPvucxpUWgrxq8iBpx
+ apc3kmxO0ut2fp7acDR4ScKvn1xJbeLPq0UgJakVhJ9Syvq/mu89DrqfokaMrfHumnFw
+ o+AhdcNoKqFo0jD9iMtofmK7gvoHLADHG16ZePy6u7kBQxsuOTjmPV/TmJsQdH5cwR4/
+ vBuxOQNP7/XNiExylnj4wEaXFnALNAUy/em3dDn8jniD9dmsucWwckNBsnAC8XDCzhmZ
+ h4ioc1+pMWtN51M+tELI0OL+D/u0zaM/iMgIgtNWmulFjIdRpWFz949jnP2go9pBdzjP
+ CNow==
+X-Gm-Message-State: AFqh2kqlfwempPwo+EAEzl7YFYnsY4PJ/ZdIECzeyW5JE1Tc8RR7PAvu
+ GJC/duSvbL7y9sAsoaerrgU=
+X-Google-Smtp-Source: AMrXdXtYdkRxLWFDDMg2agf6WmqCxIDsX34LBmbp8EzWMeALY//PoXn597+tUcIDHgQlLj4GX221iQ==
+X-Received: by 2002:a05:6512:694:b0:4cb:436b:a70f with SMTP id
+ t20-20020a056512069400b004cb436ba70fmr7100128lfe.64.1673306182070; 
+ Mon, 09 Jan 2023 15:16:22 -0800 (PST)
 Received: from localhost (dzccz6yyyyyyyyyyybcwt-3.rev.dnainternet.fi.
  [2001:14ba:a085:4d00::8a5]) by smtp.gmail.com with ESMTPSA id
- r12-20020ac252ac000000b004aab0ca795csm1835413lfm.211.2023.01.09.15.16.06
+ g12-20020a0565123b8c00b004aa543f3748sm1822460lfv.130.2023.01.09.15.16.19
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 09 Jan 2023 15:16:06 -0800 (PST)
+ Mon, 09 Jan 2023 15:16:21 -0800 (PST)
 From: Dmitry Baryshkov <dbaryshkov@gmail.com>
 X-Google-Original-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-To: Andy Gross <agross@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konrad.dybcio@linaro.org>, Rob Clark <robdclark@gmail.com>,
- Sean Paul <sean@poorly.run>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Rob Herring <robh+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-In-Reply-To: <20230109054407.330839-1-dmitry.baryshkov@linaro.org>
-References: <20230109054407.330839-1-dmitry.baryshkov@linaro.org>
-Message-Id: <167330408776.609993.2562174494126788375.b4-ty@linaro.org>
+To: phone-devel@vger.kernel.org, Rob Clark <robdclark@gmail.com>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, Vinod Koul <vkoul@kernel.org>,
+ Marijn Suijten <marijn.suijten@somainline.org>
+In-Reply-To: <20221221231943.1961117-1-marijn.suijten@somainline.org>
+References: <20221221231943.1961117-1-marijn.suijten@somainline.org>
+Message-Id: <167330408773.609993.1753222329751720759.b4-ty@linaro.org>
 Date: Tue, 10 Jan 2023 00:41:27 +0200
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
 X-Mailman-Approved-At: Mon, 09 Jan 2023 23:30:11 +0000
-Subject: Re: [Freedreno] [PATCH] dt-bindings: display/msm: gpu: add rbcpr
- clock
+Subject: Re: [Freedreno] [PATCH v2 0/8] drm/msm: DSC Electric Boogaloo for
+ sm8[12]50
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,24 +76,55 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, Stephen Boyd <swboyd@chromium.org>,
- Daniel Vetter <daniel@ffwll.ch>, freedreno@lists.freedesktop.org,
- David Airlie <airlied@gmail.com>
+Cc: Konrad Dybcio <konrad.dybcio@somainline.org>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@somainline.org>,
+ Vinod Polimera <quic_vpolimer@quicinc.com>, Sam Ravnborg <sam@ravnborg.org>,
+ =?UTF-8?B?VmlsbGUgU3lyasOkbMOk?= <ville.syrjala@linux.intel.com>,
+ Haowen Bai <baihaowen@meizu.com>, David Airlie <airlied@gmail.com>,
+ Kuogee Hsieh <quic_khsieh@quicinc.com>,
+ Jessica Zhang <quic_jesszhan@quicinc.com>, Jani Nikula <jani.nikula@intel.com>,
+ linux-arm-msm@vger.kernel.org, Stephen Boyd <swboyd@chromium.org>,
+ Martin Botka <martin.botka@somainline.org>,
+ ~postmarketos/upstreaming@lists.sr.ht, Sean Paul <sean@poorly.run>,
+ Loic Poulain <loic.poulain@linaro.org>,
+ Jami Kettunen <jami.kettunen@somainline.org>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Vladimir Lypak <vladimir.lypak@gmail.com>,
+ Douglas Anderson <dianders@chromium.org>,
+ Konrad Dybcio <konrad.dybcio@linaro.org>, sunliming <sunliming@kylinos.cn>,
+ Daniel Vetter <daniel@ffwll.ch>, freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 
-On Mon, 09 Jan 2023 07:44:07 +0200, Dmitry Baryshkov wrote:
-> Describe the RBCPR clock used on msm8996 (A530), MSM8998 (A540) and
-> SDM630/660 (A508/A512).
+On Thu, 22 Dec 2022 00:19:35 +0100, Marijn Suijten wrote:
+> This preliminary Display Stream Compression support package for
+> (initially tested on) sm8[12]50 is based on comparing DSC behaviour
+> between downstream and mainline.  Some new callbacks are added (for
+> binding blocks on active CTLs), logic bugs are corrected, zeroed struct
+> members are now assigned proper values, and RM allocation and hw block
+> retrieval now hand out (or not) DSC blocks without causing null-pointer
+> dereferences.
 > 
-> 
+> [...]
 
 Applied, thanks!
 
-[1/1] dt-bindings: display/msm: gpu: add rbcpr clock
-      https://gitlab.freedesktop.org/lumag/msm/-/commit/9bf1e33f9ca8
+[1/8] drm/msm/dpu: Wire up DSC mask for active CTL configuration
+      https://gitlab.freedesktop.org/lumag/msm/-/commit/c2d2c62da1fc
+[2/8] drm/msm/dsi: Use DSC slice(s) packet size to compute word count
+      https://gitlab.freedesktop.org/lumag/msm/-/commit/bbd1bccdcf4e
+[3/8] drm/msm/dsi: Flip greater-than check for slice_count and slice_per_intf
+      https://gitlab.freedesktop.org/lumag/msm/-/commit/85b5a40991dd
+[5/8] drm/msm/dpu: Reject topologies for which no DSC blocks are available
+      https://gitlab.freedesktop.org/lumag/msm/-/commit/f52b965c9434
+[6/8] drm/msm/dpu: Remove num_enc from topology struct in favour of num_dsc
+      https://gitlab.freedesktop.org/lumag/msm/-/commit/9ce765395f41
+[7/8] drm/msm/dpu: Implement DSC binding to PP block for CTL V1
+      https://gitlab.freedesktop.org/lumag/msm/-/commit/086116ae1410
+[8/8] drm/msm/dpu: Add DSC configuration for SM8150 and SM8250
+      https://gitlab.freedesktop.org/lumag/msm/-/commit/8cc4c9de15f4
 
 Best regards,
 -- 
