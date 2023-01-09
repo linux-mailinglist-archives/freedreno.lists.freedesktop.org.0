@@ -1,64 +1,67 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7958E66354B
-	for <lists+freedreno@lfdr.de>; Tue, 10 Jan 2023 00:30:16 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 538D0663552
+	for <lists+freedreno@lfdr.de>; Tue, 10 Jan 2023 00:30:18 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 87D3210E51B;
-	Mon,  9 Jan 2023 23:30:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1393E10E523;
+	Mon,  9 Jan 2023 23:30:15 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-X-Greylist: delayed 843 seconds by postgrey-1.36 at gabe;
- Mon, 09 Jan 2023 08:34:51 UTC
-Received: from lelv0142.ext.ti.com (lelv0142.ext.ti.com [198.47.23.249])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 632A510E294;
- Mon,  9 Jan 2023 08:34:51 +0000 (UTC)
-Received: from lelv0266.itg.ti.com ([10.180.67.225])
- by lelv0142.ext.ti.com (8.15.2/8.15.2) with ESMTP id 3098KEbE005525;
- Mon, 9 Jan 2023 02:20:14 -0600
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com;
- s=ti-com-17Q1; t=1673252414;
- bh=98nckAPo1vAa2VGOJss+hU8H+5NzLRli7Jdtq00XhZY=;
- h=Date:Subject:To:CC:References:From:In-Reply-To;
- b=q0acF1k/8t89ewEtD4TmAH1DhJ+uNyOhwCC3+3eOs+XyUeNukbiDcI8P+4TB3IKG9
- kN+m4dRTxa+/HdnA0A8x4rThnpkpg+UzXS17O8eJhMS4IB9ho2Yy+SBsGOXBjdqpqG
- WeMWjxNXqxjpBNgiV5d0bmOxQwlDIHaWbklT05L4=
-Received: from DLEE115.ent.ti.com (dlee115.ent.ti.com [157.170.170.26])
- by lelv0266.itg.ti.com (8.15.2/8.15.2) with ESMTPS id 3098KE8X123160
- (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=FAIL);
- Mon, 9 Jan 2023 02:20:14 -0600
-Received: from DLEE110.ent.ti.com (157.170.170.21) by DLEE115.ent.ti.com
- (157.170.170.26) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.2507.16; Mon, 9
- Jan 2023 02:20:13 -0600
-Received: from lelv0326.itg.ti.com (10.180.67.84) by DLEE110.ent.ti.com
- (157.170.170.21) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.2507.16 via
- Frontend Transport; Mon, 9 Jan 2023 02:20:13 -0600
-Received: from [10.24.69.26] (ileaxei01-snat.itg.ti.com [10.180.69.5])
- by lelv0326.itg.ti.com (8.15.2/8.15.2) with ESMTP id 3098K8s1022473;
- Mon, 9 Jan 2023 02:20:09 -0600
-Message-ID: <f7bf366a-dc32-47a2-79fc-c6f7f1f93ab7@ti.com>
-Date: Mon, 9 Jan 2023 13:50:08 +0530
+Received: from mail-lf1-x12c.google.com (mail-lf1-x12c.google.com
+ [IPv6:2a00:1450:4864:20::12c])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F066410E0BB;
+ Mon,  9 Jan 2023 23:16:07 +0000 (UTC)
+Received: by mail-lf1-x12c.google.com with SMTP id j17so15535439lfr.3;
+ Mon, 09 Jan 2023 15:16:07 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=content-transfer-encoding:mime-version:date:message-id:subject
+ :references:in-reply-to:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=TQwDBfqkurhgjNXU0QKC0PjFG76vM9b8TjKB0PaMvXw=;
+ b=SqMxWZDzvqcnd4VsGn02ROGADSumLx9BSN8MB31bs3DrTrebdrbk649dIlJYjdQVYI
+ Jyit7fGBQBIlayPVkbESvPA5uj2HvBlWpIXz/QLbJaBMJHyk/gqUvz8txxloW3/kg/h4
+ 8fKFPj/dF5RTTeQUIg3DdaB1Lykoi623x65aXh+oxADVw1V2VLeTyO3F0EsK1OAEpRJ4
+ n//iygvdu0aDZMi6Vwz2oguE6dgJY+85pwWO278pxCRVFL97CcTJQWU9+JL5qi3wyYZN
+ 0QKPRAvwdjkjlglmNCrgQBlGzC4DPggg0NdqqAF2aeYDXgPv05Ztfe7nzrLdWkjmD0Im
+ uyNQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=content-transfer-encoding:mime-version:date:message-id:subject
+ :references:in-reply-to:cc:to:from:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=TQwDBfqkurhgjNXU0QKC0PjFG76vM9b8TjKB0PaMvXw=;
+ b=DQYxhyWbFtq1LjKzS9XvyaHAhxj4yj2lGMRrZfiyrjy/ikEPZGjnCPKEM4qJDxNToP
+ KSArvY5iMKA3FiJ9g/lgV/xlJ+Zkx0UIaibjKpDMDlt8ItOZ/b+pmczz3RE1RWIFBsNB
+ tYIEwQ6IsOuWrsS73grpZf4LceJt7TWzsUAm6AEkb7Tx6Kk1DbL/SZy7BA9YheLxhPvI
+ QvARaOxlh4xvQJcjXnMHnx+4vi7JYgZxWQCEassuAZ570HbROjm3pxJU00amFbSHDyzy
+ eP/tTdzS3363o8kvtkCStvldOSdXv13i7n2fFCeCJy/qCzlcZ2OjaOPAF0QPBYXGh+Cd
+ rAvA==
+X-Gm-Message-State: AFqh2kpaWNbs81CNVE+PAK8AhvXEbpNC32TIb2vo0P1zrP0IvH46QvVN
+ GFtVkRoBRqUIJ3VVafD5ad0=
+X-Google-Smtp-Source: AMrXdXsxlo89Tk1v8oWLh9mQW/RBULg2GePp3d7816B4+khN0j3h8rEZ3+fD5AU+CLlRhohD3mhCXQ==
+X-Received: by 2002:a05:6512:c03:b0:4b5:a4ef:fca3 with SMTP id
+ z3-20020a0565120c0300b004b5a4effca3mr21624685lfu.38.1673306166159; 
+ Mon, 09 Jan 2023 15:16:06 -0800 (PST)
+Received: from localhost (dzccz6yyyyyyyyyyybcwt-3.rev.dnainternet.fi.
+ [2001:14ba:a085:4d00::8a5]) by smtp.gmail.com with ESMTPSA id
+ s6-20020ac25fe6000000b004b50b4f63b7sm1814075lfg.170.2023.01.09.15.16.05
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 09 Jan 2023 15:16:05 -0800 (PST)
+From: Dmitry Baryshkov <dbaryshkov@gmail.com>
+X-Google-Original-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+To: Adam Skladowski <a39.skl@gmail.com>
+In-Reply-To: <20221231170532.77000-1-a39.skl@gmail.com>
+References: <20221231170532.77000-1-a39.skl@gmail.com>
+Message-Id: <167330408780.609993.10652879591606544377.b4-ty@linaro.org>
+Date: Tue, 10 Jan 2023 00:41:27 +0200
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.4.2
-To: Jiasheng Jiang <jiasheng@iscas.ac.cn>, <dmitry.baryshkov@linaro.org>,
- <robdclark@gmail.com>, <quic_abhinavk@quicinc.com>, <sean@poorly.run>,
- <airlied@gmail.com>, <daniel@ffwll.ch>,
- <marijn.suijten@somainline.org>, <vkoul@kernel.org>,
- <dianders@chromium.org>, <marex@denx.de>, <vladimir.lypak@gmail.com>
-References: <20230109025044.27766-1-jiasheng@iscas.ac.cn>
-Content-Language: en-US
-From: Dhruva Gole <d-gole@ti.com>
-In-Reply-To: <20230109025044.27766-1-jiasheng@iscas.ac.cn>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-EXCLAIMER-MD-CONFIG: e1e8a2fd-e40a-4ac6-ac9b-f7e9cc9ee180
 X-Mailman-Approved-At: Mon, 09 Jan 2023 23:30:11 +0000
-Subject: Re: [Freedreno] [PATCH v2] drm/msm/dsi: Add missing check for
- alloc_ordered_workqueue
+Subject: Re: [Freedreno] [PATCH] dt-bindings: msm: dsi-phy-28nm: Document
+ fam-b compatible
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,130 +74,30 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org
+Cc: freedreno@lists.freedesktop.org,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ devicetree@vger.kernel.org, Sean Paul <sean@poorly.run>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Rob Clark <robdclark@gmail.com>,
+ Rob Herring <robh+dt@kernel.org>,
+ Krishna Manikandan <quic_mkrishn@quicinc.com>,
+ ~postmarketos/upstreaming@lists.sr.ht, Daniel Vetter <daniel@ffwll.ch>,
+ linux-arm-msm@vger.kernel.org, phone-devel@vger.kernel.org,
+ David Airlie <airlied@gmail.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 
-
-On 09/01/23 08:20, Jiasheng Jiang wrote:
-> Add check for the return value of alloc_ordered_workqueue as it may return
-> NULL pointer and cause NULL pointer dereference.
-> Moreover, change the "goto fail" into "return ret" and drop the "fail"
-> label since they are the same.
+On Sat, 31 Dec 2022 18:05:32 +0100, Adam Skladowski wrote:
+> Document omitted 28nm compatible which will be used on MSM8976 SoC.
 > 
-> Signed-off-by: Jiasheng Jiang <jiasheng@iscas.ac.cn>
-> ---
-
-Reviewed-by: Dhruva Gole <d-gole@ti.com>
-
-> Changelog:
 > 
-> v1 -> v2:
-> 
-> 1. Change the "goto fail" into "return ret" and drop the "fail" label.
-> ---
->   drivers/gpu/drm/msm/dsi/dsi_host.c | 24 +++++++++++++-----------
->   1 file changed, 13 insertions(+), 11 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/msm/dsi/dsi_host.c b/drivers/gpu/drm/msm/dsi/dsi_host.c
-> index 89aadd3b3202..819f5be5fd77 100644
-> --- a/drivers/gpu/drm/msm/dsi/dsi_host.c
-> +++ b/drivers/gpu/drm/msm/dsi/dsi_host.c
-> @@ -1884,7 +1884,7 @@ int msm_dsi_host_init(struct msm_dsi *msm_dsi)
->   	msm_host = devm_kzalloc(&pdev->dev, sizeof(*msm_host), GFP_KERNEL);
->   	if (!msm_host) {
->   		ret = -ENOMEM;
-> -		goto fail;
-> +		return ret;
->   	}
->   
->   	msm_host->pdev = pdev;
-> @@ -1893,14 +1893,14 @@ int msm_dsi_host_init(struct msm_dsi *msm_dsi)
->   	ret = dsi_host_parse_dt(msm_host);
->   	if (ret) {
->   		pr_err("%s: failed to parse dt\n", __func__);
-> -		goto fail;
-> +		return ret;
->   	}
->   
->   	msm_host->ctrl_base = msm_ioremap_size(pdev, "dsi_ctrl", &msm_host->ctrl_size);
->   	if (IS_ERR(msm_host->ctrl_base)) {
->   		pr_err("%s: unable to map Dsi ctrl base\n", __func__);
->   		ret = PTR_ERR(msm_host->ctrl_base);
-> -		goto fail;
-> +		return ret;
->   	}
->   
->   	pm_runtime_enable(&pdev->dev);
-> @@ -1909,7 +1909,7 @@ int msm_dsi_host_init(struct msm_dsi *msm_dsi)
->   	if (!msm_host->cfg_hnd) {
->   		ret = -EINVAL;
->   		pr_err("%s: get config failed\n", __func__);
-> -		goto fail;
-> +		return ret;
->   	}
->   	cfg = msm_host->cfg_hnd->cfg;
->   
-> @@ -1917,7 +1917,7 @@ int msm_dsi_host_init(struct msm_dsi *msm_dsi)
->   	if (msm_host->id < 0) {
->   		ret = msm_host->id;
->   		pr_err("%s: unable to identify DSI host index\n", __func__);
-> -		goto fail;
-> +		return ret;
->   	}
->   
->   	/* fixup base address by io offset */
-> @@ -1927,19 +1927,19 @@ int msm_dsi_host_init(struct msm_dsi *msm_dsi)
->   					    cfg->regulator_data,
->   					    &msm_host->supplies);
->   	if (ret)
-> -		goto fail;
-> +		return ret;
->   
->   	ret = dsi_clk_init(msm_host);
->   	if (ret) {
->   		pr_err("%s: unable to initialize dsi clks\n", __func__);
-> -		goto fail;
-> +		return ret;
->   	}
->   
->   	msm_host->rx_buf = devm_kzalloc(&pdev->dev, SZ_4K, GFP_KERNEL);
->   	if (!msm_host->rx_buf) {
->   		ret = -ENOMEM;
->   		pr_err("%s: alloc rx temp buf failed\n", __func__);
-> -		goto fail;
-> +		return ret;
->   	}
->   
->   	ret = devm_pm_opp_set_clkname(&pdev->dev, "byte");
-> @@ -1977,15 +1977,17 @@ int msm_dsi_host_init(struct msm_dsi *msm_dsi)
->   
->   	/* setup workqueue */
->   	msm_host->workqueue = alloc_ordered_workqueue("dsi_drm_work", 0);
-> +	if (!msm_host->workqueue) {
-> +		ret = -ENOMEM;
-> +		return ret;
 
-Why not simply return -ENOMEM;
-instead?
+Applied, thanks!
 
-> +	}
-> +
->   	INIT_WORK(&msm_host->err_work, dsi_err_worker);
->   
->   	msm_dsi->id = msm_host->id;
->   
->   	DBG("Dsi Host %d initialized", msm_host->id);
->   	return 0;
-> -
-> -fail:
-> -	return ret;
->   }
->   
->   void msm_dsi_host_destroy(struct mipi_dsi_host *host)
+[1/1] dt-bindings: msm: dsi-phy-28nm: Document fam-b compatible
+      https://gitlab.freedesktop.org/lumag/msm/-/commit/852f489b36aa
 
+Best regards,
 -- 
-Thanks and Regards,
-Dhruva Gole
+Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
