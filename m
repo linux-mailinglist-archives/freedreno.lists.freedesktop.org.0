@@ -2,67 +2,66 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5267E663546
+	by mail.lfdr.de (Postfix) with ESMTPS id C7B32663548
 	for <lists+freedreno@lfdr.de>; Tue, 10 Jan 2023 00:30:15 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 80CDE10E47E;
+	by gabe.freedesktop.org (Postfix) with ESMTP id CBC2110E513;
 	Mon,  9 Jan 2023 23:30:13 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x12b.google.com (mail-lf1-x12b.google.com
- [IPv6:2a00:1450:4864:20::12b])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A534B10E0CF;
- Mon,  9 Jan 2023 23:16:16 +0000 (UTC)
-Received: by mail-lf1-x12b.google.com with SMTP id bt23so15494042lfb.5;
- Mon, 09 Jan 2023 15:16:16 -0800 (PST)
+Received: from mail-lf1-x12c.google.com (mail-lf1-x12c.google.com
+ [IPv6:2a00:1450:4864:20::12c])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5F54810E0CF;
+ Mon,  9 Jan 2023 23:16:21 +0000 (UTC)
+Received: by mail-lf1-x12c.google.com with SMTP id y25so15528547lfa.9;
+ Mon, 09 Jan 2023 15:16:21 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=content-transfer-encoding:mime-version:date:message-id:subject
  :references:in-reply-to:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=CRAyi2n2FSarDTatQAHom6gbymd5CATd4MjDLdYU+WQ=;
- b=b4Uv+CXMXlZtwqrSfCLoi378tjvHb4etfrlxpdyXiDHBq7dB/wgK/wFs2oFjtEpZel
- 2uMQIPeZHEicJmOV5pgaZMFP+j+G8HG1c4VW34jTAe5Woj80MxYYnZjTY46Sfn5dnoLU
- TfAts+Yt8I5Xje7dHjt7FbXC49EfH6ifC3otMRvAV5BJyeyEYZnp4H20bJtWyVTkM8+u
- Zbg+o3NNTTyU7OLYnwncMsNfHiKrTnJeOlhGuiz9PctdldrTlfacprZgTKAkhjyHkbM9
- aCir3j8BceK1rPwaamM2iE8F1/vCx+xKyQGtRYcCAeq0cXbG6rx2qR3u/fdxp3jDg/tk
- oTOA==
+ bh=kpASIlrn94h2kw47h1c03X9cqh5FWCX9FeHma7sBwdI=;
+ b=OddwY0fZ5A3JB6m4rY6uFid0LFESPpUOayVuoldTW73tVR7xTvqwzsKsMlBAhppa2K
+ 3JIAQSrlK7QcSTSSpLzEXa6XGmlpAE0sbMKqsRkEnEmQpZv4NYNdrq97WlLhg1zYr0KC
+ nXQkvyhSFtFD+HabUcSL3soa36aQ32GdOgAwZtFn/ZxQR4TOdvdSxTGGIyBXYWXQbYO2
+ vOAKxQmlxVRjoWwbBMnGfTQhS1rkdWoZDGYAo6uclgM+IoSSQZlw4m0HPXciDTgtsh/X
+ hDJhhe5MLSujIH3UFLGqmd3JrPU0F9cAqDCZd/ojQPnn4rEu4eWr9DFv900duiOUwfnx
+ oWqQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=content-transfer-encoding:mime-version:date:message-id:subject
  :references:in-reply-to:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=CRAyi2n2FSarDTatQAHom6gbymd5CATd4MjDLdYU+WQ=;
- b=Qn3jOv0vnu6Cl3TYDc+0Zs32xFQlqMztrr8GQSZvY5MM95zMoDcayh8yro5OTmQrmD
- wO5yfckIg2kyyJvkubrRTiNDov0MQ/kuW+p6DMFuwJ/tJBr7H9gxPOJAiq+sc5mK4nSs
- xdw+ISS35/8HHNbSi5bb5nGUJ4bBcHodCyr4yBvM/fUv52K00CAFu9+oB4qa1Dq1RcT7
- IwwVKy21m1e3FlA6xlyY1gpRwc0J2nh08xQpMEC+2/DTdKlPyQQQ2Bc0/e+OIAzXKtZn
- TThm1wBmj+45IwbWMxMOlP+dpC/YbC8JtCF/4h7E3Nb1cMbPLHZtbmle8HMjnfzDiuuq
- rUqg==
-X-Gm-Message-State: AFqh2ko2N9ILoDoj0ViIA6JA75NkjyxenXfd5tmtz0vMlfp+3+30vFt3
- M2yLmhIEQsUeEvNWeKZRt20=
-X-Google-Smtp-Source: AMrXdXtIwEE5Za8GXe9lgmkNcC7x8cBRABMaPprXpAMFBHNbva3FqyXnd7ZAu+nw15tNw/d530/K9w==
-X-Received: by 2002:ac2:43a4:0:b0:4cb:3a60:65cb with SMTP id
- t4-20020ac243a4000000b004cb3a6065cbmr6861205lfl.6.1673306174920; 
- Mon, 09 Jan 2023 15:16:14 -0800 (PST)
+ bh=kpASIlrn94h2kw47h1c03X9cqh5FWCX9FeHma7sBwdI=;
+ b=tmyXl2hYfbYy995L7AsBtzHK/Tamvyh9x9Sr8XCSPLVARHOdX9FRbCqApqlYngf1L9
+ OkYTxNILgFzGCHHf0KZ2b/yL4M7KJbOjY6qoMwxfBS1ZyOushtnFPgulpPY/HeNdSjvf
+ kCWKdkns/lo4Fp5k9dLYz6sTe9yjK6pgDtb6lIzgf69bx3xd171GqJOR/cb3MZHYYkT3
+ 7Ttsm3s6uYMES24sK/Bacs/GlgWi8v193OXsGwSMQt6Eg6+lajvbijS4GmcQ+4LyJdQh
+ 8JH3gAglj0adKibcjPQNj5zjGjsNyi9PavX4VGfZyKkbhfCXcNk3ULM8b6KeqfYUBzw1
+ u6VA==
+X-Gm-Message-State: AFqh2kq5kEwYFfyyi0bSWGY+o/EhniLIjcqebrxcqDd2wiIRWOYVXruo
+ zUrWo4BNxwKxU8g4MZNMIL8=
+X-Google-Smtp-Source: AMrXdXu5ikj2pAGUB/brE8c1ApXc5qFSMTIK3z7H9KCdu4bmAuUGQkMHt4a6xrXKgb5sLMG4R/alPA==
+X-Received: by 2002:a05:6512:e82:b0:4be:a3c8:dc5 with SMTP id
+ bi2-20020a0565120e8200b004bea3c80dc5mr18607851lfb.22.1673306179533; 
+ Mon, 09 Jan 2023 15:16:19 -0800 (PST)
 Received: from localhost (dzccz6yyyyyyyyyyybcwt-3.rev.dnainternet.fi.
  [2001:14ba:a085:4d00::8a5]) by smtp.gmail.com with ESMTPSA id
- a18-20020a056512201200b004cc59b46f74sm1819042lfb.106.2023.01.09.15.16.13
+ s6-20020a056512214600b004aa255e2e66sm1823097lfr.241.2023.01.09.15.16.18
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 09 Jan 2023 15:16:14 -0800 (PST)
+ Mon, 09 Jan 2023 15:16:18 -0800 (PST)
 From: Dmitry Baryshkov <dbaryshkov@gmail.com>
 X-Google-Original-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-To: linux-arm-msm@vger.kernel.org, andersson@kernel.org, agross@kernel.org,
- Konrad Dybcio <konrad.dybcio@linaro.org>
-In-Reply-To: <20221107103739.8993-1-konrad.dybcio@linaro.org>
-References: <20221107103739.8993-1-konrad.dybcio@linaro.org>
-Message-Id: <167330408784.609993.15717302243167908042.b4-ty@linaro.org>
+To: phone-devel@vger.kernel.org, Marijn Suijten <marijn.suijten@somainline.org>
+In-Reply-To: <20221121222456.437815-1-marijn.suijten@somainline.org>
+References: <20221121222456.437815-1-marijn.suijten@somainline.org>
+Message-Id: <167330408782.609993.3753799611578677856.b4-ty@linaro.org>
 Date: Tue, 10 Jan 2023 00:41:27 +0200
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
 X-Mailman-Approved-At: Mon, 09 Jan 2023 23:30:11 +0000
-Subject: Re: [Freedreno] [PATCH] drm/msm/dpu1: Remove INTF4 IRQ from SDM845
- IRQ mask
+Subject: Re: [Freedreno] [PATCH] drm/msm/dpu: Print interrupt index in
+ addition to the mask
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,27 +74,36 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Kalyan Thota <quic_kalyant@quicinc.com>, freedreno@lists.freedesktop.org,
- Loic Poulain <loic.poulain@linaro.org>, patches@linaro.org,
- David Airlie <airlied@gmail.com>, Konrad Dybcio <konrad.dybcio@somainline.org>,
+Cc: Vinod Koul <vkoul@kernel.org>, linux-kernel@vger.kernel.org,
+ Jami Kettunen <jami.kettunen@somainline.org>, David Airlie <airlied@gmail.com>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konrad.dybcio@somainline.org>,
  Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Rob Clark <robdclark@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>,
+ Stephen Boyd <swboyd@chromium.org>, freedreno@lists.freedesktop.org,
+ Rob Clark <robdclark@gmail.com>, Martin Botka <martin.botka@somainline.org>,
+ ~postmarketos/upstreaming@lists.sr.ht, Daniel Vetter <daniel@ffwll.ch>,
  AngeloGioacchino Del Regno <angelogioacchino.delregno@somainline.org>,
- Sean Paul <sean@poorly.run>
+ Vinod Polimera <quic_vpolimer@quicinc.com>, Sean Paul <sean@poorly.run>,
+ linux-arm-msm@vger.kernel.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 
-On Mon, 07 Nov 2022 11:37:36 +0100, Konrad Dybcio wrote:
-> SDM845 only has INTF0-3 and has no business caring about the INTF4 irq.
+On Mon, 21 Nov 2022 23:24:55 +0100, Marijn Suijten wrote:
+> The mask only describes the `irq_idx % 32` part, making it generally
+> impossible to deduce what interrupt is being enabled/disabled.  Since
+> `debug/core_irq` in debugfs (and other prints) also include the full
+> `DPU_IRQ_IDX()` value, print the same full value here for easier
+> correlation instead of only adding the `irq_idx / 32` part.
 > 
+> Furthermore, make the dbgstr messages more consistent.
 > 
+> [...]
 
 Applied, thanks!
 
-[1/1] drm/msm/dpu1: Remove INTF4 IRQ from SDM845 IRQ mask
-      https://gitlab.freedesktop.org/lumag/msm/-/commit/a685d27f2201
+[1/1] drm/msm/dpu: Print interrupt index in addition to the mask
+      https://gitlab.freedesktop.org/lumag/msm/-/commit/d45e5744ab39
 
 Best regards,
 -- 
