@@ -2,71 +2,69 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id CC8FA663136
-	for <lists+freedreno@lfdr.de>; Mon,  9 Jan 2023 21:17:26 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id F297D663179
+	for <lists+freedreno@lfdr.de>; Mon,  9 Jan 2023 21:26:38 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AB1A910E486;
-	Mon,  9 Jan 2023 20:17:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1EB1110E503;
+	Mon,  9 Jan 2023 20:26:37 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x12d.google.com (mail-lf1-x12d.google.com
- [IPv6:2a00:1450:4864:20::12d])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6BC7D10E08B
- for <freedreno@lists.freedesktop.org>; Mon,  9 Jan 2023 20:17:19 +0000 (UTC)
-Received: by mail-lf1-x12d.google.com with SMTP id m6so14797156lfj.11
- for <freedreno@lists.freedesktop.org>; Mon, 09 Jan 2023 12:17:19 -0800 (PST)
+Received: from mail-lf1-x12e.google.com (mail-lf1-x12e.google.com
+ [IPv6:2a00:1450:4864:20::12e])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CCF0210E4FF
+ for <freedreno@lists.freedesktop.org>; Mon,  9 Jan 2023 20:26:31 +0000 (UTC)
+Received: by mail-lf1-x12e.google.com with SMTP id cf42so14883924lfb.1
+ for <freedreno@lists.freedesktop.org>; Mon, 09 Jan 2023 12:26:31 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :from:to:cc:subject:date:message-id:reply-to;
- bh=Zsln0dRiZVimqWw/epfps+VbT8vmC86GmSAWJjVg5rM=;
- b=BVDLoIXqHRWiZN139RWtb6yB/EC2tHe50zVsDHylB/x47aoqEsebPd5PhoRiMVwV/L
- CjQMSa56vxfDhy43+/Mt+z6hT5dpU6omOoDWK0exUfUtUUSAFzxJ62HsGDe1ckzMNveP
- Z23+uM2bENqCQi4e6PnLJvpxWoCL7edgfci7uHjDDM3acnfk6owAD7G7I7F07iOMmItV
- PoYRs8t2E8k8L0D+6DtePf4ErjLSpLr7DfaqqsmJyQxeE31gAfcSBanAE8Ok8MlqtlDn
- Ax4CB7Fp9Nf1TX87LjOVNL00/yvaTmCKuv42H+IXGRIfd7DO9Pok0kqJMobneIvWEoDj
- N3Wg==
+ bh=vG2rLkKQzLwsW4cA+jY3MG5O3NUS9GFU+CxE1+/7o2Q=;
+ b=xWZp9nUNTWKwD74R8LaFCrCez8o4RmpZDe2jPbbuvl4uC1rDQUqJJRW+yDyUK97YZf
+ UlDRwPOIfLuj5nj6I9YHWJcI7S1x67PFhQ7LOj7Zghh+Jw7wtCMPuGM9D1yeuvFfmgMM
+ U+vms6vmDnLysmNTOmDHJ0x2mMtBGiPblOXkfVdFVt1/0sGBFlS1KD1dcZMlj8fCb7DB
+ ZLFDR9xw359oFd5rQ9m50XQl8J1K0F4Hgy0O0Go8G6WqeL4EslIBZTjldCdqMptV10VH
+ Kg5kdCUCTz0Mp989/XxQgN9Xeh7FO68uU2yZKLYHTN19utWqLUCQLRJjNQQqtHG2QX3U
+ CoTA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=Zsln0dRiZVimqWw/epfps+VbT8vmC86GmSAWJjVg5rM=;
- b=X+PyvaLO97bUW3MFeqU08lJYJDCr1SvvBRdW+RUM5PQK2DUnR+PwhPo1GAOSJik+o/
- 9JRaP2TqfAl5NjL3+MuqI3Kgb08c7VkemqZ48MwV+U51wfFS10M/QEE77VnkmGhdpvfy
- QHIy4YRkkCw3yWyScM/otTIneWLtYpQ/zr5iFstiIzO4DHo0Vus2YhHmELJGpGdo2qQl
- WElfqwm+ZPRq/za3jN/xzxODEdrKVe78a9qhfRl5ZmAZVK3MhksfcAof6ef/bwAAd33n
- GHHGnAFra+aTU9xpiMmCmD8ooOxFB7HGm/+b9c0iy9feZiXeUlFbnLHLSSAbClGjfwYQ
- eRDA==
-X-Gm-Message-State: AFqh2krF/Ph4qBS+jVEpzsTjfpcrz5WPdiQ5E0aFuIOphrRuE+crM6xg
- 3/r8D0OPNvbhiOF9EeHZAGkDkw==
-X-Google-Smtp-Source: AMrXdXsqTdM6J8HyUnKwHYzTAnW9efhthH7vZTJLBCtnPyAaNG/D7T0DHJxRI7iBddsLtOXI6XJj6A==
-X-Received: by 2002:a05:6512:2286:b0:4b5:9891:d6ff with SMTP id
- f6-20020a056512228600b004b59891d6ffmr22273832lfu.46.1673295437504; 
- Mon, 09 Jan 2023 12:17:17 -0800 (PST)
+ bh=vG2rLkKQzLwsW4cA+jY3MG5O3NUS9GFU+CxE1+/7o2Q=;
+ b=DbtL9SX1yW7rZo+dKbYmcPMVPM7SE471rjwbQ+YaqAbdxsMqcGH33vh8D4heN17209
+ IAn7EaSbbd9kUCjExyIRWVJykNslUZFNSIFcTv2+aQpLxwc+uKz9yafIxdLSI+M8Jx3C
+ mkjQ3yIcZ0LXbDZTYUU3oi9PRT3y82d8GeugRUjGq3BPzXxjRM3RX89Wx2zOTmRSCjUt
+ tgby/VrR1a3dlBG7YeTQsV664Apg27QjBlbi2tQVgfl+wqUb+Pj3HDZWmL8RMiSCTQ0k
+ sV2NeCghXfMbyk/bQgDbJqZcsKjNT6tT+9xj8TpLYEd/Nd6LD1MSH/NuATONn+Ya98wE
+ fjsg==
+X-Gm-Message-State: AFqh2kpoFMHsCX9GwhoE549uYSLAeechCRdg9GNM0A5XivjtU6jPqWKm
+ ppcvN6pTFCzRfm2AW+rOWFOIDw==
+X-Google-Smtp-Source: AMrXdXud+zuLlxBWWyOW8OFiUXQuyNeAZskXTT6VzcQR7Vsc/7FYAkAwHzAXPDGI0iNZBUPabeVROQ==
+X-Received: by 2002:a05:6512:39ce:b0:4b4:e559:8b10 with SMTP id
+ k14-20020a05651239ce00b004b4e5598b10mr20842770lfu.24.1673295990084; 
+ Mon, 09 Jan 2023 12:26:30 -0800 (PST)
 Received: from ?IPV6:2001:14ba:a085:4d00::8a5?
  (dzccz6yyyyyyyyyyybcwt-3.rev.dnainternet.fi. [2001:14ba:a085:4d00::8a5])
  by smtp.gmail.com with ESMTPSA id
- v23-20020ac258f7000000b004cb00bf6724sm1777870lfo.143.2023.01.09.12.17.16
+ a9-20020ac25e69000000b004cafb150134sm1208799lfr.67.2023.01.09.12.26.29
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 09 Jan 2023 12:17:16 -0800 (PST)
-Message-ID: <b66de0ab-a31b-c86a-c1d0-c9a5f98c4f85@linaro.org>
-Date: Mon, 9 Jan 2023 22:17:16 +0200
+ Mon, 09 Jan 2023 12:26:29 -0800 (PST)
+Message-ID: <323ec70e-4613-c0e9-0b39-ad2a0a76673d@linaro.org>
+Date: Mon, 9 Jan 2023 22:26:28 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.6.0
 Content-Language: en-GB
-To: Abhinav Kumar <quic_abhinavk@quicinc.com>, Rob Clark
- <robdclark@gmail.com>, Sean Paul <sean@poorly.run>
-References: <20221208000850.312548-1-dmitry.baryshkov@linaro.org>
- <20221208000850.312548-2-dmitry.baryshkov@linaro.org>
- <047cd859-7141-d52f-4989-847fd2ada002@quicinc.com>
+To: Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>
+References: <20221102180705.459294-1-dmitry.baryshkov@linaro.org>
+ <20230109162140.yelgy2da7aqa6sqv@fsr-ub1664-121.ea.freescale.net>
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-In-Reply-To: <047cd859-7141-d52f-4989-847fd2ada002@quicinc.com>
+In-Reply-To: <20230109162140.yelgy2da7aqa6sqv@fsr-ub1664-121.ea.freescale.net>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-Subject: Re: [Freedreno] [RFC PATCH 1/4] drm/msm/mdss: convert UBWC setup to
- use match data
+Content-Transfer-Encoding: 7bit
+Subject: Re: [Freedreno] [PATCH v3 0/7] drm/bridge_connector: perform HPD
+ enablement automatically
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,279 +77,97 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
- Bjorn Andersson <andersson@kernel.org>, dri-devel@lists.freedesktop.org,
- Stephen Boyd <swboyd@chromium.org>, Daniel Vetter <daniel@ffwll.ch>,
- David Airlie <airlied@gmail.com>
+Cc: Sean Paul <sean@poorly.run>, dri-devel@lists.freedesktop.org,
+ Fabio Estevam <festevam@gmail.com>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Tomi Valkeinen <tomba@kernel.org>, Shawn Guo <shawnguo@kernel.org>,
+ Sascha Hauer <s.hauer@pengutronix.de>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, Maxime Ripard <mripard@kernel.org>,
+ Rob Clark <robdclark@gmail.com>, NXP Linux Team <linux-imx@nxp.com>,
+ Daniel Vetter <daniel@ffwll.ch>, linux-arm-msm@vger.kernel.org,
+ Philipp Zabel <p.zabel@pengutronix.de>, freedreno@lists.freedesktop.org,
+ David Airlie <airlied@gmail.com>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ linux-arm-kernel@lists.infradead.org, Lucas Stach <l.stach@pengutronix.de>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 09/01/2023 21:53, Abhinav Kumar wrote:
-> 
-> 
-> On 12/7/2022 4:08 PM, Dmitry Baryshkov wrote:
->> To simplify adding new platforms and to make settings more obvious,
->> rewrite the UBWC setup to use the data structure to pass platform config
->> rather than just calling the functions direcly.
-> 
-> Why not use the catalog to store this information rather than using the 
-> platform device match data?
-> 
-> This seems more appropriate for the catalog.
+Hi,
 
-Which catalog?
+On 09/01/2023 18:21, Laurentiu Palcu wrote:
+> Hi Dmitry,
+> 
+> It looks like there are some issues with this patchset... :/ I just
+> fetched the drm-tip and, with these patches included, the "Hot plug
+> detection already enabled" warning is back for i.MX DCSS.
 
-If you are talking about the DPU hw catalog, it's not possible. DPU and 
-MDSS are two distinct drivers even if they are built into the same module.
-
-And if you are talking about adding mdss_catalog, I'd abstain from that 
-idea. It is too easy to update one piece and forget the other one. Using 
-match data is what other drivers are using (and it ensures that each new 
-supported device gets its correct match data).
+Could you please provide a backtrace?
 
 > 
+> After a short investigation, it seems that we end up calling
+> drm_bridge_hpd_enable() from both drm_kms_helper_poll_init() and
+> drm_fbdev_generic_setup(), hence the warning.
+> 
+> There are drivers using the drm_bridge_connector API that also call
+> drm_kms_helper_poll_init() followed by drm_fbdev_generic_setup(). So,
+> they might experience the same behavior, unless I'm missing something...
+> :/
+> 
+> Also, even if drm_fbdev_generic_setup() is not called in the driver
+> initialization, the warning will still appear the first time the
+> GETCONNECTOR ioctl is called, because that'll call
+> drm_helper_probe_single_connector_modes() helper which will eventually
+> call drm_bridge_hpd_enable().
+> 
+> Any idea?
+> 
+> Cheers,
+> Laurentiu
+> 
+> On Wed, Nov 02, 2022 at 09:06:58PM +0300, Dmitry Baryshkov wrote:
+>>  From all the drivers using drm_bridge_connector only iMX/dcss and OMAP
+>> DRM driver do a proper work of calling
+>> drm_bridge_connector_en/disable_hpd() in right places. Rather than
+>> teaching each and every driver how to properly handle
+>> drm_bridge_connector's HPD, make that automatic.
 >>
->> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
->> ---
->>   drivers/gpu/drm/msm/msm_mdss.c | 158 ++++++++++++++++++++-------------
->>   1 file changed, 94 insertions(+), 64 deletions(-)
+>> Add two additional drm_connector helper funcs: enable_hpd() and
+>> disable_hpd(). Make drm_kms_helper_poll_* functions call them (as this
+>> is the time where the drm_bridge_connector's functions are called by the
+>> drivers too).
 >>
->> diff --git a/drivers/gpu/drm/msm/msm_mdss.c 
->> b/drivers/gpu/drm/msm/msm_mdss.c
->> index 92773e0a8fda..2219c1bd59a9 100644
->> --- a/drivers/gpu/drm/msm/msm_mdss.c
->> +++ b/drivers/gpu/drm/msm/msm_mdss.c
->> @@ -29,6 +29,14 @@
->>   #define MIN_IB_BW    400000000UL /* Min ib vote 400MB */
->> +struct msm_mdss_data {
->> +    u32 ubwc_version;
->> +    u32 ubwc_swizzle;
->> +    u32 ubwc_static;
->> +    u32 highest_bank_bit;
->> +    u32 macrotile_mode;
->> +};
->> +
->>   struct msm_mdss {
->>       struct device *dev;
->> @@ -40,6 +48,7 @@ struct msm_mdss {
->>           unsigned long enabled_mask;
->>           struct irq_domain *domain;
->>       } irq_controller;
->> +    const struct msm_mdss_data *mdss_data;
->>       struct icc_path *path[2];
->>       u32 num_paths;
->>   };
->> @@ -180,46 +189,40 @@ static int _msm_mdss_irq_domain_add(struct 
->> msm_mdss *msm_mdss)
->>   #define UBWC_3_0 0x30000000
->>   #define UBWC_4_0 0x40000000
->> -static void msm_mdss_setup_ubwc_dec_20(struct msm_mdss *msm_mdss,
->> -                       u32 ubwc_static)
->> +static void msm_mdss_setup_ubwc_dec_20(struct msm_mdss *msm_mdss)
->>   {
->> -    writel_relaxed(ubwc_static, msm_mdss->mmio + UBWC_STATIC);
->> +    const struct msm_mdss_data *data = msm_mdss->mdss_data;
->> +
->> +    writel_relaxed(data->ubwc_static, msm_mdss->mmio + UBWC_STATIC);
->>   }
->> -static void msm_mdss_setup_ubwc_dec_30(struct msm_mdss *msm_mdss,
->> -                       unsigned int ubwc_version,
->> -                       u32 ubwc_swizzle,
->> -                       u32 highest_bank_bit,
->> -                       u32 macrotile_mode)
->> +static void msm_mdss_setup_ubwc_dec_30(struct msm_mdss *msm_mdss)
->>   {
->> -    u32 value = (ubwc_swizzle & 0x1) |
->> -            (highest_bank_bit & 0x3) << 4 |
->> -            (macrotile_mode & 0x1) << 12;
->> +    const struct msm_mdss_data *data = msm_mdss->mdss_data;
->> +    u32 value = (data->ubwc_swizzle & 0x1) |
->> +            (data->highest_bank_bit & 0x3) << 4 |
->> +            (data->macrotile_mode & 0x1) << 12;
->> -    if (ubwc_version == UBWC_3_0)
->> +    if (data->ubwc_version == UBWC_3_0)
->>           value |= BIT(10);
->> -    if (ubwc_version == UBWC_1_0)
->> +    if (data->ubwc_version == UBWC_1_0)
->>           value |= BIT(8);
->>       writel_relaxed(value, msm_mdss->mmio + UBWC_STATIC);
->>   }
->> -static void msm_mdss_setup_ubwc_dec_40(struct msm_mdss *msm_mdss,
->> -                       unsigned int ubwc_version,
->> -                       u32 ubwc_swizzle,
->> -                       u32 ubwc_static,
->> -                       u32 highest_bank_bit,
->> -                       u32 macrotile_mode)
->> +static void msm_mdss_setup_ubwc_dec_40(struct msm_mdss *msm_mdss)
->>   {
->> -    u32 value = (ubwc_swizzle & 0x7) |
->> -            (ubwc_static & 0x1) << 3 |
->> -            (highest_bank_bit & 0x7) << 4 |
->> -            (macrotile_mode & 0x1) << 12;
->> +    const struct msm_mdss_data *data = msm_mdss->mdss_data;
->> +    u32 value = (data->ubwc_swizzle & 0x7) |
->> +            (data->ubwc_static & 0x1) << 3 |
->> +            (data->highest_bank_bit & 0x7) << 4 |
->> +            (data->macrotile_mode & 0x1) << 12;
->>       writel_relaxed(value, msm_mdss->mmio + UBWC_STATIC);
->> -    if (ubwc_version == UBWC_3_0) {
->> +    if (data->ubwc_version == UBWC_3_0) {
->>           writel_relaxed(1, msm_mdss->mmio + UBWC_CTRL_2);
->>           writel_relaxed(0, msm_mdss->mmio + UBWC_PREDICTION_MODE);
->>       } else {
->> @@ -232,6 +235,7 @@ static int msm_mdss_enable(struct msm_mdss *msm_mdss)
->>   {
->>       int ret;
->>       u32 hw_rev;
->> +    u32 ubwc_dec_hw_version;
->>       /*
->>        * Several components have AXI clocks that can only be turned on if
->> @@ -250,53 +254,36 @@ static int msm_mdss_enable(struct msm_mdss 
->> *msm_mdss)
->>        * HW_REV requires MDSS_MDP_CLK, which is not enabled by the 
->> mdss on
->>        * mdp5 hardware. Skip reading it for now.
->>        */
->> -    if (msm_mdss->is_mdp5)
->> +    if (msm_mdss->is_mdp5 || !msm_mdss->mdss_data)
->>           return 0;
->>       hw_rev = readl_relaxed(msm_mdss->mmio + HW_REV);
->>       dev_dbg(msm_mdss->dev, "HW_REV: 0x%x\n", hw_rev);
->> +
->> +    ubwc_dec_hw_version = readl_relaxed(msm_mdss->mmio + 
->> UBWC_DEC_HW_VERSION);
->>       dev_dbg(msm_mdss->dev, "UBWC_DEC_HW_VERSION: 0x%x\n",
->> -        readl_relaxed(msm_mdss->mmio + UBWC_DEC_HW_VERSION));
->> +        ubwc_dec_hw_version);
->>       /*
->>        * ubwc config is part of the "mdss" region which is not accessible
->>        * from the rest of the driver. hardcode known configurations here
->>        *
->>        * Decoder version can be read from the UBWC_DEC_HW_VERSION reg,
->> -     * UBWC_n and the rest of params comes from hw_catalog.
->> -     * Unforunately this driver can not access hw catalog, so we have to
->> -     * hardcode them here.
->> +     * UBWC_n and the rest of params comes from hw data.
->>        */
->> -    switch (hw_rev) {
->> -    case DPU_HW_VER_500:
->> -    case DPU_HW_VER_501:
->> -        msm_mdss_setup_ubwc_dec_30(msm_mdss, UBWC_3_0, 0, 2, 0);
->> -        break;
->> -    case DPU_HW_VER_600:
->> -        /* TODO: highest_bank_bit = 2 for LP_DDR4 */
->> -        msm_mdss_setup_ubwc_dec_40(msm_mdss, UBWC_4_0, 6, 1, 3, 1);
->> -        break;
->> -    case DPU_HW_VER_620:
->> -        /* UBWC_2_0 */
->> -        msm_mdss_setup_ubwc_dec_20(msm_mdss, 0x1e);
->> +    switch (ubwc_dec_hw_version) {
->> +    case UBWC_2_0:
->> +        msm_mdss_setup_ubwc_dec_20(msm_mdss);
->>           break;
->> -    case DPU_HW_VER_630:
->> -        /* UBWC_2_0 */
->> -        msm_mdss_setup_ubwc_dec_20(msm_mdss, 0x11f);
->> +    case UBWC_3_0:
->> +        msm_mdss_setup_ubwc_dec_30(msm_mdss);
->>           break;
->> -    case DPU_HW_VER_700:
->> -        /* TODO: highest_bank_bit = 2 for LP_DDR4 */
->> -        msm_mdss_setup_ubwc_dec_40(msm_mdss, UBWC_4_0, 6, 1, 3, 1);
->> +    case UBWC_4_0:
->> +        msm_mdss_setup_ubwc_dec_40(msm_mdss);
->>           break;
->> -    case DPU_HW_VER_720:
->> -        msm_mdss_setup_ubwc_dec_40(msm_mdss, UBWC_3_0, 6, 1, 1, 1);
->> -        break;
->> -    case DPU_HW_VER_800:
->> -        msm_mdss_setup_ubwc_dec_40(msm_mdss, UBWC_4_0, 6, 1, 2, 1);
->> -        break;
->> -    case DPU_HW_VER_810:
->> -        /* TODO: highest_bank_bit = 2 for LP_DDR4 */
->> -        msm_mdss_setup_ubwc_dec_40(msm_mdss, UBWC_4_0, 6, 1, 3, 1);
->> +    default:
->> +        dev_err(msm_mdss->dev, "Unuspported UBWC decoder version %x\n",
->> +            ubwc_dec_hw_version);
->>           break;
->>       }
->> @@ -487,6 +474,8 @@ static int mdss_probe(struct platform_device *pdev)
->>       if (IS_ERR(mdss))
->>           return PTR_ERR(mdss);
->> +    mdss->mdss_data = of_device_get_match_data(&pdev->dev);
->> +
->>       platform_set_drvdata(pdev, mdss);
->>       /*
->> @@ -516,20 +505,61 @@ static int mdss_remove(struct platform_device 
->> *pdev)
->>       return 0;
->>   }
->> +static const struct msm_mdss_data sc7180_data = {
->> +    .ubwc_version = UBWC_2_0,
->> +    .ubwc_static = 0x1e,
->> +};
->> +
->> +static const struct msm_mdss_data sc7280_data = {
->> +    .ubwc_version = UBWC_3_0,
->> +    .ubwc_swizzle = 6,
->> +    .ubwc_static = 1,
->> +    .highest_bank_bit = 1,
->> +    .macrotile_mode = 1,
->> +};
->> +
->> +static const struct msm_mdss_data sc8280xp_data = {
->> +    .ubwc_version = UBWC_4_0,
->> +    .ubwc_swizzle = 6,
->> +    .ubwc_static = 1,
->> +    .highest_bank_bit = 2,
->> +    .macrotile_mode = 1,
->> +};
->> +
->> +static const struct msm_mdss_data sm8150_data = {
->> +    .ubwc_version = UBWC_3_0,
->> +    .highest_bank_bit = 2,
->> +};
->> +
->> +static const struct msm_mdss_data sm6115_data = {
->> +    .ubwc_version = UBWC_2_0,
->> +    .ubwc_swizzle = 7,
->> +    .ubwc_static = 0x11f,
->> +};
->> +
->> +static const struct msm_mdss_data sm8250_data = {
->> +    .ubwc_version = UBWC_4_0,
->> +    .ubwc_swizzle = 6,
->> +    .ubwc_static = 1,
->> +    /* TODO: highest_bank_bit = 2 for LP_DDR4 */
->> +    .highest_bank_bit = 3,
->> +    .macrotile_mode = 1,
->> +};
->> +
->>   static const struct of_device_id mdss_dt_match[] = {
->>       { .compatible = "qcom,mdss" },
->>       { .compatible = "qcom,msm8998-mdss" },
->>       { .compatible = "qcom,qcm2290-mdss" },
->>       { .compatible = "qcom,sdm845-mdss" },
->> -    { .compatible = "qcom,sc7180-mdss" },
->> -    { .compatible = "qcom,sc7280-mdss" },
->> +    { .compatible = "qcom,sc7180-mdss", .data = &sc7180_data },
->> +    { .compatible = "qcom,sc7280-mdss", .data = &sc7280_data },
->>       { .compatible = "qcom,sc8180x-mdss" },
->> -    { .compatible = "qcom,sc8280xp-mdss" },
->> -    { .compatible = "qcom,sm6115-mdss" },
->> -    { .compatible = "qcom,sm8150-mdss" },
->> -    { .compatible = "qcom,sm8250-mdss" },
->> -    { .compatible = "qcom,sm8350-mdss" },
->> -    { .compatible = "qcom,sm8450-mdss" },
->> +    { .compatible = "qcom,sc8280xp-mdss", .data = &sc8280xp_data },
->> +    { .compatible = "qcom,sm6115-mdss", .data = &sm6115_data },
->> +    { .compatible = "qcom,sm8150-mdss", .data = &sm8150_data },
->> +    { .compatible = "qcom,sm8250-mdss", .data = &sm8250_data },
->> +    { .compatible = "qcom,sm8350-mdss", .data = &sm8250_data },
->> +    { .compatible = "qcom,sm8450-mdss", .data = &sm8250_data },
->>       {}
->>   };
->>   MODULE_DEVICE_TABLE(of, mdss_dt_match);
+>> Changes since v2:
+>>   - Fixed a typo in the commit message of the second patch.
+>>
+>> Changes since v1:
+>>   - Rebased on top of v6.1-rc1
+>>   - Removed the drm_bridge_connector_enable_hpd() from
+>>     drm_bridge_connector_init()
+>>   - Removed extra underscore prefix from
+>>     drm_bridge_connector_en/disable_hpd() helpers
+>>
+>> Dmitry Baryshkov (7):
+>>    drm/poll-helper: merge drm_kms_helper_poll_disable() and _fini()
+>>    drm/probe-helper: enable and disable HPD on connectors
+>>    drm/bridge_connector: rely on drm_kms_helper_poll_* for HPD enablement
+>>    drm/imx/dcss: stop using drm_bridge_connector_en/disable_hpd()
+>>    drm/msm/hdmi: stop using drm_bridge_connector_en/disable_hpd()
+>>    drm/omap: stop using drm_bridge_connector_en/disable_hpd()
+>>    drm/bridge_connector: drop drm_bridge_connector_en/disable_hpd()
+>>
+>>   drivers/gpu/drm/drm_bridge_connector.c   | 27 +++-------------
+>>   drivers/gpu/drm/drm_probe_helper.c       | 40 ++++++++++++++++++-----
+>>   drivers/gpu/drm/imx/dcss/dcss-dev.c      |  4 ---
+>>   drivers/gpu/drm/imx/dcss/dcss-kms.c      |  2 --
+>>   drivers/gpu/drm/msm/hdmi/hdmi.c          |  2 --
+>>   drivers/gpu/drm/omapdrm/omap_drv.c       | 41 ------------------------
+>>   include/drm/drm_bridge_connector.h       |  2 --
+>>   include/drm/drm_modeset_helper_vtables.h | 22 +++++++++++++
+>>   8 files changed, 59 insertions(+), 81 deletions(-)
+>>
+>> -- 
+>> 2.35.1
+>>
 
 -- 
 With best wishes
