@@ -2,57 +2,58 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id D3B58662102
-	for <lists+freedreno@lfdr.de>; Mon,  9 Jan 2023 10:09:34 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E152066215C
+	for <lists+freedreno@lfdr.de>; Mon,  9 Jan 2023 10:22:57 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4B6D010E386;
-	Mon,  9 Jan 2023 09:09:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A489410E38C;
+	Mon,  9 Jan 2023 09:22:56 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-yb1-xb30.google.com (mail-yb1-xb30.google.com
- [IPv6:2607:f8b0:4864:20::b30])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B0E6C10E386
- for <freedreno@lists.freedesktop.org>; Mon,  9 Jan 2023 09:09:29 +0000 (UTC)
-Received: by mail-yb1-xb30.google.com with SMTP id 203so7881514yby.10
- for <freedreno@lists.freedesktop.org>; Mon, 09 Jan 2023 01:09:29 -0800 (PST)
+Received: from mail-yw1-x1131.google.com (mail-yw1-x1131.google.com
+ [IPv6:2607:f8b0:4864:20::1131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0968810E38C
+ for <freedreno@lists.freedesktop.org>; Mon,  9 Jan 2023 09:22:54 +0000 (UTC)
+Received: by mail-yw1-x1131.google.com with SMTP id
+ 00721157ae682-4a2f8ad29d5so105165547b3.8
+ for <freedreno@lists.freedesktop.org>; Mon, 09 Jan 2023 01:22:53 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=ksUju8ytzlEweTpFQYqcZ9BkrnYInhKOiXTltSA/eNo=;
- b=KE2dHBcJ85l1aPKOz2mZustc8ycE905TTmv0LmYCR3+SU7Fcb9oIDIC3gA/LE+NGoc
- UWuGEtIYHR2PZtNw87jyhYqZcB699Gp39dylMUUATXUF8/v82qsSarg+eQ4ccoPUevmy
- 0WuDy3drpNywj9k7GRGHPML4fZcofOtx5nyYYHGwHawzvputQJ6OshoE9dmMgxlCNd65
- fmpBm+j1sWd9tFiuwKEQG9iKHFF+/kMAkC9HWC4/5w4geGsONLkpUMHVeMhABiBfmXzC
- oNh6Che20j7CWPrm2Qbo9ImKj6xn8w8oH6SJcXoqUrp0iQAmOi2VZ+ZOIwwreGavcCeu
- hRbg==
+ bh=AHuKxKGiZd4+RCaj+Vge0k5qlq7ILtvQRLFdU3PXM68=;
+ b=aqnQr+w/cnvm6qQo32nFgvHm7mAD/6PZy5zTDke2X1ThQrMX9Y71SRXB2PQuKOq+Ch
+ D8tK4/K5uMrDOhsxsmQq9Ykhmm7vSGO7IS3LrW6vmQhk7x6uxcjhW2oU3xVytZaSIn3A
+ Dzlkubi0szkiPWBi0hcsdqtT3LlCaQUKg03vdBrW66ucICrTJqHCTp2dqmqXSJx73La9
+ mFkExzjXdwjAzR7lITTiNoyOiO942Y6QXub8sgnX18UKNufUE2TLTgfS4B5eChlxjnmG
+ NjKfzWlWLdOPPAZigfNUQjqwHa9BkXEjkcwCUFFc5t07GWolYlakWBa9X9ypwGap44mf
+ eSjA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=ksUju8ytzlEweTpFQYqcZ9BkrnYInhKOiXTltSA/eNo=;
- b=zWy7b7rymp5zLkKqCd47dUp1R81W5uJOo7DlMJAeI2ZePVeWURQHmmnEjRQEAXQoCt
- onkoQ3DlNhreoM+/55l3bnRyS8iqO6Dvoq8Fvpbyy6R73eYIDEcv+ITL13TwrG1w5FFg
- 15hy5ajVB/a1K2qrx+jQjZZb8s3Xuhuh+ef7/7M2argcuuMHc33b4sQbnLcVlfqUM+9F
- b5DZG+ruQ3G90X0wMZaRwyp7dxjs3T2IVL1Ur8i36PnkmxhngtdiJ4vmiikeLbWbwgqf
- kHPFgTk6mRfFFczU4Bu0mtFp9dTGa5dsw1GX7OJUjSSQS5VwBrozBB7yvmAhAl/dfJP/
- tIKQ==
-X-Gm-Message-State: AFqh2kpd+FbstWNDWjdjAHZ4Y9qz2T7aOmEAh1Ki6k/rYDTrWC6m2L/0
- 0op4b9LK0aqR8f6MUpychQ099mYOdczi4Op7jdxqRA==
-X-Google-Smtp-Source: AMrXdXvgY4bPiSF3cDb82Kc6j/QVAY8FdBTgl+GCmX5CEP6zIModo62yxzJQ6CmBGYfoIPPv5/HCpyD+a7FlHgIMbfY=
-X-Received: by 2002:a25:81c7:0:b0:726:7335:50af with SMTP id
- n7-20020a2581c7000000b00726733550afmr7898518ybm.516.1673255368894; Mon, 09
- Jan 2023 01:09:28 -0800 (PST)
+ bh=AHuKxKGiZd4+RCaj+Vge0k5qlq7ILtvQRLFdU3PXM68=;
+ b=M62b2x6Ox8trQn0ttc116VtOVQljTMtoKQDFXlRTF1DRcvI2MAGgrEg/ZMF7ZdOCXM
+ EwgFu1YxBTu8Saq9uKevq4R2O+VV6lPA+7oQ2R/o8FC0q4zHtHKnIjzmDhWpfBIOdX3x
+ IkF/4jCsTSLu2HxQNRwtt2Frw5REz9S4wZSkIyU3CRzOCrahx8BWKA0wE6YZoUi5/t9s
+ FVoi6LdpSXuR3UsRyqRS1aMbWy287w8pNaHwWdUJNGcey5vQofeTJxFxFq/l2zD+qgWN
+ HmtciAzHTI31p2ace3LWPtMIotnH4/MRTgAilaMW6qRCBNHWYJIkC5UVB+q4SCtd6/0Q
+ O6FA==
+X-Gm-Message-State: AFqh2kpzZ8BN4vQ5EzQcAXq/zlcuBWDvwBO0RU6CW4SZmu7Ogu1S54PF
+ ZRC3oG0FK5Ob/Shd4Yq7r3W4SaoKsoPpY17Q7PYTag==
+X-Google-Smtp-Source: AMrXdXt5UN1RutCZmrib8fF4cHaCArti0sLkNxLMJeoqmMJy3AztKyKrFV9yJgZB8ncMa7vxTjCN0W/DI7vHho/Hn6E=
+X-Received: by 2002:a81:c56:0:b0:490:89c3:21b0 with SMTP id
+ 83-20020a810c56000000b0049089c321b0mr5440340ywm.132.1673256173194; Mon, 09
+ Jan 2023 01:22:53 -0800 (PST)
 MIME-Version: 1.0
-References: <20230109025044.27766-1-jiasheng@iscas.ac.cn>
-In-Reply-To: <20230109025044.27766-1-jiasheng@iscas.ac.cn>
+References: <20230108211113.200846-1-dmitry.baryshkov@linaro.org>
+ <20230109083417.5drdfllpm4ythy42@SoMainline.org>
+In-Reply-To: <20230109083417.5drdfllpm4ythy42@SoMainline.org>
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Mon, 9 Jan 2023 11:09:18 +0200
-Message-ID: <CAA8EJpr=1E6JvE+8NBa7fW5jKe23NhDeAXGBp90XLCphnYc12A@mail.gmail.com>
-To: Jiasheng Jiang <jiasheng@iscas.ac.cn>
+Date: Mon, 9 Jan 2023 11:22:42 +0200
+Message-ID: <CAA8EJpoVC2OW4iKcq=C-D3hejVPZ1Bd+6Nb9vPk6DVVWP2_4rQ@mail.gmail.com>
+To: Marijn Suijten <marijn.suijten@somainline.org>
 Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [PATCH v2] drm/msm/dsi: Add missing check for
- alloc_ordered_workqueue
+Subject: Re: [Freedreno] [PATCH] drm/msm/dpu: sort entries in the HW catalog
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,133 +66,65 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: marex@denx.de, vkoul@kernel.org, sean@poorly.run, vladimir.lypak@gmail.com,
- quic_abhinavk@quicinc.com, dri-devel@lists.freedesktop.org,
- dianders@chromium.org, robdclark@gmail.com, daniel@ffwll.ch,
- linux-arm-msm@vger.kernel.org, marijn.suijten@somainline.org,
- freedreno@lists.freedesktop.org, airlied@gmail.com,
- linux-kernel@vger.kernel.org
+Cc: freedreno@lists.freedesktop.org, Sean Paul <sean@poorly.run>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
+ Stephen Boyd <swboyd@chromium.org>, Rob Clark <robdclark@gmail.com>,
+ Daniel Vetter <daniel@ffwll.ch>, linux-arm-msm@vger.kernel.org,
+ David Airlie <airlied@gmail.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Mon, 9 Jan 2023 at 04:51, Jiasheng Jiang <jiasheng@iscas.ac.cn> wrote:
+On Mon, 9 Jan 2023 at 10:34, Marijn Suijten
+<marijn.suijten@somainline.org> wrote:
 >
-> Add check for the return value of alloc_ordered_workqueue as it may return
-> NULL pointer and cause NULL pointer dereference.
-> Moreover, change the "goto fail" into "return ret" and drop the "fail"
-> label since they are the same.
+> On 2023-01-08 23:11:13, Dmitry Baryshkov wrote:
+> > Different entries into the catalog were added quite randomly. Enforce
+> > the sorting order of some kind. It is not alphabetic to prevent the
+> > patch from growing uncontrollably.
 >
-> Signed-off-by: Jiasheng Jiang <jiasheng@iscas.ac.cn>
-> ---
-> Changelog:
->
-> v1 -> v2:
->
-> 1. Change the "goto fail" into "return ret" and drop the "fail" label.
+> Why not sort these chronologically based on DPU hardware revision in the
+> match table at the end of this file?
 
-These are separate changes and should come as separate patches.
+If we keep the SoC name as part of the symbolic name, we will end up
+in another semi-random order that is a pain to verify. Would you
+remember that sm6350 comes between sm6115 and qcm2290? I would not :-(
+And changing all names to dpu_6_5_0_lms would make it easy to add but
+nearly impossible to follow.
 
-> ---
->  drivers/gpu/drm/msm/dsi/dsi_host.c | 24 +++++++++++++-----------
->  1 file changed, 13 insertions(+), 11 deletions(-)
+> Regardless, this patch is going to
+> make it hard to properly rebase DPU additions; see for example patch 4/8
+> and 5/8 in my second round of DSC fixes.
+
+Yes, quite unfortunate. As I wrote, it's already late to apply this patch :-(
+
 >
-> diff --git a/drivers/gpu/drm/msm/dsi/dsi_host.c b/drivers/gpu/drm/msm/dsi/dsi_host.c
-> index 89aadd3b3202..819f5be5fd77 100644
-> --- a/drivers/gpu/drm/msm/dsi/dsi_host.c
-> +++ b/drivers/gpu/drm/msm/dsi/dsi_host.c
-> @@ -1884,7 +1884,7 @@ int msm_dsi_host_init(struct msm_dsi *msm_dsi)
->         msm_host = devm_kzalloc(&pdev->dev, sizeof(*msm_host), GFP_KERNEL);
->         if (!msm_host) {
->                 ret = -ENOMEM;
-> -               goto fail;
-> +               return ret;
->         }
+> At the same time we should find a solution to the wishy-washy reuse of
+> structs and defines, which may appear the same initially but become
+> mismatched as more features are added (see how I had to split out
+> multiple of these in the INTF TE enablement series).
+
+It's a slightly different problem, but yes, I share the pain.
+
 >
->         msm_host->pdev = pdev;
-> @@ -1893,14 +1893,14 @@ int msm_dsi_host_init(struct msm_dsi *msm_dsi)
->         ret = dsi_host_parse_dt(msm_host);
->         if (ret) {
->                 pr_err("%s: failed to parse dt\n", __func__);
-> -               goto fail;
-> +               return ret;
->         }
+> > Thus SDM comes before SC and SM
+> > platforms and QCM is kept as the last one. There are no functional
+> > changes in this patch.
+> >
+> > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> > ---
+> >
+> > Yes, I hate such mass-moves too. However the entries in this file are
+> > slowly becoming uncontrollable. Let's enforce some order now (while it's
+> > late already, but not _that_ late).
 >
->         msm_host->ctrl_base = msm_ioremap_size(pdev, "dsi_ctrl", &msm_host->ctrl_size);
->         if (IS_ERR(msm_host->ctrl_base)) {
->                 pr_err("%s: unable to map Dsi ctrl base\n", __func__);
->                 ret = PTR_ERR(msm_host->ctrl_base);
-> -               goto fail;
-> +               return ret;
->         }
->
->         pm_runtime_enable(&pdev->dev);
-> @@ -1909,7 +1909,7 @@ int msm_dsi_host_init(struct msm_dsi *msm_dsi)
->         if (!msm_host->cfg_hnd) {
->                 ret = -EINVAL;
->                 pr_err("%s: get config failed\n", __func__);
-> -               goto fail;
-> +               return ret;
->         }
->         cfg = msm_host->cfg_hnd->cfg;
->
-> @@ -1917,7 +1917,7 @@ int msm_dsi_host_init(struct msm_dsi *msm_dsi)
->         if (msm_host->id < 0) {
->                 ret = msm_host->id;
->                 pr_err("%s: unable to identify DSI host index\n", __func__);
-> -               goto fail;
-> +               return ret;
->         }
->
->         /* fixup base address by io offset */
-> @@ -1927,19 +1927,19 @@ int msm_dsi_host_init(struct msm_dsi *msm_dsi)
->                                             cfg->regulator_data,
->                                             &msm_host->supplies);
->         if (ret)
-> -               goto fail;
-> +               return ret;
->
->         ret = dsi_clk_init(msm_host);
->         if (ret) {
->                 pr_err("%s: unable to initialize dsi clks\n", __func__);
-> -               goto fail;
-> +               return ret;
->         }
->
->         msm_host->rx_buf = devm_kzalloc(&pdev->dev, SZ_4K, GFP_KERNEL);
->         if (!msm_host->rx_buf) {
->                 ret = -ENOMEM;
->                 pr_err("%s: alloc rx temp buf failed\n", __func__);
-> -               goto fail;
-> +               return ret;
->         }
->
->         ret = devm_pm_opp_set_clkname(&pdev->dev, "byte");
-> @@ -1977,15 +1977,17 @@ int msm_dsi_host_init(struct msm_dsi *msm_dsi)
->
->         /* setup workqueue */
->         msm_host->workqueue = alloc_ordered_workqueue("dsi_drm_work", 0);
-> +       if (!msm_host->workqueue) {
-> +               ret = -ENOMEM;
-> +               return ret;
-> +       }
-> +
->         INIT_WORK(&msm_host->err_work, dsi_err_worker);
->
->         msm_dsi->id = msm_host->id;
->
->         DBG("Dsi Host %d initialized", msm_host->id);
->         return 0;
-> -
-> -fail:
-> -       return ret;
->  }
->
->  void msm_dsi_host_destroy(struct mipi_dsi_host *host)
-> --
-> 2.25.1
->
+> I agree that something should happen, contributing to this file is
+> unnecessarily tough.
+
+In the IRC conversation Rob suggested playing with includes, but I
+don't see a good way to implement that.
 
 
--- 
+--
 With best wishes
 Dmitry
