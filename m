@@ -1,74 +1,58 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 29B4B662314
-	for <lists+freedreno@lfdr.de>; Mon,  9 Jan 2023 11:22:36 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 16A7D662885
+	for <lists+freedreno@lfdr.de>; Mon,  9 Jan 2023 15:30:56 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EF05610E3CA;
-	Mon,  9 Jan 2023 10:22:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 01BD110E42F;
+	Mon,  9 Jan 2023 14:30:48 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wm1-x329.google.com (mail-wm1-x329.google.com
- [IPv6:2a00:1450:4864:20::329])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 83CF910E3CA
- for <freedreno@lists.freedesktop.org>; Mon,  9 Jan 2023 10:22:33 +0000 (UTC)
-Received: by mail-wm1-x329.google.com with SMTP id
- m26-20020a05600c3b1a00b003d9811fcaafso6236902wms.5
- for <freedreno@lists.freedesktop.org>; Mon, 09 Jan 2023 02:22:33 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=NGY2WfIMH5NbDK2UFtX7kYF6wj0td7t4Uuxyfu/a2lY=;
- b=jRWsn90HOq4cs97PbbcUF8R/IEBTYbEMDPmQDemX+kuQE4QKg2cOYPCViC/8uQL5yK
- kgPr0nbVFqlalhNEiGmjR9po/azhbEJVETY8bvqo8fnzJqd96tuc7Wojt0yx9nX3qLIE
- xF1nFwVXDb8TJ2/vCESAAdmxO/bg28kX74JMWViD7HLOzP+2F2qhkzTq0y8lrbyHNNbh
- jWHOL1WrvDDdRYYezXyI7YDVilZ6aEYslC8vrrM2pe27UiS8sUuq5Twv3Ha7CeO7p3vf
- 0uVEBVXnT5tyxI6IBv7OCTrqiAcp6xAqwm92kQtDYuVen6/XioPmpxqftV6Al5cD6K5B
- 2mMA==
+Received: from mail-ot1-f48.google.com (mail-ot1-f48.google.com
+ [209.85.210.48])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6B95910E42B;
+ Mon,  9 Jan 2023 14:30:45 +0000 (UTC)
+Received: by mail-ot1-f48.google.com with SMTP id
+ i26-20020a9d68da000000b00672301a1664so5251893oto.6; 
+ Mon, 09 Jan 2023 06:30:45 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=NGY2WfIMH5NbDK2UFtX7kYF6wj0td7t4Uuxyfu/a2lY=;
- b=xEpwgUea4JVsGXOChaRc6CDvAeKhBpG2+jf7DFexW6O3XMdqAnH+u9uXnKEMuJMlbH
- TyY6jbmRZiO+P51ua83dsp1u7aUFySIgFv6xclYCwjzxNV9w0H3ZMq5l45kFvpdhZQ4m
- /DcU7FfPuzdbsaOZMs17aUkzK/pKlD04vQfsvhwTNBI7s3ieElHagURaYtEugR0CBHOQ
- MUOIsyiVll/0/t2dwVLjMQ+yRJV1dBkSufcK9r91lBKKXCECglBK9A8D4wHrNFnpUvJF
- a+XjvG3OGOd3ef+HgHSnJBvuwc6oTlXnGz8qCL1ewAikqVwMwyl5jv362KohUYne2Y/B
- XZuw==
-X-Gm-Message-State: AFqh2kp7VVCmILXxcgNz6yokkvF1GsrMkhsrFQGA0fCv7XbSVuKtZCbA
- Bv/6l+tUDlB2JjYTqsIkc6i1Ug==
-X-Google-Smtp-Source: AMrXdXtwhS/Hw81Hf42gN976U+RfMh+Em2M2OULImNjiCySdiWW8ppb0AHe2ByEiCDwPUU8MBLXThg==
-X-Received: by 2002:a05:600c:3b21:b0:3d9:bad8:4e9e with SMTP id
- m33-20020a05600c3b2100b003d9bad84e9emr18493818wms.40.1673259752038; 
- Mon, 09 Jan 2023 02:22:32 -0800 (PST)
-Received: from [192.168.1.109] ([178.197.216.144])
- by smtp.gmail.com with ESMTPSA id
- n9-20020a05600c4f8900b003d96b8e9bcasm16860567wmq.32.2023.01.09.02.22.30
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 09 Jan 2023 02:22:31 -0800 (PST)
-Message-ID: <a6330ecc-021a-9943-1bbd-61603f40f152@linaro.org>
-Date: Mon, 9 Jan 2023 11:22:28 +0100
+ h=date:subject:message-id:references:in-reply-to:cc:to:from
+ :mime-version:content-transfer-encoding:x-gm-message-state:from:to
+ :cc:subject:date:message-id:reply-to;
+ bh=lnvWjGkJXKCbxJNpIXGvIrUGwer2KE72GLT13UzJPJM=;
+ b=DRqP6nzDrXaa2/2i9TdXTpYe+l8yDDkBhrdIm5WxGdzzsQJBtutqUljgcV7wAZ29i4
+ 86PvI1UpGETO6MDhAzHzZAHbH+HU86YSqkfXHjKNuGKemLw8NY0FvScmmB3ByA9F5l1o
+ hhx6RmpryZt0bYjHX0UwR2KzAi5ICKNvypYwhApRRyF/N7MSqB6H8hsaRfJ75YhJ0LPE
+ EEEsByUvD6LahwlwYffvfdU0A7AeKg9CBmQd1Ciq/GVmuXtcRlz6iG9pfdBNUkRgDPcE
+ DYuadSmm5tUAqkqzjXEKBoG86547qYdI5bxAk52+f4TFJwZg4xrGcBhg2UOE6IfcY1nY
+ BpZQ==
+X-Gm-Message-State: AFqh2kq4rTozRNkswD+W5O52J6LlwOSQ1zQfwLBLL1XRJpu+mLw+SCbG
+ 6GL4NAclFOHLNZ6bpIjDRg==
+X-Google-Smtp-Source: AMrXdXsbnWLocs9cJBrnQ0sJkMZX7KSKHILdb1IwjdJTuilsjNdiW3psm5xNI4+SRYShJnGsLC5OAg==
+X-Received: by 2002:a9d:69c4:0:b0:66e:a5db:c553 with SMTP id
+ v4-20020a9d69c4000000b0066ea5dbc553mr35961709oto.19.1673274644592; 
+ Mon, 09 Jan 2023 06:30:44 -0800 (PST)
+Received: from robh_at_kernel.org (66-90-144-107.dyn.grandenetworks.net.
+ [66.90.144.107]) by smtp.gmail.com with ESMTPSA id
+ b19-20020a9d6b93000000b0066ca61230casm4615429otq.8.2023.01.09.06.30.43
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 09 Jan 2023 06:30:43 -0800 (PST)
+Received: (nullmailer pid 237517 invoked by uid 1000);
+ Mon, 09 Jan 2023 14:30:36 -0000
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.6.1
-Content-Language: en-US
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Andy Gross <agross@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konrad.dybcio@linaro.org>, Rob Clark <robdclark@gmail.com>,
- Sean Paul <sean@poorly.run>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Rob Herring <robh+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>
-References: <20230109045458.316114-1-dmitry.baryshkov@linaro.org>
-From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-In-Reply-To: <20230109045458.316114-1-dmitry.baryshkov@linaro.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH] dt-bindings: display/msm: qcom,
- sdm845-mdss: document the DP device
+From: Rob Herring <robh@kernel.org>
+To: Neil Armstrong <neil.armstrong@linaro.org>
+In-Reply-To: <20230103-topic-sm8550-upstream-mdss-dsi-v3-3-660c3bcb127f@linaro.org>
+References: <20230103-topic-sm8550-upstream-mdss-dsi-v3-0-660c3bcb127f@linaro.org>
+ <20230103-topic-sm8550-upstream-mdss-dsi-v3-3-660c3bcb127f@linaro.org>
+Message-Id: <167327376817.61320.5444570222214850129.robh@kernel.org>
+Date: Mon, 09 Jan 2023 08:30:36 -0600
+Subject: Re: [Freedreno] [PATCH v3 3/7] dt-bindings: display/msm: document
+ MDSS on SM8550
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,25 +65,57 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, Stephen Boyd <swboyd@chromium.org>,
- Daniel Vetter <daniel@ffwll.ch>, freedreno@lists.freedesktop.org,
- David Airlie <airlied@gmail.com>
+Cc: devicetree@vger.kernel.org, Daniel Vetter <daniel@ffwll.ch>,
+ Jonathan Marek <jonathan@marek.ca>, Sean Paul <sean@poorly.run>,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
+ Rob Clark <robdclark@gmail.com>, Rob Herring <robh+dt@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ linux-arm-msm@vger.kernel.org, Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ David Airlie <airlied@gmail.com>, freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 09/01/2023 05:54, Dmitry Baryshkov wrote:
-> Document the DP controller added to the sdm845 display subsystem.
+
+On Mon, 09 Jan 2023 11:15:19 +0100, Neil Armstrong wrote:
+> Document the MDSS hardware found on the Qualcomm SM8550 platform.
 > 
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+> Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
 > ---
->  .../devicetree/bindings/display/msm/qcom,sdm845-mdss.yaml   | 6 ++++++
->  1 file changed, 6 insertions(+)
+>  .../bindings/display/msm/qcom,sm8550-mdss.yaml     | 331 +++++++++++++++++++++
+>  1 file changed, 331 insertions(+)
 > 
 
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+My bot found errors running 'make DT_CHECKER_FLAGS=-m dt_binding_check'
+on your patch (DT_CHECKER_FLAGS is new in v5.13):
 
+yamllint warnings/errors:
 
-Best regards,
-Krzysztof
+dtschema/dtc warnings/errors:
+Documentation/devicetree/bindings/display/msm/qcom,sm8550-mdss.example.dts:21:18: fatal error: dt-bindings/clock/qcom,sm8550-dispcc.h: No such file or directory
+   21 |         #include <dt-bindings/clock/qcom,sm8550-dispcc.h>
+      |                  ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+compilation terminated.
+make[1]: *** [scripts/Makefile.lib:434: Documentation/devicetree/bindings/display/msm/qcom,sm8550-mdss.example.dtb] Error 1
+make[1]: *** Waiting for unfinished jobs....
+make: *** [Makefile:1508: dt_binding_check] Error 2
+
+doc reference errors (make refcheckdocs):
+
+See https://patchwork.ozlabs.org/project/devicetree-bindings/patch/20230103-topic-sm8550-upstream-mdss-dsi-v3-3-660c3bcb127f@linaro.org
+
+The base for the series is generally the latest rc1. A different dependency
+should be noted in *this* patch.
+
+If you already ran 'make dt_binding_check' and didn't see the above
+error(s), then make sure 'yamllint' is installed and dt-schema is up to
+date:
+
+pip3 install dtschema --upgrade
+
+Please check and re-submit after running the above command yourself. Note
+that DT_SCHEMA_FILES can be set to your schema file to speed up checking
+your schema. However, it must be unset to test all examples with your schema.
 
