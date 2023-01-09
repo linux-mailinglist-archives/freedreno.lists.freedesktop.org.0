@@ -1,69 +1,72 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7B7B3663543
-	for <lists+freedreno@lfdr.de>; Tue, 10 Jan 2023 00:30:14 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 89AD266354F
+	for <lists+freedreno@lfdr.de>; Tue, 10 Jan 2023 00:30:17 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 46FF410E0D6;
-	Mon,  9 Jan 2023 23:30:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BE1F410E51F;
+	Mon,  9 Jan 2023 23:30:14 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from mail-lf1-x12d.google.com (mail-lf1-x12d.google.com
  [IPv6:2a00:1450:4864:20::12d])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 07D1510E0CF;
- Mon,  9 Jan 2023 23:16:29 +0000 (UTC)
-Received: by mail-lf1-x12d.google.com with SMTP id v25so15492213lfe.12;
- Mon, 09 Jan 2023 15:16:28 -0800 (PST)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2321A10E096;
+ Mon,  9 Jan 2023 23:16:30 +0000 (UTC)
+Received: by mail-lf1-x12d.google.com with SMTP id v25so15492336lfe.12;
+ Mon, 09 Jan 2023 15:16:30 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=content-transfer-encoding:mime-version:date:message-id:subject
  :references:in-reply-to:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=t/mDgzPnUXxALwSc77P9Iyw1b4SZpp1LqX9N2wGlWLw=;
- b=B9m4CHmihRuEgTAs5tZdrZAp2YkSVYMp9hhXtVqPSGsJZsNcLaeAboG9f4nTdukK9p
- Y1ZjFYzcPThHQHD8b1mtOqNz8k5ByfxT+HHPYTAStlbClZOKfq+bzW6jutvTNMXef70u
- VBuA9bshNVdHboSaacxRpJjkCNMxooU9ncuKkRMAR9zaOq5iAAWRhZBgZaI3UjxfQUfT
- T/JwXSJrFJXGGuYmeTCQObWPapGgN3ChggBX1xVvb0CpEFK0AQ0AT+wWL8EDpYKu5M4v
- 0QwuOwPg9Ioc0TEgjCxbhG1PSPv9DrFneXReAYGzJaqG1pZlP6w2ZpOFKwHh6Q5fUgjK
- 9vCw==
+ bh=9ORCokxU5jx6cKMaaTper0S84yDtXOhtofp7KVmnXiA=;
+ b=QdlzW40tyv/wOyAd0t/0Pkv5enmi1SZeXXuLb3sKU0MVWmGJHk9UuQG1SLoL7xhkdB
+ AqABtKiqP1rzK18A6dnd0Pr1S8ChdG55n6ixEjrataQ3NhjrihGrh2S+hW4sPeWF5fPC
+ lj0huOAVW51wYVP+tsGCov9pOr9HPNSfy5Tp5AMqejjkLs7w1M8/thZ0WdpFGHUfJtN1
+ MvdhWu2jfRV/n0iEyLy/4spC1FRkhODF3U0FQD179eZVquhwRqDGbkefeStLYyEF3XNW
+ d6DrohC+tHzhtOL0WV/JcPj1/H+7FMVUIoJRu7L0UU1T169OFV+uFO2wt0cNTjnrIBsF
+ 20KA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=content-transfer-encoding:mime-version:date:message-id:subject
  :references:in-reply-to:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=t/mDgzPnUXxALwSc77P9Iyw1b4SZpp1LqX9N2wGlWLw=;
- b=40GysNGF78hVi3vaKveYyZRvsb8NxDrKteMeGmrGqVhv09zXjYnbAPgfl0zLVWc5/5
- x08laOqHYqFyqvlpQstCjWmBkaHJeF+woUI1ExxzSc1x+yOJ3iLohnPXCsLT6XQD4KiF
- ViwDwjkCUtapPJ1lxYDlN2UupUXqgDfUW8Vk0CuO2LrQt9ZtJvDSA/+o4NhXScFCriqG
- qrAtVE4KQh7T2GkWZPwu6Idtt7gnK+c6uUZw/LhR0aoqff0KP/h2xjqqaWyWvV11TpLm
- tUwn9Flj0mSrPt1nuIZatzWjtoowXleRQaUxeFumu/mli+uW/V1SaGvd72yiLSN0Q7iO
- 2EDQ==
-X-Gm-Message-State: AFqh2krQkwSlY96tkWOXQeHBIUBQHfkua3V/DoLgmqjyro3vJJONf3+g
- AMlpF7Ut6/CtPYmd1onkt7M4M82ue8s8Wg==
-X-Google-Smtp-Source: AMrXdXtPzJ3f1pblhBDPvSsW8oOxmBG4ZNuXw1pydRuDZV67dLZ7d4g4JIcTmwwjCI8J3zIceTrK1g==
-X-Received: by 2002:a05:6512:c14:b0:4b5:abe3:c63d with SMTP id
- z20-20020a0565120c1400b004b5abe3c63dmr22375060lfu.42.1673306186813; 
- Mon, 09 Jan 2023 15:16:26 -0800 (PST)
+ bh=9ORCokxU5jx6cKMaaTper0S84yDtXOhtofp7KVmnXiA=;
+ b=aCHrNe0PlU5MGYFLeo9/teh0wsxxKa13QdnwM4fj6bTdJXuG8/P9DsGHLNTv/XMu8X
+ iQ782m6rQK0qJoceg/Eu/euasbPNtezmsdDy7BQuy1lc0JQS4nnLSZZhnNBPqET9Rivc
+ eysa0Lrkosxj46rvLcovoUmjSBtx51akqsxIeKazxnrmLR52l/aZi2FJ7RshwuC970WU
+ i8nkhFoP0bfXQJRuMB0NKOj2jwxRPELx/U+oXpPAd+H9/1afLyRKgA1oWh9//X8ncnA9
+ 2pLH3jCVFO4sp6esEtwbtwM3zMCpxoBJXYopP+q5FY0Zo3g0GMprw5PRGYzWjbnuoOnu
+ KbzQ==
+X-Gm-Message-State: AFqh2kp6+ORnHPst861rTT0DoyYV5lFtwaO+/NSTvnx/4RUWXNZ2D0+k
+ knxrxXTx/ZhNh/SQPRzaqWpX4o5EN53rTg==
+X-Google-Smtp-Source: AMrXdXsCbcTdDaTRpnUjGR5hQtLiFtCrpoRSWtrpxkgLsUUlzEWRhBdXsDzyLfrRwhHb4avnFJjojQ==
+X-Received: by 2002:a05:6512:260a:b0:4cb:427:745c with SMTP id
+ bt10-20020a056512260a00b004cb0427745cmr21625530lfb.33.1673306188877; 
+ Mon, 09 Jan 2023 15:16:28 -0800 (PST)
 Received: from localhost (dzccz6yyyyyyyyyyybcwt-3.rev.dnainternet.fi.
  [2001:14ba:a085:4d00::8a5]) by smtp.gmail.com with ESMTPSA id
- w20-20020a05651234d400b004cb8de497ffsm1836363lfr.154.2023.01.09.15.16.25
+ s6-20020ac25fe6000000b004b6efcb7bb5sm1840277lfg.169.2023.01.09.15.16.27
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 09 Jan 2023 15:16:25 -0800 (PST)
+ Mon, 09 Jan 2023 15:16:28 -0800 (PST)
 From: Dmitry Baryshkov <dbaryshkov@gmail.com>
 X-Google-Original-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-To: dri-devel@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
- freedreno@lists.freedesktop.org, devicetree@vger.kernel.org,
- Kalyan Thota <quic_kalyant@quicinc.com>
-In-Reply-To: <1669021695-4397-1-git-send-email-quic_kalyant@quicinc.com>
-References: <1669021695-4397-1-git-send-email-quic_kalyant@quicinc.com>
-Message-Id: <167330408778.609993.9217470869804308069.b4-ty@linaro.org>
+To: dri-devel@lists.freedesktop.org, robdclark@gmail.com, sean@poorly.run,
+ swboyd@chromium.org, dianders@chromium.org, vkoul@kernel.org, daniel@ffwll.ch,
+ agross@kernel.org, andersson@kernel.org, konrad.dybcio@somainline.org,
+ robh+dt@kernel.org, krzysztof.kozlowski+dt@linaro.org,
+ devicetree@vger.kernel.org, airlied@gmail.com,
+ Kuogee Hsieh <quic_khsieh@quicinc.com>
+In-Reply-To: <1672163103-31254-1-git-send-email-quic_khsieh@quicinc.com>
+References: <1672163103-31254-1-git-send-email-quic_khsieh@quicinc.com>
+Message-Id: <167330408780.609993.2871958303249366717.b4-ty@linaro.org>
 Date: Tue, 10 Jan 2023 00:41:27 +0200
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
 X-Mailman-Approved-At: Mon, 09 Jan 2023 23:30:11 +0000
-Subject: Re: [Freedreno] [PATCH v4 0/3] add color management support for the
- crtc
+Subject: Re: [Freedreno] [PATCH v16 0/5] Add data-lanes and link-frequencies
+ to dp_out endpoint
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,31 +79,38 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: robdclark@chromium.org, dianders@chromium.org, quic_abhinavk@quicinc.com,
- linux-kernel@vger.kernel.org, quic_vpolimer@quicinc.com, swboyd@chromium.org
+Cc: linux-arm-msm@vger.kernel.org, quic_sbillaka@quicinc.com,
+ freedreno@lists.freedesktop.org, quic_abhinavk@quicinc.com,
+ linux-kernel@vger.kernel.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 
-On Mon, 21 Nov 2022 01:08:12 -0800, Kalyan Thota wrote:
-> Add color management support for the crtc provided there are
-> enough dspps that can be allocated from the catalog
+On Tue, 27 Dec 2022 09:44:58 -0800, Kuogee Hsieh wrote:
+> Add DP both data-lanes and link-frequencies property to dp_out endpoint and support
+> functions to DP driver.
 > 
-> Kalyan Thota (3):
->   drm/msm/disp/dpu1: pin 1 crtc to 1 encoder
->   drm/msm/disp/dpu1: add helper to know if display is builtin
->   drm/msm/disp/dpu1: add color management support for the crtc
+> Kuogee Hsieh (5):
+>   arm64: dts: qcom: add data-lanes and link-freuencies into dp_out
+>     endpoint
+>   dt-bindings: msm/dp: add data-lanes and link-frequencies property
+>   drm/msm/dp: parse data-lanes as property of dp_out endpoint
+>   Add capability to parser and retrieve max DP link supported rate from
+>        link-frequencies property of dp_out endpoint.
+>   drm/msm/dp: add support of max dp link rate
 > 
 > [...]
 
 Applied, thanks!
 
-[1/3] drm/msm/disp/dpu1: pin 1 crtc to 1 encoder
-      https://gitlab.freedesktop.org/lumag/msm/-/commit/a4d6f8253645
-[2/3] drm/msm/disp/dpu1: add helper to know if display is builtin
-      https://gitlab.freedesktop.org/lumag/msm/-/commit/4cb6b1eebb92
-[3/3] drm/msm/disp/dpu1: add color management support for the crtc
-      https://gitlab.freedesktop.org/lumag/msm/-/commit/c48c475bd75a
+[2/5] dt-bindings: msm/dp: add data-lanes and link-frequencies property
+      https://gitlab.freedesktop.org/lumag/msm/-/commit/123f12555074
+[3/5] drm/msm/dp: parse data-lanes as property of dp_out endpoint
+      https://gitlab.freedesktop.org/lumag/msm/-/commit/d25cfeeec064
+[4/5] Add capability to parser and retrieve max DP link supported rate from link-frequencies property of dp_out endpoint.
+      https://gitlab.freedesktop.org/lumag/msm/-/commit/381518a1677c
+[5/5] drm/msm/dp: add support of max dp link rate
+      https://gitlab.freedesktop.org/lumag/msm/-/commit/0e7f270591a4
 
 Best regards,
 -- 
