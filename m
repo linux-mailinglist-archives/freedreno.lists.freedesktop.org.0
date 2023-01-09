@@ -1,56 +1,79 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4A803661F89
-	for <lists+freedreno@lfdr.de>; Mon,  9 Jan 2023 08:59:47 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 9EEE7661FD7
+	for <lists+freedreno@lfdr.de>; Mon,  9 Jan 2023 09:20:22 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0794010E077;
-	Mon,  9 Jan 2023 07:59:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6550E10E28B;
+	Mon,  9 Jan 2023 08:20:21 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from relay07.th.seeweb.it (relay07.th.seeweb.it [5.144.164.168])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3728010E079
- for <freedreno@lists.freedesktop.org>; Mon,  9 Jan 2023 07:59:44 +0000 (UTC)
-Received: from SoMainline.org (unknown [89.205.227.209])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest
- SHA256) (No client certificate requested)
- by m-r2.th.seeweb.it (Postfix) with ESMTPSA id 1FD323EBA7;
- Mon,  9 Jan 2023 08:59:29 +0100 (CET)
-Date: Mon, 9 Jan 2023 08:59:26 +0100
-From: Marijn Suijten <marijn.suijten@somainline.org>
-To: phone-devel@vger.kernel.org, Rob Clark <robdclark@gmail.com>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Vinod Koul <vkoul@kernel.org>, ~postmarketos/upstreaming@lists.sr.ht,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@somainline.org>,
- Konrad Dybcio <konrad.dybcio@somainline.org>,
- Martin Botka <martin.botka@somainline.org>,
- Jami Kettunen <jami.kettunen@somainline.org>,
- Sean Paul <sean@poorly.run>, David Airlie <airlied@gmail.com>,
- Stephen Boyd <swboyd@chromium.org>, Bjorn Andersson <andersson@kernel.org>,
- Jessica Zhang <quic_jesszhan@quicinc.com>,
- Ville =?utf-8?B?U3lyasOkbMOk?= <ville.syrjala@linux.intel.com>,
- Kuogee Hsieh <quic_khsieh@quicinc.com>,
- Jani Nikula <jani.nikula@intel.com>,
- sunliming <sunliming@kylinos.cn>, Sam Ravnborg <sam@ravnborg.org>,
- Haowen Bai <baihaowen@meizu.com>, Konrad Dybcio <konrad.dybcio@linaro.org>,
- Loic Poulain <loic.poulain@linaro.org>,
- Vinod Polimera <quic_vpolimer@quicinc.com>,
- Douglas Anderson <dianders@chromium.org>,
- Vladimir Lypak <vladimir.lypak@gmail.com>,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Message-ID: <20230109075926.7e7jvpk4fq62et5a@SoMainline.org>
-References: <20221221231943.1961117-1-marijn.suijten@somainline.org>
- <Y7bjlgjpX+21Dm0i@phenom.ffwll.local>
+Received: from mail-wr1-x42d.google.com (mail-wr1-x42d.google.com
+ [IPv6:2a00:1450:4864:20::42d])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2872E10E0B6
+ for <freedreno@lists.freedesktop.org>; Mon,  9 Jan 2023 08:20:19 +0000 (UTC)
+Received: by mail-wr1-x42d.google.com with SMTP id r2so7311100wrv.7
+ for <freedreno@lists.freedesktop.org>; Mon, 09 Jan 2023 00:20:19 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=content-transfer-encoding:in-reply-to:organization:references:cc:to
+ :content-language:subject:reply-to:from:user-agent:mime-version:date
+ :message-id:from:to:cc:subject:date:message-id:reply-to;
+ bh=CYyp5XDyMRmrPqmynKHIyJjVDqDm5Chh7Zml32+BipY=;
+ b=zTOCGwY56/f5Z1Eki0rfCFmDAHRfvpvEOGhKsUuiVnhIHF8TTAukLvemA8Rh1gH6iH
+ no9OCSVIsHO9GAp1dMmhukvQmYTsCwB+TtQIQkV73NFeuCNn0WR3g9N4gADoPNIT/Hlj
+ 5yInInLZM+Iw7CSkSkRg3XoIOMbxRN2BR5PQpzTKDrMiHgOUTTwahxrKoo3RJ1CgJ8tG
+ DiVYxZUJDFr2orRWYQ0USmsHdvtJ1SmQWqwQq+mk53POs+rUSZVmtKEk0FrLtNpc0gG4
+ 2hGN5/l4ivWEd5JZgCHwtCO0r0Ete2u0g7YeCoJQfwV2MgsAsqibVzY84Uiu7AdcrGVm
+ 8fRg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=content-transfer-encoding:in-reply-to:organization:references:cc:to
+ :content-language:subject:reply-to:from:user-agent:mime-version:date
+ :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=CYyp5XDyMRmrPqmynKHIyJjVDqDm5Chh7Zml32+BipY=;
+ b=b1s0YCEQRjXmGW9hLKhcfJ5TeTod439eSpBB0KrLygIPvM+innEn5jYu0ym9GjWfzC
+ BmUtH0uJ8B7L7lNOm5IPUF7r4j4bjOFekjGPPJeZuNxGapG3iP8CpW7px14eCGJtlsCV
+ kNewhDfHLd8saMc43xZS58TkpNvQS2CFWNXMKBIEFQ3bxKekq3dJ1E8bpxkfSHTgbGxY
+ qIqgLupNgnTZTCrjOc9unkAVb6vqjSnD6222al+6Bo7RetalPgMv5VqNfEVWSB5ycXl9
+ 0Jh/QX8G0la0o2sAYfb8m80wQuP4Z1sMcEYG3F0x4M9+gYO7mJ/fSFvYEFW6yJRK+mC2
+ iYBQ==
+X-Gm-Message-State: AFqh2krUlqu/cfGFVAn2r79jKOZqOgwkpcW0louqjk9cVr25O8p0hDDT
+ TayR+YS0AWwOZLp3se8WsZQQdQ==
+X-Google-Smtp-Source: AMrXdXuS4SsXEvDjtamC9p7y7+wI0Z3KLE2gqiRlvwPweAiNeB7fCc1XlwUcmftBZTJTntulUNozMg==
+X-Received: by 2002:adf:ea91:0:b0:2a3:44e9:4ebb with SMTP id
+ s17-20020adfea91000000b002a344e94ebbmr11799768wrm.15.1673252417545; 
+ Mon, 09 Jan 2023 00:20:17 -0800 (PST)
+Received: from [192.168.7.111] (679773502.box.freepro.com. [212.114.21.58])
+ by smtp.gmail.com with ESMTPSA id
+ p16-20020a5d4590000000b0026fc5694a60sm7896542wrq.26.2023.01.09.00.20.16
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 09 Jan 2023 00:20:17 -0800 (PST)
+Message-ID: <129fa2ba-2399-067a-bc04-49e08eee2f55@linaro.org>
+Date: Mon, 9 Jan 2023 09:20:17 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <Y7bjlgjpX+21Dm0i@phenom.ffwll.local>
-Subject: Re: [Freedreno] [PATCH v2 0/8] drm/msm: DSC Electric Boogaloo for
- sm8[12]50
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.6.0
+From: Neil Armstrong <neil.armstrong@linaro.org>
+Content-Language: en-US
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
+ Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Sean Paul <sean@poorly.run>, David Airlie <airlied@gmail.com>,
+ Daniel Vetter <daniel@ffwll.ch>, Rob Herring <robh+dt@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Jonathan Marek <jonathan@marek.ca>
+References: <20230103-topic-sm8550-upstream-mdss-dsi-v1-0-9ccd7e652fcd@linaro.org>
+ <20230103-topic-sm8550-upstream-mdss-dsi-v1-1-9ccd7e652fcd@linaro.org>
+ <f8c8076e-2ac3-f67b-7641-d0c324784cb5@linaro.org>
+ <5f1a846b-d536-f013-f311-2773945317bb@linaro.org>
+Organization: Linaro Developer Services
+In-Reply-To: <5f1a846b-d536-f013-f311-2773945317bb@linaro.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+Subject: Re: [Freedreno] [PATCH 1/6] dt-bindings: display/msm: document the
+ SM8550 DSI PHY
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,28 +86,57 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: neil.armstrong@linaro.org
+Cc: linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ devicetree@vger.kernel.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 2023-01-05 15:49:58, Daniel Vetter wrote:
-> On Thu, Dec 22, 2022 at 12:19:35AM +0100, Marijn Suijten wrote:
-> > [..]
+On 09/01/2023 00:09, Dmitry Baryshkov wrote:
+> On 06/01/2023 17:41, Krzysztof Kozlowski wrote:
+>> On 04/01/2023 10:08, Neil Armstrong wrote:
+>>> Document the SM8550 DSI PHY which is very close from the 7nm
+>>> and 5nm DSI PHYs found in earlier platforms.
+>>>
+>>> Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
+>>> ---
+>>>   Documentation/devicetree/bindings/display/msm/dsi-phy-7nm.yaml | 1 +
+>>>   1 file changed, 1 insertion(+)
+>>>
+>>> diff --git a/Documentation/devicetree/bindings/display/msm/dsi-phy-7nm.yaml b/Documentation/devicetree/bindings/display/msm/dsi-phy-7nm.yaml
+>>> index bffd161fedfd..f72727f81076 100644
+>>> --- a/Documentation/devicetree/bindings/display/msm/dsi-phy-7nm.yaml
+>>> +++ b/Documentation/devicetree/bindings/display/msm/dsi-phy-7nm.yaml
+>>> @@ -15,6 +15,7 @@ allOf:
+>>>   properties:
+>>>     compatible:
+>>>       enum:
+>>> +      - qcom,dsi-phy-4nm-8550
+>>>         - qcom,dsi-phy-5nm-8350
+>>>         - qcom,dsi-phy-5nm-8450
+>>
+>> Poor patterns once allowed like to keep growing... I commented here:
+>> https://lore.kernel.org/all/ccbb47e4-d780-0b1d-814e-27e86b6c369c@linaro.org/
+>>
+>> so let's wait for response about other compatibles.
 > 
-> Please note that Electric Boogaloo/Boogaloo Boys has been appropriated by
-> US alt-right groups, and so is really not a great thing to put into the
-> cover letter for your patch series. For the next round, please use a meme
-> that isn't tarnished like this.
+> I have fixed 8350 & 8450 while applying. Please rebase on top of msm-next-lumag-next with fixed compatibles.
 
-Apologies for that, I wasn't aware of this abuse as a non-US citizen and
-hope this series is not offending anyone.
+Ack
 
-As far as I recall this series was set to be applied for 6.3 yet Dmitry
-seems to have just posted some additional comments.  May have been
-confusion on my end.
+Thanks,
+Neil
 
-Hence we do now need another cheeky title, conveying that we're already
-on the second round of fixes for DSC and it is still not working on
-major SoCs/boards.
-
-- Marijn
+> 
+> Note: the DPU changes are not yet part of the msm-lumag-next.
+> 
+>>
+>>>         - qcom,dsi-phy-7nm
+>>>
+>>
+>> Best regards,
+>> Krzysztof
+>>
+> 
 
