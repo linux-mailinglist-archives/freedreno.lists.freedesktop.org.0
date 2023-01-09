@@ -2,67 +2,70 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id DEAC2663545
-	for <lists+freedreno@lfdr.de>; Tue, 10 Jan 2023 00:30:14 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0DE1666354D
+	for <lists+freedreno@lfdr.de>; Tue, 10 Jan 2023 00:30:17 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6B54210E0E4;
-	Mon,  9 Jan 2023 23:30:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 704D010E519;
+	Mon,  9 Jan 2023 23:30:14 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x135.google.com (mail-lf1-x135.google.com
- [IPv6:2a00:1450:4864:20::135])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4013510E0BB;
- Mon,  9 Jan 2023 23:14:45 +0000 (UTC)
-Received: by mail-lf1-x135.google.com with SMTP id b3so15542000lfv.2;
- Mon, 09 Jan 2023 15:14:45 -0800 (PST)
+Received: from mail-lf1-x129.google.com (mail-lf1-x129.google.com
+ [IPv6:2a00:1450:4864:20::129])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5C0DD10E0CF;
+ Mon,  9 Jan 2023 23:16:12 +0000 (UTC)
+Received: by mail-lf1-x129.google.com with SMTP id bq39so15579868lfb.0;
+ Mon, 09 Jan 2023 15:16:12 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=content-transfer-encoding:mime-version:date:message-id:subject
  :references:in-reply-to:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=7aMQc5BYXDV/7oNhbW1Pl88FNWIMOAPhqPBJwu9jrno=;
- b=TtZQLFQMSHggBMPL6z/kFK4ohDXrhJQyzkvWNZYoh0iUV9y1EKcOcPxa50mEctFydL
- RX2ewsmFAgVI5kzMGMQYoEnZSCzdMJXj36awfiagUTdsgoLvBKa8xh6F9sExaveOiSpy
- 3LwsY+5MmMNVwk5bkqAw2l5UD1xUQ1fXsgzX1dEzy/wdorS8M1V+zHlptNJqqmL1F5Xs
- /XzWq5blLa1nhYGCJHZ8uU/g+nogEQ/HZCLN0tQmYojBwtkTw6SxlmuS0YeVEXtYq7hy
- yVdHFzqmG15K9dEkvBufOdCvZipNwFX5nVK7qxk0gnp/vOdPlMJZMUxz7KDvXBQ6SrkT
- Tdqw==
+ bh=TcrRX6H8xp5Sk/eiYa/8jSn58hXIIDs/40rFnvHatxM=;
+ b=Tuo/Gox1iTyeafNpXOZg0Z42lZIj8MiuNPQMOl7xakbXH1hJTRTDdDYfkhL1jo9rd1
+ /tIr30oMAT+jy6zH8LvzdLHhtArGDY1k1MWGfDQXnNgzlfloUGnEdVe/AuLF5hMWoWQS
+ Gq+6i/mwXjfFDZb8WRY7FUnq54Zr/S0t8aOdibGNFEXb4f0Rl7UhuvZ1tkPPkOk/wmkg
+ Hu7psyHnHOFDXVHsFE00hIZDogkZoYqF0xEvxTJ26iFXmoTF5lzV7IJjgKITD4GGszRP
+ HFQPhvHuWHS/dSZPAh2uEbMWMQ7JmoOGYaK2OWhpeOMt7fKzDeNQu9HpWqfvl5AdEJXl
+ z85g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=content-transfer-encoding:mime-version:date:message-id:subject
  :references:in-reply-to:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=7aMQc5BYXDV/7oNhbW1Pl88FNWIMOAPhqPBJwu9jrno=;
- b=4Utzimh6893/YI2HRJokhwRrEd3QXY/I8Lb8nTceRiqPqXKZRgZ2izbf38dCGpNhL5
- z41mGtfxEYkW4Ln9oJpjJgqiQ3uDnSj9UAaA7JFATF2SZID4zBLMnthSMTaCK754yiHV
- 858kCtLwOwBT7xMQanhOBgtLJjEeby3XhZ117Dqq0+jizrElPsuy/EDU/nM1VBopALgp
- fUHxk/DholiDJRRYZ0tvUB44C0EqOQtblrEmXgmvLR11ukpy+4Xnk+aSxnAp0Nq8iXJp
- Fk/HPYBbzlJbIe829SzIw/T30QNR6wbszDa7DGvyv1cLLVntprnH0YJApwrYDPJbZXIS
- zv3w==
-X-Gm-Message-State: AFqh2kr5GGzqLYo6wxnSLD5oM5bW6VVRu4TJEOdWitsywL5l9ZTdzkrX
- pKokW5pcpujhY64d15rTY4A=
-X-Google-Smtp-Source: AMrXdXu3fTohzLJHs+Ys6z4kHHnaEEPDUV/31K4z6QI6J3cFIrnFWOYYusRQjmYBJFMM/13MRecttw==
-X-Received: by 2002:ac2:5d4e:0:b0:4c3:7634:234c with SMTP id
- w14-20020ac25d4e000000b004c37634234cmr19517431lfd.57.1673306083423; 
- Mon, 09 Jan 2023 15:14:43 -0800 (PST)
+ bh=TcrRX6H8xp5Sk/eiYa/8jSn58hXIIDs/40rFnvHatxM=;
+ b=matYMxYYu7ioWjbllvQS9UnZHrbdZ0hw82qskpNm5AU8LV+beRu3+lD8+i5YKL87fU
+ 9e83ohjp+3Txow1mFXMHdI5w9hz8BUJoOY5LbkKSzXeIBkafNbfsQzH+WLKDlLRM9vNK
+ F7mILC68m6r1q3MjJ/St/x5txfdClL6Q2yPDgecFa7RL8KezNG+W3N0Ypd03+avCkEaw
+ sCjTjebc0MxTzwlpSEtrPM2Rc5NnwZC3FQhB7xHaZXhsx4+/1S/Rhf6Om6SWdCslhtGj
+ hc0wYMxGTwBwzBLMlpJq86ULyHo2lw+HNB+sslUwYx+H2I/SWbgxqfyG0X3ccG2hUPMn
+ PTJg==
+X-Gm-Message-State: AFqh2kp2S/umaI9aDTKlAyx3HVenjEFwfKDY4vaeBcPpgmMgTTTPJDEO
+ h8U2ba9DxqIHB38Gwov5U48=
+X-Google-Smtp-Source: AMrXdXtQXEAnbQr/1v8NIUErWlyHAG56vSs4OyGVxT4mCFzLf8rCPDNeB+4HMUQoZzZxDe1tVJmqew==
+X-Received: by 2002:ac2:53ab:0:b0:4cb:145d:c407 with SMTP id
+ j11-20020ac253ab000000b004cb145dc407mr12469600lfh.7.1673306170521; 
+ Mon, 09 Jan 2023 15:16:10 -0800 (PST)
 Received: from localhost (dzccz6yyyyyyyyyyybcwt-3.rev.dnainternet.fi.
  [2001:14ba:a085:4d00::8a5]) by smtp.gmail.com with ESMTPSA id
- c21-20020ac244b5000000b004cb015794a8sm1834632lfm.109.2023.01.09.15.14.42
+ c14-20020a05651221ae00b004cb003c3b2dsm1834230lft.175.2023.01.09.15.16.09
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 09 Jan 2023 15:14:42 -0800 (PST)
+ Mon, 09 Jan 2023 15:16:09 -0800 (PST)
 From: Dmitry Baryshkov <dbaryshkov@gmail.com>
 X-Google-Original-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-To: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
+To: Andy Gross <agross@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konrad.dybcio@linaro.org>, Rob Clark <robdclark@gmail.com>,
+ Sean Paul <sean@poorly.run>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Rob Herring <robh+dt@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
  Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-In-Reply-To: <20230109214309.586130-1-dmitry.baryshkov@linaro.org>
-References: <20230109214309.586130-1-dmitry.baryshkov@linaro.org>
-Message-Id: <167330408773.609993.12108316021819384010.b4-ty@linaro.org>
+In-Reply-To: <20221207012231.112059-1-dmitry.baryshkov@linaro.org>
+References: <20221207012231.112059-1-dmitry.baryshkov@linaro.org>
+Message-Id: <167330408780.609993.1433336946810204585.b4-ty@linaro.org>
 Date: Tue, 10 Jan 2023 00:41:27 +0200
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
 X-Mailman-Approved-At: Mon, 09 Jan 2023 23:30:11 +0000
-Subject: Re: [Freedreno] [PATCH] drm/msm/dpu: disable DSC blocks for SM8350
+Subject: Re: [Freedreno] [PATCH v6 00/11] drm/msm: add support for SM8450
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,25 +78,54 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
- Bjorn Andersson <andersson@kernel.org>, dri-devel@lists.freedesktop.org,
- Stephen Boyd <swboyd@chromium.org>, Daniel Vetter <daniel@ffwll.ch>,
+Cc: devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, Stephen Boyd <swboyd@chromium.org>,
+ Daniel Vetter <daniel@ffwll.ch>, freedreno@lists.freedesktop.org,
  David Airlie <airlied@gmail.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 
-On Mon, 09 Jan 2023 23:43:09 +0200, Dmitry Baryshkov wrote:
-> SM8350 has newer version of DSC blocks, which are not supported by the
-> driver yet. Remove them for now until these blocks are supported by the
-> driver.
+On Wed, 07 Dec 2022 03:22:20 +0200, Dmitry Baryshkov wrote:
+> This adds support for the MDSS/DPU/DSI on the Qualcomm SM8450 platform.
 > 
+> Change since v5:
+> - Added defines to be used for the MDP_PERIPH_TOP0 blackhole
 > 
+> Change since v4:
+> - Fixed commit messages for the first two patches (Krzysztof)
+> - Dropped clock-names requirement patch
+> - Removed clock-names from qcom,sm8450-mdss.yaml schema
+> - Fixed the schema changes lost between v3 and v4 (thanks Krzysztof)
+> - Added kernel doc for DPU_MDP_PERIPH_0_REMOVED (Abhinav)
+> - Fixed build issue in dpu_kms_mdp_snapshot() (Niel)
+> 
+> [...]
 
 Applied, thanks!
 
-[1/1] drm/msm/dpu: disable DSC blocks for SM8350
-      https://gitlab.freedesktop.org/lumag/msm/-/commit/3b2551eaeac3
+[01/11] dt-bindings: display/msm: *dpu.yaml: split required properties clauses
+        https://gitlab.freedesktop.org/lumag/msm/-/commit/0f87fc933e0c
+[02/11] dt-bindings: display/msm: *mdss.yaml: split required properties clauses
+        https://gitlab.freedesktop.org/lumag/msm/-/commit/e96150a6dc14
+[03/11] dt-bindings: display/msm: add sm8350 and sm8450 DSI PHYs
+        https://gitlab.freedesktop.org/lumag/msm/-/commit/44a9f577a087
+[04/11] dt-bindings: display/msm: add support for the display on SM8450
+        https://gitlab.freedesktop.org/lumag/msm/-/commit/f7463946c281
+[05/11] drm/msm/dsi/phy: rework register setting for 7nm PHY
+        https://gitlab.freedesktop.org/lumag/msm/-/commit/1a1bd3f45000
+[06/11] drm/msm/dsi: add support for DSI-PHY on SM8350 and SM8450
+        https://gitlab.freedesktop.org/lumag/msm/-/commit/e50c901f93e0
+[07/11] drm/msm/dsi: add support for DSI 2.6.0
+        https://gitlab.freedesktop.org/lumag/msm/-/commit/1b55304af89c
+[08/11] drm/msm/dpu: merge all MDP TOP registers to dpu_hwio.h
+        https://gitlab.freedesktop.org/lumag/msm/-/commit/3bb86d2c6cba
+[09/11] drm/msm/dpu: add support for MDP_TOP blackhole
+        https://gitlab.freedesktop.org/lumag/msm/-/commit/ae7459d07d8a
+[10/11] drm/msm/dpu: add support for SM8450
+        https://gitlab.freedesktop.org/lumag/msm/-/commit/8cbbc3396065
+[11/11] drm/msm: mdss add support for SM8450
+        https://gitlab.freedesktop.org/lumag/msm/-/commit/4d285825f1b7
 
 Best regards,
 -- 
