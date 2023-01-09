@@ -2,65 +2,67 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 55A676635A0
-	for <lists+freedreno@lfdr.de>; Tue, 10 Jan 2023 00:44:37 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 50A2B6635A4
+	for <lists+freedreno@lfdr.de>; Tue, 10 Jan 2023 00:44:38 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A857B10E0E4;
-	Mon,  9 Jan 2023 23:44:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 86B9810E526;
+	Mon,  9 Jan 2023 23:44:19 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-x236.google.com (mail-lj1-x236.google.com
- [IPv6:2a00:1450:4864:20::236])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DCBA610E522
+Received: from mail-lf1-x12d.google.com (mail-lf1-x12d.google.com
+ [IPv6:2a00:1450:4864:20::12d])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4C7BB10E51C
  for <freedreno@lists.freedesktop.org>; Mon,  9 Jan 2023 23:44:09 +0000 (UTC)
-Received: by mail-lj1-x236.google.com with SMTP id o7so10323534ljj.8
+Received: by mail-lf1-x12d.google.com with SMTP id bf43so15628180lfb.6
  for <freedreno@lists.freedesktop.org>; Mon, 09 Jan 2023 15:44:09 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=kpASIlrn94h2kw47h1c03X9cqh5FWCX9FeHma7sBwdI=;
- b=v1wrZ2vN/XnH/5e/agAJ16tPNvEY3v5UQpgH5Myp1qx1T/tvSz7m8P7mZNZ7lXLfD0
- EpkGbcICZQkZsQ6g2RTtvYTPrKYaaMjD0x5LUliXvpSwXhtSdyg7YRUoet1/smn7hSa6
- yIkwgYhdC7QLiBvK3GMYHo6ArZe+pS697mGl7ohBaNWtoV8YakjJ93ISDemTmu29Q6rM
- tvMdADfb4ZOj3ollbJaPYObgJJxTeRuBWzqkCzZoAM8w+ZYM63Q4Dqa0nMNclVJ3OErA
- lpNOCuMww4d2efN+xd+3Dx3ZyAcMF41gNNIUkM4m0/dF/L3yjRiNwgQhCtFmvbfSCTqK
- DS5A==
+ bh=oUSIRNZZE79nkyMU9G9AqBIuhvo2pozCegvf/Srh544=;
+ b=uJ5zkAXcPizQidJBAs/mQpb6fWttL+vM7ap+xLWfv4mHkzsnUY2SIk3ZL+Ks2/9mZS
+ CPiNW2BlpphCd3ikKwzLVN93Tq2CQ5G3BdKWbDeerxtNAY0tJpbXdVfKhYPnl/u4kfqk
+ DMhhtpZpwT7ExztXEodx/Hc/WdSZrpkqgq+qoUTsZoyzc4SJai1vZhMw7r2Vrpzm2CpL
+ f6aSCnMdeQf81xHBjNUC5fMcRvJWkXTg1x10jUye/qG/z7i3iZ0HnNLQzAdft/2IV9vH
+ 63k12N6Q4HecofVPXg2mj8CCEIE8TyAAkTAo3JPi85MSU3EdDS/kJIbUc+Pb80YW1fpm
+ u0Kg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=kpASIlrn94h2kw47h1c03X9cqh5FWCX9FeHma7sBwdI=;
- b=vZ5RSaZegLQ0Wys1FmMIEDKgMJ9JOdYKtRWARkizXGF5sYf9fxlRdYroUNLae5Ib5n
- OATy3fPz1hGaFDEIsPv7XG+sOLDSXf/p6C90hCdSk6jAKkd3uOzCYl2HYZgmvqmCPHtt
- qlLOe97tweI0HhrP1aHMMnwyKK9ok0zSzO0WbdmbuPXVjkSvDSADQP7P4XdFruCpk9hy
- NcAe5BDFqn9Sp9zTKanDPiUjIDBt/DV8Wn5dGO9E/FROpdu6vD5m26LHh2MEcGOPxFXX
- x1VMl1sSC4t9UOP7vQglo0ruT0KjzZFvy/pkJNrD578R6Ivz2AltecwohOS1DR9aHB+P
- A6QQ==
-X-Gm-Message-State: AFqh2kpYPGzlO9A9BJ384ObmgRlrGaC3PYVtIaQgOCtaAYhWbriktxMf
- QpUPhW+1gS/zTyM+fe4PZFVUnA==
-X-Google-Smtp-Source: AMrXdXuTSirBkKKX9cOHfeyvPTZYP1igXatg4QzFNBd3JOOm6VJi6sJ8f6PwONdphEmyG1wXADgO1g==
-X-Received: by 2002:a2e:2c0d:0:b0:281:bb75:1863 with SMTP id
- s13-20020a2e2c0d000000b00281bb751863mr3348094ljs.0.1673307847937; 
- Mon, 09 Jan 2023 15:44:07 -0800 (PST)
+ bh=oUSIRNZZE79nkyMU9G9AqBIuhvo2pozCegvf/Srh544=;
+ b=Ci8nROsqogxy+HovsNkuwQlH7NGV8bfg9sz3zGGJYehUtQ9xcp+FZvGSSpMGtkFZqj
+ useGO3rNU8HTYrfTljxboxKXfMA2RNxncNBi2l6b4yuM2Zz+8xkuGtf0JbFn23X8kj6N
+ w4lRqb+NKFFssjoTqjZ2vNmFnkYxgmj2fMU+iRh0ymD0yIyQgHS/MLxQrmaXUq7xGz5Z
+ ktnQ2x2TJ6bt1v39JAXizoYKtReCInVFKZzMs8SVe1TQqhSQwj+QK1Drs11J6nY0iE2r
+ w2e8/LrITowqg7j+au2T1kAA7j5Do6sUU88QoU5ASW621/Eadlhzxa8ILcv02G8AAQ5K
+ SLig==
+X-Gm-Message-State: AFqh2krkXYBrhN/YHdQwiX/OVJ7neY1lP1Uu5Xgx9yRTOJIk6qvyRvpt
+ ay8Z1XjrTtw6Peyeitm5sEGJ4Q==
+X-Google-Smtp-Source: AMrXdXt5Lb1JdORz9wFKniYzT1NTeV6oyiJCRsJrJzp3Srm/OE2t1T4PW6ihA06QLlT0hzAYtUMKzA==
+X-Received: by 2002:a05:6512:368a:b0:4b5:b90a:829d with SMTP id
+ d10-20020a056512368a00b004b5b90a829dmr16791324lfs.66.1673307848857; 
+ Mon, 09 Jan 2023 15:44:08 -0800 (PST)
 Received: from eriador.lan (dzccz6yyyyyyyyyyybcwt-3.rev.dnainternet.fi.
  [2001:14ba:a085:4d00::8a5]) by smtp.gmail.com with ESMTPSA id
- s9-20020a056512214900b004b5a4cf69dfsm1835255lfr.261.2023.01.09.15.44.07
+ s9-20020a056512214900b004b5a4cf69dfsm1835255lfr.261.2023.01.09.15.44.08
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 09 Jan 2023 15:44:07 -0800 (PST)
+ Mon, 09 Jan 2023 15:44:08 -0800 (PST)
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-To: phone-devel@vger.kernel.org, Marijn Suijten <marijn.suijten@somainline.org>
-Date: Tue, 10 Jan 2023 01:43:52 +0200
-Message-Id: <167330408782.609993.3753799611578677856.b4-ty@linaro.org>
+To: phone-devel@vger.kernel.org, Rob Clark <robdclark@gmail.com>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, Vinod Koul <vkoul@kernel.org>,
+ Marijn Suijten <marijn.suijten@somainline.org>
+Date: Tue, 10 Jan 2023 01:43:53 +0200
+Message-Id: <167330408773.609993.1753222329751720759.b4-ty@linaro.org>
 X-Mailer: git-send-email 2.39.0
-In-Reply-To: <20221121222456.437815-1-marijn.suijten@somainline.org>
-References: <20221121222456.437815-1-marijn.suijten@somainline.org>
+In-Reply-To: <20221221231943.1961117-1-marijn.suijten@somainline.org>
+References: <20221221231943.1961117-1-marijn.suijten@somainline.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Subject: Re: [Freedreno] [PATCH] drm/msm/dpu: Print interrupt index in
- addition to the mask
+Subject: Re: [Freedreno] [PATCH v2 0/8] drm/msm: DSC Electric Boogaloo for
+ sm8[12]50
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,36 +75,55 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Vinod Koul <vkoul@kernel.org>, linux-kernel@vger.kernel.org,
- Jami Kettunen <jami.kettunen@somainline.org>, David Airlie <airlied@gmail.com>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konrad.dybcio@somainline.org>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
- Stephen Boyd <swboyd@chromium.org>, freedreno@lists.freedesktop.org,
- Rob Clark <robdclark@gmail.com>, Martin Botka <martin.botka@somainline.org>,
- ~postmarketos/upstreaming@lists.sr.ht, Daniel Vetter <daniel@ffwll.ch>,
+Cc: Konrad Dybcio <konrad.dybcio@somainline.org>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
  AngeloGioacchino Del Regno <angelogioacchino.delregno@somainline.org>,
- Vinod Polimera <quic_vpolimer@quicinc.com>, Sean Paul <sean@poorly.run>,
- linux-arm-msm@vger.kernel.org
+ Vinod Polimera <quic_vpolimer@quicinc.com>, Sam Ravnborg <sam@ravnborg.org>,
+ =?UTF-8?q?Ville=20Syrj=C3=A4l=C3=A4?= <ville.syrjala@linux.intel.com>,
+ Haowen Bai <baihaowen@meizu.com>, David Airlie <airlied@gmail.com>,
+ Kuogee Hsieh <quic_khsieh@quicinc.com>,
+ Jessica Zhang <quic_jesszhan@quicinc.com>, Jani Nikula <jani.nikula@intel.com>,
+ linux-arm-msm@vger.kernel.org, Stephen Boyd <swboyd@chromium.org>,
+ Martin Botka <martin.botka@somainline.org>,
+ ~postmarketos/upstreaming@lists.sr.ht, Sean Paul <sean@poorly.run>,
+ Loic Poulain <loic.poulain@linaro.org>,
+ Jami Kettunen <jami.kettunen@somainline.org>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Vladimir Lypak <vladimir.lypak@gmail.com>,
+ Douglas Anderson <dianders@chromium.org>,
+ Konrad Dybcio <konrad.dybcio@linaro.org>, sunliming <sunliming@kylinos.cn>,
+ Daniel Vetter <daniel@ffwll.ch>, freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 
-On Mon, 21 Nov 2022 23:24:55 +0100, Marijn Suijten wrote:
-> The mask only describes the `irq_idx % 32` part, making it generally
-> impossible to deduce what interrupt is being enabled/disabled.  Since
-> `debug/core_irq` in debugfs (and other prints) also include the full
-> `DPU_IRQ_IDX()` value, print the same full value here for easier
-> correlation instead of only adding the `irq_idx / 32` part.
-> 
-> Furthermore, make the dbgstr messages more consistent.
+On Thu, 22 Dec 2022 00:19:35 +0100, Marijn Suijten wrote:
+> This preliminary Display Stream Compression support package for
+> (initially tested on) sm8[12]50 is based on comparing DSC behaviour
+> between downstream and mainline.  Some new callbacks are added (for
+> binding blocks on active CTLs), logic bugs are corrected, zeroed struct
+> members are now assigned proper values, and RM allocation and hw block
+> retrieval now hand out (or not) DSC blocks without causing null-pointer
+> dereferences.
 > 
 > [...]
 
 Applied, thanks!
 
-[1/1] drm/msm/dpu: Print interrupt index in addition to the mask
-      https://gitlab.freedesktop.org/lumag/msm/-/commit/d45e5744ab39
+[1/8] drm/msm/dpu: Wire up DSC mask for active CTL configuration
+      https://gitlab.freedesktop.org/lumag/msm/-/commit/c2d2c62da1fc
+[2/8] drm/msm/dsi: Use DSC slice(s) packet size to compute word count
+      https://gitlab.freedesktop.org/lumag/msm/-/commit/bbd1bccdcf4e
+[3/8] drm/msm/dsi: Flip greater-than check for slice_count and slice_per_intf
+      https://gitlab.freedesktop.org/lumag/msm/-/commit/85b5a40991dd
+[5/8] drm/msm/dpu: Reject topologies for which no DSC blocks are available
+      https://gitlab.freedesktop.org/lumag/msm/-/commit/f52b965c9434
+[6/8] drm/msm/dpu: Remove num_enc from topology struct in favour of num_dsc
+      https://gitlab.freedesktop.org/lumag/msm/-/commit/9ce765395f41
+[7/8] drm/msm/dpu: Implement DSC binding to PP block for CTL V1
+      https://gitlab.freedesktop.org/lumag/msm/-/commit/086116ae1410
+[8/8] drm/msm/dpu: Add DSC configuration for SM8150 and SM8250
+      https://gitlab.freedesktop.org/lumag/msm/-/commit/8cc4c9de15f4
 
 Best regards,
 -- 
