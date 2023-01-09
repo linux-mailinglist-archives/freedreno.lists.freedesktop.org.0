@@ -1,68 +1,69 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 09856663551
-	for <lists+freedreno@lfdr.de>; Tue, 10 Jan 2023 00:30:18 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 7B7B3663543
+	for <lists+freedreno@lfdr.de>; Tue, 10 Jan 2023 00:30:14 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CC33410E520;
-	Mon,  9 Jan 2023 23:30:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 46FF410E0D6;
+	Mon,  9 Jan 2023 23:30:13 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from mail-lf1-x12d.google.com (mail-lf1-x12d.google.com
  [IPv6:2a00:1450:4864:20::12d])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 458D510E0CF;
- Mon,  9 Jan 2023 23:16:33 +0000 (UTC)
-Received: by mail-lf1-x12d.google.com with SMTP id v25so15492497lfe.12;
- Mon, 09 Jan 2023 15:16:33 -0800 (PST)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 07D1510E0CF;
+ Mon,  9 Jan 2023 23:16:29 +0000 (UTC)
+Received: by mail-lf1-x12d.google.com with SMTP id v25so15492213lfe.12;
+ Mon, 09 Jan 2023 15:16:28 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=content-transfer-encoding:mime-version:date:message-id:subject
  :references:in-reply-to:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=XHjEtNVaTqOtCpnB9ZP021rbETT/k+vzPdGSi2OKKbk=;
- b=Dd9JqNQM4cUJM4TBXa5f4xvEAS9VPArJhWLDzOlCPE7UEAKXRhtW7VQ2cmdUTVVk0G
- VYT6hox6yoL2bEvWBJuLKd86+3whBQaa1drVc97qUHLKzbzstPXGjAuZc4d/yr8bot84
- 8AUV1Y1SyZQUIbNPmu4uphSh85FxvRSVCB4n9nMbn+kPl2tQRlcVJYezP6JnIzfj59WG
- 8+j5WaBqQNdd4LQaJHBA8IYwnngzv4oqLlgOU7s8lB447GnMZEyskOkjNmT64wcSy8WH
- 4dHz1sURUjoigqOMejLb7fCuxJLGfbHoeB5SPaB+P+3FljuafV20y+8FvPWBE2bPGwfo
- HKZg==
+ bh=t/mDgzPnUXxALwSc77P9Iyw1b4SZpp1LqX9N2wGlWLw=;
+ b=B9m4CHmihRuEgTAs5tZdrZAp2YkSVYMp9hhXtVqPSGsJZsNcLaeAboG9f4nTdukK9p
+ Y1ZjFYzcPThHQHD8b1mtOqNz8k5ByfxT+HHPYTAStlbClZOKfq+bzW6jutvTNMXef70u
+ VBuA9bshNVdHboSaacxRpJjkCNMxooU9ncuKkRMAR9zaOq5iAAWRhZBgZaI3UjxfQUfT
+ T/JwXSJrFJXGGuYmeTCQObWPapGgN3ChggBX1xVvb0CpEFK0AQ0AT+wWL8EDpYKu5M4v
+ 0QwuOwPg9Ioc0TEgjCxbhG1PSPv9DrFneXReAYGzJaqG1pZlP6w2ZpOFKwHh6Q5fUgjK
+ 9vCw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=content-transfer-encoding:mime-version:date:message-id:subject
  :references:in-reply-to:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=XHjEtNVaTqOtCpnB9ZP021rbETT/k+vzPdGSi2OKKbk=;
- b=RDB0x5w9BM3SEzJ2WWhVkcziguXz+WJmOZ/a7R59Ph/jpZjKtjCDKtWw9uNm/o92N2
- QNWe2dgTRALHRSRktLeG7xUvM3K5odfcx7rsAZUzHPXCpyLDRUH7NBCGQOmZaekorSDG
- FHQokS/NX+hyo/YdlNAMMzg22JV69xdJRCTyEX3ehrxwV4/iBOG83f4gp+vyi+jPQXNx
- tkKCAYsbawbK6OO4323k09ooWQvjyAicRmF62otSAKfd9YhHUVV2Sov7Ianefl4V81DW
- rXD7sX3obMHi+EUWq7LsAQUzsu6Kl1Ay/xYNrZ3meqDlkWnvENQvIYFHwSQsQMYsgjmh
- 9qvQ==
-X-Gm-Message-State: AFqh2kpgFgq0Q6xSnuRWNxETNQSSlt7XeqcBTwudD5Y17kOsUGunWqKa
- KYNn4JGYQjkk0E+XnGJB3hI=
-X-Google-Smtp-Source: AMrXdXuq/b00HS8PUFGm6yKSVMLWmldR90yzJzqsS17SBf9hSgAklRD7ER40uVXxqYUX1Tv4Bcj7/A==
-X-Received: by 2002:a05:6512:25a0:b0:4b5:5dea:85ad with SMTP id
- bf32-20020a05651225a000b004b55dea85admr18729585lfb.12.1673306192837; 
- Mon, 09 Jan 2023 15:16:32 -0800 (PST)
+ bh=t/mDgzPnUXxALwSc77P9Iyw1b4SZpp1LqX9N2wGlWLw=;
+ b=40GysNGF78hVi3vaKveYyZRvsb8NxDrKteMeGmrGqVhv09zXjYnbAPgfl0zLVWc5/5
+ x08laOqHYqFyqvlpQstCjWmBkaHJeF+woUI1ExxzSc1x+yOJ3iLohnPXCsLT6XQD4KiF
+ ViwDwjkCUtapPJ1lxYDlN2UupUXqgDfUW8Vk0CuO2LrQt9ZtJvDSA/+o4NhXScFCriqG
+ qrAtVE4KQh7T2GkWZPwu6Idtt7gnK+c6uUZw/LhR0aoqff0KP/h2xjqqaWyWvV11TpLm
+ tUwn9Flj0mSrPt1nuIZatzWjtoowXleRQaUxeFumu/mli+uW/V1SaGvd72yiLSN0Q7iO
+ 2EDQ==
+X-Gm-Message-State: AFqh2krQkwSlY96tkWOXQeHBIUBQHfkua3V/DoLgmqjyro3vJJONf3+g
+ AMlpF7Ut6/CtPYmd1onkt7M4M82ue8s8Wg==
+X-Google-Smtp-Source: AMrXdXtPzJ3f1pblhBDPvSsW8oOxmBG4ZNuXw1pydRuDZV67dLZ7d4g4JIcTmwwjCI8J3zIceTrK1g==
+X-Received: by 2002:a05:6512:c14:b0:4b5:abe3:c63d with SMTP id
+ z20-20020a0565120c1400b004b5abe3c63dmr22375060lfu.42.1673306186813; 
+ Mon, 09 Jan 2023 15:16:26 -0800 (PST)
 Received: from localhost (dzccz6yyyyyyyyyyybcwt-3.rev.dnainternet.fi.
  [2001:14ba:a085:4d00::8a5]) by smtp.gmail.com with ESMTPSA id
- n2-20020a05651203e200b004bb8a796a6bsm1852983lfq.66.2023.01.09.15.16.31
+ w20-20020a05651234d400b004cb8de497ffsm1836363lfr.154.2023.01.09.15.16.25
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 09 Jan 2023 15:16:32 -0800 (PST)
+ Mon, 09 Jan 2023 15:16:25 -0800 (PST)
 From: Dmitry Baryshkov <dbaryshkov@gmail.com>
 X-Google-Original-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-To: robdclark@gmail.com, quic_abhinavk@quicinc.com, airlied@gmail.com,
- daniel@ffwll.ch, Hui Tang <tanghui20@huawei.com>
-In-Reply-To: <20221119055518.179937-1-tanghui20@huawei.com>
-References: <20221119055518.179937-1-tanghui20@huawei.com>
-Message-Id: <167330408783.609993.13860899129914018447.b4-ty@linaro.org>
+To: dri-devel@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
+ freedreno@lists.freedesktop.org, devicetree@vger.kernel.org,
+ Kalyan Thota <quic_kalyant@quicinc.com>
+In-Reply-To: <1669021695-4397-1-git-send-email-quic_kalyant@quicinc.com>
+References: <1669021695-4397-1-git-send-email-quic_kalyant@quicinc.com>
+Message-Id: <167330408778.609993.9217470869804308069.b4-ty@linaro.org>
 Date: Tue, 10 Jan 2023 00:41:27 +0200
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
 X-Mailman-Approved-At: Mon, 09 Jan 2023 23:30:11 +0000
-Subject: Re: [Freedreno] [PATCH] drm/msm/dpu: check for null return of
- devm_kzalloc() in dpu_writeback_init()
+Subject: Re: [Freedreno] [PATCH v4 0/3] add color management support for the
+ crtc
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,25 +76,31 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- yusongping@huawei.com
+Cc: robdclark@chromium.org, dianders@chromium.org, quic_abhinavk@quicinc.com,
+ linux-kernel@vger.kernel.org, quic_vpolimer@quicinc.com, swboyd@chromium.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 
-On Sat, 19 Nov 2022 13:55:18 +0800, Hui Tang wrote:
-> Because of the possilble failure of devm_kzalloc(), dpu_wb_conn might
-> be NULL and will cause null pointer derefrence later.
+On Mon, 21 Nov 2022 01:08:12 -0800, Kalyan Thota wrote:
+> Add color management support for the crtc provided there are
+> enough dspps that can be allocated from the catalog
 > 
-> Therefore, it might be better to check it and directly return -ENOMEM.
+> Kalyan Thota (3):
+>   drm/msm/disp/dpu1: pin 1 crtc to 1 encoder
+>   drm/msm/disp/dpu1: add helper to know if display is builtin
+>   drm/msm/disp/dpu1: add color management support for the crtc
 > 
-> 
+> [...]
 
 Applied, thanks!
 
-[1/1] drm/msm/dpu: check for null return of devm_kzalloc() in dpu_writeback_init()
-      https://gitlab.freedesktop.org/lumag/msm/-/commit/21e9a838f505
+[1/3] drm/msm/disp/dpu1: pin 1 crtc to 1 encoder
+      https://gitlab.freedesktop.org/lumag/msm/-/commit/a4d6f8253645
+[2/3] drm/msm/disp/dpu1: add helper to know if display is builtin
+      https://gitlab.freedesktop.org/lumag/msm/-/commit/4cb6b1eebb92
+[3/3] drm/msm/disp/dpu1: add color management support for the crtc
+      https://gitlab.freedesktop.org/lumag/msm/-/commit/c48c475bd75a
 
 Best regards,
 -- 
