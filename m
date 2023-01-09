@@ -2,65 +2,65 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7D9B6661E0A
-	for <lists+freedreno@lfdr.de>; Mon,  9 Jan 2023 05:55:10 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0D506661E14
+	for <lists+freedreno@lfdr.de>; Mon,  9 Jan 2023 06:02:03 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 11A9110E26F;
-	Mon,  9 Jan 2023 04:55:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F0CF010E270;
+	Mon,  9 Jan 2023 05:01:59 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x131.google.com (mail-lf1-x131.google.com
- [IPv6:2a00:1450:4864:20::131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5DEA010E26F
- for <freedreno@lists.freedesktop.org>; Mon,  9 Jan 2023 04:55:01 +0000 (UTC)
-Received: by mail-lf1-x131.google.com with SMTP id j17so11244948lfr.3
- for <freedreno@lists.freedesktop.org>; Sun, 08 Jan 2023 20:55:01 -0800 (PST)
+Received: from mail-lf1-x134.google.com (mail-lf1-x134.google.com
+ [IPv6:2a00:1450:4864:20::134])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D7ABC10E26F
+ for <freedreno@lists.freedesktop.org>; Mon,  9 Jan 2023 05:01:55 +0000 (UTC)
+Received: by mail-lf1-x134.google.com with SMTP id f34so11215368lfv.10
+ for <freedreno@lists.freedesktop.org>; Sun, 08 Jan 2023 21:01:55 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=content-transfer-encoding:mime-version:message-id:date:subject:cc
  :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=DID9COo2nYdAarXKNZ2YWNnEFoeCTLjj4eRpr+otzXU=;
- b=JFKOXyrqCGKt1n2jdk/oQP95R+pLTHiofilXEf0zrvpIGm7uA1dtD+GpX0QXXo9nUl
- M4teUQplHS8NRAPPzBKuDcajxXiJg0GiqMea5bSsjayajdF7n3gMYtaJRCkYkhGjj7zX
- XvGad7N7+dHCcWlN9GYsP/gueVHZXykURyVxeQF+9lnk0Cw2kll44jP0zdDKZq/nq0Mr
- Etoql/Dv/JLWatxCffL/uPivB7I/Wb26MBF66fUTSv+0AqRf5jF+f9090271KyyNsfDz
- mY1EIx13sJc/CGrc6QcXJWEeEcmCVUHJl2Yqpz0ZDnuoEp1bvjEUQa6pj0aWEypvw5rJ
- CdMA==
+ bh=Ok+qK488vGNle4t9+FREyJqmLLm1uU83p9UuS5OAb28=;
+ b=LjWJQF5RlnaPF15+9Tq7jpic+Kvjlrf3R9ol4KniKkED29v00CN/ba2n0OZVkivs2s
+ qhzCmh12DQFbkcgj0gnhWeTBgwpWNvWu25qcraZNX0dq+AEIQwAU3FlcjDBIb5tsJscf
+ mbB/8WG8Bj76EebIioeHtlKwW3OQIpAkcN8ZlGoT+3tCf7UizhH4PTOibC4OwQMK3An5
+ 73BCQ9mvErzeZZbAV0qvQcpE88SpSNORNattXWWSX8zjpb7IER0ftHS8xTzfTkHP90bX
+ 5so02fD+RRyRSQHmQV6mBa+3RKi0k9h0utam9IIWjlHNdFhoNmlUeKhd/yWfFqSIZe2/
+ HHpw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=content-transfer-encoding:mime-version:message-id:date:subject:cc
  :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=DID9COo2nYdAarXKNZ2YWNnEFoeCTLjj4eRpr+otzXU=;
- b=CBPbvnlpezijRFM1crJmM6yZQ8UGOUUBzH+keYLZwpAVtQVwRDYROBHanpBY4w26wd
- EsEPWUZtcJafhV0cd9BdsI8D2UksUaNK4haFDO1Ujta9i2yn39AJD3KR51aFU+cyhn3U
- viUDzBXLE1Z1tYlzw/bCaTbencxXmUqCnc5bDPVj/Uz6FgU/+ioTsuZtXajaXFWNSiF1
- gglWGJVQueBFG5fEc7joUOnTlEFXKa7/V6XAaJTb/CTwQLifx8m/+92cv3HTpgxQiicQ
- S6Dnkl+j+GWgZQ53uGvqMk0j1xE8YFOqbatU99SYD3zyWcEvG5lkU8eUoGfDBsZUIzgl
- PbBQ==
-X-Gm-Message-State: AFqh2kp09EEvkkzUrXd1QRJ4JrnP0TJ4HfIfMVzmCwltfNSJ+bHsTzv2
- vOcMUVOCsdebWldb2v+HnYzlnA==
-X-Google-Smtp-Source: AMrXdXsF163H4fyf+LIUaMixbRv3n5SksxhxqwQ2uZfZkoazcmt9VWBTcLHEZ+STMU/9PNXpVPlEhw==
-X-Received: by 2002:a05:6512:3b87:b0:4a4:68b7:d623 with SMTP id
- g7-20020a0565123b8700b004a468b7d623mr21040244lfv.10.1673240099760; 
- Sun, 08 Jan 2023 20:54:59 -0800 (PST)
+ bh=Ok+qK488vGNle4t9+FREyJqmLLm1uU83p9UuS5OAb28=;
+ b=LYIdTJ9TU8P6RhayTObPVPknKwal81ARJtw0RFy5VBtyTI0tRbju+BDBYhCfwF4zoD
+ 7/F6/OqjgQ4FYmdaCiGpfRSG7ofXfdJOcPzeCYBaqVZ7EMFY6DuagkkG8mVZZ2e6pyvG
+ aoo+lQCi2CObdM5s4S7Vaq+PpMdZK6+tXCl6DNggmttQdnGOHvz0+B+S064fhyQHYk6x
+ 7Hl0n1kKKVws6Yexs2tFIEyAx6Jhio1wE5YFFxa4fpZLOhhtcc95xtFYVP8zXDyUyK3H
+ tWYNvoeE8Pf7BtyX659IasxYnP2L9eO3ulEsATVJQrb3jEp08ESj3LtO8et2WnZmoz/z
+ GmIA==
+X-Gm-Message-State: AFqh2kpUY1gL6ft2j/A4wyI16HBsHdD8ETCPmGrQquqTpITXtIt+xlHJ
+ DuL4ewCm2qL1XVGTrGFpFFyhvA==
+X-Google-Smtp-Source: AMrXdXtzp41qqG/lszrfNHfC2L92bMUpFeXQtOiWuX952aJY0JwdWMQ8uRD2mPp1CBfrgDMQkk1Jhw==
+X-Received: by 2002:ac2:53a3:0:b0:4bc:4ad0:4142 with SMTP id
+ j3-20020ac253a3000000b004bc4ad04142mr19967819lfh.58.1673240513932; 
+ Sun, 08 Jan 2023 21:01:53 -0800 (PST)
 Received: from eriador.lan (dzccz6yyyyyyyyyyybcwt-3.rev.dnainternet.fi.
  [2001:14ba:a085:4d00::8a5]) by smtp.gmail.com with ESMTPSA id
- f21-20020ac25335000000b004b57a810e09sm1417235lfh.288.2023.01.08.20.54.59
+ j12-20020a19f50c000000b004b59067142bsm1008257lfb.8.2023.01.08.21.01.53
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 08 Jan 2023 20:54:59 -0800 (PST)
+ Sun, 08 Jan 2023 21:01:53 -0800 (PST)
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 To: Andy Gross <agross@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
  Konrad Dybcio <konrad.dybcio@linaro.org>, Rob Clark <robdclark@gmail.com>,
  Sean Paul <sean@poorly.run>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
  Rob Herring <robh+dt@kernel.org>,
  Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>
-Date: Mon,  9 Jan 2023 06:54:58 +0200
-Message-Id: <20230109045458.316114-1-dmitry.baryshkov@linaro.org>
+Date: Mon,  9 Jan 2023 07:01:48 +0200
+Message-Id: <20230109050152.316606-1-dmitry.baryshkov@linaro.org>
 X-Mailer: git-send-email 2.39.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH] dt-bindings: display/msm: qcom,
- sdm845-mdss: document the DP device
+Subject: [Freedreno] [PATCH v5 0/4] dt-bindings: display/msm: convert MDP5
+ schema to YAML format
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,30 +80,48 @@ Cc: devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Document the DP controller added to the sdm845 display subsystem.
+This patch concludes the conversion of display/msm schema from txt files
+to YAML format.
 
-Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
----
- .../devicetree/bindings/display/msm/qcom,sdm845-mdss.yaml   | 6 ++++++
- 1 file changed, 6 insertions(+)
+The per-SoC compat (new addition) is required to ease migrating platform
+support between mdp5 and dpu drivers.
 
-diff --git a/Documentation/devicetree/bindings/display/msm/qcom,sdm845-mdss.yaml b/Documentation/devicetree/bindings/display/msm/qcom,sdm845-mdss.yaml
-index 300d8f1ac45c..8f60be6147d8 100644
---- a/Documentation/devicetree/bindings/display/msm/qcom,sdm845-mdss.yaml
-+++ b/Documentation/devicetree/bindings/display/msm/qcom,sdm845-mdss.yaml
-@@ -46,6 +46,12 @@ patternProperties:
-       compatible:
-         const: qcom,sdm845-dpu
- 
-+  "^displayport-controller@[0-9a-f]+$":
-+    type: object
-+    properties:
-+      compatible:
-+        const: qcom,sdm845-dp
-+
-   "^dsi@[0-9a-f]+$":
-     type: object
-     properties:
+Changes since v4:
+- Adjust qcom,mdss.yaml to follow the addition of per-SoC compatibles
+
+Changes since v3:
+- Drop MSM8998 completely, it conflicts with qcom,msm8998-dpu.yaml
+
+Changes since v2:
+- Fix MSM8998 compatible list: "qcom,msm8998-dpu", "msm,mdp5" to allow
+  handling this device by either of the drivers.
+
+Changes since v1:
+- Renamed mdp@ to display-controller@ in the example (Krzysztof)
+- Extended ports description to mention possible ports (Krzysztof)
+- Fixed ports@ regexp to limit to just four ports (Krzysztof)
+- Included patches adding per-SoC compat strings to the schema and to
+  dtsi files.
+
+
+Dmitry Baryshkov (4):
+  dt-bindings: display/msm: convert MDP5 schema to YAML format
+  dt-bindings: display/msm: add SoC-specific compats to qcom,mdp5.yaml
+  ARM: dts: qcom-msm8974: add SoC specific compat string to mdp5 node
+  arm64: dts: qcom: add SoC specific compat strings to mdp5 nodes
+
+ .../devicetree/bindings/display/msm/mdp5.txt  | 132 ---------------
+ .../bindings/display/msm/qcom,mdp5.yaml       | 153 ++++++++++++++++++
+ .../bindings/display/msm/qcom,mdss.yaml       |   6 +-
+ arch/arm/boot/dts/qcom-msm8974.dtsi           |   2 +-
+ arch/arm64/boot/dts/qcom/msm8916.dtsi         |   2 +-
+ arch/arm64/boot/dts/qcom/msm8996.dtsi         |   2 +-
+ arch/arm64/boot/dts/qcom/sdm630.dtsi          |   2 +-
+ arch/arm64/boot/dts/qcom/sdm660.dtsi          |   2 +
+ 8 files changed, 164 insertions(+), 137 deletions(-)
+ delete mode 100644 Documentation/devicetree/bindings/display/msm/mdp5.txt
+ create mode 100644 Documentation/devicetree/bindings/display/msm/qcom,mdp5.yaml
+
 -- 
 2.39.0
 
