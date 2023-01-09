@@ -2,62 +2,60 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id C4F236620F0
-	for <lists+freedreno@lfdr.de>; Mon,  9 Jan 2023 10:06:59 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id BA3686620FE
+	for <lists+freedreno@lfdr.de>; Mon,  9 Jan 2023 10:08:24 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 803C510E0D3;
-	Mon,  9 Jan 2023 09:06:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 802E710E37A;
+	Mon,  9 Jan 2023 09:08:23 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-yw1-x1132.google.com (mail-yw1-x1132.google.com
- [IPv6:2607:f8b0:4864:20::1132])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3C5F910E374
- for <freedreno@lists.freedesktop.org>; Mon,  9 Jan 2023 09:06:57 +0000 (UTC)
-Received: by mail-yw1-x1132.google.com with SMTP id
- 00721157ae682-4c9b9185d18so33885167b3.10
- for <freedreno@lists.freedesktop.org>; Mon, 09 Jan 2023 01:06:57 -0800 (PST)
+Received: from mail-yb1-xb2a.google.com (mail-yb1-xb2a.google.com
+ [IPv6:2607:f8b0:4864:20::b2a])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 92D3B10E37A
+ for <freedreno@lists.freedesktop.org>; Mon,  9 Jan 2023 09:08:21 +0000 (UTC)
+Received: by mail-yb1-xb2a.google.com with SMTP id v19so2023198ybv.1
+ for <freedreno@lists.freedesktop.org>; Mon, 09 Jan 2023 01:08:21 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=pk8HoU5sl6UY7My5Q7QXvnwfSNOwL/YVw0rPqcw5wI0=;
- b=uxJqcr/vA16Jbso7FMrCavP3Cf2jhnnlPgVnsuBsvS/o+Z1jwaAnN1AQdnbbe+GJc6
- ixviHjNm2JTcHR4e5QhHj1v3nXBUyMlCCBLXphPY6Q+qVkTzrxjlykCBgc2y7oRrP17s
- A5bSkfDmbgJreYllwN7sl/4BZpeZJ/z9eUcIoENMIMYTupxqrttaUSwQCj8s/SrP+sIQ
- 6wbCC9UCbTxxCG3hCIRwUkCdwfAGRw4ZfRIfAuJDLhTbJR+AerCjSUWlZklTY53Ts7Et
- bD4pvNfviMu91QcLX9ba5HawO/FK9vk9Bayawpaj1Wn4PcYxCp7iUlPdFSLxeLu0MHla
- foSw==
+ bh=WyzaMNbovLz5e0f2Pj2AVJV48B77i8KtmFksLIp0GoE=;
+ b=iXGaRlr7cxQs3VBPA8A5uTISSRojwoueFyMX7G6tweRggPW+GPYeqDgsqNkHStZSQJ
+ t6Cgb20KuNRVfq5lvZF/plnYMCuKLDkpaeywH75qWRo7V9ccg3wOkmrRfDDE3tvSUFMu
+ jgtXkleXxqKNPndI7DJvBLsxqWl4g2EfeSGHoZbFWP1ctsTp7T2IfaRsnfUYVGlO/hww
+ aySl2ma/XK1VvC1Z5DXbs7qRrpNqAK6ralW1vU2H5Uem+UGGXgxHVAlh28GCMPopYRyA
+ Y0Q6Qj+lIHE4kS6bCir36+Frf1wnEXF927Xcbv4XGk7vGi5VxpuOt4NJYOzTFrv30xgJ
+ zXIQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=pk8HoU5sl6UY7My5Q7QXvnwfSNOwL/YVw0rPqcw5wI0=;
- b=SfBE/RGdLO2jWzF/HrJZmJzeldDOnG+TAh29m74miRcfiHc+b4HcOYxD0HhPKmRm3a
- xVRi6Zfe08ZkGDa7rqTV3s8tkll0n+8ar0JGUJbCocTwTaAu+7O/IXhDmTa58xJw3J8j
- Ssy6CooQLd1rChZnvI6bPr6CsHMNJtESBXa918lyFofd9nEbijZdnfApCMfxhow62F+R
- TxDlSmdvLoqcPpJSypwWvuLH2OGNgq8vEP13FNVy1YDrNsdYKDozM5QQqqV5hLceOFar
- FqC0LFDV+ScuPcNl1Qq3kAGJiAVpUYK4WdcFcLqRaQZ8H0O+teU9zOkz/ld88E2leHC0
- GZGg==
-X-Gm-Message-State: AFqh2kppCBLKbnL/HA5d/hBXIuu80hEqQDSPCZzxPMrzxTrUMZfYPihZ
- WjJdn9CNErUtVehI/ErFtkceFe7/YEWI3PvdFFPXow==
-X-Google-Smtp-Source: AMrXdXv7lpAYFxmW/eV/4rKWRDYgiJ5liDzlAKLCsDctqH1bw7LEQ8Q1lC1IVljbsIzfzyvSmxnDP2lGZbHp6UK7mUs=
-X-Received: by 2002:a0d:d692:0:b0:477:b56e:e1d6 with SMTP id
- y140-20020a0dd692000000b00477b56ee1d6mr6161ywd.188.1673255216324; Mon, 09 Jan
- 2023 01:06:56 -0800 (PST)
+ bh=WyzaMNbovLz5e0f2Pj2AVJV48B77i8KtmFksLIp0GoE=;
+ b=te9CAVzPxgVnevRgS5L4YpnGHfU+SwXtGCLInTX/ChVSXVaKNMvmPIvJ8uF29OPxi+
+ tR4xc7jqDm1oCF466urFwl1GQaxO5nP5PgEzRekulOAfBYCYEZ9kXnydLi/NKIdgBRD6
+ mSlDRvzvk0PTs8y5Xrbc6Z7zGm4UidOQFYY/gbJOJz5yknLyQKcvjLgliaTkd7CHlgZQ
+ Umo7ChBTEuuHZwP2dCi8ye5tXdQL2Y+4fIErwHhkfioxAWvBuN/xTYxfYCF7G2qhl60C
+ Z4nOi62KW7O09cZZDBh2TL4A0YrbKBKWfyhb84jGczW9888j1ZeBfsOcORp2qY3FL7ag
+ C0PQ==
+X-Gm-Message-State: AFqh2koBcxQJME7mRezA1mdzbVffLieVXa0YR4RV1nhXsgWzIdCErGMa
+ jxMhEZkhYfm3MkRclog/LdWBEFRO1p2udBCU8T4Xnw==
+X-Google-Smtp-Source: AMrXdXv7heUksktJrLuJT2/sl9qccUjvu0Os6fLmv3Ph8ZSTHk+gDOCAM7/Xr9au1wvH0fDjgfiSNEu1ReJh6u/Mtxo=
+X-Received: by 2002:a25:e90c:0:b0:73a:3b94:47fc with SMTP id
+ n12-20020a25e90c000000b0073a3b9447fcmr7036713ybd.152.1673255300641; Mon, 09
+ Jan 2023 01:08:20 -0800 (PST)
 MIME-Version: 1.0
 References: <20221221231943.1961117-1-marijn.suijten@somainline.org>
- <20221221231943.1961117-5-marijn.suijten@somainline.org>
- <b415a91d-f804-1fec-52dd-4124d3f1e583@linaro.org>
- <1b872a47-6ffc-1fe9-f283-897dbc37d709@linaro.org>
- <20230109082357.meebk7udokdfvwle@SoMainline.org>
-In-Reply-To: <20230109082357.meebk7udokdfvwle@SoMainline.org>
+ <20221221231943.1961117-7-marijn.suijten@somainline.org>
+ <42b45762-7fb9-2694-9fab-039ee09e4709@linaro.org>
+ <20230109082118.v2abyucljztsflxj@SoMainline.org>
+In-Reply-To: <20230109082118.v2abyucljztsflxj@SoMainline.org>
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Mon, 9 Jan 2023 11:06:45 +0200
-Message-ID: <CAA8EJppqocjgTbZLhcJtmRGjE4X2u_jDEGDWS9Bsp7MEgD+Ldg@mail.gmail.com>
+Date: Mon, 9 Jan 2023 11:08:09 +0200
+Message-ID: <CAA8EJppTfJ6LnTEUWVASk1U6v3OX3MH71vuOhUk_Aa_HoraQ_w@mail.gmail.com>
 To: Marijn Suijten <marijn.suijten@somainline.org>
 Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [PATCH v2 4/8] drm/msm/dpu: Disallow unallocated
- resources to be returned
+Subject: Re: [Freedreno] [PATCH v2 6/8] drm/msm/dpu: Remove num_enc from
+ topology struct in favour of num_dsc
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -88,66 +86,70 @@ Cc: Konrad Dybcio <konrad.dybcio@somainline.org>,
  Douglas Anderson <dianders@chromium.org>,
  Konrad Dybcio <konrad.dybcio@linaro.org>, Rob Clark <robdclark@gmail.com>,
  sunliming <sunliming@kylinos.cn>, Daniel Vetter <daniel@ffwll.ch>,
- Drew Davenport <ddavenport@chromium.org>, freedreno@lists.freedesktop.org,
- Vinod Polimera <quic_vpolimer@quicinc.com>
+ freedreno@lists.freedesktop.org, Vinod Polimera <quic_vpolimer@quicinc.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Mon, 9 Jan 2023 at 10:24, Marijn Suijten
+On Mon, 9 Jan 2023 at 10:21, Marijn Suijten
 <marijn.suijten@somainline.org> wrote:
 >
-> On 2023-01-09 01:30:29, Dmitry Baryshkov wrote:
-> > On 09/01/2023 01:28, Dmitry Baryshkov wrote:
-> > > On 22/12/2022 01:19, Marijn Suijten wrote:
-> > >> In the event that the topology requests resources that have not been
-> > >> created by the system (because they are typically not represented in
-> > >> dpu_mdss_cfg ^1), the resource(s) in global_state (in this case DSC
-> > >> blocks) remain NULL but will still be returned out of
-> > >> dpu_rm_get_assigned_resources, where the caller expects to get an array
-> > >> containing num_blks valid pointers (but instead gets these NULLs).
-> > >>
-> > >> To prevent this from happening, where null-pointer dereferences
-> > >> typically result in a hard-to-debug platform lockup, num_blks shouldn't
-> > >> increase past NULL blocks and will print an error and break instead.
-> > >> After all, max_blks represents the static size of the maximum number of
-> > >> blocks whereas the actual amount varies per platform.
-> > >>
-> > >> ^1: which can happen after a git rebase ended up moving additions to
-> > >> _dpu_cfg to a different struct which has the same patch context.
-> > >>
-> > >> Fixes: bb00a452d6f7 ("drm/msm/dpu: Refactor resource manager")
-> > >> Signed-off-by: Marijn Suijten <marijn.suijten@somainline.org>
-> > >> ---
-> > >>   drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c | 5 +++++
-> > >>   1 file changed, 5 insertions(+)
+> On 2023-01-09 01:31:57, Dmitry Baryshkov wrote:
+> > On 22/12/2022 01:19, Marijn Suijten wrote:
+> > > Downstream calls this num_enc yet the DSC patches introduced a new
+> > > num_dsc struct member, leaving num_enc effectively unused.
 > > >
-> > > I think the patch is not fully correct. Please check resource
-> > > availability during allocation. I wouldn't expect an error from
-> > > get_assigned_resources because of resource exhaustion.
+> > > Fixes: 7e9cc175b159 ("drm/msm/disp/dpu1: Add support for DSC in topology")
+> > > Signed-off-by: Marijn Suijten <marijn.suijten@somainline.org>
+> > > ---
+> > >   drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c | 9 ++++-----
+> > >   drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c      | 4 ++--
+> > >   drivers/gpu/drm/msm/msm_drv.h               | 2 --
+> > >   3 files changed, 6 insertions(+), 9 deletions(-)
+> > >
+> > > diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+> > > index 9c6817b5a194..a158cd502d38 100644
+> > > --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+> > > +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+> > > @@ -579,19 +579,18 @@ static struct msm_display_topology dpu_encoder_get_topology(
+> > >                     topology.num_dspp = topology.num_lm;
+> > >     }
+> > >
+> > > -   topology.num_enc = 0;
+> > >     topology.num_intf = intf_count;
+> > >
+> > >     if (dpu_enc->dsc) {
+> > > -           /* In case of Display Stream Compression (DSC), we would use
+> > > -            * 2 encoders, 2 layer mixers and 1 interface
+> > > +           /*
+> > > +            * In case of Display Stream Compression (DSC), we would use
+> > > +            * 2 DSC encoders, 2 layer mixers and 1 interface
+> > >              * this is power optimal and can drive up to (including) 4k
+> > >              * screens
+> > >              */
+> > > -           topology.num_enc = 2;
+> > >             topology.num_dsc = 2;
+> > > -           topology.num_intf = 1;
+> > >             topology.num_lm = 2;
+> > > +           topology.num_intf = 1;
+> >
+> > Unless there is a reason, please move num_intf assignment back while
+> > preparing v3.
 >
-> Theoretically patch 5/8 should take care of this, and we should never
-> reach this failure condition.  Emphasis on /should/, this may happen
-> again if/when another block type is added with sub-par resource
-> allocation and assignment implementation.
+> The assignment was reordered to match the order described in the comment
+> right above, such that this reads more naturally.  Not sure if it's
+> worth sending that as a separate fix, or drop it entirely.
 
-Yeah. Maybe swapping 4/8 and 5/8 makes sense.
-
->
-> > Another option, since allocation functions (except DSC) already have
-> > these safety checks: check error message to mention internal
-> > inconstency: allocated resource doesn't exist.
->
-> Is this a suggestion for the wording of the error message?
-
-Yes. Because the current message makes one think that it is output
-during allocation / assignment to encoder, while this is a safety net.
+I see. Sounds logical then. Let's keep it as is.
 
 >
-> - Marijn
+> > With that fixed:
+> >
+> > Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+>
+> <snip>
 
 
 
-
---
+-- 
 With best wishes
 Dmitry
