@@ -1,69 +1,49 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 375A26636B5
-	for <lists+freedreno@lfdr.de>; Tue, 10 Jan 2023 02:34:49 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 191AF66372A
+	for <lists+freedreno@lfdr.de>; Tue, 10 Jan 2023 03:17:07 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 74ADA10E0F5;
-	Tue, 10 Jan 2023 01:34:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A548A10E479;
+	Tue, 10 Jan 2023 02:17:04 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x129.google.com (mail-lf1-x129.google.com
- [IPv6:2a00:1450:4864:20::129])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6619F10E0F5
- for <freedreno@lists.freedesktop.org>; Tue, 10 Jan 2023 01:34:43 +0000 (UTC)
-Received: by mail-lf1-x129.google.com with SMTP id bp15so15907541lfb.13
- for <freedreno@lists.freedesktop.org>; Mon, 09 Jan 2023 17:34:43 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=kM0bPWrPB3MMjLNH4GrBRCRdosVsi95zzH+RgootF4E=;
- b=BWJmDOepxQnAkjIdvEWSlT/UgvK6o9n/tOUo63mBVWZV3zASRx/AjwwGFs7HUvTYfc
- uR9abJMD7SYi4ypCdNcPM6Q9WUjZk1xAWyWFKvtlXpKdAkgUNElrA7qbXhFkGKSLLFkF
- fT67GPbrlLkuD5RYy5gvI3LHYMfx8ahvQvlY9yNR6DFzU+X3lOEBLvUysdOW5piBchQQ
- QKEfM52NysLuRy1hGBHaUBNnzBmtJGI5NLC5dMM+w8JcEvX76TDiD7oZax422qnvQb0v
- 0EpuUjyxs18hrf6M6J8g0CZMfGGXE4+qbg9g1S4ubqqiq+vpvwYJ2dYjVIsBbJz5uLAS
- pMlw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=kM0bPWrPB3MMjLNH4GrBRCRdosVsi95zzH+RgootF4E=;
- b=rJcpKWCI352bjgmP2LnYM0ntsNBBjtyNqYiEWNgC3XykSvPElpxk3zmzp1+vmyLhYB
- 8rP87594YeUj5MAFVqqYH4iLxEYFXRuLIKBDN83cyal6/0obmNMgAJofTo7OTh3lOtdB
- 4aVKbtDA0rO59Iiz6cfmGJIAN8hOL0UqpQkDKckerFazsTAp6Fz4dMaDq8hvYHQgy4jp
- UKON1DBS7VvGc1/hzvUboSQvqjVKhOFF/kaQ+/GsQe0WFB/lXWTJseOkKcEZRCoWQ3SX
- XdZmIv9hm3clNFMF0iV5uTuajwphhd8dh0LKhFqWKUmvCKNt2oy2HtkmMAg0wEoZyE1i
- SGmQ==
-X-Gm-Message-State: AFqh2koWypnXYQMFL3FztdjE9238w5QuwiVr3jySsIGVJgS4Cq55OqUK
- rPuvd5njLT3G6eoa1TjMwFUcbQ==
-X-Google-Smtp-Source: AMrXdXsvf1IR+oW+jLcYvBElwRyGRD5pA3/hS3f5wnVfs8QXjOmPka3RVgYw3hhXgHfKNo4uUms2Qw==
-X-Received: by 2002:ac2:5f6d:0:b0:4b5:830d:12b7 with SMTP id
- c13-20020ac25f6d000000b004b5830d12b7mr15530951lfc.41.1673314481496; 
- Mon, 09 Jan 2023 17:34:41 -0800 (PST)
-Received: from ?IPV6:2001:14ba:a085:4d00::8a5?
- (dzccz6yyyyyyyyyyybcwt-3.rev.dnainternet.fi. [2001:14ba:a085:4d00::8a5])
- by smtp.gmail.com with ESMTPSA id
- p36-20020a05651213a400b00492b494c4e8sm1885261lfa.298.2023.01.09.17.34.40
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 09 Jan 2023 17:34:40 -0800 (PST)
-Message-ID: <36862c49-39d2-952d-829b-e660375d49f4@linaro.org>
-Date: Tue, 10 Jan 2023 03:34:40 +0200
+Received: from cstnet.cn (smtp23.cstnet.cn [159.226.251.23])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 5EF5510E478;
+ Tue, 10 Jan 2023 02:17:00 +0000 (UTC)
+Received: from localhost.localdomain (unknown [124.16.138.125])
+ by APP-03 (Coremail) with SMTP id rQCowABnbZWUyrxjM5xMCw--.51216S2;
+ Tue, 10 Jan 2023 10:16:53 +0800 (CST)
+From: Jiasheng Jiang <jiasheng@iscas.ac.cn>
+To: dmitry.baryshkov@linaro.org,
+	d-gole@ti.com
+Date: Tue, 10 Jan 2023 10:16:51 +0800
+Message-Id: <20230110021651.12770-1-jiasheng@iscas.ac.cn>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.6.0
-Content-Language: en-GB
-To: Abhinav Kumar <quic_abhinavk@quicinc.com>, freedreno@lists.freedesktop.org
-References: <1663807768-23969-1-git-send-email-quic_abhinavk@quicinc.com>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-In-Reply-To: <1663807768-23969-1-git-send-email-quic_abhinavk@quicinc.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH 1/2] drm/msm/dsi: add a helper method to
- compute the dsi byte clk
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID: rQCowABnbZWUyrxjM5xMCw--.51216S2
+X-Coremail-Antispam: 1UD129KBjvdXoW7Jr18urW3GF47Gr4DWrWDCFg_yoWDWrb_uF
+ 98JwnFgrW2k3ZFg3W2yr1Iyryjy3Z09F40vFZ8t3W3tFyDtr1ft3s2vrZ5Zr1DuF1xJF92
+ 9asFv345JrsrGjkaLaAFLSUrUUUUUb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+ 9fnUUIcSsGvfJTRUUUb38FF20E14v26ryj6rWUM7CY07I20VC2zVCF04k26cxKx2IYs7xG
+ 6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4kI8w
+ A2z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_Cr0_
+ Gr1UM28EF7xvwVC2z280aVAFwI0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gr
+ 1j6F4UJwAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv
+ 7VC0I7IYx2IY67AKxVWUXVWUAwAv7VC2z280aVAFwI0_Gr0_Cr1lOx8S6xCaFVCjc4AY6r
+ 1j6r4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwACI402YVCY1x02
+ 628vn2kIc2xKxwCY02Avz4vE14v_Gr1l42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7
+ v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF
+ 1VAY17CE14v26r4a6rW5MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIx
+ AIcVC0I7IYx2IY6xkF7I0E14v26r4j6F4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI
+ 42IY6I8E87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14v26r4j6r4UJbIYCTnIWI
+ evJa73UjIFyTuYvjfU54EEUUUUU
+X-Originating-IP: [124.16.138.125]
+X-CM-SenderInfo: pmld2xxhqjqxpvfd2hldfou0/
+Subject: [Freedreno] [PATCH v3] drm/msm/dsi: Add missing check for
+ alloc_ordered_workqueue
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,121 +56,49 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: dri-devel@lists.freedesktop.org, swboyd@chromium.org, robdclark@gmail.com,
- seanpaul@chromium.org, daniel@ffwll.ch, quic_jesszhan@quicinc.com,
- quic_khsieh@quicinc.com
+Cc: marex@denx.de, vkoul@kernel.org, sean@poorly.run,
+ Jiasheng Jiang <jiasheng@iscas.ac.cn>, vladimir.lypak@gmail.com,
+ quic_abhinavk@quicinc.com, dri-devel@lists.freedesktop.org,
+ dianders@chromium.org, robdclark@gmail.com, daniel@ffwll.ch,
+ linux-arm-msm@vger.kernel.org, marijn.suijten@somainline.org,
+ freedreno@lists.freedesktop.org, airlied@gmail.com,
+ linux-kernel@vger.kernel.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 22/09/2022 03:49, Abhinav Kumar wrote:
-> Re-arrange the dsi_calc_pclk method to two helpers, one to
-> compute the DSI byte clk and the other to compute the pclk.
-> 
-> This makes the separation of the two clean and also allows
-> clients to compute and use the dsi byte clk separately.
-> 
-> Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
-> ---
->   drivers/gpu/drm/msm/dsi/dsi.h      |  2 ++
->   drivers/gpu/drm/msm/dsi/dsi_host.c | 27 +++++++++++++++++++--------
->   2 files changed, 21 insertions(+), 8 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/msm/dsi/dsi.h b/drivers/gpu/drm/msm/dsi/dsi.h
-> index 2a96b4fe7839..60ba8e67f550 100644
-> --- a/drivers/gpu/drm/msm/dsi/dsi.h
-> +++ b/drivers/gpu/drm/msm/dsi/dsi.h
-> @@ -118,6 +118,8 @@ int dsi_link_clk_enable_6g(struct msm_dsi_host *msm_host);
->   int dsi_link_clk_enable_v2(struct msm_dsi_host *msm_host);
->   void dsi_link_clk_disable_6g(struct msm_dsi_host *msm_host);
->   void dsi_link_clk_disable_v2(struct msm_dsi_host *msm_host);
-> +unsigned long dsi_byte_clk_get_rate(struct mipi_dsi_host *host, bool is_bonded_dsi,
-> +		const struct drm_display_mode *mode);
->   int dsi_tx_buf_alloc_6g(struct msm_dsi_host *msm_host, int size);
->   int dsi_tx_buf_alloc_v2(struct msm_dsi_host *msm_host, int size);
->   void *dsi_tx_buf_get_6g(struct msm_dsi_host *msm_host);
-> diff --git a/drivers/gpu/drm/msm/dsi/dsi_host.c b/drivers/gpu/drm/msm/dsi/dsi_host.c
-> index 57a4c0fa614b..32b35d4ac1d3 100644
-> --- a/drivers/gpu/drm/msm/dsi/dsi_host.c
-> +++ b/drivers/gpu/drm/msm/dsi/dsi_host.c
-> @@ -569,9 +569,8 @@ void dsi_link_clk_disable_v2(struct msm_dsi_host *msm_host)
->   	clk_disable_unprepare(msm_host->byte_clk);
->   }
->   
-> -static unsigned long dsi_get_pclk_rate(struct msm_dsi_host *msm_host, bool is_bonded_dsi)
-> +static unsigned long dsi_get_pclk_rate(const struct drm_display_mode *mode, bool is_bonded_dsi)
->   {
-> -	struct drm_display_mode *mode = msm_host->mode;
->   	unsigned long pclk_rate;
->   
->   	pclk_rate = mode->clock * 1000;
-> @@ -588,12 +587,18 @@ static unsigned long dsi_get_pclk_rate(struct msm_dsi_host *msm_host, bool is_bo
->   	return pclk_rate;
->   }
->   
-> -static void dsi_calc_pclk(struct msm_dsi_host *msm_host, bool is_bonded_dsi)
-> +unsigned long dsi_byte_clk_get_rate(struct mipi_dsi_host *host, bool is_bonded_dsi,
-> +		const struct drm_display_mode *mode)
->   {
-> +	struct msm_dsi_host *msm_host = to_msm_dsi_host(host);
->   	u8 lanes = msm_host->lanes;
->   	u32 bpp = dsi_get_bpp(msm_host->format);
-> -	unsigned long pclk_rate = dsi_get_pclk_rate(msm_host, is_bonded_dsi);
-> -	u64 pclk_bpp = (u64)pclk_rate * bpp;
-> +	unsigned long pclk_rate;
-> +	u64 pclk_bpp;
-> +
-> +	pclk_rate = dsi_get_pclk_rate(mode, is_bonded_dsi);
-> +
-> +	pclk_bpp = (u64)pclk_rate * bpp;
+Add check for the return value of alloc_ordered_workqueue as it may return
+NULL pointer and cause NULL pointer dereference.
 
-Any particular reason for this? The following patch would be more obvious:
+Signed-off-by: Jiasheng Jiang <jiasheng@iscas.ac.cn>
+---
+Changelog:
 
- > -	unsigned long pclk_rate = dsi_get_pclk_rate(msm_host, is_bonded_dsi);
- > +	unsigned long pclk_rate = dsi_get_pclk_rate(mode, is_bonded_dsi);
- >  	u64 pclk_bpp = (u64)pclk_rate * bpp;
+v2 -> v3:
 
+1. Simply return -ENOMEM instead of using ret.
+2. No change of the "goto fail".
 
->   
->   	if (lanes == 0) {
->   		pr_err("%s: forcing mdss_dsi lanes to 1\n", __func__);
-> @@ -606,8 +611,14 @@ static void dsi_calc_pclk(struct msm_dsi_host *msm_host, bool is_bonded_dsi)
->   	else
->   		do_div(pclk_bpp, (8 * lanes));
->   
-> -	msm_host->pixel_clk_rate = pclk_rate;
-> -	msm_host->byte_clk_rate = pclk_bpp;
-> +	return pclk_bpp;
-> +}
-> +
-> +static void dsi_calc_pclk(struct msm_dsi_host *msm_host, bool is_bonded_dsi)
-> +{
-> +	msm_host->pixel_clk_rate = dsi_get_pclk_rate(msm_host->mode, is_bonded_dsi);
-> +	msm_host->byte_clk_rate = dsi_byte_clk_get_rate(&msm_host->base, is_bonded_dsi,
-> +			msm_host->mode);
->   
->   	DBG("pclk=%lu, bclk=%lu", msm_host->pixel_clk_rate,
->   				msm_host->byte_clk_rate);
-> @@ -635,7 +646,7 @@ int dsi_calc_clk_rate_v2(struct msm_dsi_host *msm_host, bool is_bonded_dsi)
->   
->   	dsi_calc_pclk(msm_host, is_bonded_dsi);
->   
-> -	pclk_bpp = (u64)dsi_get_pclk_rate(msm_host, is_bonded_dsi) * bpp;
-> +	pclk_bpp = (u64)dsi_get_pclk_rate(msm_host->mode, is_bonded_dsi) * bpp;
->   	do_div(pclk_bpp, 8);
->   	msm_host->src_clk_rate = pclk_bpp;
+v1 -> v2:
 
+1. Change the "goto fail" into "return ret" and drop the "fail" label.
+---
+ drivers/gpu/drm/msm/dsi/dsi_host.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-Following my previous feedback:
-
-I think at this moment msm_host->src_clk_rate = msm_host->byte_clk_rate 
-* msm_host->lanes. If so, we can drop dsi_get_pclk_rate() call and the 
-multiply/do_div calculation and use the above formula instead.
-
-If this looks logical, could you please prepend a patch changing this?
-
-LGTM otherwise.
-
+diff --git a/drivers/gpu/drm/msm/dsi/dsi_host.c b/drivers/gpu/drm/msm/dsi/dsi_host.c
+index 89aadd3b3202..f167a45f1fbd 100644
+--- a/drivers/gpu/drm/msm/dsi/dsi_host.c
++++ b/drivers/gpu/drm/msm/dsi/dsi_host.c
+@@ -1977,6 +1977,9 @@ int msm_dsi_host_init(struct msm_dsi *msm_dsi)
+ 
+ 	/* setup workqueue */
+ 	msm_host->workqueue = alloc_ordered_workqueue("dsi_drm_work", 0);
++	if (!msm_host->workqueue)
++		return -ENOMEM;
++
+ 	INIT_WORK(&msm_host->err_work, dsi_err_worker);
+ 
+ 	msm_dsi->id = msm_host->id;
 -- 
-With best wishes
-Dmitry
+2.25.1
 
