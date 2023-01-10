@@ -2,57 +2,71 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 029496644F7
-	for <lists+freedreno@lfdr.de>; Tue, 10 Jan 2023 16:34:50 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 51971664610
+	for <lists+freedreno@lfdr.de>; Tue, 10 Jan 2023 17:29:21 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B280110E5E9;
-	Tue, 10 Jan 2023 15:34:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4526E10E5FD;
+	Tue, 10 Jan 2023 16:29:18 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-oa1-x32.google.com (mail-oa1-x32.google.com
- [IPv6:2001:4860:4864:20::32])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 25A2310E5EB;
- Tue, 10 Jan 2023 15:34:47 +0000 (UTC)
-Received: by mail-oa1-x32.google.com with SMTP id
- 586e51a60fabf-15bb8ec196aso734579fac.3; 
- Tue, 10 Jan 2023 07:34:47 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=aALJ1+6b5A4lyvQQ5kPDXbutVahUhVTXhBlHzFelYpk=;
- b=i6n470Ce+W8oxpPwNBChX5RaFXJ3U23JN6QGshiLXPAPCLB3Vl7bRDfWfXEGqT8Vhn
- oG4B5kAhBbdnfMjH8a5QJB9H/4UUQ2f9dZuV8msyDrodGKrifhB64Df0ZuFKKrPIiEq1
- OCE+K0XbyQyPzg2bAsjB6v4j567tKH6yOWOogo8W975GwHjBuBSXSam22iLhScIjOqlC
- Dv8iP4kFVnJ6x3wdBPZesdbf7Atc2MGJuSMNBM9y+gUTwAYvxF/q3SfzKO2qSWBmmR+D
- Q9weB6DalU7I8RZ5BbMAvFekdRBevNNzIa0BQDlAW3SOsnv+pA1Ylb4jTWAISmqwg/W2
- /Q9A==
+Received: from mail-lf1-x129.google.com (mail-lf1-x129.google.com
+ [IPv6:2a00:1450:4864:20::129])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9F09A10E09A
+ for <freedreno@lists.freedesktop.org>; Tue, 10 Jan 2023 16:29:15 +0000 (UTC)
+Received: by mail-lf1-x129.google.com with SMTP id m6so19294480lfj.11
+ for <freedreno@lists.freedesktop.org>; Tue, 10 Jan 2023 08:29:15 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=aJaOVxwzpfNT5mm5KlqjKiRiFU8oBS8a18JCmwVw3uw=;
+ b=BMJ1xJrWzFmCm3hFzV1U7MpH4iBldxRqhEJZDXlRQkJcF0XTzIn+kQXAQsXu+b8Bod
+ lMBaACXQszaNh4b6k0X1cF/yPkRSx42ZGpPUMiPtlc33MOKaqc2+QEd7TVE3Ij0D02SA
+ 58u2e8aUf3QYiTDRfdaEdahv/Nwgr9g7xcVE0kYa6ZTbb/pBHbHG2Qzq9HGqGECOM0/x
+ IrAJG9o6MTSsC6EAAv+09yHlkfooIHUfBQRo5V2snwkdG9Wd9uAJYWO1/4Ionf8DazvY
+ X93CJXQR/U9NjJvg1hgGV18Qf7S+3Di2qwLEl6qczw93jUmxmturXDbXUDY7wKU72m6I
+ hsCA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=aALJ1+6b5A4lyvQQ5kPDXbutVahUhVTXhBlHzFelYpk=;
- b=OlbAxW4IcYuT2CFPzJ/BqajtNo0BJKeA0MpBiResxummwifY9dxdVYFclXUWj0lshf
- iLqhpmyL/7u4Z5G7YzWGEk4G8uEHWviGpRGZQ6FwCOtbvQO6tGCnnan4dAIsX8ONxR23
- uy/kpd8tS7SKs5tF9tki8DQE4hrN8w33sPAe4Ptm03XvAS28P90Z6J2HGPQiBuEqCvEx
- npi0MhU0z0gkcSzrWafhvdBsvCirewNy6uUFsqj6tX6GyTS2ga7sWpZS0e7BKuR/Es9W
- dfaIDdFtEGD6FAXLlV9XT9gPjFMDgvQhhxUp/Evtq6YUFiTGpxz/QqnQFbzRoPKi1fie
- q6Ig==
-X-Gm-Message-State: AFqh2ko4GvVn752tPghQOS9T2xR3jN5V/ChPe4xWMqpx/LXA8RftmSYy
- rnhAc21IGZgVBKcfcyxL4uTMicfydKJEU/p0cRY=
-X-Google-Smtp-Source: AMrXdXvn1xRON1Kd8a0qV7Mrhm6vYwZcsKzzIkhhNKV5lkac3FN/6IpCOpNBj8E7gJ1EQBg4vrMMdWCHfSH7GIiy1oo=
-X-Received: by 2002:a05:6870:cb98:b0:15b:96b8:e2be with SMTP id
- ov24-20020a056870cb9800b0015b96b8e2bemr326656oab.38.1673364886323; Tue, 10
- Jan 2023 07:34:46 -0800 (PST)
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=aJaOVxwzpfNT5mm5KlqjKiRiFU8oBS8a18JCmwVw3uw=;
+ b=ut5BiPcbIC3bih7ANWJbASG9gVCFXDn2Rmw/Lxh65ixDMKrv4KPAK0FDyKc+Lz3DJF
+ X56zhIMb2Udzibf/LX+at88IV91w5LNwgtrYUX59FKl6Gw8pvY69nECJUpnMdaZP0MV4
+ PzIMuKVvbU6w4SQ2KvWZxCqrEUL0N+KqTrHer2+TevAG9X34kX1p8Lw/9Ur9gwmmbk10
+ FBY29dLsm1eq+7EwPbAU0fIgv+DSNxzDQ/TVbDrNSmV39bcdNNyT8mi4LF1wlnKpUeXo
+ wRKEFfcxxBM5nNowG7hLEuTmi06eIJTg6V97f12HQRW5i4GJ+xJReZio1/MsBdMXIi+X
+ K/fw==
+X-Gm-Message-State: AFqh2krBMrxcZPNnKaeMiDJgKfBH01LjjWaIiaiMOgRe+z31AgPc2J58
+ JwoR3nq2n6hXf7UxN1dBPaft5g==
+X-Google-Smtp-Source: AMrXdXvTEzrZKwBX5EBVrjImPyMb0X5uk5irAjKxaCdxZPfcIHaAaBX2yz4y3Y2SYx6iei4ZX+Pg0A==
+X-Received: by 2002:a19:f514:0:b0:4b7:2a7:1241 with SMTP id
+ j20-20020a19f514000000b004b702a71241mr17474924lfb.64.1673368153935; 
+ Tue, 10 Jan 2023 08:29:13 -0800 (PST)
+Received: from ?IPV6:2001:14ba:a085:4d00::8a5?
+ (dzccz6yyyyyyyyyyybcwt-3.rev.dnainternet.fi. [2001:14ba:a085:4d00::8a5])
+ by smtp.gmail.com with ESMTPSA id
+ w4-20020ac25984000000b004a46a9cebe2sm2249039lfn.289.2023.01.10.08.29.13
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 10 Jan 2023 08:29:13 -0800 (PST)
+Message-ID: <bf92569b-3886-113c-9e27-508e4cbfa4ba@linaro.org>
+Date: Tue, 10 Jan 2023 18:29:12 +0200
 MIME-Version: 1.0
-References: <20230109222547.1368644-1-joel@joelfernandes.org>
-In-Reply-To: <20230109222547.1368644-1-joel@joelfernandes.org>
-From: Rob Clark <robdclark@gmail.com>
-Date: Tue, 10 Jan 2023 07:34:41 -0800
-Message-ID: <CAF6AEGsH21bb6ihE41UR-jODL0C8fVVg9=ODj-Ksd7CnZaYzDw@mail.gmail.com>
-To: "Joel Fernandes (Google)" <joel@joelfernandes.org>
-Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [PATCH v2 RESEND] adreno: Shutdown the GPU properly
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.6.0
+Content-Language: en-GB
+To: Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>
+References: <20221102180705.459294-1-dmitry.baryshkov@linaro.org>
+ <20230109162140.yelgy2da7aqa6sqv@fsr-ub1664-121.ea.freescale.net>
+ <323ec70e-4613-c0e9-0b39-ad2a0a76673d@linaro.org>
+ <20230110065712.lgjnmb66s4tlpoly@fsr-ub1664-121.ea.freescale.net>
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+In-Reply-To: <20230110065712.lgjnmb66s4tlpoly@fsr-ub1664-121.ea.freescale.net>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Subject: Re: [Freedreno] [PATCH v3 0/7] drm/bridge_connector: perform HPD
+ enablement automatically
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,111 +79,170 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rob Clark <robdclark@chromium.org>,
- Akhil P Oommen <quic_akhilpo@quicinc.com>, freedreno@lists.freedesktop.org,
- linux-arm-msm@vger.kernel.org, Ricardo Ribalda <ribalda@chromium.org>,
- Konrad Dybcio <konrad.dybcio@somainline.org>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Steven Rostedt <rostedt@goodmis.org>, linux-kernel@vger.kernel.org,
- Sean Paul <sean@poorly.run>, dri-devel@lists.freedesktop.org,
- Daniel Vetter <daniel@ffwll.ch>, Ross Zwisler <zwisler@kernel.org>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- David Airlie <airlied@gmail.com>, Chia-I Wu <olvaffe@gmail.com>,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Cc: Sean Paul <sean@poorly.run>, dri-devel@lists.freedesktop.org,
+ Fabio Estevam <festevam@gmail.com>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Tomi Valkeinen <tomba@kernel.org>, Shawn Guo <shawnguo@kernel.org>,
+ Sascha Hauer <s.hauer@pengutronix.de>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, Maxime Ripard <mripard@kernel.org>,
+ Rob Clark <robdclark@gmail.com>, NXP Linux Team <linux-imx@nxp.com>,
+ Daniel Vetter <daniel@ffwll.ch>, linux-arm-msm@vger.kernel.org,
+ Philipp Zabel <p.zabel@pengutronix.de>, freedreno@lists.freedesktop.org,
+ David Airlie <airlied@gmail.com>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ linux-arm-kernel@lists.infradead.org, Lucas Stach <l.stach@pengutronix.de>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Mon, Jan 9, 2023 at 2:25 PM Joel Fernandes (Google)
-<joel@joelfernandes.org> wrote:
->
-> During kexec on ARM device, we notice that device_shutdown() only calls
-> pm_runtime_force_suspend() while shutting down the GPU. This means the GPU
-> kthread is still running and further, there maybe active submits.
->
-> This causes all kinds of issues during a kexec reboot:
->
-> Warning from shutdown path:
->
-> [  292.509662] WARNING: CPU: 0 PID: 6304 at [...] adreno_runtime_suspend+0x3c/0x44
-> [  292.509863] Hardware name: Google Lazor (rev3 - 8) with LTE (DT)
-> [  292.509872] pstate: 80400009 (Nzcv daif +PAN -UAO -TCO -DIT -SSBS BTYPE=--)
-> [  292.509881] pc : adreno_runtime_suspend+0x3c/0x44
-> [  292.509891] lr : pm_generic_runtime_suspend+0x30/0x44
-> [  292.509905] sp : ffffffc014473bf0
-> [...]
-> [  292.510043] Call trace:
-> [  292.510051]  adreno_runtime_suspend+0x3c/0x44
-> [  292.510061]  pm_generic_runtime_suspend+0x30/0x44
-> [  292.510071]  pm_runtime_force_suspend+0x54/0xc8
-> [  292.510081]  adreno_shutdown+0x1c/0x28
-> [  292.510090]  platform_shutdown+0x2c/0x38
-> [  292.510104]  device_shutdown+0x158/0x210
-> [  292.510119]  kernel_restart_prepare+0x40/0x4c
->
-> And here from GPU kthread, an SError OOPs:
->
-> [  192.648789]  el1h_64_error+0x7c/0x80
-> [  192.648812]  el1_interrupt+0x20/0x58
-> [  192.648833]  el1h_64_irq_handler+0x18/0x24
-> [  192.648854]  el1h_64_irq+0x7c/0x80
-> [  192.648873]  local_daif_inherit+0x10/0x18
-> [  192.648900]  el1h_64_sync_handler+0x48/0xb4
-> [  192.648921]  el1h_64_sync+0x7c/0x80
-> [  192.648941]  a6xx_gmu_set_oob+0xbc/0x1fc
-> [  192.648968]  a6xx_hw_init+0x44/0xe38
-> [  192.648991]  msm_gpu_hw_init+0x48/0x80
-> [  192.649013]  msm_gpu_submit+0x5c/0x1a8
-> [  192.649034]  msm_job_run+0xb0/0x11c
-> [  192.649058]  drm_sched_main+0x170/0x434
-> [  192.649086]  kthread+0x134/0x300
-> [  192.649114]  ret_from_fork+0x10/0x20
->
-> Fix by calling adreno_system_suspend() in the device_shutdown() path.
->
-> [ Applied Rob Clark feedback on fixing adreno_unbind() similarly, also
->   tested as above. ]
->
-> Cc: Rob Clark <robdclark@chromium.org>
-> Cc: Steven Rostedt <rostedt@goodmis.org>
-> Cc: Ricardo Ribalda <ribalda@chromium.org>
-> Cc: Ross Zwisler <zwisler@kernel.org>
-> Signed-off-by: Joel Fernandes (Google) <joel@joelfernandes.org>
+On 10/01/2023 08:57, Laurentiu Palcu wrote:
+> Hi,
+> 
+> On Mon, Jan 09, 2023 at 10:26:28PM +0200, Dmitry Baryshkov wrote:
+>> Hi,
+>>
+>> On 09/01/2023 18:21, Laurentiu Palcu wrote:
+>>> Hi Dmitry,
+>>>
+>>> It looks like there are some issues with this patchset... :/ I just
+>>> fetched the drm-tip and, with these patches included, the "Hot plug
+>>> detection already enabled" warning is back for i.MX DCSS.
+>>
+>> Could you please provide a backtrace?
+> 
+> Sure, see below:
 
-Reviewed-by: Rob Clark <robdclark@gmail.com>
+I wondered, why didn't I see this on msm, my main target nowadays. The 
+msm driver is calling msm_kms_helper_poll_init() after initializing 
+fbdev, so all previous kms_helper_poll_enable() calls return early.
 
-> ---
->  drivers/gpu/drm/msm/adreno/adreno_device.c | 5 +++--
->  1 file changed, 3 insertions(+), 2 deletions(-)
->
-> diff --git a/drivers/gpu/drm/msm/adreno/adreno_device.c b/drivers/gpu/drm/msm/adreno/adreno_device.c
-> index 628806423f7d..36f062c7582f 100644
-> --- a/drivers/gpu/drm/msm/adreno/adreno_device.c
-> +++ b/drivers/gpu/drm/msm/adreno/adreno_device.c
-> @@ -551,13 +551,14 @@ static int adreno_bind(struct device *dev, struct device *master, void *data)
->         return 0;
->  }
->
-> +static int adreno_system_suspend(struct device *dev);
->  static void adreno_unbind(struct device *dev, struct device *master,
->                 void *data)
->  {
->         struct msm_drm_private *priv = dev_get_drvdata(master);
->         struct msm_gpu *gpu = dev_to_gpu(dev);
->
-> -       pm_runtime_force_suspend(dev);
-> +       WARN_ON_ONCE(adreno_system_suspend(dev));
->         gpu->funcs->destroy(gpu);
->
->         priv->gpu_pdev = NULL;
-> @@ -609,7 +610,7 @@ static int adreno_remove(struct platform_device *pdev)
->
->  static void adreno_shutdown(struct platform_device *pdev)
->  {
-> -       pm_runtime_force_suspend(&pdev->dev);
-> +       WARN_ON_ONCE(adreno_system_suspend(&pdev->dev));
->  }
->
->  static const struct of_device_id dt_match[] = {
-> --
-> 2.39.0.314.g84b9a713c41-goog
->
+I think I have the fix ready. Let me test it locally before posting.
+
+> 
+> ------------[ cut here ]------------
+> Hot plug detection already enabled
+> WARNING: CPU: 2 PID: 9 at drivers/gpu/drm/drm_bridge.c:1257 drm_bridge_hpd_enable+0x94/0x9c [drm]
+> Modules linked in: videobuf2_memops snd_soc_simple_card snd_soc_simple_card_utils fsl_imx8_ddr_perf videobuf2_common snd_soc_imx_spdif adv7511 etnaviv imx8m_ddrc imx_dcss mc cec nwl_dsi gov
+> CPU: 2 PID: 9 Comm: kworker/u8:0 Not tainted 6.2.0-rc2-15208-g25b283acd578 #6
+> Hardware name: NXP i.MX8MQ EVK (DT)
+> Workqueue: events_unbound deferred_probe_work_func
+> pstate: 60000005 (nZCv daif -PAN -UAO -TCO -DIT -SSBS BTYPE=--)
+> pc : drm_bridge_hpd_enable+0x94/0x9c [drm]
+> lr : drm_bridge_hpd_enable+0x94/0x9c [drm]
+> sp : ffff800009ef3740
+> x29: ffff800009ef3740 x28: ffff000009331f00 x27: 0000000000001000
+> x26: 0000000000000020 x25: ffff800001148ed8 x24: ffff00000a8fe000
+> x23: 00000000fffffffd x22: ffff000005086348 x21: ffff800001133ee0
+> x20: ffff00000550d800 x19: ffff000005086288 x18: 0000000000000006
+> x17: 0000000000000000 x16: ffff8000096ef008 x15: 97ffff2891004260
+> x14: 2a1403e194000000 x13: 97ffff2891004260 x12: 2a1403e194000000
+> x11: 7100385f29400801 x10: 0000000000000aa0 x9 : ffff800008112744
+> x8 : ffff000000250b00 x7 : 0000000000000003 x6 : 0000000000000011
+> x5 : 0000000000000000 x4 : ffff0000bd986a48 x3 : 0000000000000001
+> x2 : 0000000000000000 x1 : 0000000000000000 x0 : ffff000000250000
+> Call trace:
+>   drm_bridge_hpd_enable+0x94/0x9c [drm]
+>   drm_bridge_connector_enable_hpd+0x2c/0x3c [drm_kms_helper]
+>   drm_kms_helper_poll_enable+0x94/0x10c [drm_kms_helper]
+>   drm_helper_probe_single_connector_modes+0x1a8/0x510 [drm_kms_helper]
+>   drm_client_modeset_probe+0x204/0x1190 [drm]
+>   __drm_fb_helper_initial_config_and_unlock+0x5c/0x4a4 [drm_kms_helper]
+>   drm_fb_helper_initial_config+0x54/0x6c [drm_kms_helper]
+>   drm_fbdev_client_hotplug+0xd0/0x140 [drm_kms_helper]
+>   drm_fbdev_generic_setup+0x90/0x154 [drm_kms_helper]
+>   dcss_kms_attach+0x1c8/0x254 [imx_dcss]
+>   dcss_drv_platform_probe+0x90/0xfc [imx_dcss]
+>   platform_probe+0x70/0xcc
+>   really_probe+0xc4/0x2e0
+>   __driver_probe_device+0x80/0xf0
+>   driver_probe_device+0xe0/0x164
+>   __device_attach_driver+0xc0/0x13c
+>   bus_for_each_drv+0x84/0xe0
+>   __device_attach+0xa4/0x1a0
+>   device_initial_probe+0x1c/0x30
+>   bus_probe_device+0xa4/0xb0
+>   deferred_probe_work_func+0x90/0xd0
+>   process_one_work+0x200/0x474
+>   worker_thread+0x74/0x43c
+>   kthread+0xfc/0x110
+>   ret_from_fork+0x10/0x20
+> ---[ end trace 0000000000000000 ]---
+> 
+> Cheers,
+> Laurentiu
+> 
+>>
+>>>
+>>> After a short investigation, it seems that we end up calling
+>>> drm_bridge_hpd_enable() from both drm_kms_helper_poll_init() and
+>>> drm_fbdev_generic_setup(), hence the warning.
+>>>
+>>> There are drivers using the drm_bridge_connector API that also call
+>>> drm_kms_helper_poll_init() followed by drm_fbdev_generic_setup(). So,
+>>> they might experience the same behavior, unless I'm missing something...
+>>> :/
+>>>
+>>> Also, even if drm_fbdev_generic_setup() is not called in the driver
+>>> initialization, the warning will still appear the first time the
+>>> GETCONNECTOR ioctl is called, because that'll call
+>>> drm_helper_probe_single_connector_modes() helper which will eventually
+>>> call drm_bridge_hpd_enable().
+>>>
+>>> Any idea?
+>>>
+>>> Cheers,
+>>> Laurentiu
+>>>
+>>> On Wed, Nov 02, 2022 at 09:06:58PM +0300, Dmitry Baryshkov wrote:
+>>>>   From all the drivers using drm_bridge_connector only iMX/dcss and OMAP
+>>>> DRM driver do a proper work of calling
+>>>> drm_bridge_connector_en/disable_hpd() in right places. Rather than
+>>>> teaching each and every driver how to properly handle
+>>>> drm_bridge_connector's HPD, make that automatic.
+>>>>
+>>>> Add two additional drm_connector helper funcs: enable_hpd() and
+>>>> disable_hpd(). Make drm_kms_helper_poll_* functions call them (as this
+>>>> is the time where the drm_bridge_connector's functions are called by the
+>>>> drivers too).
+>>>>
+>>>> Changes since v2:
+>>>>    - Fixed a typo in the commit message of the second patch.
+>>>>
+>>>> Changes since v1:
+>>>>    - Rebased on top of v6.1-rc1
+>>>>    - Removed the drm_bridge_connector_enable_hpd() from
+>>>>      drm_bridge_connector_init()
+>>>>    - Removed extra underscore prefix from
+>>>>      drm_bridge_connector_en/disable_hpd() helpers
+>>>>
+>>>> Dmitry Baryshkov (7):
+>>>>     drm/poll-helper: merge drm_kms_helper_poll_disable() and _fini()
+>>>>     drm/probe-helper: enable and disable HPD on connectors
+>>>>     drm/bridge_connector: rely on drm_kms_helper_poll_* for HPD enablement
+>>>>     drm/imx/dcss: stop using drm_bridge_connector_en/disable_hpd()
+>>>>     drm/msm/hdmi: stop using drm_bridge_connector_en/disable_hpd()
+>>>>     drm/omap: stop using drm_bridge_connector_en/disable_hpd()
+>>>>     drm/bridge_connector: drop drm_bridge_connector_en/disable_hpd()
+>>>>
+>>>>    drivers/gpu/drm/drm_bridge_connector.c   | 27 +++-------------
+>>>>    drivers/gpu/drm/drm_probe_helper.c       | 40 ++++++++++++++++++-----
+>>>>    drivers/gpu/drm/imx/dcss/dcss-dev.c      |  4 ---
+>>>>    drivers/gpu/drm/imx/dcss/dcss-kms.c      |  2 --
+>>>>    drivers/gpu/drm/msm/hdmi/hdmi.c          |  2 --
+>>>>    drivers/gpu/drm/omapdrm/omap_drv.c       | 41 ------------------------
+>>>>    include/drm/drm_bridge_connector.h       |  2 --
+>>>>    include/drm/drm_modeset_helper_vtables.h | 22 +++++++++++++
+>>>>    8 files changed, 59 insertions(+), 81 deletions(-)
+>>>>
+>>>> -- 
+>>>> 2.35.1
+>>>>
+>>
+>> -- 
+>> With best wishes
+>> Dmitry
+>>
+
+-- 
+With best wishes
+Dmitry
+
