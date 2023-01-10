@@ -1,72 +1,46 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 51971664610
-	for <lists+freedreno@lfdr.de>; Tue, 10 Jan 2023 17:29:21 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 0CDDA664723
+	for <lists+freedreno@lfdr.de>; Tue, 10 Jan 2023 18:17:10 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4526E10E5FD;
-	Tue, 10 Jan 2023 16:29:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 969BF10E62D;
+	Tue, 10 Jan 2023 17:17:03 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x129.google.com (mail-lf1-x129.google.com
- [IPv6:2a00:1450:4864:20::129])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9F09A10E09A
- for <freedreno@lists.freedesktop.org>; Tue, 10 Jan 2023 16:29:15 +0000 (UTC)
-Received: by mail-lf1-x129.google.com with SMTP id m6so19294480lfj.11
- for <freedreno@lists.freedesktop.org>; Tue, 10 Jan 2023 08:29:15 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=aJaOVxwzpfNT5mm5KlqjKiRiFU8oBS8a18JCmwVw3uw=;
- b=BMJ1xJrWzFmCm3hFzV1U7MpH4iBldxRqhEJZDXlRQkJcF0XTzIn+kQXAQsXu+b8Bod
- lMBaACXQszaNh4b6k0X1cF/yPkRSx42ZGpPUMiPtlc33MOKaqc2+QEd7TVE3Ij0D02SA
- 58u2e8aUf3QYiTDRfdaEdahv/Nwgr9g7xcVE0kYa6ZTbb/pBHbHG2Qzq9HGqGECOM0/x
- IrAJG9o6MTSsC6EAAv+09yHlkfooIHUfBQRo5V2snwkdG9Wd9uAJYWO1/4Ionf8DazvY
- X93CJXQR/U9NjJvg1hgGV18Qf7S+3Di2qwLEl6qczw93jUmxmturXDbXUDY7wKU72m6I
- hsCA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=aJaOVxwzpfNT5mm5KlqjKiRiFU8oBS8a18JCmwVw3uw=;
- b=ut5BiPcbIC3bih7ANWJbASG9gVCFXDn2Rmw/Lxh65ixDMKrv4KPAK0FDyKc+Lz3DJF
- X56zhIMb2Udzibf/LX+at88IV91w5LNwgtrYUX59FKl6Gw8pvY69nECJUpnMdaZP0MV4
- PzIMuKVvbU6w4SQ2KvWZxCqrEUL0N+KqTrHer2+TevAG9X34kX1p8Lw/9Ur9gwmmbk10
- FBY29dLsm1eq+7EwPbAU0fIgv+DSNxzDQ/TVbDrNSmV39bcdNNyT8mi4LF1wlnKpUeXo
- wRKEFfcxxBM5nNowG7hLEuTmi06eIJTg6V97f12HQRW5i4GJ+xJReZio1/MsBdMXIi+X
- K/fw==
-X-Gm-Message-State: AFqh2krBMrxcZPNnKaeMiDJgKfBH01LjjWaIiaiMOgRe+z31AgPc2J58
- JwoR3nq2n6hXf7UxN1dBPaft5g==
-X-Google-Smtp-Source: AMrXdXvTEzrZKwBX5EBVrjImPyMb0X5uk5irAjKxaCdxZPfcIHaAaBX2yz4y3Y2SYx6iei4ZX+Pg0A==
-X-Received: by 2002:a19:f514:0:b0:4b7:2a7:1241 with SMTP id
- j20-20020a19f514000000b004b702a71241mr17474924lfb.64.1673368153935; 
- Tue, 10 Jan 2023 08:29:13 -0800 (PST)
-Received: from ?IPV6:2001:14ba:a085:4d00::8a5?
- (dzccz6yyyyyyyyyyybcwt-3.rev.dnainternet.fi. [2001:14ba:a085:4d00::8a5])
- by smtp.gmail.com with ESMTPSA id
- w4-20020ac25984000000b004a46a9cebe2sm2249039lfn.289.2023.01.10.08.29.13
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 10 Jan 2023 08:29:13 -0800 (PST)
-Message-ID: <bf92569b-3886-113c-9e27-508e4cbfa4ba@linaro.org>
-Date: Tue, 10 Jan 2023 18:29:12 +0200
+Received: from ams.source.kernel.org (ams.source.kernel.org
+ [IPv6:2604:1380:4601:e00::1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C11FB10E62D;
+ Tue, 10 Jan 2023 17:16:59 +0000 (UTC)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by ams.source.kernel.org (Postfix) with ESMTPS id 0CE80B818E0;
+ Tue, 10 Jan 2023 17:16:58 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 996A5C433D2;
+ Tue, 10 Jan 2023 17:16:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1673371016;
+ bh=iwpyzqVQok4g2qkFvOCpfycpEy0u8yaiB88caR2d+yw=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=ZFlSHcAy0NVD0oYNOUp4HIjmISXck5EjgZpyTmX54tPypcLovVkFVVpnudqYpDO9K
+ UplsOHprYvZuBJWXROow17T1QSPJ9QZQ54qHZ7K+4lIImwm21BkKOyDX/y6aNRNvIE
+ YOpOjPeo1MC8X78tpaaZcAaMnqfo/1PzI3LMkc9s/RTBpOn7HtDmwPMLtFlftePR1Z
+ dAvWgG/yUp0DYlqlctwKty89d/SAmKWqT6wyI1dHKOOf4q5AptgEh75dVt0mY/JWx+
+ HcyXcmbv91fqoUnJSNq1nvDjzZ57STNdv1N6O+WPWU7RKaEQSN9AqknmRWvvddHlxI
+ yLxzhbWz+WeNg==
+Date: Tue, 10 Jan 2023 11:16:52 -0600
+From: Bjorn Andersson <andersson@kernel.org>
+To: Akhil P Oommen <quic_akhilpo@quicinc.com>, Rob Clark <robdclark@gmail.com>
+Message-ID: <20230110171652.ur5zgdwvjj3kaimj@builder.lan>
+References: <1672656511-1931-1-git-send-email-quic_akhilpo@quicinc.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.6.0
-Content-Language: en-GB
-To: Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>
-References: <20221102180705.459294-1-dmitry.baryshkov@linaro.org>
- <20230109162140.yelgy2da7aqa6sqv@fsr-ub1664-121.ea.freescale.net>
- <323ec70e-4613-c0e9-0b39-ad2a0a76673d@linaro.org>
- <20230110065712.lgjnmb66s4tlpoly@fsr-ub1664-121.ea.freescale.net>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-In-Reply-To: <20230110065712.lgjnmb66s4tlpoly@fsr-ub1664-121.ea.freescale.net>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH v3 0/7] drm/bridge_connector: perform HPD
- enablement automatically
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <1672656511-1931-1-git-send-email-quic_akhilpo@quicinc.com>
+Subject: Re: [Freedreno] [PATCH v5 0/5] Improve GPU reset sequence for
+ Adreno GPU
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,170 +53,85 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sean Paul <sean@poorly.run>, dri-devel@lists.freedesktop.org,
- Fabio Estevam <festevam@gmail.com>, Thomas Zimmermann <tzimmermann@suse.de>,
- Tomi Valkeinen <tomba@kernel.org>, Shawn Guo <shawnguo@kernel.org>,
- Sascha Hauer <s.hauer@pengutronix.de>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, Maxime Ripard <mripard@kernel.org>,
- Rob Clark <robdclark@gmail.com>, NXP Linux Team <linux-imx@nxp.com>,
- Daniel Vetter <daniel@ffwll.ch>, linux-arm-msm@vger.kernel.org,
- Philipp Zabel <p.zabel@pengutronix.de>, freedreno@lists.freedesktop.org,
- David Airlie <airlied@gmail.com>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- linux-arm-kernel@lists.infradead.org, Lucas Stach <l.stach@pengutronix.de>
+Cc: Ulf Hansson <ulf.hansson@linaro.org>,
+ "Rafael J. Wysocki" <rafael@kernel.org>,
+ Michael Turquette <mturquette@baylibre.com>,
+ Konrad Dybcio <konrad.dybcio@somainline.org>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Pavel Machek <pavel@ucw.cz>,
+ David Airlie <airlied@gmail.com>, linux-clk@vger.kernel.org,
+ Kevin Hilman <khilman@kernel.org>, Andy Gross <agross@kernel.org>,
+ Geert Uytterhoeven <geert@linux-m68k.org>, Chia-I Wu <olvaffe@gmail.com>,
+ Guenter Roeck <linux@roeck-us.net>, Len Brown <len.brown@intel.com>,
+ Philipp Zabel <p.zabel@pengutronix.de>, linux-pm@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Sean Paul <sean@poorly.run>, Stephen Boyd <sboyd@kernel.org>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Douglas Anderson <dianders@chromium.org>,
+ Konrad Dybcio <konrad.dybcio@linaro.org>, Daniel Vetter <daniel@ffwll.ch>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ freedreno <freedreno@lists.freedesktop.org>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 10/01/2023 08:57, Laurentiu Palcu wrote:
-> Hi,
+On Mon, Jan 02, 2023 at 04:18:26PM +0530, Akhil P Oommen wrote:
 > 
-> On Mon, Jan 09, 2023 at 10:26:28PM +0200, Dmitry Baryshkov wrote:
->> Hi,
->>
->> On 09/01/2023 18:21, Laurentiu Palcu wrote:
->>> Hi Dmitry,
->>>
->>> It looks like there are some issues with this patchset... :/ I just
->>> fetched the drm-tip and, with these patches included, the "Hot plug
->>> detection already enabled" warning is back for i.MX DCSS.
->>
->> Could you please provide a backtrace?
+> This is a rework of [1] using genpd instead of 'reset' framework.
 > 
-> Sure, see below:
-
-I wondered, why didn't I see this on msm, my main target nowadays. The 
-msm driver is calling msm_kms_helper_poll_init() after initializing 
-fbdev, so all previous kms_helper_poll_enable() calls return early.
-
-I think I have the fix ready. Let me test it locally before posting.
-
+> As per the recommended reset sequence of Adreno gpu, we should ensure that
+> gpucc-cx-gdsc has collapsed at hardware to reset gpu's internal hardware states.
+> Because this gdsc is implemented as 'votable', gdsc driver doesn't poll and
+> wait until its hw status says OFF.
 > 
-> ------------[ cut here ]------------
-> Hot plug detection already enabled
-> WARNING: CPU: 2 PID: 9 at drivers/gpu/drm/drm_bridge.c:1257 drm_bridge_hpd_enable+0x94/0x9c [drm]
-> Modules linked in: videobuf2_memops snd_soc_simple_card snd_soc_simple_card_utils fsl_imx8_ddr_perf videobuf2_common snd_soc_imx_spdif adv7511 etnaviv imx8m_ddrc imx_dcss mc cec nwl_dsi gov
-> CPU: 2 PID: 9 Comm: kworker/u8:0 Not tainted 6.2.0-rc2-15208-g25b283acd578 #6
-> Hardware name: NXP i.MX8MQ EVK (DT)
-> Workqueue: events_unbound deferred_probe_work_func
-> pstate: 60000005 (nZCv daif -PAN -UAO -TCO -DIT -SSBS BTYPE=--)
-> pc : drm_bridge_hpd_enable+0x94/0x9c [drm]
-> lr : drm_bridge_hpd_enable+0x94/0x9c [drm]
-> sp : ffff800009ef3740
-> x29: ffff800009ef3740 x28: ffff000009331f00 x27: 0000000000001000
-> x26: 0000000000000020 x25: ffff800001148ed8 x24: ffff00000a8fe000
-> x23: 00000000fffffffd x22: ffff000005086348 x21: ffff800001133ee0
-> x20: ffff00000550d800 x19: ffff000005086288 x18: 0000000000000006
-> x17: 0000000000000000 x16: ffff8000096ef008 x15: 97ffff2891004260
-> x14: 2a1403e194000000 x13: 97ffff2891004260 x12: 2a1403e194000000
-> x11: 7100385f29400801 x10: 0000000000000aa0 x9 : ffff800008112744
-> x8 : ffff000000250b00 x7 : 0000000000000003 x6 : 0000000000000011
-> x5 : 0000000000000000 x4 : ffff0000bd986a48 x3 : 0000000000000001
-> x2 : 0000000000000000 x1 : 0000000000000000 x0 : ffff000000250000
-> Call trace:
->   drm_bridge_hpd_enable+0x94/0x9c [drm]
->   drm_bridge_connector_enable_hpd+0x2c/0x3c [drm_kms_helper]
->   drm_kms_helper_poll_enable+0x94/0x10c [drm_kms_helper]
->   drm_helper_probe_single_connector_modes+0x1a8/0x510 [drm_kms_helper]
->   drm_client_modeset_probe+0x204/0x1190 [drm]
->   __drm_fb_helper_initial_config_and_unlock+0x5c/0x4a4 [drm_kms_helper]
->   drm_fb_helper_initial_config+0x54/0x6c [drm_kms_helper]
->   drm_fbdev_client_hotplug+0xd0/0x140 [drm_kms_helper]
->   drm_fbdev_generic_setup+0x90/0x154 [drm_kms_helper]
->   dcss_kms_attach+0x1c8/0x254 [imx_dcss]
->   dcss_drv_platform_probe+0x90/0xfc [imx_dcss]
->   platform_probe+0x70/0xcc
->   really_probe+0xc4/0x2e0
->   __driver_probe_device+0x80/0xf0
->   driver_probe_device+0xe0/0x164
->   __device_attach_driver+0xc0/0x13c
->   bus_for_each_drv+0x84/0xe0
->   __device_attach+0xa4/0x1a0
->   device_initial_probe+0x1c/0x30
->   bus_probe_device+0xa4/0xb0
->   deferred_probe_work_func+0x90/0xd0
->   process_one_work+0x200/0x474
->   worker_thread+0x74/0x43c
->   kthread+0xfc/0x110
->   ret_from_fork+0x10/0x20
-> ---[ end trace 0000000000000000 ]---
+> So use the newly introduced genpd api (dev_pm_genpd_synced_poweroff()) to
+> provide a hint to the gdsc driver to poll for the hw status and use genpd
+> notifier to wait from adreno gpu driver until gdsc is turned OFF.
 > 
-> Cheers,
-> Laurentiu
+> This series is rebased on top of linux-next (20221215) since the changes span
+> multiple drivers.
 > 
->>
->>>
->>> After a short investigation, it seems that we end up calling
->>> drm_bridge_hpd_enable() from both drm_kms_helper_poll_init() and
->>> drm_fbdev_generic_setup(), hence the warning.
->>>
->>> There are drivers using the drm_bridge_connector API that also call
->>> drm_kms_helper_poll_init() followed by drm_fbdev_generic_setup(). So,
->>> they might experience the same behavior, unless I'm missing something...
->>> :/
->>>
->>> Also, even if drm_fbdev_generic_setup() is not called in the driver
->>> initialization, the warning will still appear the first time the
->>> GETCONNECTOR ioctl is called, because that'll call
->>> drm_helper_probe_single_connector_modes() helper which will eventually
->>> call drm_bridge_hpd_enable().
->>>
->>> Any idea?
->>>
->>> Cheers,
->>> Laurentiu
->>>
->>> On Wed, Nov 02, 2022 at 09:06:58PM +0300, Dmitry Baryshkov wrote:
->>>>   From all the drivers using drm_bridge_connector only iMX/dcss and OMAP
->>>> DRM driver do a proper work of calling
->>>> drm_bridge_connector_en/disable_hpd() in right places. Rather than
->>>> teaching each and every driver how to properly handle
->>>> drm_bridge_connector's HPD, make that automatic.
->>>>
->>>> Add two additional drm_connector helper funcs: enable_hpd() and
->>>> disable_hpd(). Make drm_kms_helper_poll_* functions call them (as this
->>>> is the time where the drm_bridge_connector's functions are called by the
->>>> drivers too).
->>>>
->>>> Changes since v2:
->>>>    - Fixed a typo in the commit message of the second patch.
->>>>
->>>> Changes since v1:
->>>>    - Rebased on top of v6.1-rc1
->>>>    - Removed the drm_bridge_connector_enable_hpd() from
->>>>      drm_bridge_connector_init()
->>>>    - Removed extra underscore prefix from
->>>>      drm_bridge_connector_en/disable_hpd() helpers
->>>>
->>>> Dmitry Baryshkov (7):
->>>>     drm/poll-helper: merge drm_kms_helper_poll_disable() and _fini()
->>>>     drm/probe-helper: enable and disable HPD on connectors
->>>>     drm/bridge_connector: rely on drm_kms_helper_poll_* for HPD enablement
->>>>     drm/imx/dcss: stop using drm_bridge_connector_en/disable_hpd()
->>>>     drm/msm/hdmi: stop using drm_bridge_connector_en/disable_hpd()
->>>>     drm/omap: stop using drm_bridge_connector_en/disable_hpd()
->>>>     drm/bridge_connector: drop drm_bridge_connector_en/disable_hpd()
->>>>
->>>>    drivers/gpu/drm/drm_bridge_connector.c   | 27 +++-------------
->>>>    drivers/gpu/drm/drm_probe_helper.c       | 40 ++++++++++++++++++-----
->>>>    drivers/gpu/drm/imx/dcss/dcss-dev.c      |  4 ---
->>>>    drivers/gpu/drm/imx/dcss/dcss-kms.c      |  2 --
->>>>    drivers/gpu/drm/msm/hdmi/hdmi.c          |  2 --
->>>>    drivers/gpu/drm/omapdrm/omap_drv.c       | 41 ------------------------
->>>>    include/drm/drm_bridge_connector.h       |  2 --
->>>>    include/drm/drm_modeset_helper_vtables.h | 22 +++++++++++++
->>>>    8 files changed, 59 insertions(+), 81 deletions(-)
->>>>
->>>> -- 
->>>> 2.35.1
->>>>
->>
->> -- 
->> With best wishes
->> Dmitry
->>
+> [1] https://patchwork.freedesktop.org/series/107507/
+> 
 
--- 
-With best wishes
-Dmitry
+@Rob, please find the PM and gdsc implementation changes picked up here:
 
+  https://git.kernel.org/pub/scm/linux/kernel/git/qcom/linux.git tags/1672656511-1931-1-git-send-email-quic_akhilpo@quicinc.com
+
+Regards,
+Bjorn
+
+> Changes in v5:
+> - Capture all Reviewed-by tags
+> 
+> Changes in v4:
+> - Update genpd function documentation (Ulf)
+> 
+> Changes in v3:
+> - Rename the var 'force_sync' to 'wait (Stephen)
+> 
+> Changes in v2:
+> - Minor formatting fix
+> - Select PM_GENERIC_DOMAINS from Kconfig
+> 
+> Akhil P Oommen (4):
+>   clk: qcom: gdsc: Support 'synced_poweroff' genpd flag
+>   drm/msm/a6xx: Vote for cx gdsc from gpu driver
+>   drm/msm/a6xx: Remove cx gdsc polling using 'reset'
+>   drm/msm/a6xx: Use genpd notifier to ensure cx-gdsc collapse
+> 
+> Ulf Hansson (1):
+>   PM: domains: Allow a genpd consumer to require a synced power off
+> 
+>  drivers/base/power/domain.c           | 26 ++++++++++++++++++++
+>  drivers/clk/qcom/gdsc.c               | 11 +++++----
+>  drivers/gpu/drm/msm/Kconfig           |  1 +
+>  drivers/gpu/drm/msm/adreno/a6xx_gmu.c | 46 ++++++++++++++++++++++++++++++++---
+>  drivers/gpu/drm/msm/adreno/a6xx_gmu.h |  7 ++++++
+>  drivers/gpu/drm/msm/adreno/a6xx_gpu.c | 13 +++++++---
+>  drivers/gpu/drm/msm/msm_gpu.c         |  4 ---
+>  drivers/gpu/drm/msm/msm_gpu.h         |  4 ---
+>  include/linux/pm_domain.h             |  5 ++++
+>  9 files changed, 97 insertions(+), 20 deletions(-)
+> 
+> -- 
+> 2.7.4
+> 
