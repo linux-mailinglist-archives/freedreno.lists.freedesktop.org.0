@@ -1,66 +1,61 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 711DA66492D
-	for <lists+freedreno@lfdr.de>; Tue, 10 Jan 2023 19:19:04 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 1D1DF66497C
+	for <lists+freedreno@lfdr.de>; Tue, 10 Jan 2023 19:22:09 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3177410E12A;
-	Tue, 10 Jan 2023 18:19:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C89D910E145;
+	Tue, 10 Jan 2023 18:22:07 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ej1-x629.google.com (mail-ej1-x629.google.com
- [IPv6:2a00:1450:4864:20::629])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E2A6310E12A
- for <freedreno@lists.freedesktop.org>; Tue, 10 Jan 2023 18:19:00 +0000 (UTC)
-Received: by mail-ej1-x629.google.com with SMTP id jo4so30924242ejb.7
- for <freedreno@lists.freedesktop.org>; Tue, 10 Jan 2023 10:19:00 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=E971UMGcXwgaAFeIMfskNyBawiDJacixiUkz6okj188=;
- b=n6Y61za4DxKZcQVv04jf0Kgy/LIVUVbd4dG6UI8Zy/mgSnLr8dFB94wEL3D8vJWy07
- 3fYwMJAyasn8+fgepgopiyJW5gT0JlyNIYGnbYYZqaf89dLtI/Ckiz+e9CVeijhxne3B
- 1CEL/s/UaNtXnjR9P/8nONCzQPlb7gMzuzSB8=
+Received: from mail-pg1-x530.google.com (mail-pg1-x530.google.com
+ [IPv6:2607:f8b0:4864:20::530])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5018A10E145;
+ Tue, 10 Jan 2023 18:22:05 +0000 (UTC)
+Received: by mail-pg1-x530.google.com with SMTP id q9so8826180pgq.5;
+ Tue, 10 Jan 2023 10:22:05 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=ogmFOZWIzMj+3duLrX2EZxxcGOpiQSLfwLDfrMyX4OM=;
+ b=iTBfyH3WDaC7OnWboyWtpdRAh2d4mpfK+qixKoD9Q0ueYMxJIRO2z6FJCJhJl+tyKb
+ FXzKhD87IMvMRgbJlA3TPk7VHbUW+NH+kFN6Uzjy2dXkUTtyVUkjGdjGBkbZIELB6Xq9
+ yanOd9AyVREOZyuM1AlouGJO6wdflEYt5lHTemDontXABXAK2fp/pEzB1FyTZizl/Yy4
+ GxO/FX3h9RQTiKwW0hfNkyT4aFyDj41XGvYoGKmuV9liaoyvM6x5+xNwY/Khd/XUtWjy
+ gWExAJSr3G3rJGMGIs9E3mhcVvY7yDIJNKSGySbH5d7XhZodjW5E8hAJQjXjePueeMyw
+ aCNg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=E971UMGcXwgaAFeIMfskNyBawiDJacixiUkz6okj188=;
- b=b8iJrcuNgS+gQ+3nPShV9dfcKtz+4pObXIGuodJS/k7rmJJQ/kERyDqT4Q4WFGOAZ6
- xu1IV3EfMpCSBOtQNMHNxSFrk/COxSuEuawxcF7VCU2R9qXqG2jRUZvGZCVd7D4n2Caz
- MIeIrFwrZ2curZ2gXFthJmlhgnNJrso9/y2rlt6b+TrPe8W4Ez+IPCazr+wK0RHKTKzY
- LLcETAeQQF6nVEMIi8nlyn6rvpuA7ORvArL/dDA2LKjGWu/UFdV1DE9cooZa+X8ed0+E
- 90CbltmgYr9Hdu91goXdNHs3vbVW9/GKt8S/R+qXMIajgFmzzVADXS4wVjWxKQiFBBmi
- jj0Q==
-X-Gm-Message-State: AFqh2koDH3olo1L7HubkrGXR2N0xfN+tIr4oiWFOVAf6opKNZY4/QaUV
- iFxfjgHjmmgz/5dX9kxspNmbBhvbyCSTtx8KCcU=
-X-Google-Smtp-Source: AMrXdXufwIc22DcB8BuINOZCsfBtaI9Clyk5Yk+hQLpwm+fnGJebZlrsOvS9A9jYK5h6QWFmnW2xrg==
-X-Received: by 2002:a17:907:7ea1:b0:7c4:f752:e95c with SMTP id
- qb33-20020a1709077ea100b007c4f752e95cmr76651250ejc.1.1673374739337; 
- Tue, 10 Jan 2023 10:18:59 -0800 (PST)
-Received: from mail-wr1-f42.google.com (mail-wr1-f42.google.com.
- [209.85.221.42]) by smtp.gmail.com with ESMTPSA id
- l10-20020a1709060cca00b0082ddfb47d06sm5250307ejh.148.2023.01.10.10.18.59
- for <freedreno@lists.freedesktop.org>
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 10 Jan 2023 10:18:59 -0800 (PST)
-Received: by mail-wr1-f42.google.com with SMTP id co23so12706836wrb.4
- for <freedreno@lists.freedesktop.org>; Tue, 10 Jan 2023 10:18:59 -0800 (PST)
-X-Received: by 2002:a5d:6ad0:0:b0:2bc:da90:2ab8 with SMTP id
- u16-20020a5d6ad0000000b002bcda902ab8mr99344wrw.659.1673374407473; Tue, 10 Jan
- 2023 10:13:27 -0800 (PST)
+ bh=ogmFOZWIzMj+3duLrX2EZxxcGOpiQSLfwLDfrMyX4OM=;
+ b=XdEVgCFjqzrAYrmgl9Tvuj01M2Iy/fDZo/KIxXH8JQSdATpVAP/8Zcqw+o1Awf5Zml
+ Mw1bV1uhWLbjMjLGm3mNpKh4ZYalblm4fBWJSlgeIdH02tycgCHK48t01ePJQar4FPYI
+ cdUvo96Q25Z/roKvdioMGy8dKevWROJrdu4cPy7/hYWuyNA3AlwC2MqYO2y6PfyPwZQY
+ xFrdsVJNybot00WmpYttN4GkzLNQp7Q2Gmm6VVCGJ0k5wzJGtF+Jp/6JqzMARAO8UcIn
+ G/UUt01BiAQk2xzBCkfhrGrOGpbu1GkmmWjlwuGeMDVB7uEqPxpboBBXQTvH+llZVKw/
+ bZHw==
+X-Gm-Message-State: AFqh2kp09oGf10/zdmHQij5ybRHWtVV2AGV7WVcfY21uOdSlKxWc94iS
+ mOfaZgB0SnVle5fHtWYciN2cVl5m+Mc=
+X-Google-Smtp-Source: AMrXdXtQ5GUYXPLIFkdMD5Z6fjHsPDPbiLd3VACxOqDo5SU3z6yDVttD03dV+GYCTOyCEd7P0t0WUQ==
+X-Received: by 2002:a05:6a00:c5:b0:582:6173:c6c5 with SMTP id
+ e5-20020a056a0000c500b005826173c6c5mr36566828pfj.14.1673374924464; 
+ Tue, 10 Jan 2023 10:22:04 -0800 (PST)
+Received: from localhost ([2a00:79e1:abd:4a00:2703:3c72:eb1a:cffd])
+ by smtp.gmail.com with ESMTPSA id
+ a28-20020aa78e9c000000b005774f19b41csm8369815pfr.88.2023.01.10.10.22.03
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 10 Jan 2023 10:22:04 -0800 (PST)
+From: Rob Clark <robdclark@gmail.com>
+To: dri-devel@lists.freedesktop.org
+Date: Tue, 10 Jan 2023 10:21:44 -0800
+Message-Id: <20230110182150.1911031-1-robdclark@gmail.com>
+X-Mailer: git-send-email 2.38.1
 MIME-Version: 1.0
-References: <20230110025006.10409-1-jiasheng@iscas.ac.cn>
-In-Reply-To: <20230110025006.10409-1-jiasheng@iscas.ac.cn>
-From: Doug Anderson <dianders@chromium.org>
-Date: Tue, 10 Jan 2023 10:13:13 -0800
-X-Gmail-Original-Message-ID: <CAD=FV=V5DDNtmpLRDGgSx1YVbd8UqTpcYFmvSAxFczn_JY+VmQ@mail.gmail.com>
-Message-ID: <CAD=FV=V5DDNtmpLRDGgSx1YVbd8UqTpcYFmvSAxFczn_JY+VmQ@mail.gmail.com>
-To: Jiasheng Jiang <jiasheng@iscas.ac.cn>
-Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [PATCH] drm/msm/dsi: Drop the redundant fail label
+Content-Transfer-Encoding: 8bit
+Subject: [Freedreno] [PATCH 0/3] drm/msm/gpu: Devfreq fixes+tuning
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,31 +68,30 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: marex@denx.de, vkoul@kernel.org, sean@poorly.run, vladimir.lypak@gmail.com,
- quic_abhinavk@quicinc.com, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, robdclark@gmail.com, daniel@ffwll.ch,
- linux-arm-msm@vger.kernel.org, dmitry.baryshkov@linaro.org,
- marijn.suijten@somainline.org, freedreno@lists.freedesktop.org,
- airlied@gmail.com
+Cc: Rob Clark <robdclark@chromium.org>,
+ Akhil P Oommen <quic_akhilpo@quicinc.com>, linux-arm-msm@vger.kernel.org,
+ Konrad Dybcio <konrad.dybcio@somainline.org>,
+ Douglas Anderson <dianders@chromium.org>,
+ open list <linux-kernel@vger.kernel.org>, Sean Paul <sean@poorly.run>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ freedreno@lists.freedesktop.org, Chia-I Wu <olvaffe@gmail.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Hi,
+From: Rob Clark <robdclark@chromium.org>
 
-On Mon, Jan 9, 2023 at 6:50 PM Jiasheng Jiang <jiasheng@iscas.ac.cn> wrote:
->
-> @@ -1954,9 +1949,8 @@ int msm_dsi_host_init(struct msm_dsi *msm_dsi)
->
->         msm_host->irq = irq_of_parse_and_map(pdev->dev.of_node, 0);
->         if (msm_host->irq < 0) {
-> -               ret = msm_host->irq;
->                 dev_err(&pdev->dev, "failed to get irq: %d\n", ret);
-> -               return ret;
-> +               return msm_host->irq;
+Rob Clark (3):
+  drm/msm/gpu: Add devfreq tuning debugfs
+  drm/msm/gpu: Bypass PM QoS constraint for idle clamp
+  drm/msm/gpu: Add default devfreq thresholds
 
-The dev_err() is no longer printing the right value of "ret" above.
+ drivers/gpu/drm/msm/adreno/a6xx_gpu.c |   2 +-
+ drivers/gpu/drm/msm/msm_debugfs.c     |  12 +++
+ drivers/gpu/drm/msm/msm_drv.h         |   9 ++
+ drivers/gpu/drm/msm/msm_gpu.h         |  15 ++-
+ drivers/gpu/drm/msm/msm_gpu_devfreq.c | 148 ++++++++++++--------------
+ 5 files changed, 99 insertions(+), 87 deletions(-)
 
-Other than that this looks reasonable to me. Feel free to add my
-Reviewed-by tag once the above bug is fixed.
+-- 
+2.38.1
 
--Doug
