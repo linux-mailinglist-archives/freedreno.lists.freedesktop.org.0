@@ -1,72 +1,71 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 67E4A66362B
-	for <lists+freedreno@lfdr.de>; Tue, 10 Jan 2023 01:22:33 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 01B9B6636A4
+	for <lists+freedreno@lfdr.de>; Tue, 10 Jan 2023 02:19:59 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 225D810E0DB;
-	Tue, 10 Jan 2023 00:22:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B505E10E0F5;
+	Tue, 10 Jan 2023 01:19:57 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x134.google.com (mail-lf1-x134.google.com
- [IPv6:2a00:1450:4864:20::134])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 246A310E0E8
- for <freedreno@lists.freedesktop.org>; Tue, 10 Jan 2023 00:22:29 +0000 (UTC)
-Received: by mail-lf1-x134.google.com with SMTP id g13so15727509lfv.7
- for <freedreno@lists.freedesktop.org>; Mon, 09 Jan 2023 16:22:29 -0800 (PST)
+Received: from mail-lj1-x22d.google.com (mail-lj1-x22d.google.com
+ [IPv6:2a00:1450:4864:20::22d])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 67B3210E0EE
+ for <freedreno@lists.freedesktop.org>; Tue, 10 Jan 2023 01:19:55 +0000 (UTC)
+Received: by mail-lj1-x22d.google.com with SMTP id o7so10510266ljj.8
+ for <freedreno@lists.freedesktop.org>; Mon, 09 Jan 2023 17:19:55 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ h=content-transfer-encoding:in-reply-to:references:cc:to:from
  :content-language:subject:user-agent:mime-version:date:message-id
  :from:to:cc:subject:date:message-id:reply-to;
- bh=3J9XKLlpP5X6CvDBX/lWRDKKuy8Kaqsk+6ZWrT2IkL8=;
- b=n4hvHMSGn2WfGgJh4rRLEBOydN/+sVZM3Pydyit8JakkdzKCfnzvOtZ3IBmxnJKqgi
- /rkYLJWADxt6NxW5sexSZ1jsXaAc0e38GsfIvxUXy0sUQbOVvJxal0rxxrfOT9RC1kLo
- /ZWGtQT4HR5vjMZepAEQhlkCCjgZBe9hFwsgCE7CpQU08lwN35FXul4KJmIqbW8WP6Js
- GqpBncUdW4spd/Depy8HbN/MCoeSNmI3RCssxgxa2HPfHWlEU/PKv6VnssmyYhsiUqd7
- zX3E9W/6yghIu72crNK5RIjt1if6mLkkDAKLkftANHN7bt6UasgziE0v5A9BWnXtzDgE
- b1FA==
+ bh=MJzV8Z4vt70hFG8OHxTEJgHMqWgCnenLnVvCegK+zJ8=;
+ b=a3r6Fe3b0NZcQm9F6dnZseYdZD+pzixsapGPlYgORtCy7HgXh+4oEzlPqs8obf1nna
+ fAXC16IQiQxLc4/1zRzYSsHLrAi1Pq/pYjj7plsBKraGHgVE5bWYvkeIRiQ9Mo2sxtTD
+ MJCoWRyoq5xheQs2NzWr/pZ9DC/6D6B3POiLX2W4qjfLymcjpEsyqBb3cuinU4cUSS7N
+ ekYc3e874VrhI1U23AVLVhgkny6+CiFnS2IvUiXpTVox6Rr+M0Q0mXGcINs/tZHV9uj0
+ rzqYTU4RgGELsgThkzzcviFnFP7e8j53f/1Qm9CAhw1HqE4NEZVAUBkBpi4MtZYaRCc8
+ pO5A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ h=content-transfer-encoding:in-reply-to:references:cc:to:from
  :content-language:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=3J9XKLlpP5X6CvDBX/lWRDKKuy8Kaqsk+6ZWrT2IkL8=;
- b=yWSeC/qlxlT57fwwoF9bRKF9bv7ym8DX4Z9gp8a43Zmg+r16hkmCe7mDtj7wqJySEP
- jZvjNBiAVBWcDeOvKuWC/BR3DY8rStkLVjCFjZ1l8e4mxaG9ZQc0wdyyX/ruoiCdij3z
- 1jiQM88vIZG1Gbl0ds2TxwH1+FEyHbue6jniWYTdo780VkBiNok5yw8XsaR+/mPn5xAr
- F63JajAUFe2wkA7UHSJoZaXOAvZ0JC2Rvqk1L+wXC3wc8ypuuS7/It8FgsXdwNi5NfsZ
- ECA9RrYi5m+BZoPeMFo5v1iwBXOzK6VC+C5TzDO2oyxzrJ8TELh8lCappE4QoMWr/kbW
- 7yDw==
-X-Gm-Message-State: AFqh2krAhTdXqujaWVOfat+HW2btuppYCcerXkL3SHXwqRH13dskLLMs
- 5X8nQ1V1kkUA5P/p3bcxC37xfA==
-X-Google-Smtp-Source: AMrXdXtXj53XSAEDy43S/dF+TH9B4KyRf+Qy1PibWEaXMJ+81JeOqRnE5ih/iFdtK8mqkDEeOuwx4g==
-X-Received: by 2002:a05:6512:e89:b0:4b5:b7be:136b with SMTP id
- bi9-20020a0565120e8900b004b5b7be136bmr19919799lfb.69.1673310147359; 
- Mon, 09 Jan 2023 16:22:27 -0800 (PST)
+ bh=MJzV8Z4vt70hFG8OHxTEJgHMqWgCnenLnVvCegK+zJ8=;
+ b=lKv+7OEJipq7/bcLRLPNbhDsAbLWpvJvv588629zJZ2iGsRS0VycFIu4FvZ/18eDF8
+ jSfr+Y0hdTII7zyuMyR8FUshM1vkA6O1+cPN/c77pkE6ysm54Zz96eTdBMZ6KCFvMziI
+ 9y54ntYjTd3mRCMDljnTB9w4P2fHpwUUvf51vf+XdxFHECWdrE8oErmvxWlpo8XMR2DR
+ cQ1nb5WztPVkrzvmQWPYJpN5uVa3mDj4QxThgvFi1MiACUAAu9v1UbQWEirXfXfCJiIo
+ w8o8ZZcnUFsOiHqeGr9RRTYTI6SKlMZh93I0CiNBRYRr6Z4FdJh05BDh36mwEqWiGG9o
+ fOwQ==
+X-Gm-Message-State: AFqh2krrUbdOMExBvG3NuSkAnxaGDJeg6txAOtbhhWYNzh9jsRk5I4Ru
+ 59VfM083QOORVyji7sFP1KjcF78PJzJ2Ile0
+X-Google-Smtp-Source: AMrXdXs8RraZSWOgAjQ39Rqa073own2JsomXotoh3YcZWXpCODj+aX2JEdLtpytdgMmgYo9K0AVidg==
+X-Received: by 2002:a2e:b601:0:b0:284:53cd:74d7 with SMTP id
+ r1-20020a2eb601000000b0028453cd74d7mr1832314ljn.0.1673313593568; 
+ Mon, 09 Jan 2023 17:19:53 -0800 (PST)
 Received: from ?IPV6:2001:14ba:a085:4d00::8a5?
  (dzccz6yyyyyyyyyyybcwt-3.rev.dnainternet.fi. [2001:14ba:a085:4d00::8a5])
  by smtp.gmail.com with ESMTPSA id
- x3-20020a0565123f8300b004949a8df775sm1854041lfa.33.2023.01.09.16.22.26
+ i20-20020a2ea374000000b002866e491914sm253264ljn.95.2023.01.09.17.19.52
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 09 Jan 2023 16:22:26 -0800 (PST)
-Message-ID: <eeafb291-9da7-da21-8425-c651066f7379@linaro.org>
-Date: Tue, 10 Jan 2023 02:22:26 +0200
+ Mon, 09 Jan 2023 17:19:53 -0800 (PST)
+Message-ID: <b638db8c-20c8-827d-fd08-5e3bdb8dd924@linaro.org>
+Date: Tue, 10 Jan 2023 03:19:52 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.6.0
 Content-Language: en-GB
-To: Kalyan Thota <quic_kalyant@quicinc.com>, dri-devel@lists.freedesktop.org, 
- linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
- devicetree@vger.kernel.org
-References: <1669021695-4397-1-git-send-email-quic_kalyant@quicinc.com>
- <1669021695-4397-2-git-send-email-quic_kalyant@quicinc.com>
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-In-Reply-To: <1669021695-4397-2-git-send-email-quic_kalyant@quicinc.com>
+To: Abhinav Kumar <quic_abhinavk@quicinc.com>, freedreno@lists.freedesktop.org
+References: <1663807768-23969-1-git-send-email-quic_abhinavk@quicinc.com>
+ <1663807768-23969-2-git-send-email-quic_abhinavk@quicinc.com>
+ <29e5110a-1759-8d8c-6646-f7b487990c0b@linaro.org>
+In-Reply-To: <29e5110a-1759-8d8c-6646-f7b487990c0b@linaro.org>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH v4 1/3] drm/msm/disp/dpu1: pin 1 crtc to 1
- encoder
+Content-Transfer-Encoding: 8bit
+Subject: Re: [Freedreno] [PATCH 2/2] drm/msm/dsi: implement opp table based
+ check for dsi_mgr_bridge_mode_valid()
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,81 +78,74 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: robdclark@chromium.org, dianders@chromium.org, quic_abhinavk@quicinc.com,
- linux-kernel@vger.kernel.org, quic_vpolimer@quicinc.com, swboyd@chromium.org
+Cc: dri-devel@lists.freedesktop.org, swboyd@chromium.org, robdclark@gmail.com,
+ seanpaul@chromium.org, daniel@ffwll.ch, quic_jesszhan@quicinc.com,
+ quic_khsieh@quicinc.com
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 21/11/2022 11:08, Kalyan Thota wrote:
-> Pin each crtc with one encoder. This arrangement will
-> disallow crtc switching between encoders and also will
-> facilitate to advertise certain features on crtc based
-> on encoder type.
+On 27/10/2022 20:36, Dmitry Baryshkov wrote:
+> On 22/09/2022 03:49, Abhinav Kumar wrote:
+>> Currently there is no protection against a user trying to set
+>> an unsupported mode on DSI. Implement a check based on the opp
+>> table whether the byte clock for the mode can be supported by
+>> validating whether an opp table entry exists.
+>>
+>> For devices which have not added opp table support yet, skip
+>> this check otherwise it will break bootup on those devices.
+>>
+>> Closes: https://gitlab.freedesktop.org/drm/msm/-/issues/15
+>> Reported-by: Rob Clark <robdclark@gmail.com>
+>> Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
+>> ---
+>>   drivers/gpu/drm/msm/dsi/dsi_manager.c | 23 +++++++++++++++++++++++
+>>   1 file changed, 23 insertions(+)
+>>
+>> diff --git a/drivers/gpu/drm/msm/dsi/dsi_manager.c 
+>> b/drivers/gpu/drm/msm/dsi/dsi_manager.c
+>> index 3a1417397283..87b518c42965 100644
+>> --- a/drivers/gpu/drm/msm/dsi/dsi_manager.c
+>> +++ b/drivers/gpu/drm/msm/dsi/dsi_manager.c
+>> @@ -450,6 +450,29 @@ static enum drm_mode_status 
+>> dsi_mgr_bridge_mode_valid(struct drm_bridge *bridge,
+>>       int id = dsi_mgr_bridge_get_id(bridge);
+>>       struct msm_dsi *msm_dsi = dsi_mgr_get_dsi(id);
+>>       struct mipi_dsi_host *host = msm_dsi->host;
+>> +    struct platform_device *pdev = msm_dsi->pdev;
+>> +    struct dev_pm_opp *opp;
+>> +    struct opp_table *opp_tbl;
+>> +    unsigned long byte_clk_rate;
+>> +
+>> +    byte_clk_rate = dsi_byte_clk_get_rate(host, IS_BONDED_DSI(), mode);
+>> +
+>> +    /*
+>> +     * first check if there is an opp table available for the calculated
+>> +     * byte clock and then check DSC related info. Some devices have not
+>> +     * added support for OPP table. Skip the check for those.
+>> +     */
+>> +    opp_tbl = dev_pm_opp_get_opp_table(&pdev->dev);
 > 
-> Changes in v1:
-> - use drm_for_each_encoder macro while iterating through
->    encoder list (Dmitry)
-> 
-> Changes in v2:
-> - make sure no encoder miss to have a crtc (Dmitry)
-> - revisit various factors in deciding the crtc count
->    such as num_mixers, num_sspp (Dmitry)
-> 
-> Changes in v3:
-> - none
-> 
-> Changes in v4:
-> - use max_crtc_count instead of num_encoders in WARN (Dmitry)
-> 
-> Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> Signed-off-by: Kalyan Thota <quic_kalyant@quicinc.com>
-> ---
->   drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c | 18 +++++++++++-------
->   1 file changed, 11 insertions(+), 7 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
-> index 7a5fabc..d967eef 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
-> @@ -795,22 +796,25 @@ static int _dpu_kms_drm_obj_init(struct dpu_kms *dpu_kms)
->   			primary_planes[primary_planes_idx++] = plane;
->   	}
->   
-> -	max_crtc_count = min(max_crtc_count, primary_planes_idx);
-> +	/*
-> +	 * All the platforms should have at least 1 primary plane for a
-> +	 * crtc. The below warn should help in setting up the catalog
-> +	 */
-> +	WARN_ON(max_crtc_count > primary_planes_idx);
+> Can we store the table inside the msm_dsi during the init? Then we won't 
+> have to get it again and again during each mode_valid call.
 
-This change broke sc7180 support, see 
-https://gitlab.freedesktop.org/drm/msm/-/jobs/34395875
+I checked other drivers. I think we can skip the get_opp_table 
+completely, can we not? Just handle ENODEV returned from 
+dev_pm_opp_find_freq_ceil().
 
-I suggest a quick fix of either disabling WB2 or switching one of cursor 
-SSPPs to a generic one.
-
->   
->   	/* Create one CRTC per encoder */
-> -	for (i = 0; i < max_crtc_count; i++) {
-> +	i = 0;
-> +	drm_for_each_encoder(encoder, dev) {
->   		crtc = dpu_crtc_init(dev, primary_planes[i], cursor_planes[i]);
->   		if (IS_ERR(crtc)) {
->   			ret = PTR_ERR(crtc);
->   			return ret;
->   		}
->   		priv->crtcs[priv->num_crtcs++] = crtc;
-> +		encoder->possible_crtcs = 1 << drm_crtc_index(crtc);
-> +		i++;
->   	}
->   
-> -	/* All CRTCs are compatible with all encoders */
-> -	drm_for_each_encoder(encoder, dev)
-> -		encoder->possible_crtcs = (1 << priv->num_crtcs) - 1;
-> -
->   	return 0;
->   }
->   
+> 
+>> +    if (opp_tbl) {
+>> +        opp = dev_pm_opp_find_freq_ceil(&pdev->dev, &byte_clk_rate);
+>> +        if (IS_ERR(opp)) {
+>> +            pr_err("opp table not found for freq %lu err: %ld\n",
+>> +                    byte_clk_rate, PTR_ERR(opp));
+>> +            return PTR_ERR(opp);
+>> +        }
+>> +        dev_pm_opp_put(opp);
+>> +        dev_pm_opp_put_opp_table(opp_tbl);
+>> +    }
+>>       return msm_dsi_host_check_dsc(host, mode);
+>>   }
+> 
 
 -- 
 With best wishes
