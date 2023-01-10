@@ -1,64 +1,48 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id BB0F9664981
-	for <lists+freedreno@lfdr.de>; Tue, 10 Jan 2023 19:22:14 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id EEE30664B3B
+	for <lists+freedreno@lfdr.de>; Tue, 10 Jan 2023 19:40:14 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7C90010E18C;
-	Tue, 10 Jan 2023 18:22:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A85A110E637;
+	Tue, 10 Jan 2023 18:40:13 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-pg1-x530.google.com (mail-pg1-x530.google.com
- [IPv6:2607:f8b0:4864:20::530])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 05EA210E168;
- Tue, 10 Jan 2023 18:22:12 +0000 (UTC)
-Received: by mail-pg1-x530.google.com with SMTP id d10so8800016pgm.13;
- Tue, 10 Jan 2023 10:22:12 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=xPPp4X1sBM/+EwXKJ1Udyn041rDe4dkPN+gbP+h2Yoc=;
- b=qJBXBpPJHtuENt0GARPRQKp2a2d2bG2sppM+WZAucEidaZyC+7Wdq7LI5CBoTGxNA3
- jTM3LIlOEtS2/aAitqxnZlBmwxljOP+vIOV58uLlCtvqQEQ9Hp5OhT51wWZruY2i1MvY
- 6kNX/u3a2zanqEN+w3E8Fi5z7VxFwMtMlmKNz3DvJhEiBlnsPXKcLQGyP4QrZjvdFQov
- NpmA3F4p1EDwLG67Omt8qx9Z7OS9T/RSlw79BOSqJ9MZQA+/GvD7cezqN0I8G58X9fhL
- aKulhMPWw2ZlC2+GEWtLpHyTGBlhi2bX0OSfOQGJWyDhjoNo0z4KMuNgubZ3g4QCFu+8
- RGmQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=xPPp4X1sBM/+EwXKJ1Udyn041rDe4dkPN+gbP+h2Yoc=;
- b=rcea5R7GlUOwmf5V82vltU/VzzZQEf7f00nqeY5wQ0jtCOU4ukQ21buKLkeBojIcf0
- oMl8sjISDCEQRvXZAS4mz91zb+F0BWj4GvT3uwW+SSIAdE18/P+xXsB1DKkNVOSTQFR4
- vW9dI4A4TzRQ4MgcSGvbT4YlhTszaDDDnNpKpkeT6wOXI4mLWPyCq3La/JrrjykVCI2v
- yHYmXAJxOZSH1aZ2ctgpXsvF0iFgsH47fd8CVhYMCuVIOsXvBCFEO/VQdJTICPXnqnBQ
- 93q6+cQ6axwppb9P7clsBrlRVPxgTU5fcVAiVml6VikPPxHvuWjCxsy0cKWGR1UiiHVy
- y6rA==
-X-Gm-Message-State: AFqh2koo4usRuKfgJ3R+1vC/Q50LQh7wX4v9pB3fZhm49ADy8//cTxws
- VuySvX+tiHPzv6FyPFEzPHE3T+/D5OI=
-X-Google-Smtp-Source: AMrXdXvvQvGvIzUPW5Fb9EE9F+jKZ5hTovkXNS514pYVo6mWEmFnuLDdCDGGVysVJxNzwsiPHXCUBw==
-X-Received: by 2002:a05:6a00:4c0a:b0:589:85ed:4119 with SMTP id
- ea10-20020a056a004c0a00b0058985ed4119mr6884681pfb.32.1673374931439; 
- Tue, 10 Jan 2023 10:22:11 -0800 (PST)
-Received: from localhost ([2a00:79e1:abd:4a00:2703:3c72:eb1a:cffd])
- by smtp.gmail.com with ESMTPSA id
- p128-20020a622986000000b00581172f7456sm8410169pfp.56.2023.01.10.10.22.10
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 10 Jan 2023 10:22:11 -0800 (PST)
-From: Rob Clark <robdclark@gmail.com>
-To: dri-devel@lists.freedesktop.org
-Date: Tue, 10 Jan 2023 10:21:47 -0800
-Message-Id: <20230110182150.1911031-4-robdclark@gmail.com>
-X-Mailer: git-send-email 2.38.1
-In-Reply-To: <20230110182150.1911031-1-robdclark@gmail.com>
-References: <20230110182150.1911031-1-robdclark@gmail.com>
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 959AC10E634;
+ Tue, 10 Jan 2023 18:40:09 +0000 (UTC)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id D1F6F61880;
+ Tue, 10 Jan 2023 18:40:08 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 23554C433F2;
+ Tue, 10 Jan 2023 18:40:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1673376008;
+ bh=peUKivG1RFYc2AUIx1t3veHp32Gl6+m50j+8BpqHDMU=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=Shc2EQ6946YqnAZWwq9bgeO3taUA3ksNGbQXFeHy/O0qMANoD6mroMZrVaV2475bo
+ RS6cJFhc+0j60u08fzYtd/1yQYOMaiJcLIBftoSbz7+CYc+k4q8RmOJfksP2aEOQPH
+ OH70pelcJGUfB+8vREUERrQ4bIrmTlN1wmrrLFCLNSjfH6D8x3pCUExV+7Ey03Rx0+
+ C8zSxdImmPPF2k3FG1z9qfbQC2JFtr+V9G/0WBorulAa0QYbqWg2lHr0jo2/7f2oyW
+ RAdocxIpURHhoTPphGidCwgIRNNGgZRp32PH98Uzsn6+JPArWbOWYo0eJs0ROq+jkP
+ ttYgGcoDnjuRA==
+From: Bjorn Andersson <andersson@kernel.org>
+To: robh+dt@kernel.org, sean@poorly.run, krzysztof.kozlowski+dt@linaro.org,
+ dmitry.baryshkov@linaro.org, robdclark@gmail.com,
+ quic_abhinavk@quicinc.com, agross@kernel.org, konrad.dybcio@linaro.org
+Date: Tue, 10 Jan 2023 12:40:04 -0600
+Message-Id: <167337600117.2164548.7307616788379672932.b4-ty@kernel.org>
+X-Mailer: git-send-email 2.37.1
+In-Reply-To: <20230110055433.734188-1-dmitry.baryshkov@linaro.org>
+References: <20230110055433.734188-1-dmitry.baryshkov@linaro.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH 3/3] drm/msm/gpu: Add default devfreq thresholds
+Subject: Re: [Freedreno] (subset) [PATCH 1/3] ARM: dts: qcom: msm8974: Add
+ compat qcom, msm8974-dsi-ctrl to dsi1
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,42 +55,25 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rob Clark <robdclark@chromium.org>, linux-arm-msm@vger.kernel.org,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- open list <linux-kernel@vger.kernel.org>, Sean Paul <sean@poorly.run>,
- Rob Clark <robdclark@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- David Airlie <airlied@gmail.com>, freedreno@lists.freedesktop.org
+Cc: devicetree@vger.kernel.org, freedreno@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, swboyd@chromium.org, daniel@ffwll.ch,
+ linux-arm-msm@vger.kernel.org, bryan.odonoghue@linaro.org, airlied@gmail.com
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-From: Rob Clark <robdclark@chromium.org>
+On Tue, 10 Jan 2023 07:54:31 +0200, Dmitry Baryshkov wrote:
+> Extend the secon DSI interface with the SoC-specific compat entry,
+> following the change for the first DSI interface.
+> 
+> 
 
-Signed-off-by: Rob Clark <robdclark@chromium.org>
----
- drivers/gpu/drm/msm/msm_gpu_devfreq.c | 9 +++++++++
- 1 file changed, 9 insertions(+)
+Applied, thanks!
 
-diff --git a/drivers/gpu/drm/msm/msm_gpu_devfreq.c b/drivers/gpu/drm/msm/msm_gpu_devfreq.c
-index e578d74d402f..1f31e72ca0cf 100644
---- a/drivers/gpu/drm/msm/msm_gpu_devfreq.c
-+++ b/drivers/gpu/drm/msm/msm_gpu_devfreq.c
-@@ -145,6 +145,15 @@ void msm_devfreq_init(struct msm_gpu *gpu)
- 	if (!gpu->funcs->gpu_busy)
- 		return;
- 
-+	/*
-+	 * Setup default values for simple_ondemand governor tuning.  We
-+	 * want to throttle up at 50% load for the double-buffer case,
-+	 * where due to stalling waiting for vblank we could get stuck
-+	 * at (for ex) 30fps at 50% utilization.
-+	 */
-+	priv->gpu_devfreq_config.upthreshold = 50;
-+	priv->gpu_devfreq_config.downdifferential = 10;
-+
- 	mutex_init(&df->lock);
- 
- 	dev_pm_qos_add_request(&gpu->pdev->dev, &df->boost_freq,
+[2/3] arm64: dts: qcom: sm8150: Add compat qcom,sm8150-dsi-ctrl
+      commit: b0b8b34a8d6b4c50dac086ca18964fae5e6954d4
+[3/3] arm64: dts: qcom: sm8450: Add compat qcom,sm8450-dsi-ctrl
+      commit: b7f4f6971d62f0019c27142ee6b703d8cab96e38
+
+Best regards,
 -- 
-2.38.1
-
+Bjorn Andersson <andersson@kernel.org>
