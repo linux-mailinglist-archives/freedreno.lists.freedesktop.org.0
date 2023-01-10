@@ -1,76 +1,69 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id B1516663737
-	for <lists+freedreno@lfdr.de>; Tue, 10 Jan 2023 03:21:23 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 2EF77663746
+	for <lists+freedreno@lfdr.de>; Tue, 10 Jan 2023 03:25:32 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7E73E10E47A;
-	Tue, 10 Jan 2023 02:21:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C681C10E481;
+	Tue, 10 Jan 2023 02:25:29 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 17CF210E47B;
- Tue, 10 Jan 2023 02:21:20 +0000 (UTC)
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 30A1MHd5028626; Tue, 10 Jan 2023 02:21:16 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
- h=message-id : date :
- mime-version : subject : to : cc : references : from : in-reply-to :
- content-type : content-transfer-encoding; s=qcppdkim1;
- bh=5bvc9P0DGQ+Kf3ppiFeeIEvqiNVb/9AexQ22/Z+gUsk=;
- b=UhhQmaP82nA+IT8NnqVRj6OX2yHXL1CZMwZXFLlRPbQYDq0Yd/WrKkzLVtBvp5zaGBvg
- ic9QzyM+DWa50g7Q2EbDgZ5XcnUTBCN+D8XcQcubYeVTHIOH1S0D1JqQaIIF11i3YnbV
- SS9uDy3NpTTrPhXudH69NOPcNYP/tngIFa1lapIZRPhacudrInSc+iTD6hQMxwbZbBZ4
- +swS7YF7D3tmd0jT2qpt6r0y6X9JAO0M9uDCtDkcBF9sfZ9qJVBxOKuBPylGcxVvOcIb
- dKVHJzDyu2k8TWaaqF3dm1HLjD6LFzFgeszycf87P2mSLLo7NQOyOA0LlArZ1mTGaMht jg== 
-Received: from nalasppmta05.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3my1wu4ea8-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 10 Jan 2023 02:21:15 +0000
-Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
- [10.47.209.196])
- by NALASPPMTA05.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 30A2LEqA006362
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 10 Jan 2023 02:21:14 GMT
-Received: from [10.110.115.72] (10.80.80.8) by nalasex01a.na.qualcomm.com
- (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.36; Mon, 9 Jan 2023
- 18:21:14 -0800
-Message-ID: <cbe88a7e-c6a9-ab12-7dbf-f4efbfd7fd71@quicinc.com>
-Date: Mon, 9 Jan 2023 18:21:13 -0800
+Received: from mail-lf1-x136.google.com (mail-lf1-x136.google.com
+ [IPv6:2a00:1450:4864:20::136])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8825010E481
+ for <freedreno@lists.freedesktop.org>; Tue, 10 Jan 2023 02:25:26 +0000 (UTC)
+Received: by mail-lf1-x136.google.com with SMTP id bq39so16132035lfb.0
+ for <freedreno@lists.freedesktop.org>; Mon, 09 Jan 2023 18:25:26 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=18zGearISDa3hQx7xQxFDwmet/v6/2gxFfNoCUwN4tI=;
+ b=dINVSKfNi1At/gXiizJv94VU0i8YG5nRBGxwfuZu+hF35wycoi4PuVOAZ9tY03raWM
+ rTcncPQyKmcBnIS9hxfg8bYdrns15SrX/9b3KhziSxq22EpaehUw7lpbXDZ/GmwgA6Vl
+ Pkt3BMtqgi0Wc2ccWWIHpZ0qwAHonvwzzGM7eH0jhWoS5d5mCbwMU85vlGj9d31faEi3
+ od5pVj0lebmbMgOhkTitUYZ4piO/JVJiMm6kIZW7bBopmwoQsBqykOR7FJCt6D2ZmWbm
+ jEo+x0UCRS8Vo/Cwk+VtL1VUJozK6ALNS/7aKjXQdb+G5pl6WwACUofseN346qn5Dm8N
+ mBcQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=18zGearISDa3hQx7xQxFDwmet/v6/2gxFfNoCUwN4tI=;
+ b=7BDQEhx0HpzH4a4HAwSjlsBDYcHkFoV1j2NqA5U069UxR4dg6qJ4I2ipt0SzRUj3LO
+ JgHV+Smdx6P8pG1Q/k6+Ri4XIxAe1YLCpP4+qudwGmtvTGrkUqwC3Sq5c6UN/wA6Pfrb
+ 0xV1gAv7+oa0ZV3/qJpr55D40dB+jo2vYR42cf4cu9aWdmpRvxyoo/upGOZDWTC3Hlhd
+ YEQGMDTlxhzCsr7JnlL0RQH7F2uAf+UMYXsaCDmsK13IVHN9/hT7EhTqPlmawKFYuuRQ
+ JsuVm/TN+WGdDl9DV36Aq1sYDGF+nWpxkYKKse5ojoANw4SqgPnN+ue2PFFfiJK6ifbw
+ scSA==
+X-Gm-Message-State: AFqh2kqMQWO/pqgC/K9j1VpE2bX/5jE7zbiDxGAWYzTbBue5hb20RO/v
+ d5UU0dGYpIqr4GCRNaKGNJovuw==
+X-Google-Smtp-Source: AMrXdXvF+KGxMhVRpSKhRbnaR01/1Cz2p6+TqKUGF/Kia92b406YsJf+tFOsgsKNo1pMk00B/KtDYA==
+X-Received: by 2002:a05:6512:61:b0:4cb:22ab:cdfe with SMTP id
+ i1-20020a056512006100b004cb22abcdfemr13186409lfo.36.1673317524707; 
+ Mon, 09 Jan 2023 18:25:24 -0800 (PST)
+Received: from ?IPV6:2001:14ba:a085:4d00::8a5?
+ (dzccz6yyyyyyyyyyybcwt-3.rev.dnainternet.fi. [2001:14ba:a085:4d00::8a5])
+ by smtp.gmail.com with ESMTPSA id
+ c15-20020a056512238f00b004cb3fbc7925sm1893079lfv.77.2023.01.09.18.25.23
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 09 Jan 2023 18:25:24 -0800 (PST)
+Message-ID: <7b10f169-c1f3-09f8-a43e-409888fa4c40@linaro.org>
+Date: Tue, 10 Jan 2023 04:25:23 +0200
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.6.2
-Content-Language: en-US
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- <freedreno@lists.freedesktop.org>
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.6.0
+Content-Language: en-GB
+To: Abhinav Kumar <quic_abhinavk@quicinc.com>, freedreno@lists.freedesktop.org
 References: <1663807768-23969-1-git-send-email-quic_abhinavk@quicinc.com>
  <36862c49-39d2-952d-829b-e660375d49f4@linaro.org>
-From: Abhinav Kumar <quic_abhinavk@quicinc.com>
-In-Reply-To: <36862c49-39d2-952d-829b-e660375d49f4@linaro.org>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
+ <cbe88a7e-c6a9-ab12-7dbf-f4efbfd7fd71@quicinc.com>
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+In-Reply-To: <cbe88a7e-c6a9-ab12-7dbf-f4efbfd7fd71@quicinc.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-ORIG-GUID: Ay2cfsJuQhb5RdX7ddV6HXz8S2kb0f9I
-X-Proofpoint-GUID: Ay2cfsJuQhb5RdX7ddV6HXz8S2kb0f9I
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.205,Aquarius:18.0.923,Hydra:6.0.545,FMLib:17.11.122.1
- definitions=2023-01-09_16,2023-01-09_02,2022-06-22_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- mlxlogscore=999
- malwarescore=0 clxscore=1015 mlxscore=0 priorityscore=1501 impostorscore=0
- spamscore=0 lowpriorityscore=0 phishscore=0 suspectscore=0 adultscore=0
- bulkscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2212070000 definitions=main-2301100012
 Subject: Re: [Freedreno] [PATCH 1/2] drm/msm/dsi: add a helper method to
  compute the dsi byte clk
 X-BeenThere: freedreno@lists.freedesktop.org
@@ -91,132 +84,146 @@ Cc: dri-devel@lists.freedesktop.org, swboyd@chromium.org, robdclark@gmail.com,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-
-
-On 1/9/2023 5:34 PM, Dmitry Baryshkov wrote:
-> On 22/09/2022 03:49, Abhinav Kumar wrote:
->> Re-arrange the dsi_calc_pclk method to two helpers, one to
->> compute the DSI byte clk and the other to compute the pclk.
+On 10/01/2023 04:21, Abhinav Kumar wrote:
+> 
+> 
+> On 1/9/2023 5:34 PM, Dmitry Baryshkov wrote:
+>> On 22/09/2022 03:49, Abhinav Kumar wrote:
+>>> Re-arrange the dsi_calc_pclk method to two helpers, one to
+>>> compute the DSI byte clk and the other to compute the pclk.
+>>>
+>>> This makes the separation of the two clean and also allows
+>>> clients to compute and use the dsi byte clk separately.
+>>>
+>>> Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
+>>> ---
+>>>   drivers/gpu/drm/msm/dsi/dsi.h      |  2 ++
+>>>   drivers/gpu/drm/msm/dsi/dsi_host.c | 27 +++++++++++++++++++--------
+>>>   2 files changed, 21 insertions(+), 8 deletions(-)
+>>>
+>>> diff --git a/drivers/gpu/drm/msm/dsi/dsi.h 
+>>> b/drivers/gpu/drm/msm/dsi/dsi.h
+>>> index 2a96b4fe7839..60ba8e67f550 100644
+>>> --- a/drivers/gpu/drm/msm/dsi/dsi.h
+>>> +++ b/drivers/gpu/drm/msm/dsi/dsi.h
+>>> @@ -118,6 +118,8 @@ int dsi_link_clk_enable_6g(struct msm_dsi_host 
+>>> *msm_host);
+>>>   int dsi_link_clk_enable_v2(struct msm_dsi_host *msm_host);
+>>>   void dsi_link_clk_disable_6g(struct msm_dsi_host *msm_host);
+>>>   void dsi_link_clk_disable_v2(struct msm_dsi_host *msm_host);
+>>> +unsigned long dsi_byte_clk_get_rate(struct mipi_dsi_host *host, bool 
+>>> is_bonded_dsi,
+>>> +        const struct drm_display_mode *mode);
+>>>   int dsi_tx_buf_alloc_6g(struct msm_dsi_host *msm_host, int size);
+>>>   int dsi_tx_buf_alloc_v2(struct msm_dsi_host *msm_host, int size);
+>>>   void *dsi_tx_buf_get_6g(struct msm_dsi_host *msm_host);
+>>> diff --git a/drivers/gpu/drm/msm/dsi/dsi_host.c 
+>>> b/drivers/gpu/drm/msm/dsi/dsi_host.c
+>>> index 57a4c0fa614b..32b35d4ac1d3 100644
+>>> --- a/drivers/gpu/drm/msm/dsi/dsi_host.c
+>>> +++ b/drivers/gpu/drm/msm/dsi/dsi_host.c
+>>> @@ -569,9 +569,8 @@ void dsi_link_clk_disable_v2(struct msm_dsi_host 
+>>> *msm_host)
+>>>       clk_disable_unprepare(msm_host->byte_clk);
+>>>   }
+>>> -static unsigned long dsi_get_pclk_rate(struct msm_dsi_host 
+>>> *msm_host, bool is_bonded_dsi)
+>>> +static unsigned long dsi_get_pclk_rate(const struct drm_display_mode 
+>>> *mode, bool is_bonded_dsi)
+>>>   {
+>>> -    struct drm_display_mode *mode = msm_host->mode;
+>>>       unsigned long pclk_rate;
+>>>       pclk_rate = mode->clock * 1000;
+>>> @@ -588,12 +587,18 @@ static unsigned long dsi_get_pclk_rate(struct 
+>>> msm_dsi_host *msm_host, bool is_bo
+>>>       return pclk_rate;
+>>>   }
+>>> -static void dsi_calc_pclk(struct msm_dsi_host *msm_host, bool 
+>>> is_bonded_dsi)
+>>> +unsigned long dsi_byte_clk_get_rate(struct mipi_dsi_host *host, bool 
+>>> is_bonded_dsi,
+>>> +        const struct drm_display_mode *mode)
+>>>   {
+>>> +    struct msm_dsi_host *msm_host = to_msm_dsi_host(host);
+>>>       u8 lanes = msm_host->lanes;
+>>>       u32 bpp = dsi_get_bpp(msm_host->format);
+>>> -    unsigned long pclk_rate = dsi_get_pclk_rate(msm_host, 
+>>> is_bonded_dsi);
+>>> -    u64 pclk_bpp = (u64)pclk_rate * bpp;
+>>> +    unsigned long pclk_rate;
+>>> +    u64 pclk_bpp;
+>>> +
+>>> +    pclk_rate = dsi_get_pclk_rate(mode, is_bonded_dsi);
+>>> +
+>>> +    pclk_bpp = (u64)pclk_rate * bpp;
 >>
->> This makes the separation of the two clean and also allows
->> clients to compute and use the dsi byte clk separately.
+>> Any particular reason for this? The following patch would be more 
+>> obvious:
 >>
->> Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
->> ---
->>   drivers/gpu/drm/msm/dsi/dsi.h      |  2 ++
->>   drivers/gpu/drm/msm/dsi/dsi_host.c | 27 +++++++++++++++++++--------
->>   2 files changed, 21 insertions(+), 8 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/msm/dsi/dsi.h 
->> b/drivers/gpu/drm/msm/dsi/dsi.h
->> index 2a96b4fe7839..60ba8e67f550 100644
->> --- a/drivers/gpu/drm/msm/dsi/dsi.h
->> +++ b/drivers/gpu/drm/msm/dsi/dsi.h
->> @@ -118,6 +118,8 @@ int dsi_link_clk_enable_6g(struct msm_dsi_host 
->> *msm_host);
->>   int dsi_link_clk_enable_v2(struct msm_dsi_host *msm_host);
->>   void dsi_link_clk_disable_6g(struct msm_dsi_host *msm_host);
->>   void dsi_link_clk_disable_v2(struct msm_dsi_host *msm_host);
->> +unsigned long dsi_byte_clk_get_rate(struct mipi_dsi_host *host, bool 
->> is_bonded_dsi,
->> +        const struct drm_display_mode *mode);
->>   int dsi_tx_buf_alloc_6g(struct msm_dsi_host *msm_host, int size);
->>   int dsi_tx_buf_alloc_v2(struct msm_dsi_host *msm_host, int size);
->>   void *dsi_tx_buf_get_6g(struct msm_dsi_host *msm_host);
->> diff --git a/drivers/gpu/drm/msm/dsi/dsi_host.c 
->> b/drivers/gpu/drm/msm/dsi/dsi_host.c
->> index 57a4c0fa614b..32b35d4ac1d3 100644
->> --- a/drivers/gpu/drm/msm/dsi/dsi_host.c
->> +++ b/drivers/gpu/drm/msm/dsi/dsi_host.c
->> @@ -569,9 +569,8 @@ void dsi_link_clk_disable_v2(struct msm_dsi_host 
->> *msm_host)
->>       clk_disable_unprepare(msm_host->byte_clk);
->>   }
->> -static unsigned long dsi_get_pclk_rate(struct msm_dsi_host *msm_host, 
->> bool is_bonded_dsi)
->> +static unsigned long dsi_get_pclk_rate(const struct drm_display_mode 
->> *mode, bool is_bonded_dsi)
->>   {
->> -    struct drm_display_mode *mode = msm_host->mode;
->>       unsigned long pclk_rate;
->>       pclk_rate = mode->clock * 1000;
->> @@ -588,12 +587,18 @@ static unsigned long dsi_get_pclk_rate(struct 
->> msm_dsi_host *msm_host, bool is_bo
->>       return pclk_rate;
->>   }
->> -static void dsi_calc_pclk(struct msm_dsi_host *msm_host, bool 
->> is_bonded_dsi)
->> +unsigned long dsi_byte_clk_get_rate(struct mipi_dsi_host *host, bool 
->> is_bonded_dsi,
->> +        const struct drm_display_mode *mode)
->>   {
->> +    struct msm_dsi_host *msm_host = to_msm_dsi_host(host);
->>       u8 lanes = msm_host->lanes;
->>       u32 bpp = dsi_get_bpp(msm_host->format);
->> -    unsigned long pclk_rate = dsi_get_pclk_rate(msm_host, 
+>>  > -    unsigned long pclk_rate = dsi_get_pclk_rate(msm_host, 
 >> is_bonded_dsi);
->> -    u64 pclk_bpp = (u64)pclk_rate * bpp;
->> +    unsigned long pclk_rate;
->> +    u64 pclk_bpp;
->> +
->> +    pclk_rate = dsi_get_pclk_rate(mode, is_bonded_dsi);
->> +
->> +    pclk_bpp = (u64)pclk_rate * bpp;
+>>  > +    unsigned long pclk_rate = dsi_get_pclk_rate(mode, is_bonded_dsi);
+>>  >      u64 pclk_bpp = (u64)pclk_rate * bpp;
+>>
+>>
+>>>       if (lanes == 0) {
+>>>           pr_err("%s: forcing mdss_dsi lanes to 1\n", __func__);
+>>> @@ -606,8 +611,14 @@ static void dsi_calc_pclk(struct msm_dsi_host 
+>>> *msm_host, bool is_bonded_dsi)
+>>>       else
+>>>           do_div(pclk_bpp, (8 * lanes));
+>>> -    msm_host->pixel_clk_rate = pclk_rate;
+>>> -    msm_host->byte_clk_rate = pclk_bpp;
+>>> +    return pclk_bpp;
+>>> +}
+>>> +
+>>> +static void dsi_calc_pclk(struct msm_dsi_host *msm_host, bool 
+>>> is_bonded_dsi)
+>>> +{
+>>> +    msm_host->pixel_clk_rate = dsi_get_pclk_rate(msm_host->mode, 
+>>> is_bonded_dsi);
+>>> +    msm_host->byte_clk_rate = dsi_byte_clk_get_rate(&msm_host->base, 
+>>> is_bonded_dsi,
+>>> +            msm_host->mode);
+>>>       DBG("pclk=%lu, bclk=%lu", msm_host->pixel_clk_rate,
+>>>                   msm_host->byte_clk_rate);
+>>> @@ -635,7 +646,7 @@ int dsi_calc_clk_rate_v2(struct msm_dsi_host 
+>>> *msm_host, bool is_bonded_dsi)
+>>>       dsi_calc_pclk(msm_host, is_bonded_dsi);
+>>> -    pclk_bpp = (u64)dsi_get_pclk_rate(msm_host, is_bonded_dsi) * bpp;
+>>> +    pclk_bpp = (u64)dsi_get_pclk_rate(msm_host->mode, is_bonded_dsi) 
+>>> * bpp;
+>>>       do_div(pclk_bpp, 8);
+>>>       msm_host->src_clk_rate = pclk_bpp;
+>>
+>>
+>> Following my previous feedback:
+>>
+>> I think at this moment msm_host->src_clk_rate = 
+>> msm_host->byte_clk_rate * msm_host->lanes. If so, we can drop 
+>> dsi_get_pclk_rate() call and the multiply/do_div calculation and use 
+>> the above formula instead.
+>>
 > 
-> Any particular reason for this? The following patch would be more obvious:
-> 
->  > -    unsigned long pclk_rate = dsi_get_pclk_rate(msm_host, 
-> is_bonded_dsi);
->  > +    unsigned long pclk_rate = dsi_get_pclk_rate(mode, is_bonded_dsi);
->  >      u64 pclk_bpp = (u64)pclk_rate * bpp;
-> 
-> 
->>       if (lanes == 0) {
->>           pr_err("%s: forcing mdss_dsi lanes to 1\n", __func__);
->> @@ -606,8 +611,14 @@ static void dsi_calc_pclk(struct msm_dsi_host 
->> *msm_host, bool is_bonded_dsi)
->>       else
->>           do_div(pclk_bpp, (8 * lanes));
->> -    msm_host->pixel_clk_rate = pclk_rate;
->> -    msm_host->byte_clk_rate = pclk_bpp;
->> +    return pclk_bpp;
->> +}
->> +
->> +static void dsi_calc_pclk(struct msm_dsi_host *msm_host, bool 
->> is_bonded_dsi)
->> +{
->> +    msm_host->pixel_clk_rate = dsi_get_pclk_rate(msm_host->mode, 
->> is_bonded_dsi);
->> +    msm_host->byte_clk_rate = dsi_byte_clk_get_rate(&msm_host->base, 
->> is_bonded_dsi,
->> +            msm_host->mode);
->>       DBG("pclk=%lu, bclk=%lu", msm_host->pixel_clk_rate,
->>                   msm_host->byte_clk_rate);
->> @@ -635,7 +646,7 @@ int dsi_calc_clk_rate_v2(struct msm_dsi_host 
->> *msm_host, bool is_bonded_dsi)
->>       dsi_calc_pclk(msm_host, is_bonded_dsi);
->> -    pclk_bpp = (u64)dsi_get_pclk_rate(msm_host, is_bonded_dsi) * bpp;
->> +    pclk_bpp = (u64)dsi_get_pclk_rate(msm_host->mode, is_bonded_dsi) 
->> * bpp;
->>       do_div(pclk_bpp, 8);
->>       msm_host->src_clk_rate = pclk_bpp;
-> 
-> 
-> Following my previous feedback:
-> 
-> I think at this moment msm_host->src_clk_rate = msm_host->byte_clk_rate 
-> * msm_host->lanes. If so, we can drop dsi_get_pclk_rate() call and the 
-> multiply/do_div calculation and use the above formula instead.
-> 
+>  From what I see msm_host->src_clk_rate = pixel_clk * bpp / 8;
 
- From what I see msm_host->src_clk_rate = pixel_clk * bpp / 8;
+and msm_host->byte_clk_rate = pixel_clk * bpp / (8 * nlanes);
 
- From where did you get the above formula?
-
-I just felt that by having two APIs the next patch becomes easier 
-because I need to just invoke the API which calculates byte clk.
-
-> If this looks logical, could you please prepend a patch changing this?
 > 
-> LGTM otherwise.
+>  From where did you get the above formula?
 > 
+> I just felt that by having two APIs the next patch becomes easier 
+> because I need to just invoke the API which calculates byte clk.
+
+Yes, I see that, it looks like a correct approach. You know, let's 
+ignore the dsi_calc_clk_rate_v2() for now, it is definitely a separate 
+change.
+
+Could you please drop the opp_table handling from patch 2/2, move 
+assignments in dsi_byte_clk_get_rate() back to the definition lines and 
+then send it as v2?
+
+-- 
+With best wishes
+Dmitry
+
