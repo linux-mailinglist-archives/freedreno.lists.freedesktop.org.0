@@ -2,66 +2,71 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 336246635A9
-	for <lists+freedreno@lfdr.de>; Tue, 10 Jan 2023 00:44:43 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 67E4A66362B
+	for <lists+freedreno@lfdr.de>; Tue, 10 Jan 2023 01:22:33 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D816B10E532;
-	Mon,  9 Jan 2023 23:44:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 225D810E0DB;
+	Tue, 10 Jan 2023 00:22:32 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x12a.google.com (mail-lf1-x12a.google.com
- [IPv6:2a00:1450:4864:20::12a])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 53F9C10E520
- for <freedreno@lists.freedesktop.org>; Mon,  9 Jan 2023 23:44:14 +0000 (UTC)
-Received: by mail-lf1-x12a.google.com with SMTP id f34so15577865lfv.10
- for <freedreno@lists.freedesktop.org>; Mon, 09 Jan 2023 15:44:14 -0800 (PST)
+Received: from mail-lf1-x134.google.com (mail-lf1-x134.google.com
+ [IPv6:2a00:1450:4864:20::134])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 246A310E0E8
+ for <freedreno@lists.freedesktop.org>; Tue, 10 Jan 2023 00:22:29 +0000 (UTC)
+Received: by mail-lf1-x134.google.com with SMTP id g13so15727509lfv.7
+ for <freedreno@lists.freedesktop.org>; Mon, 09 Jan 2023 16:22:29 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=XHjEtNVaTqOtCpnB9ZP021rbETT/k+vzPdGSi2OKKbk=;
- b=KdluC5isYfGPedU/R2fjuuNpCoSuFF1Gex4PxTwA/N8jNDHS/AVQE5mKglBc1iQzkS
- PsYw3u+iVbQxMe+TjLhY/zIwy1l/27O2gFVrl2UK7tdwpA/NEej1wX+R514XKyLF+uSv
- xHsN/YuPfGmmfmBKCwj9zCYW+8Oc3ryiysNMANUaS+wodqw0J5mEFq3QoHYnY4t3Lzjg
- FeXOAW48fZW+o7VQhUl8UGSy3Ji3tHu//ALLLsKYTDdmCo9/IQWdubtGXEHiGiIXDctP
- vHyW137kiAwiwBvnxNWqh9LLcNkjZbml1VAWAHKK2831myR9iU3oxsy/g9IJ30OGHok9
- yLmg==
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=3J9XKLlpP5X6CvDBX/lWRDKKuy8Kaqsk+6ZWrT2IkL8=;
+ b=n4hvHMSGn2WfGgJh4rRLEBOydN/+sVZM3Pydyit8JakkdzKCfnzvOtZ3IBmxnJKqgi
+ /rkYLJWADxt6NxW5sexSZ1jsXaAc0e38GsfIvxUXy0sUQbOVvJxal0rxxrfOT9RC1kLo
+ /ZWGtQT4HR5vjMZepAEQhlkCCjgZBe9hFwsgCE7CpQU08lwN35FXul4KJmIqbW8WP6Js
+ GqpBncUdW4spd/Depy8HbN/MCoeSNmI3RCssxgxa2HPfHWlEU/PKv6VnssmyYhsiUqd7
+ zX3E9W/6yghIu72crNK5RIjt1if6mLkkDAKLkftANHN7bt6UasgziE0v5A9BWnXtzDgE
+ b1FA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=XHjEtNVaTqOtCpnB9ZP021rbETT/k+vzPdGSi2OKKbk=;
- b=nHJxhFyKLrBfyW8LTD0er/ufkVXQFYzv0KM1e9QCsRK1Sh2sHxgWxlc/8sFHp0HeVu
- 4EWTEuJFAXS8ri7WBZiUuDe0v1gHHJkaqQfq4gqpah74UPDLFP/hR1Qq4wRm34Nahsol
- J4FPQjPmrJziWGiO0o+fTv93MxdH7L3jQ07s0zGpsfx9j8hcv/1yR/YhEE/VeFjjXVXM
- satD3Ie9edcUwbmQjzHPa4EC+JuAU8vGIHRpSQqdngzEm/uxbCq+KcHPGGQAysp/MMED
- 3cN1ZVmsF4DFRhcfFe11OmMOVJuav5tXY4K8yUH3iijUb8jquh9RKTnKai0xhA4yu9SO
- vB8w==
-X-Gm-Message-State: AFqh2krZmsPj9dweHLl7RFAaxH1yMtZHqT1Y+sTGOY7ng0CWbgZ78sFM
- 6CDTY6DGfxYpMe6dPVKgXRWaMQ==
-X-Google-Smtp-Source: AMrXdXs4hWSrnGESPaDMiC7Skctx3mIanGzpIn+a29djjV3HrxocDoxhqI+rKdtTzMIxIdZgqlnGAg==
-X-Received: by 2002:a05:6512:3b91:b0:4a4:68b8:f4e5 with SMTP id
- g17-20020a0565123b9100b004a468b8f4e5mr23148885lfv.43.1673307853915; 
- Mon, 09 Jan 2023 15:44:13 -0800 (PST)
-Received: from eriador.lan (dzccz6yyyyyyyyyyybcwt-3.rev.dnainternet.fi.
- [2001:14ba:a085:4d00::8a5]) by smtp.gmail.com with ESMTPSA id
- s9-20020a056512214900b004b5a4cf69dfsm1835255lfr.261.2023.01.09.15.44.13
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 09 Jan 2023 15:44:13 -0800 (PST)
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-To: robdclark@gmail.com, quic_abhinavk@quicinc.com, airlied@gmail.com,
- daniel@ffwll.ch, Hui Tang <tanghui20@huawei.com>
-Date: Tue, 10 Jan 2023 01:43:59 +0200
-Message-Id: <167330408783.609993.13860899129914018447.b4-ty@linaro.org>
-X-Mailer: git-send-email 2.39.0
-In-Reply-To: <20221119055518.179937-1-tanghui20@huawei.com>
-References: <20221119055518.179937-1-tanghui20@huawei.com>
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=3J9XKLlpP5X6CvDBX/lWRDKKuy8Kaqsk+6ZWrT2IkL8=;
+ b=yWSeC/qlxlT57fwwoF9bRKF9bv7ym8DX4Z9gp8a43Zmg+r16hkmCe7mDtj7wqJySEP
+ jZvjNBiAVBWcDeOvKuWC/BR3DY8rStkLVjCFjZ1l8e4mxaG9ZQc0wdyyX/ruoiCdij3z
+ 1jiQM88vIZG1Gbl0ds2TxwH1+FEyHbue6jniWYTdo780VkBiNok5yw8XsaR+/mPn5xAr
+ F63JajAUFe2wkA7UHSJoZaXOAvZ0JC2Rvqk1L+wXC3wc8ypuuS7/It8FgsXdwNi5NfsZ
+ ECA9RrYi5m+BZoPeMFo5v1iwBXOzK6VC+C5TzDO2oyxzrJ8TELh8lCappE4QoMWr/kbW
+ 7yDw==
+X-Gm-Message-State: AFqh2krAhTdXqujaWVOfat+HW2btuppYCcerXkL3SHXwqRH13dskLLMs
+ 5X8nQ1V1kkUA5P/p3bcxC37xfA==
+X-Google-Smtp-Source: AMrXdXtXj53XSAEDy43S/dF+TH9B4KyRf+Qy1PibWEaXMJ+81JeOqRnE5ih/iFdtK8mqkDEeOuwx4g==
+X-Received: by 2002:a05:6512:e89:b0:4b5:b7be:136b with SMTP id
+ bi9-20020a0565120e8900b004b5b7be136bmr19919799lfb.69.1673310147359; 
+ Mon, 09 Jan 2023 16:22:27 -0800 (PST)
+Received: from ?IPV6:2001:14ba:a085:4d00::8a5?
+ (dzccz6yyyyyyyyyyybcwt-3.rev.dnainternet.fi. [2001:14ba:a085:4d00::8a5])
+ by smtp.gmail.com with ESMTPSA id
+ x3-20020a0565123f8300b004949a8df775sm1854041lfa.33.2023.01.09.16.22.26
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 09 Jan 2023 16:22:26 -0800 (PST)
+Message-ID: <eeafb291-9da7-da21-8425-c651066f7379@linaro.org>
+Date: Tue, 10 Jan 2023 02:22:26 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Subject: Re: [Freedreno] [PATCH] drm/msm/dpu: check for null return of
- devm_kzalloc() in dpu_writeback_init()
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.6.0
+Content-Language: en-GB
+To: Kalyan Thota <quic_kalyant@quicinc.com>, dri-devel@lists.freedesktop.org, 
+ linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
+ devicetree@vger.kernel.org
+References: <1669021695-4397-1-git-send-email-quic_kalyant@quicinc.com>
+ <1669021695-4397-2-git-send-email-quic_kalyant@quicinc.com>
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+In-Reply-To: <1669021695-4397-2-git-send-email-quic_kalyant@quicinc.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Subject: Re: [Freedreno] [PATCH v4 1/3] drm/msm/disp/dpu1: pin 1 crtc to 1
+ encoder
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,26 +79,83 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- yusongping@huawei.com
+Cc: robdclark@chromium.org, dianders@chromium.org, quic_abhinavk@quicinc.com,
+ linux-kernel@vger.kernel.org, quic_vpolimer@quicinc.com, swboyd@chromium.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-
-On Sat, 19 Nov 2022 13:55:18 +0800, Hui Tang wrote:
-> Because of the possilble failure of devm_kzalloc(), dpu_wb_conn might
-> be NULL and will cause null pointer derefrence later.
+On 21/11/2022 11:08, Kalyan Thota wrote:
+> Pin each crtc with one encoder. This arrangement will
+> disallow crtc switching between encoders and also will
+> facilitate to advertise certain features on crtc based
+> on encoder type.
 > 
-> Therefore, it might be better to check it and directly return -ENOMEM.
+> Changes in v1:
+> - use drm_for_each_encoder macro while iterating through
+>    encoder list (Dmitry)
 > 
+> Changes in v2:
+> - make sure no encoder miss to have a crtc (Dmitry)
+> - revisit various factors in deciding the crtc count
+>    such as num_mixers, num_sspp (Dmitry)
 > 
+> Changes in v3:
+> - none
+> 
+> Changes in v4:
+> - use max_crtc_count instead of num_encoders in WARN (Dmitry)
+> 
+> Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> Signed-off-by: Kalyan Thota <quic_kalyant@quicinc.com>
+> ---
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c | 18 +++++++++++-------
+>   1 file changed, 11 insertions(+), 7 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
+> index 7a5fabc..d967eef 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
+> @@ -795,22 +796,25 @@ static int _dpu_kms_drm_obj_init(struct dpu_kms *dpu_kms)
+>   			primary_planes[primary_planes_idx++] = plane;
+>   	}
+>   
+> -	max_crtc_count = min(max_crtc_count, primary_planes_idx);
+> +	/*
+> +	 * All the platforms should have at least 1 primary plane for a
+> +	 * crtc. The below warn should help in setting up the catalog
+> +	 */
+> +	WARN_ON(max_crtc_count > primary_planes_idx);
 
-Applied, thanks!
+This change broke sc7180 support, see 
+https://gitlab.freedesktop.org/drm/msm/-/jobs/34395875
 
-[1/1] drm/msm/dpu: check for null return of devm_kzalloc() in dpu_writeback_init()
-      https://gitlab.freedesktop.org/lumag/msm/-/commit/21e9a838f505
+I suggest a quick fix of either disabling WB2 or switching one of cursor 
+SSPPs to a generic one.
 
-Best regards,
+>   
+>   	/* Create one CRTC per encoder */
+> -	for (i = 0; i < max_crtc_count; i++) {
+> +	i = 0;
+> +	drm_for_each_encoder(encoder, dev) {
+>   		crtc = dpu_crtc_init(dev, primary_planes[i], cursor_planes[i]);
+>   		if (IS_ERR(crtc)) {
+>   			ret = PTR_ERR(crtc);
+>   			return ret;
+>   		}
+>   		priv->crtcs[priv->num_crtcs++] = crtc;
+> +		encoder->possible_crtcs = 1 << drm_crtc_index(crtc);
+> +		i++;
+>   	}
+>   
+> -	/* All CRTCs are compatible with all encoders */
+> -	drm_for_each_encoder(encoder, dev)
+> -		encoder->possible_crtcs = (1 << priv->num_crtcs) - 1;
+> -
+>   	return 0;
+>   }
+>   
+
 -- 
-Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+With best wishes
+Dmitry
+
