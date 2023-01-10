@@ -1,48 +1,61 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id EEE30664B3B
-	for <lists+freedreno@lfdr.de>; Tue, 10 Jan 2023 19:40:14 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 6BF38664E01
+	for <lists+freedreno@lfdr.de>; Tue, 10 Jan 2023 22:29:12 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A85A110E637;
-	Tue, 10 Jan 2023 18:40:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 34F1810E66F;
+	Tue, 10 Jan 2023 21:29:11 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 959AC10E634;
- Tue, 10 Jan 2023 18:40:09 +0000 (UTC)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id D1F6F61880;
- Tue, 10 Jan 2023 18:40:08 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 23554C433F2;
- Tue, 10 Jan 2023 18:40:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1673376008;
- bh=peUKivG1RFYc2AUIx1t3veHp32Gl6+m50j+8BpqHDMU=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=Shc2EQ6946YqnAZWwq9bgeO3taUA3ksNGbQXFeHy/O0qMANoD6mroMZrVaV2475bo
- RS6cJFhc+0j60u08fzYtd/1yQYOMaiJcLIBftoSbz7+CYc+k4q8RmOJfksP2aEOQPH
- OH70pelcJGUfB+8vREUERrQ4bIrmTlN1wmrrLFCLNSjfH6D8x3pCUExV+7Ey03Rx0+
- C8zSxdImmPPF2k3FG1z9qfbQC2JFtr+V9G/0WBorulAa0QYbqWg2lHr0jo2/7f2oyW
- RAdocxIpURHhoTPphGidCwgIRNNGgZRp32PH98Uzsn6+JPArWbOWYo0eJs0ROq+jkP
- ttYgGcoDnjuRA==
-From: Bjorn Andersson <andersson@kernel.org>
-To: robh+dt@kernel.org, sean@poorly.run, krzysztof.kozlowski+dt@linaro.org,
- dmitry.baryshkov@linaro.org, robdclark@gmail.com,
- quic_abhinavk@quicinc.com, agross@kernel.org, konrad.dybcio@linaro.org
-Date: Tue, 10 Jan 2023 12:40:04 -0600
-Message-Id: <167337600117.2164548.7307616788379672932.b4-ty@kernel.org>
-X-Mailer: git-send-email 2.37.1
-In-Reply-To: <20230110055433.734188-1-dmitry.baryshkov@linaro.org>
-References: <20230110055433.734188-1-dmitry.baryshkov@linaro.org>
+Received: from mail-pj1-x102a.google.com (mail-pj1-x102a.google.com
+ [IPv6:2607:f8b0:4864:20::102a])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2D97D10E66F;
+ Tue, 10 Jan 2023 21:29:10 +0000 (UTC)
+Received: by mail-pj1-x102a.google.com with SMTP id q64so13772674pjq.4;
+ Tue, 10 Jan 2023 13:29:10 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=Ww/wSmvr3k1evMYET/bp6trdFG64eYICnW875bycRj8=;
+ b=CCgZWPuWSBttrXnRXZbS8iC4aN+Aau60QJBgZPiWSORv8+dEzapGDIMmiMg0TlBknL
+ Al+dyjFFmkvbQ8rgPSsDtx/Vm02bYxdsPlM9Sa9gKrP1EjLefqBa4ulX/2RObwrZW7ay
+ a+pYBnM5nAhKXuXGsELpeNXhU/mPabU2iEVAU5HzuT8TSVKmCGBW6q1sXxyCHEIP43GG
+ fAYmkmpOvzY0aL+nzYypi5k2AfVLd6vrwSADOaqncv/imIZ/Q5SCPeGkN2xCQahFE7P4
+ cq6QJfLTcvs5b/l3nglsLlXwWPDTV+r4VW5nnUqlRr7yVPoPUOQd2hexbhR2FGCAOREz
+ IZRA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=Ww/wSmvr3k1evMYET/bp6trdFG64eYICnW875bycRj8=;
+ b=1bEoVFlxregZJ4QW3hFgyiMbvGrcTLPv3jua3lqtH4DuzfN0pqZ2ektsmg92+V93J7
+ CIQ6q6/TdwQpHir2dkOIfn0vbkAE/Vu2xYNt6xrahgCScCMXqm0vvhfdi/woPif0phZ6
+ hc4Jw5DMnt5x1AK5NAINYTqpBCAAD4uWKYl/khhnkCdrqAmQTkv7E4HGSt1g+nf7lMa/
+ OK6gSZVSj217PuKjlOfGvGgtH3aBf2yrw76VZ1iVraTfX5L4S6gTkK5HJr7QGcq57lIX
+ rM94we+82BGitbujW77uvnBc3aBk+TcnRxW+ydcv+hEXK38mzOvpjOzW5q5G9nrWXtbZ
+ qYOQ==
+X-Gm-Message-State: AFqh2kotEhHQ7UdzvNKsaOFVW31t3SmcDNw7fuWh5geRModCF4LXcFms
+ 8XOMLc/Vx2z0/uplUHqXQ9kDKkLYfwE=
+X-Google-Smtp-Source: AMrXdXvkRSXydWegDtiIcTPIVygJ7XqwuvTRfFb3Q/Yts4DuDVkJxsJ0AWg0r/ZcAz2R8ccvVQ0eyQ==
+X-Received: by 2002:a17:902:8c89:b0:193:62a:80c8 with SMTP id
+ t9-20020a1709028c8900b00193062a80c8mr17111420plo.45.1673386149390; 
+ Tue, 10 Jan 2023 13:29:09 -0800 (PST)
+Received: from localhost ([2a00:79e1:abd:4a00:2703:3c72:eb1a:cffd])
+ by smtp.gmail.com with ESMTPSA id
+ jd6-20020a170903260600b001897de9bae3sm8568294plb.204.2023.01.10.13.29.08
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 10 Jan 2023 13:29:09 -0800 (PST)
+From: Rob Clark <robdclark@gmail.com>
+To: dri-devel@lists.freedesktop.org
+Date: Tue, 10 Jan 2023 13:28:59 -0800
+Message-Id: <20230110212903.1925878-1-robdclark@gmail.com>
+X-Mailer: git-send-email 2.38.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Subject: Re: [Freedreno] (subset) [PATCH 1/3] ARM: dts: qcom: msm8974: Add
- compat qcom, msm8974-dsi-ctrl to dsi1
+Subject: [Freedreno] [PATCH] drm/msm/gpu: Fix potential double-free
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,25 +68,91 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: devicetree@vger.kernel.org, freedreno@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, swboyd@chromium.org, daniel@ffwll.ch,
- linux-arm-msm@vger.kernel.org, bryan.odonoghue@linaro.org, airlied@gmail.com
+Cc: Rob Clark <robdclark@chromium.org>, Dan Carpenter <error27@gmail.com>,
+ Emma Anholt <emma@anholt.net>, Akhil P Oommen <quic_akhilpo@quicinc.com>,
+ linux-arm-msm@vger.kernel.org, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ open list <linux-kernel@vger.kernel.org>, Sean Paul <sean@poorly.run>,
+ Rob Clark <robdclark@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ David Airlie <airlied@gmail.com>, freedreno@lists.freedesktop.org,
+ Chia-I Wu <olvaffe@gmail.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Tue, 10 Jan 2023 07:54:31 +0200, Dmitry Baryshkov wrote:
-> Extend the secon DSI interface with the SoC-specific compat entry,
-> following the change for the first DSI interface.
-> 
-> 
+From: Rob Clark <robdclark@chromium.org>
 
-Applied, thanks!
+If userspace was calling the MSM_SET_PARAM ioctl on multiple threads to
+set the COMM or CMDLINE param, it could trigger a race causing the
+previous value to be kfree'd multiple times.  Fix this by serializing on
+the gpu lock.
 
-[2/3] arm64: dts: qcom: sm8150: Add compat qcom,sm8150-dsi-ctrl
-      commit: b0b8b34a8d6b4c50dac086ca18964fae5e6954d4
-[3/3] arm64: dts: qcom: sm8450: Add compat qcom,sm8450-dsi-ctrl
-      commit: b7f4f6971d62f0019c27142ee6b703d8cab96e38
+Signed-off-by: Rob Clark <robdclark@chromium.org>
+---
+ drivers/gpu/drm/msm/adreno/adreno_gpu.c |  4 ++++
+ drivers/gpu/drm/msm/msm_gpu.c           |  2 ++
+ drivers/gpu/drm/msm/msm_gpu.h           | 12 ++++++++++--
+ 3 files changed, 16 insertions(+), 2 deletions(-)
 
-Best regards,
+diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.c b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
+index 57586c794b84..3605f095b2de 100644
+--- a/drivers/gpu/drm/msm/adreno/adreno_gpu.c
++++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
+@@ -352,6 +352,8 @@ int adreno_set_param(struct msm_gpu *gpu, struct msm_file_private *ctx,
+ 		/* Ensure string is null terminated: */
+ 		str[len] = '\0';
+ 
++		mutex_lock(&gpu->lock);
++
+ 		if (param == MSM_PARAM_COMM) {
+ 			paramp = &ctx->comm;
+ 		} else {
+@@ -361,6 +363,8 @@ int adreno_set_param(struct msm_gpu *gpu, struct msm_file_private *ctx,
+ 		kfree(*paramp);
+ 		*paramp = str;
+ 
++		mutex_unlock(&gpu->lock);
++
+ 		return 0;
+ 	}
+ 	case MSM_PARAM_SYSPROF:
+diff --git a/drivers/gpu/drm/msm/msm_gpu.c b/drivers/gpu/drm/msm/msm_gpu.c
+index bfef659d3a5c..7537e7b3a452 100644
+--- a/drivers/gpu/drm/msm/msm_gpu.c
++++ b/drivers/gpu/drm/msm/msm_gpu.c
+@@ -336,6 +336,8 @@ static void get_comm_cmdline(struct msm_gem_submit *submit, char **comm, char **
+ 	struct msm_file_private *ctx = submit->queue->ctx;
+ 	struct task_struct *task;
+ 
++	WARN_ON(!mutex_is_locked(&submit->gpu->lock));
++
+ 	/* Note that kstrdup will return NULL if argument is NULL: */
+ 	*comm = kstrdup(ctx->comm, GFP_KERNEL);
+ 	*cmd  = kstrdup(ctx->cmdline, GFP_KERNEL);
+diff --git a/drivers/gpu/drm/msm/msm_gpu.h b/drivers/gpu/drm/msm/msm_gpu.h
+index a771f56ed70f..fc1c0d8611a8 100644
+--- a/drivers/gpu/drm/msm/msm_gpu.h
++++ b/drivers/gpu/drm/msm/msm_gpu.h
+@@ -375,10 +375,18 @@ struct msm_file_private {
+ 	 */
+ 	int sysprof;
+ 
+-	/** comm: Overridden task comm, see MSM_PARAM_COMM */
++	/**
++	 * comm: Overridden task comm, see MSM_PARAM_COMM
++	 *
++	 * Accessed under msm_gpu::lock
++	 */
+ 	char *comm;
+ 
+-	/** cmdline: Overridden task cmdline, see MSM_PARAM_CMDLINE */
++	/**
++	 * cmdline: Overridden task cmdline, see MSM_PARAM_CMDLINE
++	 *
++	 * Accessed under msm_gpu::lock
++	 */
+ 	char *cmdline;
+ 
+ 	/**
 -- 
-Bjorn Andersson <andersson@kernel.org>
+2.38.1
+
