@@ -1,40 +1,72 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id DDFD3666648
-	for <lists+freedreno@lfdr.de>; Wed, 11 Jan 2023 23:36:03 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id F0462666674
+	for <lists+freedreno@lfdr.de>; Wed, 11 Jan 2023 23:53:19 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CF51F10E820;
-	Wed, 11 Jan 2023 22:36:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1DE0610E825;
+	Wed, 11 Jan 2023 22:53:18 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from relay06.th.seeweb.it (relay06.th.seeweb.it [5.144.164.167])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D5AC710E2CB
- for <freedreno@lists.freedesktop.org>; Wed, 11 Jan 2023 22:35:57 +0000 (UTC)
-Received: from SoMainline.org (94-211-6-86.cable.dynamic.v4.ziggo.nl
- [94.211.6.86])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest
- SHA256) (No client certificate requested)
- by m-r2.th.seeweb.it (Postfix) with ESMTPSA id 216673F319;
- Wed, 11 Jan 2023 23:35:55 +0100 (CET)
-Date: Wed, 11 Jan 2023 23:35:53 +0100
-From: Marijn Suijten <marijn.suijten@somainline.org>
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Message-ID: <20230111223553.e3xrxmdys5zxxleh@SoMainline.org>
-References: <20230109050152.316606-1-dmitry.baryshkov@linaro.org>
- <20230109050152.316606-2-dmitry.baryshkov@linaro.org>
- <20230109074947.5vnfrn6shzpm6iqi@SoMainline.org>
- <997dbd09-03d6-d60d-1dce-db0bc6415582@linaro.org>
- <20230111222903.otbur6yi4iv4mpgz@SoMainline.org>
- <1d371e40-0639-16f8-abef-afcd05e72e22@linaro.org>
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2485A10E825;
+ Wed, 11 Jan 2023 22:53:16 +0000 (UTC)
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 30BMdn1l031144; Wed, 11 Jan 2023 22:53:12 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
+ h=from : to : cc :
+ subject : date : message-id : mime-version : content-transfer-encoding :
+ content-type; s=qcppdkim1;
+ bh=JN/B4N8cmVkipSfz8rN0Pwrrp0Q6iMXwc2+8rg/bci4=;
+ b=mPnxofi/+u8Aex19vx6CO216zYYUaXOpCgWilldRSpF+eiXUOuo21Lwozs1oRjLKoGKB
+ te73Z+nK+34dKarXNA8A1LKI/BE5X04zM20e2TkvZm2KtOUsp5krQElUym2YqsqmVa1m
+ DQJZftEkeS6zztiSxPyzfCsb9Vq5RXykkf46GFhs12Oz8d2pyXC7eRyK7dXz2RkyCE6y
+ aUTR9INRlTUIMJrNIbTWey+MCkSoAkj4EP4xSU/QPIwm6go0f9gx8VDRbHQmPFXuinDL
+ qLfZjkiCBw8ETvMkv1DN8Vw/jmYgY95A/eQ5hSlium6eblfmbXW9QjZ26O9yY68omdgh qw== 
+Received: from nalasppmta05.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3n1k9j2ek0-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 11 Jan 2023 22:53:12 +0000
+Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
+ [10.47.209.196])
+ by NALASPPMTA05.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 30BMrB1u010104
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 11 Jan 2023 22:53:11 GMT
+Received: from jesszhan-linux.qualcomm.com (10.80.80.8) by
+ nalasex01a.na.qualcomm.com (10.47.209.196) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.986.36; Wed, 11 Jan 2023 14:53:11 -0800
+From: Abhinav Kumar <quic_abhinavk@quicinc.com>
+To: <freedreno@lists.freedesktop.org>
+Date: Wed, 11 Jan 2023 14:52:56 -0800
+Message-ID: <20230111225257.7510-1-quic_abhinavk@quicinc.com>
+X-Mailer: git-send-email 2.39.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <1d371e40-0639-16f8-abef-afcd05e72e22@linaro.org>
-Subject: Re: [Freedreno] [PATCH v5 1/4] dt-bindings: display/msm: convert
- MDP5 schema to YAML format
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-GUID: 4Sg1YDHHs0CnYRZKYcUZqYpM02TYvLCY
+X-Proofpoint-ORIG-GUID: 4Sg1YDHHs0CnYRZKYcUZqYpM02TYvLCY
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.219,Aquarius:18.0.923,Hydra:6.0.545,FMLib:17.11.122.1
+ definitions=2023-01-11_10,2023-01-11_02,2022-06-22_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 spamscore=0
+ impostorscore=0 mlxscore=0 malwarescore=0 phishscore=0 priorityscore=1501
+ mlxlogscore=999 lowpriorityscore=0 bulkscore=0 suspectscore=0 adultscore=0
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2212070000
+ definitions=main-2301110167
+Subject: [Freedreno] [PATCH v2 1/2] drm/msm/dsi: add a helper method to
+ compute the dsi byte clk
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -47,57 +79,97 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: devicetree@vger.kernel.org, Daniel Vetter <daniel@ffwll.ch>,
- David Airlie <airlied@gmail.com>, Bjorn Andersson <andersson@kernel.org>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, Rob Herring <robh+dt@kernel.org>,
- Stephen Boyd <swboyd@chromium.org>, Konrad Dybcio <konrad.dybcio@linaro.org>,
- Rob Clark <robdclark@gmail.com>, Andy Gross <agross@kernel.org>,
- dri-devel@lists.freedesktop.org,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
- Sean Paul <sean@poorly.run>
+Cc: Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
+ swboyd@chromium.org, robdclark@gmail.com, seanpaul@chromium.org,
+ daniel@ffwll.ch, dmitry.baryshkov@linaro.org, quic_jesszhan@quicinc.com
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 2023-01-12 00:31:33, Dmitry Baryshkov wrote:
-> On 12/01/2023 00:29, Marijn Suijten wrote:
-> > On 2023-01-10 06:40:27, Dmitry Baryshkov wrote:
-> >> On 09/01/2023 09:49, Marijn Suijten wrote:
-> >>> On 2023-01-09 07:01:49, Dmitry Baryshkov wrote:
-> > <snip>
-> >>>> +    description: |
-> >>>
-> >>> Should multiline descriptions be treated as a oneline string with `>`?
-> >>
-> >> Ack, I'm fine with either of them, let's use the >
-> >>
-> >>>
-> >>>> +      Contains the list of output ports from DPU device. These ports
-> >>>> +      connect to interfaces that are external to the DPU hardware,
-> >>>> +      such as DSI, DP etc. MDP5 devices support up to 4 ports::
-> >>>
-> >>> How do these double colons render?  Is this intentional?
-> >>
-> >> double colons is an escape for a single colon if I remember correcly.
-> > 
-> > I thought no escaping was necessary here, especially since this is
-> > already a value - it is a multiline string.
-> 
-> I was mostly following examples, grep :: through the dt-bindings.
+Re-arrange the dsi_calc_pclk method to two helpers, one to
+compute the DSI byte clk and the other to compute the pclk.
 
-Saw that, maybe these "freeform" description strings are intended to be
-RST to support more elaborate rendering if/when that happens?
+This makes the separation of the two clean and also allows
+clients to compute and use the dsi byte clk separately.
 
-> >> BTW: how to render the DT schema?
-> > 
-> > I'm not sure if there's currently any rendering tool to view these docs
-> > in a "friendly" manner, e.g. an html page, or whether they're only used
-> > as specifications for DT validation.
-> 
-> Probably there will be one at some point. It might make good addition to 
-> devicetree.org.
+changes in v2:
+	- move the assignments to definition lines
 
-Would be super cool to have some "interactive" / properly
-rendered/colored docs up there for DT :)
+Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
+---
+ drivers/gpu/drm/msm/dsi/dsi.h      |  2 ++
+ drivers/gpu/drm/msm/dsi/dsi_host.c | 21 ++++++++++++++-------
+ 2 files changed, 16 insertions(+), 7 deletions(-)
 
-- Marijn
+diff --git a/drivers/gpu/drm/msm/dsi/dsi.h b/drivers/gpu/drm/msm/dsi/dsi.h
+index 2a96b4fe7839..1a551cc0e889 100644
+--- a/drivers/gpu/drm/msm/dsi/dsi.h
++++ b/drivers/gpu/drm/msm/dsi/dsi.h
+@@ -118,6 +118,8 @@ int dsi_link_clk_enable_6g(struct msm_dsi_host *msm_host);
+ int dsi_link_clk_enable_v2(struct msm_dsi_host *msm_host);
+ void dsi_link_clk_disable_6g(struct msm_dsi_host *msm_host);
+ void dsi_link_clk_disable_v2(struct msm_dsi_host *msm_host);
++unsigned long dsi_byte_clk_get_rate(struct mipi_dsi_host *host, bool is_bonded_dsi,
++				    const struct drm_display_mode *mode);
+ int dsi_tx_buf_alloc_6g(struct msm_dsi_host *msm_host, int size);
+ int dsi_tx_buf_alloc_v2(struct msm_dsi_host *msm_host, int size);
+ void *dsi_tx_buf_get_6g(struct msm_dsi_host *msm_host);
+diff --git a/drivers/gpu/drm/msm/dsi/dsi_host.c b/drivers/gpu/drm/msm/dsi/dsi_host.c
+index c3cd96de7f7d..c145fd359ed5 100644
+--- a/drivers/gpu/drm/msm/dsi/dsi_host.c
++++ b/drivers/gpu/drm/msm/dsi/dsi_host.c
+@@ -570,9 +570,8 @@ void dsi_link_clk_disable_v2(struct msm_dsi_host *msm_host)
+ 	clk_disable_unprepare(msm_host->byte_clk);
+ }
+ 
+-static unsigned long dsi_get_pclk_rate(struct msm_dsi_host *msm_host, bool is_bonded_dsi)
++static unsigned long dsi_get_pclk_rate(const struct drm_display_mode *mode, bool is_bonded_dsi)
+ {
+-	struct drm_display_mode *mode = msm_host->mode;
+ 	unsigned long pclk_rate;
+ 
+ 	pclk_rate = mode->clock * 1000;
+@@ -589,11 +588,13 @@ static unsigned long dsi_get_pclk_rate(struct msm_dsi_host *msm_host, bool is_bo
+ 	return pclk_rate;
+ }
+ 
+-static void dsi_calc_pclk(struct msm_dsi_host *msm_host, bool is_bonded_dsi)
++unsigned long dsi_byte_clk_get_rate(struct mipi_dsi_host *host, bool is_bonded_dsi,
++				    const struct drm_display_mode *mode)
+ {
++	struct msm_dsi_host *msm_host = to_msm_dsi_host(host);
+ 	u8 lanes = msm_host->lanes;
+ 	u32 bpp = dsi_get_bpp(msm_host->format);
+-	unsigned long pclk_rate = dsi_get_pclk_rate(msm_host, is_bonded_dsi);
++	unsigned long pclk_rate = dsi_get_pclk_rate(mode, is_bonded_dsi);
+ 	u64 pclk_bpp = (u64)pclk_rate * bpp;
+ 
+ 	if (lanes == 0) {
+@@ -607,8 +608,14 @@ static void dsi_calc_pclk(struct msm_dsi_host *msm_host, bool is_bonded_dsi)
+ 	else
+ 		do_div(pclk_bpp, (8 * lanes));
+ 
+-	msm_host->pixel_clk_rate = pclk_rate;
+-	msm_host->byte_clk_rate = pclk_bpp;
++	return pclk_bpp;
++}
++
++static void dsi_calc_pclk(struct msm_dsi_host *msm_host, bool is_bonded_dsi)
++{
++	msm_host->pixel_clk_rate = dsi_get_pclk_rate(msm_host->mode, is_bonded_dsi);
++	msm_host->byte_clk_rate = dsi_byte_clk_get_rate(&msm_host->base, is_bonded_dsi,
++							msm_host->mode);
+ 
+ 	DBG("pclk=%lu, bclk=%lu", msm_host->pixel_clk_rate,
+ 				msm_host->byte_clk_rate);
+@@ -636,7 +643,7 @@ int dsi_calc_clk_rate_v2(struct msm_dsi_host *msm_host, bool is_bonded_dsi)
+ 
+ 	dsi_calc_pclk(msm_host, is_bonded_dsi);
+ 
+-	pclk_bpp = (u64)dsi_get_pclk_rate(msm_host, is_bonded_dsi) * bpp;
++	pclk_bpp = (u64)dsi_get_pclk_rate(msm_host->mode, is_bonded_dsi) * bpp;
+ 	do_div(pclk_bpp, 8);
+ 	msm_host->src_clk_rate = pclk_bpp;
+ 
+-- 
+2.39.0
+
