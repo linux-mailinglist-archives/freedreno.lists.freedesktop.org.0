@@ -1,57 +1,75 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2F9BD665F10
-	for <lists+freedreno@lfdr.de>; Wed, 11 Jan 2023 16:28:54 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 84739665F42
+	for <lists+freedreno@lfdr.de>; Wed, 11 Jan 2023 16:37:50 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E2F8B10E765;
-	Wed, 11 Jan 2023 15:28:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 44E5A10E765;
+	Wed, 11 Jan 2023 15:37:49 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-oi1-x22a.google.com (mail-oi1-x22a.google.com
- [IPv6:2607:f8b0:4864:20::22a])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7594510E75C;
- Wed, 11 Jan 2023 15:28:51 +0000 (UTC)
-Received: by mail-oi1-x22a.google.com with SMTP id d188so1856085oia.3;
- Wed, 11 Jan 2023 07:28:51 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=4sF9h6AYZZ9s9l5isulzAYtAnPwM/o7/+dNoOtQdd7k=;
- b=jCfjWEPy76z0U6Zi4tXKqIT2iG2oWVhqA22BBBU/5rgt0jvil+CKwT1n+yThem7vaq
- qyh74PFrGus/RRZN60oOIXMcXNh7/CJV/Pvf3OdWY1mM4lGtexdF0UIpIIWRYdG5b1VX
- PLut62M4sIVtjfPAfJc1rk8ey0/lSQrd+SYSPPxXaVY+uQEstJvAbDi5u5xzZ6ks6cls
- uV8wrZNpApvwyCJN6mw7HiWCPsuCPJoNUVErIToueQQZnYa5yqDB/yKaYadt23ikIEbN
- CgkwXv7Rsk3XICFrW3c1nGU6+HzuxlpQfBcL3NQt1Ey2opE4Zo7HVmWI6YAZvpv8GS/E
- 7ltw==
+Received: from mail-lf1-x136.google.com (mail-lf1-x136.google.com
+ [IPv6:2a00:1450:4864:20::136])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C653A10E766
+ for <freedreno@lists.freedesktop.org>; Wed, 11 Jan 2023 15:37:47 +0000 (UTC)
+Received: by mail-lf1-x136.google.com with SMTP id v25so24076548lfe.12
+ for <freedreno@lists.freedesktop.org>; Wed, 11 Jan 2023 07:37:47 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=DiZWVXTm47HTNMEhLXJp72R5vsBenAHhGAw4+f526sM=;
+ b=pcKiK+f2lKHpjYPsVehN4nLr098fiEnqCowZYXCaK+Ioz8cm7WIXb2G+twhfjyx8NQ
+ pCZbGDGsPp46Y2cH3vUq4mAB9VCGcXhhYRF73p6zIat+xUtfEAIaXmb6DczHd9woQt2u
+ jDp7o4a9O0XtGoENzmAiYL3bL96izRPsvBEVWmVmV3OKrpkK8b/Cyo+a/d4BCDZkZuRZ
+ nIJxMj7gq/JI00x4Qrw88XiwdjuVGmQF3TKy/hwsyzmUhd8wM+wk2EBuiVX3LwU4Onyf
+ 3DC+Lh/WAL0cDSz5JqsfjH3R9Tj/UKSuCd7B6K03XAHzahOdmXpOISPns6OJXgMjLd/D
+ Cz8g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=4sF9h6AYZZ9s9l5isulzAYtAnPwM/o7/+dNoOtQdd7k=;
- b=UZ0XAoGarXT3V4J/qe5Ga+AGeGnj/SfiV52LAyJmCRZjRzf1jRbkG5iLU06NsKjbVd
- x6DXMNcTyfn10dM+x5dF9k4cVo9RErar820hE6232oOwmTID3liOka/SaN3YozvHD0DV
- HcFiGuZKuHkxvXkQXh8rxjwUCDa5eLz/pndzEZAg0snCJWWpSyi5ISJ1UOKubK7v8Z9Q
- qKnh09jfkzk2MKd7huFjd2YpBb6R9tDGqvcIPdT88Vp+bFQU8u/fmlvIMjlkt0klDN7d
- ija02uOG+JdYLNnwt64uWCv5eRYdH20p/swO6gE1h2+8jutxscImF0z5IjcWCNomBdOB
- Wh5Q==
-X-Gm-Message-State: AFqh2krHdn/zC4HXrf7GmibEj0zPgPN8vhpzRwzqJ2fzfJS2FCdvxeA6
- yw55pcTrbEJ67jyltX9u+DTgaxnUNo2EV31RaKJrc4VyYjk=
-X-Google-Smtp-Source: AMrXdXuXROjZ0MWVSMSHb3c1hKspO7uvkZCFoKujUD3ng5FA/3eJ481QFUqk2kWBDyIW1WB1IIHK4eFbVUfCBAtaGbk=
-X-Received: by 2002:a05:6808:409a:b0:360:ffcc:3685 with SMTP id
- db26-20020a056808409a00b00360ffcc3685mr3737807oib.183.1673450930270; Wed, 11
- Jan 2023 07:28:50 -0800 (PST)
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=DiZWVXTm47HTNMEhLXJp72R5vsBenAHhGAw4+f526sM=;
+ b=Ld346hBRT8WVVHUTDoVtepoXBbzVX3bBwHIYU7Q1QLZ3CO7XFCQJS5xAoxcxOVDXb0
+ fbN0jbL0CWI14UumckDEDonzTXzZWV3/HBUYLf+iYsUiwJ40SkLNG4oYBGSXFQIQYc8a
+ CtJl94l/jtwEDquVJhu76/ATjH6DmNmw5+jXeWMKamWZRLEEPBV8Uc6Lu76cdNKFw4v/
+ /Ka2O+H7sxGbe0Ly7KDtISri2V2uJfd7u8r4PGIlNJR8yuLSmQJ5QpVcMkjhVqiJ9a73
+ 1Iglf5eJUksgLX6w2EogoflDwg8ueWanWQtTsMm6159lXghodYp/4d4IWpX0XFO+8jOl
+ qbMA==
+X-Gm-Message-State: AFqh2koOV8L90+7AKRX4UPS9tZI0Z2Ovj2OCQHMA4TqK0Z6ZOgIWKixA
+ CvDu+hkhc93Ml5G/uL69Dt4pxA==
+X-Google-Smtp-Source: AMrXdXtS3EoDQWb7T/eo7e/pqwmSTvEMZ1Bvy/Bo03WuHhBJGgXevGa+e32bUStRw4lGq5zeK5b1iQ==
+X-Received: by 2002:a05:6512:304a:b0:4aa:54a:3a6e with SMTP id
+ b10-20020a056512304a00b004aa054a3a6emr24005109lfb.41.1673451466103; 
+ Wed, 11 Jan 2023 07:37:46 -0800 (PST)
+Received: from ?IPV6:2001:14ba:a085:4d00::8a5?
+ (dzccz6yyyyyyyyyyybcwt-3.rev.dnainternet.fi. [2001:14ba:a085:4d00::8a5])
+ by smtp.gmail.com with ESMTPSA id
+ bi35-20020a0565120ea300b0048a982ad0a8sm2780901lfb.23.2023.01.11.07.37.45
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 11 Jan 2023 07:37:45 -0800 (PST)
+Message-ID: <1b29bbef-1ee3-654c-bb58-c8fcf3b876a0@linaro.org>
+Date: Wed, 11 Jan 2023 17:37:45 +0200
 MIME-Version: 1.0
-References: <20230110212903.1925878-1-robdclark@gmail.com>
-In-Reply-To: <20230110212903.1925878-1-robdclark@gmail.com>
-From: Rob Clark <robdclark@gmail.com>
-Date: Wed, 11 Jan 2023 07:28:45 -0800
-Message-ID: <CAF6AEGsivdz-e+sCRQto1_WBZ80bv8b4xDbYvzX-4sVo9kM7Yw@mail.gmail.com>
-To: dri-devel@lists.freedesktop.org
-Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [PATCH] drm/msm/gpu: Fix potential double-free
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.6.0
+Content-Language: en-GB
+To: neil.armstrong@linaro.org, Vinod Koul <vkoul@kernel.org>,
+ Andrzej Hajda <andrzej.hajda@intel.com>, Robert Foss
+ <robert.foss@linaro.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>
+References: <20230108165656.136871-1-dmitry.baryshkov@linaro.org>
+ <20230108165656.136871-13-dmitry.baryshkov@linaro.org>
+ <c03235b1-85d1-1e55-b8c2-9a553887145f@linaro.org>
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+In-Reply-To: <c03235b1-85d1-1e55-b8c2-9a553887145f@linaro.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+Subject: Re: [Freedreno] [PATCH v2 12/13] drm/bridge: lt9611: stop filtering
+ modes via the table
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,96 +82,104 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rob Clark <robdclark@chromium.org>, freedreno@lists.freedesktop.org,
- Dan Carpenter <error27@gmail.com>, Emma Anholt <emma@anholt.net>,
- Akhil P Oommen <quic_akhilpo@quicinc.com>, linux-arm-msm@vger.kernel.org,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- open list <linux-kernel@vger.kernel.org>, Daniel Vetter <daniel@ffwll.ch>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- David Airlie <airlied@gmail.com>, Sean Paul <sean@poorly.run>,
- Chia-I Wu <olvaffe@gmail.com>
+Cc: freedreno@lists.freedesktop.org, David Airlie <airlied@gmail.com>,
+ dri-devel@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>,
+ linux-arm-msm@vger.kernel.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Tue, Jan 10, 2023 at 1:29 PM Rob Clark <robdclark@gmail.com> wrote:
->
-> From: Rob Clark <robdclark@chromium.org>
->
-> If userspace was calling the MSM_SET_PARAM ioctl on multiple threads to
-> set the COMM or CMDLINE param, it could trigger a race causing the
-> previous value to be kfree'd multiple times.  Fix this by serializing on
-> the gpu lock.
->
+On 11/01/2023 12:57, Neil Armstrong wrote:
+> On 08/01/2023 17:56, Dmitry Baryshkov wrote:
+>> The lt9611 bridge can support different modes, it makes no sense to list
+>> them in the table. Drop the table and check the number of interfaces
+>> using the fixed value.
+>>
+>> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+>> ---
+>>   drivers/gpu/drm/bridge/lontium-lt9611.c | 41 +++----------------------
+>>   1 file changed, 4 insertions(+), 37 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/bridge/lontium-lt9611.c 
+>> b/drivers/gpu/drm/bridge/lontium-lt9611.c
+>> index 82af1f954cc6..df9f015aa3a0 100644
+>> --- a/drivers/gpu/drm/bridge/lontium-lt9611.c
+>> +++ b/drivers/gpu/drm/bridge/lontium-lt9611.c
+>> @@ -84,24 +84,6 @@ static const struct regmap_config 
+>> lt9611_regmap_config = {
+>>       .num_ranges = ARRAY_SIZE(lt9611_ranges),
+>>   };
+>> -struct lt9611_mode {
+>> -    u16 hdisplay;
+>> -    u16 vdisplay;
+>> -    u8 vrefresh;
+>> -    u8 lanes;
+>> -    u8 intfs;
+>> -};
+>> -
+>> -static struct lt9611_mode lt9611_modes[] = {
+>> -    { 3840, 2160, 30, 4, 2 }, /* 3840x2160 24bit 30Hz 4Lane 2ports */
+>> -    { 1920, 1080, 60, 4, 1 }, /* 1080P 24bit 60Hz 4lane 1port */
+>> -    { 1920, 1080, 30, 3, 1 }, /* 1080P 24bit 30Hz 3lane 1port */
+>> -    { 1920, 1080, 24, 3, 1 },
+>> -    { 720, 480, 60, 4, 1 },
+>> -    { 720, 576, 50, 2, 1 },
+>> -    { 640, 480, 60, 2, 1 },
+>> -};
+>> -
+>>   static struct lt9611 *bridge_to_lt9611(struct drm_bridge *bridge)
+>>   {
+>>       return container_of(bridge, struct lt9611, bridge);
+>> @@ -603,21 +585,6 @@ static int lt9611_regulator_enable(struct lt9611 
+>> *lt9611)
+>>       return 0;
+>>   }
+>> -static struct lt9611_mode *lt9611_find_mode(const struct 
+>> drm_display_mode *mode)
+>> -{
+>> -    int i;
+>> -
+>> -    for (i = 0; i < ARRAY_SIZE(lt9611_modes); i++) {
+>> -        if (lt9611_modes[i].hdisplay == mode->hdisplay &&
+>> -            lt9611_modes[i].vdisplay == mode->vdisplay &&
+>> -            lt9611_modes[i].vrefresh == drm_mode_vrefresh(mode)) {
+>> -            return &lt9611_modes[i];
+>> -        }
+>> -    }
+>> -
+>> -    return NULL;
+>> -}
+>> -
+>>   static enum drm_connector_status lt9611_bridge_detect(struct 
+>> drm_bridge *bridge)
+>>   {
+>>       struct lt9611 *lt9611 = bridge_to_lt9611(bridge);
+>> @@ -832,12 +799,12 @@ static enum drm_mode_status 
+>> lt9611_bridge_mode_valid(struct drm_bridge *bridge,
+>>                                const struct drm_display_info *info,
+>>                                const struct drm_display_mode *mode)
+>>   {
+>> -    struct lt9611_mode *lt9611_mode = lt9611_find_mode(mode);
+>>       struct lt9611 *lt9611 = bridge_to_lt9611(bridge);
+>> -    if (!lt9611_mode)
+>> -        return MODE_BAD;
+>> -    else if (lt9611_mode->intfs > 1 && !lt9611->dsi1)
+>> +    if (mode->hdisplay >= 3840 && drm_mode_vrefresh(mode) >= 31)
+> 
+> Isn't 31 a typo ?
 
-Fixes: d4726d770068 ("drm/msm: Add a way to override processes comm/cmdline")
+Maybe I should change that to drm_mode_vrefresh(mode) > 30. The chip 
+supports 3840x2160-30, but doesn't promise to support anything above that.
 
-> Signed-off-by: Rob Clark <robdclark@chromium.org>
-> ---
->  drivers/gpu/drm/msm/adreno/adreno_gpu.c |  4 ++++
->  drivers/gpu/drm/msm/msm_gpu.c           |  2 ++
->  drivers/gpu/drm/msm/msm_gpu.h           | 12 ++++++++++--
->  3 files changed, 16 insertions(+), 2 deletions(-)
->
-> diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.c b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
-> index 57586c794b84..3605f095b2de 100644
-> --- a/drivers/gpu/drm/msm/adreno/adreno_gpu.c
-> +++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
-> @@ -352,6 +352,8 @@ int adreno_set_param(struct msm_gpu *gpu, struct msm_file_private *ctx,
->                 /* Ensure string is null terminated: */
->                 str[len] = '\0';
->
-> +               mutex_lock(&gpu->lock);
-> +
->                 if (param == MSM_PARAM_COMM) {
->                         paramp = &ctx->comm;
->                 } else {
-> @@ -361,6 +363,8 @@ int adreno_set_param(struct msm_gpu *gpu, struct msm_file_private *ctx,
->                 kfree(*paramp);
->                 *paramp = str;
->
-> +               mutex_unlock(&gpu->lock);
-> +
->                 return 0;
->         }
->         case MSM_PARAM_SYSPROF:
-> diff --git a/drivers/gpu/drm/msm/msm_gpu.c b/drivers/gpu/drm/msm/msm_gpu.c
-> index bfef659d3a5c..7537e7b3a452 100644
-> --- a/drivers/gpu/drm/msm/msm_gpu.c
-> +++ b/drivers/gpu/drm/msm/msm_gpu.c
-> @@ -336,6 +336,8 @@ static void get_comm_cmdline(struct msm_gem_submit *submit, char **comm, char **
->         struct msm_file_private *ctx = submit->queue->ctx;
->         struct task_struct *task;
->
-> +       WARN_ON(!mutex_is_locked(&submit->gpu->lock));
-> +
->         /* Note that kstrdup will return NULL if argument is NULL: */
->         *comm = kstrdup(ctx->comm, GFP_KERNEL);
->         *cmd  = kstrdup(ctx->cmdline, GFP_KERNEL);
-> diff --git a/drivers/gpu/drm/msm/msm_gpu.h b/drivers/gpu/drm/msm/msm_gpu.h
-> index a771f56ed70f..fc1c0d8611a8 100644
-> --- a/drivers/gpu/drm/msm/msm_gpu.h
-> +++ b/drivers/gpu/drm/msm/msm_gpu.h
-> @@ -375,10 +375,18 @@ struct msm_file_private {
->          */
->         int sysprof;
->
-> -       /** comm: Overridden task comm, see MSM_PARAM_COMM */
-> +       /**
-> +        * comm: Overridden task comm, see MSM_PARAM_COMM
-> +        *
-> +        * Accessed under msm_gpu::lock
-> +        */
->         char *comm;
->
-> -       /** cmdline: Overridden task cmdline, see MSM_PARAM_CMDLINE */
-> +       /**
-> +        * cmdline: Overridden task cmdline, see MSM_PARAM_CMDLINE
-> +        *
-> +        * Accessed under msm_gpu::lock
-> +        */
->         char *cmdline;
->
->         /**
-> --
-> 2.38.1
->
+> 
+>> +        return MODE_CLOCK_HIGH;
+>> +
+>> +    if (mode->hdisplay > 2000 && !lt9611->dsi1_node)
+>>           return MODE_PANEL;
+>>       else
+>>           return MODE_OK;
+> 
+
+-- 
+With best wishes
+Dmitry
+
