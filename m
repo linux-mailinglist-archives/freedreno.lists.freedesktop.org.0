@@ -2,74 +2,71 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 84739665F42
-	for <lists+freedreno@lfdr.de>; Wed, 11 Jan 2023 16:37:50 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id ECBE36664E9
+	for <lists+freedreno@lfdr.de>; Wed, 11 Jan 2023 21:41:17 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 44E5A10E765;
-	Wed, 11 Jan 2023 15:37:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AC30810E818;
+	Wed, 11 Jan 2023 20:41:16 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x136.google.com (mail-lf1-x136.google.com
- [IPv6:2a00:1450:4864:20::136])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C653A10E766
- for <freedreno@lists.freedesktop.org>; Wed, 11 Jan 2023 15:37:47 +0000 (UTC)
-Received: by mail-lf1-x136.google.com with SMTP id v25so24076548lfe.12
- for <freedreno@lists.freedesktop.org>; Wed, 11 Jan 2023 07:37:47 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=DiZWVXTm47HTNMEhLXJp72R5vsBenAHhGAw4+f526sM=;
- b=pcKiK+f2lKHpjYPsVehN4nLr098fiEnqCowZYXCaK+Ioz8cm7WIXb2G+twhfjyx8NQ
- pCZbGDGsPp46Y2cH3vUq4mAB9VCGcXhhYRF73p6zIat+xUtfEAIaXmb6DczHd9woQt2u
- jDp7o4a9O0XtGoENzmAiYL3bL96izRPsvBEVWmVmV3OKrpkK8b/Cyo+a/d4BCDZkZuRZ
- nIJxMj7gq/JI00x4Qrw88XiwdjuVGmQF3TKy/hwsyzmUhd8wM+wk2EBuiVX3LwU4Onyf
- 3DC+Lh/WAL0cDSz5JqsfjH3R9Tj/UKSuCd7B6K03XAHzahOdmXpOISPns6OJXgMjLd/D
- Cz8g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=DiZWVXTm47HTNMEhLXJp72R5vsBenAHhGAw4+f526sM=;
- b=Ld346hBRT8WVVHUTDoVtepoXBbzVX3bBwHIYU7Q1QLZ3CO7XFCQJS5xAoxcxOVDXb0
- fbN0jbL0CWI14UumckDEDonzTXzZWV3/HBUYLf+iYsUiwJ40SkLNG4oYBGSXFQIQYc8a
- CtJl94l/jtwEDquVJhu76/ATjH6DmNmw5+jXeWMKamWZRLEEPBV8Uc6Lu76cdNKFw4v/
- /Ka2O+H7sxGbe0Ly7KDtISri2V2uJfd7u8r4PGIlNJR8yuLSmQJ5QpVcMkjhVqiJ9a73
- 1Iglf5eJUksgLX6w2EogoflDwg8ueWanWQtTsMm6159lXghodYp/4d4IWpX0XFO+8jOl
- qbMA==
-X-Gm-Message-State: AFqh2koOV8L90+7AKRX4UPS9tZI0Z2Ovj2OCQHMA4TqK0Z6ZOgIWKixA
- CvDu+hkhc93Ml5G/uL69Dt4pxA==
-X-Google-Smtp-Source: AMrXdXtS3EoDQWb7T/eo7e/pqwmSTvEMZ1Bvy/Bo03WuHhBJGgXevGa+e32bUStRw4lGq5zeK5b1iQ==
-X-Received: by 2002:a05:6512:304a:b0:4aa:54a:3a6e with SMTP id
- b10-20020a056512304a00b004aa054a3a6emr24005109lfb.41.1673451466103; 
- Wed, 11 Jan 2023 07:37:46 -0800 (PST)
-Received: from ?IPV6:2001:14ba:a085:4d00::8a5?
- (dzccz6yyyyyyyyyyybcwt-3.rev.dnainternet.fi. [2001:14ba:a085:4d00::8a5])
- by smtp.gmail.com with ESMTPSA id
- bi35-20020a0565120ea300b0048a982ad0a8sm2780901lfb.23.2023.01.11.07.37.45
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 11 Jan 2023 07:37:45 -0800 (PST)
-Message-ID: <1b29bbef-1ee3-654c-bb58-c8fcf3b876a0@linaro.org>
-Date: Wed, 11 Jan 2023 17:37:45 +0200
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3602E10E823;
+ Wed, 11 Jan 2023 20:41:14 +0000 (UTC)
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 30BKNfe7010007; Wed, 11 Jan 2023 20:41:11 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
+ h=from : to : cc :
+ subject : date : message-id : mime-version : content-transfer-encoding :
+ content-type; s=qcppdkim1;
+ bh=JN/B4N8cmVkipSfz8rN0Pwrrp0Q6iMXwc2+8rg/bci4=;
+ b=dRbAWwlCCgNkyZMsc5Sg1K3H6rnynvcwUswRNFEv2eqH4E80IAOjajvsOeNzHB5tbLw3
+ DiiRziWePmGcM4pBBKBK2NhoA9rc+Wa/K3z3CX85sbPtF9wFZ9pVza1HVz2rNqF7WTF8
+ vGXHsfR+BjCOf+xXCBxGFWfSInT5FDFZoKUivcnh90IX/XdtegxCLRsG8C8PxlhyFQrE
+ jrx9DHrl4mpkEPyZ+l0mIYHwR4XJWKUe8BcOzn5M9FOs4JejjhVzooprOareiPQscgIb
+ vVuefs2ea8bX0qUP8s7teShLCdzOFRCccouiW5GEmI1Z7Apjl4FO0twNAs8A9GU9Tt5z DQ== 
+Received: from nalasppmta03.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3n1k5k25pk-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 11 Jan 2023 20:41:11 +0000
+Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
+ [10.47.209.196])
+ by NALASPPMTA03.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 30BKf9oL019558
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 11 Jan 2023 20:41:09 GMT
+Received: from jesszhan-linux.qualcomm.com (10.80.80.8) by
+ nalasex01a.na.qualcomm.com (10.47.209.196) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.986.36; Wed, 11 Jan 2023 12:41:09 -0800
+From: Abhinav Kumar <quic_abhinavk@quicinc.com>
+To: <freedreno@lists.freedesktop.org>
+Date: Wed, 11 Jan 2023 12:40:35 -0800
+Message-ID: <20230111204037.9105-1-quic_abhinavk@quicinc.com>
+X-Mailer: git-send-email 2.39.0
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.6.0
-Content-Language: en-GB
-To: neil.armstrong@linaro.org, Vinod Koul <vkoul@kernel.org>,
- Andrzej Hajda <andrzej.hajda@intel.com>, Robert Foss
- <robert.foss@linaro.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>
-References: <20230108165656.136871-1-dmitry.baryshkov@linaro.org>
- <20230108165656.136871-13-dmitry.baryshkov@linaro.org>
- <c03235b1-85d1-1e55-b8c2-9a553887145f@linaro.org>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-In-Reply-To: <c03235b1-85d1-1e55-b8c2-9a553887145f@linaro.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-Subject: Re: [Freedreno] [PATCH v2 12/13] drm/bridge: lt9611: stop filtering
- modes via the table
+Content-Type: text/plain
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-ORIG-GUID: 4N06PY4N4UUFIxYdoEzIX1qa80mkZL0w
+X-Proofpoint-GUID: 4N06PY4N4UUFIxYdoEzIX1qa80mkZL0w
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.219,Aquarius:18.0.923,Hydra:6.0.545,FMLib:17.11.122.1
+ definitions=2023-01-11_10,2023-01-11_02,2022-06-22_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 spamscore=0
+ priorityscore=1501 suspectscore=0 adultscore=0 mlxlogscore=999
+ clxscore=1015 bulkscore=0 mlxscore=0 phishscore=0 lowpriorityscore=0
+ impostorscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2212070000 definitions=main-2301110153
+Subject: [Freedreno] [PATCH 1/2] drm/msm/dsi: add a helper method to compute
+ the dsi byte clk
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,104 +79,97 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, David Airlie <airlied@gmail.com>,
- dri-devel@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>,
- linux-arm-msm@vger.kernel.org
+Cc: Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
+ swboyd@chromium.org, robdclark@gmail.com, seanpaul@chromium.org,
+ daniel@ffwll.ch, dmitry.baryshkov@linaro.org, quic_jesszhan@quicinc.com
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 11/01/2023 12:57, Neil Armstrong wrote:
-> On 08/01/2023 17:56, Dmitry Baryshkov wrote:
->> The lt9611 bridge can support different modes, it makes no sense to list
->> them in the table. Drop the table and check the number of interfaces
->> using the fixed value.
->>
->> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
->> ---
->>   drivers/gpu/drm/bridge/lontium-lt9611.c | 41 +++----------------------
->>   1 file changed, 4 insertions(+), 37 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/bridge/lontium-lt9611.c 
->> b/drivers/gpu/drm/bridge/lontium-lt9611.c
->> index 82af1f954cc6..df9f015aa3a0 100644
->> --- a/drivers/gpu/drm/bridge/lontium-lt9611.c
->> +++ b/drivers/gpu/drm/bridge/lontium-lt9611.c
->> @@ -84,24 +84,6 @@ static const struct regmap_config 
->> lt9611_regmap_config = {
->>       .num_ranges = ARRAY_SIZE(lt9611_ranges),
->>   };
->> -struct lt9611_mode {
->> -    u16 hdisplay;
->> -    u16 vdisplay;
->> -    u8 vrefresh;
->> -    u8 lanes;
->> -    u8 intfs;
->> -};
->> -
->> -static struct lt9611_mode lt9611_modes[] = {
->> -    { 3840, 2160, 30, 4, 2 }, /* 3840x2160 24bit 30Hz 4Lane 2ports */
->> -    { 1920, 1080, 60, 4, 1 }, /* 1080P 24bit 60Hz 4lane 1port */
->> -    { 1920, 1080, 30, 3, 1 }, /* 1080P 24bit 30Hz 3lane 1port */
->> -    { 1920, 1080, 24, 3, 1 },
->> -    { 720, 480, 60, 4, 1 },
->> -    { 720, 576, 50, 2, 1 },
->> -    { 640, 480, 60, 2, 1 },
->> -};
->> -
->>   static struct lt9611 *bridge_to_lt9611(struct drm_bridge *bridge)
->>   {
->>       return container_of(bridge, struct lt9611, bridge);
->> @@ -603,21 +585,6 @@ static int lt9611_regulator_enable(struct lt9611 
->> *lt9611)
->>       return 0;
->>   }
->> -static struct lt9611_mode *lt9611_find_mode(const struct 
->> drm_display_mode *mode)
->> -{
->> -    int i;
->> -
->> -    for (i = 0; i < ARRAY_SIZE(lt9611_modes); i++) {
->> -        if (lt9611_modes[i].hdisplay == mode->hdisplay &&
->> -            lt9611_modes[i].vdisplay == mode->vdisplay &&
->> -            lt9611_modes[i].vrefresh == drm_mode_vrefresh(mode)) {
->> -            return &lt9611_modes[i];
->> -        }
->> -    }
->> -
->> -    return NULL;
->> -}
->> -
->>   static enum drm_connector_status lt9611_bridge_detect(struct 
->> drm_bridge *bridge)
->>   {
->>       struct lt9611 *lt9611 = bridge_to_lt9611(bridge);
->> @@ -832,12 +799,12 @@ static enum drm_mode_status 
->> lt9611_bridge_mode_valid(struct drm_bridge *bridge,
->>                                const struct drm_display_info *info,
->>                                const struct drm_display_mode *mode)
->>   {
->> -    struct lt9611_mode *lt9611_mode = lt9611_find_mode(mode);
->>       struct lt9611 *lt9611 = bridge_to_lt9611(bridge);
->> -    if (!lt9611_mode)
->> -        return MODE_BAD;
->> -    else if (lt9611_mode->intfs > 1 && !lt9611->dsi1)
->> +    if (mode->hdisplay >= 3840 && drm_mode_vrefresh(mode) >= 31)
-> 
-> Isn't 31 a typo ?
+Re-arrange the dsi_calc_pclk method to two helpers, one to
+compute the DSI byte clk and the other to compute the pclk.
 
-Maybe I should change that to drm_mode_vrefresh(mode) > 30. The chip 
-supports 3840x2160-30, but doesn't promise to support anything above that.
+This makes the separation of the two clean and also allows
+clients to compute and use the dsi byte clk separately.
 
-> 
->> +        return MODE_CLOCK_HIGH;
->> +
->> +    if (mode->hdisplay > 2000 && !lt9611->dsi1_node)
->>           return MODE_PANEL;
->>       else
->>           return MODE_OK;
-> 
+changes in v2:
+	- move the assignments to definition lines
 
+Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
+---
+ drivers/gpu/drm/msm/dsi/dsi.h      |  2 ++
+ drivers/gpu/drm/msm/dsi/dsi_host.c | 21 ++++++++++++++-------
+ 2 files changed, 16 insertions(+), 7 deletions(-)
+
+diff --git a/drivers/gpu/drm/msm/dsi/dsi.h b/drivers/gpu/drm/msm/dsi/dsi.h
+index 2a96b4fe7839..1a551cc0e889 100644
+--- a/drivers/gpu/drm/msm/dsi/dsi.h
++++ b/drivers/gpu/drm/msm/dsi/dsi.h
+@@ -118,6 +118,8 @@ int dsi_link_clk_enable_6g(struct msm_dsi_host *msm_host);
+ int dsi_link_clk_enable_v2(struct msm_dsi_host *msm_host);
+ void dsi_link_clk_disable_6g(struct msm_dsi_host *msm_host);
+ void dsi_link_clk_disable_v2(struct msm_dsi_host *msm_host);
++unsigned long dsi_byte_clk_get_rate(struct mipi_dsi_host *host, bool is_bonded_dsi,
++				    const struct drm_display_mode *mode);
+ int dsi_tx_buf_alloc_6g(struct msm_dsi_host *msm_host, int size);
+ int dsi_tx_buf_alloc_v2(struct msm_dsi_host *msm_host, int size);
+ void *dsi_tx_buf_get_6g(struct msm_dsi_host *msm_host);
+diff --git a/drivers/gpu/drm/msm/dsi/dsi_host.c b/drivers/gpu/drm/msm/dsi/dsi_host.c
+index c3cd96de7f7d..c145fd359ed5 100644
+--- a/drivers/gpu/drm/msm/dsi/dsi_host.c
++++ b/drivers/gpu/drm/msm/dsi/dsi_host.c
+@@ -570,9 +570,8 @@ void dsi_link_clk_disable_v2(struct msm_dsi_host *msm_host)
+ 	clk_disable_unprepare(msm_host->byte_clk);
+ }
+ 
+-static unsigned long dsi_get_pclk_rate(struct msm_dsi_host *msm_host, bool is_bonded_dsi)
++static unsigned long dsi_get_pclk_rate(const struct drm_display_mode *mode, bool is_bonded_dsi)
+ {
+-	struct drm_display_mode *mode = msm_host->mode;
+ 	unsigned long pclk_rate;
+ 
+ 	pclk_rate = mode->clock * 1000;
+@@ -589,11 +588,13 @@ static unsigned long dsi_get_pclk_rate(struct msm_dsi_host *msm_host, bool is_bo
+ 	return pclk_rate;
+ }
+ 
+-static void dsi_calc_pclk(struct msm_dsi_host *msm_host, bool is_bonded_dsi)
++unsigned long dsi_byte_clk_get_rate(struct mipi_dsi_host *host, bool is_bonded_dsi,
++				    const struct drm_display_mode *mode)
+ {
++	struct msm_dsi_host *msm_host = to_msm_dsi_host(host);
+ 	u8 lanes = msm_host->lanes;
+ 	u32 bpp = dsi_get_bpp(msm_host->format);
+-	unsigned long pclk_rate = dsi_get_pclk_rate(msm_host, is_bonded_dsi);
++	unsigned long pclk_rate = dsi_get_pclk_rate(mode, is_bonded_dsi);
+ 	u64 pclk_bpp = (u64)pclk_rate * bpp;
+ 
+ 	if (lanes == 0) {
+@@ -607,8 +608,14 @@ static void dsi_calc_pclk(struct msm_dsi_host *msm_host, bool is_bonded_dsi)
+ 	else
+ 		do_div(pclk_bpp, (8 * lanes));
+ 
+-	msm_host->pixel_clk_rate = pclk_rate;
+-	msm_host->byte_clk_rate = pclk_bpp;
++	return pclk_bpp;
++}
++
++static void dsi_calc_pclk(struct msm_dsi_host *msm_host, bool is_bonded_dsi)
++{
++	msm_host->pixel_clk_rate = dsi_get_pclk_rate(msm_host->mode, is_bonded_dsi);
++	msm_host->byte_clk_rate = dsi_byte_clk_get_rate(&msm_host->base, is_bonded_dsi,
++							msm_host->mode);
+ 
+ 	DBG("pclk=%lu, bclk=%lu", msm_host->pixel_clk_rate,
+ 				msm_host->byte_clk_rate);
+@@ -636,7 +643,7 @@ int dsi_calc_clk_rate_v2(struct msm_dsi_host *msm_host, bool is_bonded_dsi)
+ 
+ 	dsi_calc_pclk(msm_host, is_bonded_dsi);
+ 
+-	pclk_bpp = (u64)dsi_get_pclk_rate(msm_host, is_bonded_dsi) * bpp;
++	pclk_bpp = (u64)dsi_get_pclk_rate(msm_host->mode, is_bonded_dsi) * bpp;
+ 	do_div(pclk_bpp, 8);
+ 	msm_host->src_clk_rate = pclk_bpp;
+ 
 -- 
-With best wishes
-Dmitry
+2.39.0
 
