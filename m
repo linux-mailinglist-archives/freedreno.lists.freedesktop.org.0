@@ -1,75 +1,57 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 80CB6665ED1
-	for <lists+freedreno@lfdr.de>; Wed, 11 Jan 2023 16:11:09 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 2F9BD665F10
+	for <lists+freedreno@lfdr.de>; Wed, 11 Jan 2023 16:28:54 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4381910E1A7;
-	Wed, 11 Jan 2023 15:11:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E2F8B10E765;
+	Wed, 11 Jan 2023 15:28:52 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x131.google.com (mail-lf1-x131.google.com
- [IPv6:2a00:1450:4864:20::131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E94C810E70C
- for <freedreno@lists.freedesktop.org>; Wed, 11 Jan 2023 15:11:06 +0000 (UTC)
-Received: by mail-lf1-x131.google.com with SMTP id bq39so24033916lfb.0
- for <freedreno@lists.freedesktop.org>; Wed, 11 Jan 2023 07:11:06 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=li7uYANK4G+SChag2/mpGdHQOxE/rvlJtqarjph+1bo=;
- b=b7J5gqwukqsCuvsplGHbk9P7MXCKIbPurlVzbhe0gQXG2f3poNej6lZIVT44JBpm0P
- ZqRGIgPtKmVl7ZjYwNJl+d5wDtQuxjlP8QfgjSpOz2out+oiGwlOMYqE6WVPTwqc9BKO
- MKQb0LKb1KLV9/pZHrsC8PcZjNw1D7pxMduOJSAU9qVVNFrCJUEaA3ibpB7vgI+mm3LS
- 18U2ybdt6nJNMwARdfkQeZQw4N8MC6VU+Y2VgMNg/acB5zbx4VfuyYotmujFSZk9EQ5f
- dcAontW7O1isPNNjZEFNf42lvtXOAbwvd+33cBuprbXDXTPGmeEC4nMmBRxEZJQf/cYh
- Gncg==
+Received: from mail-oi1-x22a.google.com (mail-oi1-x22a.google.com
+ [IPv6:2607:f8b0:4864:20::22a])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7594510E75C;
+ Wed, 11 Jan 2023 15:28:51 +0000 (UTC)
+Received: by mail-oi1-x22a.google.com with SMTP id d188so1856085oia.3;
+ Wed, 11 Jan 2023 07:28:51 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=4sF9h6AYZZ9s9l5isulzAYtAnPwM/o7/+dNoOtQdd7k=;
+ b=jCfjWEPy76z0U6Zi4tXKqIT2iG2oWVhqA22BBBU/5rgt0jvil+CKwT1n+yThem7vaq
+ qyh74PFrGus/RRZN60oOIXMcXNh7/CJV/Pvf3OdWY1mM4lGtexdF0UIpIIWRYdG5b1VX
+ PLut62M4sIVtjfPAfJc1rk8ey0/lSQrd+SYSPPxXaVY+uQEstJvAbDi5u5xzZ6ks6cls
+ uV8wrZNpApvwyCJN6mw7HiWCPsuCPJoNUVErIToueQQZnYa5yqDB/yKaYadt23ikIEbN
+ CgkwXv7Rsk3XICFrW3c1nGU6+HzuxlpQfBcL3NQt1Ey2opE4Zo7HVmWI6YAZvpv8GS/E
+ 7ltw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=li7uYANK4G+SChag2/mpGdHQOxE/rvlJtqarjph+1bo=;
- b=h6bKBwUbrqMdjZP4F0bR7qbfXJkUQ9KmhLM8tr6yHDsy9+5/rHGgDjkaQmy4icpYCl
- ctJVAD6uoDOZYZ0kq1fQiCaOKWplDu4LlEp+hVL1jiyt4M1YZuRLqkaq8i/+8O/fu9PZ
- wiG1EvxDxmsK7E3glKi8ICwB/S/zbj9217THJcsyrmnI0NE/sulzYtHIBz7ITKDVb5gi
- L0q+yhraHQQuhel+LBEOa5L1rW3E4upgkODrNdsFP0IXRCCwyG7arMaFlYJVQtKSm2Lb
- YdiaG2tbOjvYY5VzO53CQV2Q7dBPcmuaP/CujVnv5QKAEyK/DhQprGZOyUAp8x6LzF5u
- ROTQ==
-X-Gm-Message-State: AFqh2kpNFQyq7PJYzaNB0O4GygQmJg4yU8z8hvWPEUET6Kz9IBV1qBFx
- 4n7EVvsJxSIAd23/B1G/QmtCOQ==
-X-Google-Smtp-Source: AMrXdXtI5H/Qq5HqkRKFEVytDKZHp8DAnvESgHDjEBl8nGEZKXVbqLgG/uam89ozoPwpt8HMtQ9Bmw==
-X-Received: by 2002:a05:6512:130c:b0:4ca:f9ec:eee2 with SMTP id
- x12-20020a056512130c00b004caf9eceee2mr21980196lfu.20.1673449864982; 
- Wed, 11 Jan 2023 07:11:04 -0800 (PST)
-Received: from ?IPV6:2001:14ba:a085:4d00::8a5?
- (dzccz6yyyyyyyyyyybcwt-3.rev.dnainternet.fi. [2001:14ba:a085:4d00::8a5])
- by smtp.gmail.com with ESMTPSA id
- m15-20020a056512358f00b004cb39d89f40sm2768367lfr.248.2023.01.11.07.11.04
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 11 Jan 2023 07:11:04 -0800 (PST)
-Message-ID: <e1c49c07-8ae2-f82f-97e0-4bb03c5f5af6@linaro.org>
-Date: Wed, 11 Jan 2023 17:11:03 +0200
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=4sF9h6AYZZ9s9l5isulzAYtAnPwM/o7/+dNoOtQdd7k=;
+ b=UZ0XAoGarXT3V4J/qe5Ga+AGeGnj/SfiV52LAyJmCRZjRzf1jRbkG5iLU06NsKjbVd
+ x6DXMNcTyfn10dM+x5dF9k4cVo9RErar820hE6232oOwmTID3liOka/SaN3YozvHD0DV
+ HcFiGuZKuHkxvXkQXh8rxjwUCDa5eLz/pndzEZAg0snCJWWpSyi5ISJ1UOKubK7v8Z9Q
+ qKnh09jfkzk2MKd7huFjd2YpBb6R9tDGqvcIPdT88Vp+bFQU8u/fmlvIMjlkt0klDN7d
+ ija02uOG+JdYLNnwt64uWCv5eRYdH20p/swO6gE1h2+8jutxscImF0z5IjcWCNomBdOB
+ Wh5Q==
+X-Gm-Message-State: AFqh2krHdn/zC4HXrf7GmibEj0zPgPN8vhpzRwzqJ2fzfJS2FCdvxeA6
+ yw55pcTrbEJ67jyltX9u+DTgaxnUNo2EV31RaKJrc4VyYjk=
+X-Google-Smtp-Source: AMrXdXuXROjZ0MWVSMSHb3c1hKspO7uvkZCFoKujUD3ng5FA/3eJ481QFUqk2kWBDyIW1WB1IIHK4eFbVUfCBAtaGbk=
+X-Received: by 2002:a05:6808:409a:b0:360:ffcc:3685 with SMTP id
+ db26-20020a056808409a00b00360ffcc3685mr3737807oib.183.1673450930270; Wed, 11
+ Jan 2023 07:28:50 -0800 (PST)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.6.0
-Content-Language: en-GB
-To: Marijn Suijten <marijn.suijten@somainline.org>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>
-References: <20221208000850.312548-1-dmitry.baryshkov@linaro.org>
- <20221208000850.312548-2-dmitry.baryshkov@linaro.org>
- <047cd859-7141-d52f-4989-847fd2ada002@quicinc.com>
- <b66de0ab-a31b-c86a-c1d0-c9a5f98c4f85@linaro.org>
- <5aa47cf1-0589-4830-c1fb-22e15bac974a@quicinc.com>
- <20230111084458.wcwzipew3ny7fpno@SoMainline.org>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-In-Reply-To: <20230111084458.wcwzipew3ny7fpno@SoMainline.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-Subject: Re: [Freedreno] [RFC PATCH 1/4] drm/msm/mdss: convert UBWC setup to
- use match data
+References: <20230110212903.1925878-1-robdclark@gmail.com>
+In-Reply-To: <20230110212903.1925878-1-robdclark@gmail.com>
+From: Rob Clark <robdclark@gmail.com>
+Date: Wed, 11 Jan 2023 07:28:45 -0800
+Message-ID: <CAF6AEGsivdz-e+sCRQto1_WBZ80bv8b4xDbYvzX-4sVo9kM7Yw@mail.gmail.com>
+To: dri-devel@lists.freedesktop.org
+Content-Type: text/plain; charset="UTF-8"
+Subject: Re: [Freedreno] [PATCH] drm/msm/gpu: Fix potential double-free
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,181 +64,96 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, Sean Paul <sean@poorly.run>,
- Bjorn Andersson <andersson@kernel.org>, dri-devel@lists.freedesktop.org,
- Stephen Boyd <swboyd@chromium.org>, Rob Clark <robdclark@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>, linux-arm-msm@vger.kernel.org,
- David Airlie <airlied@gmail.com>
+Cc: Rob Clark <robdclark@chromium.org>, freedreno@lists.freedesktop.org,
+ Dan Carpenter <error27@gmail.com>, Emma Anholt <emma@anholt.net>,
+ Akhil P Oommen <quic_akhilpo@quicinc.com>, linux-arm-msm@vger.kernel.org,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ open list <linux-kernel@vger.kernel.org>, Daniel Vetter <daniel@ffwll.ch>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ David Airlie <airlied@gmail.com>, Sean Paul <sean@poorly.run>,
+ Chia-I Wu <olvaffe@gmail.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 11/01/2023 10:44, Marijn Suijten wrote:
-> On 2023-01-09 12:32:18, Abhinav Kumar wrote:
-> <snip>
->>>> On 12/7/2022 4:08 PM, Dmitry Baryshkov wrote:
-> <snip>
->>>>> +struct msm_mdss_data {
->>>>> +    u32 ubwc_version;
->>>>> +    u32 ubwc_swizzle;
->>>>> +    u32 ubwc_static;
->>>>> +    u32 highest_bank_bit;
->>>>> +    u32 macrotile_mode;
->>>>> +};
-> 
-> This magic struct could really use some documentation, otherwise users
-> will have no idea what fields to set (or omit) nor what values to use.
-> For example decoder 2.0 seems to only use ubwc_static as a sort of magic
-> "we don't know what the bits in UBWC_STATIC mean", whereas decoder 3.0
-> reconstructs this field entirely from the other parameters.  Decoder 4.0
-> however does the same, but _also_ embeds this uwbc_static magic value
-> back into the register value....?
+On Tue, Jan 10, 2023 at 1:29 PM Rob Clark <robdclark@gmail.com> wrote:
+>
+> From: Rob Clark <robdclark@chromium.org>
+>
+> If userspace was calling the MSM_SET_PARAM ioctl on multiple threads to
+> set the COMM or CMDLINE param, it could trigger a race causing the
+> previous value to be kfree'd multiple times.  Fix this by serializing on
+> the gpu lock.
+>
 
-On the bright side these magic values correspond 1:1 to the vendor dtsi 
-and to the part of DPU hw catalog. It would be nice to know the bit used 
-by decoder 2.0, but I fear that we'd have to resort to wild guesses 
-unless Qualcomm decides to disclose that information.
+Fixes: d4726d770068 ("drm/msm: Add a way to override processes comm/cmdline")
 
-As for dec 4.0 and ubwc_static. I fear that it's just somebody (writing 
-downstream DT parsing) reused the ubwc-static name for the bitfield 
-which in reality has some sensible name.
-
-> 
-> Also read on below about checking "compatibility" between this struct
-> and the decoder version, and why I feel this struct (versus mandatory
-> function arguments) makes this struct less robust.
-> 
->>>>>    struct msm_mdss {
->>>>>        struct device *dev;
->>>>> @@ -40,6 +48,7 @@ struct msm_mdss {
->>>>>            unsigned long enabled_mask;
->>>>>            struct irq_domain *domain;
->>>>>        } irq_controller;
->>>>> +    const struct msm_mdss_data *mdss_data;
->>>>>        struct icc_path *path[2];
->>>>>        u32 num_paths;
->>>>>    };
->>>>> @@ -180,46 +189,40 @@ static int _msm_mdss_irq_domain_add(struct
->>>>> msm_mdss *msm_mdss)
->>>>>    #define UBWC_3_0 0x30000000
->>>>>    #define UBWC_4_0 0x40000000
->>>>> -static void msm_mdss_setup_ubwc_dec_20(struct msm_mdss *msm_mdss,
->>>>> -                       u32 ubwc_static)
->>>>> +static void msm_mdss_setup_ubwc_dec_20(struct msm_mdss *msm_mdss)
->>>>>    {
->>>>> -    writel_relaxed(ubwc_static, msm_mdss->mmio + UBWC_STATIC);
->>>>> +    const struct msm_mdss_data *data = msm_mdss->mdss_data;
->>>>> +
->>>>> +    writel_relaxed(data->ubwc_static, msm_mdss->mmio + UBWC_STATIC);
->>>>>    }
->>>>> -static void msm_mdss_setup_ubwc_dec_30(struct msm_mdss *msm_mdss,
->>>>> -                       unsigned int ubwc_version,
->>>>> -                       u32 ubwc_swizzle,
->>>>> -                       u32 highest_bank_bit,
->>>>> -                       u32 macrotile_mode)
->>>>> +static void msm_mdss_setup_ubwc_dec_30(struct msm_mdss *msm_mdss)
->>>>>    {
->>>>> -    u32 value = (ubwc_swizzle & 0x1) |
->>>>> -            (highest_bank_bit & 0x3) << 4 |
->>>>> -            (macrotile_mode & 0x1) << 12;
->>>>> +    const struct msm_mdss_data *data = msm_mdss->mdss_data;
->>>>> +    u32 value = (data->ubwc_swizzle & 0x1) |
->>>>> +            (data->highest_bank_bit & 0x3) << 4 |
->>>>> +            (data->macrotile_mode & 0x1) << 12;
->>>>> -    if (ubwc_version == UBWC_3_0)
->>>>> +    if (data->ubwc_version == UBWC_3_0)
->>>>>            value |= BIT(10);
->>>>> -    if (ubwc_version == UBWC_1_0)
->>>>> +    if (data->ubwc_version == UBWC_1_0)
->>>>>            value |= BIT(8);
->>>>>        writel_relaxed(value, msm_mdss->mmio + UBWC_STATIC);
->>>>>    }
->>>>> -static void msm_mdss_setup_ubwc_dec_40(struct msm_mdss *msm_mdss,
->>>>> -                       unsigned int ubwc_version,
->>>>> -                       u32 ubwc_swizzle,
->>>>> -                       u32 ubwc_static,
->>>>> -                       u32 highest_bank_bit,
->>>>> -                       u32 macrotile_mode)
->>>>> +static void msm_mdss_setup_ubwc_dec_40(struct msm_mdss *msm_mdss)
->>>>>    {
->>>>> -    u32 value = (ubwc_swizzle & 0x7) |
->>>>> -            (ubwc_static & 0x1) << 3 |
->>>>> -            (highest_bank_bit & 0x7) << 4 |
->>>>> -            (macrotile_mode & 0x1) << 12;
->>>>> +    const struct msm_mdss_data *data = msm_mdss->mdss_data;
->>>>> +    u32 value = (data->ubwc_swizzle & 0x7) |
->>>>> +            (data->ubwc_static & 0x1) << 3 |
->>>>> +            (data->highest_bank_bit & 0x7) << 4 |
->>>>> +            (data->macrotile_mode & 0x1) << 12;
->>>>>        writel_relaxed(value, msm_mdss->mmio + UBWC_STATIC);
->>>>> -    if (ubwc_version == UBWC_3_0) {
->>>>> +    if (data->ubwc_version == UBWC_3_0) {
->>>>>            writel_relaxed(1, msm_mdss->mmio + UBWC_CTRL_2);
->>>>>            writel_relaxed(0, msm_mdss->mmio + UBWC_PREDICTION_MODE);
->>>>>        } else {
->>>>> @@ -232,6 +235,7 @@ static int msm_mdss_enable(struct msm_mdss
->>>>> *msm_mdss)
->>>>>    {
->>>>>        int ret;
->>>>>        u32 hw_rev;
->>>>> +    u32 ubwc_dec_hw_version;
->>>>>        /*
->>>>>         * Several components have AXI clocks that can only be turned
->>>>> on if
->>>>> @@ -250,53 +254,36 @@ static int msm_mdss_enable(struct msm_mdss
->>>>> *msm_mdss)
->>>>>         * HW_REV requires MDSS_MDP_CLK, which is not enabled by the
->>>>> mdss on
->>>>>         * mdp5 hardware. Skip reading it for now.
->>>>>         */
->>>>> -    if (msm_mdss->is_mdp5)
->>>>> +    if (msm_mdss->is_mdp5 || !msm_mdss->mdss_data)
->>>>>            return 0;
->>>>>        hw_rev = readl_relaxed(msm_mdss->mmio + HW_REV);
->>
->> hw_rev is not used anymore now so why not just drop that reg read
->> altogether.
->>
->>>>>        dev_dbg(msm_mdss->dev, "HW_REV: 0x%x\n", hw_rev);
->>>>> +
->>>>> +    ubwc_dec_hw_version = readl_relaxed(msm_mdss->mmio +
->>>>> UBWC_DEC_HW_VERSION);
->>
->> If we are going to tie UBWC version to the HW compatible match, then
->> even this register read can be skipped and instead you can add
->> ubwc_dec_hw_version to your match data struct and skip this read as well.
-> 
-> I have suggested in IRC to keep this register read, and utilize it to at
-> least sanity check the configuration.  You are right that the DPU HW
-> version already describes what UWBC decoder version is used, but we're
-> are already questioning whether it was ported correctly for SM6115.  A
-> WARN() that catches a mismatch between what was written in the "catalog"
-> (or this match table) versus what the hardware reports would have gone a
-> long way.
-
-Well... Sanity checking here means we do not trust the kernel. And whom 
-we can trust then? Note, that for 6115 I had a question regarding the 
-ubwc_version stated in the comment, not in the code. I asked for 
-UBWC_DEC_HW_VERSION value just to be sure.
-
-> 
-> This is especially relevant with the new struct where fields are
-> (un)used depending on the UBWC HW decoder version, making for an extra
-> exercise to the developer to double-check whether their struct values
-> are taken into account or not (or if used ones are accidentally
-> omitted).
-
-Granted the overlay between DPU catalog and MDSS device data maybe we 
-should make DPU ask MDSS for the ubwc settings.
-
-> 
-> - Marijn
-> 
->> That way we get rid of all register reads in this path which have
->> continuously bugged us with crashes.
-> 
-> <snip>
-
--- 
-With best wishes
-Dmitry
-
+> Signed-off-by: Rob Clark <robdclark@chromium.org>
+> ---
+>  drivers/gpu/drm/msm/adreno/adreno_gpu.c |  4 ++++
+>  drivers/gpu/drm/msm/msm_gpu.c           |  2 ++
+>  drivers/gpu/drm/msm/msm_gpu.h           | 12 ++++++++++--
+>  3 files changed, 16 insertions(+), 2 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.c b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
+> index 57586c794b84..3605f095b2de 100644
+> --- a/drivers/gpu/drm/msm/adreno/adreno_gpu.c
+> +++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
+> @@ -352,6 +352,8 @@ int adreno_set_param(struct msm_gpu *gpu, struct msm_file_private *ctx,
+>                 /* Ensure string is null terminated: */
+>                 str[len] = '\0';
+>
+> +               mutex_lock(&gpu->lock);
+> +
+>                 if (param == MSM_PARAM_COMM) {
+>                         paramp = &ctx->comm;
+>                 } else {
+> @@ -361,6 +363,8 @@ int adreno_set_param(struct msm_gpu *gpu, struct msm_file_private *ctx,
+>                 kfree(*paramp);
+>                 *paramp = str;
+>
+> +               mutex_unlock(&gpu->lock);
+> +
+>                 return 0;
+>         }
+>         case MSM_PARAM_SYSPROF:
+> diff --git a/drivers/gpu/drm/msm/msm_gpu.c b/drivers/gpu/drm/msm/msm_gpu.c
+> index bfef659d3a5c..7537e7b3a452 100644
+> --- a/drivers/gpu/drm/msm/msm_gpu.c
+> +++ b/drivers/gpu/drm/msm/msm_gpu.c
+> @@ -336,6 +336,8 @@ static void get_comm_cmdline(struct msm_gem_submit *submit, char **comm, char **
+>         struct msm_file_private *ctx = submit->queue->ctx;
+>         struct task_struct *task;
+>
+> +       WARN_ON(!mutex_is_locked(&submit->gpu->lock));
+> +
+>         /* Note that kstrdup will return NULL if argument is NULL: */
+>         *comm = kstrdup(ctx->comm, GFP_KERNEL);
+>         *cmd  = kstrdup(ctx->cmdline, GFP_KERNEL);
+> diff --git a/drivers/gpu/drm/msm/msm_gpu.h b/drivers/gpu/drm/msm/msm_gpu.h
+> index a771f56ed70f..fc1c0d8611a8 100644
+> --- a/drivers/gpu/drm/msm/msm_gpu.h
+> +++ b/drivers/gpu/drm/msm/msm_gpu.h
+> @@ -375,10 +375,18 @@ struct msm_file_private {
+>          */
+>         int sysprof;
+>
+> -       /** comm: Overridden task comm, see MSM_PARAM_COMM */
+> +       /**
+> +        * comm: Overridden task comm, see MSM_PARAM_COMM
+> +        *
+> +        * Accessed under msm_gpu::lock
+> +        */
+>         char *comm;
+>
+> -       /** cmdline: Overridden task cmdline, see MSM_PARAM_CMDLINE */
+> +       /**
+> +        * cmdline: Overridden task cmdline, see MSM_PARAM_CMDLINE
+> +        *
+> +        * Accessed under msm_gpu::lock
+> +        */
+>         char *cmdline;
+>
+>         /**
+> --
+> 2.38.1
+>
