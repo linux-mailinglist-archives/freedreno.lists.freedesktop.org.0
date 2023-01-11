@@ -1,40 +1,77 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6290A665661
-	for <lists+freedreno@lfdr.de>; Wed, 11 Jan 2023 09:45:07 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 32D59665968
+	for <lists+freedreno@lfdr.de>; Wed, 11 Jan 2023 11:53:22 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 291F810E0FF;
-	Wed, 11 Jan 2023 08:45:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E52A189A86;
+	Wed, 11 Jan 2023 10:53:20 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from relay06.th.seeweb.it (relay06.th.seeweb.it [5.144.164.167])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6F78D10E0FF
- for <freedreno@lists.freedesktop.org>; Wed, 11 Jan 2023 08:45:03 +0000 (UTC)
-Received: from SoMainline.org (94-211-6-86.cable.dynamic.v4.ziggo.nl
- [94.211.6.86])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest
- SHA256) (No client certificate requested)
- by m-r2.th.seeweb.it (Postfix) with ESMTPSA id 9299D3EF12;
- Wed, 11 Jan 2023 09:44:59 +0100 (CET)
-Date: Wed, 11 Jan 2023 09:44:58 +0100
-From: Marijn Suijten <marijn.suijten@somainline.org>
-To: Abhinav Kumar <quic_abhinavk@quicinc.com>
-Message-ID: <20230111084458.wcwzipew3ny7fpno@SoMainline.org>
-References: <20221208000850.312548-1-dmitry.baryshkov@linaro.org>
- <20221208000850.312548-2-dmitry.baryshkov@linaro.org>
- <047cd859-7141-d52f-4989-847fd2ada002@quicinc.com>
- <b66de0ab-a31b-c86a-c1d0-c9a5f98c4f85@linaro.org>
- <5aa47cf1-0589-4830-c1fb-22e15bac974a@quicinc.com>
+Received: from mail-wm1-x336.google.com (mail-wm1-x336.google.com
+ [IPv6:2a00:1450:4864:20::336])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2A60089A86
+ for <freedreno@lists.freedesktop.org>; Wed, 11 Jan 2023 10:53:19 +0000 (UTC)
+Received: by mail-wm1-x336.google.com with SMTP id
+ k22-20020a05600c1c9600b003d1ee3a6289so12307493wms.2
+ for <freedreno@lists.freedesktop.org>; Wed, 11 Jan 2023 02:53:19 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=content-transfer-encoding:in-reply-to:organization:content-language
+ :references:cc:to:subject:reply-to:from:user-agent:mime-version:date
+ :message-id:from:to:cc:subject:date:message-id:reply-to;
+ bh=oEARfl1xpNXNnlyTzuct91oct8bbc7rpBw3zDPeOoQA=;
+ b=fr+oKTwkGn/sYB8fxNCbuv0jR98SWOheR8T9aOaZS9h+6sFfB+yTWXghHJ12ZnhoaK
+ zxnf83F1ZPBz8RuMS/6716iTVyZMvw21y6GQclD/VeoF0g1gn18n8ckXW0w11F3z7jo4
+ 06mZdoqmdkH+YtCIsCFrcAgcpSTsOXdZAdCSkHRpwbZ5GQoXMokkV0Dkb3lzAZl4gNKd
+ lvMdhlSoF5FeAmLFBqhiMjh3N+3WDGKJC7ZCIcZ69iU2xXVGbguyIvAP9hDf0wVfR5K9
+ JHkq5KiIXm3UznwFKtDMH+GEMkERte/nTCUIcgoU98ncXkWHlgMTfzn6ftSA9HIvHM5m
+ KDUw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=content-transfer-encoding:in-reply-to:organization:content-language
+ :references:cc:to:subject:reply-to:from:user-agent:mime-version:date
+ :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=oEARfl1xpNXNnlyTzuct91oct8bbc7rpBw3zDPeOoQA=;
+ b=T2XsCt8EalGMphivwXgn7uxv/zJKMSXHCjVD+Os67xnebUThkgG9EroptPiazuiKEa
+ 3G0r7SFLw0avHo6aBD5ZGmP4vIf+lbJDOeSQuGDYXU9xY1pGy80lZ5qLPRRWAy1wwsTX
+ yhBzeqyergADlqBi3HnnOc9zuWze6R7Ikgk75ickQBgl5GyPl125p/Cc3P5rJEzv1CvJ
+ Ol2ry42aT1eOWCj4CMW4GQPdESQCUdBF1PsMMP4z7MJsuGyM7AEBCgFo/Ei7dxsxs53g
+ adIZebPOzSXWndP1zQOQdssx19L2aFKQI505YuouaeIA7dHSpQBNGOEIKibdF7EOVard
+ nFgQ==
+X-Gm-Message-State: AFqh2kohIhd7rjNR99s2gRlaXC4Epy/Nv9LB3NZGtTN4Ihrzupl30mHC
+ Fw44hhxfLKlfiXsNQuk/TKYHww==
+X-Google-Smtp-Source: AMrXdXsCHUURC2DANH/T4dg723n3fwwzRwXdK9ISjRMbm+tjETBLbExCTH+sN9qCq9+w8hSyS7JLkw==
+X-Received: by 2002:a05:600c:2844:b0:3da:4e:8dfe with SMTP id
+ r4-20020a05600c284400b003da004e8dfemr2809580wmb.38.1673434397580; 
+ Wed, 11 Jan 2023 02:53:17 -0800 (PST)
+Received: from ?IPV6:2a01:e0a:982:cbb0:d95d:43b7:d6a9:39a5?
+ ([2a01:e0a:982:cbb0:d95d:43b7:d6a9:39a5])
+ by smtp.gmail.com with ESMTPSA id
+ p15-20020a1c544f000000b003b4fe03c881sm22093781wmi.48.2023.01.11.02.53.16
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 11 Jan 2023 02:53:17 -0800 (PST)
+Message-ID: <6f234a3d-5a59-ea47-225d-9360213427cd@linaro.org>
+Date: Wed, 11 Jan 2023 11:53:16 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <5aa47cf1-0589-4830-c1fb-22e15bac974a@quicinc.com>
-Subject: Re: [Freedreno] [RFC PATCH 1/4] drm/msm/mdss: convert UBWC setup to
- use match data
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.6.0
+From: Neil Armstrong <neil.armstrong@linaro.org>
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Vinod Koul <vkoul@kernel.org>, Andrzej Hajda <andrzej.hajda@intel.com>,
+ Robert Foss <robert.foss@linaro.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>
+References: <20230108165656.136871-1-dmitry.baryshkov@linaro.org>
+ <20230108165656.136871-8-dmitry.baryshkov@linaro.org>
+Content-Language: en-US
+Organization: Linaro Developer Services
+In-Reply-To: <20230108165656.136871-8-dmitry.baryshkov@linaro.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Subject: Re: [Freedreno] [PATCH v2 07/13] drm/bridge: lt9611: rework the
+ mode_set function
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -47,156 +84,121 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, Sean Paul <sean@poorly.run>,
- Bjorn Andersson <andersson@kernel.org>, dri-devel@lists.freedesktop.org,
- Stephen Boyd <swboyd@chromium.org>, Rob Clark <robdclark@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>, linux-arm-msm@vger.kernel.org,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- David Airlie <airlied@gmail.com>
+Reply-To: neil.armstrong@linaro.org
+Cc: freedreno@lists.freedesktop.org, David Airlie <airlied@gmail.com>,
+ dri-devel@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>,
+ linux-arm-msm@vger.kernel.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 2023-01-09 12:32:18, Abhinav Kumar wrote:
-<snip>
-> >> On 12/7/2022 4:08 PM, Dmitry Baryshkov wrote:
-<snip>
-> >>> +struct msm_mdss_data {
-> >>> +    u32 ubwc_version;
-> >>> +    u32 ubwc_swizzle;
-> >>> +    u32 ubwc_static;
-> >>> +    u32 highest_bank_bit;
-> >>> +    u32 macrotile_mode;
-> >>> +};
-
-This magic struct could really use some documentation, otherwise users
-will have no idea what fields to set (or omit) nor what values to use.
-For example decoder 2.0 seems to only use ubwc_static as a sort of magic
-"we don't know what the bits in UBWC_STATIC mean", whereas decoder 3.0
-reconstructs this field entirely from the other parameters.  Decoder 4.0
-however does the same, but _also_ embeds this uwbc_static magic value
-back into the register value....?
-
-Also read on below about checking "compatibility" between this struct
-and the decoder version, and why I feel this struct (versus mandatory
-function arguments) makes this struct less robust.
-
-> >>>   struct msm_mdss {
-> >>>       struct device *dev;
-> >>> @@ -40,6 +48,7 @@ struct msm_mdss {
-> >>>           unsigned long enabled_mask;
-> >>>           struct irq_domain *domain;
-> >>>       } irq_controller;
-> >>> +    const struct msm_mdss_data *mdss_data;
-> >>>       struct icc_path *path[2];
-> >>>       u32 num_paths;
-> >>>   };
-> >>> @@ -180,46 +189,40 @@ static int _msm_mdss_irq_domain_add(struct 
-> >>> msm_mdss *msm_mdss)
-> >>>   #define UBWC_3_0 0x30000000
-> >>>   #define UBWC_4_0 0x40000000
-> >>> -static void msm_mdss_setup_ubwc_dec_20(struct msm_mdss *msm_mdss,
-> >>> -                       u32 ubwc_static)
-> >>> +static void msm_mdss_setup_ubwc_dec_20(struct msm_mdss *msm_mdss)
-> >>>   {
-> >>> -    writel_relaxed(ubwc_static, msm_mdss->mmio + UBWC_STATIC);
-> >>> +    const struct msm_mdss_data *data = msm_mdss->mdss_data;
-> >>> +
-> >>> +    writel_relaxed(data->ubwc_static, msm_mdss->mmio + UBWC_STATIC);
-> >>>   }
-> >>> -static void msm_mdss_setup_ubwc_dec_30(struct msm_mdss *msm_mdss,
-> >>> -                       unsigned int ubwc_version,
-> >>> -                       u32 ubwc_swizzle,
-> >>> -                       u32 highest_bank_bit,
-> >>> -                       u32 macrotile_mode)
-> >>> +static void msm_mdss_setup_ubwc_dec_30(struct msm_mdss *msm_mdss)
-> >>>   {
-> >>> -    u32 value = (ubwc_swizzle & 0x1) |
-> >>> -            (highest_bank_bit & 0x3) << 4 |
-> >>> -            (macrotile_mode & 0x1) << 12;
-> >>> +    const struct msm_mdss_data *data = msm_mdss->mdss_data;
-> >>> +    u32 value = (data->ubwc_swizzle & 0x1) |
-> >>> +            (data->highest_bank_bit & 0x3) << 4 |
-> >>> +            (data->macrotile_mode & 0x1) << 12;
-> >>> -    if (ubwc_version == UBWC_3_0)
-> >>> +    if (data->ubwc_version == UBWC_3_0)
-> >>>           value |= BIT(10);
-> >>> -    if (ubwc_version == UBWC_1_0)
-> >>> +    if (data->ubwc_version == UBWC_1_0)
-> >>>           value |= BIT(8);
-> >>>       writel_relaxed(value, msm_mdss->mmio + UBWC_STATIC);
-> >>>   }
-> >>> -static void msm_mdss_setup_ubwc_dec_40(struct msm_mdss *msm_mdss,
-> >>> -                       unsigned int ubwc_version,
-> >>> -                       u32 ubwc_swizzle,
-> >>> -                       u32 ubwc_static,
-> >>> -                       u32 highest_bank_bit,
-> >>> -                       u32 macrotile_mode)
-> >>> +static void msm_mdss_setup_ubwc_dec_40(struct msm_mdss *msm_mdss)
-> >>>   {
-> >>> -    u32 value = (ubwc_swizzle & 0x7) |
-> >>> -            (ubwc_static & 0x1) << 3 |
-> >>> -            (highest_bank_bit & 0x7) << 4 |
-> >>> -            (macrotile_mode & 0x1) << 12;
-> >>> +    const struct msm_mdss_data *data = msm_mdss->mdss_data;
-> >>> +    u32 value = (data->ubwc_swizzle & 0x7) |
-> >>> +            (data->ubwc_static & 0x1) << 3 |
-> >>> +            (data->highest_bank_bit & 0x7) << 4 |
-> >>> +            (data->macrotile_mode & 0x1) << 12;
-> >>>       writel_relaxed(value, msm_mdss->mmio + UBWC_STATIC);
-> >>> -    if (ubwc_version == UBWC_3_0) {
-> >>> +    if (data->ubwc_version == UBWC_3_0) {
-> >>>           writel_relaxed(1, msm_mdss->mmio + UBWC_CTRL_2);
-> >>>           writel_relaxed(0, msm_mdss->mmio + UBWC_PREDICTION_MODE);
-> >>>       } else {
-> >>> @@ -232,6 +235,7 @@ static int msm_mdss_enable(struct msm_mdss 
-> >>> *msm_mdss)
-> >>>   {
-> >>>       int ret;
-> >>>       u32 hw_rev;
-> >>> +    u32 ubwc_dec_hw_version;
-> >>>       /*
-> >>>        * Several components have AXI clocks that can only be turned 
-> >>> on if
-> >>> @@ -250,53 +254,36 @@ static int msm_mdss_enable(struct msm_mdss 
-> >>> *msm_mdss)
-> >>>        * HW_REV requires MDSS_MDP_CLK, which is not enabled by the 
-> >>> mdss on
-> >>>        * mdp5 hardware. Skip reading it for now.
-> >>>        */
-> >>> -    if (msm_mdss->is_mdp5)
-> >>> +    if (msm_mdss->is_mdp5 || !msm_mdss->mdss_data)
-> >>>           return 0;
-> >>>       hw_rev = readl_relaxed(msm_mdss->mmio + HW_REV);
+On 08/01/2023 17:56, Dmitry Baryshkov wrote:
+> The mode_set callback is deprectated for drm_bridges in favour of using
+> atomic_enable callback. Move corresponding code into the function
+> lt9611_bridge_atomic_enable() and turn lt9611_bridge_pre_enable() into
+> the proper atomic_pre_enable callback.
 > 
-> hw_rev is not used anymore now so why not just drop that reg read 
-> altogether.
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> ---
+>   drivers/gpu/drm/bridge/lontium-lt9611.c | 61 +++++++++++++++----------
+>   1 file changed, 36 insertions(+), 25 deletions(-)
 > 
-> >>>       dev_dbg(msm_mdss->dev, "HW_REV: 0x%x\n", hw_rev);
-> >>> +
-> >>> +    ubwc_dec_hw_version = readl_relaxed(msm_mdss->mmio + 
-> >>> UBWC_DEC_HW_VERSION);
-> 
-> If we are going to tie UBWC version to the HW compatible match, then 
-> even this register read can be skipped and instead you can add 
-> ubwc_dec_hw_version to your match data struct and skip this read as well.
+> diff --git a/drivers/gpu/drm/bridge/lontium-lt9611.c b/drivers/gpu/drm/bridge/lontium-lt9611.c
+> index 3b77238ca4af..1b65a573be27 100644
+> --- a/drivers/gpu/drm/bridge/lontium-lt9611.c
+> +++ b/drivers/gpu/drm/bridge/lontium-lt9611.c
+> @@ -713,6 +713,39 @@ lt9611_bridge_atomic_enable(struct drm_bridge *bridge,
+>   			    struct drm_bridge_state *old_bridge_state)
+>   {
+>   	struct lt9611 *lt9611 = bridge_to_lt9611(bridge);
+> +	struct drm_atomic_state *state = old_bridge_state->base.state;
+> +	struct drm_connector *connector;
+> +	struct drm_connector_state *conn_state;
+> +	struct drm_crtc_state *crtc_state;
+> +	struct drm_display_mode *mode;
+> +	struct hdmi_avi_infoframe avi_frame;
+> +	unsigned int postdiv;
+> +	int ret;
+> +
+> +	connector = drm_atomic_get_new_connector_for_encoder(state, bridge->encoder);
+> +	if (WARN_ON(!connector))
+> +		return;
+> +
+> +	conn_state = drm_atomic_get_new_connector_state(state, connector);
+> +	if (WARN_ON(!conn_state))
+> +		return;
+> +
+> +	crtc_state = drm_atomic_get_new_crtc_state(state, conn_state->crtc);
+> +	if (WARN_ON(!crtc_state))
+> +		return;
+> +
+> +	mode = &crtc_state->adjusted_mode;
+> +
+> +	lt9611_mipi_input_digital(lt9611, mode);
+> +	lt9611_pll_setup(lt9611, mode, &postdiv);
+> +	lt9611_mipi_video_setup(lt9611, mode);
+> +	lt9611_pcr_setup(lt9611, mode, postdiv);
+> +
+> +	ret = drm_hdmi_avi_infoframe_from_display_mode(&avi_frame,
+> +						       connector,
+> +						       mode);
+> +	if (!ret)
+> +		lt9611->vic = avi_frame.video_code;
+>   
+>   	if (lt9611_power_on(lt9611)) {
+>   		dev_err(lt9611->dev, "power on failed\n");
+> @@ -856,7 +889,8 @@ static enum drm_mode_status lt9611_bridge_mode_valid(struct drm_bridge *bridge,
+>   		return MODE_OK;
+>   }
+>   
+> -static void lt9611_bridge_pre_enable(struct drm_bridge *bridge)
+> +static void lt9611_bridge_atomic_pre_enable(struct drm_bridge *bridge,
+> +					    struct drm_bridge_state *old_bridge_state)
+>   {
+>   	struct lt9611 *lt9611 = bridge_to_lt9611(bridge);
+>   	static const struct reg_sequence reg_cfg[] = {
+> @@ -884,29 +918,6 @@ lt9611_bridge_atomic_post_disable(struct drm_bridge *bridge,
+>   	lt9611_sleep_setup(lt9611);
+>   }
+>   
+> -static void lt9611_bridge_mode_set(struct drm_bridge *bridge,
+> -				   const struct drm_display_mode *mode,
+> -				   const struct drm_display_mode *adj_mode)
+> -{
+> -	struct lt9611 *lt9611 = bridge_to_lt9611(bridge);
+> -	struct hdmi_avi_infoframe avi_frame;
+> -	unsigned int postdiv;
+> -	int ret;
+> -
+> -	lt9611_bridge_pre_enable(bridge);
+> -
+> -	lt9611_mipi_input_digital(lt9611, mode);
+> -	lt9611_pll_setup(lt9611, mode, &postdiv);
+> -	lt9611_mipi_video_setup(lt9611, mode);
+> -	lt9611_pcr_setup(lt9611, mode, postdiv);
+> -
+> -	ret = drm_hdmi_avi_infoframe_from_display_mode(&avi_frame,
+> -						       &lt9611->connector,
+> -						       mode);
+> -	if (!ret)
+> -		lt9611->vic = avi_frame.video_code;
+> -}
+> -
+>   static enum drm_connector_status lt9611_bridge_detect(struct drm_bridge *bridge)
+>   {
+>   	return __lt9611_detect(bridge_to_lt9611(bridge));
+> @@ -957,11 +968,11 @@ lt9611_atomic_get_input_bus_fmts(struct drm_bridge *bridge,
+>   static const struct drm_bridge_funcs lt9611_bridge_funcs = {
+>   	.attach = lt9611_bridge_attach,
+>   	.mode_valid = lt9611_bridge_mode_valid,
+> -	.mode_set = lt9611_bridge_mode_set,
+>   	.detect = lt9611_bridge_detect,
+>   	.get_edid = lt9611_bridge_get_edid,
+>   	.hpd_enable = lt9611_bridge_hpd_enable,
+>   
+> +	.atomic_pre_enable = lt9611_bridge_atomic_pre_enable,
+>   	.atomic_enable = lt9611_bridge_atomic_enable,
+>   	.atomic_disable = lt9611_bridge_atomic_disable,
+>   	.atomic_post_disable = lt9611_bridge_atomic_post_disable,
 
-I have suggested in IRC to keep this register read, and utilize it to at
-least sanity check the configuration.  You are right that the DPU HW
-version already describes what UWBC decoder version is used, but we're
-are already questioning whether it was ported correctly for SM6115.  A
-WARN() that catches a mismatch between what was written in the "catalog"
-(or this match table) versus what the hardware reports would have gone a
-long way.
 
-This is especially relevant with the new struct where fields are
-(un)used depending on the UBWC HW decoder version, making for an extra
-exercise to the developer to double-check whether their struct values
-are taken into account or not (or if used ones are accidentally
-omitted).
-
-- Marijn
-
-> That way we get rid of all register reads in this path which have 
-> continuously bugged us with crashes.
-
-<snip>
+Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
