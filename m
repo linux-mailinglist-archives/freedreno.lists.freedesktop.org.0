@@ -1,47 +1,40 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 36B346650ED
-	for <lists+freedreno@lfdr.de>; Wed, 11 Jan 2023 02:10:47 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 6290A665661
+	for <lists+freedreno@lfdr.de>; Wed, 11 Jan 2023 09:45:07 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EB09010E6B3;
-	Wed, 11 Jan 2023 01:10:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 291F810E0FF;
+	Wed, 11 Jan 2023 08:45:06 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
- by gabe.freedesktop.org (Postfix) with ESMTP id 3DE0710E6A4;
- Wed, 11 Jan 2023 01:10:43 +0000 (UTC)
-Received: from localhost.localdomain (unknown [124.16.138.125])
- by APP-05 (Coremail) with SMTP id zQCowADn7+9wDL5jjEwfDA--.50119S2;
- Wed, 11 Jan 2023 09:10:08 +0800 (CST)
-From: Jiasheng Jiang <jiasheng@iscas.ac.cn>
-To: dianders@chromium.org
-Date: Wed, 11 Jan 2023 09:10:06 +0800
-Message-Id: <20230111011006.6238-1-jiasheng@iscas.ac.cn>
-X-Mailer: git-send-email 2.25.1
+Received: from relay06.th.seeweb.it (relay06.th.seeweb.it [5.144.164.167])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6F78D10E0FF
+ for <freedreno@lists.freedesktop.org>; Wed, 11 Jan 2023 08:45:03 +0000 (UTC)
+Received: from SoMainline.org (94-211-6-86.cable.dynamic.v4.ziggo.nl
+ [94.211.6.86])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest
+ SHA256) (No client certificate requested)
+ by m-r2.th.seeweb.it (Postfix) with ESMTPSA id 9299D3EF12;
+ Wed, 11 Jan 2023 09:44:59 +0100 (CET)
+Date: Wed, 11 Jan 2023 09:44:58 +0100
+From: Marijn Suijten <marijn.suijten@somainline.org>
+To: Abhinav Kumar <quic_abhinavk@quicinc.com>
+Message-ID: <20230111084458.wcwzipew3ny7fpno@SoMainline.org>
+References: <20221208000850.312548-1-dmitry.baryshkov@linaro.org>
+ <20221208000850.312548-2-dmitry.baryshkov@linaro.org>
+ <047cd859-7141-d52f-4989-847fd2ada002@quicinc.com>
+ <b66de0ab-a31b-c86a-c1d0-c9a5f98c4f85@linaro.org>
+ <5aa47cf1-0589-4830-c1fb-22e15bac974a@quicinc.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID: zQCowADn7+9wDL5jjEwfDA--.50119S2
-X-Coremail-Antispam: 1UD129KBjvJXoWxGw4ktry8uFWxGw1xCrWrAFb_yoW5Gw18pr
- yaqFsrtrW0yws2krW7JF17A3WrKF4fGa48G34UCwnrAw1ayw4UXF4Dua10ga48t3y8uw4U
- Kanaya4rWF1Utr7anT9S1TB71UUUUUUqnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
- 9KBjDU0xBIdaVrnRJUUUvK14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
- rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
- 1l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26F4j
- 6r4UJwA2z4x0Y4vEx4A2jsIE14v26F4j6r4UJwA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gr
- 1j6F4UJwAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv
- 7VC0I7IYx2IY67AKxVWUGVWUXwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r
- 1j6r4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwACI402YVCY1x02
- 628vn2kIc2xKxwCY02Avz4vE14v_KwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbV
- WUJVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF
- 67kF1VAFwI0_GFv_WrylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42
- IY6xIIjxv20xvEc7CjxVAFwI0_Gr0_Cr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF
- 0xvEx4A2jsIE14v26r1j6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr0_Gr1UYxBIdaVFxh
- VjvjDU0xZFpf9x0JUChFxUUUUU=
-X-Originating-IP: [124.16.138.125]
-X-CM-SenderInfo: pmld2xxhqjqxpvfd2hldfou0/
-Subject: [Freedreno] [PATCH v2] drm/msm/dsi: Drop the redundant fail label
+In-Reply-To: <5aa47cf1-0589-4830-c1fb-22e15bac974a@quicinc.com>
+Subject: Re: [Freedreno] [RFC PATCH 1/4] drm/msm/mdss: convert UBWC setup to
+ use match data
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,114 +47,156 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: marex@denx.de, vkoul@kernel.org, sean@poorly.run,
- Jiasheng Jiang <jiasheng@iscas.ac.cn>, vladimir.lypak@gmail.com,
- quic_abhinavk@quicinc.com, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, robdclark@gmail.com, daniel@ffwll.ch,
- linux-arm-msm@vger.kernel.org, dmitry.baryshkov@linaro.org,
- marijn.suijten@somainline.org, freedreno@lists.freedesktop.org,
- airlied@gmail.com
+Cc: freedreno@lists.freedesktop.org, Sean Paul <sean@poorly.run>,
+ Bjorn Andersson <andersson@kernel.org>, dri-devel@lists.freedesktop.org,
+ Stephen Boyd <swboyd@chromium.org>, Rob Clark <robdclark@gmail.com>,
+ Daniel Vetter <daniel@ffwll.ch>, linux-arm-msm@vger.kernel.org,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ David Airlie <airlied@gmail.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Drop the redundant fail label and change the "goto fail" into "return ret"
-since they are the same.
+On 2023-01-09 12:32:18, Abhinav Kumar wrote:
+<snip>
+> >> On 12/7/2022 4:08 PM, Dmitry Baryshkov wrote:
+<snip>
+> >>> +struct msm_mdss_data {
+> >>> +    u32 ubwc_version;
+> >>> +    u32 ubwc_swizzle;
+> >>> +    u32 ubwc_static;
+> >>> +    u32 highest_bank_bit;
+> >>> +    u32 macrotile_mode;
+> >>> +};
 
-Reviewed-by: Doug Anderson <dianders@chromium.org>
-Signed-off-by: Jiasheng Jiang <jiasheng@iscas.ac.cn>
----
-Changelog:
+This magic struct could really use some documentation, otherwise users
+will have no idea what fields to set (or omit) nor what values to use.
+For example decoder 2.0 seems to only use ubwc_static as a sort of magic
+"we don't know what the bits in UBWC_STATIC mean", whereas decoder 3.0
+reconstructs this field entirely from the other parameters.  Decoder 4.0
+however does the same, but _also_ embeds this uwbc_static magic value
+back into the register value....?
 
-v1 -> v2:
+Also read on below about checking "compatibility" between this struct
+and the decoder version, and why I feel this struct (versus mandatory
+function arguments) makes this struct less robust.
 
-1. No change of the error handling of the irq_of_parse_and_map.
----
- drivers/gpu/drm/msm/dsi/dsi_host.c | 24 ++++++++----------------
- 1 file changed, 8 insertions(+), 16 deletions(-)
+> >>>   struct msm_mdss {
+> >>>       struct device *dev;
+> >>> @@ -40,6 +48,7 @@ struct msm_mdss {
+> >>>           unsigned long enabled_mask;
+> >>>           struct irq_domain *domain;
+> >>>       } irq_controller;
+> >>> +    const struct msm_mdss_data *mdss_data;
+> >>>       struct icc_path *path[2];
+> >>>       u32 num_paths;
+> >>>   };
+> >>> @@ -180,46 +189,40 @@ static int _msm_mdss_irq_domain_add(struct 
+> >>> msm_mdss *msm_mdss)
+> >>>   #define UBWC_3_0 0x30000000
+> >>>   #define UBWC_4_0 0x40000000
+> >>> -static void msm_mdss_setup_ubwc_dec_20(struct msm_mdss *msm_mdss,
+> >>> -                       u32 ubwc_static)
+> >>> +static void msm_mdss_setup_ubwc_dec_20(struct msm_mdss *msm_mdss)
+> >>>   {
+> >>> -    writel_relaxed(ubwc_static, msm_mdss->mmio + UBWC_STATIC);
+> >>> +    const struct msm_mdss_data *data = msm_mdss->mdss_data;
+> >>> +
+> >>> +    writel_relaxed(data->ubwc_static, msm_mdss->mmio + UBWC_STATIC);
+> >>>   }
+> >>> -static void msm_mdss_setup_ubwc_dec_30(struct msm_mdss *msm_mdss,
+> >>> -                       unsigned int ubwc_version,
+> >>> -                       u32 ubwc_swizzle,
+> >>> -                       u32 highest_bank_bit,
+> >>> -                       u32 macrotile_mode)
+> >>> +static void msm_mdss_setup_ubwc_dec_30(struct msm_mdss *msm_mdss)
+> >>>   {
+> >>> -    u32 value = (ubwc_swizzle & 0x1) |
+> >>> -            (highest_bank_bit & 0x3) << 4 |
+> >>> -            (macrotile_mode & 0x1) << 12;
+> >>> +    const struct msm_mdss_data *data = msm_mdss->mdss_data;
+> >>> +    u32 value = (data->ubwc_swizzle & 0x1) |
+> >>> +            (data->highest_bank_bit & 0x3) << 4 |
+> >>> +            (data->macrotile_mode & 0x1) << 12;
+> >>> -    if (ubwc_version == UBWC_3_0)
+> >>> +    if (data->ubwc_version == UBWC_3_0)
+> >>>           value |= BIT(10);
+> >>> -    if (ubwc_version == UBWC_1_0)
+> >>> +    if (data->ubwc_version == UBWC_1_0)
+> >>>           value |= BIT(8);
+> >>>       writel_relaxed(value, msm_mdss->mmio + UBWC_STATIC);
+> >>>   }
+> >>> -static void msm_mdss_setup_ubwc_dec_40(struct msm_mdss *msm_mdss,
+> >>> -                       unsigned int ubwc_version,
+> >>> -                       u32 ubwc_swizzle,
+> >>> -                       u32 ubwc_static,
+> >>> -                       u32 highest_bank_bit,
+> >>> -                       u32 macrotile_mode)
+> >>> +static void msm_mdss_setup_ubwc_dec_40(struct msm_mdss *msm_mdss)
+> >>>   {
+> >>> -    u32 value = (ubwc_swizzle & 0x7) |
+> >>> -            (ubwc_static & 0x1) << 3 |
+> >>> -            (highest_bank_bit & 0x7) << 4 |
+> >>> -            (macrotile_mode & 0x1) << 12;
+> >>> +    const struct msm_mdss_data *data = msm_mdss->mdss_data;
+> >>> +    u32 value = (data->ubwc_swizzle & 0x7) |
+> >>> +            (data->ubwc_static & 0x1) << 3 |
+> >>> +            (data->highest_bank_bit & 0x7) << 4 |
+> >>> +            (data->macrotile_mode & 0x1) << 12;
+> >>>       writel_relaxed(value, msm_mdss->mmio + UBWC_STATIC);
+> >>> -    if (ubwc_version == UBWC_3_0) {
+> >>> +    if (data->ubwc_version == UBWC_3_0) {
+> >>>           writel_relaxed(1, msm_mdss->mmio + UBWC_CTRL_2);
+> >>>           writel_relaxed(0, msm_mdss->mmio + UBWC_PREDICTION_MODE);
+> >>>       } else {
+> >>> @@ -232,6 +235,7 @@ static int msm_mdss_enable(struct msm_mdss 
+> >>> *msm_mdss)
+> >>>   {
+> >>>       int ret;
+> >>>       u32 hw_rev;
+> >>> +    u32 ubwc_dec_hw_version;
+> >>>       /*
+> >>>        * Several components have AXI clocks that can only be turned 
+> >>> on if
+> >>> @@ -250,53 +254,36 @@ static int msm_mdss_enable(struct msm_mdss 
+> >>> *msm_mdss)
+> >>>        * HW_REV requires MDSS_MDP_CLK, which is not enabled by the 
+> >>> mdss on
+> >>>        * mdp5 hardware. Skip reading it for now.
+> >>>        */
+> >>> -    if (msm_mdss->is_mdp5)
+> >>> +    if (msm_mdss->is_mdp5 || !msm_mdss->mdss_data)
+> >>>           return 0;
+> >>>       hw_rev = readl_relaxed(msm_mdss->mmio + HW_REV);
+> 
+> hw_rev is not used anymore now so why not just drop that reg read 
+> altogether.
+> 
+> >>>       dev_dbg(msm_mdss->dev, "HW_REV: 0x%x\n", hw_rev);
+> >>> +
+> >>> +    ubwc_dec_hw_version = readl_relaxed(msm_mdss->mmio + 
+> >>> UBWC_DEC_HW_VERSION);
+> 
+> If we are going to tie UBWC version to the HW compatible match, then 
+> even this register read can be skipped and instead you can add 
+> ubwc_dec_hw_version to your match data struct and skip this read as well.
 
-diff --git a/drivers/gpu/drm/msm/dsi/dsi_host.c b/drivers/gpu/drm/msm/dsi/dsi_host.c
-index 89aadd3b3202..de615c505def 100644
---- a/drivers/gpu/drm/msm/dsi/dsi_host.c
-+++ b/drivers/gpu/drm/msm/dsi/dsi_host.c
-@@ -1883,8 +1883,7 @@ int msm_dsi_host_init(struct msm_dsi *msm_dsi)
- 
- 	msm_host = devm_kzalloc(&pdev->dev, sizeof(*msm_host), GFP_KERNEL);
- 	if (!msm_host) {
--		ret = -ENOMEM;
--		goto fail;
-+		return -ENOMEM;
- 	}
- 
- 	msm_host->pdev = pdev;
-@@ -1893,31 +1892,28 @@ int msm_dsi_host_init(struct msm_dsi *msm_dsi)
- 	ret = dsi_host_parse_dt(msm_host);
- 	if (ret) {
- 		pr_err("%s: failed to parse dt\n", __func__);
--		goto fail;
-+		return ret;
- 	}
- 
- 	msm_host->ctrl_base = msm_ioremap_size(pdev, "dsi_ctrl", &msm_host->ctrl_size);
- 	if (IS_ERR(msm_host->ctrl_base)) {
- 		pr_err("%s: unable to map Dsi ctrl base\n", __func__);
--		ret = PTR_ERR(msm_host->ctrl_base);
--		goto fail;
-+		return PTR_ERR(msm_host->ctrl_base);
- 	}
- 
- 	pm_runtime_enable(&pdev->dev);
- 
- 	msm_host->cfg_hnd = dsi_get_config(msm_host);
- 	if (!msm_host->cfg_hnd) {
--		ret = -EINVAL;
- 		pr_err("%s: get config failed\n", __func__);
--		goto fail;
-+		return -EINVAL;
- 	}
- 	cfg = msm_host->cfg_hnd->cfg;
- 
- 	msm_host->id = dsi_host_get_id(msm_host);
- 	if (msm_host->id < 0) {
--		ret = msm_host->id;
- 		pr_err("%s: unable to identify DSI host index\n", __func__);
--		goto fail;
-+		return msm_host->id;
- 	}
- 
- 	/* fixup base address by io offset */
-@@ -1927,19 +1923,18 @@ int msm_dsi_host_init(struct msm_dsi *msm_dsi)
- 					    cfg->regulator_data,
- 					    &msm_host->supplies);
- 	if (ret)
--		goto fail;
-+		return ret;
- 
- 	ret = dsi_clk_init(msm_host);
- 	if (ret) {
- 		pr_err("%s: unable to initialize dsi clks\n", __func__);
--		goto fail;
-+		return ret;
- 	}
- 
- 	msm_host->rx_buf = devm_kzalloc(&pdev->dev, SZ_4K, GFP_KERNEL);
- 	if (!msm_host->rx_buf) {
--		ret = -ENOMEM;
- 		pr_err("%s: alloc rx temp buf failed\n", __func__);
--		goto fail;
-+		return -ENOMEM;
- 	}
- 
- 	ret = devm_pm_opp_set_clkname(&pdev->dev, "byte");
-@@ -1983,9 +1978,6 @@ int msm_dsi_host_init(struct msm_dsi *msm_dsi)
- 
- 	DBG("Dsi Host %d initialized", msm_host->id);
- 	return 0;
--
--fail:
--	return ret;
- }
- 
- void msm_dsi_host_destroy(struct mipi_dsi_host *host)
--- 
-2.25.1
+I have suggested in IRC to keep this register read, and utilize it to at
+least sanity check the configuration.  You are right that the DPU HW
+version already describes what UWBC decoder version is used, but we're
+are already questioning whether it was ported correctly for SM6115.  A
+WARN() that catches a mismatch between what was written in the "catalog"
+(or this match table) versus what the hardware reports would have gone a
+long way.
 
+This is especially relevant with the new struct where fields are
+(un)used depending on the UBWC HW decoder version, making for an extra
+exercise to the developer to double-check whether their struct values
+are taken into account or not (or if used ones are accidentally
+omitted).
+
+- Marijn
+
+> That way we get rid of all register reads in this path which have 
+> continuously bugged us with crashes.
+
+<snip>
