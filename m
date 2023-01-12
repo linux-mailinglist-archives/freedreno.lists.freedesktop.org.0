@@ -1,77 +1,43 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 65D31667393
-	for <lists+freedreno@lfdr.de>; Thu, 12 Jan 2023 14:51:46 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 939B66675D1
+	for <lists+freedreno@lfdr.de>; Thu, 12 Jan 2023 15:25:55 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2C57410E8F4;
-	Thu, 12 Jan 2023 13:51:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0C46E10E0A5;
+	Thu, 12 Jan 2023 14:25:54 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wm1-x336.google.com (mail-wm1-x336.google.com
- [IPv6:2a00:1450:4864:20::336])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 99E5410E8F3
- for <freedreno@lists.freedesktop.org>; Thu, 12 Jan 2023 13:51:43 +0000 (UTC)
-Received: by mail-wm1-x336.google.com with SMTP id
- m8-20020a05600c3b0800b003d96f801c48so16611838wms.0
- for <freedreno@lists.freedesktop.org>; Thu, 12 Jan 2023 05:51:43 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=content-transfer-encoding:in-reply-to:organization:references:cc:to
- :content-language:subject:reply-to:from:user-agent:mime-version:date
- :message-id:from:to:cc:subject:date:message-id:reply-to;
- bh=uZVrM4xUFkayhXE6NSF9Gkl0TT3lC5ZfZNa0nbaTN6Y=;
- b=HHwGOIu3aD762K0LbAmKYWEC0Dsf86kUXambp1U1u9MZ/n7el8sSohjjn6sezWS4V4
- YhHTIWyZW40n3vS64Sg+L/uxTwstpKURQI92ptYvQlO99OryNG3OI3khDaNtqnvSOGbr
- oozX3kbRRFtJhWtL1QJVQDUsaVF646LcPf1IfFtpKcCK3dpzcQRP/bMwbBPFk9DHG7qu
- wYuxqqQy1mtJ2bHfg4myEHY0RCJ+tRpw/9+/2+W4XKr39MdHLTTLPayUgLwXsoXg7K+Y
- toeoR5W1nIHbIpejX6VIGcHkDp49Q6CSzxgDAhKDAAnKUKJmGPzoRbrnb572YQCzdXDZ
- u3Sw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=content-transfer-encoding:in-reply-to:organization:references:cc:to
- :content-language:subject:reply-to:from:user-agent:mime-version:date
- :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=uZVrM4xUFkayhXE6NSF9Gkl0TT3lC5ZfZNa0nbaTN6Y=;
- b=zPzq1CCI/ZAhQAbzvUJDWuYp1Nsg15fB9M09Y+BmzwEDVBNb4CYeLjdkPlUC3ekP7s
- CIupH7vCvgPrmRazDUW3VT0QsUPav+gb1+6YRfan7wNxCfLe061YKbLyZAuoXIKswP+j
- m3RrR8j5Tetixg9kPNLG1FbdwoKsJxH0S3e8PP6vGg7pZL9gE4F1Bxm1NqiW31fsgB/T
- AROuAkKuH3pazvyFjvjgoW21eJdGrCfWoTWmZNdSQDRvos2PsbQgTGOAOf3vQHlFniCo
- +n0k5DyIGfTcKZhWpfzeQJu6ekpJwpjuf03Ccfm3DGddjD9y4BMLGSlfh+JpbPt2a7MM
- rt2g==
-X-Gm-Message-State: AFqh2krkDL9Q5c4k1xZuQ8EoSxu93FSnrjSas4i5eUlI6sOd6pcH0GwI
- vDG/k0WMaG2tvJmpEfRSEoa0JQ==
-X-Google-Smtp-Source: AMrXdXtyA5e0okc8TN+9NvFsWNiRdJZbXapu8CD2bFc10KX8MwSVdrikqjK8pJcuKyPmnZ6gpGbx+Q==
-X-Received: by 2002:a05:600c:b92:b0:3d9:779e:9788 with SMTP id
- fl18-20020a05600c0b9200b003d9779e9788mr46821236wmb.37.1673531502013; 
- Thu, 12 Jan 2023 05:51:42 -0800 (PST)
-Received: from ?IPV6:2a01:e0a:982:cbb0:3b9e:7554:4633:9a59?
- ([2a01:e0a:982:cbb0:3b9e:7554:4633:9a59])
- by smtp.gmail.com with ESMTPSA id
- d6-20020a05600c3ac600b003da0dc39872sm4578569wms.6.2023.01.12.05.51.41
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 12 Jan 2023 05:51:41 -0800 (PST)
-Message-ID: <f65d21fa-96ba-9c37-5ac0-630d1c6a36a1@linaro.org>
-Date: Thu, 12 Jan 2023 14:51:40 +0100
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 90F2310E0A5
+ for <freedreno@lists.freedesktop.org>; Thu, 12 Jan 2023 14:25:50 +0000 (UTC)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by ams.source.kernel.org (Postfix) with ESMTPS id 68102B81E69;
+ Thu, 12 Jan 2023 14:25:48 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9838DC433F0;
+ Thu, 12 Jan 2023 14:25:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
+ s=korg; t=1673533547;
+ bh=FX7HYEbBIhWrHLNd17fteXtIabssxjGxuMAlpWlubRM=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=J7FQI08TDp/R3yqOGmwz2h2dKZELePRX3oqwOcz/TcIsVa0ro2lwrsiW8QxRurplV
+ bX3/1cHX4q8sja03dSXXKANV3WNVtaJocojQqzHRdlbosclCpIcVPi4cwKtpa6Iyt8
+ ByhlLy3PsPBOaifNylgc/awEiVTgrjpMIbw76MaE=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
+Date: Thu, 12 Jan 2023 14:53:50 +0100
+Message-Id: <20230112135548.035594078@linuxfoundation.org>
+X-Mailer: git-send-email 2.39.0
+In-Reply-To: <20230112135524.143670746@linuxfoundation.org>
+References: <20230112135524.143670746@linuxfoundation.org>
+User-Agent: quilt/0.67
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.6.0
-From: Neil Armstrong <neil.armstrong@linaro.org>
-Content-Language: en-US
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Vinod Koul <vkoul@kernel.org>, Andrzej Hajda <andrzej.hajda@intel.com>,
- Robert Foss <robert.foss@linaro.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>
-References: <20230108165656.136871-1-dmitry.baryshkov@linaro.org>
- <20230108165656.136871-12-dmitry.baryshkov@linaro.org>
-Organization: Linaro Developer Services
-In-Reply-To: <20230108165656.136871-12-dmitry.baryshkov@linaro.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH v2 11/13] drm/bridge: lt9611: rework
- infoframes handling
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+Subject: [Freedreno] [PATCH 5.10 514/783] drm/msm: Use drm_mode_copy()
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -84,121 +50,106 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: neil.armstrong@linaro.org
-Cc: freedreno@lists.freedesktop.org, David Airlie <airlied@gmail.com>,
- dri-devel@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>,
- linux-arm-msm@vger.kernel.org
+Cc: Sasha Levin <sashal@kernel.org>, freedreno@lists.freedesktop.org,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, patches@lists.linux.dev,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Daniel Vetter <daniel.vetter@ffwll.ch>, Rob Clark <robdclark@gmail.com>,
+ linux-arm-msm@vger.kernel.org, Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Sean Paul <sean@poorly.run>,
+ =?UTF-8?q?Ville=20Syrj=C3=A4l=C3=A4?= <ville.syrjala@linux.intel.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 08/01/2023 17:56, Dmitry Baryshkov wrote:
-> Rework handling infoframes:
-> - Write full HDMI AVI infoframe instead of just fixing the VIC value
-> - Also send the HDMI Vendor Specific infoframe, as recommended by the
->    HDMI spec.
-> 
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> ---
->   drivers/gpu/drm/bridge/lontium-lt9611.c | 57 +++++++++++++++++++------
->   1 file changed, 44 insertions(+), 13 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/bridge/lontium-lt9611.c b/drivers/gpu/drm/bridge/lontium-lt9611.c
-> index 1396ab081f61..82af1f954cc6 100644
-> --- a/drivers/gpu/drm/bridge/lontium-lt9611.c
-> +++ b/drivers/gpu/drm/bridge/lontium-lt9611.c
-> @@ -59,7 +59,6 @@ struct lt9611 {
->   	enum drm_connector_status status;
->   
->   	u8 edid_buf[EDID_SEG_SIZE];
-> -	u32 vic;
->   };
->   
->   #define LT9611_PAGE_CONTROL	0xff
-> @@ -352,12 +351,51 @@ static int lt9611_video_check(struct lt9611 *lt9611)
->   	return temp;
->   }
->   
-> -static void lt9611_hdmi_tx_digital(struct lt9611 *lt9611, bool is_hdmi)
-> +static void lt9611_hdmi_set_infoframes(struct lt9611 *lt9611,
-> +				       struct drm_connector *connector,
-> +				       struct drm_display_mode *mode)
->   {
-> -	regmap_write(lt9611->regmap, 0x8443, 0x46 - lt9611->vic);
-> -	regmap_write(lt9611->regmap, 0x8447, lt9611->vic);
-> -	regmap_write(lt9611->regmap, 0x843d, 0x0a); /* UD1 infoframe */
-> +	union hdmi_infoframe infoframe;
-> +	ssize_t len;
-> +	u8 iframes = 0x0a; /* UD1 infoframe */
-> +	u8 buf[32];
-> +	int ret;
-> +	int i;
-> +
-> +	ret = drm_hdmi_avi_infoframe_from_display_mode(&infoframe.avi,
-> +						       connector,
-> +						       mode);
-> +	if (ret < 0)
-> +		goto out;
-> +
-> +	len = hdmi_infoframe_pack(&infoframe, buf, sizeof(buf));
-> +	if (len < 0)
-> +		goto out;
-> +
-> +	for (i = 0; i < len; i++)
-> +		regmap_write(lt9611->regmap, 0x8440 + i, buf[i]);
-> +
-> +	ret = drm_hdmi_vendor_infoframe_from_display_mode(&infoframe.vendor.hdmi,
-> +							  connector,
-> +							  mode);
-> +	if (ret < 0)
-> +		goto out;
-> +
-> +	len = hdmi_infoframe_pack(&infoframe, buf, sizeof(buf));
-> +	if (len < 0)
-> +		goto out;
->   
-> +	for (i = 0; i < len; i++)
-> +		regmap_write(lt9611->regmap, 0x8474 + i, buf[i]);
-> +
-> +	iframes |= 0x20;
-> +
-> +out:
-> +	regmap_write(lt9611->regmap, 0x843d, iframes); /* UD1 infoframe */
-> +}
-> +
-> +static void lt9611_hdmi_tx_digital(struct lt9611 *lt9611, bool is_hdmi)
-> +{
->   	if (is_hdmi)
->   		regmap_write(lt9611->regmap, 0x82d6, 0x8c);
->   	else
-> @@ -687,9 +725,7 @@ lt9611_bridge_atomic_enable(struct drm_bridge *bridge,
->   	struct drm_connector_state *conn_state;
->   	struct drm_crtc_state *crtc_state;
->   	struct drm_display_mode *mode;
-> -	struct hdmi_avi_infoframe avi_frame;
->   	unsigned int postdiv;
-> -	int ret;
->   
->   	connector = drm_atomic_get_new_connector_for_encoder(state, bridge->encoder);
->   	if (WARN_ON(!connector))
-> @@ -710,18 +746,13 @@ lt9611_bridge_atomic_enable(struct drm_bridge *bridge,
->   	lt9611_mipi_video_setup(lt9611, mode);
->   	lt9611_pcr_setup(lt9611, mode, postdiv);
->   
-> -	ret = drm_hdmi_avi_infoframe_from_display_mode(&avi_frame,
-> -						       connector,
-> -						       mode);
-> -	if (!ret)
-> -		lt9611->vic = avi_frame.video_code;
-> -
->   	if (lt9611_power_on(lt9611)) {
->   		dev_err(lt9611->dev, "power on failed\n");
->   		return;
->   	}
->   
->   	lt9611_mipi_input_analog(lt9611);
-> +	lt9611_hdmi_set_infoframes(lt9611, connector, mode);
->   	lt9611_hdmi_tx_digital(lt9611, connector->display_info.is_hdmi);
->   	lt9611_hdmi_tx_phy(lt9611);
->   
+From: Ville Syrjälä <ville.syrjala@linux.intel.com>
 
-Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
+[ Upstream commit b2a1c5ca50db22b3677676dd5bad5f6092429acf ]
+
+struct drm_display_mode embeds a list head, so overwriting
+the full struct with another one will corrupt the list
+(if the destination mode is on a list). Use drm_mode_copy()
+instead which explicitly preserves the list head of
+the destination mode.
+
+Even if we know the destination mode is not on any list
+using drm_mode_copy() seems decent as it sets a good
+example. Bad examples of not using it might eventually
+get copied into code where preserving the list head
+actually matters.
+
+Obviously one case not covered here is when the mode
+itself is embedded in a larger structure and the whole
+structure is copied. But if we are careful when copying
+into modes embedded in structures I think we can be a
+little more reassured that bogus list heads haven't been
+propagated in.
+
+@is_mode_copy@
+@@
+drm_mode_copy(...)
+{
+...
+}
+
+@depends on !is_mode_copy@
+struct drm_display_mode *mode;
+expression E, S;
+@@
+(
+- *mode = E
++ drm_mode_copy(mode, &E)
+|
+- memcpy(mode, E, S)
++ drm_mode_copy(mode, E)
+)
+
+@depends on !is_mode_copy@
+struct drm_display_mode mode;
+expression E;
+@@
+(
+- mode = E
++ drm_mode_copy(&mode, &E)
+|
+- memcpy(&mode, E, S)
++ drm_mode_copy(&mode, E)
+)
+
+@@
+struct drm_display_mode *mode;
+@@
+- &*mode
++ mode
+
+Cc: Rob Clark <robdclark@gmail.com>
+Cc: Sean Paul <sean@poorly.run>
+Cc: Abhinav Kumar <quic_abhinavk@quicinc.com>
+Cc: linux-arm-msm@vger.kernel.org
+Cc: freedreno@lists.freedesktop.org
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
+Reviewed-by: Daniel Vetter <daniel.vetter@ffwll.ch>
+Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
+Link: https://patchwork.freedesktop.org/patch/msgid/20221107192545.9896-5-ville.syrjala@linux.intel.com
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ drivers/gpu/drm/msm/dp/dp_display.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
+index 5a152d505dfb..1c3dcbc6cce8 100644
+--- a/drivers/gpu/drm/msm/dp/dp_display.c
++++ b/drivers/gpu/drm/msm/dp/dp_display.c
+@@ -848,7 +848,7 @@ static int dp_display_set_mode(struct msm_dp *dp_display,
+ 
+ 	dp = container_of(dp_display, struct dp_display_private, dp_display);
+ 
+-	dp->panel->dp_mode.drm_mode = mode->drm_mode;
++	drm_mode_copy(&dp->panel->dp_mode.drm_mode, &mode->drm_mode);
+ 	dp->panel->dp_mode.bpp = mode->bpp;
+ 	dp->panel->dp_mode.capabilities = mode->capabilities;
+ 	dp_panel_init_panel_info(dp->panel);
+-- 
+2.35.1
+
+
+
