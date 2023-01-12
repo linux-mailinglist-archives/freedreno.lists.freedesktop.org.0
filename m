@@ -1,58 +1,58 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9EF2F666DF8
-	for <lists+freedreno@lfdr.de>; Thu, 12 Jan 2023 10:24:12 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id EEDC3666DFC
+	for <lists+freedreno@lfdr.de>; Thu, 12 Jan 2023 10:24:36 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 47C9B10E8AD;
-	Thu, 12 Jan 2023 09:24:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AEEA110E8B2;
+	Thu, 12 Jan 2023 09:24:35 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wm1-x32b.google.com (mail-wm1-x32b.google.com
- [IPv6:2a00:1450:4864:20::32b])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4F1AA10E8AD
- for <freedreno@lists.freedesktop.org>; Thu, 12 Jan 2023 09:24:09 +0000 (UTC)
-Received: by mail-wm1-x32b.google.com with SMTP id ay40so12735147wmb.2
- for <freedreno@lists.freedesktop.org>; Thu, 12 Jan 2023 01:24:09 -0800 (PST)
+Received: from mail-wr1-x435.google.com (mail-wr1-x435.google.com
+ [IPv6:2a00:1450:4864:20::435])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E0DB510E8B2
+ for <freedreno@lists.freedesktop.org>; Thu, 12 Jan 2023 09:24:32 +0000 (UTC)
+Received: by mail-wr1-x435.google.com with SMTP id h16so17426792wrz.12
+ for <freedreno@lists.freedesktop.org>; Thu, 12 Jan 2023 01:24:32 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=content-transfer-encoding:in-reply-to:organization:references:cc:to
  :content-language:subject:reply-to:from:user-agent:mime-version:date
  :message-id:from:to:cc:subject:date:message-id:reply-to;
- bh=Inj/3PggdMPYPA24KawCfZfU7CmEHAqtZxRLX2hdoWI=;
- b=yi4dkWk/iAVpCRfAkllAvewefjlYU+JlQediFjEF8+Kw5VXjyYWDnDj1dri9dwjhXA
- DE69X1eoObMk+X9AHhKd6zRgCgupS4atLus+mQ1ADHQU4pESg9Aenzo1g39F8PBCTiH3
- yI/OBwTlIYyGsUj6GlXuZjjWE7+wJem/afFrYpKvhba840ylsbIwbKvG2n2MvIJTtq21
- qMlLYQRhXcKBcwTSpZDnljNwhrKs+FZBV5CqGVxn2qUGDnQkNU8VPLGGtmdAE6sX/4Ux
- hBplV2XMVaxikRg/SaoUKbWve+KccxPUgSo5vNegYtEHBW7y8q2l80RH0JUfJ9mU9/T9
- 8BJQ==
+ bh=8y93oKqpxvzE8rWdKpZl4lXsP+t5rguSGLhBVaBJc0g=;
+ b=WThEKA9gNJkYP7HmfQRADIQADz/supXgAp8M0Ch0b6QgcTSLJkoTNqCmwTRX5X0SFi
+ kWLSC9p7vL1U7COb9FN0upXxHQvW1YaHNZG0Rm/3K39kC1FmfT++a58cAQvSdEXcOz3l
+ byKBbuHvDH/zGgVyrfqHwjMAtcMbF8MIWinhnfGRb2gx20+ScqjVIky1aQL1mQvrHKfk
+ dFNmAr/uC27SuThkEmoqIE7eIvkZn1E8UBGpko8Y80IroOFuTCCC87rbaRDFOT/BvHoa
+ 0rZIGLbPgWEAI6r3Uj7Y/KSbN5KKovXNJeU+KSlU6IYGe6Se5dvi9Il2t9xC8MMw+al1
+ SFlA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=content-transfer-encoding:in-reply-to:organization:references:cc:to
  :content-language:subject:reply-to:from:user-agent:mime-version:date
  :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=Inj/3PggdMPYPA24KawCfZfU7CmEHAqtZxRLX2hdoWI=;
- b=nIYKxpeQaPIJDHI4VwCnuKN8OigvfQ+8N45XxBm2erhRT/hlUqaBkPQAydQWtzLzRr
- le34Od/RSoCCF+mX9vlwJwL+9XJo1T+ScMxKB1c9J3HI9HhX7KAmaUjrIJkViD36VceD
- RDPDNQNYA11IrmNESiHY/I7yOhffItV+dro/5w/zStMDGwPUhuQpqZmZT6WhapOWOUGD
- k6VUmEx03k542ot4cNxG+SBnEkY6BGR0bSZbr/C6HpRp/6c7aHMGeYV1VAN2aLCdMJhQ
- XUuE81SH03uGROh/e5MMFPK0HeHylKkF2mKUBJsbCrQ+oLaQZ25+IDsswqgADPa2/jnp
- xLaw==
-X-Gm-Message-State: AFqh2kptInooTnLXZqYJL9u1vN9vEcAoxpU3vNTwJywse/qYwAtue5Tx
- 1vUJxIK6SuX8wFWF+/CeAHb57Q==
-X-Google-Smtp-Source: AMrXdXu4Cn2SfMYp75y3XbTCBX5viFqdISRSjsdfTQoV36ZSgWzi0CXykjz590HbUZMKW0YVNEZAqQ==
-X-Received: by 2002:a05:600c:4a9b:b0:3d1:dc6f:b1a4 with SMTP id
- b27-20020a05600c4a9b00b003d1dc6fb1a4mr65376450wmp.5.1673515447761; 
- Thu, 12 Jan 2023 01:24:07 -0800 (PST)
+ bh=8y93oKqpxvzE8rWdKpZl4lXsP+t5rguSGLhBVaBJc0g=;
+ b=hxzyFG+J+hCv7JgH/qip3tdVXj1QCTswiXbiGgz/3peYjNEqneM8eTijFm9/tyWmB5
+ BeRVKeMHJeRA1qXzyYlKE2i0Vlp62kcSKd8SYspcIMT/dbHb+cBLqimEtQoCmpqd6nXh
+ ruYx5USzNXUS3QUcR59p8610A6s+vGgsSn0yOmMua3ovMzR8A190jeiBqyQvWKSahTi9
+ wuSoOWmzNqYqFeOxYZE6f45DxKnSysOL7eVJttWH2gjpVqy9YuA7A5HMStbdg0Iejw4s
+ PV/zhZYSpvj7aJeNKIc4vxRuTOeDSfEpaqLcqaQGqscMGT+BxaikU+6iG33ceXx4zJk9
+ pqVA==
+X-Gm-Message-State: AFqh2kqEcDxJRin1r3bPiNrBt+wodXlwnp+WUYlnQd2yNRtrjWCnPege
+ +jf1Umq+1cKEd7Z2g8RSIskiuA==
+X-Google-Smtp-Source: AMrXdXuXd7dZBWw2m7FDxQZJt+AcbAClVVx1WZ3nCqqtcl5YstgfIvERZe4/zGu+w87qgXyMfElBYw==
+X-Received: by 2002:a05:6000:54a:b0:2bd:6490:8c5f with SMTP id
+ b10-20020a056000054a00b002bd64908c5fmr6062877wrf.23.1673515471297; 
+ Thu, 12 Jan 2023 01:24:31 -0800 (PST)
 Received: from ?IPV6:2a01:e0a:982:cbb0:3b9e:7554:4633:9a59?
  ([2a01:e0a:982:cbb0:3b9e:7554:4633:9a59])
  by smtp.gmail.com with ESMTPSA id
- r7-20020a05600c458700b003d974076f13sm22549818wmo.3.2023.01.12.01.24.06
+ x2-20020adff642000000b002a01e64f7a1sm16255730wrp.88.2023.01.12.01.24.30
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 12 Jan 2023 01:24:07 -0800 (PST)
-Message-ID: <5e58a091-525b-7678-a0e8-1a7ab39d0d18@linaro.org>
-Date: Thu, 12 Jan 2023 10:24:06 +0100
+ Thu, 12 Jan 2023 01:24:30 -0800 (PST)
+Message-ID: <ed9eb076-7a81-8892-a509-9105cbc3c128@linaro.org>
+Date: Thu, 12 Jan 2023 10:24:30 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.6.0
@@ -64,13 +64,13 @@ To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
  Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
  Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>
 References: <20230108165656.136871-1-dmitry.baryshkov@linaro.org>
- <20230108165656.136871-2-dmitry.baryshkov@linaro.org>
+ <20230108165656.136871-3-dmitry.baryshkov@linaro.org>
 Organization: Linaro Developer Services
-In-Reply-To: <20230108165656.136871-2-dmitry.baryshkov@linaro.org>
+In-Reply-To: <20230108165656.136871-3-dmitry.baryshkov@linaro.org>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH v2 01/13] drm/bridge: lt9611: fix sleep mode
- setup
+Subject: Re: [Freedreno] [PATCH v2 02/13] drm/bridge: lt9611: fix HPD
+ reenablement
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -91,35 +91,41 @@ Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 On 08/01/2023 17:56, Dmitry Baryshkov wrote:
-> On atomic_post_disable the bridge goes to the low power state. However
-> the code disables too much of the chip, so the HPD event is not being
-> detected and delivered to the host. Reduce the power saving in order to
-> get the HPD event.
+> The driver will reset the bridge in the atomic_pre_enable(). However
+> this will also drop the HPD interrupt state. Instead of resetting the
+> bridge, properly wake it up. This fixes the HPD interrupt delivery after
+> the disable/enable cycle.
 > 
 > Fixes: 23278bf54afe ("drm/bridge: Introduce LT9611 DSI to HDMI bridge")
 > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 > ---
->   drivers/gpu/drm/bridge/lontium-lt9611.c | 5 ++---
->   1 file changed, 2 insertions(+), 3 deletions(-)
+>   drivers/gpu/drm/bridge/lontium-lt9611.c | 10 ++++++++--
+>   1 file changed, 8 insertions(+), 2 deletions(-)
 > 
 > diff --git a/drivers/gpu/drm/bridge/lontium-lt9611.c b/drivers/gpu/drm/bridge/lontium-lt9611.c
-> index 7c0a99173b39..2714184cc53f 100644
+> index 2714184cc53f..58f39b279217 100644
 > --- a/drivers/gpu/drm/bridge/lontium-lt9611.c
 > +++ b/drivers/gpu/drm/bridge/lontium-lt9611.c
-> @@ -448,12 +448,11 @@ static void lt9611_sleep_setup(struct lt9611 *lt9611)
->   		{ 0x8023, 0x01 },
->   		{ 0x8157, 0x03 }, /* set addr pin as output */
->   		{ 0x8149, 0x0b },
-> -		{ 0x8151, 0x30 }, /* disable IRQ */
-> +
->   		{ 0x8102, 0x48 }, /* MIPI Rx power down */
->   		{ 0x8123, 0x80 },
->   		{ 0x8130, 0x00 },
-> -		{ 0x8100, 0x01 }, /* bandgap power down */
-> -		{ 0x8101, 0x00 }, /* system clk power down */
-> +		{ 0x8011, 0x0a },
->   	};
+> @@ -856,12 +856,18 @@ static enum drm_mode_status lt9611_bridge_mode_valid(struct drm_bridge *bridge,
+>   static void lt9611_bridge_pre_enable(struct drm_bridge *bridge)
+>   {
+>   	struct lt9611 *lt9611 = bridge_to_lt9611(bridge);
+> +	static const struct reg_sequence reg_cfg[] = {
+> +		{ 0x8102, 0x12 },
+> +		{ 0x8123, 0x40 },
+> +		{ 0x8130, 0xea },
+> +		{ 0x8011, 0xfa },
+> +	};
 >   
->   	regmap_multi_reg_write(lt9611->regmap,
+>   	if (!lt9611->sleep)
+>   		return;
+>   
+> -	lt9611_reset(lt9611);
+> -	regmap_write(lt9611->regmap, 0x80ee, 0x01);
+> +	regmap_multi_reg_write(lt9611->regmap,
+> +			       reg_cfg, ARRAY_SIZE(reg_cfg));
+>   
+>   	lt9611->sleep = false;
+>   }
 
 Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
