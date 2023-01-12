@@ -2,57 +2,54 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id D37B7668635
-	for <lists+freedreno@lfdr.de>; Thu, 12 Jan 2023 22:52:10 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 60A83668736
+	for <lists+freedreno@lfdr.de>; Thu, 12 Jan 2023 23:47:17 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9B6EE10E92E;
-	Thu, 12 Jan 2023 21:52:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 19FDD10E951;
+	Thu, 12 Jan 2023 22:47:16 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-oo1-f52.google.com (mail-oo1-f52.google.com
- [209.85.161.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E4A8B10E92E;
- Thu, 12 Jan 2023 21:52:07 +0000 (UTC)
-Received: by mail-oo1-f52.google.com with SMTP id
- m23-20020a4abc97000000b004bfe105c580so5148118oop.4; 
- Thu, 12 Jan 2023 13:52:07 -0800 (PST)
+Received: from mail-oa1-x2f.google.com (mail-oa1-x2f.google.com
+ [IPv6:2001:4860:4864:20::2f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9BD8B10E94D;
+ Thu, 12 Jan 2023 22:47:13 +0000 (UTC)
+Received: by mail-oa1-x2f.google.com with SMTP id
+ 586e51a60fabf-15b9c93848dso12254991fac.1; 
+ Thu, 12 Jan 2023 14:47:13 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=cc:to:subject:message-id:date:from:mime-version:from:to:cc:subject
+ :date:message-id:reply-to;
+ bh=FQUwPv/TMyXJrNzfCcwmEvY/QdFqohc2tALE1xmmzVM=;
+ b=om+f6raMoRk1heKxqHNySh0DV96srUosmJsC04L7Nyr2ihmjajq+tPA3goALZ4ynX0
+ 0eETcEId6DBKdSrGTFkEuCUISndR7vD1tABN7vsW6EA/xl6PiGq09c6h0Iavjyra8pEu
+ R/Vp9Xa1xyeoFgbKPJEHxkV4L0GDCpn9JqHb62FysvcpxgB7hE5CEY++UnushXTx+LCp
+ aVS3DJQzX1vTFdaapDi5ikREJtENmHKcxTvUzxFqGyPRHsi1nJ4O1ArI6+9qSAXK/JXW
+ yocDO2wOCZqP7GEYrfiek0g289CmMskGZfL4PSV8JBHE5rD+W5VLSWQqxL7apwCxqPvH
+ QoNA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=pocd7oPe80m3B5bK7WHq/GJVxDYkLdBzBVnfgMx2yo8=;
- b=skMtWnoUIBP+3uVRJeXSGdrAWcRM6PQ56932Fobfv6oBewtifsLB0oFmCsI/NG1tUZ
- xLYWGE0wD4Xz/KHIM083eHS6ARkCCdOtFvjsbwhtJWar7BFK1BxVhSv0+SaPY/zFA0M8
- quwltjLyobJFiaHpLZgIYfOKGvqC5slMfSP0QXXe7mBijqmjvBXbiledzuWmGZliAWPF
- DM+qkhe+Vl7+Z6yE9OAk3lkk8p3EZyXwTuOTMlkYS+SPWOPrtRuS9kck1Bm9XsGCB1/K
- 6lgqUbCm3KWwqGi5Qe5wjWp/5UcqTzAAOYgkhdS3p8INxTnliZBOzLUfQKABzVnno6Ca
- ONzQ==
-X-Gm-Message-State: AFqh2koa+GD+sxWY6ypjKaURSgmLO1lRpzOgPER3znidaQRBpkLYZ+dB
- QQnNV99u1FTB/5o97UQnlQ==
-X-Google-Smtp-Source: AMrXdXuUxmFMe5f8pEIH/6rzb8K6cObPqDQgkF6n1oTIbC3iMUMSim9U1gouK8fOzAeh7+xNp7/TDQ==
-X-Received: by 2002:a4a:8c32:0:b0:4f2:6891:7f76 with SMTP id
- u47-20020a4a8c32000000b004f268917f76mr1861329ooj.4.1673560327099; 
- Thu, 12 Jan 2023 13:52:07 -0800 (PST)
-Received: from robh_at_kernel.org (66-90-144-107.dyn.grandenetworks.net.
- [66.90.144.107]) by smtp.gmail.com with ESMTPSA id
- d144-20020a4a5296000000b004f269f9b8f3sm1349426oob.25.2023.01.12.13.52.03
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 12 Jan 2023 13:52:03 -0800 (PST)
-Received: (nullmailer pid 283232 invoked by uid 1000);
- Thu, 12 Jan 2023 21:52:02 -0000
-Date: Thu, 12 Jan 2023 15:52:02 -0600
-From: Rob Herring <robh@kernel.org>
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Message-ID: <20230112215202.GA281635-robh@kernel.org>
-References: <20230109050152.316606-1-dmitry.baryshkov@linaro.org>
- <20230109050152.316606-3-dmitry.baryshkov@linaro.org>
+ h=cc:to:subject:message-id:date:from:mime-version:x-gm-message-state
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=FQUwPv/TMyXJrNzfCcwmEvY/QdFqohc2tALE1xmmzVM=;
+ b=XnKkDjCR0bGnRxzkpsRNEDtNRQo4/oDy/0AQ/KH/Tzk/jpWhf1zIDABSaLsWLlyjYq
+ PCe8svqQNljnhf40GAeWjEu/EizV+m+IYHRwnl0ZTwoxi/ffn6oWZvq5J/EuzRB8WXSW
+ gMMyrWo62z3oN+g6aWjUIfabviTA58JWKL9e2AEDFW+j62K5Fvy8qSlc9gj9O/OyQWEY
+ Xb09+/rK6xb2eYwt+8PEUwYTsTH7Ipw+s9o+3sbN6X6eqVSAw3EJdWj0YkVKexyoPO5r
+ VwZfWpBVAqFbr+kIOQvdKvORkF8T4nTh9bYgYFY1b/w9i2UrTKWzpedubAuwzJB+ErNw
+ v5Iw==
+X-Gm-Message-State: AFqh2kqUhpSPLNJn2dBspJ5vEq8WX3olmxt5Vrbg3Z6ps3//TriVYY+N
+ w+WVlCQXYIIqvbRmR2kXJBzgwEY3+ZVGXp1EzCo=
+X-Google-Smtp-Source: AMrXdXvdZptTCsXrHi4BTk//sSbh/jnXYupMny8L1cXQkzTKzWGrFLrL6ndL5Yx77FuXhtnFkr2ea4eIUTBbzgkrI58=
+X-Received: by 2002:a05:6870:cb98:b0:15b:96b8:e2be with SMTP id
+ ov24-20020a056870cb9800b0015b96b8e2bemr922634oab.38.1673563632873; Thu, 12
+ Jan 2023 14:47:12 -0800 (PST)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20230109050152.316606-3-dmitry.baryshkov@linaro.org>
-Subject: Re: [Freedreno] [PATCH v5 2/4] dt-bindings: display/msm: add
- SoC-specific compats to qcom, mdp5.yaml
+From: Rob Clark <robdclark@gmail.com>
+Date: Thu, 12 Jan 2023 14:47:07 -0800
+Message-ID: <CAF6AEGv7=in_MHW3kdkhqh7ZFoVCmnikmr29YYHCXR=7aOEneg@mail.gmail.com>
+To: Dave Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>
+Content-Type: text/plain; charset="UTF-8"
+Subject: [Freedreno] [pull] drm/msm: drm-msm-fixes-2023-01-12 for v6.3-rc4
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,77 +62,116 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: devicetree@vger.kernel.org, Daniel Vetter <daniel@ffwll.ch>,
- David Airlie <airlied@gmail.com>, Bjorn Andersson <andersson@kernel.org>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
- Stephen Boyd <swboyd@chromium.org>, Konrad Dybcio <konrad.dybcio@linaro.org>,
- Rob Clark <robdclark@gmail.com>, Andy Gross <agross@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
- Sean Paul <sean@poorly.run>
+Cc: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ linux-arm-msm <linux-arm-msm@vger.kernel.org>,
+ freedreno <freedreno@lists.freedesktop.org>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ dri-devel <dri-devel@lists.freedesktop.org>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Mon, Jan 09, 2023 at 07:01:50AM +0200, Dmitry Baryshkov wrote:
-> Add platform-specific compatible entries to the qcom,mdp5.yaml to allow
-> distinguishing between various platforms. For msm8998 list
-> qcom,msm8998-dpu rather than -mdp5 to allow this binding to be handled
-> by either of the drivers.
+Hi Dave,
 
-8998 is where?
+A few fixes for the v6.3 cycle.  Summary below.
 
-> 
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> ---
->  .../bindings/display/msm/qcom,mdp5.yaml         | 17 ++++++++++++++++-
->  .../bindings/display/msm/qcom,mdss.yaml         |  6 +++++-
->  2 files changed, 21 insertions(+), 2 deletions(-)
-> 
-> diff --git a/Documentation/devicetree/bindings/display/msm/qcom,mdp5.yaml b/Documentation/devicetree/bindings/display/msm/qcom,mdp5.yaml
-> index cbcbe8b47e9b..681d6ac48d33 100644
-> --- a/Documentation/devicetree/bindings/display/msm/qcom,mdp5.yaml
-> +++ b/Documentation/devicetree/bindings/display/msm/qcom,mdp5.yaml
-> @@ -16,7 +16,22 @@ maintainers:
->  
->  properties:
->    compatible:
-> -    const: qcom,mdp5
-> +    oneOf:
-> +      - const: qcom,mdp5
-> +        deprecated: true
-> +      - items:
-> +          - enum:
-> +              - qcom,apq8084-mdp5
-> +              - qcom,msm8916-mdp5
-> +              - qcom,msm8917-mdp5
-> +              - qcom,msm8953-mdp5
-> +              - qcom,msm8974-mdp5
-> +              - qcom,msm8976-mdp5
-> +              - qcom,msm8994-mdp5
-> +              - qcom,msm8996-mdp5
-> +              - qcom,sdm630-mdp5
-> +              - qcom,sdm660-mdp5
-> +          - const: qcom,mdp5
->  
->    reg:
->      maxItems: 1
-> diff --git a/Documentation/devicetree/bindings/display/msm/qcom,mdss.yaml b/Documentation/devicetree/bindings/display/msm/qcom,mdss.yaml
-> index 7479cd96fdec..7a81a10c0a9b 100644
-> --- a/Documentation/devicetree/bindings/display/msm/qcom,mdss.yaml
-> +++ b/Documentation/devicetree/bindings/display/msm/qcom,mdss.yaml
-> @@ -88,7 +88,11 @@ patternProperties:
->      type: object
->      properties:
->        compatible:
-> -        const: qcom,mdp5
-> +        oneOf:
-> +          - const: qcom,mdp5
-> +          - items:
-> +              - {}
-> +              - const: qcom,mdp5
->  
->    "^dsi@[1-9a-f][0-9a-f]*$":
->      type: object
-> -- 
-> 2.39.0
-> 
+The following changes since commit 8d1d17d47eaebe4466459846d07e4ba8953fa585:
+
+  Merge branches 'msm-next-lumag-core', 'msm-next-lumag-dpu',
+'msm-next-lumag-dp', 'msm-next-lumag-dsi', 'msm-next-lumag-hdmi' and
+'msm-next-lumag-mdp5' into msm-next-lumag (2022-11-26 12:06:29 +0200)
+
+are available in the Git repository at:
+
+  https://gitlab.freedesktop.org/drm/msm.git tags/drm-msm-fixes-2023-01-12
+
+for you to fetch changes up to f4a75b5933c998e60fd812a7680e0971eb1c7cee:
+
+  drm/msm/a6xx: Avoid gx gbit halt during rpm suspend (2023-01-05
+15:13:16 -0800)
+
+----------------------------------------------------------------
+msm-fixes for v6.3-rc4
+
+Display Fixes:
+
+- Fix the documentation for dpu_encoder_phys_wb_init() and
+  dpu_encoder_phys_wb_setup_fb() APIs to address doc warnings
+- Remove vcca-supply and vdds-supply as mandatory for 14nm PHY and
+  10nm PHY DT schemas respectively as they are not present on some
+  SOCs using these PHYs
+- Add the dsi-phy-regulator-ldo-mode to dsi-phy-28nm.yaml as it was
+  missed out during txt to yaml migration
+- Remove operating-points-v2 and power-domain as a required property
+  for the DSI controller as thats not the case for every SOC
+- Fix the description from display escape clock to display core
+  clock in the dsi controller yaml
+- Fix the memory leak for mdp1-mem path for the cases when we return
+  early after failing to get mdp0-mem ICC paths for msm
+- Fix error handling path in msm_hdmi_dev_probe() to release the phy
+  ref count when devm_pm_runtime_enable() fails
+- Fix the dp_aux_isr() routine to make sure it doesnt incorrectly
+  signal the aux transaction as complete if the ISR was not an AUX
+  isr. This fixes a big hitter stability bug on chromebooks.
+- Add protection against null pointer dereference when there is no
+  kms object as in the case of headless adreno GPU in the shutdown
+  path.
+
+GPU Fixes:
+
+- a5xx: fix quirks to actually be a bitmask and not overwrite each
+  other
+- a6xx: fix gx halt sequence to avoid 1000ms hang on some devices
+- kexec shutdown fix
+- fix potential double free
+
+----------------------------------------------------------------
+Adam Skladowski (1):
+      dt-bindings: display: msm: Rename mdss node name in example
+
+Akhil P Oommen (1):
+      drm/msm/a6xx: Avoid gx gbit halt during rpm suspend
+
+Bryan O'Donoghue (4):
+      dt-bindings: msm: dsi-phy-28nm: Add missing qcom,
+dsi-phy-regulator-ldo-mode
+      dt-bindings: msm: dsi-controller-main: Fix operating-points-v2 constraint
+      dt-bindings: msm: dsi-controller-main: Fix power-domain constraint
+      dt-bindings: msm: dsi-controller-main: Fix description of core clock
+
+Christophe JAILLET (1):
+      drm/msm/hdmi: Fix the error handling path of msm_hdmi_dev_probe()
+
+Dmitry Baryshkov (1):
+      drm/msm: another fix for the headless Adreno GPU
+
+Konrad Dybcio (3):
+      dt-bindings: msm/dsi: Don't require vcca-supply on 14nm PHY
+      dt-bindings: msm/dsi: Don't require vdds-supply on 10nm PHY
+      drm/msm/adreno: Make adreno quirks not overwrite each other
+
+Kuogee Hsieh (1):
+      drm/msm/dp: do not complete dp_aux_cmd_fifo_tx() if irq is not
+for aux transfer
+
+Miaoqian Lin (1):
+      drm/msm/dpu: Fix memory leak in msm_mdss_parse_data_bus_icc_path
+
+Yang Li (1):
+      drm/msm/dpu: Fix some kernel-doc comments
+
+ .../bindings/display/msm/dsi-controller-main.yaml         |  4 +---
+ .../devicetree/bindings/display/msm/dsi-phy-10nm.yaml     |  1 -
+ .../devicetree/bindings/display/msm/dsi-phy-14nm.yaml     |  1 -
+ .../devicetree/bindings/display/msm/dsi-phy-28nm.yaml     |  4 ++++
+ .../bindings/display/msm/qcom,qcm2290-mdss.yaml           |  2 +-
+ .../devicetree/bindings/display/msm/qcom,sm6115-mdss.yaml |  2 +-
+ drivers/gpu/drm/msm/adreno/a6xx_gmu.c                     | 15 +++++++++------
+ drivers/gpu/drm/msm/adreno/a6xx_gpu.c                     |  7 +++++++
+ drivers/gpu/drm/msm/adreno/a6xx_gpu.h                     |  1 +
+ drivers/gpu/drm/msm/adreno/adreno_gpu.h                   | 10 ++++------
+ drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_wb.c       |  3 +--
+ drivers/gpu/drm/msm/dp/dp_aux.c                           |  4 ++++
+ drivers/gpu/drm/msm/hdmi/hdmi.c                           | 12 ++++++++++--
+ drivers/gpu/drm/msm/msm_drv.c                             |  2 +-
+ drivers/gpu/drm/msm/msm_mdss.c                            |  6 ++++--
+ 15 files changed, 48 insertions(+), 26 deletions(-)
