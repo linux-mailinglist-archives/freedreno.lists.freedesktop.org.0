@@ -2,78 +2,71 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 45D726666F0
-	for <lists+freedreno@lfdr.de>; Thu, 12 Jan 2023 00:04:06 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 83457666782
+	for <lists+freedreno@lfdr.de>; Thu, 12 Jan 2023 01:16:21 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B1EA910E838;
-	Wed, 11 Jan 2023 23:04:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 49AA110E179;
+	Thu, 12 Jan 2023 00:16:20 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
  [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B96FA10E825;
- Wed, 11 Jan 2023 23:04:01 +0000 (UTC)
-Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7C08210E176;
+ Thu, 12 Jan 2023 00:16:18 +0000 (UTC)
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
  by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 30BMP1Qw022472; Wed, 11 Jan 2023 23:03:59 GMT
+ 30C02CgL007608; Thu, 12 Jan 2023 00:16:15 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
- h=message-id : date :
- mime-version : subject : to : cc : references : from : in-reply-to :
- content-type : content-transfer-encoding; s=qcppdkim1;
- bh=jkuwI+skdrZdGL2ZVoUMisaPlFY2+xhJF0gdQLyrI0E=;
- b=HtP1EtsfsJMfF4FZiTBzpt0C2Id5t+lHrNItwcVLeJvSrLCWVAnqrb+Z0J/R0dZ3aZKa
- pyGsT55AuHrXKa65Uafv2MlF2PDqjW5K4b3Hxbgm/iV0ELrbsD4jRbbIJa9dz9tXXUmZ
- sb6xpsWx6uWKTz+dwOavrTfrgB2Upsa2U+dLqO9tdxSFHYloAEKK/leSYzaQhqmvGXCL
- Ncw8H8l0m10xY3p3igeLY+CsTZK2ZlaDMj8f3B3XLwUvWWkV3YXJ5tTdJIJcZgWuS+kH
- Rft7JZxUIk+qQPDKF5Z1Wd4pM80ee/5VemFRNpd6dHRALT0z6fWsbi5szSKXEcTOeLMz jw== 
-Received: from nalasppmta05.qualcomm.com (Global_NAT1.qualcomm.com
+ h=from : to : cc :
+ subject : date : message-id : mime-version : content-transfer-encoding :
+ content-type; s=qcppdkim1;
+ bh=JN/B4N8cmVkipSfz8rN0Pwrrp0Q6iMXwc2+8rg/bci4=;
+ b=SmgcdasMiEBk8MD3ilFt3h5XtP6iwFReDL/7YSQXrPnNCtOPvHHSFezKY6NUcagtzKmX
+ PC2UExky/hFAdP4kx20qOU6g9H8cNDuloidEQ+lZtMjGv0RB3c0Wgeiz20cQ+MGEmIL/
+ wWfDEN35MNqzw62SGXsWn6mYxklaqSiADzFSVcTCeGkSleViQueRSYJnz1I+V0bz/oPP
+ /pfCmKAXACzAxYnpLpqi4L0rWHScxzAvu5llyVD22FM9H6RLFljeaUBTZGRzg52uGQUI
+ 1k7wCzWrD1w/VHGVumcEslJMM4RwWdsJzuR5bn758t/JtNWXCnfNXtUoyosi41nIa6z9 4A== 
+Received: from nalasppmta02.qualcomm.com (Global_NAT1.qualcomm.com
  [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3n1k6a2dk2-1
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3n1k5k2fta-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 11 Jan 2023 23:03:59 +0000
+ Thu, 12 Jan 2023 00:16:15 +0000
 Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
  [10.47.209.196])
- by NALASPPMTA05.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 30BN3wWe022313
+ by NALASPPMTA02.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 30C0GEU9027293
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 11 Jan 2023 23:03:58 GMT
-Received: from [10.110.115.72] (10.80.80.8) by nalasex01a.na.qualcomm.com
- (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.36; Wed, 11 Jan
- 2023 15:03:57 -0800
-Message-ID: <8264b319-d852-b3fa-5af5-2fd0e5fe83b4@quicinc.com>
-Date: Wed, 11 Jan 2023 15:03:56 -0800
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.6.2
-Content-Language: en-US
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- <freedreno@lists.freedesktop.org>
-References: <20230111225257.7510-1-quic_abhinavk@quicinc.com>
- <20230111225257.7510-2-quic_abhinavk@quicinc.com>
- <2304c252-354a-f214-3f89-7797110fc416@linaro.org>
+ Thu, 12 Jan 2023 00:16:14 GMT
+Received: from jesszhan-linux.qualcomm.com (10.80.80.8) by
+ nalasex01a.na.qualcomm.com (10.47.209.196) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.986.36; Wed, 11 Jan 2023 16:16:13 -0800
 From: Abhinav Kumar <quic_abhinavk@quicinc.com>
-In-Reply-To: <2304c252-354a-f214-3f89-7797110fc416@linaro.org>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
+To: <freedreno@lists.freedesktop.org>
+Date: Wed, 11 Jan 2023 16:15:59 -0800
+Message-ID: <20230112001600.12791-1-quic_abhinavk@quicinc.com>
+X-Mailer: git-send-email 2.39.0
+MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
 X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
+X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
  nalasex01a.na.qualcomm.com (10.47.209.196)
 X-QCInternal: smtphost
 X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
  signatures=585085
-X-Proofpoint-ORIG-GUID: 6Azl-M_k_kmBhr1NPanft-xLsOYv-YaD
-X-Proofpoint-GUID: 6Azl-M_k_kmBhr1NPanft-xLsOYv-YaD
+X-Proofpoint-ORIG-GUID: P6F-iQS6kcyW6K9w4wOlnjMy0Xicaw6U
+X-Proofpoint-GUID: P6F-iQS6kcyW6K9w4wOlnjMy0Xicaw6U
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.219,Aquarius:18.0.923,Hydra:6.0.545,FMLib:17.11.122.1
  definitions=2023-01-11_10,2023-01-11_02,2022-06-22_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 adultscore=0
- lowpriorityscore=0 impostorscore=0 phishscore=0 clxscore=1015
- malwarescore=0 mlxscore=0 priorityscore=1501 spamscore=0 bulkscore=0
- mlxlogscore=999 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2212070000 definitions=main-2301110169
-Subject: Re: [Freedreno] [PATCH v2 2/2] drm/msm/dsi: implement opp table
- based check for dsi_mgr_bridge_mode_valid()
+ malwarescore=0 spamscore=0
+ priorityscore=1501 suspectscore=0 adultscore=0 mlxlogscore=999
+ clxscore=1015 bulkscore=0 mlxscore=0 phishscore=0 lowpriorityscore=0
+ impostorscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2212070000 definitions=main-2301110177
+Subject: [Freedreno] [PATCH v3 1/2] drm/msm/dsi: add a helper method to
+ compute the dsi byte clk
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -86,94 +79,97 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: dri-devel@lists.freedesktop.org, swboyd@chromium.org, robdclark@gmail.com,
- seanpaul@chromium.org, daniel@ffwll.ch, quic_jesszhan@quicinc.com
+Cc: Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
+ swboyd@chromium.org, robdclark@gmail.com, seanpaul@chromium.org,
+ daniel@ffwll.ch, dmitry.baryshkov@linaro.org, quic_jesszhan@quicinc.com
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
+Re-arrange the dsi_calc_pclk method to two helpers, one to
+compute the DSI byte clk and the other to compute the pclk.
 
+This makes the separation of the two clean and also allows
+clients to compute and use the dsi byte clk separately.
 
-On 1/11/2023 2:56 PM, Dmitry Baryshkov wrote:
-> On 12/01/2023 00:52, Abhinav Kumar wrote:
->> Currently there is no protection against a user trying to set
->> an unsupported mode on DSI. Implement a check based on the opp
->> table whether the byte clock for the mode can be supported by
->> validating whether an opp table entry exists.
->>
->> For devices which have not added opp table support yet, skip
->> this check otherwise it will break bootup on those devices.
->>
->> changes in v2:
->>     - drop dev_pm_opp_get_opp_table() usage
->>
->> Closes: https://gitlab.freedesktop.org/drm/msm/-/issues/15
->> Reported-by: Rob Clark <robdclark@gmail.com>
->> Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
->> ---
->>   drivers/gpu/drm/msm/dsi/dsi_manager.c | 25 +++++++++++++++++++++++++
->>   1 file changed, 25 insertions(+)
->>
->> diff --git a/drivers/gpu/drm/msm/dsi/dsi_manager.c 
->> b/drivers/gpu/drm/msm/dsi/dsi_manager.c
->> index 3a1417397283..c4c24dabfd6f 100644
->> --- a/drivers/gpu/drm/msm/dsi/dsi_manager.c
->> +++ b/drivers/gpu/drm/msm/dsi/dsi_manager.c
->> @@ -450,6 +450,31 @@ static enum drm_mode_status 
->> dsi_mgr_bridge_mode_valid(struct drm_bridge *bridge,
->>       int id = dsi_mgr_bridge_get_id(bridge);
->>       struct msm_dsi *msm_dsi = dsi_mgr_get_dsi(id);
->>       struct mipi_dsi_host *host = msm_dsi->host;
->> +    struct platform_device *pdev = msm_dsi->pdev;
->> +    struct dev_pm_opp *opp;
->> +    unsigned long byte_clk_rate;
->> +
->> +    byte_clk_rate = dsi_byte_clk_get_rate(host, IS_BONDED_DSI(), mode);
->> +
->> +    /*
->> +     * If dev_pm_opp_find_freq_ceil() returns -EINVAL, its a bad
->> +     * pointer being passed, so treat as an error and return MODE_ERROR
->> +     *
->> +     * If dev_pm_opp_find_freq_ceil() returns -ERANGE, no clock
->> +     * was found matching the byte_clk, so return MODE_CLOCK_RANGE
->> +     *
->> +     * If dev_pm_opp_find_freq_ceil() returns -ENODEV, don't treat
->> +     * it as an error as it could mean opp table is not implemented
->> +     */
-> 
-> I'd say, too lengthy and verbose.
-> 
-hmmm .... just wanted to document the basis of the policy, I can make it 
-shorter.
+changes in v2:
+	- move the assignments to definition lines
 
->> +    opp = dev_pm_opp_find_freq_ceil(&pdev->dev, &byte_clk_rate);
->> +    if (IS_ERR(opp)) {
->> +        if (PTR_ERR(opp) == -EINVAL)
->> +            return MODE_ERROR;
->> +        else if (PTR_ERR(opp) == -ERANGE)
->> +            return MODE_CLOCK_RANGE;
-> 
-> I think the logic should be quite opposite. Ignore -ENODEV, handle 
-> -ERANGE and return MODE_ERROR for all other errors. In your code you are 
-> ignoring not only -ENODEV, but all other possible errors which can be 
-> added in future.
-> 
+Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
+---
+ drivers/gpu/drm/msm/dsi/dsi.h      |  2 ++
+ drivers/gpu/drm/msm/dsi/dsi_host.c | 21 ++++++++++++++-------
+ 2 files changed, 16 insertions(+), 7 deletions(-)
 
-Atm, those were the only ones handled but you are right.
+diff --git a/drivers/gpu/drm/msm/dsi/dsi.h b/drivers/gpu/drm/msm/dsi/dsi.h
+index 2a96b4fe7839..1a551cc0e889 100644
+--- a/drivers/gpu/drm/msm/dsi/dsi.h
++++ b/drivers/gpu/drm/msm/dsi/dsi.h
+@@ -118,6 +118,8 @@ int dsi_link_clk_enable_6g(struct msm_dsi_host *msm_host);
+ int dsi_link_clk_enable_v2(struct msm_dsi_host *msm_host);
+ void dsi_link_clk_disable_6g(struct msm_dsi_host *msm_host);
+ void dsi_link_clk_disable_v2(struct msm_dsi_host *msm_host);
++unsigned long dsi_byte_clk_get_rate(struct mipi_dsi_host *host, bool is_bonded_dsi,
++				    const struct drm_display_mode *mode);
+ int dsi_tx_buf_alloc_6g(struct msm_dsi_host *msm_host, int size);
+ int dsi_tx_buf_alloc_v2(struct msm_dsi_host *msm_host, int size);
+ void *dsi_tx_buf_get_6g(struct msm_dsi_host *msm_host);
+diff --git a/drivers/gpu/drm/msm/dsi/dsi_host.c b/drivers/gpu/drm/msm/dsi/dsi_host.c
+index c3cd96de7f7d..c145fd359ed5 100644
+--- a/drivers/gpu/drm/msm/dsi/dsi_host.c
++++ b/drivers/gpu/drm/msm/dsi/dsi_host.c
+@@ -570,9 +570,8 @@ void dsi_link_clk_disable_v2(struct msm_dsi_host *msm_host)
+ 	clk_disable_unprepare(msm_host->byte_clk);
+ }
+ 
+-static unsigned long dsi_get_pclk_rate(struct msm_dsi_host *msm_host, bool is_bonded_dsi)
++static unsigned long dsi_get_pclk_rate(const struct drm_display_mode *mode, bool is_bonded_dsi)
+ {
+-	struct drm_display_mode *mode = msm_host->mode;
+ 	unsigned long pclk_rate;
+ 
+ 	pclk_rate = mode->clock * 1000;
+@@ -589,11 +588,13 @@ static unsigned long dsi_get_pclk_rate(struct msm_dsi_host *msm_host, bool is_bo
+ 	return pclk_rate;
+ }
+ 
+-static void dsi_calc_pclk(struct msm_dsi_host *msm_host, bool is_bonded_dsi)
++unsigned long dsi_byte_clk_get_rate(struct mipi_dsi_host *host, bool is_bonded_dsi,
++				    const struct drm_display_mode *mode)
+ {
++	struct msm_dsi_host *msm_host = to_msm_dsi_host(host);
+ 	u8 lanes = msm_host->lanes;
+ 	u32 bpp = dsi_get_bpp(msm_host->format);
+-	unsigned long pclk_rate = dsi_get_pclk_rate(msm_host, is_bonded_dsi);
++	unsigned long pclk_rate = dsi_get_pclk_rate(mode, is_bonded_dsi);
+ 	u64 pclk_bpp = (u64)pclk_rate * bpp;
+ 
+ 	if (lanes == 0) {
+@@ -607,8 +608,14 @@ static void dsi_calc_pclk(struct msm_dsi_host *msm_host, bool is_bonded_dsi)
+ 	else
+ 		do_div(pclk_bpp, (8 * lanes));
+ 
+-	msm_host->pixel_clk_rate = pclk_rate;
+-	msm_host->byte_clk_rate = pclk_bpp;
++	return pclk_bpp;
++}
++
++static void dsi_calc_pclk(struct msm_dsi_host *msm_host, bool is_bonded_dsi)
++{
++	msm_host->pixel_clk_rate = dsi_get_pclk_rate(msm_host->mode, is_bonded_dsi);
++	msm_host->byte_clk_rate = dsi_byte_clk_get_rate(&msm_host->base, is_bonded_dsi,
++							msm_host->mode);
+ 
+ 	DBG("pclk=%lu, bclk=%lu", msm_host->pixel_clk_rate,
+ 				msm_host->byte_clk_rate);
+@@ -636,7 +643,7 @@ int dsi_calc_clk_rate_v2(struct msm_dsi_host *msm_host, bool is_bonded_dsi)
+ 
+ 	dsi_calc_pclk(msm_host, is_bonded_dsi);
+ 
+-	pclk_bpp = (u64)dsi_get_pclk_rate(msm_host, is_bonded_dsi) * bpp;
++	pclk_bpp = (u64)dsi_get_pclk_rate(msm_host->mode, is_bonded_dsi) * bpp;
+ 	do_div(pclk_bpp, 8);
+ 	msm_host->src_clk_rate = pclk_bpp;
+ 
+-- 
+2.39.0
 
-this is better.
-
-if (IS_ERR(opp)) {
-	if (PTR_ERR(opp) == -ERANGE)
-		return MODE_CLOCK_RANGE;
-	else
-		return MODE_ERROR;
-} else {
-	dev_pm_opp_put(opp);
-}
-
->> +    } else {
->> +        dev_pm_opp_put(opp);
->> +    }
->>       return msm_dsi_host_check_dsc(host, mode);
->>   }
-> 
