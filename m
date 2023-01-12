@@ -2,61 +2,77 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id ABB54666AE2
-	for <lists+freedreno@lfdr.de>; Thu, 12 Jan 2023 06:37:04 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1BA17666CAE
+	for <lists+freedreno@lfdr.de>; Thu, 12 Jan 2023 09:43:18 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 72E3410E878;
-	Thu, 12 Jan 2023 05:37:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9CBDA10E894;
+	Thu, 12 Jan 2023 08:43:16 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x129.google.com (mail-lf1-x129.google.com
- [IPv6:2a00:1450:4864:20::129])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C9F7E10E878
- for <freedreno@lists.freedesktop.org>; Thu, 12 Jan 2023 05:37:01 +0000 (UTC)
-Received: by mail-lf1-x129.google.com with SMTP id m6so26834649lfj.11
- for <freedreno@lists.freedesktop.org>; Wed, 11 Jan 2023 21:37:01 -0800 (PST)
+Received: from mail-wr1-x42c.google.com (mail-wr1-x42c.google.com
+ [IPv6:2a00:1450:4864:20::42c])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B97F510E898
+ for <freedreno@lists.freedesktop.org>; Thu, 12 Jan 2023 08:43:15 +0000 (UTC)
+Received: by mail-wr1-x42c.google.com with SMTP id bn26so17364122wrb.0
+ for <freedreno@lists.freedesktop.org>; Thu, 12 Jan 2023 00:43:15 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=euPiCyuxjKhvf7883JyXlPwa55bTGV9dDUqFNI2G4e4=;
- b=CxqNhg7RmF6aUndfw64nsrJhUdJMUyZ5J34c0SbGaR1+Z5GljQ3Pnw9dA8UnUdANAK
- fPUsMVl8FbMXKYA4vhWYfAeHMgV1vK9SDpif2K7xzrz9wLMLZa89K5VK7Ro2f8rbNcFd
- tsOILCo6F4WIVGZXFblu1bXDTjXDPgJ8iFExxEAYPefIyGXGmxbd+NAFEw4aWAixLGAU
- KmzdVHlW/0K7fbbr2LL0DVnRkEVwxUMnc1GpzwgB51hvo01Clo9TjdvKcK6yFmxhf3Tb
- eSYJ9pezywDcPmK1hLdE+j2RkoC2ioLMFT/ap5/VWsYg/CZZIXa8CM3DwiH1BU4MYtrl
- cqqQ==
+ h=content-transfer-encoding:in-reply-to:organization:references:cc:to
+ :content-language:subject:reply-to:from:user-agent:mime-version:date
+ :message-id:from:to:cc:subject:date:message-id:reply-to;
+ bh=3Zb2prwX5ewnpgdzGw19Cc+Sw5XwnAa7NXe+OMV8jKw=;
+ b=NmjCWa3o41jWihWfacB/vaadHdW6R3wPXPz0YoS1Zy9ajcSo8AHwhhmMNLzzZ9Jzch
+ 2s4zuWUU/tHZ5amGoQUBnaTLZYVtTL2gSh4uwB/BJUU3kHVRM+JkRzMQ4Y7r0rWk7Qpo
+ FUB6IZYahv/m2gRJd8OmTl7puOGMtRtZ7SUaGolpuFDuMYD0u/7/6auSAaE0fdvXjqlT
+ Tn/D+vlpVXPY30VyWCtFaCc8jRO0Ht3cDydmjac+ztFDNiCo5dxZAU8QXJ6ZBNYVUBDn
+ Y+CzH18vNNsCGIjIC71JzXpqo1xkrGILS/qFAb3l4BhQ/NcvOI7ERU+HfeajEw93paYw
+ V9/Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ h=content-transfer-encoding:in-reply-to:organization:references:cc:to
+ :content-language:subject:reply-to:from:user-agent:mime-version:date
+ :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=euPiCyuxjKhvf7883JyXlPwa55bTGV9dDUqFNI2G4e4=;
- b=SmVQOyy9xJD0JWi3mjbZq6K4I91xNC5X05O/dnQzzeBbu6AI6rSK3kipwLSzisSFcI
- 77zwK6sXxKcK31Dmj6xIM2ebdTPI9Imzhs5FSuRspVCrZtzcGo1MUZmdu8iW3RmSyaM+
- c+RTOhiSbuKTcmAVq8P1fHK5UE0aFZGjNf58//4kigYRixBXNuGyn7VG3SSFy/M00XOZ
- 3ERAyyMFoiFWW0N1iS4h+bVmFVt2wuettNyqlTuQC/pirpx5OVxiVUu9chfrYwuiZ1oV
- 8DmmnRXLakCEaIQVM8r3iUnYglXHC1hNGtUlLuohoshiCTWqSC4rPVwbD3NAIe5ZjHi6
- 8JHQ==
-X-Gm-Message-State: AFqh2krYgVj95K3HVn9TZE1PafnKdercD0pYnOjHxlVtKBqg54doUuYv
- TaKdem+sGqKzXr/4bHcobvE8Pg==
-X-Google-Smtp-Source: AMrXdXuvririeBJ8WjXu2KAx0GI2JmDnxcCjGnVxFSF1Yor8Y9Ngws9wxghdxTZtDynrUZ9x2d/2aQ==
-X-Received: by 2002:a05:6512:3a91:b0:4b5:9b8f:cc89 with SMTP id
- q17-20020a0565123a9100b004b59b8fcc89mr24059401lfu.55.1673501820199; 
- Wed, 11 Jan 2023 21:37:00 -0800 (PST)
-Received: from eriador.lan (dzccz6yyyyyyyyyyybcwt-3.rev.dnainternet.fi.
- [2001:14ba:a085:4d00::8a5]) by smtp.gmail.com with ESMTPSA id
- bq26-20020a056512151a00b004ae24559388sm3077817lfb.111.2023.01.11.21.36.59
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 11 Jan 2023 21:36:59 -0800 (PST)
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-To: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>
-Date: Thu, 12 Jan 2023 07:36:59 +0200
-Message-Id: <20230112053659.1361298-1-dmitry.baryshkov@linaro.org>
-X-Mailer: git-send-email 2.39.0
+ bh=3Zb2prwX5ewnpgdzGw19Cc+Sw5XwnAa7NXe+OMV8jKw=;
+ b=3Rd+lGpUBOFsAI1RZ+GQ1rxSyJdYvCVvLCih43myC+PZ0DGtvu07jXs9xZOkGPHZog
+ FEDfliDtlo5QhmkepVNoHMRSA5rRwYF0xd5mF4D6YMZXQh/GlN0QKXDkwLLLwIHX+9PF
+ yebxuhxYZmMcihe5MKR5M4R9lm8hNpPd2H2LptOaABGALwCXjPyC+sfuDCI1yiBydbRu
+ AnjjK3uJa47/Y5eXILvoX0EE07iizuXyFKw3nTxoAPHrXRN9pWWgoM8wz0Fs1MB2Lh/K
+ mgQpDOBsYKtoZmFCwhGeUMHmENi7prho8ztLlwL8a3NU3zc75BkycB2C+jGSFI0C3ezl
+ +rUg==
+X-Gm-Message-State: AFqh2kpk5sR0VLoEaf2eU+gCmkU7iims7hP9hlwrL68/YmwwBZfUl6Oh
+ s8kPGBaft+O0rRNp8TOtwe3nxw==
+X-Google-Smtp-Source: AMrXdXsejK532QbrJU+qy0oL4K+xygxwTovkVl1SS4XhjsKm22GDtCxbtqsPwWLfArk8pblgJRfzcQ==
+X-Received: by 2002:a5d:5908:0:b0:2bb:dd87:3482 with SMTP id
+ v8-20020a5d5908000000b002bbdd873482mr11003508wrd.39.1673512994127; 
+ Thu, 12 Jan 2023 00:43:14 -0800 (PST)
+Received: from ?IPV6:2a01:e0a:982:cbb0:3b9e:7554:4633:9a59?
+ ([2a01:e0a:982:cbb0:3b9e:7554:4633:9a59])
+ by smtp.gmail.com with ESMTPSA id
+ w4-20020a5d4b44000000b002366dd0e030sm15645501wrs.68.2023.01.12.00.43.13
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 12 Jan 2023 00:43:13 -0800 (PST)
+Message-ID: <c0ab0802-bced-34ac-c25f-f80ef17d7a41@linaro.org>
+Date: Thu, 12 Jan 2023 09:43:13 +0100
 MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.6.0
+From: neil.armstrong@linaro.org
+Content-Language: en-US
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Vinod Koul <vkoul@kernel.org>, Andrzej Hajda <andrzej.hajda@intel.com>,
+ Robert Foss <robert.foss@linaro.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>
+References: <20230108165656.136871-1-dmitry.baryshkov@linaro.org>
+ <20230108165656.136871-13-dmitry.baryshkov@linaro.org>
+ <c03235b1-85d1-1e55-b8c2-9a553887145f@linaro.org>
+ <1b29bbef-1ee3-654c-bb58-c8fcf3b876a0@linaro.org>
+Organization: Linaro Developer Services
+In-Reply-To: <1b29bbef-1ee3-654c-bb58-c8fcf3b876a0@linaro.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH] drm/msm/dpu: merge two CRTC debugfs dirs
+Subject: Re: [Freedreno] [PATCH v2 12/13] drm/bridge: lt9611: stop filtering
+ modes via the table
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,48 +85,112 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
- Bjorn Andersson <andersson@kernel.org>, dri-devel@lists.freedesktop.org,
- Stephen Boyd <swboyd@chromium.org>, Daniel Vetter <daniel@ffwll.ch>,
- David Airlie <airlied@gmail.com>
+Reply-To: neil.armstrong@linaro.org
+Cc: freedreno@lists.freedesktop.org, David Airlie <airlied@gmail.com>,
+ dri-devel@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>,
+ linux-arm-msm@vger.kernel.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-For each CRTC we are creating two different debugfs directories one
-using crtc index (created automatically for the CRC files) and another
-one using CRTC name/object ID (for state and status files).
+On 11/01/2023 16:37, Dmitry Baryshkov wrote:
+> On 11/01/2023 12:57, Neil Armstrong wrote:
+>> On 08/01/2023 17:56, Dmitry Baryshkov wrote:
+>>> The lt9611 bridge can support different modes, it makes no sense to list
+>>> them in the table. Drop the table and check the number of interfaces
+>>> using the fixed value.
+>>>
+>>> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+>>> ---
+>>>   drivers/gpu/drm/bridge/lontium-lt9611.c | 41 +++----------------------
+>>>   1 file changed, 4 insertions(+), 37 deletions(-)
+>>>
+>>> diff --git a/drivers/gpu/drm/bridge/lontium-lt9611.c b/drivers/gpu/drm/bridge/lontium-lt9611.c
+>>> index 82af1f954cc6..df9f015aa3a0 100644
+>>> --- a/drivers/gpu/drm/bridge/lontium-lt9611.c
+>>> +++ b/drivers/gpu/drm/bridge/lontium-lt9611.c
+>>> @@ -84,24 +84,6 @@ static const struct regmap_config lt9611_regmap_config = {
+>>>       .num_ranges = ARRAY_SIZE(lt9611_ranges),
+>>>   };
+>>> -struct lt9611_mode {
+>>> -    u16 hdisplay;
+>>> -    u16 vdisplay;
+>>> -    u8 vrefresh;
+>>> -    u8 lanes;
+>>> -    u8 intfs;
+>>> -};
+>>> -
+>>> -static struct lt9611_mode lt9611_modes[] = {
+>>> -    { 3840, 2160, 30, 4, 2 }, /* 3840x2160 24bit 30Hz 4Lane 2ports */
+>>> -    { 1920, 1080, 60, 4, 1 }, /* 1080P 24bit 60Hz 4lane 1port */
+>>> -    { 1920, 1080, 30, 3, 1 }, /* 1080P 24bit 30Hz 3lane 1port */
+>>> -    { 1920, 1080, 24, 3, 1 },
+>>> -    { 720, 480, 60, 4, 1 },
+>>> -    { 720, 576, 50, 2, 1 },
+>>> -    { 640, 480, 60, 2, 1 },
+>>> -};
+>>> -
+>>>   static struct lt9611 *bridge_to_lt9611(struct drm_bridge *bridge)
+>>>   {
+>>>       return container_of(bridge, struct lt9611, bridge);
+>>> @@ -603,21 +585,6 @@ static int lt9611_regulator_enable(struct lt9611 *lt9611)
+>>>       return 0;
+>>>   }
+>>> -static struct lt9611_mode *lt9611_find_mode(const struct drm_display_mode *mode)
+>>> -{
+>>> -    int i;
+>>> -
+>>> -    for (i = 0; i < ARRAY_SIZE(lt9611_modes); i++) {
+>>> -        if (lt9611_modes[i].hdisplay == mode->hdisplay &&
+>>> -            lt9611_modes[i].vdisplay == mode->vdisplay &&
+>>> -            lt9611_modes[i].vrefresh == drm_mode_vrefresh(mode)) {
+>>> -            return &lt9611_modes[i];
+>>> -        }
+>>> -    }
+>>> -
+>>> -    return NULL;
+>>> -}
+>>> -
+>>>   static enum drm_connector_status lt9611_bridge_detect(struct drm_bridge *bridge)
+>>>   {
+>>>       struct lt9611 *lt9611 = bridge_to_lt9611(bridge);
+>>> @@ -832,12 +799,12 @@ static enum drm_mode_status lt9611_bridge_mode_valid(struct drm_bridge *bridge,
+>>>                                const struct drm_display_info *info,
+>>>                                const struct drm_display_mode *mode)
+>>>   {
+>>> -    struct lt9611_mode *lt9611_mode = lt9611_find_mode(mode);
+>>>       struct lt9611 *lt9611 = bridge_to_lt9611(bridge);
+>>> -    if (!lt9611_mode)
+>>> -        return MODE_BAD;
+>>> -    else if (lt9611_mode->intfs > 1 && !lt9611->dsi1)
+>>> +    if (mode->hdisplay >= 3840 && drm_mode_vrefresh(mode) >= 31)
+>>
+>> Isn't 31 a typo ?
+> 
+> Maybe I should change that to drm_mode_vrefresh(mode) > 30. The chip supports 3840x2160-30, but doesn't promise to support anything above that.
 
-This can be confusing, so move our custom files to crtc->debugfs_entry,
-effetively merging two debugfs dirs.
+Yep >= 31 is valid, but > 30 seems more logical.
 
-Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
----
- drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c | 8 ++------
- 1 file changed, 2 insertions(+), 6 deletions(-)
+Concerning the hdisplay check, shouldn't be separate ?
 
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
-index 7f0f467dbabd..659fdfec5346 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
-@@ -1380,16 +1380,12 @@ DEFINE_SHOW_ATTRIBUTE(dpu_crtc_debugfs_state);
- static int _dpu_crtc_init_debugfs(struct drm_crtc *crtc)
- {
- 	struct dpu_crtc *dpu_crtc = to_dpu_crtc(crtc);
--	struct dentry *debugfs_root;
--
--	debugfs_root = debugfs_create_dir(dpu_crtc->name,
--			crtc->dev->primary->debugfs_root);
- 
- 	debugfs_create_file("status", 0400,
--			debugfs_root,
-+			crtc->debugfs_entry,
- 			dpu_crtc, &_dpu_debugfs_status_fops);
- 	debugfs_create_file("state", 0600,
--			debugfs_root,
-+			crtc->debugfs_entry,
- 			&dpu_crtc->base,
- 			&dpu_crtc_debugfs_state_fops);
- 
--- 
-2.39.0
+You should switch to:
+if (mode->hdisplay > 3840)
+    return MODE_BAD_WIDTH;
+
+if (mode->hdisplay == 3840 && drm_mode_vrefresh(mode) > 30)
+    return MODE_CLOCK_HIGH;
+
+Isn't there limits on vdisplay aswell ?
+
+Neil
+
+> 
+>>
+>>> +        return MODE_CLOCK_HIGH;
+>>> +
+>>> +    if (mode->hdisplay > 2000 && !lt9611->dsi1_node)
+>>>           return MODE_PANEL;
+>>>       else
+>>>           return MODE_OK;
+>>
+> 
 
