@@ -2,68 +2,61 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id E253D6669C8
-	for <lists+freedreno@lfdr.de>; Thu, 12 Jan 2023 04:47:52 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id ABB54666AE2
+	for <lists+freedreno@lfdr.de>; Thu, 12 Jan 2023 06:37:04 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A6A9210E861;
-	Thu, 12 Jan 2023 03:47:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 72E3410E878;
+	Thu, 12 Jan 2023 05:37:03 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x12f.google.com (mail-lf1-x12f.google.com
- [IPv6:2a00:1450:4864:20::12f])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9400F10E85F
- for <freedreno@lists.freedesktop.org>; Thu, 12 Jan 2023 03:47:49 +0000 (UTC)
-Received: by mail-lf1-x12f.google.com with SMTP id j17so26602523lfr.3
- for <freedreno@lists.freedesktop.org>; Wed, 11 Jan 2023 19:47:49 -0800 (PST)
+Received: from mail-lf1-x129.google.com (mail-lf1-x129.google.com
+ [IPv6:2a00:1450:4864:20::129])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C9F7E10E878
+ for <freedreno@lists.freedesktop.org>; Thu, 12 Jan 2023 05:37:01 +0000 (UTC)
+Received: by mail-lf1-x129.google.com with SMTP id m6so26834649lfj.11
+ for <freedreno@lists.freedesktop.org>; Wed, 11 Jan 2023 21:37:01 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=7Fsl+XczVC3y4xjwVEHLq7wRpg+RhgoiNYUxqTCYb0k=;
- b=jTrIlEPHQzVODaR9L4thDNELRop3PCxB2opiacEeP7ERfvm2au9eho36bUUGf6jgsb
- ro3f6jyZ3hlXueqYVv9RA1cVV4DAEHllfBJbbHV8CnaMwnogc5DuSNs8H8UcU5dftBVX
- gv77KCmxHHJ9XQDX9XdqSGYeR+EW1RPQdLlWf0y+LlZaH1frHTFyeVvxKZfZMh/4cYBG
- 9wsYiHCAjzFghSnDmgaEGTzBKW4B0Ki+7Umq8R4pjmqt6EY5h/Ddqh2xs9YojNowi27z
- hFf23qGeyHaiEhFfZ9xVrExVWRIgqj6Yj66++j9HVT52/IcNYbPdUhDlR2zDGHt5C9cY
- DEhQ==
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=euPiCyuxjKhvf7883JyXlPwa55bTGV9dDUqFNI2G4e4=;
+ b=CxqNhg7RmF6aUndfw64nsrJhUdJMUyZ5J34c0SbGaR1+Z5GljQ3Pnw9dA8UnUdANAK
+ fPUsMVl8FbMXKYA4vhWYfAeHMgV1vK9SDpif2K7xzrz9wLMLZa89K5VK7Ro2f8rbNcFd
+ tsOILCo6F4WIVGZXFblu1bXDTjXDPgJ8iFExxEAYPefIyGXGmxbd+NAFEw4aWAixLGAU
+ KmzdVHlW/0K7fbbr2LL0DVnRkEVwxUMnc1GpzwgB51hvo01Clo9TjdvKcK6yFmxhf3Tb
+ eSYJ9pezywDcPmK1hLdE+j2RkoC2ioLMFT/ap5/VWsYg/CZZIXa8CM3DwiH1BU4MYtrl
+ cqqQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=7Fsl+XczVC3y4xjwVEHLq7wRpg+RhgoiNYUxqTCYb0k=;
- b=ySUvMJp/Y2GqpvyYN7MG8hurIUtYSRVyu73WMIPEOa9lC1SlvbYhwSnpFRdBsb0ImW
- bXcbpx/nXU/QdEWibmxTKBvrOUa+04W2RZHZcRj6MnlN68w7eEG4fxJMuSSx4On5nSKp
- DrdAzFy6gPoT8Sebmy3qzTKNCjQ00W1KtiGoDPtfHQRrAL8Zm/IGaDTiqV2lW+/CgiUf
- sQ46zyrJaspaafu4RPBgH/Cuo035wPy7QOVrL3buCEV4vam+nxMli0dswu0dx1BTVFbi
- XtaSb0ffTMPKs8PphAw7RAX3e1Afh6BO9o43YTvWhx14N4it7HKfEFg3LQGsmC29BZxi
- 0cEA==
-X-Gm-Message-State: AFqh2kpr+9qn/3aZz1SBkivzwUApzrZjCtcrHkaFjPUXf2/6NPNJuOrb
- 3rxrpsi7KiPFi0asDwRq3GeqcA==
-X-Google-Smtp-Source: AMrXdXuQG4UzES00pUNruIlJSGp0UifU8fTI13RVg7hyEjFVE0tWTAya3H82zSigyuo2lGZ6wlMEfA==
-X-Received: by 2002:ac2:5454:0:b0:4cc:8985:b565 with SMTP id
- d20-20020ac25454000000b004cc8985b565mr2840726lfn.30.1673495267980; 
- Wed, 11 Jan 2023 19:47:47 -0800 (PST)
-Received: from ?IPV6:2001:14ba:a085:4d00::8a5?
- (dzccz6yyyyyyyyyyybcwt-3.rev.dnainternet.fi. [2001:14ba:a085:4d00::8a5])
- by smtp.gmail.com with ESMTPSA id
- t17-20020a056512209100b004a4754c5db5sm3041591lfr.244.2023.01.11.19.47.47
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 11 Jan 2023 19:47:47 -0800 (PST)
-Message-ID: <a15da787-cdf4-464b-1d90-a413ac8c59ce@linaro.org>
-Date: Thu, 12 Jan 2023 05:47:46 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.6.0
-Content-Language: en-GB
-To: Abhinav Kumar <quic_abhinavk@quicinc.com>, freedreno@lists.freedesktop.org
-References: <20230112001600.12791-1-quic_abhinavk@quicinc.com>
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=euPiCyuxjKhvf7883JyXlPwa55bTGV9dDUqFNI2G4e4=;
+ b=SmVQOyy9xJD0JWi3mjbZq6K4I91xNC5X05O/dnQzzeBbu6AI6rSK3kipwLSzisSFcI
+ 77zwK6sXxKcK31Dmj6xIM2ebdTPI9Imzhs5FSuRspVCrZtzcGo1MUZmdu8iW3RmSyaM+
+ c+RTOhiSbuKTcmAVq8P1fHK5UE0aFZGjNf58//4kigYRixBXNuGyn7VG3SSFy/M00XOZ
+ 3ERAyyMFoiFWW0N1iS4h+bVmFVt2wuettNyqlTuQC/pirpx5OVxiVUu9chfrYwuiZ1oV
+ 8DmmnRXLakCEaIQVM8r3iUnYglXHC1hNGtUlLuohoshiCTWqSC4rPVwbD3NAIe5ZjHi6
+ 8JHQ==
+X-Gm-Message-State: AFqh2krYgVj95K3HVn9TZE1PafnKdercD0pYnOjHxlVtKBqg54doUuYv
+ TaKdem+sGqKzXr/4bHcobvE8Pg==
+X-Google-Smtp-Source: AMrXdXuvririeBJ8WjXu2KAx0GI2JmDnxcCjGnVxFSF1Yor8Y9Ngws9wxghdxTZtDynrUZ9x2d/2aQ==
+X-Received: by 2002:a05:6512:3a91:b0:4b5:9b8f:cc89 with SMTP id
+ q17-20020a0565123a9100b004b59b8fcc89mr24059401lfu.55.1673501820199; 
+ Wed, 11 Jan 2023 21:37:00 -0800 (PST)
+Received: from eriador.lan (dzccz6yyyyyyyyyyybcwt-3.rev.dnainternet.fi.
+ [2001:14ba:a085:4d00::8a5]) by smtp.gmail.com with ESMTPSA id
+ bq26-20020a056512151a00b004ae24559388sm3077817lfb.111.2023.01.11.21.36.59
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 11 Jan 2023 21:36:59 -0800 (PST)
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-In-Reply-To: <20230112001600.12791-1-quic_abhinavk@quicinc.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH v3 1/2] drm/msm/dsi: add a helper method to
- compute the dsi byte clk
+To: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>
+Date: Thu, 12 Jan 2023 07:36:59 +0200
+Message-Id: <20230112053659.1361298-1-dmitry.baryshkov@linaro.org>
+X-Mailer: git-send-email 2.39.0
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Subject: [Freedreno] [PATCH] drm/msm/dpu: merge two CRTC debugfs dirs
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,30 +69,48 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: dri-devel@lists.freedesktop.org, swboyd@chromium.org, robdclark@gmail.com,
- seanpaul@chromium.org, daniel@ffwll.ch, quic_jesszhan@quicinc.com
+Cc: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
+ Bjorn Andersson <andersson@kernel.org>, dri-devel@lists.freedesktop.org,
+ Stephen Boyd <swboyd@chromium.org>, Daniel Vetter <daniel@ffwll.ch>,
+ David Airlie <airlied@gmail.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 12/01/2023 02:15, Abhinav Kumar wrote:
-> Re-arrange the dsi_calc_pclk method to two helpers, one to
-> compute the DSI byte clk and the other to compute the pclk.
-> 
-> This makes the separation of the two clean and also allows
-> clients to compute and use the dsi byte clk separately.
-> 
-> changes in v2:
-> 	- move the assignments to definition lines
-> 
-> Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
-> ---
->   drivers/gpu/drm/msm/dsi/dsi.h      |  2 ++
->   drivers/gpu/drm/msm/dsi/dsi_host.c | 21 ++++++++++++++-------
->   2 files changed, 16 insertions(+), 7 deletions(-)
+For each CRTC we are creating two different debugfs directories one
+using crtc index (created automatically for the CRC files) and another
+one using CRTC name/object ID (for state and status files).
 
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+This can be confusing, so move our custom files to crtc->debugfs_entry,
+effetively merging two debugfs dirs.
 
+Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+---
+ drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c | 8 ++------
+ 1 file changed, 2 insertions(+), 6 deletions(-)
+
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
+index 7f0f467dbabd..659fdfec5346 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
+@@ -1380,16 +1380,12 @@ DEFINE_SHOW_ATTRIBUTE(dpu_crtc_debugfs_state);
+ static int _dpu_crtc_init_debugfs(struct drm_crtc *crtc)
+ {
+ 	struct dpu_crtc *dpu_crtc = to_dpu_crtc(crtc);
+-	struct dentry *debugfs_root;
+-
+-	debugfs_root = debugfs_create_dir(dpu_crtc->name,
+-			crtc->dev->primary->debugfs_root);
+ 
+ 	debugfs_create_file("status", 0400,
+-			debugfs_root,
++			crtc->debugfs_entry,
+ 			dpu_crtc, &_dpu_debugfs_status_fops);
+ 	debugfs_create_file("state", 0600,
+-			debugfs_root,
++			crtc->debugfs_entry,
+ 			&dpu_crtc->base,
+ 			&dpu_crtc_debugfs_state_fops);
+ 
 -- 
-With best wishes
-Dmitry
+2.39.0
 
