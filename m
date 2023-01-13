@@ -1,70 +1,73 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 469F3668A7D
-	for <lists+freedreno@lfdr.de>; Fri, 13 Jan 2023 05:00:21 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id CF409668A94
+	for <lists+freedreno@lfdr.de>; Fri, 13 Jan 2023 05:11:08 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 142D510E980;
-	Fri, 13 Jan 2023 04:00:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D653B10E985;
+	Fri, 13 Jan 2023 04:11:05 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-qt1-x829.google.com (mail-qt1-x829.google.com
- [IPv6:2607:f8b0:4864:20::829])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D17E410E980;
- Fri, 13 Jan 2023 04:00:16 +0000 (UTC)
-Received: by mail-qt1-x829.google.com with SMTP id h21so18090243qta.12;
- Thu, 12 Jan 2023 20:00:16 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=FDXhyDi7l1SPbqbcQCobScMfTSLVIuMdTxY+sas3Ig8=;
- b=S3tydDPU1O5M4gysKJENG4PKSqeeym1VIgiOr03ZRUI6T5xwPgCqGfqSykfd5pBeDp
- qc9+vrHjoGtte9NQyUkYdCpcKKG07GuPWYIIj6Nyg5lSA5ZNJQZTo3i8y70NYQNQdth2
- zOfL4KbzMWr3UyTfuajcNh09/zQ1f/1ul4rU0VEqsUF6Nk6l7Ls+GLjXqfj3YOC0Y68H
- W2Xxv+3jTajhKhEc0l2tLmcSOHgGWRTTWNHh1a1f3yuz9rPdw+l0B3xzo0ZcJmiWrQyf
- PJObPvZIipQOJ93lA8aB3EKsfqAyA4gvqhO9ZFHQQa3UklsCvJKcMd5okwtsA4raMk+z
- 6iVQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=FDXhyDi7l1SPbqbcQCobScMfTSLVIuMdTxY+sas3Ig8=;
- b=YrMOlEdR6PR2QrAqsRREpctG3zofNWckCQjExZokzkaTSmTv0QiPxNxQ7Ek3JU8Bat
- UP+ZIK3TZOvHJ7CYuZHJUMMzj7QuhilxyeF8tANu+BPbQuSMUhUH1fTlO51AUpXpKSBO
- 805jH74KrKOhYMwshe6NFQ9wR0xYH2PXoqoeB03aFoCOKFBvkJ2uIQbidZX4GjyWuT42
- 0SwuSawhr7oEsKvF3lYHF//xwMb9/jH68x/aUbrbnlTA5yK9N23k/m/Vw+l6yOWkW+3d
- EsjBHEJXjrq+DdxPYlV455HoeSMKPKQTGH56fuA0Q6MUMGuSSktqkJvivf3nxNYFL0rD
- Qb2w==
-X-Gm-Message-State: AFqh2kqGWyER9I3QzCzXUVAFv8ymO6waB+rYVmgAsPGbzVVg8ZmEwULT
- 0Xbb+wufG9KiutgAh7zeNsY=
-X-Google-Smtp-Source: AMrXdXuNqq4RLKjEZJofrE4rEW+qAB1fta+8sE1ZnMo3QjWpazb91nfa2dD1v8go3/6bA1LYem33Sg==
-X-Received: by 2002:ac8:4d07:0:b0:3ab:5f5f:a0de with SMTP id
- w7-20020ac84d07000000b003ab5f5fa0demr109774930qtv.28.1673582415608; 
- Thu, 12 Jan 2023 20:00:15 -0800 (PST)
-Received: from localhost ([2607:fea8:a2df:3d00::e680])
- by smtp.gmail.com with ESMTPSA id
- j19-20020a05620a411300b00704c1f4e756sm11861052qko.14.2023.01.12.20.00.14
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 12 Jan 2023 20:00:15 -0800 (PST)
-From: Richard Acayan <mailingradian@gmail.com>
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0FB2810E983;
+ Fri, 13 Jan 2023 04:11:03 +0000 (UTC)
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 30D3vPQ3015178; Fri, 13 Jan 2023 04:10:58 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
+ h=from : to : cc :
+ subject : date : message-id : mime-version : content-transfer-encoding :
+ content-type; s=qcppdkim1;
+ bh=llTBvKrkffCkE5ctA3nXEYyG86V6MQzfrt4z9YeU7BI=;
+ b=k+IEV1mNsV/Pcc2wQuVwi+ZZGar/H5BrI2yd0q8cbMkoNBQwk10FqdpMUDdGR+fq4FTY
+ Bz1kDALoCRDQcm/fzdLNzwSTbzIgXuH2yKBm5ja3xYr3i/SfrQqu3TkX92/9y120x5+S
+ 5F4amsOSxKse6OZSfXl2y2cMVVMHDUQo1eOWVRfSv4k3Zq9XVas+3WZjCJR3u8pXpt0+
+ tKE/pG8bw56aThNUtEtEBWd/Cvm/qkZ31mmyvPJOQVAjNtjz9HgnuGxJWTBpMg+Kj8Wo
+ 2aWusQOGQbB59YD/jOQeTH2yTXPQcMTdR3uRWPmvNF4kODNJBpA8qnO7mqhwQU/OscdM zA== 
+Received: from nalasppmta05.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3n1kxhnppm-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Fri, 13 Jan 2023 04:10:58 +0000
+Received: from nalasex01c.na.qualcomm.com (nalasex01c.na.qualcomm.com
+ [10.47.97.35])
+ by NALASPPMTA05.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 30D4AvIK010924
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Fri, 13 Jan 2023 04:10:57 GMT
+Received: from hu-bjorande-lv.qualcomm.com (10.49.16.6) by
+ nalasex01c.na.qualcomm.com (10.47.97.35) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.986.36; Thu, 12 Jan 2023 20:10:57 -0800
+From: Bjorn Andersson <quic_bjorande@quicinc.com>
 To: Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
  Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Sean Paul <sean@poorly.run>, David Airlie <airlied@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>,
- Konrad Dybcio <konrad.dybcio@somainline.org>,
- Robert Foss <rfoss@kernel.org>, Jessica Zhang <quic_jesszhan@quicinc.com>,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@somainline.org>,
- Bjorn Andersson <andersson@kernel.org>,
- Neil Armstrong <neil.armstrong@linaro.org>, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org
-Date: Thu, 12 Jan 2023 22:59:40 -0500
-Message-Id: <20230113035939.185064-1-mailingradian@gmail.com>
-X-Mailer: git-send-email 2.39.0
+ Johan Hovold <johan@kernel.org>
+Date: Thu, 12 Jan 2023 20:10:51 -0800
+Message-ID: <20230113041051.4189063-1-quic_bjorande@quicinc.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH v2] drm/msm/dpu: add hw revision 410
+Content-Type: text/plain
+X-Originating-IP: [10.49.16.6]
+X-ClientProxiedBy: nalasex01c.na.qualcomm.com (10.47.97.35) To
+ nalasex01c.na.qualcomm.com (10.47.97.35)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-GUID: 9V2gm2JOQ72qocD_tXuAHipnj6Vx1ydq
+X-Proofpoint-ORIG-GUID: 9V2gm2JOQ72qocD_tXuAHipnj6Vx1ydq
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.219,Aquarius:18.0.923,Hydra:6.0.545,FMLib:17.11.122.1
+ definitions=2023-01-12_14,2023-01-12_01,2022-06-22_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 mlxscore=0
+ phishscore=0 priorityscore=1501 spamscore=0 bulkscore=0 adultscore=0
+ clxscore=1011 suspectscore=0 malwarescore=0 mlxlogscore=999
+ lowpriorityscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2212070000 definitions=main-2301130026
+Subject: [Freedreno] [PATCH] drm/msm: Initialize mode_config earlier
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,136 +80,56 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Richard Acayan <mailingradian@gmail.com>
+Cc: Sean Paul <sean@poorly.run>, freedreno@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, Daniel
+ Vetter <daniel@ffwll.ch>, linux-arm-msm@vger.kernel.org,
+ David Airlie <airlied@gmail.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-The Snapdragon 670 uses similar clocks (with one frequency added) to the
-Snapdragon 845 but reports DPU revision 4.1.0. Add support for this DPU
-with configuration from the Pixel 3a downstream kernel.
+Invoking drm_bridge_hpd_notify() on a drm_bridge with a HPD-enabled
+bridge_connector ends up in drm_bridge_connector_hpd_cb() calling
+drm_kms_helper_hotplug_event(), which assumes that the associated
+drm_device's mode_config.funcs is a valid pointer.
 
-Link: https://android.googlesource.com/kernel/msm/+/368478b0ae76566927a2769a2bf24dfe7f38bb78/arch/arm64/boot/dts/qcom/sdm670-sde.dtsi
-Signed-off-by: Richard Acayan <mailingradian@gmail.com>
+But in the MSM DisplayPort driver the HPD enablement happens at bind
+time and mode_config.funcs is initialized late in msm_drm_init(). This
+means that there's a window for hot plug events to dereference a NULL
+mode_config.funcs.
+
+Move the assignment of mode_config.funcs before the bind, to avoid this
+scenario.
+
+Reported-by: Johan Hovold <johan@kernel.org>
+Signed-off-by: Bjorn Andersson <quic_bjorande@quicinc.com>
 ---
-Changes since v1:
- - proper use of DSC_BLK()
+ drivers/gpu/drm/msm/msm_drv.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
- .../gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c    | 67 +++++++++++++++++++
- 1 file changed, 67 insertions(+)
-
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
-index 0f3da480b066..56709d508a6f 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
-@@ -504,6 +504,25 @@ static const struct dpu_mdp_cfg msm8998_mdp[] = {
- 	},
- };
+diff --git a/drivers/gpu/drm/msm/msm_drv.c b/drivers/gpu/drm/msm/msm_drv.c
+index ee2f60b6f09b..7ac670f3e6ab 100644
+--- a/drivers/gpu/drm/msm/msm_drv.c
++++ b/drivers/gpu/drm/msm/msm_drv.c
+@@ -438,6 +438,9 @@ static int msm_drm_init(struct device *dev, const struct drm_driver *drv)
  
-+static const struct dpu_mdp_cfg sdm670_mdp[] = {
-+	{
-+	.name = "top_0", .id = MDP_TOP,
-+	.base = 0x0, .len = 0x45C,
-+	.features = BIT(DPU_MDP_AUDIO_SELECT),
-+	.highest_bank_bit = 0x1,
-+	.clk_ctrls[DPU_CLK_CTRL_VIG0] = {
-+			.reg_off = 0x2AC, .bit_off = 0},
-+	.clk_ctrls[DPU_CLK_CTRL_VIG1] = {
-+			.reg_off = 0x2B4, .bit_off = 0},
-+	.clk_ctrls[DPU_CLK_CTRL_DMA0] = {
-+			.reg_off = 0x2AC, .bit_off = 8},
-+	.clk_ctrls[DPU_CLK_CTRL_CURSOR0] = {
-+			.reg_off = 0x2B4, .bit_off = 8},
-+	.clk_ctrls[DPU_CLK_CTRL_CURSOR1] = {
-+			.reg_off = 0x2BC, .bit_off = 8},
-+	},
-+};
-+
- static const struct dpu_mdp_cfg sdm845_mdp[] = {
- 	{
- 	.name = "top_0", .id = MDP_TOP,
-@@ -1154,6 +1173,11 @@ static const struct dpu_sspp_sub_blks sdm845_dma_sblk_1 = _DMA_SBLK("9", 2);
- static const struct dpu_sspp_sub_blks sdm845_dma_sblk_2 = _DMA_SBLK("10", 3);
- static const struct dpu_sspp_sub_blks sdm845_dma_sblk_3 = _DMA_SBLK("11", 4);
+ 	drm_mode_config_init(ddev);
  
-+static const struct dpu_sspp_sub_blks sdm670_vig_sblk_0 =
-+				_VIG_SBLK("0", 4, DPU_SSPP_SCALER_QSEED3);
-+static const struct dpu_sspp_sub_blks sdm670_vig_sblk_1 =
-+				_VIG_SBLK("1", 5, DPU_SSPP_SCALER_QSEED3);
++	ddev->mode_config.funcs = &mode_config_funcs;
++	ddev->mode_config.helper_private = &mode_config_helper_funcs;
 +
- #define SSPP_BLK(_name, _id, _base, _features, \
- 		_sblk, _xinid, _type, _clkctrl) \
- 	{ \
-@@ -1185,6 +1209,19 @@ static const struct dpu_sspp_cfg msm8998_sspp[] = {
- 		sdm845_dma_sblk_3, 13, SSPP_TYPE_DMA, DPU_CLK_CTRL_CURSOR1),
- };
+ 	ret = msm_init_vram(ddev);
+ 	if (ret)
+ 		return ret;
+@@ -479,9 +482,6 @@ static int msm_drm_init(struct device *dev, const struct drm_driver *drv)
  
-+static const struct dpu_sspp_cfg sdm670_sspp[] = {
-+	SSPP_BLK("sspp_0", SSPP_VIG0, 0x4000, VIG_SDM845_MASK,
-+		sdm670_vig_sblk_0, 0,  SSPP_TYPE_VIG, DPU_CLK_CTRL_VIG0),
-+	SSPP_BLK("sspp_1", SSPP_VIG1, 0x6000, VIG_SDM845_MASK,
-+		sdm670_vig_sblk_1, 4,  SSPP_TYPE_VIG, DPU_CLK_CTRL_VIG1),
-+	SSPP_BLK("sspp_8", SSPP_DMA0, 0x24000,  DMA_SDM845_MASK,
-+		sdm845_dma_sblk_0, 1, SSPP_TYPE_DMA, DPU_CLK_CTRL_DMA0),
-+	SSPP_BLK("sspp_9", SSPP_DMA1, 0x26000,  DMA_CURSOR_SDM845_MASK,
-+		sdm845_dma_sblk_1, 5, SSPP_TYPE_DMA, DPU_CLK_CTRL_CURSOR0),
-+	SSPP_BLK("sspp_10", SSPP_DMA2, 0x28000,  DMA_CURSOR_SDM845_MASK,
-+		sdm845_dma_sblk_2, 9, SSPP_TYPE_DMA, DPU_CLK_CTRL_CURSOR1),
-+};
-+
- static const struct dpu_sspp_cfg sdm845_sspp[] = {
- 	SSPP_BLK("sspp_0", SSPP_VIG0, 0x4000, VIG_SDM845_MASK,
- 		sdm845_vig_sblk_0, 0,  SSPP_TYPE_VIG, DPU_CLK_CTRL_VIG0),
-@@ -1832,6 +1869,11 @@ static struct dpu_dsc_cfg sm8150_dsc[] = {
- 	DSC_BLK("dsc_3", DSC_3, 0x80c00, BIT(DPU_DSC_OUTPUT_CTRL)),
- };
+ 	drm_helper_move_panel_connectors_to_head(ddev);
  
-+static struct dpu_dsc_cfg sdm670_dsc[] = {
-+	DSC_BLK("dsc_0", DSC_0, 0x80000, 0),
-+	DSC_BLK("dsc_1", DSC_1, 0x80400, 0),
-+};
-+
- /*************************************************************
-  * INTF sub blocks config
-  *************************************************************/
-@@ -2533,6 +2575,30 @@ static const struct dpu_mdss_cfg msm8998_dpu_cfg = {
- 	.mdss_irqs = IRQ_SM8250_MASK,
- };
- 
-+static const struct dpu_mdss_cfg sdm670_dpu_cfg = {
-+	.caps = &sdm845_dpu_caps,
-+	.mdp_count = ARRAY_SIZE(sdm670_mdp),
-+	.mdp = sdm670_mdp,
-+	.ctl_count = ARRAY_SIZE(sdm845_ctl),
-+	.ctl = sdm845_ctl,
-+	.sspp_count = ARRAY_SIZE(sdm670_sspp),
-+	.sspp = sdm670_sspp,
-+	.mixer_count = ARRAY_SIZE(sdm845_lm),
-+	.mixer = sdm845_lm,
-+	.pingpong_count = ARRAY_SIZE(sdm845_pp),
-+	.pingpong = sdm845_pp,
-+	.dsc_count = ARRAY_SIZE(sdm670_dsc),
-+	.dsc = sdm670_dsc,
-+	.intf_count = ARRAY_SIZE(sdm845_intf),
-+	.intf = sdm845_intf,
-+	.vbif_count = ARRAY_SIZE(sdm845_vbif),
-+	.vbif = sdm845_vbif,
-+	.reg_dma_count = 1,
-+	.dma_cfg = &sdm845_regdma,
-+	.perf = &sdm845_perf_data,
-+	.mdss_irqs = IRQ_SDM845_MASK,
-+};
-+
- static const struct dpu_mdss_cfg sdm845_dpu_cfg = {
- 	.caps = &sdm845_dpu_caps,
- 	.mdp_count = ARRAY_SIZE(sdm845_mdp),
-@@ -2840,6 +2906,7 @@ static const struct dpu_mdss_hw_cfg_handler cfg_handler[] = {
- 	{ .hw_rev = DPU_HW_VER_301, .dpu_cfg = &msm8998_dpu_cfg},
- 	{ .hw_rev = DPU_HW_VER_400, .dpu_cfg = &sdm845_dpu_cfg},
- 	{ .hw_rev = DPU_HW_VER_401, .dpu_cfg = &sdm845_dpu_cfg},
-+	{ .hw_rev = DPU_HW_VER_410, .dpu_cfg = &sdm670_dpu_cfg},
- 	{ .hw_rev = DPU_HW_VER_500, .dpu_cfg = &sm8150_dpu_cfg},
- 	{ .hw_rev = DPU_HW_VER_501, .dpu_cfg = &sm8150_dpu_cfg},
- 	{ .hw_rev = DPU_HW_VER_510, .dpu_cfg = &sc8180x_dpu_cfg},
+-	ddev->mode_config.funcs = &mode_config_funcs;
+-	ddev->mode_config.helper_private = &mode_config_helper_funcs;
+-
+ 	for (i = 0; i < priv->num_crtcs; i++) {
+ 		/* initialize event thread */
+ 		priv->event_thread[i].crtc_id = priv->crtcs[i]->base.id;
 -- 
-2.39.0
+2.37.3
 
