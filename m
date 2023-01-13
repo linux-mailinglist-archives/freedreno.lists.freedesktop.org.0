@@ -2,76 +2,65 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id DF8C7668AF3
-	for <lists+freedreno@lfdr.de>; Fri, 13 Jan 2023 05:39:23 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6F749668E1F
+	for <lists+freedreno@lfdr.de>; Fri, 13 Jan 2023 07:34:01 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3483E10E98A;
-	Fri, 13 Jan 2023 04:39:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AAEFB10E1E1;
+	Fri, 13 Jan 2023 06:33:57 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x133.google.com (mail-lf1-x133.google.com
- [IPv6:2a00:1450:4864:20::133])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C1E6F10E988
- for <freedreno@lists.freedesktop.org>; Fri, 13 Jan 2023 04:39:18 +0000 (UTC)
-Received: by mail-lf1-x133.google.com with SMTP id y25so31428009lfa.9
- for <freedreno@lists.freedesktop.org>; Thu, 12 Jan 2023 20:39:18 -0800 (PST)
+Received: from mail-lf1-x12c.google.com (mail-lf1-x12c.google.com
+ [IPv6:2a00:1450:4864:20::12c])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1872210E1E1
+ for <freedreno@lists.freedesktop.org>; Fri, 13 Jan 2023 06:33:55 +0000 (UTC)
+Received: by mail-lf1-x12c.google.com with SMTP id y25so31715102lfa.9
+ for <freedreno@lists.freedesktop.org>; Thu, 12 Jan 2023 22:33:54 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:to:subject:user-agent:mime-version:date:message-id:from
- :to:cc:subject:date:message-id:reply-to;
- bh=rwPWckFN6l5Z0VUc2rVprLclAK1KfD6OaLDUvXSlPdU=;
- b=Hus9WhNP0DRji76qhUZD9CGZBPjXVgznHEyqxtiuCZvdjakWb7/pqgsZ6ogIyK7Bas
- RsErYkEFYFFIuWWrKINuUrESd+Q8tdxJf1d5ez8gVaAHyvNDYrWKz+4+lrB5q7j9GYMu
- Uwww3O2Q2Jxw9UbU0ybbDPjjoR4tTUYQPAhVnw8tJw51QJ/E1OPPLBJMeb+t7w3pfPa6
- CSe8ErQK9BiqMatIMuosQmkfJIKPHD/sKx5P80j5/PeKsZBUeh03LzSzkftt0bLsryFG
- 3JMlDzzlKx7V4TvIax8OnW7Xc/tnqfICLmsXlZjikwo2c5ElObaf/PtYaw1k6R4hGmqw
- pdvw==
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=Wa02nRWtFw12u53LiQ798dfsib+GYGyK/C00nF2+qvE=;
+ b=T07UQpP8Gs9ETe0tParaPAPTaxYEVcTkuA8b18m/IsuUnBU+vdT2hB9RXtbLpdZ72a
+ 7BvMG717cMaUSx2lrnaEV0x9iC8zlLr3WLzivX/QOYG1OCGFHLInae1sc63Sp+90sOD0
+ 6nD6YUoUkTAx6i19bR0W7EBWXusUWu7hGbo/aQuntDZ4P86Za0gkE1szkl/oE40AaXqi
+ Mdnu9WDteGijUQOzHo5rWRzedvBlkDfmPMV1ogEj54lUG+Y5i4Yy9UI/CIsHtO1ILrcc
+ DNL729z0eQ1YDDf2Yp8ILJvh34SZPUSmRrb6nw6+WFaVIxB1BssnX0PQbQ8HV63I+xfe
+ U+Tg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:to:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=rwPWckFN6l5Z0VUc2rVprLclAK1KfD6OaLDUvXSlPdU=;
- b=J6iB4re6RmfNn0tVkWcOcCarKpeZboGFSaThfSgX7C6suWANgdf5tnHeW1vR/vadnn
- irEUaoC8VRVFoqUjn/qZVKI479HDQfsD8S00b8lmoopmFd7PG6kOutqw6C/cbb83PX9m
- E+mPHPvmkoA3PL+8dAq7uDz3Qst4cYQH6OAKUOY0jn778ZHSIyPhjUFZP5twJam+q/hF
- gZKOn6tMN6mHVbQAaY1fpYDVD6mOxdkZE8locjoha0L83UKF6WLKEK+ZsrQ6NGbHaueN
- mZP/Ad0gZKi4oFUtI9VDdznlqcq7Dg9VwZpiFhelsHoRS83TGt34a0RNRanqEryNgwRJ
- qitA==
-X-Gm-Message-State: AFqh2krQbTSL32ilqown/3IuKbA75+j+DcSSF1gadDeby1ot3HzsGlK2
- F2vpIE+nGrvNWvnA/8vKY9xFKw==
-X-Google-Smtp-Source: AMrXdXuk1hI4hpqDsFfaxA0tg5vvn/WEymEIKE6fD6oI7k5DMiFrZUHrVB69K4e5s7uzDhfzb3cLVw==
-X-Received: by 2002:a19:c20d:0:b0:4b5:7859:349f with SMTP id
- l13-20020a19c20d000000b004b57859349fmr18986772lfc.48.1673584757132; 
- Thu, 12 Jan 2023 20:39:17 -0800 (PST)
-Received: from ?IPV6:2001:14ba:a085:4d00::8a5?
- (dzccz6yyyyyyyyyyybcwt-3.rev.dnainternet.fi. [2001:14ba:a085:4d00::8a5])
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=Wa02nRWtFw12u53LiQ798dfsib+GYGyK/C00nF2+qvE=;
+ b=4IWyG6Nk+FzSjjENMVXohY2dofYIptTPLL0LcBG0NKbk6yu4qciDtj+dkQQKtuGLcL
+ S30HE63Mk8DNyGcX1CguV6CSmgaKzvDJl6SOmS210ipR0ld13uZCVoGA9qR2PA7b5z8V
+ zC4WGjTPcVATxGHbPY6AhZe3k/BLy1JP5bKVZr5zEgsFtneUadvCeloPIK9zi9SOBeBk
+ dNe7ccExZGpfElLZ9t3q5ijPnSFYVtLDV6hPBy1Ny6R9quLV58iyXRnL590oQpUeKWOp
+ k0FIzj1u4Sg1827OvTz3OZJXMsgoQXp00Iq1qfGddt61ivalRqXkbXbEogjUh6zBEyp7
+ aK+A==
+X-Gm-Message-State: AFqh2krhC+EUeUA/DfbWTmk4B6Hli77m+Fx+DohQgT9liCiFyv6C2ng1
+ JbMKRmS0qQ7XqfmkVWD6ZwLLLQ==
+X-Google-Smtp-Source: AMrXdXs81VzZPBwLRDFIgEm00wNsm7rdGNW6tKDKTFkJkk1FnbAfsBnHRkGR4bBJFScvGJyCG+8QSw==
+X-Received: by 2002:ac2:5fcf:0:b0:4a4:68b7:d64b with SMTP id
+ q15-20020ac25fcf000000b004a468b7d64bmr19275610lfg.50.1673591633228; 
+ Thu, 12 Jan 2023 22:33:53 -0800 (PST)
+Received: from eriador.lumag.spb.ru ([194.204.33.9])
  by smtp.gmail.com with ESMTPSA id
- m8-20020a056512358800b004cb2c720b97sm3639604lfr.260.2023.01.12.20.39.16
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 12 Jan 2023 20:39:16 -0800 (PST)
-Message-ID: <6c6bb40e-3601-f795-a170-43117b39b5a3@linaro.org>
-Date: Fri, 13 Jan 2023 06:39:16 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.6.0
-To: Richard Acayan <mailingradian@gmail.com>, Rob Clark
- <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Sean Paul <sean@poorly.run>, David Airlie <airlied@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>, Konrad Dybcio
- <konrad.dybcio@somainline.org>, Robert Foss <rfoss@kernel.org>,
- Jessica Zhang <quic_jesszhan@quicinc.com>,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@somainline.org>,
- Bjorn Andersson <andersson@kernel.org>,
- Neil Armstrong <neil.armstrong@linaro.org>, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org
-References: <20230113035939.185064-1-mailingradian@gmail.com>
-Content-Language: en-GB
+ f23-20020ac25337000000b004b55ddeb7e3sm3693524lfh.309.2023.01.12.22.33.51
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 12 Jan 2023 22:33:52 -0800 (PST)
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-In-Reply-To: <20230113035939.185064-1-mailingradian@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH v2] drm/msm/dpu: add hw revision 410
+To: Andy Gross <agross@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konrad.dybcio@linaro.org>, Rob Clark <robdclark@gmail.com>,
+ Sean Paul <sean@poorly.run>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Rob Herring <robh+dt@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>
+Date: Fri, 13 Jan 2023 08:33:51 +0200
+Message-Id: <20230113063351.24131-1-dmitry.baryshkov@linaro.org>
+X-Mailer: git-send-email 2.39.0
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Subject: [Freedreno] [PATCH] dt-bindings: display/msm/dsi-phy: drop unused
+ allOf clauses
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -84,65 +73,92 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
+Cc: devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, Stephen Boyd <swboyd@chromium.org>,
+ Daniel Vetter <daniel@ffwll.ch>, freedreno@lists.freedesktop.org,
+ David Airlie <airlied@gmail.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 13/01/2023 05:59, Richard Acayan wrote:
-> The Snapdragon 670 uses similar clocks (with one frequency added) to the
-> Snapdragon 845 but reports DPU revision 4.1.0. Add support for this DPU
-> with configuration from the Pixel 3a downstream kernel.
-> 
-> Link: https://android.googlesource.com/kernel/msm/+/368478b0ae76566927a2769a2bf24dfe7f38bb78/arch/arm64/boot/dts/qcom/sdm670-sde.dtsi
-> Signed-off-by: Richard Acayan <mailingradian@gmail.com>
+Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+---
+ .../devicetree/bindings/display/msm/dsi-phy-10nm.yaml          | 3 +--
+ .../devicetree/bindings/display/msm/dsi-phy-14nm.yaml          | 3 +--
+ .../devicetree/bindings/display/msm/dsi-phy-20nm.yaml          | 3 +--
+ .../devicetree/bindings/display/msm/dsi-phy-28nm.yaml          | 3 +--
+ Documentation/devicetree/bindings/display/msm/dsi-phy-7nm.yaml | 3 +--
+ 5 files changed, 5 insertions(+), 10 deletions(-)
 
-This should come together with the qcom,sdm670-dpu and with the bindings 
-update. Also unless there is a strong reason not to do this, add 
-corresponding qcom,sdm670-mdss support to the driver and bindings.
-
-Otherwise the patch look good to me, minor nit below.
-
-> ---
-> Changes since v1:
->   - proper use of DSC_BLK()
-> 
->   .../gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c    | 67 +++++++++++++++++++
->   1 file changed, 67 insertions(+)
-> 
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
-> index 0f3da480b066..56709d508a6f 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
-> @@ -504,6 +504,25 @@ static const struct dpu_mdp_cfg msm8998_mdp[] = {
->   	},
->   };
->   
-> +static const struct dpu_mdp_cfg sdm670_mdp[] = {
-> +	{
-> +	.name = "top_0", .id = MDP_TOP,
-> +	.base = 0x0, .len = 0x45C,
-> +	.features = BIT(DPU_MDP_AUDIO_SELECT),
-> +	.highest_bank_bit = 0x1,
-> +	.clk_ctrls[DPU_CLK_CTRL_VIG0] = {
-> +			.reg_off = 0x2AC, .bit_off = 0},
-> +	.clk_ctrls[DPU_CLK_CTRL_VIG1] = {
-> +			.reg_off = 0x2B4, .bit_off = 0},
-> +	.clk_ctrls[DPU_CLK_CTRL_DMA0] = {
-> +			.reg_off = 0x2AC, .bit_off = 8},
-> +	.clk_ctrls[DPU_CLK_CTRL_CURSOR0] = {
-> +			.reg_off = 0x2B4, .bit_off = 8},
-> +	.clk_ctrls[DPU_CLK_CTRL_CURSOR1] = {
-> +			.reg_off = 0x2BC, .bit_off = 8},
-
-lowercase hex please
-
-> +	},
-> +};
-> +
->   static const struct dpu_mdp_cfg sdm845_mdp[] = {
->   	{
->   	.name = "top_0", .id = MDP_TOP,
-
+diff --git a/Documentation/devicetree/bindings/display/msm/dsi-phy-10nm.yaml b/Documentation/devicetree/bindings/display/msm/dsi-phy-10nm.yaml
+index 3ec466c3ab38..71702151bafa 100644
+--- a/Documentation/devicetree/bindings/display/msm/dsi-phy-10nm.yaml
++++ b/Documentation/devicetree/bindings/display/msm/dsi-phy-10nm.yaml
+@@ -9,8 +9,7 @@ title: Qualcomm Display DSI 10nm PHY
+ maintainers:
+   - Krishna Manikandan <quic_mkrishn@quicinc.com>
+ 
+-allOf:
+-  - $ref: dsi-phy-common.yaml#
++$ref: dsi-phy-common.yaml#
+ 
+ properties:
+   compatible:
+diff --git a/Documentation/devicetree/bindings/display/msm/dsi-phy-14nm.yaml b/Documentation/devicetree/bindings/display/msm/dsi-phy-14nm.yaml
+index a43e11d3b00d..cc99946245c6 100644
+--- a/Documentation/devicetree/bindings/display/msm/dsi-phy-14nm.yaml
++++ b/Documentation/devicetree/bindings/display/msm/dsi-phy-14nm.yaml
+@@ -9,8 +9,7 @@ title: Qualcomm Display DSI 14nm PHY
+ maintainers:
+   - Krishna Manikandan <quic_mkrishn@quicinc.com>
+ 
+-allOf:
+-  - $ref: dsi-phy-common.yaml#
++$ref: dsi-phy-common.yaml#
+ 
+ properties:
+   compatible:
+diff --git a/Documentation/devicetree/bindings/display/msm/dsi-phy-20nm.yaml b/Documentation/devicetree/bindings/display/msm/dsi-phy-20nm.yaml
+index 9c1f9140c731..ae4df76835f7 100644
+--- a/Documentation/devicetree/bindings/display/msm/dsi-phy-20nm.yaml
++++ b/Documentation/devicetree/bindings/display/msm/dsi-phy-20nm.yaml
+@@ -9,8 +9,7 @@ title: Qualcomm Display DSI 20nm PHY
+ maintainers:
+   - Krishna Manikandan <quic_mkrishn@quicinc.com>
+ 
+-allOf:
+-  - $ref: dsi-phy-common.yaml#
++$ref: dsi-phy-common.yaml#
+ 
+ properties:
+   compatible:
+diff --git a/Documentation/devicetree/bindings/display/msm/dsi-phy-28nm.yaml b/Documentation/devicetree/bindings/display/msm/dsi-phy-28nm.yaml
+index cf4a338c4661..96c607d7196e 100644
+--- a/Documentation/devicetree/bindings/display/msm/dsi-phy-28nm.yaml
++++ b/Documentation/devicetree/bindings/display/msm/dsi-phy-28nm.yaml
+@@ -9,8 +9,7 @@ title: Qualcomm Display DSI 28nm PHY
+ maintainers:
+   - Krishna Manikandan <quic_mkrishn@quicinc.com>
+ 
+-allOf:
+-  - $ref: dsi-phy-common.yaml#
++$ref: dsi-phy-common.yaml#
+ 
+ properties:
+   compatible:
+diff --git a/Documentation/devicetree/bindings/display/msm/dsi-phy-7nm.yaml b/Documentation/devicetree/bindings/display/msm/dsi-phy-7nm.yaml
+index 78ab8c410ccd..53e2f005d3cf 100644
+--- a/Documentation/devicetree/bindings/display/msm/dsi-phy-7nm.yaml
++++ b/Documentation/devicetree/bindings/display/msm/dsi-phy-7nm.yaml
+@@ -9,8 +9,7 @@ title: Qualcomm Display DSI 7nm PHY
+ maintainers:
+   - Jonathan Marek <jonathan@marek.ca>
+ 
+-allOf:
+-  - $ref: dsi-phy-common.yaml#
++$ref: dsi-phy-common.yaml#
+ 
+ properties:
+   compatible:
 -- 
-With best wishes
-Dmitry
+2.39.0
 
