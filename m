@@ -2,76 +2,56 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 11F0766A3F6
-	for <lists+freedreno@lfdr.de>; Fri, 13 Jan 2023 21:18:21 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6D7DB66A4CB
+	for <lists+freedreno@lfdr.de>; Fri, 13 Jan 2023 22:08:15 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7FF5F10EAF0;
-	Fri, 13 Jan 2023 20:18:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B2AC710E203;
+	Fri, 13 Jan 2023 21:08:12 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5F14310EAD0;
- Fri, 13 Jan 2023 20:18:17 +0000 (UTC)
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 30DJx5vi007010; Fri, 13 Jan 2023 20:18:12 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
- h=message-id : date :
- mime-version : subject : to : cc : references : from : in-reply-to :
- content-type : content-transfer-encoding; s=qcppdkim1;
- bh=2Ubhbkx1PyJi5kYI/gyLj/rsjr5edd+3RL67+q6F1VM=;
- b=gL5dlIruerEo2311fqg2p8eJl+RWQeJBMWoj3W6GoWhEVUduQrXWEqHyj3OYycucAUDg
- xyh/GjcRBvXdDJmqUYRfJhDRBeEBm3KqhxOMca31Q/gRB4QkY1bGKbTgXCQLt+YKh4+t
- Kqi1Q4yTiY0Rw6ceQgB7qIfogLuBe4ZD5dC5WYQsg/9edBCe1O0ZC5KAYtEPHltQx6WK
- YkG5SeDNi05JssgmRmh1Q54AzTWBzwZylk4FjLMic+dTt5iiT89CfNZBRoMJry/sLasn
- 3rNttnLfcS1Ut4EmRirJdK0S977niHJblucIc/q+cTMJiRj03cb1FCvusNTHmnurnKdE Sg== 
-Received: from nalasppmta01.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3n32wu9up2-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 13 Jan 2023 20:18:11 +0000
-Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
- [10.47.209.196])
- by NALASPPMTA01.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 30DKIAeB027545
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 13 Jan 2023 20:18:11 GMT
-Received: from [10.110.70.165] (10.80.80.8) by nalasex01a.na.qualcomm.com
- (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.36; Fri, 13 Jan
- 2023 12:18:10 -0800
-Message-ID: <0e12c491-8150-6579-852f-27ee01333816@quicinc.com>
-Date: Fri, 13 Jan 2023 12:18:09 -0800
+Received: from mail-ot1-f44.google.com (mail-ot1-f44.google.com
+ [209.85.210.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1587310E202;
+ Fri, 13 Jan 2023 21:08:10 +0000 (UTC)
+Received: by mail-ot1-f44.google.com with SMTP id
+ y18-20020a0568301d9200b0067082cd4679so12894110oti.4; 
+ Fri, 13 Jan 2023 13:08:10 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=/ACwV8GdlK5Pn0GPirboYIEragSvuKbdIfuMOvJXHSM=;
+ b=347kJxrzXTjEgMfLWrdy2kN1WiQzYF9e/yA3guuD2VS5NeYp3frGKgltvgCQEd9Kle
+ 0aJW1/8zitjOmghCiVeA4zYAcLV5PM7/wo5pbigftBnTWUaJBM8tfDSa5iiu0V3GkKsZ
+ EcH4ZPTfR26jeVrs4c2fUol/4GPjYCCOSIgdOuSpgFh7G+y4ZgGjWgCp9VVAEwT1yUlW
+ kpACed4Ukh0cjaY844uELkUut+f5TL8vudLfA7iEeYjafyC2J+w0cJzbOZTyAs6zzCkd
+ 7HhYjdYCoWi9gRST7SUt3bjimuxgHoiw4575HOjbbIdXueThfX/PXrKWUc+EbitykRXi
+ LNiA==
+X-Gm-Message-State: AFqh2koAa+Bj93R9oTX6i5Ajn0vB2weh7H8yXiQxwe0fJiVSwtahuBh6
+ F2aJgS5Yzd3KeJ5XZROkoA==
+X-Google-Smtp-Source: AMrXdXtOCyFNSTM7/jynGGVXcLk6sca17HjsYUlJ2g4cHUoMhCLJo9KZbNWVX4kBQpjW+02DAUFr1A==
+X-Received: by 2002:a9d:7416:0:b0:66c:37a2:d87d with SMTP id
+ n22-20020a9d7416000000b0066c37a2d87dmr5097303otk.26.1673644089136; 
+ Fri, 13 Jan 2023 13:08:09 -0800 (PST)
+Received: from robh_at_kernel.org (66-90-144-107.dyn.grandenetworks.net.
+ [66.90.144.107]) by smtp.gmail.com with ESMTPSA id
+ c26-20020a9d481a000000b006849e3aff8dsm6381829otf.44.2023.01.13.13.08.08
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 13 Jan 2023 13:08:08 -0800 (PST)
+Received: (nullmailer pid 2923605 invoked by uid 1000);
+ Fri, 13 Jan 2023 21:08:07 -0000
+Date: Fri, 13 Jan 2023 15:08:07 -0600
+From: Rob Herring <robh@kernel.org>
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Message-ID: <20230113210807.GA2901424-robh@kernel.org>
+References: <20230113063351.24131-1-dmitry.baryshkov@linaro.org>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.6.2
-Content-Language: en-US
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Rob Clark
- <robdclark@gmail.com>, Sean Paul <sean@poorly.run>
-References: <20221208000850.312548-1-dmitry.baryshkov@linaro.org>
- <20221208000850.312548-4-dmitry.baryshkov@linaro.org>
-From: Abhinav Kumar <quic_abhinavk@quicinc.com>
-In-Reply-To: <20221208000850.312548-4-dmitry.baryshkov@linaro.org>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-GUID: I6j4xxkB0nsRxkKAm7OgKFoggMUnSB2n
-X-Proofpoint-ORIG-GUID: I6j4xxkB0nsRxkKAm7OgKFoggMUnSB2n
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.219,Aquarius:18.0.923,Hydra:6.0.562,FMLib:17.11.122.1
- definitions=2023-01-13_10,2023-01-13_02,2022-06-22_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 adultscore=0
- mlxlogscore=999 spamscore=0 clxscore=1015 lowpriorityscore=0
- suspectscore=0 impostorscore=0 priorityscore=1501 mlxscore=0 phishscore=0
- bulkscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2212070000 definitions=main-2301130138
-Subject: Re: [Freedreno] [RFC PATCH 3/4] drm/msm/mdss: add data for sc8180xp
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20230113063351.24131-1-dmitry.baryshkov@linaro.org>
+Subject: Re: [Freedreno] [PATCH] dt-bindings: display/msm/dsi-phy: drop
+ unused allOf clauses
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -84,51 +64,50 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
- Bjorn Andersson <andersson@kernel.org>, dri-devel@lists.freedesktop.org,
- Stephen Boyd <swboyd@chromium.org>, Daniel Vetter <daniel@ffwll.ch>,
- David Airlie <airlied@gmail.com>
+Cc: devicetree@vger.kernel.org, Daniel Vetter <daniel@ffwll.ch>,
+ David Airlie <airlied@gmail.com>, Bjorn Andersson <andersson@kernel.org>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
+ Stephen Boyd <swboyd@chromium.org>, Konrad Dybcio <konrad.dybcio@linaro.org>,
+ Rob Clark <robdclark@gmail.com>, Andy Gross <agross@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
+ Sean Paul <sean@poorly.run>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-
-
-On 12/7/2022 4:08 PM, Dmitry Baryshkov wrote:
-> Add platform data for sc8180xp based on sdmshrike-sde.dtsi.
-> 
+On Fri, Jan 13, 2023 at 08:33:51AM +0200, Dmitry Baryshkov wrote:
 > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-
-This matches up the docs I have, hence,
-
-Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
-
 > ---
->   drivers/gpu/drm/msm/msm_mdss.c | 8 +++++++-
->   1 file changed, 7 insertions(+), 1 deletion(-)
+>  .../devicetree/bindings/display/msm/dsi-phy-10nm.yaml          | 3 +--
+>  .../devicetree/bindings/display/msm/dsi-phy-14nm.yaml          | 3 +--
+>  .../devicetree/bindings/display/msm/dsi-phy-20nm.yaml          | 3 +--
+>  .../devicetree/bindings/display/msm/dsi-phy-28nm.yaml          | 3 +--
+>  Documentation/devicetree/bindings/display/msm/dsi-phy-7nm.yaml | 3 +--
+>  5 files changed, 5 insertions(+), 10 deletions(-)
 > 
-> diff --git a/drivers/gpu/drm/msm/msm_mdss.c b/drivers/gpu/drm/msm/msm_mdss.c
-> index 4401f945b966..5e19ec897670 100644
-> --- a/drivers/gpu/drm/msm/msm_mdss.c
-> +++ b/drivers/gpu/drm/msm/msm_mdss.c
-> @@ -518,6 +518,12 @@ static const struct msm_mdss_data sc7280_data = {
->   	.macrotile_mode = 1,
->   };
->   
-> +static const struct msm_mdss_data sc8180x_data = {
-> +	.ubwc_version = UBWC_3_0,
-> +	.highest_bank_bit = 3,
-> +	.macrotile_mode = 1,
-> +};
-> +
->   static const struct msm_mdss_data sc8280xp_data = {
->   	.ubwc_version = UBWC_4_0,
->   	.ubwc_swizzle = 6,
-> @@ -553,7 +559,7 @@ static const struct of_device_id mdss_dt_match[] = {
->   	{ .compatible = "qcom,sdm845-mdss" },
->   	{ .compatible = "qcom,sc7180-mdss", .data = &sc7180_data },
->   	{ .compatible = "qcom,sc7280-mdss", .data = &sc7280_data },
-> -	{ .compatible = "qcom,sc8180x-mdss" },
-> +	{ .compatible = "qcom,sc8180x-mdss", .data = &sc8180x_data },
->   	{ .compatible = "qcom,sc8280xp-mdss", .data = &sc8280xp_data },
->   	{ .compatible = "qcom,sm6115-mdss", .data = &sm6115_data },
->   	{ .compatible = "qcom,sm8150-mdss", .data = &sm8150_data },
+> diff --git a/Documentation/devicetree/bindings/display/msm/dsi-phy-10nm.yaml b/Documentation/devicetree/bindings/display/msm/dsi-phy-10nm.yaml
+> index 3ec466c3ab38..71702151bafa 100644
+> --- a/Documentation/devicetree/bindings/display/msm/dsi-phy-10nm.yaml
+> +++ b/Documentation/devicetree/bindings/display/msm/dsi-phy-10nm.yaml
+> @@ -9,8 +9,7 @@ title: Qualcomm Display DSI 10nm PHY
+>  maintainers:
+>    - Krishna Manikandan <quic_mkrishn@quicinc.com>
+>  
+> -allOf:
+> -  - $ref: dsi-phy-common.yaml#
+> +$ref: dsi-phy-common.yaml#
+
+Convention is how it was. Partly this is legacy because earlier versions 
+of json-schema required the 'allOf' form or everything in addition to 
+the $ref would be ignored. I left these thinking more than 1 $ref here 
+might be common. But probably more common is a $ref and if/then schemas 
+and I'd somewhat rather keep $ref at the top and if/then schemas at the 
+bottom. So maybe this is the right direction.
+
+I don't really care to define one way or the other if we can't enforce 
+it in the meta-schema. I don't need more nits to look for in reviews. 
+Adding a check (i.e. allOf must have 2 or more entries) would be quite 
+invasive and wouldn't allow having 1 entry when we expect a 2nd entry 
+soonish.
+
+Rob
