@@ -2,60 +2,56 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6E74866A4F7
-	for <lists+freedreno@lfdr.de>; Fri, 13 Jan 2023 22:16:46 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id DFBB966A52A
+	for <lists+freedreno@lfdr.de>; Fri, 13 Jan 2023 22:34:45 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 31D6610EAFC;
-	Fri, 13 Jan 2023 21:16:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7A85510E246;
+	Fri, 13 Jan 2023 21:34:44 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-yw1-x112a.google.com (mail-yw1-x112a.google.com
- [IPv6:2607:f8b0:4864:20::112a])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2F56A10EAFE
- for <freedreno@lists.freedesktop.org>; Fri, 13 Jan 2023 21:16:42 +0000 (UTC)
-Received: by mail-yw1-x112a.google.com with SMTP id
- 00721157ae682-4a2f8ad29d5so302127767b3.8
- for <freedreno@lists.freedesktop.org>; Fri, 13 Jan 2023 13:16:42 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+Received: from mail-ed1-x52f.google.com (mail-ed1-x52f.google.com
+ [IPv6:2a00:1450:4864:20::52f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9340110E246;
+ Fri, 13 Jan 2023 21:34:43 +0000 (UTC)
+Received: by mail-ed1-x52f.google.com with SMTP id i9so32991820edj.4;
+ Fri, 13 Jan 2023 13:34:43 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=tKjknO1S6jYWVxSGQFzTMNbopxapdQjsltHlJg7v1PU=;
- b=hkYPK9+j3r7+rTaq/4IW6XpKf+QsIeI+mRd9qZNFHqLCTqZ2NcwQfyzLwNanKbGsS5
- QyX3keDoEselbsPPQTsHPJdw8L3CFbhcGpVIPuOkiE/vv8Ypgwtk2wC08pdGBbWNSKTg
- 7vYl0dZ6gWYasTQOLHf8RlcfD1ySCO/V1sOpTArGzgE9F0qB+RqaeCyv5FYkawKs3sjb
- lwhUmWfGcOCdAemX0+e5FjkAorRuQzR1k1f3F68uwcniz+sYhvLwcUDb+QcjCMWeWM+n
- QUmWdx8Sbx7sAUk/T9Qs5yYqlwd5sHt6pA+8jQbSJfgUcboJMiims2YAhUScRlFve7gS
- Ka/A==
+ bh=qCdwGMTA5hWt76IHvq9wLJvkL5pfwxgtHI4xlA6p9uY=;
+ b=M/CqyQc4pXY7XmIPKjddQNB23Ymnykff6YJlPCRgig2FzZM2dUhOT1CWaHLuYaUTwx
+ NKAZqAA0PEKHwbQ8FhG3TJuf8MbBfZ7jnc9aJsPVkKpB2D1wXWV4QjWMQIgrr4M7w5PP
+ r03W4E1NUUYlH6zPWCW064jmZ0834b8SU/2ayefFvHRDtxFNDtMciJhzOpCK2SVl25/p
+ a55mdYypiJROG9aVTIhMI4ZdsHVa2Z9IfljMZOc0rAbdzvJQcHOKT04Vm94NbxjzrfUH
+ 4KulVZQ+3NvzyYqKLCeyOk/LfbgZKUGFbXVzkhMg2LszuRs28psYQB1RiHK4oc/Vq1z3
+ rCUQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=tKjknO1S6jYWVxSGQFzTMNbopxapdQjsltHlJg7v1PU=;
- b=AyeLDVfnTGDwkscM+nLKNRRtuLBr4UC+NTB14GWYiVHcIvEB3JBNIKqmY09S9ZD71F
- etGocPT5d/MOp5MeMnsk5cBS9H6M+G8c6DKTmpzTkwjR4bpSrNU46GY4FjGkUD5eehYy
- l9F1I2C6lzmHeaYcS+6EckWGbIGso+Co+nOvVFZ/AwYmAfKXerpGuKMFRewJ4gaQ9IQ3
- CYr02NqxJWrZZqGh5iwNYWbsJQMXE5i05c5WjuCa6e+wnorVEL6G7OUx4a6pdlOLYxDy
- V+8fN6DqY8vL7fTpN64Uz+fHY3yCLIWs+9cJ2Vogh8RwusyZQIVAweVI5qx6Gn8OIX07
- ufCA==
-X-Gm-Message-State: AFqh2kpwztPlskkJNTaMbTcDvbCcRIbe9p0mcVbMduwVgVp3JAj8rbhU
- g0j/oSnzg39Vkv9eAMp16Z2XkLNPRkNmhaxQqByDRA==
-X-Google-Smtp-Source: AMrXdXvsHEnIy6VGFnj70dZWryEQgbOdRjanNoPmgQkBINp89rrbnDHuGYzo6EqaHzcoIKAU676ZVQ9agsfIJ1YQD3s=
-X-Received: by 2002:a81:f10e:0:b0:4c0:ab4f:6e2c with SMTP id
- h14-20020a81f10e000000b004c0ab4f6e2cmr4190616ywm.485.1673644601362; Fri, 13
- Jan 2023 13:16:41 -0800 (PST)
+ bh=qCdwGMTA5hWt76IHvq9wLJvkL5pfwxgtHI4xlA6p9uY=;
+ b=thDUr4mSI1o/tYS1YUflN0KPf1+vSVeuX9dueAgp7sAseXtBcHjPOoMp5doAAZ2DLM
+ TQaK2/NrKIDqpq/44UOEZfye7/4V3fSAcAUyVXjBtLSvkhRQZ/VgPrre5vivTHZ8CHY8
+ GXfQex5EKVoMNHzOj000gG3B+qfX6sbNC58iOI1sYjVUE6qGxW2jOVCuVxy6HqDKFE2F
+ AScR8LjQu/OGrd9Ma4iRjWLAj6fWQMKNy87u0PfmmG05e87Snv8A1D813Kduh8DYkUAH
+ pj9o9LN/C5fI66nMDaBA+Mz7l2EfQTfZM/zgGx3zEfmCfnSSDW+nYT6wBNan3pgrIwEK
+ 99LQ==
+X-Gm-Message-State: AFqh2kpZFM1CxUBi02RGC23Ci8i7Q8ks5wtnOpLIQEGvr2+DD9QtOvra
+ WHAH3LKfAOByHNVN0V019mPZf8HOcvjYgsr265WbgtsYdlA=
+X-Google-Smtp-Source: AMrXdXvlZd2FOTLqxdMOBBVqfPcrN6niWajfnCu7ycA77luyrMnV5VLOW4sU0WRUEdX1UkvnN5FEhTGNMEaQ3Y7gC80=
+X-Received: by 2002:aa7:c985:0:b0:498:dec8:f426 with SMTP id
+ c5-20020aa7c985000000b00498dec8f426mr1911545edt.392.1673645681926; Fri, 13
+ Jan 2023 13:34:41 -0800 (PST)
 MIME-Version: 1.0
-References: <20221208000850.312548-1-dmitry.baryshkov@linaro.org>
- <20221208000850.312548-3-dmitry.baryshkov@linaro.org>
- <eae9b5ee-3bf3-8fd4-6d8f-6ac265859ec6@quicinc.com>
-In-Reply-To: <eae9b5ee-3bf3-8fd4-6d8f-6ac265859ec6@quicinc.com>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Fri, 13 Jan 2023 23:16:30 +0200
-Message-ID: <CAA8EJpopVvFfvrb0rPNhodichLSKsRWo=TOmfXLH38u32hYPoA@mail.gmail.com>
-To: Abhinav Kumar <quic_abhinavk@quicinc.com>
+References: <20230110231447.1939101-1-robdclark@gmail.com>
+In-Reply-To: <20230110231447.1939101-1-robdclark@gmail.com>
+From: Chia-I Wu <olvaffe@gmail.com>
+Date: Fri, 13 Jan 2023 13:34:30 -0800
+Message-ID: <CAPaKu7Sqr7dpub3d-XhO4NkfZ3U6h332s==rF9AzbCmtMGq0NQ@mail.gmail.com>
+To: Rob Clark <robdclark@gmail.com>
 Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [RFC PATCH 2/4] drm/msm/mdss: correct the ubwc
- version for sm6115 platform
+Subject: Re: [Freedreno] [PATCH v2 0/3] drm/msm/gpu: Devfreq fixes+tuning
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,49 +64,38 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, Sean Paul <sean@poorly.run>,
- Bjorn Andersson <andersson@kernel.org>, dri-devel@lists.freedesktop.org,
- Stephen Boyd <swboyd@chromium.org>, Rob Clark <robdclark@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>, linux-arm-msm@vger.kernel.org,
- David Airlie <airlied@gmail.com>
+Cc: Rob Clark <robdclark@chromium.org>,
+ Akhil P Oommen <quic_akhilpo@quicinc.com>, linux-arm-msm@vger.kernel.org,
+ Konrad Dybcio <konrad.dybcio@somainline.org>,
+ Douglas Anderson <dianders@chromium.org>, dri-devel@lists.freedesktop.org,
+ open list <linux-kernel@vger.kernel.org>, Sean Paul <sean@poorly.run>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Fri, 13 Jan 2023 at 21:47, Abhinav Kumar <quic_abhinavk@quicinc.com> wrote:
-> On 12/7/2022 4:08 PM, Dmitry Baryshkov wrote:
-> > According to the vendor DT, sm6115 has UBWC 1.0, not 2.0.
-> >
+Series is
+
+Reviewed-by: Chia-I Wu <olvaffe@gmail.com>
+
+
+On Tue, Jan 10, 2023 at 3:14 PM Rob Clark <robdclark@gmail.com> wrote:
 >
-> Can you please point me to which file you are referring to?
+> From: Rob Clark <robdclark@chromium.org>
 >
-> The internal docs I have are still showing 2.0.
-
-If I understood correctly sm6115 = bengal, thus:
-
-https://android.googlesource.com/kernel/msm-extra/devicetree/+/refs/heads/android-msm-bramble-4.19-android11-qpr1/qcom/bengal-sde.dtsi#103
-
+> Rob Clark (3):
+>   drm/msm/gpu: Add devfreq tuning debugfs
+>   drm/msm/gpu: Bypass PM QoS constraint for idle clamp
+>   drm/msm/gpu: Add default devfreq thresholds
 >
-> > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> > ---
-> >   drivers/gpu/drm/msm/msm_mdss.c | 2 +-
-> >   1 file changed, 1 insertion(+), 1 deletion(-)
-> >
-> > diff --git a/drivers/gpu/drm/msm/msm_mdss.c b/drivers/gpu/drm/msm/msm_mdss.c
-> > index 2219c1bd59a9..4401f945b966 100644
-> > --- a/drivers/gpu/drm/msm/msm_mdss.c
-> > +++ b/drivers/gpu/drm/msm/msm_mdss.c
-> > @@ -532,7 +532,7 @@ static const struct msm_mdss_data sm8150_data = {
-> >   };
-> >
-> >   static const struct msm_mdss_data sm6115_data = {
-> > -     .ubwc_version = UBWC_2_0,
-> > +     .ubwc_version = UBWC_1_0,
-> >       .ubwc_swizzle = 7,
-> >       .ubwc_static = 0x11f,
-> >   };
-
-
-
--- 
-With best wishes
-Dmitry
+>  drivers/gpu/drm/msm/Kconfig           |   1 +
+>  drivers/gpu/drm/msm/adreno/a6xx_gpu.c |   2 +-
+>  drivers/gpu/drm/msm/msm_debugfs.c     |  12 +++
+>  drivers/gpu/drm/msm/msm_drv.h         |   9 ++
+>  drivers/gpu/drm/msm/msm_gpu.h         |  15 ++-
+>  drivers/gpu/drm/msm/msm_gpu_devfreq.c | 148 ++++++++++++--------------
+>  6 files changed, 100 insertions(+), 87 deletions(-)
+>
+> --
+> 2.38.1
+>
