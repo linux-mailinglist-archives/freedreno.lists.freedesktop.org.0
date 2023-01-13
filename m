@@ -1,62 +1,59 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2981766A4E1
-	for <lists+freedreno@lfdr.de>; Fri, 13 Jan 2023 22:12:44 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id D218A66A4F4
+	for <lists+freedreno@lfdr.de>; Fri, 13 Jan 2023 22:15:06 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 419F010E206;
-	Fri, 13 Jan 2023 21:12:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9C13B10EAFA;
+	Fri, 13 Jan 2023 21:15:05 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-yw1-x112f.google.com (mail-yw1-x112f.google.com
- [IPv6:2607:f8b0:4864:20::112f])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 080C910E206
- for <freedreno@lists.freedesktop.org>; Fri, 13 Jan 2023 21:12:40 +0000 (UTC)
-Received: by mail-yw1-x112f.google.com with SMTP id
- 00721157ae682-4c131bede4bso302246367b3.5
- for <freedreno@lists.freedesktop.org>; Fri, 13 Jan 2023 13:12:39 -0800 (PST)
+Received: from mail-yb1-xb30.google.com (mail-yb1-xb30.google.com
+ [IPv6:2607:f8b0:4864:20::b30])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 023D610EAFA
+ for <freedreno@lists.freedesktop.org>; Fri, 13 Jan 2023 21:15:03 +0000 (UTC)
+Received: by mail-yb1-xb30.google.com with SMTP id o75so23926446yba.2
+ for <freedreno@lists.freedesktop.org>; Fri, 13 Jan 2023 13:15:03 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=GVPEQvUee51sc8pEGSlqlDJ9IbHcx8EvmRAXbKUQO/Y=;
- b=F2yzNL0KgENVhhP++XHK4RacOn9CcOnd4ePCfWRY6Z6LY9KV62izf9dDDtpF2c0/qk
- f14PiHPyI5199XoUz22fTMI1pJWjS8Z3p6ckLCfyzUZ45Lc49CL+eVbSa/cTikbiR4Xh
- nZ4a8iX4i6U68uDry2jJh0e59Pb1J6VAmd0FAtJtepC68+vCfbVqXJ7xT9tp15j2B+x8
- 1UvRA30tI9XkRCCX58Hr93LtIV8A/0+W/y28L5wmoHVlsBGkoIJ416KdefEa6WrTxY7F
- /rPvbs/L6HvyngCOwoysw3X/zUb5sDv86vWtgtTmJwepvv4KIRE9L9C1ho+ifLiDdFIc
- xMRg==
+ bh=rE5GJmOWoLrmmtmr1ZiRc6lZFA32Ba8YbTIiq8KjYCU=;
+ b=FbJNsENvCy8Q3dEkgzHZ2B+QydIyecG+w7hnVY1jI+O3K866Fs/TyVz+PSQeAFHS8P
+ qkGTGdkeB/ttCAtTOlOTsmclCJMp4Rj5N2kLAQW9a5eE0aG3on81N1iy2XrjxwaBQA38
+ PsqorpTvfS/snpkyxDBAVfZwrWqok7wrqwMOsfLLyOP1Er6LO8x82me0cvB4FdZFozmf
+ CWunX4JJAYyF81qLTuy8WfqLZzX6tjjtXu+uA+3gxW7UQw68D5Z0e1rXn0FIj4y63QWl
+ WLKPP/YuHMKq0CLBnR7N4a2eKQ6oKU4YOXLYR6kI8xNw+rTExeBtmFS3NObr2bYOvM6u
+ oynQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=GVPEQvUee51sc8pEGSlqlDJ9IbHcx8EvmRAXbKUQO/Y=;
- b=khi4hF33RKIfvZVFpCvedGaN9O0G4Pj5RXz1IVFpLn8xniBEc1IfVlCKiCjO9T3P5q
- sDGZV9UnoLIROwRkRvwyIDIvBk290FP9qhpoL/Defr+E45NSBUBVkRmK9ymIwjNqp4x7
- VtAuL6eriRwC68cAsn6TJCv9xaed4YPA3gIUA/GpHWNWz60H+Xb91zkUxT7pT8oecyqk
- Oa426gdV064xBFiWhWv5OgwiA4e1bvl3s/EUbqwS0WGU1R+2UClvp/PtwOMMsffAOmwh
- i99+bipWi4CQiTFWOrWrYzAAnthk/Gehs6LeJPOggwPXz73QZ6OsG+5ZSf8mAiKYucMv
- v5vQ==
-X-Gm-Message-State: AFqh2koXkwfKGVWzH4CnTJOD/nvkEswrgCrIcuHkjB0x43OUM+Q8zdPp
- ckDJnuOFV+4xoQNEb2W0wcfSgbyIhaSUQkjLvLXcUw==
-X-Google-Smtp-Source: AMrXdXv8z967fovvduNbguAX3BsI6mdBhZdHHit2dAOds2+jQ5QPiDPjrY0Z+ZlckJcFfGw7C2QdM19zDRz3HC5fU8Q=
-X-Received: by 2002:a81:670b:0:b0:3d6:2151:4038 with SMTP id
- b11-20020a81670b000000b003d621514038mr3340982ywc.418.1673644359176; Fri, 13
- Jan 2023 13:12:39 -0800 (PST)
+ bh=rE5GJmOWoLrmmtmr1ZiRc6lZFA32Ba8YbTIiq8KjYCU=;
+ b=ARcfU8+2u3sO6Jj6gOC/dERu1JqU4mAQx6XRfDWvY02zX4aOACj5Y6F42Nct25JULD
+ LCnkM0OS2/MzBU54GqaT9v75rWxb8vr1306vtBX3ur70I8NipiGGjOY2LRdPLnlC1/6+
+ rgvPGXyWupIyGQldyl6KQAuz51xOJqpfgvvOJhJ9/ceuFLxstL2w4RT3CVbLgIGsBmkg
+ Z/eqwSdNL3VQKykdQjzCBJ1wPl/iGbITTBdpP5cZx8Y4wF23RTk3YqyM1V8orFWrKYvU
+ +S7eKCydLyd54Uvoi0I2BS0tSw4cK7Vz15O5QssVm7IXaTk2yJaA8zzub4KXLQdGuTNP
+ qjeA==
+X-Gm-Message-State: AFqh2krCUnxB3FWT96JKMrBOHygjLCXC/p6ZMJj0QOHsTavX9YKiK0rQ
+ 6T1x0TNb5/4vr0664z3Jw/4b5Fxf4f/lGBsmEGlwgg==
+X-Google-Smtp-Source: AMrXdXufM+a0cNtAKwMruSwOhgbSmi5XuyfWOrdPyVuvRaWuv8J3cB39OBZ954HOwr1pSUGSX4+KqoQrdXapS/PccDg=
+X-Received: by 2002:a25:606:0:b0:709:9335:236e with SMTP id
+ 6-20020a250606000000b007099335236emr7297951ybg.288.1673644503066; Fri, 13 Jan
+ 2023 13:15:03 -0800 (PST)
 MIME-Version: 1.0
-References: <20230113083720.39224-1-dmitry.baryshkov@linaro.org>
- <20230113083720.39224-2-dmitry.baryshkov@linaro.org>
- <167362343145.2212490.16180994187587985655.robh@kernel.org>
- <20230113211114.GA2925393-robh@kernel.org>
-In-Reply-To: <20230113211114.GA2925393-robh@kernel.org>
+References: <20230113063351.24131-1-dmitry.baryshkov@linaro.org>
+ <20230113210807.GA2901424-robh@kernel.org>
+In-Reply-To: <20230113210807.GA2901424-robh@kernel.org>
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Fri, 13 Jan 2023 23:12:28 +0200
-Message-ID: <CAA8EJpq4kfYWYdOhvWbkWAWLPpVpMbvzHhNWsq9x+SWGiTjDLw@mail.gmail.com>
+Date: Fri, 13 Jan 2023 23:14:52 +0200
+Message-ID: <CAA8EJppi2254wTxMhC=M=Cfo3eA+K0aVqDVzbFAbYHCTnFF85w@mail.gmail.com>
 To: Rob Herring <robh@kernel.org>
 Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [PATCH v6 01/11] dt-bindings: display/msm: convert
- MDP5 schema to YAML format
+Subject: Re: [Freedreno] [PATCH] dt-bindings: display/msm/dsi-phy: drop
+ unused allOf clauses
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,60 +66,56 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>,
- devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- Bjorn Andersson <andersson@kernel.org>,
+Cc: devicetree@vger.kernel.org, Daniel Vetter <daniel@ffwll.ch>,
+ David Airlie <airlied@gmail.com>, Bjorn Andersson <andersson@kernel.org>,
  Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
  Stephen Boyd <swboyd@chromium.org>, Konrad Dybcio <konrad.dybcio@linaro.org>,
  Rob Clark <robdclark@gmail.com>, Andy Gross <agross@kernel.org>,
  Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- David Airlie <airlied@gmail.com>, Sean Paul <sean@poorly.run>
+ linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
+ Sean Paul <sean@poorly.run>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Fri, 13 Jan 2023 at 23:11, Rob Herring <robh@kernel.org> wrote:
+On Fri, 13 Jan 2023 at 23:08, Rob Herring <robh@kernel.org> wrote:
 >
-> On Fri, Jan 13, 2023 at 09:26:52AM -0600, Rob Herring wrote:
+> On Fri, Jan 13, 2023 at 08:33:51AM +0200, Dmitry Baryshkov wrote:
+> > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> > ---
+> >  .../devicetree/bindings/display/msm/dsi-phy-10nm.yaml          | 3 +--
+> >  .../devicetree/bindings/display/msm/dsi-phy-14nm.yaml          | 3 +--
+> >  .../devicetree/bindings/display/msm/dsi-phy-20nm.yaml          | 3 +--
+> >  .../devicetree/bindings/display/msm/dsi-phy-28nm.yaml          | 3 +--
+> >  Documentation/devicetree/bindings/display/msm/dsi-phy-7nm.yaml | 3 +--
+> >  5 files changed, 5 insertions(+), 10 deletions(-)
 > >
-> > On Fri, 13 Jan 2023 10:37:10 +0200, Dmitry Baryshkov wrote:
-> > > Convert the mdp5.txt into the yaml format. Changes to the existing (txt) schema:
-> > >  - MSM8996 has additional "iommu" clock, define it separately
-> > >  - Add new properties used on some of platforms:
-> > >    - interconnects, interconnect-names
-> > >    - iommus
-> > >    - power-domains
-> > >    - operating-points-v2, opp-table
-> > >
-> > > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> > > ---
-> > >  .../devicetree/bindings/display/msm/mdp5.txt  | 132 -----------------
-> > >  .../bindings/display/msm/qcom,mdp5.yaml       | 138 ++++++++++++++++++
-> > >  2 files changed, 138 insertions(+), 132 deletions(-)
-> > >  delete mode 100644 Documentation/devicetree/bindings/display/msm/mdp5.txt
-> > >  create mode 100644 Documentation/devicetree/bindings/display/msm/qcom,mdp5.yaml
-> > >
+> > diff --git a/Documentation/devicetree/bindings/display/msm/dsi-phy-10nm.yaml b/Documentation/devicetree/bindings/display/msm/dsi-phy-10nm.yaml
+> > index 3ec466c3ab38..71702151bafa 100644
+> > --- a/Documentation/devicetree/bindings/display/msm/dsi-phy-10nm.yaml
+> > +++ b/Documentation/devicetree/bindings/display/msm/dsi-phy-10nm.yaml
+> > @@ -9,8 +9,7 @@ title: Qualcomm Display DSI 10nm PHY
+> >  maintainers:
+> >    - Krishna Manikandan <quic_mkrishn@quicinc.com>
 > >
-> > Running 'make dtbs_check' with the schema in this patch gives the
-> > following warnings. Consider if they are expected or the schema is
-> > incorrect. These may not be new warnings.
-> >
-> > Note that it is not yet a requirement to have 0 warnings for dtbs_check.
-> > This will change in the future.
-> >
-> > Full log is available here: https://patchwork.ozlabs.org/project/devicetree-bindings/patch/20230113083720.39224-2-dmitry.baryshkov@linaro.org
-> >
-> >
-> > mdp@1a01000: compatible:0: 'qcom,mdp5' was expected
-> >       arch/arm64/boot/dts/qcom/sdm632-fairphone-fp3.dtb
-> >
-> > mdp@1a01000: compatible: ['qcom,msm8953-mdp5', 'qcom,mdp5'] is too long
-> >       arch/arm64/boot/dts/qcom/sdm632-fairphone-fp3.dtb
+> > -allOf:
+> > -  - $ref: dsi-phy-common.yaml#
+> > +$ref: dsi-phy-common.yaml#
 >
-> If your thought is to drop 'qcom,msm8953-mdp5' here that doesn't really
-> seem great.
+> Convention is how it was. Partly this is legacy because earlier versions
+> of json-schema required the 'allOf' form or everything in addition to
+> the $ref would be ignored. I left these thinking more than 1 $ref here
+> might be common. But probably more common is a $ref and if/then schemas
+> and I'd somewhat rather keep $ref at the top and if/then schemas at the
+> bottom. So maybe this is the right direction.
+>
+> I don't really care to define one way or the other if we can't enforce
+> it in the meta-schema. I don't need more nits to look for in reviews.
+> Adding a check (i.e. allOf must have 2 or more entries) would be quite
+> invasive and wouldn't allow having 1 entry when we expect a 2nd entry
+> soonish.
 
-No, quite the opposite. Please see the explanation in the email I sent
-a minute ago.
+Ack, I'll drop the patch for now then, If I got your message correctly.
+
 
 -- 
 With best wishes
