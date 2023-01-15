@@ -1,63 +1,70 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id A32C066B158
-	for <lists+freedreno@lfdr.de>; Sun, 15 Jan 2023 15:00:35 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 8318566B160
+	for <lists+freedreno@lfdr.de>; Sun, 15 Jan 2023 15:07:04 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CFA1610E114;
-	Sun, 15 Jan 2023 14:00:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4FE0D10E108;
+	Sun, 15 Jan 2023 14:07:03 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from mail-lf1-x130.google.com (mail-lf1-x130.google.com
  [IPv6:2a00:1450:4864:20::130])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C074810E114
- for <freedreno@lists.freedesktop.org>; Sun, 15 Jan 2023 14:00:27 +0000 (UTC)
-Received: by mail-lf1-x130.google.com with SMTP id f34so39382728lfv.10
- for <freedreno@lists.freedesktop.org>; Sun, 15 Jan 2023 06:00:27 -0800 (PST)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B679010E114
+ for <freedreno@lists.freedesktop.org>; Sun, 15 Jan 2023 14:07:01 +0000 (UTC)
+Received: by mail-lf1-x130.google.com with SMTP id d30so34502638lfv.8
+ for <freedreno@lists.freedesktop.org>; Sun, 15 Jan 2023 06:07:01 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=FtXT1BPFkhUBcOmVGg1OQMa6Pr60aojLScowtO3kbw0=;
- b=k7RG32ky4SVtjFYCrrfJPPPboaKY/AM8OUnTp5BomwaXOx45avQ5O0gEufAh+hjwWA
- n2GeoW64ty7XyAdZSIzSpjfzAcrUZYvGoDWvLIaktqJ7mYqDdQl78PXmssNhv65/eRxh
- qlCUd/7AAlRLmq+Yx1A1zq57LTAzElXwZEKd05xfy01HncSzG1z4txZkP4pTnyVgbBpT
- mcUo8YevZjoBjl/cePIbNK9KJvxoOA4RpMakBM5jO0//IZJaJhfh6zNXslh6WFWyfWXt
- dQoxTl+aUp+ayvJh7qIy3CVP+Jtn6JPhugxFzI2rKjWOeLI2QfdGlNp3luB/N1Lo78+X
- NmdA==
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=Vbj3GLgt2Eau/H2g6sLMJ/RsUpAnT1WTIdvedMs2Q3k=;
+ b=c50CO4vlGc+jJwwRFGpqZX2QF2RwD/6f5cLmM7EBRgg1jL2ffIOrNUCX+DOpwd78oa
+ sv0ChXhegh+zJF1rc98yPY3MzNfzuWixMtamwhv9/JA4G18o9g0gPuKc+QWFws9czhBv
+ NQzeBYcQtYZAGYrWrjUC7ZYLOhlJAOmfYLrq/6csDSSTHwLMsLSu1mjEfSMShaP1k4/5
+ /eT6cWYYovOiqJsWxNzt298K3ZjYHu9X6m5YMrs229ILA3AlOmQ3HnSGxLp4zrbLr/aO
+ ll7FEHMJO7XlMsyDvkuO33Cg//768j6KXx/Ys9Tt0db7CeKFJhTGfZXwWPLsrhMwhn2/
+ a79w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=FtXT1BPFkhUBcOmVGg1OQMa6Pr60aojLScowtO3kbw0=;
- b=r9Y/+zzYCUQa46ErL3PpRIwm1yZigpAIMzja8fGgoWV+tzCg9IuKoeA7V0xn5lWr95
- qFGuI9jWr6WluqRVMRkW5X26zgxJtVvmGi2uG63w7sjpLEAPpB85FJi/ous8O9J71mlz
- 2w6lQH+ihwy0Vumza0SppC1czN7eVJkEFjWo9TMhExjcYxtJ9zBq0NpK0Pvu5S0d/pTu
- uFA38q0m/+o312YRneBoNix2ojW53Juxuo+x/hjAi6SWnJzjzsuXbipwLydYZG/NNOCz
- fZIQny9kgDrjXmC8RN+jeZOnz7lYcDgHbF36ZRdvYmq5/s4zJK1yNkmFffm0UO76ik20
- xBfQ==
-X-Gm-Message-State: AFqh2kr6P0je/kb4qCa+L7XmZi5mb4Ttvui49ALlr51s85O1CiVG+5cP
- 7kSvC3j8KqLM7lM9tDpn/lAZIQ==
-X-Google-Smtp-Source: AMrXdXsocmXVqsyp15ghGtamQ+dj131X30zhjV7sOQNDVlqOptkYlymP9B+12UzN/LXFtel1ELCLDQ==
-X-Received: by 2002:a19:ca1d:0:b0:4a4:68b7:dedc with SMTP id
- a29-20020a19ca1d000000b004a468b7dedcmr1977016lfg.56.1673791225941; 
- Sun, 15 Jan 2023 06:00:25 -0800 (PST)
-Received: from eriador.lumag.spb.ru ([188.170.82.243])
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=Vbj3GLgt2Eau/H2g6sLMJ/RsUpAnT1WTIdvedMs2Q3k=;
+ b=1eB6bH2XAbzASxixnV87kl6z0gaiT2E1OqEEUkvX4ZlZElc4yEhAWw55KRChtp0s8v
+ 7zF9gCLasZs7Pj4ZHq9IuMeDW4hvWP9Pp6mu5ByEmHtrTNAavGakrvrxahbIluiJzMxX
+ PBgd5wgyissvD2cHsSh7E6No0ywcSaNWxBu9EjhZx3RiAFEP7QNFUHNQKKfBtUDZEiqV
+ Jiiaz/fHXEi4u/umT7cQpzJw6u3w4H2SDwNPsk2I44I3yf0ckkrRjX9Ip8kRf7MzYYlx
+ f/rCcYWA4GvJ4ApXo7qai2P+AhRXwMfdCVxvXRiEFdemPr9nC9fG/hdseXZtTlQ1BLYS
+ gHjw==
+X-Gm-Message-State: AFqh2koNmbLGwrnAsYOcPWTQu9syFuiMHbm6/NPJODLUBXE0OILjY0U7
+ q1eRlkFJAp7snBtX65VNnq/czQ==
+X-Google-Smtp-Source: AMrXdXs2NS+83UDo1o1DPe0ALx+qxTh0ckGNxS9ouhCBcRnwVCNRtvnz0JPN4rwKbDzZUf0VZCq/bg==
+X-Received: by 2002:a05:6512:3901:b0:4a4:68b7:e71c with SMTP id
+ a1-20020a056512390100b004a468b7e71cmr23433544lfu.6.1673791619620; 
+ Sun, 15 Jan 2023 06:06:59 -0800 (PST)
+Received: from [192.168.2.31] ([188.170.85.102])
  by smtp.gmail.com with ESMTPSA id
- t20-20020ac243b4000000b004cb44c1d060sm4682527lfl.134.2023.01.15.06.00.24
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 15 Jan 2023 06:00:25 -0800 (PST)
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-To: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>
-Date: Sun, 15 Jan 2023 16:00:22 +0200
-Message-Id: <20230115140022.489881-1-dmitry.baryshkov@linaro.org>
-X-Mailer: git-send-email 2.39.0
+ k42-20020a0565123daa00b004b55da01d3csm4651042lfv.191.2023.01.15.06.06.58
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Sun, 15 Jan 2023 06:06:59 -0800 (PST)
+Message-ID: <d2a61ab4-49c2-1e8c-7913-98d8fb5b008b@linaro.org>
+Date: Sun, 15 Jan 2023 16:06:57 +0200
 MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.6.0
+To: Abhinav Kumar <quic_abhinavk@quicinc.com>, Rob Clark
+ <robdclark@gmail.com>, Sean Paul <sean@poorly.run>
+References: <20221207142833.204193-1-dmitry.baryshkov@linaro.org>
+ <cb3e7dfd-1844-65f9-aafd-32187047b535@quicinc.com>
+Content-Language: en-GB
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+In-Reply-To: <cb3e7dfd-1844-65f9-aafd-32187047b535@quicinc.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [RFC PATCH] drm/msm/dpu: enable DPU_MDP_AUDIO_SELECT
- for sc8180x
+Subject: Re: [Freedreno] [PATCH 0/3] drm/msm/dpu: several fixes for UBWC
+ setup
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,31 +84,34 @@ Cc: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-According to the discussion ([1]) on the mailing list, platforms before
-sm8250 (and derivatives) should program HDMI_DP_CORE_SELECT register to
-route audio to the DP ports. Enable DPU_MDP_AUDIO_SELECT on sc8180x to
-program correponding register.
+On 13/01/2023 23:43, Abhinav Kumar wrote:
+> 
+> 
+> On 12/7/2022 6:28 AM, Dmitry Baryshkov wrote:
+>> Several small corrections for the UBWC setup and related data.
+>>
+> 
+> I am assuming this series will be dropped in favor of the RFC:
+> 
+> https://patchwork.freedesktop.org/series/111751/
+> 
+> Right?
 
-[1] https://lore.kernel.org/all/f86504ba-835a-6e30-6c30-8bb89b1359c4@quicinc.com/
+No, they cover different topics. One covers the way the DPU handles UBWC 
+setup, another one reworks MDSS.
 
-Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
----
- drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+>> Dmitry Baryshkov (3):
+>>    drm/msm/dpu: handle UBWC 1.0 in dpu_hw_sspp_setup_format
+>>    drm/msm/dpu: correct the UBWC version on sm6115
+>>    drm/msm/dpu: add missing ubwc_swizzle setting to catalog
+>>
+>>   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c | 5 ++++-
+>>   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.c    | 6 +++++-
+>>   2 files changed, 9 insertions(+), 2 deletions(-)
+>>
 
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
-index 2664fa3665b0..b94b0a772ca8 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
-@@ -550,7 +550,7 @@ static const struct dpu_mdp_cfg sc8180x_mdp[] = {
- 	{
- 	.name = "top_0", .id = MDP_TOP,
- 	.base = 0x0, .len = 0x45C,
--	.features = 0,
-+	.features = BIT(DPU_MDP_AUDIO_SELECT),
- 	.highest_bank_bit = 0x3,
- 	.clk_ctrls[DPU_CLK_CTRL_VIG0] = {
- 			.reg_off = 0x2AC, .bit_off = 0},
 -- 
-2.39.0
+With best wishes
+Dmitry
 
