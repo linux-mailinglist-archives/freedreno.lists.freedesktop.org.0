@@ -1,57 +1,55 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id DCC7D66C80F
-	for <lists+freedreno@lfdr.de>; Mon, 16 Jan 2023 17:36:20 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 2B8A266CDCC
+	for <lists+freedreno@lfdr.de>; Mon, 16 Jan 2023 18:41:32 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3639B10E467;
-	Mon, 16 Jan 2023 16:36:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DAA8010E475;
+	Mon, 16 Jan 2023 17:41:30 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-oi1-f181.google.com (mail-oi1-f181.google.com
- [209.85.167.181])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 868FD10E463;
- Mon, 16 Jan 2023 16:36:16 +0000 (UTC)
-Received: by mail-oi1-f181.google.com with SMTP id r9so13052193oie.13;
- Mon, 16 Jan 2023 08:36:16 -0800 (PST)
+Received: from mail-oa1-x2a.google.com (mail-oa1-x2a.google.com
+ [IPv6:2001:4860:4864:20::2a])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C133310E475;
+ Mon, 16 Jan 2023 17:41:28 +0000 (UTC)
+Received: by mail-oa1-x2a.google.com with SMTP id
+ 586e51a60fabf-142b72a728fso29523249fac.9; 
+ Mon, 16 Jan 2023 09:41:28 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=cc:to:subject:message-id:date:from:mime-version:from:to:cc:subject
+ :date:message-id:reply-to;
+ bh=32etmJGtnoqZs4BKYvAsZxgp4Z8S6ohTWuwi/XPlaIY=;
+ b=PvRXv20O6DvvrQohvHLThOVursOGZoHGCN2kKLOUEBl+JlR++v8pM94Rsdy+06TzUD
+ u3nljlp1FNHPwvXBcmTsJQwp5H1hGn8IPm856UZTRnbPtrFRl7W84tpUJXbZl1HzLC42
+ eqWloiTobk3CJkGgEEIyOLOP+ig3gjISbbDWsltJJk4dOFlrjgn9rWUN7Py8pr2Qw3ct
+ KKMwPo18GrWMGwi7ePfdIWFFhEKZo7AFWB8fi1obVJVVN0HXpg2T/0WKU0KzvEMCBPND
+ 1CxvpeA1K8zaqluCHxAwRBQsULmXXLB/zx0TCmeChCv8oPySCtsAbc6p6IUrW9xuzyDB
+ 5DNg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=date:subject:message-id:references:in-reply-to:cc:to:from
- :mime-version:content-transfer-encoding:x-gm-message-state:from:to
- :cc:subject:date:message-id:reply-to;
- bh=IEW54/bBrTLJQbKEm0MAF33G1yKcTZe11gJnllAm2F0=;
- b=HGCvMMarhiyT0NwItkCIswngDWGhihaSSlokFbVOx7cZ2vHPu4dPeVpoLxhcLfp0Gh
- 7/zjz4oZNVSLROiV1j7JpbX5WFga4kBWPEPAqA2yrvWpfwLWvLYANaY07KpTfpV1Vh7i
- hiz6SFB4SfT4LTKVbPtQvT5CaE1ruRbs6iZesqoFF/2/QQ/6nsak6uct7exhPcinYE3n
- /0SGJ2Z8SOtHS4LL4tndYeRsdSPyhPbfxt3/Bdguqtt15Br+2/q2oySYY0BH8oGy0I+j
- 4IJ2voXIPulr3YO6YK5/Q9U+LdZX+YShU3SSyf04hVsuKedlcUf8J/C9DZJz6/WpJRsQ
- EKWA==
-X-Gm-Message-State: AFqh2kpbWDljD3q0KHW60jJfZz/MaclMbBwJACq/dTZR1MVhoR26AqMl
- uwD45vuoBdoA9h5DKZph+Q==
-X-Google-Smtp-Source: AMrXdXsLc3SrcwkmyW1/PjqlIDGI9jUyark/axmVfTw5hktdLwnD+XO2FRPZR+kWLB07PYTk/jIRXA==
-X-Received: by 2002:a05:6808:1990:b0:364:625a:1b03 with SMTP id
- bj16-20020a056808199000b00364625a1b03mr14590463oib.25.1673886975442; 
- Mon, 16 Jan 2023 08:36:15 -0800 (PST)
-Received: from robh_at_kernel.org (66-90-144-107.dyn.grandenetworks.net.
- [66.90.144.107]) by smtp.gmail.com with ESMTPSA id
- w15-20020a056808018f00b00364747aafcasm7151495oic.14.2023.01.16.08.36.14
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 16 Jan 2023 08:36:14 -0800 (PST)
-Received: (nullmailer pid 606190 invoked by uid 1000);
- Mon, 16 Jan 2023 16:36:12 -0000
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+ h=cc:to:subject:message-id:date:from:mime-version:x-gm-message-state
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=32etmJGtnoqZs4BKYvAsZxgp4Z8S6ohTWuwi/XPlaIY=;
+ b=CiJAsTotPZeteFQcvSlI1KTKiKFdKl7pQnFOTxrZ0Zz9+QTxpf+uGNQTHoKlTAI+NK
+ qnKSNzBovutAJVCh6PkFYkCHu8XrOHVqKz+YVO2UyLBnVVVuYN0huXg5GodveKCKeMCW
+ Do8GyjR1ntt5Uba5CZj4Mvyz8XbhxvbxDURP2LXhUKB7qey971hzFZ3SWiyMoIE1Rw+B
+ iHoi4DYKFldefDsu5NqofBIEWWfIKJRsTQdNcu3U9KRXsTOkVqCxD+JJGFpFFdy3GHEz
+ z4B/s1swtEauTlz06k/BP4D6bJ/YELiATlgzp4dwXCrrcBc7A7q/eOKtcaj1JSEFUCP4
+ AmPA==
+X-Gm-Message-State: AFqh2krOpWxs29Vt8YWUTIyk8flK8f0RdBH/+q4zlLpgwzXjZhqPlF5A
+ jR3jyx0sZswp0oGkIIvFBltz8llLtj5JShnRc7E=
+X-Google-Smtp-Source: AMrXdXv/fJdDosEVH5QdjcHknh+mizzHGjnQeD0B3IXf279r17ct66uUwAb+qk2pfx3Fq5drTaa1P/d+FtTgWTMAjOU=
+X-Received: by 2002:a05:6870:9a9b:b0:13d:51fe:3404 with SMTP id
+ hp27-20020a0568709a9b00b0013d51fe3404mr31029oab.183.1673890887961; Mon, 16
+ Jan 2023 09:41:27 -0800 (PST)
 MIME-Version: 1.0
-From: Rob Herring <robh@kernel.org>
-To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-In-Reply-To: <20230116152128.909646-2-bryan.odonoghue@linaro.org>
-References: <20230116152128.909646-1-bryan.odonoghue@linaro.org>
- <20230116152128.909646-2-bryan.odonoghue@linaro.org>
-Message-Id: <167388664232.594279.4607492026981202284.robh@kernel.org>
-Date: Mon, 16 Jan 2023 10:36:12 -0600
-Subject: Re: [Freedreno] [PATCH v7 1/4] dt-bindings: msm:
- dsi-controller-main: Add compatible strings for every current SoC
+From: Rob Clark <robdclark@gmail.com>
+Date: Mon, 16 Jan 2023 09:41:25 -0800
+Message-ID: <CAF6AEGskguoVsz2wqAK2k+f32LwcVY5JC6+e2RwLqZswz3RY2Q@mail.gmail.com>
+To: Dave Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>
+Content-Type: text/plain; charset="UTF-8"
+Subject: [Freedreno] [pull] drm/msm: drm-msm-fixes-2023-01-16 for v6.3-rc5
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,114 +62,51 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: sean@poorly.run, devicetree@vger.kernel.org, dianders@chromium.org,
- daniel@ffwll.ch, linux-arm-msm@vger.kernel.org, andersson@kernel.org,
- konrad.dybcio@somainline.org, robdclark@gmail.com, david@ixit.cz,
- quic_abhinavk@quicinc.com, robh+dt@kernel.org,
- Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>, agross@kernel.org,
- dri-devel@lists.freedesktop.org, krzysztof.kozlowski+dt@linaro.org,
- dmitry.baryshkov@linaro.org, airlied@gmail.com, swboyd@chromium.org,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Cc: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ linux-arm-msm <linux-arm-msm@vger.kernel.org>,
+ freedreno <freedreno@lists.freedesktop.org>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ dri-devel <dri-devel@lists.freedesktop.org>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
+Hi Dave,
 
-On Mon, 16 Jan 2023 15:21:25 +0000, Bryan O'Donoghue wrote:
-> Currently we do not differentiate between the various users of the
-> qcom,mdss-dsi-ctrl. The driver is flexible enough to operate from one
-> compatible string but, the hardware does have some significant differences
-> in the number of clocks.
-> 
-> To facilitate documenting the clocks add the following compatible strings
-> 
-> - qcom,apq8064-dsi-ctrl
-> - qcom,msm8916-dsi-ctrl
-> - qcom,msm8953-dsi-ctrl
-> - qcom,msm8974-dsi-ctrl
-> - qcom,msm8996-dsi-ctrl
-> - qcom,msm8998-dsi-ctrl
-> - qcom,sc7180-dsi-ctrl
-> - qcom,sc7280-dsi-ctrl
-> - qcom,sdm660-dsi-ctrl
-> - qcom,sdm845-dsi-ctrl
-> - qcom,sm8150-dsi-ctrl
-> - qcom,sm8250-dsi-ctrl
-> - qcom,sm8350-dsi-ctrl
-> - qcom,sm8450-dsi-ctrl
-> - qcom,sm8550-dsi-ctrl
-> - qcom,qcm2290-dsi-ctrl
-> 
-> Deprecate qcom,dsi-ctrl-6g-qcm2290 in favour of the desired format while we
-> do so.
-> 
-> Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-> Signed-off-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-> ---
->  .../display/msm/dsi-controller-main.yaml      | 30 ++++++++++++++++---
->  1 file changed, 26 insertions(+), 4 deletions(-)
-> 
+A couple more fixes for the v6.3 cycle, which were meant to be part of
+the previous fixes pull, but I fumbled at git when applying the tag.
 
-My bot found errors running 'make DT_CHECKER_FLAGS=-m dt_binding_check'
-on your patch (DT_CHECKER_FLAGS is new in v5.13):
+The following changes since commit f4a75b5933c998e60fd812a7680e0971eb1c7cee:
 
-yamllint warnings/errors:
+  drm/msm/a6xx: Avoid gx gbit halt during rpm suspend (2023-01-05
+15:13:16 -0800)
 
-dtschema/dtc warnings/errors:
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sc7180-mdss.example.dtb: dsi@ae94000: compatible: 'oneOf' conditional failed, one must be fixed:
-	['qcom,mdss-dsi-ctrl'] is too short
-	'qcom,mdss-dsi-ctrl' is not one of ['qcom,apq8064-dsi-ctrl', 'qcom,msm8916-dsi-ctrl', 'qcom,msm8953-dsi-ctrl', 'qcom,msm8974-dsi-ctrl', 'qcom,msm8996-dsi-ctrl', 'qcom,msm8998-dsi-ctrl', 'qcom,qcm2290-dsi-ctrl', 'qcom,sc7180-dsi-ctrl', 'qcom,sc7280-dsi-ctrl', 'qcom,sdm660-dsi-ctrl', 'qcom,sdm845-dsi-ctrl', 'qcom,sm8150-dsi-ctrl', 'qcom,sm8250-dsi-ctrl', 'qcom,sm8350-dsi-ctrl', 'qcom,sm8450-dsi-ctrl', 'qcom,sm8550-dsi-ctrl']
-	'qcom,mdss-dsi-ctrl' is not one of ['dsi-ctrl-6g-qcm2290']
-	From schema: /builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/dsi-controller-main.yaml
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sm8250-mdss.example.dtb: dsi@ae94000: compatible: 'oneOf' conditional failed, one must be fixed:
-	['qcom,mdss-dsi-ctrl'] is too short
-	'qcom,mdss-dsi-ctrl' is not one of ['qcom,apq8064-dsi-ctrl', 'qcom,msm8916-dsi-ctrl', 'qcom,msm8953-dsi-ctrl', 'qcom,msm8974-dsi-ctrl', 'qcom,msm8996-dsi-ctrl', 'qcom,msm8998-dsi-ctrl', 'qcom,qcm2290-dsi-ctrl', 'qcom,sc7180-dsi-ctrl', 'qcom,sc7280-dsi-ctrl', 'qcom,sdm660-dsi-ctrl', 'qcom,sdm845-dsi-ctrl', 'qcom,sm8150-dsi-ctrl', 'qcom,sm8250-dsi-ctrl', 'qcom,sm8350-dsi-ctrl', 'qcom,sm8450-dsi-ctrl', 'qcom,sm8550-dsi-ctrl']
-	'qcom,mdss-dsi-ctrl' is not one of ['dsi-ctrl-6g-qcm2290']
-	From schema: /builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/dsi-controller-main.yaml
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sm8250-mdss.example.dtb: dsi@ae96000: compatible: 'oneOf' conditional failed, one must be fixed:
-	['qcom,mdss-dsi-ctrl'] is too short
-	'qcom,mdss-dsi-ctrl' is not one of ['qcom,apq8064-dsi-ctrl', 'qcom,msm8916-dsi-ctrl', 'qcom,msm8953-dsi-ctrl', 'qcom,msm8974-dsi-ctrl', 'qcom,msm8996-dsi-ctrl', 'qcom,msm8998-dsi-ctrl', 'qcom,qcm2290-dsi-ctrl', 'qcom,sc7180-dsi-ctrl', 'qcom,sc7280-dsi-ctrl', 'qcom,sdm660-dsi-ctrl', 'qcom,sdm845-dsi-ctrl', 'qcom,sm8150-dsi-ctrl', 'qcom,sm8250-dsi-ctrl', 'qcom,sm8350-dsi-ctrl', 'qcom,sm8450-dsi-ctrl', 'qcom,sm8550-dsi-ctrl']
-	'qcom,mdss-dsi-ctrl' is not one of ['dsi-ctrl-6g-qcm2290']
-	From schema: /builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/dsi-controller-main.yaml
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,msm8998-mdss.example.dtb: dsi@c994000: compatible: 'oneOf' conditional failed, one must be fixed:
-	['qcom,mdss-dsi-ctrl'] is too short
-	'qcom,mdss-dsi-ctrl' is not one of ['qcom,apq8064-dsi-ctrl', 'qcom,msm8916-dsi-ctrl', 'qcom,msm8953-dsi-ctrl', 'qcom,msm8974-dsi-ctrl', 'qcom,msm8996-dsi-ctrl', 'qcom,msm8998-dsi-ctrl', 'qcom,qcm2290-dsi-ctrl', 'qcom,sc7180-dsi-ctrl', 'qcom,sc7280-dsi-ctrl', 'qcom,sdm660-dsi-ctrl', 'qcom,sdm845-dsi-ctrl', 'qcom,sm8150-dsi-ctrl', 'qcom,sm8250-dsi-ctrl', 'qcom,sm8350-dsi-ctrl', 'qcom,sm8450-dsi-ctrl', 'qcom,sm8550-dsi-ctrl']
-	'qcom,mdss-dsi-ctrl' is not one of ['dsi-ctrl-6g-qcm2290']
-	From schema: /builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/dsi-controller-main.yaml
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,msm8998-mdss.example.dtb: dsi@c996000: compatible: 'oneOf' conditional failed, one must be fixed:
-	['qcom,mdss-dsi-ctrl'] is too short
-	'qcom,mdss-dsi-ctrl' is not one of ['qcom,apq8064-dsi-ctrl', 'qcom,msm8916-dsi-ctrl', 'qcom,msm8953-dsi-ctrl', 'qcom,msm8974-dsi-ctrl', 'qcom,msm8996-dsi-ctrl', 'qcom,msm8998-dsi-ctrl', 'qcom,qcm2290-dsi-ctrl', 'qcom,sc7180-dsi-ctrl', 'qcom,sc7280-dsi-ctrl', 'qcom,sdm660-dsi-ctrl', 'qcom,sdm845-dsi-ctrl', 'qcom,sm8150-dsi-ctrl', 'qcom,sm8250-dsi-ctrl', 'qcom,sm8350-dsi-ctrl', 'qcom,sm8450-dsi-ctrl', 'qcom,sm8550-dsi-ctrl']
-	'qcom,mdss-dsi-ctrl' is not one of ['dsi-ctrl-6g-qcm2290']
-	From schema: /builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/dsi-controller-main.yaml
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sdm845-mdss.example.dtb: dsi@ae94000: compatible: 'oneOf' conditional failed, one must be fixed:
-	['qcom,mdss-dsi-ctrl'] is too short
-	'qcom,mdss-dsi-ctrl' is not one of ['qcom,apq8064-dsi-ctrl', 'qcom,msm8916-dsi-ctrl', 'qcom,msm8953-dsi-ctrl', 'qcom,msm8974-dsi-ctrl', 'qcom,msm8996-dsi-ctrl', 'qcom,msm8998-dsi-ctrl', 'qcom,qcm2290-dsi-ctrl', 'qcom,sc7180-dsi-ctrl', 'qcom,sc7280-dsi-ctrl', 'qcom,sdm660-dsi-ctrl', 'qcom,sdm845-dsi-ctrl', 'qcom,sm8150-dsi-ctrl', 'qcom,sm8250-dsi-ctrl', 'qcom,sm8350-dsi-ctrl', 'qcom,sm8450-dsi-ctrl', 'qcom,sm8550-dsi-ctrl']
-	'qcom,mdss-dsi-ctrl' is not one of ['dsi-ctrl-6g-qcm2290']
-	From schema: /builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/dsi-controller-main.yaml
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sdm845-mdss.example.dtb: dsi@ae96000: compatible: 'oneOf' conditional failed, one must be fixed:
-	['qcom,mdss-dsi-ctrl'] is too short
-	'qcom,mdss-dsi-ctrl' is not one of ['qcom,apq8064-dsi-ctrl', 'qcom,msm8916-dsi-ctrl', 'qcom,msm8953-dsi-ctrl', 'qcom,msm8974-dsi-ctrl', 'qcom,msm8996-dsi-ctrl', 'qcom,msm8998-dsi-ctrl', 'qcom,qcm2290-dsi-ctrl', 'qcom,sc7180-dsi-ctrl', 'qcom,sc7280-dsi-ctrl', 'qcom,sdm660-dsi-ctrl', 'qcom,sdm845-dsi-ctrl', 'qcom,sm8150-dsi-ctrl', 'qcom,sm8250-dsi-ctrl', 'qcom,sm8350-dsi-ctrl', 'qcom,sm8450-dsi-ctrl', 'qcom,sm8550-dsi-ctrl']
-	'qcom,mdss-dsi-ctrl' is not one of ['dsi-ctrl-6g-qcm2290']
-	From schema: /builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/dsi-controller-main.yaml
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sc7280-mdss.example.dtb: dsi@ae94000: compatible: 'oneOf' conditional failed, one must be fixed:
-	['qcom,mdss-dsi-ctrl'] is too short
-	'qcom,mdss-dsi-ctrl' is not one of ['qcom,apq8064-dsi-ctrl', 'qcom,msm8916-dsi-ctrl', 'qcom,msm8953-dsi-ctrl', 'qcom,msm8974-dsi-ctrl', 'qcom,msm8996-dsi-ctrl', 'qcom,msm8998-dsi-ctrl', 'qcom,qcm2290-dsi-ctrl', 'qcom,sc7180-dsi-ctrl', 'qcom,sc7280-dsi-ctrl', 'qcom,sdm660-dsi-ctrl', 'qcom,sdm845-dsi-ctrl', 'qcom,sm8150-dsi-ctrl', 'qcom,sm8250-dsi-ctrl', 'qcom,sm8350-dsi-ctrl', 'qcom,sm8450-dsi-ctrl', 'qcom,sm8550-dsi-ctrl']
-	'qcom,mdss-dsi-ctrl' is not one of ['dsi-ctrl-6g-qcm2290']
-	From schema: /builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/dsi-controller-main.yaml
+are available in the Git repository at:
 
-doc reference errors (make refcheckdocs):
+  https://gitlab.freedesktop.org/drm/msm.git tags/drm-msm-fixes-2023-01-16
 
-See https://patchwork.ozlabs.org/project/devicetree-bindings/patch/20230116152128.909646-2-bryan.odonoghue@linaro.org
+for you to fetch changes up to a66f1efcf748febea7758c4c3c8b5bc5294949ef:
 
-The base for the series is generally the latest rc1. A different dependency
-should be noted in *this* patch.
+  drm/msm/gpu: Fix potential double-free (2023-01-11 09:00:14 -0800)
 
-If you already ran 'make dt_binding_check' and didn't see the above
-error(s), then make sure 'yamllint' is installed and dt-schema is up to
-date:
+----------------------------------------------------------------
+msm-fixes for v6.3-rc5
 
-pip3 install dtschema --upgrade
+Two GPU fixes which were meant to be part of the previous pull request,
+but I'd forgotten to fetch from gitlab after the MR was merged so that
+git tag was applied to the wrong commit.
 
-Please check and re-submit after running the above command yourself. Note
-that DT_SCHEMA_FILES can be set to your schema file to speed up checking
-your schema. However, it must be unset to test all examples with your schema.
+- kexec shutdown fix
+- fix potential double free
 
+----------------------------------------------------------------
+Joel Fernandes (Google) (1):
+      adreno: Shutdown the GPU properly
+
+Rob Clark (1):
+      drm/msm/gpu: Fix potential double-free
+
+ drivers/gpu/drm/msm/adreno/adreno_device.c |  5 +++--
+ drivers/gpu/drm/msm/adreno/adreno_gpu.c    |  4 ++++
+ drivers/gpu/drm/msm/msm_gpu.c              |  2 ++
+ drivers/gpu/drm/msm/msm_gpu.h              | 12 ++++++++++--
+ 4 files changed, 19 insertions(+), 4 deletions(-)
