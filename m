@@ -2,57 +2,47 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6689E66BE35
-	for <lists+freedreno@lfdr.de>; Mon, 16 Jan 2023 13:52:45 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1382666C09E
+	for <lists+freedreno@lfdr.de>; Mon, 16 Jan 2023 15:03:00 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 220AE10E298;
-	Mon, 16 Jan 2023 12:52:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C95E810E03D;
+	Mon, 16 Jan 2023 14:02:58 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-yb1-xb2a.google.com (mail-yb1-xb2a.google.com
- [IPv6:2607:f8b0:4864:20::b2a])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CBDBE10E298
- for <freedreno@lists.freedesktop.org>; Mon, 16 Jan 2023 12:52:42 +0000 (UTC)
-Received: by mail-yb1-xb2a.google.com with SMTP id 203so30120780yby.10
- for <freedreno@lists.freedesktop.org>; Mon, 16 Jan 2023 04:52:42 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=2HwxURQ04QRPHjYFiwUTAY9c1+Tu3uq4SQk4i0sNqu4=;
- b=BX2XXb6Z/I8uqSGq+V3t+G3jgfTOzjVgOOQsSxDjQGnulfnkLrpeXJgo7xxz7Lk3gb
- 69GvlI+IeJRRULFIykgNvw14q5nFemOJXWUjCtnrpQGB8/270ANcD4Ra9GDwo5kdKXOH
- njJzNwh14rD6t/8n6V/YIE6klTzC4otbBHzBYR1PM9o7BKsWcaawdYlxMoWwaRVt7do/
- wP6GtqJt4YNQ6fGZvoxaNJNaMST/Xxs4MhUxU++Z2pu0A4iZCoVs5ZW0GFvP9x47vfPP
- pNE045klwXHyEJuo2GG7O+uB1ftlF2ixt0ES468NgvgLLGObBloQEGYaqUTWLy3utNVy
- VdtA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=2HwxURQ04QRPHjYFiwUTAY9c1+Tu3uq4SQk4i0sNqu4=;
- b=Ai9YdK9dpFuwCPc7NWnG6lRE8DzTO10jU7gly9XEaiwVbPQBGgQ3GvJuNwutN/1XfT
- TH1HY37JnTayktL13pgXt8bdZeSB+rW44XrRbq8y+QTrLWFJw2tKItnJXGSMshx20sBl
- oBqJ+jm6Pc37XGA4CHD3nPtaJKBnLbhTfBG+U/VnOMGx2Ln+mfy5dAyCZPFwyJbaHVDo
- TiRFmYnlCHoedRQg4wE2pVqkpDJjDxtK6u9HaVcLTYyzkZzICbBNMuS++XYMe+4mseqs
- ZelAs/HmHVACROGSphj9dZ5q96/jF6uk6RIoXdIcs/541fj4r8FeEhRe/yl+wVbZ6IDO
- wW4A==
-X-Gm-Message-State: AFqh2kpN8qW7E5buBjrSdWRAjDkBfsMawqRfQ/WVw3wMEvHSPz7IQFKc
- 7zZxLA/8B6xJDaWeq0+WrnabgxvJo2l22USTfNFYig==
-X-Google-Smtp-Source: AMrXdXvVqYBXE+hJ9b7YSEc2muX26rtwXJeHSCkz34eovdTPqEG7jDeQIgdO7eKutLnykzUqqBtiRDwJoRKQOLEeDNM=
-X-Received: by 2002:a25:e648:0:b0:7c2:d9f1:3b04 with SMTP id
- d69-20020a25e648000000b007c2d9f13b04mr2486434ybh.516.1673873561962; Mon, 16
- Jan 2023 04:52:41 -0800 (PST)
+Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 015B110E03D;
+ Mon, 16 Jan 2023 14:02:56 +0000 (UTC)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by sin.source.kernel.org (Postfix) with ESMTPS id 81686CE1169;
+ Mon, 16 Jan 2023 14:02:52 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1EBB6C433F2;
+ Mon, 16 Jan 2023 14:02:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1673877770;
+ bh=c1dLUwLzKCg211SfEHv4A5E+XPyoUTVlsOTJ08S8uLo=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=QhjQO0iMneDDr6zm6B5ku1kwHIvlUF/AOXRW7f7WwdVw9e7qK9t8SYUcH7+fHBJn5
+ x79k9mqywvKIe0jPfmy7wFWEDAGgQJ4GfjTwRCEgoK9ufJnypTt8VwseK6NSCTu0Kc
+ cvKdMqkQztvzoWiXTb/2ej+OyDk+Hvbp7OATYDRid+GttMyWIPJ9X6WqH4eskxl3WO
+ gVOXMGAoNhmKI2XGgLJtuGHsQRCyWTpip1IbP2Xg+lEZsrl1NUhVZoqcP/yklGXzmA
+ BBW0PhbHSdUvKEs2YIqbWZ1ZfJhzPtvRPKTBKq3PXvOGdjfWWWotZ+QbJJTmxymlMO
+ yKFdluySDqCAA==
+From: Sasha Levin <sashal@kernel.org>
+To: linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Date: Mon, 16 Jan 2023 09:01:16 -0500
+Message-Id: <20230116140154.114951-16-sashal@kernel.org>
+X-Mailer: git-send-email 2.35.1
+In-Reply-To: <20230116140154.114951-1-sashal@kernel.org>
+References: <20230116140154.114951-1-sashal@kernel.org>
 MIME-Version: 1.0
-References: <20230116115132.348961-1-konrad.dybcio@linaro.org>
-In-Reply-To: <20230116115132.348961-1-konrad.dybcio@linaro.org>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Mon, 16 Jan 2023 14:52:30 +0200
-Message-ID: <CAA8EJprNzLMnU7cguMit6Y4sgU0-SOkiiL+=s_BFBZiyvNvsAw@mail.gmail.com>
-To: Konrad Dybcio <konrad.dybcio@linaro.org>
-Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [PATCH] dt-bindings: msm/dsi: Don't require
- vdds-supply on 7nm PHY
+X-stable: review
+X-Patchwork-Hint: Ignore
+Content-Transfer-Encoding: 8bit
+Subject: [Freedreno] [PATCH AUTOSEL 6.1 16/53] drm/msm/a6xx: Avoid gx gbit
+ halt during rpm suspend
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,51 +55,117 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Jonathan Marek <jonathan@marek.ca>, devicetree@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, andersson@kernel.org,
- krzysztof.kozlowski@linaro.org, Rob Herring <robh+dt@kernel.org>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, Rob Clark <robdclark@gmail.com>,
- agross@kernel.org, dri-devel@lists.freedesktop.org,
- Daniel Vetter <daniel@ffwll.ch>, marijn.suijten@somainline.org,
- David Airlie <airlied@gmail.com>, Sean Paul <sean@poorly.run>,
- linux-kernel@vger.kernel.org
+Cc: Rob Clark <robdclark@chromium.org>, Sasha Levin <sashal@kernel.org>,
+ Akhil P Oommen <quic_akhilpo@quicinc.com>, linux-arm-msm@vger.kernel.org,
+ konrad.dybcio@somainline.org, quic_abhinavk@quicinc.com,
+ dri-devel@lists.freedesktop.org, dianders@chromium.org, robdclark@gmail.com,
+ geert@linux-m68k.org, daniel@ffwll.ch, dmitry.baryshkov@linaro.org,
+ freedreno@lists.freedesktop.org, airlied@gmail.com, olvaffe@gmail.com
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Mon, 16 Jan 2023 at 13:51, Konrad Dybcio <konrad.dybcio@linaro.org> wrote:
->
-> On some SoCs (hello SM6375) vdds-supply is not wired to any smd-rpm
-> or rpmh regulator, but instead powered by the VDD_MX/mx.lvl line,
-> which is voted for in the DSI ctrl node.
+From: Akhil P Oommen <quic_akhilpo@quicinc.com>
 
-I think we should have an explicit `if compatible then required:
-vdds-supply' clause. WDYT?
+[ Upstream commit f4a75b5933c998e60fd812a7680e0971eb1c7cee ]
 
->
-> Signed-off-by: Konrad Dybcio <konrad.dybcio@linaro.org>
-> ---
->  Documentation/devicetree/bindings/display/msm/dsi-phy-7nm.yaml | 1 -
->  1 file changed, 1 deletion(-)
->
-> diff --git a/Documentation/devicetree/bindings/display/msm/dsi-phy-7nm.yaml b/Documentation/devicetree/bindings/display/msm/dsi-phy-7nm.yaml
-> index 9c9184f94c44..8e9031bbde73 100644
-> --- a/Documentation/devicetree/bindings/display/msm/dsi-phy-7nm.yaml
-> +++ b/Documentation/devicetree/bindings/display/msm/dsi-phy-7nm.yaml
-> @@ -48,7 +48,6 @@ required:
->    - compatible
->    - reg
->    - reg-names
-> -  - vdds-supply
->
->  unevaluatedProperties: false
->
-> --
-> 2.39.0
->
+As per the downstream driver, gx gbif halt is required only during
+recovery sequence. So lets avoid it during regular rpm suspend.
 
+Signed-off-by: Akhil P Oommen <quic_akhilpo@quicinc.com>
+Patchwork: https://patchwork.freedesktop.org/patch/515279/
+Link: https://lore.kernel.org/r/20221216223253.1.Ice9c47bfeb1fddb8dc377a3491a043a3ee7fca7d@changeid
+Signed-off-by: Rob Clark <robdclark@chromium.org>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ drivers/gpu/drm/msm/adreno/a6xx_gmu.c | 15 +++++++++------
+ drivers/gpu/drm/msm/adreno/a6xx_gpu.c |  7 +++++++
+ drivers/gpu/drm/msm/adreno/a6xx_gpu.h |  1 +
+ 3 files changed, 17 insertions(+), 6 deletions(-)
 
+diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
+index e033d6a67a20..870252bef23f 100644
+--- a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
++++ b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
+@@ -876,7 +876,8 @@ static void a6xx_gmu_rpmh_off(struct a6xx_gmu *gmu)
+ #define GBIF_CLIENT_HALT_MASK             BIT(0)
+ #define GBIF_ARB_HALT_MASK                BIT(1)
+ 
+-static void a6xx_bus_clear_pending_transactions(struct adreno_gpu *adreno_gpu)
++static void a6xx_bus_clear_pending_transactions(struct adreno_gpu *adreno_gpu,
++		bool gx_off)
+ {
+ 	struct msm_gpu *gpu = &adreno_gpu->base;
+ 
+@@ -889,9 +890,11 @@ static void a6xx_bus_clear_pending_transactions(struct adreno_gpu *adreno_gpu)
+ 		return;
+ 	}
+ 
+-	/* Halt the gx side of GBIF */
+-	gpu_write(gpu, REG_A6XX_RBBM_GBIF_HALT, 1);
+-	spin_until(gpu_read(gpu, REG_A6XX_RBBM_GBIF_HALT_ACK) & 1);
++	if (gx_off) {
++		/* Halt the gx side of GBIF */
++		gpu_write(gpu, REG_A6XX_RBBM_GBIF_HALT, 1);
++		spin_until(gpu_read(gpu, REG_A6XX_RBBM_GBIF_HALT_ACK) & 1);
++	}
+ 
+ 	/* Halt new client requests on GBIF */
+ 	gpu_write(gpu, REG_A6XX_GBIF_HALT, GBIF_CLIENT_HALT_MASK);
+@@ -929,7 +932,7 @@ static void a6xx_gmu_force_off(struct a6xx_gmu *gmu)
+ 	/* Halt the gmu cm3 core */
+ 	gmu_write(gmu, REG_A6XX_GMU_CM3_SYSRESET, 1);
+ 
+-	a6xx_bus_clear_pending_transactions(adreno_gpu);
++	a6xx_bus_clear_pending_transactions(adreno_gpu, true);
+ 
+ 	/* Reset GPU core blocks */
+ 	gpu_write(gpu, REG_A6XX_RBBM_SW_RESET_CMD, 1);
+@@ -1083,7 +1086,7 @@ static void a6xx_gmu_shutdown(struct a6xx_gmu *gmu)
+ 			return;
+ 		}
+ 
+-		a6xx_bus_clear_pending_transactions(adreno_gpu);
++		a6xx_bus_clear_pending_transactions(adreno_gpu, a6xx_gpu->hung);
+ 
+ 		/* tell the GMU we want to slumber */
+ 		ret = a6xx_gmu_notify_slumber(gmu);
+diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+index e846e629c00d..9d7fc44c1e2a 100644
+--- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
++++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+@@ -1277,6 +1277,12 @@ static void a6xx_recover(struct msm_gpu *gpu)
+ 	if (hang_debug)
+ 		a6xx_dump(gpu);
+ 
++	/*
++	 * To handle recovery specific sequences during the rpm suspend we are
++	 * about to trigger
++	 */
++	a6xx_gpu->hung = true;
++
+ 	/* Halt SQE first */
+ 	gpu_write(gpu, REG_A6XX_CP_SQE_CNTL, 3);
+ 
+@@ -1319,6 +1325,7 @@ static void a6xx_recover(struct msm_gpu *gpu)
+ 	mutex_unlock(&gpu->active_lock);
+ 
+ 	msm_gpu_hw_init(gpu);
++	a6xx_gpu->hung = false;
+ }
+ 
+ static const char *a6xx_uche_fault_block(struct msm_gpu *gpu, u32 mid)
+diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.h b/drivers/gpu/drm/msm/adreno/a6xx_gpu.h
+index ab853f61db63..eea2e60ce3b7 100644
+--- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.h
++++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.h
+@@ -32,6 +32,7 @@ struct a6xx_gpu {
+ 	void *llc_slice;
+ 	void *htw_llc_slice;
+ 	bool have_mmu500;
++	bool hung;
+ };
+ 
+ #define to_a6xx_gpu(x) container_of(x, struct a6xx_gpu, base)
 -- 
-With best wishes
-Dmitry
+2.35.1
+
