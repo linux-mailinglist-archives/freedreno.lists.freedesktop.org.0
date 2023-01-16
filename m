@@ -2,54 +2,68 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2B8A266CDCC
-	for <lists+freedreno@lfdr.de>; Mon, 16 Jan 2023 18:41:32 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4103B66CF75
+	for <lists+freedreno@lfdr.de>; Mon, 16 Jan 2023 20:20:18 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DAA8010E475;
-	Mon, 16 Jan 2023 17:41:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 180A110E49E;
+	Mon, 16 Jan 2023 19:20:15 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-oa1-x2a.google.com (mail-oa1-x2a.google.com
- [IPv6:2001:4860:4864:20::2a])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C133310E475;
- Mon, 16 Jan 2023 17:41:28 +0000 (UTC)
-Received: by mail-oa1-x2a.google.com with SMTP id
- 586e51a60fabf-142b72a728fso29523249fac.9; 
- Mon, 16 Jan 2023 09:41:28 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=cc:to:subject:message-id:date:from:mime-version:from:to:cc:subject
- :date:message-id:reply-to;
- bh=32etmJGtnoqZs4BKYvAsZxgp4Z8S6ohTWuwi/XPlaIY=;
- b=PvRXv20O6DvvrQohvHLThOVursOGZoHGCN2kKLOUEBl+JlR++v8pM94Rsdy+06TzUD
- u3nljlp1FNHPwvXBcmTsJQwp5H1hGn8IPm856UZTRnbPtrFRl7W84tpUJXbZl1HzLC42
- eqWloiTobk3CJkGgEEIyOLOP+ig3gjISbbDWsltJJk4dOFlrjgn9rWUN7Py8pr2Qw3ct
- KKMwPo18GrWMGwi7ePfdIWFFhEKZo7AFWB8fi1obVJVVN0HXpg2T/0WKU0KzvEMCBPND
- 1CxvpeA1K8zaqluCHxAwRBQsULmXXLB/zx0TCmeChCv8oPySCtsAbc6p6IUrW9xuzyDB
- 5DNg==
+Received: from mail-ej1-x62c.google.com (mail-ej1-x62c.google.com
+ [IPv6:2a00:1450:4864:20::62c])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7224D10E49E
+ for <freedreno@lists.freedesktop.org>; Mon, 16 Jan 2023 19:20:12 +0000 (UTC)
+Received: by mail-ej1-x62c.google.com with SMTP id cf18so63900233ejb.5
+ for <freedreno@lists.freedesktop.org>; Mon, 16 Jan 2023 11:20:12 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=eDJhl2JrEfjVRzKQvqBIMz7y/1765blM/Rj+5k8sN3A=;
+ b=dMuefG64FEW3xgijUTbpxZl/QVCMjI4rPW55P+7ETbewC1Lq0kcKsAZR8IcIKfPkli
+ 4HZQtF2DVAtRd6m/3w/i19ZQ49JQ4noTpmGnd7qEcuFXb9sDZEBIWy/r4H/jqTm8/EuO
+ e3/t7Aqkbxsw73YuTRkYMm0kM4AwWH+kV4JxkUakKQ3H/7FiNlzT7jyo/sxL2DtZuxSj
+ VVGchKDFTn+gv3I7hYjvCVP3nlnvf/TbNrPoN1PoxzAd7/HVIk34vNFE19ZS+GsqLw02
+ 4tdb3jDAVtNlF7juhkj0CquFde30fTi13j5rRzlgoGTXZEoS3npMQmmREoS+uTpHEPew
+ 6V9w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=cc:to:subject:message-id:date:from:mime-version:x-gm-message-state
- :from:to:cc:subject:date:message-id:reply-to;
- bh=32etmJGtnoqZs4BKYvAsZxgp4Z8S6ohTWuwi/XPlaIY=;
- b=CiJAsTotPZeteFQcvSlI1KTKiKFdKl7pQnFOTxrZ0Zz9+QTxpf+uGNQTHoKlTAI+NK
- qnKSNzBovutAJVCh6PkFYkCHu8XrOHVqKz+YVO2UyLBnVVVuYN0huXg5GodveKCKeMCW
- Do8GyjR1ntt5Uba5CZj4Mvyz8XbhxvbxDURP2LXhUKB7qey971hzFZ3SWiyMoIE1Rw+B
- iHoi4DYKFldefDsu5NqofBIEWWfIKJRsTQdNcu3U9KRXsTOkVqCxD+JJGFpFFdy3GHEz
- z4B/s1swtEauTlz06k/BP4D6bJ/YELiATlgzp4dwXCrrcBc7A7q/eOKtcaj1JSEFUCP4
- AmPA==
-X-Gm-Message-State: AFqh2krOpWxs29Vt8YWUTIyk8flK8f0RdBH/+q4zlLpgwzXjZhqPlF5A
- jR3jyx0sZswp0oGkIIvFBltz8llLtj5JShnRc7E=
-X-Google-Smtp-Source: AMrXdXv/fJdDosEVH5QdjcHknh+mizzHGjnQeD0B3IXf279r17ct66uUwAb+qk2pfx3Fq5drTaa1P/d+FtTgWTMAjOU=
-X-Received: by 2002:a05:6870:9a9b:b0:13d:51fe:3404 with SMTP id
- hp27-20020a0568709a9b00b0013d51fe3404mr31029oab.183.1673890887961; Mon, 16
- Jan 2023 09:41:27 -0800 (PST)
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=eDJhl2JrEfjVRzKQvqBIMz7y/1765blM/Rj+5k8sN3A=;
+ b=5xLZw0CVNM9Dtecqq3JbTrxK8NziyGkUQzBO1RxlwVeiTYFNe84gqOYsMmPVa0EHRP
+ 35MYMvxMaKl9CfuaIAlaHoCAqZZkKH1jnGE6H8cxsDueBEUNinZ+LP9wr9TbGZiJREOF
+ tEZaufHaMMdmJWyH280iPRtypS7j0tQTTVanl5uZmgvf/dgoaHJdhGkr3YjPuV20ugvw
+ vUVvjLoiFy9EtC0KcQGOtE3D0ls52cBlmW3nnhfwz7rKmyF8stIwIPJEkuNOSEEKmDtq
+ 8vY6x+AjgcVjtba8XQqneR7d5rOLs7hOWJFFWncQ4SdObmG7fjd9iGXjtN2OvXE95LFj
+ 8pVQ==
+X-Gm-Message-State: AFqh2kq7ShwmekpkTnK8sqvBw0lyXo8dvjobksHXSk8ty1LFRE5qiM8I
+ 3dm2JxWpsVWUFWR+odOHgJBOcA==
+X-Google-Smtp-Source: AMrXdXvRp1jhXQmTSRUs0FqepxPK0fgrpXAf5m/8kczSCQMkAwnBPCYakTyiXOPRvyGSw0x4I9lc8Q==
+X-Received: by 2002:a17:906:4950:b0:870:5ed6:74af with SMTP id
+ f16-20020a170906495000b008705ed674afmr4624045ejt.77.1673896810745; 
+ Mon, 16 Jan 2023 11:20:10 -0800 (PST)
+Received: from [192.168.1.109] ([178.197.216.144])
+ by smtp.gmail.com with ESMTPSA id
+ s24-20020a170906c31800b0086dee4e5555sm2891358ejz.87.2023.01.16.11.20.08
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 16 Jan 2023 11:20:10 -0800 (PST)
+Message-ID: <ed199baf-a4e2-cbb5-d399-2387e538c466@linaro.org>
+Date: Mon, 16 Jan 2023 20:20:07 +0100
 MIME-Version: 1.0
-From: Rob Clark <robdclark@gmail.com>
-Date: Mon, 16 Jan 2023 09:41:25 -0800
-Message-ID: <CAF6AEGskguoVsz2wqAK2k+f32LwcVY5JC6+e2RwLqZswz3RY2Q@mail.gmail.com>
-To: Dave Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>
-Content-Type: text/plain; charset="UTF-8"
-Subject: [Freedreno] [pull] drm/msm: drm-msm-fixes-2023-01-16 for v6.3-rc5
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.6.1
+Content-Language: en-US
+To: Konrad Dybcio <konrad.dybcio@linaro.org>, linux-arm-msm@vger.kernel.org,
+ andersson@kernel.org, agross@kernel.org
+References: <20230116114059.346327-1-konrad.dybcio@linaro.org>
+From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+In-Reply-To: <20230116114059.346327-1-konrad.dybcio@linaro.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+Subject: Re: [Freedreno] [PATCH 1/2] dt-bindings: display/msm: Add SM6375
+ DSI PHY
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,51 +76,26 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- linux-arm-msm <linux-arm-msm@vger.kernel.org>,
- freedreno <freedreno@lists.freedesktop.org>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- dri-devel <dri-devel@lists.freedesktop.org>
+Cc: freedreno@lists.freedesktop.org,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Jonathan Marek <jonathan@marek.ca>, devicetree@vger.kernel.org,
+ David Airlie <airlied@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Rob Clark <robdclark@gmail.com>, Rob Herring <robh+dt@kernel.org>,
+ Daniel Vetter <daniel@ffwll.ch>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, marijn.suijten@somainline.org,
+ Sean Paul <sean@poorly.run>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Hi Dave,
+On 16/01/2023 12:40, Konrad Dybcio wrote:
+> SM6375 has a single 7nm DSI PHY. Document it.
+> 
+> Signed-off-by: Konrad Dybcio <konrad.dybcio@linaro.org>
+> ---
 
-A couple more fixes for the v6.3 cycle, which were meant to be part of
-the previous fixes pull, but I fumbled at git when applying the tag.
+Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 
-The following changes since commit f4a75b5933c998e60fd812a7680e0971eb1c7cee:
+Best regards,
+Krzysztof
 
-  drm/msm/a6xx: Avoid gx gbit halt during rpm suspend (2023-01-05
-15:13:16 -0800)
-
-are available in the Git repository at:
-
-  https://gitlab.freedesktop.org/drm/msm.git tags/drm-msm-fixes-2023-01-16
-
-for you to fetch changes up to a66f1efcf748febea7758c4c3c8b5bc5294949ef:
-
-  drm/msm/gpu: Fix potential double-free (2023-01-11 09:00:14 -0800)
-
-----------------------------------------------------------------
-msm-fixes for v6.3-rc5
-
-Two GPU fixes which were meant to be part of the previous pull request,
-but I'd forgotten to fetch from gitlab after the MR was merged so that
-git tag was applied to the wrong commit.
-
-- kexec shutdown fix
-- fix potential double free
-
-----------------------------------------------------------------
-Joel Fernandes (Google) (1):
-      adreno: Shutdown the GPU properly
-
-Rob Clark (1):
-      drm/msm/gpu: Fix potential double-free
-
- drivers/gpu/drm/msm/adreno/adreno_device.c |  5 +++--
- drivers/gpu/drm/msm/adreno/adreno_gpu.c    |  4 ++++
- drivers/gpu/drm/msm/msm_gpu.c              |  2 ++
- drivers/gpu/drm/msm/msm_gpu.h              | 12 ++++++++++--
- 4 files changed, 19 insertions(+), 4 deletions(-)
