@@ -1,58 +1,77 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id AA56166E7A1
-	for <lists+freedreno@lfdr.de>; Tue, 17 Jan 2023 21:21:27 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 4E287670CCF
+	for <lists+freedreno@lfdr.de>; Wed, 18 Jan 2023 00:10:41 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7FE4410E345;
-	Tue, 17 Jan 2023 20:21:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 11E408989C;
+	Tue, 17 Jan 2023 23:10:40 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-oa1-f46.google.com (mail-oa1-f46.google.com
- [209.85.160.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CD81B10E345;
- Tue, 17 Jan 2023 20:21:24 +0000 (UTC)
-Received: by mail-oa1-f46.google.com with SMTP id
- 586e51a60fabf-15085b8a2f7so33267517fac.2; 
- Tue, 17 Jan 2023 12:21:24 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=DK6EUVXiVoF71ZLpplwDGzXo79prqUrJw7XBoWZcTs8=;
- b=KIts0MpUX4/Kn/o0xqbS3RynoKNx8cceGx6dmMwkSfSP/TlpSLIBao0gIGFENZz6TQ
- TeCMMkDWEczOk5MkhUJMHsWi3M4AHwIUn68jeX5/Pk+NbIlrqML6HqveaqA29iUVpSqV
- 3f0BAYIfq1Zcp8oLVZ4xl3AIqGBGTezYOMPb+Qpn7bqyRKNOVrpZWrwFhVf43dq2ZAXe
- qZgI5dQcDqRaeKf5q/bpvryYbm7wf5p3ZltegeWBqRnW7YmkS1+aIPx1mJJnBziEz7e/
- nhSpWe7Uo80OWvLvmLRc7U6wJtIv1MlayUfCg6JHW/jq7DOGOEI7ZdQ117jKvbwBLZXC
- KgOA==
-X-Gm-Message-State: AFqh2krrFt76GDPGcXkw5X3Cf4vC+huAJMrbz4zLHLjaY5e233E6XMsN
- ZqSshpmdw+NCfwTKSacMmA==
-X-Google-Smtp-Source: AMrXdXuCptqQO49Wnk2iCANx4q2uWgP0CeAClw4Io8/MCaW/ZeiGmADjQhFwlr2Yvix9oRBsSVtN6g==
-X-Received: by 2002:a05:6870:be90:b0:144:d065:578e with SMTP id
- nx16-20020a056870be9000b00144d065578emr2778298oab.15.1673986883967; 
- Tue, 17 Jan 2023 12:21:23 -0800 (PST)
-Received: from robh_at_kernel.org (66-90-144-107.dyn.grandenetworks.net.
- [66.90.144.107]) by smtp.gmail.com with ESMTPSA id
- l15-20020a4ad9cf000000b004fa6789a085sm722442oou.45.2023.01.17.12.21.22
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 17 Jan 2023 12:21:23 -0800 (PST)
-Received: (nullmailer pid 3643082 invoked by uid 1000);
- Tue, 17 Jan 2023 20:21:22 -0000
-Date: Tue, 17 Jan 2023 14:21:22 -0600
-From: Rob Herring <robh@kernel.org>
-To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-Message-ID: <167398688215.3643022.13982729074970285092.robh@kernel.org>
-References: <20230116225217.1056258-1-bryan.odonoghue@linaro.org>
- <20230116225217.1056258-2-bryan.odonoghue@linaro.org>
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8EEF68989C;
+ Tue, 17 Jan 2023 23:10:38 +0000 (UTC)
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 30HKdR6J008685; Tue, 17 Jan 2023 23:10:32 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
+ h=message-id : date :
+ mime-version : subject : to : cc : references : from : in-reply-to :
+ content-type : content-transfer-encoding; s=qcppdkim1;
+ bh=Kq4QTOw6JsPonbbZhmW9Co89yNppmOZX9p8vxzArv/Y=;
+ b=Am9tMQHFbGXKntink20eUTTonIvqfaxmvcAhtKlZWhwRlLK2GG1anGZx0FmY1fXhiblh
+ ZkaWsPokEgdFJlZE4FFNkgbKJ/bEAtdu/evPpGSmadEH5vkOQtqqFGKOYWNfkznPRKwK
+ k185j9sQrgim+fJipBsihINDM/+bcNW73wZL3aCMqiF54DoWCodf8+T+bILCvr1hi2Qn
+ 9oZFYvIHFAzYf7gJF/WFdbVS8S888tww7YHq8VIDbRpZKalTU1FYwvVwyBogwE5iG8Oo
+ RNJtrxXyWba7e5c1P0WOEjxTz9UigI19XGYlTdXtsj/rFczVD/771sXwOSrZd/AETzQU GA== 
+Received: from nalasppmta05.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3n3mm9xkdx-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 17 Jan 2023 23:10:32 +0000
+Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
+ [10.47.209.196])
+ by NALASPPMTA05.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 30HNAV0J000861
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 17 Jan 2023 23:10:31 GMT
+Received: from [10.110.108.90] (10.80.80.8) by nalasex01a.na.qualcomm.com
+ (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.36; Tue, 17 Jan
+ 2023 15:10:30 -0800
+Message-ID: <9bf93afc-c54d-bd1d-2c85-548202e7d29f@quicinc.com>
+Date: Tue, 17 Jan 2023 15:10:21 -0800
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20230116225217.1056258-2-bryan.odonoghue@linaro.org>
-Subject: Re: [Freedreno] [PATCH v8 1/3] dt-bindings: msm:
- dsi-controller-main: Add compatible strings for every current SoC
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
+ Thunderbird/91.6.2
+Content-Language: en-US
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Rob Clark
+ <robdclark@gmail.com>, Sean Paul <sean@poorly.run>
+References: <20230116034435.569512-1-dmitry.baryshkov@linaro.org>
+From: Abhinav Kumar <quic_abhinavk@quicinc.com>
+In-Reply-To: <20230116034435.569512-1-dmitry.baryshkov@linaro.org>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-GUID: RUDZ_zeBkrafzxgiV_q3x4rY4wrVpxev
+X-Proofpoint-ORIG-GUID: RUDZ_zeBkrafzxgiV_q3x4rY4wrVpxev
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.219,Aquarius:18.0.923,Hydra:6.0.562,FMLib:17.11.122.1
+ definitions=2023-01-17_10,2023-01-17_01,2022-06-22_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ mlxscore=0 phishscore=0
+ spamscore=0 priorityscore=1501 malwarescore=0 suspectscore=0
+ impostorscore=0 adultscore=0 bulkscore=0 lowpriorityscore=0 clxscore=1015
+ mlxlogscore=999 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2212070000 definitions=main-2301170185
+Subject: Re: [Freedreno] [PATCH] drm/msm/dpu: enable sourcesplit for
+ sc7180/sc7280
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,61 +84,82 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: sean@poorly.run, devicetree@vger.kernel.org, dianders@chromium.org,
- krzysztof.kozlowski+dt@linaro.org, linux-arm-msm@vger.kernel.org,
- andersson@kernel.org, konrad.dybcio@somainline.org,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- quic_abhinavk@quicinc.com, robdclark@gmail.com, robh+dt@kernel.org,
- david@ixit.cz, daniel@ffwll.ch, dmitry.baryshkov@linaro.org, airlied@gmail.com,
- swboyd@chromium.org, freedreno@lists.freedesktop.org, agross@kernel.org
+Cc: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
+ Bjorn Andersson <andersson@kernel.org>, dri-devel@lists.freedesktop.org,
+ Stephen Boyd <swboyd@chromium.org>, Daniel Vetter <daniel@ffwll.ch>,
+ David Airlie <airlied@gmail.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 
-On Mon, 16 Jan 2023 22:52:15 +0000, Bryan O'Donoghue wrote:
-> Currently we do not differentiate between the various users of the
-> qcom,mdss-dsi-ctrl. The driver is flexible enough to operate from one
-> compatible string but, the hardware does have some significant differences
-> in the number of clocks.
-> 
-> To facilitate documenting the clocks add the following compatible strings
-> 
-> - qcom,apq8064-dsi-ctrl
-> - qcom,msm8916-dsi-ctrl
-> - qcom,msm8953-dsi-ctrl
-> - qcom,msm8974-dsi-ctrl
-> - qcom,msm8996-dsi-ctrl
-> - qcom,msm8998-dsi-ctrl
-> - qcom,sc7180-dsi-ctrl
-> - qcom,sc7280-dsi-ctrl
-> - qcom,sdm660-dsi-ctrl
-> - qcom,sdm845-dsi-ctrl
-> - qcom,sm8150-dsi-ctrl
-> - qcom,sm8250-dsi-ctrl
-> - qcom,sm8350-dsi-ctrl
-> - qcom,sm8450-dsi-ctrl
-> - qcom,sm8550-dsi-ctrl
-> - qcom,qcm2290-dsi-ctrl
-> 
-> Deprecate qcom,dsi-ctrl-6g-qcm2290 in favour of the desired format while we
-> do so.
-> 
-> Several MDSS yaml files exist which document the dsi sub-node.
-> For each existing SoC MDSS yaml, provide the right dsi compat string.
-> 
-> Signed-off-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-> ---
->  .../display/msm/dsi-controller-main.yaml      | 30 ++++++++++++++++---
->  .../bindings/display/msm/qcom,mdss.yaml       |  3 +-
->  .../display/msm/qcom,msm8998-mdss.yaml        |  8 +++--
->  .../display/msm/qcom,sc7180-mdss.yaml         |  6 ++--
->  .../display/msm/qcom,sc7280-mdss.yaml         |  6 ++--
->  .../display/msm/qcom,sdm845-mdss.yaml         |  8 +++--
->  .../display/msm/qcom,sm8150-mdss.yaml         |  8 +++--
->  .../display/msm/qcom,sm8250-mdss.yaml         |  8 +++--
->  .../display/msm/qcom,sm8350-mdss.yaml         |  6 ++--
->  .../display/msm/qcom,sm8450-mdss.yaml         |  4 ++-
->  10 files changed, 63 insertions(+), 24 deletions(-)
-> 
 
-Acked-by: Rob Herring <robh@kernel.org>
+On 1/15/2023 7:44 PM, Dmitry Baryshkov wrote:
+> According to the vendor dts files, both sc7180 and sc7280 support the
+> source split mode (using two LMs for a single output). Change these two
+> platforms to use MIXER_SDM845_MASK, which includes
+> DPU_MIXER_SOURCESPLIT. Rename MIXER_SC7180_MASK to MIXER_QCM2290_MASK,
+> since this platform doesn't seem to support source split mode.
+> 
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+
+Names are getting confusing with mask name re-uses, till the hw catalog 
+split have to live with it I guess.
+
+I need to double-check about QCM 2290, but since this change is keeping 
+current masks for it and just renaming,
+
+Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
+
+> ---
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c | 14 +++++++-------
+>   1 file changed, 7 insertions(+), 7 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
+> index 22ad996e9014..835d6d2c4115 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
+> @@ -56,7 +56,7 @@
+>   #define MIXER_SDM845_MASK \
+>   	(BIT(DPU_MIXER_SOURCESPLIT) | BIT(DPU_DIM_LAYER) | BIT(DPU_MIXER_COMBINED_ALPHA))
+>   
+> -#define MIXER_SC7180_MASK \
+> +#define MIXER_QCM2290_MASK \
+>   	(BIT(DPU_DIM_LAYER) | BIT(DPU_MIXER_COMBINED_ALPHA))
+>   
+>   #define PINGPONG_SDM845_MASK BIT(DPU_PINGPONG_DITHER)
+> @@ -1464,9 +1464,9 @@ static const struct dpu_lm_sub_blks sc7180_lm_sblk = {
+>   };
+>   
+>   static const struct dpu_lm_cfg sc7180_lm[] = {
+> -	LM_BLK("lm_0", LM_0, 0x44000, MIXER_SC7180_MASK,
+> +	LM_BLK("lm_0", LM_0, 0x44000, MIXER_SDM845_MASK,
+>   		&sc7180_lm_sblk, PINGPONG_0, LM_1, DSPP_0),
+> -	LM_BLK("lm_1", LM_1, 0x45000, MIXER_SC7180_MASK,
+> +	LM_BLK("lm_1", LM_1, 0x45000, MIXER_SDM845_MASK,
+>   		&sc7180_lm_sblk, PINGPONG_1, LM_0, 0),
+>   };
+>   
+> @@ -1499,11 +1499,11 @@ static const struct dpu_lm_cfg sm8150_lm[] = {
+>   };
+>   
+>   static const struct dpu_lm_cfg sc7280_lm[] = {
+> -	LM_BLK("lm_0", LM_0, 0x44000, MIXER_SC7180_MASK,
+> +	LM_BLK("lm_0", LM_0, 0x44000, MIXER_SDM845_MASK,
+>   		&sc7180_lm_sblk, PINGPONG_0, 0, DSPP_0),
+> -	LM_BLK("lm_2", LM_2, 0x46000, MIXER_SC7180_MASK,
+> +	LM_BLK("lm_2", LM_2, 0x46000, MIXER_SDM845_MASK,
+>   		&sc7180_lm_sblk, PINGPONG_2, LM_3, 0),
+> -	LM_BLK("lm_3", LM_3, 0x47000, MIXER_SC7180_MASK,
+> +	LM_BLK("lm_3", LM_3, 0x47000, MIXER_SDM845_MASK,
+>   		&sc7180_lm_sblk, PINGPONG_3, LM_2, 0),
+>   };
+>   
+> @@ -1518,7 +1518,7 @@ static const struct dpu_lm_sub_blks qcm2290_lm_sblk = {
+>   };
+>   
+>   static const struct dpu_lm_cfg qcm2290_lm[] = {
+> -	LM_BLK("lm_0", LM_0, 0x44000, MIXER_SC7180_MASK,
+> +	LM_BLK("lm_0", LM_0, 0x44000, MIXER_QCM2290_MASK,
+>   		&qcm2290_lm_sblk, PINGPONG_0, 0, DSPP_0),
+>   };
+>   
