@@ -1,58 +1,58 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8AAFE66E594
-	for <lists+freedreno@lfdr.de>; Tue, 17 Jan 2023 19:05:50 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 6129766E5A1
+	for <lists+freedreno@lfdr.de>; Tue, 17 Jan 2023 19:09:12 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5AFCD10E59C;
-	Tue, 17 Jan 2023 18:05:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 98B7010E59F;
+	Tue, 17 Jan 2023 18:09:10 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ot1-f51.google.com (mail-ot1-f51.google.com
- [209.85.210.51])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 09D4910E59B;
- Tue, 17 Jan 2023 18:05:48 +0000 (UTC)
-Received: by mail-ot1-f51.google.com with SMTP id
- k44-20020a9d19af000000b00683e176ab01so18277759otk.13; 
- Tue, 17 Jan 2023 10:05:48 -0800 (PST)
+Received: from mail-oa1-f48.google.com (mail-oa1-f48.google.com
+ [209.85.160.48])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 41E3C10E5A1;
+ Tue, 17 Jan 2023 18:09:08 +0000 (UTC)
+Received: by mail-oa1-f48.google.com with SMTP id
+ 586e51a60fabf-12c8312131fso32861195fac.4; 
+ Tue, 17 Jan 2023 10:09:08 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to;
- bh=PM98rtw7LbzsvTCif2C+5NEYIZSk3KLr63ivyr75RYs=;
- b=UtqhCwSROXrCAAPKBn3oePzlmPwbpBKiifiIvClW/8eDbzAYk/VXtErl+uv+2nY+ho
- v748YcpQ9EseFl7InttmoWkFr8aTG4s3EQdUo3emmzXHZQuFPBOw+IIPtN5XGt+NPoY8
- nwHgJmi85/Nl3Avp+RuHnPo8fzBg0L8m5O19eoBmKIHCVTEr9WL0vA0WYjPiuiSn9TID
- 0Ia7EJq5hn1Te2gbzAAaqZ4rg6TN6lMPYYUBU9xV1lfoSc8MRflipWxuh5SbYAtQAewI
- 7zhImkeZllu5Ah0w7rah2tndEDjG2I6C9/W0XhqRIQXdSFSGJbBcfjGG8gs96M8Z3+eA
- 2kzA==
-X-Gm-Message-State: AFqh2kqEoREWsqc4SsoY1ivhxiqL8TiajJSuZxyHuDeg63L6NfUh9/Zf
- +a6VORHBb14ZZqfbQmcNqg==
-X-Google-Smtp-Source: AMrXdXsPrNCO64CoqtqVoJIgO/1bF3oVZOIa0uU6FJXT3ezisRO3DooZ35OaZk84rtCZ7k9My/qgow==
-X-Received: by 2002:a9d:624a:0:b0:66d:a5f7:9adc with SMTP id
- i10-20020a9d624a000000b0066da5f79adcmr2638708otk.2.1673978747227; 
- Tue, 17 Jan 2023 10:05:47 -0800 (PST)
+ bh=Gqw/5tUVUFWZUJ3ijOC+BanMFqqlxId5Bt34OdwKlMQ=;
+ b=YLree8UmZZxlffbcA6i+UXtYq2wMp5gWJwsx6HkqnfI0wGPqR57JJglsm8yUF8LE7j
+ 4uZQxEd5Igk1TU1eJZ3q3JFvrI5cBopr1eFi/pfgXz8bHeswo855GUhXfV6uv2c5ltLT
+ TQfukpWDb7ZFVymo20uLszUUmeRXEI0nIGQ9QjdQIP69OK2bNY58F3V9BUdNDMHOX+WN
+ GaCup30o2IxABXjb2oy0z7v/RYK0VbnbS4qCTGf/2167dtSu8hRMRuouiwtk97/dFiSy
+ ipHsbjq50pBhicxQh78rhIAnd6zxRWGlCC+HddtAJ9rXEox8ckVPu4y5wp2hKlsyUv6F
+ 5L5g==
+X-Gm-Message-State: AFqh2kqYtznKSiegWCDdg0mXXgFbDqNZFEcbOvNkN5owWfbMkcStQmqZ
+ ebnXyC76qnAe6ntk0WY7PQ==
+X-Google-Smtp-Source: AMrXdXuqGyaQl2dDRHMGbKH9ekCkyJwxw4SbKZJTVVpjrracMtDL8+Zi/hTfaSz0T6DO+ODf/DkwVg==
+X-Received: by 2002:a05:6870:2f02:b0:155:a38f:70d1 with SMTP id
+ qj2-20020a0568702f0200b00155a38f70d1mr2118087oab.18.1673978947062; 
+ Tue, 17 Jan 2023 10:09:07 -0800 (PST)
 Received: from robh_at_kernel.org (66-90-144-107.dyn.grandenetworks.net.
  [66.90.144.107]) by smtp.gmail.com with ESMTPSA id
- t11-20020a9d590b000000b00677714a440fsm16777969oth.81.2023.01.17.10.05.46
+ q18-20020a056870329200b00155ffbdbaffsm16922521oac.18.2023.01.17.10.09.06
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 17 Jan 2023 10:05:46 -0800 (PST)
-Received: (nullmailer pid 3328585 invoked by uid 1000);
- Tue, 17 Jan 2023 18:05:46 -0000
-Date: Tue, 17 Jan 2023 12:05:46 -0600
+ Tue, 17 Jan 2023 10:09:06 -0800 (PST)
+Received: (nullmailer pid 3352727 invoked by uid 1000);
+ Tue, 17 Jan 2023 18:09:05 -0000
+Date: Tue, 17 Jan 2023 12:09:05 -0600
 From: Rob Herring <robh@kernel.org>
 To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Message-ID: <20230117180546.GA3323490-robh@kernel.org>
+Message-ID: <20230117180905.GA3329090-robh@kernel.org>
 References: <20230113083720.39224-1-dmitry.baryshkov@linaro.org>
- <20230113083720.39224-3-dmitry.baryshkov@linaro.org>
+ <20230113083720.39224-4-dmitry.baryshkov@linaro.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20230113083720.39224-3-dmitry.baryshkov@linaro.org>
-Subject: Re: [Freedreno] [PATCH v6 02/11] dt-bindings: display/msm: add
- SoC-specific compats to qcom, mdp5.yaml
+In-Reply-To: <20230113083720.39224-4-dmitry.baryshkov@linaro.org>
+Subject: Re: [Freedreno] [PATCH v6 03/11] dt-bindings: display/msm: add core
+ clock to the mdss bindings
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,62 +76,77 @@ Cc: devicetree@vger.kernel.org, Daniel Vetter <daniel@ffwll.ch>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Fri, Jan 13, 2023 at 10:37:11AM +0200, Dmitry Baryshkov wrote:
-> Add platform-specific compatible entries to the qcom,mdp5.yaml to allow
-> distinguishing between various platforms.
+On Fri, Jan 13, 2023 at 10:37:12AM +0200, Dmitry Baryshkov wrote:
+> Add (optional) core clock to the mdss bindings to let the MDSS driver
+> access harware registers before MDP driver probes.
+
+typo
+
 > 
 > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 > ---
->  .../bindings/display/msm/qcom,mdp5.yaml         | 17 ++++++++++++++++-
->  .../bindings/display/msm/qcom,mdss.yaml         |  6 +++++-
->  2 files changed, 21 insertions(+), 2 deletions(-)
+>  .../bindings/display/msm/qcom,mdss.yaml       | 34 ++++++++++++++-----
+>  1 file changed, 26 insertions(+), 8 deletions(-)
 > 
-> diff --git a/Documentation/devicetree/bindings/display/msm/qcom,mdp5.yaml b/Documentation/devicetree/bindings/display/msm/qcom,mdp5.yaml
-> index 5e3cd7abf046..cb7bf48c3a58 100644
-> --- a/Documentation/devicetree/bindings/display/msm/qcom,mdp5.yaml
-> +++ b/Documentation/devicetree/bindings/display/msm/qcom,mdp5.yaml
-> @@ -16,7 +16,22 @@ maintainers:
->  
->  properties:
->    compatible:
-> -    const: qcom,mdp5
-> +    oneOf:
-> +      - const: qcom,mdp5
-> +        deprecated: true
-> +      - items:
-> +          - enum:
-> +              - qcom,apq8084-mdp5
-> +              - qcom,msm8916-mdp5
-> +              - qcom,msm8917-mdp5
-> +              - qcom,msm8953-mdp5
-> +              - qcom,msm8974-mdp5
-> +              - qcom,msm8976-mdp5
-> +              - qcom,msm8994-mdp5
-> +              - qcom,msm8996-mdp5
-> +              - qcom,sdm630-mdp5
-> +              - qcom,sdm660-mdp5
-> +          - const: qcom,mdp5
->  
->    reg:
->      maxItems: 1
 > diff --git a/Documentation/devicetree/bindings/display/msm/qcom,mdss.yaml b/Documentation/devicetree/bindings/display/msm/qcom,mdss.yaml
-> index ba0460268731..dcde34ffc8d0 100644
+> index dcde34ffc8d0..6948ae3ac7bc 100644
 > --- a/Documentation/devicetree/bindings/display/msm/qcom,mdss.yaml
 > +++ b/Documentation/devicetree/bindings/display/msm/qcom,mdss.yaml
-> @@ -88,7 +88,11 @@ patternProperties:
->      type: object
->      properties:
->        compatible:
-> -        const: qcom,mdp5
-> +        oneOf:
-> +          - const: qcom,mdp5
-> +          - items:
-> +              - {}
-> +              - const: qcom,mdp5
+> @@ -45,17 +45,11 @@ properties:
+>  
+>    clocks:
+>      minItems: 1
+> -    items:
+> -      - description: Display abh clock
+> -      - description: Display axi clock
+> -      - description: Display vsync clock
+> +    maxItems: 4
+>  
+>    clock-names:
+>      minItems: 1
+> -    items:
+> -      - const: iface
+> -      - const: bus
+> -      - const: vsync
+> +    maxItems: 4
+>  
+>    "#address-cells":
+>      const: 1
+> @@ -69,6 +63,30 @@ properties:
+>      items:
+>        - description: MDSS_CORE reset
+>  
+> +oneOf:
 
-Just 'contains' is sufficient for all this. The exact length and order 
-will be checked by qcom,mdp5.yaml. With that,
+This is not based on compatible? If not rather than at the top level, 
+you can do 'oneOf' under 'clocks' and 'clock-names'.
 
-Reviewed-by: Rob Herring <robh@kernel.org>
-
-Rob
+> +  - properties:
+> +      clocks:
+> +        minItems: 3
+> +        maxItems: 4
+> +
+> +      clock-names:
+> +        minItems: 3
+> +        items:
+> +          - const: iface
+> +          - const: bus
+> +          - const: vsync
+> +          - const: core
+> +  - properties:
+> +      clocks:
+> +        minItems: 1
+> +        maxItems: 2
+> +
+> +      clock-names:
+> +        minItems: 1
+> +        items:
+> +          - const: iface
+> +          - const: core
+> +
+>  required:
+>    - compatible
+>    - reg
+> -- 
+> 2.39.0
+> 
