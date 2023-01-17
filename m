@@ -2,50 +2,73 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0C1A366D775
-	for <lists+freedreno@lfdr.de>; Tue, 17 Jan 2023 09:04:23 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 79D4266E357
+	for <lists+freedreno@lfdr.de>; Tue, 17 Jan 2023 17:21:47 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C97C210E2E0;
-	Tue, 17 Jan 2023 08:04:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B944B10E581;
+	Tue, 17 Jan 2023 16:21:45 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 160FC10E2D8;
- Tue, 17 Jan 2023 08:04:20 +0000 (UTC)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 3CF2E60C25;
- Tue, 17 Jan 2023 08:04:19 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A1306C433EF;
- Tue, 17 Jan 2023 08:04:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1673942658;
- bh=vB1tUi0ipCUEpsBghYAjXEtXUjagIZFsMiRJPsWnUaU=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=T5yZSdMjUiRzxdy3m2UG+4oH3ZQlLPbzR+AnF52SIEImKtlyPrUvMcmkG25HjpZ79
- joYjF+7Uei7L3bhxUxQZMNSVVlgUr/35WwcarMU6e6lG0r/yCrGtOXCG6FEi6O/UXk
- XRBjZpUT0bW7LTEZUP9lUyEbl2BTAhsSVdaKfuTp+IVSX9wBl1GkmWZ4y82M6xrzJ7
- Xwj6WP0H8jfHRn5Sx0d+D9ouSZNV3EEK/Kaq5687HVuEph0UwiUTqfd++pFIJ8QcAR
- eV+n82ogzK1BDQ+E3+t0Ne+2N0d/uM9RDKD726Ea4girgTXOHtwIB7M1FSWjovvohH
- XwbixnAO3tX+w==
-Received: from johan by xi.lan with local (Exim 4.94.2)
- (envelope-from <johan@kernel.org>)
- id 1pHgxT-00074C-F0; Tue, 17 Jan 2023 09:04:39 +0100
-Date: Tue, 17 Jan 2023 09:04:39 +0100
-From: Johan Hovold <johan@kernel.org>
-To: Bjorn Andersson <andersson@kernel.org>
-Message-ID: <Y8ZWl85gSpOaLgO4@hovoldconsulting.com>
-References: <20230113041051.4189063-1-quic_bjorande@quicinc.com>
- <eea1c5dc-6bc5-4246-f0e1-0c790de9f078@linaro.org>
- <9a64c685-9ff0-bc1d-e604-e3773ff9edd7@linaro.org>
- <20230117025122.jt3wrjkqfnogu4ci@builder.lan>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20230117025122.jt3wrjkqfnogu4ci@builder.lan>
-Subject: Re: [Freedreno] [PATCH] drm/msm: Initialize mode_config earlier
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7CA5010E585;
+ Tue, 17 Jan 2023 16:21:39 +0000 (UTC)
+Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 30HEbExR003566; Tue, 17 Jan 2023 16:21:37 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
+ h=from : to : cc : subject : date : message-id; s=qcppdkim1;
+ bh=cg96SnQCqORoWKdPdsLknlM+aptVO8mCOtYYDlx2JgY=;
+ b=XmksmQGJat8kWnfxVIbK4EiyeHNk/px5J8lsPCZcwo7j1TlOTE88sTCmMGDF2JjqXpFD
+ aB+tkfzk1Amogju1q6IF/NTqPP9roDku3zsUNew6aozUhFiJDFQ1JBAjzrNzEzqCnygj
+ YDcuUDfcFHy+la0zS21tRHgbvnq70assq5edO1/ckN+0/k+kTY1HUWxeWoyhsHpxee9s
+ A8TQZAGdgH4exJY+RTMSMUYutZNQJlDdlJjqTt+8lKxBK/UAahneMbDyBNV3hOD3SmSo
+ v/AmqEU7aZZYwcn8npo5CMXmcET9ug224YXVsSIKfD0K9jNw2r3HtiCZ3w+zIjhr8tXX qA== 
+Received: from apblrppmta01.qualcomm.com
+ (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com [103.229.18.19])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3n3j3nnyya-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 17 Jan 2023 16:21:36 +0000
+Received: from pps.filterd (APBLRPPMTA01.qualcomm.com [127.0.0.1])
+ by APBLRPPMTA01.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTP id 30HGLWG5014779; 
+ Tue, 17 Jan 2023 16:21:32 GMT
+Received: from pps.reinject (localhost [127.0.0.1])
+ by APBLRPPMTA01.qualcomm.com (PPS) with ESMTP id 3n3nfk7sum-1;
+ Tue, 17 Jan 2023 16:21:32 +0000
+Received: from APBLRPPMTA01.qualcomm.com (APBLRPPMTA01.qualcomm.com
+ [127.0.0.1])
+ by pps.reinject (8.17.1.5/8.17.1.5) with ESMTP id 30HGLWg1014774;
+ Tue, 17 Jan 2023 16:21:32 GMT
+Received: from kalyant-linux.qualcomm.com (kalyant-linux.qualcomm.com
+ [10.204.66.210])
+ by APBLRPPMTA01.qualcomm.com (PPS) with ESMTP id 30HGLVJ2014773;
+ Tue, 17 Jan 2023 16:21:32 +0000
+Received: by kalyant-linux.qualcomm.com (Postfix, from userid 94428)
+ id B31314B06; Tue, 17 Jan 2023 08:21:30 -0800 (PST)
+From: Kalyan Thota <quic_kalyant@quicinc.com>
+To: dri-devel@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
+ freedreno@lists.freedesktop.org, devicetree@vger.kernel.org
+Date: Tue, 17 Jan 2023 08:21:25 -0800
+Message-Id: <1673972488-30140-1-git-send-email-quic_kalyant@quicinc.com>
+X-Mailer: git-send-email 2.7.4
+X-QCInternal: smtphost
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-GUID: cB_wSQ1_KLobwF_95PJA3bCadlxkTVGp
+X-Proofpoint-ORIG-GUID: cB_wSQ1_KLobwF_95PJA3bCadlxkTVGp
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.219,Aquarius:18.0.923,Hydra:6.0.562,FMLib:17.11.122.1
+ definitions=2023-01-17_08,2023-01-17_01,2022-06-22_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501
+ adultscore=0 bulkscore=0 suspectscore=0 mlxlogscore=530 phishscore=0
+ clxscore=1011 mlxscore=0 lowpriorityscore=0 impostorscore=0 spamscore=0
+ malwarescore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2212070000 definitions=main-2301170130
+Subject: [Freedreno] [PATCH 0/3] Allow composer fallbacks for color features
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,88 +81,33 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org,
- Bjorn Andersson <quic_bjorande@quicinc.com>, David Airlie <airlied@gmail.com>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Rob Clark <robdclark@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>, linux-arm-msm@vger.kernel.org,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>
+Cc: Kalyan Thota <quic_kalyant@quicinc.com>, robdclark@chromium.org,
+ dianders@chromium.org, quic_abhinavk@quicinc.com, linux-kernel@vger.kernel.org,
+ swboyd@chromium.org, dmitry.baryshkov@linaro.org, quic_vpolimer@quicinc.com
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Mon, Jan 16, 2023 at 08:51:22PM -0600, Bjorn Andersson wrote:
-> On Fri, Jan 13, 2023 at 10:57:18AM +0200, Dmitry Baryshkov wrote:
-> > On 13/01/2023 06:23, Dmitry Baryshkov wrote:
-> > > On 13/01/2023 06:10, Bjorn Andersson wrote:
-> > > > Invoking drm_bridge_hpd_notify() on a drm_bridge with a HPD-enabled
-> > > > bridge_connector ends up in drm_bridge_connector_hpd_cb() calling
-> > > > drm_kms_helper_hotplug_event(), which assumes that the associated
-> > > > drm_device's mode_config.funcs is a valid pointer.
-> > > > 
-> > > > But in the MSM DisplayPort driver the HPD enablement happens at bind
-> > > > time and mode_config.funcs is initialized late in msm_drm_init(). This
-> > > > means that there's a window for hot plug events to dereference a NULL
-> > > > mode_config.funcs.
-> > > > 
-> > > > Move the assignment of mode_config.funcs before the bind, to avoid this
-> > > > scenario.
-> > > 
-> > > Cam we make DP driver not to report HPD events until the enable_hpd()
-> > > was called? I think this is what was fixed by your internal_hpd
-> > > patchset.
-> > 
-> > Or to express this in another words: I thought that internal_hpd already
-> > deferred enabling hpd event reporting till the time when we need it, didn't
-> > it?
-> > 
-> 
-> I added a WARN_ON(1) in drm_bridge_hpd_enable() to get a sense of when
-> this window of "opportunity" opens up, and here's the callstack:
-> 
-> ------------[ cut here ]------------
-> WARNING: CPU: 6 PID: 99 at drivers/gpu/drm/drm_bridge.c:1260 drm_bridge_hpd_enable+0x48/0x94 [drm]
-> ...
-> Call trace:
->  drm_bridge_hpd_enable+0x48/0x94 [drm]
->  drm_bridge_connector_enable_hpd+0x30/0x3c [drm_kms_helper]
->  drm_kms_helper_poll_enable+0xa4/0x114 [drm_kms_helper]
->  drm_kms_helper_poll_init+0x6c/0x7c [drm_kms_helper]
->  msm_drm_bind+0x370/0x628 [msm]
->  try_to_bring_up_aggregate_device+0x170/0x1bc
->  __component_add+0xb0/0x168
->  component_add+0x20/0x2c
->  dp_display_probe+0x40c/0x468 [msm]
->  platform_probe+0xb4/0xdc
->  really_probe+0x13c/0x300
->  __driver_probe_device+0xc0/0xec
->  driver_probe_device+0x48/0x204
->  __device_attach_driver+0x124/0x14c
->  bus_for_each_drv+0x90/0xdc
->  __device_attach+0xdc/0x1a8
->  device_initial_probe+0x20/0x2c
->  bus_probe_device+0x40/0xa4
->  deferred_probe_work_func+0x94/0xd0
->  process_one_work+0x1a8/0x3c0
->  worker_thread+0x254/0x47c
->  kthread+0xf8/0x1b8
->  ret_from_fork+0x10/0x20
-> ---[ end trace 0000000000000000 ]---
-> 
-> As drm_kms_helper_poll_init() is the last thing being called in
-> msm_drm_init() shifting around the mode_config.func assignment would not
-> have any impact.
-> 
-> Perhaps we have shuffled other things around to avoid this bug?  Either
-> way, let's this on hold  until further proof that it's still
-> reproducible.
+This series will enable color features on sc7280 target which has primary panel as eDP
 
-As I've mentioned off list, I haven't hit the apparent race I reported
-here:
+The series removes dspp allocation based on encoder type and allows the datapath reservation
+even if dspps are not available.
 
-	https://lore.kernel.org/all/Y1efJh11B5UQZ0Tz@hovoldconsulting.com/
+The series also adds a check to fail the composition during atomic check , if color management is requested 
+and no dspps are allocated in the datapath.
 
-since moving to 6.2. I did hit it with both 6.0 and 6.1-rc2, but it
-could very well be that something has changes that fixes (or hides) the
-issue since.
+This can allow composer fallbacks for color features if no relevant HW blocks are available.
 
-Johan
+Kalyan Thota (3):
+  drm/msm/disp/dpu1: allow reservation even if dspps are not available.
+  drm/msm/disp/dpu1: allow dspp selection for all the interfaces
+  drm/msm/disp/dpu1: fail atomic check if color feature is requested
+    with no dspp
+
+ drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c    | 11 +++++++++++
+ drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c | 18 +++++++++---------
+ drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c      |  8 +++++++-
+ 3 files changed, 27 insertions(+), 10 deletions(-)
+
+-- 
+2.7.4
+
