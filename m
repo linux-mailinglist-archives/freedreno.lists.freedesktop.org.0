@@ -1,58 +1,58 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id D227766E58D
-	for <lists+freedreno@lfdr.de>; Tue, 17 Jan 2023 19:03:33 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 8AAFE66E594
+	for <lists+freedreno@lfdr.de>; Tue, 17 Jan 2023 19:05:50 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8FE7F10E598;
-	Tue, 17 Jan 2023 18:03:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5AFCD10E59C;
+	Tue, 17 Jan 2023 18:05:49 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-oa1-f51.google.com (mail-oa1-f51.google.com
- [209.85.160.51])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5E7BD10E598;
- Tue, 17 Jan 2023 18:03:31 +0000 (UTC)
-Received: by mail-oa1-f51.google.com with SMTP id
- 586e51a60fabf-15085b8a2f7so32832614fac.2; 
- Tue, 17 Jan 2023 10:03:31 -0800 (PST)
+Received: from mail-ot1-f51.google.com (mail-ot1-f51.google.com
+ [209.85.210.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 09D4910E59B;
+ Tue, 17 Jan 2023 18:05:48 +0000 (UTC)
+Received: by mail-ot1-f51.google.com with SMTP id
+ k44-20020a9d19af000000b00683e176ab01so18277759otk.13; 
+ Tue, 17 Jan 2023 10:05:48 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to;
- bh=DOYPnyAt2J4Uh+rVJ+ehIUCeXiRFMPFo5jZlhneDgR4=;
- b=vJGf2FWvQRRQeMx37Q6l58KdIX+GvZzW2x9tXtOGW9y9CNcNMhLRC2we9cLKgO/AT5
- o6bp16Bl0NMQLUcGwLn85IcsM4LonQe6cYfxGXcgoDeN8wJJLUJDfNgTDnm7u+oDsuQj
- tTbvV6x+YVKA5LgEEakPix6gjZBx9jNCyCsX67lVDdLp6uoK7hhDXOPVMcSu9QzYDVus
- 6Foly8749QAyNXBy6VOcJPGaHGb0X85e8rjwgXHQc1cHXoKWKTnhTQdq7t+sShe6g5Rv
- 1u5p62q6myxR+lNukcLLP6S6xg2AiX4jkfS9ZQ+54ZO22llK18QP/BbDSPO+VfsPq9UR
- Lz4Q==
-X-Gm-Message-State: AFqh2ko3GsCE9ma610F3DCogYtQ31IukaPyzFDdsCT8AFW973rHCr6Qt
- cEq6wi8IeLnS7dw06oQ80g==
-X-Google-Smtp-Source: AMrXdXtXdEGZRX21HSHeHAgDRpQrycVFovajB2ZoPABGZ88wt1c/v3xzwZs6+aRiC5KlzuBvMMu+lw==
-X-Received: by 2002:a05:6870:fd99:b0:15f:ed7:c02d with SMTP id
- ma25-20020a056870fd9900b0015f0ed7c02dmr2433421oab.55.1673978610488; 
- Tue, 17 Jan 2023 10:03:30 -0800 (PST)
+ bh=PM98rtw7LbzsvTCif2C+5NEYIZSk3KLr63ivyr75RYs=;
+ b=UtqhCwSROXrCAAPKBn3oePzlmPwbpBKiifiIvClW/8eDbzAYk/VXtErl+uv+2nY+ho
+ v748YcpQ9EseFl7InttmoWkFr8aTG4s3EQdUo3emmzXHZQuFPBOw+IIPtN5XGt+NPoY8
+ nwHgJmi85/Nl3Avp+RuHnPo8fzBg0L8m5O19eoBmKIHCVTEr9WL0vA0WYjPiuiSn9TID
+ 0Ia7EJq5hn1Te2gbzAAaqZ4rg6TN6lMPYYUBU9xV1lfoSc8MRflipWxuh5SbYAtQAewI
+ 7zhImkeZllu5Ah0w7rah2tndEDjG2I6C9/W0XhqRIQXdSFSGJbBcfjGG8gs96M8Z3+eA
+ 2kzA==
+X-Gm-Message-State: AFqh2kqEoREWsqc4SsoY1ivhxiqL8TiajJSuZxyHuDeg63L6NfUh9/Zf
+ +a6VORHBb14ZZqfbQmcNqg==
+X-Google-Smtp-Source: AMrXdXsPrNCO64CoqtqVoJIgO/1bF3oVZOIa0uU6FJXT3ezisRO3DooZ35OaZk84rtCZ7k9My/qgow==
+X-Received: by 2002:a9d:624a:0:b0:66d:a5f7:9adc with SMTP id
+ i10-20020a9d624a000000b0066da5f79adcmr2638708otk.2.1673978747227; 
+ Tue, 17 Jan 2023 10:05:47 -0800 (PST)
 Received: from robh_at_kernel.org (66-90-144-107.dyn.grandenetworks.net.
  [66.90.144.107]) by smtp.gmail.com with ESMTPSA id
- c6-20020a056870c08600b0014be94a12d0sm16837537oad.44.2023.01.17.10.03.29
+ t11-20020a9d590b000000b00677714a440fsm16777969oth.81.2023.01.17.10.05.46
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 17 Jan 2023 10:03:29 -0800 (PST)
-Received: (nullmailer pid 3323388 invoked by uid 1000);
- Tue, 17 Jan 2023 18:03:29 -0000
-Date: Tue, 17 Jan 2023 12:03:29 -0600
+ Tue, 17 Jan 2023 10:05:46 -0800 (PST)
+Received: (nullmailer pid 3328585 invoked by uid 1000);
+ Tue, 17 Jan 2023 18:05:46 -0000
+Date: Tue, 17 Jan 2023 12:05:46 -0600
 From: Rob Herring <robh@kernel.org>
 To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Message-ID: <167397860857.3323332.1645036328845035692.robh@kernel.org>
+Message-ID: <20230117180546.GA3323490-robh@kernel.org>
 References: <20230113083720.39224-1-dmitry.baryshkov@linaro.org>
- <20230113083720.39224-2-dmitry.baryshkov@linaro.org>
+ <20230113083720.39224-3-dmitry.baryshkov@linaro.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20230113083720.39224-2-dmitry.baryshkov@linaro.org>
-Subject: Re: [Freedreno] [PATCH v6 01/11] dt-bindings: display/msm: convert
- MDP5 schema to YAML format
+In-Reply-To: <20230113083720.39224-3-dmitry.baryshkov@linaro.org>
+Subject: Re: [Freedreno] [PATCH v6 02/11] dt-bindings: display/msm: add
+ SoC-specific compats to qcom, mdp5.yaml
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,34 +65,73 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sean Paul <sean@poorly.run>, devicetree@vger.kernel.org,
- Daniel Vetter <daniel@ffwll.ch>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- freedreno@lists.freedesktop.org, Bjorn Andersson <andersson@kernel.org>,
- Andy Gross <agross@kernel.org>, dri-devel@lists.freedesktop.org,
+Cc: devicetree@vger.kernel.org, Daniel Vetter <daniel@ffwll.ch>,
+ David Airlie <airlied@gmail.com>, Bjorn Andersson <andersson@kernel.org>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
  Stephen Boyd <swboyd@chromium.org>, Konrad Dybcio <konrad.dybcio@linaro.org>,
- Rob Clark <robdclark@gmail.com>, Rob Herring <robh+dt@kernel.org>,
+ Rob Clark <robdclark@gmail.com>, Andy Gross <agross@kernel.org>,
  Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- linux-arm-msm@vger.kernel.org, David Airlie <airlied@gmail.com>
+ linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
+ Sean Paul <sean@poorly.run>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-
-On Fri, 13 Jan 2023 10:37:10 +0200, Dmitry Baryshkov wrote:
-> Convert the mdp5.txt into the yaml format. Changes to the existing (txt) schema:
->  - MSM8996 has additional "iommu" clock, define it separately
->  - Add new properties used on some of platforms:
->    - interconnects, interconnect-names
->    - iommus
->    - power-domains
->    - operating-points-v2, opp-table
+On Fri, Jan 13, 2023 at 10:37:11AM +0200, Dmitry Baryshkov wrote:
+> Add platform-specific compatible entries to the qcom,mdp5.yaml to allow
+> distinguishing between various platforms.
 > 
 > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 > ---
->  .../devicetree/bindings/display/msm/mdp5.txt  | 132 -----------------
->  .../bindings/display/msm/qcom,mdp5.yaml       | 138 ++++++++++++++++++
->  2 files changed, 138 insertions(+), 132 deletions(-)
->  delete mode 100644 Documentation/devicetree/bindings/display/msm/mdp5.txt
->  create mode 100644 Documentation/devicetree/bindings/display/msm/qcom,mdp5.yaml
+>  .../bindings/display/msm/qcom,mdp5.yaml         | 17 ++++++++++++++++-
+>  .../bindings/display/msm/qcom,mdss.yaml         |  6 +++++-
+>  2 files changed, 21 insertions(+), 2 deletions(-)
 > 
+> diff --git a/Documentation/devicetree/bindings/display/msm/qcom,mdp5.yaml b/Documentation/devicetree/bindings/display/msm/qcom,mdp5.yaml
+> index 5e3cd7abf046..cb7bf48c3a58 100644
+> --- a/Documentation/devicetree/bindings/display/msm/qcom,mdp5.yaml
+> +++ b/Documentation/devicetree/bindings/display/msm/qcom,mdp5.yaml
+> @@ -16,7 +16,22 @@ maintainers:
+>  
+>  properties:
+>    compatible:
+> -    const: qcom,mdp5
+> +    oneOf:
+> +      - const: qcom,mdp5
+> +        deprecated: true
+> +      - items:
+> +          - enum:
+> +              - qcom,apq8084-mdp5
+> +              - qcom,msm8916-mdp5
+> +              - qcom,msm8917-mdp5
+> +              - qcom,msm8953-mdp5
+> +              - qcom,msm8974-mdp5
+> +              - qcom,msm8976-mdp5
+> +              - qcom,msm8994-mdp5
+> +              - qcom,msm8996-mdp5
+> +              - qcom,sdm630-mdp5
+> +              - qcom,sdm660-mdp5
+> +          - const: qcom,mdp5
+>  
+>    reg:
+>      maxItems: 1
+> diff --git a/Documentation/devicetree/bindings/display/msm/qcom,mdss.yaml b/Documentation/devicetree/bindings/display/msm/qcom,mdss.yaml
+> index ba0460268731..dcde34ffc8d0 100644
+> --- a/Documentation/devicetree/bindings/display/msm/qcom,mdss.yaml
+> +++ b/Documentation/devicetree/bindings/display/msm/qcom,mdss.yaml
+> @@ -88,7 +88,11 @@ patternProperties:
+>      type: object
+>      properties:
+>        compatible:
+> -        const: qcom,mdp5
+> +        oneOf:
+> +          - const: qcom,mdp5
+> +          - items:
+> +              - {}
+> +              - const: qcom,mdp5
+
+Just 'contains' is sufficient for all this. The exact length and order 
+will be checked by qcom,mdp5.yaml. With that,
 
 Reviewed-by: Rob Herring <robh@kernel.org>
+
+Rob
