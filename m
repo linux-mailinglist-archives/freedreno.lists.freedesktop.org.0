@@ -1,73 +1,72 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5305066E3C9
-	for <lists+freedreno@lfdr.de>; Tue, 17 Jan 2023 17:40:17 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id BF0CB66E42B
+	for <lists+freedreno@lfdr.de>; Tue, 17 Jan 2023 17:56:32 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1F16A10E1B3;
-	Tue, 17 Jan 2023 16:40:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 35D8C10E591;
+	Tue, 17 Jan 2023 16:56:31 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ed1-x52f.google.com (mail-ed1-x52f.google.com
- [IPv6:2a00:1450:4864:20::52f])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6277610E1B3
- for <freedreno@lists.freedesktop.org>; Tue, 17 Jan 2023 16:40:14 +0000 (UTC)
-Received: by mail-ed1-x52f.google.com with SMTP id y19so12301252edc.2
- for <freedreno@lists.freedesktop.org>; Tue, 17 Jan 2023 08:40:14 -0800 (PST)
+Received: from mail-ed1-x534.google.com (mail-ed1-x534.google.com
+ [IPv6:2a00:1450:4864:20::534])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 17E9010E590
+ for <freedreno@lists.freedesktop.org>; Tue, 17 Jan 2023 16:56:28 +0000 (UTC)
+Received: by mail-ed1-x534.google.com with SMTP id y19so12367844edc.2
+ for <freedreno@lists.freedesktop.org>; Tue, 17 Jan 2023 08:56:28 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=content-transfer-encoding:in-reply-to:references:cc:to:from
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :from:to:cc:subject:date:message-id:reply-to;
- bh=T1bbrLy++qcWOt6lSo1aW2xXQtthkN26YgghLI/c6PY=;
- b=YZWptJC2T2Lt68fnk5iaS35Tt5NiBfTpWDPvoZ6YNp63K3/OpJqlWyZT9j6KW7jL+Y
- R2u99ksNtXzgJJfcKEb8tk3Q8XTu5JPV0ZoB94hofer3jjhOTHZ0EQ7Y4zl+fVQBhgbf
- xoOe2dgoLRZqgJXMrHtynQZnr5g5DUqAbnBZ6C5nVp8CrRvqEB/uaaQ+Yy3Xiq+BPQ7p
- uzJvop6v4S2b68/OrliCjG4bx0NwzotqRxAXtx0gq5sUPvGmuj/JcowQw1cRn8O8Ohvl
- cnRY58wyvX5NuCJe9A8wnxrZ+nWebym9vLkLEHPjNihs+RJJJZtYNngEeNbuCcaNCHMt
- mjog==
+ bh=TGV4flLnQ5GTALrRq/Zcwkc6MngRMczwaKltVAPchZ8=;
+ b=a5DsX7tGttZrH4i9+WGxNwwdcC38Os+LgctGMXaNIWQ6lsx7+RQQCj6D6DGFLwa3ci
+ NU9Ml9vzTBe/cZvC1evO6Ws/L3FRq3H19/Eb0eFV0SZO8B+Gjlf+LHxN/IKtEzQ0zXLL
+ Dft50Bc1v+WbI9N+CPA4dwxF6CU6OvEB7LRH80csnkfF9rK2WHms2Wenrvy1kJKsDCmJ
+ as7B6zMi8wulD8YebY7yxcHBLv7jpbUZnOPxr50Cy8LT0w9+aUPc4zIEC3LROnv5B56+
+ HBYZ5VugYbWKLum+4U1pbXY0R2fWqTzqnT56d6Tftfy0MatcnVv6KMZMHRnulyoyX6pS
+ ADTw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=content-transfer-encoding:in-reply-to:references:cc:to:from
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=T1bbrLy++qcWOt6lSo1aW2xXQtthkN26YgghLI/c6PY=;
- b=ag47fSeghZdpg3kkZCdofgAjm7fro+QayBAOzUYJUtweswV1dCreLJGsN8IKXPzUII
- Eo6nbdXnGNsAjioAv8ssObw0lk1uCAIXQInvWdPoi47z7Gch00zmuLW+zR/b9mrM+Pkg
- HG4uRK7+dcNA8+K8z2XK+4AdKn1sZD07JGWYiogVLWeR004niAMLLg8AV3ulNdCIheL2
- NMKedGSUgfr1cnk23P/qVllrd6DUYxpOd4MajP1uouEHiU+TeuF7OQkxETHvi5MIUgkZ
- 1YGN9JyEvWn2FRAMyAhGgODayozDxE36GdjKnizeBJMgUroXJteddgFbpyQ/JccFmCgL
- vBMQ==
-X-Gm-Message-State: AFqh2ko01xKuXMlywNW0loxyDaow1JXAWdiVOvVQxgmXwODUcsyp3KJq
- T5u1q7RIgl41544101nOpwUGFQ==
-X-Google-Smtp-Source: AMrXdXvx8GfSw4jqnYWyRNx+AEyQ5TPSGpqwX8eUMCgA3tmTmVxZPkFx+gDCWDdS4uOV+AcLTLvMPw==
-X-Received: by 2002:a05:6402:2b92:b0:45a:7d2:9b35 with SMTP id
- fj18-20020a0564022b9200b0045a07d29b35mr3870633edb.0.1673973612880; 
- Tue, 17 Jan 2023 08:40:12 -0800 (PST)
+ bh=TGV4flLnQ5GTALrRq/Zcwkc6MngRMczwaKltVAPchZ8=;
+ b=vQL+7+si2gX1dPbXNg9pWxgEOXif7GePhSRBNvO4jKKWRPNUm9P3r3sWKJk9kR+AqX
+ NddvwEnKq2FdlCjEtMhyINpXd0RmReBrsu8z9wiL9Y34+dN6+SqLP0X4Onnu+UVEJ1iR
+ LcimaDwI3Hr5GEMSBEHIA7zpXY1jzl1DzuCYOm6jkIuSBUM0aQ2OhCEtp/xQidlhopW3
+ PH3jPN/ZBKUouJ0LMOWNGs19wfvbvVvprTFDkSJspGzfoBolfKyi36kFsl670mTeTjGa
+ 4SgCxQCPGvtKoec0i1NibOnqDyHq4nhbUhB8BWxfMN3POE7/MJMopmG5RgQmbOxKSK70
+ +wvw==
+X-Gm-Message-State: AFqh2kpAJ8V9HoBiJiUquv3uDyO+7CJC7ZeCkUEhKCBVfQ9hlOnxUWxF
+ SztZAiY0TRQou2MTWLjYJ3Nurw==
+X-Google-Smtp-Source: AMrXdXs7lqL6ddQMdEKsHzt3CWm0CKMQZkMNBqrtckHmN2Nt39+LVmJHknh3eXfQpzq5Xw0++bZ/Gg==
+X-Received: by 2002:a05:6402:138b:b0:48e:a9a1:c584 with SMTP id
+ b11-20020a056402138b00b0048ea9a1c584mr3764323edv.35.1673974586655; 
+ Tue, 17 Jan 2023 08:56:26 -0800 (PST)
 Received: from ?IPV6:2001:14ba:a085:4d00::8a5?
  (dzccz6yyyyyyyyyyybcwt-3.rev.dnainternet.fi. [2001:14ba:a085:4d00::8a5])
  by smtp.gmail.com with ESMTPSA id
- dk1-20020a0564021d8100b0049be07c9ff5sm5820820edb.4.2023.01.17.08.40.11
+ m17-20020a50ef11000000b0049c4e3d4139sm5486233eds.89.2023.01.17.08.56.25
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 17 Jan 2023 08:40:12 -0800 (PST)
-Message-ID: <84849b99-93ab-bc10-39ff-ac46328ede47@linaro.org>
-Date: Tue, 17 Jan 2023 18:40:11 +0200
+ Tue, 17 Jan 2023 08:56:26 -0800 (PST)
+Message-ID: <24ef467e-24a6-fc8f-3859-95ec0ae109ae@linaro.org>
+Date: Tue, 17 Jan 2023 18:56:25 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.6.0
 Content-Language: en-GB
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 To: Kalyan Thota <quic_kalyant@quicinc.com>, dri-devel@lists.freedesktop.org, 
  linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
  devicetree@vger.kernel.org
 References: <1673972488-30140-1-git-send-email-quic_kalyant@quicinc.com>
- <1673972488-30140-2-git-send-email-quic_kalyant@quicinc.com>
- <0a845c24-b1a5-a961-103f-0d8840a8f17d@linaro.org>
-In-Reply-To: <0a845c24-b1a5-a961-103f-0d8840a8f17d@linaro.org>
+ <1673972488-30140-3-git-send-email-quic_kalyant@quicinc.com>
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+In-Reply-To: <1673972488-30140-3-git-send-email-quic_kalyant@quicinc.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-Subject: Re: [Freedreno] [PATCH 1/3] drm/msm/disp/dpu1: allow reservation
- even if dspps are not available.
+Content-Transfer-Encoding: 7bit
+Subject: Re: [Freedreno] [PATCH 2/3] drm/msm/disp/dpu1: allow dspp selection
+ for all the interfaces
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -85,52 +84,83 @@ Cc: robdclark@chromium.org, dianders@chromium.org, quic_abhinavk@quicinc.com,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 17/01/2023 18:35, Dmitry Baryshkov wrote:
-> On 17/01/2023 18:21, Kalyan Thota wrote:
->> if any topology requests for dspps and catalogue doesn't have the
->> allocation, avoid failing the reservation.
->>
->> This can pave way to build logic allowing composer fallbacks
->> for all the color features that are handled in dspp.
->>
->> Signed-off-by: Kalyan Thota <quic_kalyant@quicinc.com>
->> ---
->>   drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c | 8 +++++++-
->>   1 file changed, 7 insertions(+), 1 deletion(-)
->>
->> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c 
->> b/drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c
->> index 73b3442..c8899ae 100644
->> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c
->> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c
->> @@ -343,7 +343,13 @@ static bool 
->> _dpu_rm_check_lm_and_get_connected_blks(struct dpu_rm *rm,
->>           return true;
->>       idx = lm_cfg->dspp - DSPP_0;
->> -    if (idx < 0 || idx >= ARRAY_SIZE(rm->dspp_blks)) {
->> +
->> +    if (idx < 0) {
+On 17/01/2023 18:21, Kalyan Thota wrote:
+> Allow dspps to be populated as a requirement for all the encoder
+> types it need not be just DSI. If for any encoder the dspp
+> allocation doesn't go through then there can be an option to
+> fallback for color features.
 > 
-> The change doesn't correspond to commit message.
+> Signed-off-by: Kalyan Thota <quic_kalyant@quicinc.com>
+> ---
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c | 18 +++++++++---------
+>   1 file changed, 9 insertions(+), 9 deletions(-)
 > 
->> +        DPU_DEBUG("lm doesn't have dspp, ignoring the request %d\n", 
->> lm_cfg->dspp);
->> +        return true;
->> +    }
->> +
->> +    if (idx >= ARRAY_SIZE(rm->dspp_blks)) {
->>           DPU_ERROR("failed to get dspp on lm %d\n", lm_cfg->dspp);
->>           return false;
->>       }
-> 
-> If you'd like to remove duplicate for the (idx >= ARRAY_SIZE) check, I'd 
-> suggest dropping the second one
-> 
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+> index 9c6817b..e39b345 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+> @@ -545,7 +545,8 @@ bool dpu_encoder_use_dsc_merge(struct drm_encoder *drm_enc)
+>   static struct msm_display_topology dpu_encoder_get_topology(
+>   			struct dpu_encoder_virt *dpu_enc,
+>   			struct dpu_kms *dpu_kms,
+> -			struct drm_display_mode *mode)
+> +			struct drm_display_mode *mode,
+> +			struct drm_crtc_state *crtc_state)
 
-I've misread the patch. However I don't see, why would one request 
-DSPP_NONE while specifying topology->num_dspp. I think that you are 
-trying to put additional logic into a function that should just check 
-for the available resources.
+Is this new argument used at all?
+
+>   {
+>   	struct msm_display_topology topology = {0};
+>   	int i, intf_count = 0;
+> @@ -563,8 +564,9 @@ static struct msm_display_topology dpu_encoder_get_topology(
+>   	 * 1 LM, 1 INTF
+>   	 * 2 LM, 1 INTF (stream merge to support high resolution interfaces)
+>   	 *
+> -	 * Adding color blocks only to primary interface if available in
+> -	 * sufficient number
+> +	 * dspp blocks are made optional. If RM manager cannot allocate
+> +	 * dspp blocks, then reservations will still go through with non dspp LM's
+> +	 * so as to allow color management support via composer fallbacks
+>   	 */
+
+No, this is not the way to go.
+
+First, RM should prefer non-DSPP-enabled LMs if DSPP blocks are not 
+required.  Right now your patch makes it possible to allocate LMs, that 
+have DSPP attached, for non-CTM-enabled encoder and later fail 
+allocation of DSPP for the CRTC which has CTM blob attached.
+
+Second, the decision on using DSPPs should come from 
+dpu_crtc_atomic_check(). Pass 'bool need_dspp' to this function from 
+dpu_atomic_check(). Fail if the need_dspp constraint can't be fulfilled.
+
+
+>   	if (intf_count == 2)
+>   		topology.num_lm = 2;
+> @@ -573,11 +575,9 @@ static struct msm_display_topology dpu_encoder_get_topology(
+>   	else
+>   		topology.num_lm = (mode->hdisplay > MAX_HDISPLAY_SPLIT) ? 2 : 1;
+>   
+> -	if (dpu_enc->disp_info.intf_type == DRM_MODE_ENCODER_DSI) {
+> -		if (dpu_kms->catalog->dspp &&
+> -			(dpu_kms->catalog->dspp_count >= topology.num_lm))
+> -			topology.num_dspp = topology.num_lm;
+> -	}
+> +	if (dpu_kms->catalog->dspp &&
+> +	    (dpu_kms->catalog->dspp_count >= topology.num_lm))
+> +		topology.num_dspp = topology.num_lm;
+>   
+>   	topology.num_enc = 0;
+>   	topology.num_intf = intf_count;
+> @@ -643,7 +643,7 @@ static int dpu_encoder_virt_atomic_check(
+>   		}
+>   	}
+>   
+> -	topology = dpu_encoder_get_topology(dpu_enc, dpu_kms, adj_mode);
+> +	topology = dpu_encoder_get_topology(dpu_enc, dpu_kms, adj_mode, crtc_state);
+>   
+>   	/* Reserve dynamic resources now. */
+>   	if (!ret) {
 
 -- 
 With best wishes
