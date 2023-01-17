@@ -1,66 +1,46 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 05DA066D1FB
-	for <lists+freedreno@lfdr.de>; Mon, 16 Jan 2023 23:52:29 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id EBC2366D494
+	for <lists+freedreno@lfdr.de>; Tue, 17 Jan 2023 03:51:29 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7D17E10E50D;
-	Mon, 16 Jan 2023 22:52:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A800410E17A;
+	Tue, 17 Jan 2023 02:51:28 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wr1-x433.google.com (mail-wr1-x433.google.com
- [IPv6:2a00:1450:4864:20::433])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F014C10E50A
- for <freedreno@lists.freedesktop.org>; Mon, 16 Jan 2023 22:52:23 +0000 (UTC)
-Received: by mail-wr1-x433.google.com with SMTP id r30so4415442wrr.10
- for <freedreno@lists.freedesktop.org>; Mon, 16 Jan 2023 14:52:23 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=Svkhj0q099C0FoiRDtRciP7InWwLuxVC/46qIXiovr8=;
- b=Gy+avgLG+P9k57jRvfeRfBrO68shrWo0WU9kEl9VIjNz09vvI89ZCkxMzfu3yFjOQ8
- JT1fqaMcjc1lX5xvxn8tOVvnjE/+7+WWKVM8Pb3ckh5N+Iq37KWDHOkGocyOvGkkFas1
- HxzN1kUZauvgvBcZjdVhxMJMoyQ2s1Ra53l4nZgBTfCvW9BaNGyEdHsioLIDIaTsTJRF
- A+1TXLfAxQ+cb0Z5HJqWH/YWyxxFnPtaw8W8ndU8oBpM0CBmW3+RonAjJjgs7CieCAH+
- 1cvyBXXbD2oWBktpAfCxoC71fArxJsARswn7LSwM9BLActgzmi5tgb9rFQ36bbXBvcva
- vhhA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=Svkhj0q099C0FoiRDtRciP7InWwLuxVC/46qIXiovr8=;
- b=x/RtUuGwpDPi90AgVJpSyyrM5LeA6nKLqX4bASFrKSVSzeoAHwt4MpGeBYjDgYOyt1
- wBS9s0Hz7SL5uuPyi70HMaQpudKW3PHgC4nzvhue5B1pjlJma6jhJXv/uz/JWy4eEvV6
- L3Pwrc3Pnj9OB1KEJlZkSkPIX+e4JEJGGKx0szkAI/AmqX7nsRjT7to7chHoHsmKGxeL
- mPcinJXP6wAVCHGqDVwfthnleRLCCdzXGkNHxwp6osdF5Yl9NmoTRjlRh6RCfpDZNmw0
- hIeGVJsgzgjhQNY22sl4p+iT/VVos+Q8++D3rxyNghZYqJin8x4juuEXfWsVi9nMSdJF
- OUVQ==
-X-Gm-Message-State: AFqh2kqnsQtSRvNTTrQskbNw/rNyKRDRHSP3hb3eaIUHZmDGSjAHOgiD
- HANWHpvYqz8lfY7SR4hAJsXpTA==
-X-Google-Smtp-Source: AMrXdXvUKlFppTep+nHcqzlcDeqCrJhyvFf3zYNb7MinJOl9BZPcHL2Wubs4TDUvKhrf5jY/iTKVNg==
-X-Received: by 2002:a05:6000:689:b0:2bd:ffad:1bce with SMTP id
- bo9-20020a056000068900b002bdffad1bcemr982441wrb.59.1673909543565; 
- Mon, 16 Jan 2023 14:52:23 -0800 (PST)
-Received: from sagittarius-a.chello.ie (188-141-3-169.dynamic.upc.ie.
- [188.141.3.169]) by smtp.gmail.com with ESMTPSA id
- q15-20020adfab0f000000b002bde7999cd6sm9247880wrc.61.2023.01.16.14.52.22
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 16 Jan 2023 14:52:23 -0800 (PST)
-From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-To: linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
- devicetree@vger.kernel.org
-Date: Mon, 16 Jan 2023 22:52:17 +0000
-Message-Id: <20230116225217.1056258-4-bryan.odonoghue@linaro.org>
-X-Mailer: git-send-email 2.38.1
-In-Reply-To: <20230116225217.1056258-1-bryan.odonoghue@linaro.org>
-References: <20230116225217.1056258-1-bryan.odonoghue@linaro.org>
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C87E610E008;
+ Tue, 17 Jan 2023 02:51:26 +0000 (UTC)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 0AA3561196;
+ Tue, 17 Jan 2023 02:51:26 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 92086C433EF;
+ Tue, 17 Jan 2023 02:51:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1673923885;
+ bh=JmhtnjRtv93fmLYRY9nJ+6bCJOF5xS+IQeydvqLjKrI=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=JwcF6Rzoh4bFaEVEF0G1LosXwazA3b54uS4yT1qtBTRxH+WCVlYxJI7UvbRvnGMZm
+ S8VjEKubNcAdUsJMMNjIFTk94GfjfIHUHpkpF4bcUyuYGJJa6qNR2QDUlGEFJC2HGV
+ UNDur8tV6nrLSqkmVZajJ0cS84DXmU9AEoCU9YnH3Zw22NDbjxXqw8eF46P79dLMLT
+ jCNlgPZE9WjjN2ony2ESpyTPSs3ftVDo8a/M+J/sm0fQPbbDEXYSwE13dEDlL0Avfa
+ CVjhO83dbu/NTZ8/5FPNnjao/qyQ+ewsvWzJwJ6wSPJOs5uRlyefPKQXnXgjan3hE2
+ +zMXVuZVki8PQ==
+Date: Mon, 16 Jan 2023 20:51:22 -0600
+From: Bjorn Andersson <andersson@kernel.org>
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Message-ID: <20230117025122.jt3wrjkqfnogu4ci@builder.lan>
+References: <20230113041051.4189063-1-quic_bjorande@quicinc.com>
+ <eea1c5dc-6bc5-4246-f0e1-0c790de9f078@linaro.org>
+ <9a64c685-9ff0-bc1d-e604-e3773ff9edd7@linaro.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH v8 3/3] dt-bindings: msm: dsi-controller-main:
- Add vdd* descriptions back in
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <9a64c685-9ff0-bc1d-e604-e3773ff9edd7@linaro.org>
+Subject: Re: [Freedreno] [PATCH] drm/msm: Initialize mode_config earlier
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,73 +53,79 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: dri-devel@lists.freedesktop.org, Rob Herring <robh@kernel.org>,
- krzysztof.kozlowski+dt@linaro.org, sean@poorly.run, andersson@kernel.org,
- konrad.dybcio@somainline.org, quic_abhinavk@quicinc.com, david@ixit.cz,
- dianders@chromium.org, robdclark@gmail.com, robh+dt@kernel.org,
- agross@kernel.org, daniel@ffwll.ch, dmitry.baryshkov@linaro.org,
- bryan.odonoghue@linaro.org, swboyd@chromium.org, airlied@gmail.com,
- linux-kernel@vger.kernel.org
+Cc: freedreno@lists.freedesktop.org,
+ Bjorn Andersson <quic_bjorande@quicinc.com>, David Airlie <airlied@gmail.com>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
+ Johan Hovold <johan@kernel.org>, Rob Clark <robdclark@gmail.com>,
+ Daniel Vetter <daniel@ffwll.ch>, linux-arm-msm@vger.kernel.org,
+ Sean Paul <sean@poorly.run>, linux-kernel@vger.kernel.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-When converting from .txt to .yaml we didn't include descriptions for the
-existing regulator supplies.
+On Fri, Jan 13, 2023 at 10:57:18AM +0200, Dmitry Baryshkov wrote:
+> On 13/01/2023 06:23, Dmitry Baryshkov wrote:
+> > On 13/01/2023 06:10, Bjorn Andersson wrote:
+> > > Invoking drm_bridge_hpd_notify() on a drm_bridge with a HPD-enabled
+> > > bridge_connector ends up in drm_bridge_connector_hpd_cb() calling
+> > > drm_kms_helper_hotplug_event(), which assumes that the associated
+> > > drm_device's mode_config.funcs is a valid pointer.
+> > > 
+> > > But in the MSM DisplayPort driver the HPD enablement happens at bind
+> > > time and mode_config.funcs is initialized late in msm_drm_init(). This
+> > > means that there's a window for hot plug events to dereference a NULL
+> > > mode_config.funcs.
+> > > 
+> > > Move the assignment of mode_config.funcs before the bind, to avoid this
+> > > scenario.
+> > 
+> > Cam we make DP driver not to report HPD events until the enable_hpd()
+> > was called? I think this is what was fixed by your internal_hpd
+> > patchset.
+> 
+> Or to express this in another words: I thought that internal_hpd already
+> deferred enabling hpd event reporting till the time when we need it, didn't
+> it?
+> 
 
-- vdd
-- vdda
-- vddio
+I added a WARN_ON(1) in drm_bridge_hpd_enable() to get a sense of when
+this window of "opportunity" opens up, and here's the callstack:
 
-Add those descriptions into the yaml now as they were prior to the
-conversion. In the .txt description we marked these regulators as required,
-however, that requirement appears to have been in error.
+------------[ cut here ]------------
+WARNING: CPU: 6 PID: 99 at drivers/gpu/drm/drm_bridge.c:1260 drm_bridge_hpd_enable+0x48/0x94 [drm]
+...
+Call trace:
+ drm_bridge_hpd_enable+0x48/0x94 [drm]
+ drm_bridge_connector_enable_hpd+0x30/0x3c [drm_kms_helper]
+ drm_kms_helper_poll_enable+0xa4/0x114 [drm_kms_helper]
+ drm_kms_helper_poll_init+0x6c/0x7c [drm_kms_helper]
+ msm_drm_bind+0x370/0x628 [msm]
+ try_to_bring_up_aggregate_device+0x170/0x1bc
+ __component_add+0xb0/0x168
+ component_add+0x20/0x2c
+ dp_display_probe+0x40c/0x468 [msm]
+ platform_probe+0xb4/0xdc
+ really_probe+0x13c/0x300
+ __driver_probe_device+0xc0/0xec
+ driver_probe_device+0x48/0x204
+ __device_attach_driver+0x124/0x14c
+ bus_for_each_drv+0x90/0xdc
+ __device_attach+0xdc/0x1a8
+ device_initial_probe+0x20/0x2c
+ bus_probe_device+0x40/0xa4
+ deferred_probe_work_func+0x94/0xd0
+ process_one_work+0x1a8/0x3c0
+ worker_thread+0x254/0x47c
+ kthread+0xf8/0x1b8
+ ret_from_fork+0x10/0x20
+---[ end trace 0000000000000000 ]---
 
-Taking the example of sc7180-trogdor-wormdingler.dtsi. The avdd and avee
-come from GPIO controlled external regulators, not the SoC and in this case
-there's no need for vddio to power an I/O bus. Similarly the regulators for
-the LCD are controlled by the panel driver not by the dsi-ctrl driver.
+As drm_kms_helper_poll_init() is the last thing being called in
+msm_drm_init() shifting around the mode_config.func assignment would not
+have any impact.
 
-It would be possible to connect a different type of panel to the DSI bus
-here in which case we may or may not want to make use of vdd, vdda or
-vddio.
+Perhaps we have shuffled other things around to avoid this bug?  Either
+way, let's this on hold  until further proof that it's still
+reproducible.
 
-This is also the case for older chipsets like apq8064, msm8916 etc the vdd*
-regulators in the dsi-ctrl block are helpers not dependencies.
-
-Add the description of vdd, vdda and vddio back in for the existing
-upstream dts where vdd, vdda or vddio are already declared but, don't
-declare those regulators required - they are not SoC requirements.
-
-Fixes: 4dbe55c97741 ("dt-bindings: msm: dsi: add yaml schemas for DSI bindings")
-Acked-by: Rob Herring <robh@kernel.org>
-Signed-off-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
----
- .../bindings/display/msm/dsi-controller-main.yaml    | 12 ++++++++++++
- 1 file changed, 12 insertions(+)
-
-diff --git a/Documentation/devicetree/bindings/display/msm/dsi-controller-main.yaml b/Documentation/devicetree/bindings/display/msm/dsi-controller-main.yaml
-index 47faf08a37443..7b849c8f119a7 100644
---- a/Documentation/devicetree/bindings/display/msm/dsi-controller-main.yaml
-+++ b/Documentation/devicetree/bindings/display/msm/dsi-controller-main.yaml
-@@ -147,6 +147,18 @@ properties:
-       - port@0
-       - port@1
- 
-+  vdd-supply:
-+    description:
-+      VDD regulator
-+
-+  vddio-supply:
-+    description:
-+      VDD-IO regulator
-+
-+  vdda-supply:
-+    description:
-+      VDDA regulator
-+
- required:
-   - compatible
-   - reg
--- 
-2.38.1
-
+Sorry for the noise,
+Bjorn
