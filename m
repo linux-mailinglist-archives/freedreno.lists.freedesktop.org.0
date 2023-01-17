@@ -1,52 +1,58 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id D578D66E5E7
-	for <lists+freedreno@lfdr.de>; Tue, 17 Jan 2023 19:24:50 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 088F566E79A
+	for <lists+freedreno@lfdr.de>; Tue, 17 Jan 2023 21:18:45 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AD60410E5AC;
-	Tue, 17 Jan 2023 18:24:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C763E10E5B1;
+	Tue, 17 Jan 2023 20:18:43 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from ams.source.kernel.org (ams.source.kernel.org
- [IPv6:2604:1380:4601:e00::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4DE0710E5AA;
- Tue, 17 Jan 2023 18:24:47 +0000 (UTC)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id EE2DDB819A2;
- Tue, 17 Jan 2023 18:24:45 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 52C8FC433F1;
- Tue, 17 Jan 2023 18:24:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1673979884;
- bh=AHzeX7dhYVX8yBaB/Cs4tTTqnXDv+F8AxK25ujOVHVY=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=fum/BmfBmvu9u0Cmsn5P8M9R37HAr+Cxh3lNmmrJmFU57NmWoM5IMw/LguM844xjj
- AOUyzoUzqwFDwZsPBfFgix4jShTR0C7BSV8R7w+DBUoiC/84j7hiqeX9hujUBmPjJB
- c2sG9nkm6Oe/R4Jfdnhy5kqTarCQGe8xe2ez+MtrJubwCPAFAo4DtOu5XxstgYWTLG
- UY8/cLGXHAGznk77CwBLE+1XNa5xKrHUz0dxRXxHLsPYo822q+skb24JFALkguyNxt
- XK+u5CrFwq3CvdX8Ft7zs7I9wQnEM0/Tdcqo4sb7+BehwkbGWDqyerbtnxXZS2ONyY
- 5wR4c7Qr7ej2g==
-From: Bjorn Andersson <andersson@kernel.org>
-To: devicetree@vger.kernel.org, dmitry.baryshkov@linaro.org, daniel@ffwll.ch,
- robh+dt@kernel.org, airlied@gmail.com, konrad.dybcio@somainline.org,
- agross@kernel.org, quic_khsieh@quicinc.com,
- krzysztof.kozlowski+dt@linaro.org, vkoul@kernel.org, swboyd@chromium.org,
- sean@poorly.run, dianders@chromium.org, robdclark@gmail.com,
- dri-devel@lists.freedesktop.org
-Date: Tue, 17 Jan 2023 12:24:29 -0600
-Message-Id: <167397986258.2832389.13013328519954175656.b4-ty@kernel.org>
-X-Mailer: git-send-email 2.37.1
-In-Reply-To: <1672163103-31254-1-git-send-email-quic_khsieh@quicinc.com>
-References: <1672163103-31254-1-git-send-email-quic_khsieh@quicinc.com>
+Received: from mail-oa1-f52.google.com (mail-oa1-f52.google.com
+ [209.85.160.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9905710E5B1;
+ Tue, 17 Jan 2023 20:18:41 +0000 (UTC)
+Received: by mail-oa1-f52.google.com with SMTP id
+ 586e51a60fabf-12c8312131fso33269973fac.4; 
+ Tue, 17 Jan 2023 12:18:41 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=eR8YbcfMepY76OiaErdLAV2Hc3g5AfoqFq4DC8Gzbb4=;
+ b=V4xqy/HLDIY7e66C3/O5VQhuXq8p9J1xuvBwxRoaRet0ZFIPVxrBTFMmrxtD5GcgFQ
+ 13sR/XEgdK0jQKToW/dGApiB+ySqq7NqBdvDEpUIutvRhvE5RTPbXCwwhRJ4XvL6R1+a
+ lMymCwPc9p+GlabXTGX09Qn4IylwB3wWPgHYS8Upz0ux6mMHr9vWkpgAhF56XSW3f8eA
+ VSsDwTaGoUW6igwlOvsBImqs0++DdYRoYir3rRRCf4YAilQnEYKQ1ur1mihuBcCkWWIY
+ xl3GrcIJphr/F4RqagdnqL/F5y8trEzQXH80FezLtc024O6hVicMd2kf7afkxXd+OhgP
+ HUEg==
+X-Gm-Message-State: AFqh2kqf5ruBS7IxBjCP3uz2Pac3yvremghDNnGbrmQNrnEWnFfLVAS0
+ Q9MtfOauimkXeEFeRJodCA==
+X-Google-Smtp-Source: AMrXdXv089TBvVd1Nm1c4yDRuJAsd/heqs9Z0JWT0biGb6hOr+GpAjpZXTc84rnYeIbCce/TeFamqg==
+X-Received: by 2002:a05:6870:7b8a:b0:15f:18cb:9816 with SMTP id
+ jf10-20020a0568707b8a00b0015f18cb9816mr2724591oab.4.1673986720766; 
+ Tue, 17 Jan 2023 12:18:40 -0800 (PST)
+Received: from robh_at_kernel.org (66-90-144-107.dyn.grandenetworks.net.
+ [66.90.144.107]) by smtp.gmail.com with ESMTPSA id
+ k18-20020a056870959200b0011d02a3fa63sm16805671oao.14.2023.01.17.12.18.39
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 17 Jan 2023 12:18:40 -0800 (PST)
+Received: (nullmailer pid 3639226 invoked by uid 1000);
+ Tue, 17 Jan 2023 20:18:39 -0000
+Date: Tue, 17 Jan 2023 14:18:39 -0600
+From: Rob Herring <robh@kernel.org>
+To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+Message-ID: <167398671860.3639169.11899100042089144320.robh@kernel.org>
+References: <20230116152128.909646-1-bryan.odonoghue@linaro.org>
+ <20230116152128.909646-5-bryan.odonoghue@linaro.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Subject: Re: [Freedreno] (subset) [PATCH v16 0/5] Add data-lanes and
- link-frequencies to dp_out endpoint
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20230116152128.909646-5-bryan.odonoghue@linaro.org>
+Subject: Re: [Freedreno] [PATCH v7 4/4] dt-bindings: display/msm: Add list
+ of mdss-dsi-ctrl compats
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,32 +65,36 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-arm-msm@vger.kernel.org, quic_sbillaka@quicinc.com,
- freedreno@lists.freedesktop.org, quic_abhinavk@quicinc.com,
- linux-kernel@vger.kernel.org
+Cc: devicetree@vger.kernel.org, dianders@chromium.org,
+ krzysztof.kozlowski+dt@linaro.org, freedreno@lists.freedesktop.org,
+ andersson@kernel.org, konrad.dybcio@somainline.org, quic_abhinavk@quicinc.com,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ robh+dt@kernel.org, robdclark@gmail.com, agross@kernel.org, david@ixit.cz,
+ daniel@ffwll.ch, linux-arm-msm@vger.kernel.org, dmitry.baryshkov@linaro.org,
+ airlied@gmail.com, swboyd@chromium.org, sean@poorly.run
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Tue, 27 Dec 2022 09:44:58 -0800, Kuogee Hsieh wrote:
-> Add DP both data-lanes and link-frequencies property to dp_out endpoint and support
-> functions to DP driver.
+
+On Mon, 16 Jan 2023 15:21:28 +0000, Bryan O'Donoghue wrote:
+> Add the list of current compats absent the deprecated qcm2290 to the list
+> of dsi compats listed here.
 > 
-> Kuogee Hsieh (5):
->   arm64: dts: qcom: add data-lanes and link-freuencies into dp_out
->     endpoint
->   dt-bindings: msm/dp: add data-lanes and link-frequencies property
->   drm/msm/dp: parse data-lanes as property of dp_out endpoint
->   Add capability to parser and retrieve max DP link supported rate from
->        link-frequencies property of dp_out endpoint.
->   drm/msm/dp: add support of max dp link rate
+> Several MDSS yaml files exist which document the dsi sub-node.
+> For each existing SoC MDSS yaml, provide the right dsi compat string.
 > 
-> [...]
+> Signed-off-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+> ---
+>  .../devicetree/bindings/display/msm/qcom,mdss.yaml        | 3 ++-
+>  .../bindings/display/msm/qcom,msm8998-mdss.yaml           | 8 +++++---
+>  .../devicetree/bindings/display/msm/qcom,sc7180-mdss.yaml | 6 ++++--
+>  .../devicetree/bindings/display/msm/qcom,sc7280-mdss.yaml | 6 ++++--
+>  .../devicetree/bindings/display/msm/qcom,sdm845-mdss.yaml | 8 +++++---
+>  .../devicetree/bindings/display/msm/qcom,sm8150-mdss.yaml | 8 +++++---
+>  .../devicetree/bindings/display/msm/qcom,sm8250-mdss.yaml | 8 +++++---
+>  .../devicetree/bindings/display/msm/qcom,sm8350-mdss.yaml | 6 ++++--
+>  .../devicetree/bindings/display/msm/qcom,sm8450-mdss.yaml | 4 +++-
+>  9 files changed, 37 insertions(+), 20 deletions(-)
+> 
 
-Applied, thanks!
-
-[1/5] arm64: dts: qcom: add data-lanes and link-freuencies into dp_out endpoint
-      commit: 26c5aa54f5973a3b1181939811f231faa638332a
-
-Best regards,
--- 
-Bjorn Andersson <andersson@kernel.org>
+Acked-by: Rob Herring <robh@kernel.org>
