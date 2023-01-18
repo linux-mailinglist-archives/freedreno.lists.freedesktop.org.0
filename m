@@ -2,61 +2,71 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7A9F0671CCD
-	for <lists+freedreno@lfdr.de>; Wed, 18 Jan 2023 14:00:39 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 96A9E671DBD
+	for <lists+freedreno@lfdr.de>; Wed, 18 Jan 2023 14:28:59 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C79FF10E73E;
-	Wed, 18 Jan 2023 13:00:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 64F9510E750;
+	Wed, 18 Jan 2023 13:28:58 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ej1-x636.google.com (mail-ej1-x636.google.com
- [IPv6:2a00:1450:4864:20::636])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 141A610E73E
- for <freedreno@lists.freedesktop.org>; Wed, 18 Jan 2023 13:00:35 +0000 (UTC)
-Received: by mail-ej1-x636.google.com with SMTP id mp20so36444171ejc.7
- for <freedreno@lists.freedesktop.org>; Wed, 18 Jan 2023 05:00:34 -0800 (PST)
+Received: from mail-ej1-x62a.google.com (mail-ej1-x62a.google.com
+ [IPv6:2a00:1450:4864:20::62a])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B6C3E10E751
+ for <freedreno@lists.freedesktop.org>; Wed, 18 Jan 2023 13:28:56 +0000 (UTC)
+Received: by mail-ej1-x62a.google.com with SMTP id mg12so10897241ejc.5
+ for <freedreno@lists.freedesktop.org>; Wed, 18 Jan 2023 05:28:56 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=sm3KvwPlX5ZlZpu1sJC95qlBUfmHf+sSOjQts5oP6w4=;
- b=eWiuw1VupXnvMy11nq3QYpNyqkPaLCm88Q2i1HbwVriv1ImNk/4kj6U4e6qZ7zoS2p
- 9AtmZnWeFUdqKiHx+jS6uvPPJuQNf8oVFgPcHV5FfzHP8tJHNXrmgxUnaiOLdL5FHwn2
- mqPeJLLH9busDKB9ZXpo07IhFgXJxtX1RZ5DsU69s+LgeC3n7ZT4gNSPNFNCB42JhsgL
- NAl9PMoflw9ahLIGLTmiC92wzl+00CzRsPhbnHGtZk8GaFuz+gl+OYk1DrithQZ7LWi4
- pSAi3wvY5RFuMIqJ7/5ogOorEAU5908HLcuoiZJaEWuP+V3O689D7mTkrhmwtkFKlkTq
- szQQ==
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=RD9xTazty8qJBzZbHVEhRM4VLCqX49b0BUaP0rESuu8=;
+ b=NDe2SWkROcKcgndpiF1eNt00Z6s/d4VujIVKd67GRbqI/s0Xk2yCoQqVF/aBIQSZpx
+ 4GgXqMUl81N+fiDp5tgNNwLnCCIayU4OHe0PZCz1wFmIKITcSbCYOwq+2xr0QAQNOEGK
+ Cf7VDisGo1XyFeYccoSFyYdhcTJw28HHpq/+WvOfPqfJWUHHaYj/sPVL1SvVNfXO+Rxd
+ jPSue+V8mWibrk8VvVj1tkGN996FmH8XP4wD4N7QqMOHTtfpik5fQVZ5irRu1NaFqnSa
+ 91Rl5rexKC2IhDqi0ctuk8GN2UecBt06oHhF5tvp91li02hwgMt8CgDFzKLx/M8m8Xyd
+ LoWA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=sm3KvwPlX5ZlZpu1sJC95qlBUfmHf+sSOjQts5oP6w4=;
- b=RqwFGQBt+ZQHU2pCr7lJaE1b3iHVShjbUbps0zrtWtzZtNgwWsM7cOINbTIen+9WtY
- p+SHewfTy9eWdZiEq9Wvzyu1rKHZA3ySKqrmGEVHRTl+nCJaWlijBMXa92cc4DzTfpd+
- jnbUUIFVDBBQ8lCEgwfBsOS9kNtaiQz6klXbCdELUL+83qD9AXFGWB0T5EwTnHQyzRu9
- bUk6BPLznG/2x2KbX9cgKb0uppfL80hmRNKwQ5R/XuUxigVvvp5huVbK8FLFPFCakXSF
- MiM6iCwe/2HMXH+wPa8ujZ/50Dam7vVU9LnZnTcBFH6S4Q2TK7YFCSmA6hljgzoFSKFr
- 1g7g==
-X-Gm-Message-State: AFqh2kpBgjRiVmnsAHeAvfcKejGuDWjR9TKqRovFJNehBePE5qlQkN1V
- A4PBg1a2oFtmmyJiRqSxlyXRTDlWSNMutAiV
-X-Google-Smtp-Source: AMrXdXsi6XIOo5SjAZhVAQXo6/dHkGjR1TMFLLFrusI0h0DnloR76eYOXbeUYNMgfrDotAc4PX5mRQ==
-X-Received: by 2002:a17:906:f299:b0:7c0:fd1a:79ee with SMTP id
- gu25-20020a170906f29900b007c0fd1a79eemr6707842ejb.63.1674046833497; 
- Wed, 18 Jan 2023 05:00:33 -0800 (PST)
-Received: from eriador.lan (dzccz6yyyyyyyyyyybcwt-3.rev.dnainternet.fi.
- [2001:14ba:a085:4d00::8a5]) by smtp.gmail.com with ESMTPSA id
- f17-20020a170906495100b0086dd8f20a6asm5411290ejt.77.2023.01.18.05.00.32
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 18 Jan 2023 05:00:33 -0800 (PST)
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-To: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>
-Date: Wed, 18 Jan 2023 15:00:31 +0200
-Message-Id: <20230118130031.2345941-1-dmitry.baryshkov@linaro.org>
-X-Mailer: git-send-email 2.39.0
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=RD9xTazty8qJBzZbHVEhRM4VLCqX49b0BUaP0rESuu8=;
+ b=j0h8hNGHE627NMa87Qvh3W+tQYGTTvRH3Tnx/WHNx3KPUcxcjn3AnQi9toLs3W37VT
+ s8+npoCuSEl3tEWF4LYKjJlkkHduHABiwi+IKUKe+Zg7q1/1QDmiQcEU3udQQ1X7Pgi2
+ XuSdyfQKoFyIzGT+nPlom0pXFFaxbsS2zWYfrizfl4sYQ7yoHtOU0iYkEJyS5m20Rh0n
+ xNo8WZWTMYx+25MpXoPvMUwPMosQdGc6zwyzysDBVzG7+U4+usVX0d+MoMRLNQniUqIn
+ Z1eWyjBIo2v3d1fWvuydthGdxXzlv+pxTI6Vbn31wyhZYCqlmzCWY0kKbn1jUFLJc7Un
+ 6KQQ==
+X-Gm-Message-State: AFqh2kpHcmVKcDhnbeIkfXREKvBLZw0pC8aPSRkh7RZHbH3rv+ZcLdhM
+ JixJ/sWuaX6PIFBPqoudMfkatLfyDCn5p2BE
+X-Google-Smtp-Source: AMrXdXteIuYHa922dSmrroQ8vOH1WU5yVgqFeDtjom3Tw0yZOROGycRDFXEmJbKnIo6JlUiIAlezkQ==
+X-Received: by 2002:a17:906:1d41:b0:86e:b750:d0fe with SMTP id
+ o1-20020a1709061d4100b0086eb750d0femr16816944ejh.32.1674048535293; 
+ Wed, 18 Jan 2023 05:28:55 -0800 (PST)
+Received: from [192.168.1.101] (abxh252.neoplus.adsl.tpnet.pl. [83.9.1.252])
+ by smtp.gmail.com with ESMTPSA id
+ k11-20020a1709062a4b00b0073022b796a7sm14902509eje.93.2023.01.18.05.28.52
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 18 Jan 2023 05:28:54 -0800 (PST)
+Message-ID: <39ba6ed5-f345-6c6a-247f-7b569da94192@linaro.org>
+Date: Wed, 18 Jan 2023 14:28:51 +0100
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH] drm/msm/dsi: simplify pixel clk rate handling
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.6.1
+Content-Language: en-US
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Andy Gross <agross@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
+ Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, Rob Herring <robh+dt@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>
+References: <20230118032024.1715857-1-dmitry.baryshkov@linaro.org>
+From: Konrad Dybcio <konrad.dybcio@linaro.org>
+In-Reply-To: <20230118032024.1715857-1-dmitry.baryshkov@linaro.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+Subject: Re: [Freedreno] [PATCH] arm64: dts: qcom: sm8350: use qcom,
+ sm8350-dsi-ctrl compatibles
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,107 +79,46 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
- Bjorn Andersson <andersson@kernel.org>, dri-devel@lists.freedesktop.org,
- Stephen Boyd <swboyd@chromium.org>, Daniel Vetter <daniel@ffwll.ch>,
+Cc: devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, Stephen Boyd <swboyd@chromium.org>,
+ Daniel Vetter <daniel@ffwll.ch>, freedreno@lists.freedesktop.org,
  David Airlie <airlied@gmail.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Move a call to dsi_calc_pclk() out of calc_clk_rate directly towards
-msm_dsi_host_get_phy_clk_req(). It is called for both 6g and v2 hosts.
 
-Also, while we are at it, replace another dsi_get_pclk_rate() invocation
-with using the stored value at msm_host->pixel_clk_rate.
 
-Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
----
- drivers/gpu/drm/msm/dsi/dsi.h      |  4 ++--
- drivers/gpu/drm/msm/dsi/dsi_cfg.h  |  2 +-
- drivers/gpu/drm/msm/dsi/dsi_host.c | 24 ++++++++++++------------
- 3 files changed, 15 insertions(+), 15 deletions(-)
+On 18.01.2023 04:20, Dmitry Baryshkov wrote:
+> Add the per-SoC (qcom,sm8350-dsi-ctrl) compatible strings to DSI nodes
+> to follow the pending DSI bindings changes.
+> 
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> ---
+Reviewed-by: Konrad Dybcio <konrad.dybcio@linaro.org>
 
-diff --git a/drivers/gpu/drm/msm/dsi/dsi.h b/drivers/gpu/drm/msm/dsi/dsi.h
-index bd3763a5d723..93ec54478eb6 100644
---- a/drivers/gpu/drm/msm/dsi/dsi.h
-+++ b/drivers/gpu/drm/msm/dsi/dsi.h
-@@ -129,8 +129,8 @@ int dsi_dma_base_get_6g(struct msm_dsi_host *msm_host, uint64_t *iova);
- int dsi_dma_base_get_v2(struct msm_dsi_host *msm_host, uint64_t *iova);
- int dsi_clk_init_v2(struct msm_dsi_host *msm_host);
- int dsi_clk_init_6g_v2(struct msm_dsi_host *msm_host);
--int dsi_calc_clk_rate_v2(struct msm_dsi_host *msm_host, bool is_bonded_dsi);
--int dsi_calc_clk_rate_6g(struct msm_dsi_host *msm_host, bool is_bonded_dsi);
-+int dsi_calc_clk_rate_v2(struct msm_dsi_host *msm_host);
-+int dsi_calc_clk_rate_6g(struct msm_dsi_host *msm_host);
- void msm_dsi_host_snapshot(struct msm_disp_state *disp_state, struct mipi_dsi_host *host);
- void msm_dsi_host_test_pattern_en(struct mipi_dsi_host *host);
- struct drm_dsc_config *msm_dsi_host_get_dsc_config(struct mipi_dsi_host *host);
-diff --git a/drivers/gpu/drm/msm/dsi/dsi_cfg.h b/drivers/gpu/drm/msm/dsi/dsi_cfg.h
-index 44be4a88aa83..5106e66846c3 100644
---- a/drivers/gpu/drm/msm/dsi/dsi_cfg.h
-+++ b/drivers/gpu/drm/msm/dsi/dsi_cfg.h
-@@ -51,7 +51,7 @@ struct msm_dsi_host_cfg_ops {
- 	void* (*tx_buf_get)(struct msm_dsi_host *msm_host);
- 	void (*tx_buf_put)(struct msm_dsi_host *msm_host);
- 	int (*dma_base_get)(struct msm_dsi_host *msm_host, uint64_t *iova);
--	int (*calc_clk_rate)(struct msm_dsi_host *msm_host, bool is_bonded_dsi);
-+	int (*calc_clk_rate)(struct msm_dsi_host *msm_host);
- };
- 
- struct msm_dsi_cfg_handler {
-diff --git a/drivers/gpu/drm/msm/dsi/dsi_host.c b/drivers/gpu/drm/msm/dsi/dsi_host.c
-index 18fa30e1e858..7d99a108bff6 100644
---- a/drivers/gpu/drm/msm/dsi/dsi_host.c
-+++ b/drivers/gpu/drm/msm/dsi/dsi_host.c
-@@ -616,28 +616,21 @@ static void dsi_calc_pclk(struct msm_dsi_host *msm_host, bool is_bonded_dsi)
- 
- }
- 
--int dsi_calc_clk_rate_6g(struct msm_dsi_host *msm_host, bool is_bonded_dsi)
-+int dsi_calc_clk_rate_6g(struct msm_dsi_host *msm_host)
- {
--	if (!msm_host->mode) {
--		pr_err("%s: mode not set\n", __func__);
--		return -EINVAL;
--	}
--
--	dsi_calc_pclk(msm_host, is_bonded_dsi);
- 	msm_host->esc_clk_rate = clk_get_rate(msm_host->esc_clk);
-+
- 	return 0;
- }
- 
--int dsi_calc_clk_rate_v2(struct msm_dsi_host *msm_host, bool is_bonded_dsi)
-+int dsi_calc_clk_rate_v2(struct msm_dsi_host *msm_host)
- {
- 	u32 bpp = dsi_get_bpp(msm_host->format);
- 	u64 pclk_bpp;
- 	unsigned int esc_mhz, esc_div;
- 	unsigned long byte_mhz;
- 
--	dsi_calc_pclk(msm_host, is_bonded_dsi);
--
--	pclk_bpp = (u64)dsi_get_pclk_rate(msm_host->mode, is_bonded_dsi) * bpp;
-+	pclk_bpp = msm_host->pixel_clk_rate * bpp;
- 	do_div(pclk_bpp, 8);
- 	msm_host->src_clk_rate = pclk_bpp;
- 
-@@ -2292,7 +2285,14 @@ void msm_dsi_host_get_phy_clk_req(struct mipi_dsi_host *host,
- 	const struct msm_dsi_cfg_handler *cfg_hnd = msm_host->cfg_hnd;
- 	int ret;
- 
--	ret = cfg_hnd->ops->calc_clk_rate(msm_host, is_bonded_dsi);
-+	if (!msm_host->mode) {
-+		pr_err("%s: mode not set\n", __func__);
-+		return;
-+	}
-+
-+	dsi_calc_pclk(msm_host, is_bonded_dsi);
-+
-+	ret = cfg_hnd->ops->calc_clk_rate(msm_host);
- 	if (ret) {
- 		pr_err("%s: unable to calc clk rate, %d\n", __func__, ret);
- 		return;
--- 
-2.39.0
-
+Konrad
+>  arch/arm64/boot/dts/qcom/sm8350.dtsi | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
+> 
+> diff --git a/arch/arm64/boot/dts/qcom/sm8350.dtsi b/arch/arm64/boot/dts/qcom/sm8350.dtsi
+> index 703ba3d81e82..a066566b6ea9 100644
+> --- a/arch/arm64/boot/dts/qcom/sm8350.dtsi
+> +++ b/arch/arm64/boot/dts/qcom/sm8350.dtsi
+> @@ -2883,7 +2883,7 @@ dpu_intf1_out: endpoint {
+>  			};
+>  
+>  			mdss_dsi0: dsi@ae94000 {
+> -				compatible = "qcom,mdss-dsi-ctrl";
+> +				compatible = "qcom,sm8350-dsi-ctrl", "qcom,mdss-dsi-ctrl";
+>  				reg = <0 0x0ae94000 0 0x400>;
+>  				reg-names = "dsi_ctrl";
+>  
+> @@ -2978,7 +2978,7 @@ mdss_dsi0_phy: phy@ae94400 {
+>  			};
+>  
+>  			mdss_dsi1: dsi@ae96000 {
+> -				compatible = "qcom,mdss-dsi-ctrl";
+> +				compatible = "qcom,sm8350-dsi-ctrl", "qcom,mdss-dsi-ctrl";
+>  				reg = <0 0x0ae96000 0 0x400>;
+>  				reg-names = "dsi_ctrl";
+>  
