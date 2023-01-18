@@ -2,68 +2,75 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0957C671609
-	for <lists+freedreno@lfdr.de>; Wed, 18 Jan 2023 09:17:39 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 008F2671655
+	for <lists+freedreno@lfdr.de>; Wed, 18 Jan 2023 09:31:47 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E890810E712;
-	Wed, 18 Jan 2023 08:17:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 74A4110E6B6;
+	Wed, 18 Jan 2023 08:31:46 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ej1-x62e.google.com (mail-ej1-x62e.google.com
- [IPv6:2a00:1450:4864:20::62e])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E224310E6EE
- for <freedreno@lists.freedesktop.org>; Wed, 18 Jan 2023 08:17:14 +0000 (UTC)
-Received: by mail-ej1-x62e.google.com with SMTP id mp20so34682248ejc.7
- for <freedreno@lists.freedesktop.org>; Wed, 18 Jan 2023 00:17:14 -0800 (PST)
+Received: from mail-wm1-x331.google.com (mail-wm1-x331.google.com
+ [IPv6:2a00:1450:4864:20::331])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A481A10E10D
+ for <freedreno@lists.freedesktop.org>; Wed, 18 Jan 2023 08:31:42 +0000 (UTC)
+Received: by mail-wm1-x331.google.com with SMTP id g10so24066001wmo.1
+ for <freedreno@lists.freedesktop.org>; Wed, 18 Jan 2023 00:31:42 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=FpdbxTL1TsJx6ZvxMXDuiLUdcmbkfcCseR/ToR83G3E=;
- b=tp+GZPa1zP8xw8T5zoc1Y19d3dl6rRGGwlW4xjrPET+Yf/26aiJlvcQkApXKAYjq/e
- NG6qItEAedVaaFugJsi7o8QXvOR5GtBq8QOSKb//s/OVBWrfcAmIzhFS5Om38k6bRLaJ
- 5SG+jT6LlpQMsVnX0eIg/iIhrTYN0zLp3PngErW8dg2yE7mm8PE2HkGL9Hd9x71HaSHP
- 3wKT7FXy7t7zbM84wJ59dkuge1ObHIjnW5vp5+bGaRqayF0SsVJmZC4YjlPCUexAj1G6
- DAe/wJaIKUBEbPNNKJrXWJk61qaXZ+OfhY3vNEp5CX1uHpAlJbrnFfrc7N7lRdeVf7/G
- g2nw==
+ h=content-transfer-encoding:in-reply-to:organization:references:cc:to
+ :content-language:subject:reply-to:from:user-agent:mime-version:date
+ :message-id:from:to:cc:subject:date:message-id:reply-to;
+ bh=2FDgSbulMxqh8bJCVvaKW6jduWu4I6+VrLpKYgPu86A=;
+ b=lldRZHujADSvC2AzvlNq0hQC5y9ycNBfDEJjxeEznE/3M2qN9Nej62QhA//wDdMT2O
+ Q8ih3gKAHHMTa7iJ8CopXleFmX8NrkMNAJvnt37bGcp+siGLC9ZjAmhlrFONM/g9tojN
+ pfyuWZ1+ul6XMqEpEMlzDFpvxgpjhEtbQ8AhQTe0/zwtHEA0i7cglGI9rHPR/2d2adVr
+ lLW8PacGnIPVyDbXhwka4BjTqIo/3hTb4iXk15XNKtf2SHIEScDxb35zGgpv42mdat/j
+ TppeWXtgEFpsZGFFWBeFRhCySyz7jQq5TBs8kPCGQdtsqrcnR28+hrDrYbQUcD1HnkA7
+ S2ag==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=FpdbxTL1TsJx6ZvxMXDuiLUdcmbkfcCseR/ToR83G3E=;
- b=Xn9p3s5bbfCxLYFHAneaKAL1E6y51i864YscZuPU1KI7RsVfGiSkLm1GWg6TH1gGOg
- WHU2UcDgPNsl0PngzQ3eGmm2/3TEGtj4KcTBpyweWb5vrgDSM0FNKwpN/HDLx18ptStj
- TLlOczp+VEHWQrq/5m3xFInmxDm4JLg4nhVNw+VPLHgjdBIHCOoa7e/aqX4e5364HQsZ
- 0AzvZtaaw9a6PzFqJB2dA/HfYCBtce/dz9ufyVVRAqDF8+jJ/eOjAhSGgUMGpm7kHMYn
- NXCmHtnwp4LyP016K++39TIVieeZNvvTNZ1htnJoFtFznCqGICVnQLkq9e248KlBGVZ9
- b08w==
-X-Gm-Message-State: AFqh2kpXqk/8O3XlpzhlXkBqWO5aNawaaiHot69cDhtUR9A48FAXE25u
- hGBttA7G/9tJtEuPjMxt8IwlUQ==
-X-Google-Smtp-Source: AMrXdXuucVAB6Mc41A9WbCBTnWWwywaSwMlrRjlBFANbvbNf9GRNLrYFFfdEncxeiQanLo3iYNpyww==
-X-Received: by 2002:a17:907:a80b:b0:86f:220e:94af with SMTP id
- vo11-20020a170907a80b00b0086f220e94afmr15367395ejc.56.1674029834449; 
- Wed, 18 Jan 2023 00:17:14 -0800 (PST)
-Received: from eriador.lan (dzccz6yyyyyyyyyyybcwt-3.rev.dnainternet.fi.
- [2001:14ba:a085:4d00::8a5]) by smtp.gmail.com with ESMTPSA id
- f22-20020a17090631d600b00779cde476e4sm14199080ejf.62.2023.01.18.00.17.13
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 18 Jan 2023 00:17:14 -0800 (PST)
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-To: Vinod Koul <vkoul@kernel.org>, Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>,
+ h=content-transfer-encoding:in-reply-to:organization:references:cc:to
+ :content-language:subject:reply-to:from:user-agent:mime-version:date
+ :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=2FDgSbulMxqh8bJCVvaKW6jduWu4I6+VrLpKYgPu86A=;
+ b=WT5QyB29AVd3hKM6s0+De/u67/Bx2ggsgH4oNPFRuUWVJm/rqU9c7xn/AFZsKXjPhp
+ MVgdWc2y+LIIUJ2yh7gDqVi3Hi1HpLMVtf0yLqhzdEQ7jSnd+MdvjGk4oHtFlFmPKnWY
+ MdHL4ye7/fNAjI3uqbUrKWfhVRocKzOCV4IZdlPP7QQ1XM1mePpzJdUPcQ7tIZBtGa19
+ xsiH0Qfv0YKUCOv4Z9sJKq/646IYlPAH8YaVjT6ZnhJ9HMniwctb/w8t5vr/xzwbrEMF
+ ydldCJjRyU6vnYSb/EaJ6+kHrY4WvLB3KOJycJvY1RTd0Sbp067U++ZkGlf2TWVqwpj+
+ C+EA==
+X-Gm-Message-State: AFqh2kplxY0fIJzHKPN50WecFzKW+jbbNmMVJCMHwN1s+tEoEqSf+H/C
+ 5B0AnsINmR2Z24054EnNSu5gJA==
+X-Google-Smtp-Source: AMrXdXsYZXZXzEMu4ruHeIipH+Z/JwznqeLXjYAqXwewSWN7F0LEUaDnAz3t1/0DCzIKdpuRrHHxog==
+X-Received: by 2002:a05:600c:d2:b0:3da:f475:6480 with SMTP id
+ u18-20020a05600c00d200b003daf4756480mr5797426wmm.7.1674030701147; 
+ Wed, 18 Jan 2023 00:31:41 -0800 (PST)
+Received: from ?IPV6:2a01:e0a:982:cbb0:37dc:5071:959c:93e4?
+ ([2a01:e0a:982:cbb0:37dc:5071:959c:93e4])
+ by smtp.gmail.com with ESMTPSA id
+ f24-20020a05600c491800b003d9e74dd9b2sm1253741wmp.9.2023.01.18.00.31.40
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 18 Jan 2023 00:31:40 -0800 (PST)
+Message-ID: <8058263f-28c1-d47d-9880-342e6f378980@linaro.org>
+Date: Wed, 18 Jan 2023 09:31:39 +0100
+MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.6.0
+From: Neil Armstrong <neil.armstrong@linaro.org>
+Content-Language: en-US
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Vinod Koul <vkoul@kernel.org>, Andrzej Hajda <andrzej.hajda@intel.com>,
  Robert Foss <robert.foss@linaro.org>,
  Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
  Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>
-Date: Wed, 18 Jan 2023 10:16:58 +0200
-Message-Id: <20230118081658.2198520-14-dmitry.baryshkov@linaro.org>
-X-Mailer: git-send-email 2.39.0
-In-Reply-To: <20230118081658.2198520-1-dmitry.baryshkov@linaro.org>
 References: <20230118081658.2198520-1-dmitry.baryshkov@linaro.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH 13/13] drm/bridge: lt9611: properly program the
- dual host mode
+ <20230118081658.2198520-13-dmitry.baryshkov@linaro.org>
+Organization: Linaro Developer Services
+In-Reply-To: <20230118081658.2198520-13-dmitry.baryshkov@linaro.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Subject: Re: [Freedreno] [PATCH 12/13] drm/bridge: lt9611: stop filtering
+ modes via the table
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,75 +83,98 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: neil.armstrong@linaro.org
 Cc: freedreno@lists.freedesktop.org, David Airlie <airlied@gmail.com>,
  dri-devel@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>,
  linux-arm-msm@vger.kernel.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-If the bridge is connected using both DSI ports, the driver should use
-both of them all the time. Correct programming sequence to always use
-dual-port mode if both dsi0 and dsi1 are connected.
+On 18/01/2023 09:16, Dmitry Baryshkov wrote:
+> The lt9611 bridge can support different modes, it makes no sense to list
+> them in the table. Drop the table and check the number of interfaces
+> using the fixed value.
+> 
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> ---
+>   drivers/gpu/drm/bridge/lontium-lt9611.c | 49 ++++++-------------------
+>   1 file changed, 12 insertions(+), 37 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/bridge/lontium-lt9611.c b/drivers/gpu/drm/bridge/lontium-lt9611.c
+> index 82af1f954cc6..c2cd36d926a0 100644
+> --- a/drivers/gpu/drm/bridge/lontium-lt9611.c
+> +++ b/drivers/gpu/drm/bridge/lontium-lt9611.c
+> @@ -84,24 +84,6 @@ static const struct regmap_config lt9611_regmap_config = {
+>   	.num_ranges = ARRAY_SIZE(lt9611_ranges),
+>   };
+>   
+> -struct lt9611_mode {
+> -	u16 hdisplay;
+> -	u16 vdisplay;
+> -	u8 vrefresh;
+> -	u8 lanes;
+> -	u8 intfs;
+> -};
+> -
+> -static struct lt9611_mode lt9611_modes[] = {
+> -	{ 3840, 2160, 30, 4, 2 }, /* 3840x2160 24bit 30Hz 4Lane 2ports */
+> -	{ 1920, 1080, 60, 4, 1 }, /* 1080P 24bit 60Hz 4lane 1port */
+> -	{ 1920, 1080, 30, 3, 1 }, /* 1080P 24bit 30Hz 3lane 1port */
+> -	{ 1920, 1080, 24, 3, 1 },
+> -	{ 720, 480, 60, 4, 1 },
+> -	{ 720, 576, 50, 2, 1 },
+> -	{ 640, 480, 60, 2, 1 },
+> -};
+> -
+>   static struct lt9611 *bridge_to_lt9611(struct drm_bridge *bridge)
+>   {
+>   	return container_of(bridge, struct lt9611, bridge);
+> @@ -603,21 +585,6 @@ static int lt9611_regulator_enable(struct lt9611 *lt9611)
+>   	return 0;
+>   }
+>   
+> -static struct lt9611_mode *lt9611_find_mode(const struct drm_display_mode *mode)
+> -{
+> -	int i;
+> -
+> -	for (i = 0; i < ARRAY_SIZE(lt9611_modes); i++) {
+> -		if (lt9611_modes[i].hdisplay == mode->hdisplay &&
+> -		    lt9611_modes[i].vdisplay == mode->vdisplay &&
+> -		    lt9611_modes[i].vrefresh == drm_mode_vrefresh(mode)) {
+> -			return &lt9611_modes[i];
+> -		}
+> -	}
+> -
+> -	return NULL;
+> -}
+> -
+>   static enum drm_connector_status lt9611_bridge_detect(struct drm_bridge *bridge)
+>   {
+>   	struct lt9611 *lt9611 = bridge_to_lt9611(bridge);
+> @@ -832,12 +799,20 @@ static enum drm_mode_status lt9611_bridge_mode_valid(struct drm_bridge *bridge,
+>   						     const struct drm_display_info *info,
+>   						     const struct drm_display_mode *mode)
+>   {
+> -	struct lt9611_mode *lt9611_mode = lt9611_find_mode(mode);
+>   	struct lt9611 *lt9611 = bridge_to_lt9611(bridge);
+>   
+> -	if (!lt9611_mode)
+> -		return MODE_BAD;
+> -	else if (lt9611_mode->intfs > 1 && !lt9611->dsi1)
+> +	if (mode->hdisplay > 3840)
+> +		return MODE_BAD_HVALUE;
+> +
+> +	if (mode->vdisplay > 2160)
+> +		return MODE_BAD_VVALUE;
+> +
+> +	if (mode->hdisplay == 3840 &&
+> +	    mode->vdisplay == 2160 &&
+> +	    drm_mode_vrefresh(mode) > 30)
+> +		return MODE_CLOCK_HIGH;
+> +
+> +	if (mode->hdisplay > 2000 && !lt9611->dsi1_node)
+>   		return MODE_PANEL;
+>   	else
+>   		return MODE_OK;
 
 Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
-Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
----
- drivers/gpu/drm/bridge/lontium-lt9611.c | 28 ++++++++++++-------------
- 1 file changed, 13 insertions(+), 15 deletions(-)
-
-diff --git a/drivers/gpu/drm/bridge/lontium-lt9611.c b/drivers/gpu/drm/bridge/lontium-lt9611.c
-index c2cd36d926a0..276c77b273cd 100644
---- a/drivers/gpu/drm/bridge/lontium-lt9611.c
-+++ b/drivers/gpu/drm/bridge/lontium-lt9611.c
-@@ -118,7 +118,7 @@ static int lt9611_mipi_input_digital(struct lt9611 *lt9611,
- 		{ 0x8306, 0x0a },
- 	};
- 
--	if (mode->hdisplay == 3840)
-+	if (lt9611->dsi1_node)
- 		reg_cfg[1].def = 0x03;
- 
- 	return regmap_multi_reg_write(lt9611->regmap, reg_cfg, ARRAY_SIZE(reg_cfg));
-@@ -191,16 +191,6 @@ static void lt9611_pcr_setup(struct lt9611 *lt9611, const struct drm_display_mod
- 		{ 0x832d, 0x38 },
- 		{ 0x8331, 0x08 },
- 	};
--	const struct reg_sequence reg_cfg2[] = {
--		{ 0x830b, 0x03 },
--		{ 0x830c, 0xd0 },
--		{ 0x8348, 0x03 },
--		{ 0x8349, 0xe0 },
--		{ 0x8324, 0x72 },
--		{ 0x8325, 0x00 },
--		{ 0x832a, 0x01 },
--		{ 0x834a, 0x10 },
--	};
- 	u8 pol = 0x10;
- 
- 	if (mode->flags & DRM_MODE_FLAG_NHSYNC)
-@@ -209,10 +199,18 @@ static void lt9611_pcr_setup(struct lt9611 *lt9611, const struct drm_display_mod
- 		pol |= 0x1;
- 	regmap_write(lt9611->regmap, 0x831d, pol);
- 
--	if (mode->hdisplay == 3840)
--		regmap_multi_reg_write(lt9611->regmap, reg_cfg2, ARRAY_SIZE(reg_cfg2));
--	else
--		regmap_multi_reg_write(lt9611->regmap, reg_cfg, ARRAY_SIZE(reg_cfg));
-+	regmap_multi_reg_write(lt9611->regmap, reg_cfg, ARRAY_SIZE(reg_cfg));
-+	if (lt9611->dsi1_node) {
-+		unsigned int hact = mode->hdisplay;
-+
-+		hact >>= 2;
-+		hact += 0x50;
-+		hact = min(hact, 0x3e0U);
-+		regmap_write(lt9611->regmap, 0x830b, hact / 256);
-+		regmap_write(lt9611->regmap, 0x830c, hact % 256);
-+		regmap_write(lt9611->regmap, 0x8348, hact / 256);
-+		regmap_write(lt9611->regmap, 0x8349, hact % 256);
-+	}
- 
- 	regmap_write(lt9611->regmap, 0x8326, pcr_m);
- 
--- 
-2.39.0
-
