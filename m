@@ -1,63 +1,66 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 12A16671085
-	for <lists+freedreno@lfdr.de>; Wed, 18 Jan 2023 03:05:06 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id C23F8671087
+	for <lists+freedreno@lfdr.de>; Wed, 18 Jan 2023 03:05:10 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0950310E62F;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 85F5C10E630;
 	Wed, 18 Jan 2023 02:05:01 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ej1-x62f.google.com (mail-ej1-x62f.google.com
- [IPv6:2a00:1450:4864:20::62f])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4C28910E62F
- for <freedreno@lists.freedesktop.org>; Wed, 18 Jan 2023 02:04:58 +0000 (UTC)
-Received: by mail-ej1-x62f.google.com with SMTP id qx13so21445680ejb.13
- for <freedreno@lists.freedesktop.org>; Tue, 17 Jan 2023 18:04:58 -0800 (PST)
+Received: from mail-ej1-x629.google.com (mail-ej1-x629.google.com
+ [IPv6:2a00:1450:4864:20::629])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4682410E62C
+ for <freedreno@lists.freedesktop.org>; Wed, 18 Jan 2023 02:04:59 +0000 (UTC)
+Received: by mail-ej1-x629.google.com with SMTP id mg12so7489199ejc.5
+ for <freedreno@lists.freedesktop.org>; Tue, 17 Jan 2023 18:04:59 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=he4t6UJ6QSC3T1Ti+edP9oNYIydk/RBUqrKCOvss08s=;
- b=xce0Etiznc2C6Eny9wmN+993oebbBhdy1plEpT2xNLnwgtbjQZK+uycwOWloLFB7pK
- wu7FqZeXywddXrUOKuNQ1BgSWUzIBJkVNqMIfj+F6L+OIiZR1Dkv9TU4ZkXkp2qJpQUG
- 0c3cJT6rXaJFNfFEiok2W0vMHx0VsjcSuNvJyGP79tZxHfh/k1K+uHpL6a+L9XwXOHe0
- H8ht6TBFkbYEMfnjNH4knTXSL6pMxnZKLsHWb5M3j1vqpcdVqdIdCbRdivMvf6YWO/N5
- EoRgTtlLQ04o+Rn4+EyewyAw240nZ1/gbpHRFhyWAZzPyHeA7V4cMT6KHDTLbgZ9yQ4k
- aymA==
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=GmFljcxneeNo8UiA4f7/Tuyz9l2ONU+PVcYO5MlNZtw=;
+ b=TzQ1sMwB1RC9DxUo+AdAxkjIchDRZWROV8NmIYXgAIIm8tGAc+WZF8v7f+SI7u8QZ0
+ Fw5IC5+qfNsgpSfSztb5oRoMtmORO249BvgasoG1V2PrHf+OCl+LUGX5K7Cbt/1bmuGx
+ qIkfQOTY/xHZFFiSE765QXxPbHXnNysp7kftsNWlsx1htxxk9pHxi7VFgT1U3AvjLidJ
+ bziVaQlZSweEy4woXQ2c8gmJsvceZpBcpcPDyw+tVNjnXFnWR47AvYkFhVnCQFXMuHF+
+ pmp0xi6vaiuM12lj4EgY3vfiwFAjH8K26Ak76Hf8KU/MOzt7e6ikMLPF2AKxsyppOfgO
+ YTgw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=he4t6UJ6QSC3T1Ti+edP9oNYIydk/RBUqrKCOvss08s=;
- b=C9FERvnEDdebeCiHi+L9hYt2Ld41TkW7VPtJmdYDFzSqdNUSCZG4YyDaOJl10smgj1
- W5dhwiFWA096UjMnQfrZ/K7EgwLCYOLi80VYFAnoyKNba2Y5meMJNnuKxYfS6V7wL9uj
- Eii1VVnTbnIqN8Qug1m4QzxzaWDgLHdefctKWsUfzyo5tdFf0wiuMctN4hFkgNuBvQZv
- C/71pcqapiDW8hcitWp79morupl1LoRB0V4QnqU8/oFozIX4lGCiR1jRtp2Mz04Uteb1
- isqH9jZL0IaopbaKdahKXByW3bR/2QmnA3PVZDFVlrLAhzJ6vY4TRa3jtAUfoWuBhMLi
- zh3g==
-X-Gm-Message-State: AFqh2krB8dIbDNs1sYDTGx2rOy0qQgRJjy+PJyovaS0UwBJQZkXmlLgz
- /ckV0vrw4gkKGd8gkJF1JwODzw==
-X-Google-Smtp-Source: AMrXdXvYeU4WMbqNwPwG88LxBwDVokGmvq+fYzLUh89sDzdLlSJb7AUBKwbrSeWY9hSa7ogjHyTA3g==
-X-Received: by 2002:a17:906:3f87:b0:809:c1f4:ea09 with SMTP id
- b7-20020a1709063f8700b00809c1f4ea09mr4827344ejj.69.1674007496895; 
- Tue, 17 Jan 2023 18:04:56 -0800 (PST)
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=GmFljcxneeNo8UiA4f7/Tuyz9l2ONU+PVcYO5MlNZtw=;
+ b=6PyIZHYKY20yIMieBw6SiGbl5bJKO87a+gzm/daIl5DWZx9qYeoiWAD/cNB3/F8N2/
+ f7BDVK+3tLMZs8amDdIX/h+YDF+PkWLR6zdjOlhOzvqXtKPXJa7sgrOz8EOGJkjq5puW
+ 8viW9zL90AvpoElbYsM0Ee/5rKHFqayvqebZ+B7r8AFHyxCLYH64uX+y9JGZx+PbFg+h
+ /fVrS8WhkwOPXFLYYsiS0xLRgcR9xNt2l3YKN9H+WWZj1G/S1mVR7QdRYXY5BFzP0orB
+ QFlQ96vuFoAa8iSNoyKv/Czvp93yRtdEvN7nCz6zlJy6CSiTT2RW33VDYLpnGQHzdVQW
+ ndRg==
+X-Gm-Message-State: AFqh2kpVs2QGvwsJaBoQ2pEYz58WIDEpxLn9OQ6tZtSh22SZKjeutqUw
+ qDAGNQQSnkUV5ABXCjzkr+akqw==
+X-Google-Smtp-Source: AMrXdXtiEWdKiTBtULSL3zbwnQKxj2N+QGGIq/7/7UHhlqWC8yXA9vnF78LmQUIn8hmcExxnmd+/8A==
+X-Received: by 2002:a17:907:9885:b0:870:7340:b770 with SMTP id
+ ja5-20020a170907988500b008707340b770mr5118885ejc.54.1674007497848; 
+ Tue, 17 Jan 2023 18:04:57 -0800 (PST)
 Received: from eriador.lan (dzccz6yyyyyyyyyyybcwt-3.rev.dnainternet.fi.
  [2001:14ba:a085:4d00::8a5]) by smtp.gmail.com with ESMTPSA id
- kx4-20020a170907774400b007c10d47e748sm13836459ejc.36.2023.01.17.18.04.55
+ kx4-20020a170907774400b007c10d47e748sm13836459ejc.36.2023.01.17.18.04.56
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 17 Jan 2023 18:04:56 -0800 (PST)
+ Tue, 17 Jan 2023 18:04:57 -0800 (PST)
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 To: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
  Abhinav Kumar <quic_abhinavk@quicinc.com>
-Date: Wed, 18 Jan 2023 04:04:54 +0200
-Message-Id: <20230118020455.1689929-1-dmitry.baryshkov@linaro.org>
+Date: Wed, 18 Jan 2023 04:04:55 +0200
+Message-Id: <20230118020455.1689929-2-dmitry.baryshkov@linaro.org>
 X-Mailer: git-send-email 2.39.0
+In-Reply-To: <20230118020455.1689929-1-dmitry.baryshkov@linaro.org>
+References: <20230118020455.1689929-1-dmitry.baryshkov@linaro.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH 1/2] drm/msm/dpu: point sc8280xp_dpu_cfg to
- sc8280xp_regdma
+Subject: [Freedreno] [PATCH 2/2] drm/msm/dpu: use sm8350_regdma on SM8350
+ platform
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,27 +80,27 @@ Cc: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-SC8280XP configuration missed the reg_dma configuration. We do not use
-regdma for now, but let's put the correct pointer anyway.
+Correct sm8350_dpu_cfg.dma_cfg to point to sm8350_regdma rather than
+sm8250_regdma.
 
-Fixes: 4a352c2fc15a ("drm/msm/dpu: Introduce SC8280XP")
+Fixes: 0e91bcbb0016 ("drm/msm/dpu: Add SM8350 to hw catalog")
 Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 ---
- drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c | 2 ++
- 1 file changed, 2 insertions(+)
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
-index 4375e72a9aab..3d0fbc1746e2 100644
+index 3d0fbc1746e2..e6618e678384 100644
 --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
 +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
-@@ -2680,6 +2680,8 @@ static const struct dpu_mdss_cfg sc8280xp_dpu_cfg = {
- 	.intf = sc8280xp_intf,
+@@ -2737,7 +2737,7 @@ static const struct dpu_mdss_cfg sm8350_dpu_cfg = {
  	.vbif_count = ARRAY_SIZE(sdm845_vbif),
  	.vbif = sdm845_vbif,
-+	.reg_dma_count = 1,
-+	.dma_cfg = &sc8280xp_regdma,
- 	.perf = &sc8280xp_perf_data,
- 	.mdss_irqs = IRQ_SC8280XP_MASK,
+ 	.reg_dma_count = 1,
+-	.dma_cfg = &sm8250_regdma,
++	.dma_cfg = &sm8350_regdma,
+ 	.perf = &sm8350_perf_data,
+ 	.mdss_irqs = IRQ_SM8350_MASK,
  };
 -- 
 2.39.0
