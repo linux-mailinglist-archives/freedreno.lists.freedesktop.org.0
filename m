@@ -2,66 +2,66 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id C9B1467249B
-	for <lists+freedreno@lfdr.de>; Wed, 18 Jan 2023 18:16:38 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id CAABE6726F3
+	for <lists+freedreno@lfdr.de>; Wed, 18 Jan 2023 19:30:21 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 859CE10E7B4;
-	Wed, 18 Jan 2023 17:16:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 75F3D10E1F4;
+	Wed, 18 Jan 2023 18:30:19 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wm1-x32f.google.com (mail-wm1-x32f.google.com
- [IPv6:2a00:1450:4864:20::32f])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C282610E7B4
- for <freedreno@lists.freedesktop.org>; Wed, 18 Jan 2023 17:16:31 +0000 (UTC)
-Received: by mail-wm1-x32f.google.com with SMTP id
- l41-20020a05600c1d2900b003daf986faaeso2081073wms.3
- for <freedreno@lists.freedesktop.org>; Wed, 18 Jan 2023 09:16:31 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=q7zV/lGXR4VdaEDQ4Nx12c6m631b/jAQVVbMn5yqLiQ=;
- b=dLsS8qtz350AVKCTdJBB3SPFogxL/9PcLvhFxBeRIOqWHlZtdQd0eNdkxzTp1n2u3n
- s2g4VvcaAlbkeqcp04CC2rxtczZCxYNaY0pJq5bssFTHwhZj/JusPAqsA3dz6qmyZkFX
- KzJjKhSUHA+mFtTSQa4TMhsAAPJ6J8IMr2iIpHsqBcZXevYGfA1z0venCacPb4hWNfzX
- 8z8rSEAmQ+Taig7B57lznwfnjSGNyB3XrV22IM5KPq5TikyMqjB0zpIX5wplEvc7fxjc
- pP17hncZ/3n7tLZwFmx3TbzEJ1gsIxtNoajRNBWJwLBonp44Of1XOM8pouEJT9HVfI/c
- /Tcw==
+Received: from mail-vs1-xe2c.google.com (mail-vs1-xe2c.google.com
+ [IPv6:2607:f8b0:4864:20::e2c])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2499D10E1FD
+ for <freedreno@lists.freedesktop.org>; Wed, 18 Jan 2023 18:30:18 +0000 (UTC)
+Received: by mail-vs1-xe2c.google.com with SMTP id d66so24262841vsd.9
+ for <freedreno@lists.freedesktop.org>; Wed, 18 Jan 2023 10:30:18 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=4A0YJvhO9mTBEXJWnUYkahEQbqNSuIjy4Bxdd13jBXc=;
+ b=N0b4sz+3oAEofBJM6TYF9uNRBuNRzsOWafUK3eDGO6uglW6efzFagX2W1H9opUiQ0Q
+ tE+VMgdMK3/Xq+TF4DE9ip7d9IBLRP2pi9lqCBtrTXZ1YfWsWdRnrPXOSbO+CejI4GnS
+ G8pzQi2xc7tZnwhmU8eS4njonMSOIXnFoltfk=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=q7zV/lGXR4VdaEDQ4Nx12c6m631b/jAQVVbMn5yqLiQ=;
- b=GNH8b1E1MUGIJNAy/mV1DruQ51gzfIua7khd2mcpdzUTSlsvxaQtZO/PnHkHINSH2n
- 8K/zQjB3+QHQXDSudROVGmeVvESreWgJkq29u6BrNii0KKPYPWpkrYwEcKBd3+I6otzd
- Cavlh7hXicsd76mkpM4jD3XRtACkr5dqvVAcnEV/hKylHxYLWL2f+0Lh9XgKY24xf9mj
- SJcMhKi3+W6lsimYFmPEy8Klf4RIkE+Cb68tYx7aTk20mw+YcMYpIQHCXTulkPpg+Rvz
- ACKzO+/fTs/pW7EEGrt8a2cePb4v8mYYHkDw9yacfIM7RYLlro54ec3u7X78pKrmhqBA
- gegg==
-X-Gm-Message-State: AFqh2kqSc+NjwvNufd98BI2MSaa2HqX8eV0KPvY5zIXSDPfl70/ln9wL
- by86KhsFMFTNbKUjw3/kRjj3aw==
-X-Google-Smtp-Source: AMrXdXuKC5zRFslwGJK52dVjq2ujUBD5QgTWc+OROZLGPXQt+R//dN5r7uBR7HOQr77RLbjFEkO3/g==
-X-Received: by 2002:a05:600c:540f:b0:3da:f6fe:ba6 with SMTP id
- he15-20020a05600c540f00b003daf6fe0ba6mr7723015wmb.38.1674062190226; 
- Wed, 18 Jan 2023 09:16:30 -0800 (PST)
-Received: from sagittarius-a.chello.ie (188-141-3-169.dynamic.upc.ie.
- [188.141.3.169]) by smtp.gmail.com with ESMTPSA id
- t13-20020a05600c198d00b003cfa81e2eb4sm2772780wmq.38.2023.01.18.09.16.28
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 18 Jan 2023 09:16:29 -0800 (PST)
-From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-To: linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
- devicetree@vger.kernel.org
-Date: Wed, 18 Jan 2023 17:16:21 +0000
-Message-Id: <20230118171621.102694-3-bryan.odonoghue@linaro.org>
-X-Mailer: git-send-email 2.38.1
-In-Reply-To: <20230118171621.102694-1-bryan.odonoghue@linaro.org>
-References: <20230118171621.102694-1-bryan.odonoghue@linaro.org>
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=4A0YJvhO9mTBEXJWnUYkahEQbqNSuIjy4Bxdd13jBXc=;
+ b=JgpBJB+usPF2dTwzPz11kKg8UR0HWGADpg9A2HeMxuwS/NjwIcNoTaUAfOP2xFkFyy
+ 2trd8xiF9rz34nREmTcmFy82Qp8z6+8SRcryy6KkVRm8EmHIDZIGDx0NtC7+Uf93wC1h
+ xn6iPSCV2yJmKjwf2evLreCGsZnQGAtsjyYHjVWBVzPj2VpRGP6wo6AYgAeNkpGHqsNN
+ IPUPUUU7MtiVLixXNSs3Tuc1M589zl6RTzGqE14K2zLfpzoxXZ4Ki18pmE02JiaUnlcB
+ wF9SHviPDjSTUQ55DYGudzTei1HuV3flhzmPmkZwsKtCuqawCAhAi+YruQ0WwGj2FrgB
+ 8DEA==
+X-Gm-Message-State: AFqh2krg7zS9fAG1UuRck0S5eMG3MHLTTabAjLJdsCczE4lt4fTB/Y0e
+ tcoE9Xh5nP3/+X37CsjPk0eUrp4r7zw9CLy0
+X-Google-Smtp-Source: AMrXdXv7nlcXnYQRS/bL4m717q/0+QwHH2UUV6X0HK8IwkMKXRJ4v3BU8bxVKmMewHfYYHEErD8bnQ==
+X-Received: by 2002:a05:6102:534c:b0:3ce:e4fd:ff16 with SMTP id
+ bq12-20020a056102534c00b003cee4fdff16mr18241606vsb.12.1674066616682; 
+ Wed, 18 Jan 2023 10:30:16 -0800 (PST)
+Received: from mail-ua1-f41.google.com (mail-ua1-f41.google.com.
+ [209.85.222.41]) by smtp.gmail.com with ESMTPSA id
+ c2-20020a67e902000000b003d0fd634ba8sm1815328vso.31.2023.01.18.10.30.12
+ for <freedreno@lists.freedesktop.org>
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 18 Jan 2023 10:30:13 -0800 (PST)
+Received: by mail-ua1-f41.google.com with SMTP id a40so2020851uad.12
+ for <freedreno@lists.freedesktop.org>; Wed, 18 Jan 2023 10:30:12 -0800 (PST)
+X-Received: by 2002:ab0:2550:0:b0:419:c79a:b921 with SMTP id
+ l16-20020ab02550000000b00419c79ab921mr961197uan.100.1674066612023; Wed, 18
+ Jan 2023 10:30:12 -0800 (PST)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH v9 2/2] dt-bindings: msm: dsi-controller-main:
- Document clocks on a per compatible basis
+References: <1672193785-11003-1-git-send-email-quic_khsieh@quicinc.com>
+ <1672193785-11003-3-git-send-email-quic_khsieh@quicinc.com>
+In-Reply-To: <1672193785-11003-3-git-send-email-quic_khsieh@quicinc.com>
+From: Doug Anderson <dianders@chromium.org>
+Date: Wed, 18 Jan 2023 10:29:59 -0800
+X-Gmail-Original-Message-ID: <CAD=FV=VeBBFTZBjZNhMUBO1uTNKBwcgZM6ehnw3BGmervE7jXA@mail.gmail.com>
+Message-ID: <CAD=FV=VeBBFTZBjZNhMUBO1uTNKBwcgZM6ehnw3BGmervE7jXA@mail.gmail.com>
+To: Kuogee Hsieh <quic_khsieh@quicinc.com>
+Content-Type: text/plain; charset="UTF-8"
+Subject: Re: [Freedreno] [PATCH v6 2/2] drm/msm/dp: enhance dp controller isr
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,271 +74,282 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: dri-devel@lists.freedesktop.org, Rob Herring <robh@kernel.org>,
- krzysztof.kozlowski+dt@linaro.org, sean@poorly.run, andersson@kernel.org,
- konrad.dybcio@somainline.org, quic_abhinavk@quicinc.com, david@ixit.cz,
- dianders@chromium.org, Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
- robdclark@gmail.com, robh+dt@kernel.org, agross@kernel.org, daniel@ffwll.ch,
- dmitry.baryshkov@linaro.org, bryan.odonoghue@linaro.org, swboyd@chromium.org,
- airlied@gmail.com, linux-kernel@vger.kernel.org
+Cc: freedreno@lists.freedesktop.org, quic_sbillaka@quicinc.com,
+ quic_abhinavk@quicinc.com, airlied@gmail.com, andersson@kernel.org,
+ vkoul@kernel.org, dri-devel@lists.freedesktop.org, swboyd@chromium.org,
+ robdclark@gmail.com, agross@kernel.org, daniel@ffwll.ch,
+ linux-arm-msm@vger.kernel.org, dmitry.baryshkov@linaro.org, sean@poorly.run,
+ linux-kernel@vger.kernel.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Each compatible has a different set of clocks which are associated with it.
-Add in the list of clocks for each compatible.
+Hi,
 
-Acked-by: Rob Herring <robh@kernel.org>
-Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-Signed-off-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
----
- .../display/msm/dsi-controller-main.yaml      | 218 ++++++++++++++++--
- 1 file changed, 201 insertions(+), 17 deletions(-)
+On Tue, Dec 27, 2022 at 6:16 PM Kuogee Hsieh <quic_khsieh@quicinc.com> wrote:
+>
+> dp_display_irq_handler() is the main isr handler with the helps
+> of two sub isr, dp_aux_isr and dp_ctrl_isr, to service all DP
+> interrupts on every irq triggered. Current all three isr does
+> not return IRQ_HANDLED if there are any interrupts it had
+> serviced. This patch fix this ambiguity by having all isr
+> return IRQ_HANDLED if there are interrupts had been serviced
+> or IRQ_NONE otherwise.
+>
+> Changes in v5:
+> -- move complete into dp_aux_native_handler()
+> -- move complete into dp_aux_i2c_handler()
+> -- restore null ctrl check at isr
+> -- return IRQ_NODE directly
+>
+> Signed-off-by: Kuogee Hsieh <quic_khsieh@quicinc.com>
+> Suggested-by: Stephen Boyd <swboyd@chromium.org>
+> ---
+>  drivers/gpu/drm/msm/dp/dp_aux.c     | 95 ++++++++++++++++++++++++++-----------
+>  drivers/gpu/drm/msm/dp/dp_aux.h     |  2 +-
+>  drivers/gpu/drm/msm/dp/dp_ctrl.c    | 12 ++++-
+>  drivers/gpu/drm/msm/dp/dp_ctrl.h    |  2 +-
+>  drivers/gpu/drm/msm/dp/dp_display.c | 16 +++++--
+>  5 files changed, 89 insertions(+), 38 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/msm/dp/dp_aux.c b/drivers/gpu/drm/msm/dp/dp_aux.c
+> index cc3efed..d01ff45 100644
+> --- a/drivers/gpu/drm/msm/dp/dp_aux.c
+> +++ b/drivers/gpu/drm/msm/dp/dp_aux.c
+> @@ -162,45 +162,84 @@ static ssize_t dp_aux_cmd_fifo_rx(struct dp_aux_private *aux,
+>         return i;
+>  }
+>
+> -static void dp_aux_native_handler(struct dp_aux_private *aux, u32 isr)
+> +static irqreturn_t dp_aux_native_handler(struct dp_aux_private *aux, u32 isr)
+>  {
+> -       if (isr & DP_INTR_AUX_I2C_DONE)
+> +       irqreturn_t ret = IRQ_NONE;
+> +
+> +       if (isr & DP_INTR_AUX_I2C_DONE) {
+>                 aux->aux_error_num = DP_AUX_ERR_NONE;
+> -       else if (isr & DP_INTR_WRONG_ADDR)
+> +               ret = IRQ_HANDLED;
+> +       } else if (isr & DP_INTR_WRONG_ADDR) {
+>                 aux->aux_error_num = DP_AUX_ERR_ADDR;
+> -       else if (isr & DP_INTR_TIMEOUT)
+> +               ret = IRQ_HANDLED;
+> +       } else if (isr & DP_INTR_TIMEOUT) {
+>                 aux->aux_error_num = DP_AUX_ERR_TOUT;
+> -       if (isr & DP_INTR_NACK_DEFER)
+> +               ret = IRQ_HANDLED;
+> +       }
+> +
+> +       if (isr & DP_INTR_NACK_DEFER) {
+>                 aux->aux_error_num = DP_AUX_ERR_NACK;
+> +               ret = IRQ_HANDLED;
+> +       }
+> +
+>         if (isr & DP_INTR_AUX_ERROR) {
+>                 aux->aux_error_num = DP_AUX_ERR_PHY;
+>                 dp_catalog_aux_clear_hw_interrupts(aux->catalog);
+> +               ret = IRQ_HANDLED;
+>         }
 
-diff --git a/Documentation/devicetree/bindings/display/msm/dsi-controller-main.yaml b/Documentation/devicetree/bindings/display/msm/dsi-controller-main.yaml
-index 35668caa190c4..ad1ba15b74c19 100644
---- a/Documentation/devicetree/bindings/display/msm/dsi-controller-main.yaml
-+++ b/Documentation/devicetree/bindings/display/msm/dsi-controller-main.yaml
-@@ -9,9 +9,6 @@ title: Qualcomm Display DSI controller
- maintainers:
-   - Krishna Manikandan <quic_mkrishn@quicinc.com>
- 
--allOf:
--  - $ref: "../dsi-controller.yaml#"
--
- properties:
-   compatible:
-     oneOf:
-@@ -50,22 +47,23 @@ properties:
-     maxItems: 1
- 
-   clocks:
--    items:
--      - description: Display byte clock
--      - description: Display byte interface clock
--      - description: Display pixel clock
--      - description: Display core clock
--      - description: Display AHB clock
--      - description: Display AXI clock
-+    description: |
-+      Several clocks are used, depending on the variant. Typical ones are::
-+       - bus:: Display AHB clock.
-+       - byte:: Display byte clock.
-+       - byte_intf:: Display byte interface clock.
-+       - core:: Display core clock.
-+       - core_mss:: Core MultiMedia SubSystem clock.
-+       - iface:: Display AXI clock.
-+       - mdp_core:: MDP Core clock.
-+       - mnoc:: MNOC clock
-+       - pixel:: Display pixel clock.
-+    minItems: 3
-+    maxItems: 9
- 
-   clock-names:
--    items:
--      - const: byte
--      - const: byte_intf
--      - const: pixel
--      - const: core
--      - const: iface
--      - const: bus
-+    minItems: 3
-+    maxItems: 9
- 
-   phys:
-     maxItems: 1
-@@ -161,6 +159,192 @@ required:
-   - assigned-clock-parents
-   - ports
- 
-+allOf:
-+  - $ref: ../dsi-controller.yaml#
-+  - if:
-+      properties:
-+        compatible:
-+          contains:
-+            enum:
-+              - qcom,apq8064-dsi-ctrl
-+    then:
-+      properties:
-+        clocks:
-+          maxItems: 7
-+        clock-names:
-+          items:
-+            - const: iface
-+            - const: bus
-+            - const: core_mmss
-+            - const: src
-+            - const: byte
-+            - const: pixel
-+            - const: core
-+
-+  - if:
-+      properties:
-+        compatible:
-+          contains:
-+            enum:
-+              - qcom,msm8916-dsi-ctrl
-+    then:
-+      properties:
-+        clocks:
-+          maxItems: 6
-+        clock-names:
-+          items:
-+            - const: mdp_core
-+            - const: iface
-+            - const: bus
-+            - const: byte
-+            - const: pixel
-+            - const: core
-+
-+  - if:
-+      properties:
-+        compatible:
-+          contains:
-+            enum:
-+              - qcom,msm8953-dsi-ctrl
-+    then:
-+      properties:
-+        clocks:
-+          maxItems: 6
-+        clock-names:
-+          items:
-+            - const: mdp_core
-+            - const: iface
-+            - const: bus
-+            - const: byte
-+            - const: pixel
-+            - const: core
-+
-+  - if:
-+      properties:
-+        compatible:
-+          contains:
-+            enum:
-+              - qcom,msm8974-dsi-ctrl
-+    then:
-+      properties:
-+        clocks:
-+          maxItems: 7
-+        clock-names:
-+          items:
-+            - const: mdp_core
-+            - const: iface
-+            - const: bus
-+            - const: byte
-+            - const: pixel
-+            - const: core
-+            - const: core_mmss
-+
-+  - if:
-+      properties:
-+        compatible:
-+          contains:
-+            enum:
-+              - qcom,msm8996-dsi-ctrl
-+    then:
-+      properties:
-+        clocks:
-+          maxItems: 7
-+        clock-names:
-+          items:
-+            - const: mdp_core
-+            - const: byte
-+            - const: iface
-+            - const: bus
-+            - const: core_mmss
-+            - const: pixel
-+            - const: core
-+
-+  - if:
-+      properties:
-+        compatible:
-+          contains:
-+            enum:
-+              - qcom,msm8998-dsi-ctrl
-+    then:
-+      properties:
-+        clocks:
-+          maxItems: 6
-+        clock-names:
-+          items:
-+            - const: byte
-+            - const: byte_intf
-+            - const: pixel
-+            - const: core
-+            - const: iface
-+            - const: bus
-+
-+  - if:
-+      properties:
-+        compatible:
-+          contains:
-+            enum:
-+              - qcom,sc7180-dsi-ctrl
-+              - qcom,sc7280-dsi-ctrl
-+              - qcom,sm8250-dsi-ctrl
-+              - qcom,sm8150-dsi-ctrl
-+              - qcom,sm8250-dsi-ctrl
-+              - qcom,sm8350-dsi-ctrl
-+              - qcom,sm8450-dsi-ctrl
-+              - qcom,sm8550-dsi-ctrl
-+    then:
-+      properties:
-+        clocks:
-+          maxItems: 6
-+        clock-names:
-+          items:
-+            - const: byte
-+            - const: byte_intf
-+            - const: pixel
-+            - const: core
-+            - const: iface
-+            - const: bus
-+
-+  - if:
-+      properties:
-+        compatible:
-+          contains:
-+            enum:
-+              - qcom,sdm660-dsi-ctrl
-+    then:
-+      properties:
-+        clocks:
-+          maxItems: 9
-+        clock-names:
-+          items:
-+            - const: mdp_core
-+            - const: byte
-+            - const: byte_intf
-+            - const: mnoc
-+            - const: iface
-+            - const: bus
-+            - const: core_mmss
-+            - const: pixel
-+            - const: core
-+
-+  - if:
-+      properties:
-+        compatible:
-+          contains:
-+            enum:
-+              - qcom,sdm845-dsi-ctrl
-+    then:
-+      properties:
-+        clocks:
-+          maxItems: 6
-+        clock-names:
-+          items:
-+            - const: byte
-+            - const: byte_intf
-+            - const: pixel
-+            - const: core
-+            - const: iface
-+            - const: bus
-+
- additionalProperties: false
- 
- examples:
--- 
-2.38.1
+The end result of the above is a weird mix of "if" and "else if" for
+no apparent reason. All except one of them just updates the exact same
+variable so doing more than one is mostly useless. If you made it
+consistently with "else" then the whole thing could be much easier,
+like this (untested):
 
+static irqreturn_t dp_aux_native_handler(struct dp_aux_private *aux, u32 isr)
+{
+    if (isr & DP_INTR_AUX_ERROR) {
+        aux->aux_error_num = DP_AUX_ERR_PHY;
+        dp_catalog_aux_clear_hw_interrupts(aux->catalog);
+    } else if (isr & DP_INTR_NACK_DEFER) {
+        aux->aux_error_num = DP_AUX_ERR_NACK;
+    } else if (isr & DP_INTR_AUX_I2C_DONE) {
+        aux->aux_error_num = DP_AUX_ERR_NONE;
+    } else if (isr & DP_INTR_WRONG_ADDR) {
+        aux->aux_error_num = DP_AUX_ERR_ADDR;
+    } else if (isr & DP_INTR_TIMEOUT) {
+        aux->aux_error_num = DP_AUX_ERR_TOUT;
+    } else {
+        return IRQ_NONE;
+    }
+
+    complete(&aux->comp);
+
+    return IRQ_HANDLED;
+}
+
+Note that I changed the order to make sure that the behavior was
+exactly the same (previously later tests without the "if" would
+override "aux_error_num" so I moved them first. Also previously
+dp_catalog_aux_clear_hw_interrupts() would always be called for the
+PHY error even if other errors were present so my new proposal
+preserves this behavior.
+
+
+> +
+> +       if (ret == IRQ_HANDLED)
+> +               complete(&aux->comp);
+> +
+> +       return ret;
+>  }
+>
+> -static void dp_aux_i2c_handler(struct dp_aux_private *aux, u32 isr)
+> +static irqreturn_t dp_aux_i2c_handler(struct dp_aux_private *aux, u32 isr)
+>  {
+> +       irqreturn_t ret = IRQ_NONE;
+> +
+>         if (isr & DP_INTR_AUX_I2C_DONE) {
+>                 if (isr & (DP_INTR_I2C_NACK | DP_INTR_I2C_DEFER))
+>                         aux->aux_error_num = DP_AUX_ERR_NACK;
+>                 else
+>                         aux->aux_error_num = DP_AUX_ERR_NONE;
+> -       } else {
+> -               if (isr & DP_INTR_WRONG_ADDR)
+> -                       aux->aux_error_num = DP_AUX_ERR_ADDR;
+> -               else if (isr & DP_INTR_TIMEOUT)
+> -                       aux->aux_error_num = DP_AUX_ERR_TOUT;
+> -               if (isr & DP_INTR_NACK_DEFER)
+> -                       aux->aux_error_num = DP_AUX_ERR_NACK_DEFER;
+> -               if (isr & DP_INTR_I2C_NACK)
+> -                       aux->aux_error_num = DP_AUX_ERR_NACK;
+> -               if (isr & DP_INTR_I2C_DEFER)
+> -                       aux->aux_error_num = DP_AUX_ERR_DEFER;
+> -               if (isr & DP_INTR_AUX_ERROR) {
+> -                       aux->aux_error_num = DP_AUX_ERR_PHY;
+> -                       dp_catalog_aux_clear_hw_interrupts(aux->catalog);
+> -               }
+> +
+> +               return IRQ_HANDLED;
+
+It's hard to see in "diff" form, but if you apply your patch and check
+I think there's a bug. Specifically if DP_INTR_AUX_I2C_DONE is found
+then we'll return IRQ_HANDLED without completing.
+
+Also: same comment as with the above function, this is all cleaner if
+you just consistently use "else if". Untested:
+
+static irqreturn_t dp_aux_i2c_handler(struct dp_aux_private *aux, u32 isr)
+{
+    if (isr & DP_INTR_AUX_I2C_DONE) {
+        if (isr & (DP_INTR_I2C_NACK | DP_INTR_I2C_DEFER))
+            aux->aux_error_num = DP_AUX_ERR_NACK;
+        else
+            aux->aux_error_num = DP_AUX_ERR_NONE;
+    } else if (isr & DP_INTR_AUX_ERROR) {
+        aux->aux_error_num = DP_AUX_ERR_PHY;
+        dp_catalog_aux_clear_hw_interrupts(aux->catalog);
+    } else     if (isr & DP_INTR_I2C_DEFER) {
+        aux->aux_error_num = DP_AUX_ERR_DEFER;
+    } else if (isr & DP_INTR_I2C_NACK) {
+        aux->aux_error_num = DP_AUX_ERR_NACK;
+    } else if (isr & DP_INTR_NACK_DEFER) {
+        aux->aux_error_num = DP_AUX_ERR_NACK_DEFER;
+    } else if (isr & DP_INTR_WRONG_ADDR) {
+        aux->aux_error_num = DP_AUX_ERR_ADDR;
+    } else if (isr & DP_INTR_TIMEOUT) {
+        aux->aux_error_num = DP_AUX_ERR_TOUT;
+    } else {
+        return IRQ_NONE;
+    }
+
+    complete(&aux->comp);
+
+    return IRQ_HANDLED;
+}
+
+>         }
+> +
+> +       if (isr & DP_INTR_WRONG_ADDR) {
+> +               aux->aux_error_num = DP_AUX_ERR_ADDR;
+> +               ret = IRQ_HANDLED;
+> +       } else if (isr & DP_INTR_TIMEOUT) {
+> +               aux->aux_error_num = DP_AUX_ERR_TOUT;
+> +               ret = IRQ_HANDLED;
+> +       }
+> +
+> +       if (isr & DP_INTR_NACK_DEFER) {
+> +               aux->aux_error_num = DP_AUX_ERR_NACK_DEFER;
+> +               ret = IRQ_HANDLED;
+> +       }
+> +
+> +       if (isr & DP_INTR_I2C_NACK) {
+> +               aux->aux_error_num = DP_AUX_ERR_NACK;
+> +               ret = IRQ_HANDLED;
+> +       }
+> +
+> +       if (isr & DP_INTR_I2C_DEFER) {
+> +               aux->aux_error_num = DP_AUX_ERR_DEFER;
+> +               ret = IRQ_HANDLED;
+> +       }
+> +
+> +       if (isr & DP_INTR_AUX_ERROR) {
+> +               aux->aux_error_num = DP_AUX_ERR_PHY;
+> +               dp_catalog_aux_clear_hw_interrupts(aux->catalog);
+> +               ret = IRQ_HANDLED;
+> +       }
+> +
+> +       if (ret == IRQ_HANDLED)
+> +               complete(&aux->comp);
+> +
+> +       return ret;
+>  }
+>
+>  static void dp_aux_update_offset_and_segment(struct dp_aux_private *aux,
+> @@ -409,14 +448,14 @@ static ssize_t dp_aux_transfer(struct drm_dp_aux *dp_aux,
+>         return ret;
+>  }
+>
+> -void dp_aux_isr(struct drm_dp_aux *dp_aux)
+> +irqreturn_t dp_aux_isr(struct drm_dp_aux *dp_aux)
+>  {
+>         u32 isr;
+>         struct dp_aux_private *aux;
+>
+>         if (!dp_aux) {
+>                 DRM_ERROR("invalid input\n");
+> -               return;
+> +               return IRQ_NONE;
+>         }
+>
+>         aux = container_of(dp_aux, struct dp_aux_private, dp_aux);
+> @@ -425,17 +464,15 @@ void dp_aux_isr(struct drm_dp_aux *dp_aux)
+>
+>         /* no interrupts pending, return immediately */
+>         if (!isr)
+> -               return;
+> +               return IRQ_NONE;
+>
+>         if (!aux->cmd_busy)
+> -               return;
+> +               return IRQ_NONE;
+>
+>         if (aux->native)
+> -               dp_aux_native_handler(aux, isr);
+> +               return dp_aux_native_handler(aux, isr);
+>         else
+> -               dp_aux_i2c_handler(aux, isr);
+> -
+> -       complete(&aux->comp);
+> +               return dp_aux_i2c_handler(aux, isr);
+
+Personally, I wouldn't have done it this way. I guess that means I
+disagree with Stephen. I'm not dead-set against this way and it's fine
+if you want to continue with it. If I were doing it, though, then I
+would always return IRQ_HANDLED IF dp_catalog_aux_get_irq() returned
+anything non-zero. Why? Officially if dp_catalog_aux_get_irq() returns
+something non-zero then you know for sure that there was an interrupt
+for this device and officially you have "handled" it by acking it,
+since dp_catalog_aux_get_irq() acks all the bits that it returns. That
+means that even if dp_aux_native_handler() or dp_aux_i2c_handler()
+didn't do anything with the interrupt you at least know that it was
+for us (so if the IRQ is shared we properly report back to the IRQ
+subsystem) and that it won't keep firing over and over (because we
+acked it).
+
+NOTE: I still like having the complete() call in
+dp_aux_native_handler() and dp_aux_i2c_handler() and, to me, that part
+of this patch is worthwhile. That makes it more obvious that the code
+is truly expecting that complete to be called for all error cases as
+well as transfer finished.
+
+-Doug
