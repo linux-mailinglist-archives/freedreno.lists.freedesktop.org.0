@@ -2,66 +2,76 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id CAABE6726F3
-	for <lists+freedreno@lfdr.de>; Wed, 18 Jan 2023 19:30:21 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8C944672775
+	for <lists+freedreno@lfdr.de>; Wed, 18 Jan 2023 19:48:30 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 75F3D10E1F4;
-	Wed, 18 Jan 2023 18:30:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0EE2510E207;
+	Wed, 18 Jan 2023 18:48:28 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-vs1-xe2c.google.com (mail-vs1-xe2c.google.com
- [IPv6:2607:f8b0:4864:20::e2c])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2499D10E1FD
- for <freedreno@lists.freedesktop.org>; Wed, 18 Jan 2023 18:30:18 +0000 (UTC)
-Received: by mail-vs1-xe2c.google.com with SMTP id d66so24262841vsd.9
- for <freedreno@lists.freedesktop.org>; Wed, 18 Jan 2023 10:30:18 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=4A0YJvhO9mTBEXJWnUYkahEQbqNSuIjy4Bxdd13jBXc=;
- b=N0b4sz+3oAEofBJM6TYF9uNRBuNRzsOWafUK3eDGO6uglW6efzFagX2W1H9opUiQ0Q
- tE+VMgdMK3/Xq+TF4DE9ip7d9IBLRP2pi9lqCBtrTXZ1YfWsWdRnrPXOSbO+CejI4GnS
- G8pzQi2xc7tZnwhmU8eS4njonMSOIXnFoltfk=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=4A0YJvhO9mTBEXJWnUYkahEQbqNSuIjy4Bxdd13jBXc=;
- b=JgpBJB+usPF2dTwzPz11kKg8UR0HWGADpg9A2HeMxuwS/NjwIcNoTaUAfOP2xFkFyy
- 2trd8xiF9rz34nREmTcmFy82Qp8z6+8SRcryy6KkVRm8EmHIDZIGDx0NtC7+Uf93wC1h
- xn6iPSCV2yJmKjwf2evLreCGsZnQGAtsjyYHjVWBVzPj2VpRGP6wo6AYgAeNkpGHqsNN
- IPUPUUU7MtiVLixXNSs3Tuc1M589zl6RTzGqE14K2zLfpzoxXZ4Ki18pmE02JiaUnlcB
- wF9SHviPDjSTUQ55DYGudzTei1HuV3flhzmPmkZwsKtCuqawCAhAi+YruQ0WwGj2FrgB
- 8DEA==
-X-Gm-Message-State: AFqh2krg7zS9fAG1UuRck0S5eMG3MHLTTabAjLJdsCczE4lt4fTB/Y0e
- tcoE9Xh5nP3/+X37CsjPk0eUrp4r7zw9CLy0
-X-Google-Smtp-Source: AMrXdXv7nlcXnYQRS/bL4m717q/0+QwHH2UUV6X0HK8IwkMKXRJ4v3BU8bxVKmMewHfYYHEErD8bnQ==
-X-Received: by 2002:a05:6102:534c:b0:3ce:e4fd:ff16 with SMTP id
- bq12-20020a056102534c00b003cee4fdff16mr18241606vsb.12.1674066616682; 
- Wed, 18 Jan 2023 10:30:16 -0800 (PST)
-Received: from mail-ua1-f41.google.com (mail-ua1-f41.google.com.
- [209.85.222.41]) by smtp.gmail.com with ESMTPSA id
- c2-20020a67e902000000b003d0fd634ba8sm1815328vso.31.2023.01.18.10.30.12
- for <freedreno@lists.freedesktop.org>
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 18 Jan 2023 10:30:13 -0800 (PST)
-Received: by mail-ua1-f41.google.com with SMTP id a40so2020851uad.12
- for <freedreno@lists.freedesktop.org>; Wed, 18 Jan 2023 10:30:12 -0800 (PST)
-X-Received: by 2002:ab0:2550:0:b0:419:c79a:b921 with SMTP id
- l16-20020ab02550000000b00419c79ab921mr961197uan.100.1674066612023; Wed, 18
- Jan 2023 10:30:12 -0800 (PST)
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B1F0D10E1F3;
+ Wed, 18 Jan 2023 18:48:25 +0000 (UTC)
+Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 30IHfcmW002033; Wed, 18 Jan 2023 18:48:20 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
+ h=message-id : date :
+ mime-version : subject : to : cc : references : from : in-reply-to :
+ content-type : content-transfer-encoding; s=qcppdkim1;
+ bh=uJfm5CL/+NdI4EnWijvhwjnyLf6yI1gudIzQEf072OI=;
+ b=DZsGaA77VC7M5bskA84Uunz/EKEwyb6b3y04He3t12U3i683HxZ5wK/uGcwq8asaGyPL
+ 7P2YwrrCOVFPQgnZojdE0xw4ARpWdgu7H0eVbeosF4VmJ0BzEpwSYtlwKHrsOjlOpZMj
+ Yh2Tf1kdd9dGrwn4aawH7uOnzlMaBrB2f3ImhAVO7w2gmNg/EBHcU4w09gJ6apgJ6zr7
+ erkGHX8zNv2I1ptRuJZJh6Crcc8Tdwz+Wpc5jrFn5FEqQpC52Wpi48tPUiB38q3469BE
+ GTn9cx+x7YvNIp7C6MpmuP866TVBjRavNR49SOYnA69zm1q/5CewMB1Ezt7tlqQQohAH /g== 
+Received: from nalasppmta01.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3n602k2tgd-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 18 Jan 2023 18:48:20 +0000
+Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
+ [10.47.209.196])
+ by NALASPPMTA01.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 30IImJrm006460
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 18 Jan 2023 18:48:19 GMT
+Received: from [10.110.108.90] (10.80.80.8) by nalasex01a.na.qualcomm.com
+ (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.36; Wed, 18 Jan
+ 2023 10:48:18 -0800
+Message-ID: <62d4838d-5d32-15d7-5c48-d5c3df95c80e@quicinc.com>
+Date: Wed, 18 Jan 2023 10:48:18 -0800
 MIME-Version: 1.0
-References: <1672193785-11003-1-git-send-email-quic_khsieh@quicinc.com>
- <1672193785-11003-3-git-send-email-quic_khsieh@quicinc.com>
-In-Reply-To: <1672193785-11003-3-git-send-email-quic_khsieh@quicinc.com>
-From: Doug Anderson <dianders@chromium.org>
-Date: Wed, 18 Jan 2023 10:29:59 -0800
-X-Gmail-Original-Message-ID: <CAD=FV=VeBBFTZBjZNhMUBO1uTNKBwcgZM6ehnw3BGmervE7jXA@mail.gmail.com>
-Message-ID: <CAD=FV=VeBBFTZBjZNhMUBO1uTNKBwcgZM6ehnw3BGmervE7jXA@mail.gmail.com>
-To: Kuogee Hsieh <quic_khsieh@quicinc.com>
-Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [PATCH v6 2/2] drm/msm/dp: enhance dp controller isr
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
+ Thunderbird/91.6.2
+Content-Language: en-US
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Rob Clark
+ <robdclark@gmail.com>, Sean Paul <sean@poorly.run>
+References: <20230115140022.489881-1-dmitry.baryshkov@linaro.org>
+From: Abhinav Kumar <quic_abhinavk@quicinc.com>
+In-Reply-To: <20230115140022.489881-1-dmitry.baryshkov@linaro.org>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-ORIG-GUID: p0myEsuXdL9uMa1r4H3TlKGMCfoMIRRE
+X-Proofpoint-GUID: p0myEsuXdL9uMa1r4H3TlKGMCfoMIRRE
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.219,Aquarius:18.0.923,Hydra:6.0.562,FMLib:17.11.122.1
+ definitions=2023-01-18_05,2023-01-18_01,2022-06-22_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ mlxlogscore=999 spamscore=0
+ suspectscore=0 clxscore=1015 impostorscore=0 mlxscore=0 lowpriorityscore=0
+ priorityscore=1501 adultscore=0 malwarescore=0 phishscore=0 bulkscore=0
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2212070000
+ definitions=main-2301180158
+Subject: Re: [Freedreno] [RFC PATCH] drm/msm/dpu: enable
+ DPU_MDP_AUDIO_SELECT for sc8180x
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,282 +84,42 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, quic_sbillaka@quicinc.com,
- quic_abhinavk@quicinc.com, airlied@gmail.com, andersson@kernel.org,
- vkoul@kernel.org, dri-devel@lists.freedesktop.org, swboyd@chromium.org,
- robdclark@gmail.com, agross@kernel.org, daniel@ffwll.ch,
- linux-arm-msm@vger.kernel.org, dmitry.baryshkov@linaro.org, sean@poorly.run,
- linux-kernel@vger.kernel.org
+Cc: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
+ Bjorn Andersson <andersson@kernel.org>, dri-devel@lists.freedesktop.org,
+ Stephen Boyd <swboyd@chromium.org>, Daniel Vetter <daniel@ffwll.ch>,
+ David Airlie <airlied@gmail.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Hi,
 
-On Tue, Dec 27, 2022 at 6:16 PM Kuogee Hsieh <quic_khsieh@quicinc.com> wrote:
->
-> dp_display_irq_handler() is the main isr handler with the helps
-> of two sub isr, dp_aux_isr and dp_ctrl_isr, to service all DP
-> interrupts on every irq triggered. Current all three isr does
-> not return IRQ_HANDLED if there are any interrupts it had
-> serviced. This patch fix this ambiguity by having all isr
-> return IRQ_HANDLED if there are interrupts had been serviced
-> or IRQ_NONE otherwise.
->
-> Changes in v5:
-> -- move complete into dp_aux_native_handler()
-> -- move complete into dp_aux_i2c_handler()
-> -- restore null ctrl check at isr
-> -- return IRQ_NODE directly
->
-> Signed-off-by: Kuogee Hsieh <quic_khsieh@quicinc.com>
-> Suggested-by: Stephen Boyd <swboyd@chromium.org>
+
+On 1/15/2023 6:00 AM, Dmitry Baryshkov wrote:
+> According to the discussion ([1]) on the mailing list, platforms before
+> sm8250 (and derivatives) should program HDMI_DP_CORE_SELECT register to
+> route audio to the DP ports. Enable DPU_MDP_AUDIO_SELECT on sc8180x to
+> program correponding register.
+> 
+> [1] https://lore.kernel.org/all/f86504ba-835a-6e30-6c30-8bb89b1359c4@quicinc.com/
+> 
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+
+Yes, I confirm this is correct, hence
+
+Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
 > ---
->  drivers/gpu/drm/msm/dp/dp_aux.c     | 95 ++++++++++++++++++++++++++-----------
->  drivers/gpu/drm/msm/dp/dp_aux.h     |  2 +-
->  drivers/gpu/drm/msm/dp/dp_ctrl.c    | 12 ++++-
->  drivers/gpu/drm/msm/dp/dp_ctrl.h    |  2 +-
->  drivers/gpu/drm/msm/dp/dp_display.c | 16 +++++--
->  5 files changed, 89 insertions(+), 38 deletions(-)
->
-> diff --git a/drivers/gpu/drm/msm/dp/dp_aux.c b/drivers/gpu/drm/msm/dp/dp_aux.c
-> index cc3efed..d01ff45 100644
-> --- a/drivers/gpu/drm/msm/dp/dp_aux.c
-> +++ b/drivers/gpu/drm/msm/dp/dp_aux.c
-> @@ -162,45 +162,84 @@ static ssize_t dp_aux_cmd_fifo_rx(struct dp_aux_private *aux,
->         return i;
->  }
->
-> -static void dp_aux_native_handler(struct dp_aux_private *aux, u32 isr)
-> +static irqreturn_t dp_aux_native_handler(struct dp_aux_private *aux, u32 isr)
->  {
-> -       if (isr & DP_INTR_AUX_I2C_DONE)
-> +       irqreturn_t ret = IRQ_NONE;
-> +
-> +       if (isr & DP_INTR_AUX_I2C_DONE) {
->                 aux->aux_error_num = DP_AUX_ERR_NONE;
-> -       else if (isr & DP_INTR_WRONG_ADDR)
-> +               ret = IRQ_HANDLED;
-> +       } else if (isr & DP_INTR_WRONG_ADDR) {
->                 aux->aux_error_num = DP_AUX_ERR_ADDR;
-> -       else if (isr & DP_INTR_TIMEOUT)
-> +               ret = IRQ_HANDLED;
-> +       } else if (isr & DP_INTR_TIMEOUT) {
->                 aux->aux_error_num = DP_AUX_ERR_TOUT;
-> -       if (isr & DP_INTR_NACK_DEFER)
-> +               ret = IRQ_HANDLED;
-> +       }
-> +
-> +       if (isr & DP_INTR_NACK_DEFER) {
->                 aux->aux_error_num = DP_AUX_ERR_NACK;
-> +               ret = IRQ_HANDLED;
-> +       }
-> +
->         if (isr & DP_INTR_AUX_ERROR) {
->                 aux->aux_error_num = DP_AUX_ERR_PHY;
->                 dp_catalog_aux_clear_hw_interrupts(aux->catalog);
-> +               ret = IRQ_HANDLED;
->         }
-
-The end result of the above is a weird mix of "if" and "else if" for
-no apparent reason. All except one of them just updates the exact same
-variable so doing more than one is mostly useless. If you made it
-consistently with "else" then the whole thing could be much easier,
-like this (untested):
-
-static irqreturn_t dp_aux_native_handler(struct dp_aux_private *aux, u32 isr)
-{
-    if (isr & DP_INTR_AUX_ERROR) {
-        aux->aux_error_num = DP_AUX_ERR_PHY;
-        dp_catalog_aux_clear_hw_interrupts(aux->catalog);
-    } else if (isr & DP_INTR_NACK_DEFER) {
-        aux->aux_error_num = DP_AUX_ERR_NACK;
-    } else if (isr & DP_INTR_AUX_I2C_DONE) {
-        aux->aux_error_num = DP_AUX_ERR_NONE;
-    } else if (isr & DP_INTR_WRONG_ADDR) {
-        aux->aux_error_num = DP_AUX_ERR_ADDR;
-    } else if (isr & DP_INTR_TIMEOUT) {
-        aux->aux_error_num = DP_AUX_ERR_TOUT;
-    } else {
-        return IRQ_NONE;
-    }
-
-    complete(&aux->comp);
-
-    return IRQ_HANDLED;
-}
-
-Note that I changed the order to make sure that the behavior was
-exactly the same (previously later tests without the "if" would
-override "aux_error_num" so I moved them first. Also previously
-dp_catalog_aux_clear_hw_interrupts() would always be called for the
-PHY error even if other errors were present so my new proposal
-preserves this behavior.
-
-
-> +
-> +       if (ret == IRQ_HANDLED)
-> +               complete(&aux->comp);
-> +
-> +       return ret;
->  }
->
-> -static void dp_aux_i2c_handler(struct dp_aux_private *aux, u32 isr)
-> +static irqreturn_t dp_aux_i2c_handler(struct dp_aux_private *aux, u32 isr)
->  {
-> +       irqreturn_t ret = IRQ_NONE;
-> +
->         if (isr & DP_INTR_AUX_I2C_DONE) {
->                 if (isr & (DP_INTR_I2C_NACK | DP_INTR_I2C_DEFER))
->                         aux->aux_error_num = DP_AUX_ERR_NACK;
->                 else
->                         aux->aux_error_num = DP_AUX_ERR_NONE;
-> -       } else {
-> -               if (isr & DP_INTR_WRONG_ADDR)
-> -                       aux->aux_error_num = DP_AUX_ERR_ADDR;
-> -               else if (isr & DP_INTR_TIMEOUT)
-> -                       aux->aux_error_num = DP_AUX_ERR_TOUT;
-> -               if (isr & DP_INTR_NACK_DEFER)
-> -                       aux->aux_error_num = DP_AUX_ERR_NACK_DEFER;
-> -               if (isr & DP_INTR_I2C_NACK)
-> -                       aux->aux_error_num = DP_AUX_ERR_NACK;
-> -               if (isr & DP_INTR_I2C_DEFER)
-> -                       aux->aux_error_num = DP_AUX_ERR_DEFER;
-> -               if (isr & DP_INTR_AUX_ERROR) {
-> -                       aux->aux_error_num = DP_AUX_ERR_PHY;
-> -                       dp_catalog_aux_clear_hw_interrupts(aux->catalog);
-> -               }
-> +
-> +               return IRQ_HANDLED;
-
-It's hard to see in "diff" form, but if you apply your patch and check
-I think there's a bug. Specifically if DP_INTR_AUX_I2C_DONE is found
-then we'll return IRQ_HANDLED without completing.
-
-Also: same comment as with the above function, this is all cleaner if
-you just consistently use "else if". Untested:
-
-static irqreturn_t dp_aux_i2c_handler(struct dp_aux_private *aux, u32 isr)
-{
-    if (isr & DP_INTR_AUX_I2C_DONE) {
-        if (isr & (DP_INTR_I2C_NACK | DP_INTR_I2C_DEFER))
-            aux->aux_error_num = DP_AUX_ERR_NACK;
-        else
-            aux->aux_error_num = DP_AUX_ERR_NONE;
-    } else if (isr & DP_INTR_AUX_ERROR) {
-        aux->aux_error_num = DP_AUX_ERR_PHY;
-        dp_catalog_aux_clear_hw_interrupts(aux->catalog);
-    } else     if (isr & DP_INTR_I2C_DEFER) {
-        aux->aux_error_num = DP_AUX_ERR_DEFER;
-    } else if (isr & DP_INTR_I2C_NACK) {
-        aux->aux_error_num = DP_AUX_ERR_NACK;
-    } else if (isr & DP_INTR_NACK_DEFER) {
-        aux->aux_error_num = DP_AUX_ERR_NACK_DEFER;
-    } else if (isr & DP_INTR_WRONG_ADDR) {
-        aux->aux_error_num = DP_AUX_ERR_ADDR;
-    } else if (isr & DP_INTR_TIMEOUT) {
-        aux->aux_error_num = DP_AUX_ERR_TOUT;
-    } else {
-        return IRQ_NONE;
-    }
-
-    complete(&aux->comp);
-
-    return IRQ_HANDLED;
-}
-
->         }
-> +
-> +       if (isr & DP_INTR_WRONG_ADDR) {
-> +               aux->aux_error_num = DP_AUX_ERR_ADDR;
-> +               ret = IRQ_HANDLED;
-> +       } else if (isr & DP_INTR_TIMEOUT) {
-> +               aux->aux_error_num = DP_AUX_ERR_TOUT;
-> +               ret = IRQ_HANDLED;
-> +       }
-> +
-> +       if (isr & DP_INTR_NACK_DEFER) {
-> +               aux->aux_error_num = DP_AUX_ERR_NACK_DEFER;
-> +               ret = IRQ_HANDLED;
-> +       }
-> +
-> +       if (isr & DP_INTR_I2C_NACK) {
-> +               aux->aux_error_num = DP_AUX_ERR_NACK;
-> +               ret = IRQ_HANDLED;
-> +       }
-> +
-> +       if (isr & DP_INTR_I2C_DEFER) {
-> +               aux->aux_error_num = DP_AUX_ERR_DEFER;
-> +               ret = IRQ_HANDLED;
-> +       }
-> +
-> +       if (isr & DP_INTR_AUX_ERROR) {
-> +               aux->aux_error_num = DP_AUX_ERR_PHY;
-> +               dp_catalog_aux_clear_hw_interrupts(aux->catalog);
-> +               ret = IRQ_HANDLED;
-> +       }
-> +
-> +       if (ret == IRQ_HANDLED)
-> +               complete(&aux->comp);
-> +
-> +       return ret;
->  }
->
->  static void dp_aux_update_offset_and_segment(struct dp_aux_private *aux,
-> @@ -409,14 +448,14 @@ static ssize_t dp_aux_transfer(struct drm_dp_aux *dp_aux,
->         return ret;
->  }
->
-> -void dp_aux_isr(struct drm_dp_aux *dp_aux)
-> +irqreturn_t dp_aux_isr(struct drm_dp_aux *dp_aux)
->  {
->         u32 isr;
->         struct dp_aux_private *aux;
->
->         if (!dp_aux) {
->                 DRM_ERROR("invalid input\n");
-> -               return;
-> +               return IRQ_NONE;
->         }
->
->         aux = container_of(dp_aux, struct dp_aux_private, dp_aux);
-> @@ -425,17 +464,15 @@ void dp_aux_isr(struct drm_dp_aux *dp_aux)
->
->         /* no interrupts pending, return immediately */
->         if (!isr)
-> -               return;
-> +               return IRQ_NONE;
->
->         if (!aux->cmd_busy)
-> -               return;
-> +               return IRQ_NONE;
->
->         if (aux->native)
-> -               dp_aux_native_handler(aux, isr);
-> +               return dp_aux_native_handler(aux, isr);
->         else
-> -               dp_aux_i2c_handler(aux, isr);
-> -
-> -       complete(&aux->comp);
-> +               return dp_aux_i2c_handler(aux, isr);
-
-Personally, I wouldn't have done it this way. I guess that means I
-disagree with Stephen. I'm not dead-set against this way and it's fine
-if you want to continue with it. If I were doing it, though, then I
-would always return IRQ_HANDLED IF dp_catalog_aux_get_irq() returned
-anything non-zero. Why? Officially if dp_catalog_aux_get_irq() returns
-something non-zero then you know for sure that there was an interrupt
-for this device and officially you have "handled" it by acking it,
-since dp_catalog_aux_get_irq() acks all the bits that it returns. That
-means that even if dp_aux_native_handler() or dp_aux_i2c_handler()
-didn't do anything with the interrupt you at least know that it was
-for us (so if the IRQ is shared we properly report back to the IRQ
-subsystem) and that it won't keep firing over and over (because we
-acked it).
-
-NOTE: I still like having the complete() call in
-dp_aux_native_handler() and dp_aux_i2c_handler() and, to me, that part
-of this patch is worthwhile. That makes it more obvious that the code
-is truly expecting that complete to be called for all error cases as
-well as transfer finished.
-
--Doug
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c | 2 +-
+>   1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
+> index 2664fa3665b0..b94b0a772ca8 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
+> @@ -550,7 +550,7 @@ static const struct dpu_mdp_cfg sc8180x_mdp[] = {
+>   	{
+>   	.name = "top_0", .id = MDP_TOP,
+>   	.base = 0x0, .len = 0x45C,
+> -	.features = 0,
+> +	.features = BIT(DPU_MDP_AUDIO_SELECT),
+>   	.highest_bank_bit = 0x3,
+>   	.clk_ctrls[DPU_CLK_CTRL_VIG0] = {
+>   			.reg_off = 0x2AC, .bit_off = 0},
