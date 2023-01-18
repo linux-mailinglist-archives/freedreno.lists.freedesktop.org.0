@@ -1,69 +1,69 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 56749671005
-	for <lists+freedreno@lfdr.de>; Wed, 18 Jan 2023 02:30:27 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id E34B067100E
+	for <lists+freedreno@lfdr.de>; Wed, 18 Jan 2023 02:32:13 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0237E10E62C;
-	Wed, 18 Jan 2023 01:30:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A7A7A10E628;
+	Wed, 18 Jan 2023 01:32:11 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ej1-x62f.google.com (mail-ej1-x62f.google.com
- [IPv6:2a00:1450:4864:20::62f])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E5FBE10E62C
- for <freedreno@lists.freedesktop.org>; Wed, 18 Jan 2023 01:30:23 +0000 (UTC)
-Received: by mail-ej1-x62f.google.com with SMTP id vm8so79670195ejc.2
- for <freedreno@lists.freedesktop.org>; Tue, 17 Jan 2023 17:30:23 -0800 (PST)
+Received: from mail-ej1-x62e.google.com (mail-ej1-x62e.google.com
+ [IPv6:2a00:1450:4864:20::62e])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6FD5410E605
+ for <freedreno@lists.freedesktop.org>; Wed, 18 Jan 2023 01:32:08 +0000 (UTC)
+Received: by mail-ej1-x62e.google.com with SMTP id bk15so22195116ejb.9
+ for <freedreno@lists.freedesktop.org>; Tue, 17 Jan 2023 17:32:08 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :from:to:cc:subject:date:message-id:reply-to;
- bh=ZsCFqOrG564I8qOCCNQEkJcGVuvtlZxy5WMlNbN2xTQ=;
- b=J/iw0UUSt0Hxy+ZF7az331KZS8tNT51v8K0+HIEnf/j3/rgclEK3DeD5k631Ylnnh6
- IImUR2u+k689o7Vk1hKFLO6XUSmkaUJN917cvkwHXG+2h37tPUY9rZImOwfW6KFELLse
- pWQzIYSB5rCpLuwKIib3hGv6AtMXQfF8I97TlpgiHuZF9VNrCX5PVFH38j3LR5lHnSqT
- zVSEBikljdLZE0m7JTpJKuUkqohd4TzbaRPPBrRbFsXb2SFrfI9LzBNLG5Qyi14YnElU
- 6iSkaVLDlviYqgys3zpTruqYl+snh9F3Ak/aBCCvS9qaFMyJHAb3dSq+NJx+kZAeR6G5
- hxow==
+ bh=WmuAGUEJgzr87EeXDQbFh57PgRhQGPH3NOHcW4zPvxY=;
+ b=UexVHvSB6XQAhPAWIJ0nYTTqeXSJILVIecAUvV/QIXmQXyxnIaYUpT5VDv9iSoqDP0
+ mje+pWNsM4Z34wVsqveK0S/QVYZYeappJ/qdLBsv2qMFI9HwZiGvxcK+F+fFddFa+2/T
+ VsvlKILzGCFp/gabOfKM/YxTypADk6DognnFQjOS1EkykLl3pR+nynCuZjix9VEseBIq
+ hEEc/hbMMPkeEEfycet8wQ22pDUxqIbvbTIWVSMISny0FRycs5Gx8sg4xulaAKPoPOI0
+ Cvola1mE7+BQtSzYSIXUlsLoRz87731JJ61Pq1AApkeeUUR1RJ4cKP20mn616JpJ/GEb
+ emsQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=ZsCFqOrG564I8qOCCNQEkJcGVuvtlZxy5WMlNbN2xTQ=;
- b=Fc51mu2FX8KI+d6ghiDE6OOkqBxDywG91WL6WuQx/uUzncC5pAWbU/6Xavbmi1AYny
- lZNbdK5LB+RgXh2MXxgWoVXW8yndGE/nIvvAcZZNsmJm1qMXd3ZHf/bcaC/cbOP34/3e
- yGnw99H9iwSf1RY8opKymhn4nhjuYLNLw+4YXUadWDmQWbl3oehf8rxRkuRA6aCIXL2E
- /SiYAFyu2k1rf7n9zY8ozS2b7r1flS5ET0IhGLdKRgvqhlg5jlPNAh4h1UaUazlN7ny9
- uWkKGzFjyUh7j5chfTUyUrV9eYLyVrh08hFYl5YAReWXDfxShuvMsxAeJV9dLdhOReLJ
- m05Q==
-X-Gm-Message-State: AFqh2krnXOwd5gav/UhyN+7FGC+eVUkVOWiJ2mZt578jf5s1sgQLK+y3
- aiIuh1zpqSfifkxPxOua38Yqkg==
-X-Google-Smtp-Source: AMrXdXuNF0GjFG6ixd7G1diTN5Er9+WUrN8dZPYP7bvFYKP5CRCYSqQLOMmPTPLMSoGQT2lpuFXusg==
-X-Received: by 2002:a17:906:fb16:b0:7c1:6d65:4718 with SMTP id
- lz22-20020a170906fb1600b007c16d654718mr5177733ejb.33.1674005422383; 
- Tue, 17 Jan 2023 17:30:22 -0800 (PST)
+ bh=WmuAGUEJgzr87EeXDQbFh57PgRhQGPH3NOHcW4zPvxY=;
+ b=bTHB57WuC898O4XyGHKZ29H0zpMz21vTHVDUMTF8zQhsLbxQXwtmciILN5P81Grag0
+ R2X8DRXsCWEHT5VIyQbMavWeraeFWQUKLStr/ffDJHduqX8d+/fTS1LnyC2bU7Ca1PXe
+ bFpYPh4uRFYKS5umhKxHhm4xB6b91km6UYo+tU+Ttylt9SMYZsxWVj8jDnHSqb1V/OI7
+ 8jpgr4L2/KpSzh7OYlxbhows8ZWCgRNvgSnMZPNX6SW4T2Ry3CN/qS4lcMynpKG9Iwdn
+ IzO6St5zJrBvV6Q3LmLL4d0mHZNBxxZlyqCWuC1xmHvMOpg77H929XQuAlQtaA9K7F2M
+ 9C8A==
+X-Gm-Message-State: AFqh2kqgG+PBwtyIgnkIIwkgarbpxEVSgRtNxQnrtM1LYXzXjWSTX1M9
+ MuJr5aKkczatoS5xlNcoh7PLBg==
+X-Google-Smtp-Source: AMrXdXsriPBC/u2WzPrwGYBCsosA0BsYTypVYoyxIusZ78gIkGgTQzrVWOsu/jmesepNcjchR4QWeQ==
+X-Received: by 2002:a17:907:6f18:b0:7c1:98d:a8a3 with SMTP id
+ sy24-20020a1709076f1800b007c1098da8a3mr5058276ejc.7.1674005527000; 
+ Tue, 17 Jan 2023 17:32:07 -0800 (PST)
 Received: from ?IPV6:2001:14ba:a085:4d00::8a5?
  (dzccz6yyyyyyyyyyybcwt-3.rev.dnainternet.fi. [2001:14ba:a085:4d00::8a5])
  by smtp.gmail.com with ESMTPSA id
- ky25-20020a170907779900b00877596d4eadsm110552ejc.101.2023.01.17.17.30.21
+ 18-20020a170906311200b0084b89c66eb5sm13799464ejx.4.2023.01.17.17.32.05
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 17 Jan 2023 17:30:22 -0800 (PST)
-Message-ID: <82ef3c2a-ef54-8c39-2266-7e3b203f92d1@linaro.org>
-Date: Wed, 18 Jan 2023 03:30:20 +0200
+ Tue, 17 Jan 2023 17:32:06 -0800 (PST)
+Message-ID: <40261e85-f501-7326-76b0-b19ca3aceae9@linaro.org>
+Date: Wed, 18 Jan 2023 03:32:05 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.6.0
 Content-Language: en-GB
-To: Marijn Suijten <marijn.suijten@somainline.org>, phone-devel@vger.kernel.org
-References: <20230109231556.344977-1-marijn.suijten@somainline.org>
+To: Jiasheng Jiang <jiasheng@iscas.ac.cn>, dianders@chromium.org
+References: <20230111011006.6238-1-jiasheng@iscas.ac.cn>
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-In-Reply-To: <20230109231556.344977-1-marijn.suijten@somainline.org>
+In-Reply-To: <20230111011006.6238-1-jiasheng@iscas.ac.cn>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH v3] drm/msm/dpu: Disallow unallocated
- resources to be returned
+Subject: Re: [Freedreno] [PATCH v2] drm/msm/dsi: Drop the redundant fail
+ label
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,57 +76,29 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Vinod Koul <vkoul@kernel.org>, Jami Kettunen <jami.kettunen@somainline.org>,
- David Airlie <airlied@gmail.com>, linux-arm-msm@vger.kernel.org,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
- Stephen Boyd <swboyd@chromium.org>, Konrad Dybcio <konrad.dybcio@linaro.org>,
- Rob Clark <robdclark@gmail.com>, Martin Botka <martin.botka@somainline.org>,
- ~postmarketos/upstreaming@lists.sr.ht, Daniel Vetter <daniel@ffwll.ch>,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@somainline.org>,
- Drew Davenport <ddavenport@chromium.org>, freedreno@lists.freedesktop.org,
- Sean Paul <sean@poorly.run>, linux-kernel@vger.kernel.org
+Cc: marex@denx.de, vkoul@kernel.org, sean@poorly.run, vladimir.lypak@gmail.com,
+ quic_abhinavk@quicinc.com, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, robdclark@gmail.com, daniel@ffwll.ch,
+ linux-arm-msm@vger.kernel.org, marijn.suijten@somainline.org,
+ freedreno@lists.freedesktop.org, airlied@gmail.com
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 10/01/2023 01:15, Marijn Suijten wrote:
-> In the event that the topology requests resources that have not been
-> created by the system (because they are typically not represented in
-> dpu_mdss_cfg ^1), the resource(s) in global_state (in this case DSC
-> blocks, until their allocation/assignment is being sanity-checked in
-> "drm/msm/dpu: Reject topologies for which no DSC blocks are available")
-> remain NULL but will still be returned out of
-> dpu_rm_get_assigned_resources, where the caller expects to get an array
-> containing num_blks valid pointers (but instead gets these NULLs).
+On 11/01/2023 03:10, Jiasheng Jiang wrote:
+> Drop the redundant fail label and change the "goto fail" into "return ret"
+> since they are the same.
 > 
-> To prevent this from happening, where null-pointer dereferences
-> typically result in a hard-to-debug platform lockup, num_blks shouldn't
-> increase past NULL blocks and will print an error and break instead.
-> After all, max_blks represents the static size of the maximum number of
-> blocks whereas the actual amount varies per platform.
-> 
-> ^1: which can happen after a git rebase ended up moving additions to
-> _dpu_cfg to a different struct which has the same patch context.
-> 
-> Fixes: bb00a452d6f7 ("drm/msm/dpu: Refactor resource manager")
-> Signed-off-by: Marijn Suijten <marijn.suijten@somainline.org>
+> Reviewed-by: Doug Anderson <dianders@chromium.org>
+> Signed-off-by: Jiasheng Jiang <jiasheng@iscas.ac.cn>
 > ---
+> Changelog:
 > 
-> Changes since v2:
-> - Dropped all 7 other patches that were queued for -next;
-> - Reworded error message to clarify that the requested resource should
->    have already been allocated, rather than sounding like
->    dpu_rm_get_assigned_resources is (re)allocating/(re)assigning
->    resources here;
-> - This patch is now (implicitly!) based after "drm/msm/dpu: Reject
->    topologies for which no DSC blocks are available", which should make
->    it impossible to reach this condition, making it more of a safeguard
->    in case of future code changes and/or hidden issues: and is more
->    clearly conveyed in the patch message as well.
+> v1 -> v2:
 > 
-> v2: https://lore.kernel.org/linux-arm-msm/20221221231943.1961117-5-marijn.suijten@somainline.org/
-> 
->   drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c | 5 +++++
->   1 file changed, 5 insertions(+)
+> 1. No change of the error handling of the irq_of_parse_and_map.
+> ---
+>   drivers/gpu/drm/msm/dsi/dsi_host.c | 24 ++++++++----------------
+>   1 file changed, 8 insertions(+), 16 deletions(-)
 
 Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 
