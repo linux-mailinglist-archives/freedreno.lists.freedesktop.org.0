@@ -2,33 +2,62 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 009136718D2
-	for <lists+freedreno@lfdr.de>; Wed, 18 Jan 2023 11:22:10 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 45BEE671CCC
+	for <lists+freedreno@lfdr.de>; Wed, 18 Jan 2023 14:00:34 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BCB6510E655;
-	Wed, 18 Jan 2023 10:22:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8264710E73C;
+	Wed, 18 Jan 2023 13:00:32 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from m-r1.th.seeweb.it (m-r1.th.seeweb.it [5.144.164.170])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 667D210E669
- for <freedreno@lists.freedesktop.org>; Wed, 18 Jan 2023 10:22:06 +0000 (UTC)
-Received: from SoMainline.org (94-211-6-86.cable.dynamic.v4.ziggo.nl
- [94.211.6.86])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest
- SHA256) (No client certificate requested)
- by m-r1.th.seeweb.it (Postfix) with ESMTPSA id 17F9720123;
- Wed, 18 Jan 2023 11:22:04 +0100 (CET)
-Date: Wed, 18 Jan 2023 11:22:02 +0100
-From: Marijn Suijten <marijn.suijten@somainline.org>
-To: Jiapeng Chong <jiapeng.chong@linux.alibaba.com>
-Message-ID: <20230118102202.3oaiv74oo2pi6uuu@SoMainline.org>
-References: <20230118091833.87708-1-jiapeng.chong@linux.alibaba.com>
+Received: from mail-ej1-x633.google.com (mail-ej1-x633.google.com
+ [IPv6:2a00:1450:4864:20::633])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4F9B010E73C
+ for <freedreno@lists.freedesktop.org>; Wed, 18 Jan 2023 13:00:30 +0000 (UTC)
+Received: by mail-ej1-x633.google.com with SMTP id tz11so18635823ejc.0
+ for <freedreno@lists.freedesktop.org>; Wed, 18 Jan 2023 05:00:30 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=o8KcKlOKvCT1RhL/1bTXTH5peRxlu6t4vAM/1NMH6zM=;
+ b=MYDih5Yobi173RFOnC/C/JTrtV1ft2cGlcfBLnnvOpujt/PMLp0mM52t3mqxxqrF6w
+ UXFOeBLh0SYyoYmY/sPtYUTVhKh7SgeRjW7PFIS32o7rNSIQn8Ccby43Ye6cS/Xvl+gn
+ M6nKfTZk9/VpuH4bWXoGTd0ON/REmvX6vjiAbl0zySkT5yDnkmIeabfyEj517jg7uLPN
+ ust8Ye8M5pPZ1jByLC89I3P52qq0uINnCHy3/UeM0YFkU/d5yhxMzKKwpmCTfeqoep8w
+ oWnuE2m2ydBx0zMJWvdM4POKO6TzC3deIjE169rYX/332NoiZX3yOBSBtr6LzT3pxYU5
+ ThIQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=o8KcKlOKvCT1RhL/1bTXTH5peRxlu6t4vAM/1NMH6zM=;
+ b=VdefOUjolH3iLDwqIkVgiz+WrpNHse7eZELCo5ZfRjh3BX5N8O0gRLRv9LQDy1NkjI
+ qJ1Bw9dfqkGUNe9+qNUPNc1xOYgwTub9m3/RXF04R3NnTnIEINDI0EwtuLlKSeRjPfWQ
+ 4bTZhTNvS6jYNyGNmeJqXza1+gOC5g1nY2B0IHAd+S1hFd9eo88HNCiDBG7hu3fo5lzI
+ TA5OZ2FHcref3SesiAosP93QplhQ+R97ZT9xJABhhYg+o8d4YlocumYv1ktD1g4MJVwR
+ MG16FVUZM9QivQ95scZ63CV6ARal4LDPgDOIF5IZdr/mB4JKYuLoZdMWpZWF9/VPB5wB
+ iMwA==
+X-Gm-Message-State: AFqh2ko7VxEvJV1s6aXM4H1/6jrQ8D69mfDj/TdT0lhuU8wbPFigN0aN
+ K3j+qaTf4zmJ0FZ2GYwx1fiJlw==
+X-Google-Smtp-Source: AMrXdXvOwCxXci9FlJdC38rItACst1z0ITs/WpWk09TtajFJiqVIQzZvfGmWJ6CaOdNbLEB56deQdg==
+X-Received: by 2002:a17:907:3ea9:b0:7ff:727f:65cb with SMTP id
+ hs41-20020a1709073ea900b007ff727f65cbmr4374843ejc.19.1674046828803; 
+ Wed, 18 Jan 2023 05:00:28 -0800 (PST)
+Received: from eriador.lan (dzccz6yyyyyyyyyyybcwt-3.rev.dnainternet.fi.
+ [2001:14ba:a085:4d00::8a5]) by smtp.gmail.com with ESMTPSA id
+ vw22-20020a170907059600b0084d43def70esm3073180ejb.25.2023.01.18.05.00.27
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 18 Jan 2023 05:00:28 -0800 (PST)
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+To: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>
+Date: Wed, 18 Jan 2023 15:00:27 +0200
+Message-Id: <20230118130027.2345719-1-dmitry.baryshkov@linaro.org>
+X-Mailer: git-send-email 2.39.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20230118091833.87708-1-jiapeng.chong@linux.alibaba.com>
-Subject: Re: [Freedreno] [PATCH v2] drm/msm/dpu: Remove some unused variables
+Content-Transfer-Encoding: 8bit
+Subject: [Freedreno] [PATCH] drm/msm/dsi: correct byte intf clock rate for
+ 14nm DSI PHY
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -41,64 +70,117 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, sean@poorly.run,
- Abaci Robot <abaci@linux.alibaba.com>, quic_abhinavk@quicinc.com,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- robdclark@gmail.com, daniel@ffwll.ch, linux-arm-msm@vger.kernel.org,
- dmitry.baryshkov@linaro.org, airlied@gmail.com
+Cc: freedreno@lists.freedesktop.org, Loic Poulain <loic.poulain@linaro.org>,
+ linux-arm-msm@vger.kernel.org, Bjorn Andersson <andersson@kernel.org>,
+ dri-devel@lists.freedesktop.org, Stephen Boyd <swboyd@chromium.org>,
+ Daniel Vetter <daniel@ffwll.ch>, David Airlie <airlied@gmail.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 2023-01-18 17:18:33, Jiapeng Chong wrote:
-> Variables 'sc8280xp_regdma' and 'sm8350_regdma' are defined in the
-> dpu_hw_catalog.c file, but not used elsewhere, so remove these unused
-> variables.
-> 
-> drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c:2029:37: warning: unused
-> variable 'sc8280xp_regdma'.
-> drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c:2053:37: warning: unused
-> variable 'sm8350_regdma'.
-> 
-> Link: https://bugzilla.openanolis.cn/show_bug.cgi?id=3722
-> Reported-by: Abaci Robot <abaci@linux.alibaba.com>
-> Signed-off-by: Jiapeng Chong <jiapeng.chong@linux.alibaba.com>
+According to the vendor kernel, byte intf clock rate should be a half of
+the byte clock only when DSI PHY version is above 2.0 (in other words,
+10nm PHYs and later) and only if PHY is used in D-PHY mode. Currently
+MSM DSI code handles only the second part of the clause (C-PHY vs
+D-PHY), skipping DSI PHY version check, which causes issues on some of
+14nm DSI PHY platforms (e.g. qcm2290).
 
-Does this need a Fixes tag?
+Move divisor selection to DSI PHY code, pass selected divisor through
+shared timings and set byte intf clock rate accordingly.
 
-> ---
-> Changes in v2:
->   -Adding the regdma entries to .dma_cfg of these chipsets.
+Cc: Loic Poulain <loic.poulain@linaro.org>
+Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+---
 
-Don't forget to change the title of this patch; now you're not removing
-unused variables anymore.
+This patch is a reimplementation of [1] in a slightly more flexible way.
 
-- Marijn
+[1] https://patchwork.kernel.org/project/linux-arm-msm/patch/1642586079-12472-1-git-send-email-loic.poulain@linaro.org/
 
->  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c | 4 +++-
->  1 file changed, 3 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
-> index 0f3da480b066..3318e1d18a0e 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
-> @@ -2677,6 +2677,8 @@ static const struct dpu_mdss_cfg sc8280xp_dpu_cfg = {
->  	.intf = sc8280xp_intf,
->  	.vbif_count = ARRAY_SIZE(sdm845_vbif),
->  	.vbif = sdm845_vbif,
-> +	.reg_dma_count = 1,
-> +	.dma_cfg = &sc8280xp_regdma,
->  	.perf = &sc8280xp_perf_data,
->  	.mdss_irqs = IRQ_SC8280XP_MASK,
->  };
-> @@ -2732,7 +2734,7 @@ static const struct dpu_mdss_cfg sm8350_dpu_cfg = {
->  	.vbif_count = ARRAY_SIZE(sdm845_vbif),
->  	.vbif = sdm845_vbif,
->  	.reg_dma_count = 1,
-> -	.dma_cfg = &sm8250_regdma,
-> +	.dma_cfg = &sm8350_regdma,
->  	.perf = &sm8350_perf_data,
->  	.mdss_irqs = IRQ_SM8350_MASK,
->  };
-> -- 
-> 2.20.1.7.g153144c
-> 
+---
+ drivers/gpu/drm/msm/dsi/dsi.h         |  1 +
+ drivers/gpu/drm/msm/dsi/dsi_host.c    | 14 ++++++--------
+ drivers/gpu/drm/msm/dsi/phy/dsi_phy.c |  4 ++++
+ 3 files changed, 11 insertions(+), 8 deletions(-)
+
+diff --git a/drivers/gpu/drm/msm/dsi/dsi.h b/drivers/gpu/drm/msm/dsi/dsi.h
+index 1a551cc0e889..bd3763a5d723 100644
+--- a/drivers/gpu/drm/msm/dsi/dsi.h
++++ b/drivers/gpu/drm/msm/dsi/dsi.h
+@@ -141,6 +141,7 @@ struct msm_dsi_phy_shared_timings {
+ 	u32 clk_post;
+ 	u32 clk_pre;
+ 	bool clk_pre_inc_by_2;
++	bool byte_intf_clk_div_2;
+ };
+ 
+ struct msm_dsi_phy_clk_request {
+diff --git a/drivers/gpu/drm/msm/dsi/dsi_host.c b/drivers/gpu/drm/msm/dsi/dsi_host.c
+index 7c21f2fba520..18fa30e1e858 100644
+--- a/drivers/gpu/drm/msm/dsi/dsi_host.c
++++ b/drivers/gpu/drm/msm/dsi/dsi_host.c
+@@ -122,6 +122,7 @@ struct msm_dsi_host {
+ 	struct clk *byte_intf_clk;
+ 
+ 	unsigned long byte_clk_rate;
++	unsigned long byte_intf_clk_rate;
+ 	unsigned long pixel_clk_rate;
+ 	unsigned long esc_clk_rate;
+ 
+@@ -398,7 +399,6 @@ int msm_dsi_runtime_resume(struct device *dev)
+ 
+ int dsi_link_clk_set_rate_6g(struct msm_dsi_host *msm_host)
+ {
+-	unsigned long byte_intf_rate;
+ 	int ret;
+ 
+ 	DBG("Set clk rates: pclk=%d, byteclk=%lu",
+@@ -418,13 +418,7 @@ int dsi_link_clk_set_rate_6g(struct msm_dsi_host *msm_host)
+ 	}
+ 
+ 	if (msm_host->byte_intf_clk) {
+-		/* For CPHY, byte_intf_clk is same as byte_clk */
+-		if (msm_host->cphy_mode)
+-			byte_intf_rate = msm_host->byte_clk_rate;
+-		else
+-			byte_intf_rate = msm_host->byte_clk_rate / 2;
+-
+-		ret = clk_set_rate(msm_host->byte_intf_clk, byte_intf_rate);
++		ret = clk_set_rate(msm_host->byte_intf_clk, msm_host->byte_intf_clk_rate);
+ 		if (ret) {
+ 			pr_err("%s: Failed to set rate byte intf clk, %d\n",
+ 			       __func__, ret);
+@@ -2394,6 +2388,10 @@ int msm_dsi_host_power_on(struct mipi_dsi_host *host,
+ 		goto unlock_ret;
+ 	}
+ 
++	msm_host->byte_intf_clk_rate = msm_host->byte_clk_rate;
++	if (phy_shared_timings->byte_intf_clk_div_2)
++		msm_host->byte_intf_clk_rate /= 2;
++
+ 	msm_dsi_sfpb_config(msm_host, true);
+ 
+ 	ret = regulator_bulk_enable(msm_host->cfg_hnd->cfg->num_regulators,
+diff --git a/drivers/gpu/drm/msm/dsi/phy/dsi_phy.c b/drivers/gpu/drm/msm/dsi/phy/dsi_phy.c
+index 57445a5dc816..bb09cbe8ff86 100644
+--- a/drivers/gpu/drm/msm/dsi/phy/dsi_phy.c
++++ b/drivers/gpu/drm/msm/dsi/phy/dsi_phy.c
+@@ -350,6 +350,8 @@ int msm_dsi_dphy_timing_calc_v3(struct msm_dsi_dphy_timing *timing,
+ 		timing->shared_timings.clk_pre_inc_by_2 = 0;
+ 	}
+ 
++	timing->shared_timings.byte_intf_clk_div_2 = true;
++
+ 	timing->ta_go = 3;
+ 	timing->ta_sure = 0;
+ 	timing->ta_get = 4;
+@@ -454,6 +456,8 @@ int msm_dsi_dphy_timing_calc_v4(struct msm_dsi_dphy_timing *timing,
+ 	tmax = 255;
+ 	timing->shared_timings.clk_pre = DIV_ROUND_UP((tmax - tmin) * 125, 10000) + tmin;
+ 
++	timing->shared_timings.byte_intf_clk_div_2 = true;
++
+ 	DBG("%d, %d, %d, %d, %d, %d, %d, %d, %d, %d",
+ 		timing->shared_timings.clk_pre, timing->shared_timings.clk_post,
+ 		timing->clk_zero, timing->clk_trail, timing->clk_prepare, timing->hs_exit,
+-- 
+2.39.0
+
