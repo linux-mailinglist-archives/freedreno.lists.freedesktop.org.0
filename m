@@ -2,68 +2,68 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 93C1F671267
-	for <lists+freedreno@lfdr.de>; Wed, 18 Jan 2023 05:13:04 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6E31167126D
+	for <lists+freedreno@lfdr.de>; Wed, 18 Jan 2023 05:13:07 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AFA2C10E66D;
+	by gabe.freedesktop.org (Postfix) with ESMTP id BAEA910E66E;
 	Wed, 18 Jan 2023 04:12:55 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ej1-x62e.google.com (mail-ej1-x62e.google.com
- [IPv6:2a00:1450:4864:20::62e])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F0EE410E66D
- for <freedreno@lists.freedesktop.org>; Wed, 18 Jan 2023 04:12:51 +0000 (UTC)
-Received: by mail-ej1-x62e.google.com with SMTP id hw16so68412248ejc.10
- for <freedreno@lists.freedesktop.org>; Tue, 17 Jan 2023 20:12:51 -0800 (PST)
+Received: from mail-ej1-x62b.google.com (mail-ej1-x62b.google.com
+ [IPv6:2a00:1450:4864:20::62b])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3869210E66E
+ for <freedreno@lists.freedesktop.org>; Wed, 18 Jan 2023 04:12:53 +0000 (UTC)
+Received: by mail-ej1-x62b.google.com with SMTP id bk15so22758219ejb.9
+ for <freedreno@lists.freedesktop.org>; Tue, 17 Jan 2023 20:12:53 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=Lf6psy7ntm6XZpjeMKG29URoVYD787zn4N0Bmfpn80k=;
- b=Rc5PsVd8VGbcigMI4Z3FtmNThwWSo78WsxFbP1hzIVU9g9qdiUmPtA/SBukjqngTqk
- 3Kq2Eu8jLKoG/pV6cDlBq72ogNNCF7N4HlG9Eijl28xSnEt2ZalEe0U10NHGYo3gEaVn
- uYX5du0E/ONU9zPYL1o2GT10xMC+ZImsVw73pRjBfayAbi4sgPcWXayxdGPBn34XmT01
- tHJyqWsEvmoia1BdYCLIdkq1NNWEDPz8vUJ7hmwsZhSN+UqAaUWQvGPU33TEtAUsHH3d
- LytpRfVtNa86CFbk4N0T6jfdYQw+zxJLlT7QYC3XoPhvmFAagGSIwGo8sgyb++8bGfbG
- RA/g==
+ bh=HSpGY8OBvDU8g61I7cBvuZvlMJBnz3vM71dI47Sckdk=;
+ b=umPE4AvJFzFup1YJdR8FYgH42QOyavUcFUC8NPvQKGxr3o7xpeudm/Ij+fszy0rbqb
+ PnulAkgYVI0Bc2nWvA5vjgUph6b8dW62AgRAVSIf3hvr1FqH7kCE/FRtiePG/D3l5LNI
+ M0AoRiy3dck2kHv64qPbwORMNqv1R7bK7VajLm/sk+vhRxbiU07RiMSJ5q7LZ1VtKMn3
+ lX2KDny1CLvQH24Ta/qg31vXSFwwm1yRgByDLhi4Tz5/+VzfTvT0RM9Izi1p1na2gwbf
+ L27vd/zaz3qT+zbN8mjGI4SqRyixOIs/WQuDvlDka0bfx+h+KZWhpyIcHayAiGw98YBj
+ Ut3g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=Lf6psy7ntm6XZpjeMKG29URoVYD787zn4N0Bmfpn80k=;
- b=wsrjOdJ+oGZNrd27Vhb/PPwSxf8Xv6bpX1lVqeEDJTC2VeuC4VbCTuUPjl2/KeS65G
- 3ki+NEeIe3Rs/dJD4jhdMEK5mIf42WBUhwMT0nbAbiqMCgGoj9D3p/YugmUIKUwhQ7rw
- jsdCylEkmmB3YUUlxn8K58InRLSTm5JP+a506WMKwgQtF1ijSiNJqC+wlXMd//f2aHZv
- 0YB5e0vK69R4Tmj0daHEXc1L3ArgZZnFQb6PudKtbuwGjRSMStwBaF9momUwwkdVuvRo
- E4DLgqD8Tzs8v6DdOtcgwypa0ZGVXQpF4rNdCcB5B6zOmji2UfvSO/vW0O5UwmATIg3p
- yKow==
-X-Gm-Message-State: AFqh2koOG6q+n+MtM3Qj27L0rzlW3N+vyj8eMvXKF9bk80hobuYXEtHo
- ufBuh/uI0HXYuZDR3xwf2KURyw==
-X-Google-Smtp-Source: AMrXdXvuKZhpqF2/x8IoKKviUMJGD5ImMcpEu1VkcOiN4uEhFIcUnqWSluOAI7Fcin1+IoBXBvqhnw==
-X-Received: by 2002:a17:906:7185:b0:81b:fc79:be51 with SMTP id
- h5-20020a170906718500b0081bfc79be51mr5285245ejk.50.1674015170410; 
- Tue, 17 Jan 2023 20:12:50 -0800 (PST)
+ bh=HSpGY8OBvDU8g61I7cBvuZvlMJBnz3vM71dI47Sckdk=;
+ b=XmfAI2kmXXL4AfkqS+ICVnLSNTTB3TtZpwRCs8N2bUGh3Lh8FOJ+F1e79PVVulF3rO
+ iSYcIgfsb8dyIU9QPc0FMFzikxGRvLDUILANa5wvNkR1bDqPnYoKbDa3KrlQQFeGILwD
+ 5Q6+Iy9fSv006eSPYcpz6DHGMZ/eCPeK+Zr1PV7NDFifCzWNhX52pQFrmschMiXk9gC9
+ MG1hXg/WHCI1gMvqs+dEmGve2k7pY96mi3BwjEaHCBRFpifGavx1Wn5egIkWXDqpiWEK
+ 9XsumroP/2Hky2aEekUdT9qFcDAn0zts98BxVVuGsw4rZVvv/5jlGYYU4keverTnaQga
+ iUJg==
+X-Gm-Message-State: AFqh2ko/euZP5ZleGr7793kxVHhb9+bHGqpxI5D6InclLZPFBF40IAZD
+ 0aRyEEJ5Qii9HOIS3AHJkNWOeg==
+X-Google-Smtp-Source: AMrXdXsmismhuZGGoEJBSVO9ZjZwCqvTZ81ImsssxstGyCA74xmfyOyZnQoGM+ZlY2SAYD9ODu+/CQ==
+X-Received: by 2002:a17:907:c30c:b0:86c:cbfd:936 with SMTP id
+ tl12-20020a170907c30c00b0086ccbfd0936mr6616799ejc.11.1674015171724; 
+ Tue, 17 Jan 2023 20:12:51 -0800 (PST)
 Received: from eriador.lan (dzccz6yyyyyyyyyyybcwt-3.rev.dnainternet.fi.
  [2001:14ba:a085:4d00::8a5]) by smtp.gmail.com with ESMTPSA id
- hp24-20020a1709073e1800b008720c458bd4sm2314100ejc.3.2023.01.17.20.12.49
+ hp24-20020a1709073e1800b008720c458bd4sm2314100ejc.3.2023.01.17.20.12.50
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 17 Jan 2023 20:12:50 -0800 (PST)
+ Tue, 17 Jan 2023 20:12:51 -0800 (PST)
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 To: Andy Gross <agross@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
  Konrad Dybcio <konrad.dybcio@linaro.org>, Rob Clark <robdclark@gmail.com>,
  Sean Paul <sean@poorly.run>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
  Rob Herring <robh+dt@kernel.org>,
  Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>
-Date: Wed, 18 Jan 2023 06:12:36 +0200
-Message-Id: <20230118041243.1720520-5-dmitry.baryshkov@linaro.org>
+Date: Wed, 18 Jan 2023 06:12:37 +0200
+Message-Id: <20230118041243.1720520-6-dmitry.baryshkov@linaro.org>
 X-Mailer: git-send-email 2.39.0
 In-Reply-To: <20230118041243.1720520-1-dmitry.baryshkov@linaro.org>
 References: <20230118041243.1720520-1-dmitry.baryshkov@linaro.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH v7 04/11] dt-bindings: display/msm: rename mdss
- nodes to display-subsystem
+Subject: [Freedreno] [PATCH v7 05/11] dt-bindings: display/msm: rename mdp
+ nodes to display-controller
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,75 +76,82 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, Stephen Boyd <swboyd@chromium.org>,
- Daniel Vetter <daniel@ffwll.ch>, freedreno@lists.freedesktop.org,
- David Airlie <airlied@gmail.com>
+Cc: devicetree@vger.kernel.org, Rob Herring <robh@kernel.org>,
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ Stephen Boyd <swboyd@chromium.org>, Daniel Vetter <daniel@ffwll.ch>,
+ freedreno@lists.freedesktop.org, David Airlie <airlied@gmail.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Follow the 'generic names' rule and rename mdss nodes to
-display-subsystem.
+Follow the 'generic names' rule and rename mdp nodes to
+display-controller.
 
+Reviewed-by: Rob Herring <robh@kernel.org>
 Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 ---
+ .../devicetree/bindings/display/msm/dpu-common.yaml       | 8 ++++++++
+ .../devicetree/bindings/display/msm/qcom,mdp5.yaml        | 3 +++
+ .../devicetree/bindings/display/msm/qcom,mdss.yaml        | 6 +++---
+ 3 files changed, 14 insertions(+), 3 deletions(-)
 
-Note, this patch might generate warnings in qcom,sm6115-mdss and
-qcom,qcm2290-mdss examples, but they have been fixed by the commit
-e5266ca38294 ("dt-bindings: display: msm: Rename mdss node name in
-example")
-
-See https://gitlab.freedesktop.org/drm/msm/-/commit/e5266ca38294
-
-
----
- .../devicetree/bindings/display/msm/mdss-common.yaml      | 8 ++++++++
- .../devicetree/bindings/display/msm/qcom,mdss.yaml        | 5 ++++-
- 2 files changed, 12 insertions(+), 1 deletion(-)
-
-diff --git a/Documentation/devicetree/bindings/display/msm/mdss-common.yaml b/Documentation/devicetree/bindings/display/msm/mdss-common.yaml
-index 59f17ac898aa..ccd7d6417523 100644
---- a/Documentation/devicetree/bindings/display/msm/mdss-common.yaml
-+++ b/Documentation/devicetree/bindings/display/msm/mdss-common.yaml
-@@ -15,7 +15,15 @@ description:
-   Device tree bindings for MSM Mobile Display Subsystem(MDSS) that encapsulates
-   sub-blocks like DPU display controller, DSI and DP interfaces etc.
+diff --git a/Documentation/devicetree/bindings/display/msm/dpu-common.yaml b/Documentation/devicetree/bindings/display/msm/dpu-common.yaml
+index 870158bb2aa0..3f953aa5e694 100644
+--- a/Documentation/devicetree/bindings/display/msm/dpu-common.yaml
++++ b/Documentation/devicetree/bindings/display/msm/dpu-common.yaml
+@@ -13,7 +13,15 @@ maintainers:
+ description: |
+   Common properties for QCom DPU display controller.
  
-+# Do not select this by default, otherwise it is also selected for qcom,mdss
-+# devices.
++# Do not select this by default, otherwise it is also selected for all
++# display-controller@ nodes
 +select:
 +  false
 +
  properties:
 +  $nodename:
-+    pattern: "^display-subsystem@[0-9a-f]+$"
++    pattern: '^display-controller@[0-9a-f]+$'
++
+   interrupts:
+     maxItems: 1
+ 
+diff --git a/Documentation/devicetree/bindings/display/msm/qcom,mdp5.yaml b/Documentation/devicetree/bindings/display/msm/qcom,mdp5.yaml
+index cb7bf48c3a58..ef461ad6ce4a 100644
+--- a/Documentation/devicetree/bindings/display/msm/qcom,mdp5.yaml
++++ b/Documentation/devicetree/bindings/display/msm/qcom,mdp5.yaml
+@@ -33,6 +33,9 @@ properties:
+               - qcom,sdm660-mdp5
+           - const: qcom,mdp5
+ 
++  $nodename:
++    pattern: '^display-controller@[0-9a-f]+$'
 +
    reg:
      maxItems: 1
  
 diff --git a/Documentation/devicetree/bindings/display/msm/qcom,mdss.yaml b/Documentation/devicetree/bindings/display/msm/qcom,mdss.yaml
-index 461cb13c7092..7dceb2c54edd 100644
+index 7dceb2c54edd..ef89ffe9b578 100644
 --- a/Documentation/devicetree/bindings/display/msm/qcom,mdss.yaml
 +++ b/Documentation/devicetree/bindings/display/msm/qcom,mdss.yaml
-@@ -15,6 +15,9 @@ description:
-   encapsulates sub-blocks like MDP5, DSI, HDMI, eDP, etc.
+@@ -99,7 +99,7 @@ required:
+   - ranges
  
- properties:
-+  $nodename:
-+    pattern: "^display-subsystem@[0-9a-f]+$"
-+
-   compatible:
-     enum:
-       - qcom,mdss
-@@ -144,7 +147,7 @@ examples:
-   - |
-     #include <dt-bindings/clock/qcom,gcc-msm8916.h>
-     #include <dt-bindings/interrupt-controller/arm-gic.h>
--    mdss@1a00000 {
-+    display-subsystem@1a00000 {
-         compatible = "qcom,mdss";
-         reg = <0x1a00000 0x1000>,
-               <0x1ac8000 0x3000>;
+ patternProperties:
+-  "^mdp@[1-9a-f][0-9a-f]*$":
++  "^display-controller@[1-9a-f][0-9a-f]*$":
+     type: object
+     properties:
+       compatible:
+@@ -171,8 +171,8 @@ examples:
+         #size-cells = <1>;
+         ranges;
+ 
+-        mdp@1a01000 {
+-            compatible = "qcom,mdp5";
++        display-controller@1a01000 {
++            compatible = "qcom,msm8916-mdp5", "qcom,mdp5";
+             reg = <0x01a01000 0x89000>;
+             reg-names = "mdp_phys";
+ 
 -- 
 2.39.0
 
