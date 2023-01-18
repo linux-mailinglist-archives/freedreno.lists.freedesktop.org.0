@@ -2,77 +2,71 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id D60406711E8
-	for <lists+freedreno@lfdr.de>; Wed, 18 Jan 2023 04:28:25 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 23C406711EF
+	for <lists+freedreno@lfdr.de>; Wed, 18 Jan 2023 04:29:23 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 70E7010E1C4;
-	Wed, 18 Jan 2023 03:28:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8486B10E1C4;
+	Wed, 18 Jan 2023 03:29:21 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ej1-x630.google.com (mail-ej1-x630.google.com
- [IPv6:2a00:1450:4864:20::630])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2FF3110E658
- for <freedreno@lists.freedesktop.org>; Wed, 18 Jan 2023 03:28:21 +0000 (UTC)
-Received: by mail-ej1-x630.google.com with SMTP id az20so61020459ejc.1
- for <freedreno@lists.freedesktop.org>; Tue, 17 Jan 2023 19:28:21 -0800 (PST)
+Received: from mail-ed1-x529.google.com (mail-ed1-x529.google.com
+ [IPv6:2a00:1450:4864:20::529])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6C31D10E65A
+ for <freedreno@lists.freedesktop.org>; Wed, 18 Jan 2023 03:29:20 +0000 (UTC)
+Received: by mail-ed1-x529.google.com with SMTP id v13so13771635eda.11
+ for <freedreno@lists.freedesktop.org>; Tue, 17 Jan 2023 19:29:20 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :from:to:cc:subject:date:message-id:reply-to;
- bh=7YzHL45992jRHnnSjdtVLclelyHPX6XjznsApl7Zow8=;
- b=n/0dleEkC7sBtukFVPtAJers7XF99uSkQBal7mQ0kdExvFJcZTr4N/rKYUifIDFVA0
- hOIOpOyfj6MjrX8B056g1Cxpsjb7JiH7yuVXSlxlSdx9gnTS5NiIwPQMqDdYo8JjdsRL
- xGAoG2B+sDfCUAVf/7qVCIP857ZJbB+GTIjFXXUZFCLc9HB5mZRbxz7oW0NHMJ5nL4SM
- URRomUtzW8XK+PGyPEjAL446wy2IqS6uN0yQuJ0gNV/epoYxWL6s28u5ZzfVNxAxxYUj
- FlvG1Eu6nlHXcggXFZrqlNOqUoib/eqL4agSsZNKniIupHYCaXxy1ib+R/pJDVU8/Mjn
- ljAw==
+ bh=f22eo9eS2+umBBEiAmmR4UxB2/bNY49apLHEf3F7vXc=;
+ b=bxz7gGBCOtkpE6PEgY9c2/2u8h8M3a7aLEjc5LhLn5eyJp6w4wCeXiQM/uXGZY/UO3
+ CDsErP/BD/Cy7SfRFb/jnRPM6IF9SHMJ3ir7SquTwOAh9xnAueuK+nO5STyJc9WT6/5w
+ OZGLPcwtpSHtrG7kELSY7HUqN2Lknhlr9/E7oI0MQr5dGJu+/eVOgNxPbZ6JqFU+HGRr
+ xEc40Wn3t+Bcg6sB9R+HdR9PbJ5hOMwbmZS2ReLXHv5rEd7yI3EARt1PqrlwS2W1+MEy
+ /oxYpLE12LVrrpMouKfRAseBZ5enKqV82GRBtkK1DR4kqNd8l8V+JYqJszDeJRh3kCwM
+ CPoQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=7YzHL45992jRHnnSjdtVLclelyHPX6XjznsApl7Zow8=;
- b=JCjUYIlylw3AxpPr2BDOqDEGugJIwGB1RMZ5Ls44r0fsUpn/bGUjgl+U2pajM3FBPU
- 5bPVQxsxgWhMXqGwOn+JSYF+kqV+4yKnzzpaxOgF/HbePB5QK8/RqEXTn9y/xBKQHJUt
- BzIsSPI/q6dvq4l+DwohfjOkauCzJG8X2j7G+wEKBLKAOMKHVdGwEI/uV4ytCqcg90LA
- xAovMzl9RChhtN2p5sG89OvEda9aUAo3BFUxV5LcgYucRCjnKnQCAGSEjpB7iLIqqmkV
- 0mzKrbBOen8lKR83zKzHe2m6TQNO+H9hRD9uFQnteBBWWEcqYZ8z2Qmx4+tjopKJT9dG
- wpkg==
-X-Gm-Message-State: AFqh2kowLoRDzSKJekIeTK167/DbvJ1V+7GflQKqW5/2ZilNm5n5H8uJ
- r1iRAzrYR3sw0vALujF1LUwQ/g==
-X-Google-Smtp-Source: AMrXdXvl/d4gPVWEfwAUaTFKECMxB4ZNhkMsXCsn2dfggtow53Q8e+Egg3wyhwNpfpt7LH9tbJvOog==
-X-Received: by 2002:a17:907:9548:b0:84d:37d4:7533 with SMTP id
- ex8-20020a170907954800b0084d37d47533mr4680433ejc.0.1674012499614; 
- Tue, 17 Jan 2023 19:28:19 -0800 (PST)
+ bh=f22eo9eS2+umBBEiAmmR4UxB2/bNY49apLHEf3F7vXc=;
+ b=cwyNizrZvrx16mPW3p0Gy0pd/Ju4HbYep4LDiMQUfJkemmnxETyr4mwaj1aMwdbokG
+ mksOJaOI4hFbRjsN5X8P11/1Po8UIDq5EpopuOOmGruSx0xckxTmqYsmqWEDsxQnbqju
+ hRDkN+bHgQxRpqU4FW1+stSTN4TlXZoVfyeu9eZyzz5QeTyMsD6Qp2bAkHTetbktc0q8
+ kHbYVK6YeIpwbnBdaRvLQuv+B4AEfqP2asg7K13LmRigN4wQOgd07nE7M8pgsgFl9seu
+ F6fgXUNb162AbWpW8B6uTRn7fld0UH5dXMfwFtXYacOvN+o8oxB+W1CW8acAEdfYS329
+ V07w==
+X-Gm-Message-State: AFqh2kqjsGVHMEP03zcULCymjf1sDyCf/J7yTFssSkrwKgVYIuUNlxDI
+ 1mu8qyyqUVWEracZHCXeQ6CIAw==
+X-Google-Smtp-Source: AMrXdXsFAiMSEeE2jv/0i2yE7K7wg58Ad8xfQq+oTG9hEPm/VYsjsbejv1CDlAxupFCZjj7Oh8L0Tw==
+X-Received: by 2002:aa7:dd48:0:b0:497:233d:3ef7 with SMTP id
+ o8-20020aa7dd48000000b00497233d3ef7mr5387954edw.7.1674012558961; 
+ Tue, 17 Jan 2023 19:29:18 -0800 (PST)
 Received: from ?IPV6:2001:14ba:a085:4d00::8a5?
  (dzccz6yyyyyyyyyyybcwt-3.rev.dnainternet.fi. [2001:14ba:a085:4d00::8a5])
  by smtp.gmail.com with ESMTPSA id
- 18-20020a170906311200b0084b89c66eb5sm13890311ejx.4.2023.01.17.19.28.18
+ et14-20020a056402378e00b00497d8613532sm12782557edb.5.2023.01.17.19.29.17
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 17 Jan 2023 19:28:19 -0800 (PST)
-Message-ID: <43dddd52-a789-4ce1-f97e-16467329c746@linaro.org>
-Date: Wed, 18 Jan 2023 05:28:17 +0200
+ Tue, 17 Jan 2023 19:29:18 -0800 (PST)
+Message-ID: <7bfd7a4b-95fd-0e95-70a9-7287ddbd3a8c@linaro.org>
+Date: Wed, 18 Jan 2023 05:29:17 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.6.0
 Content-Language: en-GB
-To: Kalyan Thota <kalyant@qti.qualcomm.com>,
- "Kalyan Thota (QUIC)" <quic_kalyant@quicinc.com>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- "linux-arm-msm@vger.kernel.org" <linux-arm-msm@vger.kernel.org>,
- "freedreno@lists.freedesktop.org" <freedreno@lists.freedesktop.org>,
- "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>
-References: <1673972488-30140-1-git-send-email-quic_kalyant@quicinc.com>
- <1673972488-30140-2-git-send-email-quic_kalyant@quicinc.com>
- <0a845c24-b1a5-a961-103f-0d8840a8f17d@linaro.org>
- <84849b99-93ab-bc10-39ff-ac46328ede47@linaro.org>
- <BN0PR02MB8142227B547A2BEA43B5B86896C79@BN0PR02MB8142.namprd02.prod.outlook.com>
+To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+ linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
+ devicetree@vger.kernel.org
+References: <20230116225217.1056258-1-bryan.odonoghue@linaro.org>
+ <20230116225217.1056258-2-bryan.odonoghue@linaro.org>
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-In-Reply-To: <BN0PR02MB8142227B547A2BEA43B5B86896C79@BN0PR02MB8142.namprd02.prod.outlook.com>
+In-Reply-To: <20230116225217.1056258-2-bryan.odonoghue@linaro.org>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH 1/3] drm/msm/disp/dpu1: allow reservation
- even if dspps are not available.
+Subject: Re: [Freedreno] [PATCH v8 1/3] dt-bindings: msm:
+ dsi-controller-main: Add compatible strings for every current SoC
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -85,104 +79,80 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: "robdclark@chromium.org" <robdclark@chromium.org>,
- "dianders@chromium.org" <dianders@chromium.org>,
- "Abhinav Kumar \(QUIC\)" <quic_abhinavk@quicinc.com>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "Vinod Polimera \(QUIC\)" <quic_vpolimer@quicinc.com>,
- "swboyd@chromium.org" <swboyd@chromium.org>
+Cc: dri-devel@lists.freedesktop.org, krzysztof.kozlowski+dt@linaro.org,
+ sean@poorly.run, andersson@kernel.org, konrad.dybcio@somainline.org,
+ quic_abhinavk@quicinc.com, david@ixit.cz, dianders@chromium.org,
+ robdclark@gmail.com, robh+dt@kernel.org, agross@kernel.org, daniel@ffwll.ch,
+ swboyd@chromium.org, airlied@gmail.com, linux-kernel@vger.kernel.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 18/01/2023 05:24, Kalyan Thota wrote:
+On 17/01/2023 00:52, Bryan O'Donoghue wrote:
+> Currently we do not differentiate between the various users of the
+> qcom,mdss-dsi-ctrl. The driver is flexible enough to operate from one
+> compatible string but, the hardware does have some significant differences
+> in the number of clocks.
 > 
+> To facilitate documenting the clocks add the following compatible strings
 > 
->> -----Original Message-----
->> From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
->> Sent: Tuesday, January 17, 2023 10:10 PM
->> To: Kalyan Thota (QUIC) <quic_kalyant@quicinc.com>; dri-
->> devel@lists.freedesktop.org; linux-arm-msm@vger.kernel.org;
->> freedreno@lists.freedesktop.org; devicetree@vger.kernel.org
->> Cc: linux-kernel@vger.kernel.org; robdclark@chromium.org;
->> dianders@chromium.org; swboyd@chromium.org; Vinod Polimera (QUIC)
->> <quic_vpolimer@quicinc.com>; Abhinav Kumar (QUIC)
->> <quic_abhinavk@quicinc.com>
->> Subject: Re: [PATCH 1/3] drm/msm/disp/dpu1: allow reservation even if dspps are
->> not available.
->>
->> WARNING: This email originated from outside of Qualcomm. Please be wary of
->> any links or attachments, and do not enable macros.
->>
->> On 17/01/2023 18:35, Dmitry Baryshkov wrote:
->>> On 17/01/2023 18:21, Kalyan Thota wrote:
->>>> if any topology requests for dspps and catalogue doesn't have the
->>>> allocation, avoid failing the reservation.
->>>>
->>>> This can pave way to build logic allowing composer fallbacks for all
->>>> the color features that are handled in dspp.
->>>>
->>>> Signed-off-by: Kalyan Thota <quic_kalyant@quicinc.com>
->>>> ---
->>>>    drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c | 8 +++++++-
->>>>    1 file changed, 7 insertions(+), 1 deletion(-)
->>>>
->>>> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c
->>>> b/drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c
->>>> index 73b3442..c8899ae 100644
->>>> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c
->>>> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c
->>>> @@ -343,7 +343,13 @@ static bool
->>>> _dpu_rm_check_lm_and_get_connected_blks(struct dpu_rm *rm,
->>>>            return true;
->>>>        idx = lm_cfg->dspp - DSPP_0;
->>>> -    if (idx < 0 || idx >= ARRAY_SIZE(rm->dspp_blks)) {
->>>> +
->>>> +    if (idx < 0) {
->>>
->>> The change doesn't correspond to commit message.
->>>
->>>> +        DPU_DEBUG("lm doesn't have dspp, ignoring the request %d\n",
->>>> lm_cfg->dspp);
->>>> +        return true;
->>>> +    }
->>>> +
->>>> +    if (idx >= ARRAY_SIZE(rm->dspp_blks)) {
->>>>            DPU_ERROR("failed to get dspp on lm %d\n", lm_cfg->dspp);
->>>>            return false;
->>>>        }
->>>
->>> If you'd like to remove duplicate for the (idx >= ARRAY_SIZE) check,
->>> I'd suggest dropping the second one
->>>
->>
->> I've misread the patch. However I don't see, why would one request DSPP_NONE
->> while specifying topology->num_dspp. I think that you are trying to put additional
->> logic into a function that should just check for the available resources.
->>
+> - qcom,apq8064-dsi-ctrl
+> - qcom,msm8916-dsi-ctrl
+> - qcom,msm8953-dsi-ctrl
+> - qcom,msm8974-dsi-ctrl
+> - qcom,msm8996-dsi-ctrl
+> - qcom,msm8998-dsi-ctrl
+> - qcom,sc7180-dsi-ctrl
+> - qcom,sc7280-dsi-ctrl
+> - qcom,sdm660-dsi-ctrl
+> - qcom,sdm845-dsi-ctrl
+> - qcom,sm8150-dsi-ctrl
+> - qcom,sm8250-dsi-ctrl
+> - qcom,sm8350-dsi-ctrl
+> - qcom,sm8450-dsi-ctrl
+> - qcom,sm8550-dsi-ctrl
+> - qcom,qcm2290-dsi-ctrl
 > 
-> The link is specified in the catalogue.
-> For example:
+> Deprecate qcom,dsi-ctrl-6g-qcm2290 in favour of the desired format while we
+> do so.
 > 
-> 	LM_BLK("lm_0", LM_0, 0x44000, MIXER_SC7180_MASK,
-> 		&sc7180_lm_sblk, PINGPONG_0, 0, DSPP_0),     --> This LM has DSPP attached
-> 	LM_BLK("lm_2", LM_2, 0x46000, MIXER_SC7180_MASK,
-> 		&sc7180_lm_sblk, PINGPONG_2, LM_3, 0),  --> no DSPP
-> 	LM_BLK("lm_3", LM_3, 0x47000, MIXER_SC7180_MASK,
-> 		&sc7180_lm_sblk, PINGPONG_3, LM_2, 0), --> no DSPP
+> Several MDSS yaml files exist which document the dsi sub-node.
+> For each existing SoC MDSS yaml, provide the right dsi compat string.
 > 
-> For the above example, num_dspps will be 1 which is nonzero. But if a request comes on second interface and if there are no dspps then we are not failing the reservation of data path as color features can be offloaded to GPU.
-> Idx for LM_2 and LM_3 will be -1 for above case hence the check not to fail reservation.
-> 
-> topology->num_dspp previously was filled based on encoder type, since we want to move away from encoder checks, we are now passing it same as LM number. If there are dspps available we will allocate,
-> in case of non-availability then we are not failing the datapath reservation so that composer fallbacks can be implemented.
+> Signed-off-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+> ---
+>   .../display/msm/dsi-controller-main.yaml      | 30 ++++++++++++++++---
+>   .../bindings/display/msm/qcom,mdss.yaml       |  3 +-
+>   .../display/msm/qcom,msm8998-mdss.yaml        |  8 +++--
+>   .../display/msm/qcom,sc7180-mdss.yaml         |  6 ++--
+>   .../display/msm/qcom,sc7280-mdss.yaml         |  6 ++--
+>   .../display/msm/qcom,sdm845-mdss.yaml         |  8 +++--
+>   .../display/msm/qcom,sm8150-mdss.yaml         |  8 +++--
+>   .../display/msm/qcom,sm8250-mdss.yaml         |  8 +++--
+>   .../display/msm/qcom,sm8350-mdss.yaml         |  6 ++--
+>   .../display/msm/qcom,sm8450-mdss.yaml         |  4 ++-
+>   10 files changed, 63 insertions(+), 24 deletions(-)
 
-As I wrote, num_dspps should be filled correctly (by the 
-dpu_get_topology) to request DSPP for CTM-enabled CRTCs and to set the 
-field to 0 if CRTC doesn't have CTM enabled.
+[skipped]
 
-Then RM code should adhere to the num_dspps passed. It must return an 
-error if it can not fulfil the requirements. Also if no DSPPs are 
-requested, RM should prefer non-DSPP-enabled LMs.
+
+> diff --git a/Documentation/devicetree/bindings/display/msm/qcom,sm8450-mdss.yaml b/Documentation/devicetree/bindings/display/msm/qcom,sm8450-mdss.yaml
+> index c268e0b662cf9..599a6bad80f43 100644
+> --- a/Documentation/devicetree/bindings/display/msm/qcom,sm8450-mdss.yaml
+> +++ b/Documentation/devicetree/bindings/display/msm/qcom,sm8450-mdss.yaml
+> @@ -46,7 +46,9 @@ patternProperties:
+>       type: object
+>       properties:
+>         compatible:
+> -        const: qcom,mdss-dsi-ctrl
+> +        items:
+> +          - const: qcom,sm8450-dsi-ctrl
+> +          - const: qcom,mdss-dsi-ctrl
+>   
+>     "^phy@[0-9a-f]+$":
+>       type: object
+
+The example also should be updated in this file to include 
+qcom,sm8450-dsi-ctrl for DSI nodes
 
 -- 
 With best wishes
