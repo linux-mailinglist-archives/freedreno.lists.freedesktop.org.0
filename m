@@ -2,71 +2,68 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 144EE670FF9
-	for <lists+freedreno@lfdr.de>; Wed, 18 Jan 2023 02:28:31 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 56749671005
+	for <lists+freedreno@lfdr.de>; Wed, 18 Jan 2023 02:30:27 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6B9A510E626;
-	Wed, 18 Jan 2023 01:28:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0237E10E62C;
+	Wed, 18 Jan 2023 01:30:26 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ej1-x633.google.com (mail-ej1-x633.google.com
- [IPv6:2a00:1450:4864:20::633])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3E7DE10E626
- for <freedreno@lists.freedesktop.org>; Wed, 18 Jan 2023 01:28:26 +0000 (UTC)
-Received: by mail-ej1-x633.google.com with SMTP id tz11so15287943ejc.0
- for <freedreno@lists.freedesktop.org>; Tue, 17 Jan 2023 17:28:26 -0800 (PST)
+Received: from mail-ej1-x62f.google.com (mail-ej1-x62f.google.com
+ [IPv6:2a00:1450:4864:20::62f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E5FBE10E62C
+ for <freedreno@lists.freedesktop.org>; Wed, 18 Jan 2023 01:30:23 +0000 (UTC)
+Received: by mail-ej1-x62f.google.com with SMTP id vm8so79670195ejc.2
+ for <freedreno@lists.freedesktop.org>; Tue, 17 Jan 2023 17:30:23 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :from:to:cc:subject:date:message-id:reply-to;
- bh=o8QyhSnzbFdvQ5FvcP2X1YXz8UVWrJ0qZl/VLhR8k68=;
- b=tJuJCTlME1+6oauOK4SU7qRrWBxXoClZTj+bEv/XGHdCWDNFmfF2CILtP+FS+gHRrn
- pE3+Cm718Mwh0TLDGx6s1pocRQG2/MEBFi4Dq69xd0uH0fB5FCRQfdnvxomfaDvf4lOI
- lUlGgatBgxyC0Pwc2l5+8GqAMiPRs+AD6BzqJamU4q4wNTY76o04AWshNdARyT2P70qY
- JzoG323sgz88Jr5yYTplGh+EhRA4ZO9rznDHErfsXHDGGBHfX/+zxR4rL01bjNU6bHR8
- yuHKki+HdciJ8a3ntBBC6Qb/6UxoWC0MIalK4RPTc0kykB0JBxGNVuxJQwSj72DsKlJF
- Ga2A==
+ bh=ZsCFqOrG564I8qOCCNQEkJcGVuvtlZxy5WMlNbN2xTQ=;
+ b=J/iw0UUSt0Hxy+ZF7az331KZS8tNT51v8K0+HIEnf/j3/rgclEK3DeD5k631Ylnnh6
+ IImUR2u+k689o7Vk1hKFLO6XUSmkaUJN917cvkwHXG+2h37tPUY9rZImOwfW6KFELLse
+ pWQzIYSB5rCpLuwKIib3hGv6AtMXQfF8I97TlpgiHuZF9VNrCX5PVFH38j3LR5lHnSqT
+ zVSEBikljdLZE0m7JTpJKuUkqohd4TzbaRPPBrRbFsXb2SFrfI9LzBNLG5Qyi14YnElU
+ 6iSkaVLDlviYqgys3zpTruqYl+snh9F3Ak/aBCCvS9qaFMyJHAb3dSq+NJx+kZAeR6G5
+ hxow==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=o8QyhSnzbFdvQ5FvcP2X1YXz8UVWrJ0qZl/VLhR8k68=;
- b=6NZY+ZTQPzdfhiIMx8KVj0EBIuVqZJL3j8B2uBAuh/uqJlrJkzqaXJTINpaX9hTu6q
- EOlKKfDjg//t2xzSH1Bh5xDCsH98xG2WpZAk5XTudjCFidenP+IK4M4ZeHdaPgmHhgF4
- lSvV2CLFrwjEMZsI6ovjMuoF+yT1J46FU7T5ovmvsH/hA3D0tgY4YVWkYVbo5z1FwLzP
- 5WrE/xE1TaYq1YzJQGW1J4GjdYKqRv0M393/adsm1fFwcNwOilZom0bsEcGxXDy0qOp4
- q71VFT6EQbTIOG8+evbW2sMxt6JYz38dDy30LTdk7RcvYaT77nnJI/tqNc2jMH1G0QtF
- Swxw==
-X-Gm-Message-State: AFqh2kqlMa0KRqpIyHRhk7mzAQnM2psGltWHkmSsuQtfzXo9lyTFrvYJ
- nryeZNPpozJ5OWVSIgxL7CQhdQ==
-X-Google-Smtp-Source: AMrXdXt95F0POe56gcMKmWh647lKMiS0QfbK44kq6hQKEpNhP5zhV1YME0/5F4Nz9KPGga+FxIS3MQ==
-X-Received: by 2002:a17:906:6843:b0:86c:a3ed:1442 with SMTP id
- a3-20020a170906684300b0086ca3ed1442mr5296523ejs.4.1674005304769; 
- Tue, 17 Jan 2023 17:28:24 -0800 (PST)
+ bh=ZsCFqOrG564I8qOCCNQEkJcGVuvtlZxy5WMlNbN2xTQ=;
+ b=Fc51mu2FX8KI+d6ghiDE6OOkqBxDywG91WL6WuQx/uUzncC5pAWbU/6Xavbmi1AYny
+ lZNbdK5LB+RgXh2MXxgWoVXW8yndGE/nIvvAcZZNsmJm1qMXd3ZHf/bcaC/cbOP34/3e
+ yGnw99H9iwSf1RY8opKymhn4nhjuYLNLw+4YXUadWDmQWbl3oehf8rxRkuRA6aCIXL2E
+ /SiYAFyu2k1rf7n9zY8ozS2b7r1flS5ET0IhGLdKRgvqhlg5jlPNAh4h1UaUazlN7ny9
+ uWkKGzFjyUh7j5chfTUyUrV9eYLyVrh08hFYl5YAReWXDfxShuvMsxAeJV9dLdhOReLJ
+ m05Q==
+X-Gm-Message-State: AFqh2krnXOwd5gav/UhyN+7FGC+eVUkVOWiJ2mZt578jf5s1sgQLK+y3
+ aiIuh1zpqSfifkxPxOua38Yqkg==
+X-Google-Smtp-Source: AMrXdXuNF0GjFG6ixd7G1diTN5Er9+WUrN8dZPYP7bvFYKP5CRCYSqQLOMmPTPLMSoGQT2lpuFXusg==
+X-Received: by 2002:a17:906:fb16:b0:7c1:6d65:4718 with SMTP id
+ lz22-20020a170906fb1600b007c16d654718mr5177733ejb.33.1674005422383; 
+ Tue, 17 Jan 2023 17:30:22 -0800 (PST)
 Received: from ?IPV6:2001:14ba:a085:4d00::8a5?
  (dzccz6yyyyyyyyyyybcwt-3.rev.dnainternet.fi. [2001:14ba:a085:4d00::8a5])
  by smtp.gmail.com with ESMTPSA id
- bn11-20020a170906c0cb00b0087132e779b3sm2835803ejb.224.2023.01.17.17.28.23
+ ky25-20020a170907779900b00877596d4eadsm110552ejc.101.2023.01.17.17.30.21
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 17 Jan 2023 17:28:24 -0800 (PST)
-Message-ID: <7f3a02a5-53d0-4374-6f9b-894b1140da06@linaro.org>
-Date: Wed, 18 Jan 2023 03:28:22 +0200
+ Tue, 17 Jan 2023 17:30:22 -0800 (PST)
+Message-ID: <82ef3c2a-ef54-8c39-2266-7e3b203f92d1@linaro.org>
+Date: Wed, 18 Jan 2023 03:30:20 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.6.0
 Content-Language: en-GB
-To: Kuogee Hsieh <quic_khsieh@quicinc.com>, dri-devel@lists.freedesktop.org,
- robdclark@gmail.com, sean@poorly.run, swboyd@chromium.org,
- dianders@chromium.org, vkoul@kernel.org, daniel@ffwll.ch, airlied@gmail.com,
- agross@kernel.org, andersson@kernel.org
-References: <1672193785-11003-1-git-send-email-quic_khsieh@quicinc.com>
- <1672193785-11003-3-git-send-email-quic_khsieh@quicinc.com>
+To: Marijn Suijten <marijn.suijten@somainline.org>, phone-devel@vger.kernel.org
+References: <20230109231556.344977-1-marijn.suijten@somainline.org>
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-In-Reply-To: <1672193785-11003-3-git-send-email-quic_khsieh@quicinc.com>
+In-Reply-To: <20230109231556.344977-1-marijn.suijten@somainline.org>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH v6 2/2] drm/msm/dp: enhance dp controller isr
+Subject: Re: [Freedreno] [PATCH v3] drm/msm/dpu: Disallow unallocated
+ resources to be returned
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,39 +76,59 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-arm-msm@vger.kernel.org, quic_sbillaka@quicinc.com,
- freedreno@lists.freedesktop.org, quic_abhinavk@quicinc.com,
- linux-kernel@vger.kernel.org
+Cc: Vinod Koul <vkoul@kernel.org>, Jami Kettunen <jami.kettunen@somainline.org>,
+ David Airlie <airlied@gmail.com>, linux-arm-msm@vger.kernel.org,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
+ Stephen Boyd <swboyd@chromium.org>, Konrad Dybcio <konrad.dybcio@linaro.org>,
+ Rob Clark <robdclark@gmail.com>, Martin Botka <martin.botka@somainline.org>,
+ ~postmarketos/upstreaming@lists.sr.ht, Daniel Vetter <daniel@ffwll.ch>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@somainline.org>,
+ Drew Davenport <ddavenport@chromium.org>, freedreno@lists.freedesktop.org,
+ Sean Paul <sean@poorly.run>, linux-kernel@vger.kernel.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 28/12/2022 04:16, Kuogee Hsieh wrote:
-> dp_display_irq_handler() is the main isr handler with the helps
-> of two sub isr, dp_aux_isr and dp_ctrl_isr, to service all DP
-> interrupts on every irq triggered. Current all three isr does
-> not return IRQ_HANDLED if there are any interrupts it had
-> serviced. This patch fix this ambiguity by having all isr
-> return IRQ_HANDLED if there are interrupts had been serviced
-> or IRQ_NONE otherwise.
+On 10/01/2023 01:15, Marijn Suijten wrote:
+> In the event that the topology requests resources that have not been
+> created by the system (because they are typically not represented in
+> dpu_mdss_cfg ^1), the resource(s) in global_state (in this case DSC
+> blocks, until their allocation/assignment is being sanity-checked in
+> "drm/msm/dpu: Reject topologies for which no DSC blocks are available")
+> remain NULL but will still be returned out of
+> dpu_rm_get_assigned_resources, where the caller expects to get an array
+> containing num_blks valid pointers (but instead gets these NULLs).
 > 
-> Changes in v5:
-> -- move complete into dp_aux_native_handler()
-> -- move complete into dp_aux_i2c_handler()
-> -- restore null ctrl check at isr
-> -- return IRQ_NODE directly
+> To prevent this from happening, where null-pointer dereferences
+> typically result in a hard-to-debug platform lockup, num_blks shouldn't
+> increase past NULL blocks and will print an error and break instead.
+> After all, max_blks represents the static size of the maximum number of
+> blocks whereas the actual amount varies per platform.
 > 
-> Signed-off-by: Kuogee Hsieh <quic_khsieh@quicinc.com>
-> Suggested-by: Stephen Boyd <swboyd@chromium.org>
+> ^1: which can happen after a git rebase ended up moving additions to
+> _dpu_cfg to a different struct which has the same patch context.
+> 
+> Fixes: bb00a452d6f7 ("drm/msm/dpu: Refactor resource manager")
+> Signed-off-by: Marijn Suijten <marijn.suijten@somainline.org>
 > ---
->   drivers/gpu/drm/msm/dp/dp_aux.c     | 95 ++++++++++++++++++++++++++-----------
->   drivers/gpu/drm/msm/dp/dp_aux.h     |  2 +-
->   drivers/gpu/drm/msm/dp/dp_ctrl.c    | 12 ++++-
->   drivers/gpu/drm/msm/dp/dp_ctrl.h    |  2 +-
->   drivers/gpu/drm/msm/dp/dp_display.c | 16 +++++--
->   5 files changed, 89 insertions(+), 38 deletions(-)
 > 
+> Changes since v2:
+> - Dropped all 7 other patches that were queued for -next;
+> - Reworded error message to clarify that the requested resource should
+>    have already been allocated, rather than sounding like
+>    dpu_rm_get_assigned_resources is (re)allocating/(re)assigning
+>    resources here;
+> - This patch is now (implicitly!) based after "drm/msm/dpu: Reject
+>    topologies for which no DSC blocks are available", which should make
+>    it impossible to reach this condition, making it more of a safeguard
+>    in case of future code changes and/or hidden issues: and is more
+>    clearly conveyed in the patch message as well.
+> 
+> v2: https://lore.kernel.org/linux-arm-msm/20221221231943.1961117-5-marijn.suijten@somainline.org/
+> 
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c | 5 +++++
+>   1 file changed, 5 insertions(+)
 
-Stephen, Dough, do we still want this patch in?
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 
 -- 
 With best wishes
