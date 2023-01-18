@@ -2,59 +2,77 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id D7D32672B5A
-	for <lists+freedreno@lfdr.de>; Wed, 18 Jan 2023 23:34:33 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D0ACF672BC9
+	for <lists+freedreno@lfdr.de>; Wed, 18 Jan 2023 23:54:08 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DF46C10E860;
-	Wed, 18 Jan 2023 22:34:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 571B310E869;
+	Wed, 18 Jan 2023 22:54:07 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x133.google.com (mail-lf1-x133.google.com
- [IPv6:2a00:1450:4864:20::133])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 23E4A10E85F
- for <freedreno@lists.freedesktop.org>; Wed, 18 Jan 2023 22:34:28 +0000 (UTC)
-Received: by mail-lf1-x133.google.com with SMTP id br9so543047lfb.4
- for <freedreno@lists.freedesktop.org>; Wed, 18 Jan 2023 14:34:28 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=cc:to:subject:message-id:date:user-agent:from:references
- :in-reply-to:mime-version:from:to:cc:subject:date:message-id
- :reply-to; bh=5qIyF+TLh63sFETTbADGjZbXxzqLCPo1XlBKdL830OE=;
- b=OddL8xIsa85SIi+6/ASkZktVljH02QnK8RJTYbc/3pXq3fCaC7Rxqlhvbm7oMEC+FM
- BDkXwMUrvvNJkTU6D/xVpKnKJpz/7S2LzgD2bk0ag6hLgiddzDqaIWlK2JsCmbEzNelM
- I5elnDY85lSTRkfzBIvPTu0LbGHhoRkX0gZVg=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=cc:to:subject:message-id:date:user-agent:from:references
- :in-reply-to:mime-version:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=5qIyF+TLh63sFETTbADGjZbXxzqLCPo1XlBKdL830OE=;
- b=YpqdVls2JE2WyKeYZl4qraGYVMmKq4cCY63v4ATa42R1UzzGsxOgLqrg71YaEHbeKm
- mAS9sFIy7UDfqbi5I7zAPtJ0GBqQbTYYYtZQRS95/6zntOL/Uq6/h/wxhJNqt52opuR7
- tt4ZbcWvKM7T5puV19Q7sksBckaDMPbvDA/LrdlUNAUGY9TCuKNvnEZYR0doipUTGeKR
- 7vsyyoXk4JBmF9/4wrTlm7KrzUpj7CJwBWAJ58WICT8CDZefJ958dp7tspszv2omIakf
- F0qP+BLVER8mTCITwmWpkbipBM4hVWl6fbMj0kHH8IfoyEjRdMklwXhP18kBzWrI2gi5
- TILw==
-X-Gm-Message-State: AFqh2kpDD5QifBnQukBNHyWbQk6gKHiRKum3EcGWqA0RvJgUTP5xHZDs
- mNhvKQvVnf+6rRJvspHz0HQolLz7uDAa/M6/MHbfQg==
-X-Google-Smtp-Source: AMrXdXumfMYoFquw57PbwkvIhJ708dlixL/3hhgXrqsOHBxhwFrsnTJTGXRN8LdynqDPxFxFcRzGJxy7pU6o/8/bf/E=
-X-Received: by 2002:ac2:55a1:0:b0:4b5:7374:90a9 with SMTP id
- y1-20020ac255a1000000b004b5737490a9mr374530lfg.145.1674081266151; Wed, 18 Jan
- 2023 14:34:26 -0800 (PST)
-Received: from 753933720722 named unknown by gmailapi.google.com with
- HTTPREST; Wed, 18 Jan 2023 16:34:25 -0600
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3BA5B10E866;
+ Wed, 18 Jan 2023 22:54:05 +0000 (UTC)
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 30IMosHY014895; Wed, 18 Jan 2023 22:53:58 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
+ h=message-id : date :
+ mime-version : subject : to : cc : references : from : in-reply-to :
+ content-type : content-transfer-encoding; s=qcppdkim1;
+ bh=wZmdRT3g2yWWuS6SqRce31r+eZ+vEGhrd8/7m7lSmNA=;
+ b=fUJX7hLDKz1O9BVVHwx9HgNGrvf4F++lxiUXZFKLd/5DKuF3QaWqxCc6H21Jbzbgtv88
+ SDbSyuJNJsBM27yWgE6Smw4z9svbLZLTKpWVcWlbSWUKzaJUGU6FrT1Zx3r4IP+U7L2s
+ xzQI8OxpeBpnZVqVPXNDJbl3vRhx5LHuAmcX4YLAHUNxZaBNzTGFGAQOTKoz0BboAAm0
+ vVqyZ63II2U0tdcvTlawI7D8f7GQPEealAY+hyBN3SCz+35ul1H9a0xjvWNq7HJtGBjS
+ CLThJF85FUv9VTFe3B1BWrCLFPwMdZiyocyZaoi9vjJotkoz6guMCCVZFJR75xJVy79h Ng== 
+Received: from nasanppmta03.qualcomm.com (i-global254.qualcomm.com
+ [199.106.103.254])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3n6debsmv0-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 18 Jan 2023 22:53:58 +0000
+Received: from nasanex01b.na.qualcomm.com (nasanex01b.na.qualcomm.com
+ [10.46.141.250])
+ by NASANPPMTA03.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 30IMrvqX031615
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 18 Jan 2023 22:53:57 GMT
+Received: from [10.71.110.193] (10.80.80.8) by nasanex01b.na.qualcomm.com
+ (10.46.141.250) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.36; Wed, 18 Jan
+ 2023 14:53:56 -0800
+Message-ID: <512bf32f-b8d2-91b7-a23c-1905354ff0e9@quicinc.com>
+Date: Wed, 18 Jan 2023 14:53:56 -0800
 MIME-Version: 1.0
-In-Reply-To: <CAD=FV=VeBBFTZBjZNhMUBO1uTNKBwcgZM6ehnw3BGmervE7jXA@mail.gmail.com>
-References: <1672193785-11003-1-git-send-email-quic_khsieh@quicinc.com>
- <1672193785-11003-3-git-send-email-quic_khsieh@quicinc.com>
- <CAD=FV=VeBBFTZBjZNhMUBO1uTNKBwcgZM6ehnw3BGmervE7jXA@mail.gmail.com>
-From: Stephen Boyd <swboyd@chromium.org>
-User-Agent: alot/0.10
-Date: Wed, 18 Jan 2023 16:34:25 -0600
-Message-ID: <CAE-0n50JB211OhA7pqj6U3rfBeeS0ofzY_moE77REmY2awo7bA@mail.gmail.com>
-To: Doug Anderson <dianders@chromium.org>,
- Kuogee Hsieh <quic_khsieh@quicinc.com>
-Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [PATCH v6 2/2] drm/msm/dp: enhance dp controller isr
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.5.1
+Content-Language: en-US
+To: Harry Wentland <harry.wentland@amd.com>, <freedreno@lists.freedesktop.org>
+References: <20230104234036.636-1-quic_jesszhan@quicinc.com>
+ <20230104234036.636-2-quic_jesszhan@quicinc.com>
+ <c380bb1b-6e65-23c4-6e6b-29ce410b6baa@amd.com>
+From: Jessica Zhang <quic_jesszhan@quicinc.com>
+In-Reply-To: <c380bb1b-6e65-23c4-6e6b-29ce410b6baa@amd.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
+ nasanex01b.na.qualcomm.com (10.46.141.250)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-GUID: Y4AkXQX9vdMUJAtPgN_pf48hKEzoqwHV
+X-Proofpoint-ORIG-GUID: Y4AkXQX9vdMUJAtPgN_pf48hKEzoqwHV
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.219,Aquarius:18.0.923,Hydra:6.0.562,FMLib:17.11.122.1
+ definitions=2023-01-18_05,2023-01-18_01,2022-06-22_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501
+ malwarescore=0 mlxlogscore=999 adultscore=0 bulkscore=0 spamscore=0
+ lowpriorityscore=0 phishscore=0 suspectscore=0 impostorscore=0
+ clxscore=1011 mlxscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2212070000 definitions=main-2301180190
+Subject: Re: [Freedreno] [RFC PATCH v3 1/3] drm: Introduce solid fill
+ property for drm plane
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,101 +85,330 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, quic_sbillaka@quicinc.com, sean@poorly.run,
- andersson@kernel.org, vkoul@kernel.org, dri-devel@lists.freedesktop.org,
- quic_abhinavk@quicinc.com, robdclark@gmail.com, agross@kernel.org,
- daniel@ffwll.ch, linux-arm-msm@vger.kernel.org, dmitry.baryshkov@linaro.org,
- airlied@gmail.com, linux-kernel@vger.kernel.org
+Cc: sebastian.wick@redhat.com, linux-arm-msm@vger.kernel.org,
+ quic_abhinavk@quicinc.com, dri-devel@lists.freedesktop.org,
+ swboyd@chromium.org, ppaalanen@gmail.com, seanpaul@chromium.org,
+ laurent.pinchart@ideasonboard.com, daniel.vetter@ffwll.ch,
+ dmitry.baryshkov@linaro.org, wayland-devel@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Quoting Doug Anderson (2023-01-18 10:29:59)
-> Hi,
->
-> On Tue, Dec 27, 2022 at 6:16 PM Kuogee Hsieh <quic_khsieh@quicinc.com> wrote:
-> > +
-> >         if (isr & DP_INTR_AUX_ERROR) {
-> >                 aux->aux_error_num = DP_AUX_ERR_PHY;
-> >                 dp_catalog_aux_clear_hw_interrupts(aux->catalog);
-> > +               ret = IRQ_HANDLED;
-> >         }
->
-> The end result of the above is a weird mix of "if" and "else if" for
-> no apparent reason. All except one of them just updates the exact same
-> variable so doing more than one is mostly useless. If you made it
-> consistently with "else" then the whole thing could be much easier,
-> like this (untested):
 
-Totally agreed. I even asked that when I posted the RFC[1]!
 
-"Can we also simplify the aux handlers to be a big pile of
-if-else-if conditions that don't overwrite the 'aux_error_num'? That
-would simplify the patch below."
+On 1/18/2023 10:57 AM, Harry Wentland wrote:
+> On 1/4/23 18:40, Jessica Zhang wrote:
+>> Add support for solid_fill property to drm_plane. In addition, add
+>> support for setting and getting the values for solid_fill.
+>>
+>> solid_fill holds data for supporting solid fill planes. The property
+>> accepts an RGB323232 value and the driver data is formatted as such:
+>>
+>> struct drm_solid_fill {
+>> 	u32 r;
+>> 	u32 g;
+>> 	u32 b;
+>> };
+> 
+> Rather than special-casing this would it make sense to define this
+> as a single pixel of a FOURCC property?
+> 
+> I.e., something like this:
+> 
+> struct drm_solid_fill_info {
+> 	u32 format; /* FOURCC value */
+> 	u64 value; /* FOURCC pixel value */
+> }
+> 
+> That removes some ambiguity how the value should be interpreted, i.e.,
+> it can be interpreted like a single pixel of the specified FOURCC format.
+> 
+> It might also make sense to let drivers advertise the supported
+> FOURCC formats for solid_fill planes.
 
-> > @@ -425,17 +464,15 @@ void dp_aux_isr(struct drm_dp_aux *dp_aux)
-> >
-> >         /* no interrupts pending, return immediately */
-> >         if (!isr)
-> > -               return;
-> > +               return IRQ_NONE;
-> >
-> >         if (!aux->cmd_busy)
-> > -               return;
-> > +               return IRQ_NONE;
-> >
-> >         if (aux->native)
-> > -               dp_aux_native_handler(aux, isr);
-> > +               return dp_aux_native_handler(aux, isr);
-> >         else
-> > -               dp_aux_i2c_handler(aux, isr);
-> > -
-> > -       complete(&aux->comp);
-> > +               return dp_aux_i2c_handler(aux, isr);
->
-> Personally, I wouldn't have done it this way. I guess that means I
-> disagree with Stephen. I'm not dead-set against this way and it's fine
-> if you want to continue with it. If I were doing it, though, then I
-> would always return IRQ_HANDLED IF dp_catalog_aux_get_irq() returned
-> anything non-zero. Why? Officially if dp_catalog_aux_get_irq() returns
-> something non-zero then you know for sure that there was an interrupt
-> for this device and officially you have "handled" it by acking it,
-> since dp_catalog_aux_get_irq() acks all the bits that it returns. That
-> means that even if dp_aux_native_handler() or dp_aux_i2c_handler()
-> didn't do anything with the interrupt you at least know that it was
-> for us (so if the IRQ is shared we properly report back to the IRQ
-> subsystem) and that it won't keep firing over and over (because we
-> acked it).
+Hi Harry,
 
-I'm primarily concerned with irq storms taking down the system. Can that
-happen here? If not, then returning IRQ_NONE is not really useful. The
-overall IRQ for DP looks to be level, because the driver requests the
-IRQ that way. The aux interrupt status bits look to be edge style
-interrupts though, because the driver acks them in the handler. I guess
-that means the edges come in and latch into the interrupt status
-register so the driver has to ack all of them to drop the IRQ level for
-the overall DP interrupt? If the driver only acked the bits it looked at
-instead of all interrupt bits in the register, then the level would
-never go down for the IRQ if an unhandled interrupt bit was present like
-'DP_INTR_PLL_UNLOCKED'. That would mean we would hit spurious IRQ
-handling very quickly if that interrupt bit was ever seen.
+The initial v1 of this RFC had support for taking in a format and such, 
+but it was decided that just supporting RGB323232 would work too.
 
-But the driver is acking all interrupts, so probably trying to work
-IRQ_NONE into this code is not very useful? The only thing it would
-catch is DP_INTR_PLL_UNLOCKED being set over and over again, which seems
-unlikely. Of course, why is this driver unmasking interrupt bits it
-doesn't care about? That may be leading to useless interrupt handling in
-this driver if some interrupt bit is unmasked but never looked at. Can
-that be fixed in another patch?
+Here's the original thread discussing it [1], but to summarize, the work 
+needed to convert the solid fill color to RGB is trivial (as it's just a 
+single pixel of data). In addition, supporting various formats for 
+solid_fill would add complexity as we'd have to communicate which 
+formats are supported.
 
->
-> NOTE: I still like having the complete() call in
-> dp_aux_native_handler() and dp_aux_i2c_handler() and, to me, that part
-> of this patch is worthwhile. That makes it more obvious that the code
-> is truly expecting that complete to be called for all error cases as
-> well as transfer finished.
->
+[1] 
+https://lists.freedesktop.org/archives/dri-devel/2022-November/379148.html
 
-I think it may be required. We don't want to allow DP_INTR_PLL_UNLOCKED
-to complete() the transfer.
+> 
+> Is there an implementation for this in a corresponding canonical
+> upstream userspace project, to satisfy [1]? If not, what is the plan
+> for this? If so, please point to the corresponding patches.
 
-[1] https://lore.kernel.org/all/CAE-0n5100eGC0c09oq4B3M=aHtKW5+wGLGsS1jM91SCyZ5wffQ@mail.gmail.com/
+The use case we're trying to support here is the Android HWC SOLID_FILL 
+hint [1], though it can also be used to address the Wayland single pixel 
+FB protocol [2]. I'm also planning to add an IGT test to show an example 
+of end to end usage.
+
+[1] 
+https://android.googlesource.com/platform/hardware/interfaces/+/refs/heads/master/graphics/composer/aidl/android/hardware/graphics/composer3/Composition.aidl#52
+
+[2] 
+https://gitlab.freedesktop.org/wayland/wayland-protocols/-/merge_requests/104
+
+Thanks,
+
+Jessica Zhang
+
+> 
+> [1] https://dri.freedesktop.org/docs/drm/gpu/drm-uapi.html#open-source-userspace-requirements
+> 
+> Harry
+> 
+>>
+>> To enable solid fill planes, userspace must assigned solid_fill to a
+>> property blob containing the following information:
+>>
+>> struct drm_solid_fill_info {
+>> 	u8 version;
+>> 	u32 r, g, b;
+>> };
+>>
+>> Changes in V2:
+>> - Changed solid_fill property to a property blob (Simon, Dmitry)
+>> - Added drm_solid_fill struct (Simon)
+>> - Added drm_solid_fill_info struct (Simon)
+>>
+>> Changes in V3:
+>> - Corrected typo in drm_solid_fill struct documentation
+>>
+>> Signed-off-by: Jessica Zhang <quic_jesszhan@quicinc.com>
+>> ---
+>>   drivers/gpu/drm/drm_atomic_state_helper.c |  9 ++++
+>>   drivers/gpu/drm/drm_atomic_uapi.c         | 59 +++++++++++++++++++++++
+>>   drivers/gpu/drm/drm_blend.c               | 17 +++++++
+>>   include/drm/drm_blend.h                   |  1 +
+>>   include/drm/drm_plane.h                   | 43 +++++++++++++++++
+>>   5 files changed, 129 insertions(+)
+>>
+>> diff --git a/drivers/gpu/drm/drm_atomic_state_helper.c b/drivers/gpu/drm/drm_atomic_state_helper.c
+>> index dfb57217253b..c96fd1f2ad99 100644
+>> --- a/drivers/gpu/drm/drm_atomic_state_helper.c
+>> +++ b/drivers/gpu/drm/drm_atomic_state_helper.c
+>> @@ -253,6 +253,11 @@ void __drm_atomic_helper_plane_state_reset(struct drm_plane_state *plane_state,
+>>   	plane_state->alpha = DRM_BLEND_ALPHA_OPAQUE;
+>>   	plane_state->pixel_blend_mode = DRM_MODE_BLEND_PREMULTI;
+>>   
+>> +	if (plane_state->solid_fill_blob) {
+>> +		drm_property_blob_put(plane_state->solid_fill_blob);
+>> +		plane_state->solid_fill_blob = NULL;
+>> +	}
+>> +
+>>   	if (plane->color_encoding_property) {
+>>   		if (!drm_object_property_get_default_value(&plane->base,
+>>   							   plane->color_encoding_property,
+>> @@ -335,6 +340,9 @@ void __drm_atomic_helper_plane_duplicate_state(struct drm_plane *plane,
+>>   	if (state->fb)
+>>   		drm_framebuffer_get(state->fb);
+>>   
+>> +	if (state->solid_fill_blob)
+>> +		drm_property_blob_get(state->solid_fill_blob);
+>> +
+>>   	state->fence = NULL;
+>>   	state->commit = NULL;
+>>   	state->fb_damage_clips = NULL;
+>> @@ -384,6 +392,7 @@ void __drm_atomic_helper_plane_destroy_state(struct drm_plane_state *state)
+>>   		drm_crtc_commit_put(state->commit);
+>>   
+>>   	drm_property_blob_put(state->fb_damage_clips);
+>> +	drm_property_blob_put(state->solid_fill_blob);
+>>   }
+>>   EXPORT_SYMBOL(__drm_atomic_helper_plane_destroy_state);
+>>   
+>> diff --git a/drivers/gpu/drm/drm_atomic_uapi.c b/drivers/gpu/drm/drm_atomic_uapi.c
+>> index c06d0639d552..8a1d2fb7a757 100644
+>> --- a/drivers/gpu/drm/drm_atomic_uapi.c
+>> +++ b/drivers/gpu/drm/drm_atomic_uapi.c
+>> @@ -316,6 +316,55 @@ drm_atomic_set_crtc_for_connector(struct drm_connector_state *conn_state,
+>>   }
+>>   EXPORT_SYMBOL(drm_atomic_set_crtc_for_connector);
+>>   
+>> +static void drm_atomic_convert_solid_fill_info(struct drm_solid_fill *out,
+>> +		struct drm_solid_fill_info *in)
+>> +{
+>> +	out->r = in->r;
+>> +	out->g = in->g;
+>> +	out->b = in->b;
+>> +}
+>> +
+>> +static int drm_atomic_set_solid_fill_prop(struct drm_plane_state *state,
+>> +		struct drm_property_blob *blob)
+>> +{
+>> +	int ret = 0;
+>> +	int blob_version;
+>> +
+>> +	if (blob == state->solid_fill_blob)
+>> +		return 0;
+>> +
+>> +	drm_property_blob_put(state->solid_fill_blob);
+>> +	state->solid_fill_blob = NULL;
+>> +
+>> +	memset(&state->solid_fill, 0, sizeof(state->solid_fill));
+>> +
+>> +	if (blob) {
+>> +		if (blob->length != sizeof(struct drm_solid_fill_info)) {
+>> +			drm_dbg_atomic(state->plane->dev,
+>> +					"[PLANE:%d:%s] bad solid fill blob length: %zu\n",
+>> +					state->plane->base.id, state->plane->name,
+>> +					blob->length);
+>> +			return -EINVAL;
+>> +		}
+>> +
+>> +		blob_version = ((struct drm_solid_fill_info *)blob->data)->version;
+>> +
+>> +		/* Append with more versions if necessary */
+>> +		if (blob_version == 1) {
+>> +			drm_atomic_convert_solid_fill_info(&state->solid_fill, blob->data);
+>> +		} else {
+>> +			drm_dbg_atomic(state->plane->dev,
+>> +					"[PLANE:%d:%s] failed to set solid fill (ret=%d)\n",
+>> +					state->plane->base.id, state->plane->name,
+>> +					ret);
+>> +			return -EINVAL;
+>> +		}
+>> +		state->solid_fill_blob = drm_property_blob_get(blob);
+>> +	}
+>> +
+>> +	return ret;
+>> +}
+>> +
+>>   static void set_out_fence_for_crtc(struct drm_atomic_state *state,
+>>   				   struct drm_crtc *crtc, s32 __user *fence_ptr)
+>>   {
+>> @@ -544,6 +593,13 @@ static int drm_atomic_plane_set_property(struct drm_plane *plane,
+>>   		state->src_w = val;
+>>   	} else if (property == config->prop_src_h) {
+>>   		state->src_h = val;
+>> +	} else if (property == plane->solid_fill_property) {
+>> +		struct drm_property_blob *solid_fill = drm_property_lookup_blob(dev, val);
+>> +
+>> +		ret = drm_atomic_set_solid_fill_prop(state, solid_fill);
+>> +		drm_property_blob_put(solid_fill);
+>> +
+>> +		return ret;
+>>   	} else if (property == plane->alpha_property) {
+>>   		state->alpha = val;
+>>   	} else if (property == plane->blend_mode_property) {
+>> @@ -616,6 +672,9 @@ drm_atomic_plane_get_property(struct drm_plane *plane,
+>>   		*val = state->src_w;
+>>   	} else if (property == config->prop_src_h) {
+>>   		*val = state->src_h;
+>> +	} else if (property == plane->solid_fill_property) {
+>> +		*val = state->solid_fill_blob ?
+>> +			state->solid_fill_blob->base.id : 0;
+>>   	} else if (property == plane->alpha_property) {
+>>   		*val = state->alpha;
+>>   	} else if (property == plane->blend_mode_property) {
+>> diff --git a/drivers/gpu/drm/drm_blend.c b/drivers/gpu/drm/drm_blend.c
+>> index b4c8cab7158c..17ab645c8309 100644
+>> --- a/drivers/gpu/drm/drm_blend.c
+>> +++ b/drivers/gpu/drm/drm_blend.c
+>> @@ -616,3 +616,20 @@ int drm_plane_create_blend_mode_property(struct drm_plane *plane,
+>>   	return 0;
+>>   }
+>>   EXPORT_SYMBOL(drm_plane_create_blend_mode_property);
+>> +
+>> +int drm_plane_create_solid_fill_property(struct drm_plane *plane)
+>> +{
+>> +	struct drm_property *prop;
+>> +
+>> +	prop = drm_property_create(plane->dev,
+>> +			DRM_MODE_PROP_ATOMIC | DRM_MODE_PROP_BLOB,
+>> +			"solid_fill", 0);
+>> +	if (!prop)
+>> +		return -ENOMEM;
+>> +
+>> +	drm_object_attach_property(&plane->base, prop, 0);
+>> +	plane->solid_fill_property = prop;
+>> +
+>> +	return 0;
+>> +}
+>> +EXPORT_SYMBOL(drm_plane_create_solid_fill_property);
+>> diff --git a/include/drm/drm_blend.h b/include/drm/drm_blend.h
+>> index 88bdfec3bd88..0338a860b9c8 100644
+>> --- a/include/drm/drm_blend.h
+>> +++ b/include/drm/drm_blend.h
+>> @@ -58,4 +58,5 @@ int drm_atomic_normalize_zpos(struct drm_device *dev,
+>>   			      struct drm_atomic_state *state);
+>>   int drm_plane_create_blend_mode_property(struct drm_plane *plane,
+>>   					 unsigned int supported_modes);
+>> +int drm_plane_create_solid_fill_property(struct drm_plane *plane);
+>>   #endif
+>> diff --git a/include/drm/drm_plane.h b/include/drm/drm_plane.h
+>> index 447e664e49d5..3b9da06f358b 100644
+>> --- a/include/drm/drm_plane.h
+>> +++ b/include/drm/drm_plane.h
+>> @@ -40,6 +40,25 @@ enum drm_scaling_filter {
+>>   	DRM_SCALING_FILTER_NEAREST_NEIGHBOR,
+>>   };
+>>   
+>> +/**
+>> + * struct drm_solid_fill_info - User info for solid fill planes
+>> + */
+>> +struct drm_solid_fill_info {
+>> +	__u8 version;
+>> +	__u32 r, g, b;
+>> +};
+>> +
+>> +/**
+>> + * struct solid_fill_property - RGB values for solid fill plane
+>> + *
+>> + * Note: This is the V1 for this feature
+>> + */
+>> +struct drm_solid_fill {
+>> +	uint32_t r;
+>> +	uint32_t g;
+>> +	uint32_t b;
+>> +};
+>> +
+>>   /**
+>>    * struct drm_plane_state - mutable plane state
+>>    *
+>> @@ -116,6 +135,23 @@ struct drm_plane_state {
+>>   	/** @src_h: height of visible portion of plane (in 16.16) */
+>>   	uint32_t src_h, src_w;
+>>   
+>> +	/**
+>> +	 * @solid_fill_blob:
+>> +	 *
+>> +	 * Blob containing relevant information for a solid fill plane
+>> +	 * including pixel format and data. See
+>> +	 * drm_plane_create_solid_fill_property() for more details.
+>> +	 */
+>> +	struct drm_property_blob *solid_fill_blob;
+>> +
+>> +	/**
+>> +	 * @solid_fill:
+>> +	 *
+>> +	 * Pixel data for solid fill planes. See
+>> +	 * drm_plane_create_solid_fill_property() for more details.
+>> +	 */
+>> +	struct drm_solid_fill solid_fill;
+>> +
+>>   	/**
+>>   	 * @alpha:
+>>   	 * Opacity of the plane with 0 as completely transparent and 0xffff as
+>> @@ -699,6 +735,13 @@ struct drm_plane {
+>>   	 */
+>>   	struct drm_plane_state *state;
+>>   
+>> +	/*
+>> +	 * @solid_fill_property:
+>> +	 * Optional solid_fill property for this plane. See
+>> +	 * drm_plane_create_solid_fill_property().
+>> +	 */
+>> +	struct drm_property *solid_fill_property;
+>> +
+>>   	/**
+>>   	 * @alpha_property:
+>>   	 * Optional alpha property for this plane. See
+> 
