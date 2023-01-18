@@ -1,66 +1,66 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id B57306711C0
-	for <lists+freedreno@lfdr.de>; Wed, 18 Jan 2023 04:20:35 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 9D26A6711CE
+	for <lists+freedreno@lfdr.de>; Wed, 18 Jan 2023 04:24:39 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B432E10E653;
-	Wed, 18 Jan 2023 03:20:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2C7AF10E658;
+	Wed, 18 Jan 2023 03:24:38 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ej1-x631.google.com (mail-ej1-x631.google.com
- [IPv6:2a00:1450:4864:20::631])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F1A5D10E653
- for <freedreno@lists.freedesktop.org>; Wed, 18 Jan 2023 03:20:27 +0000 (UTC)
-Received: by mail-ej1-x631.google.com with SMTP id mg12so7755702ejc.5
- for <freedreno@lists.freedesktop.org>; Tue, 17 Jan 2023 19:20:27 -0800 (PST)
+Received: from mail-ed1-x536.google.com (mail-ed1-x536.google.com
+ [IPv6:2a00:1450:4864:20::536])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 12D5C10E659
+ for <freedreno@lists.freedesktop.org>; Wed, 18 Jan 2023 03:24:36 +0000 (UTC)
+Received: by mail-ed1-x536.google.com with SMTP id x36so13205307ede.13
+ for <freedreno@lists.freedesktop.org>; Tue, 17 Jan 2023 19:24:35 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=content-transfer-encoding:mime-version:message-id:date:subject:cc
  :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=fqxXCRMWUpX9mz5WAQxvM+x2hdkUx8K3aD6Kwx9JWK0=;
- b=Vrxm+BaKUW7drwnQMkZl0L5zgktqfdhc5QBgrqW4OhcWixP8Oa34SJU3K7L/ob7SGX
- ivySSdkdp6unYI9GRyCLh/AMyR57Aw1Nkr7eDZMSHB6yje+uGyz3A7DYbsCNmoiUT24z
- BaPaP3sb3tBI2VEyrehlMaGvlBd9/7cQzKfTK7NG/oH7sxk1tzWN7/uT4xKoAG2dk05u
- YdN0v3nNRXYLv+5rMQLCL+f7DaeU3NOLUCyt0uhXBoGPCiUE1wW43M3E/Z7KcAFXO+Om
- whnT0nXMUFIqY8aCBvCgZbqKUeEB2Xy0bZLwtVgqNGt4HiIHnN0gYn+JP2FP2iEvexLS
- ts+w==
+ bh=hfByT3XPIIBtEMphICjivjtBS1usb2S8m4PFSVMxjfk=;
+ b=PDM4ZC2iRec3CPN1tjGInxDAqgdmGQflGmlfq4HwSs75xGjghkQXnE///SrRlF8hMQ
+ Qo3JGMklyjaacq5UrP/4TLhogF+tDswRA+i9jtee5AzsLXZrmgej0d3j/KShszZwYCd7
+ C0Bpljm3dAQCxllPIZMIeNGZA7GOPBkzTs491DiJybMiBG6ifPj2GpwkEwQXWiHeYimm
+ I9YP278HdGRK+AP9k9kTl21qWRudauU3r3F6fbqfSTxeyidH3dD4jTF3T9/B5cEK3+fD
+ QfHxm3P8Ecv+cBl6k8wvbYIt+JUo4Jc3isfBHkFI41Ar3N1v6rPZe8jAhWMeZ1bKsQoT
+ Cu7w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=content-transfer-encoding:mime-version:message-id:date:subject:cc
  :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=fqxXCRMWUpX9mz5WAQxvM+x2hdkUx8K3aD6Kwx9JWK0=;
- b=GRCuf43dC9Q8iJmfU7MfYoTOhwwzrqg1sglwcbh29RvwKlzNxhUcnCj+CaDsseVdMY
- tKCIyIDCyYWU7YRmc4dOo1XKoBzNmxZK0lciN2/9v+e1FHTtexLehh8tcEV+mT1oWYHO
- pkULjWBVXEbjKHxwYiYFld3A5ufHlo3RI4YO/MzkZ+5q3BWc+YNFrXqBLRVOmwVsoIMa
- QYL0kZWqeC2q1dXAWOQ0xhA/r31ukaO5+zJ2JID4Kfm1w5JfHlG7dgdGF0+sDiJQErUa
- cZtz0f+Q+q0ZsQyB/BPCSKNsLkWjqJr/16y9d5jeQIkooFjNiF9ejOo3+sIdIoutE4oZ
- bkEg==
-X-Gm-Message-State: AFqh2krXf9OHZqIKfo8NPlo2ABuw6qpFjKwIrZtTQnySqa0slACKrWXd
- V3kc4/Xlm6tP6T8RY7K2E2HQeg==
-X-Google-Smtp-Source: AMrXdXsPlqnmJSh/9i3ssUfdZIrIq/56AHP8tZA7qU5AK5epPxuuKnYq5TUQHuvBHjMl8efcGuCF1Q==
-X-Received: by 2002:a17:906:6a27:b0:872:8c97:db27 with SMTP id
- qw39-20020a1709066a2700b008728c97db27mr5499157ejc.69.1674012026448; 
- Tue, 17 Jan 2023 19:20:26 -0800 (PST)
+ bh=hfByT3XPIIBtEMphICjivjtBS1usb2S8m4PFSVMxjfk=;
+ b=bkkncHS/bGw5uoBwtI0sm5gOAQYCZXlmGT+UUDBWcZhuKgsrQZCECVp2OyC9n4FnuV
+ vLCepFlF1j7NWeTL+B1e7Txq29EiibGVO8oxg3lwawrSx8GgCQ5Mb6x5u/gxGKGBzCQY
+ 7niW0Wjedbqf/WYpxWyDvsXRSQ7VhgBUbjNEfwvt9vXQ093hgsAbxaTejmr0fBqLBaSP
+ ujM/WxEjBghRQAttnyXw1J9sEzUJzdmYQkCNPG+W/M/kmEW+UYFLLP2xptYL8duxbTCf
+ kjrjouhzYjAXEO8rlMpqIHVxp0do2MWGO6V3SjeVQTTfCqQRjmrY/mD4zl8d3OMdFO78
+ DoKQ==
+X-Gm-Message-State: AFqh2kop6dgE+T690rYHYdmFmchxaloTPljwsWYtVBh5HWEUT43vbVQC
+ SyEgYzL3325qwiPwlXg5knNkaw==
+X-Google-Smtp-Source: AMrXdXv5ySMa8omogU2DWfZzBFlpGddX6yt47sQUUg/eO5RJgAycTZNSEcC/IRMs9Fu2HFoh4SpaUA==
+X-Received: by 2002:a05:6402:5002:b0:49e:1d53:5e20 with SMTP id
+ p2-20020a056402500200b0049e1d535e20mr6130218eda.23.1674012274513; 
+ Tue, 17 Jan 2023 19:24:34 -0800 (PST)
 Received: from eriador.lan (dzccz6yyyyyyyyyyybcwt-3.rev.dnainternet.fi.
  [2001:14ba:a085:4d00::8a5]) by smtp.gmail.com with ESMTPSA id
- hu16-20020a170907a09000b0086ffe8a00fdsm3766670ejc.84.2023.01.17.19.20.25
+ f11-20020a056402194b00b0048eb0886b00sm4713829edz.42.2023.01.17.19.24.33
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 17 Jan 2023 19:20:26 -0800 (PST)
+ Tue, 17 Jan 2023 19:24:34 -0800 (PST)
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 To: Andy Gross <agross@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
  Konrad Dybcio <konrad.dybcio@linaro.org>, Rob Clark <robdclark@gmail.com>,
  Sean Paul <sean@poorly.run>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
  Rob Herring <robh+dt@kernel.org>,
  Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>
-Date: Wed, 18 Jan 2023 05:20:24 +0200
-Message-Id: <20230118032024.1715857-1-dmitry.baryshkov@linaro.org>
+Date: Wed, 18 Jan 2023 05:24:28 +0200
+Message-Id: <20230118032432.1716616-1-dmitry.baryshkov@linaro.org>
 X-Mailer: git-send-email 2.39.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH] arm64: dts: qcom: sm8350: use qcom,
- sm8350-dsi-ctrl compatibles
+Subject: [Freedreno] [PATCH 0/4] dt-bindings: display/msm: more
+ dsi-controller fixes
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,36 +80,23 @@ Cc: devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Add the per-SoC (qcom,sm8350-dsi-ctrl) compatible strings to DSI nodes
-to follow the pending DSI bindings changes.
+A small set of patches to go on top of Bryan's changes to fix a small
+number of remaining issues.
 
-Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
----
- arch/arm64/boot/dts/qcom/sm8350.dtsi | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+Dependencies: [1]
 
-diff --git a/arch/arm64/boot/dts/qcom/sm8350.dtsi b/arch/arm64/boot/dts/qcom/sm8350.dtsi
-index 703ba3d81e82..a066566b6ea9 100644
---- a/arch/arm64/boot/dts/qcom/sm8350.dtsi
-+++ b/arch/arm64/boot/dts/qcom/sm8350.dtsi
-@@ -2883,7 +2883,7 @@ dpu_intf1_out: endpoint {
- 			};
- 
- 			mdss_dsi0: dsi@ae94000 {
--				compatible = "qcom,mdss-dsi-ctrl";
-+				compatible = "qcom,sm8350-dsi-ctrl", "qcom,mdss-dsi-ctrl";
- 				reg = <0 0x0ae94000 0 0x400>;
- 				reg-names = "dsi_ctrl";
- 
-@@ -2978,7 +2978,7 @@ mdss_dsi0_phy: phy@ae94400 {
- 			};
- 
- 			mdss_dsi1: dsi@ae96000 {
--				compatible = "qcom,mdss-dsi-ctrl";
-+				compatible = "qcom,sm8350-dsi-ctrl", "qcom,mdss-dsi-ctrl";
- 				reg = <0 0x0ae96000 0 0x400>;
- 				reg-names = "dsi_ctrl";
- 
+[1] https://lore.kernel.org/linux-arm-msm/20230116225217.1056258-1-bryan.odonoghue@linaro.org/
+
+Dmitry Baryshkov (4):
+  dt-bindings: display/msm: dsi-controller-main: remove
+    #address/#size-cells
+  dt-bindings: display/msm: dsi-controller-main: account for apq8064
+  dt-bindings: display/msm: dsi-controller-main: allow using fewer lanes
+  dt-binbings: display/msm: dsi-controller-main: add missing supplies
+
+ .../display/msm/dsi-controller-main.yaml      | 26 ++++++++++++-------
+ 1 file changed, 17 insertions(+), 9 deletions(-)
+
 -- 
 2.39.0
 
