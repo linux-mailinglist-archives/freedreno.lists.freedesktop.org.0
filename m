@@ -1,66 +1,66 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id D7B4B6710BE
-	for <lists+freedreno@lfdr.de>; Wed, 18 Jan 2023 03:06:56 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id A11646710C5
+	for <lists+freedreno@lfdr.de>; Wed, 18 Jan 2023 03:07:00 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4F4FA10E647;
-	Wed, 18 Jan 2023 02:06:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id ED8A610E63B;
+	Wed, 18 Jan 2023 02:06:56 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ej1-x633.google.com (mail-ej1-x633.google.com
- [IPv6:2a00:1450:4864:20::633])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B19B710E63F
- for <freedreno@lists.freedesktop.org>; Wed, 18 Jan 2023 02:06:39 +0000 (UTC)
-Received: by mail-ej1-x633.google.com with SMTP id qx13so21451770ejb.13
- for <freedreno@lists.freedesktop.org>; Tue, 17 Jan 2023 18:06:39 -0800 (PST)
+Received: from mail-ej1-x634.google.com (mail-ej1-x634.google.com
+ [IPv6:2a00:1450:4864:20::634])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C1C4410E63B
+ for <freedreno@lists.freedesktop.org>; Wed, 18 Jan 2023 02:06:40 +0000 (UTC)
+Received: by mail-ej1-x634.google.com with SMTP id kt14so20933997ejc.3
+ for <freedreno@lists.freedesktop.org>; Tue, 17 Jan 2023 18:06:40 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=9IfmhJrvRWfUC5D3CUUdjzAYNIM2kHYmHQdiJOf/ROU=;
- b=w+hu4Qm0z16ldHxczDe00Y41K5vtZ5PXlGgBghOUz39DYC3gQXuhYTQMJtrhxq4Ymh
- v5Iu6CtQOcG3rwF+TgXUS0WlRQYlVUIt74WRrxFJa9823+suIoEXfCtsRAfW2+SMYQuu
- 9FX+G5SdU+w/i2o9m64FKiirxOs1wH+bBRrp1JBsGaez3cfNdcLDB3pWIm+EKpFKUpBa
- 4vV7ODiSSU/nl1AykN8/j9cSHczY25RjC5WOlnqjJ879l9vn94uWxpnjOVLdjiTft2Op
- iw3j+L9MLlVpGfRUHUPEdtkwk6wY5ho84aAK2smpCp5psKsftaESNXY8DBeooNovG96t
- Kx0Q==
+ bh=5Ro+UKiTFnWqR7ixAsGV44G7PlY9+aV4RHSy/YPaCew=;
+ b=FdIblvzTy8xEzoSwhdTOUjCZD52h9eQ0Hzohv4SMysKnlFML44UF0R02kkCAh0Srqz
+ aU+YKAsncdy/ruDN6h3WOBzniq4R2I9HVsgn7AEyDijVa7vp7v7cOzSXPbYPYlUWrzgN
+ rpKPTPjY9Aw+Xmx9BOFsCQSPSKhTI01A/DWKK+ceP70G0cpm4byVNHRA4ygLlbGBOQXs
+ lqox7HbLYvzmXUQcikjwY+F+1KLe79cvZuOcGI1FroGqEEaNaSOMUZpsvSGJ0Ac8t2Q8
+ bc/i9VEHDO02sE/l/dbxbIPuWhZZcql6vsxtSafdhhrgzQqsYcGOwrxKsiBP+5USq9GL
+ AGqA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=9IfmhJrvRWfUC5D3CUUdjzAYNIM2kHYmHQdiJOf/ROU=;
- b=d7gxAHkPimR7CCAzXmHbe7nHREdVjlBS8K+LNs9S1vIbWWvZS1y686KlvPlbsrsZkV
- 0UQ2qxkz6i78zqnDkP4nC5GR6knZ2iJfN0k7J06JcaBD5E30NmT9adXscPwo20FMuena
- 7WWsyEso7rfww3fsxORxYYl/JbxLM9HPPhKrrYdniJz2KhUXJnrCFxKTFDUjUgzrvA1f
- YMg1eUXr9wX17eR7GcTvY6TMQjfg6la0YV0HvaxpMFL48GD0PK7faXGS5z8BG8FkSCz4
- WIYzZjRSQVP8Cp4DNBYw0w7SdHa2B8Az9S2RLukSmVsBTRKBiQzrJXVER5+8TGomCuRG
- voFw==
-X-Gm-Message-State: AFqh2krQnWPtNgFQgNpciF4q/gAFOeBAzf4fX7+rLzbL6ruhXalSq1v7
- Q36xMJuJXnKzlqztx/wXCJqZSQ==
-X-Google-Smtp-Source: AMrXdXt2C1AYGJI145oWUugmSjbdf9sJ5mLy1O8PkJlJX/SIy9mMUJKSJDO7UiobV+oiMqKQ2wLIcA==
-X-Received: by 2002:a17:906:eb0e:b0:871:be7:c984 with SMTP id
- mb14-20020a170906eb0e00b008710be7c984mr5085808ejb.34.1674007599352; 
- Tue, 17 Jan 2023 18:06:39 -0800 (PST)
+ bh=5Ro+UKiTFnWqR7ixAsGV44G7PlY9+aV4RHSy/YPaCew=;
+ b=reugktl3I3gO7Y8c5JGmM3snzqirovjGVaAYXgbqvCejFXlSQbu8iNGsFYYc521HWP
+ Rin5pGs5fWRDnYiMYGczcQ2aL5HYn9FAb0p+zALuvVF4/t0teGv0GDU5G8en70uou1AN
+ 6QnIfJSwWaBEVCABQX+l7czsCf6Yj83Xy5xLTG3VSgIo8Tg+0V/ltWG0nhg+WmJhSh8W
+ tHnwIOKlSzhyYP4sM7sdO/gnbqT5JGX/9lq8pL53z9Mh2vnmOoQ8JEdLFOs1/o5dSO2P
+ WVJtjM01P/Iq2R0t3Z/FJJWyWqbbaPM6CekItFPsGs+DSfZDYFzOvveVRfT0cKgyfjGc
+ HGsw==
+X-Gm-Message-State: AFqh2krfrecDLgOBxa0O0GnmauODQKmRacjuwL7bgeuOlqArknWurNl5
+ 9qCjgA7i/WWa9hniBisqBnUayN1Mol7wlwOv
+X-Google-Smtp-Source: AMrXdXtGPQYjPMF68auW03SQhMs99GuxBlz/jDA8pTxsHdfAUopwSfSQHcdap0FfGgwrIioBvQQnRQ==
+X-Received: by 2002:a17:907:6d1d:b0:86d:d78d:61a4 with SMTP id
+ sa29-20020a1709076d1d00b0086dd78d61a4mr6519220ejc.28.1674007600199; 
+ Tue, 17 Jan 2023 18:06:40 -0800 (PST)
 Received: from eriador.lan (dzccz6yyyyyyyyyyybcwt-3.rev.dnainternet.fi.
  [2001:14ba:a085:4d00::8a5]) by smtp.gmail.com with ESMTPSA id
- kx1-20020a170907774100b0084d368b1628sm12702694ejc.40.2023.01.17.18.06.38
+ kx1-20020a170907774100b0084d368b1628sm12702694ejc.40.2023.01.17.18.06.39
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 17 Jan 2023 18:06:38 -0800 (PST)
+ Tue, 17 Jan 2023 18:06:39 -0800 (PST)
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-To: phone-devel@vger.kernel.org, Marijn Suijten <marijn.suijten@somainline.org>
-Date: Wed, 18 Jan 2023 04:06:19 +0200
-Message-Id: <167400670542.1683873.15043456378376951686.b4-ty@linaro.org>
+To: freedreno@lists.freedesktop.org, Abhinav Kumar <quic_abhinavk@quicinc.com>
+Date: Wed, 18 Jan 2023 04:06:20 +0200
+Message-Id: <167400670536.1683873.6162284951867935024.b4-ty@linaro.org>
 X-Mailer: git-send-email 2.39.0
-In-Reply-To: <20230109231556.344977-1-marijn.suijten@somainline.org>
-References: <20230109231556.344977-1-marijn.suijten@somainline.org>
+In-Reply-To: <20230112001600.12791-1-quic_abhinavk@quicinc.com>
+References: <20230112001600.12791-1-quic_abhinavk@quicinc.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Subject: Re: [Freedreno] [PATCH v3] drm/msm/dpu: Disallow unallocated
- resources to be returned
+Subject: Re: [Freedreno] [PATCH v3 1/2] drm/msm/dsi: add a helper method to
+ compute the dsi byte clk
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,35 +73,30 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Vinod Koul <vkoul@kernel.org>, Jami Kettunen <jami.kettunen@somainline.org>,
- David Airlie <airlied@gmail.com>, linux-arm-msm@vger.kernel.org,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
- Stephen Boyd <swboyd@chromium.org>, Konrad Dybcio <konrad.dybcio@linaro.org>,
- Rob Clark <robdclark@gmail.com>, Martin Botka <martin.botka@somainline.org>,
- ~postmarketos/upstreaming@lists.sr.ht, Daniel Vetter <daniel@ffwll.ch>,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@somainline.org>,
- Drew Davenport <ddavenport@chromium.org>, freedreno@lists.freedesktop.org,
- Sean Paul <sean@poorly.run>, linux-kernel@vger.kernel.org
+Cc: quic_jesszhan@quicinc.com, seanpaul@chromium.org,
+ dri-devel@lists.freedesktop.org, swboyd@chromium.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 
-On Tue, 10 Jan 2023 00:15:55 +0100, Marijn Suijten wrote:
-> In the event that the topology requests resources that have not been
-> created by the system (because they are typically not represented in
-> dpu_mdss_cfg ^1), the resource(s) in global_state (in this case DSC
-> blocks, until their allocation/assignment is being sanity-checked in
-> "drm/msm/dpu: Reject topologies for which no DSC blocks are available")
-> remain NULL but will still be returned out of
-> dpu_rm_get_assigned_resources, where the caller expects to get an array
-> containing num_blks valid pointers (but instead gets these NULLs).
+On Wed, 11 Jan 2023 16:15:59 -0800, Abhinav Kumar wrote:
+> Re-arrange the dsi_calc_pclk method to two helpers, one to
+> compute the DSI byte clk and the other to compute the pclk.
+> 
+> This makes the separation of the two clean and also allows
+> clients to compute and use the dsi byte clk separately.
+> 
+> changes in v2:
+> 	- move the assignments to definition lines
 > 
 > [...]
 
 Applied, thanks!
 
-[1/1] drm/msm/dpu: Disallow unallocated resources to be returned
-      https://gitlab.freedesktop.org/lumag/msm/-/commit/abc40122d9a6
+[1/2] drm/msm/dsi: add a helper method to compute the dsi byte clk
+      https://gitlab.freedesktop.org/lumag/msm/-/commit/8b054353375c
+[2/2] drm/msm/dsi: implement opp table based check for dsi_mgr_bridge_mode_valid()
+      https://gitlab.freedesktop.org/lumag/msm/-/commit/adc5d0f5af8d
 
 Best regards,
 -- 
