@@ -2,69 +2,57 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 18E28671F92
-	for <lists+freedreno@lfdr.de>; Wed, 18 Jan 2023 15:29:11 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 27D2F67219E
+	for <lists+freedreno@lfdr.de>; Wed, 18 Jan 2023 16:43:53 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CD7D410E75A;
-	Wed, 18 Jan 2023 14:29:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9A77910E775;
+	Wed, 18 Jan 2023 15:43:51 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wr1-x429.google.com (mail-wr1-x429.google.com
- [IPv6:2a00:1450:4864:20::429])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9240310E759
- for <freedreno@lists.freedesktop.org>; Wed, 18 Jan 2023 14:29:08 +0000 (UTC)
-Received: by mail-wr1-x429.google.com with SMTP id n7so8053761wrx.5
- for <freedreno@lists.freedesktop.org>; Wed, 18 Jan 2023 06:29:08 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=content-transfer-encoding:mime-version:date:message-id:subject
- :references:in-reply-to:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=09LIyEAsfHyV6itdPviPw1c0EfObZTYwVl/MwHc+r6E=;
- b=k77B8Dq/0i3dNdFxDgCz7T4Wvo6gSQE6HDNuur2soCGLRYCGcjW/trR85JsU7H+bnq
- XjIEPLgX8sf/xTvgxrjMgEcODCeDTXkf4vOBL4i+ew3FHL3e8683Aca+XDy1ppSaOf6v
- GtxJSyZWNrFnrAv4Y665fuTpPJylwE4cOHqKemAgity9QzyT9rHvjDiwAkOxgt57t1gE
- tNwV1paZV7IrSqqgUCzvXuLWxFbZ1EH1XDfD9NKENcMoTFD4jcfVCzu4XStRrIxfgSQ1
- msui37L9A+qZf/ZhRig/mReO2uWa/eGRanu9yv828s2ZbyAjl54z2oNqpmrjMgAyfQR0
- vc4w==
+Received: from mail-oa1-f50.google.com (mail-oa1-f50.google.com
+ [209.85.160.50])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 75E5410E15B;
+ Wed, 18 Jan 2023 15:43:49 +0000 (UTC)
+Received: by mail-oa1-f50.google.com with SMTP id
+ 586e51a60fabf-15eec491b40so14934410fac.12; 
+ Wed, 18 Jan 2023 07:43:49 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=content-transfer-encoding:mime-version:date:message-id:subject
- :references:in-reply-to:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=09LIyEAsfHyV6itdPviPw1c0EfObZTYwVl/MwHc+r6E=;
- b=PnniGROSwiqBa/AlN8ZZAGhnB2ayBPTLkuZViaO4wT8/hvnV0b7reBWhARP7GG0ShD
- JD2FHU48qLTbuIkK65nJqisw/ZZuPTRAT7V2NkV83r0w6gtM8f66cwnO9p/1mr29l6mo
- 1swe+2nfkR3vvlkWN0sAuK91KXYSGJqY1eBFOZUckb8YyG6OxRGWyx6HRcTvdg+7GyEo
- FWSiBhW3KilXjhzG/px2mApgXrizadAGIq8Fmj+FGK9P1uMM21v9Fy9ja/m6MpCCldwp
- 7YeNVRVEg/oJaa+DHdbpnvivAGgfB/lclCTmbB9VvDkX8LY0SURPQSo78/1Pmj9L7sIV
- uehQ==
-X-Gm-Message-State: AFqh2kqczeJR5le2SMXZTLHFHttq6P6gZD5XUcBim4IsH4GwfXizMe3J
- 2efIGDknUKLrJE/lYhYoB4sg6Q==
-X-Google-Smtp-Source: AMrXdXvEBACT5l6DQOfaEAh6nlZUakGz1hY8jze4RSkucPdQC3k1HthSlfOVYt12wGzg8tcckD+jmA==
-X-Received: by 2002:a5d:68c9:0:b0:24f:11eb:2988 with SMTP id
- p9-20020a5d68c9000000b0024f11eb2988mr6721226wrw.71.1674052147066; 
- Wed, 18 Jan 2023 06:29:07 -0800 (PST)
-Received: from arrakeen.starnux.net ([2a01:e0a:982:cbb0:52eb:f6ff:feb3:451a])
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=ukaT+V3Vb1FjUPkT6hZm3l611ylAlOtjFyDVedo3F+c=;
+ b=P6DzjkzmmYKzZ8uYqa1r6EoeU5qfwRfIyB3GsUT07fGrouHkXNr6H0D+RJu5zc0fY8
+ 78RAHkYwhe7qvvQH3aKp2JZQatgq0ZjhpYj4M/uUdA/0dehAMKgKBUTurPEDuLdC2vWE
+ JVCZde72Qkz0mw0PvceYHEUsfp28T5BJoVQoLwhk6zxemzCNPSXqTqckPzHpUsigyLYO
+ zx+mqGqXhR1RsHcnITlz3njwBblHM+Bx185hdhojrdrfo/St2xDUebiOw+t7wlwmv9/A
+ 6l9mNHZYZMIXPEYRWwk+VQ2+LD31YKd+mjTYVT0ELM3xB1iuvdbGSzylmx/tQlu7UOBd
+ kJDg==
+X-Gm-Message-State: AFqh2kpCNmxz8i10BIwsU9EQ0KeEOM5vTEh1avFinHhN4Yoa59T1yUC+
+ IkaVFxwScYn1bbMoCrXk2g==
+X-Google-Smtp-Source: AMrXdXslFOXnulpQe6RkBP46QyXxTX6HLS26sNC2/1L4zrMl2+ezht2EDmducLgMXaHjrnnLaD3ijg==
+X-Received: by 2002:a05:6871:1c9:b0:15b:96af:50ac with SMTP id
+ q9-20020a05687101c900b0015b96af50acmr3913424oad.29.1674056628728; 
+ Wed, 18 Jan 2023 07:43:48 -0800 (PST)
+Received: from robh_at_kernel.org ([4.31.143.193])
  by smtp.gmail.com with ESMTPSA id
- k18-20020adfb352000000b00241fab5a296sm32113556wrd.40.2023.01.18.06.29.06
+ r10-20020a05687032ca00b0014ff15936casm18355779oac.40.2023.01.18.07.43.47
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 18 Jan 2023 06:29:06 -0800 (PST)
-From: Neil Armstrong <neil.armstrong@linaro.org>
-To: Vinod Koul <vkoul@kernel.org>, Andrzej Hajda <andrzej.hajda@intel.com>,
- Robert Foss <robert.foss@linaro.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-In-Reply-To: <20230118081658.2198520-1-dmitry.baryshkov@linaro.org>
-References: <20230118081658.2198520-1-dmitry.baryshkov@linaro.org>
-Message-Id: <167405214621.3985372.6039919953364691654.b4-ty@linaro.org>
-Date: Wed, 18 Jan 2023 15:29:06 +0100
+ Wed, 18 Jan 2023 07:43:48 -0800 (PST)
+Received: (nullmailer pid 54719 invoked by uid 1000);
+ Wed, 18 Jan 2023 15:43:47 -0000
+Date: Wed, 18 Jan 2023 09:43:47 -0600
+From: Rob Herring <robh@kernel.org>
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Message-ID: <167405662664.54658.957028337731224500.robh@kernel.org>
+References: <20230118041243.1720520-1-dmitry.baryshkov@linaro.org>
+ <20230118041243.1720520-5-dmitry.baryshkov@linaro.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.11.1
-Subject: Re: [Freedreno] [PATCH 00/13] drm/bridge: lt9611: several fixes and
- improvements
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20230118041243.1720520-5-dmitry.baryshkov@linaro.org>
+Subject: Re: [Freedreno] [PATCH v7 04/11] dt-bindings: display/msm: rename
+ mdss nodes to display-subsystem
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,52 +65,38 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, David Airlie <airlied@gmail.com>,
- dri-devel@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>,
- linux-arm-msm@vger.kernel.org
+Cc: devicetree@vger.kernel.org, Daniel Vetter <daniel@ffwll.ch>,
+ Sean Paul <sean@poorly.run>, Bjorn Andersson <andersson@kernel.org>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
+ Stephen Boyd <swboyd@chromium.org>, Konrad Dybcio <konrad.dybcio@linaro.org>,
+ Rob Herring <robh+dt@kernel.org>, Rob Clark <robdclark@gmail.com>,
+ Andy Gross <agross@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
+ David Airlie <airlied@gmail.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Hi,
 
-On Wed, 18 Jan 2023 10:16:45 +0200, Dmitry Baryshkov wrote:
-> A series of patches to fix mode programming for the Lontium lt9611
-> DSI-to-HDMI bridge (found e.g. on the Thundercomm RB3/Dragonboard845c
-> platform).
+On Wed, 18 Jan 2023 06:12:36 +0200, Dmitry Baryshkov wrote:
+> Follow the 'generic names' rule and rename mdss nodes to
+> display-subsystem.
 > 
-> Changes since v2:
->  - Rewrote mode_valid callback to be more explicit.
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> ---
 > 
-> [...]
+> Note, this patch might generate warnings in qcom,sm6115-mdss and
+> qcom,qcm2290-mdss examples, but they have been fixed by the commit
+> e5266ca38294 ("dt-bindings: display: msm: Rename mdss node name in
+> example")
+> 
+> See https://gitlab.freedesktop.org/drm/msm/-/commit/e5266ca38294
+> 
+> 
+> ---
+>  .../devicetree/bindings/display/msm/mdss-common.yaml      | 8 ++++++++
+>  .../devicetree/bindings/display/msm/qcom,mdss.yaml        | 5 ++++-
+>  2 files changed, 12 insertions(+), 1 deletion(-)
+> 
 
-Thanks, Applied to https://anongit.freedesktop.org/git/drm/drm-misc.git (drm-misc-next)
-
-[01/13] drm/bridge: lt9611: fix sleep mode setup
-        https://cgit.freedesktop.org/drm/drm-misc/commit/?id=ae2d329f104b75a0a78dcaded29fe6283289cdf9
-[02/13] drm/bridge: lt9611: fix HPD reenablement
-        https://cgit.freedesktop.org/drm/drm-misc/commit/?id=a7790f6bd38f3642b60ae3504a2c749135b89451
-[03/13] drm/bridge: lt9611: fix polarity programming
-        https://cgit.freedesktop.org/drm/drm-misc/commit/?id=0b157efa384ea417304b1da284ee2f603c607fc3
-[04/13] drm/bridge: lt9611: fix programming of video modes
-        https://cgit.freedesktop.org/drm/drm-misc/commit/?id=ad188aa47edaa033a270e1a3efae43836ff47569
-[05/13] drm/bridge: lt9611: fix clock calculation
-        https://cgit.freedesktop.org/drm/drm-misc/commit/?id=2576eb26494eb0509dd9ceb0cd27771a7a5e3674
-[06/13] drm/bridge: lt9611: pass a pointer to the of node
-        https://cgit.freedesktop.org/drm/drm-misc/commit/?id=b0a7f8736789935f62d6df32d441cdf05a5c05d2
-[07/13] drm/bridge: lt9611: rework the mode_set function
-        https://cgit.freedesktop.org/drm/drm-misc/commit/?id=fad97f2811933085adb3dc3b13b2e1cf985295b1
-[08/13] drm/bridge: lt9611: attach to the next bridge
-        https://cgit.freedesktop.org/drm/drm-misc/commit/?id=0c3997b0fec74a828ef258851e2fb260e3e7620c
-[09/13] drm/bridge: lt9611: fix sync polarity for DVI output
-        https://cgit.freedesktop.org/drm/drm-misc/commit/?id=0c7474694849b44cfdf4e22b41e8f3eb85d78709
-[10/13] drm/bridge: lt9611: simplify video timings programming
-        https://cgit.freedesktop.org/drm/drm-misc/commit/?id=6b089d5e35d6daf3d348a3fbd8974d4ed896a231
-[11/13] drm/bridge: lt9611: rework infoframes handling
-        https://cgit.freedesktop.org/drm/drm-misc/commit/?id=84cf74d99f88bc476678254310baffddfba68bb6
-[12/13] drm/bridge: lt9611: stop filtering modes via the table
-        https://cgit.freedesktop.org/drm/drm-misc/commit/?id=4914cbc4fbadf0a3bcad9b0b09b3d8005a3dcd9e
-[13/13] drm/bridge: lt9611: properly program the dual host mode
-        https://cgit.freedesktop.org/drm/drm-misc/commit/?id=5e83f359d9805b3561f160afafddfa7572155d1c
-
--- 
-Neil
+Reviewed-by: Rob Herring <robh@kernel.org>
