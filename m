@@ -1,72 +1,70 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 27060671155
-	for <lists+freedreno@lfdr.de>; Wed, 18 Jan 2023 03:50:34 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 702DE671165
+	for <lists+freedreno@lfdr.de>; Wed, 18 Jan 2023 03:58:34 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8CFB58999E;
-	Wed, 18 Jan 2023 02:50:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 10B1B10E1C4;
+	Wed, 18 Jan 2023 02:58:33 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ej1-x636.google.com (mail-ej1-x636.google.com
- [IPv6:2a00:1450:4864:20::636])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9C97910E661
- for <freedreno@lists.freedesktop.org>; Wed, 18 Jan 2023 02:50:25 +0000 (UTC)
-Received: by mail-ej1-x636.google.com with SMTP id bk15so22475405ejb.9
- for <freedreno@lists.freedesktop.org>; Tue, 17 Jan 2023 18:50:25 -0800 (PST)
+Received: from mail-ej1-x630.google.com (mail-ej1-x630.google.com
+ [IPv6:2a00:1450:4864:20::630])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3CE0F10E1C4
+ for <freedreno@lists.freedesktop.org>; Wed, 18 Jan 2023 02:58:30 +0000 (UTC)
+Received: by mail-ej1-x630.google.com with SMTP id vw16so16868088ejc.12
+ for <freedreno@lists.freedesktop.org>; Tue, 17 Jan 2023 18:58:30 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :from:to:cc:subject:date:message-id:reply-to;
- bh=+oWeg8meSzs44XhiL5Rp/pA/MJaJDS/aigL4xzCGs0U=;
- b=DEL6t/7gj2s4mON5g5SB3CNFYOPx6YoirU9j0W7WYtN8eh30O2+T7Xun/VLqhea3xr
- QBYfEgxQo2G2W17p8ZgIMTO4Gnl0B92A9Oo3nPYQSec58ESAb9ipigyC9RtOIQFPZDAs
- FMhYHb75LBbnMHD55vJSrdxjPmXyRb9VY6ig7PuAGJrVX5+6URVQYHVr9Xw02TI5G+Qr
- IvWSPFK1BR33xrd2J7NKxaCOjm2yY+dTQ2vWPyMmJaEK+yKfb6Y+uJtYcMA1CiygjlR0
- XySUcKaf2oUM0AtsrXM5Z+j+Jp4ituhCmkF0wjEZaAq/M42Gux+n4+NyDWJ/4YGyDOtn
- MXTw==
+ bh=/jxMstUvueEQASfZNGKQtozJSkPqyF+FQ0f5CH6JWto=;
+ b=Ewt84ua+9q2pPgw239vJZTEcpW5L79v2xH2x/6HFk8bN5JP8eYr9cEKvJEWJhoGWYE
+ DIyriS8A5mmAUfdMwjXXiiKI376zR2cqXGWbOWmgAviSzQTdKxTT/bdCfD5I2IaoEC9w
+ jwbQJab/9765992rtPSxzGY8PEA4DVY/XGQ8kLH4NhAT2lD/V7i8huNlHj6WRWOYH5pL
+ OlmlcKQcSRDjkohjLwMQnNzF5z/WL+dfgpz1OwWdpVBzyIksOz1Tpe06CnqVcCAR6QMC
+ 65W9m8cOxFC+1RxPzn8I4yG37K+5nHIvsyjE1VKTUQLiocp2JVQSvZTFXxe1tzwBrrkz
+ HcUQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=+oWeg8meSzs44XhiL5Rp/pA/MJaJDS/aigL4xzCGs0U=;
- b=RNZzusUFTbLMQrjtMFVZ20hQ7ExGMcpgBtJvmVL83LWRZLuyuGC9v7yUWsVhRnNHa/
- kpOKikiVGyB8i2kOKnIUJR5kVmUMg2kI8yY3ax80Xf5Sa2fnN/PPzQaRdiSsatisw8Z7
- fQSlHgdJbBzqH4izQ1IpRRh8bCesXBpKYfmIew7GUZ4tZahlXSl+S9xWOxg2Wq1DYdYS
- XQqA0Th5KK6npsUsVL4Cz8wfN6Dz/s4ThP6Dy6yp7VNiFT0b86GIo/lKF+zespkmarJk
- yKCHRSF7IWVxhlIrD5WqTD/aEoLwaSwAdez5jAiycx9wnSmbyRXCrT68ncisEIR5M0a0
- g6lA==
-X-Gm-Message-State: AFqh2kqPHSBiTDRAxiL8l3wwq9cN14ZFF/AhRbHaTKOjhv6xalZ+sKFj
- Tzo+Y9d4creFOEeNMGaOLoGRSw==
-X-Google-Smtp-Source: AMrXdXsoTO6RqYHs+R3tr16MfQfaTjAir7uZ3UgRN3rJfitNwZUHfTX/Ux3TwerOOd+gF4amCKGOOA==
-X-Received: by 2002:a17:906:a09:b0:7c1:4a3a:dc97 with SMTP id
- w9-20020a1709060a0900b007c14a3adc97mr6765984ejf.0.1674010224043; 
- Tue, 17 Jan 2023 18:50:24 -0800 (PST)
+ bh=/jxMstUvueEQASfZNGKQtozJSkPqyF+FQ0f5CH6JWto=;
+ b=VxyOKzInld/CO5uV1FAyz/t8UoQ84e7eIkzKoe8+pMXUASN8gudpj8N5Dc3qNe6phL
+ MMAtvfczmlD2/PxOerFhl68PtLPa7a9dksYA9z07VNuO1ETDO18qbuXBTIkv2UkKxFzu
+ CuehIyT4ZfRnrsiWD/fNURFBL80OmcvmJsXMDewuqlKkgbbra29ohAihC3G1WzKymZQC
+ NZmX1kttgNwoNb+nSvfbB/PKP6BbPfkoL0c7fro23l1quZpnR+6JfwT2ZK2K6iFQdqZa
+ H9416KskctuJLsqA8NrPt5lIxVcji/3u7X1Hafn6i+mINFSrsgh9M0BiHFVipXiqOGoD
+ yqZw==
+X-Gm-Message-State: AFqh2kpitoADDMFeQmLZei4lijEtj0N0f2M1EZk5qkZBHWxFabK3TcpV
+ PaG+fGdZGqA0YMgg2lgb2wIpmw==
+X-Google-Smtp-Source: AMrXdXtanBFiuO6F4QWUHNIZE17iB+p93sQtCEfM2tNe9hI+JXrj35iHPaKIWAXkSIORjuT0gYFAPw==
+X-Received: by 2002:a17:906:6846:b0:84d:2fdf:a41b with SMTP id
+ a6-20020a170906684600b0084d2fdfa41bmr4755294ejs.50.1674010708743; 
+ Tue, 17 Jan 2023 18:58:28 -0800 (PST)
 Received: from ?IPV6:2001:14ba:a085:4d00::8a5?
  (dzccz6yyyyyyyyyyybcwt-3.rev.dnainternet.fi. [2001:14ba:a085:4d00::8a5])
  by smtp.gmail.com with ESMTPSA id
- e6-20020a170906314600b00781be3e7badsm13971460eje.53.2023.01.17.18.50.22
+ gk8-20020a17090790c800b0084d35ffbc20sm12875378ejb.68.2023.01.17.18.58.27
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 17 Jan 2023 18:50:23 -0800 (PST)
-Message-ID: <5d0eff7d-147c-b75a-9236-232a5a98e42a@linaro.org>
-Date: Wed, 18 Jan 2023 04:50:22 +0200
+ Tue, 17 Jan 2023 18:58:28 -0800 (PST)
+Message-ID: <6e7b1518-0dd5-59a6-128a-e3c3c194bf52@linaro.org>
+Date: Wed, 18 Jan 2023 04:58:26 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.6.0
 Content-Language: en-GB
-To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
- linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
- devicetree@vger.kernel.org
-References: <20230116225217.1056258-1-bryan.odonoghue@linaro.org>
- <20230116225217.1056258-3-bryan.odonoghue@linaro.org>
+To: Bjorn Andersson <quic_bjorande@quicinc.com>
+References: <20221207220012.16529-1-quic_bjorande@quicinc.com>
+ <20221207220012.16529-11-quic_bjorande@quicinc.com>
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-In-Reply-To: <20230116225217.1056258-3-bryan.odonoghue@linaro.org>
+In-Reply-To: <20221207220012.16529-11-quic_bjorande@quicinc.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH v8 2/3] dt-bindings: msm:
- dsi-controller-main: Document clocks on a per compatible basis
+Subject: Re: [Freedreno] [PATCH v5 10/12] arm64: dts: qcom: sc8280xp: Define
+ some of the display blocks
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,59 +77,195 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: dri-devel@lists.freedesktop.org, Rob Herring <robh@kernel.org>,
- krzysztof.kozlowski+dt@linaro.org, sean@poorly.run, andersson@kernel.org,
- konrad.dybcio@somainline.org, quic_abhinavk@quicinc.com, david@ixit.cz,
- dianders@chromium.org, Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
- robdclark@gmail.com, robh+dt@kernel.org, agross@kernel.org, daniel@ffwll.ch,
- swboyd@chromium.org, airlied@gmail.com, linux-kernel@vger.kernel.org
+Cc: Kalyan Thota <quic_kalyant@quicinc.com>, freedreno@lists.freedesktop.org,
+ Sankeerth Billakanti <quic_sbillaka@quicinc.com>, linux-kernel@vger.kernel.org,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ devicetree@vger.kernel.org, Sean Paul <sean@poorly.run>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
+ Kuogee Hsieh <quic_khsieh@quicinc.com>,
+ Konrad Dybcio <konrad.dybcio@linaro.org>, Rob Clark <robdclark@gmail.com>,
+ Rob Herring <robh+dt@kernel.org>, Daniel Vetter <daniel@ffwll.ch>,
+ linux-arm-msm@vger.kernel.org, Jessica Zhang <quic_jesszhan@quicinc.com>,
+ David Airlie <airlied@gmail.com>, Johan Hovold <johan+linaro@kernel.org>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 17/01/2023 00:52, Bryan O'Donoghue wrote:
-> Each compatible has a different set of clocks which are associated with it.
-> Add in the list of clocks for each compatible.
+On 08/12/2022 00:00, Bjorn Andersson wrote:
+> From: Bjorn Andersson <bjorn.andersson@linaro.org>
 > 
-> Acked-by: Rob Herring <robh@kernel.org>
-> Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-> Signed-off-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+> Define the display clock controllers, the MDSS instances, the DP phys
+> and connect these together.
+> 
+> Signed-off-by: Bjorn Andersson <bjorn.andersson@linaro.org>
+> Signed-off-by: Bjorn Andersson <quic_bjorande@quicinc.com>
 > ---
->   .../display/msm/dsi-controller-main.yaml      | 219 ++++++++++++++++--
->   1 file changed, 202 insertions(+), 17 deletions(-)
 > 
-> diff --git a/Documentation/devicetree/bindings/display/msm/dsi-controller-main.yaml b/Documentation/devicetree/bindings/display/msm/dsi-controller-main.yaml
-> index 35668caa190c4..47faf08a37443 100644
-> --- a/Documentation/devicetree/bindings/display/msm/dsi-controller-main.yaml
-> +++ b/Documentation/devicetree/bindings/display/msm/dsi-controller-main.yaml
-
-[skipped]
-
+> Changes since v4:
+> - None
+> 
+>   arch/arm64/boot/dts/qcom/sc8280xp.dtsi | 838 +++++++++++++++++++++++++
+>   1 file changed, 838 insertions(+)
+> 
+> diff --git a/arch/arm64/boot/dts/qcom/sc8280xp.dtsi b/arch/arm64/boot/dts/qcom/sc8280xp.dtsi
+> index 9f3132ac2857..c2f186495506 100644
+> --- a/arch/arm64/boot/dts/qcom/sc8280xp.dtsi
+> +++ b/arch/arm64/boot/dts/qcom/sc8280xp.dtsi
+> @@ -4,6 +4,7 @@
+>    * Copyright (c) 2022, Linaro Limited
+>    */
+>   
+> +#include <dt-bindings/clock/qcom,dispcc-sc8280xp.h>
+>   #include <dt-bindings/clock/qcom,gcc-sc8280xp.h>
+>   #include <dt-bindings/clock/qcom,rpmh.h>
+>   #include <dt-bindings/interconnect/qcom,sc8280xp.h>
+> @@ -1698,6 +1699,44 @@ usb_1_qmpphy: phy@8903000 {
+>   			status = "disabled";
+>   		};
+>   
+> +		mdss1_dp0_phy: phy@8909a00 {
+> +			compatible = "qcom,sc8280xp-dp-phy";
+> +			reg = <0 0x08909a00 0 0x19c>,
+> +			      <0 0x08909200 0 0xec>,
+> +			      <0 0x08909600 0 0xec>,
+> +			      <0 0x08909000 0 0x1c8>;
 > +
-> +  - if:
-> +      properties:
-> +        compatible:
-> +          contains:
-> +            enum:
-> +              - qcom,msm8974-dsi-ctrl
-> +    then:
-> +      properties:
-> +        clocks:
-> +          maxItems: 7
-> +        clock-names:
-> +          items:
-> +            - const: mdp_core
-> +            - const: iface
-> +            - const: bus
-> +            - const: vsync
+> +			clocks = <&dispcc1 DISP_CC_MDSS_DPTX0_AUX_CLK>,
+> +				 <&dispcc1 DISP_CC_MDSS_AHB_CLK>;
+> +			clock-names = "aux", "cfg_ahb";
+> +
+> +			power-domains = <&rpmhpd SC8280XP_MX>;
+> +
+> +			#clock-cells = <1>;
+> +			#phy-cells = <0>;
+> +
+> +			status = "disabled";
+> +		};
+> +
+> +		mdss1_dp1_phy: phy@890ca00 {
+> +			compatible = "qcom,sc8280xp-dp-phy";
+> +			reg = <0 0x0890ca00 0 0x19c>,
+> +			      <0 0x0890c200 0 0xec>,
+> +			      <0 0x0890c600 0 0xec>,
+> +			      <0 0x0890c000 0 0x1c8>;
+> +
+> +			clocks = <&dispcc1 DISP_CC_MDSS_DPTX1_AUX_CLK>,
+> +				 <&dispcc1 DISP_CC_MDSS_AHB_CLK>;
+> +			clock-names = "aux", "cfg_ahb";
+> +
+> +			power-domains = <&rpmhpd SC8280XP_MX>;
+> +
+> +			#clock-cells = <1>;
+> +			#phy-cells = <0>;
+> +
+> +			status = "disabled";
+> +		};
+> +
+>   		system-cache-controller@9200000 {
+>   			compatible = "qcom,sc8280xp-llcc";
+>   			reg = <0 0x09200000 0 0x58000>, <0 0x09600000 0 0x58000>;
+> @@ -1813,6 +1852,326 @@ usb_1_dwc3: usb@a800000 {
+>   			};
+>   		};
+>   
+> +		mdss0: display-subsystem@ae00000 {
+> +			compatible = "qcom,sc8280xp-mdss";
+> +			reg = <0 0x0ae00000 0 0x1000>;
+> +			reg-names = "mdss";
+> +
+> +			power-domains = <&dispcc0 MDSS_GDSC>;
+> +
+> +			clocks = <&gcc GCC_DISP_AHB_CLK>,
+> +				 <&dispcc0 DISP_CC_MDSS_AHB_CLK>,
+> +				 <&dispcc0 DISP_CC_MDSS_MDP_CLK>;
+> +			clock-names = "iface",
+> +				      "ahb",
+> +				      "core";
+> +
+> +			resets = <&dispcc0 DISP_CC_MDSS_CORE_BCR>;
+> +
+> +			interrupts = <GIC_SPI 83 IRQ_TYPE_LEVEL_HIGH>;
+> +			interrupt-controller;
+> +			#interrupt-cells = <1>;
+> +
+> +			interconnects = <&mmss_noc MASTER_MDP0 0 &mc_virt SLAVE_EBI1 0>,
+> +					<&mmss_noc MASTER_MDP1 0 &mc_virt SLAVE_EBI1 0>;
+> +			interconnect-names = "mdp0-mem", "mdp1-mem";
+> +
+> +			iommus = <&apps_smmu 0x1000 0x402>;
+> +
+> +			status = "disabled";
+> +
+> +			#address-cells = <2>;
+> +			#size-cells = <2>;
+> +			ranges;
+> +
+> +			mdss0_mdp: display-controller@ae01000 {
+> +				compatible = "qcom,sc8280xp-dpu";
+> +				reg = <0 0x0ae01000 0 0x8f000>,
+> +				      <0 0x0aeb0000 0 0x2008>;
+> +				reg-names = "mdp", "vbif";
+> +
+> +				clocks = <&gcc GCC_DISP_HF_AXI_CLK>,
+> +					 <&gcc GCC_DISP_SF_AXI_CLK>,
+> +					 <&dispcc0 DISP_CC_MDSS_AHB_CLK>,
+> +					 <&dispcc0 DISP_CC_MDSS_MDP_LUT_CLK>,
+> +					 <&dispcc0 DISP_CC_MDSS_MDP_CLK>,
+> +					 <&dispcc0 DISP_CC_MDSS_VSYNC_CLK>;
+> +				clock-names = "bus",
+> +					      "nrt_bus",
+> +					      "iface",
+> +					      "lut",
+> +					      "core",
+> +					      "vsync";
+> +
+> +				assigned-clocks = <&dispcc0 DISP_CC_MDSS_MDP_CLK>,
+> +						  <&dispcc0 DISP_CC_MDSS_VSYNC_CLK>;
+> +				assigned-clock-rates = <460000000>,
+> +						       <19200000>;
+> +
+> +				operating-points-v2 = <&mdss0_mdp_opp_table>;
+> +				power-domains = <&rpmhpd SC8280XP_MMCX>;
+> +
+> +				interrupt-parent = <&mdss0>;
+> +				interrupts = <0>;
+> +
+> +				ports {
+> +					#address-cells = <1>;
+> +					#size-cells = <0>;
+> +
+> +					port@5 {
+> +						reg = <5>;
+> +						mdss0_intf5_out: endpoint {
+> +							remote-endpoint = <&mdss0_dp3_in>;
+> +						};
+> +					};
+> +
+> +					port@6 {
+> +						reg = <6>;
+> +						mdss0_intf6_out: endpoint {
+> +							remote-endpoint = <&mdss0_dp2_in>;
+> +						};
+> +					};
+> +				};
 
-vsync clock is not used on msm8974 platform, it causes DT verification 
-errors.
+This now fails with:
 
-> +            - const: byte
-> +            - const: pixel
-> +            - const: core
-> +            - const: core_mmss
-> +-- 
+arch/arm64/boot/dts/qcom/sc8280xp-crd.dtb: display-controller@ae01000: 
+ports: 'port@0' is a required property
+	From schema: 
+Documentation/devicetree/bindings/display/msm/qcom,sc8280xp-dpu.yaml
+arch/arm64/boot/dts/qcom/sc8280xp-crd.dtb: display-controller@ae01000: 
+Unevaluated properties are not allowed ('ports' was unexpected)
+	From schema: 
+Documentation/devicetree/bindings/display/msm/qcom,sc8280xp-dpu.yaml
+
+We do not map reg ids to INTF indices. So, unless you plan to change 
+that, could you please change these to port@0 / port@1 ?
+
+[skipped the rest]
+
+-- 
 With best wishes
 Dmitry
 
