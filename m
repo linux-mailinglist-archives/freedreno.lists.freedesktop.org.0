@@ -1,68 +1,67 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id EC4126710B0
-	for <lists+freedreno@lfdr.de>; Wed, 18 Jan 2023 03:06:47 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id DF76C6710B7
+	for <lists+freedreno@lfdr.de>; Wed, 18 Jan 2023 03:06:52 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 54BD910E642;
-	Wed, 18 Jan 2023 02:06:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EBF2D10E645;
+	Wed, 18 Jan 2023 02:06:44 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ed1-x535.google.com (mail-ed1-x535.google.com
- [IPv6:2a00:1450:4864:20::535])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0E10C10E636
+Received: from mail-ej1-x62e.google.com (mail-ej1-x62e.google.com
+ [IPv6:2a00:1450:4864:20::62e])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2AD4E10E638
  for <freedreno@lists.freedesktop.org>; Wed, 18 Jan 2023 02:06:33 +0000 (UTC)
-Received: by mail-ed1-x535.google.com with SMTP id b4so28207818edf.0
- for <freedreno@lists.freedesktop.org>; Tue, 17 Jan 2023 18:06:32 -0800 (PST)
+Received: by mail-ej1-x62e.google.com with SMTP id u19so79775967ejm.8
+ for <freedreno@lists.freedesktop.org>; Tue, 17 Jan 2023 18:06:33 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=hPh85HDV7Jw4nWVOxnyUOQB6ME/srGkxE0cyhhHU/Yk=;
- b=QVIZgJlLk1umjAWsyCPwP7XPYhLhTT9losqSf5WkDA1WJ/TBaeqSo0vYTrysPHJnb8
- 7pyZN8RlI8lYKRpA/1yX/+Ei5U5wxeM/LU1S26Sk/Uj5peY++NLxBsJPWcw63oUfvi2z
- 8HyQvVXIy+CCd0JHJ3eGEdxrlhXOl4+m6pW9goseei2GipCXfvL2LX+2E4pidNj826yM
- j97TB9XMMs7qLQcdM9oMiayj6m97CCinuCcByh4SZ6OmwdMhXa5LXbaDNZhBpPxr/6Ie
- RxN/bWm2C4DthmWxU6ifh/wgVGtMjKXkbr43NBruyh8jisWbezeSvtjBu+jDni/fDXYC
- SxQQ==
+ bh=EJFVta3hfZRXKx31flRwp+6NT2ffWbzRaGmZqjFNr1c=;
+ b=iYjiINA+JJ3kTzl1Gteh2w+mbXYZ9cG0fXexodYl+c+HMeAU3ijvCw2l/9A6UII/+W
+ zk/r1pm7o/XrXklag/NO61lvSN+4jx5Vrk5yezpWjXvO7SWMRQfS8lM6BocW8giJG4sD
+ JfPwWiVAtgoWl8NDfz4a+injNOjlx7/FRmOZUCJ4wJKLZQEAdUMs3n0OYMBPJ7PdcM/h
+ NFQOIdvPFVszk9XlGUGxuK9Z4avY+cstBvIGRKohtA9lVmLIhnOyu45FJ5AssCqcxNDx
+ FNYTjpSWV5OnvSgUnk56GRe4BQNmpyjtlyndTYZF1QER+2ljc3YFdpbq6dH4Wm88OdQ2
+ dRtw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=hPh85HDV7Jw4nWVOxnyUOQB6ME/srGkxE0cyhhHU/Yk=;
- b=dJ4pCvmr/XndGWuPRPU6V7PxhLuo8sQFcEmAAkKWbj4yWg94D75fAIWrpJKMSm046h
- +WpXCujIFnQVHB9y4rVZtaATs/5ArvPdMNW8rSlc6vUHE7t9W5ODe5BgaMjXXvHkPJXM
- oSO2XR365dREYgDs8VTuRwMS/J3n9EZezshIubOYSiETFKkcJOnnzK6fUutDS2ckC9s5
- VMZ5eKi7titWpTheTKiL2NwPN9N/bp3xxZkkj9x4A88Mu1GCXCerynVAqAy5yB19FDu1
- oh2Hw18tK3b/9C5rvLvXN9PZKj19OuvRgmOVXquntwCJiKgImJXyubTkCrFfbQwEpc3R
- dKdQ==
-X-Gm-Message-State: AFqh2koH65ssuhKWOi4/1ZY/oMZnkq+K5nF3ZESpWAMh41/CFaTY817z
- XztEBJubGmHB33+LtlCuMZVkOg==
-X-Google-Smtp-Source: AMrXdXtMG/C8Z6HucSOog75whRYOxAnKIALrlKkOKMedyIiyZJTMJBZKlKtfCmnPPSpnF4D8Wc/TOg==
-X-Received: by 2002:a05:6402:298e:b0:496:6a20:6b61 with SMTP id
- eq14-20020a056402298e00b004966a206b61mr5469620edb.22.1674007591554; 
- Tue, 17 Jan 2023 18:06:31 -0800 (PST)
+ bh=EJFVta3hfZRXKx31flRwp+6NT2ffWbzRaGmZqjFNr1c=;
+ b=LYKbGVnrgGCE3T5LmNc6TLbGnqYcDNzRfafLb6T5Asap4SR3m22NOtnvYy2w9Cq8gG
+ AhB3qBqm5Ke+hQZyjamPTmbvU+wFG+F6Udol6OxnAj3dFccb4LSczzplBQAMw6etjlu6
+ Qdt7yi9fLOKPPdL/U3Sas3GjMBWnbhOdHMYaWzDlyCcCkBdsYRxa5N3ll6X36YrcVHUu
+ GnUhYBbJceE1r/VfrHQJgSII9u7P9nEII7N9pTk02MPvgYD1Rx8E/p2tYBMKkICC1BC2
+ hWYHZeDFLaNVAa/5YmQbxV2YCBAK5UUQk+8l/oHoCyuDgd9bF4IP/u6mwpaFbgMnzKxd
+ 3XcQ==
+X-Gm-Message-State: AFqh2kpvKc7XQ1mkA91IdCwhxY481PK/dHQ/b2H35wF4eoLeq3x3ggNZ
+ KAFEmmG4Rz0Ee2sekSgxEa/RRg==
+X-Google-Smtp-Source: AMrXdXuMQsMdEybEvR86mCX/ybN1G/aZe55D3EdZwtkengkxeDuDvAfBx5UmZHdzFoQbX3i4PvV+WA==
+X-Received: by 2002:a17:907:9b06:b0:872:f259:a7ea with SMTP id
+ kn6-20020a1709079b0600b00872f259a7eamr4989597ejc.53.1674007592812; 
+ Tue, 17 Jan 2023 18:06:32 -0800 (PST)
 Received: from eriador.lan (dzccz6yyyyyyyyyyybcwt-3.rev.dnainternet.fi.
  [2001:14ba:a085:4d00::8a5]) by smtp.gmail.com with ESMTPSA id
- kx1-20020a170907774100b0084d368b1628sm12702694ejc.40.2023.01.17.18.06.30
+ kx1-20020a170907774100b0084d368b1628sm12702694ejc.40.2023.01.17.18.06.31
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 17 Jan 2023 18:06:31 -0800 (PST)
+ Tue, 17 Jan 2023 18:06:32 -0800 (PST)
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-To: robdclark@gmail.com, quic_abhinavk@quicinc.com, sean@poorly.run,
- airlied@gmail.com, sumit.semwal@linaro.org, christian.koenig@amd.com,
- Jiasheng Jiang <jiasheng@iscas.ac.cn>
-Date: Wed, 18 Jan 2023 04:06:13 +0200
-Message-Id: <167400670545.1683873.7363279471120139264.b4-ty@linaro.org>
+To: dianders@chromium.org,
+	Jiasheng Jiang <jiasheng@iscas.ac.cn>
+Date: Wed, 18 Jan 2023 04:06:14 +0200
+Message-Id: <167400670539.1683873.12609021672778272128.b4-ty@linaro.org>
 X-Mailer: git-send-email 2.39.0
-In-Reply-To: <20230109022038.2163-1-jiasheng@iscas.ac.cn>
-References: <20230109022038.2163-1-jiasheng@iscas.ac.cn>
+In-Reply-To: <20230111011006.6238-1-jiasheng@iscas.ac.cn>
+References: <20230111011006.6238-1-jiasheng@iscas.ac.cn>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Subject: Re: [Freedreno] [PATCH v2] drm/msm: Add missing check and destroy
- for alloc_ordered_workqueue
+Subject: Re: [Freedreno] [PATCH v2] drm/msm/dsi: Drop the redundant fail
+ label
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,25 +74,25 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
- freedreno@lists.freedesktop.org, linux-media@vger.kernel.org
+Cc: marex@denx.de, vkoul@kernel.org, sean@poorly.run, vladimir.lypak@gmail.com,
+ quic_abhinavk@quicinc.com, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, robdclark@gmail.com, daniel@ffwll.ch,
+ linux-arm-msm@vger.kernel.org, marijn.suijten@somainline.org,
+ freedreno@lists.freedesktop.org, airlied@gmail.com
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 
-On Mon, 09 Jan 2023 10:20:38 +0800, Jiasheng Jiang wrote:
-> Add check for the return value of alloc_ordered_workqueue as it may return
-> NULL pointer.
-> Moreover, use the destroy_workqueue in the later fails in order to avoid
-> memory leak.
+On Wed, 11 Jan 2023 09:10:06 +0800, Jiasheng Jiang wrote:
+> Drop the redundant fail label and change the "goto fail" into "return ret"
+> since they are the same.
 > 
 > 
 
 Applied, thanks!
 
-[1/1] drm/msm: Add missing check and destroy for alloc_ordered_workqueue
-      https://gitlab.freedesktop.org/lumag/msm/-/commit/643b7d0869cc
+[1/1] drm/msm/dsi: Drop the redundant fail label
+      https://gitlab.freedesktop.org/lumag/msm/-/commit/dc57f09acc34
 
 Best regards,
 -- 
