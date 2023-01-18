@@ -2,43 +2,56 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 007F167223F
-	for <lists+freedreno@lfdr.de>; Wed, 18 Jan 2023 16:58:36 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A10F9672389
+	for <lists+freedreno@lfdr.de>; Wed, 18 Jan 2023 17:38:48 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5F18A10E775;
-	Wed, 18 Jan 2023 15:58:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5E5D010E79D;
+	Wed, 18 Jan 2023 16:38:47 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 42E8610E775;
- Wed, 18 Jan 2023 15:58:33 +0000 (UTC)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id E1671B81D7D;
- Wed, 18 Jan 2023 15:58:31 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DB98CC433EF;
- Wed, 18 Jan 2023 15:58:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1674057510;
- bh=pEEVf/Jora3k9fJs7MkNDz8h6qM3plpE8adDbzqBFOc=;
- h=From:To:Cc:Subject:Date:From;
- b=oarDxp9l6MGmeqdtPPlPcdcbct7dpxUxhM4ZbO0nB/h5L1I/bWMWT+F4COW6gdFuG
- ka9uVRj0MBzO/PovATGhagFvnLVoGhVt9G3I1LO1xyY9kfG5IqOrjAJZP7Zl/qgYlv
- 6L0hvziRSN4jmqOJDOFRRFpiKNndCh0ggr0dntwoM1JG7GRQUGNE5FJo0JLoRvjF0y
- NKPqAvqHFVaXZHU1ccf/FYF52DgvTbWPikkg3D8T0KkzILemeh+co8C+tjw+5RkntU
- 0Qz8dKIMvdmpTHejRPydgnFn/g8+EZJ+cBDARMBwAPLowgmKyFS4N4ocHLdjGyh8sz
- qMSJkca+YFgqg==
-From: Arnd Bergmann <arnd@kernel.org>
-To: Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Wed, 18 Jan 2023 16:58:05 +0100
-Message-Id: <20230118155825.4071424-1-arnd@kernel.org>
-X-Mailer: git-send-email 2.39.0
+Received: from mail-oo1-f49.google.com (mail-oo1-f49.google.com
+ [209.85.161.49])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F0DC510E79E;
+ Wed, 18 Jan 2023 16:38:44 +0000 (UTC)
+Received: by mail-oo1-f49.google.com with SMTP id
+ h12-20020a4a940c000000b004fa81915b1cso973566ooi.4; 
+ Wed, 18 Jan 2023 08:38:44 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=0f4AajlKivLZzEuRli1ZnJsZtgypNSW0pfvgWosYbSg=;
+ b=dLvLERASHp91SN/dxt7GQPB7mC5/ZUAPlqgSt8ppAdCrJIOFKyQJ8Vl5DdzIteriGe
+ +S03PbgJikASw8knoHaOsRt3RWpTCtk2Ul3+tSBMFEvvwFfJXucH+P99UZG5cKPxiwH+
+ 9xyIFldgSAo098UsuO4hpEtCxFkAjHCArAxjOKtItZpejrVVDU8gQzeTB1OplTBcvYLa
+ /F3nvu8ZFDLH1/LMij4TMJln0p05ihTqvdHpKeNw+S/GfTqyn6+hZBGE/BWNxHUOM+3Y
+ PKUfd9xhJRkPzjJGRd6zQm2CREP5Jgz1vJSzRFKaE66RjkB0cC8ROFZjqZebAnWtE59Z
+ CNkA==
+X-Gm-Message-State: AFqh2koCOdWGqK33tQrCPXcYgPIEh7ZGPqC89asHNvGBaJrl9deaVC74
+ QhBGK2DDnsNXO6eyr66pXEv3QppqyA==
+X-Google-Smtp-Source: AMrXdXuxkYOQs5Ku/hOsUiwkyRuQTRSetfG/ANmbqW9hvEZctLIMrBYb93DE+Crp+bmR/O1ZXrXd5A==
+X-Received: by 2002:a4a:3745:0:b0:4f2:cf1:36ee with SMTP id
+ r66-20020a4a3745000000b004f20cf136eemr3662087oor.1.1674059924192; 
+ Wed, 18 Jan 2023 08:38:44 -0800 (PST)
+Received: from robh_at_kernel.org ([4.31.143.193])
+ by smtp.gmail.com with ESMTPSA id
+ l4-20020a056820030400b004f73632d096sm2905262ooe.6.2023.01.18.08.38.43
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 18 Jan 2023 08:38:43 -0800 (PST)
+Received: (nullmailer pid 134153 invoked by uid 1000);
+ Wed, 18 Jan 2023 16:38:43 -0000
+Date: Wed, 18 Jan 2023 10:38:43 -0600
+From: Rob Herring <robh@kernel.org>
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Message-ID: <167405992255.134101.6407970989523760202.robh@kernel.org>
+References: <20230118031718.1714861-1-dmitry.baryshkov@linaro.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH] drm/msm/gpu: Add proper
- DEVFREQ_GOV_SIMPLE_ONDEMAND dependency
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20230118031718.1714861-1-dmitry.baryshkov@linaro.org>
+Subject: Re: [Freedreno] [PATCH 1/4] dt-bindings: display/msm: add qcom,
+ sc8280xp-edp to list of eDP devices
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -51,66 +64,31 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, Arnd Bergmann <arnd@arndb.de>,
- Sean Paul <sean@poorly.run>, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, Stephen Boyd <swboyd@chromium.org>,
- Daniel Vetter <daniel@ffwll.ch>, linux-arm-msm@vger.kernel.org,
- David Airlie <airlied@gmail.com>, Chia-I Wu <olvaffe@gmail.com>
+Cc: Sean Paul <sean@poorly.run>, freedreno@lists.freedesktop.org,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ Bjorn Andersson <andersson@kernel.org>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
+ Stephen Boyd <swboyd@chromium.org>, Konrad Dybcio <konrad.dybcio@linaro.org>,
+ Rob Herring <robh+dt@kernel.org>, Rob Clark <robdclark@gmail.com>,
+ Andy Gross <agross@kernel.org>, Daniel Vetter <daniel@ffwll.ch>,
+ David Airlie <airlied@gmail.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-From: Arnd Bergmann <arnd@arndb.de>
 
-DRM_MSM can no longer be built when devfreq is disabled:
+On Wed, 18 Jan 2023 05:17:15 +0200, Dmitry Baryshkov wrote:
+> Add qcom,sc8280xp-edp to the list of eDP devices, unblocking `aux-bus'
+> property and fobidding `#sound-dai-cells' property. Also since
+> sc8280xp-edp, overriding sc8280xp-dp, will contain 5 reg resources, drop
+> the reg contraint (as it will become equivalent to the top-level one,
+> requiring min 4 and max 5 reg entries).
+> 
+> Fixes: b6f8c4debc00 ("dt-bindings: msm/dp: Add SDM845 and SC8280XP compatibles")
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> ---
+>  .../devicetree/bindings/display/msm/dp-controller.yaml         | 3 +--
+>  1 file changed, 1 insertion(+), 2 deletions(-)
+> 
 
-WARNING: unmet direct dependencies detected for DEVFREQ_GOV_SIMPLE_ONDEMAND
-  Depends on [n]: PM_DEVFREQ [=n]
-  Selected by [y]:
-  - DRM_MSM [=y] && HAS_IOMEM [=y] && DRM [=y] && (ARCH_QCOM [=n] || SOC_IMX5 [=n] || COMPILE_TEST [=y]) && COMMON_CLK [=y] && IOMMU_SUPPORT [=y] && (QCOM_OCMEM [=n] || QCOM_OCMEM [=n]=n) && (QCOM_LLCC [=n] || QCOM_LLCC [=n]=n) && (QCOM_COMMAND_DB [=y] || QCOM_COMMAND_DB [=y]=n)
-
-In file included from drivers/gpu/drm/msm/msm_gpu.h:18,
-                 from drivers/gpu/drm/msm/adreno/adreno_gpu.h:15,
-                 from drivers/gpu/drm/msm/adreno/adreno_device.c:9:
-drivers/gpu/drm/msm/msm_drv.h:238:45: error: field 'gpu_devfreq_config' has incomplete type
-  238 |         struct devfreq_simple_ondemand_data gpu_devfreq_config;
-      |                                             ^~~~~~~~~~~~~~~~~~
-
-Device drivers should never select user-visible options, especially
-in other subsystems. This one can simply be expressed as a Kconfig
-'depends on' statement, though a better approach would be to
-let the driver keep working even without devfreq.
-
-Note that the same symbol selects a bunch of other drivers that
-should probably be turned into 'depends on' as well, but doing so
-has the potential to introduce regressions, so I'm not touching
-that here.
-
-Fixes: 6563f60f14cb ("drm/msm/gpu: Add devfreq tuning debugfs")
-Signed-off-by: Arnd Bergmann <arnd@arndb.de>
----
- drivers/gpu/drm/msm/Kconfig | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/msm/Kconfig b/drivers/gpu/drm/msm/Kconfig
-index 871870ddf7ec..7f6f5202648a 100644
---- a/drivers/gpu/drm/msm/Kconfig
-+++ b/drivers/gpu/drm/msm/Kconfig
-@@ -9,6 +9,7 @@ config DRM_MSM
- 	depends on QCOM_OCMEM || QCOM_OCMEM=n
- 	depends on QCOM_LLCC || QCOM_LLCC=n
- 	depends on QCOM_COMMAND_DB || QCOM_COMMAND_DB=n
-+	depends on DEVFREQ_GOV_SIMPLE_ONDEMAND
- 	select IOMMU_IO_PGTABLE
- 	select QCOM_MDT_LOADER if ARCH_QCOM
- 	select REGULATOR
-@@ -23,7 +24,6 @@ config DRM_MSM
- 	select SHMEM
- 	select TMPFS
- 	select QCOM_SCM
--	select DEVFREQ_GOV_SIMPLE_ONDEMAND
- 	select WANT_DEV_COREDUMP
- 	select SND_SOC_HDMI_CODEC if SND_SOC
- 	select SYNC_FILE
--- 
-2.39.0
-
+Acked-by: Rob Herring <robh@kernel.org>
