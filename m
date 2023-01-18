@@ -1,67 +1,71 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2938F671099
-	for <lists+freedreno@lfdr.de>; Wed, 18 Jan 2023 03:06:34 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 696DF6710C4
+	for <lists+freedreno@lfdr.de>; Wed, 18 Jan 2023 03:07:00 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DCE1810E634;
-	Wed, 18 Jan 2023 02:06:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D7DA510E64C;
+	Wed, 18 Jan 2023 02:06:47 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ej1-x635.google.com (mail-ej1-x635.google.com
- [IPv6:2a00:1450:4864:20::635])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CEA1E10E634
- for <freedreno@lists.freedesktop.org>; Wed, 18 Jan 2023 02:06:29 +0000 (UTC)
-Received: by mail-ej1-x635.google.com with SMTP id tz11so15428517ejc.0
- for <freedreno@lists.freedesktop.org>; Tue, 17 Jan 2023 18:06:29 -0800 (PST)
+Received: from mail-ej1-x62e.google.com (mail-ej1-x62e.google.com
+ [IPv6:2a00:1450:4864:20::62e])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CE18210E634
+ for <freedreno@lists.freedesktop.org>; Wed, 18 Jan 2023 02:06:30 +0000 (UTC)
+Received: by mail-ej1-x62e.google.com with SMTP id u19so79775742ejm.8
+ for <freedreno@lists.freedesktop.org>; Tue, 17 Jan 2023 18:06:30 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=0JiIW4jdJdESp+XWdfOpWNkOvZv4eYC/Zwku6YKYIAo=;
- b=uaVExwDWCIJ0xQwsFvsIky+V+xINrX9hCx2pfSTY5maDB97Q1+SHOgSWIOd9Y85DEu
- qivbNZNWA7oug2IwDwENI40xE5EoTcKsYxycv1UKezFBQCdgcpniTeZkwUt2IaT6elWU
- LE0oTGaq3h1+e8Wkv8/S9kWPkvczwIlN+4M17pv4geo6kMJteYsmveZp7DkvpLd/fajW
- Q2Aqv5CTIToBIV7Oud5LIdOuWFFPf7uHSqacKbyl6plbDDWp1E9S5mP/fB39tAB73kRb
- 5oRzR3TaZ2fIhzLyc8mfTuAFNTgRcCho5wfyj0dKTa07PFJHJ9lqu26vmk+lWum80WPm
- 3w+Q==
+ bh=EzS/zvWe4dE4qAlzyHEWNojqR1ZH/s6LTLUTq8cJCDs=;
+ b=x1UIMFzhhzmPp33rMJL9P9/UdyqBh0ezz8HdRiZ+FCVBLR2OShryDc+uG9Xvznt0vB
+ 5cCrPmQCV0teL8HGC5L/s4RV3HC8ChldGjXbGsiZwjPVrQe2smTtDRRf7iqYqqn86TTk
+ LVQbZrb/+9Zbg3bHkzZp0HPycouflZYRFZ5BApQc5fCqveUceFQQI8X4Q9TodF6H0E+L
+ PsV3n7mIYFa0vm7jF+alaBDlUtsWJcHIWlCpZuUQsUxXdr+eF8htRbeQoPbKWKoaWv1C
+ w3P3jvnRQvUG7MFjeFymVS6p0OJBFlCKHbVNzYuTwjmpB+1q1Q1MGH55JGmDjYtJbDaG
+ 2bgw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=0JiIW4jdJdESp+XWdfOpWNkOvZv4eYC/Zwku6YKYIAo=;
- b=YqH+vnPmpaQeT6aPaol64VMSKU63gNZzt5KUnRiBijiCLueAfk6L4wc1syz1hxXO9r
- YD8Bxa7Kpvrc4O5QxKSr/k5awbdn+6gN9zbQ0zhAWSAvC/ZaEMlqaZgEGQ9Z6Tt9QoZN
- 7iB2Du34AdZFCagXIj7khav6buHhX4uICMFsQLMA+zNK/jGN4MxqHpOAvS26i7bf3vb1
- RK/mxWuZFsOnFCbR7I9Bg9C1cuBvrnd7BUM2oaUsi46nL6K5GjZqJAxwnvbDknukw5HC
- xA9LnHHF0WjTc+hD25QeZyaDEgbjAodhI+59vtMTieLpVYFdpB3K5ELVkxirmmnsXfr2
- vX7Q==
-X-Gm-Message-State: AFqh2krxdinX27XXMmUHUBYjL1nmZeoQkPt0usYkXTPCz0RuCAiEgsvE
- fdIvrdEGktf4WYMc2YUXWrhOSA==
-X-Google-Smtp-Source: AMrXdXuJIiZAj16VZgUuBRqA2k8+gGkvW5kulFivi6sXooiaAxXwgafM57hBk4Cu3ulhpAJuOQb6+Q==
-X-Received: by 2002:a17:906:ae86:b0:84d:3d88:dff3 with SMTP id
- md6-20020a170906ae8600b0084d3d88dff3mr5179129ejb.25.1674007587942; 
- Tue, 17 Jan 2023 18:06:27 -0800 (PST)
+ bh=EzS/zvWe4dE4qAlzyHEWNojqR1ZH/s6LTLUTq8cJCDs=;
+ b=Ujjj9sgs1w67mwK2lIk76PD+CgUeAmrOpekOpOt72NEmkoCtHC4ePPmJ6+tSuexjf3
+ SA6b7VmbFGs77OKxiibnC2ZtURHQuSgPx/vluIyUpfBCi/tUbaUYZBKvU/j9CQcHxsoX
+ WEfVw1Uo3rRKq6ZW3KzIP8186xHafdMjp5WeTR2VSLt0r6OXWc4cs0xdFNkANYEquU13
+ okg+fwyBDOSX4dVK4qwoBAKadAkQsUNAcmXym7icuKT99wZcR2RTKn10AJMNGQG6kW5u
+ g/YsQtKI1KY/rVJUbWr4GNi59FhJsnxj75ytaEdFDEApaFPrORTjcS239qObCaTQVpV7
+ cPxA==
+X-Gm-Message-State: AFqh2kq7FE/ADUxPeBXvAyf47zDF4Qm8NGo+Jj7hbXiH/1eznpIUg01S
+ V1ST6jFhdz4aHvpiJTwXdZI9Ug==
+X-Google-Smtp-Source: AMrXdXtPspMwAZbGwbr77eEM5eDgiYrt4RPaQoYwIAtRNNe3VLezx4/sosP5jnJFOjMOoW2VPQl9oQ==
+X-Received: by 2002:a17:906:ca59:b0:870:7e7d:97a3 with SMTP id
+ jx25-20020a170906ca5900b008707e7d97a3mr4427567ejb.59.1674007589171; 
+ Tue, 17 Jan 2023 18:06:29 -0800 (PST)
 Received: from eriador.lan (dzccz6yyyyyyyyyyybcwt-3.rev.dnainternet.fi.
  [2001:14ba:a085:4d00::8a5]) by smtp.gmail.com with ESMTPSA id
- kx1-20020a170907774100b0084d368b1628sm12702694ejc.40.2023.01.17.18.06.27
+ kx1-20020a170907774100b0084d368b1628sm12702694ejc.40.2023.01.17.18.06.28
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 17 Jan 2023 18:06:27 -0800 (PST)
+ Tue, 17 Jan 2023 18:06:28 -0800 (PST)
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-To: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
+To: Andy Gross <agross@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konrad.dybcio@linaro.org>, Rob Clark <robdclark@gmail.com>,
+ Sean Paul <sean@poorly.run>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Rob Herring <robh+dt@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
  Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Wed, 18 Jan 2023 04:06:10 +0200
-Message-Id: <167400670535.1683873.9301034219626704629.b4-ty@linaro.org>
+Date: Wed, 18 Jan 2023 04:06:11 +0200
+Message-Id: <167400670545.1683873.1367688768865327080.b4-ty@linaro.org>
 X-Mailer: git-send-email 2.39.0
-In-Reply-To: <20230112053659.1361298-1-dmitry.baryshkov@linaro.org>
-References: <20230112053659.1361298-1-dmitry.baryshkov@linaro.org>
+In-Reply-To: <20230109045453.316089-1-dmitry.baryshkov@linaro.org>
+References: <20230109045453.316089-1-dmitry.baryshkov@linaro.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Subject: Re: [Freedreno] [PATCH] drm/msm/dpu: merge two CRTC debugfs dirs
+Subject: Re: [Freedreno] [PATCH] dt-bindings: display/msm: qcom,
+ mdss: fix HDMI PHY node names
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,28 +78,24 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
- Bjorn Andersson <andersson@kernel.org>, dri-devel@lists.freedesktop.org,
- Stephen Boyd <swboyd@chromium.org>, Daniel Vetter <daniel@ffwll.ch>,
+Cc: devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, Stephen Boyd <swboyd@chromium.org>,
+ Daniel Vetter <daniel@ffwll.ch>, freedreno@lists.freedesktop.org,
  David Airlie <airlied@gmail.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 
-On Thu, 12 Jan 2023 07:36:59 +0200, Dmitry Baryshkov wrote:
-> For each CRTC we are creating two different debugfs directories one
-> using crtc index (created automatically for the CRC files) and another
-> one using CRTC name/object ID (for state and status files).
+On Mon, 09 Jan 2023 06:54:53 +0200, Dmitry Baryshkov wrote:
+> On Qualcomm devices HDMI PHY node names were changed from hdmi-phy to
+> phy. Follow this change.
 > 
-> This can be confusing, so move our custom files to crtc->debugfs_entry,
-> effetively merging two debugfs dirs.
 > 
-> [...]
 
 Applied, thanks!
 
-[1/1] drm/msm/dpu: merge two CRTC debugfs dirs
-      https://gitlab.freedesktop.org/lumag/msm/-/commit/f377ea2c3c3a
+[1/1] dt-bindings: display/msm: qcom,mdss: fix HDMI PHY node names
+      https://gitlab.freedesktop.org/lumag/msm/-/commit/759cc4914fb0
 
 Best regards,
 -- 
