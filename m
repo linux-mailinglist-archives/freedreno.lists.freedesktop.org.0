@@ -1,70 +1,71 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id ABB6B670F7A
-	for <lists+freedreno@lfdr.de>; Wed, 18 Jan 2023 02:06:34 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 2D3C8670FEF
+	for <lists+freedreno@lfdr.de>; Wed, 18 Jan 2023 02:24:44 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 53FBE10E61B;
-	Wed, 18 Jan 2023 01:06:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AD7AC10E626;
+	Wed, 18 Jan 2023 01:24:40 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ej1-x631.google.com (mail-ej1-x631.google.com
- [IPv6:2a00:1450:4864:20::631])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1696710E61F
- for <freedreno@lists.freedesktop.org>; Wed, 18 Jan 2023 01:06:32 +0000 (UTC)
-Received: by mail-ej1-x631.google.com with SMTP id tz11so15204358ejc.0
- for <freedreno@lists.freedesktop.org>; Tue, 17 Jan 2023 17:06:32 -0800 (PST)
+Received: from mail-ej1-x635.google.com (mail-ej1-x635.google.com
+ [IPv6:2a00:1450:4864:20::635])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2C7A410E629
+ for <freedreno@lists.freedesktop.org>; Wed, 18 Jan 2023 01:24:37 +0000 (UTC)
+Received: by mail-ej1-x635.google.com with SMTP id mp20so33074595ejc.7
+ for <freedreno@lists.freedesktop.org>; Tue, 17 Jan 2023 17:24:37 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :from:to:cc:subject:date:message-id:reply-to;
- bh=ShTmxSJXe9bG7EdfM5n7W4obQRT36vojvBzqe2LAzEY=;
- b=pZshoTDIWonMzbts+iSk6eqAXIty/XSzGtUDl9PJeQ8XVUyN/eHTt2p93ttz9KQgTu
- 9wfLh03a2Yb3RFXF3Sru73t0ORxZsuNA+p8nNqcl89jHRmba9Nt5u7K6/H0O2u8Dy6Qq
- I5UHAGKvsW2h2rCWGoKhMd7Zbo7kvESJIZWJ8RX79n7YMMu1z7Nz1jxAKVxhutkTa5OL
- 3lZJt4S31txk7HCAkWRoOz4c+86BN1b5X+30T1zblG8B/4T9LZDn6c8diFa/F/Fhl5r8
- b5BLOL4Pz7VtVUp68bH80NkeocjPtgKEm4YLe8ons9LlWTl/LkY870OpXlxUItBZHYpG
- qKug==
+ bh=hCw2/tRfMHxdziYE7u5XMHonH7hwIjkmwIJuVfBRNWc=;
+ b=nkdE03+Z0aIn/+n7c1/I2F3pJkSHHVfoKP7G8X9gUuTEkxpuUwMEtVoc0Q+WUvSkvd
+ A2H/THg65gzR0hZgMbt2oPoKf4nCe5i/l6BjLfuin4U01myYpCXjWorb+1mTTzkDuhk+
+ mCiQUtSbLtdcOWtWJ+KRejJGi/NmzqWORt/S7l/3k66JUoNrsREYogsLyLY9EldEHZAd
+ PsL1wjKb7nQ9OgsnYZGOBNaPZy9TIY5EbGcsIFJCz2t8kQSQcm9Uxy1IesuXV/QInnfa
+ 1rUiZs41LNJEYzESPz3fByvOWWq3gxSP9vx82MfGgPxkgTfoUoXvKS+9zNGRrN+o9uHZ
+ YGAg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=ShTmxSJXe9bG7EdfM5n7W4obQRT36vojvBzqe2LAzEY=;
- b=coxKQpYYbwCNuw9ivg++FvPBuIeo1sf9TD8UvoKXWX+vn+CwPe4RxRNkkzy2xG8NEW
- bQhoBhV1MvG7Zrq38bw7v/taHFFnKh1/AH2Kj4wte0C1aphXM/h0WyvE3JellmOgzyeE
- eyhUlgvbHdCoDMhKYTL5wkaDwJPPTfB4a+5GSUN9D3IEo5JEPJGFIC3RoCEzgBzD9DPY
- nO8nIPQqPuVuDkkzCZ79maJ2kwvzgFeFEpH2EqFk6yJKh1+6Xf6KkaxznHiYOY3gStTn
- QgKMuabUBjRuFWeIseJfnkmERzRyKSYiISJXE2tWHoTzpZEJfC3HkFUWPOuvE1l4iMJx
- Ec3w==
-X-Gm-Message-State: AFqh2kokJyhfh4zSa4G4iTfOE40rX9jIAa042sQ8N7P5XmeV2dlM2qpJ
- 44OZHmbzZ730NercrlccASoKfg==
-X-Google-Smtp-Source: AMrXdXtu4QsednS1nJEdQYpyn+WjmVTWu3VSvaUMOChD1AOs4/QnNcqLZuuyzhNt6LzroTs4JBrteQ==
-X-Received: by 2002:a17:906:6844:b0:86e:f478:f598 with SMTP id
- a4-20020a170906684400b0086ef478f598mr4836197ejs.44.1674003990637; 
- Tue, 17 Jan 2023 17:06:30 -0800 (PST)
+ bh=hCw2/tRfMHxdziYE7u5XMHonH7hwIjkmwIJuVfBRNWc=;
+ b=e1JIBRlvk8H3BcyjLbCZqAm2IWsboLVDzJPmzu7Yp1bCb59/ZYZc3fzTtJCrQw6hTV
+ avEp5mznp32RIgIs8tC6t12bxwjrX7dkxoy3svdEuOVNKpX2n7EFzOkjMpZjYiHf3qhm
+ aG6q6HWulrF9B/J4g6Me+rJbgiL0zisOxkWXwa51ZXTQEuZMP/oJJFZONxDR60VyXK/N
+ +6293UEFQwZBoHkjrDPR8rF/cV3Tk1JzupPhV5nDwou5KLyknqQns79+HJsLh2krMS7Z
+ dcTi0NbK+YTFCAZ/EBDjMu4Jqo5GR8rNcE+r452SzIBa1IfyBwy9TkQfj2PPlqmLDIN1
+ lGvA==
+X-Gm-Message-State: AFqh2kpbC/pL+VQPLh+eNz/3lCILyMgvj4hEO1UJNDKf/kHun7ub9cKa
+ 0Sz1EGvcimsRG5OyZVHPB78hWg==
+X-Google-Smtp-Source: AMrXdXsas82xe4F5cGHedGjetCtbabIxMQUCoeuWsYdgrdP89CeJeAfXys09rvlr0gPpyI7oo6dygw==
+X-Received: by 2002:a17:907:6294:b0:86a:1afa:6dd8 with SMTP id
+ nd20-20020a170907629400b0086a1afa6dd8mr26337861ejc.69.1674005075726; 
+ Tue, 17 Jan 2023 17:24:35 -0800 (PST)
 Received: from ?IPV6:2001:14ba:a085:4d00::8a5?
  (dzccz6yyyyyyyyyyybcwt-3.rev.dnainternet.fi. [2001:14ba:a085:4d00::8a5])
  by smtp.gmail.com with ESMTPSA id
- 10-20020a170906210a00b007c0f2d051f4sm13786939ejt.203.2023.01.17.17.06.29
+ fn4-20020a1709069d0400b0084d4b907ff8sm10941430ejc.120.2023.01.17.17.24.34
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 17 Jan 2023 17:06:30 -0800 (PST)
-Message-ID: <e14e929b-884c-4250-bce8-0c21fe4f1c8f@linaro.org>
-Date: Wed, 18 Jan 2023 03:06:29 +0200
+ Tue, 17 Jan 2023 17:24:35 -0800 (PST)
+Message-ID: <b9fa44e8-3387-df90-7997-cac74312cb3b@linaro.org>
+Date: Wed, 18 Jan 2023 03:24:34 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.6.0
 Content-Language: en-GB
 To: Jiasheng Jiang <jiasheng@iscas.ac.cn>, robdclark@gmail.com,
  quic_abhinavk@quicinc.com, sean@poorly.run, airlied@gmail.com,
- daniel@ffwll.ch, sumit.semwal@linaro.org, christian.koenig@amd.com
-References: <20221212091117.43511-1-jiasheng@iscas.ac.cn>
+ sumit.semwal@linaro.org, christian.koenig@amd.com
+References: <20230109022038.2163-1-jiasheng@iscas.ac.cn>
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-In-Reply-To: <20221212091117.43511-1-jiasheng@iscas.ac.cn>
+In-Reply-To: <20230109022038.2163-1-jiasheng@iscas.ac.cn>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH] drm/msm/gem: Add check for kmalloc
+Subject: Re: [Freedreno] [PATCH v2] drm/msm: Add missing check and destroy
+ for alloc_ordered_workqueue
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,15 +84,23 @@ Cc: linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 12/12/2022 11:11, Jiasheng Jiang wrote:
-> Add the check for the return value of kmalloc in order to avoid
-> NULL pointer dereference in copy_from_user.
+On 09/01/2023 04:20, Jiasheng Jiang wrote:
+> Add check for the return value of alloc_ordered_workqueue as it may return
+> NULL pointer.
+> Moreover, use the destroy_workqueue in the later fails in order to avoid
+> memory leak.
 > 
-> Fixes: 20224d715a88 ("drm/msm/submit: Move copy_from_user ahead of locking bos")
 > Signed-off-by: Jiasheng Jiang <jiasheng@iscas.ac.cn>
 > ---
->   drivers/gpu/drm/msm/msm_gem_submit.c | 4 ++++
->   1 file changed, 4 insertions(+)
+> Changelog:
+> 
+> v1 -> v2:
+> 
+> 1. Convert "goto err_destroy_workqueue" into "goto err_msm_unit" and
+> remove "err_destroy_workqueue" label.
+> ---
+>   drivers/gpu/drm/msm/msm_drv.c | 6 ++++--
+>   1 file changed, 4 insertions(+), 2 deletions(-)
 
 Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 
