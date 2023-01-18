@@ -2,67 +2,67 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7AAA96715F3
-	for <lists+freedreno@lfdr.de>; Wed, 18 Jan 2023 09:17:08 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8E1DD6715F6
+	for <lists+freedreno@lfdr.de>; Wed, 18 Jan 2023 09:17:16 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A81CC10E055;
-	Wed, 18 Jan 2023 08:17:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CDD9710E6AF;
+	Wed, 18 Jan 2023 08:17:06 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ej1-x62b.google.com (mail-ej1-x62b.google.com
- [IPv6:2a00:1450:4864:20::62b])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0D33210E10D
- for <freedreno@lists.freedesktop.org>; Wed, 18 Jan 2023 08:17:03 +0000 (UTC)
-Received: by mail-ej1-x62b.google.com with SMTP id u19so81224899ejm.8
- for <freedreno@lists.freedesktop.org>; Wed, 18 Jan 2023 00:17:02 -0800 (PST)
+Received: from mail-ej1-x633.google.com (mail-ej1-x633.google.com
+ [IPv6:2a00:1450:4864:20::633])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0805A10E184
+ for <freedreno@lists.freedesktop.org>; Wed, 18 Jan 2023 08:17:04 +0000 (UTC)
+Received: by mail-ej1-x633.google.com with SMTP id mg12so8946779ejc.5
+ for <freedreno@lists.freedesktop.org>; Wed, 18 Jan 2023 00:17:03 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=WANyF2F/RgYw3X0PQ15siC75t9y7XEggYSa5zgiK7xs=;
- b=w3pX+rZVu0y1aN6UOW2+7y7W1c+5KInTOYxSZxwn2lUGSfYO2mwRBmvY+TYeewqApi
- 7gegKNXqiw2VaMBNA/sk7o51jRBlsKNcvT4v4fVuJPWY4SPGjXLg542X3EFLLwti6cfg
- pGd6EXIo88vo8+CpX00YmmycF1XElScAntM1hC0XaPnWLFcMhsMz4jcaoOvABts1AR+R
- fCn0Aum+sP5Z0iC4udsaSa59hPjfhwSUu35aodORV7Lony7NENfU/7yMALdCV6NSZnik
- +D8gpJkgvc6LuWtoabq16xUaSf1sZ6yETGGzifgxxC5ka6ZHtpQBy5c6sm09CmCcdsGX
- t/nQ==
+ bh=ffQ9QQ9cEmbatl2Z6drUHQqKYZ2qTHMnm6bqB742ivs=;
+ b=F3zx+o8HIciBkmGlZ+KOd0AIVFAcURL/lkf64wkVSAwBgPm3cGlgJuWYDZEsGvLfwp
+ +QGc9hsDxeCVjOCjyOnA9rkbu6uOwNyDpR0rbhT0JvKt9uAMSwbIDKctKCinSov1wv45
+ 1/D51glaQZp2RT7nlyZpdvV+IMtdRc6FpGTFoynyDdyAjumO4sLqHHjtdTaWs6TQ1Ugv
+ yp80S+jU/l5mPKBX5nJbeuhrafJCw73QYYpDbnkpHosQ2VYdPdB/OqZYoR+JKbMasVHT
+ LoMOD1MgGrZnG/0YPZFjSQhDeNXOfAljeuKez4cCNXJSDBW7jfMTnuxubSz791yQMiEp
+ sbDw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=WANyF2F/RgYw3X0PQ15siC75t9y7XEggYSa5zgiK7xs=;
- b=JkdcqtWn0b1K+ks1N0D/shQo7lvLmlT7lPUMoRDgM50BFDGeN9jdTR4jgZTK4oRgCn
- 6t1rUPMrpzyvLEsIehpAtXEimI8JDZFoKKUr/pdeyKfAT2cT2AY4Cm3t0VcGupvjSxs2
- NFcFKu4U09TvSa9F01xW6m5zYzPTQHQX54i06iZEMBWQPVoy4mldzdN0P1g3g9hGVgqT
- aC9NsVQrhrZBh4vRpg57ebDh2tAQhAv4M4he7edcW4Xh99tmib8AtfRAxJrHud2ebrZv
- 5MKq0lAsvtojaJV3YyxLUGp+0BmVTnsSUB4XMBPCgPHu3aJiFxygaQnyi5RCxYBUw94+
- IIaQ==
-X-Gm-Message-State: AFqh2kpyfhjRGRM+FLYi7yPgSlRi3v1pFkmdPBxuPAZIQLr2MhchvjOm
- VB/dkdDji68iukgoyoaHJW/wTA==
-X-Google-Smtp-Source: AMrXdXt+Wg6xcTrkPiQyiXb8RxciTGBL7rIrHsRt08RnF1gyMk5qwxdnlQb1dkR86ClSBBpvc8FVQA==
-X-Received: by 2002:a17:907:d007:b0:829:59d5:e661 with SMTP id
- va7-20020a170907d00700b0082959d5e661mr6164457ejc.29.1674029821376; 
- Wed, 18 Jan 2023 00:17:01 -0800 (PST)
+ bh=ffQ9QQ9cEmbatl2Z6drUHQqKYZ2qTHMnm6bqB742ivs=;
+ b=CXJLx7LZ0Mp2QqL6LyOgt8XOBdlP+SYPZtA91ig/aPIR/MEnXMHW1cGwpTCQ14Y3gD
+ +IcklS5PlC1fTfs6qSHz6CvNOUpTS3E7uOHBV2+pw5eZ19azpIcwWif3ePRDsIxf2kpm
+ 90V6uvwSVvulweyPyINSgGd6//CM3yxMSzEi+WwGGoUd6Dw6z0zAAUxvVfLsWEczcW/K
+ j/ZM+8ECuZva9kbLOKZwtvp0BT9sxjj80c4ALem9Kk9/FE09fmOP+N9hCvA5O5HKtXYk
+ iC0FDo6TDCXv0p20LanujcRB2mLk4AavR8IlgHf7Sc5dEi7EYhe3lAuz7UN/qUplt0br
+ FgfA==
+X-Gm-Message-State: AFqh2krvEyIrDS6axIJX/RgukCnGFxAAjbTZGCAuzJDxklHeA+KyMFOv
+ oipH1qLEYII7gwA1TnhzhMXAFw==
+X-Google-Smtp-Source: AMrXdXtiaZSjxKJh/ME5gKEx7BWuOcQQ8+DqDHHvx22LGspB9fRkBIkiA8kRle0Io+wJBIym3/d0hQ==
+X-Received: by 2002:a17:906:230a:b0:86f:5375:9f63 with SMTP id
+ l10-20020a170906230a00b0086f53759f63mr5192973eja.39.1674029822451; 
+ Wed, 18 Jan 2023 00:17:02 -0800 (PST)
 Received: from eriador.lan (dzccz6yyyyyyyyyyybcwt-3.rev.dnainternet.fi.
  [2001:14ba:a085:4d00::8a5]) by smtp.gmail.com with ESMTPSA id
- f22-20020a17090631d600b00779cde476e4sm14199080ejf.62.2023.01.18.00.17.00
+ f22-20020a17090631d600b00779cde476e4sm14199080ejf.62.2023.01.18.00.17.01
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 18 Jan 2023 00:17:01 -0800 (PST)
+ Wed, 18 Jan 2023 00:17:02 -0800 (PST)
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 To: Vinod Koul <vkoul@kernel.org>, Andrzej Hajda <andrzej.hajda@intel.com>,
  Neil Armstrong <neil.armstrong@linaro.org>,
  Robert Foss <robert.foss@linaro.org>,
  Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
  Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>
-Date: Wed, 18 Jan 2023 10:16:46 +0200
-Message-Id: <20230118081658.2198520-2-dmitry.baryshkov@linaro.org>
+Date: Wed, 18 Jan 2023 10:16:47 +0200
+Message-Id: <20230118081658.2198520-3-dmitry.baryshkov@linaro.org>
 X-Mailer: git-send-email 2.39.0
 In-Reply-To: <20230118081658.2198520-1-dmitry.baryshkov@linaro.org>
 References: <20230118081658.2198520-1-dmitry.baryshkov@linaro.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH 01/13] drm/bridge: lt9611: fix sleep mode setup
+Subject: [Freedreno] [PATCH 02/13] drm/bridge: lt9611: fix HPD reenablement
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,37 +81,43 @@ Cc: freedreno@lists.freedesktop.org, David Airlie <airlied@gmail.com>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On atomic_post_disable the bridge goes to the low power state. However
-the code disables too much of the chip, so the HPD event is not being
-detected and delivered to the host. Reduce the power saving in order to
-get the HPD event.
+The driver will reset the bridge in the atomic_pre_enable(). However
+this will also drop the HPD interrupt state. Instead of resetting the
+bridge, properly wake it up. This fixes the HPD interrupt delivery after
+the disable/enable cycle.
 
 Fixes: 23278bf54afe ("drm/bridge: Introduce LT9611 DSI to HDMI bridge")
 Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
 Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 ---
- drivers/gpu/drm/bridge/lontium-lt9611.c | 5 ++---
- 1 file changed, 2 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/bridge/lontium-lt9611.c | 10 ++++++++--
+ 1 file changed, 8 insertions(+), 2 deletions(-)
 
 diff --git a/drivers/gpu/drm/bridge/lontium-lt9611.c b/drivers/gpu/drm/bridge/lontium-lt9611.c
-index 7c0a99173b39..2714184cc53f 100644
+index 2714184cc53f..58f39b279217 100644
 --- a/drivers/gpu/drm/bridge/lontium-lt9611.c
 +++ b/drivers/gpu/drm/bridge/lontium-lt9611.c
-@@ -448,12 +448,11 @@ static void lt9611_sleep_setup(struct lt9611 *lt9611)
- 		{ 0x8023, 0x01 },
- 		{ 0x8157, 0x03 }, /* set addr pin as output */
- 		{ 0x8149, 0x0b },
--		{ 0x8151, 0x30 }, /* disable IRQ */
-+
- 		{ 0x8102, 0x48 }, /* MIPI Rx power down */
- 		{ 0x8123, 0x80 },
- 		{ 0x8130, 0x00 },
--		{ 0x8100, 0x01 }, /* bandgap power down */
--		{ 0x8101, 0x00 }, /* system clk power down */
-+		{ 0x8011, 0x0a },
- 	};
+@@ -856,12 +856,18 @@ static enum drm_mode_status lt9611_bridge_mode_valid(struct drm_bridge *bridge,
+ static void lt9611_bridge_pre_enable(struct drm_bridge *bridge)
+ {
+ 	struct lt9611 *lt9611 = bridge_to_lt9611(bridge);
++	static const struct reg_sequence reg_cfg[] = {
++		{ 0x8102, 0x12 },
++		{ 0x8123, 0x40 },
++		{ 0x8130, 0xea },
++		{ 0x8011, 0xfa },
++	};
  
- 	regmap_multi_reg_write(lt9611->regmap,
+ 	if (!lt9611->sleep)
+ 		return;
+ 
+-	lt9611_reset(lt9611);
+-	regmap_write(lt9611->regmap, 0x80ee, 0x01);
++	regmap_multi_reg_write(lt9611->regmap,
++			       reg_cfg, ARRAY_SIZE(reg_cfg));
+ 
+ 	lt9611->sleep = false;
+ }
 -- 
 2.39.0
 
