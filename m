@@ -1,69 +1,69 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id EBAE66711CF
-	for <lists+freedreno@lfdr.de>; Wed, 18 Jan 2023 04:24:42 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id C3C786711D8
+	for <lists+freedreno@lfdr.de>; Wed, 18 Jan 2023 04:24:45 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A89E510E65A;
-	Wed, 18 Jan 2023 03:24:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CF6F010E65F;
+	Wed, 18 Jan 2023 03:24:43 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ed1-x52a.google.com (mail-ed1-x52a.google.com
- [IPv6:2a00:1450:4864:20::52a])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5745B10E659
- for <freedreno@lists.freedesktop.org>; Wed, 18 Jan 2023 03:24:39 +0000 (UTC)
-Received: by mail-ed1-x52a.google.com with SMTP id z11so47893253ede.1
- for <freedreno@lists.freedesktop.org>; Tue, 17 Jan 2023 19:24:39 -0800 (PST)
+Received: from mail-ej1-x630.google.com (mail-ej1-x630.google.com
+ [IPv6:2a00:1450:4864:20::630])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9E51410E65A
+ for <freedreno@lists.freedesktop.org>; Wed, 18 Jan 2023 03:24:40 +0000 (UTC)
+Received: by mail-ej1-x630.google.com with SMTP id qx13so21723250ejb.13
+ for <freedreno@lists.freedesktop.org>; Tue, 17 Jan 2023 19:24:40 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=7gfBgFMCglJwiGtp0Su/fVc++xtqk3QZfhniXX5gUFE=;
- b=OdTpnb3J63Ut9HB0AGI5ycBVBTpKNSIqYi3xKa04tWIpj22ol6hTPj/kXEY+MxM95A
- SXp8ewlzRqKXO6XDYEstLqNPZnh+ISACHqGK284MEex24omx1HVsd/oXGs0FHm92Hqx0
- 8VIBwRvpmdd6Ws1LOLkSaOibqn5oXYbFnKcfEHn8Wj5uBpN2C/8rZvgZ+LHPwyR0URBs
- LuttA0yFxGOx/Ub11VOszVgRvcMPJrx5KlzAUHAWvb350weh3Bs9FwlG+aho58Ljoc8W
- UM0vlW2vCu8HjfQ8RxWAVyER4jdB6xPqHExWv3LjZAvSFX1VJyhRd3gilZkmE39z1fTF
- Z3nw==
+ bh=9CVQKGFNAlYAjUpoXQgv1oLPkAX+tyEdhblxpqFV4cw=;
+ b=SDPgSkODr61lQewXQXI9MyT/fdS8sLKxVe8zbDt480jNYNViWZKlB66TQ50+RHpObd
+ aeYljotojqgrgkvZlwwbJl/6Sckkt8wFAAhfvYY4gMK/CQWUidj76qIl0ByCh5lmVn5G
+ KrDRo8cqO8Bwlynja54VfKNFRq+WfFcB1HW/FwgQ2qniA4JxP4kFH4zlewRyLcHM6NRn
+ qPM1y8jkksW9f2tpT0hZLivrX4bYFKfZlt4DP/BSA7bkFXdauJsAx71pW+MdpIJusJ7v
+ pZPSTjo99Uz4hqVaIUTnUvxkJ53TMTsGQYV/enMc+qyb1ez5A8vFmb1TObju1Mee0FYS
+ YJBg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=7gfBgFMCglJwiGtp0Su/fVc++xtqk3QZfhniXX5gUFE=;
- b=VP7jOyV1A7lc8sWAG2B5kWwHk24pN65QFI053JwOxr90xZoJ9Vc0oU50O0pl6DDcrx
- 9vWkgvCJQMoHoTlUD/r7w/0AwI8bKuMvwPXex70ggRC/1TCfhz/av7PzF5V19j13IIm2
- h6+R/LtrDrg7izFY4KT+JY/NfrIvc82OMtEzf/7N9jU+jKDYTbRSAjsE23+dfyVIARml
- 1tG3v+9/8H13yG1wOVMY4ZFe1AqGM/+wuHayQ7n7cHmK9T/FNVViFnE/fqEiqDZ2Ln8K
- bFz1sE1A4qWTuwb31k3bfqWT5Qf9wjXPcTgqpNVVm7IXxlelLq9eo0m4oj0OniHsyVL0
- SWtQ==
-X-Gm-Message-State: AFqh2ko540A9KnAAU+heAcdUTLy2o9ps1aL8RRom/9kBBLTflKa9y41D
- yk9LWWx8CUI25IMq+oRR/wIQjQ==
-X-Google-Smtp-Source: AMrXdXt8oddItr2P36DuY7+xZsptoMdQIh0DJJedzDOGjW814zXo1noWgpEsw6tkZ59eMYnQ0Yvgqw==
-X-Received: by 2002:aa7:d887:0:b0:499:1ed2:6461 with SMTP id
- u7-20020aa7d887000000b004991ed26461mr5387548edq.17.1674012277888; 
- Tue, 17 Jan 2023 19:24:37 -0800 (PST)
+ bh=9CVQKGFNAlYAjUpoXQgv1oLPkAX+tyEdhblxpqFV4cw=;
+ b=ZTlulq+RjfSGtRK9kF7zfRNT2S8HDb5Y0fPr5Q/nlFqt32RRDGwszbYly32hjw1sVm
+ YxM9FUwM1WXtmUoQruiVrctdH8e2mZOOecEEG5iiC0HMvWPZxF8f55n2kWZ42RDW/g/A
+ E9ClAjJRYjStlZkzOwiBRjb8zwSqknUHVIn1URCjOBTXv+0n1ExKomtgsFisAudbPF8J
+ GdrlX2GFO8yG6rcisLXVY0mvC+uFQ21T3higbCFBTQ4+IJpgm+wKSL3HH9xKoGNcKX1P
+ 8h21MFQo/jbrLF40eEh9AM81AprPRoBvNDtkWu9AVyNDdnfkFXdUjg5p4RPPpZvUVWOT
+ fxcA==
+X-Gm-Message-State: AFqh2kpLCauGxfDbIu1nqLcRO3jfKdfPrPUKrETFQT2zmAwXXcCfasv/
+ AWrRf4o1V1JuoFqweCz7Tx6K4w==
+X-Google-Smtp-Source: AMrXdXt03VdBtNqUkusVgtXrGcDHG8DymvlEvlG/t1HO+TD2pWZa0lVglqyym5GI9849sj0aYeM9Og==
+X-Received: by 2002:a17:906:7116:b0:78d:f454:ba46 with SMTP id
+ x22-20020a170906711600b0078df454ba46mr1383522ejj.69.1674012279005; 
+ Tue, 17 Jan 2023 19:24:39 -0800 (PST)
 Received: from eriador.lan (dzccz6yyyyyyyyyyybcwt-3.rev.dnainternet.fi.
  [2001:14ba:a085:4d00::8a5]) by smtp.gmail.com with ESMTPSA id
- f11-20020a056402194b00b0048eb0886b00sm4713829edz.42.2023.01.17.19.24.36
+ f11-20020a056402194b00b0048eb0886b00sm4713829edz.42.2023.01.17.19.24.37
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 17 Jan 2023 19:24:37 -0800 (PST)
+ Tue, 17 Jan 2023 19:24:38 -0800 (PST)
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 To: Andy Gross <agross@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
  Konrad Dybcio <konrad.dybcio@linaro.org>, Rob Clark <robdclark@gmail.com>,
  Sean Paul <sean@poorly.run>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
  Rob Herring <robh+dt@kernel.org>,
  Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>
-Date: Wed, 18 Jan 2023 05:24:31 +0200
-Message-Id: <20230118032432.1716616-4-dmitry.baryshkov@linaro.org>
+Date: Wed, 18 Jan 2023 05:24:32 +0200
+Message-Id: <20230118032432.1716616-5-dmitry.baryshkov@linaro.org>
 X-Mailer: git-send-email 2.39.0
 In-Reply-To: <20230118032432.1716616-1-dmitry.baryshkov@linaro.org>
 References: <20230118032432.1716616-1-dmitry.baryshkov@linaro.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH 3/4] dt-bindings: display/msm:
- dsi-controller-main: allow using fewer lanes
+Subject: [Freedreno] [PATCH 4/4] dt-binbings: display/msm:
+ dsi-controller-main: add missing supplies
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,36 +83,33 @@ Cc: devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Some platforms might use less than full 4 lanes DSI interface. Allow
-using any amount of lanes starting from 1 up to 4.
+Describe DSI supplies used on apq8064 (vdda-supply) and msm8994/96
+(vcca-supply).
 
 Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 ---
- .../devicetree/bindings/display/msm/dsi-controller-main.yaml  | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ .../bindings/display/msm/dsi-controller-main.yaml         | 8 ++++++++
+ 1 file changed, 8 insertions(+)
 
 diff --git a/Documentation/devicetree/bindings/display/msm/dsi-controller-main.yaml b/Documentation/devicetree/bindings/display/msm/dsi-controller-main.yaml
-index 357036470b1f..dc318762ef7a 100644
+index dc318762ef7a..31d389249c1d 100644
 --- a/Documentation/devicetree/bindings/display/msm/dsi-controller-main.yaml
 +++ b/Documentation/devicetree/bindings/display/msm/dsi-controller-main.yaml
-@@ -123,7 +123,7 @@ properties:
-             properties:
-               data-lanes:
-                 maxItems: 4
--                minItems: 4
-+                minItems: 1
-                 items:
-                   enum: [ 0, 1, 2, 3 ]
+@@ -147,6 +147,14 @@ properties:
+       - port@0
+       - port@1
  
-@@ -139,7 +139,7 @@ properties:
-             properties:
-               data-lanes:
-                 maxItems: 4
--                minItems: 4
-+                minItems: 1
-                 items:
-                   enum: [ 0, 1, 2, 3 ]
- 
++  avdd-supply:
++    description:
++      Phandle to vdd regulator device node
++
++  vcca-supply:
++    description:
++      Phandle to vdd regulator device node
++
+   vdd-supply:
+     description:
+       VDD regulator
 -- 
 2.39.0
 
