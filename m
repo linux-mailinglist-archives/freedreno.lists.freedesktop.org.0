@@ -1,70 +1,70 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0F8F9671F2B
-	for <lists+freedreno@lfdr.de>; Wed, 18 Jan 2023 15:15:51 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 18E28671F92
+	for <lists+freedreno@lfdr.de>; Wed, 18 Jan 2023 15:29:11 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0B75310E754;
-	Wed, 18 Jan 2023 14:15:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CD7D410E75A;
+	Wed, 18 Jan 2023 14:29:09 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ej1-x633.google.com (mail-ej1-x633.google.com
- [IPv6:2a00:1450:4864:20::633])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5F31910E753
- for <freedreno@lists.freedesktop.org>; Wed, 18 Jan 2023 14:15:44 +0000 (UTC)
-Received: by mail-ej1-x633.google.com with SMTP id kt14so24664333ejc.3
- for <freedreno@lists.freedesktop.org>; Wed, 18 Jan 2023 06:15:44 -0800 (PST)
+Received: from mail-wr1-x429.google.com (mail-wr1-x429.google.com
+ [IPv6:2a00:1450:4864:20::429])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9240310E759
+ for <freedreno@lists.freedesktop.org>; Wed, 18 Jan 2023 14:29:08 +0000 (UTC)
+Received: by mail-wr1-x429.google.com with SMTP id n7so8053761wrx.5
+ for <freedreno@lists.freedesktop.org>; Wed, 18 Jan 2023 06:29:08 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=GdcrXBW2MtYoLFVY9wCMCVpizC+Njw3MsYjn9jDyc/o=;
- b=RB/YGMXSb9wj8Og+DZdsXMUzp3Ir4wtmJ7x+U7HVoknku5DSE/DHjV9KOq6FuV/Uo4
- 8mttHM06RNyisoQ8/Eb6esz3avzeaLM02yKoItQiidPOliAiEogLlVJVpphb3/L5LuMp
- DnajvT+5huNOZK5wz8hvuKFEru250OgRYkXkdIGackFvV2hTEsDcg/BIlBqYHJ+ywkR7
- 4pFNhijqfvdDJqQFB4zfPByKtibD3vn43SUDENxZbWdGwjV7zgJ7iKvgVIQuAQCU6TUD
- Pf2QKxlee+QENlLtSDz4V0gibVjfCEfbEwbTZ0j8ItIFapnTUaR9qFEByvDoCWadxuug
- dGqA==
+ h=content-transfer-encoding:mime-version:date:message-id:subject
+ :references:in-reply-to:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=09LIyEAsfHyV6itdPviPw1c0EfObZTYwVl/MwHc+r6E=;
+ b=k77B8Dq/0i3dNdFxDgCz7T4Wvo6gSQE6HDNuur2soCGLRYCGcjW/trR85JsU7H+bnq
+ XjIEPLgX8sf/xTvgxrjMgEcODCeDTXkf4vOBL4i+ew3FHL3e8683Aca+XDy1ppSaOf6v
+ GtxJSyZWNrFnrAv4Y665fuTpPJylwE4cOHqKemAgity9QzyT9rHvjDiwAkOxgt57t1gE
+ tNwV1paZV7IrSqqgUCzvXuLWxFbZ1EH1XDfD9NKENcMoTFD4jcfVCzu4XStRrIxfgSQ1
+ msui37L9A+qZf/ZhRig/mReO2uWa/eGRanu9yv828s2ZbyAjl54z2oNqpmrjMgAyfQR0
+ vc4w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=GdcrXBW2MtYoLFVY9wCMCVpizC+Njw3MsYjn9jDyc/o=;
- b=WwPmj3Npe6qA4ft2yFV11zN1zGYAo5cX74J78KjkbXtHjnNbwqygZAxafqjYIUWY0D
- 7zhawjsSEiCLKyvg3Bn7QieTsO0AyiSeA+Q9TWsxX9v9jwl0eR3hgMUo7/M+AjpxSFia
- MAyZM5mtcH0IQroqfTVVU6qoJ0viav3DN5Skgt4WKSWeBXe1cvfpDxGhI+fPrSEkHvb3
- 4akRnUHs6nDT2QpquzGnGBSekXQzh53CEJyWV7s8OW2qXuoN6xr7kqy6lPqPVcSwiJVo
- fMce21luVxq2UeSDO6sNLFfSfo6p4/x1DFX+rce1VN6BL9egiVydVUlTX2qPk1Fz/hUQ
- EL9A==
-X-Gm-Message-State: AFqh2krUcnciI0b6Nue0h2YZ4+It2odjs2XqLHL2bf1TRyqG0TwGio8r
- vTepJF9qzknD5MDU/QijlO56X2jElbM2rNJi
-X-Google-Smtp-Source: AMrXdXsIKT861wAEvSPGjUCBEBtzhIh9JueOVO76XSoFaU14eREu4Bux4PhbSbZOwXnl4aiLRBl3Zg==
-X-Received: by 2002:a17:906:348b:b0:84d:3a95:cdf9 with SMTP id
- g11-20020a170906348b00b0084d3a95cdf9mr7190429ejb.50.1674051342794; 
- Wed, 18 Jan 2023 06:15:42 -0800 (PST)
-Received: from [192.168.1.101] (abxh252.neoplus.adsl.tpnet.pl. [83.9.1.252])
+ h=content-transfer-encoding:mime-version:date:message-id:subject
+ :references:in-reply-to:cc:to:from:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=09LIyEAsfHyV6itdPviPw1c0EfObZTYwVl/MwHc+r6E=;
+ b=PnniGROSwiqBa/AlN8ZZAGhnB2ayBPTLkuZViaO4wT8/hvnV0b7reBWhARP7GG0ShD
+ JD2FHU48qLTbuIkK65nJqisw/ZZuPTRAT7V2NkV83r0w6gtM8f66cwnO9p/1mr29l6mo
+ 1swe+2nfkR3vvlkWN0sAuK91KXYSGJqY1eBFOZUckb8YyG6OxRGWyx6HRcTvdg+7GyEo
+ FWSiBhW3KilXjhzG/px2mApgXrizadAGIq8Fmj+FGK9P1uMM21v9Fy9ja/m6MpCCldwp
+ 7YeNVRVEg/oJaa+DHdbpnvivAGgfB/lclCTmbB9VvDkX8LY0SURPQSo78/1Pmj9L7sIV
+ uehQ==
+X-Gm-Message-State: AFqh2kqczeJR5le2SMXZTLHFHttq6P6gZD5XUcBim4IsH4GwfXizMe3J
+ 2efIGDknUKLrJE/lYhYoB4sg6Q==
+X-Google-Smtp-Source: AMrXdXvEBACT5l6DQOfaEAh6nlZUakGz1hY8jze4RSkucPdQC3k1HthSlfOVYt12wGzg8tcckD+jmA==
+X-Received: by 2002:a5d:68c9:0:b0:24f:11eb:2988 with SMTP id
+ p9-20020a5d68c9000000b0024f11eb2988mr6721226wrw.71.1674052147066; 
+ Wed, 18 Jan 2023 06:29:07 -0800 (PST)
+Received: from arrakeen.starnux.net ([2a01:e0a:982:cbb0:52eb:f6ff:feb3:451a])
  by smtp.gmail.com with ESMTPSA id
- 9-20020a170906318900b0080c433a9eeesm14695321ejy.182.2023.01.18.06.15.41
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 18 Jan 2023 06:15:42 -0800 (PST)
-Message-ID: <9855fd94-d6a2-9a34-d6f7-e548e1a75550@linaro.org>
-Date: Wed, 18 Jan 2023 15:15:40 +0100
+ k18-20020adfb352000000b00241fab5a296sm32113556wrd.40.2023.01.18.06.29.06
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 18 Jan 2023 06:29:06 -0800 (PST)
+From: Neil Armstrong <neil.armstrong@linaro.org>
+To: Vinod Koul <vkoul@kernel.org>, Andrzej Hajda <andrzej.hajda@intel.com>,
+ Robert Foss <robert.foss@linaro.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+In-Reply-To: <20230118081658.2198520-1-dmitry.baryshkov@linaro.org>
+References: <20230118081658.2198520-1-dmitry.baryshkov@linaro.org>
+Message-Id: <167405214621.3985372.6039919953364691654.b4-ty@linaro.org>
+Date: Wed, 18 Jan 2023 15:29:06 +0100
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.6.1
-Content-Language: en-US
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>
-References: <20230118130027.2345719-1-dmitry.baryshkov@linaro.org>
-From: Konrad Dybcio <konrad.dybcio@linaro.org>
-In-Reply-To: <20230118130027.2345719-1-dmitry.baryshkov@linaro.org>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] drm/msm/dsi: correct byte intf clock rate for 14nm
- DSI PHY
+X-Mailer: b4 0.11.1
+Subject: Re: [Freedreno] [PATCH 00/13] drm/bridge: lt9611: several fixes and
+ improvements
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,126 +77,52 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Loic Poulain <loic.poulain@linaro.org>, linux-arm-msm@vger.kernel.org,
- Bjorn Andersson <andersson@kernel.org>, dri-devel@lists.freedesktop.org,
- Stephen Boyd <swboyd@chromium.org>, Daniel Vetter <daniel@ffwll.ch>,
- David Airlie <airlied@gmail.com>, freedreno@lists.freedesktop.org
+Cc: freedreno@lists.freedesktop.org, David Airlie <airlied@gmail.com>,
+ dri-devel@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>,
+ linux-arm-msm@vger.kernel.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
+Hi,
 
+On Wed, 18 Jan 2023 10:16:45 +0200, Dmitry Baryshkov wrote:
+> A series of patches to fix mode programming for the Lontium lt9611
+> DSI-to-HDMI bridge (found e.g. on the Thundercomm RB3/Dragonboard845c
+> platform).
+> 
+> Changes since v2:
+>  - Rewrote mode_valid callback to be more explicit.
+> 
+> [...]
 
-On 18.01.2023 14:00, Dmitry Baryshkov wrote:
-> According to the vendor kernel, byte intf clock rate should be a half of
-> the byte clock only when DSI PHY version is above 2.0 (in other words,
-> 10nm PHYs and later) and only if PHY is used in D-PHY mode. Currently
-> MSM DSI code handles only the second part of the clause (C-PHY vs
-> D-PHY), skipping DSI PHY version check, which causes issues on some of
-> 14nm DSI PHY platforms (e.g. qcm2290).
-> 
-> Move divisor selection to DSI PHY code, pass selected divisor through
-> shared timings and set byte intf clock rate accordingly.
-> 
-> Cc: Loic Poulain <loic.poulain@linaro.org>
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> ---
-> 
-> This patch is a reimplementation of [1] in a slightly more flexible way.
-> 
-> [1] https://patchwork.kernel.org/project/linux-arm-msm/patch/1642586079-12472-1-git-send-email-loic.poulain@linaro.org/
-> 
-> ---
-Tested-by: Konrad Dybcio <konrad.dybcio@linaro.org> # SM6115P J606F
-Reviewed-by: Konrad Dybcio <konrad.dybcio@linaro.org>
+Thanks, Applied to https://anongit.freedesktop.org/git/drm/drm-misc.git (drm-misc-next)
 
-Interestingly enough, this seems to somehow solve the issue
-where I had to manually set the brightness again after the
-first frame transfer or get a black screen otherwise.. 
+[01/13] drm/bridge: lt9611: fix sleep mode setup
+        https://cgit.freedesktop.org/drm/drm-misc/commit/?id=ae2d329f104b75a0a78dcaded29fe6283289cdf9
+[02/13] drm/bridge: lt9611: fix HPD reenablement
+        https://cgit.freedesktop.org/drm/drm-misc/commit/?id=a7790f6bd38f3642b60ae3504a2c749135b89451
+[03/13] drm/bridge: lt9611: fix polarity programming
+        https://cgit.freedesktop.org/drm/drm-misc/commit/?id=0b157efa384ea417304b1da284ee2f603c607fc3
+[04/13] drm/bridge: lt9611: fix programming of video modes
+        https://cgit.freedesktop.org/drm/drm-misc/commit/?id=ad188aa47edaa033a270e1a3efae43836ff47569
+[05/13] drm/bridge: lt9611: fix clock calculation
+        https://cgit.freedesktop.org/drm/drm-misc/commit/?id=2576eb26494eb0509dd9ceb0cd27771a7a5e3674
+[06/13] drm/bridge: lt9611: pass a pointer to the of node
+        https://cgit.freedesktop.org/drm/drm-misc/commit/?id=b0a7f8736789935f62d6df32d441cdf05a5c05d2
+[07/13] drm/bridge: lt9611: rework the mode_set function
+        https://cgit.freedesktop.org/drm/drm-misc/commit/?id=fad97f2811933085adb3dc3b13b2e1cf985295b1
+[08/13] drm/bridge: lt9611: attach to the next bridge
+        https://cgit.freedesktop.org/drm/drm-misc/commit/?id=0c3997b0fec74a828ef258851e2fb260e3e7620c
+[09/13] drm/bridge: lt9611: fix sync polarity for DVI output
+        https://cgit.freedesktop.org/drm/drm-misc/commit/?id=0c7474694849b44cfdf4e22b41e8f3eb85d78709
+[10/13] drm/bridge: lt9611: simplify video timings programming
+        https://cgit.freedesktop.org/drm/drm-misc/commit/?id=6b089d5e35d6daf3d348a3fbd8974d4ed896a231
+[11/13] drm/bridge: lt9611: rework infoframes handling
+        https://cgit.freedesktop.org/drm/drm-misc/commit/?id=84cf74d99f88bc476678254310baffddfba68bb6
+[12/13] drm/bridge: lt9611: stop filtering modes via the table
+        https://cgit.freedesktop.org/drm/drm-misc/commit/?id=4914cbc4fbadf0a3bcad9b0b09b3d8005a3dcd9e
+[13/13] drm/bridge: lt9611: properly program the dual host mode
+        https://cgit.freedesktop.org/drm/drm-misc/commit/?id=5e83f359d9805b3561f160afafddfa7572155d1c
 
-Konrad
->  drivers/gpu/drm/msm/dsi/dsi.h         |  1 +
->  drivers/gpu/drm/msm/dsi/dsi_host.c    | 14 ++++++--------
->  drivers/gpu/drm/msm/dsi/phy/dsi_phy.c |  4 ++++
->  3 files changed, 11 insertions(+), 8 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/msm/dsi/dsi.h b/drivers/gpu/drm/msm/dsi/dsi.h
-> index 1a551cc0e889..bd3763a5d723 100644
-> --- a/drivers/gpu/drm/msm/dsi/dsi.h
-> +++ b/drivers/gpu/drm/msm/dsi/dsi.h
-> @@ -141,6 +141,7 @@ struct msm_dsi_phy_shared_timings {
->  	u32 clk_post;
->  	u32 clk_pre;
->  	bool clk_pre_inc_by_2;
-> +	bool byte_intf_clk_div_2;
->  };
->  
->  struct msm_dsi_phy_clk_request {
-> diff --git a/drivers/gpu/drm/msm/dsi/dsi_host.c b/drivers/gpu/drm/msm/dsi/dsi_host.c
-> index 7c21f2fba520..18fa30e1e858 100644
-> --- a/drivers/gpu/drm/msm/dsi/dsi_host.c
-> +++ b/drivers/gpu/drm/msm/dsi/dsi_host.c
-> @@ -122,6 +122,7 @@ struct msm_dsi_host {
->  	struct clk *byte_intf_clk;
->  
->  	unsigned long byte_clk_rate;
-> +	unsigned long byte_intf_clk_rate;
->  	unsigned long pixel_clk_rate;
->  	unsigned long esc_clk_rate;
->  
-> @@ -398,7 +399,6 @@ int msm_dsi_runtime_resume(struct device *dev)
->  
->  int dsi_link_clk_set_rate_6g(struct msm_dsi_host *msm_host)
->  {
-> -	unsigned long byte_intf_rate;
->  	int ret;
->  
->  	DBG("Set clk rates: pclk=%d, byteclk=%lu",
-> @@ -418,13 +418,7 @@ int dsi_link_clk_set_rate_6g(struct msm_dsi_host *msm_host)
->  	}
->  
->  	if (msm_host->byte_intf_clk) {
-> -		/* For CPHY, byte_intf_clk is same as byte_clk */
-> -		if (msm_host->cphy_mode)
-> -			byte_intf_rate = msm_host->byte_clk_rate;
-> -		else
-> -			byte_intf_rate = msm_host->byte_clk_rate / 2;
-> -
-> -		ret = clk_set_rate(msm_host->byte_intf_clk, byte_intf_rate);
-> +		ret = clk_set_rate(msm_host->byte_intf_clk, msm_host->byte_intf_clk_rate);
->  		if (ret) {
->  			pr_err("%s: Failed to set rate byte intf clk, %d\n",
->  			       __func__, ret);
-> @@ -2394,6 +2388,10 @@ int msm_dsi_host_power_on(struct mipi_dsi_host *host,
->  		goto unlock_ret;
->  	}
->  
-> +	msm_host->byte_intf_clk_rate = msm_host->byte_clk_rate;
-> +	if (phy_shared_timings->byte_intf_clk_div_2)
-> +		msm_host->byte_intf_clk_rate /= 2;
-> +
->  	msm_dsi_sfpb_config(msm_host, true);
->  
->  	ret = regulator_bulk_enable(msm_host->cfg_hnd->cfg->num_regulators,
-> diff --git a/drivers/gpu/drm/msm/dsi/phy/dsi_phy.c b/drivers/gpu/drm/msm/dsi/phy/dsi_phy.c
-> index 57445a5dc816..bb09cbe8ff86 100644
-> --- a/drivers/gpu/drm/msm/dsi/phy/dsi_phy.c
-> +++ b/drivers/gpu/drm/msm/dsi/phy/dsi_phy.c
-> @@ -350,6 +350,8 @@ int msm_dsi_dphy_timing_calc_v3(struct msm_dsi_dphy_timing *timing,
->  		timing->shared_timings.clk_pre_inc_by_2 = 0;
->  	}
->  
-> +	timing->shared_timings.byte_intf_clk_div_2 = true;
-> +
->  	timing->ta_go = 3;
->  	timing->ta_sure = 0;
->  	timing->ta_get = 4;
-> @@ -454,6 +456,8 @@ int msm_dsi_dphy_timing_calc_v4(struct msm_dsi_dphy_timing *timing,
->  	tmax = 255;
->  	timing->shared_timings.clk_pre = DIV_ROUND_UP((tmax - tmin) * 125, 10000) + tmin;
->  
-> +	timing->shared_timings.byte_intf_clk_div_2 = true;
-> +
->  	DBG("%d, %d, %d, %d, %d, %d, %d, %d, %d, %d",
->  		timing->shared_timings.clk_pre, timing->shared_timings.clk_post,
->  		timing->clk_zero, timing->clk_trail, timing->clk_prepare, timing->hs_exit,
-> 
+-- 
+Neil
