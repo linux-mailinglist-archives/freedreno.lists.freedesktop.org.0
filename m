@@ -1,58 +1,70 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id B80F56733E0
-	for <lists+freedreno@lfdr.de>; Thu, 19 Jan 2023 09:40:45 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 316876735A2
+	for <lists+freedreno@lfdr.de>; Thu, 19 Jan 2023 11:35:45 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2A54510E8E3;
-	Thu, 19 Jan 2023 08:40:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 00BF310E903;
+	Thu, 19 Jan 2023 10:35:41 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-yw1-x1132.google.com (mail-yw1-x1132.google.com
- [IPv6:2607:f8b0:4864:20::1132])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CB2ED10E8D3
- for <freedreno@lists.freedesktop.org>; Thu, 19 Jan 2023 08:40:42 +0000 (UTC)
-Received: by mail-yw1-x1132.google.com with SMTP id
- 00721157ae682-4bf16baa865so16778177b3.13
- for <freedreno@lists.freedesktop.org>; Thu, 19 Jan 2023 00:40:42 -0800 (PST)
+Received: from mail-wr1-x42e.google.com (mail-wr1-x42e.google.com
+ [IPv6:2a00:1450:4864:20::42e])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A310310E903
+ for <freedreno@lists.freedesktop.org>; Thu, 19 Jan 2023 10:35:38 +0000 (UTC)
+Received: by mail-wr1-x42e.google.com with SMTP id z5so1395391wrt.6
+ for <freedreno@lists.freedesktop.org>; Thu, 19 Jan 2023 02:35:38 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=Wz30k0eHuCJ5qW+R1e/5VxG1p016U2jxYAEXQ6zDyEk=;
- b=IYs36GIo4XvlIdNhAXfovMq2GHRF7gmKwKlRQmrnF4ajNS9SSKRkjhGtnAxNu+XsbF
- 4lYop2I58AhUQvp6C1U8Sg08CXcjtReKV5TH3rsatEn+FiyLfnN9fgHV1E+wNqhtC7yG
- PG0GsRqAPE27R94ZCIOFARXmHTa5kkQNuo8c41oWFdmGazDVm9n0g/NEBvel22/cQdx8
- 7qvT1InMrpl3t+rEjLo2EXjI7kfGnUUbPo+JU8AtVJgubdVEQaSNIXTB5foczjEY/yRD
- 9SFXwwWe8k6x1G8apIF7slaNxKeCFm7zsrNxnNaHwXSzp0W7897zq3kN4mQl9VXyopSZ
- CCwg==
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=VtMyXO+XFAd7bhjLH/6eN7IyGN6nezPLZZSqRmEiMMs=;
+ b=Zq5fEPrYoJ5p66SaptrWOmIBuVV3Ru3K6GuVs5q+LWxwE4Odxsdf+D0Olxhm9ERWlU
+ rE+ArNSWDYZkQT0zjlN+gS0exZ5D4BAj7rJgAJ1jcIv5FMMea2jp070lyySIE8ZniMwp
+ 8fryby50Vd5FIzLrYDQhJygsbYXNs4E22MQWOV8/a0g1vcpVlfJ7zSBNq1QJHb1i5gG8
+ oTbr9WNcxQpeTNpw7MfJma5R3QXMguN1ArLvuLY3NIn4jd7v92J3AA3BQljhVhYHqabF
+ 1QjIzRyAjoZogl/RuCvc2iyWofZIb/VjsViHg71g5MpXAKulKsbFEDPp9am8+c3CJR4v
+ tdzg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=Wz30k0eHuCJ5qW+R1e/5VxG1p016U2jxYAEXQ6zDyEk=;
- b=NJlwdTvKeJYSWJjtx1TE3/Ewrn9zxz4xs+5jQ+pPR4A3h30ckgkK8XqD4rlxhe2XQT
- mmjnULYV3vnU4ONc56Exb8YeGGiqgpGAPqY8xp9fMrjDADwA5+0+wfehU/Ibkd878aLR
- eDi0j3QEfr0AzOokwLg04Txu2gF4WhSxJr360MFwgIK9lya2JK0CudXVn0/fIJ/rRPQL
- MC/HtrHL5SE7N6YnTiPL+GqbZAa28/m+v4ynrkKaxz3Zz7pIBDsWvjZaGKI+pkjC1/V4
- 01OQpyeGWTuYq52H47RNL+fsuUG+SWzQzx8ho+1duL4hjEeGOT9Vnc5FwG0UNKXjh/Ub
- RrKw==
-X-Gm-Message-State: AFqh2koxyDa1HZAJVkl9Sb4liQ4xPC5yfu8JEsihDfjzvKyM7jOPMzTA
- KCfXePQF8QDriDhO/FVYAMQ/lShZ6D6OZSbK/Ps8Zg==
-X-Google-Smtp-Source: AMrXdXvA8Npb0BzSkuo6iBimkuIOlahd1dNVQpsDdSqUrv249CwsCg4zyuf/p2yX6ErTXCQN9nQbqKKzNwL6V4wL72M=
-X-Received: by 2002:a81:7582:0:b0:370:4c23:eacc with SMTP id
- q124-20020a817582000000b003704c23eaccmr1183986ywc.127.1674117641858; Thu, 19
- Jan 2023 00:40:41 -0800 (PST)
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=VtMyXO+XFAd7bhjLH/6eN7IyGN6nezPLZZSqRmEiMMs=;
+ b=rLYIivChrGJh19zpLt201vuNArBAunI8NXf2hgi3lORhT37xMtg0vdtGDRHgfO9TWP
+ x9jA3tVkvnIwPciiEF8jv16obyDcoIisPlUgNRwmHTGji8am0GbbVj5ldzV2cH2Q7dX4
+ tWsruW3g0Jyo3UUOwp9jcGqqC1iuNzpj10rsG8T0P3z81mR9pgDwhrD+j+KfLt+FtVZB
+ hHwnTYqPWw3EZnwBY3ORe/M/wGgBjLLLVPmgiB91W6OhgTAB9zWTW7mc3/dxPgIUcPqG
+ B0YL9jMrqc36Gd+mC6aieX72fwUkExO/z6VfXq3WNIOiSrjxF+lo9FZH0No7846PNYtC
+ wYUw==
+X-Gm-Message-State: AFqh2kqHXEj93SBs6s3MUOnfRGGKDAMKl8g2NGV6frCbR1Ew9wCe6pu+
+ NMkrpxpR/M/JyEtfEMFQnxBggQ==
+X-Google-Smtp-Source: AMrXdXvx+FBmmoMdPtes6WLfL4U/PKZM2tRc6m6sgE2QM3WyiD511MetmxVKIvnYStyWu5TeGl5PJQ==
+X-Received: by 2002:a5d:5224:0:b0:2ba:a771:5812 with SMTP id
+ i4-20020a5d5224000000b002baa7715812mr8496539wra.24.1674124537156; 
+ Thu, 19 Jan 2023 02:35:37 -0800 (PST)
+Received: from [192.168.1.109] ([178.197.216.144])
+ by smtp.gmail.com with ESMTPSA id
+ e20-20020a5d5954000000b002be099f78c0sm9198986wri.69.2023.01.19.02.35.33
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 19 Jan 2023 02:35:36 -0800 (PST)
+Message-ID: <aee03688-54b6-ed9f-e32c-b46e31d72198@linaro.org>
+Date: Thu, 19 Jan 2023 11:35:32 +0100
 MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.7.0
+Content-Language: en-US
+To: Mark Yacoub <markyacoub@chromium.org>, quic_khsieh@quicinc.com,
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, intel-gfx@lists.freedesktop.org
 References: <20230118193015.911074-1-markyacoub@google.com>
  <20230118193015.911074-10-markyacoub@google.com>
+From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 In-Reply-To: <20230118193015.911074-10-markyacoub@google.com>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Thu, 19 Jan 2023 10:40:31 +0200
-Message-ID: <CAA8EJppqft3vtB9PgLe=NunYCo48rAQzAb_nLYACAQ8Onr_ZaA@mail.gmail.com>
-To: Mark Yacoub <markyacoub@chromium.org>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 Subject: Re: [Freedreno] [PATCH v6 09/10] arm64: dts: qcom: sc7180: Add
  support for HDCP in dp-controller
 X-BeenThere: freedreno@lists.freedesktop.org
@@ -69,38 +81,40 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
 Cc: quic_sbillaka@quicinc.com, imre.deak@intel.com,
  joonas.lahtinen@linux.intel.com, konrad.dybcio@somainline.org,
- dri-devel@lists.freedesktop.org, dianders@chromium.org,
- arun.r.murthy@intel.com, krzysztof.kozlowski+dt@linaro.org, airlied@gmail.com,
- hbh25y@gmail.com, ville.syrjala@linux.intel.com, marex@denx.de,
- ashutosh.dixit@intel.com, matthew.d.roper@intel.com, abhinavk@codeaurora.org,
- javierm@redhat.com, quic_khsieh@quicinc.com, stanislav.lisovskiy@intel.com,
- agross@kernel.org, quic_jesszhan@quicinc.com, ankit.k.nautiyal@intel.com,
- devicetree@vger.kernel.org, lyude@redhat.com, tzimmermann@suse.de,
- linux-arm-msm@vger.kernel.org, intel-gfx@lists.freedesktop.org,
- lucas.demarchi@intel.com, quic_abhinavk@quicinc.com,
+ jose.souza@intel.com, bjorn.andersson@linaro.org,
+ krzysztof.kozlowski+dt@linaro.org, airlied@gmail.com, hbh25y@gmail.com,
+ ville.syrjala@linux.intel.com, marex@denx.de, ashutosh.dixit@intel.com,
+ sean@poorly.run, abhinavk@codeaurora.org, javierm@redhat.com,
+ arun.r.murthy@intel.com, stanislav.lisovskiy@intel.com, agross@kernel.org,
+ quic_jesszhan@quicinc.com, ankit.k.nautiyal@intel.com, lyude@redhat.com,
+ daniel@ffwll.ch, lucas.demarchi@intel.com, quic_abhinavk@quicinc.com,
  jani.nikula@linux.intel.com, swboyd@chromium.org, robh+dt@kernel.org,
- christophe.jaillet@wanadoo.fr, jose.souza@intel.com, rodrigo.vivi@intel.com,
- bjorn.andersson@linaro.org, sean@poorly.run, johan+linaro@kernel.org,
- tvrtko.ursulin@linux.intel.com, andersson@kernel.org,
- linux-kernel@vger.kernel.org, swati2.sharma@intel.com,
- manasi.d.navare@intel.com, robdclark@gmail.com, daniel@ffwll.ch,
- bhanuprakash.modem@intel.com, seanpaul@chromium.org,
- freedreno@lists.freedesktop.org, maxime@cerno.tech
+ christophe.jaillet@wanadoo.fr, maxime@cerno.tech, rodrigo.vivi@intel.com,
+ matthew.d.roper@intel.com, johan+linaro@kernel.org,
+ tvrtko.ursulin@linux.intel.com, andersson@kernel.org, dianders@chromium.org,
+ swati2.sharma@intel.com, manasi.d.navare@intel.com, robdclark@gmail.com,
+ tzimmermann@suse.de, bhanuprakash.modem@intel.com, dmitry.baryshkov@linaro.org,
+ seanpaul@chromium.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Wed, 18 Jan 2023 at 21:30, Mark Yacoub <markyacoub@chromium.org> wrote:
->
+On 18/01/2023 20:30, Mark Yacoub wrote:
 > From: Sean Paul <seanpaul@chromium.org>
->
+> 
 > This patch adds the register ranges required for HDCP key injection and
+
+Do not use "This commit/patch".
+https://elixir.bootlin.com/linux/v5.17.1/source/Documentation/process/submitting-patches.rst#L95
+
+This applies to all your patches. Fix it everywhere.
+
 > HDCP TrustZone interaction as described in the dt-bindings for the
 > sc7180 dp controller. Now that these are supported, change the
 > compatible string to "dp-hdcp".
 
-No change in compatibles, so patch description should be updated.
+What does it mean? Where do you do it?
 
->
+> 
 > Signed-off-by: Sean Paul <seanpaul@chromium.org>
 > Signed-off-by: Mark Yacoub <markyacoub@chromium.org>
 > Link: https://patchwork.freedesktop.org/patch/msgid/20210913175747.47456-15-sean@poorly.run #v1
@@ -109,9 +123,9 @@ No change in compatibles, so patch description should be updated.
 > Link: https://patchwork.freedesktop.org/patch/msgid/20211105030434.2828845-14-sean@poorly.run #v4
 > Link: https://patchwork.freedesktop.org/patch/msgid/20220411204741.1074308-10-sean@poorly.run #v5
 
-Again, this probably belongs to a cover letter
+Drop the links.
 
->
+> 
 > Changes in v3:
 > -Split off into a new patch containing just the dts change (Stephen)
 > -Add hdcp compatible string (Stephen)
@@ -121,40 +135,15 @@ Again, this probably belongs to a cover letter
 > -Put the tz register offsets in trogdor dtsi (Rob C)
 > Changes in v6:
 > -Rebased: Removed modifications in sc7180.dtsi as it's already upstream
->
+> 
 > ---
+
+Changelog after --- .
+
 >  arch/arm64/boot/dts/qcom/sc7180-trogdor.dtsi | 8 ++++++++
 >  1 file changed, 8 insertions(+)
->
-> diff --git a/arch/arm64/boot/dts/qcom/sc7180-trogdor.dtsi b/arch/arm64/boot/dts/qcom/sc7180-trogdor.dtsi
-> index 178efaaa89ec..6f6fe5cb6563 100644
-> --- a/arch/arm64/boot/dts/qcom/sc7180-trogdor.dtsi
-> +++ b/arch/arm64/boot/dts/qcom/sc7180-trogdor.dtsi
-> @@ -817,6 +817,14 @@ &mdss_dp {
->         pinctrl-names = "default";
->         pinctrl-0 = <&dp_hot_plug_det>;
->         data-lanes = <0 1>;
-> +
-> +       reg = <0 0x0ae90000 0 0x200>,
-> +             <0 0x0ae90200 0 0x200>,
-> +             <0 0x0ae90400 0 0xc00>,
-> +             <0 0x0ae91000 0 0x400>,
-> +             <0 0x0ae91400 0 0x400>,
-> +             <0 0x0aed1000 0 0x175>,
-> +             <0 0x0aee1000 0 0x2c>;
+> 
 
-Is there any reason for adding these to the -trogdor instead of adding
-them to the base dtsi? Does hardware differ between the sc7180.dtsi
-and sc7180-trogdor.dtsi?
+Best regards,
+Krzysztof
 
->  };
->
->  &pm6150_adc {
-> --
-> 2.39.0.246.g2a6d74b583-goog
->
-
-
--- 
-With best wishes
-Dmitry
