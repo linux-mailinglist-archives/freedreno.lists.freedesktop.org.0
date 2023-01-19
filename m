@@ -1,36 +1,49 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id A54DA672F54
-	for <lists+freedreno@lfdr.de>; Thu, 19 Jan 2023 04:02:37 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 486F56732E1
+	for <lists+freedreno@lfdr.de>; Thu, 19 Jan 2023 08:47:52 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6EE1E10E6F4;
-	Thu, 19 Jan 2023 03:02:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6E8A910E8CC;
+	Thu, 19 Jan 2023 07:47:50 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-X-Greylist: delayed 63830 seconds by postgrey-1.36 at gabe;
- Thu, 19 Jan 2023 03:02:32 UTC
-Received: from out30-110.freemail.mail.aliyun.com
- (out30-110.freemail.mail.aliyun.com [115.124.30.110])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1616310E054;
- Thu, 19 Jan 2023 03:02:31 +0000 (UTC)
-X-Alimail-AntiSpam: AC=PASS; BC=-1|-1; BR=01201311R101e4; CH=green; DM=||false|;
- DS=||; FP=0|-1|-1|-1|0|-1|-1|-1; HT=ay29a033018045170;
- MF=jiapeng.chong@linux.alibaba.com; NM=1; PH=DS; RN=12; SR=0;
- TI=SMTPD_---0VZrtxIM_1674097321; 
-Received: from localhost(mailfrom:jiapeng.chong@linux.alibaba.com
- fp:SMTPD_---0VZrtxIM_1674097321) by smtp.aliyun-inc.com;
- Thu, 19 Jan 2023 11:02:27 +0800
-From: Jiapeng Chong <jiapeng.chong@linux.alibaba.com>
-To: robdclark@gmail.com
-Date: Thu, 19 Jan 2023 11:01:31 +0800
-Message-Id: <20230119030131.21904-1-jiapeng.chong@linux.alibaba.com>
-X-Mailer: git-send-email 2.20.1.7.g153144c
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 012DC10E8C8;
+ Thu, 19 Jan 2023 07:47:47 +0000 (UTC)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 39F8D61B97;
+ Thu, 19 Jan 2023 07:47:47 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8CBC7C433EF;
+ Thu, 19 Jan 2023 07:47:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1674114466;
+ bh=7WOYOeaEZiuH7oZbvdZ78RcbdrMFESiP3WNivPABNbk=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=hioSth933gwVfFT0jpHFp1vNYvhnzakGWtxj+rfD0ZZQ1LG7wZFpIy6HRa1hgG2Ko
+ 6sL0XQf8ppr8LYQ/MFO0wHfrB+3zvGCqYnZp+gVKxm1MOqHT+5ZsAp8vO5/9Fob7hq
+ p2B9Z75k4dYSGIBJQxu/yq1eId5Z22kEpR/iQuF+OoLmGkXge1CtGIc9jKrjPd+mzC
+ H8wGzt9gAxPXVzO8SyETvjlP+EwsFjQgULiKaZ9Suk1uzRV1FGuLyP84v+/Rg/+6e5
+ YwaYUrMn7A+aRoH0jyMWJl5cboFRYThnT3Oifx/lSOjwHmqQ6uKsM+E2d945mCin3l
+ C80DWQA+WmJuA==
+Received: from johan by xi.lan with local (Exim 4.94.2)
+ (envelope-from <johan@kernel.org>)
+ id 1pIPee-0005IE-Hm; Thu, 19 Jan 2023 08:48:12 +0100
+Date: Thu, 19 Jan 2023 08:48:12 +0100
+From: Johan Hovold <johan@kernel.org>
+To: Mark Yacoub <markyacoub@chromium.org>
+Message-ID: <Y8j1vOJ1nlsW9Bcg@hovoldconsulting.com>
+References: <20230118193015.911074-1-markyacoub@google.com>
+ <20230118193015.911074-9-markyacoub@google.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH v3] drm/msm/dpu: add the regdma entries to
- .dma_cfg of these chipsets
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20230118193015.911074-9-markyacoub@google.com>
+Subject: Re: [Freedreno] [PATCH v6 08/10] dt-bindings: msm/dp: Add bindings
+ for HDCP registers
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -43,57 +56,48 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org,
- Jiapeng Chong <jiapeng.chong@linux.alibaba.com>, sean@poorly.run,
- Abaci Robot <abaci@linux.alibaba.com>, quic_abhinavk@quicinc.com,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, daniel@ffwll.ch,
- linux-arm-msm@vger.kernel.org, dmitry.baryshkov@linaro.org, airlied@gmail.com
+Cc: quic_sbillaka@quicinc.com, imre.deak@intel.com,
+ joonas.lahtinen@linux.intel.com, konrad.dybcio@somainline.org,
+ dri-devel@lists.freedesktop.org, dianders@chromium.org,
+ arun.r.murthy@intel.com, krzysztof.kozlowski+dt@linaro.org, airlied@gmail.com,
+ hbh25y@gmail.com, ville.syrjala@linux.intel.com, marex@denx.de,
+ ashutosh.dixit@intel.com, matthew.d.roper@intel.com, abhinavk@codeaurora.org,
+ javierm@redhat.com, quic_khsieh@quicinc.com, stanislav.lisovskiy@intel.com,
+ agross@kernel.org, Mark Yacoub <markyacoub@chromiu.org>,
+ quic_jesszhan@quicinc.com, ankit.k.nautiyal@intel.com,
+ devicetree@vger.kernel.org, lyude@redhat.com, tzimmermann@suse.de,
+ Rob Herring <robh@kernel.org>, linux-arm-msm@vger.kernel.org,
+ intel-gfx@lists.freedesktop.org, lucas.demarchi@intel.com,
+ quic_abhinavk@quicinc.com, jani.nikula@linux.intel.com, swboyd@chromium.org,
+ robh+dt@kernel.org, christophe.jaillet@wanadoo.fr, jose.souza@intel.com,
+ rodrigo.vivi@intel.com, bjorn.andersson@linaro.org, sean@poorly.run,
+ johan+linaro@kernel.org, tvrtko.ursulin@linux.intel.com, andersson@kernel.org,
+ linux-kernel@vger.kernel.org, swati2.sharma@intel.com,
+ manasi.d.navare@intel.com, robdclark@gmail.com, daniel@ffwll.ch,
+ bhanuprakash.modem@intel.com, dmitry.baryshkov@linaro.org,
+ seanpaul@chromium.org, freedreno@lists.freedesktop.org, maxime@cerno.tech
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Variables 'sc8280xp_regdma' and 'sm8350_regdma' are defined in the
-dpu_hw_catalog.c file, but not used elsewhere, so adding the regdma
-entries to .dma_cfg of these chipsets.
+On Wed, Jan 18, 2023 at 07:30:13PM +0000, Mark Yacoub wrote:
+> From: Sean Paul <seanpaul@chromium.org>
+> 
+> This patch adds the bindings for the MSM DisplayPort HDCP registers
+> which are required to write the HDCP key into the display controller as
+> well as the registers to enable HDCP authentication/key
+> exchange/encryption.
+> 
+> We'll use a new compatible string for this since the fields are optional.
+> 
+> Cc: Rob Herring <robh@kernel.org>
+> Cc: Stephen Boyd <swboyd@chromium.org>
+> Reviewed-by: Rob Herring <robh@kernel.org>
+> Signed-off-by: Sean Paul <seanpaul@chromium.org>
+> Signed-off-by: Mark Yacoub <markyacoub@chromiu.org>
 
-drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c:2029:37: warning: unused
-variable 'sc8280xp_regdma'.
-drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c:2053:37: warning: unused
-variable 'sm8350_regdma'.
+Just a drive-by comment: Your mail address is missing an 'm' here.
 
-Link: https://bugzilla.openanolis.cn/show_bug.cgi?id=3722
-Fixes: 4a352c2fc15a ("drm/msm/dpu: Introduce SC8280XP")
-Fixes: 0e91bcbb0016 ("drm/msm/dpu: Add SM8350 to hw catalog")
-Reported-by: Abaci Robot <abaci@linux.alibaba.com>
-Signed-off-by: Jiapeng Chong <jiapeng.chong@linux.alibaba.com>
----
-Changes in v3:
-  -Add Fixes tag and change the title.
+Perhaps check the rest of the series as well (checkpatch should catch
+this).
 
- drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
-index 0f3da480b066..3318e1d18a0e 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
-@@ -2677,6 +2677,8 @@ static const struct dpu_mdss_cfg sc8280xp_dpu_cfg = {
- 	.intf = sc8280xp_intf,
- 	.vbif_count = ARRAY_SIZE(sdm845_vbif),
- 	.vbif = sdm845_vbif,
-+	.reg_dma_count = 1,
-+	.dma_cfg = &sc8280xp_regdma,
- 	.perf = &sc8280xp_perf_data,
- 	.mdss_irqs = IRQ_SC8280XP_MASK,
- };
-@@ -2732,7 +2734,7 @@ static const struct dpu_mdss_cfg sm8350_dpu_cfg = {
- 	.vbif_count = ARRAY_SIZE(sdm845_vbif),
- 	.vbif = sdm845_vbif,
- 	.reg_dma_count = 1,
--	.dma_cfg = &sm8250_regdma,
-+	.dma_cfg = &sm8350_regdma,
- 	.perf = &sm8350_perf_data,
- 	.mdss_irqs = IRQ_SM8350_MASK,
- };
--- 
-2.20.1.7.g153144c
-
+Johan
