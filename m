@@ -2,50 +2,35 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id A9B62672EC7
-	for <lists+freedreno@lfdr.de>; Thu, 19 Jan 2023 03:17:11 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A54DA672F54
+	for <lists+freedreno@lfdr.de>; Thu, 19 Jan 2023 04:02:37 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 75F8310E88E;
-	Thu, 19 Jan 2023 02:17:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6EE1E10E6F4;
+	Thu, 19 Jan 2023 03:02:35 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EC10C10E88E;
- Thu, 19 Jan 2023 02:17:06 +0000 (UTC)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 6096B61A60;
- Thu, 19 Jan 2023 02:17:06 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B5110C4339C;
- Thu, 19 Jan 2023 02:17:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1674094625;
- bh=NwUQ5xIBukv5i4en356Co6TtUVTv9Rud5u+DKgS83BA=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=BYeLXohnxymuYwOxjwxo9/bqLkxrJB/xzz/zBxJ1ZUwW+mJFtDVOLHa+yswA5enp/
- NP2dikuGtml1yhzDs3T+OniZHGxO8G/sjmCHwF0iXGYrplSqUBGYMJHuBp1rPVs7ih
- vwHo1qYeZTQwYBe2/+5qRLwnuL3Ru1WqramG+azYsHr4+rbnpOLqH29ZkMcu5IVqCX
- +B7MY2DMl4eqVDfCWxKlb3X1wlXKqQpt66auHoxwckwAc28j/SHl163iFEc66PnPBe
- SzsvZYMRFvIR9L+cYjEIB+8qfT5KpAIIE5IykxYwWNFBll1DZB1Bo9oaFPUCEDKBwT
- Y0fymVdxslKHA==
-From: Bjorn Andersson <andersson@kernel.org>
-To: dmitry.baryshkov@linaro.org, Andy Gross <agross@kernel.org>,
- konrad.dybcio@linaro.org, quic_abhinavk@quicinc.com,
- Rob Herring <robh+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>, sean@poorly.run,
- robdclark@gmail.com
-Date: Wed, 18 Jan 2023 20:16:54 -0600
-Message-Id: <167409461442.3017003.4468887487098275908.b4-ty@kernel.org>
-X-Mailer: git-send-email 2.37.1
-In-Reply-To: <20230109050152.316606-1-dmitry.baryshkov@linaro.org>
-References: <20230109050152.316606-1-dmitry.baryshkov@linaro.org>
+X-Greylist: delayed 63830 seconds by postgrey-1.36 at gabe;
+ Thu, 19 Jan 2023 03:02:32 UTC
+Received: from out30-110.freemail.mail.aliyun.com
+ (out30-110.freemail.mail.aliyun.com [115.124.30.110])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1616310E054;
+ Thu, 19 Jan 2023 03:02:31 +0000 (UTC)
+X-Alimail-AntiSpam: AC=PASS; BC=-1|-1; BR=01201311R101e4; CH=green; DM=||false|;
+ DS=||; FP=0|-1|-1|-1|0|-1|-1|-1; HT=ay29a033018045170;
+ MF=jiapeng.chong@linux.alibaba.com; NM=1; PH=DS; RN=12; SR=0;
+ TI=SMTPD_---0VZrtxIM_1674097321; 
+Received: from localhost(mailfrom:jiapeng.chong@linux.alibaba.com
+ fp:SMTPD_---0VZrtxIM_1674097321) by smtp.aliyun-inc.com;
+ Thu, 19 Jan 2023 11:02:27 +0800
+From: Jiapeng Chong <jiapeng.chong@linux.alibaba.com>
+To: robdclark@gmail.com
+Date: Thu, 19 Jan 2023 11:01:31 +0800
+Message-Id: <20230119030131.21904-1-jiapeng.chong@linux.alibaba.com>
+X-Mailer: git-send-email 2.20.1.7.g153144c
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Subject: Re: [Freedreno] (subset) [PATCH v5 0/4] dt-bindings: display/msm:
- convert MDP5 schema to YAML format
+Subject: [Freedreno] [PATCH v3] drm/msm/dpu: add the regdma entries to
+ .dma_cfg of these chipsets
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,29 +43,57 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, swboyd@chromium.org, daniel@ffwll.ch,
- airlied@gmail.com, freedreno@lists.freedesktop.org
+Cc: freedreno@lists.freedesktop.org,
+ Jiapeng Chong <jiapeng.chong@linux.alibaba.com>, sean@poorly.run,
+ Abaci Robot <abaci@linux.alibaba.com>, quic_abhinavk@quicinc.com,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, daniel@ffwll.ch,
+ linux-arm-msm@vger.kernel.org, dmitry.baryshkov@linaro.org, airlied@gmail.com
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Mon, 9 Jan 2023 07:01:48 +0200, Dmitry Baryshkov wrote:
-> This patch concludes the conversion of display/msm schema from txt files
-> to YAML format.
-> 
-> The per-SoC compat (new addition) is required to ease migrating platform
-> support between mdp5 and dpu drivers.
-> 
-> Changes since v4:
-> - Adjust qcom,mdss.yaml to follow the addition of per-SoC compatibles
-> 
-> [...]
+Variables 'sc8280xp_regdma' and 'sm8350_regdma' are defined in the
+dpu_hw_catalog.c file, but not used elsewhere, so adding the regdma
+entries to .dma_cfg of these chipsets.
 
-Applied, thanks!
+drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c:2029:37: warning: unused
+variable 'sc8280xp_regdma'.
+drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c:2053:37: warning: unused
+variable 'sm8350_regdma'.
 
-[3/4] ARM: dts: qcom-msm8974: add SoC specific compat string to mdp5 node
-      commit: 11691dab82e135c9a13cda49234ff3e76bba48d3
+Link: https://bugzilla.openanolis.cn/show_bug.cgi?id=3722
+Fixes: 4a352c2fc15a ("drm/msm/dpu: Introduce SC8280XP")
+Fixes: 0e91bcbb0016 ("drm/msm/dpu: Add SM8350 to hw catalog")
+Reported-by: Abaci Robot <abaci@linux.alibaba.com>
+Signed-off-by: Jiapeng Chong <jiapeng.chong@linux.alibaba.com>
+---
+Changes in v3:
+  -Add Fixes tag and change the title.
 
-Best regards,
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
+index 0f3da480b066..3318e1d18a0e 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
+@@ -2677,6 +2677,8 @@ static const struct dpu_mdss_cfg sc8280xp_dpu_cfg = {
+ 	.intf = sc8280xp_intf,
+ 	.vbif_count = ARRAY_SIZE(sdm845_vbif),
+ 	.vbif = sdm845_vbif,
++	.reg_dma_count = 1,
++	.dma_cfg = &sc8280xp_regdma,
+ 	.perf = &sc8280xp_perf_data,
+ 	.mdss_irqs = IRQ_SC8280XP_MASK,
+ };
+@@ -2732,7 +2734,7 @@ static const struct dpu_mdss_cfg sm8350_dpu_cfg = {
+ 	.vbif_count = ARRAY_SIZE(sdm845_vbif),
+ 	.vbif = sdm845_vbif,
+ 	.reg_dma_count = 1,
+-	.dma_cfg = &sm8250_regdma,
++	.dma_cfg = &sm8350_regdma,
+ 	.perf = &sm8350_perf_data,
+ 	.mdss_irqs = IRQ_SM8350_MASK,
+ };
 -- 
-Bjorn Andersson <andersson@kernel.org>
+2.20.1.7.g153144c
+
