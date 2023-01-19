@@ -1,76 +1,66 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6B2CC673996
-	for <lists+freedreno@lfdr.de>; Thu, 19 Jan 2023 14:10:43 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id D55A16739E0
+	for <lists+freedreno@lfdr.de>; Thu, 19 Jan 2023 14:22:25 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1972F10E929;
-	Thu, 19 Jan 2023 13:10:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9597010E92A;
+	Thu, 19 Jan 2023 13:22:24 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wr1-x42d.google.com (mail-wr1-x42d.google.com
- [IPv6:2a00:1450:4864:20::42d])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1B06110E928
- for <freedreno@lists.freedesktop.org>; Thu, 19 Jan 2023 13:10:39 +0000 (UTC)
-Received: by mail-wr1-x42d.google.com with SMTP id t5so1830503wrq.1
- for <freedreno@lists.freedesktop.org>; Thu, 19 Jan 2023 05:10:39 -0800 (PST)
+Received: from mail-ed1-x530.google.com (mail-ed1-x530.google.com
+ [IPv6:2a00:1450:4864:20::530])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7D28010E92A
+ for <freedreno@lists.freedesktop.org>; Thu, 19 Jan 2023 13:22:22 +0000 (UTC)
+Received: by mail-ed1-x530.google.com with SMTP id v10so2805878edi.8
+ for <freedreno@lists.freedesktop.org>; Thu, 19 Jan 2023 05:22:22 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=content-transfer-encoding:mime-version:message-id:date:subject:cc
  :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=blNpZwh2SZlig8QQ/nC77W3/O0N7mDjpaqH8VDOv2eU=;
- b=DzFy88bDZoVlfwhHlTp6yaa4pDvXz2S+rRv+4hM9hJnwR6Pea0ryUtzFRVDKTcUUsl
- M4WGeBQ4f5np3UXyL67X+o7x7P/J5qmVp0R5lkDakCtZEQtlusfYKHLxzghATAV4nd0a
- z98YCC83E6ttozJrFFjGynwEZszZmhKvl9UoIjEdSD7XkJiDRHgQRbis6wO6FxJADvfK
- cktGAaPSDhZo4THEOHj8dKlw+WulH7V4oQJ2on2nX0h1OfkOosTQ7XIRanih5OYRUAxK
- ltD8viS7fmAMLiiNqe9YAR8H52ZHuJTSCfhfO8zLeGpcQBwvgn9pof+aob41Ehwdclxf
- BgQg==
+ bh=9MPkKmj4G/dBz6sPcffR9tX5uU/lwQX0T1nVnP9nz44=;
+ b=FTCVsOvKrMJzB7s2HyfaaX0VK0I4lqjddNgbgaeRdIaEeBYpc0zC9L96+kTMzE2PWF
+ ELasBp8eHVFjaffdh2Rsh3uF/4xpsUTXTqr/o6jmPD9Ccr6lIncU6f7B9bM5cQcRq6Is
+ gqPjfccgdjpEB/PHMplYqOGd21xht/eF6IoCmYCZhk1l/v6fCiE4qqYTlh9EcQiirHzZ
+ JBbGvo7RPP2KcvfgJE+9JyJd2wGemrI+5ETHY+mBkeDoBVJw036xpxJv6SlnkjxJF/rW
+ rMD4xknymB8h6iSCJBuirB8rNkCW4nW1Abir7DnpNQdGUdHtoSDGPlp3Uh/xJ1limrxr
+ ljdw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=content-transfer-encoding:mime-version:message-id:date:subject:cc
  :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=blNpZwh2SZlig8QQ/nC77W3/O0N7mDjpaqH8VDOv2eU=;
- b=fwMpTpyS2KQwgkkgzmDdKUjgzUAGgY6g/Z5vfCCMiJeimgug7mwZSZ9s49mE53g0dS
- NACtX4wF6ftgdjh2yfJtEm0APSOBUbvAWCAiFin8t5XuFC85wjLYORrfyeSjQdIm3Dmc
- iqY7PLnipe+hxayXsmnsTaEZhrFKThEhWX2sptfh7ksRVECigiwoSv+1kfwlUbN0rNbs
- TtXfo1QnwoX6nuLi8PRkiIspe/Rtl9pmPBHdQvW9KQi9zRedy45OH3hHb9n43YS2KBmG
- yEIfzHocepQztIFiwA1b8ZVHbfaUNzRoVoCXEfJiXNGUIOjjOWq7epFKsXTzE9luFWEl
- PwzA==
-X-Gm-Message-State: AFqh2kpOshiKw/vzWkdLErQPm/k1PNMNh3mVyIioU78sb3tIc+nNnnMB
- iVkBjrwwhYCjirVCeGK4BposXw==
-X-Google-Smtp-Source: AMrXdXvrY6LK2dvL+iGhjr8puYL3YHweG43wf3Hfc7anlN9+EMnZ5/F6pOfVqjpVCAvI/2eVrdRgvw==
-X-Received: by 2002:a05:6000:1816:b0:2bd:fe5a:b579 with SMTP id
- m22-20020a056000181600b002bdfe5ab579mr8424345wrh.70.1674133837495; 
- Thu, 19 Jan 2023 05:10:37 -0800 (PST)
-Received: from krzk-bin.. ([178.197.216.144]) by smtp.gmail.com with ESMTPSA id
- f16-20020a5d50d0000000b002755e301eeasm15881791wrt.100.2023.01.19.05.10.35
+ bh=9MPkKmj4G/dBz6sPcffR9tX5uU/lwQX0T1nVnP9nz44=;
+ b=BpOZjcmF+aHDTTGzUeQaJ451IaJUtEF76nb3GVd+GhvamSFZNu0lH41FzhmQRe4deI
+ XXAMSMgYcgvC28x15JdxxwtQOcJnOt1G6+5vqsOEo/iX/IYm3hy86f4KG7kEmhH/aWDu
+ cKrG1/CmnYA6EemQSfpXlUK2g/Dv1QU6kqnrgI3Wc+suzFVEDHyeaEgZ4yCBhe10gH2q
+ MYQGkv7IWchBWeUMp2mxJTKbQ8ODFFqfuZ57XmKh+FPBbeykkQm7vv582sSTdPgopOUA
+ xLNC62K4+3H1Qe9TJzgby90hhg4eg6CREYF4Y3yjM/Ytnq0WnbmDXcXLQfTaY6xkOxku
+ 9NTg==
+X-Gm-Message-State: AFqh2kqgopbipc0+9Fv1g0CHu08fvQ9s+RS59yKNi644H2c/vWz8ZcNm
+ 6Uv3Xqa8aKU/MsuN2FOHk6lDnQ==
+X-Google-Smtp-Source: AMrXdXtxFXcYL86Q+ICy0lk69FgCFVTS6nVq4OzYff6WuL9NPpU43VaFJccJnYaa8jaxEVj0W2IjVA==
+X-Received: by 2002:a05:6402:4d5:b0:49d:a60f:7827 with SMTP id
+ n21-20020a05640204d500b0049da60f7827mr10775320edw.6.1674134541040; 
+ Thu, 19 Jan 2023 05:22:21 -0800 (PST)
+Received: from eriador.lan (dzccz6yyyyyyyyyyybcwt-3.rev.dnainternet.fi.
+ [2001:14ba:a085:4d00::8a5]) by smtp.gmail.com with ESMTPSA id
+ bt16-20020a0564020a5000b00482e0c55e2bsm15532646edb.93.2023.01.19.05.22.19
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 19 Jan 2023 05:10:37 -0800 (PST)
-From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-To: Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Sean Paul <sean@poorly.run>, David Airlie <airlied@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>, Rob Herring <robh+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Thierry Reding <thierry.reding@gmail.com>,
- Jonathan Hunter <jonathanh@nvidia.com>,
- Sowjanya Komatineni <skomatineni@nvidia.com>,
- Ulf Hansson <ulf.hansson@linaro.org>,
- "Rafael J. Wysocki" <rafael@kernel.org>, Kevin Hilman <khilman@kernel.org>,
- =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>,
- Kuogee Hsieh <quic_khsieh@quicinc.com>, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-tegra@vger.kernel.org, linux-media@vger.kernel.org,
- linux-mmc@vger.kernel.org, linux-pm@vger.kernel.org,
- linux-pwm@vger.kernel.org
-Date: Thu, 19 Jan 2023 14:10:33 +0100
-Message-Id: <20230119131033.117324-1-krzysztof.kozlowski@linaro.org>
-X-Mailer: git-send-email 2.34.1
+ Thu, 19 Jan 2023 05:22:20 -0800 (PST)
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+To: Andy Gross <agross@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konrad.dybcio@linaro.org>, Rob Clark <robdclark@gmail.com>,
+ Sean Paul <sean@poorly.run>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Rob Herring <robh+dt@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>
+Date: Thu, 19 Jan 2023 15:22:13 +0200
+Message-Id: <20230119132219.2479775-1-dmitry.baryshkov@linaro.org>
+X-Mailer: git-send-email 2.39.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH] dt-bindings: drop type for operating-points-v2
+Subject: [Freedreno] [PATCH 0/6] drm/msm/hdmi: integrate msm8960 HDMI PHY
+ with DT clocks infrastructure
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,251 +73,29 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+Cc: devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, Stephen Boyd <swboyd@chromium.org>,
+ Daniel Vetter <daniel@ffwll.ch>, freedreno@lists.freedesktop.org,
+ David Airlie <airlied@gmail.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-The type for operating-points-v2 property is coming from dtschema
-(/schemas/opp/opp.yaml), so individual bindings can just use simple
-"true".
+Make msm8960's HDMI PHY accept clocks from DT and also register it as a
+DT clock provider.
 
-Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+Dmitry Baryshkov (6):
+  dt-bindings: phy: qcom,hdmi-phy-other: use pxo clock
+  dt-bindings: phy: qcom,hdmi-phy-other: mark it as clock provider
+  drm/msm/hdmi: switch hdmi_pll_8960 to use parent_data
+  drm/msm/hdmi: make hdmi_phy_8960 OF clk provider
+  ARM: dts: qcom: apq8064: add #clock-cells to the HDMI PHY node
+  ARM: dts: qcom: apq8064: use hdmi_phy for the MMCC's hdmipll clock
 
----
+ .../bindings/phy/qcom,hdmi-phy-other.yaml     | 27 ++++++++++++++++---
+ arch/arm/boot/dts/qcom-apq8064.dtsi           |  3 ++-
+ drivers/gpu/drm/msm/hdmi/hdmi_pll_8960.c      | 21 +++++++++------
+ 3 files changed, 39 insertions(+), 12 deletions(-)
 
-This depends on my pull request, at least logically:
-https://github.com/devicetree-org/dt-schema/pull/95
-
-Patch could be applied in parallel but only if above PULL is
-accepted/correct.
----
- .../devicetree/bindings/display/msm/dp-controller.yaml         | 3 +--
- .../devicetree/bindings/display/tegra/nvidia,tegra20-dc.yaml   | 3 +--
- .../devicetree/bindings/display/tegra/nvidia,tegra20-dsi.yaml  | 3 +--
- .../devicetree/bindings/display/tegra/nvidia,tegra20-epp.yaml  | 3 +--
- .../devicetree/bindings/display/tegra/nvidia,tegra20-gr2d.yaml | 3 +--
- .../devicetree/bindings/display/tegra/nvidia,tegra20-gr3d.yaml | 3 +--
- .../devicetree/bindings/display/tegra/nvidia,tegra20-hdmi.yaml | 3 +--
- .../bindings/display/tegra/nvidia,tegra20-host1x.yaml          | 3 +--
- .../devicetree/bindings/display/tegra/nvidia,tegra20-mpe.yaml  | 3 +--
- .../devicetree/bindings/display/tegra/nvidia,tegra20-tvo.yaml  | 3 +--
- .../devicetree/bindings/display/tegra/nvidia,tegra20-vi.yaml   | 3 +--
- .../devicetree/bindings/fuse/nvidia,tegra20-fuse.yaml          | 3 +--
- .../devicetree/bindings/mmc/nvidia,tegra20-sdhci.yaml          | 3 +--
- Documentation/devicetree/bindings/power/power-domain.yaml      | 3 ---
- Documentation/devicetree/bindings/pwm/nvidia,tegra20-pwm.yaml  | 3 +--
- 15 files changed, 14 insertions(+), 31 deletions(-)
-
-diff --git a/Documentation/devicetree/bindings/display/msm/dp-controller.yaml b/Documentation/devicetree/bindings/display/msm/dp-controller.yaml
-index 3e54956e57db..d7678fcd1710 100644
---- a/Documentation/devicetree/bindings/display/msm/dp-controller.yaml
-+++ b/Documentation/devicetree/bindings/display/msm/dp-controller.yaml
-@@ -71,8 +71,7 @@ properties:
-     items:
-       - const: dp
- 
--  operating-points-v2:
--    maxItems: 1
-+  operating-points-v2: true
- 
-   opp-table: true
- 
-diff --git a/Documentation/devicetree/bindings/display/tegra/nvidia,tegra20-dc.yaml b/Documentation/devicetree/bindings/display/tegra/nvidia,tegra20-dc.yaml
-index 6eedee503aa0..69be95afd562 100644
---- a/Documentation/devicetree/bindings/display/tegra/nvidia,tegra20-dc.yaml
-+++ b/Documentation/devicetree/bindings/display/tegra/nvidia,tegra20-dc.yaml
-@@ -59,8 +59,7 @@ properties:
-   iommus:
-     maxItems: 1
- 
--  operating-points-v2:
--    $ref: "/schemas/types.yaml#/definitions/phandle"
-+  operating-points-v2: true
- 
-   power-domains:
-     items:
-diff --git a/Documentation/devicetree/bindings/display/tegra/nvidia,tegra20-dsi.yaml b/Documentation/devicetree/bindings/display/tegra/nvidia,tegra20-dsi.yaml
-index 75546f250ad7..511cbe74e729 100644
---- a/Documentation/devicetree/bindings/display/tegra/nvidia,tegra20-dsi.yaml
-+++ b/Documentation/devicetree/bindings/display/tegra/nvidia,tegra20-dsi.yaml
-@@ -47,8 +47,7 @@ properties:
-     items:
-       - const: dsi
- 
--  operating-points-v2:
--    $ref: "/schemas/types.yaml#/definitions/phandle"
-+  operating-points-v2: true
- 
-   power-domains:
-     maxItems: 1
-diff --git a/Documentation/devicetree/bindings/display/tegra/nvidia,tegra20-epp.yaml b/Documentation/devicetree/bindings/display/tegra/nvidia,tegra20-epp.yaml
-index 0d55e6206b5e..3c095a5491fe 100644
---- a/Documentation/devicetree/bindings/display/tegra/nvidia,tegra20-epp.yaml
-+++ b/Documentation/devicetree/bindings/display/tegra/nvidia,tegra20-epp.yaml
-@@ -46,8 +46,7 @@ properties:
-   interconnect-names:
-     maxItems: 4
- 
--  operating-points-v2:
--    $ref: "/schemas/types.yaml#/definitions/phandle"
-+  operating-points-v2: true
- 
-   power-domains:
-     items:
-diff --git a/Documentation/devicetree/bindings/display/tegra/nvidia,tegra20-gr2d.yaml b/Documentation/devicetree/bindings/display/tegra/nvidia,tegra20-gr2d.yaml
-index bf38accd98eb..1026b0bc3dc8 100644
---- a/Documentation/devicetree/bindings/display/tegra/nvidia,tegra20-gr2d.yaml
-+++ b/Documentation/devicetree/bindings/display/tegra/nvidia,tegra20-gr2d.yaml
-@@ -49,8 +49,7 @@ properties:
-   interconnect-names:
-     maxItems: 4
- 
--  operating-points-v2:
--    $ref: "/schemas/types.yaml#/definitions/phandle"
-+  operating-points-v2: true
- 
-   power-domains:
-     items:
-diff --git a/Documentation/devicetree/bindings/display/tegra/nvidia,tegra20-gr3d.yaml b/Documentation/devicetree/bindings/display/tegra/nvidia,tegra20-gr3d.yaml
-index 4755a73473c7..59a52e732ca3 100644
---- a/Documentation/devicetree/bindings/display/tegra/nvidia,tegra20-gr3d.yaml
-+++ b/Documentation/devicetree/bindings/display/tegra/nvidia,tegra20-gr3d.yaml
-@@ -51,8 +51,7 @@ properties:
-     minItems: 4
-     maxItems: 10
- 
--  operating-points-v2:
--    $ref: "/schemas/types.yaml#/definitions/phandle"
-+  operating-points-v2: true
- 
-   power-domains:
-     minItems: 1
-diff --git a/Documentation/devicetree/bindings/display/tegra/nvidia,tegra20-hdmi.yaml b/Documentation/devicetree/bindings/display/tegra/nvidia,tegra20-hdmi.yaml
-index 035b9f1f2eb5..f65e59cfffa7 100644
---- a/Documentation/devicetree/bindings/display/tegra/nvidia,tegra20-hdmi.yaml
-+++ b/Documentation/devicetree/bindings/display/tegra/nvidia,tegra20-hdmi.yaml
-@@ -50,8 +50,7 @@ properties:
-     items:
-       - const: hdmi
- 
--  operating-points-v2:
--    $ref: "/schemas/types.yaml#/definitions/phandle"
-+  operating-points-v2: true
- 
-   power-domains:
-     items:
-diff --git a/Documentation/devicetree/bindings/display/tegra/nvidia,tegra20-host1x.yaml b/Documentation/devicetree/bindings/display/tegra/nvidia,tegra20-host1x.yaml
-index 913ca104c871..94c5242c03b2 100644
---- a/Documentation/devicetree/bindings/display/tegra/nvidia,tegra20-host1x.yaml
-+++ b/Documentation/devicetree/bindings/display/tegra/nvidia,tegra20-host1x.yaml
-@@ -90,8 +90,7 @@ properties:
-     items:
-       - const: dma-mem # read
- 
--  operating-points-v2:
--    $ref: "/schemas/types.yaml#/definitions/phandle"
-+  operating-points-v2: true
- 
-   power-domains:
-     items:
-diff --git a/Documentation/devicetree/bindings/display/tegra/nvidia,tegra20-mpe.yaml b/Documentation/devicetree/bindings/display/tegra/nvidia,tegra20-mpe.yaml
-index 5f4f0fb4b692..2cd3e60cd0a8 100644
---- a/Documentation/devicetree/bindings/display/tegra/nvidia,tegra20-mpe.yaml
-+++ b/Documentation/devicetree/bindings/display/tegra/nvidia,tegra20-mpe.yaml
-@@ -47,8 +47,7 @@ properties:
-   interconnect-names:
-     maxItems: 6
- 
--  operating-points-v2:
--    $ref: "/schemas/types.yaml#/definitions/phandle"
-+  operating-points-v2: true
- 
-   power-domains:
-     items:
-diff --git a/Documentation/devicetree/bindings/display/tegra/nvidia,tegra20-tvo.yaml b/Documentation/devicetree/bindings/display/tegra/nvidia,tegra20-tvo.yaml
-index 467b015e5700..6c84d8b7eb7b 100644
---- a/Documentation/devicetree/bindings/display/tegra/nvidia,tegra20-tvo.yaml
-+++ b/Documentation/devicetree/bindings/display/tegra/nvidia,tegra20-tvo.yaml
-@@ -30,8 +30,7 @@ properties:
-     items:
-       - description: module clock
- 
--  operating-points-v2:
--    $ref: "/schemas/types.yaml#/definitions/phandle"
-+  operating-points-v2: true
- 
-   power-domains:
-     items:
-diff --git a/Documentation/devicetree/bindings/display/tegra/nvidia,tegra20-vi.yaml b/Documentation/devicetree/bindings/display/tegra/nvidia,tegra20-vi.yaml
-index 782a4b10150a..a42bf33d1e7d 100644
---- a/Documentation/devicetree/bindings/display/tegra/nvidia,tegra20-vi.yaml
-+++ b/Documentation/devicetree/bindings/display/tegra/nvidia,tegra20-vi.yaml
-@@ -55,8 +55,7 @@ properties:
-     minItems: 4
-     maxItems: 5
- 
--  operating-points-v2:
--    $ref: "/schemas/types.yaml#/definitions/phandle"
-+  operating-points-v2: true
- 
-   power-domains:
-     items:
-diff --git a/Documentation/devicetree/bindings/fuse/nvidia,tegra20-fuse.yaml b/Documentation/devicetree/bindings/fuse/nvidia,tegra20-fuse.yaml
-index 481901269872..02f0b0462377 100644
---- a/Documentation/devicetree/bindings/fuse/nvidia,tegra20-fuse.yaml
-+++ b/Documentation/devicetree/bindings/fuse/nvidia,tegra20-fuse.yaml
-@@ -44,8 +44,7 @@ properties:
-     items:
-       - const: fuse
- 
--  operating-points-v2:
--    $ref: "/schemas/types.yaml#/definitions/phandle"
-+  operating-points-v2: true
- 
-   power-domains:
-     items:
-diff --git a/Documentation/devicetree/bindings/mmc/nvidia,tegra20-sdhci.yaml b/Documentation/devicetree/bindings/mmc/nvidia,tegra20-sdhci.yaml
-index fe0270207622..fda0b45ee577 100644
---- a/Documentation/devicetree/bindings/mmc/nvidia,tegra20-sdhci.yaml
-+++ b/Documentation/devicetree/bindings/mmc/nvidia,tegra20-sdhci.yaml
-@@ -82,8 +82,7 @@ properties:
-   iommus:
-     maxItems: 1
- 
--  operating-points-v2:
--    $ref: "/schemas/types.yaml#/definitions/phandle"
-+  operating-points-v2: true
- 
-   power-domains:
-     items:
-diff --git a/Documentation/devicetree/bindings/power/power-domain.yaml b/Documentation/devicetree/bindings/power/power-domain.yaml
-index 889091b9814f..d1235e562041 100644
---- a/Documentation/devicetree/bindings/power/power-domain.yaml
-+++ b/Documentation/devicetree/bindings/power/power-domain.yaml
-@@ -43,9 +43,6 @@ properties:
-       domain would be considered as capable of being powered-on or powered-off.
- 
-   operating-points-v2:
--    $ref: /schemas/types.yaml#/definitions/phandle-array
--    items:
--      maxItems: 1
-     description:
-       Phandles to the OPP tables of power domains provided by a power domain
-       provider. If the provider provides a single power domain only or all
-diff --git a/Documentation/devicetree/bindings/pwm/nvidia,tegra20-pwm.yaml b/Documentation/devicetree/bindings/pwm/nvidia,tegra20-pwm.yaml
-index 739d3155dd32..41cea4979132 100644
---- a/Documentation/devicetree/bindings/pwm/nvidia,tegra20-pwm.yaml
-+++ b/Documentation/devicetree/bindings/pwm/nvidia,tegra20-pwm.yaml
-@@ -63,8 +63,7 @@ properties:
-   pinctrl-1:
-     description: configuration for the sleep state
- 
--  operating-points-v2:
--    $ref: /schemas/types.yaml#/definitions/phandle
-+  operating-points-v2: true
- 
-   power-domains:
-     items:
 -- 
-2.34.1
+2.39.0
 
