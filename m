@@ -1,78 +1,69 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id E1F41674669
-	for <lists+freedreno@lfdr.de>; Thu, 19 Jan 2023 23:54:53 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id A48A06747E1
+	for <lists+freedreno@lfdr.de>; Fri, 20 Jan 2023 01:14:42 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A8C9A10E26C;
-	Thu, 19 Jan 2023 22:54:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 62A5410E379;
+	Fri, 20 Jan 2023 00:14:41 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D4EB010E280;
- Thu, 19 Jan 2023 22:54:50 +0000 (UTC)
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 30JLpARG016061; Thu, 19 Jan 2023 22:54:45 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
- h=message-id : date :
- mime-version : subject : to : cc : references : from : in-reply-to :
- content-type : content-transfer-encoding; s=qcppdkim1;
- bh=NIYQYElbAUGqiT8yCF2DhxDCLyd/qkQ2Bwi98kWDv+8=;
- b=n9fCmVbfYBg4p4FKGIY+IrGjyIjI5i66fR1n0NCxmYTMiSAp0Liao0T3U4KfJd8NDSQ2
- r+JpqPXY4YavuvPWwU+jYAUE0AsO/bYOI05i8jqXzhoK48Frfy7ouLpM5n4KBuh206wq
- Ga+POEeRswbm9OxN150iE7+zJor8sdAKCXa5WkqZxHMrNZEVeZTxFhKfzncWiKEymW0J
- +75q0tv/xUR6D1WRxskJaFx0MvsgdjHW3MHfT0XaxJcugWpv+oTGf6EX+MvHNWIYmpqd
- K0weIv4MgsOFynwNVuLdWJCASx8BUxuW8Wj3mcvAaAbfNF6Hv1kJPnRqI72Al5BosWu6 Ag== 
-Received: from nalasppmta05.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3n7593sc3q-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 19 Jan 2023 22:54:44 +0000
-Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
- [10.47.209.196])
- by NALASPPMTA05.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 30JMshL1028487
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 19 Jan 2023 22:54:43 GMT
-Received: from [10.110.69.104] (10.80.80.8) by nalasex01a.na.qualcomm.com
- (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.36; Thu, 19 Jan
- 2023 14:54:43 -0800
-Message-ID: <2a5c8934-a479-6ea7-4236-9e156e26b29a@quicinc.com>
-Date: Thu, 19 Jan 2023 14:54:42 -0800
+Received: from mail-ej1-x636.google.com (mail-ej1-x636.google.com
+ [IPv6:2a00:1450:4864:20::636])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7EE6110E379
+ for <freedreno@lists.freedesktop.org>; Fri, 20 Jan 2023 00:14:39 +0000 (UTC)
+Received: by mail-ej1-x636.google.com with SMTP id ss4so9995427ejb.11
+ for <freedreno@lists.freedesktop.org>; Thu, 19 Jan 2023 16:14:39 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=2V8Ln6e8tegMHSBR/J0K1l0Tuvgg5sXARNbUfWI/C08=;
+ b=GaQqhxxDs2Yu9TEHYHaW7FaEC5qe3eqdZRboUv1cZObr8UKmpxXD8WDx1MuCfpM1Oi
+ ZTgaKuAIwehs6ElVZnISD0lbgkwrjgP00OZm+aMLCHOeMX2yWo71LLQsA3XSLoJ1H3Lg
+ Nl9H7LVKRJTqrrmefk4OPeU2PyHuKn31+yjWE=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=2V8Ln6e8tegMHSBR/J0K1l0Tuvgg5sXARNbUfWI/C08=;
+ b=BU1/6osUlN4EtMTHFe/7h2tLy5AOByvX5Wre2zOn5ZcyuserphOssZCWF2M6/8YlI7
+ QrXUZJxXAg6NtSKTPP2FCigEqj2QmGnSV0VGqfHZbjG8gzryDN5TjqkzqTK2wrPBm2Yh
+ pCTQPzsGCr1NarKSCxpA5mkr6y9eb4QNRfwOlulbAJQcEQ3V7TYOpjfRt8OBeptkBqCe
+ y8E5Q8VJzUtlAqK2vtoyOu2esHULkYioOelqLfkYKX+vZkG24tS9uhjI6bep29d33sPS
+ cC2IB05eOgE8xH6iovnrZMu/YkmjFmpigB+RrwLrJFlZRnkEiB+mH6Jx/KLfLopGKANv
+ 6t1g==
+X-Gm-Message-State: AFqh2kolwPuT+iO+/1xQfb3Q2MW+jgdu+UUHgQA5gsW+T0sLxKuR7Nzy
+ LAjNiPvyGcc6N1z5bXSRtMMo++gf+g4jEA8bhBU=
+X-Google-Smtp-Source: AMrXdXuTT02cVzkHFfLQWTJjbwLxau1hVE01ZheUuMHq6jW2kLjlWEmjBcDSeQw+4UyVA+1TFFgVGQ==
+X-Received: by 2002:a17:907:6d87:b0:84d:3fa7:12e5 with SMTP id
+ sb7-20020a1709076d8700b0084d3fa712e5mr17037209ejc.32.1674173677842; 
+ Thu, 19 Jan 2023 16:14:37 -0800 (PST)
+Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com.
+ [209.85.128.43]) by smtp.gmail.com with ESMTPSA id
+ c23-20020a170906155700b0084c7f96d023sm17308841ejd.147.2023.01.19.16.14.37
+ for <freedreno@lists.freedesktop.org>
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 19 Jan 2023 16:14:37 -0800 (PST)
+Received: by mail-wm1-f43.google.com with SMTP id l8so2861551wms.3
+ for <freedreno@lists.freedesktop.org>; Thu, 19 Jan 2023 16:14:37 -0800 (PST)
+X-Received: by 2002:a05:600c:180f:b0:3db:d4b:f019 with SMTP id
+ n15-20020a05600c180f00b003db0d4bf019mr461234wmp.170.1674173247519; Thu, 19
+ Jan 2023 16:07:27 -0800 (PST)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.6.2
-Content-Language: en-US
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Rob Clark
- <robdclark@gmail.com>, Sean Paul <sean@poorly.run>
-References: <20230118010428.1671443-1-dmitry.baryshkov@linaro.org>
- <20230118010428.1671443-2-dmitry.baryshkov@linaro.org>
-From: Abhinav Kumar <quic_abhinavk@quicinc.com>
-In-Reply-To: <20230118010428.1671443-2-dmitry.baryshkov@linaro.org>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-GUID: ukCx1ZU5cKgz9cSkCENPifZfCg32lSiH
-X-Proofpoint-ORIG-GUID: ukCx1ZU5cKgz9cSkCENPifZfCg32lSiH
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.219,Aquarius:18.0.930,Hydra:6.0.562,FMLib:17.11.122.1
- definitions=2023-01-19_14,2023-01-19_01,2022-06-22_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0
- mlxlogscore=999 spamscore=0 suspectscore=0 mlxscore=0 adultscore=0
- clxscore=1015 impostorscore=0 priorityscore=1501 bulkscore=0
- malwarescore=0 phishscore=0 classifier=spam adjust=0 reason=mlx
- scancount=1 engine=8.12.0-2212070000 definitions=main-2301190194
-Subject: Re: [Freedreno] [PATCH v2 1/3] drm/msm/mdss: convert UBWC setup to
- use match data
+References: <1672193785-11003-1-git-send-email-quic_khsieh@quicinc.com>
+ <1672193785-11003-3-git-send-email-quic_khsieh@quicinc.com>
+ <CAD=FV=VeBBFTZBjZNhMUBO1uTNKBwcgZM6ehnw3BGmervE7jXA@mail.gmail.com>
+ <CAE-0n50JB211OhA7pqj6U3rfBeeS0ofzY_moE77REmY2awo7bA@mail.gmail.com>
+In-Reply-To: <CAE-0n50JB211OhA7pqj6U3rfBeeS0ofzY_moE77REmY2awo7bA@mail.gmail.com>
+From: Doug Anderson <dianders@chromium.org>
+Date: Thu, 19 Jan 2023 16:07:11 -0800
+X-Gmail-Original-Message-ID: <CAD=FV=W92EO9+XnRCuBCAePQmH8+CgGQf5ETEtHcRFDkNGhJ0A@mail.gmail.com>
+Message-ID: <CAD=FV=W92EO9+XnRCuBCAePQmH8+CgGQf5ETEtHcRFDkNGhJ0A@mail.gmail.com>
+To: Stephen Boyd <swboyd@chromium.org>
+Content-Type: text/plain; charset="UTF-8"
+Subject: Re: [Freedreno] [PATCH v6 2/2] drm/msm/dp: enhance dp controller isr
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -85,322 +76,111 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
- Bjorn Andersson <andersson@kernel.org>, dri-devel@lists.freedesktop.org,
- Stephen Boyd <swboyd@chromium.org>, Daniel Vetter <daniel@ffwll.ch>,
- David Airlie <airlied@gmail.com>
+Cc: freedreno@lists.freedesktop.org, quic_sbillaka@quicinc.com,
+ quic_abhinavk@quicinc.com, airlied@gmail.com, andersson@kernel.org,
+ vkoul@kernel.org, dri-devel@lists.freedesktop.org,
+ Kuogee Hsieh <quic_khsieh@quicinc.com>, robdclark@gmail.com, agross@kernel.org,
+ daniel@ffwll.ch, linux-arm-msm@vger.kernel.org, dmitry.baryshkov@linaro.org,
+ sean@poorly.run, linux-kernel@vger.kernel.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
+Hi,
 
+On Wed, Jan 18, 2023 at 2:34 PM Stephen Boyd <swboyd@chromium.org> wrote:
+>
+> Quoting Doug Anderson (2023-01-18 10:29:59)
+> > Hi,
+> >
+> > On Tue, Dec 27, 2022 at 6:16 PM Kuogee Hsieh <quic_khsieh@quicinc.com> wrote:
+> > > +
+> > >         if (isr & DP_INTR_AUX_ERROR) {
+> > >                 aux->aux_error_num = DP_AUX_ERR_PHY;
+> > >                 dp_catalog_aux_clear_hw_interrupts(aux->catalog);
+> > > +               ret = IRQ_HANDLED;
+> > >         }
+> >
+> > The end result of the above is a weird mix of "if" and "else if" for
+> > no apparent reason. All except one of them just updates the exact same
+> > variable so doing more than one is mostly useless. If you made it
+> > consistently with "else" then the whole thing could be much easier,
+> > like this (untested):
+>
+> Totally agreed. I even asked that when I posted the RFC[1]!
+>
+> "Can we also simplify the aux handlers to be a big pile of
+> if-else-if conditions that don't overwrite the 'aux_error_num'? That
+> would simplify the patch below."
+>
+> > > @@ -425,17 +464,15 @@ void dp_aux_isr(struct drm_dp_aux *dp_aux)
+> > >
+> > >         /* no interrupts pending, return immediately */
+> > >         if (!isr)
+> > > -               return;
+> > > +               return IRQ_NONE;
+> > >
+> > >         if (!aux->cmd_busy)
+> > > -               return;
+> > > +               return IRQ_NONE;
+> > >
+> > >         if (aux->native)
+> > > -               dp_aux_native_handler(aux, isr);
+> > > +               return dp_aux_native_handler(aux, isr);
+> > >         else
+> > > -               dp_aux_i2c_handler(aux, isr);
+> > > -
+> > > -       complete(&aux->comp);
+> > > +               return dp_aux_i2c_handler(aux, isr);
+> >
+> > Personally, I wouldn't have done it this way. I guess that means I
+> > disagree with Stephen. I'm not dead-set against this way and it's fine
+> > if you want to continue with it. If I were doing it, though, then I
+> > would always return IRQ_HANDLED IF dp_catalog_aux_get_irq() returned
+> > anything non-zero. Why? Officially if dp_catalog_aux_get_irq() returns
+> > something non-zero then you know for sure that there was an interrupt
+> > for this device and officially you have "handled" it by acking it,
+> > since dp_catalog_aux_get_irq() acks all the bits that it returns. That
+> > means that even if dp_aux_native_handler() or dp_aux_i2c_handler()
+> > didn't do anything with the interrupt you at least know that it was
+> > for us (so if the IRQ is shared we properly report back to the IRQ
+> > subsystem) and that it won't keep firing over and over (because we
+> > acked it).
+>
+> I'm primarily concerned with irq storms taking down the system. Can that
+> happen here? If not, then returning IRQ_NONE is not really useful. The
+> overall IRQ for DP looks to be level, because the driver requests the
+> IRQ that way. The aux interrupt status bits look to be edge style
+> interrupts though, because the driver acks them in the handler. I guess
+> that means the edges come in and latch into the interrupt status
+> register so the driver has to ack all of them to drop the IRQ level for
+> the overall DP interrupt? If the driver only acked the bits it looked at
+> instead of all interrupt bits in the register, then the level would
+> never go down for the IRQ if an unhandled interrupt bit was present like
+> 'DP_INTR_PLL_UNLOCKED'. That would mean we would hit spurious IRQ
+> handling very quickly if that interrupt bit was ever seen.
+>
+> But the driver is acking all interrupts, so probably trying to work
+> IRQ_NONE into this code is not very useful? The only thing it would
+> catch is DP_INTR_PLL_UNLOCKED being set over and over again, which seems
+> unlikely. Of course, why is this driver unmasking interrupt bits it
+> doesn't care about? That may be leading to useless interrupt handling in
+> this driver if some interrupt bit is unmasked but never looked at. Can
+> that be fixed in another patch?
+>
+> >
+> > NOTE: I still like having the complete() call in
+> > dp_aux_native_handler() and dp_aux_i2c_handler() and, to me, that part
+> > of this patch is worthwhile. That makes it more obvious that the code
+> > is truly expecting that complete to be called for all error cases as
+> > well as transfer finished.
+> >
+>
+> I think it may be required. We don't want to allow DP_INTR_PLL_UNLOCKED
+> to complete() the transfer.
 
-On 1/17/2023 5:04 PM, Dmitry Baryshkov wrote:
-> To simplify adding new platforms and to make settings more obvious,
-> rewrite the UBWC setup to use the data structure to pass platform config
-> rather than just calling the functions direcly.
-> 
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+OK, I've tried to code up what I think is the right solution. I'd
+appreciate review and testing.
 
-I was reviewing this series and 
-https://patchwork.freedesktop.org/series/111732/ together.
+https://lore.kernel.org/r/20230119145248.1.I90ffed3ddd21e818ae534f820cb4d6d8638859ab@changeid
 
-More I think about it, it seems like we are duplicating the same values 
-here and in the catalog.
-
-Yes, these two are different drivers.
-
-But now that you are adding the UBWC entries here using the compatible 
-string so you are creating something like a "catalog" here.
-
-In that case, why dont we remove the entries from dpu catalog and in the 
-DPU driver get the parent's match data as we know that the msm_mdss is 
-the parent of DPU driver
-
-Let me know your thoughts.
-
-> ---
->   drivers/gpu/drm/msm/msm_mdss.c | 181 +++++++++++++++++++--------------
->   1 file changed, 105 insertions(+), 76 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/msm/msm_mdss.c b/drivers/gpu/drm/msm/msm_mdss.c
-> index 02646e4bb4cd..799672b88716 100644
-> --- a/drivers/gpu/drm/msm/msm_mdss.c
-> +++ b/drivers/gpu/drm/msm/msm_mdss.c
-> @@ -16,9 +16,6 @@
->   #include "msm_drv.h"
->   #include "msm_kms.h"
->   
-> -/* for DPU_HW_* defines */
-> -#include "disp/dpu1/dpu_hw_catalog.h"
-> -
->   #define HW_REV				0x0
->   #define HW_INTR_STATUS			0x0010
->   
-> @@ -29,6 +26,16 @@
->   
->   #define MIN_IB_BW	400000000UL /* Min ib vote 400MB */
->   
-> +struct msm_mdss_data {
-> +	u32 ubwc_version;
-> +	/* can be read from register 0x58 */
-> +	u32 ubwc_dec_version;
-> +	u32 ubwc_swizzle;
-> +	u32 ubwc_static;
-> +	u32 highest_bank_bit;
-> +	u32 macrotile_mode;
-> +};
-> +
->   struct msm_mdss {
->   	struct device *dev;
->   
-> @@ -40,6 +47,7 @@ struct msm_mdss {
->   		unsigned long enabled_mask;
->   		struct irq_domain *domain;
->   	} irq_controller;
-> +	const struct msm_mdss_data *mdss_data;
->   	struct icc_path *path[2];
->   	u32 num_paths;
->   };
-> @@ -182,46 +190,40 @@ static int _msm_mdss_irq_domain_add(struct msm_mdss *msm_mdss)
->   #define UBWC_3_0 0x30000000
->   #define UBWC_4_0 0x40000000
->   
-> -static void msm_mdss_setup_ubwc_dec_20(struct msm_mdss *msm_mdss,
-> -				       u32 ubwc_static)
-> +static void msm_mdss_setup_ubwc_dec_20(struct msm_mdss *msm_mdss)
->   {
-> -	writel_relaxed(ubwc_static, msm_mdss->mmio + UBWC_STATIC);
-> +	const struct msm_mdss_data *data = msm_mdss->mdss_data;
-> +
-> +	writel_relaxed(data->ubwc_static, msm_mdss->mmio + UBWC_STATIC);
->   }
->   
-> -static void msm_mdss_setup_ubwc_dec_30(struct msm_mdss *msm_mdss,
-> -				       unsigned int ubwc_version,
-> -				       u32 ubwc_swizzle,
-> -				       u32 highest_bank_bit,
-> -				       u32 macrotile_mode)
-> +static void msm_mdss_setup_ubwc_dec_30(struct msm_mdss *msm_mdss)
->   {
-> -	u32 value = (ubwc_swizzle & 0x1) |
-> -		    (highest_bank_bit & 0x3) << 4 |
-> -		    (macrotile_mode & 0x1) << 12;
-> +	const struct msm_mdss_data *data = msm_mdss->mdss_data;
-> +	u32 value = (data->ubwc_swizzle & 0x1) |
-> +		    (data->highest_bank_bit & 0x3) << 4 |
-> +		    (data->macrotile_mode & 0x1) << 12;
->   
-> -	if (ubwc_version == UBWC_3_0)
-> +	if (data->ubwc_version == UBWC_3_0)
->   		value |= BIT(10);
->   
-> -	if (ubwc_version == UBWC_1_0)
-> +	if (data->ubwc_version == UBWC_1_0)
->   		value |= BIT(8);
->   
->   	writel_relaxed(value, msm_mdss->mmio + UBWC_STATIC);
->   }
->   
-> -static void msm_mdss_setup_ubwc_dec_40(struct msm_mdss *msm_mdss,
-> -				       unsigned int ubwc_version,
-> -				       u32 ubwc_swizzle,
-> -				       u32 ubwc_static,
-> -				       u32 highest_bank_bit,
-> -				       u32 macrotile_mode)
-> +static void msm_mdss_setup_ubwc_dec_40(struct msm_mdss *msm_mdss)
->   {
-> -	u32 value = (ubwc_swizzle & 0x7) |
-> -		    (ubwc_static & 0x1) << 3 |
-> -		    (highest_bank_bit & 0x7) << 4 |
-> -		    (macrotile_mode & 0x1) << 12;
-> +	const struct msm_mdss_data *data = msm_mdss->mdss_data;
-> +	u32 value = (data->ubwc_swizzle & 0x7) |
-> +		    (data->ubwc_static & 0x1) << 3 |
-> +		    (data->highest_bank_bit & 0x7) << 4 |
-> +		    (data->macrotile_mode & 0x1) << 12;
->   
->   	writel_relaxed(value, msm_mdss->mmio + UBWC_STATIC);
->   
-> -	if (ubwc_version == UBWC_3_0) {
-> +	if (data->ubwc_version == UBWC_3_0) {
->   		writel_relaxed(1, msm_mdss->mmio + UBWC_CTRL_2);
->   		writel_relaxed(0, msm_mdss->mmio + UBWC_PREDICTION_MODE);
->   	} else {
-> @@ -233,7 +235,6 @@ static void msm_mdss_setup_ubwc_dec_40(struct msm_mdss *msm_mdss,
->   static int msm_mdss_enable(struct msm_mdss *msm_mdss)
->   {
->   	int ret;
-> -	u32 hw_rev;
->   
->   	/*
->   	 * Several components have AXI clocks that can only be turned on if
-> @@ -249,57 +250,36 @@ static int msm_mdss_enable(struct msm_mdss *msm_mdss)
->   	}
->   
->   	/*
-> -	 * HW_REV requires MDSS_MDP_CLK, which is not enabled by the mdss on
-> -	 * mdp5 hardware. Skip reading it for now.
-> +	 * Register access requires MDSS_MDP_CLK, which is not enabled by the
-> +	 * mdss on mdp5 hardware. Skip it for now.
->   	 */
-> -	if (msm_mdss->is_mdp5)
-> +	if (msm_mdss->is_mdp5 || !msm_mdss->mdss_data)
->   		return 0;
->   
-> -	hw_rev = readl_relaxed(msm_mdss->mmio + HW_REV);
-> -	dev_dbg(msm_mdss->dev, "HW_REV: 0x%x\n", hw_rev);
-> -	dev_dbg(msm_mdss->dev, "UBWC_DEC_HW_VERSION: 0x%x\n",
-> -		readl_relaxed(msm_mdss->mmio + UBWC_DEC_HW_VERSION));
-> -
->   	/*
->   	 * ubwc config is part of the "mdss" region which is not accessible
->   	 * from the rest of the driver. hardcode known configurations here
->   	 *
->   	 * Decoder version can be read from the UBWC_DEC_HW_VERSION reg,
-> -	 * UBWC_n and the rest of params comes from hw_catalog.
-> -	 * Unforunately this driver can not access hw catalog, so we have to
-> -	 * hardcode them here.
-> +	 * UBWC_n and the rest of params comes from hw data.
->   	 */
-> -	switch (hw_rev) {
-> -	case DPU_HW_VER_500:
-> -	case DPU_HW_VER_501:
-> -		msm_mdss_setup_ubwc_dec_30(msm_mdss, UBWC_3_0, 0, 2, 0);
-> -		break;
-> -	case DPU_HW_VER_600:
-> -		/* TODO: highest_bank_bit = 2 for LP_DDR4 */
-> -		msm_mdss_setup_ubwc_dec_40(msm_mdss, UBWC_4_0, 6, 1, 3, 1);
-> +	switch (msm_mdss->mdss_data->ubwc_dec_version) {
-> +	case UBWC_2_0:
-> +		msm_mdss_setup_ubwc_dec_20(msm_mdss);
->   		break;
-> -	case DPU_HW_VER_620:
-> -		/* UBWC_2_0 */
-> -		msm_mdss_setup_ubwc_dec_20(msm_mdss, 0x1e);
-> +	case UBWC_3_0:
-> +		msm_mdss_setup_ubwc_dec_30(msm_mdss);
->   		break;
-> -	case DPU_HW_VER_630:
-> -		/* UBWC_2_0 */
-> -		msm_mdss_setup_ubwc_dec_20(msm_mdss, 0x11f);
-> +	case UBWC_4_0:
-> +		msm_mdss_setup_ubwc_dec_40(msm_mdss);
->   		break;
-> -	case DPU_HW_VER_700:
-> -		/* TODO: highest_bank_bit = 2 for LP_DDR4 */
-> -		msm_mdss_setup_ubwc_dec_40(msm_mdss, UBWC_4_0, 6, 1, 3, 1);
-> -		break;
-> -	case DPU_HW_VER_720:
-> -		msm_mdss_setup_ubwc_dec_40(msm_mdss, UBWC_3_0, 6, 1, 1, 1);
-> -		break;
-> -	case DPU_HW_VER_800:
-> -		msm_mdss_setup_ubwc_dec_40(msm_mdss, UBWC_4_0, 6, 1, 2, 1);
-> -		break;
-> -	case DPU_HW_VER_810:
-> -	case DPU_HW_VER_900:
-> -		/* TODO: highest_bank_bit = 2 for LP_DDR4 */
-> -		msm_mdss_setup_ubwc_dec_40(msm_mdss, UBWC_4_0, 6, 1, 3, 1);
-> +	default:
-> +		dev_err(msm_mdss->dev, "Unuspported UBWC decoder version %x\n",
-> +			msm_mdss->mdss_data->ubwc_dec_version);
-> +		dev_err(msm_mdss->dev, "HW_REV: 0x%x\n",
-> +			readl_relaxed(msm_mdss->mmio + HW_REV));
-> +		dev_err(msm_mdss->dev, "UBWC_DEC_HW_VERSION: 0x%x\n",
-> +			readl_relaxed(msm_mdss->mmio + UBWC_DEC_HW_VERSION));
-
-Why do you still have these register reads in default?
-If the purpose was to catch any missed chipsets, that would not be 
-possible right? Because that means the compat table entry is missing for 
-this in that case the msm_mdss driver wont probe.
-
-
->   		break;
->   	}
->   
-> @@ -490,6 +470,8 @@ static int mdss_probe(struct platform_device *pdev)
->   	if (IS_ERR(mdss))
->   		return PTR_ERR(mdss);
->   
-> +	mdss->mdss_data = of_device_get_match_data(&pdev->dev);
-> +
->   	platform_set_drvdata(pdev, mdss);
->   
->   	/*
-> @@ -519,21 +501,68 @@ static int mdss_remove(struct platform_device *pdev)
->   	return 0;
->   }
->   
-> +static const struct msm_mdss_data sc7180_data = {
-> +	.ubwc_version = UBWC_2_0,
-> +	.ubwc_dec_version = UBWC_2_0,
-> +	.ubwc_static = 0x1e,
-> +};
-> +
-> +static const struct msm_mdss_data sc7280_data = {
-> +	.ubwc_version = UBWC_3_0,
-> +	.ubwc_dec_version = UBWC_4_0,
-> +	.ubwc_swizzle = 6,
-> +	.ubwc_static = 1,
-> +	.highest_bank_bit = 1,
-> +	.macrotile_mode = 1,
-> +};
-> +
-> +static const struct msm_mdss_data sc8280xp_data = {
-> +	.ubwc_version = UBWC_4_0,
-> +	.ubwc_dec_version = UBWC_4_0,
-> +	.ubwc_swizzle = 6,
-> +	.ubwc_static = 1,
-> +	.highest_bank_bit = 2,
-> +	.macrotile_mode = 1,
-> +};
-> +
-> +static const struct msm_mdss_data sm8150_data = {
-> +	.ubwc_version = UBWC_3_0,
-> +	.ubwc_dec_version = UBWC_3_0,
-> +	.highest_bank_bit = 2,
-> +};
-> +
-> +static const struct msm_mdss_data sm6115_data = {
-> +	.ubwc_version = UBWC_1_0,
-> +	.ubwc_dec_version = UBWC_2_0,
-> +	.ubwc_swizzle = 7,
-> +	.ubwc_static = 0x11f,
-> +};
-> +
-> +static const struct msm_mdss_data sm8250_data = {
-> +	.ubwc_version = UBWC_4_0,
-> +	.ubwc_dec_version = UBWC_3_0,
-> +	.ubwc_swizzle = 6,
-> +	.ubwc_static = 1,
-> +	/* TODO: highest_bank_bit = 2 for LP_DDR4 */
-> +	.highest_bank_bit = 3,
-> +	.macrotile_mode = 1,
-> +};
-> +
->   static const struct of_device_id mdss_dt_match[] = {
->   	{ .compatible = "qcom,mdss" },
->   	{ .compatible = "qcom,msm8998-mdss" },
->   	{ .compatible = "qcom,qcm2290-mdss" },
->   	{ .compatible = "qcom,sdm845-mdss" },
-> -	{ .compatible = "qcom,sc7180-mdss" },
-> -	{ .compatible = "qcom,sc7280-mdss" },
-> +	{ .compatible = "qcom,sc7180-mdss", .data = &sc7180_data },
-> +	{ .compatible = "qcom,sc7280-mdss", .data = &sc7280_data },
->   	{ .compatible = "qcom,sc8180x-mdss" },
-> -	{ .compatible = "qcom,sc8280xp-mdss" },
-> -	{ .compatible = "qcom,sm6115-mdss" },
-> -	{ .compatible = "qcom,sm8150-mdss" },
-> -	{ .compatible = "qcom,sm8250-mdss" },
-> -	{ .compatible = "qcom,sm8350-mdss" },
-> -	{ .compatible = "qcom,sm8450-mdss" },
-> -	{ .compatible = "qcom,sm8550-mdss" },
-> +	{ .compatible = "qcom,sc8280xp-mdss", .data = &sc8280xp_data },
-> +	{ .compatible = "qcom,sm6115-mdss", .data = &sm6115_data },
-> +	{ .compatible = "qcom,sm8150-mdss", .data = &sm8150_data },
-> +	{ .compatible = "qcom,sm8250-mdss", .data = &sm8250_data },
-> +	{ .compatible = "qcom,sm8350-mdss", .data = &sm8250_data },
-> +	{ .compatible = "qcom,sm8450-mdss", .data = &sm8250_data },
-> +	{ .compatible = "qcom,sm8550-mdss", .data = &sm8250_data },
->   	{}
->   };
->   MODULE_DEVICE_TABLE(of, mdss_dt_match);
+-Doug
