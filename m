@@ -2,65 +2,39 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id C46F3675945
-	for <lists+freedreno@lfdr.de>; Fri, 20 Jan 2023 16:55:03 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 77DFF675A28
+	for <lists+freedreno@lfdr.de>; Fri, 20 Jan 2023 17:39:44 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8090C10E012;
-	Fri, 20 Jan 2023 15:55:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4BD6610E370;
+	Fri, 20 Jan 2023 16:39:43 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-qt1-x82c.google.com (mail-qt1-x82c.google.com
- [IPv6:2607:f8b0:4864:20::82c])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2AB8610E0A6
- for <freedreno@lists.freedesktop.org>; Fri, 20 Jan 2023 15:55:00 +0000 (UTC)
-Received: by mail-qt1-x82c.google.com with SMTP id d16so4427458qtw.8
- for <freedreno@lists.freedesktop.org>; Fri, 20 Jan 2023 07:55:00 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=poorly.run; s=google;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=cIZBov414cRAviPU8wwR8NqtPTpO7JU2x/UOZjpaEK8=;
- b=I+/367Wr7qAl4QZ19Xa8tMaf6OqBl6nT+owiFtMqLB3/Pk1nuu/DhyGmoEK7Lb+cBd
- //6UGaGGTvOGvzJ/mWDIIYHpM5WkOc2aTbH28Z5mpomge2PFcZWk0jPPE8ng1P9KJICw
- kYEMN9hgS7OBMWqEVVXpEj+uPpGaVXdsBHwT1L5aA7FsjQPf0Z3TStJ+iaepVd5A72HF
- wvf5b52cvYfFrjB5l0ouephNq/+wZXsmyY1xI7jEACR3zpiFVnJGl1fUMjGlE8xgQr2+
- 9GwZy1WuKMfqeSoyDSpeMrCnVUYV9UONb7Y8Ru7Xa3AMfHs1LyJSouAVHeWITYRdqKw5
- NHYg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=cIZBov414cRAviPU8wwR8NqtPTpO7JU2x/UOZjpaEK8=;
- b=P2aDcpK+SZR6YBbnFUq4K97Gc3PBE7IPYBKMbOiL0aJo2BlPofGxkTmHQOMchFnQFc
- IiNO+TmfYAB8t6AmO5w/uxJNnb6CaiIONcov5DqHgiy9+6cyAU/IKsR1pk2g59kj8efU
- kImkM0FvXyAOwQtGioqP3Cil21GPTZuz96A9NEboK0itqvoGcNWKaD/AbaPs3mU2MkP/
- lV/LZGJuI3vAjyVgWLzNTK/MY2gHLAlBkaZ889FWy33UvbEI0lspfWRt2DIou6tym9Ss
- Gh/tFIIPwxX7LZqPwjxLi2Hrhxe56AD9cJKhSXgm6+keryCBem2GSsix1hZUkl60dnsC
- Oskw==
-X-Gm-Message-State: AFqh2krGojca1SzLy+hCEsjGoBeWEBJZvsZeoQiKP5R9ydj63NFyyBwM
- NVPfLFnoywCRU+Vc3OXIP8+75A==
-X-Google-Smtp-Source: AMrXdXsjEvmwrWcwoIJKQJn80PQaEbBtBLRSxwKE/E0XlC2LInWRVyvOb56cD5VovaJaFNuBUXq/4w==
-X-Received: by 2002:ac8:7ed1:0:b0:3ab:5a62:453b with SMTP id
- x17-20020ac87ed1000000b003ab5a62453bmr21415426qtj.53.1674230099206; 
- Fri, 20 Jan 2023 07:54:59 -0800 (PST)
-Received: from localhost (200.234.86.34.bc.googleusercontent.com.
- [34.86.234.200]) by smtp.gmail.com with ESMTPSA id
- g19-20020a05620a40d300b006cec8001bf4sm26567015qko.26.2023.01.20.07.54.58
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 20 Jan 2023 07:54:58 -0800 (PST)
-Date: Fri, 20 Jan 2023 15:54:57 +0000
-From: Sean Paul <sean@poorly.run>
-To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-Message-ID: <Y8q5UfpIg0+qnAuG@art_vandelay>
-References: <20230118193015.911074-1-markyacoub@google.com>
- <20230118193015.911074-10-markyacoub@google.com>
- <aee03688-54b6-ed9f-e32c-b46e31d72198@linaro.org>
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
+ [213.167.242.64])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 000F410E370;
+ Fri, 20 Jan 2023 16:39:41 +0000 (UTC)
+Received: from pendragon.ideasonboard.com (213-243-189-158.bb.dnainternet.fi
+ [213.243.189.158])
+ by perceval.ideasonboard.com (Postfix) with ESMTPSA id 631DA514;
+ Fri, 20 Jan 2023 17:39:40 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+ s=mail; t=1674232780;
+ bh=/82/GdzU32yvrCmyVZ9EFcSVsuocrE1+eZnxQdXEV9w=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=KSh0ZMn4VbxW2RXBlRdzygMyKiyzA4ww+/Y1WhsMQ5hkNii+ZmlYMW4HmOhb9TRz4
+ AC9Z1kq+FQ5N7w0FysZfTRR6YUNV0mFjHTub/Ua/ugdwgJpz6i8hIW0DoDh1FAf1pv
+ G9sN5kx7K99ecGy78WO68Knv+56+ehgBVMvTPj0Y=
+Date: Fri, 20 Jan 2023 18:39:38 +0200
+From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Message-ID: <Y8rDyk6VNdqlKUn4@pendragon.ideasonboard.com>
+References: <20230117233905.1662645-1-dmitry.baryshkov@linaro.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <aee03688-54b6-ed9f-e32c-b46e31d72198@linaro.org>
-Subject: Re: [Freedreno] [PATCH v6 09/10] arm64: dts: qcom: sc7180: Add
- support for HDCP in dp-controller
+In-Reply-To: <20230117233905.1662645-1-dmitry.baryshkov@linaro.org>
+Subject: Re: [Freedreno] [PATCH v2] drm/probe_helper: sort out poll_running
+ vs poll_enabled
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,91 +47,307 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: quic_sbillaka@quicinc.com, imre.deak@intel.com,
- joonas.lahtinen@linux.intel.com, konrad.dybcio@somainline.org,
- dri-devel@lists.freedesktop.org, dianders@chromium.org,
- arun.r.murthy@intel.com, krzysztof.kozlowski+dt@linaro.org, airlied@gmail.com,
- hbh25y@gmail.com, ville.syrjala@linux.intel.com, marex@denx.de,
- ashutosh.dixit@intel.com, matthew.d.roper@intel.com, abhinavk@codeaurora.org,
- javierm@redhat.com, quic_khsieh@quicinc.com, stanislav.lisovskiy@intel.com,
- agross@kernel.org, quic_jesszhan@quicinc.com, ankit.k.nautiyal@intel.com,
- devicetree@vger.kernel.org, lyude@redhat.com, tzimmermann@suse.de,
- linux-arm-msm@vger.kernel.org, intel-gfx@lists.freedesktop.org,
- lucas.demarchi@intel.com, quic_abhinavk@quicinc.com,
- jani.nikula@linux.intel.com, swboyd@chromium.org, robh+dt@kernel.org,
- christophe.jaillet@wanadoo.fr, jose.souza@intel.com, rodrigo.vivi@intel.com,
- bjorn.andersson@linaro.org, sean@poorly.run, johan+linaro@kernel.org,
- tvrtko.ursulin@linux.intel.com, Mark Yacoub <markyacoub@chromium.org>,
- andersson@kernel.org, linux-kernel@vger.kernel.org, swati2.sharma@intel.com,
- manasi.d.navare@intel.com, robdclark@gmail.com, daniel@ffwll.ch,
- bhanuprakash.modem@intel.com, dmitry.baryshkov@linaro.org,
- seanpaul@chromium.org, freedreno@lists.freedesktop.org, maxime@cerno.tech
+Cc: Neil Armstrong <neil.armstrong@linaro.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, freedreno@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org, Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, dri-devel@lists.freedesktop.org,
+ Daniel Vetter <daniel@ffwll.ch>, Chen-Yu Tsai <wenst@chromium.org>,
+ David Airlie <airlied@gmail.com>, Marek Szyprowski <m.szyprowski@samsung.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Thu, Jan 19, 2023 at 11:35:32AM +0100, Krzysztof Kozlowski wrote:
-> On 18/01/2023 20:30, Mark Yacoub wrote:
-> > From: Sean Paul <seanpaul@chromium.org>
-> > 
-> > This patch adds the register ranges required for HDCP key injection and
-> 
-> Do not use "This commit/patch".
-> https://elixir.bootlin.com/linux/v5.17.1/source/Documentation/process/submitting-patches.rst#L95
-> 
-> This applies to all your patches. Fix it everywhere.
+Hi Dmitry,
 
-My goodness, this is peak bikeshedding. Surely we have better things to do with
-our time?
+Thank you for the patch.
 
+On Wed, Jan 18, 2023 at 01:39:05AM +0200, Dmitry Baryshkov wrote:
+> There are two flags attemting to guard connector polling:
+> poll_enabled and poll_running. While poll_enabled semantics is clearly
+> defined and fully adhered (mark that drm_kms_helper_poll_init() was
+> called and not finalized by the _fini() call), the poll_running flag
+> doesn't have such clearliness.
 > 
-> > HDCP TrustZone interaction as described in the dt-bindings for the
-> > sc7180 dp controller. Now that these are supported, change the
-> > compatible string to "dp-hdcp".
+> This flag is used only in drm_helper_probe_single_connector_modes() to
+> guard calling of drm_kms_helper_poll_enable, it doesn't guard the
+> drm_kms_helper_poll_fini(), etc. Change it to only be set if the polling
+> is actually running. Tie HPD enablement to this flag.
 > 
-> What does it mean? Where do you do it?
+> This fixes the following warning reported after merging the HPD series:
 > 
-> > 
-> > Signed-off-by: Sean Paul <seanpaul@chromium.org>
-> > Signed-off-by: Mark Yacoub <markyacoub@chromium.org>
-> > Link: https://patchwork.freedesktop.org/patch/msgid/20210913175747.47456-15-sean@poorly.run #v1
-> > Link: https://patchwork.freedesktop.org/patch/msgid/20210915203834.1439-14-sean@poorly.run #v2
-> > Link: https://patchwork.freedesktop.org/patch/msgid/20211001151145.55916-14-sean@poorly.run #v3
-> > Link: https://patchwork.freedesktop.org/patch/msgid/20211105030434.2828845-14-sean@poorly.run #v4
-> > Link: https://patchwork.freedesktop.org/patch/msgid/20220411204741.1074308-10-sean@poorly.run #v5
+> Hot plug detection already enabled
+> WARNING: CPU: 2 PID: 9 at drivers/gpu/drm/drm_bridge.c:1257 drm_bridge_hpd_enable+0x94/0x9c [drm]
+> Modules linked in: videobuf2_memops snd_soc_simple_card snd_soc_simple_card_utils fsl_imx8_ddr_perf videobuf2_common snd_soc_imx_spdif adv7511 etnaviv imx8m_ddrc imx_dcss mc cec nwl_dsi gov
+> CPU: 2 PID: 9 Comm: kworker/u8:0 Not tainted 6.2.0-rc2-15208-g25b283acd578 #6
+> Hardware name: NXP i.MX8MQ EVK (DT)
+> Workqueue: events_unbound deferred_probe_work_func
+> pstate: 60000005 (nZCv daif -PAN -UAO -TCO -DIT -SSBS BTYPE=--)
+> pc : drm_bridge_hpd_enable+0x94/0x9c [drm]
+> lr : drm_bridge_hpd_enable+0x94/0x9c [drm]
+> sp : ffff800009ef3740
+> x29: ffff800009ef3740 x28: ffff000009331f00 x27: 0000000000001000
+> x26: 0000000000000020 x25: ffff800001148ed8 x24: ffff00000a8fe000
+> x23: 00000000fffffffd x22: ffff000005086348 x21: ffff800001133ee0
+> x20: ffff00000550d800 x19: ffff000005086288 x18: 0000000000000006
+> x17: 0000000000000000 x16: ffff8000096ef008 x15: 97ffff2891004260
+> x14: 2a1403e194000000 x13: 97ffff2891004260 x12: 2a1403e194000000
+> x11: 7100385f29400801 x10: 0000000000000aa0 x9 : ffff800008112744
+> x8 : ffff000000250b00 x7 : 0000000000000003 x6 : 0000000000000011
+> x5 : 0000000000000000 x4 : ffff0000bd986a48 x3 : 0000000000000001
+> x2 : 0000000000000000 x1 : 0000000000000000 x0 : ffff000000250000
+> Call trace:
+>  drm_bridge_hpd_enable+0x94/0x9c [drm]
+>  drm_bridge_connector_enable_hpd+0x2c/0x3c [drm_kms_helper]
+>  drm_kms_helper_poll_enable+0x94/0x10c [drm_kms_helper]
+>  drm_helper_probe_single_connector_modes+0x1a8/0x510 [drm_kms_helper]
+>  drm_client_modeset_probe+0x204/0x1190 [drm]
+>  __drm_fb_helper_initial_config_and_unlock+0x5c/0x4a4 [drm_kms_helper]
+>  drm_fb_helper_initial_config+0x54/0x6c [drm_kms_helper]
+>  drm_fbdev_client_hotplug+0xd0/0x140 [drm_kms_helper]
+>  drm_fbdev_generic_setup+0x90/0x154 [drm_kms_helper]
+>  dcss_kms_attach+0x1c8/0x254 [imx_dcss]
+>  dcss_drv_platform_probe+0x90/0xfc [imx_dcss]
+>  platform_probe+0x70/0xcc
+>  really_probe+0xc4/0x2e0
+>  __driver_probe_device+0x80/0xf0
+>  driver_probe_device+0xe0/0x164
+>  __device_attach_driver+0xc0/0x13c
+>  bus_for_each_drv+0x84/0xe0
+>  __device_attach+0xa4/0x1a0
+>  device_initial_probe+0x1c/0x30
+>  bus_probe_device+0xa4/0xb0
+>  deferred_probe_work_func+0x90/0xd0
+>  process_one_work+0x200/0x474
+>  worker_thread+0x74/0x43c
+>  kthread+0xfc/0x110
+>  ret_from_fork+0x10/0x20
+> ---[ end trace 0000000000000000 ]---
 > 
-> Drop the links.
+> Reported-by: Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>
+> Fixes: c8268795c9a9 ("drm/probe-helper: enable and disable HPD on connectors")
+> Tested-by: Marek Szyprowski <m.szyprowski@samsung.com>
+> Tested-by: Chen-Yu Tsai <wenst@chromium.org>
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 
-Why? I've always done this, it seems helpful to me?
+This fixes the issue on my Renesas boards.
 
-> 
-> > 
-> > Changes in v3:
-> > -Split off into a new patch containing just the dts change (Stephen)
-> > -Add hdcp compatible string (Stephen)
-> > Changes in v4:
-> > -Rebase on Bjorn's multi-dp patchset
-> > Changes in v5:
-> > -Put the tz register offsets in trogdor dtsi (Rob C)
-> > Changes in v6:
-> > -Rebased: Removed modifications in sc7180.dtsi as it's already upstream
-> > 
-> > ---
-> 
-> Changelog after --- .
+Tested-by: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
 
-It's common practice in drm subsystem to include this in the commit message.
+Please see below for a few comments.
 
-Sean
+> ---
+> 
+> Changes since v1:
+> - Fixed drm_kms_helper_enable_hpd() to call enable_hpd() instead of
+>   disable_hpd().
+> 
+> ---
+>  drivers/gpu/drm/drm_probe_helper.c | 110 +++++++++++++++++------------
+>  1 file changed, 63 insertions(+), 47 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/drm_probe_helper.c b/drivers/gpu/drm/drm_probe_helper.c
+> index 7973f2589ced..04754bb7b131 100644
+> --- a/drivers/gpu/drm/drm_probe_helper.c
+> +++ b/drivers/gpu/drm/drm_probe_helper.c
+> @@ -222,6 +222,45 @@ drm_connector_mode_valid(struct drm_connector *connector,
+>  	return ret;
+>  }
+>  
+> +static void drm_kms_helper_disable_hpd(struct drm_device *dev)
+> +{
+> +	struct drm_connector *connector;
+> +	struct drm_connector_list_iter conn_iter;
+> +
+> +	drm_connector_list_iter_begin(dev, &conn_iter);
+> +	drm_for_each_connector_iter(connector, &conn_iter) {
+> +		const struct drm_connector_helper_funcs *funcs =
+> +			connector->helper_private;
+> +
+> +		if (funcs && funcs->disable_hpd)
+> +			funcs->disable_hpd(connector);
+> +	}
+> +	drm_connector_list_iter_end(&conn_iter);
+> +}
+> +
+> +static bool drm_kms_helper_enable_hpd(struct drm_device *dev)
+> +{
+> +	bool poll = false;
+> +	struct drm_connector *connector;
+> +	struct drm_connector_list_iter conn_iter;
+> +
+> +	drm_connector_list_iter_begin(dev, &conn_iter);
+> +	drm_for_each_connector_iter(connector, &conn_iter) {
+> +		const struct drm_connector_helper_funcs *funcs =
+> +			connector->helper_private;
+> +
+> +		if (funcs && funcs->enable_hpd)
+> +			funcs->enable_hpd(connector);
+> +
+> +		if (connector->polled & (DRM_CONNECTOR_POLL_CONNECT |
+> +					 DRM_CONNECTOR_POLL_DISCONNECT))
+> +			poll = true;
+> +	}
+> +	drm_connector_list_iter_end(&conn_iter);
+> +
+> +	return poll;
+> +}
+> +
+>  #define DRM_OUTPUT_POLL_PERIOD (10*HZ)
+>  /**
+>   * drm_kms_helper_poll_enable - re-enable output polling.
+> @@ -241,26 +280,14 @@ drm_connector_mode_valid(struct drm_connector *connector,
+>  void drm_kms_helper_poll_enable(struct drm_device *dev)
+>  {
+>  	bool poll = false;
+> -	struct drm_connector *connector;
+> -	struct drm_connector_list_iter conn_iter;
+>  	unsigned long delay = DRM_OUTPUT_POLL_PERIOD;
+>  
+> -	if (!dev->mode_config.poll_enabled || !drm_kms_helper_poll)
+> +	if (!dev->mode_config.poll_enabled ||
+> +	    !drm_kms_helper_poll ||
+> +	    dev->mode_config.poll_running)
 
+This would hold on two lines :
 
-> 
-> >  arch/arm64/boot/dts/qcom/sc7180-trogdor.dtsi | 8 ++++++++
-> >  1 file changed, 8 insertions(+)
-> > 
-> 
-> Best regards,
-> Krzysztof
-> 
+	if (!dev->mode_config.poll_enabled || !drm_kms_helper_poll ||
+	    dev->mode_config.poll_running)
+
+>  		return;
+>  
+> -	drm_connector_list_iter_begin(dev, &conn_iter);
+> -	drm_for_each_connector_iter(connector, &conn_iter) {
+> -		const struct drm_connector_helper_funcs *funcs =
+> -			connector->helper_private;
+> -
+> -		if (funcs && funcs->enable_hpd)
+> -			funcs->enable_hpd(connector);
+> -
+> -		if (connector->polled & (DRM_CONNECTOR_POLL_CONNECT |
+> -					 DRM_CONNECTOR_POLL_DISCONNECT))
+> -			poll = true;
+> -	}
+> -	drm_connector_list_iter_end(&conn_iter);
+> +	poll = drm_kms_helper_enable_hpd(dev);
+>  
+>  	if (dev->mode_config.delayed_event) {
+>  		/*
+> @@ -279,6 +306,8 @@ void drm_kms_helper_poll_enable(struct drm_device *dev)
+>  
+>  	if (poll)
+>  		schedule_delayed_work(&dev->mode_config.output_poll_work, delay);
+> +
+> +	dev->mode_config.poll_running = true;
+>  }
+>  EXPORT_SYMBOL(drm_kms_helper_poll_enable);
+>  
+> @@ -567,10 +596,7 @@ int drm_helper_probe_single_connector_modes(struct drm_connector *connector,
+>  	}
+>  
+>  	/* Re-enable polling in case the global poll config changed. */
+> -	if (drm_kms_helper_poll != dev->mode_config.poll_running)
+> -		drm_kms_helper_poll_enable(dev);
+> -
+> -	dev->mode_config.poll_running = drm_kms_helper_poll;
+> +	drm_kms_helper_poll_enable(dev);
+>  
+>  	if (connector->status == connector_status_disconnected) {
+>  		DRM_DEBUG_KMS("[CONNECTOR:%d:%s] disconnected\n",
+> @@ -710,8 +736,12 @@ static void output_poll_execute(struct work_struct *work)
+>  	changed = dev->mode_config.delayed_event;
+>  	dev->mode_config.delayed_event = false;
+>  
+> -	if (!drm_kms_helper_poll)
+> +	if (!drm_kms_helper_poll &&
+> +	    dev->mode_config.poll_running) {
+
+Same here.
+
+> +		drm_kms_helper_disable_hpd(dev);
+> +		dev->mode_config.poll_running = false;
+>  		goto out;
+> +	}
+>  
+>  	if (!mutex_trylock(&dev->mode_config.mutex)) {
+>  		repoll = true;
+> @@ -808,30 +838,6 @@ bool drm_kms_helper_is_poll_worker(void)
+>  }
+>  EXPORT_SYMBOL(drm_kms_helper_is_poll_worker);
+>  
+> -static void drm_kms_helper_poll_disable_fini(struct drm_device *dev, bool fini)
+> -{
+> -	struct drm_connector *connector;
+> -	struct drm_connector_list_iter conn_iter;
+> -
+> -	if (!dev->mode_config.poll_enabled)
+> -		return;
+> -
+> -	if (fini)
+> -		dev->mode_config.poll_enabled = false;
+> -
+> -	drm_connector_list_iter_begin(dev, &conn_iter);
+> -	drm_for_each_connector_iter(connector, &conn_iter) {
+> -		const struct drm_connector_helper_funcs *funcs =
+> -			connector->helper_private;
+> -
+> -		if (funcs && funcs->disable_hpd)
+> -			funcs->disable_hpd(connector);
+> -	}
+> -	drm_connector_list_iter_end(&conn_iter);
+> -
+> -	cancel_delayed_work_sync(&dev->mode_config.output_poll_work);
+> -}
+> -
+>  /**
+>   * drm_kms_helper_poll_disable - disable output polling
+>   * @dev: drm_device
+> @@ -848,7 +854,12 @@ static void drm_kms_helper_poll_disable_fini(struct drm_device *dev, bool fini)
+>   */
+>  void drm_kms_helper_poll_disable(struct drm_device *dev)
+>  {
+> -	drm_kms_helper_poll_disable_fini(dev, false);
+> +	if (dev->mode_config.poll_running)
+> +		drm_kms_helper_disable_hpd(dev);
+> +
+> +	cancel_delayed_work_sync(&dev->mode_config.output_poll_work);
+> +
+> +	dev->mode_config.poll_running = false;
+>  }
+>  EXPORT_SYMBOL(drm_kms_helper_poll_disable);
+>  
+> @@ -886,7 +897,12 @@ EXPORT_SYMBOL(drm_kms_helper_poll_init);
+>   */
+>  void drm_kms_helper_poll_fini(struct drm_device *dev)
+>  {
+> -	drm_kms_helper_poll_disable_fini(dev, true);
+> +	if (!dev->mode_config.poll_enabled)
+> +		return;
+> +
+> +	drm_kms_helper_poll_disable(dev);
+> +
+> +	dev->mode_config.poll_enabled = false;
+
+The fact that poll_enabled guard init/fini and poll_running guards
+enable/disable is confusing :-S It would be nice if the poll_enable flag
+matched the enable/disable function names. One option could be
+
+- drm_kms_helper_poll_enable() -> drm_kms_helper_poll_resume()
+- drm_kms_helper_poll_disable() -> drm_kms_helper_poll_suspend()
+- drm_kms_helper_poll_init() -> drm_kms_helper_poll_enable()
+- drm_kms_helper_poll_fini() -> drm_kms_helper_poll_disable()
+
+This would align quite well with intended usage in drivers I think, the
+current enable/disable functions are documented as being used by drivers
+for suspend/resume, and the init()/fini() functions are documented as
+"init and enable" and "disable and cleanup".
+
+This isn't a candidate for this patch of course, it can be done on top.
+
+>  }
+>  EXPORT_SYMBOL(drm_kms_helper_poll_fini);
+>  
 
 -- 
-Sean Paul, Software Engineer, Google / Chromium OS
+Regards,
+
+Laurent Pinchart
