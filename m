@@ -1,70 +1,72 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id C6074676540
-	for <lists+freedreno@lfdr.de>; Sat, 21 Jan 2023 09:48:26 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id E9A5667659A
+	for <lists+freedreno@lfdr.de>; Sat, 21 Jan 2023 11:16:27 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 89E0010E930;
-	Sat, 21 Jan 2023 08:48:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A391B10E075;
+	Sat, 21 Jan 2023 10:16:26 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x130.google.com (mail-lf1-x130.google.com
- [IPv6:2a00:1450:4864:20::130])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C41E110E29E
- for <freedreno@lists.freedesktop.org>; Sat, 21 Jan 2023 08:48:22 +0000 (UTC)
-Received: by mail-lf1-x130.google.com with SMTP id x40so11232231lfu.12
- for <freedreno@lists.freedesktop.org>; Sat, 21 Jan 2023 00:48:22 -0800 (PST)
+Received: from mail-lj1-x22d.google.com (mail-lj1-x22d.google.com
+ [IPv6:2a00:1450:4864:20::22d])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9CF1A10E133
+ for <freedreno@lists.freedesktop.org>; Sat, 21 Jan 2023 10:16:24 +0000 (UTC)
+Received: by mail-lj1-x22d.google.com with SMTP id a37so8203370ljq.0
+ for <freedreno@lists.freedesktop.org>; Sat, 21 Jan 2023 02:16:24 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :from:to:cc:subject:date:message-id:reply-to;
- bh=dXt2jMN4iiwvbP3cezivUWmGILp8z7wl3cRsehMoFJs=;
- b=Hi2O4NBZvvBOV4Bd1H2hjc+Ae0VTfXBFsjgWAEHNwfRSkP5VjQ93B5NAj1xLf7KMYj
- /4AKPG44ttdW3DqbjW/xJksDf44aOAcvJkzUzGrx684w3B3xczmV6HX0hFjtkjfwBYZD
- z8DQ0ZBRhZAj313Bz99SuyRiCBNwRL8n1fj7QyslubxPglV7og9n2taXrjwFpV6drk3M
- whrHhbRzNnPUbZK4GxYRNgt5GZiytnmf+Ya7kb58b/9TMqRse+dr2klfcS6A4S5z0GJx
- inskJXrEq1qcaLwotE5zIClLGhMUmX7+JZQApjFOultbNEwIc43gpDt7nfyXFuSUNbqd
- fwrQ==
+ bh=R+Pyl+joRSSSHYvf7WpDkCWmQvZq+W+aRVbNCqAWyN0=;
+ b=aw4vZZx4wkPSHemLhBCOWKkcGKy2I6AvBjN7UL/hvRcVPDSIlGrklw2jTtkH/RvGZb
+ uueF5MZpeSFKiA06BhrDArxQaLgpWridTlFnBJcqHTMEN8Es+P7RiSkewrQNPSK/4g3K
+ eqf2aNalnUtTCszMbvy4i2lDVXJUE56aCvqtzCQPf/d2rREW9rsLlnb3NRwtpkvW+0rg
+ ZW19EDyGbGyLGScXmsOmfTRVSVKLQoSZJnVmY+4+H99Ueooe6NqfOPkITPYRuAhx4Rxi
+ 3NibyE+BBWFbhVxIs01RoDCYx7jr/UkqI8VdnfrR9x8kU3kL3uPF5LxS/Sv6NCiAZa2w
+ IdBQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=dXt2jMN4iiwvbP3cezivUWmGILp8z7wl3cRsehMoFJs=;
- b=NMryHNO7O6rkJelETThKYm8onagYVo7EZZOI45qbEYe1LUO8fOivd8HzfXwazMtaJr
- UjPcPEvQsKEkmxdFsStGrfZ3ATsfJnYgRp20ad6kT+6IbwiU7jdW2RAbbSWFIeu2zQ5e
- PXGm/ZZ1WHqKiyOEJbnoyaD4ZH7WwrlV+Dcr1LH3vEnZvYTxR3ElVLb5E+vfwDpg6RX3
- 6hd9PcGmpj1HNjttSSyhtYLRJ7mOziIA1+16W2xTP3aAA/CpclU8fdnlIJVMSTOB44s1
- lNNaCwf2z7ezSDevHv3irBauY3Uonh1T7T5p3lDBOAdsDmMsiT1Nj9DyiYkGZlBrFTKm
- XfjQ==
-X-Gm-Message-State: AFqh2kp5eHvYdoRVYmAoyIjiHbmP4fmIbWLQ8d7ZmTJhHfB+K7CI47Bf
- hPAkuZgkskL8rmx/WFpmGIMF4w==
-X-Google-Smtp-Source: AMrXdXvhbE4+AgbmpnRt6d5WKodQ08h3f+9/7ZW7Jd/+s6rlai+GYUY3U4Lxc0p6ycKRb1lCOgXfCw==
-X-Received: by 2002:a05:6512:36c9:b0:4cc:6ca8:f308 with SMTP id
- e9-20020a05651236c900b004cc6ca8f308mr4110483lfs.37.1674290901157; 
- Sat, 21 Jan 2023 00:48:21 -0800 (PST)
+ bh=R+Pyl+joRSSSHYvf7WpDkCWmQvZq+W+aRVbNCqAWyN0=;
+ b=4Bt0Oa87tsAVV/EetkEhahTljqYoir7hs1RLr4TxphqLkCCKDKIASO6doeqHFCktm+
+ R+CWwtNUAKjTJ1NWWdKmWTJw6I/AZ2CSSsQX1nyY8NBs5JDN6A2X7oqMPjNzhpMblAhu
+ cON3vtfD7SLVQpJUzQJpzOzuC2j17fCG3gWH1sYuodU1MHWVr37WzRskKcRTBHBeF+On
+ kweI/VA0mm6DqTmGKSEeVNDTrdysSfsAbDrkEOaBjwhpZ5Ht4sYoJ+yJ5o7HHX5mlbT1
+ kV7Eh+Igbez8PyoAgZiddHuh6Ybk3zKdFbNS3BX76oV9zlLwrJW8W30ElDw+2ZvX+Ml8
+ JriQ==
+X-Gm-Message-State: AFqh2kp2hw6bd+TZb2m3gv6hFQfvtyJRnqOrPbSEh0m8kEemFhnTK2/o
+ X80PDX8DgQHCFkGHw8JdHRnmcw==
+X-Google-Smtp-Source: AMrXdXsmnMg48aeBhogSIz+DbIJdUnf4nEqxin4EPTgBYOA8j6w8atXnnKg+jW8ZCAvlcIjIEdWAAg==
+X-Received: by 2002:a2e:3807:0:b0:276:dc01:8058 with SMTP id
+ f7-20020a2e3807000000b00276dc018058mr4630164lja.1.1674296182695; 
+ Sat, 21 Jan 2023 02:16:22 -0800 (PST)
 Received: from [192.168.1.211] ([37.153.55.125])
  by smtp.gmail.com with ESMTPSA id
- p9-20020a2eb7c9000000b0028b974ac450sm1343259ljo.18.2023.01.21.00.48.20
+ p19-20020a2ea4d3000000b0028a4a907a33sm3023710ljm.84.2023.01.21.02.16.21
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sat, 21 Jan 2023 00:48:20 -0800 (PST)
-Message-ID: <3c63f52a-038f-6237-09b2-d1f44479611d@linaro.org>
-Date: Sat, 21 Jan 2023 10:48:19 +0200
+ Sat, 21 Jan 2023 02:16:22 -0800 (PST)
+Message-ID: <7116584e-f5a1-f404-8cfc-d1d159a4d647@linaro.org>
+Date: Sat, 21 Jan 2023 12:16:21 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.6.0
 Content-Language: en-GB
-To: Konrad Dybcio <konrad.dybcio@linaro.org>, linux-arm-msm@vger.kernel.org,
- andersson@kernel.org, agross@kernel.org, krzysztof.kozlowski@linaro.org
-References: <20230120210101.2146852-1-konrad.dybcio@linaro.org>
- <20230120210101.2146852-8-konrad.dybcio@linaro.org>
+To: Sean Paul <sean@poorly.run>,
+ Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+References: <20230118193015.911074-1-markyacoub@google.com>
+ <20230118193015.911074-10-markyacoub@google.com>
+ <aee03688-54b6-ed9f-e32c-b46e31d72198@linaro.org>
+ <Y8q5UfpIg0+qnAuG@art_vandelay>
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-In-Reply-To: <20230120210101.2146852-8-konrad.dybcio@linaro.org>
+In-Reply-To: <Y8q5UfpIg0+qnAuG@art_vandelay>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH 8/8] arm64: dts: qcom: sm8350: Hook up DSI1
- to MDP
+Subject: Re: [Freedreno] [PATCH v6 09/10] arm64: dts: qcom: sc7180: Add
+ support for HDCP in dp-controller
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,30 +79,64 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Neil Armstrong <neil.armstrong@linaro.org>,
- Loic Poulain <loic.poulain@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- devicetree@vger.kernel.org, David Airlie <airlied@gmail.com>,
- freedreno@lists.freedesktop.org, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- dri-devel@lists.freedesktop.org, Douglas Anderson <dianders@chromium.org>,
- Rob Clark <robdclark@gmail.com>, Rob Herring <robh+dt@kernel.org>,
- Daniel Vetter <daniel@ffwll.ch>, Rajeev Nandan <quic_rajeevny@quicinc.com>,
- marijn.suijten@somainline.org, Stephen Boyd <swboyd@chromium.org>,
- Sean Paul <sean@poorly.run>, linux-kernel@vger.kernel.org
+Cc: quic_sbillaka@quicinc.com, imre.deak@intel.com,
+ joonas.lahtinen@linux.intel.com, konrad.dybcio@somainline.org,
+ dri-devel@lists.freedesktop.org, dianders@chromium.org,
+ arun.r.murthy@intel.com, krzysztof.kozlowski+dt@linaro.org, airlied@gmail.com,
+ hbh25y@gmail.com, ville.syrjala@linux.intel.com, marex@denx.de,
+ ashutosh.dixit@intel.com, abhinavk@codeaurora.org, javierm@redhat.com,
+ quic_khsieh@quicinc.com, stanislav.lisovskiy@intel.com, agross@kernel.org,
+ quic_jesszhan@quicinc.com, ankit.k.nautiyal@intel.com,
+ devicetree@vger.kernel.org, lyude@redhat.com, tzimmermann@suse.de,
+ linux-arm-msm@vger.kernel.org, intel-gfx@lists.freedesktop.org,
+ lucas.demarchi@intel.com, quic_abhinavk@quicinc.com,
+ jani.nikula@linux.intel.com, swboyd@chromium.org, robh+dt@kernel.org,
+ christophe.jaillet@wanadoo.fr, jose.souza@intel.com, rodrigo.vivi@intel.com,
+ bjorn.andersson@linaro.org, matthew.d.roper@intel.com, johan+linaro@kernel.org,
+ tvrtko.ursulin@linux.intel.com, Mark Yacoub <markyacoub@chromium.org>,
+ andersson@kernel.org, linux-kernel@vger.kernel.org, swati2.sharma@intel.com,
+ manasi.d.navare@intel.com, robdclark@gmail.com, daniel@ffwll.ch,
+ bhanuprakash.modem@intel.com, seanpaul@chromium.org,
+ freedreno@lists.freedesktop.org, maxime@cerno.tech
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 20/01/2023 23:01, Konrad Dybcio wrote:
-> Somehow DSI1 was not hooked up to MDP resulting in it not working.
-> Fix it.
+On 20/01/2023 17:54, Sean Paul wrote:
+> On Thu, Jan 19, 2023 at 11:35:32AM +0100, Krzysztof Kozlowski wrote:
+>> On 18/01/2023 20:30, Mark Yacoub wrote:
+>>> From: Sean Paul <seanpaul@chromium.org>
+>>>
+>>> This patch adds the register ranges required for HDCP key injection and
+>>
+>> Do not use "This commit/patch".
+>> https://elixir.bootlin.com/linux/v5.17.1/source/Documentation/process/submitting-patches.rst#L95
+>>
+>> This applies to all your patches. Fix it everywhere.
 > 
-> Fixes: d4a4410583ed ("arm64: dts: qcom: sm8350: Add display system nodes")
-> Signed-off-by: Konrad Dybcio <konrad.dybcio@linaro.org>
-> ---
->   arch/arm64/boot/dts/qcom/sm8350.dtsi | 8 ++++++++
->   1 file changed, 8 insertions(+)
+> My goodness, this is peak bikeshedding. Surely we have better things to do with
+> our time?
 
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+While I would not enforce this rule if there were no other issues with 
+the commits, Mark will have to cleanup/rework commits anyway, see other 
+review comments. Thus removing/slightly rephrasing a commit message 
+sounds like a minor issue to me.
+
+>>>
+>>> Signed-off-by: Sean Paul <seanpaul@chromium.org>
+>>> Signed-off-by: Mark Yacoub <markyacoub@chromium.org>
+>>> Link: https://patchwork.freedesktop.org/patch/msgid/20210913175747.47456-15-sean@poorly.run #v1
+>>> Link: https://patchwork.freedesktop.org/patch/msgid/20210915203834.1439-14-sean@poorly.run #v2
+>>> Link: https://patchwork.freedesktop.org/patch/msgid/20211001151145.55916-14-sean@poorly.run #v3
+>>> Link: https://patchwork.freedesktop.org/patch/msgid/20211105030434.2828845-14-sean@poorly.run #v4
+>>> Link: https://patchwork.freedesktop.org/patch/msgid/20220411204741.1074308-10-sean@poorly.run #v5
+>>
+>> Drop the links.
+> 
+> Why? I've always done this, it seems helpful to me?
+> 
+
+I'd say, if you wish to include them, they belong to the cover letter, 
+not to the per-commit message. Once landed, they will serve no purpose.
 
 -- 
 With best wishes
