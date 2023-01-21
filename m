@@ -2,55 +2,55 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 181FC67653B
-	for <lists+freedreno@lfdr.de>; Sat, 21 Jan 2023 09:48:10 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C6074676540
+	for <lists+freedreno@lfdr.de>; Sat, 21 Jan 2023 09:48:26 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DC28F10E29E;
-	Sat, 21 Jan 2023 08:48:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 89E0010E930;
+	Sat, 21 Jan 2023 08:48:25 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x131.google.com (mail-lf1-x131.google.com
- [IPv6:2a00:1450:4864:20::131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C798410E1CC
- for <freedreno@lists.freedesktop.org>; Sat, 21 Jan 2023 08:48:05 +0000 (UTC)
-Received: by mail-lf1-x131.google.com with SMTP id j17so11293698lfr.3
- for <freedreno@lists.freedesktop.org>; Sat, 21 Jan 2023 00:48:05 -0800 (PST)
+Received: from mail-lf1-x130.google.com (mail-lf1-x130.google.com
+ [IPv6:2a00:1450:4864:20::130])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C41E110E29E
+ for <freedreno@lists.freedesktop.org>; Sat, 21 Jan 2023 08:48:22 +0000 (UTC)
+Received: by mail-lf1-x130.google.com with SMTP id x40so11232231lfu.12
+ for <freedreno@lists.freedesktop.org>; Sat, 21 Jan 2023 00:48:22 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :from:to:cc:subject:date:message-id:reply-to;
- bh=H10VW+xEg3DX5kE57CYgEU08kcjqqLocBifj9fl974A=;
- b=oPPK6jwSu6wF18Q6YJKvr4hzat05yDF3cvvX1mjjRBpu4hvtrUbTjCXIA4xvsg9STl
- t0sPoYP2GLk7NjXx/saq/RliBN45Y3VctkwokmZHrhzwMCLbj2126Cmpbn60Fg92Afiy
- sllB5W1gSKzYeLNyVc2iGYbgrm3TYD1LOkaUruKhW2vQUaz+A6GeUUiTlEQ3TiYFmtwk
- uOI7ivQ968U9VvsDG/38LyGDYIp8du9Cl6VBKueZGg+YUziddxvjGMUcQXj+iyCDzCei
- B+YTU9LkM0G9jjIKNOupq85U9JvRNsxxeI9M+fQSsWPwNs2E1FswqIDGFHc1lzkmUV9d
- naHA==
+ bh=dXt2jMN4iiwvbP3cezivUWmGILp8z7wl3cRsehMoFJs=;
+ b=Hi2O4NBZvvBOV4Bd1H2hjc+Ae0VTfXBFsjgWAEHNwfRSkP5VjQ93B5NAj1xLf7KMYj
+ /4AKPG44ttdW3DqbjW/xJksDf44aOAcvJkzUzGrx684w3B3xczmV6HX0hFjtkjfwBYZD
+ z8DQ0ZBRhZAj313Bz99SuyRiCBNwRL8n1fj7QyslubxPglV7og9n2taXrjwFpV6drk3M
+ whrHhbRzNnPUbZK4GxYRNgt5GZiytnmf+Ya7kb58b/9TMqRse+dr2klfcS6A4S5z0GJx
+ inskJXrEq1qcaLwotE5zIClLGhMUmX7+JZQApjFOultbNEwIc43gpDt7nfyXFuSUNbqd
+ fwrQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=H10VW+xEg3DX5kE57CYgEU08kcjqqLocBifj9fl974A=;
- b=dHvYDYpdVyy1fCaGmJnkpmDYrU2NvMICKrMcAm2WUMZ0lNkbfcbXmCJr7tizNtqqAe
- jN9FSBOQ/cJtceH6o2EPOa8BtIjc9QHTWBSresHN0M56wik2RWvtkGB8S0U8ljVcpa7U
- nLKhkPNvZ4HlsdU2R6vvH5S+0YxISkLuaXy/w5P6hzyVLPvaS6t9rNWXiyYIDPQJoGzX
- Wc7H4Yetbser37c+L/7xzIM/noO25r25D0bQ17ey4WDZWFSKUr0YlkW12DCCCQHeKzFL
- 1RSfIlYWh8tb85dYD3vMls3XKk0c9l36K1a0G6Cw46jY7U/nZw5OiFacssTdbSzuCw34
- NpLQ==
-X-Gm-Message-State: AFqh2kq+9N12sPaDvXcnujzKQnhnVoqroCzqBB+0FviPcJQfS69DqPOS
- A0AarC7zkAXIKwJ7gJ9cDuTDeA==
-X-Google-Smtp-Source: AMrXdXuTJi1DKWpTKn9ZgZ92EMIbiHdTEpu8XWSLYmf3cjTDsQ09kWsV/SGG3xYYkkyiZ33wH3JVDQ==
-X-Received: by 2002:a05:6512:158d:b0:4b5:8054:1ded with SMTP id
- bp13-20020a056512158d00b004b580541dedmr10409354lfb.9.1674290884148; 
- Sat, 21 Jan 2023 00:48:04 -0800 (PST)
+ bh=dXt2jMN4iiwvbP3cezivUWmGILp8z7wl3cRsehMoFJs=;
+ b=NMryHNO7O6rkJelETThKYm8onagYVo7EZZOI45qbEYe1LUO8fOivd8HzfXwazMtaJr
+ UjPcPEvQsKEkmxdFsStGrfZ3ATsfJnYgRp20ad6kT+6IbwiU7jdW2RAbbSWFIeu2zQ5e
+ PXGm/ZZ1WHqKiyOEJbnoyaD4ZH7WwrlV+Dcr1LH3vEnZvYTxR3ElVLb5E+vfwDpg6RX3
+ 6hd9PcGmpj1HNjttSSyhtYLRJ7mOziIA1+16W2xTP3aAA/CpclU8fdnlIJVMSTOB44s1
+ lNNaCwf2z7ezSDevHv3irBauY3Uonh1T7T5p3lDBOAdsDmMsiT1Nj9DyiYkGZlBrFTKm
+ XfjQ==
+X-Gm-Message-State: AFqh2kp5eHvYdoRVYmAoyIjiHbmP4fmIbWLQ8d7ZmTJhHfB+K7CI47Bf
+ hPAkuZgkskL8rmx/WFpmGIMF4w==
+X-Google-Smtp-Source: AMrXdXvhbE4+AgbmpnRt6d5WKodQ08h3f+9/7ZW7Jd/+s6rlai+GYUY3U4Lxc0p6ycKRb1lCOgXfCw==
+X-Received: by 2002:a05:6512:36c9:b0:4cc:6ca8:f308 with SMTP id
+ e9-20020a05651236c900b004cc6ca8f308mr4110483lfs.37.1674290901157; 
+ Sat, 21 Jan 2023 00:48:21 -0800 (PST)
 Received: from [192.168.1.211] ([37.153.55.125])
  by smtp.gmail.com with ESMTPSA id
- e18-20020a2ea552000000b0028b7cb86d9dsm1937649ljn.56.2023.01.21.00.48.03
+ p9-20020a2eb7c9000000b0028b974ac450sm1343259ljo.18.2023.01.21.00.48.20
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sat, 21 Jan 2023 00:48:03 -0800 (PST)
-Message-ID: <fc955b13-cd54-a567-8a94-2b828af0e2f9@linaro.org>
-Date: Sat, 21 Jan 2023 10:48:02 +0200
+ Sat, 21 Jan 2023 00:48:20 -0800 (PST)
+Message-ID: <3c63f52a-038f-6237-09b2-d1f44479611d@linaro.org>
+Date: Sat, 21 Jan 2023 10:48:19 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.6.0
@@ -58,13 +58,13 @@ Content-Language: en-GB
 To: Konrad Dybcio <konrad.dybcio@linaro.org>, linux-arm-msm@vger.kernel.org,
  andersson@kernel.org, agross@kernel.org, krzysztof.kozlowski@linaro.org
 References: <20230120210101.2146852-1-konrad.dybcio@linaro.org>
- <20230120210101.2146852-7-konrad.dybcio@linaro.org>
+ <20230120210101.2146852-8-konrad.dybcio@linaro.org>
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-In-Reply-To: <20230120210101.2146852-7-konrad.dybcio@linaro.org>
+In-Reply-To: <20230120210101.2146852-8-konrad.dybcio@linaro.org>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH 7/8] arm64: dts: qcom: sm8350: Add mdss_
- prefix to DSIn out labels
+Subject: Re: [Freedreno] [PATCH 8/8] arm64: dts: qcom: sm8350: Hook up DSI1
+ to MDP
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,7 +78,7 @@ List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
 Cc: Neil Armstrong <neil.armstrong@linaro.org>,
- Loic Poulain <loic.poulain@linaro.org>,
+ Loic Poulain <loic.poulain@linaro.org>, Robert Foss <rfoss@kernel.org>,
  Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
  devicetree@vger.kernel.org, David Airlie <airlied@gmail.com>,
  freedreno@lists.freedesktop.org, Abhinav Kumar <quic_abhinavk@quicinc.com>,
@@ -90,16 +90,15 @@ Cc: Neil Armstrong <neil.armstrong@linaro.org>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 20/01/2023 23:00, Konrad Dybcio wrote:
-> Add the mdss_ prefix to DSIn labels, so that the hardware blocks can
-> be organized near each other while retaining the alphabetical order
-> in device DTs when referencing by label.
+On 20/01/2023 23:01, Konrad Dybcio wrote:
+> Somehow DSI1 was not hooked up to MDP resulting in it not working.
+> Fix it.
 > 
+> Fixes: d4a4410583ed ("arm64: dts: qcom: sm8350: Add display system nodes")
 > Signed-off-by: Konrad Dybcio <konrad.dybcio@linaro.org>
 > ---
->   arch/arm64/boot/dts/qcom/sm8350-hdk.dts |  2 +-
->   arch/arm64/boot/dts/qcom/sm8350.dtsi    | 10 +++++-----
->   2 files changed, 6 insertions(+), 6 deletions(-)
+>   arch/arm64/boot/dts/qcom/sm8350.dtsi | 8 ++++++++
+>   1 file changed, 8 insertions(+)
 
 Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 
