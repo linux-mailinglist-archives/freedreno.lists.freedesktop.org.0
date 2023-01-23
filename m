@@ -2,49 +2,61 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 47332677B1C
-	for <lists+freedreno@lfdr.de>; Mon, 23 Jan 2023 13:38:20 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id BCC14677FF3
+	for <lists+freedreno@lfdr.de>; Mon, 23 Jan 2023 16:37:45 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0C3A010E489;
-	Mon, 23 Jan 2023 12:38:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7024710E4D1;
+	Mon, 23 Jan 2023 15:37:44 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from ams.source.kernel.org (ams.source.kernel.org
- [IPv6:2604:1380:4601:e00::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 188F910E489;
- Mon, 23 Jan 2023 12:38:17 +0000 (UTC)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 905F5B80D6E;
- Mon, 23 Jan 2023 12:38:15 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F33BBC4339B;
- Mon, 23 Jan 2023 12:38:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1674477494;
- bh=H+OW5DW2jeWkZvRmxDgz1ed60PrBNSnXSPQjJ/Kwihk=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=BEDC7QceJmbRsOQqIcGKhnAS2rq9TrHli4lvckskodzCC1mxiNSXKTP7gizrwlzm/
- 7kbIuQEp86DuMkX6/ktJlU/uilVq+gPJrQVmrNvZpG65XLeN9zDFipPu7inAyKDBcS
- eTJFcFe2CBcmNWpLOY4+Es5HHB50JlthORvgiKGLS/5ALeAXNpvT1b8I/A6p3fHThn
- yH235OdH5KM+QWxx4f0cxVsjtgTGHY+4F2jqA4+pRFcl+mZPTIdcx38uy6JbQpNn2D
- VSA7hhwsYTaAvMoTfVE2NYI6xqlWMaf12/GZ2mQwGmFYYiphMR0VCjJgJS3QxioEmq
- iATV6Il2RU8jg==
-Message-ID: <2d5f0bc3-620a-1fd8-061f-92f16efd3c5e@kernel.org>
-Date: Mon, 23 Jan 2023 13:38:07 +0100
+Received: from mail-pl1-x630.google.com (mail-pl1-x630.google.com
+ [IPv6:2607:f8b0:4864:20::630])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1AE3210E4D1;
+ Mon, 23 Jan 2023 15:37:42 +0000 (UTC)
+Received: by mail-pl1-x630.google.com with SMTP id k13so11815985plg.0;
+ Mon, 23 Jan 2023 07:37:42 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=bqm/b4+IUdS1MqzQZf17cD89gtcHvfXYnuA2GMItHy8=;
+ b=BeoLm0GehG2RTvXfpa3TJlY/SMshWzp1bpns58/nwqsEifYxf7ekkD81AfXJagIOB+
+ UwAIUci/GqYTsUdXnuChLkVGcn4T3p+5uaKqwcLNqvnWDcMrSJANvtyZBCbtN2jWDxf5
+ xPZJKPW9mL/HwXGKP1o6XJmkUxIkmAUXgz3uArCcSb3MCMl9GJ96KThvVJTuhP8c7mwi
+ KGxfbUstxf/dJP4hjJttF8HclYAjm1Fh54CnnMfMaNXpNjc3okJlYaBi6GcVQ23E2OFA
+ seXpNS0ZQYAJ/7latTNsL3P9YxlsQLnB6SXm1OyZuvUJQyK1ZWD1h3fdozu7KQjgIOt/
+ 7Yxg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=bqm/b4+IUdS1MqzQZf17cD89gtcHvfXYnuA2GMItHy8=;
+ b=ydr2c7k3UR6CKvQJqHfho5vnSjujflt8T8uzX9RwPAT2f+RuW+p9/aZJA4Hhgomo6z
+ TSmktQ5YP5wodLo0m+9nQ4YvyKdVqY4jq53UB01MJ75+m0reor8OXOKIicLA07sB38ro
+ 2aqfAOHy3xFsmpa70ZlYwDM+E87vSoms4OMDAD6m+S9MWtfAgnYWBjRjuNOSrlH9AlPo
+ BcCYP6eY5EFSFKrmIpuQ6I6WV+zOFkXodBTgcxiv/r7/LkjugaLBJ3YDARIaHaXjtg+M
+ oq0PtHM2n6o8prejmjWl0sS6X6qgmLqdG5UcBpxUeomgrZVMSpP0ccgRUAgYakl+ElM3
+ 3f2w==
+X-Gm-Message-State: AFqh2kpdsLt5DVmyJEQU4jyZABbSIYWN0gzxfJTq/Og+HREVipM6ZBiY
+ xVBghZT1nr9F/kEFFBp8wCg=
+X-Google-Smtp-Source: AMrXdXse4poj4j7/kfYLEJ+8471w5Y524fdoIV5ZbcJvP4IGR3j2MuWF5o0LGi9ty84jgW5rm9vbvg==
+X-Received: by 2002:a17:902:e403:b0:194:3dd0:e332 with SMTP id
+ m3-20020a170902e40300b001943dd0e332mr21920673ple.69.1674488262052; 
+ Mon, 23 Jan 2023 07:37:42 -0800 (PST)
+Received: from localhost ([2a00:79e1:abd:4a00:2703:3c72:eb1a:cffd])
+ by smtp.gmail.com with ESMTPSA id
+ m3-20020a170902db0300b0018963b8e131sm10333712plx.290.2023.01.23.07.37.40
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 23 Jan 2023 07:37:41 -0800 (PST)
+From: Rob Clark <robdclark@gmail.com>
+To: linux-pm@vger.kernel.org
+Date: Mon, 23 Jan 2023 07:37:45 -0800
+Message-Id: <20230123153745.3185032-1-robdclark@gmail.com>
+X-Mailer: git-send-email 2.38.1
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.7.0
-To: Rob Clark <robdclark@gmail.com>, dri-devel@lists.freedesktop.org
-References: <20230110231447.1939101-1-robdclark@gmail.com>
- <20230110231447.1939101-2-robdclark@gmail.com>
-Content-Language: en-US
-From: Krzysztof Kozlowski <krzk@kernel.org>
-In-Reply-To: <20230110231447.1939101-2-robdclark@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH v2 1/3] drm/msm/gpu: Add devfreq tuning
- debugfs
+Content-Transfer-Encoding: 8bit
+Subject: [Freedreno] [PATCH] PM / devfreq: Fix build issues with devfreq
+ disabled
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,36 +69,67 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rob Clark <robdclark@chromium.org>, freedreno@lists.freedesktop.org,
- Akhil P Oommen <quic_akhilpo@quicinc.com>, linux-arm-msm@vger.kernel.org,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konrad.dybcio@somainline.org>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Douglas Anderson <dianders@chromium.org>, Daniel Vetter <daniel@ffwll.ch>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- David Airlie <airlied@gmail.com>, Sean Paul <sean@poorly.run>,
- Chia-I Wu <olvaffe@gmail.com>, open list <linux-kernel@vger.kernel.org>
+Cc: Rob Clark <robdclark@chromium.org>,
+ open list <linux-kernel@vger.kernel.org>,
+ Krzysztof Kozlowski <krzk@kernel.org>, Chanwoo Choi <cw00.choi@samsung.com>,
+ Kyungmin Park <kyungmin.park@samsung.com>,
+ MyungJoo Ham <myungjoo.ham@samsung.com>, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, Chia-I Wu <olvaffe@gmail.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 11/01/2023 00:14, Rob Clark wrote:
-> From: Rob Clark <robdclark@chromium.org>
-> 
-> Make the handful of tuning knobs available visible via debugfs.
-> 
-> v2: select DEVFREQ_GOV_SIMPLE_ONDEMAND because for some reason
->     struct devfreq_simple_ondemand_data depends on this
-> 
-> Signed-off-by: Rob Clark <robdclark@chromium.org>
-> ---
+From: Rob Clark <robdclark@chromium.org>
 
-For some reason this was merged even though earlier kbuild reported
-build failure. This breaks linux next and qcom defconfig. Please drop
-the patch from the linux next.
+The existing no-op shims for when PM_DEVFREQ (or an individual governor)
+only do half the job.  The governor specific config/tuning structs need
+to be available to avoid compile errors in drivers using devfreq.
 
-See earlier build issues reported:
-https://lore.kernel.org/all/202301130108.fslQjvJ8-lkp@intel.com/
+Fixes: 6563f60f14cb ("drm/msm/gpu: Add devfreq tuning debugfs")
+Signed-off-by: Rob Clark <robdclark@chromium.org>
+---
+Assuming this doesn't conflict with anything else landing via another
+tree, an a-b to land this via drm/msm-next would let us un-break builds.
+(And also start removing "select DEVFREQ_GOV_SIMPLE_ONDEMAND"s added in
+various places to try to work around this issue.)
 
-Best regards,
-Krzysztof
+ include/linux/devfreq.h | 7 ++-----
+ 1 file changed, 2 insertions(+), 5 deletions(-)
+
+diff --git a/include/linux/devfreq.h b/include/linux/devfreq.h
+index 4dc7cda4fd46..7fd704bb8f3d 100644
+--- a/include/linux/devfreq.h
++++ b/include/linux/devfreq.h
+@@ -273,8 +273,8 @@ void devm_devfreq_unregister_notifier(struct device *dev,
+ struct devfreq *devfreq_get_devfreq_by_node(struct device_node *node);
+ struct devfreq *devfreq_get_devfreq_by_phandle(struct device *dev,
+ 				const char *phandle_name, int index);
++#endif /* CONFIG_PM_DEVFREQ */
+ 
+-#if IS_ENABLED(CONFIG_DEVFREQ_GOV_SIMPLE_ONDEMAND)
+ /**
+  * struct devfreq_simple_ondemand_data - ``void *data`` fed to struct devfreq
+  *	and devfreq_add_device
+@@ -292,9 +292,7 @@ struct devfreq_simple_ondemand_data {
+ 	unsigned int upthreshold;
+ 	unsigned int downdifferential;
+ };
+-#endif
+ 
+-#if IS_ENABLED(CONFIG_DEVFREQ_GOV_PASSIVE)
+ enum devfreq_parent_dev_type {
+ 	DEVFREQ_PARENT_DEV,
+ 	CPUFREQ_PARENT_DEV,
+@@ -337,9 +335,8 @@ struct devfreq_passive_data {
+ 	struct notifier_block nb;
+ 	struct list_head cpu_data_list;
+ };
+-#endif
+ 
+-#else /* !CONFIG_PM_DEVFREQ */
++#if !defined(CONFIG_PM_DEVFREQ)
+ static inline struct devfreq *devfreq_add_device(struct device *dev,
+ 					struct devfreq_dev_profile *profile,
+ 					const char *governor_name,
+-- 
+2.38.1
 
