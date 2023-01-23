@@ -2,71 +2,61 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 560DF676839
-	for <lists+freedreno@lfdr.de>; Sat, 21 Jan 2023 20:06:55 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 16D23677518
+	for <lists+freedreno@lfdr.de>; Mon, 23 Jan 2023 07:24:23 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DB3C610E2C0;
-	Sat, 21 Jan 2023 19:06:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1DA6710E30A;
+	Mon, 23 Jan 2023 06:24:20 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wm1-x32b.google.com (mail-wm1-x32b.google.com
- [IPv6:2a00:1450:4864:20::32b])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B9CC510E2B5
- for <freedreno@lists.freedesktop.org>; Sat, 21 Jan 2023 19:06:49 +0000 (UTC)
-Received: by mail-wm1-x32b.google.com with SMTP id
- d4-20020a05600c3ac400b003db1de2aef0so5879902wms.2
- for <freedreno@lists.freedesktop.org>; Sat, 21 Jan 2023 11:06:49 -0800 (PST)
+Received: from mail-lf1-x133.google.com (mail-lf1-x133.google.com
+ [IPv6:2a00:1450:4864:20::133])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DA04210E30A
+ for <freedreno@lists.freedesktop.org>; Mon, 23 Jan 2023 06:24:18 +0000 (UTC)
+Received: by mail-lf1-x133.google.com with SMTP id d30so16636660lfv.8
+ for <freedreno@lists.freedesktop.org>; Sun, 22 Jan 2023 22:24:18 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=8DfHo6+2cR5G36izj5IdbaMWn0yli9T2fcLAtdygnkg=;
- b=nNVAF8Ai2srOYxgHMMSLcjMfMSJIaJKtNn8mahBIbadysRz6/1IaIYPCZc9fNT76X0
- /ld71XvhCdIoYYwg5Ip5ZweklxTNm/nIpdTF1HP/RSyhfC/kVrx3pbCWZ9+SjNuejh7l
- LFJjRISn7PlBP1HQEf4Bntv1ye+dlOM1fnoF9gIzimWx2Onki6KJn8IpvVriXVb5DipA
- W1zVr6hX8itcxEypRI4OR4t8FQH13XFCM2lHhED4F7mjnhCjhSCGpWb5Smc17w8qfmou
- CAeBQVgY657JeupI7OhXooH33r25EnulJ53FhTSFA+phOz2Ds+aaPR0YKIW24AEiwcuA
- xCvg==
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=zmjULO6Lx2bWV6pkSSEDxjddNWaKTXCc+6Tq6pikP+U=;
+ b=YutDh5WeB6NfXcZ3hcWQgq2dByaVsZ7vVHG+GdUSj3u28nImaDR7qbiJyk5Uz9myWT
+ AIAAkzE3HWrAx3EgDduZmPtOQMJgRct5gkB/UX9zhCIuavgp3HidywhNEU9GLpWEl2Ea
+ FgdbO8mCFOkVx42WPWp3YREJrW8pyKtqITeTn6UdxK1mt0ZNxSDJTWUoykyY7UebDsSw
+ h2+CgCOfL5GRLoYzNl3MqeJTDfrqc8X8z5ne0a1/+9DKUoizMeggOZdmdMf2Q3AsyxQH
+ u4jzVWmdGlaq1BpbJs4WkAivQ+wOl0QCymxOEdN3dZ3CzheMHNYgOsUHLx0Wg9U+H4w3
+ ik6g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=8DfHo6+2cR5G36izj5IdbaMWn0yli9T2fcLAtdygnkg=;
- b=l3sEOywmWRAP8KxeyUkBB294x5gbxo0GoJor1Ps3tBJ4XaxhdrGdWuNgvsdcEUrbZS
- 0S9v1oaxXEJTE9StJXONXa7S4R6w8uID2SVDOkrIeMP56dUh3ROxUTUq+IW8s6rcaGYd
- 0BGhhN2dQpqRmHvs/Y9rhVzlbMni/JkbWuGxURzUl+byti7ePgx2g5saQeSOk3Fr+GKR
- iS+DzHFtSTOz1Gob+7IMWRSRpPtU7i6Z91F7kE5DRr0IO+pfG5L9Md00Y0KJnBj63OU0
- fewaANERzlhKKgCCDa0zkszWkW4H/2euDd6zsVun7xO18sNraqpngylD6th6vWMDjoH/
- Z0Dw==
-X-Gm-Message-State: AFqh2kqHSHau/DLZ0TrElz5tpy5uPG1VODX3n2TUi+oZjMelf/U0cbhk
- qQAJIChtn7CH1t7dqv99QpuUgQ==
-X-Google-Smtp-Source: AMrXdXs35m2RpMWRgaSk7+Xj1XDLefPiYN4z7MFYdzeMJV+rnK5EyVmWU+xxPWKMXb+fv0qYvz5pmw==
-X-Received: by 2002:a05:600c:5021:b0:3d9:9755:d659 with SMTP id
- n33-20020a05600c502100b003d99755d659mr18386535wmr.22.1674328008214; 
- Sat, 21 Jan 2023 11:06:48 -0800 (PST)
-Received: from [192.168.1.109] ([178.197.216.144])
- by smtp.gmail.com with ESMTPSA id
- m26-20020a7bcb9a000000b003db2dede1a2sm5858414wmi.26.2023.01.21.11.06.44
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sat, 21 Jan 2023 11:06:47 -0800 (PST)
-Message-ID: <3865e4ae-99e9-bba7-6abf-76d92e79b178@linaro.org>
-Date: Sat, 21 Jan 2023 20:06:44 +0100
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=zmjULO6Lx2bWV6pkSSEDxjddNWaKTXCc+6Tq6pikP+U=;
+ b=0MgLdYAcaCaWQtwoktfDlKGP/g+XYVaWcNWuzHAkNz/9ZSdRfMqOA02o5LpEoltSro
+ v9JsMZ9ODJrMDO8UH7EmGevEFVotGJ1xqw6Od0Vp1G8RgU7Gvnnopl/SJjh9tqrYiMJr
+ i7JIl+dxJ9WF0ZbH3+vtre3MD0ec7E8XCq5yNX5/hD1i0Z/I0wHslGWmjHbSgIefRSrR
+ xILZ6AZY2HL5GF+zcLrStj06LanpeExnGCfvNmmzEvkls4QzUyBLCch6SycnHK07yaKY
+ RS4AQx0vU/Es2dQvIKbd6cFzipJ2iQlSQoc2Gm/knPyJy8wS104D1ODGBJ1mx9+mCX5i
+ SWkQ==
+X-Gm-Message-State: AFqh2kqaBRGdkgIkH1RAU1O4nz37bmMi9j+xnSKTL4Q+ZScK32PfRvhH
+ d03+Sbk40A5eshCcWofbuNExug==
+X-Google-Smtp-Source: AMrXdXsuF1OLKO3i/Z0WsolPfPCIAUQJ/ZfsfaSUltkM+91LW8idP/MFE+s9DJZ6rvMmKcmp+StWHA==
+X-Received: by 2002:a05:6512:2305:b0:4b5:b87a:3264 with SMTP id
+ o5-20020a056512230500b004b5b87a3264mr7370328lfu.56.1674455057129; 
+ Sun, 22 Jan 2023 22:24:17 -0800 (PST)
+Received: from eriador.lan ([37.153.55.125]) by smtp.gmail.com with ESMTPSA id
+ g7-20020a056512118700b004cc885ea933sm4807775lfr.192.2023.01.22.22.24.16
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sun, 22 Jan 2023 22:24:16 -0800 (PST)
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+To: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>
+Date: Mon, 23 Jan 2023 08:24:15 +0200
+Message-Id: <20230123062415.3027743-1-dmitry.baryshkov@linaro.org>
+X-Mailer: git-send-email 2.39.0
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.7.0
-Content-Language: en-US
-To: Sean Paul <sean@poorly.run>
-References: <20230118193015.911074-1-markyacoub@google.com>
- <20230118193015.911074-10-markyacoub@google.com>
- <aee03688-54b6-ed9f-e32c-b46e31d72198@linaro.org>
- <Y8q5UfpIg0+qnAuG@art_vandelay>
-From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-In-Reply-To: <Y8q5UfpIg0+qnAuG@art_vandelay>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH v6 09/10] arm64: dts: qcom: sc7180: Add
- support for HDCP in dp-controller
+Content-Transfer-Encoding: 8bit
+Subject: [Freedreno] [PATCH v2] drm/msm/dpu: add missing ubwc_swizzle
+ setting to catalog
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,58 +69,69 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: quic_sbillaka@quicinc.com, imre.deak@intel.com,
- joonas.lahtinen@linux.intel.com, konrad.dybcio@somainline.org,
- dri-devel@lists.freedesktop.org, dianders@chromium.org,
- arun.r.murthy@intel.com, krzysztof.kozlowski+dt@linaro.org, airlied@gmail.com,
- hbh25y@gmail.com, ville.syrjala@linux.intel.com, marex@denx.de,
- ashutosh.dixit@intel.com, abhinavk@codeaurora.org, javierm@redhat.com,
- quic_khsieh@quicinc.com, stanislav.lisovskiy@intel.com, agross@kernel.org,
- quic_jesszhan@quicinc.com, ankit.k.nautiyal@intel.com,
- devicetree@vger.kernel.org, lyude@redhat.com, tzimmermann@suse.de,
- linux-arm-msm@vger.kernel.org, intel-gfx@lists.freedesktop.org,
- lucas.demarchi@intel.com, quic_abhinavk@quicinc.com,
- jani.nikula@linux.intel.com, swboyd@chromium.org, robh+dt@kernel.org,
- christophe.jaillet@wanadoo.fr, jose.souza@intel.com, rodrigo.vivi@intel.com,
- bjorn.andersson@linaro.org, matthew.d.roper@intel.com, johan+linaro@kernel.org,
- tvrtko.ursulin@linux.intel.com, Mark Yacoub <markyacoub@chromium.org>,
- andersson@kernel.org, linux-kernel@vger.kernel.org, swati2.sharma@intel.com,
- manasi.d.navare@intel.com, robdclark@gmail.com, daniel@ffwll.ch,
- bhanuprakash.modem@intel.com, dmitry.baryshkov@linaro.org,
- seanpaul@chromium.org, freedreno@lists.freedesktop.org, maxime@cerno.tech
+Cc: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
+ Bjorn Andersson <andersson@kernel.org>, dri-devel@lists.freedesktop.org,
+ Stephen Boyd <swboyd@chromium.org>, Daniel Vetter <daniel@ffwll.ch>,
+ David Airlie <airlied@gmail.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 20/01/2023 16:54, Sean Paul wrote:
-> On Thu, Jan 19, 2023 at 11:35:32AM +0100, Krzysztof Kozlowski wrote:
->> On 18/01/2023 20:30, Mark Yacoub wrote:
->>> From: Sean Paul <seanpaul@chromium.org>
->>>
->>> This patch adds the register ranges required for HDCP key injection and
->>
->> Do not use "This commit/patch".
->> https://elixir.bootlin.com/linux/v5.17.1/source/Documentation/process/submitting-patches.rst#L95
->>
->> This applies to all your patches. Fix it everywhere.
-> 
-> My goodness, this is peak bikeshedding. Surely we have better things to do with
-> our time?
+Use the values from the vendor DTs to set ubwc_swizzle in the catalog.
 
-What do you mean "better things to do"? I review the patches as that's
-expected from maintainer. I spend a lot of time on so indeed I could
-find some other ways to use it.
+Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+---
 
-I spot something which is obvious mistake, although trivial and not
-important, but clicking automated answer is also trivial for me and
-fast. And yes. 90% of my reviews answers are automated because people
-cannot learn to test before sending, cannot learn to read Submitting
-Patches and many other trivial things. Clicking this automated answer
-was also trivial from my point, but entire discussion including your
-disagreement about incorrect title (read Submitting Patches) instead of
-just implementing it - is waste of time.
+Changes since v1:
+- Added data for sc7280 and sm8550
 
-I'll then consider not wasting time on your patches.
+---
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c | 5 +++++
+ 1 file changed, 5 insertions(+)
 
-Best regards,
-Krzysztof
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
+index e45799e9fe49..b16e550fc4b6 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
+@@ -580,6 +580,7 @@ static const struct dpu_mdp_cfg sm6115_mdp[] = {
+ 	.base = 0x0, .len = 0x494,
+ 	.features = 0,
+ 	.highest_bank_bit = 0x1,
++	.ubwc_swizzle = 0x7,
+ 	.clk_ctrls[DPU_CLK_CTRL_VIG0] = {
+ 		.reg_off = 0x2ac, .bit_off = 0},
+ 	.clk_ctrls[DPU_CLK_CTRL_DMA0] = {
+@@ -593,6 +594,7 @@ static const struct dpu_mdp_cfg sm8250_mdp[] = {
+ 	.base = 0x0, .len = 0x494,
+ 	.features = 0,
+ 	.highest_bank_bit = 0x3, /* TODO: 2 for LP_DDR4 */
++	.ubwc_swizzle = 0x6,
+ 	.clk_ctrls[DPU_CLK_CTRL_VIG0] = {
+ 			.reg_off = 0x2AC, .bit_off = 0},
+ 	.clk_ctrls[DPU_CLK_CTRL_VIG1] = {
+@@ -649,6 +651,7 @@ static const struct dpu_mdp_cfg sm8450_mdp[] = {
+ 	.base = 0x0, .len = 0x494,
+ 	.features = BIT(DPU_MDP_PERIPH_0_REMOVED),
+ 	.highest_bank_bit = 0x3, /* TODO: 2 for LP_DDR4 */
++	.ubwc_swizzle = 0x6,
+ 	.clk_ctrls[DPU_CLK_CTRL_VIG0] = {
+ 			.reg_off = 0x2AC, .bit_off = 0},
+ 	.clk_ctrls[DPU_CLK_CTRL_VIG1] = {
+@@ -675,6 +678,7 @@ static const struct dpu_mdp_cfg sc7280_mdp[] = {
+ 	.name = "top_0", .id = MDP_TOP,
+ 	.base = 0x0, .len = 0x2014,
+ 	.highest_bank_bit = 0x1,
++	.ubwc_swizzle = 0x6,
+ 	.clk_ctrls[DPU_CLK_CTRL_VIG0] = {
+ 		.reg_off = 0x2AC, .bit_off = 0},
+ 	.clk_ctrls[DPU_CLK_CTRL_DMA0] = {
+@@ -711,6 +715,7 @@ static const struct dpu_mdp_cfg sm8550_mdp[] = {
+ 	.base = 0, .len = 0x494,
+ 	.features = BIT(DPU_MDP_PERIPH_0_REMOVED),
+ 	.highest_bank_bit = 0x3, /* TODO: 2 for LP_DDR4 */
++	.ubwc_swizzle = 0x6,
+ 	.clk_ctrls[DPU_CLK_CTRL_VIG0] = {
+ 			.reg_off = 0x4330, .bit_off = 0},
+ 	.clk_ctrls[DPU_CLK_CTRL_VIG1] = {
+-- 
+2.39.0
 
