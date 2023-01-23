@@ -1,61 +1,55 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id C34DD677611
-	for <lists+freedreno@lfdr.de>; Mon, 23 Jan 2023 09:08:24 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 0F0FA67786D
+	for <lists+freedreno@lfdr.de>; Mon, 23 Jan 2023 11:06:40 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 926EA10E312;
-	Mon, 23 Jan 2023 08:08:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AE81710E346;
+	Mon, 23 Jan 2023 10:06:11 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x129.google.com (mail-lf1-x129.google.com
- [IPv6:2a00:1450:4864:20::129])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0159010E1DC
- for <freedreno@lists.freedesktop.org>; Mon, 23 Jan 2023 08:08:20 +0000 (UTC)
-Received: by mail-lf1-x129.google.com with SMTP id h24so12700503lfv.6
- for <freedreno@lists.freedesktop.org>; Mon, 23 Jan 2023 00:08:20 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=c7wlYRJ20Jol236QKN6NipQuokT5Lc5cfhgSG+Al5uE=;
- b=YiIp9bSkATLGtKH5X9Qw8/wPF5/WC7QLObJT7zQkSWWYGSgBKWTCuexj4of3gEZb/4
- Xi76HAMGUOmeQVFUl71QGTlVn5iLqCRI8Fv3IyLNJ/c3S1thWAIXGusqqdbIvkqiSVE4
- P82BwXvvxpPjh6IB1fcZfl9MK/25gW4+l8kh4XE1bfV6EP0EXJqSaCL2kF6pahAMSdqd
- c0usWW0p0EJRpqMEhODnakmmLMItLvI5KFcR7a3EcLfOILZchJX/ixLUSlusDnyMwDOW
- TX6zbffuPS8GAWaBKlk40OoX1h6aUARXyG9Noi1H1jDZjnq7ypZ7PP8BvXyOQXy6vfDa
- wn1A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=c7wlYRJ20Jol236QKN6NipQuokT5Lc5cfhgSG+Al5uE=;
- b=qiBMuxb32lu//f64CszMAqo80vixttrVVYG44/tADY0em+I8PZG40U2zNcjct9sC4B
- qqTfx4IkGLCKXkdxC4oGxReaOb7BH8ERwYC/wGMS04z8TfzSNRoA0XPKMXIp+csHnhSN
- /9j9TYT0uvfCpyZYrG76nsIGGQWudNR4OfpkyEYt5rZ3d269ZTpLc/RevlrkcFbwpvfW
- mFgvy+NBpBpbWkXiT1o8JgbN97+/IGDXJpJyki++TXZz6Q46XMF1UC/9qnepmslxLvWh
- shF6/bpFKX8jBqEaXYFhbkfXGVROfxZqyriCBgDq5FAKCEYe6pUeqcck1yDo0loey4xR
- 6unw==
-X-Gm-Message-State: AFqh2kpSZZsoYe9lfWdUn0oEWUG0iKZJqr/3wmtYzYtku0FQT6vdt7l9
- MmkmwnHoeQ57fE3CbDquQPrZLw==
-X-Google-Smtp-Source: AMrXdXvmu4H2D/okEr4fBGESa3wja37aq6dQQ/DRvEdR9w9OojzN05TqJovYtHPPNMf9ZBSgX0ma0g==
-X-Received: by 2002:a05:6512:3ba8:b0:4d5:8bf9:92ef with SMTP id
- g40-20020a0565123ba800b004d58bf992efmr7694954lfv.60.1674461299296; 
- Mon, 23 Jan 2023 00:08:19 -0800 (PST)
-Received: from eriador.lan ([37.153.55.125]) by smtp.gmail.com with ESMTPSA id
- w42-20020a0565120b2a00b004cc858a2d47sm5154265lfu.41.2023.01.23.00.08.18
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 23 Jan 2023 00:08:18 -0800 (PST)
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-To: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>
-Date: Mon, 23 Jan 2023 10:08:18 +0200
-Message-Id: <20230123080818.3069266-1-dmitry.baryshkov@linaro.org>
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D936410E333
+ for <freedreno@lists.freedesktop.org>; Mon, 23 Jan 2023 10:06:05 +0000 (UTC)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 08ED334211;
+ Mon, 23 Jan 2023 10:06:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1674468363; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=zvbfFxmPA6MckGsa12w4Fd8iWOMpJ3cRPXUsw4iIFlE=;
+ b=hnx13NtxzNm1St8ipbiG73i6D7suAB2xOt8zRS7nVB69ksjHiMHL25Q0pxRnnbNqOza/V1
+ oXY/KmiKYhbwQHSeDvZ+uJ5z/ZCBPW1SXEFs64XCNW1mxEnRWgSwAMDQ6uAAWyotEizlA0
+ hyAeowqfZwQqI4LT+znkkDhO8Z6+fl0=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1674468363;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=zvbfFxmPA6MckGsa12w4Fd8iWOMpJ3cRPXUsw4iIFlE=;
+ b=zzKj3UI4WR5ICeAArZmfACKc11DAuP7TD0zJfbZGYG5byVInNlwnlYmH/cP98v1w34uLiQ
+ 3n6CZISuR2ebLNCg==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id B9860134F5;
+ Mon, 23 Jan 2023 10:06:02 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id o3VQLApczmO+DwAAMHmgww
+ (envelope-from <tzimmermann@suse.de>); Mon, 23 Jan 2023 10:06:02 +0000
+From: Thomas Zimmermann <tzimmermann@suse.de>
+To: airlied@gmail.com, daniel@ffwll.ch, maarten.lankhorst@linux.intel.com,
+ mripard@kernel.org, javierm@redhat.com
+Date: Mon, 23 Jan 2023 11:05:49 +0100
+Message-Id: <20230123100559.12351-1-tzimmermann@suse.de>
 X-Mailer: git-send-email 2.39.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH] drm/msm/dpu: fix sm8450 CTL configuration
+Subject: [Freedreno] [PATCH 00/10] drm/fb-helper: Various cleanups
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,63 +62,55 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
- Bjorn Andersson <andersson@kernel.org>, dri-devel@lists.freedesktop.org,
- Stephen Boyd <swboyd@chromium.org>, Daniel Vetter <daniel@ffwll.ch>,
- David Airlie <airlied@gmail.com>
+Cc: linux-samsung-soc@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, Thomas Zimmermann <tzimmermann@suse.de>,
+ linux-tegra@vger.kernel.org, freedreno@lists.freedesktop.org,
+ linux-arm-kernel@lists.infradead.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Correct the CTL size on sm8450 platform. This fixes the incorrect merge
-of sm8350 support, which unfortunately also touched the SM8450 setup.
+Add various cleanups and changes to DRM's fbdev helpers and the
+generic fbdev emulation. There's no clear theme here, just lots
+of small things that need to be updated.
+ 
+In the end, the code will better reflect which parts are in the 
+DRM client, which is fbdev emulation, and which are shared fbdev
+helpers.
 
-Fixes: 0e91bcbb0016 ("drm/msm/dpu: Add SM8350 to hw catalog")
-Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
----
- drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c | 10 +++++-----
- 1 file changed, 5 insertions(+), 5 deletions(-)
+Thomas Zimmermann (10):
+  drm/client: Test for connectors before sending hotplug event
+  drm/client: Add hotplug_failed flag
+  drm/fb-helper: Introduce drm_fb_helper_unprepare()
+  drm/fbdev-generic: Initialize fb-helper structure in generic setup
+  drm/fb-helper: Remove preferred_bpp parameter from fbdev internals
+  drm/fb-helper: Initialize fb-helper's preferred BPP in prepare
+    function
+  drm/fbdev-generic: Minimize hotplug error handling
+  drm/fbdev-generic: Minimize client unregistering
+  drm/fbdev-generic: Inline clean-up helpers into drm_fbdev_fb_destroy()
+  drm/fbdev-generic: Rename struct fb_info 'fbi' to 'info'
 
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
-index 63a0fa3b0a17..9060dce51e2e 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
-@@ -1017,31 +1017,31 @@ static const struct dpu_ctl_cfg sm8450_ctl[] = {
- 	},
- 	{
- 	.name = "ctl_1", .id = CTL_1,
--	.base = 0x16000, .len = 0x1e8,
-+	.base = 0x16000, .len = 0x204,
- 	.features = BIT(DPU_CTL_SPLIT_DISPLAY) | CTL_SC7280_MASK,
- 	.intr_start = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR2, 10),
- 	},
- 	{
- 	.name = "ctl_2", .id = CTL_2,
--	.base = 0x17000, .len = 0x1e8,
-+	.base = 0x17000, .len = 0x204,
- 	.features = CTL_SC7280_MASK,
- 	.intr_start = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR2, 11),
- 	},
- 	{
- 	.name = "ctl_3", .id = CTL_3,
--	.base = 0x18000, .len = 0x1e8,
-+	.base = 0x18000, .len = 0x204,
- 	.features = CTL_SC7280_MASK,
- 	.intr_start = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR2, 12),
- 	},
- 	{
- 	.name = "ctl_4", .id = CTL_4,
--	.base = 0x19000, .len = 0x1e8,
-+	.base = 0x19000, .len = 0x204,
- 	.features = CTL_SC7280_MASK,
- 	.intr_start = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR2, 13),
- 	},
- 	{
- 	.name = "ctl_5", .id = CTL_5,
--	.base = 0x1a000, .len = 0x1e8,
-+	.base = 0x1a000, .len = 0x204,
- 	.features = CTL_SC7280_MASK,
- 	.intr_start = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR2, 23),
- 	},
+ drivers/gpu/drm/armada/armada_fbdev.c      |   4 +-
+ drivers/gpu/drm/drm_client.c               |  10 ++
+ drivers/gpu/drm/drm_fb_helper.c            |  58 ++++++---
+ drivers/gpu/drm/drm_fbdev_generic.c        | 129 ++++++++-------------
+ drivers/gpu/drm/exynos/exynos_drm_fbdev.c  |   4 +-
+ drivers/gpu/drm/gma500/framebuffer.c       |   4 +-
+ drivers/gpu/drm/i915/display/intel_fbdev.c |  11 +-
+ drivers/gpu/drm/msm/msm_fbdev.c            |   4 +-
+ drivers/gpu/drm/omapdrm/omap_fbdev.c       |   4 +-
+ drivers/gpu/drm/radeon/radeon_fb.c         |   4 +-
+ drivers/gpu/drm/tegra/fb.c                 |   7 +-
+ include/drm/drm_client.h                   |   8 ++
+ include/drm/drm_fb_helper.h                |   7 +-
+ 13 files changed, 133 insertions(+), 121 deletions(-)
+
+
+base-commit: 7d3e7f64a42d66ba8da6e7b66a8d85457ef84570
+prerequisite-patch-id: 0aa359f6144c4015c140c8a6750be19099c676fb
+prerequisite-patch-id: c67e5d886a47b7d0266d81100837557fda34cb24
+prerequisite-patch-id: 3f204510fcbf9530d6540bd8e6128cce598988b6
 -- 
 2.39.0
 
