@@ -1,57 +1,51 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 16C5567800C
-	for <lists+freedreno@lfdr.de>; Mon, 23 Jan 2023 16:38:45 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 707366780B5
+	for <lists+freedreno@lfdr.de>; Mon, 23 Jan 2023 17:01:52 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 80EEB10E4D7;
-	Mon, 23 Jan 2023 15:38:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3C40B10E4E4;
+	Mon, 23 Jan 2023 16:01:51 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-io1-xd34.google.com (mail-io1-xd34.google.com
- [IPv6:2607:f8b0:4864:20::d34])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6DDDC10E4D1
- for <freedreno@lists.freedesktop.org>; Mon, 23 Jan 2023 15:38:41 +0000 (UTC)
-Received: by mail-io1-xd34.google.com with SMTP id q130so5743067iod.4
- for <freedreno@lists.freedesktop.org>; Mon, 23 Jan 2023 07:38:41 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=GTMdUYoB31JTLCUSgm3VtLqQhozltwVtxsd9chRjQsA=;
- b=Q3dQNfOIsBKbEssAr8S/0j2BHEXhzLeK6qqTwjbGFlMNtkbm96lJaHLBbeZdqOLHIN
- jqv9DLB/SnYamc6sLj/eI0xT3q+9bPStpYW/Xa0XZzY6uaYxxy8c+5ohJwrCBHoi8K2/
- mNe/DClGW0oO4B+xbmmD3rwMhPieMBk9avVZw=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=GTMdUYoB31JTLCUSgm3VtLqQhozltwVtxsd9chRjQsA=;
- b=jnVi1IvBUzjbiN7Its49fRPwo6spscTd7j46de9x+XPauiAUTiraxx9QKnfhoegVMI
- J9ArZhloG2mcLj1r09W5o74hH6LZhq2ZL7eiD/9ExE+FI/J0HdBJm1craGCWCI8r9kGb
- WnDwt1vaEU72AUxLtTmTacfPhDgiX/54XPZFFASVlr1RQJo8QI2BAwSCYRst/rcl6EjP
- iixVL64ZkoAmsLtSWmNubLnlMwkz+KbRkxRxKgatKHgvsKsXaYCwZpFuciRtaTwpKp6V
- xjzESTnRxX8R33qAhypHxHIweyYqJD2GkIc08rGFvCCfhqgsHfhxeEGrA6RcD7DmjdP8
- 9edg==
-X-Gm-Message-State: AFqh2kq5ubfOg8vYayf0ykXZw5nBeGBm/8s0vnb8QX6EVw0r3PQ2fNDg
- yB+uMzmJjYa4x3k9oe9LpSXiVMm21d6nU/ZGVzBUHw==
-X-Google-Smtp-Source: AMrXdXuXxev/GY8Oy07lOGET6d1ZUhWZ1e8eg082MJK3Aqa3PS4fKCI4WfECJhpMfT04OzR0UvCeatClLncLpOlbbd0=
-X-Received: by 2002:a05:6602:1782:b0:6e3:134:3a97 with SMTP id
- y2-20020a056602178200b006e301343a97mr1998187iox.64.1674488320775; Mon, 23 Jan
- 2023 07:38:40 -0800 (PST)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1CFA510E15B;
+ Mon, 23 Jan 2023 16:01:49 +0000 (UTC)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 5853A60F88;
+ Mon, 23 Jan 2023 16:01:48 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B4F27C433EF;
+ Mon, 23 Jan 2023 16:01:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1674489707;
+ bh=+TQ+/1RQ4Y+mpEsDlWjx3tP6VFQIaELp3GBETePs24s=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=kN78ypcoGzW8NrLrsf3leHzLNORyzrx10GSNboEPf2hz11nMLPUaM6sQhOiDQRHEQ
+ KGNOKHP0wzzJltm2G9ioPjw0Tnj3rkiJ/syTItxQKV8PgAbX3f9ajE5Li6X4mZn4E9
+ LoLurSkgJ0gXxWFUc/xxD5YrS2yNQHyLrRgXwmbsgKkb33BgNWQr8oTq7GhMYlaQFK
+ eBLzusUXb04ucjG0cm2Kapa7KJrlZMoVPodxh+mFGMbfrleu6iuKtvI8ofMrBgCfJq
+ /k6ATkf3fVP9pVyQC0FDV5INYI3lYutLxuyjKqgZzhEoaJjRbIhRVBtxLLvtWK4d4J
+ b5boFnXMX9YZQ==
+Received: from johan by xi.lan with local (Exim 4.94.2)
+ (envelope-from <johan@kernel.org>)
+ id 1pJzGT-00016g-7n; Mon, 23 Jan 2023 17:01:45 +0100
+Date: Mon, 23 Jan 2023 17:01:45 +0100
+From: Johan Hovold <johan@kernel.org>
+To: Bjorn Andersson <andersson@kernel.org>
+Message-ID: <Y86vaTQR7INWezyj@hovoldconsulting.com>
+References: <20230113041051.4189063-1-quic_bjorande@quicinc.com>
+ <eea1c5dc-6bc5-4246-f0e1-0c790de9f078@linaro.org>
+ <9a64c685-9ff0-bc1d-e604-e3773ff9edd7@linaro.org>
+ <20230117025122.jt3wrjkqfnogu4ci@builder.lan>
+ <Y8ZWl85gSpOaLgO4@hovoldconsulting.com>
 MIME-Version: 1.0
-References: <20230110231447.1939101-1-robdclark@gmail.com>
- <20230110231447.1939101-2-robdclark@gmail.com>
- <2d5f0bc3-620a-1fd8-061f-92f16efd3c5e@kernel.org>
-In-Reply-To: <2d5f0bc3-620a-1fd8-061f-92f16efd3c5e@kernel.org>
-From: Rob Clark <robdclark@chromium.org>
-Date: Mon, 23 Jan 2023 07:38:38 -0800
-Message-ID: <CAJs_Fx5Wjnxw3rOtu6ye493SO-K+b3WLECYGBSCDUsyQhTjdiA@mail.gmail.com>
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [PATCH v2 1/3] drm/msm/gpu: Add devfreq tuning
- debugfs
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <Y8ZWl85gSpOaLgO4@hovoldconsulting.com>
+Subject: Re: [Freedreno] [PATCH] drm/msm: Initialize mode_config earlier
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,40 +58,132 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sean Paul <sean@poorly.run>, Akhil P Oommen <quic_akhilpo@quicinc.com>,
- linux-arm-msm@vger.kernel.org, Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konrad.dybcio@somainline.org>,
+Cc: freedreno@lists.freedesktop.org,
+ Bjorn Andersson <quic_bjorande@quicinc.com>, David Airlie <airlied@gmail.com>,
  Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
- Douglas Anderson <dianders@chromium.org>, Rob Clark <robdclark@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- David Airlie <airlied@gmail.com>, freedreno@lists.freedesktop.org,
- Chia-I Wu <olvaffe@gmail.com>, open list <linux-kernel@vger.kernel.org>
+ linux-kernel@vger.kernel.org, Rob Clark <robdclark@gmail.com>,
+ Daniel Vetter <daniel@ffwll.ch>, linux-arm-msm@vger.kernel.org,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Mon, Jan 23, 2023 at 4:38 AM Krzysztof Kozlowski <krzk@kernel.org> wrote:
->
-> On 11/01/2023 00:14, Rob Clark wrote:
-> > From: Rob Clark <robdclark@chromium.org>
-> >
-> > Make the handful of tuning knobs available visible via debugfs.
-> >
-> > v2: select DEVFREQ_GOV_SIMPLE_ONDEMAND because for some reason
-> >     struct devfreq_simple_ondemand_data depends on this
-> >
-> > Signed-off-by: Rob Clark <robdclark@chromium.org>
-> > ---
->
-> For some reason this was merged even though earlier kbuild reported
-> build failure. This breaks linux next and qcom defconfig. Please drop
-> the patch from the linux next.
->
-> See earlier build issues reported:
-> https://lore.kernel.org/all/202301130108.fslQjvJ8-lkp@intel.com/
->
+On Tue, Jan 17, 2023 at 09:04:39AM +0100, Johan Hovold wrote:
+> On Mon, Jan 16, 2023 at 08:51:22PM -0600, Bjorn Andersson wrote:
+> > On Fri, Jan 13, 2023 at 10:57:18AM +0200, Dmitry Baryshkov wrote:
+> > > On 13/01/2023 06:23, Dmitry Baryshkov wrote:
+> > > > On 13/01/2023 06:10, Bjorn Andersson wrote:
+> > > > > Invoking drm_bridge_hpd_notify() on a drm_bridge with a HPD-enabled
+> > > > > bridge_connector ends up in drm_bridge_connector_hpd_cb() calling
+> > > > > drm_kms_helper_hotplug_event(), which assumes that the associated
+> > > > > drm_device's mode_config.funcs is a valid pointer.
+> > > > > 
+> > > > > But in the MSM DisplayPort driver the HPD enablement happens at bind
+> > > > > time and mode_config.funcs is initialized late in msm_drm_init(). This
+> > > > > means that there's a window for hot plug events to dereference a NULL
+> > > > > mode_config.funcs.
+> > > > > 
+> > > > > Move the assignment of mode_config.funcs before the bind, to avoid this
+> > > > > scenario.
+> > > > 
+> > > > Cam we make DP driver not to report HPD events until the enable_hpd()
+> > > > was called? I think this is what was fixed by your internal_hpd
+> > > > patchset.
+> > > 
+> > > Or to express this in another words: I thought that internal_hpd already
+> > > deferred enabling hpd event reporting till the time when we need it, didn't
+> > > it?
+> > > 
+> > 
+> > I added a WARN_ON(1) in drm_bridge_hpd_enable() to get a sense of when
+> > this window of "opportunity" opens up, and here's the callstack:
+> > 
+> > ------------[ cut here ]------------
+> > WARNING: CPU: 6 PID: 99 at drivers/gpu/drm/drm_bridge.c:1260 drm_bridge_hpd_enable+0x48/0x94 [drm]
+> > ...
+> > Call trace:
+> >  drm_bridge_hpd_enable+0x48/0x94 [drm]
+> >  drm_bridge_connector_enable_hpd+0x30/0x3c [drm_kms_helper]
+> >  drm_kms_helper_poll_enable+0xa4/0x114 [drm_kms_helper]
+> >  drm_kms_helper_poll_init+0x6c/0x7c [drm_kms_helper]
+> >  msm_drm_bind+0x370/0x628 [msm]
+> >  try_to_bring_up_aggregate_device+0x170/0x1bc
+> >  __component_add+0xb0/0x168
+> >  component_add+0x20/0x2c
+> >  dp_display_probe+0x40c/0x468 [msm]
+> >  platform_probe+0xb4/0xdc
+> >  really_probe+0x13c/0x300
+> >  __driver_probe_device+0xc0/0xec
+> >  driver_probe_device+0x48/0x204
+> >  __device_attach_driver+0x124/0x14c
+> >  bus_for_each_drv+0x90/0xdc
+> >  __device_attach+0xdc/0x1a8
+> >  device_initial_probe+0x20/0x2c
+> >  bus_probe_device+0x40/0xa4
+> >  deferred_probe_work_func+0x94/0xd0
+> >  process_one_work+0x1a8/0x3c0
+> >  worker_thread+0x254/0x47c
+> >  kthread+0xf8/0x1b8
+> >  ret_from_fork+0x10/0x20
+> > ---[ end trace 0000000000000000 ]---
+> > 
+> > As drm_kms_helper_poll_init() is the last thing being called in
+> > msm_drm_init() shifting around the mode_config.func assignment would not
+> > have any impact.
+> > 
+> > Perhaps we have shuffled other things around to avoid this bug?  Either
+> > way, let's this on hold  until further proof that it's still
+> > reproducible.
+> 
+> As I've mentioned off list, I haven't hit the apparent race I reported
+> here:
+> 
+> 	https://lore.kernel.org/all/Y1efJh11B5UQZ0Tz@hovoldconsulting.com/
+> 
+> since moving to 6.2. I did hit it with both 6.0 and 6.1-rc2, but it
+> could very well be that something has changes that fixes (or hides) the
+> issue since.
 
-This will fix it:  https://patchwork.freedesktop.org/series/113232/
+For unrelated reasons, I tried enabling async probing, and apart from
+apparently causing the panel driver to probe defer indefinitely, I also
+again hit the WARN_ON() I had added to catch this:
 
-BR,
--R
+[   13.593235] WARNING: CPU: 0 PID: 125 at drivers/gpu/drm/drm_probe_helper.c:664 drm_kms_helper_hotplug_event+0x48/0x7
+0 [drm_kms_helper]
+...
+[   13.679429] CPU: 0 PID: 125 Comm: kworker/0:3 Not tainted 6.2.0-rc4 #110
+[   13.687159] Hardware name: Qualcomm QRD, BIOS 6.0.220110.BOOT.MXF.1.1-00470-MAKENA-1 01/10/2022
+[   13.696947] Workqueue: events pmic_glink_altmode_worker [pmic_glink_altmode]
+[   13.705044] pstate: 60400005 (nZCv daif +PAN -UAO -TCO -DIT -SSBS BTYPE=--)
+[   13.713054] pc : drm_kms_helper_hotplug_event+0x48/0x70 [drm_kms_helper]
+[   13.720812] lr : drm_kms_helper_hotplug_event+0x18/0x70 [drm_kms_helper]
+[   13.728557] sp : ffff800009e33c90
+[   13.732779] x29: ffff800009e33c90 x28: ffffad90862eb000 x27: ffff62d2362ee305
+[   13.740956] x26: ffffad90862f1ea0 x25: ffffad9086309b50 x24: 0000000000000000
+[   13.749125] x23: 0000000000000003 x22: ffff62d0c5dad000 x21: 0000000000000002
+[   13.757291] x20: ffff62d0c6d24000 x19: ffff62d0c5dad000 x18: 0000000000000038
+[   13.765443] x17: 0000000000000004 x16: 000000000000d323 x15: 0000000000000004
+[   13.773585] x14: ffffad9086594208 x13: ffffad90865f50e8 x12: 0000000000000000
+[   13.781723] x11: 00000000000400d7 x10: 0000000000000008 x9 : 0000000000000002
+[   13.789867] x8 : 0000000000000000 x7 : 0000000000000000 x6 : 0000000000097d00
+[   13.798013] x5 : ffff62d0c3395000 x4 : ffff62d2362ed750 x3 : 0000000000097e00
+[   13.806161] x2 : 0000000000000000 x1 : 0000000000000000 x0 : 0000000000000000
+[   13.814304] Call trace:
+[   13.817604]  drm_kms_helper_hotplug_event+0x48/0x70 [drm_kms_helper]
+[   13.824959]  drm_bridge_connector_hpd_cb+0xa0/0xc0 [drm_kms_helper]
+[   13.832227]  drm_bridge_hpd_notify+0x40/0x60 [drm]
+[   13.837993]  pmic_glink_altmode_worker+0xc0/0x150 [pmic_glink_altmode]
+[   13.845505]  process_one_work+0x288/0x6c0
+[   13.850404]  worker_thread+0x74/0x450
+[   13.854948]  kthread+0x118/0x120
+[   13.859032]  ret_from_fork+0x10/0x20
+[   13.863473] irq event stamp: 7440
+[   13.867631] hardirqs last  enabled at (7439): [<ffffad9085b00450>] _raw_spin_unlock_irqrestore+0x80/0x90
+[   13.878157] hardirqs last disabled at (7440): [<ffffad9085af33e4>] el1_dbg+0x24/0x90
+[   13.886885] softirqs last  enabled at (7308): [<ffffad908514046c>] _stext+0x46c/0x5d8
+[   13.895697] softirqs last disabled at (7303): [<ffffad90851467b0>] ____do_softirq+0x10/0x20
+[   13.905038] ---[ end trace 0000000000000000 ]---
+
+So the bug still appears to be there (and the MSM DRM driver is fragile
+and broken, but we knew that).
+
+Johan
