@@ -1,51 +1,75 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 43BC4679C8D
-	for <lists+freedreno@lfdr.de>; Tue, 24 Jan 2023 15:52:00 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 3DE29679CEB
+	for <lists+freedreno@lfdr.de>; Tue, 24 Jan 2023 16:07:03 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0F0D110E692;
-	Tue, 24 Jan 2023 14:51:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1343C10E69B;
+	Tue, 24 Jan 2023 15:07:01 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mga06.intel.com (mga06b.intel.com [134.134.136.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8D6C4897FD;
- Tue, 24 Jan 2023 14:51:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1674571916; x=1706107916;
- h=from:to:cc:subject:in-reply-to:references:date:
- message-id:mime-version;
- bh=RA+DKNp+d4oq6n7db0SeDuyhdEEeXCsrsOwjUflRiNM=;
- b=ZPPJG6CJudb4CkPxqndXhi0DFBgAzUUR8EFkl6+VJSzIeOfNAuR0rLlg
- jWkLGWzK50QRyT+xgDGz0LocZPG8H8o7ecJ6JYvcXib6AeSX7gVAJDhOr
- e3kmoM3la/Vb3BrQROW2H9SV2MwhnE5PrZDh/tLPJKHA5fV/RhzOcI6qr
- ofEOIbNVKCJ1/aFJJ9ZDu9Yi74u6arp7ET/ys1Q4X6KA8eHTWnjSHNCsQ
- yYACx0bEv+WvJuuvUz77mmmzps4zRJgWrGdhW4Cb+XHXecNWg/Z2ZdB5e
- oWqmb+Zg2eysB83T3c2gKqAcIiQWFHRg+VZn7sG4a2TND4hfiSn8m8/7X A==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10599"; a="388653252"
-X-IronPort-AV: E=Sophos;i="5.97,242,1669104000"; d="scan'208";a="388653252"
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
- by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 Jan 2023 06:51:55 -0800
-X-IronPort-AV: E=McAfee;i="6500,9779,10599"; a="770338025"
-X-IronPort-AV: E=Sophos;i="5.97,242,1669104000"; d="scan'208";a="770338025"
-Received: from pesir-mobl.ger.corp.intel.com (HELO localhost) ([10.252.57.197])
- by fmsmga002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 Jan 2023 06:51:47 -0800
-From: Jani Nikula <jani.nikula@intel.com>
-To: kernel test robot <lkp@intel.com>, dri-devel@lists.freedesktop.org
-In-Reply-To: <202301242049.eKzx7RzZ-lkp@intel.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-References: <20230124094154.2282778-3-jani.nikula@intel.com>
- <202301242049.eKzx7RzZ-lkp@intel.com>
-Date: Tue, 24 Jan 2023 16:51:45 +0200
-Message-ID: <87h6wg6l4u.fsf@intel.com>
+Received: from mail-wm1-x333.google.com (mail-wm1-x333.google.com
+ [IPv6:2a00:1450:4864:20::333])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 388B410E69B
+ for <freedreno@lists.freedesktop.org>; Tue, 24 Jan 2023 15:06:58 +0000 (UTC)
+Received: by mail-wm1-x333.google.com with SMTP id j17so11703250wms.0
+ for <freedreno@lists.freedesktop.org>; Tue, 24 Jan 2023 07:06:58 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=content-transfer-encoding:in-reply-to:organization:from:references
+ :cc:to:content-language:subject:reply-to:user-agent:mime-version
+ :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+ bh=7/EYg58ZEi6wo6vHWDJ74Nuw88AJuXUzyRDyPwYpunA=;
+ b=wawGcYyIMtorBdGqsxAaApCCiA/YhFEoe7Sge0UQdtlURJIcyG5JaTKYEOkG7Eulwc
+ JqqlAh77+vcOZSYbqXLJfLNA0rWXmetjECJ2Z832t8fztANv7g5TW+5rcYaVEPi958r0
+ cO7UYauV/JuesHawrR6ampiSpBfIP4oVUyMCg157BXuQGE1oJuw86qqcoNrPj9aySq3p
+ ezLavg2y32H4+dDLbVj5u2wqRKwE8KapQWWblaApOKG7lHoAfyN73Tq+s0gEUFjzbk6E
+ yR+7IihwWweUOJ30SQOAP8cQH0lqwqOGk7YvuaiRgQK9Hzf2BBfLGHHne+aH/P7krBhx
+ 7TtA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=content-transfer-encoding:in-reply-to:organization:from:references
+ :cc:to:content-language:subject:reply-to:user-agent:mime-version
+ :date:message-id:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=7/EYg58ZEi6wo6vHWDJ74Nuw88AJuXUzyRDyPwYpunA=;
+ b=5woBp7FyN14Mon2mJ1diCIF/1SwNEOsa0G8ZAkzsHIzagozqSl0WmFrwTsoyVVvBiF
+ MRhwV6egQpkKyBusbHgbS+pDfhkd1S5KBhMqjFUWldWScLBfXZRB12xTjyznyE1ssS3S
+ S9RB/sxVhydStR0Zh5qp1j88RJOI9K5m6wILjkYzpA7tgmmhLXH/zCDZo3GE1CxSeG/3
+ 0SKNXHNuu3SutF37MfrpMJUywav5jd/9yo99jCMsCdf8LWfJGniB142g7xuHag8ZO98m
+ +8dXvcvPagyZzuKm3E5HAEEKULSIOk/9SlE3fy4VaRVjQ22LCpQIB0AQ1NZRNKRNuamz
+ +ySA==
+X-Gm-Message-State: AFqh2kow9qt3EPxWXodtuA/8//VQfC9aC3X3jYp+GOHnl8H2LAPGZSrU
+ 0N8XLbt1a+iuIv0uyp2Q6uZo/g==
+X-Google-Smtp-Source: AMrXdXvRnlFvQMkb7ZfpLZqBPgyj05m/eyNF8ULcjvlyjPNyNjXfbc5l1/dHhIZA9aTOOWwVKApo6w==
+X-Received: by 2002:a7b:ce15:0:b0:3da:2932:b61a with SMTP id
+ m21-20020a7bce15000000b003da2932b61amr28118110wmc.18.1674572816066; 
+ Tue, 24 Jan 2023 07:06:56 -0800 (PST)
+Received: from ?IPV6:2a01:e0a:982:cbb0:ebd2:15b:f444:7985?
+ ([2a01:e0a:982:cbb0:ebd2:15b:f444:7985])
+ by smtp.gmail.com with ESMTPSA id
+ c40-20020a05600c4a2800b003db16770bc5sm13138509wmp.6.2023.01.24.07.06.54
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 24 Jan 2023 07:06:55 -0800 (PST)
+Message-ID: <986b49bd-6e97-107c-b3de-a04077e12ac4@linaro.org>
+Date: Tue, 24 Jan 2023 16:06:54 +0100
 MIME-Version: 1.0
-Content-Type: text/plain
-Subject: Re: [Freedreno] [Intel-gfx] [PATCH 3/3] drm/connector: move ELD and
- video/audio latencies to display info
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.6.0
+Content-Language: en-US
+To: Kuogee Hsieh <quic_khsieh@quicinc.com>, dri-devel@lists.freedesktop.org,
+ robdclark@gmail.com, sean@poorly.run, swboyd@chromium.org,
+ dianders@chromium.org, vkoul@kernel.org, daniel@ffwll.ch, airlied@gmail.com,
+ agross@kernel.org, dmitry.baryshkov@linaro.org, andersson@kernel.org
+References: <1674498274-6010-1-git-send-email-quic_khsieh@quicinc.com>
+ <1674498274-6010-10-git-send-email-quic_khsieh@quicinc.com>
+From: Neil Armstrong <neil.armstrong@linaro.org>
+Organization: Linaro Developer Services
+In-Reply-To: <1674498274-6010-10-git-send-email-quic_khsieh@quicinc.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Subject: Re: [Freedreno] [PATCH v1 09/14] drm/msm/dsi: export struct
+ msm_compression_info to dpu encoder
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,102 +82,235 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Pan@freedesktop.org, Emma Anholt <emma@anholt.net>,
- amd-gfx@lists.freedesktop.org, Andrzej Hajda <andrzej.hajda@intel.com>,
- Jernej Skrabec <jernej.skrabec@gmail.com>,
- Alain Volmat <alain.volmat@foss.st.com>,
- Chun-Kuang Hu <chunkuang.hu@kernel.org>, Jonas Karlman <jonas@kwiboo.se>,
- linux-arm-msm@vger.kernel.org, intel-gfx@lists.freedesktop.org,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, Maxime Ripard <mripard@kernel.org>,
- Inki Dae <inki.dae@samsung.com>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- linux-mediatek@lists.infradead.org, oe-kbuild-all@lists.linux.dev,
- Neil Armstrong <neil.armstrong@linaro.org>, Xinhui <Xinhui.Pan@amd.com>,
- Seung-Woo Kim <sw0312.kim@samsung.com>, Robert Foss <robert.foss@linaro.org>,
- Kyungmin Park <kyungmin.park@samsung.com>,
- Philipp Zabel <p.zabel@pengutronix.de>,
- Alex Deucher <alexander.deucher@amd.com>, freedreno@lists.freedesktop.org,
- Christian =?utf-8?Q?K=C3=B6nig?= <christian.koenig@amd.com>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>
+Reply-To: neil.armstrong@linaro.org
+Cc: linux-arm-msm@vger.kernel.org, quic_sbillaka@quicinc.com,
+ freedreno@lists.freedesktop.org, quic_abhinavk@quicinc.com,
+ linux-kernel@vger.kernel.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
+On 23/01/2023 19:24, Kuogee Hsieh wrote:
+> struct msm_compression_info is used to support several different
+> compression mechanisms. It also contains customized info required
+> to configure DSC encoder engine. This patch also make changes DSI
+> module to have DSI exports struct msm_compreion_info to dpu encoder
+> instead of struct drm_dsc_config.
+> 
+> Signed-off-by: Kuogee Hsieh <quic_khsieh@quicinc.com>
+> ---
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c |  7 +++++--
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.h |  4 ++--
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c     | 10 ++++++++--
+>   drivers/gpu/drm/msm/dsi/dsi.c               |  3 ++-
+>   drivers/gpu/drm/msm/dsi/dsi.h               |  3 ++-
+>   drivers/gpu/drm/msm/dsi/dsi_host.c          | 14 ++++++++++++--
+>   drivers/gpu/drm/msm/msm_drv.h               |  4 ++--
+>   7 files changed, 33 insertions(+), 12 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+> index 758261e..7f4a439 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+> @@ -2,7 +2,7 @@
+>   /*
+>    * Copyright (C) 2013 Red Hat
+>    * Copyright (c) 2014-2018, 2020-2021 The Linux Foundation. All rights reserved.
+> - * Copyright (c) 2022 Qualcomm Innovation Center, Inc. All rights reserved.
+> + * Copyright (c) 2022-2023, Qualcomm Innovation Center, Inc. All rights reserved.
+>    *
+>    * Author: Rob Clark <robdclark@gmail.com>
+>    */
+> @@ -210,6 +210,7 @@ struct dpu_encoder_virt {
+>   
+>   	/* DSC configuration */
+>   	struct drm_dsc_config *dsc;
+> +	struct msm_compression_info *comp_info;
+>   };
+>   
+>   #define to_dpu_encoder_virt(x) container_of(x, struct dpu_encoder_virt, base)
+> @@ -2275,7 +2276,9 @@ static int dpu_encoder_setup_display(struct dpu_encoder_virt *dpu_enc,
+>   		dpu_enc->idle_pc_supported =
+>   				dpu_kms->catalog->caps->has_idle_pc;
+>   
+> -	dpu_enc->dsc = disp_info->dsc;
+> +	dpu_enc->comp_info = disp_info->comp_info;
+> +	if (dpu_enc->comp_info)
+> +		dpu_enc->dsc = &dpu_enc->comp_info->msm_dsc_info.drm_dsc;
+>   
+>   	mutex_lock(&dpu_enc->enc_lock);
+>   	for (i = 0; i < disp_info->num_of_h_tiles && !ret; i++) {
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.h
+> index 9e7236e..bd2da5e 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.h
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.h
+> @@ -1,6 +1,6 @@
+>   /* SPDX-License-Identifier: GPL-2.0-only */
+>   /*
+> - * Copyright (c) 2022 Qualcomm Innovation Center, Inc. All rights reserved.
+> + * Copyright (c) 2022-2023, Qualcomm Innovation Center, Inc. All rights reserved.
+>    * Copyright (c) 2015-2018, The Linux Foundation. All rights reserved.
+>    * Copyright (C) 2013 Red Hat
+>    * Author: Rob Clark <robdclark@gmail.com>
+> @@ -36,7 +36,7 @@ struct msm_display_info {
+>   	uint32_t h_tile_instance[MAX_H_TILES_PER_DISPLAY];
+>   	bool is_cmd_mode;
+>   	bool is_te_using_watchdog_timer;
+> -	struct drm_dsc_config *dsc;
+> +	struct msm_compression_info *comp_info;
+>   };
+>   
+>   /**
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
+> index d612419..70a74ed 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
+> @@ -2,7 +2,7 @@
+>   /*
+>    * Copyright (C) 2013 Red Hat
+>    * Copyright (c) 2014-2018, The Linux Foundation. All rights reserved.
+> - * Copyright (c) 2022 Qualcomm Innovation Center, Inc. All rights reserved.
+> + * Copyright (c) 2022-2023, Qualcomm Innovation Center, Inc. All rights reserved.
+>    *
+>    * Author: Rob Clark <robdclark@gmail.com>
+>    */
+> @@ -570,7 +570,7 @@ static int _dpu_kms_initialize_dsi(struct drm_device *dev,
+>   		info.h_tile_instance[info.num_of_h_tiles++] = i;
+>   		info.is_cmd_mode = msm_dsi_is_cmd_mode(priv->dsi[i]);
+>   
+> -		info.dsc = msm_dsi_get_dsc_config(priv->dsi[i]);
+> +		info.comp_info = msm_dsi_get_dsc_config(priv->dsi[i]);
 
-Obviously, I need to still work on this. *looks for brown paper bag*
+This breaks DSC on DSI since before we had a pointer of the DSC struct that would be filled
+by the DSI driver later in pre_enable(), and now we have a copy of it before it is filled.
 
-On Tue, 24 Jan 2023, kernel test robot <lkp@intel.com> wrote:
-> Hi Jani,
->
-> I love your patch! Yet something to improve:
->
-> [auto build test ERROR on drm-tip/drm-tip]
->
-> url:    https://github.com/intel-lab-lkp/linux/commits/Jani-Nikula/drm-connector-move-HDR-sink-metadata-to-display-info/20230124-174322
-> base:   git://anongit.freedesktop.org/drm/drm-tip drm-tip
-> patch link:    https://lore.kernel.org/r/20230124094154.2282778-3-jani.nikula%40intel.com
-> patch subject: [Intel-gfx] [PATCH 3/3] drm/connector: move ELD and video/audio latencies to display info
-> config: arm-defconfig (https://download.01.org/0day-ci/archive/20230124/202301242049.eKzx7RzZ-lkp@intel.com/config)
-> compiler: arm-linux-gnueabi-gcc (GCC) 12.1.0
-> reproduce (this is a W=1 build):
->         wget https://raw.githubusercontent.com/intel/lkp-tests/master/sbin/make.cross -O ~/bin/make.cross
->         chmod +x ~/bin/make.cross
->         # https://github.com/intel-lab-lkp/linux/commit/1e92b5478cfc1b0df66153652111117e9548b0d5
->         git remote add linux-review https://github.com/intel-lab-lkp/linux
->         git fetch --no-tags linux-review Jani-Nikula/drm-connector-move-HDR-sink-metadata-to-display-info/20230124-174322
->         git checkout 1e92b5478cfc1b0df66153652111117e9548b0d5
->         # save the config file
->         mkdir build_dir && cp config build_dir/.config
->         COMPILER_INSTALL_PATH=$HOME/0day COMPILER=gcc-12.1.0 make.cross W=1 O=build_dir ARCH=arm olddefconfig
->         COMPILER_INSTALL_PATH=$HOME/0day COMPILER=gcc-12.1.0 make.cross W=1 O=build_dir ARCH=arm SHELL=/bin/bash drivers/gpu/
->
-> If you fix the issue, kindly add following tag where applicable
-> | Reported-by: kernel test robot <lkp@intel.com>
->
-> All errors (new ones prefixed by >>):
->
->    drivers/gpu/drm/tegra/hdmi.c: In function 'tegra_hdmi_write_eld':
->>> drivers/gpu/drm/tegra/hdmi.c:620:60: error: 'struct drm_connector' has no member named 'eld'
->      620 |         size_t length = drm_eld_size(hdmi->output.connector.eld), i;
->          |                                                            ^
->    drivers/gpu/drm/tegra/hdmi.c:624:72: error: 'struct drm_connector' has no member named 'eld'
->      624 |                 tegra_hdmi_writel(hdmi, i << 8 | hdmi->output.connector.eld[i],
->          |                                                                        ^
-> --
->    drivers/gpu/drm/tegra/sor.c: In function 'tegra_sor_write_eld':
->>> drivers/gpu/drm/tegra/sor.c:1951:59: error: 'struct drm_connector' has no member named 'eld'
->     1951 |         size_t length = drm_eld_size(sor->output.connector.eld), i;
->          |                                                           ^
->    drivers/gpu/drm/tegra/sor.c:1954:69: error: 'struct drm_connector' has no member named 'eld'
->     1954 |                 tegra_sor_writel(sor, i << 8 | sor->output.connector.eld[i],
->          |                                                                     ^
->
->
-> vim +620 drivers/gpu/drm/tegra/hdmi.c
->
-> edec4af4c3d6d2 Thierry Reding 2012-11-15  617  
-> 5234549b93aa2a Thierry Reding 2015-08-07  618  static void tegra_hdmi_write_eld(struct tegra_hdmi *hdmi)
-> 5234549b93aa2a Thierry Reding 2015-08-07  619  {
-> 5234549b93aa2a Thierry Reding 2015-08-07 @620  	size_t length = drm_eld_size(hdmi->output.connector.eld), i;
-> 5234549b93aa2a Thierry Reding 2015-08-07  621  	u32 value;
-> edec4af4c3d6d2 Thierry Reding 2012-11-15  622  
-> 5234549b93aa2a Thierry Reding 2015-08-07  623  	for (i = 0; i < length; i++)
-> 5234549b93aa2a Thierry Reding 2015-08-07  624  		tegra_hdmi_writel(hdmi, i << 8 | hdmi->output.connector.eld[i],
-> 5234549b93aa2a Thierry Reding 2015-08-07  625  				  HDMI_NV_PDISP_SOR_AUDIO_HDA_ELD_BUFWR);
-> edec4af4c3d6d2 Thierry Reding 2012-11-15  626  
-> 5234549b93aa2a Thierry Reding 2015-08-07  627  	/*
-> 5234549b93aa2a Thierry Reding 2015-08-07  628  	 * The HDA codec will always report an ELD buffer size of 96 bytes and
-> 5234549b93aa2a Thierry Reding 2015-08-07  629  	 * the HDA codec driver will check that each byte read from the buffer
-> 5234549b93aa2a Thierry Reding 2015-08-07  630  	 * is valid. Therefore every byte must be written, even if no 96 bytes
-> 5234549b93aa2a Thierry Reding 2015-08-07  631  	 * were parsed from EDID.
-> 5234549b93aa2a Thierry Reding 2015-08-07  632  	 */
-> 5234549b93aa2a Thierry Reding 2015-08-07  633  	for (i = length; i < HDMI_ELD_BUFFER_SIZE; i++)
-> 5234549b93aa2a Thierry Reding 2015-08-07  634  		tegra_hdmi_writel(hdmi, i << 8 | 0,
-> 5234549b93aa2a Thierry Reding 2015-08-07  635  				  HDMI_NV_PDISP_SOR_AUDIO_HDA_ELD_BUFWR);
-> 5234549b93aa2a Thierry Reding 2015-08-07  636  
-> 5234549b93aa2a Thierry Reding 2015-08-07  637  	value = SOR_AUDIO_HDA_PRESENSE_VALID | SOR_AUDIO_HDA_PRESENSE_PRESENT;
-> 5234549b93aa2a Thierry Reding 2015-08-07  638  	tegra_hdmi_writel(hdmi, value, HDMI_NV_PDISP_SOR_AUDIO_HDA_PRESENSE);
-> edec4af4c3d6d2 Thierry Reding 2012-11-15  639  }
-> edec4af4c3d6d2 Thierry Reding 2012-11-15  640  
+Instead we should keep a pointer of the DSC struct in the comp_info, store the DP dsc struct in the
+dp panel private and pass the dsc pointer back in dp_panel_dsc_prepare_basic_params().
 
--- 
-Jani Nikula, Intel Open Source Graphics Center
+>   
+>   		if (msm_dsi_is_bonded_dsi(priv->dsi[i]) && priv->dsi[other]) {
+>   			rc = msm_dsi_modeset_init(priv->dsi[other], dev, encoder);
+> @@ -622,6 +622,8 @@ static int _dpu_kms_initialize_displayport(struct drm_device *dev,
+>   		info.num_of_h_tiles = 1;
+>   		info.h_tile_instance[0] = i;
+>   		info.intf_type = encoder->encoder_type;
+> +		info.is_cmd_mode = 0; /* dp always video mode */
+> +		info.comp_info = NULL;
+>   		rc = dpu_encoder_setup(dev, encoder, &info);
+>   		if (rc) {
+>   			DPU_ERROR("failed to setup DPU encoder %d: rc:%d\n",
+> @@ -892,6 +894,10 @@ static void dpu_kms_mdp_snapshot(struct msm_disp_state *disp_state, struct msm_k
+>   
+>   	pm_runtime_get_sync(&dpu_kms->pdev->dev);
+>   
+> +	for (i = 0; i < cat->dsc_count; i++)
+> +		msm_disp_snapshot_add_block(disp_state, cat->dsc[i].len,
+> +				dpu_kms->mmio + cat->dsc[i].base, "dsc_%d", i);
+> +
+>   	/* dump CTL sub-blocks HW regs info */
+>   	for (i = 0; i < cat->ctl_count; i++)
+>   		msm_disp_snapshot_add_block(disp_state, cat->ctl[i].len,
+> diff --git a/drivers/gpu/drm/msm/dsi/dsi.c b/drivers/gpu/drm/msm/dsi/dsi.c
+> index 31fdee2..52b7e33 100644
+> --- a/drivers/gpu/drm/msm/dsi/dsi.c
+> +++ b/drivers/gpu/drm/msm/dsi/dsi.c
+> @@ -1,6 +1,7 @@
+>   // SPDX-License-Identifier: GPL-2.0-only
+>   /*
+>    * Copyright (c) 2015, The Linux Foundation. All rights reserved.
+> + * Copyright (c) 2023. Qualcomm Innovation Center, Inc. All rights reserved
+>    */
+>   
+>   #include "dsi.h"
+> @@ -13,7 +14,7 @@ bool msm_dsi_is_cmd_mode(struct msm_dsi *msm_dsi)
+>   	return !(host_flags & MIPI_DSI_MODE_VIDEO);
+>   }
+>   
+> -struct drm_dsc_config *msm_dsi_get_dsc_config(struct msm_dsi *msm_dsi)
+> +struct msm_compression_info *msm_dsi_get_dsc_config(struct msm_dsi *msm_dsi)
+>   {
+>   	return msm_dsi_host_get_dsc_config(msm_dsi->host);
+>   }
+> diff --git a/drivers/gpu/drm/msm/dsi/dsi.h b/drivers/gpu/drm/msm/dsi/dsi.h
+> index bd3763a..79ada54 100644
+> --- a/drivers/gpu/drm/msm/dsi/dsi.h
+> +++ b/drivers/gpu/drm/msm/dsi/dsi.h
+> @@ -1,6 +1,7 @@
+>   /* SPDX-License-Identifier: GPL-2.0-only */
+>   /*
+>    * Copyright (c) 2015, The Linux Foundation. All rights reserved.
+> + * Copyright (c) 2023. Qualcomm Innovation Center, Inc. All rights reserved
+>    */
+>   
+>   #ifndef __DSI_CONNECTOR_H__
+> @@ -133,7 +134,7 @@ int dsi_calc_clk_rate_v2(struct msm_dsi_host *msm_host, bool is_bonded_dsi);
+>   int dsi_calc_clk_rate_6g(struct msm_dsi_host *msm_host, bool is_bonded_dsi);
+>   void msm_dsi_host_snapshot(struct msm_disp_state *disp_state, struct mipi_dsi_host *host);
+>   void msm_dsi_host_test_pattern_en(struct mipi_dsi_host *host);
+> -struct drm_dsc_config *msm_dsi_host_get_dsc_config(struct mipi_dsi_host *host);
+> +struct msm_compression_info *msm_dsi_host_get_dsc_config(struct mipi_dsi_host *host);
+>   
+>   /* dsi phy */
+>   struct msm_dsi_phy;
+> diff --git a/drivers/gpu/drm/msm/dsi/dsi_host.c b/drivers/gpu/drm/msm/dsi/dsi_host.c
+> index 18fa30e..6188f4b 100644
+> --- a/drivers/gpu/drm/msm/dsi/dsi_host.c
+> +++ b/drivers/gpu/drm/msm/dsi/dsi_host.c
+> @@ -1,6 +1,7 @@
+>   // SPDX-License-Identifier: GPL-2.0-only
+>   /*
+>    * Copyright (c) 2015, The Linux Foundation. All rights reserved.
+> + * Copyright (c) 2023. Qualcomm Innovation Center, Inc. All rights reserved
+>    */
+>   
+>   #include <linux/clk.h>
+> @@ -163,6 +164,7 @@ struct msm_dsi_host {
+>   
+>   	struct drm_display_mode *mode;
+>   	struct drm_dsc_config *dsc;
+> +	struct msm_compression_info comp_info;
+>   
+>   	/* connected device info */
+>   	unsigned int channel;
+> @@ -2600,9 +2602,17 @@ void msm_dsi_host_test_pattern_en(struct mipi_dsi_host *host)
+>   				DSI_TEST_PATTERN_GEN_CMD_STREAM0_TRIGGER_SW_TRIGGER);
+>   }
+>   
+> -struct drm_dsc_config *msm_dsi_host_get_dsc_config(struct mipi_dsi_host *host)
+> +struct msm_compression_info *msm_dsi_host_get_dsc_config(struct mipi_dsi_host *host)
+>   {
+>   	struct msm_dsi_host *msm_host = to_msm_dsi_host(host);
+> +	struct msm_compression_info *comp_info = NULL;
+>   
+> -	return msm_host->dsc;
+> +	if (msm_host->dsc) {
+> +		comp_info = &msm_host->comp_info;
+> +		comp_info->msm_dsc_info.drm_dsc = *msm_host->dsc;
+> +		comp_info->comp_type = MSM_DISPLAY_COMPRESSION_DSC;
+> +		comp_info->enabled = true;
+> +	}
+> +
+> +	return comp_info;
+>   }
+> diff --git a/drivers/gpu/drm/msm/msm_drv.h b/drivers/gpu/drm/msm/msm_drv.h
+> index 6a46ed7..eab0901 100644
+> --- a/drivers/gpu/drm/msm/msm_drv.h
+> +++ b/drivers/gpu/drm/msm/msm_drv.h
+> @@ -430,7 +430,7 @@ void msm_dsi_snapshot(struct msm_disp_state *disp_state, struct msm_dsi *msm_dsi
+>   bool msm_dsi_is_cmd_mode(struct msm_dsi *msm_dsi);
+>   bool msm_dsi_is_bonded_dsi(struct msm_dsi *msm_dsi);
+>   bool msm_dsi_is_master_dsi(struct msm_dsi *msm_dsi);
+> -struct drm_dsc_config *msm_dsi_get_dsc_config(struct msm_dsi *msm_dsi);
+> +struct msm_compression_info *msm_dsi_get_dsc_config(struct msm_dsi *msm_dsi);
+>   #else
+>   static inline void __init msm_dsi_register(void)
+>   {
+> @@ -460,7 +460,7 @@ static inline bool msm_dsi_is_master_dsi(struct msm_dsi *msm_dsi)
+>   	return false;
+>   }
+>   
+> -static inline struct drm_dsc_config *msm_dsi_get_dsc_config(struct msm_dsi *msm_dsi)
+> +static inline struct msm_compression_info *msm_dsi_get_dsc_config(struct msm_dsi *msm_dsi)
+>   {
+>   	return NULL;
+>   }
+
