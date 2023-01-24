@@ -1,74 +1,37 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3B4196795B8
-	for <lists+freedreno@lfdr.de>; Tue, 24 Jan 2023 11:49:23 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 9DAE067964E
+	for <lists+freedreno@lfdr.de>; Tue, 24 Jan 2023 12:12:57 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E9F3910E663;
-	Tue, 24 Jan 2023 10:49:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5DDE410E059;
+	Tue, 24 Jan 2023 11:12:56 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wr1-x42f.google.com (mail-wr1-x42f.google.com
- [IPv6:2a00:1450:4864:20::42f])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5375E10E669
- for <freedreno@lists.freedesktop.org>; Tue, 24 Jan 2023 10:49:20 +0000 (UTC)
-Received: by mail-wr1-x42f.google.com with SMTP id h12so9449041wrv.10
- for <freedreno@lists.freedesktop.org>; Tue, 24 Jan 2023 02:49:20 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=content-transfer-encoding:in-reply-to:organization:references:cc:to
- :content-language:subject:reply-to:from:user-agent:mime-version:date
- :message-id:from:to:cc:subject:date:message-id:reply-to;
- bh=ivkoSEmBL37qh5eawT21bwSiFYzbxKghoG8dL7YpIvA=;
- b=uXFv6QAyNXJEHl0pb424C7/0iVnf8MyGqR7arx50c0rXRAU90vQokno+NlaCAhkGP4
- qMKce8F8IZjDvF56xtAz6D94KJjvJAeT8fpDMRLo9yM+U9PleZ9XK0GS3EEvOcUTgtD5
- CznJ3+x2bO25G63nQdFbyvebVB2wo2YYmlFA8i1LAH2UFZWAlNryQXUGpDHRUq+aXp8W
- qadn0afLRE/KutGuSnDZNmrR7JjW9hrPqvi6KEmbzvjKmqw7Jyx/XhUIDbCsGKw22uJh
- pwpvAwQGnrBAU+i5pr6sEJOP8IgP/HFl/+/KWd+evM27L6wT0YGmQ970h71ttQbG3evh
- vY+A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=content-transfer-encoding:in-reply-to:organization:references:cc:to
- :content-language:subject:reply-to:from:user-agent:mime-version:date
- :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=ivkoSEmBL37qh5eawT21bwSiFYzbxKghoG8dL7YpIvA=;
- b=Is6WoS9bm6G593LB1cCXBrMNu6xz0RNZifTUlXLwKvDTe8xDk5K+wgSIxF94mGA0WW
- A0pWeIUUrpdkfpYfPgPwMYnHbTW006BtE0HzttS3QcxuMP+cN8xPo/k8HGklQib2fgln
- DtQesodQ8a5xhIMCkjCmnJD4GeCs5BhvCop1lWYt3UNZp0Ar8feufbZWied93Ildh5DS
- yeT8DZ4Fm8HN8eRFg4fI8ELLGkEjpK0BncySk2sIPv8VzY2WZ74Sj5nZwDEcT5PwM9o6
- ZL4AwAxb+FoMyft08xWxJJPVn0UqHi9wXnHd0Rzu9CjcKaxCFvaGzjbxCoSflQvO6fWi
- UTnw==
-X-Gm-Message-State: AFqh2krQU8pPDGQkR3hnCd11qtloSSj9Ifg1GaHDQ+EYjyURRXkBsbzN
- RS4kIRX+Metyhh05YTwqzqOlNg==
-X-Google-Smtp-Source: AMrXdXuhsqoNn4jCqnXdHK0Ia8vFgqSed8rf633m82PfC2jvNWPyFX/IDiITLj9e/MUsB0MunBV7XA==
-X-Received: by 2002:adf:f790:0:b0:2bd:ebc0:6f79 with SMTP id
- q16-20020adff790000000b002bdebc06f79mr24257660wrp.46.1674557358775; 
- Tue, 24 Jan 2023 02:49:18 -0800 (PST)
-Received: from ?IPV6:2a01:e0a:982:cbb0:ebd2:15b:f444:7985?
- ([2a01:e0a:982:cbb0:ebd2:15b:f444:7985])
- by smtp.gmail.com with ESMTPSA id
- r1-20020a0560001b8100b002bfae16ee2fsm1522330wru.111.2023.01.24.02.49.17
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 24 Jan 2023 02:49:18 -0800 (PST)
-Message-ID: <91b76590-0fc7-24e0-8259-790c89b73638@linaro.org>
-Date: Tue, 24 Jan 2023 11:49:17 +0100
+Received: from m-r2.th.seeweb.it (m-r2.th.seeweb.it [5.144.164.171])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1452A10E057
+ for <freedreno@lists.freedesktop.org>; Tue, 24 Jan 2023 11:12:54 +0000 (UTC)
+Received: from SoMainline.org (94-211-6-86.cable.dynamic.v4.ziggo.nl
+ [94.211.6.86])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest
+ SHA256) (No client certificate requested)
+ by m-r2.th.seeweb.it (Postfix) with ESMTPSA id 1167C4189A;
+ Tue, 24 Jan 2023 12:12:52 +0100 (CET)
+Date: Tue, 24 Jan 2023 12:12:50 +0100
+From: Marijn Suijten <marijn.suijten@somainline.org>
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Message-ID: <20230124111250.b2r2co4jjxofjchp@SoMainline.org>
+References: <20230115124143.464809-1-dmitry.baryshkov@linaro.org>
+ <20230124095944.4zez2jmidjuh3nvf@SoMainline.org>
+ <9f182939-0e32-c0a9-ee09-9e97a48bb7ac@linaro.org>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.6.0
-From: Neil Armstrong <neil.armstrong@linaro.org>
-Content-Language: en-US
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>
-References: <20230124104548.3234554-1-dmitry.baryshkov@linaro.org>
-Organization: Linaro Developer Services
-In-Reply-To: <20230124104548.3234554-1-dmitry.baryshkov@linaro.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH v3 1/2] drm/probe_helper: extract two helper
- functions
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <9f182939-0e32-c0a9-ee09-9e97a48bb7ac@linaro.org>
+Subject: Re: [Freedreno] [1/2] drm/msm/dpu: fix clocks settings for msm8998
+ SSPP blocks
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,127 +44,100 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: neil.armstrong@linaro.org
-Cc: intel-gfx@lists.freedesktop.org, Chen-Yu Tsai <wenst@chromium.org>,
- Jani Nikula <jani.nikula@linux.intel.com>, dri-devel@lists.freedesktop.org,
- Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>, freedreno@lists.freedesktop.org,
- Marek Szyprowski <m.szyprowski@samsung.com>
+Cc: Jami Kettunen <jami.kettunen@somainline.org>, Sean Paul <sean@poorly.run>,
+ Bjorn Andersson <andersson@kernel.org>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@somainline.org>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
+ Stephen Boyd <swboyd@chromium.org>, Rob Clark <robdclark@gmail.com>,
+ Daniel Vetter <daniel@ffwll.ch>, linux-arm-msm@vger.kernel.org,
+ David Airlie <airlied@gmail.com>, freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 24/01/2023 11:45, Dmitry Baryshkov wrote:
-> Extract drm_kms_helper_enable_hpd() and drm_kms_helper_disable_hpd(),
-> two helpers that enable and disable HPD handling on all device's
-> connectors.
+On 2023-01-24 12:19:27, Dmitry Baryshkov wrote:
+> On 24/01/2023 11:59, Marijn Suijten wrote:
+> > On 2023-01-15 14:41:42, Dmitry Baryshkov wrote:
+> >> DMA2 and DMA3 planes on msm8998 should use corresponding DMA2 and DMA3
+> >> clocks rather than CURSOR0/1 clocks (which are used for the CURSOR
+> >> planes). Correct corresponding SSPP declarations.
+> >>
+> >> Fixes: 94391a14fc27 ("drm/msm/dpu1: Add MSM8998 to hw catalog")
+> >> Cc: AngeloGioacchino Del Regno <angelogioacchino.delregno@somainline.org>
+> >> Cc: Jami Kettunen <jami.kettunen@somainline.org>
+> >> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> >> ---
+> >>   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c | 4 ++--
+> >>   1 file changed, 2 insertions(+), 2 deletions(-)
+> >>
+> >> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
+> >> index 0f3da480b066..ad0c55464154 100644
+> >> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
+> >> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
+> >> @@ -1180,9 +1180,9 @@ static const struct dpu_sspp_cfg msm8998_sspp[] = {
+> >>   	SSPP_BLK("sspp_9", SSPP_DMA1, 0x26000,  DMA_MSM8998_MASK,
+> >>   		sdm845_dma_sblk_1, 5, SSPP_TYPE_DMA, DPU_CLK_CTRL_DMA1),
+> >>   	SSPP_BLK("sspp_10", SSPP_DMA2, 0x28000,  DMA_CURSOR_MSM8998_MASK,
+> > 
+> > Drop the _CURSOR mask here?  And the double space....
 > 
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> ---
->   drivers/gpu/drm/drm_probe_helper.c | 68 ++++++++++++++++++------------
->   1 file changed, 41 insertions(+), 27 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/drm_probe_helper.c b/drivers/gpu/drm/drm_probe_helper.c
-> index 95aeeed33cf5..ab787d71fa66 100644
-> --- a/drivers/gpu/drm/drm_probe_helper.c
-> +++ b/drivers/gpu/drm/drm_probe_helper.c
-> @@ -222,6 +222,45 @@ drm_connector_mode_valid(struct drm_connector *connector,
->   	return ret;
->   }
->   
-> +static void drm_kms_helper_disable_hpd(struct drm_device *dev)
-> +{
-> +	struct drm_connector *connector;
-> +	struct drm_connector_list_iter conn_iter;
-> +
-> +	drm_connector_list_iter_begin(dev, &conn_iter);
-> +	drm_for_each_connector_iter(connector, &conn_iter) {
-> +		const struct drm_connector_helper_funcs *funcs =
-> +			connector->helper_private;
-> +
-> +		if (funcs && funcs->disable_hpd)
-> +			funcs->disable_hpd(connector);
-> +	}
-> +	drm_connector_list_iter_end(&conn_iter);
-> +}
-> +
-> +static bool drm_kms_helper_enable_hpd(struct drm_device *dev)
-> +{
-> +	bool poll = false;
-> +	struct drm_connector *connector;
-> +	struct drm_connector_list_iter conn_iter;
-> +
-> +	drm_connector_list_iter_begin(dev, &conn_iter);
-> +	drm_for_each_connector_iter(connector, &conn_iter) {
-> +		const struct drm_connector_helper_funcs *funcs =
-> +			connector->helper_private;
-> +
-> +		if (funcs && funcs->enable_hpd)
-> +			funcs->enable_hpd(connector);
-> +
-> +		if (connector->polled & (DRM_CONNECTOR_POLL_CONNECT |
-> +					 DRM_CONNECTOR_POLL_DISCONNECT))
-> +			poll = true;
-> +	}
-> +	drm_connector_list_iter_end(&conn_iter);
-> +
-> +	return poll;
-> +}
-> +
->   #define DRM_OUTPUT_POLL_PERIOD (10*HZ)
->   /**
->    * drm_kms_helper_poll_enable - re-enable output polling.
-> @@ -241,26 +280,12 @@ drm_connector_mode_valid(struct drm_connector *connector,
->   void drm_kms_helper_poll_enable(struct drm_device *dev)
->   {
->   	bool poll = false;
-> -	struct drm_connector *connector;
-> -	struct drm_connector_list_iter conn_iter;
->   	unsigned long delay = DRM_OUTPUT_POLL_PERIOD;
->   
->   	if (!dev->mode_config.poll_enabled || !drm_kms_helper_poll)
->   		return;
->   
-> -	drm_connector_list_iter_begin(dev, &conn_iter);
-> -	drm_for_each_connector_iter(connector, &conn_iter) {
-> -		const struct drm_connector_helper_funcs *funcs =
-> -			connector->helper_private;
-> -
-> -		if (funcs && funcs->enable_hpd)
-> -			funcs->enable_hpd(connector);
-> -
-> -		if (connector->polled & (DRM_CONNECTOR_POLL_CONNECT |
-> -					 DRM_CONNECTOR_POLL_DISCONNECT))
-> -			poll = true;
-> -	}
-> -	drm_connector_list_iter_end(&conn_iter);
-> +	poll = drm_kms_helper_enable_hpd(dev);
->   
->   	if (dev->mode_config.delayed_event) {
->   		/*
-> @@ -810,24 +835,13 @@ EXPORT_SYMBOL(drm_kms_helper_is_poll_worker);
->   
->   static void drm_kms_helper_poll_disable_fini(struct drm_device *dev, bool fini)
->   {
-> -	struct drm_connector *connector;
-> -	struct drm_connector_list_iter conn_iter;
-> -
->   	if (!dev->mode_config.poll_enabled)
->   		return;
->   
->   	if (fini)
->   		dev->mode_config.poll_enabled = false;
->   
-> -	drm_connector_list_iter_begin(dev, &conn_iter);
-> -	drm_for_each_connector_iter(connector, &conn_iter) {
-> -		const struct drm_connector_helper_funcs *funcs =
-> -			connector->helper_private;
-> -
-> -		if (funcs && funcs->disable_hpd)
-> -			funcs->disable_hpd(connector);
-> -	}
-> -	drm_connector_list_iter_end(&conn_iter);
-> +	drm_kms_helper_disable_hpd(dev);
->   
->   	cancel_delayed_work_sync(&dev->mode_config.output_poll_work);
->   }
+> Ack for the doublespace. By removing _CURSOR we would disallow using 
+> these planes as hw cursor planes. This would switch all compositors into 
+> sw cursor mode, thus damaging the performance.
 
-Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
+Doesn't that require special hardware support, or can any DMA pipe
+support "hw cursor mode/planes", whatever that means?  Sorry for not
+being well versed in this area, I'd expect DMA pipes and CURSOR pipes to
+have a different set of features / capabilities.
+
+Commit 07ca1fc0f8a0 ("drm/msm/dpu: enable cursor plane on dpu") leads me
+to believe that it's mostly to let userspace use these DMA pipes for
+cursors (having cursor planes available in uapi) rather than requiring
+any special hardware support (though semantics do seem to change in a
+nontrivial way).
+
+> >> -		sdm845_dma_sblk_2, 9, SSPP_TYPE_DMA, DPU_CLK_CTRL_CURSOR0),
+> >> +		sdm845_dma_sblk_2, 9, SSPP_TYPE_DMA, DPU_CLK_CTRL_DMA2),
+> >>   	SSPP_BLK("sspp_11", SSPP_DMA3, 0x2a000,  DMA_CURSOR_MSM8998_MASK,
+> >> -		sdm845_dma_sblk_3, 13, SSPP_TYPE_DMA, DPU_CLK_CTRL_CURSOR1),
+> >> +		sdm845_dma_sblk_3, 13, SSPP_TYPE_DMA, DPU_CLK_CTRL_DMA3),
+> > 
+> > Yes, msm8998_mdp defines both DMA2/3 and CURSOR0/1 clocks.  R-b after
+> > using DMA_MSM8998_MASK without the DPU_SSPP_CURSOR bit.
+> > 
+> > However, my downstream sources still define cursor SSPPs that are
+> > missing here (after all, there's clk-ctrl for these already), at xin ID
+> > 2 and 10 with addresses 0x3500 and 0x37000 downstream (-0x1000 here):
+> > 
+> > 	SSPP_BLK("sspp_?", SSPP_CURSOR0, 0x34000, DMA_CURSOR_SM8998_MASK,
+> > 		cursor sblk?, 2, SSPP_TYPE_CURSOR, DPU_CLK_CTRL_CURSOR0),
+> > 	SSPP_BLK("sspp_?", SSPP_CURSOR1, 0x36000, DMA_CURSOR_SM8998_MASK,
+> 
+> I think this should not be the DMA_CURSOR_MSM8998_MASK, but don't bet on 
+> my words, I haven't check actual cursor plane capabilities.
+
+As we've seen in [1] (specifically [2]) there are a few more driver/hw
+changes required to properly implement/support DPU_SSPP_CURSOR?
+
+[1]: https://github.com/rawoul/linux/commits/next_20220624-msm8998-hdmi
+[2]; https://github.com/rawoul/linux/commit/7d8d739cfbfa551120868986d5824f7b2b116ac1
+
+- Marijn
+
+> > 		cursor sblk?, 10, SSPP_TYPE_CURSOR, DPU_CLK_CTRL_CURSOR1),
+> > 
+> > Or should you/I send that as a separate folloup patch?
+> 
+> Ideally one can add these two planes and then switch two mentioned DMA 
+> planes to plain DMA_MSM8998_MASK.
+> 
+> > 
+> > - Marijn
+> > 
+> >>   };
+> >>   
+> >>   static const struct dpu_sspp_cfg sdm845_sspp[] = {
+> 
+> -- 
+> With best wishes
+> Dmitry
+> 
