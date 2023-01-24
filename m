@@ -2,72 +2,51 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8181C6793B3
-	for <lists+freedreno@lfdr.de>; Tue, 24 Jan 2023 10:11:32 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 51F3067945F
+	for <lists+freedreno@lfdr.de>; Tue, 24 Jan 2023 10:42:24 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5256B10E634;
-	Tue, 24 Jan 2023 09:11:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 18F6910E63F;
+	Tue, 24 Jan 2023 09:42:23 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ed1-x52b.google.com (mail-ed1-x52b.google.com
- [IPv6:2a00:1450:4864:20::52b])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D26A310E630
- for <freedreno@lists.freedesktop.org>; Tue, 24 Jan 2023 09:11:28 +0000 (UTC)
-Received: by mail-ed1-x52b.google.com with SMTP id v13so17521709eda.11
- for <freedreno@lists.freedesktop.org>; Tue, 24 Jan 2023 01:11:28 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=+G2nFoMV6cD+GiU2NuAOa612nY43Jz0nOwwYptg3fzI=;
- b=FOkYvgEo4x7tWzQNMytM7vS8fDznXvFjo8KEfW1hpcjmnoWQ8IqX0hmi7FtUWPLmpO
- Vum/R2egZ5/bIqc9hlytOass/8g8fz7Gz4LedPDBwEJeccBMsTjtj+jpG//hPq4ZkHxW
- tZGBRlcYbbmjdfRAbNYNSCSYgXqeFtQwNgMa9uu4dRC8lBCTRqkkTvH7abJsURZR/ZRi
- 1xt42jGjro3MqtzTb2Kb/+f5WYI/UcP31yxBIsXp0Qeae6dc/iLonMoazBMDjWMPxvJq
- /KMYyuN4VQ+5udD6MR+N42kVa04wPqDND4LAVhQtZRgrhhSNs8IMxe1kTiMw99zrw+/n
- 5uXg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=+G2nFoMV6cD+GiU2NuAOa612nY43Jz0nOwwYptg3fzI=;
- b=eNoGyv8SV8d8VesAARInS2ZqwU6CJgmZVV6aR1T/z87pL+Q5X9MlVMM2AJaHxqe7J4
- 3Lhv+uTmB17ykkpLnravLJ8zbD6UrZRLQl7pTlJWdl1hlZDxzmwTxrsk11ZjUznQbwft
- e7l/3l+fuEr0rqGyvhTvIuuK8A0tsDZ/f8zwMJ/ftmBoMqw5nP5DMSqbnWpKq95rhEDo
- Y0egm5DZt0Q4/1aOolHm1dsL8QGjunLMV9g0NaV7qTLmZ9ZtOM9TKBhZip/wyb3XtPJu
- csVaYr7Jhqe/6ziZhkBiUFJY3wHoRYXL7n8foww3TYWDReRfFOcz3uymQF+iTpmUiqKV
- hnaA==
-X-Gm-Message-State: AFqh2kp4hHPja0IbSMCv52GS0sfWRamnFKU2GzorjLPy+r5Vx5Vohvgn
- zzR9a7A0Atov7qaFHdnXp8bHCA==
-X-Google-Smtp-Source: AMrXdXtv4fe1LBekOxD1hSLgHGtsz8S1xqObkEBEmzsrnRk6g3vY4479/jAf65J9XL3fgz42PIHX6g==
-X-Received: by 2002:a05:6402:2289:b0:498:f82c:7068 with SMTP id
- cw9-20020a056402228900b00498f82c7068mr26811666edb.35.1674551487356; 
- Tue, 24 Jan 2023 01:11:27 -0800 (PST)
-Received: from ?IPV6:2001:14ba:a085:4d00::8a5?
- (dzccz6yyyyyyyyyyybcwt-3.rev.dnainternet.fi. [2001:14ba:a085:4d00::8a5])
- by smtp.gmail.com with ESMTPSA id
- u10-20020aa7db8a000000b00487b73912c2sm789825edt.12.2023.01.24.01.11.26
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 24 Jan 2023 01:11:27 -0800 (PST)
-Message-ID: <8392e1f3-8459-4408-41de-564a41980b4c@linaro.org>
-Date: Tue, 24 Jan 2023 11:11:25 +0200
+Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BEC1610E63E;
+ Tue, 24 Jan 2023 09:42:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1674553340; x=1706089340;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=t/tYgFt0j2KTLUSlTSql2GDfCdL/4lbg+MmsOCcHAtM=;
+ b=mViMLGVLDoGZBkk+eDrmyaom2YOM+nGh3zkIOGgKN3EktnZx0WZqV3+f
+ aoUvPBJFRlAzs6BP3Yn4XDMd5cNJWkDz7D/IRhEu38qjjnwGT3lZe4IMK
+ nCJtK4Dx2IQFqn7AECFtCzp3zdBB4prqplLbuJNIGFnPYye6KjDJit6k7
+ 1wFJpkdvUrxKxvb51YK4+aRlURp7NMUFraVAVxXq/HcS1a34ZAajnSqr1
+ k1YkwDXaXDTSLjZaEBPFiDhrvMwgOnngyd3FRFZm0lOKrBDj88B7kOvBN
+ AKPQDXLGWmB9wmvzwRVl2MWs90AQtajrC1x3lhYc2InMiFRNBHVDHtl2n Q==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10599"; a="328348567"
+X-IronPort-AV: E=Sophos;i="5.97,242,1669104000"; d="scan'208";a="328348567"
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+ by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 24 Jan 2023 01:42:19 -0800
+X-IronPort-AV: E=McAfee;i="6500,9779,10599"; a="662067723"
+X-IronPort-AV: E=Sophos;i="5.97,242,1669104000"; d="scan'208";a="662067723"
+Received: from pesir-mobl.ger.corp.intel.com (HELO localhost) ([10.252.57.197])
+ by orsmga002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 24 Jan 2023 01:42:10 -0800
+From: Jani Nikula <jani.nikula@intel.com>
+To: dri-devel@lists.freedesktop.org
+Date: Tue, 24 Jan 2023 11:41:54 +0200
+Message-Id: <20230124094154.2282778-3-jani.nikula@intel.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20230124094154.2282778-1-jani.nikula@intel.com>
+References: <20230124094154.2282778-1-jani.nikula@intel.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.6.0
-Content-Language: en-GB
-To: Kuogee Hsieh <quic_khsieh@quicinc.com>, dri-devel@lists.freedesktop.org,
- robdclark@gmail.com, sean@poorly.run, swboyd@chromium.org,
- dianders@chromium.org, vkoul@kernel.org, daniel@ffwll.ch, airlied@gmail.com,
- agross@kernel.org, andersson@kernel.org
-References: <1674498274-6010-1-git-send-email-quic_khsieh@quicinc.com>
- <1674498274-6010-13-git-send-email-quic_khsieh@quicinc.com>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-In-Reply-To: <1674498274-6010-13-git-send-email-quic_khsieh@quicinc.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH v1 12/14] drm/msm/disp/dpu1: revise timing
- engine programming to work for DSC
+Content-Type: text/plain; charset=UTF-8
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
+Content-Transfer-Encoding: 8bit
+Subject: [Freedreno] [PATCH 3/3] drm/connector: move ELD and video/audio
+ latencies to display info
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,188 +59,666 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-arm-msm@vger.kernel.org, quic_sbillaka@quicinc.com,
- freedreno@lists.freedesktop.org, quic_abhinavk@quicinc.com,
- linux-kernel@vger.kernel.org
+Cc: Emma Anholt <emma@anholt.net>, amd-gfx@lists.freedesktop.org,
+	Andrzej Hajda <andrzej.hajda@intel.com>,
+	Kyungmin Park <kyungmin.park@samsung.com>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Alain Volmat <alain.volmat@foss.st.com>, Pan@freedesktop.org,
+	Chun-Kuang Hu <chunkuang.hu@kernel.org>,
+	Jonas Karlman <jonas@kwiboo.se>, jani.nikula@intel.com,
+	linux-arm-msm@vger.kernel.org, intel-gfx@lists.freedesktop.org,
+	Abhinav Kumar <quic_abhinavk@quicinc.com>,
+	Maxime Ripard <mripard@kernel.org>, Inki Dae <inki.dae@samsung.com>,
+	Alex Deucher <alexander.deucher@amd.com>,
+	linux-mediatek@lists.infradead.org, Sean Paul <sean@poorly.run>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Xinhui <Xinhui.Pan@amd.com>, Seung-Woo Kim <sw0312.kim@samsung.com>,
+	Robert Foss <robert.foss@linaro.org>,
+	Rob Clark <robdclark@gmail.com>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+	freedreno@lists.freedesktop.org,
+	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+	Laurent Pinchart <Laurent.pinchart@ideasonboard.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 23/01/2023 20:24, Kuogee Hsieh wrote:
-> Current implementation timing engine programming does not consider
-> compression factors. This patch add consideration of DSC factors
-> while programming timing engine.
-> 
-> Signed-off-by: Kuogee Hsieh <quic_khsieh@quicinc.com>
-> ---
->   .../gpu/drm/msm/disp/dpu1/dpu_encoder_phys_vid.c   |   2 +
->   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h     |  14 ++-
->   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.c        | 132 +++++++++++++--------
->   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.h        |  10 +-
->   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_top.h         |   6 +-
->   5 files changed, 110 insertions(+), 54 deletions(-)
-> 
+Information parsed from the display EDID should be stored in display
+info. We can stop clearing ELD separately.
 
-[skipped]
+Cc: Alex Deucher <alexander.deucher@amd.com>
+Cc: Christian König <christian.koenig@amd.com>
+Cc: Pan, Xinhui <Xinhui.Pan@amd.com>
+Cc: amd-gfx@lists.freedesktop.org
+Cc: Andrzej Hajda <andrzej.hajda@intel.com>
+Cc: Neil Armstrong <neil.armstrong@linaro.org>
+Cc: Robert Foss <robert.foss@linaro.org>
+Cc: Laurent Pinchart <Laurent.pinchart@ideasonboard.com>
+Cc: Jonas Karlman <jonas@kwiboo.se>
+Cc: Jernej Skrabec <jernej.skrabec@gmail.com>
+Cc: Inki Dae <inki.dae@samsung.com>
+Cc: Seung-Woo Kim <sw0312.kim@samsung.com>
+Cc: Kyungmin Park <kyungmin.park@samsung.com>
+Cc: Chun-Kuang Hu <chunkuang.hu@kernel.org>
+Cc: Philipp Zabel <p.zabel@pengutronix.de>
+Cc: linux-mediatek@lists.infradead.org
+Cc: Rob Clark <robdclark@gmail.com>
+Cc: Abhinav Kumar <quic_abhinavk@quicinc.com>
+Cc: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Cc: Sean Paul <sean@poorly.run>
+Cc: linux-arm-msm@vger.kernel.org
+Cc: freedreno@lists.freedesktop.org
+Cc: Alain Volmat <alain.volmat@foss.st.com>
+Cc: Emma Anholt <emma@anholt.net>
+Cc: Maxime Ripard <mripard@kernel.org>
+Signed-off-by: Jani Nikula <jani.nikula@intel.com>
 
-> @@ -113,82 +124,96 @@ static void dpu_hw_intf_setup_timing_engine(struct dpu_hw_intf *ctx,
->   	/* read interface_cfg */
->   	intf_cfg = DPU_REG_READ(c, INTF_CONFIG);
->   
-> -	if (ctx->cap->type == INTF_DP)
-> +	if (ctx->cap->type == INTF_EDP || ctx->cap->type == INTF_DP)
->   		dp_intf = true;
->   
->   	hsync_period = p->hsync_pulse_width + p->h_back_porch + p->width +
-> -	p->h_front_porch;
-> +			p->h_front_porch;
->   	vsync_period = p->vsync_pulse_width + p->v_back_porch + p->height +
-> -	p->v_front_porch;
-> +			p->v_front_porch;
+---
 
-Actually I went on through the history and found the previous 
-submission, https://patchwork.freedesktop.org/patch/471505/.
-Exactly the same piece of code. Did you expect that the comments will be 
-different this time?
+Sorry about the crazy Cc list, but this touches a lot of drivers, and I
+didn't want to blind side anyone.
+---
+ drivers/gpu/drm/amd/amdgpu/dce_v10_0.c        |  6 +--
+ drivers/gpu/drm/amd/amdgpu/dce_v11_0.c        |  6 +--
+ drivers/gpu/drm/amd/amdgpu/dce_v6_0.c         |  6 +--
+ drivers/gpu/drm/amd/amdgpu/dce_v8_0.c         | 12 ++---
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 10 ++---
+ drivers/gpu/drm/bridge/analogix/anx7625.c     |  4 +-
+ drivers/gpu/drm/bridge/ite-it66121.c          |  4 +-
+ drivers/gpu/drm/bridge/synopsys/dw-hdmi.c     |  2 +-
+ drivers/gpu/drm/drm_edid.c                    | 45 +++++++------------
+ drivers/gpu/drm/exynos/exynos_hdmi.c          |  2 +-
+ drivers/gpu/drm/i915/display/intel_audio.c    | 22 ++++-----
+ drivers/gpu/drm/i915/display/intel_sdvo.c     |  2 +-
+ drivers/gpu/drm/mediatek/mtk_dp.c             |  2 +-
+ drivers/gpu/drm/mediatek/mtk_hdmi.c           |  3 +-
+ drivers/gpu/drm/msm/dp/dp_audio.c             |  4 +-
+ drivers/gpu/drm/radeon/dce6_afmt.c            | 12 ++---
+ drivers/gpu/drm/radeon/evergreen_hdmi.c       | 12 ++---
+ drivers/gpu/drm/radeon/radeon_audio.c         |  4 +-
+ drivers/gpu/drm/sti/sti_hdmi.c                |  2 +-
+ drivers/gpu/drm/vc4/vc4_hdmi.c                |  2 +-
+ include/drm/drm_connector.h                   | 39 +++++++++-------
+ 21 files changed, 99 insertions(+), 102 deletions(-)
 
-I really hoped that at that time we already went through this. But it 
-seems I was wrong. That series went through v10 or v12 before being 
-accepted. And it was just adding wide_bus_en. Back at that time we 
-lightly discussed that the code will receive compression support. But I 
-never expected to see the original submission again.
-
-It might sound bad, but could you please find somebody who can do 
-internal review for you? Good internal review.
-
-That said, I really do not expect to see v2 before the whole series is 
-reworked, restructured and prepared for the review on your side.
-
->   
->   	display_v_start = ((p->vsync_pulse_width + p->v_back_porch) *
-> -	hsync_period) + p->hsync_skew;
-> +			hsync_period) + p->hsync_skew;
->   	display_v_end = ((vsync_period - p->v_front_porch) * hsync_period) +
-> -	p->hsync_skew - 1;
-> +			p->hsync_skew - 1;
-> +
-> +	hsync_ctl = (hsync_period << 16) | p->hsync_pulse_width;
->   
->   	hsync_start_x = p->h_back_porch + p->hsync_pulse_width;
->   	hsync_end_x = hsync_period - p->h_front_porch - 1;
->   
-> -	if (p->width != p->xres) { /* border fill added */
-> -		active_h_start = hsync_start_x;
-> -		active_h_end = active_h_start + p->xres - 1;
-> -	} else {
-> -		active_h_start = 0;
-> -		active_h_end = 0;
-> -	}
-> -
-> -	if (p->height != p->yres) { /* border fill added */
-> -		active_v_start = display_v_start;
-> -		active_v_end = active_v_start + (p->yres * hsync_period) - 1;
-> -	} else {
-> -		active_v_start = 0;
-> -		active_v_end = 0;
-> -	}
-> -
-> -	if (active_h_end) {
-> -		active_hctl = (active_h_end << 16) | active_h_start;
-> -		intf_cfg |= INTF_CFG_ACTIVE_H_EN;
-> -	} else {
-> -		active_hctl = 0;
-> -	}
-> -
-> -	if (active_v_end)
-> -		intf_cfg |= INTF_CFG_ACTIVE_V_EN;
-> -
-> -	hsync_ctl = (hsync_period << 16) | p->hsync_pulse_width;
-> -	display_hctl = (hsync_end_x << 16) | hsync_start_x;
-> -
->   	/*
->   	 * DATA_HCTL_EN controls data timing which can be different from
->   	 * video timing. It is recommended to enable it for all cases, except
->   	 * if compression is enabled in 1 pixel per clock mode
->   	 */
-> +	if (!p->compression_en || p->wide_bus_en)
-> +		intf_cfg2 |= INTF_CFG2_DATA_HCTL_EN;
-> +
->   	if (p->wide_bus_en)
-> -		intf_cfg2 |= INTF_CFG2_DATABUS_WIDEN | INTF_CFG2_DATA_HCTL_EN;
-> +		intf_cfg2 |= INTF_CFG2_DATABUS_WIDEN;
->   
-> +	/*
-> +	 * If widebus is disabled:
-> +	 * For uncompressed stream, the data is valid for the entire active
-> +	 * window period.
-> +	 * For compressed stream, data is valid for a shorter time period
-> +	 * inside the active window depending on the compression ratio.
-> +	 *
-> +	 * If widebus is enabled:
-> +	 * For uncompressed stream, data is valid for only half the active
-> +	 * window, since the data rate is doubled in this mode.
-> +	 * p->width holds the adjusted width for DP but unadjusted width for DSI
-> +	 * For compressed stream, data validity window needs to be adjusted for
-> +	 * compression ratio and then further halved.
-> +	 */
->   	data_width = p->width;
->   
-> +	if (p->compression_en) {
-> +		if (p->wide_bus_en)
-> +			data_width = DIV_ROUND_UP(p->dce_bytes_per_line, 6);
-> +		else
-> +			data_width = DIV_ROUND_UP(p->dce_bytes_per_line, 3);
-> +	} else if (!dp_intf && p->wide_bus_en) {
-> +		data_width = p->width >> 1;
-> +	} else {
-> +		data_width = p->width;
-> +	}
-> +
->   	hsync_data_start_x = hsync_start_x;
->   	hsync_data_end_x =  hsync_start_x + data_width - 1;
->   
-> +	display_hctl = (hsync_end_x << 16) | hsync_start_x;
->   	display_data_hctl = (hsync_data_end_x << 16) | hsync_data_start_x;
->   
->   	if (dp_intf) {
->   		/* DP timing adjustment */
->   		display_v_start += p->hsync_pulse_width + p->h_back_porch;
->   		display_v_end   -= p->h_front_porch;
-> +	}
-> +
-> +	intf_cfg |= INTF_CFG_ACTIVE_H_EN;
-> +	intf_cfg |= INTF_CFG_ACTIVE_V_EN;
-> +	active_h_start = hsync_start_x;
-> +	active_h_end = active_h_start + p->xres - 1;
-> +	active_v_start = display_v_start;
-> +	active_v_end = active_v_start + (p->yres * hsync_period) - 1;
->   
-> -		active_h_start = hsync_start_x;
-> -		active_h_end = active_h_start + p->xres - 1;
-> -		active_v_start = display_v_start;
-> -		active_v_end = active_v_start + (p->yres * hsync_period) - 1;
-> +	active_hctl = (active_h_end << 16) | active_h_start;
->   
-> -		active_hctl = (active_h_end << 16) | active_h_start;
-> +	if (dp_intf) {
->   		display_hctl = active_hctl;
->   
-> -		intf_cfg |= INTF_CFG_ACTIVE_H_EN | INTF_CFG_ACTIVE_V_EN;
-> +		if (p->compression_en) {
-> +			active_data_hctl = (hsync_start_x + p->extra_dto_cycles) << 16;
-> +			active_data_hctl += hsync_start_x;
-> +
-> +			display_data_hctl = active_data_hctl;
-> +		}
->   	}
->   
-> +	_check_and_set_comp_bit(ctx, p->dsc_4hs_merge, p->compression_en, &intf_cfg2);
-> +
->   	den_polarity = 0;
->   	if (ctx->cap->type == INTF_HDMI) {
->   		hsync_polarity = p->yres >= 720 ? 0 : 1;
-> @@ -202,7 +227,7 @@ static void dpu_hw_intf_setup_timing_engine(struct dpu_hw_intf *ctx,
-
+diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v10_0.c b/drivers/gpu/drm/amd/amdgpu/dce_v10_0.c
+index 9a24ed463abd..0c05838032c5 100644
+--- a/drivers/gpu/drm/amd/amdgpu/dce_v10_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/dce_v10_0.c
+@@ -1257,11 +1257,11 @@ static void dce_v10_0_audio_write_latency_fields(struct drm_encoder *encoder,
+ 
+ 	if (mode->flags & DRM_MODE_FLAG_INTERLACE)
+ 		interlace = 1;
+-	if (connector->latency_present[interlace]) {
++	if (connector->display_info.latency_present[interlace]) {
+ 		tmp = REG_SET_FIELD(0, AZALIA_F0_CODEC_PIN_CONTROL_RESPONSE_LIPSYNC,
+-				    VIDEO_LIPSYNC, connector->video_latency[interlace]);
++				    VIDEO_LIPSYNC, connector->display_info.video_latency[interlace]);
+ 		tmp = REG_SET_FIELD(0, AZALIA_F0_CODEC_PIN_CONTROL_RESPONSE_LIPSYNC,
+-				    AUDIO_LIPSYNC, connector->audio_latency[interlace]);
++				    AUDIO_LIPSYNC, connector->display_info.audio_latency[interlace]);
+ 	} else {
+ 		tmp = REG_SET_FIELD(0, AZALIA_F0_CODEC_PIN_CONTROL_RESPONSE_LIPSYNC,
+ 				    VIDEO_LIPSYNC, 0);
+diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v11_0.c b/drivers/gpu/drm/amd/amdgpu/dce_v11_0.c
+index c14b70350a51..896f0416b69f 100644
+--- a/drivers/gpu/drm/amd/amdgpu/dce_v11_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/dce_v11_0.c
+@@ -1283,11 +1283,11 @@ static void dce_v11_0_audio_write_latency_fields(struct drm_encoder *encoder,
+ 
+ 	if (mode->flags & DRM_MODE_FLAG_INTERLACE)
+ 		interlace = 1;
+-	if (connector->latency_present[interlace]) {
++	if (connector->display_info.latency_present[interlace]) {
+ 		tmp = REG_SET_FIELD(0, AZALIA_F0_CODEC_PIN_CONTROL_RESPONSE_LIPSYNC,
+-				    VIDEO_LIPSYNC, connector->video_latency[interlace]);
++				    VIDEO_LIPSYNC, connector->display_info.video_latency[interlace]);
+ 		tmp = REG_SET_FIELD(0, AZALIA_F0_CODEC_PIN_CONTROL_RESPONSE_LIPSYNC,
+-				    AUDIO_LIPSYNC, connector->audio_latency[interlace]);
++				    AUDIO_LIPSYNC, connector->display_info.audio_latency[interlace]);
+ 	} else {
+ 		tmp = REG_SET_FIELD(0, AZALIA_F0_CODEC_PIN_CONTROL_RESPONSE_LIPSYNC,
+ 				    VIDEO_LIPSYNC, 0);
+diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c b/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c
+index 7f85ba5b726f..4aa797726bca 100644
+--- a/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c
+@@ -1158,11 +1158,11 @@ static void dce_v6_0_audio_write_latency_fields(struct drm_encoder *encoder,
+ 	if (mode->flags & DRM_MODE_FLAG_INTERLACE)
+ 		interlace = 1;
+ 
+-	if (connector->latency_present[interlace]) {
++	if (connector->display_info.latency_present[interlace]) {
+ 		tmp = REG_SET_FIELD(0, AZALIA_F0_CODEC_PIN_CONTROL_RESPONSE_LIPSYNC,
+-				VIDEO_LIPSYNC, connector->video_latency[interlace]);
++				VIDEO_LIPSYNC, connector->display_info.video_latency[interlace]);
+ 		tmp = REG_SET_FIELD(tmp, AZALIA_F0_CODEC_PIN_CONTROL_RESPONSE_LIPSYNC,
+-				AUDIO_LIPSYNC, connector->audio_latency[interlace]);
++				AUDIO_LIPSYNC, connector->display_info.audio_latency[interlace]);
+ 	} else {
+ 		tmp = REG_SET_FIELD(0, AZALIA_F0_CODEC_PIN_CONTROL_RESPONSE_LIPSYNC,
+ 				VIDEO_LIPSYNC, 0);
+diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c b/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c
+index d421a268c9ff..c84421510a46 100644
+--- a/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c
+@@ -1195,11 +1195,11 @@ static void dce_v8_0_audio_write_latency_fields(struct drm_encoder *encoder,
+ 	}
+ 
+ 	if (mode->flags & DRM_MODE_FLAG_INTERLACE) {
+-		if (connector->latency_present[1])
++		if (connector->display_info.latency_present[1])
+ 			tmp =
+-			(connector->video_latency[1] <<
++			(connector->display_info.video_latency[1] <<
+ 			 AZALIA_F0_CODEC_PIN_CONTROL_RESPONSE_LIPSYNC__VIDEO_LIPSYNC__SHIFT) |
+-			(connector->audio_latency[1] <<
++			(connector->display_info.audio_latency[1] <<
+ 			 AZALIA_F0_CODEC_PIN_CONTROL_RESPONSE_LIPSYNC__AUDIO_LIPSYNC__SHIFT);
+ 		else
+ 			tmp =
+@@ -1208,11 +1208,11 @@ static void dce_v8_0_audio_write_latency_fields(struct drm_encoder *encoder,
+ 			(0 <<
+ 			 AZALIA_F0_CODEC_PIN_CONTROL_RESPONSE_LIPSYNC__AUDIO_LIPSYNC__SHIFT);
+ 	} else {
+-		if (connector->latency_present[0])
++		if (connector->display_info.latency_present[0])
+ 			tmp =
+-			(connector->video_latency[0] <<
++			(connector->display_info.video_latency[0] <<
+ 			 AZALIA_F0_CODEC_PIN_CONTROL_RESPONSE_LIPSYNC__VIDEO_LIPSYNC__SHIFT) |
+-			(connector->audio_latency[0] <<
++			(connector->display_info.audio_latency[0] <<
+ 			 AZALIA_F0_CODEC_PIN_CONTROL_RESPONSE_LIPSYNC__AUDIO_LIPSYNC__SHIFT);
+ 		else
+ 			tmp =
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index c61c388bddf2..4db61c346280 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -894,8 +894,8 @@ static int amdgpu_dm_audio_component_get_eld(struct device *kdev, int port,
+ 			continue;
+ 
+ 		*enabled = true;
+-		ret = drm_eld_size(connector->eld);
+-		memcpy(buf, connector->eld, min(max_bytes, ret));
++		ret = drm_eld_size(connector->display_info.eld);
++		memcpy(buf, connector->display_info.eld, min(max_bytes, ret));
+ 
+ 		break;
+ 	}
+@@ -5386,9 +5386,9 @@ static void fill_audio_info(struct audio_info *audio_info,
+ 	audio_info->flags.all = edid_caps->speaker_flags;
+ 
+ 	/* TODO: We only check for the progressive mode, check for interlace mode too */
+-	if (drm_connector->latency_present[0]) {
+-		audio_info->video_latency = drm_connector->video_latency[0];
+-		audio_info->audio_latency = drm_connector->audio_latency[0];
++	if (drm_connector->display_info.latency_present[0]) {
++		audio_info->video_latency = drm_connector->display_info.video_latency[0];
++		audio_info->audio_latency = drm_connector->display_info.audio_latency[0];
+ 	}
+ 
+ 	/* TODO: For DP, video and audio latency should be calculated from DPCD caps */
+diff --git a/drivers/gpu/drm/bridge/analogix/anx7625.c b/drivers/gpu/drm/bridge/analogix/anx7625.c
+index 6846199a2ee1..04a29950228c 100644
+--- a/drivers/gpu/drm/bridge/analogix/anx7625.c
++++ b/drivers/gpu/drm/bridge/analogix/anx7625.c
+@@ -1982,8 +1982,8 @@ static int anx7625_audio_get_eld(struct device *dev, void *data,
+ 		memset(buf, 0, len);
+ 	} else {
+ 		dev_dbg(dev, "audio copy eld\n");
+-		memcpy(buf, ctx->connector->eld,
+-		       min(sizeof(ctx->connector->eld), len));
++		memcpy(buf, ctx->connector->display_info.eld,
++		       min(sizeof(ctx->connector->display_info.eld), len));
+ 	}
+ 
+ 	return 0;
+diff --git a/drivers/gpu/drm/bridge/ite-it66121.c b/drivers/gpu/drm/bridge/ite-it66121.c
+index a2d723d6a4be..1a5e0741d33b 100644
+--- a/drivers/gpu/drm/bridge/ite-it66121.c
++++ b/drivers/gpu/drm/bridge/ite-it66121.c
+@@ -1448,8 +1448,8 @@ static int it66121_audio_get_eld(struct device *dev, void *data,
+ 
+ 	mutex_lock(&ctx->lock);
+ 
+-	memcpy(buf, ctx->connector->eld,
+-	       min(sizeof(ctx->connector->eld), len));
++	memcpy(buf, ctx->connector->display_info.eld,
++	       min(sizeof(ctx->connector->display_info.eld), len));
+ 
+ 	mutex_unlock(&ctx->lock);
+ 
+diff --git a/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c b/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c
+index aa51c61a78c7..1f235960fd33 100644
+--- a/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c
++++ b/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c
+@@ -789,7 +789,7 @@ static u8 *hdmi_audio_get_eld(struct dw_hdmi *hdmi)
+ 	if (!hdmi->curr_conn)
+ 		return NULL;
+ 
+-	return hdmi->curr_conn->eld;
++	return hdmi->curr_conn->display_info.eld;
+ }
+ 
+ static void dw_hdmi_gp_audio_enable(struct dw_hdmi *hdmi)
+diff --git a/drivers/gpu/drm/drm_edid.c b/drivers/gpu/drm/drm_edid.c
+index 1ce3f153868d..a1b06b374af8 100644
+--- a/drivers/gpu/drm/drm_edid.c
++++ b/drivers/gpu/drm/drm_edid.c
+@@ -5369,29 +5369,30 @@ drm_parse_hdr_metadata_block(struct drm_connector *connector, const u8 *db)
+ static void
+ drm_parse_hdmi_vsdb_audio(struct drm_connector *connector, const u8 *db)
+ {
++	struct drm_display_info *info = &connector->display_info;
+ 	u8 len = cea_db_payload_len(db);
+ 
+ 	if (len >= 6 && (db[6] & (1 << 7)))
+-		connector->eld[DRM_ELD_SAD_COUNT_CONN_TYPE] |= DRM_ELD_SUPPORTS_AI;
++		info->eld[DRM_ELD_SAD_COUNT_CONN_TYPE] |= DRM_ELD_SUPPORTS_AI;
+ 
+ 	if (len >= 10 && hdmi_vsdb_latency_present(db)) {
+-		connector->latency_present[0] = true;
+-		connector->video_latency[0] = db[9];
+-		connector->audio_latency[0] = db[10];
++		info->latency_present[0] = true;
++		info->video_latency[0] = db[9];
++		info->audio_latency[0] = db[10];
+ 	}
+ 
+ 	if (len >= 12 && hdmi_vsdb_i_latency_present(db)) {
+-		connector->latency_present[1] = true;
+-		connector->video_latency[1] = db[11];
+-		connector->audio_latency[1] = db[12];
++		info->latency_present[1] = true;
++		info->video_latency[1] = db[11];
++		info->audio_latency[1] = db[12];
+ 	}
+ 
+ 	drm_dbg_kms(connector->dev,
+ 		    "[CONNECTOR:%d:%s] HDMI: latency present %d %d, video latency %d %d, audio latency %d %d\n",
+ 		    connector->base.id, connector->name,
+-		    connector->latency_present[0], connector->latency_present[1],
+-		    connector->video_latency[0], connector->video_latency[1],
+-		    connector->audio_latency[0], connector->audio_latency[1]);
++		    info->latency_present[0], info->latency_present[1],
++		    info->video_latency[0], info->video_latency[1],
++		    info->audio_latency[0], info->audio_latency[1]);
+ }
+ 
+ static void
+@@ -5453,18 +5454,6 @@ void drm_edid_get_monitor_name(const struct edid *edid, char *name, int bufsize)
+ }
+ EXPORT_SYMBOL(drm_edid_get_monitor_name);
+ 
+-static void clear_eld(struct drm_connector *connector)
+-{
+-	memset(connector->eld, 0, sizeof(connector->eld));
+-
+-	connector->latency_present[0] = false;
+-	connector->latency_present[1] = false;
+-	connector->video_latency[0] = 0;
+-	connector->audio_latency[0] = 0;
+-	connector->video_latency[1] = 0;
+-	connector->audio_latency[1] = 0;
+-}
+-
+ /*
+  * drm_edid_to_eld - build ELD from EDID
+  * @connector: connector corresponding to the HDMI/DP sink
+@@ -5479,7 +5468,7 @@ static void drm_edid_to_eld(struct drm_connector *connector,
+ 	const struct drm_display_info *info = &connector->display_info;
+ 	const struct cea_db *db;
+ 	struct cea_db_iter iter;
+-	uint8_t *eld = connector->eld;
++	u8 *eld = connector->display_info.eld;
+ 	int total_sad_count = 0;
+ 	int mnl;
+ 
+@@ -5659,16 +5648,17 @@ EXPORT_SYMBOL(drm_edid_to_speaker_allocation);
+ int drm_av_sync_delay(struct drm_connector *connector,
+ 		      const struct drm_display_mode *mode)
+ {
++	const struct drm_display_info *info = &connector->display_info;
+ 	int i = !!(mode->flags & DRM_MODE_FLAG_INTERLACE);
+ 	int a, v;
+ 
+-	if (!connector->latency_present[0])
++	if (!info->latency_present[0])
+ 		return 0;
+-	if (!connector->latency_present[1])
++	if (!info->latency_present[1])
+ 		i = 0;
+ 
+-	a = connector->audio_latency[i];
+-	v = connector->video_latency[i];
++	a = info->audio_latency[i];
++	v = info->video_latency[i];
+ 
+ 	/*
+ 	 * HDMI/DP sink doesn't support audio or video?
+@@ -6437,7 +6427,6 @@ static void update_display_info(struct drm_connector *connector,
+ 	const struct edid *edid;
+ 
+ 	drm_reset_display_info(connector);
+-	clear_eld(connector);
+ 
+ 	if (!drm_edid)
+ 		return;
+diff --git a/drivers/gpu/drm/exynos/exynos_hdmi.c b/drivers/gpu/drm/exynos/exynos_hdmi.c
+index b7c11bdce2c8..22a0160977d7 100644
+--- a/drivers/gpu/drm/exynos/exynos_hdmi.c
++++ b/drivers/gpu/drm/exynos/exynos_hdmi.c
+@@ -1640,7 +1640,7 @@ static int hdmi_audio_get_eld(struct device *dev, void *data, uint8_t *buf,
+ 	struct hdmi_context *hdata = dev_get_drvdata(dev);
+ 	struct drm_connector *connector = &hdata->connector;
+ 
+-	memcpy(buf, connector->eld, min(sizeof(connector->eld), len));
++	memcpy(buf, connector->display_info.eld, min(sizeof(connector->display_info.eld), len));
+ 
+ 	return 0;
+ }
+diff --git a/drivers/gpu/drm/i915/display/intel_audio.c b/drivers/gpu/drm/i915/display/intel_audio.c
+index 626c47e96a6d..f4241d46ba65 100644
+--- a/drivers/gpu/drm/i915/display/intel_audio.c
++++ b/drivers/gpu/drm/i915/display/intel_audio.c
+@@ -336,7 +336,7 @@ static void g4x_audio_codec_enable(struct intel_encoder *encoder,
+ 	struct drm_i915_private *i915 = to_i915(encoder->base.dev);
+ 	struct intel_crtc *crtc = to_intel_crtc(crtc_state->uapi.crtc);
+ 	struct drm_connector *connector = conn_state->connector;
+-	const u32 *eld = (const u32 *)connector->eld;
++	const u32 *eld = (const u32 *)connector->display_info.eld;
+ 	int eld_buffer_size, len, i;
+ 
+ 	intel_crtc_wait_for_next_vblank(crtc);
+@@ -345,7 +345,7 @@ static void g4x_audio_codec_enable(struct intel_encoder *encoder,
+ 		     G4X_ELD_VALID | G4X_ELD_ADDRESS_MASK, 0);
+ 
+ 	eld_buffer_size = g4x_eld_buffer_size(i915);
+-	len = min(drm_eld_size(connector->eld) / 4, eld_buffer_size);
++	len = min(drm_eld_size(connector->display_info.eld) / 4, eld_buffer_size);
+ 
+ 	for (i = 0; i < len; i++)
+ 		intel_de_write(i915, G4X_HDMIW_HDMIEDID, eld[i]);
+@@ -620,7 +620,7 @@ static void hsw_audio_codec_enable(struct intel_encoder *encoder,
+ 	struct intel_crtc *crtc = to_intel_crtc(crtc_state->uapi.crtc);
+ 	struct drm_connector *connector = conn_state->connector;
+ 	enum transcoder cpu_transcoder = crtc_state->cpu_transcoder;
+-	const u32 *eld = (const u32 *)connector->eld;
++	const u32 *eld = (const u32 *)connector->display_info.eld;
+ 	int eld_buffer_size, len, i;
+ 
+ 	mutex_lock(&i915->display.audio.mutex);
+@@ -644,7 +644,7 @@ static void hsw_audio_codec_enable(struct intel_encoder *encoder,
+ 		     IBX_ELD_ADDRESS_MASK, 0);
+ 
+ 	eld_buffer_size = hsw_eld_buffer_size(i915, cpu_transcoder);
+-	len = min(drm_eld_size(connector->eld) / 4, eld_buffer_size);
++	len = min(drm_eld_size(connector->display_info.eld) / 4, eld_buffer_size);
+ 
+ 	for (i = 0; i < len; i++)
+ 		intel_de_write(i915, HSW_AUD_EDID_DATA(cpu_transcoder), eld[i]);
+@@ -748,7 +748,7 @@ static void ilk_audio_codec_enable(struct intel_encoder *encoder,
+ 	struct drm_i915_private *i915 = to_i915(encoder->base.dev);
+ 	struct intel_crtc *crtc = to_intel_crtc(crtc_state->uapi.crtc);
+ 	struct drm_connector *connector = conn_state->connector;
+-	const u32 *eld = (const u32 *)connector->eld;
++	const u32 *eld = (const u32 *)connector->display_info.eld;
+ 	enum port port = encoder->port;
+ 	enum pipe pipe = crtc->pipe;
+ 	int eld_buffer_size, len, i;
+@@ -772,7 +772,7 @@ static void ilk_audio_codec_enable(struct intel_encoder *encoder,
+ 		     IBX_ELD_ADDRESS_MASK, 0);
+ 
+ 	eld_buffer_size = ilk_eld_buffer_size(i915, pipe);
+-	len = min(drm_eld_size(connector->eld) / 4, eld_buffer_size);
++	len = min(drm_eld_size(connector->display_info.eld) / 4, eld_buffer_size);
+ 
+ 	for (i = 0; i < len; i++)
+ 		intel_de_write(i915, regs.hdmiw_hdmiedid, eld[i]);
+@@ -837,15 +837,15 @@ void intel_audio_codec_enable(struct intel_encoder *encoder,
+ 	drm_dbg_kms(&i915->drm, "[CONNECTOR:%d:%s][ENCODER:%d:%s] Enable audio codec on pipe %c, %u bytes ELD\n",
+ 		    connector->base.id, connector->name,
+ 		    encoder->base.base.id, encoder->base.name,
+-		    pipe_name(pipe), drm_eld_size(connector->eld));
++		    pipe_name(pipe), drm_eld_size(connector->display_info.eld));
+ 
+ 	/* FIXME precompute the ELD in .compute_config() */
+-	if (!connector->eld[0])
++	if (!connector->display_info.eld[0])
+ 		drm_dbg_kms(&i915->drm,
+ 			    "Bogus ELD on [CONNECTOR:%d:%s]\n",
+ 			    connector->base.id, connector->name);
+ 
+-	connector->eld[6] = drm_av_sync_delay(connector, adjusted_mode) / 2;
++	connector->display_info.eld[6] = drm_av_sync_delay(connector, adjusted_mode) / 2;
+ 
+ 	if (i915->display.funcs.audio)
+ 		i915->display.funcs.audio->audio_codec_enable(encoder,
+@@ -868,7 +868,7 @@ void intel_audio_codec_enable(struct intel_encoder *encoder,
+ 						      (int)port, (int)pipe);
+ 	}
+ 
+-	intel_lpe_audio_notify(i915, pipe, port, connector->eld,
++	intel_lpe_audio_notify(i915, pipe, port, connector->display_info.eld,
+ 			       crtc_state->port_clock,
+ 			       intel_crtc_has_dp_encoder(crtc_state));
+ }
+@@ -1236,7 +1236,7 @@ static int i915_audio_component_get_eld(struct device *kdev, int port,
+ 	ret = 0;
+ 	*enabled = intel_encoder->audio_connector != NULL;
+ 	if (*enabled) {
+-		eld = intel_encoder->audio_connector->eld;
++		eld = intel_encoder->audio_connector->display_info.eld;
+ 		ret = drm_eld_size(eld);
+ 		memcpy(buf, eld, min(max_bytes, ret));
+ 	}
+diff --git a/drivers/gpu/drm/i915/display/intel_sdvo.c b/drivers/gpu/drm/i915/display/intel_sdvo.c
+index 21805c15d5eb..582bbc194305 100644
+--- a/drivers/gpu/drm/i915/display/intel_sdvo.c
++++ b/drivers/gpu/drm/i915/display/intel_sdvo.c
+@@ -1756,7 +1756,7 @@ static void intel_sdvo_enable_audio(struct intel_sdvo *intel_sdvo,
+ 	const struct drm_display_mode *adjusted_mode =
+ 		&crtc_state->hw.adjusted_mode;
+ 	struct drm_connector *connector = conn_state->connector;
+-	u8 *eld = connector->eld;
++	u8 *eld = connector->display_info.eld;
+ 
+ 	eld[6] = drm_av_sync_delay(connector, adjusted_mode) / 2;
+ 
+diff --git a/drivers/gpu/drm/mediatek/mtk_dp.c b/drivers/gpu/drm/mediatek/mtk_dp.c
+index b4feaabdb6a7..3fd448a6d8d1 100644
+--- a/drivers/gpu/drm/mediatek/mtk_dp.c
++++ b/drivers/gpu/drm/mediatek/mtk_dp.c
+@@ -2432,7 +2432,7 @@ static int mtk_dp_audio_get_eld(struct device *dev, void *data, uint8_t *buf,
+ 	struct mtk_dp *mtk_dp = dev_get_drvdata(dev);
+ 
+ 	if (mtk_dp->enabled)
+-		memcpy(buf, mtk_dp->conn->eld, len);
++		memcpy(buf, mtk_dp->conn->display_info.eld, len);
+ 	else
+ 		memset(buf, 0, len);
+ 
+diff --git a/drivers/gpu/drm/mediatek/mtk_hdmi.c b/drivers/gpu/drm/mediatek/mtk_hdmi.c
+index 0a8e0a13f516..edc96b32cf4c 100644
+--- a/drivers/gpu/drm/mediatek/mtk_hdmi.c
++++ b/drivers/gpu/drm/mediatek/mtk_hdmi.c
+@@ -1634,7 +1634,8 @@ static int mtk_hdmi_audio_get_eld(struct device *dev, void *data, uint8_t *buf,
+ 	struct mtk_hdmi *hdmi = dev_get_drvdata(dev);
+ 
+ 	if (hdmi->enabled)
+-		memcpy(buf, hdmi->curr_conn->eld, min(sizeof(hdmi->curr_conn->eld), len));
++		memcpy(buf, hdmi->curr_conn->display_info.eld,
++		       min(sizeof(hdmi->curr_conn->display_info.eld), len));
+ 	else
+ 		memset(buf, 0, len);
+ 	return 0;
+diff --git a/drivers/gpu/drm/msm/dp/dp_audio.c b/drivers/gpu/drm/msm/dp/dp_audio.c
+index 6666783e1468..993b248fd9e9 100644
+--- a/drivers/gpu/drm/msm/dp/dp_audio.c
++++ b/drivers/gpu/drm/msm/dp/dp_audio.c
+@@ -499,8 +499,8 @@ static int dp_audio_get_eld(struct device *dev,
+ 		return -ENODEV;
+ 	}
+ 
+-	memcpy(buf, dp_display->connector->eld,
+-		min(sizeof(dp_display->connector->eld), len));
++	memcpy(buf, dp_display->connector->display_info.eld,
++	       min(sizeof(dp_display->connector->display_info.eld), len));
+ 
+ 	return 0;
+ }
+diff --git a/drivers/gpu/drm/radeon/dce6_afmt.c b/drivers/gpu/drm/radeon/dce6_afmt.c
+index 4a1d5447eac1..cf92c108e377 100644
+--- a/drivers/gpu/drm/radeon/dce6_afmt.c
++++ b/drivers/gpu/drm/radeon/dce6_afmt.c
+@@ -134,15 +134,15 @@ void dce6_afmt_write_latency_fields(struct drm_encoder *encoder,
+ 		return;
+ 
+ 	if (mode->flags & DRM_MODE_FLAG_INTERLACE) {
+-		if (connector->latency_present[1])
+-			tmp = VIDEO_LIPSYNC(connector->video_latency[1]) |
+-				AUDIO_LIPSYNC(connector->audio_latency[1]);
++		if (connector->display_info.latency_present[1])
++			tmp = VIDEO_LIPSYNC(connector->display_info.video_latency[1]) |
++				AUDIO_LIPSYNC(connector->display_info.audio_latency[1]);
+ 		else
+ 			tmp = VIDEO_LIPSYNC(0) | AUDIO_LIPSYNC(0);
+ 	} else {
+-		if (connector->latency_present[0])
+-			tmp = VIDEO_LIPSYNC(connector->video_latency[0]) |
+-				AUDIO_LIPSYNC(connector->audio_latency[0]);
++		if (connector->display_info.latency_present[0])
++			tmp = VIDEO_LIPSYNC(connector->display_info.video_latency[0]) |
++				AUDIO_LIPSYNC(connector->display_info.audio_latency[0]);
+ 		else
+ 			tmp = VIDEO_LIPSYNC(0) | AUDIO_LIPSYNC(0);
+ 	}
+diff --git a/drivers/gpu/drm/radeon/evergreen_hdmi.c b/drivers/gpu/drm/radeon/evergreen_hdmi.c
+index 5f3078f8ab95..ef6e0f3003a3 100644
+--- a/drivers/gpu/drm/radeon/evergreen_hdmi.c
++++ b/drivers/gpu/drm/radeon/evergreen_hdmi.c
+@@ -102,15 +102,15 @@ void dce4_afmt_write_latency_fields(struct drm_encoder *encoder,
+ 	u32 tmp = 0;
+ 
+ 	if (mode->flags & DRM_MODE_FLAG_INTERLACE) {
+-		if (connector->latency_present[1])
+-			tmp = VIDEO_LIPSYNC(connector->video_latency[1]) |
+-				AUDIO_LIPSYNC(connector->audio_latency[1]);
++		if (connector->display_info.latency_present[1])
++			tmp = VIDEO_LIPSYNC(connector->display_info.video_latency[1]) |
++				AUDIO_LIPSYNC(connector->display_info.audio_latency[1]);
+ 		else
+ 			tmp = VIDEO_LIPSYNC(255) | AUDIO_LIPSYNC(255);
+ 	} else {
+-		if (connector->latency_present[0])
+-			tmp = VIDEO_LIPSYNC(connector->video_latency[0]) |
+-				AUDIO_LIPSYNC(connector->audio_latency[0]);
++		if (connector->display_info.latency_present[0])
++			tmp = VIDEO_LIPSYNC(connector->display_info.video_latency[0]) |
++				AUDIO_LIPSYNC(connector->display_info.audio_latency[0]);
+ 		else
+ 			tmp = VIDEO_LIPSYNC(255) | AUDIO_LIPSYNC(255);
+ 	}
+diff --git a/drivers/gpu/drm/radeon/radeon_audio.c b/drivers/gpu/drm/radeon/radeon_audio.c
+index d6ccaf24ee0c..8e075e18f8e8 100644
+--- a/drivers/gpu/drm/radeon/radeon_audio.c
++++ b/drivers/gpu/drm/radeon/radeon_audio.c
+@@ -769,8 +769,8 @@ static int radeon_audio_component_get_eld(struct device *kdev, int port,
+ 		if (!connector)
+ 			continue;
+ 		*enabled = true;
+-		ret = drm_eld_size(connector->eld);
+-		memcpy(buf, connector->eld, min(max_bytes, ret));
++		ret = drm_eld_size(connector->display_info.eld);
++		memcpy(buf, connector->display_info.eld, min(max_bytes, ret));
+ 		break;
+ 	}
+ 
+diff --git a/drivers/gpu/drm/sti/sti_hdmi.c b/drivers/gpu/drm/sti/sti_hdmi.c
+index 8539fe1fedc4..bbffe0b379f5 100644
+--- a/drivers/gpu/drm/sti/sti_hdmi.c
++++ b/drivers/gpu/drm/sti/sti_hdmi.c
+@@ -1220,7 +1220,7 @@ static int hdmi_audio_get_eld(struct device *dev, void *data, uint8_t *buf, size
+ 	struct drm_connector *connector = hdmi->drm_connector;
+ 
+ 	DRM_DEBUG_DRIVER("\n");
+-	memcpy(buf, connector->eld, min(sizeof(connector->eld), len));
++	memcpy(buf, connector->display_info.eld, min(sizeof(connector->display_info.eld), len));
+ 
+ 	return 0;
+ }
+diff --git a/drivers/gpu/drm/vc4/vc4_hdmi.c b/drivers/gpu/drm/vc4/vc4_hdmi.c
+index 14628864487a..05181e152168 100644
+--- a/drivers/gpu/drm/vc4/vc4_hdmi.c
++++ b/drivers/gpu/drm/vc4/vc4_hdmi.c
+@@ -2411,7 +2411,7 @@ static int vc4_hdmi_audio_get_eld(struct device *dev, void *data,
+ 	struct drm_connector *connector = &vc4_hdmi->connector;
+ 
+ 	mutex_lock(&vc4_hdmi->mutex);
+-	memcpy(buf, connector->eld, min(sizeof(connector->eld), len));
++	memcpy(buf, connector->display_info.eld, min(sizeof(connector->display_info.eld), len));
+ 	mutex_unlock(&vc4_hdmi->mutex);
+ 
+ 	return 0;
+diff --git a/include/drm/drm_connector.h b/include/drm/drm_connector.h
+index 627bedc47511..30f51e8a7985 100644
+--- a/include/drm/drm_connector.h
++++ b/include/drm/drm_connector.h
+@@ -738,6 +738,29 @@ struct drm_display_info {
+ 	 * @quirks: EDID based quirks. Internal to EDID parsing.
+ 	 */
+ 	u32 quirks;
++
++#define MAX_ELD_BYTES	128
++	/**
++	 * @eld: EDID-like data, if present
++	 */
++	u8 eld[MAX_ELD_BYTES];
++
++	/**
++	 * @latency_present: AV delay info from ELD, if found
++	 */
++	bool latency_present[2];
++
++	/**
++	 * @video_latency: Video latency info from ELD, if found.
++	 * [0]: progressive, [1]: interlaced
++	 */
++	int video_latency[2];
++
++	/**
++	 * @audio_latency: audio latency info from ELD, if found
++	 * [0]: progressive, [1]: interlaced
++	 */
++	int audio_latency[2];
+ };
+ 
+ int drm_display_info_set_bus_formats(struct drm_display_info *info,
+@@ -1685,22 +1708,6 @@ struct drm_connector {
+ 	 */
+ 	struct drm_encoder *encoder;
+ 
+-#define MAX_ELD_BYTES	128
+-	/** @eld: EDID-like data, if present */
+-	uint8_t eld[MAX_ELD_BYTES];
+-	/** @latency_present: AV delay info from ELD, if found */
+-	bool latency_present[2];
+-	/**
+-	 * @video_latency: Video latency info from ELD, if found.
+-	 * [0]: progressive, [1]: interlaced
+-	 */
+-	int video_latency[2];
+-	/**
+-	 * @audio_latency: audio latency info from ELD, if found
+-	 * [0]: progressive, [1]: interlaced
+-	 */
+-	int audio_latency[2];
+-
+ 	/**
+ 	 * @ddc: associated ddc adapter.
+ 	 * A connector usually has its associated ddc adapter. If a driver uses
 -- 
-With best wishes
-Dmitry
+2.34.1
 
