@@ -1,73 +1,54 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1DBC5679268
-	for <lists+freedreno@lfdr.de>; Tue, 24 Jan 2023 08:57:28 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id B9B5667928D
+	for <lists+freedreno@lfdr.de>; Tue, 24 Jan 2023 09:09:09 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DAB9510E61D;
-	Tue, 24 Jan 2023 07:57:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B52F410E61F;
+	Tue, 24 Jan 2023 08:09:06 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ed1-x529.google.com (mail-ed1-x529.google.com
- [IPv6:2a00:1450:4864:20::529])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A552C10E61B
- for <freedreno@lists.freedesktop.org>; Tue, 24 Jan 2023 07:57:23 +0000 (UTC)
-Received: by mail-ed1-x529.google.com with SMTP id x10so17333155edd.10
- for <freedreno@lists.freedesktop.org>; Mon, 23 Jan 2023 23:57:23 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=I3bszTCkD+kw+1Y7L2uGsYTJlWqLn8lcFGeHp2xVzYs=;
- b=Yd3Me3+cKdqdLlAwp8AvD/tWrYtVn7tB/vvQyHiQc6PUX4I2VrddOvyS5s8MGqIchI
- wCdXjpZV9dYY6eIplbatXT7nWd/2599Xm1FMAUOvMbT2owgt/d0ABiNlVVpUOV64X7vb
- SgTHamw4hskUtfa1XGl99c3AhXE6sDn4cNfA8CivcJ5FEP2PXV+2krL+yJagNfHFz41h
- dI0bN/51xhbwTUg6Aahm+pdXV285AIbcPco1FW/CNJmrxWnr0lcjM7hRkGV8j4SSQFxA
- UmspSpS24H62B+6vbzJtGX/Mh5l6Y9b+RVEJzdhZNrIA8nbxv/V2m1rZ1vDLuGgAZG2j
- lSqg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=I3bszTCkD+kw+1Y7L2uGsYTJlWqLn8lcFGeHp2xVzYs=;
- b=5sLkhNaJCjqsCCn/xiID9h4dWHIavquLi9JDktEcbS6W7qgUwPg9HzYuGBt/BxS+mX
- D1N+KcuJg4xS5PczwlpLrfUYMedLHC2GYsv6qxv+pQ+AOcCrERS5dmpxmpdmV2ataAjP
- z0j/s0roO9J09gfj/yQ33gLcTGOooXmhtgtc5dVI8xBH7MK8epuDiiwbrGP3CSptwLSi
- A8jhqRqL2KcmzcmxqkOUtpViU1/ThTTw2Jxf5ZzwPttDNFD5CFpDKenzAzKiBJaYSn7W
- RCk2rw8mR27gZIkvP1GbBoGOPEuUaERW/p0LSt2QAeFbmbN4Fr3m7jO7INEa/gk8bPQi
- 13yg==
-X-Gm-Message-State: AFqh2kpWzciCCF48rhvSJaP7VWbgRuTD9Sw+0zlmUkxNTK+sGBIGx0VA
- KpnVfMi3fDvpAA+SGvk088NPHA==
-X-Google-Smtp-Source: AMrXdXt+1GGRxvTU201N0GgA/ANjRYl0kMjG+dTlxFaG95i9L3Q80YyqWCvwwDwBnIPn0Lwak3CV6A==
-X-Received: by 2002:a05:6402:28cb:b0:49e:db43:1722 with SMTP id
- ef11-20020a05640228cb00b0049edb431722mr14083304edb.18.1674547042151; 
- Mon, 23 Jan 2023 23:57:22 -0800 (PST)
-Received: from ?IPV6:2001:14ba:a085:4d00::8a5?
- (dzccz6yyyyyyyyyyybcwt-3.rev.dnainternet.fi. [2001:14ba:a085:4d00::8a5])
- by smtp.gmail.com with ESMTPSA id
- u18-20020a50c052000000b0049ebbee7134sm698378edd.94.2023.01.23.23.57.20
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 23 Jan 2023 23:57:21 -0800 (PST)
-Message-ID: <76500be3-08c8-311b-6f9c-ad9e2feaf2ae@linaro.org>
-Date: Tue, 24 Jan 2023 09:57:20 +0200
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D730810E61E;
+ Tue, 24 Jan 2023 08:09:03 +0000 (UTC)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 146D6611FD;
+ Tue, 24 Jan 2023 08:09:03 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7290BC433D2;
+ Tue, 24 Jan 2023 08:09:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1674547742;
+ bh=TRocIrBG205Sv8eelyMy2hfITbfOBpE1O01eh4HW/XY=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=CJYnW7GphJzPeSUmvUcxBIa/oKMqd8ezbxM/r+fuCWqX2Zgfr4dD+O2cB4XfxhATR
+ iGdkGVu94g8Gvk3utzvoszBn2wH/jBw7JGBPAOKp/UcD1AtQa/66g/8fJiu4hOsYoP
+ I/3qplJNLecojxQP2AI0FS952OCFWqFa9eNIwDF4jmR9Py03O5W9xInmgxxySvq9P+
+ xcYWom6EsrZjH4NQRrkcrR9epy1fGP8TlhhoCs+lqPMbUmAIoHin8j75hwIKyh/en1
+ OjhikC4epD7BMLFuoNzV6Y9ujmTdcoiEV+rOgd0Y9qF9WN3OOja6A8wx4nq6UmyT9o
+ zKeTjnQt1z9ug==
+Received: from johan by xi.lan with local (Exim 4.94.2)
+ (envelope-from <johan@kernel.org>)
+ id 1pKEMX-00057Z-IJ; Tue, 24 Jan 2023 09:09:02 +0100
+Date: Tue, 24 Jan 2023 09:09:01 +0100
+From: Johan Hovold <johan@kernel.org>
+To: Bjorn Andersson <quic_bjorande@quicinc.com>
+Message-ID: <Y8+SHQ/klPwusQRj@hovoldconsulting.com>
+References: <20230113041051.4189063-1-quic_bjorande@quicinc.com>
+ <eea1c5dc-6bc5-4246-f0e1-0c790de9f078@linaro.org>
+ <9a64c685-9ff0-bc1d-e604-e3773ff9edd7@linaro.org>
+ <20230117025122.jt3wrjkqfnogu4ci@builder.lan>
+ <Y8ZWl85gSpOaLgO4@hovoldconsulting.com>
+ <Y86vaTQR7INWezyj@hovoldconsulting.com>
+ <20230123171749.GA623918@hu-bjorande-lv.qualcomm.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.6.0
-Content-Language: en-GB
-To: Abhinav Kumar <quic_abhinavk@quicinc.com>
-References: <20230118010428.1671443-1-dmitry.baryshkov@linaro.org>
- <20230118010428.1671443-2-dmitry.baryshkov@linaro.org>
- <2a5c8934-a479-6ea7-4236-9e156e26b29a@quicinc.com>
- <CAA8EJpp4h1Pt2cNuQi94ShvERmDKTrui_brJORqzx6_wT=KC8Q@mail.gmail.com>
- <4b0d0fcd-ddbc-5806-0ed9-e674d965d7cc@quicinc.com>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-In-Reply-To: <4b0d0fcd-ddbc-5806-0ed9-e674d965d7cc@quicinc.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH v2 1/3] drm/msm/mdss: convert UBWC setup to
- use match data
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20230123171749.GA623918@hu-bjorande-lv.qualcomm.com>
+Subject: Re: [Freedreno] [PATCH] drm/msm: Initialize mode_config earlier
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,61 +62,68 @@ List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
 Cc: freedreno@lists.freedesktop.org, Sean Paul <sean@poorly.run>,
- Bjorn Andersson <andersson@kernel.org>, dri-devel@lists.freedesktop.org,
- Stephen Boyd <swboyd@chromium.org>, Rob Clark <robdclark@gmail.com>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Rob Clark <robdclark@gmail.com>,
  Daniel Vetter <daniel@ffwll.ch>, linux-arm-msm@vger.kernel.org,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
  David Airlie <airlied@gmail.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 24/01/2023 03:48, Abhinav Kumar wrote:
-> 
-> 
-> On 1/19/2023 9:26 PM, Dmitry Baryshkov wrote:
->> On Fri, 20 Jan 2023 at 00:54, Abhinav Kumar 
->> <quic_abhinavk@quicinc.com> wrote:
->>>
->>>
->>>
->>> On 1/17/2023 5:04 PM, Dmitry Baryshkov wrote:
->>>> To simplify adding new platforms and to make settings more obvious,
->>>> rewrite the UBWC setup to use the data structure to pass platform 
->>>> config
->>>> rather than just calling the functions direcly.
->>>>
->>>> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
->>>
->>> I was reviewing this series and
->>> https://patchwork.freedesktop.org/series/111732/ together.
->>>
->>> More I think about it, it seems like we are duplicating the same values
->>> here and in the catalog.
->>>
->>> Yes, these two are different drivers.
->>>
->>> But now that you are adding the UBWC entries here using the compatible
->>> string so you are creating something like a "catalog" here.
->>>
->>> In that case, why dont we remove the entries from dpu catalog and in the
->>> DPU driver get the parent's match data as we know that the msm_mdss is
->>> the parent of DPU driver
->>
->> I should give it a thought, especially since we are trying to clean up
->> the DPU catalog.
-> 
-> I just went through the cover letter of 
-> https://patchwork.freedesktop.org/patch/519752/ and it mentions
-> 
-> "My itent is to land both series and then to make
-> DPU request this data from the MDSS driver"
-> 
-> This means that the parent data suggestion will be implemented?
+On Mon, Jan 23, 2023 at 09:17:49AM -0800, Bjorn Andersson wrote:
+> On Mon, Jan 23, 2023 at 05:01:45PM +0100, Johan Hovold wrote:
+> > On Tue, Jan 17, 2023 at 09:04:39AM +0100, Johan Hovold wrote:
+> > > On Mon, Jan 16, 2023 at 08:51:22PM -0600, Bjorn Andersson wrote:
 
-Yes, at some point. You probably saw the dpu_ubwc_cfg structure. As I 
-wrote, I'd like to get it from MDSS. Just looking for a best way to do this.
+> > > > Perhaps we have shuffled other things around to avoid this bug?  Either
+> > > > way, let's this on hold  until further proof that it's still
+> > > > reproducible.
+> > > 
+> > > As I've mentioned off list, I haven't hit the apparent race I reported
+> > > here:
+> > > 
+> > > 	https://lore.kernel.org/all/Y1efJh11B5UQZ0Tz@hovoldconsulting.com/
+> > > 
+> > > since moving to 6.2. I did hit it with both 6.0 and 6.1-rc2, but it
+> > > could very well be that something has changes that fixes (or hides) the
+> > > issue since.
+> > 
+> > For unrelated reasons, I tried enabling async probing, and apart from
+> > apparently causing the panel driver to probe defer indefinitely, I also
+> > again hit the WARN_ON() I had added to catch this:
+> > 
+> > [   13.593235] WARNING: CPU: 0 PID: 125 at drivers/gpu/drm/drm_probe_helper.c:664 drm_kms_helper_hotplug_event+0x48/0x7
+> > 0 [drm_kms_helper]
 
+> > So the bug still appears to be there (and the MSM DRM driver is fragile
+> > and broken, but we knew that).
+> > 
+> 
+> But the ordering between mode_config.funcs = !NULL and
+> drm_kms_helper_poll_init() in msm_drm_init() seems pretty clear.
+> 
+> And my testing shows that drm_kms_helper_poll_init() is the cause for
+> getting bridge->hpd_cb != NULL.
+> 
+> So the ordering seems legit, unless there's something else causing the
+> assignment of bridge->hpd_cb to happen earlier in this scenario.
 
--- 
-With best wishes
-Dmitry
+I'm not saying that this patch is correct (indeed it doesn't seem to
+be), but only that the bug I reported still appears to be present in
+6.2.
 
+Now that I actually looked at this again, I realise that the reason that
+haven't seen it with 6.2 is more likely due to the fact that I'm now
+making sure to load the panel driver before the drm driver to avoid that
+unnecessary probe deferral.
+
+With async probing, I get the probe deferral again, and boom, I hit the
+same old NULL deref.
+
+I see there's a call to drm_kms_helper_poll_fini() in msm_drm_uninit()
+which should stop the polling, but perhaps there's still some corner
+case due to the unexpected probe (or rather component bind) deferral
+which we're hitting.
+
+Johan
