@@ -2,56 +2,56 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 138E5678CC5
-	for <lists+freedreno@lfdr.de>; Tue, 24 Jan 2023 01:25:36 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5B298678CCE
+	for <lists+freedreno@lfdr.de>; Tue, 24 Jan 2023 01:26:57 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D00B510E473;
-	Tue, 24 Jan 2023 00:25:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EC02610E217;
+	Tue, 24 Jan 2023 00:26:55 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ej1-x633.google.com (mail-ej1-x633.google.com
- [IPv6:2a00:1450:4864:20::633])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BC23010E473
- for <freedreno@lists.freedesktop.org>; Tue, 24 Jan 2023 00:25:33 +0000 (UTC)
-Received: by mail-ej1-x633.google.com with SMTP id qx13so34860574ejb.13
- for <freedreno@lists.freedesktop.org>; Mon, 23 Jan 2023 16:25:33 -0800 (PST)
+Received: from mail-ej1-x636.google.com (mail-ej1-x636.google.com
+ [IPv6:2a00:1450:4864:20::636])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A404610E212
+ for <freedreno@lists.freedesktop.org>; Tue, 24 Jan 2023 00:26:53 +0000 (UTC)
+Received: by mail-ej1-x636.google.com with SMTP id rl14so31626653ejb.2
+ for <freedreno@lists.freedesktop.org>; Mon, 23 Jan 2023 16:26:53 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :from:to:cc:subject:date:message-id:reply-to;
- bh=G7azV8mbSSeyt8Js7wrZLKa1+/kmK6Rap/sxLxmd4/A=;
- b=MkWtqvokT3y3OxZ9xWiSo8e8CaMEpuWhKSd90x1uxrxsRVvM94Q13TudItsW9KIIKD
- ux+TC2QE18m0trIlAg1bKY6PpOfjcNM0sQ2Tv9z0iLHqHi9oR19N03Qvt0YYOccXWhch
- SAhlcUG5u6HH5z1rRB6JRUJTGjoFEOmCyzbevc1HkiEjwgt90V+qZs9rMsZnzZKFlkeC
- lGbltLg/da0WaEG3+pLENKKmy5/efw9YSZYkthfodPgAUC+0+cRBXhslzmW/2Ew4hbdn
- 1u6Ez3ShB6LbwhA//ujfl7QNPInyyR27V5vbt02A7eOlzfD4cqbQ8E0FNUZ3yd00WeaQ
- vEiw==
+ bh=KwGmEa06omOhettp+Z0U9Hx95U15RGfyvNHOg11/HaU=;
+ b=BxgM0uL92DiH8vBmFVQX5YRizpa0FSpTigSVNf68cvSGiLSmrrd+HL0LU8nGEtgI9U
+ 47PNKMUWousS1hlKa3LGIf5eaPSy6GV8c0rTXUT33Vqu+/GfXC2nLqKj9dLUQ+iog9um
+ iygD4KYwtU1nQI9dq2rPz0mCQcd4poIfQNdwV4V+gtPR9sjCPWKmnYOJyHAzLZ3T5isy
+ Y2JrFY9lKIOtWqRXEKKtWEf0qeGdt1Ig0yCQCkXZMok04YiPsPqom50vJZtHp67j6MVD
+ wJ6r9WJq2B1Hdwyo4gUHBvjOz4YJdoqWYSne4c+jU22HEhLALYJjlC4F5pxW2wiOJRtq
+ C5kw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=G7azV8mbSSeyt8Js7wrZLKa1+/kmK6Rap/sxLxmd4/A=;
- b=mdBMTsUD02nWP9LioKE6qPKcI2Cnsf2a9yuVwPxSgZrYz1ZcFD0BPTAsODKy5g0YWU
- WQF+y/b6y+yn5VI7vbpKQxo0Le9AlfNDw/gOZU01ldC5CSvLGYqelPsk/YHwwsn16z2v
- RpDjGLH6LXkAMA+9MPCtFP1MyMCSofmJDXL2gP55YFVOj7AEy/baQC+EsP1/jNJZK/+w
- 4hk4Krn3alX5sW1/2VMomeTAzJ4bGZ5E31uY7+fiNw3I0z23Co5l8btE6SjHqH823IQO
- +B9u5tjk9lnx3n4IFJcbZo6fc98aQzUFo5d6eaTD2htnGi1sG8nncrFlVzZlNjN2/QTs
- Rirw==
-X-Gm-Message-State: AFqh2kp2mJHeyapVegLrXTu4hEPbJVhWtQLy3buwc78aroGzi+dwY3MP
- Iej28RUUO7iMMFaJhtxywYCmtQ==
-X-Google-Smtp-Source: AMrXdXvqd+Xz7JSf8QaqqzpNWgp9gXJU43HvNP7Q6yFBMUglk50HyFf5597Xw5m1Y/bsfj02MAn1Pw==
-X-Received: by 2002:a17:906:804e:b0:86b:6a54:36e0 with SMTP id
- x14-20020a170906804e00b0086b6a5436e0mr25610962ejw.36.1674519932202; 
- Mon, 23 Jan 2023 16:25:32 -0800 (PST)
+ bh=KwGmEa06omOhettp+Z0U9Hx95U15RGfyvNHOg11/HaU=;
+ b=wKW9EsqztEWoq5nSZlw8740R+Csf7p458K2xazT46pXseQwqCXGULhoDuJy5qc5uFm
+ +F67/1y+j4+oQ9TziCGJPNupOs37nXNXpGc5HG6PYzlCMJTJesPFHz02NlPhE8NO76DS
+ DaMpcal9I/HcMonmn5jAi8Fa+fSbAM+8aT9LfU393Abhw13vFMe764qd5dAeSPpFpc+S
+ zT6DgzzBpUIcJMRe8+1zXLf3jqhi8NcOxrmeUOuM/nSN38VuD1bDxs00vRA2JhfTmHak
+ v0fOXMMxwEYTkN9WW8EAWuvjgQ6ogGod4GGRfvmLz3RjvdjlZ4vNVrUkqBsR4o1+Pspl
+ CreA==
+X-Gm-Message-State: AFqh2kqtbAtys+BR7tw0HKtQVBaK4jBT7VUfYkssLwoNDt7MF9EpjO10
+ uJH4Tk8h+664N4DsbMygTIRjAg==
+X-Google-Smtp-Source: AMrXdXts2d88Uk+7HdLIKXrZYxU82+pFx+YRlzrEXNldi8ylu63Erwb2h8tt2KYbCBT6aJShQ/Ijfg==
+X-Received: by 2002:a17:907:9b06:b0:872:f259:a7ea with SMTP id
+ kn6-20020a1709079b0600b00872f259a7eamr28628465ejc.53.1674520012237; 
+ Mon, 23 Jan 2023 16:26:52 -0800 (PST)
 Received: from ?IPV6:2001:14ba:a085:4d00::8a5?
  (dzccz6yyyyyyyyyyybcwt-3.rev.dnainternet.fi. [2001:14ba:a085:4d00::8a5])
  by smtp.gmail.com with ESMTPSA id
- z16-20020a1709067e5000b007aee7ca1199sm142840ejr.10.2023.01.23.16.25.31
+ jl20-20020a17090775d400b0082535e2da13sm142641ejc.6.2023.01.23.16.26.51
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 23 Jan 2023 16:25:31 -0800 (PST)
-Message-ID: <84079c60-984a-1939-850d-23869c9ce5df@linaro.org>
-Date: Tue, 24 Jan 2023 02:25:30 +0200
+ Mon, 23 Jan 2023 16:26:51 -0800 (PST)
+Message-ID: <b86bf5b7-2b73-0955-8a12-d997f7715067@linaro.org>
+Date: Tue, 24 Jan 2023 02:26:50 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.6.0
@@ -60,13 +60,13 @@ To: Vinod Polimera <quic_vpolimer@quicinc.com>,
  dri-devel@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
  freedreno@lists.freedesktop.org, devicetree@vger.kernel.org
 References: <1674138393-475-1-git-send-email-quic_vpolimer@quicinc.com>
- <1674138393-475-13-git-send-email-quic_vpolimer@quicinc.com>
+ <1674138393-475-14-git-send-email-quic_vpolimer@quicinc.com>
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-In-Reply-To: <1674138393-475-13-git-send-email-quic_vpolimer@quicinc.com>
+In-Reply-To: <1674138393-475-14-git-send-email-quic_vpolimer@quicinc.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH Resend v11 12/15] drm/msm/disp/dpu: wait for
- extra vsync till timing engine status is disabled
+Subject: Re: [Freedreno] [PATCH Resend v11 13/15] drm/msm/disp/dpu: reset
+ the datapath after timing engine disable
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -87,18 +87,16 @@ Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 On 19/01/2023 16:26, Vinod Polimera wrote:
-> There can be a race between timing gen disable and vblank irq. The
-> wait post timing gen disable may return early but intf disable sequence
-> might not be completed. Ensure that, intf status is disabled before
-> we retire the function.
+> Reset the datapath after disabling the timing gen, such that
+> it can start on a clean slate when the intf is enabled back.
+> This was a recommended sequence from the DPU HW programming guide.
 > 
 > Signed-off-by: Vinod Polimera <quic_vpolimer@quicinc.com>
+> ---
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_vid.c | 1 +
+>   1 file changed, 1 insertion(+)
 
 Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-
-> ---
->   .../gpu/drm/msm/disp/dpu1/dpu_encoder_phys_vid.c    | 21 +++++++++++++++++++++
->   1 file changed, 21 insertions(+)
 
 -- 
 With best wishes
