@@ -1,82 +1,70 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id ECF9967A091
-	for <lists+freedreno@lfdr.de>; Tue, 24 Jan 2023 18:55:44 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id C656667A3A1
+	for <lists+freedreno@lfdr.de>; Tue, 24 Jan 2023 21:11:22 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A4C1510E6F4;
-	Tue, 24 Jan 2023 17:55:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8719710E23F;
+	Tue, 24 Jan 2023 20:11:21 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2E04E10E6EF;
- Tue, 24 Jan 2023 17:55:41 +0000 (UTC)
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 30OFUUYS013935; Tue, 24 Jan 2023 17:55:35 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
- h=message-id : date :
- mime-version : subject : to : cc : references : from : in-reply-to :
- content-type : content-transfer-encoding; s=qcppdkim1;
- bh=xgcmdcjZnlgpYJHs1+B07ouOtCwgaQCoWvzpIF3emyg=;
- b=HwgucALZ4rCoRsEgqb490FHKPB9zyS8bHr9HtO1i6J6C1D1qiXTxc+gnevhRj6t7cF/f
- Jwz1iS11dk2m2t1jq/3zwssi7RLyIXZNcxzCdAb1xBiEFRv/QcFTixHLXfqNd0GNZQWg
- sDDV76EDhnFdZ5H4i1txhG2BuqHG/mJAegKup+qCdI26Q5Ip5+6O1U7q1WJyKLU6CvJM
- AHwNGQWHUeVQHqluMEt/FZrkqV+qALaUEjYUBoDHx9cioktb84WvEvTIgxr4OtwjtBLO
- oC47KS/awCDWnV0LNx7nax+O5WR46Da5OC05LibybIzzGhhiGnIytelRPFx/xoUAQ62q eQ== 
-Received: from nalasppmta05.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3nag308kr3-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 24 Jan 2023 17:55:35 +0000
-Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
- [10.47.209.196])
- by NALASPPMTA05.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 30OHtYjn023560
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 24 Jan 2023 17:55:34 GMT
-Received: from [10.134.70.75] (10.80.80.8) by nalasex01a.na.qualcomm.com
- (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.36; Tue, 24 Jan
- 2023 09:55:33 -0800
-Message-ID: <3588a5d0-ca28-918f-e072-35f15a5a5132@quicinc.com>
-Date: Tue, 24 Jan 2023 09:55:24 -0800
+Received: from mail-ej1-x632.google.com (mail-ej1-x632.google.com
+ [IPv6:2a00:1450:4864:20::632])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E076710E235
+ for <freedreno@lists.freedesktop.org>; Tue, 24 Jan 2023 20:11:19 +0000 (UTC)
+Received: by mail-ej1-x632.google.com with SMTP id kt14so42176218ejc.3
+ for <freedreno@lists.freedesktop.org>; Tue, 24 Jan 2023 12:11:19 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=iow9EqGZ/sIQF1py0gJwtFHKSu4rtBSm3bpjW37i26E=;
+ b=fQRkNSmlMehk/emD6QnW2pvAG5FGDHZXy4xOCApamOIanGgpB3nC7UIFnYgLnkeWPY
+ qFvvX2ELSvjHIThfhe6O0WklKW+6yMo1UV+SQss5uyQdgK9AY66DoypNuczqfpj771gZ
+ zMwx5vq0FvuT14I1a6O79icAmUqKbrwYXXY0MnbFzFPloDOBe97xa0lFAEGrjg+cz2nm
+ FxS9PuE5x62U+g5pOA8AuX8OluPqGzApi+Jl/0ws11BUV4b6bZoyNgVYmJs3uF4psTFd
+ dS1QgOtiOIpMNqNVECKqF/Ai+PFV+i5x/BPKxb7Yssv3fde8IYdl8X1KC9ZMrbcs8C13
+ fqPw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=iow9EqGZ/sIQF1py0gJwtFHKSu4rtBSm3bpjW37i26E=;
+ b=SDozr9Soz6sTu68KVQNivmfRX8u3Lp9l8sUGArsAjclfYKxovCHMotOI7nQH8uZUsm
+ hWL2NixaeErnZ3mORUc2m2689ra9xdVoZnwvRQZcPD5TkLVadcD9Tw+Ki1iKKeD6PqHj
+ cTn/b1B1iVC+Lqo36ZxEDPHYHP9e2ivTmWf8RPpvgRBqqKL0acx6cVowQQoP/7HijTji
+ hi602w+vtqexdgDDu0PZ8Kr+ymXTN07Lk7frXgvhHoLkIbKxnGXPiu8sP0dsTE6M05pJ
+ kdvvsxtvruyqRXNq/voQIDam8dJEmG900ebei3XWS/IHtfuJ38LZjxiWyQ25gRWeEPWc
+ 3TCg==
+X-Gm-Message-State: AFqh2krHQzZt8znHhOFaS1yiUvctC6dy3lqa2SE3AJn0AqWKB4mlKxpL
+ 7mbaAkRLCSdZ32p7VIJSBI+UxQ==
+X-Google-Smtp-Source: AMrXdXuHqRDems58BY2B4qPn6sOGaXy9V+jFkm9PyKHVlNPrE3x7/DxuNks/kgTigTPvNNtwCEOnNQ==
+X-Received: by 2002:a17:906:3397:b0:86b:e50c:151b with SMTP id
+ v23-20020a170906339700b0086be50c151bmr29082696eja.28.1674591078266; 
+ Tue, 24 Jan 2023 12:11:18 -0800 (PST)
+Received: from ?IPV6:2001:14ba:a085:4d00::8a5?
+ (dzccz6yyyyyyyyyyybcwt-3.rev.dnainternet.fi. [2001:14ba:a085:4d00::8a5])
+ by smtp.gmail.com with ESMTPSA id
+ ks27-20020a170906f85b00b0085fc3dec567sm1346013ejb.175.2023.01.24.12.11.17
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 24 Jan 2023 12:11:17 -0800 (PST)
+Message-ID: <55cb7813-b407-a593-f822-07b1bc1af89d@linaro.org>
+Date: Tue, 24 Jan 2023 22:11:16 +0200
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.6.1
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- <dri-devel@lists.freedesktop.org>, <robdclark@gmail.com>,
- <sean@poorly.run>, <swboyd@chromium.org>, <dianders@chromium.org>,
- <vkoul@kernel.org>, <daniel@ffwll.ch>, <airlied@gmail.com>,
- <agross@kernel.org>, <andersson@kernel.org>
-References: <1674498274-6010-1-git-send-email-quic_khsieh@quicinc.com>
- <1674498274-6010-13-git-send-email-quic_khsieh@quicinc.com>
- <8392e1f3-8459-4408-41de-564a41980b4c@linaro.org>
-Content-Language: en-US
-From: Kuogee Hsieh <quic_khsieh@quicinc.com>
-In-Reply-To: <8392e1f3-8459-4408-41de-564a41980b4c@linaro.org>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-ORIG-GUID: V_FzY4BryDHgEJOLC5VMcYC3pmLrF0fM
-X-Proofpoint-GUID: V_FzY4BryDHgEJOLC5VMcYC3pmLrF0fM
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.219,Aquarius:18.0.930,Hydra:6.0.562,FMLib:17.11.122.1
- definitions=2023-01-24_13,2023-01-24_01,2022-06-22_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 mlxscore=0
- suspectscore=0 bulkscore=0 adultscore=0 phishscore=0 lowpriorityscore=0
- mlxlogscore=999 clxscore=1015 priorityscore=1501 impostorscore=0
- malwarescore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2212070000 definitions=main-2301240162
-Subject: Re: [Freedreno] [PATCH v1 12/14] drm/msm/disp/dpu1: revise timing
- engine programming to work for DSC
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.6.0
+Content-Language: en-GB
+To: Abhinav Kumar <quic_abhinavk@quicinc.com>, freedreno@lists.freedesktop.org
+References: <20230112001600.12791-1-quic_abhinavk@quicinc.com>
+ <20230112001600.12791-2-quic_abhinavk@quicinc.com>
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+In-Reply-To: <20230112001600.12791-2-quic_abhinavk@quicinc.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Subject: Re: [Freedreno] [PATCH v3 2/2] drm/msm/dsi: implement opp table
+ based check for dsi_mgr_bridge_mode_valid()
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -89,202 +77,70 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-arm-msm@vger.kernel.org, quic_sbillaka@quicinc.com,
- freedreno@lists.freedesktop.org, quic_abhinavk@quicinc.com,
- linux-kernel@vger.kernel.org
+Cc: dri-devel@lists.freedesktop.org, swboyd@chromium.org, robdclark@gmail.com,
+ seanpaul@chromium.org, daniel@ffwll.ch, quic_jesszhan@quicinc.com
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
+On 12/01/2023 02:16, Abhinav Kumar wrote:
+> Currently there is no protection against a user trying to set
+> an unsupported mode on DSI. Implement a check based on the opp
+> table whether the byte clock for the mode can be supported by
+> validating whether an opp table entry exists.
+> 
+> For devices which have not added opp table support yet, skip
+> this check otherwise it will break bootup on those devices.
+> 
+> changes in v3:
+> 	- make the comment shorter
+> 	- handle all errors except ENODEV
+> 
+> Closes: https://gitlab.freedesktop.org/drm/msm/-/issues/15
+> Reported-by: Rob Clark <robdclark@gmail.com>
+> Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
 
-On 1/24/2023 1:11 AM, Dmitry Baryshkov wrote:
-> On 23/01/2023 20:24, Kuogee Hsieh wrote:
->> Current implementation timing engine programming does not consider
->> compression factors. This patch add consideration of DSC factors
->> while programming timing engine.
->>
->> Signed-off-by: Kuogee Hsieh <quic_khsieh@quicinc.com>
->> ---
->>   .../gpu/drm/msm/disp/dpu1/dpu_encoder_phys_vid.c   |   2 +
->>   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h     |  14 ++-
->>   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.c        | 132 
->> +++++++++++++--------
->>   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.h        |  10 +-
->>   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_top.h         |   6 +-
->>   5 files changed, 110 insertions(+), 54 deletions(-)
->>
->
-> [skipped]
->
->> @@ -113,82 +124,96 @@ static void 
->> dpu_hw_intf_setup_timing_engine(struct dpu_hw_intf *ctx,
->>       /* read interface_cfg */
->>       intf_cfg = DPU_REG_READ(c, INTF_CONFIG);
->>   -    if (ctx->cap->type == INTF_DP)
->> +    if (ctx->cap->type == INTF_EDP || ctx->cap->type == INTF_DP)
->>           dp_intf = true;
->>         hsync_period = p->hsync_pulse_width + p->h_back_porch + 
->> p->width +
->> -    p->h_front_porch;
->> +            p->h_front_porch;
->>       vsync_period = p->vsync_pulse_width + p->v_back_porch + 
->> p->height +
->> -    p->v_front_porch;
->> +            p->v_front_porch;
->
-> Actually I went on through the history and found the previous 
-> submission, https://patchwork.freedesktop.org/patch/471505/.
-> Exactly the same piece of code. Did you expect that the comments will 
-> be different this time?
->
-> I really hoped that at that time we already went through this. But it 
-> seems I was wrong. That series went through v10 or v12 before being 
-> accepted. And it was just adding wide_bus_en. Back at that time we 
-> lightly discussed that the code will receive compression support. But 
-> I never expected to see the original submission again.
->
-> It might sound bad, but could you please find somebody who can do 
-> internal review for you? Good internal review.
->
-> That said, I really do not expect to see v2 before the whole series is 
-> reworked, restructured and prepared for the review on your side.
+I finally acquired the db410c again. And... this patch breaks support 
+for the board. We were wrong on the assumption that the code will return 
+-ENODEV when there is no opp table, my bad. devm_pm_opp_set_clkname(), 
+called from msm_dsi_host_init(), allocates an empty table if one doesn't 
+exist in DT.
 
-This timing engine code is derived from our downstream code directly and 
-it has been used at many mobile devices by many vendors for many years 
-already.
+> ---
+>   drivers/gpu/drm/msm/dsi/dsi_manager.c | 19 +++++++++++++++++++
+>   1 file changed, 19 insertions(+)
+> 
+> diff --git a/drivers/gpu/drm/msm/dsi/dsi_manager.c b/drivers/gpu/drm/msm/dsi/dsi_manager.c
+> index 3a1417397283..b20fddb534a7 100644
+> --- a/drivers/gpu/drm/msm/dsi/dsi_manager.c
+> +++ b/drivers/gpu/drm/msm/dsi/dsi_manager.c
+> @@ -450,6 +450,25 @@ static enum drm_mode_status dsi_mgr_bridge_mode_valid(struct drm_bridge *bridge,
+>   	int id = dsi_mgr_bridge_get_id(bridge);
+>   	struct msm_dsi *msm_dsi = dsi_mgr_get_dsi(id);
+>   	struct mipi_dsi_host *host = msm_dsi->host;
+> +	struct platform_device *pdev = msm_dsi->pdev;
+> +	struct dev_pm_opp *opp;
+> +	unsigned long byte_clk_rate;
+> +
+> +	byte_clk_rate = dsi_byte_clk_get_rate(host, IS_BONDED_DSI(), mode);
+> +
+> +	/*
+> +	 * fail all errors except -ENODEV as that could mean that opp
+> +	 * table is not yet implemented
+> +	 */
+> +	opp = dev_pm_opp_find_freq_ceil(&pdev->dev, &byte_clk_rate);
+> +	if (IS_ERR(opp)) {
+> +		if (PTR_ERR(opp) == -ERANGE)
+> +			return MODE_CLOCK_RANGE;
+> +		else if (PTR_ERR(opp) != -ENODEV)
+> +			return MODE_ERROR;
+> +	} else {
+> +		dev_pm_opp_put(opp);
+> +	}
+>   
+>   	return msm_dsi_host_check_dsc(host, mode);
+>   }
 
-On the other words, it had been tested very thorough and works on 
-dsi/dp/hdmi/dsc/widebus applications.
+-- 
+With best wishes
+Dmitry
 
-When i brought dsc v1.2 over, I just merged it over and did not consider 
-too much.
-
-Can we adapt this code so that both upstream and down stream shared same 
-timing engine programming so that easier to maintain?
-
-
-
-
-
->
->>         display_v_start = ((p->vsync_pulse_width + p->v_back_porch) *
->> -    hsync_period) + p->hsync_skew;
->> +            hsync_period) + p->hsync_skew;
->>       display_v_end = ((vsync_period - p->v_front_porch) * 
->> hsync_period) +
->> -    p->hsync_skew - 1;
->> +            p->hsync_skew - 1;
->> +
->> +    hsync_ctl = (hsync_period << 16) | p->hsync_pulse_width;
->>         hsync_start_x = p->h_back_porch + p->hsync_pulse_width;
->>       hsync_end_x = hsync_period - p->h_front_porch - 1;
->>   -    if (p->width != p->xres) { /* border fill added */
->> -        active_h_start = hsync_start_x;
->> -        active_h_end = active_h_start + p->xres - 1;
->> -    } else {
->> -        active_h_start = 0;
->> -        active_h_end = 0;
->> -    }
->> -
->> -    if (p->height != p->yres) { /* border fill added */
->> -        active_v_start = display_v_start;
->> -        active_v_end = active_v_start + (p->yres * hsync_period) - 1;
->> -    } else {
->> -        active_v_start = 0;
->> -        active_v_end = 0;
->> -    }
->> -
->> -    if (active_h_end) {
->> -        active_hctl = (active_h_end << 16) | active_h_start;
->> -        intf_cfg |= INTF_CFG_ACTIVE_H_EN;
->> -    } else {
->> -        active_hctl = 0;
->> -    }
->> -
->> -    if (active_v_end)
->> -        intf_cfg |= INTF_CFG_ACTIVE_V_EN;
->> -
->> -    hsync_ctl = (hsync_period << 16) | p->hsync_pulse_width;
->> -    display_hctl = (hsync_end_x << 16) | hsync_start_x;
->> -
->>       /*
->>        * DATA_HCTL_EN controls data timing which can be different from
->>        * video timing. It is recommended to enable it for all cases, 
->> except
->>        * if compression is enabled in 1 pixel per clock mode
->>        */
->> +    if (!p->compression_en || p->wide_bus_en)
->> +        intf_cfg2 |= INTF_CFG2_DATA_HCTL_EN;
->> +
->>       if (p->wide_bus_en)
->> -        intf_cfg2 |= INTF_CFG2_DATABUS_WIDEN | INTF_CFG2_DATA_HCTL_EN;
->> +        intf_cfg2 |= INTF_CFG2_DATABUS_WIDEN;
->>   +    /*
->> +     * If widebus is disabled:
->> +     * For uncompressed stream, the data is valid for the entire active
->> +     * window period.
->> +     * For compressed stream, data is valid for a shorter time period
->> +     * inside the active window depending on the compression ratio.
->> +     *
->> +     * If widebus is enabled:
->> +     * For uncompressed stream, data is valid for only half the active
->> +     * window, since the data rate is doubled in this mode.
->> +     * p->width holds the adjusted width for DP but unadjusted width 
->> for DSI
->> +     * For compressed stream, data validity window needs to be 
->> adjusted for
->> +     * compression ratio and then further halved.
->> +     */
->>       data_width = p->width;
->>   +    if (p->compression_en) {
->> +        if (p->wide_bus_en)
->> +            data_width = DIV_ROUND_UP(p->dce_bytes_per_line, 6);
->> +        else
->> +            data_width = DIV_ROUND_UP(p->dce_bytes_per_line, 3);
->> +    } else if (!dp_intf && p->wide_bus_en) {
->> +        data_width = p->width >> 1;
->> +    } else {
->> +        data_width = p->width;
->> +    }
->> +
->>       hsync_data_start_x = hsync_start_x;
->>       hsync_data_end_x =  hsync_start_x + data_width - 1;
->>   +    display_hctl = (hsync_end_x << 16) | hsync_start_x;
->>       display_data_hctl = (hsync_data_end_x << 16) | hsync_data_start_x;
->>         if (dp_intf) {
->>           /* DP timing adjustment */
->>           display_v_start += p->hsync_pulse_width + p->h_back_porch;
->>           display_v_end   -= p->h_front_porch;
->> +    }
->> +
->> +    intf_cfg |= INTF_CFG_ACTIVE_H_EN;
->> +    intf_cfg |= INTF_CFG_ACTIVE_V_EN;
->> +    active_h_start = hsync_start_x;
->> +    active_h_end = active_h_start + p->xres - 1;
->> +    active_v_start = display_v_start;
->> +    active_v_end = active_v_start + (p->yres * hsync_period) - 1;
->>   -        active_h_start = hsync_start_x;
->> -        active_h_end = active_h_start + p->xres - 1;
->> -        active_v_start = display_v_start;
->> -        active_v_end = active_v_start + (p->yres * hsync_period) - 1;
->> +    active_hctl = (active_h_end << 16) | active_h_start;
->>   -        active_hctl = (active_h_end << 16) | active_h_start;
->> +    if (dp_intf) {
->>           display_hctl = active_hctl;
->>   -        intf_cfg |= INTF_CFG_ACTIVE_H_EN | INTF_CFG_ACTIVE_V_EN;
->> +        if (p->compression_en) {
->> +            active_data_hctl = (hsync_start_x + p->extra_dto_cycles) 
->> << 16;
->> +            active_data_hctl += hsync_start_x;
->> +
->> +            display_data_hctl = active_data_hctl;
->> +        }
->>       }
->>   +    _check_and_set_comp_bit(ctx, p->dsc_4hs_merge, 
->> p->compression_en, &intf_cfg2);
->> +
->>       den_polarity = 0;
->>       if (ctx->cap->type == INTF_HDMI) {
->>           hsync_polarity = p->yres >= 720 ? 0 : 1;
->> @@ -202,7 +227,7 @@ static void 
->> dpu_hw_intf_setup_timing_engine(struct dpu_hw_intf *ctx,
->
