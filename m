@@ -2,40 +2,50 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6A18C679AE7
-	for <lists+freedreno@lfdr.de>; Tue, 24 Jan 2023 15:00:51 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 43BC4679C8D
+	for <lists+freedreno@lfdr.de>; Tue, 24 Jan 2023 15:52:00 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2F84610E675;
-	Tue, 24 Jan 2023 14:00:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0F0D110E692;
+	Tue, 24 Jan 2023 14:51:59 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from relay04.th.seeweb.it (relay04.th.seeweb.it [5.144.164.165])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 40F4B10E675
- for <freedreno@lists.freedesktop.org>; Tue, 24 Jan 2023 14:00:47 +0000 (UTC)
-Received: from SoMainline.org (94-211-6-86.cable.dynamic.v4.ziggo.nl
- [94.211.6.86])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest
- SHA256) (No client certificate requested)
- by m-r1.th.seeweb.it (Postfix) with ESMTPSA id 57FF22049A;
- Tue, 24 Jan 2023 15:00:45 +0100 (CET)
-Date: Tue, 24 Jan 2023 15:00:44 +0100
-From: Marijn Suijten <marijn.suijten@somainline.org>
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Message-ID: <20230124140044.rg46lhkif7lot2xe@SoMainline.org>
-References: <20230115124143.464809-1-dmitry.baryshkov@linaro.org>
- <20230124095944.4zez2jmidjuh3nvf@SoMainline.org>
- <9f182939-0e32-c0a9-ee09-9e97a48bb7ac@linaro.org>
- <20230124111250.b2r2co4jjxofjchp@SoMainline.org>
- <CAA8EJprPxm6PObLapAXr_D5d85oT8y2GhoCzABLq_u2xFDhkvQ@mail.gmail.com>
- <20230124120652.rqmaj2j4jytmvzbl@SoMainline.org>
- <8cd7b10a-bc1e-76b6-89db-32d1cf09bfd9@linaro.org>
+Received: from mga06.intel.com (mga06b.intel.com [134.134.136.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8D6C4897FD;
+ Tue, 24 Jan 2023 14:51:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1674571916; x=1706107916;
+ h=from:to:cc:subject:in-reply-to:references:date:
+ message-id:mime-version;
+ bh=RA+DKNp+d4oq6n7db0SeDuyhdEEeXCsrsOwjUflRiNM=;
+ b=ZPPJG6CJudb4CkPxqndXhi0DFBgAzUUR8EFkl6+VJSzIeOfNAuR0rLlg
+ jWkLGWzK50QRyT+xgDGz0LocZPG8H8o7ecJ6JYvcXib6AeSX7gVAJDhOr
+ e3kmoM3la/Vb3BrQROW2H9SV2MwhnE5PrZDh/tLPJKHA5fV/RhzOcI6qr
+ ofEOIbNVKCJ1/aFJJ9ZDu9Yi74u6arp7ET/ys1Q4X6KA8eHTWnjSHNCsQ
+ yYACx0bEv+WvJuuvUz77mmmzps4zRJgWrGdhW4Cb+XHXecNWg/Z2ZdB5e
+ oWqmb+Zg2eysB83T3c2gKqAcIiQWFHRg+VZn7sG4a2TND4hfiSn8m8/7X A==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10599"; a="388653252"
+X-IronPort-AV: E=Sophos;i="5.97,242,1669104000"; d="scan'208";a="388653252"
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+ by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 24 Jan 2023 06:51:55 -0800
+X-IronPort-AV: E=McAfee;i="6500,9779,10599"; a="770338025"
+X-IronPort-AV: E=Sophos;i="5.97,242,1669104000"; d="scan'208";a="770338025"
+Received: from pesir-mobl.ger.corp.intel.com (HELO localhost) ([10.252.57.197])
+ by fmsmga002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 24 Jan 2023 06:51:47 -0800
+From: Jani Nikula <jani.nikula@intel.com>
+To: kernel test robot <lkp@intel.com>, dri-devel@lists.freedesktop.org
+In-Reply-To: <202301242049.eKzx7RzZ-lkp@intel.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
+References: <20230124094154.2282778-3-jani.nikula@intel.com>
+ <202301242049.eKzx7RzZ-lkp@intel.com>
+Date: Tue, 24 Jan 2023 16:51:45 +0200
+Message-ID: <87h6wg6l4u.fsf@intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <8cd7b10a-bc1e-76b6-89db-32d1cf09bfd9@linaro.org>
-Subject: Re: [Freedreno] [1/2] drm/msm/dpu: fix clocks settings for msm8998
- SSPP blocks
+Content-Type: text/plain
+Subject: Re: [Freedreno] [Intel-gfx] [PATCH 3/3] drm/connector: move ELD and
+ video/audio latencies to display info
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -48,155 +58,102 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Jami Kettunen <jami.kettunen@somainline.org>, Sean Paul <sean@poorly.run>,
- Bjorn Andersson <andersson@kernel.org>,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@somainline.org>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
- Stephen Boyd <swboyd@chromium.org>, Rob Clark <robdclark@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>, linux-arm-msm@vger.kernel.org,
- David Airlie <airlied@gmail.com>, freedreno@lists.freedesktop.org
+Cc: Pan@freedesktop.org, Emma Anholt <emma@anholt.net>,
+ amd-gfx@lists.freedesktop.org, Andrzej Hajda <andrzej.hajda@intel.com>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Alain Volmat <alain.volmat@foss.st.com>,
+ Chun-Kuang Hu <chunkuang.hu@kernel.org>, Jonas Karlman <jonas@kwiboo.se>,
+ linux-arm-msm@vger.kernel.org, intel-gfx@lists.freedesktop.org,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, Maxime Ripard <mripard@kernel.org>,
+ Inki Dae <inki.dae@samsung.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ linux-mediatek@lists.infradead.org, oe-kbuild-all@lists.linux.dev,
+ Neil Armstrong <neil.armstrong@linaro.org>, Xinhui <Xinhui.Pan@amd.com>,
+ Seung-Woo Kim <sw0312.kim@samsung.com>, Robert Foss <robert.foss@linaro.org>,
+ Kyungmin Park <kyungmin.park@samsung.com>,
+ Philipp Zabel <p.zabel@pengutronix.de>,
+ Alex Deucher <alexander.deucher@amd.com>, freedreno@lists.freedesktop.org,
+ Christian =?utf-8?Q?K=C3=B6nig?= <christian.koenig@amd.com>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 2023-01-24 14:29:38, Dmitry Baryshkov wrote:
-> On 24/01/2023 14:06, Marijn Suijten wrote:
-> > On 2023-01-24 13:20:57, Dmitry Baryshkov wrote:
-> >> On Tue, 24 Jan 2023 at 13:12, Marijn Suijten
-> >> <marijn.suijten@somainline.org> wrote:
-> >>>
-> >>> On 2023-01-24 12:19:27, Dmitry Baryshkov wrote:
-> >>>> On 24/01/2023 11:59, Marijn Suijten wrote:
-> >>>>> On 2023-01-15 14:41:42, Dmitry Baryshkov wrote:
-> >>>>>> DMA2 and DMA3 planes on msm8998 should use corresponding DMA2 and DMA3
-> >>>>>> clocks rather than CURSOR0/1 clocks (which are used for the CURSOR
-> >>>>>> planes). Correct corresponding SSPP declarations.
-> >>>>>>
-> >>>>>> Fixes: 94391a14fc27 ("drm/msm/dpu1: Add MSM8998 to hw catalog")
-> >>>>>> Cc: AngeloGioacchino Del Regno <angelogioacchino.delregno@somainline.org>
-> >>>>>> Cc: Jami Kettunen <jami.kettunen@somainline.org>
-> >>>>>> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> >>>>>> ---
-> >>>>>>    drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c | 4 ++--
-> >>>>>>    1 file changed, 2 insertions(+), 2 deletions(-)
-> >>>>>>
-> >>>>>> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
-> >>>>>> index 0f3da480b066..ad0c55464154 100644
-> >>>>>> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
-> >>>>>> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
-> >>>>>> @@ -1180,9 +1180,9 @@ static const struct dpu_sspp_cfg msm8998_sspp[] = {
-> >>>>>>     SSPP_BLK("sspp_9", SSPP_DMA1, 0x26000,  DMA_MSM8998_MASK,
-> >>>>>>             sdm845_dma_sblk_1, 5, SSPP_TYPE_DMA, DPU_CLK_CTRL_DMA1),
-> >>>>>>     SSPP_BLK("sspp_10", SSPP_DMA2, 0x28000,  DMA_CURSOR_MSM8998_MASK,
-> >>>>>
-> >>>>> Drop the _CURSOR mask here?  And the double space....
-> >>>>
-> >>>> Ack for the doublespace. By removing _CURSOR we would disallow using
-> >>>> these planes as hw cursor planes. This would switch all compositors into
-> >>>> sw cursor mode, thus damaging the performance.
-> >>>
-> >>> Doesn't that require special hardware support, or can any DMA pipe
-> >>> support "hw cursor mode/planes", whatever that means?  Sorry for not
-> >>> being well versed in this area, I'd expect DMA pipes and CURSOR pipes to
-> >>> have a different set of features / capabilities.
-> >>
-> >> Yes, they have different capabilities. but DMA_CURSOR_MSM8998_MASK =
-> >> DMA_MSM8998_MASK | BIT(DPU_SSPP_CURSOR). And the DPU_SSPP_CURSOR is
-> >> used internally to tell the DRM core that the corresponding plane is
-> >> going to be used as a "userspace cursor" plane.
-> > 
-> > Different capabilities for userspace, but not in terms hardware (/driver
-> > support, yet)?  If so, then:
-> > 
-> > Reviewed-by: Marijn Suijten <marijn.suijten@somainline.org>
-> > 
-> >>> Commit 07ca1fc0f8a0 ("drm/msm/dpu: enable cursor plane on dpu") leads me
-> >>> to believe that it's mostly to let userspace use these DMA pipes for
-> >>> cursors (having cursor planes available in uapi) rather than requiring
-> >>> any special hardware support (though semantics do seem to change in a
-> >>> nontrivial way).
-> >>
-> >> Correct.
-> >> DRM/userspace cursor planes = planes which userspace can use to draw
-> >> mouse cursor. Legacy compositors and legacy cursor IOCTLs stick to
-> >> using them
-> >> DPU/MDP5 CURSOR plane (sspp_12/13) = lightweight limited plane without
-> > 
-> > But these DMA pipes are _not_ lightweight/limited?
-> 
-> No, they are not.
-> 
-> > 
-> >> additional features, targeting HW cursor only, not present since
-> >> sdm845
-> >> DPU_SSPP_CURSOR = bit which tells DPU core to mark a plane as
-> >> 'DRM/userspace cursor plane'.
-> > 
-> > Ack, so it's not toggling anything hardware specific /yet/.  However,
-> > does this prevent userspace from using these pipes/planes for other DMA
-> > purposes as they're marked as a different _type_ of plane? 
-> 
-> This is what 'universal planes' API is solving.
-> 
-> Historically there were three kinds of planes: primary (iow background), 
-> cursor and overlay.
-> By default an application sees only the overlay planes and has some 
-> additional API to manipulate cursors and backgrounds.
-> 
-> Then at some point it was found that this split is not worth all the 
-> troubles, since applications can better utilize the hardware if they can 
-> decide on their own what should be done. So now we still have all three 
-> kinds of planes (for the legacy userspace), but behind the scenes they 
-> all are the same. If an application knows how to knock the door, it will 
-> see all the planes with the capabilities being exposed through plane 
-> properties, etc.
-> 
-> Back to our case. We mark these planes as 'cursor' ones, to let the 
-> legacy composers to use them for hardware cursor. I think it was decided 
-> that not having the cursor is worse than requiring another blending 
-> step. On the other hand newer composers see a full array of planes.
 
-Thanks so much for this backstory, that explains why it shouldn't harm
-modern compositors; in modetest I see these planes have the cursor type
-property, but no restriction on zpos for example.
+Obviously, I need to still work on this. *looks for brown paper bag*
 
-> > And will
-> > that change when we do end up "implementing more rigorous/strict
-> > hardware support"? 
-> 
-> Once implemented, there will be more planes for msm8998 (and eventually 
-> sdm660/630, once we have them too). Some of them will be limited in size 
-> or in the Z order (cursor), some will not (rgb, dma, vig).
+On Tue, 24 Jan 2023, kernel test robot <lkp@intel.com> wrote:
+> Hi Jani,
+>
+> I love your patch! Yet something to improve:
+>
+> [auto build test ERROR on drm-tip/drm-tip]
+>
+> url:    https://github.com/intel-lab-lkp/linux/commits/Jani-Nikula/drm-connector-move-HDR-sink-metadata-to-display-info/20230124-174322
+> base:   git://anongit.freedesktop.org/drm/drm-tip drm-tip
+> patch link:    https://lore.kernel.org/r/20230124094154.2282778-3-jani.nikula%40intel.com
+> patch subject: [Intel-gfx] [PATCH 3/3] drm/connector: move ELD and video/audio latencies to display info
+> config: arm-defconfig (https://download.01.org/0day-ci/archive/20230124/202301242049.eKzx7RzZ-lkp@intel.com/config)
+> compiler: arm-linux-gnueabi-gcc (GCC) 12.1.0
+> reproduce (this is a W=1 build):
+>         wget https://raw.githubusercontent.com/intel/lkp-tests/master/sbin/make.cross -O ~/bin/make.cross
+>         chmod +x ~/bin/make.cross
+>         # https://github.com/intel-lab-lkp/linux/commit/1e92b5478cfc1b0df66153652111117e9548b0d5
+>         git remote add linux-review https://github.com/intel-lab-lkp/linux
+>         git fetch --no-tags linux-review Jani-Nikula/drm-connector-move-HDR-sink-metadata-to-display-info/20230124-174322
+>         git checkout 1e92b5478cfc1b0df66153652111117e9548b0d5
+>         # save the config file
+>         mkdir build_dir && cp config build_dir/.config
+>         COMPILER_INSTALL_PATH=$HOME/0day COMPILER=gcc-12.1.0 make.cross W=1 O=build_dir ARCH=arm olddefconfig
+>         COMPILER_INSTALL_PATH=$HOME/0day COMPILER=gcc-12.1.0 make.cross W=1 O=build_dir ARCH=arm SHELL=/bin/bash drivers/gpu/
+>
+> If you fix the issue, kindly add following tag where applicable
+> | Reported-by: kernel test robot <lkp@intel.com>
+>
+> All errors (new ones prefixed by >>):
+>
+>    drivers/gpu/drm/tegra/hdmi.c: In function 'tegra_hdmi_write_eld':
+>>> drivers/gpu/drm/tegra/hdmi.c:620:60: error: 'struct drm_connector' has no member named 'eld'
+>      620 |         size_t length = drm_eld_size(hdmi->output.connector.eld), i;
+>          |                                                            ^
+>    drivers/gpu/drm/tegra/hdmi.c:624:72: error: 'struct drm_connector' has no member named 'eld'
+>      624 |                 tegra_hdmi_writel(hdmi, i << 8 | hdmi->output.connector.eld[i],
+>          |                                                                        ^
+> --
+>    drivers/gpu/drm/tegra/sor.c: In function 'tegra_sor_write_eld':
+>>> drivers/gpu/drm/tegra/sor.c:1951:59: error: 'struct drm_connector' has no member named 'eld'
+>     1951 |         size_t length = drm_eld_size(sor->output.connector.eld), i;
+>          |                                                           ^
+>    drivers/gpu/drm/tegra/sor.c:1954:69: error: 'struct drm_connector' has no member named 'eld'
+>     1954 |                 tegra_sor_writel(sor, i << 8 | sor->output.connector.eld[i],
+>          |                                                                     ^
+>
+>
+> vim +620 drivers/gpu/drm/tegra/hdmi.c
+>
+> edec4af4c3d6d2 Thierry Reding 2012-11-15  617  
+> 5234549b93aa2a Thierry Reding 2015-08-07  618  static void tegra_hdmi_write_eld(struct tegra_hdmi *hdmi)
+> 5234549b93aa2a Thierry Reding 2015-08-07  619  {
+> 5234549b93aa2a Thierry Reding 2015-08-07 @620  	size_t length = drm_eld_size(hdmi->output.connector.eld), i;
+> 5234549b93aa2a Thierry Reding 2015-08-07  621  	u32 value;
+> edec4af4c3d6d2 Thierry Reding 2012-11-15  622  
+> 5234549b93aa2a Thierry Reding 2015-08-07  623  	for (i = 0; i < length; i++)
+> 5234549b93aa2a Thierry Reding 2015-08-07  624  		tegra_hdmi_writel(hdmi, i << 8 | hdmi->output.connector.eld[i],
+> 5234549b93aa2a Thierry Reding 2015-08-07  625  				  HDMI_NV_PDISP_SOR_AUDIO_HDA_ELD_BUFWR);
+> edec4af4c3d6d2 Thierry Reding 2012-11-15  626  
+> 5234549b93aa2a Thierry Reding 2015-08-07  627  	/*
+> 5234549b93aa2a Thierry Reding 2015-08-07  628  	 * The HDA codec will always report an ELD buffer size of 96 bytes and
+> 5234549b93aa2a Thierry Reding 2015-08-07  629  	 * the HDA codec driver will check that each byte read from the buffer
+> 5234549b93aa2a Thierry Reding 2015-08-07  630  	 * is valid. Therefore every byte must be written, even if no 96 bytes
+> 5234549b93aa2a Thierry Reding 2015-08-07  631  	 * were parsed from EDID.
+> 5234549b93aa2a Thierry Reding 2015-08-07  632  	 */
+> 5234549b93aa2a Thierry Reding 2015-08-07  633  	for (i = length; i < HDMI_ELD_BUFFER_SIZE; i++)
+> 5234549b93aa2a Thierry Reding 2015-08-07  634  		tegra_hdmi_writel(hdmi, i << 8 | 0,
+> 5234549b93aa2a Thierry Reding 2015-08-07  635  				  HDMI_NV_PDISP_SOR_AUDIO_HDA_ELD_BUFWR);
+> 5234549b93aa2a Thierry Reding 2015-08-07  636  
+> 5234549b93aa2a Thierry Reding 2015-08-07  637  	value = SOR_AUDIO_HDA_PRESENSE_VALID | SOR_AUDIO_HDA_PRESENSE_PRESENT;
+> 5234549b93aa2a Thierry Reding 2015-08-07  638  	tegra_hdmi_writel(hdmi, value, HDMI_NV_PDISP_SOR_AUDIO_HDA_PRESENSE);
+> edec4af4c3d6d2 Thierry Reding 2012-11-15  639  }
+> edec4af4c3d6d2 Thierry Reding 2012-11-15  640  
 
-That's what I saw one of the linked patches; at that point we should add
-separate feature bits for this so as to not limit the size or Z-order
-range for these DMA-pipes-disguised-as-cursor-planes.
-
-> > For the other SoCs, are their DMA pipes also
-> > featureful and would the presence of DPU_SSPP_CURSOR severely limit its
-> > functionality? 
-> 
-> All DMA pipes have the same set of features (in the same generation of 
-> course).
-> No, it's just a software marker.
-
-Ack yes, so again once the software marker starts limiting properties
-for actual CURSOR support (on pre-msm8998) we should distinguish them
-from DMA pipes that are simply marked as cursor planes...
-
-> > And is this thing that "virtual planes" would be going
-> > to "solve"?
-> 
-> Included. The virtual planes is trying to solve a slightly different 
-> part of the story: to remove 1:1 correspondence between planes and 
-> pipes. Sometimes it would be nice to use two HW pipes for a single DRM 
-> plane (e.g. the kernel expects to have a single primary plane whose 
-> resolution matches the resolution of the CRTC, 4k = two SSPP because of 
-> hardware limitations). Sometimes a single HW pipe can be used to drive 
-> two DRM planes (see multirect). So, pretty much in the same way as we 
-> use one or two LMs to drive a CRTC, it is useful to use 1/2, 1 or 2 
-> SSPPs to drive a single DRM plane.
-
-Ah, ack, that makes sense, and it wouldn't / shouldn't be up to
-userspace to assign and use the pipes on its own.
-
-- Marijn
+-- 
+Jani Nikula, Intel Open Source Graphics Center
