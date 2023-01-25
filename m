@@ -1,55 +1,66 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 092B367B269
-	for <lists+freedreno@lfdr.de>; Wed, 25 Jan 2023 13:13:10 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id DB7F567B3D0
+	for <lists+freedreno@lfdr.de>; Wed, 25 Jan 2023 15:04:26 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8CF7110E7B9;
-	Wed, 25 Jan 2023 12:13:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A641D10E7BA;
+	Wed, 25 Jan 2023 14:04:25 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9818210E7B4;
- Wed, 25 Jan 2023 12:13:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1674648782; x=1706184782;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=BlYL5ZWxfpIGJfWCOvZGguBgymIDRUM5a8fZph+HpbU=;
- b=IVms/xwalWAAxbxSySt4IZtjNoJfVX+X4bN6bFWWFIeJC4tNGsBhus6Y
- Bv+2jVbRe75jnV0o+m4bmtbRLZcaGpu/aKmB9ifJLs/MYpqRiAXS82j6v
- 2yGtPPHHqWH9vcaEY/JhBdH5KyxGqlswSO9FK7ctcEtjVDUz6MWGAF0lQ
- TMABESVcDhXcoGhriDVw8iG32Uw5qchAasm6RGwVX0HbF1GTJHd9fz//v
- ZOxLM86mF/3lzcLlB2y4KYCTNUTt8IVaSEWRKWGYQYruBM80FzwSi4qP+
- XFh5tmLm9GpeV9g4CS6GoAJU9FXKhubop6iSwOf+7AXcMA4ljDyq4sGG1 A==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10600"; a="391044963"
-X-IronPort-AV: E=Sophos;i="5.97,245,1669104000"; d="scan'208";a="391044963"
-Received: from fmsmga008.fm.intel.com ([10.253.24.58])
- by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 25 Jan 2023 04:13:02 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6500,9779,10600"; a="725833858"
-X-IronPort-AV: E=Sophos;i="5.97,245,1669104000"; d="scan'208";a="725833858"
-Received: from lkp-server01.sh.intel.com (HELO 5646d64e7320) ([10.239.97.150])
- by fmsmga008.fm.intel.com with ESMTP; 25 Jan 2023 04:12:57 -0800
-Received: from kbuild by 5646d64e7320 with local (Exim 4.96)
- (envelope-from <lkp@intel.com>) id 1pKee9-0007He-0L;
- Wed, 25 Jan 2023 12:12:57 +0000
-Date: Wed, 25 Jan 2023 20:12:30 +0800
-From: kernel test robot <lkp@intel.com>
-To: Thomas Zimmermann <tzimmermann@suse.de>, airlied@gmail.com,
- daniel@ffwll.ch, maarten.lankhorst@linux.intel.com,
- mripard@kernel.org, javierm@redhat.com
-Message-ID: <202301252016.vm7ksFra-lkp@intel.com>
-References: <20230124134010.30263-7-tzimmermann@suse.de>
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [IPv6:2001:67c:2178:6::1d])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0B99D10E7BA;
+ Wed, 25 Jan 2023 14:04:24 +0000 (UTC)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id BDE651F45F;
+ Wed, 25 Jan 2023 14:04:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1674655462; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=vbSq8QpP5gKFCj9wRXhX+c2qWCGlcx8AVtCmLzhws7g=;
+ b=b2N+klmsqa/8s7L7etOh/GF+KIr8CQWsepzhB1TUN5s20dtITMD++MlMECauuBzrBXx3CW
+ xMPVajzZIlHkXfGwwKINj30SVh0/g8eMigw60zwNOOpQxD24TMT9EuUiHw1bOxB9vYKpR5
+ NTal+rKexrC80op7nYH3MRVITk+O1YQ=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1674655462;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=vbSq8QpP5gKFCj9wRXhX+c2qWCGlcx8AVtCmLzhws7g=;
+ b=XGawAPjoinARPFUEoLCQUzQiiQqB0pZ8GlJmmHy1nHYEw49D5DKIKU3kLzbJzjTxGAV8f8
+ ZS0TKSus8Ju06gDw==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 779B11358F;
+ Wed, 25 Jan 2023 14:04:22 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id EC48HOY20WMrPwAAMHmgww
+ (envelope-from <tzimmermann@suse.de>); Wed, 25 Jan 2023 14:04:22 +0000
+Message-ID: <54303476-8e1d-2a6e-0d8f-8d5c7b75f64c@suse.de>
+Date: Wed, 25 Jan 2023 15:04:21 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20230124134010.30263-7-tzimmermann@suse.de>
-Subject: Re: [Freedreno] [Intel-gfx] [PATCH v2 06/10] drm/fb-helper:
- Initialize fb-helper's preferred BPP in prepare function
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.6.1
+To: Javier Martinez Canillas <javierm@redhat.com>, airlied@gmail.com,
+ daniel@ffwll.ch, maarten.lankhorst@linux.intel.com, mripard@kernel.org
+References: <20230124134010.30263-1-tzimmermann@suse.de>
+ <20230124134010.30263-2-tzimmermann@suse.de>
+ <296bcff0-9d75-3d6b-e101-dddb26edadf1@redhat.com>
+Content-Language: en-US
+From: Thomas Zimmermann <tzimmermann@suse.de>
+In-Reply-To: <296bcff0-9d75-3d6b-e101-dddb26edadf1@redhat.com>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="------------9Ic1E1tNJRTSvnT3QXPtHIyk"
+Subject: Re: [Freedreno] [PATCH v2 01/10] drm/client: Test for connectors
+ before sending hotplug event
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,98 +74,92 @@ List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
 Cc: linux-samsung-soc@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- intel-gfx@lists.freedesktop.org, llvm@lists.linux.dev,
- dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- Thomas Zimmermann <tzimmermann@suse.de>, oe-kbuild-all@lists.linux.dev,
- linux-tegra@vger.kernel.org, freedreno@lists.freedesktop.org,
- linux-arm-kernel@lists.infradead.org
+ intel-gfx@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-tegra@vger.kernel.org,
+ freedreno@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Hi Thomas,
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------------9Ic1E1tNJRTSvnT3QXPtHIyk
+Content-Type: multipart/mixed; boundary="------------m6sBL7sIhfc4J6AgPtm5C4Gn";
+ protected-headers="v1"
+From: Thomas Zimmermann <tzimmermann@suse.de>
+To: Javier Martinez Canillas <javierm@redhat.com>, airlied@gmail.com,
+ daniel@ffwll.ch, maarten.lankhorst@linux.intel.com, mripard@kernel.org
+Cc: linux-samsung-soc@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, linux-tegra@vger.kernel.org,
+ freedreno@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org
+Message-ID: <54303476-8e1d-2a6e-0d8f-8d5c7b75f64c@suse.de>
+Subject: Re: [PATCH v2 01/10] drm/client: Test for connectors before sending
+ hotplug event
+References: <20230124134010.30263-1-tzimmermann@suse.de>
+ <20230124134010.30263-2-tzimmermann@suse.de>
+ <296bcff0-9d75-3d6b-e101-dddb26edadf1@redhat.com>
+In-Reply-To: <296bcff0-9d75-3d6b-e101-dddb26edadf1@redhat.com>
 
-I love your patch! Yet something to improve:
+--------------m6sBL7sIhfc4J6AgPtm5C4Gn
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: base64
 
-[auto build test ERROR on 7d3e7f64a42d66ba8da6e7b66a8d85457ef84570]
-
-url:    https://github.com/intel-lab-lkp/linux/commits/Thomas-Zimmermann/drm-client-Test-for-connectors-before-sending-hotplug-event/20230124-214220
-base:   7d3e7f64a42d66ba8da6e7b66a8d85457ef84570
-patch link:    https://lore.kernel.org/r/20230124134010.30263-7-tzimmermann%40suse.de
-patch subject: [Intel-gfx] [PATCH v2 06/10] drm/fb-helper: Initialize fb-helper's preferred BPP in prepare function
-config: x86_64-randconfig-a014-20230123 (https://download.01.org/0day-ci/archive/20230125/202301252016.vm7ksFra-lkp@intel.com/config)
-compiler: clang version 14.0.6 (https://github.com/llvm/llvm-project f28c006a5895fc0e329fe15fead81e37457cb1d1)
-reproduce (this is a W=1 build):
-        wget https://raw.githubusercontent.com/intel/lkp-tests/master/sbin/make.cross -O ~/bin/make.cross
-        chmod +x ~/bin/make.cross
-        # https://github.com/intel-lab-lkp/linux/commit/70e38534e74e4d12bb02b3b352bba2aed417f541
-        git remote add linux-review https://github.com/intel-lab-lkp/linux
-        git fetch --no-tags linux-review Thomas-Zimmermann/drm-client-Test-for-connectors-before-sending-hotplug-event/20230124-214220
-        git checkout 70e38534e74e4d12bb02b3b352bba2aed417f541
-        # save the config file
-        mkdir build_dir && cp config build_dir/.config
-        COMPILER_INSTALL_PATH=$HOME/0day COMPILER=clang make.cross W=1 O=build_dir ARCH=x86_64 olddefconfig
-        COMPILER_INSTALL_PATH=$HOME/0day COMPILER=clang make.cross W=1 O=build_dir ARCH=x86_64 SHELL=/bin/bash drivers/gpu/drm/gma500/
-
-If you fix the issue, kindly add following tag where applicable
-| Reported-by: kernel test robot <lkp@intel.com>
-
-All errors (new ones prefixed by >>):
-
->> drivers/gpu/drm/gma500/framebuffer.c:412:44: error: too many arguments to function call, expected 3, have 4
-           drm_fb_helper_prepare(dev, fb_helper, 32, &psb_fb_helper_funcs);
-           ~~~~~~~~~~~~~~~~~~~~~                     ^~~~~~~~~~~~~~~~~~~~
-   include/drm/drm_fb_helper.h:295:20: note: 'drm_fb_helper_prepare' declared here
-   static inline void drm_fb_helper_prepare(struct drm_device *dev,
-                      ^
->> drivers/gpu/drm/gma500/framebuffer.c:421:46: error: too few arguments to function call, expected 2, have 1
-           ret = drm_fb_helper_initial_config(fb_helper);
-                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~          ^
-   include/drm/drm_fb_helper.h:459:19: note: 'drm_fb_helper_initial_config' declared here
-   static inline int drm_fb_helper_initial_config(struct drm_fb_helper *fb_helper,
-                     ^
-   2 errors generated.
+SGkNCg0KQW0gMjUuMDEuMjMgdW0gMDk6MzAgc2NocmllYiBKYXZpZXIgTWFydGluZXogQ2Fu
+aWxsYXM6DQo+IEhlbGxvIFRob21hcywNCj4gDQo+IE9uIDEvMjQvMjMgMTQ6NDAsIFRob21h
+cyBaaW1tZXJtYW5uIHdyb3RlOg0KPj4gVGVzdCBmb3IgY29ubmVjdG9ycyBpbiB0aGUgY2xp
+ZW50IGNvZGUgYW5kIHJlbW92ZSBhIHNpbWlsYXIgdGVzdA0KPj4gZnJvbSB0aGUgZ2VuZXJp
+YyBmYmRldiBlbXVsYXRpb24uIERvIG5vdGhpbmcgaWYgdGhlIHRlc3QgZmFpbHMuDQo+PiBO
+b3QgaGF2aW5nIGNvbm5lY3RvcnMgaW5kaWNhdGVzIGEgZHJpdmVyIGJ1Zy4NCj4+DQo+PiBT
+aWduZWQtb2ZmLWJ5OiBUaG9tYXMgWmltbWVybWFubiA8dHppbW1lcm1hbm5Ac3VzZS5kZT4N
+Cj4+IC0tLQ0KPiANCj4gUmV2aWV3ZWQtYnk6IEphdmllciBNYXJ0aW5leiBDYW5pbGxhcyA8
+amF2aWVybUByZWRoYXQuY29tPg0KPiANCj4gYnV0IEkndmUgYSBxdWVzdGlvbiBiZWxvdy4N
+Cj4gDQo+PiAgIGRyaXZlcnMvZ3B1L2RybS9kcm1fY2xpZW50LmMgICAgICAgIHwgNSArKysr
+Kw0KPj4gICBkcml2ZXJzL2dwdS9kcm0vZHJtX2ZiZGV2X2dlbmVyaWMuYyB8IDUgLS0tLS0N
+Cj4+ICAgMiBmaWxlcyBjaGFuZ2VkLCA1IGluc2VydGlvbnMoKyksIDUgZGVsZXRpb25zKC0p
+DQo+IA0KPiBbLi4uXQ0KPiANCj4+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9kcm1fZmJkZXZf
+Z2VuZXJpYy5jDQo+PiArKysgYi9kcml2ZXJzL2dwdS9kcm0vZHJtX2ZiZGV2X2dlbmVyaWMu
+Yw0KPj4gQEAgLTM4OSwxMSArMzg5LDYgQEAgc3RhdGljIGludCBkcm1fZmJkZXZfY2xpZW50
+X2hvdHBsdWcoc3RydWN0IGRybV9jbGllbnRfZGV2ICpjbGllbnQpDQo+PiAgIAlpZiAoZGV2
+LT5mYl9oZWxwZXIpDQo+PiAgIAkJcmV0dXJuIGRybV9mYl9oZWxwZXJfaG90cGx1Z19ldmVu
+dChkZXYtPmZiX2hlbHBlcik7DQo+PiAgIA0KPj4gLQlpZiAoIWRldi0+bW9kZV9jb25maWcu
+bnVtX2Nvbm5lY3Rvcikgew0KPj4gLQkJZHJtX2RiZ19rbXMoZGV2LCAiTm8gY29ubmVjdG9y
+cyBmb3VuZCwgd2lsbCBub3QgY3JlYXRlIGZyYW1lYnVmZmVyIVxuIik7DQo+PiAtCQlyZXR1
+cm4gMDsNCj4+IC0JfQ0KPj4gLQ0KPiANCj4gV2hhdCBhYm91dCB0aGUgZm9sbG93aW5nIGNv
+ZGUgc25pcHBldDoNCj4gDQo+IAlpZiAoIWRybV9kcnZfdXNlc19hdG9taWNfbW9kZXNldChk
+ZXYpKQ0KPiAJCWRybV9oZWxwZXJfZGlzYWJsZV91bnVzZWRfZnVuY3Rpb25zKGRldik7DQo+
+IA0KPiB0aGF0IHNlZW1zIHRvIGJlIHNvbWV0aGluZyB0aGF0IHNob3VsZCBiZSBpbiB0aGUg
+Y29yZSBjbGllbnQgZGV2IGhvdHBsdWcNCj4gYXMgd2VsbCwgc2luY2UgaXQgaXNuJ3Qgc3Bl
+Y2lmaWMgdG8gdGhlIGZiZGV2IGVtdWxhdGlvbiBjbGllbnQgPw0KDQpUaGF0J3MgaW4gdGhl
+IG1pZGRsZSBvZiB0aGUgaW5pdGlhbCBwcm9iaW5nIGNvZGUgYW5kIGRpc2FibGVzIHBpcGVs
+aW5lIA0KZWxlbWVudHMgaW4gbm9uLWF0b21pYyBtb2Rlc2V0dGluZy4gVEJIIEkgZG9uJ3Qg
+ZGFyZSB0byBtb3ZlIGl0IGFyb3VuZC4gDQpJZiB3ZSBldmVyIGhhdmUgb3RoZXIgY2xpZW50
+cywgd2UgY2FuIGF0dGVtcHQgdGhlIHB1dCBpdCBpbnRvIHRoZSBjbGllbnQuDQoNCkJlc3Qg
+cmVnYXJkcw0KVGhvbWFzDQoNCg0KPiANCg0KLS0gDQpUaG9tYXMgWmltbWVybWFubg0KR3Jh
+cGhpY3MgRHJpdmVyIERldmVsb3Blcg0KU1VTRSBTb2Z0d2FyZSBTb2x1dGlvbnMgR2VybWFu
+eSBHbWJIDQpNYXhmZWxkc3RyLiA1LCA5MDQwOSBOw7xybmJlcmcsIEdlcm1hbnkNCihIUkIg
+MzY4MDksIEFHIE7DvHJuYmVyZykNCkdlc2Now6RmdHNmw7xocmVyOiBJdm8gVG90ZXYNCg==
 
 
-vim +412 drivers/gpu/drm/gma500/framebuffer.c
+--------------m6sBL7sIhfc4J6AgPtm5C4Gn--
 
-   397	
-   398	int psb_fbdev_init(struct drm_device *dev)
-   399	{
-   400		struct drm_fb_helper *fb_helper;
-   401		struct drm_psb_private *dev_priv = to_drm_psb_private(dev);
-   402		int ret;
-   403	
-   404		fb_helper = kzalloc(sizeof(*fb_helper), GFP_KERNEL);
-   405		if (!fb_helper) {
-   406			dev_err(dev->dev, "no memory\n");
-   407			return -ENOMEM;
-   408		}
-   409	
-   410		dev_priv->fb_helper = fb_helper;
-   411	
- > 412		drm_fb_helper_prepare(dev, fb_helper, 32, &psb_fb_helper_funcs);
-   413	
-   414		ret = drm_fb_helper_init(dev, fb_helper);
-   415		if (ret)
-   416			goto free;
-   417	
-   418		/* disable all the possible outputs/crtcs before entering KMS mode */
-   419		drm_helper_disable_unused_functions(dev);
-   420	
- > 421		ret = drm_fb_helper_initial_config(fb_helper);
-   422		if (ret)
-   423			goto fini;
-   424	
-   425		return 0;
-   426	
-   427	fini:
-   428		drm_fb_helper_fini(fb_helper);
-   429	free:
-   430		kfree(fb_helper);
-   431		return ret;
-   432	}
-   433	
+--------------9Ic1E1tNJRTSvnT3QXPtHIyk
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature"
 
--- 
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests
+-----BEGIN PGP SIGNATURE-----
+
+wsF5BAABCAAjFiEExndm/fpuMUdwYFFolh/E3EQov+AFAmPRNuUFAwAAAAAACgkQlh/E3EQov+Dv
+9w//aauyhE9l7KTLTcYoGNHO0YopaFilxVY2jcD0liyFEF6TPeIi6PVYVUYKmVpwk5NI64DBN1jG
+f9ZWmdrLE5dWsztIskHxKTdu6ccDxnCIvEhSLBAVp3PTVBb4otMtuuvqx6z+USCjAv0Vl8qaDMpF
+T9yJ13yTSuqdo6IayPYJ8YiTkiHoru/m467tFleYKs269nPR21wvh4psCd/zO5RN7P4HHeIdyoE4
+rRHEHDUw8plharM840CZonOdB/3cNyPZWPEafLpPSmC5d3t55bvEtm4tbMcajKz8FTLjBMXBk6of
+S6SNT0CNVKxOBhbEtGHZkISEjjgPgh8t0CI4+y6vcbISvACFDgKK0jJwSmY4nb9jmYGSx+RYOgE1
+yn+C7K5ml33IHxx1NhYBnyEvebEL2hDHjRaMM4+cv+LOYIYg2Wn04KZtFCSzot66UW/mZOciXCtB
+rk0RkUvFV0zv0gBQnQ+ePbTidtPpnDo9SuAdZNU1mSABffukZ5UtvfasXTxvrf4sGcltpmmHCsOh
+4Bco5tm3NJPZyFu829nGrRh4mTZ00PMAdD3gjdX6/PNYPmV0RlsAv4pv4DM3kz4Udtyg0wqOUids
+V2ajZqe2CSsBs5eXWLZL1WUgE49MboIaMpoF4IiBYnM3tOF/A+MyTyot1kf32sE/YPPDKKXH0JiL
+T9Y=
+=5HPw
+-----END PGP SIGNATURE-----
+
+--------------9Ic1E1tNJRTSvnT3QXPtHIyk--
