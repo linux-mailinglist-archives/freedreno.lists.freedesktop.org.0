@@ -2,80 +2,80 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id E080967AE96
-	for <lists+freedreno@lfdr.de>; Wed, 25 Jan 2023 10:44:35 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9B1D467AEE3
+	for <lists+freedreno@lfdr.de>; Wed, 25 Jan 2023 10:53:18 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 247A410E74E;
-	Wed, 25 Jan 2023 09:44:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 665A910E762;
+	Wed, 25 Jan 2023 09:53:17 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from us-smtp-delivery-124.mimecast.com
  (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 03C1110E74E
- for <freedreno@lists.freedesktop.org>; Wed, 25 Jan 2023 09:44:23 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2DF9210E762
+ for <freedreno@lists.freedesktop.org>; Wed, 25 Jan 2023 09:53:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1674639863;
+ s=mimecast20190719; t=1674640394;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=tz7iyPImvcUWB9Dn0OtZ/fnzXULpckXnCuNXHm7FVL4=;
- b=JVRoi+i7G4m9cWCbYRfo/0ASO62Wli7ClHFpO4pSXsMoLQtGHnyNGN0AgRSEsZvu/Felh5
- G9KlilfqGMhl1Jyx1sTuv1aLLCa5KkIWrUBLTIACJA02XUWrTlwkY6VLGYZj/xP7KbFYOP
- 8UEtgeg8OHiaAOSzc0YI+HrCol0nY5Q=
-Received: from mail-wr1-f69.google.com (mail-wr1-f69.google.com
- [209.85.221.69]) by relay.mimecast.com with ESMTP with STARTTLS
+ bh=K/d1Iir0okyO1PXRE824II8zkHLTH6xPW+FwgTmuVIo=;
+ b=b3S49XCjEzKVxjomF4qSL8YowhHGW9kEcRjaLuhmMtD6tdZCya3r3EFxTmO3qCotCiGN3w
+ XaGuRc5xqLEISfUqDHuvgbY6ynS8ldj/GLMyaqipCcuRvCI8/Lrh6ZKDrrc8Kdq5e823sI
+ 8HN6MhYwGMDWmktF5He9XhN9Iq1JIgw=
+Received: from mail-wm1-f72.google.com (mail-wm1-f72.google.com
+ [209.85.128.72]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_128_GCM_SHA256) id
- us-mta-427-413VNmhzPm6yDEJ4hGPbYg-1; Wed, 25 Jan 2023 04:44:21 -0500
-X-MC-Unique: 413VNmhzPm6yDEJ4hGPbYg-1
-Received: by mail-wr1-f69.google.com with SMTP id
- l8-20020adfc788000000b002bdfe72089cso3074766wrg.21
- for <freedreno@lists.freedesktop.org>; Wed, 25 Jan 2023 01:44:21 -0800 (PST)
+ us-mta-671-nNKbPPqNNm-T_Bt9myFY-w-1; Wed, 25 Jan 2023 04:50:56 -0500
+X-MC-Unique: nNKbPPqNNm-T_Bt9myFY-w-1
+Received: by mail-wm1-f72.google.com with SMTP id
+ h2-20020a1ccc02000000b003db1ded176dso346176wmb.5
+ for <freedreno@lists.freedesktop.org>; Wed, 25 Jan 2023 01:50:56 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=tz7iyPImvcUWB9Dn0OtZ/fnzXULpckXnCuNXHm7FVL4=;
- b=Iaf9kyZ+uH6VYhc7A4VQ9wpExlK7Fj4dcYA6mrKgWSKQ5uxrE/Sxy6cjXc5yxOkZCN
- A1zmq2W/uFiwMBCNRPNVkhIPSFJTumA3pNbZ6xJ+jj1nO/3JSAb7gXHGcAqeNU79xKBH
- prHm717+GKwPUi3+jNyHQY4UFH1GGn7pdaA8BhdvGG6LLSns1Bt5E6X8/aEFmKTH0S22
- xGHS8fqh1kVJaj/omApfwvWRRzn3UTLitCdFQJh+TmefGUzUV/N1p7ahBdVjkZBmv8m7
- H2gIji3r2V/FyfMKmY/DjPD+EkxFwQwKVMKWXiUZqdOLYvw5ElYQxhwXaJDdg21iKyR+
- BuCw==
-X-Gm-Message-State: AFqh2kqK/RypcTGZXKv/DQ7MwkJmIHbCrt1UT2+VU7dY41dG4LLlTT87
- FToSySNjIJdY+77uAdqRQUvEKEMguc+Msep9CuzLcsP6B4at4rr3I12rahAl0oAaeKAv5MDB+qM
- oL0MQmVBWcBcOSfOZBYxRvl5cNWQp
-X-Received: by 2002:a1c:4b19:0:b0:3da:fb5c:8754 with SMTP id
- y25-20020a1c4b19000000b003dafb5c8754mr28002627wma.2.1674639860820; 
- Wed, 25 Jan 2023 01:44:20 -0800 (PST)
-X-Google-Smtp-Source: AMrXdXs/ZWxYog8h3iR/G4m+bOHxbXPWtvCX/ZVFIUBahKB+Crw5vqS3Y5d/LkCiQwFYvGuCaEiL4A==
-X-Received: by 2002:a1c:4b19:0:b0:3da:fb5c:8754 with SMTP id
- y25-20020a1c4b19000000b003dafb5c8754mr28002601wma.2.1674639860545; 
- Wed, 25 Jan 2023 01:44:20 -0800 (PST)
+ bh=K/d1Iir0okyO1PXRE824II8zkHLTH6xPW+FwgTmuVIo=;
+ b=z4KFvRijXVvTwziWprflayj6cUuTK/tbW9p+2Wjh+QBaTnxuzA1pOdV3ZaAm1kZbHX
+ FRaA9a0GO6VsDzh40gbVfoC5TA9nsHXkOlH5GRHDt6gptpL/toNPv45vqn7Us8liMrMO
+ /yUmy5aREYk5yeus4L9V76Jndv2Qkzu65Pe3/sISf2hcvnxQVgL0/ctRo5dZwogUniaB
+ AQbwANA0K3ezVbLu1j/qw3lBlEhB1qkW9pgDNItplccmBVLr4x7o0AWC0GN7uzH1Sd3h
+ s/Qkr5iAxnkHOEakjNvpRQ3+m1QvQRjJ4RJ75MxYwysxnyGwRJBDfj74fSG6bj3yhoqZ
+ fgUA==
+X-Gm-Message-State: AFqh2kqSlQSPxOcAhvJXiukxmxzdwsRxq/FzgqwkyQAbJlfuPfEamClD
+ +7G3KzE/uujNuMVQrCBhCRWGnNROvs0Ze5YQCoXoi28pvDkNPQoU/5jQFJlcSMbvSmPsUIVjfQh
+ h6t1FY6SW8UTDJSczIqkcrKJsOmhD
+X-Received: by 2002:a05:600c:3ac8:b0:3da:270b:ba6b with SMTP id
+ d8-20020a05600c3ac800b003da270bba6bmr32346402wms.41.1674640255700; 
+ Wed, 25 Jan 2023 01:50:55 -0800 (PST)
+X-Google-Smtp-Source: AMrXdXuwfL0Z6VaIwodqmubvV+5fPQ6Vvv5kGgzDLr7Nlz5OAeVqgi6a3bBFtOpmTalnPP5+47xPuw==
+X-Received: by 2002:a05:600c:3ac8:b0:3da:270b:ba6b with SMTP id
+ d8-20020a05600c3ac800b003da270bba6bmr32346388wms.41.1674640255501; 
+ Wed, 25 Jan 2023 01:50:55 -0800 (PST)
 Received: from [192.168.1.130] (205.pool92-176-231.dynamic.orange.es.
  [92.176.231.205]) by smtp.gmail.com with ESMTPSA id
- h9-20020a05600c314900b003c6f8d30e40sm1345518wmo.31.2023.01.25.01.44.19
+ e18-20020a5d65d2000000b00294176c2c01sm3929576wrw.86.2023.01.25.01.50.54
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 25 Jan 2023 01:44:20 -0800 (PST)
-Message-ID: <13f04dbd-07f2-f01a-7d67-75a554374ddf@redhat.com>
-Date: Wed, 25 Jan 2023 10:44:19 +0100
+ Wed, 25 Jan 2023 01:50:54 -0800 (PST)
+Message-ID: <498c2aa7-185f-d1cd-6e41-004880913870@redhat.com>
+Date: Wed, 25 Jan 2023 10:50:53 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.6.0
 To: Thomas Zimmermann <tzimmermann@suse.de>, airlied@gmail.com,
  daniel@ffwll.ch, maarten.lankhorst@linux.intel.com, mripard@kernel.org
 References: <20230124134010.30263-1-tzimmermann@suse.de>
- <20230124134010.30263-8-tzimmermann@suse.de>
+ <20230124134010.30263-9-tzimmermann@suse.de>
 From: Javier Martinez Canillas <javierm@redhat.com>
-In-Reply-To: <20230124134010.30263-8-tzimmermann@suse.de>
+In-Reply-To: <20230124134010.30263-9-tzimmermann@suse.de>
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Language: en-US
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH v2 07/10] drm/fbdev-generic: Minimize
- hotplug error handling
+Subject: Re: [Freedreno] [PATCH v2 08/10] drm/fbdev-generic: Minimize client
+ unregistering
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -96,15 +96,23 @@ Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 On 1/24/23 14:40, Thomas Zimmermann wrote:
-> Call drm_fb_helper_init() in the generic-fbdev hotplug helper
+> For uninitialized framebuffers, only release the DRM client and
+> free the fbdev memory. Do not attempt to clean up the framebuffer.
+> 
+> DRM fbdev clients have a two-step initialization: first create
+> the DRM client; then create the framebuffer device on the first
+> successful hotplug event. In cases where the client never creates
+> the framebuffer, only the client state needs to be released. We
+> can detect which case it is, full or client-only cleanup, be
 
-drm_fb_helper_fini()
+s/be/by
 
-> to revert the effects of drm_fb_helper_init(). No full cleanup
-> is required.
+> looking at the presence of fb_helper's info field.
+> 
+> v2:
+> 	* remove test for (fbi != NULL) in drm_fbdev_cleanup() (Sam)
 > 
 > Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
-> ---
 
 Reviewed-by: Javier Martinez Canillas <javierm@redhat.com>
 
