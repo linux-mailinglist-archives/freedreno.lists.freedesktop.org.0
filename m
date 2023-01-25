@@ -1,62 +1,51 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id C6F6367BBF1
-	for <lists+freedreno@lfdr.de>; Wed, 25 Jan 2023 21:04:54 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 7261267BDA5
+	for <lists+freedreno@lfdr.de>; Wed, 25 Jan 2023 22:08:26 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0DFED10E86B;
-	Wed, 25 Jan 2023 20:04:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3428C10E185;
+	Wed, 25 Jan 2023 21:08:25 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [IPv6:2001:67c:2178:6::1d])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0E86510E866;
- Wed, 25 Jan 2023 20:04:21 +0000 (UTC)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id B52E21FF18;
- Wed, 25 Jan 2023 20:04:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1674677059; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=y/gEPYKc6u74/1ZhA3KTyyGoxjq8IY3iL1CCJO+JrM4=;
- b=vYkGvI84jV3ZN70tW/1DxVKWRlpUTiM5LSBJKNLkbDFTA3SmMAeAiKqQA29Ng+6IC9NFmI
- ea7zG/GftgVyiVIUhnOzHS8cbedbaNyYJcHHsnS93YbVGURVhNo2fcy6SayA7ooeOoaFin
- ymCNUA3zys6+Ef5ngIpKTMdpsSgrpfk=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1674677059;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=y/gEPYKc6u74/1ZhA3KTyyGoxjq8IY3iL1CCJO+JrM4=;
- b=7YStTZ9T/UfO30CN7zcek5I/OMQLBvqLdS5t3eKRDjSuaB/KkRB8BtNpxTsyF2IAlTqdir
- 4jfZSVKwM3Y08IAw==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 7D4811339E;
- Wed, 25 Jan 2023 20:04:19 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id wKTSHUOL0WMDeAAAMHmgww
- (envelope-from <tzimmermann@suse.de>); Wed, 25 Jan 2023 20:04:19 +0000
-From: Thomas Zimmermann <tzimmermann@suse.de>
-To: airlied@gmail.com, daniel@ffwll.ch, maarten.lankhorst@linux.intel.com,
- mripard@kernel.org, javierm@redhat.com
-Date: Wed, 25 Jan 2023 21:04:15 +0100
-Message-Id: <20230125200415.14123-11-tzimmermann@suse.de>
-X-Mailer: git-send-email 2.39.0
-In-Reply-To: <20230125200415.14123-1-tzimmermann@suse.de>
+Received: from mailrelay2-1.pub.mailoutpod2-cph3.one.com
+ (mailrelay2-1.pub.mailoutpod2-cph3.one.com [IPv6:2a02:2350:5:401::1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6491210E185
+ for <freedreno@lists.freedesktop.org>; Wed, 25 Jan 2023 21:08:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ravnborg.org; s=rsa2;
+ h=in-reply-to:content-type:mime-version:references:message-id:subject:cc:to:
+ from:date:from;
+ bh=/NbmLZPfTUBNuvwpuIq7jzdYXjOyhys3va43pns/wME=;
+ b=fXzCVuKRusidZBn0C8DUfgcuqFi/xH4Dq66tyHbKA0oEuRzZuyoIBOiLjsOwSvr+XkS5Aj6/8FjfS
+ f1d19b3n2z0KUneSoilCiaNmzUWxDKPyG6eKXAoW0igFvtDQo9SGKXCtGVlpoN0OfqSLgAw+CIbCVN
+ csYcffChBpGi6AJIHGSwJinq5tjrmRtv6oc2CdNm9Q7TFsLahoU5Ms05Lebn4W0llb1eVofn1EdPxe
+ GpcepYkR9FhzvhXT8jy0QE5+B9n5nSxXE3HPA8K05S/hpAQso901xLBhlv7iXHZHbmXbLK3ua9aUzv
+ Z0NFaunagWqq8MfE3TtCNIwsrOjBVtg==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed;
+ d=ravnborg.org; s=ed2;
+ h=in-reply-to:content-type:mime-version:references:message-id:subject:cc:to:
+ from:date:from;
+ bh=/NbmLZPfTUBNuvwpuIq7jzdYXjOyhys3va43pns/wME=;
+ b=H0mcFvUdtrxvOtOWjFbsUaf7rnbOCi8U9iXjFrJBOzDccJr1E5qa1ZOuQ3ZOe3mcbAztOHHM8l8/s
+ V3o0dAlBQ==
+X-HalOne-ID: 24b509b3-9cf2-11ed-a537-3df7d73157c4
+Received: from ravnborg.org (2-105-2-98-cable.dk.customer.tdc.net [2.105.2.98])
+ by mailrelay2 (Halon) with ESMTPSA
+ id 24b509b3-9cf2-11ed-a537-3df7d73157c4;
+ Wed, 25 Jan 2023 20:52:16 +0000 (UTC)
+Date: Wed, 25 Jan 2023 21:52:14 +0100
+From: Sam Ravnborg <sam@ravnborg.org>
+To: Thomas Zimmermann <tzimmermann@suse.de>
+Message-ID: <Y9GWfi4EiCDPa6BJ@ravnborg.org>
 References: <20230125200415.14123-1-tzimmermann@suse.de>
+ <20230125200415.14123-2-tzimmermann@suse.de>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH v3 10/10] drm/fbdev-generic: Rename struct
- fb_info 'fbi' to 'info'
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20230125200415.14123-2-tzimmermann@suse.de>
+Subject: Re: [Freedreno] [PATCH v3 01/10] drm/client: Test for connectors
+ before sending hotplug event
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,125 +58,69 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-samsung-soc@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org, Thomas Zimmermann <tzimmermann@suse.de>,
- linux-tegra@vger.kernel.org, freedreno@lists.freedesktop.org,
+Cc: freedreno@lists.freedesktop.org, linux-samsung-soc@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
+ intel-gfx@lists.freedesktop.org, maarten.lankhorst@linux.intel.com,
+ javierm@redhat.com, mripard@kernel.org, dri-devel@lists.freedesktop.org,
+ daniel@ffwll.ch, linux-tegra@vger.kernel.org, airlied@gmail.com,
  linux-arm-kernel@lists.infradead.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-The generic fbdev emulation names variables of type struct fb_info
-both 'fbi' and 'info'. The latter seems to be more common in fbdev
-code, so name fbi accordingly.
+Hi Thomas,
 
-Also replace the duplicate variable in drm_fbdev_fb_destroy().
+On Wed, Jan 25, 2023 at 09:04:06PM +0100, Thomas Zimmermann wrote:
+> Test for connectors in the client code and remove a similar test
+> from the generic fbdev emulation. Do nothing if the test fails.
+> Not having connectors indicates a driver bug.
+> 
+> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+> Reviewed-by: Javier Martinez Canillas <javierm@redhat.com>
+> ---
+>  drivers/gpu/drm/drm_client.c        | 5 +++++
+>  drivers/gpu/drm/drm_fbdev_generic.c | 5 -----
+>  2 files changed, 5 insertions(+), 5 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/drm_client.c b/drivers/gpu/drm/drm_client.c
+> index 262ec64d4397..09ac191c202d 100644
+> --- a/drivers/gpu/drm/drm_client.c
+> +++ b/drivers/gpu/drm/drm_client.c
+> @@ -198,6 +198,11 @@ void drm_client_dev_hotplug(struct drm_device *dev)
+>  	if (!drm_core_check_feature(dev, DRIVER_MODESET))
+>  		return;
+>  
+> +	if (!dev->mode_config.num_connector) {
+> +		drm_dbg_kms(dev, "No connectors found, will not send hotplug events!\n");
+> +		return;
+This deserves a more visible logging - if a driver fails here it would
+be good to spot it in the normal kernel log.
+drm_info or drm_notice?
 
-Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
-Reviewed-by: Javier Martinez Canillas <javierm@redhat.com>
----
- drivers/gpu/drm/drm_fbdev_generic.c | 47 ++++++++++++++---------------
- 1 file changed, 23 insertions(+), 24 deletions(-)
+The original code had this on the debug level, but when moving the log
+level could also be updated.
 
-diff --git a/drivers/gpu/drm/drm_fbdev_generic.c b/drivers/gpu/drm/drm_fbdev_generic.c
-index 68ce652e3a14..43f94aa9e015 100644
---- a/drivers/gpu/drm/drm_fbdev_generic.c
-+++ b/drivers/gpu/drm/drm_fbdev_generic.c
-@@ -46,16 +46,15 @@ static int drm_fbdev_fb_release(struct fb_info *info, int user)
- static void drm_fbdev_fb_destroy(struct fb_info *info)
- {
- 	struct drm_fb_helper *fb_helper = info->par;
--	struct fb_info *fbi = fb_helper->info;
- 	void *shadow = NULL;
- 
- 	if (!fb_helper->dev)
- 		return;
- 
--	if (fbi->fbdefio)
--		fb_deferred_io_cleanup(fbi);
-+	if (info->fbdefio)
-+		fb_deferred_io_cleanup(info);
- 	if (drm_fbdev_use_shadow_fb(fb_helper))
--		shadow = fbi->screen_buffer;
-+		shadow = info->screen_buffer;
- 
- 	drm_fb_helper_fini(fb_helper);
- 
-@@ -171,7 +170,7 @@ static int drm_fbdev_fb_probe(struct drm_fb_helper *fb_helper,
- 	struct drm_device *dev = fb_helper->dev;
- 	struct drm_client_buffer *buffer;
- 	struct drm_framebuffer *fb;
--	struct fb_info *fbi;
-+	struct fb_info *info;
- 	u32 format;
- 	struct iosys_map map;
- 	int ret;
-@@ -190,35 +189,35 @@ static int drm_fbdev_fb_probe(struct drm_fb_helper *fb_helper,
- 	fb_helper->fb = buffer->fb;
- 	fb = buffer->fb;
- 
--	fbi = drm_fb_helper_alloc_info(fb_helper);
--	if (IS_ERR(fbi))
--		return PTR_ERR(fbi);
-+	info = drm_fb_helper_alloc_info(fb_helper);
-+	if (IS_ERR(info))
-+		return PTR_ERR(info);
- 
--	fbi->fbops = &drm_fbdev_fb_ops;
--	fbi->screen_size = sizes->surface_height * fb->pitches[0];
--	fbi->fix.smem_len = fbi->screen_size;
--	fbi->flags = FBINFO_DEFAULT;
-+	info->fbops = &drm_fbdev_fb_ops;
-+	info->screen_size = sizes->surface_height * fb->pitches[0];
-+	info->fix.smem_len = info->screen_size;
-+	info->flags = FBINFO_DEFAULT;
- 
--	drm_fb_helper_fill_info(fbi, fb_helper, sizes);
-+	drm_fb_helper_fill_info(info, fb_helper, sizes);
- 
- 	if (drm_fbdev_use_shadow_fb(fb_helper)) {
--		fbi->screen_buffer = vzalloc(fbi->screen_size);
--		if (!fbi->screen_buffer)
-+		info->screen_buffer = vzalloc(info->screen_size);
-+		if (!info->screen_buffer)
- 			return -ENOMEM;
--		fbi->flags |= FBINFO_VIRTFB | FBINFO_READS_FAST;
-+		info->flags |= FBINFO_VIRTFB | FBINFO_READS_FAST;
- 
--		fbi->fbdefio = &drm_fbdev_defio;
--		fb_deferred_io_init(fbi);
-+		info->fbdefio = &drm_fbdev_defio;
-+		fb_deferred_io_init(info);
- 	} else {
- 		/* buffer is mapped for HW framebuffer */
- 		ret = drm_client_buffer_vmap(fb_helper->buffer, &map);
- 		if (ret)
- 			return ret;
- 		if (map.is_iomem) {
--			fbi->screen_base = map.vaddr_iomem;
-+			info->screen_base = map.vaddr_iomem;
- 		} else {
--			fbi->screen_buffer = map.vaddr;
--			fbi->flags |= FBINFO_VIRTFB;
-+			info->screen_buffer = map.vaddr;
-+			info->flags |= FBINFO_VIRTFB;
- 		}
- 
- 		/*
-@@ -227,10 +226,10 @@ static int drm_fbdev_fb_probe(struct drm_fb_helper *fb_helper,
- 		 * case.
- 		 */
- #if IS_ENABLED(CONFIG_DRM_FBDEV_LEAK_PHYS_SMEM)
--		if (fb_helper->hint_leak_smem_start && fbi->fix.smem_start == 0 &&
-+		if (fb_helper->hint_leak_smem_start && info->fix.smem_start == 0 &&
- 		    !drm_WARN_ON_ONCE(dev, map.is_iomem))
--			fbi->fix.smem_start =
--				page_to_phys(virt_to_page(fbi->screen_buffer));
-+			info->fix.smem_start =
-+				page_to_phys(virt_to_page(info->screen_buffer));
- #endif
- 	}
- 
--- 
-2.39.0
+	Sam
 
+> +	}
+> +
+>  	mutex_lock(&dev->clientlist_mutex);
+>  	list_for_each_entry(client, &dev->clientlist, list) {
+>  		if (!client->funcs || !client->funcs->hotplug)
+> diff --git a/drivers/gpu/drm/drm_fbdev_generic.c b/drivers/gpu/drm/drm_fbdev_generic.c
+> index 0a4c160e0e58..3d455a2e3fb5 100644
+> --- a/drivers/gpu/drm/drm_fbdev_generic.c
+> +++ b/drivers/gpu/drm/drm_fbdev_generic.c
+> @@ -389,11 +389,6 @@ static int drm_fbdev_client_hotplug(struct drm_client_dev *client)
+>  	if (dev->fb_helper)
+>  		return drm_fb_helper_hotplug_event(dev->fb_helper);
+>  
+> -	if (!dev->mode_config.num_connector) {
+> -		drm_dbg_kms(dev, "No connectors found, will not create framebuffer!\n");
+> -		return 0;
+> -	}
+> -
+>  	drm_fb_helper_prepare(dev, fb_helper, &drm_fb_helper_generic_funcs);
+>  
+>  	ret = drm_fb_helper_init(dev, fb_helper);
+> -- 
+> 2.39.0
