@@ -2,65 +2,61 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7CD3767B3F7
-	for <lists+freedreno@lfdr.de>; Wed, 25 Jan 2023 15:11:51 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C985767B9B9
+	for <lists+freedreno@lfdr.de>; Wed, 25 Jan 2023 19:44:44 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A789C10E7C5;
-	Wed, 25 Jan 2023 14:11:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5831C10E811;
+	Wed, 25 Jan 2023 18:44:43 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DCDCD10E7B9;
- Wed, 25 Jan 2023 14:11:45 +0000 (UTC)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 883AC219F8;
- Wed, 25 Jan 2023 14:11:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1674655904; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=Yz5VDm1k5I1ztdBG/BHIBO00HvHLkqpo6yWiKf4vCQA=;
- b=bKIYw6zNUJM2ld5PHempeAxhOhFzotW5y1OJAO4xhfZfcwzST4FMbQqCkCoTbhjzuRuMTx
- v5rOtGQvFGAPaqVQ6Si99fJSBJixgKp4MHbl+xHiW+7F1PHQLHtHNwezaU4hso/diIcEVq
- 6Nvv89lmlGabwOXirigD2MNqUI4Ds6Y=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1674655904;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=Yz5VDm1k5I1ztdBG/BHIBO00HvHLkqpo6yWiKf4vCQA=;
- b=BjicCOzmJO6BeVd/DxXc3eJUAmSZ6QkNzrzWehhRaBtk1KcZ8W8P0Z5j9FnAI1WXpwTwyt
- jS1mbURNCbnC+WCA==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 4323A1358F;
- Wed, 25 Jan 2023 14:11:44 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id 3LFjD6A40WNwQwAAMHmgww
- (envelope-from <tzimmermann@suse.de>); Wed, 25 Jan 2023 14:11:44 +0000
-Message-ID: <511111fe-f228-b902-927e-271977b05201@suse.de>
-Date: Wed, 25 Jan 2023 15:11:43 +0100
+Received: from mail-yw1-x1135.google.com (mail-yw1-x1135.google.com
+ [IPv6:2607:f8b0:4864:20::1135])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9500010E127
+ for <freedreno@lists.freedesktop.org>; Wed, 25 Jan 2023 16:50:04 +0000 (UTC)
+Received: by mail-yw1-x1135.google.com with SMTP id
+ 00721157ae682-4a263c4ddbaso272735307b3.0
+ for <freedreno@lists.freedesktop.org>; Wed, 25 Jan 2023 08:50:04 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20210112;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=9oBkpwDuDP6Raat/HRHsNpx8MqzIjjZSJojQEumXoyE=;
+ b=telMSbMEB1I/JdT8E+AOlYPkvLPDxj1UCnywL1f/zz+GxB6zyzUgN+Q3Q48l8AYc8X
+ qS5rmRFlzboD9JIVNM4srPZju+Dc0OvfYTnyPjpp4sHdEutwmKfLXtqzcN+4YmFBRVgu
+ A3oTpxaFO/E/7LaM1iu3pe6Iv0CmRV+MC10+sbVUAqr2eeBPD17IhS27buTMH3bCJoMu
+ fEQq5XzvwDAqtF1fp8r2H4g3vh98tijISo+CkjBRkXWvZWGfdkjpWZzF8VgIKtCc5sLs
+ +bZFNae0CmrxcmnBVuga8Dg0CQRlWnW+6m8p+riuFjzQ8BSrHATHKU3+MoO2RS3dWuby
+ cPfQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=9oBkpwDuDP6Raat/HRHsNpx8MqzIjjZSJojQEumXoyE=;
+ b=vMWfVGfzQ1VylvNaVjkEgN32bm0T+JRkp6BHh5P9K8EN4OpMBz5TgFMPVzLxDKpC67
+ rhjBzJvXXSlCcXyAYzK2ZFS9n7o8P+yiJtamJXsbV6+0ZcbECNxiBIlLOEOSga+90rGL
+ 8eQJURlo4JdtWcWHiYas5jCvqAA9OCqPzMuCsCn4ejRSOwSDvVkzNrvvaB54TFkegW36
+ BovjIB3EkJNdqA7QOPBFS+8b8q5BlB1uBwRogurL4irU9O+B2cnk+KeeRXNCbS+wEQ3l
+ /JilkUxJfK2Mwxz5G1rPMcONNQdcZ5GFo1/U2x9yEDoG8WVKwrd+A0x6xt9mPy5FtjOj
+ cUkA==
+X-Gm-Message-State: AFqh2ko6BksEgZb/eU5jDRgaKLZdMxiadGKtmlAaqPQq9cVcTPmTrFHc
+ zhgqph/Tp4+LGZ8s7S/tkwGyuUvjCzHL613XDdtjLg==
+X-Google-Smtp-Source: AMrXdXsah5c2WKVW38d6ZSr7pPop+n/mEJC53KDRGLQOXrHcU20AK6F0ktCN8HrtzVAtxjIN7wyafP19A/nGyLOtNU8=
+X-Received: by 2002:a81:1d2:0:b0:433:f1c0:3f1c with SMTP id
+ 201-20020a8101d2000000b00433f1c03f1cmr4401576ywb.438.1674665403087; Wed, 25
+ Jan 2023 08:50:03 -0800 (PST)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.6.1
-Content-Language: en-US
-To: Javier Martinez Canillas <javierm@redhat.com>, airlied@gmail.com,
- daniel@ffwll.ch, maarten.lankhorst@linux.intel.com, mripard@kernel.org
-References: <20230124134010.30263-1-tzimmermann@suse.de>
- <20230124134010.30263-4-tzimmermann@suse.de>
- <2a007c84-1dd6-ed8a-39ac-8c7c070513f3@redhat.com>
-From: Thomas Zimmermann <tzimmermann@suse.de>
-In-Reply-To: <2a007c84-1dd6-ed8a-39ac-8c7c070513f3@redhat.com>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------uhOt4lte6SCpXJgrHcNZJ5Kc"
-Subject: Re: [Freedreno] [PATCH v2 03/10] drm/fb-helper: Introduce
- drm_fb_helper_unprepare()
+References: <20230125083851.27759-1-surenb@google.com>
+ <20230125083851.27759-2-surenb@google.com>
+ <Y9Dx0cPXF2yoLwww@hirez.programming.kicks-ass.net>
+In-Reply-To: <Y9Dx0cPXF2yoLwww@hirez.programming.kicks-ass.net>
+From: Suren Baghdasaryan <surenb@google.com>
+Date: Wed, 25 Jan 2023 08:49:50 -0800
+Message-ID: <CAJuCfpEcVCZaCGzc-Wim25eaV5e6YG1YJAAdKwZ6JHViB0z8aw@mail.gmail.com>
+To: Peter Zijlstra <peterz@infradead.org>
+Content-Type: text/plain; charset="UTF-8"
+X-Mailman-Approved-At: Wed, 25 Jan 2023 18:44:41 +0000
+Subject: Re: [Freedreno] [PATCH v2 1/6] mm: introduce vma->vm_flags modifier
+ functions
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,125 +69,94 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-samsung-soc@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org, linux-tegra@vger.kernel.org,
- freedreno@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org
+Cc: michel@lespinasse.org, nvdimm@lists.linux.dev, heiko@sntech.de,
+ leewalsh@google.com, dri-devel@lists.freedesktop.org, perex@perex.cz,
+ jglisse@google.com, arjunroy@google.com, m.szyprowski@samsung.com,
+ linux-arch@vger.kernel.org, qianweili@huawei.com,
+ linux-samsung-soc@vger.kernel.org, aneesh.kumar@linux.ibm.com,
+ chenhuacai@kernel.org, kasan-dev@googlegroups.com, linux-acpi@vger.kernel.org,
+ rientjes@google.com, xen-devel@lists.xenproject.org, devel@lists.orangefs.org,
+ robdclark@gmail.com, minchan@google.com, robert.jarzmik@free.fr,
+ linux-um@lists.infradead.org, etnaviv@lists.freedesktop.org, npiggin@gmail.com,
+ alex.williamson@redhat.com, viro@zeniv.linux.org.uk, luto@kernel.org,
+ gthelen@google.com, tglx@linutronix.de, ldufour@linux.ibm.com,
+ linux-sgx@vger.kernel.org, martin.petersen@oracle.com,
+ linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-perf-users@vger.kernel.org, linux-crypto@vger.kernel.org,
+ linux-fsdevel@vger.kernel.org, akpm@linux-foundation.org,
+ linux-media@vger.kernel.org, freedreno@lists.freedesktop.org,
+ joelaf@google.com, linux-aio@kvack.org, linux-fbdev@vger.kernel.org,
+ linux-ia64@vger.kernel.org, david@redhat.com, dave.hansen@linux.intel.com,
+ virtualization@lists.linux-foundation.org, edumazet@google.com,
+ target-devel@vger.kernel.org, punit.agrawal@bytedance.com,
+ linux-s390@vger.kernel.org, dave@stgolabs.net, deller@gmx.de, hughd@google.com,
+ andrii@kernel.org, patrik.r.jakobsson@gmail.com,
+ linux-stm32@st-md-mailman.stormreply.com, linux-rockchip@lists.infradead.org,
+ linux-graphics-maintainer@vmware.com, kernel-team@android.com,
+ jayalk@intworks.biz, soheil@google.com, selinux@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, mripard@kernel.org, shakeelb@google.com,
+ haojian.zhuang@gmail.com, loongarch@lists.linux.dev,
+ linux-arm-kernel@lists.infradead.org, tytso@mit.edu, nico@fluxnic.net,
+ muchun.song@linux.dev, hjc@rock-chips.com, mcoquelin.stm32@gmail.com,
+ tatashin@google.com, mike.kravetz@oracle.com, songliubraving@fb.com,
+ jasowang@redhat.com, alsa-devel@alsa-project.org, peterx@redhat.com,
+ linux-tegra@vger.kernel.org, kraxel@redhat.com, will@kernel.org,
+ dmaengine@vger.kernel.org, bhe@redhat.com, miklos@szeredi.hu,
+ linux-rdma@vger.kernel.org, linux-staging@lists.linux.dev, willy@infradead.org,
+ dgilbert@interlog.com, xiang@kernel.org, pabeni@redhat.com, jejb@linux.ibm.com,
+ quic_abhinavk@quicinc.com, bp@alien8.de, mchehab@kernel.org,
+ linux-ext4@vger.kernel.org, tomba@kernel.org, hughlynch@google.com,
+ sre@kernel.org, tfiga@chromium.org, linux-xfs@vger.kernel.org,
+ zhangfei.gao@linaro.org, wangzhou1@hisilicon.com, netdev@vger.kernel.org,
+ bpf@vger.kernel.org, linux-erofs@lists.ozlabs.org, davem@davemloft.net,
+ mhocko@suse.com, kvm@vger.kernel.org, mst@redhat.com, gurua@google.com,
+ bigeasy@linutronix.de, alexandre.torgue@foss.st.com, dhowells@redhat.com,
+ linux-mm@kvack.org, ray.huang@amd.com, adilger.kernel@dilger.ca,
+ kuba@kernel.org, sparclinux@vger.kernel.org, airlied@gmail.com,
+ anton.ivanov@cambridgegreys.com, herbert@gondor.apana.org.au,
+ linux-scsi@vger.kernel.org, richard@nod.at, x86@kernel.org, vkoul@kernel.org,
+ mingo@redhat.com, axelrasmussen@google.com, intel-gfx@lists.freedesktop.org,
+ daniel@ffwll.ch, paulmck@kernel.org, jannh@google.com, chao@kernel.org,
+ maarten.lankhorst@linux.intel.com, liam.howlett@oracle.com,
+ hdegoede@redhat.com, linux-mediatek@lists.infradead.org,
+ matthias.bgg@gmail.com, vbabka@suse.cz, dimitri.sivanich@hpe.com,
+ amd-gfx@lists.freedesktop.org, posk@google.com, lstoakes@gmail.com,
+ peterjung1337@gmail.com, yoshfuji@linux-ipv6.org,
+ linuxppc-dev@lists.ozlabs.org, dsahern@kernel.org, kent.overstreet@linux.dev,
+ kexec@lists.infradead.org, tiwai@suse.com, krzysztof.kozlowski@linaro.org,
+ tzimmermann@suse.de, hannes@cmpxchg.org, dmitry.baryshkov@linaro.org,
+ johannes@sipsolutions.net, mgorman@techsingularity.net,
+ linux-accelerators@lists.ozlabs.org, l.stach@pengutronix.de
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------uhOt4lte6SCpXJgrHcNZJ5Kc
-Content-Type: multipart/mixed; boundary="------------1xFZhqx0BfEL0gHwPWLPEDpU";
- protected-headers="v1"
-From: Thomas Zimmermann <tzimmermann@suse.de>
-To: Javier Martinez Canillas <javierm@redhat.com>, airlied@gmail.com,
- daniel@ffwll.ch, maarten.lankhorst@linux.intel.com, mripard@kernel.org
-Cc: linux-samsung-soc@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- intel-gfx@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-tegra@vger.kernel.org,
- freedreno@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org
-Message-ID: <511111fe-f228-b902-927e-271977b05201@suse.de>
-Subject: Re: [PATCH v2 03/10] drm/fb-helper: Introduce
- drm_fb_helper_unprepare()
-References: <20230124134010.30263-1-tzimmermann@suse.de>
- <20230124134010.30263-4-tzimmermann@suse.de>
- <2a007c84-1dd6-ed8a-39ac-8c7c070513f3@redhat.com>
-In-Reply-To: <2a007c84-1dd6-ed8a-39ac-8c7c070513f3@redhat.com>
+On Wed, Jan 25, 2023 at 1:10 AM Peter Zijlstra <peterz@infradead.org> wrote:
+>
+> On Wed, Jan 25, 2023 at 12:38:46AM -0800, Suren Baghdasaryan wrote:
+>
+> > diff --git a/include/linux/mm_types.h b/include/linux/mm_types.h
+> > index 2d6d790d9bed..6c7c70bf50dd 100644
+> > --- a/include/linux/mm_types.h
+> > +++ b/include/linux/mm_types.h
+> > @@ -491,7 +491,13 @@ struct vm_area_struct {
+> >        * See vmf_insert_mixed_prot() for discussion.
+> >        */
+> >       pgprot_t vm_page_prot;
+> > -     unsigned long vm_flags;         /* Flags, see mm.h. */
+> > +
+> > +     /*
+> > +      * Flags, see mm.h.
+> > +      * WARNING! Do not modify directly.
+> > +      * Use {init|reset|set|clear|mod}_vm_flags() functions instead.
+> > +      */
+> > +     unsigned long vm_flags;
+>
+> We have __private and ACCESS_PRIVATE() to help with enforcing this.
 
---------------1xFZhqx0BfEL0gHwPWLPEDpU
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: base64
+Thanks for pointing this out, Peter! I guess for that I'll need to
+convert all read accesses and provide get_vm_flags() too? That will
+cause some additional churt (a quick search shows 801 hits over 248
+files) but maybe it's worth it? I think Michal suggested that too in
+another patch. Should I do that while we are at it?
 
-SGkNCg0KQW0gMjUuMDEuMjMgdW0gMTA6MTggc2NocmllYiBKYXZpZXIgTWFydGluZXogQ2Fu
-aWxsYXM6DQo+IE9uIDEvMjQvMjMgMTQ6NDAsIFRob21hcyBaaW1tZXJtYW5uIHdyb3RlOg0K
-Pj4gTW92ZSB0aGUgZmItaGVscGVyIGNsZWFuLXVwIGNvZGUgaW50byBkcm1fZmJfaGVscGVy
-X3VucHJlcGFyZSgpLiBObw0KPj4gZnVuY3Rpb25hbCBjaGFuZ2VzLg0KPj4NCj4+IHYyOg0K
-Pj4gCSogZGVjbGFyZSBhcyBzdGF0aWMgaW5saW5lIChrZXJuZWwgdGVzdCByb2JvdCkNCj4+
-DQo+PiBTaWduZWQtb2ZmLWJ5OiBUaG9tYXMgWmltbWVybWFubiA8dHppbW1lcm1hbm5Ac3Vz
-ZS5kZT4NCj4+IC0tLQ0KPj4gICBkcml2ZXJzL2dwdS9kcm0vZHJtX2ZiX2hlbHBlci5jIHwg
-MTQgKysrKysrKysrKysrKy0NCj4+ICAgaW5jbHVkZS9kcm0vZHJtX2ZiX2hlbHBlci5oICAg
-ICB8ICA1ICsrKysrDQo+PiAgIDIgZmlsZXMgY2hhbmdlZCwgMTggaW5zZXJ0aW9ucygrKSwg
-MSBkZWxldGlvbigtKQ0KPj4NCj4+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vZHJt
-X2ZiX2hlbHBlci5jIGIvZHJpdmVycy9ncHUvZHJtL2RybV9mYl9oZWxwZXIuYw0KPj4gaW5k
-ZXggYzVjMTNlMTkyYjY0Li40Mzc5YmNkNzcxOGIgMTAwNjQ0DQo+PiAtLS0gYS9kcml2ZXJz
-L2dwdS9kcm0vZHJtX2ZiX2hlbHBlci5jDQo+PiArKysgYi9kcml2ZXJzL2dwdS9kcm0vZHJt
-X2ZiX2hlbHBlci5jDQo+PiBAQCAtNDM1LDYgKzQzNSwxOCBAQCB2b2lkIGRybV9mYl9oZWxw
-ZXJfcHJlcGFyZShzdHJ1Y3QgZHJtX2RldmljZSAqZGV2LCBzdHJ1Y3QgZHJtX2ZiX2hlbHBl
-ciAqaGVscGVyLA0KPj4gICB9DQo+PiAgIEVYUE9SVF9TWU1CT0woZHJtX2ZiX2hlbHBlcl9w
-cmVwYXJlKTsNCj4+ICAgDQo+PiArLyoqDQo+PiArICogZHJtX2ZiX2hlbHBlcl91bnByZXBh
-cmUgLSBjbGVhbiB1cCBhIGRybV9mYl9oZWxwZXIgc3RydWN0dXJlDQo+PiArICogQGZiX2hl
-bHBlcjogZHJpdmVyLWFsbG9jYXRlZCBmYmRldiBoZWxwZXIgc3RydWN0dXJlIHRvIHNldCB1
-cA0KPj4gKyAqDQo+PiArICogQ2xlYW5zIHVwIHRoZSBmcmFtZWJ1ZmZlciBoZWxwZXIuIElu
-dmVyc2Ugb2YgZHJtX2ZiX2hlbHBlcl9wcmVwYXJlKCkuDQo+PiArICovDQo+PiArdm9pZCBk
-cm1fZmJfaGVscGVyX3VucHJlcGFyZShzdHJ1Y3QgZHJtX2ZiX2hlbHBlciAqZmJfaGVscGVy
-KQ0KPj4gK3sNCj4+ICsJbXV0ZXhfZGVzdHJveSgmZmJfaGVscGVyLT5sb2NrKTsNCj4+ICt9
-DQo+IA0KPiBJIGxpa2UgdGhhdCB3ZSBoYXZlIGFuIF91bnByZXBhcmUgdGhhdCBpcyB0aGUg
-aW52ZXJzZSBvZiB0aGUgX3ByZXBhcmUsIGJ1dA0KPiBzaW5jZSBpcyBvbmx5IGRlc3Ryb3lp
-bmcgdGhlIG11dGV4LCBtYXliZSBpcyBhbiB1bm5lZWRlZCBpbmRpcmVjdGlvbiBsZXZlbD8N
-Cj4gDQo+IE9yIGRvIHlvdSBwbGFuIHRvIGFkZCBtb3JlIGNsZWFudXAgdG8gdGhhdCBfdW5w
-cmVwYXJlIGZ1bmN0aW9uPyBPdGhlcndpc2UgSQ0KPiB3b3VsZCBqdXN0IG1ha2UgaXQgYW4g
-aW5saW5lIGZ1bmN0aW9uLg0KDQpUaGVyZSBjb3VsZCBwb3NzaWJseSBiZSBtb3JlOyBub3Qg
-c3VyZSB5ZXQuIFdpdGggcGF0Y2ggMDQsIHRoZSBjYWxsIGlzIA0KYmVpbmcgaW52b2tlZCBm
-cm9tIGRybV9mYmRldl9nZW5lcmljLmMuIEFuZCBJIGhhdmUgcHJvdG90eXBlIHBhdGNoZXMg
-DQp0aGF0IGNvbnZlcnQgYSBudW1iZXIgb2YgZHJpdmVyLWludGVybmFsIGZiZGV2cyB0byB1
-c2Ugc3RydWN0IA0KZHJtX2NsaWVudC4gVGhleSBhbGwgZm9sbG93IHRoZSBzYW1lIGRlc2ln
-bi9zdHJ1Y3R1cmUvcGF0dGVybiB0aGF0IGlzIA0KYmVpbmcgbGF5ZWQgb3V0IGluIGdlbmVy
-aWMtZmJkZXYgaW4gdGhpcyBwYXRjaHNldC4gSW4gdGhlIGVuZCANCmRybV9mYl9oZWxwZXJf
-dW5wcmVwYXJlIHdpbGwgZGVmaW5pdGVseSBiZSBhIHB1YmxpYyBpbnRlcmZhY2Ugb2YgdGhl
-IA0KZmJkZXYgaGVscGVycy4NCg0KQmVzdCByZWdhcmRzDQpUaG9tYXMNCg0KPiANCj4+ICtF
-WFBPUlRfU1lNQk9MKGRybV9mYl9oZWxwZXJfdW5wcmVwYXJlKTsNCj4+ICsNCj4gDQo+IERv
-ZXMgaXQgaGF2ZSB0byBiZSBhbiBleHBvcnRlZCBzeW1ib2w/IEFGQUlDVCB0aGUgb25seSB1
-c2VyIGZvciBub3cgaXMgdGhlDQo+IGRybV9mYl9oZWxwZXJfZmluaSgpIGZ1bmN0aW9uLCBz
-byB0aGUgZnVuY3Rpb24gY291bGQgYmUgYSBzdGF0aWMgaW5saW5lLg0KPiANCj4gWy4uLl0N
-Cj4gDQo+PiBkaWZmIC0tZ2l0IGEvaW5jbHVkZS9kcm0vZHJtX2ZiX2hlbHBlci5oIGIvaW5j
-bHVkZS9kcm0vZHJtX2ZiX2hlbHBlci5oDQo+PiBpbmRleCBmNDQzZTFmMTE2NTQuLjM5NzEw
-YzU3MGEwNCAxMDA2NDQNCj4+IC0tLSBhL2luY2x1ZGUvZHJtL2RybV9mYl9oZWxwZXIuaA0K
-Pj4gKysrIGIvaW5jbHVkZS9kcm0vZHJtX2ZiX2hlbHBlci5oDQo+PiBAQCAtMjMwLDYgKzIz
-MCw3IEBAIGRybV9mYl9oZWxwZXJfZnJvbV9jbGllbnQoc3RydWN0IGRybV9jbGllbnRfZGV2
-ICpjbGllbnQpDQo+PiAgICNpZmRlZiBDT05GSUdfRFJNX0ZCREVWX0VNVUxBVElPTg0KPj4g
-ICB2b2lkIGRybV9mYl9oZWxwZXJfcHJlcGFyZShzdHJ1Y3QgZHJtX2RldmljZSAqZGV2LCBz
-dHJ1Y3QgZHJtX2ZiX2hlbHBlciAqaGVscGVyLA0KPj4gICAJCQkgICBjb25zdCBzdHJ1Y3Qg
-ZHJtX2ZiX2hlbHBlcl9mdW5jcyAqZnVuY3MpOw0KPj4gK3ZvaWQgZHJtX2ZiX2hlbHBlcl91
-bnByZXBhcmUoc3RydWN0IGRybV9mYl9oZWxwZXIgKmZiX2hlbHBlcik7DQo+PiAgIGludCBk
-cm1fZmJfaGVscGVyX2luaXQoc3RydWN0IGRybV9kZXZpY2UgKmRldiwgc3RydWN0IGRybV9m
-Yl9oZWxwZXIgKmhlbHBlcik7DQo+PiAgIHZvaWQgZHJtX2ZiX2hlbHBlcl9maW5pKHN0cnVj
-dCBkcm1fZmJfaGVscGVyICpoZWxwZXIpOw0KPj4gICBpbnQgZHJtX2ZiX2hlbHBlcl9ibGFu
-ayhpbnQgYmxhbmssIHN0cnVjdCBmYl9pbmZvICppbmZvKTsNCj4+IEBAIC0yOTYsNiArMjk3
-LDEwIEBAIHN0YXRpYyBpbmxpbmUgdm9pZCBkcm1fZmJfaGVscGVyX3ByZXBhcmUoc3RydWN0
-IGRybV9kZXZpY2UgKmRldiwNCj4+ICAgew0KPj4gICB9DQo+PiAgIA0KPj4gK3N0YXRpYyBp
-bmxpbmUgdm9pZCBkcm1fZmJfaGVscGVyX3VucHJlcGFyZShzdHJ1Y3QgZHJtX2ZiX2hlbHBl
-ciAqZmJfaGVscGVyKQ0KPj4gK3sNCj4+ICt9DQo+PiArDQo+IA0KPiBBbmQgeW91IHNob3Vs
-ZCBiZSBhYmxlIHRvIHJlbW92ZSB0aGlzIHN0dWIgaWYgeW91IGxpbWl0IHRoZSBzY29wZSBv
-ZiB0aGUgaGVscGVyLg0KPiANCj4gTm8gc3Ryb25nIG9waW5pb24gdGhvdWdoLiBTbyBpZiB5
-b3UgcHJlZmVyIHRvIGtlZXAgaXQgYXMgaXMsIGZlZWwgZnJlZSB0byBhZGQ6DQo+IA0KPiBS
-ZXZpZXdlZC1ieTogSmF2aWVyIE1hcnRpbmV6IENhbmlsbGFzIDxqYXZpZXJtQHJlZGhhdC5j
-b20+DQo+IA0KDQotLSANClRob21hcyBaaW1tZXJtYW5uDQpHcmFwaGljcyBEcml2ZXIgRGV2
-ZWxvcGVyDQpTVVNFIFNvZnR3YXJlIFNvbHV0aW9ucyBHZXJtYW55IEdtYkgNCk1heGZlbGRz
-dHIuIDUsIDkwNDA5IE7DvHJuYmVyZywgR2VybWFueQ0KKEhSQiAzNjgwOSwgQUcgTsO8cm5i
-ZXJnKQ0KR2VzY2jDpGZ0c2bDvGhyZXI6IEl2byBUb3Rldg0K
-
---------------1xFZhqx0BfEL0gHwPWLPEDpU--
-
---------------uhOt4lte6SCpXJgrHcNZJ5Kc
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
-
------BEGIN PGP SIGNATURE-----
-
-wsF5BAABCAAjFiEExndm/fpuMUdwYFFolh/E3EQov+AFAmPROJ8FAwAAAAAACgkQlh/E3EQov+DU
-gQ//VRXnT2/Muz4aNAJWKoqp2XtuHqq88l8DpoLVW70D9Hv+tAAhLBPmxf0l06H0timMiKd0hW6e
-E37h1/oz5jaaWFTyfW6biLp8GRJOlse5nutdh6KzH4cgWyQLQIJIFyN3kwtUd7ei9n8bAWMUo1RM
-td1NBOa+shzcHZlJvkWH5aiczHzTTlHEZNY9QpTKutnXK38ttSFHsy4n5D+n9p5FpfIIjp6vpv/3
-w/hJwtrrVdBb8aobCgwNwFa2f+A5M4pJe37IXacyQFfgH31jEEBL9Cx0sFFXLQ9Q6Qto2ZbDFbXN
-NArJqFuY8PyIWq/Dy6wGewEbEeWgOQGu6g44fYZd/+YB44RDpUlQsL6Tjx63i+0lRUuGt96FkVr7
-5AwKkQeaIqUK6eW7pbMUjpJHW1OKniHu2rzzy28O+E2Uqyy62TBzmvkjfYMyL6QNhrwQTBgT7Kfw
-TWJGMUmdsNwu14VVUnexT/Fc8pVNe3hIHKjdxSSNs2hObHJ0n+QbLpXJr4Xo+ujLvtNDa21sUQ1W
-7AJFcBWQSBmSjjRxB2CrsST57yaoHUA5wftA2tA6T+Elx2FqPpQPJbHL4sWjZPiG/UGN/Pl696VL
-aIG2ZwGUOIbiWO75NzoJOxv9xStlWzFJIVm/HLjZpDQoMT1XXOUXP/pv4WRyGuPaQHGcGrCK163u
-3fA=
-=kMJL
------END PGP SIGNATURE-----
-
---------------uhOt4lte6SCpXJgrHcNZJ5Kc--
+>
