@@ -1,61 +1,60 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 72C3167AA85
-	for <lists+freedreno@lfdr.de>; Wed, 25 Jan 2023 07:47:11 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id EFB4867AAE9
+	for <lists+freedreno@lfdr.de>; Wed, 25 Jan 2023 08:29:56 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 481B910E72D;
-	Wed, 25 Jan 2023 06:47:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AA47910E735;
+	Wed, 25 Jan 2023 07:29:55 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-yb1-xb30.google.com (mail-yb1-xb30.google.com
- [IPv6:2607:f8b0:4864:20::b30])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9F6DA10E72D
- for <freedreno@lists.freedesktop.org>; Wed, 25 Jan 2023 06:47:08 +0000 (UTC)
-Received: by mail-yb1-xb30.google.com with SMTP id a9so21839037ybb.3
- for <freedreno@lists.freedesktop.org>; Tue, 24 Jan 2023 22:47:08 -0800 (PST)
+Received: from mail-yb1-xb2d.google.com (mail-yb1-xb2d.google.com
+ [IPv6:2607:f8b0:4864:20::b2d])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AFC6D10E735
+ for <freedreno@lists.freedesktop.org>; Wed, 25 Jan 2023 07:29:54 +0000 (UTC)
+Received: by mail-yb1-xb2d.google.com with SMTP id b1so16651860ybn.11
+ for <freedreno@lists.freedesktop.org>; Tue, 24 Jan 2023 23:29:54 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=f+Yhm+ONtgQS0SZfQy+XcB6Agb3KHSIv7CpnDfD1CbQ=;
- b=MvqzBjtSH4tlj/EjCiTVCO4vK/hUZLuKjkrAY1kqAzWuXOQguh7vRfzGAql/cthBvm
- 9eGQANAPxOX3123F9NWOMDlMTM2XuSwbHqlyGVp5FXfKDm09QKjgkA0vWI20jUPpsiwG
- I0YfoomwKXw8rwhMAm2oCjn6oSV3pkuyFKmI/sU+F2WB8Bl5qlANAtZVR6Y5QjGFqJT7
- B/yaLX7LepDWzMKv/QensiS7ukApYlBmDyuixLcBnfQoUAsR8TBhNtX2W87v++wOGyBS
- hEIbEAC+w8bdLfO1q1xzsP8teSZ1U+Nom/UHEepEu3fMI9/CPfdRvSTefuApbmpZBrHK
- 32Bg==
+ bh=jiUco/MLWVperT+ljPIQcmiNiz70RTXeJN32A7WBZAE=;
+ b=S/ln1RZql+to1V/PDE8qCa9YsjAWNciBXkVrwXshY9NY82yY5MbtlJoXmqCwr2MNNn
+ mqzUfjpohETcsYn60FFjhZH/11MG9LZPhzhQ0CyHa00Z9ht4HCM1IRAjbLD2OYkSQPpq
+ gYQhq2zHRtq29JDPeFJ5aWiGz3sSArRclV2SAulIUQ63tcqr5m0qg75fAmjH3LJh5Wd6
+ rZTRug2UAAVlEXErrJFLg+UJ+7jqcw41aoMMFj1BxD7TZwc/gz48iC1WwvZ8ori2Vrxg
+ 3iY2BJAnAKo9u7Kq9X7npVROY+V2Kk5ElSXA3AZ1Qqcpw/gHtfWI6AXtPDUbym3NMGui
+ JFTQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=f+Yhm+ONtgQS0SZfQy+XcB6Agb3KHSIv7CpnDfD1CbQ=;
- b=pvdSl6G+FXNDmfk9CNKSlqRwFyo0Ut7yGxVSD1sTBragQKdZ+8k5SLWVzc1Z9H8ehO
- /ewlNL6RnsyCEvMC7Zv/Pfmz21esXhe+GDUPtJVBRLQ5OsVndiAM72y7mWodmuaSMhsq
- 2EjsRDOOOS0ieXTdE5zIVIF15S9jPxaYl02vJWTu84x1pBBF9P4MeNVkssza650xAca8
- ADCww/5h7bAJiqELJzp3hX/3sdRVM8qDoi32yCFIrpNzJGy5XfVwHeawIIoIWWiFMsSx
- NHNQ8J5CjbKUEEhY39xsHgFLRd4NDxnZ1TsP/Piq0Ft+vQHH/Mh0m397wibK+naL/Vui
- mUwA==
-X-Gm-Message-State: AFqh2kpymaSmhlle46hpEMhsWvfe4iqh8Ck8cUQxtqj+uKsPqZHAmt3e
- PmZcSZWaBTx3KQhr1FGpTmePbnmdfXHpbL71Inn8Ag==
-X-Google-Smtp-Source: AMrXdXvv7fjos9dkhNOlGLzfx1JgWTKZfvB82NzZ34A8VECDUMNo+8RHEseboAPnLJgji90Q0T06yjDWv4R9eyzN2R4=
-X-Received: by 2002:a05:6902:8f:b0:800:748:7d05 with SMTP id
- h15-20020a056902008f00b0080007487d05mr2270840ybs.15.1674629227758; Tue, 24
- Jan 2023 22:47:07 -0800 (PST)
+ bh=jiUco/MLWVperT+ljPIQcmiNiz70RTXeJN32A7WBZAE=;
+ b=rRe0+spw/w+vrt+dayG6DE9fFDmuKOHngVYjeWuGJO9dZITUFYQS6eHOGV19TgdXZY
+ v2w0vkShy2uY8PNx2/DG4l/5G4KlQS5NabrFeBUqU9QToTq6elAfqe9GlmQB4vrCU+wz
+ BpgAIuiCqBMgrKsMb2xSRTXHZhirc1OZFWuOgy8LGKNRQpZhnAOngnF2BnZGUKoJMXWa
+ bGy409NgpRMV+owBo/zde77I1semY54qS8LIjSZMrs8JkMka4tDr913z7gVkKzO+URb7
+ 7CJNbgeqVFj/kJfWVmB8avtGg+Sd8kLdu6j0qOGAdSvFPwYJAeYYr1N22vIkGJ1Uzjvz
+ zgHg==
+X-Gm-Message-State: AFqh2kp3Pua5RwSsNC+/Zew49oomFvDf24ioGndMgKMNEqJIGA0MuEoA
+ jJre3wS745zEj4AIdWrB7nPyylDiyPIqxdJIAUFBJA==
+X-Google-Smtp-Source: AMrXdXuV1GZHhmhD/tdTHvoaqpjmOZP/HVHwmSPKdVrLl7BG7O4krg7GeVU8E5L8HhOUaHJHga/g9DnNxP3NYpuSqRk=
+X-Received: by 2002:a25:a87:0:b0:800:ea7e:bb0 with SMTP id
+ 129-20020a250a87000000b00800ea7e0bb0mr2335459ybk.516.1674631793823; 
+ Tue, 24 Jan 2023 23:29:53 -0800 (PST)
 MIME-Version: 1.0
-References: <20230123071145.3056242-1-dmitry.baryshkov@linaro.org>
- <ecec7adb-a1ab-ba38-c38a-26f23f81cf68@quicinc.com>
- <df8a130f-2020-833c-d4f1-088c1fd7e5ef@linaro.org>
- <1642c43b-9d71-17ee-402d-d1e415e1ecc8@quicinc.com>
-In-Reply-To: <1642c43b-9d71-17ee-402d-d1e415e1ecc8@quicinc.com>
+References: <20220617233328.1143665-1-dmitry.baryshkov@linaro.org>
+ <20220617233328.1143665-5-dmitry.baryshkov@linaro.org>
+ <37cf7080-8c4c-556c-a97c-ef0b0db1db11@quicinc.com>
+In-Reply-To: <37cf7080-8c4c-556c-a97c-ef0b0db1db11@quicinc.com>
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Wed, 25 Jan 2023 08:46:56 +0200
-Message-ID: <CAA8EJpo+ARnJ29BrOVkrg1FkTOVKYXQJiqAqhBzhZyNVYZw2qQ@mail.gmail.com>
+Date: Wed, 25 Jan 2023 09:29:42 +0200
+Message-ID: <CAA8EJpod2r1VKVxG7Tf409+T7FQR4VPFmUudxhD+cs8_y3Go+w@mail.gmail.com>
 To: Abhinav Kumar <quic_abhinavk@quicinc.com>
 Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [PATCH] drm/msm/dpu: disable features unsupported
- by QCM2290
+Subject: Re: [Freedreno] [PATCH v6 4/4] drm/msm: stop storing the array of
+ CRTCs in struct msm_drm_private
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,146 +67,240 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, Loic Poulain <loic.poulain@linaro.org>,
- Sean Paul <sean@poorly.run>, Bjorn Andersson <andersson@kernel.org>,
- dri-devel@lists.freedesktop.org, Stephen Boyd <swboyd@chromium.org>,
+Cc: freedreno@lists.freedesktop.org, kernel test robot <lkp@intel.com>,
+ David Airlie <airlied@linux.ie>, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, Bjorn Andersson <bjorn.andersson@linaro.org>,
  Rob Clark <robdclark@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- linux-arm-msm@vger.kernel.org, David Airlie <airlied@gmail.com>
+ Stephen Boyd <swboyd@chromium.org>, Sean Paul <sean@poorly.run>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Hi,
-
-On Wed, 25 Jan 2023 at 02:22, Abhinav Kumar <quic_abhinavk@quicinc.com> wrote:
-> On 1/24/2023 12:22 AM, Dmitry Baryshkov wrote:
-> > On 24/01/2023 03:32, Abhinav Kumar wrote:
-> >> On 1/22/2023 11:11 PM, Dmitry Baryshkov wrote:
-> >>> QCM2290 doesn't seem to support reg-dma, smart-dma, UBWC, CDP, exclusion
-> >>> rectangles and CSC. Drop corresponding features being incorrectly
-> >>> enabled for qcm2290.
-> >>>
-> >>
-> >> Can you please point me to which vendor DT you are referring to for this?
-> >>
-> >> CSC is supported on the VIG SSPPs from what I can see.
-> >
-> > https://github.com/MiCode/kernel_devicetree/blob/psyche-r-oss/qcom/scuba-sde.dtsi
-> >
-> >
-> > No CSC, smart-dma, excl-rect, CDP, etc.
+On Wed, 25 Jan 2023 at 04:14, Abhinav Kumar <quic_abhinavk@quicinc.com> wrote:
 >
-> Sorry I am missing something here.
 >
-> It has one Vig and one DMA
 >
-> https://github.com/MiCode/kernel_devicetree/blob/psyche-r-oss/qcom/scuba-sde.dtsi#L68
-
-Correct
-
->
-> If Vig is present, CSC is supported.
-
-This actually puzzled me. Usually the dtsi has qcom,sde-sspp-csc-off
-and qcom,sde-csc-type properties. But not in this case.
-
->
-> Even for smart DMA I can see it supported
-> https://github.com/MiCode/kernel_devicetree/blob/psyche-r-oss/qcom/scuba-sde.dtsi#L76
-> on the DMA SSPP.
->
-> Same for excl rectangle too
-> https://github.com/MiCode/kernel_devicetree/blob/psyche-r-oss/qcom/scuba-sde.dtsi#L74
-
-Ack, my mistake. Maybe I was looking at the wrong dtsi then (or just
-mixed something). I'll add them back. And I see that CDP is also
-there.
-
-So, this leaves us only with the question regarding CSC. Could you
-please doublecheck it?
-
-I also don't see the UBWC (qcom,sde-ubwc-version) and regdma
-(qcom,sde-reg-dma-off) properties. Are corresponding features present
-on the QCM2290?
-
+> On 6/17/2022 4:33 PM, Dmitry Baryshkov wrote:
+> > The array of CRTC in the struct msm_drm_private duplicates a list of
+> > CRTCs in the drm_device. Drop it and use the existing list for CRTC
+> > enumeration.
 > >
-> >> QCM2290 should be using the same MDP version as 6115 from the HW version.
+> > Reported-by: kernel test robot <lkp@intel.com>
+> > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> > ---
+> >   drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c  |  2 +-
+> >   drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.c |  2 +-
+> >   drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c |  2 +-
+> >   drivers/gpu/drm/msm/msm_drv.c            | 44 +++++++++++++-----------
+> >   drivers/gpu/drm/msm/msm_drv.h            |  3 +-
+> >   5 files changed, 27 insertions(+), 26 deletions(-)
 > >
-> > It is 6.3 vs 6.5 if I remember correctly.
+> > diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
+> > index e23e2552e802..e79f0a8817ac 100644
+> > --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
+> > +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
+> > @@ -806,7 +806,7 @@ static int _dpu_kms_drm_obj_init(struct dpu_kms *dpu_kms)
+> >                       ret = PTR_ERR(crtc);
+> >                       return ret;
+> >               }
+> > -             priv->crtcs[priv->num_crtcs++] = crtc;
+> > +             priv->num_crtcs++;
+> >       }
 > >
-> >>
-> >>
-> >>> Cc: Loic Poulain <loic.poulain@linaro.org>
-> >>> Fixes: 5334087ee743 ("drm/msm: add support for QCM2290 MDSS")
-> >>> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> >>> ---
-> >>>   .../gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c    | 20 +++++++++++--------
-> >>>   1 file changed, 12 insertions(+), 8 deletions(-)
-> >>>
-> >>> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
-> >>> b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
-> >>> index 289fb11f99d1..1c3ffa922794 100644
-> >>> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
-> >>> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
-> >>> @@ -12,10 +12,14 @@
-> >>>   #include "dpu_hw_catalog.h"
-> >>>   #include "dpu_kms.h"
-> >>> -#define VIG_MASK \
-> >>> +#define VIG_BASE_MASK \
-> >>>       (BIT(DPU_SSPP_SRC) | BIT(DPU_SSPP_QOS) |\
-> >>> +    BIT(DPU_SSPP_TS_PREFILL))
-> >>> +
-> >>> +#define VIG_MASK \
-> >>> +    (VIG_BASE_MASK | \
-> >>>       BIT(DPU_SSPP_CSC_10BIT) | BIT(DPU_SSPP_CDP) |\
-> >>> -    BIT(DPU_SSPP_TS_PREFILL) | BIT(DPU_SSPP_EXCL_RECT))
-> >>> +    BIT(DPU_SSPP_EXCL_RECT))
-> >>>   #define VIG_MSM8998_MASK \
-> >>>       (VIG_MASK | BIT(DPU_SSPP_SCALER_QSEED3))
-> >>> @@ -29,7 +33,7 @@
-> >>>   #define VIG_SM8250_MASK \
-> >>>       (VIG_MASK | BIT(DPU_SSPP_QOS_8LVL) |
-> >>> BIT(DPU_SSPP_SCALER_QSEED3LITE))
-> >>> -#define VIG_QCM2290_MASK (VIG_MASK | BIT(DPU_SSPP_QOS_8LVL))
-> >>> +#define VIG_QCM2290_MASK (VIG_BASE_MASK | BIT(DPU_SSPP_QOS_8LVL))
-> >>>   #define DMA_MSM8998_MASK \
-> >>>       (BIT(DPU_SSPP_SRC) | BIT(DPU_SSPP_QOS) |\
-> >>> @@ -50,6 +54,10 @@
-> >>>   #define DMA_CURSOR_MSM8998_MASK \
-> >>>       (DMA_MSM8998_MASK | BIT(DPU_SSPP_CURSOR))
-> >>> +#define DMA_QCM2290_MASK \
-> >>> +    (BIT(DPU_SSPP_SRC) | BIT(DPU_SSPP_QOS) | BIT(DPU_SSPP_QOS_8LVL) |\
-> >>> +    BIT(DPU_SSPP_TS_PREFILL) | BIT(DPU_SSPP_TS_PREFILL_REC1))
-> >>> +
-> >>>   #define MIXER_MSM8998_MASK \
-> >>>       (BIT(DPU_MIXER_SOURCESPLIT) | BIT(DPU_DIM_LAYER))
-> >>> @@ -316,8 +324,6 @@ static const struct dpu_caps msm8998_dpu_caps = {
-> >>>   static const struct dpu_caps qcm2290_dpu_caps = {
-> >>>       .max_mixer_width = DEFAULT_DPU_OUTPUT_LINE_WIDTH,
-> >>>       .max_mixer_blendstages = 0x4,
-> >>> -    .smart_dma_rev = DPU_SSPP_SMART_DMA_V2,
-> >>> -    .ubwc_version = DPU_HW_UBWC_VER_20,
-> >>>       .has_dim_layer = true,
-> >>>       .has_idle_pc = true,
-> >>>       .max_linewidth = 2160,
-> >>> @@ -1384,7 +1390,7 @@ static const struct dpu_sspp_sub_blks
-> >>> qcm2290_dma_sblk_0 = _DMA_SBLK("8", 1);
-> >>>   static const struct dpu_sspp_cfg qcm2290_sspp[] = {
-> >>>       SSPP_BLK("sspp_0", SSPP_VIG0, 0x4000, VIG_QCM2290_MASK,
-> >>>            qcm2290_vig_sblk_0, 0, SSPP_TYPE_VIG, DPU_CLK_CTRL_VIG0),
-> >>> -    SSPP_BLK("sspp_8", SSPP_DMA0, 0x24000,  DMA_SDM845_MASK,
-> >>> +    SSPP_BLK("sspp_8", SSPP_DMA0, 0x24000,  DMA_QCM2290_MASK,
-> >>>            qcm2290_dma_sblk_0, 1, SSPP_TYPE_DMA, DPU_CLK_CTRL_DMA0),
-> >>>   };
-> >>> @@ -2836,8 +2842,6 @@ static const struct dpu_mdss_cfg
-> >>> qcm2290_dpu_cfg = {
-> >>>       .intf = qcm2290_intf,
-> >>>       .vbif_count = ARRAY_SIZE(sdm845_vbif),
-> >>>       .vbif = sdm845_vbif,
-> >>> -    .reg_dma_count = 1,
-> >>> -    .dma_cfg = &sdm845_regdma,
-> >>>       .perf = &qcm2290_perf_data,
-> >>>       .mdss_irqs = IRQ_SC7180_MASK,
-> >>>   };
+> >       /* All CRTCs are compatible with all encoders */
+> > diff --git a/drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.c b/drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.c
+> > index fb48c8c19ec3..7449c1693e45 100644
+> > --- a/drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.c
+> > +++ b/drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.c
+> > @@ -337,7 +337,7 @@ static int modeset_init(struct mdp4_kms *mdp4_kms)
+> >                       goto fail;
+> >               }
+> >
+> > -             priv->crtcs[priv->num_crtcs++] = crtc;
+> > +             priv->num_crtcs++;
+> >       }
+> >
+> >       /*
+> > diff --git a/drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c b/drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c
+> > index 3d5621a68f85..36808990f840 100644
+> > --- a/drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c
+> > +++ b/drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c
+> > @@ -497,7 +497,7 @@ static int modeset_init(struct mdp5_kms *mdp5_kms)
+> >                       DRM_DEV_ERROR(dev->dev, "failed to construct crtc %d (%d)\n", i, ret);
+> >                       goto fail;
+> >               }
+> > -             priv->crtcs[priv->num_crtcs++] = crtc;
+> > +             priv->num_crtcs++;
+> >       }
+> >
+> >       /*
+> > diff --git a/drivers/gpu/drm/msm/msm_drv.c b/drivers/gpu/drm/msm/msm_drv.c
+> > index 1aab6bf86278..567e77dae43b 100644
+> > --- a/drivers/gpu/drm/msm/msm_drv.c
+> > +++ b/drivers/gpu/drm/msm/msm_drv.c
+> > @@ -149,7 +149,7 @@ static void msm_irq_uninstall(struct drm_device *dev)
+> >
+> >   struct msm_vblank_work {
+> >       struct work_struct work;
+> > -     int crtc_id;
+> > +     struct drm_crtc *crtc;
+> >       bool enable;
+> >       struct msm_drm_private *priv;
+> >   };
+> > @@ -162,15 +162,15 @@ static void vblank_ctrl_worker(struct work_struct *work)
+> >       struct msm_kms *kms = priv->kms;
+> >
+>
+> Is there any chance of vbl_work->crtc becoming NULL before this gets
+> executed?
+
+No. The worker is created in vblank_ctrl_queue_work. The
+vbl_work->crtc is filled at the time of creation.
+
+> So do we need to protect this like
+>
+> if (vbl_work->enable && vbl_work->crtc)
+>
+> Because the layers below this dont seem to have NULL protection.
+>
+>
+> >       if (vbl_work->enable)
+> > -             kms->funcs->enable_vblank(kms, priv->crtcs[vbl_work->crtc_id]);
+> > +             kms->funcs->enable_vblank(kms, vbl_work->crtc);
+> >       else
+> > -             kms->funcs->disable_vblank(kms, priv->crtcs[vbl_work->crtc_id]);
+> > +             kms->funcs->disable_vblank(kms, vbl_work->crtc);
+> >
+> >       kfree(vbl_work);
+> >   }
+> >
+> >   static int vblank_ctrl_queue_work(struct msm_drm_private *priv,
+> > -                                     int crtc_id, bool enable)
+> > +                                     struct drm_crtc *crtc, bool enable)
+> >   {
+> >       struct msm_vblank_work *vbl_work;
+> >
+> > @@ -180,7 +180,7 @@ static int vblank_ctrl_queue_work(struct msm_drm_private *priv,
+> >
+> >       INIT_WORK(&vbl_work->work, vblank_ctrl_worker);
+> >
+> > -     vbl_work->crtc_id = crtc_id;
+> > +     vbl_work->crtc = crtc;
+> >       vbl_work->enable = enable;
+> >       vbl_work->priv = priv;
+> >
+> > @@ -354,7 +354,8 @@ static int msm_drm_init(struct device *dev, const struct drm_driver *drv)
+> >       struct msm_drm_private *priv = dev_get_drvdata(dev);
+> >       struct drm_device *ddev;
+> >       struct msm_kms *kms;
+> > -     int ret, i;
+> > +     struct drm_crtc *crtc;
+> > +     int ret;
+> >
+> >       if (drm_firmware_drivers_only())
+> >               return -ENODEV;
+> > @@ -427,20 +428,23 @@ static int msm_drm_init(struct device *dev, const struct drm_driver *drv)
+> >       ddev->mode_config.funcs = &mode_config_funcs;
+> >       ddev->mode_config.helper_private = &mode_config_helper_funcs;
+> >
+> > -     for (i = 0; i < priv->num_crtcs; i++) {
+> > +     drm_for_each_crtc(crtc, ddev) {
+> > +             struct msm_drm_thread *ev_thread;
+> > +
+> >               /* initialize event thread */
+> > -             priv->event_thread[i].crtc_id = priv->crtcs[i]->base.id;
+> > -             priv->event_thread[i].dev = ddev;
+> > -             priv->event_thread[i].worker = kthread_create_worker(0,
+> > -                     "crtc_event:%d", priv->event_thread[i].crtc_id);
+> > -             if (IS_ERR(priv->event_thread[i].worker)) {
+> > -                     ret = PTR_ERR(priv->event_thread[i].worker);
+> > +             ev_thread = &priv->event_thread[drm_crtc_index(crtc)];
+> > +             ev_thread->crtc = crtc;
+> > +             ev_thread->dev = ddev;
+> > +             ev_thread->worker = kthread_create_worker(0,
+> > +                     "crtc_event:%d", ev_thread->crtc->base.id);
+>
+> Please correct me if wrong.
+>
+> Today, other than just populating the name for the worker is the
+> ev_thread->crtc used anywhere?
+>
+> If so, can we just drop crtc from msm_drm_thread and while creating the
+> worker just use kthread_create_worker(0, "crtc_event:%d", crtc->base.id);
+
+It seems so. I'll take a look for v2.
+
+However your questions actually raised another question in my head. I
+went on looking for the reason for such complex vblank handling. It
+was added by Hai Li in the commit 78b1d470d57d ("drm/msm: Enable
+clocks during enable/disable_vblank() callbacks"). However I don't
+fully understand why the code will toggle vblank handling while the
+DPU/MDP5/MDP4 device is not resumed already. Maybe I just missed
+something here. Do you know the story behind the change?
+
+>
+> > +             if (IS_ERR(ev_thread->worker)) {
+> > +                     ret = PTR_ERR(ev_thread->worker);
+> >                       DRM_DEV_ERROR(dev, "failed to create crtc_event kthread\n");
+> > -                     priv->event_thread[i].worker = NULL;
+> > +                     ev_thread->worker = NULL;
+> >                       goto err_msm_uninit;
+> >               }
+> >
+> > -             sched_set_fifo(priv->event_thread[i].worker->task);
+> > +             sched_set_fifo(ev_thread->worker->task);
+> >       }
+> >
+> >       ret = drm_vblank_init(ddev, priv->num_crtcs);
+> > @@ -563,25 +567,23 @@ static void msm_postclose(struct drm_device *dev, struct drm_file *file)
+> >   int msm_crtc_enable_vblank(struct drm_crtc *crtc)
+> >   {
+> >       struct drm_device *dev = crtc->dev;
+> > -     unsigned int pipe = crtc->index;
+> >       struct msm_drm_private *priv = dev->dev_private;
+> >       struct msm_kms *kms = priv->kms;
+> >       if (!kms)
+> >               return -ENXIO;
+> > -     drm_dbg_vbl(dev, "crtc=%u", pipe);
+> > -     return vblank_ctrl_queue_work(priv, pipe, true);
+> > +     drm_dbg_vbl(dev, "crtc=%u", crtc->base.id);
+> > +     return vblank_ctrl_queue_work(priv, crtc, true);
+> >   }
+> >
+> >   void msm_crtc_disable_vblank(struct drm_crtc *crtc)
+> >   {
+> >       struct drm_device *dev = crtc->dev;
+> > -     unsigned int pipe = crtc->index;
+> >       struct msm_drm_private *priv = dev->dev_private;
+> >       struct msm_kms *kms = priv->kms;
+> >       if (!kms)
+> >               return;
+> > -     drm_dbg_vbl(dev, "crtc=%u", pipe);
+> > -     vblank_ctrl_queue_work(priv, pipe, false);
+> > +     drm_dbg_vbl(dev, "crtc=%u", crtc->base.id);
+> > +     vblank_ctrl_queue_work(priv, crtc, false);
+> >   }
+> >
+> >   /*
+> > diff --git a/drivers/gpu/drm/msm/msm_drv.h b/drivers/gpu/drm/msm/msm_drv.h
+> > index 08388d742d65..0e98b6f161df 100644
+> > --- a/drivers/gpu/drm/msm/msm_drv.h
+> > +++ b/drivers/gpu/drm/msm/msm_drv.h
+> > @@ -102,7 +102,7 @@ struct msm_display_topology {
+> >   /* Commit/Event thread specific structure */
+> >   struct msm_drm_thread {
+> >       struct drm_device *dev;
+> > -     unsigned int crtc_id;
+> > +     struct drm_crtc *crtc;
+> >       struct kthread_worker *worker;
+> >   };
+> >
+> > @@ -178,7 +178,6 @@ struct msm_drm_private {
+> >       struct workqueue_struct *wq;
+> >
+> >       unsigned int num_crtcs;
+> > -     struct drm_crtc *crtcs[MAX_CRTCS];
+> >
+> >       struct msm_drm_thread event_thread[MAX_CRTCS];
 > >
 
 
