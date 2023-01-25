@@ -2,61 +2,54 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id B1B1067BEDB
-	for <lists+freedreno@lfdr.de>; Wed, 25 Jan 2023 22:44:18 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 54E3667BBB1
+	for <lists+freedreno@lfdr.de>; Wed, 25 Jan 2023 21:04:25 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 31ED010E139;
-	Wed, 25 Jan 2023 21:44:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E3C2A10E85E;
+	Wed, 25 Jan 2023 20:04:20 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-yw1-x1136.google.com (mail-yw1-x1136.google.com
- [IPv6:2607:f8b0:4864:20::1136])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E5C0D10E14F
- for <freedreno@lists.freedesktop.org>; Wed, 25 Jan 2023 19:22:50 +0000 (UTC)
-Received: by mail-yw1-x1136.google.com with SMTP id
- 00721157ae682-506609635cbso63624087b3.4
- for <freedreno@lists.freedesktop.org>; Wed, 25 Jan 2023 11:22:50 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=PCnMypYs8jymH6Ufuva+9r/69Y/DZs8kYxwQEYrzQFk=;
- b=hXTUs83qvSMCw0sqrewtph/1zyRGQA8EwV9VOqASoIhN1O27YlTeLHvU30LwpkaPKE
- 6ZtbduOBpeU0Mk6yScQyxHGjdOZ8W8NbAK7HCSbKR2qQVwpslpoP2Mqh8DnM60UrkSEV
- Fy/rJx/xAj6ReR1yQheSDvUeiLsUOZe36GsXUe+/pA5dp4+pot+ScO1k5jhTafZOkoJo
- vEjMe7B3/0BupSIQn5CSlkYjolaKBFMYB73xyId061H8p1ZYZbkvvK9SPdZltanRDpUl
- vOuM+M/xFo7tmOP85pcv8h038+SVqlBqYWxO3Lgun0O5W06va+PJHK2pFsHgrhvmIiGL
- lvow==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=PCnMypYs8jymH6Ufuva+9r/69Y/DZs8kYxwQEYrzQFk=;
- b=W82F5SzCnpkXsj/7xo460LuiMaJSOeodBeV4dEIwuPoeKQ9cRzzkNsezhoa/dwpe4n
- +6wTAvrazyS7P8FyfSv1dPGuEjxpGW1DlRSSZv2bNz11D9NeyMgvbv/uC++KBrDb2xpS
- I9upty4G95Oq84SOXicFbWLbxsvnKFLxXNKDNFS6xOPb5ONOfflXJnVqfgxA1jeLMgEi
- gd0cwcuk7ExDafyCkqvFXHxQgUjcAYSqR7AP3FgPN1qteCwq3KRvI0WTspZLTk3ENA0D
- taLcES3wEHW4gBism5lba3fI/nrBG+/FXxRiSlGFBkDY6mN9nUFkGfpkgHNGdTCt5VrJ
- qsrw==
-X-Gm-Message-State: AO0yUKWTLB7cg/tDlb72bK27anfhBhE2l5g8suFVXoD7rshZwiKa/ilP
- +ADMGpPKsiwXn/9X2ETcnE7beguILIZ2Q5a2OfTnJA==
-X-Google-Smtp-Source: AK7set/Rj29H3r8vHaYccCmp943Un+QyMRF/w8dcRdt99GFw8apI+/L+5tSmXBTsBLdlTBniti7hA8kyFbpjr3H10kc=
-X-Received: by 2002:a0d:d456:0:b0:507:26dc:ebd with SMTP id
- w83-20020a0dd456000000b0050726dc0ebdmr298632ywd.455.1674674569763; Wed, 25
- Jan 2023 11:22:49 -0800 (PST)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EACCA10E85E;
+ Wed, 25 Jan 2023 20:04:18 +0000 (UTC)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 2176D1FEAB;
+ Wed, 25 Jan 2023 20:04:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1674677057; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=v+JlmQ6zOfEmYINTHVQmCD4th6Md9FT33+9hsBuYtF0=;
+ b=ZYXGBufK6ZysZF46pzEz6pO8QsVPqQxiPg0dI4p58wnguxY20j00SqYdb5T8v0wEyeNhDU
+ KuHfhSkvsoTbyvsQpVfYqQZhtSrdNRLQr0VMO0glCEO8pnev9yKZg6kzX5FTh1qAgRQTJF
+ z1j/fzW3MmUkH4j+DiIj+LKdJJfAOSw=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1674677057;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=v+JlmQ6zOfEmYINTHVQmCD4th6Md9FT33+9hsBuYtF0=;
+ b=Ps1LBq6ihdGq0l9dLNZQOj0dx+OAD1f6QwcR9DesgnfXMDZau86WlxrDGHkgZR7JPGoNt5
+ rItaN1arPvlWbHCg==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id CF1141339E;
+ Wed, 25 Jan 2023 20:04:16 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id +UmVMUCL0WMDeAAAMHmgww
+ (envelope-from <tzimmermann@suse.de>); Wed, 25 Jan 2023 20:04:16 +0000
+From: Thomas Zimmermann <tzimmermann@suse.de>
+To: airlied@gmail.com, daniel@ffwll.ch, maarten.lankhorst@linux.intel.com,
+ mripard@kernel.org, javierm@redhat.com
+Date: Wed, 25 Jan 2023 21:04:05 +0100
+Message-Id: <20230125200415.14123-1-tzimmermann@suse.de>
+X-Mailer: git-send-email 2.39.0
 MIME-Version: 1.0
-References: <20230125083851.27759-1-surenb@google.com>
- <20230125083851.27759-2-surenb@google.com>
- <Y9F19QEDX5d/44EV@casper.infradead.org>
-In-Reply-To: <Y9F19QEDX5d/44EV@casper.infradead.org>
-From: Suren Baghdasaryan <surenb@google.com>
-Date: Wed, 25 Jan 2023 11:22:38 -0800
-Message-ID: <CAJuCfpH+LMFX=TT04gSMA05cz_-CXMum6fobRrduWvzm1HWPmQ@mail.gmail.com>
-To: Matthew Wilcox <willy@infradead.org>
-Content-Type: text/plain; charset="UTF-8"
-X-Mailman-Approved-At: Wed, 25 Jan 2023 21:44:14 +0000
-Subject: Re: [Freedreno] [PATCH v2 1/6] mm: introduce vma->vm_flags modifier
- functions
+Content-Transfer-Encoding: 8bit
+Subject: [Freedreno] [PATCH v3 00/10] drm/fb-helper: Various cleanups
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,90 +62,59 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: michel@lespinasse.org, nvdimm@lists.linux.dev, heiko@sntech.de,
- leewalsh@google.com, dri-devel@lists.freedesktop.org, perex@perex.cz,
- jglisse@google.com, arjunroy@google.com, m.szyprowski@samsung.com,
- linux-arch@vger.kernel.org, qianweili@huawei.com,
- linux-samsung-soc@vger.kernel.org, aneesh.kumar@linux.ibm.com,
- chenhuacai@kernel.org, kasan-dev@googlegroups.com, linux-acpi@vger.kernel.org,
- rientjes@google.com, xen-devel@lists.xenproject.org, devel@lists.orangefs.org,
- robdclark@gmail.com, minchan@google.com, robert.jarzmik@free.fr,
- linux-um@lists.infradead.org, etnaviv@lists.freedesktop.org, npiggin@gmail.com,
- alex.williamson@redhat.com, viro@zeniv.linux.org.uk, luto@kernel.org,
- gthelen@google.com, tglx@linutronix.de, ldufour@linux.ibm.com,
- linux-sgx@vger.kernel.org, martin.petersen@oracle.com,
- linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-perf-users@vger.kernel.org, linux-crypto@vger.kernel.org,
- linux-fsdevel@vger.kernel.org, akpm@linux-foundation.org,
- linux-media@vger.kernel.org, freedreno@lists.freedesktop.org,
- joelaf@google.com, linux-aio@kvack.org, linux-fbdev@vger.kernel.org,
- linux-ia64@vger.kernel.org, david@redhat.com, dave.hansen@linux.intel.com,
- virtualization@lists.linux-foundation.org, edumazet@google.com,
- target-devel@vger.kernel.org, punit.agrawal@bytedance.com,
- linux-s390@vger.kernel.org, dave@stgolabs.net, deller@gmx.de, hughd@google.com,
- andrii@kernel.org, patrik.r.jakobsson@gmail.com,
- linux-stm32@st-md-mailman.stormreply.com, linux-rockchip@lists.infradead.org,
- linux-graphics-maintainer@vmware.com, kernel-team@android.com,
- jayalk@intworks.biz, soheil@google.com, selinux@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, mripard@kernel.org, shakeelb@google.com,
- haojian.zhuang@gmail.com, loongarch@lists.linux.dev,
- linux-arm-kernel@lists.infradead.org, tytso@mit.edu, nico@fluxnic.net,
- muchun.song@linux.dev, hjc@rock-chips.com, mcoquelin.stm32@gmail.com,
- tatashin@google.com, mike.kravetz@oracle.com, songliubraving@fb.com,
- jasowang@redhat.com, alsa-devel@alsa-project.org, peterx@redhat.com,
- linux-tegra@vger.kernel.org, kraxel@redhat.com, will@kernel.org,
- dmaengine@vger.kernel.org, bhe@redhat.com, miklos@szeredi.hu,
- linux-rdma@vger.kernel.org, linux-staging@lists.linux.dev,
- amd-gfx@lists.freedesktop.org, gurua@google.com, dgilbert@interlog.com,
- xiang@kernel.org, pabeni@redhat.com, jejb@linux.ibm.com,
- quic_abhinavk@quicinc.com, bp@alien8.de, mchehab@kernel.org,
- linux-ext4@vger.kernel.org, tomba@kernel.org, hughlynch@google.com,
- sre@kernel.org, tfiga@chromium.org, linux-xfs@vger.kernel.org,
- zhangfei.gao@linaro.org, wangzhou1@hisilicon.com, netdev@vger.kernel.org,
- bpf@vger.kernel.org, linux-erofs@lists.ozlabs.org, davem@davemloft.net,
- mhocko@suse.com, kvm@vger.kernel.org, mst@redhat.com, peterz@infradead.org,
- bigeasy@linutronix.de, alexandre.torgue@foss.st.com, dhowells@redhat.com,
- linux-mm@kvack.org, ray.huang@amd.com, adilger.kernel@dilger.ca,
- kuba@kernel.org, sparclinux@vger.kernel.org, airlied@gmail.com,
- anton.ivanov@cambridgegreys.com, herbert@gondor.apana.org.au,
- linux-scsi@vger.kernel.org, richard@nod.at, x86@kernel.org, vkoul@kernel.org,
- mingo@redhat.com, axelrasmussen@google.com, intel-gfx@lists.freedesktop.org,
- daniel@ffwll.ch, paulmck@kernel.org, jannh@google.com, chao@kernel.org,
- maarten.lankhorst@linux.intel.com, liam.howlett@oracle.com,
- hdegoede@redhat.com, linux-mediatek@lists.infradead.org,
- matthias.bgg@gmail.com, vbabka@suse.cz, dimitri.sivanich@hpe.com,
- posk@google.com, lstoakes@gmail.com, peterjung1337@gmail.com,
- yoshfuji@linux-ipv6.org, linuxppc-dev@lists.ozlabs.org, dsahern@kernel.org,
- kent.overstreet@linux.dev, kexec@lists.infradead.org, tiwai@suse.com,
- krzysztof.kozlowski@linaro.org, tzimmermann@suse.de, hannes@cmpxchg.org,
- dmitry.baryshkov@linaro.org, johannes@sipsolutions.net,
- mgorman@techsingularity.net, linux-accelerators@lists.ozlabs.org,
- l.stach@pengutronix.de
+Cc: linux-samsung-soc@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, Thomas Zimmermann <tzimmermann@suse.de>,
+ linux-tegra@vger.kernel.org, freedreno@lists.freedesktop.org,
+ linux-arm-kernel@lists.infradead.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Wed, Jan 25, 2023 at 10:33 AM Matthew Wilcox <willy@infradead.org> wrote:
->
-> On Wed, Jan 25, 2023 at 12:38:46AM -0800, Suren Baghdasaryan wrote:
-> > +/* Use when VMA is not part of the VMA tree and needs no locking */
-> > +static inline void init_vm_flags(struct vm_area_struct *vma,
-> > +                              unsigned long flags)
-> > +{
-> > +     vma->vm_flags = flags;
->
-> vm_flags are supposed to have type vm_flags_t.  That's not been
-> fully realised yet, but perhaps we could avoid making it worse?
->
-> >       pgprot_t vm_page_prot;
-> > -     unsigned long vm_flags;         /* Flags, see mm.h. */
-> > +
-> > +     /*
-> > +      * Flags, see mm.h.
-> > +      * WARNING! Do not modify directly.
-> > +      * Use {init|reset|set|clear|mod}_vm_flags() functions instead.
-> > +      */
-> > +     unsigned long vm_flags;
->
-> Including changing this line to vm_flags_t
+Add various cleanups and changes to DRM's fbdev helpers and the
+generic fbdev emulation. There's no clear theme here, just lots
+of small things that need to be updated.
+ 
+In the end, the code will better reflect which parts are in the 
+DRM client, which is fbdev emulation, and which are shared fbdev
+helpers.
 
-Good point. Will make the change. Thanks!
+v3:
+	* various minor fixes (Javier))
+	* build with CONFIG_DRM_FBDEV_EMULATION unset (kernel test robot)
+v2:
+	* cleanups in drm_fbdev_fb_destroy() (Sam)
+	* fix declaration of drm_fb_helper_unprepare()
+
+Thomas Zimmermann (10):
+  drm/client: Test for connectors before sending hotplug event
+  drm/client: Add hotplug_failed flag
+  drm/fb-helper: Introduce drm_fb_helper_unprepare()
+  drm/fbdev-generic: Initialize fb-helper structure in generic setup
+  drm/fb-helper: Remove preferred_bpp parameter from fbdev internals
+  drm/fb-helper: Initialize fb-helper's preferred BPP in prepare
+    function
+  drm/fbdev-generic: Minimize hotplug error handling
+  drm/fbdev-generic: Minimize client unregistering
+  drm/fbdev-generic: Inline clean-up helpers into drm_fbdev_fb_destroy()
+  drm/fbdev-generic: Rename struct fb_info 'fbi' to 'info'
+
+ drivers/gpu/drm/armada/armada_fbdev.c      |   4 +-
+ drivers/gpu/drm/drm_client.c               |  10 ++
+ drivers/gpu/drm/drm_fb_helper.c            |  58 ++++++---
+ drivers/gpu/drm/drm_fbdev_generic.c        | 131 ++++++++-------------
+ drivers/gpu/drm/exynos/exynos_drm_fbdev.c  |   4 +-
+ drivers/gpu/drm/gma500/framebuffer.c       |   4 +-
+ drivers/gpu/drm/i915/display/intel_fbdev.c |  11 +-
+ drivers/gpu/drm/msm/msm_fbdev.c            |   4 +-
+ drivers/gpu/drm/omapdrm/omap_fbdev.c       |   4 +-
+ drivers/gpu/drm/radeon/radeon_fb.c         |   4 +-
+ drivers/gpu/drm/tegra/fb.c                 |   7 +-
+ include/drm/drm_client.h                   |   8 ++
+ include/drm/drm_fb_helper.h                |  16 ++-
+ 13 files changed, 138 insertions(+), 127 deletions(-)
+
+
+base-commit: 7d3e7f64a42d66ba8da6e7b66a8d85457ef84570
+-- 
+2.39.0
+
