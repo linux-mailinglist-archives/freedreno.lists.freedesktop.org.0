@@ -2,50 +2,56 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 70D1C67BD8E
-	for <lists+freedreno@lfdr.de>; Wed, 25 Jan 2023 22:03:39 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4BC2C67BFB1
+	for <lists+freedreno@lfdr.de>; Wed, 25 Jan 2023 23:14:05 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2684310E168;
-	Wed, 25 Jan 2023 21:03:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A6EDA10E1D5;
+	Wed, 25 Jan 2023 22:14:03 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mailrelay1-1.pub.mailoutpod2-cph3.one.com
- (mailrelay1-1.pub.mailoutpod2-cph3.one.com [IPv6:2a02:2350:5:400::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9D06710E18C
- for <freedreno@lists.freedesktop.org>; Wed, 25 Jan 2023 21:03:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ravnborg.org; s=rsa2;
- h=in-reply-to:content-type:mime-version:references:message-id:subject:cc:to:
- from:date:from;
- bh=r06bpllZ30BN5nw2fF6dgAcQNrEN0bwvs34HHHR0x90=;
- b=lOQASzRXku++3L0Tc0qGb+h+Kx1uKtws9h+yo98f2FqVui9YPs/BU5za90WVZqmk22FxAUilW2LwI
- a56mgtI/giS56adFnV7EoQRJidS3r4Gw4lG15tc+AwUuoacTh8Hm/96giQ7urIM75LFn1mDImgA47a
- q91TUHD+n3M1Bxdfe1KnxeLqUSQpHx6b3g1EVPdAkeAFF42LsocUiVxEFUlWglsW5n+z515fhFUErp
- jRFMiqID41LwjVEyogv+u9qGVFwC1X5v9Oa65UucrN7nswugetyGFgIM6pTn/RrsxQgWlOErx2fseC
- /hMlDR8Ef/u6uF4pup1cKYqqpRcEN0g==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed;
- d=ravnborg.org; s=ed2;
- h=in-reply-to:content-type:mime-version:references:message-id:subject:cc:to:
- from:date:from;
- bh=r06bpllZ30BN5nw2fF6dgAcQNrEN0bwvs34HHHR0x90=;
- b=avkE8s1HkDYg7ZYMXlQ4Kw3Z5qWwXIas79ZgkelIohpjH/sdW5NrDzL2tNM4PRL45JRGjMmKhtUx9
- UUPvgWECg==
-X-HalOne-ID: ba1794f8-9cf3-11ed-908c-11abd97b9443
-Received: from ravnborg.org (2-105-2-98-cable.dk.customer.tdc.net [2.105.2.98])
- by mailrelay1 (Halon) with ESMTPSA
- id ba1794f8-9cf3-11ed-908c-11abd97b9443;
- Wed, 25 Jan 2023 21:03:34 +0000 (UTC)
-Date: Wed, 25 Jan 2023 22:03:33 +0100
-From: Sam Ravnborg <sam@ravnborg.org>
-To: Thomas Zimmermann <tzimmermann@suse.de>
-Message-ID: <Y9GZJcRKbaK0cYGo@ravnborg.org>
-References: <20230125200415.14123-1-tzimmermann@suse.de>
- <20230125200415.14123-5-tzimmermann@suse.de>
+Received: from mail-oi1-f177.google.com (mail-oi1-f177.google.com
+ [209.85.167.177])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5367E10E1D5;
+ Wed, 25 Jan 2023 22:14:02 +0000 (UTC)
+Received: by mail-oi1-f177.google.com with SMTP id d188so17625480oia.3;
+ Wed, 25 Jan 2023 14:14:02 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=dJ9z57UwZG4tTNorqhSO8lGfimRHzs0UtM70Y/wGFLA=;
+ b=qeBDHsppAhK146pfKU5zVP88MaLx9JyO5znGAERRuAU96GXvrUp4WSGvbgSfLwIPaN
+ 87yP/yx/Wt3BKcht47F8Y6KV1nlhuBU7NiSOZWsYGpJnv+g+V+6aLItu5ZN4Dp6wZ1a2
+ DdLLjF0APO8UYQgY+KxkJF61L9bOfk+mb3P7caT/5Zay9eYiRLe3JbCY03MpTLCW6hjQ
+ 4LENwDjnT8+gfJeOkMw8Rvz5/NhDrv5m5slbkChfAg8RhMxHs9EcFSBfxw33crYqkPyC
+ 9wLS2X0PX81LE89vy+wMtpQGkmEOfQBa9PwoV9cR2z+F4XFsHSeMitWw64gz3XER0QEe
+ AY5Q==
+X-Gm-Message-State: AO0yUKUAYRagpCsujhept6CfsvVsmv0RhFpU5FMrFejfevOd20P1yv07
+ 7M4YosgCL/zWneOCvX1VmQ==
+X-Google-Smtp-Source: AK7set8GspnsCWGYKbxKN1uTZJxpgT1DCK5rPr1zBkbIBamx+JrDWk3S0vq7V9yELy/gC+8h18sZYA==
+X-Received: by 2002:aca:45c4:0:b0:36d:9536:160 with SMTP id
+ s187-20020aca45c4000000b0036d95360160mr7317oia.32.1674684841524; 
+ Wed, 25 Jan 2023 14:14:01 -0800 (PST)
+Received: from robh_at_kernel.org (66-90-144-107.dyn.grandenetworks.net.
+ [66.90.144.107]) by smtp.gmail.com with ESMTPSA id
+ j2-20020a056808034200b003648b84a2b5sm2780771oie.33.2023.01.25.14.14.00
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 25 Jan 2023 14:14:01 -0800 (PST)
+Received: (nullmailer pid 3057738 invoked by uid 1000);
+ Wed, 25 Jan 2023 22:14:00 -0000
+From: Rob Herring <robh@kernel.org>
+To: Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>,
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>
+Date: Wed, 25 Jan 2023 16:13:56 -0600
+Message-Id: <20230125221357.3057655-1-robh@kernel.org>
+X-Mailer: git-send-email 2.39.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20230125200415.14123-5-tzimmermann@suse.de>
-Subject: Re: [Freedreno] [PATCH v3 04/10] drm/fbdev-generic: Initialize
- fb-helper structure in generic setup
+Content-Transfer-Encoding: 8bit
+Subject: [Freedreno] [PATCH] dt-bindings: display: msm: Drop type from
+ 'memory-region'
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,86 +64,32 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, linux-samsung-soc@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
- intel-gfx@lists.freedesktop.org, maarten.lankhorst@linux.intel.com,
- javierm@redhat.com, mripard@kernel.org, dri-devel@lists.freedesktop.org,
- daniel@ffwll.ch, linux-tegra@vger.kernel.org, airlied@gmail.com,
- linux-arm-kernel@lists.infradead.org
+Cc: linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ devicetree@vger.kernel.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Hi Thomas,
+'memory-region' is a common property and already has a type.
 
-On Wed, Jan 25, 2023 at 09:04:09PM +0100, Thomas Zimmermann wrote:
-> Initialize the fb-helper structure immediately after its allocation
-> in drm_fbdev_generic_setup(). That will make it easier to fill it with
-> driver-specific values, such as the preferred BPP.
-> 
-> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
-> Reviewed-by: Javier Martinez Canillas <javierm@redhat.com>
-> ---
->  drivers/gpu/drm/drm_fbdev_generic.c | 13 +++++++++----
->  1 file changed, 9 insertions(+), 4 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/drm_fbdev_generic.c b/drivers/gpu/drm/drm_fbdev_generic.c
-> index 135d58b8007b..63f66325a8a5 100644
-> --- a/drivers/gpu/drm/drm_fbdev_generic.c
-> +++ b/drivers/gpu/drm/drm_fbdev_generic.c
-> @@ -385,8 +385,6 @@ static int drm_fbdev_client_hotplug(struct drm_client_dev *client)
->  	if (dev->fb_helper)
->  		return drm_fb_helper_hotplug_event(dev->fb_helper);
->  
-> -	drm_fb_helper_prepare(dev, fb_helper, &drm_fb_helper_generic_funcs);
-> -
->  	ret = drm_fb_helper_init(dev, fb_helper);
->  	if (ret)
->  		goto err;
+Signed-off-by: Rob Herring <robh@kernel.org>
+---
+ Documentation/devicetree/bindings/display/msm/gpu.yaml | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-From the documentation:
-The drm_fb_helper_prepare()
-helper must be called first to initialize the minimum required to make
-hotplug detection work.
-...
-To finish up the fbdev helper initialization, the
-drm_fb_helper_init() function is called.
+diff --git a/Documentation/devicetree/bindings/display/msm/gpu.yaml b/Documentation/devicetree/bindings/display/msm/gpu.yaml
+index c5f49842dc7b..304525f81563 100644
+--- a/Documentation/devicetree/bindings/display/msm/gpu.yaml
++++ b/Documentation/devicetree/bindings/display/msm/gpu.yaml
+@@ -89,7 +89,7 @@ properties:
+       help bring the GPU out of secure mode.
+     properties:
+       memory-region:
+-        $ref: /schemas/types.yaml#/definitions/phandle
++        maxItems: 1
+ 
+       firmware-name:
+         description: |
+-- 
+2.39.0
 
-So this change do not follow the documentation as drm_fb_helper_init()
-is now called before drm_fb_helper_prepare()
-
-I did not follow all the code - but my gut feeling is that the
-documentation is right.
-
-	Sam
-
-
-> @@ -456,12 +454,12 @@ void drm_fbdev_generic_setup(struct drm_device *dev,
->  	fb_helper = kzalloc(sizeof(*fb_helper), GFP_KERNEL);
->  	if (!fb_helper)
->  		return;
-> +	drm_fb_helper_prepare(dev, fb_helper, &drm_fb_helper_generic_funcs);
->  
->  	ret = drm_client_init(dev, &fb_helper->client, "fbdev", &drm_fbdev_client_funcs);
->  	if (ret) {
-> -		kfree(fb_helper);
->  		drm_err(dev, "Failed to register client: %d\n", ret);
-> -		return;
-> +		goto err_drm_client_init;
->  	}
->  
->  	/*
-> @@ -484,5 +482,12 @@ void drm_fbdev_generic_setup(struct drm_device *dev,
->  		drm_dbg_kms(dev, "client hotplug ret=%d\n", ret);
->  
->  	drm_client_register(&fb_helper->client);
-> +
-> +	return;
-> +
-> +err_drm_client_init:
-> +	drm_fb_helper_unprepare(fb_helper);
-> +	kfree(fb_helper);
-> +	return;
->  }
->  EXPORT_SYMBOL(drm_fbdev_generic_setup);
-> -- 
-> 2.39.0
