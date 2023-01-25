@@ -2,84 +2,60 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id D844A67B338
-	for <lists+freedreno@lfdr.de>; Wed, 25 Jan 2023 14:26:03 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 72C3167AA85
+	for <lists+freedreno@lfdr.de>; Wed, 25 Jan 2023 07:47:11 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A02D810E7BC;
-	Wed, 25 Jan 2023 13:26:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 481B910E72D;
+	Wed, 25 Jan 2023 06:47:10 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mailout1.samsung.com (mailout1.samsung.com [203.254.224.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9B26110E713
- for <freedreno@lists.freedesktop.org>; Wed, 25 Jan 2023 05:46:31 +0000 (UTC)
-Received: from epcas1p1.samsung.com (unknown [182.195.41.45])
- by mailout1.samsung.com (KnoxPortal) with ESMTP id
- 20230125054629epoutp017e2a0c7619db7fd365a82c9c1cb33e3e~9dxnoZyjc1289412894epoutp01e
- for <freedreno@lists.freedesktop.org>; Wed, 25 Jan 2023 05:46:29 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout1.samsung.com
- 20230125054629epoutp017e2a0c7619db7fd365a82c9c1cb33e3e~9dxnoZyjc1289412894epoutp01e
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
- s=mail20170921; t=1674625589;
- bh=NEwNm/LwY6eOUXbJxfSdsnrHPfYhWSnwXjX0rr9rmhU=;
- h=Subject:Reply-To:From:To:CC:In-Reply-To:Date:References:From;
- b=RhPMlKHU+owlp3B3G2FfLUkxn5TDNnAyPFZOU7JAEPMwSRPb2cwMeYmTB/VDdxRjJ
- upRNM+SM/ROBKOUjklq4cQbk+6ckA/iq8+5F9U/155Qlt2zbDSsND8BT3lYgh9+Uv7
- WRDpkBPd3aW1RSUEnpm8yTBmxLaOKYNejrbcOvh8=
-Received: from epsnrtp4.localdomain (unknown [182.195.42.165]) by
- epcas1p4.samsung.com (KnoxPortal) with ESMTP id
- 20230125054628epcas1p4f84952b2c9ef9b88d805454a009cf28c~9dxnCntqR3064130641epcas1p4C;
- Wed, 25 Jan 2023 05:46:28 +0000 (GMT)
-Received: from epsmges1p4.samsung.com (unknown [182.195.36.136]) by
- epsnrtp4.localdomain (Postfix) with ESMTP id 4P1tBD0431z4x9Q2; Wed, 25 Jan
- 2023 05:46:28 +0000 (GMT)
-X-AuditID: b6c32a38-39fff70000029402-00-63d0c2328958
-Received: from epcas1p2.samsung.com ( [182.195.41.46]) by
- epsmges1p4.samsung.com (Symantec Messaging Gateway) with SMTP id
- 32.3A.37890.232C0D36; Wed, 25 Jan 2023 14:46:26 +0900 (KST)
-Mime-Version: 1.0
-From: MyungJoo Ham <myungjoo.ham@samsung.com>
-To: Rob Clark <robdclark@gmail.com>, Chanwoo Choi <cw00.choi@samsung.com>
-X-Priority: 3
-X-Content-Kind-Code: NORMAL
-In-Reply-To: <CAF6AEGud-ESF=VgcaSFzKsWas0H5eSXZDdZGcnd8Ju=pr-W2EQ@mail.gmail.com>
-X-Drm-Type: N,general
-X-Msg-Generator: Mail
-X-Msg-Type: PERSONAL
-X-Reply-Demand: N
-Message-ID: <20230125054626epcms1p38d34dc65cbc9cb29dd707a4b2cac8fb4@epcms1p3>
-Date: Wed, 25 Jan 2023 14:46:26 +0900
-X-CMS-MailID: 20230125054626epcms1p38d34dc65cbc9cb29dd707a4b2cac8fb4
-Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="utf-8"
-CMS-TYPE: 101P
-X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFprAJsWRmVeSWpSXmKPExsWy7bCmnq7RoQvJBq9XqVtc//Kc1eLK1/ds
- FnOen2W0OH9+A7vF2aY37BaXd81hs/jce4TRYstqe4trPx8zWzxf+IPZgctjdsNFFo+ds+6y
- e2xa1cnmcb/7OJNH35ZVjB6fN8kFsEVl22SkJqakFimk5iXnp2TmpdsqeQfHO8ebmhkY6hpa
- WpgrKeQl5qbaKrn4BOi6ZeYAXaakUJaYUwoUCkgsLlbSt7Mpyi8tSVXIyC8usVVKLUjJKTAt
- 0CtOzC0uzUvXy0stsTI0MDAyBSpMyM54dHoRe8E+7ooPe7+yNjDu5uxi5OSQEDCRaHlxirGL
- kYtDSGAHo0Tn2rcsXYwcHLwCghJ/dwiD1AgL+EtMWdzCBGILCShJNNzcxwwR15foeLCNEcRm
- E9CV2LrhLguILSLgKTFt33p2kJnMAj3MElc6jzJBLOOVmNH+lAXClpbYvnwrWDOnQKDEj7Wt
- 7BBxUYmbq9/C2e+PzWeEsEUkWu+dZYawBSUe/NwNFZeSeLJzMhvIMgmByYwSJ08cZ4Rw5jBK
- TNvwjg2iSl/izNyTYDavgK/EgrsPWEG+ZBFQlZj5GGqZi8TX3mlgQ5kF5CW2v53DDFLCLKAp
- sX6XPkSYT+Ld1x5WmF92zHsC9ZeaxKHdS6DGyEicnr4Q6k4PiV9bX7JDAreXSWLVlqMsExjl
- ZyHCdxaSbbMQti1gZF7FKJZaUJybnlpsWGACj9Lk/NxNjOCkqWWxg3Hu2w96hxiZOBgPMUpw
- MCuJ8PbMPp8sxJuSWFmVWpQfX1Sak1p8iNEU6M2JzFKiyfnAtJ1XEm9oYmlgYmZkbGJhaGao
- JM4rbnsyWUggPbEkNTs1tSC1CKaPiYNTqoHJT3v1Gd7eGzfPO/q8MirN3zanzMFNcM3x/54L
- nbi6S2Uq9qWsjzjKuSn6y4aG921T3lY8dTx1pXnfnOmpJW57/Yz+COz6J3s91Nzuun3hfacd
- J5qF/H69aWp4ZZZ29aStp1CBW/WJRP9Qr4V1iomG3y7sevO0rtSnPeJo7oGVTjJxs5oNPupm
- 3T90WW2p9u7u6MNB1ydW82WLFWxK9D+7KkbigrWb0Mcd4ZHPuTg3nplQduJVXeD/Y0GNQi8E
- v2pdEFhwi7NRN+90bOK6TQ+eJsvbOS12OLRqYfvTuVyGqgbumx+8uRsU7nyPf8drL+ezN3u9
- ba9ZMxa0ngiPltT7XOa782/nI946HjeFLSFKLMUZiYZazEXFiQDi5e2cIwQAAA==
-DLP-Filter: Pass
-X-CFilter-Loop: Reflected
-X-CMS-RootMailID: 20230123153745epcas1p17e57cf83ed371e86258139473befc615
-References: <CAF6AEGud-ESF=VgcaSFzKsWas0H5eSXZDdZGcnd8Ju=pr-W2EQ@mail.gmail.com>
- <20230123153745.3185032-1-robdclark@gmail.com>
- <20230125040403epcms1p1646e9668b87df3e9c344ad58d39b6eb6@epcms1p1>
- <CGME20230123153745epcas1p17e57cf83ed371e86258139473befc615@epcms1p3>
-X-Mailman-Approved-At: Wed, 25 Jan 2023 13:25:56 +0000
-Subject: Re: [Freedreno] [PATCH] PM / devfreq: Fix build issues with devfreq
- disabled
+Received: from mail-yb1-xb30.google.com (mail-yb1-xb30.google.com
+ [IPv6:2607:f8b0:4864:20::b30])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9F6DA10E72D
+ for <freedreno@lists.freedesktop.org>; Wed, 25 Jan 2023 06:47:08 +0000 (UTC)
+Received: by mail-yb1-xb30.google.com with SMTP id a9so21839037ybb.3
+ for <freedreno@lists.freedesktop.org>; Tue, 24 Jan 2023 22:47:08 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=f+Yhm+ONtgQS0SZfQy+XcB6Agb3KHSIv7CpnDfD1CbQ=;
+ b=MvqzBjtSH4tlj/EjCiTVCO4vK/hUZLuKjkrAY1kqAzWuXOQguh7vRfzGAql/cthBvm
+ 9eGQANAPxOX3123F9NWOMDlMTM2XuSwbHqlyGVp5FXfKDm09QKjgkA0vWI20jUPpsiwG
+ I0YfoomwKXw8rwhMAm2oCjn6oSV3pkuyFKmI/sU+F2WB8Bl5qlANAtZVR6Y5QjGFqJT7
+ B/yaLX7LepDWzMKv/QensiS7ukApYlBmDyuixLcBnfQoUAsR8TBhNtX2W87v++wOGyBS
+ hEIbEAC+w8bdLfO1q1xzsP8teSZ1U+Nom/UHEepEu3fMI9/CPfdRvSTefuApbmpZBrHK
+ 32Bg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=f+Yhm+ONtgQS0SZfQy+XcB6Agb3KHSIv7CpnDfD1CbQ=;
+ b=pvdSl6G+FXNDmfk9CNKSlqRwFyo0Ut7yGxVSD1sTBragQKdZ+8k5SLWVzc1Z9H8ehO
+ /ewlNL6RnsyCEvMC7Zv/Pfmz21esXhe+GDUPtJVBRLQ5OsVndiAM72y7mWodmuaSMhsq
+ 2EjsRDOOOS0ieXTdE5zIVIF15S9jPxaYl02vJWTu84x1pBBF9P4MeNVkssza650xAca8
+ ADCww/5h7bAJiqELJzp3hX/3sdRVM8qDoi32yCFIrpNzJGy5XfVwHeawIIoIWWiFMsSx
+ NHNQ8J5CjbKUEEhY39xsHgFLRd4NDxnZ1TsP/Piq0Ft+vQHH/Mh0m397wibK+naL/Vui
+ mUwA==
+X-Gm-Message-State: AFqh2kpymaSmhlle46hpEMhsWvfe4iqh8Ck8cUQxtqj+uKsPqZHAmt3e
+ PmZcSZWaBTx3KQhr1FGpTmePbnmdfXHpbL71Inn8Ag==
+X-Google-Smtp-Source: AMrXdXvv7fjos9dkhNOlGLzfx1JgWTKZfvB82NzZ34A8VECDUMNo+8RHEseboAPnLJgji90Q0T06yjDWv4R9eyzN2R4=
+X-Received: by 2002:a05:6902:8f:b0:800:748:7d05 with SMTP id
+ h15-20020a056902008f00b0080007487d05mr2270840ybs.15.1674629227758; Tue, 24
+ Jan 2023 22:47:07 -0800 (PST)
+MIME-Version: 1.0
+References: <20230123071145.3056242-1-dmitry.baryshkov@linaro.org>
+ <ecec7adb-a1ab-ba38-c38a-26f23f81cf68@quicinc.com>
+ <df8a130f-2020-833c-d4f1-088c1fd7e5ef@linaro.org>
+ <1642c43b-9d71-17ee-402d-d1e415e1ecc8@quicinc.com>
+In-Reply-To: <1642c43b-9d71-17ee-402d-d1e415e1ecc8@quicinc.com>
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Date: Wed, 25 Jan 2023 08:46:56 +0200
+Message-ID: <CAA8EJpo+ARnJ29BrOVkrg1FkTOVKYXQJiqAqhBzhZyNVYZw2qQ@mail.gmail.com>
+To: Abhinav Kumar <quic_abhinavk@quicinc.com>
+Content-Type: text/plain; charset="UTF-8"
+Subject: Re: [Freedreno] [PATCH] drm/msm/dpu: disable features unsupported
+ by QCM2290
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -92,55 +68,150 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: myungjoo.ham@samsung.com
-Cc: Rob Clark <robdclark@chromium.org>,
- "linux-pm@vger.kernel.org" <linux-pm@vger.kernel.org>,
- open list <linux-kernel@vger.kernel.org>,
- Krzysztof Kozlowski <krzk@kernel.org>,
- Kyungmin Park <kyungmin.park@samsung.com>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- "freedreno@lists.freedesktop.org" <freedreno@lists.freedesktop.org>,
- Chia-I Wu <olvaffe@gmail.com>
+Cc: freedreno@lists.freedesktop.org, Loic Poulain <loic.poulain@linaro.org>,
+ Sean Paul <sean@poorly.run>, Bjorn Andersson <andersson@kernel.org>,
+ dri-devel@lists.freedesktop.org, Stephen Boyd <swboyd@chromium.org>,
+ Rob Clark <robdclark@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ linux-arm-msm@vger.kernel.org, David Airlie <airlied@gmail.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
->On Tue, Jan 24, 2023 at 8:04 PM MyungJoo Ham <myungjoo.ham@samsung.com> wrote:
->>
->> >Sender : Rob Clark <robdclark@gmail.com>
->> >Date : 2023-01-24 00:37 (GMT+9)
->> >Title : [PATCH] PM / devfreq: Fix build issues with devfreq disabled
->> >
->> >From: Rob Clark <robdclark@chromium.org>
->> >
->> >The existing no-op shims for when PM_DEVFREQ (or an individual governor)
->> >only do half the job.  The governor specific config/tuning structs need
->> >to be available to avoid compile errors in drivers using devfreq.
->> >
->> >Fixes: 6563f60f14cb ("drm/msm/gpu: Add devfreq tuning debugfs")
->> >Signed-off-by: Rob Clark <robdclark@chromium.org>
->>
->> Doesn't this imply that DRM_MSM should depend on PM_DEVFREQ ?
->>
->> It appears that gpu/drm/msm/DRM_MSM uses PM_DEVFREQ without actually
->> declaring the dependency on PM_DEVFREQ.
->> You cannot use SIMPLE_ONDEMAND without DEVFREQ.
+Hi,
+
+On Wed, 25 Jan 2023 at 02:22, Abhinav Kumar <quic_abhinavk@quicinc.com> wrote:
+> On 1/24/2023 12:22 AM, Dmitry Baryshkov wrote:
+> > On 24/01/2023 03:32, Abhinav Kumar wrote:
+> >> On 1/22/2023 11:11 PM, Dmitry Baryshkov wrote:
+> >>> QCM2290 doesn't seem to support reg-dma, smart-dma, UBWC, CDP, exclusion
+> >>> rectangles and CSC. Drop corresponding features being incorrectly
+> >>> enabled for qcm2290.
+> >>>
+> >>
+> >> Can you please point me to which vendor DT you are referring to for this?
+> >>
+> >> CSC is supported on the VIG SSPPs from what I can see.
+> >
+> > https://github.com/MiCode/kernel_devicetree/blob/psyche-r-oss/qcom/scuba-sde.dtsi
+> >
+> >
+> > No CSC, smart-dma, excl-rect, CDP, etc.
 >
->Possibly that would resolve some issues, and that might have been my
->mistake in assuming that depending on SIMPLE_ONDEMAND implied a
->dependency on DEFREQ (which seems like a reasonable assumption, IMHO)
+> Sorry I am missing something here.
 >
->But AFAICT some kernel configs that could otherwise use DRM_MSM don't
->support PM_DEVFREQ.. either way, lets solve this properly and remove
->needless dependencies on devfreq.
+> It has one Vig and one DMA
 >
->BR,
->-R
+> https://github.com/MiCode/kernel_devicetree/blob/psyche-r-oss/qcom/scuba-sde.dtsi#L68
 
-Ok. You are enabling struct and enum only and that looks harmless.
+Correct
 
-PTAL, Chanwoo.
+>
+> If Vig is present, CSC is supported.
 
-Acked-by: MyungJoo Ham <myungjoo.ham@samsung.com>
+This actually puzzled me. Usually the dtsi has qcom,sde-sspp-csc-off
+and qcom,sde-csc-type properties. But not in this case.
 
-Cheers,
-MyungJoo.
+>
+> Even for smart DMA I can see it supported
+> https://github.com/MiCode/kernel_devicetree/blob/psyche-r-oss/qcom/scuba-sde.dtsi#L76
+> on the DMA SSPP.
+>
+> Same for excl rectangle too
+> https://github.com/MiCode/kernel_devicetree/blob/psyche-r-oss/qcom/scuba-sde.dtsi#L74
+
+Ack, my mistake. Maybe I was looking at the wrong dtsi then (or just
+mixed something). I'll add them back. And I see that CDP is also
+there.
+
+So, this leaves us only with the question regarding CSC. Could you
+please doublecheck it?
+
+I also don't see the UBWC (qcom,sde-ubwc-version) and regdma
+(qcom,sde-reg-dma-off) properties. Are corresponding features present
+on the QCM2290?
+
+> >
+> >> QCM2290 should be using the same MDP version as 6115 from the HW version.
+> >
+> > It is 6.3 vs 6.5 if I remember correctly.
+> >
+> >>
+> >>
+> >>> Cc: Loic Poulain <loic.poulain@linaro.org>
+> >>> Fixes: 5334087ee743 ("drm/msm: add support for QCM2290 MDSS")
+> >>> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> >>> ---
+> >>>   .../gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c    | 20 +++++++++++--------
+> >>>   1 file changed, 12 insertions(+), 8 deletions(-)
+> >>>
+> >>> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
+> >>> b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
+> >>> index 289fb11f99d1..1c3ffa922794 100644
+> >>> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
+> >>> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
+> >>> @@ -12,10 +12,14 @@
+> >>>   #include "dpu_hw_catalog.h"
+> >>>   #include "dpu_kms.h"
+> >>> -#define VIG_MASK \
+> >>> +#define VIG_BASE_MASK \
+> >>>       (BIT(DPU_SSPP_SRC) | BIT(DPU_SSPP_QOS) |\
+> >>> +    BIT(DPU_SSPP_TS_PREFILL))
+> >>> +
+> >>> +#define VIG_MASK \
+> >>> +    (VIG_BASE_MASK | \
+> >>>       BIT(DPU_SSPP_CSC_10BIT) | BIT(DPU_SSPP_CDP) |\
+> >>> -    BIT(DPU_SSPP_TS_PREFILL) | BIT(DPU_SSPP_EXCL_RECT))
+> >>> +    BIT(DPU_SSPP_EXCL_RECT))
+> >>>   #define VIG_MSM8998_MASK \
+> >>>       (VIG_MASK | BIT(DPU_SSPP_SCALER_QSEED3))
+> >>> @@ -29,7 +33,7 @@
+> >>>   #define VIG_SM8250_MASK \
+> >>>       (VIG_MASK | BIT(DPU_SSPP_QOS_8LVL) |
+> >>> BIT(DPU_SSPP_SCALER_QSEED3LITE))
+> >>> -#define VIG_QCM2290_MASK (VIG_MASK | BIT(DPU_SSPP_QOS_8LVL))
+> >>> +#define VIG_QCM2290_MASK (VIG_BASE_MASK | BIT(DPU_SSPP_QOS_8LVL))
+> >>>   #define DMA_MSM8998_MASK \
+> >>>       (BIT(DPU_SSPP_SRC) | BIT(DPU_SSPP_QOS) |\
+> >>> @@ -50,6 +54,10 @@
+> >>>   #define DMA_CURSOR_MSM8998_MASK \
+> >>>       (DMA_MSM8998_MASK | BIT(DPU_SSPP_CURSOR))
+> >>> +#define DMA_QCM2290_MASK \
+> >>> +    (BIT(DPU_SSPP_SRC) | BIT(DPU_SSPP_QOS) | BIT(DPU_SSPP_QOS_8LVL) |\
+> >>> +    BIT(DPU_SSPP_TS_PREFILL) | BIT(DPU_SSPP_TS_PREFILL_REC1))
+> >>> +
+> >>>   #define MIXER_MSM8998_MASK \
+> >>>       (BIT(DPU_MIXER_SOURCESPLIT) | BIT(DPU_DIM_LAYER))
+> >>> @@ -316,8 +324,6 @@ static const struct dpu_caps msm8998_dpu_caps = {
+> >>>   static const struct dpu_caps qcm2290_dpu_caps = {
+> >>>       .max_mixer_width = DEFAULT_DPU_OUTPUT_LINE_WIDTH,
+> >>>       .max_mixer_blendstages = 0x4,
+> >>> -    .smart_dma_rev = DPU_SSPP_SMART_DMA_V2,
+> >>> -    .ubwc_version = DPU_HW_UBWC_VER_20,
+> >>>       .has_dim_layer = true,
+> >>>       .has_idle_pc = true,
+> >>>       .max_linewidth = 2160,
+> >>> @@ -1384,7 +1390,7 @@ static const struct dpu_sspp_sub_blks
+> >>> qcm2290_dma_sblk_0 = _DMA_SBLK("8", 1);
+> >>>   static const struct dpu_sspp_cfg qcm2290_sspp[] = {
+> >>>       SSPP_BLK("sspp_0", SSPP_VIG0, 0x4000, VIG_QCM2290_MASK,
+> >>>            qcm2290_vig_sblk_0, 0, SSPP_TYPE_VIG, DPU_CLK_CTRL_VIG0),
+> >>> -    SSPP_BLK("sspp_8", SSPP_DMA0, 0x24000,  DMA_SDM845_MASK,
+> >>> +    SSPP_BLK("sspp_8", SSPP_DMA0, 0x24000,  DMA_QCM2290_MASK,
+> >>>            qcm2290_dma_sblk_0, 1, SSPP_TYPE_DMA, DPU_CLK_CTRL_DMA0),
+> >>>   };
+> >>> @@ -2836,8 +2842,6 @@ static const struct dpu_mdss_cfg
+> >>> qcm2290_dpu_cfg = {
+> >>>       .intf = qcm2290_intf,
+> >>>       .vbif_count = ARRAY_SIZE(sdm845_vbif),
+> >>>       .vbif = sdm845_vbif,
+> >>> -    .reg_dma_count = 1,
+> >>> -    .dma_cfg = &sdm845_regdma,
+> >>>       .perf = &qcm2290_perf_data,
+> >>>       .mdss_irqs = IRQ_SC7180_MASK,
+> >>>   };
+> >
+
+
+
+-- 
+With best wishes
+Dmitry
