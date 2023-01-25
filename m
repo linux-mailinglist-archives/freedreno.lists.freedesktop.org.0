@@ -2,59 +2,80 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id EFB4867AAE9
-	for <lists+freedreno@lfdr.de>; Wed, 25 Jan 2023 08:29:56 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9581567ABBD
+	for <lists+freedreno@lfdr.de>; Wed, 25 Jan 2023 09:30:52 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AA47910E735;
-	Wed, 25 Jan 2023 07:29:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CCB6D10E756;
+	Wed, 25 Jan 2023 08:30:50 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-yb1-xb2d.google.com (mail-yb1-xb2d.google.com
- [IPv6:2607:f8b0:4864:20::b2d])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AFC6D10E735
- for <freedreno@lists.freedesktop.org>; Wed, 25 Jan 2023 07:29:54 +0000 (UTC)
-Received: by mail-yb1-xb2d.google.com with SMTP id b1so16651860ybn.11
- for <freedreno@lists.freedesktop.org>; Tue, 24 Jan 2023 23:29:54 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=jiUco/MLWVperT+ljPIQcmiNiz70RTXeJN32A7WBZAE=;
- b=S/ln1RZql+to1V/PDE8qCa9YsjAWNciBXkVrwXshY9NY82yY5MbtlJoXmqCwr2MNNn
- mqzUfjpohETcsYn60FFjhZH/11MG9LZPhzhQ0CyHa00Z9ht4HCM1IRAjbLD2OYkSQPpq
- gYQhq2zHRtq29JDPeFJ5aWiGz3sSArRclV2SAulIUQ63tcqr5m0qg75fAmjH3LJh5Wd6
- rZTRug2UAAVlEXErrJFLg+UJ+7jqcw41aoMMFj1BxD7TZwc/gz48iC1WwvZ8ori2Vrxg
- 3iY2BJAnAKo9u7Kq9X7npVROY+V2Kk5ElSXA3AZ1Qqcpw/gHtfWI6AXtPDUbym3NMGui
- JFTQ==
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0DD2910E754
+ for <freedreno@lists.freedesktop.org>; Wed, 25 Jan 2023 08:30:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1674635446;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=kr0S8akD6qUBjK/SM2fF6lu+0ihmEwSHU9fQtaMUMNo=;
+ b=a226Pt8ipebt2JExWTP+yldLIG1Lfl899UTZS7iA+3dVwvply0S76b4deLn347wh3ffLg3
+ FsVELr1/d5UqE5GhUfIcrwF27va0xHyx4GLfne/lmMhnCfBSwjUAZgZ0IJtiEnv4SSSY5I
+ cubzDy99jzk9z/pK3MHql3yjuGms5x8=
+Received: from mail-wr1-f70.google.com (mail-wr1-f70.google.com
+ [209.85.221.70]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_128_GCM_SHA256) id
+ us-mta-638-1A1cHwC5MnmnFyR7I7kb4A-1; Wed, 25 Jan 2023 03:30:45 -0500
+X-MC-Unique: 1A1cHwC5MnmnFyR7I7kb4A-1
+Received: by mail-wr1-f70.google.com with SMTP id
+ r1-20020adfa141000000b002be28fd4a7bso3009043wrr.12
+ for <freedreno@lists.freedesktop.org>; Wed, 25 Jan 2023 00:30:45 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=jiUco/MLWVperT+ljPIQcmiNiz70RTXeJN32A7WBZAE=;
- b=rRe0+spw/w+vrt+dayG6DE9fFDmuKOHngVYjeWuGJO9dZITUFYQS6eHOGV19TgdXZY
- v2w0vkShy2uY8PNx2/DG4l/5G4KlQS5NabrFeBUqU9QToTq6elAfqe9GlmQB4vrCU+wz
- BpgAIuiCqBMgrKsMb2xSRTXHZhirc1OZFWuOgy8LGKNRQpZhnAOngnF2BnZGUKoJMXWa
- bGy409NgpRMV+owBo/zde77I1semY54qS8LIjSZMrs8JkMka4tDr913z7gVkKzO+URb7
- 7CJNbgeqVFj/kJfWVmB8avtGg+Sd8kLdu6j0qOGAdSvFPwYJAeYYr1N22vIkGJ1Uzjvz
- zgHg==
-X-Gm-Message-State: AFqh2kp3Pua5RwSsNC+/Zew49oomFvDf24ioGndMgKMNEqJIGA0MuEoA
- jJre3wS745zEj4AIdWrB7nPyylDiyPIqxdJIAUFBJA==
-X-Google-Smtp-Source: AMrXdXuV1GZHhmhD/tdTHvoaqpjmOZP/HVHwmSPKdVrLl7BG7O4krg7GeVU8E5L8HhOUaHJHga/g9DnNxP3NYpuSqRk=
-X-Received: by 2002:a25:a87:0:b0:800:ea7e:bb0 with SMTP id
- 129-20020a250a87000000b00800ea7e0bb0mr2335459ybk.516.1674631793823; 
- Tue, 24 Jan 2023 23:29:53 -0800 (PST)
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=kr0S8akD6qUBjK/SM2fF6lu+0ihmEwSHU9fQtaMUMNo=;
+ b=Hdr2zbunVOwknjKiNIUaOXQqibTgcNFU2FTIRjaTqpaDVZlC8ZKVGyAdSLdIdaw/TF
+ nkJD7TBc1ptkrjosXSQEBeQxi1KFa9hH6eJH8XZp8Pt78qMzaNImCQ72UEtnnQ2jhEXV
+ r8xfRJ86oh3Rv1Nzg4+zXSPIDQuF3kinSvvGIfJ+zCus94wlRY0X5Vr3nWJLwhzH+fpm
+ 16ACRhb+Ub+HSgxJubXQjOCWPmW2/K8Q5SvN3AGByxKlOwCPiFXBnYWurcG1w5trHQ+X
+ CFAqwx/VrQYa8EmoN9plsrUQTIS3VZjQXvEPE8SV2aeh4FC0Yi0T44nEEdbXU3hb9cL1
+ gjEA==
+X-Gm-Message-State: AFqh2kpIfpwisTCAw6/IVOeTPpjDuKzBA0acqogsJ2LSYMv3MAng2NDK
+ bjNm74DJOxeIXCr4WhjKAfJvAU1keHUY5RkdEXbVsEY4FV9TPmknk3kgeP7203lztb/+y2QvwBJ
+ hBLq3PRrsEJVhl4cROMsZ2EciA70a
+X-Received: by 2002:a05:6000:388:b0:2bc:7ec3:8b2 with SMTP id
+ u8-20020a056000038800b002bc7ec308b2mr29736128wrf.68.1674635444605; 
+ Wed, 25 Jan 2023 00:30:44 -0800 (PST)
+X-Google-Smtp-Source: AMrXdXvJXEPl3F4VP/2Wui1NMuiLkn1RDtzF7t2lLspd9Qgz+v3EiIOxwRmTCt+QhhFH4DIAkfWI6g==
+X-Received: by 2002:a05:6000:388:b0:2bc:7ec3:8b2 with SMTP id
+ u8-20020a056000038800b002bc7ec308b2mr29736083wrf.68.1674635444065; 
+ Wed, 25 Jan 2023 00:30:44 -0800 (PST)
+Received: from [192.168.1.130] (205.pool92-176-231.dynamic.orange.es.
+ [92.176.231.205]) by smtp.gmail.com with ESMTPSA id
+ n17-20020a5d67d1000000b002425be3c9e2sm3716862wrw.60.2023.01.25.00.30.43
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 25 Jan 2023 00:30:43 -0800 (PST)
+Message-ID: <296bcff0-9d75-3d6b-e101-dddb26edadf1@redhat.com>
+Date: Wed, 25 Jan 2023 09:30:42 +0100
 MIME-Version: 1.0
-References: <20220617233328.1143665-1-dmitry.baryshkov@linaro.org>
- <20220617233328.1143665-5-dmitry.baryshkov@linaro.org>
- <37cf7080-8c4c-556c-a97c-ef0b0db1db11@quicinc.com>
-In-Reply-To: <37cf7080-8c4c-556c-a97c-ef0b0db1db11@quicinc.com>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Wed, 25 Jan 2023 09:29:42 +0200
-Message-ID: <CAA8EJpod2r1VKVxG7Tf409+T7FQR4VPFmUudxhD+cs8_y3Go+w@mail.gmail.com>
-To: Abhinav Kumar <quic_abhinavk@quicinc.com>
-Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [PATCH v6 4/4] drm/msm: stop storing the array of
- CRTCs in struct msm_drm_private
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.6.0
+To: Thomas Zimmermann <tzimmermann@suse.de>, airlied@gmail.com,
+ daniel@ffwll.ch, maarten.lankhorst@linux.intel.com, mripard@kernel.org
+References: <20230124134010.30263-1-tzimmermann@suse.de>
+ <20230124134010.30263-2-tzimmermann@suse.de>
+From: Javier Martinez Canillas <javierm@redhat.com>
+In-Reply-To: <20230124134010.30263-2-tzimmermann@suse.de>
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Language: en-US
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+Subject: Re: [Freedreno] [PATCH v2 01/10] drm/client: Test for connectors
+ before sending hotplug event
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,244 +88,57 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, kernel test robot <lkp@intel.com>,
- David Airlie <airlied@linux.ie>, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, Bjorn Andersson <bjorn.andersson@linaro.org>,
- Rob Clark <robdclark@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- Stephen Boyd <swboyd@chromium.org>, Sean Paul <sean@poorly.run>
+Cc: linux-samsung-soc@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, linux-tegra@vger.kernel.org,
+ freedreno@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Wed, 25 Jan 2023 at 04:14, Abhinav Kumar <quic_abhinavk@quicinc.com> wrote:
->
->
->
-> On 6/17/2022 4:33 PM, Dmitry Baryshkov wrote:
-> > The array of CRTC in the struct msm_drm_private duplicates a list of
-> > CRTCs in the drm_device. Drop it and use the existing list for CRTC
-> > enumeration.
-> >
-> > Reported-by: kernel test robot <lkp@intel.com>
-> > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> > ---
-> >   drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c  |  2 +-
-> >   drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.c |  2 +-
-> >   drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c |  2 +-
-> >   drivers/gpu/drm/msm/msm_drv.c            | 44 +++++++++++++-----------
-> >   drivers/gpu/drm/msm/msm_drv.h            |  3 +-
-> >   5 files changed, 27 insertions(+), 26 deletions(-)
-> >
-> > diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
-> > index e23e2552e802..e79f0a8817ac 100644
-> > --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
-> > +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
-> > @@ -806,7 +806,7 @@ static int _dpu_kms_drm_obj_init(struct dpu_kms *dpu_kms)
-> >                       ret = PTR_ERR(crtc);
-> >                       return ret;
-> >               }
-> > -             priv->crtcs[priv->num_crtcs++] = crtc;
-> > +             priv->num_crtcs++;
-> >       }
-> >
-> >       /* All CRTCs are compatible with all encoders */
-> > diff --git a/drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.c b/drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.c
-> > index fb48c8c19ec3..7449c1693e45 100644
-> > --- a/drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.c
-> > +++ b/drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.c
-> > @@ -337,7 +337,7 @@ static int modeset_init(struct mdp4_kms *mdp4_kms)
-> >                       goto fail;
-> >               }
-> >
-> > -             priv->crtcs[priv->num_crtcs++] = crtc;
-> > +             priv->num_crtcs++;
-> >       }
-> >
-> >       /*
-> > diff --git a/drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c b/drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c
-> > index 3d5621a68f85..36808990f840 100644
-> > --- a/drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c
-> > +++ b/drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c
-> > @@ -497,7 +497,7 @@ static int modeset_init(struct mdp5_kms *mdp5_kms)
-> >                       DRM_DEV_ERROR(dev->dev, "failed to construct crtc %d (%d)\n", i, ret);
-> >                       goto fail;
-> >               }
-> > -             priv->crtcs[priv->num_crtcs++] = crtc;
-> > +             priv->num_crtcs++;
-> >       }
-> >
-> >       /*
-> > diff --git a/drivers/gpu/drm/msm/msm_drv.c b/drivers/gpu/drm/msm/msm_drv.c
-> > index 1aab6bf86278..567e77dae43b 100644
-> > --- a/drivers/gpu/drm/msm/msm_drv.c
-> > +++ b/drivers/gpu/drm/msm/msm_drv.c
-> > @@ -149,7 +149,7 @@ static void msm_irq_uninstall(struct drm_device *dev)
-> >
-> >   struct msm_vblank_work {
-> >       struct work_struct work;
-> > -     int crtc_id;
-> > +     struct drm_crtc *crtc;
-> >       bool enable;
-> >       struct msm_drm_private *priv;
-> >   };
-> > @@ -162,15 +162,15 @@ static void vblank_ctrl_worker(struct work_struct *work)
-> >       struct msm_kms *kms = priv->kms;
-> >
->
-> Is there any chance of vbl_work->crtc becoming NULL before this gets
-> executed?
+Hello Thomas,
 
-No. The worker is created in vblank_ctrl_queue_work. The
-vbl_work->crtc is filled at the time of creation.
+On 1/24/23 14:40, Thomas Zimmermann wrote:
+> Test for connectors in the client code and remove a similar test
+> from the generic fbdev emulation. Do nothing if the test fails.
+> Not having connectors indicates a driver bug.
+> 
+> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+> ---
 
-> So do we need to protect this like
->
-> if (vbl_work->enable && vbl_work->crtc)
->
-> Because the layers below this dont seem to have NULL protection.
->
->
-> >       if (vbl_work->enable)
-> > -             kms->funcs->enable_vblank(kms, priv->crtcs[vbl_work->crtc_id]);
-> > +             kms->funcs->enable_vblank(kms, vbl_work->crtc);
-> >       else
-> > -             kms->funcs->disable_vblank(kms, priv->crtcs[vbl_work->crtc_id]);
-> > +             kms->funcs->disable_vblank(kms, vbl_work->crtc);
-> >
-> >       kfree(vbl_work);
-> >   }
-> >
-> >   static int vblank_ctrl_queue_work(struct msm_drm_private *priv,
-> > -                                     int crtc_id, bool enable)
-> > +                                     struct drm_crtc *crtc, bool enable)
-> >   {
-> >       struct msm_vblank_work *vbl_work;
-> >
-> > @@ -180,7 +180,7 @@ static int vblank_ctrl_queue_work(struct msm_drm_private *priv,
-> >
-> >       INIT_WORK(&vbl_work->work, vblank_ctrl_worker);
-> >
-> > -     vbl_work->crtc_id = crtc_id;
-> > +     vbl_work->crtc = crtc;
-> >       vbl_work->enable = enable;
-> >       vbl_work->priv = priv;
-> >
-> > @@ -354,7 +354,8 @@ static int msm_drm_init(struct device *dev, const struct drm_driver *drv)
-> >       struct msm_drm_private *priv = dev_get_drvdata(dev);
-> >       struct drm_device *ddev;
-> >       struct msm_kms *kms;
-> > -     int ret, i;
-> > +     struct drm_crtc *crtc;
-> > +     int ret;
-> >
-> >       if (drm_firmware_drivers_only())
-> >               return -ENODEV;
-> > @@ -427,20 +428,23 @@ static int msm_drm_init(struct device *dev, const struct drm_driver *drv)
-> >       ddev->mode_config.funcs = &mode_config_funcs;
-> >       ddev->mode_config.helper_private = &mode_config_helper_funcs;
-> >
-> > -     for (i = 0; i < priv->num_crtcs; i++) {
-> > +     drm_for_each_crtc(crtc, ddev) {
-> > +             struct msm_drm_thread *ev_thread;
-> > +
-> >               /* initialize event thread */
-> > -             priv->event_thread[i].crtc_id = priv->crtcs[i]->base.id;
-> > -             priv->event_thread[i].dev = ddev;
-> > -             priv->event_thread[i].worker = kthread_create_worker(0,
-> > -                     "crtc_event:%d", priv->event_thread[i].crtc_id);
-> > -             if (IS_ERR(priv->event_thread[i].worker)) {
-> > -                     ret = PTR_ERR(priv->event_thread[i].worker);
-> > +             ev_thread = &priv->event_thread[drm_crtc_index(crtc)];
-> > +             ev_thread->crtc = crtc;
-> > +             ev_thread->dev = ddev;
-> > +             ev_thread->worker = kthread_create_worker(0,
-> > +                     "crtc_event:%d", ev_thread->crtc->base.id);
->
-> Please correct me if wrong.
->
-> Today, other than just populating the name for the worker is the
-> ev_thread->crtc used anywhere?
->
-> If so, can we just drop crtc from msm_drm_thread and while creating the
-> worker just use kthread_create_worker(0, "crtc_event:%d", crtc->base.id);
+Reviewed-by: Javier Martinez Canillas <javierm@redhat.com>
 
-It seems so. I'll take a look for v2.
+but I've a question below.
 
-However your questions actually raised another question in my head. I
-went on looking for the reason for such complex vblank handling. It
-was added by Hai Li in the commit 78b1d470d57d ("drm/msm: Enable
-clocks during enable/disable_vblank() callbacks"). However I don't
-fully understand why the code will toggle vblank handling while the
-DPU/MDP5/MDP4 device is not resumed already. Maybe I just missed
-something here. Do you know the story behind the change?
+>  drivers/gpu/drm/drm_client.c        | 5 +++++
+>  drivers/gpu/drm/drm_fbdev_generic.c | 5 -----
+>  2 files changed, 5 insertions(+), 5 deletions(-)
 
->
-> > +             if (IS_ERR(ev_thread->worker)) {
-> > +                     ret = PTR_ERR(ev_thread->worker);
-> >                       DRM_DEV_ERROR(dev, "failed to create crtc_event kthread\n");
-> > -                     priv->event_thread[i].worker = NULL;
-> > +                     ev_thread->worker = NULL;
-> >                       goto err_msm_uninit;
-> >               }
-> >
-> > -             sched_set_fifo(priv->event_thread[i].worker->task);
-> > +             sched_set_fifo(ev_thread->worker->task);
-> >       }
-> >
-> >       ret = drm_vblank_init(ddev, priv->num_crtcs);
-> > @@ -563,25 +567,23 @@ static void msm_postclose(struct drm_device *dev, struct drm_file *file)
-> >   int msm_crtc_enable_vblank(struct drm_crtc *crtc)
-> >   {
-> >       struct drm_device *dev = crtc->dev;
-> > -     unsigned int pipe = crtc->index;
-> >       struct msm_drm_private *priv = dev->dev_private;
-> >       struct msm_kms *kms = priv->kms;
-> >       if (!kms)
-> >               return -ENXIO;
-> > -     drm_dbg_vbl(dev, "crtc=%u", pipe);
-> > -     return vblank_ctrl_queue_work(priv, pipe, true);
-> > +     drm_dbg_vbl(dev, "crtc=%u", crtc->base.id);
-> > +     return vblank_ctrl_queue_work(priv, crtc, true);
-> >   }
-> >
-> >   void msm_crtc_disable_vblank(struct drm_crtc *crtc)
-> >   {
-> >       struct drm_device *dev = crtc->dev;
-> > -     unsigned int pipe = crtc->index;
-> >       struct msm_drm_private *priv = dev->dev_private;
-> >       struct msm_kms *kms = priv->kms;
-> >       if (!kms)
-> >               return;
-> > -     drm_dbg_vbl(dev, "crtc=%u", pipe);
-> > -     vblank_ctrl_queue_work(priv, pipe, false);
-> > +     drm_dbg_vbl(dev, "crtc=%u", crtc->base.id);
-> > +     vblank_ctrl_queue_work(priv, crtc, false);
-> >   }
-> >
-> >   /*
-> > diff --git a/drivers/gpu/drm/msm/msm_drv.h b/drivers/gpu/drm/msm/msm_drv.h
-> > index 08388d742d65..0e98b6f161df 100644
-> > --- a/drivers/gpu/drm/msm/msm_drv.h
-> > +++ b/drivers/gpu/drm/msm/msm_drv.h
-> > @@ -102,7 +102,7 @@ struct msm_display_topology {
-> >   /* Commit/Event thread specific structure */
-> >   struct msm_drm_thread {
-> >       struct drm_device *dev;
-> > -     unsigned int crtc_id;
-> > +     struct drm_crtc *crtc;
-> >       struct kthread_worker *worker;
-> >   };
-> >
-> > @@ -178,7 +178,6 @@ struct msm_drm_private {
-> >       struct workqueue_struct *wq;
-> >
-> >       unsigned int num_crtcs;
-> > -     struct drm_crtc *crtcs[MAX_CRTCS];
-> >
-> >       struct msm_drm_thread event_thread[MAX_CRTCS];
-> >
+[...]
 
+> --- a/drivers/gpu/drm/drm_fbdev_generic.c
+> +++ b/drivers/gpu/drm/drm_fbdev_generic.c
+> @@ -389,11 +389,6 @@ static int drm_fbdev_client_hotplug(struct drm_client_dev *client)
+>  	if (dev->fb_helper)
+>  		return drm_fb_helper_hotplug_event(dev->fb_helper);
+>  
+> -	if (!dev->mode_config.num_connector) {
+> -		drm_dbg_kms(dev, "No connectors found, will not create framebuffer!\n");
+> -		return 0;
+> -	}
+> -
 
+What about the following code snippet:
+
+	if (!drm_drv_uses_atomic_modeset(dev))
+		drm_helper_disable_unused_functions(dev);
+
+that seems to be something that should be in the core client dev hotplug
+as well, since it isn't specific to the fbdev emulation client ?
 
 -- 
-With best wishes
-Dmitry
+Best regards,
+
+Javier Martinez Canillas
+Core Platforms
+Red Hat
+
