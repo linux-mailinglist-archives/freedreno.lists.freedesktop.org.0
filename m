@@ -2,54 +2,84 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 05B8B67A9BE
-	for <lists+freedreno@lfdr.de>; Wed, 25 Jan 2023 05:52:00 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D844A67B338
+	for <lists+freedreno@lfdr.de>; Wed, 25 Jan 2023 14:26:03 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3949F10E70E;
-	Wed, 25 Jan 2023 04:51:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A02D810E7BC;
+	Wed, 25 Jan 2023 13:26:02 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8434E10E65A;
- Wed, 25 Jan 2023 04:51:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1674622308; x=1706158308;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=KD4JMgqxwED5gr4VrmwBvzAy0O3wbRpFXRdRP7EMoe0=;
- b=FEmgoNLWyBgjAyPlTsiv+aLs/9XXJtHbBIyAFsk7d5g6QpLykFjpZxcx
- V6TTlOqHrNaexg/SOq8jWsuSm1Fbe98PN6DWJCEB0ls7/hs86/vvI1cfK
- 37ObPlwEAIn0rm09S3wOBmNAyaFfwTeYjBUPsV/KtWxgsdymxrTWHsfEb
- S1Zqp7Yi/1Cy2FzwUmFAC21ogl5YCYndkVWcF1xMSCgVtGbRjnRkrpdc2
- bGL+JEjUQUbrwtoWoRKAwL5iG4BSQpIS6VlYP1O7Ecz1BWYNvbLSSI1C0
- 3XWsnwwaJwDzkLnKFK2Zsp5ojFdDDodt58TqAHds9+LVwPpkZjCD+jT/2 A==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10600"; a="310057101"
-X-IronPort-AV: E=Sophos;i="5.97,244,1669104000"; d="scan'208";a="310057101"
-Received: from fmsmga008.fm.intel.com ([10.253.24.58])
- by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 Jan 2023 20:51:47 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6500,9779,10600"; a="725743677"
-X-IronPort-AV: E=Sophos;i="5.97,244,1669104000"; d="scan'208";a="725743677"
-Received: from lkp-server01.sh.intel.com (HELO 5646d64e7320) ([10.239.97.150])
- by fmsmga008.fm.intel.com with ESMTP; 24 Jan 2023 20:51:42 -0800
-Received: from kbuild by 5646d64e7320 with local (Exim 4.96)
- (envelope-from <lkp@intel.com>) id 1pKXl7-00072i-39;
- Wed, 25 Jan 2023 04:51:41 +0000
-Date: Wed, 25 Jan 2023 12:51:20 +0800
-From: kernel test robot <lkp@intel.com>
-To: Thomas Zimmermann <tzimmermann@suse.de>, airlied@gmail.com,
- daniel@ffwll.ch, maarten.lankhorst@linux.intel.com,
- mripard@kernel.org, javierm@redhat.com
-Message-ID: <202301251250.eyIn4zjn-lkp@intel.com>
-References: <20230124134010.30263-7-tzimmermann@suse.de>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20230124134010.30263-7-tzimmermann@suse.de>
-Subject: Re: [Freedreno] [Intel-gfx] [PATCH v2 06/10] drm/fb-helper:
- Initialize fb-helper's preferred BPP in prepare function
+Received: from mailout1.samsung.com (mailout1.samsung.com [203.254.224.24])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9B26110E713
+ for <freedreno@lists.freedesktop.org>; Wed, 25 Jan 2023 05:46:31 +0000 (UTC)
+Received: from epcas1p1.samsung.com (unknown [182.195.41.45])
+ by mailout1.samsung.com (KnoxPortal) with ESMTP id
+ 20230125054629epoutp017e2a0c7619db7fd365a82c9c1cb33e3e~9dxnoZyjc1289412894epoutp01e
+ for <freedreno@lists.freedesktop.org>; Wed, 25 Jan 2023 05:46:29 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout1.samsung.com
+ 20230125054629epoutp017e2a0c7619db7fd365a82c9c1cb33e3e~9dxnoZyjc1289412894epoutp01e
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
+ s=mail20170921; t=1674625589;
+ bh=NEwNm/LwY6eOUXbJxfSdsnrHPfYhWSnwXjX0rr9rmhU=;
+ h=Subject:Reply-To:From:To:CC:In-Reply-To:Date:References:From;
+ b=RhPMlKHU+owlp3B3G2FfLUkxn5TDNnAyPFZOU7JAEPMwSRPb2cwMeYmTB/VDdxRjJ
+ upRNM+SM/ROBKOUjklq4cQbk+6ckA/iq8+5F9U/155Qlt2zbDSsND8BT3lYgh9+Uv7
+ WRDpkBPd3aW1RSUEnpm8yTBmxLaOKYNejrbcOvh8=
+Received: from epsnrtp4.localdomain (unknown [182.195.42.165]) by
+ epcas1p4.samsung.com (KnoxPortal) with ESMTP id
+ 20230125054628epcas1p4f84952b2c9ef9b88d805454a009cf28c~9dxnCntqR3064130641epcas1p4C;
+ Wed, 25 Jan 2023 05:46:28 +0000 (GMT)
+Received: from epsmges1p4.samsung.com (unknown [182.195.36.136]) by
+ epsnrtp4.localdomain (Postfix) with ESMTP id 4P1tBD0431z4x9Q2; Wed, 25 Jan
+ 2023 05:46:28 +0000 (GMT)
+X-AuditID: b6c32a38-39fff70000029402-00-63d0c2328958
+Received: from epcas1p2.samsung.com ( [182.195.41.46]) by
+ epsmges1p4.samsung.com (Symantec Messaging Gateway) with SMTP id
+ 32.3A.37890.232C0D36; Wed, 25 Jan 2023 14:46:26 +0900 (KST)
+Mime-Version: 1.0
+From: MyungJoo Ham <myungjoo.ham@samsung.com>
+To: Rob Clark <robdclark@gmail.com>, Chanwoo Choi <cw00.choi@samsung.com>
+X-Priority: 3
+X-Content-Kind-Code: NORMAL
+In-Reply-To: <CAF6AEGud-ESF=VgcaSFzKsWas0H5eSXZDdZGcnd8Ju=pr-W2EQ@mail.gmail.com>
+X-Drm-Type: N,general
+X-Msg-Generator: Mail
+X-Msg-Type: PERSONAL
+X-Reply-Demand: N
+Message-ID: <20230125054626epcms1p38d34dc65cbc9cb29dd707a4b2cac8fb4@epcms1p3>
+Date: Wed, 25 Jan 2023 14:46:26 +0900
+X-CMS-MailID: 20230125054626epcms1p38d34dc65cbc9cb29dd707a4b2cac8fb4
+Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+CMS-TYPE: 101P
+X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFprAJsWRmVeSWpSXmKPExsWy7bCmnq7RoQvJBq9XqVtc//Kc1eLK1/ds
+ FnOen2W0OH9+A7vF2aY37BaXd81hs/jce4TRYstqe4trPx8zWzxf+IPZgctjdsNFFo+ds+6y
+ e2xa1cnmcb/7OJNH35ZVjB6fN8kFsEVl22SkJqakFimk5iXnp2TmpdsqeQfHO8ebmhkY6hpa
+ WpgrKeQl5qbaKrn4BOi6ZeYAXaakUJaYUwoUCkgsLlbSt7Mpyi8tSVXIyC8usVVKLUjJKTAt
+ 0CtOzC0uzUvXy0stsTI0MDAyBSpMyM54dHoRe8E+7ooPe7+yNjDu5uxi5OSQEDCRaHlxirGL
+ kYtDSGAHo0Tn2rcsXYwcHLwCghJ/dwiD1AgL+EtMWdzCBGILCShJNNzcxwwR15foeLCNEcRm
+ E9CV2LrhLguILSLgKTFt33p2kJnMAj3MElc6jzJBLOOVmNH+lAXClpbYvnwrWDOnQKDEj7Wt
+ 7BBxUYmbq9/C2e+PzWeEsEUkWu+dZYawBSUe/NwNFZeSeLJzMhvIMgmByYwSJ08cZ4Rw5jBK
+ TNvwjg2iSl/izNyTYDavgK/EgrsPWEG+ZBFQlZj5GGqZi8TX3mlgQ5kF5CW2v53DDFLCLKAp
+ sX6XPkSYT+Ld1x5WmF92zHsC9ZeaxKHdS6DGyEicnr4Q6k4PiV9bX7JDAreXSWLVlqMsExjl
+ ZyHCdxaSbbMQti1gZF7FKJZaUJybnlpsWGACj9Lk/NxNjOCkqWWxg3Hu2w96hxiZOBgPMUpw
+ MCuJ8PbMPp8sxJuSWFmVWpQfX1Sak1p8iNEU6M2JzFKiyfnAtJ1XEm9oYmlgYmZkbGJhaGao
+ JM4rbnsyWUggPbEkNTs1tSC1CKaPiYNTqoHJT3v1Gd7eGzfPO/q8MirN3zanzMFNcM3x/54L
+ nbi6S2Uq9qWsjzjKuSn6y4aG921T3lY8dTx1pXnfnOmpJW57/Yz+COz6J3s91Nzuun3hfacd
+ J5qF/H69aWp4ZZZ29aStp1CBW/WJRP9Qr4V1iomG3y7sevO0rtSnPeJo7oGVTjJxs5oNPupm
+ 3T90WW2p9u7u6MNB1ydW82WLFWxK9D+7KkbigrWb0Mcd4ZHPuTg3nplQduJVXeD/Y0GNQi8E
+ v2pdEFhwi7NRN+90bOK6TQ+eJsvbOS12OLRqYfvTuVyGqgbumx+8uRsU7nyPf8drL+ezN3u9
+ ba9ZMxa0ngiPltT7XOa782/nI946HjeFLSFKLMUZiYZazEXFiQDi5e2cIwQAAA==
+DLP-Filter: Pass
+X-CFilter-Loop: Reflected
+X-CMS-RootMailID: 20230123153745epcas1p17e57cf83ed371e86258139473befc615
+References: <CAF6AEGud-ESF=VgcaSFzKsWas0H5eSXZDdZGcnd8Ju=pr-W2EQ@mail.gmail.com>
+ <20230123153745.3185032-1-robdclark@gmail.com>
+ <20230125040403epcms1p1646e9668b87df3e9c344ad58d39b6eb6@epcms1p1>
+ <CGME20230123153745epcas1p17e57cf83ed371e86258139473befc615@epcms1p3>
+X-Mailman-Approved-At: Wed, 25 Jan 2023 13:25:56 +0000
+Subject: Re: [Freedreno] [PATCH] PM / devfreq: Fix build issues with devfreq
+ disabled
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,112 +92,55 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-samsung-soc@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- intel-gfx@lists.freedesktop.org, llvm@lists.linux.dev,
- dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- Thomas Zimmermann <tzimmermann@suse.de>, oe-kbuild-all@lists.linux.dev,
- linux-tegra@vger.kernel.org, freedreno@lists.freedesktop.org,
- linux-arm-kernel@lists.infradead.org
+Reply-To: myungjoo.ham@samsung.com
+Cc: Rob Clark <robdclark@chromium.org>,
+ "linux-pm@vger.kernel.org" <linux-pm@vger.kernel.org>,
+ open list <linux-kernel@vger.kernel.org>,
+ Krzysztof Kozlowski <krzk@kernel.org>,
+ Kyungmin Park <kyungmin.park@samsung.com>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ "freedreno@lists.freedesktop.org" <freedreno@lists.freedesktop.org>,
+ Chia-I Wu <olvaffe@gmail.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Hi Thomas,
+>On Tue, Jan 24, 2023 at 8:04 PM MyungJoo Ham <myungjoo.ham@samsung.com> wrote:
+>>
+>> >Sender : Rob Clark <robdclark@gmail.com>
+>> >Date : 2023-01-24 00:37 (GMT+9)
+>> >Title : [PATCH] PM / devfreq: Fix build issues with devfreq disabled
+>> >
+>> >From: Rob Clark <robdclark@chromium.org>
+>> >
+>> >The existing no-op shims for when PM_DEVFREQ (or an individual governor)
+>> >only do half the job.  The governor specific config/tuning structs need
+>> >to be available to avoid compile errors in drivers using devfreq.
+>> >
+>> >Fixes: 6563f60f14cb ("drm/msm/gpu: Add devfreq tuning debugfs")
+>> >Signed-off-by: Rob Clark <robdclark@chromium.org>
+>>
+>> Doesn't this imply that DRM_MSM should depend on PM_DEVFREQ ?
+>>
+>> It appears that gpu/drm/msm/DRM_MSM uses PM_DEVFREQ without actually
+>> declaring the dependency on PM_DEVFREQ.
+>> You cannot use SIMPLE_ONDEMAND without DEVFREQ.
+>
+>Possibly that would resolve some issues, and that might have been my
+>mistake in assuming that depending on SIMPLE_ONDEMAND implied a
+>dependency on DEFREQ (which seems like a reasonable assumption, IMHO)
+>
+>But AFAICT some kernel configs that could otherwise use DRM_MSM don't
+>support PM_DEVFREQ.. either way, lets solve this properly and remove
+>needless dependencies on devfreq.
+>
+>BR,
+>-R
 
-I love your patch! Yet something to improve:
+Ok. You are enabling struct and enum only and that looks harmless.
 
-[auto build test ERROR on 7d3e7f64a42d66ba8da6e7b66a8d85457ef84570]
+PTAL, Chanwoo.
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Thomas-Zimmermann/drm-client-Test-for-connectors-before-sending-hotplug-event/20230124-214220
-base:   7d3e7f64a42d66ba8da6e7b66a8d85457ef84570
-patch link:    https://lore.kernel.org/r/20230124134010.30263-7-tzimmermann%40suse.de
-patch subject: [Intel-gfx] [PATCH v2 06/10] drm/fb-helper: Initialize fb-helper's preferred BPP in prepare function
-config: riscv-randconfig-r042-20230123 (https://download.01.org/0day-ci/archive/20230125/202301251250.eyIn4zjn-lkp@intel.com/config)
-compiler: clang version 16.0.0 (https://github.com/llvm/llvm-project 4196ca3278f78c6e19246e54ab0ecb364e37d66a)
-reproduce (this is a W=1 build):
-        wget https://raw.githubusercontent.com/intel/lkp-tests/master/sbin/make.cross -O ~/bin/make.cross
-        chmod +x ~/bin/make.cross
-        # install riscv cross compiling tool for clang build
-        # apt-get install binutils-riscv64-linux-gnu
-        # https://github.com/intel-lab-lkp/linux/commit/70e38534e74e4d12bb02b3b352bba2aed417f541
-        git remote add linux-review https://github.com/intel-lab-lkp/linux
-        git fetch --no-tags linux-review Thomas-Zimmermann/drm-client-Test-for-connectors-before-sending-hotplug-event/20230124-214220
-        git checkout 70e38534e74e4d12bb02b3b352bba2aed417f541
-        # save the config file
-        mkdir build_dir && cp config build_dir/.config
-        COMPILER_INSTALL_PATH=$HOME/0day COMPILER=clang make.cross W=1 O=build_dir ARCH=riscv olddefconfig
-        COMPILER_INSTALL_PATH=$HOME/0day COMPILER=clang make.cross W=1 O=build_dir ARCH=riscv SHELL=/bin/bash drivers/gpu/drm/radeon/
+Acked-by: MyungJoo Ham <myungjoo.ham@samsung.com>
 
-If you fix the issue, kindly add following tag where applicable
-| Reported-by: kernel test robot <lkp@intel.com>
-
-All errors (new ones prefixed by >>):
-
->> drivers/gpu/drm/radeon/radeon_fb.c:352:10: error: too many arguments to function call, expected 3, have 4
-                                 &radeon_fb_helper_funcs);
-                                 ^~~~~~~~~~~~~~~~~~~~~~~
-   include/drm/drm_fb_helper.h:295:20: note: 'drm_fb_helper_prepare' declared here
-   static inline void drm_fb_helper_prepare(struct drm_device *dev,
-                      ^
->> drivers/gpu/drm/radeon/radeon_fb.c:361:52: error: too few arguments to function call, expected 2, have 1
-           ret = drm_fb_helper_initial_config(&rfbdev->helper);
-                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~                ^
-   include/drm/drm_fb_helper.h:459:19: note: 'drm_fb_helper_initial_config' declared here
-   static inline int drm_fb_helper_initial_config(struct drm_fb_helper *fb_helper,
-                     ^
-   2 errors generated.
-
-
-vim +352 drivers/gpu/drm/radeon/radeon_fb.c
-
-386516744ba45d Dave Airlie       2010-03-30  326  
-386516744ba45d Dave Airlie       2010-03-30  327  int radeon_fbdev_init(struct radeon_device *rdev)
-386516744ba45d Dave Airlie       2010-03-30  328  {
-8be48d924c307e Dave Airlie       2010-03-30  329  	struct radeon_fbdev *rfbdev;
-4abe35204af82a Dave Airlie       2010-03-30  330  	int bpp_sel = 32;
-5a79395b2791cc Chris Wilson      2010-06-06  331  	int ret;
-4abe35204af82a Dave Airlie       2010-03-30  332  
-e5f243bd2edd95 Alex Deucher      2016-03-10  333  	/* don't enable fbdev if no connectors */
-e5f243bd2edd95 Alex Deucher      2016-03-10  334  	if (list_empty(&rdev->ddev->mode_config.connector_list))
-e5f243bd2edd95 Alex Deucher      2016-03-10  335  		return 0;
-e5f243bd2edd95 Alex Deucher      2016-03-10  336  
-7b8bd6bb4298ac Egbert Eich       2017-07-18  337  	/* select 8 bpp console on 8MB cards, or 16 bpp on RN50 or 32MB */
-7b8bd6bb4298ac Egbert Eich       2017-07-18  338  	if (rdev->mc.real_vram_size <= (8*1024*1024))
-4abe35204af82a Dave Airlie       2010-03-30  339  		bpp_sel = 8;
-7b8bd6bb4298ac Egbert Eich       2017-07-18  340  	else if (ASIC_IS_RN50(rdev) ||
-7b8bd6bb4298ac Egbert Eich       2017-07-18  341  		 rdev->mc.real_vram_size <= (32*1024*1024))
-7b8bd6bb4298ac Egbert Eich       2017-07-18  342  		bpp_sel = 16;
-8be48d924c307e Dave Airlie       2010-03-30  343  
-8be48d924c307e Dave Airlie       2010-03-30  344  	rfbdev = kzalloc(sizeof(struct radeon_fbdev), GFP_KERNEL);
-8be48d924c307e Dave Airlie       2010-03-30  345  	if (!rfbdev)
-8be48d924c307e Dave Airlie       2010-03-30  346  		return -ENOMEM;
-771fe6b912fca5 Jerome Glisse     2009-06-05  347  
-8be48d924c307e Dave Airlie       2010-03-30  348  	rfbdev->rdev = rdev;
-8be48d924c307e Dave Airlie       2010-03-30  349  	rdev->mode_info.rfbdev = rfbdev;
-10a231026574f9 Thierry Reding    2014-06-27  350  
-70e38534e74e4d Thomas Zimmermann 2023-01-24  351  	drm_fb_helper_prepare(rdev->ddev, &rfbdev->helper, bpp_sel,
-10a231026574f9 Thierry Reding    2014-06-27 @352  			      &radeon_fb_helper_funcs);
-785b93ef8c3097 Dave Airlie       2009-08-28  353  
-2dea2d1182179e Pankaj Bharadiya  2020-03-05  354  	ret = drm_fb_helper_init(rdev->ddev, &rfbdev->helper);
-01934c2a691882 Thierry Reding    2014-12-19  355  	if (ret)
-01934c2a691882 Thierry Reding    2014-12-19  356  		goto free;
-5a79395b2791cc Chris Wilson      2010-06-06  357  
-76a39dbfb2d1bc Daniel Vetter     2013-01-20  358  	/* disable all the possible outputs/crtcs before entering KMS mode */
-76a39dbfb2d1bc Daniel Vetter     2013-01-20  359  	drm_helper_disable_unused_functions(rdev->ddev);
-76a39dbfb2d1bc Daniel Vetter     2013-01-20  360  
-70e38534e74e4d Thomas Zimmermann 2023-01-24 @361  	ret = drm_fb_helper_initial_config(&rfbdev->helper);
-01934c2a691882 Thierry Reding    2014-12-19  362  	if (ret)
-01934c2a691882 Thierry Reding    2014-12-19  363  		goto fini;
-01934c2a691882 Thierry Reding    2014-12-19  364  
-771fe6b912fca5 Jerome Glisse     2009-06-05  365  	return 0;
-01934c2a691882 Thierry Reding    2014-12-19  366  
-01934c2a691882 Thierry Reding    2014-12-19  367  fini:
-01934c2a691882 Thierry Reding    2014-12-19  368  	drm_fb_helper_fini(&rfbdev->helper);
-01934c2a691882 Thierry Reding    2014-12-19  369  free:
-01934c2a691882 Thierry Reding    2014-12-19  370  	kfree(rfbdev);
-01934c2a691882 Thierry Reding    2014-12-19  371  	return ret;
-386516744ba45d Dave Airlie       2010-03-30  372  }
-386516744ba45d Dave Airlie       2010-03-30  373  
-
--- 
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests
+Cheers,
+MyungJoo.
