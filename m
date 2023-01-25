@@ -1,78 +1,86 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2B4C867A8A0
-	for <lists+freedreno@lfdr.de>; Wed, 25 Jan 2023 03:14:46 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id C93DA67B33A
+	for <lists+freedreno@lfdr.de>; Wed, 25 Jan 2023 14:26:04 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1B54010E29B;
-	Wed, 25 Jan 2023 02:14:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CF24610E7BF;
+	Wed, 25 Jan 2023 13:26:02 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7FE7C10E0D6;
- Wed, 25 Jan 2023 02:14:39 +0000 (UTC)
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 30P1x6Fn018882; Wed, 25 Jan 2023 02:14:34 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
- h=message-id : date :
- mime-version : subject : to : cc : references : from : in-reply-to :
- content-type : content-transfer-encoding; s=qcppdkim1;
- bh=beeUc3L325L62rg/eyV+j2jJLJ37S7CXlhuOe5vf3Ig=;
- b=Ft4Pf0YoMt+ZJjRqG6qihN99VnS1c1c0+LQWT+EBfwwwLo/C314U99nD485mUycBP9Bl
- F0CENgZfkxx4a9TP8tKnvlCMY4Z3mGdvxhgfm8ywOrg6E1vjFGOiYgZ/VehkoIH4SoNf
- 6Z/ZkAq4VL5Po9eY135hx+lUTVu8p7CGHOa51D1Jvo//Cl7iBHdA4kSSuWD7/Bqai6PD
- YOAfPD63aP0npFqTecRQ5EagmKInhSxK7SAQpTBdpe2q/I+r5uqOQAeRwzfUgAGWj6in
- WI7XL6mx69cIo2v1SPuo83usYHwfqfU8sIEqqASsuSBt/g/BzSRX4NH7yPJZ+fyatG5O CA== 
-Received: from nalasppmta03.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3najkh910b-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 25 Jan 2023 02:14:34 +0000
-Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
- [10.47.209.196])
- by NALASPPMTA03.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 30P2EXtn005482
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 25 Jan 2023 02:14:33 GMT
-Received: from [10.110.33.211] (10.80.80.8) by nalasex01a.na.qualcomm.com
- (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.36; Tue, 24 Jan
- 2023 18:14:32 -0800
-Message-ID: <37cf7080-8c4c-556c-a97c-ef0b0db1db11@quicinc.com>
-Date: Tue, 24 Jan 2023 18:14:31 -0800
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.6.2
-Content-Language: en-US
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Rob Clark
- <robdclark@gmail.com>, Sean Paul <sean@poorly.run>
-References: <20220617233328.1143665-1-dmitry.baryshkov@linaro.org>
- <20220617233328.1143665-5-dmitry.baryshkov@linaro.org>
-From: Abhinav Kumar <quic_abhinavk@quicinc.com>
-In-Reply-To: <20220617233328.1143665-5-dmitry.baryshkov@linaro.org>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-ORIG-GUID: edqadOcfJMtzd_vGuvQeHHln6gfe87dI
-X-Proofpoint-GUID: edqadOcfJMtzd_vGuvQeHHln6gfe87dI
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.219,Aquarius:18.0.930,Hydra:6.0.562,FMLib:17.11.122.1
- definitions=2023-01-24_17,2023-01-24_01,2022-06-22_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 bulkscore=0
- adultscore=0 spamscore=0 suspectscore=0 mlxlogscore=999 clxscore=1011
- lowpriorityscore=0 impostorscore=0 mlxscore=0 priorityscore=1501
- phishscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2212070000 definitions=main-2301250015
-Subject: Re: [Freedreno] [PATCH v6 4/4] drm/msm: stop storing the array of
- CRTCs in struct msm_drm_private
+X-Greylist: delayed 417 seconds by postgrey-1.36 at gabe;
+ Wed, 25 Jan 2023 04:11:04 UTC
+Received: from mailout1.samsung.com (mailout1.samsung.com [203.254.224.24])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3B94710E314
+ for <freedreno@lists.freedesktop.org>; Wed, 25 Jan 2023 04:11:04 +0000 (UTC)
+Received: from epcas1p4.samsung.com (unknown [182.195.41.48])
+ by mailout1.samsung.com (KnoxPortal) with ESMTP id
+ 20230125040405epoutp017ac2b28aa1d7738c5fbf7cfa1fbc5f22~9cYNKusva2088020880epoutp01j
+ for <freedreno@lists.freedesktop.org>; Wed, 25 Jan 2023 04:04:05 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout1.samsung.com
+ 20230125040405epoutp017ac2b28aa1d7738c5fbf7cfa1fbc5f22~9cYNKusva2088020880epoutp01j
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
+ s=mail20170921; t=1674619445;
+ bh=tKo47pbZYVMiR8BWGW14K9nOPkA7uSFy9/Ap7c5WXfE=;
+ h=Subject:Reply-To:From:To:CC:In-Reply-To:Date:References:From;
+ b=eLX5rRR9sarZeXBI76ITLxthue0Mtro94dO5ojpfZ4RbaiIALLWSxHjrLvFh5fQ//
+ th7NL07+4d/C8fJNEaB+w2cVBSXHQmXLUUZ36NFUt5dvI5dcSQ5AnxxRVejJyJsie2
+ MPgIzBvUhXKF2CbH4uR1ml8CmhxjzMuUF5Rh9k/w=
+Received: from epsnrtp2.localdomain (unknown [182.195.42.163]) by
+ epcas1p1.samsung.com (KnoxPortal) with ESMTP id
+ 20230125040404epcas1p1dcd61839e317f873691955dbbcdfa93a~9cYMup9g10195801958epcas1p1b;
+ Wed, 25 Jan 2023 04:04:04 +0000 (GMT)
+Received: from epsmges1p1.samsung.com (unknown [182.195.38.236]) by
+ epsnrtp2.localdomain (Postfix) with ESMTP id 4P1qw35MbPz4x9Pv; Wed, 25 Jan
+ 2023 04:04:03 +0000 (GMT)
+X-AuditID: b6c32a35-d9fff7000000d8eb-02-63d0aa3302ff
+Received: from epcas1p2.samsung.com ( [182.195.41.46]) by
+ epsmges1p1.samsung.com (Symantec Messaging Gateway) with SMTP id
+ F3.79.55531.33AA0D36; Wed, 25 Jan 2023 13:04:03 +0900 (KST)
+Mime-Version: 1.0
+From: MyungJoo Ham <myungjoo.ham@samsung.com>
+To: Rob Clark <robdclark@gmail.com>, "linux-pm@vger.kernel.org"
+ <linux-pm@vger.kernel.org>
+X-Priority: 3
+X-Content-Kind-Code: NORMAL
+In-Reply-To: <20230123153745.3185032-1-robdclark@gmail.com>
+X-Drm-Type: N,general
+X-Msg-Generator: Mail
+X-Msg-Type: PERSONAL
+X-Reply-Demand: N
+Message-ID: <20230125040403epcms1p1646e9668b87df3e9c344ad58d39b6eb6@epcms1p1>
+Date: Wed, 25 Jan 2023 13:04:03 +0900
+X-CMS-MailID: 20230125040403epcms1p1646e9668b87df3e9c344ad58d39b6eb6
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+CMS-TYPE: 101P
+X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFprIJsWRmVeSWpSXmKPExsWy7bCmnq7xqgvJBt//q1pc//Kc1eLK1/ds
+ FnOen2W0OH9+A7vF2aY37BaXd81hs/jce4TRYstqe4trPx8zWzxf+IPZgctjdsNFFo+ds+6y
+ e2xa1cnmcb/7OJNH35ZVjB6fN8kFsEVl22SkJqakFimk5iXnp2TmpdsqeQfHO8ebmhkY6hpa
+ WpgrKeQl5qbaKrn4BOi6ZeYAXaakUJaYUwoUCkgsLlbSt7Mpyi8tSVXIyC8usVVKLUjJKTAt
+ 0CtOzC0uzUvXy0stsTI0MDAyBSpMyM6403+csaBDsWLutGdsDYzTFboYOTkkBEwk3jftYe9i
+ 5OIQEtjBKPF88R3GLkYODl4BQYm/O4RBaoQFPCWefp3HDmILCShJNNzcxwwR15foeLCNEcRm
+ E9CV2LrhLguILSIQIzHjzCdmkJnMAr+ZJDqWHmWFWMYrMaP9KQuELS2xfflWsGZOAWuJa09+
+ QdWIStxc/ZYdxn5/bD4jhC0i0XrvLDOELSjx4OduqLiUxJOdk9lAlkkITGaUOHniOCOEM4dR
+ YtqGd2wQVfoSZ+aeBLN5BXwlNj+dDraBRUBV4trunVA1LhI3li0H28AsoC2xbOFrZlBIMAto
+ SqzfpQ8R5pN497UH7pkd854wQdhqEod2L4E6Wkbi9PSFUId6SPza+hIauk2MEhuuvGabwCg/
+ CxHAs5Bsm4WwbQEj8ypGsdSC4tz01GLDAkN4nCbn525iBKdNLdMdjBPfftA7xMjEwXiIUYKD
+ WUmEt2f2+WQh3pTEyqrUovz4otKc1OJDjKZAf05klhJNzgcm7rySeEMTSwMTMyNjEwtDM0Ml
+ cV5x25PJQgLpiSWp2ampBalFMH1MHJxSDUz6z358mBgwTeajwCqFGZeleCxZZm9rCRHI/aln
+ dEvj2p/tLxt0ore0b4pp/fPCmq9mYy7zlP+nZ1c87Vu9ui9NqqFjUp514qv3z9e9XSadmTtn
+ tZzm3ZuOBbumbFXOWafXlL92koK+6eM8hf/tJ3zm8hiW85wUnVrBrXHEb5PLhzKLi/NzO/mn
+ Ga48YHjNyGvPps/7GDf1PzwT57uffbbc6Y6T/tdzPl94cKdSIeTfph/C9z+6rZCd4bGut0pD
+ NvPRYlOn3uv/Ph0uNTix+LjENB3ek7u6zzwq257Cf3umlMamu4xmSw9enMkx7faB5purn9nG
+ Kn18fzXh7ONSOYHou2cWaM9oWPRMMf1Pvvyxa0osxRmJhlrMRcWJAEcho5AkBAAA
+DLP-Filter: Pass
+X-CFilter-Loop: Reflected
+X-CMS-RootMailID: 20230123153745epcas1p17e57cf83ed371e86258139473befc615
+References: <20230123153745.3185032-1-robdclark@gmail.com>
+ <CGME20230123153745epcas1p17e57cf83ed371e86258139473befc615@epcms1p1>
+X-Mailman-Approved-At: Wed, 25 Jan 2023 13:25:56 +0000
+Subject: Re: [Freedreno] [PATCH] PM / devfreq: Fix build issues with devfreq
+ disabled
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -85,221 +93,69 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: kernel test robot <lkp@intel.com>, David Airlie <airlied@linux.ie>,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- Bjorn Andersson <bjorn.andersson@linaro.org>, Daniel Vetter <daniel@ffwll.ch>,
- Stephen Boyd <swboyd@chromium.org>, freedreno@lists.freedesktop.org
+Reply-To: myungjoo.ham@samsung.com
+Cc: Rob Clark <robdclark@chromium.org>,
+ open list <linux-kernel@vger.kernel.org>,
+ Krzysztof Kozlowski <krzk@kernel.org>, Chanwoo Choi <cw00.choi@samsung.com>,
+ Kyungmin Park <kyungmin.park@samsung.com>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ "freedreno@lists.freedesktop.org" <freedreno@lists.freedesktop.org>,
+ Chia-I Wu <olvaffe@gmail.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-
-
-On 6/17/2022 4:33 PM, Dmitry Baryshkov wrote:
-> The array of CRTC in the struct msm_drm_private duplicates a list of
-> CRTCs in the drm_device. Drop it and use the existing list for CRTC
-> enumeration.
-> 
-> Reported-by: kernel test robot <lkp@intel.com>
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> ---
->   drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c  |  2 +-
->   drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.c |  2 +-
->   drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c |  2 +-
->   drivers/gpu/drm/msm/msm_drv.c            | 44 +++++++++++++-----------
->   drivers/gpu/drm/msm/msm_drv.h            |  3 +-
->   5 files changed, 27 insertions(+), 26 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
-> index e23e2552e802..e79f0a8817ac 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
-> @@ -806,7 +806,7 @@ static int _dpu_kms_drm_obj_init(struct dpu_kms *dpu_kms)
->   			ret = PTR_ERR(crtc);
->   			return ret;
->   		}
-> -		priv->crtcs[priv->num_crtcs++] = crtc;
-> +		priv->num_crtcs++;
->   	}
->   
->   	/* All CRTCs are compatible with all encoders */
-> diff --git a/drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.c b/drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.c
-> index fb48c8c19ec3..7449c1693e45 100644
-> --- a/drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.c
-> +++ b/drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.c
-> @@ -337,7 +337,7 @@ static int modeset_init(struct mdp4_kms *mdp4_kms)
->   			goto fail;
->   		}
->   
-> -		priv->crtcs[priv->num_crtcs++] = crtc;
-> +		priv->num_crtcs++;
->   	}
->   
->   	/*
-> diff --git a/drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c b/drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c
-> index 3d5621a68f85..36808990f840 100644
-> --- a/drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c
-> +++ b/drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c
-> @@ -497,7 +497,7 @@ static int modeset_init(struct mdp5_kms *mdp5_kms)
->   			DRM_DEV_ERROR(dev->dev, "failed to construct crtc %d (%d)\n", i, ret);
->   			goto fail;
->   		}
-> -		priv->crtcs[priv->num_crtcs++] = crtc;
-> +		priv->num_crtcs++;
->   	}
->   
->   	/*
-> diff --git a/drivers/gpu/drm/msm/msm_drv.c b/drivers/gpu/drm/msm/msm_drv.c
-> index 1aab6bf86278..567e77dae43b 100644
-> --- a/drivers/gpu/drm/msm/msm_drv.c
-> +++ b/drivers/gpu/drm/msm/msm_drv.c
-> @@ -149,7 +149,7 @@ static void msm_irq_uninstall(struct drm_device *dev)
->   
->   struct msm_vblank_work {
->   	struct work_struct work;
-> -	int crtc_id;
-> +	struct drm_crtc *crtc;
->   	bool enable;
->   	struct msm_drm_private *priv;
->   };
-> @@ -162,15 +162,15 @@ static void vblank_ctrl_worker(struct work_struct *work)
->   	struct msm_kms *kms = priv->kms;
->   
-
-Is there any chance of vbl_work->crtc becoming NULL before this gets 
-executed?
-
-So do we need to protect this like
-
-if (vbl_work->enable && vbl_work->crtc)
-
-Because the layers below this dont seem to have NULL protection.
-
-
->   	if (vbl_work->enable)
-> -		kms->funcs->enable_vblank(kms, priv->crtcs[vbl_work->crtc_id]);
-> +		kms->funcs->enable_vblank(kms, vbl_work->crtc);
->   	else
-> -		kms->funcs->disable_vblank(kms,	priv->crtcs[vbl_work->crtc_id]);
-> +		kms->funcs->disable_vblank(kms,	vbl_work->crtc);
->   
->   	kfree(vbl_work);
->   }
->   
->   static int vblank_ctrl_queue_work(struct msm_drm_private *priv,
-> -					int crtc_id, bool enable)
-> +					struct drm_crtc *crtc, bool enable)
->   {
->   	struct msm_vblank_work *vbl_work;
->   
-> @@ -180,7 +180,7 @@ static int vblank_ctrl_queue_work(struct msm_drm_private *priv,
->   
->   	INIT_WORK(&vbl_work->work, vblank_ctrl_worker);
->   
-> -	vbl_work->crtc_id = crtc_id;
-> +	vbl_work->crtc = crtc;
->   	vbl_work->enable = enable;
->   	vbl_work->priv = priv;
->   
-> @@ -354,7 +354,8 @@ static int msm_drm_init(struct device *dev, const struct drm_driver *drv)
->   	struct msm_drm_private *priv = dev_get_drvdata(dev);
->   	struct drm_device *ddev;
->   	struct msm_kms *kms;
-> -	int ret, i;
-> +	struct drm_crtc *crtc;
-> +	int ret;
->   
->   	if (drm_firmware_drivers_only())
->   		return -ENODEV;
-> @@ -427,20 +428,23 @@ static int msm_drm_init(struct device *dev, const struct drm_driver *drv)
->   	ddev->mode_config.funcs = &mode_config_funcs;
->   	ddev->mode_config.helper_private = &mode_config_helper_funcs;
->   
-> -	for (i = 0; i < priv->num_crtcs; i++) {
-> +	drm_for_each_crtc(crtc, ddev) {
-> +		struct msm_drm_thread *ev_thread;
-> +
->   		/* initialize event thread */
-> -		priv->event_thread[i].crtc_id = priv->crtcs[i]->base.id;
-> -		priv->event_thread[i].dev = ddev;
-> -		priv->event_thread[i].worker = kthread_create_worker(0,
-> -			"crtc_event:%d", priv->event_thread[i].crtc_id);
-> -		if (IS_ERR(priv->event_thread[i].worker)) {
-> -			ret = PTR_ERR(priv->event_thread[i].worker);
-> +		ev_thread = &priv->event_thread[drm_crtc_index(crtc)];
-> +		ev_thread->crtc = crtc;
-> +		ev_thread->dev = ddev;
-> +		ev_thread->worker = kthread_create_worker(0,
-> +			"crtc_event:%d", ev_thread->crtc->base.id);
-
-Please correct me if wrong.
-
-Today, other than just populating the name for the worker is the 
-ev_thread->crtc used anywhere?
-
-If so, can we just drop crtc from msm_drm_thread and while creating the 
-worker just use kthread_create_worker(0, "crtc_event:%d", crtc->base.id);
-
-> +		if (IS_ERR(ev_thread->worker)) {
-> +			ret = PTR_ERR(ev_thread->worker);
->   			DRM_DEV_ERROR(dev, "failed to create crtc_event kthread\n");
-> -			priv->event_thread[i].worker = NULL;
-> +			ev_thread->worker = NULL;
->   			goto err_msm_uninit;
->   		}
->   
-> -		sched_set_fifo(priv->event_thread[i].worker->task);
-> +		sched_set_fifo(ev_thread->worker->task);
->   	}
->   
->   	ret = drm_vblank_init(ddev, priv->num_crtcs);
-> @@ -563,25 +567,23 @@ static void msm_postclose(struct drm_device *dev, struct drm_file *file)
->   int msm_crtc_enable_vblank(struct drm_crtc *crtc)
->   {
->   	struct drm_device *dev = crtc->dev;
-> -	unsigned int pipe = crtc->index;
->   	struct msm_drm_private *priv = dev->dev_private;
->   	struct msm_kms *kms = priv->kms;
->   	if (!kms)
->   		return -ENXIO;
-> -	drm_dbg_vbl(dev, "crtc=%u", pipe);
-> -	return vblank_ctrl_queue_work(priv, pipe, true);
-> +	drm_dbg_vbl(dev, "crtc=%u", crtc->base.id);
-> +	return vblank_ctrl_queue_work(priv, crtc, true);
->   }
->   
->   void msm_crtc_disable_vblank(struct drm_crtc *crtc)
->   {
->   	struct drm_device *dev = crtc->dev;
-> -	unsigned int pipe = crtc->index;
->   	struct msm_drm_private *priv = dev->dev_private;
->   	struct msm_kms *kms = priv->kms;
->   	if (!kms)
->   		return;
-> -	drm_dbg_vbl(dev, "crtc=%u", pipe);
-> -	vblank_ctrl_queue_work(priv, pipe, false);
-> +	drm_dbg_vbl(dev, "crtc=%u", crtc->base.id);
-> +	vblank_ctrl_queue_work(priv, crtc, false);
->   }
->   
->   /*
-> diff --git a/drivers/gpu/drm/msm/msm_drv.h b/drivers/gpu/drm/msm/msm_drv.h
-> index 08388d742d65..0e98b6f161df 100644
-> --- a/drivers/gpu/drm/msm/msm_drv.h
-> +++ b/drivers/gpu/drm/msm/msm_drv.h
-> @@ -102,7 +102,7 @@ struct msm_display_topology {
->   /* Commit/Event thread specific structure */
->   struct msm_drm_thread {
->   	struct drm_device *dev;
-> -	unsigned int crtc_id;
-> +	struct drm_crtc *crtc;
->   	struct kthread_worker *worker;
->   };
->   
-> @@ -178,7 +178,6 @@ struct msm_drm_private {
->   	struct workqueue_struct *wq;
->   
->   	unsigned int num_crtcs;
-> -	struct drm_crtc *crtcs[MAX_CRTCS];
->   
->   	struct msm_drm_thread event_thread[MAX_CRTCS];
->   
+>Sender : Rob Clark=C2=A0<robdclark=40gmail.com>=0D=0A>Date=20:=202023-01-2=
+4=2000:37=20(GMT+9)=0D=0A>Title=20:=20=5BPATCH=5D=20PM=20/=20devfreq:=20Fix=
+=20build=20issues=20with=20devfreq=20disabled=0D=0A>=C2=A0=0D=0A>From:=20Ro=
+b=20Clark=20<robdclark=40chromium.org>=0D=0A>=0D=0A>The=20existing=20no-op=
+=20shims=20for=20when=20PM_DEVFREQ=20(or=20an=20individual=20governor)=0D=
+=0A>only=20do=20half=20the=20job.=20=C2=A0The=20governor=20specific=20confi=
+g/tuning=20structs=20need=0D=0A>to=20be=20available=20to=20avoid=20compile=
+=20errors=20in=20drivers=20using=20devfreq.=0D=0A>=0D=0A>Fixes:=206563f60f1=
+4cb=20(=22drm/msm/gpu:=20Add=20devfreq=20tuning=20debugfs=22)=0D=0A>Signed-=
+off-by:=20Rob=20Clark=20<robdclark=40chromium.org>=0D=0A=0D=0ADoesn't=20thi=
+s=20imply=20that=20DRM_MSM=20should=20depend=20on=20PM_DEVFREQ=20?=0D=0A=0D=
+=0AIt=20appears=20that=20gpu/drm/msm/DRM_MSM=20uses=20PM_DEVFREQ=20without=
+=20actually=0D=0Adeclaring=20the=20dependency=20on=20PM_DEVFREQ.=0D=0AYou=
+=20cannot=20use=20SIMPLE_ONDEMAND=20without=20DEVFREQ.=0D=0A=0D=0ACheers,=
+=0D=0AMyungJoo=0D=0A=0D=0A>---=0D=0A>Assuming=20this=20doesn't=20conflict=
+=20with=20anything=20else=20landing=20via=20another=0D=0A>tree,=20an=20a-b=
+=20to=20land=20this=20via=20drm/msm-next=20would=20let=20us=20un-break=20bu=
+ilds.=0D=0A>(And=20also=20start=20removing=20=22select=20DEVFREQ_GOV_SIMPLE=
+_ONDEMAND=22s=20added=20in=0D=0A>various=20places=20to=20try=20to=20work=20=
+around=20this=20issue.)=0D=0A>=0D=0A>=20include/linux/devfreq.h=20=7C=207=
+=20++-----=0D=0A>=201=20file=20changed,=202=20insertions(+),=205=20deletion=
+s(-)=0D=0A>=0D=0A>diff=20--git=20a/include/linux/devfreq.h=20b/include/linu=
+x/devfreq.h=0D=0A>index=204dc7cda4fd46..7fd704bb8f3d=20100644=0D=0A>---=20a=
+/include/linux/devfreq.h=0D=0A>+++=20b/include/linux/devfreq.h=0D=0A>=40=40=
+=20-273,8=20+273,8=20=40=40=20void=20devm_devfreq_unregister_notifier(struc=
+t=20device=20*dev,=0D=0A>=20struct=20devfreq=20*devfreq_get_devfreq_by_node=
+(struct=20device_node=20*node);=0D=0A>=20struct=20devfreq=20*devfreq_get_de=
+vfreq_by_phandle(struct=20device=20*dev,=0D=0A>=20=C2=A0=C2=A0=20=C2=A0=20=
+=C2=A0=20=C2=A0=20=C2=A0=20=C2=A0=20=C2=A0=20=C2=A0=20=C2=A0=20=C2=A0=20=C2=
+=A0=20=C2=A0=20=C2=A0=20=C2=A0=20=C2=A0=20=C2=A0const=20char=20*phandle_nam=
+e,=20int=20index);=0D=0A>+=23endif=20/*=20CONFIG_PM_DEVFREQ=20*/=0D=0A>=C2=
+=A0=0D=0A>-=23if=20IS_ENABLED(CONFIG_DEVFREQ_GOV_SIMPLE_ONDEMAND)=0D=0A>=20=
+/**=0D=0A>=20=C2=A0*=20struct=20devfreq_simple_ondemand_data=20-=20=60=60vo=
+id=20*data=60=60=20fed=20to=20struct=20devfreq=0D=0A>=20=C2=A0*=20=C2=A0=20=
+=C2=A0=20=C2=A0=20=C2=A0and=20devfreq_add_device=0D=0A>=40=40=20-292,9=20+2=
+92,7=20=40=40=20struct=20devfreq_simple_ondemand_data=20=7B=0D=0A>=20=C2=A0=
+=C2=A0=20=C2=A0=20=C2=A0=20=C2=A0unsigned=20int=20upthreshold;=0D=0A>=20=C2=
+=A0=C2=A0=20=C2=A0=20=C2=A0=20=C2=A0unsigned=20int=20downdifferential;=0D=
+=0A>=20=7D;=0D=0A>-=23endif=0D=0A>=C2=A0=0D=0A>-=23if=20IS_ENABLED(CONFIG_D=
+EVFREQ_GOV_PASSIVE)=0D=0A>=20enum=20devfreq_parent_dev_type=20=7B=0D=0A>=20=
+=C2=A0=C2=A0=20=C2=A0=20=C2=A0=20=C2=A0DEVFREQ_PARENT_DEV,=0D=0A>=20=C2=A0=
+=C2=A0=20=C2=A0=20=C2=A0=20=C2=A0CPUFREQ_PARENT_DEV,=0D=0A>=40=40=20-337,9=
+=20+335,8=20=40=40=20struct=20devfreq_passive_data=20=7B=0D=0A>=20=C2=A0=C2=
+=A0=20=C2=A0=20=C2=A0=20=C2=A0struct=20notifier_block=20nb;=0D=0A>=20=C2=A0=
+=C2=A0=20=C2=A0=20=C2=A0=20=C2=A0struct=20list_head=20cpu_data_list;=0D=0A>=
+=20=7D;=0D=0A>-=23endif=0D=0A>=C2=A0=0D=0A>-=23else=20/*=20=21CONFIG_PM_DEV=
+FREQ=20*/=0D=0A>+=23if=20=21defined(CONFIG_PM_DEVFREQ)=0D=0A>=20static=20in=
+line=20struct=20devfreq=20*devfreq_add_device(struct=20device=20*dev,=0D=0A=
+>=20=C2=A0=C2=A0=20=C2=A0=20=C2=A0=20=C2=A0=20=C2=A0=20=C2=A0=20=C2=A0=20=
+=C2=A0=20=C2=A0=20=C2=A0=20=C2=A0=20=C2=A0=20=C2=A0=20=C2=A0=20=C2=A0=20=C2=
+=A0=20=C2=A0=20=C2=A0=20=C2=A0=20=C2=A0struct=20devfreq_dev_profile=20*prof=
+ile,=0D=0A>=20=C2=A0=C2=A0=20=C2=A0=20=C2=A0=20=C2=A0=20=C2=A0=20=C2=A0=20=
+=C2=A0=20=C2=A0=20=C2=A0=20=C2=A0=20=C2=A0=20=C2=A0=20=C2=A0=20=C2=A0=20=C2=
+=A0=20=C2=A0=20=C2=A0=20=C2=A0=20=C2=A0=20=C2=A0const=20char=20*governor_na=
+me,=0D=0A>--=20=0D=0A>2.38.1=0D=0A>=0D=0A
