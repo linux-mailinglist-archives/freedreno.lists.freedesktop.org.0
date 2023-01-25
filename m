@@ -2,57 +2,58 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id BE46867C0EA
-	for <lists+freedreno@lfdr.de>; Thu, 26 Jan 2023 00:37:11 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 123B667C12A
+	for <lists+freedreno@lfdr.de>; Thu, 26 Jan 2023 00:50:16 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1CA8510E3AA;
-	Wed, 25 Jan 2023 23:37:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3214E10E3AF;
+	Wed, 25 Jan 2023 23:50:14 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
  [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7FACE10E3A8;
- Wed, 25 Jan 2023 23:37:07 +0000 (UTC)
-Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 064F110E3AC;
+ Wed, 25 Jan 2023 23:50:11 +0000 (UTC)
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
  by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 30PN0PR6005302; Wed, 25 Jan 2023 23:37:02 GMT
+ 30PNddZo005868; Wed, 25 Jan 2023 23:50:07 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
  h=message-id : date :
  mime-version : subject : to : cc : references : from : in-reply-to :
  content-type : content-transfer-encoding; s=qcppdkim1;
- bh=c5UJxOnflZySzbbBz8EKXb+/eyQTtUxmdH7N8Iq+fus=;
- b=pDS50iWaGTbMDaTEK6+ty+4JHjjFKTLHGlDneUX4+8F4qJNXKFtBZ7eWnEqm0HPorwpt
- ERABIZbayeQqafs2KXnPZLVByJ+LscE9Op192NuNqZWat4s3jwmFSA/SQQ7KZ+gowVOZ
- Ov+8dlZ/KJ7msfUAIwqsqI2IOEKYlYI+QmM8lGAXWX7l3CyAPEgdsom0ZsI85dEANjww
- NjdIZVM8kvntMXRgTqsTEpIGPfMWGsvC9sLsnsEsOgxWHfR7+7UOe6c1GkWD9l3Sw8li
- Pcvqw5lLYf8AYYoLAoXwLIxDOZtk4ChmxEAeAzVWrU8a+QgDC7gs+Duwa8NAJOcmzPQP tg== 
-Received: from nalasppmta01.qualcomm.com (Global_NAT1.qualcomm.com
+ bh=Xm7+7VfxhSdrQbLq2D/SLlWeNKxF8IKdK4IuGO82f44=;
+ b=h8IBku641I1vuC2qS6iS7/yB3Qf/v1+djq2efDDDlNoUSAlt+iKKSG35VHMaBM2jWSZv
+ FAjmkU3Z6lyTpmDjfk1E81neamDW6fmdsRfRrDlUcJ3nA+VJyOt1f5gvI0vmwzJill60
+ kP9p9NO3t9dPiztSe/OhV9vLecvOIK0GxJCB2CAt9f8MNs7RdgVYYE3+gmf7V66D39/F
+ W5Dxfc8FX0kqu7m3f17XgCtfPXH1DypxSQFFvJixRmXV34rrhfzKb1irmQBxzNsY1WH9
+ 0oPAekeX7UodahwxEo6FTgsYWPMlOqrRt7o7FgZfOuO9IbXAcuB1ukJJyY/Bka2k9SFQ IQ== 
+Received: from nalasppmta04.qualcomm.com (Global_NAT1.qualcomm.com
  [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3nbdny81tf-1
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3najkhb2xw-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 25 Jan 2023 23:37:01 +0000
+ Wed, 25 Jan 2023 23:50:06 +0000
 Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
  [10.47.209.196])
- by NALASPPMTA01.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 30PNb0xn009214
+ by NALASPPMTA04.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 30PNo5Tt028834
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 25 Jan 2023 23:37:00 GMT
-Received: from [10.110.102.140] (10.80.80.8) by nalasex01a.na.qualcomm.com
+ Wed, 25 Jan 2023 23:50:05 GMT
+Received: from [10.110.33.211] (10.80.80.8) by nalasex01a.na.qualcomm.com
  (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.36; Wed, 25 Jan
- 2023 15:36:59 -0800
-Message-ID: <b17cf047-b478-0333-8eae-e2fc8b752106@quicinc.com>
-Date: Wed, 25 Jan 2023 15:36:58 -0800
+ 2023 15:50:04 -0800
+Message-ID: <aac9b347-eef8-7aaf-3a5f-4da3a4ede66e@quicinc.com>
+Date: Wed, 25 Jan 2023 15:50:04 -0800
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.6.1
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
+ Thunderbird/91.6.2
 Content-Language: en-US
-To: Doug Anderson <dianders@chromium.org>
-References: <20230119145248.1.I90ffed3ddd21e818ae534f820cb4d6d8638859ab@changeid>
- <20230119145248.2.I2d7aec2fadb9c237cd0090a47d6a8ba2054bf0f8@changeid>
- <f08b04b2-3fdd-38f5-6402-16c57a3322d2@quicinc.com>
- <CAD=FV=WHH5=NZPWSyu6P0HVMpSJK_53=S6PgyjJZCKz8-dE1rg@mail.gmail.com>
-From: Kuogee Hsieh <quic_khsieh@quicinc.com>
-In-Reply-To: <CAD=FV=WHH5=NZPWSyu6P0HVMpSJK_53=S6PgyjJZCKz8-dE1rg@mail.gmail.com>
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+References: <20230123071145.3056242-1-dmitry.baryshkov@linaro.org>
+ <ecec7adb-a1ab-ba38-c38a-26f23f81cf68@quicinc.com>
+ <df8a130f-2020-833c-d4f1-088c1fd7e5ef@linaro.org>
+ <1642c43b-9d71-17ee-402d-d1e415e1ecc8@quicinc.com>
+ <CAA8EJpo+ARnJ29BrOVkrg1FkTOVKYXQJiqAqhBzhZyNVYZw2qQ@mail.gmail.com>
+From: Abhinav Kumar <quic_abhinavk@quicinc.com>
+In-Reply-To: <CAA8EJpo+ARnJ29BrOVkrg1FkTOVKYXQJiqAqhBzhZyNVYZw2qQ@mail.gmail.com>
 Content-Type: text/plain; charset="UTF-8"; format=flowed
 Content-Transfer-Encoding: 7bit
 X-Originating-IP: [10.80.80.8]
@@ -61,19 +62,19 @@ X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
 X-QCInternal: smtphost
 X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
  signatures=585085
-X-Proofpoint-ORIG-GUID: rlQzeDX-4UwAv1tqNpWGmcbNmBkgBL6f
-X-Proofpoint-GUID: rlQzeDX-4UwAv1tqNpWGmcbNmBkgBL6f
+X-Proofpoint-ORIG-GUID: dGhrVA86_Ulkhyaez6-UaWz0TCH350bB
+X-Proofpoint-GUID: dGhrVA86_Ulkhyaez6-UaWz0TCH350bB
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.219,Aquarius:18.0.930,Hydra:6.0.562,FMLib:17.11.122.1
  definitions=2023-01-25_13,2023-01-25_01,2022-06-22_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 mlxscore=0
- suspectscore=0 priorityscore=1501 spamscore=0 malwarescore=0
- mlxlogscore=642 phishscore=0 impostorscore=0 lowpriorityscore=0
- bulkscore=0 adultscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2212070000 definitions=main-2301250210
-Subject: Re: [Freedreno] [PATCH 2/2] drm/msm/dp: Return IRQ_NONE for
- unhandled interrupts
+ malwarescore=0 bulkscore=0
+ adultscore=0 spamscore=0 suspectscore=0 mlxlogscore=999 clxscore=1015
+ lowpriorityscore=0 impostorscore=0 mlxscore=0 priorityscore=1501
+ phishscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2212070000 definitions=main-2301250212
+Subject: Re: [Freedreno] [PATCH] drm/msm/dpu: disable features unsupported
+ by QCM2290
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -86,55 +87,161 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org,
- Sankeerth Billakanti <quic_sbillaka@quicinc.com>, linux-kernel@vger.kernel.org,
- Thomas Zimmermann <tzimmermann@suse.de>, Sean Paul <sean@poorly.run>,
- Bjorn Andersson <andersson@kernel.org>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
+Cc: Loic Poulain <loic.poulain@linaro.org>, freedreno@lists.freedesktop.org,
+ Bjorn Andersson <andersson@kernel.org>, dri-devel@lists.freedesktop.org,
  Stephen Boyd <swboyd@chromium.org>, Rob Clark <robdclark@gmail.com>,
  Daniel Vetter <daniel@ffwll.ch>, linux-arm-msm@vger.kernel.org,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Javier
- Martinez Canillas <javierm@redhat.com>, David Airlie <airlied@gmail.com>,
- Johan Hovold <johan+linaro@kernel.org>
+ David Airlie <airlied@gmail.com>, Sean Paul <sean@poorly.run>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 
-On 1/25/2023 10:21 AM, Doug Anderson wrote:
+
+On 1/24/2023 10:46 PM, Dmitry Baryshkov wrote:
 > Hi,
->
-> On Wed, Jan 25, 2023 at 9:22 AM Kuogee Hsieh <quic_khsieh@quicinc.com> wrote:
->>> -void dp_ctrl_isr(struct dp_ctrl *dp_ctrl)
->>> +irqreturn_t dp_ctrl_isr(struct dp_ctrl *dp_ctrl)
->>>    {
->>>        struct dp_ctrl_private *ctrl;
->>>        u32 isr;
->>> +     irqreturn_t ret = IRQ_NONE;
+> 
+> On Wed, 25 Jan 2023 at 02:22, Abhinav Kumar <quic_abhinavk@quicinc.com> wrote:
+>> On 1/24/2023 12:22 AM, Dmitry Baryshkov wrote:
+>>> On 24/01/2023 03:32, Abhinav Kumar wrote:
+>>>> On 1/22/2023 11:11 PM, Dmitry Baryshkov wrote:
+>>>>> QCM2290 doesn't seem to support reg-dma, smart-dma, UBWC, CDP, exclusion
+>>>>> rectangles and CSC. Drop corresponding features being incorrectly
+>>>>> enabled for qcm2290.
+>>>>>
+>>>>
+>>>> Can you please point me to which vendor DT you are referring to for this?
+>>>>
+>>>> CSC is supported on the VIG SSPPs from what I can see.
 >>>
->>>        if (!dp_ctrl)
->>> -             return;
->>> +             return IRQ_NONE;
+>>> https://github.com/MiCode/kernel_devicetree/blob/psyche-r-oss/qcom/scuba-sde.dtsi
 >>>
->>>        ctrl = container_of(dp_ctrl, struct dp_ctrl_private, dp_ctrl);
 >>>
->>>        isr = dp_catalog_ctrl_get_interrupt(ctrl->catalog);
->> can you add (!isr) check and return IRQ_NONE here to be consistent with
->> dp_aux_isr()?
-> I could, though it doesn't really buy us a whole lot in this case and
-> just adds an extra test that's not needed. Here it should be easy for
-> someone reading the function to see that if "isr == 0" that neither of
-> the two "if" statements below will fire and we'll return "IRQ_NONE"
-> anyway.
->
-> ...that actually made me go back and wonder whether we still needed
-> the "if" test in dp_aux_isr() or if it too was also redundant. It
-> turns out that it's not! The previous patch made dp_aux_irq() detect
-> unexpected interrupts. Thus the "if (!isr)" test earlier is important
-> because otherwise we'd end up WARNing "Unexpected interrupt:
-> 0x00000000" which would be confusing.
->
-> So unless you or others feel strongly that I should add the redundant
-> test here, I'd rather keep it off. Let me know.
->
-> -Doug
-ack
+>>> No CSC, smart-dma, excl-rect, CDP, etc.
+>>
+>> Sorry I am missing something here.
+>>
+>> It has one Vig and one DMA
+>>
+>> https://github.com/MiCode/kernel_devicetree/blob/psyche-r-oss/qcom/scuba-sde.dtsi#L68
+> 
+> Correct
+> 
+>>
+>> If Vig is present, CSC is supported.
+> 
+> This actually puzzled me. Usually the dtsi has qcom,sde-sspp-csc-off
+> and qcom,sde-csc-type properties. But not in this case.
+> 
+>>
+>> Even for smart DMA I can see it supported
+>> https://github.com/MiCode/kernel_devicetree/blob/psyche-r-oss/qcom/scuba-sde.dtsi#L76
+>> on the DMA SSPP.
+>>
+>> Same for excl rectangle too
+>> https://github.com/MiCode/kernel_devicetree/blob/psyche-r-oss/qcom/scuba-sde.dtsi#L74
+> 
+> Ack, my mistake. Maybe I was looking at the wrong dtsi then (or just
+> mixed something). I'll add them back. And I see that CDP is also
+> there.
+> 
+> So, this leaves us only with the question regarding CSC. Could you
+> please doublecheck it?
+> 
+I went through the internal documents.
+
+This chipset supports only RGB formats for Vig pipe and hence there is 
+no CSC (surprise for me too).
+
+
+> I also don't see the UBWC (qcom,sde-ubwc-version) and regdma
+> (qcom,sde-reg-dma-off) properties. Are corresponding features present
+> on the QCM2290?
+> 
+
+Yes UBWC is also not supported.
+
+You can now go ahead and update v2.
+
+>>>
+>>>> QCM2290 should be using the same MDP version as 6115 from the HW version.
+>>>
+>>> It is 6.3 vs 6.5 if I remember correctly.
+>>>
+>>>>
+>>>>
+>>>>> Cc: Loic Poulain <loic.poulain@linaro.org>
+>>>>> Fixes: 5334087ee743 ("drm/msm: add support for QCM2290 MDSS")
+>>>>> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+>>>>> ---
+>>>>>    .../gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c    | 20 +++++++++++--------
+>>>>>    1 file changed, 12 insertions(+), 8 deletions(-)
+>>>>>
+>>>>> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
+>>>>> b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
+>>>>> index 289fb11f99d1..1c3ffa922794 100644
+>>>>> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
+>>>>> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
+>>>>> @@ -12,10 +12,14 @@
+>>>>>    #include "dpu_hw_catalog.h"
+>>>>>    #include "dpu_kms.h"
+>>>>> -#define VIG_MASK \
+>>>>> +#define VIG_BASE_MASK \
+>>>>>        (BIT(DPU_SSPP_SRC) | BIT(DPU_SSPP_QOS) |\
+>>>>> +    BIT(DPU_SSPP_TS_PREFILL))
+>>>>> +
+>>>>> +#define VIG_MASK \
+>>>>> +    (VIG_BASE_MASK | \
+>>>>>        BIT(DPU_SSPP_CSC_10BIT) | BIT(DPU_SSPP_CDP) |\
+>>>>> -    BIT(DPU_SSPP_TS_PREFILL) | BIT(DPU_SSPP_EXCL_RECT))
+>>>>> +    BIT(DPU_SSPP_EXCL_RECT))
+>>>>>    #define VIG_MSM8998_MASK \
+>>>>>        (VIG_MASK | BIT(DPU_SSPP_SCALER_QSEED3))
+>>>>> @@ -29,7 +33,7 @@
+>>>>>    #define VIG_SM8250_MASK \
+>>>>>        (VIG_MASK | BIT(DPU_SSPP_QOS_8LVL) |
+>>>>> BIT(DPU_SSPP_SCALER_QSEED3LITE))
+>>>>> -#define VIG_QCM2290_MASK (VIG_MASK | BIT(DPU_SSPP_QOS_8LVL))
+>>>>> +#define VIG_QCM2290_MASK (VIG_BASE_MASK | BIT(DPU_SSPP_QOS_8LVL))
+>>>>>    #define DMA_MSM8998_MASK \
+>>>>>        (BIT(DPU_SSPP_SRC) | BIT(DPU_SSPP_QOS) |\
+>>>>> @@ -50,6 +54,10 @@
+>>>>>    #define DMA_CURSOR_MSM8998_MASK \
+>>>>>        (DMA_MSM8998_MASK | BIT(DPU_SSPP_CURSOR))
+>>>>> +#define DMA_QCM2290_MASK \
+>>>>> +    (BIT(DPU_SSPP_SRC) | BIT(DPU_SSPP_QOS) | BIT(DPU_SSPP_QOS_8LVL) |\
+>>>>> +    BIT(DPU_SSPP_TS_PREFILL) | BIT(DPU_SSPP_TS_PREFILL_REC1))
+>>>>> +
+>>>>>    #define MIXER_MSM8998_MASK \
+>>>>>        (BIT(DPU_MIXER_SOURCESPLIT) | BIT(DPU_DIM_LAYER))
+>>>>> @@ -316,8 +324,6 @@ static const struct dpu_caps msm8998_dpu_caps = {
+>>>>>    static const struct dpu_caps qcm2290_dpu_caps = {
+>>>>>        .max_mixer_width = DEFAULT_DPU_OUTPUT_LINE_WIDTH,
+>>>>>        .max_mixer_blendstages = 0x4,
+>>>>> -    .smart_dma_rev = DPU_SSPP_SMART_DMA_V2,
+>>>>> -    .ubwc_version = DPU_HW_UBWC_VER_20,
+>>>>>        .has_dim_layer = true,
+>>>>>        .has_idle_pc = true,
+>>>>>        .max_linewidth = 2160,
+>>>>> @@ -1384,7 +1390,7 @@ static const struct dpu_sspp_sub_blks
+>>>>> qcm2290_dma_sblk_0 = _DMA_SBLK("8", 1);
+>>>>>    static const struct dpu_sspp_cfg qcm2290_sspp[] = {
+>>>>>        SSPP_BLK("sspp_0", SSPP_VIG0, 0x4000, VIG_QCM2290_MASK,
+>>>>>             qcm2290_vig_sblk_0, 0, SSPP_TYPE_VIG, DPU_CLK_CTRL_VIG0),
+>>>>> -    SSPP_BLK("sspp_8", SSPP_DMA0, 0x24000,  DMA_SDM845_MASK,
+>>>>> +    SSPP_BLK("sspp_8", SSPP_DMA0, 0x24000,  DMA_QCM2290_MASK,
+>>>>>             qcm2290_dma_sblk_0, 1, SSPP_TYPE_DMA, DPU_CLK_CTRL_DMA0),
+>>>>>    };
+>>>>> @@ -2836,8 +2842,6 @@ static const struct dpu_mdss_cfg
+>>>>> qcm2290_dpu_cfg = {
+>>>>>        .intf = qcm2290_intf,
+>>>>>        .vbif_count = ARRAY_SIZE(sdm845_vbif),
+>>>>>        .vbif = sdm845_vbif,
+>>>>> -    .reg_dma_count = 1,
+>>>>> -    .dma_cfg = &sdm845_regdma,
+>>>>>        .perf = &qcm2290_perf_data,
+>>>>>        .mdss_irqs = IRQ_SC7180_MASK,
+>>>>>    };
+>>>
+> 
+> 
+> 
