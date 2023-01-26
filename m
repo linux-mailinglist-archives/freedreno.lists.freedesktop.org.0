@@ -2,64 +2,62 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4443067CFD4
-	for <lists+freedreno@lfdr.de>; Thu, 26 Jan 2023 16:18:09 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id AD11367D1F7
+	for <lists+freedreno@lfdr.de>; Thu, 26 Jan 2023 17:42:20 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 19DFF10E294;
-	Thu, 26 Jan 2023 15:18:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AFC9510E03A;
+	Thu, 26 Jan 2023 16:42:18 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ed1-x531.google.com (mail-ed1-x531.google.com
- [IPv6:2a00:1450:4864:20::531])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 501C310E934
- for <freedreno@lists.freedesktop.org>; Thu, 26 Jan 2023 15:18:05 +0000 (UTC)
-Received: by mail-ed1-x531.google.com with SMTP id u21so2158782edv.3
- for <freedreno@lists.freedesktop.org>; Thu, 26 Jan 2023 07:18:05 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=OOXpo53+tk8MxMiyhFPMYbZRMhCDM1W9O7T9XaDKXE4=;
- b=sSfHyvUWR/wNGn0jDIL/ZvXJP4ucmis+dzeLTZZbj7iiGZuZ79AjayhkYXXfv9GQZ+
- EDCEaH/kMKgipyTy/CGQVglQxe1+eHwREx21ze+aftNP5Mvs7lgH1nOZZTq/1WMHqEQU
- zDEwA/3Gzl/NzWPE1Cx3jHoiM7N0uDw5VL0l/WXCKUu/T1mhFoD4ds8qh3N9NfEkJ8nu
- l8SS+NKJaKRW9Svv2hCASZuwGYwgPNITNG0C8D54c4+N13TENfKITy3YMG2FyGoNF4P8
- rOY0BbM4tvg+nrommvm+LSOe9sSwT8FHDkhzWXUAVfUSI73WGSW98Lp1tthojvy/g+Ax
- waaQ==
+Received: from mail-yw1-x1129.google.com (mail-yw1-x1129.google.com
+ [IPv6:2607:f8b0:4864:20::1129])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B58B010E946
+ for <freedreno@lists.freedesktop.org>; Thu, 26 Jan 2023 16:25:16 +0000 (UTC)
+Received: by mail-yw1-x1129.google.com with SMTP id
+ 00721157ae682-5063029246dso30108837b3.6
+ for <freedreno@lists.freedesktop.org>; Thu, 26 Jan 2023 08:25:16 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20210112;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=rUFKXit/Slxp5jNkRtm2qJfbudUdkwg/5ym9L9/2xFg=;
+ b=BrNExWGHbV1NeR+vu2Js5zAqwDKTAmFhHgoWjYZ0a3qbH7rru8W3QViuclznskZkVo
+ 6Q5eqrGX7jMOOdvE9K9lsVmJpHX9roidNQoqd4ah6qpZ3z5AR/LzfumpWsF7qxr+L/L7
+ 2EeJAw9MATGkA5VBf2UwOc7KCg21F0CUspP8pGqPmL78PHbmYrJgHGcDXuiJf+tpyEq5
+ mYd3qiJmdB/mmqbT25mkgF6e/9yHOLIF4ZmJU2qiUjSg09+a1L9BOQF70sP/z/t1hEtG
+ N3QguNCw23qX8RL/9XVLJb/vAzwIwx19tcG6Myly1SJ+d6fdbBsCbrW+Wp9iSE9SLjFe
+ r7Zw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=OOXpo53+tk8MxMiyhFPMYbZRMhCDM1W9O7T9XaDKXE4=;
- b=A+FP24CVKvrgMV9I2uaFI0x/UVNTseowephvYRysnW3Pp/5y/6EW8N2ttEsauN9D0h
- Y0ks1tt0IHt5KNA4yNyUbwldVbrZaRSuXUoTk4WK40u4BEcj9njsZLIcoOtNfPGBsK7V
- B7zT7gTUjXsyre+KcDqDU44scGfIsm74TvNTJb//l+hZjFPUpG/3fjgHqJOtnO28yNUG
- yjaP6cITZMqDn0BJvXj09vBVbIDZJRMSJ0DV8yKrBEzLeZbA/qdoP5+sSoXFYkaWf+ab
- RSSR/fvY0Deq2whIVby1sdk5ifnTy3Fd24RZHMNi07+g2h67pyGmKNapU5aEBLmhL3H+
- DHdQ==
-X-Gm-Message-State: AFqh2kpJfmeHBE1kljB5J0X+PUd7ArOh9rMUwtsev01azD0C+cwgp9v4
- vci/tCPnzDH08epFSZr7ItG7Ow==
-X-Google-Smtp-Source: AMrXdXuMClMZi/t4VamP19GxKKUegQ+GpSDaywWACqZ+NfsLxUGI8QqRN6TuOzsGAhvHXCNwgQcadg==
-X-Received: by 2002:a05:6402:4ce:b0:47f:bc9b:46ec with SMTP id
- n14-20020a05640204ce00b0047fbc9b46ecmr36583328edw.7.1674746284921; 
- Thu, 26 Jan 2023 07:18:04 -0800 (PST)
-Received: from localhost.localdomain (abyk108.neoplus.adsl.tpnet.pl.
- [83.9.30.108]) by smtp.gmail.com with ESMTPSA id
- a16-20020aa7d910000000b00463bc1ddc76sm842808edr.28.2023.01.26.07.18.02
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 26 Jan 2023 07:18:04 -0800 (PST)
-From: Konrad Dybcio <konrad.dybcio@linaro.org>
-To: linux-arm-msm@vger.kernel.org, andersson@kernel.org, agross@kernel.org,
- krzysztof.kozlowski@linaro.org
-Date: Thu, 26 Jan 2023 16:16:18 +0100
-Message-Id: <20230126151618.225127-15-konrad.dybcio@linaro.org>
-X-Mailer: git-send-email 2.39.1
-In-Reply-To: <20230126151618.225127-1-konrad.dybcio@linaro.org>
-References: <20230126151618.225127-1-konrad.dybcio@linaro.org>
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=rUFKXit/Slxp5jNkRtm2qJfbudUdkwg/5ym9L9/2xFg=;
+ b=JEcrrEfPbA5ScnPKMPwQ4XGcnL2yag8suSxuQ2yPyI3IqbcyYVITKce2qEQhoiNYGJ
+ 2WkjkP1opNfDhU1NP4fYCTO2cYlCa3iKhuzzuA5e3tUT4Cfh89J+SP+aThs/YLYUuNNL
+ eo9Zggx3NpWd1YxmdU3DhpbIi2M+Djtpb8qvfo7WcUqIKaJSlt52aiA6CNGtOz+twu+k
+ ne31t+lrgPeWIndBR+3BzUvGy9hdLZ5q58ntOF3J+J50tyzCbpRX/4wQTmobxbz627P6
+ GJ/6Cg6IQ69TnC9A42foG1F7Zvw6VCoNgQlP/Jw7dx3x4opFWmguyxFMyyFCMD+VQJL7
+ WnUA==
+X-Gm-Message-State: AFqh2kqBOG6uPaHbfbrMxJps7hKXz0H/BIf6Se+mRIojKA7O+3GZCXri
+ cAgFkN82hGNjP+uaorERtHXd1b8gdTVqblVhXO5ruA==
+X-Google-Smtp-Source: AMrXdXvRVLeaIi85wIrJBS5zRkOyr5/BQ66PCe0y1aLe9hmWIu7jqHBlhyy2SYPoXbE9x4WotKo1j1aRHLVU6Hd1LsI=
+X-Received: by 2002:a81:1b8b:0:b0:4ff:774b:7ffb with SMTP id
+ b133-20020a811b8b000000b004ff774b7ffbmr3541685ywb.218.1674750315051; Thu, 26
+ Jan 2023 08:25:15 -0800 (PST)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH 14/14] drm/msm/a6xx: Add A610 speedbin support
+References: <20230125083851.27759-1-surenb@google.com>
+ <20230125083851.27759-2-surenb@google.com>
+ <Y9JFFYjfJf9uDijE@kernel.org> <Y9KTUw/04FmBVplw@kernel.org>
+ <Y9KXjLaFFUvqqdd4@casper.infradead.org>
+In-Reply-To: <Y9KXjLaFFUvqqdd4@casper.infradead.org>
+From: Suren Baghdasaryan <surenb@google.com>
+Date: Thu, 26 Jan 2023 08:25:03 -0800
+Message-ID: <CAJuCfpHs4wvQpitiAYc+PQX3LnitF=wvm=zVX7CzMozzmnbcnw@mail.gmail.com>
+To: Matthew Wilcox <willy@infradead.org>
+Content-Type: text/plain; charset="UTF-8"
+X-Mailman-Approved-At: Thu, 26 Jan 2023 16:42:17 +0000
+Subject: Re: [Freedreno] [PATCH v2 1/6] mm: introduce vma->vm_flags modifier
+ functions
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,73 +70,97 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, Akhil P Oommen <quic_akhilpo@quicinc.com>,
- David Airlie <airlied@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- dri-devel@lists.freedesktop.org, Douglas Anderson <dianders@chromium.org>,
- Konrad Dybcio <konrad.dybcio@linaro.org>, Rob Clark <robdclark@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, marijn.suijten@somainline.org,
- Sean Paul <sean@poorly.run>, Chia-I Wu <olvaffe@gmail.com>,
- linux-kernel@vger.kernel.org
+Cc: michel@lespinasse.org, nvdimm@lists.linux.dev, heiko@sntech.de,
+ leewalsh@google.com, dri-devel@lists.freedesktop.org, perex@perex.cz,
+ jglisse@google.com, arjunroy@google.com, m.szyprowski@samsung.com,
+ linux-arch@vger.kernel.org, qianweili@huawei.com,
+ linux-samsung-soc@vger.kernel.org, aneesh.kumar@linux.ibm.com,
+ chenhuacai@kernel.org, kasan-dev@googlegroups.com, linux-acpi@vger.kernel.org,
+ rientjes@google.com, xen-devel@lists.xenproject.org, devel@lists.orangefs.org,
+ robdclark@gmail.com, minchan@google.com, robert.jarzmik@free.fr,
+ linux-um@lists.infradead.org, etnaviv@lists.freedesktop.org, npiggin@gmail.com,
+ alex.williamson@redhat.com, viro@zeniv.linux.org.uk, luto@kernel.org,
+ gthelen@google.com, tglx@linutronix.de, ldufour@linux.ibm.com,
+ linux-sgx@vger.kernel.org, martin.petersen@oracle.com,
+ linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-perf-users@vger.kernel.org, linux-crypto@vger.kernel.org,
+ linux-fsdevel@vger.kernel.org, akpm@linux-foundation.org,
+ linux-media@vger.kernel.org, freedreno@lists.freedesktop.org,
+ joelaf@google.com, linux-aio@kvack.org, linux-fbdev@vger.kernel.org,
+ linux-ia64@vger.kernel.org, david@redhat.com, dave.hansen@linux.intel.com,
+ virtualization@lists.linux-foundation.org, edumazet@google.com,
+ target-devel@vger.kernel.org, punit.agrawal@bytedance.com,
+ linux-s390@vger.kernel.org, dave@stgolabs.net, deller@gmx.de, hughd@google.com,
+ andrii@kernel.org, patrik.r.jakobsson@gmail.com,
+ linux-stm32@st-md-mailman.stormreply.com, linux-rockchip@lists.infradead.org,
+ linux-graphics-maintainer@vmware.com, kernel-team@android.com,
+ jayalk@intworks.biz, soheil@google.com, selinux@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, mripard@kernel.org, shakeelb@google.com,
+ haojian.zhuang@gmail.com, loongarch@lists.linux.dev,
+ linux-arm-kernel@lists.infradead.org, tytso@mit.edu, nico@fluxnic.net,
+ muchun.song@linux.dev, hjc@rock-chips.com, mcoquelin.stm32@gmail.com,
+ tatashin@google.com, mike.kravetz@oracle.com, songliubraving@fb.com,
+ jasowang@redhat.com, alsa-devel@alsa-project.org, peterx@redhat.com,
+ linux-tegra@vger.kernel.org, kraxel@redhat.com, will@kernel.org,
+ dmaengine@vger.kernel.org, bhe@redhat.com, miklos@szeredi.hu,
+ linux-rdma@vger.kernel.org, linux-staging@lists.linux.dev,
+ amd-gfx@lists.freedesktop.org, gurua@google.com, dgilbert@interlog.com,
+ xiang@kernel.org, pabeni@redhat.com, jejb@linux.ibm.com,
+ quic_abhinavk@quicinc.com, bp@alien8.de, mchehab@kernel.org,
+ linux-ext4@vger.kernel.org, tomba@kernel.org, hughlynch@google.com,
+ sre@kernel.org, tfiga@chromium.org, linux-xfs@vger.kernel.org,
+ zhangfei.gao@linaro.org, wangzhou1@hisilicon.com, netdev@vger.kernel.org,
+ bpf@vger.kernel.org, linux-erofs@lists.ozlabs.org, davem@davemloft.net,
+ Mike Rapoport <rppt@kernel.org>, mhocko@suse.com, kvm@vger.kernel.org,
+ mst@redhat.com, peterz@infradead.org, bigeasy@linutronix.de,
+ alexandre.torgue@foss.st.com, dhowells@redhat.com, linux-mm@kvack.org,
+ ray.huang@amd.com, adilger.kernel@dilger.ca, kuba@kernel.org,
+ sparclinux@vger.kernel.org, airlied@gmail.com, anton.ivanov@cambridgegreys.com,
+ herbert@gondor.apana.org.au, linux-scsi@vger.kernel.org, richard@nod.at,
+ x86@kernel.org, vkoul@kernel.org, mingo@redhat.com, axelrasmussen@google.com,
+ intel-gfx@lists.freedesktop.org, daniel@ffwll.ch, paulmck@kernel.org,
+ jannh@google.com, chao@kernel.org, maarten.lankhorst@linux.intel.com,
+ liam.howlett@oracle.com, hdegoede@redhat.com,
+ linux-mediatek@lists.infradead.org, matthias.bgg@gmail.com, vbabka@suse.cz,
+ dimitri.sivanich@hpe.com, posk@google.com, lstoakes@gmail.com,
+ peterjung1337@gmail.com, yoshfuji@linux-ipv6.org,
+ linuxppc-dev@lists.ozlabs.org, dsahern@kernel.org, kent.overstreet@linux.dev,
+ kexec@lists.infradead.org, tiwai@suse.com, krzysztof.kozlowski@linaro.org,
+ tzimmermann@suse.de, hannes@cmpxchg.org, dmitry.baryshkov@linaro.org,
+ johannes@sipsolutions.net, mgorman@techsingularity.net,
+ linux-accelerators@lists.ozlabs.org, l.stach@pengutronix.de
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-A610 is implemented on at least three SoCs: SM6115 (bengal), SM6125
-(trinket) and SM6225 (khaje). Trinket does not support speed binning
-(only a single SKU exists) and we don't yet support khaje upstream.
-Hence, add a fuse mapping table for bengal to allow for per-chip
-frequency limiting.
+On Thu, Jan 26, 2023 at 7:09 AM Matthew Wilcox <willy@infradead.org> wrote:
+>
+> On Thu, Jan 26, 2023 at 04:50:59PM +0200, Mike Rapoport wrote:
+> > On Thu, Jan 26, 2023 at 11:17:09AM +0200, Mike Rapoport wrote:
+> > > On Wed, Jan 25, 2023 at 12:38:46AM -0800, Suren Baghdasaryan wrote:
+> > > > +/* Use when VMA is not part of the VMA tree and needs no locking */
+> > > > +static inline void init_vm_flags(struct vm_area_struct *vma,
+> > > > +                          unsigned long flags)
+> > >
+> > > I'd suggest to make it vm_flags_init() etc.
+> >
+> > Thinking more about it, it will be even clearer to name these vma_flags_xyz()
+>
+> Perhaps vma_VERB_flags()?
+>
+> vma_init_flags()
+> vma_reset_flags()
+> vma_set_flags()
+> vma_clear_flags()
+> vma_mod_flags()
 
-Signed-off-by: Konrad Dybcio <konrad.dybcio@linaro.org>
----
- drivers/gpu/drm/msm/adreno/a6xx_gpu.c | 27 +++++++++++++++++++++++++++
- 1 file changed, 27 insertions(+)
+Due to excessive email bouncing I posted the v3 of this patchset using
+the original per-VMA patchset's distribution list. That might have
+dropped Mike from the list. Sorry about that Mike, I'll add you to my
+usual list of suspects :)
+The v3 is here:
+https://lore.kernel.org/all/20230125233554.153109-1-surenb@google.com/
+and Andrew did suggest the same renames, so I'll be posting v4 with
+those changes later today.
+Thanks for the feedback!
 
-diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-index 89990bec897f..214d81537431 100644
---- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-+++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-@@ -2079,6 +2079,30 @@ static bool a6xx_progress(struct msm_gpu *gpu, struct msm_ringbuffer *ring)
- 	return progress;
- }
- 
-+static u32 a610_get_speed_bin(u32 fuse)
-+{
-+	/*
-+	 * There are (at least) three SoCs implementing A610: SM6125 (trinket),
-+	 * SM6115 (bengal) and SM6225 (khaje). Trinket does not have speedbinning,
-+	 * as only a single SKU exists and we don't support khaje upstream yet.
-+	 * Hence, this matching table is only valid for bengal and can be easily
-+	 * expanded if need be.
-+	 */
-+
-+	if (fuse == 0)
-+		return 0;
-+	else if (fuse == 206)
-+		return 1;
-+	else if (fuse == 200)
-+		return 2;
-+	else if (fuse == 157)
-+		return 3;
-+	else if (fuse == 127)
-+		return 4;
-+
-+	return UINT_MAX;
-+}
-+
- static u32 a618_get_speed_bin(u32 fuse)
- {
- 	if (fuse == 0)
-@@ -2175,6 +2199,9 @@ static u32 fuse_to_supp_hw(struct device *dev, struct adreno_rev rev, u32 fuse)
- {
- 	u32 val = UINT_MAX;
- 
-+	if (adreno_cmp_rev(ADRENO_REV(6, 1, 0, ANY_ID), rev))
-+		val = a610_get_speed_bin(fuse);
-+
- 	if (adreno_cmp_rev(ADRENO_REV(6, 1, 8, ANY_ID), rev))
- 		val = a618_get_speed_bin(fuse);
- 
--- 
-2.39.1
-
+>
