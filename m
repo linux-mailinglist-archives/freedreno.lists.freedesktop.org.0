@@ -1,66 +1,66 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 128F367CFD1
-	for <lists+freedreno@lfdr.de>; Thu, 26 Jan 2023 16:18:02 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 114BF67CFD2
+	for <lists+freedreno@lfdr.de>; Thu, 26 Jan 2023 16:18:03 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8821610E933;
-	Thu, 26 Jan 2023 15:17:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B95A510E154;
+	Thu, 26 Jan 2023 15:18:01 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ed1-x529.google.com (mail-ed1-x529.google.com
- [IPv6:2a00:1450:4864:20::529])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C71F410E2A4
- for <freedreno@lists.freedesktop.org>; Thu, 26 Jan 2023 15:17:54 +0000 (UTC)
-Received: by mail-ed1-x529.google.com with SMTP id cm4so2137334edb.9
- for <freedreno@lists.freedesktop.org>; Thu, 26 Jan 2023 07:17:54 -0800 (PST)
+Received: from mail-ed1-x52f.google.com (mail-ed1-x52f.google.com
+ [IPv6:2a00:1450:4864:20::52f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7A03B10E14B
+ for <freedreno@lists.freedesktop.org>; Thu, 26 Jan 2023 15:17:58 +0000 (UTC)
+Received: by mail-ed1-x52f.google.com with SMTP id v13so2122788eda.11
+ for <freedreno@lists.freedesktop.org>; Thu, 26 Jan 2023 07:17:58 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=CddRwSzocQvRockEdA4yvKkrPdK0c3Dd42RlRLUcF2Y=;
- b=GXmG/u1h816X05sgf8P1FECsAAVuqm7W8uZuzMlJ3yYinH721+FYFN9aDfAmNDTt1p
- X9WWXSUesFBuZNbZ5sXvXaQLbK7szTktWxlPz8/sR7fOQ6jSW/EE1ZexvSS6g58+CAEd
- CaOmskiFbo7tqyydjQV7uLLRxEo/8jf8AsSF+y0cW7iHOMUC9LVv9YTjn2VjVCHDC1uC
- Wn48JLQeSpERIKxWCkbVTLUQ5rD1nve44WQniwh5GbVBrVkkjPvHkoUcyVav3Adia2j1
- IgxcaUYHYDIYJINQsTEg9zm/4L6Gg1nOz4Bzk7kqur55bEQpPoeZhDBmxAhgIXwobgYg
- M6jQ==
+ bh=KkFbFkSGCftg9vK3KhuB5C5KHQRRp5s7MFTXq3oSOXU=;
+ b=Jtg30tmKUbLWZISWIXPATPJyGvDdzOARaqfHtjngPwzKZTLT00A130F95I8DgGT4Y5
+ NI+FaLpiGNIYbeDMxLkmR3sIMjno9RV2nKzKo+kAkK6W6Al6xOCR2yaAcBKNvP/EyW+M
+ n13ki4W+c2ATtX5UkBBkRVurGbxF64vLO1xP2f5iFFmrpAnwwZuoEJjp4ojrv/bmBqvj
+ okaGgNIUX0lFkGEj0KiLfBN1RurMYenCTFEuRd0EKEGgEXgdPLMHSOKbrSdtbVZqpYsk
+ NVbz+AiJwctK7n4Z8i1+bpL3ytt0IDEvBx2yVeuF3+QuptmVtEoWplRZ+zp5qdlQskLy
+ E3cw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=CddRwSzocQvRockEdA4yvKkrPdK0c3Dd42RlRLUcF2Y=;
- b=UAtbWy+qnSwc3YADxuhx/0y+sP7BdOzV2KnxZ3MiCDB+gn0gN5Ycu9QmjbPCr3lJQo
- 6zSMxgp+YrcuNnoaHb4/9zf74jtE85DhPfZ2PAGQYiuJMwHFnIORukBU2aPoAajovOKX
- 6HGsRvWdrgdzt+hwy9VJ5wRCJ4+8N3+6cMNbWi4yrnXFnocLuKIi7QRbW+PcBuMgaFEx
- XikZywx59fcwfG0ZZPsW9O+1YxPcieW0X7Er8/sJ0oRdfsjWVISuEhGb8xcJQ6+CPmj5
- OdQ2sMIgKddQ8i3ijU2UZ/h0R70FEK9MaaZqn7xoP6ndxCw7UndBBjB5dG28un1L3LF2
- e2Zg==
-X-Gm-Message-State: AO0yUKVVeVktK42sunlSVDv3ZCtXRTb6AFseQUZGPGfBfXSiUwBoifqc
- x+kPMuNJ91Mi6FZV0Y1SzjPkAA==
-X-Google-Smtp-Source: AK7set/ykZUSLMStAUNJlo7q5VvG2BHWVGFSh8/CbaVeBRoljyctPOuurEQckisZ2pmnXW2EGweKww==
-X-Received: by 2002:a05:6402:430b:b0:4a0:afd5:df81 with SMTP id
- m11-20020a056402430b00b004a0afd5df81mr7170467edc.35.1674746274366; 
- Thu, 26 Jan 2023 07:17:54 -0800 (PST)
+ bh=KkFbFkSGCftg9vK3KhuB5C5KHQRRp5s7MFTXq3oSOXU=;
+ b=CM54C6G6iS0kn7pAlmjfliZ02QL/BGLnLhiNN6zorIWoxkvEbL3wRE2f9vcMII11Hh
+ crpSOfWo71rUAAXYBAZN1/RX3ijf+cG6C8wwY1vsXCEv+AWfTdVM9t0wfY2vPJd/yDDz
+ I6mtJI6uRfXvuueOE5KfbHXfF+cSYad49hdvmR2dp6jPna2aZVMayvTHvXkCUIL6ZuFj
+ T0whbvOXFsl0otw87s02jt8wdbsZfUah/Tv7xFMpPBjASrTX94LLyYAWWourBWFA3e29
+ aNLw+w/PaxI3H9Cc8N3UUaD043GcZgKyQgHZh7umtXH8Ua6+GvvrW+XFFRCijjpMW1+L
+ dg7A==
+X-Gm-Message-State: AO0yUKVvUdFZqdEfC6xiNfKAdEISnmufOsAd65WlKlxuI4ozMIlxNXKo
+ WaF2YianI0v6Qjxcq0cWPvZU9Q==
+X-Google-Smtp-Source: AK7set96BkvFoMp+uw6C2kTl76s9zo0QxmZus/Wf/NGW92Dg51mUoa7BnK/qe7pjMt3PITcVKbTnNQ==
+X-Received: by 2002:aa7:cd65:0:b0:4a0:e415:d39f with SMTP id
+ ca5-20020aa7cd65000000b004a0e415d39fmr1699657edb.41.1674746278103; 
+ Thu, 26 Jan 2023 07:17:58 -0800 (PST)
 Received: from localhost.localdomain (abyk108.neoplus.adsl.tpnet.pl.
  [83.9.30.108]) by smtp.gmail.com with ESMTPSA id
- a16-20020aa7d910000000b00463bc1ddc76sm842808edr.28.2023.01.26.07.17.51
+ a16-20020aa7d910000000b00463bc1ddc76sm842808edr.28.2023.01.26.07.17.55
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 26 Jan 2023 07:17:54 -0800 (PST)
+ Thu, 26 Jan 2023 07:17:57 -0800 (PST)
 From: Konrad Dybcio <konrad.dybcio@linaro.org>
 To: linux-arm-msm@vger.kernel.org, andersson@kernel.org, agross@kernel.org,
  krzysztof.kozlowski@linaro.org
-Date: Thu, 26 Jan 2023 16:16:15 +0100
-Message-Id: <20230126151618.225127-12-konrad.dybcio@linaro.org>
+Date: Thu, 26 Jan 2023 16:16:16 +0100
+Message-Id: <20230126151618.225127-13-konrad.dybcio@linaro.org>
 X-Mailer: git-send-email 2.39.1
 In-Reply-To: <20230126151618.225127-1-konrad.dybcio@linaro.org>
 References: <20230126151618.225127-1-konrad.dybcio@linaro.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH 11/14] drm/msm/a6xx: Enable optional icc voting
- from OPP tables
+Subject: [Freedreno] [PATCH 12/14] drm/msm/a6xx: Use "else if" in GPU
+ speedbin rev matching
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -84,30 +84,39 @@ Cc: freedreno@lists.freedesktop.org, Akhil P Oommen <quic_akhilpo@quicinc.com>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On GMU-equipped GPUs, the GMU requests appropriate bandwidth votes
-for us. This is however not the case for the other GPUs. Add the
-dev_pm_opp_of_find_icc_paths() call to let the OPP framework handle
-bus voting as part of power level setting.
+The GPU can only be one at a time. Turn a series of ifs into if +
+elseifs to save some CPU cycles.
 
 Signed-off-by: Konrad Dybcio <konrad.dybcio@linaro.org>
 ---
- drivers/gpu/drm/msm/adreno/a6xx_gpu.c | 4 ++++
- 1 file changed, 4 insertions(+)
+ drivers/gpu/drm/msm/adreno/a6xx_gpu.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
 diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-index 62f504ed7ef5..6d6b71306ee5 100644
+index 6d6b71306ee5..452ba32699b2 100644
 --- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
 +++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-@@ -2335,5 +2335,9 @@ struct msm_gpu *a6xx_gpu_init(struct drm_device *dev)
- 		msm_mmu_set_fault_handler(gpu->aspace->mmu, gpu,
- 				a6xx_fault_handler);
+@@ -2150,16 +2150,16 @@ static u32 fuse_to_supp_hw(struct device *dev, struct adreno_rev rev, u32 fuse)
+ 	if (adreno_cmp_rev(ADRENO_REV(6, 1, 8, ANY_ID), rev))
+ 		val = a618_get_speed_bin(fuse);
  
-+	ret = dev_pm_opp_of_find_icc_paths(&pdev->dev, NULL);
-+	if (ret)
-+		return ERR_PTR(ret);
-+
- 	return gpu;
- }
+-	if (adreno_cmp_rev(ADRENO_REV(6, 1, 9, ANY_ID), rev))
++	else if (adreno_cmp_rev(ADRENO_REV(6, 1, 9, ANY_ID), rev))
+ 		val = a619_get_speed_bin(fuse);
+ 
+-	if (adreno_cmp_rev(ADRENO_REV(6, 3, 5, ANY_ID), rev))
++	else if (adreno_cmp_rev(ADRENO_REV(6, 3, 5, ANY_ID), rev))
+ 		val = adreno_7c3_get_speed_bin(fuse);
+ 
+-	if (adreno_cmp_rev(ADRENO_REV(6, 4, 0, ANY_ID), rev))
++	else if (adreno_cmp_rev(ADRENO_REV(6, 4, 0, ANY_ID), rev))
+ 		val = a640_get_speed_bin(fuse);
+ 
+-	if (adreno_cmp_rev(ADRENO_REV(6, 5, 0, ANY_ID), rev))
++	else if (adreno_cmp_rev(ADRENO_REV(6, 5, 0, ANY_ID), rev))
+ 		val = a650_get_speed_bin(fuse);
+ 
+ 	if (val == UINT_MAX) {
 -- 
 2.39.1
 
