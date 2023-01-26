@@ -2,58 +2,55 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 123B667C12A
-	for <lists+freedreno@lfdr.de>; Thu, 26 Jan 2023 00:50:16 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9DA1267C153
+	for <lists+freedreno@lfdr.de>; Thu, 26 Jan 2023 01:07:32 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3214E10E3AF;
-	Wed, 25 Jan 2023 23:50:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6A0E910E3B2;
+	Thu, 26 Jan 2023 00:07:31 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 064F110E3AC;
- Wed, 25 Jan 2023 23:50:11 +0000 (UTC)
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0D8EC10E3AF;
+ Thu, 26 Jan 2023 00:07:29 +0000 (UTC)
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
  by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 30PNddZo005868; Wed, 25 Jan 2023 23:50:07 GMT
+ 30Q079x6008791; Thu, 26 Jan 2023 00:07:17 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
  h=message-id : date :
  mime-version : subject : to : cc : references : from : in-reply-to :
  content-type : content-transfer-encoding; s=qcppdkim1;
- bh=Xm7+7VfxhSdrQbLq2D/SLlWeNKxF8IKdK4IuGO82f44=;
- b=h8IBku641I1vuC2qS6iS7/yB3Qf/v1+djq2efDDDlNoUSAlt+iKKSG35VHMaBM2jWSZv
- FAjmkU3Z6lyTpmDjfk1E81neamDW6fmdsRfRrDlUcJ3nA+VJyOt1f5gvI0vmwzJill60
- kP9p9NO3t9dPiztSe/OhV9vLecvOIK0GxJCB2CAt9f8MNs7RdgVYYE3+gmf7V66D39/F
- W5Dxfc8FX0kqu7m3f17XgCtfPXH1DypxSQFFvJixRmXV34rrhfzKb1irmQBxzNsY1WH9
- 0oPAekeX7UodahwxEo6FTgsYWPMlOqrRt7o7FgZfOuO9IbXAcuB1ukJJyY/Bka2k9SFQ IQ== 
-Received: from nalasppmta04.qualcomm.com (Global_NAT1.qualcomm.com
+ bh=hM5zsqLzlY4xqpbd94nlkU4eo6QgD1iehKzlT7lXj+Q=;
+ b=B7qNDTSFwwUT8tlAXu96+RvslOKRaIcSa/MS9Zm4gHgcXkGBDrI006hw7fzRr23dTa5A
+ 3up2XKWDE1fPS4ehLRLLnrJdZPnVYpE4NaKWI8iMgKqu1pHCPmvGphO2ghSvFRfL4D5a
+ gvbEcVu5mq2pc9n3W/HWF3S161KMql3Q3xNu1m88oCCunl/NV/80Hc7gX7z/bvQoEnqf
+ gveOuw6Sw9Cm4u0OzR6OYz1bcJOLMQlednlo8bevJIKNp1t96D83MPNvoOU9DuFgccqD
+ bs9ZTUmjVXXqVE71V+ukHcN9GaOGjftun9T6i9EvB6VxjyVv1p3iUqySaPhCYL5/41ah 1w== 
+Received: from nalasppmta05.qualcomm.com (Global_NAT1.qualcomm.com
  [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3najkhb2xw-1
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3nb6jc94pc-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 25 Jan 2023 23:50:06 +0000
+ Thu, 26 Jan 2023 00:07:17 +0000
 Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
  [10.47.209.196])
- by NALASPPMTA04.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 30PNo5Tt028834
+ by NALASPPMTA05.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 30Q07Gw2000988
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 25 Jan 2023 23:50:05 GMT
+ Thu, 26 Jan 2023 00:07:16 GMT
 Received: from [10.110.33.211] (10.80.80.8) by nalasex01a.na.qualcomm.com
  (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.36; Wed, 25 Jan
- 2023 15:50:04 -0800
-Message-ID: <aac9b347-eef8-7aaf-3a5f-4da3a4ede66e@quicinc.com>
-Date: Wed, 25 Jan 2023 15:50:04 -0800
+ 2023 16:07:15 -0800
+Message-ID: <8ebd01e3-00be-b0da-e91a-ab1a4e074074@quicinc.com>
+Date: Wed, 25 Jan 2023 16:07:14 -0800
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
  Thunderbird/91.6.2
 Content-Language: en-US
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-References: <20230123071145.3056242-1-dmitry.baryshkov@linaro.org>
- <ecec7adb-a1ab-ba38-c38a-26f23f81cf68@quicinc.com>
- <df8a130f-2020-833c-d4f1-088c1fd7e5ef@linaro.org>
- <1642c43b-9d71-17ee-402d-d1e415e1ecc8@quicinc.com>
- <CAA8EJpo+ARnJ29BrOVkrg1FkTOVKYXQJiqAqhBzhZyNVYZw2qQ@mail.gmail.com>
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Rob Clark
+ <robdclark@gmail.com>, Sean Paul <sean@poorly.run>
+References: <20230118130031.2345941-1-dmitry.baryshkov@linaro.org>
 From: Abhinav Kumar <quic_abhinavk@quicinc.com>
-In-Reply-To: <CAA8EJpo+ARnJ29BrOVkrg1FkTOVKYXQJiqAqhBzhZyNVYZw2qQ@mail.gmail.com>
+In-Reply-To: <20230118130031.2345941-1-dmitry.baryshkov@linaro.org>
 Content-Type: text/plain; charset="UTF-8"; format=flowed
 Content-Transfer-Encoding: 7bit
 X-Originating-IP: [10.80.80.8]
@@ -62,19 +59,19 @@ X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
 X-QCInternal: smtphost
 X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
  signatures=585085
-X-Proofpoint-ORIG-GUID: dGhrVA86_Ulkhyaez6-UaWz0TCH350bB
-X-Proofpoint-GUID: dGhrVA86_Ulkhyaez6-UaWz0TCH350bB
+X-Proofpoint-ORIG-GUID: XkKsUgYW5xrhNIjx_O-hIMPe2q9_VI5y
+X-Proofpoint-GUID: XkKsUgYW5xrhNIjx_O-hIMPe2q9_VI5y
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.219,Aquarius:18.0.930,Hydra:6.0.562,FMLib:17.11.122.1
- definitions=2023-01-25_13,2023-01-25_01,2022-06-22_01
+ definitions=2023-01-25_14,2023-01-25_01,2022-06-22_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 bulkscore=0
- adultscore=0 spamscore=0 suspectscore=0 mlxlogscore=999 clxscore=1015
- lowpriorityscore=0 impostorscore=0 mlxscore=0 priorityscore=1501
- phishscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2212070000 definitions=main-2301250212
-Subject: Re: [Freedreno] [PATCH] drm/msm/dpu: disable features unsupported
- by QCM2290
+ lowpriorityscore=0
+ phishscore=0 impostorscore=0 adultscore=0 priorityscore=1501 bulkscore=0
+ suspectscore=0 clxscore=1015 mlxscore=0 spamscore=0 mlxlogscore=999
+ malwarescore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2212070000 definitions=main-2301250215
+Subject: Re: [Freedreno] [PATCH] drm/msm/dsi: simplify pixel clk rate
+ handling
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -87,161 +84,123 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Loic Poulain <loic.poulain@linaro.org>, freedreno@lists.freedesktop.org,
+Cc: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
  Bjorn Andersson <andersson@kernel.org>, dri-devel@lists.freedesktop.org,
- Stephen Boyd <swboyd@chromium.org>, Rob Clark <robdclark@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>, linux-arm-msm@vger.kernel.org,
- David Airlie <airlied@gmail.com>, Sean Paul <sean@poorly.run>
+ Stephen Boyd <swboyd@chromium.org>, Daniel Vetter <daniel@ffwll.ch>,
+ David Airlie <airlied@gmail.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 
 
-On 1/24/2023 10:46 PM, Dmitry Baryshkov wrote:
-> Hi,
+On 1/18/2023 5:00 AM, Dmitry Baryshkov wrote:
+> Move a call to dsi_calc_pclk() out of calc_clk_rate directly towards
+> msm_dsi_host_get_phy_clk_req(). It is called for both 6g and v2 hosts.
 > 
-> On Wed, 25 Jan 2023 at 02:22, Abhinav Kumar <quic_abhinavk@quicinc.com> wrote:
->> On 1/24/2023 12:22 AM, Dmitry Baryshkov wrote:
->>> On 24/01/2023 03:32, Abhinav Kumar wrote:
->>>> On 1/22/2023 11:11 PM, Dmitry Baryshkov wrote:
->>>>> QCM2290 doesn't seem to support reg-dma, smart-dma, UBWC, CDP, exclusion
->>>>> rectangles and CSC. Drop corresponding features being incorrectly
->>>>> enabled for qcm2290.
->>>>>
->>>>
->>>> Can you please point me to which vendor DT you are referring to for this?
->>>>
->>>> CSC is supported on the VIG SSPPs from what I can see.
->>>
->>> https://github.com/MiCode/kernel_devicetree/blob/psyche-r-oss/qcom/scuba-sde.dtsi
->>>
->>>
->>> No CSC, smart-dma, excl-rect, CDP, etc.
->>
->> Sorry I am missing something here.
->>
->> It has one Vig and one DMA
->>
->> https://github.com/MiCode/kernel_devicetree/blob/psyche-r-oss/qcom/scuba-sde.dtsi#L68
+> Also, while we are at it, replace another dsi_get_pclk_rate() invocation
+> with using the stored value at msm_host->pixel_clk_rate.
 > 
-> Correct
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> ---
+>   drivers/gpu/drm/msm/dsi/dsi.h      |  4 ++--
+>   drivers/gpu/drm/msm/dsi/dsi_cfg.h  |  2 +-
+>   drivers/gpu/drm/msm/dsi/dsi_host.c | 24 ++++++++++++------------
+>   3 files changed, 15 insertions(+), 15 deletions(-)
 > 
->>
->> If Vig is present, CSC is supported.
-> 
-> This actually puzzled me. Usually the dtsi has qcom,sde-sspp-csc-off
-> and qcom,sde-csc-type properties. But not in this case.
-> 
->>
->> Even for smart DMA I can see it supported
->> https://github.com/MiCode/kernel_devicetree/blob/psyche-r-oss/qcom/scuba-sde.dtsi#L76
->> on the DMA SSPP.
->>
->> Same for excl rectangle too
->> https://github.com/MiCode/kernel_devicetree/blob/psyche-r-oss/qcom/scuba-sde.dtsi#L74
-> 
-> Ack, my mistake. Maybe I was looking at the wrong dtsi then (or just
-> mixed something). I'll add them back. And I see that CDP is also
-> there.
-> 
-> So, this leaves us only with the question regarding CSC. Could you
-> please doublecheck it?
-> 
-I went through the internal documents.
+> diff --git a/drivers/gpu/drm/msm/dsi/dsi.h b/drivers/gpu/drm/msm/dsi/dsi.h
+> index bd3763a5d723..93ec54478eb6 100644
+> --- a/drivers/gpu/drm/msm/dsi/dsi.h
+> +++ b/drivers/gpu/drm/msm/dsi/dsi.h
+> @@ -129,8 +129,8 @@ int dsi_dma_base_get_6g(struct msm_dsi_host *msm_host, uint64_t *iova);
+>   int dsi_dma_base_get_v2(struct msm_dsi_host *msm_host, uint64_t *iova);
+>   int dsi_clk_init_v2(struct msm_dsi_host *msm_host);
+>   int dsi_clk_init_6g_v2(struct msm_dsi_host *msm_host);
+> -int dsi_calc_clk_rate_v2(struct msm_dsi_host *msm_host, bool is_bonded_dsi);
+> -int dsi_calc_clk_rate_6g(struct msm_dsi_host *msm_host, bool is_bonded_dsi);
+> +int dsi_calc_clk_rate_v2(struct msm_dsi_host *msm_host);
+> +int dsi_calc_clk_rate_6g(struct msm_dsi_host *msm_host);
+>   void msm_dsi_host_snapshot(struct msm_disp_state *disp_state, struct mipi_dsi_host *host);
+>   void msm_dsi_host_test_pattern_en(struct mipi_dsi_host *host);
+>   struct drm_dsc_config *msm_dsi_host_get_dsc_config(struct mipi_dsi_host *host);
+> diff --git a/drivers/gpu/drm/msm/dsi/dsi_cfg.h b/drivers/gpu/drm/msm/dsi/dsi_cfg.h
+> index 44be4a88aa83..5106e66846c3 100644
+> --- a/drivers/gpu/drm/msm/dsi/dsi_cfg.h
+> +++ b/drivers/gpu/drm/msm/dsi/dsi_cfg.h
+> @@ -51,7 +51,7 @@ struct msm_dsi_host_cfg_ops {
+>   	void* (*tx_buf_get)(struct msm_dsi_host *msm_host);
+>   	void (*tx_buf_put)(struct msm_dsi_host *msm_host);
+>   	int (*dma_base_get)(struct msm_dsi_host *msm_host, uint64_t *iova);
+> -	int (*calc_clk_rate)(struct msm_dsi_host *msm_host, bool is_bonded_dsi);
+> +	int (*calc_clk_rate)(struct msm_dsi_host *msm_host);
+>   };
+>   
+>   struct msm_dsi_cfg_handler {
+> diff --git a/drivers/gpu/drm/msm/dsi/dsi_host.c b/drivers/gpu/drm/msm/dsi/dsi_host.c
+> index 18fa30e1e858..7d99a108bff6 100644
+> --- a/drivers/gpu/drm/msm/dsi/dsi_host.c
+> +++ b/drivers/gpu/drm/msm/dsi/dsi_host.c
+> @@ -616,28 +616,21 @@ static void dsi_calc_pclk(struct msm_dsi_host *msm_host, bool is_bonded_dsi)
+>   
+>   }
+>   
+> -int dsi_calc_clk_rate_6g(struct msm_dsi_host *msm_host, bool is_bonded_dsi)
+> +int dsi_calc_clk_rate_6g(struct msm_dsi_host *msm_host)
+>   {
+> -	if (!msm_host->mode) {
+> -		pr_err("%s: mode not set\n", __func__);
+> -		return -EINVAL;
+> -	}
+> -
+> -	dsi_calc_pclk(msm_host, is_bonded_dsi);
+>   	msm_host->esc_clk_rate = clk_get_rate(msm_host->esc_clk);
+> +
+>   	return 0;
+>   }
+>   
+> -int dsi_calc_clk_rate_v2(struct msm_dsi_host *msm_host, bool is_bonded_dsi)
+> +int dsi_calc_clk_rate_v2(struct msm_dsi_host *msm_host)
+>   {
+>   	u32 bpp = dsi_get_bpp(msm_host->format);
+>   	u64 pclk_bpp;
+>   	unsigned int esc_mhz, esc_div;
+>   	unsigned long byte_mhz;
+>   
+> -	dsi_calc_pclk(msm_host, is_bonded_dsi);
+> -
+> -	pclk_bpp = (u64)dsi_get_pclk_rate(msm_host->mode, is_bonded_dsi) * bpp;
+> +	pclk_bpp = msm_host->pixel_clk_rate * bpp;
+>   	do_div(pclk_bpp, 8);
+>   	msm_host->src_clk_rate = pclk_bpp;
+>   
+> @@ -2292,7 +2285,14 @@ void msm_dsi_host_get_phy_clk_req(struct mipi_dsi_host *host,
+>   	const struct msm_dsi_cfg_handler *cfg_hnd = msm_host->cfg_hnd;
+>   	int ret;
+>   
+> -	ret = cfg_hnd->ops->calc_clk_rate(msm_host, is_bonded_dsi);
+> +	if (!msm_host->mode) {
+> +		pr_err("%s: mode not set\n", __func__);
+> +		return;
+> +	}
+> +
+> +	dsi_calc_pclk(msm_host, is_bonded_dsi);
+> +
+> +	ret = cfg_hnd->ops->calc_clk_rate(msm_host);
 
-This chipset supports only RGB formats for Vig pipe and hence there is 
-no CSC (surprise for me too).
+I am not too sure what we are gaining by this.
 
+Its not that we are replacing dsi_get_pclk_rate().
 
-> I also don't see the UBWC (qcom,sde-ubwc-version) and regdma
-> (qcom,sde-reg-dma-off) properties. Are corresponding features present
-> on the QCM2290?
-> 
+We are moving the dsi_get_pclk_rate() from the calc_clk_rate() to the 
+msm_dsi_host_get_phy_clk_req().
 
-Yes UBWC is also not supported.
+Also, with this change, dsi_calc_clk_rate_6g() looks kind of empty to 
+stand on its own.
 
-You can now go ahead and update v2.
+The original intention of the calc_clk_rate() op seems to be calculate 
+and store all the clocks (byte, pixel and esc).
 
->>>
->>>> QCM2290 should be using the same MDP version as 6115 from the HW version.
->>>
->>> It is 6.3 vs 6.5 if I remember correctly.
->>>
->>>>
->>>>
->>>>> Cc: Loic Poulain <loic.poulain@linaro.org>
->>>>> Fixes: 5334087ee743 ("drm/msm: add support for QCM2290 MDSS")
->>>>> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
->>>>> ---
->>>>>    .../gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c    | 20 +++++++++++--------
->>>>>    1 file changed, 12 insertions(+), 8 deletions(-)
->>>>>
->>>>> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
->>>>> b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
->>>>> index 289fb11f99d1..1c3ffa922794 100644
->>>>> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
->>>>> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
->>>>> @@ -12,10 +12,14 @@
->>>>>    #include "dpu_hw_catalog.h"
->>>>>    #include "dpu_kms.h"
->>>>> -#define VIG_MASK \
->>>>> +#define VIG_BASE_MASK \
->>>>>        (BIT(DPU_SSPP_SRC) | BIT(DPU_SSPP_QOS) |\
->>>>> +    BIT(DPU_SSPP_TS_PREFILL))
->>>>> +
->>>>> +#define VIG_MASK \
->>>>> +    (VIG_BASE_MASK | \
->>>>>        BIT(DPU_SSPP_CSC_10BIT) | BIT(DPU_SSPP_CDP) |\
->>>>> -    BIT(DPU_SSPP_TS_PREFILL) | BIT(DPU_SSPP_EXCL_RECT))
->>>>> +    BIT(DPU_SSPP_EXCL_RECT))
->>>>>    #define VIG_MSM8998_MASK \
->>>>>        (VIG_MASK | BIT(DPU_SSPP_SCALER_QSEED3))
->>>>> @@ -29,7 +33,7 @@
->>>>>    #define VIG_SM8250_MASK \
->>>>>        (VIG_MASK | BIT(DPU_SSPP_QOS_8LVL) |
->>>>> BIT(DPU_SSPP_SCALER_QSEED3LITE))
->>>>> -#define VIG_QCM2290_MASK (VIG_MASK | BIT(DPU_SSPP_QOS_8LVL))
->>>>> +#define VIG_QCM2290_MASK (VIG_BASE_MASK | BIT(DPU_SSPP_QOS_8LVL))
->>>>>    #define DMA_MSM8998_MASK \
->>>>>        (BIT(DPU_SSPP_SRC) | BIT(DPU_SSPP_QOS) |\
->>>>> @@ -50,6 +54,10 @@
->>>>>    #define DMA_CURSOR_MSM8998_MASK \
->>>>>        (DMA_MSM8998_MASK | BIT(DPU_SSPP_CURSOR))
->>>>> +#define DMA_QCM2290_MASK \
->>>>> +    (BIT(DPU_SSPP_SRC) | BIT(DPU_SSPP_QOS) | BIT(DPU_SSPP_QOS_8LVL) |\
->>>>> +    BIT(DPU_SSPP_TS_PREFILL) | BIT(DPU_SSPP_TS_PREFILL_REC1))
->>>>> +
->>>>>    #define MIXER_MSM8998_MASK \
->>>>>        (BIT(DPU_MIXER_SOURCESPLIT) | BIT(DPU_DIM_LAYER))
->>>>> @@ -316,8 +324,6 @@ static const struct dpu_caps msm8998_dpu_caps = {
->>>>>    static const struct dpu_caps qcm2290_dpu_caps = {
->>>>>        .max_mixer_width = DEFAULT_DPU_OUTPUT_LINE_WIDTH,
->>>>>        .max_mixer_blendstages = 0x4,
->>>>> -    .smart_dma_rev = DPU_SSPP_SMART_DMA_V2,
->>>>> -    .ubwc_version = DPU_HW_UBWC_VER_20,
->>>>>        .has_dim_layer = true,
->>>>>        .has_idle_pc = true,
->>>>>        .max_linewidth = 2160,
->>>>> @@ -1384,7 +1390,7 @@ static const struct dpu_sspp_sub_blks
->>>>> qcm2290_dma_sblk_0 = _DMA_SBLK("8", 1);
->>>>>    static const struct dpu_sspp_cfg qcm2290_sspp[] = {
->>>>>        SSPP_BLK("sspp_0", SSPP_VIG0, 0x4000, VIG_QCM2290_MASK,
->>>>>             qcm2290_vig_sblk_0, 0, SSPP_TYPE_VIG, DPU_CLK_CTRL_VIG0),
->>>>> -    SSPP_BLK("sspp_8", SSPP_DMA0, 0x24000,  DMA_SDM845_MASK,
->>>>> +    SSPP_BLK("sspp_8", SSPP_DMA0, 0x24000,  DMA_QCM2290_MASK,
->>>>>             qcm2290_dma_sblk_0, 1, SSPP_TYPE_DMA, DPU_CLK_CTRL_DMA0),
->>>>>    };
->>>>> @@ -2836,8 +2842,6 @@ static const struct dpu_mdss_cfg
->>>>> qcm2290_dpu_cfg = {
->>>>>        .intf = qcm2290_intf,
->>>>>        .vbif_count = ARRAY_SIZE(sdm845_vbif),
->>>>>        .vbif = sdm845_vbif,
->>>>> -    .reg_dma_count = 1,
->>>>> -    .dma_cfg = &sdm845_regdma,
->>>>>        .perf = &qcm2290_perf_data,
->>>>>        .mdss_irqs = IRQ_SC7180_MASK,
->>>>>    };
->>>
-> 
-> 
-> 
+Why change that behavior by breaking it up?
+
+>   	if (ret) {
+>   		pr_err("%s: unable to calc clk rate, %d\n", __func__, ret);
+>   		return;
