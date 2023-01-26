@@ -1,68 +1,67 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id CE1C567D4F4
-	for <lists+freedreno@lfdr.de>; Thu, 26 Jan 2023 20:01:40 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 8F11667D4F7
+	for <lists+freedreno@lfdr.de>; Thu, 26 Jan 2023 20:01:48 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CC46F10E98F;
-	Thu, 26 Jan 2023 19:01:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 605DF10E97C;
+	Thu, 26 Jan 2023 19:01:47 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ej1-x636.google.com (mail-ej1-x636.google.com
- [IPv6:2a00:1450:4864:20::636])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6239010E983
- for <freedreno@lists.freedesktop.org>; Thu, 26 Jan 2023 19:01:16 +0000 (UTC)
-Received: by mail-ej1-x636.google.com with SMTP id mg12so7691505ejc.5
- for <freedreno@lists.freedesktop.org>; Thu, 26 Jan 2023 11:01:16 -0800 (PST)
+Received: from mail-ej1-x62d.google.com (mail-ej1-x62d.google.com
+ [IPv6:2a00:1450:4864:20::62d])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E100310E98F
+ for <freedreno@lists.freedesktop.org>; Thu, 26 Jan 2023 19:01:27 +0000 (UTC)
+Received: by mail-ej1-x62d.google.com with SMTP id bk15so7659146ejb.9
+ for <freedreno@lists.freedesktop.org>; Thu, 26 Jan 2023 11:01:27 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=b9GuZIQFiQiPaXRH54eN2BlHrDLxxiKxYVwEtE53efA=;
- b=Ls4xDl5ETNxM4rGQg/ALFS1DnJdwaHO8rUjvrCve3UHHfUGrE5T/aKPakNWoAbEmRi
- YxI3xWWHOo+j6pFL06KYxnoq8kWpaHgcw1SnD1iHaJNmjLfpjnXT1w+iIYgcXHFt5YeB
- Q/hdXuiNk4JgQ5OsO54SChqNONavdWTDTDDJtPBohXB8J74mOTZzgLmuT+Iu5cV+s3JB
- +blkT7pkT0ceTmVj66qMq0IY/YQVSbqXR3Tp9AXUdEWEgKIDPeVTBdobBmWS8MWhSTtx
- XvbvrgfP+vZw1NaRNRcy7y/wUGSIfWMbqiQEflDlyR/LjGSYqeL7xGJIXrMRr7peJjUJ
- dEtw==
+ bh=spxzCvWMZNGjCVdIu38RxpJRhK/Z/NWL8pHycLSebmQ=;
+ b=tfFFTgv/BHAgCuMgHic7psoRBdMEThbyYFEoxehEBTOWzQ/uMNX+GUeBHQwaIB2XNP
+ ERjJtqrUXoRLqxNweGBee88WGDYcEK/GjmKW4XpartmaLZv6V2ZGdwk3XRiCtQQ2Mdfr
+ GL4V29zMIRCN6IUK7em12uijWKTOePoAFg/yEmSIkTePXMqKXhkYmTvEj8/hSZRMng3q
+ ZKLEFd9o9OjNvGSNqlD+LQgSLxNw5awj95Lax1bQby6e7bj5R8K2RQOIJ7J5mJ1NXJdw
+ NLM3g5Oc/SMso/WSJSusNmArJSBvmLNAz9AoeOzKzzbeMb8fFafvveA3shVqXGmDvCmP
+ Ihtg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=b9GuZIQFiQiPaXRH54eN2BlHrDLxxiKxYVwEtE53efA=;
- b=4sWqqdPcaVPLu7BrqAPGJ4jZcRoRcYVQD2DoJk8qc1MKRMp7TVVMrqbAgWH54GK8hD
- k28btzM9FiSoKcj10V7FWohM3619b4z8T8cuZ5V6SJeBR1FmJIS3bB2+72Mi6ldqZNvF
- IACDJ5cQDy1CG3/rNnbxTloDI1czCuO0XvcXX/37EMC6EeC+jAaq9pPfO2ubiOUeq0g4
- nVDGdPADJzzWK2yU0ELni2vIb8bDN4Q5X45Qm8tddgg5NsefvBHMG8UnplOung5Hd9Pd
- 5gLO/D1aHgzF38KxQ4x7h2nHTARm/9aDLvwhJQBYR+D7oySy3FzlIZ23PO1KdA8xvupV
- jWGw==
-X-Gm-Message-State: AFqh2kp+LTA92w0a1aF2ZVPACRy3txbFP2G1ocyJZ/dfNvU0tNdzSU7x
- fYTYtuvQvkr2aBnO/BSSuRD7eg==
-X-Google-Smtp-Source: AMrXdXvBONRphu/IOhYxlFKyGySVwQAB6PjdJ4S/MaO6+PdZGJOQS4Vf2zGp9Dz+pTfYlrjHWqo7gA==
-X-Received: by 2002:a17:906:3b01:b0:84d:4767:734 with SMTP id
- g1-20020a1709063b0100b0084d47670734mr47874459ejf.6.1674759676003; 
- Thu, 26 Jan 2023 11:01:16 -0800 (PST)
+ bh=spxzCvWMZNGjCVdIu38RxpJRhK/Z/NWL8pHycLSebmQ=;
+ b=Kv0rzMjkjc9YcWZYPuTbqYXws4SSu++8tqzD3tHR2k1UsXObgZICSn8W4mFDk2Eazj
+ 4syWBGUeE9fpgoermQOENB+CHzQVlyNo/aoACmka51RGmxkrFWMLsdQK0UB2msYrpS6N
+ 7bbouk1Se6gZmshlOzvqiBeyDwYm7wjXCRXTp3yx9mKodHXb28pvwjGwD6Pis3JU5K0a
+ AlKyVsg9RCO7LyzoQ5EePHsVj4ekcPfVnIrNpzn6S6Iq7Qav0llQuQ76Ed1HdPuLV0sq
+ cKCAaqtoYgiyNXJBNowAHNbec50wYnKXVmg3LKa5Fba03NIQBqgO6ElFwU2thtfGkQYY
+ L/vg==
+X-Gm-Message-State: AO0yUKVG0bdCa1xt65FAtfqe7gmgjVh3nig9RkpglCOEOo8LQB6rvTDA
+ qws5ixDa4AHO9WICUGmJFHU6IufjfSQqBaQl
+X-Google-Smtp-Source: AMrXdXvONfAchFoBBXRLeOSeCkHRQ0a0OML3R0M4wvDJdl1RbQ5vEO1EuPSXU1C4R1XhzdRbckcV8g==
+X-Received: by 2002:a17:907:6e2a:b0:871:e9a0:eba7 with SMTP id
+ sd42-20020a1709076e2a00b00871e9a0eba7mr114187337ejc.57.1674759677058; 
+ Thu, 26 Jan 2023 11:01:17 -0800 (PST)
 Received: from eriador.unikie.fi ([192.130.178.91])
  by smtp.gmail.com with ESMTPSA id
- o25-20020a1709061b1900b0084d4e9a13cbsm974982ejg.221.2023.01.26.11.01.15
+ o25-20020a1709061b1900b0084d4e9a13cbsm974982ejg.221.2023.01.26.11.01.16
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 26 Jan 2023 11:01:15 -0800 (PST)
+ Thu, 26 Jan 2023 11:01:16 -0800 (PST)
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 To: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
  Abhinav Kumar <quic_abhinavk@quicinc.com>,
  Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Thu, 26 Jan 2023 21:00:59 +0200
-Message-Id: <167475959087.3954305.17231782796910998330.b4-ty@linaro.org>
+Date: Thu, 26 Jan 2023 21:01:00 +0200
+Message-Id: <167475959092.3954305.6114466663936878073.b4-ty@linaro.org>
 X-Mailer: git-send-email 2.39.0
-In-Reply-To: <20230124203600.3488766-1-dmitry.baryshkov@linaro.org>
-References: <20230124203600.3488766-1-dmitry.baryshkov@linaro.org>
+In-Reply-To: <20230118020152.1689213-1-dmitry.baryshkov@linaro.org>
+References: <20230118020152.1689213-1-dmitry.baryshkov@linaro.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Subject: Re: [Freedreno] [PATCH] drm/msm/dsi: properly handle the case of
- empty OPP table in dsi_mgr_bridge_mode_valid
+Subject: Re: [Freedreno] [PATCH] drm/msm: use strscpy instead of strncpy
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,22 +82,21 @@ Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 
-On Tue, 24 Jan 2023 22:36:00 +0200, Dmitry Baryshkov wrote:
-> It was left unnoticed during the review that even if there is no OPP
-> table in device tree, one will be created by a call to the function
-> devm_pm_opp_set_clkname(). This leads to dsi_mgr_bridge_mode_valid()
-> rejecting all modes if DT contains no OPP table for the DSI host.
+On Wed, 18 Jan 2023 04:01:52 +0200, Dmitry Baryshkov wrote:
+> Using strncpy can result in non-NULL-terminated destination string. Use
+> strscpy instead. This fixes following warning:
 > 
-> Rework dsi_mgr_bridge_mode_valid() to handle this case by actually
-> checking that the table is populated with frequency entries before
-> returning an error.
+> drivers/gpu/drm/msm/msm_fence.c: In function ‘msm_fence_context_alloc’:
+> drivers/gpu/drm/msm/msm_fence.c:25:9: warning: ‘strncpy’ specified bound 32 equals destination size [-Wstringop-truncation]
+>    25 |         strncpy(fctx->name, name, sizeof(fctx->name));
+>       |         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 > 
 > [...]
 
 Applied, thanks!
 
-[1/1] drm/msm/dsi: properly handle the case of empty OPP table in dsi_mgr_bridge_mode_valid
-      https://gitlab.freedesktop.org/lumag/msm/-/commit/2ec56b232b97
+[1/1] drm/msm: use strscpy instead of strncpy
+      https://gitlab.freedesktop.org/lumag/msm/-/commit/d7fd8634f48d
 
 Best regards,
 -- 
