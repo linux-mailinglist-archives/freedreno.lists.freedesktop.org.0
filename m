@@ -1,66 +1,66 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id C54D867CFC0
-	for <lists+freedreno@lfdr.de>; Thu, 26 Jan 2023 16:17:30 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 994BA67CFC3
+	for <lists+freedreno@lfdr.de>; Thu, 26 Jan 2023 16:17:36 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8CA8910E154;
-	Thu, 26 Jan 2023 15:17:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 20AA110E294;
+	Thu, 26 Jan 2023 15:17:35 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ed1-x529.google.com (mail-ed1-x529.google.com
- [IPv6:2a00:1450:4864:20::529])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 92D6310E151
- for <freedreno@lists.freedesktop.org>; Thu, 26 Jan 2023 15:17:25 +0000 (UTC)
-Received: by mail-ed1-x529.google.com with SMTP id cm4so2136026edb.9
- for <freedreno@lists.freedesktop.org>; Thu, 26 Jan 2023 07:17:25 -0800 (PST)
+Received: from mail-ed1-x532.google.com (mail-ed1-x532.google.com
+ [IPv6:2a00:1450:4864:20::532])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3CD9710E29D
+ for <freedreno@lists.freedesktop.org>; Thu, 26 Jan 2023 15:17:29 +0000 (UTC)
+Received: by mail-ed1-x532.google.com with SMTP id w11so2206067edv.0
+ for <freedreno@lists.freedesktop.org>; Thu, 26 Jan 2023 07:17:29 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=FqTPYHx/hvizibC2oIfeh1taRPi/dzef4/4GDfwh7Dc=;
- b=KsgaCMzJGUttXQbMZMLFzqt5edS2JcAVI4+R1nFjny115+xCxVFm9Kv/SLnAzTzI+E
- qNGehiy4EkCTNEAe1345QISl0Q0j2ZnUD78xWmYuc3+dBajuWDZyoEOqu8fLkfJa55UX
- 4L9xUKNkjnZWbB0qsV1/L1rFSNzvnY9609dhOZ2MqvpLpw/JNlAvah0sQgwQdrbXehi6
- SXDrYzDh+9vZPZWsZOxiY9ybCMO5MkxhZUC4IrY4ibe581wfYo5gnT2zxP9g4ZB7mjH/
- UAqKu0fISq5b09kZoSASxmyq3l3UDjzk0S443DyTsvkuI8w+30YDo56q5TM2y/ugNCPH
- ufrA==
+ bh=OY08lSRJ0khJ3YSfU40JW9rAgs8VWCIlhnOm90/cUOg=;
+ b=lKSIVY86+zq1xPchzjtResCxNKdOQBD6iUh60NPp69Mm9Vz1hpxXqAJiRUp+UuRoXm
+ rt5+/jiDHZQ1nzJf5+m3JmJM4zM4Zbo6j/u9Vc1w0NqwQo/b0ETnG+rnARcvyzzs3qUh
+ Mq8WNgi3QKGMpG4B7u1/qOeBxXzBErww35/dMfAfILy8tdEusUwccHpXn4UlNxBXbK0F
+ nD0VUFe5qA0F7SIk1rnZ8yWLjk1Cj4hWAPdZxwJSI4BLkbfbkuVwt+XIrkvrNRSyy/uV
+ GZZa4OfbKq246VX45TGaOTQ/rwQCpKh3mFUOxpYZKiCQT2pSKsG2l8229l7wXcHP9GUo
+ 4X+w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=FqTPYHx/hvizibC2oIfeh1taRPi/dzef4/4GDfwh7Dc=;
- b=iFrelXEjccxm8p4hcg7i9hfS/XMiwzj+NqztbgYhKNJ9ZQim5bybV5EiD2HtLnLMdI
- lOZqlv16wdOHI4Vc2+7/4oZPRi9tc/yKH+VHbC0uCyQbXuc+S0jDt5eUI5QHmt8aMqVg
- EgUuwZI+SM9iNrXULSWPga14dfzTYT0yjZAhxLOheaKmX1p1nseMXXfEF+XLv1ucRSna
- Kh8fS4vsJDRyTZDwpnNsjwcRonxy6Qa4ApziivelRPC3MYuBauD3Vzfv0wjugD5IdZ/+
- GwH5aNz5kKH2YNDj63/J41IhgX2qZLDXIwll8LGeen9c/xXW8d7ruXFrxj9QEYL7sZ+o
- 6ZNw==
-X-Gm-Message-State: AO0yUKUrZgK9XaxmCTP+qBd60b8HbSvHQ+6AH++/CZExrYWOtKe8mRgh
- VOvy2fi4vso8u7aygBdsJyOedg==
-X-Google-Smtp-Source: AK7set9j/7oS+bafs6ZfNNGeVHpGPgbFsEu7Z9kE7S+kC33GSD1Ulk89vyxivtHiPxAmpydf06Xfng==
-X-Received: by 2002:aa7:c149:0:b0:4a0:91be:1db6 with SMTP id
- r9-20020aa7c149000000b004a091be1db6mr8227773edp.16.1674746245170; 
- Thu, 26 Jan 2023 07:17:25 -0800 (PST)
+ bh=OY08lSRJ0khJ3YSfU40JW9rAgs8VWCIlhnOm90/cUOg=;
+ b=Dybdjyn9zlvMRJ10VInS4E2cqJiVCuY8ACgjoKtb5FKYUhU6M1Fdtn62uDn2AcaCw9
+ ZOrNCeuw1q1BsLcDrpRGQkM2KBkFNCLkiPCguTx9HofCylHaJUbcWBLHlTs2/QD+9+n9
+ TqSEgP4E53s5YFDdqAUGtqa1RTwXGujFzSyWMa7ySqq67/FJTtIWwppQ0z9N+vorMppu
+ +JLZjOUT/dzPXApCBwFG/uoyuCJL3rwAQxB/5M9qL0aQjG2f8I2+YSDqIrpU33tZYBwn
+ re06wyDzAW3TuTve/y072v9O68CZyGWIz8/S+rZBEL1ckdg8HZTAi2RCqVdHhf+3oYqy
+ KKUg==
+X-Gm-Message-State: AO0yUKWJ+pDhYecWfoukZLrRzTDEbO31RkxfZ41uDXZucbjHPYlafVsT
+ s9rEDhAIq/Qa/S+HMjuwKp8Nzg==
+X-Google-Smtp-Source: AK7set/prHz6j9mKe+q0SVim8Gk8tLhMF7E/oyiHuu4Cq5/Ipb7BZO9a0zhELcam1t9manYuz9ECKA==
+X-Received: by 2002:aa7:cfc5:0:b0:4a0:b978:4533 with SMTP id
+ r5-20020aa7cfc5000000b004a0b9784533mr3622092edy.32.1674746248802; 
+ Thu, 26 Jan 2023 07:17:28 -0800 (PST)
 Received: from localhost.localdomain (abyk108.neoplus.adsl.tpnet.pl.
  [83.9.30.108]) by smtp.gmail.com with ESMTPSA id
- a16-20020aa7d910000000b00463bc1ddc76sm842808edr.28.2023.01.26.07.17.22
+ a16-20020aa7d910000000b00463bc1ddc76sm842808edr.28.2023.01.26.07.17.26
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 26 Jan 2023 07:17:24 -0800 (PST)
+ Thu, 26 Jan 2023 07:17:28 -0800 (PST)
 From: Konrad Dybcio <konrad.dybcio@linaro.org>
 To: linux-arm-msm@vger.kernel.org, andersson@kernel.org, agross@kernel.org,
  krzysztof.kozlowski@linaro.org
-Date: Thu, 26 Jan 2023 16:16:08 +0100
-Message-Id: <20230126151618.225127-5-konrad.dybcio@linaro.org>
+Date: Thu, 26 Jan 2023 16:16:09 +0100
+Message-Id: <20230126151618.225127-6-konrad.dybcio@linaro.org>
 X-Mailer: git-send-email 2.39.1
 In-Reply-To: <20230126151618.225127-1-konrad.dybcio@linaro.org>
 References: <20230126151618.225127-1-konrad.dybcio@linaro.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH 04/14] drm/msm/a6xx: Remove both GBIF and RBBM
- GBIF halt on hw init
+Subject: [Freedreno] [PATCH 05/14] drm/msm/adreno: Disable
+ has_cached_coherent for A610/A619_holi
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,48 +73,48 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, Akhil P Oommen <quic_akhilpo@quicinc.com>,
- David Airlie <airlied@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- dri-devel@lists.freedesktop.org, Douglas Anderson <dianders@chromium.org>,
- Konrad Dybcio <konrad.dybcio@linaro.org>, Rob Clark <robdclark@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>,
+Cc: Nathan Chancellor <nathan@kernel.org>,
+ Akhil P Oommen <quic_akhilpo@quicinc.com>, David Airlie <airlied@gmail.com>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Konrad Dybcio <konrad.dybcio@linaro.org>,
+ "Joel Fernandes \(Google\)" <joel@joelfernandes.org>,
+ Rob Clark <robdclark@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Ricardo Ribalda <ribalda@chromium.org>,
  Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, marijn.suijten@somainline.org,
- Sean Paul <sean@poorly.run>, Chia-I Wu <olvaffe@gmail.com>,
- linux-kernel@vger.kernel.org
+ freedreno@lists.freedesktop.org, Sean Paul <sean@poorly.run>,
+ Chia-I Wu <olvaffe@gmail.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Currently we're only deasserting REG_A6XX_RBBM_GBIF_HALT, but we also
-need REG_A6XX_GBIF_HALT to be set to 0. For GMU-equipped GPUs this is
-done in a6xx_bus_clear_pending_transactions(), but for the GMU-less
-ones we have to do it *somewhere*. Unhalting both side by side sounds
-like a good plan and it won't cause any issues if it's unnecessary.
-
-Also, add a memory barrier to ensure it's gone through.
+These SKUs don't support the feature. Disable it to make the GPU stop
+crashing after almost each and every submission - the received data on
+the GPU end was simply incomplete in garbled, resulting in almost nothing
+being executed properly.
 
 Signed-off-by: Konrad Dybcio <konrad.dybcio@linaro.org>
 ---
- drivers/gpu/drm/msm/adreno/a6xx_gpu.c | 6 +++++-
- 1 file changed, 5 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/msm/adreno/adreno_device.c | 8 +++++++-
+ 1 file changed, 7 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-index 22dac65cfa8c..158d6453cf3e 100644
---- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-+++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-@@ -1004,8 +1004,12 @@ static int hw_init(struct msm_gpu *gpu)
- 	}
+diff --git a/drivers/gpu/drm/msm/adreno/adreno_device.c b/drivers/gpu/drm/msm/adreno/adreno_device.c
+index 36f062c7582f..82757f005a1a 100644
+--- a/drivers/gpu/drm/msm/adreno/adreno_device.c
++++ b/drivers/gpu/drm/msm/adreno/adreno_device.c
+@@ -540,7 +540,13 @@ static int adreno_bind(struct device *dev, struct device *master, void *data)
+ 		config.rev.minor, config.rev.patchid);
  
- 	/* Clear GBIF halt in case GX domain was not collapsed */
--	if (a6xx_has_gbif(adreno_gpu))
-+	if (a6xx_has_gbif(adreno_gpu)) {
-+		gpu_write(gpu, REG_A6XX_GBIF_HALT, 0);
- 		gpu_write(gpu, REG_A6XX_RBBM_GBIF_HALT, 0);
-+		/* Let's make extra sure that the GPU can access the memory.. */
-+		mb();
+ 	priv->is_a2xx = config.rev.core == 2;
+-	priv->has_cached_coherent = config.rev.core >= 6;
++
++	if (config.rev.core >= 6) {
++		/* Exclude A610 and A619_holi */
++		if (!(adreno_cmp_rev(ADRENO_REV(6, 1, 0, ANY_ID), config.rev) ||
++		      adreno_cmp_rev(ADRENO_REV(6, 1, 9, 1), config.rev)))
++			priv->has_cached_coherent = true;
 +	}
  
- 	gpu_write(gpu, REG_A6XX_RBBM_SECVID_TSB_CNTL, 0);
- 
+ 	gpu = info->init(drm);
+ 	if (IS_ERR(gpu)) {
 -- 
 2.39.1
 
