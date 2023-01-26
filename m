@@ -1,68 +1,68 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6FBC567D4F1
-	for <lists+freedreno@lfdr.de>; Thu, 26 Jan 2023 20:01:39 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 3647C67D4E1
+	for <lists+freedreno@lfdr.de>; Thu, 26 Jan 2023 20:01:29 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 064C110E98E;
-	Thu, 26 Jan 2023 19:01:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9176B10E987;
+	Thu, 26 Jan 2023 19:01:25 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from mail-ej1-x633.google.com (mail-ej1-x633.google.com
  [IPv6:2a00:1450:4864:20::633])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7735E10E982
- for <freedreno@lists.freedesktop.org>; Thu, 26 Jan 2023 19:01:18 +0000 (UTC)
-Received: by mail-ej1-x633.google.com with SMTP id k4so2203678eje.1
- for <freedreno@lists.freedesktop.org>; Thu, 26 Jan 2023 11:01:18 -0800 (PST)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C016110E97F
+ for <freedreno@lists.freedesktop.org>; Thu, 26 Jan 2023 19:01:19 +0000 (UTC)
+Received: by mail-ej1-x633.google.com with SMTP id k4so2203839eje.1
+ for <freedreno@lists.freedesktop.org>; Thu, 26 Jan 2023 11:01:19 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=qBWm6FSmlOHy18aqhTxXmGS8/TFLM/DG4o289iZ6hFw=;
- b=HCJKjiq3GNFduyzH2nOCkRTh4dBUXS1OY264zhC/gkzdTkQWV7uFD3vkchrcHYlATa
- Qt37nLapwe+NljxPwQHFQSXMwzgF5mtYvWtyoICGRQ92zBUqKfR6Sz9wz1tR1JO1qJUj
- s8FZt/KQEWbY9W9kpysUN4uYWx/7mI0LtGI3bIMc8kx7coqnndMtXRXwqKlJjaaROEWL
- /GPqrJap2htFMmHotLdvkyvSliGNVweUwJo/UHYHb+CJfdaTDA/JQ1lAb1ovgC+AMrxY
- b/dCmIdiz8pehIdNgDfwHRACxRNSOKna9JlqUV7gdE18CTAhfAgP7r/tV6Y6D8y66+mx
- yhIg==
+ bh=bTeKhYCgAYLn9b2pOWJlFiilL2KqGbxWtCO1YZ9/UkM=;
+ b=Zq2IUYVCIk2ZkmKL8yTQ9rD/RcF7gQkTdEVyT/G8FqICTK1KKopxh3D9QABs16DCb/
+ nnJEx7GPNlXadntyWwRU3iU7tGl4GKtw+JiS3zk4w5HI89y/f0oZEw6PNbJFEKuZISbn
+ zT/m7gWdk3qZScZl88I9FMrgp1U8MqLgL+mfZjYjHDOOQf+IPVynotCJzf+6QlMdxp4K
+ 53odFHDtAn4mrs6R2dRyBsEQPlY0PTrn/6ws/vrXuvumBXXHW6dH2nd/1dXBDAM4lOAQ
+ t1Qg83AcSL0v08OfFO+rcilwdDuCa6gqFpPC8LmX5Yl1XKk3ihClp4EcOMrWAfC4Pe7K
+ 0Idw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=qBWm6FSmlOHy18aqhTxXmGS8/TFLM/DG4o289iZ6hFw=;
- b=LNQCFwz3dlZWEt2ZIdJO2re7xkXGTnMNRYxubYqOfhKIUL394vANVqbt3DKPC5qjHf
- TbJTesSueG6bxj6hKtb1dakuvkqAj296A5cLQf9hO5cQ9+eX4LXeApUWpqTPo+ZyFyAj
- 0i/uLXajAMZhb3qar70vi271Oi2xXSw5R1WAE2vmDtB98umvTWIwm42oelSriCB2VG+a
- BHOjgshAnfhfE4mDPo4TBxItQrAhiX9pvoNLp5IL5KseWY/xIb0UNSwod+c2G6FSZBw/
- 4AY54v8ZKJbEXM7ynKm2DXI5kSo8DltAt4NhnbRDCwMfPuKU0yPpBtYM41Q3tGtIvTV7
- EPuA==
-X-Gm-Message-State: AO0yUKWoUHvjM4TF/rfdFCOjMnNJZ9di/HPZMsUBkyrFxlAwbudiNsDm
- jVwhcdzHd+xVZTSPd9ivNlyxeg==
-X-Google-Smtp-Source: AK7set/rsuFfe/cwMZ3ZuTOvMPjnMOP/rgYnI0ksZLx+5S5MuskuUnGWpyCs2aNXPzkZpjFYgDfRJQ==
-X-Received: by 2002:a17:907:8809:b0:878:5859:b019 with SMTP id
- ro9-20020a170907880900b008785859b019mr4044768ejc.48.1674759678131; 
- Thu, 26 Jan 2023 11:01:18 -0800 (PST)
+ bh=bTeKhYCgAYLn9b2pOWJlFiilL2KqGbxWtCO1YZ9/UkM=;
+ b=tVmF7UeXp9MRb5RWnI1JzMFLHElozlG+uqWHUSCeXgkaWdzcvTCx3GBVGAlF05ZuqU
+ yO+8lO9nI/V6OlPGtUtYufntxv875VlNbfxWdIMej0vYy+HKPcp4UHprYGELDTMDGdG8
+ kDzD7ylhqIVwTBPEnUgCZu2AqJlhNtsyNfuKZllvRpHQWTH3ea227ut6+mEedkTBHXCp
+ 6avwSPx5mTkzvOn7px5IATb2qrUjocQ8nLcVSz2HPIq/zQrNtSpS84BNctGsV8uIGSCp
+ aGlxZ57paOGK/BaRYzzBw8mQ3Th/XBux0lgx6+33/KayinPT5z2PTipIEbLSYJIdf2A7
+ 4Jkw==
+X-Gm-Message-State: AFqh2koI7gm78HBJx9Egx+3Ub/FYz+mxAETq3jkTEBjjlyLH2A4LrODj
+ bBL7W18XRrd6Qx6H5EPex5WO1d4WReMYcVCJ
+X-Google-Smtp-Source: AMrXdXu/ugKU0aSJjN4CCNX12KjO9+Qm06X/CVkhbq7Os4veQCxLQBwbP5hQm2BV5NQe5Nn4RpOaIg==
+X-Received: by 2002:a17:907:8d18:b0:7c0:d6b6:1ee9 with SMTP id
+ tc24-20020a1709078d1800b007c0d6b61ee9mr43109147ejc.11.1674759679427; 
+ Thu, 26 Jan 2023 11:01:19 -0800 (PST)
 Received: from eriador.unikie.fi ([192.130.178.91])
  by smtp.gmail.com with ESMTPSA id
- o25-20020a1709061b1900b0084d4e9a13cbsm974982ejg.221.2023.01.26.11.01.17
+ o25-20020a1709061b1900b0084d4e9a13cbsm974982ejg.221.2023.01.26.11.01.18
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 26 Jan 2023 11:01:17 -0800 (PST)
+ Thu, 26 Jan 2023 11:01:18 -0800 (PST)
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-To: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Thu, 26 Jan 2023 21:01:01 +0200
-Message-Id: <167475959091.3954305.4158185883745972292.b4-ty@linaro.org>
+To: robdclark@gmail.com, quic_abhinavk@quicinc.com, sean@poorly.run,
+ airlied@gmail.com, daniel@ffwll.ch, quic_jesszhan@quicinc.com,
+ ville.syrjala@linux.intel.com, yang.lee@linux.alibaba.com,
+ Jiasheng Jiang <jiasheng@iscas.ac.cn>
+Date: Thu, 26 Jan 2023 21:01:02 +0200
+Message-Id: <167475959090.3954305.6194600813887477862.b4-ty@linaro.org>
 X-Mailer: git-send-email 2.39.0
-In-Reply-To: <20230123062415.3027743-1-dmitry.baryshkov@linaro.org>
-References: <20230123062415.3027743-1-dmitry.baryshkov@linaro.org>
+In-Reply-To: <20221206080517.43786-1-jiasheng@iscas.ac.cn>
+References: <20221206080517.43786-1-jiasheng@iscas.ac.cn>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Subject: Re: [Freedreno] [PATCH v2] drm/msm/dpu: add missing ubwc_swizzle
- setting to catalog
+Subject: Re: [Freedreno] [PATCH] drm/msm/dpu: Add check for cstate
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,23 +75,24 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
- Bjorn Andersson <andersson@kernel.org>, dri-devel@lists.freedesktop.org,
- Stephen Boyd <swboyd@chromium.org>, Daniel Vetter <daniel@ffwll.ch>,
- David Airlie <airlied@gmail.com>
+Cc: linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 
-On Mon, 23 Jan 2023 08:24:15 +0200, Dmitry Baryshkov wrote:
-> Use the values from the vendor DTs to set ubwc_swizzle in the catalog.
+On Tue, 06 Dec 2022 16:05:17 +0800, Jiasheng Jiang wrote:
+> As kzalloc may fail and return NULL pointer,
+> it should be better to check cstate
+> in order to avoid the NULL pointer dereference
+> in __drm_atomic_helper_crtc_reset.
 > 
 > 
 
 Applied, thanks!
 
-[1/1] drm/msm/dpu: add missing ubwc_swizzle setting to catalog
-      https://gitlab.freedesktop.org/lumag/msm/-/commit/31c318051040
+[1/1] drm/msm/dpu: Add check for cstate
+      https://gitlab.freedesktop.org/lumag/msm/-/commit/c96988b7d993
 
 Best regards,
 -- 
