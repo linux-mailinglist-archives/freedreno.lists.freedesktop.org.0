@@ -1,69 +1,53 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 669D267EAF8
-	for <lists+freedreno@lfdr.de>; Fri, 27 Jan 2023 17:32:44 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 8BC3067EC86
+	for <lists+freedreno@lfdr.de>; Fri, 27 Jan 2023 18:33:19 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 545F210E9AE;
-	Fri, 27 Jan 2023 16:32:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2570310E9BA;
+	Fri, 27 Jan 2023 17:33:14 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ej1-x62f.google.com (mail-ej1-x62f.google.com
- [IPv6:2a00:1450:4864:20::62f])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 73A5F10E9AD
- for <freedreno@lists.freedesktop.org>; Fri, 27 Jan 2023 16:32:41 +0000 (UTC)
-Received: by mail-ej1-x62f.google.com with SMTP id p26so3951253ejx.13
- for <freedreno@lists.freedesktop.org>; Fri, 27 Jan 2023 08:32:41 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=oUMbRom03eDcBJesaXl2+ETO2zMmAwodhj6mDFtn4Y8=;
- b=hIhPt/CoEbOJ56yEcS+Ge7tmnTL5pVt4n8b9JKcqv4fmtkYLiWBFEo1pbKYIDMhWmW
- EhXVsk0PPsY6oZ6RA5D3y+Uv2naCNAxUEJCTEwt5oIu1dZJKVesEhB3U1J1il4Ow+BF5
- OJ0Chjr4PHivYA1LC3VIDGnclBCj1vMN1DZco=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=oUMbRom03eDcBJesaXl2+ETO2zMmAwodhj6mDFtn4Y8=;
- b=biToGFxqSApxm4yV+pHqH747Aj4vaNrBCOY4LVJMUdTQsXJ3SSERGSk0VuTJ0P2BNk
- 64ViTemba3+3eh0BSO8/88lu96hB/f77sVifwFRrdbuNYDkGY3uxf9cMXtvMuv5/ubPa
- VLNpgUN34k8a/L2Mww6Bi1grN4uUhToDaf3fdr4+TdQYGKDtx7wrMI0oUVY3M0Y1heKL
- sRbbas4BPAXibxmnlY0/8GZdC0MUrVUW7zF/9WEGlOWWk/3xnQ2YN/Erg/wQlE0OHpZa
- ko+QL8ME6bDjar5uR3dLScgBNTgN79cc9AhEj78l74ytgrAS81PEvBc88KaOvJ9++Lxn
- E32A==
-X-Gm-Message-State: AFqh2krQ813LwFsk/unWZxuTbekh89p0gLREiXiwXp/S495sNdZjRQVT
- HeOSHYNiwo7CR+KQvVfZprP/KoLtdg/lkQTeUtY=
-X-Google-Smtp-Source: AMrXdXsfbclRt14Z8afVIIUEbqk82Dy3OpbDka5pAAd99h3HB/EDtmwX+Sh/Dt4DtdpmhX9Rb4O+EQ==
-X-Received: by 2002:a17:906:2582:b0:877:573d:e919 with SMTP id
- m2-20020a170906258200b00877573de919mr38666599ejb.20.1674837159752; 
- Fri, 27 Jan 2023 08:32:39 -0800 (PST)
-Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com.
- [209.85.128.47]) by smtp.gmail.com with ESMTPSA id
- 7-20020a170906318700b0084d1efe9af6sm2505153ejy.58.2023.01.27.08.32.36
- for <freedreno@lists.freedesktop.org>
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 27 Jan 2023 08:32:37 -0800 (PST)
-Received: by mail-wm1-f47.google.com with SMTP id l8so3851687wms.3
- for <freedreno@lists.freedesktop.org>; Fri, 27 Jan 2023 08:32:36 -0800 (PST)
-X-Received: by 2002:a05:600c:5389:b0:3d7:fa4a:6827 with SMTP id
- hg9-20020a05600c538900b003d7fa4a6827mr1995976wmb.188.1674837156471; Fri, 27
- Jan 2023 08:32:36 -0800 (PST)
+Received: from mailrelay1-1.pub.mailoutpod2-cph3.one.com
+ (mailrelay1-1.pub.mailoutpod2-cph3.one.com [IPv6:2a02:2350:5:400::1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AF61B10E9B9
+ for <freedreno@lists.freedesktop.org>; Fri, 27 Jan 2023 17:33:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ravnborg.org; s=rsa2;
+ h=in-reply-to:content-type:mime-version:references:message-id:subject:cc:to:
+ from:date:from;
+ bh=3c3PSAeAVS44hPgNdwEqNOZLOf+JgUO0UlF9QWeiCn4=;
+ b=WHqgcCH9V8CvGGVIxavfbPOdwm4QA3894vFUnPXY0TgxjZEFhcCS8VaXg2QAheoD7PrkTs1rSFWrU
+ VNM4VF5Z6bHirvHCRcm3WqcSupGUyNBXo2NgbbFArKIcLI8xy8sWocSF+uN4OC5mal3FuEm300Hqyo
+ kZ1SoniLLq2yK6QoIlwzFXv0lJAZApX1rKRHJ9VS7wQpvCetzC88nT1hyG5NQbL/Ih6CMcFgVY53tx
+ rr/hCiDMvxgrf8M9rE/Ud81NjzCdzOMXs3Nwf4fjxyE8aMD9szbV2EGenW6M5LY4PbCu2P+bAUsxNB
+ RmG+6pzao5Eb9qQO8UVJR2w3OMy3pbg==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed;
+ d=ravnborg.org; s=ed2;
+ h=in-reply-to:content-type:mime-version:references:message-id:subject:cc:to:
+ from:date:from;
+ bh=3c3PSAeAVS44hPgNdwEqNOZLOf+JgUO0UlF9QWeiCn4=;
+ b=E465coUFu3DysWYGV/GEsYK/S36FRsGdBEysns+r/qoNqP9g5mz7ipRH5TuyIE0713LQkX+EbBd2l
+ QQYV3RaCg==
+X-HalOne-ID: a9381d42-9e68-11ed-8608-11abd97b9443
+Received: from ravnborg.org (2-105-2-98-cable.dk.customer.tdc.net [2.105.2.98])
+ by mailrelay1 (Halon) with ESMTPSA
+ id a9381d42-9e68-11ed-8608-11abd97b9443;
+ Fri, 27 Jan 2023 17:33:08 +0000 (UTC)
+Date: Fri, 27 Jan 2023 18:33:07 +0100
+From: Sam Ravnborg <sam@ravnborg.org>
+To: Thomas Zimmermann <tzimmermann@suse.de>
+Message-ID: <Y9QK09hRM8tR1Du+@ravnborg.org>
+References: <20230125200415.14123-1-tzimmermann@suse.de>
+ <20230125200415.14123-2-tzimmermann@suse.de>
+ <Y9GWfi4EiCDPa6BJ@ravnborg.org>
+ <bf1aa950-3b58-3e33-4849-2ee7fbefcfcc@suse.de>
 MIME-Version: 1.0
-References: <20230113155547.RFT.1.I723a3761d57ea60c5dd754c144aed6c3b2ea6f5a@changeid>
- <20230113155547.RFT.2.I4cfeab9d0e07e98ead23dd0736ab4461e6c69002@changeid>
- <CAA8EJprBPNfjhx1Op4rnHTx9DXDGkgc0q3cZzBHtahi6EaKS_w@mail.gmail.com>
-In-Reply-To: <CAA8EJprBPNfjhx1Op4rnHTx9DXDGkgc0q3cZzBHtahi6EaKS_w@mail.gmail.com>
-From: Doug Anderson <dianders@chromium.org>
-Date: Fri, 27 Jan 2023 08:32:23 -0800
-X-Gmail-Original-Message-ID: <CAD=FV=Xt2XbAX6DxCFUz0F1O0NV2dbc7cy5ZNQ5-nFwMu6j4YA@mail.gmail.com>
-Message-ID: <CAD=FV=Xt2XbAX6DxCFUz0F1O0NV2dbc7cy5ZNQ5-nFwMu6j4YA@mail.gmail.com>
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [RFT PATCH 2/2] drm/msm/dsi: Stop unconditionally
- powering up DSI hosts at modeset
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <bf1aa950-3b58-3e33-4849-2ee7fbefcfcc@suse.de>
+Subject: Re: [Freedreno] [PATCH v3 01/10] drm/client: Test for connectors
+ before sending hotplug event
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,205 +60,49 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: ye xingchen <ye.xingchen@zte.com.cn>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Jernej Skrabec <jernej.skrabec@gmail.com>,
- Andrzej Hajda <andrzej.hajda@intel.com>,
- Dave Stevenson <dave.stevenson@raspberrypi.com>,
- David Airlie <airlied@gmail.com>, Jonas Karlman <jonas@kwiboo.se>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
- Stephen Boyd <swboyd@chromium.org>, Rob Clark <robdclark@gmail.com>,
- Vinod Koul <vkoul@kernel.org>, Robert Foss <robert.foss@linaro.org>,
- Daniel Vetter <daniel@ffwll.ch>, linux-arm-msm@vger.kernel.org,
- freedreno@lists.freedesktop.org, Sean Paul <sean@poorly.run>,
- linux-kernel@vger.kernel.org,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>
+Cc: linux-samsung-soc@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ intel-gfx@lists.freedesktop.org, javierm@redhat.com,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-tegra@vger.kernel.org, freedreno@lists.freedesktop.org,
+ linux-arm-kernel@lists.infradead.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Hi,
+On Fri, Jan 27, 2023 at 03:13:50PM +0100, Thomas Zimmermann wrote:
+> Hi
+> 
+> Am 25.01.23 um 21:52 schrieb Sam Ravnborg:
+> > Hi Thomas,
+> > 
+> > On Wed, Jan 25, 2023 at 09:04:06PM +0100, Thomas Zimmermann wrote:
+> > > Test for connectors in the client code and remove a similar test
+> > > from the generic fbdev emulation. Do nothing if the test fails.
+> > > Not having connectors indicates a driver bug.
+> > > 
+> > > Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+> > > Reviewed-by: Javier Martinez Canillas <javierm@redhat.com>
+> > > ---
+> > >   drivers/gpu/drm/drm_client.c        | 5 +++++
+> > >   drivers/gpu/drm/drm_fbdev_generic.c | 5 -----
+> > >   2 files changed, 5 insertions(+), 5 deletions(-)
+> > > 
+> > > diff --git a/drivers/gpu/drm/drm_client.c b/drivers/gpu/drm/drm_client.c
+> > > index 262ec64d4397..09ac191c202d 100644
+> > > --- a/drivers/gpu/drm/drm_client.c
+> > > +++ b/drivers/gpu/drm/drm_client.c
+> > > @@ -198,6 +198,11 @@ void drm_client_dev_hotplug(struct drm_device *dev)
+> > >   	if (!drm_core_check_feature(dev, DRIVER_MODESET))
+> > >   		return;
+> > > +	if (!dev->mode_config.num_connector) {
+> > > +		drm_dbg_kms(dev, "No connectors found, will not send hotplug events!\n");
+> > > +		return;
+> > This deserves a more visible logging - if a driver fails here it would
+> > be good to spot it in the normal kernel log.
+> > drm_info or drm_notice?
+> 
+> But is that really noteworthy? AFAIK, this situation can legally happen. So
+> if it's expected, why should we print a message about it?
+I was reading it as a driver error - as that's not the case current code
+is fine.
 
-On Thu, Jan 26, 2023 at 9:49 PM Dmitry Baryshkov
-<dmitry.baryshkov@linaro.org> wrote:
->
-> Hi,
->
-> On Sat, 14 Jan 2023 at 01:56, Douglas Anderson <dianders@chromium.org> wrote:
-> >
-> > In commit 7d8e9a90509f ("drm/msm/dsi: move DSI host powerup to modeset
-> > time"), we moved powering up DSI hosts to modeset time. This wasn't
-> > because it was an elegant design, but there were no better options.
-> >
-> > That commit actually ended up breaking ps8640, and thus was born
-> > commit ec7981e6c614 ("drm/msm/dsi: don't powerup at modeset time for
-> > parade-ps8640") as a temporary hack to un-break ps8640 by moving it to
-> > the old way of doing things. It turns out that ps8640 _really_ doesn't
-> > like its pre_enable() function to be called after
-> > dsi_mgr_bridge_power_on(). Specifically (from experimentation, not
-> > because I have any inside knowledge), it looks like the assertion of
-> > "RST#" in the ps8640 runtime resume handler seems like it's not
-> > allowed to happen after dsi_mgr_bridge_power_on()
-> >
-> > Recently, Dave Stevenson's series landed allowing bridges some control
-> > over pre_enable ordering. The meaty commit for our purposes is commit
-> > 4fb912e5e190 ("drm/bridge: Introduce pre_enable_prev_first to alter
-> > bridge init order"). As documented by that series, if a bridge doesn't
-> > set "pre_enable_prev_first" then we should use the old ordering.
-> >
-> > Now that we have the commit ("drm/bridge: tc358762: Set
-> > pre_enable_prev_first") we can go back to the old ordering, which also
-> > allows us to remove the ps8640 special case.
-> >
-> > One last note is that even without reverting commit 7d8e9a90509f
-> > ("drm/msm/dsi: move DSI host powerup to modeset time"), if you _just_
-> > revert the ps8640 special case and try it out then it doesn't seem to
-> > fail anymore. I spent time bisecting / debugging this and it turns out
-> > to be mostly luck, so we still want this patch to make sure it's
-> > solid. Specifically the reason it sorta works these days is because
-> > we implemented wait_hpd_asserted() in ps8640 now, plus the magic of
-> > "pm_runtime" autosuspend. The fact that we have wait_hpd_asserted()
-> > implemented means that we actually power the bridge chip up just a wee
-> > bit earlier and then the bridge happens to stay on because of
-> > autosuspend and thus ends up powered before dsi_mgr_bridge_power_on().
->
-> I had a small comment on your patch, but then I was distracted and
-> forgot to send it. See below.
->
-> >
-> > Cc: Dave Stevenson <dave.stevenson@raspberrypi.com>
-> > Cc: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> > Cc: Abhinav Kumar <quic_abhinavk@quicinc.com>
-> > Signed-off-by: Douglas Anderson <dianders@chromium.org>
-> > ---
-> >
-> >  drivers/gpu/drm/msm/dsi/dsi_manager.c | 68 +++++----------------------
-> >  1 file changed, 11 insertions(+), 57 deletions(-)
-> >
-> > diff --git a/drivers/gpu/drm/msm/dsi/dsi_manager.c b/drivers/gpu/drm/msm/dsi/dsi_manager.c
-> > index 3a1417397283..5e6b8d423b96 100644
-> > --- a/drivers/gpu/drm/msm/dsi/dsi_manager.c
-> > +++ b/drivers/gpu/drm/msm/dsi/dsi_manager.c
-> > @@ -34,32 +34,6 @@ static struct msm_dsi_manager msm_dsim_glb;
-> >  #define IS_SYNC_NEEDED()       (msm_dsim_glb.is_sync_needed)
-> >  #define IS_MASTER_DSI_LINK(id) (msm_dsim_glb.master_dsi_link_id == id)
-> >
-> > -#ifdef CONFIG_OF
-> > -static bool dsi_mgr_power_on_early(struct drm_bridge *bridge)
-> > -{
-> > -       struct drm_bridge *next_bridge = drm_bridge_get_next_bridge(bridge);
-> > -
-> > -       /*
-> > -        * If the next bridge in the chain is the Parade ps8640 bridge chip
-> > -        * then don't power on early since it seems to violate the expectations
-> > -        * of the firmware that the bridge chip is running.
-> > -        *
-> > -        * NOTE: this is expected to be a temporary special case. It's expected
-> > -        * that we'll eventually have a framework that allows the next level
-> > -        * bridge to indicate whether it needs us to power on before it or
-> > -        * after it. When that framework is in place then we'll use it and
-> > -        * remove this special case.
-> > -        */
-> > -       return !(next_bridge && next_bridge->of_node &&
-> > -                of_device_is_compatible(next_bridge->of_node, "parade,ps8640"));
-> > -}
-> > -#else
-> > -static inline bool dsi_mgr_power_on_early(struct drm_bridge *bridge)
-> > -{
-> > -       return true;
-> > -}
-> > -#endif
-> > -
-> >  static inline struct msm_dsi *dsi_mgr_get_dsi(int id)
-> >  {
-> >         return msm_dsim_glb.dsi[id];
-> > @@ -254,7 +228,7 @@ static void msm_dsi_manager_set_split_display(u8 id)
-> >         }
-> >  }
-> >
-> > -static void dsi_mgr_bridge_power_on(struct drm_bridge *bridge)
-> > +static void dsi_mgr_bridge_pre_enable(struct drm_bridge *bridge)
->
-> Can you please keep the dsi_mgr_bridge_power_on() as is and just
-> remove the now-legacy dsi_mgr_power_on_early().
-
-By this, I assume you mean keep the function separate but still remove
-the call to it from "modeset" and unconditionally call it from
-dsi_mgr_bridge_pre_enable(), right?
-
-
-> >  {
-> >         int id = dsi_mgr_bridge_get_id(bridge);
-> >         struct msm_dsi *msm_dsi = dsi_mgr_get_dsi(id);
-> > @@ -300,36 +274,10 @@ static void dsi_mgr_bridge_power_on(struct drm_bridge *bridge)
-> >         if (is_bonded_dsi && msm_dsi1)
-> >                 msm_dsi_host_enable_irq(msm_dsi1->host);
-> >
-> > -       return;
-> > -
-> > -host1_on_fail:
-> > -       msm_dsi_host_power_off(host);
-> > -host_on_fail:
-> > -       dsi_mgr_phy_disable(id);
-> > -phy_en_fail:
-> > -       return;
-> > -}
-> > -
-> > -static void dsi_mgr_bridge_pre_enable(struct drm_bridge *bridge)
-> > -{
-> > -       int id = dsi_mgr_bridge_get_id(bridge);
-> > -       struct msm_dsi *msm_dsi = dsi_mgr_get_dsi(id);
-> > -       struct msm_dsi *msm_dsi1 = dsi_mgr_get_dsi(DSI_1);
-> > -       struct mipi_dsi_host *host = msm_dsi->host;
-> > -       bool is_bonded_dsi = IS_BONDED_DSI();
-> > -       int ret;
-> > -
-> > -       DBG("id=%d", id);
-> > -       if (!msm_dsi_device_connected(msm_dsi))
-> > -               return;
-> > -
-> >         /* Do nothing with the host if it is slave-DSI in case of bonded DSI */
-> >         if (is_bonded_dsi && !IS_MASTER_DSI_LINK(id))
-> >                 return;
-> >
-> > -       if (!dsi_mgr_power_on_early(bridge))
-> > -               dsi_mgr_bridge_power_on(bridge);
-> > -
-> >         ret = msm_dsi_host_enable(host);
-> >         if (ret) {
-> >                 pr_err("%s: enable host %d failed, %d\n", __func__, id, ret);
-> > @@ -349,7 +297,16 @@ static void dsi_mgr_bridge_pre_enable(struct drm_bridge *bridge)
-> >  host1_en_fail:
-> >         msm_dsi_host_disable(host);
-> >  host_en_fail:
-> > -
-> > +       msm_dsi_host_disable_irq(host);
-> > +       if (is_bonded_dsi && msm_dsi1) {
-> > +               msm_dsi_host_disable_irq(msm_dsi1->host);
-> > +               msm_dsi_host_power_off(msm_dsi1->host);
-> > +       }
-> > +host1_on_fail:
-> > +       msm_dsi_host_power_off(host);
-> > +host_on_fail:
-> > +       dsi_mgr_phy_disable(id);
-> > +phy_en_fail:
-> >         return;
-> >  }
-> >
-> > @@ -438,9 +395,6 @@ static void dsi_mgr_bridge_mode_set(struct drm_bridge *bridge,
-> >         msm_dsi_host_set_display_mode(host, adjusted_mode);
-> >         if (is_bonded_dsi && other_dsi)
-> >                 msm_dsi_host_set_display_mode(other_dsi->host, adjusted_mode);
-> > -
-> > -       if (dsi_mgr_power_on_early(bridge))
-> > -               dsi_mgr_bridge_power_on(bridge);
-> >  }
-> >
-> >  static enum drm_mode_status dsi_mgr_bridge_mode_valid(struct drm_bridge *bridge,
-> > --
-> > 2.39.0.314.g84b9a713c41-goog
-> >
->
->
-> --
-> With best wishes
-> Dmitry
+	Sam
