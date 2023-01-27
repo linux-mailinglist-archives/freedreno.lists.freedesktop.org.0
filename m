@@ -1,63 +1,60 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 90CEC67DC86
-	for <lists+freedreno@lfdr.de>; Fri, 27 Jan 2023 04:08:09 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 6A1A767DD36
+	for <lists+freedreno@lfdr.de>; Fri, 27 Jan 2023 06:49:04 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 530AE10E3DD;
-	Fri, 27 Jan 2023 03:08:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E0DC710E008;
+	Fri, 27 Jan 2023 05:49:02 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-oa1-x30.google.com (mail-oa1-x30.google.com
- [IPv6:2001:4860:4864:20::30])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 96A0110E3DA;
- Fri, 27 Jan 2023 03:08:03 +0000 (UTC)
-Received: by mail-oa1-x30.google.com with SMTP id
- 586e51a60fabf-15eec491b40so4859527fac.12; 
- Thu, 26 Jan 2023 19:08:03 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+Received: from mail-yw1-x1134.google.com (mail-yw1-x1134.google.com
+ [IPv6:2607:f8b0:4864:20::1134])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3A18010E008
+ for <freedreno@lists.freedesktop.org>; Fri, 27 Jan 2023 05:49:01 +0000 (UTC)
+Received: by mail-yw1-x1134.google.com with SMTP id
+ 00721157ae682-50112511ba7so53735117b3.3
+ for <freedreno@lists.freedesktop.org>; Thu, 26 Jan 2023 21:49:01 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=eWVjgWC+CRaiVU6jf3be0WvlqWbyqa4cbGUte3LE0QY=;
- b=SvGlwWDC+KblJS2mqQCluTm269HgIQaXn+HLtXa7cMZkrTaP7lnJrOIR33mFaXXtH/
- 8cL8KrnTBBZBGVXsgQ1DKAHWIM1+EKPpFW4p8IgxhR84Xbv3LigkPTByRA4kMaEdj6TU
- k7Kv1PNhnRA8GIoxbImSjJVcnIGMd9W4vnrh7KM6GtdcdB294Ly2ExbAI4DPIRsycidq
- ebpds6vqjuZg4C56lG2puV681tfO6LsMOE0MJ0KcEX5tTtzSLpp1IujIkVVhugeAFgp9
- cvAJNHs9DU6/eY5NWUZIL8O6Ph//ikJT+Lk7G/rojhpgq5p2I7AuJy6bEG+5t5c459tI
- xUFg==
+ bh=x7K7wszx3PlmIkyWFmqCcc/yrBEdNN/cXM5RnXYgcaU=;
+ b=LCJ3aHR9FsrRDzjCEpHf8FoobPT4acjXfv1zRhRSNyw48zmuKf4Z4iPLRRMQ2SIqMz
+ zdCk/Grj7c62mc8hO8LRK22bMHf13OcMBsTxxVba9u3HxOuQP+jzpLCNpQAqE31zEYj/
+ kqAKT8YD34wMx+3xbeGOrorfx+Y+2IUH7fEw7+Mr1ZawUXb7NUXZ9IWxNe4Z0r7o05V1
+ Wy8ZyYRIM0Qe06mbpE87OSciM936eiwhKdIeZ0t+vff2ZVgQUO+P/6BEocPL8KqcSKuI
+ +4SDbkfUTizi51jtRPAkh//lXKujlxDeetvDMjM1laMHZUYl64bi4dLtZw/UDP8JgaHA
+ adNA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=eWVjgWC+CRaiVU6jf3be0WvlqWbyqa4cbGUte3LE0QY=;
- b=dMK+hsGMAvzy9ekq78vJPdhI77WPr1zj//r+lx5OeiGb9eSstI7J7PrM8R4OymfsEz
- TYqCS++sY9EUopO6i7isxSFg3YFkbG825sO+0Wbolpmk4165xBhewJT+AY4iiw/rl+ZJ
- /CjmFeMdtoiuPU3Z6Zj89SpPkqctT2vudqE5Vl2ZcdHxfPtalOvh9AFVq3is+nHXjl5L
- h179Q0DSyX/oOoJxFX0k0lhW17ZT131eeeuBbst1+BnwUEUGSjylftTu8yNBbVBsMvmK
- 4tzCw3m/uWRaXu958e2GMlCQgO3nBJr92OAdXZeCU0o8s4Vkefumbxsl+OydPzmrllOZ
- gtkQ==
-X-Gm-Message-State: AFqh2kqQ1QGce/ajVEIkNGl9SV8mfn6DzxyZ7MfXc3wovIfs1zZW6oeK
- p6+LO+SSHDJrmosaueThX/OaEzJ+yBu/lokX704MXxup
-X-Google-Smtp-Source: AMrXdXtwNNbWR+EBpOWIEthHcrNWHYhATjGinf4U7RAj7/ORzz2dj7jhO7LE+yBhT7G/zMVkJANBNpaCoJ1m0UeBexw=
-X-Received: by 2002:a05:6870:44d0:b0:15b:96b8:e2be with SMTP id
- t16-20020a05687044d000b0015b96b8e2bemr2351141oai.38.1674788882705; Thu, 26
- Jan 2023 19:08:02 -0800 (PST)
+ bh=x7K7wszx3PlmIkyWFmqCcc/yrBEdNN/cXM5RnXYgcaU=;
+ b=PlymrZ+9xNyc2pvxMcnWfAnNHlgeUyCTqxefVNnXboDi7Q5EjVrhCgRsrCJDIyMK6F
+ ppewvnVd2blt5Bj0kGbEYmenqFjNMGpio+0yTtk/Htbi/HQo5TlBye0Cux1LQuDkoF4I
+ TKD3TFlTY1iCcWwTDS/W2y7MWrcE6e00eLL4fgrI7MMeajOuxOSvElsUuRxjN/M4BcTK
+ UcRooMpA++SLOSI9uP7OJxQFWSnTWzdjDmgTs7oRjYfbqz2wRjgrJaJJnqKpN3puz2aW
+ 0/Fp7zD2NhcT4eZC8ijs3LKEzj7D/hdJihQiVgyIAoBskcRiua5+Pl7AclJN6Ac/F9rx
+ qJng==
+X-Gm-Message-State: AFqh2koyW/cgrGvHyyqH+rapZ/NBXbe9tAeea38K/R5PxhsUUSfgfgVI
+ ULeNexRmyGO5CSAQCWnkSZ+ep6mbvWJ+EzIQnTvMmA==
+X-Google-Smtp-Source: AMrXdXtQXtfDBhpKPCT9/Dhn1xIPimIrtwTNyQrYmPbxZ2zSTHS40O4lV72dkhcNW16ltcKPZ+s/VoY08Y4KlKZHTzk=
+X-Received: by 2002:a0d:fd07:0:b0:3d6:2151:4038 with SMTP id
+ n7-20020a0dfd07000000b003d621514038mr4486411ywf.418.1674798540299; Thu, 26
+ Jan 2023 21:49:00 -0800 (PST)
 MIME-Version: 1.0
-References: <20230123153745.3185032-1-robdclark@gmail.com>
- <20230125040403epcms1p1646e9668b87df3e9c344ad58d39b6eb6@epcms1p1>
- <CGME20230123153745epcas1p17e57cf83ed371e86258139473befc615@epcms1p3>
- <CAF6AEGud-ESF=VgcaSFzKsWas0H5eSXZDdZGcnd8Ju=pr-W2EQ@mail.gmail.com>
- <20230125054626epcms1p38d34dc65cbc9cb29dd707a4b2cac8fb4@epcms1p3>
-In-Reply-To: <20230125054626epcms1p38d34dc65cbc9cb29dd707a4b2cac8fb4@epcms1p3>
-From: Rob Clark <robdclark@gmail.com>
-Date: Thu, 26 Jan 2023 19:08:01 -0800
-Message-ID: <CAF6AEGvkepf4eLKqXYkadOvtu_7ehCzmgoiq3_s7qvJXi_n3sw@mail.gmail.com>
-To: myungjoo.ham@samsung.com
+References: <20230113155547.RFT.1.I723a3761d57ea60c5dd754c144aed6c3b2ea6f5a@changeid>
+ <20230113155547.RFT.2.I4cfeab9d0e07e98ead23dd0736ab4461e6c69002@changeid>
+In-Reply-To: <20230113155547.RFT.2.I4cfeab9d0e07e98ead23dd0736ab4461e6c69002@changeid>
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Date: Fri, 27 Jan 2023 07:48:48 +0200
+Message-ID: <CAA8EJprBPNfjhx1Op4rnHTx9DXDGkgc0q3cZzBHtahi6EaKS_w@mail.gmail.com>
+To: Douglas Anderson <dianders@chromium.org>
 Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [PATCH] PM / devfreq: Fix build issues with devfreq
- disabled
+Subject: Re: [Freedreno] [RFT PATCH 2/2] drm/msm/dsi: Stop unconditionally
+ powering up DSI hosts at modeset
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,60 +67,195 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rob Clark <robdclark@chromium.org>,
- "linux-pm@vger.kernel.org" <linux-pm@vger.kernel.org>,
- open list <linux-kernel@vger.kernel.org>,
- Krzysztof Kozlowski <krzk@kernel.org>, Chanwoo Choi <cw00.choi@samsung.com>,
- Kyungmin Park <kyungmin.park@samsung.com>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- "freedreno@lists.freedesktop.org" <freedreno@lists.freedesktop.org>,
- Chia-I Wu <olvaffe@gmail.com>
+Cc: ye xingchen <ye.xingchen@zte.com.cn>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Andrzej Hajda <andrzej.hajda@intel.com>,
+ Dave Stevenson <dave.stevenson@raspberrypi.com>,
+ David Airlie <airlied@gmail.com>, Jonas Karlman <jonas@kwiboo.se>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
+ Stephen Boyd <swboyd@chromium.org>, Rob Clark <robdclark@gmail.com>,
+ Vinod Koul <vkoul@kernel.org>, Robert Foss <robert.foss@linaro.org>,
+ Daniel Vetter <daniel@ffwll.ch>, linux-arm-msm@vger.kernel.org,
+ freedreno@lists.freedesktop.org, Sean Paul <sean@poorly.run>,
+ linux-kernel@vger.kernel.org,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Tue, Jan 24, 2023 at 9:46 PM MyungJoo Ham <myungjoo.ham@samsung.com> wrote:
->
-> >On Tue, Jan 24, 2023 at 8:04 PM MyungJoo Ham <myungjoo.ham@samsung.com> wrote:
-> >>
-> >> >Sender : Rob Clark <robdclark@gmail.com>
-> >> >Date : 2023-01-24 00:37 (GMT+9)
-> >> >Title : [PATCH] PM / devfreq: Fix build issues with devfreq disabled
-> >> >
-> >> >From: Rob Clark <robdclark@chromium.org>
-> >> >
-> >> >The existing no-op shims for when PM_DEVFREQ (or an individual governor)
-> >> >only do half the job.  The governor specific config/tuning structs need
-> >> >to be available to avoid compile errors in drivers using devfreq.
-> >> >
-> >> >Fixes: 6563f60f14cb ("drm/msm/gpu: Add devfreq tuning debugfs")
-> >> >Signed-off-by: Rob Clark <robdclark@chromium.org>
-> >>
-> >> Doesn't this imply that DRM_MSM should depend on PM_DEVFREQ ?
-> >>
-> >> It appears that gpu/drm/msm/DRM_MSM uses PM_DEVFREQ without actually
-> >> declaring the dependency on PM_DEVFREQ.
-> >> You cannot use SIMPLE_ONDEMAND without DEVFREQ.
-> >
-> >Possibly that would resolve some issues, and that might have been my
-> >mistake in assuming that depending on SIMPLE_ONDEMAND implied a
-> >dependency on DEFREQ (which seems like a reasonable assumption, IMHO)
-> >
-> >But AFAICT some kernel configs that could otherwise use DRM_MSM don't
-> >support PM_DEVFREQ.. either way, lets solve this properly and remove
-> >needless dependencies on devfreq.
-> >
-> >BR,
-> >-R
->
-> Ok. You are enabling struct and enum only and that looks harmless.
->
-> PTAL, Chanwoo.
->
-> Acked-by: MyungJoo Ham <myungjoo.ham@samsung.com>
+Hi,
 
-Thanks, if possible, an ack to land this via msm-next would avoid
-build break headaches with COMPILE_TEST=y and other more obscure
-setups
+On Sat, 14 Jan 2023 at 01:56, Douglas Anderson <dianders@chromium.org> wrote:
+>
+> In commit 7d8e9a90509f ("drm/msm/dsi: move DSI host powerup to modeset
+> time"), we moved powering up DSI hosts to modeset time. This wasn't
+> because it was an elegant design, but there were no better options.
+>
+> That commit actually ended up breaking ps8640, and thus was born
+> commit ec7981e6c614 ("drm/msm/dsi: don't powerup at modeset time for
+> parade-ps8640") as a temporary hack to un-break ps8640 by moving it to
+> the old way of doing things. It turns out that ps8640 _really_ doesn't
+> like its pre_enable() function to be called after
+> dsi_mgr_bridge_power_on(). Specifically (from experimentation, not
+> because I have any inside knowledge), it looks like the assertion of
+> "RST#" in the ps8640 runtime resume handler seems like it's not
+> allowed to happen after dsi_mgr_bridge_power_on()
+>
+> Recently, Dave Stevenson's series landed allowing bridges some control
+> over pre_enable ordering. The meaty commit for our purposes is commit
+> 4fb912e5e190 ("drm/bridge: Introduce pre_enable_prev_first to alter
+> bridge init order"). As documented by that series, if a bridge doesn't
+> set "pre_enable_prev_first" then we should use the old ordering.
+>
+> Now that we have the commit ("drm/bridge: tc358762: Set
+> pre_enable_prev_first") we can go back to the old ordering, which also
+> allows us to remove the ps8640 special case.
+>
+> One last note is that even without reverting commit 7d8e9a90509f
+> ("drm/msm/dsi: move DSI host powerup to modeset time"), if you _just_
+> revert the ps8640 special case and try it out then it doesn't seem to
+> fail anymore. I spent time bisecting / debugging this and it turns out
+> to be mostly luck, so we still want this patch to make sure it's
+> solid. Specifically the reason it sorta works these days is because
+> we implemented wait_hpd_asserted() in ps8640 now, plus the magic of
+> "pm_runtime" autosuspend. The fact that we have wait_hpd_asserted()
+> implemented means that we actually power the bridge chip up just a wee
+> bit earlier and then the bridge happens to stay on because of
+> autosuspend and thus ends up powered before dsi_mgr_bridge_power_on().
 
-BR,
--R
+I had a small comment on your patch, but then I was distracted and
+forgot to send it. See below.
+
+>
+> Cc: Dave Stevenson <dave.stevenson@raspberrypi.com>
+> Cc: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> Cc: Abhinav Kumar <quic_abhinavk@quicinc.com>
+> Signed-off-by: Douglas Anderson <dianders@chromium.org>
+> ---
+>
+>  drivers/gpu/drm/msm/dsi/dsi_manager.c | 68 +++++----------------------
+>  1 file changed, 11 insertions(+), 57 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/msm/dsi/dsi_manager.c b/drivers/gpu/drm/msm/dsi/dsi_manager.c
+> index 3a1417397283..5e6b8d423b96 100644
+> --- a/drivers/gpu/drm/msm/dsi/dsi_manager.c
+> +++ b/drivers/gpu/drm/msm/dsi/dsi_manager.c
+> @@ -34,32 +34,6 @@ static struct msm_dsi_manager msm_dsim_glb;
+>  #define IS_SYNC_NEEDED()       (msm_dsim_glb.is_sync_needed)
+>  #define IS_MASTER_DSI_LINK(id) (msm_dsim_glb.master_dsi_link_id == id)
+>
+> -#ifdef CONFIG_OF
+> -static bool dsi_mgr_power_on_early(struct drm_bridge *bridge)
+> -{
+> -       struct drm_bridge *next_bridge = drm_bridge_get_next_bridge(bridge);
+> -
+> -       /*
+> -        * If the next bridge in the chain is the Parade ps8640 bridge chip
+> -        * then don't power on early since it seems to violate the expectations
+> -        * of the firmware that the bridge chip is running.
+> -        *
+> -        * NOTE: this is expected to be a temporary special case. It's expected
+> -        * that we'll eventually have a framework that allows the next level
+> -        * bridge to indicate whether it needs us to power on before it or
+> -        * after it. When that framework is in place then we'll use it and
+> -        * remove this special case.
+> -        */
+> -       return !(next_bridge && next_bridge->of_node &&
+> -                of_device_is_compatible(next_bridge->of_node, "parade,ps8640"));
+> -}
+> -#else
+> -static inline bool dsi_mgr_power_on_early(struct drm_bridge *bridge)
+> -{
+> -       return true;
+> -}
+> -#endif
+> -
+>  static inline struct msm_dsi *dsi_mgr_get_dsi(int id)
+>  {
+>         return msm_dsim_glb.dsi[id];
+> @@ -254,7 +228,7 @@ static void msm_dsi_manager_set_split_display(u8 id)
+>         }
+>  }
+>
+> -static void dsi_mgr_bridge_power_on(struct drm_bridge *bridge)
+> +static void dsi_mgr_bridge_pre_enable(struct drm_bridge *bridge)
+
+Can you please keep the dsi_mgr_bridge_power_on() as is and just
+remove the now-legacy dsi_mgr_power_on_early().
+
+>  {
+>         int id = dsi_mgr_bridge_get_id(bridge);
+>         struct msm_dsi *msm_dsi = dsi_mgr_get_dsi(id);
+> @@ -300,36 +274,10 @@ static void dsi_mgr_bridge_power_on(struct drm_bridge *bridge)
+>         if (is_bonded_dsi && msm_dsi1)
+>                 msm_dsi_host_enable_irq(msm_dsi1->host);
+>
+> -       return;
+> -
+> -host1_on_fail:
+> -       msm_dsi_host_power_off(host);
+> -host_on_fail:
+> -       dsi_mgr_phy_disable(id);
+> -phy_en_fail:
+> -       return;
+> -}
+> -
+> -static void dsi_mgr_bridge_pre_enable(struct drm_bridge *bridge)
+> -{
+> -       int id = dsi_mgr_bridge_get_id(bridge);
+> -       struct msm_dsi *msm_dsi = dsi_mgr_get_dsi(id);
+> -       struct msm_dsi *msm_dsi1 = dsi_mgr_get_dsi(DSI_1);
+> -       struct mipi_dsi_host *host = msm_dsi->host;
+> -       bool is_bonded_dsi = IS_BONDED_DSI();
+> -       int ret;
+> -
+> -       DBG("id=%d", id);
+> -       if (!msm_dsi_device_connected(msm_dsi))
+> -               return;
+> -
+>         /* Do nothing with the host if it is slave-DSI in case of bonded DSI */
+>         if (is_bonded_dsi && !IS_MASTER_DSI_LINK(id))
+>                 return;
+>
+> -       if (!dsi_mgr_power_on_early(bridge))
+> -               dsi_mgr_bridge_power_on(bridge);
+> -
+>         ret = msm_dsi_host_enable(host);
+>         if (ret) {
+>                 pr_err("%s: enable host %d failed, %d\n", __func__, id, ret);
+> @@ -349,7 +297,16 @@ static void dsi_mgr_bridge_pre_enable(struct drm_bridge *bridge)
+>  host1_en_fail:
+>         msm_dsi_host_disable(host);
+>  host_en_fail:
+> -
+> +       msm_dsi_host_disable_irq(host);
+> +       if (is_bonded_dsi && msm_dsi1) {
+> +               msm_dsi_host_disable_irq(msm_dsi1->host);
+> +               msm_dsi_host_power_off(msm_dsi1->host);
+> +       }
+> +host1_on_fail:
+> +       msm_dsi_host_power_off(host);
+> +host_on_fail:
+> +       dsi_mgr_phy_disable(id);
+> +phy_en_fail:
+>         return;
+>  }
+>
+> @@ -438,9 +395,6 @@ static void dsi_mgr_bridge_mode_set(struct drm_bridge *bridge,
+>         msm_dsi_host_set_display_mode(host, adjusted_mode);
+>         if (is_bonded_dsi && other_dsi)
+>                 msm_dsi_host_set_display_mode(other_dsi->host, adjusted_mode);
+> -
+> -       if (dsi_mgr_power_on_early(bridge))
+> -               dsi_mgr_bridge_power_on(bridge);
+>  }
+>
+>  static enum drm_mode_status dsi_mgr_bridge_mode_valid(struct drm_bridge *bridge,
+> --
+> 2.39.0.314.g84b9a713c41-goog
+>
+
+
+-- 
+With best wishes
+Dmitry
