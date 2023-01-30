@@ -2,78 +2,64 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 20F8E67F28B
-	for <lists+freedreno@lfdr.de>; Sat, 28 Jan 2023 00:59:29 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4DEE4680797
+	for <lists+freedreno@lfdr.de>; Mon, 30 Jan 2023 09:40:16 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CDB0210E2D9;
-	Fri, 27 Jan 2023 23:59:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 89B4189C0A;
+	Mon, 30 Jan 2023 08:40:11 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D2D6D10E088;
- Fri, 27 Jan 2023 23:59:25 +0000 (UTC)
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 30RNoIUQ011730; Fri, 27 Jan 2023 23:59:20 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
- h=message-id : date :
- mime-version : subject : to : cc : references : from : in-reply-to :
- content-type : content-transfer-encoding; s=qcppdkim1;
- bh=iugnl0X2DekgoR/WjQURot7Qc6whOv7xx/XB5PpW6iA=;
- b=g81pNbYdVCg4RodxyN3iQMAk9PyrJ1/T5nk1G4VVKESNJVzErKTseQ3CiHxNFvavU8T6
- HG1yKxUMhokEmTNJwyfhrsv4W8ajLNnrrC3QRZnvAoCQ2KBHvFgvF905eszUUvCJHByZ
- 137MqqEuB0h8Hsh0HzgpSCusvWaAOTq1zAwU5/FaftLUr63g5DPMKY+YjS10ScPjSTaR
- dqE/R44ZJro2/fcZLguM+SGiKJsNNWmqkAJ/bofvWW5RYue/IwhwAJnI7aOujg8nlAxJ
- I/KlIYDZ402oN+19VkHLayckQThcG330siQK6fZ8bgHK+4UBKfFLunTzuQHVuwz06Moc aQ== 
-Received: from nalasppmta04.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3nc95jsmj0-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 27 Jan 2023 23:59:19 +0000
-Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
- [10.47.209.196])
- by NALASPPMTA04.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 30RNxIG9001250
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 27 Jan 2023 23:59:18 GMT
-Received: from [10.110.19.240] (10.80.80.8) by nalasex01a.na.qualcomm.com
- (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.36; Fri, 27 Jan
- 2023 15:59:18 -0800
-Message-ID: <e03f4fdc-75c1-dbc3-fb1a-05fc9e32d5cc@quicinc.com>
-Date: Fri, 27 Jan 2023 15:59:17 -0800
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7C6CB89C0A;
+ Mon, 30 Jan 2023 08:40:09 +0000 (UTC)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 1D4E721904;
+ Mon, 30 Jan 2023 08:40:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1675068008; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=2SVfhz4vtI64h5SERZ/9fRgC8aqv2ev6ARHJYCOeeH4=;
+ b=G2mVqFvKEL/BlzFzerKAcMGLe5N4yjYl5NQQhVVFOPOvi8MDzhZ/HfgNTmcGw1vpcO3+V/
+ qC2QH1B7wcDHgG+hGne07hmu22/jcjJ1CCma6zbPvY0lpxpR6UFScXgGG2P+7VuhSN5y91
+ K5HvfO+CrgNfQvoR+K30ExwPDfcMQtA=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1675068008;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=2SVfhz4vtI64h5SERZ/9fRgC8aqv2ev6ARHJYCOeeH4=;
+ b=2J6FYGxp4Pro5SY2sXN5uFjh9m5a2UI3v22+JjjdQpCOqwELpLu5MyUzkzpZ0cFkCqJCYs
+ GRUiM7cHFllcEbBQ==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id D7E4D13A06;
+ Mon, 30 Jan 2023 08:40:07 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id QqG+M2eC12PIUwAAMHmgww
+ (envelope-from <tzimmermann@suse.de>); Mon, 30 Jan 2023 08:40:07 +0000
+Message-ID: <23bcc048-5c74-5781-33a7-98d28fafbdf8@suse.de>
+Date: Mon, 30 Jan 2023 09:40:07 +0100
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.6.2
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.6.1
 Content-Language: en-US
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-References: <20221229191856.3508092-1-dmitry.baryshkov@linaro.org>
- <20221229191856.3508092-6-dmitry.baryshkov@linaro.org>
- <aaeb287f-de41-3f63-fd93-b08532964d59@quicinc.com>
- <CAA8EJprHMyPDmHhqZF-AZpqiLNkK7QuoQz-sZu6kSabZ7y76Dw@mail.gmail.com>
-From: Abhinav Kumar <quic_abhinavk@quicinc.com>
-In-Reply-To: <CAA8EJprHMyPDmHhqZF-AZpqiLNkK7QuoQz-sZu6kSabZ7y76Dw@mail.gmail.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-GUID: WawpkbrSZBp85MWdXHh3HQaDKspEnLRd
-X-Proofpoint-ORIG-GUID: WawpkbrSZBp85MWdXHh3HQaDKspEnLRd
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.219,Aquarius:18.0.930,Hydra:6.0.562,FMLib:17.11.122.1
- definitions=2023-01-27_14,2023-01-27_01,2022-06-22_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 mlxlogscore=999
- clxscore=1015 lowpriorityscore=0 mlxscore=0 impostorscore=0 suspectscore=0
- spamscore=0 priorityscore=1501 phishscore=0 bulkscore=0 malwarescore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2212070000
- definitions=main-2301270220
-Subject: Re: [Freedreno] [PATCH v2 05/27] drm/msm/dpu: drop EAGAIN check
- from dpu_format_populate_layout
+To: Simon Ser <contact@emersion.fr>
+References: <20230125200415.14123-1-tzimmermann@suse.de>
+ <20230125200415.14123-2-tzimmermann@suse.de>
+ <tc_igyYrgA_B5xJ15j6H2fQ00aA6vzd4nuQ8XusqeJqWWNZDJx8fFRgBAWoWOV8L5BEhjFDMYgANfdKXLqJZ0DMcsZfy8OUHDRatj36oOXo=@emersion.fr>
+From: Thomas Zimmermann <tzimmermann@suse.de>
+In-Reply-To: <tc_igyYrgA_B5xJ15j6H2fQ00aA6vzd4nuQ8XusqeJqWWNZDJx8fFRgBAWoWOV8L5BEhjFDMYgANfdKXLqJZ0DMcsZfy8OUHDRatj36oOXo=@emersion.fr>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="------------9hAz08szS0xR2UsvN0rZCqf5"
+Subject: Re: [Freedreno] [PATCH v3 01/10] drm/client: Test for connectors
+ before sending hotplug event
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -86,122 +72,71 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, Sean Paul <sean@poorly.run>,
- Bjorn Andersson <andersson@kernel.org>, dri-devel@lists.freedesktop.org,
- Stephen Boyd <swboyd@chromium.org>, Rob Clark <robdclark@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>, linux-arm-msm@vger.kernel.org,
- David Airlie <airlied@gmail.com>
+Cc: linux-samsung-soc@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ intel-gfx@lists.freedesktop.org, javierm@redhat.com,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-tegra@vger.kernel.org, freedreno@lists.freedesktop.org,
+ linux-arm-kernel@lists.infradead.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------------9hAz08szS0xR2UsvN0rZCqf5
+Content-Type: multipart/mixed; boundary="------------WtGY1Ja0eVD12VghFsROTVfh";
+ protected-headers="v1"
+From: Thomas Zimmermann <tzimmermann@suse.de>
+To: Simon Ser <contact@emersion.fr>
+Cc: freedreno@lists.freedesktop.org, linux-samsung-soc@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
+ intel-gfx@lists.freedesktop.org, javierm@redhat.com,
+ dri-devel@lists.freedesktop.org, linux-tegra@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org
+Message-ID: <23bcc048-5c74-5781-33a7-98d28fafbdf8@suse.de>
+Subject: Re: [PATCH v3 01/10] drm/client: Test for connectors before sending
+ hotplug event
+References: <20230125200415.14123-1-tzimmermann@suse.de>
+ <20230125200415.14123-2-tzimmermann@suse.de>
+ <tc_igyYrgA_B5xJ15j6H2fQ00aA6vzd4nuQ8XusqeJqWWNZDJx8fFRgBAWoWOV8L5BEhjFDMYgANfdKXLqJZ0DMcsZfy8OUHDRatj36oOXo=@emersion.fr>
+In-Reply-To: <tc_igyYrgA_B5xJ15j6H2fQ00aA6vzd4nuQ8XusqeJqWWNZDJx8fFRgBAWoWOV8L5BEhjFDMYgANfdKXLqJZ0DMcsZfy8OUHDRatj36oOXo=@emersion.fr>
 
+--------------WtGY1Ja0eVD12VghFsROTVfh
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: base64
 
-On 1/26/2023 10:05 PM, Dmitry Baryshkov wrote:
-> On Fri, 27 Jan 2023 at 02:52, Abhinav Kumar <quic_abhinavk@quicinc.com> wrote:
->>
->>
->>
->> On 12/29/2022 11:18 AM, Dmitry Baryshkov wrote:
->>> The pipe's layout is not cached, corresponding data structure is zeroed
->>> out each time in the dpu_plane_sspp_atomic_update(), right before the
->>> call to _dpu_plane_set_scanout() -> dpu_format_populate_layout().
->>>
->>> Drop plane_addr comparison against previous layout and corresponding
->>> EAGAIN handling.
->>>
->>> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
->>
->> The change itself LGTM, hence
->>
->> But, shouldnt we add this EAGAIN validation or in other words fix this
->> rather than drop this?
-> 
-> What for? Does it really save us anything? What's the price of
-> re-programming the SSPP_SRC0_ADDR registers?
-> 
-There are 4 Src registers being programmed per sspp.
+SGkNCg0KQW0gMjcuMDEuMjMgdW0gMTk6MDIgc2NocmllYiBTaW1vbiBTZXI6DQo+IE9uIFdl
+ZG5lc2RheSwgSmFudWFyeSAyNXRoLCAyMDIzIGF0IDIxOjA0LCBUaG9tYXMgWmltbWVybWFu
+biA8dHppbW1lcm1hbm5Ac3VzZS5kZT4gd3JvdGU6DQo+IA0KPj4gTm90IGhhdmluZyBjb25u
+ZWN0b3JzIGluZGljYXRlcyBhIGRyaXZlciBidWcuDQo+IA0KPiBJcyBpdD8gV2hhdCBpZiBh
+bGwgY29ubmVjdG9ycyBhcmUgb2YgdGhlIERQLU1TVCB0eXBlLCBpZS4gdGhleSBhcmUNCj4g
+Y3JlYXRlZCBvbi10aGUtZmx5Pw0KDQpNeSBjb21taXQgbWVzc2FnZSB3YXMgbm9uc2Vuc2Uu
+IEkgZXZlbiB3cml0ZSB0aGlzIGhlcmUgdGhhdCBoYXZpbmcgbm8gDQpjb25uZWN0b3JzIGlz
+IGxlZ2l0aW1hdGUuDQoNCkJlc3QgcmVnYXJkcw0KVGhvbWFzDQoNCg0KLS0gDQpUaG9tYXMg
+WmltbWVybWFubg0KR3JhcGhpY3MgRHJpdmVyIERldmVsb3Blcg0KU1VTRSBTb2Z0d2FyZSBT
+b2x1dGlvbnMgR2VybWFueSBHbWJIDQpNYXhmZWxkc3RyLiA1LCA5MDQwOSBOw7xybmJlcmcs
+IEdlcm1hbnkNCihIUkIgMzY4MDksIEFHIE7DvHJuYmVyZykNCkdlc2Now6RmdHNmw7xocmVy
+OiBJdm8gVG90ZXYNCg==
 
-With number of layers going up this will be 4x.
+--------------WtGY1Ja0eVD12VghFsROTVfh--
 
-So lets say there are 5 layers and only one of their address has 
-changed, we need to reprogram only 4 regs but now will reprogram 20.
+--------------9hAz08szS0xR2UsvN0rZCqf5
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature"
 
-Thats why i thought this is a good optimization.
+-----BEGIN PGP SIGNATURE-----
 
-But still, that is a separate change so I am fine if this goes in first 
-as its just removing dead code anyway.
+wsF5BAABCAAjFiEExndm/fpuMUdwYFFolh/E3EQov+AFAmPXgmcFAwAAAAAACgkQlh/E3EQov+AQ
+Lw//aZ2S6JqzI3HN2smO8qU+8YYo347edHPSYqgFtXYNPh3cskycgaxH6JIls8ewpLF85X5KdCnL
+XBt1OEkxB971xIY+IIKEpyYtSogk036qBJGGlGkhHDvPNKAjvOJqZaUjiRDPNd/pMIbQy9TUlqjo
+QITr7Pz5mfdt5iW+OEOUYWPSIDMvYjxK9CHPPmsVsVNaIsl7cW9jyVCdbv4SYqqJTwCoHONNB2XW
+vGu/wsa1c+Qtj2LRN6kx7WkEJmx9qwmgwuc5zJ7ucRRs5ODZ28FWfVxPTi7BY4yilClpvctXZLpw
+EZvCnFgjb2TASEqS1dTes6yP50lvv1wXbwc+2ujM6gqIG1HqaxAEOBUcjdUOuhTBXf2890OWaAzM
+wa/sMoxafn5lGDGT8vLnz/aUfqUIeY8xrDyb/HED/bryXsaepjUYxI8rUmXNiQsNIjG/ONle8LZd
+mKWCreWhoowp/ezL1/Hgk8vE9rlazNvx17ydqIhLK3DwrbsiH3YwY2lfYahS3sIjcnjPeOdWNGgs
+rbyNvA4m/h7VCdby8PTEthQxkkU5S5yXwJrd5Jk+d4Eewmqx0SWhr/zV9AIJ9eemNfq531zvX3Se
+E7Fmz390mmQVdwr88P2wDs1Wp8h9s9oZ+tbgYjpsVRMgzO+dUM4fYRnWvXUq4EU+1dtQLoHc0s3v
+J50=
+=3ibD
+-----END PGP SIGNATURE-----
 
-Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
-
->>
->> Like I wrote in the review last time, this makes sure to fail the commit
->> if the same addr is being programmed.
-> 
-> First, there is nothing wrong with committing the same source addr.
-> For example setting the atomic property incurs an internal
-> drm_atomic_commit() with no change to addresses at all.
-> And then, this doesn't make atomic_commit fail. Instead it just
-> shortcuts a call to SSPP->setup_sourceaddress.
-> 
-
-Ack, yes it wont fail the commit but will skip programming the new address.
-
->>
->>> ---
->>>    drivers/gpu/drm/msm/disp/dpu1/dpu_formats.c | 10 +---------
->>>    drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c   |  4 +---
->>>    2 files changed, 2 insertions(+), 12 deletions(-)
->>>
->>> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_formats.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_formats.c
->>> index d95540309d4d..ec1001e10f4f 100644
->>> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_formats.c
->>> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_formats.c
->>> @@ -918,8 +918,7 @@ int dpu_format_populate_layout(
->>>                struct drm_framebuffer *fb,
->>>                struct dpu_hw_fmt_layout *layout)
->>>    {
->>> -     uint32_t plane_addr[DPU_MAX_PLANES];
->>> -     int i, ret;
->>> +     int ret;
->>>
->>>        if (!fb || !layout) {
->>>                DRM_ERROR("invalid arguments\n");
->>> @@ -940,9 +939,6 @@ int dpu_format_populate_layout(
->>>        if (ret)
->>>                return ret;
->>>
->>> -     for (i = 0; i < DPU_MAX_PLANES; ++i)
->>> -             plane_addr[i] = layout->plane_addr[i];
->>> -
->>>        /* Populate the addresses given the fb */
->>>        if (DPU_FORMAT_IS_UBWC(layout->format) ||
->>>                        DPU_FORMAT_IS_TILE(layout->format))
->>> @@ -950,10 +946,6 @@ int dpu_format_populate_layout(
->>>        else
->>>                ret = _dpu_format_populate_addrs_linear(aspace, fb, layout);
->>>
->>> -     /* check if anything changed */
->>> -     if (!ret && !memcmp(plane_addr, layout->plane_addr, sizeof(plane_addr)))
->>> -             ret = -EAGAIN;
->>> -
->>>        return ret;
->>>    }
->>>
->>> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
->>> index cdde7b9ec882..43fb8e00ada6 100644
->>> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
->>> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
->>> @@ -476,9 +476,7 @@ static void _dpu_plane_set_scanout(struct drm_plane *plane,
->>>        int ret;
->>>
->>>        ret = dpu_format_populate_layout(aspace, fb, &pipe_cfg->layout);
->>> -     if (ret == -EAGAIN)
->>> -             DPU_DEBUG_PLANE(pdpu, "not updating same src addrs\n");
->>> -     else if (ret)
->>> +     if (ret)
->>>                DPU_ERROR_PLANE(pdpu, "failed to get format layout, %d\n", ret);
->>>        else if (pdpu->pipe_hw->ops.setup_sourceaddress) {
->>>                trace_dpu_plane_set_scanout(pdpu->pipe_hw->idx,
-> 
-> 
-> 
+--------------9hAz08szS0xR2UsvN0rZCqf5--
