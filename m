@@ -2,64 +2,56 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id EC686683948
-	for <lists+freedreno@lfdr.de>; Tue, 31 Jan 2023 23:22:27 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B70DA683A7F
+	for <lists+freedreno@lfdr.de>; Wed,  1 Feb 2023 00:31:48 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 06B9810E396;
-	Tue, 31 Jan 2023 22:22:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4A74010E3A0;
+	Tue, 31 Jan 2023 23:31:45 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-pj1-x1036.google.com (mail-pj1-x1036.google.com
- [IPv6:2607:f8b0:4864:20::1036])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 684F010E39A
- for <freedreno@lists.freedesktop.org>; Tue, 31 Jan 2023 22:22:22 +0000 (UTC)
-Received: by mail-pj1-x1036.google.com with SMTP id
- l4-20020a17090a850400b0023013402671so75476pjn.5
- for <freedreno@lists.freedesktop.org>; Tue, 31 Jan 2023 14:22:22 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=rXDYbKDbTfFR4g/Nh4bZjHD3KmThZ7Sh2niPtOlScU0=;
- b=CbHl3tEqDWlEJUBNu9QPcromD2gQpIqbwlCkQjXXAScaqPJL/MvAW1LggsaGBn4gNL
- b5n3pTdKMYTrJUhufb291yU3gE0pxFAKrD2N+pY6CCVlDjVyr7AKStrg8h+xoBHaKfVf
- VpgpdnzQkmCa+/5FPFl2/EymlbNT7QZ0AVRtc=
+Received: from mail-ot1-f49.google.com (mail-ot1-f49.google.com
+ [209.85.210.49])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9E9A610E05D;
+ Tue, 31 Jan 2023 23:31:42 +0000 (UTC)
+Received: by mail-ot1-f49.google.com with SMTP id
+ s41-20020a05683043a900b0068bd63d34d0so1816115otv.6; 
+ Tue, 31 Jan 2023 15:31:42 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=rXDYbKDbTfFR4g/Nh4bZjHD3KmThZ7Sh2niPtOlScU0=;
- b=YuPCP7H5h3J2vuJe+RVM+u7qeSZLYTxcuxevIUWwwVsxbv/gcg03WtBWI87Fr3esZR
- DeSthM2Ezlu7+ZJYJz23K9GVpaOHj8io/SjHAiUq5gJPNi7aChJ2tZ0qSUlDGt8THmgS
- ikKkN39qvumeqhGK+IhifR6BUmUq/MF0V0tHSieksDFTlhTnmt6ucwBzzbr6FZE3P8a5
- 8oHjCw93Pwb28hideieYrQtExrxBLkdO/ANBH1nZc5n3erS203srIZMkGmgjQbikqsz/
- Ep+xxEiLL3+Hg8c7ArYgmUm/+27w/8ziXgPPvxJ45I7QCVV1dsagCVVrd2rC2GPZD9pj
- hIig==
-X-Gm-Message-State: AO0yUKWC/NM7qxpWz6LJUtttKHbEiVDa4dPxEwgDxN55Dyy8vS7VucFO
- FB0WEpSLJ1Uh70NzH2VRmSGOhg35mxdbuJ8xmEE=
-X-Google-Smtp-Source: AK7set9KafniYlXlikUNcVsRH/xqACci19OB3GKcIucm86pRwywvb5ce+kHpCziKTrpY5ykvp6RiFw==
-X-Received: by 2002:a17:903:2312:b0:196:8cf4:9ca7 with SMTP id
- d18-20020a170903231200b001968cf49ca7mr684707plh.19.1675203741972; 
- Tue, 31 Jan 2023 14:22:21 -0800 (PST)
-Received: from tictac2.mtv.corp.google.com ([2620:15c:9d:2:138e:73d3:502:64f])
- by smtp.gmail.com with ESMTPSA id
- d18-20020a170903231200b0019339f3368asm10377471plh.3.2023.01.31.14.22.20
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=oZpJmY/vAV7sw0j3Od6zi4sNY3jQ6TPDxOUi/nS8wLk=;
+ b=xuW1U9qEkoDOAL5vBs7S5d06gQKvr0rK+ebGqgCTc6apU2eQ390qoAy935Cmk9yRVc
+ 6SnJE+wWMIMFl8DCK0YuY5JVn2jceI50D7yjqdFjc0ZxurOYqZck0Y3+sQOIGNfeDnez
+ FiV1BbSoQpiFVuoM2Ti0mtoVh46GAYol9qrkszDCOeZIjLxIQJMfYixexZe1bSRXmnoN
+ Aq8UmBCbAswkv6IW1wQP0suhwt/rnoBiE7TSvx8zk/33/SJm1LdZt/fZWPvK6j0uYp0u
+ suHoSIyCXLaPFPp3oL5zNMrD7YKXSL3wXMLG3i/5vW4i/CcaeUNFBbqjZ/CLxcnucUMd
+ 6zEg==
+X-Gm-Message-State: AO0yUKUSVxewXO/ZzTla+9HhO2ziiOkPVkRZ5oCM7Z1KzSLE7u6jr9AO
+ Li5tmLZbNjmNXu3ZRvXUTQ==
+X-Google-Smtp-Source: AK7set+BBz0gJ5CqmiuWeP3KhWKRo8i/jf4fw+lWqawuBRxcBnA1EmuHreG3qjsJ/5nSau954Woy3A==
+X-Received: by 2002:a9d:1283:0:b0:68b:ca10:4ad with SMTP id
+ g3-20020a9d1283000000b0068bca1004admr210144otg.31.1675207901843; 
+ Tue, 31 Jan 2023 15:31:41 -0800 (PST)
+Received: from robh_at_kernel.org (66-90-144-107.dyn.grandenetworks.net.
+ [66.90.144.107]) by smtp.gmail.com with ESMTPSA id
+ j14-20020a056830014e00b0068bce2c3e9esm3407206otp.14.2023.01.31.15.31.40
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 31 Jan 2023 14:22:21 -0800 (PST)
-From: Douglas Anderson <dianders@chromium.org>
-To: dri-devel@lists.freedesktop.org, Rob Clark <robdclark@gmail.com>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Tue, 31 Jan 2023 14:18:26 -0800
-Message-Id: <20230131141756.RFT.v2.3.I3c87b53c4ab61a7d5e05f601a4eb44c7e3809a01@changeid>
-X-Mailer: git-send-email 2.39.1.456.gfc5497dd1b-goog
-In-Reply-To: <20230131141756.RFT.v2.1.I723a3761d57ea60c5dd754c144aed6c3b2ea6f5a@changeid>
-References: <20230131141756.RFT.v2.1.I723a3761d57ea60c5dd754c144aed6c3b2ea6f5a@changeid>
+ Tue, 31 Jan 2023 15:31:41 -0800 (PST)
+Received: (nullmailer pid 2150609 invoked by uid 1000);
+ Tue, 31 Jan 2023 23:31:40 -0000
+Date: Tue, 31 Jan 2023 17:31:40 -0600
+From: Rob Herring <robh@kernel.org>
+To: Rob Herring <robh@kernel.org>
+Message-ID: <167520789076.2150394.10201291390999389232.robh@kernel.org>
+References: <20230125221357.3057655-1-robh@kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [RFT PATCH v2 3/3] drm/msm/dsi: More properly handle
- errors in regards to dsi_mgr_bridge_power_on()
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20230125221357.3057655-1-robh@kernel.org>
+Subject: Re: [Freedreno] [PATCH] dt-bindings: display: msm: Drop type from
+ 'memory-region'
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,130 +64,25 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>, Jonas Karlman <jonas@kwiboo.se>,
- linux-arm-msm@vger.kernel.org, Neil Armstrong <neil.armstrong@linaro.org>,
- Douglas Anderson <dianders@chromium.org>, Robert Foss <robert.foss@linaro.org>,
- Stephen Boyd <swboyd@chromium.org>, Vinod Koul <vkoul@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Andrzej Hajda <andrzej.hajda@intel.com>,
- Dave Stevenson <dave.stevenson@raspberrypi.com>,
- David Airlie <airlied@gmail.com>, Sean Paul <sean@poorly.run>,
- linux-kernel@vger.kernel.org
+Cc: Sean Paul <sean@poorly.run>, devicetree@vger.kernel.org,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Rob Clark <robdclark@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ linux-arm-msm@vger.kernel.org, Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ David Airlie <airlied@gmail.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-In commit 7d8e9a90509f ("drm/msm/dsi: move DSI host powerup to modeset
-time") the error handling with regards to dsi_mgr_bridge_power_on()
-got a bit worse. Specifically if we failed to power the bridge on then
-nothing would really notice. The modeset function couldn't return an
-error and thus we'd blindly go forward and try to do the pre-enable.
 
-In commit ec7981e6c614 ("drm/msm/dsi: don't powerup at modeset time
-for parade-ps8640") we added a special case to move the powerup back
-to pre-enable time for ps8640. When we did that, we didn't try to
-recover the old/better error handling just for ps8640.
+On Wed, 25 Jan 2023 16:13:56 -0600, Rob Herring wrote:
+> 'memory-region' is a common property and already has a type.
+> 
+> Signed-off-by: Rob Herring <robh@kernel.org>
+> ---
+>  Documentation/devicetree/bindings/display/msm/gpu.yaml | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
 
-In the patch ("drm/msm/dsi: Stop unconditionally powering up DSI hosts
-at modeset") we've now moved the powering up back to exclusively being
-during pre-enable. That means we can add the better error handling
-back in, so let's do it. To do so we'll add a new function
-dsi_mgr_bridge_power_off() that's matches how errors were handled
-prior to commit 7d8e9a90509f ("drm/msm/dsi: move DSI host powerup to
-modeset time").
-
-NOTE: Now that we have dsi_mgr_bridge_power_off(), it feels as if we
-should be calling it in dsi_mgr_bridge_post_disable(). That would make
-some sense, but doing so would change the current behavior and thus
-should be a separate patch. Specifically:
-* dsi_mgr_bridge_post_disable() always calls dsi_mgr_phy_disable()
-  even in the slave-DSI case of bonded DSI. We'd need to add special
-  handling for this if it's truly needed.
-* dsi_mgr_bridge_post_disable() calls msm_dsi_phy_pll_save_state()
-  midway through the poweroff.
-* dsi_mgr_bridge_post_disable() has a different order of some of the
-  poweroffs / IRQ disables.
-For now we'll leave dsi_mgr_bridge_post_disable() alone.
-
-Signed-off-by: Douglas Anderson <dianders@chromium.org>
----
-
-Changes in v2:
-- ("More properly handle errors...") new for v2.
-
- drivers/gpu/drm/msm/dsi/dsi_manager.c | 32 ++++++++++++++++++++++-----
- 1 file changed, 26 insertions(+), 6 deletions(-)
-
-diff --git a/drivers/gpu/drm/msm/dsi/dsi_manager.c b/drivers/gpu/drm/msm/dsi/dsi_manager.c
-index 2197a54b9b96..28b8012a21f2 100644
---- a/drivers/gpu/drm/msm/dsi/dsi_manager.c
-+++ b/drivers/gpu/drm/msm/dsi/dsi_manager.c
-@@ -228,7 +228,7 @@ static void msm_dsi_manager_set_split_display(u8 id)
- 	}
- }
- 
--static void dsi_mgr_bridge_power_on(struct drm_bridge *bridge)
-+static int dsi_mgr_bridge_power_on(struct drm_bridge *bridge)
- {
- 	int id = dsi_mgr_bridge_get_id(bridge);
- 	struct msm_dsi *msm_dsi = dsi_mgr_get_dsi(id);
-@@ -268,14 +268,31 @@ static void dsi_mgr_bridge_power_on(struct drm_bridge *bridge)
- 	if (is_bonded_dsi && msm_dsi1)
- 		msm_dsi_host_enable_irq(msm_dsi1->host);
- 
--	return;
-+	return 0;
- 
- host1_on_fail:
- 	msm_dsi_host_power_off(host);
- host_on_fail:
- 	dsi_mgr_phy_disable(id);
- phy_en_fail:
--	return;
-+	return ret;
-+}
-+
-+static void dsi_mgr_bridge_power_off(struct drm_bridge *bridge)
-+{
-+	int id = dsi_mgr_bridge_get_id(bridge);
-+	struct msm_dsi *msm_dsi = dsi_mgr_get_dsi(id);
-+	struct msm_dsi *msm_dsi1 = dsi_mgr_get_dsi(DSI_1);
-+	struct mipi_dsi_host *host = msm_dsi->host;
-+	bool is_bonded_dsi = IS_BONDED_DSI();
-+
-+	msm_dsi_host_disable_irq(host);
-+	if (is_bonded_dsi && msm_dsi1) {
-+		msm_dsi_host_disable_irq(msm_dsi1->host);
-+		msm_dsi_host_power_off(msm_dsi1->host);
-+	}
-+	msm_dsi_host_power_off(host);
-+	dsi_mgr_phy_disable(id);
- }
- 
- static void dsi_mgr_bridge_pre_enable(struct drm_bridge *bridge)
-@@ -295,7 +312,11 @@ static void dsi_mgr_bridge_pre_enable(struct drm_bridge *bridge)
- 	if (is_bonded_dsi && !IS_MASTER_DSI_LINK(id))
- 		return;
- 
--	dsi_mgr_bridge_power_on(bridge);
-+	ret = dsi_mgr_bridge_power_on(bridge);
-+	if (ret) {
-+		dev_err(&msm_dsi->pdev->dev, "Power on failed: %d\n", ret);
-+		return;
-+	}
- 
- 	ret = msm_dsi_host_enable(host);
- 	if (ret) {
-@@ -316,8 +337,7 @@ static void dsi_mgr_bridge_pre_enable(struct drm_bridge *bridge)
- host1_en_fail:
- 	msm_dsi_host_disable(host);
- host_en_fail:
--
--	return;
-+	dsi_mgr_bridge_power_off(bridge);
- }
- 
- void msm_dsi_manager_tpg_enable(void)
--- 
-2.39.1.456.gfc5497dd1b-goog
+Applied, thanks!
 
