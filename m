@@ -1,78 +1,67 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 883496823AA
-	for <lists+freedreno@lfdr.de>; Tue, 31 Jan 2023 06:13:18 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 8185F6828BB
+	for <lists+freedreno@lfdr.de>; Tue, 31 Jan 2023 10:25:42 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C462E10E31E;
-	Tue, 31 Jan 2023 05:13:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E505110E32D;
+	Tue, 31 Jan 2023 09:25:37 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4AD5A10E31D;
- Tue, 31 Jan 2023 05:13:11 +0000 (UTC)
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 30V30iL2031822; Tue, 31 Jan 2023 05:13:05 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
- h=message-id : date :
- mime-version : subject : to : cc : references : from : in-reply-to :
- content-type : content-transfer-encoding; s=qcppdkim1;
- bh=dp6TaI6YOeHYSAAdNvyDIAfBqoqGpZgIN2szVnJWjZ0=;
- b=AbXMZ4OeRH3/9gYGjZbUStfdKE5duies+HmBUZ3uiK3mE3fwHCWZJr7t9yHDhePUXqFw
- FhIKVHEZthY4cYcbbWHeP3beocfmXDXUO0/kPxpinXOnbqhIrjyHs9Hida7BU8Uhj8iF
- rEIpLU3gqWI3T9ieJDPS25JUVHXRxyjZjAydzjdUWKmbqyj8x+ee5Nu4bPBMziBNuThL
- 5mA0/wpGCEyJK03IY6QmU0DivrZbRL2LY1DAm92FQ98otiSAIkKDsKOvt5qtHU1sBC2U
- yjuDj7WMTVp8FjH+0QadEZvqUnzFLgmC5fx0ovE/r+p+AwwVFaUSLpPLNd0c5XzHC7qB jg== 
-Received: from nalasppmta05.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3ncsdpwmf0-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 31 Jan 2023 05:13:04 +0000
-Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
- [10.47.209.196])
- by NALASPPMTA05.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 30V5D3va005838
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 31 Jan 2023 05:13:04 GMT
-Received: from [10.110.114.165] (10.80.80.8) by nalasex01a.na.qualcomm.com
- (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.36; Mon, 30 Jan
- 2023 21:13:03 -0800
-Message-ID: <bbb6ff43-a432-c0a6-e108-7bf8bc170f52@quicinc.com>
-Date: Mon, 30 Jan 2023 21:13:02 -0800
+Received: from mail-ej1-x62a.google.com (mail-ej1-x62a.google.com
+ [IPv6:2a00:1450:4864:20::62a])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C2FC710E325;
+ Tue, 31 Jan 2023 09:25:34 +0000 (UTC)
+Received: by mail-ej1-x62a.google.com with SMTP id gr7so15128846ejb.5;
+ Tue, 31 Jan 2023 01:25:34 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=mime-version:references:in-reply-to:message-id:subject:cc:to:from
+ :date:from:to:cc:subject:date:message-id:reply-to;
+ bh=z3lSRAvbwEid3dWm8LN9APi25R8vFUmC9/p72SL2jbU=;
+ b=OQCpvIkQrrKxUeLwrl7GV8tD3czv2XaXsiLUNVRc2FKIWsqBrhVfA6xahsPH4X8y5c
+ rJNjmwiD+THYR6G4adlwMgUIvzw7PWj8mlMvw3QW0VRaNc0l+84haPvqmDj8zqnX0zh4
+ YEVNr01ESNoWsshHlkAmZUVbjyTbIGeCERDggz3DbMxwFgL1YuyqAtr0QBA1hQkKp4jN
+ pYdiaQ5ZeHkzRgDVlETpTA8up2IDEoNbJz/oTMj6TrgB5uYkOvRjmQWCwKle9A+aISFf
+ 7zvoPIcbjO0Mvx4NMsIZsoMH375xQBKcFFqBrjxwCBE+ODNmF3D9Yr7xPkJd0kQ8RDNU
+ FDuw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=mime-version:references:in-reply-to:message-id:subject:cc:to:from
+ :date:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=z3lSRAvbwEid3dWm8LN9APi25R8vFUmC9/p72SL2jbU=;
+ b=J/alfEDfiKglix3PFIQoTSOvNYNkagqj05eK/wUFKyGITvVCaq0JZ1qJu+xfgTYbNZ
+ kq+fgILSeu9C6jSJn3jEcIDZZor1kRw2JqP+mr8VEnllGoeNs5LLQICF5QHpHiPBdL3U
+ MxN2wCYmDY5oR4bGM2/JLwL5mDTNEuYoaAUTRz1ua3BYDaEFfgrjAHo97AbaC4hK7wVe
+ AMkHbwYTeQ2oeAnU6gt2rYxAqxZe022JXJjrGo1dbcdBU2Bsj1i2VH3qE/pcOzWVL0SB
+ vR42X3I9NbFV75WICOZS1n5NrYo7MbRMGjcAY/tXaXmcMz3Z91k+FQR9DM+jTD1UL6kM
+ XcaA==
+X-Gm-Message-State: AO0yUKXXakl4P1xQYq5qGA9mK6PEjJ/fnGq2HLSMilifzeWr0Rm7n0GA
+ dGMQ2Rw7zDjYBPGlbRVYX98=
+X-Google-Smtp-Source: AK7set+kiASUQOq0T0JtC7gbUBSERdGrpkoLU7YdjJKyWblBVEulfnlZRbwOs40yi0xsduzM3PZvzA==
+X-Received: by 2002:a17:906:470f:b0:878:7cf3:a9e7 with SMTP id
+ y15-20020a170906470f00b008787cf3a9e7mr18433711ejq.65.1675157132961; 
+ Tue, 31 Jan 2023 01:25:32 -0800 (PST)
+Received: from eldfell ([194.136.85.206]) by smtp.gmail.com with ESMTPSA id
+ 1-20020a17090600c100b0088b24b3aff8sm1489994eji.183.2023.01.31.01.25.31
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 31 Jan 2023 01:25:32 -0800 (PST)
+Date: Tue, 31 Jan 2023 11:25:27 +0200
+From: Pekka Paalanen <ppaalanen@gmail.com>
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Message-ID: <20230131112527.32ab8ba5@eldfell>
+In-Reply-To: <CAA8EJppoejPPNhu3eHBc_vsstHvEEwYx67HZLo8+4W3K-gHkag@mail.gmail.com>
+References: <20230104234036.636-1-quic_jesszhan@quicinc.com>
+ <Y7a1hCmsvJHKdW1Y@phenom.ffwll.local>
+ <58caf08c-3a02-82ce-4452-8ae7f22f373d@quicinc.com>
+ <CAA8EJppnAmN6+S-emEfXJEc1iVf+DjeLBmCQpGd-nRY2M2AAQQ@mail.gmail.com>
+ <Y7hrWDpg8msuefgZ@phenom.ffwll.local>
+ <CAA8EJppoejPPNhu3eHBc_vsstHvEEwYx67HZLo8+4W3K-gHkag@mail.gmail.com>
+X-Mailer: Claws Mail 3.17.8 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.6.2
-Content-Language: en-US
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Rob Clark
- <robdclark@gmail.com>, Sean Paul <sean@poorly.run>
-References: <20221229191856.3508092-1-dmitry.baryshkov@linaro.org>
- <20221229191856.3508092-11-dmitry.baryshkov@linaro.org>
-From: Abhinav Kumar <quic_abhinavk@quicinc.com>
-In-Reply-To: <20221229191856.3508092-11-dmitry.baryshkov@linaro.org>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-GUID: d2dDPQzwp9jI8IOmiILJvdePENBI542T
-X-Proofpoint-ORIG-GUID: d2dDPQzwp9jI8IOmiILJvdePENBI542T
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.219,Aquarius:18.0.930,Hydra:6.0.562,FMLib:17.11.122.1
- definitions=2023-01-31_02,2023-01-30_01,2022-06-22_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0
- lowpriorityscore=0 bulkscore=0 adultscore=0 suspectscore=0 mlxlogscore=999
- spamscore=0 clxscore=1015 impostorscore=0 mlxscore=0 phishscore=0
- priorityscore=1501 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2212070000 definitions=main-2301310047
-Subject: Re: [Freedreno] [PATCH v2 10/27] drm/msm/dpu: pass dpu_format to
- _dpu_hw_sspp_setup_scaler3()
+Content-Type: multipart/signed; boundary="Sig_/=NBkRHtLwTRad5_VW=k6BOu";
+ protocol="application/pgp-signature"; micalg=pgp-sha256
+Subject: Re: [Freedreno] [RFC PATCH v3 0/3] Support for Solid Fill Planes
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -85,93 +74,186 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
- Bjorn Andersson <andersson@kernel.org>, dri-devel@lists.freedesktop.org,
- Stephen Boyd <swboyd@chromium.org>, Daniel Vetter <daniel@ffwll.ch>,
- David Airlie <airlied@gmail.com>
+Cc: sebastian.wick@redhat.com, linux-arm-msm@vger.kernel.org,
+ quic_abhinavk@quicinc.com, dri-devel@lists.freedesktop.org,
+ swboyd@chromium.org, daniel.vetter@ffwll.ch, robdclark@gmail.com,
+ seanpaul@chromium.org, laurent.pinchart@ideasonboard.com,
+ Daniel Vetter <daniel@ffwll.ch>, contact@emersion.fr,
+ Jessica Zhang <quic_jesszhan@quicinc.com>, wayland-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, ville.syrjala@linux.intel.com
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
+--Sig_/=NBkRHtLwTRad5_VW=k6BOu
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: quoted-printable
+
+On Fri, 6 Jan 2023 23:49:34 +0200
+Dmitry Baryshkov <dmitry.baryshkov@linaro.org> wrote:
+
+> On Fri, 6 Jan 2023 at 20:41, Daniel Vetter <daniel@ffwll.ch> wrote:
+> >
+> > On Fri, Jan 06, 2023 at 05:43:23AM +0200, Dmitry Baryshkov wrote: =20
+> > > On Fri, 6 Jan 2023 at 02:38, Jessica Zhang <quic_jesszhan@quicinc.com=
+> wrote: =20
+> > > >
+> > > >
+> > > >
+> > > > On 1/5/2023 3:33 AM, Daniel Vetter wrote: =20
+> > > > > On Wed, Jan 04, 2023 at 03:40:33PM -0800, Jessica Zhang wrote: =20
+> > > > >> Introduce and add support for a solid_fill property. When the so=
+lid_fill
+> > > > >> property is set, and the framebuffer is set to NULL, memory fetc=
+h will be
+> > > > >> disabled.
+> > > > >>
+> > > > >> In addition, loosen the NULL FB checks within the atomic commit =
+callstack
+> > > > >> to allow a NULL FB when the solid_fill property is set and add F=
+B checks
+> > > > >> in methods where the FB was previously assumed to be non-NULL.
+> > > > >>
+> > > > >> Finally, have the DPU driver use drm_plane_state.solid_fill and =
+instead of
+> > > > >> dpu_plane_state.color_fill, and add extra checks in the DPU atom=
+ic commit
+> > > > >> callstack to account for a NULL FB in cases where solid_fill is =
+set.
+> > > > >>
+> > > > >> Some drivers support hardware that have optimizations for solid =
+fill
+> > > > >> planes. This series aims to expose these capabilities to userspa=
+ce as
+> > > > >> some compositors have a solid fill flag (ex. SOLID_COLOR in the =
+Android
+> > > > >> hardware composer HAL) that can be set by apps like the Android =
+Gears
+> > > > >> app.
+> > > > >>
+> > > > >> Userspace can set the solid_fill property to a blob containing t=
+he
+> > > > >> appropriate version number and solid fill color (in RGB323232 fo=
+rmat) and
+> > > > >> setting the framebuffer to NULL.
+> > > > >>
+> > > > >> Note: Currently, there's only one version of the solid_fill blob=
+ property.
+> > > > >> However if other drivers want to support a similar feature, but =
+require
+> > > > >> more than just the solid fill color, they can extend this featur=
+e by
+> > > > >> creating additional versions of the drm_solid_fill struct.
+> > > > >>
+> > > > >> Changes in V2:
+> > > > >> - Dropped SOLID_FILL_FORMAT property (Simon)
+> > > > >> - Switched to implementing solid_fill property as a blob (Simon,=
+ Dmitry)
+> > > > >> - Changed to checks for if solid_fill_blob is set (Dmitry)
+> > > > >> - Abstracted (plane_state && !solid_fill_blob) checks to helper =
+method
+> > > > >>    (Dmitry)
+> > > > >> - Removed DPU_PLANE_COLOR_FILL_FLAG
+> > > > >> - Fixed whitespace and indentation issues (Dmitry) =20
+> > > > >
+> > > > > Now that this is a blob, I do wonder again whether it's not clean=
+er to set
+> > > > > the blob as the FB pointer. Or create some kind other kind of spe=
+cial data
+> > > > > source objects (because solid fill is by far not the only such th=
+ing).
+> > > > >
+> > > > > We'd still end up in special cases like when userspace that doesn=
+'t
+> > > > > understand solid fill tries to read out such a framebuffer, but t=
+hese
+> > > > > cases already exist anyway for lack of priviledges.
+> > > > >
+> > > > > So I still think that feels like the more consistent way to integ=
+rate this
+> > > > > feature. Which doesn't mean it has to happen like that, but the
+> > > > > patches/cover letter should at least explain why we don't do it l=
+ike this. =20
+> > > >
+> > > > Hi Daniel,
+> > > >
+> > > > IIRC we were facing some issues with this check [1] when trying to =
+set
+> > > > FB to a PROP_BLOB instead. Which is why we went with making it a
+> > > > separate property instead. Will mention this in the cover letter. =
+=20
+> > >
+> > > What kind of issues? Could you please describe them? =20
+> >
+> > We switched from bitmask to enum style for prop types, which means it's
+> > not possible to express with the current uapi a property which accepts
+> > both an object or a blob.
+> >
+> > Which yeah sucks a bit ...
+> >
+> > But!
+> >
+> > blob properties are kms objects (like framebuffers), so it should be
+> > possible to stuff a blob into an object property as-is. Of course you n=
+eed
+> > to update the validation code to make sure we accept either an fb or a
+> > blob for the internal representation. But that kind of split internally=
+ is
+> > required no matter what I think. =20
+>=20
+> I checked your idea and notes from Jessica. So while we can pass blobs
+> to property objects, the prop_fb_id is created as an object property
+> with the type DRM_MODE_OBJECT_FB. Passing DRM_MODE_OBJECT_BLOB would
+> fail a check in drm_property_change_valid_get() ->
+> __drm_mode_object_find(). And I don't think that we should break the
+> existing validation code for this special case.
+>=20
+> If you insist on using FB_ID for passing solid_fill information, I'd
+> ask you to reconsider using a 1x1 framebuffer. It would be fully
+> compatible with the existing userspace, which can then treat it
+> seamlessly.
+
+Hi,
+
+indeed, what about simply using a 1x1 framebuffer for real? Why was that
+approach rejected?
+
+Is there some problem with drivers just special-casing 1x1 framebuffers
+and hitting the solid-fill hardware path instead of
+framebuffer-with-scaling hardware path?
+
+If needed, the KMS plane could have a property that tells userspace
+that if you set a 1x1 RGB FB here without any color ops, I am able to
+scale that to *any* size without any limits very efficiently.
 
 
-On 12/29/2022 11:18 AM, Dmitry Baryshkov wrote:
-> There is no need to pass full dpu_hw_pipe_cfg instance to
-> _dpu_hw_sspp_setup_scaler3, pass just struct dpu_format pointer.
-> 
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> ---
->   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.c | 9 ++++-----
->   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.h | 7 +++----
->   drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c   | 4 ++--
->   3 files changed, 9 insertions(+), 11 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.c
-> index f7f81ab08fa2..176cd6dc9a69 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.c
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.c
-> @@ -415,19 +415,18 @@ static void dpu_hw_sspp_setup_pe_config(struct dpu_hw_sspp *ctx,
->   }
->   
->   static void _dpu_hw_sspp_setup_scaler3(struct dpu_hw_sspp *ctx,
-> -		struct dpu_hw_pipe_cfg *sspp,
-> -		void *scaler_cfg)
-> +		struct dpu_hw_scaler3_cfg *scaler3_cfg,
-> +		const struct dpu_format *format)
->   {
->   	u32 idx;
-> -	struct dpu_hw_scaler3_cfg *scaler3_cfg = scaler_cfg;
->   
-> -	if (_sspp_subblk_offset(ctx, DPU_SSPP_SCALER_QSEED3, &idx) || !sspp
-> +	if (_sspp_subblk_offset(ctx, DPU_SSPP_SCALER_QSEED3, &idx)
->   		|| !scaler3_cfg)
+Thanks,
+pq
 
-Do we need to check for !format ?
+> > > > [1]
+> > > > https://gitlab.freedesktop.org/drm/msm/-/blob/msm-next/drivers/gpu/=
+drm/drm_property.c#L71 =20
+>=20
 
->   		return;
->   
->   	dpu_hw_setup_scaler3(&ctx->hw, scaler3_cfg, idx,
->   			ctx->cap->sblk->scaler_blk.version,
-> -			sspp->layout.format);
-> +			format);
->   }
->   
->   static u32 _dpu_hw_sspp_get_scaler3_ver(struct dpu_hw_sspp *ctx)
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.h
-> index f5aae563741a..c713343378aa 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.h
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.h
-> @@ -317,13 +317,12 @@ struct dpu_hw_sspp_ops {
->   
->   	/**
->   	 * setup_scaler - setup scaler
-> -	 * @ctx: Pointer to pipe context
-> -	 * @pipe_cfg: Pointer to pipe configuration
->   	 * @scaler_cfg: Pointer to scaler configuration
 
-This doc needs to be fixed from scaler_cfg to scaler3_cfg
+--Sig_/=NBkRHtLwTRad5_VW=k6BOu
+Content-Type: application/pgp-signature
+Content-Description: OpenPGP digital signature
 
-> +	 * @format: pixel format parameters
->   	 */
->   	void (*setup_scaler)(struct dpu_hw_sspp *ctx,
-> -		struct dpu_hw_pipe_cfg *pipe_cfg,
-> -		void *scaler_cfg);
-> +		struct dpu_hw_scaler3_cfg *scaler3_cfg,
-> +		const struct dpu_format *format);
->   
->   	/**
->   	 * get_scaler_ver - get scaler h/w version
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
-> index 172a2c012917..cbff4dea8662 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
-> @@ -677,8 +677,8 @@ static void _dpu_plane_setup_scaler(struct dpu_sw_pipe *pipe,
->   	if (pipe_hw->ops.setup_scaler &&
->   			pipe->multirect_index != DPU_SSPP_RECT_1)
->   		pipe_hw->ops.setup_scaler(pipe_hw,
-> -				pipe_cfg,
-> -				&scaler3_cfg);
-> +				&scaler3_cfg,
-> +				fmt);
->   }
->   
->   /**
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCAAdFiEEJQjwWQChkWOYOIONI1/ltBGqqqcFAmPY3ocACgkQI1/ltBGq
+qqfpNxAAhJjm3nkVlZjBZRlKkf7EIyci/P9Cz/kSSiMmw7UC9TIlRYs3CnhAfH+i
+9gtV17UIoqBGNKsUuE04hg2lt7whI5ReDOYy2suyS6DXluhnjbmkXYxPsEDpNqgN
+1Vj3DGqU8DQ7aJoRNJokLGmjiMFfRQtFjw9xIMjtCZPTJUQQvfLgBnG1yuERROSJ
+KTxYHb28hq0/V7B0fNaAwDeJ+thNYa2VVW2llj2au+/tGjTEiM9Dfs9EPBMVPGy7
+NYl5qtfjeSCWEUvpTOH3wUa4/G2EeqhWQek5r2wxEjFOwEmLYk1APZUn23qJU89u
+A8ic951gNf7xmaHet/vHj10UP46vWep9BwnqZ6L60x3ERJpFhHdfriNFH1L5b/Af
++btvSc5fhaLeHd4JZuq7014g85EtIBoP0NITFauUd50uuGll7o8HNo6x3v7NA/gW
+8+AU1aAJ0ovEVMqsPPi9thzmfH1ABjgMPuR2aS5o0/5sANCwAVLmvzxoB8DGJJyq
+PtqHcjJyYNP6R39ZI8LQJJzrjmN4bViDoRRYU9tJlz0hfe2nBopmtj1F+dTQkCpX
+rYdbkkj8FIw9xvKB8hDGJIqD1F4elwxSH/7wiUPScfhA38Hr1/n67SJvB+UVM0fq
+UF4a5GracO6NTaIRmG5AkrHYL8UXAepFpen8/HyZHo3GDMedsBI=
+=X1wC
+-----END PGP SIGNATURE-----
+
+--Sig_/=NBkRHtLwTRad5_VW=k6BOu--
