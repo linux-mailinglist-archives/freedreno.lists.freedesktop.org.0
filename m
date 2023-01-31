@@ -2,72 +2,71 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4675F682C5E
-	for <lists+freedreno@lfdr.de>; Tue, 31 Jan 2023 13:15:43 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C4AB4682CDC
+	for <lists+freedreno@lfdr.de>; Tue, 31 Jan 2023 13:45:19 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0FF4910E32D;
-	Tue, 31 Jan 2023 12:15:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6E2E010E338;
+	Tue, 31 Jan 2023 12:45:18 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ej1-x62d.google.com (mail-ej1-x62d.google.com
- [IPv6:2a00:1450:4864:20::62d])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1721E10E335
- for <freedreno@lists.freedesktop.org>; Tue, 31 Jan 2023 12:15:40 +0000 (UTC)
-Received: by mail-ej1-x62d.google.com with SMTP id gr7so16400375ejb.5
- for <freedreno@lists.freedesktop.org>; Tue, 31 Jan 2023 04:15:40 -0800 (PST)
+Received: from mail-ej1-x634.google.com (mail-ej1-x634.google.com
+ [IPv6:2a00:1450:4864:20::634])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9D3A210E32A
+ for <freedreno@lists.freedesktop.org>; Tue, 31 Jan 2023 12:45:16 +0000 (UTC)
+Received: by mail-ej1-x634.google.com with SMTP id ud5so41253593ejc.4
+ for <freedreno@lists.freedesktop.org>; Tue, 31 Jan 2023 04:45:16 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=content-transfer-encoding:in-reply-to:references:cc:to:from
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :from:to:cc:subject:date:message-id:reply-to;
- bh=mhtv0ODRBlTpxDV/APPa73s4nDJP3dDm4ZD4J8aRvNY=;
- b=UsaHUY8te724GyFULneEvRi7onjFVb0YO1+XQODuiMN+7yLJjq+v7uO6f8+3axOx+I
- ojoQdZovek893Ai1j3jmS0kIGohjbMfCWlaJCbcXNqUYRDc1zJZlQAEntfQ8vEmWUD6L
- IrE/zHap3TVVA/sbXvF1FDjq0BHB+6epO4tp2byRxdq+D04XtVjwdhlWUio7BwPMOJ0a
- EW7dSlgtofoSOHIB8HQea+5g36F4KK/92BKgIAh6m5ijvY4hc//gNh8d6dces4t3DGy5
- W5icbL+CaIdX0OPAh7ULkR+NG131IoVzBngo3bme/Y0zu0q7nMtLgy5NxViKgqRYZKVT
- pPXQ==
+ bh=8xbu9OSYb70xb94Yeo31t8Oaxtx3TEHDRghlLnFGwEE=;
+ b=HOQM9HVcHNtPQArB9zdGc+O47H5Vo84d9V9VhhhQrU/5yzCLU+SMlVuEXnZEe41pPW
+ xCHkVMP0gyrDWj5XBdMUjyi6KNx3SI0bCDzcCw//4Q4eJ0BFD31xHLDO1LwVeNj/HU1n
+ pn7Yrhd9FC4tgM74wBgvGOolUVNYG7r6SnbaOrdBKMg+Kqu4XwGbYpdeBgJZXgB+tx5W
+ JS6wjUKIIWY0euwy/bDqjwp8YBzxeaXhNr7BKPX0CRbvGRHsHRdviH54iPCU6xATZPhd
+ 0DvpWRLxxdpNcx2zvS58RGKJzBNRgo8/NV9p6BdhTEQOR3YIKSVo0LTqoThKIYQUrkVI
+ 7IZw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=content-transfer-encoding:in-reply-to:references:cc:to:from
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=mhtv0ODRBlTpxDV/APPa73s4nDJP3dDm4ZD4J8aRvNY=;
- b=RSeaqS9KV92MWUxgk5FycCef+8EAnEHFqAEDtKYuVzeK2p7W+9hn8MC8pe98PKbgvl
- 5WMfugT4l+NJzsQAruShUsTuwLuVE5bVBCE2e+2qSNkLriHx1CW4jDvquoEaYNik1Qz6
- Xmqg7iKdlIb06kUVRVeEd4prwDmW4sw9odiZVKC9nsHGrsSlOACMQtAzdTHIO1/YU5Mr
- a0CUCF2LexpOGDWmsGUmYEjDzm43K1e7rEYPXrhBLOCb8o6Sn+IMOgIcYZfBpLs/JVWd
- fmuQn2/cNP+75/Dvw3cVnZiJWzmbClSEPRgYnN5xMFajLdpXf1YU5caFUu4OFtyIVyes
- dUuw==
-X-Gm-Message-State: AO0yUKV4d6q8PIO6NmusPbmoqbt9Sxa4lyGB4NWlGlaCRqCqwqscOYX5
- f3ixM8n+B0Q/lNTR4Yi/TZV5MQ==
-X-Google-Smtp-Source: AK7set/x66Cy6xuPwKUNLizlKs3jJEot0LID2oRqSrotXAnzbVteEE5qYnHHzlVkqsc/hlokOmVIfQ==
-X-Received: by 2002:a17:906:9487:b0:878:8087:3b71 with SMTP id
- t7-20020a170906948700b0087880873b71mr20179854ejx.17.1675167338531; 
- Tue, 31 Jan 2023 04:15:38 -0800 (PST)
+ bh=8xbu9OSYb70xb94Yeo31t8Oaxtx3TEHDRghlLnFGwEE=;
+ b=QAKyGQOWVCt1DmrVPlRlYwY7j2hMD4C1ieTi8XLIscRUg2gsQO74ILHusvBHgVRffu
+ Pf6+e656daGnmbfirBpJqzYLW6X+bfbDl5oRvcQXgyD/PAJ39Fc6In7U+yoEZNZjtei/
+ +X6BgW9J9KM0emTYSHtepevR06UAYXhtFmzRh6kI+yyCTQQZi4grE4j71dKUcRGg21AG
+ f+UzkyMY+xvTswFhFISMLBWqZJxfbmJONQqKptQ4QXvHNSKBKPbvbsoPcZJmzqjjZqYa
+ li6nLH0mClkNmOKaWXD616OIZwdAxADoozzDVZ0bM+NVyDda5hCeHmOYuu55Duml4qpn
+ wVNg==
+X-Gm-Message-State: AO0yUKVLPaXji7Mwe/YCNYG/L5hAMQxeAvs5U4boYMwiaCoekymv3Hj6
+ GaMC5PW33jiNnugS7djB6zVitWFz8IaKf5eBtQo=
+X-Google-Smtp-Source: AK7set+xEX/0VUfgwRIBFa8ZDHADe1V6jD0Mhcsk+kdmw3nw7+rNAJsp1S6XWKh5HOt4IleZY/zvCw==
+X-Received: by 2002:a17:907:a0d2:b0:878:7f6e:38a7 with SMTP id
+ hw18-20020a170907a0d200b008787f6e38a7mr3298474ejc.44.1675169115144; 
+ Tue, 31 Jan 2023 04:45:15 -0800 (PST)
 Received: from ?IPV6:2001:14ba:a085:4d00::8a5?
  (dzccz6yyyyyyyyyyybcwt-3.rev.dnainternet.fi. [2001:14ba:a085:4d00::8a5])
  by smtp.gmail.com with ESMTPSA id
- fy15-20020a1709069f0f00b0084c62b7b7d8sm8265192ejc.187.2023.01.31.04.15.37
+ hq15-20020a1709073f0f00b00877ff0c2bb0sm8411192ejc.166.2023.01.31.04.45.13
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 31 Jan 2023 04:15:38 -0800 (PST)
-Message-ID: <01a23b0b-ee27-af2e-dbf2-79de76235d48@linaro.org>
-Date: Tue, 31 Jan 2023 14:15:37 +0200
+ Tue, 31 Jan 2023 04:45:14 -0800 (PST)
+Message-ID: <7b90ce05-29ac-da1c-ca3c-c52577d131ea@linaro.org>
+Date: Tue, 31 Jan 2023 14:45:12 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.6.0
 Content-Language: en-GB
+To: Vinod Polimera <quic_vpolimer@quicinc.com>,
+ dri-devel@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
+ freedreno@lists.freedesktop.org, devicetree@vger.kernel.org
+References: <1675091494-13988-1-git-send-email-quic_vpolimer@quicinc.com>
+ <1675091494-13988-3-git-send-email-quic_vpolimer@quicinc.com>
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-To: Abhinav Kumar <quic_abhinavk@quicinc.com>, Rob Clark
- <robdclark@gmail.com>, Sean Paul <sean@poorly.run>
-References: <20221229191856.3508092-1-dmitry.baryshkov@linaro.org>
- <20221229191856.3508092-11-dmitry.baryshkov@linaro.org>
- <bbb6ff43-a432-c0a6-e108-7bf8bc170f52@quicinc.com>
- <9542e211-0cab-07b4-2d58-7fa16839a187@linaro.org>
-In-Reply-To: <9542e211-0cab-07b4-2d58-7fa16839a187@linaro.org>
+In-Reply-To: <1675091494-13988-3-git-send-email-quic_vpolimer@quicinc.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-Subject: Re: [Freedreno] [PATCH v2 10/27] drm/msm/dpu: pass dpu_format to
- _dpu_hw_sspp_setup_scaler3()
+Content-Transfer-Encoding: 7bit
+Subject: Re: [Freedreno] [PATCH v12 02/14] drm/msm/disp/dpu: get timing
+ engine status from intf status register
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,106 +79,107 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
- Bjorn Andersson <andersson@kernel.org>, dri-devel@lists.freedesktop.org,
- Stephen Boyd <swboyd@chromium.org>, Daniel Vetter <daniel@ffwll.ch>,
- David Airlie <airlied@gmail.com>
+Cc: quic_kalyant@quicinc.com, quic_sbillaka@quicinc.com, dianders@chromium.org,
+ quic_bjorande@quicinc.com, quic_abhinavk@quicinc.com,
+ quic_vproddut@quicinc.com, linux-kernel@vger.kernel.org,
+ quic_khsieh@quicinc.com, robdclark@gmail.com, swboyd@chromium.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 31/01/2023 14:10, Dmitry Baryshkov wrote:
-> On 31/01/2023 07:13, Abhinav Kumar wrote:
->>
->>
->> On 12/29/2022 11:18 AM, Dmitry Baryshkov wrote:
->>> There is no need to pass full dpu_hw_pipe_cfg instance to
->>> _dpu_hw_sspp_setup_scaler3, pass just struct dpu_format pointer.
->>>
->>> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
->>> ---
->>>   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.c | 9 ++++-----
->>>   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.h | 7 +++----
->>>   drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c   | 4 ++--
->>>   3 files changed, 9 insertions(+), 11 deletions(-)
->>>
->>> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.c 
->>> b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.c
->>> index f7f81ab08fa2..176cd6dc9a69 100644
->>> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.c
->>> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.c
->>> @@ -415,19 +415,18 @@ static void dpu_hw_sspp_setup_pe_config(struct 
->>> dpu_hw_sspp *ctx,
->>>   }
->>>   static void _dpu_hw_sspp_setup_scaler3(struct dpu_hw_sspp *ctx,
->>> -        struct dpu_hw_pipe_cfg *sspp,
->>> -        void *scaler_cfg)
->>> +        struct dpu_hw_scaler3_cfg *scaler3_cfg,
->>> +        const struct dpu_format *format)
->>>   {
->>>       u32 idx;
->>> -    struct dpu_hw_scaler3_cfg *scaler3_cfg = scaler_cfg;
->>> -    if (_sspp_subblk_offset(ctx, DPU_SSPP_SCALER_QSEED3, &idx) || !sspp
->>> +    if (_sspp_subblk_offset(ctx, DPU_SSPP_SCALER_QSEED3, &idx)
->>>           || !scaler3_cfg)
->>
->> Do we need to check for !format ?
+On 30/01/2023 17:11, Vinod Polimera wrote:
+> Recommended way of reading the interface timing gen status is via
+> status register. Timing gen status register will give a reliable status
+> of the interface especially during ON/OFF transitions. This support was
+> added from DPU version 5.0.0.
 > 
-> We don't have since the calling sequence ensures that it is not NULL, 
-> but let's check for it since it's a different module.
+> Signed-off-by: Vinod Polimera <quic_vpolimer@quicinc.com>
+> ---
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c |  6 ++++--
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h | 12 +++++++-----
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.c    |  8 +++++++-
+>   3 files changed, 18 insertions(+), 8 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
+> index cf053e8..ce6e9e6 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
+> @@ -78,9 +78,11 @@
+>   
+>   #define INTF_SDM845_MASK (0)
+>   
+> -#define INTF_SC7180_MASK BIT(DPU_INTF_INPUT_CTRL) | BIT(DPU_INTF_TE)
+> +#define INTF_SC7180_MASK \
+> +	(BIT(DPU_INTF_INPUT_CTRL) | BIT(DPU_INTF_TE) | BIT(DPU_INTF_STATUS_SUPPORTED))
+>   
+> -#define INTF_SC7280_MASK INTF_SC7180_MASK | BIT(DPU_DATA_HCTL_EN)
+> +#define INTF_SC7280_MASK \
+> +	(INTF_SC7180_MASK | BIT(DPU_DATA_HCTL_EN))
 
-On the other hand, dpu_hw_setup_scaler3() properly handles the !format 
-case and programs the rest of the scaler setup. So in the end I'll skip 
-this check.
+Not necessary anymore.
 
-> 
->>
->>>           return;
->>>       dpu_hw_setup_scaler3(&ctx->hw, scaler3_cfg, idx,
->>>               ctx->cap->sblk->scaler_blk.version,
->>> -            sspp->layout.format);
->>> +            format);
->>>   }
->>>   static u32 _dpu_hw_sspp_get_scaler3_ver(struct dpu_hw_sspp *ctx)
->>> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.h 
->>> b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.h
->>> index f5aae563741a..c713343378aa 100644
->>> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.h
->>> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.h
->>> @@ -317,13 +317,12 @@ struct dpu_hw_sspp_ops {
->>>       /**
->>>        * setup_scaler - setup scaler
->>> -     * @ctx: Pointer to pipe context
->>> -     * @pipe_cfg: Pointer to pipe configuration
->>>        * @scaler_cfg: Pointer to scaler configuration
->>
->> This doc needs to be fixed from scaler_cfg to scaler3_cfg
->>
->>> +     * @format: pixel format parameters
->>>        */
->>>       void (*setup_scaler)(struct dpu_hw_sspp *ctx,
->>> -        struct dpu_hw_pipe_cfg *pipe_cfg,
->>> -        void *scaler_cfg);
->>> +        struct dpu_hw_scaler3_cfg *scaler3_cfg,
->>> +        const struct dpu_format *format);
->>>       /**
->>>        * get_scaler_ver - get scaler h/w version
->>> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c 
->>> b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
->>> index 172a2c012917..cbff4dea8662 100644
->>> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
->>> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
->>> @@ -677,8 +677,8 @@ static void _dpu_plane_setup_scaler(struct 
->>> dpu_sw_pipe *pipe,
->>>       if (pipe_hw->ops.setup_scaler &&
->>>               pipe->multirect_index != DPU_SSPP_RECT_1)
->>>           pipe_hw->ops.setup_scaler(pipe_hw,
->>> -                pipe_cfg,
->>> -                &scaler3_cfg);
->>> +                &scaler3_cfg,
->>> +                fmt);
->>>   }
->>>   /**
-> 
+With that fixed:
+
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+
+>   
+>   #define IRQ_SDM845_MASK (BIT(MDP_SSPP_TOP0_INTR) | \
+>   			 BIT(MDP_SSPP_TOP0_INTR2) | \
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h
+> index ddab9ca..08cd1a1 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h
+> @@ -213,17 +213,19 @@ enum {
+>   
+>   /**
+>    * INTF sub-blocks
+> - * @DPU_INTF_INPUT_CTRL         Supports the setting of pp block from which
+> - *                              pixel data arrives to this INTF
+> - * @DPU_INTF_TE                 INTF block has TE configuration support
+> - * @DPU_DATA_HCTL_EN            Allows data to be transferred at different rate
+> -                                than video timing
+> + * @DPU_INTF_INPUT_CTRL             Supports the setting of pp block from which
+> + *                                  pixel data arrives to this INTF
+> + * @DPU_INTF_TE                     INTF block has TE configuration support
+> + * @DPU_DATA_HCTL_EN                Allows data to be transferred at different rate
+> + *                                  than video timing
+> + * @DPU_INTF_STATUS_SUPPORTED       INTF block has INTF_STATUS register
+>    * @DPU_INTF_MAX
+>    */
+>   enum {
+>   	DPU_INTF_INPUT_CTRL = 0x1,
+>   	DPU_INTF_TE,
+>   	DPU_DATA_HCTL_EN,
+> +	DPU_INTF_STATUS_SUPPORTED,
+>   	DPU_INTF_MAX
+>   };
+>   
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.c
+> index 7ce66bf..84ee2ef 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.c
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.c
+> @@ -62,6 +62,7 @@
+>   #define   INTF_LINE_COUNT               0x0B0
+>   
+>   #define   INTF_MUX                      0x25C
+> +#define   INTF_STATUS                   0x26C
+>   
+>   #define INTF_CFG_ACTIVE_H_EN	BIT(29)
+>   #define INTF_CFG_ACTIVE_V_EN	BIT(30)
+> @@ -297,8 +298,13 @@ static void dpu_hw_intf_get_status(
+>   		struct intf_status *s)
+>   {
+>   	struct dpu_hw_blk_reg_map *c = &intf->hw;
+> +	unsigned long cap = intf->cap->features;
+> +
+> +	if (cap & BIT(DPU_INTF_STATUS_SUPPORTED))
+> +		s->is_en = DPU_REG_READ(c, INTF_STATUS) & BIT(0);
+> +	else
+> +		s->is_en = DPU_REG_READ(c, INTF_TIMING_ENGINE_EN);
+>   
+> -	s->is_en = DPU_REG_READ(c, INTF_TIMING_ENGINE_EN);
+>   	s->is_prog_fetch_en = !!(DPU_REG_READ(c, INTF_CONFIG) & BIT(31));
+>   	if (s->is_en) {
+>   		s->frame_count = DPU_REG_READ(c, INTF_FRAME_COUNT);
 
 -- 
 With best wishes
