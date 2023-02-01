@@ -1,60 +1,71 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0293D686974
-	for <lists+freedreno@lfdr.de>; Wed,  1 Feb 2023 16:02:20 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 00353686762
+	for <lists+freedreno@lfdr.de>; Wed,  1 Feb 2023 14:48:11 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B209589D39;
-	Wed,  1 Feb 2023 15:02:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 754D610E0CC;
+	Wed,  1 Feb 2023 13:48:08 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-vs1-xe2f.google.com (mail-vs1-xe2f.google.com
- [IPv6:2607:f8b0:4864:20::e2f])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 40AC910E3E1
- for <freedreno@lists.freedesktop.org>; Wed,  1 Feb 2023 09:51:24 +0000 (UTC)
-Received: by mail-vs1-xe2f.google.com with SMTP id e9so11196573vsj.3
- for <freedreno@lists.freedesktop.org>; Wed, 01 Feb 2023 01:51:24 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=raspberrypi.com; s=google;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=J/VlM7cprC4lMoay4b4iDq0wmzylPk+HkhDJk/zhG2Y=;
- b=H3SQNrssQf8a9mTT6XChvo0/W1NYkCLCBXshDml7DWgkvDYxMHwm3SC1Spd2lhiXKz
- uqQse5Gqzkvx46gI2HD/aq6q60VRJ1LYYGzlhCIW/bsZ8DqRa32+jqSw1NSfiXJZMPku
- FTTzBF0TKGM6zy3JEmmFBiESFxzq9OuUtyPPZEE4oynJCKrWauGmBcn23ItXCkhqRcJ6
- f0JUMeeVAzoFk5xR5dqiDz7wzkc3F+25pY+GVDVxJF2vz3hWnvytxNQ/XaxCVx9gTTnU
- bulEHDn9yZzFvHsawWaSIa/q66TkSaCCPty63/w5PoFd6gfWMVKsv128YlaS6NIp1lCv
- gyrg==
+Received: from mail-ej1-x62b.google.com (mail-ej1-x62b.google.com
+ [IPv6:2a00:1450:4864:20::62b])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 12C0C10E0CC
+ for <freedreno@lists.freedesktop.org>; Wed,  1 Feb 2023 13:48:06 +0000 (UTC)
+Received: by mail-ej1-x62b.google.com with SMTP id ml19so28007498ejb.0
+ for <freedreno@lists.freedesktop.org>; Wed, 01 Feb 2023 05:48:05 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=+ls5wtJ6Hfc+JvUhlGR4xji5YGsJ7LEo3VaBr3I5PfU=;
+ b=qR2yX5Y+aRZrBkYeonU56wiifAgLOsoqz6bKynEf5uErCKArEXxPvKYYWDc5GmfE6S
+ 52hlSedvFXg+DMsJCSJ8ZoidCU4JOsjvKcNvVtW9pVu5XQXsbKZchlCsmqDmN3tke71b
+ dYKy1lmIPKfWsWnH482VI1Dn1PzVw3Ck0NPi01U9nIkL96fCzyuLdc9Paeg2XCOhh435
+ KZ6SAzn4SgZxlwhdNEUzLPvYh48rd2CVrdyJfpcdqXJySBVH8GK2Si+2m002xzcRQqp9
+ W6D8XbBKHK+M52AeUv4oXXCjmHJiSVBLIE+pdwrODBCtGi4sp28TsjtArLD+7t5b4qJ9
+ 2kIg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=J/VlM7cprC4lMoay4b4iDq0wmzylPk+HkhDJk/zhG2Y=;
- b=XE0NSdg2g3/xswE7oy6n0qLf28Rq66ITSj+vp7edYCSxXCN0THt6tDus9By/LqyF2w
- cwoRU33IG8gIHrumS38M/tYRpe28gME3pCxRhezBSo1yGG+/2uEdr3CSmDr4pKtg30dZ
- gqenyp3O6EM0hMWkOW0Y3Yv3n8LRbmQG8iy6wfMtigMBLZxxRAwc3tAAOVCoeRMnkYAk
- 6U7xhW6wjc4/JagKxJywesT/JQ9ZPcK9JaqssSeWaPwhKviJ5b0D1OA+igMKs5HuX1fZ
- ucw4+C8hizx8djTINYa1Fy95VWUd106+wOY6gniU7FUKJD42PThzGkYNpXlzEk7WWpcg
- dINQ==
-X-Gm-Message-State: AO0yUKUgny0zkdvkKeBr47mW8ukWsHn0rXaBtIFjhLS7sCU1AHeTMj+x
- HDv7LakBkJhLBttr+GBD3ed2TN1gHB3FuE7F0g4egw==
-X-Google-Smtp-Source: AK7set86IzPhUo1uZ+cu7Tw/u3cqoDAPwj0LQna9LX1UbPlTaCnreZPgZXNal+QPDxwu/wJrvnP7JMh4zKK+BBpDqY8=
-X-Received: by 2002:a05:6102:1609:b0:3ed:2cb7:5695 with SMTP id
- cu9-20020a056102160900b003ed2cb75695mr375015vsb.84.1675245083209; Wed, 01 Feb
- 2023 01:51:23 -0800 (PST)
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=+ls5wtJ6Hfc+JvUhlGR4xji5YGsJ7LEo3VaBr3I5PfU=;
+ b=Nt1ydsAdRzdOBXzGVIJhOYaunnzzRtZYZLeAI0XGG5SdIlAjIXDYuZQRNrsYPKqdJ5
+ 2+qbIMVSz80nQOnFfg/Udw+1nWkWOIgurtNZVq1mh+dcCywPbxLeCDnXR/TydEGsA7ge
+ YZJNolx9gxGaoIQRxBXWLSOC40bSlcLf5Aii9rYjJgjTtQcuR0fKEeiIppOs+96CIMhJ
+ JI0stJ7dU+22k0T0HU9WROBQea9jH/yeuCMNjrguQiN22oizRnfKtN5RbqyWMj5mC/uj
+ mxqJ3654t/xaiAIgQql01WDEjVUuEKUYAR2Vg1VX0KIYe9Ld1c53gXOfW+EFy7LRo+J6
+ E5cw==
+X-Gm-Message-State: AO0yUKWFzsm9IESjz6mhVngi6xmnoi7Yolk7yeKow7wiQFhJqI8RVWvw
+ vxzrbKlayGbr4dE5cBVqs7evzg==
+X-Google-Smtp-Source: AK7set/X5KevUerlVy7HuQadHyk1nRFk3U/EKr6KdRWVgUB4dwlQ/WlSDZaUoJD+MefWqOsdrT+q9Q==
+X-Received: by 2002:a17:906:184a:b0:87f:e07d:ce5f with SMTP id
+ w10-20020a170906184a00b0087fe07dce5fmr2474217eje.9.1675259284443; 
+ Wed, 01 Feb 2023 05:48:04 -0800 (PST)
+Received: from [10.10.15.130] ([192.130.178.91])
+ by smtp.gmail.com with ESMTPSA id
+ z2-20020a170906714200b00888161349desm5103078ejj.182.2023.02.01.05.48.03
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 01 Feb 2023 05:48:03 -0800 (PST)
+Message-ID: <38466a0f-686d-ab19-2669-e81ca6d6ec17@linaro.org>
+Date: Wed, 1 Feb 2023 15:48:02 +0200
 MIME-Version: 1.0
-References: <20230131141756.RFT.v2.1.I723a3761d57ea60c5dd754c144aed6c3b2ea6f5a@changeid>
-In-Reply-To: <20230131141756.RFT.v2.1.I723a3761d57ea60c5dd754c144aed6c3b2ea6f5a@changeid>
-From: Dave Stevenson <dave.stevenson@raspberrypi.com>
-Date: Wed, 1 Feb 2023 09:51:06 +0000
-Message-ID: <CAPY8ntAUhVB6UtQTeHAcxNW950Ou+NcEoGwk3JnVWLay89_0Nw@mail.gmail.com>
-To: Douglas Anderson <dianders@chromium.org>
-Content-Type: text/plain; charset="UTF-8"
-X-Mailman-Approved-At: Wed, 01 Feb 2023 15:02:17 +0000
-Subject: Re: [Freedreno] [RFT PATCH v2 1/3] drm/bridge: tc358762: Set
- pre_enable_prev_first
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.7.1
+Content-Language: en-GB
+To: Marijn Suijten <marijn.suijten@somainline.org>,
+ Kalyan Thota <quic_kalyant@quicinc.com>
+References: <1675092092-26412-1-git-send-email-quic_kalyant@quicinc.com>
+ <1675092092-26412-3-git-send-email-quic_kalyant@quicinc.com>
+ <20230201111604.htgczy6yvdkywhvl@SoMainline.org>
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+In-Reply-To: <20230201111604.htgczy6yvdkywhvl@SoMainline.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Subject: Re: [Freedreno] [v1 2/3] drm/msm/disp/dpu1: add dspps into
+ reservation if there is a ctm request
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,58 +78,95 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sean Paul <sean@poorly.run>, Neil Armstrong <neil.armstrong@linaro.org>,
- linux-kernel@vger.kernel.org, Jonas Karlman <jonas@kwiboo.se>,
- linux-arm-msm@vger.kernel.org, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Jernej Skrabec <jernej.skrabec@gmail.com>, Stephen Boyd <swboyd@chromium.org>,
- Rob Clark <robdclark@gmail.com>, Vinod Koul <vkoul@kernel.org>,
- dri-devel@lists.freedesktop.org, Andrzej Hajda <andrzej.hajda@intel.com>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- freedreno@lists.freedesktop.org, Robert Foss <robert.foss@linaro.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>
+Cc: robdclark@chromium.org, devicetree@vger.kernel.org,
+ quic_abhinavk@quicinc.com, linux-arm-msm@vger.kernel.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ dianders@chromium.org, swboyd@chromium.org, freedreno@lists.freedesktop.org,
+ quic_vpolimer@quicinc.com
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Tue, 31 Jan 2023 at 22:22, Douglas Anderson <dianders@chromium.org> wrote:
->
-> Set the "pre_enable_prev_first" as provided by commit 4fb912e5e190
-> ("drm/bridge: Introduce pre_enable_prev_first to alter bridge init
-> order"). This should allow us to revert commit ec7981e6c614
-> ("drm/msm/dsi: don't powerup at modeset time for parade-ps8640") and
-> commit 7d8e9a90509f ("drm/msm/dsi: move DSI host powerup to modeset
-> time").
+On 01/02/2023 13:16, Marijn Suijten wrote:
+> On 2023-01-30 07:21:31, Kalyan Thota wrote:
+>> Add dspp blocks into the topology for reservation, if there is a ctm
+>> request for that composition.
+> 
+> DSPP
+> 
+>> Changes in v1:
+>> - Minor nits (Dmitry)
+> 
+> This should go below the triple dashes, so that it /does not/ become
+> part of the patch/commit that is applied to the tree (where review
+> history is irrelevant as it can be searched for separately).
 
-I see no reference in the TC358762 datasheet to requiring the DSI
-interface to be in any particular state.
-However, setting this flag does mean that the DSI host doesn't need to
-power up and down for each host_transfer request from
-tc358762_pre_enable/tc358762_init, so on that basis I'm good with it.
+This is one of DRM peculiarities which we have to live with.
 
-Reviewed-by: Dave Stevenson <dave.stevenson@raspberrypi.com>
+> 
+>> Signed-off-by: Kalyan Thota <quic_kalyant@quicinc.com>
+>> Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+>> ---
+>>   drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c | 13 ++++++-------
+>>   1 file changed, 6 insertions(+), 7 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+>> index 9c6817b..3bd46b4 100644
+>> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+>> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+>> @@ -545,7 +545,8 @@ bool dpu_encoder_use_dsc_merge(struct drm_encoder *drm_enc)
+>>   static struct msm_display_topology dpu_encoder_get_topology(
+>>   			struct dpu_encoder_virt *dpu_enc,
+>>   			struct dpu_kms *dpu_kms,
+>> -			struct drm_display_mode *mode)
+>> +			struct drm_display_mode *mode,
+>> +			struct drm_crtc_state *crtc_state)
+>>   {
+>>   	struct msm_display_topology topology = {0};
+>>   	int i, intf_count = 0;
+>> @@ -573,11 +574,9 @@ static struct msm_display_topology dpu_encoder_get_topology(
+>>   	else
+>>   		topology.num_lm = (mode->hdisplay > MAX_HDISPLAY_SPLIT) ? 2 : 1;
+>>   
+>> -	if (dpu_enc->disp_info.intf_type == DRM_MODE_ENCODER_DSI) {
+>> -		if (dpu_kms->catalog->dspp &&
+>> -			(dpu_kms->catalog->dspp_count >= topology.num_lm))
+>> -			topology.num_dspp = topology.num_lm;
+>> -	}
+>> +	if (dpu_kms->catalog->dspp &&
+>> +	    crtc_state->ctm && (dpu_kms->catalog->dspp_count >= topology.num_lm))
+> 
+> Multiline-if-clause is typically indented with two tabs, not a half tab
+> (4 spaces).
 
-> Cc: Dave Stevenson <dave.stevenson@raspberrypi.com>
-> Cc: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> Cc: Abhinav Kumar <quic_abhinavk@quicinc.com>
-> Signed-off-by: Douglas Anderson <dianders@chromium.org>
-> ---
->
-> (no changes since v1)
->
->  drivers/gpu/drm/bridge/tc358762.c | 1 +
->  1 file changed, 1 insertion(+)
->
-> diff --git a/drivers/gpu/drm/bridge/tc358762.c b/drivers/gpu/drm/bridge/tc358762.c
-> index 0b6a28436885..77f7f7f54757 100644
-> --- a/drivers/gpu/drm/bridge/tc358762.c
-> +++ b/drivers/gpu/drm/bridge/tc358762.c
-> @@ -229,6 +229,7 @@ static int tc358762_probe(struct mipi_dsi_device *dsi)
->         ctx->bridge.funcs = &tc358762_bridge_funcs;
->         ctx->bridge.type = DRM_MODE_CONNECTOR_DPI;
->         ctx->bridge.of_node = dev->of_node;
-> +       ctx->bridge.pre_enable_prev_first = true;
->
->         drm_bridge_add(&ctx->bridge);
->
-> --
-> 2.39.1.456.gfc5497dd1b-goog
->
+I tend to disagree here. Lately I have mostly seen it being indented to 
+the opening parenthesis, so that nested statements also indent nicely.
+
+> Nit: swap the && here?  dspp and dspp_count are related, so check ctm
+> first or last but not in the middle - makes reading easier.
+
+I think we can ignore dpu_kms->catalog->dspp completely. checking 
+dspp_count should be enough for the purpose of the check (and note, the 
+check for dspp/dspp_count is misleading and should be omitted).
+
+> 
+>> +		topology.num_dspp = topology.num_lm;
+>>   
+>>   	topology.num_enc = 0;
+>>   	topology.num_intf = intf_count;
+>> @@ -643,7 +642,7 @@ static int dpu_encoder_virt_atomic_check(
+>>   		}
+>>   	}
+>>   
+>> -	topology = dpu_encoder_get_topology(dpu_enc, dpu_kms, adj_mode);
+>> +	topology = dpu_encoder_get_topology(dpu_enc, dpu_kms, adj_mode, crtc_state);
+>>   
+>>   	/* Reserve dynamic resources now. */
+>>   	if (!ret) {
+>> -- 
+>> 2.7.4
+>>
+
+-- 
+With best wishes
+Dmitry
+
