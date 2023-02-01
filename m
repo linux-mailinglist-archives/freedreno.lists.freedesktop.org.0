@@ -1,35 +1,36 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 103D36864EB
-	for <lists+freedreno@lfdr.de>; Wed,  1 Feb 2023 12:01:44 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 5504468650D
+	for <lists+freedreno@lfdr.de>; Wed,  1 Feb 2023 12:10:41 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CDF1F10E3F1;
-	Wed,  1 Feb 2023 11:01:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5BF3410E3F6;
+	Wed,  1 Feb 2023 11:10:37 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from m-r1.th.seeweb.it (m-r1.th.seeweb.it [5.144.164.170])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 16D4A10E3F4
- for <freedreno@lists.freedesktop.org>; Wed,  1 Feb 2023 11:01:41 +0000 (UTC)
+Received: from relay04.th.seeweb.it (relay04.th.seeweb.it [5.144.164.165])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2CF4510E3F4;
+ Wed,  1 Feb 2023 11:10:35 +0000 (UTC)
 Received: from SoMainline.org (94-211-6-86.cable.dynamic.v4.ziggo.nl
  [94.211.6.86])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest
  SHA256) (No client certificate requested)
- by m-r1.th.seeweb.it (Postfix) with ESMTPSA id 6362C200EB;
- Wed,  1 Feb 2023 12:01:37 +0100 (CET)
-Date: Wed, 1 Feb 2023 12:01:36 +0100
+ by m-r1.th.seeweb.it (Postfix) with ESMTPSA id 0B05820206;
+ Wed,  1 Feb 2023 12:10:33 +0100 (CET)
+Date: Wed, 1 Feb 2023 12:10:31 +0100
 From: Marijn Suijten <marijn.suijten@somainline.org>
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Message-ID: <20230201110136.xy5xifym624ehthb@SoMainline.org>
+To: Kalyan Thota <quic_kalyant@quicinc.com>
+Message-ID: <20230201111031.dqdketybw3pqpywx@SoMainline.org>
 References: <1675092092-26412-1-git-send-email-quic_kalyant@quicinc.com>
- <31661b18-8519-cadb-0c56-6a1fa34633b2@linaro.org>
+ <1675092092-26412-2-git-send-email-quic_kalyant@quicinc.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <31661b18-8519-cadb-0c56-6a1fa34633b2@linaro.org>
-Subject: Re: [Freedreno] [PATCH 0/3] Reserve dspps based on user request
+In-Reply-To: <1675092092-26412-2-git-send-email-quic_kalyant@quicinc.com>
+Subject: Re: [Freedreno] [v1 1/3] drm/msm/disp/dpu1: clear dspp reservations
+ in rm release
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -42,58 +43,48 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Kalyan Thota <quic_kalyant@quicinc.com>, devicetree@vger.kernel.org,
- quic_abhinavk@quicinc.com, linux-arm-msm@vger.kernel.org, swboyd@chromium.org,
+Cc: robdclark@chromium.org, devicetree@vger.kernel.org,
+ quic_abhinavk@quicinc.com, linux-arm-msm@vger.kernel.org,
  linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- dianders@chromium.org, robdclark@chromium.org, freedreno@lists.freedesktop.org,
- quic_vpolimer@quicinc.com
+ dianders@chromium.org, dmitry.baryshkov@linaro.org, swboyd@chromium.org,
+ freedreno@lists.freedesktop.org, quic_vpolimer@quicinc.com
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 2023-01-30 21:18:30, Dmitry Baryshkov wrote:
-> On 30/01/2023 17:21, Kalyan Thota wrote:
-> > This series will enable color features on sc7280 target which has primary panel as eDP
-> > 
-> > The series removes dspp allocation based on encoder type and allows the dspp reservation
-> > based on user request via ctm.
-> > 
-> > The series will release/reserve the dpu resources when ever there is a topology change
-> > to suit the new requirements.
+On 2023-01-30 07:21:30, Kalyan Thota wrote:
+> Clear dspp reservations from the global state during
+> rm release
+
+DSPP, and a period at the end of a sentence.  Also noticing inconsistent
+linebreaks across these patches, stick to 72 chars.
+
+> Signed-off-by: Kalyan Thota <quic_kalyant@quicinc.com>
+> Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+
+Reviewed-by: Marijn Suijten <marijn.suijten@somainline.org>
+
+Should this be considered a fix to be backported, or is it harmless?  If
+so:
+
+Fixes: e47616df008b ("drm/msm/dpu: add support for color processing blocks in dpu driver")
+
+> ---
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c | 2 ++
+>  1 file changed, 2 insertions(+)
 > 
-> Nit: the subject of the cover letter should include the version, if you 
-> are including one into the individual patches Subject.
-
-Indeed this makes it hard to tell the versions apart, and lore also
-confusingly bundles both series in "loose matches on Subject: below".
-
-Nit ^2: and individual patches should still have the PATCH moniker, i.e.
-[PATCH v2 1/3].  git format-patch -v2 --cover-letter ... takes care of
-/all this/ this for you.
-
-And one more: as DSPP is an abbreviation, can we capitalize it?  So
-DSPP / DSPPs in these titles?
-
-> > 
-> > Kalyan Thota (3):
-> >    drm/msm/disp/dpu1: clear dspp reservations in rm release
-> >    drm/msm/disp/dpu1: add dspps into reservation if there is a ctm
-> >      request
-> >    drm/msm/disp/dpu1: reserve the resources on topology change
-
-We just discussed in the DSC series that the subsystem prefix is
-drm/msm/dpu.
-
-- Marijn
-
-> >   drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.h    |  1 +
-> >   drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c | 54 +++++++++++++++++++++++------
-> >   drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.h |  4 ++-
-> >   drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c     |  2 +-
-> >   drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c      |  6 ++--
-> >   5 files changed, 50 insertions(+), 17 deletions(-)
-> > 
-> 
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c
+> index 73b3442..718ea0a 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c
+> @@ -572,6 +572,8 @@ void dpu_rm_release(struct dpu_global_state *global_state,
+>  		ARRAY_SIZE(global_state->ctl_to_enc_id), enc->base.id);
+>  	_dpu_rm_clear_mapping(global_state->dsc_to_enc_id,
+>  		ARRAY_SIZE(global_state->dsc_to_enc_id), enc->base.id);
+> +	_dpu_rm_clear_mapping(global_state->dspp_to_enc_id,
+> +		ARRAY_SIZE(global_state->dspp_to_enc_id), enc->base.id);
+>  }
+>  
+>  int dpu_rm_reserve(
 > -- 
-> With best wishes
-> Dmitry
+> 2.7.4
 > 
