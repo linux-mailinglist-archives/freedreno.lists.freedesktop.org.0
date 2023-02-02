@@ -2,62 +2,54 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id E175E68733B
-	for <lists+freedreno@lfdr.de>; Thu,  2 Feb 2023 03:06:58 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5886F687462
+	for <lists+freedreno@lfdr.de>; Thu,  2 Feb 2023 05:23:19 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AFDDD10E1BD;
-	Thu,  2 Feb 2023 02:06:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 20A3010E2E2;
+	Thu,  2 Feb 2023 04:23:17 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from alexa-out-sd-02.qualcomm.com (alexa-out-sd-02.qualcomm.com
- [199.106.114.39])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0195610E0EF;
- Thu,  2 Feb 2023 02:06:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=quicinc.com; i=@quicinc.com; q=dns/txt; s=qcdkim;
- t=1675303616; x=1706839616;
- h=message-id:date:mime-version:subject:to:cc:references:
- from:in-reply-to:content-transfer-encoding;
- bh=zP6cZeQbRqQo0oBq/eg3pij2npt8bVl1qApyNAD2kSo=;
- b=dG3XDRqPvH4/6tFSGgUGJjNaF1b59fIF6tuH5b8oyDT8k3AaQ1Nc1TCx
- auzz6sVn52mDGgZLg7i+jeqs15lppf74agNxPCzV2RtJtQTyeSBUGg0F7
- Ws6NkLVY9Zxk1sfJWZERlZWhsyeHHGyRoJOSZVMfXQQZOO2ggkDr0OrPf g=;
-Received: from unknown (HELO ironmsg04-sd.qualcomm.com) ([10.53.140.144])
- by alexa-out-sd-02.qualcomm.com with ESMTP; 01 Feb 2023 18:06:54 -0800
-X-QCInternal: smtphost
-Received: from nasanex01b.na.qualcomm.com ([10.46.141.250])
- by ironmsg04-sd.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Feb 2023 18:06:54 -0800
-Received: from [10.71.110.193] (10.80.80.8) by nasanex01b.na.qualcomm.com
- (10.46.141.250) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.36; Wed, 1 Feb 2023
- 18:06:54 -0800
-Message-ID: <5376994b-99f6-0f48-139f-6e622a8b0778@quicinc.com>
-Date: Wed, 1 Feb 2023 18:06:41 -0800
+Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BF74F10E0F0;
+ Thu,  2 Feb 2023 04:23:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1675311794; x=1706847794;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=jRjDoncShj8+SssxokKgsGrrecQq1hGkUGW2vyCqEh0=;
+ b=UANfDHhxCQuGbKePnFUAefodDR+/fh2cFQfYB6DHHoftuyGap3TT/nno
+ y+2YuBiBurBrvbs1kyrqVLlaGHvBEnV+pgMPmtxVRc0rjaxNB/y3/Kt5U
+ xXEJnwZU7Q/P920ig8DD02qcC+aIn2N/ey4/yPdx1NQ1QRAZY90+ftt2a
+ 5NRPtVTLeWwgS74eihSO12R9VDqLxsws77aehAwQiWwp0lAb//fXxZM/X
+ 5jqrWqQfhDcj3SKrEQtWlFIU+4stvivfM0GoFwXJ4V5OJuNwabiv3O3ye
+ wmdQnk7v1/NDXy15pxkGTvj0Zv3ntqqzia93wS4GRZbclf+43btq1zdPO w==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10608"; a="311992910"
+X-IronPort-AV: E=Sophos;i="5.97,266,1669104000"; d="scan'208";a="311992910"
+Received: from orsmga006.jf.intel.com ([10.7.209.51])
+ by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 01 Feb 2023 20:23:13 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6500,9779,10608"; a="642736779"
+X-IronPort-AV: E=Sophos;i="5.97,266,1669104000"; d="scan'208";a="642736779"
+Received: from lkp-server01.sh.intel.com (HELO ffa7f14d1d0f) ([10.239.97.150])
+ by orsmga006.jf.intel.com with ESMTP; 01 Feb 2023 20:23:09 -0800
+Received: from kbuild by ffa7f14d1d0f with local (Exim 4.96)
+ (envelope-from <lkp@intel.com>) id 1pNR7s-00068m-34;
+ Thu, 02 Feb 2023 04:23:08 +0000
+Date: Thu, 2 Feb 2023 12:22:34 +0800
+From: kernel test robot <lkp@intel.com>
+To: Kalyan Thota <quic_kalyant@quicinc.com>,
+ dri-devel@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
+ freedreno@lists.freedesktop.org, devicetree@vger.kernel.org
+Message-ID: <202302021238.o9yx7MKs-lkp@intel.com>
+References: <1675092092-26412-4-git-send-email-quic_kalyant@quicinc.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.7.0
-To: Pekka Paalanen <ppaalanen@gmail.com>, Simon Ser <contact@emersion.fr>
-References: <20230104234036.636-1-quic_jesszhan@quicinc.com>
- <Y7a1hCmsvJHKdW1Y@phenom.ffwll.local>
- <58caf08c-3a02-82ce-4452-8ae7f22f373d@quicinc.com>
- <CAA8EJppnAmN6+S-emEfXJEc1iVf+DjeLBmCQpGd-nRY2M2AAQQ@mail.gmail.com>
- <Y7hrWDpg8msuefgZ@phenom.ffwll.local>
- <CAA8EJppoejPPNhu3eHBc_vsstHvEEwYx67HZLo8+4W3K-gHkag@mail.gmail.com>
- <20230131112527.32ab8ba5@eldfell>
- <9Q0ano1jjZ1LTNWaVcVkDp0-jsTSUJKoNrKwvpGpIuejUSB33DK-uOpeLmyMbbk6tdfWG8RS83AGyB--EPEHqJe5shq6RC_gVpPLR7sUScY=@emersion.fr>
- <20230131131326.75b43152@eldfell>
- <x3f8jyn_QDj34hYn9rgumw2uhFTpWzOw2E-715WYVOfwNOpthv26sefM6ePtwqbuHH54ATupqQzzz9qIWqAbDvMpb06bhdiU5BJlMjsaCdo=@emersion.fr>
- <20230131144913.5ff840dd@eldfell>
-Content-Language: en-US
-From: Jessica Zhang <quic_jesszhan@quicinc.com>
-In-Reply-To: <20230131144913.5ff840dd@eldfell>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
- nasanex01b.na.qualcomm.com (10.46.141.250)
-Subject: Re: [Freedreno] [RFC PATCH v3 0/3] Support for Solid Fill Planes
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <1675092092-26412-4-git-send-email-quic_kalyant@quicinc.com>
+Subject: Re: [Freedreno] [v1 3/3] drm/msm/disp/dpu1: reserve the resources
+ on topology change
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,122 +62,89 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: sebastian.wick@redhat.com, linux-arm-msm@vger.kernel.org,
- quic_abhinavk@quicinc.com, dri-devel@lists.freedesktop.org,
- swboyd@chromium.org, robdclark@gmail.com, seanpaul@chromium.org,
- laurent.pinchart@ideasonboard.com, Daniel Vetter <daniel@ffwll.ch>,
- daniel.vetter@ffwll.ch, Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- wayland-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- ville.syrjala@linux.intel.com
+Cc: Kalyan Thota <quic_kalyant@quicinc.com>, robdclark@chromium.org,
+ quic_abhinavk@quicinc.com, llvm@lists.linux.dev, linux-kernel@vger.kernel.org,
+ dianders@chromium.org, oe-kbuild-all@lists.linux.dev,
+ dmitry.baryshkov@linaro.org, marijn.suijten@somainline.org,
+ swboyd@chromium.org, quic_vpolimer@quicinc.com
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
+Hi Kalyan,
+
+Thank you for the patch! Yet something to improve:
+
+[auto build test ERROR on drm-misc/drm-misc-next]
+[also build test ERROR on drm/drm-next drm-exynos/exynos-drm-next drm-intel/for-linux-next drm-intel/for-linux-next-fixes drm-tip/drm-tip linus/master v6.2-rc6 next-20230201]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch#_base_tree_information]
+
+url:    https://github.com/intel-lab-lkp/linux/commits/Kalyan-Thota/drm-msm-disp-dpu1-clear-dspp-reservations-in-rm-release/20230130-232224
+base:   git://anongit.freedesktop.org/drm/drm-misc drm-misc-next
+patch link:    https://lore.kernel.org/r/1675092092-26412-4-git-send-email-quic_kalyant%40quicinc.com
+patch subject: [v1 3/3] drm/msm/disp/dpu1: reserve the resources on topology change
+config: riscv-randconfig-r042-20230130 (https://download.01.org/0day-ci/archive/20230202/202302021238.o9yx7MKs-lkp@intel.com/config)
+compiler: clang version 16.0.0 (https://github.com/llvm/llvm-project 4196ca3278f78c6e19246e54ab0ecb364e37d66a)
+reproduce (this is a W=1 build):
+        wget https://raw.githubusercontent.com/intel/lkp-tests/master/sbin/make.cross -O ~/bin/make.cross
+        chmod +x ~/bin/make.cross
+        # install riscv cross compiling tool for clang build
+        # apt-get install binutils-riscv64-linux-gnu
+        # https://github.com/intel-lab-lkp/linux/commit/4c49c3233fc18f3b746a96b5ff4ce5008da3bfec
+        git remote add linux-review https://github.com/intel-lab-lkp/linux
+        git fetch --no-tags linux-review Kalyan-Thota/drm-msm-disp-dpu1-clear-dspp-reservations-in-rm-release/20230130-232224
+        git checkout 4c49c3233fc18f3b746a96b5ff4ce5008da3bfec
+        # save the config file
+        mkdir build_dir && cp config build_dir/.config
+        COMPILER_INSTALL_PATH=$HOME/0day COMPILER=clang make.cross W=1 O=build_dir ARCH=riscv olddefconfig
+        COMPILER_INSTALL_PATH=$HOME/0day COMPILER=clang make.cross W=1 O=build_dir ARCH=riscv SHELL=/bin/bash drivers/gpu/drm/msm/
+
+If you fix the issue, kindly add following tag where applicable
+| Reported-by: kernel test robot <lkp@intel.com>
+
+All errors (new ones prefixed by >>):
+
+>> drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c:2091:6: error: conflicting types for 'dpu_encoder_prepare_commit'
+   void dpu_encoder_prepare_commit(struct drm_encoder *drm_enc)
+        ^
+   drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.h:155:6: note: previous declaration is here
+   void dpu_encoder_prepare_commit(struct drm_encoder *drm_enc,
+        ^
+   1 error generated.
+--
+>> drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c:443:38: error: too few arguments to function call, expected 2, have 1
+                           dpu_encoder_prepare_commit(encoder);
+                           ~~~~~~~~~~~~~~~~~~~~~~~~~~        ^
+   drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.h:155:6: note: 'dpu_encoder_prepare_commit' declared here
+   void dpu_encoder_prepare_commit(struct drm_encoder *drm_enc,
+        ^
+   1 error generated.
 
 
-On 1/31/2023 4:49 AM, Pekka Paalanen wrote:
-> On Tue, 31 Jan 2023 11:21:18 +0000
-> Simon Ser <contact@emersion.fr> wrote:
-> 
->> On Tuesday, January 31st, 2023 at 12:13, Pekka Paalanen <ppaalanen@gmail.com> wrote:
->>
->>> On Tue, 31 Jan 2023 10:06:39 +0000
->>> Simon Ser <contact@emersion.fr> wrote:
->>>    
->>>> On Tuesday, January 31st, 2023 at 10:25, Pekka Paalanen <ppaalanen@gmail.com> wrote:
->>>>    
->>>>> indeed, what about simply using a 1x1 framebuffer for real? Why was that
->>>>> approach rejected?
->>>>
->>>> Ideally we don't want to allocate any GPU memory for the solid-fill
->>>> stuff. And if we special-case 1x1 FB creation to not be backed by real
->>>> GPU memory then we hit several situations where user-space expects a
->>>> real FB but there isn't: for instance, GETFB2 converts from FB object
->>>> ID to GEM handles. Even if we make GETFB2 fail and accept that this
->>>> breaks user-space, then there is no way for user-space to recover the
->>>> FB color for flicker-free transitions and such.
->>>>
->>>> This is all purely from a uAPI PoV, completely ignoring the potential
->>>> issues with the internal kernel abstractions which might not be suitable
->>>> for this either.
->>>
->>> I mean a real 1x1 buffer: a dumb buffer.
->>>
->>> It would be absolutely compatible with anything existing, because it is
->>> a real FB. As a dumb buffer it would be trivial to write into and read
->>> out. As 1x1 it would be tiny (one page?). Even if something needs to
->>> raw-access uncached memory over 33 MHz PCI bus or whatever the worst
->>> case is, it's just one pixel, so it's fast enough, right? And it only
->>> needs to be read once when set, like USB display drivers do. The driver
->>> does not need to manually apply any color operations, because none are
->>> supported in this special case.
->>>
->>> One can put all these limitations and even pixel format in the plane
->>> property that tells userspace that a 1x1 FB works here.
->>>
->>> To recap, the other alternatives under discussion I see right now are:
->>>
->>> - this proposal of dedicated fill color property
->>> - stuffing something new into FB_ID property
->>>
->>> There is also the question of other kinds of plane content sources like
->>> live camera feeds where userspace won't be shovelling each frame
->>> individually like we do now.
->>>
->>> 1x1 dumb buffer is not as small and lean as a dedicated fill color
->>> property, but the UAPI design questions seem to be much less. What's
->>> the best trade-off and for whom?
->>
->> By "real memory" yes I mean the 1 page.
->>
->> Using a real buffer also brings back other discussions, e.g. the one about
->> which pixel formats to accept.
-> 
-> Yeah, which is why I wrote: "One can put all these limitations and even
-> pixel format in the plane property". It doesn't even need to be a
-> variable in the UAPI, it can be hardcoded in the UAPI doc.
-> 
-> Please, do not understand this as me strongly advocating for the real FB
-> approach! I just don't want that option to be misunderstood.
-> 
-> I don't really care which design is chosen, but I do care about
-> documenting why other designs were rejected. If the rejection reasons
-> were false, they should be revised, even if the decision does not
-> change.
+vim +/dpu_encoder_prepare_commit +2091 drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
 
-Hi Pekka/Daniel,
+ae4d721ce10057a Abhinav Kumar     2022-04-26  2090  
+25fdd5933e4c0f5 Jeykumar Sankaran 2018-06-27 @2091  void dpu_encoder_prepare_commit(struct drm_encoder *drm_enc)
+25fdd5933e4c0f5 Jeykumar Sankaran 2018-06-27  2092  {
+25fdd5933e4c0f5 Jeykumar Sankaran 2018-06-27  2093  	struct dpu_encoder_virt *dpu_enc;
+25fdd5933e4c0f5 Jeykumar Sankaran 2018-06-27  2094  	struct dpu_encoder_phys *phys;
+25fdd5933e4c0f5 Jeykumar Sankaran 2018-06-27  2095  	int i;
+25fdd5933e4c0f5 Jeykumar Sankaran 2018-06-27  2096  
+25fdd5933e4c0f5 Jeykumar Sankaran 2018-06-27  2097  	if (!drm_enc) {
+25fdd5933e4c0f5 Jeykumar Sankaran 2018-06-27  2098  		DPU_ERROR("invalid encoder\n");
+25fdd5933e4c0f5 Jeykumar Sankaran 2018-06-27  2099  		return;
+25fdd5933e4c0f5 Jeykumar Sankaran 2018-06-27  2100  	}
+25fdd5933e4c0f5 Jeykumar Sankaran 2018-06-27  2101  	dpu_enc = to_dpu_encoder_virt(drm_enc);
+25fdd5933e4c0f5 Jeykumar Sankaran 2018-06-27  2102  
+25fdd5933e4c0f5 Jeykumar Sankaran 2018-06-27  2103  	for (i = 0; i < dpu_enc->num_phys_encs; i++) {
+25fdd5933e4c0f5 Jeykumar Sankaran 2018-06-27  2104  		phys = dpu_enc->phys_encs[i];
+b6fadcade627040 Drew Davenport    2019-12-06  2105  		if (phys->ops.prepare_commit)
+25fdd5933e4c0f5 Jeykumar Sankaran 2018-06-27  2106  			phys->ops.prepare_commit(phys);
+25fdd5933e4c0f5 Jeykumar Sankaran 2018-06-27  2107  	}
+25fdd5933e4c0f5 Jeykumar Sankaran 2018-06-27  2108  }
+25fdd5933e4c0f5 Jeykumar Sankaran 2018-06-27  2109  
 
-Looks like the general sentiment is to keep solid fill as a separate 
-property, so I will stick with that implementation for v4.
-
-I can document the reason why we chose this approach over 1x1 FB in the 
-cover letter, but to summarize here:
-
-Allocating an FB for solid_fill brings in unnecessary overhead (ex. 
-having to allocate memory for the FB). In addition, since memory fetch 
-is disabled when solid fill is enabled, having a separate property that 
-doesn't do any memory allocation for solid fill better reflects the 
-behavior of this feature within driver.
-
-We also wanted to avoid having FB_ID accept a property blob as it would 
-involve loosening some drm_property checks, which could cause issues 
-with other property ioctls.
-
-
-
-Also, re: other plane sources -- FWIW, I have tried implementing a 
-source enum as Ville suggested, but ultimately dropped the change as it 
-would require userspace to set properties in a specific order (i.e. to 
-enable solid_fill, userspace would have to first set FB_ID to NULL then 
-set SOLID_FILL).
-
-I'm not sure how much of a can of worms that would be for userspace, but 
-if you're fine with having that as a requirement the I can re-add the code.
-
-Thanks,
-
-Jessica Zhang
-
-> 
-> 
-> Thanks,
-> pq
+-- 
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests
