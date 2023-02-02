@@ -1,38 +1,63 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id B4B9868699C
-	for <lists+freedreno@lfdr.de>; Wed,  1 Feb 2023 16:10:48 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id E175E68733B
+	for <lists+freedreno@lfdr.de>; Thu,  2 Feb 2023 03:06:58 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B9C4D10E40D;
-	Wed,  1 Feb 2023 15:10:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AFDDD10E1BD;
+	Thu,  2 Feb 2023 02:06:57 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from relay04.th.seeweb.it (relay04.th.seeweb.it [5.144.164.165])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F415E10E408
- for <freedreno@lists.freedesktop.org>; Wed,  1 Feb 2023 15:10:42 +0000 (UTC)
-Received: from SoMainline.org (94-211-6-86.cable.dynamic.v4.ziggo.nl
- [94.211.6.86])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest
- SHA256) (No client certificate requested)
- by m-r1.th.seeweb.it (Postfix) with ESMTPSA id 944051F8F0;
- Wed,  1 Feb 2023 16:10:39 +0100 (CET)
-Date: Wed, 1 Feb 2023 16:10:37 +0100
-From: Marijn Suijten <marijn.suijten@somainline.org>
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Message-ID: <20230201151037.sm3ai2bgw35e6aar@SoMainline.org>
-References: <1675092092-26412-1-git-send-email-quic_kalyant@quicinc.com>
- <1675092092-26412-3-git-send-email-quic_kalyant@quicinc.com>
- <20230201111604.htgczy6yvdkywhvl@SoMainline.org>
- <38466a0f-686d-ab19-2669-e81ca6d6ec17@linaro.org>
+Received: from alexa-out-sd-02.qualcomm.com (alexa-out-sd-02.qualcomm.com
+ [199.106.114.39])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0195610E0EF;
+ Thu,  2 Feb 2023 02:06:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=quicinc.com; i=@quicinc.com; q=dns/txt; s=qcdkim;
+ t=1675303616; x=1706839616;
+ h=message-id:date:mime-version:subject:to:cc:references:
+ from:in-reply-to:content-transfer-encoding;
+ bh=zP6cZeQbRqQo0oBq/eg3pij2npt8bVl1qApyNAD2kSo=;
+ b=dG3XDRqPvH4/6tFSGgUGJjNaF1b59fIF6tuH5b8oyDT8k3AaQ1Nc1TCx
+ auzz6sVn52mDGgZLg7i+jeqs15lppf74agNxPCzV2RtJtQTyeSBUGg0F7
+ Ws6NkLVY9Zxk1sfJWZERlZWhsyeHHGyRoJOSZVMfXQQZOO2ggkDr0OrPf g=;
+Received: from unknown (HELO ironmsg04-sd.qualcomm.com) ([10.53.140.144])
+ by alexa-out-sd-02.qualcomm.com with ESMTP; 01 Feb 2023 18:06:54 -0800
+X-QCInternal: smtphost
+Received: from nasanex01b.na.qualcomm.com ([10.46.141.250])
+ by ironmsg04-sd.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 01 Feb 2023 18:06:54 -0800
+Received: from [10.71.110.193] (10.80.80.8) by nasanex01b.na.qualcomm.com
+ (10.46.141.250) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.36; Wed, 1 Feb 2023
+ 18:06:54 -0800
+Message-ID: <5376994b-99f6-0f48-139f-6e622a8b0778@quicinc.com>
+Date: Wed, 1 Feb 2023 18:06:41 -0800
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <38466a0f-686d-ab19-2669-e81ca6d6ec17@linaro.org>
-Subject: Re: [Freedreno] [v1 2/3] drm/msm/disp/dpu1: add dspps into
- reservation if there is a ctm request
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.7.0
+To: Pekka Paalanen <ppaalanen@gmail.com>, Simon Ser <contact@emersion.fr>
+References: <20230104234036.636-1-quic_jesszhan@quicinc.com>
+ <Y7a1hCmsvJHKdW1Y@phenom.ffwll.local>
+ <58caf08c-3a02-82ce-4452-8ae7f22f373d@quicinc.com>
+ <CAA8EJppnAmN6+S-emEfXJEc1iVf+DjeLBmCQpGd-nRY2M2AAQQ@mail.gmail.com>
+ <Y7hrWDpg8msuefgZ@phenom.ffwll.local>
+ <CAA8EJppoejPPNhu3eHBc_vsstHvEEwYx67HZLo8+4W3K-gHkag@mail.gmail.com>
+ <20230131112527.32ab8ba5@eldfell>
+ <9Q0ano1jjZ1LTNWaVcVkDp0-jsTSUJKoNrKwvpGpIuejUSB33DK-uOpeLmyMbbk6tdfWG8RS83AGyB--EPEHqJe5shq6RC_gVpPLR7sUScY=@emersion.fr>
+ <20230131131326.75b43152@eldfell>
+ <x3f8jyn_QDj34hYn9rgumw2uhFTpWzOw2E-715WYVOfwNOpthv26sefM6ePtwqbuHH54ATupqQzzz9qIWqAbDvMpb06bhdiU5BJlMjsaCdo=@emersion.fr>
+ <20230131144913.5ff840dd@eldfell>
+Content-Language: en-US
+From: Jessica Zhang <quic_jesszhan@quicinc.com>
+In-Reply-To: <20230131144913.5ff840dd@eldfell>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
+ nasanex01b.na.qualcomm.com (10.46.141.250)
+Subject: Re: [Freedreno] [RFC PATCH v3 0/3] Support for Solid Fill Planes
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -45,88 +70,122 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Kalyan Thota <quic_kalyant@quicinc.com>, devicetree@vger.kernel.org,
- quic_abhinavk@quicinc.com, linux-arm-msm@vger.kernel.org, swboyd@chromium.org,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- dianders@chromium.org, robdclark@chromium.org, freedreno@lists.freedesktop.org,
- quic_vpolimer@quicinc.com
+Cc: sebastian.wick@redhat.com, linux-arm-msm@vger.kernel.org,
+ quic_abhinavk@quicinc.com, dri-devel@lists.freedesktop.org,
+ swboyd@chromium.org, robdclark@gmail.com, seanpaul@chromium.org,
+ laurent.pinchart@ideasonboard.com, Daniel Vetter <daniel@ffwll.ch>,
+ daniel.vetter@ffwll.ch, Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ wayland-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ ville.syrjala@linux.intel.com
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 2023-02-01 15:48:02, Dmitry Baryshkov wrote:
-> On 01/02/2023 13:16, Marijn Suijten wrote:
-> > On 2023-01-30 07:21:31, Kalyan Thota wrote:
-> >> Add dspp blocks into the topology for reservation, if there is a ctm
-> >> request for that composition.
-> > 
-> > DSPP
-> > 
-> >> Changes in v1:
-> >> - Minor nits (Dmitry)
-> > 
-> > This should go below the triple dashes, so that it /does not/ become
-> > part of the patch/commit that is applied to the tree (where review
-> > history is irrelevant as it can be searched for separately).
+
+
+On 1/31/2023 4:49 AM, Pekka Paalanen wrote:
+> On Tue, 31 Jan 2023 11:21:18 +0000
+> Simon Ser <contact@emersion.fr> wrote:
 > 
-> This is one of DRM peculiarities which we have to live with.
-
-Not sure I follow.  Keeping "changes since vXX" out of commit messages
-seems to be a kernel-wide convention, after all the title doesn't
-include which revision of the patch ended up being applied to the tree
-either.  Having the changelog checked in to the tree has no relevance.
-
-> >> Signed-off-by: Kalyan Thota <quic_kalyant@quicinc.com>
-> >> Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> >> ---
-> >>   drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c | 13 ++++++-------
-> >>   1 file changed, 6 insertions(+), 7 deletions(-)
-> >>
-> >> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-> >> index 9c6817b..3bd46b4 100644
-> >> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-> >> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-> >> @@ -545,7 +545,8 @@ bool dpu_encoder_use_dsc_merge(struct drm_encoder *drm_enc)
-> >>   static struct msm_display_topology dpu_encoder_get_topology(
-> >>   			struct dpu_encoder_virt *dpu_enc,
-> >>   			struct dpu_kms *dpu_kms,
-> >> -			struct drm_display_mode *mode)
-> >> +			struct drm_display_mode *mode,
-> >> +			struct drm_crtc_state *crtc_state)
-> >>   {
-> >>   	struct msm_display_topology topology = {0};
-> >>   	int i, intf_count = 0;
-> >> @@ -573,11 +574,9 @@ static struct msm_display_topology dpu_encoder_get_topology(
-> >>   	else
-> >>   		topology.num_lm = (mode->hdisplay > MAX_HDISPLAY_SPLIT) ? 2 : 1;
-> >>   
-> >> -	if (dpu_enc->disp_info.intf_type == DRM_MODE_ENCODER_DSI) {
-> >> -		if (dpu_kms->catalog->dspp &&
-> >> -			(dpu_kms->catalog->dspp_count >= topology.num_lm))
-> >> -			topology.num_dspp = topology.num_lm;
-> >> -	}
-> >> +	if (dpu_kms->catalog->dspp &&
-> >> +	    crtc_state->ctm && (dpu_kms->catalog->dspp_count >= topology.num_lm))
-> > 
-> > Multiline-if-clause is typically indented with two tabs, not a half tab
-> > (4 spaces).
+>> On Tuesday, January 31st, 2023 at 12:13, Pekka Paalanen <ppaalanen@gmail.com> wrote:
+>>
+>>> On Tue, 31 Jan 2023 10:06:39 +0000
+>>> Simon Ser <contact@emersion.fr> wrote:
+>>>    
+>>>> On Tuesday, January 31st, 2023 at 10:25, Pekka Paalanen <ppaalanen@gmail.com> wrote:
+>>>>    
+>>>>> indeed, what about simply using a 1x1 framebuffer for real? Why was that
+>>>>> approach rejected?
+>>>>
+>>>> Ideally we don't want to allocate any GPU memory for the solid-fill
+>>>> stuff. And if we special-case 1x1 FB creation to not be backed by real
+>>>> GPU memory then we hit several situations where user-space expects a
+>>>> real FB but there isn't: for instance, GETFB2 converts from FB object
+>>>> ID to GEM handles. Even if we make GETFB2 fail and accept that this
+>>>> breaks user-space, then there is no way for user-space to recover the
+>>>> FB color for flicker-free transitions and such.
+>>>>
+>>>> This is all purely from a uAPI PoV, completely ignoring the potential
+>>>> issues with the internal kernel abstractions which might not be suitable
+>>>> for this either.
+>>>
+>>> I mean a real 1x1 buffer: a dumb buffer.
+>>>
+>>> It would be absolutely compatible with anything existing, because it is
+>>> a real FB. As a dumb buffer it would be trivial to write into and read
+>>> out. As 1x1 it would be tiny (one page?). Even if something needs to
+>>> raw-access uncached memory over 33 MHz PCI bus or whatever the worst
+>>> case is, it's just one pixel, so it's fast enough, right? And it only
+>>> needs to be read once when set, like USB display drivers do. The driver
+>>> does not need to manually apply any color operations, because none are
+>>> supported in this special case.
+>>>
+>>> One can put all these limitations and even pixel format in the plane
+>>> property that tells userspace that a 1x1 FB works here.
+>>>
+>>> To recap, the other alternatives under discussion I see right now are:
+>>>
+>>> - this proposal of dedicated fill color property
+>>> - stuffing something new into FB_ID property
+>>>
+>>> There is also the question of other kinds of plane content sources like
+>>> live camera feeds where userspace won't be shovelling each frame
+>>> individually like we do now.
+>>>
+>>> 1x1 dumb buffer is not as small and lean as a dedicated fill color
+>>> property, but the UAPI design questions seem to be much less. What's
+>>> the best trade-off and for whom?
+>>
+>> By "real memory" yes I mean the 1 page.
+>>
+>> Using a real buffer also brings back other discussions, e.g. the one about
+>> which pixel formats to accept.
 > 
-> I tend to disagree here. Lately I have mostly seen it being indented to 
-> the opening parenthesis, so that nested statements also indent nicely.
-
-Ack, hence double-checked in a followup message; there's no concistency
-in dpu1 now but I agree that for ts=8 a 4-space-indented wraparound
-neatly aligns with the expression on the first line /and/ prevents
-inadvertently aligning with the conditional body on the next line.
-
-Will fix up in my own series too, thanks!
-
-> > Nit: swap the && here?  dspp and dspp_count are related, so check ctm
-> > first or last but not in the middle - makes reading easier.
+> Yeah, which is why I wrote: "One can put all these limitations and even
+> pixel format in the plane property". It doesn't even need to be a
+> variable in the UAPI, it can be hardcoded in the UAPI doc.
 > 
-> I think we can ignore dpu_kms->catalog->dspp completely. checking 
-> dspp_count should be enough for the purpose of the check (and note, the 
-> check for dspp/dspp_count is misleading and should be omitted).
+> Please, do not understand this as me strongly advocating for the real FB
+> approach! I just don't want that option to be misunderstood.
+> 
+> I don't really care which design is chosen, but I do care about
+> documenting why other designs were rejected. If the rejection reasons
+> were false, they should be revised, even if the decision does not
+> change.
 
-Ack, thanks!
+Hi Pekka/Daniel,
 
-- Marijn
+Looks like the general sentiment is to keep solid fill as a separate 
+property, so I will stick with that implementation for v4.
+
+I can document the reason why we chose this approach over 1x1 FB in the 
+cover letter, but to summarize here:
+
+Allocating an FB for solid_fill brings in unnecessary overhead (ex. 
+having to allocate memory for the FB). In addition, since memory fetch 
+is disabled when solid fill is enabled, having a separate property that 
+doesn't do any memory allocation for solid fill better reflects the 
+behavior of this feature within driver.
+
+We also wanted to avoid having FB_ID accept a property blob as it would 
+involve loosening some drm_property checks, which could cause issues 
+with other property ioctls.
+
+
+
+Also, re: other plane sources -- FWIW, I have tried implementing a 
+source enum as Ville suggested, but ultimately dropped the change as it 
+would require userspace to set properties in a specific order (i.e. to 
+enable solid_fill, userspace would have to first set FB_ID to NULL then 
+set SOLID_FILL).
+
+I'm not sure how much of a can of worms that would be for userspace, but 
+if you're fine with having that as a requirement the I can re-add the code.
+
+Thanks,
+
+Jessica Zhang
+
+> 
+> 
+> Thanks,
+> pq
