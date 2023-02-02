@@ -1,55 +1,78 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 23ADE687F8E
-	for <lists+freedreno@lfdr.de>; Thu,  2 Feb 2023 15:09:59 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id C16E76886DD
+	for <lists+freedreno@lfdr.de>; Thu,  2 Feb 2023 19:41:46 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7C8D310E558;
-	Thu,  2 Feb 2023 14:09:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id ECE6110E1ED;
+	Thu,  2 Feb 2023 18:41:44 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EDD3F10E52B;
- Thu,  2 Feb 2023 14:09:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1675346994; x=1706882994;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=3+PmYJAt+gLm3nMqcE/gerTYxQtrGS9tvLkR1pRwWLI=;
- b=Outo3eMJpog4tnoIJqJ7w9xs9qaKZyQhq/7TzgMxDbgBS598vDJz8kur
- 5eQwvdw+37mw+pMxqtMG+iRHKTcsfK35mj+Q4F3aCMOVsaexYJuG9E9Cm
- +olBKcXdXrTJocrwZm8JGAKcSHfC1TIqxwuZK7tqMzChsczsZns4e2aCE
- QwN3wliLEkpWF4e7wHdT3GDH/DA9C0vlzUABA5BEnJVeFmyDDDbx+PXcM
- mKSJ732u8CCzXp97c/9LWceAG161PjR9NP9rtRU2UOfxmT9/wfXnppWHF
- WUBPUakAxB6T6thN9A2hVRWROVQzxB765UchaC1IirOtTTAQIEzjECpgr A==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10608"; a="355793868"
-X-IronPort-AV: E=Sophos;i="5.97,267,1669104000"; d="scan'208";a="355793868"
-Received: from fmsmga004.fm.intel.com ([10.253.24.48])
- by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 02 Feb 2023 06:09:43 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6500,9779,10608"; a="733949410"
-X-IronPort-AV: E=Sophos;i="5.97,267,1669104000"; d="scan'208";a="733949410"
-Received: from lkp-server01.sh.intel.com (HELO ffa7f14d1d0f) ([10.239.97.150])
- by fmsmga004.fm.intel.com with ESMTP; 02 Feb 2023 06:09:39 -0800
-Received: from kbuild by ffa7f14d1d0f with local (Exim 4.96)
- (envelope-from <lkp@intel.com>) id 1pNaHN-0006Zo-2I;
- Thu, 02 Feb 2023 14:09:33 +0000
-Date: Thu, 2 Feb 2023 22:08:57 +0800
-From: kernel test robot <lkp@intel.com>
-To: Kalyan Thota <quic_kalyant@quicinc.com>,
- dri-devel@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
- freedreno@lists.freedesktop.org, devicetree@vger.kernel.org
-Message-ID: <202302022254.37XyfGnR-lkp@intel.com>
-References: <1675092092-26412-4-git-send-email-quic_kalyant@quicinc.com>
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 40F9010E047;
+ Thu,  2 Feb 2023 18:41:42 +0000 (UTC)
+Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 312HN3RO004054; Thu, 2 Feb 2023 18:41:35 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
+ h=message-id : date :
+ mime-version : subject : to : cc : references : from : in-reply-to :
+ content-type : content-transfer-encoding; s=qcppdkim1;
+ bh=WuYPy6EhQUi9YZeS3kaynk2EOlY7XZIjjiNx/QT8YVc=;
+ b=dwS19j/+bhrZ7uA6CWmiZlcCQbHwiT0UgZrXUbRimHpaZWPl7ZP4kX8BFI7wPn6PaFxJ
+ fWaT1L8vthdTFCZDdC2ZsESV8QjiW8MSpgYJYtkYF7A/+FJl63oZm2bXW1bEWSgfAn0/
+ vQd1hSL24RxGuMeGCrf6M2/I8s0Nragj8J3tohnbLaHx74o9N/vI1em+kVmRkVhxgL3P
+ ZACNkPcau0dA1QmE/yqVWiTJ4F3ElI+JVPFS+hMrTFkNmoOUP1Br/R2ZKy2tdwdI+5Y/
+ eI9SmTx5R2wjjhZrZ/hJmMy7G4KNqACXZlLiK0s8fmQzFFnkOLRx/pqheDMDX33+4/cL pg== 
+Received: from nalasppmta05.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3nfn5j3pa1-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 02 Feb 2023 18:41:35 +0000
+Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
+ [10.47.209.196])
+ by NALASPPMTA05.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 312IfZXO023302
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 2 Feb 2023 18:41:35 GMT
+Received: from [10.110.114.165] (10.80.80.8) by nalasex01a.na.qualcomm.com
+ (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.36; Thu, 2 Feb 2023
+ 10:41:34 -0800
+Message-ID: <8a9ae8b1-dc2b-896e-353d-bb237fa0663e@quicinc.com>
+Date: Thu, 2 Feb 2023 10:41:33 -0800
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <1675092092-26412-4-git-send-email-quic_kalyant@quicinc.com>
-Subject: Re: [Freedreno] [v1 3/3] drm/msm/disp/dpu1: reserve the resources
- on topology change
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
+ Thunderbird/91.6.2
+Content-Language: en-US
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Rob Clark
+ <robdclark@gmail.com>, Sean Paul <sean@poorly.run>
+References: <20221229191856.3508092-1-dmitry.baryshkov@linaro.org>
+ <20221229191856.3508092-12-dmitry.baryshkov@linaro.org>
+From: Abhinav Kumar <quic_abhinavk@quicinc.com>
+In-Reply-To: <20221229191856.3508092-12-dmitry.baryshkov@linaro.org>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-ORIG-GUID: _r9TgniwZuxDuMDacMiQw2iZu06Uvdqz
+X-Proofpoint-GUID: _r9TgniwZuxDuMDacMiQw2iZu06Uvdqz
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.219,Aquarius:18.0.930,Hydra:6.0.562,FMLib:17.11.122.1
+ definitions=2023-02-02_12,2023-02-02_01,2022-06-22_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0
+ lowpriorityscore=0 malwarescore=0 suspectscore=0 clxscore=1015
+ adultscore=0 mlxscore=0 impostorscore=0 bulkscore=0 priorityscore=1501
+ spamscore=0 mlxlogscore=999 classifier=spam adjust=0 reason=mlx
+ scancount=1 engine=8.12.0-2212070000 definitions=main-2302020167
+Subject: Re: [Freedreno] [PATCH v2 11/27] drm/msm/dpu: move stride
+ programming to dpu_hw_sspp_setup_sourceaddress
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,89 +85,145 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Kalyan Thota <quic_kalyant@quicinc.com>, robdclark@chromium.org,
- quic_abhinavk@quicinc.com, linux-kernel@vger.kernel.org, dianders@chromium.org,
- swboyd@chromium.org, oe-kbuild-all@lists.linux.dev,
- dmitry.baryshkov@linaro.org, marijn.suijten@somainline.org,
- quic_vpolimer@quicinc.com
+Cc: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
+ Bjorn Andersson <andersson@kernel.org>, dri-devel@lists.freedesktop.org,
+ Stephen Boyd <swboyd@chromium.org>, Daniel Vetter <daniel@ffwll.ch>,
+ David Airlie <airlied@gmail.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Hi Kalyan,
-
-Thank you for the patch! Yet something to improve:
-
-[auto build test ERROR on drm-misc/drm-misc-next]
-[also build test ERROR on drm/drm-next drm-exynos/exynos-drm-next drm-intel/for-linux-next drm-intel/for-linux-next-fixes drm-tip/drm-tip linus/master v6.2-rc6]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch#_base_tree_information]
-
-url:    https://github.com/intel-lab-lkp/linux/commits/Kalyan-Thota/drm-msm-disp-dpu1-clear-dspp-reservations-in-rm-release/20230130-232224
-base:   git://anongit.freedesktop.org/drm/drm-misc drm-misc-next
-patch link:    https://lore.kernel.org/r/1675092092-26412-4-git-send-email-quic_kalyant%40quicinc.com
-patch subject: [v1 3/3] drm/msm/disp/dpu1: reserve the resources on topology change
-config: arm64-randconfig-r034-20230129 (https://download.01.org/0day-ci/archive/20230202/202302022254.37XyfGnR-lkp@intel.com/config)
-compiler: aarch64-linux-gcc (GCC) 12.1.0
-reproduce (this is a W=1 build):
-        wget https://raw.githubusercontent.com/intel/lkp-tests/master/sbin/make.cross -O ~/bin/make.cross
-        chmod +x ~/bin/make.cross
-        # https://github.com/intel-lab-lkp/linux/commit/4c49c3233fc18f3b746a96b5ff4ce5008da3bfec
-        git remote add linux-review https://github.com/intel-lab-lkp/linux
-        git fetch --no-tags linux-review Kalyan-Thota/drm-msm-disp-dpu1-clear-dspp-reservations-in-rm-release/20230130-232224
-        git checkout 4c49c3233fc18f3b746a96b5ff4ce5008da3bfec
-        # save the config file
-        mkdir build_dir && cp config build_dir/.config
-        COMPILER_INSTALL_PATH=$HOME/0day COMPILER=gcc-12.1.0 make.cross W=1 O=build_dir ARCH=arm64 olddefconfig
-        COMPILER_INSTALL_PATH=$HOME/0day COMPILER=gcc-12.1.0 make.cross W=1 O=build_dir ARCH=arm64 SHELL=/bin/bash drivers/gpu/
-
-If you fix the issue, kindly add following tag where applicable
-| Reported-by: kernel test robot <lkp@intel.com>
-
-All errors (new ones prefixed by >>):
-
->> drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c:2091:6: error: conflicting types for 'dpu_encoder_prepare_commit'; have 'void(struct drm_encoder *)'
-    2091 | void dpu_encoder_prepare_commit(struct drm_encoder *drm_enc)
-         |      ^~~~~~~~~~~~~~~~~~~~~~~~~~
-   In file included from drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys.h:19,
-                    from drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c:29:
-   drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.h:155:6: note: previous declaration of 'dpu_encoder_prepare_commit' with type 'void(struct drm_encoder *, struct drm_crtc_state *)'
-     155 | void dpu_encoder_prepare_commit(struct drm_encoder *drm_enc,
-         |      ^~~~~~~~~~~~~~~~~~~~~~~~~~
---
-   drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c: In function 'dpu_kms_prepare_commit':
->> drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c:443:25: error: too few arguments to function 'dpu_encoder_prepare_commit'
-     443 |                         dpu_encoder_prepare_commit(encoder);
-         |                         ^~~~~~~~~~~~~~~~~~~~~~~~~~
-   In file included from drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c:30:
-   drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.h:155:6: note: declared here
-     155 | void dpu_encoder_prepare_commit(struct drm_encoder *drm_enc,
-         |      ^~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
-vim +2091 drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+On 12/29/2022 11:18 AM, Dmitry Baryshkov wrote:
+> Move stride programming to dpu_hw_sspp_setup_sourceaddress(), so that
+> dpu_hw_sspp_setup_rects() programs only source and destination
+> rectangles.
+> 
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 
-ae4d721ce10057 Abhinav Kumar     2022-04-26  2090  
-25fdd5933e4c0f Jeykumar Sankaran 2018-06-27 @2091  void dpu_encoder_prepare_commit(struct drm_encoder *drm_enc)
-25fdd5933e4c0f Jeykumar Sankaran 2018-06-27  2092  {
-25fdd5933e4c0f Jeykumar Sankaran 2018-06-27  2093  	struct dpu_encoder_virt *dpu_enc;
-25fdd5933e4c0f Jeykumar Sankaran 2018-06-27  2094  	struct dpu_encoder_phys *phys;
-25fdd5933e4c0f Jeykumar Sankaran 2018-06-27  2095  	int i;
-25fdd5933e4c0f Jeykumar Sankaran 2018-06-27  2096  
-25fdd5933e4c0f Jeykumar Sankaran 2018-06-27  2097  	if (!drm_enc) {
-25fdd5933e4c0f Jeykumar Sankaran 2018-06-27  2098  		DPU_ERROR("invalid encoder\n");
-25fdd5933e4c0f Jeykumar Sankaran 2018-06-27  2099  		return;
-25fdd5933e4c0f Jeykumar Sankaran 2018-06-27  2100  	}
-25fdd5933e4c0f Jeykumar Sankaran 2018-06-27  2101  	dpu_enc = to_dpu_encoder_virt(drm_enc);
-25fdd5933e4c0f Jeykumar Sankaran 2018-06-27  2102  
-25fdd5933e4c0f Jeykumar Sankaran 2018-06-27  2103  	for (i = 0; i < dpu_enc->num_phys_encs; i++) {
-25fdd5933e4c0f Jeykumar Sankaran 2018-06-27  2104  		phys = dpu_enc->phys_encs[i];
-b6fadcade62704 Drew Davenport    2019-12-06  2105  		if (phys->ops.prepare_commit)
-25fdd5933e4c0f Jeykumar Sankaran 2018-06-27  2106  			phys->ops.prepare_commit(phys);
-25fdd5933e4c0f Jeykumar Sankaran 2018-06-27  2107  	}
-25fdd5933e4c0f Jeykumar Sankaran 2018-06-27  2108  }
-25fdd5933e4c0f Jeykumar Sankaran 2018-06-27  2109  
+Sorry but once again, I dont see a response to my comment
 
--- 
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests
+https://patchwork.freedesktop.org/patch/473166/?series=99909&rev=1#comment_875313
+
+So let me repeat that here:
+
+"This separation is logically correct, but there is another codepath
+using this.
+
+_dpu_plane_color_fill() calls pdpu->pipe_hw->ops.setup_rects.
+
+So for solid fill, I presume that stride getting programmed is 0 as
+there is no buffer to fetch from.
+
+But with this separation, we will miss re-programming stride and it will
+remain at the old value even for solid fil cases?
+
+You might want to add setup_sourceaddress call there? But that wont make
+sense either because for solid fill there is nothing to fetch from.
+
+Perhaps, another op for stride programming then?
+"
+
+Also, this is the second patch in the series where the previous comments 
+were not resolved/responded to.
+
+Hope that this was not just another rebase without looking at the prior 
+comments.
+
+> ---
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.c | 57 +++++++++++----------
+>   1 file changed, 29 insertions(+), 28 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.c
+> index 176cd6dc9a69..2bd39c13d54d 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.c
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.c
+> @@ -447,7 +447,7 @@ static void dpu_hw_sspp_setup_rects(struct dpu_sw_pipe *pipe,
+>   {
+>   	struct dpu_hw_sspp *ctx = pipe->sspp;
+>   	struct dpu_hw_blk_reg_map *c;
+> -	u32 src_size, src_xy, dst_size, dst_xy, ystride0, ystride1;
+> +	u32 src_size, src_xy, dst_size, dst_xy;
+>   	u32 src_size_off, src_xy_off, out_size_off, out_xy_off;
+>   	u32 idx;
+>   
+> @@ -478,44 +478,18 @@ static void dpu_hw_sspp_setup_rects(struct dpu_sw_pipe *pipe,
+>   	dst_size = (drm_rect_height(&cfg->dst_rect) << 16) |
+>   		drm_rect_width(&cfg->dst_rect);
+>   
+> -	if (pipe->multirect_index == DPU_SSPP_RECT_SOLO) {
+> -		ystride0 = (cfg->layout.plane_pitch[0]) |
+> -			(cfg->layout.plane_pitch[1] << 16);
+> -		ystride1 = (cfg->layout.plane_pitch[2]) |
+> -			(cfg->layout.plane_pitch[3] << 16);
+> -	} else {
+> -		ystride0 = DPU_REG_READ(c, SSPP_SRC_YSTRIDE0 + idx);
+> -		ystride1 = DPU_REG_READ(c, SSPP_SRC_YSTRIDE1 + idx);
+> -
+> -		if (pipe->multirect_index == DPU_SSPP_RECT_0) {
+> -			ystride0 = (ystride0 & 0xFFFF0000) |
+> -				(cfg->layout.plane_pitch[0] & 0x0000FFFF);
+> -			ystride1 = (ystride1 & 0xFFFF0000)|
+> -				(cfg->layout.plane_pitch[2] & 0x0000FFFF);
+> -		} else {
+> -			ystride0 = (ystride0 & 0x0000FFFF) |
+> -				((cfg->layout.plane_pitch[0] << 16) &
+> -				 0xFFFF0000);
+> -			ystride1 = (ystride1 & 0x0000FFFF) |
+> -				((cfg->layout.plane_pitch[2] << 16) &
+> -				 0xFFFF0000);
+> -		}
+> -	}
+> -
+>   	/* rectangle register programming */
+>   	DPU_REG_WRITE(c, src_size_off + idx, src_size);
+>   	DPU_REG_WRITE(c, src_xy_off + idx, src_xy);
+>   	DPU_REG_WRITE(c, out_size_off + idx, dst_size);
+>   	DPU_REG_WRITE(c, out_xy_off + idx, dst_xy);
+> -
+> -	DPU_REG_WRITE(c, SSPP_SRC_YSTRIDE0 + idx, ystride0);
+> -	DPU_REG_WRITE(c, SSPP_SRC_YSTRIDE1 + idx, ystride1);
+>   }
+>   
+>   static void dpu_hw_sspp_setup_sourceaddress(struct dpu_sw_pipe *pipe,
+>   		struct dpu_hw_pipe_cfg *cfg)
+>   {
+>   	struct dpu_hw_sspp *ctx = pipe->sspp;
+> +	u32 ystride0, ystride1;
+>   	int i;
+>   	u32 idx;
+>   
+> @@ -537,6 +511,33 @@ static void dpu_hw_sspp_setup_sourceaddress(struct dpu_sw_pipe *pipe,
+>   		DPU_REG_WRITE(&ctx->hw, SSPP_SRC3_ADDR + idx,
+>   				cfg->layout.plane_addr[2]);
+>   	}
+> +
+> +	if (pipe->multirect_index == DPU_SSPP_RECT_SOLO) {
+> +		ystride0 = (cfg->layout.plane_pitch[0]) |
+> +			(cfg->layout.plane_pitch[1] << 16);
+> +		ystride1 = (cfg->layout.plane_pitch[2]) |
+> +			(cfg->layout.plane_pitch[3] << 16);
+> +	} else {
+> +		ystride0 = DPU_REG_READ(&ctx->hw, SSPP_SRC_YSTRIDE0 + idx);
+> +		ystride1 = DPU_REG_READ(&ctx->hw, SSPP_SRC_YSTRIDE1 + idx);
+> +
+> +		if (pipe->multirect_index == DPU_SSPP_RECT_0) {
+> +			ystride0 = (ystride0 & 0xFFFF0000) |
+> +				(cfg->layout.plane_pitch[0] & 0x0000FFFF);
+> +			ystride1 = (ystride1 & 0xFFFF0000)|
+> +				(cfg->layout.plane_pitch[2] & 0x0000FFFF);
+> +		} else {
+> +			ystride0 = (ystride0 & 0x0000FFFF) |
+> +				((cfg->layout.plane_pitch[0] << 16) &
+> +				 0xFFFF0000);
+> +			ystride1 = (ystride1 & 0x0000FFFF) |
+> +				((cfg->layout.plane_pitch[2] << 16) &
+> +				 0xFFFF0000);
+> +		}
+> +	}
+> +
+> +	DPU_REG_WRITE(&ctx->hw, SSPP_SRC_YSTRIDE0 + idx, ystride0);
+> +	DPU_REG_WRITE(&ctx->hw, SSPP_SRC_YSTRIDE1 + idx, ystride1);
+>   }
+>   
+>   static void dpu_hw_sspp_setup_csc(struct dpu_hw_sspp *ctx,
