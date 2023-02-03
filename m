@@ -2,72 +2,61 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0D8B468A158
-	for <lists+freedreno@lfdr.de>; Fri,  3 Feb 2023 19:12:59 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 986FD68A189
+	for <lists+freedreno@lfdr.de>; Fri,  3 Feb 2023 19:21:37 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9DB6C10E833;
-	Fri,  3 Feb 2023 18:12:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5E7F610E84D;
+	Fri,  3 Feb 2023 18:21:36 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BB41A10E833;
- Fri,  3 Feb 2023 18:12:55 +0000 (UTC)
-Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 313HKuGj015312; Fri, 3 Feb 2023 18:12:52 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
- h=from : to : cc :
- subject : date : message-id : mime-version : content-transfer-encoding :
- content-type; s=qcppdkim1;
- bh=fqQpv3FLRrrFIU3VTK6WAjqSO36QpMpTsucAWSbwDcM=;
- b=lNFM6t6KtSv/xt0oulbkPshGMGSq/v5mSkUSakTFv6ci49mj+FCr31wELyubSR64fhJX
- AOX60bmS/Xa4Tj/GjQXNRidBKV/u0NDi8q1WhMXXQoUbplKC7h1XvwleCuHDlgOyW6wq
- +Wg9poFNXV02FHbl8UDJ5ifQ3MSGO7QpMEvDIO9oVbjFxRPejjSSb8kpGIBXxFFbgxQq
- gbq4+8eDB9/FlWjXTGCRhKZ2poQtOPKGETF8a2ajJK/Afk31vfTGvbqjSnJpuRz5VpJv
- mwoxT8dcJ/TNAQR5DqHJcHhpgnZo/CZ+fd2loQ/F/cGyhHieyqoIwB4yiuSLwwTnOVhh yg== 
-Received: from nalasppmta05.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3ngw4p9f1x-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 03 Feb 2023 18:12:52 +0000
-Received: from nalasex01c.na.qualcomm.com (nalasex01c.na.qualcomm.com
- [10.47.97.35])
- by NALASPPMTA05.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 313ICpk9012727
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 3 Feb 2023 18:12:51 GMT
-Received: from hu-bjorande-lv.qualcomm.com (10.49.16.6) by
- nalasex01c.na.qualcomm.com (10.47.97.35) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.986.36; Fri, 3 Feb 2023 10:12:50 -0800
-From: Bjorn Andersson <quic_bjorande@quicinc.com>
-To: Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Akhil P Oommen <quic_akhilpo@quicinc.com>
-Date: Fri, 3 Feb 2023 10:12:45 -0800
-Message-ID: <20230203181245.3523937-1-quic_bjorande@quicinc.com>
-X-Mailer: git-send-email 2.25.1
+Received: from mail-ed1-x536.google.com (mail-ed1-x536.google.com
+ [IPv6:2a00:1450:4864:20::536])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4A6AE10E84F
+ for <freedreno@lists.freedesktop.org>; Fri,  3 Feb 2023 18:21:35 +0000 (UTC)
+Received: by mail-ed1-x536.google.com with SMTP id v13so5985172eda.11
+ for <freedreno@lists.freedesktop.org>; Fri, 03 Feb 2023 10:21:35 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=WGKE13ayREA4KV+L46TJJMJbDC7nd328BU5Zt24LcKc=;
+ b=ohhqCzMssyMZXUTrNFtbgp36X68VKAkcwae+aLZJSMqLDTZoJ7xBrP636bMX4E8z0x
+ Oc1aRjPmNMOgaZjJM4RKvBTit2Ur6Ey7xBRSNVHW5lGdQxhyQHGICXgcYn/WkgfRaJib
+ fYHY8hVGnptT3lxOWSy+k8WwJYP/ontzbKYJgpjhx8hJQxDDGx9dXJvYuJ+KqUf1F3Vd
+ nLvDjV/Rb9z+b5V743Io2f8QrTy/TYvQGr82d+XVpuNGhWGXYGymFSL8dvQWO3J0jA9h
+ 0O7Sb03oB3RsillTO0L1aR9D+XE9ABPgwIz69lou8h54/Tt2Bi4P89xeyj/KWp1iRbrU
+ VRsA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=WGKE13ayREA4KV+L46TJJMJbDC7nd328BU5Zt24LcKc=;
+ b=SNoI0KpznJa7JzZhSQ3wm1jmLvz10KUhQPn21z4a/620Y+0srnXGH0w+f/v9VZVE+6
+ nUwbAiE3GGDofMyVZq+66Bdam+V1/DIomGyfEEd9rNMUfXf9iPQWKDPDH7iQD72v46R7
+ zau1iECCr/dS9jK11Rg1iqZi1cpHhv5KLqTvL12RQyJNjefdpMz/6NtwzVEZplPw4jRf
+ u7CmSO4UjxhzbZ0nRH0g8AndxglE9RoneE0W2q3IS4QHozEUOLgTdTyZqm4vw0G+50y9
+ DVnLetXzCzOVC5+/iPGzItgHGlqekpXFb5sLlDkKuMIJeIVIsQ+HAYKr85XOtSbo2HFF
+ yYhA==
+X-Gm-Message-State: AO0yUKUh3iCZq/51QVXdq3VXB13MnPdFAtveCH0f6awgadtBx+1CdY4O
+ vNLsZQEkCCX4CrKqI3sOO9hSKQ==
+X-Google-Smtp-Source: AK7set8ZgYcNscYoblwstBhus5m0eJK9ttlcrjfP1UiARr40MJVBgTPYpEIrJ7B/p8Ed3EyUrLQpEg==
+X-Received: by 2002:a05:6402:50c7:b0:49e:2109:6f57 with SMTP id
+ h7-20020a05640250c700b0049e21096f57mr14717077edb.19.1675448493730; 
+ Fri, 03 Feb 2023 10:21:33 -0800 (PST)
+Received: from eriador.lan (dzccz6yyyyyyyyyyybcwt-3.rev.dnainternet.fi.
+ [2001:14ba:a085:4d00::8a5]) by smtp.gmail.com with ESMTPSA id
+ w16-20020a05640234d000b0046267f8150csm1487523edc.19.2023.02.03.10.21.32
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 03 Feb 2023 10:21:33 -0800 (PST)
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+To: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>
+Date: Fri,  3 Feb 2023 20:21:05 +0200
+Message-Id: <20230203182132.1307834-1-dmitry.baryshkov@linaro.org>
+X-Mailer: git-send-email 2.39.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.49.16.6]
-X-ClientProxiedBy: nalasex01b.na.qualcomm.com (10.47.209.197) To
- nalasex01c.na.qualcomm.com (10.47.97.35)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-GUID: 0OTKZfOuRO0MlWtDZk3Pums6klRY0Mz1
-X-Proofpoint-ORIG-GUID: 0OTKZfOuRO0MlWtDZk3Pums6klRY0Mz1
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.219,Aquarius:18.0.930,Hydra:6.0.562,FMLib:17.11.122.1
- definitions=2023-02-03_17,2023-02-03_01,2022-06-22_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501
- malwarescore=0 impostorscore=0 spamscore=0 suspectscore=0 adultscore=0
- clxscore=1011 lowpriorityscore=0 mlxscore=0 phishscore=0 bulkscore=0
- mlxlogscore=999 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2212070000 definitions=main-2302030166
-Subject: [Freedreno] [RFC] drm/msm/adreno: Balance pm_runtime enable
+Subject: [Freedreno] [PATCH v3 00/27] drm/msm/dpu: wide planes support
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,63 +69,76 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, Sean Paul <sean@poorly.run>,
- Konrad Dybcio <konrad.dybcio@somainline.org>, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, Daniel
- Vetter <daniel@ffwll.ch>, linux-arm-msm@vger.kernel.org,
+Cc: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
+ Bjorn Andersson <andersson@kernel.org>, dri-devel@lists.freedesktop.org,
+ Stephen Boyd <swboyd@chromium.org>, Daniel Vetter <daniel@ffwll.ch>,
  David Airlie <airlied@gmail.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-When any of the components in the mdss hierarchy fails to bind,
-previously bound components are being unbound again.
+The review of the first half of v2 took more than a month. Let's update
+the reviewed patches in attempt to get the first half of the series into
+the acked and mergeable state. This would allow us to lower the impact
+(and the patch count). At 27 patches this series is approaching the
+limits of manageability.
 
-One such case happens when the DP controller fails to find its bridge or
-panel, where adreno_unbind() will be invoked without adreno_load_gpu()
-being called to invoke pm_runtime_enable().
+This patchset brings in multirect usage to support using two SSPP
+rectangles for a single plane. Full virtual planes support is omitted
+from this pull request, it will come later.
 
-The result is that once everything is bound the pm_runtime_get_sync()
-call find the power-domain to have a positive disable_depth, fails
-with -EACCESS and prevents the GPU device to be powered up.
+Changes since v1 (which was ages ago):
+- Rebased on top of 6.2-rc1
+- Dropped the controversial _dpu_crtc_blend_setup() split patch
+- Renamed dpu_hw_pipe to dpu_hw_sspp
+- Other misc changes
 
-Move the pm_runtime_enable() to adreno_bind(), in order to balance it
-with any calls to adreno_unbind().
+Dmitry Baryshkov (27):
+  drm/msm/dpu: rename struct dpu_hw_pipe(_cfg) to dpu_hw_sspp(_cfg)
+  drm/msm/dpu: move SSPP allocation to the RM
+  drm/msm/dpu: move SSPP debugfs creation to dpu_kms.c
+  drm/msm/dpu: drop EAGAIN check from dpu_format_populate_layout
+  drm/msm/dpu: move pipe_hw to dpu_plane_state
+  drm/msm/dpu: drop dpu_plane_pipe function
+  drm/msm/dpu: introduce struct dpu_sw_pipe
+  drm/msm/dpu: use dpu_sw_pipe for dpu_hw_sspp callbacks
+  drm/msm/dpu: pass dpu_format to _dpu_hw_sspp_setup_scaler3()
+  drm/msm/dpu: clean up SRC addresses when setting up SSPP for solid
+    fill
+  drm/msm/dpu: move stride programming to
+    dpu_hw_sspp_setup_sourceaddress
+  drm/msm/dpu: remove dpu_hw_fmt_layout from struct dpu_hw_sspp_cfg
+  drm/msm/dpu: drop src_split and multirect check from
+    dpu_crtc_atomic_check
+  drm/msm/dpu: don't use unsupported blend stages
+  drm/msm/dpu: move the rest of plane checks to dpu_plane_atomic_check()
+  drm/msm/dpu: drop redundant plane dst check from
+    dpu_crtc_atomic_check()
+  drm/msm/dpu: rewrite plane's QoS-related functions to take dpu_sw_pipe
+    and dpu_format
+  drm/msm/dpu: populate SmartDMA features in hw catalog
+  drm/msm/dpu: make _dpu_plane_calc_clk accept mode directly
+  drm/msm/dpu: add dpu_hw_pipe_cfg to dpu_plane_state
+  drm/msm/dpu: simplify dpu_plane_validate_src()
+  drm/msm/dpu: rework dpu_plane_sspp_atomic_update()
+  drm/msm/dpu: rework dpu_plane_atomic_check()
+  drm/msm/dpu: rework plane CSC setting
+  drm/msm/dpu: rework static color fill code
+  drm/msm/dpu: split pipe handling from _dpu_crtc_blend_setup_mixer
+  drm/msm/dpu: add support for wide planes
 
-Fixes: 4b18299b3365 ("drm/msm/adreno: Defer enabling runpm until hw_init()")
-Signed-off-by: Bjorn Andersson <quic_bjorande@quicinc.com>
----
- drivers/gpu/drm/msm/adreno/adreno_device.c | 11 ++---------
- 1 file changed, 2 insertions(+), 9 deletions(-)
+ drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c      | 285 ++-----
+ drivers/gpu/drm/msm/disp/dpu1/dpu_formats.c   |  10 +-
+ .../gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c    |  10 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.c   | 168 ++--
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.h   | 110 ++-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c       |  18 +
+ drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c     | 745 ++++++++++--------
+ drivers/gpu/drm/msm/disp/dpu1/dpu_plane.h     |  23 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c        |  22 +
+ drivers/gpu/drm/msm/disp/dpu1/dpu_rm.h        |  12 +
+ drivers/gpu/drm/msm/disp/dpu1/dpu_trace.h     |  25 +-
+ 11 files changed, 707 insertions(+), 721 deletions(-)
 
-diff --git a/drivers/gpu/drm/msm/adreno/adreno_device.c b/drivers/gpu/drm/msm/adreno/adreno_device.c
-index 36f062c7582f..ca38b837dedb 100644
---- a/drivers/gpu/drm/msm/adreno/adreno_device.c
-+++ b/drivers/gpu/drm/msm/adreno/adreno_device.c
-@@ -432,15 +432,6 @@ struct msm_gpu *adreno_load_gpu(struct drm_device *dev)
- 	if (ret)
- 		return NULL;
- 
--	/*
--	 * Now that we have firmware loaded, and are ready to begin
--	 * booting the gpu, go ahead and enable runpm:
--	 */
--	pm_runtime_enable(&pdev->dev);
--
--	/* Make sure pm runtime is active and reset any previous errors */
--	pm_runtime_set_active(&pdev->dev);
--
- 	ret = pm_runtime_get_sync(&pdev->dev);
- 	if (ret < 0) {
- 		pm_runtime_put_sync(&pdev->dev);
-@@ -548,6 +539,8 @@ static int adreno_bind(struct device *dev, struct device *master, void *data)
- 		return PTR_ERR(gpu);
- 	}
- 
-+	pm_runtime_enable(dev);
-+
- 	return 0;
- }
- 
 -- 
-2.25.1
+2.39.1
 
