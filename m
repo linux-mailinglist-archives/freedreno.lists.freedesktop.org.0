@@ -2,65 +2,65 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id EA1CC68A1C2
-	for <lists+freedreno@lfdr.de>; Fri,  3 Feb 2023 19:22:13 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A69AA68A1C6
+	for <lists+freedreno@lfdr.de>; Fri,  3 Feb 2023 19:22:17 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1F71710E877;
-	Fri,  3 Feb 2023 18:21:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 899B910E87B;
+	Fri,  3 Feb 2023 18:22:02 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ed1-x531.google.com (mail-ed1-x531.google.com
- [IPv6:2a00:1450:4864:20::531])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 69CC110E871
- for <freedreno@lists.freedesktop.org>; Fri,  3 Feb 2023 18:21:55 +0000 (UTC)
-Received: by mail-ed1-x531.google.com with SMTP id z11so6033592ede.1
- for <freedreno@lists.freedesktop.org>; Fri, 03 Feb 2023 10:21:55 -0800 (PST)
+Received: from mail-ej1-x62f.google.com (mail-ej1-x62f.google.com
+ [IPv6:2a00:1450:4864:20::62f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A672E10E86F
+ for <freedreno@lists.freedesktop.org>; Fri,  3 Feb 2023 18:21:57 +0000 (UTC)
+Received: by mail-ej1-x62f.google.com with SMTP id k4so17741861eje.1
+ for <freedreno@lists.freedesktop.org>; Fri, 03 Feb 2023 10:21:57 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=E9fcb729egx1Qvwf4/qTQgTQT5IezUR50YUrxIc9/QM=;
- b=htIiQkp9QisQYYb7iQinhBUhcZCYWJ1LcKZzJqWB5qelK4fayabZWSqKoMkeTlMPpM
- Mi0e2Vh5jAaJpJgTG8k+exf4JJ0jgIlM7R1QIemEFyyLFQ7aUykQ/Kk36i8mF1lkuHzD
- uVoRmQBAF76DHq9kpAPsw6hzIKkhQZIWkrYJbbRb2Lbww6AFUnEB5UwsZHxBYEzZYIwb
- 40mbxO4CUfE8Kx7f3+54vsZmJpjkK8iKW7e9ZT0JYnywEI9QtvGQ9lAn9ji4HDIkyF+t
- OmqTIMNVymha80h2LB/S+v0Xxymht77S0ZR8rtu6DnUPNJKmt6pKI7/l4NMJgXWq5Oih
- aByw==
+ bh=gqYHPJDghsVbwlXxG2KR32qIUjY2mVQ6OmS5U1Nl44o=;
+ b=Q1t0gp7h0IVObPLglNhdEYxtNCjbpgNxvE3IzQ7n8hUgMHv/DogK4ixaijZ6St9O2k
+ Oa8lSryWbtreh5Z9b1ODbhHyKi6kG8phrRCLtcWmnmJECtQW1GCf1OcpXEburLynIJsm
+ CIF++/vtRJwnNp+BkQvI08PxndBC1svcIzbycNa18qcAyOhriSpj4LAy1O2nm1f0YA9s
+ fH4NmBbYZBnwtXPjouHC8WipFIsLXYu6umCbbkkEFU+JvPinmJ5z8bMUTTPBneztJYWz
+ tl8nj8W+/UXHmXNLz+5HxqszVT+owWVNVgYLz0YH2N8EEtN4ysEm10svn8Qf5pBmYYuk
+ SxCA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=E9fcb729egx1Qvwf4/qTQgTQT5IezUR50YUrxIc9/QM=;
- b=2yCSxWWRtsGVLBo1aOYmDA0M5YMwnjiRqbr5PN0+H4/VTSdwLcwbBdbb/BAt0XLQXe
- Qkl5GX10aSgBkcXgS8FYBQZT9m5dTdQ2i9szlaVOhmpa/iH7SP+krmpaE2l1sDg1QI1Q
- JUR0oO4s9OrL8xrOyPIGc7MOJ3gC8EWXu6OIsRaVOa+Kue30cnZJyTNqnvHjBFsthviV
- 9JfdQuPFctGufmtDlv5tSVZsn7tAcNFO3iBdrt4HxtRxhi1/agbjKUu2e6R3yQmFA7yY
- 2xRgd47H2NioQlGsP7Abr0YS5HnfRVHwnJ08mswB5+Kup/fZHYyyFoKj1hW3d7z2Ckag
- ZXEw==
-X-Gm-Message-State: AO0yUKXS/BbEunfQ9/Fo6dOO40oGveyOXDDNBm3wMymWElzUrqICt8At
- U4JYnvizgrmaLzJVdQFshdACeg==
-X-Google-Smtp-Source: AK7set8ETiI2pbj/xTmtWwqTv8Sj6FYZJ+mYV5Ik9Y/zuNgOurIAr5DpEleXSf5T2gBkhNgKtJHwKQ==
-X-Received: by 2002:a05:6402:b59:b0:4a0:8b2c:2055 with SMTP id
- bx25-20020a0564020b5900b004a08b2c2055mr4670443edb.8.1675448515062; 
- Fri, 03 Feb 2023 10:21:55 -0800 (PST)
+ bh=gqYHPJDghsVbwlXxG2KR32qIUjY2mVQ6OmS5U1Nl44o=;
+ b=tnidDY7TRlfFAS6c/yW2bffzcK7nurZMUaWZOviXCdzhin3IXDuVP1C0qhia3d5ESG
+ lU0W9wp9sWhLXvNfM48oUwusUzWjGPPyHO7eUm6xo5uAUcHq5Fz2ZggT7Si2gfj0JRbw
+ k6f6EqT8hMiW/ecRFinsa3yIwvhMY76NrH6SuaqlN22u+wiY/m7E++Sw3DdnBgM22nrF
+ 00rEPZncfTNzdySSRTlyBJu6KbMtl09SAzWbhKZBst64Ua5My0bKRq/9bwXOGhEOA2z4
+ w/3GSobuLJhLIoMSsjGFRHehCRvAvLw0l/u6+5JI0Eum7Mdo9iUSy+/kXcD0VRQjhZiz
+ ikGw==
+X-Gm-Message-State: AO0yUKWfmW0GwVwYePX+2MtfFsfJBw2cWNKc0EEwU3W8761MBICcofcK
+ fRWqBlIRPfNPpzIoGWEH2E0RjA==
+X-Google-Smtp-Source: AK7set+kS4ffpdNLlZ/w1ldQjJDid7qaVuFl2iLWQ0V1NXnzEoIwMyPP2rLmXraYKDu39oI1jaPk9Q==
+X-Received: by 2002:a17:906:81ca:b0:870:b950:18d4 with SMTP id
+ e10-20020a17090681ca00b00870b95018d4mr11095701ejx.5.1675448516122; 
+ Fri, 03 Feb 2023 10:21:56 -0800 (PST)
 Received: from eriador.lan (dzccz6yyyyyyyyyyybcwt-3.rev.dnainternet.fi.
  [2001:14ba:a085:4d00::8a5]) by smtp.gmail.com with ESMTPSA id
- w16-20020a05640234d000b0046267f8150csm1487523edc.19.2023.02.03.10.21.54
+ w16-20020a05640234d000b0046267f8150csm1487523edc.19.2023.02.03.10.21.55
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 03 Feb 2023 10:21:54 -0800 (PST)
+ Fri, 03 Feb 2023 10:21:55 -0800 (PST)
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 To: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
  Abhinav Kumar <quic_abhinavk@quicinc.com>
-Date: Fri,  3 Feb 2023 20:21:23 +0200
-Message-Id: <20230203182132.1307834-19-dmitry.baryshkov@linaro.org>
+Date: Fri,  3 Feb 2023 20:21:24 +0200
+Message-Id: <20230203182132.1307834-20-dmitry.baryshkov@linaro.org>
 X-Mailer: git-send-email 2.39.1
 In-Reply-To: <20230203182132.1307834-1-dmitry.baryshkov@linaro.org>
 References: <20230203182132.1307834-1-dmitry.baryshkov@linaro.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH v3 18/27] drm/msm/dpu: populate SmartDMA
- features in hw catalog
+Subject: [Freedreno] [PATCH v3 19/27] drm/msm/dpu: make _dpu_plane_calc_clk
+ accept mode directly
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,49 +80,122 @@ Cc: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Downstream driver uses dpu->caps->smart_dma_rev to update
-sspp->cap->features with the bit corresponding to the supported SmartDMA
-version. Upstream driver does not do this, resulting in SSPP subdriver
-not enbaling setup_multirect callback. Add corresponding SmartDMA SSPP
-feature bits to dpu hw catalog.
+Rework bandwidth/clock calculation functions to use mode directly rather
+than fetching it through the plane data.
 
 Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 ---
- drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c | 10 +++++++---
- 1 file changed, 7 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c | 39 ++++++++++-------------
+ 1 file changed, 17 insertions(+), 22 deletions(-)
 
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
-index cf053e8f081e..fc818b0273e7 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
-@@ -21,13 +21,16 @@
- 	(VIG_MASK | BIT(DPU_SSPP_SCALER_QSEED3))
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
+index ee261a591d45..09a3fde1c910 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
+@@ -127,20 +127,19 @@ static struct dpu_kms *_dpu_plane_get_kms(struct drm_plane *plane)
  
- #define VIG_SDM845_MASK \
--	(VIG_MASK | BIT(DPU_SSPP_QOS_8LVL) | BIT(DPU_SSPP_SCALER_QSEED3))
-+	(VIG_MASK | BIT(DPU_SSPP_QOS_8LVL) | BIT(DPU_SSPP_SCALER_QSEED3) |\
-+	BIT(DPU_SSPP_SMART_DMA_V2))
+ /**
+  * _dpu_plane_calc_bw - calculate bandwidth required for a plane
+- * @plane: Pointer to drm plane.
++ * @catalog: Points to dpu catalog structure
+  * @fmt: Pointer to source buffer format
++ * @mode: Pointer to drm display mode
+  * @pipe_cfg: Pointer to pipe configuration
+  * Result: Updates calculated bandwidth in the plane state.
+  * BW Equation: src_w * src_h * bpp * fps * (v_total / v_dest)
+  * Prefill BW Equation: line src bytes * line_time
+  */
+-static void _dpu_plane_calc_bw(struct drm_plane *plane,
++static u64 _dpu_plane_calc_bw(const struct dpu_mdss_cfg *catalog,
+ 	const struct dpu_format *fmt,
++	const struct drm_display_mode *mode,
+ 	struct dpu_hw_sspp_cfg *pipe_cfg)
+ {
+-	struct dpu_plane_state *pstate;
+-	struct drm_display_mode *mode;
+-	struct dpu_kms *dpu_kms = _dpu_plane_get_kms(plane);
+ 	int src_width, src_height, dst_height, fps;
+ 	u64 plane_prefill_bw;
+ 	u64 plane_bw;
+@@ -148,9 +147,6 @@ static void _dpu_plane_calc_bw(struct drm_plane *plane,
+ 	u64 scale_factor;
+ 	int vbp, vpw, vfp;
  
- #define VIG_SC7180_MASK \
--	(VIG_MASK | BIT(DPU_SSPP_QOS_8LVL) | BIT(DPU_SSPP_SCALER_QSEED4))
-+	(VIG_MASK | BIT(DPU_SSPP_QOS_8LVL) | BIT(DPU_SSPP_SCALER_QSEED4) |\
-+	BIT(DPU_SSPP_SMART_DMA_V2))
+-	pstate = to_dpu_plane_state(plane->state);
+-	mode = &plane->state->crtc->mode;
+-
+ 	src_width = drm_rect_width(&pipe_cfg->src_rect);
+ 	src_height = drm_rect_height(&pipe_cfg->src_rect);
+ 	dst_height = drm_rect_height(&pipe_cfg->dst_rect);
+@@ -158,7 +154,7 @@ static void _dpu_plane_calc_bw(struct drm_plane *plane,
+ 	vbp = mode->vtotal - mode->vsync_end;
+ 	vpw = mode->vsync_end - mode->vsync_start;
+ 	vfp = mode->vsync_start - mode->vdisplay;
+-	hw_latency_lines =  dpu_kms->catalog->perf->min_prefill_lines;
++	hw_latency_lines =  catalog->perf->min_prefill_lines;
+ 	scale_factor = src_height > dst_height ?
+ 		mult_frac(src_height, 1, dst_height) : 1;
  
- #define VIG_SM8250_MASK \
--	(VIG_MASK | BIT(DPU_SSPP_QOS_8LVL) | BIT(DPU_SSPP_SCALER_QSEED3LITE))
-+	(VIG_MASK | BIT(DPU_SSPP_QOS_8LVL) | BIT(DPU_SSPP_SCALER_QSEED3LITE) |\
-+	BIT(DPU_SSPP_SMART_DMA_V2))
+@@ -178,37 +174,36 @@ static void _dpu_plane_calc_bw(struct drm_plane *plane,
+ 		do_div(plane_prefill_bw, hw_latency_lines);
  
- #define VIG_QCM2290_MASK (VIG_MASK | BIT(DPU_SSPP_QOS_8LVL))
  
-@@ -42,6 +45,7 @@
- #define DMA_SDM845_MASK \
- 	(BIT(DPU_SSPP_SRC) | BIT(DPU_SSPP_QOS) | BIT(DPU_SSPP_QOS_8LVL) |\
- 	BIT(DPU_SSPP_TS_PREFILL) | BIT(DPU_SSPP_TS_PREFILL_REC1) |\
-+	BIT(DPU_SSPP_SMART_DMA_V2) |\
- 	BIT(DPU_SSPP_CDP) | BIT(DPU_SSPP_EXCL_RECT))
+-	pstate->plane_fetch_bw = max(plane_bw, plane_prefill_bw);
++	return max(plane_bw, plane_prefill_bw);
+ }
  
- #define DMA_CURSOR_SDM845_MASK \
+ /**
+  * _dpu_plane_calc_clk - calculate clock required for a plane
+- * @plane: Pointer to drm plane.
++ * @mode: Pointer to drm display mode
+  * @pipe_cfg: Pointer to pipe configuration
+  * Result: Updates calculated clock in the plane state.
+  * Clock equation: dst_w * v_total * fps * (src_h / dst_h)
+  */
+-static void _dpu_plane_calc_clk(struct drm_plane *plane, struct dpu_hw_sspp_cfg *pipe_cfg)
++static u64 _dpu_plane_calc_clk(const struct drm_display_mode *mode,
++		struct dpu_hw_sspp_cfg *pipe_cfg)
+ {
+-	struct dpu_plane_state *pstate;
+-	struct drm_display_mode *mode;
+ 	int dst_width, src_height, dst_height, fps;
+-
+-	pstate = to_dpu_plane_state(plane->state);
+-	mode = &plane->state->crtc->mode;
++	u64 plane_clk;
+ 
+ 	src_height = drm_rect_height(&pipe_cfg->src_rect);
+ 	dst_width = drm_rect_width(&pipe_cfg->dst_rect);
+ 	dst_height = drm_rect_height(&pipe_cfg->dst_rect);
+ 	fps = drm_mode_vrefresh(mode);
+ 
+-	pstate->plane_clk =
++	plane_clk =
+ 		dst_width * mode->vtotal * fps;
+ 
+ 	if (src_height > dst_height) {
+-		pstate->plane_clk *= src_height;
+-		do_div(pstate->plane_clk, dst_height);
++		plane_clk *= src_height;
++		do_div(plane_clk, dst_height);
+ 	}
++
++	return plane_clk;
+ }
+ 
+ /**
+@@ -1219,9 +1214,9 @@ static void dpu_plane_sspp_atomic_update(struct drm_plane *plane)
+ 		_dpu_plane_set_qos_remap(plane, pipe);
+ 	}
+ 
+-	_dpu_plane_calc_bw(plane, fmt, &pipe_cfg);
++	pstate->plane_fetch_bw = _dpu_plane_calc_bw(pdpu->catalog, fmt, &crtc->mode, &pipe_cfg);
+ 
+-	_dpu_plane_calc_clk(plane, &pipe_cfg);
++	pstate->plane_clk = _dpu_plane_calc_clk(&crtc->mode, &pipe_cfg);
+ }
+ 
+ static void _dpu_plane_atomic_disable(struct drm_plane *plane)
 -- 
 2.39.1
 
