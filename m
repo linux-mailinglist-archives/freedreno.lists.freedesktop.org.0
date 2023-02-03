@@ -2,68 +2,50 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id ECA8A68A1EB
-	for <lists+freedreno@lfdr.de>; Fri,  3 Feb 2023 19:24:16 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E97DA68A2DA
+	for <lists+freedreno@lfdr.de>; Fri,  3 Feb 2023 20:21:24 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 99C8D10E852;
-	Fri,  3 Feb 2023 18:24:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 77D2A10E8B5;
+	Fri,  3 Feb 2023 19:21:23 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ej1-x630.google.com (mail-ej1-x630.google.com
- [IPv6:2a00:1450:4864:20::630])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 67B6010E852
- for <freedreno@lists.freedesktop.org>; Fri,  3 Feb 2023 18:24:13 +0000 (UTC)
-Received: by mail-ej1-x630.google.com with SMTP id m2so17679071ejb.8
- for <freedreno@lists.freedesktop.org>; Fri, 03 Feb 2023 10:24:13 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=content-transfer-encoding:in-reply-to:references:cc:to:from
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=54FW5UQ57LYDUUaOoRG1eWQLZeg9cuZyn479cV2SDq0=;
- b=gfqECzwoBp8RaT3ApZKy9Fa4Cy8hWotg/eNuNS60VzcZiIkoWliF7jfw3EeDDJnXct
- U7wPZ4oPF9qNZGbFnpYIpXdWE25M3/e3Dvo/SaeP9falxVNKrT4/KE5rdYZA5KD/cQ8Q
- ZWpOZzhtWTmSQFaXT0h2U8sXq5AKoQWBa+3URYLHImXAFtcuyamT1nbQ5B5v3cLRLtQT
- +n62I3dpd2CxplrS5VYb0Ne8Wvbf3rjVx7n5XXlWPZRm6YhpKWF31pBKfXUP1c59VDgI
- UWnROeNiyIb26QFY7G2GCmw4XtxTPEmsDxKs6YLVMBhC5jhHco9nOVgKUPORuyQjxuXI
- 2XrA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=content-transfer-encoding:in-reply-to:references:cc:to:from
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=54FW5UQ57LYDUUaOoRG1eWQLZeg9cuZyn479cV2SDq0=;
- b=xVQ8bK4AnGACFPbA84JEprQLfVw2gPBeygT8AQCOmIi4SA9TLyUcH8mAHi4uVyvgxc
- cl8LSfhc/PZvmR7L75n60gxtd2Y8ozm6swEkfnUJ2/l8iJlXi9bDT5Lark/UjETERh4m
- qor3pl6j1AQ8w7OCwq1rulePCEAbY9YDlhNsWayxCaOcQ3TzF8nJ7wzFk3vMzVehII8t
- xJPtdeWz7ugVrkcVG4KG6yILvVZnHM+p8YFs21mtYOLYgcCUrWroml6fMJhimqfukp8r
- 8fuEX6A7B95nuyvE5ylxX9E+v4vld45Ag02W4W/rCYc21c/FvWZP/n5eynO8y2jkeMvB
- 7Rdg==
-X-Gm-Message-State: AO0yUKXlml4Qs4JSVrwCaJ8/PlgTsI9enoKFo3h67Yfk0Datqz5KRHOk
- MNck8jThRyLyiRPc9tdXmVAiow==
-X-Google-Smtp-Source: AK7set/jRLYp2R0PI3fKAjVVQSQr4euujeoFEw8ZsadsYOId/b2rRWWXXOcVHh+zgdp4jBoRGCqp/A==
-X-Received: by 2002:a17:906:94cb:b0:879:ec1a:4ac with SMTP id
- d11-20020a17090694cb00b00879ec1a04acmr9868422ejy.76.1675448652002; 
- Fri, 03 Feb 2023 10:24:12 -0800 (PST)
-Received: from ?IPV6:2001:14ba:a085:4d00::8a5?
- (dzccz6yyyyyyyyyyybcwt-3.rev.dnainternet.fi. [2001:14ba:a085:4d00::8a5])
- by smtp.gmail.com with ESMTPSA id
- x16-20020a170906149000b00889c115cf6asm1713775ejc.145.2023.02.03.10.24.11
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 03 Feb 2023 10:24:11 -0800 (PST)
-Message-ID: <27c7f706-ba8e-c743-0465-1ca2381d12bc@linaro.org>
-Date: Fri, 3 Feb 2023 20:24:10 +0200
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A99C810E8B0;
+ Fri,  3 Feb 2023 19:21:19 +0000 (UTC)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by ams.source.kernel.org (Postfix) with ESMTPS id 2FC96B82B9F;
+ Fri,  3 Feb 2023 19:21:18 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C651AC433D2;
+ Fri,  3 Feb 2023 19:21:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1675452076;
+ bh=f9xPi+aq/606+CoCRxhTO/FL3gpDkGLdJ6xO+uL+cTM=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=azwQTOJlwMoQfXFW4d9g7DhIt2957Y0c/KpCviXGkGJp5m+qnHXspUmWKcMZYlcmn
+ 6DaElSxluoHCv/DiEfgAPF4it2jLXxR/wE1VxfGAiVsOLG7Kby8amOeYJP/py7hEQA
+ bpYelbMq5n3dcxX+Q3s62+8ReNYWjRNxthaX7WSH/LpAh5PL5DIDtd7UViotQsW0za
+ 1qca0oysud8Q5U+MACXlOlP8Y1Q7PYNJ3LW5pzPClHOSITXk1K8miwl/X4o6iHGW4i
+ QuCLuz2P4zIPYKcGRUGyLSEblYpeQG2q8vNarI2sohJmhRSHTTZN6ddd161ADBu2+Y
+ BPUpukVLA518w==
+From: Bjorn Andersson <andersson@kernel.org>
+To: Rob Herring <robh+dt@kernel.org>, Rob Clark <robdclark@gmail.com>,
+ Sean Paul <sean@poorly.run>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Andy Gross <agross@kernel.org>, Konrad Dybcio <konrad.dybcio@linaro.org>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Date: Fri,  3 Feb 2023 13:21:13 -0600
+Message-Id: <167545206737.231526.17174699314671078466.b4-ty@kernel.org>
+X-Mailer: git-send-email 2.39.1
+In-Reply-To: <20230118031718.1714861-1-dmitry.baryshkov@linaro.org>
+References: <20230118031718.1714861-1-dmitry.baryshkov@linaro.org>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.7.1
-Content-Language: en-GB
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-To: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>
-References: <20230203182132.1307834-1-dmitry.baryshkov@linaro.org>
-In-Reply-To: <20230203182132.1307834-1-dmitry.baryshkov@linaro.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH v3 00/27] drm/msm/dpu: wide planes support
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+Subject: Re: [Freedreno] (subset) [PATCH 1/4] dt-bindings: display/msm: add
+ qcom, sc8280xp-edp to list of eDP devices
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,42 +58,31 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
- Bjorn Andersson <andersson@kernel.org>, dri-devel@lists.freedesktop.org,
- Stephen Boyd <swboyd@chromium.org>, Daniel Vetter <daniel@ffwll.ch>,
- David Airlie <airlied@gmail.com>
+Cc: devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, Stephen Boyd <swboyd@chromium.org>,
+ Daniel Vetter <daniel@ffwll.ch>, David Airlie <airlied@gmail.com>,
+ freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 03/02/2023 20:21, Dmitry Baryshkov wrote:
-> The review of the first half of v2 took more than a month. Let's update
-> the reviewed patches in attempt to get the first half of the series into
-> the acked and mergeable state. This would allow us to lower the impact
-> (and the patch count). At 27 patches this series is approaching the
-> limits of manageability.
+
+On Wed, 18 Jan 2023 05:17:15 +0200, Dmitry Baryshkov wrote:
+> Add qcom,sc8280xp-edp to the list of eDP devices, unblocking `aux-bus'
+> property and fobidding `#sound-dai-cells' property. Also since
+> sc8280xp-edp, overriding sc8280xp-dp, will contain 5 reg resources, drop
+> the reg contraint (as it will become equivalent to the top-level one,
+> requiring min 4 and max 5 reg entries).
 > 
-> This patchset brings in multirect usage to support using two SSPP
-> rectangles for a single plane. Full virtual planes support is omitted
-> from this pull request, it will come later.
 > 
-> Changes since v1 (which was ages ago):
-> - Rebased on top of 6.2-rc1
-> - Dropped the controversial _dpu_crtc_blend_setup() split patch
-> - Renamed dpu_hw_pipe to dpu_hw_sspp
-> - Other misc changes
+> [...]
 
-I forgot to add it here, please excuse me:
+Applied, thanks!
 
-Changes since v2:
+[3/4] arm64: dts: qcom: sc8280xp-crd: drop #sound-dai-cells from eDP node
+      commit: 3cfa9e245d71f498a27f2dd8d09bbaaf50738723
+[4/4] arm64: dts: qcom: sc8280xp: add p1 register blocks to DP nodes
+      commit: 19eee67386fe68b8f39dc947d15711a5b5cef6ac
 
-- Renamed dpu_hw_pipe_cfg to dpu_hw_sspp_cfg
-- Added a patch to clean up src add / layout for the solid fill planes
-- Fixed several comments and commit messages which caused confusion
-- Added documentation for new dpu_plane_state members
-- Slightly reworked dpu_plane_atomic_check() to make it more logical and 
-obvious
-
+Best regards,
 -- 
-With best wishes
-Dmitry
-
+Bjorn Andersson <andersson@kernel.org>
