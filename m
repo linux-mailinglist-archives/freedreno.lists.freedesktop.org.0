@@ -1,47 +1,47 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4540A68A31D
-	for <lists+freedreno@lfdr.de>; Fri,  3 Feb 2023 20:36:16 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id EC59868A39E
+	for <lists+freedreno@lfdr.de>; Fri,  3 Feb 2023 21:36:53 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D846E10E8C3;
-	Fri,  3 Feb 2023 19:36:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B8EF210E8D3;
+	Fri,  3 Feb 2023 20:36:52 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
  [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C722A10E8C0;
- Fri,  3 Feb 2023 19:36:12 +0000 (UTC)
-Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4FE0D10E2FF;
+ Fri,  3 Feb 2023 20:36:50 +0000 (UTC)
+Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
  by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 313HHZU5004180; Fri, 3 Feb 2023 19:36:05 GMT
+ 313KIg0R027909; Fri, 3 Feb 2023 20:36:45 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
  h=message-id : date :
  mime-version : subject : to : cc : references : from : in-reply-to :
  content-type : content-transfer-encoding; s=qcppdkim1;
- bh=U+l6XvY8Sv6LBc/lsrZT/qfdMdz8wzvZ6e1i6WKpvWI=;
- b=onLsp7B6/al4dU1MBdRs2WNDUYvTQ5bnOcGLGfPrD+Boj6nZ9EJuzYK2CVa3dLaDMA94
- 3NgAs8JauThojlMkD1Zr1aZwruMSZx/JGZPiDebHhT0hnncw99bHqaHkULQovn70+Seq
- JfdLwOuU/P/btCh736fYv/AisoFlEKEDP7iDT3fHrMiE2hylYMhW2ikzu0G1G2JgPzWQ
- ITB3iPqOQ6+G6P9q+gYH0APcr4nG6xxdnecgDUVH+sUkAyUqDlPY+pV1HxjYcGpxGbp5
- WGD2Qhr2WWnvqLCCRUkY70vpu7Ru/ty0ZtPi6EZbnMO1ij1WZJrCm7vKpO2MBM7t/ZGU Qg== 
-Received: from nalasppmta02.qualcomm.com (Global_NAT1.qualcomm.com
+ bh=f21yKrPPHagctXccKELQVfYxYmQKFI8uWVjLFbO2WVw=;
+ b=a6vi9tlGvZw/bjhC2QTjElfhgY4cRfzphl1gwqrPpCP7e48/V1cUoHXQ24aYqgrnQGVy
+ XpYaqOhL5MYwtPn+HVnxM5KKy1fbx+84R5Fl+moeo64Eq+nKmZOpkIWeYiCVRIu8q/Zi
+ sGv9uuGB8KMHqOigyh3JvGCRDtu1gO4992X2Janoi8faxT2/r2YOaOsdUKdN+LgUpu72
+ NhHHPTqQ333jmQwD4Fm3jTgit1BHa7l9RcAvue5ryyy6EQ8ZZNjrBcTxqVtwW6rk74wO
+ JhH3xTgBtoS4dcQkH1yStnIgFoIoZnaS0O11L0ooYmRHOHMJzwrj6G1ath9O4c1OjXbB Pw== 
+Received: from nalasppmta01.qualcomm.com (Global_NAT1.qualcomm.com
  [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3ngahqv2ge-1
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3ngw4p9pyf-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 03 Feb 2023 19:36:05 +0000
+ Fri, 03 Feb 2023 20:36:44 +0000
 Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
  [10.47.209.196])
- by NALASPPMTA02.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 313Ja4rL022120
+ by NALASPPMTA01.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 313Kahm4010810
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 3 Feb 2023 19:36:04 GMT
+ Fri, 3 Feb 2023 20:36:43 GMT
 Received: from [10.110.99.204] (10.80.80.8) by nalasex01a.na.qualcomm.com
  (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.36; Fri, 3 Feb 2023
- 11:36:03 -0800
-Message-ID: <7150e075-cbe3-710b-1afd-b4a54aae35df@quicinc.com>
-Date: Fri, 3 Feb 2023 11:36:02 -0800
+ 12:36:42 -0800
+Message-ID: <269a4a55-1ae0-ba07-348c-307bd4ae21f2@quicinc.com>
+Date: Fri, 3 Feb 2023 12:36:42 -0800
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
  Thunderbird/91.6.2
@@ -49,9 +49,9 @@ Content-Language: en-US
 To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Rob Clark
  <robdclark@gmail.com>, Sean Paul <sean@poorly.run>
 References: <20230203182132.1307834-1-dmitry.baryshkov@linaro.org>
- <20230203182132.1307834-10-dmitry.baryshkov@linaro.org>
+ <20230203182132.1307834-11-dmitry.baryshkov@linaro.org>
 From: Abhinav Kumar <quic_abhinavk@quicinc.com>
-In-Reply-To: <20230203182132.1307834-10-dmitry.baryshkov@linaro.org>
+In-Reply-To: <20230203182132.1307834-11-dmitry.baryshkov@linaro.org>
 Content-Type: text/plain; charset="UTF-8"; format=flowed
 Content-Transfer-Encoding: 7bit
 X-Originating-IP: [10.80.80.8]
@@ -60,19 +60,19 @@ X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
 X-QCInternal: smtphost
 X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
  signatures=585085
-X-Proofpoint-ORIG-GUID: STHmCUeE1x5JJDTxvh3uXYZ743RiMKPE
-X-Proofpoint-GUID: STHmCUeE1x5JJDTxvh3uXYZ743RiMKPE
+X-Proofpoint-GUID: cL962lyab0Je3WRf4oe3iVdeyB6ZZKy0
+X-Proofpoint-ORIG-GUID: cL962lyab0Je3WRf4oe3iVdeyB6ZZKy0
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.219,Aquarius:18.0.930,Hydra:6.0.562,FMLib:17.11.122.1
  definitions=2023-02-03_19,2023-02-03_01,2022-06-22_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 mlxscore=0
- impostorscore=0 phishscore=0 bulkscore=0 priorityscore=1501
- mlxlogscore=999 malwarescore=0 adultscore=0 suspectscore=0
- lowpriorityscore=0 spamscore=0 classifier=spam adjust=0 reason=mlx
- scancount=1 engine=8.12.0-2212070000 definitions=main-2302030179
-Subject: Re: [Freedreno] [PATCH v3 09/27] drm/msm/dpu: pass dpu_format to
- _dpu_hw_sspp_setup_scaler3()
+ priorityscore=1501
+ malwarescore=0 impostorscore=0 spamscore=0 suspectscore=0 adultscore=0
+ clxscore=1015 lowpriorityscore=0 mlxscore=0 phishscore=0 bulkscore=0
+ mlxlogscore=926 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2212070000 definitions=main-2302030184
+Subject: Re: [Freedreno] [PATCH v3 10/27] drm/msm/dpu: clean up SRC
+ addresses when setting up SSPP for solid fill
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -95,83 +95,45 @@ Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 
 On 2/3/2023 10:21 AM, Dmitry Baryshkov wrote:
-> There is no need to pass full dpu_hw_sspp_cfg instance to
-> _dpu_hw_sspp_setup_scaler3, pass just struct dpu_format pointer.
+> Set SSPP_SRCn_ADDR registers to 0 while setting up solid fill, as we can
+> not be sure that the previous address is still valid.
 > 
 > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 
-LGTM now,
+I am yet to confirm with HW team if programming 0 stride and 0 address 
+is absolutely needed for solid fill or not.
+
+Ideally, in solid fill mode these should just be ignored by the HW.
+
+But this change and the next wont break anything. Should just be a no-op 
+for HW.
+
+Hence,
 
 Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
 
 > ---
->   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.c | 9 ++++-----
->   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.h | 9 ++++-----
->   drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c   | 4 ++--
->   3 files changed, 10 insertions(+), 12 deletions(-)
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.c | 5 +++++
+>   1 file changed, 5 insertions(+)
 > 
 > diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.c
-> index 4d3ca8532563..abf499275242 100644
+> index abf499275242..4c05f4b5e050 100644
 > --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.c
 > +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.c
-> @@ -419,19 +419,18 @@ static void dpu_hw_sspp_setup_pe_config(struct dpu_hw_sspp *ctx,
->   }
->   
->   static void _dpu_hw_sspp_setup_scaler3(struct dpu_hw_sspp *ctx,
-> -		struct dpu_hw_sspp_cfg *sspp,
-> -		void *scaler_cfg)
-> +		struct dpu_hw_scaler3_cfg *scaler3_cfg,
-> +		const struct dpu_format *format)
+> @@ -563,11 +563,16 @@ static void dpu_hw_sspp_setup_csc(struct dpu_hw_sspp *ctx,
+>   static void dpu_hw_sspp_setup_solidfill(struct dpu_sw_pipe *pipe, u32 color)
 >   {
+>   	struct dpu_hw_sspp *ctx = pipe->sspp;
+> +	struct dpu_hw_sspp_cfg cfg;
 >   	u32 idx;
-> -	struct dpu_hw_scaler3_cfg *scaler3_cfg = scaler_cfg;
 >   
-> -	if (_sspp_subblk_offset(ctx, DPU_SSPP_SCALER_QSEED3, &idx) || !sspp
-> +	if (_sspp_subblk_offset(ctx, DPU_SSPP_SCALER_QSEED3, &idx)
->   		|| !scaler3_cfg)
+>   	if (_sspp_subblk_offset(ctx, DPU_SSPP_SRC, &idx))
 >   		return;
 >   
->   	dpu_hw_setup_scaler3(&ctx->hw, scaler3_cfg, idx,
->   			ctx->cap->sblk->scaler_blk.version,
-> -			sspp->layout.format);
-> +			format);
->   }
->   
->   static u32 _dpu_hw_sspp_get_scaler3_ver(struct dpu_hw_sspp *ctx)
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.h
-> index 8d566ad1877e..5e9b07090a21 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.h
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.h
-> @@ -317,13 +317,12 @@ struct dpu_hw_sspp_ops {
->   
->   	/**
->   	 * setup_scaler - setup scaler
-> -	 * @ctx: Pointer to pipe context
-> -	 * @pipe_cfg: Pointer to pipe configuration
-> -	 * @scaler_cfg: Pointer to scaler configuration
-> +	 * @scaler3_cfg: Pointer to scaler configuration
-> +	 * @format: pixel format parameters
->   	 */
->   	void (*setup_scaler)(struct dpu_hw_sspp *ctx,
-> -		struct dpu_hw_sspp_cfg *pipe_cfg,
-> -		void *scaler_cfg);
-> +		struct dpu_hw_scaler3_cfg *scaler3_cfg,
-> +		const struct dpu_format *format);
->   
->   	/**
->   	 * get_scaler_ver - get scaler h/w version
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
-> index 8f1767619d06..4f5c44d78332 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
-> @@ -677,8 +677,8 @@ static void _dpu_plane_setup_scaler(struct dpu_sw_pipe *pipe,
->   	if (pipe_hw->ops.setup_scaler &&
->   			pipe->multirect_index != DPU_SSPP_RECT_1)
->   		pipe_hw->ops.setup_scaler(pipe_hw,
-> -				pipe_cfg,
-> -				&scaler3_cfg);
-> +				&scaler3_cfg,
-> +				fmt);
->   }
->   
->   /**
+> +	/* cleanup source addresses */
+> +	memset(&cfg, 0, sizeof(cfg));
+> +	ctx->ops.setup_sourceaddress(pipe, &cfg);
+> +
+>   	if (pipe->multirect_index == DPU_SSPP_RECT_SOLO ||
+>   	    pipe->multirect_index == DPU_SSPP_RECT_0)
+>   		DPU_REG_WRITE(&ctx->hw, SSPP_SRC_CONSTANT_COLOR + idx, color);
