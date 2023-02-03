@@ -1,73 +1,78 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6B87C68A4FE
-	for <lists+freedreno@lfdr.de>; Fri,  3 Feb 2023 22:55:58 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id CFD7C68A64A
+	for <lists+freedreno@lfdr.de>; Fri,  3 Feb 2023 23:44:33 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3498F10E08F;
-	Fri,  3 Feb 2023 21:55:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C8F0510E943;
+	Fri,  3 Feb 2023 22:44:31 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
  [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 70AA210E08F;
- Fri,  3 Feb 2023 21:55:55 +0000 (UTC)
-Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3F3BF10E942;
+ Fri,  3 Feb 2023 22:44:29 +0000 (UTC)
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
  by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 313KTSjW025071; Fri, 3 Feb 2023 21:55:36 GMT
+ 313M9eBb002573; Fri, 3 Feb 2023 22:44:24 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
- h=date : from : to :
- cc : subject : message-id : references : mime-version : content-type :
- in-reply-to; s=qcppdkim1; bh=zXDLHevRmbNSieNjjZ1itBUbVMHRS4dQ8ncRciz05CU=;
- b=FnAt2NZyHNV925FRMJKX5HNFpbtGl80xJ5Simzd4dnspOfwMwmJY3Kq/mxJkJYucCcM5
- ZrhNIHiMbmasCmA+UdX35t4SvXC3y//w9S0LXF8zViotoGYqj3OS4TMFPlxLKVWRm2Sb
- S74EUPFZJEbnmYukTsRs75yWT0n1UEAzFeqdEtOGZ0CAjUAusSbb7RlU/C5+zYoWzf+3
- UZBV7FdzQl84NnWUgpDVWIhzXwFgYB3XpHwpHwkrNj+5OcIFqU34wjW5EeP/Ev207PNW
- vV42m8XCBn1squCKUoXdorylZE2Y3lNSWd2RsmFrF00WR+bdSkVYJNCrKSo/35wP8dFA QA== 
-Received: from nasanppmta01.qualcomm.com (i-global254.qualcomm.com
- [199.106.103.254])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3ngw4p9thc-1
+ h=message-id : date :
+ mime-version : subject : to : cc : references : from : in-reply-to :
+ content-type : content-transfer-encoding; s=qcppdkim1;
+ bh=0s3+EUE+Q0YZOdnYPqNqV45W77C9FxDc6IDUmxZktn4=;
+ b=esy8KeBOS8qUHTjuImyMK7ZGkQF6qF8GTDRiYU+mbJzEiCi263O8k3E9THOvjlQSPvY7
+ x8Q47OacPkSbRatKCtfcY0ybDpcV/4jMXoT7FjlqAQ4l8aU/qFkQTAYMURi77LD/PA+E
+ HvFgQ0GW4ulHyO3L6Ql2WEZZFyJaHkhTYC0zcFaopQvOxLalkGCQ52c7JNqVWh7r+mA4
+ 16NTb63m8SVthQFEb91VkKw00XW2+fstaUfrZi9TyYV8fpux1wWX5Pr96e+QWpFuD4rj
+ 2CoFrvd/VR35Z63GujtQebkKvLVOXijW4pGx0NsomBxFHPnRLfCawK2ZClBo3QQ+LuhY rw== 
+Received: from nalasppmta03.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3nh7mhgcda-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 03 Feb 2023 21:55:35 +0000
-Received: from nasanex01b.na.qualcomm.com (nasanex01b.na.qualcomm.com
- [10.46.141.250])
- by NASANPPMTA01.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 313LtYE4001279
+ Fri, 03 Feb 2023 22:44:23 +0000
+Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
+ [10.47.209.196])
+ by NALASPPMTA03.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 313MiMfO021489
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 3 Feb 2023 21:55:34 GMT
-Received: from quicinc.com (10.80.80.8) by nasanex01b.na.qualcomm.com
- (10.46.141.250) with Microsoft SMTP Server (version=TLS1_2,
+ Fri, 3 Feb 2023 22:44:22 GMT
+Received: from [10.110.99.204] (10.80.80.8) by nalasex01a.na.qualcomm.com
+ (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.36; Fri, 3 Feb 2023
- 13:55:33 -0800
-Date: Fri, 3 Feb 2023 13:55:32 -0800
-From: Guru Das Srinagesh <quic_gurus@quicinc.com>
-To: Elliot Berman <quic_eberman@quicinc.com>
-Message-ID: <20230203215532.GA10258@quicinc.com>
-References: <20230203210956.3580811-1-quic_eberman@quicinc.com>
+ 14:44:21 -0800
+Message-ID: <121827e3-3ec4-c0fd-d3fb-771150e79717@quicinc.com>
+Date: Fri, 3 Feb 2023 14:44:21 -0800
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <20230203210956.3580811-1-quic_eberman@quicinc.com>
-User-Agent: Mutt/1.5.24 (2015-08-30)
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
+ Thunderbird/91.6.2
+Content-Language: en-US
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Rob Clark
+ <robdclark@gmail.com>, Sean Paul <sean@poorly.run>
+References: <20230203182132.1307834-1-dmitry.baryshkov@linaro.org>
+ <20230203182132.1307834-16-dmitry.baryshkov@linaro.org>
+From: Abhinav Kumar <quic_abhinavk@quicinc.com>
+In-Reply-To: <20230203182132.1307834-16-dmitry.baryshkov@linaro.org>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
 X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
- nasanex01b.na.qualcomm.com (10.46.141.250)
+X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
 X-QCInternal: smtphost
 X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
  signatures=585085
-X-Proofpoint-GUID: IakSQGYsVJaEfb-gAExeEyYclWwLMuK5
-X-Proofpoint-ORIG-GUID: IakSQGYsVJaEfb-gAExeEyYclWwLMuK5
+X-Proofpoint-GUID: qoGhOSDoX3WUUoLLhnZLTSSW2L-ilXKB
+X-Proofpoint-ORIG-GUID: qoGhOSDoX3WUUoLLhnZLTSSW2L-ilXKB
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.219,Aquarius:18.0.930,Hydra:6.0.562,FMLib:17.11.122.1
  definitions=2023-02-03_19,2023-02-03_01,2022-06-22_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501
- malwarescore=0 impostorscore=0 spamscore=0 suspectscore=0 adultscore=0
- clxscore=1011 lowpriorityscore=0 mlxscore=0 phishscore=0 bulkscore=0
- mlxlogscore=999 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2212070000 definitions=main-2302030197
-Subject: Re: [Freedreno] [PATCH] firmware: qcom_scm: Move qcom_scm.h to
- include/linux/firmware/qcom/
+ impostorscore=0 spamscore=0
+ lowpriorityscore=0 phishscore=0 suspectscore=0 mlxscore=0 mlxlogscore=999
+ priorityscore=1501 malwarescore=0 clxscore=1015 adultscore=0 bulkscore=0
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2212070000
+ definitions=main-2302030203
+Subject: Re: [Freedreno] [PATCH v3 15/27] drm/msm/dpu: move the rest of
+ plane checks to dpu_plane_atomic_check()
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,46 +85,148 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Ulf Hansson <ulf.hansson@linaro.org>,
- "Rafael J. Wysocki" <rafael@kernel.org>, linux-wireless@vger.kernel.org,
- Linus Walleij <linus.walleij@linaro.org>, Amit Kucheria <amitk@kernel.org>,
- linux-remoteproc@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Vikash
- Garodia <quic_vgarodia@quicinc.com>, Eric Dumazet <edumazet@google.com>,
- Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
- Will Deacon <will@kernel.org>, linux-scsi@vger.kernel.org,
- Stanimir Varbanov <stanimir.k.varbanov@gmail.com>,
- David Airlie <airlied@gmail.com>, Joerg Roedel <joro@8bytes.org>, Daniel
- Lezcano <daniel.lezcano@linaro.org>, Russell King <linux@armlinux.org.uk>,
- ath10k@lists.infradead.org, iommu@lists.linux.dev,
- Andy Gross <agross@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
- Zhang Rui <rui.zhang@intel.com>, Paolo Abeni <pabeni@redhat.com>,
- "James E.J. Bottomley" <jejb@linux.ibm.com>, linux-media@vger.kernel.org,
- freedreno@lists.freedesktop.org, Thara Gopinath <thara.gopinath@gmail.com>,
- Arnd Bergmann <arnd@arndb.de>, linux-pm@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, Kalle Valo <kvalo@kernel.org>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, linux-gpio@vger.kernel.org,
- Mauro Carvalho Chehab <mchehab@kernel.org>, Sean Paul <sean@poorly.run>,
- linux-arm-kernel@lists.infradead.org, Alex Elder <elder@kernel.org>,
- "Martin K. Petersen" <martin.petersen@oracle.com>,
- Mathieu Poirier <mathieu.poirier@linaro.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Bjorn Andersson <andersson@kernel.org>, linux-mmc@vger.kernel.org,
- Adrian Hunter <adrian.hunter@intel.com>,
- Konrad Dybcio <konrad.dybcio@linaro.org>, Rob Clark <robdclark@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>, netdev@vger.kernel.org,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Amol Maheshwari <amahesh@qti.qualcomm.com>,
- Robin Murphy <robin.murphy@arm.com>, "David S. Miller" <davem@davemloft.net>
+Cc: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
+ Bjorn Andersson <andersson@kernel.org>, dri-devel@lists.freedesktop.org,
+ Stephen Boyd <swboyd@chromium.org>, Daniel Vetter <daniel@ffwll.ch>,
+ David Airlie <airlied@gmail.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Feb 03 2023 13:09, Elliot Berman wrote:
-> Move include/linux/qcom_scm.h to include/linux/firmware/qcom/qcom_scm.h.
-> This removes 1 of a few remaining Qualcomm-specific headers into a more
-> approciate subdirectory under include/.
-> 
-> Suggested-by: Bjorn Andersson <andersson@kernel.org>
-> Signed-off-by: Elliot Berman <quic_eberman@quicinc.com>
 
-Reviewed-by: Guru Das Srinagesh <quic_gurus@quicinc.com>
+
+On 2/3/2023 10:21 AM, Dmitry Baryshkov wrote:
+> Move plane state updates from dpu_crtc_atomic_check() to the function
+> where they belong: to dpu_plane_atomic_check().
+> 
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> ---
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c  | 18 +-----------------
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c | 18 ++++++++++--------
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_plane.h |  6 ------
+>   3 files changed, 11 insertions(+), 31 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
+> index b485234eefb2..bd09bb319a58 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
+> @@ -1129,7 +1129,6 @@ static int dpu_crtc_atomic_check(struct drm_crtc *crtc,
+>   									  crtc);
+>   	struct dpu_crtc *dpu_crtc = to_dpu_crtc(crtc);
+>   	struct dpu_crtc_state *cstate = to_dpu_crtc_state(crtc_state);
+> -	struct dpu_kms *dpu_kms = _dpu_crtc_get_kms(crtc);
+>   
+>   	const struct drm_plane_state *pstate;
+>   	struct drm_plane *plane;
+> @@ -1161,11 +1160,10 @@ static int dpu_crtc_atomic_check(struct drm_crtc *crtc,
+>   	crtc_rect.x2 = mode->hdisplay;
+>   	crtc_rect.y2 = mode->vdisplay;
+>   
+> -	 /* get plane state for all drm planes associated with crtc state */
+> +	/* FIXME: move this to dpu_plane_atomic_check? */
+>   	drm_atomic_crtc_state_for_each_plane_state(plane, pstate, crtc_state) {
+>   		struct dpu_plane_state *dpu_pstate = to_dpu_plane_state(pstate);
+>   		struct drm_rect dst, clip = crtc_rect;
+> -		int stage;
+>   
+>   		if (IS_ERR_OR_NULL(pstate)) {
+>   			rc = PTR_ERR(pstate);
+> @@ -1179,8 +1177,6 @@ static int dpu_crtc_atomic_check(struct drm_crtc *crtc,
+>   
+>   		dpu_pstate->needs_dirtyfb = needs_dirtyfb;
+>   
+> -		dpu_plane_clear_multirect(pstate);
+> -
+>   		dst = drm_plane_state_dest(pstate);
+>   		if (!drm_rect_intersect(&clip, &dst)) {
+>   			DPU_ERROR("invalid vertical/horizontal destination\n");
+> @@ -1189,18 +1185,6 @@ static int dpu_crtc_atomic_check(struct drm_crtc *crtc,
+>   				  DRM_RECT_ARG(&dst));
+>   			return -E2BIG;
+>   		}
+> -
+> -		/* verify stage setting before using it */
+> -		stage = DPU_STAGE_0 + pstate->normalized_zpos;
+> -		if (stage >= dpu_kms->catalog->caps->max_mixer_blendstages) {
+> -			DPU_ERROR("> %d plane stages assigned\n",
+> -					dpu_kms->catalog->caps->max_mixer_blendstages - DPU_STAGE_0);
+> -			return -EINVAL;
+> -		}
+> -
+> -		to_dpu_plane_state(pstate)->stage = stage;
+> -		DRM_DEBUG_ATOMIC("%s: stage %d\n", dpu_crtc->name, stage);
+> -
+>   	}
+>   
+>   	atomic_inc(&_dpu_crtc_get_kms(crtc)->bandwidth_ref);
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
+> index 1b3033b15bfa..5aabf9694a53 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
+> @@ -733,14 +733,6 @@ static int _dpu_plane_color_fill(struct dpu_plane *pdpu,
+>   	return 0;
+>   }
+>   
+> -void dpu_plane_clear_multirect(const struct drm_plane_state *drm_state)
+> -{
+> -	struct dpu_plane_state *pstate = to_dpu_plane_state(drm_state);
+> -
+> -	pstate->pipe.multirect_index = DPU_SSPP_RECT_SOLO;
+> -	pstate->pipe.multirect_mode = DPU_SSPP_MULTIRECT_NONE;
+> -}
+> -
+>   int dpu_plane_validate_multirect_v2(struct dpu_multirect_plane_states *plane)
+>   {
+>   	struct dpu_plane_state *pstate[R_MAX];
+> @@ -994,6 +986,16 @@ static int dpu_plane_atomic_check(struct drm_plane *plane,
+>   	if (!new_plane_state->visible)
+>   		return 0;
+>   
+> +	pstate->pipe.multirect_index = DPU_SSPP_RECT_SOLO;
+> +	pstate->pipe.multirect_mode = DPU_SSPP_MULTIRECT_NONE;
+> +
+
+But I am not sure if clearing the multirect belongs here and now I want 
+to clarify one thing about 
+https://patchwork.freedesktop.org/patch/521354/?series=99909&rev=4 which 
+was R-bed in the v1 and carried fwd since then.
+
+So prior to that change, we were only clearing the multirects of the 
+planes that were staged to the crtc and we were getting those from the 
+crtc state. But now we are clearing the multirect of all the planes.
+
+Dont we have to keep that in the crtc_atomic_check() since we do that on 
+all the planes attached to a certain CRTC.
+
+In that case shouldnt we keep this in the crtc_atomic_check() and bring 
+back pipe_staged[] without the multirect and source split cases ofcourse.
+
+> +	pstate->stage = DPU_STAGE_0 + pstate->base.normalized_zpos;
+> +	if (pstate->stage >= pdpu->catalog->caps->max_mixer_blendstages) {
+> +		DPU_ERROR("> %d plane stages assigned\n",
+> +				pdpu->catalog->caps->max_mixer_blendstages - DPU_STAGE_0);
+> +		return -EINVAL;
+> +	}
+> +
+
+I agree that this check belongs to the plane_atomic_check().
+
+>   	src.x1 = new_plane_state->src_x >> 16;
+>   	src.y1 = new_plane_state->src_y >> 16;
+>   	src.x2 = src.x1 + (new_plane_state->src_w >> 16);
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.h
+> index 228db401e905..a08b0539513b 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.h
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.h
+> @@ -88,12 +88,6 @@ struct drm_plane *dpu_plane_init(struct drm_device *dev,
+>    */
+>   int dpu_plane_validate_multirect_v2(struct dpu_multirect_plane_states *plane);
+>   
+> -/**
+> - * dpu_plane_clear_multirect - clear multirect bits for the given pipe
+> - * @drm_state: Pointer to DRM plane state
+> - */
+> -void dpu_plane_clear_multirect(const struct drm_plane_state *drm_state);
+> -
+>   /**
+>    * dpu_plane_color_fill - enables color fill on plane
+>    * @plane:  Pointer to DRM plane object
