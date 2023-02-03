@@ -2,69 +2,74 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id C5951688A03
-	for <lists+freedreno@lfdr.de>; Thu,  2 Feb 2023 23:47:32 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E3EBD689B2D
+	for <lists+freedreno@lfdr.de>; Fri,  3 Feb 2023 15:10:00 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8B99610E662;
-	Thu,  2 Feb 2023 22:47:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0AD3410E7A5;
+	Fri,  3 Feb 2023 14:09:57 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ej1-x633.google.com (mail-ej1-x633.google.com
- [IPv6:2a00:1450:4864:20::633])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C2E6A10E661
- for <freedreno@lists.freedesktop.org>; Thu,  2 Feb 2023 22:47:27 +0000 (UTC)
-Received: by mail-ej1-x633.google.com with SMTP id ml19so10595768ejb.0
- for <freedreno@lists.freedesktop.org>; Thu, 02 Feb 2023 14:47:27 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=C1Zy7sOZ5NJ3j2LxJM2vtlRy4fRlrjKvTjIjmDKiY9Y=;
- b=YXejx0l91bIRJHmBkjw2F1DWFq8WI5oZFDo7cBfimDt7DApqnIDC4jqpiheYZuhv0n
- 6PZfAB4Bl+CmDfBPxp3hUUBqwxOutPaU+FPOnHSiQQW/QAORaw1HgVuFFp3aRA9sPUCn
- lwX3pIZfcrI0Rxsc0WablBxbsBANAXHLbI9Pk=
+Received: from mail-ej1-x62a.google.com (mail-ej1-x62a.google.com
+ [IPv6:2a00:1450:4864:20::62a])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4BC6210E7A6
+ for <freedreno@lists.freedesktop.org>; Fri,  3 Feb 2023 14:09:54 +0000 (UTC)
+Received: by mail-ej1-x62a.google.com with SMTP id ud5so15683219ejc.4
+ for <freedreno@lists.freedesktop.org>; Fri, 03 Feb 2023 06:09:54 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=Gzy7uk6PIWZpzhHS9Q2N99o+izHmIpMwH2uTxhvt0hI=;
+ b=nOwbPfqnnx+JtB+p1BbdTSGh0gHcr0+Upl9ouZ2UPfjBVuvvAZVkG3KyN/Yr1/z/2u
+ Vcj7T29Zk36njq5kFBg8BX83oNQHLfqJ02YtWHlrmnBLeQ3bEjVJ7SW2Q0aLw2DcRpSb
+ DXuWO+jg5erBHkAOk/yl+LtJa3qZwehkHzc4RckkzbHWBj5Tv0V8C/kbUlIRIk6yVNs/
+ gTAbcLpVZeLrUjTi3N10sOP+GhegPzU0A7kpaoQaVoB7GjFnP+DnrMh642qKMV+QBjHK
+ PJYkWGfpcuVzdh5v3LQY08Qa/nqdQojbqEPgZ5qJ+6UkA06clnMMlgDT1kpEYjb9A4DW
+ f1yw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=C1Zy7sOZ5NJ3j2LxJM2vtlRy4fRlrjKvTjIjmDKiY9Y=;
- b=JPB3aWp0EaMg2bYvC63OV6r/2Rgo44lCVsStOcKAfueCAtF6GVmVeQzjYJnknCuWHg
- wVztsmxhuN2I9cJtHHgEgHvu6Uz4rigX+Jphf3X0Y2Y9QxJQ+0m4VyuW+UcUMvv8RnhJ
- 0kK3CYSxah9ZdDNIxSROywWqBbfFMQ+Qs3hJwM5jAVIh436UnwfqtpDpevUl8K/G7gMw
- /VUKlLrxp1qjpuiBYFIGNWQAH3wQXm3wtlKvcAAPvQPANRCfXMUTt1M2SBuV0VGR7U35
- zCtieReOcWuit8cWajqP24t3aVuLdZShATuPOWJeecgekENi+0tZklGUU2pmzWAteIl9
- ikXw==
-X-Gm-Message-State: AO0yUKXQ7sxCWTvKjeuv4jb944zHgFq4hqWcddfi1TrXtZbzj+7DfBpX
- uUsEGLSTR5Qnx8Vpep4k5NwF6StAxcLVI4rSMmw=
-X-Google-Smtp-Source: AK7set97FxJxbHRmYKY69lm2JZ95+jnFF6Fc1wsgISoYOTz0aCkKnh/B1vn5k9ChmtzlcfXwaNjzkA==
-X-Received: by 2002:a17:907:7f05:b0:88d:d304:3423 with SMTP id
- qf5-20020a1709077f0500b0088dd3043423mr9534351ejc.70.1675378046103; 
- Thu, 02 Feb 2023 14:47:26 -0800 (PST)
-Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com.
- [209.85.128.44]) by smtp.gmail.com with ESMTPSA id
- c16-20020a1709060fd000b0086621d9d9b0sm417428ejk.81.2023.02.02.14.47.23
- for <freedreno@lists.freedesktop.org>
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=Gzy7uk6PIWZpzhHS9Q2N99o+izHmIpMwH2uTxhvt0hI=;
+ b=z0rQaCq0cFLHPfSZP+PwRSpQE4tzn0Ajm6OCREt48jO7AD12rZ8+s2IkemNNY7RNox
+ TwWpaEfuEf84rMaB3VPxc6u2WNmp3zxrlwTEuz7kVnQemWTroItt5fNh7PnJujkdjS7s
+ j810ueP1kBZX3T7EL77DGcfq63hkV6gQNW2iu95CAw/4o6UXF3jNQAf9HncQ44o/rVKa
+ TY24VLpDKaSeHAR3MdZMD8hYYc4kSJURhxezj/zkZQYp63w3+r4jxkC1xvup2YR99L1w
+ ZT7A2Tuely+4Cs1oCFcjwGl4+1jCvBqJRnoS413VBVHeNwP647U97aiUZUHltDkFgpnz
+ k4Fg==
+X-Gm-Message-State: AO0yUKXpWIBnQMnlf3CRpOjwJ666iu7oGc4OjzWtovgvWP9lJ2Ika9z9
+ WW4dkAsQxmF12MQuGX/No+jNNQ==
+X-Google-Smtp-Source: AK7set9edBQbx/D5pwmn4ZFPTE1VYiA4G1b4YT/Qc54v54/iiy6PRnPkZjXg31eFobRLQTLhmPfplw==
+X-Received: by 2002:a17:906:4fc7:b0:87b:1be:a8c2 with SMTP id
+ i7-20020a1709064fc700b0087b01bea8c2mr11962181ejw.73.1675433392680; 
+ Fri, 03 Feb 2023 06:09:52 -0800 (PST)
+Received: from ?IPV6:2001:14ba:a085:4d00::8a5?
+ (dzccz6yyyyyyyyyyybcwt-3.rev.dnainternet.fi. [2001:14ba:a085:4d00::8a5])
+ by smtp.gmail.com with ESMTPSA id
+ f17-20020a1709064dd100b0087276f66c6asm1417029ejw.115.2023.02.03.06.09.51
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 02 Feb 2023 14:47:23 -0800 (PST)
-Received: by mail-wm1-f44.google.com with SMTP id
- j29-20020a05600c1c1d00b003dc52fed235so2613911wms.1
- for <freedreno@lists.freedesktop.org>; Thu, 02 Feb 2023 14:47:23 -0800 (PST)
-X-Received: by 2002:a05:600c:1912:b0:3d7:fa4a:6827 with SMTP id
- j18-20020a05600c191200b003d7fa4a6827mr250843wmq.188.1675378043111; Thu, 02
- Feb 2023 14:47:23 -0800 (PST)
+ Fri, 03 Feb 2023 06:09:52 -0800 (PST)
+Message-ID: <fbdab5e4-4f48-f18f-561d-442d493724e5@linaro.org>
+Date: Fri, 3 Feb 2023 16:09:50 +0200
 MIME-Version: 1.0
-References: <20230131141756.RFT.v2.1.I723a3761d57ea60c5dd754c144aed6c3b2ea6f5a@changeid>
- <20230131141756.RFT.v2.3.I3c87b53c4ab61a7d5e05f601a4eb44c7e3809a01@changeid>
- <0419b0c8-fb30-f8df-1b9a-19e106680948@quicinc.com>
-In-Reply-To: <0419b0c8-fb30-f8df-1b9a-19e106680948@quicinc.com>
-From: Doug Anderson <dianders@chromium.org>
-Date: Thu, 2 Feb 2023 14:46:52 -0800
-X-Gmail-Original-Message-ID: <CAD=FV=Xk6qFokozxEa+MaCgii3zpSWZRDe52FoP17E-DOFXoyg@mail.gmail.com>
-Message-ID: <CAD=FV=Xk6qFokozxEa+MaCgii3zpSWZRDe52FoP17E-DOFXoyg@mail.gmail.com>
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.7.1
+Content-Language: en-GB
 To: Abhinav Kumar <quic_abhinavk@quicinc.com>
-Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [RFT PATCH v2 3/3] drm/msm/dsi: More properly
- handle errors in regards to dsi_mgr_bridge_power_on()
+References: <20221229191856.3508092-1-dmitry.baryshkov@linaro.org>
+ <20221229191856.3508092-13-dmitry.baryshkov@linaro.org>
+ <77764494-8a74-8450-ac75-33d6de0b2f8d@quicinc.com>
+ <CAA8EJpq4ybOQg-Mb5RM+dcrBbR+3WrWSgvd4d20C6NKa90C15Q@mail.gmail.com>
+ <62ace381-2c59-9096-2b4f-412b329ad78e@quicinc.com>
+ <c6eb252e-fdff-8e17-4acb-cdb3ba850887@linaro.org>
+ <a4af7146-126f-cd6e-4c65-dbdffe6cca82@quicinc.com>
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+In-Reply-To: <a4af7146-126f-cd6e-4c65-dbdffe6cca82@quicinc.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+Subject: Re: [Freedreno] [PATCH v2 12/27] drm/msm/dpu: remove
+ dpu_hw_fmt_layout from struct dpu_hw_pipe_cfg
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,143 +82,95 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sean Paul <sean@poorly.run>, Neil Armstrong <neil.armstrong@linaro.org>,
- linux-kernel@vger.kernel.org, Andrzej Hajda <andrzej.hajda@intel.com>,
- Jonas Karlman <jonas@kwiboo.se>, linux-arm-msm@vger.kernel.org,
- Dave Stevenson <dave.stevenson@raspberrypi.com>, Vinod Koul <vkoul@kernel.org>,
- Jernej Skrabec <jernej.skrabec@gmail.com>, Stephen Boyd <swboyd@chromium.org>,
- Rob Clark <robdclark@gmail.com>, dri-devel@lists.freedesktop.org,
- Daniel Vetter <daniel@ffwll.ch>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- David Airlie <airlied@gmail.com>, freedreno@lists.freedesktop.org,
- Robert Foss <robert.foss@linaro.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>
+Cc: freedreno@lists.freedesktop.org, Sean Paul <sean@poorly.run>,
+ Bjorn Andersson <andersson@kernel.org>, dri-devel@lists.freedesktop.org,
+ Stephen Boyd <swboyd@chromium.org>, Rob Clark <robdclark@gmail.com>,
+ Daniel Vetter <daniel@ffwll.ch>, linux-arm-msm@vger.kernel.org,
+ David Airlie <airlied@gmail.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Hi,
+On 02/02/2023 22:14, Abhinav Kumar wrote:
+> 
+> 
+> On 2/2/2023 12:10 PM, Dmitry Baryshkov wrote:
+>> On 02/02/2023 21:54, Abhinav Kumar wrote:
+>>>
+>>>
+>>> On 2/2/2023 11:45 AM, Dmitry Baryshkov wrote:
+>>>> On Thu, 2 Feb 2023 at 21:38, Abhinav Kumar 
+>>>> <quic_abhinavk@quicinc.com> wrote:
+>>>>>
+>>>>>
+>>>>>
+>>>>> On 12/29/2022 11:18 AM, Dmitry Baryshkov wrote:
+>>>>>> Remove dpu_hw_fmt_layout instance from struct dpu_hw_pipe_cfg, 
+>>>>>> leaving
+>>>>>> only src_rect and dst_rect. This way right and left pipes will have
+>>>>>> separate dpu_hw_pipe_cfg isntances, while the layout is common to 
+>>>>>> both
+>>>>>> of them.
+>>>>>>
+>>>>>
+>>>>> Sorry for not responding to this comment earlier.
+>>>>>
+>>>>> https://patchwork.freedesktop.org/patch/473168/?series=99909&rev=1#comment_875370
+>>>>>
+>>>>>   From the perspective of wide planes you are right that the layout is
+>>>>> common but not true from smart DMA point of view.
+>>>>>
+>>>>> For wide planes, yes, its usually the same buffer with just the src_x
+>>>>> being different but conceptually and even HW wise each rectangle of 
+>>>>> the
+>>>>> smart DMA is capable of fetching from a different buffer.
+>>>>>
+>>>>>   From the pov, this decision of not having the dpu_hw_fmt_layout 
+>>>>> as part
+>>>>> of dpu_hw_pipe_cfg seems incorrect to me.
+>>>>
+>>>> Yes, each rectangle/pipe can fetch from a different buffer. However in
+>>>> our use case the layout is not defined for each pipe. It is defined
+>>>> for a plane, no matter how many pipes are used for the plane, since
+>>>> the buffer is also defined per plane.
+>>>>
+>>> Even if the layout is defined per plane.
+>>>
+>>> So lets say
+>>>
+>>> plane A with layout A maps to rect 1 of DMA0
+>>> plane B with layout B maps to rect 2 of DMA0
+>>>
+>>> How can layout be assumed to be duplicated in this case?
+>>>
+>>> This is not a wide plane use-case but just smartDMA case of two 
+>>> different layers.
+>>>
+>>> Maybe I am missing something but this is the example i am interested 
+>>> about.
+>>
+>> PlaneA has layoutA. So dpu_plane_sspp_update_pipe() will program 
+>> layoutA using (DMA0, rect1)->setup_sourceaddress(layoutA).
+>>
+>> PlaneB has layoutB, so (DMA0, rect2)->setup_sourceaddress(layoutB).
+>>
+>> Maybe the commit message is misleading. The layout is not common to 
+>> rect1 and rect2. It is common to all pipes/rectangles driving a single 
+>> plane.
+>>
+> 
+> Ack, Its clear now.
+> 
+> Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
 
-On Thu, Feb 2, 2023 at 2:37 PM Abhinav Kumar <quic_abhinavk@quicinc.com> wrote:
->
-> Hi Doug
->
-> On 1/31/2023 2:18 PM, Douglas Anderson wrote:
-> > In commit 7d8e9a90509f ("drm/msm/dsi: move DSI host powerup to modeset
-> > time") the error handling with regards to dsi_mgr_bridge_power_on()
-> > got a bit worse. Specifically if we failed to power the bridge on then
-> > nothing would really notice. The modeset function couldn't return an
-> > error and thus we'd blindly go forward and try to do the pre-enable.
-> >
-> > In commit ec7981e6c614 ("drm/msm/dsi: don't powerup at modeset time
-> > for parade-ps8640") we added a special case to move the powerup back
-> > to pre-enable time for ps8640. When we did that, we didn't try to
-> > recover the old/better error handling just for ps8640.
-> >
-> > In the patch ("drm/msm/dsi: Stop unconditionally powering up DSI hosts
-> > at modeset") we've now moved the powering up back to exclusively being
-> > during pre-enable. That means we can add the better error handling
-> > back in, so let's do it. To do so we'll add a new function
-> > dsi_mgr_bridge_power_off() that's matches how errors were handled
-> > prior to commit 7d8e9a90509f ("drm/msm/dsi: move DSI host powerup to
-> > modeset time").
-> >
-> > NOTE: Now that we have dsi_mgr_bridge_power_off(), it feels as if we
-> > should be calling it in dsi_mgr_bridge_post_disable(). That would make
-> > some sense, but doing so would change the current behavior and thus
-> > should be a separate patch. Specifically:
-> > * dsi_mgr_bridge_post_disable() always calls dsi_mgr_phy_disable()
-> >    even in the slave-DSI case of bonded DSI. We'd need to add special
-> >    handling for this if it's truly needed.
-> > * dsi_mgr_bridge_post_disable() calls msm_dsi_phy_pll_save_state()
-> >    midway through the poweroff.
-> > * dsi_mgr_bridge_post_disable() has a different order of some of the
-> >    poweroffs / IRQ disables.
-> > For now we'll leave dsi_mgr_bridge_post_disable() alone.
-> >
-> > Signed-off-by: Douglas Anderson <dianders@chromium.org>
-> > ---
-> >
-> > Changes in v2:
-> > - ("More properly handle errors...") new for v2.
-> >
-> >   drivers/gpu/drm/msm/dsi/dsi_manager.c | 32 ++++++++++++++++++++++-----
-> >   1 file changed, 26 insertions(+), 6 deletions(-)
-> >
-> > diff --git a/drivers/gpu/drm/msm/dsi/dsi_manager.c b/drivers/gpu/drm/msm/dsi/dsi_manager.c
-> > index 2197a54b9b96..28b8012a21f2 100644
-> > --- a/drivers/gpu/drm/msm/dsi/dsi_manager.c
-> > +++ b/drivers/gpu/drm/msm/dsi/dsi_manager.c
-> > @@ -228,7 +228,7 @@ static void msm_dsi_manager_set_split_display(u8 id)
-> >       }
-> >   }
-> >
-> > -static void dsi_mgr_bridge_power_on(struct drm_bridge *bridge)
-> > +static int dsi_mgr_bridge_power_on(struct drm_bridge *bridge)
-> >   {
-> >       int id = dsi_mgr_bridge_get_id(bridge);
-> >       struct msm_dsi *msm_dsi = dsi_mgr_get_dsi(id);
-> > @@ -268,14 +268,31 @@ static void dsi_mgr_bridge_power_on(struct drm_bridge *bridge)
-> >       if (is_bonded_dsi && msm_dsi1)
-> >               msm_dsi_host_enable_irq(msm_dsi1->host);
-> >
-> > -     return;
-> > +     return 0;
-> >
-> >   host1_on_fail:
-> >       msm_dsi_host_power_off(host);
-> >   host_on_fail:
-> >       dsi_mgr_phy_disable(id);
-> >   phy_en_fail:
-> > -     return;
-> > +     return ret;
-> > +}
-> > +
-> > +static void dsi_mgr_bridge_power_off(struct drm_bridge *bridge)
-> > +{
-> > +     int id = dsi_mgr_bridge_get_id(bridge);
-> > +     struct msm_dsi *msm_dsi = dsi_mgr_get_dsi(id);
-> > +     struct msm_dsi *msm_dsi1 = dsi_mgr_get_dsi(DSI_1);
-> > +     struct mipi_dsi_host *host = msm_dsi->host;
-> > +     bool is_bonded_dsi = IS_BONDED_DSI();
-> > +
-> > +     msm_dsi_host_disable_irq(host);
-> > +     if (is_bonded_dsi && msm_dsi1) {
-> > +             msm_dsi_host_disable_irq(msm_dsi1->host);
-> > +             msm_dsi_host_power_off(msm_dsi1->host);
-> > +     }
->
-> The order of disabling the IRQs should be opposite of how they were enabled.
->
-> So while enabling it was DSI0 and then DSI1.
->
-> Hence while disabling it should be DSI1 and then DSI0.
->
-> So the order here should be
->
-> DSI1 irq disable
-> DSI0 irq disable
-> DSI1 host power off
-> DSI0 host power off
+I have rephrased the last sentence of the commit message in the 
+following way. Hopefully it will be cleaner now:
 
-Right. Normally you want to go opposite. I guess a few points, though:
+This way all the pipes used by the plane
+will have a common layout instance (as the framebuffer is shared between
+them), while still keeping a separate src/dst rectangle configuration
+for each pipe.
 
-1. As talked about in the commit message, the order I have matches the
-order we had prior to commit 7d8e9a90509f ("drm/msm/dsi: move DSI host
-powerup to modeset time").
+-- 
+With best wishes
+Dmitry
 
-2. I'd be curious if it matters. The order you request means we need
-to check for `(is_bonded_dsi && msm_dsi1)` twice. While that's not a
-big deal if it's important, it's nice not to have to do so.
-
-3. As talked about in the commit message, eventually we should
-probably resolve this order with the order of things in
-dsi_mgr_bridge_post_disable(), which is yet a different ordering.
-Ideally this resolution would be done by someone who actually has
-proper documentation of the hardware and how it's supposed to work
-(AKA not me).
-
-So my preference would be to either land or drop ${SUBJECT} patch
-(either is fine with me) and then someone at Qualcomm could then take
-over further cleanup.
-
--Doug
