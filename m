@@ -1,52 +1,62 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0851168A84F
-	for <lists+freedreno@lfdr.de>; Sat,  4 Feb 2023 06:11:00 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 0D17C68A986
+	for <lists+freedreno@lfdr.de>; Sat,  4 Feb 2023 11:43:48 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CAA6610E0BA;
-	Sat,  4 Feb 2023 05:10:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3B77110E0DA;
+	Sat,  4 Feb 2023 10:43:46 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5FB0210E0A9;
- Sat,  4 Feb 2023 05:10:52 +0000 (UTC)
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 3144tIu0013623; Sat, 4 Feb 2023 05:10:45 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
- h=message-id : date :
- mime-version : subject : to : cc : references : from : in-reply-to :
- content-type : content-transfer-encoding; s=qcppdkim1;
- bh=znG4lOz+eAJRJ3vPw67x7mxeSqeUpXZOVsl/k+Y3mzQ=;
- b=EuBdUOXZrwd5LrDwH5wAWNJjn0ntwps8Ikf5B431qrU4wQc/sVe8LOHfecok2m0s5dFH
- 9Mozrq0uUqx3bb22hA9XhR9b/56XqV95d6RnEtEDN2nwgVAqAUX2va5oLXEe91ZxvsHR
- kgCydfZ+r88WHY8BjcxGphFfD/KkrNlJcdKybrWjMHPQq79HE2zEXKLw5TfdigVxpNrO
- 5Iv2KTVMjp6/1Uy6yr6CWgsTYcsoMG0Nge631Kq0iXuuRRJyb8bXEnw/sjFCIDx74x6Y
- DkYykev045RqpabBqG0ed2zX8YXbib6ZDNcjGtxCKLgXOSpNzqGdNeqMc//YA9o6oAFL 3g== 
-Received: from nalasppmta02.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3nhd2q88gc-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Sat, 04 Feb 2023 05:10:45 +0000
-Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
- [10.47.209.196])
- by NALASPPMTA02.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 3145AilW019532
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Sat, 4 Feb 2023 05:10:44 GMT
-Received: from [10.110.99.204] (10.80.80.8) by nalasex01a.na.qualcomm.com
- (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.36; Fri, 3 Feb 2023
- 21:10:43 -0800
-Message-ID: <d89a1735-4351-a9b5-c6e3-d0d05af9d283@quicinc.com>
-Date: Fri, 3 Feb 2023 21:10:43 -0800
+Received: from mail-ej1-x62d.google.com (mail-ej1-x62d.google.com
+ [IPv6:2a00:1450:4864:20::62d])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 958F710E156
+ for <freedreno@lists.freedesktop.org>; Sat,  4 Feb 2023 10:43:44 +0000 (UTC)
+Received: by mail-ej1-x62d.google.com with SMTP id lu11so21872409ejb.3
+ for <freedreno@lists.freedesktop.org>; Sat, 04 Feb 2023 02:43:44 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=HN9r4b9P/+PBlO+lQJOLpyUbQijsh414B6hdUqmV1Ns=;
+ b=ZypADk0p27+11vYLucdQgJd4/eJSjuuRlOOpVTiV1UJbRlHLU/pUXCedSDRqTsyqLc
+ NJmiJZgbaVxHqHUaqJWPYyC9T2ICLtvdnQffTD+3CYtxj/jL1ZVmS+6hkhqbm3vePL04
+ qZP1ahdMDvWGjO58/7HTsu0MDDkOPEPdLY7BK3XSqra1UqDnjEScOvwGgcwi2As1nJPd
+ hejr8/nXv+Acyur2oJQ2LktUf20hwFyg7Ig2MKk4bWeoEd/79taIQAnU3ENaknvy4RTb
+ TiyNfNcwGw+YngTZCfSrwlfS9sIH6zELiqRwE/EoasVAbzscKIl5z/wFBJ7GIO1MfOnk
+ 2GAQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=HN9r4b9P/+PBlO+lQJOLpyUbQijsh414B6hdUqmV1Ns=;
+ b=UCgu0KIWqLvZGkoVo5AQaE53u7iEd67anvwuFJ07GDv0PrKyH63SEYo2Ff+fi8+xGE
+ XeXykpAFYJlMWarJXGBL1JL/dzUT0Okhdq10zbJluyDR7785kSv70fHWenkPfW8RXrKo
+ dod5ghJ+blLv/R9HOg34tB9zYcYe3hYbYKSBnrMVXlO8dFT5OrRwjSB9svVyWsUJm3lm
+ pzu1oxZ8VeTvIBISl47cWcXjGr80ywpuXrIyyQi5qLN4teg2v8lh+nTAEp+9ZiFyisBA
+ Y2nTBYYhJF5pHz3F0r3goY3XZe8pz400hNu33zl24SfKH/4UrqURKG0bi9pR16ZqZDLQ
+ 7+ZQ==
+X-Gm-Message-State: AO0yUKWU+l0Em7P/81j6Klt/lvCl4yhE9V55G8pA3WvxbVeSHhvdN+hg
+ suXkhY+X5p9ULnF7x4xyRw8mkA==
+X-Google-Smtp-Source: AK7set/L6NLE3uZcPCBH1bNufat8uLGfW8wWf8/R9GX9sFMb0z2kUCADwK7VfquClsbHh45nKCv4Yw==
+X-Received: by 2002:a17:906:c18d:b0:878:5372:a34b with SMTP id
+ g13-20020a170906c18d00b008785372a34bmr12681102ejz.45.1675507423099; 
+ Sat, 04 Feb 2023 02:43:43 -0800 (PST)
+Received: from ?IPV6:2001:14ba:a085:4d00::8a5?
+ (dzccz6yyyyyyyyyyybcwt-3.rev.dnainternet.fi. [2001:14ba:a085:4d00::8a5])
+ by smtp.gmail.com with ESMTPSA id
+ v5-20020a1709061dc500b0084d4e9a13cbsm2646236ejh.221.2023.02.04.02.43.41
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Sat, 04 Feb 2023 02:43:42 -0800 (PST)
+Message-ID: <6d171f4b-9a49-ea90-8cf3-518bea0964b3@linaro.org>
+Date: Sat, 4 Feb 2023 12:43:41 +0200
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.6.2
-Content-Language: en-US
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Rob Clark
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.7.1
+Content-Language: en-GB
+To: Abhinav Kumar <quic_abhinavk@quicinc.com>, Rob Clark
  <robdclark@gmail.com>, Sean Paul <sean@poorly.run>
 References: <20230203182132.1307834-1-dmitry.baryshkov@linaro.org>
  <20230203182132.1307834-19-dmitry.baryshkov@linaro.org>
@@ -54,27 +64,11 @@ References: <20230203182132.1307834-1-dmitry.baryshkov@linaro.org>
  <3754a9a9-8b64-62ae-0b0d-f379debefa16@linaro.org>
  <ddb0de30-9e29-f6f0-028c-48530bee4a6b@quicinc.com>
  <42e6237d-9fae-0679-1354-7df74594a9db@linaro.org>
-From: Abhinav Kumar <quic_abhinavk@quicinc.com>
-In-Reply-To: <42e6237d-9fae-0679-1354-7df74594a9db@linaro.org>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
+ <d89a1735-4351-a9b5-c6e3-d0d05af9d283@quicinc.com>
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+In-Reply-To: <d89a1735-4351-a9b5-c6e3-d0d05af9d283@quicinc.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-ORIG-GUID: Otk24bxTQX8lK7-mjiyfDG5ws8EYN5IC
-X-Proofpoint-GUID: Otk24bxTQX8lK7-mjiyfDG5ws8EYN5IC
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.219,Aquarius:18.0.930,Hydra:6.0.562,FMLib:17.11.122.1
- definitions=2023-02-04_01,2023-02-03_01,2022-06-22_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 clxscore=1015
- mlxscore=0 bulkscore=0 mlxlogscore=999 lowpriorityscore=0 spamscore=0
- priorityscore=1501 adultscore=0 suspectscore=0 impostorscore=0
- malwarescore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2212070000 definitions=main-2302040047
 Subject: Re: [Freedreno] [PATCH v3 18/27] drm/msm/dpu: populate SmartDMA
  features in hw catalog
 X-BeenThere: freedreno@lists.freedesktop.org
@@ -96,107 +90,120 @@ Cc: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-
-
-On 2/3/2023 8:10 PM, Dmitry Baryshkov wrote:
-> On 04/02/2023 04:43, Abhinav Kumar wrote:
->>
->>
->> On 2/3/2023 6:29 PM, Dmitry Baryshkov wrote:
->>> On 04/02/2023 01:35, Abhinav Kumar wrote:
->>>>
->>>>
->>>> On 2/3/2023 10:21 AM, Dmitry Baryshkov wrote:
->>>>> Downstream driver uses dpu->caps->smart_dma_rev to update
->>>>> sspp->cap->features with the bit corresponding to the supported 
->>>>> SmartDMA
->>>>> version. Upstream driver does not do this, resulting in SSPP subdriver
->>>>> not enbaling setup_multirect callback. Add corresponding SmartDMA SSPP
->>>>> feature bits to dpu hw catalog.
->>>>>
->>>>
->>>> While reviewing this patch, I had a first hand experience of how we 
->>>> are reusing SSPP bitmasks for so many chipsets but I think overall 
->>>> you got them right here :)
->>>>
->>>>> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
->>>>> ---
->>>>>   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c | 10 +++++++---
->>>>>   1 file changed, 7 insertions(+), 3 deletions(-)
->>>>>
->>>>> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c 
->>>>> b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
->>>>> index cf053e8f081e..fc818b0273e7 100644
->>>>> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
->>>>> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
->>>>> @@ -21,13 +21,16 @@
->>>>>       (VIG_MASK | BIT(DPU_SSPP_SCALER_QSEED3))
->>>>>   #define VIG_SDM845_MASK \
->>>>> -    (VIG_MASK | BIT(DPU_SSPP_QOS_8LVL) | BIT(DPU_SSPP_SCALER_QSEED3))
->>>>> +    (VIG_MASK | BIT(DPU_SSPP_QOS_8LVL) | 
->>>>> BIT(DPU_SSPP_SCALER_QSEED3) |\
->>>>> +    BIT(DPU_SSPP_SMART_DMA_V2))
->>>>>   #define VIG_SC7180_MASK \
->>>>> -    (VIG_MASK | BIT(DPU_SSPP_QOS_8LVL) | BIT(DPU_SSPP_SCALER_QSEED4))
->>>>> +    (VIG_MASK | BIT(DPU_SSPP_QOS_8LVL) | 
->>>>> BIT(DPU_SSPP_SCALER_QSEED4) |\
->>>>> +    BIT(DPU_SSPP_SMART_DMA_V2))
->>>>>   #define VIG_SM8250_MASK \
->>>>> -    (VIG_MASK | BIT(DPU_SSPP_QOS_8LVL) | 
->>>>> BIT(DPU_SSPP_SCALER_QSEED3LITE))
->>>>> +    (VIG_MASK | BIT(DPU_SSPP_QOS_8LVL) | 
->>>>> BIT(DPU_SSPP_SCALER_QSEED3LITE) |\
->>>>> +    BIT(DPU_SSPP_SMART_DMA_V2))
->>>>>   #define VIG_QCM2290_MASK (VIG_MASK | BIT(DPU_SSPP_QOS_8LVL))
->>>>> @@ -42,6 +45,7 @@
->>>>>   #define DMA_SDM845_MASK \
->>>>>       (BIT(DPU_SSPP_SRC) | BIT(DPU_SSPP_QOS) | 
->>>>> BIT(DPU_SSPP_QOS_8LVL) |\
->>>>>       BIT(DPU_SSPP_TS_PREFILL) | BIT(DPU_SSPP_TS_PREFILL_REC1) |\
->>>>> +    BIT(DPU_SSPP_SMART_DMA_V2) |\
->>>>>       BIT(DPU_SSPP_CDP) | BIT(DPU_SSPP_EXCL_RECT))
->>>>>   #define DMA_CURSOR_SDM845_MASK \
->>>>
->>>> VIG_SDM845_MASK and DMA_SDM845_MASK are used for many other chipsets 
->>>> like 8250, 8450, 8550.
->>>>
->>>> At the moment, for visual validation of this series, I only have 
->>>> sc7180/sc7280. We are leaving the rest for CI.
->>>>
->>>> Was that an intentional approach?
->>>>
->>>> If so, we will need tested-by tags from folks having 
->>>> 8350/8450/8550/sc8280x,qcm2290?
->>>>
->>>> I am only owning the visual validation on sc7280 atm.
->>>
->>> I'm not quite sure what is your intent here. Are there any SoCs after 
->>> 845 that do not have SmartDMA 2.5? Or do you propose to enable 
->>> SmartDMA only for the chipsets that we can visually test? That sounds 
->>> strange.
->>>
->>
->> Yes I was thinking to enable smartDMA at the moment on chipsets which 
->> we can validate visually that display comes up. But I am not sure if 
->> thats entirely practical.
->>
->> But the intent was I just want to make sure basic display does come up 
->> with smartDMA enabled if we are enabling it for all chipsets.
+On 04/02/2023 07:10, Abhinav Kumar wrote:
 > 
-> I don't think it is practical or logical. We don't require validating 
-> other changes on all possible chipsets, so what is so different with 
-> this one?
 > 
+> On 2/3/2023 8:10 PM, Dmitry Baryshkov wrote:
+>> On 04/02/2023 04:43, Abhinav Kumar wrote:
+>>>
+>>>
+>>> On 2/3/2023 6:29 PM, Dmitry Baryshkov wrote:
+>>>> On 04/02/2023 01:35, Abhinav Kumar wrote:
+>>>>>
+>>>>>
+>>>>> On 2/3/2023 10:21 AM, Dmitry Baryshkov wrote:
+>>>>>> Downstream driver uses dpu->caps->smart_dma_rev to update
+>>>>>> sspp->cap->features with the bit corresponding to the supported 
+>>>>>> SmartDMA
+>>>>>> version. Upstream driver does not do this, resulting in SSPP 
+>>>>>> subdriver
+>>>>>> not enbaling setup_multirect callback. Add corresponding SmartDMA 
+>>>>>> SSPP
+>>>>>> feature bits to dpu hw catalog.
+>>>>>>
+>>>>>
+>>>>> While reviewing this patch, I had a first hand experience of how we 
+>>>>> are reusing SSPP bitmasks for so many chipsets but I think overall 
+>>>>> you got them right here :)
+>>>>>
+>>>>>> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+>>>>>> ---
+>>>>>>   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c | 10 +++++++---
+>>>>>>   1 file changed, 7 insertions(+), 3 deletions(-)
+>>>>>>
+>>>>>> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c 
+>>>>>> b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
+>>>>>> index cf053e8f081e..fc818b0273e7 100644
+>>>>>> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
+>>>>>> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
+>>>>>> @@ -21,13 +21,16 @@
+>>>>>>       (VIG_MASK | BIT(DPU_SSPP_SCALER_QSEED3))
+>>>>>>   #define VIG_SDM845_MASK \
+>>>>>> -    (VIG_MASK | BIT(DPU_SSPP_QOS_8LVL) | 
+>>>>>> BIT(DPU_SSPP_SCALER_QSEED3))
+>>>>>> +    (VIG_MASK | BIT(DPU_SSPP_QOS_8LVL) | 
+>>>>>> BIT(DPU_SSPP_SCALER_QSEED3) |\
+>>>>>> +    BIT(DPU_SSPP_SMART_DMA_V2))
+>>>>>>   #define VIG_SC7180_MASK \
+>>>>>> -    (VIG_MASK | BIT(DPU_SSPP_QOS_8LVL) | 
+>>>>>> BIT(DPU_SSPP_SCALER_QSEED4))
+>>>>>> +    (VIG_MASK | BIT(DPU_SSPP_QOS_8LVL) | 
+>>>>>> BIT(DPU_SSPP_SCALER_QSEED4) |\
+>>>>>> +    BIT(DPU_SSPP_SMART_DMA_V2))
+>>>>>>   #define VIG_SM8250_MASK \
+>>>>>> -    (VIG_MASK | BIT(DPU_SSPP_QOS_8LVL) | 
+>>>>>> BIT(DPU_SSPP_SCALER_QSEED3LITE))
+>>>>>> +    (VIG_MASK | BIT(DPU_SSPP_QOS_8LVL) | 
+>>>>>> BIT(DPU_SSPP_SCALER_QSEED3LITE) |\
+>>>>>> +    BIT(DPU_SSPP_SMART_DMA_V2))
+>>>>>>   #define VIG_QCM2290_MASK (VIG_MASK | BIT(DPU_SSPP_QOS_8LVL))
+>>>>>> @@ -42,6 +45,7 @@
+>>>>>>   #define DMA_SDM845_MASK \
+>>>>>>       (BIT(DPU_SSPP_SRC) | BIT(DPU_SSPP_QOS) | 
+>>>>>> BIT(DPU_SSPP_QOS_8LVL) |\
+>>>>>>       BIT(DPU_SSPP_TS_PREFILL) | BIT(DPU_SSPP_TS_PREFILL_REC1) |\
+>>>>>> +    BIT(DPU_SSPP_SMART_DMA_V2) |\
+>>>>>>       BIT(DPU_SSPP_CDP) | BIT(DPU_SSPP_EXCL_RECT))
+>>>>>>   #define DMA_CURSOR_SDM845_MASK \
+>>>>>
+>>>>> VIG_SDM845_MASK and DMA_SDM845_MASK are used for many other 
+>>>>> chipsets like 8250, 8450, 8550.
+>>>>>
+>>>>> At the moment, for visual validation of this series, I only have 
+>>>>> sc7180/sc7280. We are leaving the rest for CI.
+>>>>>
+>>>>> Was that an intentional approach?
+>>>>>
+>>>>> If so, we will need tested-by tags from folks having 
+>>>>> 8350/8450/8550/sc8280x,qcm2290?
+>>>>>
+>>>>> I am only owning the visual validation on sc7280 atm.
+>>>>
+>>>> I'm not quite sure what is your intent here. Are there any SoCs 
+>>>> after 845 that do not have SmartDMA 2.5? Or do you propose to enable 
+>>>> SmartDMA only for the chipsets that we can visually test? That 
+>>>> sounds strange.
+>>>>
+>>>
+>>> Yes I was thinking to enable smartDMA at the moment on chipsets which 
+>>> we can validate visually that display comes up. But I am not sure if 
+>>> thats entirely practical.
+>>>
+>>> But the intent was I just want to make sure basic display does come 
+>>> up with smartDMA enabled if we are enabling it for all chipsets.
+>>
+>> I don't think it is practical or logical. We don't require validating 
+>> other changes on all possible chipsets, so what is so different with 
+>> this one?
+>>
+> 
+> Thats because with smartDMA if the programming of stages goes wrong we 
+> could potentially just see a blank screen. Its not about other changes, 
+> this change in particular controls enabling a feature.
+> 
+> But thats just my thought. I am not going to request to ensure this or 
+> block this for this.
+> 
+> You can still have my
+> 
+> Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
+> 
+> But think of the validations that have to be done before we merge it.
 
-Thats because with smartDMA if the programming of stages goes wrong we 
-could potentially just see a blank screen. Its not about other changes, 
-this change in particular controls enabling a feature.
+The usual way: verify as much as feasible and let anybody else complain 
+during the development cycle.
 
-But thats just my thought. I am not going to request to ensure this or 
-block this for this.
+-- 
+With best wishes
+Dmitry
 
-You can still have my
-
-Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
-
-But think of the validations that have to be done before we merge it.
