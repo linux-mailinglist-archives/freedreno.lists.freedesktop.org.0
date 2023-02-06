@@ -1,58 +1,70 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5864E68C416
-	for <lists+freedreno@lfdr.de>; Mon,  6 Feb 2023 18:01:20 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 732A168C5C3
+	for <lists+freedreno@lfdr.de>; Mon,  6 Feb 2023 19:30:45 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 13DF410E9B9;
-	Mon,  6 Feb 2023 17:01:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3620310EA00;
+	Mon,  6 Feb 2023 18:30:44 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ot1-f54.google.com (mail-ot1-f54.google.com
- [209.85.210.54])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 42F1210E9B9;
- Mon,  6 Feb 2023 17:01:18 +0000 (UTC)
-Received: by mail-ot1-f54.google.com with SMTP id
- f5-20020a9d5f05000000b00684c0c2eb3fso3360985oti.10; 
- Mon, 06 Feb 2023 09:01:18 -0800 (PST)
+Received: from mail-ej1-x62c.google.com (mail-ej1-x62c.google.com
+ [IPv6:2a00:1450:4864:20::62c])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4C27F10EA00
+ for <freedreno@lists.freedesktop.org>; Mon,  6 Feb 2023 18:30:42 +0000 (UTC)
+Received: by mail-ej1-x62c.google.com with SMTP id dr8so36735736ejc.12
+ for <freedreno@lists.freedesktop.org>; Mon, 06 Feb 2023 10:30:42 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=/jYmi9IvnFIypy0mds4wMWCZZJQWX6LaMpS3CK15Nck=;
+ b=meb3gpgNV8yB3mS6e4DHFRab1mSjoBU1gs/uHV8RbeJ9ixwvDP3EFdHrl5gakVyEXs
+ el94qLuYPpmldddxpgwWxG9Z3edGYOVQkE0BcwE0EvanV6ZGm9GsEoE1uZF0V4B5GabJ
+ sLlRy5R+CjUVYLEpAXny8VmNeiJi9g3s3yWm5+wZwODLewLy+3iBxUayAmqR5WZDUSo5
+ gLJCOIKNizbpMkjTNGHLGejUlOlfBw5jTeO1MAv7WDwm21EYgARwg08KJDPiYKYnn2Kl
+ mHW590FmluZhKrOhCZ3jPQaovHMwSojFwlfGSG+9r2js9ihTfpxs4oEM4QmDvfQpyvRP
+ neTA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=ftsYnNwfAHRlDnIU3/2K9ANJVoP0nQzARnX/oV/Q5nE=;
- b=If0f5QQyK8QHIoQ45VubJix1KsoEDmW9tpb7j0gPAYTYsNFMaoOEqCgRr0dpr2jsxt
- uQyIzchy6ikrYhNnuREnKIDJx+7E44rZGSclF9f+LXNbOVmLxCl36ldb04oRrwRLG5jD
- 4hBjyToNkr3/Blqu2kkRXtMMseKaaaKlrmalCDGgGljhNqCZwgAgjlp9DSt3GsP0r7nt
- k47e+B8zs88tzJg3jHylR4bICUcfSfhbubFvpGMnuCOmJvym5kjl1ERChKCPYIkTD7cc
- ZQkIGNCn9GBli0CZ76hnxnn72ljyNEt44flXKcZrZ5xFeuxx0pXkp1P/ux/LzAOmkWaa
- wJYg==
-X-Gm-Message-State: AO0yUKXLWBSo1F1A43beluSNw1b/9J4yaNOGbq6L5wSvIm4pcqmuHupN
- o4s1992VvvieEJTjkyWdPw==
-X-Google-Smtp-Source: AK7set8IlglwpH0WJv/MQ+9QnqEUE0o4e/FYzaxxqKBSSV+ySvVKlkQIAgWzXHjyv36wLGYY/XWAVQ==
-X-Received: by 2002:a9d:2af:0:b0:68b:d7cb:dd62 with SMTP id
- 44-20020a9d02af000000b0068bd7cbdd62mr160379otl.10.1675702877032; 
- Mon, 06 Feb 2023 09:01:17 -0800 (PST)
-Received: from robh_at_kernel.org (66-90-144-107.dyn.grandenetworks.net.
- [66.90.144.107]) by smtp.gmail.com with ESMTPSA id
- a4-20020a9d74c4000000b0068be372babfsm5231719otl.47.2023.02.06.09.01.16
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 06 Feb 2023 09:01:16 -0800 (PST)
-Received: (nullmailer pid 226818 invoked by uid 1000);
- Mon, 06 Feb 2023 17:01:14 -0000
-Date: Mon, 6 Feb 2023 11:01:14 -0600
-From: Rob Herring <robh@kernel.org>
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Message-ID: <167570287416.226763.12601295284493714271.robh@kernel.org>
-References: <20230206002735.2736935-1-dmitry.baryshkov@linaro.org>
- <20230206002735.2736935-5-dmitry.baryshkov@linaro.org>
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=/jYmi9IvnFIypy0mds4wMWCZZJQWX6LaMpS3CK15Nck=;
+ b=MqldItjIpiyRzCACy5xBcmJE6eoO6Ev+F5ef5gcF22aSoVKoIEkkHxEuRVeNAvjEQ7
+ 8STA/z4ApsCeWnYWf+o7iaNwh8kKRZhaaL+uMHn4R3Dj4cvOR1j69bY1bozwP6YG4Ic9
+ v1dcrTf5m1K1iMzgQK1yOoYEUCf5eXRW7QOisT1Dt87z/CA1LTbaOHFZPBuffLg1seG4
+ f4BXr5tcfNjo6Pb+tFgTQqJvhHuEnYyIK4idQk+p+k2C7jvmchcKjJzSyzBfqXDqZS9q
+ flsr/Quk6coSiG82/0R6X75z55Xn8hpkXuUcNHl4u3QL2LMecf86E05Rc80/iUsfEPyZ
+ d5xg==
+X-Gm-Message-State: AO0yUKWyJqOJPwaVheyK052/1o2QU1uykBjoPm5qTqsdos/3hkkSJ9gm
+ b82GMKBGzhSQPH/Ala2rrDmVcQ==
+X-Google-Smtp-Source: AK7set9h7k+5/mLKiqGh8P5Hj7oMyP9YAgx1ZMwdMQ1pClIoToN8Rko8Eh30kdGfwAF1NAkOZG3vcA==
+X-Received: by 2002:a17:907:9706:b0:878:4c4e:1c6a with SMTP id
+ jg6-20020a170907970600b008784c4e1c6amr421164ejc.3.1675708240771; 
+ Mon, 06 Feb 2023 10:30:40 -0800 (PST)
+Received: from [192.168.1.101] (abxh117.neoplus.adsl.tpnet.pl. [83.9.1.117])
+ by smtp.gmail.com with ESMTPSA id
+ ui4-20020a170907c90400b0087848a5daf5sm5837441ejc.225.2023.02.06.10.30.37
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 06 Feb 2023 10:30:40 -0800 (PST)
+Message-ID: <b5592c00-87ff-dcf7-7342-56c4c593fc42@linaro.org>
+Date: Mon, 6 Feb 2023 19:30:30 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20230206002735.2736935-5-dmitry.baryshkov@linaro.org>
-Subject: Re: [Freedreno] [PATCH 3/8] dt-bindings: display/msm/gmu: add
- Adreno 660 support
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.7.1
+Content-Language: en-US
+To: linux-arm-msm@vger.kernel.org, andersson@kernel.org, agross@kernel.org,
+ krzysztof.kozlowski@linaro.org
+References: <20230126151618.225127-1-konrad.dybcio@linaro.org>
+ <20230126151618.225127-7-konrad.dybcio@linaro.org>
+From: Konrad Dybcio <konrad.dybcio@linaro.org>
+In-Reply-To: <20230126151618.225127-7-konrad.dybcio@linaro.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+Subject: Re: [Freedreno] [PATCH 06/14] drm/msm/gpu: Use dev_pm_opp_set_rate
+ for non-GMU GPUs
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,30 +77,63 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sean Paul <sean@poorly.run>, devicetree@vger.kernel.org,
- Rob Herring <robh+dt@kernel.org>, Stephen Boyd <sboyd@kernel.org>,
- linux-arm-msm@vger.kernel.org, Bjorn Andersson <andersson@kernel.org>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
- Konrad Dybcio <konrad.dybcio@linaro.org>,
- Michael Turquette <mturquette@baylibre.com>, Rob Clark <robdclark@gmail.com>,
- Taniya Das <quic_tdas@quicinc.com>, Andy Gross <agross@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Daniel Vetter <daniel@ffwll.ch>, freedreno@lists.freedesktop.org,
- David Airlie <airlied@gmail.com>, linux-clk@vger.kernel.org
+Cc: freedreno@lists.freedesktop.org, Dan Carpenter <error27@gmail.com>,
+ Emma Anholt <emma@anholt.net>, Akhil P Oommen <quic_akhilpo@quicinc.com>,
+ David Airlie <airlied@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Rob Clark <robdclark@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, marijn.suijten@somainline.org,
+ Sean Paul <sean@poorly.run>, Chia-I Wu <olvaffe@gmail.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 
-On Mon, 06 Feb 2023 02:27:30 +0200, Dmitry Baryshkov wrote:
-> Add Adreno A660 to the A635 clause to define all version-specific
-> properties. There is no need to add it to the top-level clause, since
-> top-level compatible uses pattern to define compatible strings.
+
+On 26.01.2023 16:16, Konrad Dybcio wrote:
+> Currently we only utilize the OPP table connected to the GPU for
+> getting (available) frequencies. We do however need to scale the
+> voltage rail(s) accordingly to ensure that we aren't trying to
+> run the GPU at 1GHz with a VDD_LOW vote, as that would result in
+> an otherwise inexplainable hang.
 > 
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> Tell the OPP framework that we want to scale the "core" clock
+> and swap out the clk_set_rate to a dev_pm_opp_set_rate in
+> msm_devfreq_target() to enable usage of required-opps and by
+> extension proper voltage level/corner scaling.
+> 
+> Signed-off-by: Konrad Dybcio <konrad.dybcio@linaro.org>
 > ---
->  Documentation/devicetree/bindings/display/msm/gmu.yaml | 1 +
->  1 file changed, 1 insertion(+)
+Welp, as-is, this breaks devfreq on GPUs with a GMU.. Will fix..
+
+Konrad
+>  drivers/gpu/drm/msm/adreno/adreno_gpu.c | 3 +++
+>  drivers/gpu/drm/msm/msm_gpu_devfreq.c   | 2 +-
+>  2 files changed, 4 insertions(+), 1 deletion(-)
 > 
-
-Acked-by: Rob Herring <robh@kernel.org>
-
+> diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.c b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
+> index 817599766329..c85ae3845a4e 100644
+> --- a/drivers/gpu/drm/msm/adreno/adreno_gpu.c
+> +++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
+> @@ -1047,6 +1047,9 @@ int adreno_gpu_init(struct drm_device *drm, struct platform_device *pdev,
+>  	const char *gpu_name;
+>  	u32 speedbin;
+>  
+> +	/* This can only be done here, or devm_pm_opp_set_supported_hw will WARN_ON() */
+> +	devm_pm_opp_set_clkname(dev, "core");
+> +
+>  	adreno_gpu->funcs = funcs;
+>  	adreno_gpu->info = adreno_info(config->rev);
+>  	adreno_gpu->gmem = adreno_gpu->info->gmem;
+> diff --git a/drivers/gpu/drm/msm/msm_gpu_devfreq.c b/drivers/gpu/drm/msm/msm_gpu_devfreq.c
+> index e27dbf12b5e8..ea70c1c32d94 100644
+> --- a/drivers/gpu/drm/msm/msm_gpu_devfreq.c
+> +++ b/drivers/gpu/drm/msm/msm_gpu_devfreq.c
+> @@ -48,7 +48,7 @@ static int msm_devfreq_target(struct device *dev, unsigned long *freq,
+>  		gpu->funcs->gpu_set_freq(gpu, opp, df->suspended);
+>  		mutex_unlock(&df->lock);
+>  	} else {
+> -		clk_set_rate(gpu->core_clk, *freq);
+> +		dev_pm_opp_set_rate(dev, *freq);
+>  	}
+>  
+>  	dev_pm_opp_put(opp);
