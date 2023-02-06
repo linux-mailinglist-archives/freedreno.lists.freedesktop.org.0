@@ -1,77 +1,67 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0949868BEA5
-	for <lists+freedreno@lfdr.de>; Mon,  6 Feb 2023 14:48:26 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 3865668C099
+	for <lists+freedreno@lfdr.de>; Mon,  6 Feb 2023 15:57:15 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 43ECC10E2C1;
-	Mon,  6 Feb 2023 13:48:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5709E10E3F5;
+	Mon,  6 Feb 2023 14:57:13 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from mail-ej1-x629.google.com (mail-ej1-x629.google.com
  [IPv6:2a00:1450:4864:20::629])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 520CD10E2C1
- for <freedreno@lists.freedesktop.org>; Mon,  6 Feb 2023 13:48:22 +0000 (UTC)
-Received: by mail-ej1-x629.google.com with SMTP id mf7so34319585ejc.6
- for <freedreno@lists.freedesktop.org>; Mon, 06 Feb 2023 05:48:22 -0800 (PST)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B763C10E3F5
+ for <freedreno@lists.freedesktop.org>; Mon,  6 Feb 2023 14:57:10 +0000 (UTC)
+Received: by mail-ej1-x629.google.com with SMTP id hr39so5344514ejc.7
+ for <freedreno@lists.freedesktop.org>; Mon, 06 Feb 2023 06:57:10 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=7DSYAfUXUUP4MIoOh4HHwy5x2f6nGWbivR5aX9CwOIg=;
- b=tkfioc4Y+yOnqLeumSMurAzIDI/uOifUgODc/nZF2nVBnzdx5Tdjzz1sZqdhwNhtjv
- D7dzLulsC+KKb95yJ2vodmX6GpuguI/3RB0wdsSqvYT8jK7RWOZiAo5CaF8T7bz/p3dn
- US5bj6jML9eW0XGvvvfxUcz7Vd20PP1ZmKh1RYTRDo5lgZef4svVgBFcH4wNKlDaYHz/
- 9URZ/tG/ljJQfiKCDVX40CMItzKH8vd/phkxo8gPiTvaZDrOGGkpig6/em6uTn1MOhqZ
- +EwYShnRqN95iMbgwg5F89rz8SwTG/FwJd/iLzyHGXws6ZH5MeSZZYvDSYnLPo9sr8nN
- I2lw==
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=cLuf1U+2WjifV8fnrslcwZDFA4TZvCGB2iPkwtWqNUI=;
+ b=oq9jViBl3HA8dQj59yZsQcWYKhAEvJWr1Mqzc1nDjWd3kRLMlEJmDIhfOc2l+p9NLd
+ sEyjvRaMXAsm/bYtTpQnIz65QqWwNZzD2ixnXeIv/n7h0wwjcYKGqo5UlUhhHj/+UxhN
+ Vjip+0N5Gcg9eBr6e9L2FgnlD02pMQtDmefHpu6L6q15uOGJwGLd6Q+iHLS5qDhwcnpv
+ jcH/BDXAdXafNKaM0EBgworEii3bTIRcz1nDLBmzdKEdZFuwosxwjqEO4W6y868kqLfD
+ btVyftrdECwXZvuYQTLDMsH366OL3edNWQJg4/Ues9yHsG8FHbMc5frF17qLpR6RVgFB
+ TLKA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=7DSYAfUXUUP4MIoOh4HHwy5x2f6nGWbivR5aX9CwOIg=;
- b=zs9nU5uqlJek1YS7VWqYA1LQBWnItEaPNcGKY5AcRWms+53BQLNSwhkY4dqFEhkMZO
- PC9quQEd0teuqRkVrCDRLGjgEwEX1ME+b4xVlS6bnVLv9DsCGAURhV3QZ8rehKbMGKf9
- ooFWIQpljCxQvsA+B8Hmg3BFHhtFPCqwDkKofIuX9JroPNEFktHCxPbn99cMijFaiafL
- brhdqjGmKskgET543YY1OI6gSQCMUjQuAvk9byNiDCbFX6KUtCiyhfl5SvGlr7NS7m0F
- PAuKZl4+xAQxwGiJEnIDZu91QrZetjUaAdl+SCcPC2/OuYLNDaQkS4p61QqIuRZefC7G
- +YZA==
-X-Gm-Message-State: AO0yUKXFg9mciGLIBT2+2+/l8vGjxTV7PjmwismIZjw+LiomG+DU9iir
- A+3rObYmQjin1kDkqrtuUyzmR/RApDyKMskI
-X-Google-Smtp-Source: AK7set+vDHCKTVSEKbuDNDGuSK63qztUjHGNlEofh2EyIQ6xcD/OXnr21hX3OgfgaHBDOV1cl/ibWA==
-X-Received: by 2002:a17:907:c26:b0:88d:ba89:1850 with SMTP id
- ga38-20020a1709070c2600b0088dba891850mr18023903ejc.33.1675691300895; 
- Mon, 06 Feb 2023 05:48:20 -0800 (PST)
-Received: from ?IPV6:2001:14ba:a085:4d00::8a5?
- (dzccz6yyyyyyyyyyybcwt-3.rev.dnainternet.fi. [2001:14ba:a085:4d00::8a5])
- by smtp.gmail.com with ESMTPSA id
- gz21-20020a170907a05500b0086a2e31d1c1sm5476676ejc.28.2023.02.06.05.48.19
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 06 Feb 2023 05:48:20 -0800 (PST)
-Message-ID: <fe79de89-f5bd-57d5-9048-3997b102d33d@linaro.org>
-Date: Mon, 6 Feb 2023 15:48:19 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.7.1
-Content-Language: en-GB
-To: Konrad Dybcio <konrad.dybcio@linaro.org>, Andy Gross <agross@kernel.org>, 
- Bjorn Andersson <andersson@kernel.org>, Stephen Boyd <sboyd@kernel.org>,
- Michael Turquette <mturquette@baylibre.com>, Rob Herring
- <robh+dt@kernel.org>, Krzysztof Kozlowski
- <krzysztof.kozlowski+dt@linaro.org>, Taniya Das <quic_tdas@quicinc.com>,
- Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Sean Paul <sean@poorly.run>
-References: <20230206002735.2736935-1-dmitry.baryshkov@linaro.org>
- <20230206002735.2736935-9-dmitry.baryshkov@linaro.org>
- <a09a26cd-5b46-214e-90b3-a4388b8b2a5a@linaro.org>
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=cLuf1U+2WjifV8fnrslcwZDFA4TZvCGB2iPkwtWqNUI=;
+ b=H/WTOXrxumpNrx/i4/ja31BXToT0pwDtn28vfOvxPsOmUWVRYUuRhu1J9sCyDN461i
+ rTIP1rRZhR1GT53pxwNA5UAp7Kw0c9fcYg94FUWgoq3cV1f7AA3psLfApFK9ycs9jJYa
+ IaxTR/OPGgxE4ktVSju0xOIRhp8/uYJ7WDG3asWLk5l4FNYfxq8WzFsSjP3qV7Mynb/r
+ sFurpGodbrcrtXc9BTrC80dRQMDqMVez1kmRHFft8zzMi1koS04rcut7mKBe/l2FPLhb
+ aQR2Hs9INKqd6NYd8TwbXmbYO1j9srSNbVRWugD2z1j/lLpNLkylkD7FYD5HCaRyeZYV
+ +iQQ==
+X-Gm-Message-State: AO0yUKW7BXDV+srCTX+hCtqDeyhSSbvxSWC/FVfGqaB5y1sP3DqPMTrs
+ v8yNP0sltwPgT/rsn8i/V8Ty+Q==
+X-Google-Smtp-Source: AK7set/oKvZyc+ZrfLJPgnfOVLJVKoAm0Z0SgsTUoA8rN3b3dRK6zhySANFVfe+x2ByyCb7N0W7vLw==
+X-Received: by 2002:a17:907:7ba9:b0:87b:d3dd:e0ca with SMTP id
+ ne41-20020a1709077ba900b0087bd3dde0camr13140091ejc.26.1675695429234; 
+ Mon, 06 Feb 2023 06:57:09 -0800 (PST)
+Received: from eriador.lan (dzccz6yyyyyyyyyyybcwt-3.rev.dnainternet.fi.
+ [2001:14ba:a085:4d00::8a5]) by smtp.gmail.com with ESMTPSA id
+ gw1-20020a170906f14100b0087bd4e34eb8sm5495533ejb.203.2023.02.06.06.57.07
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 06 Feb 2023 06:57:08 -0800 (PST)
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-In-Reply-To: <a09a26cd-5b46-214e-90b3-a4388b8b2a5a@linaro.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH 7/8] arm64: dts: qcom: sm8350: add GPU, GMU,
- GPU CC and SMMU nodes
+To: Andy Gross <agross@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konrad.dybcio@linaro.org>, Stephen Boyd <sboyd@kernel.org>,
+ Michael Turquette <mturquette@baylibre.com>,
+ Rob Herring <robh+dt@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Taniya Das <quic_tdas@quicinc.com>
+Date: Mon,  6 Feb 2023 16:56:59 +0200
+Message-Id: <20230206145707.122937-1-dmitry.baryshkov@linaro.org>
+X-Mailer: git-send-email 2.39.1
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Subject: [Freedreno] [PATCH v2 0/8] arm64: dts: qcom: sm8350: enable GPU on
+ the HDK board
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -84,243 +74,45 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- Daniel Vetter <daniel@ffwll.ch>, David Airlie <airlied@gmail.com>,
- linux-clk@vger.kernel.org
+Cc: devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
+ Rob Clark <robdclark@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ David Airlie <airlied@gmail.com>, freedreno@lists.freedesktop.org,
+ Sean Paul <sean@poorly.run>, linux-clk@vger.kernel.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 06/02/2023 12:51, Konrad Dybcio wrote:
-> 
-> 
-> On 6.02.2023 01:27, Dmitry Baryshkov wrote:
->> Add device nodes required to enable GPU on the SM8350 platform.
->>
->> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
->> ---
->>   arch/arm64/boot/dts/qcom/sm8350.dtsi | 179 +++++++++++++++++++++++++++
->>   1 file changed, 179 insertions(+)
->>
->> diff --git a/arch/arm64/boot/dts/qcom/sm8350.dtsi b/arch/arm64/boot/dts/qcom/sm8350.dtsi
->> index e5b308957f88..a73cd9eb63e0 100644
->> --- a/arch/arm64/boot/dts/qcom/sm8350.dtsi
->> +++ b/arch/arm64/boot/dts/qcom/sm8350.dtsi
->> @@ -7,6 +7,7 @@
->>   #include <dt-bindings/interrupt-controller/arm-gic.h>
->>   #include <dt-bindings/clock/qcom,dispcc-sm8350.h>
->>   #include <dt-bindings/clock/qcom,gcc-sm8350.h>
->> +#include <dt-bindings/clock/qcom,gpucc-sm8350.h>
->>   #include <dt-bindings/clock/qcom,rpmh.h>
->>   #include <dt-bindings/dma/qcom-gpi.h>
->>   #include <dt-bindings/gpio/gpio.h>
->> @@ -1767,6 +1768,184 @@ tcsr_mutex: hwlock@1f40000 {
->>   			#hwlock-cells = <1>;
->>   		};
->>   
->> +		gpu: gpu@3d00000 {
->> +			compatible = "qcom,adreno-660.1",
->> +				     "qcom,adreno";
-> No need to wrap this line.
-> 
->> +
->> +			reg = <0 0x03d00000 0 0x40000>,
->> +			      <0 0x03d9e000 0 0x1000>,
->> +			      <0 0x03d61000 0 0x800>;
->> +			reg-names = "kgsl_3d0_reg_memory",
->> +				    "cx_mem",
->> +				    "cx_dbgc";
->> +
->> +			interrupts = <GIC_SPI 300 IRQ_TYPE_LEVEL_HIGH>;
->> +
->> +			iommus = <&adreno_smmu 0 0x400>, <&adreno_smmu 1 0x400>;
->> +
->> +			operating-points-v2 = <&gpu_opp_table>;
->> +
->> +			qcom,gmu = <&gmu>;
->> +
->> +			status = "disabled";
->> +
->> +			zap-shader {
->> +				memory-region = <&pil_gpu_mem>;
->> +			};
->> +
->> +			/* note: downstream checks gpu binning for 670 Mhz */
->> +			gpu_opp_table: opp-table {
->> +				compatible = "operating-points-v2";
->> +
->> +				/* not for v1 */
-> The shipping version is v2.1 and you defined the 660.1 chipid,
-> which maps to lahaina(>=v2)
+Add A660 device to the Qualcomm SM8350 platform and enable it for the
+sm8350-hdk board. Unfortunately while adding the GPU & related devices I
+noticed that DT nodes on SM8350 are greatly out of the preagreed order,
+so patches 4-6 reorder DT nodes to follow the agreement.
 
-Yes, let's drop these comments.
+Changes since v1:
+- Fixed the subject and commit message for patch 1
+- Fixed GMU's clocks to follow the vendor kernel
+- Marked Adreno SMMU as dma-coherent
+- Dropped comments targeting sm8350 v1, we do not support that chip
+  revision.
 
-> 
->> +				opp-840000000 {
->> +					opp-hz = /bits/ 64 <840000000>;
->> +					opp-level = <RPMH_REGULATOR_LEVEL_TURBO_L1>;
->> +				};
->> +
->> +				/* not for v1 */
->> +				opp-778000000 {
->> +					opp-hz = /bits/ 64 <778000000>;
->> +					opp-level = <RPMH_REGULATOR_LEVEL_TURBO>;
->> +				};
->> +
->> +				/* not for v1 */
->> +				opp-738000000 {
->> +					opp-hz = /bits/ 64 <738000000>;
->> +					opp-level = <RPMH_REGULATOR_LEVEL_NOM_L1>;
->> +				};
->> +
->> +				/* for v1
->> +				opp-710000000 {
->> +					opp-hz = /bits/ 64 <710000000>;
->> +					opp-level = <RPMH_REGULATOR_LEVEL_NOM_L1>;
->> +				};
->> +				*/
->> +
->> +				opp-676000000 {
->> +					opp-hz = /bits/ 64 <676000000>;
->> +					opp-level = <RPMH_REGULATOR_LEVEL_NOM>;
->> +				};
->> +
->> +				opp-608000000 {
->> +					opp-hz = /bits/ 64 <608000000>;
->> +					opp-level = <RPMH_REGULATOR_LEVEL_SVS_L2>;
->> +				};
->> +
->> +				opp-540000000 {
->> +					opp-hz = /bits/ 64 <540000000>;
->> +					opp-level = <RPMH_REGULATOR_LEVEL_SVS_L1>;
->> +				};
->> +
->> +				/* not for v1 */
->> +				opp-491000000 {
->> +					opp-hz = /bits/ 64 <491000000>;
->> +					opp-level = <RPMH_REGULATOR_LEVEL_SVS_L0>;
->> +				};
->> +
->> +				opp-443000000 {
->> +					opp-hz = /bits/ 64 <443000000>;
->> +					opp-level = <RPMH_REGULATOR_LEVEL_SVS>;
->> +				};
->> +
->> +				/* not for v1 */
->> +				opp-379000000 {
->> +					opp-hz = /bits/ 64 <379000000>;
->> +					opp-level = <RPMH_REGULATOR_LEVEL_LOW_SVS_L1>;
->> +				};
->> +
->> +				opp-315000000 {
->> +					opp-hz = /bits/ 64 <315000000>;
->> +					opp-level = <RPMH_REGULATOR_LEVEL_LOW_SVS>;
->> +				};
->> +			};
->> +		};
->> +
->> +		gmu: gmu@3d6a000 {
->> +			compatible = "qcom,adreno-gmu-660.1", "qcom,adreno-gmu";
->> +
->> +			reg = <0 0x03d6a000 0 0x34000>,
->> +			      <0 0x03de0000 0 0x10000>,
->> +			      <0 0x0b290000 0 0x10000>;
->> +			reg-names = "gmu", "rscc", "gmu_pdc";
->> +
->> +			interrupts = <GIC_SPI 304 IRQ_TYPE_LEVEL_HIGH>,
->> +				     <GIC_SPI 305 IRQ_TYPE_LEVEL_HIGH>;
->> +			interrupt-names = "hfi", "gmu";
->> +
->> +			clocks = <&gpucc GPU_CC_CX_GMU_CLK>,
->> +				 <&gpucc GPU_CC_CXO_CLK>,
->> +				 <&gcc GCC_DDRSS_GPU_AXI_CLK>,
->> +				 <&gcc GCC_GPU_MEMNOC_GFX_CLK>,
->> +				 <&gpucc GPU_CC_AHB_CLK>,
->> +				 <&gpucc GPU_CC_HUB_CX_INT_CLK>,
->> +				 <&gpucc GPU_CC_HLOS1_VOTE_GPU_SMMU_CLK>;
-> Shouldn't this one belong to the smmu?
+Dmitry Baryshkov (8):
+  dt-bindings: clock: Merge qcom,gpucc-sm8350 into qcom,gpucc.yaml
+  dt-bindings: power: qcom,rpmpd: add RPMH_REGULATOR_LEVEL_LOW_SVS_L1
+  dt-bindings: display/msm/gmu: add Adreno 660 support
+  arm64: dts: qcom: sm8350: reorder device nodes
+  arm64: dts: qcom: sm8350: move more nodes to correct place
+  arm64: dts: qcom: sm8350: finish reordering nodes
+  arm64: dts: qcom: sm8350: add GPU, GMU, GPU CC and SMMU nodes
+  arm64: dts: qcom: sm8350-hdk: enable GPU
 
-The vendor kernel lists it both for the smmu and the gpu. SC7280 also 
-lists it for both devices. I'll take a look at the smmu clocks for the v2.
-
-> 
->> +			clock-names = "gmu",
->> +				      "cxo",
->> +				      "axi",
->> +				      "memnoc",
->> +				      "ahb",
->> +				      "hub",
->> +				      "smmu_vote";
->> +
->> +			power-domains = <&gpucc GPU_CX_GDSC>,
->> +					<&gpucc GPU_GX_GDSC>;
->> +			power-domain-names = "cx",
->> +					     "gx";
->> +
->> +			iommus = <&adreno_smmu 5 0x400>;
->> +
->> +			operating-points-v2 = <&gmu_opp_table>;
->> +
->> +			gmu_opp_table: opp-table {
->> +				compatible = "operating-points-v2";
->> +
->> +				opp-200000000 {
->> +					opp-hz = /bits/ 64 <200000000>;
->> +					opp-level = <RPMH_REGULATOR_LEVEL_MIN_SVS>;
->> +				};
->> +			};
->> +		};
->> +
->> +		gpucc: clock-controller@3d90000 {
->> +			compatible = "qcom,sm8350-gpucc";
->> +			reg = <0 0x03d90000 0 0x9000>;
->> +			clocks = <&rpmhcc RPMH_CXO_CLK>,
->> +				 <&gcc GCC_GPU_GPLL0_CLK_SRC>,
->> +				 <&gcc GCC_GPU_GPLL0_DIV_CLK_SRC>;
->> +			clock-names = "bi_tcxo",
->> +				      "gcc_gpu_gpll0_clk_src",
->> +				      "gcc_gpu_gpll0_div_clk_src";
->> +			#clock-cells = <1>;
->> +			#reset-cells = <1>;
->> +			#power-domain-cells = <1>;
->> +		};
->> +
->> +		adreno_smmu: iommu@3da0000 {
->> +			compatible = "qcom,sm8350-smmu-500", "qcom,adreno-smmu", "arm,mmu-500";
->> +			reg = <0 0x03da0000 0 0x20000>;
->> +			#iommu-cells = <2>;
->> +			#global-interrupts = <2>;
->> +			interrupts = <GIC_SPI 672 IRQ_TYPE_LEVEL_HIGH>,
->> +				     <GIC_SPI 673 IRQ_TYPE_LEVEL_HIGH>,
->> +				     <GIC_SPI 678 IRQ_TYPE_LEVEL_HIGH>,
->> +				     <GIC_SPI 679 IRQ_TYPE_LEVEL_HIGH>,
->> +				     <GIC_SPI 680 IRQ_TYPE_LEVEL_HIGH>,
->> +				     <GIC_SPI 681 IRQ_TYPE_LEVEL_HIGH>,
->> +				     <GIC_SPI 682 IRQ_TYPE_LEVEL_HIGH>,
->> +				     <GIC_SPI 683 IRQ_TYPE_LEVEL_HIGH>,
->> +				     <GIC_SPI 684 IRQ_TYPE_LEVEL_HIGH>,
->> +				     <GIC_SPI 685 IRQ_TYPE_LEVEL_HIGH>,
->> +				     <GIC_SPI 686 IRQ_TYPE_LEVEL_HIGH>,
->> +				     <GIC_SPI 687 IRQ_TYPE_LEVEL_HIGH>;
->> +			clocks = <&gpucc GPU_CC_AHB_CLK>,
->> +				 <&gcc GCC_GPU_MEMNOC_GFX_CLK>,
->> +				 <&gcc GCC_GPU_SNOC_DVM_GFX_CLK>;
->> +			clock-names = "ahb", "bus", "iface";
->> +
->> +			power-domains = <&gpucc GPU_CX_GDSC>;
-> Downstream marks this smmu dma-coherent
-
-
-
-> 
-> Konrad
->> +		};
->> +
->>   		lpass_ag_noc: interconnect@3c40000 {
->>   			compatible = "qcom,sm8350-lpass-ag-noc";
->>   			reg = <0 0x03c40000 0 0xf080>;
+ .../bindings/clock/qcom,gpucc-sm8350.yaml     |   71 -
+ .../devicetree/bindings/clock/qcom,gpucc.yaml |    2 +
+ .../devicetree/bindings/display/msm/gmu.yaml  |    1 +
+ arch/arm64/boot/dts/qcom/sm8350-hdk.dts       |    8 +
+ arch/arm64/boot/dts/qcom/sm8350.dtsi          | 2512 +++++++++--------
+ include/dt-bindings/power/qcom-rpmpd.h        |    1 +
+ 6 files changed, 1357 insertions(+), 1238 deletions(-)
+ delete mode 100644 Documentation/devicetree/bindings/clock/qcom,gpucc-sm8350.yaml
 
 -- 
-With best wishes
-Dmitry
+2.39.1
 
