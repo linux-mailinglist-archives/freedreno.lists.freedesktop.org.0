@@ -1,74 +1,78 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5911268C779
-	for <lists+freedreno@lfdr.de>; Mon,  6 Feb 2023 21:19:10 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 1825468C9B1
+	for <lists+freedreno@lfdr.de>; Mon,  6 Feb 2023 23:41:13 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5761610EA36;
-	Mon,  6 Feb 2023 20:19:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 88BBC10EA51;
+	Mon,  6 Feb 2023 22:41:11 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ed1-x52a.google.com (mail-ed1-x52a.google.com
- [IPv6:2a00:1450:4864:20::52a])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A58B310E43A
- for <freedreno@lists.freedesktop.org>; Mon,  6 Feb 2023 20:19:05 +0000 (UTC)
-Received: by mail-ed1-x52a.google.com with SMTP id eq11so12887449edb.6
- for <freedreno@lists.freedesktop.org>; Mon, 06 Feb 2023 12:19:05 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=YpSBEYnC1yN1Z48asglOX+KVnSlBsHak3KW73YE2TaY=;
- b=s9pgKZv6vt41rE7EzzpJpXmOr8fEaNHTztldIuVXDDqVfSasjl0BdM+YCYYLO7FI8j
- kAwYc1wep9rcIEHW4U9+b8nl4MPCpdIMbhVFY2XORAaEB/Be3SzjtYIcR/quaYvu8IgF
- ON01RjCIkRDY3QJh7VI+qAx+VM3S6AR394PONdrpTVQKg88aZDFm+db5EnUWIKFAB+/3
- g55mHYoOqsrG4EY2lWxJZDWL82fxrAnywPNM74BaNGQg3ei5MfnZ4qcOgcOh1UArAd2n
- LzgYa/5PP6CorgICmOMufzvuZ0y/NLkztmzJM/LCMnROIbxXKrPGJak69BAhnahjeHAP
- OWiw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=YpSBEYnC1yN1Z48asglOX+KVnSlBsHak3KW73YE2TaY=;
- b=1CutneP9WNZayF5yFFD5Er+8C1pUSXFQQrsR6w4mOxW9G+hlD3vcpxCONB9a2BLvrP
- 4k18wiXSv8UUqSmVWfPQ+2LFO/eIRdN9pQBxXFUr6Bn4/y2gn8SqwHcReWEw1yJzYXNk
- ljIkmKzKPDi3wToS2PgXOClAZAGsyde2GGIs+V0GFudy8dCeLJPEDPloBUgmmDSMBFG7
- B6tCXTGo+bsyn85A8ZwkwARLGcwvlsILxyc7kC9lCjNkXLTEKVSljE/IgdiyvjYgUKUd
- E0E74jxncMZ7N8xw8SKydAVnCDqGUYdtElvgvo3uiDS93OJU5qkohxqMZpu/lNXD6L22
- M9WA==
-X-Gm-Message-State: AO0yUKXWFHUQ0TNBbMgaqEbjQeybIsUt2jH0HYpX4KRh9gckUqvuyeoT
- E20XeuiLRMTuyR9swrueLKY8dg==
-X-Google-Smtp-Source: AK7set+93id+gKLuBNqT3Prum9OcgkVfpgKbUX+ICOlvjJ2gZ2QBT5DFEuY9o/3ohDGDi2lvDi2s1Q==
-X-Received: by 2002:a50:d7da:0:b0:4aa:b36a:7601 with SMTP id
- m26-20020a50d7da000000b004aab36a7601mr998335edj.24.1675714744222; 
- Mon, 06 Feb 2023 12:19:04 -0800 (PST)
-Received: from [192.168.1.101] (abxh117.neoplus.adsl.tpnet.pl. [83.9.1.117])
- by smtp.gmail.com with ESMTPSA id
- i3-20020aa7c9c3000000b004a087d1d313sm5478682edt.64.2023.02.06.12.19.01
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 06 Feb 2023 12:19:03 -0800 (PST)
-Message-ID: <6ee1f7d7-a923-8f93-f68b-decdc263987a@linaro.org>
-Date: Mon, 6 Feb 2023 21:19:00 +0100
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CDE1010E448;
+ Mon,  6 Feb 2023 22:41:08 +0000 (UTC)
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 316LZ7kL025162; Mon, 6 Feb 2023 22:41:01 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
+ h=message-id : date :
+ mime-version : subject : to : cc : references : from : in-reply-to :
+ content-type : content-transfer-encoding; s=qcppdkim1;
+ bh=qxmgFX3uR17bheyYPvZb+m8zWhRhqqAapI4bxd4AHYI=;
+ b=I8asiENrr3VJ8FLU5xt9RHYDG5MXYjo1d63nUdheKJOf/ZYej1KZbJsIGGyfPAVMhADb
+ 3p4ZNXXz6q31V3VocqHCe69zMeLgQSXkMOxXlaBCOgDMrs75p5zvNjYOY4fiMGlcHFHQ
+ y28NvGNp+L1LcfNs0dJmCeFlPkEaViBx6cKnfd5joc5RWIcssOtheC/utZzDLoXTDdR/
+ lVK3PRJpRjPfJVRwtwJb8Ib3D32eFRH/Lp3/xXpeRu7pBMb9DBDXpvG4vDkVS+aN+azr
+ wUBTuJLevaAWT/wRJfqO7HhtbyJmgdHmSfYyH21cy9K7oivUpVM9sFyqgO1GPnWeQEyX mg== 
+Received: from nalasppmta03.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3nhfrevuxc-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 06 Feb 2023 22:41:00 +0000
+Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
+ [10.47.209.196])
+ by NALASPPMTA03.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 316MexNf010777
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 6 Feb 2023 22:40:59 GMT
+Received: from [10.110.44.26] (10.80.80.8) by nalasex01a.na.qualcomm.com
+ (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.36; Mon, 6 Feb 2023
+ 14:40:59 -0800
+Message-ID: <502f2c4b-193d-07ca-3b73-8fe7a608e736@quicinc.com>
+Date: Mon, 6 Feb 2023 14:40:58 -0800
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.7.1
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
+ Thunderbird/91.6.2
 Content-Language: en-US
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Andy Gross <agross@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
- Stephen Boyd <sboyd@kernel.org>, Michael Turquette
- <mturquette@baylibre.com>, Rob Herring <robh+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Taniya Das <quic_tdas@quicinc.com>
-References: <20230206145707.122937-1-dmitry.baryshkov@linaro.org>
- <20230206145707.122937-3-dmitry.baryshkov@linaro.org>
-From: Konrad Dybcio <konrad.dybcio@linaro.org>
-In-Reply-To: <20230206145707.122937-3-dmitry.baryshkov@linaro.org>
-Content-Type: text/plain; charset=UTF-8
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Rob Clark
+ <robdclark@gmail.com>, Sean Paul <sean@poorly.run>
+References: <20230203182132.1307834-1-dmitry.baryshkov@linaro.org>
+ <20230203182132.1307834-22-dmitry.baryshkov@linaro.org>
+From: Abhinav Kumar <quic_abhinavk@quicinc.com>
+In-Reply-To: <20230203182132.1307834-22-dmitry.baryshkov@linaro.org>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
 Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH v2 2/8] dt-bindings: power: qcom,
- rpmpd: add RPMH_REGULATOR_LEVEL_LOW_SVS_L1
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-ORIG-GUID: 28MKAgPWnQOk-xWOUI9CurFybS69BJj0
+X-Proofpoint-GUID: 28MKAgPWnQOk-xWOUI9CurFybS69BJj0
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.219,Aquarius:18.0.930,Hydra:6.0.562,FMLib:17.11.122.1
+ definitions=2023-02-06_07,2023-02-06_03,2022-06-22_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0
+ lowpriorityscore=0 spamscore=0 clxscore=1015 impostorscore=0 mlxscore=0
+ malwarescore=0 priorityscore=1501 adultscore=0 mlxlogscore=802
+ phishscore=0 suspectscore=0 classifier=spam adjust=0 reason=mlx
+ scancount=1 engine=8.12.0-2212070000 definitions=main-2302060197
+Subject: Re: [Freedreno] [PATCH v3 21/27] drm/msm/dpu: simplify
+ dpu_plane_validate_src()
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,36 +85,92 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
- Rob Clark <robdclark@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- David Airlie <airlied@gmail.com>, freedreno@lists.freedesktop.org,
- Sean Paul <sean@poorly.run>, linux-clk@vger.kernel.org
+Cc: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
+ Bjorn Andersson <andersson@kernel.org>, dri-devel@lists.freedesktop.org,
+ Stephen Boyd <swboyd@chromium.org>, Daniel Vetter <daniel@ffwll.ch>,
+ David Airlie <airlied@gmail.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 
 
-On 6.02.2023 15:57, Dmitry Baryshkov wrote:
-> Add define for another power saving state used on SM8350 for the GPU.
+On 2/3/2023 10:21 AM, Dmitry Baryshkov wrote:
+> Since the driver uses clipped src coordinates, there is no need to check
+> against the fb coordinates. Remove corresponding checks and inline
+> dpu_plane_validate_src().
 > 
 > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> ---
-Reviewed-by: Konrad Dybcio <konrad.dybcio@linaro.org>
 
-Konrad
->  include/dt-bindings/power/qcom-rpmpd.h | 1 +
->  1 file changed, 1 insertion(+)
+Can you please explain how the clipping in 
+drm_atomic_helper_check_plane_state() can allow us to remove checking 
+the fb co-ordinates?
+
+The clipping is done using the mode parameters.
+
+So lets say the FB being used is smaller than the source buffer by an 
+incorrect usermode setting.
+
+Then the src sspp shall try to fetch the full image of src rectangle 
+size from a FB which isnt that big leading to a fault.
+
+How does the clipping avoid such a case?
+
+> ---
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c | 30 ++++++++---------------
+>   1 file changed, 10 insertions(+), 20 deletions(-)
 > 
-> diff --git a/include/dt-bindings/power/qcom-rpmpd.h b/include/dt-bindings/power/qcom-rpmpd.h
-> index 4a30d10e6b7d..1bf8e87ecd7e 100644
-> --- a/include/dt-bindings/power/qcom-rpmpd.h
-> +++ b/include/dt-bindings/power/qcom-rpmpd.h
-> @@ -211,6 +211,7 @@
->  #define RPMH_REGULATOR_LEVEL_MIN_SVS	48
->  #define RPMH_REGULATOR_LEVEL_LOW_SVS_D1	56
->  #define RPMH_REGULATOR_LEVEL_LOW_SVS	64
-> +#define RPMH_REGULATOR_LEVEL_LOW_SVS_L1	80
->  #define RPMH_REGULATOR_LEVEL_SVS	128
->  #define RPMH_REGULATOR_LEVEL_SVS_L0	144
->  #define RPMH_REGULATOR_LEVEL_SVS_L1	192
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
+> index ecf5402ab61a..0986e740b978 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
+> @@ -894,25 +894,6 @@ static void dpu_plane_cleanup_fb(struct drm_plane *plane,
+>   				old_pstate->needs_dirtyfb);
+>   }
+>   
+> -static bool dpu_plane_validate_src(struct drm_rect *src,
+> -				   struct drm_rect *fb_rect,
+> -				   uint32_t min_src_size)
+> -{
+> -	/* Ensure fb size is supported */
+> -	if (drm_rect_width(fb_rect) > MAX_IMG_WIDTH ||
+> -	    drm_rect_height(fb_rect) > MAX_IMG_HEIGHT)
+> -		return false;
+> -
+> -	/* Ensure src rect is above the minimum size */
+> -	if (drm_rect_width(src) < min_src_size ||
+> -	    drm_rect_height(src) < min_src_size)
+> -		return false;
+> -
+> -	/* Ensure src is fully encapsulated in fb */
+> -	return drm_rect_intersect(fb_rect, src) &&
+> -		drm_rect_equals(fb_rect, src);
+> -}
+> -
+>   static int dpu_plane_check_inline_rotation(struct dpu_plane *pdpu,
+>   						const struct dpu_sspp_sub_blks *sblk,
+>   						struct drm_rect src, const struct dpu_format *fmt)
+> @@ -998,6 +979,14 @@ static int dpu_plane_atomic_check(struct drm_plane *plane,
+>   	fb_rect.x2 = new_plane_state->fb->width;
+>   	fb_rect.y2 = new_plane_state->fb->height;
+>   
+> +	/* Ensure fb size is supported */
+> +	if (drm_rect_width(&fb_rect) > MAX_IMG_WIDTH ||
+> +	    drm_rect_height(&fb_rect) > MAX_IMG_HEIGHT) {
+> +		DPU_DEBUG_PLANE(pdpu, "invalid framebuffer " DRM_RECT_FMT "\n",
+> +				DRM_RECT_ARG(&fb_rect));
+> +		return -E2BIG;
+> +	}
+> +
+>   	max_linewidth = pdpu->catalog->caps->max_linewidth;
+>   
+>   	fmt = to_dpu_format(msm_framebuffer_format(new_plane_state->fb));
+> @@ -1012,7 +1001,8 @@ static int dpu_plane_atomic_check(struct drm_plane *plane,
+>   		return -EINVAL;
+>   
+>   	/* check src bounds */
+> -	} else if (!dpu_plane_validate_src(&pipe_cfg->src_rect, &fb_rect, min_src_size)) {
+> +	} else if (drm_rect_width(&pipe_cfg->src_rect) < min_src_size ||
+> +		   drm_rect_height(&pipe_cfg->src_rect) < min_src_size) {
+>   		DPU_DEBUG_PLANE(pdpu, "invalid source " DRM_RECT_FMT "\n",
+>   				DRM_RECT_ARG(&pipe_cfg->src_rect));
+>   		return -E2BIG;
