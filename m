@@ -1,69 +1,58 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id C68E768C0C0
-	for <lists+freedreno@lfdr.de>; Mon,  6 Feb 2023 15:57:34 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 33F5768C40F
+	for <lists+freedreno@lfdr.de>; Mon,  6 Feb 2023 18:00:00 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0A36B10E48F;
-	Mon,  6 Feb 2023 14:57:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D99E210E9DE;
+	Mon,  6 Feb 2023 16:59:58 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ej1-x62c.google.com (mail-ej1-x62c.google.com
- [IPv6:2a00:1450:4864:20::62c])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4D0FB10E46B
- for <freedreno@lists.freedesktop.org>; Mon,  6 Feb 2023 14:57:19 +0000 (UTC)
-Received: by mail-ej1-x62c.google.com with SMTP id hx15so34858549ejc.11
- for <freedreno@lists.freedesktop.org>; Mon, 06 Feb 2023 06:57:19 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=rvpJire9Oix0QZVP0x0MsRm7055RqWG85WNJGR1ah78=;
- b=FhbKMLoNFUAWgn+KHQ69RJuJ/z1JEUNsDQLrN26ILh2sf38Q3tVGNkFLuWo7zm3hH4
- VLLg21KcCOr24lh65lsSoa7CFwvGDQg42Xs4nYoAgezqd74ZEifIf7d99YOwT2POgPxu
- j04Uzj4TeRpRGz/s1hUBFsC0C6dM0EcH5wEgBez56Xx15AdyJ/h91W2KsUEBWywAiVoO
- wx63kmm1nCsonj4IV3MCPAY8NJPyJylDJZEps7dYSqUZT3dHnoOkB2IbRt5G+ZvIOmf+
- 7DNnzBJwmUc79kb6U31NzTmt4lWLA3gS4hqhDcw2RKrAyNwORB1EVwHdF44tBgTWs+gc
- Qpbg==
+Received: from mail-ot1-f41.google.com (mail-ot1-f41.google.com
+ [209.85.210.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0173010E9DD;
+ Mon,  6 Feb 2023 16:59:56 +0000 (UTC)
+Received: by mail-ot1-f41.google.com with SMTP id
+ v24-20020a05683011d800b0068bdd29b160so3353491otq.13; 
+ Mon, 06 Feb 2023 08:59:56 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=rvpJire9Oix0QZVP0x0MsRm7055RqWG85WNJGR1ah78=;
- b=SELQri3kywSHGfgz1yQDUVwBf8zsGCJVg9y6xstVeg2t6gEFBwsrZrWTPYiXT6P6Z+
- 4haL4aotoE/cbH4yYAk5T1hGebDvH58rVJHqxPH8z/hkDWpQy79tzrdz9MjyopODJMrR
- uifg9OyyUFfhYF568PU+LNhg5D1E2AkDeVkQ5aGZm8s7L6udIIuBVLOEjgta1Bw34kzG
- FdMXz+76qSzsxC5O1ezqO0VvGWkITzVWS0TGzeIy4rR7fd0apvYh3Ox6WLveyW0eujEF
- 2iEVBL1YppFBo+UBMMi/Xpd29WesWnSxth1jL5Ep2JfvBu6wq0d88C6EpBZJBR1NccsU
- eaxg==
-X-Gm-Message-State: AO0yUKWbobqRmUxFI9dHZAZt0fKIMIqwWDPZ+5x2FPZApQXz5oLiikh6
- fbDbFy5iDkkKBuuMT1d3/i8kkQ==
-X-Google-Smtp-Source: AK7set/BbBwZ2tUdJQcmNpQqX0iYCeNQD2U/sxj9vmbzbl37IVzdRVXDEFmvzjMIvEIWKes98WxnkA==
-X-Received: by 2002:a17:906:4b57:b0:885:2eb5:68a5 with SMTP id
- j23-20020a1709064b5700b008852eb568a5mr17647451ejv.66.1675695438882; 
- Mon, 06 Feb 2023 06:57:18 -0800 (PST)
-Received: from eriador.lan (dzccz6yyyyyyyyyyybcwt-3.rev.dnainternet.fi.
- [2001:14ba:a085:4d00::8a5]) by smtp.gmail.com with ESMTPSA id
- gw1-20020a170906f14100b0087bd4e34eb8sm5495533ejb.203.2023.02.06.06.57.17
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=bWK0RCI2c9XCQOLVOEExMr3jmCL7DBxo8zA9Z9kn5Ag=;
+ b=yKTbSydlinaRkT3foZpH0AVpbtmB0FTgPhVtYxMuy1kf8l0n/vTlllkoXzspf+GGR6
+ h9i7QSqVXcMDwaaER16ZEVOgpHuxJIf96Eri5hvBFuQL3iIGB17Hs6QOzeuphSSehOVA
+ GJ7FHxB9KoFlpkskANQdpmel5n0HwxVZRXb1/VlZa/5f7ZsGbrRx94a1P7zBPxm9yAY4
+ m7XDl9Qq4C/Q9k5O9YJw5RXPyoC+NWCYZIKBmNr7kgnHcDRx5YTe+Bxh2dhif117klQE
+ I895WKxLJizD9EFct4WszHXfNBRQg2Bla8beuWgvoliN2xaGw1jn/HWTDIAiTCIvoU4v
+ Esjw==
+X-Gm-Message-State: AO0yUKVuvE1HSwbWNhcEZuwcjMC58I/EDIMUIcQgOUZ3Imi/HhmJZb/c
+ 2dbIzUpc3n0cm2LLPLhBJg==
+X-Google-Smtp-Source: AK7set+XQrYkk7RAD6BXw1EcNpzL9QdntLhl7DipkBZC75I4/eFBpxanK/9FuQ3Xv7ABN9tYcoDv3Q==
+X-Received: by 2002:a05:6830:6483:b0:68d:51fe:7b6b with SMTP id
+ ck3-20020a056830648300b0068d51fe7b6bmr153666otb.8.1675702796198; 
+ Mon, 06 Feb 2023 08:59:56 -0800 (PST)
+Received: from robh_at_kernel.org (66-90-144-107.dyn.grandenetworks.net.
+ [66.90.144.107]) by smtp.gmail.com with ESMTPSA id
+ r5-20020a9d7cc5000000b0068bcd200247sm5132312otn.75.2023.02.06.08.59.55
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 06 Feb 2023 06:57:18 -0800 (PST)
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-To: Andy Gross <agross@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konrad.dybcio@linaro.org>, Stephen Boyd <sboyd@kernel.org>,
- Michael Turquette <mturquette@baylibre.com>,
- Rob Herring <robh+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Taniya Das <quic_tdas@quicinc.com>
-Date: Mon,  6 Feb 2023 16:57:07 +0200
-Message-Id: <20230206145707.122937-9-dmitry.baryshkov@linaro.org>
-X-Mailer: git-send-email 2.39.1
-In-Reply-To: <20230206145707.122937-1-dmitry.baryshkov@linaro.org>
-References: <20230206145707.122937-1-dmitry.baryshkov@linaro.org>
+ Mon, 06 Feb 2023 08:59:55 -0800 (PST)
+Received: (nullmailer pid 224852 invoked by uid 1000);
+ Mon, 06 Feb 2023 16:59:54 -0000
+Date: Mon, 6 Feb 2023 10:59:54 -0600
+From: Rob Herring <robh@kernel.org>
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Message-ID: <167570279425.224789.8066014720500178753.robh@kernel.org>
+References: <20230206002735.2736935-1-dmitry.baryshkov@linaro.org>
+ <20230206002735.2736935-2-dmitry.baryshkov@linaro.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH v2 8/8] arm64: dts: qcom: sm8350-hdk: enable GPU
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20230206002735.2736935-2-dmitry.baryshkov@linaro.org>
+Subject: Re: [Freedreno] [PATCH 1/8] dt-bindings: clock: Merge qcom,
+ gpucc-sm8350 into qcom, gpucc.yaml
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,41 +65,35 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
- Rob Clark <robdclark@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- David Airlie <airlied@gmail.com>, freedreno@lists.freedesktop.org,
+Cc: devicetree@vger.kernel.org, Daniel Vetter <daniel@ffwll.ch>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, Stephen Boyd <sboyd@kernel.org>,
+ freedreno@lists.freedesktop.org, Michael Turquette <mturquette@baylibre.com>,
+ Bjorn Andersson <andersson@kernel.org>, Andy Gross <agross@kernel.org>,
+ dri-devel@lists.freedesktop.org, Taniya Das <quic_tdas@quicinc.com>,
+ Konrad Dybcio <konrad.dybcio@linaro.org>, Rob Clark <robdclark@gmail.com>,
+ Rob Herring <robh+dt@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ linux-arm-msm@vger.kernel.org, David Airlie <airlied@gmail.com>,
  Sean Paul <sean@poorly.run>, linux-clk@vger.kernel.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Enable the GPU on the SM8350-HDK device. The ZAP shader is required for
-the GPU to function properly.
 
-Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
----
- arch/arm64/boot/dts/qcom/sm8350-hdk.dts | 8 ++++++++
- 1 file changed, 8 insertions(+)
+On Mon, 06 Feb 2023 02:27:27 +0200, Dmitry Baryshkov wrote:
+> The GPU clock controller bindings for the Qualcomm sm8350 platform are
+> not correct. The driver uses .fw_name instead of using indices to bind
+> parent clocks, thus demanding the clock-names usage. With the proper
+> clock-names in place, the bindings becomes equal to the bindings defined
+> by qcom,gpucc.yaml, so it is impractical to keep them in a separate
+> file.
+> 
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> ---
+>  .../bindings/clock/qcom,gpucc-sm8350.yaml     | 71 -------------------
+>  .../devicetree/bindings/clock/qcom,gpucc.yaml |  2 +
+>  2 files changed, 2 insertions(+), 71 deletions(-)
+>  delete mode 100644 Documentation/devicetree/bindings/clock/qcom,gpucc-sm8350.yaml
+> 
 
-diff --git a/arch/arm64/boot/dts/qcom/sm8350-hdk.dts b/arch/arm64/boot/dts/qcom/sm8350-hdk.dts
-index df841230d1b7..5e744423a673 100644
---- a/arch/arm64/boot/dts/qcom/sm8350-hdk.dts
-+++ b/arch/arm64/boot/dts/qcom/sm8350-hdk.dts
-@@ -284,6 +284,14 @@ &gpi_dma1 {
- 	status = "okay";
- };
- 
-+&gpu {
-+	status = "okay";
-+
-+	zap-shader {
-+		firmware-name = "qcom/sm8350/a660_zap.mbn";
-+	};
-+};
-+
- &i2c15 {
- 	clock-frequency = <400000>;
- 	status = "okay";
--- 
-2.39.1
+Acked-by: Rob Herring <robh@kernel.org>
 
