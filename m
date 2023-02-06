@@ -2,77 +2,73 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id ECD7768C66C
-	for <lists+freedreno@lfdr.de>; Mon,  6 Feb 2023 20:08:09 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5911268C779
+	for <lists+freedreno@lfdr.de>; Mon,  6 Feb 2023 21:19:10 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8E70A10EA1F;
-	Mon,  6 Feb 2023 19:08:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5761610EA36;
+	Mon,  6 Feb 2023 20:19:08 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3055010E195;
- Mon,  6 Feb 2023 19:08:06 +0000 (UTC)
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 316IqmxF027785; Mon, 6 Feb 2023 19:08:00 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
- h=message-id : date :
- mime-version : subject : to : cc : references : from : in-reply-to :
- content-type : content-transfer-encoding; s=qcppdkim1;
- bh=uIJzNVae7twb2yzgMADriGyIb2GKZdfimt/CObM9pqc=;
- b=pNbrx3yiK8mSXhAg0iwioaAvDxEglEYt0i8TvzR5MTdfRMhS+WRWl8A/U+y4DKlXO8am
- YJ/4oO4QWfZBwxPSYMqYiDRhJhXj2861Qw2Lh0gcYHwFXJG4GUYfobJIHbR7pkEUe9uo
- +BSk0VTwgtbhKfmpeiRK6jWsc1fNDZTmprDfeXFiiAsk2zE2v+4q2qgakyYal4PGADvS
- R6PhIw3T7lS4emp9iV4CTvGDBlH5OmxLrwIfoGjDVqo6M8buzAUN4VBkEA7bbLT0r6kb
- pH9GgNPPVulfXp1bOYanwdkLgorYEl7sq4tI/siJ03bgXlv1VTw4EfF5VDWpzVc7rczd 7Q== 
-Received: from nalasppmta05.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3nhcqxvqwa-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 06 Feb 2023 19:08:00 +0000
-Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
- [10.47.209.196])
- by NALASPPMTA05.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 316J7xFA024491
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 6 Feb 2023 19:07:59 GMT
-Received: from [10.110.44.26] (10.80.80.8) by nalasex01a.na.qualcomm.com
- (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.36; Mon, 6 Feb 2023
- 11:07:58 -0800
-Message-ID: <8e89bdc2-94ff-63b8-3089-c946e0226cff@quicinc.com>
-Date: Mon, 6 Feb 2023 11:07:57 -0800
+Received: from mail-ed1-x52a.google.com (mail-ed1-x52a.google.com
+ [IPv6:2a00:1450:4864:20::52a])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A58B310E43A
+ for <freedreno@lists.freedesktop.org>; Mon,  6 Feb 2023 20:19:05 +0000 (UTC)
+Received: by mail-ed1-x52a.google.com with SMTP id eq11so12887449edb.6
+ for <freedreno@lists.freedesktop.org>; Mon, 06 Feb 2023 12:19:05 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=YpSBEYnC1yN1Z48asglOX+KVnSlBsHak3KW73YE2TaY=;
+ b=s9pgKZv6vt41rE7EzzpJpXmOr8fEaNHTztldIuVXDDqVfSasjl0BdM+YCYYLO7FI8j
+ kAwYc1wep9rcIEHW4U9+b8nl4MPCpdIMbhVFY2XORAaEB/Be3SzjtYIcR/quaYvu8IgF
+ ON01RjCIkRDY3QJh7VI+qAx+VM3S6AR394PONdrpTVQKg88aZDFm+db5EnUWIKFAB+/3
+ g55mHYoOqsrG4EY2lWxJZDWL82fxrAnywPNM74BaNGQg3ei5MfnZ4qcOgcOh1UArAd2n
+ LzgYa/5PP6CorgICmOMufzvuZ0y/NLkztmzJM/LCMnROIbxXKrPGJak69BAhnahjeHAP
+ OWiw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=YpSBEYnC1yN1Z48asglOX+KVnSlBsHak3KW73YE2TaY=;
+ b=1CutneP9WNZayF5yFFD5Er+8C1pUSXFQQrsR6w4mOxW9G+hlD3vcpxCONB9a2BLvrP
+ 4k18wiXSv8UUqSmVWfPQ+2LFO/eIRdN9pQBxXFUr6Bn4/y2gn8SqwHcReWEw1yJzYXNk
+ ljIkmKzKPDi3wToS2PgXOClAZAGsyde2GGIs+V0GFudy8dCeLJPEDPloBUgmmDSMBFG7
+ B6tCXTGo+bsyn85A8ZwkwARLGcwvlsILxyc7kC9lCjNkXLTEKVSljE/IgdiyvjYgUKUd
+ E0E74jxncMZ7N8xw8SKydAVnCDqGUYdtElvgvo3uiDS93OJU5qkohxqMZpu/lNXD6L22
+ M9WA==
+X-Gm-Message-State: AO0yUKXWFHUQ0TNBbMgaqEbjQeybIsUt2jH0HYpX4KRh9gckUqvuyeoT
+ E20XeuiLRMTuyR9swrueLKY8dg==
+X-Google-Smtp-Source: AK7set+93id+gKLuBNqT3Prum9OcgkVfpgKbUX+ICOlvjJ2gZ2QBT5DFEuY9o/3ohDGDi2lvDi2s1Q==
+X-Received: by 2002:a50:d7da:0:b0:4aa:b36a:7601 with SMTP id
+ m26-20020a50d7da000000b004aab36a7601mr998335edj.24.1675714744222; 
+ Mon, 06 Feb 2023 12:19:04 -0800 (PST)
+Received: from [192.168.1.101] (abxh117.neoplus.adsl.tpnet.pl. [83.9.1.117])
+ by smtp.gmail.com with ESMTPSA id
+ i3-20020aa7c9c3000000b004a087d1d313sm5478682edt.64.2023.02.06.12.19.01
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 06 Feb 2023 12:19:03 -0800 (PST)
+Message-ID: <6ee1f7d7-a923-8f93-f68b-decdc263987a@linaro.org>
+Date: Mon, 6 Feb 2023 21:19:00 +0100
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.6.2
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.7.1
 Content-Language: en-US
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Rob Clark
- <robdclark@gmail.com>, Sean Paul <sean@poorly.run>
-References: <20230203182132.1307834-1-dmitry.baryshkov@linaro.org>
- <20230203182132.1307834-21-dmitry.baryshkov@linaro.org>
-From: Abhinav Kumar <quic_abhinavk@quicinc.com>
-In-Reply-To: <20230203182132.1307834-21-dmitry.baryshkov@linaro.org>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Andy Gross <agross@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
+ Stephen Boyd <sboyd@kernel.org>, Michael Turquette
+ <mturquette@baylibre.com>, Rob Herring <robh+dt@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Taniya Das <quic_tdas@quicinc.com>
+References: <20230206145707.122937-1-dmitry.baryshkov@linaro.org>
+ <20230206145707.122937-3-dmitry.baryshkov@linaro.org>
+From: Konrad Dybcio <konrad.dybcio@linaro.org>
+In-Reply-To: <20230206145707.122937-3-dmitry.baryshkov@linaro.org>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-ORIG-GUID: d0PwH237qKeu6ikM1_mkqZok_Irj22Wl
-X-Proofpoint-GUID: d0PwH237qKeu6ikM1_mkqZok_Irj22Wl
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.219,Aquarius:18.0.930,Hydra:6.0.562,FMLib:17.11.122.1
- definitions=2023-02-06_07,2023-02-06_03,2022-06-22_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0
- priorityscore=1501 suspectscore=0 clxscore=1015 mlxscore=0
- lowpriorityscore=0 bulkscore=0 spamscore=0 phishscore=0 impostorscore=0
- mlxlogscore=999 adultscore=0 classifier=spam adjust=0 reason=mlx
- scancount=1 engine=8.12.0-2212070000 definitions=main-2302060166
-Subject: Re: [Freedreno] [PATCH v3 20/27] drm/msm/dpu: add dpu_hw_pipe_cfg
- to dpu_plane_state
+Subject: Re: [Freedreno] [PATCH v2 2/8] dt-bindings: power: qcom,
+ rpmpd: add RPMH_REGULATOR_LEVEL_LOW_SVS_L1
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -85,208 +81,36 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
- Bjorn Andersson <andersson@kernel.org>, dri-devel@lists.freedesktop.org,
- Stephen Boyd <swboyd@chromium.org>, Daniel Vetter <daniel@ffwll.ch>,
- David Airlie <airlied@gmail.com>
+Cc: devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
+ Rob Clark <robdclark@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ David Airlie <airlied@gmail.com>, freedreno@lists.freedesktop.org,
+ Sean Paul <sean@poorly.run>, linux-clk@vger.kernel.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 
 
-On 2/3/2023 10:21 AM, Dmitry Baryshkov wrote:
-> Now as all accesses to pipe_cfg and pstate have been cleaned, re-add
-> struct dpu_hw_pipe_cfg back to dpu_plane_state, so that
-> dpu_plane_atomic_check() and dpu_plane_atomic_update() do not have a
-> chance to disagree about src/dst rectangles (currently
-> dpu_plane_atomic_check() uses unclipped rectangles, while
-> dpu_plane_atomic_update() uses clipped rectangles calculated by
-> drm_atomic_helper_check_plane_state()).
+On 6.02.2023 15:57, Dmitry Baryshkov wrote:
+> Add define for another power saving state used on SM8350 for the GPU.
 > 
-The title of the patch should now say "add dpu_hw_sspp_cfg"
-
-I have a question on the commit text, why does it say "re-add" and not 
-"add".
-
-dpu_hw_pipe_cfg/dpu_hw_sspp_cfg was not a part of dpu_plane_state even 
-before and I dont recall it was removed in this series and then added back.
-
 > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 > ---
->   drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c | 64 ++++++++++-------------
->   drivers/gpu/drm/msm/disp/dpu1/dpu_plane.h |  2 +
->   2 files changed, 30 insertions(+), 36 deletions(-)
+Reviewed-by: Konrad Dybcio <konrad.dybcio@linaro.org>
+
+Konrad
+>  include/dt-bindings/power/qcom-rpmpd.h | 1 +
+>  1 file changed, 1 insertion(+)
 > 
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
-> index 09a3fde1c910..ecf5402ab61a 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
-> @@ -951,7 +951,8 @@ static int dpu_plane_atomic_check(struct drm_plane *plane,
->   	struct dpu_plane_state *pstate = to_dpu_plane_state(new_plane_state);
->   	const struct drm_crtc_state *crtc_state = NULL;
->   	const struct dpu_format *fmt;
-> -	struct drm_rect src, dst, fb_rect = { 0 };
-> +	struct dpu_hw_sspp_cfg *pipe_cfg = &pstate->pipe_cfg;
-> +	struct drm_rect fb_rect = { 0 };
->   	uint32_t min_src_size, max_linewidth;
->   	unsigned int rotation;
->   	uint32_t supported_rotations;
-> @@ -984,12 +985,15 @@ static int dpu_plane_atomic_check(struct drm_plane *plane,
->   		return -EINVAL;
->   	}
->   
-> -	src.x1 = new_plane_state->src_x >> 16;
-> -	src.y1 = new_plane_state->src_y >> 16;
-> -	src.x2 = src.x1 + (new_plane_state->src_w >> 16);
-> -	src.y2 = src.y1 + (new_plane_state->src_h >> 16);
-> +	pipe_cfg->src_rect = new_plane_state->src;
->   
-> -	dst = drm_plane_state_dest(new_plane_state);
-> +	/* state->src is 16.16, src_rect is not */
-> +	pipe_cfg->src_rect.x1 >>= 16;
-> +	pipe_cfg->src_rect.x2 >>= 16;
-> +	pipe_cfg->src_rect.y1 >>= 16;
-> +	pipe_cfg->src_rect.y2 >>= 16;
-> +
-> +	pipe_cfg->dst_rect = new_plane_state->dst;
->   
->   	fb_rect.x2 = new_plane_state->fb->width;
->   	fb_rect.y2 = new_plane_state->fb->height;
-> @@ -1008,30 +1012,30 @@ static int dpu_plane_atomic_check(struct drm_plane *plane,
->   		return -EINVAL;
->   
->   	/* check src bounds */
-> -	} else if (!dpu_plane_validate_src(&src, &fb_rect, min_src_size)) {
-> +	} else if (!dpu_plane_validate_src(&pipe_cfg->src_rect, &fb_rect, min_src_size)) {
->   		DPU_DEBUG_PLANE(pdpu, "invalid source " DRM_RECT_FMT "\n",
-> -				DRM_RECT_ARG(&src));
-> +				DRM_RECT_ARG(&pipe_cfg->src_rect));
->   		return -E2BIG;
->   
->   	/* valid yuv image */
->   	} else if (DPU_FORMAT_IS_YUV(fmt) &&
-> -		   (src.x1 & 0x1 || src.y1 & 0x1 ||
-> -		    drm_rect_width(&src) & 0x1 ||
-> -		    drm_rect_height(&src) & 0x1)) {
-> +		   (pipe_cfg->src_rect.x1 & 0x1 || pipe_cfg->src_rect.y1 & 0x1 ||
-> +		    drm_rect_width(&pipe_cfg->src_rect) & 0x1 ||
-> +		    drm_rect_height(&pipe_cfg->src_rect) & 0x1)) {
->   		DPU_DEBUG_PLANE(pdpu, "invalid yuv source " DRM_RECT_FMT "\n",
-> -				DRM_RECT_ARG(&src));
-> +				DRM_RECT_ARG(&pipe_cfg->src_rect));
->   		return -EINVAL;
->   
->   	/* min dst support */
-> -	} else if (drm_rect_width(&dst) < 0x1 || drm_rect_height(&dst) < 0x1) {
-> +	} else if (drm_rect_width(&pipe_cfg->dst_rect) < 0x1 || drm_rect_height(&pipe_cfg->dst_rect) < 0x1) {
->   		DPU_DEBUG_PLANE(pdpu, "invalid dest rect " DRM_RECT_FMT "\n",
-> -				DRM_RECT_ARG(&dst));
-> +				DRM_RECT_ARG(&pipe_cfg->dst_rect));
->   		return -EINVAL;
->   
->   	/* check decimated source width */
-> -	} else if (drm_rect_width(&src) > max_linewidth) {
-> +	} else if (drm_rect_width(&pipe_cfg->src_rect) > max_linewidth) {
->   		DPU_DEBUG_PLANE(pdpu, "invalid src " DRM_RECT_FMT " line:%u\n",
-> -				DRM_RECT_ARG(&src), max_linewidth);
-> +				DRM_RECT_ARG(&pipe_cfg->src_rect), max_linewidth);
->   		return -E2BIG;
->   	}
->   
-> @@ -1045,7 +1049,7 @@ static int dpu_plane_atomic_check(struct drm_plane *plane,
->   
->   	if ((pipe_hw_caps->features & BIT(DPU_SSPP_INLINE_ROTATION)) &&
->   		(rotation & DRM_MODE_ROTATE_90)) {
-> -		ret = dpu_plane_check_inline_rotation(pdpu, sblk, src, fmt);
-> +		ret = dpu_plane_check_inline_rotation(pdpu, sblk, pipe_cfg->src_rect, fmt);
->   		if (ret)
->   			return ret;
->   	}
-> @@ -1120,9 +1124,7 @@ static void dpu_plane_sspp_atomic_update(struct drm_plane *plane)
->   	bool is_rt_pipe;
->   	const struct dpu_format *fmt =
->   		to_dpu_format(msm_framebuffer_format(fb));
-> -	struct dpu_hw_sspp_cfg pipe_cfg;
-> -
-> -	memset(&pipe_cfg, 0, sizeof(struct dpu_hw_sspp_cfg));
-> +	struct dpu_hw_sspp_cfg *pipe_cfg = &pstate->pipe_cfg;
->   
->   	_dpu_plane_set_scanout(plane, pstate, fb);
->   
-> @@ -1139,16 +1141,6 @@ static void dpu_plane_sspp_atomic_update(struct drm_plane *plane)
->   			crtc->base.id, DRM_RECT_ARG(&state->dst),
->   			(char *)&fmt->base.pixel_format, DPU_FORMAT_IS_UBWC(fmt));
->   
-> -	pipe_cfg.src_rect = state->src;
-> -
-> -	/* state->src is 16.16, src_rect is not */
-> -	pipe_cfg.src_rect.x1 >>= 16;
-> -	pipe_cfg.src_rect.x2 >>= 16;
-> -	pipe_cfg.src_rect.y1 >>= 16;
-> -	pipe_cfg.src_rect.y2 >>= 16;
-> -
-> -	pipe_cfg.dst_rect = state->dst;
-> -
->   	/* override for color fill */
->   	if (pdpu->color_fill & DPU_PLANE_COLOR_FILL_FLAG) {
->   		/* skip remaining processing on color fill */
-> @@ -1157,10 +1149,10 @@ static void dpu_plane_sspp_atomic_update(struct drm_plane *plane)
->   
->   	if (pipe->sspp->ops.setup_rects) {
->   		pipe->sspp->ops.setup_rects(pipe,
-> -				&pipe_cfg);
-> +				pipe_cfg);
->   	}
->   
-> -	_dpu_plane_setup_scaler(pipe, fmt, false, &pipe_cfg, pstate->rotation);
-> +	_dpu_plane_setup_scaler(pipe, fmt, false, pipe_cfg, pstate->rotation);
->   
->   	if (pipe->sspp->ops.setup_multirect)
->   		pipe->sspp->ops.setup_multirect(
-> @@ -1201,12 +1193,12 @@ static void dpu_plane_sspp_atomic_update(struct drm_plane *plane)
->   		}
->   	}
->   
-> -	_dpu_plane_set_qos_lut(plane, pipe, fmt, &pipe_cfg);
-> +	_dpu_plane_set_qos_lut(plane, pipe, fmt, &pstate->pipe_cfg);
->   	_dpu_plane_set_danger_lut(plane, pipe, fmt);
->   
->   	if (plane->type != DRM_PLANE_TYPE_CURSOR) {
->   		_dpu_plane_set_qos_ctrl(plane, pipe, true, DPU_PLANE_QOS_PANIC_CTRL);
-> -		_dpu_plane_set_ot_limit(plane, pipe, crtc, &pipe_cfg);
-> +		_dpu_plane_set_ot_limit(plane, pipe, crtc, &pstate->pipe_cfg);
->   	}
->   
->   	if (pstate->needs_qos_remap) {
-> @@ -1214,9 +1206,9 @@ static void dpu_plane_sspp_atomic_update(struct drm_plane *plane)
->   		_dpu_plane_set_qos_remap(plane, pipe);
->   	}
->   
-> -	pstate->plane_fetch_bw = _dpu_plane_calc_bw(pdpu->catalog, fmt, &crtc->mode, &pipe_cfg);
-> +	pstate->plane_fetch_bw = _dpu_plane_calc_bw(pdpu->catalog, fmt, &crtc->mode, &pstate->pipe_cfg);
->   
-> -	pstate->plane_clk = _dpu_plane_calc_clk(&crtc->mode, &pipe_cfg);
-> +	pstate->plane_clk = _dpu_plane_calc_clk(&crtc->mode, &pstate->pipe_cfg);
->   }
->   
->   static void _dpu_plane_atomic_disable(struct drm_plane *plane)
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.h
-> index a08b0539513b..079dad83eb37 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.h
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.h
-> @@ -19,6 +19,7 @@
->    * @base:	base drm plane state object
->    * @aspace:	pointer to address space for input/output buffers
->    * @pipe:	software pipe description
-> + * @pipe_cfg:	software pipe configuration
->    * @stage:	assigned by crtc blender
->    * @needs_qos_remap: qos remap settings need to be updated
->    * @multirect_index: index of the rectangle of SSPP
-> @@ -33,6 +34,7 @@ struct dpu_plane_state {
->   	struct drm_plane_state base;
->   	struct msm_gem_address_space *aspace;
->   	struct dpu_sw_pipe pipe;
-> +	struct dpu_hw_sspp_cfg pipe_cfg;
->   	enum dpu_stage stage;
->   	bool needs_qos_remap;
->   	bool pending;
+> diff --git a/include/dt-bindings/power/qcom-rpmpd.h b/include/dt-bindings/power/qcom-rpmpd.h
+> index 4a30d10e6b7d..1bf8e87ecd7e 100644
+> --- a/include/dt-bindings/power/qcom-rpmpd.h
+> +++ b/include/dt-bindings/power/qcom-rpmpd.h
+> @@ -211,6 +211,7 @@
+>  #define RPMH_REGULATOR_LEVEL_MIN_SVS	48
+>  #define RPMH_REGULATOR_LEVEL_LOW_SVS_D1	56
+>  #define RPMH_REGULATOR_LEVEL_LOW_SVS	64
+> +#define RPMH_REGULATOR_LEVEL_LOW_SVS_L1	80
+>  #define RPMH_REGULATOR_LEVEL_SVS	128
+>  #define RPMH_REGULATOR_LEVEL_SVS_L0	144
+>  #define RPMH_REGULATOR_LEVEL_SVS_L1	192
