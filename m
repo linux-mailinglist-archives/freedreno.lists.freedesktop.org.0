@@ -2,56 +2,56 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id ADEE968BB42
-	for <lists+freedreno@lfdr.de>; Mon,  6 Feb 2023 12:22:02 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D214C68BB4A
+	for <lists+freedreno@lfdr.de>; Mon,  6 Feb 2023 12:22:48 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 76B1D10E372;
-	Mon,  6 Feb 2023 11:22:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 99AA510E372;
+	Mon,  6 Feb 2023 11:22:47 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ed1-x535.google.com (mail-ed1-x535.google.com
- [IPv6:2a00:1450:4864:20::535])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B5C8210E37A
- for <freedreno@lists.freedesktop.org>; Mon,  6 Feb 2023 11:21:59 +0000 (UTC)
-Received: by mail-ed1-x535.google.com with SMTP id l12so2367485edb.0
- for <freedreno@lists.freedesktop.org>; Mon, 06 Feb 2023 03:21:59 -0800 (PST)
+Received: from mail-ed1-x52c.google.com (mail-ed1-x52c.google.com
+ [IPv6:2a00:1450:4864:20::52c])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 23D4E10E372
+ for <freedreno@lists.freedesktop.org>; Mon,  6 Feb 2023 11:22:46 +0000 (UTC)
+Received: by mail-ed1-x52c.google.com with SMTP id x9so3247317eds.12
+ for <freedreno@lists.freedesktop.org>; Mon, 06 Feb 2023 03:22:46 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :from:to:cc:subject:date:message-id:reply-to;
- bh=ZK68PbjBgg4M4gPDk5TqCOuYlcFHTmMeQziL+2MsNis=;
- b=h2975W79UPeeiMEZ9AHtojxXjXqOEhIDNnOz1yRgLa3z3fTqwO5ib5AUvbn9kl8Xus
- eI8miGLIVwq79HupZGifhB8PqSOJOrF3JDBYP9XNQu6f96B9HxrjXCkpZnSvKxzx3/2M
- ULpkreJdUypaoZ4c537hHg2Mc8bA3z7ON/M2VvT/4XImGF+E34CktBe/FPDQi92zzIzu
- Dv0whz5pE5h+HT/IjJWz9A/ZKv6/8yQWVSpYxMnOpxzV8RqxdMraMlxriEBf42SlCKQ1
- mHjsp0TkTypKa8fR7mjQEXGmXuRe4rni2pR3H3xMhNAKgnTn0n9siJbq78W6jHRBRfEs
- Z26g==
+ bh=XhsHQwvlEXsEH00VOxDhufQtl5xrtldVJBiemzWzN+Q=;
+ b=PZ5eKoCgkHF43ZjOLchNOVMPGXcEm1LoxFaEdmziJtSEbnWbxsA4Us1UFQBE9f2maD
+ kGNl5gyND1zK/qSIYtRwp1FRmzE6CJzR7MYHhY2JFaFzJiJxeU60SWGeIauvtfymvG56
+ WNdb4RzHaIObXKGgVZc55fD4bGbU1+LQMtOEgL1YYtFPRHj4ntGevL+Q1P16xiuSezfy
+ E+ilwt+i9XC+1t9HbFldGu7WrYF8folXKzfTd4aXwGLLIAj3LhTh2+AoibrSn9kNopp7
+ hWl5NOetShpMpI9Hl+QpHVgDog1HGXgihm8c+Kma2oMtEjHAN5AziixcyRy3z6sZDqOQ
+ WZ/w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=ZK68PbjBgg4M4gPDk5TqCOuYlcFHTmMeQziL+2MsNis=;
- b=vgtrIf4uNj+bWTeeuQsD/tfT/u0UaySn8qk+56y6IlN2a8B/bc8mHmYo41toUwyTva
- yTzpkdR/cm2ocEZREa8GZNcWKiZkT/WeUlElmRXU+1pWjRIhVDTgi4nQoFqcRgUlyzzb
- Z2iPLeJREWaWRmLSPeie9VP0IihGSFH3i5t70Ii6DaAOlxWX1qeDn3e4vNOOPCaobo4Y
- LGe4zb0X5R7wff6q4915VpgzJ86ko2ZAHPT+8ZuLa8ZPlmP9IIhrAUBLzyw7Liw6exk3
- TZS1uZRzqhn2IBdCk4kkERmm2msynigwBFiMiBhGKdyHgpuVxIZOlLrG7qcs5tgqYiuC
- flsw==
-X-Gm-Message-State: AO0yUKW0XuVmteWhuMlX/28z9dnVowd+mjx8hPlMZT7MNB0YN5dr9U2l
- yJaZurUuPTDr3z8CwY87k7SlGQ==
-X-Google-Smtp-Source: AK7set9MAC+HCPhW7u6DHBaY5VdUEuLOfkagFMD0u5hl4QeVmrZYor/UME665PgvQT+hcODcQdZlcA==
-X-Received: by 2002:a50:fe86:0:b0:4a0:e415:d39f with SMTP id
- d6-20020a50fe86000000b004a0e415d39fmr17308791edt.41.1675682518249; 
- Mon, 06 Feb 2023 03:21:58 -0800 (PST)
+ bh=XhsHQwvlEXsEH00VOxDhufQtl5xrtldVJBiemzWzN+Q=;
+ b=Pqvzng+DOAyOHzWw8HVnS9xWV1agpybEVFY4GpgPZgqzbZF5EsgOWK3tOcRXep+E8n
+ hx4s7UKtrWjPDlXppdilBhpjbDTAhHO0QeA/5pValJrlb4WLak5QCSZOdXVjUDQELUFv
+ uHvsM/IpxpB9i+2ka3giC14iDKZkBMZpfbhKq1VGLIVUuxz7jCawgpRJu4WrVOgksNEb
+ 8EUkYRiPoySk26KcD8R6Ik37wCqgjOWPN0GtON0OHhh5UPewj47Jd1dOnlW7GlhGDTwx
+ /qBWd+wjmaAj5NKoQRADus8SOD+OUJHe0uAqDRCepzWy0JiOGG4o12gGqSKuGD89VlvQ
+ PZYw==
+X-Gm-Message-State: AO0yUKUj9c4pbZE5cdKrCoJ0Ewsv+viEebpI7FeT6dFuKoWQWp/UyN6p
+ S0T+rGz7R6TIQ26rUd1BLS27dQ==
+X-Google-Smtp-Source: AK7set/QXSx+xlzok3YT7LqHrvr9vnMxGjCoMErm9FyPlcBL/qsLFJOUBOfKnsozCi4EQfJOICO62g==
+X-Received: by 2002:a50:bb27:0:b0:4aa:a172:6612 with SMTP id
+ y36-20020a50bb27000000b004aaa1726612mr8607839ede.33.1675682564633; 
+ Mon, 06 Feb 2023 03:22:44 -0800 (PST)
 Received: from ?IPV6:2001:14ba:a085:4d00::8a5?
  (dzccz6yyyyyyyyyyybcwt-3.rev.dnainternet.fi. [2001:14ba:a085:4d00::8a5])
  by smtp.gmail.com with ESMTPSA id
- h23-20020aa7c957000000b00487fc51c532sm4971343edt.33.2023.02.06.03.21.57
+ b12-20020a056402350c00b0049e210884dasm4924504edd.15.2023.02.06.03.22.43
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 06 Feb 2023 03:21:57 -0800 (PST)
-Message-ID: <5c2df97d-43a3-ccdb-267e-4dc5485dbeb2@linaro.org>
-Date: Mon, 6 Feb 2023 13:21:56 +0200
+ Mon, 06 Feb 2023 03:22:44 -0800 (PST)
+Message-ID: <a5635503-2d03-3996-a60f-f6255e407ca1@linaro.org>
+Date: Mon, 6 Feb 2023 13:22:43 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.7.1
@@ -64,13 +64,13 @@ To: Konrad Dybcio <konrad.dybcio@linaro.org>, Andy Gross <agross@kernel.org>,
  Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
  Sean Paul <sean@poorly.run>
 References: <20230206002735.2736935-1-dmitry.baryshkov@linaro.org>
- <20230206002735.2736935-4-dmitry.baryshkov@linaro.org>
- <a38a7ba4-a336-3ad2-7dcd-4eb2195eb0ef@linaro.org>
+ <20230206002735.2736935-3-dmitry.baryshkov@linaro.org>
+ <f563f3e9-2c50-4509-a44d-9406bc725a95@linaro.org>
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-In-Reply-To: <a38a7ba4-a336-3ad2-7dcd-4eb2195eb0ef@linaro.org>
+In-Reply-To: <f563f3e9-2c50-4509-a44d-9406bc725a95@linaro.org>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH 2/8] arm64: dts: qcom: sm8450: add
+Subject: Re: [Freedreno] [PATCH 2/8] arm64: dts: qcom: sm8350: add
  RPMH_REGULATOR_LEVEL_LOW_SVS_L1
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -100,9 +100,10 @@ On 06/02/2023 12:44, Konrad Dybcio wrote:
 >> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 >> ---
 >>   include/dt-bindings/power/qcom-rpmpd.h | 1 +
-> Wrong patch once more?
+> Wrong patch?
 
-This patch is wrong and was sent by mistake
+And this patch is correct. sm8350 GPU OPP table uses this value (but as 
+doesn't reference the rpmh's opp states, we don't have to add one there).
 
 > 
 > Konrad
