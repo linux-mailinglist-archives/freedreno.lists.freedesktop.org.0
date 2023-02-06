@@ -1,53 +1,54 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3865668C099
-	for <lists+freedreno@lfdr.de>; Mon,  6 Feb 2023 15:57:15 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 7A70768C0A4
+	for <lists+freedreno@lfdr.de>; Mon,  6 Feb 2023 15:57:20 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5709E10E3F5;
+	by gabe.freedesktop.org (Postfix) with ESMTP id E948010E3F7;
 	Mon,  6 Feb 2023 14:57:13 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ej1-x629.google.com (mail-ej1-x629.google.com
- [IPv6:2a00:1450:4864:20::629])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B763C10E3F5
- for <freedreno@lists.freedesktop.org>; Mon,  6 Feb 2023 14:57:10 +0000 (UTC)
-Received: by mail-ej1-x629.google.com with SMTP id hr39so5344514ejc.7
- for <freedreno@lists.freedesktop.org>; Mon, 06 Feb 2023 06:57:10 -0800 (PST)
+Received: from mail-ej1-x62f.google.com (mail-ej1-x62f.google.com
+ [IPv6:2a00:1450:4864:20::62f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E7B9310E3F5
+ for <freedreno@lists.freedesktop.org>; Mon,  6 Feb 2023 14:57:11 +0000 (UTC)
+Received: by mail-ej1-x62f.google.com with SMTP id e22so5629307ejb.1
+ for <freedreno@lists.freedesktop.org>; Mon, 06 Feb 2023 06:57:11 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=cLuf1U+2WjifV8fnrslcwZDFA4TZvCGB2iPkwtWqNUI=;
- b=oq9jViBl3HA8dQj59yZsQcWYKhAEvJWr1Mqzc1nDjWd3kRLMlEJmDIhfOc2l+p9NLd
- sEyjvRaMXAsm/bYtTpQnIz65QqWwNZzD2ixnXeIv/n7h0wwjcYKGqo5UlUhhHj/+UxhN
- Vjip+0N5Gcg9eBr6e9L2FgnlD02pMQtDmefHpu6L6q15uOGJwGLd6Q+iHLS5qDhwcnpv
- jcH/BDXAdXafNKaM0EBgworEii3bTIRcz1nDLBmzdKEdZFuwosxwjqEO4W6y868kqLfD
- btVyftrdECwXZvuYQTLDMsH366OL3edNWQJg4/Ues9yHsG8FHbMc5frF17qLpR6RVgFB
- TLKA==
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=lWJTTVfePORcPPcH6H13Fd3H36Ls8G0fdQpwh+iYVeU=;
+ b=fKTqMQIuB7WUG8GgXovc/jz52P/iOoabODFfhKXj0Q3U+SiQVfbNHEJnDxQYvikyFw
+ e4/g0Tp9Rpp/aDwOdkXTnhcBEhQpk8rTu4UvozcZEXJ0Pn+VKnVsLrqgSU/8x8e7sxkq
+ bbepctgsfpX2pCXluEa8ir6GtXae4nFUsByhlKqUFLiWU/uw6CX8i1aosy83vd1getti
+ rr0FcQSqHXvvKBk3GDm2+pYbnsqDJXHL93aywYZoRWKZrV+1F2/CNy357tFeB9BT9zgb
+ WQOI38iOyftOlvKzMdhxxFcASxqFP1vfmQQrG6ZSmLEuKPA6+vyZfnwJR/Csw0CJSj1r
+ 1+bA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=cLuf1U+2WjifV8fnrslcwZDFA4TZvCGB2iPkwtWqNUI=;
- b=H/WTOXrxumpNrx/i4/ja31BXToT0pwDtn28vfOvxPsOmUWVRYUuRhu1J9sCyDN461i
- rTIP1rRZhR1GT53pxwNA5UAp7Kw0c9fcYg94FUWgoq3cV1f7AA3psLfApFK9ycs9jJYa
- IaxTR/OPGgxE4ktVSju0xOIRhp8/uYJ7WDG3asWLk5l4FNYfxq8WzFsSjP3qV7Mynb/r
- sFurpGodbrcrtXc9BTrC80dRQMDqMVez1kmRHFft8zzMi1koS04rcut7mKBe/l2FPLhb
- aQR2Hs9INKqd6NYd8TwbXmbYO1j9srSNbVRWugD2z1j/lLpNLkylkD7FYD5HCaRyeZYV
- +iQQ==
-X-Gm-Message-State: AO0yUKW7BXDV+srCTX+hCtqDeyhSSbvxSWC/FVfGqaB5y1sP3DqPMTrs
- v8yNP0sltwPgT/rsn8i/V8Ty+Q==
-X-Google-Smtp-Source: AK7set/oKvZyc+ZrfLJPgnfOVLJVKoAm0Z0SgsTUoA8rN3b3dRK6zhySANFVfe+x2ByyCb7N0W7vLw==
-X-Received: by 2002:a17:907:7ba9:b0:87b:d3dd:e0ca with SMTP id
- ne41-20020a1709077ba900b0087bd3dde0camr13140091ejc.26.1675695429234; 
- Mon, 06 Feb 2023 06:57:09 -0800 (PST)
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=lWJTTVfePORcPPcH6H13Fd3H36Ls8G0fdQpwh+iYVeU=;
+ b=7AZr/GIhr+psgthx17Hk7aKUs7eSo2wgTzXJO06uPW2XDIcN82izmmBTRnC4X3f5xy
+ sQ7nIHm2zhYiRNWHljAcd0G7O7sV8FiZmv3p846m7PCQTEuk7DQzijAypXrZWMlHWuws
+ fbVivSUQ+5fTSZg2TADINcHVL2mxCRoF5iduVw23193HXa1XbAUHBz1LmSXlOZfVU+Ub
+ tVkUpiU6sSRjC/XUVK3GalN7UY76rutRH+5s3diF9WmvAxESYQmrDZaTrYnOzj561OnU
+ TXDgxfDucE3ToDktuqfQHEgq+bz122ZkmhYdpFgcigx+sg/+Lp+a4EpYlUYIKw0tahD7
+ tzog==
+X-Gm-Message-State: AO0yUKUAohl65nnN9/4y7cqei7mqJyGTak8vUxB30Jb94XOb/B4faDLv
+ 3Jq4ctWAB10ioKOPY527EioJHA==
+X-Google-Smtp-Source: AK7set+4HgFJiQjqoladQOeFPQZGQfugQ/vDao8Mt8Efd3ZTknqyhBJdCUmkYIanNZdlUssgTzzeiw==
+X-Received: by 2002:a17:907:c78a:b0:878:7349:5ce6 with SMTP id
+ tz10-20020a170907c78a00b0087873495ce6mr21754698ejc.71.1675695430407; 
+ Mon, 06 Feb 2023 06:57:10 -0800 (PST)
 Received: from eriador.lan (dzccz6yyyyyyyyyyybcwt-3.rev.dnainternet.fi.
  [2001:14ba:a085:4d00::8a5]) by smtp.gmail.com with ESMTPSA id
- gw1-20020a170906f14100b0087bd4e34eb8sm5495533ejb.203.2023.02.06.06.57.07
+ gw1-20020a170906f14100b0087bd4e34eb8sm5495533ejb.203.2023.02.06.06.57.09
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 06 Feb 2023 06:57:08 -0800 (PST)
+ Mon, 06 Feb 2023 06:57:10 -0800 (PST)
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 To: Andy Gross <agross@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
  Konrad Dybcio <konrad.dybcio@linaro.org>, Stephen Boyd <sboyd@kernel.org>,
@@ -55,13 +56,15 @@ To: Andy Gross <agross@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
  Rob Herring <robh+dt@kernel.org>,
  Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
  Taniya Das <quic_tdas@quicinc.com>
-Date: Mon,  6 Feb 2023 16:56:59 +0200
-Message-Id: <20230206145707.122937-1-dmitry.baryshkov@linaro.org>
+Date: Mon,  6 Feb 2023 16:57:00 +0200
+Message-Id: <20230206145707.122937-2-dmitry.baryshkov@linaro.org>
 X-Mailer: git-send-email 2.39.1
+In-Reply-To: <20230206145707.122937-1-dmitry.baryshkov@linaro.org>
+References: <20230206145707.122937-1-dmitry.baryshkov@linaro.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH v2 0/8] arm64: dts: qcom: sm8350: enable GPU on
- the HDK board
+Subject: [Freedreno] [PATCH v2 1/8] dt-bindings: clock: Merge qcom,
+ gpucc-sm8350 into qcom, gpucc.yaml
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,37 +85,117 @@ Cc: devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Add A660 device to the Qualcomm SM8350 platform and enable it for the
-sm8350-hdk board. Unfortunately while adding the GPU & related devices I
-noticed that DT nodes on SM8350 are greatly out of the preagreed order,
-so patches 4-6 reorder DT nodes to follow the agreement.
+The GPU clock controller bindings for the Qualcomm sm8350 platform are
+not correct. The driver uses .fw_name instead of using indices to bind
+parent clocks, thus demanding the clock-names usage. With the proper
+clock-names in place, the bindings becomes equal to the bindings defined
+by qcom,gpucc.yaml, so it is impractical to keep them in a separate
+file.
 
-Changes since v1:
-- Fixed the subject and commit message for patch 1
-- Fixed GMU's clocks to follow the vendor kernel
-- Marked Adreno SMMU as dma-coherent
-- Dropped comments targeting sm8350 v1, we do not support that chip
-  revision.
-
-Dmitry Baryshkov (8):
-  dt-bindings: clock: Merge qcom,gpucc-sm8350 into qcom,gpucc.yaml
-  dt-bindings: power: qcom,rpmpd: add RPMH_REGULATOR_LEVEL_LOW_SVS_L1
-  dt-bindings: display/msm/gmu: add Adreno 660 support
-  arm64: dts: qcom: sm8350: reorder device nodes
-  arm64: dts: qcom: sm8350: move more nodes to correct place
-  arm64: dts: qcom: sm8350: finish reordering nodes
-  arm64: dts: qcom: sm8350: add GPU, GMU, GPU CC and SMMU nodes
-  arm64: dts: qcom: sm8350-hdk: enable GPU
-
- .../bindings/clock/qcom,gpucc-sm8350.yaml     |   71 -
- .../devicetree/bindings/clock/qcom,gpucc.yaml |    2 +
- .../devicetree/bindings/display/msm/gmu.yaml  |    1 +
- arch/arm64/boot/dts/qcom/sm8350-hdk.dts       |    8 +
- arch/arm64/boot/dts/qcom/sm8350.dtsi          | 2512 +++++++++--------
- include/dt-bindings/power/qcom-rpmpd.h        |    1 +
- 6 files changed, 1357 insertions(+), 1238 deletions(-)
+Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+---
+ .../bindings/clock/qcom,gpucc-sm8350.yaml     | 71 -------------------
+ .../devicetree/bindings/clock/qcom,gpucc.yaml |  2 +
+ 2 files changed, 2 insertions(+), 71 deletions(-)
  delete mode 100644 Documentation/devicetree/bindings/clock/qcom,gpucc-sm8350.yaml
 
+diff --git a/Documentation/devicetree/bindings/clock/qcom,gpucc-sm8350.yaml b/Documentation/devicetree/bindings/clock/qcom,gpucc-sm8350.yaml
+deleted file mode 100644
+index fb7ae3d18503..000000000000
+--- a/Documentation/devicetree/bindings/clock/qcom,gpucc-sm8350.yaml
++++ /dev/null
+@@ -1,71 +0,0 @@
+-# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+-%YAML 1.2
+----
+-$id: http://devicetree.org/schemas/clock/qcom,gpucc-sm8350.yaml#
+-$schema: http://devicetree.org/meta-schemas/core.yaml#
+-
+-title: Qualcomm Graphics Clock & Reset Controller on SM8350
+-
+-maintainers:
+-  - Robert Foss <robert.foss@linaro.org>
+-
+-description: |
+-  Qualcomm graphics clock control module provides the clocks, resets and power
+-  domains on Qualcomm SoCs.
+-
+-  See also:: include/dt-bindings/clock/qcom,gpucc-sm8350.h
+-
+-properties:
+-  compatible:
+-    enum:
+-      - qcom,sm8350-gpucc
+-
+-  clocks:
+-    items:
+-      - description: Board XO source
+-      - description: GPLL0 main branch source
+-      - description: GPLL0 div branch source
+-
+-  '#clock-cells':
+-    const: 1
+-
+-  '#reset-cells':
+-    const: 1
+-
+-  '#power-domain-cells':
+-    const: 1
+-
+-  reg:
+-    maxItems: 1
+-
+-required:
+-  - compatible
+-  - reg
+-  - clocks
+-  - '#clock-cells'
+-  - '#reset-cells'
+-  - '#power-domain-cells'
+-
+-additionalProperties: false
+-
+-examples:
+-  - |
+-    #include <dt-bindings/clock/qcom,gcc-sm8350.h>
+-    #include <dt-bindings/clock/qcom,rpmh.h>
+-
+-    soc {
+-        #address-cells = <2>;
+-        #size-cells = <2>;
+-
+-        clock-controller@3d90000 {
+-            compatible = "qcom,sm8350-gpucc";
+-            reg = <0 0x03d90000 0 0x9000>;
+-            clocks = <&rpmhcc RPMH_CXO_CLK>,
+-                     <&gcc GCC_GPU_GPLL0_CLK_SRC>,
+-                     <&gcc GCC_GPU_GPLL0_DIV_CLK_SRC>;
+-            #clock-cells = <1>;
+-            #reset-cells = <1>;
+-            #power-domain-cells = <1>;
+-        };
+-    };
+-...
+diff --git a/Documentation/devicetree/bindings/clock/qcom,gpucc.yaml b/Documentation/devicetree/bindings/clock/qcom,gpucc.yaml
+index 7256c438a4cf..db53eb288995 100644
+--- a/Documentation/devicetree/bindings/clock/qcom,gpucc.yaml
++++ b/Documentation/devicetree/bindings/clock/qcom,gpucc.yaml
+@@ -21,6 +21,7 @@ description: |
+     include/dt-bindings/clock/qcom,gpucc-sm6350.h
+     include/dt-bindings/clock/qcom,gpucc-sm8150.h
+     include/dt-bindings/clock/qcom,gpucc-sm8250.h
++    include/dt-bindings/clock/qcom,gpucc-sm8350.h
+ 
+ properties:
+   compatible:
+@@ -33,6 +34,7 @@ properties:
+       - qcom,sm6350-gpucc
+       - qcom,sm8150-gpucc
+       - qcom,sm8250-gpucc
++      - qcom,sm8350-gpucc
+ 
+   clocks:
+     items:
 -- 
 2.39.1
 
