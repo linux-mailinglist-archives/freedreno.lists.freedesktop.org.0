@@ -1,70 +1,78 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 732A168C5C3
-	for <lists+freedreno@lfdr.de>; Mon,  6 Feb 2023 19:30:45 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id B437768C619
+	for <lists+freedreno@lfdr.de>; Mon,  6 Feb 2023 19:48:19 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3620310EA00;
-	Mon,  6 Feb 2023 18:30:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 77EED10EA10;
+	Mon,  6 Feb 2023 18:48:18 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ej1-x62c.google.com (mail-ej1-x62c.google.com
- [IPv6:2a00:1450:4864:20::62c])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4C27F10EA00
- for <freedreno@lists.freedesktop.org>; Mon,  6 Feb 2023 18:30:42 +0000 (UTC)
-Received: by mail-ej1-x62c.google.com with SMTP id dr8so36735736ejc.12
- for <freedreno@lists.freedesktop.org>; Mon, 06 Feb 2023 10:30:42 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=/jYmi9IvnFIypy0mds4wMWCZZJQWX6LaMpS3CK15Nck=;
- b=meb3gpgNV8yB3mS6e4DHFRab1mSjoBU1gs/uHV8RbeJ9ixwvDP3EFdHrl5gakVyEXs
- el94qLuYPpmldddxpgwWxG9Z3edGYOVQkE0BcwE0EvanV6ZGm9GsEoE1uZF0V4B5GabJ
- sLlRy5R+CjUVYLEpAXny8VmNeiJi9g3s3yWm5+wZwODLewLy+3iBxUayAmqR5WZDUSo5
- gLJCOIKNizbpMkjTNGHLGejUlOlfBw5jTeO1MAv7WDwm21EYgARwg08KJDPiYKYnn2Kl
- mHW590FmluZhKrOhCZ3jPQaovHMwSojFwlfGSG+9r2js9ihTfpxs4oEM4QmDvfQpyvRP
- neTA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=/jYmi9IvnFIypy0mds4wMWCZZJQWX6LaMpS3CK15Nck=;
- b=MqldItjIpiyRzCACy5xBcmJE6eoO6Ev+F5ef5gcF22aSoVKoIEkkHxEuRVeNAvjEQ7
- 8STA/z4ApsCeWnYWf+o7iaNwh8kKRZhaaL+uMHn4R3Dj4cvOR1j69bY1bozwP6YG4Ic9
- v1dcrTf5m1K1iMzgQK1yOoYEUCf5eXRW7QOisT1Dt87z/CA1LTbaOHFZPBuffLg1seG4
- f4BXr5tcfNjo6Pb+tFgTQqJvhHuEnYyIK4idQk+p+k2C7jvmchcKjJzSyzBfqXDqZS9q
- flsr/Quk6coSiG82/0R6X75z55Xn8hpkXuUcNHl4u3QL2LMecf86E05Rc80/iUsfEPyZ
- d5xg==
-X-Gm-Message-State: AO0yUKWyJqOJPwaVheyK052/1o2QU1uykBjoPm5qTqsdos/3hkkSJ9gm
- b82GMKBGzhSQPH/Ala2rrDmVcQ==
-X-Google-Smtp-Source: AK7set9h7k+5/mLKiqGh8P5Hj7oMyP9YAgx1ZMwdMQ1pClIoToN8Rko8Eh30kdGfwAF1NAkOZG3vcA==
-X-Received: by 2002:a17:907:9706:b0:878:4c4e:1c6a with SMTP id
- jg6-20020a170907970600b008784c4e1c6amr421164ejc.3.1675708240771; 
- Mon, 06 Feb 2023 10:30:40 -0800 (PST)
-Received: from [192.168.1.101] (abxh117.neoplus.adsl.tpnet.pl. [83.9.1.117])
- by smtp.gmail.com with ESMTPSA id
- ui4-20020a170907c90400b0087848a5daf5sm5837441ejc.225.2023.02.06.10.30.37
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 06 Feb 2023 10:30:40 -0800 (PST)
-Message-ID: <b5592c00-87ff-dcf7-7342-56c4c593fc42@linaro.org>
-Date: Mon, 6 Feb 2023 19:30:30 +0100
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 226B010EA10;
+ Mon,  6 Feb 2023 18:48:16 +0000 (UTC)
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 316Cw2IY021098; Mon, 6 Feb 2023 18:48:10 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
+ h=message-id : date :
+ mime-version : subject : to : cc : references : from : in-reply-to :
+ content-type : content-transfer-encoding; s=qcppdkim1;
+ bh=+mN0wS4Qamrv2ha8IcZkJhBTolEwktW9Dhp38rGq00U=;
+ b=kGVJ/7EhfQaq+qZccO8fYQSKmU00FBUvZNbXUFhS9mRWM8SNdH2tEvCKka1ZkERW05HJ
+ 9IceS3t0xTiztSM/7OZEFvvNMkIMJm3IidPNeVRkK5KRYxYd/8UwfUdnN4o4V69H3Kzx
+ d4ewp6ma1eMXyPIUOPa3LO8pLqqGw9P9UPkMxF4tl8c0ZVXlzrlZ6kkpvIUlUKu8sUJ8
+ 2S3rg129wPK+ojWKug+uamhiSh6z1L7bPbQZhXOs/Q/3Gz5kqsiLtNutysQV1IYpbCCV
+ wDD5vbamqb5aq16tSTyKngzclU/+JPO9k2j+piYh0EMvDlysYyS7gQukxL6QAdsZHHlT 3A== 
+Received: from nalasppmta05.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3nhg4rmafe-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 06 Feb 2023 18:48:10 +0000
+Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
+ [10.47.209.196])
+ by NALASPPMTA05.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 316Im9Wc032340
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 6 Feb 2023 18:48:09 GMT
+Received: from [10.110.44.26] (10.80.80.8) by nalasex01a.na.qualcomm.com
+ (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.36; Mon, 6 Feb 2023
+ 10:48:08 -0800
+Message-ID: <d1a524c9-a7d9-3454-5e2d-bcdd2eabd583@quicinc.com>
+Date: Mon, 6 Feb 2023 10:48:08 -0800
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.7.1
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
+ Thunderbird/91.6.2
 Content-Language: en-US
-To: linux-arm-msm@vger.kernel.org, andersson@kernel.org, agross@kernel.org,
- krzysztof.kozlowski@linaro.org
-References: <20230126151618.225127-1-konrad.dybcio@linaro.org>
- <20230126151618.225127-7-konrad.dybcio@linaro.org>
-From: Konrad Dybcio <konrad.dybcio@linaro.org>
-In-Reply-To: <20230126151618.225127-7-konrad.dybcio@linaro.org>
-Content-Type: text/plain; charset=UTF-8
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Rob Clark
+ <robdclark@gmail.com>, Sean Paul <sean@poorly.run>
+References: <20230203182132.1307834-1-dmitry.baryshkov@linaro.org>
+ <20230203182132.1307834-20-dmitry.baryshkov@linaro.org>
+From: Abhinav Kumar <quic_abhinavk@quicinc.com>
+In-Reply-To: <20230203182132.1307834-20-dmitry.baryshkov@linaro.org>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
 Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH 06/14] drm/msm/gpu: Use dev_pm_opp_set_rate
- for non-GMU GPUs
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-ORIG-GUID: TWqS220bD_gk4PBdiiW4LP9iS5Q_sCrp
+X-Proofpoint-GUID: TWqS220bD_gk4PBdiiW4LP9iS5Q_sCrp
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.219,Aquarius:18.0.930,Hydra:6.0.562,FMLib:17.11.122.1
+ definitions=2023-02-06_07,2023-02-06_03,2022-06-22_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ lowpriorityscore=0
+ malwarescore=0 mlxscore=0 impostorscore=0 phishscore=0 suspectscore=0
+ clxscore=1015 priorityscore=1501 adultscore=0 bulkscore=0 spamscore=0
+ mlxlogscore=999 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2212070000 definitions=main-2302060163
+Subject: Re: [Freedreno] [PATCH v3 19/27] drm/msm/dpu: make
+ _dpu_plane_calc_clk accept mode directly
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,63 +85,132 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, Dan Carpenter <error27@gmail.com>,
- Emma Anholt <emma@anholt.net>, Akhil P Oommen <quic_akhilpo@quicinc.com>,
- David Airlie <airlied@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Rob Clark <robdclark@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, marijn.suijten@somainline.org,
- Sean Paul <sean@poorly.run>, Chia-I Wu <olvaffe@gmail.com>
+Cc: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
+ Bjorn Andersson <andersson@kernel.org>, dri-devel@lists.freedesktop.org,
+ Stephen Boyd <swboyd@chromium.org>, Daniel Vetter <daniel@ffwll.ch>,
+ David Airlie <airlied@gmail.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 
 
-On 26.01.2023 16:16, Konrad Dybcio wrote:
-> Currently we only utilize the OPP table connected to the GPU for
-> getting (available) frequencies. We do however need to scale the
-> voltage rail(s) accordingly to ensure that we aren't trying to
-> run the GPU at 1GHz with a VDD_LOW vote, as that would result in
-> an otherwise inexplainable hang.
+On 2/3/2023 10:21 AM, Dmitry Baryshkov wrote:
+> Rework bandwidth/clock calculation functions to use mode directly rather
+> than fetching it through the plane data.
 > 
-> Tell the OPP framework that we want to scale the "core" clock
-> and swap out the clk_set_rate to a dev_pm_opp_set_rate in
-> msm_devfreq_target() to enable usage of required-opps and by
-> extension proper voltage level/corner scaling.
-> 
-> Signed-off-by: Konrad Dybcio <konrad.dybcio@linaro.org>
-> ---
-Welp, as-is, this breaks devfreq on GPUs with a GMU.. Will fix..
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 
-Konrad
->  drivers/gpu/drm/msm/adreno/adreno_gpu.c | 3 +++
->  drivers/gpu/drm/msm/msm_gpu_devfreq.c   | 2 +-
->  2 files changed, 4 insertions(+), 1 deletion(-)
+Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
+
+> ---
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c | 39 ++++++++++-------------
+>   1 file changed, 17 insertions(+), 22 deletions(-)
 > 
-> diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.c b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
-> index 817599766329..c85ae3845a4e 100644
-> --- a/drivers/gpu/drm/msm/adreno/adreno_gpu.c
-> +++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
-> @@ -1047,6 +1047,9 @@ int adreno_gpu_init(struct drm_device *drm, struct platform_device *pdev,
->  	const char *gpu_name;
->  	u32 speedbin;
->  
-> +	/* This can only be done here, or devm_pm_opp_set_supported_hw will WARN_ON() */
-> +	devm_pm_opp_set_clkname(dev, "core");
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
+> index ee261a591d45..09a3fde1c910 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
+> @@ -127,20 +127,19 @@ static struct dpu_kms *_dpu_plane_get_kms(struct drm_plane *plane)
+>   
+>   /**
+>    * _dpu_plane_calc_bw - calculate bandwidth required for a plane
+> - * @plane: Pointer to drm plane.
+> + * @catalog: Points to dpu catalog structure
+>    * @fmt: Pointer to source buffer format
+> + * @mode: Pointer to drm display mode
+>    * @pipe_cfg: Pointer to pipe configuration
+>    * Result: Updates calculated bandwidth in the plane state.
+>    * BW Equation: src_w * src_h * bpp * fps * (v_total / v_dest)
+>    * Prefill BW Equation: line src bytes * line_time
+>    */
+> -static void _dpu_plane_calc_bw(struct drm_plane *plane,
+> +static u64 _dpu_plane_calc_bw(const struct dpu_mdss_cfg *catalog,
+>   	const struct dpu_format *fmt,
+> +	const struct drm_display_mode *mode,
+>   	struct dpu_hw_sspp_cfg *pipe_cfg)
+>   {
+> -	struct dpu_plane_state *pstate;
+> -	struct drm_display_mode *mode;
+> -	struct dpu_kms *dpu_kms = _dpu_plane_get_kms(plane);
+>   	int src_width, src_height, dst_height, fps;
+>   	u64 plane_prefill_bw;
+>   	u64 plane_bw;
+> @@ -148,9 +147,6 @@ static void _dpu_plane_calc_bw(struct drm_plane *plane,
+>   	u64 scale_factor;
+>   	int vbp, vpw, vfp;
+>   
+> -	pstate = to_dpu_plane_state(plane->state);
+> -	mode = &plane->state->crtc->mode;
+> -
+>   	src_width = drm_rect_width(&pipe_cfg->src_rect);
+>   	src_height = drm_rect_height(&pipe_cfg->src_rect);
+>   	dst_height = drm_rect_height(&pipe_cfg->dst_rect);
+> @@ -158,7 +154,7 @@ static void _dpu_plane_calc_bw(struct drm_plane *plane,
+>   	vbp = mode->vtotal - mode->vsync_end;
+>   	vpw = mode->vsync_end - mode->vsync_start;
+>   	vfp = mode->vsync_start - mode->vdisplay;
+> -	hw_latency_lines =  dpu_kms->catalog->perf->min_prefill_lines;
+> +	hw_latency_lines =  catalog->perf->min_prefill_lines;
+>   	scale_factor = src_height > dst_height ?
+>   		mult_frac(src_height, 1, dst_height) : 1;
+>   
+> @@ -178,37 +174,36 @@ static void _dpu_plane_calc_bw(struct drm_plane *plane,
+>   		do_div(plane_prefill_bw, hw_latency_lines);
+>   
+>   
+> -	pstate->plane_fetch_bw = max(plane_bw, plane_prefill_bw);
+> +	return max(plane_bw, plane_prefill_bw);
+>   }
+>   
+>   /**
+>    * _dpu_plane_calc_clk - calculate clock required for a plane
+> - * @plane: Pointer to drm plane.
+> + * @mode: Pointer to drm display mode
+>    * @pipe_cfg: Pointer to pipe configuration
+>    * Result: Updates calculated clock in the plane state.
+>    * Clock equation: dst_w * v_total * fps * (src_h / dst_h)
+>    */
+> -static void _dpu_plane_calc_clk(struct drm_plane *plane, struct dpu_hw_sspp_cfg *pipe_cfg)
+> +static u64 _dpu_plane_calc_clk(const struct drm_display_mode *mode,
+> +		struct dpu_hw_sspp_cfg *pipe_cfg)
+>   {
+> -	struct dpu_plane_state *pstate;
+> -	struct drm_display_mode *mode;
+>   	int dst_width, src_height, dst_height, fps;
+> -
+> -	pstate = to_dpu_plane_state(plane->state);
+> -	mode = &plane->state->crtc->mode;
+> +	u64 plane_clk;
+>   
+>   	src_height = drm_rect_height(&pipe_cfg->src_rect);
+>   	dst_width = drm_rect_width(&pipe_cfg->dst_rect);
+>   	dst_height = drm_rect_height(&pipe_cfg->dst_rect);
+>   	fps = drm_mode_vrefresh(mode);
+>   
+> -	pstate->plane_clk =
+> +	plane_clk =
+>   		dst_width * mode->vtotal * fps;
+>   
+>   	if (src_height > dst_height) {
+> -		pstate->plane_clk *= src_height;
+> -		do_div(pstate->plane_clk, dst_height);
+> +		plane_clk *= src_height;
+> +		do_div(plane_clk, dst_height);
+>   	}
 > +
->  	adreno_gpu->funcs = funcs;
->  	adreno_gpu->info = adreno_info(config->rev);
->  	adreno_gpu->gmem = adreno_gpu->info->gmem;
-> diff --git a/drivers/gpu/drm/msm/msm_gpu_devfreq.c b/drivers/gpu/drm/msm/msm_gpu_devfreq.c
-> index e27dbf12b5e8..ea70c1c32d94 100644
-> --- a/drivers/gpu/drm/msm/msm_gpu_devfreq.c
-> +++ b/drivers/gpu/drm/msm/msm_gpu_devfreq.c
-> @@ -48,7 +48,7 @@ static int msm_devfreq_target(struct device *dev, unsigned long *freq,
->  		gpu->funcs->gpu_set_freq(gpu, opp, df->suspended);
->  		mutex_unlock(&df->lock);
->  	} else {
-> -		clk_set_rate(gpu->core_clk, *freq);
-> +		dev_pm_opp_set_rate(dev, *freq);
->  	}
->  
->  	dev_pm_opp_put(opp);
+> +	return plane_clk;
+>   }
+>   
+>   /**
+> @@ -1219,9 +1214,9 @@ static void dpu_plane_sspp_atomic_update(struct drm_plane *plane)
+>   		_dpu_plane_set_qos_remap(plane, pipe);
+>   	}
+>   
+> -	_dpu_plane_calc_bw(plane, fmt, &pipe_cfg);
+> +	pstate->plane_fetch_bw = _dpu_plane_calc_bw(pdpu->catalog, fmt, &crtc->mode, &pipe_cfg);
+>   
+> -	_dpu_plane_calc_clk(plane, &pipe_cfg);
+> +	pstate->plane_clk = _dpu_plane_calc_clk(&crtc->mode, &pipe_cfg);
+>   }
+>   
+>   static void _dpu_plane_atomic_disable(struct drm_plane *plane)
