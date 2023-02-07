@@ -2,77 +2,57 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id AE0F868E1AE
-	for <lists+freedreno@lfdr.de>; Tue,  7 Feb 2023 21:05:44 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E49CC68E208
+	for <lists+freedreno@lfdr.de>; Tue,  7 Feb 2023 21:40:59 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E5DE910E1F2;
-	Tue,  7 Feb 2023 20:05:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 721C110E5E0;
+	Tue,  7 Feb 2023 20:40:57 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4983710E00F;
- Tue,  7 Feb 2023 20:05:38 +0000 (UTC)
-Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 317I02YD018446; Tue, 7 Feb 2023 20:05:33 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
- h=message-id : date :
- mime-version : subject : to : cc : references : from : in-reply-to :
- content-type : content-transfer-encoding; s=qcppdkim1;
- bh=TVn1cKFSFCh8fANtfEe6qHSAoBDsdhsGnEbmWq7Z5ME=;
- b=GlnPMKuB90Y8RmE2m2+Q01g5JWpLhT9yz3oNBkiIOeAb3QXxgEET6eHHhBnHObA5dMDk
- gt0+Kwuw4CoBS+6oXVaBRKfTsrznlotgYZFNLbn0xFu/BC1z2mMPn6j/LBzS5fQ+wjzS
- sb21BAp6/8uT42uaUMyTR/T8YdeoMn07XBSaCRe8KIO4W7J/TeRqzDniduVm4uWTVSfB
- CMB6PsqAqUvhCLJYJPe42aWFcmS2dHlrvIrEQfapQxlcg2Pqxi1k/60rBbxcKoX2Ek9/
- dAZqIkRTaRztcHcnRQkS0v45MkojqnNUxq0u3ig9k89MhfjX5k5SpTRweR5brcZnJcSO nA== 
-Received: from nalasppmta05.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3nkgafj3b6-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 07 Feb 2023 20:05:32 +0000
-Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
- [10.47.209.196])
- by NALASPPMTA05.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 317K5V6B013615
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 7 Feb 2023 20:05:31 GMT
-Received: from [10.110.44.26] (10.80.80.8) by nalasex01a.na.qualcomm.com
- (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.36; Tue, 7 Feb 2023
- 12:05:30 -0800
-Message-ID: <b4dbe036-81c4-e56f-12fb-75cb8bb59173@quicinc.com>
-Date: Tue, 7 Feb 2023 12:05:29 -0800
+Received: from mail-ot1-f51.google.com (mail-ot1-f51.google.com
+ [209.85.210.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8B56910E5D3;
+ Tue,  7 Feb 2023 20:40:55 +0000 (UTC)
+Received: by mail-ot1-f51.google.com with SMTP id
+ e12-20020a0568301e4c00b0068bc93e7e34so4617798otj.4; 
+ Tue, 07 Feb 2023 12:40:55 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=3VTa7BOK0RGbDUdbwHDssuk11doisGgMTd26GS9ZN/k=;
+ b=V+37itZfJ3V11+yrGmxbI1ep3DUfhMUWRWLvsnf9eiBLN2j1c56/D4Z/j9KE07L7gz
+ thjNL99sszE3IGpETpy0MIh9nkPhu93GE+xFSnPLN9gzNu7aqA0u8VRQat7xvldNBPK+
+ UHulVmZ0wYjNT+QSaZYygk2lcQkaH5FCZXDROBpKWjLR8ysGOVdd43ZCWzJe/XglinK3
+ n7c/sum0vnCCFrz2QK0zZYKs3q/RY3x4Cz+1/HCTljvECRuo1xiXMlQ4+MwsVIYco1oD
+ rnvS8YuSNWcYgoJR88kSaWCCiNPsHe3SO8S0zgSDXwdhhMHTF1lDS6ZXxkxG6MAHqV93
+ VkLQ==
+X-Gm-Message-State: AO0yUKU5iyKwGUeFeJeBmwdixBi+1AgPEL8aoFizsBUwURmdj65GfTvR
+ Jpg0YAxXedH6uByo7MJH66fU09YsqQ==
+X-Google-Smtp-Source: AK7set+HkyW9Hc3hWn26BhUdyJq8BIOVGjQyzpdrWQDGylxdn5msvGvfvq/OEieGD00dsYnNZ8LJkw==
+X-Received: by 2002:a9d:4e06:0:b0:68b:d889:8b78 with SMTP id
+ p6-20020a9d4e06000000b0068bd8898b78mr2336052otf.32.1675802454808; 
+ Tue, 07 Feb 2023 12:40:54 -0800 (PST)
+Received: from robh_at_kernel.org (66-90-144-107.dyn.grandenetworks.net.
+ [66.90.144.107]) by smtp.gmail.com with ESMTPSA id
+ cy22-20020a056830699600b0066b9a6bf3bcsm7081447otb.12.2023.02.07.12.40.53
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 07 Feb 2023 12:40:54 -0800 (PST)
+Received: (nullmailer pid 4118999 invoked by uid 1000);
+ Tue, 07 Feb 2023 20:40:53 -0000
+Date: Tue, 7 Feb 2023 14:40:53 -0600
+From: Rob Herring <robh@kernel.org>
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Message-ID: <167580245306.4118943.6938671659588578951.robh@kernel.org>
+References: <20230206145707.122937-1-dmitry.baryshkov@linaro.org>
+ <20230206145707.122937-2-dmitry.baryshkov@linaro.org>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.6.2
-Content-Language: en-US
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Rob Clark
- <robdclark@gmail.com>, Sean Paul <sean@poorly.run>
-References: <20230203182132.1307834-1-dmitry.baryshkov@linaro.org>
- <20230203182132.1307834-25-dmitry.baryshkov@linaro.org>
-From: Abhinav Kumar <quic_abhinavk@quicinc.com>
-In-Reply-To: <20230203182132.1307834-25-dmitry.baryshkov@linaro.org>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-GUID: 2zC8IxglB6W_bevsOzeIIWLQcu7OPgpp
-X-Proofpoint-ORIG-GUID: 2zC8IxglB6W_bevsOzeIIWLQcu7OPgpp
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.219,Aquarius:18.0.930,Hydra:6.0.562,FMLib:17.11.122.1
- definitions=2023-02-07_11,2023-02-06_03,2022-06-22_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0
- malwarescore=0 adultscore=0 clxscore=1015 bulkscore=0 spamscore=0
- mlxlogscore=694 mlxscore=0 priorityscore=1501 suspectscore=0
- impostorscore=0 phishscore=0 classifier=spam adjust=0 reason=mlx
- scancount=1 engine=8.12.0-2212070000 definitions=main-2302070175
-Subject: Re: [Freedreno] [PATCH v3 24/27] drm/msm/dpu: rework plane CSC
- setting
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20230206145707.122937-2-dmitry.baryshkov@linaro.org>
+Subject: Re: [Freedreno] [PATCH v2 1/8] dt-bindings: clock: Merge qcom,
+ gpucc-sm8350 into qcom, gpucc.yaml
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -85,109 +65,35 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
- Bjorn Andersson <andersson@kernel.org>, dri-devel@lists.freedesktop.org,
- Stephen Boyd <swboyd@chromium.org>, Daniel Vetter <daniel@ffwll.ch>,
- David Airlie <airlied@gmail.com>
+Cc: devicetree@vger.kernel.org, Daniel Vetter <daniel@ffwll.ch>,
+ Michael Turquette <mturquette@baylibre.com>, Stephen Boyd <sboyd@kernel.org>,
+ Sean Paul <sean@poorly.run>, Bjorn Andersson <andersson@kernel.org>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
+ Konrad Dybcio <konrad.dybcio@linaro.org>, Rob Herring <robh+dt@kernel.org>,
+ Rob Clark <robdclark@gmail.com>, Taniya Das <quic_tdas@quicinc.com>,
+ Andy Gross <agross@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
+ David Airlie <airlied@gmail.com>, linux-clk@vger.kernel.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 
-
-On 2/3/2023 10:21 AM, Dmitry Baryshkov wrote:
-> Rework the code flushing CSC settings for the plane. Separate out the
-> pipe and pipe_cfg as a preparation for r_pipe support.
+On Mon, 06 Feb 2023 16:57:00 +0200, Dmitry Baryshkov wrote:
+> The GPU clock controller bindings for the Qualcomm sm8350 platform are
+> not correct. The driver uses .fw_name instead of using indices to bind
+> parent clocks, thus demanding the clock-names usage. With the proper
+> clock-names in place, the bindings becomes equal to the bindings defined
+> by qcom,gpucc.yaml, so it is impractical to keep them in a separate
+> file.
 > 
 > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 > ---
->   drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c | 45 +++++++++++++----------
->   1 file changed, 25 insertions(+), 20 deletions(-)
+>  .../bindings/clock/qcom,gpucc-sm8350.yaml     | 71 -------------------
+>  .../devicetree/bindings/clock/qcom,gpucc.yaml |  2 +
+>  2 files changed, 2 insertions(+), 71 deletions(-)
+>  delete mode 100644 Documentation/devicetree/bindings/clock/qcom,gpucc-sm8350.yaml
 > 
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
-> index e69499490d39..05047192cb37 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
-> @@ -576,29 +576,18 @@ static const struct dpu_csc_cfg dpu_csc10_YUV2RGB_601L = {
->   	{ 0x00, 0x3ff, 0x00, 0x3ff, 0x00, 0x3ff,},
->   };
->   
-> -static const struct dpu_csc_cfg *_dpu_plane_get_csc(struct dpu_plane *pdpu, const struct dpu_format *fmt)
-> +static const struct dpu_csc_cfg *_dpu_plane_get_csc(struct dpu_sw_pipe *pipe, const struct dpu_format *fmt)
->   {
-> -	struct dpu_plane_state *pstate = to_dpu_plane_state(pdpu->base.state);
->   	const struct dpu_csc_cfg *csc_ptr;
->   
-> -	if (!pdpu) {
-> -		DPU_ERROR("invalid plane\n");
-> -		return NULL;
-> -	}
-> -
->   	if (!DPU_FORMAT_IS_YUV(fmt))
->   		return NULL;
->   
-> -	if (BIT(DPU_SSPP_CSC_10BIT) & pstate->pipe.sspp->cap->features)
-> +	if (BIT(DPU_SSPP_CSC_10BIT) & pipe->sspp->cap->features)
->   		csc_ptr = &dpu_csc10_YUV2RGB_601L;
->   	else
->   		csc_ptr = &dpu_csc_YUV2RGB_601L;
->   
-> -	DPU_DEBUG_PLANE(pdpu, "using 0x%X 0x%X 0x%X...\n",
-> -			csc_ptr->csc_mv[0],
-> -			csc_ptr->csc_mv[1],
-> -			csc_ptr->csc_mv[2]);
-> -
->   	return csc_ptr;
->   }
->   
-> @@ -1049,6 +1038,27 @@ static int dpu_plane_atomic_check(struct drm_plane *plane,
->   	return 0;
->   }
->   
-> +static void dpu_plane_flush_csc(struct dpu_plane *pdpu, struct dpu_sw_pipe *pipe)
-> +{
-> +	const struct dpu_format *format = to_dpu_format(msm_framebuffer_format(pdpu->base.state->fb));
-> +	const struct dpu_csc_cfg *csc_ptr;
-> +
-> +	if (!pipe->sspp || !pipe->sspp->ops.setup_csc)
-> +		return;
-> +
-> +	csc_ptr = _dpu_plane_get_csc(pipe, format);
-> +	if (!csc_ptr)
-> +		return;
-> +
-> +	DPU_DEBUG_PLANE(pdpu, "using 0x%X 0x%X 0x%X...\n",
-> +			csc_ptr->csc_mv[0],
-> +			csc_ptr->csc_mv[1],
-> +			csc_ptr->csc_mv[2]);
-> +
-> +	pipe->sspp->ops.setup_csc(pipe->sspp, csc_ptr);
-> +
-> +}
-> +
->   void dpu_plane_flush(struct drm_plane *plane)
->   {
->   	struct dpu_plane *pdpu;
-> @@ -1072,13 +1082,8 @@ void dpu_plane_flush(struct drm_plane *plane)
->   	else if (pdpu->color_fill & DPU_PLANE_COLOR_FILL_FLAG)
->   		/* force 100% alpha */
->   		_dpu_plane_color_fill(pdpu, pdpu->color_fill, 0xFF);
-> -	else if (pstate->pipe.sspp && pstate->pipe.sspp->ops.setup_csc) {
-> -		const struct dpu_format *fmt = to_dpu_format(msm_framebuffer_format(plane->state->fb));
-> -		const struct dpu_csc_cfg *csc_ptr = _dpu_plane_get_csc(pdpu, fmt);
-> -
-> -		if (csc_ptr)
-> -			pstate->pipe.sspp->ops.setup_csc(pstate->pipe.sspp, csc_ptr);
-> -	}
 
-Do we need to check for pipe being valid too (pstate->pipe) && 
-(pstate->pipe.sspp) && pstate->pipe.sspp->ops.setup_csc) ?
+Acked-by: Rob Herring <robh@kernel.org>
 
-Before moving the pipe_hw/sw pipe to the state the code used to check 
-for pdpu->pipe_hw to be valid. Since dpu_plane_flush() can be called 
-from other files too , dont we need to check for (pstate->pipe)?
-
-> +	else
-> +		dpu_plane_flush_csc(pdpu, &pstate->pipe);
->   
->   	/* flag h/w flush complete */
->   	if (plane->state)
