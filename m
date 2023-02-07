@@ -2,79 +2,63 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id D862D68CB55
-	for <lists+freedreno@lfdr.de>; Tue,  7 Feb 2023 01:43:05 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6CE1468D322
+	for <lists+freedreno@lfdr.de>; Tue,  7 Feb 2023 10:45:24 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9449610E1B8;
-	Tue,  7 Feb 2023 00:43:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 31FB010E474;
+	Tue,  7 Feb 2023 09:45:23 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5569110E1B8;
- Tue,  7 Feb 2023 00:43:02 +0000 (UTC)
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 3170AoVd031401; Tue, 7 Feb 2023 00:42:56 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
- h=message-id : date :
- mime-version : subject : to : cc : references : from : in-reply-to :
- content-type : content-transfer-encoding; s=qcppdkim1;
- bh=2GVduidvXJPWtS/HXgEfLkB8MgKylonFbkoRzpPt9yI=;
- b=Fz3npc2hjza7WVES2DQfjALhRteytQXAe/U2NGsyWFVPl5cL7cQovb2/NMt4vc7zjRsL
- Fxj0aLUTvZ0czFnNR7smIAx65OPUSJg45tUaQ+pF7UerGD1Hw/+nCnGJWwh7lceg6Sxz
- Q2SAiyP4pQ4S3Ykl+ilKdDnNMgXYwyR+blR+6/7EvIU9brl42ROzQD76zCSGmShg0rUC
- NGYGF8qohyNJ6KOXtxy6Lg6quI5groj39h1RT0Tk4Y4vg3XLrGlnnz5w1keDuJm2lT3H
- UnV21DI5ygt0jgctbZrYfmwBK0xum5uuX7abLECKQJyYSQkhpGv5Apw0ZV/lw44Di8Q5 lQ== 
-Received: from nalasppmta02.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3nhfkacxk9-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 07 Feb 2023 00:42:56 +0000
-Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
- [10.47.209.196])
- by NALASPPMTA02.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 3170gtDr017110
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 7 Feb 2023 00:42:55 GMT
-Received: from [10.110.44.26] (10.80.80.8) by nalasex01a.na.qualcomm.com
- (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.36; Mon, 6 Feb 2023
- 16:42:55 -0800
-Message-ID: <40e92d5b-8799-0b92-3985-480c260c99b3@quicinc.com>
-Date: Mon, 6 Feb 2023 16:42:54 -0800
+Received: from mail-qt1-f170.google.com (mail-qt1-f170.google.com
+ [209.85.160.170])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0A3E410E152;
+ Tue,  7 Feb 2023 09:45:22 +0000 (UTC)
+Received: by mail-qt1-f170.google.com with SMTP id g7so15980508qto.11;
+ Tue, 07 Feb 2023 01:45:21 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=wxhBpw+7KYsqoPkMYN7PcL/qYbJmGbUAKBno8qMJdNU=;
+ b=Ex4VBQoINAezWJVGSajLLQi+MDn1RHcRFR7Sy53rU164du2rIo4ErZkcqE9gl5dFgG
+ GyQj9/s9J3rgOY6kgqY3G80i/IX2ZgJQzMG9RbECsd14g2wQGgv9tAqLo4d2zn8/UXZv
+ 8GYOs/8SusIrFBcazeaZoLJ2utJIshVKtI0MQsgbAUYm3qMmzXEXCHoGkOtdwDmcbr8E
+ LNvPmYlTAe9qq8Aq381IPS7JAdkFMjuhYGbg2bBJw/R4S4/t3pe/CTCl7PG97uUWtEyG
+ IMeCCoR95vXwXJY7VNKbTiwEJj6YnM3MaDZh6HEmdzU2pcTfkFoXoEfNde8esOTJJEKD
+ OxJQ==
+X-Gm-Message-State: AO0yUKXpw5mZELlxQKddZ1fQAkA8Nb8kpfweEmCu3CFNk8gn0ZifNeNB
+ 6rKySA+HNG17b2D3I7mIDas/QZNduwIXEA==
+X-Google-Smtp-Source: AK7set/o341++MpbJ4to/7qPauodu4H3a750GTPCaRXksfreRZdmlYrpzktROyMt2HgQ3R7rWP6Mjg==
+X-Received: by 2002:ac8:7f02:0:b0:3b6:942b:4ff1 with SMTP id
+ f2-20020ac87f02000000b003b6942b4ff1mr4531802qtk.37.1675763120864; 
+ Tue, 07 Feb 2023 01:45:20 -0800 (PST)
+Received: from mail-yw1-f171.google.com (mail-yw1-f171.google.com.
+ [209.85.128.171]) by smtp.gmail.com with ESMTPSA id
+ b2-20020ac86bc2000000b003b7e8c04d2esm8929341qtt.64.2023.02.07.01.45.20
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 07 Feb 2023 01:45:20 -0800 (PST)
+Received: by mail-yw1-f171.google.com with SMTP id
+ 00721157ae682-527979e8670so101749317b3.10; 
+ Tue, 07 Feb 2023 01:45:20 -0800 (PST)
+X-Received: by 2002:a0d:f444:0:b0:526:78ad:bb15 with SMTP id
+ d65-20020a0df444000000b0052678adbb15mr261074ywf.47.1675762819071; Tue, 07 Feb
+ 2023 01:40:19 -0800 (PST)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.6.2
-Content-Language: en-US
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Rob Clark
- <robdclark@gmail.com>, Sean Paul <sean@poorly.run>
-References: <20230203182132.1307834-1-dmitry.baryshkov@linaro.org>
- <20230203182132.1307834-22-dmitry.baryshkov@linaro.org>
- <502f2c4b-193d-07ca-3b73-8fe7a608e736@quicinc.com>
- <d55bb351-bf0d-e8ae-8473-3903ad9419c0@linaro.org>
-From: Abhinav Kumar <quic_abhinavk@quicinc.com>
-In-Reply-To: <d55bb351-bf0d-e8ae-8473-3903ad9419c0@linaro.org>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-ORIG-GUID: yRpEuBag1DWKVi0UQh4tdusPTUlXhGvm
-X-Proofpoint-GUID: yRpEuBag1DWKVi0UQh4tdusPTUlXhGvm
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.219,Aquarius:18.0.930,Hydra:6.0.562,FMLib:17.11.122.1
- definitions=2023-02-06_07,2023-02-06_03,2022-06-22_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- mlxlogscore=999
- impostorscore=0 priorityscore=1501 phishscore=0 lowpriorityscore=0
- adultscore=0 suspectscore=0 spamscore=0 bulkscore=0 clxscore=1015
- mlxscore=0 malwarescore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2212070000 definitions=main-2302070005
-Subject: Re: [Freedreno] [PATCH v3 21/27] drm/msm/dpu: simplify
- dpu_plane_validate_src()
+References: <20221102180705.459294-1-dmitry.baryshkov@linaro.org>
+ <20230109162140.yelgy2da7aqa6sqv@fsr-ub1664-121.ea.freescale.net>
+ <323ec70e-4613-c0e9-0b39-ad2a0a76673d@linaro.org>
+ <20230110065712.lgjnmb66s4tlpoly@fsr-ub1664-121.ea.freescale.net>
+ <CAMuHMdVQ_vAgc0zpzDeMfncsj4hwS=FveeAy4mwpTnwt3uOw8w@mail.gmail.com>
+In-Reply-To: <CAMuHMdVQ_vAgc0zpzDeMfncsj4hwS=FveeAy4mwpTnwt3uOw8w@mail.gmail.com>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Tue, 7 Feb 2023 10:40:07 +0100
+X-Gmail-Original-Message-ID: <CAMuHMdX73zPbiNTBAh-fhq1XqStDkv9Ko1N_mP1bjZ6BewCOyQ@mail.gmail.com>
+Message-ID: <CAMuHMdX73zPbiNTBAh-fhq1XqStDkv9Ko1N_mP1bjZ6BewCOyQ@mail.gmail.com>
+To: Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>
+Content-Type: text/plain; charset="UTF-8"
+Subject: Re: [Freedreno] [PATCH v3 0/7] drm/bridge_connector: perform HPD
+ enablement automatically
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -87,114 +71,105 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
- Bjorn Andersson <andersson@kernel.org>, dri-devel@lists.freedesktop.org,
- Stephen Boyd <swboyd@chromium.org>, Daniel Vetter <daniel@ffwll.ch>,
- David Airlie <airlied@gmail.com>
+Cc: dri-devel@lists.freedesktop.org, Fabio Estevam <festevam@gmail.com>,
+ Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>,
+ David Airlie <airlied@gmail.com>, NXP Linux Team <linux-imx@nxp.com>,
+ Philipp Zabel <p.zabel@pengutronix.de>, Daniel Vetter <daniel@ffwll.ch>,
+ linux-arm-msm@vger.kernel.org, Sascha Hauer <s.hauer@pengutronix.de>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, Maxime Ripard <mripard@kernel.org>,
+ Sean Paul <sean@poorly.run>, Pengutronix Kernel Team <kernel@pengutronix.de>,
+ linux-arm-kernel@lists.infradead.org, Tomi Valkeinen <tomba@kernel.org>,
+ freedreno@lists.freedesktop.org,
+ Linux-Renesas <linux-renesas-soc@vger.kernel.org>,
+ Rob Clark <robdclark@gmail.com>,
+ Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Shawn Guo <shawnguo@kernel.org>, Lucas Stach <l.stach@pengutronix.de>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
+On Tue, Jan 10, 2023 at 11:20 AM Geert Uytterhoeven
+<geert@linux-m68k.org> wrote:
+> On Tue, Jan 10, 2023 at 8:07 AM Laurentiu Palcu
+> <laurentiu.palcu@oss.nxp.com> wrote:
+> > On Mon, Jan 09, 2023 at 10:26:28PM +0200, Dmitry Baryshkov wrote:
+> > > On 09/01/2023 18:21, Laurentiu Palcu wrote:
+> > > > It looks like there are some issues with this patchset... :/ I just
+> > > > fetched the drm-tip and, with these patches included, the "Hot plug
+> > > > detection already enabled" warning is back for i.MX DCSS.
+> > >
+> > > Could you please provide a backtrace?
+> >
+> > Sure, see below:
+> >
+> > ------------[ cut here ]------------
+> > Hot plug detection already enabled
+> > WARNING: CPU: 2 PID: 9 at drivers/gpu/drm/drm_bridge.c:1257 drm_bridge_hpd_enable+0x94/0x9c [drm]
+> > Modules linked in: videobuf2_memops snd_soc_simple_card snd_soc_simple_card_utils fsl_imx8_ddr_perf videobuf2_common snd_soc_imx_spdif adv7511 etnaviv imx8m_ddrc imx_dcss mc cec nwl_dsi gov
+> > CPU: 2 PID: 9 Comm: kworker/u8:0 Not tainted 6.2.0-rc2-15208-g25b283acd578 #6
+> > Hardware name: NXP i.MX8MQ EVK (DT)
+> > Workqueue: events_unbound deferred_probe_work_func
+> > pstate: 60000005 (nZCv daif -PAN -UAO -TCO -DIT -SSBS BTYPE=--)
+> > pc : drm_bridge_hpd_enable+0x94/0x9c [drm]
+> > lr : drm_bridge_hpd_enable+0x94/0x9c [drm]
+> > sp : ffff800009ef3740
+> > x29: ffff800009ef3740 x28: ffff000009331f00 x27: 0000000000001000
+> > x26: 0000000000000020 x25: ffff800001148ed8 x24: ffff00000a8fe000
+> > x23: 00000000fffffffd x22: ffff000005086348 x21: ffff800001133ee0
+> > x20: ffff00000550d800 x19: ffff000005086288 x18: 0000000000000006
+> > x17: 0000000000000000 x16: ffff8000096ef008 x15: 97ffff2891004260
+> > x14: 2a1403e194000000 x13: 97ffff2891004260 x12: 2a1403e194000000
+> > x11: 7100385f29400801 x10: 0000000000000aa0 x9 : ffff800008112744
+> > x8 : ffff000000250b00 x7 : 0000000000000003 x6 : 0000000000000011
+> > x5 : 0000000000000000 x4 : ffff0000bd986a48 x3 : 0000000000000001
+> > x2 : 0000000000000000 x1 : 0000000000000000 x0 : ffff000000250000
+> > Call trace:
+> >  drm_bridge_hpd_enable+0x94/0x9c [drm]
+> >  drm_bridge_connector_enable_hpd+0x2c/0x3c [drm_kms_helper]
+> >  drm_kms_helper_poll_enable+0x94/0x10c [drm_kms_helper]
+> >  drm_helper_probe_single_connector_modes+0x1a8/0x510 [drm_kms_helper]
+> >  drm_client_modeset_probe+0x204/0x1190 [drm]
+> >  __drm_fb_helper_initial_config_and_unlock+0x5c/0x4a4 [drm_kms_helper]
+> >  drm_fb_helper_initial_config+0x54/0x6c [drm_kms_helper]
+> >  drm_fbdev_client_hotplug+0xd0/0x140 [drm_kms_helper]
+> >  drm_fbdev_generic_setup+0x90/0x154 [drm_kms_helper]
+> >  dcss_kms_attach+0x1c8/0x254 [imx_dcss]
+> >  dcss_drv_platform_probe+0x90/0xfc [imx_dcss]
+> >  platform_probe+0x70/0xcc
+> >  really_probe+0xc4/0x2e0
+> >  __driver_probe_device+0x80/0xf0
+> >  driver_probe_device+0xe0/0x164
+> >  __device_attach_driver+0xc0/0x13c
+> >  bus_for_each_drv+0x84/0xe0
+> >  __device_attach+0xa4/0x1a0
+> >  device_initial_probe+0x1c/0x30
+> >  bus_probe_device+0xa4/0xb0
+> >  deferred_probe_work_func+0x90/0xd0
+> >  process_one_work+0x200/0x474
+> >  worker_thread+0x74/0x43c
+> >  kthread+0xfc/0x110
+> >  ret_from_fork+0x10/0x20
+> > ---[ end trace 0000000000000000 ]---
+>
+> I get a similar trace on R-Car Gen2 (Koelsch with R-Car M2-W) and
+> Gen3 (Salvator-XS with R-Car H3 ES2.0), and bisected it to commit
+> 92d755d8f13b6791 ("drm/bridge_connector: rely on drm_kms_helper_poll_*
+> for HPD enablement") in drm-misc/for-linux-next.
+>
+> As I do not have any displays connected, I do not know what is the
+> full impact.
 
+FTR, the issue is still present.
 
-On 2/6/2023 4:27 PM, Dmitry Baryshkov wrote:
-> On 07/02/2023 00:40, Abhinav Kumar wrote:
->>
->>
->> On 2/3/2023 10:21 AM, Dmitry Baryshkov wrote:
->>> Since the driver uses clipped src coordinates, there is no need to check
->>> against the fb coordinates. Remove corresponding checks and inline
->>> dpu_plane_validate_src().
->>>
->>> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
->>
->> Can you please explain how the clipping in 
->> drm_atomic_helper_check_plane_state() can allow us to remove checking 
->> the fb co-ordinates?
->>
->> The clipping is done using the mode parameters.
->>
->> So lets say the FB being used is smaller than the source buffer by an 
->> incorrect usermode setting.
->>
->> Then the src sspp shall try to fetch the full image of src rectangle 
->> size from a FB which isnt that big leading to a fault.
-> 
-> This case is checked by the drm_atomic_plane_check().
-> 
->>
->> How does the clipping avoid such a case?
-> 
-> clipping itself does not. However using clipped coordinates from 
-> plane_state->src ensures that they already were validated against the FB 
-> dimensions. I'll see if I can change the commit message to make it more 
-> obvious.
-> 
+Gr{oetje,eeting}s,
 
-Ah okay, yeah the commit text confused me a bit to look at the clipping 
-code in drm_atomic_helper_check_plane_state().
+                        Geert
 
-Yes, please change it to point to the helper which addresses this.
+--
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
 
->>
->>> ---
->>>   drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c | 30 ++++++++---------------
->>>   1 file changed, 10 insertions(+), 20 deletions(-)
->>>
->>> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c 
->>> b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
->>> index ecf5402ab61a..0986e740b978 100644
->>> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
->>> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
->>> @@ -894,25 +894,6 @@ static void dpu_plane_cleanup_fb(struct 
->>> drm_plane *plane,
->>>                   old_pstate->needs_dirtyfb);
->>>   }
->>> -static bool dpu_plane_validate_src(struct drm_rect *src,
->>> -                   struct drm_rect *fb_rect,
->>> -                   uint32_t min_src_size)
->>> -{
->>> -    /* Ensure fb size is supported */
->>> -    if (drm_rect_width(fb_rect) > MAX_IMG_WIDTH ||
->>> -        drm_rect_height(fb_rect) > MAX_IMG_HEIGHT)
->>> -        return false;
->>> -
->>> -    /* Ensure src rect is above the minimum size */
->>> -    if (drm_rect_width(src) < min_src_size ||
->>> -        drm_rect_height(src) < min_src_size)
->>> -        return false;
->>> -
->>> -    /* Ensure src is fully encapsulated in fb */
->>> -    return drm_rect_intersect(fb_rect, src) &&
->>> -        drm_rect_equals(fb_rect, src);
->>> -}
->>> -
->>>   static int dpu_plane_check_inline_rotation(struct dpu_plane *pdpu,
->>>                           const struct dpu_sspp_sub_blks *sblk,
->>>                           struct drm_rect src, const struct 
->>> dpu_format *fmt)
->>> @@ -998,6 +979,14 @@ static int dpu_plane_atomic_check(struct 
->>> drm_plane *plane,
->>>       fb_rect.x2 = new_plane_state->fb->width;
->>>       fb_rect.y2 = new_plane_state->fb->height;
->>> +    /* Ensure fb size is supported */
->>> +    if (drm_rect_width(&fb_rect) > MAX_IMG_WIDTH ||
->>> +        drm_rect_height(&fb_rect) > MAX_IMG_HEIGHT) {
->>> +        DPU_DEBUG_PLANE(pdpu, "invalid framebuffer " DRM_RECT_FMT "\n",
->>> +                DRM_RECT_ARG(&fb_rect));
->>> +        return -E2BIG;
->>> +    }
->>> +
->>>       max_linewidth = pdpu->catalog->caps->max_linewidth;
->>>       fmt = to_dpu_format(msm_framebuffer_format(new_plane_state->fb));
->>> @@ -1012,7 +1001,8 @@ static int dpu_plane_atomic_check(struct 
->>> drm_plane *plane,
->>>           return -EINVAL;
->>>       /* check src bounds */
->>> -    } else if (!dpu_plane_validate_src(&pipe_cfg->src_rect, 
->>> &fb_rect, min_src_size)) {
->>> +    } else if (drm_rect_width(&pipe_cfg->src_rect) < min_src_size ||
->>> +           drm_rect_height(&pipe_cfg->src_rect) < min_src_size) {
->>>           DPU_DEBUG_PLANE(pdpu, "invalid source " DRM_RECT_FMT "\n",
->>>                   DRM_RECT_ARG(&pipe_cfg->src_rect));
->>>           return -E2BIG;
-> 
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds
