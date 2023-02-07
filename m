@@ -1,38 +1,79 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0B8F668D438
-	for <lists+freedreno@lfdr.de>; Tue,  7 Feb 2023 11:30:46 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id C0E6268D94D
+	for <lists+freedreno@lfdr.de>; Tue,  7 Feb 2023 14:30:41 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D061F10E4AF;
-	Tue,  7 Feb 2023 10:30:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 593A710E4DD;
+	Tue,  7 Feb 2023 13:30:40 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-X-Greylist: delayed 301 seconds by postgrey-1.36 at gabe;
- Tue, 07 Feb 2023 10:30:43 UTC
-Received: from baptiste.telenet-ops.be (baptiste.telenet-ops.be
- [IPv6:2a02:1800:120:4::f00:13])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5B31D10E4B4
- for <freedreno@lists.freedesktop.org>; Tue,  7 Feb 2023 10:30:43 +0000 (UTC)
-Received: from ramsan.of.borg ([IPv6:2a02:1810:ac12:ed50:5f4c:1e23:9c34:1a39])
- by baptiste.telenet-ops.be with bizsmtp
- id JARZ2900N3XDBUl01ARZZ0; Tue, 07 Feb 2023 11:25:40 +0100
-Received: from geert (helo=localhost)
- by ramsan.of.borg with local-esmtp (Exim 4.95)
- (envelope-from <geert@linux-m68k.org>) id 1pPLAL-008G9Y-KD;
- Tue, 07 Feb 2023 11:25:33 +0100
-Date: Tue, 7 Feb 2023 11:25:33 +0100 (CET)
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-In-Reply-To: <20230124104548.3234554-2-dmitry.baryshkov@linaro.org>
-Message-ID: <1b391ff-5675-fb41-ae53-436e5693a1ce@linux-m68k.org>
-References: <20230124104548.3234554-1-dmitry.baryshkov@linaro.org>
- <20230124104548.3234554-2-dmitry.baryshkov@linaro.org>
+Received: from mail-wr1-x42a.google.com (mail-wr1-x42a.google.com
+ [IPv6:2a00:1450:4864:20::42a])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6AD5D10E4DD
+ for <freedreno@lists.freedesktop.org>; Tue,  7 Feb 2023 13:30:38 +0000 (UTC)
+Received: by mail-wr1-x42a.google.com with SMTP id a2so13281438wrd.6
+ for <freedreno@lists.freedesktop.org>; Tue, 07 Feb 2023 05:30:38 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=content-transfer-encoding:in-reply-to:organization:references:cc:to
+ :content-language:subject:reply-to:from:user-agent:mime-version:date
+ :message-id:from:to:cc:subject:date:message-id:reply-to;
+ bh=QFRY8l975SG0htBMNX2RaAHlE3X6PIi5Arw3VidyWxk=;
+ b=PzI8UYULwWu0ZkL3TzdEroaha7ac16Lsd6ACzqnS1czR/eFkebq/zPekJHdgwUP8ey
+ gVezDX3nKvLQ84rHuN1vO7mxYWmV2ZKYubaN0tS50a7HlHT10YiMgdERvpZofoQJt5em
+ Y/BX5a1Pz/0qqveRQi680OJQ0UDfnV1LPmELwW7ONMJdQp3t6+8GNgWLTYRMHW8WFO/A
+ bA/ofZhTwXdW3nZeTFaWs9QerwLp77BmkmDlpwPAGDXH2JaRrYP0ypQ1xlcvrBYCQS02
+ PWCViepUxb+7O42yaKbjpI2mfSEAYVivKXo7oKTFJvk8IpFyge7qVCJapqwYOw/WyaWA
+ 0Wpw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=content-transfer-encoding:in-reply-to:organization:references:cc:to
+ :content-language:subject:reply-to:from:user-agent:mime-version:date
+ :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=QFRY8l975SG0htBMNX2RaAHlE3X6PIi5Arw3VidyWxk=;
+ b=CX5cX/CqnvS5qSc/kO1A9AEcsjsW4llGXwSOsV7jR1UtNWZn4XLvhbFCjfqKEXp1Xn
+ ERDprLGWbu685/g3boLqaGspUqzuDnCZieOa3gd0rn/0nmVYBonWV38PYSCDKJLifqug
+ 4GJ/svYGssWgJS3CYXo1sWKa07lQ471bZqbEAr4K+VsPcWQ49URUsUfT9aSxoxbB0QTU
+ yGgbjQVkhsz+Dq7OpKFYVJDMoiqgndAJm8Lv+tcgDF9snLpQ8APZrTCZNTfFG6RnFzbE
+ ySTjTGx71SR9gakBJiZZ2HuLXz1ae/oMQddOlhTOhUZIXXCov5emrpbI6AR7ECk99c9X
+ rEQw==
+X-Gm-Message-State: AO0yUKV09kvAXHnHIWjlXZhnd0jrMG8W+eBMa24UcoSk9puDSGYt9zoh
+ PkMjN6jMNVdASHNfR6sU75IgaA==
+X-Google-Smtp-Source: AK7set8lMKCObqyAdbxEb0nTgdUyVM5rVpjgn42BqxPP5fL2YunnT7ZwjsQLHDKt6pgJf9pq87hmig==
+X-Received: by 2002:adf:f007:0:b0:2b6:7876:3cd4 with SMTP id
+ j7-20020adff007000000b002b678763cd4mr2691948wro.16.1675776636869; 
+ Tue, 07 Feb 2023 05:30:36 -0800 (PST)
+Received: from ?IPV6:2a01:e0a:982:cbb0:c58c:fc5c:67d6:e5f3?
+ ([2a01:e0a:982:cbb0:c58c:fc5c:67d6:e5f3])
+ by smtp.gmail.com with ESMTPSA id
+ o21-20020a5d58d5000000b002c3f0a78e39sm2651551wrf.9.2023.02.07.05.30.35
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 07 Feb 2023 05:30:36 -0800 (PST)
+Message-ID: <31b5a693-d9e6-1c21-9fa7-32abc431a46d@linaro.org>
+Date: Tue, 7 Feb 2023 14:30:35 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII; format=flowed
-Subject: Re: [Freedreno] [Intel-gfx] [PATCH v3 2/2] drm/probe_helper: sort
- out poll_running vs poll_enabled
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.7.1
+From: neil.armstrong@linaro.org
+Content-Language: en-US
+To: Geert Uytterhoeven <geert@linux-m68k.org>
+References: <20221102180705.459294-1-dmitry.baryshkov@linaro.org>
+ <20230109162140.yelgy2da7aqa6sqv@fsr-ub1664-121.ea.freescale.net>
+ <323ec70e-4613-c0e9-0b39-ad2a0a76673d@linaro.org>
+ <20230110065712.lgjnmb66s4tlpoly@fsr-ub1664-121.ea.freescale.net>
+ <bf92569b-3886-113c-9e27-508e4cbfa4ba@linaro.org>
+ <CAMuHMdUbgvT5i4XiJxgKSiRSmFFXO_mMEbgHBgcJDwUPxEYRRA@mail.gmail.com>
+ <4bf0e5a2-23b6-1964-b30f-a5cb57f35e68@linaro.org>
+ <CAMuHMdXyMJZaeeaLjzhbb_A7_WDcyjAzpKNWG8f5gtvmZLW0AA@mail.gmail.com>
+ <CAMuHMdUgtiuxJ9dnjcGy77onHtrhabT5krJMp2XSr4KOD31ydQ@mail.gmail.com>
+Organization: Linaro Developer Services
+In-Reply-To: <CAMuHMdUgtiuxJ9dnjcGy77onHtrhabT5krJMp2XSr4KOD31ydQ@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Subject: Re: [Freedreno] [PATCH v3 0/7] drm/bridge_connector: perform HPD
+ enablement automatically
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -45,103 +86,97 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Neil Armstrong <neil.armstrong@linaro.org>,
- Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>,
- Thomas Zimmermann <tzimmermann@suse.de>, freedreno@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org, Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>,
+Reply-To: neil.armstrong@linaro.org
+Cc: dri-devel@lists.freedesktop.org, Fabio Estevam <festevam@gmail.com>,
+ David Airlie <airlied@gmail.com>, NXP Linux Team <linux-imx@nxp.com>,
+ Philipp Zabel <p.zabel@pengutronix.de>,
+ Thomas Zimmermann <tzimmermann@suse.de>, linux-arm-msm@vger.kernel.org,
+ Sascha Hauer <s.hauer@pengutronix.de>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, linux-renesas-soc@vger.kernel.org,
- dri-devel@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>,
- Chen-Yu Tsai <wenst@chromium.org>, David Airlie <airlied@gmail.com>,
- Marek Szyprowski <m.szyprowski@samsung.com>
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, Maxime Ripard <mripard@kernel.org>,
+ Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>, Sean Paul <sean@poorly.run>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ linux-arm-kernel@lists.infradead.org, Tomi Valkeinen <tomba@kernel.org>,
+ freedreno@lists.freedesktop.org, Rob Clark <robdclark@gmail.com>,
+ Daniel Vetter <daniel@ffwll.ch>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Shawn Guo <shawnguo@kernel.org>, Lucas Stach <l.stach@pengutronix.de>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
- 	Hi Dmitry,
+On 07/02/2023 11:19, Geert Uytterhoeven wrote:
+> Hi Neil,
+> 
+> On Tue, Feb 7, 2023 at 11:02 AM Geert Uytterhoeven <geert@linux-m68k.org> wrote:
+>> On Tue, Feb 7, 2023 at 10:59 AM Neil Armstrong
+>> <neil.armstrong@linaro.org> wrote:
+>>> On 07/02/2023 10:40, Geert Uytterhoeven wrote:
+>>>> On Tue, Jan 10, 2023 at 5:37 PM Dmitry Baryshkov
+>>>> <dmitry.baryshkov@linaro.org> wrote:
+>>>>> On 10/01/2023 08:57, Laurentiu Palcu wrote:
+>>>>>> On Mon, Jan 09, 2023 at 10:26:28PM +0200, Dmitry Baryshkov wrote:
+>>>>>>> On 09/01/2023 18:21, Laurentiu Palcu wrote:
+>>>>>>>> It looks like there are some issues with this patchset... :/ I just
+>>>>>>>> fetched the drm-tip and, with these patches included, the "Hot plug
+>>>>>>>> detection already enabled" warning is back for i.MX DCSS.
+>>>>>>>
+>>>>>>> Could you please provide a backtrace?
+>>>>>>
+>>>>>> Sure, see below:
+>>>>>
+>>>>> I wondered, why didn't I see this on msm, my main target nowadays. The
+>>>>> msm driver is calling msm_kms_helper_poll_init() after initializing
+>>>>> fbdev, so all previous kms_helper_poll_enable() calls return early.
+>>>>>
+>>>>> I think I have the fix ready. Let me test it locally before posting.
+>>>>
+>>>> Is this fix available?
+>>>> Do you have a lore link?
+>>>
+>>> The fix at [1] has been applied on 2023-01-26
+>>>
+>>> [1] https://lore.kernel.org/all/20230124104548.3234554-1-dmitry.baryshkov@linaro.org/
+>>
+>> Applied where? linux-next does not have it.
+> 
+> commit cbf143b282c64e59
+> ("drm/probe_helper: extract two helper functions") in next-20230127
+> next-20230130 next-20230131
+> commit d33a54e3991dfce8
+> ("drm/probe_helper: sort out poll_running vs poll_enabled") in
+> next-20230127 next-20230130 next-20230131
+> 
+> but not in any later version?
 
-On Tue, 24 Jan 2023, Dmitry Baryshkov wrote:
-> There are two flags attemting to guard connector polling:
-> poll_enabled and poll_running. While poll_enabled semantics is clearly
-> defined and fully adhered (mark that drm_kms_helper_poll_init() was
-> called and not finalized by the _fini() call), the poll_running flag
-> doesn't have such clearliness.
->
-> This flag is used only in drm_helper_probe_single_connector_modes() to
-> guard calling of drm_kms_helper_poll_enable, it doesn't guard the
-> drm_kms_helper_poll_fini(), etc. Change it to only be set if the polling
-> is actually running. Tie HPD enablement to this flag.
->
-> This fixes the following warning reported after merging the HPD series:
->
-> Hot plug detection already enabled
-> WARNING: CPU: 2 PID: 9 at drivers/gpu/drm/drm_bridge.c:1257 drm_bridge_hpd_enable+0x94/0x9c [drm]
-> Modules linked in: videobuf2_memops snd_soc_simple_card snd_soc_simple_card_utils fsl_imx8_ddr_perf videobuf2_common snd_soc_imx_spdif adv7511 etnaviv imx8m_ddrc imx_dcss mc cec nwl_dsi gov
-> CPU: 2 PID: 9 Comm: kworker/u8:0 Not tainted 6.2.0-rc2-15208-g25b283acd578 #6
-> Hardware name: NXP i.MX8MQ EVK (DT)
-> Workqueue: events_unbound deferred_probe_work_func
-> pstate: 60000005 (nZCv daif -PAN -UAO -TCO -DIT -SSBS BTYPE=--)
-> pc : drm_bridge_hpd_enable+0x94/0x9c [drm]
-> lr : drm_bridge_hpd_enable+0x94/0x9c [drm]
-> sp : ffff800009ef3740
-> x29: ffff800009ef3740 x28: ffff000009331f00 x27: 0000000000001000
-> x26: 0000000000000020 x25: ffff800001148ed8 x24: ffff00000a8fe000
-> x23: 00000000fffffffd x22: ffff000005086348 x21: ffff800001133ee0
-> x20: ffff00000550d800 x19: ffff000005086288 x18: 0000000000000006
-> x17: 0000000000000000 x16: ffff8000096ef008 x15: 97ffff2891004260
-> x14: 2a1403e194000000 x13: 97ffff2891004260 x12: 2a1403e194000000
-> x11: 7100385f29400801 x10: 0000000000000aa0 x9 : ffff800008112744
-> x8 : ffff000000250b00 x7 : 0000000000000003 x6 : 0000000000000011
-> x5 : 0000000000000000 x4 : ffff0000bd986a48 x3 : 0000000000000001
-> x2 : 0000000000000000 x1 : 0000000000000000 x0 : ffff000000250000
-> Call trace:
-> drm_bridge_hpd_enable+0x94/0x9c [drm]
-> drm_bridge_connector_enable_hpd+0x2c/0x3c [drm_kms_helper]
-> drm_kms_helper_poll_enable+0x94/0x10c [drm_kms_helper]
-> drm_helper_probe_single_connector_modes+0x1a8/0x510 [drm_kms_helper]
-> drm_client_modeset_probe+0x204/0x1190 [drm]
-> __drm_fb_helper_initial_config_and_unlock+0x5c/0x4a4 [drm_kms_helper]
-> drm_fb_helper_initial_config+0x54/0x6c [drm_kms_helper]
-> drm_fbdev_client_hotplug+0xd0/0x140 [drm_kms_helper]
-> drm_fbdev_generic_setup+0x90/0x154 [drm_kms_helper]
-> dcss_kms_attach+0x1c8/0x254 [imx_dcss]
-> dcss_drv_platform_probe+0x90/0xfc [imx_dcss]
-> platform_probe+0x70/0xcc
-> really_probe+0xc4/0x2e0
-> __driver_probe_device+0x80/0xf0
-> driver_probe_device+0xe0/0x164
-> __device_attach_driver+0xc0/0x13c
-> bus_for_each_drv+0x84/0xe0
-> __device_attach+0xa4/0x1a0
-> device_initial_probe+0x1c/0x30
-> bus_probe_device+0xa4/0xb0
-> deferred_probe_work_func+0x90/0xd0
-> process_one_work+0x200/0x474
-> worker_thread+0x74/0x43c
-> kthread+0xfc/0x110
-> ret_from_fork+0x10/0x20
-> ---[ end trace 0000000000000000 ]---
->
-> Reported-by: Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>
-> Fixes: c8268795c9a9 ("drm/probe-helper: enable and disable HPD on connectors")
-> Tested-by: Marek Szyprowski <m.szyprowski@samsung.com>
-> Tested-by: Chen-Yu Tsai <wenst@chromium.org>
-> Acked-by: Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>
-> Tested-by: Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>
-> Tested-by: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+$ git log --oneline --author=dmitry next-20230207 drivers/gpu/drm/drm_probe_helper.c
+c8268795c9a9 drm/probe-helper: enable and disable HPD on connectors
+78b991ccfa64 drm/poll-helper: merge drm_kms_helper_poll_disable() and _fini()
 
-Thanks for your patch!
-This gets rids of the warning splats on e.g. Renesas Koelsch and
-Salvator-XS, so
-Tested-by: Geert Uytterhoeven <geert+renesas@glider.be>
+$ cat Next/SHA1s | grep drm
+drm-fixes       4ec5183ec48656cec489c49f989c508b68b518e3
+drm-intel-fixes 4c7b9344cadbed477372c75e3c0a8cfd542f5990
+drm-misc-fixes  8f20660f053cefd4693e69cfff9cf58f4f7c4929
+drm             1c0db6d84f8e0ac8f14178f13250e36ebcf457ee
+drm-misc        d20a8f409259f1782f080b434054854020878f23
+drm-intel       155c6b16eec2eaaaf6c71abf2d5e71641770d7ba
+drm-tegra       b9930311641cf2ed905a84aabe27e8f3868aee4a
+drm-msm         dbd7a2a941b8cbf9e5f79a777ed9fe0090eebb61
+drm-msm-lumag   1d233b1cb149ec78c20fac58331b27bb460f9558
+imx-drm         927d8fd465adbaaad6cce82f840d489d7c378f29
 
-Gr{oetje,eeting}s,
+so weren't merged into drm-misc, I'll ping Thomas & Maxime on irc.
 
- 						Geert
+Neil
 
---
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+> 
+> Gr{oetje,eeting}s,
+> 
+>                          Geert
+> 
+> --
+> Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+> 
+> In personal conversations with technical people, I call myself a hacker. But
+> when I'm talking to journalists I just say "programmer" or something like that.
+>                                  -- Linus Torvalds
 
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
- 							    -- Linus Torvalds
