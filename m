@@ -1,57 +1,60 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id B926E68E20A
-	for <lists+freedreno@lfdr.de>; Tue,  7 Feb 2023 21:41:22 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id B9BE368E216
+	for <lists+freedreno@lfdr.de>; Tue,  7 Feb 2023 21:44:43 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7524610E5D9;
-	Tue,  7 Feb 2023 20:41:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 77A7510E5D9;
+	Tue,  7 Feb 2023 20:44:42 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-oi1-f176.google.com (mail-oi1-f176.google.com
- [209.85.167.176])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0430310E5D9;
- Tue,  7 Feb 2023 20:41:20 +0000 (UTC)
-Received: by mail-oi1-f176.google.com with SMTP id p185so13753151oif.2;
- Tue, 07 Feb 2023 12:41:19 -0800 (PST)
+Received: from mail-yb1-xb2a.google.com (mail-yb1-xb2a.google.com
+ [IPv6:2607:f8b0:4864:20::b2a])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1558D10E5D9
+ for <freedreno@lists.freedesktop.org>; Tue,  7 Feb 2023 20:44:41 +0000 (UTC)
+Received: by mail-yb1-xb2a.google.com with SMTP id d132so20004878ybb.5
+ for <freedreno@lists.freedesktop.org>; Tue, 07 Feb 2023 12:44:41 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=N5PXaN+rnDkxZU0a1J/LHZxEMb6BCQd+9g7X1C4pMG0=;
+ b=P6G2nj53KX5NnzMLCDglTlx1+uLL5kTHDEQMf+kw3sUQCf8gNO5eC9mXHZsGpYeTO/
+ oA4dqLGhV1EcBBDnu4DRpW60ZPV875Cng0qMmSrpiWtZJ1SrGzhIkJhZ6G6cIoNbaM7x
+ 1UJGRcsPH6hyg6pTKF6IxCB3CPW/AxSF82MqvtBtqgl4aF8EfmW+7797E8SLPM72wQ2B
+ ibNRWI629JQ55GxxIpvuHDwz5GuG1WagzkgkBG2yDQ6OW+7bALmis/60GKpbE4Eq75B4
+ dKXy0Q0Ya+YkcwQQ3gVxly9AHLb2cQQl2TC/aiTZW4eatrYy5btYpJBXHmI32h/VeWGr
+ 159w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=5FZ+1P8WzhPm5R/qji+G1l7GfRk18RmqyDa6li0PrvI=;
- b=A2ZfSftaVE4fslM1mNgEW9WLcq3q4HFe1b4sOsPdUZJrpu+Nddp9aQtuzoIskGXCeL
- H+I6nk5cl20Dz7bTP+JEUn09Dg4IPhdJv4YRLbYDPvc2M32GjY51XnG/srQMMtLXpRT7
- Ew1A1FWcBTqMGNichIRbTqT1RgtTE6qNGhMd4G0S8ZfNhQ3HCBBgWG/ffB0sqaFyBZ5T
- 7wW2L1oZHqRAMPNFFofmwhZnOP+ZOjNPA+fNdFXXqY5UXvSsjRoZ8eKhmvmhYYstcZQa
- GxXcBzWqO4QGvfSprkJ2cpadOLmw02CUM3dcWk7b6o5U1rHOVUwQQTZ3gFwm5Xf+5FD3
- BG/A==
-X-Gm-Message-State: AO0yUKW7aHWns4uRG1voOlQjZ/GxPyfabvjLjGuePx6fXclwoo6kGMlu
- ZVdAFK2liDNAlWYZiXRTJwGlmEd9pw==
-X-Google-Smtp-Source: AK7set/ZzBfymzxPQ055ZgBNzCiGcWb2cKP1NDmXCNwf0UoZo2iTaxzmNRYE6FiS7CgQUUBIy2gS1g==
-X-Received: by 2002:a54:468e:0:b0:371:fe1:8943 with SMTP id
- k14-20020a54468e000000b003710fe18943mr106451oic.6.1675802479102; 
- Tue, 07 Feb 2023 12:41:19 -0800 (PST)
-Received: from robh_at_kernel.org (66-90-144-107.dyn.grandenetworks.net.
- [66.90.144.107]) by smtp.gmail.com with ESMTPSA id
- bg12-20020a056808178c00b0035c21f1a570sm6128570oib.6.2023.02.07.12.41.18
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 07 Feb 2023 12:41:18 -0800 (PST)
-Received: (nullmailer pid 4119955 invoked by uid 1000);
- Tue, 07 Feb 2023 20:41:17 -0000
-Date: Tue, 7 Feb 2023 14:41:17 -0600
-From: Rob Herring <robh@kernel.org>
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Message-ID: <167580246437.4119306.9328093352336418931.robh@kernel.org>
-References: <20230206145707.122937-1-dmitry.baryshkov@linaro.org>
- <20230206145707.122937-4-dmitry.baryshkov@linaro.org>
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=N5PXaN+rnDkxZU0a1J/LHZxEMb6BCQd+9g7X1C4pMG0=;
+ b=Vc7DFgk4yCsC13PZPjvZuyM1CzhiIVOm+vmJKfcs7JdFOaFqgFrtiRvIi+nT0t6LQT
+ qWQiLZLQyU9Zhlozwm9SBF3+TD1IaT5tsQm94ngdSTtE0PFP5yQxDR3qQYoBekOLkOmh
+ iE+SKn9xord0PCm5eCdZJtDy1sBPu/YMV1VYx8MTM813vwGBoXSJC40V4r5zkBvl00Pw
+ JfU+Avsx4qS6prPFqPHo3d9RKZyFAaQ26g5pQk1uh/1tbfyzN/NzgopOramAif1Po2H3
+ u2Oim6ZlokvPiNvknFdMNJ+NWvmZvaX3oVr8yYr2mFbpvkKbq9BF2JMFgP1AKxsOwVZf
+ t39g==
+X-Gm-Message-State: AO0yUKUpG3FKYZfOCD12cvQ81TNWZpe30XCjMAfdX49nvURg/cDhOqjj
+ qSjdkoABL6DnKrirIgCEWH3rr5BfH6Tz6vMRDgUYjg==
+X-Google-Smtp-Source: AK7set+jTbUlrgbo3Pm83+jU9WPdxt8hSIwSlDA1+2fc+XPGtAFWMuNWO85wfvO5Dkec0F+B+ksxrPgD6xywjhbkyWA=
+X-Received: by 2002:a25:9345:0:b0:880:1f26:333f with SMTP id
+ g5-20020a259345000000b008801f26333fmr605829ybo.15.1675802680164; Tue, 07 Feb
+ 2023 12:44:40 -0800 (PST)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20230206145707.122937-4-dmitry.baryshkov@linaro.org>
-Subject: Re: [Freedreno] [PATCH v2 3/8] dt-bindings: display/msm/gmu: add
- Adreno 660 support
+References: <20230203182132.1307834-1-dmitry.baryshkov@linaro.org>
+ <20230203182132.1307834-25-dmitry.baryshkov@linaro.org>
+ <b4dbe036-81c4-e56f-12fb-75cb8bb59173@quicinc.com>
+In-Reply-To: <b4dbe036-81c4-e56f-12fb-75cb8bb59173@quicinc.com>
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Date: Tue, 7 Feb 2023 22:44:29 +0200
+Message-ID: <CAA8EJpqQJdrvx4KML1pFYwM1ogYYie6Wct+ueJYMBAYb2-k=xQ@mail.gmail.com>
+To: Abhinav Kumar <quic_abhinavk@quicinc.com>
+Content-Type: text/plain; charset="UTF-8"
+Subject: Re: [Freedreno] [PATCH v3 24/27] drm/msm/dpu: rework plane CSC
+ setting
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,31 +67,121 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sean Paul <sean@poorly.run>, devicetree@vger.kernel.org,
- Daniel Vetter <daniel@ffwll.ch>, Stephen Boyd <sboyd@kernel.org>,
- linux-arm-msm@vger.kernel.org, Michael Turquette <mturquette@baylibre.com>,
- Bjorn Andersson <andersson@kernel.org>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
- Taniya Das <quic_tdas@quicinc.com>, Konrad Dybcio <konrad.dybcio@linaro.org>,
- Rob Clark <robdclark@gmail.com>, Rob Herring <robh+dt@kernel.org>,
- Andy Gross <agross@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- freedreno@lists.freedesktop.org, David Airlie <airlied@gmail.com>,
- linux-clk@vger.kernel.org
+Cc: freedreno@lists.freedesktop.org, Sean Paul <sean@poorly.run>,
+ Bjorn Andersson <andersson@kernel.org>, dri-devel@lists.freedesktop.org,
+ Stephen Boyd <swboyd@chromium.org>, Rob Clark <robdclark@gmail.com>,
+ Daniel Vetter <daniel@ffwll.ch>, linux-arm-msm@vger.kernel.org,
+ David Airlie <airlied@gmail.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
+On Tue, 7 Feb 2023 at 22:05, Abhinav Kumar <quic_abhinavk@quicinc.com> wrote:
+>
+>
+>
+> On 2/3/2023 10:21 AM, Dmitry Baryshkov wrote:
+> > Rework the code flushing CSC settings for the plane. Separate out the
+> > pipe and pipe_cfg as a preparation for r_pipe support.
+> >
+> > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> > ---
+> >   drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c | 45 +++++++++++++----------
+> >   1 file changed, 25 insertions(+), 20 deletions(-)
+> >
+> > diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
+> > index e69499490d39..05047192cb37 100644
+> > --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
+> > +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
+> > @@ -576,29 +576,18 @@ static const struct dpu_csc_cfg dpu_csc10_YUV2RGB_601L = {
+> >       { 0x00, 0x3ff, 0x00, 0x3ff, 0x00, 0x3ff,},
+> >   };
+> >
+> > -static const struct dpu_csc_cfg *_dpu_plane_get_csc(struct dpu_plane *pdpu, const struct dpu_format *fmt)
+> > +static const struct dpu_csc_cfg *_dpu_plane_get_csc(struct dpu_sw_pipe *pipe, const struct dpu_format *fmt)
+> >   {
+> > -     struct dpu_plane_state *pstate = to_dpu_plane_state(pdpu->base.state);
+> >       const struct dpu_csc_cfg *csc_ptr;
+> >
+> > -     if (!pdpu) {
+> > -             DPU_ERROR("invalid plane\n");
+> > -             return NULL;
+> > -     }
+> > -
+> >       if (!DPU_FORMAT_IS_YUV(fmt))
+> >               return NULL;
+> >
+> > -     if (BIT(DPU_SSPP_CSC_10BIT) & pstate->pipe.sspp->cap->features)
+> > +     if (BIT(DPU_SSPP_CSC_10BIT) & pipe->sspp->cap->features)
+> >               csc_ptr = &dpu_csc10_YUV2RGB_601L;
+> >       else
+> >               csc_ptr = &dpu_csc_YUV2RGB_601L;
+> >
+> > -     DPU_DEBUG_PLANE(pdpu, "using 0x%X 0x%X 0x%X...\n",
+> > -                     csc_ptr->csc_mv[0],
+> > -                     csc_ptr->csc_mv[1],
+> > -                     csc_ptr->csc_mv[2]);
+> > -
+> >       return csc_ptr;
+> >   }
+> >
+> > @@ -1049,6 +1038,27 @@ static int dpu_plane_atomic_check(struct drm_plane *plane,
+> >       return 0;
+> >   }
+> >
+> > +static void dpu_plane_flush_csc(struct dpu_plane *pdpu, struct dpu_sw_pipe *pipe)
+> > +{
+> > +     const struct dpu_format *format = to_dpu_format(msm_framebuffer_format(pdpu->base.state->fb));
+> > +     const struct dpu_csc_cfg *csc_ptr;
+> > +
+> > +     if (!pipe->sspp || !pipe->sspp->ops.setup_csc)
+> > +             return;
+> > +
+> > +     csc_ptr = _dpu_plane_get_csc(pipe, format);
+> > +     if (!csc_ptr)
+> > +             return;
+> > +
+> > +     DPU_DEBUG_PLANE(pdpu, "using 0x%X 0x%X 0x%X...\n",
+> > +                     csc_ptr->csc_mv[0],
+> > +                     csc_ptr->csc_mv[1],
+> > +                     csc_ptr->csc_mv[2]);
+> > +
+> > +     pipe->sspp->ops.setup_csc(pipe->sspp, csc_ptr);
+> > +
+> > +}
+> > +
+> >   void dpu_plane_flush(struct drm_plane *plane)
+> >   {
+> >       struct dpu_plane *pdpu;
+> > @@ -1072,13 +1082,8 @@ void dpu_plane_flush(struct drm_plane *plane)
+> >       else if (pdpu->color_fill & DPU_PLANE_COLOR_FILL_FLAG)
+> >               /* force 100% alpha */
+> >               _dpu_plane_color_fill(pdpu, pdpu->color_fill, 0xFF);
+> > -     else if (pstate->pipe.sspp && pstate->pipe.sspp->ops.setup_csc) {
+> > -             const struct dpu_format *fmt = to_dpu_format(msm_framebuffer_format(plane->state->fb));
+> > -             const struct dpu_csc_cfg *csc_ptr = _dpu_plane_get_csc(pdpu, fmt);
+> > -
+> > -             if (csc_ptr)
+> > -                     pstate->pipe.sspp->ops.setup_csc(pstate->pipe.sspp, csc_ptr);
+> > -     }
+>
+> Do we need to check for pipe being valid too (pstate->pipe) &&
+> (pstate->pipe.sspp) && pstate->pipe.sspp->ops.setup_csc) ?
+>
+> Before moving the pipe_hw/sw pipe to the state the code used to check
+> for pdpu->pipe_hw to be valid. Since dpu_plane_flush() can be called
+> from other files too , dont we need to check for (pstate->pipe)?
 
-On Mon, 06 Feb 2023 16:57:02 +0200, Dmitry Baryshkov wrote:
-> Add Adreno A660 to the A635 clause to define all version-specific
-> properties. There is no need to add it to the top-level clause, since
-> top-level compatible uses pattern to define compatible strings.
-> 
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> ---
->  Documentation/devicetree/bindings/display/msm/gmu.yaml | 1 +
->  1 file changed, 1 insertion(+)
-> 
+pstate->pipe is not a pointer, there is nothing to check.
 
-Acked-by: Rob Herring <robh@kernel.org>
+>
+> > +     else
+> > +             dpu_plane_flush_csc(pdpu, &pstate->pipe);
+> >
+> >       /* flag h/w flush complete */
+> >       if (plane->state)
 
+
+
+-- 
+With best wishes
+Dmitry
