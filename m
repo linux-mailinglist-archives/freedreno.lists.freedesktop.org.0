@@ -1,78 +1,72 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id CC03168EFF5
-	for <lists+freedreno@lfdr.de>; Wed,  8 Feb 2023 14:42:19 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 63CAC68F0D4
+	for <lists+freedreno@lfdr.de>; Wed,  8 Feb 2023 15:30:55 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 89E7C10E051;
-	Wed,  8 Feb 2023 13:42:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2F5AA10E799;
+	Wed,  8 Feb 2023 14:30:54 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F1D7710E775;
- Wed,  8 Feb 2023 13:42:16 +0000 (UTC)
-Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 318ArmJV026311; Wed, 8 Feb 2023 13:42:15 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
- h=from : to : cc :
- subject : date : message-id : in-reply-to : references; s=qcppdkim1;
- bh=bazFhze46inAQct00eKWJ0u0iAV7QURaooeXwJixmjg=;
- b=J6i5w7IsxDe5Hz7vIxmVLfTEg2zqSA60gMxtj2W8WQOiOzqsv/GYDiRjIofrmbeIm3Vj
- SS/8ZV1ID1G90/kAAl92NEqzTHf/XwXPe7WcDZaprhggViF3wdnR2ZlTKAepGZurM1EV
- GZ5v1FpXTIxkp1fIb0tYiYquCZbSYkyqKy9BtwmLOM0uv7iW4pNYHwB3srOJVw+cfr8x
- wJbEThVYHtK55o4x2EBfLPUufmpYHiZOb/ifuC4ijRO7izNgZD6d5z4vfiXuyRQHAsfV
- a6S/wnXyW2euAjmf9gw3tcObHvDcLXFWyfne86L0QkLR/B2KoFpAP60CWa15vN0k7dT9 rg== 
-Received: from apblrppmta02.qualcomm.com
- (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com [103.229.18.19])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3nkgafm82e-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 08 Feb 2023 13:42:14 +0000
-Received: from pps.filterd (APBLRPPMTA02.qualcomm.com [127.0.0.1])
- by APBLRPPMTA02.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTP id 318DgBRb025409; 
- Wed, 8 Feb 2023 13:42:11 GMT
-Received: from pps.reinject (localhost [127.0.0.1])
- by APBLRPPMTA02.qualcomm.com (PPS) with ESMTP id 3nhgekjera-1;
- Wed, 08 Feb 2023 13:42:11 +0000
-Received: from APBLRPPMTA02.qualcomm.com (APBLRPPMTA02.qualcomm.com
- [127.0.0.1])
- by pps.reinject (8.17.1.5/8.17.1.5) with ESMTP id 318DgBCS025404;
- Wed, 8 Feb 2023 13:42:11 GMT
-Received: from kalyant-linux.qualcomm.com (kalyant-linux.qualcomm.com
- [10.204.66.210])
- by APBLRPPMTA02.qualcomm.com (PPS) with ESMTP id 318DgAG0025357;
- Wed, 08 Feb 2023 13:42:11 +0000
-Received: by kalyant-linux.qualcomm.com (Postfix, from userid 94428)
- id E97D54BE6; Wed,  8 Feb 2023 05:42:09 -0800 (PST)
-From: Kalyan Thota <quic_kalyant@quicinc.com>
-To: dri-devel@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
- freedreno@lists.freedesktop.org, devicetree@vger.kernel.org
-Date: Wed,  8 Feb 2023 05:42:04 -0800
-Message-Id: <1675863724-28412-5-git-send-email-quic_kalyant@quicinc.com>
-X-Mailer: git-send-email 2.7.4
-In-Reply-To: <1675863724-28412-1-git-send-email-quic_kalyant@quicinc.com>
+Received: from mail-ej1-x62a.google.com (mail-ej1-x62a.google.com
+ [IPv6:2a00:1450:4864:20::62a])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D5CDA10E799
+ for <freedreno@lists.freedesktop.org>; Wed,  8 Feb 2023 14:30:52 +0000 (UTC)
+Received: by mail-ej1-x62a.google.com with SMTP id qw12so51677573ejc.2
+ for <freedreno@lists.freedesktop.org>; Wed, 08 Feb 2023 06:30:52 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=xv/iB69rY5MDb5hV5n9uwKuD5gimFsR45T01z2ZZ+d0=;
+ b=fRjJOhiNjdNfSD6yqiiAmA+P6IXUOtpIvMuZNsZPOdJl4VideDYpQIcH7mRY3Pt7nk
+ ESXoz1egOJvuv8e6ZdWiCFGN9GGZenSpnzsU2fMDeSLQiAd9kGW9oukeBQI/ofypfA8b
+ XJlX3GnSlBN4KHxrCpUQ+ioyo7koc+XceoYo35pNQG1FQ5qZG5acAlcgbQcbXCZFnUb+
+ dKTp07QKU7H9RqoRhhqd+/bKIVrrdCC/3DU4cJtYEq0mGZu8WOcI4Q3pEs4pLUt+r2qu
+ QJQoLp64LFTUDMhShbRh0Dw3xj9D5fW5YQeBO183UpTZJydq4m7cUE3UK5vv2LMtB3lH
+ P2rQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=xv/iB69rY5MDb5hV5n9uwKuD5gimFsR45T01z2ZZ+d0=;
+ b=c23GRJp/UsBiHqtPQZCy2iB/armSOOdcO5BolyQZIe5UqEAnzY6V4NxrTOQ4iODUam
+ XQ0wIqmLp7Lgb0cNcKiKxLtNTxunjPaeM62y/Y13okGakMubOtQ//FvcZsXtlQB6aTrP
+ xcvxAZ6vqIyY+5+rL5E8/EuzesK3rL0PSFTMRuf1mnoaoQZ6SISUJAj/yNp+Hi39TvlI
+ KEkqYAcxqD0PXkiIfQetFZ0dBfrHWZpA7KsivOa5IOyKnI5uIj7oQ2A74hifWZkphcXN
+ Bp/QPdHhuQ8VDcFQ+zz6wdBwFEQZzFQ5UdaeZQK9m5+zLTW+89CxQV4FZdrYHGnPwnQe
+ +TwA==
+X-Gm-Message-State: AO0yUKX+ms9vwM6idO3a/QXqMJzYE9M2r4yF9lWRHKhFtAnyO9cwNkQf
+ ORpNDpJLwBavrE55J/a2GHkTmQ==
+X-Google-Smtp-Source: AK7set/x2EDXjkMHYEQ6OzaRfTTMLZbpxjwchkhKBdHZQ4ZwIulS4CtS3mq/FdWV0ffPIP835Uo65w==
+X-Received: by 2002:a17:907:8d6:b0:8aa:1634:ba2a with SMTP id
+ zu22-20020a17090708d600b008aa1634ba2amr5819792ejb.18.1675866651357; 
+ Wed, 08 Feb 2023 06:30:51 -0800 (PST)
+Received: from ?IPV6:2001:14ba:a085:4d00::8a5?
+ (dzccz6yyyyyyyyyyybcwt-3.rev.dnainternet.fi. [2001:14ba:a085:4d00::8a5])
+ by smtp.gmail.com with ESMTPSA id
+ lv3-20020a170906bc8300b00883410a786csm8258763ejb.207.2023.02.08.06.30.50
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 08 Feb 2023 06:30:50 -0800 (PST)
+Message-ID: <ead8db2f-71bd-1b64-c663-faa0ce3bcc3e@linaro.org>
+Date: Wed, 8 Feb 2023 16:30:49 +0200
+MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.7.1
+Content-Language: en-GB
+To: Kalyan Thota <quic_kalyant@quicinc.com>, dri-devel@lists.freedesktop.org, 
+ linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
+ devicetree@vger.kernel.org
 References: <1675863724-28412-1-git-send-email-quic_kalyant@quicinc.com>
-X-QCInternal: smtphost
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-GUID: S8I0oNbYEoGEVE2Tdnd01IgG576FCIC1
-X-Proofpoint-ORIG-GUID: S8I0oNbYEoGEVE2Tdnd01IgG576FCIC1
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.219,Aquarius:18.0.930,Hydra:6.0.562,FMLib:17.11.122.1
- definitions=2023-02-08_05,2023-02-08_02,2022-06-22_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0
- malwarescore=0 adultscore=0 clxscore=1015 bulkscore=0 spamscore=0
- mlxlogscore=999 mlxscore=0 priorityscore=1501 suspectscore=0
- impostorscore=0 phishscore=0 classifier=spam adjust=0 reason=mlx
- scancount=1 engine=8.12.0-2212070000 definitions=main-2302080120
-Subject: [Freedreno] [PATCH v3 4/4] drm/msm/dpu: reserve the resources on
- topology change
+ <1675863724-28412-5-git-send-email-quic_kalyant@quicinc.com>
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+In-Reply-To: <1675863724-28412-5-git-send-email-quic_kalyant@quicinc.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Subject: Re: [Freedreno] [PATCH v3 4/4] drm/msm/dpu: reserve the resources
+ on topology change
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -85,121 +79,35 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Kalyan Thota <quic_kalyant@quicinc.com>, robdclark@chromium.org,
- dianders@chromium.org, quic_abhinavk@quicinc.com, linux-kernel@vger.kernel.org,
- swboyd@chromium.org, dmitry.baryshkov@linaro.org,
- marijn.suijten@somainline.org, quic_vpolimer@quicinc.com
+Cc: robdclark@chromium.org, dianders@chromium.org, quic_abhinavk@quicinc.com,
+ linux-kernel@vger.kernel.org, quic_vpolimer@quicinc.com,
+ marijn.suijten@somainline.org, swboyd@chromium.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Some features like CTM can be enabled dynamically. Release
-and reserve the DPU resources whenever a topology change
-occurs such that required hw blocks are allocated appropriately.
+On 08/02/2023 15:42, Kalyan Thota wrote:
+> Some features like CTM can be enabled dynamically. Release
+> and reserve the DPU resources whenever a topology change
+> occurs such that required hw blocks are allocated appropriately.
+> 
+> Signed-off-by: Kalyan Thota <quic_kalyant@quicinc.com>
+> ---
+> Changes in v1:
+> - Avoid mode_set call directly (Dmitry)
+> 
+> Changes in v2:
+> - Minor nits (Dmitry)
+> 
+> Changes in v3:
+> - avoid unnecessary modeset check call (Dmitry)
+> ---
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.h    |  2 ++
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c | 24 +++++++++++++++++++-----
+>   2 files changed, 21 insertions(+), 5 deletions(-)
 
-Signed-off-by: Kalyan Thota <quic_kalyant@quicinc.com>
----
-Changes in v1:
-- Avoid mode_set call directly (Dmitry)
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 
-Changes in v2:
-- Minor nits (Dmitry)
-
-Changes in v3:
-- avoid unnecessary modeset check call (Dmitry)
----
- drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.h    |  2 ++
- drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c | 24 +++++++++++++++++++-----
- 2 files changed, 21 insertions(+), 5 deletions(-)
-
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.h
-index 539b68b..85bd5645 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.h
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.h
-@@ -204,6 +204,7 @@ struct dpu_crtc {
-  * @hw_ctls       : List of active ctl paths
-  * @crc_source    : CRC source
-  * @crc_frame_skip_count: Number of frames skipped before getting CRC
-+ * @ctm_enabled   : Cached color management enablement state
-  */
- struct dpu_crtc_state {
- 	struct drm_crtc_state base;
-@@ -225,6 +226,7 @@ struct dpu_crtc_state {
- 
- 	enum dpu_crtc_crc_source crc_source;
- 	int crc_frame_skip_count;
-+	bool ctm_enabled;
- };
- 
- #define to_dpu_crtc_state(x) \
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-index 3920efd..038e077 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-@@ -217,6 +217,19 @@ static u32 dither_matrix[DITHER_MATRIX_SZ] = {
- 	15, 7, 13, 5, 3, 11, 1, 9, 12, 4, 14, 6, 0, 8, 2, 10
- };
- 
-+static bool _dpu_enc_is_dspp_changed(struct drm_crtc_state *crtc_state,
-+	struct msm_display_topology topology)
-+{
-+	struct dpu_crtc_state *cstate = to_dpu_crtc_state(crtc_state);
-+
-+	if ((cstate->ctm_enabled && !topology.num_dspp) ||
-+	    (!cstate->ctm_enabled && topology.num_dspp)) {
-+		crtc_state->mode_changed = true;
-+		return true;
-+	}
-+
-+	return false;
-+}
- 
- bool dpu_encoder_is_widebus_enabled(const struct drm_encoder *drm_enc)
- {
-@@ -642,14 +655,15 @@ static int dpu_encoder_virt_atomic_check(
- 
- 	topology = dpu_encoder_get_topology(dpu_enc, dpu_kms, adj_mode, crtc_state);
- 
-+	_dpu_enc_is_dspp_changed(crtc_state, topology);
-+
- 	/*
- 	 * Release and Allocate resources on every modeset
--	 * Dont allocate when active is false.
- 	 */
- 	if (drm_atomic_crtc_needs_modeset(crtc_state)) {
- 		dpu_rm_release(global_state, drm_enc);
- 
--		if (!crtc_state->active_changed || crtc_state->active)
-+		if (crtc_state->enable)
- 			ret = dpu_rm_reserve(&dpu_kms->rm, global_state,
- 					drm_enc, crtc_state, topology);
- 	}
-@@ -1022,7 +1036,7 @@ static void dpu_encoder_virt_atomic_mode_set(struct drm_encoder *drm_enc,
- 	struct dpu_hw_blk *hw_lm[MAX_CHANNELS_PER_ENC];
- 	struct dpu_hw_blk *hw_dspp[MAX_CHANNELS_PER_ENC] = { NULL };
- 	struct dpu_hw_blk *hw_dsc[MAX_CHANNELS_PER_ENC];
--	int num_lm, num_ctl, num_pp, num_dsc;
-+	int num_lm, num_ctl, num_pp, num_dsc, num_dspp;
- 	unsigned int dsc_mask = 0;
- 	int i;
- 
-@@ -1053,7 +1067,7 @@ static void dpu_encoder_virt_atomic_mode_set(struct drm_encoder *drm_enc,
- 		drm_enc->base.id, DPU_HW_BLK_CTL, hw_ctl, ARRAY_SIZE(hw_ctl));
- 	num_lm = dpu_rm_get_assigned_resources(&dpu_kms->rm, global_state,
- 		drm_enc->base.id, DPU_HW_BLK_LM, hw_lm, ARRAY_SIZE(hw_lm));
--	dpu_rm_get_assigned_resources(&dpu_kms->rm, global_state,
-+	num_dspp = dpu_rm_get_assigned_resources(&dpu_kms->rm, global_state,
- 		drm_enc->base.id, DPU_HW_BLK_DSPP, hw_dspp,
- 		ARRAY_SIZE(hw_dspp));
- 
-@@ -1084,7 +1098,7 @@ static void dpu_encoder_virt_atomic_mode_set(struct drm_encoder *drm_enc,
- 	}
- 
- 	cstate->num_mixers = num_lm;
--
-+	cstate->ctm_enabled = !!num_dspp;
- 	dpu_enc->connector = conn_state->connector;
- 
- 	for (i = 0; i < dpu_enc->num_phys_encs; i++) {
 -- 
-2.7.4
+With best wishes
+Dmitry
 
