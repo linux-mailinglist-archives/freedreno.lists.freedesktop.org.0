@@ -1,70 +1,72 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6B15E68F6D0
-	for <lists+freedreno@lfdr.de>; Wed,  8 Feb 2023 19:21:20 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 0F03C68F9CA
+	for <lists+freedreno@lfdr.de>; Wed,  8 Feb 2023 22:37:38 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3B83710E6C0;
-	Wed,  8 Feb 2023 18:21:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4F10310E2FF;
+	Wed,  8 Feb 2023 21:37:35 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from smtp-fw-80006.amazon.com (smtp-fw-80006.amazon.com
- [99.78.197.217])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4E63610E6C0;
- Wed,  8 Feb 2023 18:21:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=amazon.com; i=@amazon.com; q=dns/txt; s=amazon201209;
- t=1675880478; x=1707416478;
- h=date:from:to:cc:message-id:references:mime-version:
- in-reply-to:subject;
- bh=KBO2VYxNnhi+mYdSb2ex0Tcoin8hOOA965wqenytq3M=;
- b=ta0f7vNn3y46sTvHMfRNOGbg6JR0L3UVV3npQn4AXdIb7my5e+tgWPNJ
- Rs9a4JsC5J+eD4lJ1TamlUICVdFuUV3rNKOvrK8d2j45Mk+fP5uxMO0Qd
- 63sgPhWMuLXuwrfyDdERln5yS4FPgcC+c53nxlnu0y2mmDK256o1L5Ike A=;
-X-IronPort-AV: E=Sophos;i="5.97,281,1669075200"; d="scan'208";a="179809775"
-Received: from pdx4-co-svc-p1-lb2-vlan2.amazon.com (HELO
- email-inbound-relay-iad-1d-m6i4x-d7759ebe.us-east-1.amazon.com)
- ([10.25.36.210]) by smtp-border-fw-80006.pdx80.corp.amazon.com with
- ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Feb 2023 18:21:16 +0000
-Received: from EX13MTAUWB001.ant.amazon.com
- (iad12-ws-svc-p26-lb9-vlan2.iad.amazon.com [10.40.163.34])
- by email-inbound-relay-iad-1d-m6i4x-d7759ebe.us-east-1.amazon.com (Postfix)
- with ESMTPS id D2B4C42F67; Wed,  8 Feb 2023 18:21:04 +0000 (UTC)
-Received: from EX19D047UWB002.ant.amazon.com (10.13.138.34) by
- EX13MTAUWB001.ant.amazon.com (10.43.161.249) with Microsoft SMTP Server (TLS)
- id 15.0.1497.45; Wed, 8 Feb 2023 18:21:03 +0000
-Received: from amazon.com (10.43.160.120) by EX19D047UWB002.ant.amazon.com
- (10.13.138.34) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.1118.24; Wed, 8 Feb 2023
- 18:21:03 +0000
-Date: Wed, 8 Feb 2023 11:21:01 -0700
-From: Jordan Crouse <jorcrous@amazon.com>
-To: Konrad Dybcio <konrad.dybcio@linaro.org>
-Message-ID: <20230208182101.53ykatzah6zvpy76@amazon.com>
-Mail-Followup-To: Konrad Dybcio <konrad.dybcio@linaro.org>,
- linux-arm-msm@vger.kernel.org, andersson@kernel.org,
- agross@kernel.org, krzysztof.kozlowski@linaro.org,
- freedreno@lists.freedesktop.org,
- Akhil P Oommen <quic_akhilpo@quicinc.com>,
- David Airlie <airlied@gmail.com>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- dri-devel@lists.freedesktop.org,
- Douglas Anderson <dianders@chromium.org>,
- Rob Clark <robdclark@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- marijn.suijten@somainline.org, Sean Paul <sean@poorly.run>,
- Chia-I Wu <olvaffe@gmail.com>, linux-kernel@vger.kernel.org
-References: <20230126151618.225127-1-konrad.dybcio@linaro.org>
- <20230126151618.225127-10-konrad.dybcio@linaro.org>
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E319610E834;
+ Wed,  8 Feb 2023 21:37:33 +0000 (UTC)
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 318LR0r6022472; Wed, 8 Feb 2023 21:37:30 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
+ h=from : to : cc :
+ subject : date : message-id : mime-version : content-transfer-encoding :
+ content-type; s=qcppdkim1;
+ bh=dXQHSAT6TPjiCFBIFs/QrCyAWa73Qd+48UyvDFAmmm4=;
+ b=Ph4KLX6mFOgOl1uamI0+asMBAR5Q3j8gGxz43IQW17yyNcW7NQcZUXPTJySQTqv0miKc
+ cpdEVKdptVTAewxFMBskcGpxDpQW+aZ/Q04cuVmCgz1IbY+dR8gvfTys9ImGWpyguRFt
+ 1bWa13anp6v2rEL5tPVEwvem10/sORGH45D48rU0xU9D1+aDBCi/hN6g3TJjUmzn6/yV
+ ac992htkLcefqJxYCTkRhSZEg6Ru2PF01a9keEHKAqcihZfRHDB76+s4NafyPuZR3dK3
+ NLcsD7ERCvL2re3ZEklZ3W/HnKVuivGMfMnpdxA1Km8wWkzi+d37FF4pUl6RCAu90OZZ uA== 
+Received: from nasanppmta05.qualcomm.com (i-global254.qualcomm.com
+ [199.106.103.254])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3nm86msvcw-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 08 Feb 2023 21:37:30 +0000
+Received: from nasanex01b.na.qualcomm.com (nasanex01b.na.qualcomm.com
+ [10.46.141.250])
+ by NASANPPMTA05.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 318LbTOG014728
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 8 Feb 2023 21:37:29 GMT
+Received: from JESSZHAN.qualcomm.com (10.80.80.8) by
+ nasanex01b.na.qualcomm.com (10.46.141.250) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.986.36; Wed, 8 Feb 2023 13:37:29 -0800
+From: Jessica Zhang <quic_jesszhan@quicinc.com>
+To: <freedreno@lists.freedesktop.org>
+Date: Wed, 8 Feb 2023 13:37:13 -0800
+Message-ID: <20230208213713.1330-1-quic_jesszhan@quicinc.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <20230126151618.225127-10-konrad.dybcio@linaro.org>
-X-Originating-IP: [10.43.160.120]
-X-ClientProxiedBy: EX13D32UWA002.ant.amazon.com (10.43.160.230) To
- EX19D047UWB002.ant.amazon.com (10.13.138.34)
-Subject: Re: [Freedreno] [PATCH 09/14] drm/msm/a6xx: Fix some A619 tunables
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
+ nasanex01b.na.qualcomm.com (10.46.141.250)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-GUID: -qLleWssL0OLw3GSVAaVkNn2Td7CbcBL
+X-Proofpoint-ORIG-GUID: -qLleWssL0OLw3GSVAaVkNn2Td7CbcBL
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.219,Aquarius:18.0.930,Hydra:6.0.562,FMLib:17.11.122.1
+ definitions=2023-02-08_09,2023-02-08_02,2022-06-22_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 spamscore=0
+ malwarescore=0 phishscore=0 bulkscore=0 clxscore=1011 priorityscore=1501
+ adultscore=0 mlxscore=0 mlxlogscore=999 lowpriorityscore=0 impostorscore=0
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2212070000
+ definitions=main-2302080183
+Subject: [Freedreno] [RFC PATCH] drm/msm/dpu: Move TE setup to
+ prepare_for_kickoff()
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,62 +79,144 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sean Paul <sean@poorly.run>, Rob Clark <robdclark@gmail.com>,
- Akhil P Oommen <quic_akhilpo@quicinc.com>, linux-arm-msm@vger.kernel.org,
- andersson@kernel.org, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- dri-devel@lists.freedesktop.org, Douglas Anderson <dianders@chromium.org>,
- krzysztof.kozlowski@linaro.org, agross@kernel.org,
- Daniel Vetter <daniel@ffwll.ch>, Dmitry
- Baryshkov <dmitry.baryshkov@linaro.org>, marijn.suijten@somainline.org,
- David Airlie <airlied@gmail.com>, freedreno@lists.freedesktop.org,
- Chia-I Wu <olvaffe@gmail.com>, linux-kernel@vger.kernel.org
+Cc: linux-arm-msm@vger.kernel.org, quic_abhinavk@quicinc.com,
+ dri-devel@lists.freedesktop.org, swboyd@chromium.org, robdclark@gmail.com,
+ seanpaul@chromium.org, marijn.suijten@somainline.org,
+ dmitry.baryshkov@linaro.org, Jessica Zhang <quic_jesszhan@quicinc.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Thu, Jan 26, 2023 at 04:16:13PM +0100, Konrad Dybcio wrote:
-> Adreno 619 expects some tunables to be set differently. Make up for it.
-> 
-> Fixes: b7616b5c69e6 ("drm/msm/adreno: Add A619 support")
-> Signed-off-by: Konrad Dybcio <konrad.dybcio@linaro.org>
-> ---
->  drivers/gpu/drm/msm/adreno/a6xx_gpu.c | 6 +++++-
->  1 file changed, 5 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-> index 7a480705f407..f34ab3f39f09 100644
-> --- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-> @@ -1171,6 +1171,8 @@ static int hw_init(struct msm_gpu *gpu)
->                 gpu_write(gpu, REG_A6XX_PC_DBG_ECO_CNTL, 0x00200200);
->         else if (adreno_is_a650(adreno_gpu) || adreno_is_a660(adreno_gpu))
->                 gpu_write(gpu, REG_A6XX_PC_DBG_ECO_CNTL, 0x00300200);
-> +       else if (adreno_is_a619(adreno_gpu))
-> +               gpu_write(gpu, REG_A6XX_PC_DBG_ECO_CNTL, 0x00018000);
->         else if (adreno_is_a610(adreno_gpu))
->                 gpu_write(gpu, REG_A6XX_PC_DBG_ECO_CNTL, 0x00080000);
->         else
-> @@ -1188,7 +1190,9 @@ static int hw_init(struct msm_gpu *gpu)
->         a6xx_set_ubwc_config(gpu);
-> 
->         /* Enable fault detection */
-> -       if (adreno_is_a610(adreno_gpu))
-> +       if (adreno_is_a619(adreno_gpu))
-> +               gpu_write(gpu, REG_A6XX_RBBM_INTERFACE_HANG_INT_CNTL, (1 << 30) | 0x3fffff);
-> +       else if (adreno_is_a610(adreno_gpu))
->                 gpu_write(gpu, REG_A6XX_RBBM_INTERFACE_HANG_INT_CNTL, (1 << 30) | 0x3ffff);
->         else
->                 gpu_write(gpu, REG_A6XX_RBBM_INTERFACE_HANG_INT_CNTL, (1 << 30) | 0x1fffff);
+Currently, DPU will enable TE during prepare_commit(). However, this
+will cause issues when trying to read/write to register in
+get_autorefresh_config(), because the core clock rates aren't set at
+that time.
 
-The number appended to the register is the number of clock ticks to wait
-before declaring a hang. 0x3fffff happens to be the largest value that
-can be set for the a6xx family (excepting the 610 which, IIRC, used older
-hardware that had a smaller field for the counter). Downstream the
-number would creep up over time as unexplained hangs were discovered and
-diagnosed or covered up as "just wait longer".
+This used to work because phys_enc->hw_pp is only initialized in mode
+set [1], so the first prepare_commit() will return before any register
+read/write as hw_pp would be NULL.
 
-So in theory you could leave this with the "default value" or even bump
-up the default value to 0x3fffff for all targets if you wanted to. An
-alternate solution (that downstream does) is to put this as a
-pre-defined configuration in gpulist[].
+However, when we try to implement support for INTF TE, we will run into
+the clock issue described above as hw_intf will *not* be NULL on the
+first prepare_commit(). This is because the initialization of
+dpu_enc->hw_intf has been moved to dpu_encoder_setup() [2].
 
-Jordan
+To avoid this issue, let's enable TE during prepare_for_kickoff()
+instead as the core clock rates are guaranteed to be set then.
+
+Depends on: "Implement tearcheck support on INTF block" [3]
+
+[1] https://gitlab.freedesktop.org/drm/msm/-/blob/msm-next/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c#L1109
+[2] https://gitlab.freedesktop.org/drm/msm/-/blob/msm-next/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c#L2339
+[3] https://patchwork.freedesktop.org/series/112332/
+
+Signed-off-by: Jessica Zhang <quic_jesszhan@quicinc.com>
+---
+ .../drm/msm/disp/dpu1/dpu_encoder_phys_cmd.c  | 78 ++++++++++---------
+ 1 file changed, 43 insertions(+), 35 deletions(-)
+
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_cmd.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_cmd.c
+index 279a0b7015ce..746250bce3d1 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_cmd.c
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_cmd.c
+@@ -587,39 +587,6 @@ static void dpu_encoder_phys_cmd_destroy(struct dpu_encoder_phys *phys_enc)
+ 	kfree(cmd_enc);
+ }
+ 
+-static void dpu_encoder_phys_cmd_prepare_for_kickoff(
+-		struct dpu_encoder_phys *phys_enc)
+-{
+-	struct dpu_encoder_phys_cmd *cmd_enc =
+-			to_dpu_encoder_phys_cmd(phys_enc);
+-	int ret;
+-
+-	if (!phys_enc->hw_pp) {
+-		DPU_ERROR("invalid encoder\n");
+-		return;
+-	}
+-	DRM_DEBUG_KMS("id:%u pp:%d pending_cnt:%d\n", DRMID(phys_enc->parent),
+-		      phys_enc->hw_pp->idx - PINGPONG_0,
+-		      atomic_read(&phys_enc->pending_kickoff_cnt));
+-
+-	/*
+-	 * Mark kickoff request as outstanding. If there are more than one,
+-	 * outstanding, then we have to wait for the previous one to complete
+-	 */
+-	ret = _dpu_encoder_phys_cmd_wait_for_idle(phys_enc);
+-	if (ret) {
+-		/* force pending_kickoff_cnt 0 to discard failed kickoff */
+-		atomic_set(&phys_enc->pending_kickoff_cnt, 0);
+-		DRM_ERROR("failed wait_for_idle: id:%u ret:%d pp:%d\n",
+-			  DRMID(phys_enc->parent), ret,
+-			  phys_enc->hw_pp->idx - PINGPONG_0);
+-	}
+-
+-	DPU_DEBUG_CMDENC(cmd_enc, "pp:%d pending_cnt %d\n",
+-			phys_enc->hw_pp->idx - PINGPONG_0,
+-			atomic_read(&phys_enc->pending_kickoff_cnt));
+-}
+-
+ static bool dpu_encoder_phys_cmd_is_ongoing_pptx(
+ 		struct dpu_encoder_phys *phys_enc)
+ {
+@@ -645,8 +612,7 @@ static bool dpu_encoder_phys_cmd_is_ongoing_pptx(
+ 	return false;
+ }
+ 
+-static void dpu_encoder_phys_cmd_prepare_commit(
+-		struct dpu_encoder_phys *phys_enc)
++static void dpu_encoder_phys_cmd_enable_te(struct dpu_encoder_phys *phys_enc)
+ {
+ 	struct dpu_encoder_phys_cmd *cmd_enc =
+ 		to_dpu_encoder_phys_cmd(phys_enc);
+@@ -704,6 +670,48 @@ static void dpu_encoder_phys_cmd_prepare_commit(
+ 			 "disabled autorefresh\n");
+ }
+ 
++static void dpu_encoder_phys_cmd_prepare_for_kickoff(
++		struct dpu_encoder_phys *phys_enc)
++{
++	struct dpu_encoder_phys_cmd *cmd_enc =
++			to_dpu_encoder_phys_cmd(phys_enc);
++	int ret;
++
++	if (!phys_enc->hw_pp) {
++		DPU_ERROR("invalid encoder\n");
++		return;
++	}
++
++
++	DRM_DEBUG_KMS("id:%u pp:%d pending_cnt:%d\n", DRMID(phys_enc->parent),
++		      phys_enc->hw_pp->idx - PINGPONG_0,
++		      atomic_read(&phys_enc->pending_kickoff_cnt));
++
++	/*
++	 * Mark kickoff request as outstanding. If there are more than one,
++	 * outstanding, then we have to wait for the previous one to complete
++	 */
++	ret = _dpu_encoder_phys_cmd_wait_for_idle(phys_enc);
++	if (ret) {
++		/* force pending_kickoff_cnt 0 to discard failed kickoff */
++		atomic_set(&phys_enc->pending_kickoff_cnt, 0);
++		DRM_ERROR("failed wait_for_idle: id:%u ret:%d pp:%d\n",
++			  DRMID(phys_enc->parent), ret,
++			  phys_enc->hw_pp->idx - PINGPONG_0);
++	}
++
++	dpu_encoder_phys_cmd_enable_te(phys_enc);
++
++	DPU_DEBUG_CMDENC(cmd_enc, "pp:%d pending_cnt %d\n",
++			phys_enc->hw_pp->idx - PINGPONG_0,
++			atomic_read(&phys_enc->pending_kickoff_cnt));
++}
++
++static void dpu_encoder_phys_cmd_prepare_commit(
++		struct dpu_encoder_phys *phys_enc)
++{
++}
++
+ static int _dpu_encoder_phys_cmd_wait_for_ctl_start(
+ 		struct dpu_encoder_phys *phys_enc)
+ {
+-- 
+2.39.1
+
