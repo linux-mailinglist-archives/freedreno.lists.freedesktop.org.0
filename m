@@ -1,72 +1,66 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id CAF2B6907AF
-	for <lists+freedreno@lfdr.de>; Thu,  9 Feb 2023 12:46:38 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 2D6F4690A6C
+	for <lists+freedreno@lfdr.de>; Thu,  9 Feb 2023 14:38:50 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 899D810E9CF;
-	Thu,  9 Feb 2023 11:46:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5D4BE10EACD;
+	Thu,  9 Feb 2023 13:38:46 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ed1-x52f.google.com (mail-ed1-x52f.google.com
- [IPv6:2a00:1450:4864:20::52f])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9886810E9CF
- for <freedreno@lists.freedesktop.org>; Thu,  9 Feb 2023 11:46:35 +0000 (UTC)
-Received: by mail-ed1-x52f.google.com with SMTP id q19so1904779edd.2
- for <freedreno@lists.freedesktop.org>; Thu, 09 Feb 2023 03:46:35 -0800 (PST)
+Received: from mail-ej1-x631.google.com (mail-ej1-x631.google.com
+ [IPv6:2a00:1450:4864:20::631])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0DDC810EACD
+ for <freedreno@lists.freedesktop.org>; Thu,  9 Feb 2023 13:38:43 +0000 (UTC)
+Received: by mail-ej1-x631.google.com with SMTP id ml19so6556969ejb.0
+ for <freedreno@lists.freedesktop.org>; Thu, 09 Feb 2023 05:38:42 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=9Stjp+OIj5o2DivNhN/G2i5CLCtz9VbTmZkRF6z8lM0=;
- b=f+1pEiZESR4n4uEmvoRwPCrQ3lL7JBFEyyc38LD3APw30rOivWPxSByQxmLIhjLN/8
- WzFW5bneNMwj45Xy4dlNiyzCTq9xQKca3TtgJiUTOSq/zfiYg6FPISrJm6O4XZ/oCjA5
- jfuMjabXuppSTyFxUuLVftrTvevWfaT9JDqrLB7Mj11vir7LFGfWiLaCKNvwSgjoG5g4
- PryTLJJxcoBi8lOpXEo1Uwe20peAorPBx7mT7Dll+cwc25G62BFEffz/UJCUDjIri8+x
- UEOox9VjRuWKRReVoOOXcaFeNAazJ31S5i/64oWwHoDJdattBna0feLGn9a7CmlHT0z0
- 2+3A==
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=Bi+cNN8MNydS94MbkJOD784fZVEZBaEhzXHs2Upm2b4=;
+ b=D//V/YZZPzXi5NpsjvRuU+/1xhWiGYreIOG++95iz0ga2ChItuLx5keBwUJJkj17Pi
+ mWuT+sob8Df6fTEowKjNJM0mJe3g8l+vdFtohCUnOOTcN0Kkw7Vn6y29PzpWxQvdnukW
+ ZI0pwcb1r5VJ+uvv9gYeIEWDx4dND7rwHtJu5Cd97cRTGuvy8yZX4uCHOmVYbFEXud49
+ nV0QXxq4ZHTs3/kZXrBoEdK8dTBjC6bxzH+s7JS15un58rUAwexbEFoHgV9qRZanHjXC
+ X5nfye46QL2e5+b7+PW4Ff0K4oIc5ljKMY85HiJnhh8J0BOFuWLiaNVckWrFO1ib7UFs
+ KVlg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=9Stjp+OIj5o2DivNhN/G2i5CLCtz9VbTmZkRF6z8lM0=;
- b=CREBKhgFAY7C3eYb14ddygqJX6yiV5Y24q+pzZgvyvmNlRagbyyTLC/EeamwQ/KlgY
- 6JjixppxM6y7szvHVEhazRiHbRAfrh5CbT1GgDVCcq4+GlsaLkXWLgCbYFVvskijxR8X
- u9Tg+Ao5uIh0PzuK7slIN9blDBIGRgxl8PNKHBAk0SMTIUEVEgbX6xj1Ps210p9k1BPs
- HBpFD+YjK8OEKx0CwqcAL9MIqlSPzM42EJaEdMgTqnzP8/TRFXrKyKSonPtmBnFEhmN4
- P9YcEOllGeWQ29vspa4cFyG52EyWDvsXQOF3ghuU5dtAdxMU78br/DDfsluMGUVc9Lzj
- GSOA==
-X-Gm-Message-State: AO0yUKVffE//CCD664tUk312wdS8dhroYjgF2Snp+g7Jjibj0JPwPRKc
- F7hAyfDXb74eOmTof15PipnQdA==
-X-Google-Smtp-Source: AK7set8C6I3HhwH5lf4dzecZFkxWy6hAFfaKmq34a5m/Z70X8YpgrzHMEPYIbP63Jf4WWfpRtn1Ydw==
-X-Received: by 2002:a50:f697:0:b0:4a2:7579:1d9c with SMTP id
- d23-20020a50f697000000b004a275791d9cmr12222407edn.1.1675943194018; 
- Thu, 09 Feb 2023 03:46:34 -0800 (PST)
-Received: from ?IPV6:2001:14ba:a085:4d00::8a5?
- (dzccz6yyyyyyyyyyybcwt-3.rev.dnainternet.fi. [2001:14ba:a085:4d00::8a5])
- by smtp.gmail.com with ESMTPSA id
- i8-20020a508708000000b004ab104b3bc6sm661734edb.55.2023.02.09.03.46.32
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 09 Feb 2023 03:46:33 -0800 (PST)
-Message-ID: <81e84d97-2cb4-56d1-04a8-86ec1898a63b@linaro.org>
-Date: Thu, 9 Feb 2023 13:46:32 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.7.1
-Content-Language: en-GB
-To: Abhinav Kumar <quic_abhinavk@quicinc.com>, Rob Clark
- <robdclark@gmail.com>, Sean Paul <sean@poorly.run>
-References: <20230203182132.1307834-1-dmitry.baryshkov@linaro.org>
- <20230203182132.1307834-23-dmitry.baryshkov@linaro.org>
- <7132b394-2e6a-20c8-fa64-3da082060226@quicinc.com>
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=Bi+cNN8MNydS94MbkJOD784fZVEZBaEhzXHs2Upm2b4=;
+ b=0/JiHHy4l4nxQFwbscztW39lv39KqRgAsLN1oA1/kLH/vq8ah+3eISnmQnED7ykH6C
+ 5fjuKe3JHgZYh7HQ1j492vWAm0SwUQJxyL3iiwLrD5wGNmwmwuUIbg2hBBYX0MqupQZA
+ SDTjmPrHjcjBlaRdxrWWkH4Do56hD93IlRXMLvvhBVGj9EWHOiM03AKbjrjTp3j66lsD
+ MoEJP461fqdcG4D9MEDAyX2WYQFTWOUb+WsAvCnCFkjjt3lcuWnTONB0l+DEv/sYHFSc
+ BF1xjUyUSBbnGuFtu/X4Uf/h3k2otwf44pNySPGXXKDZedgLELtWuPDSIKA3YmB+w8kU
+ CVAw==
+X-Gm-Message-State: AO0yUKX5jXW+fryFmIBI7BnSXNOxRQr3w6QRm05Lwf+msAFseXRJ0xHe
+ aV3oPiAYMK6yW4s+Ev5CGZ0SSQ==
+X-Google-Smtp-Source: AK7set8jLbfeLd+2o5I0ZlDFcxN9JCOFY4+DgCS7ZZl/vH1aNdZrRRcCE6cR0FSPc0lHJKeI3thAzQ==
+X-Received: by 2002:a17:907:2175:b0:88b:109e:fbd3 with SMTP id
+ rl21-20020a170907217500b0088b109efbd3mr12149330ejb.24.1675949921602; 
+ Thu, 09 Feb 2023 05:38:41 -0800 (PST)
+Received: from eriador.lan (dzccz6yyyyyyyyyyybcwt-3.rev.dnainternet.fi.
+ [2001:14ba:a085:4d00::8a5]) by smtp.gmail.com with ESMTPSA id
+ cd17-20020a170906b35100b0088f8ee84b76sm885553ejb.105.2023.02.09.05.38.40
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 09 Feb 2023 05:38:41 -0800 (PST)
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-In-Reply-To: <7132b394-2e6a-20c8-fa64-3da082060226@quicinc.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+To: Andy Gross <agross@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konrad.dybcio@linaro.org>, Rob Clark <robdclark@gmail.com>,
+ Sean Paul <sean@poorly.run>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Rob Herring <robh+dt@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>
+Date: Thu,  9 Feb 2023 15:38:33 +0200
+Message-Id: <20230209133839.762631-1-dmitry.baryshkov@linaro.org>
+X-Mailer: git-send-email 2.39.1
+MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: Re: [Freedreno] [PATCH v3 22/27] drm/msm/dpu: rework
- dpu_plane_sspp_atomic_update()
+Subject: [Freedreno] [PATCH v3 0/6] arm64: dts: qcom: sm8350: enable GPU on
+ the HDK board
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,224 +73,44 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
- Bjorn Andersson <andersson@kernel.org>, dri-devel@lists.freedesktop.org,
- Stephen Boyd <swboyd@chromium.org>, Daniel Vetter <daniel@ffwll.ch>,
+Cc: devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, Stephen Boyd <swboyd@chromium.org>,
+ Daniel Vetter <daniel@ffwll.ch>, freedreno@lists.freedesktop.org,
  David Airlie <airlied@gmail.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 07/02/2023 02:22, Abhinav Kumar wrote:
-> 
-> 
-> On 2/3/2023 10:21 AM, Dmitry Baryshkov wrote:
->> Split pipe-dependent code from dpu_plane_sspp_atomic_update() into the
-> 
-> sspp-dependent?
-> 
->> separate function dpu_plane_sspp_update_pipe(). This is one of
->> preparational steps to add r_pipe support.
->>
->> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> 
-> Just a couple of minor comments below but otherwise this split up lgtm
-> 
->> ---
->>   drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c | 113 ++++++++++++----------
->>   1 file changed, 63 insertions(+), 50 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c 
->> b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
->> index 0986e740b978..f94e132733f3 100644
->> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
->> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
->> @@ -404,12 +404,13 @@ static void _dpu_plane_set_qos_ctrl(struct 
->> drm_plane *plane,
->>    * _dpu_plane_set_ot_limit - set OT limit for the given plane
->>    * @plane:        Pointer to drm plane
->>    * @pipe:        Pointer to software pipe
->> - * @crtc:        Pointer to drm crtc
->>    * @pipe_cfg:        Pointer to pipe configuration
->> + * @frame_rate:        CRTC's frame rate
-> 
-> Can you please check the spacing here. There seems to be an extra tab 
-> before the CRTC's frame rate
+Add A660 device to the Qualcomm SM8350 platform and enable it for the
+sm8350-hdk board. Unfortunately while adding the GPU & related devices I
+noticed that DT nodes on SM8350 are greatly out of the adress sorting
+order, so patches 2-4 reorder DT nodes to follow the agreement.
 
-I checked, the ident is correct here. It uses tabs, maybe that confuses 
-your mailer.
+Changes since v1:
+- Dropped merged patches
+- Expanded commit messages to mention the sort order (by the node
+  address)
+- Rebased on top of latest Bjorn's tree
 
-> 
->>    */
->>   static void _dpu_plane_set_ot_limit(struct drm_plane *plane,
->>           struct dpu_sw_pipe *pipe,
->> -        struct drm_crtc *crtc, struct dpu_hw_sspp_cfg *pipe_cfg)
->> +        struct dpu_hw_sspp_cfg *pipe_cfg,
->> +        int frame_rate)
->>   {
->>       struct dpu_plane *pdpu = to_dpu_plane(plane);
->>       struct dpu_vbif_set_ot_params ot_params;
->> @@ -421,7 +422,7 @@ static void _dpu_plane_set_ot_limit(struct 
->> drm_plane *plane,
->>       ot_params.width = drm_rect_width(&pipe_cfg->src_rect);
->>       ot_params.height = drm_rect_height(&pipe_cfg->src_rect);
->>       ot_params.is_wfd = !pdpu->is_rt_pipe;
->> -    ot_params.frame_rate = drm_mode_vrefresh(&crtc->mode);
->> +    ot_params.frame_rate = frame_rate;
->>       ot_params.vbif_idx = VBIF_RT;
->>       ot_params.clk_ctrl = pipe->sspp->cap->clk_ctrl;
->>       ot_params.rd = true;
->> @@ -457,26 +458,6 @@ static void _dpu_plane_set_qos_remap(struct 
->> drm_plane *plane,
->>       dpu_vbif_set_qos_remap(dpu_kms, &qos_params);
->>   }
->> -static void _dpu_plane_set_scanout(struct drm_plane *plane,
->> -        struct dpu_plane_state *pstate,
->> -        struct drm_framebuffer *fb)
->> -{
->> -    struct dpu_plane *pdpu = to_dpu_plane(plane);
->> -    struct dpu_kms *kms = _dpu_plane_get_kms(&pdpu->base);
->> -    struct msm_gem_address_space *aspace = kms->base.aspace;
->> -    struct dpu_hw_fmt_layout layout;
->> -    int ret;
->> -
->> -    ret = dpu_format_populate_layout(aspace, fb, &layout);
->> -    if (ret)
->> -        DPU_ERROR_PLANE(pdpu, "failed to get format layout, %d\n", ret);
->> -    else if (pstate->pipe.sspp->ops.setup_sourceaddress) {
->> -        trace_dpu_plane_set_scanout(&pstate->pipe,
->> -                        &layout);
->> -        pstate->pipe.sspp->ops.setup_sourceaddress(&pstate->pipe, 
->> &layout);
->> -    }
->> -}
->> -
->>   static void _dpu_plane_setup_scaler3(struct dpu_hw_sspp *pipe_hw,
->>           uint32_t src_w, uint32_t src_h, uint32_t dst_w, uint32_t dst_h,
->>           struct dpu_hw_scaler3_cfg *scale_cfg,
->> @@ -1102,35 +1083,25 @@ void dpu_plane_set_error(struct drm_plane 
->> *plane, bool error)
->>       pdpu->is_error = error;
->>   }
->> -static void dpu_plane_sspp_atomic_update(struct drm_plane *plane)
->> +static void dpu_plane_sspp_update_pipe(struct drm_plane *plane,
->> +                       struct dpu_sw_pipe *pipe,
->> +                       struct dpu_hw_sspp_cfg *pipe_cfg,
-> 
-> You can call this parameter sspp_cfg instead of pipe_cfg?
-> 
->> +                       const struct dpu_format *fmt,
->> +                       int frame_rate,
->> +                       struct dpu_hw_fmt_layout *layout)
->>   {
->>       uint32_t src_flags;
->>       struct dpu_plane *pdpu = to_dpu_plane(plane);
->>       struct drm_plane_state *state = plane->state;
->>       struct dpu_plane_state *pstate = to_dpu_plane_state(state);
->> -    struct dpu_sw_pipe *pipe = &pstate->pipe;
->> -    struct drm_crtc *crtc = state->crtc;
->> -    struct drm_framebuffer *fb = state->fb;
->> -    bool is_rt_pipe;
->> -    const struct dpu_format *fmt =
->> -        to_dpu_format(msm_framebuffer_format(fb));
->> -    struct dpu_hw_sspp_cfg *pipe_cfg = &pstate->pipe_cfg;
->> -    _dpu_plane_set_scanout(plane, pstate, fb);
->> -
->> -    pstate->pending = true;
->> -
->> -    is_rt_pipe = (dpu_crtc_get_client_type(crtc) != NRT_CLIENT);
->> -    pstate->needs_qos_remap |= (is_rt_pipe != pdpu->is_rt_pipe);
->> -    pdpu->is_rt_pipe = is_rt_pipe;
->> +    if (layout && pipe->sspp->ops.setup_sourceaddress) {
->> +        trace_dpu_plane_set_scanout(pipe, layout);
->> +        pipe->sspp->ops.setup_sourceaddress(pipe, layout);
->> +    }
->>       _dpu_plane_set_qos_ctrl(plane, pipe, false, 
->> DPU_PLANE_QOS_PANIC_CTRL);
->> -    DPU_DEBUG_PLANE(pdpu, "FB[%u] " DRM_RECT_FP_FMT "->crtc%u " 
->> DRM_RECT_FMT
->> -            ", %4.4s ubwc %d\n", fb->base.id, 
->> DRM_RECT_FP_ARG(&state->src),
->> -            crtc->base.id, DRM_RECT_ARG(&state->dst),
->> -            (char *)&fmt->base.pixel_format, DPU_FORMAT_IS_UBWC(fmt));
->> -
->>       /* override for color fill */
->>       if (pdpu->color_fill & DPU_PLANE_COLOR_FILL_FLAG) {
->>           /* skip remaining processing on color fill */
->> @@ -1183,22 +1154,64 @@ static void 
->> dpu_plane_sspp_atomic_update(struct drm_plane *plane)
->>           }
->>       }
->> -    _dpu_plane_set_qos_lut(plane, pipe, fmt, &pstate->pipe_cfg);
->> +    _dpu_plane_set_qos_lut(plane, pipe, fmt, pipe_cfg);
->>       _dpu_plane_set_danger_lut(plane, pipe, fmt);
->>       if (plane->type != DRM_PLANE_TYPE_CURSOR) {
->>           _dpu_plane_set_qos_ctrl(plane, pipe, true, 
->> DPU_PLANE_QOS_PANIC_CTRL);
->> -        _dpu_plane_set_ot_limit(plane, pipe, crtc, &pstate->pipe_cfg);
->> +        _dpu_plane_set_ot_limit(plane, pipe, pipe_cfg, frame_rate);
->>       }
->> -    if (pstate->needs_qos_remap) {
->> -        pstate->needs_qos_remap = false;
->> +    if (pstate->needs_qos_remap)
->>           _dpu_plane_set_qos_remap(plane, pipe);
->> -    }
->> +}
->> +
->> +static void dpu_plane_sspp_atomic_update(struct drm_plane *plane)
->> +{
->> +    struct dpu_plane *pdpu = to_dpu_plane(plane);
->> +    struct drm_plane_state *state = plane->state;
->> +    struct dpu_plane_state *pstate = to_dpu_plane_state(state);
->> +    struct dpu_sw_pipe *pipe = &pstate->pipe;
->> +    struct drm_crtc *crtc = state->crtc;
->> +    struct drm_framebuffer *fb = state->fb;
->> +    bool is_rt_pipe;
->> +    const struct dpu_format *fmt =
->> +        to_dpu_format(msm_framebuffer_format(fb));
->> +    struct dpu_hw_sspp_cfg *pipe_cfg = &pstate->pipe_cfg;
->> +
->> +    struct dpu_kms *kms = _dpu_plane_get_kms(&pdpu->base);
->> +    struct msm_gem_address_space *aspace = kms->base.aspace;
->> +    struct dpu_hw_fmt_layout layout;
->> +    bool layout_valid = false;
->> +    int ret;
->> +
->> +    ret = dpu_format_populate_layout(aspace, fb, &layout);
->> +    if (ret)
->> +        DPU_ERROR_PLANE(pdpu, "failed to get format layout, %d\n", ret);
->> +    else
->> +        layout_valid = true;
->> +
->> +    pstate->pending = true;
->> +
->> +    is_rt_pipe = (dpu_crtc_get_client_type(crtc) != NRT_CLIENT);
->> +    pstate->needs_qos_remap |= (is_rt_pipe != pdpu->is_rt_pipe);
->> +    pdpu->is_rt_pipe = is_rt_pipe;
->> +
->> +    DPU_DEBUG_PLANE(pdpu, "FB[%u] " DRM_RECT_FP_FMT "->crtc%u " 
->> DRM_RECT_FMT
->> +            ", %4.4s ubwc %d\n", fb->base.id, 
->> DRM_RECT_FP_ARG(&state->src),
->> +            crtc->base.id, DRM_RECT_ARG(&state->dst),
->> +            (char *)&fmt->base.pixel_format, DPU_FORMAT_IS_UBWC(fmt));
->> +
->> +    dpu_plane_sspp_update_pipe(plane, pipe, pipe_cfg, fmt,
->> +                   drm_mode_vrefresh(&crtc->mode),
->> +                   layout_valid ? &layout: NULL);
->> +
->> +    if (pstate->needs_qos_remap)
->> +        pstate->needs_qos_remap = false;
->> -    pstate->plane_fetch_bw = _dpu_plane_calc_bw(pdpu->catalog, fmt, 
->> &crtc->mode, &pstate->pipe_cfg);
->> +    pstate->plane_fetch_bw = _dpu_plane_calc_bw(pdpu->catalog, fmt, 
->> &crtc->mode, pipe_cfg);
->> -    pstate->plane_clk = _dpu_plane_calc_clk(&crtc->mode, 
->> &pstate->pipe_cfg);
->> +    pstate->plane_clk = _dpu_plane_calc_clk(&crtc->mode, pipe_cfg);
->>   }
->>   static void _dpu_plane_atomic_disable(struct drm_plane *plane)
+Changes since v1:
+- Fixed the subject and commit message for patch 1
+- Fixed GMU's clocks to follow the vendor kernel
+- Marked Adreno SMMU as dma-coherent
+- Dropped comments targeting sm8350 v1, we do not support that chip
+  revision.
+
+Dmitry Baryshkov (6):
+  dt-bindings: display/msm/gmu: add Adreno 660 support
+  arm64: dts: qcom: sm8350: reorder device nodes
+  arm64: dts: qcom: sm8350: move more nodes to correct place
+  arm64: dts: qcom: sm8350: finish reordering nodes
+  arm64: dts: qcom: sm8350: add GPU, GMU, GPU CC and SMMU nodes
+  arm64: dts: qcom: sm8350-hdk: enable GPU
+
+ .../devicetree/bindings/display/msm/gmu.yaml  |    1 +
+ arch/arm64/boot/dts/qcom/sm8350-hdk.dts       |    8 +
+ arch/arm64/boot/dts/qcom/sm8350.dtsi          | 2512 +++++++++--------
+ 3 files changed, 1354 insertions(+), 1167 deletions(-)
 
 -- 
-With best wishes
-Dmitry
+2.39.1
 
