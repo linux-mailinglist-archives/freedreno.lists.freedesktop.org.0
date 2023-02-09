@@ -2,70 +2,70 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 77128690A8C
-	for <lists+freedreno@lfdr.de>; Thu,  9 Feb 2023 14:40:26 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id EAE48690D6C
+	for <lists+freedreno@lfdr.de>; Thu,  9 Feb 2023 16:45:29 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2DD6810EAD2;
-	Thu,  9 Feb 2023 13:40:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9B1E210EB2E;
+	Thu,  9 Feb 2023 15:45:28 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ej1-x632.google.com (mail-ej1-x632.google.com
- [IPv6:2a00:1450:4864:20::632])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1859D10EACD
- for <freedreno@lists.freedesktop.org>; Thu,  9 Feb 2023 13:40:23 +0000 (UTC)
-Received: by mail-ej1-x632.google.com with SMTP id ml19so6571228ejb.0
- for <freedreno@lists.freedesktop.org>; Thu, 09 Feb 2023 05:40:23 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=G/9XwFYeUJst3WJ5sHdQjwXF4qwQvevEf5WU7yUqIXY=;
- b=OMw/A+V2/U2vAN546ixC6VrsB9usPnMiYZ1EGlPxuAOxWOMjTiKzuwiUruCmZ+0HlE
- 5Sp63S1ZpYZVQTOqaN6t6gUA9o3xy9nImsCREWI5h3iMStvajaS1JjKUqPM6JkYgBpDE
- 3+mnH2e1S1uHxCl553jXTY8nl0pus4Iln/TAoKk9arW14IzuDP4UvjXFPbUF/Pzn89id
- I8d/W49sVknCcIiL9D3riigh6YM0A6B/IjMwxl0l5IIhVgen/+gv8HChuEeE6vZI6rOV
- TnZmKKE8Ubb9EQcOZ1R5lTkJprUk20Ju7BsDrM92K7bamJBLiPFipfOn9InyaQ2UjivK
- IK/g==
+Received: from mail-vs1-xe30.google.com (mail-vs1-xe30.google.com
+ [IPv6:2607:f8b0:4864:20::e30])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2B7AA10EB24
+ for <freedreno@lists.freedesktop.org>; Thu,  9 Feb 2023 15:45:26 +0000 (UTC)
+Received: by mail-vs1-xe30.google.com with SMTP id y8so2598917vsq.0
+ for <freedreno@lists.freedesktop.org>; Thu, 09 Feb 2023 07:45:26 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=PqrEeOYy3mjqh5KmY+3gTVjzv8Do3LhWFceA0QbUl+Q=;
+ b=QPhmCpMd6ZPgvRGEQa4k/r0HMG+R8wiKBF803a4KjRNUmfaoIIFAc2uCF46INTnhLM
+ vaZbHXCdTMO68szrINPHDbqFen2qNdxCGL3IYrhajFTsYXd2EXax9Ne0lzSzxukIMOVh
+ /sB9flevqoes/H9c4f0s8BgrpQDlyXHB4vd28=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=G/9XwFYeUJst3WJ5sHdQjwXF4qwQvevEf5WU7yUqIXY=;
- b=XZf9KJCrXTxZbLqQeQ02bXQd3Q3BVvq8q/BOAY9YQwtpuB9UxPSZ5V+xQuBsDQlUrE
- A5rbR6xZgp2VPDf/BwMsLV+QcpQ/S591nMrnc9hTlo6U18aHpJ2VNE8sk0aDT90/r5rJ
- vRyB1brsBlZr6uwlgQMTVnNQEizcP4FtMi+mWYc30aqbbBfG1NEQVKHeiL217UL2ikY3
- hn6qeBB/Z7u6AR6DnWukUhSkK1/2UxwGjq4+UuQfEBmpcRZffqmLKNrc8T0+qQjnD12N
- /NAJxFRmFbXLO22qnkeoYGIcuZQup9319UMzpAylN7D8wUYX8YAbcO/ASpuZZWDJv4Xh
- AaoA==
-X-Gm-Message-State: AO0yUKXiJUm0GFNoEOW3fb7lCDmLpDrnlZsPtoy2jV96nMQNnkpY2RG8
- /lY30xMhErR+vW99XyhC/wSJUg==
-X-Google-Smtp-Source: AK7set/izK6rzb2b5i3ycv/Vv8MsWMV7WDdfIFo7kARlIFT3ylMk6KZs8PsO+wT3uFrG2bxHo8cvmw==
-X-Received: by 2002:a17:906:4f99:b0:887:981:5f7c with SMTP id
- o25-20020a1709064f9900b0088709815f7cmr11967561eju.11.1675950021723; 
- Thu, 09 Feb 2023 05:40:21 -0800 (PST)
-Received: from ?IPV6:2001:14ba:a085:4d00::8a5?
- (dzccz6yyyyyyyyyyybcwt-3.rev.dnainternet.fi. [2001:14ba:a085:4d00::8a5])
- by smtp.gmail.com with ESMTPSA id
- b5-20020a170906d10500b008784bc1dd05sm877502ejz.76.2023.02.09.05.40.20
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=PqrEeOYy3mjqh5KmY+3gTVjzv8Do3LhWFceA0QbUl+Q=;
+ b=ptraqocKBgjTP8L171VI8lvBsKkaXchP0Solwq/qiPkZIMaQa7xuHKQMCkV2so8sFg
+ niuJk8nI9KLzZ8tzlYrRSXCpgqD5bmXq+tBI+GXNH6b5GXXMTU+A2nmnAI3VaCJgBxX4
+ 62Pf3sm4K9DhKJSj4YbTFb5rK/TAht8jPqH9m+UkAnB/ikw8bIuV3isrdVF8c4GWIWqD
+ FbO5VHg4NCJegWO2i9jKFhJmIcGxmobu11j+bsTgioXrCfm/Vakog+YDkrlcvbVbmVRk
+ K6t/jRe4O4zRHzeED0CUy9kCN0Lj28EGZCBXsI7Xb9FJNbdATfA5zTw9LgLWekpf8+R2
+ /FKA==
+X-Gm-Message-State: AO0yUKVore0aLq58TihMifHgDZ1oVqrZUGb4olDE9uAsJKoMJ3+0kxZD
+ uqFaT3Y3kDOBsEJbR6T7VS86lojnR05JhYQx2xs=
+X-Google-Smtp-Source: AK7set8bgcH3ygJQ5AHZWWJRtKPB7XD74UcB0LWiqTDWCOPilBSc0RkEJ3SqWdQG30v8nGI64ubX9w==
+X-Received: by 2002:a05:6102:74c:b0:40e:5cc8:944a with SMTP id
+ v12-20020a056102074c00b0040e5cc8944amr7163522vsg.15.1675957524621; 
+ Thu, 09 Feb 2023 07:45:24 -0800 (PST)
+Received: from mail-vs1-f43.google.com (mail-vs1-f43.google.com.
+ [209.85.217.43]) by smtp.gmail.com with ESMTPSA id
+ d11-20020a67c10b000000b003aa1f3fa30esm109476vsj.26.2023.02.09.07.45.23
+ for <freedreno@lists.freedesktop.org>
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 09 Feb 2023 05:40:20 -0800 (PST)
-Message-ID: <dea3c40e-bdd8-1276-409d-3ddb35b004bc@linaro.org>
-Date: Thu, 9 Feb 2023 15:40:19 +0200
+ Thu, 09 Feb 2023 07:45:23 -0800 (PST)
+Received: by mail-vs1-f43.google.com with SMTP id l8so2511190vsm.11
+ for <freedreno@lists.freedesktop.org>; Thu, 09 Feb 2023 07:45:23 -0800 (PST)
+X-Received: by 2002:a67:6743:0:b0:411:c22d:8433 with SMTP id
+ b64-20020a676743000000b00411c22d8433mr837593vsc.73.1675957523229; Thu, 09 Feb
+ 2023 07:45:23 -0800 (PST)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.7.1
-Content-Language: en-GB
-To: Bjorn Andersson <andersson@kernel.org>
-References: <20230206145707.122937-1-dmitry.baryshkov@linaro.org>
- <20230206145707.122937-5-dmitry.baryshkov@linaro.org>
- <20230209032841.ybqveepeyjqo63ql@ripper>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-In-Reply-To: <20230209032841.ybqveepeyjqo63ql@ripper>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH v2 4/8] arm64: dts: qcom: sm8350: reorder
- device nodes
+References: <1675863724-28412-1-git-send-email-quic_kalyant@quicinc.com>
+ <CAD=FV=WbzmF_Jkwrcm27eqXaqNhGq_D=8yfCKqELET+=+EaLAA@mail.gmail.com>
+ <BN0PR02MB8142207261497BE76A6EA07096D99@BN0PR02MB8142.namprd02.prod.outlook.com>
+ <BN0PR02MB81426F878B10DDF4AD2F95A896D99@BN0PR02MB8142.namprd02.prod.outlook.com>
+In-Reply-To: <BN0PR02MB81426F878B10DDF4AD2F95A896D99@BN0PR02MB8142.namprd02.prod.outlook.com>
+From: Doug Anderson <dianders@chromium.org>
+Date: Thu, 9 Feb 2023 07:45:10 -0800
+X-Gmail-Original-Message-ID: <CAD=FV=WP_XLpvnLe8qDTOYNuhZBCf-PynPa-SOMdfUFEWCYYvg@mail.gmail.com>
+Message-ID: <CAD=FV=WP_XLpvnLe8qDTOYNuhZBCf-PynPa-SOMdfUFEWCYYvg@mail.gmail.com>
+To: Kalyan Thota <kalyant@qti.qualcomm.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [Freedreno] [PATCH v3 0/4] Reserve DSPPs based on user request
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,37 +78,168 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: devicetree@vger.kernel.org, Daniel Vetter <daniel@ffwll.ch>,
- Stephen Boyd <sboyd@kernel.org>, linux-arm-msm@vger.kernel.org,
- Michael Turquette <mturquette@baylibre.com>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, Rob Herring <robh+dt@kernel.org>,
- Taniya Das <quic_tdas@quicinc.com>, Konrad Dybcio <konrad.dybcio@linaro.org>,
- Rob Clark <robdclark@gmail.com>, Andy Gross <agross@kernel.org>,
- dri-devel@lists.freedesktop.org,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- David Airlie <airlied@gmail.com>, freedreno@lists.freedesktop.org,
- Sean Paul <sean@poorly.run>, linux-clk@vger.kernel.org
+Cc: "robdclark@chromium.org" <robdclark@chromium.org>,
+ "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+ "Abhinav Kumar \(QUIC\)" <quic_abhinavk@quicinc.com>,
+ "linux-arm-msm@vger.kernel.org" <linux-arm-msm@vger.kernel.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ "swboyd@chromium.org" <swboyd@chromium.org>,
+ "dmitry.baryshkov@linaro.org" <dmitry.baryshkov@linaro.org>,
+ "marijn.suijten@somainline.org" <marijn.suijten@somainline.org>,
+ "Vinod Polimera \(QUIC\)" <quic_vpolimer@quicinc.com>,
+ "freedreno@lists.freedesktop.org" <freedreno@lists.freedesktop.org>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 09/02/2023 05:28, Bjorn Andersson wrote:
-> On Mon, Feb 06, 2023 at 04:57:03PM +0200, Dmitry Baryshkov wrote:
->> Start ordering DT nodes according to agreed order. Move apps SMMU, GIC,
->> timer, apps RSC, cpufreq ADSP and cDSP nodes to the end to the proper
->> position at the end of /soc/.
->>
-> 
-> I think "according to agreed order" means "sorted by address", but it
-> would be nice to have that expressed in the message. If nothing else for
-> others to know what such agreed order might be.
-> 
-> 
-> Unfortunately this doesn't apply to my tree, and it's not clear where it
-> failed. Could you please rebase this?
+Hi,
 
-Done
+On Thu, Feb 9, 2023 at 3:26 AM Kalyan Thota <kalyant@qti.qualcomm.com> wrot=
+e:
+>
+> Kindly ignore my previous email. Sent too early !!
+>
+> We have tested the changes on top of tip: https://chromium.googlesource.c=
+om/chromiumos/third_party/kernel/+log/refs/heads/chromeos-5.15 + 5 CTM patc=
+hes ( that you have quoted )
+> We didn=E2=80=99t see the issue that you have reported on herobrine. Nigh=
+t light always came up on primary display as the reservation with dspp was =
+successful.  Are you seeing any reservation failures for primary display ?
+>
+> Attached a debug patch, can you share the logs when you see the issue.
 
--- 
-With best wishes
-Dmitry
+Sounds good. Since officially this hardware is not available to the
+public at this time, I have shared the `dmesg` privately to your (and
+Abhinav's) Google partner accounts. Yell if you don't see the
+notificatioin. I don't have any reason to believe there's anything
+secret in the dmesg, but it didn't seem worth the time to fully audit
+it.
 
+For that dmesg, I:
+
+1. Made sure that night light was off.
+
+2. Updated the kernel with the 5 patches + the debug patch.
+
+3. Booted up and logged into ChromeOS
+
+4. Tried turning night light off/on several times and saw nothing on
+dmesg while I did this (and night light didn't work)
+
+5. Unplugged power and servo (just to make sure they didn't interfere)
+
+6. Echoed "DOUG: plug in external display now" several times to "/dev/kmsg"
+
+7. Plugged in my external display, which is behind a Type C dock
+
+8. Turned night light on/off several times. Night light worked on the
+internal display.
+
+In case it matters, my ChromeOS root filesystem is R111-15328.0.0
+
+
+> >-----Original Message-----
+> >From: Kalyan Thota
+> >Sent: Thursday, February 9, 2023 9:47 AM
+> >To: Doug Anderson <dianders@chromium.org>; Kalyan Thota (QUIC)
+> ><quic_kalyant@quicinc.com>
+> >Cc: dri-devel@lists.freedesktop.org; linux-arm-msm@vger.kernel.org;
+> >freedreno@lists.freedesktop.org; devicetree@vger.kernel.org; linux-
+> >kernel@vger.kernel.org; robdclark@chromium.org; swboyd@chromium.org;
+> >Vinod Polimera (QUIC) <quic_vpolimer@quicinc.com>;
+> >dmitry.baryshkov@linaro.org; Abhinav Kumar (QUIC)
+> ><quic_abhinavk@quicinc.com>; marijn.suijten@somainline.org
+> >Subject: RE: [PATCH v3 0/4] Reserve DSPPs based on user request
+> >
+> >Hi Doug,
+> >
+> >Have you picked the core change to program dspp's  (below) ? the current=
+ series
+> >will go on top of it.
+> >https://patchwork.kernel.org/project/linux-arm-msm/patch/1671542719-1265=
+5-
+> >1-git-send-email-quic_kalyant@quicinc.com/
+> >
+> >Thanks,
+> >Kalyan
+> >
+> >>-----Original Message-----
+> >>From: Doug Anderson <dianders@chromium.org>
+> >>Sent: Wednesday, February 8, 2023 10:44 PM
+> >>To: Kalyan Thota (QUIC) <quic_kalyant@quicinc.com>
+> >>Cc: dri-devel@lists.freedesktop.org; linux-arm-msm@vger.kernel.org;
+> >>freedreno@lists.freedesktop.org; devicetree@vger.kernel.org; linux-
+> >>kernel@vger.kernel.org; robdclark@chromium.org; swboyd@chromium.org;
+> >>Vinod Polimera (QUIC) <quic_vpolimer@quicinc.com>;
+> >>dmitry.baryshkov@linaro.org; Abhinav Kumar (QUIC)
+> >><quic_abhinavk@quicinc.com>; marijn.suijten@somainline.org
+> >>Subject: Re: [PATCH v3 0/4] Reserve DSPPs based on user request
+> >>
+> >>WARNING: This email originated from outside of Qualcomm. Please be wary
+> >>of any links or attachments, and do not enable macros.
+> >>
+> >>Hi,
+> >>
+> >>On Wed, Feb 8, 2023 at 5:42 AM Kalyan Thota <quic_kalyant@quicinc.com>
+> >>wrote:
+> >>>
+> >>> This series will enable color features on sc7280 target which has
+> >>> primary panel as eDP
+> >>>
+> >>> The series removes DSPP allocation based on encoder type and allows
+> >>> the DSPP reservation based on user request via CTM.
+> >>>
+> >>> The series will release/reserve the dpu resources when ever there is
+> >>> a topology change to suit the new requirements.
+> >>>
+> >>> Kalyan Thota (4):
+> >>>   drm/msm/dpu: clear DSPP reservations in rm release
+> >>>   drm/msm/dpu: add DSPPs into reservation upon a CTM request
+> >>>   drm/msm/dpu: avoid unnecessary check in DPU reservations
+> >>>   drm/msm/dpu: reserve the resources on topology change
+> >>>
+> >>>  drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.h    |  2 +
+> >>>  drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c | 58
+> >>> ++++++++++++++++------
+> >>-------
+> >>>  drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c      |  2 +
+> >>>  3 files changed, 37 insertions(+), 25 deletions(-)
+> >>
+> >>I tried out your changes, but unfortunately it seems like there's somet=
+hing
+> >wrong.
+> >>:( I did this:
+> >>
+> >>1. Picked your 5 patches to the chromeos-5.15 tree (this series plus
+> >>[1])
+> >>
+> >>2. Put them on herobrine villager.
+> >>
+> >>3. Booted up with no external display plugged in.
+> >>
+> >>4. Tried to enable night light in the ChromeOS UI.
+> >>
+> >>5. Night light didn't turn on for the internal display.
+> >>
+> >>
+> >>I also tried applying them to the top of msm-next (had to resolve some
+> >>small conflicts). Same thing, night light didn't work.
+> >>
+> >>
+> >>I thought maybe this was because the Chrome browser hasn't been updated
+> >>to properly use atomic_check for testing for night light, so I hacked
+> >>my herobrine device tree to not mark "mdss_dp" as "okay". Now there's _=
+only_
+> >an eDP display.
+> >>Same thing, night light didn't work.
+> >>
+> >>
+> >>I could only get night light to work for the internal display if I
+> >>plugged and unplugged an external display in.
+> >>
+> >>
+> >>Is the above the behavior that's expected right now?
+> >>
+> >>
+> >>[1] https://lore.kernel.org/all/1674814487-2112-1-git-send-email-
+> >>quic_kalyant@quicinc.com/
