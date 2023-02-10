@@ -1,73 +1,78 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 481C3691CE1
-	for <lists+freedreno@lfdr.de>; Fri, 10 Feb 2023 11:35:14 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 70955691D5E
+	for <lists+freedreno@lfdr.de>; Fri, 10 Feb 2023 11:57:10 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 96EED10ECCC;
-	Fri, 10 Feb 2023 10:35:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1987E10ECD6;
+	Fri, 10 Feb 2023 10:57:09 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wr1-x42d.google.com (mail-wr1-x42d.google.com
- [IPv6:2a00:1450:4864:20::42d])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5670310ECD2
- for <freedreno@lists.freedesktop.org>; Fri, 10 Feb 2023 10:35:02 +0000 (UTC)
-Received: by mail-wr1-x42d.google.com with SMTP id r2so4597544wrv.7
- for <freedreno@lists.freedesktop.org>; Fri, 10 Feb 2023 02:35:02 -0800 (PST)
+Received: from mail-wm1-x32f.google.com (mail-wm1-x32f.google.com
+ [IPv6:2a00:1450:4864:20::32f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 96A2E10ECD7
+ for <freedreno@lists.freedesktop.org>; Fri, 10 Feb 2023 10:57:06 +0000 (UTC)
+Received: by mail-wm1-x32f.google.com with SMTP id
+ n28-20020a05600c3b9c00b003ddca7a2bcbso3757627wms.3
+ for <freedreno@lists.freedesktop.org>; Fri, 10 Feb 2023 02:57:06 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=QKMQ6JZNfoQFQu0rb2MpaNHYonP3HvUmrwgg0187xgo=;
- b=PUf1ELYMWH9j2YA4oD7zplIxIiorjyI0GCxQE8nhPPaAr1GBRZlDjZv8otDRpvjW4l
- 088ZBNHiot8lGTj4LwTkT4Vy34K3UWGBhxiL3fhfDRt/QZDJfzDregesdTb2XTr439lp
- 9SIuDao65AdO8fdsm05NZaD0GNukztnTkDlCigvr+vJPYOkq+4KOz7VyX9S+wZ70H44w
- lz8cl/Vcb7FVTjr4wM/YmtOytSbhKKw+CEKovV7TOFJ3j3y/gwGQZ9utoR1t5A//EveU
- TJRaZyS9EAmD6spu3tslnQkokPPNzTBa3W16RH7mFCOM6c/iFzevAK3D/N3V+y5o2+yn
- /T9A==
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=gxFJW5wMWFSgwofHY83IGRmWRME/u231OOEuiB6E6rw=;
+ b=aojESYChzWo8ja2Kpou77qQnRGwHD/xM1FLKoOgU2+BUcxjCuMdr/DOSA8Czp96JMv
+ oOXOKEnkyR2GZR+rTnQ/Kfviro+4IzQsUjV+1MmrRHZtQmqZEUzWHad2LRH7+ChV75RZ
+ uNgaqTMUEf7u2mZOEwK+t8/OpqmRjkb79BHAqwcG/XbqPmZIfm3bzRCn7Ka7mCar5N/k
+ 8Znz0mrYBjzQIPj3w+xm5jD0g/EbXotm8FyD/F7Qn2dQ9mNa1tGMcK9UDlALy7UKcTe0
+ X0eCejYgMDP0HO5so1SnMVqUdb1VIa2PQLIOOLK4+ADT95E8jgMUH5Enzgu6i3W6AfjE
+ +v1g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=QKMQ6JZNfoQFQu0rb2MpaNHYonP3HvUmrwgg0187xgo=;
- b=yJKaqj0qMHmsIVVtc5zI86HX6IWT8WtFWL8ad3tPM08+Vwxn/zTBle+J/ArN+qAvb8
- zF5yR/Vz6X1a4N2ixyqlhcO0YRF5iK6F4JFMYEGmgfBazR83ezSfLS1yQrfNZ8/ypnZD
- D/Sw8xLgm4oY9db9Dzx8YsdoJiI7UwAZJkFbXx8xt/cbiTykWQkYb2VdC2AwKBQ7Jo8E
- 7to0EosmDM5OfBNcsdpbO9jXGBmRO7e6H1sMZNSue9Fta5DbhoRUJuHLpb2hjmZQ87Mq
- ubF2BaIVYsrqd8nD7y97/PffSMHAR+iooU4Iks6TvrlmDG4kiPOOQ1brfIyyedhguBz5
- GriA==
-X-Gm-Message-State: AO0yUKXmmYGfYG6Qpvb6saGumbM4QcCsXIXvoyrZK21MSQp2G19OPR6F
- ebfTMgVyi8Tx+key2sF5cTucmg==
-X-Google-Smtp-Source: AK7set+6VAKuP8er9C6Q36j6QEsZTcCARRc9HxsCCZ5YLC3es2mxTXg8qKmtfvbB12yMGRh0IH6TQQ==
-X-Received: by 2002:adf:e708:0:b0:2be:3ccd:7f37 with SMTP id
- c8-20020adfe708000000b002be3ccd7f37mr14399928wrm.52.1676025300869; 
- Fri, 10 Feb 2023 02:35:00 -0800 (PST)
-Received: from arrakeen.starnux.net ([2a01:e0a:982:cbb0:8261:5fff:fe11:bdda])
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=gxFJW5wMWFSgwofHY83IGRmWRME/u231OOEuiB6E6rw=;
+ b=0grTRmQXFPQRf9ZjLsA4Iad/j2GbTow1CQybHVVGyZ9QjMJQsRbtV5OqbPzsoYWPTX
+ ugfCAy2fWq6vrIwJGsLpM0Dc8XcD8HQke36PXpuuRuOU0qnoYE1dTEwY6U5x06prm71J
+ mE4AJnRqSOT1rNVs5f3mE3KpVNIqmOG/9r9FGClaJ9inNuaAvj5lljHyQ8ng3zXEcD0w
+ VABaeWQgI7j3CGkEl/kJWi/qTlk6KiggONSgdoOhRyO2zq8mtCxDy8bbZOYcibcjK+BH
+ nCMv62w0anZSxzJfsvscJONGx/WaUOahIJXzOjZ13Vg+qZSddJxuAhcnhNscCFaSYqdf
+ T+Lg==
+X-Gm-Message-State: AO0yUKW9jkypxrpCz9aEJLNh/lU4m1yLw+1e6rtEP3vvZz2I0qjflrXW
+ iqAHUpWHVOPOLG8Cc14rcQk3Vg==
+X-Google-Smtp-Source: AK7set+prGY1H0ukKTktyiVy+Uhot76X1GyOTcxgbUK9hltwD8dL7jvL/W4wECXhkHKsN6qrlPghnQ==
+X-Received: by 2002:a05:600c:993:b0:3e1:577:80f5 with SMTP id
+ w19-20020a05600c099300b003e1057780f5mr10446539wmp.31.1676026625087; 
+ Fri, 10 Feb 2023 02:57:05 -0800 (PST)
+Received: from [192.168.1.109] ([178.197.216.144])
  by smtp.gmail.com with ESMTPSA id
- b18-20020a05600c4e1200b003e00c453447sm7937958wmq.48.2023.02.10.02.34.59
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 10 Feb 2023 02:35:00 -0800 (PST)
-From: Neil Armstrong <neil.armstrong@linaro.org>
-Date: Fri, 10 Feb 2023 11:34:54 +0100
+ w19-20020a05600c475300b003e11f280b8bsm1961050wmo.44.2023.02.10.02.57.03
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 10 Feb 2023 02:57:04 -0800 (PST)
+Message-ID: <039b8306-04a8-ead3-7a5f-3593c01496a5@linaro.org>
+Date: Fri, 10 Feb 2023 11:57:02 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20230206-topic-sm8450-upstream-dp-controller-v2-5-529da2203659@linaro.org>
-References: <20230206-topic-sm8450-upstream-dp-controller-v2-0-529da2203659@linaro.org>
-In-Reply-To: <20230206-topic-sm8450-upstream-dp-controller-v2-0-529da2203659@linaro.org>
-To: Rob Clark <robdclark@gmail.com>, 
- Abhinav Kumar <quic_abhinavk@quicinc.com>, 
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>, 
- David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>, 
- Rob Herring <robh+dt@kernel.org>, 
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>, 
- Kuogee Hsieh <quic_khsieh@quicinc.com>, Andy Gross <agross@kernel.org>, 
- Bjorn Andersson <andersson@kernel.org>, 
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.7.1
+To: Neil Armstrong <neil.armstrong@linaro.org>,
+ Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>,
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Rob Herring <robh+dt@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Kuogee Hsieh <quic_khsieh@quicinc.com>, Andy Gross <agross@kernel.org>,
+ Bjorn Andersson <andersson@kernel.org>,
  Konrad Dybcio <konrad.dybcio@linaro.org>
-X-Mailer: b4 0.12.0
-Subject: [Freedreno] [PATCH v2 5/5] arm64: dts: qcom: sm8450: add dp
- controller
+References: <20230206-topic-sm8450-upstream-dp-controller-v2-0-529da2203659@linaro.org>
+ <20230206-topic-sm8450-upstream-dp-controller-v2-1-529da2203659@linaro.org>
+Content-Language: en-US
+From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+In-Reply-To: <20230206-topic-sm8450-upstream-dp-controller-v2-1-529da2203659@linaro.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+Subject: Re: [Freedreno] [PATCH v2 1/5] dt-bindings: display: msm:
+ dp-controller: document SM8450 compatible
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,135 +85,19 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Neil Armstrong <neil.armstrong@linaro.org>, devicetree@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org
+Cc: linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ devicetree@vger.kernel.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Add the Display Port controller subnode to the MDSS node.
+On 10/02/2023 11:34, Neil Armstrong wrote:
+> The SM8450 & SM350 shares the same DT TX IP version, use the
+> SM8350 compatible as fallback for SM8450.
 
-Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
----
- arch/arm64/boot/dts/qcom/sm8450.dtsi | 84 ++++++++++++++++++++++++++++++++++--
- 1 file changed, 81 insertions(+), 3 deletions(-)
 
-diff --git a/arch/arm64/boot/dts/qcom/sm8450.dtsi b/arch/arm64/boot/dts/qcom/sm8450.dtsi
-index 6248adc546f2..5e47cac6c582 100644
---- a/arch/arm64/boot/dts/qcom/sm8450.dtsi
-+++ b/arch/arm64/boot/dts/qcom/sm8450.dtsi
-@@ -2742,13 +2742,20 @@ ports {
- 
- 					port@0 {
- 						reg = <0>;
--						dpu_intf1_out: endpoint {
--							remote-endpoint = <&mdss_dsi0_in>;
-+						dpu_intf0_out: endpoint {
-+							remote-endpoint = <&mdss_dp0_in>;
- 						};
- 					};
- 
- 					port@1 {
- 						reg = <1>;
-+						dpu_intf1_out: endpoint {
-+							remote-endpoint = <&mdss_dsi0_in>;
-+						};
-+					};
-+
-+					port@2 {
-+						reg = <2>;
- 						dpu_intf2_out: endpoint {
- 							remote-endpoint = <&mdss_dsi1_in>;
- 						};
-@@ -2786,6 +2793,77 @@ opp-500000000 {
- 				};
- 			};
- 
-+			mdss_dp0: displayport-controller@ae90000 {
-+				compatible = "qcom,sm8350-dp";
-+				reg = <0 0xae90000 0 0xfc>,
-+				      <0 0xae90200 0 0xc0>,
-+				      <0 0xae90400 0 0x770>,
-+				      <0 0xae91000 0 0x98>;
-+				interrupt-parent = <&mdss>;
-+				interrupts = <12>;
-+				clocks = <&dispcc DISP_CC_MDSS_AHB_CLK>,
-+					 <&dispcc DISP_CC_MDSS_DPTX0_AUX_CLK>,
-+					 <&dispcc DISP_CC_MDSS_DPTX0_LINK_CLK>,
-+					 <&dispcc DISP_CC_MDSS_DPTX0_LINK_INTF_CLK>,
-+					 <&dispcc DISP_CC_MDSS_DPTX0_PIXEL0_CLK>;
-+				clock-names = "core_iface",
-+					      "core_aux",
-+					      "ctrl_link",
-+			                      "ctrl_link_iface",
-+					      "stream_pixel";
-+
-+				assigned-clocks = <&dispcc DISP_CC_MDSS_DPTX0_LINK_CLK_SRC>,
-+						  <&dispcc DISP_CC_MDSS_DPTX0_PIXEL0_CLK_SRC>;
-+				assigned-clock-parents = <&usb_1_qmpphy 1>,
-+							 <&usb_1_qmpphy 2>;
-+
-+				phys = <&usb_1_qmpphy 1>;
-+			        phy-names = "dp";
-+
-+			        #sound-dai-cells = <0>;
-+
-+				operating-points-v2 = <&dp_opp_table>;
-+				power-domains = <&rpmhpd SM8450_MMCX>;
-+
-+				status = "disabled";
-+
-+				ports {
-+					#address-cells = <1>;
-+					#size-cells = <0>;
-+
-+					port@0 {
-+						reg = <0>;
-+						mdss_dp0_in: endpoint {
-+							remote-endpoint = <&dpu_intf0_out>;
-+						};
-+					};
-+				};
-+
-+				dp_opp_table: opp-table {
-+					compatible = "operating-points-v2";
-+
-+					opp-160000000 {
-+						opp-hz = /bits/ 64 <160000000>;
-+						required-opps = <&rpmhpd_opp_low_svs>;
-+					};
-+
-+					opp-270000000 {
-+						opp-hz = /bits/ 64 <270000000>;
-+						required-opps = <&rpmhpd_opp_svs>;
-+					};
-+
-+					opp-540000000 {
-+						opp-hz = /bits/ 64 <540000000>;
-+						required-opps = <&rpmhpd_opp_svs_l1>;
-+					};
-+
-+					opp-810000000 {
-+						opp-hz = /bits/ 64 <810000000>;
-+						required-opps = <&rpmhpd_opp_nom>;
-+					};
-+				};
-+			};
-+
- 			mdss_dsi0: dsi@ae94000 {
- 				compatible = "qcom,sm8450-dsi-ctrl", "qcom,mdss-dsi-ctrl";
- 				reg = <0 0x0ae94000 0 0x400>;
-@@ -2963,8 +3041,8 @@ dispcc: clock-controller@af00000 {
- 				 <&mdss_dsi0_phy 1>,
- 				 <&mdss_dsi1_phy 0>,
- 				 <&mdss_dsi1_phy 1>,
--				 <&usb_1_qmpphy 0>,
- 				 <&usb_1_qmpphy 1>,
-+				 <&usb_1_qmpphy 2>,
- 				 <0>, /* dp1 */
- 				 <0>,
- 				 <0>, /* dp2 */
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 
--- 
-2.34.1
+Best regards,
+Krzysztof
 
