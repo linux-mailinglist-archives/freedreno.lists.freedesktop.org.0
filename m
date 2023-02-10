@@ -1,57 +1,57 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 25FB96921D3
-	for <lists+freedreno@lfdr.de>; Fri, 10 Feb 2023 16:18:51 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id A188569220E
+	for <lists+freedreno@lfdr.de>; Fri, 10 Feb 2023 16:24:19 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E0CB710E18C;
-	Fri, 10 Feb 2023 15:18:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5F57210ED5C;
+	Fri, 10 Feb 2023 15:24:18 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ej1-x62a.google.com (mail-ej1-x62a.google.com
- [IPv6:2a00:1450:4864:20::62a])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 132E510E18C
- for <freedreno@lists.freedesktop.org>; Fri, 10 Feb 2023 15:18:48 +0000 (UTC)
-Received: by mail-ej1-x62a.google.com with SMTP id c26so11954644ejz.10
- for <freedreno@lists.freedesktop.org>; Fri, 10 Feb 2023 07:18:47 -0800 (PST)
+Received: from mail-ej1-x629.google.com (mail-ej1-x629.google.com
+ [IPv6:2a00:1450:4864:20::629])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CA99E10ED64
+ for <freedreno@lists.freedesktop.org>; Fri, 10 Feb 2023 15:24:16 +0000 (UTC)
+Received: by mail-ej1-x629.google.com with SMTP id lu11so16815364ejb.3
+ for <freedreno@lists.freedesktop.org>; Fri, 10 Feb 2023 07:24:16 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :from:to:cc:subject:date:message-id:reply-to;
- bh=tTrO0+Hb16Dwx8dCNpH5NI+RsYPIYieTzZZe10P29jw=;
- b=ySY7RxpaqV2HY9FGqcE2zcSd+PgtI475d+BgkR5T6WcjQdYq77wgt4IQfz4ADfeeNR
- +d3iiSH+Ukt5Htj8Ij/E7xAStZNVEvTQYKJr2dNBAQQDOgWwmvbXeoOa6y5Z6zdnvAcn
- 2utD1WW/rSGvhEiJP1tpUZbaaxfL0vNaC4kxukx3MJ5e/Ys5dHJkN2KTvaQVdZCPh+iO
- 54hgQYe7XfY67Cv7Ld7xnDm6SBxhWgoLoWev+s4+4yJ3EWV+2b/TAHRglaD3G+oa4FX2
- 27Z7Jnq7Jyw36KB8sTLvuLbPxaplzYiHlPpHzktEdKTYTMgmVgmcJgKJulqjMJjJjT5I
- JUDw==
+ bh=gCHYjcncflVx/yjUEZZwsiDoD/DvS3T0rRLgLEJn6PA=;
+ b=cXGPeltBt6F1AY3xiK843QltijxYiz660ivWON60ggvCiutjrd/373RJLmscVYJr6j
+ fA35d4famGzTBbF7gsH+gsNA4pKIEE0R/P3oEreOERvASYZGhjFrTIPDd3X4tCTF23A8
+ F4llHl3Vthej69NZiZDOOQHuW6fTbsMpf/SE4T9PpCBtS0AY0gCm+vtvrZWLW3kX2dqQ
+ o9Vj7Pyg7iazqlp8ngjJQbX/EED7mjrm/jorfaM8KEd84hVSnKnC7i3PYKJUo3SIUxVU
+ hg0fhuvC7XWxL1Xq8QgKQXl6+3etHJrhAPiDO5WvNTw/H0WbpwtqmZs4TkkLOVgq7ywV
+ qEgQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=tTrO0+Hb16Dwx8dCNpH5NI+RsYPIYieTzZZe10P29jw=;
- b=uarTt7PyphfOSST7VXBe8g0zBnXVKK5kX5d7ASoyXxlB3IF1HDAiK7jS1VrkNxyGol
- XxSvO1P9Mc1GxFScMa9A5hwM9MF2wLQRil7bgrDAB7KalLyT7+uWeZmHtgcN+k9FEHDA
- XKLT/7DzXR/IGDgOiln/C7nivvfJ6Z4f86UIUbEuJ83dGwTiPDHEoxopE7uRPvzcZC06
- CIbyW0Fm+4ZpP6ZiNk7YHOAU+Q1iSGX3n4KuSCQG8rbD1UkVGz64GtOYebU7h9L7qVHm
- Ci9DGmz16CftcfLW9bNkA1CqJQY6/tOFsVJ01iwMKwN9N4kw0cxxMk/fpibBGyLiyZY4
- rHPw==
-X-Gm-Message-State: AO0yUKX/hHfA8uJ+umDV9rJf4c++9z28UBnBgQgoM+eFVcOf4HQKTSwj
- g7Js+Oa9lSvi8INWrvii9jIjCA==
-X-Google-Smtp-Source: AK7set+wB2F1D1yafXt73sb47xKeVWVy5imjwfiTNYit/QK0pZoxEzn7pYyun3egopr92hzm3yYD7g==
-X-Received: by 2002:a17:906:1614:b0:87b:dba1:1bf3 with SMTP id
- m20-20020a170906161400b0087bdba11bf3mr15955265ejd.30.1676042326666; 
- Fri, 10 Feb 2023 07:18:46 -0800 (PST)
+ bh=gCHYjcncflVx/yjUEZZwsiDoD/DvS3T0rRLgLEJn6PA=;
+ b=zkq0t/W2G9EMqNxaGuSW59YzOr5yfrUSNGlb1TOCpm15qU1nG7Qm6/1bbjTmRzOCK+
+ W0jqX3BQUbSeli2nLw8vO2BWB9BSXgHMNZWTOqL6qcvQVUTLDiglzVlqTUEioZQ8/fSk
+ h6kTbn2PKmC4vbL2CuXcY6uX7AyV55j529CeGBMI4/5lBeScoTfE/uq4UhBS8b2IZjfE
+ n1c1/nTirlgoM1P2EpnrwYoU0+ddVzK5WdaM+7HD0Tz3BVb2ktwpqPowxy/0jMHeU9qb
+ j0bKy1dBD68kUV/KQJonBHzMkIC0ehh8rkv5WIQyyjTlysvj6MWjmer/Dun5Cxq3s/+r
+ /B7g==
+X-Gm-Message-State: AO0yUKVtB5Ts3oCLJymP5BC4pgW+Jr8RdP/9+YlP61QgidxZOVKEwjHr
+ V9PMsCbawo3q9Tn6VvWt96RgwA==
+X-Google-Smtp-Source: AK7set/KUCOzTCOVo2Vq2CGBzdc457jv12fo4H0oyU1WQa8Q4BmAWpLgg/AbmeTYX5Nv/2vROWHkng==
+X-Received: by 2002:a17:906:3810:b0:888:952f:fec5 with SMTP id
+ v16-20020a170906381000b00888952ffec5mr15692985ejc.8.1676042655400; 
+ Fri, 10 Feb 2023 07:24:15 -0800 (PST)
 Received: from ?IPV6:2001:14ba:a085:4d00::8a5?
  (dzccz6yyyyyyyyyyybcwt-3.rev.dnainternet.fi. [2001:14ba:a085:4d00::8a5])
  by smtp.gmail.com with ESMTPSA id
- hf27-20020a1709072c5b00b0088cdb05f1d5sm2524339ejc.113.2023.02.10.07.18.45
+ mv9-20020a170907838900b0087bd2ebe474sm2485375ejc.208.2023.02.10.07.24.13
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 10 Feb 2023 07:18:46 -0800 (PST)
-Message-ID: <d5dd4982-af33-6f9e-afd9-61d632df7c8a@linaro.org>
-Date: Fri, 10 Feb 2023 17:18:44 +0200
+ Fri, 10 Feb 2023 07:24:14 -0800 (PST)
+Message-ID: <347a5193-f7b1-7f8e-0c60-3d435bdf952c@linaro.org>
+Date: Fri, 10 Feb 2023 17:24:13 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.7.1
@@ -65,13 +65,13 @@ To: Neil Armstrong <neil.armstrong@linaro.org>,
  Bjorn Andersson <andersson@kernel.org>,
  Konrad Dybcio <konrad.dybcio@linaro.org>
 References: <20230206-topic-sm8450-upstream-dp-controller-v3-0-636ef9e99932@linaro.org>
- <20230206-topic-sm8450-upstream-dp-controller-v3-4-636ef9e99932@linaro.org>
+ <20230206-topic-sm8450-upstream-dp-controller-v3-5-636ef9e99932@linaro.org>
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-In-Reply-To: <20230206-topic-sm8450-upstream-dp-controller-v3-4-636ef9e99932@linaro.org>
+In-Reply-To: <20230206-topic-sm8450-upstream-dp-controller-v3-5-636ef9e99932@linaro.org>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH v3 4/5] arm64: dts: qcom: sm8450: switch to
- usb3/dp combo phy
+Subject: Re: [Freedreno] [PATCH v3 5/5] arm64: dts: qcom: sm8450: add dp
+ controller
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -91,16 +91,122 @@ Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 On 10/02/2023 16:44, Neil Armstrong wrote:
-> The QMP PHY is a USB3/DP combo phy, switch to the newly
-> documented bindings and register the clocks to the GCC
-> and DISPCC controllers.
+> Add the Display Port controller subnode to the MDSS node.
 > 
 > Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
 > ---
->   arch/arm64/boot/dts/qcom/sm8450.dtsi | 42 +++++++++++++-----------------------
->   1 file changed, 15 insertions(+), 27 deletions(-)
+>   arch/arm64/boot/dts/qcom/sm8450.dtsi | 79 ++++++++++++++++++++++++++++++++++++
+>   1 file changed, 79 insertions(+)
+> 
+> diff --git a/arch/arm64/boot/dts/qcom/sm8450.dtsi b/arch/arm64/boot/dts/qcom/sm8450.dtsi
+> index 6caa2c8efb46..72d54beb7d7c 100644
+> --- a/arch/arm64/boot/dts/qcom/sm8450.dtsi
+> +++ b/arch/arm64/boot/dts/qcom/sm8450.dtsi
+> @@ -2751,6 +2751,13 @@ dpu_intf2_out: endpoint {
+>   						};
+>   					};
+>   
+> +					port@2 {
+> +						reg = <2>;
+> +						dpu_intf0_out: endpoint {
+> +							remote-endpoint = <&mdss_dp0_in>;
+> +						};
+> +					};
+> +
+>   				};
+>   
+>   				mdp_opp_table: opp-table {
+> @@ -2783,6 +2790,78 @@ opp-500000000 {
+>   				};
+>   			};
+>   
+> +			mdss_dp0: displayport-controller@ae90000 {
+> +				compatible = "qcom,sm8350-dp";
 
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Missing "qcom,sm8450-dp". As I wrote in the comment to patch 1, I'd 
+suggest having just a single entry here rather than keeping both 8350 
+and 8450 entries.
+
+> +				reg = <0 0xae90000 0 0xfc>,
+> +				      <0 0xae90200 0 0xc0>,
+> +				      <0 0xae90400 0 0x770>,
+> +				      <0 0xae91000 0 0x98>,
+> +				      <0 0xae91400 0 0x98>;
+
+
+While this sounds correct, usually we used the even size here (0x200, 
+0x400, etc.). Can we please switch to it (especially since sm8350-dp 
+uses even sizes).
+
+> +				interrupt-parent = <&mdss>;
+> +				interrupts = <12>;
+> +				clocks = <&dispcc DISP_CC_MDSS_AHB_CLK>,
+> +					 <&dispcc DISP_CC_MDSS_DPTX0_AUX_CLK>,
+> +					 <&dispcc DISP_CC_MDSS_DPTX0_LINK_CLK>,
+> +					 <&dispcc DISP_CC_MDSS_DPTX0_LINK_INTF_CLK>,
+> +					 <&dispcc DISP_CC_MDSS_DPTX0_PIXEL0_CLK>;
+> +				clock-names = "core_iface",
+> +					      "core_aux",
+> +					      "ctrl_link",
+> +			                      "ctrl_link_iface",
+> +					      "stream_pixel";
+> +
+> +				assigned-clocks = <&dispcc DISP_CC_MDSS_DPTX0_LINK_CLK_SRC>,
+> +						  <&dispcc DISP_CC_MDSS_DPTX0_PIXEL0_CLK_SRC>;
+> +				assigned-clock-parents = <&usb_1_qmpphy QMP_USB43DP_DP_LINK_CLK>,
+> +							 <&usb_1_qmpphy QMP_USB43DP_DP_VCO_DIV_CLK>;
+> +
+> +				phys = <&usb_1_qmpphy QMP_USB43DP_DP_PHY>;
+> +			        phy-names = "dp";
+> +
+> +			        #sound-dai-cells = <0>;
+> +
+> +				operating-points-v2 = <&dp_opp_table>;
+> +				power-domains = <&rpmhpd SM8450_MMCX>;
+> +
+> +				status = "disabled";
+> +
+> +				ports {
+> +					#address-cells = <1>;
+> +					#size-cells = <0>;
+> +
+> +					port@0 {
+> +						reg = <0>;
+> +						mdss_dp0_in: endpoint {
+> +							remote-endpoint = <&dpu_intf0_out>;
+> +						};
+> +					};
+> +				};
+> +
+> +				dp_opp_table: opp-table {
+> +					compatible = "operating-points-v2";
+> +
+> +					opp-160000000 {
+> +						opp-hz = /bits/ 64 <160000000>;
+> +						required-opps = <&rpmhpd_opp_low_svs>;
+> +					};
+> +
+> +					opp-270000000 {
+> +						opp-hz = /bits/ 64 <270000000>;
+> +						required-opps = <&rpmhpd_opp_svs>;
+> +					};
+> +
+> +					opp-540000000 {
+> +						opp-hz = /bits/ 64 <540000000>;
+> +						required-opps = <&rpmhpd_opp_svs_l1>;
+> +					};
+> +
+> +					opp-810000000 {
+> +						opp-hz = /bits/ 64 <810000000>;
+> +						required-opps = <&rpmhpd_opp_nom>;
+> +					};
+> +				};
+> +			};
+> +
+>   			mdss_dsi0: dsi@ae94000 {
+>   				compatible = "qcom,sm8450-dsi-ctrl", "qcom,mdss-dsi-ctrl";
+>   				reg = <0 0x0ae94000 0 0x400>;
+> 
 
 -- 
 With best wishes
