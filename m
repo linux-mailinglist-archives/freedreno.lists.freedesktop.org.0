@@ -2,65 +2,65 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id AFD096934A5
-	for <lists+freedreno@lfdr.de>; Sun, 12 Feb 2023 00:13:09 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 276136934AD
+	for <lists+freedreno@lfdr.de>; Sun, 12 Feb 2023 00:13:15 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F0DA210E3B8;
-	Sat, 11 Feb 2023 23:13:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F3A1410E3BA;
+	Sat, 11 Feb 2023 23:13:07 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ej1-x62c.google.com (mail-ej1-x62c.google.com
- [IPv6:2a00:1450:4864:20::62c])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E0C5B10E3B8
+Received: from mail-ej1-x634.google.com (mail-ej1-x634.google.com
+ [IPv6:2a00:1450:4864:20::634])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EEF0E10E3BA
  for <freedreno@lists.freedesktop.org>; Sat, 11 Feb 2023 23:13:04 +0000 (UTC)
-Received: by mail-ej1-x62c.google.com with SMTP id sa10so23911921ejc.9
+Received: by mail-ej1-x634.google.com with SMTP id qw12so23993896ejc.2
  for <freedreno@lists.freedesktop.org>; Sat, 11 Feb 2023 15:13:04 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=4eQWc7eI/NIpRQi7Qva/GfZvDk9Cu8nShwJ7yygm8aI=;
- b=dFNTRKfQS7S4LfhHi2LOq8JQfSpDvsIIocP8Eu4vawaExKuVexO53U690q0JP3i0r3
- dvOloP0oTEJw+14qN+pH3c5a0lMCEC2Oxy/cDTeo/kmrafMzglSmAljkaVhZIyN7nY2P
- OiOoNfiyQzeCeW6FEuGOE0i+iZb2A9inJnsymLfKjbvOJaHbeeGjgduNbUcZt/6fGLaI
- olMxQ5gO1xX/BadzroA2GlUKMmgBE1GBrRe++jdH1Gb8D+ZBiP07rzL3tgD3XclYoLlh
- 6el3j+So+7uGTJDK/1Mn1VfJDJgVxsJRiS0UH9We7A2/H56O+T0dETc0Hocqv06z1GCi
- E4aA==
+ bh=gAVq4HXdnYVmtmpSt3zZC9pZRnLJOVtS9Rx2EYLfhwc=;
+ b=cfiMKnWNcJx005zqFBfqecZ5UJN/TH7CMwy4STmI2rUBFEnrLbWwsMt24Y6r1+Y5WY
+ lbvvK+Xw5pVIoY/e23UYCrEgx6galAd56sgsoPpFp6dS31j10oM2aSpeqZTTS1nHS5sg
+ V4+0emyaOl0bs31133m0T28lOal+gM7ErpHaFPILsJIITMwXYGHkc0/l8g7TUbnTSVE6
+ CKjhPt+VJtiDgA1Vbcn8aFqDWuKR2b+A8OMZaCSUvtXfL5ydjtWLVlKDtLzB7X+7+Suc
+ gmgazkcj2LfdcUqDKBm8E3fe3ETLZzr7yP1uUrygdckD0iraZB9+luD1WdSIe5IiEhZD
+ aCcQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=4eQWc7eI/NIpRQi7Qva/GfZvDk9Cu8nShwJ7yygm8aI=;
- b=eXRmQUv/agSMU3DGKekKSh0oSuY3MVsN2FURpXrLBgeq1+os/bmbndv3iZO66pkdlC
- FP7EeW3hNjJpnvg4jJaBfhu20HCpWh9Je4l9N1muUp81UbL+vRn2z2k7EMy75IrHj5Cu
- 8NdED7dnE/iBj5XuFdLaxEllSe7XnnxgpGvaUeUA9U8gn8xDg6FAXH+u1CKPtFIEpWlx
- wWD0E08g7ySe6fDbmZ3OOT48ufU6WnOGnFTGsTvpM3Kee8tmG6zsR6IjnuJ4hjbDbIV/
- P//V5OI9vc2HmGNIQ2gnvvpcmFhICDVI6KxJDzt0NxkCgp83fY4Z/nmEuMZXgOX8oeQt
- mz/w==
-X-Gm-Message-State: AO0yUKUXb45DaRzNoIM2/x4IjfYKA/wCHmYpkNEGMXKIqqtNgfcchoZJ
- 9M2GdIWlqJuJUgZfndkEPDm/dw==
-X-Google-Smtp-Source: AK7set9TVMrXvkpNzaYEiWhyw+iqutQJRZY9qc0yOzjWuwqsQ8eDlhKLXhRXfsZnBm/jciCSLxkE5Q==
-X-Received: by 2002:a17:906:2581:b0:887:6c23:193f with SMTP id
- m1-20020a170906258100b008876c23193fmr19049761ejb.44.1676157183440; 
- Sat, 11 Feb 2023 15:13:03 -0800 (PST)
+ bh=gAVq4HXdnYVmtmpSt3zZC9pZRnLJOVtS9Rx2EYLfhwc=;
+ b=c6zdaYkkMhK2fLh8pBSCZmP+3d9wQ8ivzmxGFAY8d3VwpTm9cPCM+GoigVodeEbSiv
+ sCTtJa1cw9wUvix/GWflTR6n0ukvZbRIbG9uOVHnSMdbxV6fT1n2ST/EFUFS/ZTx2Ihi
+ Q9525IiwKFOF+grQdYDhj7KKpmvjALVcwQC0zaI0iraAQ6wh+UkIBwouuznbW3/bDNxQ
+ oclZW8aVJo/UBblpOUxt1ihQ0q3p9DN7HDjJpjNI1HQibZNbxFMoK/PryAUBpP32+4dO
+ dc+3F+TOU80q5xtS453dPYIigfOzIcEzNZOcvPtYOq1eFlZj9YS1gmusPhUpCtfaSwt+
+ OP4g==
+X-Gm-Message-State: AO0yUKWBuQ5+Ck1o1RZ1dMZoJsb6dSN90B6hEUoIqeV6P6BTBjjrvxUI
+ C0phZ6OdRmXdxcwd7uy28r6jcg==
+X-Google-Smtp-Source: AK7set/AJ+LYpzb7qTJ/ovJWPCI4uiEwStly19NKcyLf7P1F0T/XcbXmAXFp+SIsdrmdclaimzh3Bg==
+X-Received: by 2002:a17:906:9750:b0:8b0:5c38:47d8 with SMTP id
+ o16-20020a170906975000b008b05c3847d8mr3453852ejy.42.1676157184614; 
+ Sat, 11 Feb 2023 15:13:04 -0800 (PST)
 Received: from eriador.lan (dzccz6yyyyyyyyyyybcwt-3.rev.dnainternet.fi.
  [2001:14ba:a085:4d00::8a5]) by smtp.gmail.com with ESMTPSA id
- k20-20020a1709061c1400b00871390a3b74sm4517149ejg.177.2023.02.11.15.13.02
+ k20-20020a1709061c1400b00871390a3b74sm4517149ejg.177.2023.02.11.15.13.03
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 11 Feb 2023 15:13:02 -0800 (PST)
+ Sat, 11 Feb 2023 15:13:04 -0800 (PST)
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 To: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
  Abhinav Kumar <quic_abhinavk@quicinc.com>
-Date: Sun, 12 Feb 2023 01:12:10 +0200
-Message-Id: <20230211231259.1308718-2-dmitry.baryshkov@linaro.org>
+Date: Sun, 12 Feb 2023 01:12:11 +0200
+Message-Id: <20230211231259.1308718-3-dmitry.baryshkov@linaro.org>
 X-Mailer: git-send-email 2.39.1
 In-Reply-To: <20230211231259.1308718-1-dmitry.baryshkov@linaro.org>
 References: <20230211231259.1308718-1-dmitry.baryshkov@linaro.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH v2 01/50] drm/msm/dpu: set
- DPU_MDP_PERIPH_0_REMOVED for sc8280xp
+Subject: [Freedreno] [PATCH v2 02/50] drm/msm/dpu: disable features
+ unsupported by QCM2290
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,37 +73,72 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, Neil Armstrong <neil.armstrong@linaro.org>,
+Cc: freedreno@lists.freedesktop.org, Loic Poulain <loic.poulain@linaro.org>,
  linux-arm-msm@vger.kernel.org, Bjorn Andersson <andersson@kernel.org>,
  dri-devel@lists.freedesktop.org, Stephen Boyd <swboyd@chromium.org>,
  Daniel Vetter <daniel@ffwll.ch>, David Airlie <airlied@gmail.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-The SC8280XP also has a black hole at the top of MDP_TOP region. Set
-corresponding bit to disable access to that region.
+QCM2290 doesn't seem to support reg-dma, UBWC and CSC. Drop
+corresponding features being incorrectly enabled for qcm2290.
 
-Fixes: 4a352c2fc15a ("drm/msm/dpu: Introduce SC8280XP")
+Cc: Loic Poulain <loic.poulain@linaro.org>
+Fixes: 5334087ee743 ("drm/msm: add support for QCM2290 MDSS")
 Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
-Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
 Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 ---
- drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c | 13 +++++++------
+ 1 file changed, 7 insertions(+), 6 deletions(-)
 
 diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
-index cf053e8f081e..84d974458e0d 100644
+index 84d974458e0d..eea026cf3ac2 100644
 --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
 +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
-@@ -696,7 +696,7 @@ static const struct dpu_mdp_cfg sc8280xp_mdp[] = {
- 	{
- 	.name = "top_0", .id = MDP_TOP,
- 	.base = 0x0, .len = 0x494,
--	.features = 0,
-+	.features = BIT(DPU_MDP_PERIPH_0_REMOVED),
- 	.highest_bank_bit = 2,
- 	.ubwc_swizzle = 6,
- 	.clk_ctrls[DPU_CLK_CTRL_VIG0] = { .reg_off = 0x2ac, .bit_off = 0},
+@@ -12,11 +12,15 @@
+ #include "dpu_hw_catalog.h"
+ #include "dpu_kms.h"
+ 
+-#define VIG_MASK \
++#define VIG_BASE_MASK \
+ 	(BIT(DPU_SSPP_SRC) | BIT(DPU_SSPP_QOS) |\
+-	BIT(DPU_SSPP_CSC_10BIT) | BIT(DPU_SSPP_CDP) |\
++	BIT(DPU_SSPP_CDP) |\
+ 	BIT(DPU_SSPP_TS_PREFILL) | BIT(DPU_SSPP_EXCL_RECT))
+ 
++#define VIG_MASK \
++	(VIG_BASE_MASK | \
++	BIT(DPU_SSPP_CSC_10BIT))
++
+ #define VIG_MSM8998_MASK \
+ 	(VIG_MASK | BIT(DPU_SSPP_SCALER_QSEED3))
+ 
+@@ -29,7 +33,7 @@
+ #define VIG_SM8250_MASK \
+ 	(VIG_MASK | BIT(DPU_SSPP_QOS_8LVL) | BIT(DPU_SSPP_SCALER_QSEED3LITE))
+ 
+-#define VIG_QCM2290_MASK (VIG_MASK | BIT(DPU_SSPP_QOS_8LVL))
++#define VIG_QCM2290_MASK (VIG_BASE_MASK | BIT(DPU_SSPP_QOS_8LVL))
+ 
+ #define DMA_MSM8998_MASK \
+ 	(BIT(DPU_SSPP_SRC) | BIT(DPU_SSPP_QOS) |\
+@@ -317,7 +321,6 @@ static const struct dpu_caps qcm2290_dpu_caps = {
+ 	.max_mixer_width = DEFAULT_DPU_OUTPUT_LINE_WIDTH,
+ 	.max_mixer_blendstages = 0x4,
+ 	.smart_dma_rev = DPU_SSPP_SMART_DMA_V2,
+-	.ubwc_version = DPU_HW_UBWC_VER_20,
+ 	.has_dim_layer = true,
+ 	.has_idle_pc = true,
+ 	.max_linewidth = 2160,
+@@ -2841,8 +2844,6 @@ static const struct dpu_mdss_cfg qcm2290_dpu_cfg = {
+ 	.intf = qcm2290_intf,
+ 	.vbif_count = ARRAY_SIZE(sdm845_vbif),
+ 	.vbif = sdm845_vbif,
+-	.reg_dma_count = 1,
+-	.dma_cfg = &sdm845_regdma,
+ 	.perf = &qcm2290_perf_data,
+ 	.mdss_irqs = IRQ_SC7180_MASK,
+ };
 -- 
 2.39.1
 
