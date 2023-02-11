@@ -2,75 +2,61 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id CA621692BD0
-	for <lists+freedreno@lfdr.de>; Sat, 11 Feb 2023 01:13:54 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D5A4D692CB1
+	for <lists+freedreno@lfdr.de>; Sat, 11 Feb 2023 02:59:17 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7876310E19A;
-	Sat, 11 Feb 2023 00:13:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7A9BE10E25D;
+	Sat, 11 Feb 2023 01:59:13 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9C84010E0A6;
- Sat, 11 Feb 2023 00:13:48 +0000 (UTC)
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 31B0CT2M009512; Sat, 11 Feb 2023 00:13:42 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
- h=message-id : date :
- mime-version : subject : to : cc : references : from : in-reply-to :
- content-type : content-transfer-encoding; s=qcppdkim1;
- bh=xENFj6HB6ark6IN3iEi2OK48ZvVNMg8HurrgPVnyJ4s=;
- b=huAjWcvyElV+ZIEMhxmV4Rs6olNrNB7Dsit+mBK+6vnyKOq+CZVp1xdt7MmXCSf0WauA
- pVLLMAjOM8Ot2YEu0KR6L7bF/hDpcu2fPeSmuJCutMN6UHs8LEBAf88BtWOVjMNtlGR7
- t1/Dj8iMpQcTylbF7GZ3D+cFwpmvhI4YKRc5IUXDoIX59D1RmHMQ4AQAciMMXf8DVQO8
- 0060Qn+qmtVswndn2Py7XbB59Z2eiTp/cWRqpYX3NMTKcq6Y3atnCtHnwtVy9q51b5a+
- df0BukFJSK4hLsyOJin/h9u3ufcWua3NScEMKx5jEUi8sMTCIsGDqwrxGroOb2xffnT1 WQ== 
-Received: from nalasppmta05.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3nnrxdrwge-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Sat, 11 Feb 2023 00:13:41 +0000
-Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
- [10.47.209.196])
- by NALASPPMTA05.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 31B0DfjS011769
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Sat, 11 Feb 2023 00:13:41 GMT
-Received: from [10.110.17.125] (10.80.80.8) by nalasex01a.na.qualcomm.com
- (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.36; Fri, 10 Feb
- 2023 16:13:39 -0800
-Message-ID: <f6e228af-430e-1d29-db87-e13c29f31ac0@quicinc.com>
-Date: Fri, 10 Feb 2023 16:13:38 -0800
+Received: from mail-ej1-x62b.google.com (mail-ej1-x62b.google.com
+ [IPv6:2a00:1450:4864:20::62b])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1398E10E25D
+ for <freedreno@lists.freedesktop.org>; Sat, 11 Feb 2023 01:59:10 +0000 (UTC)
+Received: by mail-ej1-x62b.google.com with SMTP id lu11so20206222ejb.3
+ for <freedreno@lists.freedesktop.org>; Fri, 10 Feb 2023 17:59:10 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=WsYj1dvpr8aqC1MHtJmuXbUcdvOjnso7J/f67jxofCo=;
+ b=lXI/sFqen0oshgAA2YEH725UdyKaMCaZFY6j5dXA9HdJ8+Ek3+h8A/lGz0RlgUb6r2
+ /CzbteHFyPs8xHI+wfz4ZkjNx0z2ZJW0F3Y3/63cIx3IFN5G3ea1PAlAtrbUG8qIlq5o
+ xW5qTABRYlEquNfOtVfH/K825dJr75MLLZT6ImJssxfxEwOFprutnhjvPZoOtwvbIO5D
+ mAeolfEO6pPuti99MXkWMNuNKj15gmxCEgoI7JPNU29f3ylK2kiSYw6Y5PRsDBo8Pmwu
+ 1ZAZCBt83iK6kjmDxw3z0JpqPssWaDxp0krc+vkNhG8PIOcTD3e/uzCuWeRiveZrPi1I
+ tzzg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=WsYj1dvpr8aqC1MHtJmuXbUcdvOjnso7J/f67jxofCo=;
+ b=yM51BxWVQF1jkyUNa7Fyzil5uEyyM+e3OIlDZl6WmJrZuTl8O9R/DouY0FB/hY/CdT
+ x3F2jpcBS0Y+ydXsQUB6gUDSk3AOkTZV++CK72OvSjE5xRim6JJYYZMhX+TwvAOkyAcM
+ D5DKN9r4+NBgizCtlEYL2c8ZZlfFnGPPmDOssBMOrIc+C4s45nBmWTTTms7oUfiNb00W
+ JnNv7cB2SVQHDWlLRQXSJTktvqiIOXviPdWR9Xm7JOEMg2SfeS3voQ/Yx4QoxSqwE8rW
+ lE16UFiTRQw+EjQZ6Du2ilu0LTMBq14E6oLXtV/a42JVNQmf+XqzQhTMutnUwjsZGNgR
+ jZ2Q==
+X-Gm-Message-State: AO0yUKWcg5WpyYG46e1Uwgq+KTntvdTxKOoS/MTtm9IW89zLBMsZHUgI
+ oSctOQquMI6orXlC0BPfyG0T5g==
+X-Google-Smtp-Source: AK7set8lr2hecxNLdc0jB2qgDBb3EvRe0hdI1d1P8WmlFNoiqDDr5c3KP/VvgRK/pFJjHN01M6fq3Q==
+X-Received: by 2002:a17:906:1250:b0:87b:da77:eec2 with SMTP id
+ u16-20020a170906125000b0087bda77eec2mr18025808eja.19.1676080749346; 
+ Fri, 10 Feb 2023 17:59:09 -0800 (PST)
+Received: from eriador.lan (dzccz6yyyyyyyyyyybcwt-3.rev.dnainternet.fi.
+ [2001:14ba:a085:4d00::8a5]) by smtp.gmail.com with ESMTPSA id
+ j9-20020aa7ca49000000b0045ce419ecffsm2987146edt.58.2023.02.10.17.59.08
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 10 Feb 2023 17:59:08 -0800 (PST)
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+To: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>
+Date: Sat, 11 Feb 2023 03:59:07 +0200
+Message-Id: <20230211015907.1077839-1-dmitry.baryshkov@linaro.org>
+X-Mailer: git-send-email 2.39.1
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.6.2
-Content-Language: en-US
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Rob Clark
- <robdclark@gmail.com>, Sean Paul <sean@poorly.run>
-References: <20230210141554.928883-1-dmitry.baryshkov@linaro.org>
-From: Abhinav Kumar <quic_abhinavk@quicinc.com>
-In-Reply-To: <20230210141554.928883-1-dmitry.baryshkov@linaro.org>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-GUID: Y1WTdicAWqHdeX0AoOuiAg_bnQvQQ4ji
-X-Proofpoint-ORIG-GUID: Y1WTdicAWqHdeX0AoOuiAg_bnQvQQ4ji
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.219,Aquarius:18.0.930,Hydra:6.0.562,FMLib:17.11.170.22
- definitions=2023-02-10_17,2023-02-09_03,2023-02-09_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0
- malwarescore=0 priorityscore=1501 adultscore=0 mlxscore=0 suspectscore=0
- lowpriorityscore=0 spamscore=0 clxscore=1015 phishscore=0 bulkscore=0
- mlxlogscore=755 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2212070000 definitions=main-2302100209
-Subject: Re: [Freedreno] [PATCH] drm/msm/dpu: set DPU_MDP_PERIPH_0_REMOVED
+Content-Transfer-Encoding: 8bit
+Subject: [Freedreno] [PATCH v2] drm/msm/dpu: set DPU_MDP_PERIPH_0_REMOVED
  for sc8280xp
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -84,25 +70,41 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
- Bjorn Andersson <andersson@kernel.org>, dri-devel@lists.freedesktop.org,
- Stephen Boyd <swboyd@chromium.org>, Daniel Vetter <daniel@ffwll.ch>,
- David Airlie <airlied@gmail.com>
+Cc: freedreno@lists.freedesktop.org, Neil Armstrong <neil.armstrong@linaro.org>,
+ linux-arm-msm@vger.kernel.org, Bjorn Andersson <andersson@kernel.org>,
+ dri-devel@lists.freedesktop.org, Stephen Boyd <swboyd@chromium.org>,
+ Daniel Vetter <daniel@ffwll.ch>, David Airlie <airlied@gmail.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
+The SC8280XP also has a black hole at the top of MDP_TOP region. Set
+corresponding bit to disable access to that region.
 
-
-On 2/10/2023 6:15 AM, Dmitry Baryshkov wrote:
-> The SC8280XP also has a black hole at the top of MDP_TOP region. Set
-> corresponding bit to disable access to that region.
-> 
-> Fixes: 4a352c2fc15a ("drm/msm/dpu: Introduce SC8280XP")
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> ---
->   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c | 2 +-
->   1 file changed, 1 insertion(+), 1 deletion(-)
-
-Will pick this up for -fixes,
-
+Fixes: 4a352c2fc15a ("drm/msm/dpu: Introduce SC8280XP")
 Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
+Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
+Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+---
+
+Changes since v1: rebase on top of the msm-next
+
+---
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
+index 71df24a134ed..fb5120afb028 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
+@@ -696,7 +696,7 @@ static const struct dpu_mdp_cfg sc8280xp_mdp[] = {
+ 	{
+ 	.name = "top_0", .id = MDP_TOP,
+ 	.base = 0x0, .len = 0x494,
+-	.features = 0,
++	.features = BIT(DPU_MDP_PERIPH_0_REMOVED),
+ 	.highest_bank_bit = 2,
+ 	.ubwc_swizzle = 6,
+ 	.clk_ctrls[DPU_CLK_CTRL_VIG0] = { .reg_off = 0x2ac, .bit_off = 0},
+-- 
+2.39.1
+
