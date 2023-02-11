@@ -1,58 +1,77 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 31F8D6922FE
-	for <lists+freedreno@lfdr.de>; Fri, 10 Feb 2023 17:10:29 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 21D41692BC5
+	for <lists+freedreno@lfdr.de>; Sat, 11 Feb 2023 01:10:22 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A48BD10ED70;
-	Fri, 10 Feb 2023 16:10:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C2BA910E0A6;
+	Sat, 11 Feb 2023 00:10:18 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-oa1-x36.google.com (mail-oa1-x36.google.com
- [IPv6:2001:4860:4864:20::36])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6066710E0FF;
- Fri, 10 Feb 2023 16:10:24 +0000 (UTC)
-Received: by mail-oa1-x36.google.com with SMTP id
- 586e51a60fabf-16aca2628c6so5024635fac.7; 
- Fri, 10 Feb 2023 08:10:24 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=x8csjOo0ay/WiZRvu3Dg2jwRg3X/GeXQG6HE9v0Ckhg=;
- b=iL6M2cJ6J58klTFq2krCzR2yrvpnQewDDsJ+HQ0E3KbpVvn309aAywYr5JpSGaWTM4
- yUlZqdv0umrcR5h4jMZ51C7vUM3dcUakiLDZFYy+KmTF8yhKpysnP/2F087gI8NuJnsa
- GVFvk0p4Rx+v5t7sqsKsGZ9Wb8T/EkWgcCvuqtpmH9Xf+Qewdjqk9cdhva/Zd1+oY3zA
- Zfd2t9OlHVRskWSOgJREsc6XwUYWxrJuc5IBlfNVhwcLo1LDqIY3OxfjRB3m3N5vLbpF
- Bi26ItCvOBj89eq9Jl+zsbkzLAGPQcBgryKDKYjDkl607O7AibBaS9Ki7/5LLrObTm4T
- 5+4Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=x8csjOo0ay/WiZRvu3Dg2jwRg3X/GeXQG6HE9v0Ckhg=;
- b=OFTGZ777hvWnXfb77cJkyitI0c/fBJy7BXsmg4Rfdh+8dE+e60l86o9rNPonhaGdrT
- ZHsHNURBBxDMGAlzjtAhuBrJULUPZQ+cVGb2aH5M9+dPnHOsG4sYBjurskcKmFpqXu2d
- 6EnbfhKGZUjD+zLBOYXXDIE/38wz03beYcMi7aabARArMDJI4hulnhkmm5uw1RHxPluQ
- JxOBO4chPFJh7KIA2IBS6QgQgmzqh2Rx0+LOF2r/PKXIgKg+uraVbG+D7PiwbyXIpO/1
- F18228a7S0CO9EBBbwzqyEYvAL/5k3CcO4kTkbG3MTBltOtigdkbqehUGyFv0Zhdfeol
- DGzg==
-X-Gm-Message-State: AO0yUKXgPggvEnutR0dKEFkQUlNGSMg8liefhkg9dER5M277aBhvOtW+
- BZY4WkX5Rl0hOfnP/ttFeTe5FFKFXy78PhypK0Q=
-X-Google-Smtp-Source: AK7set/39G98hk5WRkbcUBbh2iCORLhHvcPbRo2Cwz0upBoFgp3MMSFVlKeQlhBknHB12xh0IrMQhYuSCVeKoO/swac=
-X-Received: by 2002:a05:6870:1199:b0:163:999e:6460 with SMTP id
- 25-20020a056870119900b00163999e6460mr857358oau.38.1676045423519; Fri, 10 Feb
- 2023 08:10:23 -0800 (PST)
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3B1AB10E0A6;
+ Sat, 11 Feb 2023 00:10:15 +0000 (UTC)
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 31ANrq1G015907; Sat, 11 Feb 2023 00:10:10 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
+ h=message-id : date :
+ mime-version : subject : to : cc : references : from : in-reply-to :
+ content-type : content-transfer-encoding; s=qcppdkim1;
+ bh=3j1Ma2woUU1zFtOdehOLfqkVJh5dODgOuYzsq5rLn48=;
+ b=FTRfRGSHDnojaSZnWaiMu2HGrOjmB070V+WrN6Icie51DbSiZVwuDbBMJq00+i4mxoB5
+ wIRlYQRGYlYOiY1y8c8niXYlTW8Qt5jSlQ5ez7YTzeBNlePLtqHQJo776O9VUJPQDJm7
+ amUTMfRIawkIdbogsK3PVNPDHl48C6gmJ5VlOvmCqtHpUZl5XHjwNYHxwMyErXC7Ghjp
+ eKLknSm9j0dTIxNN3qyZ2T3coL6RHK/Mulsa992OwMgcquzsrcAxPaf87Xx/gg8iuGN9
+ RMaEiGjGu8/0zAeah0HIyANnGvVy4OlvmSTpfZlK5twNdSJ6Jho9wOHZhs47V06q7eW2 Kg== 
+Received: from nalasppmta02.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3nnhcma28j-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Sat, 11 Feb 2023 00:10:09 +0000
+Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
+ [10.47.209.196])
+ by NALASPPMTA02.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 31B0A8pj006377
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Sat, 11 Feb 2023 00:10:08 GMT
+Received: from [10.110.17.125] (10.80.80.8) by nalasex01a.na.qualcomm.com
+ (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.36; Fri, 10 Feb
+ 2023 16:10:03 -0800
+Message-ID: <91cf7d71-9f51-eb07-758c-981bf9fe6338@quicinc.com>
+Date: Fri, 10 Feb 2023 16:10:03 -0800
 MIME-Version: 1.0
-References: <20230203181245.3523937-1-quic_bjorande@quicinc.com>
-In-Reply-To: <20230203181245.3523937-1-quic_bjorande@quicinc.com>
-From: Rob Clark <robdclark@gmail.com>
-Date: Fri, 10 Feb 2023 08:10:00 -0800
-Message-ID: <CAF6AEGuJtiSrLqdZdEf=bz-R0jTg=ayR6OwutBgu5d1dBQUD_Q@mail.gmail.com>
-To: Bjorn Andersson <quic_bjorande@quicinc.com>
-Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [RFC] drm/msm/adreno: Balance pm_runtime enable
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
+ Thunderbird/91.6.2
+Content-Language: en-US
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Rob Clark
+ <robdclark@gmail.com>, Sean Paul <sean@poorly.run>
+References: <20230210135019.925145-1-dmitry.baryshkov@linaro.org>
+From: Abhinav Kumar <quic_abhinavk@quicinc.com>
+In-Reply-To: <20230210135019.925145-1-dmitry.baryshkov@linaro.org>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-GUID: ZqG1rImARWWzP9cBz8c3n2foOSI6HNvV
+X-Proofpoint-ORIG-GUID: ZqG1rImARWWzP9cBz8c3n2foOSI6HNvV
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.219,Aquarius:18.0.930,Hydra:6.0.562,FMLib:17.11.170.22
+ definitions=2023-02-10_17,2023-02-09_03,2023-02-09_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0
+ lowpriorityscore=0 impostorscore=0 phishscore=0 adultscore=0 bulkscore=0
+ mlxlogscore=654 clxscore=1011 mlxscore=0 malwarescore=0 spamscore=0
+ priorityscore=1501 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2212070000 definitions=main-2302100208
+Subject: Re: [Freedreno] [PATCH v2] drm/msm/dpu: disable features
+ unsupported by QCM2290
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,74 +84,29 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, Akhil P Oommen <quic_akhilpo@quicinc.com>,
- Sean Paul <sean@poorly.run>, Konrad Dybcio <konrad.dybcio@somainline.org>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Daniel Vetter <daniel@ffwll.ch>,
- linux-arm-msm@vger.kernel.org, Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- David Airlie <airlied@gmail.com>
+Cc: freedreno@lists.freedesktop.org, Loic Poulain <loic.poulain@linaro.org>,
+ linux-arm-msm@vger.kernel.org, Bjorn Andersson <andersson@kernel.org>,
+ dri-devel@lists.freedesktop.org, Stephen Boyd <swboyd@chromium.org>,
+ Daniel Vetter <daniel@ffwll.ch>, David Airlie <airlied@gmail.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Fri, Feb 3, 2023 at 10:12 AM Bjorn Andersson
-<quic_bjorande@quicinc.com> wrote:
->
-> When any of the components in the mdss hierarchy fails to bind,
-> previously bound components are being unbound again.
->
-> One such case happens when the DP controller fails to find its bridge or
-> panel, where adreno_unbind() will be invoked without adreno_load_gpu()
-> being called to invoke pm_runtime_enable().
->
-> The result is that once everything is bound the pm_runtime_get_sync()
-> call find the power-domain to have a positive disable_depth, fails
-> with -EACCESS and prevents the GPU device to be powered up.
->
-> Move the pm_runtime_enable() to adreno_bind(), in order to balance it
-> with any calls to adreno_unbind().
 
-I think instead we want to move where the pm_runtime_disable() is..
-since pm_runtime_enable() was moved because we can't actually enable
-runpm until we have GMU firmware
 
-BR,
--R
-
-> Fixes: 4b18299b3365 ("drm/msm/adreno: Defer enabling runpm until hw_init()")
-> Signed-off-by: Bjorn Andersson <quic_bjorande@quicinc.com>
+On 2/10/2023 5:50 AM, Dmitry Baryshkov wrote:
+> QCM2290 doesn't seem to support reg-dma, UBWC and CSC. Drop
+> corresponding features being incorrectly enabled for qcm2290.
+> 
+> Cc: Loic Poulain <loic.poulain@linaro.org>
+> Fixes: 5334087ee743 ("drm/msm: add support for QCM2290 MDSS")
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 > ---
->  drivers/gpu/drm/msm/adreno/adreno_device.c | 11 ++---------
->  1 file changed, 2 insertions(+), 9 deletions(-)
->
-> diff --git a/drivers/gpu/drm/msm/adreno/adreno_device.c b/drivers/gpu/drm/msm/adreno/adreno_device.c
-> index 36f062c7582f..ca38b837dedb 100644
-> --- a/drivers/gpu/drm/msm/adreno/adreno_device.c
-> +++ b/drivers/gpu/drm/msm/adreno/adreno_device.c
-> @@ -432,15 +432,6 @@ struct msm_gpu *adreno_load_gpu(struct drm_device *dev)
->         if (ret)
->                 return NULL;
->
-> -       /*
-> -        * Now that we have firmware loaded, and are ready to begin
-> -        * booting the gpu, go ahead and enable runpm:
-> -        */
-> -       pm_runtime_enable(&pdev->dev);
-> -
-> -       /* Make sure pm runtime is active and reset any previous errors */
-> -       pm_runtime_set_active(&pdev->dev);
-> -
->         ret = pm_runtime_get_sync(&pdev->dev);
->         if (ret < 0) {
->                 pm_runtime_put_sync(&pdev->dev);
-> @@ -548,6 +539,8 @@ static int adreno_bind(struct device *dev, struct device *master, void *data)
->                 return PTR_ERR(gpu);
->         }
->
-> +       pm_runtime_enable(dev);
-> +
->         return 0;
->  }
->
-> --
-> 2.25.1
->
+> 
+> Changes since v1:
+> - Reenabled CDP, exclusion rectangles and SmartDMA
+> 
+> ---
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c | 13 +++++++------
+>   1 file changed, 7 insertions(+), 6 deletions(-)
+
+Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
