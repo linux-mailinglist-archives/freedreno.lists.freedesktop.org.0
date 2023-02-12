@@ -1,66 +1,70 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id B0607693533
-	for <lists+freedreno@lfdr.de>; Sun, 12 Feb 2023 00:14:33 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id D6EC4693888
+	for <lists+freedreno@lfdr.de>; Sun, 12 Feb 2023 17:29:25 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 98E3010E429;
-	Sat, 11 Feb 2023 23:14:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7461A10E184;
+	Sun, 12 Feb 2023 16:29:20 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ej1-x62d.google.com (mail-ej1-x62d.google.com
- [IPv6:2a00:1450:4864:20::62d])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C790A10E41C
- for <freedreno@lists.freedesktop.org>; Sat, 11 Feb 2023 23:14:00 +0000 (UTC)
-Received: by mail-ej1-x62d.google.com with SMTP id gr7so23954127ejb.5
- for <freedreno@lists.freedesktop.org>; Sat, 11 Feb 2023 15:14:00 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=mA0wapugSIYwzJjh8QQpFZojK1Cf6nHUnMysknsiTI0=;
- b=u84Xb8jNF5JMSsHyPt8MkUuDdTr2c4CP4algLWN19zIEqrB1q0+zvL6YaCdjsFlDCd
- UoJPxb6Qd/iqJ8Gt48+YDkk5WPzTsZ2prf8xpLaO6OorKzxjRYknWfLQuE6KeW8i65Bs
- VftDo/d4mfadIwNCHMa0FSDclmcbN3ogWfM2tfczf8flwJIRfZcazOir1vMBzvvPgiPF
- LylJIDVd2ZDIlAmkq65TnGm/pKk/tk6drqkx9WrbZZKSTruTJoU9Iodhj2P5uPZoZDmW
- brtKKneU+DSmCHMSktm2c/yUJB/Ef9qLToTQJoC7Of6LhmcBBz81UF3npd+pbM5oFjK/
- QvUA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=mA0wapugSIYwzJjh8QQpFZojK1Cf6nHUnMysknsiTI0=;
- b=Nunfte9UFBJO789dyucSxAIXBaenaPM2YDKV3HX1cw9opuT7JaE4Ua7Kw1uEIIHX9H
- xMwD2JpWB+5PYpANqGARwaDbq5Dq/3KsWuTQaOShvGd3LtT3OMulYBaUm1qDnefTaKNu
- 2sC2RVx7TVzgSvXhfEuvj95e/CckQLXVnsrqjMu3SKgBmp2/p+xzGwYOOtG3hRwgh335
- jav1DyxzPUbviWAP7QDgBRp/z3H2jjV3atXeW5vyQO4yDP1HGXcn2dGXQN+s5PRWFGTx
- zEgbNjIjUY6+BZkgNU3LZ3UUJ1yhL3PpzBpd+seYkELIyEVhFOH9nHrsK1zv7VQcbQfI
- YREw==
-X-Gm-Message-State: AO0yUKV1BuX6kx4vEVD1bR/cMsZ/1oPtZr1iFKATG+fR9eHCYrm/oVuO
- zF7vI62hMAWxynzCi8P/sdkipw==
-X-Google-Smtp-Source: AK7set/3wadk7OzNoC9pIppF6oVoYWkP4Mlv4UbuwYA9P375LIa7pocOp1Gb7v8509k7wWyOIFz0Zw==
-X-Received: by 2002:a17:906:4bd0:b0:882:cdd4:14d9 with SMTP id
- x16-20020a1709064bd000b00882cdd414d9mr17524049ejv.46.1676157240433; 
- Sat, 11 Feb 2023 15:14:00 -0800 (PST)
-Received: from eriador.lan (dzccz6yyyyyyyyyyybcwt-3.rev.dnainternet.fi.
- [2001:14ba:a085:4d00::8a5]) by smtp.gmail.com with ESMTPSA id
- k20-20020a1709061c1400b00871390a3b74sm4517149ejg.177.2023.02.11.15.13.58
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 11 Feb 2023 15:13:59 -0800 (PST)
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-To: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>
-Date: Sun, 12 Feb 2023 01:12:59 +0200
-Message-Id: <20230211231259.1308718-51-dmitry.baryshkov@linaro.org>
-X-Mailer: git-send-email 2.39.1
-In-Reply-To: <20230211231259.1308718-1-dmitry.baryshkov@linaro.org>
-References: <20230211231259.1308718-1-dmitry.baryshkov@linaro.org>
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4AC2410E074;
+ Sun, 12 Feb 2023 16:29:18 +0000 (UTC)
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 31CGS6Q5017504; Sun, 12 Feb 2023 16:29:16 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
+ h=from : to : cc :
+ subject : date : message-id : mime-version : content-type; s=qcppdkim1;
+ bh=YtvVyCXvhC7flf4SlPrjETNk1bKCbrtbdP+fhKLzN8I=;
+ b=X8hFsZfBpc1R+Ezsk2jFKmmvG1HkP6cTyF4vc4vpr1iNo5WLCp42YJEeG97dsrm0hqYW
+ GTXgZ51AdA6zfAcBcmORXBn7d0wWBOcTvMcc4SkOu2xHwZrVp8WPwukf8mKDdJqfWpBR
+ QwSW08nZ9bLzOJVRZE3lcj+4VjRb/jDE77QdCJ3GiDWLqiKLhQiQhUwqJ2xx4667EWGp
+ p8R33qqiEGEeu3kMYbJK577W/xVEFWGQX0Ybfk/ePxBuWPcmWxwRIGRbHipMn/grXRez
+ Ob9p6w/Y9DL6Q4v0Fp4f5+ilFsnd9LlhX83E5sg7pdNaSiuNcjYQgiP6f1Bdvw/9VLzl +A== 
+Received: from nalasppmta05.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3np3deta85-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Sun, 12 Feb 2023 16:29:15 +0000
+Received: from nalasex01b.na.qualcomm.com (nalasex01b.na.qualcomm.com
+ [10.47.209.197])
+ by NALASPPMTA05.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 31CGTEcp009665
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Sun, 12 Feb 2023 16:29:14 GMT
+Received: from vpolimer-linux.qualcomm.com (10.80.80.8) by
+ nalasex01b.na.qualcomm.com (10.47.209.197) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.986.36; Sun, 12 Feb 2023 08:29:09 -0800
+From: Vinod Polimera <quic_vpolimer@quicinc.com>
+To: <dri-devel@lists.freedesktop.org>, <linux-arm-msm@vger.kernel.org>,
+ <freedreno@lists.freedesktop.org>, <devicetree@vger.kernel.org>
+Date: Sun, 12 Feb 2023 21:58:44 +0530
+Message-ID: <1676219337-6526-1-git-send-email-quic_vpolimer@quicinc.com>
+X-Mailer: git-send-email 2.7.4
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH v2 50/50] drm/msm/dpu: rename MERGE_3D_foo_MASK
- to contain major DPU version
+Content-Type: text/plain
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
+ nalasex01b.na.qualcomm.com (10.47.209.197)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-GUID: tFfzbGH6l2P04HGznyeyOsU8TPx7ZX7U
+X-Proofpoint-ORIG-GUID: tFfzbGH6l2P04HGznyeyOsU8TPx7ZX7U
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.219,Aquarius:18.0.930,Hydra:6.0.562,FMLib:17.11.170.22
+ definitions=2023-02-12_06,2023-02-09_03,2023-02-09_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 mlxscore=0
+ clxscore=1015 adultscore=0 mlxlogscore=999 malwarescore=0 phishscore=0
+ lowpriorityscore=0 bulkscore=0 priorityscore=1501 impostorscore=0
+ suspectscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2212070000 definitions=main-2302120147
+Subject: [Freedreno] [PATCH v13 00/13] Add PSR support for eDP
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,43 +77,127 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
- Bjorn Andersson <andersson@kernel.org>, dri-devel@lists.freedesktop.org,
- Stephen Boyd <swboyd@chromium.org>, Daniel Vetter <daniel@ffwll.ch>,
- David Airlie <airlied@gmail.com>
+Cc: quic_kalyant@quicinc.com, quic_sbillaka@quicinc.com,
+ quic_bjorande@quicinc.com, quic_abhinavk@quicinc.com,
+ quic_vproddut@quicinc.com, quic_khsieh@quicinc.com, dianders@chromium.org,
+ linux-kernel@vger.kernel.org, robdclark@gmail.com, dmitry.baryshkov@linaro.org,
+ swboyd@chromium.org, Vinod Polimera <quic_vpolimer@quicinc.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-To ease review and reuse rename MERGE_3D feature masks to contain base
-DPU version since which this mask is used.
+Changes in v2:
+  - Use dp bridge to set psr entry/exit instead of dpu_enocder.
+  - Don't modify whitespaces.
+  - Set self refresh aware from atomic_check.
+  - Set self refresh aware only if psr is supported.
+  - Provide a stub for msm_dp_display_set_psr.
+  - Move dp functions to bridge code.
 
-Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
----
- drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+Changes in v3:
+  - Change callback names to reflect atomic interfaces.
+  - Move bridge callback change to separate patch as suggested by Dmitry.
+  - Remove psr function declaration from msm_drv.h.
+  - Set self_refresh_aware flag only if psr is supported.
+  - Modify the variable names to simpler form.
+  - Define bit fields for PSR settings.
+  - Add comments explaining the steps to enter/exit psr.
+  - Change DRM_INFO to drm_dbg_db. 
 
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
-index b8143a3c35b0..6f907992866b 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
-@@ -70,7 +70,7 @@
- #define CTL_DPU_9_MASK \
- 	(CTL_DPU_7_MASK | BIT(DPU_CTL_HAS_LAYER_EXT4))
- 
--#define MERGE_3D_SM8150_MASK (0)
-+#define MERGE_3D_DPU_5_MASK (0)
- 
- #define DSPP_MSM8998_MASK BIT(DPU_DSPP_PCC) | BIT(DPU_DSPP_GC)
- 
-@@ -507,7 +507,7 @@ static const struct dpu_pingpong_sub_blks sc7280_pp_sblk = {
- 	{\
- 	.name = _name, .id = _id, \
- 	.base = _base, .len = 0x100, \
--	.features = MERGE_3D_SM8150_MASK, \
-+	.features = MERGE_3D_DPU_5_MASK, \
- 	.sblk = NULL \
- 	}
- 
+Changes in v4:
+  - Move the get crtc functions to drm_atomic.
+  - Add atomic functions for DP bridge too.
+  - Add ternary operator to choose eDP or DP ops.
+  - Return true/false instead of 1/0.
+  - mode_valid missing in the eDP bridge ops.
+  - Move the functions to get crtc into drm_atomic.c.
+  - Fix compilation issues.
+  - Remove dpu_assign_crtc and get crtc from drm_enc instead of dpu_enc.
+  - Check for crtc state enable while reserving resources.
+
+Changes in v5:
+  - Move the mode_valid changes into a different patch.
+  - Complete psr_op_comp only when isr is set.
+  - Move the DP atomic callback changes to a different patch.
+  - Get crtc from drm connector state crtc.
+  - Move to separate patch for check for crtc state enable while
+reserving resources.
+
+Changes in v6:
+  - Remove crtc from dpu_encoder_virt struct.
+  - fix crtc check during vblank toggle crtc.
+  - Misc changes. 
+
+Changes in v7:
+  - Add fix for underrun issue on kasan build.
+
+Changes in v8:
+  - Drop the enc spinlock as it won't serve any purpose in
+protetcing conn state.(Dmitry/Doug)
+
+Changes in v9:
+  - Update commit message and fix alignment using spaces.(Marijn)
+  - Misc changes.(Marijn)
+
+Changes in v10:
+  - Get crtc cached in dpu_enc during obj init.(Dmitry)
+
+Changes in v11:
+  - Remove crtc cached in dpu_enc during obj init.
+  - Update dpu_enc crtc state on crtc enable/disable during self refresh.
+
+Changes in v12:
+  - Update sc7180 intf mask to get intf timing gen status
+based on DPU_INTF_STATUS_SUPPORTED bit.(Dmitry)
+  - Remove "clear active interface in the datapath cleanup" change
+as it is already included.
+
+Changes in v13:
+  - Move core changes to top of the series.(Dmitry)
+  - Drop self refresh aware disable change after psr entry.(Dmitry)
+
+Vinod Polimera (13):
+  drm: add helper functions to retrieve old and new crtc
+  drm/bridge: use atomic enable/disable callbacks for panel bridge
+  drm/bridge: add psr support for panel bridge callbacks
+  drm/msm/disp/dpu: check for crtc enable rather than crtc active to
+    release shared resources
+  drm/msm/disp/dpu: get timing engine status from intf status register
+  drm/msm/disp/dpu: wait for extra vsync till timing engine status is
+    disabled
+  drm/msm/disp/dpu: reset the datapath after timing engine disable
+  drm/msm/dp: use atomic callbacks for DP bridge ops
+  drm/msm/dp: Add basic PSR support for eDP
+  drm/msm/dp: use the eDP bridge ops to validate eDP modes
+  drm/msm/disp/dpu: use atomic enable/disable callbacks for encoder
+    functions
+  drm/msm/disp/dpu: add PSR support for eDP interface in dpu driver
+  drm/msm/disp/dpu: update dpu_enc crtc state on crtc enable/disable
+    during self refresh
+
+ drivers/gpu/drm/bridge/panel.c                     |  68 +++++++-
+ drivers/gpu/drm/drm_atomic.c                       |  60 ++++++++
+ drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c           |  40 ++++-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c        |  26 +++-
+ .../gpu/drm/msm/disp/dpu1/dpu_encoder_phys_vid.c   |  22 +++
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c     |   3 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h     |  12 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.c        |   8 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c            |   2 +-
+ drivers/gpu/drm/msm/dp/dp_catalog.c                |  80 ++++++++++
+ drivers/gpu/drm/msm/dp/dp_catalog.h                |   4 +
+ drivers/gpu/drm/msm/dp/dp_ctrl.c                   |  80 ++++++++++
+ drivers/gpu/drm/msm/dp/dp_ctrl.h                   |   3 +
+ drivers/gpu/drm/msm/dp/dp_display.c                |  36 +++--
+ drivers/gpu/drm/msm/dp/dp_display.h                |   2 +
+ drivers/gpu/drm/msm/dp/dp_drm.c                    | 171 ++++++++++++++++++++-
+ drivers/gpu/drm/msm/dp/dp_drm.h                    |   9 +-
+ drivers/gpu/drm/msm/dp/dp_link.c                   |  36 +++++
+ drivers/gpu/drm/msm/dp/dp_panel.c                  |  22 +++
+ drivers/gpu/drm/msm/dp/dp_panel.h                  |   6 +
+ drivers/gpu/drm/msm/dp/dp_reg.h                    |  27 ++++
+ include/drm/drm_atomic.h                           |   7 +
+ 22 files changed, 681 insertions(+), 43 deletions(-)
+
 -- 
-2.39.1
+2.7.4
 
