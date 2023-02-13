@@ -1,75 +1,57 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6E154694A31
-	for <lists+freedreno@lfdr.de>; Mon, 13 Feb 2023 16:05:22 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 1B3E8694A61
+	for <lists+freedreno@lfdr.de>; Mon, 13 Feb 2023 16:09:47 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3A72210E5E4;
-	Mon, 13 Feb 2023 15:05:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CFF6E10E5ED;
+	Mon, 13 Feb 2023 15:09:45 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ej1-x634.google.com (mail-ej1-x634.google.com
- [IPv6:2a00:1450:4864:20::634])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9615410E5E4
- for <freedreno@lists.freedesktop.org>; Mon, 13 Feb 2023 15:05:17 +0000 (UTC)
-Received: by mail-ej1-x634.google.com with SMTP id n10so5673776ejc.4
- for <freedreno@lists.freedesktop.org>; Mon, 13 Feb 2023 07:05:17 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=oXOmuQpMwFH/B4axgmO48iMJUN2ivWFM2F65C3j3620=;
- b=qQpacBq7NBmt+Iw5lDyJvHs51VgJz/17PpxAB6Q3/U/iDG2w/aOM5OZCk0z3wVrt5k
- 14ZiQERQKLmANV6XWMnG0I2M11rBb24uCxBefWVO74rulRwRjyfqUvU5HIPlMRALD772
- IQOwHzVUFmcfXJXeHwM0U0poBSKsHimlbysdHJVQed3ZGOzKLovYqdjXsYORlCex4Asz
- X552vxuQrf5oyam7Ib613WSdxL+awmEgBFSELQvCiaYO3a1VGbDhm9Nsjb7Ye1QZ5m/u
- T8R+ynmX2NTl91mpJfAtObU8OGClVA3ZNVjLlRrLHlZkfBhNaWAakB979ugxw5KVf/qn
- xp+A==
+Received: from mail-il1-f181.google.com (mail-il1-f181.google.com
+ [209.85.166.181])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D05DC10E5EE;
+ Mon, 13 Feb 2023 15:09:44 +0000 (UTC)
+Received: by mail-il1-f181.google.com with SMTP id s9so4153825ilt.1;
+ Mon, 13 Feb 2023 07:09:44 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=oXOmuQpMwFH/B4axgmO48iMJUN2ivWFM2F65C3j3620=;
- b=pZMDn2HhXi2fbcK/cRT9P+YUFENl8zrkF7wUHJ4NsnXCWK4TXxX3Qs+Sh8rIzITKXl
- VCljUMaqMzmR0LlQoJ1bOh40HCg34k2TByrSU9e0+UfTWR1BlL1c1aK0OScCARh8hMfM
- NTY0LTyt1HgnPcdnU2c2O69qWA5iBKWgMstML61FiUetlFmrAyNvLFjwLXZhJjsaw+6d
- WgVYS+3DBmQrD3v+hRYNblFSELYVBxEruSWHISvJAFCINWxuDOgmehXxIwYfTx5LiKhK
- h26dxexDUfuUCobExqwi/VrgAdOfFPcY4yBFR0k/kzr226qkNX1hEqJXeDk6eCIMFMZq
- Mlxw==
-X-Gm-Message-State: AO0yUKW0KPUgnngyQ4OWZV9Pw2+Fp5RK3re1WWrL1D7gX60ocp/I0o0B
- xWYtMyPv+GJGpdytzXwfPYR+Cg==
-X-Google-Smtp-Source: AK7set8ak7Vpr70aH/JFGBOVh5vkZ0AWJD04GxE/bkytBdUPhoxoPZHDY7glyBQEfhhxTMVcwyuV5w==
-X-Received: by 2002:a17:907:a804:b0:8a6:5720:9101 with SMTP id
- vo4-20020a170907a80400b008a657209101mr28374752ejc.4.1676300716075; 
- Mon, 13 Feb 2023 07:05:16 -0800 (PST)
-Received: from ?IPV6:2001:14ba:a085:4d00::8a5?
- (dzccz6yyyyyyyyyyybcwt-3.rev.dnainternet.fi. [2001:14ba:a085:4d00::8a5])
- by smtp.gmail.com with ESMTPSA id
- bo13-20020a170906d04d00b008874c903ec5sm6914103ejb.43.2023.02.13.07.05.14
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 13 Feb 2023 07:05:15 -0800 (PST)
-Message-ID: <6ad96cff-b91b-a4c7-4573-7bb8de7194f8@linaro.org>
-Date: Mon, 13 Feb 2023 17:05:14 +0200
+ h=date:subject:message-id:references:in-reply-to:cc:to:from
+ :mime-version:content-transfer-encoding:x-gm-message-state:from:to
+ :cc:subject:date:message-id:reply-to;
+ bh=ogFsLNQEFVm7C6QvQZMbka0qqj2F6J8HwmRYO32/VOg=;
+ b=bQ28pSjjEtHHLB0V8WSZqToAh+XG8IdGpqbPi7nKp5L8gc9anIC7Ns8qKF6tDq4ViZ
+ 2q687pbLTmQHCqs5/4pCrzX1O0yh5nRdVPaLZK1TEwYpUPPScp37aVCAGJ6GMRJ/gtZl
+ pgCgBXIsXlTAucF2BC+wsQj1gXDexJWUy38tqSE/0ENulLR5KTY0e9LmOdblMT6a5ys6
+ etO4iTdtciS55qOYD00QYvllR1EfMuhsp1KUqHwW9M7QtGqzrpnNbPa2sbheHDLdCbTX
+ 8sJk+0gwnC1RtKGW/rgBORPNmIVshVHN6xPFdDZYWxeecwMglyhOekVftiTYlcbjgZzW
+ tqkw==
+X-Gm-Message-State: AO0yUKXPnhxfqZAqEXKsGc5GJHjgWtrW5xCvCeQpUbQfWYIKPA3wOWNp
+ ZQ19Z4/MNwabQwNHMGcd7w==
+X-Google-Smtp-Source: AK7set9DOOH8pVq0q18oUvyYwV+s2TWpICsRn/3fLBdCPEA0O6cjKYg+qIAzs4dUab0rq9PFB6kMoQ==
+X-Received: by 2002:a92:a007:0:b0:313:d914:e544 with SMTP id
+ e7-20020a92a007000000b00313d914e544mr21549100ili.23.1676300983976; 
+ Mon, 13 Feb 2023 07:09:43 -0800 (PST)
+Received: from robh_at_kernel.org (c-73-14-99-67.hsd1.co.comcast.net.
+ [73.14.99.67]) by smtp.gmail.com with ESMTPSA id
+ g15-20020a056e021a2f00b003141eddd283sm2746676ile.22.2023.02.13.07.09.42
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 13 Feb 2023 07:09:43 -0800 (PST)
+Received: (nullmailer pid 11608 invoked by uid 1000);
+ Mon, 13 Feb 2023 15:09:41 -0000
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.7.1
-Content-Language: en-GB
-To: Marijn Suijten <marijn.suijten@somainline.org>
+From: Rob Herring <robh@kernel.org>
+To: Konrad Dybcio <konrad.dybcio@linaro.org>
+In-Reply-To: <20230211122656.1479141-4-konrad.dybcio@linaro.org>
 References: <20230211122656.1479141-1-konrad.dybcio@linaro.org>
- <20230211122656.1479141-6-konrad.dybcio@linaro.org>
- <20230213111220.ietr4aro6xu4emtu@SoMainline.org>
- <e6653ceb-bce1-9552-019d-278f455ba8a5@linaro.org>
- <20230213143148.qvyagudd3qm5jgwd@SoMainline.org>
- <e3c1a048-a9e1-53fa-5a19-cba62e8b1580@linaro.org>
- <20230213150226.du27ocydnyrkvuin@SoMainline.org>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-In-Reply-To: <20230213150226.du27ocydnyrkvuin@SoMainline.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH 05/10] drm/msm/dpu: Allow variable
- SSPP/INTF_BLK size
+ <20230211122656.1479141-4-konrad.dybcio@linaro.org>
+Message-Id: <167630050949.6199.14243256327599171035.robh@kernel.org>
+Date: Mon, 13 Feb 2023 09:09:41 -0600
+Subject: Re: [Freedreno] [PATCH 03/10] dt-bindings: display/msm: Add SM6350
+ DPU & MDSS
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,70 +64,64 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, Robert Foss <rfoss@kernel.org>,
+Cc: devicetree@vger.kernel.org,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
  linux-arm-msm@vger.kernel.org, andersson@kernel.org,
- krzysztof.kozlowski@linaro.org, dri-devel@lists.freedesktop.org,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Konrad Dybcio <konrad.dybcio@linaro.org>, Rob Clark <robdclark@gmail.com>,
- agross@kernel.org, Daniel Vetter <daniel@ffwll.ch>,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@somainline.org>,
- David Airlie <airlied@gmail.com>, Sean Paul <sean@poorly.run>,
- linux-kernel@vger.kernel.org
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, krzysztof.kozlowski@linaro.org,
+ Rob Clark <robdclark@gmail.com>, Rob Herring <robh+dt@kernel.org>,
+ Krishna Manikandan <quic_mkrishn@quicinc.com>, agross@kernel.org,
+ Daniel Vetter <daniel@ffwll.ch>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, marijn.suijten@somainline.org,
+ David Airlie <airlied@gmail.com>, freedreno@lists.freedesktop.org,
+ Sean Paul <sean@poorly.run>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 13/02/2023 17:02, Marijn Suijten wrote:
-> On 2023-02-13 16:40:56, Dmitry Baryshkov wrote:
->> On 13/02/2023 16:31, Marijn Suijten wrote:
->>> On 2023-02-13 13:38:33, Dmitry Baryshkov wrote:
->>>> On 13/02/2023 13:12, Marijn Suijten wrote:
->>>>> On 2023-02-11 13:26:51, Konrad Dybcio wrote:
->>>>>> These blocks are of variable length on different SoCs. Set the
->>>>>> correct values where I was able to retrieve it from downstream
->>>>>> DTs and leave the old defaults (0x1c8 for sspp and 0x280 for
->>>>>> intf) otherwise.
->>>>>>
->>>>>> Signed-off-by: Konrad Dybcio <konrad.dybcio@linaro.org>
->>>>>> ---
->>>>>>     .../gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c    | 242 +++++++++---------
->>>>>>     1 file changed, 121 insertions(+), 121 deletions(-)
->>>>>>
->>>>>> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
->>>>>> index 802050118345..d9ef1e133c1e 100644
->>>>>> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
->>>>>> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
->>>>> [..]
->>>>>> @@ -1848,10 +1848,10 @@ static struct dpu_dsc_cfg sm8150_dsc[] = {
->>>>>>     /*************************************************************
->>>>>>      * INTF sub blocks config
->>>>>>      *************************************************************/
->>>>>> -#define INTF_BLK(_name, _id, _base, _type, _ctrl_id, _progfetch, _features, _reg, _underrun_bit, _vsync_bit) \
->>>>>> +#define INTF_BLK(_name, _id, _base, _len, _type, _ctrl_id, _progfetch, _features, _reg, _underrun_bit, _vsync_bit) \
->>>>>
->>>>> Dmitry and I discussed in #freedreno to instead add the INTF_BLK_DSI_TE
->>>>> macro that accounts for the INTF TE registers using this higher register
->>>>> area, as well as an extended signature to configure extra interrupts.
->>>>
->>>> Yes, that's still the plan. It's slightly painful that we are touching
->>>> this are simultaneously.
->>>
->>> Should we (Konrad) then drop this patch as there's no need to add these
->>> (mostly RAZ/WI) registers to the dump until my INTF TE series starts
->>> using them?  That'll make rebasing easier on everyone too.
->>
->> RAZ/WI is for not present registers (read-as-zero/write-ignore). I think
->> that the growing register space is getting populated with registers
->> (which we have been ignoring up to now).
+
+On Sat, 11 Feb 2023 13:26:49 +0100, Konrad Dybcio wrote:
+> Document 6350 DPU and MDSS.
 > 
-> They are, but not until my INTF TE series lands; hence again the request
-> to drop this patch until that happens?
+> Signed-off-by: Konrad Dybcio <konrad.dybcio@linaro.org>
+> ---
+>  .../bindings/display/msm/qcom,sm6350-dpu.yaml |  94 ++++++++
+>  .../display/msm/qcom,sm6350-mdss.yaml         | 213 ++++++++++++++++++
+>  2 files changed, 307 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/display/msm/qcom,sm6350-dpu.yaml
+>  create mode 100644 Documentation/devicetree/bindings/display/msm/qcom,sm6350-mdss.yaml
+> 
 
-I see nothing wrong with including them into the snapshots.
+My bot found errors running 'make DT_CHECKER_FLAGS=-m dt_binding_check'
+on your patch (DT_CHECKER_FLAGS is new in v5.13):
 
-Dropping this single patch will still result in the huge amount of 
-rejects. So, let's get your INTF TE done, I'll rebase my work on top of it.
+yamllint warnings/errors:
+./Documentation/devicetree/bindings/display/msm/qcom,sm6350-mdss.yaml:55:11: [warning] wrong indentation: expected 8 but found 10 (indentation)
 
--- 
-With best wishes
-Dmitry
+dtschema/dtc warnings/errors:
+/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sm6350-mdss.yaml: patternProperties:^dsi@[0-9a-f]+$:properties:compatible: [{'const': 'qcom,sm6350-dsi-ctrl'}, {'const': 'qcom,mdss-dsi-ctrl'}] is not of type 'object', 'boolean'
+	from schema $id: http://json-schema.org/draft-07/schema#
+/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sm6350-mdss.yaml: ignoring, error in schema: patternProperties: ^dsi@[0-9a-f]+$: properties: compatible
+/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sm6350-mdss.example.dtb: dsi@ae94000: compatible:0: 'qcom,sm6350-dsi-ctrl' is not one of ['qcom,mdss-dsi-ctrl', 'qcom,dsi-ctrl-6g-qcm2290']
+	From schema: /builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/dsi-controller-main.yaml
+/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sm6350-mdss.example.dtb: dsi@ae94000: compatible: ['qcom,sm6350-dsi-ctrl', 'qcom,mdss-dsi-ctrl'] is too long
+	From schema: /builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/dsi-controller-main.yaml
+/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sm6350-mdss.example.dtb: phy@ae94400: 'vdds-supply' is a required property
+	From schema: /builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/dsi-phy-10nm.yaml
+
+doc reference errors (make refcheckdocs):
+
+See https://patchwork.ozlabs.org/project/devicetree-bindings/patch/20230211122656.1479141-4-konrad.dybcio@linaro.org
+
+The base for the series is generally the latest rc1. A different dependency
+should be noted in *this* patch.
+
+If you already ran 'make dt_binding_check' and didn't see the above
+error(s), then make sure 'yamllint' is installed and dt-schema is up to
+date:
+
+pip3 install dtschema --upgrade
+
+Please check and re-submit after running the above command yourself. Note
+that DT_SCHEMA_FILES can be set to your schema file to speed up checking
+your schema. However, it must be unset to test all examples with your schema.
 
