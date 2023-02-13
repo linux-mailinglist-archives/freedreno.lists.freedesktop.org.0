@@ -2,51 +2,73 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 22A426953B5
-	for <lists+freedreno@lfdr.de>; Mon, 13 Feb 2023 23:21:09 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 257DF6954BC
+	for <lists+freedreno@lfdr.de>; Tue, 14 Feb 2023 00:26:01 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C7EC410E2FF;
-	Mon, 13 Feb 2023 22:21:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D217310E77C;
+	Mon, 13 Feb 2023 23:25:59 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3FFF010E08A;
- Mon, 13 Feb 2023 22:21:05 +0000 (UTC)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 7152A61321;
- Mon, 13 Feb 2023 22:21:04 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CAB4CC433A0;
- Mon, 13 Feb 2023 22:21:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1676326863;
- bh=MAFEEpooP81rHga3hyR7q68TKMP8X0VWoBWQ9cj/IzA=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=oY5aS8mtACHUYH8oywWM6PjXK2+FSJBLfIVpkFu2Jdb+zxScYYMPG8EciOaW4TYKW
- 6SFFbpineQMZPTgCG1eGylsVifVPfhJywExsLjKGoQy9ED197UcBhOlqq3qH42kpxd
- Wba2KBUMwAniSj3T0B6O5Txu2V1k9yXDwXycuqYFJxtWpZM+vUY89fQf2fx/wBGsU3
- O4QJZBJiaAwJ/iHkuRCWttpA1yuzII8YnX4i3sgLZekmNNL1FO3m5pWYin6NxuySHS
- PtpJloWMCtKfIDSpWCR7zHS0Se0dcSFN4Q/Z9WKltWTJTf2HrpGo1yvP91LgvDf0AB
- e5kZCxnxMo9Ww==
-From: Bjorn Andersson <andersson@kernel.org>
-To: Andy Gross <agross@kernel.org>, Sean Paul <sean@poorly.run>,
- Rob Herring <robh+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, Rob Clark <robdclark@gmail.com>,
- Konrad Dybcio <konrad.dybcio@linaro.org>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Mon, 13 Feb 2023 14:23:00 -0800
-Message-Id: <167632698310.557014.3960232028013864693.b4-ty@kernel.org>
-X-Mailer: git-send-email 2.39.1
-In-Reply-To: <20230209133839.762631-1-dmitry.baryshkov@linaro.org>
-References: <20230209133839.762631-1-dmitry.baryshkov@linaro.org>
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3E4E010E77E;
+ Mon, 13 Feb 2023 23:25:57 +0000 (UTC)
+Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 31DMseSg007370; Mon, 13 Feb 2023 23:25:55 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
+ h=from : to : cc :
+ subject : date : message-id : in-reply-to : references : mime-version :
+ content-transfer-encoding : content-type; s=qcppdkim1;
+ bh=WyjnaxGXRfzzqY7Ht33HHjjmmAwX2h2QvzaNXu+te1Y=;
+ b=mnkWszfeQY4WTxA0OIxDAmpcgrjx6YkCaGuAM9/ZOcD+M2mA5PoiQkY8vUCkQUNp70N5
+ lP7gIMDGlxAYsw6urlwe6J0KH9EMtS/s1SBXdZr43jYvZbN10L1/WOPHT8IZzzItoLCK
+ DHk6jobPpeDx5AFqv0TDBIYtL74AYCT1epjcRLz1IYva8iOtFbEY91I9YvDapl5k5sp0
+ K1KxUAOTj2ZdvLpoSES8v/9X3eMh3q+yPrXbOUK5H736nVwwVVTtWYzGPwBN4DDNuXFH
+ NJ05AvzIpkkbsR4ujTRaWyOCdV89KCIbpyvlt/YtxqudH8Bkf2W76dmRH9VGYGJ0GgmK 0g== 
+Received: from nasanppmta05.qualcomm.com (i-global254.qualcomm.com
+ [199.106.103.254])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3npmvrm4ey-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 13 Feb 2023 23:25:54 +0000
+Received: from nasanex01b.na.qualcomm.com (nasanex01b.na.qualcomm.com
+ [10.46.141.250])
+ by NASANPPMTA05.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 31DNPrAU006925
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 13 Feb 2023 23:25:53 GMT
+Received: from JESSZHAN.qualcomm.com (10.80.80.8) by
+ nasanex01b.na.qualcomm.com (10.46.141.250) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.986.36; Mon, 13 Feb 2023 15:25:53 -0800
+From: Jessica Zhang <quic_jesszhan@quicinc.com>
+To: <freedreno@lists.freedesktop.org>
+Date: Mon, 13 Feb 2023 15:25:37 -0800
+Message-ID: <20230213232537.762-1-quic_jesszhan@quicinc.com>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20230213194819.608-1-quic_jesszhan@quicinc.com>
+References: <20230213194819.608-1-quic_jesszhan@quicinc.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Subject: Re: [Freedreno] [PATCH v3 0/6] arm64: dts: qcom: sm8350: enable GPU
- on the HDK board
+Content-Type: text/plain
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
+ nasanex01b.na.qualcomm.com (10.46.141.250)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-ORIG-GUID: qAuUAbf3pW_J8fBzD6zICG7dzQxAoXng
+X-Proofpoint-GUID: qAuUAbf3pW_J8fBzD6zICG7dzQxAoXng
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.219,Aquarius:18.0.930,Hydra:6.0.562,FMLib:17.11.170.22
+ definitions=2023-02-13_12,2023-02-13_01,2023-02-09_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501
+ phishscore=0 mlxscore=0 impostorscore=0 mlxlogscore=866 suspectscore=0
+ adultscore=0 malwarescore=0 spamscore=0 clxscore=1015 bulkscore=0
+ lowpriorityscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2212070000 definitions=main-2302130205
+Subject: [Freedreno] [RFC PATCH v3 4/4] drm/msm/mdp4: Remove empty
+ prepare_commit() function
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,42 +81,44 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, Stephen Boyd <swboyd@chromium.org>,
- Daniel Vetter <daniel@ffwll.ch>, David Airlie <airlied@gmail.com>,
- freedreno@lists.freedesktop.org
+Cc: linux-arm-msm@vger.kernel.org, quic_abhinavk@quicinc.com,
+ dri-devel@lists.freedesktop.org, swboyd@chromium.org, robdclark@gmail.com,
+ seanpaul@chromium.org, marijn.suijten@somainline.org,
+ dmitry.baryshkov@linaro.org, Jessica Zhang <quic_jesszhan@quicinc.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Thu, 9 Feb 2023 15:38:33 +0200, Dmitry Baryshkov wrote:
-> Add A660 device to the Qualcomm SM8350 platform and enable it for the
-> sm8350-hdk board. Unfortunately while adding the GPU & related devices I
-> noticed that DT nodes on SM8350 are greatly out of the adress sorting
-> order, so patches 2-4 reorder DT nodes to follow the agreement.
-> 
-> Changes since v1:
-> - Dropped merged patches
-> - Expanded commit messages to mention the sort order (by the node
->   address)
-> - Rebased on top of latest Bjorn's tree
-> 
-> [...]
+Remove empty prepare_commit() function from MDP4 driver.
 
-Applied, thanks!
+Signed-off-by: Jessica Zhang <quic_jesszhan@quicinc.com>
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+---
+ drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.c | 5 -----
+ 1 file changed, 5 deletions(-)
 
-[1/6] dt-bindings: display/msm/gmu: add Adreno 660 support
-      (no commit info)
-[2/6] arm64: dts: qcom: sm8350: reorder device nodes
-      commit: f5f6bd58186afa4ec1ebcd074bc30255826e8480
-[3/6] arm64: dts: qcom: sm8350: move more nodes to correct place
-      commit: 1417372f4f846fbc28b4306370eb011d1f0853ca
-[4/6] arm64: dts: qcom: sm8350: finish reordering nodes
-      commit: 51f83fbbf1c8d7a09885099f9a8f25b3c9139797
-[5/6] arm64: dts: qcom: sm8350: add GPU, GMU, GPU CC and SMMU nodes
-      commit: 54af0ceb75958a8b7e62138646cfa6c114e71a77
-[6/6] arm64: dts: qcom: sm8350-hdk: enable GPU
-      commit: a8ecd17bb681d1743309b0d2a4622b643b61d69c
-
-Best regards,
+diff --git a/drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.c b/drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.c
+index 9a1a0769575d..6e37072ed302 100644
+--- a/drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.c
++++ b/drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.c
+@@ -84,10 +84,6 @@ static void mdp4_disable_commit(struct msm_kms *kms)
+ 	mdp4_disable(mdp4_kms);
+ }
+ 
+-static void mdp4_prepare_commit(struct msm_kms *kms, struct drm_atomic_state *state)
+-{
+-}
+-
+ static void mdp4_flush_commit(struct msm_kms *kms, unsigned crtc_mask)
+ {
+ 	/* TODO */
+@@ -154,7 +150,6 @@ static const struct mdp_kms_funcs kms_funcs = {
+ 		.disable_vblank  = mdp4_disable_vblank,
+ 		.enable_commit   = mdp4_enable_commit,
+ 		.disable_commit  = mdp4_disable_commit,
+-		.prepare_commit  = mdp4_prepare_commit,
+ 		.flush_commit    = mdp4_flush_commit,
+ 		.wait_flush      = mdp4_wait_flush,
+ 		.complete_commit = mdp4_complete_commit,
 -- 
-Bjorn Andersson <andersson@kernel.org>
+2.39.1
+
