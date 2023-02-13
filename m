@@ -1,72 +1,72 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id F13F2694097
-	for <lists+freedreno@lfdr.de>; Mon, 13 Feb 2023 10:16:36 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 8BAE46940B2
+	for <lists+freedreno@lfdr.de>; Mon, 13 Feb 2023 10:18:52 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AA56610E4F5;
-	Mon, 13 Feb 2023 09:16:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4FB0510E4FD;
+	Mon, 13 Feb 2023 09:18:51 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ej1-x631.google.com (mail-ej1-x631.google.com
- [IPv6:2a00:1450:4864:20::631])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5EFAF10E4EC
- for <freedreno@lists.freedesktop.org>; Mon, 13 Feb 2023 09:16:34 +0000 (UTC)
-Received: by mail-ej1-x631.google.com with SMTP id rp23so30127741ejb.7
- for <freedreno@lists.freedesktop.org>; Mon, 13 Feb 2023 01:16:34 -0800 (PST)
+Received: from mail-ed1-x52c.google.com (mail-ed1-x52c.google.com
+ [IPv6:2a00:1450:4864:20::52c])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C966610E501
+ for <freedreno@lists.freedesktop.org>; Mon, 13 Feb 2023 09:18:49 +0000 (UTC)
+Received: by mail-ed1-x52c.google.com with SMTP id fj20so11929853edb.1
+ for <freedreno@lists.freedesktop.org>; Mon, 13 Feb 2023 01:18:49 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
  :from:to:cc:subject:date:message-id:reply-to;
- bh=ffU8sGbKz0z2ElJbTbQMzwUheG9ZFBNUT9R2bnCT9fc=;
- b=W2VHDevE2E8btW8qR/+w4xDl0AnPm7BODAW9vrKHhMCjiyITjk44rpRbOJyoZtbqlo
- ReOz3ukHokW9wsj/rZQSAEuF5+dJwY1MXbajSaG3Q9+Fc9c+l+qnlsYiI5NUbQ5skHep
- sJigXpIZthXkxiN2JtAaDCBJK2+LdiTEE1Cl8TW32mw0QMm//3SRAl/WH6j+PiyYaA4b
- mcs69PaOYCWIjRTHyqM0fTCf7RMokBIOtaMsZv7lK1sG5LwYYCTn5UlD8LYLfuBgmp7T
- gwILAx0j/hQ8F8+Fg0MttExIJc3+Q7Zk1U3uHBWi7/7vf8E5NJp47bJA1WoQqGAAXTmi
- R6Vg==
+ bh=eXcO6OpF41wT8g2AlitKAQca/Gi4aTS6loHCy0fN5O8=;
+ b=na3b1mLWpUHjG7w0WvINAJ+sieyOA0V8D503u4UydLg7/5IcsuQhitxgPBOsqZJIWK
+ d4XT97q8e8BmIYy1LeKDLxEXt9Y9YxsNaGgtBIgp1E7r8V7AbV0WtyVu2Si6tZahcQfo
+ JO8h3+U8ptvOchPabTPGVPVJxyZys1slQR1OI+yimsYXgsDk7f8+AKMkJqssydyBOwRS
+ TmT1jSWRGsbl5rNUkg/kYHJ2fS89jySGcH4yr1kD8PDHU29FRfqvVYcgmW+PFoSSxlHd
+ C6v4gjddkzUCg6bysiz18NxGz6kAPfkH+/w1fuQ+AhQIxpm+l2n2TPqctSX8UBF7ROgZ
+ 8P8A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=ffU8sGbKz0z2ElJbTbQMzwUheG9ZFBNUT9R2bnCT9fc=;
- b=k31jlXnO/L751PxZMCII9fu4uu73uCQAuvJ+J0qpU3BkPU8ThbyErEUmjM/ioj4MB9
- BjobbaoKALVJoNWHlBiZz5jOSW7eTeOlM1mQQThS0hOQLf3W7ZktCr5Q2KWva5rDA46M
- j4jkctAL3NWWIGJDxDhWMLmYza+3C6RF2nTWAfAK8fT7arVkXYmaEmYktgFa4eMi66Xe
- wJM0nwp6kXoly+VW9z/ugwRgtcvmzJi96fc0etrT7hXi8snkE04m/N41nGHNIWVRo/o8
- F7WgL8Nn5BLJAU891SqQ3OphFUO+lrBnnSL7KnVxPJ0pz55tY0lZjJ0m428dQ2z6OJz+
- koYw==
-X-Gm-Message-State: AO0yUKWWSw8DZg24pf+svlMnmJDnELAeudyAMpQzv7f+31po2OLAzhhN
- r0V7vpy3C+vDF3B7oyjThYAebw==
-X-Google-Smtp-Source: AK7set+dSF1gp8nSjaSbYMMdwmLbhN8OinauvAHBHeVZb26gkGLvNQgREzqzx4icab8vlZ38BS4Saw==
-X-Received: by 2002:a17:906:3391:b0:877:5938:6f6d with SMTP id
- v17-20020a170906339100b0087759386f6dmr27538914eja.56.1676279792830; 
- Mon, 13 Feb 2023 01:16:32 -0800 (PST)
+ bh=eXcO6OpF41wT8g2AlitKAQca/Gi4aTS6loHCy0fN5O8=;
+ b=5x16VzeT+02z1XEzRVx2M5nTKHrGmqhpAa696Rnrcm+/tZewlLmVxukG+o/06puph4
+ EwTemgkOou1Z2vQ8N1WBc7+2Rvd8QmnUUAr3baYqti2FlQ9TEzyUHh9jjoktqtDvXrBk
+ aB2tpxVnyZCSoyqmIA/1QbT9DkA8AkrCmo5a6gm6tYccDqwgY1B4cnhIhrPXFe2iB7EO
+ ZTsJLT9TvSgpxJk+TwJRqOzm6CIMvKE0dwpQzbIM9MXC6ZDWNcnMGGOsIeY7vpRR43BB
+ pZVXH5BMRGxja7O1s0CNkJOYjrFjUCDhIqDrpg/SqNo2PIZbPq03vGdKXqv9bnXDON0d
+ TFgg==
+X-Gm-Message-State: AO0yUKUC/BMxqd5AUXAv2TL8adEytt0zGeIsXauESCFstvjKYY4RaT45
+ Z3qUxQB1ECKiSYisWfb1w76O2A==
+X-Google-Smtp-Source: AK7set+6RvtSJO2PND+dYWRs5D0MODCz7WrbFPGLsDUxj8o0g8iKPI5M9ZHqBdlXyqhhgGjc0mVVzA==
+X-Received: by 2002:a50:8d4e:0:b0:4ac:bcef:505a with SMTP id
+ t14-20020a508d4e000000b004acbcef505amr5949422edt.38.1676279928279; 
+ Mon, 13 Feb 2023 01:18:48 -0800 (PST)
 Received: from [192.168.1.101] (abxh117.neoplus.adsl.tpnet.pl. [83.9.1.117])
  by smtp.gmail.com with ESMTPSA id
- qk8-20020a170906d9c800b008a654ade18csm6533721ejb.78.2023.02.13.01.16.31
+ l5-20020a1709061c4500b0088eb85e29c5sm6522124ejg.6.2023.02.13.01.18.46
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 13 Feb 2023 01:16:32 -0800 (PST)
-Message-ID: <6dfb39f9-cdc7-62a0-6ba7-dd8fa33d4d44@linaro.org>
-Date: Mon, 13 Feb 2023 10:16:30 +0100
+ Mon, 13 Feb 2023 01:18:47 -0800 (PST)
+Message-ID: <8dfd429b-a77e-af58-c778-9c157844e494@linaro.org>
+Date: Mon, 13 Feb 2023 10:18:45 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.7.1
+Content-Language: en-US
 To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
  linux-arm-msm@vger.kernel.org, andersson@kernel.org, agross@kernel.org,
  krzysztof.kozlowski@linaro.org
 References: <20230211115110.1462920-1-konrad.dybcio@linaro.org>
- <20230211115110.1462920-3-konrad.dybcio@linaro.org>
- <4748cb49-0a17-2839-f99b-7578c0a4354b@linaro.org>
-Content-Language: en-US
+ <20230211115110.1462920-4-konrad.dybcio@linaro.org>
+ <71b63ae5-1b2c-b0a9-913c-99b657133f0f@linaro.org>
 From: Konrad Dybcio <konrad.dybcio@linaro.org>
-In-Reply-To: <4748cb49-0a17-2839-f99b-7578c0a4354b@linaro.org>
+In-Reply-To: <71b63ae5-1b2c-b0a9-913c-99b657133f0f@linaro.org>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: Re: [Freedreno] [PATCH 02/10] drm/msm/dsi: Turn
- msm_dsi_config::io_start into a 2d array
+Subject: Re: [Freedreno] [PATCH 03/10] drm/msm/dsi: Zero-terminate
+ msm_dsi_config::io_start
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -92,200 +92,186 @@ Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 
 
-On 11.02.2023 14:17, Dmitry Baryshkov wrote:
+On 11.02.2023 14:19, Dmitry Baryshkov wrote:
 > On 11/02/2023 13:51, Konrad Dybcio wrote:
->> Currently, we allow for MAX_DSI entries in io_start to facilitate for
->> MAX_DSI number of DSI hosts at different addresses. The configuration
->> is matched against the DSI CTRL hardware revision read back from the
->> component. We need a way to resolve situations where multiple SoCs
->> with different register maps may use the same version of DSI CTRL. In
->> preparation to do so, make msm_dsi_config a 2d array where each entry
->> represents a set of configurations adequate for a given SoC.
->>
->> This is totally fine to do, as the only differentiating factors
->> between same-version-different-SoCs configurations are the number of
->> DSI hosts (1 or 2, at least as of today) and the set of registers.
-> 
-> s/set of registers/starting address/ ?
-Well, *technically* they both are accurate, as having the same DSI
-HW at the same base address implies the entire DSI host address space
-is the same.. But I can clean this up.
-
-Konrad
-> 
->> The regulator setup is the same, because the DSI hardware is the same,
->> regardless of the SoC it was implemented in.
+>> In preparation for supporting multiple sets of possible base registers,
+>> Zero-terminate the array that contains them to remove the need of
+>> specifying num_dsi for each set.
 >>
 >> Signed-off-by: Konrad Dybcio <konrad.dybcio@linaro.org>
 >> ---
->>   drivers/gpu/drm/msm/dsi/dsi_cfg.c  | 52 ++++++++++++++++++++++--------
->>   drivers/gpu/drm/msm/dsi/dsi_cfg.h  |  5 ++-
+>>   drivers/gpu/drm/msm/dsi/dsi_cfg.c  | 39 ++++++++++--------------------
+>>   drivers/gpu/drm/msm/dsi/dsi_cfg.h  |  4 +--
 >>   drivers/gpu/drm/msm/dsi/dsi_host.c |  2 +-
->>   3 files changed, 44 insertions(+), 15 deletions(-)
+>>   3 files changed, 16 insertions(+), 29 deletions(-)
 >>
 >> diff --git a/drivers/gpu/drm/msm/dsi/dsi_cfg.c b/drivers/gpu/drm/msm/dsi/dsi_cfg.c
->> index 6d21f0b33411..068d45b3a8f0 100644
+>> index 068d45b3a8f0..5f62c563bd1c 100644
 >> --- a/drivers/gpu/drm/msm/dsi/dsi_cfg.c
 >> +++ b/drivers/gpu/drm/msm/dsi/dsi_cfg.c
->> @@ -21,7 +21,9 @@ static const struct msm_dsi_config apq8064_dsi_cfg = {
->>       .num_regulators = ARRAY_SIZE(apq8064_dsi_regulators),
+>> @@ -22,9 +22,8 @@ static const struct msm_dsi_config apq8064_dsi_cfg = {
 >>       .bus_clk_names = dsi_v2_bus_clk_names,
 >>       .num_bus_clks = ARRAY_SIZE(dsi_v2_bus_clk_names),
->> -    .io_start = { 0x4700000, 0x5800000 },
->> +    .io_start = {
->> +        { 0x4700000, 0x5800000 },
->> +    },
->>       .num_dsi = 2,
+>>       .io_start = {
+>> -        { 0x4700000, 0x5800000 },
+>> +        { 0x4700000, 0x5800000, 0 },
+>>       },
+>> -    .num_dsi = 2,
 >>   };
->>   @@ -41,7 +43,9 @@ static const struct msm_dsi_config msm8974_apq8084_dsi_cfg = {
->>       .num_regulators = ARRAY_SIZE(msm8974_apq8084_regulators),
+>>     static const char * const dsi_6g_bus_clk_names[] = {
+>> @@ -44,9 +43,8 @@ static const struct msm_dsi_config msm8974_apq8084_dsi_cfg = {
 >>       .bus_clk_names = dsi_6g_bus_clk_names,
 >>       .num_bus_clks = ARRAY_SIZE(dsi_6g_bus_clk_names),
->> -    .io_start = { 0xfd922800, 0xfd922b00 },
->> +    .io_start = {
->> +        { 0xfd922800, 0xfd922b00 },
->> +    },
->>       .num_dsi = 2,
+>>       .io_start = {
+>> -        { 0xfd922800, 0xfd922b00 },
+>> +        { 0xfd922800, 0xfd922b00, 0 },
+>>       },
+>> -    .num_dsi = 2,
 >>   };
->>   @@ -60,7 +64,9 @@ static const struct msm_dsi_config msm8916_dsi_cfg = {
->>       .num_regulators = ARRAY_SIZE(msm8916_dsi_regulators),
+>>     static const char * const dsi_8916_bus_clk_names[] = {
+>> @@ -65,9 +63,8 @@ static const struct msm_dsi_config msm8916_dsi_cfg = {
 >>       .bus_clk_names = dsi_8916_bus_clk_names,
 >>       .num_bus_clks = ARRAY_SIZE(dsi_8916_bus_clk_names),
->> -    .io_start = { 0x1a98000 },
->> +    .io_start = {
->> +        { 0x1a98000 },
->> +    },
->>       .num_dsi = 1,
+>>       .io_start = {
+>> -        { 0x1a98000 },
+>> +        { 0x1a98000, 0 },
+>>       },
+>> -    .num_dsi = 1,
 >>   };
->>   @@ -79,7 +85,9 @@ static const struct msm_dsi_config msm8976_dsi_cfg = {
->>       .num_regulators = ARRAY_SIZE(msm8976_dsi_regulators),
+>>     static const char * const dsi_8976_bus_clk_names[] = {
+>> @@ -86,9 +83,8 @@ static const struct msm_dsi_config msm8976_dsi_cfg = {
 >>       .bus_clk_names = dsi_8976_bus_clk_names,
 >>       .num_bus_clks = ARRAY_SIZE(dsi_8976_bus_clk_names),
->> -    .io_start = { 0x1a94000, 0x1a96000 },
->> +    .io_start = {
->> +        { 0x1a94000, 0x1a96000 },
->> +    },
->>       .num_dsi = 2,
+>>       .io_start = {
+>> -        { 0x1a94000, 0x1a96000 },
+>> +        { 0x1a94000, 0x1a96000, 0 },
+>>       },
+>> -    .num_dsi = 2,
 >>   };
->>   @@ -98,7 +106,9 @@ static const struct msm_dsi_config msm8994_dsi_cfg = {
->>       .num_regulators = ARRAY_SIZE(msm8994_dsi_regulators),
+>>     static const struct regulator_bulk_data msm8994_dsi_regulators[] = {
+>> @@ -107,9 +103,8 @@ static const struct msm_dsi_config msm8994_dsi_cfg = {
 >>       .bus_clk_names = dsi_6g_bus_clk_names,
 >>       .num_bus_clks = ARRAY_SIZE(dsi_6g_bus_clk_names),
->> -    .io_start = { 0xfd998000, 0xfd9a0000 },
->> +    .io_start = {
->> +        { 0xfd998000, 0xfd9a0000 },
->> +    },
->>       .num_dsi = 2,
+>>       .io_start = {
+>> -        { 0xfd998000, 0xfd9a0000 },
+>> +        { 0xfd998000, 0xfd9a0000, 0 },
+>>       },
+>> -    .num_dsi = 2,
 >>   };
->>   @@ -118,7 +128,9 @@ static const struct msm_dsi_config msm8996_dsi_cfg = {
->>       .num_regulators = ARRAY_SIZE(msm8996_dsi_regulators),
+>>     static const char * const dsi_8996_bus_clk_names[] = {
+>> @@ -129,9 +124,8 @@ static const struct msm_dsi_config msm8996_dsi_cfg = {
 >>       .bus_clk_names = dsi_8996_bus_clk_names,
 >>       .num_bus_clks = ARRAY_SIZE(dsi_8996_bus_clk_names),
->> -    .io_start = { 0x994000, 0x996000 },
->> +    .io_start = {
->> +        { 0x994000, 0x996000 },
->> +    },
->>       .num_dsi = 2,
+>>       .io_start = {
+>> -        { 0x994000, 0x996000 },
+>> +        { 0x994000, 0x996000, 0 },
+>>       },
+>> -    .num_dsi = 2,
 >>   };
->>   @@ -137,7 +149,9 @@ static const struct msm_dsi_config msm8998_dsi_cfg = {
->>       .num_regulators = ARRAY_SIZE(msm8998_dsi_regulators),
+>>     static const char * const dsi_msm8998_bus_clk_names[] = {
+>> @@ -150,9 +144,8 @@ static const struct msm_dsi_config msm8998_dsi_cfg = {
 >>       .bus_clk_names = dsi_msm8998_bus_clk_names,
 >>       .num_bus_clks = ARRAY_SIZE(dsi_msm8998_bus_clk_names),
->> -    .io_start = { 0xc994000, 0xc996000 },
->> +    .io_start = {
->> +        { 0xc994000, 0xc996000 },
->> +    },
->>       .num_dsi = 2,
+>>       .io_start = {
+>> -        { 0xc994000, 0xc996000 },
+>> +        { 0xc994000, 0xc996000, 0 },
+>>       },
+>> -    .num_dsi = 2,
 >>   };
->>   @@ -155,7 +169,9 @@ static const struct msm_dsi_config sdm660_dsi_cfg = {
->>       .num_regulators = ARRAY_SIZE(sdm660_dsi_regulators),
+>>     static const char * const dsi_sdm660_bus_clk_names[] = {
+>> @@ -170,9 +163,8 @@ static const struct msm_dsi_config sdm660_dsi_cfg = {
 >>       .bus_clk_names = dsi_sdm660_bus_clk_names,
 >>       .num_bus_clks = ARRAY_SIZE(dsi_sdm660_bus_clk_names),
->> -    .io_start = { 0xc994000, 0xc996000 },
->> +    .io_start = {
->> +        { 0xc994000, 0xc996000 },
->> +    },
->>       .num_dsi = 2,
+>>       .io_start = {
+>> -        { 0xc994000, 0xc996000 },
+>> +        { 0xc994000, 0xc996000, 0 },
+>>       },
+>> -    .num_dsi = 2,
 >>   };
->>   @@ -177,7 +193,9 @@ static const struct msm_dsi_config sdm845_dsi_cfg = {
->>       .num_regulators = ARRAY_SIZE(sdm845_dsi_regulators),
+>>     static const char * const dsi_sdm845_bus_clk_names[] = {
+>> @@ -194,9 +186,8 @@ static const struct msm_dsi_config sdm845_dsi_cfg = {
 >>       .bus_clk_names = dsi_sdm845_bus_clk_names,
 >>       .num_bus_clks = ARRAY_SIZE(dsi_sdm845_bus_clk_names),
->> -    .io_start = { 0xae94000, 0xae96000 },
->> +    .io_start = {
->> +        { 0xae94000, 0xae96000 },
->> +    },
->>       .num_dsi = 2,
+>>       .io_start = {
+>> -        { 0xae94000, 0xae96000 },
+>> +        { 0xae94000, 0xae96000, 0 },
+>>       },
+>> -    .num_dsi = 2,
 >>   };
->>   @@ -191,7 +209,9 @@ static const struct msm_dsi_config sm8550_dsi_cfg = {
->>       .num_regulators = ARRAY_SIZE(sm8550_dsi_regulators),
+>>     static const struct regulator_bulk_data sm8550_dsi_regulators[] = {
+>> @@ -210,9 +201,8 @@ static const struct msm_dsi_config sm8550_dsi_cfg = {
 >>       .bus_clk_names = dsi_sdm845_bus_clk_names,
 >>       .num_bus_clks = ARRAY_SIZE(dsi_sdm845_bus_clk_names),
->> -    .io_start = { 0xae94000, 0xae96000 },
->> +    .io_start = {
->> +        { 0xae94000, 0xae96000 },
->> +    },
->>       .num_dsi = 2,
+>>       .io_start = {
+>> -        { 0xae94000, 0xae96000 },
+>> +        { 0xae94000, 0xae96000, 0 },
+>>       },
+>> -    .num_dsi = 2,
 >>   };
->>   @@ -205,7 +225,9 @@ static const struct msm_dsi_config sc7180_dsi_cfg = {
->>       .num_regulators = ARRAY_SIZE(sc7180_dsi_regulators),
+>>     static const struct regulator_bulk_data sc7180_dsi_regulators[] = {
+>> @@ -226,9 +216,8 @@ static const struct msm_dsi_config sc7180_dsi_cfg = {
 >>       .bus_clk_names = dsi_sc7180_bus_clk_names,
 >>       .num_bus_clks = ARRAY_SIZE(dsi_sc7180_bus_clk_names),
->> -    .io_start = { 0xae94000 },
->> +    .io_start = {
->> +        { 0xae94000 },
->> +    },
->>       .num_dsi = 1,
+>>       .io_start = {
+>> -        { 0xae94000 },
+>> +        { 0xae94000, 0 },
+>>       },
+>> -    .num_dsi = 1,
 >>   };
->>   @@ -223,7 +245,9 @@ static const struct msm_dsi_config sc7280_dsi_cfg = {
->>       .num_regulators = ARRAY_SIZE(sc7280_dsi_regulators),
+>>     static const char * const dsi_sc7280_bus_clk_names[] = {
+>> @@ -246,9 +235,8 @@ static const struct msm_dsi_config sc7280_dsi_cfg = {
 >>       .bus_clk_names = dsi_sc7280_bus_clk_names,
 >>       .num_bus_clks = ARRAY_SIZE(dsi_sc7280_bus_clk_names),
->> -    .io_start = { 0xae94000, 0xae96000 },
->> +    .io_start = {
->> +        { 0xae94000, 0xae96000 },
->> +    },
->>       .num_dsi = 2,
+>>       .io_start = {
+>> -        { 0xae94000, 0xae96000 },
+>> +        { 0xae94000, 0xae96000, 0 },
+>>       },
+>> -    .num_dsi = 2,
 >>   };
->>   @@ -241,7 +265,9 @@ static const struct msm_dsi_config qcm2290_dsi_cfg = {
->>       .num_regulators = ARRAY_SIZE(qcm2290_dsi_cfg_regulators),
+>>     static const char * const dsi_qcm2290_bus_clk_names[] = {
+>> @@ -266,9 +254,8 @@ static const struct msm_dsi_config qcm2290_dsi_cfg = {
 >>       .bus_clk_names = dsi_qcm2290_bus_clk_names,
 >>       .num_bus_clks = ARRAY_SIZE(dsi_qcm2290_bus_clk_names),
->> -    .io_start = { 0x5e94000 },
->> +    .io_start = {
->> +        { 0x5e94000 },
->> +    },
->>       .num_dsi = 1,
+>>       .io_start = {
+>> -        { 0x5e94000 },
+>> +        { 0x5e94000, 0 },
+>>       },
+>> -    .num_dsi = 1,
 >>   };
->>   diff --git a/drivers/gpu/drm/msm/dsi/dsi_cfg.h b/drivers/gpu/drm/msm/dsi/dsi_cfg.h
->> index 44be4a88aa83..df9f09876ccb 100644
+>>     static const struct msm_dsi_host_cfg_ops msm_dsi_v2_host_ops = {
+>> diff --git a/drivers/gpu/drm/msm/dsi/dsi_cfg.h b/drivers/gpu/drm/msm/dsi/dsi_cfg.h
+>> index df9f09876ccb..03493cc6b772 100644
 >> --- a/drivers/gpu/drm/msm/dsi/dsi_cfg.h
 >> +++ b/drivers/gpu/drm/msm/dsi/dsi_cfg.h
->> @@ -32,13 +32,16 @@
->>     #define DSI_6G_REG_SHIFT    4
->>   +/* Maximum number of configurations matched against the same hw revision */
->> +#define VARIANTS_MAX            2
->> +
->>   struct msm_dsi_config {
->>       u32 io_offset;
->>       const struct regulator_bulk_data *regulator_data;
+>> @@ -41,8 +41,8 @@ struct msm_dsi_config {
 >>       int num_regulators;
 >>       const char * const *bus_clk_names;
 >>       const int num_bus_clks;
->> -    const resource_size_t io_start[DSI_MAX];
->> +    const resource_size_t io_start[VARIANTS_MAX][DSI_MAX];
->>       const int num_dsi;
+>> -    const resource_size_t io_start[VARIANTS_MAX][DSI_MAX];
+>> -    const int num_dsi;
+>> +    /* Allow + 1 entry for the zero-terminator */
+>> +    const resource_size_t io_start[VARIANTS_MAX][DSI_MAX + 1];
 >>   };
->>   diff --git a/drivers/gpu/drm/msm/dsi/dsi_host.c b/drivers/gpu/drm/msm/dsi/dsi_host.c
->> index 18fa30e1e858..22ba8726b0ea 100644
+>>     struct msm_dsi_host_cfg_ops {
+>> diff --git a/drivers/gpu/drm/msm/dsi/dsi_host.c b/drivers/gpu/drm/msm/dsi/dsi_host.c
+>> index 22ba8726b0ea..f5092b4d0757 100644
 >> --- a/drivers/gpu/drm/msm/dsi/dsi_host.c
 >> +++ b/drivers/gpu/drm/msm/dsi/dsi_host.c
->> @@ -1869,7 +1869,7 @@ static int dsi_host_get_id(struct msm_dsi_host *msm_host)
+>> @@ -1868,7 +1868,7 @@ static int dsi_host_get_id(struct msm_dsi_host *msm_host)
+>>       if (!res)
 >>           return -EINVAL;
->>         for (i = 0; i < cfg->num_dsi; i++) {
->> -        if (cfg->io_start[i] == res->start)
->> +        if (cfg->io_start[0][i] == res->start)
+>>   -    for (i = 0; i < cfg->num_dsi; i++) {
+>> +    for (i = 0; cfg->io_start[0][i]; i++) {
+>>           if (cfg->io_start[0][i] == res->start)
 >>               return i;
 >>       }
->>   
+> 
+> I think we have the easier way to do this: always loop towards DSI_MAX. Empty cells will contain the value of 0 which can not match against valid starting address.
+Yep, your approach will save us NUM_ENTRIES*sizeof(u64) memory!
+
+> 
+> Also please shift this patch to the first place, it will be logical to add VARIANT_MAX after removing num_dsi.
+Ack.
+
+Konrad
 > 
