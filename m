@@ -1,141 +1,85 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id E8A446945A4
-	for <lists+freedreno@lfdr.de>; Mon, 13 Feb 2023 13:18:05 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 57D886945D2
+	for <lists+freedreno@lfdr.de>; Mon, 13 Feb 2023 13:33:02 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AB03F10E593;
-	Mon, 13 Feb 2023 12:18:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C770210E5A0;
+	Mon, 13 Feb 2023 12:32:58 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-x233.google.com (mail-lj1-x233.google.com
- [IPv6:2a00:1450:4864:20::233])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F2FDB10E596
- for <freedreno@lists.freedesktop.org>; Mon, 13 Feb 2023 12:18:01 +0000 (UTC)
-Received: by mail-lj1-x233.google.com with SMTP id h4so14458522lja.2
- for <freedreno@lists.freedesktop.org>; Mon, 13 Feb 2023 04:18:01 -0800 (PST)
+Received: from mail-wr1-x42f.google.com (mail-wr1-x42f.google.com
+ [IPv6:2a00:1450:4864:20::42f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8351210E59E
+ for <freedreno@lists.freedesktop.org>; Mon, 13 Feb 2023 12:32:57 +0000 (UTC)
+Received: by mail-wr1-x42f.google.com with SMTP id m14so12005037wrg.13
+ for <freedreno@lists.freedesktop.org>; Mon, 13 Feb 2023 04:32:57 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=content-transfer-encoding:in-reply-to:organization:references:cc:to
+ :content-language:subject:reply-to:from:user-agent:mime-version:date
+ :message-id:from:to:cc:subject:date:message-id:reply-to;
+ bh=YSNp7daxwzg9PeQCPBa7S3ruVaUwF/8x5X2sPmkYUbU=;
+ b=UJ+/6SZI81VVEoKozzQ8GO9TuQJj64Lx/5i1dgvMZq4FHlNxsaXl7v2SDKZTuTap/a
+ iaoA/L7ADyxppRF4ZvN5wuc9coUMPnf/w/SIfR2WqMwJbi/+uOmgWOVzUNNq41lHAprJ
+ e9KWQ5LLMYAlwi/f/UdrUMsYLYLHVVdME/U6700osLFKwFk+9u+Y0Jtli20NehbMhq2m
+ D2u2T8l/w30CR7IwlA4lF9TuU58WkXYuvqC/WcW9D3CwaJSg06KbpS5JhJr/1hMCJKFX
+ 6pFqwsTnwO6e5t2IvExKEQzpN2Jsb+Tz/yRapICQzwU6hRPeM7wGZEcfvDcvJyCAcM+P
+ SXNA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=list-id:precedence:content-transfer-encoding:mime-version
- :references:in-reply-to:message-id:date:subject:cc:to:from
- :dkim-signature:resent-to:resent-message-id:resent-date:resent-from
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=7JwitY1QgTn2wW32f2EWY7DiZlNcao6/ffQYXSOSkgM=;
- b=oIAngI4ZNecXotkTf0l5XpRIXnO95SQrAjNDqZ5Jz28DBJbozXDWmzwIj+i9M+u9sT
- 4f7+slha49OeKuOn4wPy9+kr6IyqMTSMWetAtlnojDMHlnWi+LjSqZPlcsvL2BdVHGkR
- EWoaO9xeVPAjnkMNdkUnak+G+2ZafCFoa3hyHkjrn2rjatKxA56dCb65Rans966M7ETA
- +CkvgkfN03aotJtzdGjpKwBDVe+zDTR2aY5P/fuJwVQZt373PFuD7xJsTS5o9GxJM4Be
- GqZylmJzr0FaIF0whTi+d3wIdMi1A9Xn/Yjc4QtNdFHaG3KWs2P083TLD22mYigqFHQP
- Y7dg==
-X-Gm-Message-State: AO0yUKX42fYDPGkeyBWmhcAWigok5siU5nl3nLfMM12jVvg4LX3XVdUA
- ohVtboP1E6EdpWN2FsfMmchcTLxsBR8f2WYQ
-X-Google-Smtp-Source: AK7set92evK266rwwB3v6ygvz36P3GS1u7+0CxwouqBToea3V1fhgRPLXejm4qW8+LOMzaHw7uQsDg==
-X-Received: by 2002:a2e:9e48:0:b0:290:7fdc:82 with SMTP id
- g8-20020a2e9e48000000b002907fdc0082mr6007467ljk.17.1676290679923; 
- Mon, 13 Feb 2023 04:17:59 -0800 (PST)
-Received: from umbar.lan ([192.130.178.91]) by smtp.gmail.com with ESMTPSA id
- e24-20020a2e9e18000000b00293226d3d48sm2025212ljk.20.2023.02.13.04.17.59
- for <freedreno@lists.freedesktop.org>
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 13 Feb 2023 04:17:59 -0800 (PST)
-Resent-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Resent-Date: Mon, 13 Feb 2023 15:17:57 +0300
-Resent-Message-ID: <Y+oqdRI7oS4F1zLq@umbar.lan>
-Resent-To: freedreno@lists.freedesktop.org
-Received: by 2002:a05:7010:1829:b0:32d:ed3d:eb8e with SMTP id q41csp3112630mdm; 
- Mon, 13 Feb 2023 04:11:58 -0800 (PST)
-X-Received: by 2002:a17:907:9c07:b0:8b1:fc:b1b0 with SMTP id
- ld7-20020a1709079c0700b008b100fcb1b0mr4241765ejc.44.1676290317998; 
- Mon, 13 Feb 2023 04:11:57 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1676290317; cv=none;
- d=google.com; s=arc-20160816;
- b=ua9AihqxeKLhneUS0KH4PxvLaOVPC9dXa+VyOnTIu74tesUlJoyOqNfK6aB0svSetU
- 6ltS6BgEOhCgQj3nm3hYZPkn9eYfynPDjle/BxLrGArCAVkK+rgZMxf0WSnhFZ3SwEU/
- AZ8oF3PlF4gOX9iOcXhKAKNbWbIAEi2IkcbpX+JVqmNP9KhCYKXHI8oLJwZGvxo65AWr
- 0YaVosjCJQpi7We1cwqJ/DW/G6w0NwV/Cpe1fKSxjsTXhTKoypy7JjaPLgZ8U//o+qCu
- rq6+XmRKI1JBNnP6uMTMc2Dq0iMdyDBC9EIdZgEd1TnJUo4Lwb4X5L6J3jql5xZZfYid
- lETg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20160816; 
- h=list-id:precedence:content-transfer-encoding:mime-version
- :references:in-reply-to:message-id:date:subject:cc:to:from
- :dkim-signature;
- bh=7JwitY1QgTn2wW32f2EWY7DiZlNcao6/ffQYXSOSkgM=;
- b=dZWS3qkqroq+nVfQ9x3NU9+xuVGN4T4oEAdYFnls+oOtjigBHkG7t3ojUjjxpFvaVs
- pjI6Vr5AMTYkq/jpGYek8REAQnNYcGYvKivw0NYvTS7c67tABQJXxMGKC3UlbpVw3oyP
- u88oGOiIsd6gfpJKgNn/kKCwqrCXkMDLS0c22Cp9arPzkh09OjZSEpDHAUjKxhiZEd8D
- KUUOUa1nu0uWS0TB8UUk+7AQCrlka4/vtdsrxfZtBwiNgiGNnA2Bfdh7QvLxLizQEKhs
- kAjSOopclrJfP5gEr8GQ+t27mGU+NYPRgFJ5MW9PyO0h8luhf7I5CoQMHFc74rR2RhEL
- dO9Q==
-ARC-Authentication-Results: i=1; mx.google.com;
- dkim=pass header.i=@linaro.org header.s=google header.b=hGvnAsUO;
- spf=pass (google.com: domain of linux-arm-msm-owner@vger.kernel.org designates
- 2620:137:e000::1:20 as permitted sender)
- smtp.mailfrom=linux-arm-msm-owner@vger.kernel.org; 
- dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=linaro.org
-Received: from out1.vger.email (out1.vger.email. [2620:137:e000::1:20])
- by mx.google.com with ESMTP id
- wj6-20020a170907050600b008af34e8ec36si11980115ejb.69.2023.02.13.04.11.57; 
- Mon, 13 Feb 2023 04:11:57 -0800 (PST)
-Received-SPF: pass (google.com: domain of linux-arm-msm-owner@vger.kernel.org
- designates 2620:137:e000::1:20 as permitted sender)
- client-ip=2620:137:e000::1:20; 
-Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
- id S229688AbjBMMLy (ORCPT <rfc822;vincent.guittot@linaro.org>
- + 12 others); Mon, 13 Feb 2023 07:11:54 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:52022 "EHLO
- lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
- with ESMTP id S230380AbjBMMLS (ORCPT
- <rfc822;linux-arm-msm@vger.kernel.org>);
- Mon, 13 Feb 2023 07:11:18 -0500
-Received: from mail-ej1-x633.google.com (mail-ej1-x633.google.com
- [IPv6:2a00:1450:4864:20::633])
- by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 028C21A49F
- for <linux-arm-msm@vger.kernel.org>; Mon, 13 Feb 2023 04:10:44 -0800 (PST)
-Received: by mail-ej1-x633.google.com with SMTP id hx15so31237059ejc.11
- for <linux-arm-msm@vger.kernel.org>; Mon, 13 Feb 2023 04:10:43 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=7JwitY1QgTn2wW32f2EWY7DiZlNcao6/ffQYXSOSkgM=;
- b=hGvnAsUOiAo8e5XcrV48vO8k565QbdVnV75roqlQVSvdFxJxTvTQOQLz7BHO+B50vI
- RHkrT0HDr85tVr/1L45VwNonktRigwIYL59ygol+VfkoyhnTD3w+yeCZvhD1uJ2e9f8w
- tysowusaNeRWUdr8mApnOVAULocSOn8iC4/f6Cuam+6iF2e+PzlmhVKBbKgL5UpxGKPT
- MTS0nHr2WnEN0UYLdk/Z3GYU+gngVviUfGLxq07nCwYVeQvoX4Ud5rZMOHzNxXb6aNkF
- nfUgNsL/YYHBQL8oRZCWZmPJrliqhgNkZkXvhlouoPRdaNiVvE2Y3so3NEUGqcA/5cBR
- LrYQ==
-X-Received: by 2002:a17:907:9a0d:b0:8af:3fcc:2b05 with SMTP id
- kr13-20020a1709079a0d00b008af3fcc2b05mr14287763ejc.12.1676290240723; 
- Mon, 13 Feb 2023 04:10:40 -0800 (PST)
-Received: from localhost.localdomain (abxh117.neoplus.adsl.tpnet.pl.
- [83.9.1.117]) by smtp.gmail.com with ESMTPSA id
- dt19-20020a170906b79300b0088ed7de4821sm6651586ejb.158.2023.02.13.04.10.39
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 13 Feb 2023 04:10:40 -0800 (PST)
-From: Konrad Dybcio <konrad.dybcio@linaro.org>
-To: linux-arm-msm@vger.kernel.org, andersson@kernel.org,
- agross@kernel.org, krzysztof.kozlowski@linaro.org
-Date: Mon, 13 Feb 2023 13:10:12 +0100
-Message-Id: <20230213121012.1768296-10-konrad.dybcio@linaro.org>
-X-Mailer: git-send-email 2.39.1
-In-Reply-To: <20230213121012.1768296-1-konrad.dybcio@linaro.org>
-References: <20230213121012.1768296-1-konrad.dybcio@linaro.org>
+ h=content-transfer-encoding:in-reply-to:organization:references:cc:to
+ :content-language:subject:reply-to:from:user-agent:mime-version:date
+ :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=YSNp7daxwzg9PeQCPBa7S3ruVaUwF/8x5X2sPmkYUbU=;
+ b=Ug0+MeDNSwJl1e5qW5cDR+vxITkKAlt1ZPrm+LebmGdurjUMRJ1au5Ph+FF0n//9KI
+ JP80yXp6d9X1Z3Q+CZYX+lEfXyHdZRnrGZQNmoEIvIvbF//KGce70+uPlusH+oD0LhdG
+ hl2VKBgIw+9On+dyQLOjoPppxh2O3oG5mjrpi4eix9IAa3Obv09z+s9c54uQV46c3tUx
+ Clc2elU36XcC0SA+Ln2YS7TC3JIfyAG9VC5jz4ZEbHOyHvNeUnapTuB04KNvkdjjyk9i
+ C0vBtoQUhLFO2m12yCIEhu0SuxI21+rNw+ou5u/WrRM0Y/aRewQ0o4WtMaBBigDuURsj
+ v9Vw==
+X-Gm-Message-State: AO0yUKWEdLw3oF7r45bMkb0SqiCndSSNMe28oSbCRNVuVrXnBXsImkua
+ +M2LfgsDGBvPPvv6JhcUQ65e0Q==
+X-Google-Smtp-Source: AK7set98VgOl5yQKfPXnOp7+BQ9mmm+DHvJB09+5pQ0i8QwnCQ1+3pJs7gj3hbgfxxu+zV4TJyspBA==
+X-Received: by 2002:a5d:6e8d:0:b0:2c5:4c5e:412b with SMTP id
+ k13-20020a5d6e8d000000b002c54c5e412bmr7191875wrz.23.1676291575920; 
+ Mon, 13 Feb 2023 04:32:55 -0800 (PST)
+Received: from ?IPV6:2a01:e0a:982:cbb0:6e1e:131f:8bc1:aad8?
+ ([2a01:e0a:982:cbb0:6e1e:131f:8bc1:aad8])
+ by smtp.gmail.com with ESMTPSA id
+ j4-20020adff544000000b002c54fb024b2sm5497068wrp.61.2023.02.13.04.32.54
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 13 Feb 2023 04:32:55 -0800 (PST)
+Message-ID: <b43179c4-bbf5-1d38-6ff0-8ddd0356d6d1@linaro.org>
+Date: Mon, 13 Feb 2023 13:32:54 +0100
 MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.7.1
+From: neil.armstrong@linaro.org
+Content-Language: en-US
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Sean Paul <sean@poorly.run>, David Airlie <airlied@gmail.com>,
+ Daniel Vetter <daniel@ffwll.ch>, Rob Herring <robh+dt@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Kuogee Hsieh <quic_khsieh@quicinc.com>, Andy Gross <agross@kernel.org>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konrad.dybcio@linaro.org>
+References: <20230206-topic-sm8450-upstream-dp-controller-v3-0-636ef9e99932@linaro.org>
+ <20230206-topic-sm8450-upstream-dp-controller-v3-5-636ef9e99932@linaro.org>
+ <347a5193-f7b1-7f8e-0c60-3d435bdf952c@linaro.org>
+ <f5a26fff-2dc2-2397-a80c-2477176a5864@linaro.org>
+ <880e691a-0512-6325-f27c-9be59abdd647@linaro.org>
+Organization: Linaro Developer Services
+In-Reply-To: <880e691a-0512-6325-f27c-9be59abdd647@linaro.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_NONE,
- SPF_HELO_NONE,SPF_PASS autolearn=unavailable autolearn_force=no
- version=3.4.6
-X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
- lindbergh.monkeyblade.net
-Precedence: bulk
-X-Mailing-List: linux-arm-msm@vger.kernel.org
-Subject: [Freedreno] [PATCH v2 9/9] arm64: dts: qcom: sm6115: Use the
- correct DSI compatible
+Subject: Re: [Freedreno] [PATCH v3 5/5] arm64: dts: qcom: sm8450: add dp
+ controller
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
+Precedence: list
 List-Id: Freedreno graphics driver community testing & development
  <freedreno.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/freedreno>,
@@ -145,33 +89,68 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- Konrad Dybcio <konrad.dybcio@linaro.org>, Rob Herring <robh+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- marijn.suijten@somainline.org
+Reply-To: neil.armstrong@linaro.org
+Cc: linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ devicetree@vger.kernel.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Use the non-deprecated, SoC-specific DSI compatible.
+On 10/02/2023 16:54, Dmitry Baryshkov wrote:
+> On 10/02/2023 17:28, Neil Armstrong wrote:
+>> On 10/02/2023 16:24, Dmitry Baryshkov wrote:
+>>> On 10/02/2023 16:44, Neil Armstrong wrote:
+>>>> Add the Display Port controller subnode to the MDSS node.
+>>>>
+>>>> Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
+>>>> ---
+>>>>   arch/arm64/boot/dts/qcom/sm8450.dtsi | 79 ++++++++++++++++++++++++++++++++++++
+>>>>   1 file changed, 79 insertions(+)
+>>>>
+>>>> diff --git a/arch/arm64/boot/dts/qcom/sm8450.dtsi b/arch/arm64/boot/dts/qcom/sm8450.dtsi
+>>>> index 6caa2c8efb46..72d54beb7d7c 100644
+>>>> --- a/arch/arm64/boot/dts/qcom/sm8450.dtsi
+>>>> +++ b/arch/arm64/boot/dts/qcom/sm8450.dtsi
+>>>> @@ -2751,6 +2751,13 @@ dpu_intf2_out: endpoint {
+>>>>                           };
+>>>>                       };
+>>>> +                    port@2 {
+>>>> +                        reg = <2>;
+>>>> +                        dpu_intf0_out: endpoint {
+>>>> +                            remote-endpoint = <&mdss_dp0_in>;
+>>>> +                        };
+>>>> +                    };
+>>>> +
+>>>>                   };
+>>>>                   mdp_opp_table: opp-table {
+>>>> @@ -2783,6 +2790,78 @@ opp-500000000 {
+>>>>                   };
+>>>>               };
+>>>> +            mdss_dp0: displayport-controller@ae90000 {
+>>>> +                compatible = "qcom,sm8350-dp";
+>>
+>> Exact, must fix.
+>>
+>>>
+>>> Missing "qcom,sm8450-dp". As I wrote in the comment to patch 1, I'd suggest having just a single entry here rather than keeping both 8350 and 8450 entries.
+>>>
+>>>> +                reg = <0 0xae90000 0 0xfc>,
+>>>> +                      <0 0xae90200 0 0xc0>,
+>>>> +                      <0 0xae90400 0 0x770>,
+>>>> +                      <0 0xae91000 0 0x98>,
+>>>> +                      <0 0xae91400 0 0x98>;
+>>>
+>>>
+>>> While this sounds correct, usually we used the even size here (0x200, 0x400, etc.). Can we please switch to it (especially since sm8350-dp uses even sizes).
+>>
+>> I don't have access to registers layout for HDK8450 but the system freezes when using even sizes, using
+>> the exact register size works fine.
+> 
+> Interesting. Could you please trace, what exactly makes it fail, since specifying bigger region size should not cause such issues.
 
-Signed-off-by: Konrad Dybcio <konrad.dybcio@linaro.org>
----
- arch/arm64/boot/dts/qcom/sm6115.dtsi | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Yep I'll trace what's happening.
 
-diff --git a/arch/arm64/boot/dts/qcom/sm6115.dtsi b/arch/arm64/boot/dts/qcom/sm6115.dtsi
-index bff067ed2e94..15811be82acc 100644
---- a/arch/arm64/boot/dts/qcom/sm6115.dtsi
-+++ b/arch/arm64/boot/dts/qcom/sm6115.dtsi
-@@ -1447,7 +1447,7 @@ opp-384000000 {
- 			};
- 
- 			mdss_dsi0: dsi@5e94000 {
--				compatible = "qcom,dsi-ctrl-6g-qcm2290";
-+				compatible = "qcom,sm6115-dsi-ctrl", "qcom,mdss-dsi-ctrl";
- 				reg = <0x0 0x05e94000 0x0 0x400>;
- 				reg-names = "dsi_ctrl";
- 
--- 
-2.39.1
+Neil
+
+> 
 
