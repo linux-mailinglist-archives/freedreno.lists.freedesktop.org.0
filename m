@@ -1,83 +1,41 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8259569477E
-	for <lists+freedreno@lfdr.de>; Mon, 13 Feb 2023 14:56:11 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 88480694803
+	for <lists+freedreno@lfdr.de>; Mon, 13 Feb 2023 15:28:40 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4D15010E5BD;
-	Mon, 13 Feb 2023 13:56:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6AF1E10E221;
+	Mon, 13 Feb 2023 14:28:38 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wr1-x436.google.com (mail-wr1-x436.google.com
- [IPv6:2a00:1450:4864:20::436])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E9F9110E5C4
- for <freedreno@lists.freedesktop.org>; Mon, 13 Feb 2023 13:56:08 +0000 (UTC)
-Received: by mail-wr1-x436.google.com with SMTP id bu23so12303263wrb.8
- for <freedreno@lists.freedesktop.org>; Mon, 13 Feb 2023 05:56:08 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=content-transfer-encoding:in-reply-to:organization:references:cc:to
- :from:content-language:subject:reply-to:user-agent:mime-version:date
- :message-id:from:to:cc:subject:date:message-id:reply-to;
- bh=1Uy5CSnBerGct98JAqbVYGF95fZTgd+o15YjTkcuIPk=;
- b=xZJT6Spjz5YhxcyphM9ApKsAYqrAbbXecAiawIW5K2Flh9rnsQ8qDatufAylRsgoki
- ++yrs+wwnD3MuoQarcAugWmIIqSDY0AaiDd1NiQzVxNQS/sQUqFU5YrtEbaxdJQ3BS/M
- NWAxYNH73CvXqqzp5BbXuN7fHKbyy3mG9EoS3DYshvTymcoVgCNPde3dvMRuj27aLeOM
- ui6UJzcSabTiHtaRUOW/xeUoEoToFsqP5KSbTMz8hwlgyZ1nLEqOctDKSNb+Gus8KYoL
- p0SeR4LyIjc+UAmtI4TeCEfXdzdgp7f8ZrY8u2g4RHCEEqNBk6eFbYLVQIznT2pt0rVX
- RFtw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=content-transfer-encoding:in-reply-to:organization:references:cc:to
- :from:content-language:subject:reply-to:user-agent:mime-version:date
- :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=1Uy5CSnBerGct98JAqbVYGF95fZTgd+o15YjTkcuIPk=;
- b=jfJfR97VAbXeTQrqDo2cXTwG65C1AnbPHEmL86Xsd04HSPjdNRcG7r5VLYBsEGfZKF
- v9VmfPuEK6bSFL+t9D8Gf8CnXsW8NQdX5FPa1k4JkT40UWZlMO+RBMnGsevkN8N2qIxy
- vMPQIrZP+9ynqO+mB462tIB5Le3vswthJHP4XQEBTVnn7HR9fsWZuAGnTyTxazPCv+Ui
- Y4sOMhuD0uGt1O/+cboPx8IAml4WkgKwdhHd3oE7dOa9XTLG/BkfxVjK1ekA5momXG+I
- jXCqnc0nI698GfC2FMdLD46EWbQRmiYzhLrOr7/n7OBGBCd3MFXlUoBbOPeL1fPot/en
- COxw==
-X-Gm-Message-State: AO0yUKV8Z+fya644TnbjoOSwz6k0lElAebXU/pJxO6oZngohUu/Wo6M5
- Q65NlsMLFdGr8B47UuF/HaA94Q==
-X-Google-Smtp-Source: AK7set+D3CHlBRertMGZvD1SZZYSxdyV0jk07kZ5xiDaPn1MIZfSnQEaX9uZIv7om6WSAzxFky7u9Q==
-X-Received: by 2002:a5d:6210:0:b0:2be:c41:4758 with SMTP id
- y16-20020a5d6210000000b002be0c414758mr20399555wru.38.1676296567433; 
- Mon, 13 Feb 2023 05:56:07 -0800 (PST)
-Received: from ?IPV6:2a01:e0a:982:cbb0:915c:811a:b081:f099?
- ([2a01:e0a:982:cbb0:915c:811a:b081:f099])
- by smtp.gmail.com with ESMTPSA id
- d15-20020a5d6dcf000000b002c3f9404c45sm10917766wrz.7.2023.02.13.05.56.06
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 13 Feb 2023 05:56:06 -0800 (PST)
-Message-ID: <83603bc5-4b32-b759-5e5c-a590c2952039@linaro.org>
-Date: Mon, 13 Feb 2023 14:56:05 +0100
+Received: from relay08.th.seeweb.it (relay08.th.seeweb.it
+ [IPv6:2001:4b7a:2000:18::169])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E410C10E051
+ for <freedreno@lists.freedesktop.org>; Mon, 13 Feb 2023 14:28:34 +0000 (UTC)
+Received: from SoMainline.org (D57D4C6E.static.ziggozakelijk.nl
+ [213.125.76.110])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest
+ SHA256) (No client certificate requested)
+ by m-r2.th.seeweb.it (Postfix) with ESMTPSA id 804A43E986;
+ Mon, 13 Feb 2023 15:28:32 +0100 (CET)
+Date: Mon, 13 Feb 2023 15:28:31 +0100
+From: Marijn Suijten <marijn.suijten@somainline.org>
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Message-ID: <20230213142831.hbzfp2chekshsqyy@SoMainline.org>
+References: <20230211122656.1479141-1-konrad.dybcio@linaro.org>
+ <20230211122656.1479141-7-konrad.dybcio@linaro.org>
+ <a18cf663-115d-edc8-5e4b-3d19fcd9a02c@linaro.org>
+ <cc364658-478a-f239-5d17-5ca2b7f7df8b@linaro.org>
+ <20230213113008.ih7ii5m3cz4w3lmz@SoMainline.org>
+ <8560b69f-8d42-995d-2f4d-11d6a64afef0@linaro.org>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.7.1
-Content-Language: en-US
-From: Neil Armstrong <neil.armstrong@linaro.org>
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Sean Paul <sean@poorly.run>, David Airlie <airlied@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>, Rob Herring <robh+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Kuogee Hsieh <quic_khsieh@quicinc.com>, Andy Gross <agross@kernel.org>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konrad.dybcio@linaro.org>
-References: <20230206-topic-sm8450-upstream-dp-controller-v3-0-636ef9e99932@linaro.org>
- <20230206-topic-sm8450-upstream-dp-controller-v3-5-636ef9e99932@linaro.org>
- <347a5193-f7b1-7f8e-0c60-3d435bdf952c@linaro.org>
- <f5a26fff-2dc2-2397-a80c-2477176a5864@linaro.org>
- <880e691a-0512-6325-f27c-9be59abdd647@linaro.org>
- <b43179c4-bbf5-1d38-6ff0-8ddd0356d6d1@linaro.org>
-Organization: Linaro Developer Services
-In-Reply-To: <b43179c4-bbf5-1d38-6ff0-8ddd0356d6d1@linaro.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-Subject: Re: [Freedreno] [PATCH v3 5/5] arm64: dts: qcom: sm8450: add dp
- controller
+In-Reply-To: <8560b69f-8d42-995d-2f4d-11d6a64afef0@linaro.org>
+Subject: Re: [Freedreno] [PATCH 06/10] drm/msm/dpu: Add SM6350 support
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -90,77 +48,68 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: neil.armstrong@linaro.org
-Cc: linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- devicetree@vger.kernel.org
+Cc: Vinod Koul <vkoul@kernel.org>, Liu Shixin <liushixin2@huawei.com>,
+ Robert Foss <rfoss@kernel.org>, linux-arm-msm@vger.kernel.org,
+ andersson@kernel.org, Konrad Dybcio <konrad.dybcio@somainline.org>,
+ Rob Clark <robdclark@gmail.com>, Stephen Boyd <swboyd@chromium.org>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Konrad Dybcio <konrad.dybcio@linaro.org>, freedreno@lists.freedesktop.org,
+ krzysztof.kozlowski@linaro.org, agross@kernel.org,
+ dri-devel@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@somainline.org>,
+ David Airlie <airlied@gmail.com>, Vinod Polimera <quic_vpolimer@quicinc.com>,
+ Sean Paul <sean@poorly.run>, linux-kernel@vger.kernel.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 13/02/2023 13:32, neil.armstrong@linaro.org wrote:
-> On 10/02/2023 16:54, Dmitry Baryshkov wrote:
->> On 10/02/2023 17:28, Neil Armstrong wrote:
->>> On 10/02/2023 16:24, Dmitry Baryshkov wrote:
->>>> On 10/02/2023 16:44, Neil Armstrong wrote:
->>>>> Add the Display Port controller subnode to the MDSS node.
->>>>>
->>>>> Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
->>>>> ---
->>>>>   arch/arm64/boot/dts/qcom/sm8450.dtsi | 79 ++++++++++++++++++++++++++++++++++++
->>>>>   1 file changed, 79 insertions(+)
->>>>>
->>>>> diff --git a/arch/arm64/boot/dts/qcom/sm8450.dtsi b/arch/arm64/boot/dts/qcom/sm8450.dtsi
->>>>> index 6caa2c8efb46..72d54beb7d7c 100644
->>>>> --- a/arch/arm64/boot/dts/qcom/sm8450.dtsi
->>>>> +++ b/arch/arm64/boot/dts/qcom/sm8450.dtsi
->>>>> @@ -2751,6 +2751,13 @@ dpu_intf2_out: endpoint {
->>>>>                           };
->>>>>                       };
->>>>> +                    port@2 {
->>>>> +                        reg = <2>;
->>>>> +                        dpu_intf0_out: endpoint {
->>>>> +                            remote-endpoint = <&mdss_dp0_in>;
->>>>> +                        };
->>>>> +                    };
->>>>> +
->>>>>                   };
->>>>>                   mdp_opp_table: opp-table {
->>>>> @@ -2783,6 +2790,78 @@ opp-500000000 {
->>>>>                   };
->>>>>               };
->>>>> +            mdss_dp0: displayport-controller@ae90000 {
->>>>> +                compatible = "qcom,sm8350-dp";
->>>
->>> Exact, must fix.
->>>
->>>>
->>>> Missing "qcom,sm8450-dp". As I wrote in the comment to patch 1, I'd suggest having just a single entry here rather than keeping both 8350 and 8450 entries.
->>>>
->>>>> +                reg = <0 0xae90000 0 0xfc>,
->>>>> +                      <0 0xae90200 0 0xc0>,
->>>>> +                      <0 0xae90400 0 0x770>,
->>>>> +                      <0 0xae91000 0 0x98>,
->>>>> +                      <0 0xae91400 0 0x98>;
->>>>
->>>>
->>>> While this sounds correct, usually we used the even size here (0x200, 0x400, etc.). Can we please switch to it (especially since sm8350-dp uses even sizes).
->>>
->>> I don't have access to registers layout for HDK8450 but the system freezes when using even sizes, using
->>> the exact register size works fine.
->>
->> Interesting. Could you please trace, what exactly makes it fail, since specifying bigger region size should not cause such issues.
+On 2023-02-13 13:35:01, Dmitry Baryshkov wrote:
+> On 13/02/2023 13:30, Marijn Suijten wrote:
+> > On 2023-02-13 12:15:19, Konrad Dybcio wrote:
+> > [...]
+> >>>> @@ -1674,6 +1765,15 @@ static struct dpu_pingpong_cfg sc8280xp_pp[] = {
+> >>>>  ����������� DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR2, 31), -1),
+> >>>>  � };
+> >>>>  � +static struct dpu_pingpong_cfg sm6350_pp[] = {
+> >>>> +��� PP_BLK("pingpong_0", PINGPONG_0, 0x70000, 0, sdm845_pp_sblk,
+> >>>
+> >>> No TE support?
+> >> It's.. complicated.. With just this patch, display refreshes, albeit
+> >> not at 60fps. Marijn is working on getting it going, though
+> >>
+> >> https://github.com/SoMainline/linux/commits/marijn/longbois-next/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
+> > 
+> > This branch hasn't been updated for the longest time.  I'm preparing v2
+> > of the INTF TE series at:
+> > 
+> > https://github.com/SoMainline/linux/commits/marijn/dpu/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
+> > 
+> > and it has about �40% of Dmitry's review applied.  More to come now that
+> > hiatus is over.
 > 
-> Yep I'll trace what's happening.
+> We should agree on landing order for my rework vs your changes. Can I 
+> try persuading you to review that 50-patches beast? With the hope that 
+> you'd agree to land your changes on top of it?
 
-OK weird, I tried with the same sizes as sm8350, and it works fine.
+SM6115 unexpectedly landing in advance of SM8[345]0 was already an
+unnecessary headache to deal with, and now we're "changing direction" on
+landing SM6350/75 in advance of INTF TE too...  not to forget about
+SM6125 which I also keep rebasing locally but planned on landing _after_
+INTF TE.  Regardless of the extra effort it will take from me I'd be
+happy to land my patches after everyone else's to have final say over
+which setup gets what bitflags and interrupts, as these typically got
+botched in our trees after rebases leading to broken INTF TE.
+Perhaps I should resubmit the individual Fixes: commits though?
 
-Will resend with this fixed.
+Feel free to propose a merge order listing all the aforementioned SoCs,
+your rework, my INTF TE patches and whatever else is in the pipeline.
+As I've been away for a while, and only have limited hobby time (_and_
+have to split that on various projects), I'm behind on what's currently
+in swing for DPU (need additional time to catch back up) nor will be
+able to rebase/resubmit my patches often (a set-in-stone merge order
+will really help prioritise/plan ahead here).
 
-Neil
+Sure, I will at least start looking at your 50-patch as part of catching
+back up.  Do you want to process that on the mailing list or via
+https://gitlab.freedesktop.org/drm/msm/-/merge_requests/44?
 
-> 
-> Neil
-> 
->>
-> 
-
+- Marijn
