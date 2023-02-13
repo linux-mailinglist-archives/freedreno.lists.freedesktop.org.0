@@ -1,73 +1,38 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 30A5F694448
-	for <lists+freedreno@lfdr.de>; Mon, 13 Feb 2023 12:18:50 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 844A6694484
+	for <lists+freedreno@lfdr.de>; Mon, 13 Feb 2023 12:30:15 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BBD4C10E55A;
-	Mon, 13 Feb 2023 11:18:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4820F10E56C;
+	Mon, 13 Feb 2023 11:30:14 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ej1-x635.google.com (mail-ej1-x635.google.com
- [IPv6:2a00:1450:4864:20::635])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 345A310E201
- for <freedreno@lists.freedesktop.org>; Mon, 13 Feb 2023 11:18:46 +0000 (UTC)
-Received: by mail-ej1-x635.google.com with SMTP id sb24so6998361ejb.8
- for <freedreno@lists.freedesktop.org>; Mon, 13 Feb 2023 03:18:46 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=KIx9QnDEiIMrF+ea+ic9s2yvBT4Dedk7T3dn3hJI1QI=;
- b=pOOkQDaSGu4cphWcInPo7p2cNnaPIdjifY7CyoPkbXO66aI5vGY/I2rsKksmODIoiD
- bL86qkglO7JgYVX1tkHq+AstdqQA59JYh4YHfbMwPm+2Q7UAtIvnoODioOBApbYLOi0x
- Z46SFiumclgP8AdfuJmCRSPl2sorVNHqWZXAeB+gnp7Q0Ohxer5YiQYwNV7KNCacdbRC
- 4RQ8xmuJIDWKE+bRok0yvx/q9PvQ6mPsSQLmMFkm65vHbm6Ihi8KUheR4GY0tXDB66ni
- EQnLS4lBbAp0l6hhkSBfpRBXw45OX+lKzvdz9ZSUTUxljFKoWXwGpSVxTK5C9pjbf6Kq
- gBbg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=KIx9QnDEiIMrF+ea+ic9s2yvBT4Dedk7T3dn3hJI1QI=;
- b=V2RPszsmFw93mZX9q8FvC5uP/vgFYyqzxiH4jXIw4L8bAIX9Poy9xI0AgriV3gTw5c
- B5p3oY3dK3FpUHVhQcFKDwQIpzDiND9m2akCqvQ+VPl4Ne1r+qdupeDopqMVSAaMMWV/
- FKOgezitM2nmLKTn/jV1YcG938EO/bhhhxCQltUekxmYJ+KoYPq/zvtK8R0kp3OMpj+i
- qP5SoffrzhFqcd1kmY3ujPxqjJ630Z5dGz9TkO4qOiTldmQPXxlsA2pxv9EkF6k9G+A2
- 4uRDaDrtcKaps23+w0kmysu4zrtdMrR7FhGz2kkTlgwRJyhZpzcRtgEe9dv0zjJfta8A
- nn9A==
-X-Gm-Message-State: AO0yUKW5i+TMQosG3UeR4kgoQHliuFSaj2vZOJC569uxTIVmn+AFOXPB
- JC9e03LaqkGuyTm8q/Xwkxs9AA==
-X-Google-Smtp-Source: AK7set/vk5VCJ4aeYKvsO3L83u1LiQeST5URkCTbDzfs2h9uWKdJZFMZ27L/BDnDZtErGxAbuiCGnw==
-X-Received: by 2002:a17:906:70c7:b0:885:6a2e:f941 with SMTP id
- g7-20020a17090670c700b008856a2ef941mr22618956ejk.54.1676287124813; 
- Mon, 13 Feb 2023 03:18:44 -0800 (PST)
-Received: from ?IPV6:2001:14ba:a085:4d00::8a5?
- (dzccz6yyyyyyyyyyybcwt-3.rev.dnainternet.fi. [2001:14ba:a085:4d00::8a5])
- by smtp.gmail.com with ESMTPSA id
- j22-20020a17090686d600b008aeed39adc7sm6648687ejy.63.2023.02.13.03.18.43
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 13 Feb 2023 03:18:44 -0800 (PST)
-Message-ID: <526734f4-d2a6-b8b3-d300-dbf0bcfde91f@linaro.org>
-Date: Mon, 13 Feb 2023 13:18:42 +0200
+Received: from m-r1.th.seeweb.it (m-r1.th.seeweb.it [5.144.164.170])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C3BFF10E56B
+ for <freedreno@lists.freedesktop.org>; Mon, 13 Feb 2023 11:30:12 +0000 (UTC)
+Received: from SoMainline.org (D57D4C6E.static.ziggozakelijk.nl
+ [213.125.76.110])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest
+ SHA256) (No client certificate requested)
+ by m-r1.th.seeweb.it (Postfix) with ESMTPSA id A47DB1F8BA;
+ Mon, 13 Feb 2023 12:30:09 +0100 (CET)
+Date: Mon, 13 Feb 2023 12:30:08 +0100
+From: Marijn Suijten <marijn.suijten@somainline.org>
+To: Konrad Dybcio <konrad.dybcio@linaro.org>
+Message-ID: <20230213113008.ih7ii5m3cz4w3lmz@SoMainline.org>
+References: <20230211122656.1479141-1-konrad.dybcio@linaro.org>
+ <20230211122656.1479141-7-konrad.dybcio@linaro.org>
+ <a18cf663-115d-edc8-5e4b-3d19fcd9a02c@linaro.org>
+ <cc364658-478a-f239-5d17-5ca2b7f7df8b@linaro.org>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.7.1
-Content-Language: en-GB
-To: Konrad Dybcio <konrad.dybcio@linaro.org>, Rob Clark
- <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>
-References: <20230211231259.1308718-1-dmitry.baryshkov@linaro.org>
- <20230211231259.1308718-15-dmitry.baryshkov@linaro.org>
- <f0cc19ec-83ee-151d-e4d2-83a2cd5dc7f7@linaro.org>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-In-Reply-To: <f0cc19ec-83ee-151d-e4d2-83a2cd5dc7f7@linaro.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH v2 14/50] drm/msm/dpu: Allow variable
- SSPP/INTF_BLK size
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <cc364658-478a-f239-5d17-5ca2b7f7df8b@linaro.org>
+Subject: Re: [Freedreno] [PATCH 06/10] drm/msm/dpu: Add SM6350 support
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,39 +45,40 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
- Bjorn Andersson <andersson@kernel.org>, dri-devel@lists.freedesktop.org,
- Stephen Boyd <swboyd@chromium.org>, Daniel Vetter <daniel@ffwll.ch>,
- David Airlie <airlied@gmail.com>
+Cc: Vinod Koul <vkoul@kernel.org>, Robert Foss <rfoss@kernel.org>,
+ linux-arm-msm@vger.kernel.org, andersson@kernel.org,
+ Konrad Dybcio <konrad.dybcio@somainline.org>, Rob Clark <robdclark@gmail.com>,
+ Stephen Boyd <swboyd@chromium.org>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Liu Shixin <liushixin2@huawei.com>, freedreno@lists.freedesktop.org,
+ krzysztof.kozlowski@linaro.org, agross@kernel.org,
+ dri-devel@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@somainline.org>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ David Airlie <airlied@gmail.com>, Vinod Polimera <quic_vpolimer@quicinc.com>,
+ Sean Paul <sean@poorly.run>, linux-kernel@vger.kernel.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 13/02/2023 13:01, Konrad Dybcio wrote:
+On 2023-02-13 12:15:19, Konrad Dybcio wrote:
+[...]
+> >> @@ -1674,6 +1765,15 @@ static struct dpu_pingpong_cfg sc8280xp_pp[] = {
+> >>             DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR2, 31), -1),
+> >>   };
+> >>   +static struct dpu_pingpong_cfg sm6350_pp[] = {
+> >> +    PP_BLK("pingpong_0", PINGPONG_0, 0x70000, 0, sdm845_pp_sblk,
+> > 
+> > No TE support?
+> It's.. complicated.. With just this patch, display refreshes, albeit
+> not at 60fps. Marijn is working on getting it going, though
 > 
-> 
-> On 12.02.2023 00:12, Dmitry Baryshkov wrote:
->> From: Konrad Dybcio <konrad.dybcio@linaro.org>
->>
->> These blocks are of variable length on different SoCs. Set the
->> correct values where I was able to retrieve it from downstream
->> DTs and leave the old defaults (0x1c8 for sspp and 0x280 for
->> intf) otherwise.
->>
->> Signed-off-by: Konrad Dybcio <konrad.dybcio@linaro.org>
->> [DB: fixed some of lengths]
->> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
->> ---
-> Oh you fixed it quicker than I could respond!
+> https://github.com/SoMainline/linux/commits/marijn/longbois-next/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
 
-Yes, I wanted to include it into this patchset, so I had to fix it.
+This branch hasn't been updated for the longest time.  I'm preparing v2
+of the INTF TE series at:
 
-> 
-> Still, I think the 8280 sspp size should not be
-> 2x the norm..
+https://github.com/SoMainline/linux/commits/marijn/dpu/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
 
-Let's doublecheck this with somebody having access to docs.
+and it has about ±40% of Dmitry's review applied.  More to come now that
+hiatus is over.
 
--- 
-With best wishes
-Dmitry
-
+- Marijn
