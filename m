@@ -2,73 +2,67 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id D150D695108
-	for <lists+freedreno@lfdr.de>; Mon, 13 Feb 2023 20:49:11 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E74E36951C9
+	for <lists+freedreno@lfdr.de>; Mon, 13 Feb 2023 21:24:47 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 96D2610E0B1;
-	Mon, 13 Feb 2023 19:49:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DF5AE10E70B;
+	Mon, 13 Feb 2023 20:24:43 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2A5F310E6F7;
- Mon, 13 Feb 2023 19:49:09 +0000 (UTC)
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 31DIbQbe020327; Mon, 13 Feb 2023 19:49:07 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
- h=from : to : cc :
- subject : date : message-id : in-reply-to : references : mime-version :
- content-transfer-encoding : content-type; s=qcppdkim1;
- bh=s2NB5h4dR4l7zle6a/WAQnHsk9ahQGtsmhodrSNnjaA=;
- b=hxtnSMj4OInm88JAN8hJ0EH3gSGXXrBiTe/rdZ+kfL3c2VKIiGxrAGtEH0m6T5hRdWqs
- 5tVMddkY+kA3cn1GItTwIC6/CEAZxr88+sdvbxLE4q0u9zAtOnKHRmSgxO5he7JP+OlF
- 0DzCrtPrp44IFmK3BCKNinl46TCVa0hbGk9P4IjEJWdrsgTGU5j0mR72xS6O+yftjpTF
- 3e8XTuwhx4hajIXjXzSg6AzxDF8btAMY0gj3aYV0j4iWLGeUfOm1nHK95AxQaHKj3uq9
- 5dTXeirACayINVPTJweRTjxsyChClzL6CrW4wgWGKkECYeYwu6YUkaL0HrMaQ9aTdyWd iw== 
-Received: from nasanppmta03.qualcomm.com (i-global254.qualcomm.com
- [199.106.103.254])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3np0qpw2qd-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 13 Feb 2023 19:49:07 +0000
-Received: from nasanex01b.na.qualcomm.com (nasanex01b.na.qualcomm.com
- [10.46.141.250])
- by NASANPPMTA03.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 31DJmum4015410
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 13 Feb 2023 19:48:56 GMT
-Received: from JESSZHAN.qualcomm.com (10.80.80.8) by
- nasanex01b.na.qualcomm.com (10.46.141.250) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.986.36; Mon, 13 Feb 2023 11:48:56 -0800
-From: Jessica Zhang <quic_jesszhan@quicinc.com>
-To: <freedreno@lists.freedesktop.org>
-Date: Mon, 13 Feb 2023 11:48:18 -0800
-Message-ID: <20230213194819.608-4-quic_jesszhan@quicinc.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20230213194819.608-1-quic_jesszhan@quicinc.com>
-References: <20230213194819.608-1-quic_jesszhan@quicinc.com>
+Received: from mail-yw1-x112a.google.com (mail-yw1-x112a.google.com
+ [IPv6:2607:f8b0:4864:20::112a])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 044A910E70A
+ for <freedreno@lists.freedesktop.org>; Mon, 13 Feb 2023 20:24:42 +0000 (UTC)
+Received: by mail-yw1-x112a.google.com with SMTP id
+ 00721157ae682-4a263c4ddbaso179939097b3.0
+ for <freedreno@lists.freedesktop.org>; Mon, 13 Feb 2023 12:24:41 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=IozIfz/lMOPx2rs8ffv5j6yodYzusrmdIZCeFx4II1E=;
+ b=YiRsAA8Os3DmpiNGwzSvpeSFM2FCzNEpYpUMkECOQzKYp2RDpc01r1XqGhVjYrAdLn
+ 2mtpZpQ6hdSDJ+3QYcGs+XvXOuHSkouqHaWkSgD8b6A/6S8S7iJKSrFGTjQs8nHLjrQW
+ +fmbnL90JLrju3GlqlvRl0FVVTebkAvc2v+HfQ/WKEoDeBraXZImDpF2SnkvMRwezNG4
+ TXiK8bMQUKXU2tEwNl1Ki1HBiALrIgnYeUyoBjhtprgd9dTQ6RSXkLka2mFpQv08pSEY
+ MVSVjP0AlF6jIlfp1jUmPZEIjURzDtYVbQotGHyeX6VXTgATlXtrj42eZowObKjQ7Ybd
+ O2SQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=IozIfz/lMOPx2rs8ffv5j6yodYzusrmdIZCeFx4II1E=;
+ b=NIHqLgfNLgDmwuCb1pIFhZukvYlt4+wuPfLKgJQbh/tYBZ9K2opgM/dbsbuACPEMFt
+ S4e9oZ81XZIklDq5X/oGw5Kep1nfkjISDyf1DKSy+g1x2eOxVvzmvvKC32R6Sy5oNqJg
+ zWqC29IqDY16eTmDI4U1Avh8JureF7L7GZi7/G+CDcs7NG3JZ2pmdiXudyfOTOhCBNOB
+ bQf4j+dj8VR1IWxzy87OCSTq1yA2NmNme97uV69m+aQ2TriEnpIdQ14maBjn4sFzRZlo
+ RoUS8+Z4489NsjI6ICP/PGM5bLDGcwPVPQ5CxNLxhCL6epHeOyAvtotOXkM6LLaGni6e
+ 2Mrg==
+X-Gm-Message-State: AO0yUKUrFE4hikJBq7qddkzXOBRPkXggxDBtyQtCNS3cjKr6u7k9tIuT
+ vqx3z6gNwDfTY5RaqBKZFVlYbZbiLQeo5FrNeWP+BA==
+X-Google-Smtp-Source: AK7set88SCxq80AaNbdYEdAzMQhu6gTClIokiS5I8cC4uNE+rETzLwdIDBKFIOyCT6jtH1wbwH134P1scqVX1Q83S1c=
+X-Received: by 2002:a0d:d696:0:b0:52f:230a:f922 with SMTP id
+ y144-20020a0dd696000000b0052f230af922mr618289ywd.481.1676319880944; Mon, 13
+ Feb 2023 12:24:40 -0800 (PST)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
- nasanex01b.na.qualcomm.com (10.46.141.250)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-GUID: G7APvt36lvfD_OrE6aj71c5SoRt7XrFI
-X-Proofpoint-ORIG-GUID: G7APvt36lvfD_OrE6aj71c5SoRt7XrFI
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.219,Aquarius:18.0.930,Hydra:6.0.562,FMLib:17.11.170.22
- definitions=2023-02-13_12,2023-02-13_01,2023-02-09_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- mlxscore=0 impostorscore=0
- malwarescore=0 phishscore=0 adultscore=0 suspectscore=0 spamscore=0
- lowpriorityscore=0 clxscore=1015 bulkscore=0 mlxlogscore=995
- priorityscore=1501 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2212070000 definitions=main-2302130174
-Subject: [Freedreno] [RFC PATCH v3 3/4] drm/msm/dpu: Remove empty
- prepare_commit() function
+References: <20230211122656.1479141-1-konrad.dybcio@linaro.org>
+ <20230211122656.1479141-7-konrad.dybcio@linaro.org>
+ <a18cf663-115d-edc8-5e4b-3d19fcd9a02c@linaro.org>
+ <cc364658-478a-f239-5d17-5ca2b7f7df8b@linaro.org>
+ <20230213113008.ih7ii5m3cz4w3lmz@SoMainline.org>
+ <8560b69f-8d42-995d-2f4d-11d6a64afef0@linaro.org>
+ <20230213142831.hbzfp2chekshsqyy@SoMainline.org>
+ <28c9ea04-fedb-16cf-f874-f4c965fbc445@linaro.org>
+ <20230213151413.qhpzzcz4c6m6rynk@SoMainline.org>
+ <56281f37-2c7f-5f70-6c9e-87e950f06b0e@linaro.org>
+ <cf77995f-3adf-d1a4-40ac-2f524b926835@quicinc.com>
+In-Reply-To: <cf77995f-3adf-d1a4-40ac-2f524b926835@quicinc.com>
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Date: Mon, 13 Feb 2023 22:24:29 +0200
+Message-ID: <CAA8EJpqrHAUcpgPOnHtqrMLb1ZoSvNNj=fcXwXFpqMBh3i6=7g@mail.gmail.com>
+To: Abhinav Kumar <quic_abhinavk@quicinc.com>
+Content-Type: text/plain; charset="UTF-8"
+Subject: Re: [Freedreno] [PATCH 06/10] drm/msm/dpu: Add SM6350 support
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,115 +75,87 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-arm-msm@vger.kernel.org, quic_abhinavk@quicinc.com,
- dri-devel@lists.freedesktop.org, swboyd@chromium.org, robdclark@gmail.com,
- seanpaul@chromium.org, marijn.suijten@somainline.org,
- dmitry.baryshkov@linaro.org, Jessica Zhang <quic_jesszhan@quicinc.com>
+Cc: Sean Paul <sean@poorly.run>, Konrad Dybcio <konrad.dybcio@linaro.org>,
+ Robert Foss <rfoss@kernel.org>, linux-arm-msm@vger.kernel.org,
+ andersson@kernel.org, Konrad Dybcio <konrad.dybcio@somainline.org>,
+ Rob Clark <robdclark@gmail.com>, dri-devel@lists.freedesktop.org,
+ Stephen Boyd <swboyd@chromium.org>, Liu Shixin <liushixin2@huawei.com>,
+ krzysztof.kozlowski@linaro.org, Vinod Koul <vkoul@kernel.org>,
+ agross@kernel.org, Daniel Vetter <daniel@ffwll.ch>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@somainline.org>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Vinod Polimera <quic_vpolimer@quicinc.com>,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Now that the TE setup has been moved to prepare_for_kickoff(), and
-dpu_encoder_prepare_commit() is not empty, remove prepare_commit()
-from DPU driver.
+On Mon, 13 Feb 2023 at 21:14, Abhinav Kumar <quic_abhinavk@quicinc.com> wrote:
+> On 2/13/2023 8:25 AM, Dmitry Baryshkov wrote:
+> > On 13/02/2023 17:14, Marijn Suijten wrote:
+> >> On 2023-02-13 16:58:00, Dmitry Baryshkov wrote:
+> >>> So, *possible* the merge order is the following:
+> >>> - fixes from https://patchwork.freedesktop.org/series/113910/ go to
+> >>> msm-fixes
+> >>> - fixes from your intf-te go to msm-fixes
+> >>> - https://patchwork.freedesktop.org/series/111751/
+> >>> - the rest of intf-te and catalog (*see below)
+> >>> - DPU features
+> >>> - new DPU platforms (might go together with DPU features)
+> >>>
+>
+> Fixes from https://patchwork.freedesktop.org/series/113910/ can be
+> pulled into -fixes. Will send it out in a MR. I can see that you have
+> absorbed a couple of independent fixes into this too (which were already
+> reviewed outside the HW catalog rework series)
+>
+> And from the intf TE series only this one right?
+>
+> https://patchwork.freedesktop.org/patch/516429/
 
-Changes in V3:
-- Reworded commit message to be more clear
-- Corrected spelling mistake in commit message
+I think so. At least in the first submission.
 
-Signed-off-by: Jessica Zhang <quic_jesszhan@quicinc.com>
----
- drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c | 19 -------------------
- drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.h |  7 -------
- drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c     | 21 ---------------------
- 3 files changed, 47 deletions(-)
+>
+> Other than this there are no "fixes" in that series.
+>
+> >>> * That really depends on the availability of the patchsets. Most
+> >>> probably, as your patchset also contains several fixups, it would be
+> >>> easier to land it before catalog split/rework.
+> >>>
+> >>> So, if you have the available timeslot, could you please finish & send
+> >>> intf te on top of msm-next.
+> >>
+> >> Ack, I'll get to that immediately.  You might even pull in the
+> >> intermediate patches linked above (that touch the catalog) to see how it
+> >> integrates, if I remember correctly (it has been a while) the catalog
+> >> changes should now be independent of driver changes...?
+> >
+> > I'll check and if it goes well, I'll just cherry-pick them into my branch.
+> >
+> >>
+> >>>> Sure, I will at least start looking at your 50-patch as part of
+> >>>> catching
+> >>>> back up.  Do you want to process that on the mailing list or via
+> >>>> https://gitlab.freedesktop.org/drm/msm/-/merge_requests/44?
+> >>>
+> >>> I'd prefer to use email. The MR was open to doublecheck that nothing got
+> >>> broken on sc7180.
+> >>
+> >> Ack; will try providing feedback on the 50-patch series via email in
+> >> parallel to getting INTF TE v2 out ASAP.  As discussed before I should
+> >> probably add myself as reviewer to the drm/msm subsystem to have these
+> >> patches in my inbox from the get-go though...
+> >
+>
+> Jessica had some minor comments/questions on the intf te series. We have
+> finished integrating and testing that on sm8350 while bringing up the
+> DSC 1.2 panel and thats what led to
+> https://patchwork.freedesktop.org/series/113851/
+>
+> Please wait for her comments / R-b .
 
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-index dcceed91aed8..35e120b5ef53 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-@@ -2090,25 +2090,6 @@ void dpu_encoder_helper_phys_cleanup(struct dpu_encoder_phys *phys_enc)
- 	ctl->ops.clear_pending_flush(ctl);
- }
- 
--void dpu_encoder_prepare_commit(struct drm_encoder *drm_enc)
--{
--	struct dpu_encoder_virt *dpu_enc;
--	struct dpu_encoder_phys *phys;
--	int i;
--
--	if (!drm_enc) {
--		DPU_ERROR("invalid encoder\n");
--		return;
--	}
--	dpu_enc = to_dpu_encoder_virt(drm_enc);
--
--	for (i = 0; i < dpu_enc->num_phys_encs; i++) {
--		phys = dpu_enc->phys_encs[i];
--		if (phys->ops.prepare_commit)
--			phys->ops.prepare_commit(phys);
--	}
--}
--
- #ifdef CONFIG_DEBUG_FS
- static int _dpu_encoder_status_show(struct seq_file *s, void *data)
- {
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.h
-index 9e7236ef34e6..2c9ef8d1b877 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.h
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.h
-@@ -146,13 +146,6 @@ struct drm_encoder *dpu_encoder_init(
- int dpu_encoder_setup(struct drm_device *dev, struct drm_encoder *enc,
- 		struct msm_display_info *disp_info);
- 
--/**
-- * dpu_encoder_prepare_commit - prepare encoder at the very beginning of an
-- *	atomic commit, before any registers are written
-- * @drm_enc:    Pointer to previously created drm encoder structure
-- */
--void dpu_encoder_prepare_commit(struct drm_encoder *drm_enc);
--
- /**
-  * dpu_encoder_set_idle_timeout - set the idle timeout for video
-  *                    and command mode encoders.
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
-index 165958d47ec6..6f7ddbf0d9b7 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
-@@ -425,26 +425,6 @@ static ktime_t dpu_kms_vsync_time(struct msm_kms *kms, struct drm_crtc *crtc)
- 	return ktime_get();
- }
- 
--static void dpu_kms_prepare_commit(struct msm_kms *kms,
--		struct drm_atomic_state *state)
--{
--	struct drm_crtc *crtc;
--	struct drm_crtc_state *crtc_state;
--	struct drm_encoder *encoder;
--	int i;
--
--	if (!kms)
--		return;
--
--	/* Call prepare_commit for all affected encoders */
--	for_each_new_crtc_in_state(state, crtc, crtc_state, i) {
--		drm_for_each_encoder_mask(encoder, crtc->dev,
--					  crtc_state->encoder_mask) {
--			dpu_encoder_prepare_commit(encoder);
--		}
--	}
--}
--
- static void dpu_kms_flush_commit(struct msm_kms *kms, unsigned crtc_mask)
- {
- 	struct dpu_kms *dpu_kms = to_dpu_kms(kms);
-@@ -949,7 +929,6 @@ static const struct msm_kms_funcs kms_funcs = {
- 	.enable_commit   = dpu_kms_enable_commit,
- 	.disable_commit  = dpu_kms_disable_commit,
- 	.vsync_time      = dpu_kms_vsync_time,
--	.prepare_commit  = dpu_kms_prepare_commit,
- 	.flush_commit    = dpu_kms_flush_commit,
- 	.wait_flush      = dpu_kms_wait_flush,
- 	.complete_commit = dpu_kms_complete_commit,
+Yes. My plan is to think about cherry-picking hw-catalog entries from
+that patchset, which hopefully are good on their own.
+
 -- 
-2.39.1
-
+With best wishes
+Dmitry
