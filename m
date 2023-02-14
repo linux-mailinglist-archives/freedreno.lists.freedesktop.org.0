@@ -2,76 +2,62 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 79FBB696260
-	for <lists+freedreno@lfdr.de>; Tue, 14 Feb 2023 12:25:08 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 18A5C696390
+	for <lists+freedreno@lfdr.de>; Tue, 14 Feb 2023 13:35:11 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4667910E89D;
-	Tue, 14 Feb 2023 11:25:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3AB1710E0D6;
+	Tue, 14 Feb 2023 12:35:09 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ej1-x633.google.com (mail-ej1-x633.google.com
- [IPv6:2a00:1450:4864:20::633])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3176B10E89F
- for <freedreno@lists.freedesktop.org>; Tue, 14 Feb 2023 11:25:05 +0000 (UTC)
-Received: by mail-ej1-x633.google.com with SMTP id dr8so39135679ejc.12
- for <freedreno@lists.freedesktop.org>; Tue, 14 Feb 2023 03:25:05 -0800 (PST)
+Received: from mail-lf1-x134.google.com (mail-lf1-x134.google.com
+ [IPv6:2a00:1450:4864:20::134])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5528610E0D6
+ for <freedreno@lists.freedesktop.org>; Tue, 14 Feb 2023 12:35:07 +0000 (UTC)
+Received: by mail-lf1-x134.google.com with SMTP id o20so23284255lfk.5
+ for <freedreno@lists.freedesktop.org>; Tue, 14 Feb 2023 04:35:07 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=content-transfer-encoding:in-reply-to:from:references:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=5TGkTb84xWLMG/13fJRvA7TRiYPYi0w1Swy3fYZHFmQ=;
- b=qrsYnscwV52Y0VUk71OYY1ldy21oHOaKQ5RlMrj9BazqS2SQShekW4a4HfU+4rB3VN
- eKjZz4661I5EKvhJhXeNNHvUBorw47RrH6T2cX+AhC/+FsxwmccjjJo1nTlPZljHzuQl
- vJWw7CxaSf7GPUq0t1yy1Ypq8LBirVW77n1O3KsIBugDnWfQGKA889w4mpV+EHm81dTV
- K+2ID04MgeDLrZV4vl0evUgnGrGYqsZS7i0kKLBj05BL2e7f6GUg43RFYXoxfkLhV83Q
- YWiQ8yJJQZd5mTEiYl4eFprQhgxIRGOKPlE/yDnX7YTvryxn+SBRGFd1s7/xvZP+P5yo
- Zxig==
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=vgeYEYP51vHsST01dLtYg6fF7hAGkVx9e9N4X/a0L4k=;
+ b=jI/GJxl9CNH2yhi4NRFnnuwuG5OSEgx3+S3X4x3j5vT07hrw80oy8Uo1yXGbgbSR7F
+ RXeX5rCRHIFWHTWPg/E/E9DtmEAZQPSxMsklPqB1S/ccE29vGCDKQoylx2Y4BD1dow79
+ iqKf3XCKxcA3qKhYQ3lqrSH/qRE93/n7418YQH9/kZa4siLe/cSXZmK9lKxBb76JEgvs
+ MzDAq4KgSBwMgyRXTRg3513tYvOrhYSdkH5ZBKAJncMQG+V0ozRLX+HP+kyiNiSk7mQl
+ HMwyJUUbBTVylyy/wDVq3WBoj47EY4xpfUwsBfgcwN7qDp8oK1LkLLtDykdWJLt6YQAp
+ dnTg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=content-transfer-encoding:in-reply-to:from:references:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=5TGkTb84xWLMG/13fJRvA7TRiYPYi0w1Swy3fYZHFmQ=;
- b=b/gu8E5l0nIfCwHcIKflV8fnnOQtQ+NCQPBtfhtuGkRip6pmaf2NJNyHzCLN6f4iZ0
- RcQAQbyazJrciIXh/5egHAOSmD2lwOJ8xvgDfVd6TMFPO2puiiPl8LzLmHaObLfD1naL
- k1KaAuTjoaJY0kVnPwmtuz3d/5WED/YsiApd1ZWbyx2/+qu0mpDko8SPSqwvCeMGbb8B
- yFIf+IrFjgnsg9BMLrV2xfNwhelDfduUPwxx0lpNUisaQpoAvs3eIFGBA3Xv7rjyeH4t
- STJJW5aES6tyw2Z14v4iGr332pQcdto6BsZlUAOV1NWCm5T9CdBTnFkAjEbaEA9LVL6c
- K0DA==
-X-Gm-Message-State: AO0yUKWSoHx8SLVTs8em3soTvdBruDqVbrYbhJLCPi6Npc7ugSG0z34j
- gmm+8q1E/GV5Glz+/501GUeyrK1RIuSuy1cc
-X-Google-Smtp-Source: AK7set8d4qwwJ3IKiKndtYvjo+bLtM6RA5dfulIstN4IPGmyQeW5ECkuHkFFF5kRAariNWsOgwnDYg==
-X-Received: by 2002:a17:907:2087:b0:8ae:e876:ea68 with SMTP id
- pv7-20020a170907208700b008aee876ea68mr2544984ejb.74.1676373903653; 
- Tue, 14 Feb 2023 03:25:03 -0800 (PST)
-Received: from [192.168.1.101] (abxh117.neoplus.adsl.tpnet.pl. [83.9.1.117])
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=vgeYEYP51vHsST01dLtYg6fF7hAGkVx9e9N4X/a0L4k=;
+ b=SwJr39IRi1fTA0zloYwvaD0USgEpiiNjhs6a7lUL3Wfzy0EaOkC410TwZjYdDH0Xi5
+ tjRo0Gyxq83dGofbhSGTdw7hFeW5C1WfZ3XlUGAJf3Eo3UI3Uh9ADuaPyiq8AAm+vY8T
+ TeSp4Ce4y2gtR2UsKdRrojI7yQIn5Qb/HyEgnOIFP6wU9pqgxI6kZvEDmSZ3Im7ja+Ic
+ qeBuvJzJN6pXC444PY2Y59EPkR5poN53DZe0B0ducdbONKvSBiFb11aYzbw8z7DSYEzl
+ ftMdDh7/kZ2L07VyTs1UAkbl+hYMBU3ndJAeHi4IDqucdTcVaM85kQtPcbVmu84Umo8a
+ 126w==
+X-Gm-Message-State: AO0yUKWmqPt9qKR/PxLMJT2HxZ+fAZHMGShaXbXtV6AG2sauojK0wPyk
+ 6rx0o+8R4G5ZX+PR3Z+fCW6PLA==
+X-Google-Smtp-Source: AK7set/iTdHf7YxO2g+rThSDtaij0QNrbLQRJIotuyZCyn1GzpiayUW7c6kW2TTKlkDRKdXpb3E9Xg==
+X-Received: by 2002:a05:6512:374e:b0:4cb:10ad:76bd with SMTP id
+ a14-20020a056512374e00b004cb10ad76bdmr522821lfs.64.1676378105420; 
+ Tue, 14 Feb 2023 04:35:05 -0800 (PST)
+Received: from umbar.unikie.fi ([192.130.178.91])
  by smtp.gmail.com with ESMTPSA id
- 2-20020a170906210200b00888f92f0708sm8229934ejt.15.2023.02.14.03.25.01
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 14 Feb 2023 03:25:03 -0800 (PST)
-Message-ID: <48364c3f-699d-ce14-37c4-53bf4a90bc23@linaro.org>
-Date: Tue, 14 Feb 2023 12:25:01 +0100
+ v19-20020ac25613000000b004ab52b0bcf9sm1077158lfd.207.2023.02.14.04.35.04
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 14 Feb 2023 04:35:05 -0800 (PST)
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+To: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>
+Date: Tue, 14 Feb 2023 15:35:01 +0300
+Message-Id: <20230214123504.3729522-1-dmitry.baryshkov@linaro.org>
+X-Mailer: git-send-email 2.30.2
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.7.1
-Content-Language: en-US
-To: linux-arm-msm@vger.kernel.org, andersson@kernel.org, agross@kernel.org,
- krzysztof.kozlowski@linaro.org, freedreno@lists.freedesktop.org,
- Akhil P Oommen <quic_akhilpo@quicinc.com>, David Airlie <airlied@gmail.com>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
- Douglas Anderson <dianders@chromium.org>, Rob Clark <robdclark@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- marijn.suijten@somainline.org, Sean Paul <sean@poorly.run>,
- Chia-I Wu <olvaffe@gmail.com>, linux-kernel@vger.kernel.org
-References: <20230126151618.225127-1-konrad.dybcio@linaro.org>
- <20230126151618.225127-10-konrad.dybcio@linaro.org>
- <20230208182101.53ykatzah6zvpy76@amazon.com>
-From: Konrad Dybcio <konrad.dybcio@linaro.org>
-In-Reply-To: <20230208182101.53ykatzah6zvpy76@amazon.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH 09/14] drm/msm/a6xx: Fix some A619 tunables
+Content-Transfer-Encoding: 8bit
+Subject: [Freedreno] [PATCH 0/3] drm/msm/adreno: implement devcoredump
+ support for a5xx
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -84,66 +70,31 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
+Cc: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
+ Bjorn Andersson <andersson@kernel.org>, dri-devel@lists.freedesktop.org,
+ Stephen Boyd <swboyd@chromium.org>, Daniel Vetter <daniel@ffwll.ch>,
+ David Airlie <airlied@gmail.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
+During the debug of the a5xx preempt issue, having the devcoredump
+support was a great help. These patches port necessary code bits from
+being a6xx-specific to generic code path and then enables devcoredump
+for a5xx.
 
+Dmitry Baryshkov (3):
+  drm/msm/adreno: stall translation on fault for all GPU families
+  drm/msm/adreno: split a6xx fault handler into generic and a6xx parts
+  drm/msm/a5xx: add devcoredump support to the fault handler
 
-On 8.02.2023 19:21, Jordan Crouse wrote:
-> On Thu, Jan 26, 2023 at 04:16:13PM +0100, Konrad Dybcio wrote:
->> Adreno 619 expects some tunables to be set differently. Make up for it.
->>
->> Fixes: b7616b5c69e6 ("drm/msm/adreno: Add A619 support")
->> Signed-off-by: Konrad Dybcio <konrad.dybcio@linaro.org>
->> ---
->>  drivers/gpu/drm/msm/adreno/a6xx_gpu.c | 6 +++++-
->>  1 file changed, 5 insertions(+), 1 deletion(-)
->>
->> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
->> index 7a480705f407..f34ab3f39f09 100644
->> --- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
->> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
->> @@ -1171,6 +1171,8 @@ static int hw_init(struct msm_gpu *gpu)
->>                 gpu_write(gpu, REG_A6XX_PC_DBG_ECO_CNTL, 0x00200200);
->>         else if (adreno_is_a650(adreno_gpu) || adreno_is_a660(adreno_gpu))
->>                 gpu_write(gpu, REG_A6XX_PC_DBG_ECO_CNTL, 0x00300200);
->> +       else if (adreno_is_a619(adreno_gpu))
->> +               gpu_write(gpu, REG_A6XX_PC_DBG_ECO_CNTL, 0x00018000);
->>         else if (adreno_is_a610(adreno_gpu))
->>                 gpu_write(gpu, REG_A6XX_PC_DBG_ECO_CNTL, 0x00080000);
->>         else
->> @@ -1188,7 +1190,9 @@ static int hw_init(struct msm_gpu *gpu)
->>         a6xx_set_ubwc_config(gpu);
->>
->>         /* Enable fault detection */
->> -       if (adreno_is_a610(adreno_gpu))
->> +       if (adreno_is_a619(adreno_gpu))
->> +               gpu_write(gpu, REG_A6XX_RBBM_INTERFACE_HANG_INT_CNTL, (1 << 30) | 0x3fffff);
->> +       else if (adreno_is_a610(adreno_gpu))
->>                 gpu_write(gpu, REG_A6XX_RBBM_INTERFACE_HANG_INT_CNTL, (1 << 30) | 0x3ffff);
->>         else
->>                 gpu_write(gpu, REG_A6XX_RBBM_INTERFACE_HANG_INT_CNTL, (1 << 30) | 0x1fffff);
-> 
-> The number appended to the register is the number of clock ticks to wait
-> before declaring a hang. 0x3fffff happens to be the largest value that
-> can be set for the a6xx family (excepting the 610 which, IIRC, used older
-> hardware that had a smaller field for the counter).
-Makes sense!
+ drivers/gpu/drm/msm/adreno/a5xx_gpu.c   | 13 +++--
+ drivers/gpu/drm/msm/adreno/a6xx_gpu.c   | 64 +++----------------------
+ drivers/gpu/drm/msm/adreno/adreno_gpu.c | 62 +++++++++++++++++++++++-
+ drivers/gpu/drm/msm/adreno/adreno_gpu.h |  4 ++
+ drivers/gpu/drm/msm/msm_iommu.c         | 38 ++++++++++-----
+ drivers/gpu/drm/msm/msm_mmu.h           |  1 +
+ 6 files changed, 109 insertions(+), 73 deletions(-)
 
-Downstream the
-> number would creep up over time as unexplained hangs were discovered and
-> diagnosed or covered up as "just wait longer".
-lol..
+-- 
+2.30.2
 
-> 
-> So in theory you could leave this with the "default value" or even bump
-> up the default value to 0x3fffff for all targets if you wanted to. An
-> alternate solution (that downstream does) is to put this as a
-> pre-defined configuration in gpulist[].
-I'm not sure it's a good idea to let things loose, as that may let some
-bugs slip through.. Perhaps let's leave that as-is until we have a seriously
-otherwise-unresolvable situation..
-
-Konrad
-> 
-> Jordan
