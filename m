@@ -1,67 +1,66 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 756EF696B94
-	for <lists+freedreno@lfdr.de>; Tue, 14 Feb 2023 18:32:12 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id D0863696B8A
+	for <lists+freedreno@lfdr.de>; Tue, 14 Feb 2023 18:32:01 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 12A3510E941;
-	Tue, 14 Feb 2023 17:32:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9ADAB10E0ED;
+	Tue, 14 Feb 2023 17:32:00 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ej1-x62a.google.com (mail-ej1-x62a.google.com
- [IPv6:2a00:1450:4864:20::62a])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 878AB10E93C
- for <freedreno@lists.freedesktop.org>; Tue, 14 Feb 2023 17:32:07 +0000 (UTC)
-Received: by mail-ej1-x62a.google.com with SMTP id gn39so3617264ejc.8
- for <freedreno@lists.freedesktop.org>; Tue, 14 Feb 2023 09:32:07 -0800 (PST)
+Received: from mail-ed1-x533.google.com (mail-ed1-x533.google.com
+ [IPv6:2a00:1450:4864:20::533])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 969B710E0ED
+ for <freedreno@lists.freedesktop.org>; Tue, 14 Feb 2023 17:31:59 +0000 (UTC)
+Received: by mail-ed1-x533.google.com with SMTP id bt8so12676658edb.12
+ for <freedreno@lists.freedesktop.org>; Tue, 14 Feb 2023 09:31:59 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=5ZAfO7IxAr14EAlhNtiFp5Qcd0YjV1Wu3mwyrUUlhD8=;
- b=Ba+7saktvdPC7xS2+pEh70ok/9U8dm/iKWsOe1jNXabzVeuaHbP4sqVAYuuyXr4Gs1
- U4NLdEa9JojM+btfYFRbqR5/iY0nOJkxZRjm65BPwZmxdu3VN20pvcu28/tVHHtfidvk
- urCoZDHjuyVJAF8eZS582h6ySnE9393qYS9it6ySu5EIA3/TtsGjtkrUdagOnM7e92uP
- mfdnRCIvTFOHUxfmGwWJGJYP7UWMioXin0uj+Bo8WGIll2ppI6XYiNZMPWQphCXsbQSN
- VM0FlBQEAU3w++T6cn7+sHvOY1jE8eFFOSLwpi9Gs4QKxb4sT54UeOG8MORM0jfqfUmI
- Ta2w==
+ bh=NtwSHEkotufMeTG5DbRKqbem2u4ITIQrgm1+z8QXytg=;
+ b=dudwPRcx9NWJxqh2WdbBeETUJCwf5veKvmG4eZVchC9vAVm37Ifs7wbC5kEH1f5aWJ
+ 8Ai2vSiSqC3wlxDmJB9k155jsoaUX/c3jfT+LnFoegMR73rY05zHBC5/+z8kv+NJWJ+C
+ G36TY/dqZ5ze55PSyvYQBPyaPqZxTEcd4degUgHLhl4oFGZ2W76x47HN0GTCga+GJdPT
+ 2ZFFA96BDrvB2VCI2Qt55oA2DXBBBJxn2NCedmKFpSwY3zV2V3rVaAjphoZkDaWUuoar
+ k/ajkp1xaU8sjjmS6n5CK6BdWpEFJSs0+QL/j9qPKAwaW1kaYyNcGCcMkmofvyw/rIvW
+ yJ8w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=5ZAfO7IxAr14EAlhNtiFp5Qcd0YjV1Wu3mwyrUUlhD8=;
- b=vchr0FnXtWwKRSeToUPujiSCmZtba5CatVXNzomuycaSWz8ni6GxLUZ9aNPcG4JM03
- VXCFMEK7ZevthG3YdGjpTaP0hHqqNK3xEbDyKB5wXGDcjM7eE4LiL4E/kn2ij5EhNUeR
- qiUTJz6I7ARAmhdfhrtx+02PBuCRzfdKxT2GFLlOXn9GJAi/7sGuuDeOMX5gFC0GCguQ
- aNjdig4gP2G4PnjAXsqtKBEMALEChyMeiDoXSUscKCPqpPoak41r/vmVpgP1AbzYnJYP
- nIvHxofa62O0FMkidqY3nQHq/K8FgC8fXUM3MNJDAj/tn1SLdNvzXfIV1ml58ImQdow3
- DK9A==
-X-Gm-Message-State: AO0yUKVB/W+VwutpSIdNR+kNtM7x9ESKGsTwUvS+V+jjCXcfqctLS2AF
- 6NXYnbwi7q7JAR77+ca3nwE7CoypAyyAMK+W
-X-Google-Smtp-Source: AK7set86ET7Xv1SeyeM9KIHwEorieCgRjitv8RDoyP7QxxL0FjI1TF352UebhLfgnANze042g7s42g==
-X-Received: by 2002:a50:d49d:0:b0:4ac:c84b:1ddd with SMTP id
- s29-20020a50d49d000000b004acc84b1dddmr3473276edi.32.1676395915399; 
- Tue, 14 Feb 2023 09:31:55 -0800 (PST)
+ bh=NtwSHEkotufMeTG5DbRKqbem2u4ITIQrgm1+z8QXytg=;
+ b=sD2QGQis1Zltf4hq19Ec/OQkx0AY29LoTdAyxgVECGwLoD0kBawyhYkw4W3R8NZwz2
+ Gp2p4yLxlvKPakEHYSAiMY6adLBGXFiPpKknjrMvBaSUsEXVlplS9tBCLjPq4a28cbu7
+ jB+KZbXtfXUYPKX7JPpmNOPCoyWLbCx/VonYZe8qNF/oB71LXAIGuepeEZWBEczVMaxg
+ XPlsr5JqrZi5bYPimT9Fxsq64L0FPAtLaSgSjJBM+O5QOElNuYqtZw7c+9Vv4vr/zLBG
+ qvkyRSzQgP5eZwHdGnLxgP6+meuFciFu5XescEJWxlfNNgXqYNyFxAJxnfMg6aT+34uK
+ nysw==
+X-Gm-Message-State: AO0yUKX8T4tVlhl+oMdKiJDU6tcnPi1pX3YzMWJF3VK1oNiy6C7tB7+u
+ ZxKgOSlcSDXJrxjrNdd38wukUg==
+X-Google-Smtp-Source: AK7set/+N7w1aYgI3Wl60vD5XAtpbT/GpSI4RIgCIKOAmMKYpmjMPrAUH20T6uuXF7ivxMar4Q7nNA==
+X-Received: by 2002:a50:d694:0:b0:4ac:b858:37b1 with SMTP id
+ r20-20020a50d694000000b004acb85837b1mr3740065edi.7.1676395917889; 
+ Tue, 14 Feb 2023 09:31:57 -0800 (PST)
 Received: from localhost.localdomain (abxh117.neoplus.adsl.tpnet.pl.
  [83.9.1.117]) by smtp.gmail.com with ESMTPSA id
- w8-20020a50c448000000b0049668426aa6sm8325787edf.24.2023.02.14.09.31.53
+ w8-20020a50c448000000b0049668426aa6sm8325787edf.24.2023.02.14.09.31.56
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 14 Feb 2023 09:31:55 -0800 (PST)
+ Tue, 14 Feb 2023 09:31:57 -0800 (PST)
 From: Konrad Dybcio <konrad.dybcio@linaro.org>
 To: linux-arm-msm@vger.kernel.org,
 	andersson@kernel.org,
 	agross@kernel.org
-Date: Tue, 14 Feb 2023 18:31:32 +0100
-Message-Id: <20230214173145.2482651-2-konrad.dybcio@linaro.org>
+Date: Tue, 14 Feb 2023 18:31:33 +0100
+Message-Id: <20230214173145.2482651-3-konrad.dybcio@linaro.org>
 X-Mailer: git-send-email 2.39.1
 In-Reply-To: <20230214173145.2482651-1-konrad.dybcio@linaro.org>
 References: <20230214173145.2482651-1-konrad.dybcio@linaro.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH v2 01/14] drm/msm/a6xx: De-staticize sptprac
- en/disable functions
+Subject: [Freedreno] [PATCH v2 02/14] drm/msm/a6xx: Extend UBWC config
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,60 +73,88 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Akhil P Oommen <quic_akhilpo@quicinc.com>, David Airlie <airlied@gmail.com>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
- Douglas Anderson <dianders@chromium.org>,
+Cc: freedreno@lists.freedesktop.org, Akhil P Oommen <quic_akhilpo@quicinc.com>,
+ David Airlie <airlied@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ dri-devel@lists.freedesktop.org, Douglas Anderson <dianders@chromium.org>,
  Konrad Dybcio <konrad.dybcio@linaro.org>, Rob Clark <robdclark@gmail.com>,
- Geert Uytterhoeven <geert@linux-m68k.org>, Daniel Vetter <daniel@ffwll.ch>,
+ Daniel Vetter <daniel@ffwll.ch>,
  Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, marijn.suijten@somainline.org,
- Sean Paul <sean@poorly.run>, Guenter Roeck <linux@roeck-us.net>
+ Sean Paul <sean@poorly.run>, Chia-I Wu <olvaffe@gmail.com>,
+ linux-kernel@vger.kernel.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-These two will be reused by at least A619_holi in the non-gmu
-paths. De-staticize them to make it possible.
+Port setting min_access_length, ubwc_mode and upper_bit from downstream.
+Values were validated using downstream device trees for SM8[123]50 and
+left default (as per downstream) elsewhere.
 
 Signed-off-by: Konrad Dybcio <konrad.dybcio@linaro.org>
 ---
- drivers/gpu/drm/msm/adreno/a6xx_gmu.c | 4 ++--
- drivers/gpu/drm/msm/adreno/a6xx_gmu.h | 2 ++
- 2 files changed, 4 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/msm/adreno/a6xx_gpu.c | 29 +++++++++++++++++++--------
+ 1 file changed, 21 insertions(+), 8 deletions(-)
 
-diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
-index f3c9600221d4..90e636dcdd5b 100644
---- a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
-+++ b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
-@@ -354,7 +354,7 @@ void a6xx_gmu_clear_oob(struct a6xx_gmu *gmu, enum a6xx_gmu_oob_state state)
+diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+index c5f5d0bb3fdc..8855d798bbb3 100644
+--- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
++++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+@@ -786,17 +786,25 @@ static void a6xx_set_cp_protect(struct msm_gpu *gpu)
+ static void a6xx_set_ubwc_config(struct msm_gpu *gpu)
+ {
+ 	struct adreno_gpu *adreno_gpu = to_adreno_gpu(gpu);
+-	u32 lower_bit = 2;
++	u32 lower_bit = 1;
++	u32 upper_bit = 0;
+ 	u32 amsbc = 0;
+ 	u32 rgb565_predicator = 0;
+ 	u32 uavflagprd_inv = 0;
++	u32 min_acc_len = 0;
++	u32 ubwc_mode = 0;
+ 
+ 	/* a618 is using the hw default values */
+ 	if (adreno_is_a618(adreno_gpu))
+ 		return;
+ 
+-	if (adreno_is_a640_family(adreno_gpu))
++	if (adreno_is_a630(adreno_gpu))
++		lower_bit = 2;
++
++	if (adreno_is_a640_family(adreno_gpu)) {
+ 		amsbc = 1;
++		lower_bit = 2;
++	}
+ 
+ 	if (adreno_is_a650(adreno_gpu) || adreno_is_a660(adreno_gpu)) {
+ 		/* TODO: get ddr type from bootloader and use 2 for LPDDR4 */
+@@ -807,18 +815,23 @@ static void a6xx_set_ubwc_config(struct msm_gpu *gpu)
+ 	}
+ 
+ 	if (adreno_is_7c3(adreno_gpu)) {
+-		lower_bit = 1;
+ 		amsbc = 1;
+ 		rgb565_predicator = 1;
+ 		uavflagprd_inv = 2;
+ 	}
+ 
+ 	gpu_write(gpu, REG_A6XX_RB_NC_MODE_CNTL,
+-		rgb565_predicator << 11 | amsbc << 4 | lower_bit << 1);
+-	gpu_write(gpu, REG_A6XX_TPL1_NC_MODE_CNTL, lower_bit << 1);
+-	gpu_write(gpu, REG_A6XX_SP_NC_MODE_CNTL,
+-		uavflagprd_inv << 4 | lower_bit << 1);
+-	gpu_write(gpu, REG_A6XX_UCHE_MODE_CNTL, lower_bit << 21);
++		  rgb565_predicator << 11 | upper_bit << 10 | amsbc << 4 |
++		  min_acc_len << 3 | lower_bit << 1 | ubwc_mode);
++
++	gpu_write(gpu, REG_A6XX_TPL1_NC_MODE_CNTL, upper_bit << 4 |
++		  min_acc_len << 3 | lower_bit << 1 | ubwc_mode);
++
++	gpu_write(gpu, REG_A6XX_SP_NC_MODE_CNTL, upper_bit << 10 |
++		  uavflagprd_inv << 4 | min_acc_len << 3 |
++		  lower_bit << 1 | ubwc_mode);
++
++	gpu_write(gpu, REG_A6XX_UCHE_MODE_CNTL, min_acc_len << 23 | lower_bit << 21);
  }
  
- /* Enable CPU control of SPTP power power collapse */
--static int a6xx_sptprac_enable(struct a6xx_gmu *gmu)
-+int a6xx_sptprac_enable(struct a6xx_gmu *gmu)
- {
- 	int ret;
- 	u32 val;
-@@ -376,7 +376,7 @@ static int a6xx_sptprac_enable(struct a6xx_gmu *gmu)
- }
- 
- /* Disable CPU control of SPTP power power collapse */
--static void a6xx_sptprac_disable(struct a6xx_gmu *gmu)
-+void a6xx_sptprac_disable(struct a6xx_gmu *gmu)
- {
- 	u32 val;
- 	int ret;
-diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gmu.h b/drivers/gpu/drm/msm/adreno/a6xx_gmu.h
-index e034935b3986..ec28abdd327b 100644
---- a/drivers/gpu/drm/msm/adreno/a6xx_gmu.h
-+++ b/drivers/gpu/drm/msm/adreno/a6xx_gmu.h
-@@ -186,5 +186,7 @@ int a6xx_hfi_set_freq(struct a6xx_gmu *gmu, int index);
- 
- bool a6xx_gmu_gx_is_on(struct a6xx_gmu *gmu);
- bool a6xx_gmu_sptprac_is_on(struct a6xx_gmu *gmu);
-+void a6xx_sptprac_disable(struct a6xx_gmu *gmu);
-+int a6xx_sptprac_enable(struct a6xx_gmu *gmu);
- 
- #endif
+ static int a6xx_cp_init(struct msm_gpu *gpu)
 -- 
 2.39.1
 
