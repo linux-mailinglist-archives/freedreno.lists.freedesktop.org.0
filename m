@@ -1,67 +1,67 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 52DC4696BAE
-	for <lists+freedreno@lfdr.de>; Tue, 14 Feb 2023 18:32:33 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id C61DE696BB0
+	for <lists+freedreno@lfdr.de>; Tue, 14 Feb 2023 18:32:34 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0C8D810E954;
-	Tue, 14 Feb 2023 17:32:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 89F8710E0ED;
+	Tue, 14 Feb 2023 17:32:33 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ed1-x535.google.com (mail-ed1-x535.google.com
- [IPv6:2a00:1450:4864:20::535])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7CB3010E950
- for <freedreno@lists.freedesktop.org>; Tue, 14 Feb 2023 17:32:30 +0000 (UTC)
-Received: by mail-ed1-x535.google.com with SMTP id a10so18465116edu.9
- for <freedreno@lists.freedesktop.org>; Tue, 14 Feb 2023 09:32:30 -0800 (PST)
+Received: from mail-ed1-x530.google.com (mail-ed1-x530.google.com
+ [IPv6:2a00:1450:4864:20::530])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F170D10E953
+ for <freedreno@lists.freedesktop.org>; Tue, 14 Feb 2023 17:32:31 +0000 (UTC)
+Received: by mail-ed1-x530.google.com with SMTP id fi26so18476781edb.7
+ for <freedreno@lists.freedesktop.org>; Tue, 14 Feb 2023 09:32:31 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=DYv8a/6OJy8MXb4KukAGuO4KrVafYfuTHns/Kb02ayY=;
- b=DmTOd/wjk7KS04TN9/EsVziPdXoeM86DwwoO0M6up/iMBT9+UbMYH9B1i1n03++RnF
- 78wjQCqUU3/LbnAKkws9hcZnmG24rdLdQTRWqzrp/S9iT2tTH0sI663FrVRpPdnX6ZsD
- F5eUwtJ5/cCoKPF2K+KllxHTPtZY8NhSIB/xBIa9E8tpOrKvYe9pPrOGbOa+A71LT7W0
- hy07eF810ArwqBMjxqpAQN3nbZUi09mMJ2CS2kR+3V1Zr0x7g/KufmKlFk4rrg8cXySd
- boesWPGSXS9we+H7a9jvFC4wEFgWWgvX3UU7OZBKR3HnwVoiutPUg+Nt1lw1pcQ79JSJ
- YSdA==
+ bh=X0vTgl+EwiBhnrCXr0xxuDMvxcNALHuFiQR0A2LHsl4=;
+ b=KpSDfORbK5xMEx3J9DXPweBlRqygeygWbj66ojKQIxHJX1NhsS/7gPQNL9vUkLT3Nk
+ hb9ytfdnr6ytmd02E7BR3qmCIfaKbwSr0I7gOPLzvjDJlN5ASoUghASQVk7FsXr4jTHg
+ VjjLTuBieats9SsAfjKsJ0zYmVrK6GCdD83nQOWdHqJirPNUCSBD1aEb+EqL8CTyJgW6
+ DEchlnZ3zlQ2yCiezRgbj4sfl1oHVyH6IjiWfnqHkdrr0x+XIxdmtTwUvA3XNwZPdms2
+ BcTPy/Q0wNG2cgcQDflriCzAeFf3Sste8iXTxb/GTQU+2r9miWT6fONfju4tbEUNiJMH
+ YBSA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=DYv8a/6OJy8MXb4KukAGuO4KrVafYfuTHns/Kb02ayY=;
- b=DWQuf3N/UMi4L/ew+amlWPytExDoFOiXr3GBEBlUTrgcWDsq7jctBH6LIYNNi3IdSi
- Czmwpe7pSTrmvzIKi2+ZCACJNkLourfcpTaEZgkUuTvJsA/3cxg/WlnIcl+8We7bpES2
- YrV5HR3TQ5FKA8NlZ9kbqIufEkldP3Gw2U66ezfYrCCd4UH1QnppS1aeTGH39W/wGgPU
- xiZAAdLQe9LCHvENmme1n+DZu9I4aiEcLkOc2uF9GZHBiUCFlDx3hDE2zRCljuieeaM/
- l8RoJsOvMGk8opB0To/UouoH5T+T5hhJra5wPg39yFm+VyL9VLFXjdu429wyVjHgCORR
- wZDQ==
-X-Gm-Message-State: AO0yUKUieRSo2AKJMf667kh0Ai/xBB/vFqBKE3U5LeI+iCvDMOnJAPgL
- mj+pISXTYAVDjTlGnF3MJmhRQw==
-X-Google-Smtp-Source: AK7set/QEDbEa8JZMZ5nDsQTEWO9TnlFJPm08a8Wgn1ES/Q9Gwv+FqjInAFWVZYuHtutMT7nwO5nbg==
-X-Received: by 2002:a50:871a:0:b0:4ac:b4f2:ce44 with SMTP id
- i26-20020a50871a000000b004acb4f2ce44mr3371125edb.38.1676395949068; 
- Tue, 14 Feb 2023 09:32:29 -0800 (PST)
+ bh=X0vTgl+EwiBhnrCXr0xxuDMvxcNALHuFiQR0A2LHsl4=;
+ b=fUCIEs0e1AD+bilz1HaYaTuYoRhmIW44krv0V5FzFsMnXSSc6DTR6kZyLglVJH6+Ju
+ 4FcjFWhgl3dONjFOP+o/r9wak6NRrdyHhDLS8fEYjAHH7vfov5tOxOMR5DOlQwY/7axq
+ +YhablJG3TK18Wkmd24JXrTea/GxAPmPwrmMxN7TloPoW+vY9tqz6usACe5lcxaMD+oS
+ MhGs6gbIOVe9JvEBjtsMYeNlcN63/Qaea8pINUjUv4JUCfFYdeTdlOLFxfaFJAPQTuFM
+ zQ1bXaZvARLOr5vfhpLqHikEmz+4FphIs6RTYEQaz8mFRr6/LL4B8mgrUvhzP9b8y7GP
+ sAWQ==
+X-Gm-Message-State: AO0yUKUqld2gk5+AJC1cVDVASg85H7gEmqKpassT/2w204NdTA0Dav3r
+ bL/vhiKNw6ovZOiCkW4BqOS0lw==
+X-Google-Smtp-Source: AK7set+iMh7/0xs5Je24xhYvEfrZM9zSRunoB8VJFdJYFur84UjwE/0wpeZrccB3cySw9r+oiNMiyA==
+X-Received: by 2002:a50:bace:0:b0:4ab:4cf0:4ab3 with SMTP id
+ x72-20020a50bace000000b004ab4cf04ab3mr3470812ede.38.1676395951540; 
+ Tue, 14 Feb 2023 09:32:31 -0800 (PST)
 Received: from localhost.localdomain (abxh117.neoplus.adsl.tpnet.pl.
  [83.9.1.117]) by smtp.gmail.com with ESMTPSA id
- w8-20020a50c448000000b0049668426aa6sm8325787edf.24.2023.02.14.09.32.27
+ w8-20020a50c448000000b0049668426aa6sm8325787edf.24.2023.02.14.09.32.30
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 14 Feb 2023 09:32:28 -0800 (PST)
+ Tue, 14 Feb 2023 09:32:31 -0800 (PST)
 From: Konrad Dybcio <konrad.dybcio@linaro.org>
 To: linux-arm-msm@vger.kernel.org,
 	andersson@kernel.org,
 	agross@kernel.org
-Date: Tue, 14 Feb 2023 18:31:43 +0100
-Message-Id: <20230214173145.2482651-13-konrad.dybcio@linaro.org>
+Date: Tue, 14 Feb 2023 18:31:44 +0100
+Message-Id: <20230214173145.2482651-14-konrad.dybcio@linaro.org>
 X-Mailer: git-send-email 2.39.1
 In-Reply-To: <20230214173145.2482651-1-konrad.dybcio@linaro.org>
 References: <20230214173145.2482651-1-konrad.dybcio@linaro.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH v2 12/14] drm/msm/a6xx: Use "else if" in GPU
- speedbin rev matching
+Subject: [Freedreno] [PATCH v2 13/14] drm/msm/a6xx: Add A619_holi speedbin
+ support
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -85,39 +85,66 @@ Cc: freedreno@lists.freedesktop.org, Akhil P Oommen <quic_akhilpo@quicinc.com>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-The GPU can only be one at a time. Turn a series of ifs into if +
-elseifs to save some CPU cycles.
+A619_holi is implemented on at least two SoCs: SM4350 (holi) and SM6375
+(blair). This is what seems to be a first occurrence of this happening,
+but it's easy to overcome by guarding the SoC-specific fuse values with
+of_machine_is_compatible(). Do just that to enable frequency limiting
+on these SoCs.
 
 Signed-off-by: Konrad Dybcio <konrad.dybcio@linaro.org>
 ---
- drivers/gpu/drm/msm/adreno/a6xx_gpu.c | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+ drivers/gpu/drm/msm/adreno/a6xx_gpu.c | 31 +++++++++++++++++++++++++++
+ 1 file changed, 31 insertions(+)
 
 diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-index b08ed127f8c4..ffe0fd431a76 100644
+index ffe0fd431a76..94b4d93619ed 100644
 --- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
 +++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-@@ -2153,16 +2153,16 @@ static u32 fuse_to_supp_hw(struct device *dev, struct adreno_rev rev, u32 fuse)
+@@ -2094,6 +2094,34 @@ static u32 a618_get_speed_bin(u32 fuse)
+ 	return UINT_MAX;
+ }
+ 
++static u32 a619_holi_get_speed_bin(u32 fuse)
++{
++	/*
++	 * There are (at least) two SoCs implementing A619_holi: SM4350 (holi)
++	 * and SM6375 (blair). Limit the fuse matching to the corresponding
++	 * SoC to prevent bogus frequency setting (as improbable as it may be,
++	 * given unexpected fuse values are.. unexpected! But still possible.)
++	 */
++
++	if (fuse == 0)
++		return 0;
++
++	if (of_machine_is_compatible("qcom,sm4350")) {
++		if (fuse == 138)
++			return 1;
++		else if (fuse == 92)
++			return 2;
++	} else if (of_machine_is_compatible("qcom,sm6375")) {
++		if (fuse == 190)
++			return 1;
++		else if (fuse == 177)
++			return 2;
++	} else
++		pr_warn("Unknown SoC implementing A619_holi!\n");
++
++	return UINT_MAX;
++}
++
+ static u32 a619_get_speed_bin(u32 fuse)
+ {
+ 	if (fuse == 0)
+@@ -2153,6 +2181,9 @@ static u32 fuse_to_supp_hw(struct device *dev, struct adreno_rev rev, u32 fuse)
  	if (adreno_cmp_rev(ADRENO_REV(6, 1, 8, ANY_ID), rev))
  		val = a618_get_speed_bin(fuse);
  
--	if (adreno_cmp_rev(ADRENO_REV(6, 1, 9, ANY_ID), rev))
-+	else if (adreno_cmp_rev(ADRENO_REV(6, 1, 9, ANY_ID), rev))
++	else if (adreno_cmp_rev(ADRENO_REV(6, 1, 9, 1), rev))
++		val = a619_holi_get_speed_bin(fuse);
++
+ 	else if (adreno_cmp_rev(ADRENO_REV(6, 1, 9, ANY_ID), rev))
  		val = a619_get_speed_bin(fuse);
  
--	if (adreno_cmp_rev(ADRENO_REV(6, 3, 5, ANY_ID), rev))
-+	else if (adreno_cmp_rev(ADRENO_REV(6, 3, 5, ANY_ID), rev))
- 		val = adreno_7c3_get_speed_bin(fuse);
- 
--	if (adreno_cmp_rev(ADRENO_REV(6, 4, 0, ANY_ID), rev))
-+	else if (adreno_cmp_rev(ADRENO_REV(6, 4, 0, ANY_ID), rev))
- 		val = a640_get_speed_bin(fuse);
- 
--	if (adreno_cmp_rev(ADRENO_REV(6, 5, 0, ANY_ID), rev))
-+	else if (adreno_cmp_rev(ADRENO_REV(6, 5, 0, ANY_ID), rev))
- 		val = a650_get_speed_bin(fuse);
- 
- 	if (val == UINT_MAX) {
 -- 
 2.39.1
 
