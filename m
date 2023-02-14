@@ -1,69 +1,60 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 19733696C3C
-	for <lists+freedreno@lfdr.de>; Tue, 14 Feb 2023 19:03:38 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 1754A697031
+	for <lists+freedreno@lfdr.de>; Tue, 14 Feb 2023 22:56:27 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5241410E234;
-	Tue, 14 Feb 2023 18:03:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D5AFD10E043;
+	Tue, 14 Feb 2023 21:56:25 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ej1-x636.google.com (mail-ej1-x636.google.com
- [IPv6:2a00:1450:4864:20::636])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0A96210E234
- for <freedreno@lists.freedesktop.org>; Tue, 14 Feb 2023 18:03:35 +0000 (UTC)
-Received: by mail-ej1-x636.google.com with SMTP id gn39so3830634ejc.8
- for <freedreno@lists.freedesktop.org>; Tue, 14 Feb 2023 10:03:34 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=content-transfer-encoding:in-reply-to:from:cc:to:content-language
- :references:subject:user-agent:mime-version:date:message-id:from:to
- :cc:subject:date:message-id:reply-to;
- bh=dFzXSZqTrKlRvGhc3FKZFlyiDoUaB7hSdoBObzMUKUE=;
- b=Y1nyFHXeor778Pkci3mbZgoqWYq6EFgaoDaD9Ck+xxU9TIDq+84sVRPV7xhXK6WFy9
- W7CgYfjChBcF9dY4y0XmREWz33d73B/Gkt0Qr3rU0uAmDTX1jXVkSLXbDsZKIUk/NXYz
- SXfPp3NzWpVs0SvG3jwaHz75ZwSOZPuArxFHS5/rOu+KDhRlg3pLLXcFkLx0n7NNSRCn
- W3JMyxZcXRcCJG5PWOjZLfpCFXo8nuqUCWht2msV162zWguq9i7v3//+tB+EHqEE0AAh
- 1W7hw6xI2QlXmk7fQa9FQgrV0WCx/2YH93HDWT2LCQ22U8ORAiHHQ4t3FuRMQ4QfdlFR
- feNA==
+Received: from mail-oa1-x30.google.com (mail-oa1-x30.google.com
+ [IPv6:2001:4860:4864:20::30])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 38AB210E036;
+ Tue, 14 Feb 2023 21:56:24 +0000 (UTC)
+Received: by mail-oa1-x30.google.com with SMTP id
+ 586e51a60fabf-16dcb07b805so14264631fac.0; 
+ Tue, 14 Feb 2023 13:56:24 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=KSatBS/MK7pWYdNv/VGlbNMDCcLZ1O3J6AhpFAuuvQc=;
+ b=KOHGs9dCx/MV5ZSbYtdWT5FCwSTrVkX2xYV6S0HrXEr4H00koyiEhV1NXFgvu61Fne
+ kxPQi+ZqgnPIpsXOq11R3ZCV9GkMCuAdxzdfFt0w99rPOPFvW6jg5qo3cUBbBxWCUGn5
+ y6cyxVh/MBz6dVPj3nyEwUc7wZTw1Od0lYgqeQxrqwwFUCw9wf2CnvJxd38tY57sONk7
+ 9+p1YPMPH9hPUSbe5cXZMKYY/CGcFsfuXB5DjKjg1V1jx8GyfhLlq+6e2DpGN0HnphK3
+ fVMqkGR6fQfswCa930JZoYgmd+Xh60/FFbRI2U2dqRX1jsuil4sgXdeFbOkW7SeU6VIE
+ CO3w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=content-transfer-encoding:in-reply-to:from:cc:to:content-language
- :references:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=dFzXSZqTrKlRvGhc3FKZFlyiDoUaB7hSdoBObzMUKUE=;
- b=vdftbUkx07YqU0Mf4pcNpdeNz8aKLg8GWP3HDYUO9vEqOJBrtYO/oGI/JTEzYHd3Pw
- 16HCeAz/LwqyfQIqTTC0xUvX98+1oWRPzwQfRnRaPB0mMBBQiTKnaSkrW9WDYAdmTyon
- 56K67udE32QEazB/B2U4ELu+Hh5JdkCrkbGMcRKUbxPAy9HJVLDdVkTjnxjeMf6s/dqs
- jKXExXRvug34bS/2+PA/CO8NzmgvOgSlt2knFSA69wbFajn62vvs7i3TmMDB7wcNrx91
- VwW6hUZpLoGbEVbjMWggMEI2jaQmSse/NWSRHsiZrrTaok1E+wieV6zwID8NSfenKWgU
- k5Ww==
-X-Gm-Message-State: AO0yUKXHm4MAqsdJhvt9X4dt4IE+evua9oJ5rDUatraeoQrp4NEA9kId
- goUpheu2ibM7AUkImw+ITG/dhA==
-X-Google-Smtp-Source: AK7set/PjVP8k6wMDYx7UTo0AnHE/v/Bi07XTTqTljyW8qfRQL84edTcGsx3CFf3CreuJFhYhz9LWQ==
-X-Received: by 2002:a17:907:a075:b0:87b:7c1d:e02b with SMTP id
- ia21-20020a170907a07500b0087b7c1de02bmr3142420ejc.36.1676397813413; 
- Tue, 14 Feb 2023 10:03:33 -0800 (PST)
-Received: from [192.168.1.101] (abxh117.neoplus.adsl.tpnet.pl. [83.9.1.117])
- by smtp.gmail.com with ESMTPSA id
- u8-20020a1709060b0800b0088550a1ce6esm8491519ejg.222.2023.02.14.10.03.32
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 14 Feb 2023 10:03:33 -0800 (PST)
-Message-ID: <ee96d47a-be2c-e85f-8150-57a77325fe6c@linaro.org>
-Date: Tue, 14 Feb 2023 19:03:31 +0100
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=KSatBS/MK7pWYdNv/VGlbNMDCcLZ1O3J6AhpFAuuvQc=;
+ b=ZTQSB5RU0LdM7kmRfoFb/bU7pio4+C06BPaTVBVJ1lrHyHF6LXHSfY5PXSZBJSpw7f
+ 40nbSbhheu9QAu/iPxron4GhgPxYsET29kV54G1YemBVkuGpRzdjly2dULS8HYFdH69r
+ 7rWtwAhYUndtRDf++fstX1X7ApDGpDnshahTVsHKuYJPw02rvL2CrRl8LWgYGtK46U3o
+ UmTWycVVxyCVPRQooCHBY7Eydc8CoWRPTF7TJMfyHC167ym9WZmiQDq53Ms4xsF7bEPS
+ A15Ir/gwvAfHJC+ID81aHyDFRkduDn4GtMPeRDLMMwkc2lUjOEDWVCrVyt7WkeK2gNYD
+ bMaA==
+X-Gm-Message-State: AO0yUKUvGdlz0JLwvV5li6veptpR/5FE9r5wxAvR2YBii4u5qkkQ020b
+ g6Pb41vKE4iX1ZOd3xQ5X97TRCSZxpzHZ0t9MGc=
+X-Google-Smtp-Source: AK7set/1yYVnUjCEQyoiqfPka498lLP+fGlZ/ugd5TRwuKES936/s9KcP5OJ6pv2MK1r++0COFnb908+NObCmlnu0C4=
+X-Received: by 2002:a05:6871:259b:b0:16e:2bc5:1601 with SMTP id
+ yy27-20020a056871259b00b0016e2bc51601mr32544oab.38.1676411783384; Tue, 14 Feb
+ 2023 13:56:23 -0800 (PST)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.7.1
 References: <20230214173145.2482651-1-konrad.dybcio@linaro.org>
-Content-Language: en-US
-To: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>
-From: Konrad Dybcio <konrad.dybcio@linaro.org>
-In-Reply-To: <20230214173145.2482651-1-konrad.dybcio@linaro.org>
-X-Forwarded-Message-Id: <20230214173145.2482651-1-konrad.dybcio@linaro.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-Subject: [Freedreno] [PATCH v2 00/14] GMU-less A6xx support (A610, A619_holi)
+ <20230214173145.2482651-11-konrad.dybcio@linaro.org>
+In-Reply-To: <20230214173145.2482651-11-konrad.dybcio@linaro.org>
+From: Rob Clark <robdclark@gmail.com>
+Date: Tue, 14 Feb 2023 13:56:12 -0800
+Message-ID: <CAF6AEGva3ecxTOx3Yb+Wh-1K=jYA3tDo_aXg09jS9pzJupYExQ@mail.gmail.com>
+To: Konrad Dybcio <konrad.dybcio@linaro.org>
+Content-Type: text/plain; charset="UTF-8"
+Subject: Re: [Freedreno] [PATCH v2 10/14] drm/msm/a6xx: Fix up A6XX
+ protected registers
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,80 +67,50 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+Cc: freedreno@lists.freedesktop.org, Jonathan Marek <jonathan@marek.ca>,
+ Akhil P Oommen <quic_akhilpo@quicinc.com>, linux-arm-msm@vger.kernel.org,
+ andersson@kernel.org, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ dri-devel@lists.freedesktop.org, Douglas Anderson <dianders@chromium.org>,
+ agross@kernel.org, Daniel Vetter <daniel@ffwll.ch>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, marijn.suijten@somainline.org,
+ David Airlie <airlied@gmail.com>, Sean Paul <sean@poorly.run>,
+ Chia-I Wu <olvaffe@gmail.com>, linux-kernel@vger.kernel.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
+On Tue, Feb 14, 2023 at 9:32 AM Konrad Dybcio <konrad.dybcio@linaro.org> wrote:
+>
+> One of the protected ranges was too small (compared to the data we
+> have downstream). Fix it.
+>
+> Fixes: 408434036958 ("drm/msm/a6xx: update/fix CP_PROTECT initialization")
+> Signed-off-by: Konrad Dybcio <konrad.dybcio@linaro.org>
+> ---
+>  drivers/gpu/drm/msm/adreno/a6xx_gpu.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+>
+> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+> index 503c750216e6..d6b38bfdb3b4 100644
+> --- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+> @@ -690,7 +690,7 @@ static const u32 a6xx_protect[] = {
+>         A6XX_PROTECT_NORDWR(0x00800, 0x0082),
+>         A6XX_PROTECT_NORDWR(0x008a0, 0x0008),
+>         A6XX_PROTECT_NORDWR(0x008ab, 0x0024),
+> -       A6XX_PROTECT_RDONLY(0x008de, 0x00ae),
+> +       A6XX_PROTECT_RDONLY(0x008d0, 0x00bc),
 
-v1 -> v2:
-- Fix A630 values in [2/14]
-- Fix [6/14] for GMU-equipped GPUs
+Nak, this is intentional, we need userspace to be able to configure
+the CP counters.  Otherwise this would break fdperf, perfetto, etc
 
-Link to v1: https://lore.kernel.org/linux-arm-msm/20230126151618.225127-1-konrad.dybcio@linaro.org/
+(although maybe we should comment where we diverge from downstream)
 
-This series concludes my couple-weeks-long suffering of figuring out
-the ins and outs of the "non-standard" A6xx GPUs which feature no GMU.
+BR,
+-R
 
-The GMU functionality is essentially emulated by parting out a
-"GMU wrapper" region, which is essentially just a register space
-within the GPU. It's modeled to be as similar to the actual GMU
-as possible while staying as unnecessary as we can make it - there's
-no IRQs, communicating with a microcontroller, no RPMh communication
-etc. etc. I tried to reuse as much code as possible without making
-a mess where every even line is used for GMU and every odd line is
-used for GMU wrapper..
-
-This series contains:
-- plumbing for non-GMU operation, if-ing out GMU calls based on
-  GMU presence
-- GMU wrapper support
-- A610 support (w/ speedbin)
-- A619 support (w/ speedbin)
-- couple of minor fixes and improvements
-- VDDCX/VDDGX scaling fix for non-GMU GPUs (concerns more than just
-  A6xx)
-- Enablement of opp interconnect properties
-
-A619_holi works perfectly fine using the already-present A619 support
-in mesa. A610 needs more work on that front, but can already replay
-command traces captures on downstream.
-
-NOTE: the "drm/msm/a6xx: Add support for A619_holi" patch contains
-two occurences of 0x18 used in place of a register #define, as it's
-supposed to be RBBM_GPR0_CNTL, but that will only be present after
-mesa-side changes are merged and headers are synced from there.
-
-Speedbin patches depend on:
-https://lore.kernel.org/linux-arm-msm/20230120172233.1905761-1-konrad.dybcio@linaro.org/
-
-
-Konrad Dybcio (14):
-  drm/msm/a6xx: De-staticize sptprac en/disable functions
-  drm/msm/a6xx: Extend UBWC config
-  drm/msm/a6xx: Introduce GMU wrapper support
-  drm/msm/a6xx: Remove both GBIF and RBBM GBIF halt on hw init
-  drm/msm/adreno: Disable has_cached_coherent for A610/A619_holi
-  drm/msm/gpu: Use dev_pm_opp_set_rate for non-GMU GPUs
-  drm/msm/a6xx: Add support for A619_holi
-  drm/msm/a6xx: Add A610 support
-  drm/msm/a6xx: Fix some A619 tunables
-  drm/msm/a6xx: Fix up A6XX protected registers
-  drm/msm/a6xx: Enable optional icc voting from OPP tables
-  drm/msm/a6xx: Use "else if" in GPU speedbin rev matching
-  drm/msm/a6xx: Add A619_holi speedbin support
-  drm/msm/a6xx: Add A610 speedbin support
-
- drivers/gpu/drm/msm/adreno/a6xx_gmu.c       |  55 ++-
- drivers/gpu/drm/msm/adreno/a6xx_gmu.h       |   2 +
- drivers/gpu/drm/msm/adreno/a6xx_gpu.c       | 427 +++++++++++++++++---
- drivers/gpu/drm/msm/adreno/a6xx_gpu.h       |   1 +
- drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c |  14 +-
- drivers/gpu/drm/msm/adreno/adreno_device.c  |  34 +-
- drivers/gpu/drm/msm/adreno/adreno_gpu.c     |   4 +
- drivers/gpu/drm/msm/adreno/adreno_gpu.h     |  19 +-
- drivers/gpu/drm/msm/msm_gpu_devfreq.c       |   2 +-
- 9 files changed, 492 insertions(+), 66 deletions(-)
-
--- 
-2.39.1
-
+>         A6XX_PROTECT_NORDWR(0x00900, 0x004d),
+>         A6XX_PROTECT_NORDWR(0x0098d, 0x0272),
+>         A6XX_PROTECT_NORDWR(0x00e00, 0x0001),
+> --
+> 2.39.1
+>
