@@ -2,61 +2,70 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id A794069643B
-	for <lists+freedreno@lfdr.de>; Tue, 14 Feb 2023 14:06:45 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 012CD696820
+	for <lists+freedreno@lfdr.de>; Tue, 14 Feb 2023 16:32:09 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 979B010E8C1;
-	Tue, 14 Feb 2023 13:06:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B7AC710E1D2;
+	Tue, 14 Feb 2023 15:32:07 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from m-r1.th.seeweb.it (m-r1.th.seeweb.it [5.144.164.170])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 68F9C10E16D
- for <freedreno@lists.freedesktop.org>; Tue, 14 Feb 2023 13:06:41 +0000 (UTC)
-Received: from SoMainline.org (94-211-6-86.cable.dynamic.v4.ziggo.nl
- [94.211.6.86])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest
- SHA256) (No client certificate requested)
- by m-r1.th.seeweb.it (Postfix) with ESMTPSA id C6BD4200B6;
- Tue, 14 Feb 2023 14:06:37 +0100 (CET)
-Date: Tue, 14 Feb 2023 14:06:36 +0100
-From: Marijn Suijten <marijn.suijten@somainline.org>
-To: Abhinav Kumar <quic_abhinavk@quicinc.com>
-Message-ID: <20230214130636.ldckqgcq6ajph372@SoMainline.org>
-Mail-Followup-To: Marijn Suijten <marijn.suijten@somainline.org>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Jessica Zhang <quic_jesszhan@quicinc.com>,
- phone-devel@vger.kernel.org,
- Neil Armstrong <neil.armstrong@linaro.org>,
- ~postmarketos/upstreaming@lists.sr.ht,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@somainline.org>,
- Konrad Dybcio <konrad.dybcio@linaro.org>,
- Martin Botka <martin.botka@somainline.org>,
- Jami Kettunen <jami.kettunen@somainline.org>,
- Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
- David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- Stephen Boyd <swboyd@chromium.org>, Vinod Koul <vkoul@kernel.org>,
- Bjorn Andersson <andersson@kernel.org>,
- Kuogee Hsieh <quic_khsieh@quicinc.com>,
- Konrad Dybcio <konrad.dybcio@somainline.org>,
- Loic Poulain <loic.poulain@linaro.org>,
- Vinod Polimera <quic_vpolimer@quicinc.com>,
- Adam Skladowski <a39.skl@gmail.com>, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-References: <20221231215006.211860-1-marijn.suijten@somainline.org>
- <20221231215006.211860-6-marijn.suijten@somainline.org>
- <773cd72b-a766-1764-e25f-0af1174f0e51@quicinc.com>
- <1051d6bd-eb3c-6293-0bd2-3f4ea28fa3f8@linaro.org>
- <df059f88-6ff6-5906-58f1-4f6c752c4214@quicinc.com>
+Received: from mail-qt1-x835.google.com (mail-qt1-x835.google.com
+ [IPv6:2607:f8b0:4864:20::835])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3A1FC10E1D2
+ for <freedreno@lists.freedesktop.org>; Tue, 14 Feb 2023 15:32:06 +0000 (UTC)
+Received: by mail-qt1-x835.google.com with SMTP id f10so17866109qtv.1
+ for <freedreno@lists.freedesktop.org>; Tue, 14 Feb 2023 07:32:06 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=iT7OrS0tLMyMBH4C21ZIMhCJMcTe4803pwrO0JMxYJA=;
+ b=jVBIudOsjKVvsYLCyJNmT8yPOv8ahQqjzAD6Ny6RSEe+ICGvxskFxhMNLtdFzvAX25
+ qTH+f30CscyTaVsysLcWkkyBt6SV2n8AWPtClFioKjp9+5f6EvFKhEklDIawYtSgRmo/
+ C1/u1GGo22UIWz7fPKEO6A2aD/huFqtAw+G7A=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=iT7OrS0tLMyMBH4C21ZIMhCJMcTe4803pwrO0JMxYJA=;
+ b=Q1NhpXClTGoDBdPjO8BArc0Ricpckg/Qocd8+yMZnbrQbzD+FRWE2KZ9nvQqKqLwQD
+ AGRUz4QRPn8LPSpVSmyj1FSPIFAF6zmAjvk5oO6JzRrKvdpGHMx02Q4rQr/lcgCVkpjU
+ ZaWpZ0W7jaE5rn1995zsCdc8UZfUo6jOHnoCpjF27dl0SwF1zpXYRPYXHGx/DoTbWTuj
+ 1rrqPXSJcfwYOakvVdwHX+5yKisvW/a9M7qLdNOE/bBFdsrfAbWuOTcvWIIex7uQdR30
+ sjaCBEamNZlBEy/66UeI6wJkyT/CKFt0IZ1ozQU9HaZKljdRa1iVTdBAJrHPMctjwV+4
+ +3dg==
+X-Gm-Message-State: AO0yUKWG0C1rOVIwfNq/A78IMQraw/W4FJzDS3ZUgjQ4AwCT52rRiygV
+ DxHHWt4CtBs48iWvvgy1tjeD/RvgmJq3idUy
+X-Google-Smtp-Source: AK7set/Nc7vC/y6/Z3RMrJAaobnlWyXiRAhntNPyqN0dJtvfMzetHsveA7zPowr0qkL0qWAQvHHglw==
+X-Received: by 2002:ac8:5710:0:b0:3b8:6d50:461a with SMTP id
+ 16-20020ac85710000000b003b86d50461amr4855577qtw.1.1676388724871; 
+ Tue, 14 Feb 2023 07:32:04 -0800 (PST)
+Received: from mail-qv1-f45.google.com (mail-qv1-f45.google.com.
+ [209.85.219.45]) by smtp.gmail.com with ESMTPSA id
+ e65-20020a378244000000b0072ed644bb0dsm11866227qkd.97.2023.02.14.07.32.04
+ for <freedreno@lists.freedesktop.org>
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 14 Feb 2023 07:32:04 -0800 (PST)
+Received: by mail-qv1-f45.google.com with SMTP id mg2so3483671qvb.9
+ for <freedreno@lists.freedesktop.org>; Tue, 14 Feb 2023 07:32:04 -0800 (PST)
+X-Received: by 2002:a05:6102:3712:b0:412:626b:1655 with SMTP id
+ s18-20020a056102371200b00412626b1655mr259256vst.68.1676388311514; Tue, 14 Feb
+ 2023 07:25:11 -0800 (PST)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <df059f88-6ff6-5906-58f1-4f6c752c4214@quicinc.com>
-Subject: Re: [Freedreno] [RFC PATCH 5/7] drm/msm/dpu: Document and enable
- TEAR interrupts on DSI interfaces
+References: <20230131141756.RFT.v2.1.I723a3761d57ea60c5dd754c144aed6c3b2ea6f5a@changeid>
+ <20230131141756.RFT.v2.3.I3c87b53c4ab61a7d5e05f601a4eb44c7e3809a01@changeid>
+ <0419b0c8-fb30-f8df-1b9a-19e106680948@quicinc.com>
+ <CAD=FV=Xk6qFokozxEa+MaCgii3zpSWZRDe52FoP17E-DOFXoyg@mail.gmail.com>
+ <1f204585-88e2-abae-1216-92f739ac9e91@quicinc.com>
+In-Reply-To: <1f204585-88e2-abae-1216-92f739ac9e91@quicinc.com>
+From: Doug Anderson <dianders@chromium.org>
+Date: Tue, 14 Feb 2023 07:24:58 -0800
+X-Gmail-Original-Message-ID: <CAD=FV=UKnhdRgxMJNctaHuH3o9ZLACaX16U7b=PonUhL1+FXpQ@mail.gmail.com>
+Message-ID: <CAD=FV=UKnhdRgxMJNctaHuH3o9ZLACaX16U7b=PonUhL1+FXpQ@mail.gmail.com>
+To: Abhinav Kumar <quic_abhinavk@quicinc.com>
+Content-Type: text/plain; charset="UTF-8"
+Subject: Re: [Freedreno] [RFT PATCH v2 3/3] drm/msm/dsi: More properly
+ handle errors in regards to dsi_mgr_bridge_power_on()
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,227 +78,172 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Konrad Dybcio <konrad.dybcio@somainline.org>,
- dri-devel@lists.freedesktop.org,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@somainline.org>,
- phone-devel@vger.kernel.org, David Airlie <airlied@gmail.com>,
- Rob Clark <robdclark@gmail.com>, Kuogee Hsieh <quic_khsieh@quicinc.com>,
- Jessica Zhang <quic_jesszhan@quicinc.com>, linux-arm-msm@vger.kernel.org,
- Adam Skladowski <a39.skl@gmail.com>, Stephen Boyd <swboyd@chromium.org>,
- Martin Botka <martin.botka@somainline.org>,
- ~postmarketos/upstreaming@lists.sr.ht, Sean Paul <sean@poorly.run>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Loic Poulain <loic.poulain@linaro.org>,
- Jami Kettunen <jami.kettunen@somainline.org>,
- Bjorn Andersson <andersson@kernel.org>, linux-kernel@vger.kernel.org,
- Konrad Dybcio <konrad.dybcio@linaro.org>, Vinod Koul <vkoul@kernel.org>,
+Cc: Sean Paul <sean@poorly.run>, Neil Armstrong <neil.armstrong@linaro.org>,
+ linux-kernel@vger.kernel.org, Andrzej Hajda <andrzej.hajda@intel.com>,
+ Jonas Karlman <jonas@kwiboo.se>, linux-arm-msm@vger.kernel.org,
+ Dave Stevenson <dave.stevenson@raspberrypi.com>, Vinod Koul <vkoul@kernel.org>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>, Stephen Boyd <swboyd@chromium.org>,
+ Rob Clark <robdclark@gmail.com>, dri-devel@lists.freedesktop.org,
  Daniel Vetter <daniel@ffwll.ch>,
  Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- freedreno@lists.freedesktop.org, Vinod Polimera <quic_vpolimer@quicinc.com>
+ David Airlie <airlied@gmail.com>, freedreno@lists.freedesktop.org,
+ Robert Foss <robert.foss@linaro.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 2023-02-13 19:09:32, Abhinav Kumar wrote:
-> 
-> 
-> On 2/13/2023 1:46 PM, Dmitry Baryshkov wrote:
-> > On 13/02/2023 21:37, Jessica Zhang wrote:
+Hi,
+
+On Mon, Feb 13, 2023 at 6:02 PM Abhinav Kumar <quic_abhinavk@quicinc.com> wrote:
+>
+> Hi Doug
+>
+> Sorry for the delayed response.
+>
+> On 2/2/2023 2:46 PM, Doug Anderson wrote:
+> > Hi,
+> >
+> > On Thu, Feb 2, 2023 at 2:37 PM Abhinav Kumar <quic_abhinavk@quicinc.com> wrote:
 > >>
+> >> Hi Doug
 > >>
-> >> On 12/31/2022 1:50 PM, Marijn Suijten wrote:
-> >>> All SoCs since DPU 5.0.0 (and seemingly up until and including 6.0.0,
-> >>> but excluding 7.x.x) have the tear interrupt and control registers moved
-> >>> out of the PINGPONG block and into the INTF block.  Wire up the
-> >>> necessary interrupts and IRQ masks on all supported hardware.
-> >>
-> >> Hi Marijn,
-> >>
-> >> Thanks for the patch.
-> >>
-> >> I saw that in your commit msg, you mentioned that 7.x doesn't have 
-> >> tearcheck in the INTF block -- can you double check that this is correct?
-
-It wasn't correct and has already been removed for v2 [1] after rebasing
-on top of SM8[345]50 support, where the registers reside at a different
-(named 7xxxx downstream) offset.
-
-[1] https://github.com/SoMainline/linux/commit/886d3fb9eed925e7e9c8d6ca63d2439eaec1c702
-
-> >> I'm working on SM8350 (DPU v7) and I'm seeing that it does have 
-> >> tearcheck in INTF block.
-> > 
-> > I confirm, according to the vendor drivers INTF TE should be used for 
-> > all DPU >= 5.0, including 7.x and 8.x
-> > 
-> > However I think I know what Marijn meant here. For 5.x and 6.x these 
-> > IRQs are handled at the address MDSS + 0x6e800 / + 0x6e900 (which means 
-> > offset here should 0x6d800 and 0x6d900) for INTF_1 and INTF_2. Since DPU 
-> > 7.x these IRQ registers were moved close to the main INTF block (0x36800 
-> > and 0x37800 = INTF + 0x800).
-
-That might have been the case.
-
-> Got it, then the commit text should remove "control" and just say tear 
-> interrupt registers. It got a bit confusing.
-
-The wording here points to both the interrupt (MDP_INTFx_TEAR_INTR)
-registers and control (INTF_TEAR_xxx) registers separately.  Feel free
-to bikeshed the wording in preliminary v2 [1]; should I drop the mention
-of the control registers being "moved" from PP to INTF entirely, leaving
-just the wording about the interrupt registers moving from
-MDP_SSPP_TOP0_INTR to a dedicated MDP_INTFx_TEAR_INTR region?
-
-> We will add the 7xxx intf tear check support on top of this series.
-
-No need, that is already taken care of in an impending v2 [1] (unless
-additional changes are required beyond the moved register offset).
-
-> >>> Signed-off-by: Marijn Suijten <marijn.suijten@somainline.org>
-> >>> ---
-> >>>   .../gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c    | 78 +++++++++++--------
-> >>>   .../gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h    |  6 +-
-> >>>   .../gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c | 12 +++
-> >>>   .../gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.h |  2 +
-> >>>   drivers/gpu/drm/msm/disp/dpu1/dpu_hwio.h      |  3 +
-> >>>   5 files changed, 68 insertions(+), 33 deletions(-)
+> >> On 1/31/2023 2:18 PM, Douglas Anderson wrote:
+> >>> In commit 7d8e9a90509f ("drm/msm/dsi: move DSI host powerup to modeset
+> >>> time") the error handling with regards to dsi_mgr_bridge_power_on()
+> >>> got a bit worse. Specifically if we failed to power the bridge on then
+> >>> nothing would really notice. The modeset function couldn't return an
+> >>> error and thus we'd blindly go forward and try to do the pre-enable.
 > >>>
-> >>> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c 
-> >>> b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
-> >>> index 1cfe94494135..b9b9b5b0b615 100644
-> >>> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
-> >>> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
-> >>> @@ -86,6 +86,15 @@
-> >>>   #define INTF_SC7280_MASK INTF_SC7180_MASK | BIT(DPU_DATA_HCTL_EN)
-> >>> +#define IRQ_MSM8998_MASK (BIT(MDP_SSPP_TOP0_INTR) | \
-> >>> +             BIT(MDP_SSPP_TOP0_INTR2) | \
-> >>> +             BIT(MDP_SSPP_TOP0_HIST_INTR) | \
-> >>> +             BIT(MDP_INTF0_INTR) | \
-> >>> +             BIT(MDP_INTF1_INTR) | \
-> >>> +             BIT(MDP_INTF2_INTR) | \
-> >>> +             BIT(MDP_INTF3_INTR) | \
-> >>> +             BIT(MDP_INTF4_INTR))
+> >>> In commit ec7981e6c614 ("drm/msm/dsi: don't powerup at modeset time
+> >>> for parade-ps8640") we added a special case to move the powerup back
+> >>> to pre-enable time for ps8640. When we did that, we didn't try to
+> >>> recover the old/better error handling just for ps8640.
+> >>>
+> >>> In the patch ("drm/msm/dsi: Stop unconditionally powering up DSI hosts
+> >>> at modeset") we've now moved the powering up back to exclusively being
+> >>> during pre-enable. That means we can add the better error handling
+> >>> back in, so let's do it. To do so we'll add a new function
+> >>> dsi_mgr_bridge_power_off() that's matches how errors were handled
+> >>> prior to commit 7d8e9a90509f ("drm/msm/dsi: move DSI host powerup to
+> >>> modeset time").
+> >>>
+> >>> NOTE: Now that we have dsi_mgr_bridge_power_off(), it feels as if we
+> >>> should be calling it in dsi_mgr_bridge_post_disable(). That would make
+> >>> some sense, but doing so would change the current behavior and thus
+> >>> should be a separate patch. Specifically:
+> >>> * dsi_mgr_bridge_post_disable() always calls dsi_mgr_phy_disable()
+> >>>     even in the slave-DSI case of bonded DSI. We'd need to add special
+> >>>     handling for this if it's truly needed.
+> >>> * dsi_mgr_bridge_post_disable() calls msm_dsi_phy_pll_save_state()
+> >>>     midway through the poweroff.
+> >>> * dsi_mgr_bridge_post_disable() has a different order of some of the
+> >>>     poweroffs / IRQ disables.
+> >>> For now we'll leave dsi_mgr_bridge_post_disable() alone.
+> >>>
+> >>> Signed-off-by: Douglas Anderson <dianders@chromium.org>
+> >>> ---
+> >>>
+> >>> Changes in v2:
+> >>> - ("More properly handle errors...") new for v2.
+> >>>
+> >>>    drivers/gpu/drm/msm/dsi/dsi_manager.c | 32 ++++++++++++++++++++++-----
+> >>>    1 file changed, 26 insertions(+), 6 deletions(-)
+> >>>
+> >>> diff --git a/drivers/gpu/drm/msm/dsi/dsi_manager.c b/drivers/gpu/drm/msm/dsi/dsi_manager.c
+> >>> index 2197a54b9b96..28b8012a21f2 100644
+> >>> --- a/drivers/gpu/drm/msm/dsi/dsi_manager.c
+> >>> +++ b/drivers/gpu/drm/msm/dsi/dsi_manager.c
+> >>> @@ -228,7 +228,7 @@ static void msm_dsi_manager_set_split_display(u8 id)
+> >>>        }
+> >>>    }
+> >>>
+> >>> -static void dsi_mgr_bridge_power_on(struct drm_bridge *bridge)
+> >>> +static int dsi_mgr_bridge_power_on(struct drm_bridge *bridge)
+> >>>    {
+> >>>        int id = dsi_mgr_bridge_get_id(bridge);
+> >>>        struct msm_dsi *msm_dsi = dsi_mgr_get_dsi(id);
+> >>> @@ -268,14 +268,31 @@ static void dsi_mgr_bridge_power_on(struct drm_bridge *bridge)
+> >>>        if (is_bonded_dsi && msm_dsi1)
+> >>>                msm_dsi_host_enable_irq(msm_dsi1->host);
+> >>>
+> >>> -     return;
+> >>> +     return 0;
+> >>>
+> >>>    host1_on_fail:
+> >>>        msm_dsi_host_power_off(host);
+> >>>    host_on_fail:
+> >>>        dsi_mgr_phy_disable(id);
+> >>>    phy_en_fail:
+> >>> -     return;
+> >>> +     return ret;
+> >>> +}
 > >>> +
-> >>>   #define IRQ_SDM845_MASK (BIT(MDP_SSPP_TOP0_INTR) | \
-> >>>                BIT(MDP_SSPP_TOP0_INTR2) | \
-> >>>                BIT(MDP_SSPP_TOP0_HIST_INTR) | \
-> >>> @@ -100,13 +109,15 @@
-> >>>   #define IRQ_QCM2290_MASK (BIT(MDP_SSPP_TOP0_INTR) | \
-> >>>                BIT(MDP_SSPP_TOP0_INTR2) | \
-> >>>                BIT(MDP_SSPP_TOP0_HIST_INTR) | \
-> >>> -             BIT(MDP_INTF1_INTR))
-> >>> +             BIT(MDP_INTF1_INTR) | \
-> >>> +             BIT(MDP_INTF1_TEAR_INTR))
-> >>>   #define IRQ_SC7180_MASK (BIT(MDP_SSPP_TOP0_INTR) | \
-> >>>                BIT(MDP_SSPP_TOP0_INTR2) | \
-> >>>                BIT(MDP_SSPP_TOP0_HIST_INTR) | \
-> >>>                BIT(MDP_INTF0_INTR) | \
-> >>> -             BIT(MDP_INTF1_INTR))
-> >>> +             BIT(MDP_INTF1_INTR) | \
-> >>> +             BIT(MDP_INTF1_TEAR_INTR))
-> >>>   #define IRQ_SC7280_MASK (BIT(MDP_SSPP_TOP0_INTR) | \
-> >>>                BIT(MDP_SSPP_TOP0_INTR2) | \
-> >>> @@ -120,7 +131,9 @@
-> >>>                BIT(MDP_SSPP_TOP0_HIST_INTR) | \
-> >>>                BIT(MDP_INTF0_INTR) | \
-> >>>                BIT(MDP_INTF1_INTR) | \
-> >>> +             BIT(MDP_INTF1_TEAR_INTR) | \
-> >>>                BIT(MDP_INTF2_INTR) | \
-> >>> +             BIT(MDP_INTF2_TEAR_INTR) | \
-> >>>                BIT(MDP_INTF3_INTR) | \
-> >>>                BIT(MDP_INTF4_INTR))
-> >>> @@ -129,7 +142,9 @@
-> >>>                 BIT(MDP_SSPP_TOP0_HIST_INTR) | \
-> >>>                 BIT(MDP_INTF0_INTR) | \
-> >>>                 BIT(MDP_INTF1_INTR) | \
-> >>> +              BIT(MDP_INTF1_TEAR_INTR) | \
-> >>>                 BIT(MDP_INTF2_INTR) | \
-> >>> +              BIT(MDP_INTF2_TEAR_INTR) | \
-> >>>                 BIT(MDP_INTF3_INTR) | \
-> >>>                 BIT(MDP_INTF4_INTR) | \
-> >>>                 BIT(MDP_INTF5_INTR) | \
-> >>> @@ -1300,63 +1315,64 @@ static struct dpu_dsc_cfg sdm845_dsc[] = {
-> >>>   /*************************************************************
-> >>>    * INTF sub blocks config
-> >>>    *************************************************************/
-> >>> -#define INTF_BLK(_name, _id, _base, _type, _ctrl_id, _progfetch, 
-> >>> _features, _reg, _underrun_bit, _vsync_bit) \
-> >>> +#define INTF_BLK(_name, _id, _base, _len, _type, _ctrl_id, 
-> >>> _progfetch, _features, _reg, _underrun_bit, _vsync_bit, _tear_reg, 
-> >>> _tear_rd_ptr_bit) \
-> >>>       {\
-> >>>       .name = _name, .id = _id, \
-> >>> -    .base = _base, .len = 0x280, \
-> >>> +    .base = _base, .len = _len, \
-> >>>       .features = _features, \
-> >>>       .type = _type, \
-> >>>       .controller_id = _ctrl_id, \
-> >>>       .prog_fetch_lines_worst_case = _progfetch, \
-> >>>       .intr_underrun = DPU_IRQ_IDX(_reg, _underrun_bit), \
-> >>>       .intr_vsync = DPU_IRQ_IDX(_reg, _vsync_bit), \
-> >>> +    .intr_tear_rd_ptr = DPU_IRQ_IDX(_tear_reg, _tear_rd_ptr_bit), \
-> >>>       }
-> >>>   static const struct dpu_intf_cfg msm8998_intf[] = {
-> >>> -    INTF_BLK("intf_0", INTF_0, 0x6A000, INTF_DP, 0, 25, 
-> >>> INTF_SDM845_MASK, MDP_SSPP_TOP0_INTR, 24, 25),
-> >>> -    INTF_BLK("intf_1", INTF_1, 0x6A800, INTF_DSI, 0, 25, 
-> >>> INTF_SDM845_MASK, MDP_SSPP_TOP0_INTR, 26, 27),
-> >>> -    INTF_BLK("intf_2", INTF_2, 0x6B000, INTF_DSI, 1, 25, 
-> >>> INTF_SDM845_MASK, MDP_SSPP_TOP0_INTR, 28, 29),
-> >>> -    INTF_BLK("intf_3", INTF_3, 0x6B800, INTF_HDMI, 0, 25, 
-> >>> INTF_SDM845_MASK, MDP_SSPP_TOP0_INTR, 30, 31),
-> >>> +    INTF_BLK("intf_0", INTF_0, 0x6A000, 0x268, INTF_DP, 0, 25, 
-> >>> INTF_SDM845_MASK, MDP_SSPP_TOP0_INTR, 24, 25, -1, -1),
+> >>> +static void dsi_mgr_bridge_power_off(struct drm_bridge *bridge)
+> >>> +{
+> >>> +     int id = dsi_mgr_bridge_get_id(bridge);
+> >>> +     struct msm_dsi *msm_dsi = dsi_mgr_get_dsi(id);
+> >>> +     struct msm_dsi *msm_dsi1 = dsi_mgr_get_dsi(DSI_1);
+> >>> +     struct mipi_dsi_host *host = msm_dsi->host;
+> >>> +     bool is_bonded_dsi = IS_BONDED_DSI();
+> >>> +
+> >>> +     msm_dsi_host_disable_irq(host);
+> >>> +     if (is_bonded_dsi && msm_dsi1) {
+> >>> +             msm_dsi_host_disable_irq(msm_dsi1->host);
+> >>> +             msm_dsi_host_power_off(msm_dsi1->host);
+> >>> +     }
 > >>
-> >> Just wondering, how were the lengths calculated for the INTF blocks? 
-> >> The values in general seem a little off to me.
+> >> The order of disabling the IRQs should be opposite of how they were enabled.
+> >>
+> >> So while enabling it was DSI0 and then DSI1.
+> >>
+> >> Hence while disabling it should be DSI1 and then DSI0.
+> >>
+> >> So the order here should be
+> >>
+> >> DSI1 irq disable
+> >> DSI0 irq disable
+> >> DSI1 host power off
+> >> DSI0 host power off
+> >
+> > Right. Normally you want to go opposite. I guess a few points, though:
+> >
+> > 1. As talked about in the commit message, the order I have matches the
+> > order we had prior to commit 7d8e9a90509f ("drm/msm/dsi: move DSI host
+> > powerup to modeset time").
+> >
+> > 2. I'd be curious if it matters. The order you request means we need
+> > to check for `(is_bonded_dsi && msm_dsi1)` twice. While that's not a
+> > big deal if it's important, it's nice not to have to do so.
+> >
+> > 3. As talked about in the commit message, eventually we should
+> > probably resolve this order with the order of things in
+> > dsi_mgr_bridge_post_disable(), which is yet a different ordering.
+> > Ideally this resolution would be done by someone who actually has
+> > proper documentation of the hardware and how it's supposed to work
+> > (AKA not me).
+> >
+> > So my preference would be to either land or drop ${SUBJECT} patch
+> > (either is fine with me) and then someone at Qualcomm could then take
+> > over further cleanup.
+> >
+>
+> I do think the ordering matters but you are right, this change brings
+> back the ordering we had before so lets handle the re-ordering of all
+> places in a separate change. I am okay with this change to go-in, hence
+>
+> Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
+>
+> What is the plan to land the patches?
+>
+> 2 & 3 go in msm-next but 1 goes in drm-misc?
 
-These (for MSM8998) have been taken from downstream specifically; my
-series starts using INTF_STATUS at 0x26C which conveniently is the
-register right after 0x268, matching the fact that INTF TE and these
-registers weren't supported/available yet on MSM8998.
+We can do that and I'm happy to land patch #1 in drm-misc. Then I
+assume we'd want to wait until the change makes its way into mainline
+before landing patch #2/#3?
 
-> >> For example, I'm looking downstream and it seems to me that the length 
-> >> for the INTF_0 on MSM8998 should be 0x280. Similarly for SC7280, I'm 
-> >> seeing that length for INTF + tearcheck should be 0x2c4.
+Given how tiny patch #1 is, though, it sure seems like it would be
+nice / easier if they all went through the msm tree. I guess we'd want
+one of the drm-misc maintainers (not just a committer like me) to Ack
+this? Maybe it's not worth it and we should just go the slow route?
 
-There are many different downstream sources and tags with seemingly
-conflicting/confusing information.  For v2 [2] I've picked the highest
-register used by the driver which is INTF_TEAR_AUTOREFRESH_CONFIG at
-0x2B4 (but there might always be more registers that don't need to be
-poked at by the driver, but contain magic debug information and the
-like... those would be useful to capture in the dump going forward).
-
-[2]: https://github.com/SoMainline/linux/commit/2bbc609dd28aa0bd0a2dede20163e521912d0072
-
-> > We have discussed INTF lengths in [1]. The current understanding of the 
-> > block lengths can be found at [2]. Please comment there if any of the 
-> > fixed lengths sounds incorrect to you.
-> > 
-> > [1] https://patchwork.freedesktop.org/patch/522187/
-> > [2] https://patchwork.freedesktop.org/patch/522227/
-> > 
-> > [skipped the rest]
-> > 
-> 
-> Please correct my understanding here, it was agreed to fix intf blocks 
-> to 0x2c4 here https://patchwork.freedesktop.org/patch/522227/ but I dont 
-> see this was merged?
-> 
-> It was agreed to first land INTF_TE and then add the higher addresses 
-
-Seems like it, at least if I interpret [3] correctly.  My series adds a
-new define that will hardcode _len to 0x2B8 for now, and Dmitry/Konrad
-can later extend it to whatever is stated by the correct downstream
-source.
-
-[3]: https://lore.kernel.org/linux-arm-msm/6ad96cff-b91b-a4c7-4573-7bb8de7194f8@linaro.org/
-
-> but I dont see such a change, am i missing something?
-
-This was discussed just yesterday.  And it wouldn't make much sense to
-make such a change now, knowing that my v2 for this series - which isn't
-even on the lists yet - will already change the INTF_BLK macro resulting
-in unneeded conflicts.  As requested by Dmitry, let's get INTF TE
-processed first before rebasing the block length change?
-
-- Marijn
+-Doug
