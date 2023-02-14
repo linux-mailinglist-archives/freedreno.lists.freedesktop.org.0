@@ -2,65 +2,61 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id D23B3696394
-	for <lists+freedreno@lfdr.de>; Tue, 14 Feb 2023 13:35:21 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A794069643B
+	for <lists+freedreno@lfdr.de>; Tue, 14 Feb 2023 14:06:45 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 069AC10E8C1;
-	Tue, 14 Feb 2023 12:35:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 979B010E8C1;
+	Tue, 14 Feb 2023 13:06:43 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x134.google.com (mail-lf1-x134.google.com
- [IPv6:2a00:1450:4864:20::134])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7A70010E132
- for <freedreno@lists.freedesktop.org>; Tue, 14 Feb 2023 12:35:09 +0000 (UTC)
-Received: by mail-lf1-x134.google.com with SMTP id br9so23257622lfb.4
- for <freedreno@lists.freedesktop.org>; Tue, 14 Feb 2023 04:35:09 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=C1wKD3viWx9y2Doh09M6thHCui3jXjNr6R+aDc8/BUA=;
- b=W+iHYcy4Kau9N/8oFf0OC/B05xBFj+/6mw6m7TeMCX96tPAlibotzVD0l4WvPYU49S
- fqf0J4giZ4dLuYcSwWsGsHN4b19iYKmKvjhclr/QTdEW8UM/t8SqZ4wUZZn//Bc+sy9c
- bDXSq2BJ7KUi5pljAOYb0a/Q55L+YhXg9k8VaNpomy8LHDe4SZlgJG1mU6AkT88bC1s+
- snfiDwmYE6KhFm50Sdtn1aE9GMtgKBipn1eNWoV/dQb3Mke1fnlK9zoyeq3nqtsURyBi
- ifDg/2InNco6iX43uhqpNGnInicMlYkpZRmaSRrbMo6XEOY/HP200v4C+v+rrF01hFWw
- fJCg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=C1wKD3viWx9y2Doh09M6thHCui3jXjNr6R+aDc8/BUA=;
- b=ImwXZLw99zhDpZ5apf8yv4JMaltoi39FxstZaHLyJdpTahBXWgTKxQBxieHcKkIqBf
- e6l4/pTGiftoLx6onXkeWy6iVz4gdysSfCRCzAHTxH/l9tlmkB38nryYrXUmjn5pkhE0
- 6zC81yBRxe9dsYZUBZmnhz9fk0yK47OLbYqvdVLgtEFx/x9qyXRZJg043ScA0vIw4pG7
- IiZqeAX4cW0n2EPi1iPH0pQXwjTKqvZDw7QbTsVx3I6DqJwGrL97TUaEgkR9ibE4EIlX
- UQ6o2fIxSVuSmRHzqwQGAs0JJ2vSeqOx/VQmRawOlelmvmhi1OyBXiy8+stzH39742en
- jC4A==
-X-Gm-Message-State: AO0yUKWt4PTFvvamqChltYJjoB3s4lY5zuSoK+2YZVB3h3ZIaVjwv2CS
- 8KVd2DlOb1RYXoqY/acWefSomw==
-X-Google-Smtp-Source: AK7set9Bquz0hgYxtaiG1c/s1FRRk3s8VS0wWQuvd5BrpQ5m9R1E/b4/FcDR3o2q7MpTGUiuP9qyAA==
-X-Received: by 2002:a05:6512:48f:b0:4b5:b7c3:8053 with SMTP id
- v15-20020a056512048f00b004b5b7c38053mr466747lfq.42.1676378107761; 
- Tue, 14 Feb 2023 04:35:07 -0800 (PST)
-Received: from umbar.unikie.fi ([192.130.178.91])
- by smtp.gmail.com with ESMTPSA id
- v19-20020ac25613000000b004ab52b0bcf9sm1077158lfd.207.2023.02.14.04.35.06
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 14 Feb 2023 04:35:07 -0800 (PST)
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-To: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>
-Date: Tue, 14 Feb 2023 15:35:04 +0300
-Message-Id: <20230214123504.3729522-4-dmitry.baryshkov@linaro.org>
-X-Mailer: git-send-email 2.30.2
-In-Reply-To: <20230214123504.3729522-1-dmitry.baryshkov@linaro.org>
-References: <20230214123504.3729522-1-dmitry.baryshkov@linaro.org>
+Received: from m-r1.th.seeweb.it (m-r1.th.seeweb.it [5.144.164.170])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 68F9C10E16D
+ for <freedreno@lists.freedesktop.org>; Tue, 14 Feb 2023 13:06:41 +0000 (UTC)
+Received: from SoMainline.org (94-211-6-86.cable.dynamic.v4.ziggo.nl
+ [94.211.6.86])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest
+ SHA256) (No client certificate requested)
+ by m-r1.th.seeweb.it (Postfix) with ESMTPSA id C6BD4200B6;
+ Tue, 14 Feb 2023 14:06:37 +0100 (CET)
+Date: Tue, 14 Feb 2023 14:06:36 +0100
+From: Marijn Suijten <marijn.suijten@somainline.org>
+To: Abhinav Kumar <quic_abhinavk@quicinc.com>
+Message-ID: <20230214130636.ldckqgcq6ajph372@SoMainline.org>
+Mail-Followup-To: Marijn Suijten <marijn.suijten@somainline.org>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Jessica Zhang <quic_jesszhan@quicinc.com>,
+ phone-devel@vger.kernel.org,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ ~postmarketos/upstreaming@lists.sr.ht,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@somainline.org>,
+ Konrad Dybcio <konrad.dybcio@linaro.org>,
+ Martin Botka <martin.botka@somainline.org>,
+ Jami Kettunen <jami.kettunen@somainline.org>,
+ Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Stephen Boyd <swboyd@chromium.org>, Vinod Koul <vkoul@kernel.org>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Kuogee Hsieh <quic_khsieh@quicinc.com>,
+ Konrad Dybcio <konrad.dybcio@somainline.org>,
+ Loic Poulain <loic.poulain@linaro.org>,
+ Vinod Polimera <quic_vpolimer@quicinc.com>,
+ Adam Skladowski <a39.skl@gmail.com>, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+References: <20221231215006.211860-1-marijn.suijten@somainline.org>
+ <20221231215006.211860-6-marijn.suijten@somainline.org>
+ <773cd72b-a766-1764-e25f-0af1174f0e51@quicinc.com>
+ <1051d6bd-eb3c-6293-0bd2-3f4ea28fa3f8@linaro.org>
+ <df059f88-6ff6-5906-58f1-4f6c752c4214@quicinc.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH 3/3] drm/msm/a5xx: add devcoredump support to
- the fault handler
+In-Reply-To: <df059f88-6ff6-5906-58f1-4f6c752c4214@quicinc.com>
+Subject: Re: [Freedreno] [RFC PATCH 5/7] drm/msm/dpu: Document and enable
+ TEAR interrupts on DSI interfaces
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,51 +69,227 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
- Bjorn Andersson <andersson@kernel.org>, dri-devel@lists.freedesktop.org,
- Stephen Boyd <swboyd@chromium.org>, Daniel Vetter <daniel@ffwll.ch>,
- David Airlie <airlied@gmail.com>
+Cc: Konrad Dybcio <konrad.dybcio@somainline.org>,
+ dri-devel@lists.freedesktop.org,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@somainline.org>,
+ phone-devel@vger.kernel.org, David Airlie <airlied@gmail.com>,
+ Rob Clark <robdclark@gmail.com>, Kuogee Hsieh <quic_khsieh@quicinc.com>,
+ Jessica Zhang <quic_jesszhan@quicinc.com>, linux-arm-msm@vger.kernel.org,
+ Adam Skladowski <a39.skl@gmail.com>, Stephen Boyd <swboyd@chromium.org>,
+ Martin Botka <martin.botka@somainline.org>,
+ ~postmarketos/upstreaming@lists.sr.ht, Sean Paul <sean@poorly.run>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Loic Poulain <loic.poulain@linaro.org>,
+ Jami Kettunen <jami.kettunen@somainline.org>,
+ Bjorn Andersson <andersson@kernel.org>, linux-kernel@vger.kernel.org,
+ Konrad Dybcio <konrad.dybcio@linaro.org>, Vinod Koul <vkoul@kernel.org>,
+ Daniel Vetter <daniel@ffwll.ch>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ freedreno@lists.freedesktop.org, Vinod Polimera <quic_vpolimer@quicinc.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Use adreno_fault_handler() to implement a5xx_fault_handler(). This
-enables devcoredump support on a5xx platforms, allowing one to capture
-the crashed GPU state at the time of context fault.
+On 2023-02-13 19:09:32, Abhinav Kumar wrote:
+> 
+> 
+> On 2/13/2023 1:46 PM, Dmitry Baryshkov wrote:
+> > On 13/02/2023 21:37, Jessica Zhang wrote:
+> >>
+> >>
+> >> On 12/31/2022 1:50 PM, Marijn Suijten wrote:
+> >>> All SoCs since DPU 5.0.0 (and seemingly up until and including 6.0.0,
+> >>> but excluding 7.x.x) have the tear interrupt and control registers moved
+> >>> out of the PINGPONG block and into the INTF block.  Wire up the
+> >>> necessary interrupts and IRQ masks on all supported hardware.
+> >>
+> >> Hi Marijn,
+> >>
+> >> Thanks for the patch.
+> >>
+> >> I saw that in your commit msg, you mentioned that 7.x doesn't have 
+> >> tearcheck in the INTF block -- can you double check that this is correct?
 
-Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
----
- drivers/gpu/drm/msm/adreno/a5xx_gpu.c | 13 ++++++++-----
- 1 file changed, 8 insertions(+), 5 deletions(-)
+It wasn't correct and has already been removed for v2 [1] after rebasing
+on top of SM8[345]50 support, where the registers reside at a different
+(named 7xxxx downstream) offset.
 
-diff --git a/drivers/gpu/drm/msm/adreno/a5xx_gpu.c b/drivers/gpu/drm/msm/adreno/a5xx_gpu.c
-index b5270324f5f8..d38ebfb5965b 100644
---- a/drivers/gpu/drm/msm/adreno/a5xx_gpu.c
-+++ b/drivers/gpu/drm/msm/adreno/a5xx_gpu.c
-@@ -1099,16 +1099,19 @@ bool a5xx_idle(struct msm_gpu *gpu, struct msm_ringbuffer *ring)
- static int a5xx_fault_handler(void *arg, unsigned long iova, int flags, void *data)
- {
- 	struct msm_gpu *gpu = arg;
--	pr_warn_ratelimited("*** gpu fault: iova=%08lx, flags=%d (%u,%u,%u,%u)\n",
--			iova, flags,
-+	struct adreno_smmu_fault_info *info = data;
-+	char block[12] = "unknown";
-+	u32 scratch[] = {
- 			gpu_read(gpu, REG_A5XX_CP_SCRATCH_REG(4)),
- 			gpu_read(gpu, REG_A5XX_CP_SCRATCH_REG(5)),
- 			gpu_read(gpu, REG_A5XX_CP_SCRATCH_REG(6)),
--			gpu_read(gpu, REG_A5XX_CP_SCRATCH_REG(7)));
-+			gpu_read(gpu, REG_A5XX_CP_SCRATCH_REG(7)),
-+	};
- 
--	gpu->aspace->mmu->funcs->resume_translation(gpu->aspace->mmu);
-+	if (info)
-+		snprintf(block, sizeof(block), "%x", info->fsynr1);
- 
--	return 0;
-+	return adreno_fault_handler(gpu, iova, flags, info, block, scratch);
- }
- 
- static void a5xx_cp_err_irq(struct msm_gpu *gpu)
--- 
-2.30.2
+[1] https://github.com/SoMainline/linux/commit/886d3fb9eed925e7e9c8d6ca63d2439eaec1c702
 
+> >> I'm working on SM8350 (DPU v7) and I'm seeing that it does have 
+> >> tearcheck in INTF block.
+> > 
+> > I confirm, according to the vendor drivers INTF TE should be used for 
+> > all DPU >= 5.0, including 7.x and 8.x
+> > 
+> > However I think I know what Marijn meant here. For 5.x and 6.x these 
+> > IRQs are handled at the address MDSS + 0x6e800 / + 0x6e900 (which means 
+> > offset here should 0x6d800 and 0x6d900) for INTF_1 and INTF_2. Since DPU 
+> > 7.x these IRQ registers were moved close to the main INTF block (0x36800 
+> > and 0x37800 = INTF + 0x800).
+
+That might have been the case.
+
+> Got it, then the commit text should remove "control" and just say tear 
+> interrupt registers. It got a bit confusing.
+
+The wording here points to both the interrupt (MDP_INTFx_TEAR_INTR)
+registers and control (INTF_TEAR_xxx) registers separately.  Feel free
+to bikeshed the wording in preliminary v2 [1]; should I drop the mention
+of the control registers being "moved" from PP to INTF entirely, leaving
+just the wording about the interrupt registers moving from
+MDP_SSPP_TOP0_INTR to a dedicated MDP_INTFx_TEAR_INTR region?
+
+> We will add the 7xxx intf tear check support on top of this series.
+
+No need, that is already taken care of in an impending v2 [1] (unless
+additional changes are required beyond the moved register offset).
+
+> >>> Signed-off-by: Marijn Suijten <marijn.suijten@somainline.org>
+> >>> ---
+> >>>   .../gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c    | 78 +++++++++++--------
+> >>>   .../gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h    |  6 +-
+> >>>   .../gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c | 12 +++
+> >>>   .../gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.h |  2 +
+> >>>   drivers/gpu/drm/msm/disp/dpu1/dpu_hwio.h      |  3 +
+> >>>   5 files changed, 68 insertions(+), 33 deletions(-)
+> >>>
+> >>> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c 
+> >>> b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
+> >>> index 1cfe94494135..b9b9b5b0b615 100644
+> >>> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
+> >>> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
+> >>> @@ -86,6 +86,15 @@
+> >>>   #define INTF_SC7280_MASK INTF_SC7180_MASK | BIT(DPU_DATA_HCTL_EN)
+> >>> +#define IRQ_MSM8998_MASK (BIT(MDP_SSPP_TOP0_INTR) | \
+> >>> +             BIT(MDP_SSPP_TOP0_INTR2) | \
+> >>> +             BIT(MDP_SSPP_TOP0_HIST_INTR) | \
+> >>> +             BIT(MDP_INTF0_INTR) | \
+> >>> +             BIT(MDP_INTF1_INTR) | \
+> >>> +             BIT(MDP_INTF2_INTR) | \
+> >>> +             BIT(MDP_INTF3_INTR) | \
+> >>> +             BIT(MDP_INTF4_INTR))
+> >>> +
+> >>>   #define IRQ_SDM845_MASK (BIT(MDP_SSPP_TOP0_INTR) | \
+> >>>                BIT(MDP_SSPP_TOP0_INTR2) | \
+> >>>                BIT(MDP_SSPP_TOP0_HIST_INTR) | \
+> >>> @@ -100,13 +109,15 @@
+> >>>   #define IRQ_QCM2290_MASK (BIT(MDP_SSPP_TOP0_INTR) | \
+> >>>                BIT(MDP_SSPP_TOP0_INTR2) | \
+> >>>                BIT(MDP_SSPP_TOP0_HIST_INTR) | \
+> >>> -             BIT(MDP_INTF1_INTR))
+> >>> +             BIT(MDP_INTF1_INTR) | \
+> >>> +             BIT(MDP_INTF1_TEAR_INTR))
+> >>>   #define IRQ_SC7180_MASK (BIT(MDP_SSPP_TOP0_INTR) | \
+> >>>                BIT(MDP_SSPP_TOP0_INTR2) | \
+> >>>                BIT(MDP_SSPP_TOP0_HIST_INTR) | \
+> >>>                BIT(MDP_INTF0_INTR) | \
+> >>> -             BIT(MDP_INTF1_INTR))
+> >>> +             BIT(MDP_INTF1_INTR) | \
+> >>> +             BIT(MDP_INTF1_TEAR_INTR))
+> >>>   #define IRQ_SC7280_MASK (BIT(MDP_SSPP_TOP0_INTR) | \
+> >>>                BIT(MDP_SSPP_TOP0_INTR2) | \
+> >>> @@ -120,7 +131,9 @@
+> >>>                BIT(MDP_SSPP_TOP0_HIST_INTR) | \
+> >>>                BIT(MDP_INTF0_INTR) | \
+> >>>                BIT(MDP_INTF1_INTR) | \
+> >>> +             BIT(MDP_INTF1_TEAR_INTR) | \
+> >>>                BIT(MDP_INTF2_INTR) | \
+> >>> +             BIT(MDP_INTF2_TEAR_INTR) | \
+> >>>                BIT(MDP_INTF3_INTR) | \
+> >>>                BIT(MDP_INTF4_INTR))
+> >>> @@ -129,7 +142,9 @@
+> >>>                 BIT(MDP_SSPP_TOP0_HIST_INTR) | \
+> >>>                 BIT(MDP_INTF0_INTR) | \
+> >>>                 BIT(MDP_INTF1_INTR) | \
+> >>> +              BIT(MDP_INTF1_TEAR_INTR) | \
+> >>>                 BIT(MDP_INTF2_INTR) | \
+> >>> +              BIT(MDP_INTF2_TEAR_INTR) | \
+> >>>                 BIT(MDP_INTF3_INTR) | \
+> >>>                 BIT(MDP_INTF4_INTR) | \
+> >>>                 BIT(MDP_INTF5_INTR) | \
+> >>> @@ -1300,63 +1315,64 @@ static struct dpu_dsc_cfg sdm845_dsc[] = {
+> >>>   /*************************************************************
+> >>>    * INTF sub blocks config
+> >>>    *************************************************************/
+> >>> -#define INTF_BLK(_name, _id, _base, _type, _ctrl_id, _progfetch, 
+> >>> _features, _reg, _underrun_bit, _vsync_bit) \
+> >>> +#define INTF_BLK(_name, _id, _base, _len, _type, _ctrl_id, 
+> >>> _progfetch, _features, _reg, _underrun_bit, _vsync_bit, _tear_reg, 
+> >>> _tear_rd_ptr_bit) \
+> >>>       {\
+> >>>       .name = _name, .id = _id, \
+> >>> -    .base = _base, .len = 0x280, \
+> >>> +    .base = _base, .len = _len, \
+> >>>       .features = _features, \
+> >>>       .type = _type, \
+> >>>       .controller_id = _ctrl_id, \
+> >>>       .prog_fetch_lines_worst_case = _progfetch, \
+> >>>       .intr_underrun = DPU_IRQ_IDX(_reg, _underrun_bit), \
+> >>>       .intr_vsync = DPU_IRQ_IDX(_reg, _vsync_bit), \
+> >>> +    .intr_tear_rd_ptr = DPU_IRQ_IDX(_tear_reg, _tear_rd_ptr_bit), \
+> >>>       }
+> >>>   static const struct dpu_intf_cfg msm8998_intf[] = {
+> >>> -    INTF_BLK("intf_0", INTF_0, 0x6A000, INTF_DP, 0, 25, 
+> >>> INTF_SDM845_MASK, MDP_SSPP_TOP0_INTR, 24, 25),
+> >>> -    INTF_BLK("intf_1", INTF_1, 0x6A800, INTF_DSI, 0, 25, 
+> >>> INTF_SDM845_MASK, MDP_SSPP_TOP0_INTR, 26, 27),
+> >>> -    INTF_BLK("intf_2", INTF_2, 0x6B000, INTF_DSI, 1, 25, 
+> >>> INTF_SDM845_MASK, MDP_SSPP_TOP0_INTR, 28, 29),
+> >>> -    INTF_BLK("intf_3", INTF_3, 0x6B800, INTF_HDMI, 0, 25, 
+> >>> INTF_SDM845_MASK, MDP_SSPP_TOP0_INTR, 30, 31),
+> >>> +    INTF_BLK("intf_0", INTF_0, 0x6A000, 0x268, INTF_DP, 0, 25, 
+> >>> INTF_SDM845_MASK, MDP_SSPP_TOP0_INTR, 24, 25, -1, -1),
+> >>
+> >> Just wondering, how were the lengths calculated for the INTF blocks? 
+> >> The values in general seem a little off to me.
+
+These (for MSM8998) have been taken from downstream specifically; my
+series starts using INTF_STATUS at 0x26C which conveniently is the
+register right after 0x268, matching the fact that INTF TE and these
+registers weren't supported/available yet on MSM8998.
+
+> >> For example, I'm looking downstream and it seems to me that the length 
+> >> for the INTF_0 on MSM8998 should be 0x280. Similarly for SC7280, I'm 
+> >> seeing that length for INTF + tearcheck should be 0x2c4.
+
+There are many different downstream sources and tags with seemingly
+conflicting/confusing information.  For v2 [2] I've picked the highest
+register used by the driver which is INTF_TEAR_AUTOREFRESH_CONFIG at
+0x2B4 (but there might always be more registers that don't need to be
+poked at by the driver, but contain magic debug information and the
+like... those would be useful to capture in the dump going forward).
+
+[2]: https://github.com/SoMainline/linux/commit/2bbc609dd28aa0bd0a2dede20163e521912d0072
+
+> > We have discussed INTF lengths in [1]. The current understanding of the 
+> > block lengths can be found at [2]. Please comment there if any of the 
+> > fixed lengths sounds incorrect to you.
+> > 
+> > [1] https://patchwork.freedesktop.org/patch/522187/
+> > [2] https://patchwork.freedesktop.org/patch/522227/
+> > 
+> > [skipped the rest]
+> > 
+> 
+> Please correct my understanding here, it was agreed to fix intf blocks 
+> to 0x2c4 here https://patchwork.freedesktop.org/patch/522227/ but I dont 
+> see this was merged?
+> 
+> It was agreed to first land INTF_TE and then add the higher addresses 
+
+Seems like it, at least if I interpret [3] correctly.  My series adds a
+new define that will hardcode _len to 0x2B8 for now, and Dmitry/Konrad
+can later extend it to whatever is stated by the correct downstream
+source.
+
+[3]: https://lore.kernel.org/linux-arm-msm/6ad96cff-b91b-a4c7-4573-7bb8de7194f8@linaro.org/
+
+> but I dont see such a change, am i missing something?
+
+This was discussed just yesterday.  And it wouldn't make much sense to
+make such a change now, knowing that my v2 for this series - which isn't
+even on the lists yet - will already change the INTF_BLK macro resulting
+in unneeded conflicts.  As requested by Dmitry, let's get INTF TE
+processed first before rebasing the block length change?
+
+- Marijn
