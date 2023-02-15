@@ -1,50 +1,57 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id CBCA66981F0
-	for <lists+freedreno@lfdr.de>; Wed, 15 Feb 2023 18:26:51 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 03DB86984DC
+	for <lists+freedreno@lfdr.de>; Wed, 15 Feb 2023 20:46:59 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 941D110E28B;
-	Wed, 15 Feb 2023 17:26:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C150610EBF7;
+	Wed, 15 Feb 2023 19:46:57 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6C54510E162;
- Wed, 15 Feb 2023 15:58:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=MIME-Version:Content-Transfer-Encoding:Content-Type:Date:Cc:To:
- From:Subject:Message-ID:Sender:Reply-To:Content-ID:Content-Description:
- Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:
- In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
- List-Post:List-Owner:List-Archive;
- bh=5kMmQ7eQcRUHs3Kq/pFvqrTP19hP+D8jOA/195A6v+U=; b=CN5JZavErT2GtiRNe7NS/9n4Sj
- EI6/3HoUEtsPZndThG/3XBasMLBnWH2HuTkuC6q9B4DFEOz2yNdd6fCk9pVzuZ2GROSUQe8AAzxTe
- jN1WUwzR1xrMjRtZVXDAq/Nkn6jgzapueLoPGa3fCFv59YOB/11DnkMX9HR4Sye5O+6gqJj+TYTec
- WV1PmnHeyINzjL0kPpfxaal2WzMbWjUSSTxeGJ2XcmkvnpGV5hAvr5XNkOdt6G5Jd/f/gfK54pt0Z
- qtZThkM54Iamz1MLWuxwW6BpbM8W6ba+Gcbj+ttD3W9QCOoX/STkAZW3Yz8b8besgscamYmFi7i/t
- 0I80XCjw==;
-Received: from 137.red-83-52-2.dynamicip.rima-tde.net ([83.52.2.137]
- helo=localhost.localdomain) by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1pSKAW-0038Cf-H3; Wed, 15 Feb 2023 16:58:04 +0100
-Message-ID: <ef4e39301a769ef83668074c341274e30db57f95.camel@igalia.com>
-From: Ricardo Garcia <rgarcia@igalia.com>
-To: members@x.org, events@lists.x.org, xorg-devel@lists.freedesktop.org, 
- wayland-devel@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
- mesa-dev@lists.freedesktop.org, amd-gfx@lists.freedesktop.org, 
- etnaviv@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
- nouveau@lists.freedesktop.org, intel-gfx@lists.freedesktop.org, 
- libre-soc-dev@lists.libre-soc.org
-Date: Wed, 15 Feb 2023 16:58:03 +0100
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.46.3 (3.46.3-1.fc37) 
+Received: from mail-oi1-f181.google.com (mail-oi1-f181.google.com
+ [209.85.167.181])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 63D2D10E2AA;
+ Wed, 15 Feb 2023 19:46:56 +0000 (UTC)
+Received: by mail-oi1-f181.google.com with SMTP id bi19so16820648oib.2;
+ Wed, 15 Feb 2023 11:46:56 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=ES8N8Hh2D7hQsUypK+gMa+ocupch+L82j/qPG7r9WpE=;
+ b=XqabWusdW08wsG5lEzAKpwXTgGQDvcpbCbJJ/AYSHcc6AjSLvk0D4JAG+LYkEhTvhL
+ /kP7k1W+nZwJppDrEFDMXCEVjUj2eM/i74ZuR5wvpiFQoOY877lM3DZ8BbY2/Fzw8NJY
+ 699BJ1HsjIbXBFGNB6Xmi7QPLPjbiPjQjfGV2Z5nDIzSRXBZ6UJ28KRQr6cbYktXwRzE
+ J1MlZFn+zYHyDsgj55DDk79fNo0+iO+/Pd9l8U/gBuF3C371doIz5OMAlHoypxOw9Leu
+ RehjP+n9exoae1VpgnWWPpGxZKGzjpgGoeC/Lg89loh4YkSnpMoqQ1079ltElMnEIpDC
+ jsDw==
+X-Gm-Message-State: AO0yUKXkOL9+2mAqi/NyYn9rHxqzrCsZ0D/24gx8e+f1YfIaFn9/8k0r
+ ZWLZmwF9K19CfflQZ9qHjg==
+X-Google-Smtp-Source: AK7set8ruhe6908E1A45EySWkYOia5CVpYGuR38kcmC2APgjfq0ejeqyOBjiYT28fJdXwmCjaOc3zw==
+X-Received: by 2002:a05:6808:1314:b0:377:f784:3332 with SMTP id
+ y20-20020a056808131400b00377f7843332mr258161oiv.24.1676490415555; 
+ Wed, 15 Feb 2023 11:46:55 -0800 (PST)
+Received: from robh_at_kernel.org (66-90-144-107.dyn.grandenetworks.net.
+ [66.90.144.107]) by smtp.gmail.com with ESMTPSA id
+ i126-20020acaea84000000b0037887ca2150sm7612534oih.22.2023.02.15.11.46.54
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 15 Feb 2023 11:46:55 -0800 (PST)
+Received: (nullmailer pid 458210 invoked by uid 1000);
+ Wed, 15 Feb 2023 19:46:54 -0000
+Date: Wed, 15 Feb 2023 13:46:54 -0600
+From: Rob Herring <robh@kernel.org>
+To: Konrad Dybcio <konrad.dybcio@linaro.org>
+Message-ID: <167649041349.458158.6164203599398852315.robh@kernel.org>
+References: <20230213121012.1768296-1-konrad.dybcio@linaro.org>
+ <20230213121012.1768296-2-konrad.dybcio@linaro.org>
 MIME-Version: 1.0
-X-Mailman-Approved-At: Wed, 15 Feb 2023 17:26:47 +0000
-Subject: [Freedreno] 2023 X.Org Foundation Membership deadline for voting in
- the election
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20230213121012.1768296-2-konrad.dybcio@linaro.org>
+Subject: Re: [Freedreno] [PATCH v2 1/9] dt-bindings: display/msm:
+ dsi-controller-main: Fix deprecated QCM2290 compatible
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,20 +64,30 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: board <board@foundation.x.org>
+Cc: freedreno@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, devicetree@vger.kernel.org,
+ Sean Paul <sean@poorly.run>, andersson@kernel.org,
+ krzysztof.kozlowski@linaro.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Rob Clark <robdclark@gmail.com>,
+ Rob Herring <robh+dt@kernel.org>,
+ Krishna Manikandan <quic_mkrishn@quicinc.com>, agross@kernel.org,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, marijn.suijten@somainline.org,
+ David Airlie <airlied@gmail.com>, linux-arm-msm@vger.kernel.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-The 2023 X.Org Foundation elections are rapidly approaching. We will be
-forwarding the election schedule and nominating process to the
-membership shortly.
 
-Please note that only current members can vote in the upcoming election,
-and that the deadline for new memberships or renewals to vote in the
-upcoming election is 26 March 2023 at 23:59 UTC.
+On Mon, 13 Feb 2023 13:10:04 +0100, Konrad Dybcio wrote:
+> The qcom, prefix was missed previously. Fix it.
+> 
+> Fixes: 0c0f65c6dd44 ("dt-bindings: msm: dsi-controller-main: Add compatible strings for every current SoC")
+> Signed-off-by: Konrad Dybcio <konrad.dybcio@linaro.org>
+> ---
+>  .../devicetree/bindings/display/msm/dsi-controller-main.yaml    | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
 
-If you are interested in joining the X.Org Foundation or in renewing
-your membership, please visit the membership system site at:
-https://members.x.org/
+Acked-by: Rob Herring <robh@kernel.org>
 
-Ricardo Garcia, on behalf of the X.Org elections committee
