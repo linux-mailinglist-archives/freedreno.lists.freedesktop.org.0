@@ -1,72 +1,48 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id E3921699A79
-	for <lists+freedreno@lfdr.de>; Thu, 16 Feb 2023 17:49:09 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 386DB699B09
+	for <lists+freedreno@lfdr.de>; Thu, 16 Feb 2023 18:16:10 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E472910EE13;
-	Thu, 16 Feb 2023 16:49:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 604CB10EE2A;
+	Thu, 16 Feb 2023 17:16:08 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-x235.google.com (mail-lj1-x235.google.com
- [IPv6:2a00:1450:4864:20::235])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 50ECE10EE13
- for <freedreno@lists.freedesktop.org>; Thu, 16 Feb 2023 16:49:05 +0000 (UTC)
-Received: by mail-lj1-x235.google.com with SMTP id i18so1993510ljc.8
- for <freedreno@lists.freedesktop.org>; Thu, 16 Feb 2023 08:49:05 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=bHKHX1HAZBr85iXwo+WtkQELZyFCk6BcVCrttzsLWZU=;
- b=zak29ERZiQt8Id07KJzutrFccKuEBZa/n53O2dbu5L2/sZ6mWojebQbhZTvmDUcjnp
- 0ZFrq8l1JsgyqOH/UBUH9NRlfA5iIqSYZM6CWtFEZnCmabWQrXUkQHv1O6KsYdvsCEKw
- e2xOd4tfdbUtjBHZl5k/ZyfhoLGZYjNYo0Q6A2supNUwxbjY+qvtGk1BPUp8GAEKj0vO
- E0KsVX7CLDrgIw6j3mt0fBsZzJGip7/FK1kBKKBz7BeK5goIQjW2IkznvdTymyZjWsqR
- t7pJt4mMEdZQ8M3aHsn/E3dN91vR8mLYn97uaHy5DiX0NT6z07hRM+5LD5X8ZlNXcdyG
- i0Ig==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=bHKHX1HAZBr85iXwo+WtkQELZyFCk6BcVCrttzsLWZU=;
- b=r2o1F7zK9mSkg0iIbn7g1UFGS83Cf0rr0sDvEcFbBe9ZZTEY9xvku1MLswLMvMK4YY
- aPCLF68V0qLofEOKQPpkKdwuAYJzthlWMOV9zHNZkwRy2awNPBGqsnq9emu2BOWuxPv9
- PlVcewsy1Jh/dDOPkxu6pJJyfTE6EuwlO1OEcF+xtdGTd15XT4oqLaafOwUUZ8092zN3
- lUjX8Lv42bNg0aC6UJCW0JDH19ht48Eguq7EQub7jL0nWSdpnYudbKFz2HY2zZJj2r7j
- /KKN8iBci9JkVQfNkqCyjP0JOCEF37F3a7bO18P8gVQhG3HDYkQR3BhdMjJicCLxvOCk
- D3EQ==
-X-Gm-Message-State: AO0yUKWs2bNt/avG7Wlk9sPRn1/bforC7LWldC0SIpS3Xem/pdH5MJLe
- QB8sJG6ghWGUrabvDoIDkFocpg==
-X-Google-Smtp-Source: AK7set8MsvIGToSTGnh3xHzEOHexpm2Mv0MCDS0pFbnIcUwoVg9VY1ezx/Gcsdy3k2wE6PDGRUYaQg==
-X-Received: by 2002:a05:651c:2220:b0:293:4e08:1aab with SMTP id
- y32-20020a05651c222000b002934e081aabmr2865284ljq.10.1676566143576; 
- Thu, 16 Feb 2023 08:49:03 -0800 (PST)
-Received: from ?IPV6:2001:14ba:a085:4d00::8a5?
- (dzccz6yyyyyyyyyyybcwt-3.rev.dnainternet.fi. [2001:14ba:a085:4d00::8a5])
- by smtp.gmail.com with ESMTPSA id
- o4-20020a2e9444000000b002935284f5a4sm274997ljh.13.2023.02.16.08.49.02
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 16 Feb 2023 08:49:02 -0800 (PST)
-Message-ID: <e2f5fb1d-b57f-4695-5345-c82faea127b0@linaro.org>
-Date: Thu, 16 Feb 2023 18:49:02 +0200
+Received: from madras.collabora.co.uk (madras.collabora.co.uk
+ [IPv6:2a00:1098:0:82:1000:25:2eeb:e5ab])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8D8A810EE22;
+ Thu, 16 Feb 2023 17:16:06 +0000 (UTC)
+Received: from [192.168.2.109] (unknown [109.252.117.89])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ (Authenticated sender: dmitry.osipenko)
+ by madras.collabora.co.uk (Postfix) with ESMTPSA id 00D3F6602116;
+ Thu, 16 Feb 2023 17:16:03 +0000 (GMT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1676567765;
+ bh=8RfT/ATOYpAaq4kgh8A+t+VldumzcvpydtSOWpN9s9M=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=kT50sYEOQAK1eeuhcAYSgT3kb57q77fBt3kN8DmvPwjRchCyjR3BfehrnYGaQ8D6x
+ e19DXEQVqZe2bueNDF2NC6FdO+L/luHFywCzxgw4c4idCFqbOu9Egeismn2s2ljpff
+ hly6ZmBfXM8AFJT6acOFRJTMfR6gStqfdM3xVR56zg0DyUQ9YLXhg5MJzJfl4n3wG+
+ HrZOVQP+oqboCeMXiZeLLmVTWZEo6BJvQoZzb6MyjHEqGpm0vp9OGSdx7M2q8bPY/E
+ +SJLneCCZsBb8evAwCSLVUXUzASwaaF8BZWeHRk2EgJ3zljJECbE4jcM28VOJxKLn9
+ ykLOjm4SpJEZw==
+Message-ID: <fca1d6ee-552c-2d8a-2558-2932de453304@collabora.com>
+Date: Thu, 16 Feb 2023 20:16:00 +0300
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.7.2
-Content-Language: en-GB
-To: Abhinav Kumar <quic_abhinavk@quicinc.com>, Rob Clark
- <robdclark@gmail.com>, Sean Paul <sean@poorly.run>
-References: <20230203182132.1307834-1-dmitry.baryshkov@linaro.org>
- <20230203182132.1307834-21-dmitry.baryshkov@linaro.org>
- <8e89bdc2-94ff-63b8-3089-c946e0226cff@quicinc.com>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-In-Reply-To: <8e89bdc2-94ff-63b8-3089-c946e0226cff@quicinc.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-Subject: Re: [Freedreno] [PATCH v3 20/27] drm/msm/dpu: add dpu_hw_pipe_cfg
- to dpu_plane_state
+ Thunderbird/102.7.1
+Content-Language: en-US
+To: Rob Clark <robdclark@gmail.com>, dri-devel@lists.freedesktop.org
+References: <20230215235048.1166484-1-robdclark@gmail.com>
+From: Dmitry Osipenko <dmitry.osipenko@collabora.com>
+In-Reply-To: <20230215235048.1166484-1-robdclark@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+Subject: Re: [Freedreno] [PATCH] drm/msm: Fix potential invalid ptr free
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,41 +55,55 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
- Bjorn Andersson <andersson@kernel.org>, dri-devel@lists.freedesktop.org,
- Stephen Boyd <swboyd@chromium.org>, Daniel Vetter <daniel@ffwll.ch>,
- David Airlie <airlied@gmail.com>
+Cc: Rob Clark <robdclark@chromium.org>, freedreno@lists.freedesktop.org,
+ linux-arm-msm@vger.kernel.org, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Jordan Crouse <jordan@cosmicpenguin.net>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>,
+ open list <linux-kernel@vger.kernel.org>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 06/02/2023 21:07, Abhinav Kumar wrote:
+On 2/16/23 02:50, Rob Clark wrote:
+> From: Rob Clark <robdclark@chromium.org>
 > 
+> The error path cleanup expects that chain and syncobj are either NULL or
+> valid pointers.  But post_deps was not allocated with __GFP_ZERO.
 > 
-> On 2/3/2023 10:21 AM, Dmitry Baryshkov wrote:
->> Now as all accesses to pipe_cfg and pstate have been cleaned, re-add
->> struct dpu_hw_pipe_cfg back to dpu_plane_state, so that
->> dpu_plane_atomic_check() and dpu_plane_atomic_update() do not have a
->> chance to disagree about src/dst rectangles (currently
->> dpu_plane_atomic_check() uses unclipped rectangles, while
->> dpu_plane_atomic_update() uses clipped rectangles calculated by
->> drm_atomic_helper_check_plane_state()).
->>
-> The title of the patch should now say "add dpu_hw_sspp_cfg"
+> Fixes: ab723b7a992a ("drm/msm: Add syncobj support.")
+> Signed-off-by: Rob Clark <robdclark@chromium.org>
+> ---
+>  drivers/gpu/drm/msm/msm_gem_submit.c | 5 ++---
+>  1 file changed, 2 insertions(+), 3 deletions(-)
 > 
-> I have a question on the commit text, why does it say "re-add" and not 
-> "add".
-> 
-> dpu_hw_pipe_cfg/dpu_hw_sspp_cfg was not a part of dpu_plane_state even 
-> before and I dont recall it was removed in this series and then added back.
+> diff --git a/drivers/gpu/drm/msm/msm_gem_submit.c b/drivers/gpu/drm/msm/msm_gem_submit.c
+> index 6503220e5a4b..e4d13540300e 100644
+> --- a/drivers/gpu/drm/msm/msm_gem_submit.c
+> +++ b/drivers/gpu/drm/msm/msm_gem_submit.c
+> @@ -640,8 +640,8 @@ static struct msm_submit_post_dep *msm_parse_post_deps(struct drm_device *dev,
+>  	int ret = 0;
+>  	uint32_t i, j;
+>  
+> -	post_deps = kmalloc_array(nr_syncobjs, sizeof(*post_deps),
+> -	                          GFP_KERNEL | __GFP_NOWARN | __GFP_NORETRY);
+> +	post_deps = kcalloc(nr_syncobjs, sizeof(*post_deps),
+> +			    GFP_KERNEL | __GFP_NOWARN | __GFP_NORETRY);
+>  	if (!post_deps)
+>  		return ERR_PTR(-ENOMEM);
+>  
+> @@ -656,7 +656,6 @@ static struct msm_submit_post_dep *msm_parse_post_deps(struct drm_device *dev,
+>  		}
+>  
+>  		post_deps[i].point = syncobj_desc.point;
+> -		post_deps[i].chain = NULL;
+>  
+>  		if (syncobj_desc.flags) {
+>  			ret = -EINVAL;
 
-Ack, I'll fix both items in v4.
+Good catch!
 
-> 
->> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
->> ---
->>   drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c | 64 ++++++++++-------------
->>   drivers/gpu/drm/msm/disp/dpu1/dpu_plane.h |  2 +
->>   2 files changed, 30 insertions(+), 36 deletions(-)-- 
-With best wishes
+Reviewed-by: Dmitry Osipenko <dmitry.osipenko@collabora.com>
+
+-- 
+Best regards,
 Dmitry
 
