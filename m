@@ -2,61 +2,56 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 929CA699D63
-	for <lists+freedreno@lfdr.de>; Thu, 16 Feb 2023 21:12:01 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0462C699F22
+	for <lists+freedreno@lfdr.de>; Thu, 16 Feb 2023 22:47:06 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6AE3810E370;
-	Thu, 16 Feb 2023 20:11:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7839210E38D;
+	Thu, 16 Feb 2023 21:47:04 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wr1-x431.google.com (mail-wr1-x431.google.com
- [IPv6:2a00:1450:4864:20::431])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BA02310E376
- for <freedreno@lists.freedesktop.org>; Thu, 16 Feb 2023 20:11:56 +0000 (UTC)
-Received: by mail-wr1-x431.google.com with SMTP id bu23so2948498wrb.8
- for <freedreno@lists.freedesktop.org>; Thu, 16 Feb 2023 12:11:56 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=KmsCXE1cc+kjYkXP7Av8+g/i6Xiae0+2FF4SyY/8c1Y=;
- b=Z9/TpqTt2w1EyzDy+hgxyZZdv0XE+fU06DflDuxaxXsm04CxinixVlqeu8znsQttuk
- GIO1OONphJIuGmb3iSZ7CEdUen26WffWPdu6dgO16g8fJa2l6FIn6aiVDuHrA9kpO/9o
- P8y7zjNCb1eyevJNupis21d6YvG64TQOomKOQ=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=KmsCXE1cc+kjYkXP7Av8+g/i6Xiae0+2FF4SyY/8c1Y=;
- b=UNtCwGUrHb4Zx0ox7jPZvPLbwy+NhSxEIlkmI4NF1TwD4PYf3XK0cNvNaUJWaSC4Qi
- sHD8W8Q3ULiPsHdnhybupyK2iVS/htwidAu/S8aPmQdloXaA1CubvP8gLNMuIV2f5Z/X
- KtQfRXsOi5V5Mvo0x+dYIPZPkK+62ia+VKGcUjl1fC2SknNyjEmOe3Kxym5pSLW7A8il
- LV1XP28PQLOhM2SNsULBXpuzg1+mcpaZRQe8e7F51ojVXyMDvbO6Umc2AGDgsbEv6WJC
- tbPscLuT3jYTt4lnuOt7nsH4C74GMLfa2v7ixvezyn1kIlgJ26Cj2PgXPgNTxsLpKdHp
- aWBA==
-X-Gm-Message-State: AO0yUKVSeNfhcX6y0TD+0PtPYUisQYBRIdWua2DmVVkcoegoXNcjplFA
- A6ZSjn5jgRT6BdCqPUvskosZDQ==
-X-Google-Smtp-Source: AK7set9SaGzBuaVjPNmI5K6tL/a+m6AYcw8bkZU23dWsn9A1+haGPZXOjfFCDUkIWccpGoPjBGtWGQ==
-X-Received: by 2002:adf:fd92:0:b0:2c5:60e2:ed68 with SMTP id
- d18-20020adffd92000000b002c560e2ed68mr4742497wrr.0.1676578314980; 
- Thu, 16 Feb 2023 12:11:54 -0800 (PST)
-Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
- by smtp.gmail.com with ESMTPSA id
- h9-20020a5d6e09000000b002c56af32e8csm2365195wrz.35.2023.02.16.12.11.53
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 16 Feb 2023 12:11:54 -0800 (PST)
-Date: Thu, 16 Feb 2023 21:11:52 +0100
-From: Daniel Vetter <daniel@ffwll.ch>
-To: Thomas Zimmermann <tzimmermann@suse.de>
-Message-ID: <Y+6OCAJ9wyE1PfAw@phenom.ffwll.local>
-References: <20230216140620.17699-1-tzimmermann@suse.de>
+Received: from relay08.th.seeweb.it (relay08.th.seeweb.it
+ [IPv6:2001:4b7a:2000:18::169])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5B5CF10E1A0
+ for <freedreno@lists.freedesktop.org>; Thu, 16 Feb 2023 21:47:01 +0000 (UTC)
+Received: from SoMainline.org (94-211-6-86.cable.dynamic.v4.ziggo.nl
+ [94.211.6.86])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest
+ SHA256) (No client certificate requested)
+ by m-r2.th.seeweb.it (Postfix) with ESMTPSA id 911AC3F623;
+ Thu, 16 Feb 2023 22:46:57 +0100 (CET)
+Date: Thu, 16 Feb 2023 22:46:55 +0100
+From: Marijn Suijten <marijn.suijten@somainline.org>
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Message-ID: <20230216214655.a3ajtegqwattn2rt@SoMainline.org>
+Mail-Followup-To: Marijn Suijten <marijn.suijten@somainline.org>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Rob Clark <robdclark@gmail.com>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Sean Paul <sean@poorly.run>, David Airlie <airlied@gmail.com>,
+ Daniel Vetter <daniel@ffwll.ch>,
+ Archit Taneja <architt@codeaurora.org>,
+ Chandan Uddaraju <chandanu@codeaurora.org>,
+ Sravanthi Kollukuduru <skolluku@codeaurora.org>,
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ ~postmarketos/upstreaming@lists.sr.ht,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@somainline.org>,
+ Konrad Dybcio <konrad.dybcio@linaro.org>,
+ Martin Botka <martin.botka@somainline.org>,
+ Jami Kettunen <jami.kettunen@somainline.org>,
+ phone-devel@vger.kernel.org
+References: <20230215-sspp-scaler-version-v1-0-416b1500b85b@somainline.org>
+ <20230215-sspp-scaler-version-v1-1-416b1500b85b@somainline.org>
+ <CAA8EJpq1L32VQ1eQEk2YQWqCwHgdFQfuWPhQx=PmhzXvazLgPA@mail.gmail.com>
+ <20230216083119.6ispk2xhahhzn5sx@SoMainline.org>
+ <305a468a-d792-4f51-5a7a-bf38b9c685eb@linaro.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20230216140620.17699-1-tzimmermann@suse.de>
-X-Operating-System: Linux phenom 5.19.0-2-amd64 
-Subject: Re: [Freedreno] [PATCH] drm/fb-helper: Remove
- drm_fb_helper_unprepare() from drm_fb_helper_fini()
+In-Reply-To: <305a468a-d792-4f51-5a7a-bf38b9c685eb@linaro.org>
+Subject: Re: [Freedreno] [PATCH 1/3] drm/msm/dpu: Read
+ previously-uninitialized SSPP scaler version from hw
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,258 +64,133 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, linux-samsung-soc@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
- intel-gfx@lists.freedesktop.org, maarten.lankhorst@linux.intel.com,
- javierm@redhat.com, mripard@kernel.org, dri-devel@lists.freedesktop.org,
- daniel@ffwll.ch, linux-tegra@vger.kernel.org, airlied@gmail.com,
- linux-arm-kernel@lists.infradead.org
+Cc: freedreno@lists.freedesktop.org, Archit Taneja <architt@codeaurora.org>,
+ Jami Kettunen <jami.kettunen@somainline.org>, Sean Paul <sean@poorly.run>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@somainline.org>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Konrad Dybcio <konrad.dybcio@linaro.org>,
+ Rob Clark <robdclark@gmail.com>, Martin Botka <martin.botka@somainline.org>,
+ Sravanthi Kollukuduru <skolluku@codeaurora.org>,
+ Daniel Vetter <daniel@ffwll.ch>, linux-arm-msm@vger.kernel.org,
+ phone-devel@vger.kernel.org, David Airlie <airlied@gmail.com>,
+ Chandan Uddaraju <chandanu@codeaurora.org>,
+ ~postmarketos/upstreaming@lists.sr.ht
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Thu, Feb 16, 2023 at 03:06:20PM +0100, Thomas Zimmermann wrote:
-> Move drm_fb_helper_unprepare() from drm_fb_helper_fini() into the
-> calling fbdev implementation. Avoids a possible stale mutex with
-> generic fbdev code.
+On 2023-02-16 18:34:43, Dmitry Baryshkov wrote:
+> On 16/02/2023 10:31, Marijn Suijten wrote:
+> > On 2023-02-16 04:22:13, Dmitry Baryshkov wrote:
+> >> On Thu, 16 Feb 2023 at 01:02, Marijn Suijten
+> >> <marijn.suijten@somainline.org> wrote:
+> >>>
+> >>> DPU's catalog never assigned dpu_scaler_blk::version leading to
+> >>> initialization code in dpu_hw_setup_scaler3 to wander the wrong
+> >>> codepaths.  Instead of hardcoding the correct QSEED algorithm version,
+> >>> read it back from a hardware register.
+> >>>
+> >>> Note that this register is only available starting with QSEED3, where
+> >>> 0x1002 corresponds to QSEED3, 0x2004 to QSEED3LITE and 0x3000 to QSEED4.
+> >>
+> >> This is not purely accurate. 0x1003 (sdm845) also corresponds to QSEED3.
+> >> I'd say instead that there are several variations of QSEED3 scalers,
+> >> where starting from 0x2004 it is called QSEED3LITE and starting from
+> >> 0x3000 it is called QSEED4.
+> > 
+> > Good catch, I'll update that.
+> > 
+> >>> Fixes: 25fdd5933e4c ("drm/msm: Add SDM845 DPU support")
+> >>> Signed-off-by: Marijn Suijten <marijn.suijten@somainline.org>
+> >>> ---
+> >>>   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h | 2 --
+> >>>   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.c    | 8 +++++++-
+> >>>   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.h    | 3 +++
+> >>>   3 files changed, 10 insertions(+), 3 deletions(-)
+> >>>
+> >>> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h
+> >>> index ddab9caebb18..96ce1766f4a1 100644
+> >>> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h
+> >>> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h
+> >>> @@ -324,11 +324,9 @@ struct dpu_src_blk {
+> >>>   /**
+> >>>    * struct dpu_scaler_blk: Scaler information
+> >>>    * @info:   HW register and features supported by this sub-blk
+> >>> - * @version: qseed block revision
+> >>>    */
+> >>>   struct dpu_scaler_blk {
+> >>>          DPU_HW_SUBBLK_INFO;
+> >>> -       u32 version;
+> >>
+> >> No. Please keep the version in the scaler subblk.  It is a version of
+> >> the QSEED (scaler block), not the SSPP's version.
+> > 
+> > You are right that the new variable in the parent (SSPP) block is
+> > nondescriptive and should have been named scaler_version.
+> > 
+> > However.
+> > 
+> > dpu_scaler_blk is only used as a const static struct in the catalog,
+> > meaning we cannot (should not!) store a runtime-read register value
+> > here.  Instead I followed your IRC suggestion to read the register in
+> > dpu_hw_sspp_init, but my original implementation called
+> > dpu_hw_get_scaler3_ver in _dpu_hw_sspp_setup_scaler3 where we already
+> > have access to the subblk_offset, allowing us to delete
+> > _dpu_hw_sspp_get_scaler3_ver.  Would you rather have that?  We don't
+> > need the register value anywhere else.
 > 
-> As indicated by its name, drm_fb_helper_prepare() prepares struct
-> drm_fb_helper before setting up the fbdev support with a call to
-> drm_fb_helper_init(). In legacy fbdev emulation, this happens next
-> to each other. If successful, drm_fb_helper_fini() later tear down
-> the fbdev device and also unprepare via drm_fb_helper_unprepare().
+> After giving it another thought, let's follow the vendor's approach and 
+> store the predefined scaler_version in hw catalog (in dpu_scaler_blk, as 
+> it currently is). This way we can still drop all QSEED3/3LITE/4 
+> crazyness, while keeping the data sane.
+
+You want to drop the descriptive #define's, and replace them with magic
+0x1002/0x2004/0x3000 and whatever other values we know?  That seems
+impossible to port without reading back the register value, which we've
+only done for a handful of SoCs.  I hope I'm misunderstanding you?
+After all the vendor approach (in a random 4.14 kernel I have open now)
+is to read the register value at runtime but their catalog is also
+dynamic and built at runtime based on version ranges and register reads,
+which sometimes is more sensible.  Ours is const.
+
+> Then _dpu_hw_sspp_get_scaler3_ver() can also be dropped (or you can use 
+> it as a safety guard while doing dpu_hw_sspp init).
+
+That (safety guard) is exactly what Abhinav requested against, since the
+kernel (and our catalog) should be trustworthy.  I'll let you two fight
+this out and come to a consensus before sending v2.
+
+> >> There is a block called DS (destination scaler), which can be used to
+> >> scale the resulting image after the LM. This block also uses the
+> >> QSEED3(,LITE,4) scaler block.
+> > 
+> > Is this already supported in mainline, and is it the reason for
+> > previously having qseed_type globally available?  Is my understanding
+> > correct that this scaler subblk in the SSPP is merely an interface to
+> > it, allowing the same hardware to be used from the SSPP for intputs and
+> > after the LM for outputs?
 > 
-> Generic fbdev emulation prepares struct drm_fb_helper immediately
-> after allocating the instance. It only calls drm_fb_helper_init()
-> as part of processing a hotplug event. If the hotplug-handling fails,
-> it runs drm_fb_helper_fini(). This unprepares the fb-helper instance
-> and the next hotplug event runs on stale data.
-> 
-> Solve this by moving drm_fb_helper_unprepare() from drm_fb_helper_fini()
-> into the fbdev implementations. Call it right before freeing the
-> fb-helper instance.
-> 
-> Fixes: 4825797c36da ("drm/fb-helper: Introduce drm_fb_helper_unprepare()")
-> Cc: Thomas Zimmermann <tzimmermann@suse.de>
-> Cc: Javier Martinez Canillas <javierm@redhat.com>
-> Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-> Cc: Maxime Ripard <mripard@kernel.org>
-> Cc: David Airlie <airlied@gmail.com>
-> Cc: Daniel Vetter <daniel@ffwll.ch>
-> Cc: dri-devel@lists.freedesktop.org
-> 
-> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+> No, I think qseed_type is a leftover from having the same thing 
+> implemented in three different ways. Maybe because of NIH syndrome?
 
-This reminds me of an old patch I just recently stumbled over again:
+Could be, downstream uses it to steer its catalog logic for example
+(which happens before later reading the version register).
 
-https://lore.kernel.org/dri-devel/Y3St2VHJ7jEmcNFw@phenom.ffwll.local/
+> DS is not supported, it was removed in the commit 
+> b033def8741aab3fb58e4bf6c1d5cd73b3beb357. I do not have a clear usecase 
+> for this block and of course we don't have uABI for it.
 
-Should I resurrect that one maybe and send it out? I think that also ties
-a bit into your story here.
+Is there no common DRM property to composite at a lower resolution and
+upscale the final displayed image to match a CRTC/encoder?  I wish I
+understood the commit message better :)
 
-> ---
->  drivers/gpu/drm/armada/armada_fbdev.c      | 3 +++
->  drivers/gpu/drm/drm_fb_helper.c            | 2 --
->  drivers/gpu/drm/drm_fbdev_generic.c        | 2 ++
->  drivers/gpu/drm/exynos/exynos_drm_fbdev.c  | 3 ++-
->  drivers/gpu/drm/gma500/framebuffer.c       | 2 ++
->  drivers/gpu/drm/i915/display/intel_fbdev.c | 1 +
->  drivers/gpu/drm/msm/msm_fbdev.c            | 2 ++
->  drivers/gpu/drm/omapdrm/omap_fbdev.c       | 2 ++
->  drivers/gpu/drm/radeon/radeon_fb.c         | 2 ++
->  drivers/gpu/drm/tegra/fb.c                 | 1 +
->  10 files changed, 17 insertions(+), 3 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/armada/armada_fbdev.c b/drivers/gpu/drm/armada/armada_fbdev.c
-> index 07e410c62b7a..0e44f53e9fa4 100644
-> --- a/drivers/gpu/drm/armada/armada_fbdev.c
-> +++ b/drivers/gpu/drm/armada/armada_fbdev.c
-> @@ -147,6 +147,7 @@ int armada_fbdev_init(struct drm_device *dev)
->   err_fb_setup:
->  	drm_fb_helper_fini(fbh);
->   err_fb_helper:
-> +	drm_fb_helper_unprepare(fbh);
->  	priv->fbdev = NULL;
->  	return ret;
->  }
-> @@ -164,6 +165,8 @@ void armada_fbdev_fini(struct drm_device *dev)
->  		if (fbh->fb)
->  			fbh->fb->funcs->destroy(fbh->fb);
->  
-> +		drm_fb_helper_unprepare(fbh);
-> +
->  		priv->fbdev = NULL;
->  	}
->  }
-> diff --git a/drivers/gpu/drm/drm_fb_helper.c b/drivers/gpu/drm/drm_fb_helper.c
-> index 28c428e9c530..a39998047f8a 100644
-> --- a/drivers/gpu/drm/drm_fb_helper.c
-> +++ b/drivers/gpu/drm/drm_fb_helper.c
-> @@ -590,8 +590,6 @@ void drm_fb_helper_fini(struct drm_fb_helper *fb_helper)
+> It would still be nice to keep it in the picture though. It was the main 
+> reason for moving scaler code from dpu_hw_sspp to dpu_hw_util.
 
-I think it would be good to update the kerneldoc of _init() and _fini()
-here to mention each another like we usually do with these pairs. Same
-with prepare/unprepare() although the latter rerfences _prepare() already.
+Downstream SDE already has this code moved to sde_hw_util as far as I
+can see (and SSPP and DS call into it).  But I fully agree as a
+mostly-oblivious-outsider: it seems like there are a lot of features,
+hardware blocks and optimizations not implemented, things which I still
+have no knowledge/experience/understanding of/about.  Let's first focus
+on making it work _on all relevant SoCs and boards_ though :)
 
->  	}
->  	mutex_unlock(&kernel_fb_helper_lock);
->  
-> -	drm_fb_helper_unprepare(fb_helper);
-> -
->  	if (!fb_helper->client.funcs)
->  		drm_client_release(&fb_helper->client);
->  }
-> diff --git a/drivers/gpu/drm/drm_fbdev_generic.c b/drivers/gpu/drm/drm_fbdev_generic.c
-> index 365f80717fa1..4d6325e91565 100644
-> --- a/drivers/gpu/drm/drm_fbdev_generic.c
-> +++ b/drivers/gpu/drm/drm_fbdev_generic.c
-> @@ -65,6 +65,8 @@ static void drm_fbdev_fb_destroy(struct fb_info *info)
->  
->  	drm_client_framebuffer_delete(fb_helper->buffer);
->  	drm_client_release(&fb_helper->client);
-> +
-> +	drm_fb_helper_unprepare(fb_helper);
->  	kfree(fb_helper);
->  }
->  
-> diff --git a/drivers/gpu/drm/exynos/exynos_drm_fbdev.c b/drivers/gpu/drm/exynos/exynos_drm_fbdev.c
-> index b89e33af8da8..4929ffe5a09a 100644
-> --- a/drivers/gpu/drm/exynos/exynos_drm_fbdev.c
-> +++ b/drivers/gpu/drm/exynos/exynos_drm_fbdev.c
-> @@ -183,8 +183,8 @@ int exynos_drm_fbdev_init(struct drm_device *dev)
->  
->  err_setup:
->  	drm_fb_helper_fini(helper);
-> -
->  err_init:
-> +	drm_fb_helper_unprepare(helper);
->  	private->fb_helper = NULL;
->  	kfree(fbdev);
->  
-> @@ -219,6 +219,7 @@ void exynos_drm_fbdev_fini(struct drm_device *dev)
->  	fbdev = to_exynos_fbdev(private->fb_helper);
->  
->  	exynos_drm_fbdev_destroy(dev, private->fb_helper);
-> +	drm_fb_helper_unprepare(private->fb_helper);
->  	kfree(fbdev);
->  	private->fb_helper = NULL;
->  }
-> diff --git a/drivers/gpu/drm/gma500/framebuffer.c b/drivers/gpu/drm/gma500/framebuffer.c
-> index 1f04c07ee180..f471e0cb7298 100644
-> --- a/drivers/gpu/drm/gma500/framebuffer.c
-> +++ b/drivers/gpu/drm/gma500/framebuffer.c
-> @@ -427,6 +427,7 @@ int psb_fbdev_init(struct drm_device *dev)
->  fini:
->  	drm_fb_helper_fini(fb_helper);
->  free:
-> +	drm_fb_helper_unprepare(fb_helper);
->  	kfree(fb_helper);
->  	return ret;
->  }
-> @@ -439,6 +440,7 @@ static void psb_fbdev_fini(struct drm_device *dev)
->  		return;
->  
->  	psb_fbdev_destroy(dev, dev_priv->fb_helper);
-> +	drm_fb_helper_unprepare(dev_priv->fb_helper);
->  	kfree(dev_priv->fb_helper);
->  	dev_priv->fb_helper = NULL;
->  }
-> diff --git a/drivers/gpu/drm/i915/display/intel_fbdev.c b/drivers/gpu/drm/i915/display/intel_fbdev.c
-> index 6113d7627d45..98029059f701 100644
-> --- a/drivers/gpu/drm/i915/display/intel_fbdev.c
-> +++ b/drivers/gpu/drm/i915/display/intel_fbdev.c
-> @@ -352,6 +352,7 @@ static void intel_fbdev_destroy(struct intel_fbdev *ifbdev)
->  	if (ifbdev->fb)
->  		drm_framebuffer_remove(&ifbdev->fb->base);
->  
-> +	drm_fb_helper_unprepare(&ifbdev->helper);
->  	kfree(ifbdev);
->  }
->  
-> diff --git a/drivers/gpu/drm/msm/msm_fbdev.c b/drivers/gpu/drm/msm/msm_fbdev.c
-> index 915b213f3a5c..c804e5ba682a 100644
-> --- a/drivers/gpu/drm/msm/msm_fbdev.c
-> +++ b/drivers/gpu/drm/msm/msm_fbdev.c
-> @@ -170,6 +170,7 @@ struct drm_fb_helper *msm_fbdev_init(struct drm_device *dev)
->  fini:
->  	drm_fb_helper_fini(helper);
->  fail:
-> +	drm_fb_helper_unprepare(helper);
->  	kfree(fbdev);
->  	return NULL;
->  }
-> @@ -196,6 +197,7 @@ void msm_fbdev_free(struct drm_device *dev)
->  		drm_framebuffer_remove(fbdev->fb);
->  	}
->  
-> +	drm_fb_helper_unprepare(helper);
->  	kfree(fbdev);
->  
->  	priv->fbdev = NULL;
-> diff --git a/drivers/gpu/drm/omapdrm/omap_fbdev.c b/drivers/gpu/drm/omapdrm/omap_fbdev.c
-> index fc5f52d567c6..84429728347f 100644
-> --- a/drivers/gpu/drm/omapdrm/omap_fbdev.c
-> +++ b/drivers/gpu/drm/omapdrm/omap_fbdev.c
-> @@ -256,6 +256,7 @@ void omap_fbdev_init(struct drm_device *dev)
->  fini:
->  	drm_fb_helper_fini(helper);
->  fail:
-> +	drm_fb_helper_unprepare(helper);
->  	kfree(fbdev);
->  
->  	dev_warn(dev->dev, "omap_fbdev_init failed\n");
-> @@ -286,6 +287,7 @@ void omap_fbdev_fini(struct drm_device *dev)
->  	if (fbdev->fb)
->  		drm_framebuffer_remove(fbdev->fb);
->  
-> +	drm_fb_helper_unprepare(helper);
->  	kfree(fbdev);
->  
->  	priv->fbdev = NULL;
-> diff --git a/drivers/gpu/drm/radeon/radeon_fb.c b/drivers/gpu/drm/radeon/radeon_fb.c
-> index 6e5eed0e157c..c4807f0c43bc 100644
-> --- a/drivers/gpu/drm/radeon/radeon_fb.c
-> +++ b/drivers/gpu/drm/radeon/radeon_fb.c
-> @@ -367,6 +367,7 @@ int radeon_fbdev_init(struct radeon_device *rdev)
->  fini:
->  	drm_fb_helper_fini(&rfbdev->helper);
->  free:
-> +	drm_fb_helper_unprepare(&rfbdev->helper);
->  	kfree(rfbdev);
->  	return ret;
->  }
-> @@ -377,6 +378,7 @@ void radeon_fbdev_fini(struct radeon_device *rdev)
->  		return;
->  
->  	radeon_fbdev_destroy(rdev->ddev, rdev->mode_info.rfbdev);
-> +	drm_fb_helper_unprepare(&rdev->mode_info.rfbdev->helper);
->  	kfree(rdev->mode_info.rfbdev);
->  	rdev->mode_info.rfbdev = NULL;
->  }
-> diff --git a/drivers/gpu/drm/tegra/fb.c b/drivers/gpu/drm/tegra/fb.c
-> index 153c39c32c71..bfebe2786d61 100644
-> --- a/drivers/gpu/drm/tegra/fb.c
-> +++ b/drivers/gpu/drm/tegra/fb.c
-> @@ -315,6 +315,7 @@ static struct tegra_fbdev *tegra_fbdev_create(struct drm_device *drm)
->  
->  static void tegra_fbdev_free(struct tegra_fbdev *fbdev)
->  {
-> +	drm_fb_helper_unprepare(&fbdev->base);
-
-Ok this one tegra change was a bit tricky, drivers really should just use
-drmm_/devm_ for everything :-)
-
-With the kerneldoc augmented:
-
-Reviewed-by: Daniel Vetter <daniel.vetter@ffwll.ch>
-
->  	kfree(fbdev);
->  }
->  
-> -- 
-> 2.39.1
-> 
-
--- 
-Daniel Vetter
-Software Engineer, Intel Corporation
-http://blog.ffwll.ch
+- Marijn
