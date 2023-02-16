@@ -2,60 +2,63 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 813CA6992DA
-	for <lists+freedreno@lfdr.de>; Thu, 16 Feb 2023 12:12:22 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 45AA6699552
+	for <lists+freedreno@lfdr.de>; Thu, 16 Feb 2023 14:14:35 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3065110ED41;
-	Thu, 16 Feb 2023 11:12:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BA80910E2C2;
+	Thu, 16 Feb 2023 13:14:33 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wr1-x430.google.com (mail-wr1-x430.google.com
- [IPv6:2a00:1450:4864:20::430])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0676C10E15D
- for <freedreno@lists.freedesktop.org>; Thu, 16 Feb 2023 11:12:19 +0000 (UTC)
-Received: by mail-wr1-x430.google.com with SMTP id r28so1014973wra.5
- for <freedreno@lists.freedesktop.org>; Thu, 16 Feb 2023 03:12:19 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=ffwll.ch; s=google; t=1676545938;
+Received: from mail-lf1-x135.google.com (mail-lf1-x135.google.com
+ [IPv6:2a00:1450:4864:20::135])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D6CF410E182
+ for <freedreno@lists.freedesktop.org>; Thu, 16 Feb 2023 13:14:30 +0000 (UTC)
+Received: by mail-lf1-x135.google.com with SMTP id bi36so2692130lfb.8
+ for <freedreno@lists.freedesktop.org>; Thu, 16 Feb 2023 05:14:30 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=content-transfer-encoding:mime-version:message-id:date:subject:cc
  :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=/9p5YKUpDfB/VIccEe/gl5TXkWsNme3I0Rd/ZJSwPZE=;
- b=daprNBF2cioSkaV/LaHMvRsLzymaFwYTfmNpbtoHjKT7Sk7wu0MquSVBUXgz7PQnnc
- PrwSpTRvCwpgn/+bHmTCXmQId048ksqxzkl9YY8RcymgN5s2s5Lg5cbLlWtekPM1P35W
- osp8BS7+ZJFdMfWCjabnAp+Ta0+ZH+PNIjT1I=
+ bh=VVwCQxzpAEIpXPHUGXDu/BMLdh/4/iLGwabsMvVeo9s=;
+ b=q03UgKpiEoJBmxNezi5NqpijnGwzNYxs5oGEGmO/NHMMDwx4dlrZVRvHQith9AcxGd
+ +p0xzN/DvA1NpDiJUqGtbXEbqowlXnSPdVngC1rqUjrXIuoUYon7SYpu1eeC+feaZU/z
+ 0ES2jtb35DpDGqc/4bYzWGf6RJh/nTfH/jVcAgf2I9pSY1Me5MruXocXGdYMQElgOxgU
+ +dWRVe7zZLJgEbuSbbsBTiGO/CONuAVO2mH2xPe0xKkFTzo+hmWlfYALMYfp8f4YCWsy
+ TdUcE5xaHrFvih2uLcaqnD5Oc3Wfxdltob/6tIs4IgiuluW2QGH7wqsgGvFwC2HbqBEB
+ 8jCA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112; t=1676545938;
+ d=1e100.net; s=20210112;
  h=content-transfer-encoding:mime-version:message-id:date:subject:cc
  :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=/9p5YKUpDfB/VIccEe/gl5TXkWsNme3I0Rd/ZJSwPZE=;
- b=e99uCirkJMJlzcF+mvDbgftDSUe3gQEvbnr9R0BzTMEjZgucI7hJr6QBTFXbXRt5oo
- MBiYrjHJXLPPp1nukS5O0UiQ7ynbJZLEuu5Ai0oL33CBG/OWZLZmd2e5UsyRefc3HdX3
- g6PbtBxWFINZ3YW0rHiXCnPqs4pKgaCfFbfDVKoEruKLCnoVx78slRZZu3upF8bdQn5j
- QMNuieJDxOObIZHHgd+RfKQtbguFqgjx7HBk9DAFmDTNCX4dGr2nOuCp6kC48z9TaMTI
- R8R5N3i1EDiXU/bEaHzxd0OzXNwMu3k/2ISMPj6RnBgCMYPGDu3avGFH+FBi2oGPZyOG
- cung==
-X-Gm-Message-State: AO0yUKW+Y6gNKQC42VBhA61wQUu7MCaWQDPDJZSjKWxsJXO6D64W+NY7
- 2Opy0Vlmcct411Qz3/Liuy8yXA==
-X-Google-Smtp-Source: AK7set/V0HgKdwJ6CfD3OOAKl1s05e2DIcRxjV++t26IPN2C/xks2eE9SyhLBLK2KpcVGucfai4f8w==
-X-Received: by 2002:adf:dd82:0:b0:2c3:d296:7a94 with SMTP id
- x2-20020adfdd82000000b002c3d2967a94mr3158589wrl.3.1676545938440; 
- Thu, 16 Feb 2023 03:12:18 -0800 (PST)
-Received: from phenom.ffwll.local (212-51-149-33.fiber7.init7.net.
- [212.51.149.33]) by smtp.gmail.com with ESMTPSA id
- y12-20020adfe6cc000000b002c3dc4131f5sm1206658wrm.18.2023.02.16.03.12.17
+ bh=VVwCQxzpAEIpXPHUGXDu/BMLdh/4/iLGwabsMvVeo9s=;
+ b=qInl5wbcfpt33mSBL+CefHI0GVBgJuILY2Npma3GVnqvywksJQuHCEaNuSpT0yWuhs
+ p4UX+Hqv8IK0Hhit7bLqJWJR1mZTklEACzlOw/CVH+ZKEwROfbTVuPn8DJnxJ9mZ9LIc
+ E7dRRvLKZBOm3b327qDhib1sh63yRxmS8wt136WAPYjO+PiUWFeNQogbQdZpvM2Jxbbv
+ 8+wduVJOq7pV5hWWk3jj6HINyinTZR3zEcPLSoZmn8NHB+Kp9lF2o6tXy0bNMVgNz6gb
+ rByHyNMIuOvgeUcQjElviHK0zM04z9PkkqMDUtJPRKNkUByTziGfPT+6T57NBAaWQC14
+ Ts0Q==
+X-Gm-Message-State: AO0yUKU1VQwzg7rRu6g7HpywGipHmOnN1icMZMwwgmZLPWB6rDn0ozLL
+ 4B343EUYJ3r4B0er+qG8iz6Biw==
+X-Google-Smtp-Source: AK7set9PQdq/g/J4VmXzutAPqIkKGvuAGjNk9zhTJ0J8cTy2tvdj+6cVYtTdkp1c8gaa+9R44kCg4Q==
+X-Received: by 2002:a19:f009:0:b0:4b5:b46d:e60 with SMTP id
+ p9-20020a19f009000000b004b5b46d0e60mr1786545lfc.27.1676553269112; 
+ Thu, 16 Feb 2023 05:14:29 -0800 (PST)
+Received: from localhost.localdomain (abxh117.neoplus.adsl.tpnet.pl.
+ [83.9.1.117]) by smtp.gmail.com with ESMTPSA id
+ w7-20020ac25987000000b004d862e9b453sm290306lfn.196.2023.02.16.05.14.27
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 16 Feb 2023 03:12:18 -0800 (PST)
-From: Daniel Vetter <daniel.vetter@ffwll.ch>
-To: DRI Development <dri-devel@lists.freedesktop.org>
-Date: Thu, 16 Feb 2023 12:12:13 +0100
-Message-Id: <20230216111214.3489223-1-daniel.vetter@ffwll.ch>
-X-Mailer: git-send-email 2.39.0
+ Thu, 16 Feb 2023 05:14:28 -0800 (PST)
+From: Konrad Dybcio <konrad.dybcio@linaro.org>
+To: linux-arm-msm@vger.kernel.org,
+	andersson@kernel.org,
+	agross@kernel.org
+Date: Thu, 16 Feb 2023 14:14:26 +0100
+Message-Id: <20230216131426.3996378-1-konrad.dybcio@linaro.org>
+X-Mailer: git-send-email 2.39.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH] drm/atomic-helpers: remove legacy_cursor_update
- hacks
+Subject: [Freedreno] [PATCH] dt-bindings: display: msm: sm6115-mdss: Fix DSI
+ compatible
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,192 +71,45 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Daniel Vetter <daniel.vetter@ffwll.ch>, Imre Deak <imre.deak@intel.com>,
- Daniel Vetter <daniel.vetter@intel.com>,
- =?UTF-8?q?Ville=20Syrj=C3=A4l=C3=A4?= <ville.syrjala@linux.intel.com>,
- Dmitry Osipenko <dmitry.osipenko@collabora.com>, linux-arm-msm@vger.kernel.org,
- harry.wentland@amd.com, =?UTF-8?q?Michel=20D=C3=A4nzer?= <michel@daenzer.net>,
- Jani Nikula <jani.nikula@intel.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
- Lucas De Marchi <lucas.demarchi@intel.com>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, linux-mediatek@lists.infradead.org,
- Maxime Ripard <maxime@cerno.tech>, Matthias Brugger <matthias.bgg@gmail.com>,
- mikita.lipski@amd.com, Sean Paul <sean@poorly.run>,
- linux-arm-kernel@lists.infradead.org,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- linux-kernel@vger.kernel.org, Manasi Navare <manasi.d.navare@intel.com>,
- Rob Clark <robdclark@gmail.com>, Thomas Zimmermann <tzimmermann@suse.de>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- freedreno@lists.freedesktop.org, "Kazlauskas,
- Nicholas" <nicholas.kazlauskas@amd.com>
+Cc: freedreno@lists.freedesktop.org,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ devicetree@vger.kernel.org, David Airlie <airlied@gmail.com>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Konrad Dybcio <konrad.dybcio@linaro.org>,
+ Rob Clark <robdclark@gmail.com>, Rob Herring <robh+dt@kernel.org>,
+ Daniel Vetter <daniel@ffwll.ch>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, marijn.suijten@somainline.org,
+ Sean Paul <sean@poorly.run>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-The stuff never really worked, and leads to lots of fun because it
-out-of-order frees atomic states. Which upsets KASAN, among other
-things.
+Since the DSI autodetection is bound to work correctly on 6115 now,
+switch to using the correct per-SoC + generic fallback compatible
+combo.
 
-For async updates we now have a more solid solution with the
-->atomic_async_check and ->atomic_async_commit hooks. Support for that
-for msm and vc4 landed. nouveau and i915 have their own commit
-routines, doing something similar.
-
-For everyone else it's probably better to remove the use-after-free
-bug, and encourage folks to use the async support instead. The
-affected drivers which register a legacy cursor plane and don't either
-use the new async stuff or their own commit routine are: amdgpu,
-atmel, mediatek, qxl, rockchip, sti, sun4i, tegra, virtio, and vmwgfx.
-
-Inspired by an amdgpu bug report.
-
-v2: Drop RFC, I think with amdgpu converted over to use
-atomic_async_check/commit done in
-
-commit 674e78acae0dfb4beb56132e41cbae5b60f7d662
-Author: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
-Date:   Wed Dec 5 14:59:07 2018 -0500
-
-    drm/amd/display: Add fast path for cursor plane updates
-
-we don't have any driver anymore where we have userspace expecting
-solid legacy cursor support _and_ they are using the atomic helpers in
-their fully glory. So we can retire this.
-
-v3: Paper over msm and i915 regression. The complete_all is the only
-thing missing afaict.
-
-v4: Fixup i915 fixup ...
-
-v5: Unallocate the crtc->event in msm to avoid hitting a WARN_ON in
-dpu_crtc_atomic_flush(). This is a bit a hack, but simplest way to
-untangle this all. Thanks to Abhinav Kumar for the debug help.
-
-Cc: Abhinav Kumar <quic_abhinavk@quicinc.com>
-Cc: Thomas Zimmermann <tzimmermann@suse.de>
-Cc: Maxime Ripard <maxime@cerno.tech>
-References: https://bugzilla.kernel.org/show_bug.cgi?id=199425
-References: https://lore.kernel.org/all/20220221134155.125447-9-maxime@cerno.tech/
-References: https://bugzilla.kernel.org/show_bug.cgi?id=199425
-Cc: Maxime Ripard <maxime@cerno.tech>
-Tested-by: Maxime Ripard <maxime@cerno.tech>
-Cc: mikita.lipski@amd.com
-Cc: Michel Dänzer <michel@daenzer.net>
-Cc: harry.wentland@amd.com
-Cc: Rob Clark <robdclark@gmail.com>
-Cc: "Kazlauskas, Nicholas" <nicholas.kazlauskas@amd.com>
-Cc: Dmitry Osipenko <dmitry.osipenko@collabora.com>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-Cc: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Cc: Sean Paul <sean@poorly.run>
-Cc: Matthias Brugger <matthias.bgg@gmail.com>
-Cc: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Cc: "Ville Syrjälä" <ville.syrjala@linux.intel.com>
-Cc: Jani Nikula <jani.nikula@intel.com>
-Cc: Lucas De Marchi <lucas.demarchi@intel.com>
-Cc: Imre Deak <imre.deak@intel.com>
-Cc: Manasi Navare <manasi.d.navare@intel.com>
-Cc: linux-arm-msm@vger.kernel.org
-Cc: freedreno@lists.freedesktop.org
-Cc: linux-kernel@vger.kernel.org
-Cc: linux-arm-kernel@lists.infradead.org
-Cc: linux-mediatek@lists.infradead.org
-Signed-off-by: Daniel Vetter <daniel.vetter@intel.com>
+Signed-off-by: Konrad Dybcio <konrad.dybcio@linaro.org>
 ---
- drivers/gpu/drm/drm_atomic_helper.c          | 13 -------------
- drivers/gpu/drm/i915/display/intel_display.c | 14 ++++++++++++++
- drivers/gpu/drm/msm/msm_atomic.c             | 15 +++++++++++++++
- 3 files changed, 29 insertions(+), 13 deletions(-)
+Depends on (and should have been a part of):
 
-diff --git a/drivers/gpu/drm/drm_atomic_helper.c b/drivers/gpu/drm/drm_atomic_helper.c
-index d579fd8f7cb8..f6b4c3a00684 100644
---- a/drivers/gpu/drm/drm_atomic_helper.c
-+++ b/drivers/gpu/drm/drm_atomic_helper.c
-@@ -1587,13 +1587,6 @@ drm_atomic_helper_wait_for_vblanks(struct drm_device *dev,
- 	int i, ret;
- 	unsigned int crtc_mask = 0;
+https://lore.kernel.org/linux-arm-msm/20230213121012.1768296-1-konrad.dybcio@linaro.org/
+ .../devicetree/bindings/display/msm/qcom,sm6115-mdss.yaml     | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
+
+diff --git a/Documentation/devicetree/bindings/display/msm/qcom,sm6115-mdss.yaml b/Documentation/devicetree/bindings/display/msm/qcom,sm6115-mdss.yaml
+index 2491cb100b33..146d3e36d1c9 100644
+--- a/Documentation/devicetree/bindings/display/msm/qcom,sm6115-mdss.yaml
++++ b/Documentation/devicetree/bindings/display/msm/qcom,sm6115-mdss.yaml
+@@ -40,7 +40,9 @@ patternProperties:
+     type: object
+     properties:
+       compatible:
+-        const: qcom,dsi-ctrl-6g-qcm2290
++        items:
++          - const: qcom,sm6115-dsi-ctrl
++          - const: qcom,mdss-dsi-ctrl
  
--	 /*
--	  * Legacy cursor ioctls are completely unsynced, and userspace
--	  * relies on that (by doing tons of cursor updates).
--	  */
--	if (old_state->legacy_cursor_update)
--		return;
--
- 	for_each_oldnew_crtc_in_state(old_state, crtc, old_crtc_state, new_crtc_state, i) {
- 		if (!new_crtc_state->active)
- 			continue;
-@@ -2244,12 +2237,6 @@ int drm_atomic_helper_setup_commit(struct drm_atomic_state *state,
- 			continue;
- 		}
- 
--		/* Legacy cursor updates are fully unsynced. */
--		if (state->legacy_cursor_update) {
--			complete_all(&commit->flip_done);
--			continue;
--		}
--
- 		if (!new_crtc_state->event) {
- 			commit->event = kzalloc(sizeof(*commit->event),
- 						GFP_KERNEL);
-diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
-index 3479125fbda6..2454451fcf95 100644
---- a/drivers/gpu/drm/i915/display/intel_display.c
-+++ b/drivers/gpu/drm/i915/display/intel_display.c
-@@ -7651,6 +7651,20 @@ static int intel_atomic_commit(struct drm_device *dev,
- 		intel_runtime_pm_put(&dev_priv->runtime_pm, state->wakeref);
- 		return ret;
- 	}
-+
-+	/*
-+	 * FIXME: Cut over to (async) commit helpers instead of hand-rolling
-+	 * everything.
-+	 */
-+	if (state->base.legacy_cursor_update) {
-+		struct intel_crtc_state *new_crtc_state;
-+		struct intel_crtc *crtc;
-+		int i;
-+
-+		for_each_new_intel_crtc_in_state(state, crtc, new_crtc_state, i)
-+			complete_all(&new_crtc_state->uapi.commit->flip_done);
-+	}
-+
- 	intel_shared_dpll_swap_state(state);
- 	intel_atomic_track_fbs(state);
- 
-diff --git a/drivers/gpu/drm/msm/msm_atomic.c b/drivers/gpu/drm/msm/msm_atomic.c
-index 1686fbb611fd..b7151767b567 100644
---- a/drivers/gpu/drm/msm/msm_atomic.c
-+++ b/drivers/gpu/drm/msm/msm_atomic.c
-@@ -189,6 +189,19 @@ void msm_atomic_commit_tail(struct drm_atomic_state *state)
- 	bool async = kms->funcs->vsync_time &&
- 			can_do_async(state, &async_crtc);
- 
-+	/*
-+	 * FIXME: Convert to async plane helpers and remove the various hacks to
-+	 * keep the old legacy_cursor_way of doing async commits working for the
-+	 * dpu code, like the expectation that these don't have a crtc->event.
-+	 */
-+	if (async) {
-+		/* both ->event itself and the pointer hold a reference! */
-+		drm_crtc_commit_put(async_crtc->state->commit);
-+		drm_crtc_commit_put(async_crtc->state->commit);
-+		kfree(async_crtc->state->event);
-+		async_crtc->state->event = NULL;
-+	}
-+
- 	trace_msm_atomic_commit_tail_start(async, crtc_mask);
- 
- 	kms->funcs->enable_commit(kms);
-@@ -222,6 +235,8 @@ void msm_atomic_commit_tail(struct drm_atomic_state *state)
- 		/* async updates are limited to single-crtc updates: */
- 		WARN_ON(crtc_mask != drm_crtc_mask(async_crtc));
- 
-+		complete_all(&async_crtc->state->commit->flip_done);
-+
- 		/*
- 		 * Start timer if we don't already have an update pending
- 		 * on this crtc:
+   "^phy@[0-9a-f]+$":
+     type: object
 -- 
-2.39.0
+2.39.1
 
