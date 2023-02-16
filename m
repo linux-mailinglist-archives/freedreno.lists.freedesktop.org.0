@@ -1,61 +1,59 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id BF27F6988E8
-	for <lists+freedreno@lfdr.de>; Thu, 16 Feb 2023 00:50:34 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id D154D698A75
+	for <lists+freedreno@lfdr.de>; Thu, 16 Feb 2023 03:22:30 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7B31810E1C2;
-	Wed, 15 Feb 2023 23:50:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D163410E2BB;
+	Thu, 16 Feb 2023 02:22:27 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-pf1-x434.google.com (mail-pf1-x434.google.com
- [IPv6:2607:f8b0:4864:20::434])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6E2CC10E1C2;
- Wed, 15 Feb 2023 23:50:32 +0000 (UTC)
-Received: by mail-pf1-x434.google.com with SMTP id j184so346150pfg.10;
- Wed, 15 Feb 2023 15:50:32 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=zeIoX4RDWl3f+nhG+Pkar8Woaq/FoxjOB1t6jgPazJQ=;
- b=l5qD+x9Nq6Q8eFXBnLD2JP5DpZJ5D0HO0afceUtRjxa8Z+s7yb/ay9AlicklsmlEEw
- 3e4Rj36HY8jLFGQGubTa5jW8tNGAI0hR46V9Chl+bP0tALpancQEy8IHLrrcSKDtjIg2
- kd6Llo+VeClFPVTTcEKTtD2bMvCfInlONN/36JtjfpQbZ7BwFlCJCIR4rPy2hYbwUsZK
- zHBOTJlZm2GcXslUCSf4XusKH4awMsXWYun5YQ8smTpEXzovscwAWdc6PYw8DLjWoLIs
- aezpJuj+RbLreYYAy63wF/LsmoxdyWkKskghzUhBMuKDs2ueRq7s1huiAayMldfdHjZw
- N9ng==
+Received: from mail-yb1-xb35.google.com (mail-yb1-xb35.google.com
+ [IPv6:2607:f8b0:4864:20::b35])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4D77C10E0CA
+ for <freedreno@lists.freedesktop.org>; Thu, 16 Feb 2023 02:22:25 +0000 (UTC)
+Received: by mail-yb1-xb35.google.com with SMTP id o66so648480ybc.0
+ for <freedreno@lists.freedesktop.org>; Wed, 15 Feb 2023 18:22:25 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=CM7+nbuu2JRbsspQMF7cJUrYUSFpszj5JfnwXasrm4A=;
+ b=gigIXAI3bPveEUhfHtx570QVDRLxYX8xjSWbAgaaNJr8OHn4vARDGJsyhfgvBLcMDu
+ L5wohJVj2YE+B1UmeMMEN6eX9hUlJGWCeWF7OnleAViT0ZiH0tFgvT5A3+q9q/yyljTw
+ ak7eMAvbDlFACfYoveoHaq4Py9kkWFfouQrsr47NUWXPzKtEDokaedfZGbJwddAIDhrW
+ Eq3AqzDzSq5H1b23lX6l7HL83+naDjPPRpreyReiWB+51yIxAmZAqD5QTlck2h48tnc9
+ 8p+PYJU9rmsSSUfVjun4M1wT54J5PfT0Xv86UY5+V0xApa7rXLzqYb1KL5FzmUKMWxw0
+ FNUA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=zeIoX4RDWl3f+nhG+Pkar8Woaq/FoxjOB1t6jgPazJQ=;
- b=2x4Fh4DG/ACsPLWuU5cfuTWowEwgOTZZZ/aCJgBhDswkjYlmXQXOj8XvMFstMMgIjW
- yCH9/HMURiwcSTh2ebQBAtV0kZZLiNlye50/Dq1OtNX9rDqysqCp0YLTqpULZSYKbXwj
- dfmp9KLWMTFwgbwtbag7jfgwyZrG8Ia/yzcefMPgWBdbDYWhvnGSVZGcYxu5c24GUu1e
- nb9A54BmVRXxln8zT7Oh5fwt8iZdoDzn3ef+IdaZ+I9dgHgKkAx0bJv5xD1ygA77w8hQ
- cdSpXUG+gWXKvqYdnGEoOKBbx3wWQfWl9VyR3Pdp25+NGbVvsi7yKeNl00rP16NyQJVg
- wGkw==
-X-Gm-Message-State: AO0yUKVf4Pj6Au1k1NM1rGgtU49u4wtX96PveVRMFv4/q/VIiYhUgzpk
- SkCQdEN6ouMkEvliFl9srL5DPVKGGTk=
-X-Google-Smtp-Source: AK7set+S1yWm3qNcB1PUzuuK7xDX0SA6y0sMOop00NqJPMGuJW2NkOnni+n/RHRe/RWoADbNnOcE1A==
-X-Received: by 2002:aa7:973d:0:b0:5a8:be36:65a8 with SMTP id
- k29-20020aa7973d000000b005a8be3665a8mr3307802pfg.27.1676505031706; 
- Wed, 15 Feb 2023 15:50:31 -0800 (PST)
-Received: from localhost ([2a00:79e1:abd:4a00:2703:3c72:eb1a:cffd])
- by smtp.gmail.com with ESMTPSA id
- j14-20020aa7928e000000b0058d8db0e4adsm12628278pfa.171.2023.02.15.15.50.30
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 15 Feb 2023 15:50:31 -0800 (PST)
-From: Rob Clark <robdclark@gmail.com>
-To: dri-devel@lists.freedesktop.org
-Date: Wed, 15 Feb 2023 15:50:48 -0800
-Message-Id: <20230215235048.1166484-1-robdclark@gmail.com>
-X-Mailer: git-send-email 2.39.1
+ bh=CM7+nbuu2JRbsspQMF7cJUrYUSFpszj5JfnwXasrm4A=;
+ b=p/fHV1CIAIzz5EI9Siy+UPQODQPcOaTVHA1FjpoLPX6iKut2sKJ4PfXaxI74/Kbvwl
+ x/pliPz90AACGrbMwTqP5rErIDPgqDE3Kz8dAEIFfbc3jdkmsVjpXT7EWvglS22c1WZv
+ 2aEC5PGoWRh6cfd/ichAtQzcOySNdBWvgugkm8JnY06J6a20coOUwyQkkpGzShF/M0Tx
+ J3kfxEC7/fVhG0taOfEo62Yc4PaLVF+o1fD4e3tagmFfZEbH4MD6qlLgs8LikPx0v/KK
+ SxQ+MT7NZTQq606gcMb7W/mdSKE//INkOb4SMbGYeOHbCmWkedXqCvfvw41lqPk3U38n
+ qVEw==
+X-Gm-Message-State: AO0yUKVTxyS91W+wzF4JqOIio3UUbJqly1j79t6zsSs0YyG1Jtt/DLZB
+ Y9BHFjESbZr8xC8DFFzeCO8zVM85ontm1wNI+0qLxQ==
+X-Google-Smtp-Source: AK7set/dOBv0noQbP2fgaIWTgCF1NkJvZ1c87YBke3v3Br/DUuhltjLJlt/oBAfG1FZOUEQf5yA2VgwloLnLwaQtJ/E=
+X-Received: by 2002:a25:9c07:0:b0:905:d0a5:3ff6 with SMTP id
+ c7-20020a259c07000000b00905d0a53ff6mr547394ybo.322.1676514144276; Wed, 15 Feb
+ 2023 18:22:24 -0800 (PST)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH] drm/msm: Fix potential invalid ptr free
+References: <20230215-sspp-scaler-version-v1-0-416b1500b85b@somainline.org>
+ <20230215-sspp-scaler-version-v1-1-416b1500b85b@somainline.org>
+In-Reply-To: <20230215-sspp-scaler-version-v1-1-416b1500b85b@somainline.org>
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Date: Thu, 16 Feb 2023 04:22:13 +0200
+Message-ID: <CAA8EJpq1L32VQ1eQEk2YQWqCwHgdFQfuWPhQx=PmhzXvazLgPA@mail.gmail.com>
+To: Marijn Suijten <marijn.suijten@somainline.org>
+Content-Type: text/plain; charset="UTF-8"
+Subject: Re: [Freedreno] [PATCH 1/3] drm/msm/dpu: Read
+ previously-uninitialized SSPP scaler version from hw
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,51 +66,122 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rob Clark <robdclark@chromium.org>, linux-arm-msm@vger.kernel.org,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Jordan Crouse <jordan@cosmicpenguin.net>, Sean Paul <sean@poorly.run>,
- Rob Clark <robdclark@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- David Airlie <airlied@gmail.com>, freedreno@lists.freedesktop.org,
- open list <linux-kernel@vger.kernel.org>
+Cc: freedreno@lists.freedesktop.org, Archit Taneja <architt@codeaurora.org>,
+ Jami Kettunen <jami.kettunen@somainline.org>, Sean Paul <sean@poorly.run>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@somainline.org>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Konrad Dybcio <konrad.dybcio@linaro.org>,
+ Rob Clark <robdclark@gmail.com>, Martin Botka <martin.botka@somainline.org>,
+ Sravanthi Kollukuduru <skolluku@codeaurora.org>,
+ Daniel Vetter <daniel@ffwll.ch>, linux-arm-msm@vger.kernel.org,
+ phone-devel@vger.kernel.org, David Airlie <airlied@gmail.com>,
+ Chandan Uddaraju <chandanu@codeaurora.org>,
+ ~postmarketos/upstreaming@lists.sr.ht
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-From: Rob Clark <robdclark@chromium.org>
+On Thu, 16 Feb 2023 at 01:02, Marijn Suijten
+<marijn.suijten@somainline.org> wrote:
+>
+> DPU's catalog never assigned dpu_scaler_blk::version leading to
+> initialization code in dpu_hw_setup_scaler3 to wander the wrong
+> codepaths.  Instead of hardcoding the correct QSEED algorithm version,
+> read it back from a hardware register.
+>
+> Note that this register is only available starting with QSEED3, where
+> 0x1002 corresponds to QSEED3, 0x2004 to QSEED3LITE and 0x3000 to QSEED4.
 
-The error path cleanup expects that chain and syncobj are either NULL or
-valid pointers.  But post_deps was not allocated with __GFP_ZERO.
+This is not purely accurate. 0x1003 (sdm845) also corresponds to QSEED3.
+I'd say instead that there are several variations of QSEED3 scalers,
+where starting from 0x2004 it is called QSEED3LITE and starting from
+0x3000 it is called QSEED4.
 
-Fixes: ab723b7a992a ("drm/msm: Add syncobj support.")
-Signed-off-by: Rob Clark <robdclark@chromium.org>
----
- drivers/gpu/drm/msm/msm_gem_submit.c | 5 ++---
- 1 file changed, 2 insertions(+), 3 deletions(-)
+>
+> Fixes: 25fdd5933e4c ("drm/msm: Add SDM845 DPU support")
+> Signed-off-by: Marijn Suijten <marijn.suijten@somainline.org>
+> ---
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h | 2 --
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.c    | 8 +++++++-
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.h    | 3 +++
+>  3 files changed, 10 insertions(+), 3 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h
+> index ddab9caebb18..96ce1766f4a1 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h
+> @@ -324,11 +324,9 @@ struct dpu_src_blk {
+>  /**
+>   * struct dpu_scaler_blk: Scaler information
+>   * @info:   HW register and features supported by this sub-blk
+> - * @version: qseed block revision
+>   */
+>  struct dpu_scaler_blk {
+>         DPU_HW_SUBBLK_INFO;
+> -       u32 version;
 
-diff --git a/drivers/gpu/drm/msm/msm_gem_submit.c b/drivers/gpu/drm/msm/msm_gem_submit.c
-index 6503220e5a4b..e4d13540300e 100644
---- a/drivers/gpu/drm/msm/msm_gem_submit.c
-+++ b/drivers/gpu/drm/msm/msm_gem_submit.c
-@@ -640,8 +640,8 @@ static struct msm_submit_post_dep *msm_parse_post_deps(struct drm_device *dev,
- 	int ret = 0;
- 	uint32_t i, j;
- 
--	post_deps = kmalloc_array(nr_syncobjs, sizeof(*post_deps),
--	                          GFP_KERNEL | __GFP_NOWARN | __GFP_NORETRY);
-+	post_deps = kcalloc(nr_syncobjs, sizeof(*post_deps),
-+			    GFP_KERNEL | __GFP_NOWARN | __GFP_NORETRY);
- 	if (!post_deps)
- 		return ERR_PTR(-ENOMEM);
- 
-@@ -656,7 +656,6 @@ static struct msm_submit_post_dep *msm_parse_post_deps(struct drm_device *dev,
- 		}
- 
- 		post_deps[i].point = syncobj_desc.point;
--		post_deps[i].chain = NULL;
- 
- 		if (syncobj_desc.flags) {
- 			ret = -EINVAL;
+No. Please keep the version in the scaler subblk.  It is a version of
+the QSEED (scaler block), not the SSPP's version.
+
+There is a block called DS (destination scaler), which can be used to
+scale the resulting image after the LM. This block also uses the
+QSEED3(,LITE,4) scaler block.
+
+>  };
+>
+>  struct dpu_csc_blk {
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.c
+> index 4246ab0b3bee..d4e181e1378c 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.c
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.c
+> @@ -430,7 +430,7 @@ static void _dpu_hw_sspp_setup_scaler3(struct dpu_hw_pipe *ctx,
+>                 return;
+>
+>         dpu_hw_setup_scaler3(&ctx->hw, scaler3_cfg, idx,
+> -                       ctx->cap->sblk->scaler_blk.version,
+> +                       ctx->version,
+>                         sspp->layout.format);
+>  }
+>
+> @@ -807,6 +807,12 @@ struct dpu_hw_pipe *dpu_hw_sspp_init(enum dpu_sspp idx,
+>         hw_pipe->mdp = &catalog->mdp[0];
+>         hw_pipe->idx = idx;
+>         hw_pipe->cap = cfg;
+> +
+> +       if (test_bit(DPU_SSPP_SCALER_QSEED3, &cfg->features) ||
+> +                       test_bit(DPU_SSPP_SCALER_QSEED3LITE, &cfg->features) ||
+> +                       test_bit(DPU_SSPP_SCALER_QSEED4, &cfg->features))
+> +               hw_pipe->version = _dpu_hw_sspp_get_scaler3_ver(hw_pipe);
+> +
+>         _setup_layer_ops(hw_pipe, hw_pipe->cap->features);
+>
+>         return hw_pipe;
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.h
+> index 0c95b7e64f6c..eeaf16c6af15 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.h
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.h
+> @@ -352,6 +352,7 @@ struct dpu_hw_sspp_ops {
+>   * @hw: block hardware details
+>   * @catalog: back pointer to catalog
+>   * @mdp: pointer to associated mdp portion of the catalog
+> + * @version: qseed block revision
+>   * @idx: pipe index
+>   * @cap: pointer to layer_cfg
+>   * @ops: pointer to operations possible for this pipe
+> @@ -362,6 +363,8 @@ struct dpu_hw_pipe {
+>         const struct dpu_mdss_cfg *catalog;
+>         const struct dpu_mdp_cfg *mdp;
+>
+> +       u32 version;
+> +
+>         /* Pipe */
+>         enum dpu_sspp idx;
+>         const struct dpu_sspp_cfg *cap;
+>
+> --
+> 2.39.2
+>
+
+
 -- 
-2.39.1
-
+With best wishes
+Dmitry
