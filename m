@@ -2,58 +2,58 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id D154D698A75
-	for <lists+freedreno@lfdr.de>; Thu, 16 Feb 2023 03:22:30 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 17ADC698A7C
+	for <lists+freedreno@lfdr.de>; Thu, 16 Feb 2023 03:23:53 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D163410E2BB;
-	Thu, 16 Feb 2023 02:22:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D97C010E2BA;
+	Thu, 16 Feb 2023 02:23:51 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-yb1-xb35.google.com (mail-yb1-xb35.google.com
- [IPv6:2607:f8b0:4864:20::b35])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4D77C10E0CA
- for <freedreno@lists.freedesktop.org>; Thu, 16 Feb 2023 02:22:25 +0000 (UTC)
-Received: by mail-yb1-xb35.google.com with SMTP id o66so648480ybc.0
- for <freedreno@lists.freedesktop.org>; Wed, 15 Feb 2023 18:22:25 -0800 (PST)
+Received: from mail-yb1-xb2c.google.com (mail-yb1-xb2c.google.com
+ [IPv6:2607:f8b0:4864:20::b2c])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D073610E2BA
+ for <freedreno@lists.freedesktop.org>; Thu, 16 Feb 2023 02:23:50 +0000 (UTC)
+Received: by mail-yb1-xb2c.google.com with SMTP id l201so576921ybf.10
+ for <freedreno@lists.freedesktop.org>; Wed, 15 Feb 2023 18:23:50 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=CM7+nbuu2JRbsspQMF7cJUrYUSFpszj5JfnwXasrm4A=;
- b=gigIXAI3bPveEUhfHtx570QVDRLxYX8xjSWbAgaaNJr8OHn4vARDGJsyhfgvBLcMDu
- L5wohJVj2YE+B1UmeMMEN6eX9hUlJGWCeWF7OnleAViT0ZiH0tFgvT5A3+q9q/yyljTw
- ak7eMAvbDlFACfYoveoHaq4Py9kkWFfouQrsr47NUWXPzKtEDokaedfZGbJwddAIDhrW
- Eq3AqzDzSq5H1b23lX6l7HL83+naDjPPRpreyReiWB+51yIxAmZAqD5QTlck2h48tnc9
- 8p+PYJU9rmsSSUfVjun4M1wT54J5PfT0Xv86UY5+V0xApa7rXLzqYb1KL5FzmUKMWxw0
- FNUA==
+ bh=NT9uNCMBWl794fkp+SMakMeJNNkxNGDXw7tBHf8Uvgo=;
+ b=wlNPmA17KOY6pK6YSw5++8aMVTR+4h8QzLMUDAs/l/GgEN8eLFJjblVBAL4l+8UMVo
+ VTNvpLOPQe0tCs8ZSBaPmCUh9VK2S35jr9LXhVu57g0MVbUxlVvoBO80fVRTxB/I/RIx
+ +akHOGbDrVDLObPLO141W2tYDUHhJog0ukTM/eLTBFppp3LXIP16krE2YUTVKv6nVvB5
+ DD3wYChintddtUpp8K+Y/2dZp6OviOiV3/Z2H0iulxFADBwcqMao8Um8A8dyZonyUOaN
+ VjBCHyPX3eNae7TtWuiXWoU1BLix/mjHbA701x837guejw8xRKnxIaw7zAdnQbzpzTlX
+ e+8Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=CM7+nbuu2JRbsspQMF7cJUrYUSFpszj5JfnwXasrm4A=;
- b=p/fHV1CIAIzz5EI9Siy+UPQODQPcOaTVHA1FjpoLPX6iKut2sKJ4PfXaxI74/Kbvwl
- x/pliPz90AACGrbMwTqP5rErIDPgqDE3Kz8dAEIFfbc3jdkmsVjpXT7EWvglS22c1WZv
- 2aEC5PGoWRh6cfd/ichAtQzcOySNdBWvgugkm8JnY06J6a20coOUwyQkkpGzShF/M0Tx
- J3kfxEC7/fVhG0taOfEo62Yc4PaLVF+o1fD4e3tagmFfZEbH4MD6qlLgs8LikPx0v/KK
- SxQ+MT7NZTQq606gcMb7W/mdSKE//INkOb4SMbGYeOHbCmWkedXqCvfvw41lqPk3U38n
- qVEw==
-X-Gm-Message-State: AO0yUKVTxyS91W+wzF4JqOIio3UUbJqly1j79t6zsSs0YyG1Jtt/DLZB
- Y9BHFjESbZr8xC8DFFzeCO8zVM85ontm1wNI+0qLxQ==
-X-Google-Smtp-Source: AK7set/dOBv0noQbP2fgaIWTgCF1NkJvZ1c87YBke3v3Br/DUuhltjLJlt/oBAfG1FZOUEQf5yA2VgwloLnLwaQtJ/E=
-X-Received: by 2002:a25:9c07:0:b0:905:d0a5:3ff6 with SMTP id
- c7-20020a259c07000000b00905d0a53ff6mr547394ybo.322.1676514144276; Wed, 15 Feb
- 2023 18:22:24 -0800 (PST)
+ bh=NT9uNCMBWl794fkp+SMakMeJNNkxNGDXw7tBHf8Uvgo=;
+ b=naT4LERbg7cTfLMocmD0J5KYVTWJJELjyly4yCKAZE5HmH+POwmAQtUFZi3gr9765y
+ Hpi8yCXOWEG7o8wjH665FcmS1A0i0Hv/RGS2z7RhyO+FL50Ta5gTnEobKuLeAJ2ADviN
+ Lsw+BTAvCHYlkioqJzVL99F5PU3L6xvtFTUKIIuuAl+bslNZo8eCnnK4eQuGAMkFN3YW
+ Jo46UrbPbCcuRLyXlXxVClfY/Iztqa+vQ9eloLeYvjLAbYS3/hfJR3Y/NJp2F7n4DNPd
+ 4Qjj+f/q4Qj9gQfWGIPIv+tj1Z9XdOz+M/ldW0qda9ztNVCYdQv+ml7gLtVekJ8g1RV8
+ JElA==
+X-Gm-Message-State: AO0yUKXgNbMa3HvvX9Re5whDG3oA6GuOHl3Adkj3jODv7LpM179OUcv5
+ cSYm2Ou2TzqPukuKBeKeDE1NDgJ5D2ZIFgHGEQUKOw==
+X-Google-Smtp-Source: AK7set+g5Iz6F+qTqpXxLN+bqfm0nIW/gdEpwcM8ofiNU5qAy9sZmhZSKBYet6qwAIKNsRoqh0H5TZPmCHA79wcHMxk=
+X-Received: by 2002:a25:9a49:0:b0:86a:e417:b66e with SMTP id
+ r9-20020a259a49000000b0086ae417b66emr520370ybo.382.1676514229770; Wed, 15 Feb
+ 2023 18:23:49 -0800 (PST)
 MIME-Version: 1.0
 References: <20230215-sspp-scaler-version-v1-0-416b1500b85b@somainline.org>
- <20230215-sspp-scaler-version-v1-1-416b1500b85b@somainline.org>
-In-Reply-To: <20230215-sspp-scaler-version-v1-1-416b1500b85b@somainline.org>
+ <20230215-sspp-scaler-version-v1-2-416b1500b85b@somainline.org>
+In-Reply-To: <20230215-sspp-scaler-version-v1-2-416b1500b85b@somainline.org>
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Thu, 16 Feb 2023 04:22:13 +0200
-Message-ID: <CAA8EJpq1L32VQ1eQEk2YQWqCwHgdFQfuWPhQx=PmhzXvazLgPA@mail.gmail.com>
+Date: Thu, 16 Feb 2023 04:23:38 +0200
+Message-ID: <CAA8EJpr7v4waXaaahuMq3Ti18Gd-sg4HGSSof=yEX5kC7+CKnA@mail.gmail.com>
 To: Marijn Suijten <marijn.suijten@somainline.org>
 Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [PATCH 1/3] drm/msm/dpu: Read
- previously-uninitialized SSPP scaler version from hw
+Subject: Re: [Freedreno] [PATCH 2/3] drm/msm/dpu: Drop unused get_scaler_ver
+ callback from SSPP
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,103 +83,18 @@ Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 On Thu, 16 Feb 2023 at 01:02, Marijn Suijten
 <marijn.suijten@somainline.org> wrote:
 >
-> DPU's catalog never assigned dpu_scaler_blk::version leading to
-> initialization code in dpu_hw_setup_scaler3 to wander the wrong
-> codepaths.  Instead of hardcoding the correct QSEED algorithm version,
-> read it back from a hardware register.
+> This pointer callback is never used and should be removed.  The helper
+> _dpu_hw_sspp_get_scaler3_ver function is retained as it is being used by
+> dpu_hw_sspp_init which didn't itself compute _sspp_subblk_offset yet.
 >
-> Note that this register is only available starting with QSEED3, where
-> 0x1002 corresponds to QSEED3, 0x2004 to QSEED3LITE and 0x3000 to QSEED4.
-
-This is not purely accurate. 0x1003 (sdm845) also corresponds to QSEED3.
-I'd say instead that there are several variations of QSEED3 scalers,
-where starting from 0x2004 it is called QSEED3LITE and starting from
-0x3000 it is called QSEED4.
-
->
-> Fixes: 25fdd5933e4c ("drm/msm: Add SDM845 DPU support")
 > Signed-off-by: Marijn Suijten <marijn.suijten@somainline.org>
+
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+
 > ---
->  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h | 2 --
->  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.c    | 8 +++++++-
->  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.h    | 3 +++
->  3 files changed, 10 insertions(+), 3 deletions(-)
->
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h
-> index ddab9caebb18..96ce1766f4a1 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h
-> @@ -324,11 +324,9 @@ struct dpu_src_blk {
->  /**
->   * struct dpu_scaler_blk: Scaler information
->   * @info:   HW register and features supported by this sub-blk
-> - * @version: qseed block revision
->   */
->  struct dpu_scaler_blk {
->         DPU_HW_SUBBLK_INFO;
-> -       u32 version;
-
-No. Please keep the version in the scaler subblk.  It is a version of
-the QSEED (scaler block), not the SSPP's version.
-
-There is a block called DS (destination scaler), which can be used to
-scale the resulting image after the LM. This block also uses the
-QSEED3(,LITE,4) scaler block.
-
->  };
->
->  struct dpu_csc_blk {
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.c
-> index 4246ab0b3bee..d4e181e1378c 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.c
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.c
-> @@ -430,7 +430,7 @@ static void _dpu_hw_sspp_setup_scaler3(struct dpu_hw_pipe *ctx,
->                 return;
->
->         dpu_hw_setup_scaler3(&ctx->hw, scaler3_cfg, idx,
-> -                       ctx->cap->sblk->scaler_blk.version,
-> +                       ctx->version,
->                         sspp->layout.format);
->  }
->
-> @@ -807,6 +807,12 @@ struct dpu_hw_pipe *dpu_hw_sspp_init(enum dpu_sspp idx,
->         hw_pipe->mdp = &catalog->mdp[0];
->         hw_pipe->idx = idx;
->         hw_pipe->cap = cfg;
-> +
-> +       if (test_bit(DPU_SSPP_SCALER_QSEED3, &cfg->features) ||
-> +                       test_bit(DPU_SSPP_SCALER_QSEED3LITE, &cfg->features) ||
-> +                       test_bit(DPU_SSPP_SCALER_QSEED4, &cfg->features))
-> +               hw_pipe->version = _dpu_hw_sspp_get_scaler3_ver(hw_pipe);
-> +
->         _setup_layer_ops(hw_pipe, hw_pipe->cap->features);
->
->         return hw_pipe;
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.h
-> index 0c95b7e64f6c..eeaf16c6af15 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.h
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.h
-> @@ -352,6 +352,7 @@ struct dpu_hw_sspp_ops {
->   * @hw: block hardware details
->   * @catalog: back pointer to catalog
->   * @mdp: pointer to associated mdp portion of the catalog
-> + * @version: qseed block revision
->   * @idx: pipe index
->   * @cap: pointer to layer_cfg
->   * @ops: pointer to operations possible for this pipe
-> @@ -362,6 +363,8 @@ struct dpu_hw_pipe {
->         const struct dpu_mdss_cfg *catalog;
->         const struct dpu_mdp_cfg *mdp;
->
-> +       u32 version;
-> +
->         /* Pipe */
->         enum dpu_sspp idx;
->         const struct dpu_sspp_cfg *cap;
->
-> --
-> 2.39.2
->
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.c | 4 +---
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.h | 6 ------
+>  2 files changed, 1 insertion(+), 9 deletions(-)
 
 
 -- 
