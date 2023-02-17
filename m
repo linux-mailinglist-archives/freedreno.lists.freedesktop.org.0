@@ -1,73 +1,72 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4765269B503
-	for <lists+freedreno@lfdr.de>; Fri, 17 Feb 2023 22:45:30 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id CF09B69B51D
+	for <lists+freedreno@lfdr.de>; Fri, 17 Feb 2023 22:53:12 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 091F910E1F2;
-	Fri, 17 Feb 2023 21:45:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8A7F810E46B;
+	Fri, 17 Feb 2023 21:53:11 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x131.google.com (mail-lf1-x131.google.com
- [IPv6:2a00:1450:4864:20::131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6CA0110E469
- for <freedreno@lists.freedesktop.org>; Fri, 17 Feb 2023 21:45:28 +0000 (UTC)
-Received: by mail-lf1-x131.google.com with SMTP id z18so3480284lfd.0
- for <freedreno@lists.freedesktop.org>; Fri, 17 Feb 2023 13:45:28 -0800 (PST)
+Received: from mail-lf1-x12e.google.com (mail-lf1-x12e.google.com
+ [IPv6:2a00:1450:4864:20::12e])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2A53E10E46B
+ for <freedreno@lists.freedesktop.org>; Fri, 17 Feb 2023 21:53:10 +0000 (UTC)
+Received: by mail-lf1-x12e.google.com with SMTP id t4so2420670lfr.7
+ for <freedreno@lists.freedesktop.org>; Fri, 17 Feb 2023 13:53:10 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :from:to:cc:subject:date:message-id:reply-to;
- bh=aJgo6ul60Cbzprplm9cKqpN63/vkUMUzHN3LDsBeStI=;
- b=h7m7n6VTI/ugoEkovIUKo4Xh27r9HweKwzvbbhIkVk2y0G+00FjHLND3UM5NO/ryD0
- Tg9QmrFvFOyQzdokRmhbsklg7x+4XBUNEc9EWT0xTCsu9TI4fUYXbNW7W0KKhr+gHrFA
- qNxG6r6NUMYl0AEWkYo/UATM2L5SpMu1WkRKD1tlatsb9+Ad7ge8JmB4pnXIuzlA9Nv5
- x40IY/9g6ODPZz93arUAEluZN6enu8yjRParfYSK76TPfusoi5x1K7wsAXAOOJ+BgFH0
- xUWahNpRIsZrHFoJdJPCLqRQmEJX01VnfsqrZGUYvk1y4phXbABAGH0NyTCt7rHwtewW
- ex9Q==
+ bh=vrYTA9ehfsvjQ2qG5X1k0zYCEbq+LYYxzJxLjm69hqo=;
+ b=QOYBkUXHs2WGR2RY9Cl7thRfNc7rrF6Ki0EE4FKplBKuWQ3y9zQiUR/SP1/8768+Md
+ m7px3SfKFTU+A4FgIpUNECBrtYZv8FeScl+A32VAkUgdA+nd1KqFI2ry1MAAPtlltxgd
+ knzyDJqLNL3HubGVKEHzTlJnX4nBiDt2Adk2fFW8loBYRf3uM8q+YHHMwRR3misgi8SR
+ Fc+KpgG6056leD9Vj/q/FAtnsIKKBbZfhJbVgXhoXkykeCg3omZNYEbg9hsotJ3ZC6fI
+ aMeIMtVYq0VPiXQIpUlC0akEU/cfE6vXCSKB0plmgn199AS70Hq/qBNGozUCOC/9JRqW
+ J3Yw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=aJgo6ul60Cbzprplm9cKqpN63/vkUMUzHN3LDsBeStI=;
- b=DFUgheU5mvy8nZa3sbpIP9a6ueZRvyh8hyMdv+s4xJFlHDVhF3iLEyLJUohDHpjzmx
- FIKwCAtZgg3IF44WE5kw3YXNOvjvfov/ouln6uClx5tdj5EpkdU06TZ7g71F4cCbxhug
- oFA8rnnMtn0VYb1SEMNhIWXqRowVAFr3Qgyo4bYCeuYPrzE7BQLXgfwByDguIs8XQYND
- fLigdi+bgiio/81gdTG8CFAGaToHnJ32C32cGkQPllknLEEYMZEypuBSQTlX6PWTZB1n
- YJvY7wEn4pFxpKauRL/QyLVfRqcU8gQ0Qhh+ilZ41SpHWgpAOEhc/1iSOLMj0OJhLQQh
- /DWA==
-X-Gm-Message-State: AO0yUKVSSiN8AtFgG6//tTKizRHUQixNG+PK3xYfcd/Bw8I2t+dFHYJm
- aq7aG2UBnTPDyVU3nVsipAQUmg==
-X-Google-Smtp-Source: AK7set/u1kwPqjUW5A7pVAifFgobOYozdSSvCwdLULWacI3kPnDOZkk2g2Lt2ZNLXiIY+IbDIFCWNw==
-X-Received: by 2002:ac2:5443:0:b0:4dc:828f:ef97 with SMTP id
- d3-20020ac25443000000b004dc828fef97mr1303357lfn.60.1676670326613; 
- Fri, 17 Feb 2023 13:45:26 -0800 (PST)
-Received: from [192.168.1.101] (abxh184.neoplus.adsl.tpnet.pl. [83.9.1.184])
+ bh=vrYTA9ehfsvjQ2qG5X1k0zYCEbq+LYYxzJxLjm69hqo=;
+ b=nkh6Bw7cBUbxmaPirUA1YEYUbV4YVc/6v5+nPK+tX9z3GRTddVtcbcEOPZcOW3xbbe
+ iUhTwQBDd1V9S2LjQvcalwJeGynX7dpRaOcnWNHOPsYpBmpb7/QaUNFrdx/TBzrSMaSR
+ wtOMNbuKs8WyblNWbDY95jHsoG9vqHc0Zj9frEGtkpnU0Y4CUR5C5y9qxTAHPKW0IAro
+ h5qdbNXQaoZLXrsXj7h9b+Yusyh+80XjMxskNP9CnyhKo0UeLp4NsVSI4IsYpYE6xDX2
+ uiYp92Yhc7Svz+i9aZacHNj6Yv4NeMW5TIRn/X0ExVaqwUigtK42t3zseIijW81uUzqc
+ M5IQ==
+X-Gm-Message-State: AO0yUKV3e3rU5gJjTv2JrW7+8gvS/GP9I7aL5piGoqSXQSH2CcoB/poX
+ L8atgED7cXsLXA+YaudjD7OvpA==
+X-Google-Smtp-Source: AK7set/lwfUg5aQxQh5XTDxnNOktYivNX1xwI+g+h8QmaqrpaHYpf2rRQUZ8wDRxH7BzUCeYprXFPg==
+X-Received: by 2002:ac2:4c8f:0:b0:4d7:2187:e1c8 with SMTP id
+ d15-20020ac24c8f000000b004d72187e1c8mr499038lfl.44.1676670788426; 
+ Fri, 17 Feb 2023 13:53:08 -0800 (PST)
+Received: from ?IPV6:2001:14ba:a085:4d00::8a5?
+ (dzccz6yyyyyyyyyyybcwt-3.rev.dnainternet.fi. [2001:14ba:a085:4d00::8a5])
  by smtp.gmail.com with ESMTPSA id
- z9-20020ac25de9000000b004d39af98af6sm783983lfq.81.2023.02.17.13.45.25
+ t1-20020ac25481000000b004d16263b36bsm786961lfk.111.2023.02.17.13.53.07
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 17 Feb 2023 13:45:26 -0800 (PST)
-Message-ID: <8547e66d-504d-3e1c-9356-3c5f1618ac91@linaro.org>
-Date: Fri, 17 Feb 2023 22:45:24 +0100
+ Fri, 17 Feb 2023 13:53:08 -0800 (PST)
+Message-ID: <7ff320ef-22dc-a3fc-764e-bfc50079dfdb@linaro.org>
+Date: Fri, 17 Feb 2023 23:53:07 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.7.2
-Content-Language: en-US
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- linux-arm-msm@vger.kernel.org, andersson@kernel.org, agross@kernel.org
-References: <20230214173145.2482651-1-konrad.dybcio@linaro.org>
- <20230214173145.2482651-4-konrad.dybcio@linaro.org>
- <caae5c4b-4aa6-5219-3278-92c3bed7868d@linaro.org>
- <1c2f6e03-8b16-1ee2-bdbd-8f84219acb36@linaro.org>
- <aba38acf-d68f-27a8-eccc-f4a7b3b3535d@linaro.org>
-From: Konrad Dybcio <konrad.dybcio@linaro.org>
-In-Reply-To: <aba38acf-d68f-27a8-eccc-f4a7b3b3535d@linaro.org>
-Content-Type: text/plain; charset=UTF-8
+Content-Language: en-GB
+To: Vinod Polimera <quic_vpolimer@quicinc.com>,
+ dri-devel@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
+ freedreno@lists.freedesktop.org, devicetree@vger.kernel.org
+References: <1676219337-6526-1-git-send-email-quic_vpolimer@quicinc.com>
+ <1676219337-6526-14-git-send-email-quic_vpolimer@quicinc.com>
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+In-Reply-To: <1676219337-6526-14-git-send-email-quic_vpolimer@quicinc.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH v2 03/14] drm/msm/a6xx: Introduce GMU
- wrapper support
+Subject: Re: [Freedreno] [PATCH v13 13/13] drm/msm/disp/dpu: update dpu_enc
+ crtc state on crtc enable/disable during self refresh
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,44 +79,27 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, Akhil P Oommen <quic_akhilpo@quicinc.com>,
- David Airlie <airlied@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- dri-devel@lists.freedesktop.org, Douglas Anderson <dianders@chromium.org>,
- Rob Clark <robdclark@gmail.com>, Geert Uytterhoeven <geert@linux-m68k.org>,
- Daniel Vetter <daniel@ffwll.ch>, marijn.suijten@somainline.org,
- Sean Paul <sean@poorly.run>, Chia-I Wu <olvaffe@gmail.com>,
- linux-kernel@vger.kernel.org
+Cc: quic_kalyant@quicinc.com, quic_sbillaka@quicinc.com, dianders@chromium.org,
+ quic_bjorande@quicinc.com, quic_abhinavk@quicinc.com,
+ quic_vproddut@quicinc.com, linux-kernel@vger.kernel.org,
+ quic_khsieh@quicinc.com, robdclark@gmail.com, swboyd@chromium.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-
-
-On 17.02.2023 22:44, Dmitry Baryshkov wrote:
-> On 17/02/2023 23:41, Konrad Dybcio wrote:
->>
->>
->> On 17.02.2023 22:37, Dmitry Baryshkov wrote:
->>> On 14/02/2023 19:31, Konrad Dybcio wrote:
->>>> Some (particularly SMD_RPM, a.k.a non-RPMh) SoCs implement A6XX GPUs
->>>> but don't implement the associated GMUs. This is due to the fact that
->>>> the GMU directly pokes at RPMh. Sadly, this means we have to take care
->>>> of enabling & scaling power rails, clocks and bandwidth ourselves.
->>>>
->>>> Reuse existing Adreno-common code and modify the deeply-GMU-infused
->>>> A6XX code to facilitate these GPUs. This involves if-ing out lots
->>>> of GMU callbacks and introducing a new type of GMU - GMU wrapper.
->>>> This is essentially a register region which is convenient to model
->>>> as a device. We'll use it for managing the GDSCs.
->>>
->>> Why do you call it a wrapper?
->> That's what Qualcomm calls it.. The GMU-less GPUs have (almost) all the
->> same GMU GX/CX registers as the real GMUs in this 'wrapper' region, so
->> that lets us reuse some code with gmu_(read/write/rmw) calls.
->>
+On 12/02/2023 18:28, Vinod Polimera wrote:
+> Populate the enocder software structure to reflect the updated
+> crtc appropriately during crtc enable/disable for a new commit
+> while taking care of the self refresh transitions when crtc
+> disable is triggered from the drm self refresh library.
 > 
-> Ack. If you can add this to the commit message, it would be great.
-Sure! I spent so much time on this that I can't really tell what's obvious
-and what's not anymore, heh.
+> Signed-off-by: Vinod Polimera <quic_vpolimer@quicinc.com>
+> ---
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c | 29 +++++++++++++++++++++++++----
+>   1 file changed, 25 insertions(+), 4 deletions(-)
 
-Konrad
-> 
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+
+-- 
+With best wishes
+Dmitry
+
