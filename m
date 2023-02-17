@@ -2,69 +2,70 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 08F6369B438
-	for <lists+freedreno@lfdr.de>; Fri, 17 Feb 2023 21:51:44 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4D1A969B43C
+	for <lists+freedreno@lfdr.de>; Fri, 17 Feb 2023 21:54:20 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6F9BB10E478;
-	Fri, 17 Feb 2023 20:51:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0555510F0CE;
+	Fri, 17 Feb 2023 20:54:19 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x130.google.com (mail-lf1-x130.google.com
- [IPv6:2a00:1450:4864:20::130])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C519310E478
- for <freedreno@lists.freedesktop.org>; Fri, 17 Feb 2023 20:51:39 +0000 (UTC)
-Received: by mail-lf1-x130.google.com with SMTP id d24so3082682lfs.8
- for <freedreno@lists.freedesktop.org>; Fri, 17 Feb 2023 12:51:39 -0800 (PST)
+Received: from mail-lf1-x12d.google.com (mail-lf1-x12d.google.com
+ [IPv6:2a00:1450:4864:20::12d])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0742F10F0C5
+ for <freedreno@lists.freedesktop.org>; Fri, 17 Feb 2023 20:54:17 +0000 (UTC)
+Received: by mail-lf1-x12d.google.com with SMTP id t8so2851162lft.11
+ for <freedreno@lists.freedesktop.org>; Fri, 17 Feb 2023 12:54:16 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :from:to:cc:subject:date:message-id:reply-to;
- bh=vaUH39wIG4Hkyo8bl9FqmB9fhuOy8PoEQdyCTVMoWM8=;
- b=H2PHVIoEg7Q+mpHbPQ3C5IuP32zgfr4MsGuFdUJeVetNkWlguMapD0q/UNlU1Qo2NS
- fYaEjI0MCk7BFGJEX1G/Hr3LzqTVjvWjnCUHByRS8rEhpT+SNeO7+eWJcqXdVOXzUMVZ
- 46nV0KopHivtGIi0G3LNCvoOu0WTHxIw9zCHjL5IOu+wH+znuM61SiG4eWGDNbI08sHL
- Nn5SiyVQBswoFT6mnS5RhPSFJ7Qah5VRdRDvg8Rfc7KM40nZDMiWKDiXow8h1RhfXb2I
- Tb+o5blmedrCJFzsADmMcpl94MDd7uu/aPD7/zbm8ndnbC4txMyKrwU1E4CyBMoHlsnW
- D62w==
+ bh=w4WIlW107+t+DszwrTyAc22lGzyIotvHYh3Xdegh8P4=;
+ b=ijLbDznXSh8NzgQqTx231xT93GZkx4MeSRAeCsBUz44OLjpMEVla3bA3NYQPlNLlZp
+ IQsDkMoFer3vwJxvfOBxV/ruqX0qpfnIZ0wGQNyWXNNMZ4UWqaOzRDa3SkHXAKwU9MMF
+ bdvsq/G2lI6g1C51+IF8GLKFUS0yIJPX8oKvsMwM5p22utkwhC1jV4B9BaizWxCBEbQS
+ Jhl0ACH/gko8v118lIIS/AH7nVRk6BMtERZ3NBQShAQ5HVyOyZiYhQbwK+eZwCUbuvdY
+ rYt7r1dz1nDh9fj2G6a50W62RAUIUCOjqt90QzI1KcDp9BtBI4TDXRcm2j98yB7VGiHI
+ hM4Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=vaUH39wIG4Hkyo8bl9FqmB9fhuOy8PoEQdyCTVMoWM8=;
- b=66h4HUWaGvyEqZDizH7jeK3c+OD4frYQCNgJhJKuPTdLV7Cw+Xa6DPEzpBbAtXpJWy
- ULJbhIIunQNs1HjVYNen0M6wv8huLSCi+qMeujHuOSxdElQQZqoCTP4V2QNU1n0gxSRD
- tzoEWwW4DhRsiuDWX4oQdgHR0Qs/E+N97H8jYOAeV8cTdfM+Ywly38F4JXJWMUwHLgBw
- Md6M30rBRbM/liYLJse0yGEcKxdEM8WXj8EW2zGed/1s4fDBq8n/ke8Nm8UXlonkjOex
- p6Y9vibhsti84nzd0DUwM1Gd/pCiYAaeEyjGfIuRcxA+2Ou9NBAv2AFgkUzW0HmbA8YE
- thOw==
-X-Gm-Message-State: AO0yUKUh8hbMuyLwGz6xJWf2iJi00MzwBCIg1MpkriNpev7brGp2gTkp
- 1bw0DhL5RqAmoCNJHI66jY3VUA==
-X-Google-Smtp-Source: AK7set9hyN2bUTZrJmbKC0oSG02HDrQK9DivB+FyC4+cNf9POowtCVs0iR3CjM2KeH3dF3jZimVQ2Q==
-X-Received: by 2002:ac2:51b8:0:b0:4cb:4571:9efe with SMTP id
- f24-20020ac251b8000000b004cb45719efemr453495lfk.35.1676667097887; 
- Fri, 17 Feb 2023 12:51:37 -0800 (PST)
-Received: from [192.168.1.101] (abxh184.neoplus.adsl.tpnet.pl. [83.9.1.184])
+ bh=w4WIlW107+t+DszwrTyAc22lGzyIotvHYh3Xdegh8P4=;
+ b=sPQH861WY0tBhy5TKdsi8lyphwTMKlDlRbtVuX4Xs7E7mHwDC6GErJfajWVE+An9/h
+ Bx8d9VixmsgePUSt8YLUJcL74b661Dv7lSUNYEL4JNVCAWMD3F220ozPpv8Zk2eF1Qcp
+ W4CRCeHcCTly+BNMfL2q/vLWLVRY4EB1W1sujkOc2miO5PO0Is0+hTwkRbenTO3w8zjb
+ vZWVkz5YHq6tXG4n5coPVqs6IhhvaZPNRPY070cFYf1oe83m4dMwSX6PnBW6GSOLjpWp
+ NXGSeFbA0HFaUEyqI1omULCdpZRWSHVcBNqd2DRiPLYfXWZbkKFqnb7L4k5QmZCNJEqp
+ iLrA==
+X-Gm-Message-State: AO0yUKVRrRV9x4vy2Y9L70iyaUBaVVOo2A5tlhX3OXkAYmgQ0toBa3CD
+ FUkOKwAK+ITLVxnkWYD7+ktrBw==
+X-Google-Smtp-Source: AK7set8gglBiYkWUbLE8SQ94BBjgD+VurWdIpC2JdjGiHA8slABEmoxIJMuENRApu8yYjKrVP71O3w==
+X-Received: by 2002:ac2:4142:0:b0:4d5:7923:c4c0 with SMTP id
+ c2-20020ac24142000000b004d57923c4c0mr132849lfi.27.1676667255203; 
+ Fri, 17 Feb 2023 12:54:15 -0800 (PST)
+Received: from ?IPV6:2001:14ba:a085:4d00::8a5?
+ (dzccz6yyyyyyyyyyybcwt-3.rev.dnainternet.fi. [2001:14ba:a085:4d00::8a5])
  by smtp.gmail.com with ESMTPSA id
- c25-20020ac244b9000000b004d85789cef1sm780379lfm.49.2023.02.17.12.51.36
+ h12-20020a19700c000000b004d8729d4150sm771293lfc.145.2023.02.17.12.54.14
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 17 Feb 2023 12:51:37 -0800 (PST)
-Message-ID: <69f4a50b-9566-f892-f1b2-831cf20c6938@linaro.org>
-Date: Fri, 17 Feb 2023 21:51:35 +0100
+ Fri, 17 Feb 2023 12:54:14 -0800 (PST)
+Message-ID: <70f298cb-92a3-0bda-2192-51531a4b4f55@linaro.org>
+Date: Fri, 17 Feb 2023 22:54:13 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.7.2
-Content-Language: en-US
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- linux-arm-msm@vger.kernel.org, andersson@kernel.org, agross@kernel.org
+Content-Language: en-GB
+To: Konrad Dybcio <konrad.dybcio@linaro.org>, linux-arm-msm@vger.kernel.org,
+ andersson@kernel.org, agross@kernel.org
 References: <20230214173145.2482651-1-konrad.dybcio@linaro.org>
- <20230214173145.2482651-3-konrad.dybcio@linaro.org>
- <a611e63b-034d-afbd-f194-c789a9071878@linaro.org>
-From: Konrad Dybcio <konrad.dybcio@linaro.org>
-In-Reply-To: <a611e63b-034d-afbd-f194-c789a9071878@linaro.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-Subject: Re: [Freedreno] [PATCH v2 02/14] drm/msm/a6xx: Extend UBWC config
+ <20230214173145.2482651-6-konrad.dybcio@linaro.org>
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+In-Reply-To: <20230214173145.2482651-6-konrad.dybcio@linaro.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Subject: Re: [Freedreno] [PATCH v2 05/14] drm/msm/adreno: Disable
+ has_cached_coherent for A610/A619_holi
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,99 +80,56 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
 Cc: freedreno@lists.freedesktop.org, Akhil P Oommen <quic_akhilpo@quicinc.com>,
  David Airlie <airlied@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- dri-devel@lists.freedesktop.org, Douglas Anderson <dianders@chromium.org>,
- Rob Clark <robdclark@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Nathan Chancellor <nathan@kernel.org>, Rob Clark <robdclark@gmail.com>,
+ Daniel Vetter <daniel@ffwll.ch>, Ricardo Ribalda <ribalda@chromium.org>,
+ "Joel Fernandes \(Google\)" <joel@joelfernandes.org>,
  marijn.suijten@somainline.org, Sean Paul <sean@poorly.run>,
- Chia-I Wu <olvaffe@gmail.com>, linux-kernel@vger.kernel.org
+ Chia-I Wu <olvaffe@gmail.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-
-
-On 17.02.2023 21:46, Dmitry Baryshkov wrote:
-> On 14/02/2023 19:31, Konrad Dybcio wrote:
->> Port setting min_access_length, ubwc_mode and upper_bit from downstream.
->> Values were validated using downstream device trees for SM8[123]50 and
->> left default (as per downstream) elsewhere.
->>
->> Signed-off-by: Konrad Dybcio <konrad.dybcio@linaro.org>
->> ---
->>   drivers/gpu/drm/msm/adreno/a6xx_gpu.c | 29 +++++++++++++++++++--------
->>   1 file changed, 21 insertions(+), 8 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
->> index c5f5d0bb3fdc..8855d798bbb3 100644
->> --- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
->> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
->> @@ -786,17 +786,25 @@ static void a6xx_set_cp_protect(struct msm_gpu *gpu)
->>   static void a6xx_set_ubwc_config(struct msm_gpu *gpu)
->>   {
->>       struct adreno_gpu *adreno_gpu = to_adreno_gpu(gpu);
->> -    u32 lower_bit = 2;
->> +    u32 lower_bit = 1;
+On 14/02/2023 19:31, Konrad Dybcio wrote:
+> These SKUs don't support the feature. Disable it to make the GPU stop
+> crashing after almost each and every submission - the received data on
+> the GPU end was simply incomplete in garbled, resulting in almost nothing
+> being executed properly.
 > 
-> Any reason to change the default value here?
-> If it is to match chipsets you are adding, it might be worth splitting this change to that patch.
-Not really now that I think about it, especially since the
-correct default value should be zero:
-
--- part of msm-4.19 --
-bit = adreno_dev->highest_bank_bit ? adreno_dev->highest_bank_bit - 13 : 0;
-lower_bit = bit & 0x3;
-upper_bit = (bit >> 0x2) & 1;
-
-where adreno_dev->highest_bank_bit is read from the dt property
-"qcom,highest-bank-bit"
-
-Anyway, I should be able to verify it for all the SoCs which
-we support.
-
-Konrad
+> Signed-off-by: Konrad Dybcio <konrad.dybcio@linaro.org>
+> ---
+>   drivers/gpu/drm/msm/adreno/adreno_device.c | 8 +++++++-
+>   1 file changed, 7 insertions(+), 1 deletion(-)
 > 
->> +    u32 upper_bit = 0;
->>       u32 amsbc = 0;
->>       u32 rgb565_predicator = 0;
->>       u32 uavflagprd_inv = 0;
->> +    u32 min_acc_len = 0;
->> +    u32 ubwc_mode = 0;
->>         /* a618 is using the hw default values */
->>       if (adreno_is_a618(adreno_gpu))
->>           return;
->>   -    if (adreno_is_a640_family(adreno_gpu))
->> +    if (adreno_is_a630(adreno_gpu))
->> +        lower_bit = 2;
->> +
->> +    if (adreno_is_a640_family(adreno_gpu)) {
->>           amsbc = 1;
->> +        lower_bit = 2;
->> +    }
->>         if (adreno_is_a650(adreno_gpu) || adreno_is_a660(adreno_gpu)) {
->>           /* TODO: get ddr type from bootloader and use 2 for LPDDR4 */
->> @@ -807,18 +815,23 @@ static void a6xx_set_ubwc_config(struct msm_gpu *gpu)
->>       }
->>         if (adreno_is_7c3(adreno_gpu)) {
->> -        lower_bit = 1;
->>           amsbc = 1;
->>           rgb565_predicator = 1;
->>           uavflagprd_inv = 2;
->>       }
->>         gpu_write(gpu, REG_A6XX_RB_NC_MODE_CNTL,
->> -        rgb565_predicator << 11 | amsbc << 4 | lower_bit << 1);
->> -    gpu_write(gpu, REG_A6XX_TPL1_NC_MODE_CNTL, lower_bit << 1);
->> -    gpu_write(gpu, REG_A6XX_SP_NC_MODE_CNTL,
->> -        uavflagprd_inv << 4 | lower_bit << 1);
->> -    gpu_write(gpu, REG_A6XX_UCHE_MODE_CNTL, lower_bit << 21);
->> +          rgb565_predicator << 11 | upper_bit << 10 | amsbc << 4 |
->> +          min_acc_len << 3 | lower_bit << 1 | ubwc_mode);
->> +
->> +    gpu_write(gpu, REG_A6XX_TPL1_NC_MODE_CNTL, upper_bit << 4 |
->> +          min_acc_len << 3 | lower_bit << 1 | ubwc_mode);
->> +
->> +    gpu_write(gpu, REG_A6XX_SP_NC_MODE_CNTL, upper_bit << 10 |
->> +          uavflagprd_inv << 4 | min_acc_len << 3 |
->> +          lower_bit << 1 | ubwc_mode);
->> +
->> +    gpu_write(gpu, REG_A6XX_UCHE_MODE_CNTL, min_acc_len << 23 | lower_bit << 21);
->>   }
->>     static int a6xx_cp_init(struct msm_gpu *gpu)
-> 
+> diff --git a/drivers/gpu/drm/msm/adreno/adreno_device.c b/drivers/gpu/drm/msm/adreno/adreno_device.c
+> index 36f062c7582f..82757f005a1a 100644
+> --- a/drivers/gpu/drm/msm/adreno/adreno_device.c
+> +++ b/drivers/gpu/drm/msm/adreno/adreno_device.c
+> @@ -540,7 +540,13 @@ static int adreno_bind(struct device *dev, struct device *master, void *data)
+>   		config.rev.minor, config.rev.patchid);
+>   
+>   	priv->is_a2xx = config.rev.core == 2;
+> -	priv->has_cached_coherent = config.rev.core >= 6;
+> +
+> +	if (config.rev.core >= 6) {
+> +		/* Exclude A610 and A619_holi */
+> +		if (!(adreno_cmp_rev(ADRENO_REV(6, 1, 0, ANY_ID), config.rev) ||
+> +		      adreno_cmp_rev(ADRENO_REV(6, 1, 9, 1), config.rev)))
+> +			priv->has_cached_coherent = true;
+> +	}
+
+I'd suggest something like:
+
+if (config.rev.core >= 6 &&
+     !(info.quirks & ADRENO_QUIRK_NO_CACHE_COHERENT))
+         priv->has_cache_coherent = true;
+
+Let's keep all the information and quirks in a single place.
+
+>   
+>   	gpu = info->init(drm);
+>   	if (IS_ERR(gpu)) {
+
+-- 
+With best wishes
+Dmitry
+
