@@ -2,74 +2,73 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id E721569AC1A
-	for <lists+freedreno@lfdr.de>; Fri, 17 Feb 2023 14:06:47 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4DA2669AED1
+	for <lists+freedreno@lfdr.de>; Fri, 17 Feb 2023 16:00:38 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B563C10E038;
-	Fri, 17 Feb 2023 13:06:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 117E510F016;
+	Fri, 17 Feb 2023 15:00:37 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x130.google.com (mail-lf1-x130.google.com
- [IPv6:2a00:1450:4864:20::130])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6F30610E038
- for <freedreno@lists.freedesktop.org>; Fri, 17 Feb 2023 13:06:45 +0000 (UTC)
-Received: by mail-lf1-x130.google.com with SMTP id u22so1675046lfu.5
- for <freedreno@lists.freedesktop.org>; Fri, 17 Feb 2023 05:06:45 -0800 (PST)
+Received: from mail-yb1-xb31.google.com (mail-yb1-xb31.google.com
+ [IPv6:2607:f8b0:4864:20::b31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 743DE10F01E
+ for <freedreno@lists.freedesktop.org>; Fri, 17 Feb 2023 15:00:35 +0000 (UTC)
+Received: by mail-yb1-xb31.google.com with SMTP id 2so3833006ybf.9
+ for <freedreno@lists.freedesktop.org>; Fri, 17 Feb 2023 07:00:35 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
+ h=to:subject:message-id:date:from:in-reply-to:references:mime-version
  :from:to:cc:subject:date:message-id:reply-to;
- bh=vvEa0mJYtd+G6bvaOGxPbkna4LTkKOOJGlw7PwM4jDk=;
- b=OutRggqL6ChRrd7U4h7FjSaKRX8WvJF/ILzuPwurg/Db6xOW3nMZZYCNIJfBd8JIux
- 8zbjn89swfdF7wVtCdBXk9jnBBSKY+0gDx0/HaYI8LQ62I4G6Ousiqg5KBaOLkPRje/c
- xmL9hhjL9D9hEPMTml7RRabmctWihOc/iDi9/vi/yfbRFj7WBmwFZhEg5+UpDaYNrIp7
- qXHnjYWt0lwDte8lMI5kYdP053zXRMe8BfuLqvzE1oh3jG70fSkcdL+6V4t6lClAZCCF
- qP+LPRs85W+uYpwc5mXsNiLGEgzxpr/GVtvJIFDjCCZQDHa+OMqYZ0SvNTQWy3uS7zy6
- Hcuw==
+ bh=aAJZVe/vV3cZhcoC/T6LPsbBim3Szyhp2HbhCsQ0IWg=;
+ b=BRIqLQEbheRuNrQkvbOWnTpYkviefY1N7WqRc2n5d1xhWSnQDAvZSdfzixOnlsbozf
+ rL/DtFS+rCH5AEYp2AOqyaEtrx5DHuYhdiyThr9s8UinrUaP4Nz1rt+C8JM1FZB8ibqA
+ g1KX21+r7aMkjLS6cZObmFBGyW22lc+4FDcbu9TxUefwmbIzgVva6xJ6d1IP743M0JRf
+ 3D+SUitLCuNKju7BgcM+j22wxbOVqK14MTsjaUO50co8BLGPp/rsfd2kHXy6pzpKbUDM
+ BwUqw2W3aAJo3zTplXP+ij69l/iDZKro+/aFjZ1gTnHGWHEsD39GdX2qw/lbOdoYitoI
+ +Mdg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
+ h=to:subject:message-id:date:from:in-reply-to:references:mime-version
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=vvEa0mJYtd+G6bvaOGxPbkna4LTkKOOJGlw7PwM4jDk=;
- b=dhRkRAF33bMjHrarW8t5PSaWv9dIgwnjHrBhG5NfSW7cweZ/33lQ1XdYcPYuzEFIaK
- yo5SzS2ae56xp93yJutGlAzoFW/1rXOd96QhldNKntVUMmVgWITjd1pqpyrU77cuVJzg
- 8CstBXlQv4sX09oHwK6lUxemzlmVIScbdRgfJS28FF0RCuQBnnFc5pbWixI5aPRLVOEJ
- BcWrI+zTbD/7A1TKWcseS1wswLRM9ihLFGlZlKYc3VytMdN15G5RQvYO8nLuIm6CArXY
- wQn9Bv2orMYWtnCnW2lbhvXRJWa3/WEmn/BAZ7avXN1jqmPM9q7KoSSp4L9Whyh6sjUQ
- C2DA==
-X-Gm-Message-State: AO0yUKXWp9xUxEECFysNaEExImgmE6+AGJ/QZ8uEEnzGhPyczwA/mUN1
- Sy74M5Bu60wcRKe3tiSLx8lLpQ==
-X-Google-Smtp-Source: AK7set/lbeT9EHF1pBE4+EMSMKbkVmLPsQwro43XW0FTt2Afuh+Wj39B9+9Wd1kBfJ9Q0Dco/BJl4g==
-X-Received: by 2002:a19:ad42:0:b0:4da:e925:c95b with SMTP id
- s2-20020a19ad42000000b004dae925c95bmr152872lfd.62.1676639203626; 
- Fri, 17 Feb 2023 05:06:43 -0800 (PST)
-Received: from [192.168.1.101] (abxh117.neoplus.adsl.tpnet.pl. [83.9.1.117])
- by smtp.gmail.com with ESMTPSA id
- t1-20020ac25481000000b004d16263b36bsm673878lfk.111.2023.02.17.05.06.42
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 17 Feb 2023 05:06:43 -0800 (PST)
-Message-ID: <0d955930-df72-127a-7c53-3e3519affafa@linaro.org>
-Date: Fri, 17 Feb 2023 14:06:41 +0100
+ bh=aAJZVe/vV3cZhcoC/T6LPsbBim3Szyhp2HbhCsQ0IWg=;
+ b=c5RReAMiwtgclm66ZPnELFSffQHsidCGvET74UZsa9KCWcn0/hRImPK3ownVWWrBgK
+ v1XlkaRMFWUp7GUfRnRZ4nU0LyCjpgFdG5McczbUX/bBgqsao/eKWT2Mm8bOiif6yGV5
+ MNPHG2pGzIrtFAUltKUjz1oyF2OZEdf+9662yAAS2SVn+UN0+mFyuAYPUO8+Qf1FPTeM
+ vkcxbh7hcLI5bD2k9KK4sz4oKtvLkofgOewlkxQawi143lbaLP16tauQhlMO0ocwm8Gm
+ RIWhs3L8YWDB9ktqW8N2fT8mhO11U825bo3B1n5n4dS8J0qlWcbAwycCt8T8CKDXSTxP
+ OfRA==
+X-Gm-Message-State: AO0yUKVOpELn//OjzcoiIMk6FUzbWLmtQmmTZBGtnL+qJmvI7xunjCTM
+ VAw3/ZZWFxr/cphDbIXGHNxj0ZwSa4+y1aXaOfgH1g==
+X-Google-Smtp-Source: AK7set/396tCXCL3hs7mfmUDKG5gkI6SJ/hiscL7WZo4zg8jYG8Tfo1g8h2dqp6+4echxmfk/EzFden3uzWm4n+qMfo=
+X-Received: by 2002:a5b:4c8:0:b0:8d5:5d9d:d088 with SMTP id
+ u8-20020a5b04c8000000b008d55d9dd088mr1204549ybp.229.1676646034321; Fri, 17
+ Feb 2023 07:00:34 -0800 (PST)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.7.2
-Content-Language: en-US
-To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
- linux-arm-msm@vger.kernel.org, andersson@kernel.org,
- Bryan O'Donoghue <bryan.odonoghue@linaro.org>, agross@kernel.org
-References: <20230217111316.306241-1-konrad.dybcio@linaro.org>
- <c49904be-d842-fc12-a443-17f229d53166@linaro.org>
- <a4eaccfd-34ba-15f3-033f-165b46c43317@linaro.org>
- <a158bca2-78bf-5b38-60fe-88118e8b4ad7@linaro.org>
- <ab35cdcf-53ae-a3f2-fc08-d0f58c51a0ae@linaro.org>
- <48cb00cd-961c-b72f-fba8-1842d658e289@linaro.org>
-From: Konrad Dybcio <konrad.dybcio@linaro.org>
-In-Reply-To: <48cb00cd-961c-b72f-fba8-1842d658e289@linaro.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH v2 1/2] dt-bindings: display/msm:
- dsi-controller-main: Fix deprecated QCM2290 compatible
+References: <20230215-sspp-scaler-version-v1-0-416b1500b85b@somainline.org>
+ <20230215-sspp-scaler-version-v1-1-416b1500b85b@somainline.org>
+ <CAA8EJpq1L32VQ1eQEk2YQWqCwHgdFQfuWPhQx=PmhzXvazLgPA@mail.gmail.com>
+ <20230216083119.6ispk2xhahhzn5sx@SoMainline.org>
+ <305a468a-d792-4f51-5a7a-bf38b9c685eb@linaro.org>
+ <20230216214655.a3ajtegqwattn2rt@SoMainline.org>
+In-Reply-To: <20230216214655.a3ajtegqwattn2rt@SoMainline.org>
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Date: Fri, 17 Feb 2023 17:00:22 +0200
+Message-ID: <CAA8EJpobXPSyEqZQ3zgwSqg6fC7pzQumWR9dDPdmGOemtS-epw@mail.gmail.com>
+To: Marijn Suijten <marijn.suijten@somainline.org>, 
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Rob Clark <robdclark@gmail.com>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>, 
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>, 
+ Archit Taneja <architt@codeaurora.org>,
+ Chandan Uddaraju <chandanu@codeaurora.org>, 
+ Sravanthi Kollukuduru <skolluku@codeaurora.org>, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, ~postmarketos/upstreaming@lists.sr.ht, 
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@somainline.org>, 
+ Konrad Dybcio <konrad.dybcio@linaro.org>,
+ Martin Botka <martin.botka@somainline.org>, 
+ Jami Kettunen <jami.kettunen@somainline.org>, phone-devel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Subject: Re: [Freedreno] [PATCH 1/3] drm/msm/dpu: Read
+ previously-uninitialized SSPP scaler version from hw
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,59 +81,177 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- devicetree@vger.kernel.org, David Airlie <airlied@gmail.com>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Rob Clark <robdclark@gmail.com>,
- Rob Herring <robh+dt@kernel.org>,
- Krishna Manikandan <quic_mkrishn@quicinc.com>, Daniel Vetter <daniel@ffwll.ch>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, marijn.suijten@somainline.org,
- Sean Paul <sean@poorly.run>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
+On Thu, 16 Feb 2023 at 23:46, Marijn Suijten
+<marijn.suijten@somainline.org> wrote:
+>
+> On 2023-02-16 18:34:43, Dmitry Baryshkov wrote:
+> > On 16/02/2023 10:31, Marijn Suijten wrote:
+> > > On 2023-02-16 04:22:13, Dmitry Baryshkov wrote:
+> > >> On Thu, 16 Feb 2023 at 01:02, Marijn Suijten
+> > >> <marijn.suijten@somainline.org> wrote:
+> > >>>
+> > >>> DPU's catalog never assigned dpu_scaler_blk::version leading to
+> > >>> initialization code in dpu_hw_setup_scaler3 to wander the wrong
+> > >>> codepaths.  Instead of hardcoding the correct QSEED algorithm version,
+> > >>> read it back from a hardware register.
+> > >>>
+> > >>> Note that this register is only available starting with QSEED3, where
+> > >>> 0x1002 corresponds to QSEED3, 0x2004 to QSEED3LITE and 0x3000 to QSEED4.
+> > >>
+> > >> This is not purely accurate. 0x1003 (sdm845) also corresponds to QSEED3.
+> > >> I'd say instead that there are several variations of QSEED3 scalers,
+> > >> where starting from 0x2004 it is called QSEED3LITE and starting from
+> > >> 0x3000 it is called QSEED4.
+> > >
+> > > Good catch, I'll update that.
+> > >
+> > >>> Fixes: 25fdd5933e4c ("drm/msm: Add SDM845 DPU support")
+> > >>> Signed-off-by: Marijn Suijten <marijn.suijten@somainline.org>
+> > >>> ---
+> > >>>   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h | 2 --
+> > >>>   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.c    | 8 +++++++-
+> > >>>   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.h    | 3 +++
+> > >>>   3 files changed, 10 insertions(+), 3 deletions(-)
+> > >>>
+> > >>> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h
+> > >>> index ddab9caebb18..96ce1766f4a1 100644
+> > >>> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h
+> > >>> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h
+> > >>> @@ -324,11 +324,9 @@ struct dpu_src_blk {
+> > >>>   /**
+> > >>>    * struct dpu_scaler_blk: Scaler information
+> > >>>    * @info:   HW register and features supported by this sub-blk
+> > >>> - * @version: qseed block revision
+> > >>>    */
+> > >>>   struct dpu_scaler_blk {
+> > >>>          DPU_HW_SUBBLK_INFO;
+> > >>> -       u32 version;
+> > >>
+> > >> No. Please keep the version in the scaler subblk.  It is a version of
+> > >> the QSEED (scaler block), not the SSPP's version.
+> > >
+> > > You are right that the new variable in the parent (SSPP) block is
+> > > nondescriptive and should have been named scaler_version.
+> > >
+> > > However.
+> > >
+> > > dpu_scaler_blk is only used as a const static struct in the catalog,
+> > > meaning we cannot (should not!) store a runtime-read register value
+> > > here.  Instead I followed your IRC suggestion to read the register in
+> > > dpu_hw_sspp_init, but my original implementation called
+> > > dpu_hw_get_scaler3_ver in _dpu_hw_sspp_setup_scaler3 where we already
+> > > have access to the subblk_offset, allowing us to delete
+> > > _dpu_hw_sspp_get_scaler3_ver.  Would you rather have that?  We don't
+> > > need the register value anywhere else.
+> >
+> > After giving it another thought, let's follow the vendor's approach and
+> > store the predefined scaler_version in hw catalog (in dpu_scaler_blk, as
+> > it currently is). This way we can still drop all QSEED3/3LITE/4
+> > crazyness, while keeping the data sane.
+>
+> You want to drop the descriptive #define's, and replace them with magic
+> 0x1002/0x2004/0x3000 and whatever other values we know?
 
+And nothing stops us from adding defines for 0x2004
+(SCALER_VERSION_QSEED3LITE) and 0x3000 (SCALER_VERSION_QSEED4). I'm
+not sure regarding 0x1002: whether it is used on msm8998 and/or sdm630
+too or not.
 
-On 17.02.2023 13:24, Krzysztof Kozlowski wrote:
-> On 17/02/2023 12:36, Konrad Dybcio wrote:
->>>>
->>>> compatible = "qcom,dsi-ctrl-6g-qcm2290";
->>>> https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git/tree/arch/arm64/boot/dts/qcom/sm6115.dtsi?h=next-20230217#n1221
->>>
->>> I meant, that original commit wanted to deprecate:
->>> compatible="qcom,dsi-ctrl-6g-qcm2290";
->>> compatible="qcom,mdss-dsi-ctrl";
->>>
->> Okay, so what would be the correct resolution?
->> Drop this patch and keep 2/2?
-> 
-> First, it would be nice to know what was the intention of Bryan's commit?
-AFAICT, it was necessary to add per-SoC compatibles to all DSI hosts
-to make documenting clocks possible (they differ per-platform).
+What I want to remove is the duplication of the information. It was
+too easy to miss that vig_mask has version1, while the dpu_caps has
+version 2. We are going to replace dpu_caps with scaler_version, but
+the problem of having the duplicate still exists. I might have
+suggested settling on the dpu_caps.qseed_type or on the bit in
+dpu_sspp_cfg.features, but it seems that 0x1002 is not represented
+this way. Unless we define something like
+DPU_SSPP_SCALER_QSEED3_SDM660.
 
-The qcm2290 deprecation came from the oddity of the compatible name
-(it did not match qcom,socname-hw), but he seems to have overlooked
-that (at least before my recent patchset [1]), it was necessary as it
-needed to circumvent part of the driver's logic. So it was first made
-up-to-speed with the rest by adding the fallback common compatible and
-then (wrongly) deprecated.
+> That seems
+> impossible to port without reading back the register value, which we've
+> only done for a handful of SoCs.  I hope I'm misunderstanding you?
 
+Newer vendor dts files provide this value, see the
+"qcom,sde-qseed-scalar-version" property.
+For older platforms we'd have to read the register. See below
 
-Then, SM6115 DSI DTS part was added parallel to that, so he did not
-update it.
+> After all the vendor approach (in a random 4.14 kernel I have open now)
+> is to read the register value at runtime but their catalog is also
+> dynamic and built at runtime based on version ranges and register reads,
+> which sometimes is more sensible.  Ours is const.
 
-With [1] its deprecation is correct and this series tries to complete
-it.
+In later techpacks (since 5.4) they have switched to the property in the DTS.
 
-Konrad
+>
+> > Then _dpu_hw_sspp_get_scaler3_ver() can also be dropped (or you can use
+> > it as a safety guard while doing dpu_hw_sspp init).
+>
+> That (safety guard) is exactly what Abhinav requested against, since the
+> kernel (and our catalog) should be trustworthy.  I'll let you two fight
+> this out and come to a consensus before sending v2.
 
-[1] https://lore.kernel.org/linux-arm-msm/20230213121012.1768296-1-konrad.dybcio@linaro.org/
-> 
-> Second, if the intention was to deprecate both of these, then this
-> commit could stay with changes - make it enum for both compatibles (not
-> list).
-> 
-> Best regards,
-> Krzysztof
-> 
+I'm fine without a fight. Whoever adds a platform is responsible for
+setting a register.
+
+For the reference, as far as I know:
+msm8998 - ??
+(sdm660 - 0x1002)
+sdm845 - 0x1003
+sm8150 - ?
+sc8180x - ?
+sm8250 - 0x3000
+sc7180 - 0x3000
+sm6115 - 0x3000
+qcm2290 - no scaler
+sm8350 - 0x3000
+sc7280 - 0x3000
+sc8280xp - ?, supposedly 0x3001
+sm8450 - 0x3001
+sm8550 - ?, supposedly 0x3002
+
+>
+> > >> There is a block called DS (destination scaler), which can be used to
+> > >> scale the resulting image after the LM. This block also uses the
+> > >> QSEED3(,LITE,4) scaler block.
+> > >
+> > > Is this already supported in mainline, and is it the reason for
+> > > previously having qseed_type globally available?  Is my understanding
+> > > correct that this scaler subblk in the SSPP is merely an interface to
+> > > it, allowing the same hardware to be used from the SSPP for intputs and
+> > > after the LM for outputs?
+> >
+> > No, I think qseed_type is a leftover from having the same thing
+> > implemented in three different ways. Maybe because of NIH syndrome?
+>
+> Could be, downstream uses it to steer its catalog logic for example
+> (which happens before later reading the version register).
+>
+> > DS is not supported, it was removed in the commit
+> > b033def8741aab3fb58e4bf6c1d5cd73b3beb357. I do not have a clear usecase
+> > for this block and of course we don't have uABI for it.
+>
+> Is there no common DRM property to composite at a lower resolution and
+> upscale the final displayed image to match a CRTC/encoder?  I wish I
+> understood the commit message better :)
+
+Yes, I don't think there is one.
+
+>
+> > It would still be nice to keep it in the picture though. It was the main
+> > reason for moving scaler code from dpu_hw_sspp to dpu_hw_util.
+>
+> Downstream SDE already has this code moved to sde_hw_util as far as I
+> can see (and SSPP and DS call into it).  But I fully agree as a
+> mostly-oblivious-outsider: it seems like there are a lot of features,
+> hardware blocks and optimizations not implemented, things which I still
+> have no knowledge/experience/understanding of/about.  Let's first focus
+> on making it work _on all relevant SoCs and boards_ though :)
+
+For sure. I pointed to the DS as a reason to have the scaler version
+in the sblk rather than in the sspp instance.
+
+-- 
+With best wishes
+Dmitry
