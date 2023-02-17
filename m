@@ -2,69 +2,70 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 04A3369AB69
-	for <lists+freedreno@lfdr.de>; Fri, 17 Feb 2023 13:24:55 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E721569AC1A
+	for <lists+freedreno@lfdr.de>; Fri, 17 Feb 2023 14:06:47 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C8EE310EFAD;
-	Fri, 17 Feb 2023 12:24:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B563C10E038;
+	Fri, 17 Feb 2023 13:06:46 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ed1-x534.google.com (mail-ed1-x534.google.com
- [IPv6:2a00:1450:4864:20::534])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BC58910EFAF
- for <freedreno@lists.freedesktop.org>; Fri, 17 Feb 2023 12:24:51 +0000 (UTC)
-Received: by mail-ed1-x534.google.com with SMTP id i28so3093530eda.8
- for <freedreno@lists.freedesktop.org>; Fri, 17 Feb 2023 04:24:51 -0800 (PST)
+Received: from mail-lf1-x130.google.com (mail-lf1-x130.google.com
+ [IPv6:2a00:1450:4864:20::130])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6F30610E038
+ for <freedreno@lists.freedesktop.org>; Fri, 17 Feb 2023 13:06:45 +0000 (UTC)
+Received: by mail-lf1-x130.google.com with SMTP id u22so1675046lfu.5
+ for <freedreno@lists.freedesktop.org>; Fri, 17 Feb 2023 05:06:45 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :from:to:cc:subject:date:message-id:reply-to;
- bh=DRkSEUhCAUqv74wpKQpFMHAHpDnDB3DUCdgSs3cTD7U=;
- b=yrhtxWaVZlsZz8EAYHhKo7z7Qcf1xkV9vdz92vZLkg1+ezMyi9xaXJaWg/95UNi0wo
- RnfgOOSDKqYPcyICelGJD3NSH50xT9pbF0cS5bi89GeBAyl2U3Ju/+apjBqUMRMiKkom
- HARKsLb0z+pRqvzxeNzxDsyfRLuDWLcT7nGxjWtIhSquM9eBU6u5W3QuSJCIAwAl1AM4
- ZHSht6gdaLYv6YFVaF20yHxTVg52ihws/Ad/snpohhc6ZqWmtaT+WXlPsIhNPsoZs9AK
- ouTrvhYfy1IuV/5WWYkQHEhdp9mxPgkK2XtsL9q0+J65UjkmWbdQY/m9Y275kq43JDWY
- a0nw==
+ bh=vvEa0mJYtd+G6bvaOGxPbkna4LTkKOOJGlw7PwM4jDk=;
+ b=OutRggqL6ChRrd7U4h7FjSaKRX8WvJF/ILzuPwurg/Db6xOW3nMZZYCNIJfBd8JIux
+ 8zbjn89swfdF7wVtCdBXk9jnBBSKY+0gDx0/HaYI8LQ62I4G6Ousiqg5KBaOLkPRje/c
+ xmL9hhjL9D9hEPMTml7RRabmctWihOc/iDi9/vi/yfbRFj7WBmwFZhEg5+UpDaYNrIp7
+ qXHnjYWt0lwDte8lMI5kYdP053zXRMe8BfuLqvzE1oh3jG70fSkcdL+6V4t6lClAZCCF
+ qP+LPRs85W+uYpwc5mXsNiLGEgzxpr/GVtvJIFDjCCZQDHa+OMqYZ0SvNTQWy3uS7zy6
+ Hcuw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=DRkSEUhCAUqv74wpKQpFMHAHpDnDB3DUCdgSs3cTD7U=;
- b=RYjUpXNj/XKpFLYjHmFPHlwrTCv/3QQr1DugzFwFcz33FkJyX1Fr662tCJW+qpYdOx
- 2d+yf1ORnfmNavh+G5XxxpNOUgajqhTFJpzwwGYEfQ4FgCwpbZ3bCpJ2vc3ZZ6CRCKxm
- FZFKyzZ8gvMFXw+SLtXuwf49mBqxPD8nLCbDFONzBYBVErzVJCzyxbBeobJXdcU3q5rj
- 33SKmWuuzf228X99H28tRHCVnQOqkyyJfqkCAzkh0SB3xISx6rC10MCwPDj+wHvWy0/0
- qBcaAtd5yxl3J7UwO3ITpg4CSga76881ilsRrAr40q+yo1iYFQ3T0jAzX9oleXjAx/K3
- GipA==
-X-Gm-Message-State: AO0yUKW9OXngw1lWsNnoqtxwcdGg2cLz9nHzstSzH9cNwxzwDAcZACYm
- zTEDOFc9YRx9AmajQygTxgaOzw==
-X-Google-Smtp-Source: AK7set/DBCXPYASdQ2V+puV5InoxI88AENgUj/1Lry6p1oLbNzI4+03pYsQYxh01xdrYlB9uSD988g==
-X-Received: by 2002:a17:906:a451:b0:86f:fbcf:f30a with SMTP id
- cb17-20020a170906a45100b0086ffbcff30amr11172660ejb.58.1676636690249; 
- Fri, 17 Feb 2023 04:24:50 -0800 (PST)
-Received: from [192.168.1.109] ([178.197.216.144])
+ bh=vvEa0mJYtd+G6bvaOGxPbkna4LTkKOOJGlw7PwM4jDk=;
+ b=dhRkRAF33bMjHrarW8t5PSaWv9dIgwnjHrBhG5NfSW7cweZ/33lQ1XdYcPYuzEFIaK
+ yo5SzS2ae56xp93yJutGlAzoFW/1rXOd96QhldNKntVUMmVgWITjd1pqpyrU77cuVJzg
+ 8CstBXlQv4sX09oHwK6lUxemzlmVIScbdRgfJS28FF0RCuQBnnFc5pbWixI5aPRLVOEJ
+ BcWrI+zTbD/7A1TKWcseS1wswLRM9ihLFGlZlKYc3VytMdN15G5RQvYO8nLuIm6CArXY
+ wQn9Bv2orMYWtnCnW2lbhvXRJWa3/WEmn/BAZ7avXN1jqmPM9q7KoSSp4L9Whyh6sjUQ
+ C2DA==
+X-Gm-Message-State: AO0yUKXWp9xUxEECFysNaEExImgmE6+AGJ/QZ8uEEnzGhPyczwA/mUN1
+ Sy74M5Bu60wcRKe3tiSLx8lLpQ==
+X-Google-Smtp-Source: AK7set/lbeT9EHF1pBE4+EMSMKbkVmLPsQwro43XW0FTt2Afuh+Wj39B9+9Wd1kBfJ9Q0Dco/BJl4g==
+X-Received: by 2002:a19:ad42:0:b0:4da:e925:c95b with SMTP id
+ s2-20020a19ad42000000b004dae925c95bmr152872lfd.62.1676639203626; 
+ Fri, 17 Feb 2023 05:06:43 -0800 (PST)
+Received: from [192.168.1.101] (abxh117.neoplus.adsl.tpnet.pl. [83.9.1.117])
  by smtp.gmail.com with ESMTPSA id
- n11-20020a170906688b00b008b13a8ec56asm2074181ejr.110.2023.02.17.04.24.48
+ t1-20020ac25481000000b004d16263b36bsm673878lfk.111.2023.02.17.05.06.42
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 17 Feb 2023 04:24:49 -0800 (PST)
-Message-ID: <48cb00cd-961c-b72f-fba8-1842d658e289@linaro.org>
-Date: Fri, 17 Feb 2023 13:24:47 +0100
+ Fri, 17 Feb 2023 05:06:43 -0800 (PST)
+Message-ID: <0d955930-df72-127a-7c53-3e3519affafa@linaro.org>
+Date: Fri, 17 Feb 2023 14:06:41 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.7.1
+ Thunderbird/102.7.2
 Content-Language: en-US
-To: Konrad Dybcio <konrad.dybcio@linaro.org>, linux-arm-msm@vger.kernel.org,
- andersson@kernel.org, Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
- agross@kernel.org
+To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
+ linux-arm-msm@vger.kernel.org, andersson@kernel.org,
+ Bryan O'Donoghue <bryan.odonoghue@linaro.org>, agross@kernel.org
 References: <20230217111316.306241-1-konrad.dybcio@linaro.org>
  <c49904be-d842-fc12-a443-17f229d53166@linaro.org>
  <a4eaccfd-34ba-15f3-033f-165b46c43317@linaro.org>
  <a158bca2-78bf-5b38-60fe-88118e8b4ad7@linaro.org>
  <ab35cdcf-53ae-a3f2-fc08-d0f58c51a0ae@linaro.org>
-From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-In-Reply-To: <ab35cdcf-53ae-a3f2-fc08-d0f58c51a0ae@linaro.org>
+ <48cb00cd-961c-b72f-fba8-1842d658e289@linaro.org>
+From: Konrad Dybcio <konrad.dybcio@linaro.org>
+In-Reply-To: <48cb00cd-961c-b72f-fba8-1842d658e289@linaro.org>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 Subject: Re: [Freedreno] [PATCH v2 1/2] dt-bindings: display/msm:
@@ -93,24 +94,47 @@ Cc: freedreno@lists.freedesktop.org,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 17/02/2023 12:36, Konrad Dybcio wrote:
+
+
+On 17.02.2023 13:24, Krzysztof Kozlowski wrote:
+> On 17/02/2023 12:36, Konrad Dybcio wrote:
+>>>>
+>>>> compatible = "qcom,dsi-ctrl-6g-qcm2290";
+>>>> https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git/tree/arch/arm64/boot/dts/qcom/sm6115.dtsi?h=next-20230217#n1221
 >>>
->>> compatible = "qcom,dsi-ctrl-6g-qcm2290";
->>> https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git/tree/arch/arm64/boot/dts/qcom/sm6115.dtsi?h=next-20230217#n1221
->>
->> I meant, that original commit wanted to deprecate:
->> compatible="qcom,dsi-ctrl-6g-qcm2290";
->> compatible="qcom,mdss-dsi-ctrl";
->>
-> Okay, so what would be the correct resolution?
-> Drop this patch and keep 2/2?
+>>> I meant, that original commit wanted to deprecate:
+>>> compatible="qcom,dsi-ctrl-6g-qcm2290";
+>>> compatible="qcom,mdss-dsi-ctrl";
+>>>
+>> Okay, so what would be the correct resolution?
+>> Drop this patch and keep 2/2?
+> 
+> First, it would be nice to know what was the intention of Bryan's commit?
+AFAICT, it was necessary to add per-SoC compatibles to all DSI hosts
+to make documenting clocks possible (they differ per-platform).
 
-First, it would be nice to know what was the intention of Bryan's commit?
+The qcm2290 deprecation came from the oddity of the compatible name
+(it did not match qcom,socname-hw), but he seems to have overlooked
+that (at least before my recent patchset [1]), it was necessary as it
+needed to circumvent part of the driver's logic. So it was first made
+up-to-speed with the rest by adding the fallback common compatible and
+then (wrongly) deprecated.
 
-Second, if the intention was to deprecate both of these, then this
-commit could stay with changes - make it enum for both compatibles (not
-list).
 
-Best regards,
-Krzysztof
+Then, SM6115 DSI DTS part was added parallel to that, so he did not
+update it.
 
+With [1] its deprecation is correct and this series tries to complete
+it.
+
+Konrad
+
+[1] https://lore.kernel.org/linux-arm-msm/20230213121012.1768296-1-konrad.dybcio@linaro.org/
+> 
+> Second, if the intention was to deprecate both of these, then this
+> commit could stay with changes - make it enum for both compatibles (not
+> list).
+> 
+> Best regards,
+> Krzysztof
+> 
