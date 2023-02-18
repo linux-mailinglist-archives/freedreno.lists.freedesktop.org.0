@@ -1,77 +1,73 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2188869B9B9
-	for <lists+freedreno@lfdr.de>; Sat, 18 Feb 2023 12:23:23 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 3177269BA1F
+	for <lists+freedreno@lfdr.de>; Sat, 18 Feb 2023 14:04:14 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 54A0410E4A4;
-	Sat, 18 Feb 2023 11:23:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 35C3B10E4C2;
+	Sat, 18 Feb 2023 13:04:10 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from mail-lf1-x12a.google.com (mail-lf1-x12a.google.com
  [IPv6:2a00:1450:4864:20::12a])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 28ACC10E4AB
- for <freedreno@lists.freedesktop.org>; Sat, 18 Feb 2023 11:23:19 +0000 (UTC)
-Received: by mail-lf1-x12a.google.com with SMTP id d11so683023lfg.6
- for <freedreno@lists.freedesktop.org>; Sat, 18 Feb 2023 03:23:19 -0800 (PST)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9AA4A10E4C2
+ for <freedreno@lists.freedesktop.org>; Sat, 18 Feb 2023 13:04:07 +0000 (UTC)
+Received: by mail-lf1-x12a.google.com with SMTP id s8so1003015lfr.13
+ for <freedreno@lists.freedesktop.org>; Sat, 18 Feb 2023 05:04:07 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :from:to:cc:subject:date:message-id:reply-to;
- bh=zXrmfYPtbD+a4mYWOw7gzX5blmN63cfug46pUteyx84=;
- b=kzgT7ub+8SeOW/sL4cVFBuzPnNqoM6WqL8uiNYdBNlvtGlgd5lAOwrqaThKyUtzI6q
- hZPQ++Wa9Bdv294jRq4J9JThEpkCGjTVN/gjjmPdJBTIlwxde9hPV4HU3+iL4zJCiRh7
- s2aJ0gekWlA7msRBLxF/MznErWfBfNzq/Mz3p8dssISUc70jYCJU1FcC0v5ctD+0KdUX
- ++eferbxRB4BEpZRn/gvHYPjkeUD88GbtQW7C8PS2zo8EOMuAgDxFCi4rluIgPqPVepn
- V7+Vrj2qW7APxl6KjZnwP03e9dmotmyN2gGqQn1nuUphnePzLuUcY9T2RSG8YvhrdKSj
- hEDg==
+ bh=3N5WAzbRFEo6T4gVmAxjSh/Vc/Ea58u6XaJqPwHeVh4=;
+ b=U4IXj5fZbsqDGnnIHvFZjApawI7qJL91IjBv5k4Klvpgh7GQl6AdaUil67EYPWWXgo
+ 5qzdpVEqeRX4xOzpvzc4pKf7InKG6AWHme+BkdAoMHe8B+nmo461rqY3zraL5on846DP
+ gJOMYCVgu7xeuo1EPhlyvmP1+X4/D3pcaHvH0jr0X9A81wjmOXkFd2G3Hau5sbrLcsCY
+ r09p4VrVglNWHtBAm4Mzs/dKh8VpV43bBvYLS9ymwCkaq0ZyLAdQTHOzrp0OnTUIFARl
+ rrlN8H7+vUDN+jdo/2gUYb5KHNcW2oOCccSmZkDFRJ+QUwY82MuWqnjAJJtHH+BypEtW
+ Nylw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=zXrmfYPtbD+a4mYWOw7gzX5blmN63cfug46pUteyx84=;
- b=DbcCyx0w9xsPZ04En5eTQtjruzOEtOIA8u9wVej2HhsugZbeX45a6QvlR4YS02Fptp
- noT/JbZ1zdb96zRREObku2YwmWzvW3mquLQbmostO93g0fseUKxcIktoKBkAwES2PxFz
- shwBF9048q+ZQOEypnzCoIsSgUYxM6t8fd1Nu+gLaM04jDhCkdQUzZFpUef23oq4UgoT
- U4FsdFVqN9pJPJvt1PxCavkgNnr2QTO80AGEcSW2Kze46TkFW7R2pgWGTmyEGHvcugIl
- ssczd/x0LWoZcnVI+0S7IzHus54dg6kTRykiHHk9oA1/Az6maALhkMoOpCslEaUXqJSv
- JzPA==
-X-Gm-Message-State: AO0yUKWBeAOMgjoXegtSLh2dYYOTjhgHgDNNjDB2egB4tRSdDAX5RUH+
- YpS/ph1dB8UsD82FqM1cIrgFKw==
-X-Google-Smtp-Source: AK7set/2Ym3B0dnJtwcPI9O9DneEz9RDbQ+ZtBmCZopQM4AHFgi7uc2wVb/PGBW+WJcbmcklTCJHtA==
-X-Received: by 2002:a19:a40e:0:b0:4d1:7923:3b92 with SMTP id
- q14-20020a19a40e000000b004d179233b92mr781116lfc.50.1676719397408; 
- Sat, 18 Feb 2023 03:23:17 -0800 (PST)
-Received: from [192.168.1.101] (abxh184.neoplus.adsl.tpnet.pl. [83.9.1.184])
+ bh=3N5WAzbRFEo6T4gVmAxjSh/Vc/Ea58u6XaJqPwHeVh4=;
+ b=t+GoougO/ZMdcoIW2hLN6nmUCRbhBQeBLZeWinYZABzaSoJJcFkFgSR1qxoHjTpjLR
+ sA/ds/wJ0DqeRGdNiExA5Isetexc1LRQ1C6kXKJYAGU7AD1rFSSbP0g7gWS3ELbgxMbj
+ cHijhYbGx+mMCb519ETzte/NaPxAUefkjigRPOa+gR0yBwxKMEjzFgvx4tUIo3Tq7Uwd
+ OUbVC7Dp6/GTG6uKSqoyMoDNZNtTwZfn2jimPbGN1kpKSvVEYjgPiubkR0F/L9ZHwB1F
+ Xtxu8xj99i4Z46v0CTKOLc8EQ2xyKoAKbcAXhUu/gtNl8/wOntyG1xOjb/EcSQeNq/MV
+ Qq3A==
+X-Gm-Message-State: AO0yUKXdlCgf9YFuDCVLiur042k2PziomxPXMt6Q6oQNmckgykzeGr7r
+ u0shL0ZFUEGTPuSXBpavy60zyw==
+X-Google-Smtp-Source: AK7set/gnKvtFmRzdwyC6P2wMI81d4vWwm6HjdeC7KtCbMNjaI4FGSQJ3mv5xfpjdnNPaUNiKYztuA==
+X-Received: by 2002:ac2:561b:0:b0:4b5:7096:23ff with SMTP id
+ v27-20020ac2561b000000b004b5709623ffmr1010457lfd.66.1676725445833; 
+ Sat, 18 Feb 2023 05:04:05 -0800 (PST)
+Received: from ?IPV6:2001:14ba:a085:4d00::8a5?
+ (dzccz6yyyyyyyyyyybcwt-3.rev.dnainternet.fi. [2001:14ba:a085:4d00::8a5])
  by smtp.gmail.com with ESMTPSA id
- m17-20020ac24ad1000000b004cb1e2f8f4dsm950902lfp.152.2023.02.18.03.23.15
+ h18-20020ac250d2000000b004d865c781eesm980042lfm.24.2023.02.18.05.04.04
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sat, 18 Feb 2023 03:23:17 -0800 (PST)
-Message-ID: <fbece9d6-2204-2534-e44f-29c29cc56413@linaro.org>
-Date: Sat, 18 Feb 2023 12:23:15 +0100
+ Sat, 18 Feb 2023 05:04:05 -0800 (PST)
+Message-ID: <417fe51e-1f35-53d4-0dd7-bbb01d5bd164@linaro.org>
+Date: Sat, 18 Feb 2023 15:04:04 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.7.2
-Content-Language: en-US
-To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
- Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
- linux-arm-msm@vger.kernel.org, andersson@kernel.org, agross@kernel.org
-References: <20230217111316.306241-1-konrad.dybcio@linaro.org>
- <c49904be-d842-fc12-a443-17f229d53166@linaro.org>
- <a4eaccfd-34ba-15f3-033f-165b46c43317@linaro.org>
- <a158bca2-78bf-5b38-60fe-88118e8b4ad7@linaro.org>
- <ab35cdcf-53ae-a3f2-fc08-d0f58c51a0ae@linaro.org>
- <48cb00cd-961c-b72f-fba8-1842d658e289@linaro.org>
- <d4ffa9f0-797e-7a32-147e-64aa46d7e197@linaro.org>
- <e6d397bb-dd5d-8308-eb07-3aeb2589115c@linaro.org>
-From: Konrad Dybcio <konrad.dybcio@linaro.org>
-In-Reply-To: <e6d397bb-dd5d-8308-eb07-3aeb2589115c@linaro.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH v2 1/2] dt-bindings: display/msm:
- dsi-controller-main: Fix deprecated QCM2290 compatible
+Content-Language: en-GB
+To: Konrad Dybcio <konrad.dybcio@linaro.org>, linux-arm-msm@vger.kernel.org,
+ andersson@kernel.org, agross@kernel.org
+References: <20230214173145.2482651-1-konrad.dybcio@linaro.org>
+ <20230214173145.2482651-8-konrad.dybcio@linaro.org>
+ <8268b4c9-ca5e-4ff3-628c-7e9daaeb16b0@linaro.org>
+ <9269c5dd-d97c-e29a-98a9-b42c598ebfc6@linaro.org>
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+In-Reply-To: <9269c5dd-d97c-e29a-98a9-b42c598ebfc6@linaro.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+Subject: Re: [Freedreno] [PATCH v2 07/14] drm/msm/a6xx: Add support for
+ A619_holi
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -84,51 +80,93 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- devicetree@vger.kernel.org, David Airlie <airlied@gmail.com>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Rob Clark <robdclark@gmail.com>,
- Rob Herring <robh+dt@kernel.org>,
- Krishna Manikandan <quic_mkrishn@quicinc.com>, Daniel Vetter <daniel@ffwll.ch>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, marijn.suijten@somainline.org,
- Sean Paul <sean@poorly.run>
+Cc: freedreno@lists.freedesktop.org, Akhil P Oommen <quic_akhilpo@quicinc.com>,
+ David Airlie <airlied@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ dri-devel@lists.freedesktop.org, Douglas Anderson <dianders@chromium.org>,
+ Nathan Chancellor <nathan@kernel.org>, Rob Clark <robdclark@gmail.com>,
+ Daniel Vetter <daniel@ffwll.ch>,
+ "Joel Fernandes \(Google\)" <joel@joelfernandes.org>,
+ marijn.suijten@somainline.org, Sean Paul <sean@poorly.run>,
+ Chia-I Wu <olvaffe@gmail.com>, linux-kernel@vger.kernel.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-
-
-On 18.02.2023 11:14, Krzysztof Kozlowski wrote:
-> On 17/02/2023 22:13, Bryan O'Donoghue wrote:
->> On 17/02/2023 12:24, Krzysztof Kozlowski wrote:
->>> First, it would be nice to know what was the intention of Bryan's commit?
->>
->> Sorry I've been grazing this thread but, not responding.
->>
->> - qcom,dsi-ctrl-6g-qcm2290
->>
->> is non-compliant with qcom,socid-dsi-ctrl which is our desired naming 
->> convention, so that's what the deprecation is about i.e. moving this 
->> compat to "qcom,qcm2290-dsi-ctrl"
+On 17/02/2023 23:21, Konrad Dybcio wrote:
 > 
-> OK, then there was no intention to deprecate qcom,mdss-dsi-ctrl and it
-> should be left as allowed compatible.
-Not sure if we're on the same page.
-
-It wasn't intended to deprecate [1] "qcom,qcm2290-dsi-ctrl", "qcom-mdss-dsi-ctrl";
-(newly-introduced in Bryan's cleanup patchset) but it was intended to deprecate
-[2] "qcom,dsi-ctrl-6g-qcm2290"; which was introduced long before that *and* used in
-the 6115 dt (and it still is in linux-next today, as my cleanup hasn't landed yet).
-
-[3] "qcom,dsi-ctrl-6g-qcm2290", "qcom,mdss-dsi-ctrl" was never used (and should never
-be, considering there's a proper compatible [1] now) so adding it to bindings
-didn't solve the undocumented-ness issue. Plus the fallback would have never
-worked back then, as the DSI hw revision check would spit out 2.4.1 or 2.4.
-which is SC7180 or SDM845 and then it would never match the base register, as
-they're waay different.
-
-Konrad
 > 
-> Best regards,
-> Krzysztof
+> On 17.02.2023 22:19, Dmitry Baryshkov wrote:
+>> On 14/02/2023 19:31, Konrad Dybcio wrote:
+>>> A619_holi is a GMU-less variant of the already-supported A619 GPU.
+>>> It's present on at least SM4350 (holi) and SM6375 (blair). No mesa
+>>> changes are required. Add the required kernel-side support for it.
+>>>
+>>> Signed-off-by: Konrad Dybcio <konrad.dybcio@linaro.org>
+>>> ---
+>>>    drivers/gpu/drm/msm/adreno/a6xx_gpu.c      | 37 +++++++++++++++++-----
+>>>    drivers/gpu/drm/msm/adreno/adreno_device.c | 13 ++++++++
+>>>    drivers/gpu/drm/msm/adreno/adreno_gpu.h    |  5 +++
+>>>    3 files changed, 47 insertions(+), 8 deletions(-)
+
+[...]
+
+
+>>> diff --git a/drivers/gpu/drm/msm/adreno/adreno_device.c b/drivers/gpu/drm/msm/adreno/adreno_device.c
+>>> index 82757f005a1a..71faeb3fd466 100644
+>>> --- a/drivers/gpu/drm/msm/adreno/adreno_device.c
+>>> +++ b/drivers/gpu/drm/msm/adreno/adreno_device.c
+>>> @@ -264,6 +264,19 @@ static const struct adreno_info gpulist[] = {
+>>>            .gmem = SZ_512K,
+>>>            .inactive_period = DRM_MSM_INACTIVE_PERIOD,
+>>>            .init = a6xx_gpu_init,
+>>> +    }, {
+>>> +        .rev = ADRENO_REV(6, 1, 9, 1),
+>>
+>> I think this deserves a comment that GMU-enabled sm6350 has patch_id 0 (if I interpreted the vendor dtsi correctly).
+>>
+>> Another option might be to actually check for the qcom,gmu presense and add that to the selection conditional.
+> We pass the GMU wrapper in qcom,gmu = <>, though perhaps setting
+> the holi-ness based on whether it's "qcom,gmu-x.y.z.a" or
+> "qcom,gmu-wrapper" would be wiser.. The patch ID is indeterminate
+> and I *think* one GMU-wrapper A619 has patch id 0..
+
+I was not aware that GMU-wrapper also adds a GMU device. In this case, 
+checking the GMU's compatible strings sounds like a logical approach to me.
+
 > 
+> Konrad
+>>
+>>> +        .revn = 619,
+>>> +        .name = "A619_holi",
+>>> +        .fw = {
+>>> +            [ADRENO_FW_SQE] = "a630_sqe.fw",
+>>> +        },
+>>> +        .gmem = SZ_512K,
+>>> +        .inactive_period = DRM_MSM_INACTIVE_PERIOD,
+>>> +        .quirks = ADRENO_QUIRK_GMU_WRAPPER,
+>>> +        .init = a6xx_gpu_init,
+>>> +        .zapfw = "a615_zap.mdt",
+>>> +        .hwcg = a615_hwcg,
+>>>        }, {
+>>>            .rev = ADRENO_REV(6, 1, 9, ANY_ID),
+>>>            .revn = 619,
+>>> diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.h b/drivers/gpu/drm/msm/adreno/adreno_gpu.h
+>>> index 7c5e0a90b5fb..16241368c2e4 100644
+>>> --- a/drivers/gpu/drm/msm/adreno/adreno_gpu.h
+>>> +++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.h
+>>> @@ -252,6 +252,11 @@ static inline int adreno_is_a619(struct adreno_gpu *gpu)
+>>>        return gpu->revn == 619;
+>>>    }
+>>>    +static inline int adreno_is_a619_holi(struct adreno_gpu *gpu)
+>>> +{
+>>> +    return adreno_is_a619(gpu) && adreno_has_gmu_wrapper(gpu);
+>>> +}
+>>> +
+>>>    static inline int adreno_is_a630(struct adreno_gpu *gpu)
+>>>    {
+>>>        return gpu->revn == 630;
+>>
+
+-- 
+With best wishes
+Dmitry
+
