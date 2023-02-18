@@ -2,72 +2,61 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2129C69BB09
-	for <lists+freedreno@lfdr.de>; Sat, 18 Feb 2023 17:47:52 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 57ED069BC17
+	for <lists+freedreno@lfdr.de>; Sat, 18 Feb 2023 22:15:59 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6372210E518;
-	Sat, 18 Feb 2023 16:47:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 26CD110E0A1;
+	Sat, 18 Feb 2023 21:15:53 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-x22b.google.com (mail-lj1-x22b.google.com
- [IPv6:2a00:1450:4864:20::22b])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 012EB10E079
- for <freedreno@lists.freedesktop.org>; Sat, 18 Feb 2023 16:47:47 +0000 (UTC)
-Received: by mail-lj1-x22b.google.com with SMTP id z10so1032943ljc.1
- for <freedreno@lists.freedesktop.org>; Sat, 18 Feb 2023 08:47:47 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=gRIwjh8WrsGWjWn7axVeyeH9FAGIRGQoBWtwrxs3ajU=;
- b=EUAua//jWcjDpwVjpafTgQD7LfpX1Arg+lyEjVRDEJDoWe7QEkQ0zAeeadb88yGdwX
- l2MuWfiQdxSkwLpjoZSd2vA9XI5rh49iNQl8rUA0faAvYW5Oy+D8iq9mYm/jQXxIe8jh
- t/JMun2iqHWZ4Rg7N/woCBTbBJFyvUXGXTcnQoztzF3Nluw/fcgRHK+lfPirz/YiivF0
- cOz80epj17+hD2llYbOBJLHKU6T5oSpbu7GGhRLAlLNh4xPPCFsq+X2Sz4b8ZNhTLU5i
- NWAXWhjSic2SsOmsbzbm9Dlf7amPdqi7rXJauBXnthOIFgGvXwTi8c3QNv38T24V6rlz
- UnxQ==
+Received: from mail-pl1-x62b.google.com (mail-pl1-x62b.google.com
+ [IPv6:2607:f8b0:4864:20::62b])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EEF8D10E009;
+ Sat, 18 Feb 2023 21:15:48 +0000 (UTC)
+Received: by mail-pl1-x62b.google.com with SMTP id m8so430251plg.3;
+ Sat, 18 Feb 2023 13:15:48 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=Ly4gQbq9/GnWUeWA60KPz/G+dzGxkcXgw5HCdzXbiDM=;
+ b=TqzurTwkIi7vl6x42AjsrYN5etY5UrhYSRhuhRA0DcAed3BQ7kd+EShu6ZYUuzSWS6
+ f2ShdvpTlDiEddzw1Pngzl0gliC9vI89r49p462MNjyf7n2fk9K5rG40sbyi9YeAuXKx
+ 2IlQ6wVLZDk4ujSNogI1BVXRPnZyG9XodQul+Gt/IjgeqRh2hZMfbddpy2FwGlj/orZk
+ nSpYnyQj/uh7kMZhl+cXvFJ9VgfGaRbtRluybITkUr1SLZHCZANTXG1WLO5m6DiwYoul
+ TaCi+7mlADXeBpnG/jw9xXwtKwm9Focdx2Pr+MJUZva3Y7KD/ZaKPJ7prjd0RN12Eg1h
+ 3+EQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=gRIwjh8WrsGWjWn7axVeyeH9FAGIRGQoBWtwrxs3ajU=;
- b=WrOrvFLVmrYIN/J9jPvEm3Iztt2k+aupAFu2s2uxCdkDqtL3+G+5LRrjkv6mhUP+84
- DS5lizo4r2/OUg65bhFQTuxjh5WX/1R/iI8bdqb3hagJovqaWJy30y0oE9bIk2v+B5KF
- y20gc7G78jtBmY2m+9a5x2JJMeFKKCKMJttAWFTuHrvPqpjhAxwgQ7Pw7cFy26Pyjep0
- ksE3fmpK47HCJ5FeemcghtNlxo8XVfCJIFsYFnKY9s+KcSt95RCeAZVh1IKb86/b0/Dm
- Db+4mE47cOAFg31b2mom6gQa0hGAza0W6md6uXXqR9iMfUlEkHUYzkUM173ElARfUEJJ
- oM8g==
-X-Gm-Message-State: AO0yUKVe2UUjj29rpZ9zWlNMhJHLa+BbRifw6ebhYhe3KiMB4BYvFW/9
- buF+IP6Vq4ntDji7ElZjC2UCuQ==
-X-Google-Smtp-Source: AK7set/OXOH1DDgJWP8lfFHG2KeZXWV1J3P9XC47RH3bLBj9oaU8SVjDgcVzornUiW8DHFyLUs6xTg==
-X-Received: by 2002:a2e:83c3:0:b0:293:48b8:dcad with SMTP id
- s3-20020a2e83c3000000b0029348b8dcadmr1417632ljh.0.1676738866081; 
- Sat, 18 Feb 2023 08:47:46 -0800 (PST)
-Received: from ?IPV6:2001:14ba:a085:4d00::8a5?
- (dzccz6yyyyyyyyyyybcwt-3.rev.dnainternet.fi. [2001:14ba:a085:4d00::8a5])
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=Ly4gQbq9/GnWUeWA60KPz/G+dzGxkcXgw5HCdzXbiDM=;
+ b=4iYZeNiSCEf6HuaKN4UImbVDNTd4hszfMgfG5mxnsWs/zy7w6OM2K+8bHqz/3aFOa4
+ Wt31kYQMrG1fIc9W17iPKr1dGo7b2z19fOLWh+OvfQDkhysLdJuRSKMoDEd7YxRILxK9
+ djnFq2rSQ3xL1pjBUtMNjRQaZc6Tn68xHPfyg1j8cFEYFIwYN0JsmOY80d0yB0woVEBJ
+ NZ0sRptjiTH5FUMZ4l0Imo0C9TbLh+nPY5NH0cv86i+jCfJ0+HSDYJo6Z/eOcjEaO+Dx
+ Uio/f2gB7VbfPW2Cpx2oKIvbFMHcgLbVcG1kg3HDDRLQ1Fv4/2oREw6gwK+eBB3u71lZ
+ tAog==
+X-Gm-Message-State: AO0yUKXHClaYWM5Epus+SZQc3XQApIIAG1HltMtPEsLTZNxWyNCFWpDJ
+ Lzt+utprJiP+n4lnScPYqg6Sq+vzjtQ=
+X-Google-Smtp-Source: AK7set8ereILC0V3ZBU5NrGgoh8oJHY1jqZ0fuA0KAdXBnGUn7hGdkEc1QzSShEe+BIohVgIIE6grw==
+X-Received: by 2002:a17:90a:31c:b0:234:2627:d9b0 with SMTP id
+ 28-20020a17090a031c00b002342627d9b0mr1042232pje.32.1676754948302; 
+ Sat, 18 Feb 2023 13:15:48 -0800 (PST)
+Received: from localhost (c-73-67-135-195.hsd1.or.comcast.net. [73.67.135.195])
  by smtp.gmail.com with ESMTPSA id
- k21-20020a05651c10b500b002945d119e09sm950834ljn.8.2023.02.18.08.47.45
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sat, 18 Feb 2023 08:47:45 -0800 (PST)
-Message-ID: <170ee26d-8904-0829-f92e-4ea6678b08eb@linaro.org>
-Date: Sat, 18 Feb 2023 18:47:44 +0200
+ gl19-20020a17090b121300b00230da56ddecsm1292126pjb.27.2023.02.18.13.15.47
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sat, 18 Feb 2023 13:15:47 -0800 (PST)
+From: Rob Clark <robdclark@gmail.com>
+To: dri-devel@lists.freedesktop.org
+Date: Sat, 18 Feb 2023 13:15:43 -0800
+Message-Id: <20230218211608.1630586-1-robdclark@gmail.com>
+X-Mailer: git-send-email 2.39.1
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.7.2
-Content-Language: en-GB
-To: Konrad Dybcio <konrad.dybcio@linaro.org>, linux-arm-msm@vger.kernel.org,
- andersson@kernel.org, agross@kernel.org
-References: <20230214173145.2482651-1-konrad.dybcio@linaro.org>
- <20230214173145.2482651-7-konrad.dybcio@linaro.org>
- <2e129fd6-d4e5-a955-5355-3ca71166fb33@linaro.org>
- <82c84ba4-ca33-3ce0-fe86-efedfce04cda@linaro.org>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-In-Reply-To: <82c84ba4-ca33-3ce0-fe86-efedfce04cda@linaro.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: Re: [Freedreno] [PATCH v2 06/14] drm/msm/gpu: Use
- dev_pm_opp_set_rate for non-GMU GPUs
+Subject: [Freedreno] [PATCH v4 00/14] dma-fence: Deadline awareness
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,115 +69,95 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, Dan Carpenter <error27@gmail.com>,
- Emma Anholt <emma@anholt.net>, Akhil P Oommen <quic_akhilpo@quicinc.com>,
- David Airlie <airlied@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Rob Clark <robdclark@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- marijn.suijten@somainline.org, Sean Paul <sean@poorly.run>,
- Chia-I Wu <olvaffe@gmail.com>
+Cc: Rob Clark <robdclark@chromium.org>, Gustavo Padovan <gustavo@padovan.org>,
+ Simon Ser <contact@emersion.fr>, Tvrtko Ursulin <tvrtko.ursulin@intel.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>,
+ =?UTF-8?q?Michel=20D=C3=A4nzer?= <michel@daenzer.net>,
+ open list <linux-kernel@vger.kernel.org>,
+ "moderated list:DMA BUFFER SHARING FRAMEWORK" <linaro-mm-sig@lists.linaro.org>,
+ Sean Paul <sean@poorly.run>, Pekka Paalanen <ppaalanen@gmail.com>,
+ Daniel Vetter <daniel@ffwll.ch>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Alex Deucher <alexander.deucher@amd.com>, freedreno@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org,
+ "open list:DRM DRIVER FOR MSM ADRENO GPU" <linux-arm-msm@vger.kernel.org>,
+ "open list:DMA BUFFER SHARING FRAMEWORK" <linux-media@vger.kernel.org>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 18/02/2023 13:04, Konrad Dybcio wrote:
-> 
-> 
-> On 17.02.2023 22:07, Dmitry Baryshkov wrote:
->> On 14/02/2023 19:31, Konrad Dybcio wrote:
->>> Currently we only utilize the OPP table connected to the GPU for
->>> getting (available) frequencies. We do however need to scale the
->>> voltage rail(s) accordingly to ensure that we aren't trying to
->>> run the GPU at 1GHz with a VDD_LOW vote, as that would result in
->>> an otherwise inexplainable hang.
->>>
->>> Tell the OPP framework that we want to scale the "core" clock
->>> and swap out the clk_set_rate to a dev_pm_opp_set_rate in
->>> msm_devfreq_target() to enable usage of required-opps and by
->>> extension proper voltage level/corner scaling.
->>>
->>> Signed-off-by: Konrad Dybcio <konrad.dybcio@linaro.org>
->>> ---
->>>    drivers/gpu/drm/msm/adreno/adreno_gpu.c | 4 ++++
->>>    drivers/gpu/drm/msm/msm_gpu_devfreq.c   | 2 +-
->>>    2 files changed, 5 insertions(+), 1 deletion(-)
->>>
->>> diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.c b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
->>> index ce6b76c45b6f..15e405e4f977 100644
->>> --- a/drivers/gpu/drm/msm/adreno/adreno_gpu.c
->>> +++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
->>> @@ -1047,6 +1047,10 @@ int adreno_gpu_init(struct drm_device *drm, struct platform_device *pdev,
->>>        const char *gpu_name;
->>>        u32 speedbin;
->>>    +    /* This can only be done here, or devm_pm_opp_set_supported_hw will WARN_ON() */
->>> +    if (!IS_ERR(devm_clk_get(dev, "core")))
->>> +        devm_pm_opp_set_clkname(dev, "core");
->>
->> Can we instead move a call to a6xx_set_supported_hw() / check_speed_bin after the adreno_gpu_init() ? It will call msm_gpu_init, which in turn sets gpu->core_clk.
->>
->> Ideally you can call devm_pm_opp_set_clkname() from that function.
-> 
-> 
->> Or maybe completely drop gpu->core_clk and always use devm_pm_opp_set_clk_rate().
-> That would break non-OPP targets, last of which were probably added N=big years ago..
+From: Rob Clark <robdclark@chromium.org>
 
-No. In the lack of OPP tables, dev_pm_opp_clk_set_rate() should behave 
-exactly like the clk_set_rate().
+This series adds deadline awareness to fences, so realtime deadlines
+such as vblank can be communicated to the fence signaller for power/
+frequency management decisions.
 
-> I'm not sure these would still work, as I think we've got rid of some ugly
-> clock getters that were looking for both "core" and "core_clk" etc.
+This is partially inspired by a trick i915 does, but implemented
+via dma-fence for a couple of reasons:
 
-We still support core vs core_clk, see the get_clocks() at msm_gpu.c and 
-then msm_clk_bulk_get_clock(). However we might mimick this function and 
-call devm_pm_opp_set_clkname() with the proper name ("core" or "core_clk").
+1) To continue to be able to use the atomic helpers
+2) To support cases where display and gpu are different drivers
 
-> 
-> See 8db0b6c7b636376789e356d861c3c6c35dcb6913 for what seems to be the most recent
-> example of non-OPP.
-> 
-> IMX51/53 also have no OPP tables and are using the (AFAIK) now-defunct _clk-suffixed
-> clock-names.
+This iteration adds a dma-fence ioctl to set a deadline (both to
+support igt-tests, and compositors which delay decisions about which
+client buffer to display), and a sw_sync ioctl to read back the
+deadline.  IGT tests utilizing these can be found at:
 
-It works, I tested it during this cycle.
+  https://gitlab.freedesktop.org/robclark/igt-gpu-tools/-/commits/fence-deadline
 
-> 
-> I'd be more than happy to rip out some of this legacy code and convert it
-> to something modern like OPP, but I'm not sure you guys would like it considering
-> the breakage on (arguably ancient and borderline retired) platforms.
 
-I think, we should try switching to OPP-for-everybody, granted the 
-promise of dev_pm_opp_set_clk_rate() being backwards compatible with 
-bare clk_set_rate().
+v1: https://patchwork.freedesktop.org/series/93035/
+v2: Move filtering out of later deadlines to fence implementation
+    to avoid increasing the size of dma_fence
+v3: Add support in fence-array and fence-chain; Add some uabi to
+    support igt tests and userspace compositors.
+v4: Rebase, address various comments, and add syncobj deadline
+    support, and sync_file EPOLLPRI based on experience with perf/
+    freq issues with clvk compute workloads on i915 (anv)
 
-> 
-> This patch as-is "only" breaks non-OPP a5xx & a6xx (as they have .gpu_busy defined),
-> of which there are none..
-> 
->>
->>> +
->>>        adreno_gpu->funcs = funcs;
->>>        adreno_gpu->info = adreno_info(config->rev);
->>>        adreno_gpu->gmem = adreno_gpu->info->gmem;
->>> diff --git a/drivers/gpu/drm/msm/msm_gpu_devfreq.c b/drivers/gpu/drm/msm/msm_gpu_devfreq.c
->>> index e27dbf12b5e8..ea70c1c32d94 100644
->>> --- a/drivers/gpu/drm/msm/msm_gpu_devfreq.c
->>> +++ b/drivers/gpu/drm/msm/msm_gpu_devfreq.c
->>> @@ -48,7 +48,7 @@ static int msm_devfreq_target(struct device *dev, unsigned long *freq,
->>>            gpu->funcs->gpu_set_freq(gpu, opp, df->suspended);
->>>            mutex_unlock(&df->lock);
->>>        } else {
->>> -        clk_set_rate(gpu->core_clk, *freq);
->>> +        dev_pm_opp_set_rate(dev, *freq);
->>
->> This is not enough, there are calls to clk_set_rate(gpu->core_clk) in msm_gpu.c which are called from the suspend/resume path.
-> Right, good catch.
-> 
-> Konrad
->>
->>>        }
->>>          dev_pm_opp_put(opp);
->>
+Rob Clark (14):
+  dma-buf/dma-fence: Add deadline awareness
+  dma-buf/fence-array: Add fence deadline support
+  dma-buf/fence-chain: Add fence deadline support
+  dma-buf/dma-resv: Add a way to set fence deadline
+  dma-buf/sync_file: Add SET_DEADLINE ioctl
+  dma-buf/sync_file: Support (E)POLLPRI
+  dma-buf/sw_sync: Add fence deadline support
+  drm/scheduler: Add fence deadline support
+  drm/syncobj: Add deadline support for syncobj waits
+  drm/vblank: Add helper to get next vblank time
+  drm/atomic-helper: Set fence deadline for vblank
+  drm/msm: Add deadline based boost support
+  drm/msm: Add wait-boost support
+  drm/i915: Add deadline based boost support
+
+ drivers/dma-buf/dma-fence-array.c       | 11 ++++
+ drivers/dma-buf/dma-fence-chain.c       | 13 +++++
+ drivers/dma-buf/dma-fence.c             | 20 +++++++
+ drivers/dma-buf/dma-resv.c              | 19 +++++++
+ drivers/dma-buf/sw_sync.c               | 58 +++++++++++++++++++
+ drivers/dma-buf/sync_debug.h            |  2 +
+ drivers/dma-buf/sync_file.c             | 27 +++++++++
+ drivers/gpu/drm/drm_atomic_helper.c     | 36 ++++++++++++
+ drivers/gpu/drm/drm_ioctl.c             |  3 +
+ drivers/gpu/drm/drm_syncobj.c           | 59 ++++++++++++++++----
+ drivers/gpu/drm/drm_vblank.c            | 32 +++++++++++
+ drivers/gpu/drm/i915/i915_driver.c      |  2 +-
+ drivers/gpu/drm/i915/i915_request.c     | 20 +++++++
+ drivers/gpu/drm/msm/msm_drv.c           | 16 ++++--
+ drivers/gpu/drm/msm/msm_fence.c         | 74 +++++++++++++++++++++++++
+ drivers/gpu/drm/msm/msm_fence.h         | 20 +++++++
+ drivers/gpu/drm/msm/msm_gem.c           |  5 ++
+ drivers/gpu/drm/scheduler/sched_fence.c | 46 +++++++++++++++
+ drivers/gpu/drm/scheduler/sched_main.c  |  2 +-
+ include/drm/drm_drv.h                   |  6 ++
+ include/drm/drm_vblank.h                |  1 +
+ include/drm/gpu_scheduler.h             |  8 +++
+ include/linux/dma-fence.h               | 20 +++++++
+ include/linux/dma-resv.h                |  2 +
+ include/uapi/drm/drm.h                  | 16 +++++-
+ include/uapi/drm/msm_drm.h              | 14 ++++-
+ include/uapi/linux/sync_file.h          | 22 ++++++++
+ 27 files changed, 532 insertions(+), 22 deletions(-)
 
 -- 
-With best wishes
-Dmitry
+2.39.1
 
