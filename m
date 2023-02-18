@@ -2,75 +2,70 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id A50AF69B947
-	for <lists+freedreno@lfdr.de>; Sat, 18 Feb 2023 11:14:14 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 485C869B98A
+	for <lists+freedreno@lfdr.de>; Sat, 18 Feb 2023 12:04:52 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1B61610E04F;
-	Sat, 18 Feb 2023 10:14:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 107DF10E170;
+	Sat, 18 Feb 2023 11:04:51 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ed1-x529.google.com (mail-ed1-x529.google.com
- [IPv6:2a00:1450:4864:20::529])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 46DB510E050
- for <freedreno@lists.freedesktop.org>; Sat, 18 Feb 2023 10:14:09 +0000 (UTC)
-Received: by mail-ed1-x529.google.com with SMTP id ec30so1711800edb.10
- for <freedreno@lists.freedesktop.org>; Sat, 18 Feb 2023 02:14:09 -0800 (PST)
+Received: from mail-lf1-x133.google.com (mail-lf1-x133.google.com
+ [IPv6:2a00:1450:4864:20::133])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2C77D10E1EF
+ for <freedreno@lists.freedesktop.org>; Sat, 18 Feb 2023 11:04:49 +0000 (UTC)
+Received: by mail-lf1-x133.google.com with SMTP id f6so608974lfs.2
+ for <freedreno@lists.freedesktop.org>; Sat, 18 Feb 2023 03:04:49 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
  :from:to:cc:subject:date:message-id:reply-to;
- bh=XlYpUpe2mvgMM93e/W7QPf63bpnY6+x3AWjdp9vVuto=;
- b=vHc8eWnXv559cPUvTjAwx4fjMkcCMs3PZaTCVmo9y2AIJhUH/Mp2yT8Pl2aIjne5Hm
- KM5BtTCbsjyE1g6mTFetLELJG5SuG2FcFLlfDE5lmVnZ9t1KhJ2sisOUBxAjaTFdBE/1
- 3+SLrC/KB4z3DqbF8ibLbezZrcFMTxC86DohLdKexLBV9EpJ8UQliQ5S4Biqy1/ffceD
- B5kgjXdVmJpXyFY8lzfVNuzm3X8y+gTKXD1MR1RxR+5cFrSwBalH5q0OblIADiPaNM/E
- xSvsyeoqlLkWo4YTSQcM5VIzUyz2fqIH/S/h4hfwP+5/O6wx+dCtKD1n05e1WBaORrEF
- 6klA==
+ bh=oXuh68GV1v7/hPtd7U1EjUQCELSSpW0ycnpWQTsoA5k=;
+ b=YhXjaug3sThqcQ+BBifoo+urG2JwvSOFIynT+E9T6PVraeePN2I3dXP63Sww7UtS+U
+ AYPETuvRDxUuP7qmx3pKjMkqhffAAmfleV8cwhapjAoI1YOENe9LsfmMsdjSzFvpra8Q
+ UxFuuP545jmyn/ogBlH/WH04oU+PWbLyvSmRj7HM8n7dP+JB9/SpuO1P0m+bkiEmMxZN
+ 5eOSPYk2XjCKEfI2XfUP/eBGjyKMuVJ5WiaPAbZBfrv0qReXC3L98MU3N/x6t3tAycS4
+ zLJdRmQfgYlBAuKkqBqQ/dDromI9b4+f/DmoA+vjHY5MHoE6ZFkzz6vmNg8HAEp0WxSf
+ fcMA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=XlYpUpe2mvgMM93e/W7QPf63bpnY6+x3AWjdp9vVuto=;
- b=yg4hY2Y2s94kCKLVoXT+FAes6cbMv4NuIEP7G6qPe7cThxPlaihOBPxQ81eopZXDUv
- DlwBCYK12aHv959kt+ZtyWL54d82cvqTwG7t4J3LSfTsTWuxRBFQH+h3nH9qpsDQ+HU4
- 2rUbIFk3i/U7Gs4E2RIDYErUVZPrQUCw6TT2rG0qSbl84M6DSp4ZzPXOVRnBHqzKpwfI
- UKRVu1Rg+cVYmfTXBVfXg7iF+mM5my/YNl2cGJCj2Lm1JkyKBoe80cipN8S0/tA9iJsJ
- mo1Zm4vBjlnD8VEQNR+3Y23cKYx0q9Nu5xoNYH3f4R8UVFy9JSxrEreUMFfLNcg+v7RZ
- tayA==
-X-Gm-Message-State: AO0yUKWeycdEi4otg7P6fpLyclQJAI9dg6ZSrx1nAx4N+M+1sYKJJYBG
- TksKXk6om8vWadyYDiqhK595ug==
-X-Google-Smtp-Source: AK7set+3xynx3gDPCY9sAfEctMu3DjKAusUU/V/7HxqiREWds9wQjauq9fvyl47NEeCBkmqS4EqKcw==
-X-Received: by 2002:a05:6402:d2:b0:4ab:4ad1:a37e with SMTP id
- i18-20020a05640200d200b004ab4ad1a37emr98905edu.16.1676715247702; 
- Sat, 18 Feb 2023 02:14:07 -0800 (PST)
-Received: from [192.168.1.109] ([178.197.216.144])
+ bh=oXuh68GV1v7/hPtd7U1EjUQCELSSpW0ycnpWQTsoA5k=;
+ b=PYaCHc48G5RDpsz5ZpvI5fRbE/+JvNzIJiNjaEjWFAjRkB1Ski1w58UBjRXcM9hJL5
+ g4tCGF/Yb9gncAgXlK8j2+u4Z0PYPwpHXXg3ROOjZ/DTfaGDK5DwwPcM69zRh+006WvQ
+ rbTE5cAIaZUvigunnryx45PEx6SuFcpPCNTShQ1QzF1D6Cqv3opnxU0rP7dJjBJ2XHD3
+ FS+ZALwDYc/oHw3alH27/ZO8SE6JanjCukKh8V+C6I9dmov00miePTZiDgGjcgrFU9RL
+ /UyZZIp3wXhfKuXZAcYGJWAjyiHWTzbxGzRbc3JLSnEcqp/2RVC2vM3MQYKHMHth0/P6
+ 5bcw==
+X-Gm-Message-State: AO0yUKXiSiES2fzHwZGkOCee+zKTV+d7vjygeQtqKhkNYn6yWIdsRruf
+ 4dT7S+yOfjhF/mcrg6TcvhUudA==
+X-Google-Smtp-Source: AK7set+anSNYEJwtdsETWW6Zi4WqCdH3ljEBlwUdS0tMcpV2KgQp4MYL2/zu9eIGNbS0P2YDc7hmWQ==
+X-Received: by 2002:ac2:447a:0:b0:4dc:4cb6:6752 with SMTP id
+ y26-20020ac2447a000000b004dc4cb66752mr2384113lfl.52.1676718287327; 
+ Sat, 18 Feb 2023 03:04:47 -0800 (PST)
+Received: from [192.168.1.101] (abxh184.neoplus.adsl.tpnet.pl. [83.9.1.184])
  by smtp.gmail.com with ESMTPSA id
- r23-20020a50c017000000b004a233e03afdsm3381118edb.46.2023.02.18.02.14.05
+ q3-20020a19a403000000b004d869c1861esm948374lfc.192.2023.02.18.03.04.45
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sat, 18 Feb 2023 02:14:07 -0800 (PST)
-Message-ID: <e6d397bb-dd5d-8308-eb07-3aeb2589115c@linaro.org>
-Date: Sat, 18 Feb 2023 11:14:04 +0100
+ Sat, 18 Feb 2023 03:04:46 -0800 (PST)
+Message-ID: <82c84ba4-ca33-3ce0-fe86-efedfce04cda@linaro.org>
+Date: Sat, 18 Feb 2023 12:04:45 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.7.1
+ Thunderbird/102.7.2
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ linux-arm-msm@vger.kernel.org, andersson@kernel.org, agross@kernel.org
+References: <20230214173145.2482651-1-konrad.dybcio@linaro.org>
+ <20230214173145.2482651-7-konrad.dybcio@linaro.org>
+ <2e129fd6-d4e5-a955-5355-3ca71166fb33@linaro.org>
 Content-Language: en-US
-To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
- Konrad Dybcio <konrad.dybcio@linaro.org>, linux-arm-msm@vger.kernel.org,
- andersson@kernel.org, agross@kernel.org
-References: <20230217111316.306241-1-konrad.dybcio@linaro.org>
- <c49904be-d842-fc12-a443-17f229d53166@linaro.org>
- <a4eaccfd-34ba-15f3-033f-165b46c43317@linaro.org>
- <a158bca2-78bf-5b38-60fe-88118e8b4ad7@linaro.org>
- <ab35cdcf-53ae-a3f2-fc08-d0f58c51a0ae@linaro.org>
- <48cb00cd-961c-b72f-fba8-1842d658e289@linaro.org>
- <d4ffa9f0-797e-7a32-147e-64aa46d7e197@linaro.org>
-From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-In-Reply-To: <d4ffa9f0-797e-7a32-147e-64aa46d7e197@linaro.org>
+From: Konrad Dybcio <konrad.dybcio@linaro.org>
+In-Reply-To: <2e129fd6-d4e5-a955-5355-3ca71166fb33@linaro.org>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH v2 1/2] dt-bindings: display/msm:
- dsi-controller-main: Fix deprecated QCM2290 compatible
+Content-Transfer-Encoding: 8bit
+Subject: Re: [Freedreno] [PATCH v2 06/14] drm/msm/gpu: Use
+ dev_pm_opp_set_rate for non-GMU GPUs
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,33 +78,92 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- devicetree@vger.kernel.org, David Airlie <airlied@gmail.com>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Rob Clark <robdclark@gmail.com>,
- Rob Herring <robh+dt@kernel.org>,
- Krishna Manikandan <quic_mkrishn@quicinc.com>, Daniel Vetter <daniel@ffwll.ch>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, marijn.suijten@somainline.org,
- Sean Paul <sean@poorly.run>
+Cc: freedreno@lists.freedesktop.org, Dan Carpenter <error27@gmail.com>,
+ Emma Anholt <emma@anholt.net>, Akhil P Oommen <quic_akhilpo@quicinc.com>,
+ David Airlie <airlied@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Rob Clark <robdclark@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ marijn.suijten@somainline.org, Sean Paul <sean@poorly.run>,
+ Chia-I Wu <olvaffe@gmail.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 17/02/2023 22:13, Bryan O'Donoghue wrote:
-> On 17/02/2023 12:24, Krzysztof Kozlowski wrote:
->> First, it would be nice to know what was the intention of Bryan's commit?
-> 
-> Sorry I've been grazing this thread but, not responding.
-> 
-> - qcom,dsi-ctrl-6g-qcm2290
-> 
-> is non-compliant with qcom,socid-dsi-ctrl which is our desired naming 
-> convention, so that's what the deprecation is about i.e. moving this 
-> compat to "qcom,qcm2290-dsi-ctrl"
 
-OK, then there was no intention to deprecate qcom,mdss-dsi-ctrl and it
-should be left as allowed compatible.
 
-Best regards,
-Krzysztof
+On 17.02.2023 22:07, Dmitry Baryshkov wrote:
+> On 14/02/2023 19:31, Konrad Dybcio wrote:
+>> Currently we only utilize the OPP table connected to the GPU for
+>> getting (available) frequencies. We do however need to scale the
+>> voltage rail(s) accordingly to ensure that we aren't trying to
+>> run the GPU at 1GHz with a VDD_LOW vote, as that would result in
+>> an otherwise inexplainable hang.
+>>
+>> Tell the OPP framework that we want to scale the "core" clock
+>> and swap out the clk_set_rate to a dev_pm_opp_set_rate in
+>> msm_devfreq_target() to enable usage of required-opps and by
+>> extension proper voltage level/corner scaling.
+>>
+>> Signed-off-by: Konrad Dybcio <konrad.dybcio@linaro.org>
+>> ---
+>>   drivers/gpu/drm/msm/adreno/adreno_gpu.c | 4 ++++
+>>   drivers/gpu/drm/msm/msm_gpu_devfreq.c   | 2 +-
+>>   2 files changed, 5 insertions(+), 1 deletion(-)
+>>
+>> diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.c b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
+>> index ce6b76c45b6f..15e405e4f977 100644
+>> --- a/drivers/gpu/drm/msm/adreno/adreno_gpu.c
+>> +++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
+>> @@ -1047,6 +1047,10 @@ int adreno_gpu_init(struct drm_device *drm, struct platform_device *pdev,
+>>       const char *gpu_name;
+>>       u32 speedbin;
+>>   +    /* This can only be done here, or devm_pm_opp_set_supported_hw will WARN_ON() */
+>> +    if (!IS_ERR(devm_clk_get(dev, "core")))
+>> +        devm_pm_opp_set_clkname(dev, "core");
+> 
+> Can we instead move a call to a6xx_set_supported_hw() / check_speed_bin after the adreno_gpu_init() ? It will call msm_gpu_init, which in turn sets gpu->core_clk.
+> 
+> Ideally you can call devm_pm_opp_set_clkname() from that function.
 
+
+Or maybe completely drop gpu->core_clk and always use devm_pm_opp_set_clk_rate().
+That would break non-OPP targets, last of which were probably added N=big years ago..
+I'm not sure these would still work, as I think we've got rid of some ugly
+clock getters that were looking for both "core" and "core_clk" etc.
+
+See 8db0b6c7b636376789e356d861c3c6c35dcb6913 for what seems to be the most recent
+example of non-OPP.
+
+IMX51/53 also have no OPP tables and are using the (AFAIK) now-defunct _clk-suffixed
+clock-names.
+
+I'd be more than happy to rip out some of this legacy code and convert it
+to something modern like OPP, but I'm not sure you guys would like it considering
+the breakage on (arguably ancient and borderline retired) platforms.
+
+This patch as-is "only" breaks non-OPP a5xx & a6xx (as they have .gpu_busy defined),
+of which there are none..
+
+> 
+>> +
+>>       adreno_gpu->funcs = funcs;
+>>       adreno_gpu->info = adreno_info(config->rev);
+>>       adreno_gpu->gmem = adreno_gpu->info->gmem;
+>> diff --git a/drivers/gpu/drm/msm/msm_gpu_devfreq.c b/drivers/gpu/drm/msm/msm_gpu_devfreq.c
+>> index e27dbf12b5e8..ea70c1c32d94 100644
+>> --- a/drivers/gpu/drm/msm/msm_gpu_devfreq.c
+>> +++ b/drivers/gpu/drm/msm/msm_gpu_devfreq.c
+>> @@ -48,7 +48,7 @@ static int msm_devfreq_target(struct device *dev, unsigned long *freq,
+>>           gpu->funcs->gpu_set_freq(gpu, opp, df->suspended);
+>>           mutex_unlock(&df->lock);
+>>       } else {
+>> -        clk_set_rate(gpu->core_clk, *freq);
+>> +        dev_pm_opp_set_rate(dev, *freq);
+> 
+> This is not enough, there are calls to clk_set_rate(gpu->core_clk) in msm_gpu.c which are called from the suspend/resume path.
+Right, good catch.
+
+Konrad
+> 
+>>       }
+>>         dev_pm_opp_put(opp);
+> 
