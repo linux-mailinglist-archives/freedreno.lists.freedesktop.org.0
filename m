@@ -1,65 +1,60 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id A11BC69BC40
-	for <lists+freedreno@lfdr.de>; Sat, 18 Feb 2023 22:16:27 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 2247869C14E
+	for <lists+freedreno@lfdr.de>; Sun, 19 Feb 2023 17:09:27 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C65C910E57F;
-	Sat, 18 Feb 2023 21:16:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0237310E16D;
+	Sun, 19 Feb 2023 16:09:25 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-pl1-x632.google.com (mail-pl1-x632.google.com
- [IPv6:2607:f8b0:4864:20::632])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3DCAE10E562;
- Sat, 18 Feb 2023 21:16:19 +0000 (UTC)
-Received: by mail-pl1-x632.google.com with SMTP id e6so1637139plt.4;
- Sat, 18 Feb 2023 13:16:19 -0800 (PST)
+Received: from mail-oa1-x2a.google.com (mail-oa1-x2a.google.com
+ [IPv6:2001:4860:4864:20::2a])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2C39810E16D;
+ Sun, 19 Feb 2023 16:09:24 +0000 (UTC)
+Received: by mail-oa1-x2a.google.com with SMTP id
+ 586e51a60fabf-171dd24195fso757149fac.13; 
+ Sun, 19 Feb 2023 08:09:24 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=LJRWjyogOQnJ+5yTXZeR/CA8uKgjfGlQ9M7/4cay494=;
- b=HlVIEobOB1fK4orz/vfjScfvfTmsM2Ff4tRZMVa4xdM5sCf4zF5X+pa/NEvV0jRFap
- d96y+vkl2FVlKyaS9S7zCK5ePnuhaaEY0SmBx5WF6VNh/A+Ddw4lzPwCsRykF7v5tW+G
- j6OTAh+IKDR2F+7ntwLsA2YAPfoL15U9CCJgJRqqpH77DSuZ6QgB7jeDf4EuDi1zovoz
- WqdVKpv8e/55Xn9GYpUy3oewxQ91CfDFS/Ljoeg0C7AuiGQkPCu8IGY7ptZcCfOFyu0F
- 3XanlgorSS20WKL00Ktx8XMMNFwITyfSWzjmfWs+jSzPH1rSFkjSLEdZ6yYHveznktpt
- eclw==
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=U8DH84LKaD917hUBncqWw/XridwiC/MLhQgA5LA3yEY=;
+ b=cABMhkh9tj5IpY0BR82LmpJKi2ceNeL/U0Tzim/EVfbn2ldVTEoq5/s8z1WdYrztQ4
+ WYDyPxggzoJiVIEL6L0U4nLJpnmZ6rmF2FoyDX1c5vtu2QybGAi+xDh7IjNRxdlXD86p
+ oEujXZPbzUeLnO7U63MvAgJUVWOUCrXYKMr56o3aH8C0zrsweMeddRBMyJa66Q+GNrC4
+ sn0zGAUSIKW7ZSAdnuV0a9Oejw+UCbEUjr/typkJD1XvVEdD3FQKJKHjNeX4z/CcCRLT
+ 6PkNrPGMAu0JuKFA7jl7pHyUwNn9eJi8ROnWYR9wgJYtyV3BLNM6xuY68wSQBgM+ME4t
+ jguA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=LJRWjyogOQnJ+5yTXZeR/CA8uKgjfGlQ9M7/4cay494=;
- b=1YyXN3afO+HCJ1OBAIGMbIjkw81PAgNkAI+a4A/EYR1Pgb0lmMeA+UetIa4DTQOe9F
- jBuhk4M+3J7E73ZZvi/oZ7VLRGpfta/kAFJqQApIf+kubAOd7JOd2ILz1E/Ijp3MKkYj
- fbCNWEAcV+1Nf50S32iV0aFqhgZAzOPTCMLi3ys8CflksIeBKbRpm/hQvoq24Q++bmzH
- DGSfBASDIb74RtbPeBI3dOE6u+LlkszOLz/ylk6dVy1gdcxLCpGscert2taO3B1pNeqx
- FQlAih8XxaIoaARI2AvZRPHh7vUzMjrZMKuQUGDKvVXCZbWZYEnGnqLtAO+YCOOOBNM3
- 0oRA==
-X-Gm-Message-State: AO0yUKXtn9aK8RqQlBFTbfFMj5PI85PdTsL3t8xzhSavvD0CPt7TVp6i
- Q6S9CwWwY6d3ucQoBcAlTxL55485HIE=
-X-Google-Smtp-Source: AK7set/0yqp/q3/jslTp6QxBhdRo+Dy4M24xdmTIftytbmsLtB5hmbelVCK/TX7kEgjPGP3InbTQCA==
-X-Received: by 2002:a17:903:2447:b0:194:5c63:364c with SMTP id
- l7-20020a170903244700b001945c63364cmr1849203pls.62.1676754978760; 
- Sat, 18 Feb 2023 13:16:18 -0800 (PST)
-Received: from localhost (c-73-67-135-195.hsd1.or.comcast.net. [73.67.135.195])
- by smtp.gmail.com with ESMTPSA id
- ji11-20020a170903324b00b0019afb7a02a1sm4785944plb.218.2023.02.18.13.16.18
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 18 Feb 2023 13:16:18 -0800 (PST)
-From: Rob Clark <robdclark@gmail.com>
-To: dri-devel@lists.freedesktop.org
-Date: Sat, 18 Feb 2023 13:15:57 -0800
-Message-Id: <20230218211608.1630586-15-robdclark@gmail.com>
-X-Mailer: git-send-email 2.39.1
-In-Reply-To: <20230218211608.1630586-1-robdclark@gmail.com>
-References: <20230218211608.1630586-1-robdclark@gmail.com>
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=U8DH84LKaD917hUBncqWw/XridwiC/MLhQgA5LA3yEY=;
+ b=PxTsyKISoZDOy6rIBZY3UMlCdLmnJmT4Ll4YH3YslVoE4OVgCNC63HGaBU2Ml9xUEi
+ JDO0KaaltsZGqt5uAd8MNv/bxHVPXTqpqPLd/WNQ/cZMqZaICG5I+8ECPs1sKSG0jl/f
+ ck3nWgHRlSn9tdHL0noExqDjy6itDueQvIzv6YAtpb70RCuj7czTsbLu2iK9mDXyno5R
+ 1pTxh0pdTBkrLopln32lBlBufqo4/M5C72NuW2UwxU0AwnISq4kfJqcH7ngB54z5+Nkc
+ Mapf7VMtZaKDuaq4FSIt1Ums0PDp8X4XQxZwDm/hIMYpx2QXSH1OuNVJ+F7U9hgggp0z
+ g1WA==
+X-Gm-Message-State: AO0yUKVKgHkdmG69WUY22VbrAHLaIUji3jKTzMW0hnAKOULQ+cJuJExQ
+ O2lTNZhDCUx5Ej+pj3BkEP6dO9hCJgm0PYXTSTpVOoiH
+X-Google-Smtp-Source: AK7set9LQvl/SiM6LgHO2wfkGc0m3ae20+NmBQLzB2//7NZwqE+WdO5q6dkMgnqoQVA3B0+jvn/iUMo6HLlWlbxJPN4=
+X-Received: by 2002:a05:6870:32d4:b0:16e:5e5a:49da with SMTP id
+ r20-20020a05687032d400b0016e5e5a49damr953721oac.58.1676822962981; Sun, 19 Feb
+ 2023 08:09:22 -0800 (PST)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH v4 14/14] drm/i915: Add deadline based boost
- support
+References: <20230218211608.1630586-1-robdclark@gmail.com>
+ <20230218211608.1630586-10-robdclark@gmail.com>
+In-Reply-To: <20230218211608.1630586-10-robdclark@gmail.com>
+From: Rob Clark <robdclark@gmail.com>
+Date: Sun, 19 Feb 2023 08:09:43 -0800
+Message-ID: <CAF6AEGtr8NmCkyX5qVEjZ21TNqUMdKQmXkK8Y73-K757L9=GOw@mail.gmail.com>
+To: dri-devel@lists.freedesktop.org
+Content-Type: text/plain; charset="UTF-8"
+Subject: Re: [Freedreno] [PATCH v4 09/14] drm/syncobj: Add deadline support
+ for syncobj waits
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,90 +67,267 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rob Clark <robdclark@chromium.org>,
- Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
- Simon Ser <contact@emersion.fr>, intel-gfx@lists.freedesktop.org,
+Cc: Rob Clark <robdclark@chromium.org>, Simon Ser <contact@emersion.fr>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
  Tvrtko Ursulin <tvrtko.ursulin@intel.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>,
- =?UTF-8?q?Michel=20D=C3=A4nzer?= <michel@daenzer.net>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- open list <linux-kernel@vger.kernel.org>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- "moderated list:DMA BUFFER SHARING FRAMEWORK" <linaro-mm-sig@lists.linaro.org>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>,
+ =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel@daenzer.net>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ open list <linux-kernel@vger.kernel.org>, Maxime Ripard <mripard@kernel.org>,
  Pekka Paalanen <ppaalanen@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
  Rodrigo Vivi <rodrigo.vivi@intel.com>,
  Alex Deucher <alexander.deucher@amd.com>, David Airlie <airlied@gmail.com>,
- freedreno@lists.freedesktop.org, Sumit Semwal <sumit.semwal@linaro.org>,
- "open list:DMA BUFFER SHARING FRAMEWORK" <linux-media@vger.kernel.org>
+ freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-From: Rob Clark <robdclark@chromium.org>
+On Sat, Feb 18, 2023 at 1:16 PM Rob Clark <robdclark@gmail.com> wrote:
+>
+> From: Rob Clark <robdclark@chromium.org>
+>
+> Add a new flag to let userspace provide a deadline as a hint for syncobj
+> and timeline waits.  This gives a hint to the driver signaling the
+> backing fences about how soon userspace needs it to compete work, so it
+> can addjust GPU frequency accordingly.  An immediate deadline can be
+> given to provide something equivalent to i915 "wait boost".
+>
+> Signed-off-by: Rob Clark <robdclark@chromium.org>
+> ---
+>
+> I'm a bit on the fence about the addition of the DRM_CAP, but it seems
+> useful to give userspace a way to probe whether the kernel and driver
+> supports the new wait flag, especially since we have vk-common code
+> dealing with syncobjs.  But open to suggestions.
 
-Signed-off-by: Rob Clark <robdclark@chromium.org>
----
+I guess an alternative would be to allow count_handles as a way to
+probe the supported flags
 
-This should probably be re-written by someone who knows the i915
-request/timeline stuff better, to deal with non-immediate deadlines.
-But as-is I think this should be enough to handle the case where
-we want syncobj waits to trigger boost.
+BR,
+-R
 
- drivers/gpu/drm/i915/i915_driver.c  |  2 +-
- drivers/gpu/drm/i915/i915_request.c | 20 ++++++++++++++++++++
- 2 files changed, 21 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/i915/i915_driver.c b/drivers/gpu/drm/i915/i915_driver.c
-index cf1c0970ecb4..bd40b7bcb38a 100644
---- a/drivers/gpu/drm/i915/i915_driver.c
-+++ b/drivers/gpu/drm/i915/i915_driver.c
-@@ -1781,7 +1781,7 @@ static const struct drm_driver i915_drm_driver = {
- 	.driver_features =
- 	    DRIVER_GEM |
- 	    DRIVER_RENDER | DRIVER_MODESET | DRIVER_ATOMIC | DRIVER_SYNCOBJ |
--	    DRIVER_SYNCOBJ_TIMELINE,
-+	    DRIVER_SYNCOBJ_TIMELINE | DRIVER_SYNCOBJ_DEADLINE,
- 	.release = i915_driver_release,
- 	.open = i915_driver_open,
- 	.lastclose = i915_driver_lastclose,
-diff --git a/drivers/gpu/drm/i915/i915_request.c b/drivers/gpu/drm/i915/i915_request.c
-index 7503dcb9043b..44491e7e214c 100644
---- a/drivers/gpu/drm/i915/i915_request.c
-+++ b/drivers/gpu/drm/i915/i915_request.c
-@@ -97,6 +97,25 @@ static bool i915_fence_enable_signaling(struct dma_fence *fence)
- 	return i915_request_enable_breadcrumb(to_request(fence));
- }
- 
-+static void i915_fence_set_deadline(struct dma_fence *fence, ktime_t deadline)
-+{
-+	struct i915_request *rq = to_request(fence);
-+
-+	if (i915_request_completed(rq))
-+		return;
-+
-+	if (i915_request_started(rq))
-+		return;
-+
-+	/*
-+	 * TODO something more clever for deadlines that are in the
-+	 * future.  I think probably track the nearest deadline in
-+	 * rq->timeline and set timer to trigger boost accordingly?
-+	 */
-+
-+	intel_rps_boost(rq);
-+}
-+
- static signed long i915_fence_wait(struct dma_fence *fence,
- 				   bool interruptible,
- 				   signed long timeout)
-@@ -182,6 +201,7 @@ const struct dma_fence_ops i915_fence_ops = {
- 	.signaled = i915_fence_signaled,
- 	.wait = i915_fence_wait,
- 	.release = i915_fence_release,
-+	.set_deadline = i915_fence_set_deadline,
- };
- 
- static void irq_execute_cb(struct irq_work *wrk)
--- 
-2.39.1
-
+>  drivers/gpu/drm/drm_ioctl.c   |  3 ++
+>  drivers/gpu/drm/drm_syncobj.c | 59 ++++++++++++++++++++++++++++-------
+>  include/drm/drm_drv.h         |  6 ++++
+>  include/uapi/drm/drm.h        | 16 ++++++++--
+>  4 files changed, 71 insertions(+), 13 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/drm_ioctl.c b/drivers/gpu/drm/drm_ioctl.c
+> index 7c9d66ee917d..1c5c942cf0f9 100644
+> --- a/drivers/gpu/drm/drm_ioctl.c
+> +++ b/drivers/gpu/drm/drm_ioctl.c
+> @@ -254,6 +254,9 @@ static int drm_getcap(struct drm_device *dev, void *data, struct drm_file *file_
+>         case DRM_CAP_SYNCOBJ_TIMELINE:
+>                 req->value = drm_core_check_feature(dev, DRIVER_SYNCOBJ_TIMELINE);
+>                 return 0;
+> +       case DRM_CAP_SYNCOBJ_DEADLINE:
+> +               req->value = drm_core_check_feature(dev, DRIVER_SYNCOBJ_TIMELINE);
+> +               return 0;
+>         }
+>
+>         /* Other caps only work with KMS drivers */
+> diff --git a/drivers/gpu/drm/drm_syncobj.c b/drivers/gpu/drm/drm_syncobj.c
+> index 0c2be8360525..61cf97972a60 100644
+> --- a/drivers/gpu/drm/drm_syncobj.c
+> +++ b/drivers/gpu/drm/drm_syncobj.c
+> @@ -973,7 +973,8 @@ static signed long drm_syncobj_array_wait_timeout(struct drm_syncobj **syncobjs,
+>                                                   uint32_t count,
+>                                                   uint32_t flags,
+>                                                   signed long timeout,
+> -                                                 uint32_t *idx)
+> +                                                 uint32_t *idx,
+> +                                                 ktime_t *deadline)
+>  {
+>         struct syncobj_wait_entry *entries;
+>         struct dma_fence *fence;
+> @@ -1053,6 +1054,15 @@ static signed long drm_syncobj_array_wait_timeout(struct drm_syncobj **syncobjs,
+>                         drm_syncobj_fence_add_wait(syncobjs[i], &entries[i]);
+>         }
+>
+> +       if (deadline) {
+> +               for (i = 0; i < count; ++i) {
+> +                       fence = entries[i].fence;
+> +                       if (!fence)
+> +                               continue;
+> +                       dma_fence_set_deadline(fence, *deadline);
+> +               }
+> +       }
+> +
+>         do {
+>                 set_current_state(TASK_INTERRUPTIBLE);
+>
+> @@ -1151,7 +1161,8 @@ static int drm_syncobj_array_wait(struct drm_device *dev,
+>                                   struct drm_file *file_private,
+>                                   struct drm_syncobj_wait *wait,
+>                                   struct drm_syncobj_timeline_wait *timeline_wait,
+> -                                 struct drm_syncobj **syncobjs, bool timeline)
+> +                                 struct drm_syncobj **syncobjs, bool timeline,
+> +                                 ktime_t *deadline)
+>  {
+>         signed long timeout = 0;
+>         uint32_t first = ~0;
+> @@ -1162,7 +1173,8 @@ static int drm_syncobj_array_wait(struct drm_device *dev,
+>                                                          NULL,
+>                                                          wait->count_handles,
+>                                                          wait->flags,
+> -                                                        timeout, &first);
+> +                                                        timeout, &first,
+> +                                                        deadline);
+>                 if (timeout < 0)
+>                         return timeout;
+>                 wait->first_signaled = first;
+> @@ -1172,7 +1184,8 @@ static int drm_syncobj_array_wait(struct drm_device *dev,
+>                                                          u64_to_user_ptr(timeline_wait->points),
+>                                                          timeline_wait->count_handles,
+>                                                          timeline_wait->flags,
+> -                                                        timeout, &first);
+> +                                                        timeout, &first,
+> +                                                        deadline);
+>                 if (timeout < 0)
+>                         return timeout;
+>                 timeline_wait->first_signaled = first;
+> @@ -1243,13 +1256,20 @@ drm_syncobj_wait_ioctl(struct drm_device *dev, void *data,
+>  {
+>         struct drm_syncobj_wait *args = data;
+>         struct drm_syncobj **syncobjs;
+> +       unsigned possible_flags;
+> +       ktime_t t, *tp = NULL;
+>         int ret = 0;
+>
+>         if (!drm_core_check_feature(dev, DRIVER_SYNCOBJ))
+>                 return -EOPNOTSUPP;
+>
+> -       if (args->flags & ~(DRM_SYNCOBJ_WAIT_FLAGS_WAIT_ALL |
+> -                           DRM_SYNCOBJ_WAIT_FLAGS_WAIT_FOR_SUBMIT))
+> +       possible_flags = DRM_SYNCOBJ_WAIT_FLAGS_WAIT_ALL |
+> +                        DRM_SYNCOBJ_WAIT_FLAGS_WAIT_FOR_SUBMIT;
+> +
+> +       if (drm_core_check_feature(dev, DRIVER_SYNCOBJ_DEADLINE))
+> +               possible_flags |= DRM_SYNCOBJ_WAIT_FLAGS_WAIT_DEADLINE;
+> +
+> +       if (args->flags & ~possible_flags)
+>                 return -EINVAL;
+>
+>         if (args->count_handles == 0)
+> @@ -1262,8 +1282,13 @@ drm_syncobj_wait_ioctl(struct drm_device *dev, void *data,
+>         if (ret < 0)
+>                 return ret;
+>
+> +       if (args->flags & DRM_SYNCOBJ_WAIT_FLAGS_WAIT_DEADLINE) {
+> +               t = ktime_set(args->deadline_sec, args->deadline_nsec);
+> +               tp = &t;
+> +       }
+> +
+>         ret = drm_syncobj_array_wait(dev, file_private,
+> -                                    args, NULL, syncobjs, false);
+> +                                    args, NULL, syncobjs, false, tp);
+>
+>         drm_syncobj_array_free(syncobjs, args->count_handles);
+>
+> @@ -1276,14 +1301,21 @@ drm_syncobj_timeline_wait_ioctl(struct drm_device *dev, void *data,
+>  {
+>         struct drm_syncobj_timeline_wait *args = data;
+>         struct drm_syncobj **syncobjs;
+> +       unsigned possible_flags;
+> +       ktime_t t, *tp = NULL;
+>         int ret = 0;
+>
+>         if (!drm_core_check_feature(dev, DRIVER_SYNCOBJ_TIMELINE))
+>                 return -EOPNOTSUPP;
+>
+> -       if (args->flags & ~(DRM_SYNCOBJ_WAIT_FLAGS_WAIT_ALL |
+> -                           DRM_SYNCOBJ_WAIT_FLAGS_WAIT_FOR_SUBMIT |
+> -                           DRM_SYNCOBJ_WAIT_FLAGS_WAIT_AVAILABLE))
+> +       possible_flags = DRM_SYNCOBJ_WAIT_FLAGS_WAIT_ALL |
+> +                        DRM_SYNCOBJ_WAIT_FLAGS_WAIT_FOR_SUBMIT |
+> +                        DRM_SYNCOBJ_WAIT_FLAGS_WAIT_AVAILABLE;
+> +
+> +       if (drm_core_check_feature(dev, DRIVER_SYNCOBJ_DEADLINE))
+> +               possible_flags |= DRM_SYNCOBJ_WAIT_FLAGS_WAIT_DEADLINE;
+> +
+> +       if (args->flags & ~possible_flags)
+>                 return -EINVAL;
+>
+>         if (args->count_handles == 0)
+> @@ -1296,8 +1328,13 @@ drm_syncobj_timeline_wait_ioctl(struct drm_device *dev, void *data,
+>         if (ret < 0)
+>                 return ret;
+>
+> +       if (args->flags & DRM_SYNCOBJ_WAIT_FLAGS_WAIT_DEADLINE) {
+> +               t = ktime_set(args->deadline_sec, args->deadline_nsec);
+> +               tp = &t;
+> +       }
+> +
+>         ret = drm_syncobj_array_wait(dev, file_private,
+> -                                    NULL, args, syncobjs, true);
+> +                                    NULL, args, syncobjs, true, tp);
+>
+>         drm_syncobj_array_free(syncobjs, args->count_handles);
+>
+> diff --git a/include/drm/drm_drv.h b/include/drm/drm_drv.h
+> index 1d76d0686b03..9aa24f097e22 100644
+> --- a/include/drm/drm_drv.h
+> +++ b/include/drm/drm_drv.h
+> @@ -104,6 +104,12 @@ enum drm_driver_feature {
+>          * acceleration should be handled by two drivers that are connected using auxiliary bus.
+>          */
+>         DRIVER_COMPUTE_ACCEL            = BIT(7),
+> +       /**
+> +        * @DRIVER_SYNCOBJ_DEADLINE:
+> +        *
+> +        * Driver supports &dma_fence_ops.set_deadline
+> +        */
+> +       DRIVER_SYNCOBJ_DEADLINE         = BIT(8),
+>
+>         /* IMPORTANT: Below are all the legacy flags, add new ones above. */
+>
+> diff --git a/include/uapi/drm/drm.h b/include/uapi/drm/drm.h
+> index 642808520d92..c6b85bb13810 100644
+> --- a/include/uapi/drm/drm.h
+> +++ b/include/uapi/drm/drm.h
+> @@ -767,6 +767,13 @@ struct drm_gem_open {
+>   * Documentation/gpu/drm-mm.rst, section "DRM Sync Objects".
+>   */
+>  #define DRM_CAP_SYNCOBJ_TIMELINE       0x14
+> +/**
+> + * DRM_CAP_SYNCOBJ_DEADLINE
+> + *
+> + * If set to 1, the driver supports DRM_SYNCOBJ_WAIT_FLAGS_WAIT_DEADLINE flag
+> + * on the SYNCOBJ_TIMELINE_WAIT/SYNCOBJ_WAIT ioctls.
+> + */
+> +#define DRM_CAP_SYNCOBJ_DEADLINE       0x15
+>
+>  /* DRM_IOCTL_GET_CAP ioctl argument type */
+>  struct drm_get_cap {
+> @@ -887,6 +894,7 @@ struct drm_syncobj_transfer {
+>  #define DRM_SYNCOBJ_WAIT_FLAGS_WAIT_ALL (1 << 0)
+>  #define DRM_SYNCOBJ_WAIT_FLAGS_WAIT_FOR_SUBMIT (1 << 1)
+>  #define DRM_SYNCOBJ_WAIT_FLAGS_WAIT_AVAILABLE (1 << 2) /* wait for time point to become available */
+> +#define DRM_SYNCOBJ_WAIT_FLAGS_WAIT_DEADLINE (1 << 3) /* set fence deadline based to deadline_nsec/sec */
+>  struct drm_syncobj_wait {
+>         __u64 handles;
+>         /* absolute timeout */
+> @@ -894,7 +902,9 @@ struct drm_syncobj_wait {
+>         __u32 count_handles;
+>         __u32 flags;
+>         __u32 first_signaled; /* only valid when not waiting all */
+> -       __u32 pad;
+> +       /* Deadline to set on backing fence(s) in CLOCK_MONOTONIC: */
+> +       __u32 deadline_nsec;
+> +       __u64 deadline_sec;
+>  };
+>
+>  struct drm_syncobj_timeline_wait {
+> @@ -906,7 +916,9 @@ struct drm_syncobj_timeline_wait {
+>         __u32 count_handles;
+>         __u32 flags;
+>         __u32 first_signaled; /* only valid when not waiting all */
+> -       __u32 pad;
+> +       /* Deadline to set on backing fence(s) in CLOCK_MONOTONIC: */
+> +       __u32 deadline_nsec;
+> +       __u64 deadline_sec;
+>  };
+>
+>
+> --
+> 2.39.1
+>
