@@ -1,56 +1,60 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7983B69D0DB
-	for <lists+freedreno@lfdr.de>; Mon, 20 Feb 2023 16:46:49 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 7DB9769D0FD
+	for <lists+freedreno@lfdr.de>; Mon, 20 Feb 2023 16:55:55 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3939710E68F;
-	Mon, 20 Feb 2023 15:46:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4858910E244;
+	Mon, 20 Feb 2023 15:55:54 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2E5BF10E67C;
- Mon, 20 Feb 2023 15:46:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1676908006; x=1708444006;
- h=message-id:date:mime-version:subject:to:cc:references:
- from:in-reply-to:content-transfer-encoding;
- bh=k4wfezK6AXjJRKoJw8o50JWi2ZFodNHQ5z5zxhTGtJs=;
- b=Nxy/CTo68GN5DSYUlRtJ3kAjuyuKS23fxsXxtvkTtDL+a+PT7NWyCx/j
- yafxBZxOrcRo8myfN2KMnbcBNlZm9gTIgzgiUDYz4np9xRJl5tP6U9tsO
- K/mtvajpxun+VbKrim4M/4SFUDeLRdwWBUFG5cW5AF0vKPZJKg3Ww/nUV
- nV1xhtGnbjSRcujLln/9A8jONYx41KnkmQBGXmRsziRXsHhbII0dfBclW
- xg5X0VIJ+4YIUqWkbgiRLj04AmNONOpy31SgUcJgHobomqL1muOYmjVgj
- YWVZUJRLEQ+PMu8CeqEdD4aF0W/h/5noUksrKepZ+UxsM0nZU+1GTCD5t A==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10627"; a="312060021"
-X-IronPort-AV: E=Sophos;i="5.97,313,1669104000"; d="scan'208";a="312060021"
-Received: from fmsmga006.fm.intel.com ([10.253.24.20])
- by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 Feb 2023 07:46:45 -0800
-X-IronPort-AV: E=McAfee;i="6500,9779,10627"; a="916897293"
-X-IronPort-AV: E=Sophos;i="5.97,313,1669104000"; d="scan'208";a="916897293"
-Received: from mochoamo-mobl.ger.corp.intel.com (HELO [10.213.211.126])
- ([10.213.211.126])
- by fmsmga006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 Feb 2023 07:46:41 -0800
-Message-ID: <2716c108-0486-6e27-77e2-efd1fa350f04@linux.intel.com>
-Date: Mon, 20 Feb 2023 15:46:39 +0000
+Received: from mail-oi1-x231.google.com (mail-oi1-x231.google.com
+ [IPv6:2607:f8b0:4864:20::231])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 61F5710E244;
+ Mon, 20 Feb 2023 15:55:52 +0000 (UTC)
+Received: by mail-oi1-x231.google.com with SMTP id y8so1669494oiy.6;
+ Mon, 20 Feb 2023 07:55:52 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=WQ6Kknlmvc9DIbm4e8wsI/pOA7p8O3i81OSguHmnNFI=;
+ b=gk4ZoYpF6iksdu5qT+UZvbxnmmmVT5Im7xBF4n9KIXSILbxnqgMFgrCmZ3HLp+4Pn8
+ hWb1uonfp40Ddh3Hf3aj4uTt5OcveMYw5o5SEz/3mFFK83GFX+dV6HL5478mUsrzYrp1
+ jMvlaNhQM3booiC0YrY0uZwKVs11TjZDNaxrPa2OUeNwB1ngqnXsijPiK+oxeAsBySTO
+ dY3Uo1qMRQPyOi38gqSdJHmGILHn0zd6LzQ2O/2iSDXbHqBQH9aqsLPIbtbqVlOz5ka4
+ DdUraySxUyhVacai27Rw7i/8rkzFqXaR16Yz/ePdCIu0eFf4MOxWsNddNEWlD5r4NtRj
+ 5gYA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=WQ6Kknlmvc9DIbm4e8wsI/pOA7p8O3i81OSguHmnNFI=;
+ b=vzj7i5rTSYoWXDny0Ge9Bfv7/A5DD61gjBWpXbM3qO7lj4YdAcRoTmZkU50DPUUZU/
+ MW+JzCOqL8J8BXf69MZw/i8eUsKWmCXwXATNJT7gPNWHYK1uK8weSK+n/VVeye6Xlsyj
+ Ob/hNtNJmBnIQEZ9UV8ERsUPdEYhpgtWwVsAghs1kLej4ZriDFdj9p4eGWi6ZTYUQLVE
+ 5CpNBqkRzp+7vVla8Mau930pWGUboPQJ5+ChBSrYmbvQ5wpYNxfzRbvM7g0iPtb5rt9R
+ JhBktr2uf/RJniCP4M2S7mFzUxzFjGl9ZhaujT29eXjKGYSxmETGAtXE94SST3OUGXHm
+ xN+Q==
+X-Gm-Message-State: AO0yUKWrOtfMg7Q+Bw7nenakKU96gCZCC3M/4E8UuY/oR72J4tDNN0cK
+ nkBiu/yhgjp4LIq5mC/A4c9RjiVwhLiJ6unfuBA=
+X-Google-Smtp-Source: AK7set+1QVqU6Yi01Un76S8bt89KSL5PD7pJAEx9qb3NA/5CI1WH8naIPrQAeTFJ7Z/4IijGHI55omf90jmAN5A9jPw=
+X-Received: by 2002:a05:6808:ec7:b0:364:c0a5:1fcf with SMTP id
+ q7-20020a0568080ec700b00364c0a51fcfmr1099851oiv.58.1676908551633; Mon, 20 Feb
+ 2023 07:55:51 -0800 (PST)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.8.0
-Content-Language: en-US
-To: Rob Clark <robdclark@gmail.com>, dri-devel@lists.freedesktop.org
 References: <20230218211608.1630586-1-robdclark@gmail.com>
- <20230218211608.1630586-15-robdclark@gmail.com>
-From: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
-Organization: Intel Corporation UK Plc
-In-Reply-To: <20230218211608.1630586-15-robdclark@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH v4 14/14] drm/i915: Add deadline based boost
- support
+ <20230218211608.1630586-11-robdclark@gmail.com>
+ <20230220110820.595cfa37@eldfell>
+In-Reply-To: <20230220110820.595cfa37@eldfell>
+From: Rob Clark <robdclark@gmail.com>
+Date: Mon, 20 Feb 2023 07:55:41 -0800
+Message-ID: <CAF6AEGuo-vmW4Va9=RH+kH9KgNvR2vzjJ8meO-oty56xjDhjgg@mail.gmail.com>
+To: Pekka Paalanen <ppaalanen@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Subject: Re: [Freedreno] [PATCH v4 10/14] drm/vblank: Add helper to get next
+ vblank time
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,96 +67,107 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rob Clark <robdclark@chromium.org>,
+Cc: Rob Clark <robdclark@chromium.org>, Simon Ser <contact@emersion.fr>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
  Tvrtko Ursulin <tvrtko.ursulin@intel.com>,
- =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>,
- intel-gfx@lists.freedesktop.org, open list <linux-kernel@vger.kernel.org>,
- =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
- "moderated list:DMA BUFFER SHARING FRAMEWORK" <linaro-mm-sig@lists.linaro.org>,
- Pekka Paalanen <ppaalanen@gmail.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- Sumit Semwal <sumit.semwal@linaro.org>, freedreno@lists.freedesktop.org,
- =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel@daenzer.net>,
- "open list:DMA BUFFER SHARING FRAMEWORK" <linux-media@vger.kernel.org>
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>,
+ =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel@daenzer.net>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ open list <linux-kernel@vger.kernel.org>, dri-devel@lists.freedesktop.org,
+ Maxime Ripard <mripard@kernel.org>, Daniel Vetter <daniel@ffwll.ch>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Alex Deucher <alexander.deucher@amd.com>, David Airlie <airlied@gmail.com>,
+ freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
+On Mon, Feb 20, 2023 at 1:08 AM Pekka Paalanen <ppaalanen@gmail.com> wrote:
+>
+> On Sat, 18 Feb 2023 13:15:53 -0800
+> Rob Clark <robdclark@gmail.com> wrote:
+>
+> > From: Rob Clark <robdclark@chromium.org>
+> >
+> > Will be used in the next commit to set a deadline on fences that an
+> > atomic update is waiting on.
+> >
+> > Signed-off-by: Rob Clark <robdclark@chromium.org>
+> > ---
+> >  drivers/gpu/drm/drm_vblank.c | 32 ++++++++++++++++++++++++++++++++
+> >  include/drm/drm_vblank.h     |  1 +
+> >  2 files changed, 33 insertions(+)
+> >
+> > diff --git a/drivers/gpu/drm/drm_vblank.c b/drivers/gpu/drm/drm_vblank.c
+> > index 2ff31717a3de..caf25ebb34c5 100644
+> > --- a/drivers/gpu/drm/drm_vblank.c
+> > +++ b/drivers/gpu/drm/drm_vblank.c
+> > @@ -980,6 +980,38 @@ u64 drm_crtc_vblank_count_and_time(struct drm_crtc *crtc,
+> >  }
+> >  EXPORT_SYMBOL(drm_crtc_vblank_count_and_time);
+> >
+> > +/**
+> > + * drm_crtc_next_vblank_time - calculate the time of the next vblank
+> > + * @crtc: the crtc for which to calculate next vblank time
+> > + * @vblanktime: pointer to time to receive the next vblank timestamp.
+> > + *
+> > + * Calculate the expected time of the next vblank based on time of previous
+> > + * vblank and frame duration
+>
+> Hi,
+>
+> for VRR this targets the highest frame rate possible for the current
+> VRR mode, right?
+>
 
-On 18/02/2023 21:15, Rob Clark wrote:
-> From: Rob Clark <robdclark@chromium.org>
-> 
-> Signed-off-by: Rob Clark <robdclark@chromium.org>
-> ---
-> 
-> This should probably be re-written by someone who knows the i915
-> request/timeline stuff better, to deal with non-immediate deadlines.
-> But as-is I think this should be enough to handle the case where
-> we want syncobj waits to trigger boost.
+It is based on vblank->framedur_ns which is in turn based on
+mode->crtc_clock.  Presumably for VRR that ends up being a maximum?
 
-Yeah, there are endless possibilities. :) But I think it is effectively 
-similar enough to current waitboosting (when waits are done using the 
-i915 specific ioctl). So as a first step I'll try to organize some 
-internal power and performance testing, at least Chromebook focused, to 
-see if modern userspace (syncobj based) even benefits and does not by 
-some chance regress over the board.
+BR,
+-R
 
-Regards,
 
-Tvrtko
-
-> 
->   drivers/gpu/drm/i915/i915_driver.c  |  2 +-
->   drivers/gpu/drm/i915/i915_request.c | 20 ++++++++++++++++++++
->   2 files changed, 21 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/gpu/drm/i915/i915_driver.c b/drivers/gpu/drm/i915/i915_driver.c
-> index cf1c0970ecb4..bd40b7bcb38a 100644
-> --- a/drivers/gpu/drm/i915/i915_driver.c
-> +++ b/drivers/gpu/drm/i915/i915_driver.c
-> @@ -1781,7 +1781,7 @@ static const struct drm_driver i915_drm_driver = {
->   	.driver_features =
->   	    DRIVER_GEM |
->   	    DRIVER_RENDER | DRIVER_MODESET | DRIVER_ATOMIC | DRIVER_SYNCOBJ |
-> -	    DRIVER_SYNCOBJ_TIMELINE,
-> +	    DRIVER_SYNCOBJ_TIMELINE | DRIVER_SYNCOBJ_DEADLINE,
->   	.release = i915_driver_release,
->   	.open = i915_driver_open,
->   	.lastclose = i915_driver_lastclose,
-> diff --git a/drivers/gpu/drm/i915/i915_request.c b/drivers/gpu/drm/i915/i915_request.c
-> index 7503dcb9043b..44491e7e214c 100644
-> --- a/drivers/gpu/drm/i915/i915_request.c
-> +++ b/drivers/gpu/drm/i915/i915_request.c
-> @@ -97,6 +97,25 @@ static bool i915_fence_enable_signaling(struct dma_fence *fence)
->   	return i915_request_enable_breadcrumb(to_request(fence));
->   }
->   
-> +static void i915_fence_set_deadline(struct dma_fence *fence, ktime_t deadline)
-> +{
-> +	struct i915_request *rq = to_request(fence);
-> +
-> +	if (i915_request_completed(rq))
-> +		return;
-> +
-> +	if (i915_request_started(rq))
-> +		return;
-> +
-> +	/*
-> +	 * TODO something more clever for deadlines that are in the
-> +	 * future.  I think probably track the nearest deadline in
-> +	 * rq->timeline and set timer to trigger boost accordingly?
-> +	 */
-> +
-> +	intel_rps_boost(rq);
-> +}
-> +
->   static signed long i915_fence_wait(struct dma_fence *fence,
->   				   bool interruptible,
->   				   signed long timeout)
-> @@ -182,6 +201,7 @@ const struct dma_fence_ops i915_fence_ops = {
->   	.signaled = i915_fence_signaled,
->   	.wait = i915_fence_wait,
->   	.release = i915_fence_release,
-> +	.set_deadline = i915_fence_set_deadline,
->   };
->   
->   static void irq_execute_cb(struct irq_work *wrk)
+>
+> Thanks,
+> pq
+>
+> > + */
+> > +int drm_crtc_next_vblank_time(struct drm_crtc *crtc, ktime_t *vblanktime)
+> > +{
+> > +     unsigned int pipe = drm_crtc_index(crtc);
+> > +     struct drm_vblank_crtc *vblank = &crtc->dev->vblank[pipe];
+> > +     u64 count;
+> > +
+> > +     if (!vblank->framedur_ns)
+> > +             return -EINVAL;
+> > +
+> > +     count = drm_vblank_count_and_time(crtc->dev, pipe, vblanktime);
+> > +
+> > +     /*
+> > +      * If we don't get a valid count, then we probably also don't
+> > +      * have a valid time:
+> > +      */
+> > +     if (!count)
+> > +             return -EINVAL;
+> > +
+> > +     *vblanktime = ktime_add(*vblanktime, ns_to_ktime(vblank->framedur_ns));
+> > +
+> > +     return 0;
+> > +}
+> > +EXPORT_SYMBOL(drm_crtc_next_vblank_time);
+> > +
+> >  static void send_vblank_event(struct drm_device *dev,
+> >               struct drm_pending_vblank_event *e,
+> >               u64 seq, ktime_t now)
+> > diff --git a/include/drm/drm_vblank.h b/include/drm/drm_vblank.h
+> > index 733a3e2d1d10..a63bc2c92f3c 100644
+> > --- a/include/drm/drm_vblank.h
+> > +++ b/include/drm/drm_vblank.h
+> > @@ -230,6 +230,7 @@ bool drm_dev_has_vblank(const struct drm_device *dev);
+> >  u64 drm_crtc_vblank_count(struct drm_crtc *crtc);
+> >  u64 drm_crtc_vblank_count_and_time(struct drm_crtc *crtc,
+> >                                  ktime_t *vblanktime);
+> > +int drm_crtc_next_vblank_time(struct drm_crtc *crtc, ktime_t *vblanktime);
+> >  void drm_crtc_send_vblank_event(struct drm_crtc *crtc,
+> >                              struct drm_pending_vblank_event *e);
+> >  void drm_crtc_arm_vblank_event(struct drm_crtc *crtc,
+>
