@@ -2,60 +2,60 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 172AE69C88E
-	for <lists+freedreno@lfdr.de>; Mon, 20 Feb 2023 11:32:06 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9703169C8C2
+	for <lists+freedreno@lfdr.de>; Mon, 20 Feb 2023 11:39:57 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CBBEB10E660;
-	Mon, 20 Feb 2023 10:32:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 56DF410E666;
+	Mon, 20 Feb 2023 10:39:56 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ed1-x531.google.com (mail-ed1-x531.google.com
- [IPv6:2a00:1450:4864:20::531])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9505610E662
- for <freedreno@lists.freedesktop.org>; Mon, 20 Feb 2023 10:32:03 +0000 (UTC)
-Received: by mail-ed1-x531.google.com with SMTP id cq23so2455398edb.1
- for <freedreno@lists.freedesktop.org>; Mon, 20 Feb 2023 02:32:03 -0800 (PST)
+Received: from mail-lj1-x22f.google.com (mail-lj1-x22f.google.com
+ [IPv6:2a00:1450:4864:20::22f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3B0E210E66A
+ for <freedreno@lists.freedesktop.org>; Mon, 20 Feb 2023 10:39:54 +0000 (UTC)
+Received: by mail-lj1-x22f.google.com with SMTP id e9so645587ljn.9
+ for <freedreno@lists.freedesktop.org>; Mon, 20 Feb 2023 02:39:54 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :from:to:cc:subject:date:message-id:reply-to;
- bh=paV6BTyDbDK8lLzQOpiKyOjr8c2QWDAG5Sx7tYMnMf0=;
- b=sUqfx2GkQWW0/mkbayKMOts6wK8b0GxH1Wx6kW57PAX6jgwV5mRUPRISdjJ3is/FYv
- MWTXjdznl9W4rXCYpVlk4kLil0FT7CGJV9PSvsE/3CEeGIuX6ixxGGKWa1oke4nZpOSE
- wl9mVPIQGcOpYSYwjcSQ/mdyGoiefeUvXK8ujVnPHUwN/gIwDoL1WoCfEwdfiyZ6tdvE
- okeTXmUrXQ2NNGDat1+RKZaUI1KKSlgN2Mv5cpeStWkN9Mv1B+D9+UfS4+OHQtAWbgqr
- qrYn80u3pYIeJ2ZLti0clGlD8yWlGi+6V3BUtgfgZ+7/m8bHDagi73HBdNiB4doVUs7h
- WDJg==
+ bh=S6Q9np3PlT9xBPEoHB5V+taQW+z2g86H0Y4pVQ3/u+Y=;
+ b=d6uwQSAIOMO9CzZOgQ9E1G65YuC8MXyKXoiIdlEf1zKWUb9nGgYBHnXLoY9yIEtlj4
+ 85f0X2XRtn+eCVI0q36sIiqspPhvvTNduci0Xr7BLZmXEjfW+nr1ZDKixLgIeECvcMJq
+ 4A/1wL5b1F7vOcg6vhtpon8nm1gwDAXprdjiLcmVMg5digDMLf6u/auCxZCo4JSdJsya
+ OG82r39oiqXD6vnep/Z3fLPVWOAuS0OzN6VyuB3vyk4huWRmGHaJZqIYjf+mTfgapFvh
+ DGgC0+PpNvptwWG0RBCwbFhqPV0QKuMywFygDFnvn7c5UC0+58bLE5xDPcfVdO8+Pe/H
+ DONA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=paV6BTyDbDK8lLzQOpiKyOjr8c2QWDAG5Sx7tYMnMf0=;
- b=I4zhyRg/eTbtYlwJmJm9QQ0FbkJY/Kdx0Sf1jPHk2SKQ0PTZsSBgSnPOU0tli3msv8
- ZPu2CsH6SFmN/5T1h5B7+4KoxZlQF9YrxkTSeRqSzy971+4Q4prHUsIO9VQXb1EYvhKS
- L6U/tfYiFyBfnijnNxmlpiDrYfJHzpOVQceYWWRzaNq0MmuCUVXZWWvkHSzYhymhXXdu
- XGPu2vK9gqu7xUzsIL781alZcxCKSJy+JP5s5soz1I2861ZVJ9Wa2yLFcCEYZ6OMq0Zv
- EvLg4nzxtm1nut3XEK7mzFnFim+QRZhsZRb/1RQZhy8YA1d5NF+Z92FUulSQqZD/sf3J
- kwiw==
-X-Gm-Message-State: AO0yUKVUSeoiQp7+cJJEZdyEbwzOYVLpH3We2hm/HQq1LU6FdG/C7eWt
- bqDBgCGAUbZbphpbX7Uqv8sK5g==
-X-Google-Smtp-Source: AK7set/vIPmDHCiFPf7406PxS4ywTJP3gluEz3K1IoOEEfYdwk4lcG5idx/OXz/rBTLLLjfWKSxprQ==
-X-Received: by 2002:a17:906:edd2:b0:8b1:7e1e:7756 with SMTP id
- sb18-20020a170906edd200b008b17e1e7756mr10873066ejb.73.1676889122026; 
- Mon, 20 Feb 2023 02:32:02 -0800 (PST)
-Received: from [192.168.1.109] ([178.197.216.144])
+ bh=S6Q9np3PlT9xBPEoHB5V+taQW+z2g86H0Y4pVQ3/u+Y=;
+ b=Zc8xCmII3FlSzynN0Zo9niGjKFiBGQMQX/UVJB1QK5r/PvLRlmYhRFDRcOSnwEcoVZ
+ KLEHIfGiW0Wnvzp5Ouyvs4CLEQCkyuiwZBSUdkvC7zeiJgHIFc+pCfVpYxM1ODQY97P5
+ P/AsMYHyyPGJGdb8WPygxX/v/6AYiZb4ObRenctuwnfuNfUdcJSFXF+RBCvxSPGNDnin
+ qOms7Gh3fRgCRKF2jvvwkIte5DVP7DNxHC3Ql6FvVVy5dITeu3dgQNxBdSb5VL3/OQqq
+ xB52YOLZGVnw39hUNOpMLvRzf5HutIdZfpVXYO9QbojcgfdOtxSaSJe0rglPjz6120bh
+ 2DxA==
+X-Gm-Message-State: AO0yUKXVa5X3K7QdmGbfyB/u/6ufW5IP0gNP9Bc3iCweUSKtK9e3pQWR
+ 9MHyaKIAA/K/SAttcB9OC67NTg==
+X-Google-Smtp-Source: AK7set+BvCGgGzmrHlgIq2C9OebhbTPyYMxFFPa+pyEIneAtPfANrPbmNYsGVLBize5NHjOU7A3ocQ==
+X-Received: by 2002:a2e:b894:0:b0:290:6484:1930 with SMTP id
+ r20-20020a2eb894000000b0029064841930mr506600ljp.39.1676889592417; 
+ Mon, 20 Feb 2023 02:39:52 -0800 (PST)
+Received: from [192.168.1.101] (abxh184.neoplus.adsl.tpnet.pl. [83.9.1.184])
  by smtp.gmail.com with ESMTPSA id
- qn19-20020a170907211300b008baeb5c9bdbsm3335412ejb.141.2023.02.20.02.32.00
+ d16-20020a2eb050000000b002935c78b371sm178333ljl.64.2023.02.20.02.39.50
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 20 Feb 2023 02:32:01 -0800 (PST)
-Message-ID: <761f1f4b-6f47-83a3-1e55-9e5dfccbaab8@linaro.org>
-Date: Mon, 20 Feb 2023 11:31:59 +0100
+ Mon, 20 Feb 2023 02:39:52 -0800 (PST)
+Message-ID: <92b6aa73-caef-85bb-6656-5e159ef7d237@linaro.org>
+Date: Mon, 20 Feb 2023 11:39:50 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.8.0
 Content-Language: en-US
-To: Konrad Dybcio <konrad.dybcio@linaro.org>,
+To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
  Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
  linux-arm-msm@vger.kernel.org, andersson@kernel.org, agross@kernel.org
 References: <20230217111316.306241-1-konrad.dybcio@linaro.org>
@@ -69,8 +69,9 @@ References: <20230217111316.306241-1-konrad.dybcio@linaro.org>
  <fbece9d6-2204-2534-e44f-29c29cc56413@linaro.org>
  <9a0245af-b7f3-0874-385b-47c86d6e6a60@linaro.org>
  <3d2e681b-0cc0-5d86-7d40-63022a5358c9@linaro.org>
-From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-In-Reply-To: <3d2e681b-0cc0-5d86-7d40-63022a5358c9@linaro.org>
+ <761f1f4b-6f47-83a3-1e55-9e5dfccbaab8@linaro.org>
+From: Konrad Dybcio <konrad.dybcio@linaro.org>
+In-Reply-To: <761f1f4b-6f47-83a3-1e55-9e5dfccbaab8@linaro.org>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 Subject: Re: [Freedreno] [PATCH v2 1/2] dt-bindings: display/msm:
@@ -99,90 +100,102 @@ Cc: freedreno@lists.freedesktop.org,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 20/02/2023 11:24, Konrad Dybcio wrote:
-> 
-> 
-> On 18.02.2023 15:49, Krzysztof Kozlowski wrote:
->> On 18/02/2023 12:23, Konrad Dybcio wrote:
->>>
->>>
->>> On 18.02.2023 11:14, Krzysztof Kozlowski wrote:
->>>> On 17/02/2023 22:13, Bryan O'Donoghue wrote:
->>>>> On 17/02/2023 12:24, Krzysztof Kozlowski wrote:
->>>>>> First, it would be nice to know what was the intention of Bryan's commit?
->>>>>
->>>>> Sorry I've been grazing this thread but, not responding.
->>>>>
->>>>> - qcom,dsi-ctrl-6g-qcm2290
->>>>>
->>>>> is non-compliant with qcom,socid-dsi-ctrl which is our desired naming 
->>>>> convention, so that's what the deprecation is about i.e. moving this 
->>>>> compat to "qcom,qcm2290-dsi-ctrl"
+
+
+On 20.02.2023 11:31, Krzysztof Kozlowski wrote:
+> On 20/02/2023 11:24, Konrad Dybcio wrote:
+>>
+>>
+>> On 18.02.2023 15:49, Krzysztof Kozlowski wrote:
+>>> On 18/02/2023 12:23, Konrad Dybcio wrote:
 >>>>
->>>> OK, then there was no intention to deprecate qcom,mdss-dsi-ctrl and it
->>>> should be left as allowed compatible.
->>> Not sure if we're on the same page.
->>
->> We are.
->>
+>>>>
+>>>> On 18.02.2023 11:14, Krzysztof Kozlowski wrote:
+>>>>> On 17/02/2023 22:13, Bryan O'Donoghue wrote:
+>>>>>> On 17/02/2023 12:24, Krzysztof Kozlowski wrote:
+>>>>>>> First, it would be nice to know what was the intention of Bryan's commit?
+>>>>>>
+>>>>>> Sorry I've been grazing this thread but, not responding.
+>>>>>>
+>>>>>> - qcom,dsi-ctrl-6g-qcm2290
+>>>>>>
+>>>>>> is non-compliant with qcom,socid-dsi-ctrl which is our desired naming 
+>>>>>> convention, so that's what the deprecation is about i.e. moving this 
+>>>>>> compat to "qcom,qcm2290-dsi-ctrl"
+>>>>>
+>>>>> OK, then there was no intention to deprecate qcom,mdss-dsi-ctrl and it
+>>>>> should be left as allowed compatible.
+>>>> Not sure if we're on the same page.
 >>>
->>> It wasn't intended to deprecate [1] "qcom,qcm2290-dsi-ctrl", "qcom-mdss-dsi-ctrl";
->>> (newly-introduced in Bryan's cleanup patchset) but it was intended to deprecate
->>> [2] "qcom,dsi-ctrl-6g-qcm2290"; which was introduced long before that *and* used in
->>> the 6115 dt (and it still is in linux-next today, as my cleanup hasn't landed yet).
+>>> We are.
 >>>
->>> [3] "qcom,dsi-ctrl-6g-qcm2290", "qcom,mdss-dsi-ctrl" was never used (and should never
->>> be, considering there's a proper compatible [1] now) so adding it to bindings
->>> didn't solve the undocumented-ness issue. Plus the fallback would have never
->>> worked back then, as the DSI hw revision check would spit out 2.4.1 or 2.4.
->>> which is SC7180 or SDM845 and then it would never match the base register, as
->>> they're waay different.
+>>>>
+>>>> It wasn't intended to deprecate [1] "qcom,qcm2290-dsi-ctrl", "qcom-mdss-dsi-ctrl";
+>>>> (newly-introduced in Bryan's cleanup patchset) but it was intended to deprecate
+>>>> [2] "qcom,dsi-ctrl-6g-qcm2290"; which was introduced long before that *and* used in
+>>>> the 6115 dt (and it still is in linux-next today, as my cleanup hasn't landed yet).
+>>>>
+>>>> [3] "qcom,dsi-ctrl-6g-qcm2290", "qcom,mdss-dsi-ctrl" was never used (and should never
+>>>> be, considering there's a proper compatible [1] now) so adding it to bindings
+>>>> didn't solve the undocumented-ness issue. Plus the fallback would have never
+>>>> worked back then, as the DSI hw revision check would spit out 2.4.1 or 2.4.
+>>>> which is SC7180 or SDM845 and then it would never match the base register, as
+>>>> they're waay different.
+>>>
+>>> All these were known. I was asking about "qcom,mdss-dsi-ctrl", because
+>>> the original intention also affects the way we want to keep it now
+>>> (unless there are other reasons).
+>> Okay, so we want to deprecate:
 >>
->> All these were known. I was asking about "qcom,mdss-dsi-ctrl", because
->> the original intention also affects the way we want to keep it now
->> (unless there are other reasons).
-> Okay, so we want to deprecate:
+>> "qcom,dsi-ctrl-6g-qcm2290", "qcom,mdss-dsi-ctrl"
 > 
-> "qcom,dsi-ctrl-6g-qcm2290", "qcom,mdss-dsi-ctrl"
-
-No, we don't want to deprecate it. Such compatible was never existing
-originally and was only introduced by mistake. We want to correct the
-mistake, but we don't want to deprecate such list.
-
+> No, we don't want to deprecate it. Such compatible was never existing
+> originally and was only introduced by mistake. We want to correct the
+> mistake, but we don't want to deprecate such list.
 > 
-> because it is:
+>>
+>> because it is:
+>>
+>> 1) non-compliant with the qcom,socname-hwblock formula
+>> 2) replaceable since we rely on the fallback compatible
+>> 3) "qcom,dsi-ctrl-6g-qcm2290" alone would have been expected to
+>>    be fixed in the DTSI similar to other SoCs
+>>
+>> Is that correct?
 > 
-> 1) non-compliant with the qcom,socname-hwblock formula
-> 2) replaceable since we rely on the fallback compatible
-> 3) "qcom,dsi-ctrl-6g-qcm2290" alone would have been expected to
->    be fixed in the DTSI similar to other SoCs
+> No. So again, I am talking only about qcom,mdss-dsi-ctrl. Since
+> beginning of this thread:
 > 
-> Is that correct?
-
-No. So again, I am talking only about qcom,mdss-dsi-ctrl. Since
-beginning of this thread:
-
-"Wasn't then intention to deprecate both - qcm2290 and mdss - when used
-alone?"
-
-Why do you bring the list to the topic? The list was created by mistake
-and Bryan confirmed that it was never his intention.
-
+> "Wasn't then intention to deprecate both - qcm2290 and mdss - when used
+> alone?"
 > 
-> Because 2) doesn't hold, as - at the time of the introduction
-> of Bryan's patchset - the fallback compatible would not have
-> been sufficient from the Linux POV [1]
+> Why do you bring the list to the topic? The list was created by mistake
+> and Bryan confirmed that it was never his intention.
+Ugh.. I think I just misread your message in your second reply
+counting from the beginning of the thread.. Things are much
+clearer now that I re-read it..
 
-There was no fallback compatible at that time.
+So, just to confirm..
 
-> , though it would have been
-> sufficient from the hardware description POV, as the hardware
-> on the SoC *is* essentially what qcom,mdss-dsi-ctrl refers to.
+This patch, with the items: level dropped, is fine?
+
+Konrad
 > 
-> [1] The driver would simply not probe. It *would be* Linux-correct
-> after my code-fixing series was applied, but I think I'm just failing
-> to comprehend what sort of ABI we're trying to preserve here :/
-
-Best regards,
-Krzysztof
-
+>>
+>> Because 2) doesn't hold, as - at the time of the introduction
+>> of Bryan's patchset - the fallback compatible would not have
+>> been sufficient from the Linux POV [1]
+> 
+> There was no fallback compatible at that time.
+> 
+>> , though it would have been
+>> sufficient from the hardware description POV, as the hardware
+>> on the SoC *is* essentially what qcom,mdss-dsi-ctrl refers to.
+>>
+>> [1] The driver would simply not probe. It *would be* Linux-correct
+>> after my code-fixing series was applied, but I think I'm just failing
+>> to comprehend what sort of ABI we're trying to preserve here :/
+> 
+> Best regards,
+> Krzysztof
+> 
