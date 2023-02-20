@@ -2,63 +2,72 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 15DD169C755
-	for <lists+freedreno@lfdr.de>; Mon, 20 Feb 2023 10:08:31 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9738669C81F
+	for <lists+freedreno@lfdr.de>; Mon, 20 Feb 2023 10:59:39 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AC8A410E62B;
-	Mon, 20 Feb 2023 09:08:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AF75A10E656;
+	Mon, 20 Feb 2023 09:59:37 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-x22c.google.com (mail-lj1-x22c.google.com
- [IPv6:2a00:1450:4864:20::22c])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CC7BE10E623;
- Mon, 20 Feb 2023 09:08:26 +0000 (UTC)
-Received: by mail-lj1-x22c.google.com with SMTP id u15so1483989ljo.5;
- Mon, 20 Feb 2023 01:08:26 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=mime-version:references:in-reply-to:message-id:subject:cc:to:from
- :date:from:to:cc:subject:date:message-id:reply-to;
- bh=NutlO2ATmThTH22YhjGR8PNsMsgJdYkW73y3XZaI7VQ=;
- b=byi+PooNk3PIYIfAKwj6AKM4Nu65rFPUN4mG3M0RIs59vrXayVZF5qCd+YOf/e7jhI
- XIrPDDx9s8vDe/zyuVRLpZOk1bVcvF7Vph7dkSiDoMO94nMFo5lmWX7JrW+qN9+o/sWT
- NsBypwj0eS96DkJSGt03jlHcYk9hhLsb7q53Cn0gE03hpcaj/5mxZjZKtn/xAex55dJX
- FEKKa/eCa4PSQuuVrUeIuuzbwMoHENDXCGPH0I2IXQMhKixC73Ck3EsIj0ILDAXiAWTo
- zUNPp5dU6wlDBmNtgtbWi01PXN3jgWW8pU+bZoczbayMc5B60zpjkuPbQ1DAenrHhliZ
- 38ZQ==
+Received: from mail-lf1-x12f.google.com (mail-lf1-x12f.google.com
+ [IPv6:2a00:1450:4864:20::12f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8E76010E650
+ for <freedreno@lists.freedesktop.org>; Mon, 20 Feb 2023 09:59:35 +0000 (UTC)
+Received: by mail-lf1-x12f.google.com with SMTP id k14so4517lfj.7
+ for <freedreno@lists.freedesktop.org>; Mon, 20 Feb 2023 01:59:35 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=ywAU8OoBbAUucxBkw+OQ9oXs8iU9JAIrIjeKhlO8RdU=;
+ b=qzWSYW/QA2ZJHpcMwlFP4k9gyOtvYZfoeb0vb5PALj+ufZKtsvhwL3irYC3nsY/GjX
+ QZb6OYgoUaIKxd0NbkqkzlOqkgqDIDXWKc2CLYHSqfYB1aeSntmCDQeMca2piFZOGXJr
+ jqLxJYuP6UHT4NLnsr4utMo+9+CKyrGUwdgl+K6eN63+EU4QKhxknSPmCX282hlR4neW
+ pWVjV9MfNkp+njmEO8Ks121zRCdMYDmCpLLRxLEIAccuz0SGc+zGtmil+5Vufz1INfdd
+ E4JPrludd89gEhZJFkX9elm3H7ROym/zItA+1Ig4FI6lGRDXI0GuJzvpymyH5qWVSBwD
+ qILg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=mime-version:references:in-reply-to:message-id:subject:cc:to:from
- :date:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=NutlO2ATmThTH22YhjGR8PNsMsgJdYkW73y3XZaI7VQ=;
- b=YpLd3aZsOEhE+xma03qP2JSoDLZfcvV0VPm5NolsxqLK4fzm7CMTImfasxUPAEiZdE
- tESk+fMlbTzJGWKAXHIdjjuUNb0JdlWsX3RF4AcSXSOCMzTDx3O2qg58PCGG1gMkT86Z
- GUI87LmCeeunZAzagcf61akh4loOeGhhGn1ef6+CB9Ej8OlH09LhtrKJlr9ZOTstZiua
- PjzZVpiyVvvhk9W8bzGwjpvi53ao35H2OnPkmuuVS4xRnWuancErUuEDZAEiHEXx5wID
- pjEFu0Q8U9dO6PTAi0VGBTkDJsAsl/hLArDEVXJWU/mzAZA8Ab4rIks1CDHKB/kZslhM
- /vQA==
-X-Gm-Message-State: AO0yUKUtUAc4GhyKHxtdb3AAf1C21zYMHZVCU0OcQFAQ5OUMdpzAJr26
- YFyvDsJyTNDQzELF/fFVYoc=
-X-Google-Smtp-Source: AK7set9vj0oSbid2209RUqLVAXqfe/ixnjc00eGOFHAclC3guZtwycp4QCicGkkUfgifM1tnuU8MCg==
-X-Received: by 2002:a05:651c:2128:b0:293:fea:c912 with SMTP id
- a40-20020a05651c212800b002930feac912mr286371ljq.13.1676884104931; 
- Mon, 20 Feb 2023 01:08:24 -0800 (PST)
-Received: from eldfell ([194.136.85.206]) by smtp.gmail.com with ESMTPSA id
- z7-20020a2e8847000000b00290517c661asm1529498ljj.40.2023.02.20.01.08.24
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 20 Feb 2023 01:08:24 -0800 (PST)
-Date: Mon, 20 Feb 2023 11:08:20 +0200
-From: Pekka Paalanen <ppaalanen@gmail.com>
-To: Rob Clark <robdclark@gmail.com>
-Message-ID: <20230220110820.595cfa37@eldfell>
-In-Reply-To: <20230218211608.1630586-11-robdclark@gmail.com>
-References: <20230218211608.1630586-1-robdclark@gmail.com>
- <20230218211608.1630586-11-robdclark@gmail.com>
-X-Mailer: Claws Mail 3.17.8 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=ywAU8OoBbAUucxBkw+OQ9oXs8iU9JAIrIjeKhlO8RdU=;
+ b=SsTegV98zDnBbz1bf+TldPk0ojZ9j1/WkNS0NsmtaQEpgwxQgpUcnTQknYw2CbwF8T
+ /QmM+qO0/TP1IMdWif6t0uW8TO/uLDKHZfQ+qOH9XuZPIutsxvF37/AYYYJ6TFfIxnTg
+ 3QRRvvBCWvKIbfeG0HT0DaqjeOKjLlsJu0uezDkf+L2UpzYnPa5vMfuj+tqSSTZuwubt
+ RW5U+d2g525oMKXbR2gv7l/MUUEIfCv9TCLmHJ7D+lmQzpJhWc/d4Ut1yVbBnc7z6eDr
+ /myj7Khw0j5A0jN7sE/G+FEezgnXFkxbUYWVa/a/An0eScHenzz5mU6m+6YwO8cwzzeF
+ HPog==
+X-Gm-Message-State: AO0yUKV4GmtDQAfI3veL9wjtsa71kLF7NWxmhJMpVbJQ27dfVfqHFI36
+ M/8ciyMK6DwEmDgjXRHbLo5twQ==
+X-Google-Smtp-Source: AK7set/DCtI50kuFxGmgY0zVWagZ8vwkt/Nbtajm7tyz/ZgVuY15E401RNI5p2Ar4Ic3vU2pxdkGfg==
+X-Received: by 2002:ac2:5921:0:b0:4b5:3200:eb37 with SMTP id
+ v1-20020ac25921000000b004b53200eb37mr348994lfi.43.1676887173736; 
+ Mon, 20 Feb 2023 01:59:33 -0800 (PST)
+Received: from [192.168.1.101] (abxh184.neoplus.adsl.tpnet.pl. [83.9.1.184])
+ by smtp.gmail.com with ESMTPSA id
+ u13-20020ac248ad000000b004d3f0f20b98sm1479286lfg.40.2023.02.20.01.59.32
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 20 Feb 2023 01:59:33 -0800 (PST)
+Message-ID: <cc7a9cce-cd12-0f35-d8f7-933b64bbb34d@linaro.org>
+Date: Mon, 20 Feb 2023 10:59:31 +0100
 MIME-Version: 1.0
-Content-Type: multipart/signed; boundary="Sig_/3U5.kjZizK/N8hsnfPFgtqr";
- protocol="application/pgp-signature"; micalg=pgp-sha256
-Subject: Re: [Freedreno] [PATCH v4 10/14] drm/vblank: Add helper to get next
- vblank time
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.8.0
+Content-Language: en-US
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ linux-arm-msm@vger.kernel.org, andersson@kernel.org, agross@kernel.org
+References: <20230214173145.2482651-1-konrad.dybcio@linaro.org>
+ <20230214173145.2482651-7-konrad.dybcio@linaro.org>
+ <2e129fd6-d4e5-a955-5355-3ca71166fb33@linaro.org>
+ <82c84ba4-ca33-3ce0-fe86-efedfce04cda@linaro.org>
+ <170ee26d-8904-0829-f92e-4ea6678b08eb@linaro.org>
+From: Konrad Dybcio <konrad.dybcio@linaro.org>
+In-Reply-To: <170ee26d-8904-0829-f92e-4ea6678b08eb@linaro.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+Subject: Re: [Freedreno] [PATCH v2 06/14] drm/msm/gpu: Use
+ dev_pm_opp_set_rate for non-GMU GPUs
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,128 +80,125 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rob Clark <robdclark@chromium.org>, Simon Ser <contact@emersion.fr>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Tvrtko Ursulin <tvrtko.ursulin@intel.com>,
- Christian =?UTF-8?B?S8O2bmln?= <ckoenig.leichtzumerken@gmail.com>,
- Michel =?UTF-8?B?RMOkbnplcg==?= <michel@daenzer.net>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- open list <linux-kernel@vger.kernel.org>, dri-devel@lists.freedesktop.org,
- Maxime Ripard <mripard@kernel.org>, Daniel Vetter <daniel@ffwll.ch>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Alex Deucher <alexander.deucher@amd.com>, David Airlie <airlied@gmail.com>,
- freedreno@lists.freedesktop.org
+Cc: freedreno@lists.freedesktop.org, Dan Carpenter <error27@gmail.com>,
+ Emma Anholt <emma@anholt.net>, Akhil P Oommen <quic_akhilpo@quicinc.com>,
+ David Airlie <airlied@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Rob Clark <robdclark@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ marijn.suijten@somainline.org, Sean Paul <sean@poorly.run>,
+ Chia-I Wu <olvaffe@gmail.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
---Sig_/3U5.kjZizK/N8hsnfPFgtqr
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: quoted-printable
-
-On Sat, 18 Feb 2023 13:15:53 -0800
-Rob Clark <robdclark@gmail.com> wrote:
-
-> From: Rob Clark <robdclark@chromium.org>
->=20
-> Will be used in the next commit to set a deadline on fences that an
-> atomic update is waiting on.
->=20
-> Signed-off-by: Rob Clark <robdclark@chromium.org>
-> ---
->  drivers/gpu/drm/drm_vblank.c | 32 ++++++++++++++++++++++++++++++++
->  include/drm/drm_vblank.h     |  1 +
->  2 files changed, 33 insertions(+)
->=20
-> diff --git a/drivers/gpu/drm/drm_vblank.c b/drivers/gpu/drm/drm_vblank.c
-> index 2ff31717a3de..caf25ebb34c5 100644
-> --- a/drivers/gpu/drm/drm_vblank.c
-> +++ b/drivers/gpu/drm/drm_vblank.c
-> @@ -980,6 +980,38 @@ u64 drm_crtc_vblank_count_and_time(struct drm_crtc *=
-crtc,
->  }
->  EXPORT_SYMBOL(drm_crtc_vblank_count_and_time);
-> =20
-> +/**
-> + * drm_crtc_next_vblank_time - calculate the time of the next vblank
-> + * @crtc: the crtc for which to calculate next vblank time
-> + * @vblanktime: pointer to time to receive the next vblank timestamp.
-> + *
-> + * Calculate the expected time of the next vblank based on time of previ=
-ous
-> + * vblank and frame duration
-
-Hi,
-
-for VRR this targets the highest frame rate possible for the current
-VRR mode, right?
 
 
-Thanks,
-pq
+On 18.02.2023 17:47, Dmitry Baryshkov wrote:
+> On 18/02/2023 13:04, Konrad Dybcio wrote:
+>>
+>>
+>> On 17.02.2023 22:07, Dmitry Baryshkov wrote:
+>>> On 14/02/2023 19:31, Konrad Dybcio wrote:
+>>>> Currently we only utilize the OPP table connected to the GPU for
+>>>> getting (available) frequencies. We do however need to scale the
+>>>> voltage rail(s) accordingly to ensure that we aren't trying to
+>>>> run the GPU at 1GHz with a VDD_LOW vote, as that would result in
+>>>> an otherwise inexplainable hang.
+>>>>
+>>>> Tell the OPP framework that we want to scale the "core" clock
+>>>> and swap out the clk_set_rate to a dev_pm_opp_set_rate in
+>>>> msm_devfreq_target() to enable usage of required-opps and by
+>>>> extension proper voltage level/corner scaling.
+>>>>
+>>>> Signed-off-by: Konrad Dybcio <konrad.dybcio@linaro.org>
+>>>> ---
+>>>>    drivers/gpu/drm/msm/adreno/adreno_gpu.c | 4 ++++
+>>>>    drivers/gpu/drm/msm/msm_gpu_devfreq.c   | 2 +-
+>>>>    2 files changed, 5 insertions(+), 1 deletion(-)
+>>>>
+>>>> diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.c b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
+>>>> index ce6b76c45b6f..15e405e4f977 100644
+>>>> --- a/drivers/gpu/drm/msm/adreno/adreno_gpu.c
+>>>> +++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
+>>>> @@ -1047,6 +1047,10 @@ int adreno_gpu_init(struct drm_device *drm, struct platform_device *pdev,
+>>>>        const char *gpu_name;
+>>>>        u32 speedbin;
+>>>>    +    /* This can only be done here, or devm_pm_opp_set_supported_hw will WARN_ON() */
+>>>> +    if (!IS_ERR(devm_clk_get(dev, "core")))
+>>>> +        devm_pm_opp_set_clkname(dev, "core");
+>>>
+>>> Can we instead move a call to a6xx_set_supported_hw() / check_speed_bin after the adreno_gpu_init() ? It will call msm_gpu_init, which in turn sets gpu->core_clk.
+>>>
+>>> Ideally you can call devm_pm_opp_set_clkname() from that function.
+>>
+>>
+>>> Or maybe completely drop gpu->core_clk and always use devm_pm_opp_set_clk_rate().
+>> That would break non-OPP targets, last of which were probably added N=big years ago..
+> 
+> No. In the lack of OPP tables, dev_pm_opp_clk_set_rate() should behave exactly like the clk_set_rate().
+Not sure if that's what you meant, but if a device lacks OPP,
+devm_pm_opp_set_rate will return -ENODEV.
 
-> + */
-> +int drm_crtc_next_vblank_time(struct drm_crtc *crtc, ktime_t *vblanktime)
-> +{
-> +	unsigned int pipe =3D drm_crtc_index(crtc);
-> +	struct drm_vblank_crtc *vblank =3D &crtc->dev->vblank[pipe];
-> +	u64 count;
-> +
-> +	if (!vblank->framedur_ns)
-> +		return -EINVAL;
-> +
-> +	count =3D drm_vblank_count_and_time(crtc->dev, pipe, vblanktime);
-> +
-> +	/*
-> +	 * If we don't get a valid count, then we probably also don't
-> +	 * have a valid time:
-> +	 */
-> +	if (!count)
-> +		return -EINVAL;
-> +
-> +	*vblanktime =3D ktime_add(*vblanktime, ns_to_ktime(vblank->framedur_ns)=
-);
-> +
-> +	return 0;
-> +}
-> +EXPORT_SYMBOL(drm_crtc_next_vblank_time);
-> +
->  static void send_vblank_event(struct drm_device *dev,
->  		struct drm_pending_vblank_event *e,
->  		u64 seq, ktime_t now)
-> diff --git a/include/drm/drm_vblank.h b/include/drm/drm_vblank.h
-> index 733a3e2d1d10..a63bc2c92f3c 100644
-> --- a/include/drm/drm_vblank.h
-> +++ b/include/drm/drm_vblank.h
-> @@ -230,6 +230,7 @@ bool drm_dev_has_vblank(const struct drm_device *dev);
->  u64 drm_crtc_vblank_count(struct drm_crtc *crtc);
->  u64 drm_crtc_vblank_count_and_time(struct drm_crtc *crtc,
->  				   ktime_t *vblanktime);
-> +int drm_crtc_next_vblank_time(struct drm_crtc *crtc, ktime_t *vblanktime=
-);
->  void drm_crtc_send_vblank_event(struct drm_crtc *crtc,
->  			       struct drm_pending_vblank_event *e);
->  void drm_crtc_arm_vblank_event(struct drm_crtc *crtc,
+If you meant "if we can't find an opp table, behave as if we
+called clk_set_rate", a discussion on #freedreno with robclark
+indicates he'd accept getting rid of non-opp code, provided we
+construct a table if need be, since we have the data required
+to do so ([FMIN=27MHz, FMAX=fast_rate]).
 
+> 
+>> I'm not sure these would still work, as I think we've got rid of some ugly
+>> clock getters that were looking for both "core" and "core_clk" etc.
+> 
+> We still support core vs core_clk, see the get_clocks() at msm_gpu.c and then msm_clk_bulk_get_clock(). However we might mimick this function and call devm_pm_opp_set_clkname() with the proper name ("core" or "core_clk").
+> 
+>>
+>> See 8db0b6c7b636376789e356d861c3c6c35dcb6913 for what seems to be the most recent
+>> example of non-OPP.
+>>
+>> IMX51/53 also have no OPP tables and are using the (AFAIK) now-defunct _clk-suffixed
+>> clock-names.
+> 
+> It works, I tested it during this cycle.
+Oh okay, I had a feeling like that was dropped at one point..
 
---Sig_/3U5.kjZizK/N8hsnfPFgtqr
-Content-Type: application/pgp-signature
-Content-Description: OpenPGP digital signature
+> 
+>>
+>> I'd be more than happy to rip out some of this legacy code and convert it
+>> to something modern like OPP, but I'm not sure you guys would like it considering
+>> the breakage on (arguably ancient and borderline retired) platforms.
+> 
+> I think, we should try switching to OPP-for-everybody, granted the promise of dev_pm_opp_set_clk_rate() being backwards compatible with bare clk_set_rate().
+It's not, but as I mentioned, we can easily work around that.
 
------BEGIN PGP SIGNATURE-----
+> 
+>>
+>> This patch as-is "only" breaks non-OPP a5xx & a6xx (as they have .gpu_busy defined),
+>> of which there are none..
+...but we want to get devfreq everywhere and it's a few LoC away..
 
-iQIzBAEBCAAdFiEEJQjwWQChkWOYOIONI1/ltBGqqqcFAmPzOIQACgkQI1/ltBGq
-qqee6hAAi3Ug/m6OCB4xFw6ghLUrut2lBjLcfLV9I6QcZDuvUxJcyFu7wRD7yhzN
-Fw2klHyeYk7LWri8bmbWVVbMk++0+0CVee3hEEHwXw2NbaAdjB9BzDooXVbILcDY
-u34uoxalVKuZ8fLvuSlaMxnIv3lbiHSlTZJecswIpOaQozLTebMPIieZ9tWZ+GYK
-Id4/PnHFDjeAGwaEWzvQMkKXp65Pe+upngOxN8++KqmxCcp1ZPkX+xf0G7fv5Hhw
-T3/aNBqHMlt4/cYQeOJLHF7KrNfoH6+jhziyyZjyNU7dVFgjscLMGdLMie/hE4+D
-kd5IjnXjjOz4zEuQmYPCaVKVjl6ZcN4F4/JTds4L3ntI738IsilHDrgbAifBcVSD
-rL5ScDT7r50+BivhEd86iTwcTra6X51ldX/kT0pDwmSrweWtHIk7dy0Iuaiez0HM
-nnEbE1j6d2Kbev8dmR03tWbaEuNiJT2LR/jGsE9QGWJXbmKP+WaCHf5tKTWiiTXG
-1jxpzEdqUq+dxNZdjABhGTdiygx1fdqm/d3o3PcqixFNePdNW39sovXGOcIfYhmJ
-VIWJOg8oj6jFN4DVHPoV458LlgcJfT0lF4Z7GJ2/GrsWEZ5xSF0XKBx7xs3reI11
-IM0SuH91apzu0hDMxT8juBWk0O6HukZEih/iTsVDYIWcsZTfdYA=
-=hxHE
------END PGP SIGNATURE-----
-
---Sig_/3U5.kjZizK/N8hsnfPFgtqr--
+Konrad
+>>
+>>>
+>>>> +
+>>>>        adreno_gpu->funcs = funcs;
+>>>>        adreno_gpu->info = adreno_info(config->rev);
+>>>>        adreno_gpu->gmem = adreno_gpu->info->gmem;
+>>>> diff --git a/drivers/gpu/drm/msm/msm_gpu_devfreq.c b/drivers/gpu/drm/msm/msm_gpu_devfreq.c
+>>>> index e27dbf12b5e8..ea70c1c32d94 100644
+>>>> --- a/drivers/gpu/drm/msm/msm_gpu_devfreq.c
+>>>> +++ b/drivers/gpu/drm/msm/msm_gpu_devfreq.c
+>>>> @@ -48,7 +48,7 @@ static int msm_devfreq_target(struct device *dev, unsigned long *freq,
+>>>>            gpu->funcs->gpu_set_freq(gpu, opp, df->suspended);
+>>>>            mutex_unlock(&df->lock);
+>>>>        } else {
+>>>> -        clk_set_rate(gpu->core_clk, *freq);
+>>>> +        dev_pm_opp_set_rate(dev, *freq);
+>>>
+>>> This is not enough, there are calls to clk_set_rate(gpu->core_clk) in msm_gpu.c which are called from the suspend/resume path.
+>> Right, good catch.
+>>
+>> Konrad
+>>>
+>>>>        }
+>>>>          dev_pm_opp_put(opp);
+>>>
+> 
