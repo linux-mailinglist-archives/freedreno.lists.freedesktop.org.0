@@ -1,63 +1,71 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id D216169E678
-	for <lists+freedreno@lfdr.de>; Tue, 21 Feb 2023 18:55:26 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 99A3B69E7BB
+	for <lists+freedreno@lfdr.de>; Tue, 21 Feb 2023 19:43:21 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9327F10E8CB;
-	Tue, 21 Feb 2023 17:55:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6576810E0CF;
+	Tue, 21 Feb 2023 18:43:20 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-oi1-x22a.google.com (mail-oi1-x22a.google.com
- [IPv6:2607:f8b0:4864:20::22a])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1EC0410E8CB;
- Tue, 21 Feb 2023 17:55:23 +0000 (UTC)
-Received: by mail-oi1-x22a.google.com with SMTP id be35so5143783oib.4;
- Tue, 21 Feb 2023 09:55:23 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=xv2uXYHt3XeROXyJVL9lk52fVmsfLTFU5mqvJC9GYu4=;
- b=MhVB0NJNs21YP6mxc5cr02QCii/6IswZclKK87JSAP6SkTvs9pBd4T1VG0NGWeKOqn
- khNHQFzG9sv5NWCllEUe045lNPhbXKoS5hJpFJEOw0pb/hb9rxIOY5mdDfr95+wZJoKJ
- wdkFsLjnOsG5IzJO6BFsGAfqli+GQYGm5jfBJCtSIeTNWhtsTelZ1FZzANQX5TuFfI5b
- uRtl4Q9C7kbV5tR7hBfdO9f4th/zmVjuvbBgCh9zAwAPHmb68tnTuBFWDHtJlkQtMN2e
- u/NqNnndQi2evJpRyuAgtqBxtD7jsrq1LpjnfjcXkEHq9eWAdvGyaWRWWiLlUMKq0HWD
- 8mVA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=xv2uXYHt3XeROXyJVL9lk52fVmsfLTFU5mqvJC9GYu4=;
- b=pBagwg1QLif3qMMpjS34XmKJ0hb9j3b1ex4Ux9AFytik9i4SAL9M211M4sX7rxQdEe
- l0xJ3KxCYRzGJ+cc3gisrHefbXsUZ2gV7JGe4Y6xSTUoY7TYTQZcgrg2zM7NhAtb2r71
- 5sgQwXrgsN7OPpvxbG/hyiZPn9s/56etjSALgU8YjmWVIxnXvGZS8ODJxEPT0ycHyIn6
- vcLSuprn+GUxZc7qw/JqWQY1ub1ylgVnEq15SKMkSckherUnpMAgRmV6qNk4jQB0Uth0
- fi9bXL+6E/wr4sndWotanOInJ0H9xwPHX2/V7Qbnb+yTI+kOHXhKS4yuZwODw9zSeY+u
- bi5g==
-X-Gm-Message-State: AO0yUKUd6HRmU5iRqTIRBFYzbos7IYLrpyo04QQOn3bACWsRr8E6ewJu
- Em/d5J7KHiQqCIS1YrH9pOHW+wLMbRzWuODjgQk=
-X-Google-Smtp-Source: AK7set+3plPstNNrlEwndFRmB7Ghv+pP145J/q5VwaYQKMVG1IyDbrvqIsIdzdj2oJvtdlMI0LV5ATP51GZWdQwW8zg=
-X-Received: by 2002:a05:6808:ec7:b0:364:c0a5:1fcf with SMTP id
- q7-20020a0568080ec700b00364c0a51fcfmr1405745oiv.58.1677002122311; Tue, 21 Feb
- 2023 09:55:22 -0800 (PST)
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 23AA610E0CF;
+ Tue, 21 Feb 2023 18:43:18 +0000 (UTC)
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 31LCiorA010786; Tue, 21 Feb 2023 18:43:17 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
+ h=from : to : cc :
+ subject : date : message-id : mime-version : content-transfer-encoding :
+ content-type; s=qcppdkim1;
+ bh=ReHgq6f8vYxOZxU4sR6lnGnXA3gLvjBR1tTElKx7+TM=;
+ b=Bi0a1mzo1BbKTu8EYH0QxGGnWplvCroO1ob2qbUIqrsq0Nqr1t2VR7Ibw59v1TFUScoj
+ qwDyfj7KUBbE09v+u/8JDuJ7R8ulJqmzqzksWVQgjl00wiECp7jIGDgdmrKvXKnAlPUf
+ yIb7jf60NAu+aWLnTLXGcCLDJSlENPHgu/iddvkUJadtP/V5NKPgEZAW+BB6lfPb+c09
+ 0CgsfiD4zMZjj3Fel1GYg/qE0nJbNyrS/26UMvq7sKGN3rTZ0R+ZA0dQF6CBuZxzzizV
+ OSEitmyFaHqLRI8lW/1VASwinR7vmmYo5mtBoH1qwtXnNAYpCslDb1FVOaCq+OZqGRvB eg== 
+Received: from nasanppmta02.qualcomm.com (i-global254.qualcomm.com
+ [199.106.103.254])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3nvn8ra4em-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 21 Feb 2023 18:43:17 +0000
+Received: from nasanex01b.na.qualcomm.com (nasanex01b.na.qualcomm.com
+ [10.46.141.250])
+ by NASANPPMTA02.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 31LIhF8e009037
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 21 Feb 2023 18:43:15 GMT
+Received: from JESSZHAN.qualcomm.com (10.80.80.8) by
+ nasanex01b.na.qualcomm.com (10.46.141.250) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.986.41; Tue, 21 Feb 2023 10:43:15 -0800
+From: Jessica Zhang <quic_jesszhan@quicinc.com>
+To: <freedreno@lists.freedesktop.org>
+Date: Tue, 21 Feb 2023 10:42:52 -0800
+Message-ID: <20230221184256.1436-1-quic_jesszhan@quicinc.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-References: <20230218211608.1630586-1-robdclark@gmail.com>
- <20230218211608.1630586-7-robdclark@gmail.com>
- <20230220105345.70e46fa5@eldfell>
- <CAF6AEGv9fLQCD65ytRTGp=EkNB1QoZYH5ArphgGQALV9J08Cmw@mail.gmail.com>
- <20230221103753.205082d3@eldfell>
- <CA+hFU4xexaHAYsbGm6PdNfVFHBgOS4WiMo=AU0Gi5cYt566aTg@mail.gmail.com>
-In-Reply-To: <CA+hFU4xexaHAYsbGm6PdNfVFHBgOS4WiMo=AU0Gi5cYt566aTg@mail.gmail.com>
-From: Rob Clark <robdclark@gmail.com>
-Date: Tue, 21 Feb 2023 09:55:12 -0800
-Message-ID: <CAF6AEGvXJkmwn8M6ThCx0bLwDFqqHmjp5fkDuDa7g2e8i3eM_w@mail.gmail.com>
-To: Sebastian Wick <sebastian.wick@redhat.com>
-Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [PATCH v4 06/14] dma-buf/sync_file: Support
- (E)POLLPRI
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
+ nasanex01b.na.qualcomm.com (10.46.141.250)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-GUID: AkqznDMoIbPcqoMU1KBeVNttcvJxOVqx
+X-Proofpoint-ORIG-GUID: AkqznDMoIbPcqoMU1KBeVNttcvJxOVqx
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.219,Aquarius:18.0.930,Hydra:6.0.562,FMLib:17.11.170.22
+ definitions=2023-02-21_11,2023-02-20_02,2023-02-09_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 phishscore=0
+ mlxlogscore=967 bulkscore=0 adultscore=0 mlxscore=0 clxscore=1015
+ impostorscore=0 spamscore=0 priorityscore=1501 lowpriorityscore=0
+ malwarescore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2212070000 definitions=main-2302210159
+Subject: [Freedreno] [PATCH v4 0/4] Move TE setup to prepare_for_kickoff()
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,130 +78,43 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rob Clark <robdclark@chromium.org>,
- Tvrtko Ursulin <tvrtko.ursulin@intel.com>,
- Gustavo Padovan <gustavo@padovan.org>,
- =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel@daenzer.net>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- open list <linux-kernel@vger.kernel.org>, dri-devel@lists.freedesktop.org,
- Sumit Semwal <sumit.semwal@linaro.org>,
- "moderated list:DMA BUFFER SHARING FRAMEWORK" <linaro-mm-sig@lists.linaro.org>,
- Pekka Paalanen <ppaalanen@gmail.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>,
- Alex Deucher <alexander.deucher@amd.com>, freedreno@lists.freedesktop.org,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- "open list:SYNC FILE FRAMEWORK" <linux-media@vger.kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, quic_abhinavk@quicinc.com,
+ dri-devel@lists.freedesktop.org, swboyd@chromium.org, robdclark@gmail.com,
+ seanpaul@chromium.org, marijn.suijten@somainline.org,
+ dmitry.baryshkov@linaro.org, Jessica Zhang <quic_jesszhan@quicinc.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Tue, Feb 21, 2023 at 8:01 AM Sebastian Wick
-<sebastian.wick@redhat.com> wrote:
->
-> On Tue, Feb 21, 2023 at 9:38 AM Pekka Paalanen <ppaalanen@gmail.com> wrote:
-> >
-> > On Mon, 20 Feb 2023 08:14:47 -0800
-> > Rob Clark <robdclark@gmail.com> wrote:
-> >
-> > > On Mon, Feb 20, 2023 at 12:53 AM Pekka Paalanen <ppaalanen@gmail.com> wrote:
-> > > >
-> > > > On Sat, 18 Feb 2023 13:15:49 -0800
-> > > > Rob Clark <robdclark@gmail.com> wrote:
-> > > >
-> > > > > From: Rob Clark <robdclark@chromium.org>
-> > > > >
-> > > > > Allow userspace to use the EPOLLPRI/POLLPRI flag to indicate an urgent
-> > > > > wait (as opposed to a "housekeeping" wait to know when to cleanup after
-> > > > > some work has completed).  Usermode components of GPU driver stacks
-> > > > > often poll() on fence fd's to know when it is safe to do things like
-> > > > > free or reuse a buffer, but they can also poll() on a fence fd when
-> > > > > waiting to read back results from the GPU.  The EPOLLPRI/POLLPRI flag
-> > > > > lets the kernel differentiate these two cases.
-> > > > >
-> > > > > Signed-off-by: Rob Clark <robdclark@chromium.org>
-> > > >
-> > > > Hi,
-> > > >
-> > > > where would the UAPI documentation of this go?
-> > > > It seems to be missing.
-> > >
-> > > Good question, I am not sure.  The poll() man page has a description,
-> > > but my usage doesn't fit that _exactly_ (but OTOH the description is a
-> > > bit vague).
-> > >
-> > > > If a Wayland compositor is polling application fences to know which
-> > > > client buffer to use in its rendering, should the compositor poll with
-> > > > PRI or not? If a compositor polls with PRI, then all fences from all
-> > > > applications would always be PRI. Would that be harmful somehow or
-> > > > would it be beneficial?
-> > >
-> > > I think a compositor would rather use the deadline ioctl and then poll
-> > > without PRI.  Otherwise you are giving an urgency signal to the fence
-> > > signaller which might not necessarily be needed.
-> > >
-> > > The places where I expect PRI to be useful is more in mesa (things
-> > > like glFinish(), readpix, and other similar sorts of blocking APIs)
-> >
-> > Sounds good. Docs... ;-)
-> >
-> > Hmm, so a compositor should set the deadline when it processes the
-> > wl_surface.commit, and not when it actually starts repainting, to give
-> > time for the driver to react and the GPU to do some more work. The
-> > deadline would be the time when the compositor starts its repaint, so
-> > it knows if the buffer is ready or not.
->
-> Technically we don't know when the commit is supposed to be shown.
-> Just passing a deadline of the next possible deadline however is
-> probably a good enough guess for this feature to be useful.
->
-> One thing that neither API allows us to do is tell the kernel in
-> advance when we're going to submit work and what the deadline for it
-> is and unfortunately that work is the most timing sensitive.
+Move TE setup to prepare_for_kickoff() and remove empty prepare_commit()
+functions in both MDP4 and DPU drivers.
 
-Presumably you are talking about the final compositing step?
-Elsewhere in this series that atomic wait-for-fences step sets the
-deadline hint.
+Changes in V2:
+- Added changes to remove empty prepare_commit() functions
 
-BR,
--R
+Changes in V3:
+- Reordered "drm/msm/dpu: Move TE setup to prepare_for_kickoff()" for 
+  clarity
+- Fixed spelling mistakes and wording issues
+- Picked up "Reviewed-by" tags for patches [2/4] and [4/4]
 
-> >
-> >
-> > Thanks,
-> > pq
-> >
-> >
-> > >
-> > > BR,
-> > > -R
-> > >
-> > > >
-> > > >
-> > > > Thanks,
-> > > > pq
-> > > >
-> > > > > ---
-> > > > >  drivers/dma-buf/sync_file.c | 8 ++++++++
-> > > > >  1 file changed, 8 insertions(+)
-> > > > >
-> > > > > diff --git a/drivers/dma-buf/sync_file.c b/drivers/dma-buf/sync_file.c
-> > > > > index fb6ca1032885..c30b2085ee0a 100644
-> > > > > --- a/drivers/dma-buf/sync_file.c
-> > > > > +++ b/drivers/dma-buf/sync_file.c
-> > > > > @@ -192,6 +192,14 @@ static __poll_t sync_file_poll(struct file *file, poll_table *wait)
-> > > > >  {
-> > > > >       struct sync_file *sync_file = file->private_data;
-> > > > >
-> > > > > +     /*
-> > > > > +      * The POLLPRI/EPOLLPRI flag can be used to signal that
-> > > > > +      * userspace wants the fence to signal ASAP, express this
-> > > > > +      * as an immediate deadline.
-> > > > > +      */
-> > > > > +     if (poll_requested_events(wait) & EPOLLPRI)
-> > > > > +             dma_fence_set_deadline(sync_file->fence, ktime_get());
-> > > > > +
-> > > > >       poll_wait(file, &sync_file->wq, wait);
-> > > > >
-> > > > >       if (list_empty(&sync_file->cb.node) &&
-> > > >
-> >
->
+Changes in V4:
+- Reworded commit messages in [1/4] and [3/4] for clarity
+- Removed dpu_encoder_phys_cmd_is_ongoing_pptx() function prototype
+
+Jessica Zhang (4):
+  drm/msm/dpu: Move TE setup to prepare_for_kickoff()
+  drm/msm: Check for NULL before calling prepare_commit()
+  drm/msm/dpu: Remove empty prepare_commit() function
+  drm/msm/mdp4: Remove empty prepare_commit() function
+
+ drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c   | 19 -----------------
+ drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.h   |  7 -------
+ .../drm/msm/disp/dpu1/dpu_encoder_phys_cmd.c  |  8 ++++---
+ drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c       | 21 -------------------
+ drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.c      |  5 -----
+ drivers/gpu/drm/msm/msm_atomic.c              |  3 ++-
+ 6 files changed, 7 insertions(+), 56 deletions(-)
+
+-- 
+2.39.2
+
