@@ -2,60 +2,64 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 40F9669E5EB
-	for <lists+freedreno@lfdr.de>; Tue, 21 Feb 2023 18:25:40 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C6B7869E650
+	for <lists+freedreno@lfdr.de>; Tue, 21 Feb 2023 18:50:37 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1C97110E8BB;
-	Tue, 21 Feb 2023 17:25:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DF6A910E0E3;
+	Tue, 21 Feb 2023 17:50:33 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ot1-x32d.google.com (mail-ot1-x32d.google.com
- [IPv6:2607:f8b0:4864:20::32d])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8A59510E8C2;
- Tue, 21 Feb 2023 17:25:29 +0000 (UTC)
-Received: by mail-ot1-x32d.google.com with SMTP id
- a14-20020a056830100e00b00690ed91749aso1052788otp.7; 
- Tue, 21 Feb 2023 09:25:29 -0800 (PST)
+Received: from mail-oa1-x29.google.com (mail-oa1-x29.google.com
+ [IPv6:2001:4860:4864:20::29])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 93C8910E0BC;
+ Tue, 21 Feb 2023 17:50:31 +0000 (UTC)
+Received: by mail-oa1-x29.google.com with SMTP id
+ 586e51a60fabf-172242a14d4so4170217fac.9; 
+ Tue, 21 Feb 2023 09:50:31 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=ZUZKbSoFWnuwReSERsoV9Wdb3OjgxSIYogm4tO3N2Ec=;
- b=FCO2AKwabY6RQETfbchne5LUaaKUFyRuhWeic6UgWM9TYRUqdmEXDWg+YnkSIN7DqN
- bMKG7zZzrZKez6XUtW4wEgNCNZl+3aSaf1yCtULjfRatInCvE2hyCD+itjyosC7WL35I
- PYoS6iK/4lVpTnTvAfGqnSaMYCTE4bzGaDjAayRep3N+4fcYigCDz7PAWMSvedSpLR5u
- LOJyY3cxtECh4FEjdA0gioaCXtUdQUQQA3nkcooqSm5vJ8gqF4clD4ciZ9K4M/y2kmgD
- 1IuhInRzNKKQ9C7cAYJVlvH+iHFHh+c4kNn7izoXjUiXWQ7ClQ7GWmGlziFPzGaxfCpA
- BMaA==
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=O5Jqc/YZjZyQYqTXnIf8R98ssXuoqvkdUho65IcZjEA=;
+ b=lbqDpLvU7c7eLGnGV9F/nEWZ38S8/eURJS12sQQcMSScoQAxnnaBIlqOgM3yW7/U76
+ 6IZohiU14lbEEt/DRE1VxjjUXZUKHqHFK+CMSJHHk134QvN+sWSHHSdMB4/ApZ8s6RlD
+ 1xxadoYMiXtzhhB2Jj/DjoBnrxVflrMBRZG/+APjGhSGZE9+k/17e3QR7bujIxJoVAK9
+ jdpV5zFTnBEKYV4f/VWQIBTioCRMs9FnKuShRRuTwUakq5aEBxrKOZwxAXXI/7XBwyYE
+ Sjqbj7UIuxYsNu5P546GsW8Ph8AKK0AHdL0CZsgFtaUJFTNLJrVnhCfgvQDei9oU0KO9
+ i/Uw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=ZUZKbSoFWnuwReSERsoV9Wdb3OjgxSIYogm4tO3N2Ec=;
- b=eSCCAn0TpBE+FX503xU9Dkhrqh8k4NG1GPuBtLFXviobw29meHxvW0lgvHWMKfxFxL
- oEX8C/vzusukyAZ5gysg6lEhKwXw71UqKS2pIhpsFoXnNfPzScVKZWxApy513UbB3PJL
- JnpAn8SAU48F/02R42309cP/fUWBqkJmmB9z9nFWKQo/7qyxOi2xzhcwotT4XIkGac+Q
- b7w30ABHyZEycOP4BRW7BTUEBnC6F3rKadpPtGKDm12jgf9I5PdvbiIp7yjsg54z8BWi
- nRUloi4VlINw1IZWDAYAPqDRGOQD296nK9m8yQADJYn8GQlFJezkAmTdhom45i7BH2DU
- R+Pw==
-X-Gm-Message-State: AO0yUKU/5DcOwi550wStUsMCnKGun9idpJDRjxVHEtbszkgHofQN0Fzx
- NKzlDCejn4f0IyjXmxUvYOXDVlVt6Erz/RWX3Ak=
-X-Google-Smtp-Source: AK7set9vcYOSX5l6mgud8fgzE8JUqk4DUkzH+ZWi+U1jbIq+VbE9nC8KygmQ3cxtQtOiMsmzIWlPynFvftfoLc5ra3o=
-X-Received: by 2002:a05:6830:1c69:b0:690:d1dd:f62a with SMTP id
- o41-20020a0568301c6900b00690d1ddf62amr292386otg.7.1677000328646; Tue, 21 Feb
- 2023 09:25:28 -0800 (PST)
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=O5Jqc/YZjZyQYqTXnIf8R98ssXuoqvkdUho65IcZjEA=;
+ b=eC2xjq7CVAQDHB4AX+j+zflMi+tVeEqDBe9Vcm3bi0zRq24H7XJY4QfRX0ukA0fahS
+ XhF2LAHkKwegYLvwcYysGH4O2otvNEMxdMb1tgNFFjdI8h2OHb/Fit80EvXUAoY73EM2
+ wtv4zwhvCuDp/V22nbdsO/jd9qJHd52dTvrzCwFqvWLmuHEKmhOemLTrG1tASacD+s0W
+ k8smnngsCyoXr4bCyImfz6NFinAIXykLK6q3uvxDOpdIylOsh3ad6SodaAmaiX6UkRpE
+ 7dTbUEBgsDKEbUg87fmuzq0ZZk8ATJgGTtpH19rUfxU1I9/kasgW5jAzGYQBxxtiTsM3
+ QqCQ==
+X-Gm-Message-State: AO0yUKWAwPHMswjUVnt3ybKpWRlhlEfos0LrK+ixZy6Cav8Xyey+xhhv
+ Y5eZHy4CDaGKoieRZuHOizn3tIQhVYcYOoDwWyY=
+X-Google-Smtp-Source: AK7set+C8udISyRUP8+aDUE3orCb6yoqc4T3+xIJp+MByhgBco1zccJSqc5WaC0GBnmbCmGM2wG5NoptBUQRgq6lnlk=
+X-Received: by 2002:a05:6870:32d4:b0:16e:5e5a:49da with SMTP id
+ r20-20020a05687032d400b0016e5e5a49damr1495979oac.58.1677001830435; Tue, 21
+ Feb 2023 09:50:30 -0800 (PST)
 MIME-Version: 1.0
-References: <20230220201916.1822214-1-robdclark@gmail.com>
- <20230220201916.1822214-10-robdclark@gmail.com>
- <20230221105307.7430c301@eldfell>
-In-Reply-To: <20230221105307.7430c301@eldfell>
+References: <20230218211608.1630586-1-robdclark@gmail.com>
+ <20230218211608.1630586-11-robdclark@gmail.com>
+ <20230220110820.595cfa37@eldfell>
+ <CAF6AEGuo-vmW4Va9=RH+kH9KgNvR2vzjJ8meO-oty56xjDhjgg@mail.gmail.com>
+ <20230221104551.60d44d1c@eldfell> <Y/TAr64SpxO712RB@intel.com>
+In-Reply-To: <Y/TAr64SpxO712RB@intel.com>
 From: Rob Clark <robdclark@gmail.com>
-Date: Tue, 21 Feb 2023 09:25:18 -0800
-Message-ID: <CAF6AEGtd_9JYtPU-AGmZY0My_d48rSSWQiD-efbR2KFxD-+tTA@mail.gmail.com>
-To: Pekka Paalanen <ppaalanen@gmail.com>
+Date: Tue, 21 Feb 2023 09:50:20 -0800
+Message-ID: <CAF6AEGumfEeGQQaEoEm4hzJajCOBBTrWxPQ9MTh7jt-Mov2FEQ@mail.gmail.com>
+To: =?UTF-8?B?VmlsbGUgU3lyasOkbMOk?= <ville.syrjala@linux.intel.com>
 Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [PATCH v5 09/14] drm/syncobj: Add deadline support
- for syncobj waits
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [Freedreno] [PATCH v4 10/14] drm/vblank: Add helper to get next
+ vblank time
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,91 +72,164 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rob Clark <robdclark@chromium.org>, Simon Ser <contact@emersion.fr>,
- Thomas Zimmermann <tzimmermann@suse.de>,
+Cc: Rob Clark <robdclark@chromium.org>,
  Tvrtko Ursulin <tvrtko.ursulin@intel.com>,
  =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>,
  =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel@daenzer.net>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  open list <linux-kernel@vger.kernel.org>, dri-devel@lists.freedesktop.org,
- Maxime Ripard <mripard@kernel.org>, Daniel Vetter <daniel@ffwll.ch>,
+ Pekka Paalanen <ppaalanen@gmail.com>, Thomas Zimmermann <tzimmermann@suse.de>,
  Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Alex Deucher <alexander.deucher@amd.com>, David Airlie <airlied@gmail.com>,
- freedreno@lists.freedesktop.org
+ Alex Deucher <alexander.deucher@amd.com>, freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Tue, Feb 21, 2023 at 12:53 AM Pekka Paalanen <ppaalanen@gmail.com> wrote:
+On Tue, Feb 21, 2023 at 5:01 AM Ville Syrj=C3=A4l=C3=A4
+<ville.syrjala@linux.intel.com> wrote:
 >
-> On Mon, 20 Feb 2023 12:18:56 -0800
-> Rob Clark <robdclark@gmail.com> wrote:
->
-> > From: Rob Clark <robdclark@chromium.org>
+> On Tue, Feb 21, 2023 at 10:45:51AM +0200, Pekka Paalanen wrote:
+> > On Mon, 20 Feb 2023 07:55:41 -0800
+> > Rob Clark <robdclark@gmail.com> wrote:
 > >
-> > Add a new flag to let userspace provide a deadline as a hint for syncobj
-> > and timeline waits.  This gives a hint to the driver signaling the
-> > backing fences about how soon userspace needs it to compete work, so it
-> > can addjust GPU frequency accordingly.  An immediate deadline can be
-> > given to provide something equivalent to i915 "wait boost".
+> > > On Mon, Feb 20, 2023 at 1:08 AM Pekka Paalanen <ppaalanen@gmail.com> =
+wrote:
+> > > >
+> > > > On Sat, 18 Feb 2023 13:15:53 -0800
+> > > > Rob Clark <robdclark@gmail.com> wrote:
+> > > >
+> > > > > From: Rob Clark <robdclark@chromium.org>
+> > > > >
+> > > > > Will be used in the next commit to set a deadline on fences that =
+an
+> > > > > atomic update is waiting on.
+> > > > >
+> > > > > Signed-off-by: Rob Clark <robdclark@chromium.org>
+> > > > > ---
+> > > > >  drivers/gpu/drm/drm_vblank.c | 32 ++++++++++++++++++++++++++++++=
+++
+> > > > >  include/drm/drm_vblank.h     |  1 +
+> > > > >  2 files changed, 33 insertions(+)
+> > > > >
+> > > > > diff --git a/drivers/gpu/drm/drm_vblank.c b/drivers/gpu/drm/drm_v=
+blank.c
+> > > > > index 2ff31717a3de..caf25ebb34c5 100644
+> > > > > --- a/drivers/gpu/drm/drm_vblank.c
+> > > > > +++ b/drivers/gpu/drm/drm_vblank.c
+> > > > > @@ -980,6 +980,38 @@ u64 drm_crtc_vblank_count_and_time(struct dr=
+m_crtc *crtc,
+> > > > >  }
+> > > > >  EXPORT_SYMBOL(drm_crtc_vblank_count_and_time);
+> > > > >
+> > > > > +/**
+> > > > > + * drm_crtc_next_vblank_time - calculate the time of the next vb=
+lank
+> > > > > + * @crtc: the crtc for which to calculate next vblank time
+> > > > > + * @vblanktime: pointer to time to receive the next vblank times=
+tamp.
+> > > > > + *
+> > > > > + * Calculate the expected time of the next vblank based on time =
+of previous
+> > > > > + * vblank and frame duration
+> > > >
+> > > > Hi,
+> > > >
+> > > > for VRR this targets the highest frame rate possible for the curren=
+t
+> > > > VRR mode, right?
+> > > >
+> > >
+> > > It is based on vblank->framedur_ns which is in turn based on
+> > > mode->crtc_clock.  Presumably for VRR that ends up being a maximum?
 > >
-> > v2: Use absolute u64 ns value for deadline hint, drop cap and driver
-> >     feature flag in favor of allowing count_handles==0 as a way for
-> >     userspace to probe kernel for support of new flag
-> >
-> > Signed-off-by: Rob Clark <robdclark@chromium.org>
-> > ---
-> >  drivers/gpu/drm/drm_syncobj.c | 59 +++++++++++++++++++++++++++--------
-> >  include/uapi/drm/drm.h        |  5 +++
-> >  2 files changed, 51 insertions(+), 13 deletions(-)
+> > I don't know. :-)
 >
-> ...
->
-> > diff --git a/include/uapi/drm/drm.h b/include/uapi/drm/drm.h
-> > index 642808520d92..aefc8cc743e0 100644
-> > --- a/include/uapi/drm/drm.h
-> > +++ b/include/uapi/drm/drm.h
-> > @@ -887,6 +887,7 @@ struct drm_syncobj_transfer {
-> >  #define DRM_SYNCOBJ_WAIT_FLAGS_WAIT_ALL (1 << 0)
-> >  #define DRM_SYNCOBJ_WAIT_FLAGS_WAIT_FOR_SUBMIT (1 << 1)
-> >  #define DRM_SYNCOBJ_WAIT_FLAGS_WAIT_AVAILABLE (1 << 2) /* wait for time point to become available */
-> > +#define DRM_SYNCOBJ_WAIT_FLAGS_WAIT_DEADLINE (1 << 3) /* set fence deadline based to deadline_nsec/sec */
->
-> Hi,
->
-> where is the UAPI documentation explaining what is a "fence deadline"
-> and what setting it does here?
+> At least for i915 this will give you the maximum frame
+> duration.
 
-It's with the rest of the drm_syncobj UAPI docs ;-)
+I suppose one could argue that maximum frame duration is the actual
+deadline.  Anything less is just moar fps, but not going to involve
+stalling until vblank N+1, AFAIU
+
+> Also this does not calculate the the start of vblank, it
+> calculates the start of active video.
+
+Probably something like end of previous frame's video..  might not be
+_exactly_ correct (because some buffering involved), but OTOH on the
+GPU side, I expect the driver to set a timer for a few ms or so before
+the deadline.  So there is some wiggle room.
 
 BR,
 -R
 
-> btw. no nsec/sec anymore.
->
->
-> Thanks,
-> pq
->
->
-> >  struct drm_syncobj_wait {
-> >       __u64 handles;
-> >       /* absolute timeout */
-> > @@ -895,6 +896,8 @@ struct drm_syncobj_wait {
-> >       __u32 flags;
-> >       __u32 first_signaled; /* only valid when not waiting all */
-> >       __u32 pad;
-> > +     /* Deadline hint to set on backing fence(s) in CLOCK_MONOTONIC: */
-> > +     __u64 deadline_ns;
-> >  };
 > >
-> >  struct drm_syncobj_timeline_wait {
-> > @@ -907,6 +910,8 @@ struct drm_syncobj_timeline_wait {
-> >       __u32 flags;
-> >       __u32 first_signaled; /* only valid when not waiting all */
-> >       __u32 pad;
-> > +     /* Deadline hint to set on backing fence(s) in CLOCK_MONOTONIC: */
-> > +     __u64 deadline_ns;
-> >  };
+> > You need a number of clock cycles in addition to the clock frequency,
+> > and that could still be minimum, maximum, the last realized one, ...
+> >
+> > VRR works by adjusting the front porch length IIRC.
 > >
 > >
+> > Thanks,
+> > pq
+> >
+> > > BR,
+> > > -R
+> > >
+> > >
+> > > >
+> > > > Thanks,
+> > > > pq
+> > > >
+> > > > > + */
+> > > > > +int drm_crtc_next_vblank_time(struct drm_crtc *crtc, ktime_t *vb=
+lanktime)
+> > > > > +{
+> > > > > +     unsigned int pipe =3D drm_crtc_index(crtc);
+> > > > > +     struct drm_vblank_crtc *vblank =3D &crtc->dev->vblank[pipe]=
+;
+> > > > > +     u64 count;
+> > > > > +
+> > > > > +     if (!vblank->framedur_ns)
+> > > > > +             return -EINVAL;
+> > > > > +
+> > > > > +     count =3D drm_vblank_count_and_time(crtc->dev, pipe, vblank=
+time);
+> > > > > +
+> > > > > +     /*
+> > > > > +      * If we don't get a valid count, then we probably also don=
+'t
+> > > > > +      * have a valid time:
+> > > > > +      */
+> > > > > +     if (!count)
+> > > > > +             return -EINVAL;
+> > > > > +
+> > > > > +     *vblanktime =3D ktime_add(*vblanktime, ns_to_ktime(vblank->=
+framedur_ns));
+> > > > > +
+> > > > > +     return 0;
+> > > > > +}
+> > > > > +EXPORT_SYMBOL(drm_crtc_next_vblank_time);
+> > > > > +
+> > > > >  static void send_vblank_event(struct drm_device *dev,
+> > > > >               struct drm_pending_vblank_event *e,
+> > > > >               u64 seq, ktime_t now)
+> > > > > diff --git a/include/drm/drm_vblank.h b/include/drm/drm_vblank.h
+> > > > > index 733a3e2d1d10..a63bc2c92f3c 100644
+> > > > > --- a/include/drm/drm_vblank.h
+> > > > > +++ b/include/drm/drm_vblank.h
+> > > > > @@ -230,6 +230,7 @@ bool drm_dev_has_vblank(const struct drm_devi=
+ce *dev);
+> > > > >  u64 drm_crtc_vblank_count(struct drm_crtc *crtc);
+> > > > >  u64 drm_crtc_vblank_count_and_time(struct drm_crtc *crtc,
+> > > > >                                  ktime_t *vblanktime);
+> > > > > +int drm_crtc_next_vblank_time(struct drm_crtc *crtc, ktime_t *vb=
+lanktime);
+> > > > >  void drm_crtc_send_vblank_event(struct drm_crtc *crtc,
+> > > > >                              struct drm_pending_vblank_event *e);
+> > > > >  void drm_crtc_arm_vblank_event(struct drm_crtc *crtc,
+> > > >
+> >
 >
+>
+>
+> --
+> Ville Syrj=C3=A4l=C3=A4
+> Intel
