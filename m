@@ -2,75 +2,57 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7D5B469E06E
-	for <lists+freedreno@lfdr.de>; Tue, 21 Feb 2023 13:32:02 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id EAF5169E0F7
+	for <lists+freedreno@lfdr.de>; Tue, 21 Feb 2023 14:01:51 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4588C10E6E4;
-	Tue, 21 Feb 2023 12:32:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CB81C10E805;
+	Tue, 21 Feb 2023 13:01:45 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 048C710E6E4
- for <freedreno@lists.freedesktop.org>; Tue, 21 Feb 2023 12:31:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1676982718;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=kcBSztIBu8Elzf5YULsmxeT71u7vQPkAxFlgEGJG8QI=;
- b=GdcIZaZuDyG4wJ+KADEOfq9w4c3U8AVco7e8CsIcfHBkFzok74gumSKZ7NgqBmSztHHQVy
- t1ZDQ86L1A3CljHyND7l8sf8ocBqV7VB8e7o8eAK3+/4OiIobJ0ktnHgZ6U5z4uf7g9n4p
- LneSq4r8Hy82nEtWIk2cb+6qb8EyT/o=
-Received: from mail-wr1-f71.google.com (mail-wr1-f71.google.com
- [209.85.221.71]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_128_GCM_SHA256) id
- us-mta-206-tgv_TifdNuSwgR9H-JEMcQ-1; Tue, 21 Feb 2023 07:31:56 -0500
-X-MC-Unique: tgv_TifdNuSwgR9H-JEMcQ-1
-Received: by mail-wr1-f71.google.com with SMTP id
- bp30-20020a5d5a9e000000b002bde0366b11so958124wrb.7
- for <freedreno@lists.freedesktop.org>; Tue, 21 Feb 2023 04:31:56 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=mime-version:message-id:date:references:in-reply-to:subject:cc:to
- :from:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=kcBSztIBu8Elzf5YULsmxeT71u7vQPkAxFlgEGJG8QI=;
- b=ukfLIeUdWOIo9GL+17mKlnAczjdy94VmxZwlnY6T2M4dkFATlvyQmJPplE50oMFUW9
- Ov5feU2UsNciywXzE0lt60yUfToq5yVOIPjwukHhONSQNSTZ00DA5G+BjAlbH/+54O1z
- UfgzQa/NxtNubX23fi3P1/h5pc4rCy9NBIHmyDjP0y6H2NGx48rxWWHOJynlee6+oB6B
- lYKrLkwxSeyeN91ur/pHZjVGcjU6FWHfd/tfsiYyVopH9uRQ8LG6GJIB+bkOK/Xia5lL
- 3qX1wTkDJIk/xKzIiLkHBJoP0xmEJEJITTR+93kkP99+aZS0LJvWS6e5vQv3vZkhyS0P
- chLA==
-X-Gm-Message-State: AO0yUKW+TJVr4RHhjFif8z2z4G+8PUhYuXhHEe2ze/1dNDaNgw7JS9Eb
- rzmauGESGrQD8Nr02/z0LngDuvnhN4m/qEo8VNjcGJdjGSrRwb8QJKXerAOTR7rVT5KAKdFVVfv
- bBoXAJssyGCoNTyMVDvvmwK0U4J+E
-X-Received: by 2002:a05:6000:1141:b0:2c5:a19e:6d16 with SMTP id
- d1-20020a056000114100b002c5a19e6d16mr2636598wrx.61.1676982715780; 
- Tue, 21 Feb 2023 04:31:55 -0800 (PST)
-X-Google-Smtp-Source: AK7set//Tf+JISa2y2oGaFX5tzeBEqdv+t7SGO62K3gr9LhE0gq2UicpG1BcV6nfaQQIe6dvwwpV3Q==
-X-Received: by 2002:a05:6000:1141:b0:2c5:a19e:6d16 with SMTP id
- d1-20020a056000114100b002c5a19e6d16mr2636581wrx.61.1676982715510; 
- Tue, 21 Feb 2023 04:31:55 -0800 (PST)
-Received: from localhost (205.pool92-176-231.dynamic.orange.es.
- [92.176.231.205]) by smtp.gmail.com with ESMTPSA id
- j8-20020a5d6048000000b002c553e061fdsm6967238wrt.112.2023.02.21.04.31.55
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 21 Feb 2023 04:31:55 -0800 (PST)
-From: Javier Martinez Canillas <javierm@redhat.com>
-To: Thomas Zimmermann <tzimmermann@suse.de>, airlied@gmail.com,
- daniel@ffwll.ch, maarten.lankhorst@linux.intel.com, mripard@kernel.org
-In-Reply-To: <95ea4783-8eb4-63e5-767b-3b7feece955d@suse.de>
-References: <20230216140620.17699-1-tzimmermann@suse.de>
- <87y1orxqiz.fsf@minerva.mail-host-address-is-not-set>
- <95ea4783-8eb4-63e5-767b-3b7feece955d@suse.de>
-Date: Tue, 21 Feb 2023 13:31:54 +0100
-Message-ID: <87ttzftd1h.fsf@minerva.mail-host-address-is-not-set>
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 02CFB10E7F9;
+ Tue, 21 Feb 2023 13:01:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1676984503; x=1708520503;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:content-transfer-encoding:in-reply-to;
+ bh=acdczu8sh+vl0KUoF5rFum01VLOZMhQ4SRvqf3KdLIY=;
+ b=ZuNiNkwLaXam+9FAN879+PA69SwL7aJoJLlfTDKvHlrfHPIetrgME6rz
+ KWXfwhxwSMbIJLY9x7hgVyjWT+AP9B9qFYtYUPj3wyM/IpBG/AhTXzfFC
+ qTxKZjp7yDgNuisnHKRtXgdthpa8D/vY0NDUQdhevhpLiFaq46LBmtSyV
+ VElVNDywMunj359zpMQ9/XUdei9zHaSkKKQ8OLpMfy456ZeFwnSsdE0zu
+ R2RPmNbj3v3AGjOa8Z8Y6nZnh9qkBqWLL22Q1kkJKeHM9PCc2h8xlNUtr
+ vCGFoDYTDrpbbJ3WIKaJbKJBGmIERw2sJACQSbGwLA8FLjyGyA/Iqx6RC Q==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10627"; a="333983822"
+X-IronPort-AV: E=Sophos;i="5.97,315,1669104000"; d="scan'208";a="333983822"
+Received: from orsmga005.jf.intel.com ([10.7.209.41])
+ by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 21 Feb 2023 05:01:41 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6500,9779,10627"; a="845666450"
+X-IronPort-AV: E=Sophos;i="5.97,315,1669104000"; d="scan'208";a="845666450"
+Received: from stinkpipe.fi.intel.com (HELO stinkbox) ([10.237.72.70])
+ by orsmga005.jf.intel.com with SMTP; 21 Feb 2023 05:01:36 -0800
+Received: by stinkbox (sSMTP sendmail emulation);
+ Tue, 21 Feb 2023 15:01:35 +0200
+Date: Tue, 21 Feb 2023 15:01:35 +0200
+From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
+To: Pekka Paalanen <ppaalanen@gmail.com>
+Message-ID: <Y/TAr64SpxO712RB@intel.com>
+References: <20230218211608.1630586-1-robdclark@gmail.com>
+ <20230218211608.1630586-11-robdclark@gmail.com>
+ <20230220110820.595cfa37@eldfell>
+ <CAF6AEGuo-vmW4Va9=RH+kH9KgNvR2vzjJ8meO-oty56xjDhjgg@mail.gmail.com>
+ <20230221104551.60d44d1c@eldfell>
 MIME-Version: 1.0
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain
-Subject: Re: [Freedreno] [PATCH] drm/fb-helper: Remove
- drm_fb_helper_unprepare() from drm_fb_helper_fini()
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20230221104551.60d44d1c@eldfell>
+X-Patchwork-Hint: comment
+Subject: Re: [Freedreno] [PATCH v4 10/14] drm/vblank: Add helper to get next
+ vblank time
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,60 +65,133 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-samsung-soc@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org, linux-tegra@vger.kernel.org,
- freedreno@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org
+Cc: Rob Clark <robdclark@chromium.org>,
+ Tvrtko Ursulin <tvrtko.ursulin@intel.com>,
+ Christian =?iso-8859-1?Q?K=F6nig?= <ckoenig.leichtzumerken@gmail.com>,
+ Michel =?iso-8859-1?Q?D=E4nzer?= <michel@daenzer.net>,
+ open list <linux-kernel@vger.kernel.org>, dri-devel@lists.freedesktop.org,
+ Rob Clark <robdclark@gmail.com>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Alex Deucher <alexander.deucher@amd.com>, freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Thomas Zimmermann <tzimmermann@suse.de> writes:
+On Tue, Feb 21, 2023 at 10:45:51AM +0200, Pekka Paalanen wrote:
+> On Mon, 20 Feb 2023 07:55:41 -0800
+> Rob Clark <robdclark@gmail.com> wrote:
+> 
+> > On Mon, Feb 20, 2023 at 1:08 AM Pekka Paalanen <ppaalanen@gmail.com> wrote:
+> > >
+> > > On Sat, 18 Feb 2023 13:15:53 -0800
+> > > Rob Clark <robdclark@gmail.com> wrote:
+> > >  
+> > > > From: Rob Clark <robdclark@chromium.org>
+> > > >
+> > > > Will be used in the next commit to set a deadline on fences that an
+> > > > atomic update is waiting on.
+> > > >
+> > > > Signed-off-by: Rob Clark <robdclark@chromium.org>
+> > > > ---
+> > > >  drivers/gpu/drm/drm_vblank.c | 32 ++++++++++++++++++++++++++++++++
+> > > >  include/drm/drm_vblank.h     |  1 +
+> > > >  2 files changed, 33 insertions(+)
+> > > >
+> > > > diff --git a/drivers/gpu/drm/drm_vblank.c b/drivers/gpu/drm/drm_vblank.c
+> > > > index 2ff31717a3de..caf25ebb34c5 100644
+> > > > --- a/drivers/gpu/drm/drm_vblank.c
+> > > > +++ b/drivers/gpu/drm/drm_vblank.c
+> > > > @@ -980,6 +980,38 @@ u64 drm_crtc_vblank_count_and_time(struct drm_crtc *crtc,
+> > > >  }
+> > > >  EXPORT_SYMBOL(drm_crtc_vblank_count_and_time);
+> > > >
+> > > > +/**
+> > > > + * drm_crtc_next_vblank_time - calculate the time of the next vblank
+> > > > + * @crtc: the crtc for which to calculate next vblank time
+> > > > + * @vblanktime: pointer to time to receive the next vblank timestamp.
+> > > > + *
+> > > > + * Calculate the expected time of the next vblank based on time of previous
+> > > > + * vblank and frame duration  
+> > >
+> > > Hi,
+> > >
+> > > for VRR this targets the highest frame rate possible for the current
+> > > VRR mode, right?
+> > >  
+> > 
+> > It is based on vblank->framedur_ns which is in turn based on
+> > mode->crtc_clock.  Presumably for VRR that ends up being a maximum?
+> 
+> I don't know. :-)
 
-> Hi
->
-> Am 21.02.23 um 11:27 schrieb Javier Martinez Canillas:
->> Thomas Zimmermann <tzimmermann@suse.de> writes:
->> 
->>> Move drm_fb_helper_unprepare() from drm_fb_helper_fini() into the
->>> calling fbdev implementation. Avoids a possible stale mutex with
->>> generic fbdev code.
->>>
->>> As indicated by its name, drm_fb_helper_prepare() prepares struct
->>> drm_fb_helper before setting up the fbdev support with a call to
->>> drm_fb_helper_init(). In legacy fbdev emulation, this happens next
->>> to each other. If successful, drm_fb_helper_fini() later tear down
->>> the fbdev device and also unprepare via drm_fb_helper_unprepare().
->>>
->>> Generic fbdev emulation prepares struct drm_fb_helper immediately
->>> after allocating the instance. It only calls drm_fb_helper_init()
->>> as part of processing a hotplug event. If the hotplug-handling fails,
->>> it runs drm_fb_helper_fini(). This unprepares the fb-helper instance
->>> and the next hotplug event runs on stale data.
->>>
->>> Solve this by moving drm_fb_helper_unprepare() from drm_fb_helper_fini()
->>> into the fbdev implementations. Call it right before freeing the
->>> fb-helper instance.
->>>
->>> Fixes: 4825797c36da ("drm/fb-helper: Introduce drm_fb_helper_unprepare()")
->> 
->> I think this should be Fixes: 032116bbe152 ("drm/fbdev-generic: Minimize
->> client unregistering") instead? Because commit 4825797c36da just added a
->> wrapper function for mutex_destroy(&fb_helper->lock), but it was commit
->> 032116bbe152 that made drm_fbdev_cleanup() to call that helper function.
->
-> Good point. After looking through the recent fbdev commits, I'll use 
-> commit 643231b28380 ("drm/fbdev-generic: Minimize hotplug error 
-> handling") for the tag. This is the one that added the call to 
-> drm_fb_helper_fini() to the client's hotplug handler. And _fini() 
-> currently does the _unprepare(), when it shouldn't.
->
+At least for i915 this will give you the maximum frame
+duration.
 
-Ah, much better indeed.
+Also this does not calculate the the start of vblank, it
+calculates the start of active video.
+
+> 
+> You need a number of clock cycles in addition to the clock frequency,
+> and that could still be minimum, maximum, the last realized one, ...
+> 
+> VRR works by adjusting the front porch length IIRC.
+> 
+> 
+> Thanks,
+> pq
+> 
+> > BR,
+> > -R
+> > 
+> > 
+> > >
+> > > Thanks,
+> > > pq
+> > >  
+> > > > + */
+> > > > +int drm_crtc_next_vblank_time(struct drm_crtc *crtc, ktime_t *vblanktime)
+> > > > +{
+> > > > +     unsigned int pipe = drm_crtc_index(crtc);
+> > > > +     struct drm_vblank_crtc *vblank = &crtc->dev->vblank[pipe];
+> > > > +     u64 count;
+> > > > +
+> > > > +     if (!vblank->framedur_ns)
+> > > > +             return -EINVAL;
+> > > > +
+> > > > +     count = drm_vblank_count_and_time(crtc->dev, pipe, vblanktime);
+> > > > +
+> > > > +     /*
+> > > > +      * If we don't get a valid count, then we probably also don't
+> > > > +      * have a valid time:
+> > > > +      */
+> > > > +     if (!count)
+> > > > +             return -EINVAL;
+> > > > +
+> > > > +     *vblanktime = ktime_add(*vblanktime, ns_to_ktime(vblank->framedur_ns));
+> > > > +
+> > > > +     return 0;
+> > > > +}
+> > > > +EXPORT_SYMBOL(drm_crtc_next_vblank_time);
+> > > > +
+> > > >  static void send_vblank_event(struct drm_device *dev,
+> > > >               struct drm_pending_vblank_event *e,
+> > > >               u64 seq, ktime_t now)
+> > > > diff --git a/include/drm/drm_vblank.h b/include/drm/drm_vblank.h
+> > > > index 733a3e2d1d10..a63bc2c92f3c 100644
+> > > > --- a/include/drm/drm_vblank.h
+> > > > +++ b/include/drm/drm_vblank.h
+> > > > @@ -230,6 +230,7 @@ bool drm_dev_has_vblank(const struct drm_device *dev);
+> > > >  u64 drm_crtc_vblank_count(struct drm_crtc *crtc);
+> > > >  u64 drm_crtc_vblank_count_and_time(struct drm_crtc *crtc,
+> > > >                                  ktime_t *vblanktime);
+> > > > +int drm_crtc_next_vblank_time(struct drm_crtc *crtc, ktime_t *vblanktime);
+> > > >  void drm_crtc_send_vblank_event(struct drm_crtc *crtc,
+> > > >                              struct drm_pending_vblank_event *e);
+> > > >  void drm_crtc_arm_vblank_event(struct drm_crtc *crtc,  
+> > >  
+> 
+
+
 
 -- 
-Best regards,
-
-Javier Martinez Canillas
-Core Platforms
-Red Hat
-
+Ville Syrjälä
+Intel
