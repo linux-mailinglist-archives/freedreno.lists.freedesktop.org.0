@@ -1,68 +1,66 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 074CC69F24C
-	for <lists+freedreno@lfdr.de>; Wed, 22 Feb 2023 10:57:10 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 2353C69F27F
+	for <lists+freedreno@lfdr.de>; Wed, 22 Feb 2023 11:09:14 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BCFA010E2C6;
-	Wed, 22 Feb 2023 09:57:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B7E0D10E92E;
+	Wed, 22 Feb 2023 10:09:12 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x131.google.com (mail-lf1-x131.google.com
- [IPv6:2a00:1450:4864:20::131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8364510E2C6;
- Wed, 22 Feb 2023 09:57:06 +0000 (UTC)
-Received: by mail-lf1-x131.google.com with SMTP id i9so9100973lfc.6;
- Wed, 22 Feb 2023 01:57:06 -0800 (PST)
+Received: from mail-lf1-x134.google.com (mail-lf1-x134.google.com
+ [IPv6:2a00:1450:4864:20::134])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 837E910E1C1;
+ Wed, 22 Feb 2023 10:09:10 +0000 (UTC)
+Received: by mail-lf1-x134.google.com with SMTP id f18so9319886lfa.3;
+ Wed, 22 Feb 2023 02:09:10 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=mime-version:references:in-reply-to:message-id:subject:cc:to:from
  :date:from:to:cc:subject:date:message-id:reply-to;
- bh=kuN6LRtkGhbHCZ4da3565uxXphJdjdeuFluVUGowqGg=;
- b=WzSI+KiBBC3jAwxezARla8d2Qgyg2/BCu7x2e1gD+5Jt4tRGT+idGqXhy0My7enpiR
- Ua1cAPdIZnzSId9ICavmEXeK8iFOw3DGaqW4OYkO7MDswSvgFUbxSV5RyQZBUp+NhAQb
- H8vdQ/F9CEAuJezxVXz04ov3TF2viRO4torx1qvHDQE0WJIRISPv+eh7cd1EN73lZA3n
- JsKEcGIsy4s/paQ5UYsH224lxsmc4QZADdOn9R7ZeTkiyYyiKRlo4rgXxuxUHS8TEYO9
- JGnAYqpnNnEwP51sp0CqYMxuLFILsepb4PCkI85v0dQmphKzAZ5kbMXyycVq4F1ixaVT
- 5TAQ==
+ bh=iSg9xOX1Ngw5Wi6oQCC+aT9UKD1VhnG7bi35k+Luc08=;
+ b=mR2CeM30+3fQXJC4R8tJpy9urNGageo7AiS623uMvUjNAe1+a6TuzUC1R07StGheTv
+ E6+GK19Q/OGV+7NFxMFVMGH7ap3ubP9tl7XU4TIwDiVtORoA5whRwwCmhxr+utoikZnN
+ pQthsb4dVtADnatuoVhQUUfswSLdbgM3QmWX9UdUsfLf6Bet1hLIV4ui9GJc0SFXDNJD
+ sFnbxzf9yoW5vC/JQmqeaeeoQu+iZeRuz+7/cMg0WfiozuiTK6bpU+HTFMfNOt/TZ5AQ
+ kJqP/o5y3wgPz0hAj5eUFQKzaLQLAAtSRkLiVil4Tcg/JqYo8W44uA9JHgivSGl36Vy1
+ ytkA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=mime-version:references:in-reply-to:message-id:subject:cc:to:from
  :date:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=kuN6LRtkGhbHCZ4da3565uxXphJdjdeuFluVUGowqGg=;
- b=A4FUMt6NjhJhb2t0bqDmF1Yw1sQHFffawuAgk0y0AGxwODuoNGNcMmeMboFjqkpI8d
- ViTE8ebiuduy/wnzBK8a5lNd6DTR6p7QjdlShFVjN+Q8Xji5Dark5hc+OGMC/rwKPPDh
- XwemVRnKIv8lRHERFcgdLS2wCapMqFbZk0t4BF7MsoDurMi2QwkjmjGn0g5W56ziKWTl
- VSpScFuCYvzltPVD2in+kOO4gpOjOjH3pchZDE3OtdyseCf/GjJI9SmIXX6TxFBfxwc3
- ZbE1nMD2K0I+u7irRefCP4uu1RdQapjzWUhrZj/A/WzIVB3oOMRMpBGiacyGkJG+Pymj
- liug==
-X-Gm-Message-State: AO0yUKWNKB76pVVo1LhWKEcxtJ3d5vhJu2im6g2wqvnF8JbcZefIH+sN
- b50K0THANWAVetbc/DlooyI=
-X-Google-Smtp-Source: AK7set9YnqmGQK8ML+0jSk2KZBE93SkmbSxyMIEtQf8JQcY7ljpNvNJihBoD9Rmdd2N6ye0t55trEg==
-X-Received: by 2002:ac2:491d:0:b0:4c0:2ddc:4559 with SMTP id
- n29-20020ac2491d000000b004c02ddc4559mr2677307lfi.69.1677059824617; 
- Wed, 22 Feb 2023 01:57:04 -0800 (PST)
+ bh=iSg9xOX1Ngw5Wi6oQCC+aT9UKD1VhnG7bi35k+Luc08=;
+ b=RMtouyjBGoRCYfT8IFRVvnfOHJ6KDvoU2JDQH/f1tPthYd1X9mH6Je3z4pH0kuAx8j
+ ZQyBn1Hi3S1hBBDu2Sgt1QcqrxL+6OfU4z4gjli7ZreNCW47YxW+EYJR2fqMwkJJWlrr
+ QIGDShOpTMdZEel8BNV+yNxlRR4xhK3eteJALu3ot9rmv0qppIlXK7tAsPtPQty6gl0x
+ mO+ADIqSaxfKZ9e8PIn7mrzMZKydCVPA82NYX+fNtHL9CuLpTz4dP3NFhgoHVNI254Ac
+ jS3o2JF4Klsd1gM0x1/RS22UGjww5u+9bnWx+xQ7qHeFGPJXM+aiapYnzTt3M3QlYkz5
+ Y+ww==
+X-Gm-Message-State: AO0yUKWVc3sRNZS7WKAI/R8K6jP9r6OQbdJMa3MsGN0U3D151PX+o7Iq
+ TBeWUKwR+JsFruIQAqUol8E=
+X-Google-Smtp-Source: AK7set+66JeEj3yoFfxtPeJGp9hY1J7PBtTqQuyARvvBI1Gw4FB7gIdmOtkg7hxjy/k0+im4Gs9jaQ==
+X-Received: by 2002:ac2:5982:0:b0:4d8:56f2:6053 with SMTP id
+ w2-20020ac25982000000b004d856f26053mr2701321lfn.18.1677060548648; 
+ Wed, 22 Feb 2023 02:09:08 -0800 (PST)
 Received: from eldfell ([194.136.85.206]) by smtp.gmail.com with ESMTPSA id
- b14-20020ac25e8e000000b004cb1e2f8f4dsm292734lfq.152.2023.02.22.01.57.03
+ t17-20020ac24c11000000b004db3e330dcesm901645lfq.178.2023.02.22.02.09.07
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 22 Feb 2023 01:57:04 -0800 (PST)
-Date: Wed, 22 Feb 2023 11:57:00 +0200
+ Wed, 22 Feb 2023 02:09:08 -0800 (PST)
+Date: Wed, 22 Feb 2023 12:09:04 +0200
 From: Pekka Paalanen <ppaalanen@gmail.com>
 To: Rob Clark <robdclark@gmail.com>
-Message-ID: <20230222115700.138d824c@eldfell>
-In-Reply-To: <CAF6AEGumfEeGQQaEoEm4hzJajCOBBTrWxPQ9MTh7jt-Mov2FEQ@mail.gmail.com>
-References: <20230218211608.1630586-1-robdclark@gmail.com>
- <20230218211608.1630586-11-robdclark@gmail.com>
- <20230220110820.595cfa37@eldfell>
- <CAF6AEGuo-vmW4Va9=RH+kH9KgNvR2vzjJ8meO-oty56xjDhjgg@mail.gmail.com>
- <20230221104551.60d44d1c@eldfell> <Y/TAr64SpxO712RB@intel.com>
- <CAF6AEGumfEeGQQaEoEm4hzJajCOBBTrWxPQ9MTh7jt-Mov2FEQ@mail.gmail.com>
+Message-ID: <20230222120904.5c281652@eldfell>
+In-Reply-To: <CAF6AEGtd_9JYtPU-AGmZY0My_d48rSSWQiD-efbR2KFxD-+tTA@mail.gmail.com>
+References: <20230220201916.1822214-1-robdclark@gmail.com>
+ <20230220201916.1822214-10-robdclark@gmail.com>
+ <20230221105307.7430c301@eldfell>
+ <CAF6AEGtd_9JYtPU-AGmZY0My_d48rSSWQiD-efbR2KFxD-+tTA@mail.gmail.com>
 X-Mailer: Claws Mail 3.17.8 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 MIME-Version: 1.0
-Content-Type: multipart/signed; boundary="Sig_/M7W=iwvhn=7CJcrxtPxEHVQ";
+Content-Type: multipart/signed; boundary="Sig_/0nGQc7.fWXR1w2fbHGJuA_n";
  protocol="application/pgp-signature"; micalg=pgp-sha256
-Subject: Re: [Freedreno] [PATCH v4 10/14] drm/vblank: Add helper to get next
- vblank time
+Subject: Re: [Freedreno] [PATCH v5 09/14] drm/syncobj: Add deadline support
+ for syncobj waits
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,130 +73,145 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rob Clark <robdclark@chromium.org>,
+Cc: Rob Clark <robdclark@chromium.org>, Simon Ser <contact@emersion.fr>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
  Tvrtko Ursulin <tvrtko.ursulin@intel.com>,
  Christian =?UTF-8?B?S8O2bmln?= <ckoenig.leichtzumerken@gmail.com>,
  Michel =?UTF-8?B?RMOkbnplcg==?= <michel@daenzer.net>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  open list <linux-kernel@vger.kernel.org>, dri-devel@lists.freedesktop.org,
- Thomas Zimmermann <tzimmermann@suse.de>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Alex Deucher <alexander.deucher@amd.com>, freedreno@lists.freedesktop.org,
- Ville =?UTF-8?B?U3lyasOkbMOk?= <ville.syrjala@linux.intel.com>
+ Maxime Ripard <mripard@kernel.org>, Daniel Vetter <daniel@ffwll.ch>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Alex Deucher <alexander.deucher@amd.com>, David Airlie <airlied@gmail.com>,
+ freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
---Sig_/M7W=iwvhn=7CJcrxtPxEHVQ
-Content-Type: text/plain; charset=UTF-8
+--Sig_/0nGQc7.fWXR1w2fbHGJuA_n
+Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: quoted-printable
 
-On Tue, 21 Feb 2023 09:50:20 -0800
+On Tue, 21 Feb 2023 09:25:18 -0800
 Rob Clark <robdclark@gmail.com> wrote:
 
-> On Tue, Feb 21, 2023 at 5:01 AM Ville Syrj=C3=A4l=C3=A4
-> <ville.syrjala@linux.intel.com> wrote:
+> On Tue, Feb 21, 2023 at 12:53 AM Pekka Paalanen <ppaalanen@gmail.com> wro=
+te:
 > >
-> > On Tue, Feb 21, 2023 at 10:45:51AM +0200, Pekka Paalanen wrote: =20
-> > > On Mon, 20 Feb 2023 07:55:41 -0800
-> > > Rob Clark <robdclark@gmail.com> wrote:
-> > > =20
-> > > > On Mon, Feb 20, 2023 at 1:08 AM Pekka Paalanen <ppaalanen@gmail.com=
-> wrote: =20
-> > > > >
-> > > > > On Sat, 18 Feb 2023 13:15:53 -0800
-> > > > > Rob Clark <robdclark@gmail.com> wrote:
-> > > > > =20
-> > > > > > From: Rob Clark <robdclark@chromium.org>
-> > > > > >
-> > > > > > Will be used in the next commit to set a deadline on fences tha=
-t an
-> > > > > > atomic update is waiting on.
-> > > > > >
-> > > > > > Signed-off-by: Rob Clark <robdclark@chromium.org>
-> > > > > > ---
-> > > > > >  drivers/gpu/drm/drm_vblank.c | 32 ++++++++++++++++++++++++++++=
-++++
-> > > > > >  include/drm/drm_vblank.h     |  1 +
-> > > > > >  2 files changed, 33 insertions(+)
-> > > > > >
-> > > > > > diff --git a/drivers/gpu/drm/drm_vblank.c b/drivers/gpu/drm/drm=
-_vblank.c
-> > > > > > index 2ff31717a3de..caf25ebb34c5 100644
-> > > > > > --- a/drivers/gpu/drm/drm_vblank.c
-> > > > > > +++ b/drivers/gpu/drm/drm_vblank.c
-> > > > > > @@ -980,6 +980,38 @@ u64 drm_crtc_vblank_count_and_time(struct =
-drm_crtc *crtc,
-> > > > > >  }
-> > > > > >  EXPORT_SYMBOL(drm_crtc_vblank_count_and_time);
-> > > > > >
-> > > > > > +/**
-> > > > > > + * drm_crtc_next_vblank_time - calculate the time of the next =
-vblank
-> > > > > > + * @crtc: the crtc for which to calculate next vblank time
-> > > > > > + * @vblanktime: pointer to time to receive the next vblank tim=
-estamp.
-> > > > > > + *
-> > > > > > + * Calculate the expected time of the next vblank based on tim=
-e of previous
-> > > > > > + * vblank and frame duration =20
-> > > > >
-> > > > > Hi,
-> > > > >
-> > > > > for VRR this targets the highest frame rate possible for the curr=
-ent
-> > > > > VRR mode, right?
-> > > > > =20
-> > > >
-> > > > It is based on vblank->framedur_ns which is in turn based on
-> > > > mode->crtc_clock.  Presumably for VRR that ends up being a maximum?=
- =20
+> > On Mon, 20 Feb 2023 12:18:56 -0800
+> > Rob Clark <robdclark@gmail.com> wrote:
+> > =20
+> > > From: Rob Clark <robdclark@chromium.org>
 > > >
-> > > I don't know. :-) =20
+> > > Add a new flag to let userspace provide a deadline as a hint for sync=
+obj
+> > > and timeline waits.  This gives a hint to the driver signaling the
+> > > backing fences about how soon userspace needs it to compete work, so =
+it
+> > > can addjust GPU frequency accordingly.  An immediate deadline can be
+> > > given to provide something equivalent to i915 "wait boost".
+> > >
+> > > v2: Use absolute u64 ns value for deadline hint, drop cap and driver
+> > >     feature flag in favor of allowing count_handles=3D=3D0 as a way f=
+or
+> > >     userspace to probe kernel for support of new flag
+> > >
+> > > Signed-off-by: Rob Clark <robdclark@chromium.org>
+> > > ---
+> > >  drivers/gpu/drm/drm_syncobj.c | 59 +++++++++++++++++++++++++++------=
+--
+> > >  include/uapi/drm/drm.h        |  5 +++
+> > >  2 files changed, 51 insertions(+), 13 deletions(-) =20
 > >
-> > At least for i915 this will give you the maximum frame
-> > duration. =20
+> > ...
+> > =20
+> > > diff --git a/include/uapi/drm/drm.h b/include/uapi/drm/drm.h
+> > > index 642808520d92..aefc8cc743e0 100644
+> > > --- a/include/uapi/drm/drm.h
+> > > +++ b/include/uapi/drm/drm.h
+> > > @@ -887,6 +887,7 @@ struct drm_syncobj_transfer {
+> > >  #define DRM_SYNCOBJ_WAIT_FLAGS_WAIT_ALL (1 << 0)
+> > >  #define DRM_SYNCOBJ_WAIT_FLAGS_WAIT_FOR_SUBMIT (1 << 1)
+> > >  #define DRM_SYNCOBJ_WAIT_FLAGS_WAIT_AVAILABLE (1 << 2) /* wait for t=
+ime point to become available */
+> > > +#define DRM_SYNCOBJ_WAIT_FLAGS_WAIT_DEADLINE (1 << 3) /* set fence d=
+eadline based to deadline_nsec/sec */ =20
+> >
+> > Hi,
+> >
+> > where is the UAPI documentation explaining what is a "fence deadline"
+> > and what setting it does here? =20
 >=20
-> I suppose one could argue that maximum frame duration is the actual
-> deadline.  Anything less is just moar fps, but not going to involve
-> stalling until vblank N+1, AFAIU
->=20
-> > Also this does not calculate the the start of vblank, it
-> > calculates the start of active video. =20
->=20
-> Probably something like end of previous frame's video..  might not be
-> _exactly_ correct (because some buffering involved), but OTOH on the
-> GPU side, I expect the driver to set a timer for a few ms or so before
-> the deadline.  So there is some wiggle room.
+> It's with the rest of the drm_syncobj UAPI docs ;-)
 
-The vblank timestamp is defined to be the time of the first active
-pixel of the frame in the video signal. At least that's the one that
-UAPI carries (when not tearing?). It is not the start of vblank period.
+Is that https://www.kernel.org/doc/html/latest/driver-api/dma-buf.html#dma-=
+fence-uabi-sync-file ?
 
-With VRR, the front porch before the first active pixel can be multiple
-milliseconds. The difference between 144 Hz and 60 Hz is 9.7 ms for
-example.
+That whole page never mentions e.g. WAIT_AVAILABLE, so at least the
+flags are not there. Does not mention syncobj_wait either.
+
+I could ask where the real non-IGT userspace is or the plan for it,
+too, since this is new DRM UAPI.
 
 
 Thanks,
 pq
 
---Sig_/M7W=iwvhn=7CJcrxtPxEHVQ
+>=20
+> BR,
+> -R
+>=20
+> > btw. no nsec/sec anymore.
+> >
+> >
+> > Thanks,
+> > pq
+> >
+> > =20
+> > >  struct drm_syncobj_wait {
+> > >       __u64 handles;
+> > >       /* absolute timeout */
+> > > @@ -895,6 +896,8 @@ struct drm_syncobj_wait {
+> > >       __u32 flags;
+> > >       __u32 first_signaled; /* only valid when not waiting all */
+> > >       __u32 pad;
+> > > +     /* Deadline hint to set on backing fence(s) in CLOCK_MONOTONIC:=
+ */
+> > > +     __u64 deadline_ns;
+> > >  };
+> > >
+> > >  struct drm_syncobj_timeline_wait {
+> > > @@ -907,6 +910,8 @@ struct drm_syncobj_timeline_wait {
+> > >       __u32 flags;
+> > >       __u32 first_signaled; /* only valid when not waiting all */
+> > >       __u32 pad;
+> > > +     /* Deadline hint to set on backing fence(s) in CLOCK_MONOTONIC:=
+ */
+> > > +     __u64 deadline_ns;
+> > >  };
+> > >
+> > > =20
+> > =20
+
+
+--Sig_/0nGQc7.fWXR1w2fbHGJuA_n
 Content-Type: application/pgp-signature
 Content-Description: OpenPGP digital signature
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAEBCAAdFiEEJQjwWQChkWOYOIONI1/ltBGqqqcFAmP15uwACgkQI1/ltBGq
-qqcTQQ/+JY9jIHrwOwFSVTo8dQnuLQIKytAtICMIYTksqoyp6zncsjOUCjcrwHT7
-9y+inchbzV67ojc2FwtwSIy8VhprChwqYIWPIoHuEnqLWj5KWpTj6IDx3j1bYSS+
-w5bNtoW5D3Uzqrh56wv9TatDde21d++KWQSIwsUqGIg1YGibTv6Kxq+aUqUrpOOx
-wIWQ7vOW5NW7EHd++EoSy4k5hdpOfPeO+D2ioDDAepnSxz/KCImL5/RYcSNXV3Yn
-hDrgIdV1wELvrqawBMdZMp2mg3fZlzD2j3uz3D98o4/KVqi6A9m8JdKqVlVVeBVq
-R95ExwNR1qaLT9DXISJ94bN/SzKUXWKFKp0Ne0aDYbcOE4FnKL9Ue4/XHRen2Qnk
-f9ElTe/gf837i5wcSMW2LR64x5rvXuDZacQTM3o2r79j+CgWq4DuLHMLaTqrSBKa
-OP6+m6US4OuTW3/Dfhj/kFDDKPmb1LR7lOfzTMDc/E+mmr/7zr3idL9XKboW3gqN
-eQeKLQKSPaGQvJe3QPadil2tKUuGHSZO5njCmPKkrs7IRF10GYvRtiD/qcgSC3kC
-xIeniTr8MbNlUvJAlyWr1BB+Fqo6V7du0ZbBUAAatcvjEvSNkfbjxe/h2Oycavgq
-pPTX7fqdv0T4bMdYa2pwrIUvqNM1CQyFL8h4PsjiX2nFQnJJ0sw=
-=iEiR
+iQIzBAEBCAAdFiEEJQjwWQChkWOYOIONI1/ltBGqqqcFAmP16cAACgkQI1/ltBGq
+qqcVDw//U888e4ZdDOlNWEcTd5zRwWV+wT1SJKFvDnR1WVGdapkp5akmg+EAelAP
+k/jEGX8YWQmLDd7r+Z0Vbtj6ccR8BKzuHBXLfW8jvsM0wcaJlvWKrVTIulS9t340
+gHaIkHqhehon0bWZXAlkPHd+vjR1BIoyfN/1LfABKMaerY+igKo71ISsvYzNOzvI
+lUBzGLhdi+6/15B7VLvOX/SgjNOLEWT9fapLOc0dKpyXJI+hV1ry2rj98HzdQRC5
+KBOjJeBb3mjESlkF3Izd61GCJRARCZ5VzF1EQa1VrBGGLa0Uf0NHBpEu2Hh8h5BP
+GpqOhuCKk77rEllaycuSz4iLN+947UR44kGRp8buU0zUsZkU9+EYmnjrkOFZuDeu
+SNxclydeIY5Djy3OiaimR7lo4jc9eerXE2i5Acr4yaY+0SfB0QNgGIqsnyixVU+5
+l1bZoi5gCAGnD1a7OTDvFLRl73vlb0aXJRJGnYgtFYlyVOWSSHRFYQi2wHQmFeXR
+pA4LMAi9buCG1lsrGrWEmdLXamWY0aV9cWTDgsxN6t18ngSGh98rgCwXsZaVgFjb
+BXKJSs3/seIK/SpDlxFi5XgOPyoG3wkZg3gZDvkXTEiaxAysYZuyUeam3hc+VM7X
+5jTRQh0NL+OWoF+Srw6sHoM+qLi8ySiiVRB7vZEGVg4w/MYgI20=
+=9D5P
 -----END PGP SIGNATURE-----
 
---Sig_/M7W=iwvhn=7CJcrxtPxEHVQ--
+--Sig_/0nGQc7.fWXR1w2fbHGJuA_n--
