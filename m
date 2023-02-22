@@ -2,45 +2,65 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 58AAD69FAE7
-	for <lists+freedreno@lfdr.de>; Wed, 22 Feb 2023 19:21:34 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1A8F369FB9C
+	for <lists+freedreno@lfdr.de>; Wed, 22 Feb 2023 19:57:54 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1DFD810E2B1;
-	Wed, 22 Feb 2023 18:21:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CFDFF10E3C3;
+	Wed, 22 Feb 2023 18:57:52 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 47C9610E2B1;
- Wed, 22 Feb 2023 18:21:31 +0000 (UTC)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id C26BDB81604;
- Wed, 22 Feb 2023 18:21:29 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AF001C433EF;
- Wed, 22 Feb 2023 18:21:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1677090088;
- bh=HXn80E9p8LKWYpzTx+X49SWBVTLtIFgizXhoT9554kI=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=Fs2BUHjrEssaXYTE7+er1dEFxbr/2lKW9EVA0YRw7uh/ahvRj8NKl+E3Gt9C0oMBD
- PB+iOUc3pzLrj0RpKjJ4feWqdCiTH4sMOMtNrrjUPNRPF3J7scVe1krq0HgT6Sdsfb
- ZdXJTriGg9ZhuQNeUz81r9k+TOdGgNfrEcBspwggS5s04dDnMhhVUvss6yJ5yrX09r
- UpuHARuL0xLjkQQn67r0RCgHQ3nAUkzaW8fmp/QHEt7wgItvwb0/rgO1Csh47j89vW
- vY+GpwTPK/Fm2rooe5RgXmNy/lTHLLR/fJqAykOD4G2YXIWSjvZi6/Olv0oulDJR16
- K0V0n4kIsnWmQ==
-Date: Wed, 22 Feb 2023 11:21:25 -0700
-From: Nathan Chancellor <nathan@kernel.org>
-To: Thomas Zimmermann <tzimmermann@suse.de>
-Message-ID: <Y/ZdJW3dxMVMGYlp@dev-arch.thelio-3990X>
-References: <20230222155649.2001467-1-trix@redhat.com>
- <8f4a18d7-3477-5af0-605d-27098cc7e02c@suse.de>
+Received: from mail-oi1-x229.google.com (mail-oi1-x229.google.com
+ [IPv6:2607:f8b0:4864:20::229])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8B69C10E3C3;
+ Wed, 22 Feb 2023 18:57:51 +0000 (UTC)
+Received: by mail-oi1-x229.google.com with SMTP id bh20so8521014oib.9;
+ Wed, 22 Feb 2023 10:57:51 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=UF7nR0RAhOzqdZkHDCQjiRJ4YI0fbLgTEln+9Hs89cc=;
+ b=GXPFdJPqHg34EbfZFQwsHqVl71NbwwnBvYtpxGkfSHAr+EM8MHBzktjfMX8YzYP0Th
+ ty3iR9sqxUi6OcJM5cAJp5tmM4BxeAT5Op2Z2a1yko0mhyhim/hBJ3zwc7FGOBwdeBsO
+ 2y/WNoeQLWSfkdhJSdfJKQhu/cm7X/77Ncojseq07fUYIOYcP1B0BHPKGF11xrkBXb1s
+ ucXeJDwbXhbCYVICFSAn6nVUy20odf/WEVv+VQEV5nkncVtQTOvZhWfft+/XlrtQe+qW
+ PqwwV1J2EIMYS5bb0Nkzp0RCkGOKfPkC18E9/3A4/TzBa6e22Gt5L7o/pceG67QtBBH8
+ K+xA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=UF7nR0RAhOzqdZkHDCQjiRJ4YI0fbLgTEln+9Hs89cc=;
+ b=awMBdFL51CY7tpcZUa2Nr0NnDoH7jRcCgbd6+A4nqhuF9z2y8w8at2k/yXZe6bcAwg
+ myZAtHMxSBOFQCF6TKd5dxGYgTZzEbRzNZxBFf58FDTUwLJALiUHUuQsTB5iGntU1PI7
+ 3QaU6tG0V09aC3vRlrJjnSUw4qIy23yTCKp/McQwFSq8GHAJlPf5Rz43UenC5q34rhkP
+ jPJikOq2fbfJIGyvjlaJrqINTFyqoDq8N9ySSLJLXDo0sEUkIxKmBNbNSsnaIrVmhxJQ
+ i+QOt8I0u8VoAKviXji6vANtnBU6nt9/Xg2SdWLkggCL19HCnzK1/BCjZHpWO4wKloTe
+ +5Og==
+X-Gm-Message-State: AO0yUKXxbYG9GOWSpo5USxuaSZzrLG7YKfWv7R8nPlr4r7QdLZXI9JSD
+ eM5PO6/q4h3mH5z6B5OVNinaSJ+h0cijryhRRC0=
+X-Google-Smtp-Source: AK7set8frmvxbkGuSlE/CZ3Cw8fhh0TWYwlF4WjVzZ12iA+f7NRi126FESxiqBxE2/sx2BJ0dkNHdIprSHLrN2hcU/w=
+X-Received: by 2002:a05:6808:16ab:b0:37d:81a9:5103 with SMTP id
+ bb43-20020a05680816ab00b0037d81a95103mr1454254oib.38.1677092270732; Wed, 22
+ Feb 2023 10:57:50 -0800 (PST)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <8f4a18d7-3477-5af0-605d-27098cc7e02c@suse.de>
-Subject: Re: [Freedreno] [PATCH] drm/msm: return early when allocating fbdev
- fails
+References: <20230218211608.1630586-1-robdclark@gmail.com>
+ <20230218211608.1630586-2-robdclark@gmail.com>
+ <b65a2fe2-6f68-2116-9599-2940e66d166b@linux.intel.com>
+ <21f36640-3229-0b46-31a2-a47efc5be934@amd.com>
+ <b8a16579-4be7-8e14-01e4-9d17c1570c8b@linux.intel.com>
+ <CAJs_Fx61OpgFo_kSLoy+2z8mS=wcdK8eZfQBA6dQm9p0=qLU2g@mail.gmail.com>
+ <d7b0614e-2cc3-1180-3571-409204ac5b00@linux.intel.com>
+In-Reply-To: <d7b0614e-2cc3-1180-3571-409204ac5b00@linux.intel.com>
+From: Rob Clark <robdclark@gmail.com>
+Date: Wed, 22 Feb 2023 10:57:39 -0800
+Message-ID: <CAF6AEGvyei6QcNGb-VEAuE5w4qJHavj+8TuirXwwcK7ydEXeSQ@mail.gmail.com>
+To: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [Freedreno] [PATCH v4 01/14] dma-buf/dma-fence: Add deadline
+ awareness
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,51 +73,168 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, Tom Rix <trix@redhat.com>,
- llvm@lists.linux.dev, ndesaulniers@google.com, quic_abhinavk@quicinc.com,
- dri-devel@lists.freedesktop.org, javierm@redhat.com, robdclark@gmail.com,
- daniel@ffwll.ch, linux-arm-msm@vger.kernel.org, dmitry.baryshkov@linaro.org,
- airlied@gmail.com, sean@poorly.run, linux-kernel@vger.kernel.org
+Cc: Rob Clark <robdclark@chromium.org>,
+ Tvrtko Ursulin <tvrtko.ursulin@intel.com>,
+ Gustavo Padovan <gustavo@padovan.org>,
+ =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel@daenzer.net>,
+ open list <linux-kernel@vger.kernel.org>, dri-devel@lists.freedesktop.org,
+ Sumit Semwal <sumit.semwal@linaro.org>,
+ "moderated list:DMA BUFFER SHARING FRAMEWORK" <linaro-mm-sig@lists.linaro.org>,
+ Pekka Paalanen <ppaalanen@gmail.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Alex Deucher <alexander.deucher@amd.com>, freedreno@lists.freedesktop.org,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ "open list:SYNC FILE FRAMEWORK" <linux-media@vger.kernel.org>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Wed, Feb 22, 2023 at 05:09:40PM +0100, Thomas Zimmermann wrote:
-> Hi
-> 
-> Am 22.02.23 um 16:56 schrieb Tom Rix:
-> > building with clang and W=1 reports
-> > drivers/gpu/drm/msm/msm_fbdev.c:144:6: error: variable 'helper' is used
-> >    uninitialized whenever 'if' condition is true [-Werror,-Wsometimes-uninitialized]
-> >    if (!fbdev)
-> >        ^~~~~~
-> > 
-> > helper is only initialized after fbdev succeeds, so is in a garbage state at
-> > the fail: label.  There is nothing to unwinded if fbdev alloaction fails,
-> > return NULL.
-> > 
-> > Fixes: 3fb1f62f80a1 ("drm/fb-helper: Remove drm_fb_helper_unprepare() from drm_fb_helper_fini()")
-> > Signed-off-by: Tom Rix <trix@redhat.com>
-> 
-> Already fixed here: https://lore.kernel.org/dri-devel/08e3340e-b459-0e60-4bba-30716b675e05@suse.de/T/#t
+On Wed, Feb 22, 2023 at 9:33 AM Tvrtko Ursulin
+<tvrtko.ursulin@linux.intel.com> wrote:
+>
+>
+> On 22/02/2023 17:16, Rob Clark wrote:
+> > On Wed, Feb 22, 2023 at 9:05 AM Tvrtko Ursulin
+> > <tvrtko.ursulin@linux.intel.com> wrote:
+> >>
+> >>
+> >> On 22/02/2023 15:28, Christian K=C3=B6nig wrote:
+> >>> Am 22.02.23 um 11:23 schrieb Tvrtko Ursulin:
+> >>>>
+> >>>> On 18/02/2023 21:15, Rob Clark wrote:
+> >>>>> From: Rob Clark <robdclark@chromium.org>
+> >>>>>
+> >>>>> Add a way to hint to the fence signaler of an upcoming deadline, su=
+ch as
+> >>>>> vblank, which the fence waiter would prefer not to miss.  This is t=
+o aid
+> >>>>> the fence signaler in making power management decisions, like boost=
+ing
+> >>>>> frequency as the deadline approaches and awareness of missing deadl=
+ines
+> >>>>> so that can be factored in to the frequency scaling.
+> >>>>>
+> >>>>> v2: Drop dma_fence::deadline and related logic to filter duplicate
+> >>>>>       deadlines, to avoid increasing dma_fence size.  The fence-con=
+text
+> >>>>>       implementation will need similar logic to track deadlines of =
+all
+> >>>>>       the fences on the same timeline.  [ckoenig]
+> >>>>> v3: Clarify locking wrt. set_deadline callback
+> >>>>>
+> >>>>> Signed-off-by: Rob Clark <robdclark@chromium.org>
+> >>>>> Reviewed-by: Christian K=C3=B6nig <christian.koenig@amd.com>
+> >>>>> ---
+> >>>>>    drivers/dma-buf/dma-fence.c | 20 ++++++++++++++++++++
+> >>>>>    include/linux/dma-fence.h   | 20 ++++++++++++++++++++
+> >>>>>    2 files changed, 40 insertions(+)
+> >>>>>
+> >>>>> diff --git a/drivers/dma-buf/dma-fence.c b/drivers/dma-buf/dma-fenc=
+e.c
+> >>>>> index 0de0482cd36e..763b32627684 100644
+> >>>>> --- a/drivers/dma-buf/dma-fence.c
+> >>>>> +++ b/drivers/dma-buf/dma-fence.c
+> >>>>> @@ -912,6 +912,26 @@ dma_fence_wait_any_timeout(struct dma_fence
+> >>>>> **fences, uint32_t count,
+> >>>>>    }
+> >>>>>    EXPORT_SYMBOL(dma_fence_wait_any_timeout);
+> >>>>>    +
+> >>>>> +/**
+> >>>>> + * dma_fence_set_deadline - set desired fence-wait deadline
+> >>>>> + * @fence:    the fence that is to be waited on
+> >>>>> + * @deadline: the time by which the waiter hopes for the fence to =
+be
+> >>>>> + *            signaled
+> >>>>> + *
+> >>>>> + * Inform the fence signaler of an upcoming deadline, such as
+> >>>>> vblank, by
+> >>>>> + * which point the waiter would prefer the fence to be signaled by=
+.
+> >>>>> This
+> >>>>> + * is intended to give feedback to the fence signaler to aid in po=
+wer
+> >>>>> + * management decisions, such as boosting GPU frequency if a perio=
+dic
+> >>>>> + * vblank deadline is approaching.
+> >>>>> + */
+> >>>>> +void dma_fence_set_deadline(struct dma_fence *fence, ktime_t deadl=
+ine)
+> >>>>> +{
+> >>>>> +    if (fence->ops->set_deadline && !dma_fence_is_signaled(fence))
+> >>>>> +        fence->ops->set_deadline(fence, deadline);
+> >>>>> +}
+> >>>>> +EXPORT_SYMBOL(dma_fence_set_deadline);
+> >>>>> +
+> >>>>>    /**
+> >>>>>     * dma_fence_describe - Dump fence describtion into seq_file
+> >>>>>     * @fence: the 6fence to describe
+> >>>>> diff --git a/include/linux/dma-fence.h b/include/linux/dma-fence.h
+> >>>>> index 775cdc0b4f24..d77f6591c453 100644
+> >>>>> --- a/include/linux/dma-fence.h
+> >>>>> +++ b/include/linux/dma-fence.h
+> >>>>> @@ -99,6 +99,7 @@ enum dma_fence_flag_bits {
+> >>>>>        DMA_FENCE_FLAG_SIGNALED_BIT,
+> >>>>>        DMA_FENCE_FLAG_TIMESTAMP_BIT,
+> >>>>>        DMA_FENCE_FLAG_ENABLE_SIGNAL_BIT,
+> >>>>> +    DMA_FENCE_FLAG_HAS_DEADLINE_BIT,
+> >>>>
+> >>>> Would this bit be better left out from core implementation, given ho=
+w
+> >>>> the approach is the component which implements dma-fence has to trac=
+k
+> >>>> the actual deadline and all?
+> >>>>
+> >>>> Also taking a step back - are we all okay with starting to expand th=
+e
+> >>>> relatively simple core synchronisation primitive with side channel
+> >>>> data like this? What would be the criteria for what side channel dat=
+a
+> >>>> would be acceptable? Taking note the thing lives outside drivers/gpu=
+/.
+> >>>
+> >>> I had similar concerns and it took me a moment as well to understand =
+the
+> >>> background why this is necessary. I essentially don't see much other
+> >>> approach we could do.
+> >>>
+> >>> Yes, this is GPU/CRTC specific, but we somehow need a common interfac=
+e
+> >>> for communicating it between drivers and that's the dma_fence object =
+as
+> >>> far as I can see.
+> >>
+> >> Yeah I also don't see any other easy options. Just wanted to raise thi=
+s
+> >> as something which probably needs some wider acks.
+> >>
+> >> Also what about the "low level" part of my question about the reason, =
+or
+> >> benefits, of defining the deadline bit in the common layer?
+> >
+> > We could leave DMA_FENCE_FLAG_HAS_DEADLINE_BIT out, but OTOH managing
+> > a bitmask that is partially defined in core enum and partially in
+> > backend-driver has it's own drawbacks, and it isn't like we are
+> > running out of bits.. :shrug:
+>
+> There is DMA_FENCE_FLAG_USER_BITS onwards which implementations could
+> use to store their stuff?
+>
+> And if we skip forward to "drm/scheduler: Add fence deadline support"
+> that's the only place bit is used, right? Would it simply work to look
+> at drm_sched_fence->deadline =3D=3D 0 as bit not set? Or you see a need t=
+o
+> interoperate with other fence implementations via that bit somehow?
 
-There is also:
+Currently drm/scheduler is the only one using it.  I ended up dropping
+use of it in msm since the deadline is stored in the fence-context
+instead.  But I think it is better to try to avoid assuming that zero
+means not-set.
 
-../drivers/gpu/drm/omapdrm/omap_fbdev.c:235:6: error: variable 'helper' is used uninitialized whenever 'if' condition is true [-Werror,-Wsometimes-uninitialized]
-        if (!fbdev)
-            ^~~~~~
-../drivers/gpu/drm/omapdrm/omap_fbdev.c:259:26: note: uninitialized use occurs here
-        drm_fb_helper_unprepare(helper);
-                                ^~~~~~
-../drivers/gpu/drm/omapdrm/omap_fbdev.c:235:2: note: remove the 'if' if its condition is always false
-        if (!fbdev)
-        ^~~~~~~~~~~
-../drivers/gpu/drm/omapdrm/omap_fbdev.c:228:30: note: initialize the variable 'helper' to silence this warning
-        struct drm_fb_helper *helper;
-                                    ^
-                                     = NULL
-1 error generated.
+It could be moved to drm/sched.. I guess there are few enough
+implementations at this point to say whether it is something useful to
+other drivers or not.
 
-Is the fix the same as the one you have linked above?
+BR,
+-R
 
-Cheers,
-Nathan
+> Regards,
+>
+> Tvrtko
