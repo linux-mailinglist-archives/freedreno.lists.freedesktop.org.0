@@ -1,66 +1,59 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 12BB869F8A3
-	for <lists+freedreno@lfdr.de>; Wed, 22 Feb 2023 17:09:46 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 9ED3A69F98F
+	for <lists+freedreno@lfdr.de>; Wed, 22 Feb 2023 18:05:26 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C194910E1C4;
-	Wed, 22 Feb 2023 16:09:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 522A710E2A3;
+	Wed, 22 Feb 2023 17:05:25 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BE2D010E1C4;
- Wed, 22 Feb 2023 16:09:42 +0000 (UTC)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 622E42070D;
- Wed, 22 Feb 2023 16:09:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1677082181; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=UnlWzOjsvHFym+8/oV1/3UC3iLCVK7y0jY+xZK0uwO0=;
- b=Ys/Ee8nKKA06ngkS/Telib9jsbgI9efxI212/NPfanNR2rIRzSvZ5qvBzrbrIJ0iGlTH5z
- KSjT0NutywlA5tXWWwt/KuGKX1usoqqoCalV7KeCNRoGs8Ii7El8GueHjVYF5CYaEmmB7w
- vUjMoYU28yZwIG8ziGAZleFY5KUFlwM=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1677082181;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=UnlWzOjsvHFym+8/oV1/3UC3iLCVK7y0jY+xZK0uwO0=;
- b=+iYq3uqqsPd6GGVnlW3dwzsJ+xE5eY5Ubovd2BmP6REYw8zT3dRyOH4vyI9w1IdquIHr8/
- p1q4c3hLV0VTtPBw==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 1AFBC139DB;
- Wed, 22 Feb 2023 16:09:41 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id xIOnBUU+9mNKRQAAMHmgww
- (envelope-from <tzimmermann@suse.de>); Wed, 22 Feb 2023 16:09:41 +0000
-Message-ID: <8f4a18d7-3477-5af0-605d-27098cc7e02c@suse.de>
-Date: Wed, 22 Feb 2023 17:09:40 +0100
+Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 45FC310E1DA;
+ Wed, 22 Feb 2023 17:05:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1677085523; x=1708621523;
+ h=message-id:date:mime-version:subject:to:cc:references:
+ from:in-reply-to:content-transfer-encoding;
+ bh=8hDmCGq7I1JUjuDBsU4hREcG+XK+gpxWQjZaUra9H4c=;
+ b=LFxQRo3DOdt/Zb3YttcN5O0ypEiIx7QrZtLRc6ric7asnLvGPWgwrG46
+ 3KnX1GgseDcVZk7tp1n5bnBQ9LIuJsrTWZtugh03uFWssRuRXhW+BhvPj
+ 439OjsH4CR3lwkqBzGEjKRPiOuqGBWM8ekr2c6usxC3JJ7hZmfQQYTDg5
+ v1hbBTBqUWzPUH+0wwJy2JevKUjVaUE3NFnlT5X1G315OK6UCoxmBK5oq
+ YoZxgdMvWjeoIwPFn1v72YysNZNEwDBuzgAqU+mRKiGJh6sg/hs9H0FcJ
+ F1r7wzVk4+1CwnVjOE0Pj1YatIqMTETwQbmSlaF1xvFQmqISTYfyADOiO Q==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10629"; a="316705985"
+X-IronPort-AV: E=Sophos;i="5.97,319,1669104000"; d="scan'208";a="316705985"
+Received: from orsmga008.jf.intel.com ([10.7.209.65])
+ by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 22 Feb 2023 09:04:49 -0800
+X-IronPort-AV: E=McAfee;i="6500,9779,10629"; a="702454693"
+X-IronPort-AV: E=Sophos;i="5.97,319,1669104000"; d="scan'208";a="702454693"
+Received: from hhammad-mobl1.ger.corp.intel.com (HELO [10.213.231.87])
+ ([10.213.231.87])
+ by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 22 Feb 2023 09:04:45 -0800
+Message-ID: <b8a16579-4be7-8e14-01e4-9d17c1570c8b@linux.intel.com>
+Date: Wed, 22 Feb 2023 17:04:42 +0000
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.7.2
+ Thunderbird/102.8.0
 Content-Language: en-US
-To: Tom Rix <trix@redhat.com>, robdclark@gmail.com,
- quic_abhinavk@quicinc.com, dmitry.baryshkov@linaro.org, sean@poorly.run,
- airlied@gmail.com, daniel@ffwll.ch, nathan@kernel.org,
- ndesaulniers@google.com, javierm@redhat.com
-References: <20230222155649.2001467-1-trix@redhat.com>
-From: Thomas Zimmermann <tzimmermann@suse.de>
-In-Reply-To: <20230222155649.2001467-1-trix@redhat.com>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------SQ90Z4oS8ujHiGUv24PFSrcn"
-Subject: Re: [Freedreno] [PATCH] drm/msm: return early when allocating fbdev
- fails
+To: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
+ Rob Clark <robdclark@gmail.com>, dri-devel@lists.freedesktop.org
+References: <20230218211608.1630586-1-robdclark@gmail.com>
+ <20230218211608.1630586-2-robdclark@gmail.com>
+ <b65a2fe2-6f68-2116-9599-2940e66d166b@linux.intel.com>
+ <21f36640-3229-0b46-31a2-a47efc5be934@amd.com>
+From: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
+Organization: Intel Corporation UK Plc
+In-Reply-To: <21f36640-3229-0b46-31a2-a47efc5be934@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+Subject: Re: [Freedreno] [PATCH v4 01/14] dma-buf/dma-fence: Add deadline
+ awareness
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,83 +66,111 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-arm-msm@vger.kernel.org, llvm@lists.linux.dev,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org
+Cc: Rob Clark <robdclark@chromium.org>,
+ Tvrtko Ursulin <tvrtko.ursulin@intel.com>,
+ Gustavo Padovan <gustavo@padovan.org>,
+ =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel@daenzer.net>,
+ open list <linux-kernel@vger.kernel.org>,
+ "moderated list:DMA BUFFER SHARING FRAMEWORK" <linaro-mm-sig@lists.linaro.org>,
+ Pekka Paalanen <ppaalanen@gmail.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Alex Deucher <alexander.deucher@amd.com>, freedreno@lists.freedesktop.org,
+ Sumit Semwal <sumit.semwal@linaro.org>,
+ "open list:SYNC FILE FRAMEWORK" <linux-media@vger.kernel.org>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------SQ90Z4oS8ujHiGUv24PFSrcn
-Content-Type: multipart/mixed; boundary="------------F5IVgm3PBZcllElL50P0fLmj";
- protected-headers="v1"
-From: Thomas Zimmermann <tzimmermann@suse.de>
-To: Tom Rix <trix@redhat.com>, robdclark@gmail.com,
- quic_abhinavk@quicinc.com, dmitry.baryshkov@linaro.org, sean@poorly.run,
- airlied@gmail.com, daniel@ffwll.ch, nathan@kernel.org,
- ndesaulniers@google.com, javierm@redhat.com
-Cc: linux-arm-msm@vger.kernel.org, llvm@lists.linux.dev,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org
-Message-ID: <8f4a18d7-3477-5af0-605d-27098cc7e02c@suse.de>
-Subject: Re: [PATCH] drm/msm: return early when allocating fbdev fails
-References: <20230222155649.2001467-1-trix@redhat.com>
-In-Reply-To: <20230222155649.2001467-1-trix@redhat.com>
 
---------------F5IVgm3PBZcllElL50P0fLmj
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: base64
+On 22/02/2023 15:28, Christian König wrote:
+> Am 22.02.23 um 11:23 schrieb Tvrtko Ursulin:
+>>
+>> On 18/02/2023 21:15, Rob Clark wrote:
+>>> From: Rob Clark <robdclark@chromium.org>
+>>>
+>>> Add a way to hint to the fence signaler of an upcoming deadline, such as
+>>> vblank, which the fence waiter would prefer not to miss.  This is to aid
+>>> the fence signaler in making power management decisions, like boosting
+>>> frequency as the deadline approaches and awareness of missing deadlines
+>>> so that can be factored in to the frequency scaling.
+>>>
+>>> v2: Drop dma_fence::deadline and related logic to filter duplicate
+>>>      deadlines, to avoid increasing dma_fence size.  The fence-context
+>>>      implementation will need similar logic to track deadlines of all
+>>>      the fences on the same timeline.  [ckoenig]
+>>> v3: Clarify locking wrt. set_deadline callback
+>>>
+>>> Signed-off-by: Rob Clark <robdclark@chromium.org>
+>>> Reviewed-by: Christian König <christian.koenig@amd.com>
+>>> ---
+>>>   drivers/dma-buf/dma-fence.c | 20 ++++++++++++++++++++
+>>>   include/linux/dma-fence.h   | 20 ++++++++++++++++++++
+>>>   2 files changed, 40 insertions(+)
+>>>
+>>> diff --git a/drivers/dma-buf/dma-fence.c b/drivers/dma-buf/dma-fence.c
+>>> index 0de0482cd36e..763b32627684 100644
+>>> --- a/drivers/dma-buf/dma-fence.c
+>>> +++ b/drivers/dma-buf/dma-fence.c
+>>> @@ -912,6 +912,26 @@ dma_fence_wait_any_timeout(struct dma_fence 
+>>> **fences, uint32_t count,
+>>>   }
+>>>   EXPORT_SYMBOL(dma_fence_wait_any_timeout);
+>>>   +
+>>> +/**
+>>> + * dma_fence_set_deadline - set desired fence-wait deadline
+>>> + * @fence:    the fence that is to be waited on
+>>> + * @deadline: the time by which the waiter hopes for the fence to be
+>>> + *            signaled
+>>> + *
+>>> + * Inform the fence signaler of an upcoming deadline, such as 
+>>> vblank, by
+>>> + * which point the waiter would prefer the fence to be signaled by. 
+>>> This
+>>> + * is intended to give feedback to the fence signaler to aid in power
+>>> + * management decisions, such as boosting GPU frequency if a periodic
+>>> + * vblank deadline is approaching.
+>>> + */
+>>> +void dma_fence_set_deadline(struct dma_fence *fence, ktime_t deadline)
+>>> +{
+>>> +    if (fence->ops->set_deadline && !dma_fence_is_signaled(fence))
+>>> +        fence->ops->set_deadline(fence, deadline);
+>>> +}
+>>> +EXPORT_SYMBOL(dma_fence_set_deadline);
+>>> +
+>>>   /**
+>>>    * dma_fence_describe - Dump fence describtion into seq_file
+>>>    * @fence: the 6fence to describe
+>>> diff --git a/include/linux/dma-fence.h b/include/linux/dma-fence.h
+>>> index 775cdc0b4f24..d77f6591c453 100644
+>>> --- a/include/linux/dma-fence.h
+>>> +++ b/include/linux/dma-fence.h
+>>> @@ -99,6 +99,7 @@ enum dma_fence_flag_bits {
+>>>       DMA_FENCE_FLAG_SIGNALED_BIT,
+>>>       DMA_FENCE_FLAG_TIMESTAMP_BIT,
+>>>       DMA_FENCE_FLAG_ENABLE_SIGNAL_BIT,
+>>> +    DMA_FENCE_FLAG_HAS_DEADLINE_BIT,
+>>
+>> Would this bit be better left out from core implementation, given how 
+>> the approach is the component which implements dma-fence has to track 
+>> the actual deadline and all?
+>>
+>> Also taking a step back - are we all okay with starting to expand the 
+>> relatively simple core synchronisation primitive with side channel 
+>> data like this? What would be the criteria for what side channel data 
+>> would be acceptable? Taking note the thing lives outside drivers/gpu/.
+> 
+> I had similar concerns and it took me a moment as well to understand the 
+> background why this is necessary. I essentially don't see much other 
+> approach we could do.
+> 
+> Yes, this is GPU/CRTC specific, but we somehow need a common interface 
+> for communicating it between drivers and that's the dma_fence object as 
+> far as I can see.
 
-SGkNCg0KQW0gMjIuMDIuMjMgdW0gMTY6NTYgc2NocmllYiBUb20gUml4Og0KPiBidWlsZGlu
-ZyB3aXRoIGNsYW5nIGFuZCBXPTEgcmVwb3J0cw0KPiBkcml2ZXJzL2dwdS9kcm0vbXNtL21z
-bV9mYmRldi5jOjE0NDo2OiBlcnJvcjogdmFyaWFibGUgJ2hlbHBlcicgaXMgdXNlZA0KPiAg
-ICB1bmluaXRpYWxpemVkIHdoZW5ldmVyICdpZicgY29uZGl0aW9uIGlzIHRydWUgWy1XZXJy
-b3IsLVdzb21ldGltZXMtdW5pbml0aWFsaXplZF0NCj4gICAgaWYgKCFmYmRldikNCj4gICAg
-ICAgIF5+fn5+fg0KPiANCj4gaGVscGVyIGlzIG9ubHkgaW5pdGlhbGl6ZWQgYWZ0ZXIgZmJk
-ZXYgc3VjY2VlZHMsIHNvIGlzIGluIGEgZ2FyYmFnZSBzdGF0ZSBhdA0KPiB0aGUgZmFpbDog
-bGFiZWwuICBUaGVyZSBpcyBub3RoaW5nIHRvIHVud2luZGVkIGlmIGZiZGV2IGFsbG9hY3Rp
-b24gZmFpbHMsDQo+IHJldHVybiBOVUxMLg0KPiANCj4gRml4ZXM6IDNmYjFmNjJmODBhMSAo
-ImRybS9mYi1oZWxwZXI6IFJlbW92ZSBkcm1fZmJfaGVscGVyX3VucHJlcGFyZSgpIGZyb20g
-ZHJtX2ZiX2hlbHBlcl9maW5pKCkiKQ0KPiBTaWduZWQtb2ZmLWJ5OiBUb20gUml4IDx0cml4
-QHJlZGhhdC5jb20+DQoNCkFscmVhZHkgZml4ZWQgaGVyZTogDQpodHRwczovL2xvcmUua2Vy
-bmVsLm9yZy9kcmktZGV2ZWwvMDhlMzM0MGUtYjQ1OS0wZTYwLTRiYmEtMzA3MTZiNjc1ZTA1
-QHN1c2UuZGUvVC8jdA0KDQpCZXN0IHJlZ2FyZHMNClRob21hcw0KDQo+IC0tLQ0KPiAgIGRy
-aXZlcnMvZ3B1L2RybS9tc20vbXNtX2ZiZGV2LmMgfCAyICstDQo+ICAgMSBmaWxlIGNoYW5n
-ZWQsIDEgaW5zZXJ0aW9uKCspLCAxIGRlbGV0aW9uKC0pDQo+IA0KPiBkaWZmIC0tZ2l0IGEv
-ZHJpdmVycy9ncHUvZHJtL21zbS9tc21fZmJkZXYuYyBiL2RyaXZlcnMvZ3B1L2RybS9tc20v
-bXNtX2ZiZGV2LmMNCj4gaW5kZXggYzgwNGU1YmE2ODJhLi5jMTM1NmFmZjg3ZGEgMTAwNjQ0
-DQo+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9tc20vbXNtX2ZiZGV2LmMNCj4gKysrIGIvZHJp
-dmVycy9ncHUvZHJtL21zbS9tc21fZmJkZXYuYw0KPiBAQCAtMTQyLDcgKzE0Miw3IEBAIHN0
-cnVjdCBkcm1fZmJfaGVscGVyICptc21fZmJkZXZfaW5pdChzdHJ1Y3QgZHJtX2RldmljZSAq
-ZGV2KQ0KPiAgIA0KPiAgIAlmYmRldiA9IGt6YWxsb2Moc2l6ZW9mKCpmYmRldiksIEdGUF9L
-RVJORUwpOw0KPiAgIAlpZiAoIWZiZGV2KQ0KPiAtCQlnb3RvIGZhaWw7DQo+ICsJCXJldHVy
-biBOVUxMOw0KPiAgIA0KPiAgIAloZWxwZXIgPSAmZmJkZXYtPmJhc2U7DQo+ICAgDQoNCi0t
-IA0KVGhvbWFzIFppbW1lcm1hbm4NCkdyYXBoaWNzIERyaXZlciBEZXZlbG9wZXINClNVU0Ug
-U29mdHdhcmUgU29sdXRpb25zIEdlcm1hbnkgR21iSA0KTWF4ZmVsZHN0ci4gNSwgOTA0MDkg
-TsO8cm5iZXJnLCBHZXJtYW55DQooSFJCIDM2ODA5LCBBRyBOw7xybmJlcmcpDQpHZXNjaMOk
-ZnRzZsO8aHJlcjogSXZvIFRvdGV2DQo=
+Yeah I also don't see any other easy options. Just wanted to raise this 
+as something which probably needs some wider acks.
 
---------------F5IVgm3PBZcllElL50P0fLmj--
+Also what about the "low level" part of my question about the reason, or 
+benefits, of defining the deadline bit in the common layer?
 
---------------SQ90Z4oS8ujHiGUv24PFSrcn
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
+Regards,
 
------BEGIN PGP SIGNATURE-----
-
-wsF5BAABCAAjFiEExndm/fpuMUdwYFFolh/E3EQov+AFAmP2PkQFAwAAAAAACgkQlh/E3EQov+D+
-MxAAzTy/dxFBP/tdwP5qdKJiLkKg2qI9ibBnpvteu2RH+tvtKysCWjqiuD2tl14FL28VWIEUBeJg
-d/LXLgRJpur5Ea+ZlKxpx33PRzQxGVOUzSatngJqv1SPQ5N0zBNRqz7gyJV717c01jh1RnfpnYSa
-osUP9kTsuR+dSqwWBZM7iCeUuA/3NCFS7o2eQhVkTh1BaaRV4lUNLnfYTClRwuseL1Uazu6SY9L1
-rD/GUJuU/yOyAzChBCf8ebC/9NlOon+nsaciVZifrl3NqgPYVLmKZSErCvK206bjefhlZrvSfho+
-WgPbDS63kTY82Tft9wgDyvDILzYUhNOgaCj57W2PcJlzxyHXWXycJkC8KZMyLY13PHxFG6gnOS/6
-wqf7LThkQRjhNbYMch6c0PSm9uVomgU2jwCwgG4+CBESj3/K8dsG0/Ne0Y5g77k048/EZKezvZSw
-l2jLjZSWrXuGKfWyjKvFqz/fs2oPPsBASbKqgO2buNpD8LBJWdfksflz/9xCdSODRM8SNyZW3Q5d
-eNhJq6kpBEsFywfkNnDxAiLYfp1npn2zV0cUVxNf9XsKBoNyCUx+52eEme88o4I2/XlVOV94nErW
-8yEja6NsWMw7dy4JjlqYuSELN+rFToy2qJkomeKal6esXCHjKkTqYMuW/GGpNL2ajsUgJ2XuEoQM
-8+8=
-=Gind
------END PGP SIGNATURE-----
-
---------------SQ90Z4oS8ujHiGUv24PFSrcn--
+Tvrtko
