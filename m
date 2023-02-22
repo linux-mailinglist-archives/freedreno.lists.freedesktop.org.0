@@ -1,119 +1,119 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 12D5269F2E7
-	for <lists+freedreno@lfdr.de>; Wed, 22 Feb 2023 11:46:51 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id DEB4D69F317
+	for <lists+freedreno@lfdr.de>; Wed, 22 Feb 2023 12:02:03 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 84A3410E95C;
-	Wed, 22 Feb 2023 10:46:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A5BA910E947;
+	Wed, 22 Feb 2023 11:02:02 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from NAM04-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam04on2080.outbound.protection.outlook.com [40.107.102.80])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D41CB10E959;
- Wed, 22 Feb 2023 10:46:47 +0000 (UTC)
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on2056.outbound.protection.outlook.com [40.107.93.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2481B10E1C0;
+ Wed, 22 Feb 2023 11:02:00 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=dunOBNYRO0X4roEkZSNRrfPSIYwEeBdfwnLeppYHxvKDE3sBaYoK/608R5NLzQOT0HTaaKfeAomSW90on2gb9K/P2zGzjTuZrzAgqdHnGDGXQhQiJ42IMY8BcD/Z7hxJNsgK9LOz441Plexgjd0Wpmr4L24YfmrZw22W2UidI4J21/qJ1c+4Bq+QTsHfKPgq+P8DmdIoEpZ5/CmyRwMsSVJtR951XLBmF7Ip9KwM2fpEwG2x+ffEyoPvjetGVRkweKAtHPrEGMFyc/txyiS6Bwj+7hZKGte1m8BQgXjh2earTJdUf7lyRMvzvuMlRvQNlf/xn5AoGuFJFNEebcXY8w==
+ b=hBSOf4gDDg4VEA+0v9nqivzlVuZqmm4Uj5xF5W7NjHazkHxwPTycjLZjOsRxksA429DbiB1745j7YmaJx6NDLK1U05GnLO22u2uZh3cgwAGluu+aGjGEp0aGFOeBGXBW4GFPtXTaRK9jVWUnLFPt/pCqjOAd/03oRQnIKENiY0/UtPuKL4s9RE8opi4zZ7rjYCLZToVI0/HU+X43xHWiJulSwlRmLLYMNp3/6eq+ryzWmK8shPVDVVY4mLOMp4AAHERW3IJKIzYo6ke6wXTPmFus2+eGadl22sKCa3lcwfanVwS83lU21fZ9qNY+RTs2Qth18rwXD/m2XhMyogap7A==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=IocLp5Si+wHCKSufOnqhKpMrx2BJh9lWuBD+7R/o210=;
- b=CSM//U2h/2AW7gc5kzJXB9OuE1DvYIZM/OdptA1BcspBj3CaMLr23R86sQAfs+y/nkD6xgrI+VfXE3bn5YCEayy/+an3ZIlJQGXZhdcYBQdUYXEk2hQNkCx2AysMPCGZke49u3dp131lnhRMYBxVDdtKeoFuerJEU2kFUbWGeFVhffpHrEdNXBt8Qzd6tnRBOHvwcMfa1Yqw04BkktVFUi7vugkjEgG32sgy6Dl+WW139vULqz1Rmg3b+2rwNAhXJv3l+2JZBI7IEKWNoddCKG28EQ139db7oNQjHih9dL9sNH1AudMnTicKGHVEOgENkhyUXX7uCPHwMZIPkIcMiQ==
+ bh=3jlfcYPUTSLmU+Hm+u46D5s/HQSMBjI3mN8gB8KisP0=;
+ b=EpZ72gOq8NlMG0kFb/3LL9IwDEDrxF0ikq9yTfyobCry/i87G+RhQ8YQhKfMv80ZA463VcbH/eUhFFiopXQjrXXnMWCnFJrjA/v/0xXG56KYkfAqezsKVSRZl6DLbRzoK6wYZuyiOO/Aom5qdV23CJ7lFV0erNAvRDRTSRVSzAK2t1SBRPELAxsDy+v18IYzJKqR4pGUr36JfiMrUo0vosNEe9E3y8+hDs7TBQKhxLHfrYKHr4B2MEVmzRBWHGZJx0RI5xZC4uv/s7IbIc642j9PwfyUbFBxGITKANyd3EFQVilPRpG8qI9O2rxA5fueFg6s8AXR55W7EXuyPuVqhg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=IocLp5Si+wHCKSufOnqhKpMrx2BJh9lWuBD+7R/o210=;
- b=4Mg/Mu63oX3rA25ZzqgONxgQ+SenFDlV/yrjXFghyB1LKUm3vwj+Mz6rkAAlMuoN53L5qwso6UbIS5lYAZBMmrvYuRNOavovqc/NJlX0wq4U2fScSHtlx/lqwBz7jpGoKoTn+yyRKsEzhh7K2L26Gy8LSiptfV/5dSHpp15ZeH4=
+ bh=3jlfcYPUTSLmU+Hm+u46D5s/HQSMBjI3mN8gB8KisP0=;
+ b=ek65xw3DudBOk5Mk7OB5gebDPHoNXiULKDCsrW8wP1Kf1MOaXhGrsqJZuLJC5VlMflh1c5afPGXgpYYQZwOsu1W6nFlCV0H+GVKudGh0RCYtsHF+Q+XXc0UKy2eHnHbrJP5WNJA8JFbou56UWx1jM9rx+RbNYjZUhkc72+f1Ggw=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 Received: from DM6PR12MB3370.namprd12.prod.outlook.com (2603:10b6:5:38::25) by
- DS0PR12MB7945.namprd12.prod.outlook.com (2603:10b6:8:153::19) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.6111.21; Wed, 22 Feb 2023 10:46:46 +0000
+ SJ0PR12MB7082.namprd12.prod.outlook.com (2603:10b6:a03:4ae::12) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6134.19; Wed, 22 Feb
+ 2023 11:01:58 +0000
 Received: from DM6PR12MB3370.namprd12.prod.outlook.com
  ([fe80::4df2:b32a:e628:c57e]) by DM6PR12MB3370.namprd12.prod.outlook.com
  ([fe80::4df2:b32a:e628:c57e%7]) with mapi id 15.20.6134.019; Wed, 22 Feb 2023
- 10:46:46 +0000
-Message-ID: <a4a72b25-2db3-21c4-c8c0-bb027db59d61@amd.com>
-Date: Wed, 22 Feb 2023 05:46:43 -0500
+ 11:01:58 +0000
+Message-ID: <7e158702-19fe-594d-6c94-5b5378848521@amd.com>
+Date: Wed, 22 Feb 2023 06:01:55 -0500
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.8.0
 Content-Language: en-CA
 To: Rob Clark <robdclark@gmail.com>, dri-devel@lists.freedesktop.org
 References: <20230218211608.1630586-1-robdclark@gmail.com>
- <20230218211608.1630586-12-robdclark@gmail.com>
+ <20230218211608.1630586-2-robdclark@gmail.com>
 From: Luben Tuikov <luben.tuikov@amd.com>
-In-Reply-To: <20230218211608.1630586-12-robdclark@gmail.com>
+In-Reply-To: <20230218211608.1630586-2-robdclark@gmail.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: YT3PR01CA0041.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:82::21) To DM6PR12MB3370.namprd12.prod.outlook.com
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: YT4PR01CA0139.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:d5::6) To DM6PR12MB3370.namprd12.prod.outlook.com
  (2603:10b6:5:38::25)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM6PR12MB3370:EE_|DS0PR12MB7945:EE_
-X-MS-Office365-Filtering-Correlation-Id: 9915105c-e387-4e41-8601-08db14c217ca
+X-MS-TrafficTypeDiagnostic: DM6PR12MB3370:EE_|SJ0PR12MB7082:EE_
+X-MS-Office365-Filtering-Correlation-Id: 8382c51c-1521-455a-b117-08db14c4372f
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: ZTjmXxUL0NABcOuThM7M9Yi+ilRgOHRs7YPP/bcUJhYTa+uNj1YsC5/qRA0bYDdqGdvEUBAbJcfUVO7FqJjsbbY01HKcgpsj59vOXKsqpYIjSQijnAcf+0XQzg8j/32KUA0WkJjb8FLU7IVV8NpbKszaS0d6IljUT490goG+1t7RG9nWre/Ygn3R+GWlqsMjWA14f2fqNtdoAXSHiq8S0MBRlAnXvAneXXEoTbS0FBJu67fw1FejdwLIk50iBJBbc+RYB/TOcz6vvpZ6m2k7Zm9nueEzOKBhqxUv7hsAEV7A31Nde3SKDAsfscyVetxCdJrCpIITJkP19dew2niJ9QMpqgyvlvHkB0OP2PgX27EdEtrbdu6LaUS/R7QJTc0Wcv+SBjHjVkzeLJvMrCyowxAIUkz2yxDOQkRj7MV23+v77AgxJtuh4rcsbhQEdL9L5uZqQ4Oag353XDIDP48NUV5JQbL91fCHEls8rjMUnuSPTQnTh2m1mtA4tNOmhbeCubOwoLYpOappjtFDGcp5NFgYo/MASje8rSg8yAXGC4aPMVS3//Id73LOHAXd+1VkM3Go4AKeKN5tTdxRuCHrw52D+N/VVLyg/4lVRCaL2FkdCQUHagOBzMAHiLyTMGH3VDFfbOPTQqvq0JS5BcRddt5HTMWpen1s/ox8ymBEcE0yItO5MetqAIFzMR3kYl5LvFsldJPCmmL9SwXFVuCzkdUv4/ECslVVhsW9QlwP7Qk=
+X-Microsoft-Antispam-Message-Info: WiT+SMuIZguggGauLnBVv1RAzuzHIJXcXOupMcuAJOF2NLnioQPLIbFKvOu7tlDS2xkDWEdBPWJpsv0NRZ5kgTw34qk8wkU2RPPoyRDaM1g/rS+2z1Ckr1vYTFutWj2HQfy3xSBoRT0UulFZoI8UDFLaeG0oIuVnfOCfaeFsL3aj3NosIQllrY1bMdAe0pMRmDr4+fcjIebu5ce9TlxUlf0hlI42rN1aDHMlmWP22oGq9NfAUkHLGPT5G5c+7GDN0AIEgEuyfPcXLbAnvEePnsoQklIUHZ7WbyhnqQqQlRKCgVbULE32UJyBT3Ai4FCBD1+VtJD/5rSgK1IVHMp+YvKkDPpWgM6rnC7ITW3x/I0CXt/+gPfeGrILG+J5TBKKLlLnvW/UOOlSoGVOpRydV5Heo2jkz7t4fE967MYPSO01jcSwL+xpew/t71mv9KEZjXZmA6DFcBLQ9GJ8xIunzezbigv497gJ3mKzFzSdKK0ACY1vAxs7wxEua1u+Fvf2Z8q2rvZyY3aQMzxJMD+UZo4QfNgJGUdcSJF1GHJ3e6I620Gpn1kpNxiOx0b47LRO0IWBHlUwtSvdT8oUaka35Y/dS1LKJv10fFgTTfwxJj6ux7JX3hpM2J8WDWHK6FGnsBtRxkzGQK43CJVc9gLxyMxWpgzkt8xOska9k9pFwtcRpQ7mE6lUhnielObVsrAEB3aH/vsxX+NB8Lr4JB9Ep8jmuDy/hCmr22tI9Wuicmo=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:DM6PR12MB3370.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230025)(4636009)(39860400002)(346002)(396003)(366004)(376002)(136003)(451199018)(66476007)(83380400001)(66556008)(478600001)(6512007)(186003)(53546011)(55236004)(86362001)(6666004)(6506007)(26005)(44832011)(31696002)(36756003)(316002)(66946007)(8676002)(54906003)(2616005)(6486002)(38100700002)(41300700001)(2906002)(8936002)(5660300002)(31686004)(7416002)(4326008)(45980500001)(43740500002);
+ SFS:(13230025)(4636009)(346002)(396003)(366004)(39860400002)(376002)(136003)(451199018)(31686004)(66574015)(36756003)(5660300002)(2906002)(44832011)(7416002)(83380400001)(6486002)(6506007)(6512007)(55236004)(53546011)(54906003)(31696002)(478600001)(86362001)(41300700001)(6666004)(2616005)(38100700002)(186003)(26005)(66556008)(8676002)(66476007)(316002)(4326008)(8936002)(66946007)(43740500002)(45980500001);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?aEovRFFSL0FINEZPV3F5MHBCSVdQZGhOdXRiZDIwQlNNcGlJNC8rWHpTdFhN?=
- =?utf-8?B?STdHU3ByTmMwck1SbWJDU2pSU3lwSDNvMjZjUksxajFSclpJTUFDT3dCUDdP?=
- =?utf-8?B?MUMyM1ZMS2dFYVdkeTExZXAwZnBvWUd2bi93YUVXVkExczVBMlhrd0Q3N1No?=
- =?utf-8?B?ZVNiUUNpN0RHb2JHdnhGbFNWbUZnR08rcE5yOVdjamRaTWcyVldvWWZ1VkhV?=
- =?utf-8?B?OEViQ2JVWUNudFBRd1VZZWZyazNKOG9iRHBsZjJFZXN6eHhxSnIrcVlNNitQ?=
- =?utf-8?B?U2JjMnlxcUVkeXBueFlnKy9IbXZrcU45VEZDdXhGZ3hsRCs3Y1RwU3lMU2wx?=
- =?utf-8?B?UDZBeSswYVVpb3ZwelYwZjhyeFVkN0FrbGc2ZlBObFZDWVhJUDYrMkd3MGUw?=
- =?utf-8?B?elE3c3dXRldRb1NQam5Kb3ArckNYOWFabzdsOUZrRy90V3pobVRYWGFTZDVS?=
- =?utf-8?B?NE1iZXlkeXFRakVaRWJCZzdma3d6TWFrL3BDd0ZQQXp6UXd0NHNmYzFKNVl3?=
- =?utf-8?B?MEd4czh2MXU2c051R01FbUpvRWNnUmdCcGFpaG15MDFYa3REY29vd3BjU3dN?=
- =?utf-8?B?a0Zhd3NkY1U2ZFpzVnNicExFMithMmF3QitYTW1nY0hldFJwSXRsamYrbk1L?=
- =?utf-8?B?Vm5rak1nc0lJNGJQYlRnOXdaLzE5Q1llVVd5R0xoeGpjYm42ckVkdTVGbnE1?=
- =?utf-8?B?TENmTlpmbWtMTUFUYUlWaHZKOFY0ZndqaWo5endFS1ppRk53S1JvdlVKNzJq?=
- =?utf-8?B?aEwvcGFWOFZZbFNRUHdEUFRwRlFNbEZuNy9zQ1ozQ0dpQWZ1UEluNFIwU2Zn?=
- =?utf-8?B?dER2Q3dub2xOSnFlcnhVa0hZaUxDL0xYUTk0YlRoVHV6c1ViY3cvd2QwSFJU?=
- =?utf-8?B?dGJMaUFkRWJadFlJemNPSU11NW1OVUVnWU1lQjRNVEh1RFZwTi81bXBPRzVt?=
- =?utf-8?B?eXl4aHBYU21ibkVlZnF2YkRpU3N0ejZQZzJ5N1YvZWoyN3BXNWRVQ0xGZnNo?=
- =?utf-8?B?cFVZS1E3Nkw0MENzZzhOUURFK0pieTVpdUFZRVRYaEJ5N2lpSE5JL1NqK2ND?=
- =?utf-8?B?WXdzcTJaY2d6RVo5RjZPUFkrYmtMd3phSktqckIrTTIraExVaWlSSldMelFz?=
- =?utf-8?B?MTVoQ3h1N2w4SEx6S2tpT3F3VWVBcW1kUzdrQkNrRkRkd0N6Q1Y1QUZ1OHdL?=
- =?utf-8?B?K3JwRXl1UDJRMWxFQ2MyN0FOZWVxZVZCcnpKdHhUL1IxTTVBbllhMndQa09z?=
- =?utf-8?B?Z2FHRDJNcjNwdEo4NmdFMklzOUxIMGQ2cUh0Nk9LV3NtQVNqK0ZpQ0lPZ3BO?=
- =?utf-8?B?aHRtWnhneUtJT05oN0RWeTdKSVlkZ3JwN292bmtyL3l1SGljcTJDdWlpRG1k?=
- =?utf-8?B?NHJYOXpMaFZEYlVrbS9TYzk3bWlsdUVSZC80cit5YlEydE5nZVlqdmJNSVkw?=
- =?utf-8?B?REVpdExaNGlROVF6YjNLckYrbXd3Y2dhU2ZxNE1HM2FPRmxMUFIySUdNNUJE?=
- =?utf-8?B?MmNMeTlzbzRya3BNdytqeEY5TUpMRE5YcXR0VWsxNGVsUXF0RUo1VjJYMXlh?=
- =?utf-8?B?RC9aMmJzd1RFTFZmV1lwSW9HVUZzN1QrZHkzS2o0b1FwK28yWDVmalJWYnQy?=
- =?utf-8?B?WFlHRzJGZVhSREN4Sm5QdnQvQk84cWJkZHVjVFV4Y24reEtCUmJvaCtiVURr?=
- =?utf-8?B?dTEzdzlkYWU2UlJEa203MERnQXNUanhlK2RQcFVFdUFzVVdBSTJpQWJ3OE5k?=
- =?utf-8?B?WUpubG8ya1RhTWJyUnRHZjR4elZEYTNwWnRrOW9icTBLL2xPRjBDMmk5VjRW?=
- =?utf-8?B?NnNKSDh5M3ppbTZ1OXVIeHNtTmcyblNWQ2VaOFNxQStEUzUxa0IyWm1Ha0Y1?=
- =?utf-8?B?ZUQ0LzNvZStpNldqUzd2aWpFWDdrbWxyKzJ3aktPaXN3WTVXY2ppYStacFhQ?=
- =?utf-8?B?ajdHRHR3eG90enBBRVdlRmN1dHZ6RzNqZ0tsTHpFcG4wN3NLYkJXaVJMNWxD?=
- =?utf-8?B?WWZ4dkxPd3VlVXFFU2pPUTludUFtL0JMRDZ0bFlmTDdRbDNZaDg4WUpaMU84?=
- =?utf-8?B?YjNWYzhnR2tzbWZKMVduWlBxUDdBUVVsZmk4TkxBOWMwWmJuRzg5QUd6VGMr?=
- =?utf-8?Q?zNbIjeoxec9C33FiL/EIk2Mbf?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?andCU1Jnc252dTBxd09Fc0RueGhPL2RNODhQNlIyT2dYeCs2WWxucHN0K3Fu?=
+ =?utf-8?B?ZEc2ck1XNXpMY0tvRE1leVJPQkhBblNIZC9lWHFQYVZ5OC9DSjNPdkUxOENa?=
+ =?utf-8?B?L0RlOU96Y0JEdE9saWpIdmdxN3hpM2w0M3dEYm1XTjZROE9UYTcwUExDMkRO?=
+ =?utf-8?B?cGRoNkxsaEhvUkFud2dmMTNyZXBNMkdGdzF4c1ZFc2g1YTJwUW5zRFRramFK?=
+ =?utf-8?B?SlJyOW1sKzhWcWdiN2dJV2huNjFpNlVYNUFreDZIazc3RkR3akFOSkpJeVAw?=
+ =?utf-8?B?UG9xcmx2R0x4NFd2ajBDL0I3QVQ0aWpnWUV0OGdONlEzTXR0UWYzM2Q5VElN?=
+ =?utf-8?B?UzdBamNxeXU2eStPS2dsT1dFRHl4bkV4dU5PNTcxVFp3eU1YMjJOZXJNY3ZZ?=
+ =?utf-8?B?WjhWNTR0OFhkR1Z6M0RNOHNuWk5QcjkrSFYrRUtzVU1SK1RlSFFBTm9hL1Nv?=
+ =?utf-8?B?YjgrU1BlbjZDUHdENVgxbzhCQ1NJN3NsMnpkaGU4dEhxUTlBRlUwSG1VL1JD?=
+ =?utf-8?B?R0hyTHNiamVGRDg1dUcvNWRkWnFNN056cmx2OGdGYzdhUG05cXdoN2ozUkwv?=
+ =?utf-8?B?Y2MzMUZQMmVWZW4vc3g2alNOQ1hzSHJMblo0QlhmSE1SckxiYXJaL1poUmtt?=
+ =?utf-8?B?SmNlSDJIbXBmUm5yYnBqdStjYVZUZUIrTG5WczdPUlcwcTZ0UVJnM3lzQTB1?=
+ =?utf-8?B?UWQ1RlNhRTZsTzlIMHJpUnY4YndhYUlxYkU5dzdKZEZma1dXR3I3QnRUejh0?=
+ =?utf-8?B?VG1KbkdTanE5clgrV3pLdUVndStsUC9TOGVQUWluSXFEcFhDdXhvZ0oxaGx4?=
+ =?utf-8?B?bTYrOENRWFB5Sk1RMkUydnZzcWRad2Z0a1hxYW5WZmdkWHYyNGtNYTE5WkY0?=
+ =?utf-8?B?SGI3bm55bjBBOXZabGtxWVlRWXdNNVJieUxmMVVYOVBhdmFUamZXdUQ0VGlS?=
+ =?utf-8?B?UHpnMi9oUkdrUXNHbmllMmdtU3NENnZsQjlaSFlkVGQ5eGFHeCtLMkJBRHhp?=
+ =?utf-8?B?ZXJ1TjYxWlc2RDQrSWRicFdkVUhZWFRyWGY2UmFNbWd5Vzd5WW1YV25nRlF3?=
+ =?utf-8?B?ZDZ1RmdkdVRteHZpK1FLS3JZN2dmRzhKUS9zWHZrSFpjamVmWmNzUjUzaHo4?=
+ =?utf-8?B?bmRiTWlhQkxEaEpZY0Z4ZjhPS2svS3BnU28rckNYZURTQ0VHYmFlYWNicFp4?=
+ =?utf-8?B?d281U21nOXpSWFNSVDZCOUJLTFNJbTFKdy8vR25JcGxmOWRSSUM1bzg5RWtC?=
+ =?utf-8?B?NlI2ZFg4UTZWKzdpamphWDZuTGlZNkJ3bjFsVHI5YVQvWHhIRHZuNkRLYlFG?=
+ =?utf-8?B?UUNkbnduczRGYVdad1pEWC92blNMOXZkSXJmR3BVdW5WdFBHNGxETENUWmJv?=
+ =?utf-8?B?N1VvM3kwbjVWWWRWd3NyOG9nL2J3SkQ4Q2Q5MmZTZ2ZMUnp1V2NyYlBQZW9V?=
+ =?utf-8?B?WVBUNmtxS3MvYXU4c3ZWanhsRnRMZTJQeHkwYkxseFNFSjRHeWhUQVFlRmZD?=
+ =?utf-8?B?RjlpU1ZSWHdxUDl3OWI3SmgvQ2V1Q2o1UDM5V3MwY2xzbThMdHNBb3ZmRkVJ?=
+ =?utf-8?B?REtQaGlCdWlJVFV1ZWFHNktiMVpnMlV2Z2FtUXB2NzJNTm1pd0diOXhEeHRq?=
+ =?utf-8?B?RjdJUGZqU25JQVhEOWtLQmx6ZWhUTWhvbHZJNFpWMHdpdFA2cytScVUrOXhy?=
+ =?utf-8?B?aHNPUTJsZ09jcS83UGd4ZHBlWnRlcldFdVQwNWlZdjBhUlF0RUdnNldqeHlX?=
+ =?utf-8?B?TEI0MXhOSGVTWVlOaHJybm40c0lrckdvV0h4akk4dWVyUE50aGw3VDBuQ0Fu?=
+ =?utf-8?B?SGtQM3NESDVLcy84L0ZKdG1BNEtRZWdEckdkSGQ3OXc5T3JsYmlWZmRZWVE4?=
+ =?utf-8?B?VC9MTVgxcDdtamlwZDAvbVNhN0hYRlFraVRrZWxzSmZwdVVxWk1paUQrTm1R?=
+ =?utf-8?B?RjBvdmF1cFJUdE5DK1o2RE95S0g3ckxUOTJpUmt3ZktrQ045cmdiWHRHczFt?=
+ =?utf-8?B?cFM0UngwV0pidlFhbmx2emRCQ2hGLzZYaDVoWjVIQmE3bkZTL3Z3dDM4cFkz?=
+ =?utf-8?B?aHhsNUZqd3ZVUjAxNlRSUzFxcmwxQmRmRVJZS0tGeXFzSk9WN1doYTAxeHNK?=
+ =?utf-8?Q?ad7hZ95luVnnt4XdQ/TeG2/ka?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9915105c-e387-4e41-8601-08db14c217ca
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8382c51c-1521-455a-b117-08db14c4372f
 X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB3370.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Feb 2023 10:46:46.0291 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Feb 2023 11:01:57.8824 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: /PqekLzisNGgT7TQm4A5Xg122uu+GrF0nmK7uOQvlsQCB66L70/Yy9y43ps8kwJ0
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB7945
-Subject: Re: [Freedreno] [PATCH v4 11/14] drm/atomic-helper: Set fence
- deadline for vblank
+X-MS-Exchange-CrossTenant-UserPrincipalName: jvPbPrYnOXOMX0pbPG+9VwOtueSZgrAKnJ9aPmNwGMdQ5s7+0WBRuCJ/KNNo5hbd
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB7082
+Subject: Re: [Freedreno] [PATCH v4 01/14] dma-buf/dma-fence: Add deadline
+ awareness
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -128,96 +128,128 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
 Cc: Rob Clark <robdclark@chromium.org>,
  Tvrtko Ursulin <tvrtko.ursulin@intel.com>,
- =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>,
+ Gustavo Padovan <gustavo@padovan.org>,
  =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel@daenzer.net>,
  Rodrigo Vivi <rodrigo.vivi@intel.com>,
- open list <linux-kernel@vger.kernel.org>, Pekka Paalanen <ppaalanen@gmail.com>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Daniel Vetter <daniel.vetter@ffwll.ch>,
- Alex Deucher <alexander.deucher@amd.com>, freedreno@lists.freedesktop.org
+ open list <linux-kernel@vger.kernel.org>,
+ =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
+ "moderated list:DMA BUFFER SHARING FRAMEWORK" <linaro-mm-sig@lists.linaro.org>,
+ Pekka Paalanen <ppaalanen@gmail.com>,
+ =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>,
+ Alex Deucher <alexander.deucher@amd.com>, freedreno@lists.freedesktop.org,
+ Sumit Semwal <sumit.semwal@linaro.org>,
+ "open list:SYNC FILE FRAMEWORK" <linux-media@vger.kernel.org>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 On 2023-02-18 16:15, Rob Clark wrote:
 > From: Rob Clark <robdclark@chromium.org>
 > 
-> For an atomic commit updating a single CRTC (ie. a pageflip) calculate
-> the next vblank time, and inform the fence(s) of that deadline.
+> Add a way to hint to the fence signaler of an upcoming deadline, such as
+> vblank, which the fence waiter would prefer not to miss.  This is to aid
+> the fence signaler in making power management decisions, like boosting
+> frequency as the deadline approaches and awareness of missing deadlines
+> so that can be factored in to the frequency scaling.
 > 
-> v2: Comment typo fix (danvet)
+> v2: Drop dma_fence::deadline and related logic to filter duplicate
+>     deadlines, to avoid increasing dma_fence size.  The fence-context
+>     implementation will need similar logic to track deadlines of all
+>     the fences on the same timeline.  [ckoenig]
+> v3: Clarify locking wrt. set_deadline callback
 > 
 > Signed-off-by: Rob Clark <robdclark@chromium.org>
-> Reviewed-by: Daniel Vetter <daniel.vetter@ffwll.ch>
-> Signed-off-by: Rob Clark <robdclark@chromium.org>
+> Reviewed-by: Christian König <christian.koenig@amd.com>
 > ---
->  drivers/gpu/drm/drm_atomic_helper.c | 36 +++++++++++++++++++++++++++++
->  1 file changed, 36 insertions(+)
+>  drivers/dma-buf/dma-fence.c | 20 ++++++++++++++++++++
+>  include/linux/dma-fence.h   | 20 ++++++++++++++++++++
+>  2 files changed, 40 insertions(+)
 > 
-> diff --git a/drivers/gpu/drm/drm_atomic_helper.c b/drivers/gpu/drm/drm_atomic_helper.c
-> index d579fd8f7cb8..35a4dc714920 100644
-> --- a/drivers/gpu/drm/drm_atomic_helper.c
-> +++ b/drivers/gpu/drm/drm_atomic_helper.c
-> @@ -1511,6 +1511,40 @@ void drm_atomic_helper_commit_modeset_enables(struct drm_device *dev,
+> diff --git a/drivers/dma-buf/dma-fence.c b/drivers/dma-buf/dma-fence.c
+> index 0de0482cd36e..763b32627684 100644
+> --- a/drivers/dma-buf/dma-fence.c
+> +++ b/drivers/dma-buf/dma-fence.c
+> @@ -912,6 +912,26 @@ dma_fence_wait_any_timeout(struct dma_fence **fences, uint32_t count,
 >  }
->  EXPORT_SYMBOL(drm_atomic_helper_commit_modeset_enables);
+>  EXPORT_SYMBOL(dma_fence_wait_any_timeout);
 >  
-> +/*
-> + * For atomic updates which touch just a single CRTC, calculate the time of the
-> + * next vblank, and inform all the fences of the deadline.
-> + */
-> +static void set_fence_deadline(struct drm_device *dev,
-> +			       struct drm_atomic_state *state)
-> +{
-> +	struct drm_crtc *crtc, *wait_crtc = NULL;
-> +	struct drm_crtc_state *new_crtc_state;
-> +	struct drm_plane *plane;
-> +	struct drm_plane_state *new_plane_state;
-> +	ktime_t vbltime;
-
-I've not looked at the latest language spec, but is AFAIR "vbltime"
-would be uninitialized here. Has this changed?
-
-> +	int i;
 > +
-> +	for_each_new_crtc_in_state (state, crtc, new_crtc_state, i) {
-> +		if (wait_crtc)
-> +			return;
-> +		wait_crtc = crtc;
-> +	}
-> +
-> +	/* If no CRTCs updated, then nothing to do: */
-> +	if (!wait_crtc)
-> +		return;
-> +
-> +	if (drm_crtc_next_vblank_time(wait_crtc, &vbltime))
-> +		return;
+> +/**
 
-We have a problem here in that we're adding the time remaining to the next
-vblank event to an uninitialized local variable. As per my comment on patch 10,
-I'd rather drm_crtc_next_vblank_time() yield the time remaining to the vblank event,
-and we can do the arithmetic locally here in this function.
+The added empty line above creates a problem for scripts/checkpatch.pl--and
+there's a few others here and there. It'd be a good idea to run this series
+through checkpatch.pl, if at least informatively.
+
+I wasn't able to apply patch 13 to drm-misc-next or any other known to me
+branch, and I didn't see base tree information in the cover letter. I skipped
+it and it compiled okay without it.
 -- 
 Regards,
 Luben
 
-> +
-> +	for_each_new_plane_in_state (state, plane, new_plane_state, i) {
-> +		if (!new_plane_state->fence)
-> +			continue;
-> +		dma_fence_set_deadline(new_plane_state->fence, vbltime);
-> +	}
+> + * dma_fence_set_deadline - set desired fence-wait deadline
+> + * @fence:    the fence that is to be waited on
+> + * @deadline: the time by which the waiter hopes for the fence to be
+> + *            signaled
+> + *
+> + * Inform the fence signaler of an upcoming deadline, such as vblank, by
+> + * which point the waiter would prefer the fence to be signaled by.  This
+> + * is intended to give feedback to the fence signaler to aid in power
+> + * management decisions, such as boosting GPU frequency if a periodic
+> + * vblank deadline is approaching.
+> + */
+> +void dma_fence_set_deadline(struct dma_fence *fence, ktime_t deadline)
+> +{
+> +	if (fence->ops->set_deadline && !dma_fence_is_signaled(fence))
+> +		fence->ops->set_deadline(fence, deadline);
 > +}
+> +EXPORT_SYMBOL(dma_fence_set_deadline);
 > +
 >  /**
->   * drm_atomic_helper_wait_for_fences - wait for fences stashed in plane state
->   * @dev: DRM device
-> @@ -1540,6 +1574,8 @@ int drm_atomic_helper_wait_for_fences(struct drm_device *dev,
->  	struct drm_plane_state *new_plane_state;
->  	int i, ret;
+>   * dma_fence_describe - Dump fence describtion into seq_file
+>   * @fence: the 6fence to describe
+> diff --git a/include/linux/dma-fence.h b/include/linux/dma-fence.h
+> index 775cdc0b4f24..d77f6591c453 100644
+> --- a/include/linux/dma-fence.h
+> +++ b/include/linux/dma-fence.h
+> @@ -99,6 +99,7 @@ enum dma_fence_flag_bits {
+>  	DMA_FENCE_FLAG_SIGNALED_BIT,
+>  	DMA_FENCE_FLAG_TIMESTAMP_BIT,
+>  	DMA_FENCE_FLAG_ENABLE_SIGNAL_BIT,
+> +	DMA_FENCE_FLAG_HAS_DEADLINE_BIT,
+>  	DMA_FENCE_FLAG_USER_BITS, /* must always be last member */
+>  };
 >  
-> +	set_fence_deadline(dev, state);
+> @@ -257,6 +258,23 @@ struct dma_fence_ops {
+>  	 */
+>  	void (*timeline_value_str)(struct dma_fence *fence,
+>  				   char *str, int size);
 > +
->  	for_each_new_plane_in_state(state, plane, new_plane_state, i) {
->  		if (!new_plane_state->fence)
->  			continue;
+> +	/**
+> +	 * @set_deadline:
+> +	 *
+> +	 * Callback to allow a fence waiter to inform the fence signaler of
+> +	 * an upcoming deadline, such as vblank, by which point the waiter
+> +	 * would prefer the fence to be signaled by.  This is intended to
+> +	 * give feedback to the fence signaler to aid in power management
+> +	 * decisions, such as boosting GPU frequency.
+> +	 *
+> +	 * This is called without &dma_fence.lock held, it can be called
+> +	 * multiple times and from any context.  Locking is up to the callee
+> +	 * if it has some state to manage.
+> +	 *
+> +	 * This callback is optional.
+> +	 */
+> +	void (*set_deadline)(struct dma_fence *fence, ktime_t deadline);
+>  };
+>  
+>  void dma_fence_init(struct dma_fence *fence, const struct dma_fence_ops *ops,
+> @@ -583,6 +601,8 @@ static inline signed long dma_fence_wait(struct dma_fence *fence, bool intr)
+>  	return ret < 0 ? ret : 0;
+>  }
+>  
+> +void dma_fence_set_deadline(struct dma_fence *fence, ktime_t deadline);
+> +
+>  struct dma_fence *dma_fence_get_stub(void);
+>  struct dma_fence *dma_fence_allocate_private_stub(void);
+>  u64 dma_fence_context_alloc(unsigned num);
 
