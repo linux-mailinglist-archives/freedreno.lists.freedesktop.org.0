@@ -1,64 +1,67 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 31FB269F82B
-	for <lists+freedreno@lfdr.de>; Wed, 22 Feb 2023 16:37:41 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 60DFF69F845
+	for <lists+freedreno@lfdr.de>; Wed, 22 Feb 2023 16:45:00 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DC39110EA08;
-	Wed, 22 Feb 2023 15:37:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 44E7B10EA17;
+	Wed, 22 Feb 2023 15:44:56 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-oi1-x22a.google.com (mail-oi1-x22a.google.com
- [IPv6:2607:f8b0:4864:20::22a])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BAC2410EA08;
- Wed, 22 Feb 2023 15:37:38 +0000 (UTC)
-Received: by mail-oi1-x22a.google.com with SMTP id bm20so7598074oib.7;
- Wed, 22 Feb 2023 07:37:38 -0800 (PST)
+Received: from mail-oa1-x2a.google.com (mail-oa1-x2a.google.com
+ [IPv6:2001:4860:4864:20::2a])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 662A010EA14;
+ Wed, 22 Feb 2023 15:44:54 +0000 (UTC)
+Received: by mail-oa1-x2a.google.com with SMTP id
+ 586e51a60fabf-17227cba608so7619108fac.3; 
+ Wed, 22 Feb 2023 07:44:54 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=WywXApvBffh1ctyHLIw8PG0A91F5vwxm/kGgQV9IacY=;
- b=YyGaMffCjHmeb7oKxQ/AjwDRPC3vooJ1hX7KULsqIMrny4Y/ywlqW1K1z0JtQh3GwC
- 97s0FyywTYTm4lkIxOzjKPqpDpYyNJVdABy708UFF+Tq8xpFeevUCxrlwK9gKxtxTYnj
- ml/GZk+0PSjXV+nZcQ+EqeFZf3t2YwrK8ukjJM3QWmnbl0HLn4J6p9bNSGDJBk2i+Kni
- gsM4bVRXRo8uxZ+6jnt9VZrPN60sdmAoiWAMsXCdSi+jGbyOlDwwPoz0hoWG9RWWDq2o
- rPyhTFvUxgJSOd8LYXiIZnxR4ESA7m34m4+L6jWECPNtD4n+2myWFHygI9HBbNCxbkYM
- 32gA==
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=bw/o2d2K7rGx8jIRXoMyh485ogBh3CzQ8lHjHQHgP88=;
+ b=nVtplwpYOrpmv5auHphbThsB5vUI0Ms3ZskUvJ5lbu1bIFUs5qUoFjhQTperidUve1
+ qkG6ep1wQh8TVXb6pD0amaDuhJtZV/bE1KauKv3c47O547/gyeePedUjF+vp26chdjCU
+ 40vUbKDpkkxBVku3mGZcuuj77kzSFMsYuj/rnCgUut7CtyVk4XMq/mOZ9dDrRYQlMGjM
+ E+kybYipPTshCzloe6tzbxCsSb5pTldvUwqfmvbRDYOt9UqDlBZrtMtHZeJTt+YU/B7O
+ nL38eEKt3L5d3z31wWvYYd8UiXeHUDPmEXyNirUrk3n25ZPBqsIzVNk5FhfpQ5e2homG
+ mGOw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=WywXApvBffh1ctyHLIw8PG0A91F5vwxm/kGgQV9IacY=;
- b=uKQWYsW8u3W4K8SWxnl7JjUG1DAG/s4qqbuwbu6dlwaqerwBKhPjYDNR41boV0Gg1z
- mEXcH75D7pofi2ELJDzjnrHoIJTV4FvxUmN7jeva8Hg+3bLxL10Bfi0tWtktZwVKLwyW
- DslrjYWrYaCoa3hRMV376oDekSJwcFecq/WzQbvAIN9tLJsDaY+Xt3FdUDQ3ZW5to2zQ
- tmWS+AOnTsU6U1EpvYVblFNgy3zcHKIWnS74gQqwzENmKKaDMsxMf+GtshxEkvORjwZa
- gz3YUExNOnUBSxZxA0OMbir3Jk8VYtuwroiqdgmPpf0nrKKBAjnKMvWlGNxxhnqh2yc7
- E+9A==
-X-Gm-Message-State: AO0yUKVuor+S8uWYVl5wx2tiEIfNifz5Qwz6Jpk6ffopAqX/q/CsXOC3
- qFP3YRqZwvMs9jRG79bFOi3VkU/sYLX46B110Nk=
-X-Google-Smtp-Source: AK7set+ghT43kUTQU5CnG5qlnodVTbwtuuqgXrxj3sUQu1yp05OKsNhdEtnaHeVnQZ1YffZWQpnePgdKuPg3/NzktWY=
-X-Received: by 2002:a05:6808:16ab:b0:37d:81a9:5103 with SMTP id
- bb43-20020a05680816ab00b0037d81a95103mr1413444oib.38.1677080257694; Wed, 22
- Feb 2023 07:37:37 -0800 (PST)
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=bw/o2d2K7rGx8jIRXoMyh485ogBh3CzQ8lHjHQHgP88=;
+ b=XmhFVhezCEiM08FbdzrBZEIzeGJ6ERV3pHkl1OIFfcgXdWaUKntqCvgyZJE/sklPZ6
+ Q3ybQFuPTw1LPc8ZR/pT+4pALiTX1AXTxLiL8oYxK3NjVkJ4b2zPj5XbSJYp/cAYumUq
+ Tb+habj0Xafbl2q6snQuJ2ST4+mVV3HwVqlrP7sBxghX+UaoxGoeaEYIEXnr4xq65cHh
+ 6MZs4p4mhl5mh6tlJwG41vipGLW0maHLGiV+8qAamcPddf5bvd5IcKVogzXfDUNw2WoH
+ c4DL3ygOC773ZuSGHmuZoSVgvJTu/REPiU1E19S/iczvYRMbZ1zwB3elVkxNvbnFIh3Q
+ prhg==
+X-Gm-Message-State: AO0yUKWKgCc4GJjtlALUxUL69yG1mQOomGGdXEDIQ8QsUg/w5u/1wo9d
+ KO07kEIbBGhrzmUvgHFbeHcgIe4qfqPsVVIZxhI=
+X-Google-Smtp-Source: AK7set8HctSnN91X1d+M6rIyfQjt2yhgJ7jTxiClAmw/r44291CstgYZiuPPwA1K5zp2sg+pYAvmX8Bhb4Hlrw+N0Qg=
+X-Received: by 2002:a05:6870:808d:b0:16e:8a56:d0d2 with SMTP id
+ q13-20020a056870808d00b0016e8a56d0d2mr1362645oab.38.1677080693513; Wed, 22
+ Feb 2023 07:44:53 -0800 (PST)
 MIME-Version: 1.0
 References: <20230218211608.1630586-1-robdclark@gmail.com>
- <20230218211608.1630586-7-robdclark@gmail.com>
- <20230220105345.70e46fa5@eldfell>
- <CAF6AEGv9fLQCD65ytRTGp=EkNB1QoZYH5ArphgGQALV9J08Cmw@mail.gmail.com>
- <cdd5f892-49b9-1e22-4dc1-95a8a733c453@amd.com>
- <CAF6AEGuMn3FywPkEtfJ7oZ16A0Bk2aiaRvj4si4od1d3wzXkPw@mail.gmail.com>
- <20230222114900.1b6baf95@eldfell>
-In-Reply-To: <20230222114900.1b6baf95@eldfell>
+ <20230218211608.1630586-11-robdclark@gmail.com>
+ <20230220110820.595cfa37@eldfell>
+ <CAF6AEGuo-vmW4Va9=RH+kH9KgNvR2vzjJ8meO-oty56xjDhjgg@mail.gmail.com>
+ <20230221104551.60d44d1c@eldfell> <Y/TAr64SpxO712RB@intel.com>
+ <CAF6AEGumfEeGQQaEoEm4hzJajCOBBTrWxPQ9MTh7jt-Mov2FEQ@mail.gmail.com>
+ <20230222115700.138d824c@eldfell>
+In-Reply-To: <20230222115700.138d824c@eldfell>
 From: Rob Clark <robdclark@gmail.com>
-Date: Wed, 22 Feb 2023 07:37:26 -0800
-Message-ID: <CAF6AEGs1_75gg+LCBj6=PH8Jn60PXiE+Kx_2636nP-+pajN8Hg@mail.gmail.com>
+Date: Wed, 22 Feb 2023 07:44:42 -0800
+Message-ID: <CAF6AEGuK0_GtgXS7REAN=u4YZ7x11FrAxVW4iQcqV7bJdJFv6g@mail.gmail.com>
 To: Pekka Paalanen <ppaalanen@gmail.com>
 Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [PATCH v4 06/14] dma-buf/sync_file: Support
- (E)POLLPRI
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [Freedreno] [PATCH v4 10/14] drm/vblank: Add helper to get next
+ vblank time
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,110 +76,113 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
 Cc: Rob Clark <robdclark@chromium.org>,
  Tvrtko Ursulin <tvrtko.ursulin@intel.com>,
- Gustavo Padovan <gustavo@padovan.org>,
- =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel@daenzer.net>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- open list <linux-kernel@vger.kernel.org>, dri-devel@lists.freedesktop.org,
- Sumit Semwal <sumit.semwal@linaro.org>,
- "moderated list:DMA BUFFER SHARING FRAMEWORK" <linaro-mm-sig@lists.linaro.org>,
- Luben Tuikov <luben.tuikov@amd.com>,
  =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>,
+ =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel@daenzer.net>,
+ open list <linux-kernel@vger.kernel.org>, dri-devel@lists.freedesktop.org,
+ Thomas Zimmermann <tzimmermann@suse.de>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
  Alex Deucher <alexander.deucher@amd.com>, freedreno@lists.freedesktop.org,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- "open list:SYNC FILE FRAMEWORK" <linux-media@vger.kernel.org>
+ =?UTF-8?B?VmlsbGUgU3lyasOkbMOk?= <ville.syrjala@linux.intel.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Wed, Feb 22, 2023 at 1:49 AM Pekka Paalanen <ppaalanen@gmail.com> wrote:
+On Wed, Feb 22, 2023 at 1:57 AM Pekka Paalanen <ppaalanen@gmail.com> wrote:
 >
-> On Tue, 21 Feb 2023 09:53:56 -0800
+> On Tue, 21 Feb 2023 09:50:20 -0800
 > Rob Clark <robdclark@gmail.com> wrote:
 >
-> > On Tue, Feb 21, 2023 at 8:48 AM Luben Tuikov <luben.tuikov@amd.com> wrote:
+> > On Tue, Feb 21, 2023 at 5:01 AM Ville Syrj=C3=A4l=C3=A4
+> > <ville.syrjala@linux.intel.com> wrote:
 > > >
-> > > On 2023-02-20 11:14, Rob Clark wrote:
-> > > > On Mon, Feb 20, 2023 at 12:53 AM Pekka Paalanen <ppaalanen@gmail.com> wrote:
-> > > >>
-> > > >> On Sat, 18 Feb 2023 13:15:49 -0800
-> > > >> Rob Clark <robdclark@gmail.com> wrote:
-> > > >>
-> > > >>> From: Rob Clark <robdclark@chromium.org>
-> > > >>>
-> > > >>> Allow userspace to use the EPOLLPRI/POLLPRI flag to indicate an urgent
-> > > >>> wait (as opposed to a "housekeeping" wait to know when to cleanup after
-> > > >>> some work has completed).  Usermode components of GPU driver stacks
-> > > >>> often poll() on fence fd's to know when it is safe to do things like
-> > > >>> free or reuse a buffer, but they can also poll() on a fence fd when
-> > > >>> waiting to read back results from the GPU.  The EPOLLPRI/POLLPRI flag
-> > > >>> lets the kernel differentiate these two cases.
-> > > >>>
-> > > >>> Signed-off-by: Rob Clark <robdclark@chromium.org>
-> > > >>
-> > > >> Hi,
-> > > >>
-> > > >> where would the UAPI documentation of this go?
-> > > >> It seems to be missing.
+> > > On Tue, Feb 21, 2023 at 10:45:51AM +0200, Pekka Paalanen wrote:
+> > > > On Mon, 20 Feb 2023 07:55:41 -0800
+> > > > Rob Clark <robdclark@gmail.com> wrote:
 > > > >
-> > > > Good question, I am not sure.  The poll() man page has a description,
-> > > > but my usage doesn't fit that _exactly_ (but OTOH the description is a
-> > > > bit vague).
+> > > > > On Mon, Feb 20, 2023 at 1:08 AM Pekka Paalanen <ppaalanen@gmail.c=
+om> wrote:
+> > > > > >
+> > > > > > On Sat, 18 Feb 2023 13:15:53 -0800
+> > > > > > Rob Clark <robdclark@gmail.com> wrote:
+> > > > > >
+> > > > > > > From: Rob Clark <robdclark@chromium.org>
+> > > > > > >
+> > > > > > > Will be used in the next commit to set a deadline on fences t=
+hat an
+> > > > > > > atomic update is waiting on.
+> > > > > > >
+> > > > > > > Signed-off-by: Rob Clark <robdclark@chromium.org>
+> > > > > > > ---
+> > > > > > >  drivers/gpu/drm/drm_vblank.c | 32 ++++++++++++++++++++++++++=
+++++++
+> > > > > > >  include/drm/drm_vblank.h     |  1 +
+> > > > > > >  2 files changed, 33 insertions(+)
+> > > > > > >
+> > > > > > > diff --git a/drivers/gpu/drm/drm_vblank.c b/drivers/gpu/drm/d=
+rm_vblank.c
+> > > > > > > index 2ff31717a3de..caf25ebb34c5 100644
+> > > > > > > --- a/drivers/gpu/drm/drm_vblank.c
+> > > > > > > +++ b/drivers/gpu/drm/drm_vblank.c
+> > > > > > > @@ -980,6 +980,38 @@ u64 drm_crtc_vblank_count_and_time(struc=
+t drm_crtc *crtc,
+> > > > > > >  }
+> > > > > > >  EXPORT_SYMBOL(drm_crtc_vblank_count_and_time);
+> > > > > > >
+> > > > > > > +/**
+> > > > > > > + * drm_crtc_next_vblank_time - calculate the time of the nex=
+t vblank
+> > > > > > > + * @crtc: the crtc for which to calculate next vblank time
+> > > > > > > + * @vblanktime: pointer to time to receive the next vblank t=
+imestamp.
+> > > > > > > + *
+> > > > > > > + * Calculate the expected time of the next vblank based on t=
+ime of previous
+> > > > > > > + * vblank and frame duration
+> > > > > >
+> > > > > > Hi,
+> > > > > >
+> > > > > > for VRR this targets the highest frame rate possible for the cu=
+rrent
+> > > > > > VRR mode, right?
+> > > > > >
+> > > > >
+> > > > > It is based on vblank->framedur_ns which is in turn based on
+> > > > > mode->crtc_clock.  Presumably for VRR that ends up being a maximu=
+m?
 > > > >
-> > > >> If a Wayland compositor is polling application fences to know which
-> > > >> client buffer to use in its rendering, should the compositor poll with
-> > > >> PRI or not? If a compositor polls with PRI, then all fences from all
-> > > >> applications would always be PRI. Would that be harmful somehow or
-> > > >> would it be beneficial?
-> > > >
-> > > > I think a compositor would rather use the deadline ioctl and then poll
-> > > > without PRI.  Otherwise you are giving an urgency signal to the fence
-> > > > signaller which might not necessarily be needed.
-> > > >
-> > > > The places where I expect PRI to be useful is more in mesa (things
-> > > > like glFinish(), readpix, and other similar sorts of blocking APIs)
-> > > Hi,
+> > > > I don't know. :-)
 > > >
-> > > Hmm, but then user-space could do the opposite, namely, submit work as usual--never
-> > > using the SET_DEADLINE ioctl, and then at the end, poll using (E)POLLPRI. That seems
-> > > like a possible usage pattern, unintended--maybe, but possible. Do we want to discourage
-> > > this? Wouldn't SET_DEADLINE be enough? I mean, one can call SET_DEADLINE with the current
-> > > time, and then wouldn't that be equivalent to (E)POLLPRI?
+> > > At least for i915 this will give you the maximum frame
+> > > duration.
 > >
-> > Yeah, (E)POLLPRI isn't strictly needed if we have SET_DEADLINE.  It is
-> > slightly more convenient if you want an immediate deadline (single
-> > syscall instead of two), but not strictly needed.  OTOH it piggy-backs
-> > on existing UABI.
+> > I suppose one could argue that maximum frame duration is the actual
+> > deadline.  Anything less is just moar fps, but not going to involve
+> > stalling until vblank N+1, AFAIU
+> >
+> > > Also this does not calculate the the start of vblank, it
+> > > calculates the start of active video.
+> >
+> > Probably something like end of previous frame's video..  might not be
+> > _exactly_ correct (because some buffering involved), but OTOH on the
+> > GPU side, I expect the driver to set a timer for a few ms or so before
+> > the deadline.  So there is some wiggle room.
 >
-> In that case, I would be conservative, and not add the POLLPRI
-> semantics. An UAPI addition that is not strictly needed and somewhat
-> unclear if it violates any design principles is best not done, until it
-> is proven to be beneficial.
+> The vblank timestamp is defined to be the time of the first active
+> pixel of the frame in the video signal. At least that's the one that
+> UAPI carries (when not tearing?). It is not the start of vblank period.
 >
-> Besides, a Wayland compositor does not necessary need to add the fd
-> to its main event loop for poll. It could just SET_DEADLINE, and then
-> when it renders simply check if the fence passed or not already. Not
-> polling means the compositor does not need to wake up at the moment the
-> fence signals to just record a flag.
+> With VRR, the front porch before the first active pixel can be multiple
+> milliseconds. The difference between 144 Hz and 60 Hz is 9.7 ms for
+> example.
 
-poll(POLLPRI) isn't intended for wayland.. but is a thing I want in
-mesa for fence waits.  I _could_ use SET_DEADLINE but it is two
-syscalls and correspondingly more code ;-)
+What we really want is the deadline for the hw to latch for the next
+frame.. which as Ville pointed out is definitely before the end of
+vblank.
 
-> On another matter, if the application uses SET_DEADLINE with one
-> timestamp, and the compositor uses SET_DEADLINE on the same thing with
-> another timestamp, what should happen?
-
-The expectation is that many deadline hints can be set on a fence.
-The fence signaller should track the soonest deadline.
+Honestly this sort of feature is a lot more critical for the non-VRR
+case, and VRR is kind of a minority edge case.  So I'd prefer not to
+get too hung up on VRR.  If there is an easy way for the helpers to
+detect VRR, I'd be perfectly fine not setting a deadline hint in that
+case, and let someone who actually has a VRR display figure out how to
+handle that case.
 
 BR,
 -R
-
-> Maybe it's a soft-realtime app whose primary goal is not display, and
-> it needs the result faster than the window server?
->
-> Maybe SET_DEADLINE should set the deadline only to an earlier timestamp
-> and never later?
->
->
-> Thanks,
-> pq
