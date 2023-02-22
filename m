@@ -1,48 +1,56 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1B98269F32B
-	for <lists+freedreno@lfdr.de>; Wed, 22 Feb 2023 12:07:22 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id B81A969F4B0
+	for <lists+freedreno@lfdr.de>; Wed, 22 Feb 2023 13:37:22 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6A66010E957;
-	Wed, 22 Feb 2023 11:07:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A7BE010E947;
+	Wed, 22 Feb 2023 12:37:20 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9B83F10E966;
- Wed, 22 Feb 2023 11:07:18 +0000 (UTC)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [IPv6:2001:67c:2178:6::1c])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8789410E046;
+ Wed, 22 Feb 2023 12:37:17 +0000 (UTC)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 291B5B81255;
- Wed, 22 Feb 2023 11:07:17 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D02FCC433EF;
- Wed, 22 Feb 2023 11:07:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1677064035;
- bh=oZHLA46He2E+VEbx9itbSiq8b9yG0Xgq+VlZAUqHQcY=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=WkiW31Ku65nZoH48qJNj1nOJr2MoA0z0i/i5NacKyY3sMbBqGsm/OP4TQIXgAoayc
- yM8uobz0yceKK1CR7krw2f1xMTk9sdW9RUs1TBBKxhO+U4gZzEzpxDAGCMhNIa8tlL
- I8FApKP1nIUJ9DClJx4PU00BvkuAf0kb79qDruB59DsE49T6kzV7Er6sAi/XLQU97g
- 1nqeCSo5bfpwuenk6Fa+zCazFnCSjKAO7FS60EM2CZ8O9Yj/4LJ4SAe9k301Sr+r+k
- S94iiBBpk0pF4yT59lpxB+j2TCs/7cfLyY8Apw4FzwkbtZAnT2S1Xl15U1sIqVlL8S
- wi3wDFlgqAruA==
-Received: from johan by xi.lan with local (Exim 4.94.2)
- (envelope-from <johan@kernel.org>)
- id 1pUmy0-0005ep-9J; Wed, 22 Feb 2023 12:07:21 +0100
-Date: Wed, 22 Feb 2023 12:07:20 +0100
-From: Johan Hovold <johan@kernel.org>
-To: Rob Clark <robdclark@gmail.com>
-Message-ID: <Y/X3aKO2qJqpvcv+@hovoldconsulting.com>
-References: <20230203181245.3523937-1-quic_bjorande@quicinc.com>
- <CAF6AEGuJtiSrLqdZdEf=bz-R0jTg=ayR6OwutBgu5d1dBQUD_Q@mail.gmail.com>
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 4769D33C4B;
+ Wed, 22 Feb 2023 12:37:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1677069436; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=SqdJQF9PvSFcHv+I542kYNSFxmtqtO/Dx9JuOTfyIyA=;
+ b=Jg41V/kJXgZXGJbTkn6pudKJkxW7vABqFp+UFWA26n/veR+2nyZ9MMnbVlIHDI26FuMPOr
+ Ymuo1NH9k1sV5Lb2PcDrGa5VdS/cs/aCrmqngyu57L0lOgEEthjRD3kOM3BMz9pix4rHCr
+ sePVmImmhmUrfmBSBpm0QvPd30mqzGA=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1677069436;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=SqdJQF9PvSFcHv+I542kYNSFxmtqtO/Dx9JuOTfyIyA=;
+ b=3+FyF+Pq27THe+g2YFZ9TAgDQW4e9jbfK28bkWUVAXs03LuHU/lnt7avOS8yNVrV2wKbPK
+ o9VeUNXjaEcF69CA==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 199FF133E0;
+ Wed, 22 Feb 2023 12:37:16 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id hEBTBXwM9mP9SQAAMHmgww
+ (envelope-from <tzimmermann@suse.de>); Wed, 22 Feb 2023 12:37:16 +0000
+From: Thomas Zimmermann <tzimmermann@suse.de>
+To: javierm@redhat.com, robdclark@gmail.com, quic_abhinavk@quicinc.com,
+ dmitry.baryshkov@linaro.org
+Date: Wed, 22 Feb 2023 13:37:12 +0100
+Message-Id: <20230222123712.5049-1-tzimmermann@suse.de>
+X-Mailer: git-send-email 2.39.2
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CAF6AEGuJtiSrLqdZdEf=bz-R0jTg=ayR6OwutBgu5d1dBQUD_Q@mail.gmail.com>
-Subject: Re: [Freedreno] [RFC] drm/msm/adreno: Balance pm_runtime enable
+Content-Transfer-Encoding: 8bit
+Subject: [Freedreno] [PATCH] drm/msm: Fix possible uninitialized access in
+ fbdev
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,42 +63,43 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org,
- Bjorn Andersson <quic_bjorande@quicinc.com>,
- Akhil P Oommen <quic_akhilpo@quicinc.com>, David Airlie <airlied@gmail.com>,
- Konrad Dybcio <konrad.dybcio@somainline.org>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Daniel Vetter <daniel@ffwll.ch>,
- linux-arm-msm@vger.kernel.org, Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Sean Paul <sean@poorly.run>
+Cc: linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
+ Thomas Zimmermann <tzimmermann@suse.de>, dri-devel@lists.freedesktop.org,
+ kernel test robot <lkp@intel.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Fri, Feb 10, 2023 at 08:10:00AM -0800, Rob Clark wrote:
-> On Fri, Feb 3, 2023 at 10:12 AM Bjorn Andersson
-> <quic_bjorande@quicinc.com> wrote:
-> >
-> > When any of the components in the mdss hierarchy fails to bind,
-> > previously bound components are being unbound again.
-> >
-> > One such case happens when the DP controller fails to find its bridge or
-> > panel, where adreno_unbind() will be invoked without adreno_load_gpu()
-> > being called to invoke pm_runtime_enable().
-> >
-> > The result is that once everything is bound the pm_runtime_get_sync()
-> > call find the power-domain to have a positive disable_depth, fails
-> > with -EACCESS and prevents the GPU device to be powered up.
-> >
-> > Move the pm_runtime_enable() to adreno_bind(), in order to balance it
-> > with any calls to adreno_unbind().
-> 
-> I think instead we want to move where the pm_runtime_disable() is..
-> since pm_runtime_enable() was moved because we can't actually enable
-> runpm until we have GMU firmware
+Do not run drm_fb_helper_unprepare() if fbdev allocation fails. Avoids
+access to an uninitialized pointer. Original bug report is at [1].
 
-Here's a fix for this issue which does not move pm_runtime_enable() from
-first open():
+Reported-by: kernel test robot <lkp@intel.com>
+Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+Fixes: 3fb1f62f80a1 ("drm/fb-helper: Remove drm_fb_helper_unprepare() from drm_fb_helper_fini()")
+Link: https://lore.kernel.org/oe-kbuild-all/202302220810.9dymwCQ8-lkp@intel.com/ # 1
+---
+ drivers/gpu/drm/msm/msm_fbdev.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-	https://lore.kernel.org/lkml/20230221101430.14546-1-johan+linaro@kernel.org/
+diff --git a/drivers/gpu/drm/msm/msm_fbdev.c b/drivers/gpu/drm/msm/msm_fbdev.c
+index c804e5ba682a..d26aa52217ce 100644
+--- a/drivers/gpu/drm/msm/msm_fbdev.c
++++ b/drivers/gpu/drm/msm/msm_fbdev.c
+@@ -136,13 +136,13 @@ static const struct drm_fb_helper_funcs msm_fb_helper_funcs = {
+ struct drm_fb_helper *msm_fbdev_init(struct drm_device *dev)
+ {
+ 	struct msm_drm_private *priv = dev->dev_private;
+-	struct msm_fbdev *fbdev = NULL;
++	struct msm_fbdev *fbdev;
+ 	struct drm_fb_helper *helper;
+ 	int ret;
+ 
+ 	fbdev = kzalloc(sizeof(*fbdev), GFP_KERNEL);
+ 	if (!fbdev)
+-		goto fail;
++		return NULL;
+ 
+ 	helper = &fbdev->base;
+ 
+-- 
+2.39.2
 
-Johan
