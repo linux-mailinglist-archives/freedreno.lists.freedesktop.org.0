@@ -1,75 +1,60 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id D5DD26A0B4D
-	for <lists+freedreno@lfdr.de>; Thu, 23 Feb 2023 14:57:28 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 3B0316A0C11
+	for <lists+freedreno@lfdr.de>; Thu, 23 Feb 2023 15:44:04 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A64C110E4C7;
-	Thu, 23 Feb 2023 13:57:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F32A510E506;
+	Thu, 23 Feb 2023 14:44:02 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1B46810E4F7;
- Thu, 23 Feb 2023 13:57:26 +0000 (UTC)
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 31NB4KSM007205; Thu, 23 Feb 2023 13:57:20 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
- h=from : to : cc :
- subject : date : message-id : in-reply-to : references : mime-version :
- content-transfer-encoding : content-type; s=qcppdkim1;
- bh=7Cind5gyNxMy1Iej3zlc/j/6yrfUHAadhIOvgUWmRCI=;
- b=VYB0L1ZlutRnBHM/C7DdBlLIEHI3IkxkwG6AKxUufGnBa3bDfBJVgRjc1IbfCHKDqeaz
- ka6ITBRHBsBxpXDnNs7Rsho2uLjA64t3719WnD8Ti98TYIzrtDkGi1SUnpVrbt6gvhM3
- i5dRAQkYUgJYmP3tvnvyq+B1+QgeroEFP6o0aJwCNAHn76qK2NYH5qgZ/i4iKhDhGNH3
- BWGQ0JG49tIeNXmVOWqL3ADa1XHOT6+ayLJ3hDFD4RiS8XzQtjhTU6wykzEODLgahcqR
- PeEyh+gvZdPyvryuUPOKlN1gCkkjz7IqUUztzIIAjJwl63D/q2LJ3AywQzxGYhicQahm GA== 
-Received: from nalasppmta03.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3nwy9a1hk7-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 23 Feb 2023 13:57:20 +0000
-Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
- [10.47.209.196])
- by NALASPPMTA03.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 31NDvJN8006404
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 23 Feb 2023 13:57:19 GMT
-Received: from sbillaka-linux.qualcomm.com (10.80.80.8) by
- nalasex01a.na.qualcomm.com (10.47.209.196) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.986.41; Thu, 23 Feb 2023 05:57:13 -0800
-From: Sankeerth Billakanti <quic_sbillaka@quicinc.com>
-To: <dri-devel@lists.freedesktop.org>, <linux-arm-msm@vger.kernel.org>,
- <freedreno@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>
-Date: Thu, 23 Feb 2023 19:26:35 +0530
-Message-ID: <20230223135635.30659-3-quic_sbillaka@quicinc.com>
-X-Mailer: git-send-email 2.39.0
-In-Reply-To: <20230223135635.30659-1-quic_sbillaka@quicinc.com>
-References: <20230223135635.30659-1-quic_sbillaka@quicinc.com>
+Received: from mail-yw1-x1136.google.com (mail-yw1-x1136.google.com
+ [IPv6:2607:f8b0:4864:20::1136])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 500F510E506
+ for <freedreno@lists.freedesktop.org>; Thu, 23 Feb 2023 14:44:01 +0000 (UTC)
+Received: by mail-yw1-x1136.google.com with SMTP id
+ 00721157ae682-536c02eea4dso187577917b3.4
+ for <freedreno@lists.freedesktop.org>; Thu, 23 Feb 2023 06:44:01 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=J/sBV+h1ZZvgBmdh6JHeKYkMRdTQWncyMylaoJIbzas=;
+ b=HvW6IeDHSN1NGL3KNmAKobVCkP9ho7Ht0SSCadvCdBvVVuJDwSQXG39AafDhj+a10t
+ 8dgAVvO7GTmD2ljPa/9xqprqHfUxzr8XX0xOLchcFxmX4xRsFH6Mne7iqNVtUyRpGxIc
+ 9fTNphrWmrxqXzGaKBTf2qMw3sMgV2oXYJtJxp93XlRYhgY/wtWB5bH9qVXhga/V7Rp0
+ I8N8ZEMiD8dbyQStKP+GwB291xDxEimG7dNUX50eXbyRyu8KLrQH+CM8e/ffWVUm4E9j
+ MxZ2oqvBgw89xx4vLzcbvUq5e9riKZCS+Vz/3AKpVbMFYDMKjsV3VsQIFkl39vlPEjGS
+ hOHw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=J/sBV+h1ZZvgBmdh6JHeKYkMRdTQWncyMylaoJIbzas=;
+ b=O5MWyOi2JRNQMPhb8xshl4jTeQofjicgHxjpHJ1n78be71M6pRMq8mZ3BTFhuYn+km
+ gWbsNEIorM088wY9j3EmzXo4eCflCjf7EOh7qqXS0ShV4MTfFzIymejBA6h/8D3Xlq4Q
+ 17+NJxTecFeNBxI1ZOqUyf0l3dK/MuIiaP6Xg3ryslrfJ7SJcCrdq/wGQrAsyEAiPuX0
+ ajM/g415IaXYFkbxeRuIaaPuWVJZVtFbMvvx/hQLWlkaorlc7UCOdB+OVRFpZLgibqfi
+ gc2q7wCfR3oaoDlVB0kKK4mEhAJKZU3vknKHOxejUw7C6lq0WkT7vrBdQV8YReqlOpxM
+ 1/vA==
+X-Gm-Message-State: AO0yUKUnEkVl93tSBCFFDjTG+/MfxyGDI5lHMALCnVB0hinj010dGbmQ
+ eYSeynDhgqoqFeEtLJhvYGl6jVUiC+qxNx5taSpMGQ==
+X-Google-Smtp-Source: AK7set83ljNH/eisAJHvZkpMcqzeq3GqC+kRYbk6hiv3pAL7kV8MYGW0K4cTumbrjp4STujcKOD5Or2B2g5M+f2b3yQ=
+X-Received: by 2002:a25:908e:0:b0:87a:957b:fd67 with SMTP id
+ t14-20020a25908e000000b0087a957bfd67mr2148272ybl.10.1677163440372; Thu, 23
+ Feb 2023 06:44:00 -0800 (PST)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-GUID: uYl-q6b2X_QfpoFRZts9uS-iQV8Aeoge
-X-Proofpoint-ORIG-GUID: uYl-q6b2X_QfpoFRZts9uS-iQV8Aeoge
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.219,Aquarius:18.0.930,Hydra:6.0.562,FMLib:17.11.170.22
- definitions=2023-02-23_08,2023-02-23_01,2023-02-09_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 clxscore=1015
- malwarescore=0 spamscore=0 priorityscore=1501 impostorscore=0
- lowpriorityscore=0 adultscore=0 phishscore=0 mlxscore=0 mlxlogscore=999
- suspectscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2212070000 definitions=main-2302230114
-Subject: [Freedreno] [RFC PATCH 2/2] drm/msm/dp: enable pm_runtime support
- for dp driver
+References: <20230223-topic-gmuwrapper-v3-0-5be55a336819@linaro.org>
+ <20230223-topic-gmuwrapper-v3-5-5be55a336819@linaro.org>
+In-Reply-To: <20230223-topic-gmuwrapper-v3-5-5be55a336819@linaro.org>
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Date: Thu, 23 Feb 2023 16:43:49 +0200
+Message-ID: <CAA8EJpptwvxahDL34HCo59Lh9nNjFwiyhru-jYmVHJOLQ7yC7g@mail.gmail.com>
+To: Konrad Dybcio <konrad.dybcio@linaro.org>
+Content-Type: text/plain; charset="UTF-8"
+Subject: Re: [Freedreno] [PATCH v3 05/15] drm/msm/a6xx: Introduce GMU
+ wrapper support
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,347 +67,203 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: quic_kalyant@quicinc.com, Sankeerth Billakanti <quic_sbillaka@quicinc.com>,
- dianders@chromium.org, quic_bjorande@quicinc.com, quic_vproddut@quicinc.com,
- airlied@linux.ie, quic_abhinavk@quicinc.com, swboyd@chromium.org,
- robdclark@gmail.com, seanpaul@chromium.org, daniel@ffwll.ch,
- dmitry.baryshkov@linaro.org, quic_khsieh@quicinc.com, sean@poorly.run
+Cc: Rob Clark <robdclark@chromium.org>, freedreno@lists.freedesktop.org,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ devicetree@vger.kernel.org, Akhil P Oommen <quic_akhilpo@quicinc.com>,
+ Sean Paul <sean@poorly.run>, Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konrad.dybcio@somainline.org>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Rob Clark <robdclark@gmail.com>,
+ Rob Herring <robh+dt@kernel.org>, Daniel Vetter <daniel@ffwll.ch>,
+ linux-arm-msm@vger.kernel.org, David Airlie <airlied@gmail.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-The current DP driver directly enables or disables the necessary control
-resources based on code flow. This could disable a required resource that
-is needed in a different usecase. It can also lead to excessive voting of
-a resource and may increase power consumption.
+On Thu, 23 Feb 2023 at 14:06, Konrad Dybcio <konrad.dybcio@linaro.org> wrote:
+>
+> Some (particularly SMD_RPM, a.k.a non-RPMh) SoCs implement A6XX GPUs
+> but don't implement the associated GMUs. This is due to the fact that
+> the GMU directly pokes at RPMh. Sadly, this means we have to take care
+> of enabling & scaling power rails, clocks and bandwidth ourselves.
+>
+> Reuse existing Adreno-common code and modify the deeply-GMU-infused
+> A6XX code to facilitate these GPUs. This involves if-ing out lots
+> of GMU callbacks and introducing a new type of GMU - GMU wrapper (it's
+> the actual name that Qualcomm uses in their downstream kernels).
+>
+> This is essentially a register region which is convenient to model
+> as a device. We'll use it for managing the GDSCs. The register
+> layout matches the actual GMU_CX/GX regions on the "real GMU" devices
+> and lets us reuse quite a bit of gmu_read/write/rmw calls.
+>
+> Signed-off-by: Konrad Dybcio <konrad.dybcio@linaro.org>
+> ---
+>  drivers/gpu/drm/msm/adreno/a6xx_gmu.c       |  53 +++++-
+>  drivers/gpu/drm/msm/adreno/a6xx_gpu.c       | 244 +++++++++++++++++++++++++---
+>  drivers/gpu/drm/msm/adreno/a6xx_gpu.h       |   1 +
+>  drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c |  14 +-
+>  drivers/gpu/drm/msm/adreno/adreno_gpu.h     |   6 +
+>  5 files changed, 282 insertions(+), 36 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
+> index 90e636dcdd5b..b2c56561cde6 100644
+> --- a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
+> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
 
-The pm_runtime framework can solve this problem in DP driver by monitoring
-the resource enable disable calls. This change will enable support for the
-pm_runtime resume and suspend operations for DP driver.
+[skipped]
 
-Signed-off-by: Sankeerth Billakanti <quic_sbillaka@quicinc.com>
----
- drivers/gpu/drm/msm/dp/dp_aux.c     |   6 ++
- drivers/gpu/drm/msm/dp/dp_display.c | 121 ++++++++++++++++------------
- drivers/gpu/drm/msm/dp/dp_power.c   |   7 --
- 3 files changed, 76 insertions(+), 58 deletions(-)
+>  struct msm_gpu *a6xx_gpu_init(struct drm_device *dev)
+>  {
+>         struct msm_drm_private *priv = dev->dev_private;
+> @@ -2063,18 +2235,36 @@ struct msm_gpu *a6xx_gpu_init(struct drm_device *dev)
+>
+>         adreno_gpu->registers = NULL;
+>
+> +       /* Check if there is a GMU phandle and set it up */
+> +       node = of_parse_phandle(pdev->dev.of_node, "qcom,gmu", 0);
+> +       /* FIXME: How do we gracefully handle this? */
+> +       BUG_ON(!node);
 
-diff --git a/drivers/gpu/drm/msm/dp/dp_aux.c b/drivers/gpu/drm/msm/dp/dp_aux.c
-index 5da95dfdeede..45026827bf7a 100644
---- a/drivers/gpu/drm/msm/dp/dp_aux.c
-+++ b/drivers/gpu/drm/msm/dp/dp_aux.c
-@@ -338,6 +338,7 @@ static ssize_t dp_aux_transfer_init(struct drm_dp_aux *dp_aux,
- 		return -EINVAL;
- 	}
- 
-+	pm_runtime_get_sync(dp_aux->dev);
- 	mutex_lock(&aux->mutex);
- 	if (!aux->initted) {
- 		ret = -EIO;
-@@ -418,6 +419,8 @@ static ssize_t dp_aux_transfer_init(struct drm_dp_aux *dp_aux,
- 
- exit:
- 	mutex_unlock(&aux->mutex);
-+	pm_runtime_mark_last_busy(dp_aux->dev);
-+	pm_runtime_put_autosuspend(dp_aux->dev);
- 
- 	return ret;
- }
-@@ -454,6 +457,7 @@ static ssize_t dp_aux_transfer(struct drm_dp_aux *dp_aux,
- 		return -EINVAL;
- 	}
- 
-+	pm_runtime_get_sync(dp_aux->dev);
- 	mutex_lock(&aux->mutex);
- 	if (!aux->initted) {
- 		ret = -EIO;
-@@ -527,6 +531,8 @@ static ssize_t dp_aux_transfer(struct drm_dp_aux *dp_aux,
- 
- exit:
- 	mutex_unlock(&aux->mutex);
-+	pm_runtime_mark_last_busy(dp_aux->dev);
-+	pm_runtime_put_autosuspend(dp_aux->dev);
- 
- 	return ret;
- }
-diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
-index a5dcef040b74..a23e79e43100 100644
---- a/drivers/gpu/drm/msm/dp/dp_display.c
-+++ b/drivers/gpu/drm/msm/dp/dp_display.c
-@@ -307,8 +307,10 @@ static void dp_display_unbind(struct device *dev, struct device *master,
- 	struct msm_drm_private *priv = dev_get_drvdata(master);
- 
- 	/* disable all HPD interrupts */
--	if (dp->core_initialized)
-+	if (dp->core_initialized) {
- 		dp_catalog_hpd_config_intr(dp->catalog, DP_DP_HPD_INT_MASK, false);
-+		pm_runtime_put_sync(dev);
-+	}
- 
- 	kthread_stop(dp->ev_tsk);
- 
-@@ -1083,26 +1085,6 @@ void msm_dp_snapshot(struct msm_disp_state *disp_state, struct msm_dp *dp)
- 	mutex_unlock(&dp_display->event_mutex);
- }
- 
--static void dp_display_config_hpd(struct dp_display_private *dp)
--{
--
--	dp_display_host_init(dp);
--	dp_catalog_ctrl_hpd_config(dp->catalog);
--
--	/* Enable plug and unplug interrupts only if requested */
--	if (dp->dp_display.internal_hpd)
--		dp_catalog_hpd_config_intr(dp->catalog,
--				DP_DP_HPD_PLUG_INT_MASK |
--				DP_DP_HPD_UNPLUG_INT_MASK,
--				true);
--
--	/* Enable interrupt first time
--	 * we are leaving dp clocks on during disconnect
--	 * and never disable interrupt
--	 */
--	enable_irq(dp->irq);
--}
--
- static int hpd_event_thread(void *data)
- {
- 	struct dp_display_private *dp_priv;
-@@ -1163,9 +1145,6 @@ static int hpd_event_thread(void *data)
- 		spin_unlock_irqrestore(&dp_priv->event_lock, flag);
- 
- 		switch (todo->event_id) {
--		case EV_HPD_INIT_SETUP:
--			dp_display_config_hpd(dp_priv);
--			break;
- 		case EV_HPD_PLUG_INT:
- 			dp_hpd_plug_handle(dp_priv, todo->data);
- 			break;
-@@ -1337,16 +1316,12 @@ static int dp_display_probe(struct platform_device *pdev)
- 
- 	platform_set_drvdata(pdev, &dp->dp_display);
- 
--	if (dp->dp_display.is_edp) {
--		dp_display_host_init(dp);
--		dp_display_host_phy_init(dp);
--		dp_catalog_ctrl_hpd_config(dp->catalog);
-+	pm_runtime_enable(&pdev->dev);
-+	pm_runtime_set_autosuspend_delay(&pdev->dev, 1000);
-+	pm_runtime_use_autosuspend(&pdev->dev);
- 
-+	if (dp->dp_display.is_edp) {
- 		rc = devm_of_dp_aux_populate_bus(dp->aux, NULL);
--
--		dp_display_host_phy_exit(dp);
--		dp_display_host_deinit(dp);
--
- 		if (rc) {
- 			DRM_ERROR("failed to initialize panel, rc = %d\n", rc);
- 			goto error;
-@@ -1367,6 +1342,8 @@ static int dp_display_remove(struct platform_device *pdev)
- {
- 	struct dp_display_private *dp = dev_get_dp_display_private(&pdev->dev);
- 
-+	pm_runtime_dont_use_autosuspend(&pdev->dev);
-+	pm_runtime_disable(&pdev->dev);
- 	dp_display_deinit_sub_modules(dp);
- 
- 	component_del(&pdev->dev, &dp_display_comp_ops);
-@@ -1375,6 +1352,42 @@ static int dp_display_remove(struct platform_device *pdev)
- 	return 0;
- }
- 
-+static int dp_runtime_suspend(struct device *dev)
-+{
-+	struct platform_device *pdev = to_platform_device(dev);
-+	struct msm_dp *dp_display = platform_get_drvdata(pdev);
-+	struct dp_display_private *dp;
-+
-+	dp = container_of(dp_display, struct dp_display_private, dp_display);
-+	dp_display_host_phy_exit(dp);
-+	dp_display_host_deinit(dp);
-+
-+	return 0;
-+}
-+
-+static int dp_runtime_resume(struct device *dev)
-+{
-+	struct platform_device *pdev = to_platform_device(dev);
-+	struct msm_dp *dp_display = platform_get_drvdata(pdev);
-+	struct dp_display_private *dp;
-+
-+	dp = container_of(dp_display, struct dp_display_private, dp_display);
-+	dp_display_host_init(dp);
-+
-+	if (dp->dp_display.is_edp) {
-+		dp_display_host_phy_init(dp);
-+	} else {
-+		dp_catalog_hpd_config_intr(dp->catalog,
-+				DP_DP_HPD_PLUG_INT_MASK |
-+				DP_DP_HPD_UNPLUG_INT_MASK,
-+				true);
-+	}
-+
-+	dp_catalog_ctrl_hpd_config(dp->catalog);
-+
-+	return 0;
-+}
-+
- static int dp_pm_resume(struct device *dev)
- {
- 	struct platform_device *pdev = to_platform_device(dev);
-@@ -1384,6 +1397,9 @@ static int dp_pm_resume(struct device *dev)
- 
- 	dp = container_of(dp_display, struct dp_display_private, dp_display);
- 
-+	if (pm_runtime_suspended(dev))
-+		return 0;
-+
- 	mutex_lock(&dp->event_mutex);
- 
- 	drm_dbg_dp(dp->drm_dev,
-@@ -1394,16 +1410,7 @@ static int dp_pm_resume(struct device *dev)
- 	/* start from disconnected state */
- 	dp->hpd_state = ST_DISCONNECTED;
- 
--	/* turn on dp ctrl/phy */
--	dp_display_host_init(dp);
--
--	dp_catalog_ctrl_hpd_config(dp->catalog);
--
--	if (dp->dp_display.internal_hpd)
--		dp_catalog_hpd_config_intr(dp->catalog,
--				DP_DP_HPD_PLUG_INT_MASK |
--				DP_DP_HPD_UNPLUG_INT_MASK,
--				true);
-+	dp_runtime_resume(dev);
- 
- 	if (dp_catalog_link_is_connected(dp->catalog)) {
- 		/*
-@@ -1452,27 +1459,29 @@ static int dp_pm_suspend(struct device *dev)
- 
- 	dp = container_of(dp_display, struct dp_display_private, dp_display);
- 
-+	if (pm_runtime_suspended(dev))
-+		return 0;
-+
- 	mutex_lock(&dp->event_mutex);
- 
- 	drm_dbg_dp(dp->drm_dev,
--		"Before, type=%d core_inited=%d  phy_inited=%d power_on=%d\n",
--		dp->dp_display.connector_type, dp->core_initialized,
-+		"Before, type=%d sink=%d conn=%d core_inited=%d  phy_inited=%d power_on=%d\n",
-+		dp->dp_display.connector_type, dp->link->sink_count,
-+		dp->dp_display.is_connected, dp->core_initialized,
- 		dp->phy_initialized, dp_display->power_on);
- 
- 	/* mainlink enabled */
- 	if (dp_power_clk_status(dp->power, DP_CTRL_PM))
- 		dp_ctrl_off_link_stream(dp->ctrl);
- 
--	dp_display_host_phy_exit(dp);
--
--	/* host_init will be called at pm_resume */
--	dp_display_host_deinit(dp);
-+	dp_runtime_suspend(dev);
- 
- 	dp->hpd_state = ST_SUSPENDED;
- 
- 	drm_dbg_dp(dp->drm_dev,
--		"After, type=%d core_inited=%d phy_inited=%d power_on=%d\n",
--		dp->dp_display.connector_type, dp->core_initialized,
-+		"After, type=%d sink=%d conn=%d core_init=%d phy_init=%d power=%d\n",
-+		dp->dp_display.connector_type, dp->link->sink_count,
-+		dp->dp_display.is_connected, dp->core_initialized,
- 		dp->phy_initialized, dp_display->power_on);
- 
- 	mutex_unlock(&dp->event_mutex);
-@@ -1481,6 +1490,11 @@ static int dp_pm_suspend(struct device *dev)
- }
- 
- static const struct dev_pm_ops dp_pm_ops = {
-+
-+	SET_RUNTIME_PM_OPS(dp_runtime_suspend, dp_runtime_resume, NULL)
-+	SET_SYSTEM_SLEEP_PM_OPS(pm_runtime_force_suspend,
-+				pm_runtime_force_resume)
-+
- 	.suspend = dp_pm_suspend,
- 	.resume =  dp_pm_resume,
- };
-@@ -1521,8 +1535,11 @@ void msm_dp_irq_postinstall(struct msm_dp *dp_display)
- 
- 	dp = container_of(dp_display, struct dp_display_private, dp_display);
- 
-+	/* enable host_init for HPD intr for DP */
- 	if (!dp_display->is_edp)
--		dp_add_event(dp, EV_HPD_INIT_SETUP, 0, 0);
-+		pm_runtime_get_sync(&dp->pdev->dev);
-+
-+	enable_irq(dp->irq);
- }
- 
- bool msm_dp_wide_bus_available(const struct msm_dp *dp_display)
-@@ -1645,6 +1662,7 @@ void dp_bridge_enable(struct drm_bridge *drm_bridge)
- 		return;
- 	}
- 
-+	pm_runtime_get_sync(&dp_display->pdev->dev);
- 	if (dp->is_edp)
- 		dp_hpd_plug_handle(dp_display, 0);
- 
-@@ -1728,6 +1746,7 @@ void dp_bridge_post_disable(struct drm_bridge *drm_bridge)
- 
- 	drm_dbg_dp(dp->drm_dev, "type=%d Done\n", dp->connector_type);
- 	mutex_unlock(&dp_display->event_mutex);
-+	pm_runtime_put_sync(&dp_display->pdev->dev);
- }
- 
- void dp_bridge_mode_set(struct drm_bridge *drm_bridge,
-diff --git a/drivers/gpu/drm/msm/dp/dp_power.c b/drivers/gpu/drm/msm/dp/dp_power.c
-index c0aaabb03389..a736d1b0f02f 100644
---- a/drivers/gpu/drm/msm/dp/dp_power.c
-+++ b/drivers/gpu/drm/msm/dp/dp_power.c
-@@ -172,8 +172,6 @@ int dp_power_client_init(struct dp_power *dp_power)
- 
- 	power = container_of(dp_power, struct dp_power_private, dp_power);
- 
--	pm_runtime_enable(&power->pdev->dev);
--
- 	rc = dp_power_clk_init(power);
- 	if (rc)
- 		DRM_ERROR("failed to init clocks %d\n", rc);
-@@ -192,7 +190,6 @@ void dp_power_client_deinit(struct dp_power *dp_power)
- 
- 	power = container_of(dp_power, struct dp_power_private, dp_power);
- 
--	pm_runtime_disable(&power->pdev->dev);
- }
- 
- int dp_power_init(struct dp_power *dp_power, bool flip)
-@@ -207,8 +204,6 @@ int dp_power_init(struct dp_power *dp_power, bool flip)
- 
- 	power = container_of(dp_power, struct dp_power_private, dp_power);
- 
--	pm_runtime_get_sync(&power->pdev->dev);
--
- 	rc = dp_power_clk_enable(dp_power, DP_CORE_PM, true);
- 	if (rc) {
- 		DRM_ERROR("failed to enable DP core clocks, %d\n", rc);
-@@ -218,7 +213,6 @@ int dp_power_init(struct dp_power *dp_power, bool flip)
- 	return 0;
- 
- exit:
--	pm_runtime_put_sync(&power->pdev->dev);
- 	return rc;
- }
- 
-@@ -229,7 +223,6 @@ int dp_power_deinit(struct dp_power *dp_power)
- 	power = container_of(dp_power, struct dp_power_private, dp_power);
- 
- 	dp_power_clk_enable(dp_power, DP_CORE_PM, false);
--	pm_runtime_put_sync(&power->pdev->dev);
- 	return 0;
- }
- 
+I thought that we should fix it, but then I noticed that this code was
+just moved from the part below.
+
+> +
+> +       adreno_gpu->gmu_is_wrapper = of_device_is_compatible(node, "qcom,adreno-gmu-wrapper");
+> +
+>         /*
+>          * We need to know the platform type before calling into adreno_gpu_init
+>          * so that the hw_apriv flag can be correctly set. Snoop into the info
+>          * and grab the revision number
+>          */
+>         info = adreno_info(config->rev);
+> -
+> -       if (info && (info->revn == 650 || info->revn == 660 ||
+> -                       adreno_cmp_rev(ADRENO_REV(6, 3, 5, ANY_ID), info->rev)))
+
+Are we losing A635 here? I don't see it in the condition below.
+
+> +       if (!info)
+> +               return ERR_PTR(-EINVAL);
+> +
+> +       /* Assign these early so that we can use the is_aXYZ helpers */
+> +       /* Numeric revision IDs (e.g. 630) */
+> +       adreno_gpu->revn = info->revn;
+> +       /* New-style ADRENO_REV()-only */
+> +       adreno_gpu->rev = info->rev;
+> +       /* Quirk data */
+> +       adreno_gpu->info = info;
+> +
+> +       if (adreno_is_a650(adreno_gpu) || adreno_is_a660_family(adreno_gpu))
+>                 adreno_gpu->base.hw_apriv = true;
+>
+> -       a6xx_llc_slices_init(pdev, a6xx_gpu);
+> +       /* No LLCC on non-RPMh (and by extension, non-GMU) SoCs */
+> +       if (!adreno_has_gmu_wrapper(adreno_gpu))
+> +               a6xx_llc_slices_init(pdev, a6xx_gpu);
+>
+>         ret = a6xx_set_supported_hw(&pdev->dev, config->rev);
+>         if (ret) {
+> @@ -2082,7 +2272,10 @@ struct msm_gpu *a6xx_gpu_init(struct drm_device *dev)
+>                 return ERR_PTR(ret);
+>         }
+>
+> -       ret = adreno_gpu_init(dev, pdev, adreno_gpu, &funcs, 1);
+> +       if (adreno_has_gmu_wrapper(adreno_gpu))
+> +               ret = adreno_gpu_init(dev, pdev, adreno_gpu, &funcs_gmuwrapper, 1);
+> +       else
+> +               ret = adreno_gpu_init(dev, pdev, adreno_gpu, &funcs, 1);
+>         if (ret) {
+>                 a6xx_destroy(&(a6xx_gpu->base.base));
+>                 return ERR_PTR(ret);
+> @@ -2095,13 +2288,10 @@ struct msm_gpu *a6xx_gpu_init(struct drm_device *dev)
+>         if (adreno_is_a618(adreno_gpu) || adreno_is_7c3(adreno_gpu))
+>                 priv->gpu_clamp_to_idle = true;
+>
+> -       /* Check if there is a GMU phandle and set it up */
+> -       node = of_parse_phandle(pdev->dev.of_node, "qcom,gmu", 0);
+> -
+> -       /* FIXME: How do we gracefully handle this? */
+> -       BUG_ON(!node);
+> -
+> -       ret = a6xx_gmu_init(a6xx_gpu, node);
+> +       if (adreno_has_gmu_wrapper(adreno_gpu))
+> +               ret = a6xx_gmu_wrapper_init(a6xx_gpu, node);
+> +       else
+> +               ret = a6xx_gmu_init(a6xx_gpu, node);
+>         of_node_put(node);
+>         if (ret) {
+>                 a6xx_destroy(&(a6xx_gpu->base.base));
+> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.h b/drivers/gpu/drm/msm/adreno/a6xx_gpu.h
+> index eea2e60ce3b7..51a7656072fa 100644
+> --- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.h
+> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.h
+> @@ -76,6 +76,7 @@ int a6xx_gmu_set_oob(struct a6xx_gmu *gmu, enum a6xx_gmu_oob_state state);
+>  void a6xx_gmu_clear_oob(struct a6xx_gmu *gmu, enum a6xx_gmu_oob_state state);
+>
+>  int a6xx_gmu_init(struct a6xx_gpu *a6xx_gpu, struct device_node *node);
+> +int a6xx_gmu_wrapper_init(struct a6xx_gpu *a6xx_gpu, struct device_node *node);
+>  void a6xx_gmu_remove(struct a6xx_gpu *a6xx_gpu);
+>
+>  void a6xx_gmu_set_freq(struct msm_gpu *gpu, struct dev_pm_opp *opp,
+> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c b/drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c
+> index b7e217d00a22..e11e8a02ac22 100644
+> --- a/drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c
+> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c
+> @@ -1041,16 +1041,18 @@ struct msm_gpu_state *a6xx_gpu_state_get(struct msm_gpu *gpu)
+>         /* Get the generic state from the adreno core */
+>         adreno_gpu_state_get(gpu, &a6xx_state->base);
+>
+> -       a6xx_get_gmu_registers(gpu, a6xx_state);
+> +       if (!adreno_has_gmu_wrapper(adreno_gpu)) {
+> +               a6xx_get_gmu_registers(gpu, a6xx_state);
+>
+> -       a6xx_state->gmu_log = a6xx_snapshot_gmu_bo(a6xx_state, &a6xx_gpu->gmu.log);
+> -       a6xx_state->gmu_hfi = a6xx_snapshot_gmu_bo(a6xx_state, &a6xx_gpu->gmu.hfi);
+> -       a6xx_state->gmu_debug = a6xx_snapshot_gmu_bo(a6xx_state, &a6xx_gpu->gmu.debug);
+> +               a6xx_state->gmu_log = a6xx_snapshot_gmu_bo(a6xx_state, &a6xx_gpu->gmu.log);
+> +               a6xx_state->gmu_hfi = a6xx_snapshot_gmu_bo(a6xx_state, &a6xx_gpu->gmu.hfi);
+> +               a6xx_state->gmu_debug = a6xx_snapshot_gmu_bo(a6xx_state, &a6xx_gpu->gmu.debug);
+>
+> -       a6xx_snapshot_gmu_hfi_history(gpu, a6xx_state);
+> +               a6xx_snapshot_gmu_hfi_history(gpu, a6xx_state);
+> +       }
+>
+>         /* If GX isn't on the rest of the data isn't going to be accessible */
+> -       if (!a6xx_gmu_gx_is_on(&a6xx_gpu->gmu))
+> +       if (!adreno_has_gmu_wrapper(adreno_gpu) && !a6xx_gmu_gx_is_on(&a6xx_gpu->gmu))
+>                 return &a6xx_state->base;
+>
+>         /* Get the banks of indexed registers */
+> diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.h b/drivers/gpu/drm/msm/adreno/adreno_gpu.h
+> index b4f9b1343d63..2c0f0ef094cb 100644
+> --- a/drivers/gpu/drm/msm/adreno/adreno_gpu.h
+> +++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.h
+> @@ -115,6 +115,7 @@ struct adreno_gpu {
+>          * code (a3xx_gpu.c) and stored in this common location.
+>          */
+>         const unsigned int *reg_offsets;
+> +       bool gmu_is_wrapper;
+>  };
+>  #define to_adreno_gpu(x) container_of(x, struct adreno_gpu, base)
+>
+> @@ -145,6 +146,11 @@ struct adreno_platform_config {
+>
+>  bool adreno_cmp_rev(struct adreno_rev rev1, struct adreno_rev rev2);
+>
+> +static inline bool adreno_has_gmu_wrapper(struct adreno_gpu *gpu)
+> +{
+> +       return gpu->gmu_is_wrapper;
+> +}
+> +
+>  static inline bool adreno_is_a2xx(struct adreno_gpu *gpu)
+>  {
+>         return (gpu->revn < 300);
+>
+> --
+> 2.39.2
+>
+
+
 -- 
-2.39.0
-
+With best wishes
+Dmitry
