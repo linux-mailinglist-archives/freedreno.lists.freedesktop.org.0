@@ -2,65 +2,76 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1E2796A0FBF
-	for <lists+freedreno@lfdr.de>; Thu, 23 Feb 2023 19:52:03 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8C0BF6A1072
+	for <lists+freedreno@lfdr.de>; Thu, 23 Feb 2023 20:17:48 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E497210E0E4;
-	Thu, 23 Feb 2023 18:52:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 47B6310E06C;
+	Thu, 23 Feb 2023 19:17:47 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-oi1-x22b.google.com (mail-oi1-x22b.google.com
- [IPv6:2607:f8b0:4864:20::22b])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6306810E0E4;
- Thu, 23 Feb 2023 18:52:00 +0000 (UTC)
-Received: by mail-oi1-x22b.google.com with SMTP id bg11so13648433oib.5;
- Thu, 23 Feb 2023 10:52:00 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=9etLRVSdOXaCscwmv+H7k7gnP7xVJUcjkddH6jLBVsc=;
- b=lApunCCDvEH6I8seeTQWVdZ9Rl8Q3moAjjItt8N6ft0ZoY70iHtjuSJdHugMxX07r1
- ZtN3GKSVJ6bGdeUS2EWN3DOTkVdp65ta/gpjbkPAVViT37G9Po3tAlvjabbXl0jXA/4t
- TxHjG4Vt+3Bl+ud85wIvvNKQzKcMczMIlpIDMgeRO5xQpSqkMyhj0OO0F+R8HPKdVZlp
- Bh3SZk0qNo7WV2lwvQcmGEZXAwkV9ADO7wWlgznwn0YlZ5+DaPfXsLsLJMYBVirNrcpY
- L9kQ6IoEXtYM0e81IJqNHDgCa9E0j8yJaPuQwN/E5oPbXKA6/RQlDkPWxVNXZnoLiYk6
- fLYg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=9etLRVSdOXaCscwmv+H7k7gnP7xVJUcjkddH6jLBVsc=;
- b=5xVppXIKzeOnEu78z7DUWtfNkjgre77qPW6ipo+qsMUy5kb3XxoGwkZosguPgpP7o0
- fQzLNAisbeAAEAxqXchu9riyZkpf20HV9L9B/NrFwQZhUVgBR/bQlqrRYRe/06YX2Ugv
- YcLb5y6JYkfAZG+9I1TFjWmhVfocdz8OTX8Tgeer8Gp2G2IyXQ4JxSVgFCsqFXK5SEla
- 7b5fBnUsc1tP7kxtociGCuIU4VnILq69eW6ATDkpK2ZNzz0vioejOH32MTcGiiX9jz2R
- ZeZqbMjFONXkOZXodMYwJtnR9pR7ALkbHSLEXKBrRxLnXLWU5r7D/7JW6t/Or1QwB2RO
- VpRA==
-X-Gm-Message-State: AO0yUKW2d0pgjJPbAPw+xbmKw5WXwJ8jYn7th/7O+xD5ZJNGpfmcc6AG
- a9A47jOg27ESqKD4THvtyGotnV4++dQVgxNeLio=
-X-Google-Smtp-Source: AK7set/2kHcAeaPabhjfKagmHPvKDBzXht3PAv66qqwhYDd8r2Wthl7b7KZTXESDtH12eZQLfwEOP6txv1t+qNTMPqE=
-X-Received: by 2002:a05:6808:610:b0:37a:fd14:1246 with SMTP id
- y16-20020a056808061000b0037afd141246mr278284oih.3.1677178319578; Thu, 23 Feb
- 2023 10:51:59 -0800 (PST)
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 12F0210E06C;
+ Thu, 23 Feb 2023 19:17:45 +0000 (UTC)
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 31NB45kt012780; Thu, 23 Feb 2023 19:17:34 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
+ h=message-id : date :
+ mime-version : subject : to : cc : references : from : in-reply-to :
+ content-type : content-transfer-encoding; s=qcppdkim1;
+ bh=3dYIwA/4/9A+RLvGcDRtys6zldwoQoCo3Na5NhuLUaE=;
+ b=haXPCLGeOGOrJRgcG5kLKeA9SHHKTVsDg1vMimEkQlbNy2uoduwkdpgPAq4e6GQlJ25i
+ USMr/yWcGEC+UR4lMFXbI0ISNim//t1eE421UN5BnX9XkSbn5nMwRNlBdUroKIMn67qp
+ Jl2h+dYxrUQB83tKNHxXMhSQHui5vW68Iqlm9cfAUZgOGbw1CWe4LFk7bj79WK7BNFRH
+ wAJpRFuQkc9nqpKSzreHNkzXey8g0YGHa55SyToZVyOWVhhn6freZsJGKCSrF580uWAm
+ MKjeRqxPQt5xVpIjONROcmebQ/rQ6sqdjFAMdwM5SQ/riXce4/se5IZy7hU2qzBLxtoS 1w== 
+Received: from nalasppmta05.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3nwyc5jedn-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 23 Feb 2023 19:17:33 +0000
+Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
+ [10.47.209.196])
+ by NALASPPMTA05.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 31NJHWPC009696
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 23 Feb 2023 19:17:32 GMT
+Received: from [10.110.22.247] (10.80.80.8) by nalasex01a.na.qualcomm.com
+ (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.41; Thu, 23 Feb
+ 2023 11:17:32 -0800
+Message-ID: <0daf8821-a228-1180-358b-4e50f36ca4b0@quicinc.com>
+Date: Thu, 23 Feb 2023 11:17:31 -0800
 MIME-Version: 1.0
-References: <20230218211608.1630586-1-robdclark@gmail.com>
- <20230218211608.1630586-7-robdclark@gmail.com>
- <20230220105345.70e46fa5@eldfell>
- <CAF6AEGv9fLQCD65ytRTGp=EkNB1QoZYH5ArphgGQALV9J08Cmw@mail.gmail.com>
- <cdd5f892-49b9-1e22-4dc1-95a8a733c453@amd.com>
- <CAF6AEGuMn3FywPkEtfJ7oZ16A0Bk2aiaRvj4si4od1d3wzXkPw@mail.gmail.com>
- <20230222114900.1b6baf95@eldfell>
- <CAF6AEGs1_75gg+LCBj6=PH8Jn60PXiE+Kx_2636nP-+pajN8Hg@mail.gmail.com>
- <20230223113814.3010cedc@eldfell>
-In-Reply-To: <20230223113814.3010cedc@eldfell>
-From: Rob Clark <robdclark@gmail.com>
-Date: Thu, 23 Feb 2023 10:51:48 -0800
-Message-ID: <CAF6AEGuE89kuKTjjzwW1xMppcVw-M4-hcrtifed-mvsCA=cshQ@mail.gmail.com>
-To: Pekka Paalanen <ppaalanen@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [PATCH v4 06/14] dma-buf/sync_file: Support
- (E)POLLPRI
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
+ Thunderbird/91.6.2
+Content-Language: en-US
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Rob Clark
+ <robdclark@gmail.com>, Sean Paul <sean@poorly.run>
+References: <20230223095708.3688148-1-dmitry.baryshkov@linaro.org>
+From: Abhinav Kumar <quic_abhinavk@quicinc.com>
+In-Reply-To: <20230223095708.3688148-1-dmitry.baryshkov@linaro.org>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-ORIG-GUID: dBsnsPj2ZTQW_Ddf_dn4FAxOYcLnxWGy
+X-Proofpoint-GUID: dBsnsPj2ZTQW_Ddf_dn4FAxOYcLnxWGy
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.219,Aquarius:18.0.930,Hydra:6.0.562,FMLib:17.11.170.22
+ definitions=2023-02-23_13,2023-02-23_01,2023-02-09_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1011 suspectscore=0
+ phishscore=0 spamscore=0 mlxlogscore=999 bulkscore=0 adultscore=0
+ mlxscore=0 priorityscore=1501 lowpriorityscore=0 impostorscore=0
+ malwarescore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2212070000 definitions=main-2302230158
+Subject: Re: [Freedreno] [PATCH] drm/msm/dpu: fix stack smashing in
+ dpu_hw_ctl_setup_blendstage
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,131 +84,92 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rob Clark <robdclark@chromium.org>,
- Tvrtko Ursulin <tvrtko.ursulin@intel.com>,
- Gustavo Padovan <gustavo@padovan.org>,
- =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel@daenzer.net>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- open list <linux-kernel@vger.kernel.org>, dri-devel@lists.freedesktop.org,
- Sumit Semwal <sumit.semwal@linaro.org>,
- "moderated list:DMA BUFFER SHARING FRAMEWORK" <linaro-mm-sig@lists.linaro.org>,
- Luben Tuikov <luben.tuikov@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>,
- Alex Deucher <alexander.deucher@amd.com>, freedreno@lists.freedesktop.org,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- "open list:SYNC FILE FRAMEWORK" <linux-media@vger.kernel.org>
+Cc: Amit Pundir <amit.pundir@linaro.org>, freedreno@lists.freedesktop.org,
+ linux-arm-msm@vger.kernel.org, Bjorn Andersson <andersson@kernel.org>,
+ dri-devel@lists.freedesktop.org, Stephen Boyd <swboyd@chromium.org>,
+ Daniel Vetter <daniel@ffwll.ch>, David Airlie <airlied@gmail.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Thu, Feb 23, 2023 at 1:38 AM Pekka Paalanen <ppaalanen@gmail.com> wrote:
->
-> On Wed, 22 Feb 2023 07:37:26 -0800
-> Rob Clark <robdclark@gmail.com> wrote:
->
-> > On Wed, Feb 22, 2023 at 1:49 AM Pekka Paalanen <ppaalanen@gmail.com> wrote:
-> > >
-> > > On Tue, 21 Feb 2023 09:53:56 -0800
-> > > Rob Clark <robdclark@gmail.com> wrote:
-> > >
-> > > > On Tue, Feb 21, 2023 at 8:48 AM Luben Tuikov <luben.tuikov@amd.com> wrote:
-> > > > >
-> > > > > On 2023-02-20 11:14, Rob Clark wrote:
-> > > > > > On Mon, Feb 20, 2023 at 12:53 AM Pekka Paalanen <ppaalanen@gmail.com> wrote:
-> > > > > >>
-> > > > > >> On Sat, 18 Feb 2023 13:15:49 -0800
-> > > > > >> Rob Clark <robdclark@gmail.com> wrote:
-> > > > > >>
-> > > > > >>> From: Rob Clark <robdclark@chromium.org>
-> > > > > >>>
-> > > > > >>> Allow userspace to use the EPOLLPRI/POLLPRI flag to indicate an urgent
-> > > > > >>> wait (as opposed to a "housekeeping" wait to know when to cleanup after
-> > > > > >>> some work has completed).  Usermode components of GPU driver stacks
-> > > > > >>> often poll() on fence fd's to know when it is safe to do things like
-> > > > > >>> free or reuse a buffer, but they can also poll() on a fence fd when
-> > > > > >>> waiting to read back results from the GPU.  The EPOLLPRI/POLLPRI flag
-> > > > > >>> lets the kernel differentiate these two cases.
-> > > > > >>>
-> > > > > >>> Signed-off-by: Rob Clark <robdclark@chromium.org>
-> > > > > >>
-> > > > > >> Hi,
-> > > > > >>
-> > > > > >> where would the UAPI documentation of this go?
-> > > > > >> It seems to be missing.
-> > > > > >
-> > > > > > Good question, I am not sure.  The poll() man page has a description,
-> > > > > > but my usage doesn't fit that _exactly_ (but OTOH the description is a
-> > > > > > bit vague).
-> > > > > >
-> > > > > >> If a Wayland compositor is polling application fences to know which
-> > > > > >> client buffer to use in its rendering, should the compositor poll with
-> > > > > >> PRI or not? If a compositor polls with PRI, then all fences from all
-> > > > > >> applications would always be PRI. Would that be harmful somehow or
-> > > > > >> would it be beneficial?
-> > > > > >
-> > > > > > I think a compositor would rather use the deadline ioctl and then poll
-> > > > > > without PRI.  Otherwise you are giving an urgency signal to the fence
-> > > > > > signaller which might not necessarily be needed.
-> > > > > >
-> > > > > > The places where I expect PRI to be useful is more in mesa (things
-> > > > > > like glFinish(), readpix, and other similar sorts of blocking APIs)
-> > > > > Hi,
-> > > > >
-> > > > > Hmm, but then user-space could do the opposite, namely, submit work as usual--never
-> > > > > using the SET_DEADLINE ioctl, and then at the end, poll using (E)POLLPRI. That seems
-> > > > > like a possible usage pattern, unintended--maybe, but possible. Do we want to discourage
-> > > > > this? Wouldn't SET_DEADLINE be enough? I mean, one can call SET_DEADLINE with the current
-> > > > > time, and then wouldn't that be equivalent to (E)POLLPRI?
-> > > >
-> > > > Yeah, (E)POLLPRI isn't strictly needed if we have SET_DEADLINE.  It is
-> > > > slightly more convenient if you want an immediate deadline (single
-> > > > syscall instead of two), but not strictly needed.  OTOH it piggy-backs
-> > > > on existing UABI.
-> > >
-> > > In that case, I would be conservative, and not add the POLLPRI
-> > > semantics. An UAPI addition that is not strictly needed and somewhat
-> > > unclear if it violates any design principles is best not done, until it
-> > > is proven to be beneficial.
-> > >
-> > > Besides, a Wayland compositor does not necessary need to add the fd
-> > > to its main event loop for poll. It could just SET_DEADLINE, and then
-> > > when it renders simply check if the fence passed or not already. Not
-> > > polling means the compositor does not need to wake up at the moment the
-> > > fence signals to just record a flag.
-> >
-> > poll(POLLPRI) isn't intended for wayland.. but is a thing I want in
-> > mesa for fence waits.  I _could_ use SET_DEADLINE but it is two
-> > syscalls and correspondingly more code ;-)
->
-> But is it actually beneficial? "More code" seems quite irrelevant.
->
-> Would there be a hundred or more of those per frame? Or would it be
-> always limited to one or two? Or totally depend on what the application
-> is doing? Is it a significant impact?
+Hi Dmitry
 
-In general, any time the CPU is waiting on the GPU, you have already
-lost.  So I don't think the extra syscall is too much of a problem.
-Just less convenient.
+On 2/23/2023 1:57 AM, Dmitry Baryshkov wrote:
+> The rewritten dpu_hw_ctl_setup_blendstage() can lightly smash the stack
+> when setting the SSPP_NONE pipe. However it was unnoticed until the
+> kernel was tested under AOSP (with some kind of stack protection/check).
+> 
+> This fixes the following backtrace:
+> 
+> Unexpected kernel BRK exception at EL1
+> Internal error: BRK handler: 00000000f20003e8 [#1] PREEMPT SMP
+> Hardware name: Thundercomm Dragonboard 845c (DT)
+> pstate: a0400005 (NzCv daif +PAN -UAO -TCO -DIT -SSBS BTYPE=--)
+> pc : dpu_hw_ctl_setup_blendstage+0x26c/0x278 [msm]
+> lr : _dpu_crtc_blend_setup+0x4b4/0x5a0 [msm]
+> sp : ffffffc00bdcb720
+> x29: ffffffc00bdcb720 x28: ffffff8085debac0 x27: 0000000000000002
+> x26: ffffffd74af18320 x25: ffffff8083af75a0 x24: ffffffc00bdcb878
+> x23: 0000000000000001 x22: 0000000000000000 x21: ffffff8085a70000
+> x20: ffffff8083012dc0 x19: 0000000000000001 x18: 0000000000000000
+> x17: 000000040044ffff x16: 045000f4b5593519 x15: 0000000000000000
+> x14: 000000000000000b x13: 0000000000000001 x12: 0000000000000000
+> x11: 0000000000000001 x10: ffffffc00bdcb764 x9 : ffffffd74af06a08
+> x8 : 0000000000000001 x7 : 0000000000000001 x6 : 0000000000000000
+> x5 : ffffffc00bdcb878 x4 : 0000000000000002 x3 : ffffffffffffffff
+> x2 : ffffffc00bdcb878 x1 : 0000000000000000 x0 : 0000000000000002
+> Call trace:
+>   dpu_hw_ctl_setup_blendstage+0x26c/0x278 [msm]
+>   _dpu_crtc_blend_setup+0x4b4/0x5a0 [msm]
+>   dpu_crtc_atomic_begin+0xd8/0x22c [msm]
+>   drm_atomic_helper_commit_planes+0x80/0x208 [drm_kms_helper]
+>   msm_atomic_commit_tail+0x134/0x6f0 [msm]
+>   commit_tail+0xa4/0x1a4 [drm_kms_helper]
+>   drm_atomic_helper_commit+0x170/0x184 [drm_kms_helper]
+>   drm_atomic_commit+0xac/0xe8
+>   drm_mode_atomic_ioctl+0xbf0/0xdac
+>   drm_ioctl_kernel+0xc4/0x178
+>   drm_ioctl+0x2c8/0x608
+>   __arm64_sys_ioctl+0xa8/0xec
+>   invoke_syscall+0x44/0x104
+>   el0_svc_common.constprop.0+0x44/0xec
+>   do_el0_svc+0x38/0x98
+>   el0_svc+0x2c/0xb4
+>   el0t_64_sync_handler+0xb8/0xbc
+>   el0t_64_sync+0x1a0/0x1a4
+> Code: 52800016 52800017 52800018 17ffffc7 (d4207d00)
+> 
+> Fixes: 4488f71f6373 ("drm/msm/dpu: simplify blend configuration")
+> Reported-by: Amit Pundir <amit.pundir@linaro.org>
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> ---
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c | 4 +++-
+>   1 file changed, 3 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c
+> index b88a2f3724e6..6c53ea560ffa 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c
+> @@ -446,7 +446,9 @@ static void dpu_hw_ctl_setup_blendstage(struct dpu_hw_ctl *ctx,
+>   			 * CTL_LAYER has 3-bit field (and extra bits in EXT register),
+>   			 * all EXT registers has 4-bit fields.
+>   			 */
+> -			if (cfg->idx == 0) {
+> +			if (cfg->idx == -1) {
+> +				continue;
+> +			} else if (cfg->idx == 0) {
+>   				mixercfg[0] |= mix << cfg->shift;
+>   				mixercfg[1] |= ext << cfg->ext_shift;
+>   			} else {
 
-> > > On another matter, if the application uses SET_DEADLINE with one
-> > > timestamp, and the compositor uses SET_DEADLINE on the same thing with
-> > > another timestamp, what should happen?
-> >
-> > The expectation is that many deadline hints can be set on a fence.
-> > The fence signaller should track the soonest deadline.
->
-> You need to document that as UAPI, since it is observable to userspace.
-> It would be bad if drivers or subsystems would differ in behaviour.
->
+Since I had not reviewed the change which introduced this, had a question.
 
-It is in the end a hint.  It is about giving the driver more
-information so that it can make better choices.  But the driver is
-even free to ignore it.  So maybe "expectation" is too strong of a
-word.  Rather, any other behavior doesn't really make sense.  But it
-could end up being dictated by how the hw and/or fw works.
+The issue here is because the shift and ext_shift are -1 for NONE and 
+hence the shift causes overflow?
 
-BR,
--R
+If that was the issue shouldnt we protect all such cases?
 
->
-> Thanks,
-> pq
+So lets say we use SSPP_RGB0, the multirect_index for it will always be 
+-1 as it doesnt support smartDMA. What prevents the same issue from 
+hitting in that case? Because you are only checking for idx and not the 
+shifts.
+
