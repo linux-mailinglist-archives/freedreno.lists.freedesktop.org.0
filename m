@@ -2,57 +2,67 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id CC0DD6A097A
-	for <lists+freedreno@lfdr.de>; Thu, 23 Feb 2023 14:06:38 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id AC7146A0B26
+	for <lists+freedreno@lfdr.de>; Thu, 23 Feb 2023 14:49:07 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 91B4D10E4C9;
-	Thu, 23 Feb 2023 13:06:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6FBF810E4ED;
+	Thu, 23 Feb 2023 13:49:06 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-yw1-x1134.google.com (mail-yw1-x1134.google.com
- [IPv6:2607:f8b0:4864:20::1134])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AD52510E4C9
- for <freedreno@lists.freedesktop.org>; Thu, 23 Feb 2023 13:06:35 +0000 (UTC)
-Received: by mail-yw1-x1134.google.com with SMTP id
- 00721157ae682-53852143afcso42946837b3.3
- for <freedreno@lists.freedesktop.org>; Thu, 23 Feb 2023 05:06:35 -0800 (PST)
+Received: from mail-lj1-x235.google.com (mail-lj1-x235.google.com
+ [IPv6:2a00:1450:4864:20::235])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 65F8010EB87
+ for <freedreno@lists.freedesktop.org>; Thu, 23 Feb 2023 13:49:05 +0000 (UTC)
+Received: by mail-lj1-x235.google.com with SMTP id h3so4835700lja.12
+ for <freedreno@lists.freedesktop.org>; Thu, 23 Feb 2023 05:49:05 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=l976B99XbUna08WmeRhXUm4UkQfISnSwvYYzr2+N86c=;
- b=qCFX28+RmwbMs9tpeR19tdUmhwjV+3IV4aF4Gydv6qUmejZ3SQkwml0zKgGQqTA5xf
- X87HDDK8AjUvFyv20SDTeZykRVX6IHWtD50HEih7dCcq5NnMleFAr+IBxzoP0o+CR+q5
- 8tSUkIN9QpxSaGMo6trcYpUNBPxbBzI4Yqltz+Wb+a0YGnm+W3kPkf3Wssh6QAsX1Vum
- c8AFxcbjdk+HNUEYWbU/Epcwpq0GliRbp7PS7iqSwwWRclarjnxBsKhQU9+MyKI+gtI4
- HMD9W+g8dl1VxiDvITDL+L2EwaNSFADD1Cq8iaV1qBArlRlnem9lsC/LuL5RaWe9kKTj
- F6FA==
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=frB7bLXBAzoLz+jz9s0Y5YZS3DoAI1c5p0MiOZAyg3g=;
+ b=RA0VXA2x0u01eDdYnr9UigJZ2T1pl4zDq8NqGuMX5UnjXPlLjgeKxRXqQy3vLOU12v
+ JOabwvQh9gnxhIhomkRifz1DnoOv8cMNPI5C3oGD3qTtgEDAJlv9pyLmdK1/0qjsHPfj
+ U2Z1q4rG9HVbRdYmcIHenKEEwsYrYbK5Rp0UL378bayXIRu4HhAz8f2Zh/U1VoN0okaj
+ JYMBS/y+fs2BCN2jjRr2X4uO7SqfsyTE8yYoMc6vhpr7G+nepm2paL4jH0Uo3u/KrpTz
+ 5z7zCPtZ0HtSWnEisORbCgNNTNWpeBL5SeW8HQrJZH9LlemOnWAbmLySna534kXjaGsw
+ 92Lg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=l976B99XbUna08WmeRhXUm4UkQfISnSwvYYzr2+N86c=;
- b=YZQbRu3HB031S5bKw8UiMeIGpetb4JruesALgtaqDgkSdWvtCU4WsYdLKwHbM7ijgZ
- D/HJq1gdOdSCNHVpCbL8dfodpKz1XCgNZzRJvBTzznGRHeDLoL/gppRzzPpNPgjmsWbc
- 4zo6C+vCwfCCHXXOe7snoAqqDhiYeJbzLVZIOt0PqYMWsPwMj0OF8mPdNakkFV22WmAv
- jud9qPFEt2X//ZFEmulzkMYHW2y80gMZSPo98sOp6AACvq6KaEpsZ+DpvE0X9p/ElrzH
- pvkwvMqSdxBx8VPC3SlD37IPcdH4DkohAjECSPd/BTTwsL7+frERqFrBNyHuThZPt5rW
- Qbng==
-X-Gm-Message-State: AO0yUKXWk0PdwfuBzdOS/fotfqSaF+qgxvQaJToTC/6Ww1HbSBdbkShw
- ySvv5hTcMLtTpVYWIkrmyQt1/WdAm5mdilQnhOL1zA==
-X-Google-Smtp-Source: AK7set/2vMOCqRHFpmTtAlE31OFzB2vTZ54A1Ly7Gmtm4/ZMrRWyA2L4L3oNl/nq0kGy+urTZ86JLF9PtiPqWxqc8CU=
-X-Received: by 2002:a05:6902:138d:b0:a09:314f:9f09 with SMTP id
- x13-20020a056902138d00b00a09314f9f09mr2255202ybu.6.1677157594719; Thu, 23 Feb
- 2023 05:06:34 -0800 (PST)
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=frB7bLXBAzoLz+jz9s0Y5YZS3DoAI1c5p0MiOZAyg3g=;
+ b=rjR2c4e5Ro8lMXQ7ZNRnAOHf4v5zBpA/0pei7pe4ifKi2YchFnxfOaM841uU+UgMr6
+ cSczXGKOWdSf2vYOvuteAtQCiyncTRHXNYMZzYQOebHgufOb4t+XSGjncYtby52KOTe5
+ SRkJ1thMtj5QusO6HsTrLg7wE4K7pVr4cBwV9Q5nR5KDAt/3cWKmxVJvID8/quuSe/jO
+ lzbIDykmMIY1eYEfjtkBKIo2muzI3a4C4qxqb9xgsN4r2b//xYse11RtVjtlOCdn+j0K
+ 2xwcGw+mmbzV6no3QafAKw6K1es3wB8IWU4Fb3KGqtqEat90+hsHdXqEBiHKyuFRXCvD
+ k89A==
+X-Gm-Message-State: AO0yUKXzVGhX/pxK44sShMSRwzsKbmE4P2BM4p5bBDhZq5n5tW14fHVc
+ aMuv9KpwzrYb8FLfilwY3HglZw==
+X-Google-Smtp-Source: AK7set/+fzhm8Q7+85CuVpa/CC2T12Ib2EKLG78RC9QKfOzgfhUM/TMMpg4QaxdhhCQesbzSHPM6AA==
+X-Received: by 2002:a05:651c:1614:b0:293:45f1:c1a6 with SMTP id
+ f20-20020a05651c161400b0029345f1c1a6mr3959697ljq.0.1677160143636; 
+ Thu, 23 Feb 2023 05:49:03 -0800 (PST)
+Received: from [192.168.1.101] (abxi151.neoplus.adsl.tpnet.pl. [83.9.2.151])
+ by smtp.gmail.com with ESMTPSA id
+ n16-20020ac24910000000b004b7033da2d7sm799123lfi.128.2023.02.23.05.49.01
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 23 Feb 2023 05:49:03 -0800 (PST)
+Message-ID: <761e0aba-9364-557a-e6e5-e21494597dbc@linaro.org>
+Date: Thu, 23 Feb 2023 14:49:00 +0100
 MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.8.0
+Content-Language: en-US
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 References: <20230223-topic-gmuwrapper-v3-0-5be55a336819@linaro.org>
  <20230223-topic-gmuwrapper-v3-10-5be55a336819@linaro.org>
-In-Reply-To: <20230223-topic-gmuwrapper-v3-10-5be55a336819@linaro.org>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Thu, 23 Feb 2023 15:06:24 +0200
-Message-ID: <CAA8EJppi45K0hQ=1fZvf+Mps+4uEkXmLFeqdmyk-yk31CNvUsw@mail.gmail.com>
-To: Konrad Dybcio <konrad.dybcio@linaro.org>
-Content-Type: text/plain; charset="UTF-8"
+ <CAA8EJppi45K0hQ=1fZvf+Mps+4uEkXmLFeqdmyk-yk31CNvUsw@mail.gmail.com>
+From: Konrad Dybcio <konrad.dybcio@linaro.org>
+In-Reply-To: <CAA8EJppi45K0hQ=1fZvf+Mps+4uEkXmLFeqdmyk-yk31CNvUsw@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 Subject: Re: [Freedreno] [PATCH v3 10/15] drm/msm/a6xx: Fix A680 highest
  bank bit value
 X-BeenThere: freedreno@lists.freedesktop.org
@@ -79,51 +89,55 @@ Cc: Rob Clark <robdclark@chromium.org>, freedreno@lists.freedesktop.org,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Thu, 23 Feb 2023 at 14:07, Konrad Dybcio <konrad.dybcio@linaro.org> wrote:
->
-> According to the vendor sources, it's equal to 16, which makes hbb_lo
-> equal to 3.
-
-I think we might be stricken with the ddr kind difference here, but I
-would not bet on it.
-
->
-> Fixes: 840d10b64dad ("drm: msm: Add 680 gpu to the adreno gpu list")
-> Signed-off-by: Konrad Dybcio <konrad.dybcio@linaro.org>
-> ---
->  drivers/gpu/drm/msm/adreno/a6xx_gpu.c | 8 +++++++-
->  1 file changed, 7 insertions(+), 1 deletion(-)
->
-> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-> index b5017c56fa1b..2c4afecdd213 100644
-> --- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-> @@ -885,12 +885,18 @@ static void a6xx_set_ubwc_config(struct msm_gpu *gpu)
->                 hbb_lo = 2;
->         }
->
-> -       if (adreno_is_a640_family(adreno_gpu)) {
-> +       if (adreno_is_a640(adreno_gpu)) {
->                 amsbc = 1;
->                 /* HBB = 15 */
->                 hbb_lo = 2;
->         }
->
-> +       if (adreno_is_a680(adreno_gpu)) {
-> +               amsbc = 1;
-> +               /* HBB = 16 */
-> +               hbb_lo = 3;
-> +       }
-> +
->         if (adreno_is_a650(adreno_gpu) || adreno_is_a660(adreno_gpu)) {
->                 amsbc = 1;
->                 /* TODO: get ddr type from bootloader and use 2 for LPDDR4 */
->
-> --
-> 2.39.2
->
 
 
--- 
-With best wishes
-Dmitry
+On 23.02.2023 14:06, Dmitry Baryshkov wrote:
+> On Thu, 23 Feb 2023 at 14:07, Konrad Dybcio <konrad.dybcio@linaro.org> wrote:
+>>
+>> According to the vendor sources, it's equal to 16, which makes hbb_lo
+>> equal to 3.
+> 
+> I think we might be stricken with the ddr kind difference here, but I
+> would not bet on it.
+It totally is, but it also seems to be SoC-dependent..
+I think all 8180x devices shipped with LPDDR4X FWIW
+
+Konrad
+> 
+>>
+>> Fixes: 840d10b64dad ("drm: msm: Add 680 gpu to the adreno gpu list")
+>> Signed-off-by: Konrad Dybcio <konrad.dybcio@linaro.org>
+>> ---
+>>  drivers/gpu/drm/msm/adreno/a6xx_gpu.c | 8 +++++++-
+>>  1 file changed, 7 insertions(+), 1 deletion(-)
+>>
+>> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+>> index b5017c56fa1b..2c4afecdd213 100644
+>> --- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+>> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+>> @@ -885,12 +885,18 @@ static void a6xx_set_ubwc_config(struct msm_gpu *gpu)
+>>                 hbb_lo = 2;
+>>         }
+>>
+>> -       if (adreno_is_a640_family(adreno_gpu)) {
+>> +       if (adreno_is_a640(adreno_gpu)) {
+>>                 amsbc = 1;
+>>                 /* HBB = 15 */
+>>                 hbb_lo = 2;
+>>         }
+>>
+>> +       if (adreno_is_a680(adreno_gpu)) {
+>> +               amsbc = 1;
+>> +               /* HBB = 16 */
+>> +               hbb_lo = 3;
+>> +       }
+>> +
+>>         if (adreno_is_a650(adreno_gpu) || adreno_is_a660(adreno_gpu)) {
+>>                 amsbc = 1;
+>>                 /* TODO: get ddr type from bootloader and use 2 for LPDDR4 */
+>>
+>> --
+>> 2.39.2
+>>
+> 
+> 
