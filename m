@@ -2,69 +2,72 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id AC7146A0B26
-	for <lists+freedreno@lfdr.de>; Thu, 23 Feb 2023 14:49:07 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A06666A0B45
+	for <lists+freedreno@lfdr.de>; Thu, 23 Feb 2023 14:57:11 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6FBF810E4ED;
-	Thu, 23 Feb 2023 13:49:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 63F5B10E4C7;
+	Thu, 23 Feb 2023 13:57:10 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-x235.google.com (mail-lj1-x235.google.com
- [IPv6:2a00:1450:4864:20::235])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 65F8010EB87
- for <freedreno@lists.freedesktop.org>; Thu, 23 Feb 2023 13:49:05 +0000 (UTC)
-Received: by mail-lj1-x235.google.com with SMTP id h3so4835700lja.12
- for <freedreno@lists.freedesktop.org>; Thu, 23 Feb 2023 05:49:05 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=frB7bLXBAzoLz+jz9s0Y5YZS3DoAI1c5p0MiOZAyg3g=;
- b=RA0VXA2x0u01eDdYnr9UigJZ2T1pl4zDq8NqGuMX5UnjXPlLjgeKxRXqQy3vLOU12v
- JOabwvQh9gnxhIhomkRifz1DnoOv8cMNPI5C3oGD3qTtgEDAJlv9pyLmdK1/0qjsHPfj
- U2Z1q4rG9HVbRdYmcIHenKEEwsYrYbK5Rp0UL378bayXIRu4HhAz8f2Zh/U1VoN0okaj
- JYMBS/y+fs2BCN2jjRr2X4uO7SqfsyTE8yYoMc6vhpr7G+nepm2paL4jH0Uo3u/KrpTz
- 5z7zCPtZ0HtSWnEisORbCgNNTNWpeBL5SeW8HQrJZH9LlemOnWAbmLySna534kXjaGsw
- 92Lg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=frB7bLXBAzoLz+jz9s0Y5YZS3DoAI1c5p0MiOZAyg3g=;
- b=rjR2c4e5Ro8lMXQ7ZNRnAOHf4v5zBpA/0pei7pe4ifKi2YchFnxfOaM841uU+UgMr6
- cSczXGKOWdSf2vYOvuteAtQCiyncTRHXNYMZzYQOebHgufOb4t+XSGjncYtby52KOTe5
- SRkJ1thMtj5QusO6HsTrLg7wE4K7pVr4cBwV9Q5nR5KDAt/3cWKmxVJvID8/quuSe/jO
- lzbIDykmMIY1eYEfjtkBKIo2muzI3a4C4qxqb9xgsN4r2b//xYse11RtVjtlOCdn+j0K
- 2xwcGw+mmbzV6no3QafAKw6K1es3wB8IWU4Fb3KGqtqEat90+hsHdXqEBiHKyuFRXCvD
- k89A==
-X-Gm-Message-State: AO0yUKXzVGhX/pxK44sShMSRwzsKbmE4P2BM4p5bBDhZq5n5tW14fHVc
- aMuv9KpwzrYb8FLfilwY3HglZw==
-X-Google-Smtp-Source: AK7set/+fzhm8Q7+85CuVpa/CC2T12Ib2EKLG78RC9QKfOzgfhUM/TMMpg4QaxdhhCQesbzSHPM6AA==
-X-Received: by 2002:a05:651c:1614:b0:293:45f1:c1a6 with SMTP id
- f20-20020a05651c161400b0029345f1c1a6mr3959697ljq.0.1677160143636; 
- Thu, 23 Feb 2023 05:49:03 -0800 (PST)
-Received: from [192.168.1.101] (abxi151.neoplus.adsl.tpnet.pl. [83.9.2.151])
- by smtp.gmail.com with ESMTPSA id
- n16-20020ac24910000000b004b7033da2d7sm799123lfi.128.2023.02.23.05.49.01
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 23 Feb 2023 05:49:03 -0800 (PST)
-Message-ID: <761e0aba-9364-557a-e6e5-e21494597dbc@linaro.org>
-Date: Thu, 23 Feb 2023 14:49:00 +0100
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6116A10E4C7;
+ Thu, 23 Feb 2023 13:57:08 +0000 (UTC)
+Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 31NCuYCb008027; Thu, 23 Feb 2023 13:57:05 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
+ h=from : to : cc :
+ subject : date : message-id : mime-version : content-transfer-encoding :
+ content-type; s=qcppdkim1;
+ bh=9zXnT+AjDH6c5Z86MTt3SgnursdwLqZhSOijlDEUw3c=;
+ b=Ra7TuHs+rMoLUUAw83Vo5pk4jUsc33rpP3dU5Ye6YSkZNl//1bal7N2axoLjoRXHkBiY
+ e/pELjWT10+VcNKUyccMqrc2DxztosC1Lxw2MIWfojKwCo/ycUt4+pSeNNCA1aFV0ENj
+ 5A1sJv5whT3uI4j+WA2RW80uW+WKdAzOPnW2+KCFwwK0sE3XUHKzZGHK+AI7qHfBM1WL
+ VycX+nqDl22i5rhrSJo0FEMB81pSoj2RpcpYZOQ5SGfOnCm9gsy7xwbxuhnD3eP6eBZx
+ Xf/3dZElZTCqQA9iyv6sfQRBmrRS6C8qMfGWe+m6BISmuw/xR6FgHDwfkb0WV6YTwk6j Bw== 
+Received: from nalasppmta05.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3nwybm1h2k-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 23 Feb 2023 13:57:04 +0000
+Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
+ [10.47.209.196])
+ by NALASPPMTA05.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 31NDv3sB017304
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 23 Feb 2023 13:57:03 GMT
+Received: from sbillaka-linux.qualcomm.com (10.80.80.8) by
+ nalasex01a.na.qualcomm.com (10.47.209.196) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.986.41; Thu, 23 Feb 2023 05:56:57 -0800
+From: Sankeerth Billakanti <quic_sbillaka@quicinc.com>
+To: <dri-devel@lists.freedesktop.org>, <linux-arm-msm@vger.kernel.org>,
+ <freedreno@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>
+Date: Thu, 23 Feb 2023 19:26:33 +0530
+Message-ID: <20230223135635.30659-1-quic_sbillaka@quicinc.com>
+X-Mailer: git-send-email 2.39.0
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.8.0
-Content-Language: en-US
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-References: <20230223-topic-gmuwrapper-v3-0-5be55a336819@linaro.org>
- <20230223-topic-gmuwrapper-v3-10-5be55a336819@linaro.org>
- <CAA8EJppi45K0hQ=1fZvf+Mps+4uEkXmLFeqdmyk-yk31CNvUsw@mail.gmail.com>
-From: Konrad Dybcio <konrad.dybcio@linaro.org>
-In-Reply-To: <CAA8EJppi45K0hQ=1fZvf+Mps+4uEkXmLFeqdmyk-yk31CNvUsw@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH v3 10/15] drm/msm/a6xx: Fix A680 highest
- bank bit value
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-ORIG-GUID: j_H_hQolhHrqyGz5Of4dKgracEP44EsI
+X-Proofpoint-GUID: j_H_hQolhHrqyGz5Of4dKgracEP44EsI
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.219,Aquarius:18.0.930,Hydra:6.0.562,FMLib:17.11.170.22
+ definitions=2023-02-23_08,2023-02-23_01,2023-02-09_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ mlxlogscore=805
+ suspectscore=0 phishscore=0 spamscore=0 priorityscore=1501 adultscore=0
+ impostorscore=0 bulkscore=0 lowpriorityscore=0 malwarescore=0 mlxscore=0
+ clxscore=1011 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2212070000 definitions=main-2302230114
+Subject: [Freedreno] [RFC PATCH 0/2] drm/msm/dp: refactor the msm dp driver
+ resources
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,67 +80,44 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rob Clark <robdclark@chromium.org>, freedreno@lists.freedesktop.org,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- devicetree@vger.kernel.org, Akhil P Oommen <quic_akhilpo@quicinc.com>,
- Sean Paul <sean@poorly.run>, Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konrad.dybcio@somainline.org>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Rob Clark <robdclark@gmail.com>,
- Rob Herring <robh+dt@kernel.org>, Daniel Vetter <daniel@ffwll.ch>,
- linux-arm-msm@vger.kernel.org, David Airlie <airlied@gmail.com>
+Cc: quic_kalyant@quicinc.com, Sankeerth Billakanti <quic_sbillaka@quicinc.com>,
+ dianders@chromium.org, quic_bjorande@quicinc.com, quic_vproddut@quicinc.com,
+ airlied@linux.ie, quic_abhinavk@quicinc.com, swboyd@chromium.org,
+ robdclark@gmail.com, seanpaul@chromium.org, daniel@ffwll.ch,
+ dmitry.baryshkov@linaro.org, quic_khsieh@quicinc.com, sean@poorly.run
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
+The DP driver resources are currently enabled and disabled directly based on code flow.
+As mentioned in bug 230631602, we want to do the following:
 
+1) Refactor the dp/edp parsing code to move it to probe (it is currently done in bind).
 
-On 23.02.2023 14:06, Dmitry Baryshkov wrote:
-> On Thu, 23 Feb 2023 at 14:07, Konrad Dybcio <konrad.dybcio@linaro.org> wrote:
->>
->> According to the vendor sources, it's equal to 16, which makes hbb_lo
->> equal to 3.
-> 
-> I think we might be stricken with the ddr kind difference here, but I
-> would not bet on it.
-It totally is, but it also seems to be SoC-dependent..
-I think all 8180x devices shipped with LPDDR4X FWIW
+2) Then bind all the power resources needed for AUX in pm_runtime_ops.
 
-Konrad
-> 
->>
->> Fixes: 840d10b64dad ("drm: msm: Add 680 gpu to the adreno gpu list")
->> Signed-off-by: Konrad Dybcio <konrad.dybcio@linaro.org>
->> ---
->>  drivers/gpu/drm/msm/adreno/a6xx_gpu.c | 8 +++++++-
->>  1 file changed, 7 insertions(+), 1 deletion(-)
->>
->> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
->> index b5017c56fa1b..2c4afecdd213 100644
->> --- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
->> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
->> @@ -885,12 +885,18 @@ static void a6xx_set_ubwc_config(struct msm_gpu *gpu)
->>                 hbb_lo = 2;
->>         }
->>
->> -       if (adreno_is_a640_family(adreno_gpu)) {
->> +       if (adreno_is_a640(adreno_gpu)) {
->>                 amsbc = 1;
->>                 /* HBB = 15 */
->>                 hbb_lo = 2;
->>         }
->>
->> +       if (adreno_is_a680(adreno_gpu)) {
->> +               amsbc = 1;
->> +               /* HBB = 16 */
->> +               hbb_lo = 3;
->> +       }
->> +
->>         if (adreno_is_a650(adreno_gpu) || adreno_is_a660(adreno_gpu)) {
->>                 amsbc = 1;
->>                 /* TODO: get ddr type from bootloader and use 2 for LPDDR4 */
->>
->> --
->> 2.39.2
->>
-> 
-> 
+3) Handle EPROBE_DEFER cases of the panel-eDP aux device.
+
+4) Verify DP functionality is unaffected.
+
+These code changes will parse the resources and get the edp panel during probe.
+All the necessary resources required for the aux transactions are moved to pm_runtime ops.
+They are enabled or disabled via get/put sync functions.
+
+This is a RFC to verify with the community if the approach we are taking is correct.
+
+https://partnerissuetracker.corp.google.com/issues/230631602
+
+Sankeerth Billakanti (2):
+  drm/msm/dp: enumerate edp panel during driver probe
+  drm/msm/dp: enable pm_runtime support for dp driver
+
+ drivers/gpu/drm/msm/dp/dp_aux.c     | 155 +++++++++++++++++++++--
+ drivers/gpu/drm/msm/dp/dp_catalog.c |  12 ++
+ drivers/gpu/drm/msm/dp/dp_catalog.h |   1 +
+ drivers/gpu/drm/msm/dp/dp_display.c | 185 ++++++++++++++--------------
+ drivers/gpu/drm/msm/dp/dp_power.c   |   7 --
+ 5 files changed, 250 insertions(+), 110 deletions(-)
+
+-- 
+2.39.0
+
