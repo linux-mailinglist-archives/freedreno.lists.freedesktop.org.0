@@ -2,62 +2,68 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id C3A1E6A057A
-	for <lists+freedreno@lfdr.de>; Thu, 23 Feb 2023 10:57:13 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5F3826A0631
+	for <lists+freedreno@lfdr.de>; Thu, 23 Feb 2023 11:28:07 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8FF3910E4A3;
-	Thu, 23 Feb 2023 09:57:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2CC3610E4CF;
+	Thu, 23 Feb 2023 10:28:06 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-x22e.google.com (mail-lj1-x22e.google.com
- [IPv6:2a00:1450:4864:20::22e])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 00D5A10E4C5
- for <freedreno@lists.freedesktop.org>; Thu, 23 Feb 2023 09:57:10 +0000 (UTC)
-Received: by mail-lj1-x22e.google.com with SMTP id b13so11248025ljf.6
- for <freedreno@lists.freedesktop.org>; Thu, 23 Feb 2023 01:57:10 -0800 (PST)
+Received: from mail-lf1-x131.google.com (mail-lf1-x131.google.com
+ [IPv6:2a00:1450:4864:20::131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CB68010E4AE
+ for <freedreno@lists.freedesktop.org>; Thu, 23 Feb 2023 10:28:03 +0000 (UTC)
+Received: by mail-lf1-x131.google.com with SMTP id m7so13126454lfj.8
+ for <freedreno@lists.freedesktop.org>; Thu, 23 Feb 2023 02:28:03 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=IXrfXOXzXAnGhXOYy5k/pL1OHE2nAUYxHQGENjE+KGk=;
- b=ohJ0ReUmz5mUYgneH7l3mxg8pMkbyJtTEvBbJCdPMLJ3QiihYV9uXkwJ8ebnfyfcC7
- bivyvVa3n1ZvbWliVMkUyu4/BCOemex76Lp8FLJb/Zsvi/SMUe2aPqT8kdHduQotpH4V
- lbTS+QqSp1eM96oHKRvv0gbfh7abNLZYoTQGzhJD9icpz7RlMPQJt1IvgY0cmveiRYFY
- +iuwztkwjazMUQ4U+G9dKtmP99KYdG1EkHwV98grjgaCJztawJeEvVYpXDnwo19bUwPT
- 49kGh0NHGMJPhp3JDBuGG2vjruyR4FS86UxZtvDjbyltg41z0GecpA7wsDZsjA/fr3FW
- BQcw==
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=4KN3QHYebXNFQ1MR4lOhV0UH8In9lLiTgGDCFeMOKXc=;
+ b=WMywVw8K3Py8G4VhmbwAutu+2p6v6TxkHwEsDYSsLJGyIquHRIFpNKkgAxgFKHpL4m
+ hM1IdLkMkTSV3PhZvWb/Gk1x/sZvOfBfqDb3qpUDtvlu5lHCpZ9JPCwtzz1QwuifiKih
+ sCdFX9navsCOByhG0cdIXsVyd4M9X8VP/YEQPi/zQsmmz+0YJy5j8ndY/NZeoZ+o/yRG
+ mC7EL+alp/G8GhwkuNls0MAvuQ0hDeOgO1iUt3rvC0hC47+mOVmH/osqwxK6VwdQXMdp
+ VsM4gXuTlY8CrXBIOIAtbpHIJWtHlYZyeFw2DvIYBcsHy5+9jL6iJk1H+lDM6ciacDi2
+ RFAw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=IXrfXOXzXAnGhXOYy5k/pL1OHE2nAUYxHQGENjE+KGk=;
- b=RFUMsfjHpjCVXEkNTGSZDDYJeOvTwrq3YPacnrJukRkp+PeaSf/Y3movEBH6u2ZQ5M
- zXKfAEWJTzWBmmh9t+ZJhKSOTlYFjq+BW9VVEaaBwKa7fCcmryQgDb0lWgLsfir63rrB
- TIxdlJn7WFepxfKrNntvDi3gfesgihsCaaeXECcDlRxk81jDWv8Rc6G+q8D8xVUWMsYZ
- xtJYyBMyLoP1/4TpDqd7Hb/+JKv4lYqlsGY0vuAdZj8oMXwJTUE1WWQ/O3JlDfwMoXZn
- XW89aLYL60uE/Ddu7/mUR4UD9j8mksVNX1WggQKZrneE/VfwM9UOpYQXdhDHHxujdfFf
- bIaQ==
-X-Gm-Message-State: AO0yUKVRBLS1BXb9+0C1bhBGgRD0ccNMmIFYUy8FKkDf5CAlA8dEXKgi
- 7fgM65+OCp/IPzYumC3hctZjtA==
-X-Google-Smtp-Source: AK7set/u7ABMRAHGthgTexmgRYtv8dZVgMlfPuUOuCF93sPp/oGCN5yFbmZ42f7om+exFdsnm4d2PA==
-X-Received: by 2002:a2e:bc0d:0:b0:294:669b:8f97 with SMTP id
- b13-20020a2ebc0d000000b00294669b8f97mr6159337ljf.46.1677146229148; 
- Thu, 23 Feb 2023 01:57:09 -0800 (PST)
-Received: from umbar.unikie.fi ([192.130.178.91])
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=4KN3QHYebXNFQ1MR4lOhV0UH8In9lLiTgGDCFeMOKXc=;
+ b=RMx+rHrqf2GyYIwfMbxTwufmR9z8+OOlc4ayE47GjxVaJUZVrzg3JrDhi9rG2Bk3UH
+ jL9xeT1ii1E+AoiaAxlEoft5265JcVccg6cUJmRV8LhHDOB5DEozXCRbVkyqt9gnwjow
+ A6VK0fqoqskxk4WhbLFWEjlIYfNvP/4V7zPNg7No7Em3xr0ntyKkSlUXnHoTaYZOfF1r
+ DZGUYlwM+0z9Fl4maMVpTfFa+gMrqr7oG21PRPW6NO1TDsajjSjemHV14ja5blqZnIxz
+ p6BqgjzCVuBuBVYMZY5HGhij0hSNWNC5hDbmqSVtwXVJppR0/4/wWZrUPEnUdnnw/sgH
+ h2Vw==
+X-Gm-Message-State: AO0yUKUabJqZMfe7vattk0AuYX5koB8oqmRENHmKJE87PruBbPv3w5fR
+ nw3UwF+C0sNf1T2S0YYTEYoHjg==
+X-Google-Smtp-Source: AK7set+/bXBe561KcXizDtJoY7mQSwDyRScTzV+2Y8APj0r3B+3RmXwofutdh3SF2HsU/WPCIxKn9A==
+X-Received: by 2002:a19:7502:0:b0:4db:3cea:ef02 with SMTP id
+ y2-20020a197502000000b004db3ceaef02mr4228612lfe.68.1677148081742; 
+ Thu, 23 Feb 2023 02:28:01 -0800 (PST)
+Received: from [192.168.1.101] (abxi151.neoplus.adsl.tpnet.pl. [83.9.2.151])
  by smtp.gmail.com with ESMTPSA id
- a18-20020a2eb552000000b002935899fe3fsm602765ljn.116.2023.02.23.01.57.08
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 23 Feb 2023 01:57:08 -0800 (PST)
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-To: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>
-Date: Thu, 23 Feb 2023 12:57:08 +0300
-Message-Id: <20230223095708.3688148-1-dmitry.baryshkov@linaro.org>
-X-Mailer: git-send-email 2.30.2
+ g16-20020a2eb5d0000000b002935354161bsm1161590ljn.106.2023.02.23.02.28.00
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 23 Feb 2023 02:28:01 -0800 (PST)
+Message-ID: <f6acca8c-6b07-426d-80c7-a10dad20ed7c@linaro.org>
+Date: Thu, 23 Feb 2023 11:27:59 +0100
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH] drm/msm/dpu: fix stack smashing in
- dpu_hw_ctl_setup_blendstage
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.8.0
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+References: <20230223-topic-opp-v2-0-24ed24cd7358@linaro.org>
+ <20230223-topic-opp-v2-3-24ed24cd7358@linaro.org>
+ <CAA8EJprAxKCD_bJFdaMGhnwW56u+NLN_qxBV9aSzMTRdzsh07A@mail.gmail.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@linaro.org>
+In-Reply-To: <CAA8EJprAxKCD_bJFdaMGhnwW56u+NLN_qxBV9aSzMTRdzsh07A@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+Subject: Re: [Freedreno] [PATCH v2 3/6] drm/msm/a2xx: Implement .gpu_busy
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,79 +76,87 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Amit Pundir <amit.pundir@linaro.org>, freedreno@lists.freedesktop.org,
- linux-arm-msm@vger.kernel.org, Bjorn Andersson <andersson@kernel.org>,
- dri-devel@lists.freedesktop.org, Stephen Boyd <swboyd@chromium.org>,
- Daniel Vetter <daniel@ffwll.ch>, David Airlie <airlied@gmail.com>
+Cc: freedreno@lists.freedesktop.org, Sean Paul <sean@poorly.run>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Rob Clark <robdclark@gmail.com>,
+ Daniel Vetter <daniel@ffwll.ch>, linux-arm-msm@vger.kernel.org,
+ David Airlie <airlied@gmail.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-The rewritten dpu_hw_ctl_setup_blendstage() can lightly smash the stack
-when setting the SSPP_NONE pipe. However it was unnoticed until the
-kernel was tested under AOSP (with some kind of stack protection/check).
 
-This fixes the following backtrace:
 
-Unexpected kernel BRK exception at EL1
-Internal error: BRK handler: 00000000f20003e8 [#1] PREEMPT SMP
-Hardware name: Thundercomm Dragonboard 845c (DT)
-pstate: a0400005 (NzCv daif +PAN -UAO -TCO -DIT -SSBS BTYPE=--)
-pc : dpu_hw_ctl_setup_blendstage+0x26c/0x278 [msm]
-lr : _dpu_crtc_blend_setup+0x4b4/0x5a0 [msm]
-sp : ffffffc00bdcb720
-x29: ffffffc00bdcb720 x28: ffffff8085debac0 x27: 0000000000000002
-x26: ffffffd74af18320 x25: ffffff8083af75a0 x24: ffffffc00bdcb878
-x23: 0000000000000001 x22: 0000000000000000 x21: ffffff8085a70000
-x20: ffffff8083012dc0 x19: 0000000000000001 x18: 0000000000000000
-x17: 000000040044ffff x16: 045000f4b5593519 x15: 0000000000000000
-x14: 000000000000000b x13: 0000000000000001 x12: 0000000000000000
-x11: 0000000000000001 x10: ffffffc00bdcb764 x9 : ffffffd74af06a08
-x8 : 0000000000000001 x7 : 0000000000000001 x6 : 0000000000000000
-x5 : ffffffc00bdcb878 x4 : 0000000000000002 x3 : ffffffffffffffff
-x2 : ffffffc00bdcb878 x1 : 0000000000000000 x0 : 0000000000000002
-Call trace:
- dpu_hw_ctl_setup_blendstage+0x26c/0x278 [msm]
- _dpu_crtc_blend_setup+0x4b4/0x5a0 [msm]
- dpu_crtc_atomic_begin+0xd8/0x22c [msm]
- drm_atomic_helper_commit_planes+0x80/0x208 [drm_kms_helper]
- msm_atomic_commit_tail+0x134/0x6f0 [msm]
- commit_tail+0xa4/0x1a4 [drm_kms_helper]
- drm_atomic_helper_commit+0x170/0x184 [drm_kms_helper]
- drm_atomic_commit+0xac/0xe8
- drm_mode_atomic_ioctl+0xbf0/0xdac
- drm_ioctl_kernel+0xc4/0x178
- drm_ioctl+0x2c8/0x608
- __arm64_sys_ioctl+0xa8/0xec
- invoke_syscall+0x44/0x104
- el0_svc_common.constprop.0+0x44/0xec
- do_el0_svc+0x38/0x98
- el0_svc+0x2c/0xb4
- el0t_64_sync_handler+0xb8/0xbc
- el0t_64_sync+0x1a0/0x1a4
-Code: 52800016 52800017 52800018 17ffffc7 (d4207d00)
+On 23.02.2023 03:09, Dmitry Baryshkov wrote:
+> On Thu, 23 Feb 2023 at 03:47, Konrad Dybcio <konrad.dybcio@linaro.org> wrote:
+>>
+>> Implement gpu_busy based on the downstream msm-3.4 code [1]. This
+>> allows us to use devfreq on this old old old hardware!
+>>
+>> [1] https://github.com/LineageOS/android_kernel_sony_apq8064/blob/lineage-16.0/drivers/gpu/msm/adreno_a2xx.c#L1975
+>>
+>> Signed-off-by: Konrad Dybcio <konrad.dybcio@linaro.org>
+> 
+> Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> 
+> Small nit below
+> 
+>> ---
+>>  drivers/gpu/drm/msm/adreno/a2xx_gpu.c | 24 ++++++++++++++++++++++++
+>>  1 file changed, 24 insertions(+)
+>>
+>> diff --git a/drivers/gpu/drm/msm/adreno/a2xx_gpu.c b/drivers/gpu/drm/msm/adreno/a2xx_gpu.c
+>> index c67089a7ebc1..6f9876b37db5 100644
+>> --- a/drivers/gpu/drm/msm/adreno/a2xx_gpu.c
+>> +++ b/drivers/gpu/drm/msm/adreno/a2xx_gpu.c
+>> @@ -481,6 +481,29 @@ a2xx_create_address_space(struct msm_gpu *gpu, struct platform_device *pdev)
+>>         return aspace;
+>>  }
+>>
+>> +/* While the precise size of this field is unknown, it holds at least these three values.. */
+>> +static u64 a2xx_gpu_busy(struct msm_gpu *gpu, unsigned long *out_sample_rate)
+>> +{
+>> +       u64 busy_cycles;
+>> +
+>> +       /* Freeze the counter */
+>> +       gpu_write(gpu, REG_A2XX_CP_PERFMON_CNTL, PERF_STATE_FREEZE);
+>> +
+>> +       busy_cycles = gpu_read64(gpu, REG_A2XX_RBBM_PERFCOUNTER1_LO);
+>> +
+>> +       /* Reset the counter */
+>> +       gpu_write(gpu, REG_A2XX_CP_PERFMON_CNTL, PERF_STATE_RESET);
+>> +
+>> +       /* Re-enable the performance monitors */
+>> +       gpu_rmw(gpu, REG_A2XX_RBBM_PM_OVERRIDE2, BIT(6), BIT(6));
+> 
+> It's DEBUG_PERF_SCLK_PM_OVERRIDE
+> 
+> See https://github.com/genesi/linux-legacy/blob/master/drivers/mxc/amd-gpu/include/reg/yamato/10/yamato_mask.h#L4428
+I'll fix it up!
 
-Fixes: 4488f71f6373 ("drm/msm/dpu: simplify blend configuration")
-Reported-by: Amit Pundir <amit.pundir@linaro.org>
-Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
----
- drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c
-index b88a2f3724e6..6c53ea560ffa 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c
-@@ -446,7 +446,9 @@ static void dpu_hw_ctl_setup_blendstage(struct dpu_hw_ctl *ctx,
- 			 * CTL_LAYER has 3-bit field (and extra bits in EXT register),
- 			 * all EXT registers has 4-bit fields.
- 			 */
--			if (cfg->idx == 0) {
-+			if (cfg->idx == -1) {
-+				continue;
-+			} else if (cfg->idx == 0) {
- 				mixercfg[0] |= mix << cfg->shift;
- 				mixercfg[1] |= ext << cfg->ext_shift;
- 			} else {
--- 
-2.30.2
-
+Konrad
+> 
+>> +       gpu_write(gpu, REG_A2XX_RBBM_PERFCOUNTER1_SELECT, 1);
+>> +       gpu_write(gpu, REG_A2XX_CP_PERFMON_CNTL, PERF_STATE_ENABLE);
+>> +
+>> +       *out_sample_rate = clk_get_rate(gpu->core_clk);
+>> +
+>> +       return busy_cycles;
+>> +}
+>> +
+>>  static u32 a2xx_get_rptr(struct msm_gpu *gpu, struct msm_ringbuffer *ring)
+>>  {
+>>         ring->memptrs->rptr = gpu_read(gpu, REG_AXXX_CP_RB_RPTR);
+>> @@ -502,6 +525,7 @@ static const struct adreno_gpu_funcs funcs = {
+>>  #if defined(CONFIG_DEBUG_FS) || defined(CONFIG_DEV_COREDUMP)
+>>                 .show = adreno_show,
+>>  #endif
+>> +               .gpu_busy = a2xx_gpu_busy,
+>>                 .gpu_state_get = a2xx_gpu_state_get,
+>>                 .gpu_state_put = adreno_gpu_state_put,
+>>                 .create_address_space = a2xx_create_address_space,
+>>
+>> --
+>> 2.39.2
+>>
+> 
+> 
