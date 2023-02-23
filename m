@@ -1,59 +1,59 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id A2A946A081A
-	for <lists+freedreno@lfdr.de>; Thu, 23 Feb 2023 13:07:16 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 3F9FD6A0820
+	for <lists+freedreno@lfdr.de>; Thu, 23 Feb 2023 13:07:23 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 691D910EB4F;
-	Thu, 23 Feb 2023 12:07:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 059EA10EB6F;
+	Thu, 23 Feb 2023 12:07:22 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-x234.google.com (mail-lj1-x234.google.com
- [IPv6:2a00:1450:4864:20::234])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DFE6110EB70
- for <freedreno@lists.freedesktop.org>; Thu, 23 Feb 2023 12:07:06 +0000 (UTC)
-Received: by mail-lj1-x234.google.com with SMTP id y14so3480201ljq.4
- for <freedreno@lists.freedesktop.org>; Thu, 23 Feb 2023 04:07:06 -0800 (PST)
+Received: from mail-lf1-x12a.google.com (mail-lf1-x12a.google.com
+ [IPv6:2a00:1450:4864:20::12a])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9057F10EB74
+ for <freedreno@lists.freedesktop.org>; Thu, 23 Feb 2023 12:07:08 +0000 (UTC)
+Received: by mail-lf1-x12a.google.com with SMTP id t11so2554530lfr.1
+ for <freedreno@lists.freedesktop.org>; Thu, 23 Feb 2023 04:07:08 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=uSXIYjxNwQB5rC697KFH22B37Wkj2tNCcehY+B4TiSY=;
- b=Psnw1sT6NYQB65Gw4hVD+6qknVqFCL+OTzW+fcAVAHrxMhpLxwnvPL3eTr8JxPz99w
- 36ONyLp1ha+EF1B5YvEoQpWMOQTTFxDPUcy1RRnPvFdI7jZwelKqtUxioL4yT/ukkeiq
- 076vZB4Uvew3aYuXw76kQ/2bigVyg6L0tsX4MuS2D7e6DDMmtEElEzzd+Wgnvdx4ftPU
- qeBhEgNtdHk/9JEe/H0JGnwqA1znmNmvD7Doc592jRrD9d+lDFlZd0t2DQWJHT8VLhls
- 03B3oHFdoPgPyqE6OQGRhjP+ihFwAM7wRltJvEIbj8m3FVZMV1VRwEkE0S3S7UMkAfYY
- RsvA==
+ :reply-to; bh=C4+BbvaxTKosi1VX2ZfgyFw5uKrIVyEHJTEyhGEltZ8=;
+ b=Y2jcSJHhF5U7EQu4pplmwN6DCqvLxec404zwfZZnPgxsphRj/bZKem0lSAXaMsKAPF
+ 4IVbe4H2jrX3UZbOoh3MyeDnq8yRX3crwsGY0UDg8F8wo1yxX+KiFtRiWeP9OTwhaSHq
+ mU3xs1HoR0dgTBhQjEv1e4VUvDqucQ1JVcdLXEeKnsvVSmZbelyiiaGNZy4ilyFoW4LF
+ fcXKmYY7Mh5f5yV3b+mA3S1dUsnPcfd9hm+IL/kC8X7lOwANQFIpXQYMnlSZnAE8EU0m
+ tB0VOaJ7j2XemYKYIO3cverm+e45CmLb9TN0zsXKm7H/4I7Blpvbpgai+dZUIc7glGGU
+ feAQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=uSXIYjxNwQB5rC697KFH22B37Wkj2tNCcehY+B4TiSY=;
- b=xD/nt9wu4jd2yqkySezCYQ2qu/L8QtOY+xgElbLQwLDhXHEJL/21Ls9M7Ec5T8rGlC
- oAq82Y8KcqxRXR0J6ZtQ/u43bY7g7+2wnRKHD3QfkXd/RYZccS5c+D8/N+lzVy5bKzv3
- N84DzhNkR3vlHW5hOpxi6UY39i9QSnW6IV6fqI8K+4DqnTbuTnp45sOHg4/WQ5IFnHEL
- ACVwK8G8FmOSohpA7Fgv8cYFNT9n+FQwHASjEQn35u/ZLxScPWmDIPQswV86OPxIJt1x
- /xq276g4M1iZp3MaLsxQHQnIdSzUJeJmloBHRGPzpXRC/xLWdMQHUmXhPzT+mzdxbARR
- wHLw==
-X-Gm-Message-State: AO0yUKUttQCqeCo2vGbWFTFeXvZREm8VzU/EeHEAks2AsnNDryEPW57Q
- Ov551Ldw0evoBoxeuthQryFErw==
-X-Google-Smtp-Source: AK7set8yIQJDUE1VGoY2e5auhBs7dIG4WhOSuybeiyheT5uB6fe12uO9Zp50iQ9siFy2FcXt5enWTw==
-X-Received: by 2002:a05:651c:106:b0:293:315a:7bf with SMTP id
- a6-20020a05651c010600b00293315a07bfmr5309917ljb.23.1677154026481; 
- Thu, 23 Feb 2023 04:07:06 -0800 (PST)
+ bh=C4+BbvaxTKosi1VX2ZfgyFw5uKrIVyEHJTEyhGEltZ8=;
+ b=aLjZS+lNm620pEC+IOJzN4+BBLLa+L7xgRP28WJBEXihc+bYiSYEJYaeuLPj4s0yI0
+ 8vZ6W4f4hlQs1+LTxlQb1Gq8NbUwuMD97DIcDbtz3MMlmW+tCHUbhBwYMSa5EhIIJBfX
+ ecq3/YoHRRpy4k+NMNd/I4q2ZJlWQsXKXohIVo7MjlC8QPmdCYZDL79Emzub6WWmMOHq
+ 99mlFzdzdsczebfkeBW0r+UHwMdEhEYJUGc/dlH39HbfDbaliD+KF9Xq3gpCM0+0L6qP
+ nZlXESgk9+btabV1lZviHGdioplhgDcRzlL8K3JSxaaZ50ASpRYIIkI4KOCwIlOS0oTS
+ UBGQ==
+X-Gm-Message-State: AO0yUKVQoicro+PGfLBn3s8/PB8wrnrk5ggHU4QzVGZFfd6XwvhPmdeW
+ 9NRi8xTW0fER+/ANQbrc6Gx72Q==
+X-Google-Smtp-Source: AK7set/BfkcYxE6t0vClbaGDWrcWIMEVdt6dbBzCVaxKh/DZJn4Hjr2vb/yRmNsYoPwWnzNvdxDLyw==
+X-Received: by 2002:ac2:54ab:0:b0:4ce:e95c:f300 with SMTP id
+ w11-20020ac254ab000000b004cee95cf300mr3781292lfk.39.1677154028161; 
+ Thu, 23 Feb 2023 04:07:08 -0800 (PST)
 Received: from [192.168.1.101] (abxi151.neoplus.adsl.tpnet.pl. [83.9.2.151])
  by smtp.gmail.com with ESMTPSA id
- h23-20020a2ea497000000b0029599744c02sm414838lji.75.2023.02.23.04.07.05
+ h23-20020a2ea497000000b0029599744c02sm414838lji.75.2023.02.23.04.07.06
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 23 Feb 2023 04:07:06 -0800 (PST)
+ Thu, 23 Feb 2023 04:07:07 -0800 (PST)
 From: Konrad Dybcio <konrad.dybcio@linaro.org>
-Date: Thu, 23 Feb 2023 13:06:48 +0100
+Date: Thu, 23 Feb 2023 13:06:49 +0100
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20230223-topic-gmuwrapper-v3-14-5be55a336819@linaro.org>
+Message-Id: <20230223-topic-gmuwrapper-v3-15-5be55a336819@linaro.org>
 References: <20230223-topic-gmuwrapper-v3-0-5be55a336819@linaro.org>
 In-Reply-To: <20230223-topic-gmuwrapper-v3-0-5be55a336819@linaro.org>
 To: Rob Clark <robdclark@gmail.com>, 
@@ -66,15 +66,14 @@ To: Rob Clark <robdclark@gmail.com>,
  Konrad Dybcio <konrad.dybcio@somainline.org>, 
  Akhil P Oommen <quic_akhilpo@quicinc.com>
 X-Mailer: b4 0.12.1
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1677154003; l=1972;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1677154003; l=1852;
  i=konrad.dybcio@linaro.org; s=20230215; h=from:subject:message-id;
- bh=vvT7USAtDT475uQ6rC2hStDRDcbJP8m6WcfL8eku2dk=;
- b=vn8ZUf8ziT2rGzu3gkbCADd22G9dr4oBxmjAlpq1d+ChSxrwFHoyBTxlp4nLoBmJlDwM81pccaGu
- TegrqfQTCOsZSDD26iJBhEJU7FqtGiz+nTGSWjFv0NTUMNPUC8jr
+ bh=gmn1Idn/yrEmcHwFxm5qk9hU1gD03yCxhKSKpAQYKug=;
+ b=6S8Wn5QB1UAWFq1YBi3uGUxAV7PpjS5h2hGvXXaJ1yZCevQezsRpJqu0PBnlHJn+L2usM1ipmYK9
+ ml6T9bHWATtmbl+C50XUojlihXpuGxw3y8/01fMYjx91UqJg0ouL
 X-Developer-Key: i=konrad.dybcio@linaro.org; a=ed25519;
  pk=iclgkYvtl2w05SSXO5EjjSYlhFKsJ+5OSZBjOkQuEms=
-Subject: [Freedreno] [PATCH v3 14/15] drm/msm/a6xx: Add A619_holi speedbin
- support
+Subject: [Freedreno] [PATCH v3 15/15] drm/msm/a6xx: Add A610 speedbin support
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -94,65 +93,62 @@ Cc: Rob Clark <robdclark@chromium.org>, devicetree@vger.kernel.org,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-A619_holi is implemented on at least two SoCs: SM4350 (holi) and SM6375
-(blair). This is what seems to be a first occurrence of this happening,
-but it's easy to overcome by guarding the SoC-specific fuse values with
-of_machine_is_compatible(). Do just that to enable frequency limiting
-on these SoCs.
+A610 is implemented on at least three SoCs: SM6115 (bengal), SM6125
+(trinket) and SM6225 (khaje). Trinket does not support speed binning
+(only a single SKU exists) and we don't yet support khaje upstream.
+Hence, add a fuse mapping table for bengal to allow for per-chip
+frequency limiting.
 
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 Signed-off-by: Konrad Dybcio <konrad.dybcio@linaro.org>
 ---
- drivers/gpu/drm/msm/adreno/a6xx_gpu.c | 31 +++++++++++++++++++++++++++++++
- 1 file changed, 31 insertions(+)
+ drivers/gpu/drm/msm/adreno/a6xx_gpu.c | 27 +++++++++++++++++++++++++++
+ 1 file changed, 27 insertions(+)
 
 diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-index d49b649ebecf..81f99f8d1978 100644
+index 81f99f8d1978..f78077abb886 100644
 --- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
 +++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-@@ -2163,6 +2163,34 @@ static u32 a618_get_speed_bin(u32 fuse)
- 	return UINT_MAX;
+@@ -2151,6 +2151,30 @@ static bool a6xx_progress(struct msm_gpu *gpu, struct msm_ringbuffer *ring)
+ 	return progress;
  }
  
-+static u32 a619_holi_get_speed_bin(u32 fuse)
++static u32 a610_get_speed_bin(u32 fuse)
 +{
 +	/*
-+	 * There are (at least) two SoCs implementing A619_holi: SM4350 (holi)
-+	 * and SM6375 (blair). Limit the fuse matching to the corresponding
-+	 * SoC to prevent bogus frequency setting (as improbable as it may be,
-+	 * given unexpected fuse values are.. unexpected! But still possible.)
++	 * There are (at least) three SoCs implementing A610: SM6125 (trinket),
++	 * SM6115 (bengal) and SM6225 (khaje). Trinket does not have speedbinning,
++	 * as only a single SKU exists and we don't support khaje upstream yet.
++	 * Hence, this matching table is only valid for bengal and can be easily
++	 * expanded if need be.
 +	 */
 +
 +	if (fuse == 0)
 +		return 0;
-+
-+	if (of_machine_is_compatible("qcom,sm4350")) {
-+		if (fuse == 138)
-+			return 1;
-+		else if (fuse == 92)
-+			return 2;
-+	} else if (of_machine_is_compatible("qcom,sm6375")) {
-+		if (fuse == 190)
-+			return 1;
-+		else if (fuse == 177)
-+			return 2;
-+	} else
-+		pr_warn("Unknown SoC implementing A619_holi!\n");
++	else if (fuse == 206)
++		return 1;
++	else if (fuse == 200)
++		return 2;
++	else if (fuse == 157)
++		return 3;
++	else if (fuse == 127)
++		return 4;
 +
 +	return UINT_MAX;
 +}
 +
- static u32 a619_get_speed_bin(u32 fuse)
+ static u32 a618_get_speed_bin(u32 fuse)
  {
  	if (fuse == 0)
-@@ -2222,6 +2250,9 @@ static u32 fuse_to_supp_hw(struct device *dev, struct adreno_gpu *adreno_gpu, u3
+@@ -2247,6 +2271,9 @@ static u32 fuse_to_supp_hw(struct device *dev, struct adreno_gpu *adreno_gpu, u3
+ {
+ 	u32 val = UINT_MAX;
+ 
++	if (adreno_is_a610(adreno_gpu))
++		val = a610_get_speed_bin(fuse);
++
  	if (adreno_is_a618(adreno_gpu))
  		val = a618_get_speed_bin(fuse);
- 
-+	else if (adreno_is_a619_holi(adreno_gpu))
-+		val = a619_holi_get_speed_bin(fuse);
-+
- 	else if (adreno_is_a619(adreno_gpu))
- 		val = a619_get_speed_bin(fuse);
  
 
 -- 
