@@ -1,78 +1,72 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id DA4536A12AC
-	for <lists+freedreno@lfdr.de>; Thu, 23 Feb 2023 23:15:44 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id E08E06A18B3
+	for <lists+freedreno@lfdr.de>; Fri, 24 Feb 2023 10:26:47 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 96D0D10E245;
-	Thu, 23 Feb 2023 22:15:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4FCE310E0AE;
+	Fri, 24 Feb 2023 09:26:46 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7FC8910E009;
- Thu, 23 Feb 2023 22:15:39 +0000 (UTC)
-Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 31NG4jhp022013; Thu, 23 Feb 2023 22:15:28 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
- h=message-id : date :
- mime-version : subject : to : cc : references : from : in-reply-to :
- content-type : content-transfer-encoding; s=qcppdkim1;
- bh=1pFZeZfJvlIZL3EptwVRHAcGp6VDFYkGsbbhE4f3RKA=;
- b=BmLUzRx8EGlSUGlmDMgwAucE765+npELkyTZzEFz8TrgCBhFbKiBvjllukQFbOrEO063
- pZ9kUyYrkxHlmFQzE6od1tw62npPQxoCLRXukbEgHA4mW5PEX8Wn33rWWTbKr9UXAM5g
- AypQi681Hd21JKpLcxM+ZUcHWvtaPhBldYvfB4IiOYHpRTyC/wtyjdDZOZWP0Al9DQfY
- 6J41EjaxqNdZxQJNfYtNygtTKs0DkmYj7aU3iPp829sqPG9ng8O8r/kU3dbrVISdG3as
- sKYfOOE+ZJZuIbiW5Nh4/i1Q3Xm4wdIbugf2yhlAtjBRmEvYorQin1SJZ3CTqlCMaIM2 9A== 
-Received: from nalasppmta02.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3nwy8m2smd-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 23 Feb 2023 22:15:27 +0000
-Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
- [10.47.209.196])
- by NALASPPMTA02.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 31NMFRPa004604
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 23 Feb 2023 22:15:27 GMT
-Received: from [10.110.22.247] (10.80.80.8) by nalasex01a.na.qualcomm.com
- (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.41; Thu, 23 Feb
- 2023 14:15:26 -0800
-Message-ID: <85891a0c-b351-56e8-1de1-f69bf7983d26@quicinc.com>
-Date: Thu, 23 Feb 2023 14:15:25 -0800
+Received: from mail-lf1-x12a.google.com (mail-lf1-x12a.google.com
+ [IPv6:2a00:1450:4864:20::12a])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 776B010E0AE;
+ Fri, 24 Feb 2023 09:26:43 +0000 (UTC)
+Received: by mail-lf1-x12a.google.com with SMTP id s20so16834273lfb.11;
+ Fri, 24 Feb 2023 01:26:43 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=mime-version:references:in-reply-to:message-id:subject:cc:to:from
+ :date:from:to:cc:subject:date:message-id:reply-to;
+ bh=tn4heN+xayUw9CWYDpKV49sFxbJE9AzvhKDPogIlGWk=;
+ b=IKlcOFPKkpIHAWPHxnKle3uFn3WD4QwmXkL8sqaE5FNUMIHyr+DBlyBcLbq/Fv/Jw3
+ Q/1NaM0pgUfkDRTJg7BFBYyZf8sC2p87BVQ6ngYM3+ukxCpe5w6jsT+XxXx6sdcYlcHz
+ BnGcimg0syH0bj38qSO6iGzPo9cTKMho+ij4ubm/GWjf0hj8a+KY4W9Hb0wTnXwnKVTI
+ PjjL/6dlg0ulXwQl2abIr44yvVakn9dz6kHx01WXHs7XKks2VqEJFN6u8n6ZDZwCQzwI
+ MtGuAiQhBThTXX6LLYU7Ej+BhguWTwCF39ml5FeCgGwDIQ7ZvEd/YYFg9JvBcaM/bfAz
+ FCpA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=mime-version:references:in-reply-to:message-id:subject:cc:to:from
+ :date:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=tn4heN+xayUw9CWYDpKV49sFxbJE9AzvhKDPogIlGWk=;
+ b=QmX/bf6QOYT4W8215ty9mIWQGneTwdLkdT9y7UKy8Fwsd5hGmGjKMbuus7WXXwJIND
+ ATNdDRc6lqcinKHAC/NV/POtphNXbbYtorN3u5qwkFUfEbxZaRPgaAR9+0qsUrLLuTu0
+ BgJ8vYpcOw/s61AB9MBk5p+akzu9P+l2rs/x35J/A3kLEjIOI6Rd2XoL/ObkIPKplE+s
+ iPLfuQp9X2Mfs5ULnelohd0oiSFqrj1GCFLhZHHPFms+1mioDr9DAzozooDQSk2tSKLZ
+ OqvqKCI+5tPlSjTIWaEGirVunqBiLhgxAD9yEI2vDtSle6CzzCfBP9dtnH+1EdU7GZ+r
+ Kg+w==
+X-Gm-Message-State: AO0yUKUhxbQcNJNqGNljuE9L8fegZyXaBUekrOPNVK63hPMKgocjqc9S
+ zDNUyttw+wnE966W8agS40M=
+X-Google-Smtp-Source: AK7set8Edu6TJIEzFp8nO3iN/aWffOHgPnU91xlvxqbHQLnvZm/Xo+5/CWn5cDLMMcJZbfqIKVI3QQ==
+X-Received: by 2002:ac2:4c08:0:b0:4d8:6c17:8a65 with SMTP id
+ t8-20020ac24c08000000b004d86c178a65mr5535378lfq.58.1677230801553; 
+ Fri, 24 Feb 2023 01:26:41 -0800 (PST)
+Received: from eldfell ([194.136.85.206]) by smtp.gmail.com with ESMTPSA id
+ 1-20020ac25681000000b004db25f2c103sm1529997lfr.86.2023.02.24.01.26.40
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 24 Feb 2023 01:26:41 -0800 (PST)
+Date: Fri, 24 Feb 2023 11:26:30 +0200
+From: Pekka Paalanen <ppaalanen@gmail.com>
+To: Rob Clark <robdclark@gmail.com>
+Message-ID: <20230224112630.313d7b76@eldfell>
+In-Reply-To: <CAF6AEGuE89kuKTjjzwW1xMppcVw-M4-hcrtifed-mvsCA=cshQ@mail.gmail.com>
+References: <20230218211608.1630586-1-robdclark@gmail.com>
+ <20230218211608.1630586-7-robdclark@gmail.com>
+ <20230220105345.70e46fa5@eldfell>
+ <CAF6AEGv9fLQCD65ytRTGp=EkNB1QoZYH5ArphgGQALV9J08Cmw@mail.gmail.com>
+ <cdd5f892-49b9-1e22-4dc1-95a8a733c453@amd.com>
+ <CAF6AEGuMn3FywPkEtfJ7oZ16A0Bk2aiaRvj4si4od1d3wzXkPw@mail.gmail.com>
+ <20230222114900.1b6baf95@eldfell>
+ <CAF6AEGs1_75gg+LCBj6=PH8Jn60PXiE+Kx_2636nP-+pajN8Hg@mail.gmail.com>
+ <20230223113814.3010cedc@eldfell>
+ <CAF6AEGuE89kuKTjjzwW1xMppcVw-M4-hcrtifed-mvsCA=cshQ@mail.gmail.com>
+X-Mailer: Claws Mail 3.17.8 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.6.2
-Content-Language: en-US
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-References: <20230223095708.3688148-1-dmitry.baryshkov@linaro.org>
- <0daf8821-a228-1180-358b-4e50f36ca4b0@quicinc.com>
- <CAA8EJpqz-XhpEgSLTsS_ddo95y7nYmTvgop4Hj845PLbwHGmnw@mail.gmail.com>
-From: Abhinav Kumar <quic_abhinavk@quicinc.com>
-In-Reply-To: <CAA8EJpqz-XhpEgSLTsS_ddo95y7nYmTvgop4Hj845PLbwHGmnw@mail.gmail.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-GUID: 7gxqQVTuBD40XZaRnnF54rVnQ-ROn8Lf
-X-Proofpoint-ORIG-GUID: 7gxqQVTuBD40XZaRnnF54rVnQ-ROn8Lf
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.219,Aquarius:18.0.930,Hydra:6.0.562,FMLib:17.11.170.22
- definitions=2023-02-23_13,2023-02-23_01,2023-02-09_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 bulkscore=0
- mlxscore=0 spamscore=0 adultscore=0 lowpriorityscore=0 priorityscore=1501
- impostorscore=0 suspectscore=0 malwarescore=0 mlxlogscore=999 phishscore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2212070000
- definitions=main-2302230184
-Subject: Re: [Freedreno] [PATCH] drm/msm/dpu: fix stack smashing in
- dpu_hw_ctl_setup_blendstage
+Content-Type: multipart/signed; boundary="Sig_/uHBSYjb20fW6JX00W0Xc.i_";
+ protocol="application/pgp-signature"; micalg=pgp-sha256
+Subject: Re: [Freedreno] [PATCH v4 06/14] dma-buf/sync_file: Support
+ (E)POLLPRI
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -85,112 +79,101 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Amit Pundir <amit.pundir@linaro.org>, freedreno@lists.freedesktop.org,
- Sean Paul <sean@poorly.run>, Bjorn Andersson <andersson@kernel.org>,
- dri-devel@lists.freedesktop.org, Stephen Boyd <swboyd@chromium.org>,
- Rob Clark <robdclark@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- linux-arm-msm@vger.kernel.org, David Airlie <airlied@gmail.com>
+Cc: Rob Clark <robdclark@chromium.org>,
+ Tvrtko Ursulin <tvrtko.ursulin@intel.com>,
+ Gustavo Padovan <gustavo@padovan.org>,
+ Michel =?UTF-8?B?RMOkbnplcg==?= <michel@daenzer.net>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ open list <linux-kernel@vger.kernel.org>, dri-devel@lists.freedesktop.org,
+ Sumit Semwal <sumit.semwal@linaro.org>,
+ "moderated list:DMA BUFFER SHARING FRAMEWORK" <linaro-mm-sig@lists.linaro.org>,
+ Luben Tuikov <luben.tuikov@amd.com>,
+ Christian =?UTF-8?B?S8O2bmln?= <ckoenig.leichtzumerken@gmail.com>,
+ Alex Deucher <alexander.deucher@amd.com>, freedreno@lists.freedesktop.org,
+ Christian =?UTF-8?B?S8O2bmln?= <christian.koenig@amd.com>,
+ "open list:SYNC FILE FRAMEWORK" <linux-media@vger.kernel.org>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
+--Sig_/uHBSYjb20fW6JX00W0Xc.i_
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: quoted-printable
+
+On Thu, 23 Feb 2023 10:51:48 -0800
+Rob Clark <robdclark@gmail.com> wrote:
+
+> On Thu, Feb 23, 2023 at 1:38 AM Pekka Paalanen <ppaalanen@gmail.com> wrot=
+e:
+> >
+> > On Wed, 22 Feb 2023 07:37:26 -0800
+> > Rob Clark <robdclark@gmail.com> wrote:
+> > =20
+> > > On Wed, Feb 22, 2023 at 1:49 AM Pekka Paalanen <ppaalanen@gmail.com> =
+wrote: =20
+
+...
+
+> > > > On another matter, if the application uses SET_DEADLINE with one
+> > > > timestamp, and the compositor uses SET_DEADLINE on the same thing w=
+ith
+> > > > another timestamp, what should happen? =20
+> > >
+> > > The expectation is that many deadline hints can be set on a fence.
+> > > The fence signaller should track the soonest deadline. =20
+> >
+> > You need to document that as UAPI, since it is observable to userspace.
+> > It would be bad if drivers or subsystems would differ in behaviour.
+> > =20
+>=20
+> It is in the end a hint.  It is about giving the driver more
+> information so that it can make better choices.  But the driver is
+> even free to ignore it.  So maybe "expectation" is too strong of a
+> word.  Rather, any other behavior doesn't really make sense.  But it
+> could end up being dictated by how the hw and/or fw works.
+
+It will stop being a hint once it has been implemented and used in the
+wild long enough. The kernel userspace regression rules make sure of
+that.
+
+See the topic of implementing triple-buffering in Mutter in order to
+put more work to the GPU in order to have the GPU ramp up clocks in
+order to not miss rendering deadlines. I don't think that patch set has
+landed in Mutter upstream, but I hear distributions in downstream are
+already carrying it.
+
+https://gitlab.gnome.org/GNOME/mutter/-/merge_requests/1383
+https://gitlab.gnome.org/GNOME/mutter/-/merge_requests/1441
+
+Granted, GPU clocks are just one side of that story it seems, and
+triple-buffering may have other benefits.
+
+If SET_DEADLINE would fix that problem without triple-buffering, it is
+definitely userspace observable, expected and eventually required
+behaviour.
 
 
-On 2/23/2023 2:08 PM, Dmitry Baryshkov wrote:
-> Hi Abhinav,
-> 
-> On Thu, 23 Feb 2023 at 21:17, Abhinav Kumar <quic_abhinavk@quicinc.com> wrote:
->>
->> Hi Dmitry
->>
->> On 2/23/2023 1:57 AM, Dmitry Baryshkov wrote:
->>> The rewritten dpu_hw_ctl_setup_blendstage() can lightly smash the stack
->>> when setting the SSPP_NONE pipe. However it was unnoticed until the
->>> kernel was tested under AOSP (with some kind of stack protection/check).
->>>
->>> This fixes the following backtrace:
->>>
->>> Unexpected kernel BRK exception at EL1
->>> Internal error: BRK handler: 00000000f20003e8 [#1] PREEMPT SMP
->>> Hardware name: Thundercomm Dragonboard 845c (DT)
->>> pstate: a0400005 (NzCv daif +PAN -UAO -TCO -DIT -SSBS BTYPE=--)
->>> pc : dpu_hw_ctl_setup_blendstage+0x26c/0x278 [msm]
->>> lr : _dpu_crtc_blend_setup+0x4b4/0x5a0 [msm]
->>> sp : ffffffc00bdcb720
->>> x29: ffffffc00bdcb720 x28: ffffff8085debac0 x27: 0000000000000002
->>> x26: ffffffd74af18320 x25: ffffff8083af75a0 x24: ffffffc00bdcb878
->>> x23: 0000000000000001 x22: 0000000000000000 x21: ffffff8085a70000
->>> x20: ffffff8083012dc0 x19: 0000000000000001 x18: 0000000000000000
->>> x17: 000000040044ffff x16: 045000f4b5593519 x15: 0000000000000000
->>> x14: 000000000000000b x13: 0000000000000001 x12: 0000000000000000
->>> x11: 0000000000000001 x10: ffffffc00bdcb764 x9 : ffffffd74af06a08
->>> x8 : 0000000000000001 x7 : 0000000000000001 x6 : 0000000000000000
->>> x5 : ffffffc00bdcb878 x4 : 0000000000000002 x3 : ffffffffffffffff
->>> x2 : ffffffc00bdcb878 x1 : 0000000000000000 x0 : 0000000000000002
->>> Call trace:
->>>    dpu_hw_ctl_setup_blendstage+0x26c/0x278 [msm]
->>>    _dpu_crtc_blend_setup+0x4b4/0x5a0 [msm]
->>>    dpu_crtc_atomic_begin+0xd8/0x22c [msm]
->>>    drm_atomic_helper_commit_planes+0x80/0x208 [drm_kms_helper]
->>>    msm_atomic_commit_tail+0x134/0x6f0 [msm]
->>>    commit_tail+0xa4/0x1a4 [drm_kms_helper]
->>>    drm_atomic_helper_commit+0x170/0x184 [drm_kms_helper]
->>>    drm_atomic_commit+0xac/0xe8
->>>    drm_mode_atomic_ioctl+0xbf0/0xdac
->>>    drm_ioctl_kernel+0xc4/0x178
->>>    drm_ioctl+0x2c8/0x608
->>>    __arm64_sys_ioctl+0xa8/0xec
->>>    invoke_syscall+0x44/0x104
->>>    el0_svc_common.constprop.0+0x44/0xec
->>>    do_el0_svc+0x38/0x98
->>>    el0_svc+0x2c/0xb4
->>>    el0t_64_sync_handler+0xb8/0xbc
->>>    el0t_64_sync+0x1a0/0x1a4
->>> Code: 52800016 52800017 52800018 17ffffc7 (d4207d00)
->>>
->>> Fixes: 4488f71f6373 ("drm/msm/dpu: simplify blend configuration")
->>> Reported-by: Amit Pundir <amit.pundir@linaro.org>
->>> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
->>> ---
->>>    drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c | 4 +++-
->>>    1 file changed, 3 insertions(+), 1 deletion(-)
->>>
->>> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c
->>> index b88a2f3724e6..6c53ea560ffa 100644
->>> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c
->>> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c
->>> @@ -446,7 +446,9 @@ static void dpu_hw_ctl_setup_blendstage(struct dpu_hw_ctl *ctx,
->>>                         * CTL_LAYER has 3-bit field (and extra bits in EXT register),
->>>                         * all EXT registers has 4-bit fields.
->>>                         */
->>> -                     if (cfg->idx == 0) {
->>> +                     if (cfg->idx == -1) {
->>> +                             continue;
->>> +                     } else if (cfg->idx == 0) {
->>>                                mixercfg[0] |= mix << cfg->shift;
->>>                                mixercfg[1] |= ext << cfg->ext_shift;
->>>                        } else {
->>
->> Since I had not reviewed the change which introduced this, had a question.
->>
->> The issue here is because the shift and ext_shift are -1 for NONE and
->> hence the shift causes overflow?
->>
->> If that was the issue shouldnt we protect all such cases?
-> 
-> This change protects all the cases.
-> 
->> So lets say we use SSPP_RGB0, the multirect_index for it will always be
->> -1 as it doesnt support smartDMA. What prevents the same issue from
->> hitting in that case? Because you are only checking for idx and not the
->> shifts.
-> 
-> Because for the RGB0 / rect-2 the cfg->idx will also be -1 (and
-> shift/ext_shift will be 0).
-> 
-> 
+Thanks,
+pq
 
-Thanks for confirming, I have understood it now, LGTM
+--Sig_/uHBSYjb20fW6JX00W0Xc.i_
+Content-Type: application/pgp-signature
+Content-Description: OpenPGP digital signature
 
-Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
+-----BEGIN PGP SIGNATURE-----
 
-Will pick this up for -fixes
+iQIzBAEBCAAdFiEEJQjwWQChkWOYOIONI1/ltBGqqqcFAmP4gsYACgkQI1/ltBGq
+qqfZTw/+Lbv76M0E26urQwDLG2JyGPlyP2cGStoEl3g1AGFqwTc4GwQroDY2kntr
+Q/8Ux8jQ3UOsIgdkPji1jYSXMUo3fnzKSaAjHqt60BLDXM05WelYTLuCRJVDd5zM
+E/+TYH45x8wRvZz/BJJl8KW6Lis2izfsS2hHERFKtqHEkiiN+VMvx0Aj5/fcToI4
+OuM79Bblb10aqHVEEuka6TENfJG94jZtpHWvO0JdRtjQnVHSy9AxIR6EdaOnSVXb
+6gAob42KMODAiYpDze8GVIP16VzlWVpFQaVv0XcQkh8SVtpKuwRU6hTOb6uys74Q
+89yh3OUp1BpN4PwIVrhrV6X7VHe0Fb45F//QX6L/bkNUNPq2BujvQRcNrpVD+UOq
+aAMC6nUpRgrQEveqqmWWloicApPcF4tbpcVHWpu+t6edPRquwNN2n8DS5bOhYs+Z
+fHcmaj84jbOPdKXxxauFtq8r4t2du0mKvXTE54+BhWx/IHTf6E5mq3LpydpjPCcD
+X8exj4pRfjmi9juUjaBepDMfoqbh3yvQR/ER0M01By5GOzO3TlHVmtdBfsUzehTI
+uXfmWZWwEqgWPMf285UDEDL4sw697G6E8egllZlyH5Ynp+xOpv/p2QIffwq1AvRL
+uj/MCIiSJDmLmNyA7WuBSyxYYtJahvi+UP7BB80lynbBEnQfhvE=
+=5gOd
+-----END PGP SIGNATURE-----
+
+--Sig_/uHBSYjb20fW6JX00W0Xc.i_--
