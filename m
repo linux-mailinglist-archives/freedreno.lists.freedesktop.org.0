@@ -1,57 +1,57 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 308936A1B95
-	for <lists+freedreno@lfdr.de>; Fri, 24 Feb 2023 12:50:23 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 89FB56A1B9E
+	for <lists+freedreno@lfdr.de>; Fri, 24 Feb 2023 12:51:31 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EA34A10E8BE;
-	Fri, 24 Feb 2023 11:50:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3060110E881;
+	Fri, 24 Feb 2023 11:51:30 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x12e.google.com (mail-lf1-x12e.google.com
- [IPv6:2a00:1450:4864:20::12e])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 55E7D10E88D
- for <freedreno@lists.freedesktop.org>; Fri, 24 Feb 2023 11:50:19 +0000 (UTC)
-Received: by mail-lf1-x12e.google.com with SMTP id g17so4854313lfv.4
- for <freedreno@lists.freedesktop.org>; Fri, 24 Feb 2023 03:50:19 -0800 (PST)
+Received: from mail-lf1-x12d.google.com (mail-lf1-x12d.google.com
+ [IPv6:2a00:1450:4864:20::12d])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4EF0410E881
+ for <freedreno@lists.freedesktop.org>; Fri, 24 Feb 2023 11:51:27 +0000 (UTC)
+Received: by mail-lf1-x12d.google.com with SMTP id bp25so17714153lfb.0
+ for <freedreno@lists.freedesktop.org>; Fri, 24 Feb 2023 03:51:27 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1677239417;
+ d=linaro.org; s=google; t=1677239485;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :from:to:cc:subject:date:message-id:reply-to;
- bh=tRGKNu8+nQtfgk+o8BnV6TsJOhtE3fIGeixZ72M30Es=;
- b=uojecS0jnQXyMuuky7+8Vn/P7ewJIsjqAc3BoNM/P5nAtzjlKb4SirE0DjYHlJpjvz
- z3EKqL0jDsd8NR7RDXyMwa6xjn9wkI6u+d3GBN/5jjjH476wsPpfwWWy6V3mBfv3UbCZ
- DIou4j3WeZiCnPxaxwGX9fmJlS3oMwNBmNgJhmALSozd4XxHuv945xEallYyT2EAW7LF
- diRZdC1w6O8nhRfVyvScyPlSbvquMn+kH/heYVf136h8yfk94HXgUNKyi0izUE71OFdC
- 3uGwdxy/ulhsQrR/ISC9gewvLsEUMux4stdSTnKR7/wRCa+5vm7T0wie+/Ily77QEP40
- 0aVA==
+ bh=TnexSMd+XVoyj7y7yaOeBmQu7EBkAmuDHGXQa8H9Mtw=;
+ b=pw5jsbH6Ahef7qZKvgF3EtWIxOg45xrKzGuv2DkJzX/meHHDnjUelN4xqa08NuR2Tz
+ nyC+9kjJXnRTY0v+0wha6BAHyB6bgzSRaehem/88QFTzvOi/B+kMM3MBN9tD3LMQ7Qr9
+ s+3+Frj3QYO7MGMXlpV6mebZl+VujPqZJgBP5laTCM99SnAhtLLFXMX/vnp7h/0cGsXK
+ Ezv6W0u81c9yXmbluxS5WTj9ABCHi7RXwDrRL9kCZY/IC4QEMayF0STDLIezqy7cXnKu
+ UOi1Ug4Ke2PRMehSgjU0fO/YhdulY7osNGhrkOov58zIpm7CSf2EhcTehGzPdwVHpwwY
+ j06Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112; t=1677239417;
+ d=1e100.net; s=20210112; t=1677239485;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=tRGKNu8+nQtfgk+o8BnV6TsJOhtE3fIGeixZ72M30Es=;
- b=EuSe5XzrsGTJr1IVUH3GAIWu19ovaAbfyufBvZ0wfPKQ7V+ovdQ7oy+b6bITu7GZ+D
- uhXg7qV9acQ9pbPEJWhPRa/5AvavkJ0MfMT5s3Vtmt/r7Tgb/9LK95/AzhuAjWTBrgb5
- pie3QVU+SR47Oh5LiNfvxeR6rdccC+KOHR4fVztnEgqgWrHm+hf+nD+vUTgxTOiICfE4
- /pTI0Yeyvx5bppsHq3noHJ32upVGz5p4PSMzAsAEjl9ra23eMDT9ZMTmrMPbfiGtoj6X
- yJA7HuD2ru6YuGslTzycBkR7vszFomOoEvPKqjOHIPeKTGh+Sp1YN8/YbV23Ee4Y9X7p
- JaxA==
-X-Gm-Message-State: AO0yUKW+O3lDpjW1sSW7EqT2vIiFT8YeYR22c9vHSI5ccobGtWVhycfT
- IJ72so69LTiRf6bSqyOyQt5EPQ==
-X-Google-Smtp-Source: AK7set8zYxXQDEr3DaHDzu+XwBKc4RGTc9rFYpzvi/qL+BFDOihLu6FJODBvD7IcUJVtll2G21yhYQ==
-X-Received: by 2002:ac2:43d5:0:b0:4d5:a689:cd73 with SMTP id
- u21-20020ac243d5000000b004d5a689cd73mr4906894lfl.55.1677239417328; 
- Fri, 24 Feb 2023 03:50:17 -0800 (PST)
+ bh=TnexSMd+XVoyj7y7yaOeBmQu7EBkAmuDHGXQa8H9Mtw=;
+ b=VSlRWLdxSKsplHUs2Kdh1zS+fR42NQ+nzK9KpKYsJB/qDSVfudOIKuPynOXMSmDcae
+ TAU2aJh0SKUxqR2I2RwRJ9xO7GXTYj9yBupbyEbOeQqzok1A9y2J3d2N6e2urqfc/ru9
+ 2qkLzhBPG3rv+1v9cAtaR1O8TTkaFAVKtUtctkvHW/k/mnjiRO3N/tHzZ1v7d066TK2g
+ EjQnoEfrnDfCVe7/9WAirP1cdP67qkUKV6inRw5LicpkaWiX9mvCTy/YrUWXKJ2Ko/hG
+ nxHXJSioyr602nm8YLxVBLeKmkmVMG4dLm9DHOypde1WLqPXk/Kk/nrrSgC733kVUSUd
+ KEQg==
+X-Gm-Message-State: AO0yUKUTPbrKu5ZWszyCOmb8pv3k3K/6XPVpSBJrwQ33zI99LmUr+uAT
+ IPNM4rOkJPrf0rD5teO2xYdldw==
+X-Google-Smtp-Source: AK7set/FkVC3ts6OtmMUhOGLdSYYVCrglgLPa706kH6YP7Eze6YmEYBTVypJE8rX+86gHX2+wzb/Yg==
+X-Received: by 2002:a05:6512:3d90:b0:4da:f379:9f60 with SMTP id
+ k16-20020a0565123d9000b004daf3799f60mr5682703lfv.33.1677239485520; 
+ Fri, 24 Feb 2023 03:51:25 -0800 (PST)
 Received: from [192.168.1.101] (abym99.neoplus.adsl.tpnet.pl. [83.9.32.99])
  by smtp.gmail.com with ESMTPSA id
- l26-20020ac2555a000000b004cb45148027sm1600980lfk.203.2023.02.24.03.50.15
+ l13-20020a19c20d000000b004dd6c32532bsm576631lfc.263.2023.02.24.03.51.23
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 24 Feb 2023 03:50:16 -0800 (PST)
-Message-ID: <40c42e36-9da7-73e1-8ae6-5a0a4abf17b1@linaro.org>
-Date: Fri, 24 Feb 2023 12:50:14 +0100
+ Fri, 24 Feb 2023 03:51:25 -0800 (PST)
+Message-ID: <a28c4e67-78b4-21b5-7094-9953316576b2@linaro.org>
+Date: Fri, 24 Feb 2023 12:51:22 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.8.0
@@ -66,14 +66,14 @@ To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
  Konrad Dybcio <konrad.dybcio@somainline.org>,
  Akhil P Oommen <quic_akhilpo@quicinc.com>
 References: <20230223-topic-gmuwrapper-v3-0-5be55a336819@linaro.org>
- <20230223-topic-gmuwrapper-v3-2-5be55a336819@linaro.org>
- <2fb0ba58-c011-7896-9792-005d0ed9ad55@linaro.org>
+ <20230223-topic-gmuwrapper-v3-1-5be55a336819@linaro.org>
+ <c3376575-c24f-18a3-1d8b-c3d67f072287@linaro.org>
 From: Konrad Dybcio <konrad.dybcio@linaro.org>
-In-Reply-To: <2fb0ba58-c011-7896-9792-005d0ed9ad55@linaro.org>
+In-Reply-To: <c3376575-c24f-18a3-1d8b-c3d67f072287@linaro.org>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH v3 02/15] dt-bindings: display/msm/gmu: Add
- GMU wrapper
+Subject: Re: [Freedreno] [PATCH v3 01/15] dt-bindings: display/msm: gpu:
+ Document GMU wrapper-equipped A6xx
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -94,44 +94,108 @@ Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 
 
-On 24.02.2023 12:19, Krzysztof Kozlowski wrote:
+On 24.02.2023 12:17, Krzysztof Kozlowski wrote:
 > On 23/02/2023 13:06, Konrad Dybcio wrote:
->> GMU wrapper is essentially a register space within the GPU, which
->> Linux sees as a dumbed-down regular GMU: there's no clocks,
->> interrupts, multiple regs, iommus and OPP. Document it.
+>> GMU wrapper-equipped A6xx GPUs require clocks and clock-names to be
+>> specified under the GPU node, just like their older cousins.
+>> Account for that.
 >>
 >> Signed-off-by: Konrad Dybcio <konrad.dybcio@linaro.org>
 >> ---
->>  .../devicetree/bindings/display/msm/gmu.yaml       | 49 ++++++++++++++++------
->>  1 file changed, 37 insertions(+), 12 deletions(-)
+>>  .../devicetree/bindings/display/msm/gpu.yaml       | 63 ++++++++++++++++++----
+>>  1 file changed, 53 insertions(+), 10 deletions(-)
 >>
->> diff --git a/Documentation/devicetree/bindings/display/msm/gmu.yaml b/Documentation/devicetree/bindings/display/msm/gmu.yaml
->> index ab14e81cb050..021373e686e1 100644
->> --- a/Documentation/devicetree/bindings/display/msm/gmu.yaml
->> +++ b/Documentation/devicetree/bindings/display/msm/gmu.yaml
->> @@ -19,16 +19,18 @@ description: |
+>> diff --git a/Documentation/devicetree/bindings/display/msm/gpu.yaml b/Documentation/devicetree/bindings/display/msm/gpu.yaml
+>> index d4191cca71fb..e6d3160601bc 100644
+>> --- a/Documentation/devicetree/bindings/display/msm/gpu.yaml
+>> +++ b/Documentation/devicetree/bindings/display/msm/gpu.yaml
+>> @@ -36,10 +36,7 @@ properties:
 >>  
->>  properties:
->>    compatible:
+>>    reg-names:
+>>      minItems: 1
 >> -    items:
->> -      - pattern: '^qcom,adreno-gmu-6[0-9][0-9]\.[0-9]$'
->> -      - const: qcom,adreno-gmu
->> +    oneOf:
->> +      - items:
->> +          - pattern: '^qcom,adreno-gmu-6[0-9][0-9]\.[0-9]$'
->> +          - const: qcom,adreno-gmu
->> +      - const: qcom,adreno-gmu-wrapper
+>> -      - const: kgsl_3d0_reg_memory
+>> -      - const: cx_mem
+>> -      - const: cx_dbgc
+>> +    maxItems: 3
+>>  
+>>    interrupts:
+>>      maxItems: 1
+>> @@ -147,26 +144,72 @@ allOf:
+>>                  description: GPU Alternative Memory Interface clock
+>>                - const: gfx3d
+>>                  description: GPU 3D engine clock
+>> +              - const: gmu
+>> +                description: CX GMU clock
+>>                - const: rbbmtimer
+>>                  description: GPU RBBM Timer for Adreno 5xx series
+>>                - const: rbcpr
+>>                  description: GPU RB Core Power Reduction clock
+>> +              - const: xo
+>> +                description: GPUCC clocksource clock
+>>            minItems: 2
+>> -          maxItems: 7
+>> +          maxItems: 9
 > 
-> Why wrapper is part of this binding then? Usually wrapper means there is
-> wrapper node with a GMU child (at least this is what we call for all
-> wrappers of custom IP blocks like USB DWC). Where is the child?
-"GMU wrapper" is a sorta confusing name that Qualcomm chose for
-the "fake GMU" which has the GMU_CX and GMU_GX registers responsible
-for things like powering up some GPU things internally and some
-perf/pwr counters. It is _not_ a wrapper in the sense of a parent-child
-relationship. The GMU wrapper has no HFI (Hardware Firmware Interface)
-to communicate through crafted messages, but relies on plain register
-accesses.
+> Your commit says A6xx but this is a3-5xx. I don't understand this change.
+Right, it's a leftover unrelated hunk. I'll remove it.
+
+> 
+>>  
+>>        required:
+>>          - clocks
+>>          - clock-names
+>> +
+>>    - if:
+>>        properties:
+>>          compatible:
+>>            contains:
+>> -            pattern: '^qcom,adreno-6[0-9][0-9]\.[0-9]$'
+>> -
+>> -    then: # Since Adreno 6xx series clocks should be defined in GMU
+>> +            enum:
+>> +              - qcom,adreno-610.0
+>> +              - qcom,adreno-619.1
+>> +    then:
+>>        properties:
+>> -        clocks: false
+>> -        clock-names: false
+>> +        clock-names:
+>> +          items:
+>> +            - const: core
+>> +              description: GPU Core clock
+>> +            - const: iface
+>> +              description: GPU Interface clock
+>> +            - const: mem_iface
+>> +              description: GPU Memory Interface clock
+>> +            - const: alt_mem_iface
+>> +              description: GPU Alternative Memory Interface clock
+>> +            - const: gmu
+>> +              description: CX GMU clock
+>> +            - const: xo
+>> +              description: GPUCC clocksource clock
+>> +
+>> +        reg-names:
+>> +          minItems: 1
+>> +          items:
+>> +            - const: kgsl_3d0_reg_memory
+>> +            - const: cx_dbgc
+>> +
+>> +      required:
+>> +        - clocks
+>> +        - clock-names
+>> +    else:
+>> +      if:
+>> +        properties:
+>> +          compatible:
+>> +            contains:
+>> +              pattern: '^qcom,adreno-6[0-9][0-9]\.[0-9]$'
+>> +
+>> +      then: # Starting with A6xx, the clocks are usually defined in the GMU node
+> 
+> The comment is not accurate anymore.
+I'll argue the semantics, they are still "usually" defined
+in the GMU node..
 
 Konrad
 > 
