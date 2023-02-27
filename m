@@ -2,46 +2,47 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6B0AE6A37AC
-	for <lists+freedreno@lfdr.de>; Mon, 27 Feb 2023 03:10:59 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C818B6A37C1
+	for <lists+freedreno@lfdr.de>; Mon, 27 Feb 2023 03:11:22 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 00FEC10E0CB;
-	Mon, 27 Feb 2023 02:10:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8259210E34E;
+	Mon, 27 Feb 2023 02:11:21 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 10F1610E1A1;
- Mon, 27 Feb 2023 02:10:55 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A368110E341;
+ Mon, 27 Feb 2023 02:11:20 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id ABC18B80D1F;
- Mon, 27 Feb 2023 02:10:53 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7308AC433D2;
- Mon, 27 Feb 2023 02:10:50 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 1D9A260DE2;
+ Mon, 27 Feb 2023 02:11:20 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0078AC4339E;
+ Mon, 27 Feb 2023 02:11:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1677463852;
- bh=RVNIuXrSNR3J0wQepec5k6SS1Vcg2l4MQsEf4Dc4O4E=;
+ s=k20201202; t=1677463879;
+ bh=PQNw72DCGaZXLXmZzkGwEP0TtMW72AT5i8oK2oJciKw=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=YWUis3po/95t1IvuRB4qjaU2xQeaI83t3QNu0wyg0Nv1vA6gAHPWlNxJGNTnnpuME
- 15uMNnY7bTDlytl/9jLpoh9O2ZyrP1Z218OC7Ua/HqLx6KdCLtGk2/EGXEIhQk+owx
- qEP0GAR9ucA6Gow+S6b3u1GxFu4LrlMyHRWox/6B0sXBoJiZYzG1HeVSsx/4i2ApMb
- 5bFkBmndThUQMOiXOzJxKPXLDgb//Obm+U7pw6oByi9BYzigWPxYSAoPSUvMZvrbrj
- CK/0t+sqVaq27U9ZZJnSWd5LflRG3oD+kKqaPWpIsp3kBExEpU1UtQ3x1bc/kqjJHB
- bBmaXum1YRBCg==
+ b=HxwvgBjWfPEF51yf03QjDt8NFpNx+/B/yxyXOTGhoUsvqKgLe4AW0SfcKXj46hpNw
+ cbWlH8OLrH0LwRrtvBpzoGDOjFCfQC45zLjqYUhPgM9NRFO+dPqnhoh93kLCMlz/e4
+ xKSg2oArXy8u9HhtO2VUEv5TG9pnCxygWvbCHXCYEr+DUuPRsgu1Bnr24tUojNXybH
+ 18XsdxkmUvh+0iYRJoyyF2ia7mQbBee1SUwrteRZgyMe0nayO48ow4Vt4/pstzwAmg
+ 7KSzZjrk5BZL/1m/rYC9SO9zEeEtRRt7fwDo2XuA3a/7BlDOBRXlyPty6/ddzELIlp
+ oRIv/KZXqPAVg==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Date: Sun, 26 Feb 2023 21:10:24 -0500
-Message-Id: <20230227021038.1052958-5-sashal@kernel.org>
+Date: Sun, 26 Feb 2023 21:11:00 -0500
+Message-Id: <20230227021110.1053474-3-sashal@kernel.org>
 X-Mailer: git-send-email 2.39.0
-In-Reply-To: <20230227021038.1052958-1-sashal@kernel.org>
-References: <20230227021038.1052958-1-sashal@kernel.org>
+In-Reply-To: <20230227021110.1053474-1-sashal@kernel.org>
+References: <20230227021110.1053474-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
 Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH AUTOSEL 5.4 05/15] drm/msm/dsi: Add missing
+Subject: [Freedreno] [PATCH AUTOSEL 4.19 03/10] drm/msm/dsi: Add missing
  check for alloc_ordered_workqueue
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -83,10 +84,10 @@ Signed-off-by: Sasha Levin <sashal@kernel.org>
  1 file changed, 3 insertions(+)
 
 diff --git a/drivers/gpu/drm/msm/dsi/dsi_host.c b/drivers/gpu/drm/msm/dsi/dsi_host.c
-index 743142e15b4c1..c59764f156f94 100644
+index 56cfa0a03fd5b..059578faa1c6d 100644
 --- a/drivers/gpu/drm/msm/dsi/dsi_host.c
 +++ b/drivers/gpu/drm/msm/dsi/dsi_host.c
-@@ -1877,6 +1877,9 @@ int msm_dsi_host_init(struct msm_dsi *msm_dsi)
+@@ -1883,6 +1883,9 @@ int msm_dsi_host_init(struct msm_dsi *msm_dsi)
  
  	/* setup workqueue */
  	msm_host->workqueue = alloc_ordered_workqueue("dsi_drm_work", 0);
