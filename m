@@ -2,38 +2,38 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 65BEE6A3687
-	for <lists+freedreno@lfdr.de>; Mon, 27 Feb 2023 03:02:35 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 326F26A3693
+	for <lists+freedreno@lfdr.de>; Mon, 27 Feb 2023 03:03:01 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0D26110E2B8;
-	Mon, 27 Feb 2023 02:02:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F3CCC10E1D5;
+	Mon, 27 Feb 2023 02:02:59 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F034610E1B6;
- Mon, 27 Feb 2023 02:02:31 +0000 (UTC)
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A8A1B10E1D5;
+ Mon, 27 Feb 2023 02:02:58 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 7871D60C90;
- Mon, 27 Feb 2023 02:02:31 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 70CA2C433EF;
- Mon, 27 Feb 2023 02:02:29 +0000 (UTC)
+ by ams.source.kernel.org (Postfix) with ESMTPS id 5398CB80CA7;
+ Mon, 27 Feb 2023 02:02:57 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 91F47C433D2;
+ Mon, 27 Feb 2023 02:02:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1677463350;
- bh=DVf1owl9PG8lHLbeynhccmcJN+TFk0IBBZSEKPXqKsQ=;
+ s=k20201202; t=1677463376;
+ bh=ox1R3Tf10CzECZ2WM6KwvnPkUPCaZYBN+WHbon+b9Z4=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=PT5rzq/msA1tASm7jn1kVoKHZS4xJNqjy2WGlDYaUznouGGXd/RuXVsNfZHK26P+T
- lG6uIWT168eXcsvDJoU0LF5WAsTnWWxvJwaVTIy5XiT+q0Bc3KpGnGCRrAOsXIoZsP
- O+Kx3Diym/TWGfCDScJFo2iZ4KEFgYOA1ow7KNnFqSmCCbSiYpAhOb8tpM8wXWNmPE
- Jhy5GuCdoTQ96EkeVGmP/Vtcq8OQqOjASciGATBjpHTT2fLcJFxTGDT8Om/oPmri4k
- 15zb9fPk3v75PygVL8gkfEF/ZTVZ66TRDOROLCODNc8zDQiiN5MBM1M4cWKNHWckkt
- YkEdH0gI7Mdlw==
+ b=kJHo1rsiO++ERKwYMTVivmHvrdJOrE7fzZxCxa/zMvlaJSVmgDLSk8rfsXpj8vUN0
+ EIhxos/3pgZqNps7KNr9N4Cmzifu1uvRwv2IiorwEBlhhEbhExqyiRe77C0AmFQt4P
+ s+nlvLIleyoKKiJdcpASBwpH1EfsiXabSLksXM0mdrT15fDGfRYtco7Lvd66QK2SKd
+ cIt++r24B1q9Ke59Kq2j0ljFNQyxO/pvcJHCdwI7gMR6mNbtxsfGnyEFa/p5G6JFCH
+ 1sNOwFrxxKXSEFrphVCnr3Wv100lNslCnynsdPAYCOA9xiIAh74EloOLFHSbfBArN5
+ jJN840NresFeg==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Date: Sun, 26 Feb 2023 21:00:09 -0500
-Message-Id: <20230227020045.1045105-24-sashal@kernel.org>
+Date: Sun, 26 Feb 2023 21:00:18 -0500
+Message-Id: <20230227020045.1045105-33-sashal@kernel.org>
 X-Mailer: git-send-email 2.39.0
 In-Reply-To: <20230227020045.1045105-1-sashal@kernel.org>
 References: <20230227020045.1045105-1-sashal@kernel.org>
@@ -41,8 +41,8 @@ MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
 Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH AUTOSEL 6.2 24/60] drm/msm/dsi: Add missing
- check for alloc_ordered_workqueue
+Subject: [Freedreno] [PATCH AUTOSEL 6.2 33/60] drm/msm/dpu: Add DSC hardware
+ blocks to register snapshot
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,47 +55,52 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sasha Levin <sashal@kernel.org>, vkoul@kernel.org,
- linux-arm-msm@vger.kernel.org, Jiasheng Jiang <jiasheng@iscas.ac.cn>,
- vladimir.lypak@gmail.com, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- dri-devel@lists.freedesktop.org, dianders@chromium.org, robdclark@gmail.com,
- daniel@ffwll.ch, Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- marijn.suijten@somainline.org, freedreno@lists.freedesktop.org,
+Cc: Sasha Levin <sashal@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>,
+ dianders@chromium.org, linux-arm-msm@vger.kernel.org,
+ freedreno@lists.freedesktop.org, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ dri-devel@lists.freedesktop.org, swboyd@chromium.org, liushixin2@huawei.com,
+ robdclark@gmail.com, daniel@ffwll.ch,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Marijn Suijten <marijn.suijten@somainline.org>, quic_vpolimer@quicinc.com,
  airlied@gmail.com
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-From: Jiasheng Jiang <jiasheng@iscas.ac.cn>
+From: Marijn Suijten <marijn.suijten@somainline.org>
 
-[ Upstream commit 115906ca7b535afb1fe7b5406c566ccd3873f82b ]
+[ Upstream commit a7efe60e36b9c0e966d7f82ac90a89b591d984e9 ]
 
-Add check for the return value of alloc_ordered_workqueue as it may return
-NULL pointer and cause NULL pointer dereference.
+Add missing DSC hardware block register ranges to the snapshot utility
+to include them in dmesg (on MSM_DISP_SNAPSHOT_DUMP_IN_CONSOLE) and the
+kms debugfs file.
 
-Signed-off-by: Jiasheng Jiang <jiasheng@iscas.ac.cn>
+Signed-off-by: Marijn Suijten <marijn.suijten@somainline.org>
+Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
 Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
-Patchwork: https://patchwork.freedesktop.org/patch/517646/
-Link: https://lore.kernel.org/r/20230110021651.12770-1-jiasheng@iscas.ac.cn
+Patchwork: https://patchwork.freedesktop.org/patch/520175/
+Link: https://lore.kernel.org/r/20230125101412.216924-1-marijn.suijten@somainline.org
 Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/msm/dsi/dsi_host.c | 3 +++
- 1 file changed, 3 insertions(+)
+ drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c | 5 +++++
+ 1 file changed, 5 insertions(+)
 
-diff --git a/drivers/gpu/drm/msm/dsi/dsi_host.c b/drivers/gpu/drm/msm/dsi/dsi_host.c
-index 89aadd3b3202b..f167a45f1fbdd 100644
---- a/drivers/gpu/drm/msm/dsi/dsi_host.c
-+++ b/drivers/gpu/drm/msm/dsi/dsi_host.c
-@@ -1977,6 +1977,9 @@ int msm_dsi_host_init(struct msm_dsi *msm_dsi)
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
+index b71199511a52d..09757166a064a 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
+@@ -930,6 +930,11 @@ static void dpu_kms_mdp_snapshot(struct msm_disp_state *disp_state, struct msm_k
+ 	msm_disp_snapshot_add_block(disp_state, cat->mdp[0].len,
+ 			dpu_kms->mmio + cat->mdp[0].base, "top");
  
- 	/* setup workqueue */
- 	msm_host->workqueue = alloc_ordered_workqueue("dsi_drm_work", 0);
-+	if (!msm_host->workqueue)
-+		return -ENOMEM;
++	/* dump DSC sub-blocks HW regs info */
++	for (i = 0; i < cat->dsc_count; i++)
++		msm_disp_snapshot_add_block(disp_state, cat->dsc[i].len,
++				dpu_kms->mmio + cat->dsc[i].base, "dsc_%d", i);
 +
- 	INIT_WORK(&msm_host->err_work, dsi_err_worker);
+ 	pm_runtime_put_sync(&dpu_kms->pdev->dev);
+ }
  
- 	msm_dsi->id = msm_host->id;
 -- 
 2.39.0
 
