@@ -1,65 +1,63 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id A41806A4B26
-	for <lists+freedreno@lfdr.de>; Mon, 27 Feb 2023 20:36:40 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 72A326A4BB6
+	for <lists+freedreno@lfdr.de>; Mon, 27 Feb 2023 20:53:50 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 76A4610E47A;
-	Mon, 27 Feb 2023 19:36:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2410F10E4A6;
+	Mon, 27 Feb 2023 19:53:49 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-pg1-x52a.google.com (mail-pg1-x52a.google.com
- [IPv6:2607:f8b0:4864:20::52a])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 721DD10E47A;
- Mon, 27 Feb 2023 19:36:37 +0000 (UTC)
-Received: by mail-pg1-x52a.google.com with SMTP id y19so4252030pgk.5;
- Mon, 27 Feb 2023 11:36:37 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=9VcsUu3unD+maL4g/jB1gMbq//XnoqiDQvEiNIyt7mI=;
- b=b8736n309kh1uRXrJE2k/Um3KXaZinC+6/mnagsKOXeEGCtqaoZLgHv9EkxoYXJRwS
- zyfCbEC9JCFtyMY7WQZQPA8QXUcFZpDWSYCWxuW4uo5KMmZNxa3byyQC4DpXMEz57VDW
- Zw5iYZd+QeBYbIOF1BQ1Eia/s4rwzzlK2s84N1dnJwf5tGJNaxNafY0Cpat++4+DvNxA
- QTZIhRflMHWIC2tqDzr8HnGn2dB3Tbtf/FH9dH0okN2XWWTyh3gILz3ZL7r3mGxDZkTt
- MB+UWg7+BAmCJaxpPhV7lKnZdCBx78OnQCLcpiO9Kk3Ymo4t4WnLNcx245/XFreVCcK2
- zh8Q==
+Received: from mail-lj1-x22a.google.com (mail-lj1-x22a.google.com
+ [IPv6:2a00:1450:4864:20::22a])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8C27710E3D6
+ for <freedreno@lists.freedesktop.org>; Mon, 27 Feb 2023 19:53:46 +0000 (UTC)
+Received: by mail-lj1-x22a.google.com with SMTP id h3so7695372lja.12
+ for <freedreno@lists.freedesktop.org>; Mon, 27 Feb 2023 11:53:46 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=chromium.org; s=google; t=1677527625;
+ h=cc:to:subject:message-id:date:user-agent:from:references
+ :in-reply-to:mime-version:from:to:cc:subject:date:message-id
+ :reply-to; bh=6Iog3w5RRep9QzX37UOT5VU6YtZPIJP1phd7Cipxg/4=;
+ b=MlrScDn0uLRC083HdGy5QHOQFhYZ0UhHe8h98ssx4wE9iG2IlU14pW+svk1bwuUUXh
+ lmtOrZ6TQLAstp4sXJgny76pWW++iPT2/N4XgNoaAf8qXxmrxDckPD8YuKhA56ZQADXO
+ 5iufKDnd0bCNkJlQHhteTngGIXOEme+n5fX80=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=9VcsUu3unD+maL4g/jB1gMbq//XnoqiDQvEiNIyt7mI=;
- b=onCBq2KZCDw5OowvMAoRkKZRbiVKd1Tfl91YyznK62vFtq5ycagM9whmwWoLIZiQ/F
- R82xrCFTr8FiOGw30pRy50dm6oz00+sC76HWjchQs90q9cdChaeF/oSRoPjbXn/ibWNj
- AaFi5Q44Z59zxBGhn7tu0d29GNaoE/cYMjNMQcTKvFtbfoSI3DNWKcEhNb7gXBpT3fLg
- QI68JR2wAnuOZ/mjzrs+lv1PBcbm7oLXr1oeVkGyT956XtDOzcRQ3Uvc5QNztL6gb8AT
- njElmkcA+7UxtE4f1eL8JlrIV8Pq35RoBYf4PaIW35/O9/6KFwKtGMzeQ6bS0xUBznHl
- t2Hw==
-X-Gm-Message-State: AO0yUKUp9ZRGAVsVVDOE0owVY0i94+o7j2z4WUlXgKTdm70+0GSrT6Wu
- h1+YO9OqaH+mG01AaGkk76RH68gWR2o=
-X-Google-Smtp-Source: AK7set/P8itus1p3okGBUFN9rk94RkS0E5Ql6lniMhVceVdpcIjzF9h/Mu+zklRPMkDx5JHA+kdklg==
-X-Received: by 2002:a62:1881:0:b0:5e0:a86:a76f with SMTP id
- 123-20020a621881000000b005e00a86a76fmr189244pfy.0.1677526596830; 
- Mon, 27 Feb 2023 11:36:36 -0800 (PST)
-Received: from localhost ([2a00:79e1:abd:4a00:61b:48ed:72ab:435b])
- by smtp.gmail.com with ESMTPSA id
- k23-20020aa78217000000b005d4360ed2bbsm4551115pfi.197.2023.02.27.11.36.36
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 27 Feb 2023 11:36:36 -0800 (PST)
-From: Rob Clark <robdclark@gmail.com>
-To: dri-devel@lists.freedesktop.org
-Date: Mon, 27 Feb 2023 11:35:21 -0800
-Message-Id: <20230227193535.2822389-16-robdclark@gmail.com>
-X-Mailer: git-send-email 2.39.1
-In-Reply-To: <20230227193535.2822389-1-robdclark@gmail.com>
-References: <20230227193535.2822389-1-robdclark@gmail.com>
+ d=1e100.net; s=20210112; t=1677527625;
+ h=cc:to:subject:message-id:date:user-agent:from:references
+ :in-reply-to:mime-version:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=6Iog3w5RRep9QzX37UOT5VU6YtZPIJP1phd7Cipxg/4=;
+ b=wGXXe5G0awYjw8sOzHrwy7Uiz5O117W5/OuNiVSOu6FMhLNZUI2//NN6xpydpZrsQu
+ SHpjMBhybddXHOtN2u8MHEOi0/JxWbO6q/1/aLpwhzWl/Ymm8vum8+fVSf390EXFe5RD
+ UPBA+x+FkCZk0gpKWXB/Erc9KZ1NAFOyQNG+3kWBocUl9pbpL2xkp44dw7W+oiIsEAgr
+ sOq4yin2JtWDmJXLNkKoHBlXxgJnbaNNAlK0mtw6KmiTxizhTUqVRFvxVHylGF9U0m7Z
+ 4o3u6Lq1/j7oBE6Ck3EBBwUF/3FR/vNx0gi6tOM4tQagiuHHL/bCoXT0DRdaEoYfh7uF
+ GSQg==
+X-Gm-Message-State: AO0yUKUh3NwPdYJoBgHe/yOrdlhqMrYBB6IcrxVPZ36ICLsfY7Cka7dL
+ xWzk7Q5zUtRhSlmSqPL74MO+9ZWA0RNqnWw3KF2fLg==
+X-Google-Smtp-Source: AK7set9u/nN5Vzao374dais8uxKf3RxzP5pIYQ6lkrJ2r0ZXV/mqpKtvXzlYxqTmuIGQ+TLof9Pu75FYo+aKuNXKi3U=
+X-Received: by 2002:a2e:a4b7:0:b0:295:897c:6f7a with SMTP id
+ g23-20020a2ea4b7000000b00295897c6f7amr6940229ljm.0.1677527624730; Mon, 27 Feb
+ 2023 11:53:44 -0800 (PST)
+Received: from 753933720722 named unknown by gmailapi.google.com with
+ HTTPREST; Mon, 27 Feb 2023 14:53:44 -0500
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH v7 15/15] drm/i915: Add deadline based boost
- support
+In-Reply-To: <1677263398-13801-1-git-send-email-quic_khsieh@quicinc.com>
+References: <1677263398-13801-1-git-send-email-quic_khsieh@quicinc.com>
+From: Stephen Boyd <swboyd@chromium.org>
+User-Agent: alot/0.10
+Date: Mon, 27 Feb 2023 14:53:44 -0500
+Message-ID: <CAE-0n514WpXDhE17DzqF9X7DYg_3DYuYSGzhvx-=eXVJpgq3Yg@mail.gmail.com>
+To: Kuogee Hsieh <quic_khsieh@quicinc.com>, agross@kernel.org,
+ airlied@gmail.com, 
+ andersson@kernel.org, daniel@ffwll.ch, dianders@chromium.org, 
+ dmitry.baryshkov@linaro.org, robdclark@gmail.com, sean@poorly.run, 
+ vkoul@kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Subject: Re: [Freedreno] [PATCH] drm/msm/dp: check core_initialized flag at
+ both host_init() and host_deinit()
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,72 +70,49 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rob Clark <robdclark@chromium.org>,
- Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
- Simon Ser <contact@emersion.fr>, intel-gfx@lists.freedesktop.org,
- Tvrtko Ursulin <tvrtko.ursulin@intel.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>,
- =?UTF-8?q?Michel=20D=C3=A4nzer?= <michel@daenzer.net>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- open list <linux-kernel@vger.kernel.org>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- "moderated list:DMA BUFFER SHARING FRAMEWORK" <linaro-mm-sig@lists.linaro.org>,
- Pekka Paalanen <ppaalanen@gmail.com>, Luben Tuikov <luben.tuikov@amd.com>,
- Daniel Vetter <daniel@ffwll.ch>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Alex Deucher <alexander.deucher@amd.com>, David Airlie <airlied@gmail.com>,
- freedreno@lists.freedesktop.org, Sumit Semwal <sumit.semwal@linaro.org>,
- "open list:DMA BUFFER SHARING FRAMEWORK" <linux-media@vger.kernel.org>
+Cc: quic_sbillaka@quicinc.com, linux-arm-msm@vger.kernel.org,
+ quic_abhinavk@quicinc.com, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-From: Rob Clark <robdclark@chromium.org>
+Quoting Kuogee Hsieh (2023-02-24 10:29:58)
+> There is a reboot/suspend test case where system suspend is forced during
+> system booting up. Since host_init() of external DP is executed at hpd
 
-v2: rebase
+dp_display_host_init()?
 
-Signed-off-by: Rob Clark <robdclark@chromium.org>
----
- drivers/gpu/drm/i915/i915_request.c | 20 ++++++++++++++++++++
- 1 file changed, 20 insertions(+)
+> thread context, this test case may created a scenario that host_deinit()
 
-diff --git a/drivers/gpu/drm/i915/i915_request.c b/drivers/gpu/drm/i915/i915_request.c
-index 7503dcb9043b..44491e7e214c 100644
---- a/drivers/gpu/drm/i915/i915_request.c
-+++ b/drivers/gpu/drm/i915/i915_request.c
-@@ -97,6 +97,25 @@ static bool i915_fence_enable_signaling(struct dma_fence *fence)
- 	return i915_request_enable_breadcrumb(to_request(fence));
- }
- 
-+static void i915_fence_set_deadline(struct dma_fence *fence, ktime_t deadline)
-+{
-+	struct i915_request *rq = to_request(fence);
-+
-+	if (i915_request_completed(rq))
-+		return;
-+
-+	if (i915_request_started(rq))
-+		return;
-+
-+	/*
-+	 * TODO something more clever for deadlines that are in the
-+	 * future.  I think probably track the nearest deadline in
-+	 * rq->timeline and set timer to trigger boost accordingly?
-+	 */
-+
-+	intel_rps_boost(rq);
-+}
-+
- static signed long i915_fence_wait(struct dma_fence *fence,
- 				   bool interruptible,
- 				   signed long timeout)
-@@ -182,6 +201,7 @@ const struct dma_fence_ops i915_fence_ops = {
- 	.signaled = i915_fence_signaled,
- 	.wait = i915_fence_wait,
- 	.release = i915_fence_release,
-+	.set_deadline = i915_fence_set_deadline,
- };
- 
- static void irq_execute_cb(struct irq_work *wrk)
--- 
-2.39.1
+dp_display_host_deinit()?
 
+> from pm_suspend() run before host_init() if hpd thread has no chance to
+> run during booting up while suspend request command was issued.
+> At this scenario system will crash at aux register access at host_deinit()
+> since aux clock had not yet been enabled by host_init().  Therefore we
+
+The aux clk is enabled in dp_power_clk_enable() right? Can you clarify?
+
+> have to ensure aux clock enabled by checking core_initialized flag before
+> access aux registers at pm_suspend.
+
+I'd much more like to get rid of 'core_initialized'. What is preventing
+us from enabling the power (i.e. dp_power_init()), or at least enough
+clks and pm runtime state, during probe? That would fix this problem and
+also clean things up. As I understand, the device is half initialized in
+probe and half initialized in the kthread. If we put all power
+management into the runtime PM ops and synced that state during probe so
+that runtime PM state matched device probe state we could make runtime
+PM be the only suspend function and then push the power state tracking
+into the device core.
+
+>
+> Fixes: 989ebe7bc446 ("drm/msm/dp: do not initialize phy until plugin interrupt received")
+> Signed-off-by: Kuogee Hsieh <quic_khsieh@quicinc.com>
+
+The code looks OK to me, so
+
+Reviewed-by: Stephen Boyd <swboyd@chromium.org>
+
+once the commit text is cleaned up to indicate the proper function
+names.
