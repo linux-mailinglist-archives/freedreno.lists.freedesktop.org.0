@@ -1,40 +1,40 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 79DE86A5C85
-	for <lists+freedreno@lfdr.de>; Tue, 28 Feb 2023 16:57:00 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 3FABD6A5CB5
+	for <lists+freedreno@lfdr.de>; Tue, 28 Feb 2023 17:03:00 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CFB4B10E4EF;
-	Tue, 28 Feb 2023 15:56:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9CBA910E02E;
+	Tue, 28 Feb 2023 16:02:52 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9CDE610E02E;
- Tue, 28 Feb 2023 15:56:55 +0000 (UTC)
+Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EAA4010E02E;
+ Tue, 28 Feb 2023 16:02:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1677599815; x=1709135815;
+ t=1677600171; x=1709136171;
  h=from:to:cc:subject:in-reply-to:references:date:
  message-id:mime-version;
- bh=5vojCs921cbe6S9LLDdvuT7pbHFqpBrRmcjmWxW/o9Q=;
- b=RnFWG6CpFGUlHVJDmYe7cRTfK/sbCdlQdnSCjtyCjLn0Yk5MoemzdFAR
- z9KmohOcQ2bCRVjeVHPW0YHQUpGeQrgMejnsnB2MwWIwXMfW7C15ajJyI
- 2ydNXZlAjeZEpyVnBN220kS6URy0/efHT9/v3jTNTeNAkxiuqfO+QbPFG
- KdBtvFzkNOQ8CocAFewmb/u+K1k61Dz+9Ev3hO/osc/6JVeWBPsOLUA3p
- CyqDrdipVGZQhPjvEYg+R3fJbdWS+/WJhDRVqnNolUWf4YUZXBXX/E/Zx
- NVSBD/U9lxwRi0vvtrn8UP00I6r1uZQsEF2c4nfbqF+zIldED4ncGtmMx Q==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10635"; a="336462245"
-X-IronPort-AV: E=Sophos;i="5.98,222,1673942400"; d="scan'208";a="336462245"
-Received: from orsmga008.jf.intel.com ([10.7.209.65])
- by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Feb 2023 07:56:55 -0800
-X-IronPort-AV: E=McAfee;i="6500,9779,10635"; a="704454676"
-X-IronPort-AV: E=Sophos;i="5.98,222,1673942400"; d="scan'208";a="704454676"
+ bh=uJ6b+0/zHOeAkP5Hg4XcILPc1vZObbE90DrMyXpviNQ=;
+ b=Lb0M3fIU2J8d8qDcWro9AzRXxciA5mhNkBo93F873Eh2j7lorvzOBzou
+ ew6cb7qAnmT8gu08Mba9SMTTn27tcKgNjR6lA8Lx3+h+LoeEPhvaC2LLN
+ gTyzcUBS0DgW74JK0B9tf5gnJjuOnVj2z1CF4xO/EoHQ9WviHXvoWsq8k
+ PxXUgKFmtlIvj9Hq96kDSBlYALCnMSXii3+6MrnXuC0N75F5nnWNWIaEJ
+ vVCu9QmNck78Oq0pbdBNEvNzlT2w9FwTeWj2KAbHiCld0lgl4u7WJxdYk
+ L3ayhyx8ig7W5JY6Fm7S4+xguL+rvbJ0Pyl1zF9lqzchNxdGlTP+MoCYU w==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10635"; a="398954708"
+X-IronPort-AV: E=Sophos;i="5.98,222,1673942400"; d="scan'208";a="398954708"
+Received: from orsmga004.jf.intel.com ([10.7.209.38])
+ by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 28 Feb 2023 08:02:02 -0800
+X-IronPort-AV: E=McAfee;i="6500,9779,10635"; a="798101078"
+X-IronPort-AV: E=Sophos;i="5.98,222,1673942400"; d="scan'208";a="798101078"
 Received: from barumuga-mobl1.ger.corp.intel.com (HELO localhost)
  ([10.252.47.26])
- by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Feb 2023 07:56:50 -0800
+ by orsmga004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 28 Feb 2023 08:01:57 -0800
 From: Jani Nikula <jani.nikula@linux.intel.com>
 To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, David Airlie
  <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>, Joonas Lahtinen
@@ -42,16 +42,16 @@ To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, David Airlie
  Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>, Rob Clark
  <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean
  Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>
-In-Reply-To: <20230228113342.2051425-2-dmitry.baryshkov@linaro.org>
+In-Reply-To: <20230228113342.2051425-3-dmitry.baryshkov@linaro.org>
 Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
 References: <20230228113342.2051425-1-dmitry.baryshkov@linaro.org>
- <20230228113342.2051425-2-dmitry.baryshkov@linaro.org>
-Date: Tue, 28 Feb 2023 17:56:48 +0200
-Message-ID: <874jr5zsu7.fsf@intel.com>
+ <20230228113342.2051425-3-dmitry.baryshkov@linaro.org>
+Date: Tue, 28 Feb 2023 18:01:54 +0200
+Message-ID: <871qm9zslp.fsf@intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain
-Subject: Re: [Freedreno] [PATCH 01/10] drm/i915/dsc: change DSC param tables
- to follow the DSC model
+Subject: Re: [Freedreno] [PATCH 02/10] drm/i915/dsc: move rc_buf_thresh
+ values to common helper
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,77 +71,127 @@ Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 On Tue, 28 Feb 2023, Dmitry Baryshkov <dmitry.baryshkov@linaro.org> wrote:
-> After cross-checking DSC models (20150914, 20161212, 20210623) change
-> values in rc_parameters tables to follow config files present inside
-> the DSC model. Handle two places, where i915 tables diverged from the
-> model, by patching the rc values in the code.
->
-> Note: I left one case uncorrected, 8bpp/10bpc/range_max_qp[0], because
-> the table in the VESA DSC 1.1 sets it to 4.
+> The rc_buf_thresh values are common to all DSC implementations. Move
+> them to the common helper together with the code to propagage them to
+> the drm_dsc_config.
 >
 > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 > ---
->  drivers/gpu/drm/i915/display/intel_vdsc.c | 18 ++++++++++++++++--
->  1 file changed, 16 insertions(+), 2 deletions(-)
+>  drivers/gpu/drm/display/drm_dsc_helper.c  | 37 +++++++++++++++++++++++
+>  drivers/gpu/drm/i915/display/intel_vdsc.c | 24 +--------------
+>  include/drm/display/drm_dsc_helper.h      |  1 +
+>  3 files changed, 39 insertions(+), 23 deletions(-)
 >
-> diff --git a/drivers/gpu/drm/i915/display/intel_vdsc.c b/drivers/gpu/drm/i915/display/intel_vdsc.c
-> index 207b2a648d32..d080741fd0b3 100644
-> --- a/drivers/gpu/drm/i915/display/intel_vdsc.c
-> +++ b/drivers/gpu/drm/i915/display/intel_vdsc.c
-> @@ -86,7 +86,7 @@ static const struct rc_parameters rc_parameters[][MAX_COLUMN_INDEX] = {
->  		}
->  	},
->  	/* 6BPP/14BPC */
-> -	{ 768, 15, 6144, 15, 25, 23, 27, {
-> +	{ 768, 15, 6144, 15, 25, 23, 23, {
->  		{ 0, 16, 0 }, { 7, 18, -2 }, { 15, 20, -2 }, { 16, 20, -4 },
->  		{ 17, 21, -6 }, { 17, 21, -6 }, { 18, 21, -6 }, { 18, 22, -8 },
->  		{ 19, 23, -8 }, { 20, 24, -10 }, { 21, 24, -10 },
-> @@ -115,6 +115,10 @@ static const struct rc_parameters rc_parameters[][MAX_COLUMN_INDEX] = {
->  	},
->  	/* 8BPP/10BPC */
->  	{ 512, 12, 6144, 7, 16, 15, 15, {
-> +		/*
-> +		 * DSC model/pre-SCR-cfg has 8 for range_max_qp[0], however
-> +		 * VESA DSC 1.1 Table E-5 sets it to 4.
-> +		 */
->  		{ 0, 4, 2 }, { 4, 8, 0 }, { 5, 9, 0 }, { 5, 10, -2 },
->  		{ 7, 11, -4 }, { 7, 11, -6 }, { 7, 11, -8 }, { 7, 12, -8 },
->  		{ 7, 13, -8 }, { 7, 14, -10 }, { 9, 15, -10 }, { 9, 16, -12 },
-> @@ -132,7 +136,7 @@ static const struct rc_parameters rc_parameters[][MAX_COLUMN_INDEX] = {
->  	},
->  	/* 8BPP/14BPC */
->  	{ 512, 12, 6144, 15, 24, 23, 23, {
-> -		{ 0, 12, 0 }, { 5, 13, 0 }, { 11, 15, 0 }, { 12, 17, -2 },
-> +		{ 0, 12, 2 }, { 5, 13, 0 }, { 11, 15, 0 }, { 12, 17, -2 },
->  		{ 15, 19, -4 }, { 15, 19, -6 }, { 15, 19, -8 }, { 15, 20, -8 },
->  		{ 15, 21, -8 }, { 15, 22, -10 }, { 17, 22, -10 },
->  		{ 17, 23, -12 }, { 17, 23, -12 }, { 21, 24, -12 },
-> @@ -529,6 +533,16 @@ int intel_dsc_compute_params(struct intel_crtc_state *pipe_config)
->  			DSC_RANGE_BPG_OFFSET_MASK;
->  	}
+> diff --git a/drivers/gpu/drm/display/drm_dsc_helper.c b/drivers/gpu/drm/display/drm_dsc_helper.c
+> index c869c6e51e2b..ab8679c158b5 100644
+> --- a/drivers/gpu/drm/display/drm_dsc_helper.c
+> +++ b/drivers/gpu/drm/display/drm_dsc_helper.c
+> @@ -270,6 +270,43 @@ void drm_dsc_pps_payload_pack(struct drm_dsc_picture_parameter_set *pps_payload,
+>  }
+>  EXPORT_SYMBOL(drm_dsc_pps_payload_pack);
 >  
-> +	if (DISPLAY_VER(dev_priv) < 13) {
-> +		if (compressed_bpp == 6 &&
-> +		    vdsc_cfg->bits_per_component == 8)
-> +			vdsc_cfg->rc_quant_incr_limit1 = 23;
+> +/* From DSC_v1.11 spec, rc_parameter_Set syntax element typically constant */
+> +const u16 drm_dsc_rc_buf_thresh[] = {
+> +	896, 1792, 2688, 3584, 4480, 5376, 6272, 6720, 7168, 7616,
+> +	7744, 7872, 8000, 8064
+> +};
+> +EXPORT_SYMBOL(drm_dsc_rc_buf_thresh);
 > +
-> +		if (compressed_bpp == 8 &&
-> +		    vdsc_cfg->bits_per_component == 14)
-> +			vdsc_cfg->rc_range_params[0].range_bpg_offset = 0;
-> +	}
+> +/**
+> + * drm_dsc_set_rc_buf_thresh() - Set thresholds for the RC model
+> + * in accordance with the DSC 1.2 specification.
+> + *
+> + * @vdsc_cfg: DSC Configuration data partially filled by driver
+> + */
+> +void drm_dsc_set_rc_buf_thresh(struct drm_dsc_config *vdsc_cfg)
+> +{
+> +	int i = 0;
 > +
+> +	for (i = 0; i < DSC_NUM_BUF_RANGES - 1; i++) {
+> +		/*
+> +		 * six 0s are appended to the lsb of each threshold value
+> +		 * internally in h/w.
+> +		 * Only 8 bits are allowed for programming RcBufThreshold
+> +		 */
 
-I wonder if we shouldn't just use the updated values...
+Not sure how appropriate the hardware references are, maybe clean it up
+a bit.
 
-Maybe add a FIXME comment above the block to consider removing it?
+With that, and +static and -export mentioned earlier,
 
 Reviewed-by: Jani Nikula <jani.nikula@intel.com>
 
-
+> +		vdsc_cfg->rc_buf_thresh[i] = drm_dsc_rc_buf_thresh[i] >> 6;
+> +	}
+> +
+> +	/*
+> +	 * For 6bpp, RC Buffer threshold 12 and 13 need a different value
+> +	 * as per C Model
+> +	 */
+> +	if (vdsc_cfg->bits_per_pixel == 6 << 4) {
+> +		vdsc_cfg->rc_buf_thresh[12] = 7936 >> 6;
+> +		vdsc_cfg->rc_buf_thresh[13] = 8000 >> 6;
+> +	}
+> +}
+> +EXPORT_SYMBOL(drm_dsc_set_rc_buf_thresh);
+> +
+>  /**
+>   * drm_dsc_compute_rc_parameters() - Write rate control
+>   * parameters to the dsc configuration defined in
+> diff --git a/drivers/gpu/drm/i915/display/intel_vdsc.c b/drivers/gpu/drm/i915/display/intel_vdsc.c
+> index d080741fd0b3..b4faab4c8fb3 100644
+> --- a/drivers/gpu/drm/i915/display/intel_vdsc.c
+> +++ b/drivers/gpu/drm/i915/display/intel_vdsc.c
+> @@ -36,12 +36,6 @@ enum COLUMN_INDEX_BPC {
+>  	MAX_COLUMN_INDEX
+>  };
+>  
+> -/* From DSC_v1.11 spec, rc_parameter_Set syntax element typically constant */
+> -static const u16 rc_buf_thresh[] = {
+> -	896, 1792, 2688, 3584, 4480, 5376, 6272, 6720, 7168, 7616,
+> -	7744, 7872, 8000, 8064
+> -};
+> -
+>  struct rc_parameters {
+>  	u16 initial_xmit_delay;
+>  	u8 first_line_bpg_offset;
+> @@ -474,23 +468,7 @@ int intel_dsc_compute_params(struct intel_crtc_state *pipe_config)
+>  	vdsc_cfg->bits_per_pixel = compressed_bpp << 4;
+>  	vdsc_cfg->bits_per_component = pipe_config->pipe_bpp / 3;
+>  
+> -	for (i = 0; i < DSC_NUM_BUF_RANGES - 1; i++) {
+> -		/*
+> -		 * six 0s are appended to the lsb of each threshold value
+> -		 * internally in h/w.
+> -		 * Only 8 bits are allowed for programming RcBufThreshold
+> -		 */
+> -		vdsc_cfg->rc_buf_thresh[i] = rc_buf_thresh[i] >> 6;
+> -	}
+> -
+> -	/*
+> -	 * For 6bpp, RC Buffer threshold 12 and 13 need a different value
+> -	 * as per C Model
+> -	 */
+> -	if (compressed_bpp == 6) {
+> -		vdsc_cfg->rc_buf_thresh[12] = 0x7C;
+> -		vdsc_cfg->rc_buf_thresh[13] = 0x7D;
+> -	}
+> +	drm_dsc_set_rc_buf_thresh(vdsc_cfg);
+>  
 >  	/*
->  	 * BitsPerComponent value determines mux_word_size:
->  	 * When BitsPerComponent is less than or 10bpc, muxWordSize will be equal to
+>  	 * From XE_LPD onwards we supports compression bpps in steps of 1
+> diff --git a/include/drm/display/drm_dsc_helper.h b/include/drm/display/drm_dsc_helper.h
+> index 8b41edbbabab..706ba1d34742 100644
+> --- a/include/drm/display/drm_dsc_helper.h
+> +++ b/include/drm/display/drm_dsc_helper.h
+> @@ -14,6 +14,7 @@ void drm_dsc_dp_pps_header_init(struct dp_sdp_header *pps_header);
+>  int drm_dsc_dp_rc_buffer_size(u8 rc_buffer_block_size, u8 rc_buffer_size);
+>  void drm_dsc_pps_payload_pack(struct drm_dsc_picture_parameter_set *pps_sdp,
+>  			      const struct drm_dsc_config *dsc_cfg);
+> +void drm_dsc_set_rc_buf_thresh(struct drm_dsc_config *vdsc_cfg);
+>  int drm_dsc_compute_rc_parameters(struct drm_dsc_config *vdsc_cfg);
+>  
+>  #endif /* _DRM_DSC_HELPER_H_ */
 
 -- 
 Jani Nikula, Intel Open Source Graphics Center
