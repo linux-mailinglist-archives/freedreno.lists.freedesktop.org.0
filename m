@@ -2,56 +2,61 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id D71AA6A5D2C
-	for <lists+freedreno@lfdr.de>; Tue, 28 Feb 2023 17:33:15 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 856E76A5E3A
+	for <lists+freedreno@lfdr.de>; Tue, 28 Feb 2023 18:32:44 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5A8B010E4F9;
-	Tue, 28 Feb 2023 16:33:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4B12110E4E4;
+	Tue, 28 Feb 2023 17:32:43 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1934310E4F8;
- Tue, 28 Feb 2023 16:33:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1677601991; x=1709137991;
- h=from:to:cc:subject:in-reply-to:references:date:
- message-id:mime-version;
- bh=KDl8nycTuTzYjqMG2woSdVN+pD+2iPSNMvBPwJxQDS8=;
- b=eJ4xFbzptriRxYOdAfeIipytBY+mogr8Rqv67SYnWMLPJk29PTeiN2Pg
- 6ileG7iSh/y1WJWEfqo/8k1iH9wO8d40k7kSu8RLwk3202qz8xZyyYvS/
- k2EcNOKLJP+wXMdmCRommUwfwVfDyMDyDQuZcCPBUjlO7s6jf4CCdumgf
- BSk7UlU1OU9nBe+0ZhxyoARUA4gvnrFJUdHex0PLC9SzBJrpIgG1Z8HQy
- lT1a7fAmts9NcIOPJSAQk7oTcxludMpNlSwBeiDGHtW8M+amohe0mCSWg
- rYLH6YX8oLG0RJmZcNkSJjTyqBgUpVY2gjOpu5NA6inlw8MU5/MfahZb5 A==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10635"; a="331663823"
-X-IronPort-AV: E=Sophos;i="5.98,222,1673942400"; d="scan'208";a="331663823"
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
- by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Feb 2023 08:33:10 -0800
-X-IronPort-AV: E=McAfee;i="6500,9779,10635"; a="783906019"
-X-IronPort-AV: E=Sophos;i="5.98,222,1673942400"; d="scan'208";a="783906019"
-Received: from barumuga-mobl1.ger.corp.intel.com (HELO localhost)
- ([10.252.47.26])
- by fmsmga002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Feb 2023 08:33:06 -0800
-From: Jani Nikula <jani.nikula@linux.intel.com>
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, David Airlie
- <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>, Joonas Lahtinen
- <joonas.lahtinen@linux.intel.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>, Rob Clark
- <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean
- Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>
-In-Reply-To: <20230228113342.2051425-7-dmitry.baryshkov@linaro.org>
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-References: <20230228113342.2051425-1-dmitry.baryshkov@linaro.org>
- <20230228113342.2051425-7-dmitry.baryshkov@linaro.org>
-Date: Tue, 28 Feb 2023 18:33:04 +0200
-Message-ID: <87lekhyclb.fsf@intel.com>
+Received: from mail-oi1-x232.google.com (mail-oi1-x232.google.com
+ [IPv6:2607:f8b0:4864:20::232])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 581B510E4E4;
+ Tue, 28 Feb 2023 17:32:42 +0000 (UTC)
+Received: by mail-oi1-x232.google.com with SMTP id c11so8673291oiw.2;
+ Tue, 28 Feb 2023 09:32:42 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=OS2xX+BtHdXwUDSZ5DQ0d8jK5T/XMeJmBIJDyEZsagY=;
+ b=Nk5WmDPHrcSVCD7pd3bZdYSqH3SpwxNlDXtzxaRNnhlyNLqKXPSct1od4XkzI40QiQ
+ z7EB7N5I5P5bQqUFd3+D9kddSyWv+K4d/FLj7tdhruhZfKeCm1tPz8SuHU7MIeEpP4nR
+ CEcd0Gn6snBz9w+NqiM6PXs46XEfwxvCXEawKfwVjXX2WW4Of4tGiBKPoxjnhR+3c9bq
+ 2jG3Z/OCsq5/36H9wJsXaNo9SbWiBYkUi1nTFba1lFMx+JmIoNPwds9Bk3IOepBCJf82
+ 4PDgVRCudfjWL3UXzSRym3O+ly+A2gdLEvj91BXpZZzOD2dCRiStd0wwRoWUtvyJBllc
+ oVoA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=OS2xX+BtHdXwUDSZ5DQ0d8jK5T/XMeJmBIJDyEZsagY=;
+ b=KCSCjeI/UvYU1k0zoMVHPyD5TQsNTTODSDD0dScr+m7LpDz/t5H0QJewvyWe73WXI7
+ YsvveHRxdMtwfeHaA67m3rvjq+Y/jQW4hnJXb9+Sf81VzdT0XdUFMPPHWO7kIymXJ8/d
+ IalLx9wFfY75/pYOTYw8yMyNfQvLG3ANdN2qqG5HKtSggnmVhjChfiEBBpfD4oM/BuDo
+ 7NSNJHMu6d9tm504VgHlA9IxbE7W85vz5XOrYdoUSMEbqsZeDIj3Qf7oD6x0F83SshQD
+ smDmivmuTjNpbvGAlFiYSLaU9XVHyMrRfeZRYHyKhEpz1UVUKAnJzKw+wkMDbKG4VfMk
+ IQ8Q==
+X-Gm-Message-State: AO0yUKVAzWqecrFBROzwLcVl8nwEwQx28tfLxE99HgGK5jj1S9Nf88z3
+ 9V/dOCvBLJfHsFRZ52KyufSGGt+n5PkO+toZ6k+ByiLKnGw=
+X-Google-Smtp-Source: AK7set9wDysrTDCY5oqefgdcjHb48vnAXtnE6xR8/CSF6XoQkO4OKA20wINQBgGtH/zvjgvAgUaBg0YapluvX8WDLFU=
+X-Received: by 2002:a05:6808:278c:b0:384:23ed:1ff6 with SMTP id
+ es12-20020a056808278c00b0038423ed1ff6mr1079335oib.3.1677605561422; Tue, 28
+ Feb 2023 09:32:41 -0800 (PST)
 MIME-Version: 1.0
-Content-Type: text/plain
-Subject: Re: [Freedreno] [PATCH 06/10] drm/display/dsc: split DSC 1.2 and
- DSC 1.1 (pre-SCR) parameters
+References: <20230227193535.2822389-1-robdclark@gmail.com>
+ <20230227193535.2822389-2-robdclark@gmail.com>
+ <20230228112154.207dc66c@eldfell>
+In-Reply-To: <20230228112154.207dc66c@eldfell>
+From: Rob Clark <robdclark@gmail.com>
+Date: Tue, 28 Feb 2023 09:32:30 -0800
+Message-ID: <CAF6AEGu3eCqK3ooWrArF9XS06Ad9cFjQn=kvwCVoioRjYJ9NmQ@mail.gmail.com>
+To: Pekka Paalanen <ppaalanen@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [Freedreno] [PATCH v7 01/15] dma-buf/dma-fence: Add deadline
+ awareness
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,274 +69,243 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-arm-msm@vger.kernel.org, intel-gfx@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- Ville =?utf-8?B?U3lyasOkbMOk?= <ville.syrjala@linux.intel.com>
+Cc: Rob Clark <robdclark@chromium.org>, Gustavo Padovan <gustavo@padovan.org>,
+ Simon Ser <contact@emersion.fr>, Tvrtko Ursulin <tvrtko.ursulin@intel.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>,
+ =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel@daenzer.net>,
+ Jonathan Corbet <corbet@lwn.net>,
+ "open list:DOCUMENTATION" <linux-doc@vger.kernel.org>,
+ open list <linux-kernel@vger.kernel.org>, dri-devel@lists.freedesktop.org,
+ Sumit Semwal <sumit.semwal@linaro.org>,
+ "moderated list:DMA BUFFER SHARING FRAMEWORK" <linaro-mm-sig@lists.linaro.org>,
+ Luben Tuikov <luben.tuikov@amd.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Alex Deucher <alexander.deucher@amd.com>, freedreno@lists.freedesktop.org,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ "open list:DMA BUFFER SHARING FRAMEWORK" <linux-media@vger.kernel.org>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Tue, 28 Feb 2023, Dmitry Baryshkov <dmitry.baryshkov@linaro.org> wrote:
-> The array of rc_parameters contains a mixture of parameters from DSC 1.1
-> and DSC 1.2 standards. Split these tow configuration arrays in
-> preparation to adding more configuration data.
+On Tue, Feb 28, 2023 at 1:21 AM Pekka Paalanen <ppaalanen@gmail.com> wrote:
 >
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> ---
->  drivers/gpu/drm/display/drm_dsc_helper.c  | 127 ++++++++++++++++++----
->  drivers/gpu/drm/i915/display/intel_vdsc.c |  10 +-
->  include/drm/display/drm_dsc_helper.h      |   7 +-
->  3 files changed, 119 insertions(+), 25 deletions(-)
+> On Mon, 27 Feb 2023 11:35:07 -0800
+> Rob Clark <robdclark@gmail.com> wrote:
 >
-> diff --git a/drivers/gpu/drm/display/drm_dsc_helper.c b/drivers/gpu/drm/display/drm_dsc_helper.c
-> index a6d11f474656..51794b40526a 100644
-> --- a/drivers/gpu/drm/display/drm_dsc_helper.c
-> +++ b/drivers/gpu/drm/display/drm_dsc_helper.c
-> @@ -326,11 +326,81 @@ struct rc_parameters_data {
->  
->  #define DSC_BPP(bpp)	((bpp) << 4)
->  
-> +static const struct rc_parameters_data rc_parameters_pre_scr[] = {
-> +{ DSC_BPP(8), 8,
-> +	/* 8BPP/8BPC */
+> > From: Rob Clark <robdclark@chromium.org>
+> >
+> > Add a way to hint to the fence signaler of an upcoming deadline, such a=
+s
+> > vblank, which the fence waiter would prefer not to miss.  This is to ai=
+d
+> > the fence signaler in making power management decisions, like boosting
+> > frequency as the deadline approaches and awareness of missing deadlines
+> > so that can be factored in to the frequency scaling.
+> >
+> > v2: Drop dma_fence::deadline and related logic to filter duplicate
+> >     deadlines, to avoid increasing dma_fence size.  The fence-context
+> >     implementation will need similar logic to track deadlines of all
+> >     the fences on the same timeline.  [ckoenig]
+> > v3: Clarify locking wrt. set_deadline callback
+> > v4: Clarify in docs comment that this is a hint
+> > v5: Drop DMA_FENCE_FLAG_HAS_DEADLINE_BIT.
+> > v6: More docs
+> >
+> > Signed-off-by: Rob Clark <robdclark@chromium.org>
+> > Reviewed-by: Christian K=C3=B6nig <christian.koenig@amd.com>
+> > ---
+> >  Documentation/driver-api/dma-buf.rst |  6 +++
+> >  drivers/dma-buf/dma-fence.c          | 59 ++++++++++++++++++++++++++++
+> >  include/linux/dma-fence.h            | 20 ++++++++++
+> >  3 files changed, 85 insertions(+)
+> >
+> > diff --git a/Documentation/driver-api/dma-buf.rst b/Documentation/drive=
+r-api/dma-buf.rst
+> > index 622b8156d212..183e480d8cea 100644
+> > --- a/Documentation/driver-api/dma-buf.rst
+> > +++ b/Documentation/driver-api/dma-buf.rst
+> > @@ -164,6 +164,12 @@ DMA Fence Signalling Annotations
+> >  .. kernel-doc:: drivers/dma-buf/dma-fence.c
+> >     :doc: fence signalling annotation
+> >
+> > +DMA Fence Deadline Hints
+> > +~~~~~~~~~~~~~~~~~~~~~~~~
+> > +
+> > +.. kernel-doc:: drivers/dma-buf/dma-fence.c
+> > +   :doc: deadline hints
+> > +
+> >  DMA Fences Functions Reference
+> >  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+> >
+> > diff --git a/drivers/dma-buf/dma-fence.c b/drivers/dma-buf/dma-fence.c
+> > index 0de0482cd36e..e103e821d993 100644
+> > --- a/drivers/dma-buf/dma-fence.c
+> > +++ b/drivers/dma-buf/dma-fence.c
+> > @@ -912,6 +912,65 @@ dma_fence_wait_any_timeout(struct dma_fence **fenc=
+es, uint32_t count,
+> >  }
+> >  EXPORT_SYMBOL(dma_fence_wait_any_timeout);
+> >
+> > +/**
+> > + * DOC: deadline hints
+> > + *
+> > + * In an ideal world, it would be possible to pipeline a workload suff=
+iciently
+> > + * that a utilization based device frequency governor could arrive at =
+a minimum
+> > + * frequency that meets the requirements of the use-case, in order to =
+minimize
+> > + * power consumption.  But in the real world there are many workloads =
+which
+> > + * defy this ideal.  For example, but not limited to:
+> > + *
+> > + * * Workloads that ping-pong between device and CPU, with alternating=
+ periods
+> > + *   of CPU waiting for device, and device waiting on CPU.  This can r=
+esult in
+> > + *   devfreq and cpufreq seeing idle time in their respective domains =
+and in
+> > + *   result reduce frequency.
+> > + *
+> > + * * Workloads that interact with a periodic time based deadline, such=
+ as double
+> > + *   buffered GPU rendering vs vblank sync'd page flipping.  In this s=
+cenario,
+> > + *   missing a vblank deadline results in an *increase* in idle time o=
+n the GPU
+> > + *   (since it has to wait an additional vblank period), sending a sin=
+gle to
+>
+> Hi Rob,
+>
+> s/single/signal/ ?
 
-I still dislike this indentation...
+oops, yes
 
-> +	{ 512, 12, 6144, 3, 12, 11, 11, {
-> +		{ 0, 4, 2 }, { 0, 4, 0 }, { 1, 5, 0 }, { 1, 6, -2 },
-> +		{ 3, 7, -4 }, { 3, 7, -6 }, { 3, 7, -8 }, { 3, 8, -8 },
-> +		{ 3, 9, -8 }, { 3, 10, -10 }, { 5, 11, -10 }, { 5, 12, -12 },
-> +		{ 5, 13, -12 }, { 7, 13, -12 }, { 13, 15, -12 }
-> +		}
-> +	}
-> +},
-> +{ DSC_BPP(8), 10,
-> +	/* 8BPP/10BPC */
-> +	{ 512, 12, 6144, 7, 16, 15, 15, {
-> +		/*
-> +		 * DSC model/pre-SCR-cfg has 8 for range_max_qp[0], however
-> +		 * VESA DSC 1.1 Table E-5 sets it to 4.
-> +		 */
-> +		{ 0, 4, 2 }, { 4, 8, 0 }, { 5, 9, 0 }, { 5, 10, -2 },
-> +		{ 7, 11, -4 }, { 7, 11, -6 }, { 7, 11, -8 }, { 7, 12, -8 },
-> +		{ 7, 13, -8 }, { 7, 14, -10 }, { 9, 15, -10 }, { 9, 16, -12 },
-> +		{ 9, 17, -12 }, { 11, 17, -12 }, { 17, 19, -12 }
-> +		}
-> +	}
-> +},
-> +{ DSC_BPP(8), 12,
-> +	/* 8BPP/12BPC */
-> +	{ 512, 12, 6144, 11, 20, 19, 19, {
-> +		{ 0, 12, 2 }, { 4, 12, 0 }, { 9, 13, 0 }, { 9, 14, -2 },
-> +		{ 11, 15, -4 }, { 11, 15, -6 }, { 11, 15, -8 }, { 11, 16, -8 },
-> +		{ 11, 17, -8 }, { 11, 18, -10 }, { 13, 19, -10 },
-> +		{ 13, 20, -12 }, { 13, 21, -12 }, { 15, 21, -12 },
-> +		{ 21, 23, -12 }
-> +		}
-> +	}
-> +},
-> +{ DSC_BPP(12), 8,
-> +	/* 12BPP/8BPC */
-> +	{ 341, 15, 2048, 3, 12, 11, 11, {
-> +		{ 0, 2, 2 }, { 0, 4, 0 }, { 1, 5, 0 }, { 1, 6, -2 },
-> +		{ 3, 7, -4 }, { 3, 7, -6 }, { 3, 7, -8 }, { 3, 8, -8 },
-> +		{ 3, 9, -8 }, { 3, 10, -10 }, { 5, 11, -10 }, { 5, 12, -12 },
-> +		{ 5, 13, -12 }, { 7, 13, -12 }, { 13, 15, -12 }
-> +		}
-> +	}
-> +},
-> +{ DSC_BPP(12), 10,
-> +	/* 12BPP/10BPC */
-> +	{ 341, 15, 2048, 7, 16, 15, 15, {
-> +		{ 0, 2, 2 }, { 2, 5, 0 }, { 3, 7, 0 }, { 4, 8, -2 },
-> +		{ 6, 9, -4 }, { 7, 10, -6 }, { 7, 11, -8 }, { 7, 12, -8 },
-> +		{ 7, 13, -8 }, { 7, 14, -10 }, { 9, 15, -10 }, { 9, 16, -12 },
-> +		{ 9, 17, -12 }, { 11, 17, -12 }, { 17, 19, -12 }
-> +		}
-> +	}
-> +},
-> +{ DSC_BPP(12), 12,
-> +	/* 12BPP/12BPC */
-> +	{ 341, 15, 2048, 11, 20, 19, 19, {
-> +		{ 0, 6, 2 }, { 4, 9, 0 }, { 7, 11, 0 }, { 8, 12, -2 },
-> +		{ 10, 13, -4 }, { 11, 14, -6 }, { 11, 15, -8 }, { 11, 16, -8 },
-> +		{ 11, 17, -8 }, { 11, 18, -10 }, { 13, 19, -10 },
-> +		{ 13, 20, -12 }, { 13, 21, -12 }, { 15, 21, -12 },
-> +		{ 21, 23, -12 }
-> +		}
-> +	}
-> +},
-> +{ /* sentinel */ }
-> +};
-> +
->  /*
->   * Selected Rate Control Related Parameter Recommended Values
->   * from DSC_v1.11 spec & C Model release: DSC_model_20161212
->   */
-> -static const struct rc_parameters_data rc_parameters[] = {
-> +static const struct rc_parameters_data rc_parameters_1_2_444[] = {
->  { DSC_BPP(6), 8,
->  	/* 6BPP/8BPC */
->  	{ 768, 15, 6144, 3, 13, 11, 11, {
-> @@ -390,22 +460,18 @@ static const struct rc_parameters_data rc_parameters[] = {
->  	{ 512, 12, 6144, 3, 12, 11, 11, {
->  		{ 0, 4, 2 }, { 0, 4, 0 }, { 1, 5, 0 }, { 1, 6, -2 },
->  		{ 3, 7, -4 }, { 3, 7, -6 }, { 3, 7, -8 }, { 3, 8, -8 },
-> -		{ 3, 9, -8 }, { 3, 10, -10 }, { 5, 11, -10 }, { 5, 12, -12 },
-> -		{ 5, 13, -12 }, { 7, 13, -12 }, { 13, 15, -12 }
-> +		{ 3, 9, -8 }, { 3, 10, -10 }, { 5, 10, -10 }, { 5, 11, -12 },
-> +		{ 5, 11, -12 }, { 9, 12, -12 }, { 12, 13, -12 }
->  		}
->  	}
->  },
->  { DSC_BPP(8), 10,
->  	/* 8BPP/10BPC */
->  	{ 512, 12, 6144, 7, 16, 15, 15, {
-> -		/*
-> -		 * DSC model/pre-SCR-cfg has 8 for range_max_qp[0], however
-> -		 * VESA DSC 1.1 Table E-5 sets it to 4.
-> -		 */
-> -		{ 0, 4, 2 }, { 4, 8, 0 }, { 5, 9, 0 }, { 5, 10, -2 },
-> +		{ 0, 8, 2 }, { 4, 8, 0 }, { 5, 9, 0 }, { 5, 10, -2 },
->  		{ 7, 11, -4 }, { 7, 11, -6 }, { 7, 11, -8 }, { 7, 12, -8 },
-> -		{ 7, 13, -8 }, { 7, 14, -10 }, { 9, 15, -10 }, { 9, 16, -12 },
-> -		{ 9, 17, -12 }, { 11, 17, -12 }, { 17, 19, -12 }
-> +		{ 7, 13, -8 }, { 7, 14, -10 }, { 9, 14, -10 }, { 9, 15, -12 },
-> +		{ 9, 15, -12 }, { 13, 16, -12 }, { 16, 17, -12 }
->  		}
->  	}
->  },
-> @@ -414,9 +480,9 @@ static const struct rc_parameters_data rc_parameters[] = {
->  	{ 512, 12, 6144, 11, 20, 19, 19, {
->  		{ 0, 12, 2 }, { 4, 12, 0 }, { 9, 13, 0 }, { 9, 14, -2 },
->  		{ 11, 15, -4 }, { 11, 15, -6 }, { 11, 15, -8 }, { 11, 16, -8 },
-> -		{ 11, 17, -8 }, { 11, 18, -10 }, { 13, 19, -10 },
-> -		{ 13, 20, -12 }, { 13, 21, -12 }, { 15, 21, -12 },
-> -		{ 21, 23, -12 }
-> +		{ 11, 17, -8 }, { 11, 18, -10 }, { 13, 18, -10 },
-> +		{ 13, 19, -12 }, { 13, 19, -12 }, { 17, 20, -12 },
-> +		{ 20, 21, -12 }
->  		}
->  	}
->  },
-> @@ -500,8 +566,8 @@ static const struct rc_parameters_data rc_parameters[] = {
->  	{ 341, 15, 2048, 3, 12, 11, 11, {
->  		{ 0, 2, 2 }, { 0, 4, 0 }, { 1, 5, 0 }, { 1, 6, -2 },
->  		{ 3, 7, -4 }, { 3, 7, -6 }, { 3, 7, -8 }, { 3, 8, -8 },
-> -		{ 3, 9, -8 }, { 3, 10, -10 }, { 5, 11, -10 },
-> -		{ 5, 12, -12 }, { 5, 13, -12 }, { 7, 13, -12 }, { 13, 15, -12 }
-> +		{ 3, 8, -8 }, { 3, 9, -10 }, { 5, 9, -10 }, { 5, 9, -12 },
-> +		{ 5, 9, -12 }, { 7, 10, -12 }, { 10, 11, -12 }
->  		}
->  	}
->  },
-> @@ -510,8 +576,8 @@ static const struct rc_parameters_data rc_parameters[] = {
->  	{ 341, 15, 2048, 7, 16, 15, 15, {
->  		{ 0, 2, 2 }, { 2, 5, 0 }, { 3, 7, 0 }, { 4, 8, -2 },
->  		{ 6, 9, -4 }, { 7, 10, -6 }, { 7, 11, -8 }, { 7, 12, -8 },
-> -		{ 7, 13, -8 }, { 7, 14, -10 }, { 9, 15, -10 }, { 9, 16, -12 },
-> -		{ 9, 17, -12 }, { 11, 17, -12 }, { 17, 19, -12 }
-> +		{ 7, 12, -8 }, { 7, 13, -10 }, { 9, 13, -10 }, { 9, 13, -12 },
-> +		{ 9, 13, -12 }, { 11, 14, -12 }, { 14, 15, -12 }
->  		}
->  	}
->  },
-> @@ -520,9 +586,9 @@ static const struct rc_parameters_data rc_parameters[] = {
->  	{ 341, 15, 2048, 11, 20, 19, 19, {
->  		{ 0, 6, 2 }, { 4, 9, 0 }, { 7, 11, 0 }, { 8, 12, -2 },
->  		{ 10, 13, -4 }, { 11, 14, -6 }, { 11, 15, -8 }, { 11, 16, -8 },
-> -		{ 11, 17, -8 }, { 11, 18, -10 }, { 13, 19, -10 },
-> -		{ 13, 20, -12 }, { 13, 21, -12 }, { 15, 21, -12 },
-> -		{ 21, 23, -12 }
-> +		{ 11, 16, -8 }, { 11, 17, -10 }, { 13, 17, -10 },
-> +		{ 13, 17, -12 }, { 13, 17, -12 }, { 15, 18, -12 },
-> +		{ 18, 19, -12 }
->  		}
->  	}
->  },
-> @@ -604,7 +670,8 @@ static const struct rc_parameters_data rc_parameters[] = {
->  { /* sentinel */ }
->  };
->  
-> -static const struct rc_parameters *get_rc_params(u16 dsc_bpp,
-> +static const struct rc_parameters *get_rc_params(const struct rc_parameters_data *rc_parameters,
-> +						 u16 dsc_bpp,
->  						 u8 bits_per_component)
->  {
->  	int i;
-> @@ -622,13 +689,27 @@ static const struct rc_parameters *get_rc_params(u16 dsc_bpp,
->   * accordance with the DSC 1.1 or 1.2 specification and DSC C Model
->   *
->   * @vdsc_cfg: DSC Configuration data partially filled by driver
-> + * @kind: operating mode and standard to follow
->   */
-> -int drm_dsc_setup_rc_params(struct drm_dsc_config *vdsc_cfg)
-> +int drm_dsc_setup_rc_params(struct drm_dsc_config *vdsc_cfg, enum drm_dsc_params_kind kind)
->  {
-> +	const struct rc_parameters_data *data;
->  	const struct rc_parameters *rc_params;
->  	int i;
->  
-> -	rc_params = get_rc_params(vdsc_cfg->bits_per_pixel,
-> +	switch (kind) {
-> +	case DRM_DSC_1_2_444:
-> +		data = rc_parameters_1_2_444;
-> +		break;
-> +	case DRM_DSC_1_1_PRE_SCR:
-> +		data = rc_parameters_pre_scr;
-> +		break;
-> +	default:
-> +		return -EINVAL;
-> +	}
-> +
-> +	rc_params = get_rc_params(data,
-> +				  vdsc_cfg->bits_per_pixel,
->  				  vdsc_cfg->bits_per_component);
->  	if (!rc_params)
->  		return -EINVAL;
-> diff --git a/drivers/gpu/drm/i915/display/intel_vdsc.c b/drivers/gpu/drm/i915/display/intel_vdsc.c
-> index 1ee8d13c9d64..4d220d24fa73 100644
-> --- a/drivers/gpu/drm/i915/display/intel_vdsc.c
-> +++ b/drivers/gpu/drm/i915/display/intel_vdsc.c
-> @@ -156,7 +156,15 @@ int intel_dsc_compute_params(struct intel_crtc_state *pipe_config)
->  	if (DISPLAY_VER(dev_priv) >= 13) {
->  		calculate_rc_params(vdsc_cfg);
->  	} else {
-> -		ret = drm_dsc_setup_rc_params(vdsc_cfg);
-> +		if ((compressed_bpp == 8 ||
-> +		     compressed_bpp == 12) &&
-> +		    (vdsc_cfg->bits_per_pixel == 8 ||
-> +		     vdsc_cfg->bits_per_pixel == 10 ||
-> +		     vdsc_cfg->bits_per_pixel == 12))
-> +			ret = drm_dsc_setup_rc_params(vdsc_cfg, DRM_DSC_1_1_PRE_SCR);
-> +		else
-> +			ret = drm_dsc_setup_rc_params(vdsc_cfg, DRM_DSC_1_2_444);
-> +
->  		if (ret)
->  			return ret;
->  
-> diff --git a/include/drm/display/drm_dsc_helper.h b/include/drm/display/drm_dsc_helper.h
-> index 1681791f65a5..c634bb2935d3 100644
-> --- a/include/drm/display/drm_dsc_helper.h
-> +++ b/include/drm/display/drm_dsc_helper.h
-> @@ -10,12 +10,17 @@
->  
->  #include <drm/display/drm_dsc.h>
->  
-> +enum drm_dsc_params_kind {
-> +	DRM_DSC_1_2_444,
-> +	DRM_DSC_1_1_PRE_SCR, /* legacy params from DSC 1.1 */
-> +};
-> +
->  void drm_dsc_dp_pps_header_init(struct dp_sdp_header *pps_header);
->  int drm_dsc_dp_rc_buffer_size(u8 rc_buffer_block_size, u8 rc_buffer_size);
->  void drm_dsc_pps_payload_pack(struct drm_dsc_picture_parameter_set *pps_sdp,
->  			      const struct drm_dsc_config *dsc_cfg);
->  void drm_dsc_set_rc_buf_thresh(struct drm_dsc_config *vdsc_cfg);
-> -int drm_dsc_setup_rc_params(struct drm_dsc_config *vdsc_cfg);
-> +int drm_dsc_setup_rc_params(struct drm_dsc_config *vdsc_cfg, enum drm_dsc_params_kind kind);
->  int drm_dsc_compute_rc_parameters(struct drm_dsc_config *vdsc_cfg);
->  
->  #endif /* _DRM_DSC_HELPER_H_ */
+> > + *   the GPU's devfreq to reduce frequency, when in fact the opposite =
+is what is
+> > + *   needed.
+> > + *
+> > + * To this end, deadline hint(s) can be set on a &dma_fence via &dma_f=
+ence_set_deadline.
+> > + * The deadline hint provides a way for the waiting driver, or userspa=
+ce, to
+> > + * convey an appropriate sense of urgency to the signaling driver.
+> > + *
+> > + * A deadline hint is given in absolute ktime (CLOCK_MONOTONIC for use=
+rspace
+> > + * facing APIs).  The time could either be some point in the future (s=
+uch as
+> > + * the vblank based deadline for page-flipping, or the start of a comp=
+ositor's
+> > + * composition cycle), or the current time to indicate an immediate de=
+adline
+> > + * hint (Ie. forward progress cannot be made until this fence is signa=
+led).
+>
+> As "current time" not a special value, but just an absolute timestamp
+> like any other, deadlines already in the past must also be accepted?
 
--- 
-Jani Nikula, Intel Open Source Graphics Center
+Yes, well "current time" is already in the past after the next clock
+tick, so deadlines already passed should be accepted.  I've been
+trying to avoid advocating zero as a special value, but I guess
+realistically we don't have a rollover problem for a couple hundred
+years.  In any case, I think `deadline < now` should be allowed (ie.
+what if you were preempted in the process of setting a deadline, etc)
+
+I'll try to clarify this in the next version.
+
+BR,
+-R
+
+> > + *
+> > + * Multiple deadlines may be set on a given fence, even in parallel.  =
+See the
+> > + * documentation for &dma_fence_ops.set_deadline.
+> > + *
+> > + * The deadline hint is just that, a hint.  The driver that created th=
+e fence
+> > + * may react by increasing frequency, making different scheduling choi=
+ces, etc.
+> > + * Or doing nothing at all.
+> > + */
+>
+> Yes! Thank you for writing this! Well explained.
+>
+> > +
+> > +/**
+> > + * dma_fence_set_deadline - set desired fence-wait deadline hint
+> > + * @fence:    the fence that is to be waited on
+> > + * @deadline: the time by which the waiter hopes for the fence to be
+> > + *            signaled
+> > + *
+> > + * Give the fence signaler a hint about an upcoming deadline, such as
+> > + * vblank, by which point the waiter would prefer the fence to be
+> > + * signaled by.  This is intended to give feedback to the fence signal=
+er
+> > + * to aid in power management decisions, such as boosting GPU frequenc=
+y
+> > + * if a periodic vblank deadline is approaching but the fence is not
+> > + * yet signaled..
+> > + */
+> > +void dma_fence_set_deadline(struct dma_fence *fence, ktime_t deadline)
+> > +{
+> > +     if (fence->ops->set_deadline && !dma_fence_is_signaled(fence))
+> > +             fence->ops->set_deadline(fence, deadline);
+> > +}
+> > +EXPORT_SYMBOL(dma_fence_set_deadline);
+> > +
+> >  /**
+> >   * dma_fence_describe - Dump fence describtion into seq_file
+> >   * @fence: the 6fence to describe
+> > diff --git a/include/linux/dma-fence.h b/include/linux/dma-fence.h
+> > index 775cdc0b4f24..87c0d846dbb4 100644
+> > --- a/include/linux/dma-fence.h
+> > +++ b/include/linux/dma-fence.h
+> > @@ -257,6 +257,24 @@ struct dma_fence_ops {
+> >        */
+> >       void (*timeline_value_str)(struct dma_fence *fence,
+> >                                  char *str, int size);
+> > +
+> > +     /**
+> > +      * @set_deadline:
+> > +      *
+> > +      * Callback to allow a fence waiter to inform the fence signaler =
+of
+> > +      * an upcoming deadline, such as vblank, by which point the waite=
+r
+> > +      * would prefer the fence to be signaled by.  This is intended to
+> > +      * give feedback to the fence signaler to aid in power management
+> > +      * decisions, such as boosting GPU frequency.
+> > +      *
+> > +      * This is called without &dma_fence.lock held, it can be called
+> > +      * multiple times and from any context.  Locking is up to the cal=
+lee
+> > +      * if it has some state to manage.  If multiple deadlines are set=
+,
+> > +      * the expectation is to track the soonest one.
+> > +      *
+> > +      * This callback is optional.
+> > +      */
+> > +     void (*set_deadline)(struct dma_fence *fence, ktime_t deadline);
+> >  };
+> >
+> >  void dma_fence_init(struct dma_fence *fence, const struct dma_fence_op=
+s *ops,
+> > @@ -583,6 +601,8 @@ static inline signed long dma_fence_wait(struct dma=
+_fence *fence, bool intr)
+> >       return ret < 0 ? ret : 0;
+> >  }
+> >
+> > +void dma_fence_set_deadline(struct dma_fence *fence, ktime_t deadline)=
+;
+> > +
+> >  struct dma_fence *dma_fence_get_stub(void);
+> >  struct dma_fence *dma_fence_allocate_private_stub(void);
+> >  u64 dma_fence_context_alloc(unsigned num);
+>
+> This is exactly what I wanted to see. Already
+> Acked-by: Pekka Paalanen <pekka.paalanen@collabora.com>
+>
+>
+> Thanks,
+> pq
