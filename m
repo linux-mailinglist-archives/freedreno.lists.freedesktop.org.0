@@ -1,73 +1,69 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 845156A59AC
-	for <lists+freedreno@lfdr.de>; Tue, 28 Feb 2023 14:02:55 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id F24876A5A62
+	for <lists+freedreno@lfdr.de>; Tue, 28 Feb 2023 14:51:55 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BB73810E4AB;
-	Tue, 28 Feb 2023 13:02:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BCB8B10E200;
+	Tue, 28 Feb 2023 13:51:54 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x12a.google.com (mail-lf1-x12a.google.com
- [IPv6:2a00:1450:4864:20::12a])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6D85B10E4AB
- for <freedreno@lists.freedesktop.org>; Tue, 28 Feb 2023 13:02:47 +0000 (UTC)
-Received: by mail-lf1-x12a.google.com with SMTP id bi9so13091275lfb.2
- for <freedreno@lists.freedesktop.org>; Tue, 28 Feb 2023 05:02:47 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=f8opb0IgGXLUx/MSqXkZyuJAceZKb6+tDxEgzfDsO0s=;
- b=Gwq7KeXUYx6aBVDqpjW00B/Zh6JGolQdx39yvfFPCUxawYiLrBuoHxLStg2ARPR2yD
- r8UgVHfqjR6La3XfpM/NPJL42hNWjDeMnBiuGCMZ252JNQmeAGDiR/3Xj5+HIEZw9mRV
- w9JCAG1iDSIcekQvDVfDeLrL8nEYLU64LHkuyckMdxNolXflsvlRl/1+x1AEfmJEgpwb
- bt8yIGpqI/TDr23ff4DhGavTQgTANK7jTGTnBj3XH1Na4VT8wvILG2ynyFN30HpECFSz
- RkTWqIxhVfhb+Zy8Lzqb1+CiuG/MjIU7k0VfpM3qqKHtlz6/RuZuNMoCXC9IY6xfGJ7D
- ObCA==
+Received: from mail-pj1-x102b.google.com (mail-pj1-x102b.google.com
+ [IPv6:2607:f8b0:4864:20::102b])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 048B110E6A0;
+ Tue, 28 Feb 2023 12:43:03 +0000 (UTC)
+Received: by mail-pj1-x102b.google.com with SMTP id
+ q31-20020a17090a17a200b0023750b69614so9423751pja.5; 
+ Tue, 28 Feb 2023 04:43:03 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20210112; t=1677588182;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=GNoSdXiAy4Hnpx4GSmf9v1s/TnoJ2Easnzikmce7RFo=;
+ b=Df7zrRz22eg8YZi+bpqjSJPlYpN8eIwr9o77wJ4OIQ+4kuTEVXpnUz/mPubCGdCkzm
+ wB0GhDQXs3xOQYDpZ9TG3khGJT4x7Ps3f8Vj0npRhk0C4oSB96tMQoW50c51EZ3lfU6+
+ vFMlcXzfaK3nk76iyyHVvUt22CWre9Kuihg8DdAXM83Q0NBTYhnQ9e1mcv7ZaGj3nj6C
+ DWIlEvKfO56rW78AV5SO5ICvqhDgv2GTFKuLLPU+zrXAXmgq0Z3G0wNqW6+IdX6MRcKc
+ JC/a+Zbq22en8EaGBqwiunzxOiXmQHaNTUI4tKBNSby2zUAc3XWf8SlBzOOJfcD8IlKJ
+ SM5Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=f8opb0IgGXLUx/MSqXkZyuJAceZKb6+tDxEgzfDsO0s=;
- b=0sjQzvPLtwNVngDdS9etcuM5pQ0zHM7YBzXttT4NE/Tr08HdcJUrgjT73LWorNjN4+
- zG1fN7yKrg5ssOCPuA0UAsnn44dXK7t9l9SSCB9ttQAixj1wNaE/P94N9ls4Xw833g8s
- fdW0rYKHv20L8H79CRxVh7vNr2MFa7wupaRlB7M2j+xN7dDc6iZb2NoaDKzCKUXXMtJs
- EUIwvKvw8Sl5TyHu6jmdlLu+NKWusb6giJDif7vWXFgLiCeoRzxmHIIovyORO26vuama
- b1ocFN1u98cv7KOqWUWwieCOracvQ1Xx5vgMqfeYopUL7dl/pYU+23CHo7lQ0FKg1zqb
- eyfw==
-X-Gm-Message-State: AO0yUKVZDOUtiaIzXbjmV+8+Gft5thfHBJSBUrStwG2fRM7LG1p0bryb
- hnwdgI7fJS2wjxanlzib2B4egw==
-X-Google-Smtp-Source: AK7set/Su3LSbNhDd09F4PabH97lCSdw/VJpqzgfwDJ8pPnl4+UMykLikDNj5xmwZfoED3oHiJoAkA==
-X-Received: by 2002:ac2:4a90:0:b0:4a4:68b9:19f9 with SMTP id
- l16-20020ac24a90000000b004a468b919f9mr642943lfp.33.1677589365519; 
- Tue, 28 Feb 2023 05:02:45 -0800 (PST)
-Received: from ?IPV6:2001:14ba:a085:4d00::8a5?
- (dzccz6yyyyyyyyyyybcwt-3.rev.dnainternet.fi. [2001:14ba:a085:4d00::8a5])
+ d=1e100.net; s=20210112; t=1677588182;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=GNoSdXiAy4Hnpx4GSmf9v1s/TnoJ2Easnzikmce7RFo=;
+ b=i0WolIOQycqcS09txPLhdzNCPZj/PTmw2mohwq1avEFuDxVYGZ056jaWP+D32o2AtY
+ jZ/CWCQcO2sGyFgIUpqWJgfPdJLHUymo8YMSaBuwCvV6nU0EYSkI5Bfr/DCqPsXY0cUG
+ 9xrAQYlgjLhX9mUon6Kztcp26My3TgJJD9iqiMCGY+eHqODXqSp0cSgISaI83hRWccF7
+ 96myGlAAGtZ3Zpvx4lOLKp9y9G/IBLv9bMR6L2wyoitALMEXeyQsGwM2xr6lxYY1UMly
+ v2zLvAs+/MhJbCtVsTa2UXXgcGHbQTa2BhhCV48Hfa7kweWkRiZuRvuBVpAA5gBz8qaj
+ zehg==
+X-Gm-Message-State: AO0yUKWMzeW+1DysM/xz6JSc4tQyE5CpDemnSDfg91XDuMHYtjasLcd4
+ 0/rmCYNbI4e2nwEZw765y1w=
+X-Google-Smtp-Source: AK7set9OdAQjCkCpgdCiYZHKKMRQTrLw3bEzWK8cbf3O+nNoqA5K32bwW9Ij9MRpVcAkVdH7hRxAQg==
+X-Received: by 2002:a05:6a20:47d7:b0:cc:68a1:5033 with SMTP id
+ ey23-20020a056a2047d700b000cc68a15033mr3052844pzb.16.1677588182510; 
+ Tue, 28 Feb 2023 04:43:02 -0800 (PST)
+Received: from debian.me (subs02-180-214-232-83.three.co.id. [180.214.232.83])
  by smtp.gmail.com with ESMTPSA id
- f19-20020a19ae13000000b004db20d07decsm1327160lfc.209.2023.02.28.05.02.44
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 28 Feb 2023 05:02:44 -0800 (PST)
-Message-ID: <d9a30c80-54b1-317c-61d3-dc872ad03458@linaro.org>
-Date: Tue, 28 Feb 2023 15:02:44 +0200
+ y18-20020aa78052000000b005a909290425sm6172405pfm.172.2023.02.28.04.43.01
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 28 Feb 2023 04:43:01 -0800 (PST)
+Received: by debian.me (Postfix, from userid 1000)
+ id 24D0210105C; Tue, 28 Feb 2023 19:42:57 +0700 (WIB)
+Date: Tue, 28 Feb 2023 19:42:57 +0700
+From: Bagas Sanjaya <bagasdotme@gmail.com>
+To: Rob Clark <robdclark@gmail.com>, dri-devel@lists.freedesktop.org
+Message-ID: <Y/320d96QmbLe1J8@debian.me>
+References: <20230227193535.2822389-1-robdclark@gmail.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.7.2
-Content-Language: en-GB
-To: Jani Nikula <jani.nikula@linux.intel.com>
-References: <20230228113342.2051425-1-dmitry.baryshkov@linaro.org>
- <20230228113342.2051425-3-dmitry.baryshkov@linaro.org>
- <87mt4yyo2s.fsf@intel.com>
- <CAA8EJpoubQQjuUAs342TVYgx09nw9vENXcsiJiDOq0e0_q=6Fw@mail.gmail.com>
- <87h6v6ymxd.fsf@intel.com>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-In-Reply-To: <87h6v6ymxd.fsf@intel.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH 02/10] drm/i915/dsc: move rc_buf_thresh
- values to common helper
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="wAv6Jr7MZqhKVbDV"
+Content-Disposition: inline
+In-Reply-To: <20230227193535.2822389-1-robdclark@gmail.com>
+X-Mailman-Approved-At: Tue, 28 Feb 2023 13:51:52 +0000
+Subject: Re: [Freedreno] [PATCH v7 00/15] dma-fence: Deadline awareness
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,185 +76,92 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-arm-msm@vger.kernel.org,
- Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>, Sean Paul <sean@poorly.run>,
+Cc: "open list:DOCUMENTATION" <linux-doc@vger.kernel.org>,
+ Gustavo Padovan <gustavo@padovan.org>,
+ Douglas Anderson <dianders@chromium.org>, Liu Shixin <liushixin2@huawei.com>,
+ Rob Clark <robdclark@chromium.org>, Vinod Polimera <quic_vpolimer@quicinc.com>,
+ Luben Tuikov <luben.tuikov@amd.com>,
+ "open list:DRM DRIVER FOR MSM ADRENO GPU" <linux-arm-msm@vger.kernel.org>,
  intel-gfx@lists.freedesktop.org,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
- Rob Clark <robdclark@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- freedreno@lists.freedesktop.org, David Airlie <airlied@gmail.com>,
- =?UTF-8?B?VmlsbGUgU3lyasOkbMOk?= <ville.syrjala@linux.intel.com>
+ "open list:DMA BUFFER SHARING FRAMEWORK" <linux-media@vger.kernel.org>,
+ Christian =?utf-8?B?S8O2bmln?= <ckoenig.leichtzumerken@gmail.com>,
+ Michel =?utf-8?Q?D=C3=A4nzer?= <michel@daenzer.net>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, Stephen Boyd <swboyd@chromium.org>,
+ "moderated list:DMA BUFFER SHARING FRAMEWORK" <linaro-mm-sig@lists.linaro.org>,
+ Alex Deucher <alexander.deucher@amd.com>, Pekka Paalanen <ppaalanen@gmail.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, Sean Paul <sean@poorly.run>,
+ Tvrtko Ursulin <tvrtko.ursulin@intel.com>, Simon Ser <contact@emersion.fr>,
+ open list <linux-kernel@vger.kernel.org>, Daniel Vetter <daniel@ffwll.ch>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 28/02/2023 14:49, Jani Nikula wrote:
-> On Tue, 28 Feb 2023, Dmitry Baryshkov <dmitry.baryshkov@linaro.org> wrote:
->> On Tue, 28 Feb 2023 at 14:25, Jani Nikula <jani.nikula@linux.intel.com> wrote:
->>>
->>> On Tue, 28 Feb 2023, Dmitry Baryshkov <dmitry.baryshkov@linaro.org> wrote:
->>>> The rc_buf_thresh values are common to all DSC implementations. Move
->>>> them to the common helper together with the code to propagage them to
->>>> the drm_dsc_config.
->>>>
->>>> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
->>>> ---
->>>>   drivers/gpu/drm/display/drm_dsc_helper.c  | 37 +++++++++++++++++++++++
->>>>   drivers/gpu/drm/i915/display/intel_vdsc.c | 24 +--------------
->>>>   include/drm/display/drm_dsc_helper.h      |  1 +
->>>>   3 files changed, 39 insertions(+), 23 deletions(-)
->>>>
->>>> diff --git a/drivers/gpu/drm/display/drm_dsc_helper.c b/drivers/gpu/drm/display/drm_dsc_helper.c
->>>> index c869c6e51e2b..ab8679c158b5 100644
->>>> --- a/drivers/gpu/drm/display/drm_dsc_helper.c
->>>> +++ b/drivers/gpu/drm/display/drm_dsc_helper.c
->>>> @@ -270,6 +270,43 @@ void drm_dsc_pps_payload_pack(struct drm_dsc_picture_parameter_set *pps_payload,
->>>>   }
->>>>   EXPORT_SYMBOL(drm_dsc_pps_payload_pack);
->>>>
->>>> +/* From DSC_v1.11 spec, rc_parameter_Set syntax element typically constant */
->>>> +const u16 drm_dsc_rc_buf_thresh[] = {
->>>> +     896, 1792, 2688, 3584, 4480, 5376, 6272, 6720, 7168, 7616,
->>>> +     7744, 7872, 8000, 8064
->>>> +};
->>>> +EXPORT_SYMBOL(drm_dsc_rc_buf_thresh);
->>>
->>> This needs to be static, without exports.
->>
->> Exported this to let other drivers use it, while skipping the
->> drm_dsc_set_rc_buf_thresh(). For example amdgpu driver sets buffer
->> thresholds on the interim structure, so the helper is not directly
->> applicable. See _do_calc_rc_params().
-> 
-> Regardless, I'm still saying don't do that.
-> 
-> Data is not an interface.
-> 
-> If you make it easy to just use the data, nobody will ever fix their
-> drivers to use proper interfaces, and you'll lock yourself to a
-> particular representation of the data even though it's supposed to be a
-> hidden implementation detail.
 
-Yes, I usually do not export data, exactly for these reasons. I could 
-have argued here that the data is constant here, etc. etc.
-However let's stop caring about other drivers. I'll drop the export for v2.
+--wAv6Jr7MZqhKVbDV
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-> 
-> 
-> BR,
-> Jani.
-> 
-> 
->>
->>>
->>>> +
->>>> +/**
->>>> + * drm_dsc_set_rc_buf_thresh() - Set thresholds for the RC model
->>>> + * in accordance with the DSC 1.2 specification.
->>>> + *
->>>> + * @vdsc_cfg: DSC Configuration data partially filled by driver
->>>> + */
->>>> +void drm_dsc_set_rc_buf_thresh(struct drm_dsc_config *vdsc_cfg)
->>>> +{
->>>> +     int i = 0;
->>>
->>> Unnecessary initialization.
->>
->> My bad.
->>
->>>
->>>> +
->>>> +     for (i = 0; i < DSC_NUM_BUF_RANGES - 1; i++) {
->>>
->>> Please use ARRAY_SIZE(). Maybe add BUILD_BUG_ON() for DSC_NUM_BUF_RANGES
->>> vs. ARRAY_SIZE(). (Yes, we should've used ARRAY_SIZE() in i915.)
->>
->> Ack
->>
->>>
->>>> +             /*
->>>> +              * six 0s are appended to the lsb of each threshold value
->>>> +              * internally in h/w.
->>>> +              * Only 8 bits are allowed for programming RcBufThreshold
->>>> +              */
->>>> +             vdsc_cfg->rc_buf_thresh[i] = drm_dsc_rc_buf_thresh[i] >> 6;
->>>> +     }
->>>> +
->>>> +     /*
->>>> +      * For 6bpp, RC Buffer threshold 12 and 13 need a different value
->>>> +      * as per C Model
->>>> +      */
->>>> +     if (vdsc_cfg->bits_per_pixel == 6 << 4) {
->>>> +             vdsc_cfg->rc_buf_thresh[12] = 7936 >> 6;
->>>> +             vdsc_cfg->rc_buf_thresh[13] = 8000 >> 6;
->>>> +     }
->>>> +}
->>>> +EXPORT_SYMBOL(drm_dsc_set_rc_buf_thresh);
->>>> +
->>>>   /**
->>>>    * drm_dsc_compute_rc_parameters() - Write rate control
->>>>    * parameters to the dsc configuration defined in
->>>> diff --git a/drivers/gpu/drm/i915/display/intel_vdsc.c b/drivers/gpu/drm/i915/display/intel_vdsc.c
->>>> index d080741fd0b3..b4faab4c8fb3 100644
->>>> --- a/drivers/gpu/drm/i915/display/intel_vdsc.c
->>>> +++ b/drivers/gpu/drm/i915/display/intel_vdsc.c
->>>> @@ -36,12 +36,6 @@ enum COLUMN_INDEX_BPC {
->>>>        MAX_COLUMN_INDEX
->>>>   };
->>>>
->>>> -/* From DSC_v1.11 spec, rc_parameter_Set syntax element typically constant */
->>>> -static const u16 rc_buf_thresh[] = {
->>>> -     896, 1792, 2688, 3584, 4480, 5376, 6272, 6720, 7168, 7616,
->>>> -     7744, 7872, 8000, 8064
->>>> -};
->>>> -
->>>>   struct rc_parameters {
->>>>        u16 initial_xmit_delay;
->>>>        u8 first_line_bpg_offset;
->>>> @@ -474,23 +468,7 @@ int intel_dsc_compute_params(struct intel_crtc_state *pipe_config)
->>>>        vdsc_cfg->bits_per_pixel = compressed_bpp << 4;
->>>>        vdsc_cfg->bits_per_component = pipe_config->pipe_bpp / 3;
->>>>
->>>> -     for (i = 0; i < DSC_NUM_BUF_RANGES - 1; i++) {
->>>> -             /*
->>>> -              * six 0s are appended to the lsb of each threshold value
->>>> -              * internally in h/w.
->>>> -              * Only 8 bits are allowed for programming RcBufThreshold
->>>> -              */
->>>> -             vdsc_cfg->rc_buf_thresh[i] = rc_buf_thresh[i] >> 6;
->>>> -     }
->>>> -
->>>> -     /*
->>>> -      * For 6bpp, RC Buffer threshold 12 and 13 need a different value
->>>> -      * as per C Model
->>>> -      */
->>>> -     if (compressed_bpp == 6) {
->>>> -             vdsc_cfg->rc_buf_thresh[12] = 0x7C;
->>>> -             vdsc_cfg->rc_buf_thresh[13] = 0x7D;
->>>> -     }
->>>> +     drm_dsc_set_rc_buf_thresh(vdsc_cfg);
->>>>
->>>>        /*
->>>>         * From XE_LPD onwards we supports compression bpps in steps of 1
->>>> diff --git a/include/drm/display/drm_dsc_helper.h b/include/drm/display/drm_dsc_helper.h
->>>> index 8b41edbbabab..706ba1d34742 100644
->>>> --- a/include/drm/display/drm_dsc_helper.h
->>>> +++ b/include/drm/display/drm_dsc_helper.h
->>>> @@ -14,6 +14,7 @@ void drm_dsc_dp_pps_header_init(struct dp_sdp_header *pps_header);
->>>>   int drm_dsc_dp_rc_buffer_size(u8 rc_buffer_block_size, u8 rc_buffer_size);
->>>>   void drm_dsc_pps_payload_pack(struct drm_dsc_picture_parameter_set *pps_sdp,
->>>>                              const struct drm_dsc_config *dsc_cfg);
->>>> +void drm_dsc_set_rc_buf_thresh(struct drm_dsc_config *vdsc_cfg);
->>>>   int drm_dsc_compute_rc_parameters(struct drm_dsc_config *vdsc_cfg);
->>>>
->>>>   #endif /* _DRM_DSC_HELPER_H_ */
->>>
->>> --
->>> Jani Nikula, Intel Open Source Graphics Center
-> 
+On Mon, Feb 27, 2023 at 11:35:06AM -0800, Rob Clark wrote:
+> From: Rob Clark <robdclark@chromium.org>
+>=20
+> This series adds a deadline hint to fences, so realtime deadlines
+> such as vblank can be communicated to the fence signaller for power/
+> frequency management decisions.
+>=20
+> This is partially inspired by a trick i915 does, but implemented
+> via dma-fence for a couple of reasons:
+>=20
+> 1) To continue to be able to use the atomic helpers
+> 2) To support cases where display and gpu are different drivers
+>=20
+> This iteration adds a dma-fence ioctl to set a deadline (both to
+> support igt-tests, and compositors which delay decisions about which
+> client buffer to display), and a sw_sync ioctl to read back the
+> deadline.  IGT tests utilizing these can be found at:
+>=20
+>   https://gitlab.freedesktop.org/robclark/igt-gpu-tools/-/commits/fence-d=
+eadline
+>=20
+>=20
+> v1: https://patchwork.freedesktop.org/series/93035/
+> v2: Move filtering out of later deadlines to fence implementation
+>     to avoid increasing the size of dma_fence
+> v3: Add support in fence-array and fence-chain; Add some uabi to
+>     support igt tests and userspace compositors.
+> v4: Rebase, address various comments, and add syncobj deadline
+>     support, and sync_file EPOLLPRI based on experience with perf/
+>     freq issues with clvk compute workloads on i915 (anv)
+> v5: Clarify that this is a hint as opposed to a more hard deadline
+>     guarantee, switch to using u64 ns values in UABI (still absolute
+>     CLOCK_MONOTONIC values), drop syncobj related cap and driver
+>     feature flag in favor of allowing count_handles=3D=3D0 for probing
+>     kernel support.
+> v6: Re-work vblank helper to calculate time of _start_ of vblank,
+>     and work correctly if the last vblank event was more than a
+>     frame ago.  Add (mostly unrelated) drm/msm patch which also
+>     uses the vblank helper.  Use dma_fence_chain_contained().  More
+>     verbose syncobj UABI comments.  Drop DMA_FENCE_FLAG_HAS_DEADLINE_BIT.
+> v7: Fix kbuild complaints about vblank helper.  Add more docs.
+>=20
 
--- 
-With best wishes
-Dmitry
+I want to apply this series for testing, but it can't be applied cleanly
+on current drm-misc tree. On what tree (and commit) is this series based
+on?
 
+--=20
+An old man doll... just what I always wanted! - Clara
+
+--wAv6Jr7MZqhKVbDV
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQSSYQ6Cy7oyFNCHrUH2uYlJVVFOowUCY/32zQAKCRD2uYlJVVFO
+o1TBAQCAHLKqy5NdumoKS+DbOAOm+KfhLK93EKYDC8UmiebsRAEA+JAK75T6QTDt
+aHxaJFTZKkVfK7+Eq1MfYn2ZeBgJXgU=
+=jpg1
+-----END PGP SIGNATURE-----
+
+--wAv6Jr7MZqhKVbDV--
