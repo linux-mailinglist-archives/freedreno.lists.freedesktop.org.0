@@ -1,72 +1,62 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 31E076A5EBA
-	for <lists+freedreno@lfdr.de>; Tue, 28 Feb 2023 19:26:59 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 433056A5FC6
+	for <lists+freedreno@lfdr.de>; Tue, 28 Feb 2023 20:38:12 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F324B10E4F3;
-	Tue, 28 Feb 2023 18:26:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0087010E06C;
+	Tue, 28 Feb 2023 19:38:11 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x12b.google.com (mail-lf1-x12b.google.com
- [IPv6:2a00:1450:4864:20::12b])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 47A1310E4F4
- for <freedreno@lists.freedesktop.org>; Tue, 28 Feb 2023 18:26:56 +0000 (UTC)
-Received: by mail-lf1-x12b.google.com with SMTP id i28so1687770lfv.0
- for <freedreno@lists.freedesktop.org>; Tue, 28 Feb 2023 10:26:56 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=oeTqNJz+wlwStd3akJO6gZ1qy6VhdHZAOZjVTjq8Ths=;
- b=Hg303GL4P5Q2pdSN9pUyE1WywQFRKlLyQo6KYVr9Mu/xlV3i7uJRW1lj0VpgRxGJkD
- hTkQgY+xkkFxoqMaS4Lyfb41a8HJ3jHlc3udXm1O/bq0R1p7t9bEwhwna2k4KBHwyjap
- IRWuIC0ygcPQlsczqypuN6JiOkQiKSA1pLtSECv47HVme91A7K6bdx+gVw+lWNoN5FgN
- 2oH0gSOJvFII3PBDbfnKkMCa1kwYlZwAVTPjnf5i+3K8CwkItAwH13tJM9wbBTz2RYpc
- 0lovVIKHM4ergXahJguy9+XePKMKZR7NVzjvkBZjHPd6Oy3u9RhHb7oyDykO0VBUvQ8x
- IPPQ==
+Received: from mail-oa1-x2c.google.com (mail-oa1-x2c.google.com
+ [IPv6:2001:4860:4864:20::2c])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6604410E04C;
+ Tue, 28 Feb 2023 19:38:09 +0000 (UTC)
+Received: by mail-oa1-x2c.google.com with SMTP id
+ 586e51a60fabf-17235c8dab9so12038777fac.7; 
+ Tue, 28 Feb 2023 11:38:09 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20210112; t=1677613088;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=PVieRPuEMOm+nHzPuq4QMxD7wCV7l2uEG4OOeeLhgTo=;
+ b=YtdcuiZxfo3pvq1EBxEjMVDJt7xsOjpqKK7yjHlMcKGm6zRNFa8DLgbRUNG4TbT9y8
+ XBtvslNJByhKIrCLCJ23dQtmvnnfDLVDIhXj9f4NY/5OOBLv/Ytd1iSF79T3BzW5W7gf
+ RyWZgAVw7X/hmAyac+viOivzUgUIbQfEsDOripCar4FpJ2USzdD75I/gsz34YJuJsqKd
+ zfv+jcd7iZL9mLzhuXjg9fWxY8yszD6D0pDwdFXqwUcZQ9RUrilpBISJTAytSXVEF2Mo
+ vsBsKEdDYIyfnZXBwZPog4D0jmkYANALCDhl7UVWnQDtkfLNVfzJXZ/SzceH9dd0BMUJ
+ cojA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=oeTqNJz+wlwStd3akJO6gZ1qy6VhdHZAOZjVTjq8Ths=;
- b=KzwkquXuqY58JpLtrPaA72lWjf3U5I8DzB6xCqII3ltMXGvbQW0DXY+HTb2xQFciQK
- Wo+FZttVV8R2UCnl9XB4krKnUBFlxfkDeA8yX1s3KJUyXmJMyuPezWsfsv6vAvn0XZAC
- tjMOFKFbgYelIMzXor2ThCeKtrHJa+6cpNsMA3rI76vTa81xbXqsPJ7v9yRzqmZ4OXfs
- sjpec8V4E1Dmvh9QVzwYhPk3156ykXhPDBwAP8Tn4dd+fiRu+prACiocRQSARs0Evk8g
- SOpim6HFOE+nhzQgH5HbADnt3ltf2caGg9TpEnhKPOUPjWr9lR0ORYcefdzUVOMXoc8P
- gUjw==
-X-Gm-Message-State: AO0yUKXUEVtsXy4+OBZbLXeJjvt4CqMT0ojg6kf0b4gCs8qo0ZoypKBx
- 0gOVsn/NtB6QPlM4qSJADp4n8A==
-X-Google-Smtp-Source: AK7set8ibk/owvLCNHo66A+Nyj9jA4S4dqpTehR9707ManX49TtuMEUwwMN0vBPr18saVuIdlRgI9Q==
-X-Received: by 2002:ac2:532f:0:b0:4e1:1bfe:38f7 with SMTP id
- f15-20020ac2532f000000b004e11bfe38f7mr849063lfh.27.1677608814434; 
- Tue, 28 Feb 2023 10:26:54 -0800 (PST)
-Received: from ?IPV6:2001:14ba:a085:4d00::8a5?
- (dzccz6yyyyyyyyyyybcwt-3.rev.dnainternet.fi. [2001:14ba:a085:4d00::8a5])
- by smtp.gmail.com with ESMTPSA id
- 1-20020ac25681000000b004dda9e8233asm1419865lfr.42.2023.02.28.10.26.53
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 28 Feb 2023 10:26:54 -0800 (PST)
-Message-ID: <25b0283b-3d87-6b08-22a9-50c470c3d32f@linaro.org>
-Date: Tue, 28 Feb 2023 20:26:53 +0200
+ d=1e100.net; s=20210112; t=1677613088;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=PVieRPuEMOm+nHzPuq4QMxD7wCV7l2uEG4OOeeLhgTo=;
+ b=4M5Dnrop2mg5ikIuqoK0d2KaRPVg4rKlblOOV/dPG0Xwxzh2Z18BCV9qfGMTzdR8TO
+ En2rdJyVbKmE00pB5b2gVdhx8cGOM71LqgnKABMXV0PwX9I3IVNMqYby/e5IK8tdfUen
+ UJ1rEWlH9B3Z1BEW9sF9oqh3sLhIMRcMEgF3H3v29UJwkqtLxwteZzNYRbsGhzk94M/N
+ iX96yoErEXlh8dx8gRbS2f1vMEncEvkZijBFCEqCF0OOo6LJxTVeYCAJZ9jX8vNj9uhW
+ K9pC/f6WeK+CyC1RXyZmpvtJ81ao3TpSkAfpjCaqZry2T91KD9Lf7BX9r+iTLFiGVHbJ
+ h9KA==
+X-Gm-Message-State: AO0yUKVBI4vV2z3NCkAfZLSvBfoDkhTBce0uiGjrvvmiNTogKZja/eKg
+ BnnlA9pjX49WL6/1T+VnmaEO/ugt1V4WOIkGJ7QbgKdWEMg=
+X-Google-Smtp-Source: AK7set8/X1E/XPetbsmctxmF0pvmxBCTcKKMQYCtY5r6xSJk5qanEEVUtccQFCDLkVD6xABYiPhsKBl7fbBep2x+JN4=
+X-Received: by 2002:a05:6871:6a9e:b0:16e:873e:b06b with SMTP id
+ zf30-20020a0568716a9e00b0016e873eb06bmr869979oab.3.1677613088636; Tue, 28 Feb
+ 2023 11:38:08 -0800 (PST)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.7.2
-Content-Language: en-GB
-To: Kuogee Hsieh <quic_khsieh@quicinc.com>, robdclark@gmail.com,
- sean@poorly.run, swboyd@chromium.org, dianders@chromium.org,
- vkoul@kernel.org, daniel@ffwll.ch, airlied@gmail.com, agross@kernel.org,
- andersson@kernel.org
-References: <1677533800-3125-1-git-send-email-quic_khsieh@quicinc.com>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-In-Reply-To: <1677533800-3125-1-git-send-email-quic_khsieh@quicinc.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH v2] drm/msm/disp/dpu: fix sc7280_pp base
- offset
+References: <20230227193535.2822389-1-robdclark@gmail.com>
+ <20230227193535.2822389-6-robdclark@gmail.com>
+ <20230228112215.6d3f1f3d@eldfell>
+In-Reply-To: <20230228112215.6d3f1f3d@eldfell>
+From: Rob Clark <robdclark@gmail.com>
+Date: Tue, 28 Feb 2023 11:37:57 -0800
+Message-ID: <CAF6AEGt01HQ7kJmTWrycwDG=Rc_vy1dQ+SPFeX7vD19e+69hBw@mail.gmail.com>
+To: Pekka Paalanen <ppaalanen@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Subject: Re: [Freedreno] [PATCH v7 05/15] dma-buf/sync_file: Add
+ SET_DEADLINE ioctl
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,31 +69,163 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: quic_sbillaka@quicinc.com, linux-arm-msm@vger.kernel.org,
- quic_abhinavk@quicinc.com, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, freedreno@lists.freedesktop.org
+Cc: Rob Clark <robdclark@chromium.org>, Gustavo Padovan <gustavo@padovan.org>,
+ Simon Ser <contact@emersion.fr>, Tvrtko Ursulin <tvrtko.ursulin@intel.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>,
+ =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel@daenzer.net>,
+ open list <linux-kernel@vger.kernel.org>, dri-devel@lists.freedesktop.org,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ "moderated list:DMA BUFFER SHARING FRAMEWORK" <linaro-mm-sig@lists.linaro.org>,
+ Luben Tuikov <luben.tuikov@amd.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Alex Deucher <alexander.deucher@amd.com>, freedreno@lists.freedesktop.org,
+ Sumit Semwal <sumit.semwal@linaro.org>,
+ "open list:SYNC FILE FRAMEWORK" <linux-media@vger.kernel.org>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 27/02/2023 23:36, Kuogee Hsieh wrote:
-> At sc7280, pingpong block is used to management the dither effects
-> to reduce distortion at panel. Currently pingpong-0 base offset is
-> wrongly set at 0x59000. This mistake will not cause system to crash.
-> However it will make dither not work. This patch correct sc7280 ping
-> pong-0 block base offset.
-> 
-> Changes in v2:
-> -- add more details info n regrading of pingpong block at commit text
-> 
-> Fixes: 591e34a091d1 ("drm/msm/disp/dpu1: add support for display for SC7280 target")
-> Signed-off-by: Kuogee Hsieh <quic_khsieh@quicinc.com>
-> ---
->   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c | 2 +-
->   1 file changed, 1 insertion(+), 1 deletion(-)
+On Tue, Feb 28, 2023 at 1:22 AM Pekka Paalanen <ppaalanen@gmail.com> wrote:
+>
+> On Mon, 27 Feb 2023 11:35:11 -0800
+> Rob Clark <robdclark@gmail.com> wrote:
+>
+> > From: Rob Clark <robdclark@chromium.org>
+> >
+> > The initial purpose is for igt tests, but this would also be useful for
+> > compositors that wait until close to vblank deadline to make decisions
+> > about which frame to show.
+> >
+> > The igt tests can be found at:
+> >
+> > https://gitlab.freedesktop.org/robclark/igt-gpu-tools/-/commits/fence-deadline
+> >
+> > v2: Clarify the timebase, add link to igt tests
+> > v3: Use u64 value in ns to express deadline.
+> > v4: More doc
+> >
+> > Signed-off-by: Rob Clark <robdclark@chromium.org>
+> > ---
+> >  drivers/dma-buf/dma-fence.c    |  3 ++-
+> >  drivers/dma-buf/sync_file.c    | 19 +++++++++++++++++++
+> >  include/uapi/linux/sync_file.h | 22 ++++++++++++++++++++++
+> >  3 files changed, 43 insertions(+), 1 deletion(-)
+> >
+> > diff --git a/drivers/dma-buf/dma-fence.c b/drivers/dma-buf/dma-fence.c
+> > index e103e821d993..7761ceeae620 100644
+> > --- a/drivers/dma-buf/dma-fence.c
+> > +++ b/drivers/dma-buf/dma-fence.c
+> > @@ -933,7 +933,8 @@ EXPORT_SYMBOL(dma_fence_wait_any_timeout);
+> >   *   the GPU's devfreq to reduce frequency, when in fact the opposite is what is
+> >   *   needed.
+> >   *
+> > - * To this end, deadline hint(s) can be set on a &dma_fence via &dma_fence_set_deadline.
+> > + * To this end, deadline hint(s) can be set on a &dma_fence via &dma_fence_set_deadline
+> > + * (or indirectly via userspace facing ioctls like &SYNC_IOC_SET_DEADLINE).
+> >   * The deadline hint provides a way for the waiting driver, or userspace, to
+> >   * convey an appropriate sense of urgency to the signaling driver.
+>
+> Hi,
+>
+> when the kernel HTML doc is generated, I assume the above becomes a
+> link to "DOC: SYNC_IOC_SET_DEADLINE - set a deadline on a fence", right?
 
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Heh, kernel docs completely miss the sync_file uABI.. I'll add a patch
+to correct that in order to make these links work properly.
 
--- 
-With best wishes
-Dmitry
+BR,
+-R
 
+> >   *
+> > diff --git a/drivers/dma-buf/sync_file.c b/drivers/dma-buf/sync_file.c
+> > index af57799c86ce..418021cfb87c 100644
+> > --- a/drivers/dma-buf/sync_file.c
+> > +++ b/drivers/dma-buf/sync_file.c
+> > @@ -350,6 +350,22 @@ static long sync_file_ioctl_fence_info(struct sync_file *sync_file,
+> >       return ret;
+> >  }
+> >
+> > +static int sync_file_ioctl_set_deadline(struct sync_file *sync_file,
+> > +                                     unsigned long arg)
+> > +{
+> > +     struct sync_set_deadline ts;
+> > +
+> > +     if (copy_from_user(&ts, (void __user *)arg, sizeof(ts)))
+> > +             return -EFAULT;
+> > +
+> > +     if (ts.pad)
+> > +             return -EINVAL;
+> > +
+> > +     dma_fence_set_deadline(sync_file->fence, ns_to_ktime(ts.deadline_ns));
+> > +
+> > +     return 0;
+> > +}
+> > +
+> >  static long sync_file_ioctl(struct file *file, unsigned int cmd,
+> >                           unsigned long arg)
+> >  {
+> > @@ -362,6 +378,9 @@ static long sync_file_ioctl(struct file *file, unsigned int cmd,
+> >       case SYNC_IOC_FILE_INFO:
+> >               return sync_file_ioctl_fence_info(sync_file, arg);
+> >
+> > +     case SYNC_IOC_SET_DEADLINE:
+> > +             return sync_file_ioctl_set_deadline(sync_file, arg);
+> > +
+> >       default:
+> >               return -ENOTTY;
+> >       }
+> > diff --git a/include/uapi/linux/sync_file.h b/include/uapi/linux/sync_file.h
+> > index ee2dcfb3d660..49325cf6749b 100644
+> > --- a/include/uapi/linux/sync_file.h
+> > +++ b/include/uapi/linux/sync_file.h
+> > @@ -67,6 +67,21 @@ struct sync_file_info {
+> >       __u64   sync_fence_info;
+> >  };
+> >
+> > +/**
+> > + * struct sync_set_deadline - set a deadline hint on a fence
+> > + * @deadline_ns: absolute time of the deadline
+>
+> Is it legal to pass zero as deadline_ns?
+>
+> > + * @pad:     must be zero
+> > + *
+> > + * The timebase for the deadline is CLOCK_MONOTONIC (same as vblank)
+>
+> Does something here provide doc links to "DOC: SYNC_IOC_SET_DEADLINE -
+> set a deadline on a fence" and to the "DOC: deadline hints"?
+>
+> > + */
+> > +struct sync_set_deadline {
+> > +     __u64   deadline_ns;
+> > +     /* Not strictly needed for alignment but gives some possibility
+> > +      * for future extension:
+> > +      */
+> > +     __u64   pad;
+> > +};
+> > +
+> >  #define SYNC_IOC_MAGIC               '>'
+> >
+> >  /**
+> > @@ -95,4 +110,11 @@ struct sync_file_info {
+> >   */
+> >  #define SYNC_IOC_FILE_INFO   _IOWR(SYNC_IOC_MAGIC, 4, struct sync_file_info)
+> >
+> > +/**
+> > + * DOC: SYNC_IOC_SET_DEADLINE - set a deadline on a fence
+> > + *
+> > + * Allows userspace to set a deadline on a fence, see dma_fence_set_deadline()
+>
+> Does something here provide doc links to struct sync_set_deadline and
+> to the "DOC: deadline hints"?
+>
+> > + */
+> > +#define SYNC_IOC_SET_DEADLINE        _IOW(SYNC_IOC_MAGIC, 5, struct sync_set_deadline)
+> > +
+> >  #endif /* _UAPI_LINUX_SYNC_H */
+>
+> With all those links added:
+> Acked-by: Pekka Paalanen <pekka.paalanen@collabora.com>
+>
+>
+> Thanks,
+> pq
