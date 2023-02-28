@@ -2,58 +2,56 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id E1EFE6A5C34
-	for <lists+freedreno@lfdr.de>; Tue, 28 Feb 2023 16:45:10 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 79DE86A5C85
+	for <lists+freedreno@lfdr.de>; Tue, 28 Feb 2023 16:57:00 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 93A1110E4D2;
-	Tue, 28 Feb 2023 15:45:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CFB4B10E4EF;
+	Tue, 28 Feb 2023 15:56:57 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ot1-x32c.google.com (mail-ot1-x32c.google.com
- [IPv6:2607:f8b0:4864:20::32c])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 85ADA10E4CE;
- Tue, 28 Feb 2023 15:45:07 +0000 (UTC)
-Received: by mail-ot1-x32c.google.com with SMTP id
- q11-20020a056830440b00b00693c1a62101so5848205otv.0; 
- Tue, 28 Feb 2023 07:45:07 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=47Io8bjBgTfpx9irLzQIk7kc2k6GPp2PZ97i5J/VsnU=;
- b=cmBSfjVhL11B7Tk2kzeIA9iNdYDewp+Lj2BTbbj6UDcbnNNnGRKEG9iCWQZ+Zn3g9m
- +0Zx+GlqRizxRKPwVVA4/JaFtaKfoHx9z08Qt2aL2jYElbluHU/qNXZSmld3edT7vPer
- mqK5c2oWjXhedR1BJv6EXjMqwSeGb6qxBliUPUwERul1AYJ+81hovh17DHIbCSD5cK5w
- 9gwm8dkKVD7UCQUidLDzlT+m/No89gMZlEDYYGUWzhhwiazV+8nn9uut0WCqrLE6UV/g
- tafJgCdHGRGVm9NWQqu21rdJz8b0ivr1k0uKj14YYV/O5qMTtismWvnVbWfVfSc1EyjJ
- t6OA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=47Io8bjBgTfpx9irLzQIk7kc2k6GPp2PZ97i5J/VsnU=;
- b=t+v9pgG4OS0si8LmkPgk+lGwMVN8TF4n2m1nJbqb0urhaZ9qoW7OhT9KkyCif9JUKR
- IeUSt5gtXTOj6HeYp+qqsHzBXVm15U1bOfEJAIpm1prcXKx25359HlF3hu/2jnJ9nGSb
- WQ9J/AlNSASwdp/2j1fhgt0GLobwa8BgcFsnFc1JNyGJRoB1x6MSt/vJxB5Fm1fygVuE
- T1QscxJbE+2fg3Oy7bHfoaVFCnkMSMhCan0x4rey5LHWK4GUevP1ON7a0FebpZ1uBnhH
- clj33MkHivjtLQEphW8LcMigr4XeMNhI02OCBLy0kPyG5kXwIe6s5dp/lPNs4BTjyRb8
- WF7w==
-X-Gm-Message-State: AO0yUKWR1pEDIi6nuBx3msY7EUoSo4iKVbcijcWB+liDEziJvtwmo4MT
- RYtY1/XwTFz+UUvfgmi/KbYIqrThcasu3rYe+Ss=
-X-Google-Smtp-Source: AK7set84ZiKu/x5bhuHzdqKQUv7sjdjnKY8F7kTvWRv1lYoh5z8jZHyiBzPqCGMtJV4jXTtlMVk45nk6MjMvbYL6vxQ=
-X-Received: by 2002:a9d:128e:0:b0:688:cf52:6e18 with SMTP id
- g14-20020a9d128e000000b00688cf526e18mr1074144otg.4.1677599106749; Tue, 28 Feb
- 2023 07:45:06 -0800 (PST)
+Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9CDE610E02E;
+ Tue, 28 Feb 2023 15:56:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1677599815; x=1709135815;
+ h=from:to:cc:subject:in-reply-to:references:date:
+ message-id:mime-version;
+ bh=5vojCs921cbe6S9LLDdvuT7pbHFqpBrRmcjmWxW/o9Q=;
+ b=RnFWG6CpFGUlHVJDmYe7cRTfK/sbCdlQdnSCjtyCjLn0Yk5MoemzdFAR
+ z9KmohOcQ2bCRVjeVHPW0YHQUpGeQrgMejnsnB2MwWIwXMfW7C15ajJyI
+ 2ydNXZlAjeZEpyVnBN220kS6URy0/efHT9/v3jTNTeNAkxiuqfO+QbPFG
+ KdBtvFzkNOQ8CocAFewmb/u+K1k61Dz+9Ev3hO/osc/6JVeWBPsOLUA3p
+ CyqDrdipVGZQhPjvEYg+R3fJbdWS+/WJhDRVqnNolUWf4YUZXBXX/E/Zx
+ NVSBD/U9lxwRi0vvtrn8UP00I6r1uZQsEF2c4nfbqF+zIldED4ncGtmMx Q==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10635"; a="336462245"
+X-IronPort-AV: E=Sophos;i="5.98,222,1673942400"; d="scan'208";a="336462245"
+Received: from orsmga008.jf.intel.com ([10.7.209.65])
+ by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 28 Feb 2023 07:56:55 -0800
+X-IronPort-AV: E=McAfee;i="6500,9779,10635"; a="704454676"
+X-IronPort-AV: E=Sophos;i="5.98,222,1673942400"; d="scan'208";a="704454676"
+Received: from barumuga-mobl1.ger.corp.intel.com (HELO localhost)
+ ([10.252.47.26])
+ by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 28 Feb 2023 07:56:50 -0800
+From: Jani Nikula <jani.nikula@linux.intel.com>
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, David Airlie
+ <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>, Joonas Lahtinen
+ <joonas.lahtinen@linux.intel.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>, Rob Clark
+ <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean
+ Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>
+In-Reply-To: <20230228113342.2051425-2-dmitry.baryshkov@linaro.org>
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
+References: <20230228113342.2051425-1-dmitry.baryshkov@linaro.org>
+ <20230228113342.2051425-2-dmitry.baryshkov@linaro.org>
+Date: Tue, 28 Feb 2023 17:56:48 +0200
+Message-ID: <874jr5zsu7.fsf@intel.com>
 MIME-Version: 1.0
-References: <20230227193535.2822389-1-robdclark@gmail.com>
- <Y/320d96QmbLe1J8@debian.me>
-In-Reply-To: <Y/320d96QmbLe1J8@debian.me>
-From: Rob Clark <robdclark@gmail.com>
-Date: Tue, 28 Feb 2023 07:44:55 -0800
-Message-ID: <CAF6AEGuqHDDQS22qcp8sk+5bj16XFiBarCLvpX=qNc2r2euMUw@mail.gmail.com>
-To: Bagas Sanjaya <bagasdotme@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [PATCH v7 00/15] dma-fence: Deadline awareness
+Content-Type: text/plain
+Subject: Re: [Freedreno] [PATCH 01/10] drm/i915/dsc: change DSC param tables
+ to follow the DSC model
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,78 +64,84 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: "open list:DOCUMENTATION" <linux-doc@vger.kernel.org>,
- Gustavo Padovan <gustavo@padovan.org>, dri-devel@lists.freedesktop.org,
- Douglas Anderson <dianders@chromium.org>, Liu Shixin <liushixin2@huawei.com>,
- Rob Clark <robdclark@chromium.org>, Vinod Polimera <quic_vpolimer@quicinc.com>,
- Luben Tuikov <luben.tuikov@amd.com>,
- "open list:DRM DRIVER FOR MSM ADRENO GPU" <linux-arm-msm@vger.kernel.org>,
- intel-gfx@lists.freedesktop.org,
- "open list:DMA BUFFER SHARING FRAMEWORK" <linux-media@vger.kernel.org>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>,
- =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel@daenzer.net>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, Stephen Boyd <swboyd@chromium.org>,
- "moderated list:DMA BUFFER SHARING FRAMEWORK" <linaro-mm-sig@lists.linaro.org>,
- Alex Deucher <alexander.deucher@amd.com>, Pekka Paalanen <ppaalanen@gmail.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, Sean Paul <sean@poorly.run>,
- Tvrtko Ursulin <tvrtko.ursulin@intel.com>, Simon Ser <contact@emersion.fr>,
- open list <linux-kernel@vger.kernel.org>, Daniel Vetter <daniel@ffwll.ch>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- freedreno@lists.freedesktop.org
+Cc: linux-arm-msm@vger.kernel.org, intel-gfx@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ Ville =?utf-8?B?U3lyasOkbMOk?= <ville.syrjala@linux.intel.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Tue, Feb 28, 2023 at 4:43 AM Bagas Sanjaya <bagasdotme@gmail.com> wrote:
+On Tue, 28 Feb 2023, Dmitry Baryshkov <dmitry.baryshkov@linaro.org> wrote:
+> After cross-checking DSC models (20150914, 20161212, 20210623) change
+> values in rc_parameters tables to follow config files present inside
+> the DSC model. Handle two places, where i915 tables diverged from the
+> model, by patching the rc values in the code.
 >
-> On Mon, Feb 27, 2023 at 11:35:06AM -0800, Rob Clark wrote:
-> > From: Rob Clark <robdclark@chromium.org>
-> >
-> > This series adds a deadline hint to fences, so realtime deadlines
-> > such as vblank can be communicated to the fence signaller for power/
-> > frequency management decisions.
-> >
-> > This is partially inspired by a trick i915 does, but implemented
-> > via dma-fence for a couple of reasons:
-> >
-> > 1) To continue to be able to use the atomic helpers
-> > 2) To support cases where display and gpu are different drivers
-> >
-> > This iteration adds a dma-fence ioctl to set a deadline (both to
-> > support igt-tests, and compositors which delay decisions about which
-> > client buffer to display), and a sw_sync ioctl to read back the
-> > deadline.  IGT tests utilizing these can be found at:
-> >
-> >   https://gitlab.freedesktop.org/robclark/igt-gpu-tools/-/commits/fence-deadline
-> >
-> >
-> > v1: https://patchwork.freedesktop.org/series/93035/
-> > v2: Move filtering out of later deadlines to fence implementation
-> >     to avoid increasing the size of dma_fence
-> > v3: Add support in fence-array and fence-chain; Add some uabi to
-> >     support igt tests and userspace compositors.
-> > v4: Rebase, address various comments, and add syncobj deadline
-> >     support, and sync_file EPOLLPRI based on experience with perf/
-> >     freq issues with clvk compute workloads on i915 (anv)
-> > v5: Clarify that this is a hint as opposed to a more hard deadline
-> >     guarantee, switch to using u64 ns values in UABI (still absolute
-> >     CLOCK_MONOTONIC values), drop syncobj related cap and driver
-> >     feature flag in favor of allowing count_handles==0 for probing
-> >     kernel support.
-> > v6: Re-work vblank helper to calculate time of _start_ of vblank,
-> >     and work correctly if the last vblank event was more than a
-> >     frame ago.  Add (mostly unrelated) drm/msm patch which also
-> >     uses the vblank helper.  Use dma_fence_chain_contained().  More
-> >     verbose syncobj UABI comments.  Drop DMA_FENCE_FLAG_HAS_DEADLINE_BIT.
-> > v7: Fix kbuild complaints about vblank helper.  Add more docs.
-> >
+> Note: I left one case uncorrected, 8bpp/10bpc/range_max_qp[0], because
+> the table in the VESA DSC 1.1 sets it to 4.
 >
-> I want to apply this series for testing, but it can't be applied cleanly
-> on current drm-misc tree. On what tree (and commit) is this series based
-> on?
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> ---
+>  drivers/gpu/drm/i915/display/intel_vdsc.c | 18 ++++++++++++++++--
+>  1 file changed, 16 insertions(+), 2 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/i915/display/intel_vdsc.c b/drivers/gpu/drm/i915/display/intel_vdsc.c
+> index 207b2a648d32..d080741fd0b3 100644
+> --- a/drivers/gpu/drm/i915/display/intel_vdsc.c
+> +++ b/drivers/gpu/drm/i915/display/intel_vdsc.c
+> @@ -86,7 +86,7 @@ static const struct rc_parameters rc_parameters[][MAX_COLUMN_INDEX] = {
+>  		}
+>  	},
+>  	/* 6BPP/14BPC */
+> -	{ 768, 15, 6144, 15, 25, 23, 27, {
+> +	{ 768, 15, 6144, 15, 25, 23, 23, {
+>  		{ 0, 16, 0 }, { 7, 18, -2 }, { 15, 20, -2 }, { 16, 20, -4 },
+>  		{ 17, 21, -6 }, { 17, 21, -6 }, { 18, 21, -6 }, { 18, 22, -8 },
+>  		{ 19, 23, -8 }, { 20, 24, -10 }, { 21, 24, -10 },
+> @@ -115,6 +115,10 @@ static const struct rc_parameters rc_parameters[][MAX_COLUMN_INDEX] = {
+>  	},
+>  	/* 8BPP/10BPC */
+>  	{ 512, 12, 6144, 7, 16, 15, 15, {
+> +		/*
+> +		 * DSC model/pre-SCR-cfg has 8 for range_max_qp[0], however
+> +		 * VESA DSC 1.1 Table E-5 sets it to 4.
+> +		 */
+>  		{ 0, 4, 2 }, { 4, 8, 0 }, { 5, 9, 0 }, { 5, 10, -2 },
+>  		{ 7, 11, -4 }, { 7, 11, -6 }, { 7, 11, -8 }, { 7, 12, -8 },
+>  		{ 7, 13, -8 }, { 7, 14, -10 }, { 9, 15, -10 }, { 9, 16, -12 },
+> @@ -132,7 +136,7 @@ static const struct rc_parameters rc_parameters[][MAX_COLUMN_INDEX] = {
+>  	},
+>  	/* 8BPP/14BPC */
+>  	{ 512, 12, 6144, 15, 24, 23, 23, {
+> -		{ 0, 12, 0 }, { 5, 13, 0 }, { 11, 15, 0 }, { 12, 17, -2 },
+> +		{ 0, 12, 2 }, { 5, 13, 0 }, { 11, 15, 0 }, { 12, 17, -2 },
+>  		{ 15, 19, -4 }, { 15, 19, -6 }, { 15, 19, -8 }, { 15, 20, -8 },
+>  		{ 15, 21, -8 }, { 15, 22, -10 }, { 17, 22, -10 },
+>  		{ 17, 23, -12 }, { 17, 23, -12 }, { 21, 24, -12 },
+> @@ -529,6 +533,16 @@ int intel_dsc_compute_params(struct intel_crtc_state *pipe_config)
+>  			DSC_RANGE_BPG_OFFSET_MASK;
+>  	}
+>  
+> +	if (DISPLAY_VER(dev_priv) < 13) {
+> +		if (compressed_bpp == 6 &&
+> +		    vdsc_cfg->bits_per_component == 8)
+> +			vdsc_cfg->rc_quant_incr_limit1 = 23;
+> +
+> +		if (compressed_bpp == 8 &&
+> +		    vdsc_cfg->bits_per_component == 14)
+> +			vdsc_cfg->rc_range_params[0].range_bpg_offset = 0;
+> +	}
+> +
 
-You can find my branch here:
+I wonder if we shouldn't just use the updated values...
 
-https://gitlab.freedesktop.org/robclark/msm/-/commits/dma-fence/deadline
+Maybe add a FIXME comment above the block to consider removing it?
 
-BR,
--R
+Reviewed-by: Jani Nikula <jani.nikula@intel.com>
+
+
+>  	/*
+>  	 * BitsPerComponent value determines mux_word_size:
+>  	 * When BitsPerComponent is less than or 10bpc, muxWordSize will be equal to
+
+-- 
+Jani Nikula, Intel Open Source Graphics Center
