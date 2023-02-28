@@ -2,42 +2,42 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id E2C9A6A5B0D
-	for <lists+freedreno@lfdr.de>; Tue, 28 Feb 2023 15:49:45 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B83106A5B88
+	for <lists+freedreno@lfdr.de>; Tue, 28 Feb 2023 16:18:49 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 87DAE10E4C2;
-	Tue, 28 Feb 2023 14:49:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7B86310E4D7;
+	Tue, 28 Feb 2023 15:18:48 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6468110E4BB;
- Tue, 28 Feb 2023 14:49:42 +0000 (UTC)
+Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4271310E67D;
+ Tue, 28 Feb 2023 15:18:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1677595782; x=1709131782;
+ t=1677597527; x=1709133527;
  h=date:from:to:cc:subject:message-id:references:
  mime-version:in-reply-to;
- bh=V4G61WSFnqEOguuAQwLLbjdFVdolGBb6jaifYOOPXHs=;
- b=Vz4DfR0dNHCthCibdFxzXzTokrB8jphee6enPYWYD5WX1qzVn0OcnZca
- qx5+KXF+OepjyydknrxumubBPJZjJT3qNNtCGuY+yHsCSRCutRXPbCcUV
- gMq3qa15rI2gNr/rhwo30Zj0YgswxUUV/eDEWzx6TnybI4glaRmZBwB3f
- 69zBXUJ8JWX1Zv/TDOZBORUQFChrWmwm2AaFg6Sm1LyQFP2o5n8NVKwRN
- wHM3EX+zwVghhm2lgH33u2i/D0FZuarOVGcoNixYQLuarY3gqQ0fzMtxN
- +5NqI8thnuMTIlGZLjcRkkWVM/v2SbSuXA5Yv2WXGiwoUpYzdnmMRGyEl Q==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10635"; a="398930451"
-X-IronPort-AV: E=Sophos;i="5.98,222,1673942400"; d="scan'208";a="398930451"
-Received: from fmsmga007.fm.intel.com ([10.253.24.52])
- by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Feb 2023 06:49:41 -0800
+ bh=qxGqKIJep1k+6TRT08D3JAL5H4OHtaAM0Bv9aWfUHfc=;
+ b=ArXTeaziGkWg7dCqMQKe/T6Ua9DKyJEnI5Z6bepXrRTLtAX5XHG1FtvD
+ SC0jYr8lTgFdTjB25pu+HIdjnILhHFI7om3R9dpBqp4Z8wUdcu2vreb9b
+ EtB63fanF2qE6EIAO2j2KvZPW4ecJ7hKCClAZWv7V6u0tFAiwEbMqA+CO
+ HnisHbO0Q9CFk4eU1tIAorE8CHwflD7x/aZII2biMffTpe8xKJ5SwR2cE
+ UUfdoXC/uqc64GMBmusaxtTq3ACH7zWdb56iJG57HhY7iUiFTFEBdJIoy
+ dz3N3c7eZg6qzL3aEwVzT7HusuhAzh1huqv0iFQYW56hxjOqAeZvHuSvw g==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10635"; a="317955769"
+X-IronPort-AV: E=Sophos;i="5.98,222,1673942400"; d="scan'208";a="317955769"
+Received: from fmsmga006.fm.intel.com ([10.253.24.20])
+ by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 28 Feb 2023 07:10:42 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6500,9779,10635"; a="676322534"
-X-IronPort-AV: E=Sophos;i="5.98,222,1673942400"; d="scan'208";a="676322534"
+X-IronPort-AV: E=McAfee;i="6500,9779,10635"; a="919806108"
+X-IronPort-AV: E=Sophos;i="5.98,222,1673942400"; d="scan'208";a="919806108"
 Received: from lkp-server01.sh.intel.com (HELO 3895f5c55ead) ([10.239.97.150])
- by fmsmga007.fm.intel.com with ESMTP; 28 Feb 2023 06:49:37 -0800
+ by fmsmga006.fm.intel.com with ESMTP; 28 Feb 2023 07:10:38 -0800
 Received: from kbuild by 3895f5c55ead with local (Exim 4.96)
- (envelope-from <lkp@intel.com>) id 1pX1IP-0005T7-0b;
- Tue, 28 Feb 2023 14:49:37 +0000
-Date: Tue, 28 Feb 2023 22:49:00 +0800
+ (envelope-from <lkp@intel.com>) id 1pX1cj-0005Tv-2e;
+ Tue, 28 Feb 2023 15:10:37 +0000
+Date: Tue, 28 Feb 2023 23:10:02 +0800
 From: kernel test robot <lkp@intel.com>
 To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
  David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
@@ -47,7 +47,7 @@ To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
  Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
  Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
  Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>
-Message-ID: <202302282203.ghUPsryf-lkp@intel.com>
+Message-ID: <202302282241.qRMAjDx8-lkp@intel.com>
 References: <20230228113342.2051425-4-dmitry.baryshkov@linaro.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
@@ -68,8 +68,8 @@ List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
 Cc: linux-arm-msm@vger.kernel.org, intel-gfx@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- oe-kbuild-all@lists.linux.dev
+ llvm@lists.linux.dev, dri-devel@lists.freedesktop.org,
+ oe-kbuild-all@lists.linux.dev, freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
@@ -78,7 +78,7 @@ Hi Dmitry,
 I love your patch! Perhaps something to improve:
 
 [auto build test WARNING on drm-misc/drm-misc-next]
-[also build test WARNING on drm-intel/for-linux-next drm-intel/for-linux-next-fixes drm/drm-next linus/master v6.2 next-20230228]
+[also build test WARNING on drm-intel/for-linux-next drm-intel/for-linux-next-fixes drm/drm-next v6.2]
 [If your patch is applied to the wrong git tree, kindly drop us a note.
 And when submitting patch, we suggest to use '--base' as documented in
 https://git-scm.com/docs/git-format-patch#_base_tree_information]
@@ -87,8 +87,8 @@ url:    https://github.com/intel-lab-lkp/linux/commits/Dmitry-Baryshkov/drm-i915
 base:   git://anongit.freedesktop.org/drm/drm-misc drm-misc-next
 patch link:    https://lore.kernel.org/r/20230228113342.2051425-4-dmitry.baryshkov%40linaro.org
 patch subject: [PATCH 03/10] drm/i915/dsc: move DSC tables to DRM DSC helper
-config: ia64-allyesconfig (https://download.01.org/0day-ci/archive/20230228/202302282203.ghUPsryf-lkp@intel.com/config)
-compiler: ia64-linux-gcc (GCC) 12.1.0
+config: x86_64-randconfig-a002-20230227 (https://download.01.org/0day-ci/archive/20230228/202302282241.qRMAjDx8-lkp@intel.com/config)
+compiler: clang version 14.0.6 (https://github.com/llvm/llvm-project f28c006a5895fc0e329fe15fead81e37457cb1d1)
 reproduce (this is a W=1 build):
         wget https://raw.githubusercontent.com/intel/lkp-tests/master/sbin/make.cross -O ~/bin/make.cross
         chmod +x ~/bin/make.cross
@@ -98,12 +98,12 @@ reproduce (this is a W=1 build):
         git checkout ee048cb6c2ec7f7f92bea6b72e8cd3ef9921993e
         # save the config file
         mkdir build_dir && cp config build_dir/.config
-        COMPILER_INSTALL_PATH=$HOME/0day COMPILER=gcc-12.1.0 make.cross W=1 O=build_dir ARCH=ia64 olddefconfig
-        COMPILER_INSTALL_PATH=$HOME/0day COMPILER=gcc-12.1.0 make.cross W=1 O=build_dir ARCH=ia64 SHELL=/bin/bash drivers/gpu/drm/display/
+        COMPILER_INSTALL_PATH=$HOME/0day COMPILER=clang make.cross W=1 O=build_dir ARCH=x86_64 olddefconfig
+        COMPILER_INSTALL_PATH=$HOME/0day COMPILER=clang make.cross W=1 O=build_dir ARCH=x86_64 SHELL=/bin/bash drivers/gpu/drm/display/
 
 If you fix the issue, kindly add following tag where applicable
 | Reported-by: kernel test robot <lkp@intel.com>
-| Link: https://lore.kernel.org/oe-kbuild-all/202302282203.ghUPsryf-lkp@intel.com/
+| Link: https://lore.kernel.org/oe-kbuild-all/202302282241.qRMAjDx8-lkp@intel.com/
 
 All warnings (new ones prefixed by >>):
 
