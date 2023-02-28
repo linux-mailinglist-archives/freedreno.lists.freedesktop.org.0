@@ -2,80 +2,59 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 81F966A6123
-	for <lists+freedreno@lfdr.de>; Tue, 28 Feb 2023 22:22:14 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7E3516A6328
+	for <lists+freedreno@lfdr.de>; Tue, 28 Feb 2023 23:59:35 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4399210E0D0;
-	Tue, 28 Feb 2023 21:22:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3E09E10E0EE;
+	Tue, 28 Feb 2023 22:59:34 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x129.google.com (mail-lf1-x129.google.com
- [IPv6:2a00:1450:4864:20::129])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9CEBD10E0D0
- for <freedreno@lists.freedesktop.org>; Tue, 28 Feb 2023 21:22:10 +0000 (UTC)
-Received: by mail-lf1-x129.google.com with SMTP id f41so14965510lfv.13
- for <freedreno@lists.freedesktop.org>; Tue, 28 Feb 2023 13:22:10 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1677619329;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=c00Qj/i0YsYnbVJ+ujO8bcgmf6XZfCPNhrLp78qJmoI=;
- b=beUsA/gpmi5dzol+71rvbxUW5hfb+7O6tGe/iuqkuGhhfGTFj0I0rOCerycqBftdCX
- w5qDCLXxvo0eSsgJxFzrRO2lr8hmlMg1kOcVMmd64/gTqaR7v83EvECPUcKf9UgJl+/8
- FnwlGWdkQJC/CZdXE/2d2yVrR+qDHNjnkC2ly6gJwwoDB4vgF05MbPPIw/JM9rJBrnHF
- LAvWWbcv3lz32IyqE1J0CzL0BE0bWIow31kGpN5TSOHBtWV2p4EpqhK1falFRFogb4hv
- TOYOQCxv/sn75YsSj8aJzXG7Ga2pP3WiZrO30jfyiHQB8AsvRHsoiONUWe1iZ5dDiKgY
- 2m/A==
+Received: from mail-lf1-x12f.google.com (mail-lf1-x12f.google.com
+ [IPv6:2a00:1450:4864:20::12f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 282C710E0DE;
+ Tue, 28 Feb 2023 22:09:02 +0000 (UTC)
+Received: by mail-lf1-x12f.google.com with SMTP id f41so15108628lfv.13;
+ Tue, 28 Feb 2023 14:09:02 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=Xv67qzxGclMcpdDe36C3dibAMdrOR8c/MjH6Fi3vh9o=;
+ b=Q7ZTDwAtiKKN18sskJY+1mdBKnQgwp70eQbtgddJ0WqDJg74yN0b7IeehBo0DdsdTm
+ b9iDtDMPrnMJ3LCC+HUYJ7EGPJMHaTn1ZSor46yYGXhVPaFlpRFEj/oEAqJJKAdtoFbm
+ eYcxNhnEUrGisoIv7jB4PCj9BQ5V67WO/WmkRVXBXHivJm5LTgCMyWnyZ2aFpF2zGEUr
+ 0gdVohSnHx/RblGqEHS9wcCQYEGmDjw7cjhPFY2Ec9KaTp70KddHIzYvNYi/zbwmbZXC
+ gU1T5Ob4TAF4dQDohFeIoT5GSEFboa/BsZ9/JF6hvfgO09je1lx5g/JCCGuaJ99WxZWq
+ o5vg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112; t=1677619329;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=c00Qj/i0YsYnbVJ+ujO8bcgmf6XZfCPNhrLp78qJmoI=;
- b=ms2EkumVHLIJrq+87HoXDvn/faKVYjuDbXU3JvlTGeZajQtM7CVnFBm0HM69ieWEpx
- OCGHWXLUPTmrDBNV1CemjKsoucnZLOh2Xphg1oV75G3FRjWc3mk5S7n0nnjlsF3ACNli
- H3xCgkiBPCtVVbI4LxpumrMP3BPXnZ38xdjWU2r888cWz+Xd/5gjt/IctI6JM9I+tQZT
- KE6C9fmu+E20x/1Cy5fLV2GDdN+r+FDV56zeUirDq0rhJbKhWioS5cgkWTzQuJ7UDSSJ
- 99UOplFqqmyjJF08Ltv1guSNWnn169CNbTlSG+ZFUXzW0FYaEO44zmkscf27gfALJ9Qa
- D+yA==
-X-Gm-Message-State: AO0yUKU6KMYKeD2SifUl74T68Fkk9ktWqQ40heHSEmzn+nHUwvqlVciL
- odV9dtAtd5Sjk8dHmeMgvF+Gxw==
-X-Google-Smtp-Source: AK7set8Eab20dptC+3fOTnjrjxgGq0+x7TgmW263JStUHtG7GQ7d8msWu6bwB+aaTP7lCHk7q4h+Jw==
-X-Received: by 2002:a05:6512:50f:b0:4df:9ce8:300 with SMTP id
- o15-20020a056512050f00b004df9ce80300mr957904lfb.52.1677619328687; 
- Tue, 28 Feb 2023 13:22:08 -0800 (PST)
-Received: from [192.168.1.101] (abym99.neoplus.adsl.tpnet.pl. [83.9.32.99])
- by smtp.gmail.com with ESMTPSA id
- g28-20020a2eb5dc000000b00295b0a7d8e0sm1307811ljn.131.2023.02.28.13.22.06
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 28 Feb 2023 13:22:08 -0800 (PST)
-Message-ID: <c608fa1b-96dd-8d32-3d00-28d40c734b43@linaro.org>
-Date: Tue, 28 Feb 2023 22:22:05 +0100
+ d=1e100.net; s=20210112;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=Xv67qzxGclMcpdDe36C3dibAMdrOR8c/MjH6Fi3vh9o=;
+ b=ujxGZpIGr6IUhKyHwVtWcYVen2I4mPqxHujs78ABLbY1Qbi2KeUkqvsIFeCjxM4F3l
+ J0JURK836uaK4LJ9HNo5ZsLW33FeuaBpybPICO5ahV1PF64QldTuvUB0lE+RPfeaD+Py
+ oC1CB8jZ+jYXMAXHu9t9nlOH+wH9la8UtTO7gmj4/rcifRukebvh+9s+VcSD3b+3FYDr
+ nX79XY3dErIykAu2bHmgXsyt9aiVfdzEppFwym+qLz45lAmQnN8muK5K73PM1bWlDzHT
+ WOEwcLfpw8v4usF+wKPur+CVOKW7QMhWLw2VELgOFYQDMdJJ2cZQP/cdj0EvIm+wFjFd
+ FZ7g==
+X-Gm-Message-State: AO0yUKXb688pM2Yn34DADDTHvX56FoOzSwo8/IWVfpVHH9a9hyaTfDmp
+ HMT8/fL+Wrd9cYVqRX8V6VVv5WXpEalM5VY2Oko=
+X-Google-Smtp-Source: AK7set8KctyBL1YEwG/1Vqm/4vpaQZfPBsRCMEuS4dYiTirU4x5y/sYqOto4nHXlGmRji9ombJQxPU7b+WF8chqidC0=
+X-Received: by 2002:ac2:44c1:0:b0:4df:1d72:8e87 with SMTP id
+ d1-20020ac244c1000000b004df1d728e87mr1204685lfm.2.1677622140050; Tue, 28 Feb
+ 2023 14:09:00 -0800 (PST)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.8.0
-Content-Language: en-US
-To: Akhil P Oommen <quic_akhilpo@quicinc.com>, Rob Clark
- <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>,
- David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- Rob Herring <robh+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konrad.dybcio@somainline.org>
-References: <20230223-topic-gmuwrapper-v3-0-5be55a336819@linaro.org>
- <20230223-topic-gmuwrapper-v3-4-5be55a336819@linaro.org>
- <e19b5cd7-9125-a285-accc-ecf530804cfc@quicinc.com>
- <487a6890-4b8f-d541-e074-5d3ab7424678@linaro.org>
- <26953463-dae1-0f07-9e4e-0314ee8ea81a@quicinc.com>
- <5a8a7fa1-bba3-50a2-aa39-83d342ba70c1@quicinc.com>
-From: Konrad Dybcio <konrad.dybcio@linaro.org>
-In-Reply-To: <5a8a7fa1-bba3-50a2-aa39-83d342ba70c1@quicinc.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH v3 04/15] drm/msm/a6xx: Extend and explain
- UBWC config
+References: <20230227193535.2822389-1-robdclark@gmail.com>
+ <20230227193535.2822389-11-robdclark@gmail.com>
+In-Reply-To: <20230227193535.2822389-11-robdclark@gmail.com>
+From: Mario Kleiner <mario.kleiner.de@gmail.com>
+Date: Tue, 28 Feb 2023 23:08:23 +0100
+Message-ID: <CAEsyxyhNB-TLBEH7sqF1+_uLB1ad_uVZ9hYgJ59fUDF6ffZeZA@mail.gmail.com>
+To: Rob Clark <robdclark@gmail.com>
+Content-Type: multipart/alternative; boundary="000000000000b9a24805f5c9d7df"
+X-Mailman-Approved-At: Tue, 28 Feb 2023 22:59:32 +0000
+Subject: Re: [Freedreno] [PATCH v7 10/15] drm/vblank: Add helper to get next
+ vblank time
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -88,151 +67,352 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rob Clark <robdclark@chromium.org>, devicetree@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org
+Cc: Rob Clark <robdclark@chromium.org>,
+ Tvrtko Ursulin <tvrtko.ursulin@intel.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>,
+ =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel@daenzer.net>,
+ open list <linux-kernel@vger.kernel.org>, dri-devel@lists.freedesktop.org,
+ Pekka Paalanen <ppaalanen@gmail.com>, Luben Tuikov <luben.tuikov@amd.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Alex Deucher <alexander.deucher@amd.com>, freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
+--000000000000b9a24805f5c9d7df
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+LGTM. This one is
+
+Reviewed-by: Mario Kleiner <mario.kleiner.de@gmail.com>
+
+-mario
 
 
-On 28.02.2023 21:48, Akhil P Oommen wrote:
-> On 3/1/2023 2:14 AM, Akhil P Oommen wrote:
->> On 3/1/2023 2:10 AM, Konrad Dybcio wrote:
->>> On 28.02.2023 21:23, Akhil P Oommen wrote:
->>>> On 2/23/2023 5:36 PM, Konrad Dybcio wrote:
->>>>> Rename lower_bit to hbb_lo and explain what it signifies.
->>>>> Add explanations (wherever possible to other tunables).
->>>>>
->>>>> Sort the variable definition and assignment alphabetically.
->>>> Sorting based on decreasing order of line length is more readable, isn't it?
->>> I can do that.
->>>
->>>>> Port setting min_access_length, ubwc_mode and hbb_hi from downstream.
->>>>> Set default values for all of the tunables to zero, as they should be.
->>>>>
->>>>> Values were validated against downstream and will be fixed up in
->>>>> separate commits so as not to make this one even more messy.
->>>>>
->>>>> A618 remains untouched (left at hw defaults) in this patch.
->>>>>
->>>>> Signed-off-by: Konrad Dybcio <konrad.dybcio@linaro.org>
->>>>> ---
->>>>>  drivers/gpu/drm/msm/adreno/a6xx_gpu.c | 55 ++++++++++++++++++++++++++++-------
->>>>>  1 file changed, 45 insertions(+), 10 deletions(-)
->>>>>
->>>>> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
->>>>> index c5f5d0bb3fdc..bdae341e0a7c 100644
->>>>> --- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
->>>>> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
->>>>> @@ -786,39 +786,74 @@ static void a6xx_set_cp_protect(struct msm_gpu *gpu)
->>>>>  static void a6xx_set_ubwc_config(struct msm_gpu *gpu)
->>>>>  {
->>>>>  	struct adreno_gpu *adreno_gpu = to_adreno_gpu(gpu);
->>>>> -	u32 lower_bit = 2;
->>>>> +	/* Unknown, introduced with A640/680 */
->>>>>  	u32 amsbc = 0;
->>>>> +	/*
->>>>> +	 * The Highest Bank Bit value represents the bit of the highest DDR bank.
->>>>> +	 * We then subtract 13 from it (13 is the minimum value allowed by hw) and
->>>>> +	 * write the lowest two bits of the remaining value as hbb_lo and the
->>>>> +	 * one above it as hbb_hi to the hardware. The default values (when HBB is
->>>>> +	 * not specified) are 0, 0.
->>>>> +	 */
->>>>> +	u32 hbb_hi = 0;
->>>>> +	u32 hbb_lo = 0;
->>>>> +	/* Whether the minimum access length is 64 bits */
->>>>> +	u32 min_acc_len = 0;
->>>>> +	/* Unknown, introduced with A650 family, related to UBWC mode/ver 4 */
->>>>>  	u32 rgb565_predicator = 0;
->>>>> +	/* Unknown, introduced with A650 family */
->>>>>  	u32 uavflagprd_inv = 0;
->>>>> +	/* Entirely magic, per-GPU-gen value */
->>>>> +	u32 ubwc_mode = 0;
->>>>>  
->>>>>  	/* a618 is using the hw default values */
->>>>>  	if (adreno_is_a618(adreno_gpu))
->>>>>  		return;
->>>>>  
->>>>> -	if (adreno_is_a640_family(adreno_gpu))
->>>>> +	if (adreno_is_a619(adreno_gpu)) {
->>>>> +		/* HBB = 14 */
->>>>> +		hbb_lo = 1;
->>>>> +	}
->>>>> +
->>>>> +	if (adreno_is_a630(adreno_gpu)) {
->>>>> +		/* HBB = 15 */
->>>>> +		hbb_lo = 2;
->>>>> +	}
->>>>> +
->>>>> +	if (adreno_is_a640_family(adreno_gpu)) {
->>>>>  		amsbc = 1;
->>>>> +		/* HBB = 15 */
->>>>> +		hbb_lo = 2;
->>>>> +	}
->>>>>  
->>>>>  	if (adreno_is_a650(adreno_gpu) || adreno_is_a660(adreno_gpu)) {
->>>>> -		/* TODO: get ddr type from bootloader and use 2 for LPDDR4 */
->>>>> -		lower_bit = 3;
->>>>>  		amsbc = 1;
->>>>> +		/* TODO: get ddr type from bootloader and use 2 for LPDDR4 */
->>>>> +		/* HBB = 16 */
->>>>> +		hbb_lo = 3;
->>>>>  		rgb565_predicator = 1;
->>>>>  		uavflagprd_inv = 2;
->>>>>  	}
->>>>>  
->>>>>  	if (adreno_is_7c3(adreno_gpu)) {
->>>>> -		lower_bit = 1;
->>>>>  		amsbc = 1;
->>>>> +		/* HBB is unset in downstream DTS, defaulting to 0 */
->>>> This is incorrect. For 7c3 hbb value is 14. So hbb_lo should be 1. FYI, hbb configurations were moved to the driver from DT in recent downstream kernels.
->>> Right, seems to have happened with msm-5.10. Though a random kernel I
->>> grabbed seems to suggest it's 15 and not 14?
->>>
->>> https://github.com/sonyxperiadev/kernel/blob/aosp/K.P.1.0.r1/drivers/gpu/msm/adreno-gpulist.h#L1710
->> We override that with 14 in a6xx_init() for LP4 platforms dynamically. Since 7c3 is only supported on LP4, we can hardcode 14 here.
-Okay, I see.
+On Mon, Feb 27, 2023 at 8:36=E2=80=AFPM Rob Clark <robdclark@gmail.com> wro=
+te:
 
->> In the downstream kernel, there is an api (of_fdt_get_ddrtype()) to detect ddrtype. If we can get something like that in upstream, we should implement a similar logic here.
-Yeah, I mentioned it here [1], but I doubt it'd be implemented,
-given what Krzysztof pointed out.
+> From: Rob Clark <robdclark@chromium.org>
+>
+> Will be used in the next commit to set a deadline on fences that an
+> atomic update is waiting on.
+>
+> v2: Calculate time at *start* of vblank period, not end
+> v3: Fix kbuild complaints
+>
+> Signed-off-by: Rob Clark <robdclark@chromium.org>
+> ---
+>  drivers/gpu/drm/drm_vblank.c | 53 ++++++++++++++++++++++++++++++------
+>  include/drm/drm_vblank.h     |  1 +
+>  2 files changed, 45 insertions(+), 9 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/drm_vblank.c b/drivers/gpu/drm/drm_vblank.c
+> index 2ff31717a3de..299fa2a19a90 100644
+> --- a/drivers/gpu/drm/drm_vblank.c
+> +++ b/drivers/gpu/drm/drm_vblank.c
+> @@ -844,10 +844,9 @@ bool
+> drm_crtc_vblank_helper_get_vblank_timestamp(struct drm_crtc *crtc,
+>  EXPORT_SYMBOL(drm_crtc_vblank_helper_get_vblank_timestamp);
+>
+>  /**
+> - * drm_get_last_vbltimestamp - retrieve raw timestamp for the most recen=
+t
+> - *                             vblank interval
+> - * @dev: DRM device
+> - * @pipe: index of CRTC whose vblank timestamp to retrieve
+> + * drm_crtc_get_last_vbltimestamp - retrieve raw timestamp for the most
+> + *                                  recent vblank interval
+> + * @crtc: CRTC whose vblank timestamp to retrieve
+>   * @tvblank: Pointer to target time which should receive the timestamp
+>   * @in_vblank_irq:
+>   *     True when called from drm_crtc_handle_vblank().  Some drivers
+> @@ -865,10 +864,9 @@
+> EXPORT_SYMBOL(drm_crtc_vblank_helper_get_vblank_timestamp);
+>   * True if timestamp is considered to be very precise, false otherwise.
+>   */
+>  static bool
+> -drm_get_last_vbltimestamp(struct drm_device *dev, unsigned int pipe,
+> -                         ktime_t *tvblank, bool in_vblank_irq)
+> +drm_crtc_get_last_vbltimestamp(struct drm_crtc *crtc, ktime_t *tvblank,
+> +                              bool in_vblank_irq)
+>  {
+> -       struct drm_crtc *crtc =3D drm_crtc_from_index(dev, pipe);
+>         bool ret =3D false;
+>
+>         /* Define requested maximum error on timestamps (nanoseconds). */
+> @@ -876,8 +874,6 @@ drm_get_last_vbltimestamp(struct drm_device *dev,
+> unsigned int pipe,
+>
+>         /* Query driver if possible and precision timestamping enabled. *=
+/
+>         if (crtc && crtc->funcs->get_vblank_timestamp && max_error > 0) {
+> -               struct drm_crtc *crtc =3D drm_crtc_from_index(dev, pipe);
+> -
+>                 ret =3D crtc->funcs->get_vblank_timestamp(crtc, &max_erro=
+r,
+>                                                         tvblank,
+> in_vblank_irq);
+>         }
+> @@ -891,6 +887,15 @@ drm_get_last_vbltimestamp(struct drm_device *dev,
+> unsigned int pipe,
+>         return ret;
+>  }
+>
+> +static bool
+> +drm_get_last_vbltimestamp(struct drm_device *dev, unsigned int pipe,
+> +                         ktime_t *tvblank, bool in_vblank_irq)
+> +{
+> +       struct drm_crtc *crtc =3D drm_crtc_from_index(dev, pipe);
+> +
+> +       return drm_crtc_get_last_vbltimestamp(crtc, tvblank,
+> in_vblank_irq);
+> +}
+> +
+>  /**
+>   * drm_crtc_vblank_count - retrieve "cooked" vblank counter value
+>   * @crtc: which counter to retrieve
+> @@ -980,6 +985,36 @@ u64 drm_crtc_vblank_count_and_time(struct drm_crtc
+> *crtc,
+>  }
+>  EXPORT_SYMBOL(drm_crtc_vblank_count_and_time);
+>
+> +/**
+> + * drm_crtc_next_vblank_start - calculate the time of the next vblank
+> + * @crtc: the crtc for which to calculate next vblank time
+> + * @vblanktime: pointer to time to receive the next vblank timestamp.
+> + *
+> + * Calculate the expected time of the start of the next vblank period,
+> + * based on time of previous vblank and frame duration
+> + */
+> +int drm_crtc_next_vblank_start(struct drm_crtc *crtc, ktime_t *vblanktim=
+e)
+> +{
+> +       unsigned int pipe =3D drm_crtc_index(crtc);
+> +       struct drm_vblank_crtc *vblank =3D &crtc->dev->vblank[pipe];
+> +       struct drm_display_mode *mode =3D &vblank->hwmode;
+> +       u64 vblank_start;
+> +
+> +       if (!vblank->framedur_ns || !vblank->linedur_ns)
+> +               return -EINVAL;
+> +
+> +       if (!drm_crtc_get_last_vbltimestamp(crtc, vblanktime, false))
+> +               return -EINVAL;
+> +
+> +       vblank_start =3D DIV_ROUND_DOWN_ULL(
+> +                       (u64)vblank->framedur_ns * mode->crtc_vblank_star=
+t,
+> +                       mode->crtc_vtotal);
+> +       *vblanktime  =3D ktime_add(*vblanktime, ns_to_ktime(vblank_start)=
+);
+> +
+> +       return 0;
+> +}
+> +EXPORT_SYMBOL(drm_crtc_next_vblank_start);
+> +
+>  static void send_vblank_event(struct drm_device *dev,
+>                 struct drm_pending_vblank_event *e,
+>                 u64 seq, ktime_t now)
+> diff --git a/include/drm/drm_vblank.h b/include/drm/drm_vblank.h
+> index 733a3e2d1d10..7f3957943dd1 100644
+> --- a/include/drm/drm_vblank.h
+> +++ b/include/drm/drm_vblank.h
+> @@ -230,6 +230,7 @@ bool drm_dev_has_vblank(const struct drm_device *dev)=
+;
+>  u64 drm_crtc_vblank_count(struct drm_crtc *crtc);
+>  u64 drm_crtc_vblank_count_and_time(struct drm_crtc *crtc,
+>                                    ktime_t *vblanktime);
+> +int drm_crtc_next_vblank_start(struct drm_crtc *crtc, ktime_t
+> *vblanktime);
+>  void drm_crtc_send_vblank_event(struct drm_crtc *crtc,
+>                                struct drm_pending_vblank_event *e);
+>  void drm_crtc_arm_vblank_event(struct drm_crtc *crtc,
+> --
+> 2.39.1
+>
+>
 
->>
->> -Akhil.
-> Also, I haven't closely reviewed other targets configuration you updated, but it is a good idea to leave the existing configurations here as it in this refactor patch. Any update should be a separate patch.
-Sure, will do.
+--000000000000b9a24805f5c9d7df
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Konrad
+<div dir=3D"ltr"><div>LGTM. This one is</div><div><br></div><div>Reviewed-b=
+y: Mario Kleiner &lt;<a href=3D"mailto:mario.kleiner.de@gmail.com">mario.kl=
+einer.de@gmail.com</a>&gt;</div><div><br></div><div>-mario</div><div><br></=
+div></div><br><div class=3D"gmail_quote"><div dir=3D"ltr" class=3D"gmail_at=
+tr">On Mon, Feb 27, 2023 at 8:36=E2=80=AFPM Rob Clark &lt;<a href=3D"mailto=
+:robdclark@gmail.com">robdclark@gmail.com</a>&gt; wrote:<br></div><blockquo=
+te class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px =
+solid rgb(204,204,204);padding-left:1ex">From: Rob Clark &lt;<a href=3D"mai=
+lto:robdclark@chromium.org" target=3D"_blank">robdclark@chromium.org</a>&gt=
+;<br>
+<br>
+Will be used in the next commit to set a deadline on fences that an<br>
+atomic update is waiting on.<br>
+<br>
+v2: Calculate time at *start* of vblank period, not end<br>
+v3: Fix kbuild complaints<br>
+<br>
+Signed-off-by: Rob Clark &lt;<a href=3D"mailto:robdclark@chromium.org" targ=
+et=3D"_blank">robdclark@chromium.org</a>&gt;<br>
+---<br>
+=C2=A0drivers/gpu/drm/drm_vblank.c | 53 ++++++++++++++++++++++++++++++-----=
+-<br>
+=C2=A0include/drm/drm_vblank.h=C2=A0 =C2=A0 =C2=A0|=C2=A0 1 +<br>
+=C2=A02 files changed, 45 insertions(+), 9 deletions(-)<br>
+<br>
+diff --git a/drivers/gpu/drm/drm_vblank.c b/drivers/gpu/drm/drm_vblank.c<br=
+>
+index 2ff31717a3de..299fa2a19a90 100644<br>
+--- a/drivers/gpu/drm/drm_vblank.c<br>
++++ b/drivers/gpu/drm/drm_vblank.c<br>
+@@ -844,10 +844,9 @@ bool drm_crtc_vblank_helper_get_vblank_timestamp(struc=
+t drm_crtc *crtc,<br>
+=C2=A0EXPORT_SYMBOL(drm_crtc_vblank_helper_get_vblank_timestamp);<br>
+<br>
+=C2=A0/**<br>
+- * drm_get_last_vbltimestamp - retrieve raw timestamp for the most recent<=
+br>
+- *=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0vblank interval<br>
+- * @dev: DRM device<br>
+- * @pipe: index of CRTC whose vblank timestamp to retrieve<br>
++ * drm_crtc_get_last_vbltimestamp - retrieve raw timestamp for the most<br=
+>
++ *=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 recent vblank interval<br>
++ * @crtc: CRTC whose vblank timestamp to retrieve<br>
+=C2=A0 * @tvblank: Pointer to target time which should receive the timestam=
+p<br>
+=C2=A0 * @in_vblank_irq:<br>
+=C2=A0 *=C2=A0 =C2=A0 =C2=A0True when called from drm_crtc_handle_vblank().=
+=C2=A0 Some drivers<br>
+@@ -865,10 +864,9 @@ EXPORT_SYMBOL(drm_crtc_vblank_helper_get_vblank_timest=
+amp);<br>
+=C2=A0 * True if timestamp is considered to be very precise, false otherwis=
+e.<br>
+=C2=A0 */<br>
+=C2=A0static bool<br>
+-drm_get_last_vbltimestamp(struct drm_device *dev, unsigned int pipe,<br>
+-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0ktime_t *tvblank, bool in_vblank_irq)<br>
++drm_crtc_get_last_vbltimestamp(struct drm_crtc *crtc, ktime_t *tvblank,<br=
+>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 bool in_vblank_irq)<br>
+=C2=A0{<br>
+-=C2=A0 =C2=A0 =C2=A0 =C2=A0struct drm_crtc *crtc =3D drm_crtc_from_index(d=
+ev, pipe);<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 bool ret =3D false;<br>
+<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 /* Define requested maximum error on timestamps=
+ (nanoseconds). */<br>
+@@ -876,8 +874,6 @@ drm_get_last_vbltimestamp(struct drm_device *dev, unsig=
+ned int pipe,<br>
+<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 /* Query driver if possible and precision times=
+tamping enabled. */<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 if (crtc &amp;&amp; crtc-&gt;funcs-&gt;get_vbla=
+nk_timestamp &amp;&amp; max_error &gt; 0) {<br>
+-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0struct drm_crtc *cr=
+tc =3D drm_crtc_from_index(dev, pipe);<br>
+-<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 ret =3D crtc-&gt;fu=
+ncs-&gt;get_vblank_timestamp(crtc, &amp;max_error,<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 tvblank, in_vblank_irq);<b=
+r>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 }<br>
+@@ -891,6 +887,15 @@ drm_get_last_vbltimestamp(struct drm_device *dev, unsi=
+gned int pipe,<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 return ret;<br>
+=C2=A0}<br>
+<br>
++static bool<br>
++drm_get_last_vbltimestamp(struct drm_device *dev, unsigned int pipe,<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0ktime_t *tvblank, bool in_vblank_irq)<br>
++{<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0struct drm_crtc *crtc =3D drm_crtc_from_index(d=
+ev, pipe);<br>
++<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0return drm_crtc_get_last_vbltimestamp(crtc, tvb=
+lank, in_vblank_irq);<br>
++}<br>
++<br>
+=C2=A0/**<br>
+=C2=A0 * drm_crtc_vblank_count - retrieve &quot;cooked&quot; vblank counter=
+ value<br>
+=C2=A0 * @crtc: which counter to retrieve<br>
+@@ -980,6 +985,36 @@ u64 drm_crtc_vblank_count_and_time(struct drm_crtc *cr=
+tc,<br>
+=C2=A0}<br>
+=C2=A0EXPORT_SYMBOL(drm_crtc_vblank_count_and_time);<br>
+<br>
++/**<br>
++ * drm_crtc_next_vblank_start - calculate the time of the next vblank<br>
++ * @crtc: the crtc for which to calculate next vblank time<br>
++ * @vblanktime: pointer to time to receive the next vblank timestamp.<br>
++ *<br>
++ * Calculate the expected time of the start of the next vblank period,<br>
++ * based on time of previous vblank and frame duration<br>
++ */<br>
++int drm_crtc_next_vblank_start(struct drm_crtc *crtc, ktime_t *vblanktime)=
+<br>
++{<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0unsigned int pipe =3D drm_crtc_index(crtc);<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0struct drm_vblank_crtc *vblank =3D &amp;crtc-&g=
+t;dev-&gt;vblank[pipe];<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0struct drm_display_mode *mode =3D &amp;vblank-&=
+gt;hwmode;<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0u64 vblank_start;<br>
++<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0if (!vblank-&gt;framedur_ns || !vblank-&gt;line=
+dur_ns)<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0return -EINVAL;<br>
++<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0if (!drm_crtc_get_last_vbltimestamp(crtc, vblan=
+ktime, false))<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0return -EINVAL;<br>
++<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0vblank_start =3D DIV_ROUND_DOWN_ULL(<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0(u64)vblank-&gt;framedur_ns * mode-&gt;crtc_vblank_start,<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0mode-&gt;crtc_vtotal);<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0*vblanktime=C2=A0 =3D ktime_add(*vblanktime, ns=
+_to_ktime(vblank_start));<br>
++<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0return 0;<br>
++}<br>
++EXPORT_SYMBOL(drm_crtc_next_vblank_start);<br>
++<br>
+=C2=A0static void send_vblank_event(struct drm_device *dev,<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 struct drm_pending_=
+vblank_event *e,<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 u64 seq, ktime_t no=
+w)<br>
+diff --git a/include/drm/drm_vblank.h b/include/drm/drm_vblank.h<br>
+index 733a3e2d1d10..7f3957943dd1 100644<br>
+--- a/include/drm/drm_vblank.h<br>
++++ b/include/drm/drm_vblank.h<br>
+@@ -230,6 +230,7 @@ bool drm_dev_has_vblank(const struct drm_device *dev);<=
+br>
+=C2=A0u64 drm_crtc_vblank_count(struct drm_crtc *crtc);<br>
+=C2=A0u64 drm_crtc_vblank_count_and_time(struct drm_crtc *crtc,<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0ktime_t *vblanktime);<b=
+r>
++int drm_crtc_next_vblank_start(struct drm_crtc *crtc, ktime_t *vblanktime)=
+;<br>
+=C2=A0void drm_crtc_send_vblank_event(struct drm_crtc *crtc,<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0struct drm_pending_vblank_event *e);<=
+br>
+=C2=A0void drm_crtc_arm_vblank_event(struct drm_crtc *crtc,<br>
+-- <br>
+2.39.1<br>
+<br>
+</blockquote></div>
 
-[1] https://github.com/devicetree-org/devicetree-specification/issues/62
-> 
-> -Akhil.
->>> Konrad
->>>> -Akhil.
->>>>>  		rgb565_predicator = 1;
->>>>>  		uavflagprd_inv = 2;
->>>>>  	}
->>>>>  
->>>>>  	gpu_write(gpu, REG_A6XX_RB_NC_MODE_CNTL,
->>>>> -		rgb565_predicator << 11 | amsbc << 4 | lower_bit << 1);
->>>>> -	gpu_write(gpu, REG_A6XX_TPL1_NC_MODE_CNTL, lower_bit << 1);
->>>>> -	gpu_write(gpu, REG_A6XX_SP_NC_MODE_CNTL,
->>>>> -		uavflagprd_inv << 4 | lower_bit << 1);
->>>>> -	gpu_write(gpu, REG_A6XX_UCHE_MODE_CNTL, lower_bit << 21);
->>>>> +		  rgb565_predicator << 11 | hbb_hi << 10 | amsbc << 4 |
->>>>> +		  min_acc_len << 3 | hbb_lo << 1 | ubwc_mode);
->>>>> +
->>>>> +	gpu_write(gpu, REG_A6XX_TPL1_NC_MODE_CNTL, hbb_hi << 4 |
->>>>> +		  min_acc_len << 3 | hbb_lo << 1 | ubwc_mode);
->>>>> +
->>>>> +	gpu_write(gpu, REG_A6XX_SP_NC_MODE_CNTL, hbb_hi << 10 |
->>>>> +		  uavflagprd_inv << 4 | min_acc_len << 3 |
->>>>> +		  hbb_lo << 1 | ubwc_mode);
->>>>> +
->>>>> +	gpu_write(gpu, REG_A6XX_UCHE_MODE_CNTL, min_acc_len << 23 | hbb_lo << 21);
->>>>>  }
->>>>>  
->>>>>  static int a6xx_cp_init(struct msm_gpu *gpu)
->>>>>
-> 
+--000000000000b9a24805f5c9d7df--
