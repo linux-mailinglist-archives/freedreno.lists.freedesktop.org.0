@@ -1,63 +1,84 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id CDFD76A5FED
-	for <lists+freedreno@lfdr.de>; Tue, 28 Feb 2023 20:48:14 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 39CAE6A6051
+	for <lists+freedreno@lfdr.de>; Tue, 28 Feb 2023 21:24:03 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 77F9610E06C;
-	Tue, 28 Feb 2023 19:48:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F262710E05C;
+	Tue, 28 Feb 2023 20:24:01 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-oi1-x22d.google.com (mail-oi1-x22d.google.com
- [IPv6:2607:f8b0:4864:20::22d])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 996AD10E06C;
- Tue, 28 Feb 2023 19:48:11 +0000 (UTC)
-Received: by mail-oi1-x22d.google.com with SMTP id bj30so3237821oib.6;
- Tue, 28 Feb 2023 11:48:11 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20210112; t=1677613691;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=u6AWgk38+dTcU1+mejGb2/o+ftP8MTujuhC/3B4ExDQ=;
- b=ige+8up2DEpf5jbuZZLbqAXPllK21I8pU7z6B62/+rsiqOUHgf+tPXTEf+e1slNMgu
- i2cYxHHAkwFZjGq8mzku6wjj2KNMMtvD5Bj/MKrCrbe7OOsHTeuVfdoOeDdLnmzCW5Eq
- 0IS938xQdPcLDKNCTK6c7ZQr4hIWBFvPFqZ0w8ssnsTKGbWqFc3/HQnTA/BztQCNO8Ng
- MDZRmbzYiV1mKcbQFlPfNi3Fn7G/a9kkC7gOMoeP5uM35tmn+t+pchgqdWE7BwmjyVuQ
- KDz3y5HhklWDT2WVZOYY5hfICg7iyZ9HgSNBqoCCO+QfpyQWPcVTlfg0NfVVnwN/Bf/S
- bC9A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112; t=1677613691;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=u6AWgk38+dTcU1+mejGb2/o+ftP8MTujuhC/3B4ExDQ=;
- b=bHu490YaS9kjD+XakkEV6cgkVe8EX1F7An+b2O9ijPD+1kprrHgqLUA7LhTgX7bXuG
- /ULAu9/30MeQG4SBcFP6jN7BcyTjZ9pkpIVqkpmib1VEJXlqgPkoLM9joQSJhi9wvHhv
- bBYEgfK+/lx2FvUhQvIJutI7dW5n0ynofcxard/68KxTJQUCFlHyJqAbIZCEVtRJvPh1
- qpo+ny2KS6jVLMyv4Q+Wb2nelDay5/tBOQS6PvTm55Jpn6GVbDSOMocgvK3Lqx2SxtCp
- fY+QZNfFolaDpeZAxGrGMCaoDh9ocFYtbnzJdcZyN7ycOmAvMKXk1PC32j1tyfOcKeow
- vukg==
-X-Gm-Message-State: AO0yUKWktb74qMQDSfYsxdprm0NNh4ps1O2KO+6jQ3QwlIrQis297+fH
- Z7rOsIZwKB85j6n8scKOXrbyPUUJU6rrFdwdM74=
-X-Google-Smtp-Source: AK7set9keJVYa+i1zqh5jp2cnA3sA6/AAsEU28TAnr0uVeyTvTrcT5iO0UESk31AobEWgbOlPb04AX6066Qk2dlbA5k=
-X-Received: by 2002:a05:6808:1cf:b0:384:253:642d with SMTP id
- x15-20020a05680801cf00b003840253642dmr1372513oic.3.1677613690814; Tue, 28 Feb
- 2023 11:48:10 -0800 (PST)
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EE37210E00F;
+ Tue, 28 Feb 2023 20:23:59 +0000 (UTC)
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 31SGkrfX018714; Tue, 28 Feb 2023 20:23:53 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
+ h=message-id : date :
+ mime-version : subject : to : cc : references : from : in-reply-to :
+ content-type : content-transfer-encoding; s=qcppdkim1;
+ bh=aD9p/uaGPnAOseXuoLESlp5Zz7ZHtsFAw9p2BJMha/k=;
+ b=cBv/EfIzUS6ew8U5cFgvZoXiVN1uUo4JOaYRhH39ny+i1B/vOLRoqahsDVnenTjnwisd
+ 1c44vjeLnQKoZ5Bvy0SRHNmeVyoF21vFbioKTWoDbRkFZiuuwFTQhXwdrQKJmQzIulDX
+ g5keqw2eHMktJ/x6ZW4nMy3e7FNKt8aGq/myVMXoS3vmPbfjJAEIXeoabTXvKM6xXQkV
+ 8UDFThnhCknJqI96WQ+zeQCkLlPhSI2dnWiNQs/GNFvkTFJWaX0bPzBsqMsggLrgKvXR
+ jLPwTbjctnHXNb7NaSUO3R0Np1YiCzLz0QzmFRaCIljNfw6SuuhlMH4L3Zr561KqMl8r xg== 
+Received: from nalasppmta01.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3p1as32k51-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 28 Feb 2023 20:23:53 +0000
+Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
+ [10.47.209.196])
+ by NALASPPMTA01.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 31SKNqhL025387
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 28 Feb 2023 20:23:52 GMT
+Received: from [10.216.38.191] (10.80.80.8) by nalasex01a.na.qualcomm.com
+ (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.41; Tue, 28 Feb
+ 2023 12:23:46 -0800
+Message-ID: <e19b5cd7-9125-a285-accc-ecf530804cfc@quicinc.com>
+Date: Wed, 1 Mar 2023 01:53:43 +0530
 MIME-Version: 1.0
-References: <20230227193535.2822389-1-robdclark@gmail.com>
- <20230227193535.2822389-8-robdclark@gmail.com>
- <20230228112310.39274fcf@eldfell>
-In-Reply-To: <20230228112310.39274fcf@eldfell>
-From: Rob Clark <robdclark@gmail.com>
-Date: Tue, 28 Feb 2023 11:47:59 -0800
-Message-ID: <CAF6AEGve4Jx-TJZe_+PF4ekyBzCzxZBdwMeGQ1WoRawwX1tsxg@mail.gmail.com>
-To: Pekka Paalanen <ppaalanen@gmail.com>
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
+ Thunderbird/91.3.2
+Content-Language: en-US
+To: Konrad Dybcio <konrad.dybcio@linaro.org>, Rob Clark <robdclark@gmail.com>, 
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, Dmitry Baryshkov
+ <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>, David Airlie
+ <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>, Rob Herring
+ <robh+dt@kernel.org>, Krzysztof Kozlowski
+ <krzysztof.kozlowski+dt@linaro.org>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konrad.dybcio@somainline.org>
+References: <20230223-topic-gmuwrapper-v3-0-5be55a336819@linaro.org>
+ <20230223-topic-gmuwrapper-v3-4-5be55a336819@linaro.org>
+From: Akhil P Oommen <quic_akhilpo@quicinc.com>
+In-Reply-To: <20230223-topic-gmuwrapper-v3-4-5be55a336819@linaro.org>
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [Freedreno] [PATCH v7 07/15] dma-buf/sw_sync: Add fence
- deadline support
+Content-Transfer-Encoding: 7bit
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-ORIG-GUID: F0Sq-vV9BMY1SJpXhvwhJg_zxqbHVsFD
+X-Proofpoint-GUID: F0Sq-vV9BMY1SJpXhvwhJg_zxqbHVsFD
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.219,Aquarius:18.0.942,Hydra:6.0.573,FMLib:17.11.170.22
+ definitions=2023-02-28_17,2023-02-28_03,2023-02-09_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1011 malwarescore=0
+ phishscore=0 spamscore=0 adultscore=0 mlxlogscore=999 suspectscore=0
+ lowpriorityscore=0 mlxscore=0 bulkscore=0 priorityscore=1501
+ impostorscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2212070000 definitions=main-2302280169
+Subject: Re: [Freedreno] [PATCH v3 04/15] drm/msm/a6xx: Extend and explain
+ UBWC config
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,229 +91,123 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rob Clark <robdclark@chromium.org>, Gustavo Padovan <gustavo@padovan.org>,
- Simon Ser <contact@emersion.fr>, Tvrtko Ursulin <tvrtko.ursulin@intel.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>,
- =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel@daenzer.net>,
- open list <linux-kernel@vger.kernel.org>, dri-devel@lists.freedesktop.org,
- Sumit Semwal <sumit.semwal@linaro.org>,
- "moderated list:DMA BUFFER SHARING FRAMEWORK" <linaro-mm-sig@lists.linaro.org>,
- Luben Tuikov <luben.tuikov@amd.com>, Daniel Vetter <daniel@ffwll.ch>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Alex Deucher <alexander.deucher@amd.com>, freedreno@lists.freedesktop.org,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- "open list:SYNC FILE FRAMEWORK" <linux-media@vger.kernel.org>
+Cc: Rob Clark <robdclark@chromium.org>, devicetree@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Tue, Feb 28, 2023 at 1:23 AM Pekka Paalanen <ppaalanen@gmail.com> wrote:
+On 2/23/2023 5:36 PM, Konrad Dybcio wrote:
+> Rename lower_bit to hbb_lo and explain what it signifies.
+> Add explanations (wherever possible to other tunables).
 >
-> On Mon, 27 Feb 2023 11:35:13 -0800
-> Rob Clark <robdclark@gmail.com> wrote:
+> Sort the variable definition and assignment alphabetically.
+Sorting based on decreasing order of line length is more readable, isn't it?
 >
-> > From: Rob Clark <robdclark@chromium.org>
-> >
-> > This consists of simply storing the most recent deadline, and adding an
-> > ioctl to retrieve the deadline.  This can be used in conjunction with
-> > the SET_DEADLINE ioctl on a fence fd for testing.  Ie. create various
-> > sw_sync fences, merge them into a fence-array, set deadline on the
-> > fence-array and confirm that it is propagated properly to each fence.
-> >
-> > v2: Switch UABI to express deadline as u64
-> > v3: More verbose UAPI docs, show how to convert from timespec
-> >
-> > Signed-off-by: Rob Clark <robdclark@chromium.org>
-> > Reviewed-by: Christian K=C3=B6nig <christian.koenig@amd.com>
-> > ---
-> >  drivers/dma-buf/sw_sync.c      | 58 ++++++++++++++++++++++++++++++++++
-> >  drivers/dma-buf/sync_debug.h   |  2 ++
-> >  include/uapi/linux/sync_file.h |  6 +++-
-> >  3 files changed, 65 insertions(+), 1 deletion(-)
-> >
-> > diff --git a/drivers/dma-buf/sw_sync.c b/drivers/dma-buf/sw_sync.c
-> > index 348b3a9170fa..3e2315ee955b 100644
-> > --- a/drivers/dma-buf/sw_sync.c
-> > +++ b/drivers/dma-buf/sw_sync.c
-> > @@ -52,12 +52,28 @@ struct sw_sync_create_fence_data {
-> >       __s32   fence; /* fd of new fence */
-> >  };
-> >
-> > +/**
-> > + * struct sw_sync_get_deadline - get the deadline hint of a sw_sync fe=
-nce
-> > + * @deadline_ns: absolute time of the deadline
-> > + * @pad:     must be zero
-> > + * @fence_fd:        the sw_sync fence fd (in)
-> > + *
-> > + * The timebase for the deadline is CLOCK_MONOTONIC (same as vblank)
+> Port setting min_access_length, ubwc_mode and hbb_hi from downstream.
+> Set default values for all of the tunables to zero, as they should be.
 >
-> Hi,
+> Values were validated against downstream and will be fixed up in
+> separate commits so as not to make this one even more messy.
 >
-> the commit message explains this returns the "most recent" deadline,
-> but the doc here forgets to mention that. I suppose that means the
-> most recently set deadline and not the deadline furthest forward in
-> time (largest value).
+> A618 remains untouched (left at hw defaults) in this patch.
 >
-> Is "most recent" the appropriate behaviour when multiple deadlines have
-> been set? Would you not want the earliest deadline set so far instead?
+> Signed-off-by: Konrad Dybcio <konrad.dybcio@linaro.org>
+> ---
+>  drivers/gpu/drm/msm/adreno/a6xx_gpu.c | 55 ++++++++++++++++++++++++++++-------
+>  1 file changed, 45 insertions(+), 10 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+> index c5f5d0bb3fdc..bdae341e0a7c 100644
+> --- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+> @@ -786,39 +786,74 @@ static void a6xx_set_cp_protect(struct msm_gpu *gpu)
+>  static void a6xx_set_ubwc_config(struct msm_gpu *gpu)
+>  {
+>  	struct adreno_gpu *adreno_gpu = to_adreno_gpu(gpu);
+> -	u32 lower_bit = 2;
+> +	/* Unknown, introduced with A640/680 */
+>  	u32 amsbc = 0;
+> +	/*
+> +	 * The Highest Bank Bit value represents the bit of the highest DDR bank.
+> +	 * We then subtract 13 from it (13 is the minimum value allowed by hw) and
+> +	 * write the lowest two bits of the remaining value as hbb_lo and the
+> +	 * one above it as hbb_hi to the hardware. The default values (when HBB is
+> +	 * not specified) are 0, 0.
+> +	 */
+> +	u32 hbb_hi = 0;
+> +	u32 hbb_lo = 0;
+> +	/* Whether the minimum access length is 64 bits */
+> +	u32 min_acc_len = 0;
+> +	/* Unknown, introduced with A650 family, related to UBWC mode/ver 4 */
+>  	u32 rgb565_predicator = 0;
+> +	/* Unknown, introduced with A650 family */
+>  	u32 uavflagprd_inv = 0;
+> +	/* Entirely magic, per-GPU-gen value */
+> +	u32 ubwc_mode = 0;
+>  
+>  	/* a618 is using the hw default values */
+>  	if (adreno_is_a618(adreno_gpu))
+>  		return;
+>  
+> -	if (adreno_is_a640_family(adreno_gpu))
+> +	if (adreno_is_a619(adreno_gpu)) {
+> +		/* HBB = 14 */
+> +		hbb_lo = 1;
+> +	}
+> +
+> +	if (adreno_is_a630(adreno_gpu)) {
+> +		/* HBB = 15 */
+> +		hbb_lo = 2;
+> +	}
+> +
+> +	if (adreno_is_a640_family(adreno_gpu)) {
+>  		amsbc = 1;
+> +		/* HBB = 15 */
+> +		hbb_lo = 2;
+> +	}
+>  
+>  	if (adreno_is_a650(adreno_gpu) || adreno_is_a660(adreno_gpu)) {
+> -		/* TODO: get ddr type from bootloader and use 2 for LPDDR4 */
+> -		lower_bit = 3;
+>  		amsbc = 1;
+> +		/* TODO: get ddr type from bootloader and use 2 for LPDDR4 */
+> +		/* HBB = 16 */
+> +		hbb_lo = 3;
+>  		rgb565_predicator = 1;
+>  		uavflagprd_inv = 2;
+>  	}
+>  
+>  	if (adreno_is_7c3(adreno_gpu)) {
+> -		lower_bit = 1;
+>  		amsbc = 1;
+> +		/* HBB is unset in downstream DTS, defaulting to 0 */
+This is incorrect. For 7c3 hbb value is 14. So hbb_lo should be 1. FYI, hbb configurations were moved to the driver from DT in recent downstream kernels.
 
-It's not what a "normal" implementation of ->set_deadline() would do.
-But it was useful for determining that the deadline propagates
-correctly through composite (array/chain) fences.
-
-I guess I could change the test to work with a more normal
-->set_deadline() implementation (which would just track the nearest
-(in time) deadline).
-
-> What if none has been set?
-
-you'd get zero.. I suppose I could make it return an error instead..
-
-BR,
--R
-
-> > + */
-> > +struct sw_sync_get_deadline {
-> > +     __u64   deadline_ns;
-> > +     __u32   pad;
-> > +     __s32   fence_fd;
-> > +};
-> > +
-> >  #define SW_SYNC_IOC_MAGIC    'W'
-> >
-> >  #define SW_SYNC_IOC_CREATE_FENCE     _IOWR(SW_SYNC_IOC_MAGIC, 0,\
-> >               struct sw_sync_create_fence_data)
-> >
-> >  #define SW_SYNC_IOC_INC                      _IOW(SW_SYNC_IOC_MAGIC, 1=
-, __u32)
-> > +#define SW_SYNC_GET_DEADLINE         _IOWR(SW_SYNC_IOC_MAGIC, 2, \
-> > +             struct sw_sync_get_deadline)
-> >
-> >  static const struct dma_fence_ops timeline_fence_ops;
-> >
-> > @@ -171,6 +187,13 @@ static void timeline_fence_timeline_value_str(stru=
-ct dma_fence *fence,
-> >       snprintf(str, size, "%d", parent->value);
-> >  }
-> >
-> > +static void timeline_fence_set_deadline(struct dma_fence *fence, ktime=
-_t deadline)
-> > +{
-> > +     struct sync_pt *pt =3D dma_fence_to_sync_pt(fence);
-> > +
-> > +     pt->deadline =3D deadline;
-> > +}
-> > +
-> >  static const struct dma_fence_ops timeline_fence_ops =3D {
-> >       .get_driver_name =3D timeline_fence_get_driver_name,
-> >       .get_timeline_name =3D timeline_fence_get_timeline_name,
-> > @@ -179,6 +202,7 @@ static const struct dma_fence_ops timeline_fence_op=
-s =3D {
-> >       .release =3D timeline_fence_release,
-> >       .fence_value_str =3D timeline_fence_value_str,
-> >       .timeline_value_str =3D timeline_fence_timeline_value_str,
-> > +     .set_deadline =3D timeline_fence_set_deadline,
-> >  };
-> >
-> >  /**
-> > @@ -387,6 +411,37 @@ static long sw_sync_ioctl_inc(struct sync_timeline=
- *obj, unsigned long arg)
-> >       return 0;
-> >  }
-> >
-> > +static int sw_sync_ioctl_get_deadline(struct sync_timeline *obj, unsig=
-ned long arg)
-> > +{
-> > +     struct sw_sync_get_deadline data;
-> > +     struct dma_fence *fence;
-> > +     struct sync_pt *pt;
-> > +
-> > +     if (copy_from_user(&data, (void __user *)arg, sizeof(data)))
-> > +             return -EFAULT;
-> > +
-> > +     if (data.deadline_ns || data.pad)
-> > +             return -EINVAL;
-> > +
-> > +     fence =3D sync_file_get_fence(data.fence_fd);
-> > +     if (!fence)
-> > +             return -EINVAL;
-> > +
-> > +     pt =3D dma_fence_to_sync_pt(fence);
-> > +     if (!pt)
-> > +             return -EINVAL;
-> > +
-> > +
-> > +     data.deadline_ns =3D ktime_to_ns(pt->deadline);
-> > +
-> > +     dma_fence_put(fence);
-> > +
-> > +     if (copy_to_user((void __user *)arg, &data, sizeof(data)))
-> > +             return -EFAULT;
-> > +
-> > +     return 0;
-> > +}
-> > +
-> >  static long sw_sync_ioctl(struct file *file, unsigned int cmd,
-> >                         unsigned long arg)
-> >  {
-> > @@ -399,6 +454,9 @@ static long sw_sync_ioctl(struct file *file, unsign=
-ed int cmd,
-> >       case SW_SYNC_IOC_INC:
-> >               return sw_sync_ioctl_inc(obj, arg);
-> >
-> > +     case SW_SYNC_GET_DEADLINE:
-> > +             return sw_sync_ioctl_get_deadline(obj, arg);
-> > +
-> >       default:
-> >               return -ENOTTY;
-> >       }
-> > diff --git a/drivers/dma-buf/sync_debug.h b/drivers/dma-buf/sync_debug.=
-h
-> > index 6176e52ba2d7..2e0146d0bdbb 100644
-> > --- a/drivers/dma-buf/sync_debug.h
-> > +++ b/drivers/dma-buf/sync_debug.h
-> > @@ -55,11 +55,13 @@ static inline struct sync_timeline *dma_fence_paren=
-t(struct dma_fence *fence)
-> >   * @base: base fence object
-> >   * @link: link on the sync timeline's list
-> >   * @node: node in the sync timeline's tree
-> > + * @deadline: the most recently set fence deadline
-> >   */
-> >  struct sync_pt {
-> >       struct dma_fence base;
-> >       struct list_head link;
-> >       struct rb_node node;
-> > +     ktime_t deadline;
-> >  };
-> >
-> >  extern const struct file_operations sw_sync_debugfs_fops;
-> > diff --git a/include/uapi/linux/sync_file.h b/include/uapi/linux/sync_f=
-ile.h
-> > index 49325cf6749b..dc6645b2598b 100644
-> > --- a/include/uapi/linux/sync_file.h
-> > +++ b/include/uapi/linux/sync_file.h
-> > @@ -72,7 +72,11 @@ struct sync_file_info {
-> >   * @deadline_ns: absolute time of the deadline
-> >   * @pad:     must be zero
-> >   *
-> > - * The timebase for the deadline is CLOCK_MONOTONIC (same as vblank)
-> > + * The timebase for the deadline is CLOCK_MONOTONIC (same as vblank). =
- For
-> > + * example:
-> > + *
-> > + *     clock_gettime(CLOCK_MONOTONIC, &t);
-> > + *     deadline_ns =3D (t.tv_sec * 1000000000L) + t.tv_nsec + duration=
-_ns
+-Akhil.
+>  		rgb565_predicator = 1;
+>  		uavflagprd_inv = 2;
+>  	}
+>  
+>  	gpu_write(gpu, REG_A6XX_RB_NC_MODE_CNTL,
+> -		rgb565_predicator << 11 | amsbc << 4 | lower_bit << 1);
+> -	gpu_write(gpu, REG_A6XX_TPL1_NC_MODE_CNTL, lower_bit << 1);
+> -	gpu_write(gpu, REG_A6XX_SP_NC_MODE_CNTL,
+> -		uavflagprd_inv << 4 | lower_bit << 1);
+> -	gpu_write(gpu, REG_A6XX_UCHE_MODE_CNTL, lower_bit << 21);
+> +		  rgb565_predicator << 11 | hbb_hi << 10 | amsbc << 4 |
+> +		  min_acc_len << 3 | hbb_lo << 1 | ubwc_mode);
+> +
+> +	gpu_write(gpu, REG_A6XX_TPL1_NC_MODE_CNTL, hbb_hi << 4 |
+> +		  min_acc_len << 3 | hbb_lo << 1 | ubwc_mode);
+> +
+> +	gpu_write(gpu, REG_A6XX_SP_NC_MODE_CNTL, hbb_hi << 10 |
+> +		  uavflagprd_inv << 4 | min_acc_len << 3 |
+> +		  hbb_lo << 1 | ubwc_mode);
+> +
+> +	gpu_write(gpu, REG_A6XX_UCHE_MODE_CNTL, min_acc_len << 23 | hbb_lo << 21);
+>  }
+>  
+>  static int a6xx_cp_init(struct msm_gpu *gpu)
 >
-> Shouldn't this hunk be in patch 5 instead?
->
-> What's duration_ns? Maybe ns_until_my_deadline would be more clear that
-> it is something userspace freely chooses?
->
-> >   */
-> >  struct sync_set_deadline {
-> >       __u64   deadline_ns;
->
->
-> Thanks,
-> pq
+
