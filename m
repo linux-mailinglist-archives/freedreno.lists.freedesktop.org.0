@@ -2,72 +2,58 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id C63646A6416
-	for <lists+freedreno@lfdr.de>; Wed,  1 Mar 2023 01:17:17 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 914E86A6559
+	for <lists+freedreno@lfdr.de>; Wed,  1 Mar 2023 03:16:27 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 64D8E10E03F;
-	Wed,  1 Mar 2023 00:17:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5BBA710E07F;
+	Wed,  1 Mar 2023 02:16:26 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 186EC10E033;
- Wed,  1 Mar 2023 00:17:13 +0000 (UTC)
-Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 31SBVhn7022031; Wed, 1 Mar 2023 00:17:07 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
- h=from : to : cc :
- subject : date : message-id : mime-version : content-type; s=qcppdkim1;
- bh=uxs/uvyaAI1hc8qD6AihJvR3u2BlBnCUjk1sIauZrgw=;
- b=MbobjVEdPKeH1CeyL/wUyG/rRK04XP3VyCYK7oIM8Ka48CQHTS0tgWExLFcX4T0fCKJo
- 2Tziuf9Y6Ik4Sbq5uCX/n6ahsEagBz07/HoHGKBvineHG5IS0MhPNIASwO/hWQwAS1Rr
- NXxKNNQ0DYboepYg5BxRYNaZLm4W7e+S0+0HtfgZ0U5IumbovG3KPw6A3Ymn+mLVgsVX
- lqHCFR/Nd7P84XCDbSI+UdDkknmafN5IFwpiynWzR3A8CPyKJwcTyi+FupiDhiPtIG2g
- 2kb3fUQwLPKkf2SrQwbjwHTVktG1rJDio5eoet9hH4uBSwSep/srAs6RYZ+Tzkpgjve2 +w== 
-Received: from nalasppmta05.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3p17ryudje-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 01 Mar 2023 00:17:07 +0000
-Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
- [10.47.209.196])
- by NALASPPMTA05.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 3210H6RF004868
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 1 Mar 2023 00:17:06 GMT
-Received: from khsieh-linux1.qualcomm.com (10.80.80.8) by
- nalasex01a.na.qualcomm.com (10.47.209.196) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.986.41; Tue, 28 Feb 2023 16:17:05 -0800
-From: Kuogee Hsieh <quic_khsieh@quicinc.com>
-To: <robdclark@gmail.com>, <sean@poorly.run>, <swboyd@chromium.org>,
- <dianders@chromium.org>, <vkoul@kernel.org>, <daniel@ffwll.ch>,
- <airlied@gmail.com>, <agross@kernel.org>,
- <dmitry.baryshkov@linaro.org>, <andersson@kernel.org>
-Date: Tue, 28 Feb 2023 16:16:57 -0800
-Message-ID: <1677629817-18891-1-git-send-email-quic_khsieh@quicinc.com>
-X-Mailer: git-send-email 2.7.4
+Received: from mail-yw1-x1136.google.com (mail-yw1-x1136.google.com
+ [IPv6:2607:f8b0:4864:20::1136])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DDEB310E07F
+ for <freedreno@lists.freedesktop.org>; Wed,  1 Mar 2023 02:16:24 +0000 (UTC)
+Received: by mail-yw1-x1136.google.com with SMTP id
+ 00721157ae682-536af432ee5so329765517b3.0
+ for <freedreno@lists.freedesktop.org>; Tue, 28 Feb 2023 18:16:24 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=MpqcIMBd2WSo0/P0DK6pbtSqbDc0TAI/eMMDgcg1TZQ=;
+ b=NxPgCw/vamDZoC6wAFY0CZZqhAvRE+6GNrf2IQJUd2JkSWZXKVWV6kKpgWwEb0OuPo
+ XaKvab+cusGgfUSMfwVgqQI2Mk0z6Tfd+sjDxIlar069TnmcHsII29VV8FuC/59XvDAE
+ jmYzB8uOdfJfkn1912xcPkXrd2AQuW8/A8iqVeqIdXj/iqEcDgUBFKODKvYN8vqqY0YL
+ GbW+3X/wGZvvZx08fiQ4cYhUBmV9UERTg9cBw+xYTdo9ox/4Wm9CPaGVhSeMNh9r6at9
+ pKRnPlfhCB9BO4u9vkXsoV/nTL2UaKR6kuF+HpVeIpHCUXEuEMx4Z7gRdPYb75bX/L7A
+ G7NA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=MpqcIMBd2WSo0/P0DK6pbtSqbDc0TAI/eMMDgcg1TZQ=;
+ b=QBFsuDdpkqW8CpEtSgts75uCS0HNexc8nTFS59A+PdL9RS0BaEbtImH9qLMc/4jwTE
+ 77HjjTII/3NDKX/I/5gM9M1ovlWh15Zk3U3Uj9QpYtiWLmVmDK60QW88+6EnwZFvprtI
+ EpaY1Ek3GnIqG/OBNAzza5BnDMrHBxYUV21SOcy8fh5PLTkH4k/Pta6z6yLtS5W2Gqmo
+ aUojDriU8MeQDtNKVdpl0BvHeloDg0KY5VHovTXJMlft5RId4pqHhfd2/5qgE5M5uOFY
+ ar1TwWXHmbZCXKOkbApe/hScVztd33YXYFxlFQSjePFAa6uai7n2uaBMOZt8n+VoYFrW
+ 4wzA==
+X-Gm-Message-State: AO0yUKUGzRb9RzGzIxn2mzRTxDM7pYCL4N3E5Up3d39ubb0bJryyho/w
+ kX+SlGi+GSP+bPJzM8PhCFZ7pkf8D+TkMwt008d8HA==
+X-Google-Smtp-Source: AK7set9Lp1Gh0mv/hx+7TRqP5+gdVfavRb+ucnWIMkd1Ht+MXDm9xptjUJoSoQMr+b9FBRyoF4PG1TI0vTGM/G+2nhA=
+X-Received: by 2002:a81:b609:0:b0:52f:24ac:9575 with SMTP id
+ u9-20020a81b609000000b0052f24ac9575mr2900807ywh.3.1677636984029; Tue, 28 Feb
+ 2023 18:16:24 -0800 (PST)
 MIME-Version: 1.0
-Content-Type: text/plain
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-ORIG-GUID: 15oU2YIR0bst_rnlxMgElXicwas_0Izo
-X-Proofpoint-GUID: 15oU2YIR0bst_rnlxMgElXicwas_0Izo
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.219,Aquarius:18.0.942,Hydra:6.0.573,FMLib:17.11.170.22
- definitions=2023-02-28_19,2023-02-28_03,2023-02-09_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- mlxlogscore=999
- lowpriorityscore=0 bulkscore=0 priorityscore=1501 mlxscore=0 phishscore=0
- adultscore=0 malwarescore=0 suspectscore=0 clxscore=1015 spamscore=0
- impostorscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2212070000 definitions=main-2303010000
-Subject: [Freedreno] [PATCH v3] drm/msm/dp: check core_initialized flag at
- both host_init() and host_deinit()
+References: <1677629817-18891-1-git-send-email-quic_khsieh@quicinc.com>
+In-Reply-To: <1677629817-18891-1-git-send-email-quic_khsieh@quicinc.com>
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Date: Wed, 1 Mar 2023 04:16:12 +0200
+Message-ID: <CAA8EJpquZAhn+HswNxardN1fE8Zu1CKrCU5EiX=B8mGWuxfWnQ@mail.gmail.com>
+To: Kuogee Hsieh <quic_khsieh@quicinc.com>
+Content-Type: text/plain; charset="UTF-8"
+Subject: Re: [Freedreno] [PATCH v3] drm/msm/dp: check core_initialized flag
+ at both host_init() and host_deinit()
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,77 +66,97 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: quic_sbillaka@quicinc.com, linux-arm-msm@vger.kernel.org,
- quic_abhinavk@quicinc.com, dri-devel@lists.freedesktop.org,
- quic_khsieh@quicinc.com, freedreno@lists.freedesktop.org,
+Cc: freedreno@lists.freedesktop.org, quic_sbillaka@quicinc.com,
+ quic_abhinavk@quicinc.com, airlied@gmail.com, andersson@kernel.org,
+ robdclark@gmail.com, dri-devel@lists.freedesktop.org, dianders@chromium.org,
+ vkoul@kernel.org, agross@kernel.org, daniel@ffwll.ch,
+ linux-arm-msm@vger.kernel.org, swboyd@chromium.org, sean@poorly.run,
  linux-kernel@vger.kernel.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-There is a reboot/suspend test case where system suspend is forced
-during system booting up. Since dp_display_host_init() of external
-DP is executed at hpd thread context, this test case may created a
-scenario that dp_display_host_deinit() from pm_suspend() run before
-dp_display_host_init() if hpd thread has no chance to run during
-booting up while suspend request command was issued. At this scenario
-system will crash at aux register access at dp_display_host_deinit()
-since aux clock had not yet been enabled by dp_display_host_init().
-Therefore we have to ensure aux clock enabled by checking
-core_initialized flag before access aux registers at pm_suspend.
+On Wed, 1 Mar 2023 at 02:17, Kuogee Hsieh <quic_khsieh@quicinc.com> wrote:
+>
+> There is a reboot/suspend test case where system suspend is forced
+> during system booting up. Since dp_display_host_init() of external
+> DP is executed at hpd thread context, this test case may created a
+> scenario that dp_display_host_deinit() from pm_suspend() run before
+> dp_display_host_init() if hpd thread has no chance to run during
+> booting up while suspend request command was issued. At this scenario
+> system will crash at aux register access at dp_display_host_deinit()
+> since aux clock had not yet been enabled by dp_display_host_init().
+> Therefore we have to ensure aux clock enabled by checking
+> core_initialized flag before access aux registers at pm_suspend.
 
-Changes in v2:
--- at commit text, dp_display_host_init() instead of host_init()
--- at commit text, dp_display_host_deinit() instead of host_deinit()
+Can a call to dp_display_host_init() be moved from
+dp_display_config_hpd() to dp_display_bind()?
 
-Changes in v3:
--- re arrange to avoid commit text line over 75 chars
+Related question: what is the primary reason for having
+EV_HPD_INIT_SETUP and calling dp_display_config_hpd() via the event
+thread? Does DP driver really depend on DPU irqs being installed? As
+far as I understand, DP device uses MDSS interrupts and those IRQs are
+available and working at the time of dp_display_probe() /
+dp_display_bind().
 
-Fixes: 989ebe7bc446 ("drm/msm/dp: do not initialize phy until plugin interrupt received")
-Signed-off-by: Kuogee Hsieh <quic_khsieh@quicinc.com>
-Reviewed-by: Stephen Boyd <swboyd@chromium.org>
----
- drivers/gpu/drm/msm/dp/dp_display.c | 20 ++++++++++++--------
- 1 file changed, 12 insertions(+), 8 deletions(-)
+>
+> Changes in v2:
+> -- at commit text, dp_display_host_init() instead of host_init()
+> -- at commit text, dp_display_host_deinit() instead of host_deinit()
+>
+> Changes in v3:
+> -- re arrange to avoid commit text line over 75 chars
+>
+> Fixes: 989ebe7bc446 ("drm/msm/dp: do not initialize phy until plugin interrupt received")
+> Signed-off-by: Kuogee Hsieh <quic_khsieh@quicinc.com>
+> Reviewed-by: Stephen Boyd <swboyd@chromium.org>
+> ---
+>  drivers/gpu/drm/msm/dp/dp_display.c | 20 ++++++++++++--------
+>  1 file changed, 12 insertions(+), 8 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
+> index bde1a7c..1850738 100644
+> --- a/drivers/gpu/drm/msm/dp/dp_display.c
+> +++ b/drivers/gpu/drm/msm/dp/dp_display.c
+> @@ -460,10 +460,12 @@ static void dp_display_host_init(struct dp_display_private *dp)
+>                 dp->dp_display.connector_type, dp->core_initialized,
+>                 dp->phy_initialized);
+>
+> -       dp_power_init(dp->power, false);
+> -       dp_ctrl_reset_irq_ctrl(dp->ctrl, true);
+> -       dp_aux_init(dp->aux);
+> -       dp->core_initialized = true;
+> +       if (!dp->core_initialized) {
+> +               dp_power_init(dp->power, false);
+> +               dp_ctrl_reset_irq_ctrl(dp->ctrl, true);
+> +               dp_aux_init(dp->aux);
+> +               dp->core_initialized = true;
+> +       }
+>  }
+>
+>  static void dp_display_host_deinit(struct dp_display_private *dp)
+> @@ -472,10 +474,12 @@ static void dp_display_host_deinit(struct dp_display_private *dp)
+>                 dp->dp_display.connector_type, dp->core_initialized,
+>                 dp->phy_initialized);
+>
+> -       dp_ctrl_reset_irq_ctrl(dp->ctrl, false);
+> -       dp_aux_deinit(dp->aux);
+> -       dp_power_deinit(dp->power);
+> -       dp->core_initialized = false;
+> +       if (dp->core_initialized) {
+> +               dp_ctrl_reset_irq_ctrl(dp->ctrl, false);
+> +               dp_aux_deinit(dp->aux);
+> +               dp_power_deinit(dp->power);
+> +               dp->core_initialized = false;
+> +       }
+>  }
+>
+>  static int dp_display_usbpd_configure_cb(struct device *dev)
+> --
+> The Qualcomm Innovation Center, Inc. is a member of the Code Aurora Forum,
+> a Linux Foundation Collaborative Project
+>
 
-diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
-index bde1a7c..1850738 100644
---- a/drivers/gpu/drm/msm/dp/dp_display.c
-+++ b/drivers/gpu/drm/msm/dp/dp_display.c
-@@ -460,10 +460,12 @@ static void dp_display_host_init(struct dp_display_private *dp)
- 		dp->dp_display.connector_type, dp->core_initialized,
- 		dp->phy_initialized);
- 
--	dp_power_init(dp->power, false);
--	dp_ctrl_reset_irq_ctrl(dp->ctrl, true);
--	dp_aux_init(dp->aux);
--	dp->core_initialized = true;
-+	if (!dp->core_initialized) {
-+		dp_power_init(dp->power, false);
-+		dp_ctrl_reset_irq_ctrl(dp->ctrl, true);
-+		dp_aux_init(dp->aux);
-+		dp->core_initialized = true;
-+	}
- }
- 
- static void dp_display_host_deinit(struct dp_display_private *dp)
-@@ -472,10 +474,12 @@ static void dp_display_host_deinit(struct dp_display_private *dp)
- 		dp->dp_display.connector_type, dp->core_initialized,
- 		dp->phy_initialized);
- 
--	dp_ctrl_reset_irq_ctrl(dp->ctrl, false);
--	dp_aux_deinit(dp->aux);
--	dp_power_deinit(dp->power);
--	dp->core_initialized = false;
-+	if (dp->core_initialized) {
-+		dp_ctrl_reset_irq_ctrl(dp->ctrl, false);
-+		dp_aux_deinit(dp->aux);
-+		dp_power_deinit(dp->power);
-+		dp->core_initialized = false;
-+	}
- }
- 
- static int dp_display_usbpd_configure_cb(struct device *dev)
+
 -- 
-The Qualcomm Innovation Center, Inc. is a member of the Code Aurora Forum,
-a Linux Foundation Collaborative Project
-
+With best wishes
+Dmitry
