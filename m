@@ -2,70 +2,79 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id DDBFE6A7603
-	for <lists+freedreno@lfdr.de>; Wed,  1 Mar 2023 22:15:31 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 823756A7648
+	for <lists+freedreno@lfdr.de>; Wed,  1 Mar 2023 22:43:04 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 57EC910E333;
-	Wed,  1 Mar 2023 21:15:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3538510E34B;
+	Wed,  1 Mar 2023 21:43:03 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x136.google.com (mail-lf1-x136.google.com
- [IPv6:2a00:1450:4864:20::136])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8F5A010E333
- for <freedreno@lists.freedesktop.org>; Wed,  1 Mar 2023 21:15:26 +0000 (UTC)
-Received: by mail-lf1-x136.google.com with SMTP id i28so6736870lfv.0
- for <freedreno@lists.freedesktop.org>; Wed, 01 Mar 2023 13:15:26 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=+t7bN+vbdlsmpnEw6FpJggio/ds3KE+IlPtPNhbSz/o=;
- b=nD27E+SFsfYfEeC8tmYtQURee5bxHTpoMTHVmzm2iTC/QXVWbfZ0SRlGhFBKGO/92f
- 4nhRlj/KOGB0Z9nTKXZ6kNS7v6n+0c7KxWG47260iAyLI/kHhBGBJFe7WLAPyzpTDap0
- pUywfMkZ+ABCf+naW7JeULWamWERHrGhZ2jm4aMoLXm+2gdvTI/Atmoc/XVyYZ3t0gBb
- hyKE7wIDNmhiDiYa2Q85l1VL93I8/uZrLA+rFYEUiT/2UVrPWwq2qXEGB5QwkJ/cDiU+
- kYzmC4exPauuQdsqQ6hBNh1Znwx3wCG7qC+f1b9oMM8gLUbShpAsvaWzk3c/pVrRvHBE
- 1ewg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=+t7bN+vbdlsmpnEw6FpJggio/ds3KE+IlPtPNhbSz/o=;
- b=GiXBfSWNVB3bXKwvafT8wsIrghTNWWSmXm6Lt58PyQLtEv9iy6aXtkJimxci4bvq6S
- J8ovpr6QdEfVJDq2pxl8waRhg1IOwBeGGYgDmhDCG6Rb/XdC1rAT3Jcd8PplAjBalhax
- BHljc38/8OfwF2uMLONe+cd+7CWmlgzA8xU3r5bQpSH0StPhueVZxG/AvEUu8gBYIUxF
- wNhEJhBwiFuDicJgyejke11XTZzv/wFqVHwczYuB+bAaVlmDnkRzJkuOTLvc2VV3SFhv
- Zj8XFZeXs2CdGZjxaQEczVTzNplJBbQi3nihhhEWCWYaqEY4Ib5L7altc5UEcgs5VzoA
- Y8Rg==
-X-Gm-Message-State: AO0yUKUDtpiQE7NJw3mkMJKlspFyU9GOB3yIyAnh+NjAeeeePe2bI2qG
- /2Ihi79TVlQCWCw9QjQcTSBQOQ==
-X-Google-Smtp-Source: AK7set+pESwKWGqIuTj2Okqk+XOkiFg8hXqVZ2jA6DNWK+iXJy98GtUDRWaPrgd5gt1fyN6PK94J+g==
-X-Received: by 2002:ac2:483a:0:b0:4db:43b6:77b9 with SMTP id
- 26-20020ac2483a000000b004db43b677b9mr2057689lft.11.1677705324570; 
- Wed, 01 Mar 2023 13:15:24 -0800 (PST)
-Received: from ?IPV6:2001:14ba:a085:4d00::8a5?
- (dzccz6yyyyyyyyyyybcwt-3.rev.dnainternet.fi. [2001:14ba:a085:4d00::8a5])
- by smtp.gmail.com with ESMTPSA id
- d13-20020ac25ecd000000b004dd7f2854efsm1859065lfq.251.2023.03.01.13.15.23
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 01 Mar 2023 13:15:23 -0800 (PST)
-Message-ID: <86787af0-aa95-a2d8-d68c-555be54a3784@linaro.org>
-Date: Wed, 1 Mar 2023 23:15:22 +0200
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 70EA410E346;
+ Wed,  1 Mar 2023 21:43:00 +0000 (UTC)
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 321I0C0O025634; Wed, 1 Mar 2023 21:42:58 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
+ h=message-id : date :
+ mime-version : subject : to : cc : references : from : in-reply-to :
+ content-type : content-transfer-encoding; s=qcppdkim1;
+ bh=eNenZj8W5gJnrEqN5a1wLgQcKQ7e4JvieYK/klKgNT0=;
+ b=PHXA6Zxj9dsMz7zW9iNgaEJ4bsKvCP1v8sP4zxGlDkBjUQftnqeZUyLbV/gjmU00m1pM
+ d2V6m45Oq3dG19QCP8BpF8h2Rr+NYp3lC2kgS4ji/7f//ZGGIXPtBc0z/NI+cdIny42J
+ KNo/rCDEQEsaRZ72Q8M5wJXkxlAf0hqIcGkJ35BIaybjuKHisgGQRUQha2JCv46olhjj
+ wXUFafmc/IS6XktXwatoLHBlm8+vriGgo5z3u7ycr8/E7/UQ/hXcMmQglcpFR5GqTwNr
+ 1/mWfkBCRyLbovMJTPruxPpEcRzMSt5dCmjWcue8aP3x8l80Wrj9LhC+FMAgc4z/e3pl zg== 
+Received: from nalasppmta02.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3p20j2jmwt-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 01 Mar 2023 21:42:58 +0000
+Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
+ [10.47.209.196])
+ by NALASPPMTA02.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 321LguXT031811
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 1 Mar 2023 21:42:57 GMT
+Received: from [10.110.126.127] (10.80.80.8) by nalasex01a.na.qualcomm.com
+ (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.41; Wed, 1 Mar 2023
+ 13:42:56 -0800
+Message-ID: <866c86bb-fc16-bc78-6c0d-e693bf926241@quicinc.com>
+Date: Wed, 1 Mar 2023 13:42:55 -0800
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.8.0
-Content-Language: en-GB
-To: Kuogee Hsieh <quic_khsieh@quicinc.com>
-References: <1677629817-18891-1-git-send-email-quic_khsieh@quicinc.com>
- <CAA8EJpquZAhn+HswNxardN1fE8Zu1CKrCU5EiX=B8mGWuxfWnQ@mail.gmail.com>
- <38bf75b4-799a-9758-aae3-69a7e0fc3f58@quicinc.com>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-In-Reply-To: <38bf75b4-799a-9758-aae3-69a7e0fc3f58@quicinc.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-Subject: Re: [Freedreno] [PATCH v3] drm/msm/dp: check core_initialized flag
- at both host_init() and host_deinit()
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
+ Thunderbird/91.6.2
+Content-Language: en-US
+To: Marijn Suijten <marijn.suijten@somainline.org>
+References: <20230221184256.1436-1-quic_jesszhan@quicinc.com>
+ <20230221184256.1436-2-quic_jesszhan@quicinc.com>
+ <20230301100331.3altimojtca4zx6m@SoMainline.org>
+ <5de60136-4150-dcc7-517f-5d65452c5e1b@quicinc.com>
+ <20230301170812.zcu6upwzcfkt4s7c@SoMainline.org>
+From: Abhinav Kumar <quic_abhinavk@quicinc.com>
+In-Reply-To: <20230301170812.zcu6upwzcfkt4s7c@SoMainline.org>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-ORIG-GUID: s3aPSPYxKpnco-d-GJvXm3XRz9rArsUd
+X-Proofpoint-GUID: s3aPSPYxKpnco-d-GJvXm3XRz9rArsUd
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.219,Aquarius:18.0.942,Hydra:6.0.573,FMLib:17.11.170.22
+ definitions=2023-03-01_15,2023-03-01_03,2023-02-09_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 phishscore=0
+ spamscore=0 mlxlogscore=999 priorityscore=1501 impostorscore=0 mlxscore=0
+ adultscore=0 bulkscore=0 malwarescore=0 lowpriorityscore=0 suspectscore=0
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2212070000
+ definitions=main-2303010172
+Subject: Re: [Freedreno] [PATCH v4 1/4] drm/msm/dpu: Move TE setup to
+ prepare_for_kickoff()
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,126 +87,108 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, quic_sbillaka@quicinc.com,
- quic_abhinavk@quicinc.com, airlied@gmail.com, andersson@kernel.org,
- robdclark@gmail.com, dri-devel@lists.freedesktop.org, dianders@chromium.org,
- vkoul@kernel.org, agross@kernel.org, daniel@ffwll.ch,
- linux-arm-msm@vger.kernel.org, swboyd@chromium.org, sean@poorly.run,
- linux-kernel@vger.kernel.org
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ swboyd@chromium.org, robdclark@gmail.com, seanpaul@chromium.org,
+ dmitry.baryshkov@linaro.org, Jessica Zhang <quic_jesszhan@quicinc.com>,
+ freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 01/03/2023 18:57, Kuogee Hsieh wrote:
-> 
-> On 2/28/2023 6:16 PM, Dmitry Baryshkov wrote:
->> On Wed, 1 Mar 2023 at 02:17, Kuogee Hsieh <quic_khsieh@quicinc.com> 
->> wrote:
->>> There is a reboot/suspend test case where system suspend is forced
->>> during system booting up. Since dp_display_host_init() of external
->>> DP is executed at hpd thread context, this test case may created a
->>> scenario that dp_display_host_deinit() from pm_suspend() run before
->>> dp_display_host_init() if hpd thread has no chance to run during
->>> booting up while suspend request command was issued. At this scenario
->>> system will crash at aux register access at dp_display_host_deinit()
->>> since aux clock had not yet been enabled by dp_display_host_init().
->>> Therefore we have to ensure aux clock enabled by checking
->>> core_initialized flag before access aux registers at pm_suspend.
->> Can a call to dp_display_host_init() be moved from
->> dp_display_config_hpd() to dp_display_bind()?
-> 
-> yes,  Sankeerth's  "drm/msm/dp: enable pm_runtime support for dp driver" 
-> patch is doing that which is under review.
-> 
-> https://patchwork.freedesktop.org/patch/523879/?series=114297&rev=1
 
-No, he is doing another thing. He is moving these calls to pm_runtime 
-callbacks, not to the dp_display_bind().
 
->> Related question: what is the primary reason for having
->> EV_HPD_INIT_SETUP and calling dp_display_config_hpd() via the event
->> thread? Does DP driver really depend on DPU irqs being installed? As
->> far as I understand, DP device uses MDSS interrupts and those IRQs are
->> available and working at the time of dp_display_probe() /
->> dp_display_bind().
-> 
-> HDP gpio pin has to run through DP aux module 100ms denouncing logic and 
-> have its mask bits.
-> 
-> Therefore DP irq has to be enabled to receive DP isr with mask bits set.
-
-So... DP irq is enabled by the MDSS, not by the DPU. Again, why does DP 
-driver depend on DPU irqs being installed?
-
-> Similar mechanism is used for mdp, dsi, etc.
-
-And none of them uses irq_postinstall callback.
-
-> 
-> 
->>> Changes in v2:
->>> -- at commit text, dp_display_host_init() instead of host_init()
->>> -- at commit text, dp_display_host_deinit() instead of host_deinit()
+On 3/1/2023 9:08 AM, Marijn Suijten wrote:
+> On 2023-03-01 08:23:28, Abhinav Kumar wrote:
+>>
+>> On 3/1/2023 2:03 AM, Marijn Suijten wrote:
+>>> On 2023-02-21 10:42:53, Jessica Zhang wrote:
+>>>> Currently, DPU will enable TE during prepare_commit(). However, this
+>>>> will cause a crash and reboot to sahara when trying to read/write to
+>>>> register in get_autorefresh_config(), because the core clock rates
+>>>> aren't set at that time.
 >>>
->>> Changes in v3:
->>> -- re arrange to avoid commit text line over 75 chars
->>>
->>> Fixes: 989ebe7bc446 ("drm/msm/dp: do not initialize phy until plugin 
->>> interrupt received")
->>> Signed-off-by: Kuogee Hsieh <quic_khsieh@quicinc.com>
->>> Reviewed-by: Stephen Boyd <swboyd@chromium.org>
->>> ---
->>>   drivers/gpu/drm/msm/dp/dp_display.c | 20 ++++++++++++--------
->>>   1 file changed, 12 insertions(+), 8 deletions(-)
->>>
->>> diff --git a/drivers/gpu/drm/msm/dp/dp_display.c 
->>> b/drivers/gpu/drm/msm/dp/dp_display.c
->>> index bde1a7c..1850738 100644
->>> --- a/drivers/gpu/drm/msm/dp/dp_display.c
->>> +++ b/drivers/gpu/drm/msm/dp/dp_display.c
->>> @@ -460,10 +460,12 @@ static void dp_display_host_init(struct 
->>> dp_display_private *dp)
->>>                  dp->dp_display.connector_type, dp->core_initialized,
->>>                  dp->phy_initialized);
->>>
->>> -       dp_power_init(dp->power, false);
->>> -       dp_ctrl_reset_irq_ctrl(dp->ctrl, true);
->>> -       dp_aux_init(dp->aux);
->>> -       dp->core_initialized = true;
->>> +       if (!dp->core_initialized) {
->>> +               dp_power_init(dp->power, false);
->>> +               dp_ctrl_reset_irq_ctrl(dp->ctrl, true);
->>> +               dp_aux_init(dp->aux);
->>> +               dp->core_initialized = true;
->>> +       }
->>>   }
->>>
->>>   static void dp_display_host_deinit(struct dp_display_private *dp)
->>> @@ -472,10 +474,12 @@ static void dp_display_host_deinit(struct 
->>> dp_display_private *dp)
->>>                  dp->dp_display.connector_type, dp->core_initialized,
->>>                  dp->phy_initialized);
->>>
->>> -       dp_ctrl_reset_irq_ctrl(dp->ctrl, false);
->>> -       dp_aux_deinit(dp->aux);
->>> -       dp_power_deinit(dp->power);
->>> -       dp->core_initialized = false;
->>> +       if (dp->core_initialized) {
->>> +               dp_ctrl_reset_irq_ctrl(dp->ctrl, false);
->>> +               dp_aux_deinit(dp->aux);
->>> +               dp_power_deinit(dp->power);
->>> +               dp->core_initialized = false;
->>> +       }
->>>   }
->>>
->>>   static int dp_display_usbpd_configure_cb(struct device *dev)
->>> -- 
->>> The Qualcomm Innovation Center, Inc. is a member of the Code Aurora 
->>> Forum,
->>> a Linux Foundation Collaborative Project
+>>> Haven't seeen a crash like this on any of my devices (after implementing
+>>> INTF TE).  get_autorefresh_config() always reads zero (or 1 for
+>>> frame_count) except the first time it is called (autorefresh is left
+>>> enabled by our bootloader on SM6125) and triggers the disable codepath.
 >>>
 >>
+>> I feel that the fact that bootloader keeps things on for you is the
+>> reason you dont see the issue. With continuoush splash, clocks are kept
+>> enabled. We dont have it enabled (confirmed that).
+> 
+> That is quite likely, we may even have them enabled because of
+> simple-framebuffer in DTs; turning those off likely won't have any
+> effect for testing this.
+> 
+> For what it's worth, my SM8150 reads 0 for autorefresh.
+> 
 
--- 
-With best wishes
-Dmitry
+the value shouldnt really matter. The fact that you are able to read
+that register without crashing like we are means your clocks are on and 
+ours arent. Thats what this change is fixing.
 
+> <snip>
+> 
+>>> Then, for some patch hygiene, starting here:
+>>>
+>>>> Depends on: "Implement tearcheck support on INTF block" [3]
+>>>>
+>>>> Changes in V3:
+>>>> - Added function prototypes
+>>>> - Reordered function definitions to make change more legible
+>>>> - Removed prepare_commit() function from dpu_encoder_phys_cmd
+>>>>
+>>>> Changes in V4:
+>>>> - Reworded commit message to be more specific
+>>>> - Removed dpu_encoder_phys_cmd_is_ongoing_pptx() prototype
+>>>
+>>> ... until here: all this info belongs /below the cut/ outside of the
+>>> messge that becomes part of the commit when this patch is applied to the
+>>> tree.
+>>
+>> For DRM, I thought we are keeping the change log above the ---- ?
+>> Which means its allowed in the commit message.
+> 
+> I hope not, seems unlikely to have different rules across kernel
+> subsystems.  The main point is that this changelog and dependency chain
+> isn't of any value when the final patch is applied, regardless of
+> whether it is "allowed".
+> 
+
+I looked at a recently posted change by Rob and change log is above the ---
+
+https://patchwork.kernel.org/project/dri-devel/patch/20230301185432.3010939-1-robdclark@gmail.com/
+
+So we will follow that.
+
+>>>> [1] https://gitlab.freedesktop.org/drm/msm/-/blob/msm-next/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c#L1109
+>>>> [2] https://gitlab.freedesktop.org/drm/msm/-/blob/msm-next/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c#L2339
+>>>
+>>> Please replace these with "permalinks" (to a commit hash): a branch with
+>>> line number annotation will fall out of date soon as more patches are
+>>> applied that touch these files.
+>>>
+>>>> [3] https://patchwork.freedesktop.org/series/112332/
+>>>
+>>> Is this a hard dependency?  It seems this series applies cleanly on
+>>> -next and - from a cursory view - should be applicable and testable
+>>> without my INTF TE series.  However, Dmitry asked me to move some code
+>>> around in review resulting in separate callbacks in the encoder, rather
+>>> than having various if(has_intf_te) within those callbacks.  That'll
+>>> cause conflicts when I eventually get to respin a v2.
+>>>
+>>
+>> I guess Jessica listed this because without intf_te series there is no
+>> crash because hw_pp would be NULL and autorefresh() would return early.
+>> So dependency is from the standpoint of when this series is needed and
+>> not from compilation point of view.
+> 
+> That is indeed the question.  I'll leave it to the maintainers to decide
+> what order to apply these in, which we should be made aware of before
+> submitting v2 so that one of us can resolve the conflicts.
+> 
+
+It should be first the intf TE series and then this one. You can go 
+ahead and post your v2, we will rebase on top of yours.
+
+> - Marijn
