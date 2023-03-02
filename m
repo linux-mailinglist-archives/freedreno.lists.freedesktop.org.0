@@ -1,72 +1,72 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id F31A36A86F0
-	for <lists+freedreno@lfdr.de>; Thu,  2 Mar 2023 17:40:09 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 763E66A87D6
+	for <lists+freedreno@lfdr.de>; Thu,  2 Mar 2023 18:26:04 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BD74010E244;
-	Thu,  2 Mar 2023 16:40:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3531D10E102;
+	Thu,  2 Mar 2023 17:26:03 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x12c.google.com (mail-lf1-x12c.google.com
- [IPv6:2a00:1450:4864:20::12c])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A759010E244
- for <freedreno@lists.freedesktop.org>; Thu,  2 Mar 2023 16:40:06 +0000 (UTC)
-Received: by mail-lf1-x12c.google.com with SMTP id s20so22837137lfb.11
- for <freedreno@lists.freedesktop.org>; Thu, 02 Mar 2023 08:40:06 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=clemDdlw5AVVfbBMfMMVk1mB/n91ZZIxJxGYFhtaE10=;
- b=ZcWzd2VISv7VbjUNUOKAd/ScIHUIlD+kat046CfvIzTRNnRvWidoivUQJBI3P2pjEZ
- CX+7iV9lc2HS9oMSqLt+RlZy/vON+VOJlP80aYDi62yiZnqnbfZU+sV082TlH2Ke1dGT
- gWITtMMdjJOOHllC5SmBmxo5X6qF8xdJBoyLTyNAjEgb9ABPnWCtZ7CRyNwI1sQOEEOj
- LDAE8Jgl0CkqG7rSUE7WHa2tiPGyLmMyer7I6eu4DqcYHosmuUrkbXuHOj8+8O9st8O6
- qmzZrGuZ3/VKs4dkrfb1X+PZWK8sqxeb8v9+xmFTTQdnevZt4L6a8bcyHWWtoB7MgbmC
- KWnw==
+Received: from mail-io1-xd31.google.com (mail-io1-xd31.google.com
+ [IPv6:2607:f8b0:4864:20::d31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DF53E10E102
+ for <freedreno@lists.freedesktop.org>; Thu,  2 Mar 2023 17:26:00 +0000 (UTC)
+Received: by mail-io1-xd31.google.com with SMTP id 76so7024220iou.9
+ for <freedreno@lists.freedesktop.org>; Thu, 02 Mar 2023 09:26:00 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=VaTqYDyLafiZL0B3tSJBwk7qRC++RXXMoAq4jrwnI7o=;
+ b=C826dozkSH2GhW7IjIMlV8In/06pLnzjwoHZB+d+h/IYrBwP0YZqr/fF9tgX08GhF6
+ rZLr3jiUcxiSCRgDVaX+2PqjWd99zGCQLT+nq3vj5P/GQ08fy/JwwaElBZ9jHnBQM9qM
+ 6pjrbGtsEd/78qwHv5h9HrKcYWNVf/uZuGwW8=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=clemDdlw5AVVfbBMfMMVk1mB/n91ZZIxJxGYFhtaE10=;
- b=cllWr1x0kPJAXHZMq2xeEpFPeaoFsevdRfqpOcekhE+lMJuvS5Gpn5t/uMey11ia8Q
- pKGSLRIXiDr03BkV2899l1LhYHTN2S2hBB7wTz9dLh8kwbLEfbSArWlUSG1zu824uLLn
- S8Yt/+P8ZhVzSlRwaHf+Ubyz6qvHoqZJfd88l7PiY0W6QkEo1FF83Z8aLhAkWUp7pAyz
- meNwVqPTJqNWzf91OxArriJVLsLMUYPQiTzhBfyI3/K1GjdwBxL0MNxHUZHURphPXtMO
- jHYkBJT6XO04tBIxSQpznv2ux5L4QxvI5eNoNGondD77QNo8IzbJKWRrJOoog7SaDckS
- 0ubQ==
-X-Gm-Message-State: AO0yUKUH1xZg0L/nwkFUQDwRU+Q7CYzKmMlvGGL6yWMfSuRsBWNUPzgt
- OE2zPyHfq9Xumrr4XT5InCAdMw==
-X-Google-Smtp-Source: AK7set8kh2kDzBB4CHJkTz1iDmV3/IKPUx0riwaparu6P77949nYB2XB727Wg3k9aIn+VVypxEti2Q==
-X-Received: by 2002:ac2:5d41:0:b0:4de:ca63:b2d2 with SMTP id
- w1-20020ac25d41000000b004deca63b2d2mr2956571lfd.26.1677775204510; 
- Thu, 02 Mar 2023 08:40:04 -0800 (PST)
-Received: from ?IPV6:2001:14ba:a085:4d00::8a5?
- (dzccz6yyyyyyyyyyybcwt-3.rev.dnainternet.fi. [2001:14ba:a085:4d00::8a5])
- by smtp.gmail.com with ESMTPSA id
- e19-20020ac25473000000b0048a9e899693sm2211229lfn.16.2023.03.02.08.40.03
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=VaTqYDyLafiZL0B3tSJBwk7qRC++RXXMoAq4jrwnI7o=;
+ b=ki+5xBcgBe0UEJwWNcTc9d338Hg3VYehSbA7DoOQ2MiJpXonoFjtHaLZO4EspOTZTh
+ WueIIwX+jKCzhjqvlPloDlir65jt2o7tZ7uUGAYL3gXQGNTK0r6cSKW41SWgV7k/Lhpf
+ 9k33CHArEGfwD0DjU0ya6j/EqzFq6Wzcto4o7RPad6GmgJtdjA0orL0QOuvNhOq15aa4
+ KNkXtjyNsV3CH9FnKoMRdVSivAxtFY58JWFfk5LGxhF4pMjCF232nQG9V0HG3Vc7xDFf
+ RlYr6gLmWQ7MWHgLaxWK7mX0ESREQlSdmT18THKiiA4MtlGunKURIgEOfFEsZbrSwcjj
+ toZg==
+X-Gm-Message-State: AO0yUKXIZKaLBExLTbIkpv5FUM1AZP6RF8wnQIyR7GVljw9A5q7iqKh0
+ 4YmJ/GCYeJMkuBGIMStMLjGbXQC2eQ03Stcn
+X-Google-Smtp-Source: AK7set95RUgIdGn39CSphX+gdVLMfduysCNz1luVX7vjzVg9+BpgIpSXqUFjHpk6yWMLdE4XhCCovQ==
+X-Received: by 2002:a5e:a903:0:b0:74c:e1a5:c5e3 with SMTP id
+ c3-20020a5ea903000000b0074ce1a5c5e3mr7126584iod.0.1677777960091; 
+ Thu, 02 Mar 2023 09:26:00 -0800 (PST)
+Received: from mail-il1-f182.google.com (mail-il1-f182.google.com.
+ [209.85.166.182]) by smtp.gmail.com with ESMTPSA id
+ i17-20020a5d8411000000b00743672fee2asm2895ion.35.2023.03.02.09.25.59
+ for <freedreno@lists.freedesktop.org>
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 02 Mar 2023 08:40:04 -0800 (PST)
-Message-ID: <7de00f26-cc93-b549-f66e-8d1f8867f8b7@linaro.org>
-Date: Thu, 2 Mar 2023 18:40:03 +0200
+ Thu, 02 Mar 2023 09:25:59 -0800 (PST)
+Received: by mail-il1-f182.google.com with SMTP id p13so90691ilp.11
+ for <freedreno@lists.freedesktop.org>; Thu, 02 Mar 2023 09:25:59 -0800 (PST)
+X-Received: by 2002:a92:a005:0:b0:316:ff39:6bbf with SMTP id
+ e5-20020a92a005000000b00316ff396bbfmr4912637ili.6.1677777959145; Thu, 02 Mar
+ 2023 09:25:59 -0800 (PST)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.8.0
-Content-Language: en-GB
-To: Vinod Polimera <quic_vpolimer@quicinc.com>,
- dri-devel@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
- freedreno@lists.freedesktop.org, devicetree@vger.kernel.org
-References: <1677774797-31063-1-git-send-email-quic_vpolimer@quicinc.com>
- <1677774797-31063-15-git-send-email-quic_vpolimer@quicinc.com>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-In-Reply-To: <1677774797-31063-15-git-send-email-quic_vpolimer@quicinc.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH v14 14/14] drm/msm/dp: set self refresh
- aware based on PSR support
+References: <20230131141756.RFT.v2.1.I723a3761d57ea60c5dd754c144aed6c3b2ea6f5a@changeid>
+ <CAPY8ntAUhVB6UtQTeHAcxNW950Ou+NcEoGwk3JnVWLay89_0Nw@mail.gmail.com>
+ <CAD=FV=UNx7ivymvpGKcuyvvepvo-T2B2aREJy2GyawTHCnazsw@mail.gmail.com>
+ <e077d60d-5881-1ccc-a17a-fbe64392e29d@linaro.org>
+In-Reply-To: <e077d60d-5881-1ccc-a17a-fbe64392e29d@linaro.org>
+From: Doug Anderson <dianders@chromium.org>
+Date: Thu, 2 Mar 2023 09:25:47 -0800
+X-Gmail-Original-Message-ID: <CAD=FV=W_FVUOD6T0Lx-JTqrqaP9gPgb4R-2TaSqKwkaBkqHJmQ@mail.gmail.com>
+Message-ID: <CAD=FV=W_FVUOD6T0Lx-JTqrqaP9gPgb4R-2TaSqKwkaBkqHJmQ@mail.gmail.com>
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [Freedreno] [RFT PATCH v2 1/3] drm/bridge: tc358762: Set
+ pre_enable_prev_first
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,22 +79,94 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: quic_kalyant@quicinc.com, quic_sbillaka@quicinc.com, dianders@chromium.org,
- quic_bjorande@quicinc.com, quic_abhinavk@quicinc.com,
- quic_vproddut@quicinc.com, linux-kernel@vger.kernel.org,
- quic_khsieh@quicinc.com, robdclark@gmail.com, swboyd@chromium.org
+Cc: Sean Paul <sean@poorly.run>, Neil Armstrong <neil.armstrong@linaro.org>,
+ linux-kernel@vger.kernel.org, Dave Stevenson <dave.stevenson@raspberrypi.com>,
+ linux-arm-msm@vger.kernel.org, Jonas Karlman <jonas@kwiboo.se>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>, Stephen Boyd <swboyd@chromium.org>,
+ Rob Clark <robdclark@gmail.com>, Vinod Koul <vkoul@kernel.org>,
+ dri-devel@lists.freedesktop.org, Andrzej Hajda <andrzej.hajda@intel.com>,
+ freedreno@lists.freedesktop.org, Robert Foss <robert.foss@linaro.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 02/03/2023 18:33, Vinod Polimera wrote:
-> For the PSR to kick in, self_refresh_aware has to be set.
-> Initialize it based on the PSR support for the eDP interface.
-> 
-> Signed-off-by: Vinod Polimera <quic_vpolimer@quicinc.com>
+Hi,
 
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+On Mon, Feb 27, 2023 at 5:24=E2=80=AFPM Dmitry Baryshkov
+<dmitry.baryshkov@linaro.org> wrote:
+>
+> On 28/02/2023 02:26, Doug Anderson wrote:
+> > Hi,
+> >
+> > On Wed, Feb 1, 2023 at 1:51=E2=80=AFAM Dave Stevenson
+> > <dave.stevenson@raspberrypi.com> wrote:
+> >>
+> >> On Tue, 31 Jan 2023 at 22:22, Douglas Anderson <dianders@chromium.org>=
+ wrote:
+> >>>
+> >>> Set the "pre_enable_prev_first" as provided by commit 4fb912e5e190
+> >>> ("drm/bridge: Introduce pre_enable_prev_first to alter bridge init
+> >>> order"). This should allow us to revert commit ec7981e6c614
+> >>> ("drm/msm/dsi: don't powerup at modeset time for parade-ps8640") and
+> >>> commit 7d8e9a90509f ("drm/msm/dsi: move DSI host powerup to modeset
+> >>> time").
+> >>
+> >> I see no reference in the TC358762 datasheet to requiring the DSI
+> >> interface to be in any particular state.
+> >> However, setting this flag does mean that the DSI host doesn't need to
+> >> power up and down for each host_transfer request from
+> >> tc358762_pre_enable/tc358762_init, so on that basis I'm good with it.
+> >>
+> >> Reviewed-by: Dave Stevenson <dave.stevenson@raspberrypi.com>
+> >>
+> >>> Cc: Dave Stevenson <dave.stevenson@raspberrypi.com>
+> >>> Cc: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> >>> Cc: Abhinav Kumar <quic_abhinavk@quicinc.com>
+> >>> Signed-off-by: Douglas Anderson <dianders@chromium.org>
+> >>> ---
+> >>>
+> >>> (no changes since v1)
+> >>>
+> >>>   drivers/gpu/drm/bridge/tc358762.c | 1 +
+> >>>   1 file changed, 1 insertion(+)
+> >>>
+> >>> diff --git a/drivers/gpu/drm/bridge/tc358762.c b/drivers/gpu/drm/brid=
+ge/tc358762.c
+> >>> index 0b6a28436885..77f7f7f54757 100644
+> >>> --- a/drivers/gpu/drm/bridge/tc358762.c
+> >>> +++ b/drivers/gpu/drm/bridge/tc358762.c
+> >>> @@ -229,6 +229,7 @@ static int tc358762_probe(struct mipi_dsi_device =
+*dsi)
+> >>>          ctx->bridge.funcs =3D &tc358762_bridge_funcs;
+> >>>          ctx->bridge.type =3D DRM_MODE_CONNECTOR_DPI;
+> >>>          ctx->bridge.of_node =3D dev->of_node;
+> >>> +       ctx->bridge.pre_enable_prev_first =3D true;
+> >>>
+> >>>          drm_bridge_add(&ctx->bridge);
+> >
+> > Abhinav asked what the plan was for landing this [1]. Since this isn't
+> > urgent, I guess the plan is to land patch #1 in drm-misc-next. Then we
+> > sit and wait until it percolates into mainline and, once it does, then
+> > patch #2 and #3 can land.
+> >
+> > Since I have Dave's review I can commit this to drm-misc-next myself.
+> > My plan will be to wait until Thursday or Friday of this week (to give
+> > people a bit of time to object) and then land patch #1. Then I'll
+> > snooze things for a while and poke Abhinav and Dmitry to land patch #2
+> > / #3 when I notice it in mainline. If, at any point, someone comes out
+> > of the woodwork and yells that this is breaking them then, worst case,
+> > we can revert.
+>
+> This plan sounds good to me.
 
--- 
-With best wishes
-Dmitry
+Pushed to drm-misc-next:
 
+55cac10739d5 drm/bridge: tc358762: Set pre_enable_prev_first
+
+If my math is right then I'd expect that to get into mainline for
+6.4-rc1. I guess that means it'll be in Linus's tree mid-May. I'll
+schedule a reminder to suggest landing at patches #2 and #3 again in
+late May.
+
+-Doug
