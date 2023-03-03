@@ -2,45 +2,80 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id CBA246AA2AC
-	for <lists+freedreno@lfdr.de>; Fri,  3 Mar 2023 22:51:28 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 037AD6AA4BD
+	for <lists+freedreno@lfdr.de>; Fri,  3 Mar 2023 23:46:05 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EA5BD10E772;
-	Fri,  3 Mar 2023 21:51:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9D04B10E787;
+	Fri,  3 Mar 2023 22:46:01 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3AC4110E0B5;
- Fri,  3 Mar 2023 21:51:24 +0000 (UTC)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id A5090B81A34;
- Fri,  3 Mar 2023 21:51:22 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D5195C433EF;
- Fri,  3 Mar 2023 21:51:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1677880281;
- bh=Br50V+ZnNhKeUVmf1H88XflaSYA3zbjNUSaOrfbHpWM=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=L0Wgj2qDMYr7AQFFunxAnGexnwRXj41XfheavwO4sQNH9ThQWN7YWlj2Dp73Ahdw/
- 2uXKlv/22ez+DVr7ejBSi69+v/MiAkOp+L5BIU6bdV3QorAgVbad15r3DUWG3n/DEN
- M10p5eVyq7bMRTBYHiwIAV7dwH08VMMfs8aaRdkMd/hoae6WtB50Y8/GEMWE9hfPsr
- X7GJJ+ZO9cmyRf0HO7C4myHQ+bm9TdwZkTHEpy9iYruGmrWIunUXZc3w5CkIZpxxYi
- kXKl6tYBhJNPTsNy5u9kGPM7Uf/kIR6xDR/XGWpONnVXpZwWkjJ02fE/UU6YbDF9O8
- LSMB76p+PtvfA==
-Date: Fri, 3 Mar 2023 21:51:12 +0000
-From: Conor Dooley <conor@kernel.org>
-To: Rob Herring <robh@kernel.org>
-Message-ID: <cdad5aa0-bd94-4137-9063-af45e94a25b7@spud>
-References: <20230303214223.49451-1-robh@kernel.org>
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D294B10E785;
+ Fri,  3 Mar 2023 22:45:58 +0000 (UTC)
+Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 323LUSja024354; Fri, 3 Mar 2023 22:45:52 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
+ h=message-id : date :
+ mime-version : subject : to : cc : references : from : in-reply-to :
+ content-type : content-transfer-encoding; s=qcppdkim1;
+ bh=cwkVrpUacoldAI37mTHT2Q17LBTLJKo8aObqKP2hVJ8=;
+ b=iPe0iQNC2hFizegFcGCxadsG6t3a/EAzI7EOyhkoNQPqqoFZIiMqnjBST6oCB6YgPA4d
+ d4+3Ey+Juj+oC7z/Bdf7ew7F7dVmdBO9b17jkN0zjxzLc6x7rCmuLShWhfFseJ3r2/UB
+ jtVtDkS+skq+3hWN2D+lFYudamRspMv1WJbnFFanB7yNpihHI5ktcZvWBCceyZY4/UxC
+ SW+IaOtFsyylVdDB7xNq14je+cGllYcu/Giaa5eYtNDUDiGW2eVJmWfC3Y/C25km6ve0
+ j2EAa5A72Ep+4qmXbl0XDP85mp00N63qOninMADSUdML4js01crLtpUW0G6aOn+Cwiun SQ== 
+Received: from nalasppmta02.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3p3c8htgjy-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Fri, 03 Mar 2023 22:45:51 +0000
+Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
+ [10.47.209.196])
+ by NALASPPMTA02.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 323MjoXk013469
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Fri, 3 Mar 2023 22:45:50 GMT
+Received: from [10.110.57.47] (10.80.80.8) by nalasex01a.na.qualcomm.com
+ (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.41; Fri, 3 Mar 2023
+ 14:45:49 -0800
+Message-ID: <4c733721-855a-85fd-82a9-9af0f80fc02e@quicinc.com>
+Date: Fri, 3 Mar 2023 14:45:48 -0800
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature"; boundary="mffVr3k4EP4yfp2t"
-Content-Disposition: inline
-In-Reply-To: <20230303214223.49451-1-robh@kernel.org>
-Subject: Re: [Freedreno] [PATCH] dt-bindings: yamllint: Require a space
- after a comment '#'
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.6.1
+Content-Language: en-US
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+References: <1677629817-18891-1-git-send-email-quic_khsieh@quicinc.com>
+ <CAA8EJpquZAhn+HswNxardN1fE8Zu1CKrCU5EiX=B8mGWuxfWnQ@mail.gmail.com>
+ <38bf75b4-799a-9758-aae3-69a7e0fc3f58@quicinc.com>
+ <86787af0-aa95-a2d8-d68c-555be54a3784@linaro.org>
+ <dddd3f2f-28e7-2188-5498-399cdb75adb4@quicinc.com>
+ <CAA8EJpokgWnRZ6rvNtsY4=WVcQv-5bCPYRE+dTqcWjbgzO-bxw@mail.gmail.com>
+From: Kuogee Hsieh <quic_khsieh@quicinc.com>
+In-Reply-To: <CAA8EJpokgWnRZ6rvNtsY4=WVcQv-5bCPYRE+dTqcWjbgzO-bxw@mail.gmail.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-GUID: puOMUtC6SAly4judYQ59r4W_1yRT2QoJ
+X-Proofpoint-ORIG-GUID: puOMUtC6SAly4judYQ59r4W_1yRT2QoJ
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.219,Aquarius:18.0.942,Hydra:6.0.573,FMLib:17.11.170.22
+ definitions=2023-03-03_05,2023-03-03_01,2023-02-09_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ lowpriorityscore=0
+ clxscore=1015 phishscore=0 malwarescore=0 mlxlogscore=999
+ priorityscore=1501 impostorscore=0 mlxscore=0 bulkscore=0 suspectscore=0
+ adultscore=0 spamscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2212070000 definitions=main-2303030191
+Subject: Re: [Freedreno] [PATCH v3] drm/msm/dp: check core_initialized flag
+ at both host_init() and host_deinit()
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,75 +88,112 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Andrew Lunn <andrew@lunn.ch>, alsa-devel@alsa-project.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Conor Dooley <conor.dooley@microchip.com>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- linux-phy@lists.infradead.org, linux-riscv@lists.infradead.org,
- linux-clk@vger.kernel.org, Kishon Vijay Abraham I <kishon@kernel.org>,
- Herbert Xu <herbert@gondor.apana.org.au>, Marc Zyngier <maz@kernel.org>,
- Vinod Koul <vkoul@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, linux-media@vger.kernel.org,
- devicetree@vger.kernel.org, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- linux-gpio@vger.kernel.org, Mark Brown <broonie@kernel.org>,
- Thomas Gleixner <tglx@linutronix.de>,
- Mauro Carvalho Chehab <mchehab@kernel.org>, Sean Paul <sean@poorly.run>,
- linux-arm-kernel@lists.infradead.org, Stephen Boyd <sboyd@kernel.org>,
- netdev@vger.kernel.org, Eric Dumazet <edumazet@google.com>,
- linux-spi@vger.kernel.org, Rob Clark <robdclark@gmail.com>,
- linux-crypto@vger.kernel.org, Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- freedreno@lists.freedesktop.org, "David S. Miller" <davem@davemloft.net>,
- Heiner Kallweit <hkallweit1@gmail.com>
+Cc: freedreno@lists.freedesktop.org, quic_sbillaka@quicinc.com,
+ quic_abhinavk@quicinc.com, airlied@gmail.com, andersson@kernel.org,
+ robdclark@gmail.com, dri-devel@lists.freedesktop.org, dianders@chromium.org,
+ vkoul@kernel.org, agross@kernel.org, daniel@ffwll.ch,
+ linux-arm-msm@vger.kernel.org, swboyd@chromium.org, sean@poorly.run,
+ linux-kernel@vger.kernel.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 
---mffVr3k4EP4yfp2t
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+On 3/2/2023 11:04 AM, Dmitry Baryshkov wrote:
+> On Thu, 2 Mar 2023 at 20:41, Kuogee Hsieh <quic_khsieh@quicinc.com> wrote:
+>>
+>> On 3/1/2023 1:15 PM, Dmitry Baryshkov wrote:
+>>> On 01/03/2023 18:57, Kuogee Hsieh wrote:
+>>>> On 2/28/2023 6:16 PM, Dmitry Baryshkov wrote:
+>>>>> On Wed, 1 Mar 2023 at 02:17, Kuogee Hsieh <quic_khsieh@quicinc.com>
+>>>>> wrote:
+>>>>>> There is a reboot/suspend test case where system suspend is forced
+>>>>>> during system booting up. Since dp_display_host_init() of external
+>>>>>> DP is executed at hpd thread context, this test case may created a
+>>>>>> scenario that dp_display_host_deinit() from pm_suspend() run before
+>>>>>> dp_display_host_init() if hpd thread has no chance to run during
+>>>>>> booting up while suspend request command was issued. At this scenario
+>>>>>> system will crash at aux register access at dp_display_host_deinit()
+>>>>>> since aux clock had not yet been enabled by dp_display_host_init().
+>>>>>> Therefore we have to ensure aux clock enabled by checking
+>>>>>> core_initialized flag before access aux registers at pm_suspend.
+>>>>> Can a call to dp_display_host_init() be moved from
+>>>>> dp_display_config_hpd() to dp_display_bind()?
+>>>> yes,  Sankeerth's  "drm/msm/dp: enable pm_runtime support for dp
+>>>> driver" patch is doing that which is under review.
+>>>>
+>>>> https://patchwork.freedesktop.org/patch/523879/?series=114297&rev=1
+>>> No, he is doing another thing. He is moving these calls to pm_runtime
+>>> callbacks, not to the dp_display_bind().
+>>>
+>>>>> Related question: what is the primary reason for having
+>>>>> EV_HPD_INIT_SETUP and calling dp_display_config_hpd() via the event
+>>>>> thread? Does DP driver really depend on DPU irqs being installed? As
+>>>>> far as I understand, DP device uses MDSS interrupts and those IRQs are
+>>>>> available and working at the time of dp_display_probe() /
+>>>>> dp_display_bind().
+>>>> HDP gpio pin has to run through DP aux module 100ms denouncing logic
+>>>> and have its mask bits.
+>>>>
+>>>> Therefore DP irq has to be enabled to receive DP isr with mask bits set.
+>>> So... DP irq is enabled by the MDSS, not by the DPU. Again, why does
+>>> DP driver depend on DPU irqs being installed?
+>> sorry, previously i mis understand your question -- why does DP driver
+>> depend on DPU irqs being installed?
+>>
+>> now, I think you are asking why  dpu_irq_postinstall() ==>
+>> msm_dp_irq_postinstall() ==> event_thread ==> dp_display_config_hdp()
+>> ==> enable_irq(dp->irq)
+>>
+>> With the below test i had run, i think the reason is to make sure
+>> dp->irq be requested before enable it.
+>>
+>> I just run the execution timing order test and collect execution order
+>> as descending order at below,
+>>
+>> 1) dp_display_probe() -- start
+>>
+>> 2) dp_display_bind()
+>>
+>> 3) msm_dp_modeset_init()  ==> dp_display_request_irq() ==>
+>> dp_display_get_next_bridge()
+>>
+>> 4) dpu_irq_postinstall() ==> msm_dp_irq_postinstall() ==>
+>> enable_irq(dp->irq)
+>>
+>> 5) dp_display_probe() -- end
+>>
+>> dp->irq is request at msm_dp_modeset_init() and enabled after.
+> Should be moved to probe.
+>
+>> That bring up the issue to move DP's dp_display_host_init() executed at
+>> dp_display_bind().
+>>
+>> Since eDP have dp_dispaly_host_init() executed at
+>> dp_display_get_next_bridge() which executed after dp_display_bind().
+>>
+>> If moved DP's dp_display_host_init() to dp_dispaly_bind() which means DP
+>> will be ready to receive HPD irq before eDP ready.
+> And the AUX bus population should also be moved to probe(), which
+> means we should call dp_display_host_init() from probe() too.
+> Having aux_bus_populate in probe would allow moving component_add() to
+> the done_probing() callback, making probe/defer case more robust
+>
+>> This may create some uncertainties at execution flow and complicate
+>> things up.
+> Hopefully the changes suggested above will make it simpler.
 
-On Fri, Mar 03, 2023 at 03:42:23PM -0600, Rob Herring wrote:
-> Enable yamllint to check the prefered commenting style of requiring a
-> space after a comment character '#'. Fix the cases in the tree which
-> have a warning with this enabled. Most cases just need a space after the
-> '#'. A couple of cases with comments which were not intended to be
-> comments are revealed. Those were in ti,sa2ul.yaml, ti,cal.yaml, and
-> brcm,bcmgenet.yaml.
->=20
-> Signed-off-by: Rob Herring <robh@kernel.org>
-> ---
+ok, I will create another patch to
 
-> Cc: Conor Dooley <conor.dooley@microchip.com>
+1) move dp_display_host_init() to probe()
 
-> diff --git a/Documentation/devicetree/bindings/spi/microchip,mpfs-spi.yam=
-l b/Documentation/devicetree/bindings/spi/microchip,mpfs-spi.yaml
-> index 1051690e3753..74a817cc7d94 100644
-> --- a/Documentation/devicetree/bindings/spi/microchip,mpfs-spi.yaml
-> +++ b/Documentation/devicetree/bindings/spi/microchip,mpfs-spi.yaml
-> @@ -22,7 +22,7 @@ properties:
->        - items:
->            - const: microchip,mpfs-qspi
->            - const: microchip,coreqspi-rtl-v2
-> -      - const: microchip,coreqspi-rtl-v2 #FPGA QSPI
-> +      - const: microchip,coreqspi-rtl-v2 # FPGA QSPI
->        - const: microchip,mpfs-spi
+2) move component_add() to done_probing() for eDP
 
-I had to think for a minute as to what that comment even meant...
-Reviewed-by: Conor Dooley <conor.dooley@microchip.com>
+3) keep DP as simple platform device (component_add() still executed in 
+probe())
 
-Thanks,
-Conor.
+Meanwhile, can you approve this patch so that it will not block our 
+internal daily testing?
 
---mffVr3k4EP4yfp2t
-Content-Type: application/pgp-signature; name="signature.asc"
 
------BEGIN PGP SIGNATURE-----
 
-iHUEABYIAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCZAJr0AAKCRB4tDGHoIJi
-0rHgAP9euC+7Ztk0BIMgxdrJzAjogpoZQH6UzawtcdI6SIq2nQD/d5Bvci5DVqMV
-DWn8X2un+KM/vLbl8yUpHlGFB4QKwQY=
-=v1U9
------END PGP SIGNATURE-----
-
---mffVr3k4EP4yfp2t--
+>
