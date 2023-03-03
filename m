@@ -1,66 +1,56 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0C9BF6A97FA
-	for <lists+freedreno@lfdr.de>; Fri,  3 Mar 2023 13:58:18 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 2EC966A987C
+	for <lists+freedreno@lfdr.de>; Fri,  3 Mar 2023 14:35:13 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D1C5110E61F;
-	Fri,  3 Mar 2023 12:57:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id ECC1B10E039;
+	Fri,  3 Mar 2023 13:35:11 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-x22e.google.com (mail-lj1-x22e.google.com
- [IPv6:2a00:1450:4864:20::22e])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2A3C210E5DE
- for <freedreno@lists.freedesktop.org>; Fri,  3 Mar 2023 12:57:48 +0000 (UTC)
-Received: by mail-lj1-x22e.google.com with SMTP id t14so2224854ljd.5
- for <freedreno@lists.freedesktop.org>; Fri, 03 Mar 2023 04:57:48 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=xw+mPnAX0yt7HyQJYsW3YBwt/4xyAG2li6AH9C7UrNA=;
- b=XxA8BITbWzPVWzhxCYc2+mWyW8KaiIGb0IKq+O5K/U3HwVCzJon3mt5Evwr5TY41ni
- h1fyuv+KnwPmNWVfRSfsCvMEGYFPbPho3Og0AHAIlqT4egxLSXPE5bPpA9BmQsnVvU9d
- MK9HIXPMaLZ7gA6aCknpIrGs/h0VPQOVqUIfd/lN9+r4cKiNnkSyz1ETuVSjhvqbGcmS
- TeQNvX5G4kRzO5AhNAjQsKoqNkH+Cz0cMua5A17aYBV2nz6r07JVYvVy23QoJD1WN07y
- LHeItXlNbsIwOfUSBIK0JNO51FJZEzolq/iBr9pwIPQs6L6qdXvbTuEnCFg5I+6d6aYn
- EKJA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=xw+mPnAX0yt7HyQJYsW3YBwt/4xyAG2li6AH9C7UrNA=;
- b=jZ2Gu4wqWZoD8DVwhjO//555Dc3DQHszv6BI/dz4QnxlpFq3HzODxzb8rOUERv+vIF
- 5yRbpkwODmoKLtnDKOVrPrzA63zaEQnEKSA8aupYzDtzbv6JMoibtulluFOyZai04nMH
- Z+iiRhbw9sPluaOODR44a4i/haoJmc3XDPAmujkZdjJ+9uIxCGmOKsf1NUSYHVfovaqy
- 8wUID58FGI2I6Jev0bO0qJQ8JBuTTwp7AvjOo6puhjCU26PKQ5xYOylMrW7zaD/4hOsM
- zA/els5rrC9KNm+EWUOVERpMEKu9uKXAqyjDuzIYgkM8KGbjTjeuA1X3XH5mLBhSGio2
- TyrA==
-X-Gm-Message-State: AO0yUKUnl3xuQjmjaNa/FaF4VPkotxhHe/Hihi9JQidufu1wudGVTv8K
- js1wmDp/+ppNQ9fSojB+77rQ/A==
-X-Google-Smtp-Source: AK7set/0i1B7xcfHGvv37DJNTN0liHfJnc1fQg+PDJHbD8ja1lsJMuziqcq8N0JSLdATgEClcvpzKQ==
-X-Received: by 2002:a05:651c:318:b0:295:a6cb:f51c with SMTP id
- a24-20020a05651c031800b00295a6cbf51cmr463154ljp.16.1677848266496; 
- Fri, 03 Mar 2023 04:57:46 -0800 (PST)
-Received: from eriador.lan (dzccz6yyyyyyyyyyybcwt-3.rev.dnainternet.fi.
- [2001:14ba:a085:4d00::8a5]) by smtp.gmail.com with ESMTPSA id
- c5-20020ac25305000000b004cf07a0051csm379266lfh.228.2023.03.03.04.57.45
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 03 Mar 2023 04:57:46 -0800 (PST)
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-To: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>
-Date: Fri,  3 Mar 2023 14:57:25 +0200
-Message-Id: <20230303125725.3695011-31-dmitry.baryshkov@linaro.org>
-X-Mailer: git-send-email 2.39.2
-In-Reply-To: <20230303125725.3695011-1-dmitry.baryshkov@linaro.org>
-References: <20230303125725.3695011-1-dmitry.baryshkov@linaro.org>
+Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1BE2D10E097;
+ Fri,  3 Mar 2023 11:21:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1677842487; x=1709378487;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=xIS4YXxfvhSvuWWlxBQDqx765nVMX13XptcoF4Uarg8=;
+ b=fXtPRwZeHpYpGvxnzir2DMbmi/Siu374uZnF5qiL46Bl1swmC06yaPyJ
+ QmowWGaw1lYxqjSOLqQM/RJAJmhwanHHoWUoCil3vWxaKJJLtqudbkCfU
+ pztsRZztjSSO0XSzTPhqMxxCHVolg6m1Ux/q9pqV6bfdx3E8cAbKwkxes
+ qjRasq6hfC0mPazvxJLJAkWJ/Fl3lq0V1ISwqPAU1MeizmcpLxoNa7hIL
+ 4mj7iWlLlH9+XbzZvZ60WLrEyluy6F6dUdYHl2IM4LE5CR0BuveB2uMVQ
+ naDw1C1wBmg5bmrBtdWG7FXepnplXRLlm+8T7DRIniIHFs5n7UMGua0w7 g==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10637"; a="421293861"
+X-IronPort-AV: E=Sophos;i="5.98,230,1673942400"; d="scan'208";a="421293861"
+Received: from orsmga004.jf.intel.com ([10.7.209.38])
+ by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 03 Mar 2023 03:21:26 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6500,9779,10637"; a="799204882"
+X-IronPort-AV: E=Sophos;i="5.98,230,1673942400"; d="scan'208";a="799204882"
+Received: from mavainol-mobl.ger.corp.intel.com (HELO intel.com)
+ ([10.252.57.100])
+ by orsmga004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 03 Mar 2023 03:21:20 -0800
+Date: Fri, 3 Mar 2023 12:21:17 +0100
+From: Andi Shyti <andi.shyti@linux.intel.com>
+To: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
+Message-ID: <ZAHYLUAf2e4PyRdT@ashyti-mobl2.lan>
+References: <20230302235356.3148279-1-robdclark@gmail.com>
+ <20230302235356.3148279-16-robdclark@gmail.com>
+ <ZAFnqbycMleLmRe9@intel.com>
+ <3bded9d7-9796-4a9b-7c11-aac994d4fdc6@linux.intel.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH v4 30/30] drm/msm/dpu: drop smart_dma_rev from
- dpu_caps
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <3bded9d7-9796-4a9b-7c11-aac994d4fdc6@linux.intel.com>
+X-Mailman-Approved-At: Fri, 03 Mar 2023 13:35:10 +0000
+Subject: Re: [Freedreno] [Intel-gfx] [PATCH v9 15/15] drm/i915: Add deadline
+ based boost support
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,151 +63,110 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
- Bjorn Andersson <andersson@kernel.org>, dri-devel@lists.freedesktop.org,
- Stephen Boyd <swboyd@chromium.org>, Daniel Vetter <daniel@ffwll.ch>,
- David Airlie <airlied@gmail.com>
+Cc: Rob Clark <robdclark@chromium.org>, freedreno@lists.freedesktop.org,
+ Pekka Paalanen <ppaalanen@gmail.com>, Simon Ser <contact@emersion.fr>,
+ Sumit Semwal <sumit.semwal@linaro.org>,
+ Christian =?iso-8859-15?Q?K=F6nig?= <ckoenig.leichtzumerken@gmail.com>,
+ Michel =?iso-8859-15?Q?D=E4nzer?= <michel@daenzer.net>,
+ open list <linux-kernel@vger.kernel.org>, dri-devel@lists.freedesktop.org,
+ Christian =?iso-8859-15?Q?K=F6nig?= <christian.koenig@amd.com>,
+ "moderated list:DMA BUFFER SHARING FRAMEWORK" <linaro-mm-sig@lists.linaro.org>,
+ Rob Clark <robdclark@gmail.com>, Luben Tuikov <luben.tuikov@amd.com>,
+ Daniel Vetter <daniel@ffwll.ch>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Alex Deucher <alexander.deucher@amd.com>, David Airlie <airlied@gmail.com>,
+ intel-gfx@lists.freedesktop.org,
+ "open list:DMA BUFFER SHARING FRAMEWORK" <linux-media@vger.kernel.org>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-The code doesn't use dpu_caps::smart_dma_rev field. It checks if the
-corresponding feature is enabled in the SSPP features. Drop the
-smart_dma_rev field completely.
+On Fri, Mar 03, 2023 at 09:58:36AM +0000, Tvrtko Ursulin wrote:
+> 
+> On 03/03/2023 03:21, Rodrigo Vivi wrote:
+> > On Thu, Mar 02, 2023 at 03:53:37PM -0800, Rob Clark wrote:
+> > > From: Rob Clark <robdclark@chromium.org>
+> > > 
+> > 
+> > missing some wording here...
+> > 
+> > > v2: rebase
+> > > 
+> > > Signed-off-by: Rob Clark <robdclark@chromium.org>
+> > > ---
+> > >   drivers/gpu/drm/i915/i915_request.c | 20 ++++++++++++++++++++
+> > >   1 file changed, 20 insertions(+)
+> > > 
+> > > diff --git a/drivers/gpu/drm/i915/i915_request.c b/drivers/gpu/drm/i915/i915_request.c
+> > > index 7503dcb9043b..44491e7e214c 100644
+> > > --- a/drivers/gpu/drm/i915/i915_request.c
+> > > +++ b/drivers/gpu/drm/i915/i915_request.c
+> > > @@ -97,6 +97,25 @@ static bool i915_fence_enable_signaling(struct dma_fence *fence)
+> > >   	return i915_request_enable_breadcrumb(to_request(fence));
+> > >   }
+> > > +static void i915_fence_set_deadline(struct dma_fence *fence, ktime_t deadline)
+> > > +{
+> > > +	struct i915_request *rq = to_request(fence);
+> > > +
+> > > +	if (i915_request_completed(rq))
+> > > +		return;
+> > > +
+> > > +	if (i915_request_started(rq))
+> > > +		return;
+> > 
+> > why do we skip the boost if already started?
+> > don't we want to boost the freq anyway?
+> 
+> I'd wager Rob is just copying the current i915 wait boost logic.
+> 
+> > > +
+> > > +	/*
+> > > +	 * TODO something more clever for deadlines that are in the
+> > > +	 * future.  I think probably track the nearest deadline in
+> > > +	 * rq->timeline and set timer to trigger boost accordingly?
+> > > +	 */
+> > 
+> > I'm afraid it will be very hard to find some heuristics of what's
+> > late enough for the boost no?
+> > I mean, how early to boost the freq on an upcoming deadline for the
+> > timer?
+> 
+> We can off load this patch from Rob and deal with it separately, or after
+> the fact?
+> 
+> It's a half solution without a smarter scheduler too. Like https://lore.kernel.org/all/20210208105236.28498-10-chris@chris-wilson.co.uk/,
+> or if GuC plans to do something like that at any point.
 
-Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
----
- drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c | 13 -------------
- drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h |  2 --
- 2 files changed, 15 deletions(-)
+Indeed, we already have the deadline implementation (and not just
+that), we just need to have some willingness to apply it.
 
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
-index fc818b0273e7..977bb096969b 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
-@@ -305,7 +305,6 @@ static const struct dpu_caps msm8998_dpu_caps = {
- 	.max_mixer_width = DEFAULT_DPU_OUTPUT_LINE_WIDTH,
- 	.max_mixer_blendstages = 0x7,
- 	.qseed_type = DPU_SSPP_SCALER_QSEED3,
--	.smart_dma_rev = DPU_SSPP_SMART_DMA_V1,
- 	.ubwc_version = DPU_HW_UBWC_VER_10,
- 	.has_src_split = true,
- 	.has_dim_layer = true,
-@@ -320,7 +319,6 @@ static const struct dpu_caps msm8998_dpu_caps = {
- static const struct dpu_caps qcm2290_dpu_caps = {
- 	.max_mixer_width = DEFAULT_DPU_OUTPUT_LINE_WIDTH,
- 	.max_mixer_blendstages = 0x4,
--	.smart_dma_rev = DPU_SSPP_SMART_DMA_V2,
- 	.ubwc_version = DPU_HW_UBWC_VER_20,
- 	.has_dim_layer = true,
- 	.has_idle_pc = true,
-@@ -332,7 +330,6 @@ static const struct dpu_caps sdm845_dpu_caps = {
- 	.max_mixer_width = DEFAULT_DPU_OUTPUT_LINE_WIDTH,
- 	.max_mixer_blendstages = 0xb,
- 	.qseed_type = DPU_SSPP_SCALER_QSEED3,
--	.smart_dma_rev = DPU_SSPP_SMART_DMA_V2,
- 	.ubwc_version = DPU_HW_UBWC_VER_20,
- 	.has_src_split = true,
- 	.has_dim_layer = true,
-@@ -348,7 +345,6 @@ static const struct dpu_caps sc7180_dpu_caps = {
- 	.max_mixer_width = DEFAULT_DPU_OUTPUT_LINE_WIDTH,
- 	.max_mixer_blendstages = 0x9,
- 	.qseed_type = DPU_SSPP_SCALER_QSEED4,
--	.smart_dma_rev = DPU_SSPP_SMART_DMA_V2,
- 	.ubwc_version = DPU_HW_UBWC_VER_20,
- 	.has_dim_layer = true,
- 	.has_idle_pc = true,
-@@ -360,7 +356,6 @@ static const struct dpu_caps sm6115_dpu_caps = {
- 	.max_mixer_width = DEFAULT_DPU_OUTPUT_LINE_WIDTH,
- 	.max_mixer_blendstages = 0x4,
- 	.qseed_type = DPU_SSPP_SCALER_QSEED3LITE,
--	.smart_dma_rev = DPU_SSPP_SMART_DMA_V2, /* TODO: v2.5 */
- 	.ubwc_version = DPU_HW_UBWC_VER_10,
- 	.has_dim_layer = true,
- 	.has_idle_pc = true,
-@@ -372,7 +367,6 @@ static const struct dpu_caps sm8150_dpu_caps = {
- 	.max_mixer_width = DEFAULT_DPU_OUTPUT_LINE_WIDTH,
- 	.max_mixer_blendstages = 0xb,
- 	.qseed_type = DPU_SSPP_SCALER_QSEED3,
--	.smart_dma_rev = DPU_SSPP_SMART_DMA_V2, /* TODO: v2.5 */
- 	.ubwc_version = DPU_HW_UBWC_VER_30,
- 	.has_src_split = true,
- 	.has_dim_layer = true,
-@@ -388,7 +382,6 @@ static const struct dpu_caps sc8180x_dpu_caps = {
- 	.max_mixer_width = DEFAULT_DPU_OUTPUT_LINE_WIDTH,
- 	.max_mixer_blendstages = 0xb,
- 	.qseed_type = DPU_SSPP_SCALER_QSEED3,
--	.smart_dma_rev = DPU_SSPP_SMART_DMA_V2, /* TODO: v2.5 */
- 	.ubwc_version = DPU_HW_UBWC_VER_30,
- 	.has_src_split = true,
- 	.has_dim_layer = true,
-@@ -404,7 +397,6 @@ static const struct dpu_caps sc8280xp_dpu_caps = {
- 	.max_mixer_width = 2560,
- 	.max_mixer_blendstages = 11,
- 	.qseed_type = DPU_SSPP_SCALER_QSEED3LITE,
--	.smart_dma_rev = DPU_SSPP_SMART_DMA_V2, /* TODO: v2.5 */
- 	.ubwc_version = DPU_HW_UBWC_VER_40,
- 	.has_src_split = true,
- 	.has_dim_layer = true,
-@@ -418,7 +410,6 @@ static const struct dpu_caps sm8250_dpu_caps = {
- 	.max_mixer_width = DEFAULT_DPU_OUTPUT_LINE_WIDTH,
- 	.max_mixer_blendstages = 0xb,
- 	.qseed_type = DPU_SSPP_SCALER_QSEED3LITE,
--	.smart_dma_rev = DPU_SSPP_SMART_DMA_V2, /* TODO: v2.5 */
- 	.ubwc_version = DPU_HW_UBWC_VER_40,
- 	.has_src_split = true,
- 	.has_dim_layer = true,
-@@ -432,7 +423,6 @@ static const struct dpu_caps sm8350_dpu_caps = {
- 	.max_mixer_width = DEFAULT_DPU_OUTPUT_LINE_WIDTH,
- 	.max_mixer_blendstages = 0xb,
- 	.qseed_type = DPU_SSPP_SCALER_QSEED3LITE,
--	.smart_dma_rev = DPU_SSPP_SMART_DMA_V2, /* TODO: v2.5 */
- 	.ubwc_version = DPU_HW_UBWC_VER_40,
- 	.has_src_split = true,
- 	.has_dim_layer = true,
-@@ -446,7 +436,6 @@ static const struct dpu_caps sm8450_dpu_caps = {
- 	.max_mixer_width = DEFAULT_DPU_OUTPUT_LINE_WIDTH,
- 	.max_mixer_blendstages = 0xb,
- 	.qseed_type = DPU_SSPP_SCALER_QSEED4,
--	.smart_dma_rev = DPU_SSPP_SMART_DMA_V2, /* TODO: v2.5 */
- 	.ubwc_version = DPU_HW_UBWC_VER_40,
- 	.has_src_split = true,
- 	.has_dim_layer = true,
-@@ -460,7 +449,6 @@ static const struct dpu_caps sm8550_dpu_caps = {
- 	.max_mixer_width = DEFAULT_DPU_OUTPUT_LINE_WIDTH,
- 	.max_mixer_blendstages = 0xb,
- 	.qseed_type = DPU_SSPP_SCALER_QSEED3LITE,
--	.smart_dma_rev = DPU_SSPP_SMART_DMA_V2, /* TODO: v2.5 */
- 	.ubwc_version = DPU_HW_UBWC_VER_40,
- 	.has_src_split = true,
- 	.has_dim_layer = true,
-@@ -474,7 +462,6 @@ static const struct dpu_caps sc7280_dpu_caps = {
- 	.max_mixer_width = DEFAULT_DPU_OUTPUT_LINE_WIDTH,
- 	.max_mixer_blendstages = 0x7,
- 	.qseed_type = DPU_SSPP_SCALER_QSEED4,
--	.smart_dma_rev = DPU_SSPP_SMART_DMA_V2,
- 	.ubwc_version = DPU_HW_UBWC_VER_30,
- 	.has_dim_layer = true,
- 	.has_idle_pc = true,
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h
-index ddab9caebb18..6a534b3aa671 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h
-@@ -393,7 +393,6 @@ struct dpu_rotation_cfg {
-  * @max_mixer_blendstages max layer mixer blend stages or
-  *                       supported z order
-  * @qseed_type         qseed2 or qseed3 support.
-- * @smart_dma_rev      Supported version of SmartDMA feature.
-  * @ubwc_version       UBWC feature version (0x0 for not supported)
-  * @has_src_split      source split feature status
-  * @has_dim_layer      dim layer feature status
-@@ -408,7 +407,6 @@ struct dpu_caps {
- 	u32 max_mixer_width;
- 	u32 max_mixer_blendstages;
- 	u32 qseed_type;
--	u32 smart_dma_rev;
- 	u32 ubwc_version;
- 	bool has_src_split;
- 	bool has_dim_layer;
--- 
-2.39.2
+Andi
 
+> Or bump the priority too if deadline is looming?
+> 
+> IMO it is not very effective to fiddle with the heuristic on an ad-hoc
+> basis. For instance I have a new heuristics which improves the problematic
+> OpenCL cases for further 5% (relative to the current waitboost improvement
+> from adding missing syncobj waitboost). But I can't really test properly for
+> regressions over platforms, stacks, workloads.. :(
+> 
+> Regards,
+> 
+> Tvrtko
+> 
+> > 
+> > > +
+> > > +	intel_rps_boost(rq);
+> > > +}
+> > > +
+> > >   static signed long i915_fence_wait(struct dma_fence *fence,
+> > >   				   bool interruptible,
+> > >   				   signed long timeout)
+> > > @@ -182,6 +201,7 @@ const struct dma_fence_ops i915_fence_ops = {
+> > >   	.signaled = i915_fence_signaled,
+> > >   	.wait = i915_fence_wait,
+> > >   	.release = i915_fence_release,
+> > > +	.set_deadline = i915_fence_set_deadline,
+> > >   };
+> > >   static void irq_execute_cb(struct irq_work *wrk)
+> > > -- 
+> > > 2.39.1
+> > > 
