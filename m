@@ -2,69 +2,68 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2C11F6A94BF
-	for <lists+freedreno@lfdr.de>; Fri,  3 Mar 2023 11:04:11 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 966346A94CB
+	for <lists+freedreno@lfdr.de>; Fri,  3 Mar 2023 11:04:35 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 46A9810E0D4;
-	Fri,  3 Mar 2023 10:04:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3B99810E5C2;
+	Fri,  3 Mar 2023 10:04:34 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x135.google.com (mail-lf1-x135.google.com
- [IPv6:2a00:1450:4864:20::135])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 329AE10E0D4
- for <freedreno@lists.freedesktop.org>; Fri,  3 Mar 2023 10:04:08 +0000 (UTC)
-Received: by mail-lf1-x135.google.com with SMTP id f18so2904307lfa.3
- for <freedreno@lists.freedesktop.org>; Fri, 03 Mar 2023 02:04:08 -0800 (PST)
+Received: from mail-lf1-x12e.google.com (mail-lf1-x12e.google.com
+ [IPv6:2a00:1450:4864:20::12e])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D690F10E0D4
+ for <freedreno@lists.freedesktop.org>; Fri,  3 Mar 2023 10:04:31 +0000 (UTC)
+Received: by mail-lf1-x12e.google.com with SMTP id s20so2840263lfb.11
+ for <freedreno@lists.freedesktop.org>; Fri, 03 Mar 2023 02:04:31 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :from:to:cc:subject:date:message-id:reply-to;
- bh=PE43XKo/WgEddymgmmBxjWwiJFJAm6sS/o3gvfnyfCQ=;
- b=CzE8aAydE9S5MQ8bS6Gj/M12uzdszbeQy+9bwn6MceFKBRVsenTlEc/U+BS/B3ynA2
- CFugrtLE8MeQARiEqDIFwTMLzBNDNU1TEo5zxnPwS/anGKZjn5i8lWMLOGjk7dHnw+GL
- YuWy03M6DYeuCy1Us49BTSIuNy6btp42UexlC/TgB9lZdqttergzeB24nC9AVkoWY6qj
- Q/6pk/w42T8g1BCLNDAx7xZejwSeieYjJu8liwlAEvTZXV7M8R3e7LFG3RFWTiv2bbHi
- 71GT4X4gzcDaat505BPRkC3aBfA81rdCJhj+NW435fI6mWg0dltZU91d3pFCbQUdoaWK
- 3WZQ==
+ bh=bu1XsCiuemEgXLrsyqbVOjx0c5HoiOQ23/TsjbuCBoM=;
+ b=sh/z6/R4aUSyJKc7WkEfC84gl355wbnXtzv9pgOWC/nInmAGvm9qM8m/hwYke4e6D2
+ OsK6lQbQEETsY02kiiYWajoKO3enetC7iXxWjK+Hk01+yi1h2F/vAedPkclf1woV+485
+ L9WVUwlu+XQPFwuYog2IhQ6v+YX8AdKnRzBjEkvEjjOC9RK7vC1v9H9gtnYhcMWHv1O9
+ YaIs8tnOLJVbv7lrlC72u5aZXh0vXOEP0jmXoVls+sGEYncp1e845U+MPpN20C+1x2Nr
+ qI3O+sppkZJFb3WCz9NThTYEzelmhPYDLhZ9nY4Te0jtxAbNObXAzKBM0OlVnyjkiqbm
+ LlVA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=PE43XKo/WgEddymgmmBxjWwiJFJAm6sS/o3gvfnyfCQ=;
- b=uZj6i24My/oIt2sEJ/4M5c4RWuozBY5tElAf0+M13fOUyBHpkXWjj2ahGp8OHpFelX
- sFplv0lJPntFaiYfG1dPLpgLp3/qjsefDQcjRDnu58YXRvMvMGybAgyfH4vtmcr1Rf6o
- Z+yTAWcmGvkExv2JojJ5FGGBrw4yx0OcfOevFKnZqlXjA8zlzspXX4vFCN9zUCVkNEAS
- y7yTIzTzbpuZrAQdJTD/ZYBRrbDL8wPdL9TyB9hHwgt0NtyQy9Av71gZQrDhANZ5Mork
- Km10+/Tn3Ip0vWjvkg3qO7Ol4tmtVKqeOIwY4znE2Vm38xLWgIqF41s5LPkTr1Axkpkg
- ibYQ==
-X-Gm-Message-State: AO0yUKVd6Tdoa9mxa9Ddo6vHF2L76Cv00nPr3dEwJNplQ/FRNPAJYubx
- /H7L9ADh/dA2scJxvUqQVDruaw==
-X-Google-Smtp-Source: AK7set8r6HNCYZMbYo9olpHaL1iwTTESqqbYHQDRtADO+VFgb+QtAiSYRRDoaH98GZ//SobIaaX9VA==
-X-Received: by 2002:a19:7419:0:b0:4c0:2ddc:4559 with SMTP id
- v25-20020a197419000000b004c02ddc4559mr419717lfe.69.1677837846268; 
- Fri, 03 Mar 2023 02:04:06 -0800 (PST)
+ bh=bu1XsCiuemEgXLrsyqbVOjx0c5HoiOQ23/TsjbuCBoM=;
+ b=f6a6VE8KFVr/DtepGMuD7pOLD37ifqRkDlmyiI66BhO2dLSpRdhgxfxtGL2XDlPNl8
+ oPRJ0lhVCu/97ABstVR/1O1cyc2iDOJUYX1M6za0WYxK5ycailhckcFU2A97Mpx2bmR4
+ LWc+Rg2gv+DLeYCn0ME/wrhlHaNKm144K7kuMpgB/W4ZZzdKb+qNlILIiuSW7gauhfQI
+ AuWq5zym8KCcOraF7SJlxBtvwG8J09tG8SSv6/1WXyzhazFTG6qOs0PInFdPsC2CeGHQ
+ 12DY9eWPHoQ1/9svYAqlm4YVExm6HcKaO2skir6zEbqppuwPMdY+QcAur2FrUwg69Htj
+ ylPQ==
+X-Gm-Message-State: AO0yUKXfNW0AEhd5fmreFU+52PRlLVvGzemfmTM74j2G/EunC5RvhI09
+ 1iC8Npyq+aNPyqjAGgRSiluxWA==
+X-Google-Smtp-Source: AK7set9P64Lzkb6Z0OzuupIyugVRsWfQPf/es/+T2UMX0/iSa+2NFSVoLhg7hou7R53lJFPqZXXp0w==
+X-Received: by 2002:a19:f610:0:b0:4dd:abb6:8699 with SMTP id
+ x16-20020a19f610000000b004ddabb68699mr388316lfe.40.1677837870086; 
+ Fri, 03 Mar 2023 02:04:30 -0800 (PST)
 Received: from ?IPV6:2001:14ba:a085:4d00::8a5?
  (dzccz6yyyyyyyyyyybcwt-3.rev.dnainternet.fi. [2001:14ba:a085:4d00::8a5])
  by smtp.gmail.com with ESMTPSA id
- b14-20020a056512024e00b004d127a5a73dsm320689lfo.181.2023.03.03.02.04.05
+ b9-20020ac25629000000b004dc4c5149dasm324457lff.301.2023.03.03.02.04.29
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 03 Mar 2023 02:04:05 -0800 (PST)
-Message-ID: <0351cdef-61ed-117c-71d5-477f2e8a191d@linaro.org>
-Date: Fri, 3 Mar 2023 12:04:05 +0200
+ Fri, 03 Mar 2023 02:04:29 -0800 (PST)
+Message-ID: <9a14e543-98b3-8df5-46f6-b890b4d3baaa@linaro.org>
+Date: Fri, 3 Mar 2023 12:04:28 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.8.0
 Content-Language: en-GB
 To: Rob Clark <robdclark@gmail.com>, dri-devel@lists.freedesktop.org
 References: <20230302235356.3148279-1-robdclark@gmail.com>
- <20230302235356.3148279-15-robdclark@gmail.com>
+ <20230302235356.3148279-14-robdclark@gmail.com>
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-In-Reply-To: <20230302235356.3148279-15-robdclark@gmail.com>
+In-Reply-To: <20230302235356.3148279-14-robdclark@gmail.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH v9 14/15] drm/msm/atomic: Switch to
- vblank_start helper
+Subject: Re: [Freedreno] [PATCH v9 13/15] drm/msm: Add wait-boost support
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,18 +76,16 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rob Clark <robdclark@chromium.org>, Liu Shixin <liushixin2@huawei.com>,
- Douglas Anderson <dianders@chromium.org>,
- open list <linux-kernel@vger.kernel.org>, Simon Ser <contact@emersion.fr>,
+Cc: Rob Clark <robdclark@chromium.org>, Simon Ser <contact@emersion.fr>,
  Tvrtko Ursulin <tvrtko.ursulin@intel.com>,
  =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>,
  =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel@daenzer.net>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, Stephen Boyd <swboyd@chromium.org>,
- Konrad Dybcio <konrad.dybcio@linaro.org>, Sean Paul <sean@poorly.run>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ open list <linux-kernel@vger.kernel.org>, Sean Paul <sean@poorly.run>,
  Pekka Paalanen <ppaalanen@gmail.com>, Luben Tuikov <luben.tuikov@amd.com>,
  Daniel Vetter <daniel@ffwll.ch>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
  Alex Deucher <alexander.deucher@amd.com>, David Airlie <airlied@gmail.com>,
- Vinod Polimera <quic_vpolimer@quicinc.com>, freedreno@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org,
  "open list:DRM DRIVER FOR MSM ADRENO GPU" <linux-arm-msm@vger.kernel.org>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
@@ -96,107 +93,16 @@ Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 On 03/03/2023 01:53, Rob Clark wrote:
 > From: Rob Clark <robdclark@chromium.org>
 > 
-> Drop our custom thing and switch to drm_crtc_next_vblank_start() for
-> calculating the time of the start of the next vblank period.
+> Add a way for various userspace waits to signal urgency.
 > 
 > Signed-off-by: Rob Clark <robdclark@chromium.org>
-
-It took me a while to dig into the differences between old and proposed 
-paths. Looks correct to me.
+> ---
+>   drivers/gpu/drm/msm/msm_drv.c | 12 ++++++++----
+>   drivers/gpu/drm/msm/msm_gem.c |  5 +++++
+>   include/uapi/drm/msm_drm.h    | 14 ++++++++++++--
+>   3 files changed, 25 insertions(+), 6 deletions(-)
 
 Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-
-> ---
->   drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c | 15 ---------------
->   drivers/gpu/drm/msm/msm_atomic.c        |  8 +++++---
->   drivers/gpu/drm/msm/msm_kms.h           |  8 --------
->   3 files changed, 5 insertions(+), 26 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
-> index a683bd9b5a04..43996aecaf8c 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
-> @@ -411,20 +411,6 @@ static void dpu_kms_disable_commit(struct msm_kms *kms)
->   	pm_runtime_put_sync(&dpu_kms->pdev->dev);
->   }
->   
-> -static ktime_t dpu_kms_vsync_time(struct msm_kms *kms, struct drm_crtc *crtc)
-> -{
-> -	struct drm_encoder *encoder;
-> -
-> -	drm_for_each_encoder_mask(encoder, crtc->dev, crtc->state->encoder_mask) {
-> -		ktime_t vsync_time;
-> -
-> -		if (dpu_encoder_vsync_time(encoder, &vsync_time) == 0)
-> -			return vsync_time;
-> -	}
-> -
-> -	return ktime_get();
-> -}
-> -
->   static void dpu_kms_prepare_commit(struct msm_kms *kms,
->   		struct drm_atomic_state *state)
->   {
-> @@ -953,7 +939,6 @@ static const struct msm_kms_funcs kms_funcs = {
->   	.irq             = dpu_core_irq,
->   	.enable_commit   = dpu_kms_enable_commit,
->   	.disable_commit  = dpu_kms_disable_commit,
-> -	.vsync_time      = dpu_kms_vsync_time,
->   	.prepare_commit  = dpu_kms_prepare_commit,
->   	.flush_commit    = dpu_kms_flush_commit,
->   	.wait_flush      = dpu_kms_wait_flush,
-> diff --git a/drivers/gpu/drm/msm/msm_atomic.c b/drivers/gpu/drm/msm/msm_atomic.c
-> index 1686fbb611fd..c5e71c05f038 100644
-> --- a/drivers/gpu/drm/msm/msm_atomic.c
-> +++ b/drivers/gpu/drm/msm/msm_atomic.c
-> @@ -186,8 +186,7 @@ void msm_atomic_commit_tail(struct drm_atomic_state *state)
->   	struct msm_kms *kms = priv->kms;
->   	struct drm_crtc *async_crtc = NULL;
->   	unsigned crtc_mask = get_crtc_mask(state);
-> -	bool async = kms->funcs->vsync_time &&
-> -			can_do_async(state, &async_crtc);
-> +	bool async = can_do_async(state, &async_crtc);
->   
->   	trace_msm_atomic_commit_tail_start(async, crtc_mask);
->   
-> @@ -231,7 +230,9 @@ void msm_atomic_commit_tail(struct drm_atomic_state *state)
->   
->   			kms->pending_crtc_mask |= crtc_mask;
->   
-> -			vsync_time = kms->funcs->vsync_time(kms, async_crtc);
-> +			if (drm_crtc_next_vblank_start(async_crtc, &vsync_time))
-> +				goto fallback;
-> +
->   			wakeup_time = ktime_sub(vsync_time, ms_to_ktime(1));
->   
->   			msm_hrtimer_queue_work(&timer->work, wakeup_time,
-> @@ -253,6 +254,7 @@ void msm_atomic_commit_tail(struct drm_atomic_state *state)
->   		return;
->   	}
->   
-> +fallback:
->   	/*
->   	 * If there is any async flush pending on updated crtcs, fold
->   	 * them into the current flush.
-> diff --git a/drivers/gpu/drm/msm/msm_kms.h b/drivers/gpu/drm/msm/msm_kms.h
-> index f8ed7588928c..086a3f1ff956 100644
-> --- a/drivers/gpu/drm/msm/msm_kms.h
-> +++ b/drivers/gpu/drm/msm/msm_kms.h
-> @@ -59,14 +59,6 @@ struct msm_kms_funcs {
->   	void (*enable_commit)(struct msm_kms *kms);
->   	void (*disable_commit)(struct msm_kms *kms);
->   
-> -	/**
-> -	 * If the kms backend supports async commit, it should implement
-> -	 * this method to return the time of the next vsync.  This is
-> -	 * used to determine a time slightly before vsync, for the async
-> -	 * commit timer to run and complete an async commit.
-> -	 */
-> -	ktime_t (*vsync_time)(struct msm_kms *kms, struct drm_crtc *crtc);
-> -
->   	/**
->   	 * Prepare for atomic commit.  This is called after any previous
->   	 * (async or otherwise) commit has completed.
 
 -- 
 With best wishes
