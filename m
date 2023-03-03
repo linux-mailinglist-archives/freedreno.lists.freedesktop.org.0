@@ -1,75 +1,72 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 42E496A96A2
-	for <lists+freedreno@lfdr.de>; Fri,  3 Mar 2023 12:43:13 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 0C6F86A9720
+	for <lists+freedreno@lfdr.de>; Fri,  3 Mar 2023 13:18:31 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EE8DC10E121;
-	Fri,  3 Mar 2023 11:43:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C50DF10E5D2;
+	Fri,  3 Mar 2023 12:18:29 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x136.google.com (mail-lf1-x136.google.com
- [IPv6:2a00:1450:4864:20::136])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9CD1610E2CA
- for <freedreno@lists.freedesktop.org>; Fri,  3 Mar 2023 11:43:10 +0000 (UTC)
-Received: by mail-lf1-x136.google.com with SMTP id s22so3177769lfi.9
- for <freedreno@lists.freedesktop.org>; Fri, 03 Mar 2023 03:43:10 -0800 (PST)
+Received: from mail-lf1-x12f.google.com (mail-lf1-x12f.google.com
+ [IPv6:2a00:1450:4864:20::12f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3377A10E5D7
+ for <freedreno@lists.freedesktop.org>; Fri,  3 Mar 2023 12:18:29 +0000 (UTC)
+Received: by mail-lf1-x12f.google.com with SMTP id s22so3297920lfi.9
+ for <freedreno@lists.freedesktop.org>; Fri, 03 Mar 2023 04:18:28 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=content-transfer-encoding:in-reply-to:references:cc:to:from
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :from:to:cc:subject:date:message-id:reply-to;
- bh=nPkAb4XsT1KDKFDrCSOIgbqSyJOcRefL1nDaNi4VEO0=;
- b=nUYoPgMPxZNPeL1KcFTEU+drcTyShLHp+uDhVEf+YXxz5ks12oG2PkR0xfWj4PSrdA
- m/SzVx7NVW6auAHU+8MWqIo7sx9lqzKIwPuxfzl7NJ3Iltb9QXvApCNNadLHRsBSZ00d
- 5JgB4j8XFXbrAAvorTumKzW7M31N3JRsg7RbWNWNsWcdCfp/UaEA0hZPM5FsZrHo0ZMn
- YXFHuzqcrHZ1xTKJgE9LucvovgSH4J9QR7tF++wZ1365Dwr872svyCmW6QCQe7UDhrGN
- QACsk7Lich6rkKe0HKShqEPrVQEwZOdHB1LAO2/YaOTeXOUAnlFiavwmd50yoiNNc8VO
- DQ4A==
+ bh=Qp1OBL5Cz0Ky5RTqOAyRuAgYI/cQ60LL2lG7hCVsIvM=;
+ b=J5c5LE7QEUvOLp+LMUaHl3PMSsIZmuZw79W4eaPAEJzVMsjdikb4DMNGUItMCQKWZl
+ 0ORQaj9I4sN9xdrjM4P6kC8gv4Tbitf5GJg7/PnPXlITbcILm4ie9THiYKZKtFP1lhsS
+ SWQ03GyHcMCZBoWPMMLWgmurpzHS9OiEEzQZDzrNK5GxhLRqtMdVM2exoZ/2oyTuDL5u
+ uklyzrsIrzaBzoFmLnqTWRY3e6pZthnkNNvHo085hk49sy+WT+E2lJZezSQ69FNjc80R
+ An6XXfTltlyTfePsg3+exmJl6f1t5XVoPQ2W9mjHaqB+yxID8iMKrRmfW0LLTmCNeALk
+ qAOA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=content-transfer-encoding:in-reply-to:references:cc:to:from
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=nPkAb4XsT1KDKFDrCSOIgbqSyJOcRefL1nDaNi4VEO0=;
- b=NLP85Gcrn2Z3TUBXf+T86TZ7CaMr9mdAN6XcUTqazcoJWjAAblEuETKPQhLQbfbIFT
- yKcD6hH+81AHMRcfugUsT0y3puULv8dpR+j+APlWwqtMgW7BxKXKynwLfKD6cco7Lcs1
- fj3y55vCob65c8gY8F+Pi+sLgeaX3BkSAOTiHW2Y+cZvTRHN78ROYwYtcpxPGo68AVfO
- CbKMtPrx2+79dr0ELNgzimPHu4MBGYtLYpGtyj5FvhijbGLJFC7H/gLOtZo9nAvqbQ8A
- faAxIPHnNHVMie+X6YUCasksBMIHdhxSYlw0q2PQY4ihvMhAtFWVmBFp7WXNfWun547h
- SdWQ==
-X-Gm-Message-State: AO0yUKXX5kFIsVaW7n9qF85DGzsWXW8hNzMoVj3KWHzvlYAa34gd6cWm
- coharQg6eyZf/LmDLU2KdZRmAQ==
-X-Google-Smtp-Source: AK7set/x8bR/mdRY5iS2Rkumbm/P7bhpky40fiwF7k0L14ZqKkA/x/B1yw3NO9rGMO24KrJZuu6RGQ==
-X-Received: by 2002:ac2:5a19:0:b0:4b5:43ef:a555 with SMTP id
- q25-20020ac25a19000000b004b543efa555mr431382lfn.69.1677843788787; 
- Fri, 03 Mar 2023 03:43:08 -0800 (PST)
+ bh=Qp1OBL5Cz0Ky5RTqOAyRuAgYI/cQ60LL2lG7hCVsIvM=;
+ b=26TaC65UQNQzIvaOwKYRMY+0j6vszcjVOFlPZ4HT1Kux/beHbThZvJpy8p4EuDc6Hy
+ Rt6QUXtZIYswpEAByVm2rlCmoIEF7yga7EJr3EqL5dXhl9NfuvN689mHPhLCX1zt+ymL
+ t1G9oFoEAU9jPkl/D324tBzRo/JzSCAorKAcxsd2Pc7BTO1Qyfdic03YNUnziXQPU7eb
+ sOYl/GrfRze42WfCoTYB3HFk1eOhG24VqD+F4FajmQu1O1EpCOvGxtsXfiuJUmenxd1B
+ VYTZQrpInwlkSBKBZCFWNPTu6Z8qU0h3OeJ7pVIwFPvlDqv3wwkt8UZ1/3SYQLN8IbJj
+ hlnQ==
+X-Gm-Message-State: AO0yUKXnCiizniX94avfcVCodq1FO1lKpgku6/eL+ELQLWefH8nTrTXy
+ z7BCjIAIJZD/6jFyyGNOgx/lfQ==
+X-Google-Smtp-Source: AK7set+ukyhb920Gs8QsMCwXXqCDiY8Z8+7Wn0if2jbCcvuraPORjOA3FtOjrnBF2hEWLa3ibBBFFA==
+X-Received: by 2002:a05:6512:505:b0:4b5:688e:ee10 with SMTP id
+ o5-20020a056512050500b004b5688eee10mr483013lfb.16.1677845907229; 
+ Fri, 03 Mar 2023 04:18:27 -0800 (PST)
 Received: from ?IPV6:2001:14ba:a085:4d00::8a5?
  (dzccz6yyyyyyyyyyybcwt-3.rev.dnainternet.fi. [2001:14ba:a085:4d00::8a5])
  by smtp.gmail.com with ESMTPSA id
- w19-20020a19c513000000b004cc831acce1sm356267lfe.285.2023.03.03.03.43.08
+ h26-20020a19701a000000b004b7033da2d7sm368094lfc.128.2023.03.03.04.18.26
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 03 Mar 2023 03:43:08 -0800 (PST)
-Message-ID: <84781db7-b3f2-2bc2-511f-f07e05a428de@linaro.org>
-Date: Fri, 3 Mar 2023 13:43:07 +0200
+ Fri, 03 Mar 2023 04:18:26 -0800 (PST)
+Message-ID: <e7423df3-12d4-7f76-7ac4-53c8179aa442@linaro.org>
+Date: Fri, 3 Mar 2023 14:18:26 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.8.0
 Content-Language: en-GB
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 To: Abhinav Kumar <quic_abhinavk@quicinc.com>, Rob Clark
  <robdclark@gmail.com>, Sean Paul <sean@poorly.run>
 References: <20230203182132.1307834-1-dmitry.baryshkov@linaro.org>
- <20230203182132.1307834-16-dmitry.baryshkov@linaro.org>
- <121827e3-3ec4-c0fd-d3fb-771150e79717@quicinc.com>
- <269a9f0e-b9c2-427d-acc0-e18262c0c4ff@linaro.org>
- <fb94f386-22af-c2c6-9071-8dcbe8c547c1@quicinc.com>
- <005030a5-bcc3-14ea-121f-fba794555626@linaro.org>
-In-Reply-To: <005030a5-bcc3-14ea-121f-fba794555626@linaro.org>
+ <20230203182132.1307834-27-dmitry.baryshkov@linaro.org>
+ <133ba8d8-f52f-42a5-712c-039f225d61fa@quicinc.com>
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+In-Reply-To: <133ba8d8-f52f-42a5-712c-039f225d61fa@quicinc.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-Subject: Re: [Freedreno] [PATCH v3 15/27] drm/msm/dpu: move the rest of
- plane checks to dpu_plane_atomic_check()
+Subject: Re: [Freedreno] [PATCH v3 26/27] drm/msm/dpu: split pipe handling
+ from _dpu_crtc_blend_setup_mixer
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -89,210 +86,218 @@ Cc: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 15/02/2023 02:08, Dmitry Baryshkov wrote:
-> On 15/02/2023 01:25, Abhinav Kumar wrote:
->> Hi Dmitry
->>
->> Sorry for the late response on this one.
->>
->> On 2/3/2023 2:55 PM, Dmitry Baryshkov wrote:
->>> On 04/02/2023 00:44, Abhinav Kumar wrote:
->>>>
->>>>
->>>> On 2/3/2023 10:21 AM, Dmitry Baryshkov wrote:
->>>>> Move plane state updates from dpu_crtc_atomic_check() to the function
->>>>> where they belong: to dpu_plane_atomic_check().
->>>>>
->>>>> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
->>>>> ---
->>>>>   drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c  | 18 +-----------------
->>>>>   drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c | 18 ++++++++++--------
->>>>>   drivers/gpu/drm/msm/disp/dpu1/dpu_plane.h |  6 ------
->>>>>   3 files changed, 11 insertions(+), 31 deletions(-)
->>>>>
->>>>> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c 
->>>>> b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
->>>>> index b485234eefb2..bd09bb319a58 100644
->>>>> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
->>>>> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
->>>>> @@ -1129,7 +1129,6 @@ static int dpu_crtc_atomic_check(struct 
->>>>> drm_crtc *crtc,
->>>>>                                         crtc);
->>>>>       struct dpu_crtc *dpu_crtc = to_dpu_crtc(crtc);
->>>>>       struct dpu_crtc_state *cstate = to_dpu_crtc_state(crtc_state);
->>>>> -    struct dpu_kms *dpu_kms = _dpu_crtc_get_kms(crtc);
->>>>>       const struct drm_plane_state *pstate;
->>>>>       struct drm_plane *plane;
->>>>> @@ -1161,11 +1160,10 @@ static int dpu_crtc_atomic_check(struct 
->>>>> drm_crtc *crtc,
->>>>>       crtc_rect.x2 = mode->hdisplay;
->>>>>       crtc_rect.y2 = mode->vdisplay;
->>>>> -     /* get plane state for all drm planes associated with crtc 
->>>>> state */
->>>>> +    /* FIXME: move this to dpu_plane_atomic_check? */
->>>>>       drm_atomic_crtc_state_for_each_plane_state(plane, pstate, 
->>>>> crtc_state) {
->>>>>           struct dpu_plane_state *dpu_pstate = 
->>>>> to_dpu_plane_state(pstate);
->>>>>           struct drm_rect dst, clip = crtc_rect;
->>>>> -        int stage;
->>>>>           if (IS_ERR_OR_NULL(pstate)) {
->>>>>               rc = PTR_ERR(pstate);
->>>>> @@ -1179,8 +1177,6 @@ static int dpu_crtc_atomic_check(struct 
->>>>> drm_crtc *crtc,
->>>>>           dpu_pstate->needs_dirtyfb = needs_dirtyfb;
->>>>> -        dpu_plane_clear_multirect(pstate);
->>>>> -
->>>>>           dst = drm_plane_state_dest(pstate);
->>>>>           if (!drm_rect_intersect(&clip, &dst)) {
->>>>>               DPU_ERROR("invalid vertical/horizontal destination\n");
->>>>> @@ -1189,18 +1185,6 @@ static int dpu_crtc_atomic_check(struct 
->>>>> drm_crtc *crtc,
->>>>>                     DRM_RECT_ARG(&dst));
->>>>>               return -E2BIG;
->>>>>           }
->>>>> -
->>>>> -        /* verify stage setting before using it */
->>>>> -        stage = DPU_STAGE_0 + pstate->normalized_zpos;
->>>>> -        if (stage >= dpu_kms->catalog->caps->max_mixer_blendstages) {
->>>>> -            DPU_ERROR("> %d plane stages assigned\n",
->>>>> -                    dpu_kms->catalog->caps->max_mixer_blendstages 
->>>>> - DPU_STAGE_0);
->>>>> -            return -EINVAL;
->>>>> -        }
->>>>> -
->>>>> -        to_dpu_plane_state(pstate)->stage = stage;
->>>>> -        DRM_DEBUG_ATOMIC("%s: stage %d\n", dpu_crtc->name, stage);
->>>>> -
->>>>>       }
->>>>>       atomic_inc(&_dpu_crtc_get_kms(crtc)->bandwidth_ref);
->>>>> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c 
->>>>> b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
->>>>> index 1b3033b15bfa..5aabf9694a53 100644
->>>>> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
->>>>> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
->>>>> @@ -733,14 +733,6 @@ static int _dpu_plane_color_fill(struct 
->>>>> dpu_plane *pdpu,
->>>>>       return 0;
->>>>>   }
->>>>> -void dpu_plane_clear_multirect(const struct drm_plane_state 
->>>>> *drm_state)
->>>>> -{
->>>>> -    struct dpu_plane_state *pstate = to_dpu_plane_state(drm_state);
->>>>> -
->>>>> -    pstate->pipe.multirect_index = DPU_SSPP_RECT_SOLO;
->>>>> -    pstate->pipe.multirect_mode = DPU_SSPP_MULTIRECT_NONE;
->>>>> -}
->>>>> -
->>>>>   int dpu_plane_validate_multirect_v2(struct 
->>>>> dpu_multirect_plane_states *plane)
->>>>>   {
->>>>>       struct dpu_plane_state *pstate[R_MAX];
->>>>> @@ -994,6 +986,16 @@ static int dpu_plane_atomic_check(struct 
->>>>> drm_plane *plane,
->>>>>       if (!new_plane_state->visible)
->>>>>           return 0;
->>>>> +    pstate->pipe.multirect_index = DPU_SSPP_RECT_SOLO;
->>>>> +    pstate->pipe.multirect_mode = DPU_SSPP_MULTIRECT_NONE;
->>>>> +
->>>>
->>>> But I am not sure if clearing the multirect belongs here and now I 
->>>> want to clarify one thing about 
->>>> https://patchwork.freedesktop.org/patch/521354/?series=99909&rev=4 
->>>> which was R-bed in the v1 and carried fwd since then.
->>>>
->>>> So prior to that change, we were only clearing the multirects of the 
->>>> planes that were staged to the crtc and we were getting those from 
->>>> the crtc state. But now we are clearing the multirect of all the 
->>>> planes.
->>>>
->>>> Dont we have to keep that in the crtc_atomic_check() since we do 
->>>> that on all the planes attached to a certain CRTC.
->>>>
->>>> In that case shouldnt we keep this in the crtc_atomic_check() and 
->>>> bring back pipe_staged[] without the multirect and source split 
->>>> cases ofcourse.
->>>
->>> What for? In other words, what would be the difference?
->>>
->>
->> So, please correct my understanding here. drm_plane's atomic_check() 
->> will be called for all the planes which are getting updated in this 
->> atomic commit using for_each_oldnew_plane_in_state() and drm_crtc's 
->> atomic_check() will be called for all the CRTC's in this atomic update 
->> using for_each_new_crtc_in_state() >
->> If the plane is not connected to any CRTC, why do we need to clear the 
->> multirect pstates.
+On 09/02/2023 01:44, Abhinav Kumar wrote:
 > 
-> If the plane is not connected to any CRTC, then we just don't care what 
-> is there in the multirect state, so we might clear it as well.
 > 
+> On 2/3/2023 10:21 AM, Dmitry Baryshkov wrote:
+>> Rework _dpu_crtc_blend_setup_mixer() to split away pipe handling to a
+>> separate functon. This is a preparation for the r_pipe support.
 >>
->> OR in that case would atomic_commit not even be called if the plane is 
->> not connected to any CRTC?
+>> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+>> ---
+>>   drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c  | 86 ++++++++++++++++-------
+>>   drivers/gpu/drm/msm/disp/dpu1/dpu_trace.h | 10 ++-
+>>   2 files changed, 63 insertions(+), 33 deletions(-)
 >>
->> One case i can think of is the disable commit where the no planes will 
->> be connected to the CRTC so in that case, before this change we would 
->> explicitly clear out all the planes connected to the CRTC but now with 
->> this change is there a possibility that only if the plane state 
->> changed we would clear it out?
+>> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c 
+>> b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
+>> index 73e1a8c69ef0..0ca3bc38ff7e 100644
+>> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
+>> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
+>> @@ -400,6 +400,47 @@ static void 
+>> _dpu_crtc_program_lm_output_roi(struct drm_crtc *crtc)
+>>       }
+>>   }
+>> +static void _dpu_crtc_blend_setup_pipe(struct drm_crtc *crtc,
+>> +                       struct drm_plane *plane,
+>> +                       struct dpu_crtc_mixer *mixer,
+>> +                       u32 num_mixers,
+>> +                       struct dpu_hw_stage_cfg *stage_cfg,
+>> +                       enum dpu_stage stage,
+>> +                       unsigned int stage_idx,
+>> +                       unsigned long *fetch_active,
+>> +                       struct dpu_sw_pipe *pipe
+>> +                      )
+>> +{
+>> +    uint32_t lm_idx;
+>> +    enum dpu_sspp sspp_idx;
+>> +    struct drm_plane_state *state;
+>> +
+>> +    if (!pipe->sspp)
+>> +        return;
+>> +
+>> +    sspp_idx = pipe->sspp->idx;
+>> +
+>> +    state = plane->state;
+>> +
+>> +    DRM_DEBUG_ATOMIC("crtc %d stage:%d - plane %d sspp %d fb %d\n",
+>> +             crtc->base.id,
+>> +             stage,
+>> +             plane->base.id,
+>> +             sspp_idx - SSPP_NONE,
+>> +             state->fb ? state->fb->base.id : -1);
+>> +
+>> +    set_bit(sspp_idx, fetch_active);
+>> +
+>> +    stage_cfg->stage[stage][stage_idx] = sspp_idx;
+>> +    stage_cfg->multirect_index[stage][stage_idx] =
+>> +                pipe->multirect_index;
+>> +
+>> +    /* blend config update */
+>> +    for (lm_idx = 0; lm_idx < num_mixers; lm_idx++)
+>> +        
+>> mixer[lm_idx].lm_ctl->ops.update_pending_flush_sspp(mixer[lm_idx].lm_ctl,
+>> +                                    sspp_idx);
 > 
-> Ah. Maybe I understand your point. I think 
-> drm_atomic_add_affected_planes() will ensure that all planes attached to 
-> CRTCs are also a part of the atomic state.
+> If you just pass the format to this function you can move rest of the 
+> for loop also to this function.
 
-Checked, it works as expected. But on the other hand, this pointed me to 
-a possible issue in dpu_plane_atomic_disable. Probably we should drop 
-the multirect setup there.
+As a second thought, this would defeat the purpose of the split. We 
+don't have to call _dpu_crtc_setup_blend_cfg() or setup mixer_op_mode 
+for the second pipe separately. So, I'd leave the loops as is.
 
 > 
-> Regarding the change itself. Think about encapsulation. CRTC should not 
-> care about plane's multirect state. It is a plane implementation detail. 
-> As we delve upon a path of using rect1 and then even using different 
-> SSPPs for the plane, these implementation details will change (mostly) 
-> behind CRTC's back.
+> Also, you will be able to add the trace_dpu_crtc_setup_mixer() with 
+> complete information.
 > 
->>
->>
->>>>
->>>>> +    pstate->stage = DPU_STAGE_0 + pstate->base.normalized_zpos;
->>>>> +    if (pstate->stage >= 
->>>>> pdpu->catalog->caps->max_mixer_blendstages) {
->>>>> +        DPU_ERROR("> %d plane stages assigned\n",
->>>>> +                pdpu->catalog->caps->max_mixer_blendstages - 
->>>>> DPU_STAGE_0);
->>>>> +        return -EINVAL;
->>>>> +    }
->>>>> +
->>>>
->>>> I agree that this check belongs to the plane_atomic_check().
->>>>
->>>>>       src.x1 = new_plane_state->src_x >> 16;
->>>>>       src.y1 = new_plane_state->src_y >> 16;
->>>>>       src.x2 = src.x1 + (new_plane_state->src_w >> 16);
->>>>> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.h 
->>>>> b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.h
->>>>> index 228db401e905..a08b0539513b 100644
->>>>> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.h
->>>>> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.h
->>>>> @@ -88,12 +88,6 @@ struct drm_plane *dpu_plane_init(struct 
->>>>> drm_device *dev,
->>>>>    */
->>>>>   int dpu_plane_validate_multirect_v2(struct 
->>>>> dpu_multirect_plane_states *plane);
->>>>> -/**
->>>>> - * dpu_plane_clear_multirect - clear multirect bits for the given 
->>>>> pipe
->>>>> - * @drm_state: Pointer to DRM plane state
->>>>> - */
->>>>> -void dpu_plane_clear_multirect(const struct drm_plane_state 
->>>>> *drm_state);
->>>>> -
->>>>>   /**
->>>>>    * dpu_plane_color_fill - enables color fill on plane
->>>>>    * @plane:  Pointer to DRM plane object
->>>
+> trace_dpu_crtc_setup_mixer is currently missing te stage_idx which is 
+> important to debug blend issues.
 > 
+>> +}
+>> +
+>>   static void _dpu_crtc_blend_setup_mixer(struct drm_crtc *crtc,
+>>       struct dpu_crtc *dpu_crtc, struct dpu_crtc_mixer *mixer,
+>>       struct dpu_hw_stage_cfg *stage_cfg)
+>> @@ -412,15 +453,12 @@ static void _dpu_crtc_blend_setup_mixer(struct 
+>> drm_crtc *crtc,
+>>       struct dpu_format *format;
+>>       struct dpu_hw_ctl *ctl = mixer->lm_ctl;
+>> -    uint32_t stage_idx, lm_idx;
+>> -    int zpos_cnt[DPU_STAGE_MAX + 1] = { 0 };
+>> +    uint32_t lm_idx;
+>>       bool bg_alpha_enable = false;
+>>       DECLARE_BITMAP(fetch_active, SSPP_MAX);
+>>       memset(fetch_active, 0, sizeof(fetch_active));
+>>       drm_atomic_crtc_for_each_plane(plane, crtc) {
+>> -        enum dpu_sspp sspp_idx;
+>> -
+>>           state = plane->state;
+>>           if (!state)
+>>               continue;
+>> @@ -431,39 +469,25 @@ static void _dpu_crtc_blend_setup_mixer(struct 
+>> drm_crtc *crtc,
+>>           pstate = to_dpu_plane_state(state);
+>>           fb = state->fb;
+>> -        sspp_idx = pstate->pipe.sspp->idx;
+>> -        set_bit(sspp_idx, fetch_active);
+>> -
+>> -        DRM_DEBUG_ATOMIC("crtc %d stage:%d - plane %d sspp %d fb %d\n",
+>> -                crtc->base.id,
+>> -                pstate->stage,
+>> -                plane->base.id,
+>> -                sspp_idx - SSPP_VIG0,
+>> -                state->fb ? state->fb->base.id : -1);
+>> -
+>>           format = 
+>> to_dpu_format(msm_framebuffer_format(pstate->base.fb));
+>>           if (pstate->stage == DPU_STAGE_BASE && format->alpha_enable)
+>>               bg_alpha_enable = true;
+>> -        stage_idx = zpos_cnt[pstate->stage]++;
+>> -        stage_cfg->stage[pstate->stage][stage_idx] =
+>> -                    sspp_idx;
+>> -        stage_cfg->multirect_index[pstate->stage][stage_idx] =
+>> -                    pstate->pipe.multirect_index;
+>> -
+>>           trace_dpu_crtc_setup_mixer(DRMID(crtc), DRMID(plane),
+>> -                       state, pstate, stage_idx,
+>> +                       state, pstate,
+>>                          format->base.pixel_format,
+>>                          fb ? fb->modifier : 0);
+>> +        _dpu_crtc_blend_setup_pipe(crtc, plane,
+>> +                       mixer, cstate->num_mixers,
+>> +                       stage_cfg, pstate->stage, 0,
+>> +                       fetch_active,
+>> +                       &pstate->pipe);
+>> +
+>>           /* blend config update */
+>>           for (lm_idx = 0; lm_idx < cstate->num_mixers; lm_idx++) {
+>> -            _dpu_crtc_setup_blend_cfg(mixer + lm_idx,
+>> -                        pstate, format);
+>> -
+>> -            
+>> mixer[lm_idx].lm_ctl->ops.update_pending_flush_sspp(mixer[lm_idx].lm_ctl,
+>> -                                        sspp_idx);
+>> +            _dpu_crtc_setup_blend_cfg(mixer + lm_idx, pstate, format);
+>>               if (bg_alpha_enable && !format->alpha_enable)
+>>                   mixer[lm_idx].mixer_op_mode = 0;
+>> @@ -1297,8 +1321,16 @@ static int _dpu_debugfs_status_show(struct 
+>> seq_file *s, void *data)
+>>           seq_printf(s, "\tdst x:%4d dst_y:%4d dst_w:%4d dst_h:%4d\n",
+>>               state->crtc_x, state->crtc_y, state->crtc_w,
+>>               state->crtc_h);
+>> -        seq_printf(s, "\tmultirect: mode: %d index: %d\n",
+>> +        seq_printf(s, "\tsspp[0]:%d\n",
+>> +               pstate->pipe.sspp->idx - SSPP_NONE);
+>> +        seq_printf(s, "\tmultirect[0]: mode: %d index: %d\n",
+>>               pstate->pipe.multirect_mode, pstate->pipe.multirect_index);
+>> +        if (pstate->r_pipe.sspp) {
+>> +            seq_printf(s, "\tsspp[1]:%d\n",
+>> +                   pstate->r_pipe.sspp->idx - SSPP_NONE);
+>> +            seq_printf(s, "\tmultirect[1]: mode: %d index: %d\n",
+>> +                   pstate->r_pipe.multirect_mode, 
+>> pstate->r_pipe.multirect_index);
+>> +        }
+>>           seq_puts(s, "\n");
+>>       }
+>> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_trace.h 
+>> b/drivers/gpu/drm/msm/disp/dpu1/dpu_trace.h
+>> index 0ad148cc2fb8..5ec4f89e8814 100644
+>> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_trace.h
+>> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_trace.h
+>> @@ -633,9 +633,9 @@ TRACE_EVENT(dpu_enc_phys_vid_irq_ctrl,
+>>   TRACE_EVENT(dpu_crtc_setup_mixer,
+>>       TP_PROTO(uint32_t crtc_id, uint32_t plane_id,
+>>            struct drm_plane_state *state, struct dpu_plane_state *pstate,
+>> -         uint32_t stage_idx, uint32_t pixel_format,
+>> +         uint32_t pixel_format,
+>>            uint64_t modifier),
+>> -    TP_ARGS(crtc_id, plane_id, state, pstate, stage_idx,
+>> +    TP_ARGS(crtc_id, plane_id, state, pstate,
+>>           pixel_format, modifier),
+>>       TP_STRUCT__entry(
+>>           __field(    uint32_t,        crtc_id        )
+>> @@ -643,7 +643,6 @@ TRACE_EVENT(dpu_crtc_setup_mixer,
+>>           __field(    uint32_t,        fb_id        )
+>>           __field_struct(    struct drm_rect,    src_rect    )
+>>           __field_struct(    struct drm_rect,    dst_rect    )
+>> -        __field(    uint32_t,        stage_idx    )
+>>           __field(    enum dpu_stage,        stage        )
+>>           __field(    enum dpu_sspp,        sspp        )
+>>           __field(    uint32_t,        multirect_idx    )
+>> @@ -657,7 +656,6 @@ TRACE_EVENT(dpu_crtc_setup_mixer,
+>>           __entry->fb_id = state ? state->fb->base.id : 0;
+>>           __entry->src_rect = drm_plane_state_src(state);
+>>           __entry->dst_rect = drm_plane_state_dest(state);
+>> -        __entry->stage_idx = stage_idx;
+>>           __entry->stage = pstate->stage;
+>>           __entry->sspp = pstate->pipe.sspp->idx;
+>>           __entry->multirect_idx = pstate->pipe.multirect_index;
+>> @@ -666,13 +664,13 @@ TRACE_EVENT(dpu_crtc_setup_mixer,
+>>           __entry->modifier = modifier;
+>>       ),
+>>       TP_printk("crtc_id:%u plane_id:%u fb_id:%u src:" DRM_RECT_FP_FMT
+>> -          " dst:" DRM_RECT_FMT " stage_idx:%u stage:%d, sspp:%d "
+>> +          " dst:" DRM_RECT_FMT " stage:%d, sspp:%d "
+>>             "multirect_index:%d multirect_mode:%u pix_format:%u "
+>>             "modifier:%llu",
+>>             __entry->crtc_id, __entry->plane_id, __entry->fb_id,
+>>             DRM_RECT_FP_ARG(&__entry->src_rect),
+>>             DRM_RECT_ARG(&__entry->dst_rect),
+>> -          __entry->stage_idx, __entry->stage, __entry->sspp,
+>> +          __entry->stage, __entry->sspp,
+>>             __entry->multirect_idx, __entry->multirect_mode,
+>>             __entry->pixel_format, __entry->modifier)
+>>   );
 
 -- 
 With best wishes
