@@ -2,56 +2,62 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0C3F36A9A7F
-	for <lists+freedreno@lfdr.de>; Fri,  3 Mar 2023 16:20:19 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7E5046A9AD6
+	for <lists+freedreno@lfdr.de>; Fri,  3 Mar 2023 16:41:43 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 292F210E6B5;
-	Fri,  3 Mar 2023 15:20:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 33C3E10E6C0;
+	Fri,  3 Mar 2023 15:41:42 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6596010E661;
- Fri,  3 Mar 2023 15:20:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1677856811; x=1709392811;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:content-transfer-encoding:in-reply-to;
- bh=jxfoKhZctFeAgg5bNNOJh9ngGIHvIiP4e7+MeSFwFSM=;
- b=Lp6IboqprKqQpXIgqGA9WkY07OX0vnCHOn/6twTUi/wA+JLkzUdIrLXF
- /vxzcnguc0uwx6B5EpVLrDSqOgb2Pcx1LCSz6NsZoe+1muRrKiRpwPoZ+
- y1PXuNBsHiIeNs5OSwW2XPr9i3Q1z7wSD7XQJEMOfJFv/5W50Lqu7nZpY
- 9BiG+7p0CO2tR5k7RJAGZWAJme8NMVup57FgVj6VHSVkyBWZYfm/xGGeJ
- 2/jcOSQJ6Qg4aL9pM1cXP2FVgroLrZM+FfZrc2LbQTLZdrMqOmr6WSOsP
- UsWnWUFTD+i3H7QyT/8ldBR/rswku8XjRNHvUIfDp4BonxMqkZ2/tSm3J g==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10638"; a="421336281"
-X-IronPort-AV: E=Sophos;i="5.98,231,1673942400"; d="scan'208";a="421336281"
-Received: from fmsmga003.fm.intel.com ([10.253.24.29])
- by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 03 Mar 2023 07:19:46 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6500,9779,10638"; a="764457624"
-X-IronPort-AV: E=Sophos;i="5.98,231,1673942400"; d="scan'208";a="764457624"
-Received: from stinkpipe.fi.intel.com (HELO stinkbox) ([10.237.72.70])
- by FMSMGA003.fm.intel.com with SMTP; 03 Mar 2023 07:19:40 -0800
-Received: by stinkbox (sSMTP sendmail emulation);
- Fri, 03 Mar 2023 17:19:40 +0200
-Date: Fri, 3 Mar 2023 17:19:40 +0200
-From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
-To: Rob Clark <robdclark@gmail.com>
-Message-ID: <ZAIQDBD+HPbQA5sr@intel.com>
+Received: from mail-oa1-x31.google.com (mail-oa1-x31.google.com
+ [IPv6:2001:4860:4864:20::31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 875D810E6C0;
+ Fri,  3 Mar 2023 15:41:40 +0000 (UTC)
+Received: by mail-oa1-x31.google.com with SMTP id
+ 586e51a60fabf-176261d7f45so3302452fac.11; 
+ Fri, 03 Mar 2023 07:41:40 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20210112; t=1677858100;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=SshJXdbsvY52OPqBvcRPFSQyEnl6DfUb/bSMQYfMUnI=;
+ b=BHn0VFC2AIkqwzLAD4/Oc7WjX3VhsoRxAwxi9VIIcGFpp9k1bWcjxX0gsK08y+Ic+I
+ RpeABIPgR3t41LZKkX7Dk4gKqFeJJ1Xs4b4zMNt5QMkVwWlQW2v/SAvNfKiUsZwVSmfY
+ NVToi0m5Ei91UjscYFDMJVRZL/CEgbzeDim8x0XqBhQBgO07jCqGn+Iw/BN4fpFloaHD
+ MAZ7oVuAbKllzROguXnMqUOVwWZAFcyc/EqtACI0CMiOYrlvM4l40F5m9m0lbkLdQCxL
+ ReKuCh4Bmd94J+MOR/kb37BjkdMLpws2qrZDK5GKYULlrp0wj++RiiIbC2DJKihbhSWQ
+ GTFw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112; t=1677858100;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=SshJXdbsvY52OPqBvcRPFSQyEnl6DfUb/bSMQYfMUnI=;
+ b=RB7D4T+BzLuVzWoOMhQgLItXyzS7nUtlHBG1MuEs8Zgb8SkU/XwB1YbMwC1Icj6SFh
+ Lgjj7P67h0kMmbZC5BkJbQNvgIjJ1rTllvOfDoA+GuWmE2dgDt4BEgmN/W3Hz/I7r854
+ lHVGtcqnQQ30Evstp3QmJvKzV0TdOSRNhvBNjxURdJWzYK7UVQJozcheSo9QirJAUdLy
+ NEOvhsD5yAEY3ZT4mxEEg7XClio6C8Xu8kvpETWBWTwfRZCKiEbOah3coluVhDwOXYr/
+ WVQfzLz9lvZdhIVqgcjcHyFvsTIunktMHbmIc78IYgBcuv/9077Qe9pu0cbchfnh1IGA
+ g10g==
+X-Gm-Message-State: AO0yUKWTaIQ4RG/9XQGpmnc7Nxf5OC8FsNuGLyeGY98elubEQIEWtvhn
+ iYOf+9ZjxyVecIWKuq3epEIdnKRBifbTQISNl/s=
+X-Google-Smtp-Source: AK7set9kbAxrLIWIWf9sDlHtPi+NyBtnuIbESXhmxYwKZLdZEYTl6cOGzrUwbKU5i1p9v+vIAIwRz0OOUMA3VKw1xjM=
+X-Received: by 2002:a05:6870:5a97:b0:176:31db:9a49 with SMTP id
+ dt23-20020a0568705a9700b0017631db9a49mr726414oab.3.1677858099731; Fri, 03 Mar
+ 2023 07:41:39 -0800 (PST)
+MIME-Version: 1.0
 References: <20230302235356.3148279-1-robdclark@gmail.com>
  <20230302235356.3148279-16-robdclark@gmail.com>
  <ZAFnqbycMleLmRe9@intel.com>
  <3bded9d7-9796-4a9b-7c11-aac994d4fdc6@linux.intel.com>
  <CAF6AEGs6QYTESuwB8E9cTbv9LqQX16tz6-geeu9BCyFos9=sOA@mail.gmail.com>
- <ZAILc/fxzBqLv1OF@intel.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <ZAILc/fxzBqLv1OF@intel.com>
-X-Patchwork-Hint: comment
+ <a5ced581-4060-0fa2-d2fc-d18beee6fdb5@linux.intel.com>
+In-Reply-To: <a5ced581-4060-0fa2-d2fc-d18beee6fdb5@linux.intel.com>
+From: Rob Clark <robdclark@gmail.com>
+Date: Fri, 3 Mar 2023 07:41:28 -0800
+Message-ID: <CAF6AEGvq0CXohj+y8FkADg7Wxj_hb_HdcLXKty9Uro+xpxNg2w@mail.gmail.com>
+To: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
+Content-Type: text/plain; charset="UTF-8"
 Subject: Re: [Freedreno] [PATCH v9 15/15] drm/i915: Add deadline based boost
  support
 X-BeenThere: freedreno@lists.freedesktop.org
@@ -66,79 +72,152 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rob Clark <robdclark@chromium.org>,
- Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
- intel-gfx@lists.freedesktop.org, Tvrtko Ursulin <tvrtko.ursulin@intel.com>,
- Christian =?iso-8859-1?Q?K=F6nig?= <ckoenig.leichtzumerken@gmail.com>,
- Michel =?iso-8859-1?Q?D=E4nzer?= <michel@daenzer.net>,
- open list <linux-kernel@vger.kernel.org>, dri-devel@lists.freedesktop.org,
- Sumit Semwal <sumit.semwal@linaro.org>,
+Cc: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ dri-devel@lists.freedesktop.org, David Airlie <airlied@gmail.com>,
+ Sumit Semwal <sumit.semwal@linaro.org>, Rob Clark <robdclark@chromium.org>,
+ Luben Tuikov <luben.tuikov@amd.com>, Matt Turner <mattst88@gmail.com>,
+ intel-gfx@lists.freedesktop.org,
+ "open list:DMA BUFFER SHARING FRAMEWORK" <linux-media@vger.kernel.org>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>,
+ =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel@daenzer.net>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
  "moderated list:DMA BUFFER SHARING FRAMEWORK" <linaro-mm-sig@lists.linaro.org>,
- Pekka Paalanen <ppaalanen@gmail.com>, Luben Tuikov <luben.tuikov@amd.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Alex Deucher <alexander.deucher@amd.com>, Matt Turner <mattst88@gmail.com>,
- freedreno@lists.freedesktop.org,
- Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
- "open list:DMA BUFFER SHARING FRAMEWORK" <linux-media@vger.kernel.org>
+ Pekka Paalanen <ppaalanen@gmail.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Tvrtko Ursulin <tvrtko.ursulin@intel.com>, Simon Ser <contact@emersion.fr>,
+ open list <linux-kernel@vger.kernel.org>, Daniel Vetter <daniel@ffwll.ch>,
+ Alex Deucher <alexander.deucher@amd.com>, freedreno@lists.freedesktop.org,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Fri, Mar 03, 2023 at 05:00:03PM +0200, Ville Syrjälä wrote:
-> On Fri, Mar 03, 2023 at 06:48:43AM -0800, Rob Clark wrote:
+On Fri, Mar 3, 2023 at 7:08 AM Tvrtko Ursulin
+<tvrtko.ursulin@linux.intel.com> wrote:
+>
+>
+> On 03/03/2023 14:48, Rob Clark wrote:
 > > On Fri, Mar 3, 2023 at 1:58 AM Tvrtko Ursulin
 > > <tvrtko.ursulin@linux.intel.com> wrote:
-> > >
-> > >
-> > > On 03/03/2023 03:21, Rodrigo Vivi wrote:
-> > > > On Thu, Mar 02, 2023 at 03:53:37PM -0800, Rob Clark wrote:
-> > > >> From: Rob Clark <robdclark@chromium.org>
-> > > >>
-> > > >
-> > > > missing some wording here...
-> > > >
-> > > >> v2: rebase
-> > > >>
-> > > >> Signed-off-by: Rob Clark <robdclark@chromium.org>
-> > > >> ---
-> > > >>   drivers/gpu/drm/i915/i915_request.c | 20 ++++++++++++++++++++
-> > > >>   1 file changed, 20 insertions(+)
-> > > >>
-> > > >> diff --git a/drivers/gpu/drm/i915/i915_request.c b/drivers/gpu/drm/i915/i915_request.c
-> > > >> index 7503dcb9043b..44491e7e214c 100644
-> > > >> --- a/drivers/gpu/drm/i915/i915_request.c
-> > > >> +++ b/drivers/gpu/drm/i915/i915_request.c
-> > > >> @@ -97,6 +97,25 @@ static bool i915_fence_enable_signaling(struct dma_fence *fence)
-> > > >>      return i915_request_enable_breadcrumb(to_request(fence));
-> > > >>   }
-> > > >>
-> > > >> +static void i915_fence_set_deadline(struct dma_fence *fence, ktime_t deadline)
-> > > >> +{
-> > > >> +    struct i915_request *rq = to_request(fence);
-> > > >> +
-> > > >> +    if (i915_request_completed(rq))
-> > > >> +            return;
-> > > >> +
-> > > >> +    if (i915_request_started(rq))
-> > > >> +            return;
-> > > >
-> > > > why do we skip the boost if already started?
-> > > > don't we want to boost the freq anyway?
-> > >
-> > > I'd wager Rob is just copying the current i915 wait boost logic.
-> > 
+> >>
+> >>
+> >> On 03/03/2023 03:21, Rodrigo Vivi wrote:
+> >>> On Thu, Mar 02, 2023 at 03:53:37PM -0800, Rob Clark wrote:
+> >>>> From: Rob Clark <robdclark@chromium.org>
+> >>>>
+> >>>
+> >>> missing some wording here...
+> >>>
+> >>>> v2: rebase
+> >>>>
+> >>>> Signed-off-by: Rob Clark <robdclark@chromium.org>
+> >>>> ---
+> >>>>    drivers/gpu/drm/i915/i915_request.c | 20 ++++++++++++++++++++
+> >>>>    1 file changed, 20 insertions(+)
+> >>>>
+> >>>> diff --git a/drivers/gpu/drm/i915/i915_request.c b/drivers/gpu/drm/i915/i915_request.c
+> >>>> index 7503dcb9043b..44491e7e214c 100644
+> >>>> --- a/drivers/gpu/drm/i915/i915_request.c
+> >>>> +++ b/drivers/gpu/drm/i915/i915_request.c
+> >>>> @@ -97,6 +97,25 @@ static bool i915_fence_enable_signaling(struct dma_fence *fence)
+> >>>>       return i915_request_enable_breadcrumb(to_request(fence));
+> >>>>    }
+> >>>>
+> >>>> +static void i915_fence_set_deadline(struct dma_fence *fence, ktime_t deadline)
+> >>>> +{
+> >>>> +    struct i915_request *rq = to_request(fence);
+> >>>> +
+> >>>> +    if (i915_request_completed(rq))
+> >>>> +            return;
+> >>>> +
+> >>>> +    if (i915_request_started(rq))
+> >>>> +            return;
+> >>>
+> >>> why do we skip the boost if already started?
+> >>> don't we want to boost the freq anyway?
+> >>
+> >> I'd wager Rob is just copying the current i915 wait boost logic.
+> >
 > > Yup, and probably incorrectly.. Matt reported fewer boosts/sec
 > > compared to your RFC, this could be the bug
-> 
-> I don't think i915 calls drm_atomic_helper_wait_for_fences()
-> so that could explain something.
+>
+> Hm, there I have preserved this same !i915_request_started logic.
+>
+> Presumably it's not just fewer boosts but lower performance. How is he
+> setting the deadline? Somehow from clFlush or so?
 
-Oh, I guess this wasn't even supposed to take over the current 
-display boost stuff since you didn't remove the old one.
+Yeah, fewer boosts, lower freq/perf.. I cobbled together a quick mesa
+hack to set the DEADLINE flag on syncobj waits, but it seems likely
+that I missed something somewhere
 
-The current one just boosts after a missed vblank. The deadline
-could use your timer approach I suppose and boost already a bit
-earlier in the hopes of not missing the vblank.
+BR,
+-R
 
--- 
-Ville Syrjälä
-Intel
+> Regards,
+>
+> Tvrtko
+>
+> P.S. Take note that I did not post the latest version of my RFC. The one
+> where I fix the fence chain and array misses you pointed out. I did not
+> think it would be worthwhile given no universal love for it, but if
+> people are testing with it more widely that I was aware perhaps I should.
+>
+> >>>> +
+> >>>> +    /*
+> >>>> +     * TODO something more clever for deadlines that are in the
+> >>>> +     * future.  I think probably track the nearest deadline in
+> >>>> +     * rq->timeline and set timer to trigger boost accordingly?
+> >>>> +     */
+> >>>
+> >>> I'm afraid it will be very hard to find some heuristics of what's
+> >>> late enough for the boost no?
+> >>> I mean, how early to boost the freq on an upcoming deadline for the
+> >>> timer?
+> >>
+> >> We can off load this patch from Rob and deal with it separately, or
+> >> after the fact?
+> >
+> > That is completely my intention, I expect you to replace my i915 patch ;-)
+> >
+> > Rough idea when everyone is happy with the core bits is to setup an
+> > immutable branch without the driver specific patches, which could be
+> > merged into drm-next and $driver-next and then each driver team can
+> > add there own driver patches on top
+> >
+> > BR,
+> > -R
+> >
+> >> It's a half solution without a smarter scheduler too. Like
+> >> https://lore.kernel.org/all/20210208105236.28498-10-chris@chris-wilson.co.uk/,
+> >> or if GuC plans to do something like that at any point.
+> >>
+> >> Or bump the priority too if deadline is looming?
+> >>
+> >> IMO it is not very effective to fiddle with the heuristic on an ad-hoc
+> >> basis. For instance I have a new heuristics which improves the
+> >> problematic OpenCL cases for further 5% (relative to the current
+> >> waitboost improvement from adding missing syncobj waitboost). But I
+> >> can't really test properly for regressions over platforms, stacks,
+> >> workloads.. :(
+> >>
+> >> Regards,
+> >>
+> >> Tvrtko
+> >>
+> >>>
+> >>>> +
+> >>>> +    intel_rps_boost(rq);
+> >>>> +}
+> >>>> +
+> >>>>    static signed long i915_fence_wait(struct dma_fence *fence,
+> >>>>                                  bool interruptible,
+> >>>>                                  signed long timeout)
+> >>>> @@ -182,6 +201,7 @@ const struct dma_fence_ops i915_fence_ops = {
+> >>>>       .signaled = i915_fence_signaled,
+> >>>>       .wait = i915_fence_wait,
+> >>>>       .release = i915_fence_release,
+> >>>> +    .set_deadline = i915_fence_set_deadline,
+> >>>>    };
+> >>>>
+> >>>>    static void irq_execute_cb(struct irq_work *wrk)
+> >>>> --
+> >>>> 2.39.1
+> >>>>
