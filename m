@@ -2,56 +2,47 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id A1ACD6A9B2F
-	for <lists+freedreno@lfdr.de>; Fri,  3 Mar 2023 16:52:12 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2F7656A9C12
+	for <lists+freedreno@lfdr.de>; Fri,  3 Mar 2023 17:48:30 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 60F7B10E6E9;
-	Fri,  3 Mar 2023 15:52:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E576810E70D;
+	Fri,  3 Mar 2023 16:48:27 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E672110E6E7;
- Fri,  3 Mar 2023 15:52:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1677858729; x=1709394729;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:content-transfer-encoding:in-reply-to;
- bh=lsRjo7yTXyKCofFwzcN0jbA0ArTfH/fumplb/rfEDjk=;
- b=eY9bugMtbKYwyikNGx6B6AOGqQXem0Y+nQ/E0n0p/WmnvAthQfjIsfy3
- 7OvQGR4TE6dYB7hYYGo3VgqVM3h8x8SqrG/Dlr8SWiTUBNuhK09PI9twG
- ZxjUXSrAm5vht3IChvKFYYQaBh16UXq0ug92KPmMLqlO+eser9GHKCkIm
- 7irR3/vgN5AoZBQrf1KkciD1dTQn3FuohoI461o4h37mgU8zwDFITzl1u
- imuvhLpp8+zvhf5xLaHWa7deFPBfpTgSwJozSbbFA5cxFuEGZPXMTtxj9
- zzxndl+iiqFQNXVXiDPc1S7VV2K+BADg3gJi740VNhN8mAgn1WpiYoobf A==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10638"; a="318896437"
-X-IronPort-AV: E=Sophos;i="5.98,231,1673942400"; d="scan'208";a="318896437"
-Received: from fmsmga001.fm.intel.com ([10.253.24.23])
- by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 03 Mar 2023 07:52:08 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6500,9779,10638"; a="818509745"
-X-IronPort-AV: E=Sophos;i="5.98,231,1673942400"; d="scan'208";a="818509745"
-Received: from stinkpipe.fi.intel.com (HELO stinkbox) ([10.237.72.70])
- by fmsmga001.fm.intel.com with SMTP; 03 Mar 2023 07:52:03 -0800
-Received: by stinkbox (sSMTP sendmail emulation);
- Fri, 03 Mar 2023 17:52:02 +0200
-Date: Fri, 3 Mar 2023 17:52:02 +0200
-From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
-To: Rob Clark <robdclark@gmail.com>
-Message-ID: <ZAIXonf7orksoFhb@intel.com>
-References: <20230302235356.3148279-1-robdclark@gmail.com>
- <20230302235356.3148279-12-robdclark@gmail.com>
- <ZAIOaiogeUhhNVfo@intel.com>
- <CAF6AEGuL+B6sR2=7MFvqT0zfsgraoOdzAJBF=Ke1ce1umYh4Xw@mail.gmail.com>
+Received: from ams.source.kernel.org (ams.source.kernel.org
+ [IPv6:2604:1380:4601:e00::1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D7F4E10E70A;
+ Fri,  3 Mar 2023 16:48:25 +0000 (UTC)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by ams.source.kernel.org (Postfix) with ESMTPS id 7CD83B81990;
+ Fri,  3 Mar 2023 16:48:24 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 395AAC433D2;
+ Fri,  3 Mar 2023 16:48:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1677862103;
+ bh=1auQdaHF8WrUc2XS2AV/wHeHyXy2dDhMmuSXxxr5tu0=;
+ h=From:To:Cc:Subject:Date:From;
+ b=GoklBibh4/Qbs4upVxR/GK4zWEOg1WCIoZD55m7JaYPLceyaYc4FKylvxKO8YopRp
+ DAYs082pAvbRY2ELGaseX6c8Bpvg2pT/fkMJPZe0oaB72lOJvd+3U1ptrfi1IlQLTf
+ Cigeh76hZjACjiWHg97SY25GYfji0FrO1EOEqXSzF7bj2URF/OkOYoUesQsJrSKJ0V
+ Z8Uw56J/n6QsOr1Cb+ovuSv/XOC7DUvvK6Wx6XuwE5MOTmvnPxpopf8AobJFciJfZg
+ S8ViZ1lXdPiJGtqhfgrhFrUYxSLmxmhUCHVILgfE840YMKPsT05MyogtPH7LA3Yj2T
+ TVRKqE8Tvnr9w==
+Received: from johan by xi.lan with local (Exim 4.94.2)
+ (envelope-from <johan+linaro@kernel.org>)
+ id 1pY8aU-0003Qa-KA; Fri, 03 Mar 2023 17:48:55 +0100
+From: Johan Hovold <johan+linaro@kernel.org>
+To: Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Date: Fri,  3 Mar 2023 17:48:03 +0100
+Message-Id: <20230303164807.13124-1-johan+linaro@kernel.org>
+X-Mailer: git-send-email 2.39.2
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAF6AEGuL+B6sR2=7MFvqT0zfsgraoOdzAJBF=Ke1ce1umYh4Xw@mail.gmail.com>
-X-Patchwork-Hint: comment
-Subject: Re: [Freedreno] [PATCH v9 11/15] drm/atomic-helper: Set fence
- deadline for vblank
+Subject: [Freedreno] [PATCH v2 0/4] drm/msm/adreno: fix runtime PM imbalance
+ at unbind
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,83 +55,48 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rob Clark <robdclark@chromium.org>,
- Tvrtko Ursulin <tvrtko.ursulin@intel.com>,
- Christian =?iso-8859-1?Q?K=F6nig?= <ckoenig.leichtzumerken@gmail.com>,
- Michel =?iso-8859-1?Q?D=E4nzer?= <michel@daenzer.net>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- open list <linux-kernel@vger.kernel.org>, dri-devel@lists.freedesktop.org,
- Pekka Paalanen <ppaalanen@gmail.com>, Luben Tuikov <luben.tuikov@amd.com>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Daniel Vetter <daniel.vetter@ffwll.ch>,
- Alex Deucher <alexander.deucher@amd.com>, freedreno@lists.freedesktop.org
+Cc: freedreno@lists.freedesktop.org, Sean Paul <sean@poorly.run>,
+ Bjorn Andersson <andersson@kernel.org>, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>,
+ linux-arm-msm@vger.kernel.org, David Airlie <airlied@gmail.com>,
+ Johan Hovold <johan+linaro@kernel.org>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Fri, Mar 03, 2023 at 07:45:05AM -0800, Rob Clark wrote:
-> On Fri, Mar 3, 2023 at 7:12 AM Ville Syrjälä
-> <ville.syrjala@linux.intel.com> wrote:
-> >
-> > On Thu, Mar 02, 2023 at 03:53:33PM -0800, Rob Clark wrote:
-> > > From: Rob Clark <robdclark@chromium.org>
-> > >
-> > > For an atomic commit updating a single CRTC (ie. a pageflip) calculate
-> > > the next vblank time, and inform the fence(s) of that deadline.
-> > >
-> > > v2: Comment typo fix (danvet)
-> > >
-> > > Signed-off-by: Rob Clark <robdclark@chromium.org>
-> > > Reviewed-by: Daniel Vetter <daniel.vetter@ffwll.ch>
-> > > Signed-off-by: Rob Clark <robdclark@chromium.org>
-> > > ---
-> > >  drivers/gpu/drm/drm_atomic_helper.c | 36 +++++++++++++++++++++++++++++
-> > >  1 file changed, 36 insertions(+)
-> > >
-> > > diff --git a/drivers/gpu/drm/drm_atomic_helper.c b/drivers/gpu/drm/drm_atomic_helper.c
-> > > index d579fd8f7cb8..d8ee98ce2fc5 100644
-> > > --- a/drivers/gpu/drm/drm_atomic_helper.c
-> > > +++ b/drivers/gpu/drm/drm_atomic_helper.c
-> > > @@ -1511,6 +1511,40 @@ void drm_atomic_helper_commit_modeset_enables(struct drm_device *dev,
-> > >  }
-> > >  EXPORT_SYMBOL(drm_atomic_helper_commit_modeset_enables);
-> > >
-> > > +/*
-> > > + * For atomic updates which touch just a single CRTC, calculate the time of the
-> > > + * next vblank, and inform all the fences of the deadline.
-> > > + */
-> > > +static void set_fence_deadline(struct drm_device *dev,
-> > > +                            struct drm_atomic_state *state)
-> > > +{
-> > > +     struct drm_crtc *crtc, *wait_crtc = NULL;
-> > > +     struct drm_crtc_state *new_crtc_state;
-> > > +     struct drm_plane *plane;
-> > > +     struct drm_plane_state *new_plane_state;
-> > > +     ktime_t vbltime;
-> > > +     int i;
-> > > +
-> > > +     for_each_new_crtc_in_state (state, crtc, new_crtc_state, i) {
-> > > +             if (wait_crtc)
-> > > +                     return;
-> > > +             wait_crtc = crtc;
-> > > +     }
-> > > +
-> > > +     /* If no CRTCs updated, then nothing to do: */
-> > > +     if (!wait_crtc)
-> > > +             return;
-> >
-> > Is there an actual point in limiting this to single crtc updates?
-> > That immediately excludes tiled displays/etc.
-> >
-> > Handling an arbitrary number of crtcs shouldn't really be a lot
-> > more complicated should it?
-> 
-> I guess I could find the soonest upcoming vblank of all the CRTCs and
-> use that as the deadline?
+As reported by Bjorn, we can end up with an unbalanced runtime PM
+disable count if unbind() is called before the DRM device is opened
+(e.g. if component bind fails due to the panel driver not having been
+loaded yet).
 
-Yeah, that seems reasonable. The flips are supposed to happen
-atomically (if possible) anyway so collapsing the thing to
-a single deadline for all makes sense to me.
+As runtime PM must currently stay disabled until the firmware has been
+loaded, fix this by making the runtime PM disable call at unbind()
+conditional.
+
+The rest of the series fixes further imbalances in the load_gpu() error
+paths and removes a bogus pm_runtime_set_active() call. Included is also
+a related indentation cleanup.
+
+Johan
+
+
+Changes in v2
+ - fix the runtime PM imbalance in the gpu load error paths (new)
+
+ - drop the patch removing the pm_runtime_disable() from
+   adreno_gpu_cleanup() as this function can currently still be called
+   with runtime PM enabled if suspending the scheduler in
+   adreno_system_suspend() at unbind fails
+
+
+Johan Hovold (4):
+  drm/msm/adreno: fix runtime PM imbalance at unbind
+  drm/msm/adreno: fix runtime PM imbalance at gpu load
+  drm/msm/adreno: drop bogus pm_runtime_set_active()
+  drm/msm/adreno: clean up component ops indentation
+
+ drivers/gpu/drm/msm/adreno/adreno_device.c | 26 +++++++++++++---------
+ 1 file changed, 16 insertions(+), 10 deletions(-)
 
 -- 
-Ville Syrjälä
-Intel
+2.39.2
+
