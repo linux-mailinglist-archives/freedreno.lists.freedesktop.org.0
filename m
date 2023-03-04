@@ -1,71 +1,42 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9F2196AA5EC
-	for <lists+freedreno@lfdr.de>; Sat,  4 Mar 2023 00:53:34 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id F0C106AA920
+	for <lists+freedreno@lfdr.de>; Sat,  4 Mar 2023 11:29:23 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 371E110E78B;
-	Fri,  3 Mar 2023 23:53:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F3E6710E12C;
+	Sat,  4 Mar 2023 10:29:21 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ed1-x535.google.com (mail-ed1-x535.google.com
- [IPv6:2a00:1450:4864:20::535])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F1FC410E78D
- for <freedreno@lists.freedesktop.org>; Fri,  3 Mar 2023 23:53:31 +0000 (UTC)
-Received: by mail-ed1-x535.google.com with SMTP id da10so16748075edb.3
- for <freedreno@lists.freedesktop.org>; Fri, 03 Mar 2023 15:53:31 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=gnDZ9x2blH5V8YINfT6XOEOEFytwM5xt/JuAKzXCEWU=;
- b=CysvhjzJrWfpzLbmZMuln5F1LZXgBzBu4oR3PEjQqN/OQMt+Zh8GTxeYL9ZXR3QmSE
- tyHKB8gKDZRKXHxB0zBebHIXxH0FX3fNke1AHBevQacjZXOEyvedakh+rWEEdRE4HHAe
- D4Ci9kbvYC4wulP/eArIu7vNgMtZjjWcZG0OxuRi2gIxsqyFVj0ZZQobqXhgjoKFfcct
- dCLOTpYmzE01SHLQTatMXTNpuCNlej00nsQS+PVyBCgfb2manXjYDA12QXhAEfjSWtW+
- MqITV/TCHiEoJQJ3W9K4EGzf/rysfbK1CP/4eeauBSBf8P4A9s0zp9pktLwVtUGIyWIk
- +JtA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=gnDZ9x2blH5V8YINfT6XOEOEFytwM5xt/JuAKzXCEWU=;
- b=RjmwLAQA4UYQQri635vqlKQjvqlhavmKrcn+qnerrNL95tYvSKeU5UAsCjaMsyHiP+
- 4anAeNdb37NnibofzP3zzkO+pbJ8jcv7mxkPnDbvWwJhBs03m9+5fSRM3YQcebJQjnTC
- FykMgXq4HCV+pipFKgsxnXaJV+r8FBtiIz5OWNO+wDFdG4Oe2asHg9/KgvJ6KYJujCyB
- /hi9v24Zb6bpHpCYiPIqr5ZRXWDFK6FOGJOOthCMF3EAxbqeZnLspPbv/If3YMsBw2a+
- p9rAsLXOvh6CpLOfw6rdeEnWGLNl5vr4sgsPlQvIYfgi8hsQj9XDhuAl0razhKvNWNwf
- xqhg==
-X-Gm-Message-State: AO0yUKWmQbJa8d22PmT2jsFwXRluc3fEQX/oeF1NT3KPH9uld84bPjYR
- Poh8JJzQDutuvKb2Q6C8hmprOQ==
-X-Google-Smtp-Source: AK7set9JmLUWJX+fB3FtuG1918iXvCOsgAoXJ70x5Nw9+h8/nbjmxtRgVk16QJDub3WUOofqGBZIpQ==
-X-Received: by 2002:a17:907:70e:b0:878:955e:b4a4 with SMTP id
- xb14-20020a170907070e00b00878955eb4a4mr4595666ejb.33.1677887610406; 
- Fri, 03 Mar 2023 15:53:30 -0800 (PST)
-Received: from [10.203.3.194] ([185.202.34.81])
- by smtp.gmail.com with ESMTPSA id
- h17-20020a17090634d100b008ee5356801dsm1463032ejb.187.2023.03.03.15.53.28
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 03 Mar 2023 15:53:30 -0800 (PST)
-Message-ID: <b9a5778c-0eae-28c1-1806-33550345e619@linaro.org>
-Date: Sat, 4 Mar 2023 01:53:28 +0200
+Received: from relay04.th.seeweb.it (relay04.th.seeweb.it
+ [IPv6:2001:4b7a:2000:18::165])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3D08310E172
+ for <freedreno@lists.freedesktop.org>; Sat,  4 Mar 2023 10:29:19 +0000 (UTC)
+Received: from SoMainline.org (94-211-6-86.cable.dynamic.v4.ziggo.nl
+ [94.211.6.86])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest
+ SHA256) (No client certificate requested)
+ by m-r1.th.seeweb.it (Postfix) with ESMTPSA id 37F1E200B8;
+ Sat,  4 Mar 2023 11:29:17 +0100 (CET)
+Date: Sat, 4 Mar 2023 11:29:15 +0100
+From: Marijn Suijten <marijn.suijten@somainline.org>
+To: Abhinav Kumar <quic_abhinavk@quicinc.com>
+Message-ID: <20230304102915.mxkwlc7qf2rz2abt@SoMainline.org>
+References: <20230221184256.1436-1-quic_jesszhan@quicinc.com>
+ <20230221184256.1436-2-quic_jesszhan@quicinc.com>
+ <20230301100331.3altimojtca4zx6m@SoMainline.org>
+ <5de60136-4150-dcc7-517f-5d65452c5e1b@quicinc.com>
+ <20230301170812.zcu6upwzcfkt4s7c@SoMainline.org>
+ <866c86bb-fc16-bc78-6c0d-e693bf926241@quicinc.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.8.0
-Content-Language: en-GB
-To: Rob Clark <robdclark@gmail.com>
-References: <20230302235356.3148279-1-robdclark@gmail.com>
- <20230302235356.3148279-13-robdclark@gmail.com>
- <a5249009-0bec-61a5-4dd2-5728ee3017e3@linaro.org>
- <CAF6AEGtmQu-8LEdm68vXJJSpssXq2AShEdexqTGVW0WO5VmtDQ@mail.gmail.com>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-In-Reply-To: <CAF6AEGtmQu-8LEdm68vXJJSpssXq2AShEdexqTGVW0WO5VmtDQ@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-Subject: Re: [Freedreno] [PATCH v9 12/15] drm/msm: Add deadline based boost
- support
+In-Reply-To: <866c86bb-fc16-bc78-6c0d-e693bf926241@quicinc.com>
+Subject: Re: [Freedreno] [PATCH v4 1/4] drm/msm/dpu: Move TE setup to
+ prepare_for_kickoff()
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,210 +49,79 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rob Clark <robdclark@chromium.org>,
- open list <linux-kernel@vger.kernel.org>, Simon Ser <contact@emersion.fr>,
- Tvrtko Ursulin <tvrtko.ursulin@intel.com>,
- =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>,
- =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel@daenzer.net>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
- =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
- "moderated list:DMA BUFFER SHARING FRAMEWORK" <linaro-mm-sig@lists.linaro.org>,
- Sean Paul <sean@poorly.run>, Pekka Paalanen <ppaalanen@gmail.com>,
- Luben Tuikov <luben.tuikov@amd.com>, Daniel Vetter <daniel@ffwll.ch>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Alex Deucher <alexander.deucher@amd.com>, David Airlie <airlied@gmail.com>,
- freedreno@lists.freedesktop.org, Sumit Semwal <sumit.semwal@linaro.org>,
- "open list:DRM DRIVER FOR MSM ADRENO GPU" <linux-arm-msm@vger.kernel.org>,
- "open list:DMA BUFFER SHARING FRAMEWORK" <linux-media@vger.kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ swboyd@chromium.org, Rob Clark <robdclark@gmail.com>, seanpaul@chromium.org,
+ dmitry.baryshkov@linaro.org, Jessica Zhang <quic_jesszhan@quicinc.com>,
+ freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 03/03/2023 19:03, Rob Clark wrote:
-> On Fri, Mar 3, 2023 at 2:10 AM Dmitry Baryshkov
-> <dmitry.baryshkov@linaro.org> wrote:
->>
->> On 03/03/2023 01:53, Rob Clark wrote:
->>> From: Rob Clark <robdclark@chromium.org>
->>>
->>> Track the nearest deadline on a fence timeline and set a timer to expire
->>> shortly before to trigger boost if the fence has not yet been signaled.
->>>
->>> v2: rebase
->>>
->>> Signed-off-by: Rob Clark <robdclark@chromium.org>
->>> ---
->>>    drivers/gpu/drm/msm/msm_fence.c | 74 +++++++++++++++++++++++++++++++++
->>>    drivers/gpu/drm/msm/msm_fence.h | 20 +++++++++
->>>    2 files changed, 94 insertions(+)
->>
->> Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
->>
->> A small question: do we boost to fit into the deadline or to miss the
->> deadline for as little as possible? If the former is the case, we might
->> need to adjust 3ms depending on the workload.
+On 2023-03-01 13:42:55, Abhinav Kumar wrote:
+<snip>
+> >>> Then, for some patch hygiene, starting here:
+> >>>
+> >>>> Depends on: "Implement tearcheck support on INTF block" [3]
+> >>>>
+> >>>> Changes in V3:
+> >>>> - Added function prototypes
+> >>>> - Reordered function definitions to make change more legible
+> >>>> - Removed prepare_commit() function from dpu_encoder_phys_cmd
+> >>>>
+> >>>> Changes in V4:
+> >>>> - Reworded commit message to be more specific
+> >>>> - Removed dpu_encoder_phys_cmd_is_ongoing_pptx() prototype
+> >>>
+> >>> ... until here: all this info belongs /below the cut/ outside of the
+> >>> messge that becomes part of the commit when this patch is applied to the
+> >>> tree.
+> >>
+> >> For DRM, I thought we are keeping the change log above the ---- ?
+> >> Which means its allowed in the commit message.
+> > 
+> > I hope not, seems unlikely to have different rules across kernel
+> > subsystems.  The main point is that this changelog and dependency chain
+> > isn't of any value when the final patch is applied, regardless of
+> > whether it is "allowed".
+> > 
 > 
-> The goal is as much to run with higher clock on the next frame as it
-> is to not miss a deadline.  Ie. we don't want devfreq to come to the
-> conclusion that running at <50% clks is best due to the amount of
-> utilization caused by missing ever other vblank.
-
-Ack, thanks for the explanation.
-
+> I looked at a recently posted change by Rob and change log is above the ---
 > 
-> But 3ms is mostly just "seems like a good compromise" value.  It might change.
+> https://patchwork.kernel.org/project/dri-devel/patch/20230301185432.3010939-1-robdclark@gmail.com/
 > 
-> BR,
-> -R
-> 
->>>
->>> diff --git a/drivers/gpu/drm/msm/msm_fence.c b/drivers/gpu/drm/msm/msm_fence.c
->>> index 56641408ea74..51b461f32103 100644
->>> --- a/drivers/gpu/drm/msm/msm_fence.c
->>> +++ b/drivers/gpu/drm/msm/msm_fence.c
->>> @@ -8,6 +8,35 @@
->>>
->>>    #include "msm_drv.h"
->>>    #include "msm_fence.h"
->>> +#include "msm_gpu.h"
->>> +
->>> +static struct msm_gpu *fctx2gpu(struct msm_fence_context *fctx)
->>> +{
->>> +     struct msm_drm_private *priv = fctx->dev->dev_private;
->>> +     return priv->gpu;
->>> +}
->>> +
->>> +static enum hrtimer_restart deadline_timer(struct hrtimer *t)
->>> +{
->>> +     struct msm_fence_context *fctx = container_of(t,
->>> +                     struct msm_fence_context, deadline_timer);
->>> +
->>> +     kthread_queue_work(fctx2gpu(fctx)->worker, &fctx->deadline_work);
->>> +
->>> +     return HRTIMER_NORESTART;
->>> +}
->>> +
->>> +static void deadline_work(struct kthread_work *work)
->>> +{
->>> +     struct msm_fence_context *fctx = container_of(work,
->>> +                     struct msm_fence_context, deadline_work);
->>> +
->>> +     /* If deadline fence has already passed, nothing to do: */
->>> +     if (msm_fence_completed(fctx, fctx->next_deadline_fence))
->>> +             return;
->>> +
->>> +     msm_devfreq_boost(fctx2gpu(fctx), 2);
->>> +}
->>>
->>>
->>>    struct msm_fence_context *
->>> @@ -36,6 +65,13 @@ msm_fence_context_alloc(struct drm_device *dev, volatile uint32_t *fenceptr,
->>>        fctx->completed_fence = fctx->last_fence;
->>>        *fctx->fenceptr = fctx->last_fence;
->>>
->>> +     hrtimer_init(&fctx->deadline_timer, CLOCK_MONOTONIC, HRTIMER_MODE_ABS);
->>> +     fctx->deadline_timer.function = deadline_timer;
->>> +
->>> +     kthread_init_work(&fctx->deadline_work, deadline_work);
->>> +
->>> +     fctx->next_deadline = ktime_get();
->>> +
->>>        return fctx;
->>>    }
->>>
->>> @@ -62,6 +98,8 @@ void msm_update_fence(struct msm_fence_context *fctx, uint32_t fence)
->>>        spin_lock_irqsave(&fctx->spinlock, flags);
->>>        if (fence_after(fence, fctx->completed_fence))
->>>                fctx->completed_fence = fence;
->>> +     if (msm_fence_completed(fctx, fctx->next_deadline_fence))
->>> +             hrtimer_cancel(&fctx->deadline_timer);
->>>        spin_unlock_irqrestore(&fctx->spinlock, flags);
->>>    }
->>>
->>> @@ -92,10 +130,46 @@ static bool msm_fence_signaled(struct dma_fence *fence)
->>>        return msm_fence_completed(f->fctx, f->base.seqno);
->>>    }
->>>
->>> +static void msm_fence_set_deadline(struct dma_fence *fence, ktime_t deadline)
->>> +{
->>> +     struct msm_fence *f = to_msm_fence(fence);
->>> +     struct msm_fence_context *fctx = f->fctx;
->>> +     unsigned long flags;
->>> +     ktime_t now;
->>> +
->>> +     spin_lock_irqsave(&fctx->spinlock, flags);
->>> +     now = ktime_get();
->>> +
->>> +     if (ktime_after(now, fctx->next_deadline) ||
->>> +                     ktime_before(deadline, fctx->next_deadline)) {
->>> +             fctx->next_deadline = deadline;
->>> +             fctx->next_deadline_fence =
->>> +                     max(fctx->next_deadline_fence, (uint32_t)fence->seqno);
->>> +
->>> +             /*
->>> +              * Set timer to trigger boost 3ms before deadline, or
->>> +              * if we are already less than 3ms before the deadline
->>> +              * schedule boost work immediately.
->>> +              */
->>> +             deadline = ktime_sub(deadline, ms_to_ktime(3));
->>> +
->>> +             if (ktime_after(now, deadline)) {
->>> +                     kthread_queue_work(fctx2gpu(fctx)->worker,
->>> +                                     &fctx->deadline_work);
->>> +             } else {
->>> +                     hrtimer_start(&fctx->deadline_timer, deadline,
->>> +                                     HRTIMER_MODE_ABS);
->>> +             }
->>> +     }
->>> +
->>> +     spin_unlock_irqrestore(&fctx->spinlock, flags);
->>> +}
->>> +
->>>    static const struct dma_fence_ops msm_fence_ops = {
->>>        .get_driver_name = msm_fence_get_driver_name,
->>>        .get_timeline_name = msm_fence_get_timeline_name,
->>>        .signaled = msm_fence_signaled,
->>> +     .set_deadline = msm_fence_set_deadline,
->>>    };
->>>
->>>    struct dma_fence *
->>> diff --git a/drivers/gpu/drm/msm/msm_fence.h b/drivers/gpu/drm/msm/msm_fence.h
->>> index 7f1798c54cd1..cdaebfb94f5c 100644
->>> --- a/drivers/gpu/drm/msm/msm_fence.h
->>> +++ b/drivers/gpu/drm/msm/msm_fence.h
->>> @@ -52,6 +52,26 @@ struct msm_fence_context {
->>>        volatile uint32_t *fenceptr;
->>>
->>>        spinlock_t spinlock;
->>> +
->>> +     /*
->>> +      * TODO this doesn't really deal with multiple deadlines, like
->>> +      * if userspace got multiple frames ahead.. OTOH atomic updates
->>> +      * don't queue, so maybe that is ok
->>> +      */
->>> +
->>> +     /** next_deadline: Time of next deadline */
->>> +     ktime_t next_deadline;
->>> +
->>> +     /**
->>> +      * next_deadline_fence:
->>> +      *
->>> +      * Fence value for next pending deadline.  The deadline timer is
->>> +      * canceled when this fence is signaled.
->>> +      */
->>> +     uint32_t next_deadline_fence;
->>> +
->>> +     struct hrtimer deadline_timer;
->>> +     struct kthread_work deadline_work;
->>>    };
->>>
->>>    struct msm_fence_context * msm_fence_context_alloc(struct drm_device *dev,
->>
->> --
->> With best wishes
->> Dmitry
->>
+> So we will follow that.
 
--- 
-With best wishes
-Dmitry
+I hope that was in error, or no-one pointed it out to Rob.  As said
+before there is no use to having this information in the applied patch,
+even the kernel guidelines state so:
 
+https://docs.kernel.org/process/submitting-patches.html
+
+    Other comments relevant only to the moment or the maintainer, not
+    suitable for the permanent changelog, should also go here. **A good
+    example of such comments might be patch changelogs which describe
+    what has changed between the v1 and v2 version of the patch.**
+
+    **Please put this information after the --- line** which separates
+    the changelog from the rest of the patch. The version information is
+    not part of the changelog which gets committed to the git tree. It
+    is additional information for the reviewers. If it’s placed above
+    the commit tags, it needs manual interaction to remove it. If it is
+    below the separator line, it gets automatically stripped off when
+    applying the patch:
+
+<snip>
+
+> It should be first the intf TE series and then this one. You can go 
+> ahead and post your v2, we will rebase on top of yours.
+
+Sounds good; though as said before I'm extremely short on time making it
+hard to actively commit to this, especially as the catalog changes are
+really hard to juggle between various "local" branches to test on the
+many (Sony) devices we are working on.  As usual, a preview of v2 is
+still available at:
+
+https://github.com/SoMainline/linux/commits/marijn/dpu
+
+And I will do my best to get the last comments worked out.
+
+- Marijn
