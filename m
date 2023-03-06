@@ -2,57 +2,57 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 22B966AB8D9
-	for <lists+freedreno@lfdr.de>; Mon,  6 Mar 2023 09:54:57 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A49876AB8E3
+	for <lists+freedreno@lfdr.de>; Mon,  6 Mar 2023 09:57:18 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AF89A10E19D;
-	Mon,  6 Mar 2023 08:54:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3A08A10E1C9;
+	Mon,  6 Mar 2023 08:57:17 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ed1-x534.google.com (mail-ed1-x534.google.com
- [IPv6:2a00:1450:4864:20::534])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B92C610E1A0
- for <freedreno@lists.freedesktop.org>; Mon,  6 Mar 2023 08:54:54 +0000 (UTC)
-Received: by mail-ed1-x534.google.com with SMTP id cw28so35349140edb.5
- for <freedreno@lists.freedesktop.org>; Mon, 06 Mar 2023 00:54:54 -0800 (PST)
+Received: from mail-ed1-x532.google.com (mail-ed1-x532.google.com
+ [IPv6:2a00:1450:4864:20::532])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CE82D10E1B7
+ for <freedreno@lists.freedesktop.org>; Mon,  6 Mar 2023 08:57:13 +0000 (UTC)
+Received: by mail-ed1-x532.google.com with SMTP id g3so35443284eda.1
+ for <freedreno@lists.freedesktop.org>; Mon, 06 Mar 2023 00:57:13 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1678092893;
+ d=linaro.org; s=google; t=1678093032;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :from:to:cc:subject:date:message-id:reply-to;
- bh=aLAhqnNFboMZ3Xspb0HEH0L2QkUdVCAZTGMLZDTo/AI=;
- b=jczTpg4zXHb1ZQneDL/piIaCwC5Mr18d9VYx8iHeFhWIhnuV4wlFycQOhptE/+OUf5
- rmR4fXrJzuHTIxI5k2HLJ2iQY/r1ZomAhCjBOL7w2vVguAg/NuPpOuBqyQoLUGaKOSqa
- 10uGpZ8NjOstj/WxKtZ700TO0vzwyX66VvCmxiF7VC4yforcMxQ96jDi7Po7n+8u5o9n
- iAR0l28grFRon15ZCjmeDxZoqaR6psgehevlGDPfG9gFJkg6dqQsk4nd0Fm+zPJExFX6
- QbrXxWa08Os3KE0V6eIoyAXU7PzanR95PNpvXtD8Oz1Nvv3R3oTI2G898drqhtt7hRsP
- wbVQ==
+ bh=vNo+uuSekh3H7ze6n9zNYBHA+NkH+zV6npVC4VhhfNY=;
+ b=dRWmz5HJXEbQsrxAVOqk7G0LiPKXDbLwoUQJy4TAJIwlDpPercz/1a34Arggibw+ZP
+ rkti8UfsyNWoRMhfCedTthBDlwHYui8IHxo0a3ky9rnL1hyGt9DZXfxTePOo3hyVbT7A
+ rCXvmkAoiqjtr7Ey4h/KXMgYascCITt9UPH66doEH1YJylLPLh6WC7+MTRJzNthnDJb5
+ GS5WfvhEp9lPW0DiiPbr+93GAI9UzUF6hFDv1gypZ3j/b/aKkqHJVWjn4nd1av8OzvE9
+ uo2Mm7+uxu8BCTrxGvxJXlsZW5fqugyvnDhX2JgYJrIkc91HthZFJOx4QwKVZtGgYo4G
+ f2CA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112; t=1678092893;
+ d=1e100.net; s=20210112; t=1678093032;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=aLAhqnNFboMZ3Xspb0HEH0L2QkUdVCAZTGMLZDTo/AI=;
- b=g4rKyuOcaWL9DQnHl7YQ4ardcAfxcHnOwQaulmFHxfeFrnLRpXXqeJ5RT693t/hpj0
- TMEQeqG2wGydCa+d2jZNo4gZHMV6q9YtcMEGIT7BC8xmq5zxIrg7LpateEFAsrFY76W5
- 2ArvD6muXwUKU9LvMZu9Sb1PnwSDqJX5Qf0H0vq0DNcfOnWT3A2Uf3Dmte8YXJuF1qQs
- BKtePl35BUi0HH+IJcY3jQsl5STXhQYrPm9AHMSDwO7zFhoPqGGFT6CVpnDoRgkw0Y7S
- Fmp1U4+ctVz1O0lWmt2V4XseUW5pdc9Hi3bGlMo2dLNpJXl3qnE7JAAFXdyHq7z7gtEh
- LGaw==
-X-Gm-Message-State: AO0yUKVfTEsX5gQ1MKvuvBPSjy1y8uRlVE9KzjMRlWxcuOPcZm+wNYid
- nKVyrdHvwW6IdfqdgtpBK7vojA==
-X-Google-Smtp-Source: AK7set/zYZbv8I8sb/J/hGNNCCXKArT9QRhK0vtY2AqjURZK5qxhyca6vR86eJgWBZt8MJTCfklSWg==
-X-Received: by 2002:a17:906:32d9:b0:8aa:bf4e:7b2c with SMTP id
- k25-20020a17090632d900b008aabf4e7b2cmr10892941ejk.21.1678092893196; 
- Mon, 06 Mar 2023 00:54:53 -0800 (PST)
+ bh=vNo+uuSekh3H7ze6n9zNYBHA+NkH+zV6npVC4VhhfNY=;
+ b=vTXgk6IHPliPnPoY3zUoxbopJ9PrYN1nC/Uizcpj8NmZJP3eoGAPKijMH03g9BlHOq
+ HoTfOtiN2NSVShYcb307P2nIbbLrBbMnfpp2KnXVfrjiKCE4KkQupGNZsgTcWkp1/Knv
+ TWg3BvTtAl5p8C4UOZTC69BlP4K0JlNlTVdRV/880+uHUTTsxPUv4Na9PiNunex98b5a
+ K2Xjw0YJrtddq09ky7wU6uxjykovm5x7ZGKeneBKlV8sn54THj4povIK7GGOJEHt+EDB
+ i13RzWSAXD/UUL2CCgLZ7oY/jeegPwn59A8+4fn8/4JYkK14g+SYCvUZQznj5r7NnXBX
+ 218Q==
+X-Gm-Message-State: AO0yUKVYNFSPeIMNIk8wwh4523azrjDHy+AgJwFDy/NhVbKPVEuUeq+8
+ M8IUsG4J6r2XJXJoPljmq/V5ZA==
+X-Google-Smtp-Source: AK7set9E+9VfxFOl+4OpZLwOQ28HVvZerDzF2iisocUdWkDK+qdGEmtp6f6b2ZsGD8X10GG5v9YNrA==
+X-Received: by 2002:aa7:c585:0:b0:4bf:38dc:d78 with SMTP id
+ g5-20020aa7c585000000b004bf38dc0d78mr10444081edq.21.1678093032310; 
+ Mon, 06 Mar 2023 00:57:12 -0800 (PST)
 Received: from ?IPV6:2a02:810d:15c0:828:d85d:5a4b:9830:fcfe?
  ([2a02:810d:15c0:828:d85d:5a4b:9830:fcfe])
  by smtp.gmail.com with ESMTPSA id
- d5-20020a170906640500b008be0b7242d5sm4317499ejm.90.2023.03.06.00.54.51
+ hy26-20020a1709068a7a00b008d92897cc29sm4271074ejc.37.2023.03.06.00.57.11
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 06 Mar 2023 00:54:52 -0800 (PST)
-Message-ID: <67d51c44-7599-39d2-9616-573e07194550@linaro.org>
-Date: Mon, 6 Mar 2023 09:54:50 +0100
+ Mon, 06 Mar 2023 00:57:11 -0800 (PST)
+Message-ID: <e105eff0-816e-b9e8-b47a-5c85731c9ba0@linaro.org>
+Date: Mon, 6 Mar 2023 09:57:10 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.8.0
@@ -66,13 +66,13 @@ To: Konrad Dybcio <konrad.dybcio@linaro.org>, Rob Clark
  Krishna Manikandan <quic_mkrishn@quicinc.com>,
  Bryan O'Donoghue <bryan.odonoghue@linaro.org>
 References: <20230304-topic-dsi_fixup-v3-0-b8565944d0e6@linaro.org>
- <20230304-topic-dsi_fixup-v3-1-b8565944d0e6@linaro.org>
+ <20230304-topic-dsi_fixup-v3-2-b8565944d0e6@linaro.org>
 From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-In-Reply-To: <20230304-topic-dsi_fixup-v3-1-b8565944d0e6@linaro.org>
+In-Reply-To: <20230304-topic-dsi_fixup-v3-2-b8565944d0e6@linaro.org>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH v3 1/2] dt-bindings: display/msm:
- dsi-controller-main: Fix deprecated compatible
+Subject: Re: [Freedreno] [PATCH v3 2/2] dt-bindings: display: msm:
+ sm6115-mdss: Fix DSI compatible
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -92,15 +92,39 @@ Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 On 04/03/2023 16:55, Konrad Dybcio wrote:
-> The point of the previous cleanup was to disallow "qcom,mdss-dsi-ctrl"
-> alone. This however didn't quite work out and the property became
+> Since the DSI autodetection is bound to work correctly on 6115 now,
+> switch to using the correct per-SoC + generic fallback compatible
+> combo.
+> 
+> Signed-off-by: Konrad Dybcio <konrad.dybcio@linaro.org>
+> ---
+>  .../devicetree/bindings/display/msm/qcom,sm6115-mdss.yaml         | 8 +++++++-
+>  1 file changed, 7 insertions(+), 1 deletion(-)
+> 
+> diff --git a/Documentation/devicetree/bindings/display/msm/qcom,sm6115-mdss.yaml b/Documentation/devicetree/bindings/display/msm/qcom,sm6115-mdss.yaml
+> index 2491cb100b33..605b1f654d78 100644
+> --- a/Documentation/devicetree/bindings/display/msm/qcom,sm6115-mdss.yaml
+> +++ b/Documentation/devicetree/bindings/display/msm/qcom,sm6115-mdss.yaml
+> @@ -40,7 +40,13 @@ patternProperties:
+>      type: object
+>      properties:
+>        compatible:
+> -        const: qcom,dsi-ctrl-6g-qcm2290
+> +        oneOf:
+> +          - items:
+> +              - const: qcom,sm6115-dsi-ctrl
+> +              - const: qcom,mdss-dsi-ctrl
 
-s/property/compatible/
+Does it actually work? You did not define qcom,sm6115-dsi-ctrl in
+dsi-controller-main?
 
-> undocumented instead of deprecated. Fix that.
-
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-
+> +          - description: Old binding, please don't use
+> +            deprecated: true
+> +            const: qcom,dsi-ctrl-6g-qcm2290
+>  
+>    "^phy@[0-9a-f]+$":
+>      type: object
+> 
 
 Best regards,
 Krzysztof
