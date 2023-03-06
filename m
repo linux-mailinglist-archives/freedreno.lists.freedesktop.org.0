@@ -2,44 +2,48 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1516D6AC2C5
-	for <lists+freedreno@lfdr.de>; Mon,  6 Mar 2023 15:15:37 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 91A606AC0F7
+	for <lists+freedreno@lfdr.de>; Mon,  6 Mar 2023 14:31:11 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D7F0C10E140;
-	Mon,  6 Mar 2023 14:15:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1692310E243;
+	Mon,  6 Mar 2023 13:31:10 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from xavier.telenet-ops.be (xavier.telenet-ops.be
- [IPv6:2a02:1800:120:4::f00:14])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DC1E410E098
- for <freedreno@lists.freedesktop.org>; Mon,  6 Mar 2023 09:06:44 +0000 (UTC)
-Received: from ramsan.of.borg ([IPv6:2a02:1810:ac12:ed50:b745:671d:a946:57fa])
- by xavier.telenet-ops.be with bizsmtp
- id Ux6a2900J4LuvSS01x6aeG; Mon, 06 Mar 2023 10:06:42 +0100
-Received: from rox.of.borg ([192.168.97.57])
- by ramsan.of.borg with esmtp (Exim 4.95)
- (envelope-from <geert@linux-m68k.org>) id 1pZ6nC-00B4Fr-6Q;
- Mon, 06 Mar 2023 10:06:34 +0100
-Received: from geert by rox.of.borg with local (Exim 4.95)
- (envelope-from <geert@linux-m68k.org>) id 1pZ6ni-000HC1-5x;
- Mon, 06 Mar 2023 10:06:34 +0100
-From: Geert Uytterhoeven <geert+renesas@glider.be>
-To: Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Sean Paul <sean@poorly.run>, David Airlie <airlied@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>, Vinod Koul <vkoul@kernel.org>,
- Konrad Dybcio <konrad.dybcio@linaro.org>,
- Bjorn Andersson <andersson@kernel.org>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Kuogee Hsieh <quic_khsieh@quicinc.com>
-Date: Mon,  6 Mar 2023 10:06:33 +0100
-Message-Id: <20230306090633.65918-1-geert+renesas@glider.be>
-X-Mailer: git-send-email 2.34.1
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 66BDA10E22F;
+ Mon,  6 Mar 2023 13:31:07 +0000 (UTC)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by ams.source.kernel.org (Postfix) with ESMTPS id 09E5BB80E1A;
+ Mon,  6 Mar 2023 13:31:06 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BB3B0C433EF;
+ Mon,  6 Mar 2023 13:31:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1678109464;
+ bh=PDxyfh9GHMbzLUrz8oTviZIgmt7uMmsCk/rf8ALQYc4=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=upOM5hJF7UWkvjo7vYwexQOjCdV0rEZ2b+EF6JqmhjVnmQs1N0Oswfxb9fRsWczZd
+ yTRhNbbO9d56vIpIEtSvTS2KyJLqZMnwF8bL2uBal36UoebQK5i4ywwSXCE9U2NcbX
+ hNIExKqj9a4N5MdFIKWW+QTrzUywgyLpV4vfS3AKggppPsB2azyZ24FemR15ANH9Su
+ +EeIzLQWFb9NtmVs2idMOvVfMvGnl4gw1DVQsvnFczPzC2xKzf7yFauzNNns/wo+Az
+ bS6e8dgDY5hk6pB+BJoWMh5aW2WEeC6CZ7D0VLoAZwCATO1WZBK9VqP6A4GsBdwtRo
+ 6QYUpPRA02nZg==
+Received: from johan by xi.lan with local (Exim 4.94.2)
+ (envelope-from <johan@kernel.org>)
+ id 1pZAwK-00031b-Jh; Mon, 06 Mar 2023 14:31:45 +0100
+Date: Mon, 6 Mar 2023 14:31:44 +0100
+From: Johan Hovold <johan@kernel.org>
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Message-ID: <ZAXrQF5l+Uu0iJ3M@hovoldconsulting.com>
+References: <20230306100722.28485-1-johan+linaro@kernel.org>
+ <20230306100722.28485-10-johan+linaro@kernel.org>
+ <26986caf-1245-88f2-60d0-5930c86ea31b@linaro.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Mon, 06 Mar 2023 14:15:34 +0000
-Subject: [Freedreno] [PATCH] drm/msm/dpu: Fix bit-shifting UB in
- DPU_HW_VER() macro
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <26986caf-1245-88f2-60d0-5930c86ea31b@linaro.org>
+Subject: Re: [Freedreno] [PATCH 09/10] drm/msm: use drmm_mode_config_init()
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -52,55 +56,26 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-arm-msm@vger.kernel.org, Geert Uytterhoeven <geert+renesas@glider.be>,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org
+Cc: freedreno@lists.freedesktop.org, Sean Paul <sean@poorly.run>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Rob Clark <robdclark@gmail.com>,
+ Daniel Vetter <daniel@ffwll.ch>, linux-arm-msm@vger.kernel.org,
+ David Airlie <airlied@gmail.com>, Johan Hovold <johan+linaro@kernel.org>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-With gcc-5 and CONFIG_UBSAN_SHIFT=y:
+On Mon, Mar 06, 2023 at 02:38:37PM +0200, Dmitry Baryshkov wrote:
+> On 06/03/2023 12:07, Johan Hovold wrote:
+> > Switch to using drmm_mode_config_init() so that the mode config is
+> > released when the last reference to the DRM device is dropped rather
+> > than unconditionally at unbind() (which may be too soon).
+> 
+> This also means that drm_bridge_detach() might be called at some point 
+> after unbind(), which might be too late.
 
-    drivers/gpu/drm/msm/msm_mdss.c: In function 'msm_mdss_enable':
-    drivers/gpu/drm/msm/msm_mdss.c:296:2: error: case label does not reduce to an integer constant
-      case DPU_HW_VER_800:
-      ^
-    drivers/gpu/drm/msm/msm_mdss.c:299:2: error: case label does not reduce to an integer constant
-      case DPU_HW_VER_810:
-      ^
-    drivers/gpu/drm/msm/msm_mdss.c:300:2: error: case label does not reduce to an integer constant
-      case DPU_HW_VER_900:
-      ^
+Indeed.
 
-This happens because for major revisions 8 or greather, the non-sign bit
-of the major revision number is shifted into bit 31 of a signed integer,
-which is undefined behavior.
+Please disregard this patch. It's not needed to fix the bind error paths
+anyway.
 
-Fix this by casting the major revision number to unsigned int.
-
-Fixes: efcd0107727c4f04 ("drm/msm/dpu: add support for SM8550")
-Fixes: 4a352c2fc15aec1e ("drm/msm/dpu: Introduce SC8280XP")
-Fixes: 100d7ef6995d1f86 ("drm/msm/dpu: add support for SM8450")
-Signed-off-by: Geert Uytterhoeven <geert+renesas@glider.be>
----
- drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h
-index ddab9caebb18c40d..bbd3cbdd77956c5d 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h
-@@ -19,8 +19,9 @@
-  */
- #define MAX_BLOCKS    12
- 
--#define DPU_HW_VER(MAJOR, MINOR, STEP) (((MAJOR & 0xF) << 28)    |\
--		((MINOR & 0xFFF) << 16)  |\
-+#define DPU_HW_VER(MAJOR, MINOR, STEP)			\
-+		((((unsigned int)MAJOR & 0xF) << 28) |	\
-+		((MINOR & 0xFFF) << 16) |		\
- 		(STEP & 0xFFFF))
- 
- #define DPU_HW_MAJOR(rev)		((rev) >> 28)
--- 
-2.34.1
-
+Johan
