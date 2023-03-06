@@ -2,60 +2,77 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id B406C6AAD7F
-	for <lists+freedreno@lfdr.de>; Sun,  5 Mar 2023 00:31:14 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 22B966AB8D9
+	for <lists+freedreno@lfdr.de>; Mon,  6 Mar 2023 09:54:57 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3212410E232;
-	Sat,  4 Mar 2023 23:31:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AF89A10E19D;
+	Mon,  6 Mar 2023 08:54:55 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-oo1-xc29.google.com (mail-oo1-xc29.google.com
- [IPv6:2607:f8b0:4864:20::c29])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 566AD10E2D5;
- Sat,  4 Mar 2023 23:31:07 +0000 (UTC)
-Received: by mail-oo1-xc29.google.com with SMTP id
- bd3-20020a4aee03000000b00517affa07c0so1020288oob.7; 
- Sat, 04 Mar 2023 15:31:07 -0800 (PST)
+Received: from mail-ed1-x534.google.com (mail-ed1-x534.google.com
+ [IPv6:2a00:1450:4864:20::534])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B92C610E1A0
+ for <freedreno@lists.freedesktop.org>; Mon,  6 Mar 2023 08:54:54 +0000 (UTC)
+Received: by mail-ed1-x534.google.com with SMTP id cw28so35349140edb.5
+ for <freedreno@lists.freedesktop.org>; Mon, 06 Mar 2023 00:54:54 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20210112; t=1677972666;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=CZUqjk/iG+8naJqH8Gd/XvA4gVrVu3fZTaTX8+wG+x4=;
- b=N7NOdG196+EHJDvkE4yk2D13wnbKce3b94cqLBDSiDol4wVDx3LyEda+DH3WzmqIcn
- vr1vavfYc/5jg1cJZmH1vC6BZiz9+bcOSlngne3XQKlFPNTIo/LM9wLVsZ4NPNp+xIyq
- aXHWE7U4pnkzJ8pdjSNviEbzBr9tcyPYALV2xMqCdk9Rl4jLLFgdb1/JQ8F7mvNOllx4
- hCdop6ruIyyqgwMKsqdoO8pUE08eBtEpQ0J2e4Ye+eQjBvxoM8IBxRF9t+d1Njv0gA5q
- ZheK9V+LbopS9CS7bI8+kbmJfc3xvApw4rNZ6jTbYkV6qnZCheiQ4OBzQx58erCCHLKt
- kUeg==
+ d=linaro.org; s=google; t=1678092893;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=aLAhqnNFboMZ3Xspb0HEH0L2QkUdVCAZTGMLZDTo/AI=;
+ b=jczTpg4zXHb1ZQneDL/piIaCwC5Mr18d9VYx8iHeFhWIhnuV4wlFycQOhptE/+OUf5
+ rmR4fXrJzuHTIxI5k2HLJ2iQY/r1ZomAhCjBOL7w2vVguAg/NuPpOuBqyQoLUGaKOSqa
+ 10uGpZ8NjOstj/WxKtZ700TO0vzwyX66VvCmxiF7VC4yforcMxQ96jDi7Po7n+8u5o9n
+ iAR0l28grFRon15ZCjmeDxZoqaR6psgehevlGDPfG9gFJkg6dqQsk4nd0Fm+zPJExFX6
+ QbrXxWa08Os3KE0V6eIoyAXU7PzanR95PNpvXtD8Oz1Nvv3R3oTI2G898drqhtt7hRsP
+ wbVQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112; t=1677972666;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=CZUqjk/iG+8naJqH8Gd/XvA4gVrVu3fZTaTX8+wG+x4=;
- b=zEgq+HiNBrUtxGezws9eNfYtxzYKbXXJo8m6fmBWoZCG1Bsk+Ebaj5KKSKs4UO52s0
- oApDe+2aO9rH12TzVIFCkHTDqKYuJzIuCuEQRA3a++nIji/xSxiUewjEIzAEXtO6UHjI
- nmjyTRravOCZ3JWqt2qpfkRnVxhkzT3+v18tuUbSHOj17rbZkdszOkiDsNQ04xWb0LJl
- bUBKQZP/EO0tw3BjvbCoxMoewRWFcqlDy4PFCXaGDQBdpUE8OMU74TQJsoh4Z7HYHoZd
- aXXxk7ZG404OAOius4xa1nbUgt5EuYXbYFlN1pVP6mx7TnkwTksSjaSAYCdeJPEknw2P
- RKng==
-X-Gm-Message-State: AO0yUKVJto4tSmqAa6m8lBTb7FT6LxeBnMXWpssPAsRM4CLKUZv9EmLZ
- Wor1paZqoLaMquA1cX/ahQxlswoXDlZw31kkAdA=
-X-Google-Smtp-Source: AK7set+z2pmBm0ZkDIgXktqrZ8KiSU3jRWaT5Hx8xV3VK0By/96jj8eY4QVMVjXQBqzEaiz+wUAjcXEVIGTOUf3o3qE=
-X-Received: by 2002:a4a:ae84:0:b0:525:499e:ce2f with SMTP id
- u4-20020a4aae84000000b00525499ece2fmr2185131oon.1.1677972666339; Sat, 04 Mar
- 2023 15:31:06 -0800 (PST)
+ d=1e100.net; s=20210112; t=1678092893;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=aLAhqnNFboMZ3Xspb0HEH0L2QkUdVCAZTGMLZDTo/AI=;
+ b=g4rKyuOcaWL9DQnHl7YQ4ardcAfxcHnOwQaulmFHxfeFrnLRpXXqeJ5RT693t/hpj0
+ TMEQeqG2wGydCa+d2jZNo4gZHMV6q9YtcMEGIT7BC8xmq5zxIrg7LpateEFAsrFY76W5
+ 2ArvD6muXwUKU9LvMZu9Sb1PnwSDqJX5Qf0H0vq0DNcfOnWT3A2Uf3Dmte8YXJuF1qQs
+ BKtePl35BUi0HH+IJcY3jQsl5STXhQYrPm9AHMSDwO7zFhoPqGGFT6CVpnDoRgkw0Y7S
+ Fmp1U4+ctVz1O0lWmt2V4XseUW5pdc9Hi3bGlMo2dLNpJXl3qnE7JAAFXdyHq7z7gtEh
+ LGaw==
+X-Gm-Message-State: AO0yUKVfTEsX5gQ1MKvuvBPSjy1y8uRlVE9KzjMRlWxcuOPcZm+wNYid
+ nKVyrdHvwW6IdfqdgtpBK7vojA==
+X-Google-Smtp-Source: AK7set/zYZbv8I8sb/J/hGNNCCXKArT9QRhK0vtY2AqjURZK5qxhyca6vR86eJgWBZt8MJTCfklSWg==
+X-Received: by 2002:a17:906:32d9:b0:8aa:bf4e:7b2c with SMTP id
+ k25-20020a17090632d900b008aabf4e7b2cmr10892941ejk.21.1678092893196; 
+ Mon, 06 Mar 2023 00:54:53 -0800 (PST)
+Received: from ?IPV6:2a02:810d:15c0:828:d85d:5a4b:9830:fcfe?
+ ([2a02:810d:15c0:828:d85d:5a4b:9830:fcfe])
+ by smtp.gmail.com with ESMTPSA id
+ d5-20020a170906640500b008be0b7242d5sm4317499ejm.90.2023.03.06.00.54.51
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 06 Mar 2023 00:54:52 -0800 (PST)
+Message-ID: <67d51c44-7599-39d2-9616-573e07194550@linaro.org>
+Date: Mon, 6 Mar 2023 09:54:50 +0100
 MIME-Version: 1.0
-References: <1677972416-7353-1-git-send-email-quic_abhinavk@quicinc.com>
-In-Reply-To: <1677972416-7353-1-git-send-email-quic_abhinavk@quicinc.com>
-From: Rob Clark <robdclark@gmail.com>
-Date: Sat, 4 Mar 2023 15:30:55 -0800
-Message-ID: <CAF6AEGv-K0X+Pp=OrST42=7UnNEbF-az=KRZjqDFnsZKPEtpfg@mail.gmail.com>
-To: Abhinav Kumar <quic_abhinavk@quicinc.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [Freedreno] [PATCH] MAINTAINERS: Update the URI for MSM DRM bugs
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.8.0
+Content-Language: en-US
+To: Konrad Dybcio <konrad.dybcio@linaro.org>, Rob Clark
+ <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>,
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Rob Herring <robh+dt@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Krishna Manikandan <quic_mkrishn@quicinc.com>,
+ Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+References: <20230304-topic-dsi_fixup-v3-0-b8565944d0e6@linaro.org>
+ <20230304-topic-dsi_fixup-v3-1-b8565944d0e6@linaro.org>
+From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+In-Reply-To: <20230304-topic-dsi_fixup-v3-1-b8565944d0e6@linaro.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+Subject: Re: [Freedreno] [PATCH v3 1/2] dt-bindings: display/msm:
+ dsi-controller-main: Fix deprecated compatible
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,38 +85,23 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: dmitry.baryshkov@linaro.org, airlied@gmail.com,
- freedreno@lists.freedesktop.org, daniel@ffwll.ch,
- dri-devel@lists.freedesktop.org
+Cc: Rob Herring <robh@kernel.org>, devicetree@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Sat, Mar 4, 2023 at 3:27=E2=80=AFPM Abhinav Kumar <quic_abhinavk@quicinc=
-.com> wrote:
->
-> Update the URI for MSM DRM bugs for users to be able
-> to file bugs at a centralized location.
->
-> Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
+On 04/03/2023 16:55, Konrad Dybcio wrote:
+> The point of the previous cleanup was to disallow "qcom,mdss-dsi-ctrl"
+> alone. This however didn't quite work out and the property became
 
-Acked-by: Rob Clark <robdclark@gmail.com>
+s/property/compatible/
 
-> ---
->  MAINTAINERS | 1 +
->  1 file changed, 1 insertion(+)
->
-> diff --git a/MAINTAINERS b/MAINTAINERS
-> index a47d963af3b8..504138e294ef 100644
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -6641,6 +6641,7 @@ L:        linux-arm-msm@vger.kernel.org
->  L:     dri-devel@lists.freedesktop.org
->  L:     freedreno@lists.freedesktop.org
->  S:     Maintained
-> +B:     https://gitlab.freedesktop.org/drm/msm/-/issues
->  T:     git https://gitlab.freedesktop.org/drm/msm.git
->  F:     Documentation/devicetree/bindings/display/msm/
->  F:     drivers/gpu/drm/msm/
-> --
-> 2.7.4
->
+> undocumented instead of deprecated. Fix that.
+
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+
+
+Best regards,
+Krzysztof
+
