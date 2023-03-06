@@ -1,78 +1,80 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id A49876AB8E3
-	for <lists+freedreno@lfdr.de>; Mon,  6 Mar 2023 09:57:18 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 5E8A56ABAB7
+	for <lists+freedreno@lfdr.de>; Mon,  6 Mar 2023 11:05:58 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3A08A10E1C9;
-	Mon,  6 Mar 2023 08:57:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8E3FC10E1DF;
+	Mon,  6 Mar 2023 10:05:56 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ed1-x532.google.com (mail-ed1-x532.google.com
- [IPv6:2a00:1450:4864:20::532])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CE82D10E1B7
- for <freedreno@lists.freedesktop.org>; Mon,  6 Mar 2023 08:57:13 +0000 (UTC)
-Received: by mail-ed1-x532.google.com with SMTP id g3so35443284eda.1
- for <freedreno@lists.freedesktop.org>; Mon, 06 Mar 2023 00:57:13 -0800 (PST)
+Received: from mail-lj1-x235.google.com (mail-lj1-x235.google.com
+ [IPv6:2a00:1450:4864:20::235])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F289210E0B7
+ for <freedreno@lists.freedesktop.org>; Mon,  6 Mar 2023 10:05:53 +0000 (UTC)
+Received: by mail-lj1-x235.google.com with SMTP id b10so9065297ljr.0
+ for <freedreno@lists.freedesktop.org>; Mon, 06 Mar 2023 02:05:53 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1678093032;
+ d=linaro.org; s=google; t=1678097152;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :from:to:cc:subject:date:message-id:reply-to;
- bh=vNo+uuSekh3H7ze6n9zNYBHA+NkH+zV6npVC4VhhfNY=;
- b=dRWmz5HJXEbQsrxAVOqk7G0LiPKXDbLwoUQJy4TAJIwlDpPercz/1a34Arggibw+ZP
- rkti8UfsyNWoRMhfCedTthBDlwHYui8IHxo0a3ky9rnL1hyGt9DZXfxTePOo3hyVbT7A
- rCXvmkAoiqjtr7Ey4h/KXMgYascCITt9UPH66doEH1YJylLPLh6WC7+MTRJzNthnDJb5
- GS5WfvhEp9lPW0DiiPbr+93GAI9UzUF6hFDv1gypZ3j/b/aKkqHJVWjn4nd1av8OzvE9
- uo2Mm7+uxu8BCTrxGvxJXlsZW5fqugyvnDhX2JgYJrIkc91HthZFJOx4QwKVZtGgYo4G
- f2CA==
+ bh=unOds7GIYyIZeIXCeSmLecqXXZzGvwJd0Rd/RRt4GOY=;
+ b=b6rOn43tg0gOXWQqa0AIS3IHPoJ7L4w6kUyqmeHcbu3ij2H2rn4c18sidaRTCJ2Ri5
+ TDmN6Pwl42m3EzZGgWmgGCr2gWrTttx+XFkBI7RAKXtpwGzj29bWlPq/ppQ1gjapwnre
+ ApK+FwnMnk53R6jnWWLXIe/ec2QMnXoeIHUJZbONBhAnTyXsKH7XIrBEoirum5D5HO5S
+ 6WMOZtJ/cKWPmLc+bcwRbweTdw8qw/+0+7QN9AyriJ/DB/oxe/2H2v2tQsg6/6hWpe+D
+ ADLqye33ELEp/3cSmmZSJYjRlqdkld3TWUil8I5NURSao74s5LI7pxJ4EGRpVlK5gfTx
+ nwhA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112; t=1678093032;
+ d=1e100.net; s=20210112; t=1678097152;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=vNo+uuSekh3H7ze6n9zNYBHA+NkH+zV6npVC4VhhfNY=;
- b=vTXgk6IHPliPnPoY3zUoxbopJ9PrYN1nC/Uizcpj8NmZJP3eoGAPKijMH03g9BlHOq
- HoTfOtiN2NSVShYcb307P2nIbbLrBbMnfpp2KnXVfrjiKCE4KkQupGNZsgTcWkp1/Knv
- TWg3BvTtAl5p8C4UOZTC69BlP4K0JlNlTVdRV/880+uHUTTsxPUv4Na9PiNunex98b5a
- K2Xjw0YJrtddq09ky7wU6uxjykovm5x7ZGKeneBKlV8sn54THj4povIK7GGOJEHt+EDB
- i13RzWSAXD/UUL2CCgLZ7oY/jeegPwn59A8+4fn8/4JYkK14g+SYCvUZQznj5r7NnXBX
- 218Q==
-X-Gm-Message-State: AO0yUKVYNFSPeIMNIk8wwh4523azrjDHy+AgJwFDy/NhVbKPVEuUeq+8
- M8IUsG4J6r2XJXJoPljmq/V5ZA==
-X-Google-Smtp-Source: AK7set9E+9VfxFOl+4OpZLwOQ28HVvZerDzF2iisocUdWkDK+qdGEmtp6f6b2ZsGD8X10GG5v9YNrA==
-X-Received: by 2002:aa7:c585:0:b0:4bf:38dc:d78 with SMTP id
- g5-20020aa7c585000000b004bf38dc0d78mr10444081edq.21.1678093032310; 
- Mon, 06 Mar 2023 00:57:12 -0800 (PST)
-Received: from ?IPV6:2a02:810d:15c0:828:d85d:5a4b:9830:fcfe?
- ([2a02:810d:15c0:828:d85d:5a4b:9830:fcfe])
+ bh=unOds7GIYyIZeIXCeSmLecqXXZzGvwJd0Rd/RRt4GOY=;
+ b=OB2u2NjnlXt2GdVAZRuKPg82fmJ+WAPB5kZ565smFSH5G069XLoFFVf6gmkfJEvvl/
+ RHDX18tGguhzWpnL/GrED7uoKgGEfOfQluBlYuA3zZjriYodP26560t2JuVNa1PVO51j
+ YhqkrxY0FHbz5B8NTYch0JT485x0oxRsCv0eHkkJUqkNz1D7Rg05eJsU4mWrA7VISV1g
+ jtL1MNhJJa8KrR7bg7S1Fy0dCgHrOQPMCC0Nt90vP2H5kYHTkTJkgkYw3nUDiU7v545R
+ kMGtpJZgwiYMo5gRJGarvqYJC2shBoYeAyHVMpkzR68UELRvZ8UEhkO1t14V8gmAKl6m
+ ONnw==
+X-Gm-Message-State: AO0yUKXrLYM3u0u70xzeP0OGaW6i6s4gWXTw9gabYfNI2BIYch9AwRj6
+ 1sHMvMXQ2q6cGgtslS5QtL4Btg==
+X-Google-Smtp-Source: AK7set+aZ5TWHcLe9FNsPz4hbcFTUvTYKf/VqiA+AH/AiSSMe2Eqq+EPUWJm/yhcjWI+rHs4fUTQPg==
+X-Received: by 2002:a05:651c:10a4:b0:294:6e44:b6e0 with SMTP id
+ k4-20020a05651c10a400b002946e44b6e0mr2836268ljn.5.1678097152016; 
+ Mon, 06 Mar 2023 02:05:52 -0800 (PST)
+Received: from [192.168.1.101] (abym99.neoplus.adsl.tpnet.pl. [83.9.32.99])
  by smtp.gmail.com with ESMTPSA id
- hy26-20020a1709068a7a00b008d92897cc29sm4271074ejc.37.2023.03.06.00.57.11
+ r19-20020a2e9953000000b00293534d9760sm1628381ljj.127.2023.03.06.02.05.50
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 06 Mar 2023 00:57:11 -0800 (PST)
-Message-ID: <e105eff0-816e-b9e8-b47a-5c85731c9ba0@linaro.org>
-Date: Mon, 6 Mar 2023 09:57:10 +0100
+ Mon, 06 Mar 2023 02:05:51 -0800 (PST)
+Message-ID: <7f1b29f3-35fa-4459-4832-f109d2979382@linaro.org>
+Date: Mon, 6 Mar 2023 11:05:49 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.8.0
 Content-Language: en-US
-To: Konrad Dybcio <konrad.dybcio@linaro.org>, Rob Clark
- <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+ Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
  Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>,
  David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
  Rob Herring <robh+dt@kernel.org>,
  Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Krishna Manikandan <quic_mkrishn@quicinc.com>,
- Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+ Krishna Manikandan <quic_mkrishn@quicinc.com>
 References: <20230304-topic-dsi_fixup-v3-0-b8565944d0e6@linaro.org>
- <20230304-topic-dsi_fixup-v3-2-b8565944d0e6@linaro.org>
-From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-In-Reply-To: <20230304-topic-dsi_fixup-v3-2-b8565944d0e6@linaro.org>
+ <20230304-topic-dsi_fixup-v3-1-b8565944d0e6@linaro.org>
+ <c1a2ba5b-4cd9-362b-5a4e-e95a6bf27b3e@linaro.org>
+ <30798bd2-5805-45e6-92d2-a9df6fb52600@linaro.org>
+ <28561c8b-e9a3-b58e-429a-6dc331ad94e4@linaro.org>
+ <35e19031-877c-329f-3bdd-4f04bc8ccc6f@linaro.org>
+From: Konrad Dybcio <konrad.dybcio@linaro.org>
+In-Reply-To: <35e19031-877c-329f-3bdd-4f04bc8ccc6f@linaro.org>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH v3 2/2] dt-bindings: display: msm:
- sm6115-mdss: Fix DSI compatible
+Content-Transfer-Encoding: 8bit
+Subject: Re: [Freedreno] [PATCH v3 1/2] dt-bindings: display/msm:
+ dsi-controller-main: Fix deprecated compatible
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -91,41 +93,51 @@ Cc: Rob Herring <robh@kernel.org>, devicetree@vger.kernel.org,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 04/03/2023 16:55, Konrad Dybcio wrote:
-> Since the DSI autodetection is bound to work correctly on 6115 now,
-> switch to using the correct per-SoC + generic fallback compatible
-> combo.
+
+
+On 4.03.2023 18:53, Bryan O'Donoghue wrote:
+> On 04/03/2023 17:45, Bryan O'Donoghue wrote:
+>> On 04/03/2023 17:35, Konrad Dybcio wrote:
+>>>> you'll see no error. However if you just do this
+>>>>
+>>>> diff --git a/arch/arm64/boot/dts/qcom/msm8916.dtsi b/arch/arm64/boot/dts/qcom/msm8916.dtsi
+>>>> index 0733c2f4f3798..829fbe05b5713 100644
+>>>> --- a/arch/arm64/boot/dts/qcom/msm8916.dtsi
+>>>> +++ b/arch/arm64/boot/dts/qcom/msm8916.dtsi
+>>>> @@ -1094,8 +1094,7 @@ mdp5_intf1_out: endpoint {
+>>>>                          };
+>>>>
+>>>>                          dsi0: dsi@1a98000 {
+>>>> -                               compatible = "qcom,msm8916-dsi-ctrl",
+>>>> -                                            "qcom,mdss-dsi-ctrl";
+>>>> +                               compatible = "qcom,mdss-dsi-ctrl";
+>>>>                                  reg = <0x01a98000 0x25c>;
+>>>>                                  reg-names = "dsi_ctrl";
+>>>>
+>>>>
+>>>> and run the same test you get
+>>> Yes, correct. It's valid but it's deprecated, so the bindings are
+>>> sane. Keep in mind there's an ABI-like aspect to this.
+>>>
+>>> Konrad
+>>
+>> The _driver_ will still accept "qcom,mdss-dsi-ctrl" which is ABI compliant but, I don't see why the yaml should.
+>>
+>> If you declare a new .dts with only "qcom,mdss-dsi-ctrl", that should throw a yaml check error.
+>>
+>> ---
+>> bod
 > 
-> Signed-off-by: Konrad Dybcio <konrad.dybcio@linaro.org>
-> ---
->  .../devicetree/bindings/display/msm/qcom,sm6115-mdss.yaml         | 8 +++++++-
->  1 file changed, 7 insertions(+), 1 deletion(-)
+> Actually. I agree with you, I just dislike it.
+If I understand correctly, you are dissatisfied with dt_binding_check
+not even throwing a warning when a deprecated binding is present.. I
+agree, that could be improved..
+
+Konrad
 > 
-> diff --git a/Documentation/devicetree/bindings/display/msm/qcom,sm6115-mdss.yaml b/Documentation/devicetree/bindings/display/msm/qcom,sm6115-mdss.yaml
-> index 2491cb100b33..605b1f654d78 100644
-> --- a/Documentation/devicetree/bindings/display/msm/qcom,sm6115-mdss.yaml
-> +++ b/Documentation/devicetree/bindings/display/msm/qcom,sm6115-mdss.yaml
-> @@ -40,7 +40,13 @@ patternProperties:
->      type: object
->      properties:
->        compatible:
-> -        const: qcom,dsi-ctrl-6g-qcm2290
-> +        oneOf:
-> +          - items:
-> +              - const: qcom,sm6115-dsi-ctrl
-> +              - const: qcom,mdss-dsi-ctrl
-
-Does it actually work? You did not define qcom,sm6115-dsi-ctrl in
-dsi-controller-main?
-
-> +          - description: Old binding, please don't use
-> +            deprecated: true
-> +            const: qcom,dsi-ctrl-6g-qcm2290
->  
->    "^phy@[0-9a-f]+$":
->      type: object
+> - "qcom,mdss-dsi-ctrl" <- the driver will accept this
+> - "qcom,dsi-ctrl-6g-qcm2290" <- the driver will not accept this
 > 
-
-Best regards,
-Krzysztof
-
+> bah
+> 
+> Reviewed-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
