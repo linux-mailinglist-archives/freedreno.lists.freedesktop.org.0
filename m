@@ -1,77 +1,77 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4F67E6ADFA9
-	for <lists+freedreno@lfdr.de>; Tue,  7 Mar 2023 14:03:37 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id D25F26AE0B1
+	for <lists+freedreno@lfdr.de>; Tue,  7 Mar 2023 14:37:26 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E0CFF10E129;
-	Tue,  7 Mar 2023 13:03:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A3B8510E264;
+	Tue,  7 Mar 2023 13:37:25 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x12f.google.com (mail-lf1-x12f.google.com
- [IPv6:2a00:1450:4864:20::12f])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E9C3810E129
- for <freedreno@lists.freedesktop.org>; Tue,  7 Mar 2023 13:03:33 +0000 (UTC)
-Received: by mail-lf1-x12f.google.com with SMTP id i9so16954849lfc.6
- for <freedreno@lists.freedesktop.org>; Tue, 07 Mar 2023 05:03:33 -0800 (PST)
+Received: from mail-lf1-x12c.google.com (mail-lf1-x12c.google.com
+ [IPv6:2a00:1450:4864:20::12c])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2B7D410E264
+ for <freedreno@lists.freedesktop.org>; Tue,  7 Mar 2023 13:37:24 +0000 (UTC)
+Received: by mail-lf1-x12c.google.com with SMTP id s22so17067351lfi.9
+ for <freedreno@lists.freedesktop.org>; Tue, 07 Mar 2023 05:37:24 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1678194212;
+ d=linaro.org; s=google; t=1678196242;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :from:to:cc:subject:date:message-id:reply-to;
- bh=cZoZqRwQw2mPc3FT0ESm5bliT9vqJS0eN0NPwlM2O8A=;
- b=pTy9zV+nSfUYfqM/1zfsNA0t4CUHRMxxHsKkxfQoYwxLAxrOH9YfPIm4Lsmwt5ss+X
- 2cCgFSRChcRn/U685tiwcuHgct9/xjCGBJpXU4WkBCpNSllPMKtTkyuQsLt5NgDWHyCP
- Rqa6H828uYujPntAZqbg4nzRrLALhJEgrNktCyZHZ7/krKFBvS21bpPvjIFEUq/byghs
- Q4xpopy42X5jNXImmQjAwdGRv0AQi+eFWuUpygwstDdWR7FDQqhfkbwhl/NnwTRhYbd8
- PT9IFbhQyobWv/55dWbDQn8sSs9ud3u6sXUfI5XXUKXEHIib1gDlPuv7dFjF8HxqJB8X
- hTow==
+ bh=att8u7Sg5USMKd1JWAj5fcOvxLzquAm+yctu+vJJGmk=;
+ b=u8jio6M4Bi1IlrmYfdfyYX69Nv3uGK3nF/sCLrFA5zvGkRs88KOrLJBo0V8kh4rDRv
+ S+CN3pvqUd8eH23svbBD1gPKdL+QB1E5CmWcRgoFDW0u987cl+zWzZLOIElUBd+RplDy
+ MH6AlJIB2OdsQYFFHNiRTM0T2DBO9XY0uoJm2f8WGDI0nxIytNy74fHndvMBAJwscsvI
+ iQTXf4wLm88WgzzcLw/F8/qcKKDgyPRtS/syh+tfGLi4Ppe9ZlyvhQYlfr8+d84U4g0x
+ yvF9pHL9CK4sM2O9udVjdMxdu2xlZ0JU4BlGVmoeRJMDAN6o0FQnnYqyF/cyRbmWQ1X9
+ +Qjg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112; t=1678194212;
+ d=1e100.net; s=20210112; t=1678196242;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=cZoZqRwQw2mPc3FT0ESm5bliT9vqJS0eN0NPwlM2O8A=;
- b=6ebuqgpKxaaEL5CTBFAO0uUoG0MS798Gb7lS9uiLBb5tH2V1WzDgIWcBEWGtVP/TcJ
- cUif1JbVBnlbrWWeMcx/ov/gOX42SdMh5NferbD+MoKPZyjGKDN6Bbqv9XgH32i7wpwi
- 2eXTc6s7rSWzJWODx1PcU+JUXjqTc+k3K/j2wsiawNMMUJdAHDWB0l0jnHljwd+fZ01C
- Dtz+btZefSpnsmyJSs9CaFMawU+cOBSuRkr+FRKMG/DiqNvaxC6A1AR1TVPBpM9Aavtu
- vxX/Vb5UydVz0bR26LNb/nKAwiQCXKMfk7F7utZ2edtRc2WE7iunUFqZEOYvkB4tvH3H
- G+2A==
-X-Gm-Message-State: AO0yUKUlIKZjhJsdfIjEx/Adc5jy5g0B9klWZT4Arqug3SxGL+quH3mI
- kIVPveTvdYQNeKm8g5HkZTjevQ==
-X-Google-Smtp-Source: AK7set9LdPVb1yvSjzZeatltLdpsSQ7CrahJHOhydl1P+RgMZzjzCdbBsNItb+4kmU2s/pfgkArhvg==
-X-Received: by 2002:ac2:5103:0:b0:4db:3848:86af with SMTP id
- q3-20020ac25103000000b004db384886afmr3652367lfb.12.1678194212169; 
- Tue, 07 Mar 2023 05:03:32 -0800 (PST)
-Received: from [192.168.1.101] (abyj16.neoplus.adsl.tpnet.pl. [83.9.29.16])
+ bh=att8u7Sg5USMKd1JWAj5fcOvxLzquAm+yctu+vJJGmk=;
+ b=Em1HKBtyDryy1ATkunM2AkG2k+QXOOztEb8Qx/PX5rH+W8i657+FcwQ0tg2lVAPHXt
+ +vYQyP8YHnEYcIEmGCk7Bpk80bfFrV+ADVXmtwyQibATRzX4GA/PTRKtbxprFdeWgwAh
+ yW28B/q43OuOCwv1aIWUSFBYLpjIZtCoM8oieelwDy3YkNtBwURWLqlsmWcvj/rZDPBi
+ jkVuh4TOVur7ZRh9/EY0gwzyPzrmB5+KnuGEZQfpUDWCDg3WZjnHb76xTO5s4mLQQXqK
+ u/01QREQEj+a8t/bpqLMWKAiMXHyXtNDW7fNp8D6JVLf/4rOSRQ2O6KIb0gCYtiWHGNR
+ VSjA==
+X-Gm-Message-State: AO0yUKWouk0N3ceWzPs1gFUYh4KW0rrUEDu7OVKduNFW5TD0b4B0N7iy
+ 4FuDN/APHnOGjXM41SEle34yEnY3P8P1xbOnaAw2sw==
+X-Google-Smtp-Source: AK7set/iUKVW9nOe4bWML5c3IaCFN7RLZmIEWrMcDr+hW+xy2LV1qA52wUvkDgDJASXLtisA+EjlGQ==
+X-Received: by 2002:ac2:59dc:0:b0:4d8:537a:753f with SMTP id
+ x28-20020ac259dc000000b004d8537a753fmr4746540lfn.6.1678196242448; 
+ Tue, 07 Mar 2023 05:37:22 -0800 (PST)
+Received: from [10.10.15.130] ([192.130.178.91])
  by smtp.gmail.com with ESMTPSA id
- t5-20020ac25485000000b004dc4b0a0543sm2021981lfk.58.2023.03.07.05.03.30
+ f16-20020a2eb5b0000000b00294692d8645sm2193108ljn.17.2023.03.07.05.37.21
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 07 Mar 2023 05:03:31 -0800 (PST)
-Message-ID: <3dabf511-9d3a-0c9f-999e-35aeb3b48cf8@linaro.org>
-Date: Tue, 7 Mar 2023 14:03:29 +0100
+ Tue, 07 Mar 2023 05:37:22 -0800 (PST)
+Message-ID: <3f7a065b-fa41-36ee-2055-617979435be2@linaro.org>
+Date: Tue, 7 Mar 2023 15:37:21 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.8.0
-Content-Language: en-US
-To: Rob Clark <robdclark@gmail.com>, Abhinav Kumar
- <quic_abhinavk@quicinc.com>, Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Sean Paul <sean@poorly.run>, David Airlie <airlied@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>, Rob Herring <robh+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Krishna Manikandan <quic_mkrishn@quicinc.com>,
- Bryan O'Donoghue <bryan.odonoghue@linaro.org>, Andy Gross
- <agross@kernel.org>, Bjorn Andersson <andersson@kernel.org>
-References: <20230307-topic-dsi_qcm-v3-0-58c5c5e392ee@linaro.org>
- <20230307-topic-dsi_qcm-v3-8-58c5c5e392ee@linaro.org>
-From: Konrad Dybcio <konrad.dybcio@linaro.org>
-In-Reply-To: <20230307-topic-dsi_qcm-v3-8-58c5c5e392ee@linaro.org>
-Content-Type: text/plain; charset=UTF-8
+Content-Language: en-GB
+To: Jani Nikula <jani.nikula@linux.intel.com>,
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
+ Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>
+References: <20230228113342.2051425-1-dmitry.baryshkov@linaro.org>
+ <20230228113342.2051425-8-dmitry.baryshkov@linaro.org>
+ <87pm9tycn5.fsf@intel.com>
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+In-Reply-To: <87pm9tycn5.fsf@intel.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH v3 08/10] dt-bindings: display/msm:
- dsi-controller-main: Fix deprecated compatible
+Subject: Re: [Freedreno] [PATCH 07/10] drm/display/dsc: include the rest of
+ pre-SCR parameters
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -84,46 +84,31 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rob Herring <robh@kernel.org>, devicetree@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org
+Cc: linux-arm-msm@vger.kernel.org, intel-gfx@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ =?UTF-8?B?VmlsbGUgU3lyasOkbMOk?= <ville.syrjala@linux.intel.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-
-
-On 7.03.2023 14:01, Konrad Dybcio wrote:
-> The point of the previous cleanup was to disallow "qcom,mdss-dsi-ctrl"
-> alone. This however didn't quite work out and the property became
-> undocumented instead of deprecated. Fix that.
+On 28/02/2023 18:31, Jani Nikula wrote:
+> On Tue, 28 Feb 2023, Dmitry Baryshkov <dmitry.baryshkov@linaro.org> wrote:
+>> DSC model contains pre-SCR RC parameters for other bpp/bpc combinations,
+>> include them here for completeness.
 > 
-> Fixes: 0c0f65c6dd44 ("dt-bindings: msm: dsi-controller-main: Add compatible strings for every current SoC")
-> Signed-off-by: Konrad Dybcio <konrad.dybcio@linaro.org>
-> ---
-This actually also got:
-
-Reviewed-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org> 
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-
-in https://lore.kernel.org/linux-arm-msm/20230304-topic-dsi_fixup-v3-0-b8565944d0e6@linaro.org/
-
-but I only picked up trailers from the v2 of this series.. sorry about that..
-
-Konrad
->  Documentation/devicetree/bindings/display/msm/dsi-controller-main.yaml | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
+> Need to run now, note to self:
 > 
-> diff --git a/Documentation/devicetree/bindings/display/msm/dsi-controller-main.yaml b/Documentation/devicetree/bindings/display/msm/dsi-controller-main.yaml
-> index 2494817c1bd6..94f4cdf88c95 100644
-> --- a/Documentation/devicetree/bindings/display/msm/dsi-controller-main.yaml
-> +++ b/Documentation/devicetree/bindings/display/msm/dsi-controller-main.yaml
-> @@ -34,7 +34,7 @@ properties:
->        - items:
->            - enum:
->                - qcom,dsi-ctrl-6g-qcm2290
-> -          - const: qcom,mdss-dsi-ctrl
-> +              - qcom,mdss-dsi-ctrl # This should always come with an SoC-specific compatible
->          deprecated: true
->  
->    reg:
+> Does i915 use the arrays to limit the bpp/bpc combos supported by
+> hardware? Do we need to add separate limiting in i915.
+
+There is already a limitation in intel_dsc_compute_params(): the driver 
+uses DRM_DSC_1_1_PRE_SCR only in a limited amount of cases (bpp 8 or 12, 
+bpc 8, 10 or 12). But thanks, I noticed a bug there.
+
 > 
+> BR,
+> Jani.
+> 
+-- 
+With best wishes
+Dmitry
+
