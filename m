@@ -1,79 +1,40 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id B22836AE3E0
-	for <lists+freedreno@lfdr.de>; Tue,  7 Mar 2023 16:06:00 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id ACF756AEB9A
+	for <lists+freedreno@lfdr.de>; Tue,  7 Mar 2023 18:46:48 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 358BA10E4E0;
-	Tue,  7 Mar 2023 15:05:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7B1EE10E102;
+	Tue,  7 Mar 2023 17:46:47 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-X-Greylist: delayed 573 seconds by postgrey-1.36 at gabe;
- Tue, 07 Mar 2023 15:05:57 UTC
-Received: from wnew3-smtp.messagingengine.com (wnew3-smtp.messagingengine.com
- [64.147.123.17])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6932A10E4E0;
- Tue,  7 Mar 2023 15:05:57 +0000 (UTC)
-Received: from compute1.internal (compute1.nyi.internal [10.202.2.41])
- by mailnew.west.internal (Postfix) with ESMTP id 9AE3A2B0725A;
- Tue,  7 Mar 2023 09:56:17 -0500 (EST)
-Received: from mailfrontend1 ([10.202.2.162])
- by compute1.internal (MEProxy); Tue, 07 Mar 2023 09:56:21 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cerno.tech; h=cc
- :cc:content-type:content-type:date:date:from:from:in-reply-to
- :in-reply-to:message-id:mime-version:references:reply-to:sender
- :subject:subject:to:to; s=fm2; t=1678200977; x=1678208177; bh=GQ
- gX+OFkaGwQO+Ny7NdW8cV5dWlF2ecQwTfPYmkv02s=; b=D7w4Muld8Eu5UCLbVO
- LkJFD+WIQx/Vzhl/X9C7A3qLfJhZNcIALZMfRNsBf7+N55NHVr9FJUhm0NBULAMK
- OdN1V2vrqVaMLDU/IZklg1687bwu5j1CmvmG2CA6DVe2PIWdLUGEF8hQig4Krczx
- V6EV2IYQMElVTx3+qTYWF41t6gcXtpmwEnBu1P1+LLahYaitCge2I2jYbsxmlBQW
- rXRlBxq5JKjAlT3QnidUxg3FOfE5dcKEXlD+cJhw596isAMQouwEYW8x///plLZw
- GoV2fs2GbKvlj8WQ/J6OCAW/IYoSEpi2CZ23J6b/bQybSaatyf4Djxnu9LqkXqrb
- 9iAw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:cc:content-type:content-type:date:date
- :feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
- :message-id:mime-version:references:reply-to:sender:subject
- :subject:to:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender
- :x-sasl-enc; s=fm1; t=1678200977; x=1678208177; bh=GQgX+OFkaGwQO
- +Ny7NdW8cV5dWlF2ecQwTfPYmkv02s=; b=KmI5/Os6WpMErhW3w/1B7EuXeAvCQ
- xhfYD5k9CNH3MJZkJgOgkqQNvmfzPZY97/kz27sByxjiByCcWO0iq9Di3H0ozngH
- AJ34GxitJkGvPu3BfwwlKR3OeVQhzyah69W7ESRThiYprN31rCqtxCdDPEHLcsQp
- Mua38OlFMeFfYx8gat2t5Z30dGaEgFeH8r6BBIB5ogU9N5eliiCKTx7lQsiinlkd
- 7rpmCHNmCiTbrb0GTqb6qNaPETFhGAYwaCbou6zZPq6Zk5y6qa90IJvlcwtPgQlS
- Z+LEv2EIQYTD3Jkk0AOvgJVjahHihNBwH559ddWvrL/Q1fz+IpJYufmPw==
-X-ME-Sender: <xms:kFAHZGeaqwXLPcM2ZfAd9njBAJC7Qi702nIuGITTB9r2mHpiJQmxuQ>
- <xme:kFAHZANks4fE2kD4LVIfrNXPmvJ2LWq68vgJFN5G9I036iVCLwpItQKtwdvvePLG3
- lIz6eoANG5nWgguZsg>
-X-ME-Received: <xmr:kFAHZHifYLdjTcgYugedhArfBJX5ZO095Tzyk3GJMwGW_JqKMbxkcv4-6UdvXVWL_IdTdizpJ4-nBCbAKDYobYgANbZBeMI>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvhedrvddutddgieehucetufdoteggodetrfdotf
- fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
- uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
- cujfgurhepfffhvfevuffkfhggtggujgesghdtreertddtvdenucfhrhhomhepofgrgihi
- mhgvucftihhprghrugcuoehmrgigihhmvgestggvrhhnohdrthgvtghhqeenucggtffrrg
- htthgvrhhnpeetfefffefgkedtfefgledugfdtjeefjedvtddtkeetieffjedvgfehheff
- hfevudenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpe
- hmrgigihhmvgestggvrhhnohdrthgvtghh
-X-ME-Proxy: <xmx:kFAHZD8i7TqRetgXoJKraTcZZ4qAe6yWv7D7zbRf67iVgQS8jbZdiQ>
- <xmx:kFAHZCvzE5SAi7en6Ya85Dfx_8ANirukxjtec1coGl342WvLls9Chg>
- <xmx:kFAHZKHHge_08-IbbPVfQcusfH4wd8uO9ND8Pzsqjnw-7qeaVVPO_A>
- <xmx:kVAHZMtyfuXByAQ91WiEFHmEhoTysW6RSMH7Y31dJM6poMiGIfPxH1JkFNA>
-Feedback-ID: i8771445c:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
- 7 Mar 2023 09:56:15 -0500 (EST)
-Date: Tue, 7 Mar 2023 15:56:13 +0100
-From: Maxime Ripard <maxime@cerno.tech>
-To: Daniel Vetter <daniel.vetter@ffwll.ch>
-Message-ID: <20230307145613.xvhru3fpcudlpazt@houat>
-References: <20230216111214.3489223-1-daniel.vetter@ffwll.ch>
+Received: from bombadil.infradead.org (bombadil.infradead.org
+ [IPv6:2607:7c80:54:3::133])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C0B4210E102;
+ Tue,  7 Mar 2023 17:46:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
+ MIME-Version:Message-Id:Date:Subject:Cc:To:From:Sender:Reply-To:Content-Type:
+ Content-ID:Content-Description:In-Reply-To:References;
+ bh=kEQsvK3MQxnkVxlI0sD7IiDrMvuokvi8WefyhXs11HM=; b=Q7unhmlaPKTnVfqQx9l4VGvx/k
+ OxcEG8ujTo3Jtr3wGonwqkyHoAmvyZE5YlNhMVSma9Vwm2vVISUahP8bq7eDhnuFwj1Zg9elJtiZ0
+ 9VB5TWOdO2TuZcLNMMxYd0UT4aQZIcODeWKf2uODP6lLFWtg06P42NClrlfqKEjf58hVeKpODH1il
+ OnhsO4mh/Q5cgw6n9guiVnGMPXW8uMclXL6r8uSCtSH1sYrRpN6rf4eYtLfL7t6xxWU7GtjOjEp+c
+ A3hQW2HP8EnnYxMEqBr67DKdBuuPnEpq/Ev8U365Zu9cfw6BsNaEkeUzg19+8lVHEGXSNgfj5zcTr
+ Fp3UEWZQ==;
+Received: from [2601:1c2:980:9ec0::df2f] (helo=bombadil.infradead.org)
+ by bombadil.infradead.org with esmtpsa (Exim 4.94.2 #2 (Red Hat Linux))
+ id 1pZbOQ-001sqm-TV; Tue, 07 Mar 2023 17:46:30 +0000
+From: Randy Dunlap <rdunlap@infradead.org>
+To: linux-kernel@vger.kernel.org
+Date: Tue,  7 Mar 2023 09:46:27 -0800
+Message-Id: <20230307174627.23787-1-rdunlap@infradead.org>
+X-Mailer: git-send-email 2.39.2
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="mgg47tbsz3puzqki"
-Content-Disposition: inline
-In-Reply-To: <20230216111214.3489223-1-daniel.vetter@ffwll.ch>
-Subject: Re: [Freedreno] [PATCH] drm/atomic-helpers: remove
- legacy_cursor_update hacks
+Content-Transfer-Encoding: 8bit
+Subject: [Freedreno] [PATCH] drm/msm: fix PM_DEVFREQ kconfig dependency
+ warning
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -86,71 +47,50 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Imre Deak <imre.deak@intel.com>,
- DRI Development <dri-devel@lists.freedesktop.org>,
- Daniel Vetter <daniel.vetter@intel.com>,
- Ville =?utf-8?B?U3lyasOkbMOk?= <ville.syrjala@linux.intel.com>,
- Dmitry Osipenko <dmitry.osipenko@collabora.com>, linux-arm-msm@vger.kernel.org,
- harry.wentland@amd.com,
- Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
- Jani Nikula <jani.nikula@intel.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Michel =?utf-8?Q?D=C3=A4nzer?= <michel@daenzer.net>,
- Lucas De Marchi <lucas.demarchi@intel.com>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, linux-mediatek@lists.infradead.org,
- Matthias Brugger <matthias.bgg@gmail.com>, mikita.lipski@amd.com,
- Sean Paul <sean@poorly.run>, linux-arm-kernel@lists.infradead.org,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- linux-kernel@vger.kernel.org, Manasi Navare <manasi.d.navare@intel.com>,
- Rob Clark <robdclark@gmail.com>, Thomas Zimmermann <tzimmermann@suse.de>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- freedreno@lists.freedesktop.org, "Kazlauskas, 
- Nicholas" <nicholas.kazlauskas@amd.com>
+Cc: Rob Clark <robdclark@chromium.org>, kernel test robot <lkp@intel.com>,
+ Paul Gazzillo <paul@pgazz.com>, Necip Fazil Yildiran <fazilyildiran@gmail.com>,
+ Randy Dunlap <rdunlap@infradead.org>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
+ linux-arm-msm@vger.kernel.org, Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ freedreno@lists.freedesktop.org, Chia-I Wu <olvaffe@gmail.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
+Since DEVFREQ_GOV_SIMPLE_ONDEMAND depends on PM_DEVFREQ, the latter
+should either be selected or DRM_MSM should depend on PM_DEVFREQ.
+Since most drivers select PM_DEVFREQ instead of depending on it,
+add a select here to satisfy kconfig.
 
---mgg47tbsz3puzqki
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+WARNING: unmet direct dependencies detected for DEVFREQ_GOV_SIMPLE_ONDEMAND
+  Depends on [n]: PM_DEVFREQ [=n]
+  Selected by [y]:
+  - DRM_MSM [=y] && HAS_IOMEM [=y] && DRM [=y] && (ARCH_QCOM || SOC_IMX5 || COMPILE_TEST [=y]) && COMMON_CLK [=y] && IOMMU_SUPPORT [=y] && (QCOM_OCMEM [=n] || QCOM_OCMEM [=n]=n) && (QCOM_LLCC [=n] || QCOM_LLCC [=n]=n) && (QCOM_COMMAND_DB [=y] || QCOM_COMMAND_DB [=y]=n)
 
-Hi,
+Fixes: 6563f60f14cb ("drm/msm/gpu: Add devfreq tuning debugfs")
+Signed-off-by: Randy Dunlap <rdunlap@infradead.org>
+Reported-by: kernel test robot <lkp@intel.com>
+Link: lore.kernel.org/r/202303071922.wJqDWQpe-lkp@intel.com
+Cc: Rob Clark <robdclark@chromium.org>
+Cc: Paul Gazzillo <paul@pgazz.com>
+Cc: Necip Fazil Yildiran <fazilyildiran@gmail.com>
+Cc: Chia-I Wu <olvaffe@gmail.com>
+Cc: Abhinav Kumar <quic_abhinavk@quicinc.com>
+Cc: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Cc: linux-arm-msm@vger.kernel.org
+Cc: dri-devel@lists.freedesktop.org
+Cc: freedreno@lists.freedesktop.org
+---
+ drivers/gpu/drm/msm/Kconfig |    1 +
+ 1 file changed, 1 insertion(+)
 
-On Thu, Feb 16, 2023 at 12:12:13PM +0100, Daniel Vetter wrote:
-> The stuff never really worked, and leads to lots of fun because it
-> out-of-order frees atomic states. Which upsets KASAN, among other
-> things.
->=20
-> For async updates we now have a more solid solution with the
-> ->atomic_async_check and ->atomic_async_commit hooks. Support for that
-> for msm and vc4 landed. nouveau and i915 have their own commit
-> routines, doing something similar.
->=20
-> For everyone else it's probably better to remove the use-after-free
-> bug, and encourage folks to use the async support instead. The
-> affected drivers which register a legacy cursor plane and don't either
-> use the new async stuff or their own commit routine are: amdgpu,
-> atmel, mediatek, qxl, rockchip, sti, sun4i, tegra, virtio, and vmwgfx.
->=20
-> Inspired by an amdgpu bug report.
-
-Thanks for submitting that patch. It's been in the downstream RPi tree
-for a while, so I'd really like it to be merged eventually :)
-
-Acked-by: Maxime Ripard <maxime@cerno.tech>
-
-Maxime
-
---mgg47tbsz3puzqki
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQRcEzekXsqa64kGDp7j7w1vZxhRxQUCZAdQjQAKCRDj7w1vZxhR
-xWtgAQD3/rzdROsdbjOwFc/mbmUyG/GnJLulhBcauAuhRqkI9gEAliE4z5x/v2vW
-zxe+foePRa9l0/iW//JcHyAuNW9R1Ac=
-=Xp79
------END PGP SIGNATURE-----
-
---mgg47tbsz3puzqki--
+diff -- a/drivers/gpu/drm/msm/Kconfig b/drivers/gpu/drm/msm/Kconfig
+--- a/drivers/gpu/drm/msm/Kconfig
++++ b/drivers/gpu/drm/msm/Kconfig
+@@ -23,6 +23,7 @@ config DRM_MSM
+ 	select SHMEM
+ 	select TMPFS
+ 	select QCOM_SCM
++	select PM_DEVFREQ
+ 	select DEVFREQ_GOV_SIMPLE_ONDEMAND
+ 	select WANT_DEV_COREDUMP
+ 	select SND_SOC_HDMI_CODEC if SND_SOC
