@@ -1,68 +1,68 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 222C36ADA0B
-	for <lists+freedreno@lfdr.de>; Tue,  7 Mar 2023 10:17:11 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 1FB236ADD0C
+	for <lists+freedreno@lfdr.de>; Tue,  7 Mar 2023 12:15:00 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D547C10E3B8;
-	Tue,  7 Mar 2023 09:17:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1807C10E471;
+	Tue,  7 Mar 2023 11:14:58 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ed1-x535.google.com (mail-ed1-x535.google.com
- [IPv6:2a00:1450:4864:20::535])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D63C110E3BD
- for <freedreno@lists.freedesktop.org>; Tue,  7 Mar 2023 09:17:07 +0000 (UTC)
-Received: by mail-ed1-x535.google.com with SMTP id o12so49468266edb.9
- for <freedreno@lists.freedesktop.org>; Tue, 07 Mar 2023 01:17:07 -0800 (PST)
+Received: from mail-lj1-x230.google.com (mail-lj1-x230.google.com
+ [IPv6:2a00:1450:4864:20::230])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5DF0110E428
+ for <freedreno@lists.freedesktop.org>; Tue,  7 Mar 2023 11:14:55 +0000 (UTC)
+Received: by mail-lj1-x230.google.com with SMTP id g18so12777826ljl.3
+ for <freedreno@lists.freedesktop.org>; Tue, 07 Mar 2023 03:14:55 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1678180626;
+ d=linaro.org; s=google; t=1678187693;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :from:to:cc:subject:date:message-id:reply-to;
- bh=WFABy9U7esu++afwwpsJQiDnIZRoaCQ7T2FtObsP3io=;
- b=M9FcPcGCviYeDHBK3iUL8M9xZII/LkzvDQWrPLfi7uuNQkf6x6Y6ofBP4fGdNCgIA4
- ikkicI1LPvFBXsllIRa7ewtEZjZHtv/phVduUl7oBPegVP4QP1UJQgLjd7/QOsICnUMF
- qq1Vnj01oNURFjKZaZN+nNaVgTBiYhdJEgmiVG/dT6Jk6zlhFXUmwfEdeDHz1K+QKk7v
- Qr7QC231FBTwCgiD133Z8YTy/8aV7sAsPbj3sTUIg016uV1cE93r2Quaw1C2jJuHyNPJ
- /rx4HimNxva0J6WSHtlGJDY+5q7LDNPVCiJdljNmbg8n1dMoKMg/C3MRZrtELDYFvw3a
- awPg==
+ bh=yT7vGhUXWJk9HYJN6I+M8kwXMyH9EI24q/vmlgWv3m8=;
+ b=CR/0+YSacYaMRbzWtuZLaj7mlcFerMdCQTGypTHtRsDDH/7zP+jryAMCIGgtkZj1nB
+ cp7IWqzXNdM6M0RUuwFnjx7g5YHlc6Bg6zv898iLDdEVsw837xpoJufcrRzh2KRdJoW0
+ lhx+4qSdJ6+YDj8o2nMSp+dhubOcpK4u9izJvnZ1nEcqm7DY9rnMRqxQUzGrPdobjKCP
+ zWWDFDIdU/6ma2QAo137K5aeIYiLvPZU2SyvRK5CeuIEWnnU41t67WruJXecCVyXSbXw
+ d081WmAqY29Ia63TpYuTJ1TkoswHKWmnk3oVq4/+AnAojdz7L0jDHV31Hxtthf4HCP7T
+ 5CZQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112; t=1678180626;
+ d=1e100.net; s=20210112; t=1678187693;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=WFABy9U7esu++afwwpsJQiDnIZRoaCQ7T2FtObsP3io=;
- b=PGJupMoWhgQVAQpen53YQIFCrHw9cI1LeUftgsUH119swYWuHIQIM0i4e7bwFgcqxI
- Wbw59btp5i3hAsgZ7ULu8I7eupfaPZmMTldKzZO4CUpr/v9HlC5VNsl946CK27Joicpx
- l1ITpDGiXVTgMsq4Y/FAguwd2VK3FaVGUTOtU3H4UCyncE1c3Xf5T5FWj4ZtzbJTkIFC
- JpJ3z06zPnUT0q5+uPELdquRB6egWprMAVhXuX/A/8s8JETbuxJlRtlZMKOlCNapCSC9
- LcqdECgB65nKahWiC4AZauv8BH5Aqsv3rS70HZQhx7sU8WGiot9Kt1EuSw6I8SS9c3cb
- 0a9g==
-X-Gm-Message-State: AO0yUKVByqArzkKFw/p9umG2OmNR+5kQ9oCo7nLa9gDr5RYkAvswpqlm
- lAK3B5bA4994OFrl2E+e9RvwGw==
-X-Google-Smtp-Source: AK7set+C7U+DtyopUxx2vW7YdSkRAjedWzNsOMtGriAwgL9ZCFn9LzJVtn+nGFhe7mYGjehkdPQYCA==
-X-Received: by 2002:aa7:d78b:0:b0:4ac:c029:ea72 with SMTP id
- s11-20020aa7d78b000000b004acc029ea72mr12779040edq.36.1678180626355; 
- Tue, 07 Mar 2023 01:17:06 -0800 (PST)
-Received: from ?IPV6:2a02:810d:15c0:828:5310:35c7:6f9e:2cd3?
- ([2a02:810d:15c0:828:5310:35c7:6f9e:2cd3])
+ bh=yT7vGhUXWJk9HYJN6I+M8kwXMyH9EI24q/vmlgWv3m8=;
+ b=zvQygG74XZD6OobnblM0yge4jRggLFmttnpOgop3Cp3hvSsCB3QrZhT81SloimMCdR
+ Q2OEtjmOf+JR7f742bRozudVwpyY63BR7WYJ5RZRvTeCUEeCX4M9q6jxudVIBUID5IMx
+ GSIxwu8KimRlFhDg4FyhvvMNekaVLk9UbLOklBuzl6UoZp28ixd+3BpdkFKHEcxAt4HF
+ Y/tMSJ63wvU5bCGeQgO9vwVoiOohqUHfkyswr/+MhChtVEwyNP1zUAur/Zt2fxdxMNJi
+ nfGyaKwQ0Y7ajNGJo9u1Gx08dNbO5fHMICv2ok+C9PjWwluYVkrl8H+3lbkdAn4YLM0P
+ ex3g==
+X-Gm-Message-State: AO0yUKW+bf9WG0WfRT02z1G9C4fLqnU1YQNwsor3F+muioPDR1cQK1Pl
+ 6ePJQ7X2dCOdOZy1qgX3SLLmeg==
+X-Google-Smtp-Source: AK7set/Wz0Rx9XUBw7YxwDmwy1KllOxzRErdeKK9Kj5JqFHHN2PNAGXEpEi5nSFHpUfQzppg5PLKFA==
+X-Received: by 2002:a2e:710b:0:b0:295:a969:d225 with SMTP id
+ m11-20020a2e710b000000b00295a969d225mr3924432ljc.1.1678187693642; 
+ Tue, 07 Mar 2023 03:14:53 -0800 (PST)
+Received: from [192.168.1.101] (abyj16.neoplus.adsl.tpnet.pl. [83.9.29.16])
  by smtp.gmail.com with ESMTPSA id
- s30-20020a508d1e000000b004c5d1a15bd5sm2350448eds.69.2023.03.07.01.17.05
+ 198-20020a2e05cf000000b00295a02569ebsm2167222ljf.124.2023.03.07.03.14.52
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 07 Mar 2023 01:17:05 -0800 (PST)
-Message-ID: <bcb5c17f-da78-9d68-66eb-b620ee583602@linaro.org>
-Date: Tue, 7 Mar 2023 10:17:04 +0100
+ Tue, 07 Mar 2023 03:14:53 -0800 (PST)
+Message-ID: <22970751-8bc0-9cbd-eec1-cbc92f0b4ea7@linaro.org>
+Date: Tue, 7 Mar 2023 12:14:51 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.8.0
 Content-Language: en-US
-To: Konrad Dybcio <konrad.dybcio@linaro.org>, linux-arm-msm@vger.kernel.org,
- andersson@kernel.org, agross@kernel.org
+To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
+ linux-arm-msm@vger.kernel.org, andersson@kernel.org, agross@kernel.org
 References: <20230213121012.1768296-1-konrad.dybcio@linaro.org>
  <20230213121012.1768296-9-konrad.dybcio@linaro.org>
-From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-In-Reply-To: <20230213121012.1768296-9-konrad.dybcio@linaro.org>
+ <bcb5c17f-da78-9d68-66eb-b620ee583602@linaro.org>
+From: Konrad Dybcio <konrad.dybcio@linaro.org>
+In-Reply-To: <bcb5c17f-da78-9d68-66eb-b620ee583602@linaro.org>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 Subject: Re: [Freedreno] [PATCH v2 8/9] dt-bindings: display/msm:
@@ -91,26 +91,35 @@ Cc: freedreno@lists.freedesktop.org,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 13/02/2023 13:10, Konrad Dybcio wrote:
-> Add a compatible for the DSI on SM6115.
+
+
+On 7.03.2023 10:17, Krzysztof Kozlowski wrote:
+> On 13/02/2023 13:10, Konrad Dybcio wrote:
+>> Add a compatible for the DSI on SM6115.
+>>
+>> Signed-off-by: Konrad Dybcio <konrad.dybcio@linaro.org>
+>> ---
+>>  .../devicetree/bindings/display/msm/dsi-controller-main.yaml    | 2 ++
+>>  1 file changed, 2 insertions(+)
+>>
+>> diff --git a/Documentation/devicetree/bindings/display/msm/dsi-controller-main.yaml b/Documentation/devicetree/bindings/display/msm/dsi-controller-main.yaml
+>> index 2494817c1bd6..f195530ae964 100644
+>> --- a/Documentation/devicetree/bindings/display/msm/dsi-controller-main.yaml
+>> +++ b/Documentation/devicetree/bindings/display/msm/dsi-controller-main.yaml
+>> @@ -25,6 +25,7 @@ properties:
+>>                - qcom,sc7280-dsi-ctrl
+>>                - qcom,sdm660-dsi-ctrl
+>>                - qcom,sdm845-dsi-ctrl
+>> +              - qcom,sm6115-dsi-ctrl
 > 
-> Signed-off-by: Konrad Dybcio <konrad.dybcio@linaro.org>
-> ---
->  .../devicetree/bindings/display/msm/dsi-controller-main.yaml    | 2 ++
->  1 file changed, 2 insertions(+)
+> This looks incomplete. You also need to add it to MDSS binding.
+https://lore.kernel.org/linux-arm-msm/145066db-5723-6baa-237d-7c2b8fd476d9@linaro.org/
+
+Does this.. but I guess I'll resend this as one series, as it only
+makes sense.
+
+Konrad
 > 
-> diff --git a/Documentation/devicetree/bindings/display/msm/dsi-controller-main.yaml b/Documentation/devicetree/bindings/display/msm/dsi-controller-main.yaml
-> index 2494817c1bd6..f195530ae964 100644
-> --- a/Documentation/devicetree/bindings/display/msm/dsi-controller-main.yaml
-> +++ b/Documentation/devicetree/bindings/display/msm/dsi-controller-main.yaml
-> @@ -25,6 +25,7 @@ properties:
->                - qcom,sc7280-dsi-ctrl
->                - qcom,sdm660-dsi-ctrl
->                - qcom,sdm845-dsi-ctrl
-> +              - qcom,sm6115-dsi-ctrl
-
-This looks incomplete. You also need to add it to MDSS binding.
-
-Best regards,
-Krzysztof
-
+> Best regards,
+> Krzysztof
+> 
