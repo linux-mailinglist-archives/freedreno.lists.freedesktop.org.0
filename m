@@ -1,47 +1,80 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id F1C346ACD61
-	for <lists+freedreno@lfdr.de>; Mon,  6 Mar 2023 19:59:27 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 461856ADA00
+	for <lists+freedreno@lfdr.de>; Tue,  7 Mar 2023 10:16:08 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9FC4A10E42B;
-	Mon,  6 Mar 2023 18:59:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A91DE10E38A;
+	Tue,  7 Mar 2023 09:16:06 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6392010E42A;
- Mon,  6 Mar 2023 18:59:25 +0000 (UTC)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id D8EA761058;
- Mon,  6 Mar 2023 18:59:24 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2D53FC433D2;
- Mon,  6 Mar 2023 18:59:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1678129164;
- bh=RKFFV1IR8UjpXrXbhSm+33OxxfDK8SFhUxXEKBVJwIc=;
- h=In-Reply-To:References:Subject:From:Cc:To:Date:From;
- b=GfVttMpS/dI2JLuswomdzv/r3ivGw3fgObyvOBPVm89UPT/Oj/LTlZ9GWvE6O+9qE
- l1hBRRj9rAzoi1Gyf9UPgteDLNIZVXvb8b9A8dcrxO6Qm3WhlLFeTgAqzGdnI8cAkz
- uZkYD7+QlMSZTZBrDdCC1o1XncFeAwM6BqYbxZyBT+duuOQARX2xufPt72ra5V/XwO
- p3L5yf5KobJqTue39z/Qxk3+Q1flD7KbUxYBF3xLmgh4C3+gvoKRuOU140xo8wqlxf
- zGo52h9uFwSNLnsySt80/onn5HC2OYXSazdEAUWljvOQuECK/0O6VX63qUeQnjDzFb
- yL6IF5agzZ8dA==
-Message-ID: <3f3c8bd83ddaac760f25fde2681d3a61.sboyd@kernel.org>
-Content-Type: text/plain; charset="utf-8"
+Received: from mail-ed1-x533.google.com (mail-ed1-x533.google.com
+ [IPv6:2a00:1450:4864:20::533])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0DB9010E38A
+ for <freedreno@lists.freedesktop.org>; Tue,  7 Mar 2023 09:16:04 +0000 (UTC)
+Received: by mail-ed1-x533.google.com with SMTP id ay14so45810235edb.11
+ for <freedreno@lists.freedesktop.org>; Tue, 07 Mar 2023 01:16:03 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1678180562;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=yV24tnK9cnyPzbacWjSliZZMed6YdF4OudMR8kk8ppo=;
+ b=yH9a2qzDZBDhJ0CfTaJ9KXbqMMM4/wOMfUo1FqnskAtuzQZSlvl1kudZ497aYuNam/
+ QvjK0cT0tFlr8BDWjQEhfmhc1iCxTDrz0WB9R+tliWK8IQmp7g1xOKMMCwezidS2Mk1o
+ g4w3cAAPNM3X3tuM5hdGORLZFuzoPLUN8MJJkAtfpMu4qYiCN89YuajEVKIx8ZWU8MtU
+ 0gYZKYJyu/PWN5SxkxJtpqmvA+YCN6P3M9zhj3Vntqdw6YaBlMRCrdJRVVHkvFj/t2Dt
+ g7NC8sLTSANitWx+tNWC5gUyK7lzC1gv3O90yKsq1gGQaztL771BALmjGztArMt0xaEQ
+ wdoQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112; t=1678180562;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=yV24tnK9cnyPzbacWjSliZZMed6YdF4OudMR8kk8ppo=;
+ b=YRwN5MUvEi+9ySRXSSnqA/mfX0PIaZ6X3br6soRV+Sb4i1881VxXW3C80CNi60BMup
+ HkOZiAs089wV//X+EhSKRgV8JnQi9v5SYJeREwa7RiPx+37FoI8niYUzcdW9wb+VxLWC
+ JUBReWhaJn6TdUlwcYX6QOlIHNGhehZnDT3H78vd9OJFJ80rpcYacQFoQDp8Gjdk+URT
+ lCkxrPWB2zstyPo60GDetvkHTTJei0eKuxCbQ1rgvvRGZ0ml65Kt/Y8vie9vEujP7lAl
+ XCb8KnDJ011XRbN4QXQDLbAzw+du+6I14jaYYHz0WZrCKdy9NBOWl7c11I37GbCX7dGC
+ PgFQ==
+X-Gm-Message-State: AO0yUKXBDzzgd6pa6534t3JSunBwZW7u/YfE0ispmjjdXx3T43T2bN/f
+ jEVTO2WQfPaVm6an7JHh3FMa8w==
+X-Google-Smtp-Source: AK7set/5IpkbYD1GA2/KmDTDjFB7vnpSTjf66uNF56xzvLTuwRLzp+tFB9oszzAXMniobHQSWmu+6Q==
+X-Received: by 2002:a17:907:cc1c:b0:8b1:781d:f9a8 with SMTP id
+ uo28-20020a170907cc1c00b008b1781df9a8mr11869787ejc.72.1678180562499; 
+ Tue, 07 Mar 2023 01:16:02 -0800 (PST)
+Received: from ?IPV6:2a02:810d:15c0:828:5310:35c7:6f9e:2cd3?
+ ([2a02:810d:15c0:828:5310:35c7:6f9e:2cd3])
+ by smtp.gmail.com with ESMTPSA id
+ my22-20020a1709065a5600b008eabe71429bsm5794543ejc.63.2023.03.07.01.16.01
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 07 Mar 2023 01:16:02 -0800 (PST)
+Message-ID: <145066db-5723-6baa-237d-7c2b8fd476d9@linaro.org>
+Date: Tue, 7 Mar 2023 10:16:01 +0100
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-In-Reply-To: <20230303214223.49451-1-robh@kernel.org>
-References: <20230303214223.49451-1-robh@kernel.org>
-From: Stephen Boyd <sboyd@kernel.org>
-To: Rob Herring <robh@kernel.org>, devicetree@vger.kernel.org
-Date: Mon, 06 Mar 2023 10:59:22 -0800
-User-Agent: alot/0.10
-Subject: Re: [Freedreno] [PATCH] dt-bindings: yamllint: Require a space
- after a comment '#'
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.8.0
+Content-Language: en-US
+To: Konrad Dybcio <konrad.dybcio@linaro.org>, Rob Clark
+ <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>,
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Rob Herring <robh+dt@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Krishna Manikandan <quic_mkrishn@quicinc.com>,
+ Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+References: <20230304-topic-dsi_fixup-v3-0-b8565944d0e6@linaro.org>
+ <20230304-topic-dsi_fixup-v3-2-b8565944d0e6@linaro.org>
+ <e105eff0-816e-b9e8-b47a-5c85731c9ba0@linaro.org>
+ <4b8745d8-144f-fb82-3e54-5ce6bd3162e6@linaro.org>
+From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+In-Reply-To: <4b8745d8-144f-fb82-3e54-5ce6bd3162e6@linaro.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+Subject: Re: [Freedreno] [PATCH v3 2/2] dt-bindings: display: msm:
+ sm6115-mdss: Fix DSI compatible
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,62 +87,48 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Andrew Lunn <andrew@lunn.ch>, alsa-devel@alsa-project.org,
-	dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
-	Conor Dooley <conor.dooley@microchip.com>,
-	Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
-	linux-riscv@lists.infradead.org, linux-clk@vger.kernel.org,
-	Kishon Vijay Abraham I <kishon@kernel.org>,
-	Herbert Xu <herbert@gondor.apana.org.au>,
-	Marc Zyngier <maz@kernel.org>, Rob Clark <robdclark@gmail.com>,
-	ead.org@freedesktop.org, Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>, linux-media@vger.kernel.org,
-	linux-phy@lists.infrad, Abhinav Kumar <quic_abhinavk@quicinc.com>,
-	linux-gpio@vger.kernel.org, Mark Brown <broonie@kernel.org>,
-	Thomas Gleixner <tglx@linutronix.de>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Sean Paul <sean@poorly.run>, linux-arm-kernel@lists.infradead.org,
-	netdev@vger.kernel.org, Eric Dumazet <edumazet@google.com>,
-	linux-spi@vger.kernel.org, Vinod Koul <vkoul@kernel.org>,
-	linux-crypto@vger.kernel.org,
-	Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
-	freedreno@lists.freedesktop.org,
-	"David S. Miller" <davem@davemloft.net>,
-	Heiner Kallweit <hkallweit1@gmail.com>
+Cc: Rob Herring <robh@kernel.org>, devicetree@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Quoting Rob Herring (2023-03-03 13:42:23)
-> Enable yamllint to check the prefered commenting style of requiring a
-> space after a comment character '#'. Fix the cases in the tree which
-> have a warning with this enabled. Most cases just need a space after the
-> '#'. A couple of cases with comments which were not intended to be
-> comments are revealed. Those were in ti,sa2ul.yaml, ti,cal.yaml, and
-> brcm,bcmgenet.yaml.
->=20
-> Signed-off-by: Rob Herring <robh@kernel.org>
+On 06/03/2023 11:06, Konrad Dybcio wrote:
+> 
+> 
+> On 6.03.2023 09:57, Krzysztof Kozlowski wrote:
+>> On 04/03/2023 16:55, Konrad Dybcio wrote:
+>>> Since the DSI autodetection is bound to work correctly on 6115 now,
+>>> switch to using the correct per-SoC + generic fallback compatible
+>>> combo.
+>>>
+>>> Signed-off-by: Konrad Dybcio <konrad.dybcio@linaro.org>
+>>> ---
+>>>  .../devicetree/bindings/display/msm/qcom,sm6115-mdss.yaml         | 8 +++++++-
+>>>  1 file changed, 7 insertions(+), 1 deletion(-)
+>>>
+>>> diff --git a/Documentation/devicetree/bindings/display/msm/qcom,sm6115-mdss.yaml b/Documentation/devicetree/bindings/display/msm/qcom,sm6115-mdss.yaml
+>>> index 2491cb100b33..605b1f654d78 100644
+>>> --- a/Documentation/devicetree/bindings/display/msm/qcom,sm6115-mdss.yaml
+>>> +++ b/Documentation/devicetree/bindings/display/msm/qcom,sm6115-mdss.yaml
+>>> @@ -40,7 +40,13 @@ patternProperties:
+>>>      type: object
+>>>      properties:
+>>>        compatible:
+>>> -        const: qcom,dsi-ctrl-6g-qcm2290
+>>> +        oneOf:
+>>> +          - items:
+>>> +              - const: qcom,sm6115-dsi-ctrl
+>>> +              - const: qcom,mdss-dsi-ctrl
+>>
+>> Does it actually work? You did not define qcom,sm6115-dsi-ctrl in
+>> dsi-controller-main?
+> Check the "Depends on" in the cover letter.
+> 
 
-Reviewed-by: Stephen Boyd <sboyd@kernel.org>
+Then it looks like it should be squashed with that patch. Why adding new
+compatible in multiple steps?
 
-> diff --git a/Documentation/devicetree/bindings/clock/qcom,a53pll.yaml b/D=
-ocumentation/devicetree/bindings/clock/qcom,a53pll.yaml
-> index 525ebaa93c85..64bfd0f5d4d0 100644
-> --- a/Documentation/devicetree/bindings/clock/qcom,a53pll.yaml
-> +++ b/Documentation/devicetree/bindings/clock/qcom,a53pll.yaml
-> @@ -45,14 +45,14 @@ required:
->  additionalProperties: false
-> =20
->  examples:
-> -  #Example 1 - A53 PLL found on MSM8916 devices
-> +  # Example 1 - A53 PLL found on MSM8916 devices
->    - |
->      a53pll: clock@b016000 {
->          compatible =3D "qcom,msm8916-a53pll";
->          reg =3D <0xb016000 0x40>;
->          #clock-cells =3D <0>;
->      };
-> -  #Example 2 - A53 PLL found on IPQ6018 devices
-> +  # Example 2 - A53 PLL found on IPQ6018 devices
->    - |
->      a53pll_ipq: clock-controller@b116000 {
->          compatible =3D "qcom,ipq6018-a53pll";
+Best regards,
+Krzysztof
+
