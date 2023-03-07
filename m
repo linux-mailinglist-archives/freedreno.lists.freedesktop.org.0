@@ -1,70 +1,79 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 729376AE172
-	for <lists+freedreno@lfdr.de>; Tue,  7 Mar 2023 14:54:48 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id B22836AE3E0
+	for <lists+freedreno@lfdr.de>; Tue,  7 Mar 2023 16:06:00 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F171E10E498;
-	Tue,  7 Mar 2023 13:54:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 358BA10E4E0;
+	Tue,  7 Mar 2023 15:05:59 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x131.google.com (mail-lf1-x131.google.com
- [IPv6:2a00:1450:4864:20::131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EA05810E4A6
- for <freedreno@lists.freedesktop.org>; Tue,  7 Mar 2023 13:54:45 +0000 (UTC)
-Received: by mail-lf1-x131.google.com with SMTP id g17so17178307lfv.4
- for <freedreno@lists.freedesktop.org>; Tue, 07 Mar 2023 05:54:45 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1678197284;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=aPmjHWuFuv6F58SfS5GxDfQIhMMuuYwG2pBnFif7yZ0=;
- b=srAh3UY2X3KYEtRhNoUJNsIrQDH4MKtAoQSMWOyGQ9+J9yhh6E1rNbNOegLd2Xy9qO
- iOcikU8KOQLt4BePPYM2r6pDvf9DUjhTjTp/Vpl7+RNgpGldmQPgGFO8VYDrUQaQ/Bor
- 4lElfdkPTR31BgJO+cm2Hy1HdwhJvGpnnMIyDI7aCQ8h0/eHgYFLPK19weJyCk5RKf42
- BJ24ZBBU+ZBGz9wX6LyMKKuhasggHPa5SqbCIh2naFmay6qtL803A7QVfuAEuA89Az5z
- Xta002DhwcEhIatRtC8tL24u7YpJ2ZxqJixKXndSwTuNS5uK/vom3SF90yba8fSStgI0
- u6dw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112; t=1678197284;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=aPmjHWuFuv6F58SfS5GxDfQIhMMuuYwG2pBnFif7yZ0=;
- b=IKpTbfvA9y2kfFIjwMYEbQ6UHM/5Hy9LZnki7qMIwyewsFqUMfmwKWHvKgtSSZ+V+M
- byxshKROgQTuLOEGOJjZnkSDoN1Sft1i1ELLf/HQ5RE3nvY1q6Psw0tJfZkVEZ+8CA9g
- XNcwl2Vs8jjN8MGqXgmO3WN+nszoUSiRT2Bx70/D5hYZCm3FH3+BdNiKa8Jz5lZ8DLXc
- Axq7h+AHFFWudrrCRP0+WTlm2oBO/GAEDD/SV9YH0oE2IyMBeQrq9nfvKvbWDOkkVbdU
- u7Hs7x95sNWWvDFgi+Q4O+1lHn3S4DTI34peqP8FNVc+HL8r72JETDCR/gnlDSIBDVHC
- u6tw==
-X-Gm-Message-State: AO0yUKVaVQ+L3zRHzmtcX4YHoSkKZz3kfrd/pfvD4+TQKI7BxUSBS/dA
- hN7rObDLOB1wyvNNpzsB89xbwg==
-X-Google-Smtp-Source: AK7set+rcXfy6mfYYqPaxyRmMJjEFrUAW5fRIvhtFGjTsQMKNImU//9d5pU6vay7STdcZ6FJNJgaHg==
-X-Received: by 2002:ac2:46c8:0:b0:4e0:6e01:7ebe with SMTP id
- p8-20020ac246c8000000b004e06e017ebemr4171993lfo.36.1678197284220; 
- Tue, 07 Mar 2023 05:54:44 -0800 (PST)
-Received: from [10.10.15.130] ([192.130.178.91])
- by smtp.gmail.com with ESMTPSA id
- q9-20020ac25149000000b004dda74eccafsm2054843lfd.68.2023.03.07.05.54.43
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 07 Mar 2023 05:54:43 -0800 (PST)
-Message-ID: <b3d3a70a-6f6b-e7ff-cf0c-cb0093212a3b@linaro.org>
-Date: Tue, 7 Mar 2023 15:54:43 +0200
+X-Greylist: delayed 573 seconds by postgrey-1.36 at gabe;
+ Tue, 07 Mar 2023 15:05:57 UTC
+Received: from wnew3-smtp.messagingengine.com (wnew3-smtp.messagingengine.com
+ [64.147.123.17])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6932A10E4E0;
+ Tue,  7 Mar 2023 15:05:57 +0000 (UTC)
+Received: from compute1.internal (compute1.nyi.internal [10.202.2.41])
+ by mailnew.west.internal (Postfix) with ESMTP id 9AE3A2B0725A;
+ Tue,  7 Mar 2023 09:56:17 -0500 (EST)
+Received: from mailfrontend1 ([10.202.2.162])
+ by compute1.internal (MEProxy); Tue, 07 Mar 2023 09:56:21 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cerno.tech; h=cc
+ :cc:content-type:content-type:date:date:from:from:in-reply-to
+ :in-reply-to:message-id:mime-version:references:reply-to:sender
+ :subject:subject:to:to; s=fm2; t=1678200977; x=1678208177; bh=GQ
+ gX+OFkaGwQO+Ny7NdW8cV5dWlF2ecQwTfPYmkv02s=; b=D7w4Muld8Eu5UCLbVO
+ LkJFD+WIQx/Vzhl/X9C7A3qLfJhZNcIALZMfRNsBf7+N55NHVr9FJUhm0NBULAMK
+ OdN1V2vrqVaMLDU/IZklg1687bwu5j1CmvmG2CA6DVe2PIWdLUGEF8hQig4Krczx
+ V6EV2IYQMElVTx3+qTYWF41t6gcXtpmwEnBu1P1+LLahYaitCge2I2jYbsxmlBQW
+ rXRlBxq5JKjAlT3QnidUxg3FOfE5dcKEXlD+cJhw596isAMQouwEYW8x///plLZw
+ GoV2fs2GbKvlj8WQ/J6OCAW/IYoSEpi2CZ23J6b/bQybSaatyf4Djxnu9LqkXqrb
+ 9iAw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:cc:content-type:content-type:date:date
+ :feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
+ :message-id:mime-version:references:reply-to:sender:subject
+ :subject:to:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender
+ :x-sasl-enc; s=fm1; t=1678200977; x=1678208177; bh=GQgX+OFkaGwQO
+ +Ny7NdW8cV5dWlF2ecQwTfPYmkv02s=; b=KmI5/Os6WpMErhW3w/1B7EuXeAvCQ
+ xhfYD5k9CNH3MJZkJgOgkqQNvmfzPZY97/kz27sByxjiByCcWO0iq9Di3H0ozngH
+ AJ34GxitJkGvPu3BfwwlKR3OeVQhzyah69W7ESRThiYprN31rCqtxCdDPEHLcsQp
+ Mua38OlFMeFfYx8gat2t5Z30dGaEgFeH8r6BBIB5ogU9N5eliiCKTx7lQsiinlkd
+ 7rpmCHNmCiTbrb0GTqb6qNaPETFhGAYwaCbou6zZPq6Zk5y6qa90IJvlcwtPgQlS
+ Z+LEv2EIQYTD3Jkk0AOvgJVjahHihNBwH559ddWvrL/Q1fz+IpJYufmPw==
+X-ME-Sender: <xms:kFAHZGeaqwXLPcM2ZfAd9njBAJC7Qi702nIuGITTB9r2mHpiJQmxuQ>
+ <xme:kFAHZANks4fE2kD4LVIfrNXPmvJ2LWq68vgJFN5G9I036iVCLwpItQKtwdvvePLG3
+ lIz6eoANG5nWgguZsg>
+X-ME-Received: <xmr:kFAHZHifYLdjTcgYugedhArfBJX5ZO095Tzyk3GJMwGW_JqKMbxkcv4-6UdvXVWL_IdTdizpJ4-nBCbAKDYobYgANbZBeMI>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvhedrvddutddgieehucetufdoteggodetrfdotf
+ fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
+ uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
+ cujfgurhepfffhvfevuffkfhggtggujgesghdtreertddtvdenucfhrhhomhepofgrgihi
+ mhgvucftihhprghrugcuoehmrgigihhmvgestggvrhhnohdrthgvtghhqeenucggtffrrg
+ htthgvrhhnpeetfefffefgkedtfefgledugfdtjeefjedvtddtkeetieffjedvgfehheff
+ hfevudenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpe
+ hmrgigihhmvgestggvrhhnohdrthgvtghh
+X-ME-Proxy: <xmx:kFAHZD8i7TqRetgXoJKraTcZZ4qAe6yWv7D7zbRf67iVgQS8jbZdiQ>
+ <xmx:kFAHZCvzE5SAi7en6Ya85Dfx_8ANirukxjtec1coGl342WvLls9Chg>
+ <xmx:kFAHZKHHge_08-IbbPVfQcusfH4wd8uO9ND8Pzsqjnw-7qeaVVPO_A>
+ <xmx:kVAHZMtyfuXByAQ91WiEFHmEhoTysW6RSMH7Y31dJM6poMiGIfPxH1JkFNA>
+Feedback-ID: i8771445c:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
+ 7 Mar 2023 09:56:15 -0500 (EST)
+Date: Tue, 7 Mar 2023 15:56:13 +0100
+From: Maxime Ripard <maxime@cerno.tech>
+To: Daniel Vetter <daniel.vetter@ffwll.ch>
+Message-ID: <20230307145613.xvhru3fpcudlpazt@houat>
+References: <20230216111214.3489223-1-daniel.vetter@ffwll.ch>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.8.0
-Content-Language: en-GB
-To: David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>
-References: <1677774797-31063-1-git-send-email-quic_vpolimer@quicinc.com>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-In-Reply-To: <1677774797-31063-1-git-send-email-quic_vpolimer@quicinc.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH v14 00/14] Add PSR support for eDP
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="mgg47tbsz3puzqki"
+Content-Disposition: inline
+In-Reply-To: <20230216111214.3489223-1-daniel.vetter@ffwll.ch>
+Subject: Re: [Freedreno] [PATCH] drm/atomic-helpers: remove
+ legacy_cursor_update hacks
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,74 +86,71 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: quic_kalyant@quicinc.com, devicetree@vger.kernel.org,
- quic_sbillaka@quicinc.com, dianders@chromium.org, quic_bjorande@quicinc.com,
- quic_abhinavk@quicinc.com, quic_vproddut@quicinc.com,
- linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, quic_khsieh@quicinc.com, robdclark@gmail.com,
- swboyd@chromium.org, freedreno@lists.freedesktop.org,
- Vinod Polimera <quic_vpolimer@quicinc.com>
+Cc: Imre Deak <imre.deak@intel.com>,
+ DRI Development <dri-devel@lists.freedesktop.org>,
+ Daniel Vetter <daniel.vetter@intel.com>,
+ Ville =?utf-8?B?U3lyasOkbMOk?= <ville.syrjala@linux.intel.com>,
+ Dmitry Osipenko <dmitry.osipenko@collabora.com>, linux-arm-msm@vger.kernel.org,
+ harry.wentland@amd.com,
+ Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
+ Jani Nikula <jani.nikula@intel.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Michel =?utf-8?Q?D=C3=A4nzer?= <michel@daenzer.net>,
+ Lucas De Marchi <lucas.demarchi@intel.com>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, linux-mediatek@lists.infradead.org,
+ Matthias Brugger <matthias.bgg@gmail.com>, mikita.lipski@amd.com,
+ Sean Paul <sean@poorly.run>, linux-arm-kernel@lists.infradead.org,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ linux-kernel@vger.kernel.org, Manasi Navare <manasi.d.navare@intel.com>,
+ Rob Clark <robdclark@gmail.com>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ freedreno@lists.freedesktop.org, "Kazlauskas, 
+ Nicholas" <nicholas.kazlauskas@amd.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-David, Daniel & other drm maintainers,
 
-On 02/03/2023 18:33, Vinod Polimera wrote:
+--mgg47tbsz3puzqki
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-[skipped the changelog]
+Hi,
 
-> Vinod Polimera (14):
->    drm: add helper functions to retrieve old and new crtc
->    drm/bridge: use atomic enable/disable callbacks for panel bridge
->    drm/bridge: add psr support for panel bridge callbacks
+On Thu, Feb 16, 2023 at 12:12:13PM +0100, Daniel Vetter wrote:
+> The stuff never really worked, and leads to lots of fun because it
+> out-of-order frees atomic states. Which upsets KASAN, among other
+> things.
+>=20
+> For async updates we now have a more solid solution with the
+> ->atomic_async_check and ->atomic_async_commit hooks. Support for that
+> for msm and vc4 landed. nouveau and i915 have their own commit
+> routines, doing something similar.
+>=20
+> For everyone else it's probably better to remove the use-after-free
+> bug, and encourage folks to use the async support instead. The
+> affected drivers which register a legacy cursor plane and don't either
+> use the new async stuff or their own commit routine are: amdgpu,
+> atmel, mediatek, qxl, rockchip, sti, sun4i, tegra, virtio, and vmwgfx.
+>=20
+> Inspired by an amdgpu bug report.
 
-The first three patches are generic. How do we merge this series? I 
-think these three patches should be merged into an immutable branch at 
-drm-misc (or any other drm tree), which we can then merge into msm-next. 
-What do you think?
+Thanks for submitting that patch. It's been in the downstream RPi tree
+for a while, so I'd really like it to be merged eventually :)
 
->    drm/msm/disp/dpu: check for crtc enable rather than crtc active to
->      release shared resources
->    drm/msm/disp/dpu: get timing engine status from intf status register
->    drm/msm/disp/dpu: wait for extra vsync till timing engine status is
->      disabled
->    drm/msm/disp/dpu: reset the datapath after timing engine disable
->    drm/msm/dp: use atomic callbacks for DP bridge ops
->    drm/msm/dp: Add basic PSR support for eDP
->    drm/msm/dp: use the eDP bridge ops to validate eDP modes
->    drm/msm/disp/dpu: use atomic enable/disable callbacks for encoder
->      functions
->    drm/msm/disp/dpu: add PSR support for eDP interface in dpu driver
->    drm/msm/disp/dpu: update dpu_enc crtc state on crtc enable/disable
->      during self refresh
->    drm/msm/dp: set self refresh aware based on psr support
-> 
->   drivers/gpu/drm/bridge/panel.c                     |  68 +++++++-
->   drivers/gpu/drm/drm_atomic.c                       |  60 +++++++
->   drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c           |  40 ++++-
->   drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c        |  26 +++-
->   .../gpu/drm/msm/disp/dpu1/dpu_encoder_phys_vid.c   |  22 +++
->   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c     |   3 +-
->   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h     |  12 +-
->   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.c        |   8 +-
->   drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c            |   2 +-
->   drivers/gpu/drm/msm/dp/dp_catalog.c                |  80 ++++++++++
->   drivers/gpu/drm/msm/dp/dp_catalog.h                |   4 +
->   drivers/gpu/drm/msm/dp/dp_ctrl.c                   |  80 ++++++++++
->   drivers/gpu/drm/msm/dp/dp_ctrl.h                   |   3 +
->   drivers/gpu/drm/msm/dp/dp_display.c                |  36 +++--
->   drivers/gpu/drm/msm/dp/dp_display.h                |   2 +
->   drivers/gpu/drm/msm/dp/dp_drm.c                    | 173 ++++++++++++++++++++-
->   drivers/gpu/drm/msm/dp/dp_drm.h                    |   9 +-
->   drivers/gpu/drm/msm/dp/dp_link.c                   |  36 +++++
->   drivers/gpu/drm/msm/dp/dp_panel.c                  |  22 +++
->   drivers/gpu/drm/msm/dp/dp_panel.h                  |   6 +
->   drivers/gpu/drm/msm/dp/dp_reg.h                    |  27 ++++
->   include/drm/drm_atomic.h                           |   7 +
->   22 files changed, 683 insertions(+), 43 deletions(-)
-> 
+Acked-by: Maxime Ripard <maxime@cerno.tech>
 
--- 
-With best wishes
-Dmitry
+Maxime
 
+--mgg47tbsz3puzqki
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQRcEzekXsqa64kGDp7j7w1vZxhRxQUCZAdQjQAKCRDj7w1vZxhR
+xWtgAQD3/rzdROsdbjOwFc/mbmUyG/GnJLulhBcauAuhRqkI9gEAliE4z5x/v2vW
+zxe+foePRa9l0/iW//JcHyAuNW9R1Ac=
+=Xp79
+-----END PGP SIGNATURE-----
+
+--mgg47tbsz3puzqki--
