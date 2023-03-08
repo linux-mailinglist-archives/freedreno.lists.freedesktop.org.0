@@ -2,56 +2,57 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id ECD0C6B037B
-	for <lists+freedreno@lfdr.de>; Wed,  8 Mar 2023 10:57:41 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E94C56B03CB
+	for <lists+freedreno@lfdr.de>; Wed,  8 Mar 2023 11:14:40 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 79C3B10E5CC;
-	Wed,  8 Mar 2023 09:57:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A5DD210E665;
+	Wed,  8 Mar 2023 10:14:39 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from ams.source.kernel.org (ams.source.kernel.org
- [IPv6:2604:1380:4601:e00::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B0F0C10E5CC;
- Wed,  8 Mar 2023 09:57:36 +0000 (UTC)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 58311B81C14;
- Wed,  8 Mar 2023 09:57:35 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EC892C433EF;
- Wed,  8 Mar 2023 09:57:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1678269454;
- bh=/qd+skQp3D3bicLZ6MDaLy4rcvPFVnyfrpif2N5UNN0=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=MgfbJIUMMRwxpwbWXHv6F6txlDaVJzWlSLHHT79scaIj2Ljo/M0nFl6jp+ndsgA9R
- RDbPJoCs03kwJFzHeJf39GpgygjC86yeFSuRG2rHEJGzMb96ynm2Hbwii6Q45MasdM
- qSvINrUmWM3qK6ARRlAtHSEyfomEU2mNqylhZy6QSSPrZ+eomHiQ6GwIFRTNSlU6XE
- mjvsZJ89ZG6SoDqkvlQVhX1iAbFShSYBDpPcX/TlzXgEVngYcLO0uoBt9I9rknm/kO
- lCBZutn/gfd4/+gLirBJg5J0FkXOvQ1xSkXMqWKYtNKF4d0FiZXJHR8iMMVWw3CUqZ
- t0aJfADwYxkJA==
-Received: from johan by xi.lan with local (Exim 4.94.2)
- (envelope-from <johan@kernel.org>)
- id 1pZqYs-0005Lo-R4; Wed, 08 Mar 2023 10:58:19 +0100
-Date: Wed, 8 Mar 2023 10:58:18 +0100
-From: Johan Hovold <johan@kernel.org>
-To: Bjorn Andersson <quic_bjorande@quicinc.com>
-Message-ID: <ZAhcOiHhlMd/IKu/@hovoldconsulting.com>
-References: <20230113041051.4189063-1-quic_bjorande@quicinc.com>
- <eea1c5dc-6bc5-4246-f0e1-0c790de9f078@linaro.org>
- <9a64c685-9ff0-bc1d-e604-e3773ff9edd7@linaro.org>
- <20230117025122.jt3wrjkqfnogu4ci@builder.lan>
- <Y8ZWl85gSpOaLgO4@hovoldconsulting.com>
- <Y86vaTQR7INWezyj@hovoldconsulting.com>
- <20230123171749.GA623918@hu-bjorande-lv.qualcomm.com>
- <Y8+SHQ/klPwusQRj@hovoldconsulting.com>
- <Y/9aGus6jzIHqjoK@hovoldconsulting.com>
- <20230302231704.GA1373835@hu-bjorande-lv.qualcomm.com>
+Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B172610E62A;
+ Wed,  8 Mar 2023 10:14:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1678270477; x=1709806477;
+ h=from:to:cc:subject:in-reply-to:references:date:
+ message-id:mime-version;
+ bh=+D/jrEdd84GKE2epfmkSjuan4nxiXuMu3BEUgOFAYmc=;
+ b=XgYh7dHE18bvJ7/XzKSeZdqUNJzZWNkym1rYRjAvDxusPRHj7yhcrbPQ
+ vp5v2T36C2cXcdnsRpQzzu0Kmsze7MQPMOQ/PoS6LpZaPQYLG9Uw95oe4
+ 3UFmLRxhpz+d68p+CqiraBsLGEsorI4pYtlNN4G8Xs/4qTCohDCzcf3DD
+ LH4e2eg8TPQ20FfLjj44TnEzEX+J0i/Za+XePsx76Fw6x4vxAiZZ0ZTVH
+ CLGwPjaj0UNJmQq9n90uvT/x4zZjhaQiJb48ZCPFyzs2f/b1Qx7beCodK
+ qMTi7ixrONWejp6PTULvgnZsQYTXkbxXt9ryIB22JsYyvNhneC6jvHyJF g==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10642"; a="319948486"
+X-IronPort-AV: E=Sophos;i="5.98,243,1673942400"; d="scan'208";a="319948486"
+Received: from fmsmga003.fm.intel.com ([10.253.24.29])
+ by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 08 Mar 2023 02:14:36 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6500,9779,10642"; a="765949366"
+X-IronPort-AV: E=Sophos;i="5.98,243,1673942400"; d="scan'208";a="765949366"
+Received: from nmerkulo-mobl1.ger.corp.intel.com (HELO localhost)
+ ([10.252.58.177])
+ by fmsmga003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 08 Mar 2023 02:14:32 -0800
+From: Jani Nikula <jani.nikula@linux.intel.com>
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, David Airlie
+ <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>, Joonas Lahtinen
+ <joonas.lahtinen@linux.intel.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>, Rob Clark
+ <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean
+ Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>
+In-Reply-To: <20230307134901.322560-7-dmitry.baryshkov@linaro.org>
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
+References: <20230307134901.322560-1-dmitry.baryshkov@linaro.org>
+ <20230307134901.322560-7-dmitry.baryshkov@linaro.org>
+Date: Wed, 08 Mar 2023 12:14:30 +0200
+Message-ID: <874jqvczy1.fsf@intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20230302231704.GA1373835@hu-bjorande-lv.qualcomm.com>
-Subject: Re: [Freedreno] [PATCH] drm/msm: Initialize mode_config earlier
+Content-Type: text/plain
+Subject: Re: [Freedreno] [PATCH v2 06/10] drm/display/dsc: split DSC 1.2 and
+ DSC 1.1 (pre-SCR) parameters
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,93 +65,298 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, Sean Paul <sean@poorly.run>,
- Bjorn Andersson <andersson@kernel.org>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Rob Clark <robdclark@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>, linux-arm-msm@vger.kernel.org,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- David Airlie <airlied@gmail.com>
+Cc: linux-arm-msm@vger.kernel.org, intel-gfx@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ Ville =?utf-8?B?U3lyasOkbMOk?= <ville.syrjala@linux.intel.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Thu, Mar 02, 2023 at 03:17:04PM -0800, Bjorn Andersson wrote:
-> On Wed, Mar 01, 2023 at 02:58:50PM +0100, Johan Hovold wrote:
+On Tue, 07 Mar 2023, Dmitry Baryshkov <dmitry.baryshkov@linaro.org> wrote:
+> The array of rc_parameters contains a mixture of parameters from DSC 1.1
+> and DSC 1.2 standards. Split these tow configuration arrays in
+> preparation to adding more configuration data.
+>
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> ---
+>  drivers/gpu/drm/display/drm_dsc_helper.c  | 127 ++++++++++++++++++----
+>  drivers/gpu/drm/i915/display/intel_vdsc.c |  10 +-
+>  include/drm/display/drm_dsc_helper.h      |   7 +-
+>  3 files changed, 119 insertions(+), 25 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/display/drm_dsc_helper.c b/drivers/gpu/drm/display/drm_dsc_helper.c
+> index acb93d4116e0..35b39f3109c4 100644
+> --- a/drivers/gpu/drm/display/drm_dsc_helper.c
+> +++ b/drivers/gpu/drm/display/drm_dsc_helper.c
+> @@ -324,11 +324,81 @@ struct rc_parameters_data {
+>  
+>  #define DSC_BPP(bpp)	((bpp) << 4)
+>  
+> +static const struct rc_parameters_data rc_parameters_pre_scr[] = {
+> +	{
+> +		.bpp = DSC_BPP(8), .bpc = 8,
+> +		{ 512, 12, 6144, 3, 12, 11, 11, {
+> +			{ 0, 4, 2 }, { 0, 4, 0 }, { 1, 5, 0 }, { 1, 6, -2 },
+> +			{ 3, 7, -4 }, { 3, 7, -6 }, { 3, 7, -8 }, { 3, 8, -8 },
+> +			{ 3, 9, -8 }, { 3, 10, -10 }, { 5, 11, -10 }, { 5, 12, -12 },
+> +			{ 5, 13, -12 }, { 7, 13, -12 }, { 13, 15, -12 }
+> +			}
+> +		}
+> +	},
+> +	{
+> +		.bpp = DSC_BPP(8), .bpc = 10,
+> +		{ 512, 12, 6144, 7, 16, 15, 15, {
+> +			/*
+> +			 * DSC model/pre-SCR-cfg has 8 for range_max_qp[0], however
+> +			 * VESA DSC 1.1 Table E-5 sets it to 4.
+> +			 */
+> +			{ 0, 4, 2 }, { 4, 8, 0 }, { 5, 9, 0 }, { 5, 10, -2 },
+> +			{ 7, 11, -4 }, { 7, 11, -6 }, { 7, 11, -8 }, { 7, 12, -8 },
+> +			{ 7, 13, -8 }, { 7, 14, -10 }, { 9, 15, -10 }, { 9, 16, -12 },
+> +			{ 9, 17, -12 }, { 11, 17, -12 }, { 17, 19, -12 }
+> +			}
+> +		}
+> +	},
+> +	{
+> +		.bpp = DSC_BPP(8), .bpc = 12,
+> +		{ 512, 12, 6144, 11, 20, 19, 19, {
+> +			{ 0, 12, 2 }, { 4, 12, 0 }, { 9, 13, 0 }, { 9, 14, -2 },
+> +			{ 11, 15, -4 }, { 11, 15, -6 }, { 11, 15, -8 }, { 11, 16, -8 },
+> +			{ 11, 17, -8 }, { 11, 18, -10 }, { 13, 19, -10 },
+> +			{ 13, 20, -12 }, { 13, 21, -12 }, { 15, 21, -12 },
+> +			{ 21, 23, -12 }
+> +			}
+> +		}
+> +	},
+> +	{
+> +		.bpp = DSC_BPP(12), .bpc = 8,
+> +		{ 341, 15, 2048, 3, 12, 11, 11, {
+> +			{ 0, 2, 2 }, { 0, 4, 0 }, { 1, 5, 0 }, { 1, 6, -2 },
+> +			{ 3, 7, -4 }, { 3, 7, -6 }, { 3, 7, -8 }, { 3, 8, -8 },
+> +			{ 3, 9, -8 }, { 3, 10, -10 }, { 5, 11, -10 },
+> +			{ 5, 12, -12 }, { 5, 13, -12 }, { 7, 13, -12 }, { 13, 15, -12 }
+> +			}
+> +		}
+> +	},
+> +	{
+> +		.bpp = DSC_BPP(12), .bpc = 10,
+> +		{ 341, 15, 2048, 7, 16, 15, 15, {
+> +			{ 0, 2, 2 }, { 2, 5, 0 }, { 3, 7, 0 }, { 4, 8, -2 },
+> +			{ 6, 9, -4 }, { 7, 10, -6 }, { 7, 11, -8 }, { 7, 12, -8 },
+> +			{ 7, 13, -8 }, { 7, 14, -10 }, { 9, 15, -10 }, { 9, 16, -12 },
+> +			{ 9, 17, -12 }, { 11, 17, -12 }, { 17, 19, -12 }
+> +			}
+> +		}
+> +	},
+> +	{
+> +		.bpp = DSC_BPP(12), .bpc = 12,
+> +		{ 341, 15, 2048, 11, 20, 19, 19, {
+> +			{ 0, 6, 2 }, { 4, 9, 0 }, { 7, 11, 0 }, { 8, 12, -2 },
+> +			{ 10, 13, -4 }, { 11, 14, -6 }, { 11, 15, -8 }, { 11, 16, -8 },
+> +			{ 11, 17, -8 }, { 11, 18, -10 }, { 13, 19, -10 },
+> +			{ 13, 20, -12 }, { 13, 21, -12 }, { 15, 21, -12 },
+> +			{ 21, 23, -12 }
+> +			}
+> +		}
+> +	},
+> +	{ /* sentinel */ }
+> +};
+> +
+>  /*
+>   * Selected Rate Control Related Parameter Recommended Values
+>   * from DSC_v1.11 spec & C Model release: DSC_model_20161212
+>   */
 
-> > So after debugging this issue a third time, I can conclude that it is
-> > still very much present in 6.2.
-> > 
-> > It appears you looked at the linux-next tree when you concluded that
-> > this patch was not needed. In 6.2 the bridge->hpd_cb callback is set
-> > before mode_config.funcs is initialised as part of
-> > kms->funcs->hw_init(kms).
-> > 
-> > The hpd DRM changes heading into 6.3 do appear to avoid the NULL-pointer
-> > dereference by moving the bridge->hpd_cb initialisation to
-> > drm_kms_helper_poll_init() as you mention above.
+The comment is no longer accurate, is it?
 
-I can confirm that as expected my reproducer no longer triggers with
-6.3-rc1.
- 
-> > The PMIC GLINK altmode driver still happily forwards notifications
-> > regardless of the DRM driver state though, which can lead to missed
-> > hotplug events. It seems you need to implement the
-> > hpd_enable()/disable() callbacks and either cache or not enable events
-> > in fw until the DRM driver is ready.
-> > 
-> 
-> It's not clear to me what the expectation from the DRM framework is on
-> this point. We register a drm_bridge which is only capable of signaling
-> HPD events (DRM_BRIDGE_OP_HPD), not querying HPD state (DRM_BRIDGE_OP_DETECT).
+There are various ways to determine the parameters to use. There's even
+an application note "VESA DSC v1.2a Guidance on Deriving DSC Rate
+Control Parameters" that lists the options. They are all valid and
+should "provide visually lossless quality".
 
-I think the assumption is that any bridge that can generate hotplug
-events also has a way of detecting whether it is connected (i.e.
-DRM_BRIDGE_OP_HPD => DRM_BRIDGE_OP_DETECT).
+Would it be simplest to always use the C model parameters in the tables
+here, referencing the zip file name with date above each table? That
+could at least be consistent, and drivers could override parameters
+using other methods if they desire. And it would be easiest to review.
 
-The pmic_glink_altmode driver appears to be the only driver that sets
-DRM_BRIDGE_OP_HPD but not DRM_BRIDGE_OP_DETECT.
+I'm having a hard time finding time to review all this in a timely
+fashion. Would be good to try to get other folks to review the rest,
+it's really not very i915 specific anyway. In the mean time I think
+patches 1-5 are okay to merge via drm-misc.
 
-> Does this imply that any such bridge must ensure that hpd events are
-> re-delivered once hpd_enable() has been invoked (we can't invoke it from
-> hpd_enable...)?
-> 
-> Is it reasonable to do this retriggering in the altmode driver? Or is it
-> the job of the TCPM (it seems reasonable to not send the PAN_EN message
-> until we get hpd_enable()...)?
+BR,
+Jani.
 
-Are you sure there is no way to query the firmware about the connected
-state?
+> -static const struct rc_parameters_data rc_parameters[] = {
+> +static const struct rc_parameters_data rc_parameters_1_2_444[] = {
+>  	{
+>  		.bpp = DSC_BPP(6), .bpc = 8,
+>  		{ 768, 15, 6144, 3, 13, 11, 11, {
+> @@ -388,22 +458,18 @@ static const struct rc_parameters_data rc_parameters[] = {
+>  		{ 512, 12, 6144, 3, 12, 11, 11, {
+>  			{ 0, 4, 2 }, { 0, 4, 0 }, { 1, 5, 0 }, { 1, 6, -2 },
+>  			{ 3, 7, -4 }, { 3, 7, -6 }, { 3, 7, -8 }, { 3, 8, -8 },
+> -			{ 3, 9, -8 }, { 3, 10, -10 }, { 5, 11, -10 }, { 5, 12, -12 },
+> -			{ 5, 13, -12 }, { 7, 13, -12 }, { 13, 15, -12 }
+> +			{ 3, 9, -8 }, { 3, 10, -10 }, { 5, 10, -10 }, { 5, 11, -12 },
+> +			{ 5, 11, -12 }, { 9, 12, -12 }, { 12, 13, -12 }
+>  			}
+>  		}
+>  	},
+>  	{
+>  		.bpp = DSC_BPP(8), .bpc = 10,
+>  		{ 512, 12, 6144, 7, 16, 15, 15, {
+> -			/*
+> -			 * DSC model/pre-SCR-cfg has 8 for range_max_qp[0], however
+> -			 * VESA DSC 1.1 Table E-5 sets it to 4.
+> -			 */
+> -			{ 0, 4, 2 }, { 4, 8, 0 }, { 5, 9, 0 }, { 5, 10, -2 },
+> +			{ 0, 8, 2 }, { 4, 8, 0 }, { 5, 9, 0 }, { 5, 10, -2 },
+>  			{ 7, 11, -4 }, { 7, 11, -6 }, { 7, 11, -8 }, { 7, 12, -8 },
+> -			{ 7, 13, -8 }, { 7, 14, -10 }, { 9, 15, -10 }, { 9, 16, -12 },
+> -			{ 9, 17, -12 }, { 11, 17, -12 }, { 17, 19, -12 }
+> +			{ 7, 13, -8 }, { 7, 14, -10 }, { 9, 14, -10 }, { 9, 15, -12 },
+> +			{ 9, 15, -12 }, { 13, 16, -12 }, { 16, 17, -12 }
+>  			}
+>  		}
+>  	},
+> @@ -412,9 +478,9 @@ static const struct rc_parameters_data rc_parameters[] = {
+>  		{ 512, 12, 6144, 11, 20, 19, 19, {
+>  			{ 0, 12, 2 }, { 4, 12, 0 }, { 9, 13, 0 }, { 9, 14, -2 },
+>  			{ 11, 15, -4 }, { 11, 15, -6 }, { 11, 15, -8 }, { 11, 16, -8 },
+> -			{ 11, 17, -8 }, { 11, 18, -10 }, { 13, 19, -10 },
+> -			{ 13, 20, -12 }, { 13, 21, -12 }, { 15, 21, -12 },
+> -			{ 21, 23, -12 }
+> +			{ 11, 17, -8 }, { 11, 18, -10 }, { 13, 18, -10 },
+> +			{ 13, 19, -12 }, { 13, 19, -12 }, { 17, 20, -12 },
+> +			{ 20, 21, -12 }
+>  			}
+>  		}
+>  	},
+> @@ -498,8 +564,8 @@ static const struct rc_parameters_data rc_parameters[] = {
+>  		{ 341, 15, 2048, 3, 12, 11, 11, {
+>  			{ 0, 2, 2 }, { 0, 4, 0 }, { 1, 5, 0 }, { 1, 6, -2 },
+>  			{ 3, 7, -4 }, { 3, 7, -6 }, { 3, 7, -8 }, { 3, 8, -8 },
+> -			{ 3, 9, -8 }, { 3, 10, -10 }, { 5, 11, -10 },
+> -			{ 5, 12, -12 }, { 5, 13, -12 }, { 7, 13, -12 }, { 13, 15, -12 }
+> +			{ 3, 8, -8 }, { 3, 9, -10 }, { 5, 9, -10 }, { 5, 9, -12 },
+> +			{ 5, 9, -12 }, { 7, 10, -12 }, { 10, 11, -12 }
+>  			}
+>  		}
+>  	},
+> @@ -508,8 +574,8 @@ static const struct rc_parameters_data rc_parameters[] = {
+>  		{ 341, 15, 2048, 7, 16, 15, 15, {
+>  			{ 0, 2, 2 }, { 2, 5, 0 }, { 3, 7, 0 }, { 4, 8, -2 },
+>  			{ 6, 9, -4 }, { 7, 10, -6 }, { 7, 11, -8 }, { 7, 12, -8 },
+> -			{ 7, 13, -8 }, { 7, 14, -10 }, { 9, 15, -10 }, { 9, 16, -12 },
+> -			{ 9, 17, -12 }, { 11, 17, -12 }, { 17, 19, -12 }
+> +			{ 7, 12, -8 }, { 7, 13, -10 }, { 9, 13, -10 }, { 9, 13, -12 },
+> +			{ 9, 13, -12 }, { 11, 14, -12 }, { 14, 15, -12 }
+>  			}
+>  		}
+>  	},
+> @@ -518,9 +584,9 @@ static const struct rc_parameters_data rc_parameters[] = {
+>  		{ 341, 15, 2048, 11, 20, 19, 19, {
+>  			{ 0, 6, 2 }, { 4, 9, 0 }, { 7, 11, 0 }, { 8, 12, -2 },
+>  			{ 10, 13, -4 }, { 11, 14, -6 }, { 11, 15, -8 }, { 11, 16, -8 },
+> -			{ 11, 17, -8 }, { 11, 18, -10 }, { 13, 19, -10 },
+> -			{ 13, 20, -12 }, { 13, 21, -12 }, { 15, 21, -12 },
+> -			{ 21, 23, -12 }
+> +			{ 11, 16, -8 }, { 11, 17, -10 }, { 13, 17, -10 },
+> +			{ 13, 17, -12 }, { 13, 17, -12 }, { 15, 18, -12 },
+> +			{ 18, 19, -12 }
+>  			}
+>  		}
+>  	},
+> @@ -602,7 +668,8 @@ static const struct rc_parameters_data rc_parameters[] = {
+>  	{ /* sentinel */ }
+>  };
+>  
+> -static const struct rc_parameters *get_rc_params(u16 dsc_bpp,
+> +static const struct rc_parameters *get_rc_params(const struct rc_parameters_data *rc_parameters,
+> +						 u16 dsc_bpp,
+>  						 u8 bits_per_component)
+>  {
+>  	int i;
+> @@ -622,11 +689,13 @@ static const struct rc_parameters *get_rc_params(u16 dsc_bpp,
+>   * function.
+>   *
+>   * @vdsc_cfg: DSC Configuration data partially filled by driver
+> + * @kind: operating mode and standard to follow
+>   *
+>   * Return: 0 or -error code in case of an error
+>   */
+> -int drm_dsc_setup_rc_params(struct drm_dsc_config *vdsc_cfg)
+> +int drm_dsc_setup_rc_params(struct drm_dsc_config *vdsc_cfg, enum drm_dsc_params_kind kind)
+>  {
+> +	const struct rc_parameters_data *data;
+>  	const struct rc_parameters *rc_params;
+>  	int i;
+>  
+> @@ -634,7 +703,19 @@ int drm_dsc_setup_rc_params(struct drm_dsc_config *vdsc_cfg)
+>  			 !vdsc_cfg->bits_per_component))
+>  		return -EINVAL;
+>  
+> -	rc_params = get_rc_params(vdsc_cfg->bits_per_pixel,
+> +	switch (kind) {
+> +	case DRM_DSC_1_2_444:
+> +		data = rc_parameters_1_2_444;
+> +		break;
+> +	case DRM_DSC_1_1_PRE_SCR:
+> +		data = rc_parameters_pre_scr;
+> +		break;
+> +	default:
+> +		return -EINVAL;
+> +	}
+> +
+> +	rc_params = get_rc_params(data,
+> +				  vdsc_cfg->bits_per_pixel,
+>  				  vdsc_cfg->bits_per_component);
+>  	if (!rc_params)
+>  		return -EINVAL;
+> diff --git a/drivers/gpu/drm/i915/display/intel_vdsc.c b/drivers/gpu/drm/i915/display/intel_vdsc.c
+> index 20a4c2f343fe..a4d1d2ba71bb 100644
+> --- a/drivers/gpu/drm/i915/display/intel_vdsc.c
+> +++ b/drivers/gpu/drm/i915/display/intel_vdsc.c
+> @@ -157,7 +157,15 @@ int intel_dsc_compute_params(struct intel_crtc_state *pipe_config)
+>  	if (DISPLAY_VER(dev_priv) >= 13) {
+>  		calculate_rc_params(vdsc_cfg);
+>  	} else {
+> -		ret = drm_dsc_setup_rc_params(vdsc_cfg);
+> +		if ((compressed_bpp == 8 ||
+> +		     compressed_bpp == 12) &&
+> +		    (vdsc_cfg->bits_per_component == 8 ||
+> +		     vdsc_cfg->bits_per_component == 10 ||
+> +		     vdsc_cfg->bits_per_component == 12))
+> +			ret = drm_dsc_setup_rc_params(vdsc_cfg, DRM_DSC_1_1_PRE_SCR);
+> +		else
+> +			ret = drm_dsc_setup_rc_params(vdsc_cfg, DRM_DSC_1_2_444);
+> +
+>  		if (ret)
+>  			return ret;
+>  
+> diff --git a/include/drm/display/drm_dsc_helper.h b/include/drm/display/drm_dsc_helper.h
+> index 1681791f65a5..c634bb2935d3 100644
+> --- a/include/drm/display/drm_dsc_helper.h
+> +++ b/include/drm/display/drm_dsc_helper.h
+> @@ -10,12 +10,17 @@
+>  
+>  #include <drm/display/drm_dsc.h>
+>  
+> +enum drm_dsc_params_kind {
+> +	DRM_DSC_1_2_444,
+> +	DRM_DSC_1_1_PRE_SCR, /* legacy params from DSC 1.1 */
+> +};
+> +
+>  void drm_dsc_dp_pps_header_init(struct dp_sdp_header *pps_header);
+>  int drm_dsc_dp_rc_buffer_size(u8 rc_buffer_block_size, u8 rc_buffer_size);
+>  void drm_dsc_pps_payload_pack(struct drm_dsc_picture_parameter_set *pps_sdp,
+>  			      const struct drm_dsc_config *dsc_cfg);
+>  void drm_dsc_set_rc_buf_thresh(struct drm_dsc_config *vdsc_cfg);
+> -int drm_dsc_setup_rc_params(struct drm_dsc_config *vdsc_cfg);
+> +int drm_dsc_setup_rc_params(struct drm_dsc_config *vdsc_cfg, enum drm_dsc_params_kind kind);
+>  int drm_dsc_compute_rc_parameters(struct drm_dsc_config *vdsc_cfg);
+>  
+>  #endif /* _DRM_DSC_HELPER_H_ */
 
-Otherwise, enabling the notification messages when hpd_enable() is
-called looks like it should work as the fw currently appears to always
-send a disconnected event followed by a connect event if connected.
-
-But that's not going to be enough unless you can also disable events in
-fw on hpd_disable() so that the state can again be updated on the next
-hpd_enable().
-
-If that's not possible, it seems you need to cache the state in the
-driver and hope you get a notification after a suspend cycle if the
-state has changed.
-
-But in any case, the DRM documentation is pretty clear on that a bridge
-driver should not be calling drm_bridge_hpd_notify() until hpd_enable()
-is called (and also not after hpd_disable()) as the pmic_glink_altmode
-driver currently do.
-
-	hpd_enable
-
-	Enable hot plug detection. From now on the bridge shall call
-	drm_bridge_hpd_notify() each time a change is detected in the
-	output connection status, until hot plug detection gets disabled
-	with hpd_disable.
-
-	This callback is optional and shall only be implemented by
-	bridges that support hot-plug notification without polling.
-	Bridges that implement it shall also implement the hpd_disable
-	callback and set the DRM_BRIDGE_OP_HPD flag in their
-	drm_bridge->ops.
-
-	https://dri.freedesktop.org/docs/drm/gpu/drm-kms-helpers.html#c.drm_bridge_funcs
-
-Johan
+-- 
+Jani Nikula, Intel Open Source Graphics Center
