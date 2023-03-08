@@ -1,63 +1,50 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7E36E6AF508
-	for <lists+freedreno@lfdr.de>; Tue,  7 Mar 2023 20:21:50 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 961506AFCD1
+	for <lists+freedreno@lfdr.de>; Wed,  8 Mar 2023 03:18:58 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 48EAB10E27E;
-	Tue,  7 Mar 2023 19:21:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2210210E14C;
+	Wed,  8 Mar 2023 02:18:56 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-oa1-x2c.google.com (mail-oa1-x2c.google.com
- [IPv6:2001:4860:4864:20::2c])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D4E6A10E273;
- Tue,  7 Mar 2023 19:21:47 +0000 (UTC)
-Received: by mail-oa1-x2c.google.com with SMTP id
- 586e51a60fabf-176b48a9a05so8766268fac.0; 
- Tue, 07 Mar 2023 11:21:47 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20210112; t=1678216907;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=zhRiVT/qBtmkjy7WxqhkqSdjANQulevS1fkYVnIeB8I=;
- b=Od1ozCy+5nFpaAn16UDS5EgVldYYsLMTpa5G8VLkLZclgAPeP8UfHk2L0ntM8oJAN8
- h4KAv2HFOE2i2y5BSReAp9mO2KOun1n4OT/or29Dx92Og088SGbykzTjyDGlfgxin4E9
- kb40QGVp01EPScKCduxS58CqLUM4Gtnzmr/RY2ADMv2uQLVggPgL5H1eQtGssPEyL1KF
- G3jDosjwHNKBFiBsn4FdCppC9Bx/nKdWzmbroCQFy0kfJQkA3m4ba3cIxZzzskpYivXD
- X4IOXkyIqvMS0Mga5d1qXhOVDerHeY7w+Lo4EyKIrhgHSJ4o1kN+LNkMYIySgJG5n2kg
- u3mg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112; t=1678216907;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=zhRiVT/qBtmkjy7WxqhkqSdjANQulevS1fkYVnIeB8I=;
- b=Motkk0StpTO/TobtAZ7pKYbqit1R/kz2bkTujHN/cLirmYNBwZFt2dFdcbyPvDotV0
- XYu5TTB13u0ZcakqSPASVXqTAciupiYdlCtT7Pilz2+KiI/hKJB927X/c21wvN2jlBiM
- 7TMRSrByLEQyt8tCKSEqOocoRlGAt8bb5i5hANMjCnNmTut9r1QQSWA4Rfq4Pct50TYR
- OJsdF3rWB/voOfo9hJsShWMtS8/xnKY4iDEaj7llKyT9AKHWzHCZkmSHuG8Tzv4XrYsC
- L2jN0MLLcfHBAUlMBYVPNAUFYjgtcIJKUi0CDr79qWqBEK87Qqil5737p6KCnY4qthBI
- p9Lw==
-X-Gm-Message-State: AO0yUKUJYLPYtHnYHA88k+2m/DJDOkZp7lQO/+4QAdwt9SFVQYgQuFBz
- RB8PJepZfrzU5BNWj7GIb6LjdEBvgve3wX/Iepc=
-X-Google-Smtp-Source: AK7set/z3NJWfYPgz3oGl/RPEjJKQCI8IMnZlfRg60l9fl5OgNDCuxjK5GrQrqP6rkl81nleyRQqyvXI5sxEKvhuZaI=
-X-Received: by 2002:a05:6870:d346:b0:172:426c:8304 with SMTP id
- h6-20020a056870d34600b00172426c8304mr4153366oag.3.1678216907057; Tue, 07 Mar
- 2023 11:21:47 -0800 (PST)
+X-Greylist: delayed 496 seconds by postgrey-1.36 at gabe;
+ Wed, 08 Mar 2023 02:18:53 UTC
+Received: from cstnet.cn (smtp80.cstnet.cn [159.226.251.80])
+ by gabe.freedesktop.org (Postfix) with ESMTP id A7AC710E041;
+ Wed,  8 Mar 2023 02:18:53 +0000 (UTC)
+Received: from localhost.localdomain (unknown [124.16.138.125])
+ by APP-01 (Coremail) with SMTP id qwCowAAHDUmR7gdkilbQDA--.15016S2;
+ Wed, 08 Mar 2023 10:10:25 +0800 (CST)
+From: Jiasheng Jiang <jiasheng@iscas.ac.cn>
+To: johan+linaro@kernel.org
+Date: Wed,  8 Mar 2023 10:10:24 +0800
+Message-Id: <20230308021024.13566-1-jiasheng@iscas.ac.cn>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-References: <20230307174627.23787-1-rdunlap@infradead.org>
- <CAOMZO5DDH=9MMbJX3O8yU7RQjudeC-oXhoT-nu91p1arqHcBGg@mail.gmail.com>
-In-Reply-To: <CAOMZO5DDH=9MMbJX3O8yU7RQjudeC-oXhoT-nu91p1arqHcBGg@mail.gmail.com>
-From: Rob Clark <robdclark@gmail.com>
-Date: Tue, 7 Mar 2023 11:21:35 -0800
-Message-ID: <CAF6AEGtgMtRbP9OLh4P+2xL4SnyhP5ROgg2Yt=ZcoAY_+=S7rg@mail.gmail.com>
-To: Fabio Estevam <festevam@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [Freedreno] [PATCH] drm/msm: fix PM_DEVFREQ kconfig dependency
- warning
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID: qwCowAAHDUmR7gdkilbQDA--.15016S2
+X-Coremail-Antispam: 1UD129KBjvdXoWrZw4rtFW5Cr1UKF4Uury5CFg_yoWDuFb_Wr
+ yS93yUG3yDKFyDGw4Fqr1fWrnaka1SvFyxJrnxJrs3tryfArn5uw4DJr9a9r1xG340qFnI
+ 9F1UJF42vr1S9jkaLaAFLSUrUUUUUb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+ 9fnUUIcSsGvfJTRUUUbVAFF20E14v26r4j6ryUM7CY07I20VC2zVCF04k26cxKx2IYs7xG
+ 6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4kI8w
+ A2z4x0Y4vE2Ix0cI8IcVAFwI0_Gr0_Xr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_Gr0_
+ Cr1l84ACjcxK6I8E87Iv67AKxVW8Jr0_Cr1UM28EF7xvwVC2z280aVCY1x0267AKxVW8Jr
+ 0_Cr1UM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj
+ 6xIIjxv20xvE14v26r1j6r18McIj6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr
+ 0_Gr1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7M4IIrI8v6xkF7I0E
+ 8cxan2IY04v7MxkIecxEwVAFwVW8JwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbV
+ WUJVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF
+ 67kF1VAFwI0_Jw0_GFylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42
+ IY6xIIjxv20xvEc7CjxVAFwI0_Gr0_Cr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF
+ 0xvEx4A2jsIE14v26r1j6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr0_Gr1UYxBIdaVFxh
+ VjvjDU0xZFpf9x0JUHWlkUUUUU=
+X-Originating-IP: [124.16.138.125]
+X-CM-SenderInfo: pmld2xxhqjqxpvfd2hldfou0/
+Subject: Re: [Freedreno] [PATCH 01/10] Revert "drm/msm: Add missing check
+ and destroy for alloc_ordered_workqueue"
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,57 +57,38 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rob Clark <robdclark@chromium.org>, kernel test robot <lkp@intel.com>,
- Paul Gazzillo <paul@pgazz.com>, Necip Fazil Yildiran <fazilyildiran@gmail.com>,
- Randy Dunlap <rdunlap@infradead.org>, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- linux-arm-msm@vger.kernel.org, Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- freedreno@lists.freedesktop.org
+Cc: freedreno@lists.freedesktop.org, sean@poorly.run,
+ Jiasheng Jiang <jiasheng@iscas.ac.cn>, quic_abhinavk@quicinc.com,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ robdclark@gmail.com, daniel@ffwll.ch, linux-arm-msm@vger.kernel.org,
+ dmitry.baryshkov@linaro.org, airlied@gmail.com
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Tue, Mar 7, 2023 at 10:48=E2=80=AFAM Fabio Estevam <festevam@gmail.com> =
-wrote:
->
-> On Tue, Mar 7, 2023 at 2:46=E2=80=AFPM Randy Dunlap <rdunlap@infradead.or=
-g> wrote:
-> >
-> > Since DEVFREQ_GOV_SIMPLE_ONDEMAND depends on PM_DEVFREQ, the latter
-> > should either be selected or DRM_MSM should depend on PM_DEVFREQ.
-> > Since most drivers select PM_DEVFREQ instead of depending on it,
-> > add a select here to satisfy kconfig.
-> >
-> > WARNING: unmet direct dependencies detected for DEVFREQ_GOV_SIMPLE_ONDE=
-MAND
-> >   Depends on [n]: PM_DEVFREQ [=3Dn]
-> >   Selected by [y]:
-> >   - DRM_MSM [=3Dy] && HAS_IOMEM [=3Dy] && DRM [=3Dy] && (ARCH_QCOM || S=
-OC_IMX5 || COMPILE_TEST [=3Dy]) && COMMON_CLK [=3Dy] && IOMMU_SUPPORT [=3Dy=
-] && (QCOM_OCMEM [=3Dn] || QCOM_OCMEM [=3Dn]=3Dn) && (QCOM_LLCC [=3Dn] || Q=
-COM_LLCC [=3Dn]=3Dn) && (QCOM_COMMAND_DB [=3Dy] || QCOM_COMMAND_DB [=3Dy]=
-=3Dn)
-> >
-> > Fixes: 6563f60f14cb ("drm/msm/gpu: Add devfreq tuning debugfs")
-> > Signed-off-by: Randy Dunlap <rdunlap@infradead.org>
-> > Reported-by: kernel test robot <lkp@intel.com>
-> > Link: lore.kernel.org/r/202303071922.wJqDWQpe-lkp@intel.com
-> > Cc: Rob Clark <robdclark@chromium.org>
-> > Cc: Paul Gazzillo <paul@pgazz.com>
-> > Cc: Necip Fazil Yildiran <fazilyildiran@gmail.com>
-> > Cc: Chia-I Wu <olvaffe@gmail.com>
-> > Cc: Abhinav Kumar <quic_abhinavk@quicinc.com>
-> > Cc: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> > Cc: linux-arm-msm@vger.kernel.org
-> > Cc: dri-devel@lists.freedesktop.org
-> > Cc: freedreno@lists.freedesktop.org
->
-> This fixes the warning after running 'make imx_v6_v7_defconfig', thanks:
->
-> Tested-by: Fabio Estevam <festevam@gmail.com>
+On Mon, 06 Mar 2023 18:07:13 +0800, Johan Hovold wrote:
+> This reverts commit 643b7d0869cc7f1f7a5ac7ca6bd25d88f54e31d0.
 
-https://patchwork.freedesktop.org/patch/523353 is the fix we actually
-want.. I thought I'd already pulled that into msm-fixes but it seems
-like it got lost somewhere.. I'll rectify that
+The commit not only adds the allocation sanity check, but also adds the
+destroy_workqueue to release the allocated priv->wq.
+Therefore, revert the commit will cause memory leak.
 
-BR,
--R
+> A recent patch that tried to fix up the msm_drm_init() paths with
+> respect to the workqueue but only ended up making things worse:
+> 
+> First, the newly added calls to msm_drm_uninit() on early errors would
+> trigger NULL-pointer dereferences, for example, as the kms pointer would
+> not have been initialised. (Note that these paths were also modified by
+> a second broken error handling patch which in effect cancelled out this
+> part when merged.)
+
+There is a check for the kms pointer to avoid NULL-pointer dereference in
+the msm_drm_uninit().
+
+> Second, the newly added allocation sanity check would still leak the
+> previously allocated drm device.
+
+The ddev is allocated by drm_dev_alloc which support automatic cleanup.
+
+Thanks,
+Jiang
+
