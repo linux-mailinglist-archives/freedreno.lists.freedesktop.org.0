@@ -2,62 +2,55 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7B7076B2137
-	for <lists+freedreno@lfdr.de>; Thu,  9 Mar 2023 11:21:28 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 618AB6B2DCF
+	for <lists+freedreno@lfdr.de>; Thu,  9 Mar 2023 20:38:50 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3661510E7DF;
-	Thu,  9 Mar 2023 10:21:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 25A1A10E1E4;
+	Thu,  9 Mar 2023 19:38:49 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x12b.google.com (mail-lf1-x12b.google.com
- [IPv6:2a00:1450:4864:20::12b])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BE3A510E7DD;
- Thu,  9 Mar 2023 10:21:24 +0000 (UTC)
-Received: by mail-lf1-x12b.google.com with SMTP id d36so1600015lfv.8;
- Thu, 09 Mar 2023 02:21:24 -0800 (PST)
+Received: from mail-oa1-x2f.google.com (mail-oa1-x2f.google.com
+ [IPv6:2001:4860:4864:20::2f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A382210E1E4;
+ Thu,  9 Mar 2023 19:38:46 +0000 (UTC)
+Received: by mail-oa1-x2f.google.com with SMTP id
+ 586e51a60fabf-17638494edbso3419572fac.10; 
+ Thu, 09 Mar 2023 11:38:46 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20210112; t=1678357283;
- h=mime-version:references:in-reply-to:message-id:subject:cc:to:from
- :date:from:to:cc:subject:date:message-id:reply-to;
- bh=KprGKYQ8KgwaGWUbn17Xz5NYf5KpExwL2NMCF7dMdgM=;
- b=TRXqe8TQv4yfm7qG2xhZaoah92igaQMjG0ELmUtzdt7kOaZwrOkfWMsKMhXAsa9hWr
- IL0zq8+qpdODRl4JxxUzTaLAhEWPwUZZ6Mhbqbt02z9+OjT3pKdWZgpfIPX1EucbWd7J
- ZqmAIYlYVO7LhfBF3UcgAdoMoWTDMA31Wi2xJlHuATDyncXQ8Pfi9djMDqLohAWgD75d
- mZFUk/mP5ZFsiSO08rhOZx5yv5XPUBSj0kg1POAZkFpeR90Su3vccPXA4pGFNY7nWAvL
- VzrWe4tUvpwQXG9XL5JNCiaMy1X9pmDW9fxUDAValpicdBYX1P2nMJ3EUImUJlArelB6
- U0qw==
+ d=gmail.com; s=20210112; t=1678390726;
+ h=cc:to:subject:message-id:date:from:mime-version:from:to:cc:subject
+ :date:message-id:reply-to;
+ bh=35e+ez6J1ndlzgGo8s0j8a58g+qz+wqLh5xcvyEk7GM=;
+ b=c4LSxV/jfNwX0Rgw5FQZ1unMUox2fCXdbtkjyAJoGLsDqxi6O81+SaXiPYziYeSKws
+ pfEUWwo45eOxDPpPYKdl/lpvb27EZFUJ81uLUL2Xk/9nxJ8Wsxl/drg/EnBeP78It4dW
+ fss6aDhqKTpGq6vkK3oYg/Ay3ghHdr43Lvcu0ZSr6LHGy43foV2+CCltSYr/KFxAL0rR
+ C6bCkSG8s8hDZubNQI6S2vztx5FVlfZsLk4FzMSSmyjHeFqP2jOA97sj8/41IQMt7vbH
+ ZINtvFzdkVqV4gk1OUwQaaLvAQkVuyKgVh0Hq2WXMb3GzV8MSXGP2TRwiZPJke8hWjPz
+ +MGA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112; t=1678357283;
- h=mime-version:references:in-reply-to:message-id:subject:cc:to:from
- :date:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=KprGKYQ8KgwaGWUbn17Xz5NYf5KpExwL2NMCF7dMdgM=;
- b=mz6DJRZZ5Y0C0Yhm3m3PNxSC+rJmKd3WlsDu40UOxifvFUe4Gh4h9LK2mZo/Y0q93a
- fCBgWvhigpEbIhjeKr578MHr25IcYBZs8dDe7XBrST0iJIfqkt4g20MuhOVpLF3HYCsw
- +K17q4K9WrIqyr/uZ4sfyiZP06vNiX909XpgypDh6mTiMQY8scPq3y+gCZLW/F8ZvN61
- 7tE8r6FP4mMnVR3kXmMe/HvIgN3BWtGmRNII+5wfIWHLJ5ZCzPHnG+YM53zRc4sxmceq
- OogBFRzfRw0lEJWhdMHqIFJemxgDSORdYuv4BfvHswj6aonI0qRpls/Ey/KcDUcrGsyI
- WUmg==
-X-Gm-Message-State: AO0yUKUlnKJdr0F9Q+CDnp6URtE8qLeCfTemo/smhp8ZbTWXGbI3vpsQ
- reAw9WntGNpyOlO6CYECzLk=
-X-Google-Smtp-Source: AK7set8//lzFNi6UQdT0Qz69/iAT27g06pbsZrFtDMb8VzTxl8+gMl6jx74dZt+KkxkgfpPWfGRocg==
-X-Received: by 2002:ac2:4949:0:b0:4d5:831e:3154 with SMTP id
- o9-20020ac24949000000b004d5831e3154mr6109888lfi.45.1678357282880; 
- Thu, 09 Mar 2023 02:21:22 -0800 (PST)
-Received: from eldfell ([194.136.85.206]) by smtp.gmail.com with ESMTPSA id
- u23-20020ac24c37000000b004aac23e0dd6sm2605330lfq.29.2023.03.09.02.21.21
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 09 Mar 2023 02:21:22 -0800 (PST)
-Date: Thu, 9 Mar 2023 12:21:18 +0200
-From: Pekka Paalanen <ppaalanen@gmail.com>
-To: Rob Clark <robdclark@gmail.com>
-Message-ID: <20230309122118.661e85b4@eldfell>
-In-Reply-To: <20230308155322.344664-1-robdclark@gmail.com>
-References: <20230308155322.344664-1-robdclark@gmail.com>
-X-Mailer: Claws Mail 3.17.8 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+ d=1e100.net; s=20210112; t=1678390726;
+ h=cc:to:subject:message-id:date:from:mime-version:x-gm-message-state
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=35e+ez6J1ndlzgGo8s0j8a58g+qz+wqLh5xcvyEk7GM=;
+ b=Pg+CXSv7fc9I1DU24hGOyglHskj3MxTb+cSTAxg9Dplg/QvHM524KXtzUHOtwgGkoE
+ b+dn3PXXlY4dJrIXs0J9C6CMoNpeArOnZL11NadmlwoCb4FrdZG5/Fx/JfAVGickO1MV
+ +zhMghMjLkbCYpjOYgCgCga+PabCGvkXooQeG75R2qPhqSEa4iWKopfVqdJHYXALAMb0
+ GC5AVibeYKaRAU7+STf6JrOlCVdG77aOnMiEszX7GAfGQhU5No57vIdpdn6FQyZ99V6M
+ TNA6HlwMGIhScxMk+zhgT5kq89PMas2YylziVTqHxqLO/LcAvcZw4w/7cYypJtF/OMgu
+ aCVQ==
+X-Gm-Message-State: AO0yUKWqbaveXElzXuozhqqt/MrExAMvE1D49l+O62yHIoPr1YBqc5o5
+ smaeoznb29DU+fVf5PANuwXIr9LdfSWO/ZqbnBQ=
+X-Google-Smtp-Source: AK7set9oOGC0uqF+qr6zzD5BhK66EhmkoKForyZFCYYKviMYeXITPPHI1OL84vcAt6GHlPpR699YSTpE7lp4E5ilZz0=
+X-Received: by 2002:a05:6870:954b:b0:176:207d:59c with SMTP id
+ v11-20020a056870954b00b00176207d059cmr8037200oal.5.1678390725806; Thu, 09 Mar
+ 2023 11:38:45 -0800 (PST)
 MIME-Version: 1.0
-Content-Type: multipart/signed; boundary="Sig_/YsnEA9P_sNO1q.G4g.HWGt3";
- protocol="application/pgp-signature"; micalg=pgp-sha256
-Subject: Re: [Freedreno] [PATCH v10 00/15] dma-fence: Deadline awareness
+From: Rob Clark <robdclark@gmail.com>
+Date: Thu, 9 Mar 2023 11:38:34 -0800
+Message-ID: <CAF6AEGvH+VH_Wx3mFMG51CMnoiU06CM-+-WMhM73M42Qx7Bp4A@mail.gmail.com>
+To: Dave Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>
+Content-Type: text/plain; charset="UTF-8"
+Subject: [Freedreno] [pull] drm/msm: drm-msm-fixes-2023-03-09 for v6.3-rc2
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,115 +63,117 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: "open list:DOCUMENTATION" <linux-doc@vger.kernel.org>,
- Gustavo Padovan <gustavo@padovan.org>, dri-devel@lists.freedesktop.org,
- Douglas Anderson <dianders@chromium.org>, Liu Shixin <liushixin2@huawei.com>,
- Rob Clark <robdclark@chromium.org>, Vinod Polimera <quic_vpolimer@quicinc.com>,
- Luben Tuikov <luben.tuikov@amd.com>,
- "open list:DRM DRIVER FOR MSM ADRENO GPU" <linux-arm-msm@vger.kernel.org>,
- Matt Turner <mattst88@gmail.com>, "open
- list:DMA BUFFER SHARING FRAMEWORK" <linux-media@vger.kernel.org>,
- Christian =?UTF-8?B?S8O2bmln?= <ckoenig.leichtzumerken@gmail.com>,
- intel-gfx@lists.freedesktop.org, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Stephen Boyd <swboyd@chromium.org>, linaro-mm-sig@lists.linaro.org,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, Sean Paul <sean@poorly.run>,
- open list <linux-kernel@vger.kernel.org>,
- Konrad Dybcio <konrad.dybcio@linaro.org>,
- Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- freedreno@lists.freedesktop.org
+Cc: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ linux-arm-msm <linux-arm-msm@vger.kernel.org>,
+ freedreno <freedreno@lists.freedesktop.org>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ dri-devel <dri-devel@lists.freedesktop.org>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
---Sig_/YsnEA9P_sNO1q.G4g.HWGt3
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: quoted-printable
+Hi Dave,
 
-On Wed,  8 Mar 2023 07:52:51 -0800
-Rob Clark <robdclark@gmail.com> wrote:
+A few fixes for v6.3.  Summary below.  There is a back-merge of
+last-cycles -fixes to avoid a merge conflict in commit 6153c44392b0
+("drm/msm/adreno: fix runtime PM imbalance at unbind")
 
-> From: Rob Clark <robdclark@chromium.org>
->=20
-> This series adds a deadline hint to fences, so realtime deadlines
-> such as vblank can be communicated to the fence signaller for power/
-> frequency management decisions.
->=20
-> This is partially inspired by a trick i915 does, but implemented
-> via dma-fence for a couple of reasons:
->=20
-> 1) To continue to be able to use the atomic helpers
-> 2) To support cases where display and gpu are different drivers
->=20
-> This iteration adds a dma-fence ioctl to set a deadline (both to
-> support igt-tests, and compositors which delay decisions about which
-> client buffer to display), and a sw_sync ioctl to read back the
-> deadline.  IGT tests utilizing these can be found at:
->=20
->   https://gitlab.freedesktop.org/robclark/igt-gpu-tools/-/commits/fence-d=
-eadline
->=20
->=20
-> v1: https://patchwork.freedesktop.org/series/93035/
-> v2: Move filtering out of later deadlines to fence implementation
->     to avoid increasing the size of dma_fence
-> v3: Add support in fence-array and fence-chain; Add some uabi to
->     support igt tests and userspace compositors.
-> v4: Rebase, address various comments, and add syncobj deadline
->     support, and sync_file EPOLLPRI based on experience with perf/
->     freq issues with clvk compute workloads on i915 (anv)
-> v5: Clarify that this is a hint as opposed to a more hard deadline
->     guarantee, switch to using u64 ns values in UABI (still absolute
->     CLOCK_MONOTONIC values), drop syncobj related cap and driver
->     feature flag in favor of allowing count_handles=3D=3D0 for probing
->     kernel support.
-> v6: Re-work vblank helper to calculate time of _start_ of vblank,
->     and work correctly if the last vblank event was more than a
->     frame ago.  Add (mostly unrelated) drm/msm patch which also
->     uses the vblank helper.  Use dma_fence_chain_contained().  More
->     verbose syncobj UABI comments.  Drop DMA_FENCE_FLAG_HAS_DEADLINE_BIT.
-> v7: Fix kbuild complaints about vblank helper.  Add more docs.
-> v8: Add patch to surface sync_file UAPI, and more docs updates.
-> v9: Drop (E)POLLPRI support.. I still like it, but not essential and
->     it can always be revived later.  Fix doc build warning.
-> v10: Update 11/15 to handle multiple CRTCs
+The following changes since commit 92dd0575729a423aa5524d89055e34295152a2dd:
 
-Hi Rob,
+  Merge tag 'drm-msm-fixes-2023-01-16' into msm-fixes (2023-02-22
+11:20:41 -0800)
 
-it is very nice to keep revision numbers and list the changes in each
-patch. If I looked at series v8 last, and I now see series v10, and I
-look at a patch that lists changes done in v7, how do I know if that
-change was made between series v8 and v10 or earlier?
+are available in the Git repository at:
 
-At least in some previous revision, series might have been v8 and a
-patch have new changes listed as v5 (because it was the 5th time that
-one patch was changed) instead of v8.
+  https://gitlab.freedesktop.org/drm/msm.git tags/drm-msm-fixes-2023-03-09
 
-Am I expected to keep track of vN of each individual patch
-independently?
+for you to fetch changes up to a722511b18268bd1f7084eee243af416b85f288f:
 
+  drm/msm: DEVFREQ_GOV_SIMPLE_ONDEMAND is no longer needed (2023-03-08
+11:55:30 -0800)
 
-Thanks,
-pq
+----------------------------------------------------------------
+msm-fixes for v6.3-rc2
 
---Sig_/YsnEA9P_sNO1q.G4g.HWGt3
-Content-Type: application/pgp-signature
-Content-Description: OpenPGP digital signature
+- Fix for possible invalid ptr free in submit ioctl syncobj cleanup path.
+- Synchronize GMU removal in driver teardown path
+- a5xx preemption fixes
+- Fix runpm imbalance at unbind
+- DPU hw catalog fixes:
+ - set DPU_MDP_PERIPH_0_REMOVED for sc8280xp as this is another chipset
+   where the PERIPH_0 block of registers is not there
+ - fix the DPU features supported in QCM2290 by comparing it with the
+   downstream device tree
+ - fix the length of registers in the sc7180_ctl from 0xe4 to 0x1dc
+ - fix the max mixer line width for sm6115 and qcm2290 chipsets in the
+   DPU catalog
+ - fix the scaler version on sm8550, sc8280xp, sm8450, sm8250, sm8350
+   and sm6115. This was incorrectly populated on the SW version of the
+   scaler library and  not the scaler HW version
+ - Drop dim layer support for msm8998 as its not indicated to be
+   supported in the downstream DTSI
+ - fix the DPU_CLK_CTRL bits for msm 8998 sspp blocks
+ - Use DPU_CLK_CTRL_DMA* prefix instead of DPU_CLK_CTRL_CURSOR*
+   for all chipsets for the DMA sspp blocks
+ - fix the ping-pong block base address for sc7280 in the DPU HW catalog
+- Fix stack corruption issue in the dpu_hw_ctl_setup_blendstage() function
+  as it was causing a negative left shift by protecting against an invalid
+  index
+- Clear the DSPP reservations in dpu_rm_release(). This was missed out and
+  as as result the DSPP was not released from the resource manager global
+  state.
 
------BEGIN PGP SIGNATURE-----
+----------------------------------------------------------------
+Dmitry Baryshkov (18):
+      drm/msm/a5xx: fix setting of the CP_PREEMPT_ENABLE_LOCAL register
+      drm/msm/a5xx: fix highest bank bit for a530
+      drm/msm/a5xx: fix the emptyness check in the preempt code
+      drm/msm/a5xx: fix context faults during ring switch
+      drm/msm/dpu: set DPU_MDP_PERIPH_0_REMOVED for sc8280xp
+      drm/msm/dpu: disable features unsupported by QCM2290
+      drm/msm/dpu: fix typo in in sm8550's dma_sblk_5
+      drm/msm/dpu: fix len of sc7180 ctl blocks
+      drm/msm/dpu: fix sm6115 and qcm2290 mixer width limits
+      drm/msm/dpu: correct sm8550 scaler
+      drm/msm/dpu: correct sc8280xp scaler
+      drm/msm/dpu: correct sm8450 scaler
+      drm/msm/dpu: correct sm8250 and sm8350 scaler
+      drm/msm/dpu: correct sm6115 scaler
+      drm/msm/dpu: drop DPU_DIM_LAYER from MIXER_MSM8998_MASK
+      drm/msm/dpu: fix clocks settings for msm8998 SSPP blocks
+      drm/msm/dpu: don't use DPU_CLK_CTRL_CURSORn for DMA SSPP clocks
+      drm/msm/dpu: fix stack smashing in dpu_hw_ctl_setup_blendstage
 
-iQIzBAEBCAAdFiEEJQjwWQChkWOYOIONI1/ltBGqqqcFAmQJsx4ACgkQI1/ltBGq
-qqeCVQ/7Bzoz7uNe1NEopzqqHKfxESL0GuvB+Ky+giA53z+1ZulhFzT1AAiKInp7
-QOwxDpDiKSJigTT68UUtK7LRc42z41SLnPXF9023LhNJYUw7lC0L7oAmQLqUaeyw
-lPuPxOWgY5XPkZWdzJoZVyky4lBS2uGnF8I0+Ek2FTWRVlpGToUiXcHW5xHxH1Vi
-aQzqiH/s7EIWSuR8dZtzSTH0uA641e3dt+9AKOGYZQlwCLOdcngZ69vu0bft5pPG
-aKrWz6zfX7iLIbwWBJvKzBb4jvKC7gV/7a0p7kwyBPTnJ+TbDS0tWgcwDJ59vTPo
-L1Lfysi8uFdx6gSW0P864n+wbh96sPaJE+ZlBc174RTW5XzN0wu9V+phPUoBM7/T
-F2G5B8sYKwTMdxA//7PVjviDGDTZ4YHn1MLLRjwhUGF6HfvU0aLrHY5iKOHtUWVc
-XAL1exaXtkOMyd5EoezO7zSIQ9umGAQGGffMg15sD7mL+4wIhKY85WehBySfXLUK
-PVlTV62a4vdO58ZcWn0U299HPi0ehjQXvHRkFe4D2827dnZNsLd+BEJHzgDmI/l3
-x0lGGauKT+X0cexJetComQh7AszbkRrdP4SJGfRxJBrfkiKN4JsTEQ5s6ZoGWBjm
-vXZD3smbWhE69Bc3HDJe/HQA/uGYskkrLTL8oV+aYiy+pj21+W4=
-=ZIGt
------END PGP SIGNATURE-----
+Douglas Anderson (1):
+      drm/msm/a6xx: Make GPU destroy a bit safer
 
---Sig_/YsnEA9P_sNO1q.G4g.HWGt3--
+Johan Hovold (1):
+      drm/msm/adreno: fix runtime PM imbalance at unbind
+
+Kalyan Thota (1):
+      drm/msm/dpu: clear DSPP reservations in rm release
+
+Kuogee Hsieh (1):
+      drm/msm/disp/dpu: fix sc7280_pp base offset
+
+Randy Dunlap (1):
+      drm/msm: DEVFREQ_GOV_SIMPLE_ONDEMAND is no longer needed
+
+Rob Clark (1):
+      drm/msm: Fix potential invalid ptr free
+
+Thomas Zimmermann (1):
+      drm/msm: Fix possible uninitialized access in fbdev
+
+ drivers/gpu/drm/msm/Kconfig                    |   1 -
+ drivers/gpu/drm/msm/adreno/a5xx_gpu.c          |   6 +-
+ drivers/gpu/drm/msm/adreno/a5xx_preempt.c      |   4 +-
+ drivers/gpu/drm/msm/adreno/a6xx_gmu.c          |   2 +-
+ drivers/gpu/drm/msm/adreno/a6xx_gpu.c          |   2 +
+ drivers/gpu/drm/msm/adreno/adreno_device.c     |   3 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c | 166 ++++++++++++-------------
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h |   2 +
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c     |   4 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c         |   2 +
+ drivers/gpu/drm/msm/msm_fbdev.c                |   4 +-
+ drivers/gpu/drm/msm/msm_gem_submit.c           |   5 +-
+ 12 files changed, 103 insertions(+), 98 deletions(-)
