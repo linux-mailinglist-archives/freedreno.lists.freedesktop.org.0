@@ -1,59 +1,58 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 618AB6B2DCF
-	for <lists+freedreno@lfdr.de>; Thu,  9 Mar 2023 20:38:50 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 152A46B306B
+	for <lists+freedreno@lfdr.de>; Thu,  9 Mar 2023 23:21:16 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 25A1A10E1E4;
-	Thu,  9 Mar 2023 19:38:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D122089CC4;
+	Thu,  9 Mar 2023 22:21:14 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-oa1-x2f.google.com (mail-oa1-x2f.google.com
- [IPv6:2001:4860:4864:20::2f])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A382210E1E4;
- Thu,  9 Mar 2023 19:38:46 +0000 (UTC)
-Received: by mail-oa1-x2f.google.com with SMTP id
- 586e51a60fabf-17638494edbso3419572fac.10; 
- Thu, 09 Mar 2023 11:38:46 -0800 (PST)
+Received: from smtp-fw-80007.amazon.com (smtp-fw-80007.amazon.com
+ [99.78.197.218])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0C44389CC4;
+ Thu,  9 Mar 2023 22:21:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20210112; t=1678390726;
- h=cc:to:subject:message-id:date:from:mime-version:from:to:cc:subject
- :date:message-id:reply-to;
- bh=35e+ez6J1ndlzgGo8s0j8a58g+qz+wqLh5xcvyEk7GM=;
- b=c4LSxV/jfNwX0Rgw5FQZ1unMUox2fCXdbtkjyAJoGLsDqxi6O81+SaXiPYziYeSKws
- pfEUWwo45eOxDPpPYKdl/lpvb27EZFUJ81uLUL2Xk/9nxJ8Wsxl/drg/EnBeP78It4dW
- fss6aDhqKTpGq6vkK3oYg/Ay3ghHdr43Lvcu0ZSr6LHGy43foV2+CCltSYr/KFxAL0rR
- C6bCkSG8s8hDZubNQI6S2vztx5FVlfZsLk4FzMSSmyjHeFqP2jOA97sj8/41IQMt7vbH
- ZINtvFzdkVqV4gk1OUwQaaLvAQkVuyKgVh0Hq2WXMb3GzV8MSXGP2TRwiZPJke8hWjPz
- +MGA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112; t=1678390726;
- h=cc:to:subject:message-id:date:from:mime-version:x-gm-message-state
- :from:to:cc:subject:date:message-id:reply-to;
- bh=35e+ez6J1ndlzgGo8s0j8a58g+qz+wqLh5xcvyEk7GM=;
- b=Pg+CXSv7fc9I1DU24hGOyglHskj3MxTb+cSTAxg9Dplg/QvHM524KXtzUHOtwgGkoE
- b+dn3PXXlY4dJrIXs0J9C6CMoNpeArOnZL11NadmlwoCb4FrdZG5/Fx/JfAVGickO1MV
- +zhMghMjLkbCYpjOYgCgCga+PabCGvkXooQeG75R2qPhqSEa4iWKopfVqdJHYXALAMb0
- GC5AVibeYKaRAU7+STf6JrOlCVdG77aOnMiEszX7GAfGQhU5No57vIdpdn6FQyZ99V6M
- TNA6HlwMGIhScxMk+zhgT5kq89PMas2YylziVTqHxqLO/LcAvcZw4w/7cYypJtF/OMgu
- aCVQ==
-X-Gm-Message-State: AO0yUKWqbaveXElzXuozhqqt/MrExAMvE1D49l+O62yHIoPr1YBqc5o5
- smaeoznb29DU+fVf5PANuwXIr9LdfSWO/ZqbnBQ=
-X-Google-Smtp-Source: AK7set9oOGC0uqF+qr6zzD5BhK66EhmkoKForyZFCYYKviMYeXITPPHI1OL84vcAt6GHlPpR699YSTpE7lp4E5ilZz0=
-X-Received: by 2002:a05:6870:954b:b0:176:207d:59c with SMTP id
- v11-20020a056870954b00b00176207d059cmr8037200oal.5.1678390725806; Thu, 09 Mar
- 2023 11:38:45 -0800 (PST)
+ d=amazon.com; i=@amazon.com; q=dns/txt; s=amazon201209;
+ t=1678400473; x=1709936473;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=yVuCSofNXc4xFq2MIhmOj+IftFzTz6jbp1BPLOvSYTc=;
+ b=damD0ZgtpEpe7n60W4199petnCgl+jh1al3dF5FtAUqeAvIj1A5zLDVD
+ ULv05qKWyABjRaFSqHAHDRcN/c0MrjFCOakibbVVo+riAZPJ8AVPs1ifn
+ bluUn4mLVsmfLd1c5dRv5Up88/cfsWqXQtRl95ijPGdnDwQJIQ8B50u3M A=;
+X-IronPort-AV: E=Sophos;i="5.98,247,1673913600"; d="scan'208";a="191702044"
+Received: from pdx4-co-svc-p1-lb2-vlan3.amazon.com (HELO
+ email-inbound-relay-iad-1a-m6i4x-47cc8a4c.us-east-1.amazon.com)
+ ([10.25.36.214]) by smtp-border-fw-80007.pdx80.corp.amazon.com with
+ ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Mar 2023 22:21:11 +0000
+Received: from EX13MTAUWB002.ant.amazon.com
+ (iad12-ws-svc-p26-lb9-vlan2.iad.amazon.com [10.40.163.34])
+ by email-inbound-relay-iad-1a-m6i4x-47cc8a4c.us-east-1.amazon.com (Postfix)
+ with ESMTPS id 01C01160DA9; Thu,  9 Mar 2023 22:21:06 +0000 (UTC)
+Received: from EX19D047UWB002.ant.amazon.com (10.13.138.34) by
+ EX13MTAUWB002.ant.amazon.com (10.43.161.202) with Microsoft SMTP Server (TLS)
+ id 15.0.1497.45; Thu, 9 Mar 2023 22:21:05 +0000
+Received: from u0d599d08243c5b.ant.amazon.com (10.187.171.27) by
+ EX19D047UWB002.ant.amazon.com (10.13.138.34) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1118.24; Thu, 9 Mar 2023 22:21:04 +0000
+From: Jordan Crouse <jorcrous@amazon.com>
+To: <freedreno@lists.freedesktop.org>
+Date: Thu, 9 Mar 2023 15:20:49 -0700
+Message-ID: <20230309222049.4180579-1-jorcrous@amazon.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-From: Rob Clark <robdclark@gmail.com>
-Date: Thu, 9 Mar 2023 11:38:34 -0800
-Message-ID: <CAF6AEGvH+VH_Wx3mFMG51CMnoiU06CM-+-WMhM73M42Qx7Bp4A@mail.gmail.com>
-To: Dave Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>
-Content-Type: text/plain; charset="UTF-8"
-Subject: [Freedreno] [pull] drm/msm: drm-msm-fixes-2023-03-09 for v6.3-rc2
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.187.171.27]
+X-ClientProxiedBy: EX19D046UWB003.ant.amazon.com (10.13.139.174) To
+ EX19D047UWB002.ant.amazon.com (10.13.138.34)
+Precedence: Bulk
+Subject: [Freedreno] [PATCH] drm/msm: Check for the GPU IOMMU during bind
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
-Precedence: list
 List-Id: Freedreno graphics driver community testing & development
  <freedreno.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/freedreno>,
@@ -63,117 +62,92 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- linux-arm-msm <linux-arm-msm@vger.kernel.org>,
- freedreno <freedreno@lists.freedesktop.org>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- dri-devel <dri-devel@lists.freedesktop.org>
+Cc: Jordan Crouse <jorcrous@amazon.com>,
+ Akhil P Oommen <quic_akhilpo@quicinc.com>, Sean Paul <sean@poorly.run>,
+ linux-arm-msm@vger.kernel.org, Konrad Dybcio <konrad.dybcio@somainline.org>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Nathan Chancellor <nathan@kernel.org>,
+ "Joel Fernandes \(Google\)" <joel@joelfernandes.org>,
+ Rob Clark <robdclark@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Ricardo Ribalda <ribalda@chromium.org>, Dmitry
+ Baryshkov <dmitry.baryshkov@linaro.org>, David Airlie <airlied@gmail.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Hi Dave,
+While booting with amd,imageon on a headless target the GPU probe was
+failing with -ENOSPC in get_pages() from msm_gem.c.
 
-A few fixes for v6.3.  Summary below.  There is a back-merge of
-last-cycles -fixes to avoid a merge conflict in commit 6153c44392b0
-("drm/msm/adreno: fix runtime PM imbalance at unbind")
+Investigation showed that the driver was using the default 16MB VRAM
+carveout because msm_use_mmu() was returning false since headless devices
+use a dummy parent device. Avoid this by extending the existing is_a2xx
+priv member to check the GPU IOMMU state on all platforms and use that
+check in msm_use_mmu().
 
-The following changes since commit 92dd0575729a423aa5524d89055e34295152a2dd:
+This works for memory allocations but it doesn't prevent the VRAM carveout
+from being created because that happens before we have a chance to check
+the GPU IOMMU state in adreno_bind.
 
-  Merge tag 'drm-msm-fixes-2023-01-16' into msm-fixes (2023-02-22
-11:20:41 -0800)
+There are a number of possible options to resolve this but none of them are
+very clean. The easiest way is to likely specify vram=0 as module parameter
+on headless devices so that the memory doesn't get wasted.
 
-are available in the Git repository at:
+Signed-off-by: Jordan Crouse <jorcrous@amazon.com>
+---
 
-  https://gitlab.freedesktop.org/drm/msm.git tags/drm-msm-fixes-2023-03-09
+ drivers/gpu/drm/msm/adreno/adreno_device.c | 6 +++++-
+ drivers/gpu/drm/msm/msm_drv.c              | 7 +++----
+ drivers/gpu/drm/msm/msm_drv.h              | 2 +-
+ 3 files changed, 9 insertions(+), 6 deletions(-)
 
-for you to fetch changes up to a722511b18268bd1f7084eee243af416b85f288f:
+diff --git a/drivers/gpu/drm/msm/adreno/adreno_device.c b/drivers/gpu/drm/msm/adreno/adreno_device.c
+index 36f062c7582f..4f19da28f80f 100644
+--- a/drivers/gpu/drm/msm/adreno/adreno_device.c
++++ b/drivers/gpu/drm/msm/adreno/adreno_device.c
+@@ -539,7 +539,11 @@ static int adreno_bind(struct device *dev, struct device *master, void *data)
+ 	DBG("Found GPU: %u.%u.%u.%u", config.rev.core, config.rev.major,
+ 		config.rev.minor, config.rev.patchid);
+ 
+-	priv->is_a2xx = config.rev.core == 2;
++	/*
++	 * A2xx has a built in IOMMU and all other IOMMU enabled targets will
++	 * have an ARM IOMMU attached
++	 */
++	priv->has_gpu_iommu = config.rev.core == 2 || device_iommu_mapped(dev);
+ 	priv->has_cached_coherent = config.rev.core >= 6;
+ 
+ 	gpu = info->init(drm);
+diff --git a/drivers/gpu/drm/msm/msm_drv.c b/drivers/gpu/drm/msm/msm_drv.c
+index aca48c868c14..a125a351ec90 100644
+--- a/drivers/gpu/drm/msm/msm_drv.c
++++ b/drivers/gpu/drm/msm/msm_drv.c
+@@ -318,11 +318,10 @@ bool msm_use_mmu(struct drm_device *dev)
+ 	struct msm_drm_private *priv = dev->dev_private;
+ 
+ 	/*
+-	 * a2xx comes with its own MMU
+-	 * On other platforms IOMMU can be declared specified either for the
+-	 * MDP/DPU device or for its parent, MDSS device.
++	 * Return true if the GPU or the MDP/DPU or parent MDSS device has an
++	 * IOMMU
+ 	 */
+-	return priv->is_a2xx ||
++	return priv->has_gpu_iommu ||
+ 		device_iommu_mapped(dev->dev) ||
+ 		device_iommu_mapped(dev->dev->parent);
+ }
+diff --git a/drivers/gpu/drm/msm/msm_drv.h b/drivers/gpu/drm/msm/msm_drv.h
+index 9f0c184b02a0..f33f94acd1b9 100644
+--- a/drivers/gpu/drm/msm/msm_drv.h
++++ b/drivers/gpu/drm/msm/msm_drv.h
+@@ -126,7 +126,7 @@ struct msm_drm_private {
+ 	struct msm_gpu *gpu;
+ 
+ 	/* gpu is only set on open(), but we need this info earlier */
+-	bool is_a2xx;
++	bool has_gpu_iommu;
+ 	bool has_cached_coherent;
+ 
+ 	struct drm_fb_helper *fbdev;
+-- 
+2.34.1
 
-  drm/msm: DEVFREQ_GOV_SIMPLE_ONDEMAND is no longer needed (2023-03-08
-11:55:30 -0800)
-
-----------------------------------------------------------------
-msm-fixes for v6.3-rc2
-
-- Fix for possible invalid ptr free in submit ioctl syncobj cleanup path.
-- Synchronize GMU removal in driver teardown path
-- a5xx preemption fixes
-- Fix runpm imbalance at unbind
-- DPU hw catalog fixes:
- - set DPU_MDP_PERIPH_0_REMOVED for sc8280xp as this is another chipset
-   where the PERIPH_0 block of registers is not there
- - fix the DPU features supported in QCM2290 by comparing it with the
-   downstream device tree
- - fix the length of registers in the sc7180_ctl from 0xe4 to 0x1dc
- - fix the max mixer line width for sm6115 and qcm2290 chipsets in the
-   DPU catalog
- - fix the scaler version on sm8550, sc8280xp, sm8450, sm8250, sm8350
-   and sm6115. This was incorrectly populated on the SW version of the
-   scaler library and  not the scaler HW version
- - Drop dim layer support for msm8998 as its not indicated to be
-   supported in the downstream DTSI
- - fix the DPU_CLK_CTRL bits for msm 8998 sspp blocks
- - Use DPU_CLK_CTRL_DMA* prefix instead of DPU_CLK_CTRL_CURSOR*
-   for all chipsets for the DMA sspp blocks
- - fix the ping-pong block base address for sc7280 in the DPU HW catalog
-- Fix stack corruption issue in the dpu_hw_ctl_setup_blendstage() function
-  as it was causing a negative left shift by protecting against an invalid
-  index
-- Clear the DSPP reservations in dpu_rm_release(). This was missed out and
-  as as result the DSPP was not released from the resource manager global
-  state.
-
-----------------------------------------------------------------
-Dmitry Baryshkov (18):
-      drm/msm/a5xx: fix setting of the CP_PREEMPT_ENABLE_LOCAL register
-      drm/msm/a5xx: fix highest bank bit for a530
-      drm/msm/a5xx: fix the emptyness check in the preempt code
-      drm/msm/a5xx: fix context faults during ring switch
-      drm/msm/dpu: set DPU_MDP_PERIPH_0_REMOVED for sc8280xp
-      drm/msm/dpu: disable features unsupported by QCM2290
-      drm/msm/dpu: fix typo in in sm8550's dma_sblk_5
-      drm/msm/dpu: fix len of sc7180 ctl blocks
-      drm/msm/dpu: fix sm6115 and qcm2290 mixer width limits
-      drm/msm/dpu: correct sm8550 scaler
-      drm/msm/dpu: correct sc8280xp scaler
-      drm/msm/dpu: correct sm8450 scaler
-      drm/msm/dpu: correct sm8250 and sm8350 scaler
-      drm/msm/dpu: correct sm6115 scaler
-      drm/msm/dpu: drop DPU_DIM_LAYER from MIXER_MSM8998_MASK
-      drm/msm/dpu: fix clocks settings for msm8998 SSPP blocks
-      drm/msm/dpu: don't use DPU_CLK_CTRL_CURSORn for DMA SSPP clocks
-      drm/msm/dpu: fix stack smashing in dpu_hw_ctl_setup_blendstage
-
-Douglas Anderson (1):
-      drm/msm/a6xx: Make GPU destroy a bit safer
-
-Johan Hovold (1):
-      drm/msm/adreno: fix runtime PM imbalance at unbind
-
-Kalyan Thota (1):
-      drm/msm/dpu: clear DSPP reservations in rm release
-
-Kuogee Hsieh (1):
-      drm/msm/disp/dpu: fix sc7280_pp base offset
-
-Randy Dunlap (1):
-      drm/msm: DEVFREQ_GOV_SIMPLE_ONDEMAND is no longer needed
-
-Rob Clark (1):
-      drm/msm: Fix potential invalid ptr free
-
-Thomas Zimmermann (1):
-      drm/msm: Fix possible uninitialized access in fbdev
-
- drivers/gpu/drm/msm/Kconfig                    |   1 -
- drivers/gpu/drm/msm/adreno/a5xx_gpu.c          |   6 +-
- drivers/gpu/drm/msm/adreno/a5xx_preempt.c      |   4 +-
- drivers/gpu/drm/msm/adreno/a6xx_gmu.c          |   2 +-
- drivers/gpu/drm/msm/adreno/a6xx_gpu.c          |   2 +
- drivers/gpu/drm/msm/adreno/adreno_device.c     |   3 +-
- drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c | 166 ++++++++++++-------------
- drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h |   2 +
- drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c     |   4 +-
- drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c         |   2 +
- drivers/gpu/drm/msm/msm_fbdev.c                |   4 +-
- drivers/gpu/drm/msm/msm_gem_submit.c           |   5 +-
- 12 files changed, 103 insertions(+), 98 deletions(-)
