@@ -2,73 +2,62 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6B1A16B1FC6
-	for <lists+freedreno@lfdr.de>; Thu,  9 Mar 2023 10:19:17 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7B7076B2137
+	for <lists+freedreno@lfdr.de>; Thu,  9 Mar 2023 11:21:28 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 35F8810E7C4;
-	Thu,  9 Mar 2023 09:19:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3661510E7DF;
+	Thu,  9 Mar 2023 10:21:27 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wm1-x32c.google.com (mail-wm1-x32c.google.com
- [IPv6:2a00:1450:4864:20::32c])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C112310E7BC
- for <freedreno@lists.freedesktop.org>; Thu,  9 Mar 2023 09:19:08 +0000 (UTC)
-Received: by mail-wm1-x32c.google.com with SMTP id p26so651423wmc.4
- for <freedreno@lists.freedesktop.org>; Thu, 09 Mar 2023 01:19:08 -0800 (PST)
+Received: from mail-lf1-x12b.google.com (mail-lf1-x12b.google.com
+ [IPv6:2a00:1450:4864:20::12b])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BE3A510E7DD;
+ Thu,  9 Mar 2023 10:21:24 +0000 (UTC)
+Received: by mail-lf1-x12b.google.com with SMTP id d36so1600015lfv.8;
+ Thu, 09 Mar 2023 02:21:24 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1678353548;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=AHKQikRbXMPYNu7t4y4O2RDVfK4ikVupKc4HZNkz7SY=;
- b=N+cCHUOj/EmEMlLtfs4R1PVg38I1Y0U5qtRvFfjpWZcRE/5awIhe1R5BoIso6KLr5O
- /9mrl3vMpGV54nWQBUTq7W1AJah2E0YO7rS3IG6cG/TDM/AA++btCpEZZ/VTlhKxYiyA
- YvTgo11xv4fNrGx8qtWSk+fuxp1UofpZruGiABg4dhM0GTe96yNda8HLHFwH6NJcd/hv
- Hx1xIcGL6ZVqx3MkQpmq7jHgEyt1U39zHOvnWKr/yLzcuyxWVM4a9iRzwxC/UV8inhEn
- Y5HKgylQsJVdcXJVJ3R0LhESKUCGnNRoejmfTn2uZ2qagh3I4hikWIkGzbyZFO9xT7s8
- 0M4Q==
+ d=gmail.com; s=20210112; t=1678357283;
+ h=mime-version:references:in-reply-to:message-id:subject:cc:to:from
+ :date:from:to:cc:subject:date:message-id:reply-to;
+ bh=KprGKYQ8KgwaGWUbn17Xz5NYf5KpExwL2NMCF7dMdgM=;
+ b=TRXqe8TQv4yfm7qG2xhZaoah92igaQMjG0ELmUtzdt7kOaZwrOkfWMsKMhXAsa9hWr
+ IL0zq8+qpdODRl4JxxUzTaLAhEWPwUZZ6Mhbqbt02z9+OjT3pKdWZgpfIPX1EucbWd7J
+ ZqmAIYlYVO7LhfBF3UcgAdoMoWTDMA31Wi2xJlHuATDyncXQ8Pfi9djMDqLohAWgD75d
+ mZFUk/mP5ZFsiSO08rhOZx5yv5XPUBSj0kg1POAZkFpeR90Su3vccPXA4pGFNY7nWAvL
+ VzrWe4tUvpwQXG9XL5JNCiaMy1X9pmDW9fxUDAValpicdBYX1P2nMJ3EUImUJlArelB6
+ U0qw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112; t=1678353548;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=AHKQikRbXMPYNu7t4y4O2RDVfK4ikVupKc4HZNkz7SY=;
- b=ZnWP5+HizrTzH5LP8PgXFTqX6WCCVT5xHy5/vKdvzC9w9KsN9+8IDD0p7hAZGwVcNI
- 5+3zzI9MrY/El+fe1b+9rn3EeRONdCtgY1tnIjp13m6qEY7LqT4Tt9+ahhusiTq43jW+
- CG346kHRJn+5VVEFPb5KD+KVvZ/iXS7I+Dd/eQrCSWTGK9ek/mjbS5Mo7umUX+0B2eMJ
- 8xTLKZKT5i5jeZ+lacXMDkvOxcVYyFCZWp0gbu3nLOO/RCbn5xSeuevB0fuwGiahizO/
- iBEb400X6PmZUTui5Redmuece/ibfykUpZ6JFhW4Qpj7StRfiO5Y3hQEhFVamSs1keR8
- B99Q==
-X-Gm-Message-State: AO0yUKU7akDiAykv32RMXEmhZyX3Z8HC+IE3v2pAiluvHdyqECqQxVO5
- b+ydCCAsfSKf6uUinvEM9zsqYQ==
-X-Google-Smtp-Source: AK7set8WVl8E04epoxC/i+3wBIljDS1OEyw4rH7KIPayqK1GjgVmpuHbDG7pFs+xCPxvzSNE9oXoJw==
-X-Received: by 2002:a1c:750a:0:b0:3ea:e834:d0d1 with SMTP id
- o10-20020a1c750a000000b003eae834d0d1mr18438139wmc.36.1678353548391; 
- Thu, 09 Mar 2023 01:19:08 -0800 (PST)
-Received: from arrakeen.starnux.net ([2a01:e0a:982:cbb0:8261:5fff:fe11:bdda])
- by smtp.gmail.com with ESMTPSA id
- o8-20020a05600c4fc800b003ebfc075eaasm2177066wmq.16.2023.03.09.01.19.07
+ d=1e100.net; s=20210112; t=1678357283;
+ h=mime-version:references:in-reply-to:message-id:subject:cc:to:from
+ :date:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=KprGKYQ8KgwaGWUbn17Xz5NYf5KpExwL2NMCF7dMdgM=;
+ b=mz6DJRZZ5Y0C0Yhm3m3PNxSC+rJmKd3WlsDu40UOxifvFUe4Gh4h9LK2mZo/Y0q93a
+ fCBgWvhigpEbIhjeKr578MHr25IcYBZs8dDe7XBrST0iJIfqkt4g20MuhOVpLF3HYCsw
+ +K17q4K9WrIqyr/uZ4sfyiZP06vNiX909XpgypDh6mTiMQY8scPq3y+gCZLW/F8ZvN61
+ 7tE8r6FP4mMnVR3kXmMe/HvIgN3BWtGmRNII+5wfIWHLJ5ZCzPHnG+YM53zRc4sxmceq
+ OogBFRzfRw0lEJWhdMHqIFJemxgDSORdYuv4BfvHswj6aonI0qRpls/Ey/KcDUcrGsyI
+ WUmg==
+X-Gm-Message-State: AO0yUKUlnKJdr0F9Q+CDnp6URtE8qLeCfTemo/smhp8ZbTWXGbI3vpsQ
+ reAw9WntGNpyOlO6CYECzLk=
+X-Google-Smtp-Source: AK7set8//lzFNi6UQdT0Qz69/iAT27g06pbsZrFtDMb8VzTxl8+gMl6jx74dZt+KkxkgfpPWfGRocg==
+X-Received: by 2002:ac2:4949:0:b0:4d5:831e:3154 with SMTP id
+ o9-20020ac24949000000b004d5831e3154mr6109888lfi.45.1678357282880; 
+ Thu, 09 Mar 2023 02:21:22 -0800 (PST)
+Received: from eldfell ([194.136.85.206]) by smtp.gmail.com with ESMTPSA id
+ u23-20020ac24c37000000b004aac23e0dd6sm2605330lfq.29.2023.03.09.02.21.21
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 09 Mar 2023 01:19:08 -0800 (PST)
-From: Neil Armstrong <neil.armstrong@linaro.org>
-Date: Thu, 09 Mar 2023 10:19:04 +0100
+ Thu, 09 Mar 2023 02:21:22 -0800 (PST)
+Date: Thu, 9 Mar 2023 12:21:18 +0200
+From: Pekka Paalanen <ppaalanen@gmail.com>
+To: Rob Clark <robdclark@gmail.com>
+Message-ID: <20230309122118.661e85b4@eldfell>
+In-Reply-To: <20230308155322.344664-1-robdclark@gmail.com>
+References: <20230308155322.344664-1-robdclark@gmail.com>
+X-Mailer: Claws Mail 3.17.8 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20230206-topic-sm8450-upstream-dp-controller-v4-5-dca33f531e0d@linaro.org>
-References: <20230206-topic-sm8450-upstream-dp-controller-v4-0-dca33f531e0d@linaro.org>
-In-Reply-To: <20230206-topic-sm8450-upstream-dp-controller-v4-0-dca33f531e0d@linaro.org>
-To: Rob Clark <robdclark@gmail.com>, 
- Abhinav Kumar <quic_abhinavk@quicinc.com>, 
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>, 
- David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>, 
- Rob Herring <robh+dt@kernel.org>, 
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>, 
- Kuogee Hsieh <quic_khsieh@quicinc.com>, Andy Gross <agross@kernel.org>, 
- Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konrad.dybcio@linaro.org>
-X-Mailer: b4 0.12.1
-Subject: [Freedreno] [PATCH v4 5/5] arm64: dts: qcom: sm8450: add dp
- controller
+Content-Type: multipart/signed; boundary="Sig_/YsnEA9P_sNO1q.G4g.HWGt3";
+ protocol="application/pgp-signature"; micalg=pgp-sha256
+Subject: Re: [Freedreno] [PATCH v10 00/15] dma-fence: Deadline awareness
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,117 +70,115 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Neil Armstrong <neil.armstrong@linaro.org>, devicetree@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org
+Cc: "open list:DOCUMENTATION" <linux-doc@vger.kernel.org>,
+ Gustavo Padovan <gustavo@padovan.org>, dri-devel@lists.freedesktop.org,
+ Douglas Anderson <dianders@chromium.org>, Liu Shixin <liushixin2@huawei.com>,
+ Rob Clark <robdclark@chromium.org>, Vinod Polimera <quic_vpolimer@quicinc.com>,
+ Luben Tuikov <luben.tuikov@amd.com>,
+ "open list:DRM DRIVER FOR MSM ADRENO GPU" <linux-arm-msm@vger.kernel.org>,
+ Matt Turner <mattst88@gmail.com>, "open
+ list:DMA BUFFER SHARING FRAMEWORK" <linux-media@vger.kernel.org>,
+ Christian =?UTF-8?B?S8O2bmln?= <ckoenig.leichtzumerken@gmail.com>,
+ intel-gfx@lists.freedesktop.org, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Stephen Boyd <swboyd@chromium.org>, linaro-mm-sig@lists.linaro.org,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, Sean Paul <sean@poorly.run>,
+ open list <linux-kernel@vger.kernel.org>,
+ Konrad Dybcio <konrad.dybcio@linaro.org>,
+ Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Add the Display Port controller subnode to the MDSS node.
+--Sig_/YsnEA9P_sNO1q.G4g.HWGt3
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: quoted-printable
 
-Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
----
- arch/arm64/boot/dts/qcom/sm8450.dtsi | 79 ++++++++++++++++++++++++++++++++++++
- 1 file changed, 79 insertions(+)
+On Wed,  8 Mar 2023 07:52:51 -0800
+Rob Clark <robdclark@gmail.com> wrote:
 
-diff --git a/arch/arm64/boot/dts/qcom/sm8450.dtsi b/arch/arm64/boot/dts/qcom/sm8450.dtsi
-index 6caa2c8efb46..4f256296d998 100644
---- a/arch/arm64/boot/dts/qcom/sm8450.dtsi
-+++ b/arch/arm64/boot/dts/qcom/sm8450.dtsi
-@@ -2751,6 +2751,13 @@ dpu_intf2_out: endpoint {
- 						};
- 					};
- 
-+					port@2 {
-+						reg = <2>;
-+						dpu_intf0_out: endpoint {
-+							remote-endpoint = <&mdss_dp0_in>;
-+						};
-+					};
-+
- 				};
- 
- 				mdp_opp_table: opp-table {
-@@ -2783,6 +2790,78 @@ opp-500000000 {
- 				};
- 			};
- 
-+			mdss_dp0: displayport-controller@ae90000 {
-+				compatible = "qcom,sm8450-dp", "qcom,sm8350-dp";
-+				reg = <0 0xae90000 0 0x200>,
-+				      <0 0xae90200 0 0x200>,
-+				      <0 0xae90400 0 0xc00>,
-+				      <0 0xae91000 0 0x400>,
-+				      <0 0xae91400 0 0x400>;
-+				interrupt-parent = <&mdss>;
-+				interrupts = <12>;
-+				clocks = <&dispcc DISP_CC_MDSS_AHB_CLK>,
-+					 <&dispcc DISP_CC_MDSS_DPTX0_AUX_CLK>,
-+					 <&dispcc DISP_CC_MDSS_DPTX0_LINK_CLK>,
-+					 <&dispcc DISP_CC_MDSS_DPTX0_LINK_INTF_CLK>,
-+					 <&dispcc DISP_CC_MDSS_DPTX0_PIXEL0_CLK>;
-+				clock-names = "core_iface",
-+					      "core_aux",
-+					      "ctrl_link",
-+			                      "ctrl_link_iface",
-+					      "stream_pixel";
-+
-+				assigned-clocks = <&dispcc DISP_CC_MDSS_DPTX0_LINK_CLK_SRC>,
-+						  <&dispcc DISP_CC_MDSS_DPTX0_PIXEL0_CLK_SRC>;
-+				assigned-clock-parents = <&usb_1_qmpphy QMP_USB43DP_DP_LINK_CLK>,
-+							 <&usb_1_qmpphy QMP_USB43DP_DP_VCO_DIV_CLK>;
-+
-+				phys = <&usb_1_qmpphy QMP_USB43DP_DP_PHY>;
-+			        phy-names = "dp";
-+
-+			        #sound-dai-cells = <0>;
-+
-+				operating-points-v2 = <&dp_opp_table>;
-+				power-domains = <&rpmhpd SM8450_MMCX>;
-+
-+				status = "disabled";
-+
-+				ports {
-+					#address-cells = <1>;
-+					#size-cells = <0>;
-+
-+					port@0 {
-+						reg = <0>;
-+						mdss_dp0_in: endpoint {
-+							remote-endpoint = <&dpu_intf0_out>;
-+						};
-+					};
-+				};
-+
-+				dp_opp_table: opp-table {
-+					compatible = "operating-points-v2";
-+
-+					opp-160000000 {
-+						opp-hz = /bits/ 64 <160000000>;
-+						required-opps = <&rpmhpd_opp_low_svs>;
-+					};
-+
-+					opp-270000000 {
-+						opp-hz = /bits/ 64 <270000000>;
-+						required-opps = <&rpmhpd_opp_svs>;
-+					};
-+
-+					opp-540000000 {
-+						opp-hz = /bits/ 64 <540000000>;
-+						required-opps = <&rpmhpd_opp_svs_l1>;
-+					};
-+
-+					opp-810000000 {
-+						opp-hz = /bits/ 64 <810000000>;
-+						required-opps = <&rpmhpd_opp_nom>;
-+					};
-+				};
-+			};
-+
- 			mdss_dsi0: dsi@ae94000 {
- 				compatible = "qcom,sm8450-dsi-ctrl", "qcom,mdss-dsi-ctrl";
- 				reg = <0 0x0ae94000 0 0x400>;
+> From: Rob Clark <robdclark@chromium.org>
+>=20
+> This series adds a deadline hint to fences, so realtime deadlines
+> such as vblank can be communicated to the fence signaller for power/
+> frequency management decisions.
+>=20
+> This is partially inspired by a trick i915 does, but implemented
+> via dma-fence for a couple of reasons:
+>=20
+> 1) To continue to be able to use the atomic helpers
+> 2) To support cases where display and gpu are different drivers
+>=20
+> This iteration adds a dma-fence ioctl to set a deadline (both to
+> support igt-tests, and compositors which delay decisions about which
+> client buffer to display), and a sw_sync ioctl to read back the
+> deadline.  IGT tests utilizing these can be found at:
+>=20
+>   https://gitlab.freedesktop.org/robclark/igt-gpu-tools/-/commits/fence-d=
+eadline
+>=20
+>=20
+> v1: https://patchwork.freedesktop.org/series/93035/
+> v2: Move filtering out of later deadlines to fence implementation
+>     to avoid increasing the size of dma_fence
+> v3: Add support in fence-array and fence-chain; Add some uabi to
+>     support igt tests and userspace compositors.
+> v4: Rebase, address various comments, and add syncobj deadline
+>     support, and sync_file EPOLLPRI based on experience with perf/
+>     freq issues with clvk compute workloads on i915 (anv)
+> v5: Clarify that this is a hint as opposed to a more hard deadline
+>     guarantee, switch to using u64 ns values in UABI (still absolute
+>     CLOCK_MONOTONIC values), drop syncobj related cap and driver
+>     feature flag in favor of allowing count_handles=3D=3D0 for probing
+>     kernel support.
+> v6: Re-work vblank helper to calculate time of _start_ of vblank,
+>     and work correctly if the last vblank event was more than a
+>     frame ago.  Add (mostly unrelated) drm/msm patch which also
+>     uses the vblank helper.  Use dma_fence_chain_contained().  More
+>     verbose syncobj UABI comments.  Drop DMA_FENCE_FLAG_HAS_DEADLINE_BIT.
+> v7: Fix kbuild complaints about vblank helper.  Add more docs.
+> v8: Add patch to surface sync_file UAPI, and more docs updates.
+> v9: Drop (E)POLLPRI support.. I still like it, but not essential and
+>     it can always be revived later.  Fix doc build warning.
+> v10: Update 11/15 to handle multiple CRTCs
 
--- 
-2.34.1
+Hi Rob,
 
+it is very nice to keep revision numbers and list the changes in each
+patch. If I looked at series v8 last, and I now see series v10, and I
+look at a patch that lists changes done in v7, how do I know if that
+change was made between series v8 and v10 or earlier?
+
+At least in some previous revision, series might have been v8 and a
+patch have new changes listed as v5 (because it was the 5th time that
+one patch was changed) instead of v8.
+
+Am I expected to keep track of vN of each individual patch
+independently?
+
+
+Thanks,
+pq
+
+--Sig_/YsnEA9P_sNO1q.G4g.HWGt3
+Content-Type: application/pgp-signature
+Content-Description: OpenPGP digital signature
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCAAdFiEEJQjwWQChkWOYOIONI1/ltBGqqqcFAmQJsx4ACgkQI1/ltBGq
+qqeCVQ/7Bzoz7uNe1NEopzqqHKfxESL0GuvB+Ky+giA53z+1ZulhFzT1AAiKInp7
+QOwxDpDiKSJigTT68UUtK7LRc42z41SLnPXF9023LhNJYUw7lC0L7oAmQLqUaeyw
+lPuPxOWgY5XPkZWdzJoZVyky4lBS2uGnF8I0+Ek2FTWRVlpGToUiXcHW5xHxH1Vi
+aQzqiH/s7EIWSuR8dZtzSTH0uA641e3dt+9AKOGYZQlwCLOdcngZ69vu0bft5pPG
+aKrWz6zfX7iLIbwWBJvKzBb4jvKC7gV/7a0p7kwyBPTnJ+TbDS0tWgcwDJ59vTPo
+L1Lfysi8uFdx6gSW0P864n+wbh96sPaJE+ZlBc174RTW5XzN0wu9V+phPUoBM7/T
+F2G5B8sYKwTMdxA//7PVjviDGDTZ4YHn1MLLRjwhUGF6HfvU0aLrHY5iKOHtUWVc
+XAL1exaXtkOMyd5EoezO7zSIQ9umGAQGGffMg15sD7mL+4wIhKY85WehBySfXLUK
+PVlTV62a4vdO58ZcWn0U299HPi0ehjQXvHRkFe4D2827dnZNsLd+BEJHzgDmI/l3
+x0lGGauKT+X0cexJetComQh7AszbkRrdP4SJGfRxJBrfkiKN4JsTEQ5s6ZoGWBjm
+vXZD3smbWhE69Bc3HDJe/HQA/uGYskkrLTL8oV+aYiy+pj21+W4=
+=ZIGt
+-----END PGP SIGNATURE-----
+
+--Sig_/YsnEA9P_sNO1q.G4g.HWGt3--
