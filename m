@@ -1,78 +1,68 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 169526B1837
-	for <lists+freedreno@lfdr.de>; Thu,  9 Mar 2023 01:52:20 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 4F9886B1EFE
+	for <lists+freedreno@lfdr.de>; Thu,  9 Mar 2023 09:55:31 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CE59710E161;
-	Thu,  9 Mar 2023 00:52:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 16B8F10E7B3;
+	Thu,  9 Mar 2023 08:55:30 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E60C710E15E;
- Thu,  9 Mar 2023 00:52:16 +0000 (UTC)
-Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 3290oBxx002922; Thu, 9 Mar 2023 00:52:11 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
- h=message-id : date :
- mime-version : subject : to : cc : references : from : in-reply-to :
- content-type : content-transfer-encoding; s=qcppdkim1;
- bh=uOdBnb8tHa2GOvSakCibcd8D5NIAW8J5Zr3Vde+4txc=;
- b=TaipZnCSXI4lGWgwvVp10tlnjCZYV1MiGAk3Ye+b5aLpxGvQPvff9+PLgwlVkjIx6Aw0
- xmhmaMfB23+EYvuKbowek9Dpeqanzp/B+6vDZ1DkKoxaQyROCltwPN7ZGsyLAm9Z5Q1o
- XyYawZl/I/Rzi0KMx/6QKvHj5acAe9G0eG73PWOfTuF0VIakuUtaKalKu6z68APh5Q4H
- Zl6yeNIk3Jp6JGWhfZgJVtUDapsCuVt+UpUCVEYXWT6r5gyDq+Uq+sHyw6u0yY7xdZC8
- bUDe3SsAoJC8BSEFg76XvNVQ2tMSNFMBs2lY029xR7lBeghv2yHvwgHjYjuqCQtTxgak cg== 
-Received: from nalasppmta02.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3p758cr05q-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 09 Mar 2023 00:52:11 +0000
-Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
- [10.47.209.196])
- by NALASPPMTA02.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 3290q96M012122
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 9 Mar 2023 00:52:09 GMT
-Received: from [10.110.84.104] (10.80.80.8) by nalasex01a.na.qualcomm.com
- (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.41; Wed, 8 Mar 2023
- 16:52:09 -0800
-Message-ID: <fa427b6a-dfec-a7c5-a35f-bed623f8b4dc@quicinc.com>
-Date: Wed, 8 Mar 2023 16:52:08 -0800
+Received: from mail-lj1-x234.google.com (mail-lj1-x234.google.com
+ [IPv6:2a00:1450:4864:20::234])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2BC5510E7B5
+ for <freedreno@lists.freedesktop.org>; Thu,  9 Mar 2023 08:55:28 +0000 (UTC)
+Received: by mail-lj1-x234.google.com with SMTP id b10so1113385ljr.0
+ for <freedreno@lists.freedesktop.org>; Thu, 09 Mar 2023 00:55:28 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1678352126;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=vLBDAeGfi6fykGB3Tt3PujkB5zxsvtk+q1HFLQn1pv8=;
+ b=n5CjXjQJy3XvX4EqSVAUkwBkvfzUBq2gpFIvFTzHRbutv6cJtuXaZz89UJkZT6aObo
+ TTdfX4Rf5ZE6x+PVWd5I07yA1EecUY6nAAz5jotfS3pVWapndAaD9Ms1hMshctES6r5s
+ 5BQOQHTl8fc3w7M8EjC5a+wBzY9R/X5hjoISI7NXqCgwAVnJgBtVINw3XH4Ccn2dacF0
+ MvgvYCRVxF0mWIvQ2smci6DVslCDY1LboH7y4KUTk8zTq4/aov3bFQDgMdFp7tBQxFHp
+ FXeLwqwfI1tLxLEEeaACJ6GnKuvGv1qirtdWnBN+SvpcSNjqTeuK4lATr1SE25QILzfv
+ 7Pjw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112; t=1678352126;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=vLBDAeGfi6fykGB3Tt3PujkB5zxsvtk+q1HFLQn1pv8=;
+ b=c3W/G4tYVXkBlT7hm4ktCMZaBfdsoST9ggsqf2pZCRjXV8WQput1U8n3DpQeWs9UGi
+ U00HiWaimtnPVxHwRUPUStbOR7189vm6FCg3y3AZq3qFVCkbJH6cxDkVo+05ojoRQs4B
+ zodO6nyrpBr4XOYBJxGStJvHOh/XJyFp0g5eIat+vF3j7yIzWx0maj3bs5taOcwhotlI
+ FkM0fgMyNIyqltBDqor05OplyxpZw5oRt1bX0O50pu6Of1jCjtuyJyMq7V4x2Xl1yOpb
+ UVMCy+qcq10fevVnTRhfXwv/tWCK/TM1qDPJ8wf3hqPJEhTXpLW+uH941IolAEuPAjue
+ Eggw==
+X-Gm-Message-State: AO0yUKX7zxtFdeG2C05QEMJPFhVT8gPlJjPwq9mrgeh3K6YcoBCsXb3u
+ yraZP3upxN+KzmcjpfQa6OxzEg==
+X-Google-Smtp-Source: AK7set+5eGFPe5LwpRknNFPmVr5Zn+raNlFoV5fuEy8mgKlZr5bnCH0CJVo+9hOvmznMcjmlEXH91w==
+X-Received: by 2002:a2e:9ccc:0:b0:295:b29f:5b15 with SMTP id
+ g12-20020a2e9ccc000000b00295b29f5b15mr5880143ljj.24.1678352126304; 
+ Thu, 09 Mar 2023 00:55:26 -0800 (PST)
+Received: from ?IPV6:2001:14ba:a085:4d00::8a5?
+ (dzccz6yyyyyyyyyyybcwt-3.rev.dnainternet.fi. [2001:14ba:a085:4d00::8a5])
+ by smtp.gmail.com with ESMTPSA id
+ p11-20020a2e9acb000000b0029347612e94sm2887280ljj.123.2023.03.09.00.55.25
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 09 Mar 2023 00:55:25 -0800 (PST)
+Message-ID: <9a9a8279-c634-b595-7a19-fe95540a3540@linaro.org>
+Date: Thu, 9 Mar 2023 10:55:25 +0200
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.6.2
-Content-Language: en-US
-To: =?UTF-8?B?VmlsbGUgU3lyasOkbMOk?= <ville.syrjala@linux.intel.com>, Rob
- Clark <robdclark@gmail.com>
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.8.0
+Content-Language: en-GB
+To: Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org
 References: <1678305762-32381-1-git-send-email-quic_abhinavk@quicinc.com>
- <ZAjvc7jjKDNSJcjq@intel.com>
- <CAF6AEGvMyDb7kwZU5Uk14nRNOe1-eFUVmXEsnLiGKL7R0kOjPQ@mail.gmail.com>
- <ZAkkEXlE0nwdFTYy@intel.com>
-From: Abhinav Kumar <quic_abhinavk@quicinc.com>
-In-Reply-To: <ZAkkEXlE0nwdFTYy@intel.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-ORIG-GUID: GHy4ZtcChWaloyZ3bVDrcAK91MgAm0IR
-X-Proofpoint-GUID: GHy4ZtcChWaloyZ3bVDrcAK91MgAm0IR
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.254,Aquarius:18.0.942,Hydra:6.0.573,FMLib:17.11.170.22
- definitions=2023-03-08_15,2023-03-08_03,2023-02-09_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 malwarescore=0
- priorityscore=1501 suspectscore=0 spamscore=0 clxscore=1015
- impostorscore=0 mlxscore=0 mlxlogscore=999 phishscore=0 lowpriorityscore=0
- bulkscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2212070000 definitions=main-2303090006
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+In-Reply-To: <1678305762-32381-1-git-send-email-quic_abhinavk@quicinc.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 Subject: Re: [Freedreno] [RFC] drm: property: use vzalloc() instead of
  kvzalloc() for large blobs
 X-BeenThere: freedreno@lists.freedesktop.org
@@ -87,106 +77,59 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- laurent.pinchart@ideasonboard.com, daniel@ffwll.ch,
- dmitry.baryshkov@linaro.org, airlied@gmail.com
+Cc: freedreno@lists.freedesktop.org, robdclark@gmail.com,
+ laurent.pinchart@ideasonboard.com, daniel@ffwll.ch, airlied@gmail.com,
+ ville.syrjala@linux.intel.com
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Hi Ville
-
-Thanks for the comments.
-
-On 3/8/2023 4:10 PM, Ville Syrjälä wrote:
-> On Wed, Mar 08, 2023 at 03:33:48PM -0800, Rob Clark wrote:
->> On Wed, Mar 8, 2023 at 1:23 PM Ville Syrjälä
->> <ville.syrjala@linux.intel.com> wrote:
->>>
->>> On Wed, Mar 08, 2023 at 12:02:42PM -0800, Abhinav Kumar wrote:
->>>> For DRM property blobs created by user mode using
->>>> drm_property_create_blob(), if the blob value needs to be updated the
->>>> only way is to destroy the previous blob and create a new one instead.
->>>>
->>>> For some of the property blobs, if the size of the blob is more
->>>> than one page size, kvzalloc() can slow down system as it will first
->>>> try to allocate physically contiguous memory but upon failure will
->>>> fall back to non-contiguous (vmalloc) allocation.
->>>>
->>>> If the blob property being used is bigger than one page size, in a
->>>> heavily loaded system, this causes performance issues because
->>>> some of the blobs are updated on a per-frame basis.
->>>>
->>>> To mitigate the performance impact of kvzalloc(), use it only when
->>>> the size of allocation is less than a page size when creating property
->>>> blobs
->>>
->>> Not sure how badly this will eat into the vmalloc area.
->>
-
-The reason we had the PAGE_SIZE check to use vzalloc() was specifically 
-to limit the cases which will be affected by this.
-
-The percentage of blobs having a size more than a PAGE_SIZE will be the 
-ones for which we will use vzalloc() which is actually good anyway since 
-it cases of heavy memory fragmentation, kvzalloc() will fallback to vmalloc.
-
-That percentage should have been very less to begin with otherwise 
-others would have already hit this issue and even those will only 
-benefit from this change in our opinion.
-
-For most of the existing blobs, then this change should not affect and 
-for those which it does, it should only benefit (like MSM).
-
->> Normally I wouldn't expect this to be much of a problem, but we don't
->> appear to restrict CREATEBLOBPROP to DRM_MASTER, which seems like it
->> might have been a mistake.. so perhaps we want to either restrict
->> CREATEBLOBPROP or put an upper threshold limit on total size of all
->> allocated blob props using vmalloc area?
+On 08/03/2023 22:02, Abhinav Kumar wrote:
+> For DRM property blobs created by user mode using
+> drm_property_create_blob(), if the blob value needs to be updated the
+> only way is to destroy the previous blob and create a new one instead.
 > 
-> Surprisingly few kms ioctls are master-only it seems. Dunno
-> what the use case for all those being non-master really is.
+> For some of the property blobs, if the size of the blob is more
+> than one page size, kvzalloc() can slow down system as it will first
+> try to allocate physically contiguous memory but upon failure will
+> fall back to non-contiguous (vmalloc) allocation.
 > 
-> I think blob limits in general were disussed at at various
-> points in the past with no conclusion. I guess it's slightly
-> problematic in that if you limit individual max blob size
-> then they just create more smaller ones. If you limit the
-> total size per fd they just open more fds. If you put a total
-> upper limit then it's just a slightly quicker DoS than
-> without the limit. Shrug.
+> If the blob property being used is bigger than one page size, in a
+> heavily loaded system, this causes performance issues because
+> some of the blobs are updated on a per-frame basis.
 > 
->>
->> BR,
->> -R
->>
->>> Is there no GFP flag to avoid the expensive stuff instead?
->>>
->>>>
->>>> Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
->>>> ---
->>>>   drivers/gpu/drm/drm_property.c | 6 +++++-
->>>>   1 file changed, 5 insertions(+), 1 deletion(-)
->>>>
->>>> diff --git a/drivers/gpu/drm/drm_property.c b/drivers/gpu/drm/drm_property.c
->>>> index dfec479830e4..40c2a3142038 100644
->>>> --- a/drivers/gpu/drm/drm_property.c
->>>> +++ b/drivers/gpu/drm/drm_property.c
->>>> @@ -561,7 +561,11 @@ drm_property_create_blob(struct drm_device *dev, size_t length,
->>>>        if (!length || length > INT_MAX - sizeof(struct drm_property_blob))
->>>>                return ERR_PTR(-EINVAL);
->>>>
->>>> -     blob = kvzalloc(sizeof(struct drm_property_blob)+length, GFP_KERNEL);
->>>> +     if (sizeof(struct drm_property_blob) + length > PAGE_SIZE)
->>>> +             blob = vzalloc(sizeof(struct drm_property_blob)+length);
->>>> +     else
->>>> +             blob = kvzalloc(sizeof(struct drm_property_blob)+length, GFP_KERNEL);
->>>> +
->>>>        if (!blob)
->>>>                return ERR_PTR(-ENOMEM);
->>>>
->>>> --
->>>> 2.7.4
->>>
->>> --
->>> Ville Syrjälä
->>> Intel
+> To mitigate the performance impact of kvzalloc(), use it only when
+> the size of allocation is less than a page size when creating property
+> blobs
 > 
+> Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
+> ---
+>   drivers/gpu/drm/drm_property.c | 6 +++++-
+>   1 file changed, 5 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/gpu/drm/drm_property.c b/drivers/gpu/drm/drm_property.c
+> index dfec479830e4..40c2a3142038 100644
+> --- a/drivers/gpu/drm/drm_property.c
+> +++ b/drivers/gpu/drm/drm_property.c
+> @@ -561,7 +561,11 @@ drm_property_create_blob(struct drm_device *dev, size_t length,
+>   	if (!length || length > INT_MAX - sizeof(struct drm_property_blob))
+>   		return ERR_PTR(-EINVAL);
+>   
+> -	blob = kvzalloc(sizeof(struct drm_property_blob)+length, GFP_KERNEL);
+> +	if (sizeof(struct drm_property_blob) + length > PAGE_SIZE)
+> +		blob = vzalloc(sizeof(struct drm_property_blob)+length);
+> +	else
+> +		blob = kvzalloc(sizeof(struct drm_property_blob)+length, GFP_KERNEL);
+> +
+
+Seeing the same expression repeated three times in a row is a bad sign.
+Also, I think in the else branch you can use kzalloc directly, kvzalloc 
+will end up there anyway.
+
+>   	if (!blob)
+>   		return ERR_PTR(-ENOMEM);
+>   
+
+-- 
+With best wishes
+Dmitry
+
