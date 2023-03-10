@@ -2,68 +2,68 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 005ED6B31E1
-	for <lists+freedreno@lfdr.de>; Fri, 10 Mar 2023 00:05:41 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 607A66B329F
+	for <lists+freedreno@lfdr.de>; Fri, 10 Mar 2023 01:16:49 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A82F310E1E5;
-	Thu,  9 Mar 2023 23:05:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DE99310E902;
+	Fri, 10 Mar 2023 00:16:39 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-x229.google.com (mail-lj1-x229.google.com
- [IPv6:2a00:1450:4864:20::229])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B32D310E1E5
- for <freedreno@lists.freedesktop.org>; Thu,  9 Mar 2023 23:05:39 +0000 (UTC)
-Received: by mail-lj1-x229.google.com with SMTP id z42so3488390ljq.13
- for <freedreno@lists.freedesktop.org>; Thu, 09 Mar 2023 15:05:39 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1678403138;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=fImqtEk3Yd/BGvJUs6e3qMPUkkVywiIrFLK2xRO4mHk=;
- b=SVF1YOWqlHcnG+98KHK6urC9FRxOMKlDBgSLVJgzU4H7ilC0w1HMRNzwiax+5TSVsz
- qhH9PKA5g+Hvh7Y93QMH0aNLA/FQOSlsX9/Y65lgdV9Ko0k7TXyM5lPI4uukZZ/0Ml2B
- tE4vBNNh+BWTfJlWcSOX2h2YPYStF2PxcnWAK+pKV1GvGBxX5DoZ8dRID6e/epDEUTO3
- MC+K1sCUzIqXL1gFqH8c5BeOg7vmut1l3uwNSEAX7myOL3OoaWGOtxwmkj/D8hLSO4BL
- 5mi87l+TMjRcqqcIBaVvyIQA9q2Xw9EglvAfgSO9Bl1/sl/kilN2LcgCINZczoxURDuY
- hlcA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112; t=1678403138;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=fImqtEk3Yd/BGvJUs6e3qMPUkkVywiIrFLK2xRO4mHk=;
- b=D1J1YN04gScUaCyAQNBqsMWeqc0l5FwQzLCskVeTAwiFHbGzIZSDnlSmdgjXGPm54n
- WGGHis0MZ4CWPsFaJ7t4drZuP/Uhe3MUwDFrfB7PK5uwpmKk+CSgZ0Tg7ETbpmLp0JeK
- AJg3vU7lhRzhOBl22sPGPzZ40hVTbsNQzXq2FskPYuwVO38euCnHeRk14WRpASaU9K7d
- d7oTogIs1JQ9nqyib+TlnhoQEvicZRjC42/HCsYIBPzEZD4G3j07zRtjyJ/VQkyYQWnG
- wGA4oI5qcBaVYjlL9cHJxNmIjtyZSa3XwX/SJMzADTYmj3IQdBNCRwPKHAmb0lE9Dm6E
- iD/g==
-X-Gm-Message-State: AO0yUKVclkKiWPKCz5O2JvJtJzTwz5DkG4RHZIeEoSwxLHL7kalTtrBY
- IlKPhJbNj5IdCRn5Ywb51nM79g==
-X-Google-Smtp-Source: AK7set9AR4JFXKutmZJPBcVPweBBC2MWCPTYwTcbdhPO6Vxn8D1IcwdDLcYkLz7ISFyPNqhxDkfMgQ==
-X-Received: by 2002:a2e:8091:0:b0:293:2ef5:9434 with SMTP id
- i17-20020a2e8091000000b002932ef59434mr6499836ljg.2.1678403137854; 
- Thu, 09 Mar 2023 15:05:37 -0800 (PST)
-Received: from ?IPV6:2001:14ba:a085:4d00::8a5?
- (dzccz6yyyyyyyyyyybcwt-3.rev.dnainternet.fi. [2001:14ba:a085:4d00::8a5])
- by smtp.gmail.com with ESMTPSA id
- bi37-20020a05651c232500b00295b1b6e063sm48761ljb.34.2023.03.09.15.05.37
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 09 Mar 2023 15:05:37 -0800 (PST)
-Message-ID: <e08cad22-09fe-1c65-a329-802b116e7503@linaro.org>
-Date: Fri, 10 Mar 2023 01:05:36 +0200
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3E7D910E2D8;
+ Fri, 10 Mar 2023 00:16:37 +0000 (UTC)
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 329NHIHC016042; Fri, 10 Mar 2023 00:16:32 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
+ h=from : to : cc :
+ subject : date : message-id : mime-version : content-type; s=qcppdkim1;
+ bh=3XeeKoW+8v2vcpHYM2XLOPfMthPlULcELZuQTL7yVdA=;
+ b=mHhF3hrRNAHjO/4Uo9T19AlTHuppqB8Hsqz/IBp7h3fooz3DjPWIbbLezvi6PuSiJaum
+ 79TZpaZokRj0zWz3DWPy8WmBhtC+k49zDp1tP+0ZI6KRwOrB4qAQhflniH1ZUIF6xiyz
+ Kb+DUdpVoipvXiIbmg0v1+XymuGhy2zX5fNFBUom4q4J+KtOfQH3PTQPgj0sL4O655lk
+ vJ4p2+exPFHLiBufts+TlbujVrO45+68jAkG+akqdVIE+2YxuLPMl9ClR5pDSsCIinf8
+ w/QYl3IPWwGdoTy0EogezWckTSXdpGvBH0jdjRvTniArKCy8n3pVBa9yetDBRxDyklcs rw== 
+Received: from nalasppmta02.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3p7juts4rm-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Fri, 10 Mar 2023 00:16:32 +0000
+Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
+ [10.47.209.196])
+ by NALASPPMTA02.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 32A0GVmm017458
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Fri, 10 Mar 2023 00:16:31 GMT
+Received: from abhinavk-linux.qualcomm.com (10.80.80.8) by
+ nalasex01a.na.qualcomm.com (10.47.209.196) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.986.41; Thu, 9 Mar 2023 16:16:31 -0800
+From: Abhinav Kumar <quic_abhinavk@quicinc.com>
+To: <freedreno@lists.freedesktop.org>
+Date: Thu, 9 Mar 2023 16:16:16 -0800
+Message-ID: <1678407380-20391-1-git-send-email-quic_abhinavk@quicinc.com>
+X-Mailer: git-send-email 2.7.4
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.8.0
-To: Jordan Crouse <jorcrous@amazon.com>, freedreno@lists.freedesktop.org
-References: <20230309222049.4180579-1-jorcrous@amazon.com>
-Content-Language: en-GB
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-In-Reply-To: <20230309222049.4180579-1-jorcrous@amazon.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH] drm/msm: Check for the GPU IOMMU during bind
+Content-Type: text/plain
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-GUID: f-iVWRE12-dzGoHLGK2EyvW4tqD_uSR5
+X-Proofpoint-ORIG-GUID: f-iVWRE12-dzGoHLGK2EyvW4tqD_uSR5
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.254,Aquarius:18.0.942,Hydra:6.0.573,FMLib:17.11.170.22
+ definitions=2023-03-09_14,2023-03-09_01,2023-02-09_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ adultscore=0
+ lowpriorityscore=0 bulkscore=0 spamscore=0 phishscore=0 suspectscore=0
+ mlxscore=0 malwarescore=0 impostorscore=0 priorityscore=1501 clxscore=1011
+ mlxlogscore=735 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2212070000 definitions=main-2303090195
+Subject: [Freedreno] [PATCH 0/4] drm/msm/dpu: wide planes fixes
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,103 +76,38 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Akhil P Oommen <quic_akhilpo@quicinc.com>, Sean Paul <sean@poorly.run>,
- linux-arm-msm@vger.kernel.org, Konrad Dybcio <konrad.dybcio@somainline.org>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Nathan Chancellor <nathan@kernel.org>,
- Rob Clark <robdclark@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- Ricardo Ribalda <ribalda@chromium.org>,
- "Joel Fernandes \(Google\)" <joel@joelfernandes.org>,
- David Airlie <airlied@gmail.com>
+Cc: dianders@chromium.org, dri-devel@lists.freedesktop.org,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, robdclark@gmail.com,
+ seanpaul@chromium.org, dmitry.baryshkov@linaro.org, swboyd@chromium.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 10/03/2023 00:20, Jordan Crouse wrote:
-> While booting with amd,imageon on a headless target the GPU probe was
-> failing with -ENOSPC in get_pages() from msm_gem.c.
-> 
-> Investigation showed that the driver was using the default 16MB VRAM
-> carveout because msm_use_mmu() was returning false since headless devices
-> use a dummy parent device. Avoid this by extending the existing is_a2xx
-> priv member to check the GPU IOMMU state on all platforms and use that
-> check in msm_use_mmu().
+While validating the DPU wide planes series [1], some issues were seen
+so decided to send this out in a separate series.
 
-I wonder if we can fix this by setting 'dummy_dev'->of_node to adreno's 
-of_node. Did you check that possibility?
+Changes include compilation fixes, critical bug fixes and cleanups.
 
-> 
-> This works for memory allocations but it doesn't prevent the VRAM carveout
-> from being created because that happens before we have a chance to check
-> the GPU IOMMU state in adreno_bind.
-> 
-> There are a number of possible options to resolve this but none of them are
-> very clean. The easiest way is to likely specify vram=0 as module parameter
-> on headless devices so that the memory doesn't get wasted.
-> 
-> Signed-off-by: Jordan Crouse <jorcrous@amazon.com>
-> ---
-> 
->   drivers/gpu/drm/msm/adreno/adreno_device.c | 6 +++++-
->   drivers/gpu/drm/msm/msm_drv.c              | 7 +++----
->   drivers/gpu/drm/msm/msm_drv.h              | 2 +-
->   3 files changed, 9 insertions(+), 6 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/msm/adreno/adreno_device.c b/drivers/gpu/drm/msm/adreno/adreno_device.c
-> index 36f062c7582f..4f19da28f80f 100644
-> --- a/drivers/gpu/drm/msm/adreno/adreno_device.c
-> +++ b/drivers/gpu/drm/msm/adreno/adreno_device.c
-> @@ -539,7 +539,11 @@ static int adreno_bind(struct device *dev, struct device *master, void *data)
->   	DBG("Found GPU: %u.%u.%u.%u", config.rev.core, config.rev.major,
->   		config.rev.minor, config.rev.patchid);
->   
-> -	priv->is_a2xx = config.rev.core == 2;
-> +	/*
-> +	 * A2xx has a built in IOMMU and all other IOMMU enabled targets will
-> +	 * have an ARM IOMMU attached
-> +	 */
-> +	priv->has_gpu_iommu = config.rev.core == 2 || device_iommu_mapped(dev);
->   	priv->has_cached_coherent = config.rev.core >= 6;
->   
->   	gpu = info->init(drm);
-> diff --git a/drivers/gpu/drm/msm/msm_drv.c b/drivers/gpu/drm/msm/msm_drv.c
-> index aca48c868c14..a125a351ec90 100644
-> --- a/drivers/gpu/drm/msm/msm_drv.c
-> +++ b/drivers/gpu/drm/msm/msm_drv.c
-> @@ -318,11 +318,10 @@ bool msm_use_mmu(struct drm_device *dev)
->   	struct msm_drm_private *priv = dev->dev_private;
->   
->   	/*
-> -	 * a2xx comes with its own MMU
-> -	 * On other platforms IOMMU can be declared specified either for the
-> -	 * MDP/DPU device or for its parent, MDSS device.
-> +	 * Return true if the GPU or the MDP/DPU or parent MDSS device has an
-> +	 * IOMMU
->   	 */
-> -	return priv->is_a2xx ||
-> +	return priv->has_gpu_iommu ||
->   		device_iommu_mapped(dev->dev) ||
->   		device_iommu_mapped(dev->dev->parent);
+These can easily be absorbed into that series as well but for the sake
+of having a clean series and also to have a placeholder to push anymore
+fixes/cleanups while I continue to validate , sending this out separately.
 
-It is not a problem of you patch, of course, but this check now looks 
-strange to me. We mix the GPU check and MDP/DPU checks. Consider msm8x60 
-(a220, mdp4) and, for example, no system level MMU.
+With this, wide planes works on basic homescreen and some of the testing
+done on sc7280. While I continue the validation and find more issues, will
+continue sending out more revisions to this series.
 
->   }
-> diff --git a/drivers/gpu/drm/msm/msm_drv.h b/drivers/gpu/drm/msm/msm_drv.h
-> index 9f0c184b02a0..f33f94acd1b9 100644
-> --- a/drivers/gpu/drm/msm/msm_drv.h
-> +++ b/drivers/gpu/drm/msm/msm_drv.h
-> @@ -126,7 +126,7 @@ struct msm_drm_private {
->   	struct msm_gpu *gpu;
->   
->   	/* gpu is only set on open(), but we need this info earlier */
-> -	bool is_a2xx;
-> +	bool has_gpu_iommu;
->   	bool has_cached_coherent;
->   
->   	struct drm_fb_helper *fbdev;
+[1]: https://patchwork.freedesktop.org/series/99909/
+
+Abhinav Kumar (4):
+  drm/msm/dpu: avoid checking uninitialized plane format
+  drm/msm/dpu: remove unused dpu_plane_validate_multirect_v2 function
+  drm/msm/dpu: call _dpu_crtc_blend_setup_pipe for r_pipe
+  drm/msm/dpu: log the multirect_index in _dpu_crtc_blend_setup_pipe
+
+ drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c  |   7 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c | 115 +-----------------------------
+ drivers/gpu/drm/msm/disp/dpu1/dpu_plane.h |   7 --
+ 3 files changed, 6 insertions(+), 123 deletions(-)
 
 -- 
-With best wishes
-Dmitry
+2.7.4
 
