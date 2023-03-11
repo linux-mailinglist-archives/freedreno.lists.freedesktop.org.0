@@ -2,62 +2,63 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id C265B6B4EED
-	for <lists+freedreno@lfdr.de>; Fri, 10 Mar 2023 18:38:35 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 55FB26B5F58
+	for <lists+freedreno@lfdr.de>; Sat, 11 Mar 2023 18:48:08 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C70E110E30B;
-	Fri, 10 Mar 2023 17:38:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A2CB510E117;
+	Sat, 11 Mar 2023 17:48:06 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-oi1-x22f.google.com (mail-oi1-x22f.google.com
- [IPv6:2607:f8b0:4864:20::22f])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A70D810E2FF;
- Fri, 10 Mar 2023 17:38:30 +0000 (UTC)
-Received: by mail-oi1-x22f.google.com with SMTP id bj30so4813192oib.6;
- Fri, 10 Mar 2023 09:38:30 -0800 (PST)
+Received: from mail-pj1-x1033.google.com (mail-pj1-x1033.google.com
+ [IPv6:2607:f8b0:4864:20::1033])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C4B4A10E29A;
+ Sat, 11 Mar 2023 17:28:29 +0000 (UTC)
+Received: by mail-pj1-x1033.google.com with SMTP id
+ cp7-20020a17090afb8700b0023756229427so13033347pjb.1; 
+ Sat, 11 Mar 2023 09:28:29 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20210112; t=1678469910;
+ d=gmail.com; s=20210112; t=1678555709;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=IsOaKf3a4jZHrbik3Jd7qbDgnpqS0mM6+x0lu8IoHfM=;
- b=pjkdNpNmt+ALlrJrHctUkhawmSaFrE2Be37KvOgtI9iz4GCFVXVY87aRwdtVMH+rpu
- fJunVMhRYDIwNCorEZ9lHSDFyI8ohk7ZPO9jdbCfgTbUEp/OShCEvP2bnnwWfU4t/UZ+
- F9zqdmkfotow9b0NdVq/IpOfPEr9xt7QuydItnh1gVxwdqP2OReJo898JV+2ayHrr3rQ
- Npb+E0ol5xi5nDs94aQKMEoGzaw9rr56dP09XOzogtpYLOlw4kFLdX3B+JnXEPpuO4Fy
- glKtOkJltX83HJax73YyRqB7UEOhw1E2fLWB/Aw47hX9Rrlm05o0TAJJ/cD4gfFXfIX8
- IQ+g==
+ bh=XmU4ESJ3ztA7xNGY+SEa56dN2TSyXA0lMi/v4OIwD1I=;
+ b=JXcHIOC78sz5CPRCbbwxAxM3tZL1zwyyupxj1KqFwKFhCjN1VmCw/SiBRQsJwSnv/8
+ UpzkvEiaSQr6yY1pq1TAw9VeS23eEG9IEB09+OxQgJMtUElKeqY/c5FIUySSkd2uKRQc
+ aqseNmzl7ukXXUNbWF2O+MosvI4qdIKMsXuAWcyOUscCNGDe42/8P6NK/M9aq4IfBa50
+ CeLA95ZN5AihpYScWG7yjORZRsN2hNgugFyp28ND10IamhcsifpOM6gmjPtRWSHp//Xb
+ g1Y36TyksK8/2jTRXGirbgTiIKDinMdgOLvCLQO+AJEheSNELdU1DWB5h6ORbl9PSuCU
+ 76bQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112; t=1678469910;
+ d=1e100.net; s=20210112; t=1678555709;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=IsOaKf3a4jZHrbik3Jd7qbDgnpqS0mM6+x0lu8IoHfM=;
- b=uNw2Pqu2iiA9iOmkxzeSKKOzY7HI7PV/Rboveeu81Xa+5B3BzoIdLPd5sDHiZmSGEG
- 4tU4pRB4dQQmUu9JuTRyCLVnw08C3T4zKFNNjmsLAaP5UYTFV9oncURfIv4WOCWKV0s3
- fGNaHzkkuzGnOxL1y8+YZ8Cu2pUzJZJh5F/sMwcmubTax5kUXkY7k/MPPcZedjOGoB0m
- Rr1FrTzAda3TOIDH002nKIjRc9BKkXs7luHfULCOPKwq+w1wHcij13ly+uK4AcIZ9ItY
- GVjBpCEXSXuaeObOVuRIFEZjsh1ND9lffoBYIR5k4CEDOfSP78VCpJaaEIfUb2wlLSIW
- DSkQ==
-X-Gm-Message-State: AO0yUKUBMGff/JSaZiHMRaQfTC3EOO1b/NqyQ/lr7gLu6BxBsguTT+cv
- tCtZTKGC/9SSw/6jA5CLhtfVelCKvi+tzCTlEOQ=
-X-Google-Smtp-Source: AK7set80Va96YaUkueCKeimiOQ/Nf2+CqzU5px/wg2FuCZZCw9TM3btgVcDxhyt0C8qXiFNfx/s0JhtJXkhdAdISJd8=
-X-Received: by 2002:a54:4501:0:b0:383:f933:98ae with SMTP id
- l1-20020a544501000000b00383f93398aemr8811212oil.3.1678469909709; Fri, 10 Mar
- 2023 09:38:29 -0800 (PST)
+ bh=XmU4ESJ3ztA7xNGY+SEa56dN2TSyXA0lMi/v4OIwD1I=;
+ b=MTE/xiNaMTJ0dclmkDUgef7G9HpWYO2Xj2/6116CargQZUAQrOEIoSXq3cENEd217n
+ VAac53wuwVuOb0+Z15RiGl2NSl9sHV3/TCXVQxqIh9szIi8YWaiadIwAPJj7nVoKWne3
+ GHBbdAL1lt2ZMf2BPphDkHrNk2A+fRFNmvEQEfnb9cYn0rerSWCDBQY4c1Ks8EYQdjxG
+ 82afEPo1BAyub9YNDMdi9bP98QES7/1TQn7V9rUBSr/MTQXE1ZKHbIjKQXCy3jlB0yDd
+ JQ0A9zC3CzoIUzPPNwtJ3kcYqSxO2xk6xt7pL3fM539PU3fmDqBLTQQfEL5sNQdznRwp
+ MWOg==
+X-Gm-Message-State: AO0yUKUUqY4FoIdSCAA3h0MniNPjA5hHgtlFSxQIoRriTERD9/LU2Tjs
+ 5fGtZmOivb7tXGIzzPMxlQmz0ws5eyS3LbAkh+I=
+X-Google-Smtp-Source: AK7set+FKPoRkJA7Mw9UmGP4A/o2Nb7lHa0WtPPokjHMqfx7FJGA6yJMhit37DawGES2/smlgHG12F/HbDy7omgHmHw=
+X-Received: by 2002:a17:90a:bf10:b0:237:cd62:66f7 with SMTP id
+ c16-20020a17090abf1000b00237cd6266f7mr10754539pjs.6.1678555708933; Sat, 11
+ Mar 2023 09:28:28 -0800 (PST)
 MIME-Version: 1.0
-References: <20230308155322.344664-1-robdclark@gmail.com>
- <20230308155322.344664-2-robdclark@gmail.com>
- <ZAtQspuFjPtGy7ze@gmail.com>
-In-Reply-To: <ZAtQspuFjPtGy7ze@gmail.com>
-From: Rob Clark <robdclark@gmail.com>
-Date: Fri, 10 Mar 2023 09:38:18 -0800
-Message-ID: <CAF6AEGsGOr5+Q10wX=5ttrWCSUJfn7gzHW8QhxFC0GDLgagMHg@mail.gmail.com>
-To: =?UTF-8?B?Sm9uYXMgw4VkYWhs?= <jadahl@gmail.com>
+References: <1665522649-3423-1-git-send-email-quic_abhinavk@quicinc.com>
+ <CAG3jFyshznjN8OnFA61OAp1iCydOkAp5EDmu-+44rexDOmx64A@mail.gmail.com>
+In-Reply-To: <CAG3jFyshznjN8OnFA61OAp1iCydOkAp5EDmu-+44rexDOmx64A@mail.gmail.com>
+From: Adam Ford <aford173@gmail.com>
+Date: Sat, 11 Mar 2023 11:28:17 -0600
+Message-ID: <CAHCN7xLHiP-L2jRWs0aRG5Rz0q1ez0UiFg4keJeBz-6OhiDp_A@mail.gmail.com>
+To: Robert Foss <robert.foss@linaro.org>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-Subject: Re: [Freedreno] [PATCH v10 01/15] dma-buf/dma-fence: Add deadline
- awareness
+X-Mailman-Approved-At: Sat, 11 Mar 2023 17:48:05 +0000
+Subject: Re: [Freedreno] [PATCH v2] drm/bridge: adv7533: remove dynamic lane
+ switching from adv7533 bridge
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,309 +71,274 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rob Clark <robdclark@chromium.org>,
- Pekka Paalanen <pekka.paalanen@collabora.com>,
- Jonathan Corbet <corbet@lwn.net>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>,
- intel-gfx@lists.freedesktop.org,
- "open list:DOCUMENTATION" <linux-doc@vger.kernel.org>,
- open list <linux-kernel@vger.kernel.org>, dri-devel@lists.freedesktop.org,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- "moderated list:DMA BUFFER SHARING FRAMEWORK" <linaro-mm-sig@lists.linaro.org>,
- Luben Tuikov <luben.tuikov@amd.com>, Bagas Sanjaya <bagasdotme@gmail.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, Gustavo Padovan <gustavo@padovan.org>,
- Matt Turner <mattst88@gmail.com>, freedreno@lists.freedesktop.org,
- Sumit Semwal <sumit.semwal@linaro.org>,
- "open list:DMA BUFFER SHARING FRAMEWORK" <linux-media@vger.kernel.org>
+Cc: Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
+ swboyd@chromium.org, seanpaul@chromium.org, laurent.pinchart@ideasonboard.com,
+ dmitry.baryshkov@linaro.org, quic_jesszhan@quicinc.com,
+ quic_khsieh@quicinc.com, freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Fri, Mar 10, 2023 at 7:45=E2=80=AFAM Jonas =C3=85dahl <jadahl@gmail.com>=
- wrote:
+On Thu, Oct 13, 2022 at 3:39=E2=80=AFAM Robert Foss <robert.foss@linaro.org=
+> wrote:
 >
-> On Wed, Mar 08, 2023 at 07:52:52AM -0800, Rob Clark wrote:
-> > From: Rob Clark <robdclark@chromium.org>
+> On Tue, 11 Oct 2022 at 23:11, Abhinav Kumar <quic_abhinavk@quicinc.com> w=
+rote:
 > >
-> > Add a way to hint to the fence signaler of an upcoming deadline, such a=
-s
-> > vblank, which the fence waiter would prefer not to miss.  This is to ai=
-d
-> > the fence signaler in making power management decisions, like boosting
-> > frequency as the deadline approaches and awareness of missing deadlines
-> > so that can be factored in to the frequency scaling.
+> > adv7533 bridge tries to dynamically switch lanes based on the
+> > mode by detaching and attaching the mipi dsi device.
 > >
-> > v2: Drop dma_fence::deadline and related logic to filter duplicate
-> >     deadlines, to avoid increasing dma_fence size.  The fence-context
-> >     implementation will need similar logic to track deadlines of all
-> >     the fences on the same timeline.  [ckoenig]
-> > v3: Clarify locking wrt. set_deadline callback
-> > v4: Clarify in docs comment that this is a hint
-> > v5: Drop DMA_FENCE_FLAG_HAS_DEADLINE_BIT.
-> > v6: More docs
-> > v7: Fix typo, clarify past deadlines
+> > This approach is incorrect because this method of dynamic switch of
+> > detaching and attaching the mipi dsi device also results in removing
+> > and adding the component which is not necessary.
 > >
-> > Signed-off-by: Rob Clark <robdclark@chromium.org>
-> > Reviewed-by: Christian K=C3=B6nig <christian.koenig@amd.com>
-> > Acked-by: Pekka Paalanen <pekka.paalanen@collabora.com>
-> > Reviewed-by: Bagas Sanjaya <bagasdotme@gmail.com>
+> > This approach is also prone to deadlocks. So for example, on the
+> > db410c whenever this path is executed with lockdep enabled,
+> > this results in a deadlock due to below ordering of locks.
+> >
+> > -> #1 (crtc_ww_class_acquire){+.+.}-{0:0}:
+> >         lock_acquire+0x6c/0x90
+> >         drm_modeset_acquire_init+0xf4/0x150
+> >         drmm_mode_config_init+0x220/0x770
+> >         msm_drm_bind+0x13c/0x654
+> >         try_to_bring_up_aggregate_device+0x164/0x1d0
+> >         __component_add+0xa8/0x174
+> >         component_add+0x18/0x2c
+> >         dsi_dev_attach+0x24/0x30
+> >         dsi_host_attach+0x98/0x14c
+> >         devm_mipi_dsi_attach+0x38/0xb0
+> >         adv7533_attach_dsi+0x8c/0x110
+> >         adv7511_probe+0x5a0/0x930
+> >         i2c_device_probe+0x30c/0x350
+> >         really_probe.part.0+0x9c/0x2b0
+> >         __driver_probe_device+0x98/0x144
+> >         driver_probe_device+0xac/0x14c
+> >         __device_attach_driver+0xbc/0x124
+> >         bus_for_each_drv+0x78/0xd0
+> >         __device_attach+0xa8/0x1c0
+> >         device_initial_probe+0x18/0x24
+> >         bus_probe_device+0xa0/0xac
+> >         deferred_probe_work_func+0x90/0xd0
+> >         process_one_work+0x28c/0x6b0
+> >         worker_thread+0x240/0x444
+> >         kthread+0x110/0x114
+> >         ret_from_fork+0x10/0x20
+> >
+> > -> #0 (component_mutex){+.+.}-{3:3}:
+> >         __lock_acquire+0x1280/0x20ac
+> >         lock_acquire.part.0+0xe0/0x230
+> >         lock_acquire+0x6c/0x90
+> >         __mutex_lock+0x84/0x400
+> >         mutex_lock_nested+0x3c/0x70
+> >         component_del+0x34/0x170
+> >         dsi_dev_detach+0x24/0x30
+> >         dsi_host_detach+0x20/0x64
+> >         mipi_dsi_detach+0x2c/0x40
+> >         adv7533_mode_set+0x64/0x90
+> >         adv7511_bridge_mode_set+0x210/0x214
+> >         drm_bridge_chain_mode_set+0x5c/0x84
+> >         crtc_set_mode+0x18c/0x1dc
+> >         drm_atomic_helper_commit_modeset_disables+0x40/0x50
+> >         msm_atomic_commit_tail+0x1d0/0x6e0
+> >         commit_tail+0xa4/0x180
+> >         drm_atomic_helper_commit+0x178/0x3b0
+> >         drm_atomic_commit+0xa4/0xe0
+> >         drm_client_modeset_commit_atomic+0x228/0x284
+> >         drm_client_modeset_commit_locked+0x64/0x1d0
+> >         drm_client_modeset_commit+0x34/0x60
+> >         drm_fb_helper_lastclose+0x74/0xcc
+> >         drm_lastclose+0x3c/0x80
+> >         drm_release+0xfc/0x114
+> >         __fput+0x70/0x224
+> >         ____fput+0x14/0x20
+> >         task_work_run+0x88/0x1a0
+> >         do_exit+0x350/0xa50
+> >         do_group_exit+0x38/0xa4
+> >         __wake_up_parent+0x0/0x34
+> >         invoke_syscall+0x48/0x114
+> >         el0_svc_common.constprop.0+0x60/0x11c
+> >         do_el0_svc+0x30/0xc0
+> >         el0_svc+0x58/0x100
+> >         el0t_64_sync_handler+0x1b0/0x1bc
+> >         el0t_64_sync+0x18c/0x190
+> >
+> > Due to above reasons, remove the dynamic lane switching
+> > code from adv7533 bridge chip and filter out the modes
+> > which would need different number of lanes as compared
+> > to the initialization time using the mode_valid callback.
+> >
+> > This can be potentially re-introduced by using the pre_enable()
+> > callback but this needs to be evaluated first whether such an
+> > approach will work so this will be done with a separate change.
+> >
+> > changes since RFC:
+> >         - Fix commit text and add TODO comment
+> >
+> > changes in v2:
+> >         - Fix checkpatch formatting errors
+> >
+> > Fixes: 62b2f026cd8e ("drm/bridge: adv7533: Change number of DSI lanes d=
+ynamically")
+> > Closes: https://gitlab.freedesktop.org/drm/msm/-/issues/16
+> > Suggested-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> > Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
+> > Reviewed-by: Robert Foss <robert.foss@linaro.org>
+> > Link: https://lore.kernel.org/r/1661797363-7564-1-git-send-email-quic_a=
+bhinavk@quicinc.com
 > > ---
->
-> Hi Rob!
->
-> >  Documentation/driver-api/dma-buf.rst |  6 +++
-> >  drivers/dma-buf/dma-fence.c          | 59 ++++++++++++++++++++++++++++
-> >  include/linux/dma-fence.h            | 22 +++++++++++
-> >  3 files changed, 87 insertions(+)
+> >  drivers/gpu/drm/bridge/adv7511/adv7511.h     |  3 ++-
+> >  drivers/gpu/drm/bridge/adv7511/adv7511_drv.c | 18 ++++++++++++++----
+> >  drivers/gpu/drm/bridge/adv7511/adv7533.c     | 25 +++++++++++++-------=
+-----
+> >  3 files changed, 29 insertions(+), 17 deletions(-)
 > >
-> > diff --git a/Documentation/driver-api/dma-buf.rst b/Documentation/drive=
-r-api/dma-buf.rst
-> > index 622b8156d212..183e480d8cea 100644
-> > --- a/Documentation/driver-api/dma-buf.rst
-> > +++ b/Documentation/driver-api/dma-buf.rst
-> > @@ -164,6 +164,12 @@ DMA Fence Signalling Annotations
-> >  .. kernel-doc:: drivers/dma-buf/dma-fence.c
-> >     :doc: fence signalling annotation
+> > diff --git a/drivers/gpu/drm/bridge/adv7511/adv7511.h b/drivers/gpu/drm=
+/bridge/adv7511/adv7511.h
+> > index a031a0cd1f18..1053d185b24c 100644
+> > --- a/drivers/gpu/drm/bridge/adv7511/adv7511.h
+> > +++ b/drivers/gpu/drm/bridge/adv7511/adv7511.h
+> > @@ -405,7 +405,8 @@ static inline int adv7511_cec_init(struct device *d=
+ev, struct adv7511 *adv7511)
 > >
-> > +DMA Fence Deadline Hints
-> > +~~~~~~~~~~~~~~~~~~~~~~~~
-> > +
-> > +.. kernel-doc:: drivers/dma-buf/dma-fence.c
-> > +   :doc: deadline hints
-> > +
-> >  DMA Fences Functions Reference
-> >  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-> >
-> > diff --git a/drivers/dma-buf/dma-fence.c b/drivers/dma-buf/dma-fence.c
-> > index 0de0482cd36e..f177c56269bb 100644
-> > --- a/drivers/dma-buf/dma-fence.c
-> > +++ b/drivers/dma-buf/dma-fence.c
-> > @@ -912,6 +912,65 @@ dma_fence_wait_any_timeout(struct dma_fence **fenc=
-es, uint32_t count,
+> >  void adv7533_dsi_power_on(struct adv7511 *adv);
+> >  void adv7533_dsi_power_off(struct adv7511 *adv);
+> > -void adv7533_mode_set(struct adv7511 *adv, const struct drm_display_mo=
+de *mode);
+> > +enum drm_mode_status adv7533_mode_valid(struct adv7511 *adv,
+> > +                                       const struct drm_display_mode *=
+mode);
+> >  int adv7533_patch_registers(struct adv7511 *adv);
+> >  int adv7533_patch_cec_registers(struct adv7511 *adv);
+> >  int adv7533_attach_dsi(struct adv7511 *adv);
+> > diff --git a/drivers/gpu/drm/bridge/adv7511/adv7511_drv.c b/drivers/gpu=
+/drm/bridge/adv7511/adv7511_drv.c
+> > index 38bf28720f3a..4bc7aac94a16 100644
+> > --- a/drivers/gpu/drm/bridge/adv7511/adv7511_drv.c
+> > +++ b/drivers/gpu/drm/bridge/adv7511/adv7511_drv.c
+> > @@ -697,7 +697,7 @@ adv7511_detect(struct adv7511 *adv7511, struct drm_=
+connector *connector)
 > >  }
-> >  EXPORT_SYMBOL(dma_fence_wait_any_timeout);
 > >
-> > +/**
-> > + * DOC: deadline hints
-> > + *
-> > + * In an ideal world, it would be possible to pipeline a workload suff=
-iciently
-> > + * that a utilization based device frequency governor could arrive at =
-a minimum
-> > + * frequency that meets the requirements of the use-case, in order to =
-minimize
-> > + * power consumption.  But in the real world there are many workloads =
-which
-> > + * defy this ideal.  For example, but not limited to:
-> > + *
-> > + * * Workloads that ping-pong between device and CPU, with alternating=
- periods
-> > + *   of CPU waiting for device, and device waiting on CPU.  This can r=
-esult in
-> > + *   devfreq and cpufreq seeing idle time in their respective domains =
-and in
-> > + *   result reduce frequency.
-> > + *
-> > + * * Workloads that interact with a periodic time based deadline, such=
- as double
-> > + *   buffered GPU rendering vs vblank sync'd page flipping.  In this s=
-cenario,
-> > + *   missing a vblank deadline results in an *increase* in idle time o=
-n the GPU
-> > + *   (since it has to wait an additional vblank period), sending a sig=
-nal to
-> > + *   the GPU's devfreq to reduce frequency, when in fact the opposite =
-is what is
-> > + *   needed.
->
-> This is the use case I'd like to get some better understanding about how
-> this series intends to work, as the problematic scheduling behavior
-> triggered by missed deadlines has plagued compositing display servers
-> for a long time.
->
-> I apologize, I'm not a GPU driver developer, nor an OpenGL driver
-> developer, so I will need some hand holding when it comes to
-> understanding exactly what piece of software is responsible for
-> communicating what piece of information.
->
-> > + *
-> > + * To this end, deadline hint(s) can be set on a &dma_fence via &dma_f=
-ence_set_deadline.
-> > + * The deadline hint provides a way for the waiting driver, or userspa=
-ce, to
-> > + * convey an appropriate sense of urgency to the signaling driver.
-> > + *
-> > + * A deadline hint is given in absolute ktime (CLOCK_MONOTONIC for use=
-rspace
-> > + * facing APIs).  The time could either be some point in the future (s=
-uch as
-> > + * the vblank based deadline for page-flipping, or the start of a comp=
-ositor's
-> > + * composition cycle), or the current time to indicate an immediate de=
-adline
-> > + * hint (Ie. forward progress cannot be made until this fence is signa=
-led).
->
-> Is it guaranteed that a GPU driver will use the actual start of the
-> vblank as the effective deadline? I have some memories of seing
-> something about vblank evasion browsing driver code, which I might have
-> misunderstood, but I have yet to find whether this is something
-> userspace can actually expect to be something it can rely on.
-
-I guess you mean s/GPU driver/display driver/ ?  It makes things more
-clear if we talk about them separately even if they happen to be the
-same device.
-
-Assuming that is what you mean, nothing strongly defines what the
-deadline is.  In practice there is probably some buffering in the
-display controller.  For ex, block based (including bandwidth
-compressed) formats, you need to buffer up a row of blocks to
-efficiently linearize for scanout.  So you probably need to latch some
-time before you start sending pixel data to the display.  But details
-like this are heavily implementation dependent.  I think the most
-reasonable thing to target is start of vblank.
-
-Also, keep in mind the deadline hint is just that.  It won't magically
-make the GPU finish by that deadline, but it gives the GPU driver
-information about lateness so it can realize if it needs to clock up.
-
-> Can userspace set a deadline that targets the next vblank deadline
-> before GPU work has been flushed e.g. at the start of a paint cycle, and
-> still be sure that the kernel has the information it needs to know it sho=
-uld
-> make its clocks increase their speed in time for when the actual work
-> has been actually flushed? Or is it needed that the this deadline is set
-> at the end?
-
-You need a fence to set the deadline, and for that work needs to be
-flushed.  But you can't associate a deadline with work that the kernel
-is unaware of anyways.
-
-> What I'm more or less trying to ask is, will a mode setting compositor
-> be able to tell the kernel to boost its clocks at the time it knows is
-> best, and how will it in practice achieve this?
-
-The anticipated usage for a compositor is that, when you receive a
-<buf, fence> pair from an app, you immediately set a deadline for
-upcoming start-of-vblank on the fence fd passed from the app.  (Or for
-implicit sync you can use DMA_BUF_IOCTL_EXPORT_SYNC_FILE).  For the
-composite step, no need to set a deadline as this is already done on
-the kernel side in drm_atomic_helper_wait_for_fences().
-
-> For example relying on the atomic mode setting commit setting the
-> deadline is fundamentally flawed, since user space will at times want to
-> purposefully delay committing until as late as possible, without doing
-> so causing an increased risk of missing the deadline due to the kernel
-> not speeding up clocks at the right time for GPU work that has already
-> been flushed long ago.
-
-Right, this is the point for exposing the ioctl to userspace.
-
-> Relying on commits also has no effect on GPU work queued by
-> a compositor drawing only to dma-bufs that are never intended to be
-> presented using mode setting. How can we make sure a compositor can
-> provide hints that the kernel will know to respect despite the
-> compositor not being drm master?
-
-It doesn't matter if there are indirect dependencies.  Even if the
-compositor completely ignores deadline hints and fancy tricks like
-delaying composite decisions, the indirect dependency (app rendering)
-will delay the direct dependency (compositor rendering) of the page
-flip.  So the driver will still see whether it is late or early
-compared to the deadline, allowing it to adjust freq in the
-appropriate direction for the next frame.
-
-BR,
--R
-
->
-> Jonas
->
-> > + *
-> > + * Multiple deadlines may be set on a given fence, even in parallel.  =
-See the
-> > + * documentation for &dma_fence_ops.set_deadline.
-> > + *
-> > + * The deadline hint is just that, a hint.  The driver that created th=
-e fence
-> > + * may react by increasing frequency, making different scheduling choi=
-ces, etc.
-> > + * Or doing nothing at all.
-> > + */
-> > +
-> > +/**
-> > + * dma_fence_set_deadline - set desired fence-wait deadline hint
-> > + * @fence:    the fence that is to be waited on
-> > + * @deadline: the time by which the waiter hopes for the fence to be
-> > + *            signaled
-> > + *
-> > + * Give the fence signaler a hint about an upcoming deadline, such as
-> > + * vblank, by which point the waiter would prefer the fence to be
-> > + * signaled by.  This is intended to give feedback to the fence signal=
-er
-> > + * to aid in power management decisions, such as boosting GPU frequenc=
-y
-> > + * if a periodic vblank deadline is approaching but the fence is not
-> > + * yet signaled..
-> > + */
-> > +void dma_fence_set_deadline(struct dma_fence *fence, ktime_t deadline)
-> > +{
-> > +     if (fence->ops->set_deadline && !dma_fence_is_signaled(fence))
-> > +             fence->ops->set_deadline(fence, deadline);
-> > +}
-> > +EXPORT_SYMBOL(dma_fence_set_deadline);
-> > +
-> >  /**
-> >   * dma_fence_describe - Dump fence describtion into seq_file
-> >   * @fence: the 6fence to describe
-> > diff --git a/include/linux/dma-fence.h b/include/linux/dma-fence.h
-> > index 775cdc0b4f24..d54b595a0fe0 100644
-> > --- a/include/linux/dma-fence.h
-> > +++ b/include/linux/dma-fence.h
-> > @@ -257,6 +257,26 @@ struct dma_fence_ops {
-> >        */
-> >       void (*timeline_value_str)(struct dma_fence *fence,
-> >                                  char *str, int size);
-> > +
-> > +     /**
-> > +      * @set_deadline:
-> > +      *
-> > +      * Callback to allow a fence waiter to inform the fence signaler =
-of
-> > +      * an upcoming deadline, such as vblank, by which point the waite=
-r
-> > +      * would prefer the fence to be signaled by.  This is intended to
-> > +      * give feedback to the fence signaler to aid in power management
-> > +      * decisions, such as boosting GPU frequency.
-> > +      *
-> > +      * This is called without &dma_fence.lock held, it can be called
-> > +      * multiple times and from any context.  Locking is up to the cal=
-lee
-> > +      * if it has some state to manage.  If multiple deadlines are set=
+> >  static enum drm_mode_status adv7511_mode_valid(struct adv7511 *adv7511=
 ,
-> > +      * the expectation is to track the soonest one.  If the deadline =
-is
-> > +      * before the current time, it should be interpreted as an immedi=
-ate
-> > +      * deadline.
-> > +      *
-> > +      * This callback is optional.
-> > +      */
-> > +     void (*set_deadline)(struct dma_fence *fence, ktime_t deadline);
-> >  };
+> > -                             struct drm_display_mode *mode)
+> > +                             const struct drm_display_mode *mode)
+> >  {
+> >         if (mode->clock > 165000)
+> >                 return MODE_CLOCK_HIGH;
+> > @@ -791,9 +791,6 @@ static void adv7511_mode_set(struct adv7511 *adv751=
+1,
+> >         regmap_update_bits(adv7511->regmap, 0x17,
+> >                 0x60, (vsync_polarity << 6) | (hsync_polarity << 5));
 > >
-> >  void dma_fence_init(struct dma_fence *fence, const struct dma_fence_op=
-s *ops,
-> > @@ -583,6 +603,8 @@ static inline signed long dma_fence_wait(struct dma=
-_fence *fence, bool intr)
-> >       return ret < 0 ? ret : 0;
+> > -       if (adv7511->type =3D=3D ADV7533 || adv7511->type =3D=3D ADV753=
+5)
+> > -               adv7533_mode_set(adv7511, adj_mode);
+> > -
+> >         drm_mode_copy(&adv7511->curr_mode, adj_mode);
+> >
+> >         /*
+> > @@ -913,6 +910,18 @@ static void adv7511_bridge_mode_set(struct drm_bri=
+dge *bridge,
+> >         adv7511_mode_set(adv, mode, adj_mode);
 > >  }
 > >
-> > +void dma_fence_set_deadline(struct dma_fence *fence, ktime_t deadline)=
-;
+> > +static enum drm_mode_status adv7511_bridge_mode_valid(struct drm_bridg=
+e *bridge,
+> > +                                                     const struct drm_=
+display_info *info,
+> > +               const struct drm_display_mode *mode)
+> > +{
+> > +       struct adv7511 *adv =3D bridge_to_adv7511(bridge);
 > > +
-> >  struct dma_fence *dma_fence_get_stub(void);
-> >  struct dma_fence *dma_fence_allocate_private_stub(void);
-> >  u64 dma_fence_context_alloc(unsigned num);
-> > --
-> > 2.39.2
+> > +       if (adv->type =3D=3D ADV7533 || adv->type =3D=3D ADV7535)
+> > +               return adv7533_mode_valid(adv, mode);
+> > +       else
+> > +               return adv7511_mode_valid(adv, mode);
+> > +}
+> > +
+> >  static int adv7511_bridge_attach(struct drm_bridge *bridge,
+> >                                  enum drm_bridge_attach_flags flags)
+> >  {
+> > @@ -960,6 +969,7 @@ static const struct drm_bridge_funcs adv7511_bridge=
+_funcs =3D {
+> >         .enable =3D adv7511_bridge_enable,
+> >         .disable =3D adv7511_bridge_disable,
+> >         .mode_set =3D adv7511_bridge_mode_set,
+> > +       .mode_valid =3D adv7511_bridge_mode_valid,
+> >         .attach =3D adv7511_bridge_attach,
+> >         .detect =3D adv7511_bridge_detect,
+> >         .get_edid =3D adv7511_bridge_get_edid,
+> > diff --git a/drivers/gpu/drm/bridge/adv7511/adv7533.c b/drivers/gpu/drm=
+/bridge/adv7511/adv7533.c
+> > index ef6270806d1d..258c79d4dab0 100644
+> > --- a/drivers/gpu/drm/bridge/adv7511/adv7533.c
+> > +++ b/drivers/gpu/drm/bridge/adv7511/adv7533.c
+> > @@ -100,26 +100,27 @@ void adv7533_dsi_power_off(struct adv7511 *adv)
+> >         regmap_write(adv->regmap_cec, 0x27, 0x0b);
+> >  }
 > >
+> > -void adv7533_mode_set(struct adv7511 *adv, const struct drm_display_mo=
+de *mode)
+> > +enum drm_mode_status adv7533_mode_valid(struct adv7511 *adv,
+> > +                                       const struct drm_display_mode *=
+mode)
+> >  {
+> > +       int lanes;
+> >         struct mipi_dsi_device *dsi =3D adv->dsi;
+> > -       int lanes, ret;
+> > -
+> > -       if (adv->num_dsi_lanes !=3D 4)
+> > -               return;
+> >
+> >         if (mode->clock > 80000)
+> >                 lanes =3D 4;
+> >         else
+> >                 lanes =3D 3;
+
+I know this thread is a bit old, but I have an i.MX8M Mini with an
+adv7535 HDMI bridge, and I'm able to display video on a 4-lane
+interface with a clock as low as 27000.
+
+> >
+> > -       if (lanes !=3D dsi->lanes) {
+> > -               mipi_dsi_detach(dsi);
+> > -               dsi->lanes =3D lanes;
+> > -               ret =3D mipi_dsi_attach(dsi);
+> > -               if (ret)
+> > -                       dev_err(&dsi->dev, "failed to change host lanes=
+\n");
+> > -       }
+> > +       /*
+> > +        * TODO: add support for dynamic switching of lanes
+> > +        * by using the bridge pre_enable() op . Till then filter
+> > +        * out the modes which shall need different number of lanes
+> > +        * than what was configured in the device tree.
+> > +        */
+> > +       if (lanes !=3D dsi->lanes)
+> > +               return MODE_BAD;
+> > +
+
+My board doesn't currently support dynamic switching, but I'd like to
+keep 4-lanes all the time.  However, this return eliminates several
+resolutions that I can successfully display.
+I'd like to eliminate this error, so it works on the imx8m
+mini/nano/plus, but I am not sure the best approach without breaking
+someone else's board.
+
+I was thinking I could add a flag to disable dynamic switching.  If
+that flag is set, we'd return MODE_OK here.
+
+Does anyone have any suggestions on an apporach?
+
+adam
+
+
+> > +       return MODE_OK;
+> >  }
+> >
+> >  int adv7533_patch_registers(struct adv7511 *adv)
+> > --
+> > 2.7.4
+> >
+>
+> Applied to drm-misc-next.
