@@ -2,35 +2,36 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 82F3F6B864E
-	for <lists+freedreno@lfdr.de>; Tue, 14 Mar 2023 00:51:16 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D5C746B8667
+	for <lists+freedreno@lfdr.de>; Tue, 14 Mar 2023 00:55:56 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4F82E10E668;
-	Mon, 13 Mar 2023 23:51:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A31EC10E67A;
+	Mon, 13 Mar 2023 23:55:55 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from relay04.th.seeweb.it (relay04.th.seeweb.it [5.144.164.165])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6B41A10E665
- for <freedreno@lists.freedesktop.org>; Mon, 13 Mar 2023 23:51:13 +0000 (UTC)
+Received: from relay03.th.seeweb.it (relay03.th.seeweb.it
+ [IPv6:2001:4b7a:2000:18::164])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6C5FD10E67D
+ for <freedreno@lists.freedesktop.org>; Mon, 13 Mar 2023 23:55:54 +0000 (UTC)
 Received: from SoMainline.org (94-211-6-86.cable.dynamic.v4.ziggo.nl
  [94.211.6.86])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest
  SHA256) (No client certificate requested)
- by m-r1.th.seeweb.it (Postfix) with ESMTPSA id EF0DB202FA;
- Tue, 14 Mar 2023 00:51:10 +0100 (CET)
-Date: Tue, 14 Mar 2023 00:51:09 +0100
+ by m-r1.th.seeweb.it (Postfix) with ESMTPSA id 0577F2013B;
+ Tue, 14 Mar 2023 00:55:51 +0100 (CET)
+Date: Tue, 14 Mar 2023 00:55:50 +0100
 From: Marijn Suijten <marijn.suijten@somainline.org>
 To: Konrad Dybcio <konrad.dybcio@linaro.org>
-Message-ID: <20230313235109.u7cpusjr6t2xyxmk@SoMainline.org>
+Message-ID: <20230313235550.zo243m5qn23yadey@SoMainline.org>
 References: <20230307-topic-dsi_qcm-v3-0-8bd7e1add38a@linaro.org>
- <20230307-topic-dsi_qcm-v3-3-8bd7e1add38a@linaro.org>
+ <20230307-topic-dsi_qcm-v3-4-8bd7e1add38a@linaro.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20230307-topic-dsi_qcm-v3-3-8bd7e1add38a@linaro.org>
-Subject: Re: [Freedreno] [PATCH v3 03/10] drm/msm/dsi: Fix DSI index
- detection when version clash occurs
+In-Reply-To: <20230307-topic-dsi_qcm-v3-4-8bd7e1add38a@linaro.org>
+Subject: Re: [Freedreno] [PATCH v3 04/10] drm/msm/dsi: dsi_cfg: Deduplicate
+ identical structs
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,246 +59,182 @@ Cc: Rob Herring <robh@kernel.org>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 2023-03-07 14:01:41, Konrad Dybcio wrote:
-> Currently, we allow for MAX_DSI entries in io_start to facilitate for
-> MAX_DSI number of DSI hosts at different addresses. The configuration
-> is matched against the DSI CTRL hardware revision read back from the
-> component. We need a way to resolve situations where multiple SoCs
-> with different register maps may use the same version of DSI CTRL. In
-> preparation to do so, make msm_dsi_config a 2d array where each entry
-> represents a set of configurations adequate for a given SoC.
-
-Note that this code isn't fool-proof against different SoCs sharing the
-same DSI host address but for different indices (for example, the
-address at variant 0 DSI 0 could be the same as variant 1 DSI 1) and the
-matching logic would wrongly return ID 0 instead of 1 for SoC variant 1,
-because that's the first matching address it finds.
-
-> This is totally fine to do, as the only differentiating factors
-> between same-version-different-SoCs configurations are the number of
-> DSI hosts (1 or 2, at least as of today) and the set of base registers.
-> The regulator setup is the same, because the DSI hardware is the same,
-> regardless of the SoC it was implemented in.
+On 2023-03-07 14:01:42, Konrad Dybcio wrote:
+> Some structs were defined multiple times for no apparent reason.
+> Deduplicate them.
 > 
-> In addition to that, update the matching logic such that it will loop
-> over VARIANTS_MAX variants, making sure they are all taken into account.
-
-"in addition to that" makes it sound like you're doing a separate new
-thing in this patch, when the match logic must in fact be updated to
-make it compatible with the change described above (as in, it doesn't
-compile if you don't account for the extra depth in the array).
-
 > Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 > Signed-off-by: Konrad Dybcio <konrad.dybcio@linaro.org>
 
-Regardless of the above, I don't think it's a problem right now and I
-really like the direction this is headed in: miles better than having a
-single distinct SoC with a separate way (compatible) of selecting the
-host DSI CTRL, rather than the hw revision readback.
+Seems a bit inconsistent to name some of these with their DSI host
+revision, and keep some named after the SoC.  Also in the name of
+msm_dsi_config.  Regardless:
 
 Reviewed-by: Marijn Suijten <marijn.suijten@somainline.org>
 
 > ---
->  drivers/gpu/drm/msm/dsi/dsi_cfg.c  | 52 ++++++++++++++++++++++++++++----------
->  drivers/gpu/drm/msm/dsi/dsi_cfg.h  |  5 +++-
->  drivers/gpu/drm/msm/dsi/dsi_host.c | 10 ++++----
->  3 files changed, 48 insertions(+), 19 deletions(-)
+>  drivers/gpu/drm/msm/dsi/dsi_cfg.c | 77 +++++++++++++--------------------------
+>  1 file changed, 26 insertions(+), 51 deletions(-)
 > 
 > diff --git a/drivers/gpu/drm/msm/dsi/dsi_cfg.c b/drivers/gpu/drm/msm/dsi/dsi_cfg.c
-> index 4515f52b407a..6c192963c100 100644
+> index 6c192963c100..d39521850018 100644
 > --- a/drivers/gpu/drm/msm/dsi/dsi_cfg.c
 > +++ b/drivers/gpu/drm/msm/dsi/dsi_cfg.c
-> @@ -21,7 +21,9 @@ static const struct msm_dsi_config apq8064_dsi_cfg = {
->  	.num_regulators = ARRAY_SIZE(apq8064_dsi_regulators),
->  	.bus_clk_names = dsi_v2_bus_clk_names,
->  	.num_bus_clks = ARRAY_SIZE(dsi_v2_bus_clk_names),
-> -	.io_start = { 0x4700000, 0x5800000 },
-> +	.io_start = {
-> +		{ 0x4700000, 0x5800000 },
-> +	},
+> @@ -47,41 +47,32 @@ static const struct msm_dsi_config msm8974_apq8084_dsi_cfg = {
+>  	},
 >  };
 >  
->  static const char * const dsi_6g_bus_clk_names[] = {
-> @@ -40,7 +42,9 @@ static const struct msm_dsi_config msm8974_apq8084_dsi_cfg = {
->  	.num_regulators = ARRAY_SIZE(msm8974_apq8084_regulators),
->  	.bus_clk_names = dsi_6g_bus_clk_names,
->  	.num_bus_clks = ARRAY_SIZE(dsi_6g_bus_clk_names),
-> -	.io_start = { 0xfd922800, 0xfd922b00 },
-> +	.io_start = {
-> +		{ 0xfd922800, 0xfd922b00 },
-> +	},
+> -static const char * const dsi_8916_bus_clk_names[] = {
+> +static const char * const dsi_v1_3_1_clk_names[] = {
+>  	"mdp_core", "iface", "bus",
 >  };
 >  
->  static const char * const dsi_8916_bus_clk_names[] = {
-> @@ -58,7 +62,9 @@ static const struct msm_dsi_config msm8916_dsi_cfg = {
->  	.num_regulators = ARRAY_SIZE(msm8916_dsi_regulators),
->  	.bus_clk_names = dsi_8916_bus_clk_names,
->  	.num_bus_clks = ARRAY_SIZE(dsi_8916_bus_clk_names),
-> -	.io_start = { 0x1a98000 },
-> +	.io_start = {
-> +		{ 0x1a98000 },
-> +	},
+> -static const struct regulator_bulk_data msm8916_dsi_regulators[] = {
+> +static const struct regulator_bulk_data dsi_v1_3_1_regulators[] = {
+>  	{ .supply = "vdda", .init_load_uA = 100000 },	/* 1.2 V */
+>  	{ .supply = "vddio", .init_load_uA = 100000 },	/* 1.8 V */
 >  };
 >  
->  static const char * const dsi_8976_bus_clk_names[] = {
-> @@ -76,7 +82,9 @@ static const struct msm_dsi_config msm8976_dsi_cfg = {
->  	.num_regulators = ARRAY_SIZE(msm8976_dsi_regulators),
->  	.bus_clk_names = dsi_8976_bus_clk_names,
->  	.num_bus_clks = ARRAY_SIZE(dsi_8976_bus_clk_names),
-> -	.io_start = { 0x1a94000, 0x1a96000 },
-> +	.io_start = {
-> +		{ 0x1a94000, 0x1a96000 },
-> +	},
+>  static const struct msm_dsi_config msm8916_dsi_cfg = {
+>  	.io_offset = DSI_6G_REG_SHIFT,
+> -	.regulator_data = msm8916_dsi_regulators,
+> -	.num_regulators = ARRAY_SIZE(msm8916_dsi_regulators),
+> -	.bus_clk_names = dsi_8916_bus_clk_names,
+> -	.num_bus_clks = ARRAY_SIZE(dsi_8916_bus_clk_names),
+> +	.regulator_data = dsi_v1_3_1_regulators,
+> +	.num_regulators = ARRAY_SIZE(dsi_v1_3_1_regulators),
+> +	.bus_clk_names = dsi_v1_3_1_clk_names,
+> +	.num_bus_clks = ARRAY_SIZE(dsi_v1_3_1_clk_names),
+>  	.io_start = {
+>  		{ 0x1a98000 },
+>  	},
 >  };
 >  
->  static const struct regulator_bulk_data msm8994_dsi_regulators[] = {
-> @@ -94,7 +102,9 @@ static const struct msm_dsi_config msm8994_dsi_cfg = {
->  	.num_regulators = ARRAY_SIZE(msm8994_dsi_regulators),
->  	.bus_clk_names = dsi_6g_bus_clk_names,
->  	.num_bus_clks = ARRAY_SIZE(dsi_6g_bus_clk_names),
-> -	.io_start = { 0xfd998000, 0xfd9a0000 },
-> +	.io_start = {
-> +		{ 0xfd998000, 0xfd9a0000 },
-> +	},
+> -static const char * const dsi_8976_bus_clk_names[] = {
+> -	"mdp_core", "iface", "bus",
+> -};
+> -
+> -static const struct regulator_bulk_data msm8976_dsi_regulators[] = {
+> -	{ .supply = "vdda", .init_load_uA = 100000 },	/* 1.2 V */
+> -	{ .supply = "vddio", .init_load_uA = 100000 },	/* 1.8 V */
+> -};
+> -
+>  static const struct msm_dsi_config msm8976_dsi_cfg = {
+>  	.io_offset = DSI_6G_REG_SHIFT,
+> -	.regulator_data = msm8976_dsi_regulators,
+> -	.num_regulators = ARRAY_SIZE(msm8976_dsi_regulators),
+> -	.bus_clk_names = dsi_8976_bus_clk_names,
+> -	.num_bus_clks = ARRAY_SIZE(dsi_8976_bus_clk_names),
+> +	.regulator_data = dsi_v1_3_1_regulators,
+> +	.num_regulators = ARRAY_SIZE(dsi_v1_3_1_regulators),
+> +	.bus_clk_names = dsi_v1_3_1_clk_names,
+> +	.num_bus_clks = ARRAY_SIZE(dsi_v1_3_1_clk_names),
+>  	.io_start = {
+>  		{ 0x1a94000, 0x1a96000 },
+>  	},
+> @@ -107,10 +98,6 @@ static const struct msm_dsi_config msm8994_dsi_cfg = {
+>  	},
 >  };
 >  
->  static const char * const dsi_8996_bus_clk_names[] = {
-> @@ -113,7 +123,9 @@ static const struct msm_dsi_config msm8996_dsi_cfg = {
+> -static const char * const dsi_8996_bus_clk_names[] = {
+> -	"mdp_core", "iface", "bus", "core_mmss",
+> -};
+> -
+>  static const struct regulator_bulk_data msm8996_dsi_regulators[] = {
+>  	{ .supply = "vdda", .init_load_uA = 18160 },	/* 1.25 V */
+>  	{ .supply = "vcca", .init_load_uA = 17000 },	/* 0.925 V */
+> @@ -121,8 +108,8 @@ static const struct msm_dsi_config msm8996_dsi_cfg = {
+>  	.io_offset = DSI_6G_REG_SHIFT,
+>  	.regulator_data = msm8996_dsi_regulators,
 >  	.num_regulators = ARRAY_SIZE(msm8996_dsi_regulators),
->  	.bus_clk_names = dsi_8996_bus_clk_names,
->  	.num_bus_clks = ARRAY_SIZE(dsi_8996_bus_clk_names),
-> -	.io_start = { 0x994000, 0x996000 },
-> +	.io_start = {
-> +		{ 0x994000, 0x996000 },
-> +	},
+> -	.bus_clk_names = dsi_8996_bus_clk_names,
+> -	.num_bus_clks = ARRAY_SIZE(dsi_8996_bus_clk_names),
+> +	.bus_clk_names = dsi_6g_bus_clk_names,
+> +	.num_bus_clks = ARRAY_SIZE(dsi_6g_bus_clk_names),
+>  	.io_start = {
+>  		{ 0x994000, 0x996000 },
+>  	},
+> @@ -167,24 +154,20 @@ static const struct msm_dsi_config sdm660_dsi_cfg = {
+>  	},
 >  };
 >  
->  static const char * const dsi_msm8998_bus_clk_names[] = {
-> @@ -131,7 +143,9 @@ static const struct msm_dsi_config msm8998_dsi_cfg = {
->  	.num_regulators = ARRAY_SIZE(msm8998_dsi_regulators),
->  	.bus_clk_names = dsi_msm8998_bus_clk_names,
->  	.num_bus_clks = ARRAY_SIZE(dsi_msm8998_bus_clk_names),
-> -	.io_start = { 0xc994000, 0xc996000 },
-> +	.io_start = {
-> +		{ 0xc994000, 0xc996000 },
-> +	},
+> -static const char * const dsi_sdm845_bus_clk_names[] = {
+> +static const char * const dsi_v2_4_clk_names[] = {
+>  	"iface", "bus",
 >  };
 >  
->  static const char * const dsi_sdm660_bus_clk_names[] = {
-> @@ -148,7 +162,9 @@ static const struct msm_dsi_config sdm660_dsi_cfg = {
->  	.num_regulators = ARRAY_SIZE(sdm660_dsi_regulators),
->  	.bus_clk_names = dsi_sdm660_bus_clk_names,
->  	.num_bus_clks = ARRAY_SIZE(dsi_sdm660_bus_clk_names),
-> -	.io_start = { 0xc994000, 0xc996000 },
-> +	.io_start = {
-> +		{ 0xc994000, 0xc996000 },
-> +	},
+> -static const char * const dsi_sc7180_bus_clk_names[] = {
+> -	"iface", "bus",
+> -};
+> -
+> -static const struct regulator_bulk_data sdm845_dsi_regulators[] = {
+> +static const struct regulator_bulk_data dsi_v2_4_regulators[] = {
+>  	{ .supply = "vdda", .init_load_uA = 21800 },	/* 1.2 V */
 >  };
 >  
->  static const char * const dsi_sdm845_bus_clk_names[] = {
-> @@ -169,7 +185,9 @@ static const struct msm_dsi_config sdm845_dsi_cfg = {
->  	.num_regulators = ARRAY_SIZE(sdm845_dsi_regulators),
->  	.bus_clk_names = dsi_sdm845_bus_clk_names,
->  	.num_bus_clks = ARRAY_SIZE(dsi_sdm845_bus_clk_names),
-> -	.io_start = { 0xae94000, 0xae96000 },
-> +	.io_start = {
-> +		{ 0xae94000, 0xae96000 },
-> +	},
->  };
->  
->  static const struct regulator_bulk_data sm8550_dsi_regulators[] = {
-> @@ -182,7 +200,9 @@ static const struct msm_dsi_config sm8550_dsi_cfg = {
+>  static const struct msm_dsi_config sdm845_dsi_cfg = {
+>  	.io_offset = DSI_6G_REG_SHIFT,
+> -	.regulator_data = sdm845_dsi_regulators,
+> -	.num_regulators = ARRAY_SIZE(sdm845_dsi_regulators),
+> -	.bus_clk_names = dsi_sdm845_bus_clk_names,
+> -	.num_bus_clks = ARRAY_SIZE(dsi_sdm845_bus_clk_names),
+> +	.regulator_data = dsi_v2_4_regulators,
+> +	.num_regulators = ARRAY_SIZE(dsi_v2_4_regulators),
+> +	.bus_clk_names = dsi_v2_4_clk_names,
+> +	.num_bus_clks = ARRAY_SIZE(dsi_v2_4_clk_names),
+>  	.io_start = {
+>  		{ 0xae94000, 0xae96000 },
+>  	},
+> @@ -198,32 +181,24 @@ static const struct msm_dsi_config sm8550_dsi_cfg = {
+>  	.io_offset = DSI_6G_REG_SHIFT,
+>  	.regulator_data = sm8550_dsi_regulators,
 >  	.num_regulators = ARRAY_SIZE(sm8550_dsi_regulators),
->  	.bus_clk_names = dsi_sdm845_bus_clk_names,
->  	.num_bus_clks = ARRAY_SIZE(dsi_sdm845_bus_clk_names),
-> -	.io_start = { 0xae94000, 0xae96000 },
-> +	.io_start = {
-> +		{ 0xae94000, 0xae96000 },
-> +	},
+> -	.bus_clk_names = dsi_sdm845_bus_clk_names,
+> -	.num_bus_clks = ARRAY_SIZE(dsi_sdm845_bus_clk_names),
+> +	.bus_clk_names = dsi_v2_4_clk_names,
+> +	.num_bus_clks = ARRAY_SIZE(dsi_v2_4_clk_names),
+>  	.io_start = {
+>  		{ 0xae94000, 0xae96000 },
+>  	},
 >  };
 >  
->  static const struct regulator_bulk_data sc7180_dsi_regulators[] = {
-> @@ -195,7 +215,9 @@ static const struct msm_dsi_config sc7180_dsi_cfg = {
->  	.num_regulators = ARRAY_SIZE(sc7180_dsi_regulators),
->  	.bus_clk_names = dsi_sc7180_bus_clk_names,
->  	.num_bus_clks = ARRAY_SIZE(dsi_sc7180_bus_clk_names),
-> -	.io_start = { 0xae94000 },
-> +	.io_start = {
-> +		{ 0xae94000 },
-> +	},
+> -static const struct regulator_bulk_data sc7180_dsi_regulators[] = {
+> -	{ .supply = "vdda", .init_load_uA = 21800 },	/* 1.2 V */
+> -};
+> -
+>  static const struct msm_dsi_config sc7180_dsi_cfg = {
+>  	.io_offset = DSI_6G_REG_SHIFT,
+> -	.regulator_data = sc7180_dsi_regulators,
+> -	.num_regulators = ARRAY_SIZE(sc7180_dsi_regulators),
+> -	.bus_clk_names = dsi_sc7180_bus_clk_names,
+> -	.num_bus_clks = ARRAY_SIZE(dsi_sc7180_bus_clk_names),
+> +	.regulator_data = dsi_v2_4_regulators,
+> +	.num_regulators = ARRAY_SIZE(dsi_v2_4_regulators),
+> +	.bus_clk_names = dsi_v2_4_clk_names,
+> +	.num_bus_clks = ARRAY_SIZE(dsi_v2_4_clk_names),
+>  	.io_start = {
+>  		{ 0xae94000 },
+>  	},
 >  };
 >  
->  static const char * const dsi_sc7280_bus_clk_names[] = {
-> @@ -212,7 +234,9 @@ static const struct msm_dsi_config sc7280_dsi_cfg = {
+> -static const char * const dsi_sc7280_bus_clk_names[] = {
+> -	"iface", "bus",
+> -};
+> -
+>  static const struct regulator_bulk_data sc7280_dsi_regulators[] = {
+>  	{ .supply = "vdda", .init_load_uA = 8350 },	/* 1.2 V */
+>  };
+> @@ -232,8 +207,8 @@ static const struct msm_dsi_config sc7280_dsi_cfg = {
+>  	.io_offset = DSI_6G_REG_SHIFT,
+>  	.regulator_data = sc7280_dsi_regulators,
 >  	.num_regulators = ARRAY_SIZE(sc7280_dsi_regulators),
->  	.bus_clk_names = dsi_sc7280_bus_clk_names,
->  	.num_bus_clks = ARRAY_SIZE(dsi_sc7280_bus_clk_names),
-> -	.io_start = { 0xae94000, 0xae96000 },
-> +	.io_start = {
-> +		{ 0xae94000, 0xae96000 },
-> +	},
->  };
->  
->  static const char * const dsi_qcm2290_bus_clk_names[] = {
-> @@ -229,7 +253,9 @@ static const struct msm_dsi_config qcm2290_dsi_cfg = {
->  	.num_regulators = ARRAY_SIZE(qcm2290_dsi_cfg_regulators),
->  	.bus_clk_names = dsi_qcm2290_bus_clk_names,
->  	.num_bus_clks = ARRAY_SIZE(dsi_qcm2290_bus_clk_names),
-> -	.io_start = { 0x5e94000 },
-> +	.io_start = {
-> +		{ 0x5e94000 },
-> +	},
->  };
->  
->  static const struct msm_dsi_host_cfg_ops msm_dsi_v2_host_ops = {
-> diff --git a/drivers/gpu/drm/msm/dsi/dsi_cfg.h b/drivers/gpu/drm/msm/dsi/dsi_cfg.h
-> index 6b6b16c5fd25..8772a3631ac1 100644
-> --- a/drivers/gpu/drm/msm/dsi/dsi_cfg.h
-> +++ b/drivers/gpu/drm/msm/dsi/dsi_cfg.h
-> @@ -32,13 +32,16 @@
->  
->  #define DSI_6G_REG_SHIFT	4
->  
-> +/* Maximum number of configurations matched against the same hw revision */
-> +#define VARIANTS_MAX			2
-> +
->  struct msm_dsi_config {
->  	u32 io_offset;
->  	const struct regulator_bulk_data *regulator_data;
->  	int num_regulators;
->  	const char * const *bus_clk_names;
->  	const int num_bus_clks;
-> -	const resource_size_t io_start[DSI_MAX];
-> +	const resource_size_t io_start[VARIANTS_MAX][DSI_MAX];
->  };
->  
->  struct msm_dsi_host_cfg_ops {
-> diff --git a/drivers/gpu/drm/msm/dsi/dsi_host.c b/drivers/gpu/drm/msm/dsi/dsi_host.c
-> index 9021f0d65515..9cfb9e91bfea 100644
-> --- a/drivers/gpu/drm/msm/dsi/dsi_host.c
-> +++ b/drivers/gpu/drm/msm/dsi/dsi_host.c
-> @@ -1862,16 +1862,16 @@ static int dsi_host_get_id(struct msm_dsi_host *msm_host)
->  	struct platform_device *pdev = msm_host->pdev;
->  	const struct msm_dsi_config *cfg = msm_host->cfg_hnd->cfg;
->  	struct resource *res;
-> -	int i;
-> +	int i, j;
->  
->  	res = platform_get_resource_byname(pdev, IORESOURCE_MEM, "dsi_ctrl");
->  	if (!res)
->  		return -EINVAL;
->  
-> -	for (i = 0; i < DSI_MAX; i++) {
-> -		if (cfg->io_start[i] == res->start)
-> -			return i;
-> -	}
-> +	for (i = 0; i < VARIANTS_MAX; i++)
-> +		for (j = 0; j < DSI_MAX; j++)
-> +			if (cfg->io_start[i][j] == res->start)
-> +				return j;
->  
->  	return -EINVAL;
->  }
+> -	.bus_clk_names = dsi_sc7280_bus_clk_names,
+> -	.num_bus_clks = ARRAY_SIZE(dsi_sc7280_bus_clk_names),
+> +	.bus_clk_names = dsi_v2_4_clk_names,
+> +	.num_bus_clks = ARRAY_SIZE(dsi_v2_4_clk_names),
+>  	.io_start = {
+>  		{ 0xae94000, 0xae96000 },
+>  	},
 > 
 > -- 
 > 2.39.2
