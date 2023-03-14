@@ -2,66 +2,66 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id A4CE16B99AE
-	for <lists+freedreno@lfdr.de>; Tue, 14 Mar 2023 16:36:45 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4CC586B99B2
+	for <lists+freedreno@lfdr.de>; Tue, 14 Mar 2023 16:36:48 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6E24610EAC0;
-	Tue, 14 Mar 2023 15:36:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 766AB10EAC8;
+	Tue, 14 Mar 2023 15:36:20 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-x22c.google.com (mail-lj1-x22c.google.com
- [IPv6:2a00:1450:4864:20::22c])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 34C0210EAAB
+Received: from mail-lj1-x22e.google.com (mail-lj1-x22e.google.com
+ [IPv6:2a00:1450:4864:20::22e])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D789210EAB5
  for <freedreno@lists.freedesktop.org>; Tue, 14 Mar 2023 15:36:08 +0000 (UTC)
-Received: by mail-lj1-x22c.google.com with SMTP id z42so16398478ljq.13
+Received: by mail-lj1-x22e.google.com with SMTP id i20so16424486lja.11
  for <freedreno@lists.freedesktop.org>; Tue, 14 Mar 2023 08:36:08 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1678808167;
+ d=linaro.org; s=google; t=1678808168;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=aEd53pRitmksoY7VkZU7ktA54Q36GJy+bm03pjYtpTI=;
- b=jE3fDfGl77XTbIiD2uHNz84r5joHJXlCNYmvwx+ezYCBAkJ1+KkI5/lREESQD9B/uf
- YYgBTHH9KUHbuOOpPMYe9O2idmRsQ3kJaCPE/dK/ktR3khVNPfUR/QIkQFR1m/U6Rv1A
- RqV7LUw6cuyyazkd32WCYHgAxuU7AEPp8uaIS/T8fiMKibRINoH9vpHx62WTEcwtpIzF
- cYT+ABgwhCswAxhWxM9Lzn/WwnxopIB77fs6JvgI8ABBcwabtXLXr/BWcCp9ZxBxQXvs
- VMS4x2mZ4GrqZuNowzU8CJX1pl7X28H6PDZToGm0PiBbkSc5afnF337n4RERt4giy1oc
- 3Zsw==
+ bh=BYmqhVUp4BKDlEVSRtGpM8bjg8A0Sbg6UZGPpwrptW0=;
+ b=etSSu2orcHYcj00YrL1N1JUxBF+cUdBAhFMPMt1pKkhVy5EFWJVLYuxQeQ7EIIE2A1
+ Q0kxgLHduENRm0SAo5mL0YK/yPzzfaL4czehJpZUdPi9oHI8d2EkrMRWJkj0Dvq9BDfu
+ IJGDZ6wB2Y6stUCL0hlVy5KP+nrlnIx6QT3rnTtpCfZwWfXOlqydKgJP7otgiZwaNOwI
+ vwXGCScDoh9PFWwRAQP20K/HlJ05KoshchjdoqKTbjnk8bZqzygFsaBSntfMruuk2L5k
+ 2Hu/GehfqTSlWn8AcyBndSnDL4W0kyGVUWU/2x1yCmHecIx4asXjBp3gWQvN4Nipj4gb
+ yUZw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112; t=1678808167;
+ d=1e100.net; s=20210112; t=1678808168;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=aEd53pRitmksoY7VkZU7ktA54Q36GJy+bm03pjYtpTI=;
- b=jCCq9cczafvUe79jH+ttZ6h/s4/97WiC+hvnFRGoCzLkDuaArm3C2RyxQseIn2w+U8
- UOxWhzJBlfw6OawQieomBHUwzwNFJAxr8raaAnoL3wCkngXjW293i9FsNcNZyJjmFS8W
- dVASGl04CdKOhwc+0kDG/+JBMe4EtCJNjxpBlyijY48vfs5cTVjoGDvtqlg50iGjgbWH
- n0jtzSlFSwmNqDo/edKBFDkqp+MvVc2Vt0t8KyBTGr7K4HydFDobVDx/ULYmJ6yoXNka
- 93xaq6/QVqOmKODzvkVZ/ix5q3sLvQcu6uwdi7QD4wiYcxnd0IDr3bDqy6BM6ENEGqev
- kLNg==
-X-Gm-Message-State: AO0yUKVrSieEzLpMxVbd2TkjxZjB9WlTrWZi8PAeuxwHYiBUnvVJg0P4
- 1Rfzzf7hK+DJTFGop1/QfyIofg==
-X-Google-Smtp-Source: AK7set/30VYq5LL0TNzcZ2NScoBi5a3Iwdrh1iB0jvqH+dQwIzybpVlWcf5RzlBewWTW9B/RNuSvVQ==
-X-Received: by 2002:a2e:9cd9:0:b0:298:a7f4:850f with SMTP id
- g25-20020a2e9cd9000000b00298a7f4850fmr392517ljj.27.1678808167778; 
- Tue, 14 Mar 2023 08:36:07 -0700 (PDT)
+ bh=BYmqhVUp4BKDlEVSRtGpM8bjg8A0Sbg6UZGPpwrptW0=;
+ b=mnB3/tQcZcahUHl0ZuS68sgzoKIlutfSIPVP7yTJ+wBjVLu1DYSOWJqaavMbIk9Y6L
+ bi5VtoDDYnQfn5ZD9hOHsgvbB3UkPBtI5KFoqiVOGrS6zIq43VQrYeUVBKdULLnMMu+x
+ j5wZFSzOvRKh3y9j0dZyM1uCM6CyHK9EVsAI+KecH7RL1lXPutyf5QrnJPaMZrCa8GwJ
+ Ck7mbpJJnegC/rCGabeFz8DRFQR15pMGL30soTt5kWgClDmjJxUnCCqqsPoFRR4z8Ys1
+ bNHxvQ0Ecq09ZHeiL6/5XefzUql/kST654jnCw7PzIBoWJHF2WhLqQN5GB/7OwMvCq5/
+ d70w==
+X-Gm-Message-State: AO0yUKXKPNWYbH9kgkWoUiN9blro7VC/4bUHUQkkqUdEA0bMv46s7SNu
+ 3G80yfmPMNwqERwFgJDbNA0Zug==
+X-Google-Smtp-Source: AK7set9hINwwmK44/ShtL9sE5Oy8+rdHptMNXVBob1NItm8gVzDrNmHOD9bZjvEBlG60rnvbjfUuWg==
+X-Received: by 2002:a2e:a443:0:b0:295:9517:b98f with SMTP id
+ v3-20020a2ea443000000b002959517b98fmr3993358ljn.15.1678808168458; 
+ Tue, 14 Mar 2023 08:36:08 -0700 (PDT)
 Received: from umbar.unikie.fi ([192.130.178.91])
  by smtp.gmail.com with ESMTPSA id
  z8-20020a2eb528000000b0029573844d03sm470854ljm.109.2023.03.14.08.36.07
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 14 Mar 2023 08:36:07 -0700 (PDT)
+ Tue, 14 Mar 2023 08:36:08 -0700 (PDT)
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 To: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
  Abhinav Kumar <quic_abhinavk@quicinc.com>
-Date: Tue, 14 Mar 2023 18:35:43 +0300
-Message-Id: <20230314153545.3442879-31-dmitry.baryshkov@linaro.org>
+Date: Tue, 14 Mar 2023 18:35:44 +0300
+Message-Id: <20230314153545.3442879-32-dmitry.baryshkov@linaro.org>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <20230314153545.3442879-1-dmitry.baryshkov@linaro.org>
 References: <20230314153545.3442879-1-dmitry.baryshkov@linaro.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH v6 30/32] drm/msm/dpu: drop smart_dma_rev from
- dpu_caps
+Subject: [Freedreno] [PATCH v6 31/32] drm/msm/dpu: log the multirect_index
+ in _dpu_crtc_blend_setup_pipe
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,145 +81,37 @@ Cc: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-The code doesn't use dpu_caps::smart_dma_rev field. It checks if the
-corresponding feature is enabled in the SSPP features. Drop the
-smart_dma_rev field completely.
+From: Abhinav Kumar <quic_abhinavk@quicinc.com>
 
-Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
+Lets print the multirect_index as well in _dpu_crtc_blend_setup_pipe()
+as it will give the complete information of the sw_pipe as well.
+
+Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
 Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 ---
- drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c | 13 -------------
- drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h |  2 --
- 2 files changed, 15 deletions(-)
+ drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
-index 443a300df92d..50c302d1d17b 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
-@@ -306,7 +306,6 @@ static const struct dpu_caps msm8998_dpu_caps = {
- 	.max_mixer_width = DEFAULT_DPU_OUTPUT_LINE_WIDTH,
- 	.max_mixer_blendstages = 0x7,
- 	.qseed_type = DPU_SSPP_SCALER_QSEED3,
--	.smart_dma_rev = DPU_SSPP_SMART_DMA_V1,
- 	.ubwc_version = DPU_HW_UBWC_VER_10,
- 	.has_src_split = true,
- 	.has_dim_layer = true,
-@@ -321,7 +320,6 @@ static const struct dpu_caps msm8998_dpu_caps = {
- static const struct dpu_caps qcm2290_dpu_caps = {
- 	.max_mixer_width = DEFAULT_DPU_LINE_WIDTH,
- 	.max_mixer_blendstages = 0x4,
--	.smart_dma_rev = DPU_SSPP_SMART_DMA_V2,
- 	.has_dim_layer = true,
- 	.has_idle_pc = true,
- 	.max_linewidth = 2160,
-@@ -332,7 +330,6 @@ static const struct dpu_caps sdm845_dpu_caps = {
- 	.max_mixer_width = DEFAULT_DPU_OUTPUT_LINE_WIDTH,
- 	.max_mixer_blendstages = 0xb,
- 	.qseed_type = DPU_SSPP_SCALER_QSEED3,
--	.smart_dma_rev = DPU_SSPP_SMART_DMA_V2,
- 	.ubwc_version = DPU_HW_UBWC_VER_20,
- 	.has_src_split = true,
- 	.has_dim_layer = true,
-@@ -348,7 +345,6 @@ static const struct dpu_caps sc7180_dpu_caps = {
- 	.max_mixer_width = DEFAULT_DPU_OUTPUT_LINE_WIDTH,
- 	.max_mixer_blendstages = 0x9,
- 	.qseed_type = DPU_SSPP_SCALER_QSEED4,
--	.smart_dma_rev = DPU_SSPP_SMART_DMA_V2,
- 	.ubwc_version = DPU_HW_UBWC_VER_20,
- 	.has_dim_layer = true,
- 	.has_idle_pc = true,
-@@ -360,7 +356,6 @@ static const struct dpu_caps sm6115_dpu_caps = {
- 	.max_mixer_width = DEFAULT_DPU_LINE_WIDTH,
- 	.max_mixer_blendstages = 0x4,
- 	.qseed_type = DPU_SSPP_SCALER_QSEED4,
--	.smart_dma_rev = DPU_SSPP_SMART_DMA_V2, /* TODO: v2.5 */
- 	.ubwc_version = DPU_HW_UBWC_VER_10,
- 	.has_dim_layer = true,
- 	.has_idle_pc = true,
-@@ -372,7 +367,6 @@ static const struct dpu_caps sm8150_dpu_caps = {
- 	.max_mixer_width = DEFAULT_DPU_OUTPUT_LINE_WIDTH,
- 	.max_mixer_blendstages = 0xb,
- 	.qseed_type = DPU_SSPP_SCALER_QSEED3,
--	.smart_dma_rev = DPU_SSPP_SMART_DMA_V2, /* TODO: v2.5 */
- 	.ubwc_version = DPU_HW_UBWC_VER_30,
- 	.has_src_split = true,
- 	.has_dim_layer = true,
-@@ -388,7 +382,6 @@ static const struct dpu_caps sc8180x_dpu_caps = {
- 	.max_mixer_width = DEFAULT_DPU_OUTPUT_LINE_WIDTH,
- 	.max_mixer_blendstages = 0xb,
- 	.qseed_type = DPU_SSPP_SCALER_QSEED3,
--	.smart_dma_rev = DPU_SSPP_SMART_DMA_V2, /* TODO: v2.5 */
- 	.ubwc_version = DPU_HW_UBWC_VER_30,
- 	.has_src_split = true,
- 	.has_dim_layer = true,
-@@ -404,7 +397,6 @@ static const struct dpu_caps sc8280xp_dpu_caps = {
- 	.max_mixer_width = 2560,
- 	.max_mixer_blendstages = 11,
- 	.qseed_type = DPU_SSPP_SCALER_QSEED4,
--	.smart_dma_rev = DPU_SSPP_SMART_DMA_V2, /* TODO: v2.5 */
- 	.ubwc_version = DPU_HW_UBWC_VER_40,
- 	.has_src_split = true,
- 	.has_dim_layer = true,
-@@ -418,7 +410,6 @@ static const struct dpu_caps sm8250_dpu_caps = {
- 	.max_mixer_width = DEFAULT_DPU_OUTPUT_LINE_WIDTH,
- 	.max_mixer_blendstages = 0xb,
- 	.qseed_type = DPU_SSPP_SCALER_QSEED4,
--	.smart_dma_rev = DPU_SSPP_SMART_DMA_V2, /* TODO: v2.5 */
- 	.ubwc_version = DPU_HW_UBWC_VER_40,
- 	.has_src_split = true,
- 	.has_dim_layer = true,
-@@ -432,7 +423,6 @@ static const struct dpu_caps sm8350_dpu_caps = {
- 	.max_mixer_width = DEFAULT_DPU_OUTPUT_LINE_WIDTH,
- 	.max_mixer_blendstages = 0xb,
- 	.qseed_type = DPU_SSPP_SCALER_QSEED4,
--	.smart_dma_rev = DPU_SSPP_SMART_DMA_V2, /* TODO: v2.5 */
- 	.ubwc_version = DPU_HW_UBWC_VER_40,
- 	.has_src_split = true,
- 	.has_dim_layer = true,
-@@ -446,7 +436,6 @@ static const struct dpu_caps sm8450_dpu_caps = {
- 	.max_mixer_width = DEFAULT_DPU_OUTPUT_LINE_WIDTH,
- 	.max_mixer_blendstages = 0xb,
- 	.qseed_type = DPU_SSPP_SCALER_QSEED4,
--	.smart_dma_rev = DPU_SSPP_SMART_DMA_V2, /* TODO: v2.5 */
- 	.ubwc_version = DPU_HW_UBWC_VER_40,
- 	.has_src_split = true,
- 	.has_dim_layer = true,
-@@ -460,7 +449,6 @@ static const struct dpu_caps sm8550_dpu_caps = {
- 	.max_mixer_width = DEFAULT_DPU_OUTPUT_LINE_WIDTH,
- 	.max_mixer_blendstages = 0xb,
- 	.qseed_type = DPU_SSPP_SCALER_QSEED4,
--	.smart_dma_rev = DPU_SSPP_SMART_DMA_V2, /* TODO: v2.5 */
- 	.ubwc_version = DPU_HW_UBWC_VER_40,
- 	.has_src_split = true,
- 	.has_dim_layer = true,
-@@ -474,7 +462,6 @@ static const struct dpu_caps sc7280_dpu_caps = {
- 	.max_mixer_width = DEFAULT_DPU_OUTPUT_LINE_WIDTH,
- 	.max_mixer_blendstages = 0x7,
- 	.qseed_type = DPU_SSPP_SCALER_QSEED4,
--	.smart_dma_rev = DPU_SSPP_SMART_DMA_V2,
- 	.ubwc_version = DPU_HW_UBWC_VER_30,
- 	.has_dim_layer = true,
- 	.has_idle_pc = true,
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h
-index ae85b40e282b..89b372cdca92 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h
-@@ -395,7 +395,6 @@ struct dpu_rotation_cfg {
-  * @max_mixer_blendstages max layer mixer blend stages or
-  *                       supported z order
-  * @qseed_type         qseed2 or qseed3 support.
-- * @smart_dma_rev      Supported version of SmartDMA feature.
-  * @ubwc_version       UBWC feature version (0x0 for not supported)
-  * @has_src_split      source split feature status
-  * @has_dim_layer      dim layer feature status
-@@ -410,7 +409,6 @@ struct dpu_caps {
- 	u32 max_mixer_width;
- 	u32 max_mixer_blendstages;
- 	u32 qseed_type;
--	u32 smart_dma_rev;
- 	u32 ubwc_version;
- 	bool has_src_split;
- 	bool has_dim_layer;
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
+index 90b406e409d3..508e5b950e52 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
+@@ -426,12 +426,13 @@ static void _dpu_crtc_blend_setup_pipe(struct drm_crtc *crtc,
+ 				   format->base.pixel_format,
+ 				   modifier);
+ 
+-	DRM_DEBUG_ATOMIC("crtc %d stage:%d - plane %d sspp %d fb %d\n",
++	DRM_DEBUG_ATOMIC("crtc %d stage:%d - plane %d sspp %d fb %d multirect_idx %d\n",
+ 			 crtc->base.id,
+ 			 stage,
+ 			 plane->base.id,
+ 			 sspp_idx - SSPP_NONE,
+-			 state->fb ? state->fb->base.id : -1);
++			 state->fb ? state->fb->base.id : -1,
++			 pipe->multirect_index);
+ 
+ 	stage_cfg->stage[stage][stage_idx] = sspp_idx;
+ 	stage_cfg->multirect_index[stage][stage_idx] = pipe->multirect_index;
 -- 
 2.30.2
 
