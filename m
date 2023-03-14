@@ -2,59 +2,59 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id C5E376B9930
-	for <lists+freedreno@lfdr.de>; Tue, 14 Mar 2023 16:29:19 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id F1E366B9932
+	for <lists+freedreno@lfdr.de>; Tue, 14 Mar 2023 16:29:20 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 95E5B10EA88;
-	Tue, 14 Mar 2023 15:29:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7D2A710EA89;
+	Tue, 14 Mar 2023 15:29:04 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-x233.google.com (mail-lj1-x233.google.com
- [IPv6:2a00:1450:4864:20::233])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0B3BF10EA86
+Received: from mail-lj1-x22a.google.com (mail-lj1-x22a.google.com
+ [IPv6:2a00:1450:4864:20::22a])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5A9FD10EA88
  for <freedreno@lists.freedesktop.org>; Tue, 14 Mar 2023 15:29:01 +0000 (UTC)
-Received: by mail-lj1-x233.google.com with SMTP id z5so16400217ljc.8
- for <freedreno@lists.freedesktop.org>; Tue, 14 Mar 2023 08:29:00 -0700 (PDT)
+Received: by mail-lj1-x22a.google.com with SMTP id z42so16375041ljq.13
+ for <freedreno@lists.freedesktop.org>; Tue, 14 Mar 2023 08:29:01 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1678807739;
+ d=linaro.org; s=google; t=1678807741;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=j2eEYWuGcq9/XbTV0ihUo6//o0TPXB2yKOJ5coGxbig=;
- b=Uzol4Md/G1W/pzYZwQoB3jGmnQryqDT9lSjtfbnPEJsMuuIAT/rm+rH9GGfFYFc9x1
- NJ7PXtMsH3QnX8E9evFky454dBOsH96V1JasUM0vLVM6Npfn32ijhf67azhMw/cJjDQC
- DMywU42oXTzkYOPlBsPOT/raFojuHwEbkKyacUbHNQmHXLMIPklH+ed9E1R79gVVOZeh
- UXF3hThDdQPew3cOhG8DhIShnLtEzshjthaTt7xbM1WK60eLZjhmPRBSx5qq9Tce3stT
- z0P+qiorh7YadcM7HlL+d2rHp9bbUTd5l6MaUJ2DtSjPtMAgusHCcEfdmC9A1SmELhgN
- 7+3g==
+ :reply-to; bh=/rMi4z3KYpk1VOXDtleM/+v4nMkai2X+NZaj5fWAot0=;
+ b=GV/tteMajEXLkq7QRWvhGA9tMlhuJp/N2TPtYTY0YtLZQlTqkOTuIJ+KJwU0HqvSND
+ xGSr/TymnSrZqWdGV3dGwJHCHSX1GpSUcYgNQe/A8PGmW7SKKznrUpk5ALLQAEMeG9rx
+ /XG2RkujzSZ+Ciah38NKKTrq7vN5WRpzPlvjCFFRy/bNyFYfVt8Ef5kxiuulvIT59XoI
+ vXAa566h15OVTxr35Iz+0GhOW2Nhhnr+7TqUu03lv+f2t6bBBKynYOG4NnrqcVpOFWKJ
+ Zy+TVLtPGwdAQWe9s5RudeIOFXfuel+dLMcI4I3dKyvLmaAfUblEGKcxmRuzgLfwKDD1
+ HIdQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112; t=1678807739;
+ d=1e100.net; s=20210112; t=1678807741;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=j2eEYWuGcq9/XbTV0ihUo6//o0TPXB2yKOJ5coGxbig=;
- b=k3X1/eUi29NRw0xSfVS7ITCKqYb0UAWy2UEgbBknOzFh5YFBezfUQSuNyFwbV0D+Va
- 96Ffj7zUNArgWAGPAlbj6BgPwKZ/ercCdICYSLC5yWmiOQsw7P9UyGGRHYkyOK6i6WO/
- +aWelibOwmqE3WRYZ9QvNbaPBodN2Z0AvuZA2LclLo6VYJwA+VXt4oe+gC2LtCDXphAh
- QpsI8BeiT/GfRtsjGgVMOEzKti6cIo+zTw8VsngX7QV6m3F/QlyDtzRx5RjEmd5l1Ir7
- bIXCAzMA1hxQp8klQNtAiJjFZtisn9VbwtIFtcB+0g7BFNan5vqwSpRTo6F7ErzXm+xp
- mQig==
-X-Gm-Message-State: AO0yUKUJFt7e9x+GDTscusf7WMVaJTnseOsBMA4Hll7/lYxgQwRQHG5G
- GX4oUJrG8Bkhoe8bp2tE6NzDfQ==
-X-Google-Smtp-Source: AK7set/LWyoYvugiC3rN0mWPEx2Fg0KLPVq4uJ85JfYJmzed5o3Q0zVo/UadHn5Zu5NnDMc1F4XBww==
-X-Received: by 2002:a2e:994f:0:b0:294:6235:b18e with SMTP id
- r15-20020a2e994f000000b002946235b18emr12097562ljj.14.1678807739431; 
- Tue, 14 Mar 2023 08:28:59 -0700 (PDT)
+ bh=/rMi4z3KYpk1VOXDtleM/+v4nMkai2X+NZaj5fWAot0=;
+ b=aqczJiccXIfgw0H8qM8V0h8AFntAUc2kAbZeQJWIzgF/o7Xw/zCP+4LGluj798BHZQ
+ TqMxdMGyK61LJVm61iMP0FsOoIZCTORe38NVZNDLGDX6k4tQ4d2JwvOmggzDI1sKF9Cv
+ 5syXqO+xVsMP/Dhp8gBRaeLQxkxjVyQhN5JwVZgo+quSV5uobxW27bJe97g8LOMHqY0o
+ WVt+zZK5T8c3aCv8nRGIPb/i09LqbHLNl0sV+6QvT26FP81Pq8gM8Mu1Pl+154XtwriF
+ MLMyy96QGZa5JptJBLmbs0Tf63XaigkOBdUpHdM+gmnaWLq7Hwl5dRPIM9ebUuiUpRrf
+ yecg==
+X-Gm-Message-State: AO0yUKVhrETptFqmtDkLyZp5TxI9dFjgoqR6RPYDbv5qZsyYsxVC4GT4
+ 2uSyqXrBFprTxL+o/jNzQHhXoA==
+X-Google-Smtp-Source: AK7set/JjpNvsvf8MV9aq3qP6wInMbwMOVpVCJJNFqgxlkKvmA4HfRtybbTeiYUBXGAMluTsvW8RHA==
+X-Received: by 2002:a2e:3610:0:b0:295:acb9:8610 with SMTP id
+ d16-20020a2e3610000000b00295acb98610mr12822310lja.25.1678807740930; 
+ Tue, 14 Mar 2023 08:29:00 -0700 (PDT)
 Received: from [192.168.1.101] (abyj16.neoplus.adsl.tpnet.pl. [83.9.29.16])
  by smtp.gmail.com with ESMTPSA id
- 27-20020a2e165b000000b002986a977bf2sm491529ljw.90.2023.03.14.08.28.58
+ 27-20020a2e165b000000b002986a977bf2sm491529ljw.90.2023.03.14.08.28.59
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 14 Mar 2023 08:28:59 -0700 (PDT)
+ Tue, 14 Mar 2023 08:29:00 -0700 (PDT)
 From: Konrad Dybcio <konrad.dybcio@linaro.org>
-Date: Tue, 14 Mar 2023 16:28:44 +0100
+Date: Tue, 14 Mar 2023 16:28:45 +0100
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20230223-topic-gmuwrapper-v4-13-e987eb79d03f@linaro.org>
+Message-Id: <20230223-topic-gmuwrapper-v4-14-e987eb79d03f@linaro.org>
 References: <20230223-topic-gmuwrapper-v4-0-e987eb79d03f@linaro.org>
 In-Reply-To: <20230223-topic-gmuwrapper-v4-0-e987eb79d03f@linaro.org>
 To: Rob Clark <robdclark@gmail.com>, 
@@ -67,15 +67,14 @@ To: Rob Clark <robdclark@gmail.com>,
  Konrad Dybcio <konrad.dybcio@somainline.org>, 
  Akhil P Oommen <quic_akhilpo@quicinc.com>
 X-Mailer: b4 0.12.1
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1678807716; l=1972;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1678807716; l=1852;
  i=konrad.dybcio@linaro.org; s=20230215; h=from:subject:message-id;
- bh=YbHID1ebzUgv4FADFLbdTcRo/0BAqs1RT5mt5WqUfTo=;
- b=s3HhnOhKViZbWBYgyMxuzL4UDJa8iVASyV+mQYW3iO3PGPZl+eP/2Aeaw6ZMhwFz3SwSFoCG0y33
- Q/Rx0heHCR/EvUr6sEUzL8fuAOHOSGF3DRC9eEc/4mROb2FGKAb7
+ bh=ZWxWz95kNFsOaOSTnUEHkUaKyj0DdIwF1Eu3I3PdtGk=;
+ b=KpKsSEXRQhg/MQJAmTRWDZjQlF+2ofojhmqZlx7eSqwxni5o+DCOvcHjBxCErE0ijWM2Fb5c/ZYL
+ mYoD898IBUAF5lQbLmP9ZrsLEqozfQMp+QSYOnwJjDo2iYl97Y1+
 X-Developer-Key: i=konrad.dybcio@linaro.org; a=ed25519;
  pk=iclgkYvtl2w05SSXO5EjjSYlhFKsJ+5OSZBjOkQuEms=
-Subject: [Freedreno] [PATCH v4 13/14] drm/msm/a6xx: Add A619_holi speedbin
- support
+Subject: [Freedreno] [PATCH v4 14/14] drm/msm/a6xx: Add A610 speedbin support
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -96,65 +95,62 @@ Cc: Rob Clark <robdclark@chromium.org>, devicetree@vger.kernel.org,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-A619_holi is implemented on at least two SoCs: SM4350 (holi) and SM6375
-(blair). This is what seems to be a first occurrence of this happening,
-but it's easy to overcome by guarding the SoC-specific fuse values with
-of_machine_is_compatible(). Do just that to enable frequency limiting
-on these SoCs.
+A610 is implemented on at least three SoCs: SM6115 (bengal), SM6125
+(trinket) and SM6225 (khaje). Trinket does not support speed binning
+(only a single SKU exists) and we don't yet support khaje upstream.
+Hence, add a fuse mapping table for bengal to allow for per-chip
+frequency limiting.
 
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 Signed-off-by: Konrad Dybcio <konrad.dybcio@linaro.org>
 ---
- drivers/gpu/drm/msm/adreno/a6xx_gpu.c | 31 +++++++++++++++++++++++++++++++
- 1 file changed, 31 insertions(+)
+ drivers/gpu/drm/msm/adreno/a6xx_gpu.c | 27 +++++++++++++++++++++++++++
+ 1 file changed, 27 insertions(+)
 
 diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-index 71950a5fcc96..27b96a335039 100644
+index 27b96a335039..f9f1a6c50f65 100644
 --- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
 +++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-@@ -2148,6 +2148,34 @@ static u32 a618_get_speed_bin(u32 fuse)
- 	return UINT_MAX;
+@@ -2136,6 +2136,30 @@ static bool a6xx_progress(struct msm_gpu *gpu, struct msm_ringbuffer *ring)
+ 	return progress;
  }
  
-+static u32 a619_holi_get_speed_bin(u32 fuse)
++static u32 a610_get_speed_bin(u32 fuse)
 +{
 +	/*
-+	 * There are (at least) two SoCs implementing A619_holi: SM4350 (holi)
-+	 * and SM6375 (blair). Limit the fuse matching to the corresponding
-+	 * SoC to prevent bogus frequency setting (as improbable as it may be,
-+	 * given unexpected fuse values are.. unexpected! But still possible.)
++	 * There are (at least) three SoCs implementing A610: SM6125 (trinket),
++	 * SM6115 (bengal) and SM6225 (khaje). Trinket does not have speedbinning,
++	 * as only a single SKU exists and we don't support khaje upstream yet.
++	 * Hence, this matching table is only valid for bengal and can be easily
++	 * expanded if need be.
 +	 */
 +
 +	if (fuse == 0)
 +		return 0;
-+
-+	if (of_machine_is_compatible("qcom,sm4350")) {
-+		if (fuse == 138)
-+			return 1;
-+		else if (fuse == 92)
-+			return 2;
-+	} else if (of_machine_is_compatible("qcom,sm6375")) {
-+		if (fuse == 190)
-+			return 1;
-+		else if (fuse == 177)
-+			return 2;
-+	} else
-+		pr_warn("Unknown SoC implementing A619_holi!\n");
++	else if (fuse == 206)
++		return 1;
++	else if (fuse == 200)
++		return 2;
++	else if (fuse == 157)
++		return 3;
++	else if (fuse == 127)
++		return 4;
 +
 +	return UINT_MAX;
 +}
 +
- static u32 a619_get_speed_bin(u32 fuse)
+ static u32 a618_get_speed_bin(u32 fuse)
  {
  	if (fuse == 0)
-@@ -2207,6 +2235,9 @@ static u32 fuse_to_supp_hw(struct device *dev, struct adreno_gpu *adreno_gpu, u3
+@@ -2232,6 +2256,9 @@ static u32 fuse_to_supp_hw(struct device *dev, struct adreno_gpu *adreno_gpu, u3
+ {
+ 	u32 val = UINT_MAX;
+ 
++	if (adreno_is_a610(adreno_gpu))
++		val = a610_get_speed_bin(fuse);
++
  	if (adreno_is_a618(adreno_gpu))
  		val = a618_get_speed_bin(fuse);
- 
-+	else if (adreno_is_a619_holi(adreno_gpu))
-+		val = a619_holi_get_speed_bin(fuse);
-+
- 	else if (adreno_is_a619(adreno_gpu))
- 		val = a619_get_speed_bin(fuse);
  
 
 -- 
