@@ -1,67 +1,62 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id A33236B99B4
-	for <lists+freedreno@lfdr.de>; Tue, 14 Mar 2023 16:36:49 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 5E8686B9A05
+	for <lists+freedreno@lfdr.de>; Tue, 14 Mar 2023 16:41:56 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 83F8810EA8B;
-	Tue, 14 Mar 2023 15:36:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2F1AB10E83A;
+	Tue, 14 Mar 2023 15:41:55 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-x22c.google.com (mail-lj1-x22c.google.com
- [IPv6:2a00:1450:4864:20::22c])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8B7DC10EAB9
- for <freedreno@lists.freedesktop.org>; Tue, 14 Mar 2023 15:36:09 +0000 (UTC)
-Received: by mail-lj1-x22c.google.com with SMTP id b10so16473963ljr.0
- for <freedreno@lists.freedesktop.org>; Tue, 14 Mar 2023 08:36:09 -0700 (PDT)
+Received: from mail-yw1-x1131.google.com (mail-yw1-x1131.google.com
+ [IPv6:2607:f8b0:4864:20::1131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7354D10EA8A
+ for <freedreno@lists.freedesktop.org>; Tue, 14 Mar 2023 15:41:54 +0000 (UTC)
+Received: by mail-yw1-x1131.google.com with SMTP id
+ 00721157ae682-5416b0ab0ecso183265547b3.6
+ for <freedreno@lists.freedesktop.org>; Tue, 14 Mar 2023 08:41:54 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1678808169;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=yCPzZ1cychu0OUgOZNR9WWIZNNnjC8fiTwJ8RQSNivs=;
- b=M1A/D0rqTPJyCssFt0ZFFcuBHdGQmfTIR8c05au1F0o/EKL4eHv/47wxMyh2LWQk0y
- Mxx70YKbzFEkVkRGoihHbY2/TPUzOwx+H5AljaViphMsXoEg0HwYG9RZtrNzJPq4iS/X
- k2AaBsOFHMImMNlPQH/ds8ZXWlJDp2EKpWBu3CECWq0G65/T7BkxyEYhMHznIbiyzLmq
- Pp78Ov7bucB1ol2U9+DTEJCm98v10NCsPJVI+6uHHpyD/cy6LY9ltFOlPZLw+eoBcZGq
- x9qvjw6AgJ6Rf1occPUnpb4ZVsEYxkxM9V6SgI+ivCNgw8jpe3Bg+WKoWBJJzYBbnqGd
- QfbA==
+ d=linaro.org; s=google; t=1678808513;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=r2eydF/1OI43/2Qfy2ViK1gUkj+J848Ww0RP8NZLzkg=;
+ b=CRM/UqAq5qfr1H0agZTquPf7F6XZuZziTHQKjqGa2GtNhGUA0uIqR4AonYy3BjkNxR
+ Dn2x2pvh2jDuYX0/8HTrQ9QvEP1Bra13gN7RFFv0MO+ybviQOMHeA1t7tlVDaffhlCFb
+ fpY6FBaKNbEOpr8FTpOCJTniJVqyBvnou6HfJcc2gGTbn9i1KEymDgKCmKDnAbgIfLAv
+ Oo6aiBLVDCOmURKlhw5YBLvM0jZ14ygUriLyY/DytvNkZzhTy+IvSRl4c2fBgN8hrBBl
+ iP2NhVkLmhgI2Wgf7iX4M82kSp5oPF/7PBGy/xzE8C6Htuu8pAszxxoN4RBTwbMHMOjB
+ OxiA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112; t=1678808169;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=yCPzZ1cychu0OUgOZNR9WWIZNNnjC8fiTwJ8RQSNivs=;
- b=v7ULWG3j+X/AZIfwm15XtH7LDCJDS9Lq0AhJzhzv7ucpGpEyw0UVV9p0DO0HX5La+T
- JHlcxicW24CBWUCS/VSstt8ggP1NCwQCxeJabJ2wdvQdzKVjyOLPYeUNyyUDU9QnGIMJ
- 9uQGFFU6iCOee9xd9/KUOpkDswHI5ZOgQ1k1eBMY6hZMkWfP+F3eTdQG2Ut+/VU5Y2zH
- ONgiW9Q+UOa/xR0lGFsUhND9l3bmYcVsK4DJmHLOgASrsoKtWrNWp7sbpMMuxxfNoQoN
- m3AXv/DlP8qNL42auIqmEhgURZpzMY44zN9fVO36tDeRQd76RjtBA3CpgHxi9IQEUYZJ
- aUKg==
-X-Gm-Message-State: AO0yUKXbqUy5LPvEijFc+FEDEa6H8752CWGAmp6alsTHT2DxJd0Qwv5y
- aJhyZ/DeQ/6VEhhSKrEvYTHJsQ==
-X-Google-Smtp-Source: AK7set+2euD9jIKStIIJvyzs8z0deAMdjOS4IMkSX6MuZJqFhgpFOnp4UpCxBi2L1FEzxxSMbMEJQw==
-X-Received: by 2002:a2e:ba15:0:b0:295:a2a6:672 with SMTP id
- p21-20020a2eba15000000b00295a2a60672mr13646309lja.10.1678808169134; 
- Tue, 14 Mar 2023 08:36:09 -0700 (PDT)
-Received: from umbar.unikie.fi ([192.130.178.91])
- by smtp.gmail.com with ESMTPSA id
- z8-20020a2eb528000000b0029573844d03sm470854ljm.109.2023.03.14.08.36.08
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 14 Mar 2023 08:36:08 -0700 (PDT)
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-To: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>
-Date: Tue, 14 Mar 2023 18:35:45 +0300
-Message-Id: <20230314153545.3442879-33-dmitry.baryshkov@linaro.org>
-X-Mailer: git-send-email 2.30.2
-In-Reply-To: <20230314153545.3442879-1-dmitry.baryshkov@linaro.org>
-References: <20230314153545.3442879-1-dmitry.baryshkov@linaro.org>
+ d=1e100.net; s=20210112; t=1678808513;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=r2eydF/1OI43/2Qfy2ViK1gUkj+J848Ww0RP8NZLzkg=;
+ b=QR+YoTHsY/QVoEo7h9B893w5M80UIrXxkQggVU2omIxZgw1HwzIX+DgWZd9d+cEDID
+ I5BkHXim6lRssUum+j1D956W6ppgsh6UdaKZRaYR0RANuK3hh3zMEKGdXulqbiPFJd3s
+ yu/F0pchBs+2bN58HPKgs0lrXjnZVe0YMQwp06vo0hOAm9tNOXDaqyXlbquPKRyeAROy
+ a8F1cvpulGGvlqJFWZvNTjS5cR+XtPQTWhVLj9gloXiEbBRW2Dcz2rBZQlBdyNI5P638
+ S9MjIyRkfLBVxTGg634IukGtssIu9G+AjKa/PEdsmjBGTSpqVBDEzw9Ty76R2vc9o/gt
+ YCUA==
+X-Gm-Message-State: AO0yUKU7oP3S0Dp2PZL7KLO3b4z+eXyN+M6j404Dh/EzDiyLIpJfeXN9
+ ETywf/KXe9vKFrbT/sMFiz8nVlcAfrxEhUfMyEheag==
+X-Google-Smtp-Source: AK7set9v/eRM4FHR0LXUi+liNzAoAGgf5LamjGr4AG1H13f4k9tvPJTy1x7RYWvaReVp2v+ylEUat+sM+RsbXH7uYuY=
+X-Received: by 2002:a81:ac16:0:b0:541:6d4c:9276 with SMTP id
+ k22-20020a81ac16000000b005416d4c9276mr7853585ywh.5.1678808513389; Tue, 14 Mar
+ 2023 08:41:53 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH v6 32/32] drm/msm/dpu: remove unused
- dpu_plane_validate_multirect_v2 function
+References: <20230314153545.3442879-1-dmitry.baryshkov@linaro.org>
+ <20230314153545.3442879-28-dmitry.baryshkov@linaro.org>
+In-Reply-To: <20230314153545.3442879-28-dmitry.baryshkov@linaro.org>
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Date: Tue, 14 Mar 2023 17:41:42 +0200
+Message-ID: <CAA8EJpqTT1BK5oDNbL=t8BMwVjK_swDdD-L4o2PZ2Zec09qSnQ@mail.gmail.com>
+To: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, 
+ Abhinav Kumar <quic_abhinavk@quicinc.com>
+Content-Type: text/plain; charset="UTF-8"
+Subject: Re: [Freedreno] [PATCH v6 27/32] drm/msm/dpu: add support for wide
+ planes
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,176 +76,58 @@ Cc: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-From: Abhinav Kumar <quic_abhinavk@quicinc.com>
+On Tue, 14 Mar 2023 at 17:36, Dmitry Baryshkov
+<dmitry.baryshkov@linaro.org> wrote:
+>
+> It is possible to use multirect feature and split source to use the SSPP
+> to output two consecutive rectangles. This commit brings in this
+> capability to support wider screen resolutions.
+>
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> ---
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c  |  19 +++-
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c | 127 +++++++++++++++++++---
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_plane.h |   4 +
+>  3 files changed, 133 insertions(+), 17 deletions(-)
+>
 
-After cleaning up the older multirect support the function
-dpu_plane_validate_multirect_v2() is unused. Lets remove it.
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
+> index f52120b05b6e..494c1144075a 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
 
-Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
-[DB: also drop struct dpu_multirect_plane_states]
-Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
----
- drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c | 111 ----------------------
- drivers/gpu/drm/msm/disp/dpu1/dpu_plane.h |  17 ----
- 2 files changed, 128 deletions(-)
+[...]
 
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
-index 494c1144075a..177338603ef3 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
-@@ -707,117 +707,6 @@ static void _dpu_plane_color_fill(struct dpu_plane *pdpu,
- 					   fill_color, fmt);
- }
- 
--int dpu_plane_validate_multirect_v2(struct dpu_multirect_plane_states *plane)
--{
--	struct dpu_plane_state *pstate[R_MAX];
--	const struct drm_plane_state *drm_state[R_MAX];
--	struct drm_rect src[R_MAX], dst[R_MAX];
--	struct dpu_plane *dpu_plane[R_MAX];
--	const struct dpu_format *fmt[R_MAX];
--	int i, buffer_lines;
--	unsigned int max_tile_height = 1;
--	bool parallel_fetch_qualified = true;
--	bool has_tiled_rect = false;
--
--	for (i = 0; i < R_MAX; i++) {
--		const struct msm_format *msm_fmt;
--
--		drm_state[i] = i ? plane->r1 : plane->r0;
--		msm_fmt = msm_framebuffer_format(drm_state[i]->fb);
--		fmt[i] = to_dpu_format(msm_fmt);
--
--		if (DPU_FORMAT_IS_UBWC(fmt[i])) {
--			has_tiled_rect = true;
--			if (fmt[i]->tile_height > max_tile_height)
--				max_tile_height = fmt[i]->tile_height;
--		}
--	}
--
--	for (i = 0; i < R_MAX; i++) {
--		int width_threshold;
--
--		pstate[i] = to_dpu_plane_state(drm_state[i]);
--		dpu_plane[i] = to_dpu_plane(drm_state[i]->plane);
--
--		if (pstate[i] == NULL) {
--			DPU_ERROR("DPU plane state of plane id %d is NULL\n",
--				drm_state[i]->plane->base.id);
--			return -EINVAL;
--		}
--
--		src[i].x1 = drm_state[i]->src_x >> 16;
--		src[i].y1 = drm_state[i]->src_y >> 16;
--		src[i].x2 = src[i].x1 + (drm_state[i]->src_w >> 16);
--		src[i].y2 = src[i].y1 + (drm_state[i]->src_h >> 16);
--
--		dst[i] = drm_plane_state_dest(drm_state[i]);
--
--		if (drm_rect_calc_hscale(&src[i], &dst[i], 1, 1) != 1 ||
--		    drm_rect_calc_vscale(&src[i], &dst[i], 1, 1) != 1) {
--			DPU_ERROR_PLANE(dpu_plane[i],
--				"scaling is not supported in multirect mode\n");
--			return -EINVAL;
--		}
--
--		if (DPU_FORMAT_IS_YUV(fmt[i])) {
--			DPU_ERROR_PLANE(dpu_plane[i],
--				"Unsupported format for multirect mode\n");
--			return -EINVAL;
--		}
--
--		/**
--		 * SSPP PD_MEM is split half - one for each RECT.
--		 * Tiled formats need 5 lines of buffering while fetching
--		 * whereas linear formats need only 2 lines.
--		 * So we cannot support more than half of the supported SSPP
--		 * width for tiled formats.
--		 */
--		width_threshold = dpu_plane[i]->catalog->caps->max_linewidth;
--		if (has_tiled_rect)
--			width_threshold /= 2;
--
--		if (parallel_fetch_qualified &&
--		    drm_rect_width(&src[i]) > width_threshold)
--			parallel_fetch_qualified = false;
--
--	}
--
--	/* Validate RECT's and set the mode */
--
--	/* Prefer PARALLEL FETCH Mode over TIME_MX Mode */
--	if (parallel_fetch_qualified) {
--		pstate[R0]->pipe.multirect_mode = DPU_SSPP_MULTIRECT_PARALLEL;
--		pstate[R1]->pipe.multirect_mode = DPU_SSPP_MULTIRECT_PARALLEL;
--
--		goto done;
--	}
--
--	/* TIME_MX Mode */
--	buffer_lines = 2 * max_tile_height;
--
--	if (dst[R1].y1 >= dst[R0].y2 + buffer_lines ||
--	    dst[R0].y1 >= dst[R1].y2 + buffer_lines) {
--		pstate[R0]->pipe.multirect_mode = DPU_SSPP_MULTIRECT_TIME_MX;
--		pstate[R1]->pipe.multirect_mode = DPU_SSPP_MULTIRECT_TIME_MX;
--	} else {
--		DPU_ERROR(
--			"No multirect mode possible for the planes (%d - %d)\n",
--			drm_state[R0]->plane->base.id,
--			drm_state[R1]->plane->base.id);
--		return -EINVAL;
--	}
--
--done:
--	pstate[R0]->pipe.multirect_index = DPU_SSPP_RECT_0;
--	pstate[R1]->pipe.multirect_index = DPU_SSPP_RECT_1;
--
--	DPU_DEBUG_PLANE(dpu_plane[R0], "R0: %d - %d\n",
--		pstate[R0]->pipe.multirect_mode, pstate[R0]->pipe.multirect_index);
--	DPU_DEBUG_PLANE(dpu_plane[R1], "R1: %d - %d\n",
--		pstate[R1]->pipe.multirect_mode, pstate[R1]->pipe.multirect_index);
--	return 0;
--}
--
- static int dpu_plane_prepare_fb(struct drm_plane *plane,
- 		struct drm_plane_state *new_state)
- {
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.h
-index 7490ffd94d03..abd6b21a049b 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.h
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.h
-@@ -50,16 +50,6 @@ struct dpu_plane_state {
- 	unsigned int rotation;
- };
- 
--/**
-- * struct dpu_multirect_plane_states: Defines multirect pair of drm plane states
-- * @r0: drm plane configured on rect 0
-- * @r1: drm plane configured on rect 1
-- */
--struct dpu_multirect_plane_states {
--	const struct drm_plane_state *r0;
--	const struct drm_plane_state *r1;
--};
--
- #define to_dpu_plane_state(x) \
- 	container_of(x, struct dpu_plane_state, base)
- 
-@@ -87,13 +77,6 @@ struct drm_plane *dpu_plane_init(struct drm_device *dev,
- 		uint32_t pipe, enum drm_plane_type type,
- 		unsigned long possible_crtcs);
- 
--/**
-- * dpu_plane_validate_multirecti_v2 - validate the multirect planes
-- *				      against hw limitations
-- * @plane: drm plate states of the multirect pair
-- */
--int dpu_plane_validate_multirect_v2(struct dpu_multirect_plane_states *plane);
--
- /**
-  * dpu_plane_color_fill - enables color fill on plane
-  * @plane:  Pointer to DRM plane object
+> @@ -1016,21 +1026,58 @@ static int dpu_plane_atomic_check(struct drm_plane *plane,
+>                 return -E2BIG;
+>         }
+>
+> +       fmt = to_dpu_format(msm_framebuffer_format(new_plane_state->fb));
+> +
+>         max_linewidth = pdpu->catalog->caps->max_linewidth;
+> +       if (DPU_FORMAT_IS_UBWC(fmt))
+> +               max_linewidth /= 2;
+
+I added this check and only after sending it caught my mind that this
+check should not be applied in the non-multirec case. Please ignore
+the series, I will resend it later.
+
+>
+> -       /* check decimated source width */
+>         if (drm_rect_width(&pipe_cfg->src_rect) > max_linewidth) {
+> -               DPU_DEBUG_PLANE(pdpu, "invalid src " DRM_RECT_FMT " line:%u\n",
+> -                               DRM_RECT_ARG(&pipe_cfg->src_rect), max_linewidth);
+> -               return -E2BIG;
+> -       }
+> +               if (drm_rect_width(&pipe_cfg->src_rect) > 2 * max_linewidth) {
+> +                       DPU_DEBUG_PLANE(pdpu, "invalid src " DRM_RECT_FMT " line:%u\n",
+> +                                       DRM_RECT_ARG(&pipe_cfg->src_rect), max_linewidth);
+> +                       return -E2BIG;
+> +               }
+>
+
+[skipped the rest]
+
 -- 
-2.30.2
-
+With best wishes
+Dmitry
