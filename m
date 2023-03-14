@@ -2,66 +2,66 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 90BC76B99A9
-	for <lists+freedreno@lfdr.de>; Tue, 14 Mar 2023 16:36:41 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E195B6B99B6
+	for <lists+freedreno@lfdr.de>; Tue, 14 Mar 2023 16:36:50 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 030DF10EAB3;
-	Tue, 14 Mar 2023 15:36:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9FD2B10EAC3;
+	Tue, 14 Mar 2023 15:36:20 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-x231.google.com (mail-lj1-x231.google.com
- [IPv6:2a00:1450:4864:20::231])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D170810EAA5
- for <freedreno@lists.freedesktop.org>; Tue, 14 Mar 2023 15:36:06 +0000 (UTC)
-Received: by mail-lj1-x231.google.com with SMTP id t14so16448211ljd.5
- for <freedreno@lists.freedesktop.org>; Tue, 14 Mar 2023 08:36:06 -0700 (PDT)
+Received: from mail-lj1-x22e.google.com (mail-lj1-x22e.google.com
+ [IPv6:2a00:1450:4864:20::22e])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8A71A10EAA7
+ for <freedreno@lists.freedesktop.org>; Tue, 14 Mar 2023 15:36:07 +0000 (UTC)
+Received: by mail-lj1-x22e.google.com with SMTP id by8so16436148ljb.7
+ for <freedreno@lists.freedesktop.org>; Tue, 14 Mar 2023 08:36:07 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1678808166;
+ d=linaro.org; s=google; t=1678808167;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=zDyYGyQtiJEGH+CNo4OCgZuM4FflFPwp3K8+bVJrjlw=;
- b=sMd0rKblhXXN1hwvLvxIhQ1TX1rDQ5Pg611vm6Tvglx8BkMaO5I09HvfTZjYfpptKz
- wDinKIC42+HplBrf9XdPXZkkLO7pTWDDFRbe7SS/f/S2yGa4w3ANuFkMxbpNAG8amQXQ
- BA0KtJvZRmEZDRZjXNw2p5DqsKZU6lBWlvJ48mPXqSpgtGx1we0iR8FOJ0hgwZR1+TdK
- Gg3LCOP9dHzUZx+p2yb7i5/APxOMhxDfbNPJifmK1FIlz01vBo1ElvzdMn4ymfZv2qpo
- ZPgaQYiO5Kb/D2up7vZp/Wz1z8mNNL63Qj7fv6b1KKpb+CTbqttJY3rbRH6cm8fanzdb
- g1hw==
+ bh=60RHqTUHcydiKf+pfVJjQzh+rkqkqStkrhhoDxladho=;
+ b=dR0kj3e3vt8RVwSKanaoEkv/56H3TnJydd7lNmU8LNtNEu+6H8K3OsY1pW7PPw2Qx0
+ fKwvOU53rKfXFtZll8rnUg4L0CjGYWImLnq2F1w9vkAcykrYoSUhB+zuLiDoIj0B5XKE
+ 1xIPtT829L1B7LB/G2ofCYdokFlmdJAt/gL+5phFUq7V9CmEiWVb2O3IFNV/VYWgG+8L
+ 0hmEOdACU01jG/mFMF2o89ApYJi3pibyyU1Xgzypb6YXCri3n0gS2nSNVM6JoNWG3BUg
+ OpJy30m7aYbaIeD7R7lQFmZm/MO0HpCKomPiQ0iBxk2kOW+9U3lj1s6tajVQBqR6c0i8
+ diUw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112; t=1678808166;
+ d=1e100.net; s=20210112; t=1678808167;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=zDyYGyQtiJEGH+CNo4OCgZuM4FflFPwp3K8+bVJrjlw=;
- b=oMUs3XWGuCtdI4tUM0Cev3hus0E5hMFqwLH+gSu9t3jPCNcABPYQ2mURPvUTAIudjW
- D38n7WjiChEGIynAej/Rkc5SiJFRp0FNYqzIIJkbldoWG9yNWS1lWX+edHd4pzQLNZHC
- Cz9DWDZ+Ndo1wGmjJc/jg3trM31BXw4tdN9vVXcgt6kRdd1x/vvGb4oKpAeOxlkFdx1N
- TqLLI/21G2MUnta9s+K3/gaUYYwPUIC6KOJcYxCmCSNF5zrBNKVi2rBkhzG4UlIzJpk6
- tZH3F0X9/WZBwYPojXX6jL6gNucSQRTdxJuB91yQNGBs3rSAEDu0Ek0anrKd77wusQdy
- FRGA==
-X-Gm-Message-State: AO0yUKVtcYk4Z29gX+ZsEzCz6bhCLxnlBrVa46dTYieRqNGsWBFCD2OL
- TNcS83RTEGbsBaINZeZa2LGt/Q==
-X-Google-Smtp-Source: AK7set/iCCMLKmF9PXeYJlxKLdHuOLe30NQhcjtuCCs87Xxu/zLWhoudRaBMTZnMnQOS5pcAH6Kqzg==
-X-Received: by 2002:a05:651c:1a24:b0:298:6cfa:3773 with SMTP id
- by36-20020a05651c1a2400b002986cfa3773mr8941231ljb.37.1678808166429; 
- Tue, 14 Mar 2023 08:36:06 -0700 (PDT)
+ bh=60RHqTUHcydiKf+pfVJjQzh+rkqkqStkrhhoDxladho=;
+ b=j8wkuc8MUTVeLSsfBaQNQRBoqUPS1YKmNr238Tgr65FDj28XlzhLmBDJjbJFhLki1o
+ LRU7Ynrfjv4tYbmJez+IYJqXcwISM8wi3x5dFrhmYL0ph8LsCKVzn7MQn4gXr9UMa9bC
+ 7AOT5COxzFsHaPWfp57iQYILM5IkoWFt4BkLtX6S0KaVh4pBGALkz4Bh04dKYwWbcMHW
+ ckcKvylx3WEJURvUl1Zs7jw399CEbilPPHnszjL5EH1FT2ajsK1pUMzu5C+1YoSu+8oa
+ Sur/TTGP1ws2GEfNyk40CnY+RixtNZfLkN7j1P14XcwrAe7KicsGRw8VDLTKTw9lRzU0
+ TKNA==
+X-Gm-Message-State: AO0yUKVZkLSaW2j1r/DWWnVwnm9y5QXPVIdaMW4pZntEmbazlrkwNSCP
+ wtR8tNFudelXHnI9WDZBZXwnHQ==
+X-Google-Smtp-Source: AK7set9sBRJU6l0ovokZAh4M24D9FT7G7lTuNk6vI0s7zR7KCK04w99eLZtZ66Lyou546xibjcjUJQ==
+X-Received: by 2002:a2e:a546:0:b0:298:97d7:8fe7 with SMTP id
+ e6-20020a2ea546000000b0029897d78fe7mr1258851ljn.36.1678808167129; 
+ Tue, 14 Mar 2023 08:36:07 -0700 (PDT)
 Received: from umbar.unikie.fi ([192.130.178.91])
  by smtp.gmail.com with ESMTPSA id
- z8-20020a2eb528000000b0029573844d03sm470854ljm.109.2023.03.14.08.36.05
+ z8-20020a2eb528000000b0029573844d03sm470854ljm.109.2023.03.14.08.36.06
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 14 Mar 2023 08:36:05 -0700 (PDT)
+ Tue, 14 Mar 2023 08:36:06 -0700 (PDT)
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 To: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
  Abhinav Kumar <quic_abhinavk@quicinc.com>
-Date: Tue, 14 Mar 2023 18:35:41 +0300
-Message-Id: <20230314153545.3442879-29-dmitry.baryshkov@linaro.org>
+Date: Tue, 14 Mar 2023 18:35:42 +0300
+Message-Id: <20230314153545.3442879-30-dmitry.baryshkov@linaro.org>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <20230314153545.3442879-1-dmitry.baryshkov@linaro.org>
 References: <20230314153545.3442879-1-dmitry.baryshkov@linaro.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH v6 28/32] drm/msm/dpu: populate SmartDMA
- features in hw catalog
+Subject: [Freedreno] [PATCH v6 29/32] drm/msm/dpu: enable SmartDMA for the
+ rest of the platforms
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,113 +81,115 @@ Cc: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Downstream driver uses dpu->caps->smart_dma_rev to update
-sspp->cap->features with the bit corresponding to the supported SmartDMA
-version. Upstream driver does not do this, resulting in SSPP subdriver
-not enabling setup_multirect callback. Add corresponding SmartDMA SSPP
-feature bits to dpu hw catalog.
+Enable SmartDMA features for the rest of the platforms where it is
+supposed to work.
 
-Per Abhinav's request enable the SmartDMA features only on the platforms
-where the multirect was actually verified visually (sdm845 and sm8250).
-An (untested) enablement on the rest of the platforms comes in the next
-patch.
-
-Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
 Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 ---
- .../gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c    | 44 ++++++++++++-------
- 1 file changed, 28 insertions(+), 16 deletions(-)
+ .../gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c    | 51 ++++++++-----------
+ 1 file changed, 21 insertions(+), 30 deletions(-)
 
 diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
-index b39e72a72d58..b762a23313ab 100644
+index b762a23313ab..443a300df92d 100644
 --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
 +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
-@@ -27,9 +27,15 @@
+@@ -25,16 +25,12 @@
+ 	(VIG_MASK | BIT(DPU_SSPP_SCALER_QSEED3))
+ 
  #define VIG_SDM845_MASK \
- 	(VIG_MASK | BIT(DPU_SSPP_QOS_8LVL) | BIT(DPU_SSPP_SCALER_QSEED3))
+-	(VIG_MASK | BIT(DPU_SSPP_QOS_8LVL) | BIT(DPU_SSPP_SCALER_QSEED3))
+-
+-#define VIG_SDM845_MASK_SDMA \
+-	(VIG_SDM845_MASK | BIT(DPU_SSPP_SMART_DMA_V2))
++	(VIG_MASK | BIT(DPU_SSPP_QOS_8LVL) | BIT(DPU_SSPP_SCALER_QSEED3) |\
++	BIT(DPU_SSPP_SMART_DMA_V2))
  
-+#define VIG_SDM845_MASK_SDMA \
-+	(VIG_SDM845_MASK | BIT(DPU_SSPP_SMART_DMA_V2))
-+
  #define VIG_SC7180_MASK \
- 	(VIG_MASK | BIT(DPU_SSPP_QOS_8LVL) | BIT(DPU_SSPP_SCALER_QSEED4))
+-	(VIG_MASK | BIT(DPU_SSPP_QOS_8LVL) | BIT(DPU_SSPP_SCALER_QSEED4))
+-
+-#define VIG_SC7180_MASK_SDMA \
+-	(VIG_SC7180_MASK | BIT(DPU_SSPP_SMART_DMA_V2))
++	(VIG_MASK | BIT(DPU_SSPP_QOS_8LVL) | BIT(DPU_SSPP_SCALER_QSEED4) |\
++	BIT(DPU_SSPP_SMART_DMA_V2))
  
-+#define VIG_SC7180_MASK_SDMA \
-+	(VIG_SC7180_MASK | BIT(DPU_SSPP_SMART_DMA_V2))
-+
  #define VIG_QCM2290_MASK (VIG_BASE_MASK | BIT(DPU_SSPP_QOS_8LVL))
  
- #define DMA_MSM8998_MASK \
-@@ -48,6 +54,12 @@
+@@ -49,17 +45,12 @@
+ #define DMA_SDM845_MASK \
+ 	(BIT(DPU_SSPP_SRC) | BIT(DPU_SSPP_QOS) | BIT(DPU_SSPP_QOS_8LVL) |\
+ 	BIT(DPU_SSPP_TS_PREFILL) | BIT(DPU_SSPP_TS_PREFILL_REC1) |\
++	BIT(DPU_SSPP_SMART_DMA_V2) |\
+ 	BIT(DPU_SSPP_CDP) | BIT(DPU_SSPP_EXCL_RECT))
+ 
  #define DMA_CURSOR_SDM845_MASK \
  	(DMA_SDM845_MASK | BIT(DPU_SSPP_CURSOR))
  
-+#define DMA_SDM845_MASK_SDMA \
-+	(DMA_SDM845_MASK | BIT(DPU_SSPP_SMART_DMA_V2))
-+
-+#define DMA_CURSOR_SDM845_MASK_SDMA \
-+	(DMA_CURSOR_SDM845_MASK | BIT(DPU_SSPP_SMART_DMA_V2))
-+
+-#define DMA_SDM845_MASK_SDMA \
+-	(DMA_SDM845_MASK | BIT(DPU_SSPP_SMART_DMA_V2))
+-
+-#define DMA_CURSOR_SDM845_MASK_SDMA \
+-	(DMA_CURSOR_SDM845_MASK | BIT(DPU_SSPP_SMART_DMA_V2))
+-
  #define DMA_CURSOR_MSM8998_MASK \
  	(DMA_MSM8998_MASK | BIT(DPU_SSPP_CURSOR))
  
-@@ -1197,21 +1209,21 @@ static const struct dpu_sspp_cfg msm8998_sspp[] = {
+@@ -1209,21 +1200,21 @@ static const struct dpu_sspp_cfg msm8998_sspp[] = {
  };
  
  static const struct dpu_sspp_cfg sdm845_sspp[] = {
--	SSPP_BLK("sspp_0", SSPP_VIG0, 0x4000, VIG_SDM845_MASK,
-+	SSPP_BLK("sspp_0", SSPP_VIG0, 0x4000, VIG_SDM845_MASK_SDMA,
+-	SSPP_BLK("sspp_0", SSPP_VIG0, 0x4000, VIG_SDM845_MASK_SDMA,
++	SSPP_BLK("sspp_0", SSPP_VIG0, 0x4000, VIG_SDM845_MASK,
  		sdm845_vig_sblk_0, 0,  SSPP_TYPE_VIG, DPU_CLK_CTRL_VIG0),
--	SSPP_BLK("sspp_1", SSPP_VIG1, 0x6000, VIG_SDM845_MASK,
-+	SSPP_BLK("sspp_1", SSPP_VIG1, 0x6000, VIG_SDM845_MASK_SDMA,
+-	SSPP_BLK("sspp_1", SSPP_VIG1, 0x6000, VIG_SDM845_MASK_SDMA,
++	SSPP_BLK("sspp_1", SSPP_VIG1, 0x6000, VIG_SDM845_MASK,
  		sdm845_vig_sblk_1, 4,  SSPP_TYPE_VIG, DPU_CLK_CTRL_VIG1),
--	SSPP_BLK("sspp_2", SSPP_VIG2, 0x8000, VIG_SDM845_MASK,
-+	SSPP_BLK("sspp_2", SSPP_VIG2, 0x8000, VIG_SDM845_MASK_SDMA,
+-	SSPP_BLK("sspp_2", SSPP_VIG2, 0x8000, VIG_SDM845_MASK_SDMA,
++	SSPP_BLK("sspp_2", SSPP_VIG2, 0x8000, VIG_SDM845_MASK,
  		sdm845_vig_sblk_2, 8, SSPP_TYPE_VIG, DPU_CLK_CTRL_VIG2),
--	SSPP_BLK("sspp_3", SSPP_VIG3, 0xa000, VIG_SDM845_MASK,
-+	SSPP_BLK("sspp_3", SSPP_VIG3, 0xa000, VIG_SDM845_MASK_SDMA,
+-	SSPP_BLK("sspp_3", SSPP_VIG3, 0xa000, VIG_SDM845_MASK_SDMA,
++	SSPP_BLK("sspp_3", SSPP_VIG3, 0xa000, VIG_SDM845_MASK,
  		sdm845_vig_sblk_3, 12,  SSPP_TYPE_VIG, DPU_CLK_CTRL_VIG3),
--	SSPP_BLK("sspp_8", SSPP_DMA0, 0x24000,  DMA_SDM845_MASK,
-+	SSPP_BLK("sspp_8", SSPP_DMA0, 0x24000,  DMA_SDM845_MASK_SDMA,
+-	SSPP_BLK("sspp_8", SSPP_DMA0, 0x24000,  DMA_SDM845_MASK_SDMA,
++	SSPP_BLK("sspp_8", SSPP_DMA0, 0x24000,  DMA_SDM845_MASK,
  		sdm845_dma_sblk_0, 1, SSPP_TYPE_DMA, DPU_CLK_CTRL_DMA0),
--	SSPP_BLK("sspp_9", SSPP_DMA1, 0x26000,  DMA_SDM845_MASK,
-+	SSPP_BLK("sspp_9", SSPP_DMA1, 0x26000,  DMA_SDM845_MASK_SDMA,
+-	SSPP_BLK("sspp_9", SSPP_DMA1, 0x26000,  DMA_SDM845_MASK_SDMA,
++	SSPP_BLK("sspp_9", SSPP_DMA1, 0x26000,  DMA_SDM845_MASK,
  		sdm845_dma_sblk_1, 5, SSPP_TYPE_DMA, DPU_CLK_CTRL_DMA1),
--	SSPP_BLK("sspp_10", SSPP_DMA2, 0x28000,  DMA_CURSOR_SDM845_MASK,
-+	SSPP_BLK("sspp_10", SSPP_DMA2, 0x28000,  DMA_CURSOR_SDM845_MASK_SDMA,
+-	SSPP_BLK("sspp_10", SSPP_DMA2, 0x28000,  DMA_CURSOR_SDM845_MASK_SDMA,
++	SSPP_BLK("sspp_10", SSPP_DMA2, 0x28000,  DMA_CURSOR_SDM845_MASK,
  		sdm845_dma_sblk_2, 9, SSPP_TYPE_DMA, DPU_CLK_CTRL_DMA2),
--	SSPP_BLK("sspp_11", SSPP_DMA3, 0x2a000,  DMA_CURSOR_SDM845_MASK,
-+	SSPP_BLK("sspp_11", SSPP_DMA3, 0x2a000,  DMA_CURSOR_SDM845_MASK_SDMA,
+-	SSPP_BLK("sspp_11", SSPP_DMA3, 0x2a000,  DMA_CURSOR_SDM845_MASK_SDMA,
++	SSPP_BLK("sspp_11", SSPP_DMA3, 0x2a000,  DMA_CURSOR_SDM845_MASK,
  		sdm845_dma_sblk_3, 13, SSPP_TYPE_DMA, DPU_CLK_CTRL_DMA3),
  };
  
-@@ -1252,21 +1264,21 @@ static const struct dpu_sspp_sub_blks sm8250_vig_sblk_3 =
+@@ -1264,21 +1255,21 @@ static const struct dpu_sspp_sub_blks sm8250_vig_sblk_3 =
  				_VIG_SBLK("3", 8, DPU_SSPP_SCALER_QSEED4);
  
  static const struct dpu_sspp_cfg sm8250_sspp[] = {
--	SSPP_BLK("sspp_0", SSPP_VIG0, 0x4000, VIG_SC7180_MASK,
-+	SSPP_BLK("sspp_0", SSPP_VIG0, 0x4000, VIG_SC7180_MASK_SDMA,
+-	SSPP_BLK("sspp_0", SSPP_VIG0, 0x4000, VIG_SC7180_MASK_SDMA,
++	SSPP_BLK("sspp_0", SSPP_VIG0, 0x4000, VIG_SC7180_MASK,
  		sm8250_vig_sblk_0, 0,  SSPP_TYPE_VIG, DPU_CLK_CTRL_VIG0),
--	SSPP_BLK("sspp_1", SSPP_VIG1, 0x6000, VIG_SC7180_MASK,
-+	SSPP_BLK("sspp_1", SSPP_VIG1, 0x6000, VIG_SC7180_MASK_SDMA,
+-	SSPP_BLK("sspp_1", SSPP_VIG1, 0x6000, VIG_SC7180_MASK_SDMA,
++	SSPP_BLK("sspp_1", SSPP_VIG1, 0x6000, VIG_SC7180_MASK,
  		sm8250_vig_sblk_1, 4,  SSPP_TYPE_VIG, DPU_CLK_CTRL_VIG1),
--	SSPP_BLK("sspp_2", SSPP_VIG2, 0x8000, VIG_SC7180_MASK,
-+	SSPP_BLK("sspp_2", SSPP_VIG2, 0x8000, VIG_SC7180_MASK_SDMA,
+-	SSPP_BLK("sspp_2", SSPP_VIG2, 0x8000, VIG_SC7180_MASK_SDMA,
++	SSPP_BLK("sspp_2", SSPP_VIG2, 0x8000, VIG_SC7180_MASK,
  		sm8250_vig_sblk_2, 8, SSPP_TYPE_VIG, DPU_CLK_CTRL_VIG2),
--	SSPP_BLK("sspp_3", SSPP_VIG3, 0xa000, VIG_SC7180_MASK,
-+	SSPP_BLK("sspp_3", SSPP_VIG3, 0xa000, VIG_SC7180_MASK_SDMA,
+-	SSPP_BLK("sspp_3", SSPP_VIG3, 0xa000, VIG_SC7180_MASK_SDMA,
++	SSPP_BLK("sspp_3", SSPP_VIG3, 0xa000, VIG_SC7180_MASK,
  		sm8250_vig_sblk_3, 12,  SSPP_TYPE_VIG, DPU_CLK_CTRL_VIG3),
--	SSPP_BLK("sspp_8", SSPP_DMA0, 0x24000,  DMA_SDM845_MASK,
-+	SSPP_BLK("sspp_8", SSPP_DMA0, 0x24000,  DMA_SDM845_MASK_SDMA,
+-	SSPP_BLK("sspp_8", SSPP_DMA0, 0x24000,  DMA_SDM845_MASK_SDMA,
++	SSPP_BLK("sspp_8", SSPP_DMA0, 0x24000,  DMA_SDM845_MASK,
  		sdm845_dma_sblk_0, 1, SSPP_TYPE_DMA, DPU_CLK_CTRL_DMA0),
--	SSPP_BLK("sspp_9", SSPP_DMA1, 0x26000,  DMA_SDM845_MASK,
-+	SSPP_BLK("sspp_9", SSPP_DMA1, 0x26000,  DMA_SDM845_MASK_SDMA,
+-	SSPP_BLK("sspp_9", SSPP_DMA1, 0x26000,  DMA_SDM845_MASK_SDMA,
++	SSPP_BLK("sspp_9", SSPP_DMA1, 0x26000,  DMA_SDM845_MASK,
  		sdm845_dma_sblk_1, 5, SSPP_TYPE_DMA, DPU_CLK_CTRL_DMA1),
--	SSPP_BLK("sspp_10", SSPP_DMA2, 0x28000,  DMA_CURSOR_SDM845_MASK,
-+	SSPP_BLK("sspp_10", SSPP_DMA2, 0x28000,  DMA_CURSOR_SDM845_MASK_SDMA,
+-	SSPP_BLK("sspp_10", SSPP_DMA2, 0x28000,  DMA_CURSOR_SDM845_MASK_SDMA,
++	SSPP_BLK("sspp_10", SSPP_DMA2, 0x28000,  DMA_CURSOR_SDM845_MASK,
  		sdm845_dma_sblk_2, 9, SSPP_TYPE_DMA, DPU_CLK_CTRL_DMA2),
--	SSPP_BLK("sspp_11", SSPP_DMA3, 0x2a000,  DMA_CURSOR_SDM845_MASK,
-+	SSPP_BLK("sspp_11", SSPP_DMA3, 0x2a000,  DMA_CURSOR_SDM845_MASK_SDMA,
+-	SSPP_BLK("sspp_11", SSPP_DMA3, 0x2a000,  DMA_CURSOR_SDM845_MASK_SDMA,
++	SSPP_BLK("sspp_11", SSPP_DMA3, 0x2a000,  DMA_CURSOR_SDM845_MASK,
  		sdm845_dma_sblk_3, 13, SSPP_TYPE_DMA, DPU_CLK_CTRL_DMA3),
  };
  
