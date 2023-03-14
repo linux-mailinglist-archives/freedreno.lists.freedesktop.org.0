@@ -2,36 +2,77 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 461F36B86C7
-	for <lists+freedreno@lfdr.de>; Tue, 14 Mar 2023 01:19:51 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 047CD6B890A
+	for <lists+freedreno@lfdr.de>; Tue, 14 Mar 2023 04:38:36 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1394910E6A3;
-	Tue, 14 Mar 2023 00:19:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9B4E810E171;
+	Tue, 14 Mar 2023 03:38:34 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from relay01.th.seeweb.it (relay01.th.seeweb.it
- [IPv6:2001:4b7a:2000:18::162])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 51BB010E6A5;
- Tue, 14 Mar 2023 00:19:48 +0000 (UTC)
-Received: from SoMainline.org (94-211-6-86.cable.dynamic.v4.ziggo.nl
- [94.211.6.86])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest
- SHA256) (No client certificate requested)
- by m-r1.th.seeweb.it (Postfix) with ESMTPSA id 4FEB81F4A5;
- Tue, 14 Mar 2023 01:19:46 +0100 (CET)
-Date: Tue, 14 Mar 2023 01:19:45 +0100
-From: Marijn Suijten <marijn.suijten@somainline.org>
-To: Konrad Dybcio <konrad.dybcio@linaro.org>
-Message-ID: <20230314001945.jc3bmfrnhxbtfwkl@SoMainline.org>
-References: <20230307-topic-dsi_qcm-v3-0-8bd7e1add38a@linaro.org>
- <20230307-topic-dsi_qcm-v3-10-8bd7e1add38a@linaro.org>
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5270E10E171;
+ Tue, 14 Mar 2023 03:38:32 +0000 (UTC)
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 32E3YE5A006990; Tue, 14 Mar 2023 03:38:21 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
+ h=message-id : date :
+ mime-version : subject : to : cc : references : from : in-reply-to :
+ content-type : content-transfer-encoding; s=qcppdkim1;
+ bh=E/I14aNcS8egPn0dFmoIvVB2GB5huvrjib34i69ybt4=;
+ b=WeJa3CcTIu64tGvPZeOQajJEzmcXogg5dGrmtgpWG7vCTJ2j4ERguUotDhRphzVXykts
+ qwdJiKSF9qyeCFi68FUEOZEbGg8pfqUzJ5Jn1hQyZQMGJfQe9iOzwicRKLGe1NAoPjqm
+ p+VxkVHPVaE4Iew7m84bc30uxRCmNcdx4uyZ5HZ/Yg72U1PYfm+0v6bZ677sG4UzBmuF
+ 5sCFZBNzJcvG7FTMu7pLk+okm3tG39mUVj+hGCCZwxFyPbhvVzGg1t2ZSYiXNuuPTlp2
+ 95bYlY04/r24kcP5rMy6lzhHh4hTW31zbq9xJqahbvYUDXj0N/RPHsKY+AhQ0N8hGzAZ 5g== 
+Received: from nalasppmta02.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3pa3ptt2mj-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 14 Mar 2023 03:38:21 +0000
+Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
+ [10.47.209.196])
+ by NALASPPMTA02.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 32E3cKNU014037
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 14 Mar 2023 03:38:20 GMT
+Received: from [10.110.64.241] (10.80.80.8) by nalasex01a.na.qualcomm.com
+ (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.41; Mon, 13 Mar
+ 2023 20:38:19 -0700
+Message-ID: <a10d6cd2-56f8-422b-9d7e-a504d6a7b41f@quicinc.com>
+Date: Mon, 13 Mar 2023 20:38:18 -0700
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20230307-topic-dsi_qcm-v3-10-8bd7e1add38a@linaro.org>
-Subject: Re: [Freedreno] [PATCH v3 10/10] arm64: dts: qcom: sm6115: Use the
- correct DSI compatible
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
+ Thunderbird/91.6.2
+Content-Language: en-US
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Rob Clark
+ <robdclark@gmail.com>, Sean Paul <sean@poorly.run>
+References: <20230310005704.1332368-1-dmitry.baryshkov@linaro.org>
+ <20230310005704.1332368-14-dmitry.baryshkov@linaro.org>
+From: Abhinav Kumar <quic_abhinavk@quicinc.com>
+In-Reply-To: <20230310005704.1332368-14-dmitry.baryshkov@linaro.org>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-GUID: kNTdP-wezbTXqCAaNHWYnZp2kS6fcQWY
+X-Proofpoint-ORIG-GUID: kNTdP-wezbTXqCAaNHWYnZp2kS6fcQWY
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.254,Aquarius:18.0.942,Hydra:6.0.573,FMLib:17.11.170.22
+ definitions=2023-03-13_13,2023-03-13_03,2023-02-09_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 spamscore=0
+ priorityscore=1501 malwarescore=0 mlxscore=0 clxscore=1015 phishscore=0
+ impostorscore=0 adultscore=0 mlxlogscore=888 bulkscore=0
+ lowpriorityscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2212070000 definitions=main-2303140030
+Subject: Re: [Freedreno] [PATCH v5 13/32] drm/msm/dpu: rename
+ dpu_hw_sspp_cfg to dpu_sw_pipe_cfg
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -44,52 +85,20 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- devicetree@vger.kernel.org, Sean Paul <sean@poorly.run>,
- Bjorn Andersson <andersson@kernel.org>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Rob Clark <robdclark@gmail.com>,
- Rob Herring <robh+dt@kernel.org>,
- Krishna Manikandan <quic_mkrishn@quicinc.com>, Andy Gross <agross@kernel.org>,
- Daniel Vetter <daniel@ffwll.ch>, linux-arm-msm@vger.kernel.org,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Bryan O'Donoghue <bryan.odonoghue@linaro.org>, freedreno@lists.freedesktop.org,
+Cc: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
+ Bjorn Andersson <andersson@kernel.org>, dri-devel@lists.freedesktop.org,
+ Stephen Boyd <swboyd@chromium.org>, Daniel Vetter <daniel@ffwll.ch>,
  David Airlie <airlied@gmail.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 2023-03-07 14:01:48, Konrad Dybcio wrote:
-> Use the non-deprecated, SoC-specific DSI compatible.
+
+
+On 3/9/2023 4:56 PM, Dmitry Baryshkov wrote:
+> As struct dpu_hw_sspp_cfg describes only the source and destination
+> rectangles, it is a software pipe configuration now. Rename it
+> accordingly.
 > 
-> Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> Signed-off-by: Konrad Dybcio <konrad.dybcio@linaro.org>
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 
-Reviewed-by: Marijn Suijten <marijn.suijten@somainline.org>
-
-> ---
->  arch/arm64/boot/dts/qcom/sm6115.dtsi | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/arch/arm64/boot/dts/qcom/sm6115.dtsi b/arch/arm64/boot/dts/qcom/sm6115.dtsi
-> index 4d6ec815b78b..26e2c7919961 100644
-> --- a/arch/arm64/boot/dts/qcom/sm6115.dtsi
-> +++ b/arch/arm64/boot/dts/qcom/sm6115.dtsi
-> @@ -1218,7 +1218,7 @@ opp-384000000 {
->  			};
->  
->  			mdss_dsi0: dsi@5e94000 {
-> -				compatible = "qcom,dsi-ctrl-6g-qcm2290";
-> +				compatible = "qcom,sm6115-dsi-ctrl", "qcom,mdss-dsi-ctrl";
-
-This is what the example should look like in qcom,sm6115-mdss.yaml, too.
-
-- Marijn
-
->  				reg = <0x0 0x05e94000 0x0 0x400>;
->  				reg-names = "dsi_ctrl";
->  
-> 
-> -- 
-> 2.39.2
-> 
+Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
