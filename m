@@ -1,79 +1,83 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 28BEA6BC68E
-	for <lists+freedreno@lfdr.de>; Thu, 16 Mar 2023 08:10:01 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 6BC296BC9D0
+	for <lists+freedreno@lfdr.de>; Thu, 16 Mar 2023 09:51:18 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EF03F10EA5C;
-	Thu, 16 Mar 2023 07:09:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E72E910EA4C;
+	Thu, 16 Mar 2023 08:51:16 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ed1-x535.google.com (mail-ed1-x535.google.com
- [IPv6:2a00:1450:4864:20::535])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CEC7110E09D
- for <freedreno@lists.freedesktop.org>; Thu, 16 Mar 2023 07:09:54 +0000 (UTC)
-Received: by mail-ed1-x535.google.com with SMTP id cy23so3605395edb.12
- for <freedreno@lists.freedesktop.org>; Thu, 16 Mar 2023 00:09:54 -0700 (PDT)
+Received: from mail-lj1-x22d.google.com (mail-lj1-x22d.google.com
+ [IPv6:2a00:1450:4864:20::22d])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AC47A10EA4C
+ for <freedreno@lists.freedesktop.org>; Thu, 16 Mar 2023 08:51:12 +0000 (UTC)
+Received: by mail-lj1-x22d.google.com with SMTP id b10so883909ljr.0
+ for <freedreno@lists.freedesktop.org>; Thu, 16 Mar 2023 01:51:12 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1678950593;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=7DskVPGyg4XTBFcAu4u2wBMvd2V9vUe35DTxUMiqKo0=;
- b=Oii4tgqhM1+uytgl/uCtxEcAltbCiuY08aN8SwZk4cCYRC1mtyU92yp6QGwJaMR+69
- r2LeC8f3Pnt7+BBfqEX0Y2mR0KYes6/bpYwuaVes44qLaD3Yoidm5RLYgytOqFqnS54E
- bbxVDZhcftxAPs9cr3DplBamx/puAjOIABbLZR2V4/pPwyR/ws8N73HBXb0YDIo9mne6
- twQQ15hw8kjf+UkJZZK4x30B+ItMvq+3k2a31brrxDdHF6Nznf1V++OM0ARYBboE03Nb
- 7whTxyvSJnd9wCfPtHRV2Pp2tv+7/3l7SMhlI9SkFiSclryfcOuK3xxpB9l4zNyg17zw
- Wvcw==
+ d=linaro.org; s=google; t=1678956670;
+ h=cc:to:content-transfer-encoding:mime-version:message-id:date
+ :subject:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=MRHfhPkQQmxxwKiYMeDcsdJG0r8Xhcdja24C67w7tIY=;
+ b=hcC4eZRs2DELd3vLetjO82Iol3rJDXo/hCDQeg7tLZ8kRDgvSECRSnk5OlDwcew6av
+ 7xzBBWWC5yqVlMyzlfugZ0Zrx9zNXqmofTO435INIk5aZ6FnVTUZMlY8sWv0JECxfBwT
+ RPf2E2Uq7nXrhtYSt2KU9u9bAq4CjojNQKNZ97VBZ12POg3p5vLreaDJ0Bs+0w4PF4Wo
+ JDJ7FOVXgPln5OozfBzmIixxydOtpi8TVgpuaHYhJCEIhEmR+rlcQgeqNZYptg5soARF
+ mY3GXopOkb65xykCKCHPm6mTiWQOPgjAVuHT4BXxrn5TjFWJv89xo79O75Bs76Rpr7XF
+ EZig==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112; t=1678950593;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=7DskVPGyg4XTBFcAu4u2wBMvd2V9vUe35DTxUMiqKo0=;
- b=qBNSiVIs+vumsO9xQQQoMy4tJJNEq6e5uU2G3DtJzjK/xpub8D50Y7KoO04cVKWVZt
- 4x59by47PoziVEUXN7oPZcgDcSW4feIaBbC8LcGY8BQYOIjy1aktdIk5DioFoKl0XIdq
- dRsND4mgRrnBdBqHe5rN3sDZsf77cAFLW1s9BByRprv+c8Zsm27BMrWTkuH0FrpuGT5C
- ct2D73w6CmGC4fd7jpOG10pUvzZFeEx3/bAu/639FH4BO5nqYrrQFZ4H+GAqetgAxoiy
- 669cCLBdSWScsi1K9X6GQOwWrcFRId2gTHcwo85vKwmXQORiDs0P1X4zZFCqQXyR+Jam
- N0cw==
-X-Gm-Message-State: AO0yUKWl8R8lV17IDTyBRNGiGHiuNiYsjPUKesO1ZIVdTBp2YM0UN7Oz
- KFs4uAVJgxJsYxXiiu5AJVz8mg==
-X-Google-Smtp-Source: AK7set8+NBsRtQMHynOv/FiocIqAaxXx01Y0YdEP/h944/7U8HpnrYGeH2MUJuKARg20j4XUNIwrZQ==
-X-Received: by 2002:aa7:de82:0:b0:4fd:2b04:6e8b with SMTP id
- j2-20020aa7de82000000b004fd2b046e8bmr5524719edv.29.1678950593268; 
- Thu, 16 Mar 2023 00:09:53 -0700 (PDT)
-Received: from ?IPV6:2a02:810d:15c0:828:9827:5f65:8269:a95f?
- ([2a02:810d:15c0:828:9827:5f65:8269:a95f])
+ d=1e100.net; s=20210112; t=1678956670;
+ h=cc:to:content-transfer-encoding:mime-version:message-id:date
+ :subject:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=MRHfhPkQQmxxwKiYMeDcsdJG0r8Xhcdja24C67w7tIY=;
+ b=a4F0fTlh9xFDrYh467Ziw5wxIxc7sJFGzyG9syVlBd7FCnqyPdLeYOGM3OgGVFucdi
+ bjFWihnuf21AuKpvSb2Y7iIgpDoPS8wl0JnpfA2VA1l3qN/9/e5uZhBnKO+c1Ds1IraK
+ OzvNrJGgAceHMlsQltn/KzviM/L8H3ifLNGJ1VrX/H18TQKOUsfbBJTcCjbqPrnDaLZQ
+ 7BNm+UGhe4fUcogAQL7NaxIiHv00O9imK3LNEko9FtNtANNPoSLHG76lejgrzSUIa2VC
+ TO6bayCmx6VkdrqojZ7ZpMOIaFpnYx+XT3tiklM3hu8mAdgGDX815RudaRuHYgOs9JkH
+ 5sdQ==
+X-Gm-Message-State: AO0yUKVSsibBE+/mLwtBuOPH759Cqwv4pn50T6fI4QkmMjy3BDj7Xz06
+ K9F/9RT/wcPEU8ozNPQc2BADPNCM8xEphL7A0W8=
+X-Google-Smtp-Source: AK7set++f4e0zAJlzPQd1RsCU44TuFEl32Qs7tdY3yyXR48HHNXGbN1BTY5YuC7B0ioIHD0vd8DTJg==
+X-Received: by 2002:a2e:be89:0:b0:298:6cfa:3773 with SMTP id
+ a9-20020a2ebe89000000b002986cfa3773mr2251503ljr.37.1678956670439; 
+ Thu, 16 Mar 2023 01:51:10 -0700 (PDT)
+Received: from [192.168.1.101] (abyj16.neoplus.adsl.tpnet.pl. [83.9.29.16])
  by smtp.gmail.com with ESMTPSA id
- e20-20020a50d4d4000000b004fbf6b35a56sm3363840edj.76.2023.03.16.00.09.52
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 16 Mar 2023 00:09:52 -0700 (PDT)
-Message-ID: <04f9336b-2a49-ca3f-fd28-1f04db78d2bd@linaro.org>
-Date: Thu, 16 Mar 2023 08:09:51 +0100
+ o11-20020a2e730b000000b002991baef49bsm251566ljc.12.2023.03.16.01.51.08
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 16 Mar 2023 01:51:10 -0700 (PDT)
+From: Konrad Dybcio <konrad.dybcio@linaro.org>
+Date: Thu, 16 Mar 2023 09:51:06 +0100
+Message-Id: <20230307-topic-dsi_qcm-v5-0-9d4235b77f4f@linaro.org>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.8.0
-Content-Language: en-US
-To: Konrad Dybcio <konrad.dybcio@linaro.org>, Rob Clark
- <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>,
- David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- Rob Herring <robh+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konrad.dybcio@somainline.org>,
- Akhil P Oommen <quic_akhilpo@quicinc.com>
-References: <20230223-topic-gmuwrapper-v4-0-e987eb79d03f@linaro.org>
- <20230223-topic-gmuwrapper-v4-2-e987eb79d03f@linaro.org>
-From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-In-Reply-To: <20230223-topic-gmuwrapper-v4-2-e987eb79d03f@linaro.org>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH v4 02/14] dt-bindings: display/msm/gmu: Add
- GMU wrapper
+X-B4-Tracking: v=1; b=H4sIAHrYEmQC/32Nyw6CMBREf4V0bU2hJRRX/ocxpi/gJthii42G8
+ O9e2LnQ5ZnJmVlIchFcIqdiIdFlSBA8Qn0oiBmU7x0Fi0wqVnHGWUPnMIGhNsHtYe60NpZxg1U
+ nO4KOVslRHZU3A1r+OY4YTtF18NpPLlfkAdIc4nv/zHxLf81nThmV2jauVNZyqc4jeBXDMcSeb
+ FNZ/NUF6rXQQraylK3RX/q6rh+D9Gtl/wAAAA==
+To: Rob Clark <robdclark@gmail.com>, 
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, 
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>, 
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>, 
+ Rob Herring <robh+dt@kernel.org>, 
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>, 
+ Krishna Manikandan <quic_mkrishn@quicinc.com>, 
+ Bryan O'Donoghue <bryan.odonoghue@linaro.org>, 
+ Andy Gross <agross@kernel.org>, Bjorn Andersson <andersson@kernel.org>
+X-Mailer: b4 0.12.1
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1678956668; l=3422;
+ i=konrad.dybcio@linaro.org; s=20230215; h=from:subject:message-id;
+ bh=0MXjDNpERjKFXSKU2j+B9Z5K/vxYRzMBl75jFNCiDc4=;
+ b=WjlkY2e3xNCFyGqRWQA0InNPbPPw+tF84Td75phjejo9KwAUuyMPrP7ckVQhBDi1lB6JP3W4wMKF
+ sariP+AfDFWIBtINMU0tfylRvVlgTIlnlbd1V5V0I8TuzR3qz1U7
+X-Developer-Key: i=konrad.dybcio@linaro.org; a=ed25519;
+ pk=iclgkYvtl2w05SSXO5EjjSYlhFKsJ+5OSZBjOkQuEms=
+Subject: [Freedreno] [PATCH v5 00/10] Fix DSI host idx detection on HW
+ revision clash
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -86,94 +90,89 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rob Clark <robdclark@chromium.org>, devicetree@vger.kernel.org,
+Cc: Rob Herring <robh@kernel.org>, devicetree@vger.kernel.org,
  linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, Konrad Dybcio <konrad.dybcio@linaro.org>,
  Marijn Suijten <marijn.suijten@somainline.org>,
  freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 14/03/2023 16:28, Konrad Dybcio wrote:
-> The "GMU Wrapper" is Qualcomm's name for "let's treat the GPU blocks
-> we'd normally assign to the GMU as if they were a part of the GMU, even
-> though they are not". It's a (good) software representation of the GMU_CX
-> and GMU_GX register spaces within the GPUSS that helps us programatically
-> treat these de-facto GMU-less parts in a way that's very similar to their
-> GMU-equipped cousins, massively saving up on code duplication.
-> 
-> The "wrapper" register space was specifically designed to mimic the layout
-> of a real GMU, though it rather obviously does not have the M3 core et al.
-> 
-> To sum it all up, the GMU wrapper is essentially a register space within
-> the GPU, which Linux sees as a dumbed-down regular GMU: there's no clocks,
-> interrupts, multiple reg spaces, iommus and OPP. Document it.
-> 
-> Signed-off-by: Konrad Dybcio <konrad.dybcio@linaro.org>
-> ---
->  .../devicetree/bindings/display/msm/gmu.yaml       | 49 ++++++++++++++++------
->  1 file changed, 37 insertions(+), 12 deletions(-)
-> 
-> diff --git a/Documentation/devicetree/bindings/display/msm/gmu.yaml b/Documentation/devicetree/bindings/display/msm/gmu.yaml
-> index ab14e81cb050..021373e686e1 100644
-> --- a/Documentation/devicetree/bindings/display/msm/gmu.yaml
-> +++ b/Documentation/devicetree/bindings/display/msm/gmu.yaml
-> @@ -19,16 +19,18 @@ description: |
->  
->  properties:
->    compatible:
-> -    items:
-> -      - pattern: '^qcom,adreno-gmu-6[0-9][0-9]\.[0-9]$'
-> -      - const: qcom,adreno-gmu
-> +    oneOf:
-> +      - items:
-> +          - pattern: '^qcom,adreno-gmu-6[0-9][0-9]\.[0-9]$'
-> +          - const: qcom,adreno-gmu
-> +      - const: qcom,adreno-gmu-wrapper
->  
->    reg:
-> -    minItems: 3
-> +    minItems: 1
->      maxItems: 4
->  
->    reg-names:
-> -    minItems: 3
-> +    minItems: 1
->      maxItems: 4
->  
->    clocks:
-> @@ -44,7 +46,6 @@ properties:
->        - description: GMU HFI interrupt
->        - description: GMU interrupt
->  
-> -
->    interrupt-names:
->      items:
->        - const: hfi
-> @@ -72,14 +73,8 @@ required:
->    - compatible
->    - reg
->    - reg-names
-> -  - clocks
-> -  - clock-names
-> -  - interrupts
-> -  - interrupt-names
->    - power-domains
->    - power-domain-names
-> -  - iommus
-> -  - operating-points-v2
->  
->  additionalProperties: false
->  
-> @@ -216,6 +211,27 @@ allOf:
->              - const: cxo
->              - const: axi
->              - const: memnoc
+v4 -> v5:
+- Drop superfluous items: level in [8/10]
+- Remove the header define for the qcm2290 config in [6/10] instead of
+  [7/10]
+- Pick up tags
 
-Blank line (you added such between ifs in previous patch)
+v4: https://lore.kernel.org/r/20230307-topic-dsi_qcm-v4-0-54b4898189cb@linaro.org
 
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+v3 -> v4:
+- Use the shiny new compatible in the 6115 bindings example [9/10]
+- Remove the leftover include and header definition [6, 7/10]
+- Deduplicate the qcm2290 clks/regs in the common deduplication commit
+  instead of doing it separately
+- Pick up tags
+- Rebase on next-20230314 (nothing seems to have changed fwiw)
+
+v3: https://lore.kernel.org/r/20230307-topic-dsi_qcm-v3-0-8bd7e1add38a@linaro.org
+
+v2 -> v3:
+- Merge with [1], I should have done that earlier..
+  - Squash 6115 compatible patches into one
+- Pick up tags (except Rob's ack in 6115 compatible addition, as it was changed)
+- Use b4 (sorry if you got an incomplete set of messages before..)
+
+[1] https://lore.kernel.org/linux-arm-msm/145066db-5723-6baa-237d-7c2b8fd476d9@linaro.org/
+v2: https://lore.kernel.org/linux-arm-msm/20230213121012.1768296-1-konrad.dybcio@linaro.org/
+
+v1 -> v2:
+- squash the 2d-array-ification and fixing up the logic into one patch
+- drop num_variants, loop over VARIANTS_MAX*DSI_MAX unconditionally
+- drop inadequate Fixes: tags
+- pick up rbs
+
+v1: https://lore.kernel.org/linux-arm-msm/20230211115110.1462920-1-konrad.dybcio@linaro.org/
+
+Some DSI host versions are implemented on multiple SoCs which use
+vastly different register maps. This messes with our current
+assumptions of being able to map {dsi0, dsi1} to {reg0, reg1}.
+Solve that by adding a way of specifying multiple sets of base
+registers and try comparing them against the register specified in DT
+until we find a match.
+
+This removes the need for the QCM2290-specific compatible which was
+used in the SM6115 DT (which uses DSIv2.4.1, just like SC7180).
+The series also takes care of that.
+
+Tested on SM6115P Lenovo Tab P11 and SM8350 PDX215
+
+Signed-off-by: Konrad Dybcio <konrad.dybcio@linaro.org>
+---
+Konrad Dybcio (10):
+      dt-bindings: display/msm: dsi-controller-main: Fix deprecated QCM2290 compatible
+      drm/msm/dsi: Get rid of msm_dsi_config::num_dsi
+      drm/msm/dsi: Fix DSI index detection when version clash occurs
+      drm/msm/dsi: dsi_cfg: Deduplicate identical structs
+      drm/msm/dsi: dsi_cfg: Merge SC7180 config into SDM845
+      drm/msm/dsi: Switch the QCM2290-specific compatible to index autodetection
+      drm/msm/dsi: Remove custom DSI config handling
+      dt-bindings: display/msm: dsi-controller-main: Fix deprecated compatible
+      dt-bindings: display/msm: dsi-controller-main: Add SM6115
+      arm64: dts: qcom: sm6115: Use the correct DSI compatible
+
+ .../bindings/display/msm/dsi-controller-main.yaml  |   9 +-
+ .../bindings/display/msm/qcom,sm6115-mdss.yaml     |  10 +-
+ arch/arm64/boot/dts/qcom/sm6115.dtsi               |   2 +-
+ drivers/gpu/drm/msm/dsi/dsi.c                      |   7 +-
+ drivers/gpu/drm/msm/dsi/dsi_cfg.c                  | 161 ++++++++-------------
+ drivers/gpu/drm/msm/dsi/dsi_cfg.h                  |   9 +-
+ drivers/gpu/drm/msm/dsi/dsi_host.c                 |  14 +-
+ 7 files changed, 84 insertions(+), 128 deletions(-)
+---
+base-commit: ec0fa9a0a6fac454745c930bdb8619d0a354bac9
+change-id: 20230307-topic-dsi_qcm-5cd03c230f8f
 
 Best regards,
-Krzysztof
+-- 
+Konrad Dybcio <konrad.dybcio@linaro.org>
 
