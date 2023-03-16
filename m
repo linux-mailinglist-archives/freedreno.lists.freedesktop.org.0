@@ -1,70 +1,57 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7E2326BCCC3
-	for <lists+freedreno@lfdr.de>; Thu, 16 Mar 2023 11:29:31 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 552616BD174
+	for <lists+freedreno@lfdr.de>; Thu, 16 Mar 2023 14:53:42 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 613A810EC9A;
-	Thu, 16 Mar 2023 10:29:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E367210ECFB;
+	Thu, 16 Mar 2023 13:53:40 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x134.google.com (mail-lf1-x134.google.com
- [IPv6:2a00:1450:4864:20::134])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C8E3710EC97
- for <freedreno@lists.freedesktop.org>; Thu, 16 Mar 2023 10:29:26 +0000 (UTC)
-Received: by mail-lf1-x134.google.com with SMTP id b10so468124lfb.9
- for <freedreno@lists.freedesktop.org>; Thu, 16 Mar 2023 03:29:26 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1678962565;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=ZoXEVHbh4zESyEnp5EA5Zcb4rCYHcLM5oXeCPSUEYhA=;
- b=hPGRGxF+ke8z3JzOJVv+C09Jmuv4N0i5SYgY2ZnNIKaXxFPKIJ7v7rnm2ULALJDkS3
- BN+pVAOZSFrQcXJ72EtdmQLp8W7xIabGTpOC1j1pFwBeGr3S2feU1PHVkEeTqdTutiPw
- aU9vqjmKMMz40gaZ8L2TzgsC/ycD6WoA6uapZvUDjCeahwljPbAPNVSsRefd0Mq9y20n
- fdX4PKenMaxkUbhjaaU7NYQUZYUJL59wmPbtVVOg7gfHNbtejQlMvxNRmrqa60LdbRxE
- 2y2ayOBGkrD8bvHM/UhTZZ8TxMdjgvxZpe44qY/YBMkbC6Sfiyj2cTlfsM4hD2W2wrYN
- /TEQ==
+Received: from mail-io1-f51.google.com (mail-io1-f51.google.com
+ [209.85.166.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 815B010ECFB;
+ Thu, 16 Mar 2023 13:53:39 +0000 (UTC)
+Received: by mail-io1-f51.google.com with SMTP id v10so802837iol.9;
+ Thu, 16 Mar 2023 06:53:39 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112; t=1678962565;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=ZoXEVHbh4zESyEnp5EA5Zcb4rCYHcLM5oXeCPSUEYhA=;
- b=Le1dAJYJrX/6dYZ9VrtXy6LipOdV8z1/XNDb5Z1M8KsIv/p0jlUeP/zxl8Ih+y5ySa
- MB9qi3MGJiNhU044VVWVUFRf0tbzRPjqW6Yf2E+/GzWT9rFS2pkUNpJID8SxkgR7kZ7I
- +R7nYcIGrhekxmED75j8MCTxMR+XRqMPHo+vhaW/8yviOP4Me1OdUUR5obPm5f0x3WRv
- EwUFh8zhOQDSzSwwt4c5yfkadrVDBGXcTHWxrePst0ZXG6AoSxZSq+yyeJBoKPTHlIfD
- PzeNwEgFnewtV2DnOAbpRD6enBT4G2JB+sjj2ZFvy9JA7jUKfutEnv6eKMEEj1hCGlUl
- X6BA==
-X-Gm-Message-State: AO0yUKXuTMllc59fV90YqOYvlsX7WdFlexmJqdkNuHj78AqNXup0eSYi
- D+yuBPI/fX687Fq1ooDIREZtOg==
-X-Google-Smtp-Source: AK7set8RqMAmh9lKg1cILMKHSx8C7wupxbgS49UmQD0f1euyKuqdXR0j+LcLnHCcQgn5HAX+nmRHtQ==
-X-Received: by 2002:ac2:5dd1:0:b0:4e8:4699:d01 with SMTP id
- x17-20020ac25dd1000000b004e846990d01mr2775148lfq.27.1678962565001; 
- Thu, 16 Mar 2023 03:29:25 -0700 (PDT)
-Received: from ?IPV6:2001:14ba:a085:4d00::8a5?
- (dzccz6yyyyyyyyyyybcwt-3.rev.dnainternet.fi. [2001:14ba:a085:4d00::8a5])
+ d=1e100.net; s=20210112; t=1678974819;
+ h=date:subject:message-id:references:in-reply-to:cc:to:from
+ :mime-version:content-transfer-encoding:x-gm-message-state:from:to
+ :cc:subject:date:message-id:reply-to;
+ bh=mUdpbi5TGJoaUXHkv97gIa7NonUCQAJZsK/HjadTtxE=;
+ b=DE8v+cnFrxFzLco5+ZJXevkQi96AlxAhQ31Hx0nhmUdl6HRI8l81kuDc5Xz4zbY8fi
+ GaukzVSVel4pJjk7bhgCJwHuq89+PBkTvLJxPZ91RlknjHVnor1wd2gWCl2QP6vsWKw0
+ pAHOLpvJXyYoNlymm91mIZvB9t5Kax50X+Jpkm0xhoQeljxs6UePf54MXe6PMCCu1J+h
+ 2fjU1ta3MaTXMwOZVblbcfZfuNl0PeCJ8puNWNTlsngPkOa5+9skv5X/Q3b+MQe9nQGi
+ eVrgmUKaf48RPfO1XogA6s4hmv0YhwabH7hukL+0819viPFNBAyBgjFGUq7ViAfetS51
+ nwqA==
+X-Gm-Message-State: AO0yUKV3WhJzmzr0Er5Gp8Fexzip9eDktpC4mVMnGUX1K/b4WBikR0zq
+ kJnwtx4rJPcGJR10tG6jxw==
+X-Google-Smtp-Source: AK7set8W8UPFeVE0DXWj4IT3uiG6YG5+JfpqujbxicCe7RzbD9be9VSYYcqSzrSQFSB/MR4qFE0y2w==
+X-Received: by 2002:a5d:9544:0:b0:74c:7db1:47cf with SMTP id
+ a4-20020a5d9544000000b0074c7db147cfmr16981351ios.14.1678974818768; 
+ Thu, 16 Mar 2023 06:53:38 -0700 (PDT)
+Received: from robh_at_kernel.org ([64.188.179.249])
  by smtp.gmail.com with ESMTPSA id
- n7-20020a195507000000b004e84896253asm1169523lfe.251.2023.03.16.03.29.23
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 16 Mar 2023 03:29:23 -0700 (PDT)
-Message-ID: <5cfc6a2b-5b70-c44c-17d4-9c5dfaa33f54@linaro.org>
-Date: Thu, 16 Mar 2023 12:29:23 +0200
+ r23-20020a02c857000000b004061d6abcd2sm1151352jao.146.2023.03.16.06.53.36
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 16 Mar 2023 06:53:38 -0700 (PDT)
+Received: (nullmailer pid 2744948 invoked by uid 1000);
+ Thu, 16 Mar 2023 13:53:34 -0000
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.8.0
-Content-Language: en-GB
-To: Adam Skladowski <a39.skl@gmail.com>
-References: <20230314221757.13096-1-a39.skl@gmail.com>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-In-Reply-To: <20230314221757.13096-1-a39.skl@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH] drm: msm: adreno: Disable preemption on
- Adreno 510
+From: Rob Herring <robh@kernel.org>
+To: Konrad Dybcio <konrad.dybcio@linaro.org>
+In-Reply-To: <20230307-topic-dsi_qcm-v5-1-9d4235b77f4f@linaro.org>
+References: <20230307-topic-dsi_qcm-v5-0-9d4235b77f4f@linaro.org>
+ <20230307-topic-dsi_qcm-v5-1-9d4235b77f4f@linaro.org>
+Message-Id: <167897435368.2729763.13155358018368815833.robh@kernel.org>
+Date: Thu, 16 Mar 2023 08:53:34 -0500
+Subject: Re: [Freedreno] [PATCH v5 01/10] dt-bindings: display/msm:
+ dsi-controller-main: Fix deprecated QCM2290 compatible
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,31 +64,66 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org,
- AngeloGioacchino Del Regno <kholk11@gmail.com>,
- Elliot Berman <quic_eberman@quicinc.com>,
- Akhil P Oommen <quic_akhilpo@quicinc.com>, Sean Paul <sean@poorly.run>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
- Douglas Anderson <dianders@chromium.org>, Rob Clark <robdclark@gmail.com>,
- ~postmarketos/upstreaming@lists.sr.ht, Daniel Vetter <daniel@ffwll.ch>,
- linux-arm-msm@vger.kernel.org, phone-devel@vger.kernel.org,
- David Airlie <airlied@gmail.com>, Chia-I Wu <olvaffe@gmail.com>,
- linux-kernel@vger.kernel.org
+Cc: Sean Paul <sean@poorly.run>, devicetree@vger.kernel.org,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ linux-arm-msm@vger.kernel.org, Bjorn Andersson <andersson@kernel.org>,
+ linux-kernel@vger.kernel.org, Rob Herring <robh+dt@kernel.org>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, Rob Clark <robdclark@gmail.com>,
+ Andy Gross <agross@kernel.org>, Krishna Manikandan <quic_mkrishn@quicinc.com>,
+ dri-devel@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>,
+ Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ freedreno@lists.freedesktop.org, David Airlie <airlied@gmail.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 15/03/2023 00:17, Adam Skladowski wrote:
-> Downstream driver appears to not support preemption on A510 target,
-> trying to use one make device slow and fill log with rings related errors.
-> Set num_rings to 1 to disable preemption.
+
+On Thu, 16 Mar 2023 09:51:07 +0100, Konrad Dybcio wrote:
+> The qcom, prefix was missed previously. Fix it.
 > 
-> Suggested-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> Fixes: e20c9284c8f2 ("drm/msm/adreno: Add support for Adreno 510 GPU")
-> Signed-off-by: Adam Skladowski <a39.skl@gmail.com>
+> Fixes: 0c0f65c6dd44 ("dt-bindings: msm: dsi-controller-main: Add compatible strings for every current SoC")
+> Acked-by: Rob Herring <robh@kernel.org>
+> Reviewed-by: Marijn Suijten <marijn.suijten@somainline.org>
+> Signed-off-by: Konrad Dybcio <konrad.dybcio@linaro.org>
+> ---
+>  Documentation/devicetree/bindings/display/msm/dsi-controller-main.yaml | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
 
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+My bot found errors running 'make DT_CHECKER_FLAGS=-m dt_binding_check'
+on your patch (DT_CHECKER_FLAGS is new in v5.13):
 
--- 
-With best wishes
-Dmitry
+yamllint warnings/errors:
+
+dtschema/dtc warnings/errors:
+/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sm6115-mdss.example.dtb: dsi@5e94000: compatible: 'oneOf' conditional failed, one must be fixed:
+	['qcom,dsi-ctrl-6g-qcm2290'] is too short
+	'qcom,dsi-ctrl-6g-qcm2290' is not one of ['qcom,apq8064-dsi-ctrl', 'qcom,msm8916-dsi-ctrl', 'qcom,msm8953-dsi-ctrl', 'qcom,msm8974-dsi-ctrl', 'qcom,msm8996-dsi-ctrl', 'qcom,msm8998-dsi-ctrl', 'qcom,qcm2290-dsi-ctrl', 'qcom,sc7180-dsi-ctrl', 'qcom,sc7280-dsi-ctrl', 'qcom,sdm660-dsi-ctrl', 'qcom,sdm845-dsi-ctrl', 'qcom,sm8150-dsi-ctrl', 'qcom,sm8250-dsi-ctrl', 'qcom,sm8350-dsi-ctrl', 'qcom,sm8450-dsi-ctrl', 'qcom,sm8550-dsi-ctrl']
+	From schema: /builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/dsi-controller-main.yaml
+/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sm6115-mdss.example.dtb: dsi@5e94000: Unevaluated properties are not allowed ('compatible' was unexpected)
+	From schema: /builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/dsi-controller-main.yaml
+/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,qcm2290-mdss.example.dtb: dsi@5e94000: compatible: 'oneOf' conditional failed, one must be fixed:
+	['qcom,dsi-ctrl-6g-qcm2290'] is too short
+	'qcom,dsi-ctrl-6g-qcm2290' is not one of ['qcom,apq8064-dsi-ctrl', 'qcom,msm8916-dsi-ctrl', 'qcom,msm8953-dsi-ctrl', 'qcom,msm8974-dsi-ctrl', 'qcom,msm8996-dsi-ctrl', 'qcom,msm8998-dsi-ctrl', 'qcom,qcm2290-dsi-ctrl', 'qcom,sc7180-dsi-ctrl', 'qcom,sc7280-dsi-ctrl', 'qcom,sdm660-dsi-ctrl', 'qcom,sdm845-dsi-ctrl', 'qcom,sm8150-dsi-ctrl', 'qcom,sm8250-dsi-ctrl', 'qcom,sm8350-dsi-ctrl', 'qcom,sm8450-dsi-ctrl', 'qcom,sm8550-dsi-ctrl']
+	From schema: /builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/dsi-controller-main.yaml
+/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,qcm2290-mdss.example.dtb: dsi@5e94000: Unevaluated properties are not allowed ('compatible' was unexpected)
+	From schema: /builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/dsi-controller-main.yaml
+
+doc reference errors (make refcheckdocs):
+
+See https://patchwork.ozlabs.org/project/devicetree-bindings/patch/20230307-topic-dsi_qcm-v5-1-9d4235b77f4f@linaro.org
+
+The base for the series is generally the latest rc1. A different dependency
+should be noted in *this* patch.
+
+If you already ran 'make dt_binding_check' and didn't see the above
+error(s), then make sure 'yamllint' is installed and dt-schema is up to
+date:
+
+pip3 install dtschema --upgrade
+
+Please check and re-submit after running the above command yourself. Note
+that DT_SCHEMA_FILES can be set to your schema file to speed up checking
+your schema. However, it must be unset to test all examples with your schema.
 
