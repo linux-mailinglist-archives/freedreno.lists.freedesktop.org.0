@@ -2,59 +2,59 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 10C936BC9CF
-	for <lists+freedreno@lfdr.de>; Thu, 16 Mar 2023 09:51:18 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id EE4236BC9D2
+	for <lists+freedreno@lfdr.de>; Thu, 16 Mar 2023 09:51:20 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BFB2A10EA1E;
-	Thu, 16 Mar 2023 08:51:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6811110EA60;
+	Thu, 16 Mar 2023 08:51:19 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-x22d.google.com (mail-lj1-x22d.google.com
- [IPv6:2a00:1450:4864:20::22d])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4B16810EA55
- for <freedreno@lists.freedesktop.org>; Thu, 16 Mar 2023 08:51:14 +0000 (UTC)
-Received: by mail-lj1-x22d.google.com with SMTP id b13so846437ljf.6
- for <freedreno@lists.freedesktop.org>; Thu, 16 Mar 2023 01:51:14 -0700 (PDT)
+Received: from mail-lj1-x229.google.com (mail-lj1-x229.google.com
+ [IPv6:2a00:1450:4864:20::229])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D637E10EA1E
+ for <freedreno@lists.freedesktop.org>; Thu, 16 Mar 2023 08:51:15 +0000 (UTC)
+Received: by mail-lj1-x229.google.com with SMTP id g18so857449ljl.3
+ for <freedreno@lists.freedesktop.org>; Thu, 16 Mar 2023 01:51:15 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1678956672;
+ d=linaro.org; s=google; t=1678956673;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=lGx1EMDayEFQk6t13uD2RfqUM6dmmVIVZCz4JA+bL8w=;
- b=k2cZi+Jizy40BMhfzsFTiSKLERA9RYxhndpDgUsgMlfQIwRh66hPqO35fyMbMVapCd
- K8wIf7Hi3PQqH/klEXZWCIiqLmfx/1/T/fbFgi5QsQ/7TyqIvr6xdvS4CAnrdDxz08xM
- MNFE7NYLeQux8D4Eyd1mcyjW65Im5o4IsopklTpdzkERhfGKIM13ArVFWU0gDnH8Gq0d
- zB8h3bjeXJKf7V4mLC5Eoc12alyTrk8Wz4ZJGBIoZxzuUs8YITb9G9OrRBFA2Pf2faTX
- xtUTEArirXWTU39FinWou3VtsdAbpLicVipmbHTkyLV6egSpWaNrc3+FD4GZkKKxsS49
- SRSg==
+ :reply-to; bh=Ja37xKiglxJ/lPrUpuyUvSbThkrJV11m94PBRXq1WhI=;
+ b=L9mMKpZ0y15yotTtEQtS4RCEnQF5hD7h8us5pLKOa8E4hMkkhdjAE8PR03BF7fbHNF
+ O6+wuoDHh869ug6DV4gjFNtwZqdVmxFHExwQ7TW52GDVQVpTcqmwFnE7ISOC9iFlCt2J
+ j6e6X+vitM47swDMLg46tZxCCgOKIAjLhv0IvuOpMLbpfrupJ5c5mDSyQeJMd0Ovt3x1
+ rNtysADZ9UWEzwx1f/0W7YW6sDobngzto836sjEwwizK7LPh6nSk/R4jDCtMfptx5EEs
+ djiSRFzIxlVBZ3FPlMxDfF6xGDmk1cr+Ql8PMdC8rTj4MsoD+HHHHHhENxCkDBZN1lry
+ R7ig==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112; t=1678956672;
+ d=1e100.net; s=20210112; t=1678956673;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=lGx1EMDayEFQk6t13uD2RfqUM6dmmVIVZCz4JA+bL8w=;
- b=z3BvBHrLTC883UJIM5qNejU2hnV82Z1QEFvF9G9hfmgBfUEgYuilKXaMPt8k6Y8zjp
- S19yJS2N/9Ywl+O8bfn+wTouTOPpwnxvLPqbue4u2wlvzV7Y8ybcC77NTc+JlbTMZkKv
- uqk02rxYRoLlw5aOQaMzbdWMUiD0XQN6nbiL5U5vA2Y3GMTdMxt2HdO6CwexsPBfyGLf
- 5q9gykVI69zuuHXsKd6bWZ8qnu+suaoDih1Q8hlMIA6y3zc4qaC5H2szC/sJXwsSvCMT
- 67WNn+ez0tSi69olaJCBUC/XIxGI8nXx4N6gKGT6vwF3hVjZ32v9wmAqlKk0ezBqbBz0
- DAAg==
-X-Gm-Message-State: AO0yUKUcTrmQCfpbmBHpKAA5n0rqp+BsE+lMsn2SWRrE2vsyWU65WW0r
- xksEj3OEpAxtNLVRrujmOzgxsC2audftwhLdRKc=
-X-Google-Smtp-Source: AK7set+LOdjLIijgTnxittedEAg9C0JxSXja6pNSpgc6AZvJIVz8rS3AEv6aIeHCQyAyI4Z2IzC4eA==
-X-Received: by 2002:a05:651c:550:b0:290:6e01:8d0b with SMTP id
- q16-20020a05651c055000b002906e018d0bmr2495303ljp.26.1678956672023; 
- Thu, 16 Mar 2023 01:51:12 -0700 (PDT)
+ bh=Ja37xKiglxJ/lPrUpuyUvSbThkrJV11m94PBRXq1WhI=;
+ b=FwuzFxjCjYq/ikw3VmC3QOjXbw64OlpWPxycrfH8tVWL9CKZB0rr7VZ2dYAmIYxJMz
+ UxRiNEjNCcKqDgRv92a/N9Ca09n2sCYK8l43rCpd2mEiV4MRc1qGlSnjEnz/vwSBpIxq
+ 0eK2URohTPwC0yU1FRYvis3EhcZiH7Gmee/m4hbSK/ItGWMvxu3SGzroJ7R+9wTYUkI5
+ rZO91bGGhzweXkO+ruAwsozhq+OGRvGWPTKLLnlqqFExiDZlJFk3zjQXwOb9n+MdDbdK
+ llJ5D0JI+wG+eTeNDpBBb5e6SSiaPG0BD8oGvaqwG08CwgL8QBGjji/Wv6c6PvOlcQ/a
+ bK/g==
+X-Gm-Message-State: AO0yUKVygksjx3f0V1lQ3CQeO2vmryFF8RNx9wxnL9AtpxbGH+dGOxV/
+ iJxNsZHeWIia7RXMXshNr5BFhbI0vGt6TxZmIK8=
+X-Google-Smtp-Source: AK7set+uyhvhptqlttNk3GdKZVaj1SNxOsxZsEvnBrhzk7u86veDhy/Zle27W0MP91xEz+gr9K5tFg==
+X-Received: by 2002:a2e:8e3c:0:b0:295:a2a6:672 with SMTP id
+ r28-20020a2e8e3c000000b00295a2a60672mr1879358ljk.10.1678956673706; 
+ Thu, 16 Mar 2023 01:51:13 -0700 (PDT)
 Received: from [192.168.1.101] (abyj16.neoplus.adsl.tpnet.pl. [83.9.29.16])
  by smtp.gmail.com with ESMTPSA id
- o11-20020a2e730b000000b002991baef49bsm251566ljc.12.2023.03.16.01.51.10
+ o11-20020a2e730b000000b002991baef49bsm251566ljc.12.2023.03.16.01.51.12
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 16 Mar 2023 01:51:11 -0700 (PDT)
+ Thu, 16 Mar 2023 01:51:13 -0700 (PDT)
 From: Konrad Dybcio <konrad.dybcio@linaro.org>
-Date: Thu, 16 Mar 2023 09:51:07 +0100
+Date: Thu, 16 Mar 2023 09:51:08 +0100
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20230307-topic-dsi_qcm-v5-1-9d4235b77f4f@linaro.org>
+Message-Id: <20230307-topic-dsi_qcm-v5-2-9d4235b77f4f@linaro.org>
 References: <20230307-topic-dsi_qcm-v5-0-9d4235b77f4f@linaro.org>
 In-Reply-To: <20230307-topic-dsi_qcm-v5-0-9d4235b77f4f@linaro.org>
 To: Rob Clark <robdclark@gmail.com>, 
@@ -67,15 +67,15 @@ To: Rob Clark <robdclark@gmail.com>,
  Bryan O'Donoghue <bryan.odonoghue@linaro.org>, 
  Andy Gross <agross@kernel.org>, Bjorn Andersson <andersson@kernel.org>
 X-Mailer: b4 0.12.1
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1678956668; l=1083;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1678956668; l=5720;
  i=konrad.dybcio@linaro.org; s=20230215; h=from:subject:message-id;
- bh=Eh63V3hQJ0V0iEgOzc+LSRnQ4e7sliZ5heAo7YfywsQ=;
- b=0aBVkVeI/ZqqJNMp8miJ4K//LS3qrTKMSBxQoa70P28PuSQ+d9x7z6eVXh31sSjvZLUoOUVrG7eo
- znTwkN6hCC+O6+mSA0aiGA588ugQL8OuLP0emYeXYR9x/WhUM8b3
+ bh=nAK7VhpEOKQPVDoVxGmSH//l3jkm1AocrDNJW7zWKno=;
+ b=hgOcRqgu0xDXRY4QqYBtEKJ6MIyvPnIjrJcCpU/H7Z1PSxGnQ0YPJlUcCChkSHNsQF+NDNgECh8+
+ waGh95MpAuNBeu0KtbC4zlLvYVYn3Eos8ntpneAUskcWm234C2OX
 X-Developer-Key: i=konrad.dybcio@linaro.org; a=ed25519;
  pk=iclgkYvtl2w05SSXO5EjjSYlhFKsJ+5OSZBjOkQuEms=
-Subject: [Freedreno] [PATCH v5 01/10] dt-bindings: display/msm:
- dsi-controller-main: Fix deprecated QCM2290 compatible
+Subject: [Freedreno] [PATCH v5 02/10] drm/msm/dsi: Get rid of
+ msm_dsi_config::num_dsi
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -96,29 +96,154 @@ Cc: Rob Herring <robh@kernel.org>, devicetree@vger.kernel.org,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-The qcom, prefix was missed previously. Fix it.
+In preparation for supporting multiple sets of possible base registers,
+remove the num_dsi variable. We're comparing the io_start array contents
+with the reg value from the DTS, so it will either match one of the
+expected values or don't match against a zero (which we get from partial
+array initialization).
 
-Fixes: 0c0f65c6dd44 ("dt-bindings: msm: dsi-controller-main: Add compatible strings for every current SoC")
-Acked-by: Rob Herring <robh@kernel.org>
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 Reviewed-by: Marijn Suijten <marijn.suijten@somainline.org>
 Signed-off-by: Konrad Dybcio <konrad.dybcio@linaro.org>
 ---
- Documentation/devicetree/bindings/display/msm/dsi-controller-main.yaml | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpu/drm/msm/dsi/dsi_cfg.c  | 13 -------------
+ drivers/gpu/drm/msm/dsi/dsi_cfg.h  |  1 -
+ drivers/gpu/drm/msm/dsi/dsi_host.c |  2 +-
+ 3 files changed, 1 insertion(+), 15 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/display/msm/dsi-controller-main.yaml b/Documentation/devicetree/bindings/display/msm/dsi-controller-main.yaml
-index e75a3efe4dac..2494817c1bd6 100644
---- a/Documentation/devicetree/bindings/display/msm/dsi-controller-main.yaml
-+++ b/Documentation/devicetree/bindings/display/msm/dsi-controller-main.yaml
-@@ -33,7 +33,7 @@ properties:
-           - const: qcom,mdss-dsi-ctrl
-       - items:
-           - enum:
--              - dsi-ctrl-6g-qcm2290
-+              - qcom,dsi-ctrl-6g-qcm2290
-           - const: qcom,mdss-dsi-ctrl
-         deprecated: true
+diff --git a/drivers/gpu/drm/msm/dsi/dsi_cfg.c b/drivers/gpu/drm/msm/dsi/dsi_cfg.c
+index 6d21f0b33411..4515f52b407a 100644
+--- a/drivers/gpu/drm/msm/dsi/dsi_cfg.c
++++ b/drivers/gpu/drm/msm/dsi/dsi_cfg.c
+@@ -22,7 +22,6 @@ static const struct msm_dsi_config apq8064_dsi_cfg = {
+ 	.bus_clk_names = dsi_v2_bus_clk_names,
+ 	.num_bus_clks = ARRAY_SIZE(dsi_v2_bus_clk_names),
+ 	.io_start = { 0x4700000, 0x5800000 },
+-	.num_dsi = 2,
+ };
  
+ static const char * const dsi_6g_bus_clk_names[] = {
+@@ -42,7 +41,6 @@ static const struct msm_dsi_config msm8974_apq8084_dsi_cfg = {
+ 	.bus_clk_names = dsi_6g_bus_clk_names,
+ 	.num_bus_clks = ARRAY_SIZE(dsi_6g_bus_clk_names),
+ 	.io_start = { 0xfd922800, 0xfd922b00 },
+-	.num_dsi = 2,
+ };
+ 
+ static const char * const dsi_8916_bus_clk_names[] = {
+@@ -61,7 +59,6 @@ static const struct msm_dsi_config msm8916_dsi_cfg = {
+ 	.bus_clk_names = dsi_8916_bus_clk_names,
+ 	.num_bus_clks = ARRAY_SIZE(dsi_8916_bus_clk_names),
+ 	.io_start = { 0x1a98000 },
+-	.num_dsi = 1,
+ };
+ 
+ static const char * const dsi_8976_bus_clk_names[] = {
+@@ -80,7 +77,6 @@ static const struct msm_dsi_config msm8976_dsi_cfg = {
+ 	.bus_clk_names = dsi_8976_bus_clk_names,
+ 	.num_bus_clks = ARRAY_SIZE(dsi_8976_bus_clk_names),
+ 	.io_start = { 0x1a94000, 0x1a96000 },
+-	.num_dsi = 2,
+ };
+ 
+ static const struct regulator_bulk_data msm8994_dsi_regulators[] = {
+@@ -99,7 +95,6 @@ static const struct msm_dsi_config msm8994_dsi_cfg = {
+ 	.bus_clk_names = dsi_6g_bus_clk_names,
+ 	.num_bus_clks = ARRAY_SIZE(dsi_6g_bus_clk_names),
+ 	.io_start = { 0xfd998000, 0xfd9a0000 },
+-	.num_dsi = 2,
+ };
+ 
+ static const char * const dsi_8996_bus_clk_names[] = {
+@@ -119,7 +114,6 @@ static const struct msm_dsi_config msm8996_dsi_cfg = {
+ 	.bus_clk_names = dsi_8996_bus_clk_names,
+ 	.num_bus_clks = ARRAY_SIZE(dsi_8996_bus_clk_names),
+ 	.io_start = { 0x994000, 0x996000 },
+-	.num_dsi = 2,
+ };
+ 
+ static const char * const dsi_msm8998_bus_clk_names[] = {
+@@ -138,7 +132,6 @@ static const struct msm_dsi_config msm8998_dsi_cfg = {
+ 	.bus_clk_names = dsi_msm8998_bus_clk_names,
+ 	.num_bus_clks = ARRAY_SIZE(dsi_msm8998_bus_clk_names),
+ 	.io_start = { 0xc994000, 0xc996000 },
+-	.num_dsi = 2,
+ };
+ 
+ static const char * const dsi_sdm660_bus_clk_names[] = {
+@@ -156,7 +149,6 @@ static const struct msm_dsi_config sdm660_dsi_cfg = {
+ 	.bus_clk_names = dsi_sdm660_bus_clk_names,
+ 	.num_bus_clks = ARRAY_SIZE(dsi_sdm660_bus_clk_names),
+ 	.io_start = { 0xc994000, 0xc996000 },
+-	.num_dsi = 2,
+ };
+ 
+ static const char * const dsi_sdm845_bus_clk_names[] = {
+@@ -178,7 +170,6 @@ static const struct msm_dsi_config sdm845_dsi_cfg = {
+ 	.bus_clk_names = dsi_sdm845_bus_clk_names,
+ 	.num_bus_clks = ARRAY_SIZE(dsi_sdm845_bus_clk_names),
+ 	.io_start = { 0xae94000, 0xae96000 },
+-	.num_dsi = 2,
+ };
+ 
+ static const struct regulator_bulk_data sm8550_dsi_regulators[] = {
+@@ -192,7 +183,6 @@ static const struct msm_dsi_config sm8550_dsi_cfg = {
+ 	.bus_clk_names = dsi_sdm845_bus_clk_names,
+ 	.num_bus_clks = ARRAY_SIZE(dsi_sdm845_bus_clk_names),
+ 	.io_start = { 0xae94000, 0xae96000 },
+-	.num_dsi = 2,
+ };
+ 
+ static const struct regulator_bulk_data sc7180_dsi_regulators[] = {
+@@ -206,7 +196,6 @@ static const struct msm_dsi_config sc7180_dsi_cfg = {
+ 	.bus_clk_names = dsi_sc7180_bus_clk_names,
+ 	.num_bus_clks = ARRAY_SIZE(dsi_sc7180_bus_clk_names),
+ 	.io_start = { 0xae94000 },
+-	.num_dsi = 1,
+ };
+ 
+ static const char * const dsi_sc7280_bus_clk_names[] = {
+@@ -224,7 +213,6 @@ static const struct msm_dsi_config sc7280_dsi_cfg = {
+ 	.bus_clk_names = dsi_sc7280_bus_clk_names,
+ 	.num_bus_clks = ARRAY_SIZE(dsi_sc7280_bus_clk_names),
+ 	.io_start = { 0xae94000, 0xae96000 },
+-	.num_dsi = 2,
+ };
+ 
+ static const char * const dsi_qcm2290_bus_clk_names[] = {
+@@ -242,7 +230,6 @@ static const struct msm_dsi_config qcm2290_dsi_cfg = {
+ 	.bus_clk_names = dsi_qcm2290_bus_clk_names,
+ 	.num_bus_clks = ARRAY_SIZE(dsi_qcm2290_bus_clk_names),
+ 	.io_start = { 0x5e94000 },
+-	.num_dsi = 1,
+ };
+ 
+ static const struct msm_dsi_host_cfg_ops msm_dsi_v2_host_ops = {
+diff --git a/drivers/gpu/drm/msm/dsi/dsi_cfg.h b/drivers/gpu/drm/msm/dsi/dsi_cfg.h
+index 44be4a88aa83..6b6b16c5fd25 100644
+--- a/drivers/gpu/drm/msm/dsi/dsi_cfg.h
++++ b/drivers/gpu/drm/msm/dsi/dsi_cfg.h
+@@ -39,7 +39,6 @@ struct msm_dsi_config {
+ 	const char * const *bus_clk_names;
+ 	const int num_bus_clks;
+ 	const resource_size_t io_start[DSI_MAX];
+-	const int num_dsi;
+ };
+ 
+ struct msm_dsi_host_cfg_ops {
+diff --git a/drivers/gpu/drm/msm/dsi/dsi_host.c b/drivers/gpu/drm/msm/dsi/dsi_host.c
+index 18fa30e1e858..9021f0d65515 100644
+--- a/drivers/gpu/drm/msm/dsi/dsi_host.c
++++ b/drivers/gpu/drm/msm/dsi/dsi_host.c
+@@ -1868,7 +1868,7 @@ static int dsi_host_get_id(struct msm_dsi_host *msm_host)
+ 	if (!res)
+ 		return -EINVAL;
+ 
+-	for (i = 0; i < cfg->num_dsi; i++) {
++	for (i = 0; i < DSI_MAX; i++) {
+ 		if (cfg->io_start[i] == res->start)
+ 			return i;
+ 	}
 
 -- 
 2.39.2
