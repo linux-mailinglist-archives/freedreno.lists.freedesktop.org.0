@@ -2,66 +2,60 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 237B76BD67E
-	for <lists+freedreno@lfdr.de>; Thu, 16 Mar 2023 17:56:24 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2465A6BDAD2
+	for <lists+freedreno@lfdr.de>; Thu, 16 Mar 2023 22:23:07 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7B03810ED9D;
-	Thu, 16 Mar 2023 16:55:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3152110E375;
+	Thu, 16 Mar 2023 21:23:02 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-x233.google.com (mail-lj1-x233.google.com
- [IPv6:2a00:1450:4864:20::233])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F26D010ED88
- for <freedreno@lists.freedesktop.org>; Thu, 16 Mar 2023 16:55:55 +0000 (UTC)
-Received: by mail-lj1-x233.google.com with SMTP id b10so2413520ljr.0
- for <freedreno@lists.freedesktop.org>; Thu, 16 Mar 2023 09:55:55 -0700 (PDT)
+Received: from mail-oa1-x2a.google.com (mail-oa1-x2a.google.com
+ [IPv6:2001:4860:4864:20::2a])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0029A10E090;
+ Thu, 16 Mar 2023 21:22:59 +0000 (UTC)
+Received: by mail-oa1-x2a.google.com with SMTP id
+ 586e51a60fabf-177ca271cb8so3684902fac.2; 
+ Thu, 16 Mar 2023 14:22:59 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1678985754;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ d=gmail.com; s=20210112; t=1679001778;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=WLR+3xKuB7nKvcFlrwQcVeNzdFj2pHbl4n7fAtnTorc=;
- b=nRWDyVnY7VcuhaZvlem2FuvqIXO0w0uRnBImYu660LU+0dQ1wC2jHHAgdyMsZSXtr8
- RGrtRMgBXXozVmkujZNksUVhxBnxApMvEec0tkfxaZQTvSD5hBTCUNYqKnt5l4Mu/awZ
- XNUeVTCDCom1YHrvkhtARZHDF5UGa4m0QF31Eoxp9g4tdN0uPjBXpTRIZG7YvvNXpULH
- G/PI3MILW5KxvvDz/+onjoj/9K2jN8NyOET0LmUqgHz6p2tG5JFKKQHvzUCQTYkh1SvY
- zQxhnIUYkQkiZDgkfPpSXpU2+yUY6MW2Rqk3bvkAesD7xzOWErxxBCYrkz5ES7Cd5lsJ
- Zkow==
+ bh=ZOLm3MMBl89f2knm/a6i4nSTBzWYSuBzK1XClYHpMY4=;
+ b=dSmvj4c+vhVDAQ5Zaj5Yr1DRJ4ybiDnIB4G/ylPHrFHhzAkda0nDV6qsFCC8XDGrq+
+ eT863QrK6B/IcIyiPUEC4cRa0GtMAf779fuR3ilmeIz53fivuQJbIrNpTfioj65CSN0H
+ EeQrdTv00bm9+R5ydA9cNvPyYFvlb5Cnck9wzX0V9VQxZBd0VDTDVRn3TXCLm3gBmkgv
+ aW6YQ2C6DOswHq1c91ga2KdN/R7P23WfSv+rgkxc82u7+5Opfko/BDf2Zi8BEuF7OVQ7
+ SKPdGvyXBblcQx6g3Bq8ebiT5ydjjneIU031EZX9bw84Lsn8FMDupirSITw5TxEuucC9
+ t07A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112; t=1678985754;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+ d=1e100.net; s=20210112; t=1679001778;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=WLR+3xKuB7nKvcFlrwQcVeNzdFj2pHbl4n7fAtnTorc=;
- b=coPMPs5uUtZyt2ul4I/MR8lWY7M9emKRhJuMqNeiG3p4MJZboUERPcAiYa6UMYxK+G
- OCqQvprVsjP4BbHN8g6uog3dAn+NGRPqkQTJO9szSY5bLic0ihU2B43NxGyexrQQoT5o
- Jic0u5Id435yXn7/LcB9zd9iY17SQ0Ar4vJtNXkwMUFbMq7aQr1GrGtBCkwZ+jWu282E
- 4AzCx8ZOsOVjVBQR4zcAd47x2Uq/CSUfOBjd3bqFi1p7nGMJStQ/D4BqY0zVEECX9cUZ
- bg5MAE/tQs+roPxvyrT3gU37OOgbPDieZJLzFh77nQmHxtX5YDzAEq+GnMAa+NPNLNS0
- zT0g==
-X-Gm-Message-State: AO0yUKXBG/nUXcBVHJvFaf9b+jsGJcuW2ZKVER6n4r7pxsMCDnj/Iknn
- HELNMtQ+6s6FXKh7ls2goEXANg==
-X-Google-Smtp-Source: AK7set+XKntDkC/4LYVhwjiyclZwfQySyr72BT1hExf1WFY3nWpshgnpN/0X3+W+ZKc+w6EbaqufbA==
-X-Received: by 2002:a2e:bc28:0:b0:290:4e1c:96c9 with SMTP id
- b40-20020a2ebc28000000b002904e1c96c9mr2853207ljf.32.1678985754314; 
- Thu, 16 Mar 2023 09:55:54 -0700 (PDT)
-Received: from umbar.unikie.fi ([192.130.178.91])
- by smtp.gmail.com with ESMTPSA id
- t18-20020a2e9c52000000b002934b5d6a61sm2661ljj.121.2023.03.16.09.55.53
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 16 Mar 2023 09:55:53 -0700 (PDT)
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-To: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>
-Date: Thu, 16 Mar 2023 19:55:42 +0300
-Message-Id: <20230316165542.4109764-13-dmitry.baryshkov@linaro.org>
-X-Mailer: git-send-email 2.30.2
-In-Reply-To: <20230316165542.4109764-1-dmitry.baryshkov@linaro.org>
-References: <20230316165542.4109764-1-dmitry.baryshkov@linaro.org>
+ bh=ZOLm3MMBl89f2knm/a6i4nSTBzWYSuBzK1XClYHpMY4=;
+ b=YQ0l4Ey2xVryHl3ugS6iBQm00QT+CcO8/+BbsAZxr/t3gffn3hKn8uC/z+J5yQqMBn
+ HLr/1WE393Li71kwuf6/uhZLt6NHw7K7StIVgofEByeXL/K1NUZVZuEPERz6o8ffQSRm
+ tsr9CeEWvUaxdWbJv7Y5ztGPefarQNiWh9enGkOtLLvlrR4GJJn0u7i6TCxGerUPrPkQ
+ Ek3y7+GSCrFG4e6ptFOsKzjuMg6dYKKTT7llEEDWI9/IBiMbC4zOGeEzvMGKTudvtuZA
+ QFlkDhWVi0NkVK8fhKQi6kjJgFBdGDi0Tc8qLy/2P2DQ0OsMeGVUh5Qzm/zbHGw7MePo
+ hRbA==
+X-Gm-Message-State: AO0yUKXtURuNSOM+a0URTUUpb18QB7XNfqOefE3cwY17epGNG2Ap46X0
+ IsfKTDghpUrS8CoGzLnPeI/CXL33nZzyCSbrpO/mjsCSYPg=
+X-Google-Smtp-Source: AK7set+faq17A1DBESVulT7MGuaccV0D25PIH9DGSJys9ZSVMyY9sK6nmcgZ9NZNMc3lxfUhJXYBUInIOT3YmaNi5n0=
+X-Received: by 2002:a05:6870:6125:b0:177:be3d:2e4d with SMTP id
+ s37-20020a056870612500b00177be3d2e4dmr6744075oae.5.1679001778698; Thu, 16 Mar
+ 2023 14:22:58 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [RFC PATCH v1 12/12] drm/msm/dpu: allow using two SSPP
- blocks for a single plane
+References: <20230308155322.344664-1-robdclark@gmail.com>
+In-Reply-To: <20230308155322.344664-1-robdclark@gmail.com>
+From: Rob Clark <robdclark@gmail.com>
+Date: Thu, 16 Mar 2023 14:22:47 -0700
+Message-ID: <CAF6AEGs1A-3vHtCCam+LfweBNG76TPrpsn8u+RzZ8=sq18yrNg@mail.gmail.com>
+To: dri-devel@lists.freedesktop.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [Freedreno] [PATCH v10 00/15] dma-fence: Deadline awareness
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,383 +68,147 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
- Bjorn Andersson <andersson@kernel.org>, dri-devel@lists.freedesktop.org,
- Stephen Boyd <swboyd@chromium.org>, Daniel Vetter <daniel@ffwll.ch>,
- David Airlie <airlied@gmail.com>
+Cc: "open list:DOCUMENTATION" <linux-doc@vger.kernel.org>,
+ Gustavo Padovan <gustavo@padovan.org>,
+ Douglas Anderson <dianders@chromium.org>, Liu Shixin <liushixin2@huawei.com>,
+ Rob Clark <robdclark@chromium.org>, Vinod Polimera <quic_vpolimer@quicinc.com>,
+ Luben Tuikov <luben.tuikov@amd.com>,
+ "open list:DRM DRIVER FOR MSM ADRENO GPU" <linux-arm-msm@vger.kernel.org>,
+ Matt Turner <mattst88@gmail.com>,
+ "open list:DMA BUFFER SHARING FRAMEWORK" <linux-media@vger.kernel.org>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>,
+ intel-gfx@lists.freedesktop.org, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Stephen Boyd <swboyd@chromium.org>,
+ "moderated list:DMA BUFFER SHARING FRAMEWORK" <linaro-mm-sig@lists.linaro.org>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, Sean Paul <sean@poorly.run>,
+ open list <linux-kernel@vger.kernel.org>,
+ Konrad Dybcio <konrad.dybcio@linaro.org>,
+ Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Virtual wide planes give high amount of flexibility, but it is not
-always enough:
+On Wed, Mar 8, 2023 at 7:53=E2=80=AFAM Rob Clark <robdclark@gmail.com> wrot=
+e:
+>
+> From: Rob Clark <robdclark@chromium.org>
+>
+> This series adds a deadline hint to fences, so realtime deadlines
+> such as vblank can be communicated to the fence signaller for power/
+> frequency management decisions.
+>
+> This is partially inspired by a trick i915 does, but implemented
+> via dma-fence for a couple of reasons:
+>
+> 1) To continue to be able to use the atomic helpers
+> 2) To support cases where display and gpu are different drivers
+>
+> This iteration adds a dma-fence ioctl to set a deadline (both to
+> support igt-tests, and compositors which delay decisions about which
+> client buffer to display), and a sw_sync ioctl to read back the
+> deadline.  IGT tests utilizing these can be found at:
+>
+>   https://gitlab.freedesktop.org/robclark/igt-gpu-tools/-/commits/fence-d=
+eadline
+>
 
-In parallel multirect case only the half of the usual width is supported
-for tiled formats. Thus the whole width of two tiled multirect
-rectangles can not be greater than max_linewidth, which is not enough
-for some platforms/compositors.
+jfwiw, mesa side of this:
 
-Another example is as simple as wide YUV plane. YUV planes can not use
-multirect, so currently they are limited to max_linewidth too.
+https://gitlab.freedesktop.org/mesa/mesa/-/merge_requests/21973
 
-Now that the planes are fully virtualized, add support for allocating
-two SSPP blocks to drive a single DRM plane. This fixes both mentioned
-cases and allows all planes to go up to 2*max_linewidth (at the cost of
-making some of the planes unavailable to the user).
+BR,
+-R
 
-Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
----
- drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c  |   2 +-
- drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c | 236 ++++++++++++++++++++--
- drivers/gpu/drm/msm/disp/dpu1/dpu_plane.h |  13 +-
- 3 files changed, 227 insertions(+), 24 deletions(-)
-
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
-index cdece21b81c9..7422bee8d21f 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
-@@ -1354,7 +1354,7 @@ static int dpu_crtc_atomic_check(struct drm_crtc *crtc,
- 			 * is a shortcut. Perform actual check here, after
- 			 * allocating SSPPs.
- 			 */
--			rc = dpu_plane_atomic_check(plane, crtc_state->state);
-+			rc = dpu_plane_virtual_atomic_check_late(plane, crtc_state->state);
- 			if (rc)
- 				return rc;
- 		}
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
-index 787e81740eb9..3bd3951d9ffa 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
-@@ -844,16 +844,27 @@ static int dpu_plane_virtual_atomic_check(struct drm_plane *plane,
- 		drm_atomic_get_plane_state(state, plane);
- 	struct dpu_plane_state *pstate = to_dpu_plane_state(plane_state);
- 	const struct dpu_format *format;
--	struct drm_crtc_state *crtc_state;
-+	struct drm_crtc_state *crtc_state = NULL;
-+	int ret;
-+
-+	if (plane_state->crtc)
-+		crtc_state = drm_atomic_get_new_crtc_state(state, plane_state->crtc);
- 
- 	/*
--	 * Main part of checks, including drm_atomic_helper_check_plane_state()
--	 * is called from dpu_crtc_atomic_check(). Do minimal processing here.
-+	 * Main part of checks is performed in
-+	 * dpu_plane_virtual_atomic_check_late(), called from
-+	 * dpu_crtc_atomic_check(). Do minimal processing here.
- 	 */
-+	ret = drm_atomic_helper_check_plane_noscale(plane_state, crtc_state,
-+						    true, true);
-+	if (ret) {
-+		DPU_DEBUG_PLANE(to_dpu_plane(plane),
-+				"Check plane state failed (%d)\n", ret);
-+		return ret;
-+	}
- 
--	if (!plane_state->fb) {
--		plane_state->visible = false;
- 
-+	if (!plane_state->visible) {
- 		/* resources are freed by dpu_crtc_atomic_check(), but clean them here */
- 		pstate->pipe.sspp = NULL;
- 		pstate->r_pipe.sspp = NULL;
-@@ -861,18 +872,46 @@ static int dpu_plane_virtual_atomic_check(struct drm_plane *plane,
- 		return 0;
- 	}
- 
-+	pstate->stage = DPU_STAGE_0 + pstate->base.normalized_zpos;
-+	if (pstate->stage >= pdpu->catalog->caps->max_mixer_blendstages) {
-+		DPU_ERROR("> %d plane stages assigned\n",
-+			  pdpu->catalog->caps->max_mixer_blendstages - DPU_STAGE_0);
-+		return -EINVAL;
-+	}
-+
-+	/* Ensure fb size is supported */
-+	if (plane_state->fb->width > MAX_IMG_WIDTH ||
-+	    plane_state->fb->height > MAX_IMG_HEIGHT) {
-+		DPU_DEBUG_PLANE(pdpu, "invalid framebuffer %dx%d\n",
-+				plane_state->fb->width,
-+				plane_state->fb->height);
-+		return -E2BIG;
-+	}
-+
- 	format = to_dpu_format(msm_framebuffer_format(plane_state->fb));
--	crtc_state = drm_atomic_get_new_crtc_state(state, plane_state->crtc);
- 
--	/* force resource reallocation if the format of FB has changed */
--	if (pstate->saved_fmt ! = format) {
-+	/* force resource reallocation if the format of FB or src/dst have changed */
-+	if (pstate->saved_fmt != format ||
-+	    pstate->saved_src_w != plane_state->src_w ||
-+	    pstate->saved_src_h != plane_state->src_h ||
-+	    pstate->saved_src_w != plane_state->src_w ||
-+	    pstate->saved_crtc_h != plane_state->crtc_h) {
- 		crtc_state->planes_changed = true;
- 		pstate->saved_fmt = format;
-+		pstate->saved_src_w = plane_state->src_w;
-+		pstate->saved_src_h = plane_state->src_h;
-+		pstate->saved_crtc_w = plane_state->crtc_w;
-+		pstate->saved_crtc_h = plane_state->crtc_h;
- 	}
- 
- 	return 0;
- }
- 
-+/*
-+ * Allocate backing SSPP blocks for the plane. This does not perform any
-+ * additional checks on the plane, this is done in
-+ * dpu_plane_virtual_atomic_check_late().
-+ */
- int dpu_plane_virtual_assign_resources(struct drm_plane *plane,
- 				       struct drm_crtc *crtc,
- 				       struct dpu_global_state *global_state,
-@@ -881,25 +920,185 @@ int dpu_plane_virtual_assign_resources(struct drm_plane *plane,
- 	struct dpu_kms *dpu_kms = _dpu_plane_get_kms(plane);
- 	struct dpu_plane_state *pstate;
- 	struct drm_plane_state *plane_state;
-+	struct dpu_sw_pipe *pipe;
-+	struct dpu_sw_pipe *r_pipe;
-+	struct dpu_sw_pipe_cfg *pipe_cfg;
-+	struct dpu_sw_pipe_cfg *r_pipe_cfg;
- 	struct dpu_hw_sspp *hw_sspp;
--	bool yuv, scale;
-+	const struct dpu_format *fmt;
-+	bool yuv, scale, tiled;
-+	uint32_t max_linewidth;
- 
- 	plane_state = drm_atomic_get_plane_state(state, plane);
- 	if (IS_ERR(plane_state))
- 		return PTR_ERR(plane_state);
- 
--	yuv = plane_state->fb ?
--		DPU_FORMAT_IS_YUV(to_dpu_format(msm_framebuffer_format(plane_state->fb))) :
--		false;
--	scale = (plane_state->src_w >> 16 != plane_state->crtc_w) ||
--		(plane_state->src_h >> 16 != plane_state->crtc_h);
-+	pstate = to_dpu_plane_state(plane_state);
-+
-+	pipe = &pstate->pipe;
-+	r_pipe = &pstate->r_pipe;
-+	pipe_cfg = &pstate->pipe_cfg;
-+	r_pipe_cfg = &pstate->r_pipe_cfg;
-+
-+	fmt = to_dpu_format(msm_framebuffer_format(plane_state->fb));
-+	yuv = DPU_FORMAT_IS_YUV(fmt);
-+	tiled = DPU_FORMAT_IS_UBWC(fmt);
-+
-+	pipe_cfg->src_rect = plane_state->src;
-+
-+	/* state->src is 16.16, src_rect is not */
-+	pipe_cfg->src_rect.x1 >>= 16;
-+	pipe_cfg->src_rect.x2 >>= 16;
-+	pipe_cfg->src_rect.y1 >>= 16;
-+	pipe_cfg->src_rect.y2 >>= 16;
-+
-+	pipe_cfg->dst_rect = plane_state->dst;
-+
-+	scale = (drm_rect_width(&pipe_cfg->src_rect) != drm_rect_width(&pipe_cfg->dst_rect)) ||
-+		(drm_rect_height(&pipe_cfg->src_rect) != drm_rect_height(&pipe_cfg->dst_rect));
-+
-+	max_linewidth = dpu_kms->catalog->caps->max_linewidth;
-+
-+	pipe->multirect_index = DPU_SSPP_RECT_SOLO;
-+	pipe->multirect_mode = DPU_SSPP_MULTIRECT_NONE;
-+	r_pipe->multirect_index = DPU_SSPP_RECT_SOLO;
-+	r_pipe->multirect_mode = DPU_SSPP_MULTIRECT_NONE;
-+	r_pipe->sspp = NULL;
- 
- 	hw_sspp = dpu_rm_reserve_sspp(&dpu_kms->rm, global_state, crtc, yuv, scale);
- 	if (!hw_sspp)
- 		return -ENODEV;
- 
--	pstate = to_dpu_plane_state(plane_state);
--	pstate->pipe.sspp = hw_sspp;
-+	pipe->sspp = hw_sspp;
-+
-+	if (drm_rect_width(&pipe_cfg->src_rect) <= max_linewidth)
-+		return 0;
-+
-+	*r_pipe_cfg = *pipe_cfg;
-+
-+	pipe_cfg->src_rect.x2 = (pipe_cfg->src_rect.x1 + pipe_cfg->src_rect.x2) >> 1;
-+	pipe_cfg->dst_rect.x2 = (pipe_cfg->dst_rect.x1 + pipe_cfg->dst_rect.x2) >> 1;
-+
-+	if (yuv && pipe_cfg->src_rect.x2 & 0x1) {
-+		pipe_cfg->src_rect.x2 -= 1;
-+		pipe_cfg->dst_rect.x2 -= 1;
-+	}
-+
-+	r_pipe_cfg->src_rect.x1 = pipe_cfg->src_rect.x2;
-+	r_pipe_cfg->dst_rect.x1 = pipe_cfg->dst_rect.x2;
-+
-+	if (drm_rect_width(&pipe_cfg->src_rect) > max_linewidth ||
-+	    drm_rect_width(&r_pipe_cfg->src_rect) > max_linewidth) {
-+		DPU_DEBUG_PLANE(to_dpu_plane(plane),
-+				"invalid src " DRM_RECT_FMT " / " DRM_RECT_FMT " line:%u\n",
-+				DRM_RECT_ARG(&pipe_cfg->src_rect),
-+				DRM_RECT_ARG(&r_pipe_cfg->src_rect),
-+				max_linewidth);
-+		return -E2BIG;
-+	}
-+
-+	/*
-+	 * Check if we can use parallel multirect for the wide plane.
-+	 *
-+	 * For tiled formats there is no point in trying multirect.
-+	 * In parallel multirect case only the half of the usual width
-+	 * is supported for tiled formats. If we are here, we know that
-+	 * full width is more than max_linewidth, thus each rect is
-+	 * wider than allowed.
-+	 */
-+	if (!yuv && !scale && !tiled &&
-+	    test_bit(DPU_SSPP_SMART_DMA_V2, &pipe->sspp->cap->features)) {
-+		pipe->multirect_index = DPU_SSPP_RECT_0;
-+		pipe->multirect_mode = DPU_SSPP_MULTIRECT_PARALLEL;
-+
-+		r_pipe->sspp = pipe->sspp;
-+		r_pipe->multirect_index = DPU_SSPP_RECT_1;
-+		r_pipe->multirect_mode = DPU_SSPP_MULTIRECT_PARALLEL;
-+	} else {
-+		/* multirect is not possible, use two SSPP blocks */
-+		hw_sspp = dpu_rm_reserve_sspp(&dpu_kms->rm, global_state, crtc, yuv, scale);
-+		if (!hw_sspp)
-+			return -ENODEV;
-+
-+		r_pipe->sspp = hw_sspp;
-+	}
-+
-+	return 0;
-+}
-+
-+int dpu_plane_virtual_atomic_check_late(struct drm_plane *plane,
-+					struct drm_atomic_state *state)
-+{
-+	struct drm_plane_state *plane_state = drm_atomic_get_new_plane_state(state, plane);
-+	int ret = 0, min_scale, max_scale, hscale, vscale;
-+	struct dpu_plane *pdpu = to_dpu_plane(plane);
-+	struct dpu_plane_state *pstate = to_dpu_plane_state(plane_state);
-+	struct dpu_kms *dpu_kms = _dpu_plane_get_kms(plane);
-+	struct dpu_sw_pipe *pipe = &pstate->pipe;
-+	struct dpu_sw_pipe *r_pipe = &pstate->r_pipe;
-+	const struct drm_crtc_state *crtc_state = NULL;
-+	const struct dpu_format *fmt;
-+	struct dpu_sw_pipe_cfg *pipe_cfg = &pstate->pipe_cfg;
-+	struct dpu_sw_pipe_cfg *r_pipe_cfg = &pstate->r_pipe_cfg;
-+	struct drm_rect fb_rect = { 0 };
-+	uint32_t max_linewidth;
-+	unsigned int rotation;
-+	uint32_t supported_rotations;
-+	const struct dpu_sspp_cfg *pipe_hw_caps;
-+	const struct dpu_sspp_sub_blks *sblk;
-+
-+	if (plane_state->crtc)
-+		crtc_state = drm_atomic_get_new_crtc_state(state,
-+							   plane_state->crtc);
-+
-+	pipe_hw_caps = pstate->pipe.sspp->cap;
-+	sblk = pstate->pipe.sspp->cap->sblk;
-+
-+	min_scale = FRAC_16_16(1, sblk->maxupscale);
-+	max_scale = sblk->maxdwnscale << 16;
-+	hscale = drm_rect_calc_hscale(&plane_state->src, &plane_state->dst, min_scale, max_scale);
-+	vscale = drm_rect_calc_vscale(&plane_state->src, &plane_state->dst, min_scale, max_scale);
-+	if (hscale < 0 || vscale < 0) {
-+		drm_dbg_kms(plane->dev, "Invalid scaling of plane\n");
-+		drm_rect_debug_print("src: ", &plane_state->src, true);
-+		drm_rect_debug_print("dst: ", &plane_state->dst, false);
-+		return -ERANGE;
-+	}
-+
-+	if (!plane_state->visible)
-+		return 0;
-+
-+	fmt = to_dpu_format(msm_framebuffer_format(plane_state->fb));
-+
-+	max_linewidth = pdpu->catalog->caps->max_linewidth;
-+
-+	ret = dpu_plane_atomic_check_pipe(pdpu, pipe, pipe_cfg, fmt);
-+	if (ret)
-+		return ret;
-+
-+	if (r_pipe->sspp) {
-+		ret = dpu_plane_atomic_check_pipe(pdpu, r_pipe, r_pipe_cfg, fmt);
-+		if (ret)
-+			return ret;
-+	}
-+
-+	supported_rotations = DRM_MODE_REFLECT_MASK | DRM_MODE_ROTATE_0;
-+
-+	if (pipe_hw_caps->features & BIT(DPU_SSPP_INLINE_ROTATION))
-+		supported_rotations |= DRM_MODE_ROTATE_90;
-+
-+	rotation = drm_rotation_simplify(plane_state->rotation,
-+					supported_rotations);
-+
-+	if ((pipe_hw_caps->features & BIT(DPU_SSPP_INLINE_ROTATION)) &&
-+		(rotation & DRM_MODE_ROTATE_90)) {
-+		ret = dpu_plane_check_inline_rotation(pdpu, sblk, pipe_cfg->src_rect, fmt);
-+		if (ret)
-+			return ret;
-+	}
-+
-+	pstate->rotation = rotation;
-+	pstate->needs_qos_remap = drm_atomic_crtc_needs_modeset(crtc_state);
- 
- 	return 0;
- }
-@@ -930,11 +1129,6 @@ int dpu_plane_atomic_check(struct drm_plane *plane,
- 		crtc_state = drm_atomic_get_new_crtc_state(state,
- 							   new_plane_state->crtc);
- 
--	if (pdpu->pipe != SSPP_NONE) {
--		pipe->sspp = dpu_rm_get_sspp(&dpu_kms->rm, pdpu->pipe);
--		r_pipe->sspp = NULL;
--	}
--
- 	pipe_hw_caps = pstate->pipe.sspp->cap;
- 	sblk = pstate->pipe.sspp->cap->sblk;
- 
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.h
-index cb1e31ef0d3f..07e0796cc100 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.h
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.h
-@@ -32,6 +32,10 @@
-  * @needs_dirtyfb: whether attached CRTC needs pixel data explicitly flushed
-  * @rotation: simplified drm rotation hint
-  * @saved_fmt: format used by the plane's FB, saved for for virtual plane support
-+ * @saved_src_w: cached value of plane's src_w, saved for for virtual plane support
-+ * @saved_src_h: cached value of plane's src_h, saved for for virtual plane support
-+ * @saved_crtc_w: cached value of plane's crtc_w, saved for for virtual plane support
-+ * @saved_crtc_h: cached value of plane's crtc_h, saved for for virtual plane support
-  */
- struct dpu_plane_state {
- 	struct drm_plane_state base;
-@@ -51,6 +55,10 @@ struct dpu_plane_state {
- 	unsigned int rotation;
- 
- 	const struct dpu_format *saved_fmt;
-+	uint32_t saved_src_w;
-+	uint32_t saved_src_h;
-+	uint32_t saved_crtc_w;
-+	uint32_t saved_crtc_h;
- };
- 
- #define to_dpu_plane_state(x) \
-@@ -106,11 +114,12 @@ void dpu_plane_danger_signal_ctrl(struct drm_plane *plane, bool enable);
- static inline void dpu_plane_danger_signal_ctrl(struct drm_plane *plane, bool enable) {}
- #endif
- 
--int dpu_plane_atomic_check(struct drm_plane *plane, struct drm_atomic_state *state);
--
- int dpu_plane_virtual_assign_resources(struct drm_plane *plane,
- 				       struct drm_crtc *crtc,
- 				       struct dpu_global_state *global_state,
- 				       struct drm_atomic_state *state);
- 
-+int dpu_plane_virtual_atomic_check_late(struct drm_plane *plane,
-+					struct drm_atomic_state *state);
-+
- #endif /* _DPU_PLANE_H_ */
--- 
-2.30.2
-
+>
+> v1: https://patchwork.freedesktop.org/series/93035/
+> v2: Move filtering out of later deadlines to fence implementation
+>     to avoid increasing the size of dma_fence
+> v3: Add support in fence-array and fence-chain; Add some uabi to
+>     support igt tests and userspace compositors.
+> v4: Rebase, address various comments, and add syncobj deadline
+>     support, and sync_file EPOLLPRI based on experience with perf/
+>     freq issues with clvk compute workloads on i915 (anv)
+> v5: Clarify that this is a hint as opposed to a more hard deadline
+>     guarantee, switch to using u64 ns values in UABI (still absolute
+>     CLOCK_MONOTONIC values), drop syncobj related cap and driver
+>     feature flag in favor of allowing count_handles=3D=3D0 for probing
+>     kernel support.
+> v6: Re-work vblank helper to calculate time of _start_ of vblank,
+>     and work correctly if the last vblank event was more than a
+>     frame ago.  Add (mostly unrelated) drm/msm patch which also
+>     uses the vblank helper.  Use dma_fence_chain_contained().  More
+>     verbose syncobj UABI comments.  Drop DMA_FENCE_FLAG_HAS_DEADLINE_BIT.
+> v7: Fix kbuild complaints about vblank helper.  Add more docs.
+> v8: Add patch to surface sync_file UAPI, and more docs updates.
+> v9: Drop (E)POLLPRI support.. I still like it, but not essential and
+>     it can always be revived later.  Fix doc build warning.
+> v10: Update 11/15 to handle multiple CRTCs
+>
+> Rob Clark (15):
+>   dma-buf/dma-fence: Add deadline awareness
+>   dma-buf/fence-array: Add fence deadline support
+>   dma-buf/fence-chain: Add fence deadline support
+>   dma-buf/dma-resv: Add a way to set fence deadline
+>   dma-buf/sync_file: Surface sync-file uABI
+>   dma-buf/sync_file: Add SET_DEADLINE ioctl
+>   dma-buf/sw_sync: Add fence deadline support
+>   drm/scheduler: Add fence deadline support
+>   drm/syncobj: Add deadline support for syncobj waits
+>   drm/vblank: Add helper to get next vblank time
+>   drm/atomic-helper: Set fence deadline for vblank
+>   drm/msm: Add deadline based boost support
+>   drm/msm: Add wait-boost support
+>   drm/msm/atomic: Switch to vblank_start helper
+>   drm/i915: Add deadline based boost support
+>
+> Rob Clark (15):
+>   dma-buf/dma-fence: Add deadline awareness
+>   dma-buf/fence-array: Add fence deadline support
+>   dma-buf/fence-chain: Add fence deadline support
+>   dma-buf/dma-resv: Add a way to set fence deadline
+>   dma-buf/sync_file: Surface sync-file uABI
+>   dma-buf/sync_file: Add SET_DEADLINE ioctl
+>   dma-buf/sw_sync: Add fence deadline support
+>   drm/scheduler: Add fence deadline support
+>   drm/syncobj: Add deadline support for syncobj waits
+>   drm/vblank: Add helper to get next vblank time
+>   drm/atomic-helper: Set fence deadline for vblank
+>   drm/msm: Add deadline based boost support
+>   drm/msm: Add wait-boost support
+>   drm/msm/atomic: Switch to vblank_start helper
+>   drm/i915: Add deadline based boost support
+>
+>  Documentation/driver-api/dma-buf.rst    | 16 ++++-
+>  drivers/dma-buf/dma-fence-array.c       | 11 ++++
+>  drivers/dma-buf/dma-fence-chain.c       | 12 ++++
+>  drivers/dma-buf/dma-fence.c             | 60 ++++++++++++++++++
+>  drivers/dma-buf/dma-resv.c              | 22 +++++++
+>  drivers/dma-buf/sw_sync.c               | 81 +++++++++++++++++++++++++
+>  drivers/dma-buf/sync_debug.h            |  2 +
+>  drivers/dma-buf/sync_file.c             | 19 ++++++
+>  drivers/gpu/drm/drm_atomic_helper.c     | 37 +++++++++++
+>  drivers/gpu/drm/drm_syncobj.c           | 64 +++++++++++++++----
+>  drivers/gpu/drm/drm_vblank.c            | 53 +++++++++++++---
+>  drivers/gpu/drm/i915/i915_request.c     | 20 ++++++
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c | 15 -----
+>  drivers/gpu/drm/msm/msm_atomic.c        |  8 ++-
+>  drivers/gpu/drm/msm/msm_drv.c           | 12 ++--
+>  drivers/gpu/drm/msm/msm_fence.c         | 74 ++++++++++++++++++++++
+>  drivers/gpu/drm/msm/msm_fence.h         | 20 ++++++
+>  drivers/gpu/drm/msm/msm_gem.c           |  5 ++
+>  drivers/gpu/drm/msm/msm_kms.h           |  8 ---
+>  drivers/gpu/drm/scheduler/sched_fence.c | 46 ++++++++++++++
+>  drivers/gpu/drm/scheduler/sched_main.c  |  2 +-
+>  include/drm/drm_vblank.h                |  1 +
+>  include/drm/gpu_scheduler.h             | 17 ++++++
+>  include/linux/dma-fence.h               | 22 +++++++
+>  include/linux/dma-resv.h                |  2 +
+>  include/uapi/drm/drm.h                  | 17 ++++++
+>  include/uapi/drm/msm_drm.h              | 14 ++++-
+>  include/uapi/linux/sync_file.h          | 59 +++++++++++-------
+>  28 files changed, 640 insertions(+), 79 deletions(-)
+>
+> --
+> 2.39.2
+>
