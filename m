@@ -2,77 +2,78 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 70DB76BC3D3
-	for <lists+freedreno@lfdr.de>; Thu, 16 Mar 2023 03:36:15 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 950286BC650
+	for <lists+freedreno@lfdr.de>; Thu, 16 Mar 2023 07:50:39 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2B1E289023;
-	Thu, 16 Mar 2023 02:36:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4CBB110EA67;
+	Thu, 16 Mar 2023 06:50:38 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AEE5388DA9;
- Thu, 16 Mar 2023 02:36:12 +0000 (UTC)
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 32G24v6l031896; Thu, 16 Mar 2023 02:36:03 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
- h=from : to : cc :
- subject : date : message-id : in-reply-to : references : mime-version :
- content-type : content-transfer-encoding; s=qcppdkim1;
- bh=05A5Fd6+yPWKz+JHS3bo5WpbGb9EWFg1cqLhx+b36+k=;
- b=i4XGtk2ax4fMWuxJB5HRCp5VBQpdLprJ32nr0lCMvMlB0Ur9h6l+rD+lt288R9JLcAkV
- xDYj/HFzHBrM1ywKpBqux3PoxjHAobxiiUozDPqRNUr8RJD6KU20fMdmE4Klg0NTTIvP
- /jc1zyalPyO92OhbL8/0Z6JmJsdToLfI3ucqS+eMH/DXE14pZ3Nwz6wBECdTDNmYbj83
- BRiCKqWhbClO6AGX10U48Z2abTzTUJhdc3TDxv89ePlPXHfURvUn63dO5vbnDRtg4lRn
- orlgTqGimgowxVCqfwClMl74qZ+s0dqrhXAEB79pbglpo7qmxRUssZY5xy6h2CToqRPN Tg== 
-Received: from nalasppmta02.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3pbpxjretd-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 16 Mar 2023 02:36:03 +0000
-Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
- [10.47.209.196])
- by NALASPPMTA02.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 32G2a3gW010872
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 16 Mar 2023 02:36:03 GMT
-Received: from abhinavk-linux.qualcomm.com (10.80.80.8) by
- nalasex01a.na.qualcomm.com (10.47.209.196) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.986.41; Wed, 15 Mar 2023 19:36:02 -0700
-From: Abhinav Kumar <quic_abhinavk@quicinc.com>
-To: <robdclark@gmail.com>, <sean@poorly.run>, <swboyd@chromium.org>,
- <dianders@chromium.org>, <vkoul@kernel.org>, <daniel@ffwll.ch>,
- <airlied@gmail.com>, <agross@kernel.org>,
- <dmitry.baryshkov@linaro.org>, <andersson@kernel.org>,
- Kuogee Hsieh <quic_khsieh@quicinc.com>
-Date: Wed, 15 Mar 2023 19:35:51 -0700
-Message-ID: <167893410626.12323.14919462334772351303.b4-ty@quicinc.com>
-X-Mailer: git-send-email 2.39.2
-In-Reply-To: <1677533800-3125-1-git-send-email-quic_khsieh@quicinc.com>
-References: <1677533800-3125-1-git-send-email-quic_khsieh@quicinc.com>
+Received: from mail-ed1-x530.google.com (mail-ed1-x530.google.com
+ [IPv6:2a00:1450:4864:20::530])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4085410EA67
+ for <freedreno@lists.freedesktop.org>; Thu, 16 Mar 2023 06:50:36 +0000 (UTC)
+Received: by mail-ed1-x530.google.com with SMTP id ek18so3561627edb.6
+ for <freedreno@lists.freedesktop.org>; Wed, 15 Mar 2023 23:50:36 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1678949434;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=FSmqR42JI8zcqdZRW9LGFpXnT9CY9HrPjFJaVqu4ZgY=;
+ b=LtSG7S1Is6GOySgnfXlDFq9WmlpDcL15eYIvGJGE5wawcnUtwzMePaKmAhMuLgEhUs
+ xTJTs+bkX4okGEn38efRN2rttgtE4dB+4IsT4Ilvtd1XhKAc6NzWUyoWa3WqXvoL7u2T
+ ggWDnwAJN0nv2Blhx7wMVb7yHDJnjqMnbjcCCh46Ezk8oV0RRn56Sk1eQOIxncoCALCT
+ T/AHI0c1h3r4Kgd1Eqtqbds7fp/dpooQMq2CMoxqPxH6aUv8XVPKbT47IrkpLhjEySj2
+ 9VIqK63JW8wx7Fc61X7ttVzGNgKM6hkgeC53bC3iIqBQY63I047h4js0OPc8tQoaa5yE
+ A56w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112; t=1678949434;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=FSmqR42JI8zcqdZRW9LGFpXnT9CY9HrPjFJaVqu4ZgY=;
+ b=4QvJN7tlOcMgkv4WcqeaPKxNGNmFD7lckUtxxNK2OwpK3OnxYOVD5czvFwPskpFRWY
+ It/O+zf7KEUy6NWgEqaIf/tyWkhJKORVj69SlyD/r3UTR4OyHq73TI7EX3b2De4hxDDM
+ ArtNFBhY1ZHvvGgfHuvNWnP4oreZ+uP9d6T3r4mS9CbRKCYT8UnrT1X0KPnYzTs1VfJc
+ 09TjrQzMF63JIR49BWkk2RZqnPTZCUCsFkDC43V8WUkb+TvK3bHwB4311hNvOZ+IU4NZ
+ 3cTa7fvEn9wdoVo9nJbjVvyFwm/ntkMYqR9v2MQjBz+1bAmTSej1gS6tEkQS8r15/lvy
+ FdZw==
+X-Gm-Message-State: AO0yUKWGMi6tu19ih78aUikV7n+RHz2rolxuHSce1dT0JyqBHff9b7Q1
+ iFIPN65KAFP71g+hgcIJb8kMVw==
+X-Google-Smtp-Source: AK7set+PiE/udqoIZYh3NUnUhUQW7Ogs6QpL8HNi52GXZ5TS0E9frxcNkNS0kfUthl780jLDuZxS7g==
+X-Received: by 2002:a17:906:c9ce:b0:889:58bd:86f1 with SMTP id
+ hk14-20020a170906c9ce00b0088958bd86f1mr8988609ejb.14.1678949434663; 
+ Wed, 15 Mar 2023 23:50:34 -0700 (PDT)
+Received: from ?IPV6:2a02:810d:15c0:828:9827:5f65:8269:a95f?
+ ([2a02:810d:15c0:828:9827:5f65:8269:a95f])
+ by smtp.gmail.com with ESMTPSA id
+ w13-20020a1709060a0d00b0092707833d08sm3388745ejf.70.2023.03.15.23.50.33
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 15 Mar 2023 23:50:34 -0700 (PDT)
+Message-ID: <1f77b57b-e3dc-b44e-0afb-ac1b7c4cac83@linaro.org>
+Date: Thu, 16 Mar 2023 07:50:33 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-GUID: di2Cg6JoXmsS3IcGuqCfeZZvJ04WNLMY
-X-Proofpoint-ORIG-GUID: di2Cg6JoXmsS3IcGuqCfeZZvJ04WNLMY
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.254,Aquarius:18.0.942,Hydra:6.0.573,FMLib:17.11.170.22
- definitions=2023-03-16_02,2023-03-15_01,2023-02-09_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 mlxscore=0
- adultscore=0 suspectscore=0 mlxlogscore=974 clxscore=1015 malwarescore=0
- priorityscore=1501 bulkscore=0 phishscore=0 lowpriorityscore=0
- impostorscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2303150002 definitions=main-2303160022
-Subject: Re: [Freedreno] (subset) [PATCH v2] drm/msm/disp/dpu: fix sc7280_pp
- base offset
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.8.0
+Content-Language: en-US
+To: Konrad Dybcio <konrad.dybcio@linaro.org>, Rob Clark
+ <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>,
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Rob Herring <robh+dt@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Krishna Manikandan <quic_mkrishn@quicinc.com>,
+ Bryan O'Donoghue <bryan.odonoghue@linaro.org>, Andy Gross
+ <agross@kernel.org>, Bjorn Andersson <andersson@kernel.org>
+References: <20230307-topic-dsi_qcm-v4-0-54b4898189cb@linaro.org>
+ <20230307-topic-dsi_qcm-v4-8-54b4898189cb@linaro.org>
+From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+In-Reply-To: <20230307-topic-dsi_qcm-v4-8-54b4898189cb@linaro.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+Subject: Re: [Freedreno] [PATCH v4 08/10] dt-bindings: display/msm:
+ dsi-controller-main: Fix deprecated compatible
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -85,30 +86,43 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: quic_sbillaka@quicinc.com, linux-arm-msm@vger.kernel.org,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, freedreno@lists.freedesktop.org
+Cc: Rob Herring <robh@kernel.org>, devicetree@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-
-On Mon, 27 Feb 2023 13:36:40 -0800, Kuogee Hsieh wrote:
-> At sc7280, pingpong block is used to management the dither effects
-> to reduce distortion at panel. Currently pingpong-0 base offset is
-> wrongly set at 0x59000. This mistake will not cause system to crash.
-> However it will make dither not work. This patch correct sc7280 ping
-> pong-0 block base offset.
+On 14/03/2023 13:13, Konrad Dybcio wrote:
+> The point of the previous cleanup was to disallow "qcom,mdss-dsi-ctrl"
+> alone. This however didn't quite work out and the property became
+> undocumented instead of deprecated. Fix that.
 > 
-> Changes in v2:
-> -- add more details info n regrading of pingpong block at commit text
+> Fixes: 0c0f65c6dd44 ("dt-bindings: msm: dsi-controller-main: Add compatible strings for every current SoC")
+> Reviewed-by: Marijn Suijten <marijn.suijten@somainline.org>
+> Signed-off-by: Konrad Dybcio <konrad.dybcio@linaro.org>
+> ---
+>  Documentation/devicetree/bindings/display/msm/dsi-controller-main.yaml | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
 > 
-> [...]
+> diff --git a/Documentation/devicetree/bindings/display/msm/dsi-controller-main.yaml b/Documentation/devicetree/bindings/display/msm/dsi-controller-main.yaml
+> index 2494817c1bd6..94f4cdf88c95 100644
+> --- a/Documentation/devicetree/bindings/display/msm/dsi-controller-main.yaml
+> +++ b/Documentation/devicetree/bindings/display/msm/dsi-controller-main.yaml
+> @@ -34,7 +34,7 @@ properties:
+>        - items:
 
-Applied, thanks!
+This patch should drop the items - you have only one item, so no need
+for list.
 
-[1/1] drm/msm/disp/dpu: fix sc7280_pp base offset
-      https://gitlab.freedesktop.org/drm/msm/-/commit/ce68153edb5b
+>            - enum:
+>                - qcom,dsi-ctrl-6g-qcm2290
+> -          - const: qcom,mdss-dsi-ctrl
+> +              - qcom,mdss-dsi-ctrl # This should always come with an SoC-specific compatible
+>          deprecated: true
+
 
 Best regards,
--- 
-Abhinav Kumar <quic_abhinavk@quicinc.com>
+Krzysztof
+
