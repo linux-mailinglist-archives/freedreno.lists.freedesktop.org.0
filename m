@@ -1,57 +1,76 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 552616BD174
-	for <lists+freedreno@lfdr.de>; Thu, 16 Mar 2023 14:53:42 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id EE0016BD49C
+	for <lists+freedreno@lfdr.de>; Thu, 16 Mar 2023 17:03:50 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E367210ECFB;
-	Thu, 16 Mar 2023 13:53:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2C1E810ED0C;
+	Thu, 16 Mar 2023 16:03:48 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-io1-f51.google.com (mail-io1-f51.google.com
- [209.85.166.51])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 815B010ECFB;
- Thu, 16 Mar 2023 13:53:39 +0000 (UTC)
-Received: by mail-io1-f51.google.com with SMTP id v10so802837iol.9;
- Thu, 16 Mar 2023 06:53:39 -0700 (PDT)
+Received: from mail-yw1-x112b.google.com (mail-yw1-x112b.google.com
+ [IPv6:2607:f8b0:4864:20::112b])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BDDD110E0D7
+ for <freedreno@lists.freedesktop.org>; Thu, 16 Mar 2023 16:03:45 +0000 (UTC)
+Received: by mail-yw1-x112b.google.com with SMTP id
+ 00721157ae682-54195ef155aso40608417b3.9
+ for <freedreno@lists.freedesktop.org>; Thu, 16 Mar 2023 09:03:45 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1678982625;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=y4IWQ3qm69V7nWR3kZTl127u4+HwMbKM+fr7ufWkSq4=;
+ b=FHYsepG+obu7nQ3hBQZraJsz/3pb5JM1zNSX5SnPB2+Aka3UWkijGG5NGPTtS5LC4n
+ 1MGM1jCwejxLh6tTFoWUgnkkBYsouhHgOERdQgvOwRm56ARvSi42PgqnRgPvIRzFJc6x
+ z+6KQ1um4U0Zz38wCDJqLjtnpyhxbRT23ihiZ40691I759/y7YOBcGqST5vlb78rvbrf
+ ZtV5vkqEMwy7FWxvjsnA+o7Nnx7S9A3MMB6WMr0lr7WefuEyvIT734TQZX6eoi3JcTPU
+ qsgN4nFIjn7wxARSIUD9A0mU3QG+pVKEvIuccQjpM3d0nfrySjVa+SsU3ceBHKbNZ87J
+ s+JA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112; t=1678974819;
- h=date:subject:message-id:references:in-reply-to:cc:to:from
- :mime-version:content-transfer-encoding:x-gm-message-state:from:to
- :cc:subject:date:message-id:reply-to;
- bh=mUdpbi5TGJoaUXHkv97gIa7NonUCQAJZsK/HjadTtxE=;
- b=DE8v+cnFrxFzLco5+ZJXevkQi96AlxAhQ31Hx0nhmUdl6HRI8l81kuDc5Xz4zbY8fi
- GaukzVSVel4pJjk7bhgCJwHuq89+PBkTvLJxPZ91RlknjHVnor1wd2gWCl2QP6vsWKw0
- pAHOLpvJXyYoNlymm91mIZvB9t5Kax50X+Jpkm0xhoQeljxs6UePf54MXe6PMCCu1J+h
- 2fjU1ta3MaTXMwOZVblbcfZfuNl0PeCJ8puNWNTlsngPkOa5+9skv5X/Q3b+MQe9nQGi
- eVrgmUKaf48RPfO1XogA6s4hmv0YhwabH7hukL+0819viPFNBAyBgjFGUq7ViAfetS51
- nwqA==
-X-Gm-Message-State: AO0yUKV3WhJzmzr0Er5Gp8Fexzip9eDktpC4mVMnGUX1K/b4WBikR0zq
- kJnwtx4rJPcGJR10tG6jxw==
-X-Google-Smtp-Source: AK7set8W8UPFeVE0DXWj4IT3uiG6YG5+JfpqujbxicCe7RzbD9be9VSYYcqSzrSQFSB/MR4qFE0y2w==
-X-Received: by 2002:a5d:9544:0:b0:74c:7db1:47cf with SMTP id
- a4-20020a5d9544000000b0074c7db147cfmr16981351ios.14.1678974818768; 
- Thu, 16 Mar 2023 06:53:38 -0700 (PDT)
-Received: from robh_at_kernel.org ([64.188.179.249])
- by smtp.gmail.com with ESMTPSA id
- r23-20020a02c857000000b004061d6abcd2sm1151352jao.146.2023.03.16.06.53.36
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 16 Mar 2023 06:53:38 -0700 (PDT)
-Received: (nullmailer pid 2744948 invoked by uid 1000);
- Thu, 16 Mar 2023 13:53:34 -0000
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+ d=1e100.net; s=20210112; t=1678982625;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=y4IWQ3qm69V7nWR3kZTl127u4+HwMbKM+fr7ufWkSq4=;
+ b=iFM8Cic7qrjFRPY6uvnk5AWMJQxe0+OOPDaFDXaEtaYaGUmyntW1qpKilvpT+KKyEO
+ jfPZBFSLxCx+y86AmwtDj96xIrnZs2MdytAIzJmZ51Jy4a3Be4ka+IGKAHC9l8y6lFBm
+ 8Km/OAkLMB04STJ8MvzWtQ28UgwAezYgcL4jXI7hB/xVu/R9mnrS7vrgJuyztXiYiwKq
+ cZQd1FU+1njk0HZELcSa4Dk50nRbsxOlHyjuVg2Ph+4RjOUWWBSNc0dnO74FaaI/a2L8
+ rlBx4IeUyrbbBVuDMP4prZrzvtEES69wd+p1uAss+SMsa1YVicZg+HJNStEXWKcqMAnx
+ akxw==
+X-Gm-Message-State: AO0yUKWHRGdZpQRe+UGmU05C/YSUcjiIwRMMlK2rtDwAbOJXr82q4Ule
+ KQJLcRMDgClYGwJLLQGYoAij6Mt14Arsrfdho7WFFg==
+X-Google-Smtp-Source: AK7set9W4SZAF2xF+bd2nTCNFeQnySUL0JERjAQIpc9fH2qYvBQ6oTmQNhEm0Oac7eVav3YqSLPkJHsGWryzP8RQpDY=
+X-Received: by 2002:a81:a708:0:b0:541:7f69:aa8b with SMTP id
+ e8-20020a81a708000000b005417f69aa8bmr2423344ywh.5.1678982624792; Thu, 16 Mar
+ 2023 09:03:44 -0700 (PDT)
 MIME-Version: 1.0
-From: Rob Herring <robh@kernel.org>
-To: Konrad Dybcio <konrad.dybcio@linaro.org>
-In-Reply-To: <20230307-topic-dsi_qcm-v5-1-9d4235b77f4f@linaro.org>
-References: <20230307-topic-dsi_qcm-v5-0-9d4235b77f4f@linaro.org>
- <20230307-topic-dsi_qcm-v5-1-9d4235b77f4f@linaro.org>
-Message-Id: <167897435368.2729763.13155358018368815833.robh@kernel.org>
-Date: Thu, 16 Mar 2023 08:53:34 -0500
-Subject: Re: [Freedreno] [PATCH v5 01/10] dt-bindings: display/msm:
- dsi-controller-main: Fix deprecated QCM2290 compatible
+References: <1677267647-28672-1-git-send-email-quic_khsieh@quicinc.com>
+ <1677267647-28672-2-git-send-email-quic_khsieh@quicinc.com>
+ <42b3c193-8897-cfe9-1cae-2f9a66f7983a@linaro.org>
+ <741be2a3-0208-2f40-eedf-d439c4e6795b@quicinc.com>
+ <F8A4FC18-C64E-4011-BC08-18EB3B95A357@linaro.org>
+ <d5ee8233-66c8-9b88-417c-6cf9cc5c84fe@quicinc.com>
+ <CAA8EJpro5Q-2ZpnDJt40UhFX7Zp9oBhrto=FDOERzCDR2BDPvQ@mail.gmail.com>
+ <f0dfba42-4674-3748-bf5d-39f6e1745f67@quicinc.com>
+ <f1a6ee82-9502-7ea5-fe48-f296fc7df497@linaro.org>
+ <3e114c0f-a042-6801-69bf-67436cb2a448@quicinc.com>
+ <113a10b6-6097-c80e-c29c-6f61b2b2896a@linaro.org>
+ <c4c0ebf8-275d-500f-4019-e3d7517a884f@quicinc.com>
+ <CAA8EJppxX4haZSwdvVbN7bc6kXAyNO1rg6zWZv9wPFdqGrcXuw@mail.gmail.com>
+ <c650e746-64c5-ce6b-933d-057349356b78@quicinc.com>
+ <58E03B71-20C4-4F81-96C1-6D8CE517F3FB@linaro.org>
+ <fd876ad2-3fd0-eaab-3407-dd32d494f662@quicinc.com>
+ <a5d1a74f-1b7a-569d-e487-774720dfae22@quicinc.com>
+In-Reply-To: <a5d1a74f-1b7a-569d-e487-774720dfae22@quicinc.com>
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Date: Thu, 16 Mar 2023 18:03:33 +0200
+Message-ID: <CAA8EJpq_mwUt0+1yGYo6hRx8Vz12DumVdpEjJbPk8gGHhGZ2bA@mail.gmail.com>
+To: Jessica Zhang <quic_jesszhan@quicinc.com>
+Content-Type: text/plain; charset="UTF-8"
+Subject: Re: [Freedreno] [RFC PATCH 1/2] drm/msm/dpu: add dsc helper
+ functions
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,66 +83,71 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sean Paul <sean@poorly.run>, devicetree@vger.kernel.org,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- linux-arm-msm@vger.kernel.org, Bjorn Andersson <andersson@kernel.org>,
- linux-kernel@vger.kernel.org, Rob Herring <robh+dt@kernel.org>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, Rob Clark <robdclark@gmail.com>,
- Andy Gross <agross@kernel.org>, Krishna Manikandan <quic_mkrishn@quicinc.com>,
- dri-devel@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>,
- Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- freedreno@lists.freedesktop.org, David Airlie <airlied@gmail.com>
+Cc: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>, quic_sbillaka@quicinc.com,
+ dianders@chromium.org, Kuogee Hsieh <quic_khsieh@quicinc.com>,
+ andersson@kernel.org, freedreno@lists.freedesktop.org,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, vkoul@kernel.org, agross@kernel.org,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, marijn.suijten@somainline.org,
+ swboyd@chromium.org, sean@poorly.run,
+ Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
+ linux-arm-msm@vger.kernel.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
+Hi,
 
-On Thu, 16 Mar 2023 09:51:07 +0100, Konrad Dybcio wrote:
-> The qcom, prefix was missed previously. Fix it.
-> 
-> Fixes: 0c0f65c6dd44 ("dt-bindings: msm: dsi-controller-main: Add compatible strings for every current SoC")
-> Acked-by: Rob Herring <robh@kernel.org>
-> Reviewed-by: Marijn Suijten <marijn.suijten@somainline.org>
-> Signed-off-by: Konrad Dybcio <konrad.dybcio@linaro.org>
-> ---
->  Documentation/devicetree/bindings/display/msm/dsi-controller-main.yaml | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
+[removed previous conversation]
 
-My bot found errors running 'make DT_CHECKER_FLAGS=-m dt_binding_check'
-on your patch (DT_CHECKER_FLAGS is new in v5.13):
+>
+> Hi Dmitry and Abhinav,
+>
+> Just wanted to follow up on this thread. I've gone over the MSM-specific
+> DSC params for DP and DSI and have found a few shared calculations and
+> variables between both DSI and DP paths:
+>
+> - (as mentioned earlier in the thread) almost all the calculations in
+> dpu_dsc_populate_dsc_config() match dsi_populate_dsc_params() [1]. The
+> only difference in the math I'm seeing is initial_scale_value.
 
-yamllint warnings/errors:
+The value in dsi code is valid for initial_offset = 6144. Please use
+the formula from the standard (= sde_dsc_populate_dsc_config) and add
+it to drm_dsc_helper.c
 
-dtschema/dtc warnings/errors:
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sm6115-mdss.example.dtb: dsi@5e94000: compatible: 'oneOf' conditional failed, one must be fixed:
-	['qcom,dsi-ctrl-6g-qcm2290'] is too short
-	'qcom,dsi-ctrl-6g-qcm2290' is not one of ['qcom,apq8064-dsi-ctrl', 'qcom,msm8916-dsi-ctrl', 'qcom,msm8953-dsi-ctrl', 'qcom,msm8974-dsi-ctrl', 'qcom,msm8996-dsi-ctrl', 'qcom,msm8998-dsi-ctrl', 'qcom,qcm2290-dsi-ctrl', 'qcom,sc7180-dsi-ctrl', 'qcom,sc7280-dsi-ctrl', 'qcom,sdm660-dsi-ctrl', 'qcom,sdm845-dsi-ctrl', 'qcom,sm8150-dsi-ctrl', 'qcom,sm8250-dsi-ctrl', 'qcom,sm8350-dsi-ctrl', 'qcom,sm8450-dsi-ctrl', 'qcom,sm8550-dsi-ctrl']
-	From schema: /builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/dsi-controller-main.yaml
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sm6115-mdss.example.dtb: dsi@5e94000: Unevaluated properties are not allowed ('compatible' was unexpected)
-	From schema: /builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/dsi-controller-main.yaml
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,qcm2290-mdss.example.dtb: dsi@5e94000: compatible: 'oneOf' conditional failed, one must be fixed:
-	['qcom,dsi-ctrl-6g-qcm2290'] is too short
-	'qcom,dsi-ctrl-6g-qcm2290' is not one of ['qcom,apq8064-dsi-ctrl', 'qcom,msm8916-dsi-ctrl', 'qcom,msm8953-dsi-ctrl', 'qcom,msm8974-dsi-ctrl', 'qcom,msm8996-dsi-ctrl', 'qcom,msm8998-dsi-ctrl', 'qcom,qcm2290-dsi-ctrl', 'qcom,sc7180-dsi-ctrl', 'qcom,sc7280-dsi-ctrl', 'qcom,sdm660-dsi-ctrl', 'qcom,sdm845-dsi-ctrl', 'qcom,sm8150-dsi-ctrl', 'qcom,sm8250-dsi-ctrl', 'qcom,sm8350-dsi-ctrl', 'qcom,sm8450-dsi-ctrl', 'qcom,sm8550-dsi-ctrl']
-	From schema: /builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/dsi-controller-main.yaml
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,qcm2290-mdss.example.dtb: dsi@5e94000: Unevaluated properties are not allowed ('compatible' was unexpected)
-	From schema: /builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/dsi-controller-main.yaml
+If I remember correctly the last remaining item in
+dsi_populate_dsc_params() (except mentioned initial_offset) was
+line_buf_depth, see [3]. I'm not sure about setting it to bpc+1.
+According to the standard it should come from a DSC decoder spec,
+which means it should be set by the DSI panel driver or via
+drm_dp_dsc_sink_line_buf_depth() in the case of DP output.
 
-doc reference errors (make refcheckdocs):
+> - dsc_extra_pclk_cycle_cnt and dce_bytes_per_line, which were introduced
+> in Kuogee's v1 DSC series [2], are used for DSI, DP, and the DPU timing
+> engine. dsc_extra_pclk_cycle_cnt is calculated based on pclk_per_line
+> (which is calculated differently between DP and DSI), but
+> dce_bytes_per_line is calculated the same way between DP and DSI.
+>
+> To avoid having to duplicate math in 2 different places, I think it
+> would help to have these calculations in some msm_dsc_helper.c file. Any
+> thoughts on this?
 
-See https://patchwork.ozlabs.org/project/devicetree-bindings/patch/20230307-topic-dsi_qcm-v5-1-9d4235b77f4f@linaro.org
+dsc_extra_pclk_cycle_cnt and dce_bytes_per_line are used only in DPU
+code, so they can stay in DPU driver.
 
-The base for the series is generally the latest rc1. A different dependency
-should be noted in *this* patch.
+>
+> Thanks,
+>
+> Jessica Zhang
+>
+> [1]
+> https://elixir.bootlin.com/linux/v6.3-rc2/source/drivers/gpu/drm/msm/dsi/dsi_host.c#L1756
+>
+> [2] https://patchwork.freedesktop.org/patch/519845/?series=113240&rev=1
 
-If you already ran 'make dt_binding_check' and didn't see the above
-error(s), then make sure 'yamllint' is installed and dt-schema is up to
-date:
+[3] https://patchwork.freedesktop.org/patch/525441/?series=114472&rev=2
 
-pip3 install dtschema --upgrade
 
-Please check and re-submit after running the above command yourself. Note
-that DT_SCHEMA_FILES can be set to your schema file to speed up checking
-your schema. However, it must be unset to test all examples with your schema.
 
+-- 
+With best wishes
+Dmitry
