@@ -1,76 +1,68 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1C09C6BC280
-	for <lists+freedreno@lfdr.de>; Thu, 16 Mar 2023 01:31:18 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id EC87E6BC2EE
+	for <lists+freedreno@lfdr.de>; Thu, 16 Mar 2023 01:44:40 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CBB5E10E06C;
-	Thu, 16 Mar 2023 00:31:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B2DCF10EA2E;
+	Thu, 16 Mar 2023 00:44:39 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 164E910E06C;
- Thu, 16 Mar 2023 00:31:15 +0000 (UTC)
-Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 32FMZNIw024819; Thu, 16 Mar 2023 00:31:05 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
- h=from : to : cc :
- subject : date : message-id : in-reply-to : references : mime-version :
- content-type : content-transfer-encoding; s=qcppdkim1;
- bh=5cF0aQHL6hTK5UvqOWWf3uT6tlDl+tp5zzAq58kWVF4=;
- b=myK3hfMNVmpHj1ytxjtl1LMxe8mhrk0MvdciAjG5E+6kc5s5cG3POmrBezIg1CTeOlAK
- fGbpGy5hdqsx9cuHHvZOjph9ueRWGbTNfKxBBYdVWboT5z1BrVoTOm+tbUoP/P3DqUYM
- /JdabekgKrZD52ymlTESrb1dRgKWjn5nlBN8bAHaH86llPpcyMkUy85lkDcySUQcAK1z
- agTBWsaoxn6qakLpzilMpepx0jb0D2F4e6D0RipG1Gpi8UqhUMTKmvh9evyV48zVfirw
- Y3uUxph04EEBpL2N8SGXfBAYbusy4vVPLQMoApi+Kb2k8Z2FpQQoMrGdMC3Ni2TlX/H+ XA== 
-Received: from nalasppmta03.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3pbpxsg752-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 16 Mar 2023 00:31:05 +0000
-Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
- [10.47.209.196])
- by NALASPPMTA03.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 32G0V4SN024749
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 16 Mar 2023 00:31:04 GMT
-Received: from abhinavk-linux.qualcomm.com (10.80.80.8) by
- nalasex01a.na.qualcomm.com (10.47.209.196) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.986.41; Wed, 15 Mar 2023 17:31:04 -0700
-From: Abhinav Kumar <quic_abhinavk@quicinc.com>
-To: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, "Dmitry
- Baryshkov" <dmitry.baryshkov@linaro.org>
-Date: Wed, 15 Mar 2023 17:30:49 -0700
-Message-ID: <167892661705.19557.4033120434395579912.b4-ty@quicinc.com>
+Received: from mail-lf1-x129.google.com (mail-lf1-x129.google.com
+ [IPv6:2a00:1450:4864:20::129])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CAE7B10EA2E
+ for <freedreno@lists.freedesktop.org>; Thu, 16 Mar 2023 00:44:37 +0000 (UTC)
+Received: by mail-lf1-x129.google.com with SMTP id bp27so309913lfb.6
+ for <freedreno@lists.freedesktop.org>; Wed, 15 Mar 2023 17:44:37 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1678927476;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=OdHTO7r/qWwc37NG0KfD//nV1f0Fmimh5IOse5pWXK4=;
+ b=anqrjvcHRO2REMCEyQGrabPAJZqSVGYWfgKG1db9qduO6iQ7lLe/059twBJhcgOZZS
+ 3UZIbz5/EQDTu43xcmjd16na1X3x2YC5rcTK3vsPlLzn08yLGf2/wfFpcmS9XnCVBrIu
+ WmWVblowCFMCx1lH943DX/6qJilgY0yhqMYLkK++Fb1b7oYIRBFE7+EAXLAini9MdkSE
+ PCnIJ7Ruh3eNy1lDQnZfo9RH7+AmqVEfQQ6qcuV81uD6ONFd90uFD650t+jPEN8l59gk
+ fH8v/W9gkxPTzhwRaZknBKuytJB4G4UtDom2E7hSgF8QIwc3XRTE3Zu4HMnrh1ujlHfQ
+ ZnnA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112; t=1678927476;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=OdHTO7r/qWwc37NG0KfD//nV1f0Fmimh5IOse5pWXK4=;
+ b=hCQ6x/nvc7EcNhmjlniqw+x325iYoFlCa4eqgv4SWnZ62HiMepJlRTu+sjzLPTNvEH
+ 3/fZ8csUT4q36CiIgVz8HV2AuBcwU9hzI/8nG7NHP0hicQJD9AB19cmiWgpQCLB4vX/Q
+ Xl/3ZchCr3mvGIKvpOyl3REW1rLz7SFdKD4azLo9jP+lf7zt4rAgP58pF+hkB9KwyPOy
+ Tj8LQhJ5zFlqh8qsoZhl60G1+ItQ05D4In6GbWcXW940/0rpjCGfzzKM+Six5hUiK/sz
+ 7zF7CsDbugDnzu5rwiufN86Cj6ZnGb3joB78WNlxaqpqHBrgaU+0KGnkUWc6sZ0mleh3
+ JRvA==
+X-Gm-Message-State: AO0yUKWhWYDurVoeWbB6hGFRWo2WCZPMlKEeREMo2RYGxgrCdIidRDMf
+ 0aedPzInl/6opHJ/erELA4+7sw==
+X-Google-Smtp-Source: AK7set+zuznVSzozkhNOwTFpILN2nC7k2EOJ81hKG8EJr1QUVhV300YfCExMPAk3hSCFdXwgZtcG0g==
+X-Received: by 2002:ac2:597c:0:b0:4a4:68b9:19da with SMTP id
+ h28-20020ac2597c000000b004a468b919damr2488893lfp.2.1678927475910; 
+ Wed, 15 Mar 2023 17:44:35 -0700 (PDT)
+Received: from eriador.lan (dzccz6yyyyyyyyyyybcwt-3.rev.dnainternet.fi.
+ [2001:14ba:a085:4d00::8a5]) by smtp.gmail.com with ESMTPSA id
+ q19-20020ac25293000000b004dc4b00a1f3sm1001254lfm.253.2023.03.15.17.44.35
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 15 Mar 2023 17:44:35 -0700 (PDT)
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+To: dri-devel@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
+ freedreno@lists.freedesktop.org, devicetree@vger.kernel.org,
+ Vinod Polimera <quic_vpolimer@quicinc.com>
+Date: Thu, 16 Mar 2023 02:44:34 +0200
+Message-Id: <167892745598.2525998.13449367044508002295.b4-ty@linaro.org>
 X-Mailer: git-send-email 2.39.2
-In-Reply-To: <20230211231259.1308718-3-dmitry.baryshkov@linaro.org>
-References: <20230211231259.1308718-1-dmitry.baryshkov@linaro.org>
- <20230211231259.1308718-3-dmitry.baryshkov@linaro.org>
+In-Reply-To: <1677774797-31063-1-git-send-email-quic_vpolimer@quicinc.com>
+References: <1677774797-31063-1-git-send-email-quic_vpolimer@quicinc.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-GUID: ExSHT8pOZ0Tx_Xtv5f2kBDe4PtHDzygH
-X-Proofpoint-ORIG-GUID: ExSHT8pOZ0Tx_Xtv5f2kBDe4PtHDzygH
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.254,Aquarius:18.0.942,Hydra:6.0.573,FMLib:17.11.170.22
- definitions=2023-03-15_12,2023-03-15_01,2023-02-09_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 phishscore=0
- lowpriorityscore=0 adultscore=0 priorityscore=1501 malwarescore=0
- impostorscore=0 mlxscore=0 mlxlogscore=621 suspectscore=0 bulkscore=0
- clxscore=1011 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2303150002 definitions=main-2303160003
-Subject: Re: [Freedreno] (subset) [PATCH v2 02/50] drm/msm/dpu: disable
- features unsupported by QCM2290
+Subject: Re: [Freedreno] [PATCH v14 00/14] Add PSR support for eDP
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,26 +75,56 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, Loic Poulain <loic.poulain@linaro.org>,
- linux-arm-msm@vger.kernel.org, Bjorn Andersson <andersson@kernel.org>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
- Stephen Boyd <swboyd@chromium.org>, Daniel Vetter <daniel@ffwll.ch>,
- David Airlie <airlied@gmail.com>
+Cc: quic_kalyant@quicinc.com, quic_sbillaka@quicinc.com, dianders@chromium.org,
+ quic_bjorande@quicinc.com, quic_abhinavk@quicinc.com,
+ quic_vproddut@quicinc.com, linux-kernel@vger.kernel.org,
+ quic_khsieh@quicinc.com, robdclark@gmail.com, swboyd@chromium.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 
-On Sun, 12 Feb 2023 01:12:11 +0200, Dmitry Baryshkov wrote:
-> QCM2290 doesn't seem to support reg-dma, UBWC and CSC. Drop
-> corresponding features being incorrectly enabled for qcm2290.
+On Thu, 02 Mar 2023 22:03:03 +0530, Vinod Polimera wrote:
+> Changes in v2:
+>   - Use dp bridge to set psr entry/exit instead of dpu_enocder.
+>   - Don't modify whitespaces.
+>   - Set self refresh aware from atomic_check.
+>   - Set self refresh aware only if psr is supported.
+>   - Provide a stub for msm_dp_display_set_psr.
+>   - Move dp functions to bridge code.
 > 
-> 
+> [...]
 
 Applied, thanks!
 
-[02/50] drm/msm/dpu: disable features unsupported by QCM2290
-        (no commit info)
+[01/14] drm: add helper functions to retrieve old and new crtc
+        https://gitlab.freedesktop.org/lumag/msm/-/commit/ef708af6054c
+[02/14] drm/bridge: use atomic enable/disable callbacks for panel bridge
+        https://gitlab.freedesktop.org/lumag/msm/-/commit/49291dbf1cd8
+[03/14] drm/bridge: add psr support for panel bridge callbacks
+        https://gitlab.freedesktop.org/lumag/msm/-/commit/26966d5bc7dd
+[04/14] drm/msm/disp/dpu: check for crtc enable rather than crtc active to release shared resources
+        https://gitlab.freedesktop.org/lumag/msm/-/commit/c235a0d4a185
+[05/14] drm/msm/disp/dpu: get timing engine status from intf status register
+        https://gitlab.freedesktop.org/lumag/msm/-/commit/15b04e280119
+[06/14] drm/msm/disp/dpu: wait for extra vsync till timing engine status is disabled
+        https://gitlab.freedesktop.org/lumag/msm/-/commit/b2afc29853c3
+[07/14] drm/msm/disp/dpu: reset the datapath after timing engine disable
+        https://gitlab.freedesktop.org/lumag/msm/-/commit/392a21678a7f
+[08/14] drm/msm/dp: use atomic callbacks for DP bridge ops
+        https://gitlab.freedesktop.org/lumag/msm/-/commit/20536d1c512b
+[09/14] drm/msm/dp: Add basic PSR support for eDP
+        https://gitlab.freedesktop.org/lumag/msm/-/commit/c0b993bbfe9e
+[10/14] drm/msm/dp: use the eDP bridge ops to validate eDP modes
+        https://gitlab.freedesktop.org/lumag/msm/-/commit/de9512e23adc
+[11/14] drm/msm/disp/dpu: use atomic enable/disable callbacks for encoder functions
+        https://gitlab.freedesktop.org/lumag/msm/-/commit/f62087459d8a
+[12/14] drm/msm/disp/dpu: add PSR support for eDP interface in dpu driver
+        https://gitlab.freedesktop.org/lumag/msm/-/commit/1bd583580cba
+[13/14] drm/msm/disp/dpu: update dpu_enc crtc state on crtc enable/disable during self refresh
+        https://gitlab.freedesktop.org/lumag/msm/-/commit/0f2a8f000c21
+[14/14] drm/msm/dp: set self refresh aware based on PSR support
+        https://gitlab.freedesktop.org/lumag/msm/-/commit/0c3f3cfd8ef2
 
 Best regards,
 -- 
-Abhinav Kumar <quic_abhinavk@quicinc.com>
+Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
