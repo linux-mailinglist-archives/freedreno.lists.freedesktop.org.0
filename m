@@ -1,57 +1,57 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2F6806BE8DD
-	for <lists+freedreno@lfdr.de>; Fri, 17 Mar 2023 13:10:02 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 343506BE909
+	for <lists+freedreno@lfdr.de>; Fri, 17 Mar 2023 13:16:13 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E640410EEEA;
-	Fri, 17 Mar 2023 12:10:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F322F10E366;
+	Fri, 17 Mar 2023 12:16:11 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x133.google.com (mail-lf1-x133.google.com
- [IPv6:2a00:1450:4864:20::133])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D108610EEF0
- for <freedreno@lists.freedesktop.org>; Fri, 17 Mar 2023 12:09:58 +0000 (UTC)
-Received: by mail-lf1-x133.google.com with SMTP id r27so6182479lfe.10
- for <freedreno@lists.freedesktop.org>; Fri, 17 Mar 2023 05:09:58 -0700 (PDT)
+Received: from mail-lj1-x22f.google.com (mail-lj1-x22f.google.com
+ [IPv6:2a00:1450:4864:20::22f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 76A1C10E366
+ for <freedreno@lists.freedesktop.org>; Fri, 17 Mar 2023 12:16:10 +0000 (UTC)
+Received: by mail-lj1-x22f.google.com with SMTP id by8so3642005ljb.12
+ for <freedreno@lists.freedesktop.org>; Fri, 17 Mar 2023 05:16:10 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1679054997;
+ d=linaro.org; s=google; t=1679055368;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :from:to:cc:subject:date:message-id:reply-to;
- bh=jNiR0NLTuJj+aWp4YB9vTYSgpZApuVfwOdJ5ZUsnGj0=;
- b=YcGwRdgSUFM5T1XagjtlvRNmVe4Jf7NuzX+OWI7+j3ovglq4UV/JKpah/ATZQasTG6
- rwkRVwxVIeG5yVHBjuefiW9ETbkBVgDgpZfTRkQh0m5y+wJFjEitN4kLIEqI2CnC3kxz
- /iuweDgmIkQ7NOR+eVh180t3UrWe4FSPNjUqmafK8JZl6j0pius6GpDc4MS4Dple9BHx
- EdR1BWZYTdUUvJktXdxJoWYsH8HVEB5yL3J3Glp4NxV4eAvL0A8kjJ6sTAG55u108YPz
- XJT4J3p/EW3FWugSjA3LOwOlbLyroTbfHa3YGw5ZLCcFAq5THSe3TeKG5FPScqOw88zA
- 2paA==
+ bh=EB1pjDrIFDWl/GpnCbpbfSmQwQ+xIhoM1uzp4DIQHWQ=;
+ b=H6MhW6SzQiMeHBTvrvFr8MqEKjtlxGlnonkYx+iGaNrit8BJgHWetw67L/OP1m4Ay8
+ 9ntl5JOeLbwVH4RqpdhWw4olLzgfP7Jkl8MqZd4mn4NfrYwauMdzHpJdQHBmnsa/p9D2
+ ynAvhUoL3P9sZPhVlywR5Z/pdqGzyPkpFaFyziF0BwDnCMH1GtmQmFZl61H9YH98tW3g
+ X0tn8FVQfYrE20ZPR4U0FVkg+C6W+yO6U/18IYQciRXC8hwLJsu+wk67tF0EOJWqdVO6
+ tgcAIDXNNCFlUB2NOBZe5SqRmn59p0nqQQVYtN+VAyumq6JXpmMDHl3pB/P/SaxQZL2q
+ c2JA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112; t=1679054997;
+ d=1e100.net; s=20210112; t=1679055368;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=jNiR0NLTuJj+aWp4YB9vTYSgpZApuVfwOdJ5ZUsnGj0=;
- b=mgbvyP/r7COsLio/g12bpW3X8YGMdeZFSIJGHqMO3L6qiolykVt+2K7td7+KQmCJG2
- GhGfAEAkZ1tjG/mZuVgMokV6cKd8bcXWlscr6s2MoKzje3W/B2+fHFVvy3ikRzjEpjLl
- mAVUbszLaklwLJKHD/TOiUoo9nglQadcWHDDbP49ObP6a+sZLHK1BrZqtVZKCjnFqoCa
- RA4ylCG26D4p34WfxgeD7cET6FHbFzdB6odpVaJHVqP6OTDv+Tj1cEMldsI0dOZfa8bE
- 2kmPpbxWkjbmMTtU0f57Qz4ZqYBJBjKX6MRe66C6Y8/yspFnGpTaqy09GAzDGDubHB2y
- NkSg==
-X-Gm-Message-State: AO0yUKU9h1M6Ebs+Rwg/8CnWhLOP9cNBHtqG2HX7N77/YM45QavoYFQG
- nd95oxw/5b05MfSsWylxY/tXpw==
-X-Google-Smtp-Source: AK7set/J4wuWg4OytN80EDGFmX2hbBh16ONc9kAfE7OVJZXwNRrc3IJx9b1HCdYwn/r8MRS+n9Q9cQ==
-X-Received: by 2002:a05:6512:406:b0:4e9:59cd:4171 with SMTP id
- u6-20020a056512040600b004e959cd4171mr1956040lfk.60.1679054996939; 
- Fri, 17 Mar 2023 05:09:56 -0700 (PDT)
+ bh=EB1pjDrIFDWl/GpnCbpbfSmQwQ+xIhoM1uzp4DIQHWQ=;
+ b=pHUk1MSX/o2cl30zdEIypha3HFmKi5+RiV3FN/zetiw2LBYXfyXW7HeCYsY1JK32BQ
+ hSYM7ESQtZ2cqYm8lA/cPNT1Fbdqae91y8mYU6zeeV4+iNdjcR1QDFFqtJuooRPGSYEj
+ GAYJ8rOUseVBasjitjEtl36y+bUVBaxy0b7a9QuHj756fKaKfUc3hQJSOuP2PkASl5hF
+ IqTEtlSER9YuhOC7ygOHtRHL/CpphVj9PRLv5QPOjfoXZKLA1QdHUHmx/0v3Xk44hwlJ
+ sg4d87rtHx61cEkgoNoRCCH6d0HoSB0L2hrJMjf4dNO4S7PHHU+d84m9oYENNrPEzOyR
+ 1PrA==
+X-Gm-Message-State: AO0yUKW7bJkUuzSMFIOHHSssPUa2wX7NrV0KbRvmmaXFwXL7rjDSpBjk
+ CT0UNUF+1Ej86AjqIXDspAMQUw==
+X-Google-Smtp-Source: AK7set9FBPeEYHssajhG7VTonP8sMECPpkGtXFquBIb7N6Ao22R/+hFH2lC+l6bFgRFFTNA/f++GWg==
+X-Received: by 2002:a05:651c:550:b0:290:6e01:8d0b with SMTP id
+ q16-20020a05651c055000b002906e018d0bmr4207323ljp.26.1679055368130; 
+ Fri, 17 Mar 2023 05:16:08 -0700 (PDT)
 Received: from [192.168.1.211] ([37.153.55.125])
  by smtp.gmail.com with ESMTPSA id
- r10-20020a056512102a00b004e7b84c6419sm343432lfr.192.2023.03.17.05.09.55
+ n2-20020a2e8782000000b0029335c12997sm380673lji.58.2023.03.17.05.16.07
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 17 Mar 2023 05:09:56 -0700 (PDT)
-Message-ID: <ab6391c4-ff38-8286-77ff-c781669f5aa0@linaro.org>
-Date: Fri, 17 Mar 2023 14:09:55 +0200
+ Fri, 17 Mar 2023 05:16:07 -0700 (PDT)
+Message-ID: <ac42e079-6db2-0934-bdcf-836229b3d0a5@linaro.org>
+Date: Fri, 17 Mar 2023 14:16:07 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.8.0
@@ -65,13 +65,13 @@ To: Neil Armstrong <neil.armstrong@linaro.org>,
  Bjorn Andersson <andersson@kernel.org>,
  Konrad Dybcio <konrad.dybcio@linaro.org>
 References: <20230206-topic-sm8450-upstream-dp-controller-v5-0-a27f1b26ebe8@linaro.org>
- <20230206-topic-sm8450-upstream-dp-controller-v5-4-a27f1b26ebe8@linaro.org>
+ <20230206-topic-sm8450-upstream-dp-controller-v5-3-a27f1b26ebe8@linaro.org>
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-In-Reply-To: <20230206-topic-sm8450-upstream-dp-controller-v5-4-a27f1b26ebe8@linaro.org>
+In-Reply-To: <20230206-topic-sm8450-upstream-dp-controller-v5-3-a27f1b26ebe8@linaro.org>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH v5 4/5] arm64: dts: qcom: sm8450: switch to
- usb3/dp combo phy
+Subject: Re: [Freedreno] [PATCH v5 3/5] arm64: dts: qcom: sm8350: add dp
+ controller
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -91,109 +91,104 @@ Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 On 17/03/2023 11:12, Neil Armstrong wrote:
-> The QMP PHY is a USB3/DP combo phy, switch to the newly
-> documented bindings and register the clocks to the GCC
-> and DISPCC controllers.
+> Add the Display Port controller subnode to the MDSS node.
 > 
+> Tested-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org> #SM8350-HDK
 > Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> Reviewed-by: Konrad Dybcio <konrad.dybcio@linaro.org>
 > Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
 > ---
->   arch/arm64/boot/dts/qcom/sm8450.dtsi | 42 +++++++++++++-----------------------
->   1 file changed, 15 insertions(+), 27 deletions(-)
+>   arch/arm64/boot/dts/qcom/sm8350.dtsi | 74 ++++++++++++++++++++++++++++++++++++
+>   1 file changed, 74 insertions(+)
 > 
-> diff --git a/arch/arm64/boot/dts/qcom/sm8450.dtsi b/arch/arm64/boot/dts/qcom/sm8450.dtsi
-> index 69695eb83897..0b5a151ce138 100644
-> --- a/arch/arm64/boot/dts/qcom/sm8450.dtsi
-> +++ b/arch/arm64/boot/dts/qcom/sm8450.dtsi
-> @@ -11,6 +11,7 @@
->   #include <dt-bindings/dma/qcom-gpi.h>
->   #include <dt-bindings/gpio/gpio.h>
->   #include <dt-bindings/mailbox/qcom-ipcc.h>
-> +#include <dt-bindings/phy/phy-qcom-qmp.h>
->   #include <dt-bindings/power/qcom-rpmpd.h>
->   #include <dt-bindings/interconnect/qcom,sm8450.h>
->   #include <dt-bindings/soc/qcom,gpr.h>
-> @@ -748,7 +749,7 @@ gcc: clock-controller@100000 {
->   				 <&ufs_mem_phy_lanes 0>,
->   				 <&ufs_mem_phy_lanes 1>,
->   				 <&ufs_mem_phy_lanes 2>,
-> -				 <0>;
-> +				 <&usb_1_qmpphy QMP_USB43DP_USB3_PIPE_CLK>;
->   			clock-names = "bi_tcxo",
->   				      "sleep_clk",
->   				      "pcie_0_pipe_clk",
-> @@ -2034,37 +2035,24 @@ usb_1_hsphy: phy@88e3000 {
->   			resets = <&gcc GCC_QUSB2PHY_PRIM_BCR>;
->   		};
->   
-> -		usb_1_qmpphy: phy-wrapper@88e9000 {
-> -			compatible = "qcom,sm8450-qmp-usb3-phy";
-> -			reg = <0 0x088e9000 0 0x200>,
-> -			      <0 0x088e8000 0 0x20>;
-> -			status = "disabled";
-> -			#address-cells = <2>;
-> -			#size-cells = <2>;
-> -			ranges;
-> +		usb_1_qmpphy: phy@88e8000 {
-> +			compatible = "qcom,sm8450-qmp-usb3-dp-phy";
-> +			reg = <0 0x088e8000 0 0x4000>;
-
-This should be 0x3000 too, like 8350
-
->   
->   			clocks = <&gcc GCC_USB3_PRIM_PHY_AUX_CLK>,
->   				 <&rpmhcc RPMH_CXO_CLK>,
-> -				 <&gcc GCC_USB3_PRIM_PHY_COM_AUX_CLK>;
-> -			clock-names = "aux", "ref_clk_src", "com_aux";
-> +				 <&gcc GCC_USB3_PRIM_PHY_COM_AUX_CLK>,
-> +				 <&gcc GCC_USB3_PRIM_PHY_PIPE_CLK>;
-> +			clock-names = "aux", "ref", "com_aux", "usb3_pipe";
->   
->   			resets = <&gcc GCC_USB3_DP_PHY_PRIM_BCR>,
->   				 <&gcc GCC_USB3_PHY_PRIM_BCR>;
->   			reset-names = "phy", "common";
->   
-> -			usb_1_ssphy: phy@88e9200 {
-> -				reg = <0 0x088e9200 0 0x200>,
-> -				      <0 0x088e9400 0 0x200>,
-> -				      <0 0x088e9c00 0 0x400>,
-> -				      <0 0x088e9600 0 0x200>,
-> -				      <0 0x088e9800 0 0x200>,
-> -				      <0 0x088e9a00 0 0x100>;
-> -				#phy-cells = <0>;
-> -				#clock-cells = <0>;
-> -				clocks = <&gcc GCC_USB3_PRIM_PHY_PIPE_CLK>;
-> -				clock-names = "pipe0";
-> -				clock-output-names = "usb3_phy_pipe_clk_src";
-> -			};
-> +			#clock-cells = <1>;
-> +			#phy-cells = <1>;
+> diff --git a/arch/arm64/boot/dts/qcom/sm8350.dtsi b/arch/arm64/boot/dts/qcom/sm8350.dtsi
+> index 975ab4cbe57e..37ae4a948be1 100644
+> --- a/arch/arm64/boot/dts/qcom/sm8350.dtsi
+> +++ b/arch/arm64/boot/dts/qcom/sm8350.dtsi
+> @@ -2415,6 +2415,80 @@ dpu_intf2_out: endpoint {
+>   							remote-endpoint = <&mdss_dsi1_in>;
+>   						};
+>   					};
 > +
-> +			status = "disabled";
->   		};
->   
->   		remoteproc_slpi: remoteproc@2400000 {
-> @@ -2972,8 +2960,8 @@ dispcc: clock-controller@af00000 {
->   				 <&mdss_dsi0_phy 1>,
->   				 <&mdss_dsi1_phy 0>,
->   				 <&mdss_dsi1_phy 1>,
-> -				 <0>, /* dp0 */
-> -				 <0>,
-> +				 <&usb_1_qmpphy QMP_USB43DP_DP_LINK_CLK>,
-> +				 <&usb_1_qmpphy QMP_USB43DP_DP_VCO_DIV_CLK>,
->   				 <0>, /* dp1 */
->   				 <0>,
->   				 <0>, /* dp2 */
-> @@ -4168,7 +4156,7 @@ usb_1_dwc3: usb@a600000 {
->   				iommus = <&apps_smmu 0x0 0x0>;
->   				snps,dis_u2_susphy_quirk;
->   				snps,dis_enblslpm_quirk;
-> -				phys = <&usb_1_hsphy>, <&usb_1_ssphy>;
-> +				phys = <&usb_1_hsphy>, <&usb_1_qmpphy QMP_USB43DP_USB3_PHY>;
->   				phy-names = "usb2-phy", "usb3-phy";
+> +					port@2 {
+> +						reg = <2>;
+> +						dpu_intf0_out: endpoint {
+> +							remote-endpoint = <&mdss_dp_in>;
+> +						};
+> +					};
+> +				};
+> +			};
+> +
+> +			mdss_dp: displayport-controller@ae90000 {
+> +				compatible = "qcom,sm8350-dp";
+> +				reg = <0 0xae90000 0 0x200>,
+> +				      <0 0xae90200 0 0x200>,
+> +				      <0 0xae90400 0 0x600>,
+> +				      <0 0xae91000 0 0x400>,
+> +				      <0 0xae91400 0 0x400>;
+> +				interrupt-parent = <&mdss>;
+> +				interrupts = <12>;
+> +				clocks = <&dispcc DISP_CC_MDSS_AHB_CLK>,
+> +					 <&dispcc DISP_CC_MDSS_DP_AUX_CLK>,
+> +					 <&dispcc DISP_CC_MDSS_DP_LINK_CLK>,
+> +					 <&dispcc DISP_CC_MDSS_DP_LINK_INTF_CLK>,
+> +					 <&dispcc DISP_CC_MDSS_DP_PIXEL_CLK>;
+> +				clock-names = "core_iface",
+> +					      "core_aux",
+> +					      "ctrl_link",
+> +			                      "ctrl_link_iface",
+> +					      "stream_pixel";
+> +
+> +				assigned-clocks = <&dispcc DISP_CC_MDSS_DP_LINK_CLK_SRC>,
+> +						  <&dispcc DISP_CC_MDSS_DP_PIXEL_CLK_SRC>;
+> +				assigned-clock-parents = <&usb_1_qmpphy QMP_USB43DP_DP_LINK_CLK>,
+> +							 <&usb_1_qmpphy QMP_USB43DP_DP_VCO_DIV_CLK>;
+> +
+> +				phys = <&usb_1_qmpphy QMP_USB43DP_DP_PHY>;
+> +			        phy-names = "dp";
+> +
+> +			        #sound-dai-cells = <0>;
+> +
+> +				operating-points-v2 = <&dp_opp_table>;
+> +				power-domains = <&rpmhpd SM8350_MMCX>;
+> +
+> +				status = "disabled";
+> +
+> +				ports {
+> +					#address-cells = <1>;
+> +					#size-cells = <0>;
+> +
+> +					port@0 {
+> +						reg = <0>;
+> +						mdss_dp_in: endpoint {
+> +							remote-endpoint = <&dpu_intf0_out>;
+> +						};
+> +					};
+> +				};
+> +
+> +				dp_opp_table: opp-table {
+> +					compatible = "operating-points-v2";
+
+I think we still need an OPP entry for RBR rate (160000000). Downstream 
+would resort to low_svs in such case, the min voltage for MMCX domain.
+
+> +
+> +					opp-270000000 {
+> +						opp-hz = /bits/ 64 <270000000>;
+> +						required-opps = <&rpmhpd_opp_svs>;
+> +					};
+> +
+> +					opp-540000000 {
+> +						opp-hz = /bits/ 64 <540000000>;
+> +						required-opps = <&rpmhpd_opp_svs_l1>;
+> +					};
+> +
+> +					opp-810000000 {
+> +						opp-hz = /bits/ 64 <810000000>;
+> +						required-opps = <&rpmhpd_opp_nom>;
+> +					};
+>   				};
 >   			};
->   		};
+>   
 > 
 
 -- 
