@@ -1,74 +1,77 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id B32CE6BE905
-	for <lists+freedreno@lfdr.de>; Fri, 17 Mar 2023 13:15:16 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 2F6806BE8DD
+	for <lists+freedreno@lfdr.de>; Fri, 17 Mar 2023 13:10:02 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6C9B710EF08;
-	Fri, 17 Mar 2023 12:15:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E640410EEEA;
+	Fri, 17 Mar 2023 12:10:00 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x132.google.com (mail-lf1-x132.google.com
- [IPv6:2a00:1450:4864:20::132])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 272F210EEB6;
- Fri, 17 Mar 2023 09:59:15 +0000 (UTC)
-Received: by mail-lf1-x132.google.com with SMTP id g17so5800600lfv.4;
- Fri, 17 Mar 2023 02:59:15 -0700 (PDT)
+Received: from mail-lf1-x133.google.com (mail-lf1-x133.google.com
+ [IPv6:2a00:1450:4864:20::133])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D108610EEF0
+ for <freedreno@lists.freedesktop.org>; Fri, 17 Mar 2023 12:09:58 +0000 (UTC)
+Received: by mail-lf1-x133.google.com with SMTP id r27so6182479lfe.10
+ for <freedreno@lists.freedesktop.org>; Fri, 17 Mar 2023 05:09:58 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20210112; t=1679047153;
- h=mime-version:references:in-reply-to:message-id:subject:cc:to:from
- :date:from:to:cc:subject:date:message-id:reply-to;
- bh=GetE0CPIO0EH0AkPMpbbSlnaxclV0uWSKmcnJYv943A=;
- b=ZZWOhJjIHqhzSL0qXhFVIun4WL2FPoijpgQAvi8wvjx7KyMfzyti9VYxSm9l0+vSU6
- gSWQkukFk2DouvMob4c9tm/gfbF1lpdbgJW46r776B4J8AOVprqMtiDVvxp4K6AfOqdW
- GcgUsb/MqOLCrSEjCuCNeJZyAJEkQ9rbABF9jhJv5qScxrLTMsULlN82De/sA0h11kjk
- QzRToddsLtDtpyL68BMUG8KMNAicyX8BSPg1QbA1LcbXpwdtx//i/1vbekd8KX6ma1IO
- 8FNAdG9Hasdom5beiPPd+Hr6XtMtiN1EEjeaHD6+C+TA74gbcmGp8l9fTC0G4v/eaBfJ
- E8Kg==
+ d=linaro.org; s=google; t=1679054997;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=jNiR0NLTuJj+aWp4YB9vTYSgpZApuVfwOdJ5ZUsnGj0=;
+ b=YcGwRdgSUFM5T1XagjtlvRNmVe4Jf7NuzX+OWI7+j3ovglq4UV/JKpah/ATZQasTG6
+ rwkRVwxVIeG5yVHBjuefiW9ETbkBVgDgpZfTRkQh0m5y+wJFjEitN4kLIEqI2CnC3kxz
+ /iuweDgmIkQ7NOR+eVh180t3UrWe4FSPNjUqmafK8JZl6j0pius6GpDc4MS4Dple9BHx
+ EdR1BWZYTdUUvJktXdxJoWYsH8HVEB5yL3J3Glp4NxV4eAvL0A8kjJ6sTAG55u108YPz
+ XJT4J3p/EW3FWugSjA3LOwOlbLyroTbfHa3YGw5ZLCcFAq5THSe3TeKG5FPScqOw88zA
+ 2paA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112; t=1679047153;
- h=mime-version:references:in-reply-to:message-id:subject:cc:to:from
- :date:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=GetE0CPIO0EH0AkPMpbbSlnaxclV0uWSKmcnJYv943A=;
- b=iW4YCECtCh80VE1ax+6tO+nT4RxeKGA5DbgEXw52o2Lc3LBQmkMCQEG0F7M7toddz4
- HFTPyRm9X8FnXsMouitD0oEmQ7m0PBbI8rNl2M+Y9G3MoUWKSPsCfEP6rpQcTD5YA44o
- JaNqlrSypJoxxdMhoIWFgR4QMDuBkx5tR6+UTLMp3b2SffGLEtJ+1I3aH3dpO5cQUTiz
- vktlwIJ7jtCztoZ3hgQp2ykWi8HcebSd27E1jvkEDkUROQp154Gfmequ1cWFXY4aY79P
- SZ/fo6Vj8xjWPA4U1/ndtP8Us8rlEZmQ3sQJFHxLMe4Ri8akGbuxYaJ+c4ZXuOvZxlwd
- 3RRQ==
-X-Gm-Message-State: AO0yUKVjxPwvx+4/DZAWt8aj9scpe9YqaD9SN6MAiCA1pK/lk8eu8Rqv
- r6JP9A+2AW7lSnAw9YzX33k=
-X-Google-Smtp-Source: AK7set9RZop77B4urwlU3xmOSywkaR53Mnt6mfkZx0B9jsN1lpPLw7BjM8mMGD2HTKb5Uof18XEVpw==
-X-Received: by 2002:a05:6512:931:b0:4e8:4abf:f19d with SMTP id
- f17-20020a056512093100b004e84abff19dmr3891922lft.15.1679047153125; 
- Fri, 17 Mar 2023 02:59:13 -0700 (PDT)
-Received: from eldfell ([194.136.85.206]) by smtp.gmail.com with ESMTPSA id
- u22-20020a2ea176000000b00295b9d903b7sm322981ljl.119.2023.03.17.02.59.12
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 17 Mar 2023 02:59:12 -0700 (PDT)
-Date: Fri, 17 Mar 2023 11:59:08 +0200
-From: Pekka Paalanen <ppaalanen@gmail.com>
-To: Sebastian Wick <sebastian.wick@redhat.com>
-Message-ID: <20230317115908.2559b5f6@eldfell>
-In-Reply-To: <20230317111737.48702bca@eldfell>
-References: <20230308155322.344664-1-robdclark@gmail.com>
- <20230308155322.344664-2-robdclark@gmail.com>
- <ZAtQspuFjPtGy7ze@gmail.com>
- <CAF6AEGsGOr5+Q10wX=5ttrWCSUJfn7gzHW8QhxFC0GDLgagMHg@mail.gmail.com>
- <ZBHNvT3BLgS3qvV5@gmail.com>
- <CAF6AEGu1S2CXzRxV_c5tE_H+XUGiO=n0tXjLZ_u_tW-eMqMsQw@mail.gmail.com>
- <ZBLg0t0tTVvuPuiJ@gmail.com>
- <CAF6AEGvV5arZThTyju_=xFFDWRbMaexgO_kkdKZuK-zeCxrN7Q@mail.gmail.com>
- <CA+hFU4xbssR+=Sf4ia5kPdsSb4y9SQUd4nx_2p1Szcbtna28CA@mail.gmail.com>
- <20230317110921.0862cc8b@eldfell> <20230317111737.48702bca@eldfell>
-X-Mailer: Claws Mail 4.1.1 (GTK 3.24.24; x86_64-pc-linux-gnu)
+ d=1e100.net; s=20210112; t=1679054997;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=jNiR0NLTuJj+aWp4YB9vTYSgpZApuVfwOdJ5ZUsnGj0=;
+ b=mgbvyP/r7COsLio/g12bpW3X8YGMdeZFSIJGHqMO3L6qiolykVt+2K7td7+KQmCJG2
+ GhGfAEAkZ1tjG/mZuVgMokV6cKd8bcXWlscr6s2MoKzje3W/B2+fHFVvy3ikRzjEpjLl
+ mAVUbszLaklwLJKHD/TOiUoo9nglQadcWHDDbP49ObP6a+sZLHK1BrZqtVZKCjnFqoCa
+ RA4ylCG26D4p34WfxgeD7cET6FHbFzdB6odpVaJHVqP6OTDv+Tj1cEMldsI0dOZfa8bE
+ 2kmPpbxWkjbmMTtU0f57Qz4ZqYBJBjKX6MRe66C6Y8/yspFnGpTaqy09GAzDGDubHB2y
+ NkSg==
+X-Gm-Message-State: AO0yUKU9h1M6Ebs+Rwg/8CnWhLOP9cNBHtqG2HX7N77/YM45QavoYFQG
+ nd95oxw/5b05MfSsWylxY/tXpw==
+X-Google-Smtp-Source: AK7set/J4wuWg4OytN80EDGFmX2hbBh16ONc9kAfE7OVJZXwNRrc3IJx9b1HCdYwn/r8MRS+n9Q9cQ==
+X-Received: by 2002:a05:6512:406:b0:4e9:59cd:4171 with SMTP id
+ u6-20020a056512040600b004e959cd4171mr1956040lfk.60.1679054996939; 
+ Fri, 17 Mar 2023 05:09:56 -0700 (PDT)
+Received: from [192.168.1.211] ([37.153.55.125])
+ by smtp.gmail.com with ESMTPSA id
+ r10-20020a056512102a00b004e7b84c6419sm343432lfr.192.2023.03.17.05.09.55
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 17 Mar 2023 05:09:56 -0700 (PDT)
+Message-ID: <ab6391c4-ff38-8286-77ff-c781669f5aa0@linaro.org>
+Date: Fri, 17 Mar 2023 14:09:55 +0200
 MIME-Version: 1.0
-Content-Type: multipart/signed; boundary="Sig_/ns=2iCi6874feZ5wvr=m5cb";
- protocol="application/pgp-signature"; micalg=pgp-sha256
-X-Mailman-Approved-At: Fri, 17 Mar 2023 12:15:13 +0000
-Subject: Re: [Freedreno] [PATCH v10 01/15] dma-buf/dma-fence: Add deadline
- awareness
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.8.0
+Content-Language: en-GB
+To: Neil Armstrong <neil.armstrong@linaro.org>,
+ Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Sean Paul <sean@poorly.run>, David Airlie <airlied@gmail.com>,
+ Daniel Vetter <daniel@ffwll.ch>, Rob Herring <robh+dt@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Kuogee Hsieh <quic_khsieh@quicinc.com>, Andy Gross <agross@kernel.org>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konrad.dybcio@linaro.org>
+References: <20230206-topic-sm8450-upstream-dp-controller-v5-0-a27f1b26ebe8@linaro.org>
+ <20230206-topic-sm8450-upstream-dp-controller-v5-4-a27f1b26ebe8@linaro.org>
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+In-Reply-To: <20230206-topic-sm8450-upstream-dp-controller-v5-4-a27f1b26ebe8@linaro.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Subject: Re: [Freedreno] [PATCH v5 4/5] arm64: dts: qcom: sm8450: switch to
+ usb3/dp combo phy
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,64 +84,119 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rob Clark <robdclark@chromium.org>, DMA@freedesktop.org,
-	Jonas =?UTF-8?B?w4VkYWhs?= <jadahl@gmail.com>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Christian =?UTF-8?B?S8O2bmln?= <ckoenig.leichtzumerken@gmail.com>,
-	intel-gfx@lists.freedesktop.org,
-	"open  list:DOCUMENTATION" <linux-doc@vger.kernel.org>,
-	open list <linux-kernel@vger.kernel.org>,
-	dri-devel@lists.freedesktop.org, Rob Clark <robdclark@gmail.com>,
-	Christian =?UTF-8?B?S8O2bmln?= <christian.koenig@amd.com>
+Cc: linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ devicetree@vger.kernel.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
---Sig_/ns=2iCi6874feZ5wvr=m5cb
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: quoted-printable
+On 17/03/2023 11:12, Neil Armstrong wrote:
+> The QMP PHY is a USB3/DP combo phy, switch to the newly
+> documented bindings and register the clocks to the GCC
+> and DISPCC controllers.
+> 
+> Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> Reviewed-by: Konrad Dybcio <konrad.dybcio@linaro.org>
+> Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
+> ---
+>   arch/arm64/boot/dts/qcom/sm8450.dtsi | 42 +++++++++++++-----------------------
+>   1 file changed, 15 insertions(+), 27 deletions(-)
+> 
+> diff --git a/arch/arm64/boot/dts/qcom/sm8450.dtsi b/arch/arm64/boot/dts/qcom/sm8450.dtsi
+> index 69695eb83897..0b5a151ce138 100644
+> --- a/arch/arm64/boot/dts/qcom/sm8450.dtsi
+> +++ b/arch/arm64/boot/dts/qcom/sm8450.dtsi
+> @@ -11,6 +11,7 @@
+>   #include <dt-bindings/dma/qcom-gpi.h>
+>   #include <dt-bindings/gpio/gpio.h>
+>   #include <dt-bindings/mailbox/qcom-ipcc.h>
+> +#include <dt-bindings/phy/phy-qcom-qmp.h>
+>   #include <dt-bindings/power/qcom-rpmpd.h>
+>   #include <dt-bindings/interconnect/qcom,sm8450.h>
+>   #include <dt-bindings/soc/qcom,gpr.h>
+> @@ -748,7 +749,7 @@ gcc: clock-controller@100000 {
+>   				 <&ufs_mem_phy_lanes 0>,
+>   				 <&ufs_mem_phy_lanes 1>,
+>   				 <&ufs_mem_phy_lanes 2>,
+> -				 <0>;
+> +				 <&usb_1_qmpphy QMP_USB43DP_USB3_PIPE_CLK>;
+>   			clock-names = "bi_tcxo",
+>   				      "sleep_clk",
+>   				      "pcie_0_pipe_clk",
+> @@ -2034,37 +2035,24 @@ usb_1_hsphy: phy@88e3000 {
+>   			resets = <&gcc GCC_QUSB2PHY_PRIM_BCR>;
+>   		};
+>   
+> -		usb_1_qmpphy: phy-wrapper@88e9000 {
+> -			compatible = "qcom,sm8450-qmp-usb3-phy";
+> -			reg = <0 0x088e9000 0 0x200>,
+> -			      <0 0x088e8000 0 0x20>;
+> -			status = "disabled";
+> -			#address-cells = <2>;
+> -			#size-cells = <2>;
+> -			ranges;
+> +		usb_1_qmpphy: phy@88e8000 {
+> +			compatible = "qcom,sm8450-qmp-usb3-dp-phy";
+> +			reg = <0 0x088e8000 0 0x4000>;
 
-On Fri, 17 Mar 2023 11:17:37 +0200
-Pekka Paalanen <ppaalanen@gmail.com> wrote:
+This should be 0x3000 too, like 8350
 
-> On Fri, 17 Mar 2023 11:09:21 +0200
-> Pekka Paalanen <ppaalanen@gmail.com> wrote:
->=20
-> > On Thu, 16 Mar 2023 23:22:24 +0100
-> > Sebastian Wick <sebastian.wick@redhat.com> wrote: =20
->=20
-> > > Vblank can be really long, especially with VRR where the additional
-> > > time you get to finish the frame comes from making vblank longer. =20
->=20
-> Btw. VRR extends front porch, not vblank.
+>   
+>   			clocks = <&gcc GCC_USB3_PRIM_PHY_AUX_CLK>,
+>   				 <&rpmhcc RPMH_CXO_CLK>,
+> -				 <&gcc GCC_USB3_PRIM_PHY_COM_AUX_CLK>;
+> -			clock-names = "aux", "ref_clk_src", "com_aux";
+> +				 <&gcc GCC_USB3_PRIM_PHY_COM_AUX_CLK>,
+> +				 <&gcc GCC_USB3_PRIM_PHY_PIPE_CLK>;
+> +			clock-names = "aux", "ref", "com_aux", "usb3_pipe";
+>   
+>   			resets = <&gcc GCC_USB3_DP_PHY_PRIM_BCR>,
+>   				 <&gcc GCC_USB3_PHY_PRIM_BCR>;
+>   			reset-names = "phy", "common";
+>   
+> -			usb_1_ssphy: phy@88e9200 {
+> -				reg = <0 0x088e9200 0 0x200>,
+> -				      <0 0x088e9400 0 0x200>,
+> -				      <0 0x088e9c00 0 0x400>,
+> -				      <0 0x088e9600 0 0x200>,
+> -				      <0 0x088e9800 0 0x200>,
+> -				      <0 0x088e9a00 0 0x100>;
+> -				#phy-cells = <0>;
+> -				#clock-cells = <0>;
+> -				clocks = <&gcc GCC_USB3_PRIM_PHY_PIPE_CLK>;
+> -				clock-names = "pipe0";
+> -				clock-output-names = "usb3_phy_pipe_clk_src";
+> -			};
+> +			#clock-cells = <1>;
+> +			#phy-cells = <1>;
+> +
+> +			status = "disabled";
+>   		};
+>   
+>   		remoteproc_slpi: remoteproc@2400000 {
+> @@ -2972,8 +2960,8 @@ dispcc: clock-controller@af00000 {
+>   				 <&mdss_dsi0_phy 1>,
+>   				 <&mdss_dsi1_phy 0>,
+>   				 <&mdss_dsi1_phy 1>,
+> -				 <0>, /* dp0 */
+> -				 <0>,
+> +				 <&usb_1_qmpphy QMP_USB43DP_DP_LINK_CLK>,
+> +				 <&usb_1_qmpphy QMP_USB43DP_DP_VCO_DIV_CLK>,
+>   				 <0>, /* dp1 */
+>   				 <0>,
+>   				 <0>, /* dp2 */
+> @@ -4168,7 +4156,7 @@ usb_1_dwc3: usb@a600000 {
+>   				iommus = <&apps_smmu 0x0 0x0>;
+>   				snps,dis_u2_susphy_quirk;
+>   				snps,dis_enblslpm_quirk;
+> -				phys = <&usb_1_hsphy>, <&usb_1_ssphy>;
+> +				phys = <&usb_1_hsphy>, <&usb_1_qmpphy QMP_USB43DP_USB3_PHY>;
+>   				phy-names = "usb2-phy", "usb3-phy";
+>   			};
+>   		};
+> 
 
-Need to correct myself too. vblank includes front porch, vsync does not.
+-- 
+With best wishes
+Dmitry
 
-https://electronics.stackexchange.com/questions/166681/how-exactly-does-a-v=
-ga-cable-work
-
-
-Thanks,
-pq
-
---Sig_/ns=2iCi6874feZ5wvr=m5cb
-Content-Type: application/pgp-signature
-Content-Description: OpenPGP digital signature
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAEBCAAdFiEEJQjwWQChkWOYOIONI1/ltBGqqqcFAmQUOewACgkQI1/ltBGq
-qqfISQ/8D20lVay+/4PbbioQiKn34OZSSgRSLuQjkLK3bCQ84cA0rv+Oz1aUGYV3
-dsJ3YzqrEMJ61jeeBC+unA1LXaBnuHhlvjkU9AM+ToBreSuu2CoGkJuFGcZ22jSO
-rpwSAKyeWKHOXkTrByH6CyuB5sM5IL+CBU77sJO/k8x14PwxPdCGu+kNx+YYf8FY
-NXEhu/5X0KNUZ4rtpoY4sw0dSXPOvB7ZeCC0PfnMi4faokOLprd935td6Wl3zlOW
-Oqf/x8/3vhfk/hZfr44+wRX0xGT45GK62HWVflGc6BMc3dnSetOmDJ5VNESDFSdZ
-z07d9H0wBgk+FkmN3FNYk7GUKDSKO+X3c5Pee7Z1Fpz9lERDItmYsHMW+nESIdh4
-7rKN8n4uvQH/dLS673ezoAcw0TAg0wvbBZFaAA00ehYQevfgPbq9uxMYiiFIaOQE
-eq0osWfvsz7688j0PaQU0B33V9AYBIxoFWumfz/kVWpN25SBxiZcmocAQfkX7HBG
-cIp5AGMriF+6XCdzYpmHBhRf068SvJZI4r3FSHGpA/kcE/ZyhUBdQgZDsLtdIPeG
-G5+uSWGZ9JcCftfpPLiT6TEJVjhmByaO1WHQvTR75aczQFald5RlESucK2L89hDd
-vS3SOL+JOPO1nJGPh+e340xzw9gZCstkeD7ajtZUELPnhvdDzDA=
-=f9L1
------END PGP SIGNATURE-----
-
---Sig_/ns=2iCi6874feZ5wvr=m5cb--
