@@ -2,73 +2,73 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8EB226BE525
-	for <lists+freedreno@lfdr.de>; Fri, 17 Mar 2023 10:13:06 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B13B96BE68C
+	for <lists+freedreno@lfdr.de>; Fri, 17 Mar 2023 11:23:48 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4F65410EEB1;
-	Fri, 17 Mar 2023 09:13:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 21FDA10EECB;
+	Fri, 17 Mar 2023 10:23:46 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wr1-x42b.google.com (mail-wr1-x42b.google.com
- [IPv6:2a00:1450:4864:20::42b])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3BAC710EEA8
- for <freedreno@lists.freedesktop.org>; Fri, 17 Mar 2023 09:12:56 +0000 (UTC)
-Received: by mail-wr1-x42b.google.com with SMTP id v25so305518wra.12
- for <freedreno@lists.freedesktop.org>; Fri, 17 Mar 2023 02:12:56 -0700 (PDT)
+Received: from mail-lf1-x12e.google.com (mail-lf1-x12e.google.com
+ [IPv6:2a00:1450:4864:20::12e])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CF94610EEC4;
+ Fri, 17 Mar 2023 10:23:43 +0000 (UTC)
+Received: by mail-lf1-x12e.google.com with SMTP id x17so5863930lfu.5;
+ Fri, 17 Mar 2023 03:23:43 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1679044374;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=jy9Gq9StQdq060iKXKxV7Ee3X06YY4EYtIafip1P6OE=;
- b=yybmrdoIoTHCR6O3L9hSPD5WZJ3vnaCZV+MIEHRbZ1W6O/KByW9SxGP21FKXu6OI/g
- vedoFay4HWhnOhIJjMcw+yF3gwv3qyrGCkJBnr9B+P6+frWirokswGctgkH1POTACWoO
- f1GRpbIPjRuXCXlRsEgHQ4lJBppNyGW2e+BS7X8iXT0N71BlUFTKgeglDTMp0M4dbzwd
- UtnonkzrFYxsnCquWa5LP1MWjXDbjt4tU4Ik5iXtXJ7vsPHeLIwsVGh0Bs9vHxbqYmyH
- fRU1knuv6QlfQsm1QNvvlXRTTZkS/BX1MpNu84KyPBel6se+VgJkH6rG7Zd5UPsclF6f
- XQpw==
+ d=gmail.com; s=20210112; t=1679048622;
+ h=in-reply-to:content-transfer-encoding:content-disposition
+ :mime-version:references:message-id:subject:cc:to:from:date:from:to
+ :cc:subject:date:message-id:reply-to;
+ bh=WGacm7RCfazkee7wrXpMRDYYgVKndhRWSmy/3AtOVeY=;
+ b=KBDw6MOXd1CzaTIztOLZ7uv29SeTcX7fYMAfe07Ho1UZX5z0wEykLsTq2/BVYhC2lo
+ imUYgn2ZtJ+qs2oTyx66r734oJaR1Zi5IKAfoPqBPeYR9z8AeE/ENnenILE7vhSTxlt4
+ oWGDDXDHQE+l4qGntn9yYNaJ0rwJOZh6CRJeSK0/8KTtPtI3X3ISNy1O/cv856enVDdL
+ BmPFuV2dxwd5FdCNGq1TJ9QeIeUkbJe0YLyTGqIzFkbygj3GVFhzC1HUnmKfyGcx+MTB
+ gahxvbqHvzvpWgRcLAYd6360bGi8dshQo6ykCNARdZroFF221tGSxOFxhPntgH9Hd0RJ
+ bIwQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112; t=1679044374;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=jy9Gq9StQdq060iKXKxV7Ee3X06YY4EYtIafip1P6OE=;
- b=uFqF5n1d9tjdBJJFJCh2XW1EAJIqnYlRswYVahmWtBaaQ5OwSmtL/XQb3/nFFFw3ny
- 1npzmrR5eKX4Z2t14xnfEn9WDXXEtMlUuRKksLkpzdtGpcKWVCFtqYAt/Pl5WPj1+tqZ
- Ij1Od7OGq3EPXGQ7f4y4+fsKaYuxc4CDFdg2+DHDc5q69jznzQ3q1VeEaR1F32y2jgTX
- yCLKak3l111v8LU2XkMsanGkMMkY3fF+ESk+/wiDhZrsP2X17jCDAA59oR9UvO/AlpW6
- t24GjERY/4N7fxWVd5idvA4D00AAQRyIb6efHb8XP7a5FKfMGBjXSnAdQbooAFCpriJH
- VBTQ==
-X-Gm-Message-State: AO0yUKVxxuYea+BjWrjovdQVm3vINmjQPzsiWhSeXtPcDLGf6+FORmf2
- xUzXQ6RJWD7xlroc7WMudGufeA==
-X-Google-Smtp-Source: AK7set95vlWcFVN4Fm6dxfm5n4uUbaGDxexR9zizYcucScXRixx+u6Frar/5JNOraZBbCVbJSdmNxQ==
-X-Received: by 2002:adf:f605:0:b0:2cf:e449:1a9e with SMTP id
- t5-20020adff605000000b002cfe4491a9emr1747052wrp.30.1679044374779; 
- Fri, 17 Mar 2023 02:12:54 -0700 (PDT)
-Received: from arrakeen.starnux.net ([2a01:e0a:982:cbb0:52eb:f6ff:feb3:451a])
- by smtp.gmail.com with ESMTPSA id
- j10-20020a5d464a000000b002cea8f07813sm1467976wrs.81.2023.03.17.02.12.53
+ d=1e100.net; s=20210112; t=1679048622;
+ h=in-reply-to:content-transfer-encoding:content-disposition
+ :mime-version:references:message-id:subject:cc:to:from:date
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=WGacm7RCfazkee7wrXpMRDYYgVKndhRWSmy/3AtOVeY=;
+ b=fz8wkTDbaSp7ssRnNhZs6Y0oQgEoDGPsGBJhXv62PpGt2tS37GbeLYGcbzgFI8LHjH
+ gSRRoznT9ZRSHTcSbfIUqVtSm9FVuqLl3RbpxuJE3eKg6FkBUtD/CcvF2rruU8lhEJWh
+ mdrlJkPJZPRNEo7n525MIQ+dnIVpFb4JvJBsBSlzQIs4yvItGtZoTuKs8jIdM1gYXOL2
+ K5eyFJTeV4PmA+KQrYsCXKLmbspxXxPL5Gdgvmi4kIY1DaySXBvo0qlA9dKQscrDzYaB
+ zGm02Oym/+faDpER33Ht/51sJO4ZfIIYlcO+JP4EvvUY9HeAMj+sSc/w5bdQp/Owafdx
+ zGng==
+X-Gm-Message-State: AO0yUKVChWyN/PGpRwn759sj5varlVEson9El3A5FZ4an/VZ34Y3J7Hv
+ +xIhqTMpdjYxO7/2/kqdUEs=
+X-Google-Smtp-Source: AK7set/JMFHbStUK9NHJ0sOC4HuEc8J8R4pwwZyIbZEtLEmp595lLbE59ui5upkm1p/wp78uPPIIbQ==
+X-Received: by 2002:ac2:4a88:0:b0:4dc:82b0:4c68 with SMTP id
+ l8-20020ac24a88000000b004dc82b04c68mr3514049lfp.50.1679048621810; 
+ Fri, 17 Mar 2023 03:23:41 -0700 (PDT)
+Received: from gmail.com (host-95-193-64-255.mobileonline.telia.com.
+ [95.193.64.255]) by smtp.gmail.com with ESMTPSA id
+ i10-20020a056512006a00b004cafa01ebbfsm306297lfo.101.2023.03.17.03.23.40
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 17 Mar 2023 02:12:54 -0700 (PDT)
-From: Neil Armstrong <neil.armstrong@linaro.org>
-Date: Fri, 17 Mar 2023 10:12:51 +0100
+ Fri, 17 Mar 2023 03:23:41 -0700 (PDT)
+Date: Fri, 17 Mar 2023 11:23:38 +0100
+From: Jonas =?iso-8859-1?Q?=C5dahl?= <jadahl@gmail.com>
+To: Rob Clark <robdclark@gmail.com>
+Message-ID: <ZBQ/qoxP+EGI0E7R@gmail.com>
+References: <20230308155322.344664-1-robdclark@gmail.com>
+ <20230308155322.344664-2-robdclark@gmail.com>
+ <ZAtQspuFjPtGy7ze@gmail.com>
+ <CAF6AEGsGOr5+Q10wX=5ttrWCSUJfn7gzHW8QhxFC0GDLgagMHg@mail.gmail.com>
+ <ZBHNvT3BLgS3qvV5@gmail.com>
+ <CAF6AEGu1S2CXzRxV_c5tE_H+XUGiO=n0tXjLZ_u_tW-eMqMsQw@mail.gmail.com>
+ <ZBLg0t0tTVvuPuiJ@gmail.com>
+ <CAF6AEGvV5arZThTyju_=xFFDWRbMaexgO_kkdKZuK-zeCxrN7Q@mail.gmail.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20230206-topic-sm8450-upstream-dp-controller-v5-5-a27f1b26ebe8@linaro.org>
-References: <20230206-topic-sm8450-upstream-dp-controller-v5-0-a27f1b26ebe8@linaro.org>
-In-Reply-To: <20230206-topic-sm8450-upstream-dp-controller-v5-0-a27f1b26ebe8@linaro.org>
-To: Rob Clark <robdclark@gmail.com>, 
- Abhinav Kumar <quic_abhinavk@quicinc.com>, 
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>, 
- David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>, 
- Rob Herring <robh+dt@kernel.org>, 
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>, 
- Kuogee Hsieh <quic_khsieh@quicinc.com>, Andy Gross <agross@kernel.org>, 
- Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konrad.dybcio@linaro.org>
-X-Mailer: b4 0.12.1
-Subject: [Freedreno] [PATCH v5 5/5] arm64: dts: qcom: sm8450: add dp
- controller
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAF6AEGvV5arZThTyju_=xFFDWRbMaexgO_kkdKZuK-zeCxrN7Q@mail.gmail.com>
+Subject: Re: [Freedreno] [PATCH v10 01/15] dma-buf/dma-fence: Add deadline
+ awareness
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,118 +81,274 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Neil Armstrong <neil.armstrong@linaro.org>, devicetree@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org
+Cc: Rob Clark <robdclark@chromium.org>,
+ Pekka Paalanen <pekka.paalanen@collabora.com>,
+ Jonathan Corbet <corbet@lwn.net>,
+ Christian =?iso-8859-1?Q?K=F6nig?= <ckoenig.leichtzumerken@gmail.com>,
+ intel-gfx@lists.freedesktop.org,
+ "open list:DOCUMENTATION" <linux-doc@vger.kernel.org>,
+ open list <linux-kernel@vger.kernel.org>, dri-devel@lists.freedesktop.org,
+ Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
+ "moderated list:DMA BUFFER SHARING FRAMEWORK" <linaro-mm-sig@lists.linaro.org>,
+ Luben Tuikov <luben.tuikov@amd.com>, Bagas Sanjaya <bagasdotme@gmail.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, Gustavo Padovan <gustavo@padovan.org>,
+ Matt Turner <mattst88@gmail.com>, freedreno@lists.freedesktop.org,
+ Sumit Semwal <sumit.semwal@linaro.org>,
+ "open list:DMA BUFFER SHARING FRAMEWORK" <linux-media@vger.kernel.org>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Add the Display Port controller subnode to the MDSS node.
+On Thu, Mar 16, 2023 at 09:28:55AM -0700, Rob Clark wrote:
+> On Thu, Mar 16, 2023 at 2:26 AM Jonas Ådahl <jadahl@gmail.com> wrote:
+> >
+> > On Wed, Mar 15, 2023 at 09:19:49AM -0700, Rob Clark wrote:
+> > > On Wed, Mar 15, 2023 at 6:53 AM Jonas Ådahl <jadahl@gmail.com> wrote:
+> > > >
+> > > > On Fri, Mar 10, 2023 at 09:38:18AM -0800, Rob Clark wrote:
+> > > > > On Fri, Mar 10, 2023 at 7:45 AM Jonas Ådahl <jadahl@gmail.com> wrote:
+> > > > > >
+> > > > > > On Wed, Mar 08, 2023 at 07:52:52AM -0800, Rob Clark wrote:
+> > > > > > > From: Rob Clark <robdclark@chromium.org>
+> > > > > > >
+> > > > > > > Add a way to hint to the fence signaler of an upcoming deadline, such as
+> > > > > > > vblank, which the fence waiter would prefer not to miss.  This is to aid
+> > > > > > > the fence signaler in making power management decisions, like boosting
+> > > > > > > frequency as the deadline approaches and awareness of missing deadlines
+> > > > > > > so that can be factored in to the frequency scaling.
+> > > > > > >
+> > > > > > > v2: Drop dma_fence::deadline and related logic to filter duplicate
+> > > > > > >     deadlines, to avoid increasing dma_fence size.  The fence-context
+> > > > > > >     implementation will need similar logic to track deadlines of all
+> > > > > > >     the fences on the same timeline.  [ckoenig]
+> > > > > > > v3: Clarify locking wrt. set_deadline callback
+> > > > > > > v4: Clarify in docs comment that this is a hint
+> > > > > > > v5: Drop DMA_FENCE_FLAG_HAS_DEADLINE_BIT.
+> > > > > > > v6: More docs
+> > > > > > > v7: Fix typo, clarify past deadlines
+> > > > > > >
+> > > > > > > Signed-off-by: Rob Clark <robdclark@chromium.org>
+> > > > > > > Reviewed-by: Christian König <christian.koenig@amd.com>
+> > > > > > > Acked-by: Pekka Paalanen <pekka.paalanen@collabora.com>
+> > > > > > > Reviewed-by: Bagas Sanjaya <bagasdotme@gmail.com>
+> > > > > > > ---
+> > > > > >
+> > > > > > Hi Rob!
+> > > > > >
+> > > > > > >  Documentation/driver-api/dma-buf.rst |  6 +++
+> > > > > > >  drivers/dma-buf/dma-fence.c          | 59 ++++++++++++++++++++++++++++
+> > > > > > >  include/linux/dma-fence.h            | 22 +++++++++++
+> > > > > > >  3 files changed, 87 insertions(+)
+> > > > > > >
+> > > > > > > diff --git a/Documentation/driver-api/dma-buf.rst b/Documentation/driver-api/dma-buf.rst
+> > > > > > > index 622b8156d212..183e480d8cea 100644
+> > > > > > > --- a/Documentation/driver-api/dma-buf.rst
+> > > > > > > +++ b/Documentation/driver-api/dma-buf.rst
+> > > > > > > @@ -164,6 +164,12 @@ DMA Fence Signalling Annotations
+> > > > > > >  .. kernel-doc:: drivers/dma-buf/dma-fence.c
+> > > > > > >     :doc: fence signalling annotation
+> > > > > > >
+> > > > > > > +DMA Fence Deadline Hints
+> > > > > > > +~~~~~~~~~~~~~~~~~~~~~~~~
+> > > > > > > +
+> > > > > > > +.. kernel-doc:: drivers/dma-buf/dma-fence.c
+> > > > > > > +   :doc: deadline hints
+> > > > > > > +
+> > > > > > >  DMA Fences Functions Reference
+> > > > > > >  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+> > > > > > >
+> > > > > > > diff --git a/drivers/dma-buf/dma-fence.c b/drivers/dma-buf/dma-fence.c
+> > > > > > > index 0de0482cd36e..f177c56269bb 100644
+> > > > > > > --- a/drivers/dma-buf/dma-fence.c
+> > > > > > > +++ b/drivers/dma-buf/dma-fence.c
+> > > > > > > @@ -912,6 +912,65 @@ dma_fence_wait_any_timeout(struct dma_fence **fences, uint32_t count,
+> > > > > > >  }
+> > > > > > >  EXPORT_SYMBOL(dma_fence_wait_any_timeout);
+> > > > > > >
+> > > > > > > +/**
+> > > > > > > + * DOC: deadline hints
+> > > > > > > + *
+> > > > > > > + * In an ideal world, it would be possible to pipeline a workload sufficiently
+> > > > > > > + * that a utilization based device frequency governor could arrive at a minimum
+> > > > > > > + * frequency that meets the requirements of the use-case, in order to minimize
+> > > > > > > + * power consumption.  But in the real world there are many workloads which
+> > > > > > > + * defy this ideal.  For example, but not limited to:
+> > > > > > > + *
+> > > > > > > + * * Workloads that ping-pong between device and CPU, with alternating periods
+> > > > > > > + *   of CPU waiting for device, and device waiting on CPU.  This can result in
+> > > > > > > + *   devfreq and cpufreq seeing idle time in their respective domains and in
+> > > > > > > + *   result reduce frequency.
+> > > > > > > + *
+> > > > > > > + * * Workloads that interact with a periodic time based deadline, such as double
+> > > > > > > + *   buffered GPU rendering vs vblank sync'd page flipping.  In this scenario,
+> > > > > > > + *   missing a vblank deadline results in an *increase* in idle time on the GPU
+> > > > > > > + *   (since it has to wait an additional vblank period), sending a signal to
+> > > > > > > + *   the GPU's devfreq to reduce frequency, when in fact the opposite is what is
+> > > > > > > + *   needed.
+> > > > > >
+> > > > > > This is the use case I'd like to get some better understanding about how
+> > > > > > this series intends to work, as the problematic scheduling behavior
+> > > > > > triggered by missed deadlines has plagued compositing display servers
+> > > > > > for a long time.
+> > > > > >
+> > > > > > I apologize, I'm not a GPU driver developer, nor an OpenGL driver
+> > > > > > developer, so I will need some hand holding when it comes to
+> > > > > > understanding exactly what piece of software is responsible for
+> > > > > > communicating what piece of information.
+> > > > > >
+> > > > > > > + *
+> > > > > > > + * To this end, deadline hint(s) can be set on a &dma_fence via &dma_fence_set_deadline.
+> > > > > > > + * The deadline hint provides a way for the waiting driver, or userspace, to
+> > > > > > > + * convey an appropriate sense of urgency to the signaling driver.
+> > > > > > > + *
+> > > > > > > + * A deadline hint is given in absolute ktime (CLOCK_MONOTONIC for userspace
+> > > > > > > + * facing APIs).  The time could either be some point in the future (such as
+> > > > > > > + * the vblank based deadline for page-flipping, or the start of a compositor's
+> > > > > > > + * composition cycle), or the current time to indicate an immediate deadline
+> > > > > > > + * hint (Ie. forward progress cannot be made until this fence is signaled).
+> > > > > >
+> > > > > > Is it guaranteed that a GPU driver will use the actual start of the
+> > > > > > vblank as the effective deadline? I have some memories of seing
+> > > > > > something about vblank evasion browsing driver code, which I might have
+> > > > > > misunderstood, but I have yet to find whether this is something
+> > > > > > userspace can actually expect to be something it can rely on.
+> > > > >
+> > > > > I guess you mean s/GPU driver/display driver/ ?  It makes things more
+> > > > > clear if we talk about them separately even if they happen to be the
+> > > > > same device.
+> > > >
+> > > > Sure, sorry about being unclear about that.
+> > > >
+> > > > >
+> > > > > Assuming that is what you mean, nothing strongly defines what the
+> > > > > deadline is.  In practice there is probably some buffering in the
+> > > > > display controller.  For ex, block based (including bandwidth
+> > > > > compressed) formats, you need to buffer up a row of blocks to
+> > > > > efficiently linearize for scanout.  So you probably need to latch some
+> > > > > time before you start sending pixel data to the display.  But details
+> > > > > like this are heavily implementation dependent.  I think the most
+> > > > > reasonable thing to target is start of vblank.
+> > > >
+> > > > The driver exposing those details would be quite useful for userspace
+> > > > though, so that it can delay committing updates to late, but not too
+> > > > late. Setting a deadline to be the vblank seems easy enough, but it
+> > > > isn't enough for scheduling the actual commit.
+> > >
+> > > I'm not entirely sure how that would even work.. but OTOH I think you
+> > > are talking about something on the order of 100us?  But that is a bit
+> > > of another topic.
+> >
+> > Yes, something like that. But yea, it's not really related. Scheduling
+> > commits closer to the deadline has more complex behavior than that too,
+> > e.g. the need for real time scheduling, and knowing how long it usually
+> > takes to create and commit and for the kernel to process.
+> >
+> > >
+> >
+> > 8-< *snip* 8-<
+> >
+> > > > >
+> > > > > You need a fence to set the deadline, and for that work needs to be
+> > > > > flushed.  But you can't associate a deadline with work that the kernel
+> > > > > is unaware of anyways.
+> > > >
+> > > > That makes sense, but it might also a bit inadequate to have it as the
+> > > > only way to tell the kernel it should speed things up. Even with the
+> > > > trick i915 does, with GNOME Shell, we still end up with the feedback
+> > > > loop this series aims to mitigate. Doing triple buffering, i.e. delaying
+> > > > or dropping the first frame is so far the best work around that works,
+> > > > except doing other tricks that makes the kernel to ramp up its clock.
+> > > > Having to rely on choosing between latency and frame drops should
+> > > > ideally not have to be made.
+> > >
+> > > Before you have a fence, the thing you want to be speeding up is the
+> > > CPU, not the GPU.  There are existing mechanisms for that.
+> >
+> > Is there no benefit to let the GPU know earlier that it should speed up,
+> > so that when the job queue arrives, it's already up to speed?
+> 
+> Downstream we have input notifier that resumes the GPU so we can
+> pipeline the 1-2ms it takes to boot up the GPU with userspace.  But we
+> wait to boost freq until we have cmdstream to submit, since that
+> doesn't take as long.  What needs help initially after input is all
+> the stuff that happens on the CPU before the GPU can start to do
+> anything ;-)
 
-Reviewed-by: Konrad Dybcio <konrad.dybcio@linaro.org>
-Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
----
- arch/arm64/boot/dts/qcom/sm8450.dtsi | 79 ++++++++++++++++++++++++++++++++++++
- 1 file changed, 79 insertions(+)
+How do you deal with boosting CPU speeds downstream? Does the input
+notifier do that too?
 
-diff --git a/arch/arm64/boot/dts/qcom/sm8450.dtsi b/arch/arm64/boot/dts/qcom/sm8450.dtsi
-index 0b5a151ce138..41f5015e615b 100644
---- a/arch/arm64/boot/dts/qcom/sm8450.dtsi
-+++ b/arch/arm64/boot/dts/qcom/sm8450.dtsi
-@@ -2751,6 +2751,13 @@ dpu_intf2_out: endpoint {
- 						};
- 					};
- 
-+					port@2 {
-+						reg = <2>;
-+						dpu_intf0_out: endpoint {
-+							remote-endpoint = <&mdss_dp0_in>;
-+						};
-+					};
-+
- 				};
- 
- 				mdp_opp_table: opp-table {
-@@ -2783,6 +2790,78 @@ opp-500000000 {
- 				};
- 			};
- 
-+			mdss_dp0: displayport-controller@ae90000 {
-+				compatible = "qcom,sm8450-dp", "qcom,sm8350-dp";
-+				reg = <0 0xae90000 0 0x200>,
-+				      <0 0xae90200 0 0x200>,
-+				      <0 0xae90400 0 0xc00>,
-+				      <0 0xae91000 0 0x400>,
-+				      <0 0xae91400 0 0x400>;
-+				interrupt-parent = <&mdss>;
-+				interrupts = <12>;
-+				clocks = <&dispcc DISP_CC_MDSS_AHB_CLK>,
-+					 <&dispcc DISP_CC_MDSS_DPTX0_AUX_CLK>,
-+					 <&dispcc DISP_CC_MDSS_DPTX0_LINK_CLK>,
-+					 <&dispcc DISP_CC_MDSS_DPTX0_LINK_INTF_CLK>,
-+					 <&dispcc DISP_CC_MDSS_DPTX0_PIXEL0_CLK>;
-+				clock-names = "core_iface",
-+					      "core_aux",
-+					      "ctrl_link",
-+			                      "ctrl_link_iface",
-+					      "stream_pixel";
-+
-+				assigned-clocks = <&dispcc DISP_CC_MDSS_DPTX0_LINK_CLK_SRC>,
-+						  <&dispcc DISP_CC_MDSS_DPTX0_PIXEL0_CLK_SRC>;
-+				assigned-clock-parents = <&usb_1_qmpphy QMP_USB43DP_DP_LINK_CLK>,
-+							 <&usb_1_qmpphy QMP_USB43DP_DP_VCO_DIV_CLK>;
-+
-+				phys = <&usb_1_qmpphy QMP_USB43DP_DP_PHY>;
-+			        phy-names = "dp";
-+
-+			        #sound-dai-cells = <0>;
-+
-+				operating-points-v2 = <&dp_opp_table>;
-+				power-domains = <&rpmhpd SM8450_MMCX>;
-+
-+				status = "disabled";
-+
-+				ports {
-+					#address-cells = <1>;
-+					#size-cells = <0>;
-+
-+					port@0 {
-+						reg = <0>;
-+						mdss_dp0_in: endpoint {
-+							remote-endpoint = <&dpu_intf0_out>;
-+						};
-+					};
-+				};
-+
-+				dp_opp_table: opp-table {
-+					compatible = "operating-points-v2";
-+
-+					opp-19200000 {
-+						opp-hz = /bits/ 64 <19200000>;
-+						required-opps = <&rpmhpd_opp_low_svs>;
-+					};
-+
-+					opp-270000000 {
-+						opp-hz = /bits/ 64 <270000000>;
-+						required-opps = <&rpmhpd_opp_svs>;
-+					};
-+
-+					opp-540000000 {
-+						opp-hz = /bits/ 64 <540000000>;
-+						required-opps = <&rpmhpd_opp_svs_l1>;
-+					};
-+
-+					opp-810000000 {
-+						opp-hz = /bits/ 64 <810000000>;
-+						required-opps = <&rpmhpd_opp_nom>;
-+					};
-+				};
-+			};
-+
- 			mdss_dsi0: dsi@ae94000 {
- 				compatible = "qcom,sm8450-dsi-ctrl", "qcom,mdss-dsi-ctrl";
- 				reg = <0 0x0ae94000 0 0x400>;
+> 
+> Btw, I guess I haven't made this clear, dma-fence deadline is trying
+> to help the steady-state situation, rather than the input-latency
+> situation.  It might take a frame or two of missed deadlines for
+> gpufreq to arrive at a good steady-state freq.
 
--- 
-2.34.1
+I'm just not sure it will help. Missed deadlines set at commit hasn't
+been enough in the past to let the kernel understand it should speed
+things up before the next frame (which will be a whole frame late
+without any triple buffering which should be a last resort), so I don't
+see how it will help by adding a userspace hook to do the same thing.
 
+I think input latency and steady state target frequency here is tightly
+linked; what we should aim for is to provide enough information at the
+right time so that it does *not* take a frame or two to of missed
+deadlines to arrive at the target frequency, as those missed deadlines
+either means either stuttering and/or lag.
+
+That it helps with the deliberately late commit I do understand, but we
+don't do that yet, but intend to when there is kernel uapi to lets us do
+so without negative consequences.
+
+> 
+> > >
+> > > TBF I'm of the belief that there is still a need for input based cpu
+> > > boost (and early wake-up trigger for GPU).. we have something like
+> > > this in CrOS kernel.  That is a bit of a different topic, but my point
+> > > is that fence deadlines are just one of several things we need to
+> > > optimize power/perf and responsiveness, rather than the single thing
+> > > that solves every problem under the sun ;-)
+> >
+> > Perhaps; but I believe it's a bit of a back channel of intent; the piece
+> > of the puzzle that has the information to know whether there is need
+> > actually speed up is the compositor, not the kernel.
+> >
+> > For example, pressing 'p' while a terminal is focused does not need high
+> > frequency clocks, it just needs the terminal emulator to draw a 'p' and
+> > the compositor to composite that update. Pressing <Super> may however
+> > trigger a non-trivial animation moving a lot of stuff around on screen,
+> > maybe triggering Wayland clients to draw and what not, and should most
+> > arguably have the ability to "warn" the kernel about the upcoming flood
+> > of work before it is already knocking on its door step.
+> 
+> The super key is problematic, but not for the reason you think.  It is
+> because it is a case where we should boost on key-up instead of
+> key-down.. and the second key-up event comes after the cpu-boost is
+> already in it's cool-down period.  But even if suboptimal in cases
+> like this, it is still useful for touch/stylus cases where the
+> slightest of lag is much more perceptible.
+
+Other keys are even more problematic. Alt, for example, does nothing,
+Alt + Tab does some light rendering, but Alt + KeyAboveTab will,
+depending on the current active applications, suddenly trigger N Wayland
+surfaces to start rendering at the same time.
+
+> 
+> This is getting off topic but I kinda favor coming up with some sort
+> of static definition that userspace could give the kernel to let the
+> kernel know what input to boost on.  Or maybe something could be done
+> with BPF?
+
+I have hard time seeing any static information can be enough, it's
+depends too much on context what is expected to happen. And can a BPF
+program really help? Unless BPF programs that pulls some internal kernel
+strings to speed things up whenever userspace wants I don't see how it
+is that much better.
+
+I don't think userspace is necessarily too slow to actively particitpate
+in providing direct scheduling hints either. Input processing can, for
+example, be off loaded to a real time scheduled thread, and plumbing any
+hints about future expectations from rendering, windowing and layout
+subsystems will be significantly easier to plumb to a real time input
+thread than translated into static informations or BPF programs.
+
+
+Jonas
