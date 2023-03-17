@@ -1,81 +1,78 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 99C846BEB2B
-	for <lists+freedreno@lfdr.de>; Fri, 17 Mar 2023 15:28:59 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id DB6426BEC53
+	for <lists+freedreno@lfdr.de>; Fri, 17 Mar 2023 16:06:44 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4108410E125;
-	Fri, 17 Mar 2023 14:28:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A0AFE10E3B8;
+	Fri, 17 Mar 2023 15:06:38 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wr1-x42b.google.com (mail-wr1-x42b.google.com
- [IPv6:2a00:1450:4864:20::42b])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4A4CC10E125
- for <freedreno@lists.freedesktop.org>; Fri, 17 Mar 2023 14:28:56 +0000 (UTC)
-Received: by mail-wr1-x42b.google.com with SMTP id h17so4599239wrt.8
- for <freedreno@lists.freedesktop.org>; Fri, 17 Mar 2023 07:28:56 -0700 (PDT)
+Received: from mail-wm1-x335.google.com (mail-wm1-x335.google.com
+ [IPv6:2a00:1450:4864:20::335])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EDDFE10E264
+ for <freedreno@lists.freedesktop.org>; Fri, 17 Mar 2023 15:06:35 +0000 (UTC)
+Received: by mail-wm1-x335.google.com with SMTP id
+ l15-20020a05600c4f0f00b003ed58a9a15eso3540568wmq.5
+ for <freedreno@lists.freedesktop.org>; Fri, 17 Mar 2023 08:06:35 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1679063334;
- h=content-transfer-encoding:in-reply-to:organization:references:cc:to
- :content-language:subject:reply-to:from:user-agent:mime-version:date
- :message-id:from:to:cc:subject:date:message-id:reply-to;
- bh=tR0wQE8M8Ta7hlf9T/C518wbuU/k1dFHdTpiVCbCQdI=;
- b=HCaaMySfgkDU+bWp7bW2t9rdVrsQ8GHioDCTlMLMf+IjW9YDEPsuVCotEPWyrbXYTd
- 4br89bZ1UzJv1aPgq0dvgItl5QG8RMJBynsBt6HACyz+qZeEXkBzqFAvT3dPJa0uQBEG
- aDH5KCDYVdMPmarak8pJ4iWTYDLGrciE2h2Yjz+PC3PvNYtsbzRARj8aX9I0KFj0QWDW
- PhcbFQjS7o5FjxP6zzQiXy//CpKR2j6Ah1KYAvE4cHiwLNB56qKgp79SZCX8BxD9X01C
- q9ZEmGUAmkylHO0zHr77aEZcEfR1vRYqv9gYSI38HVwfpt0AU7kAkfew7EjzqjKeatRX
- qIjA==
+ d=linaro.org; s=google; t=1679065594;
+ h=cc:to:content-transfer-encoding:mime-version:message-id:date
+ :subject:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=gWIjQ50fIVrAQRlofNeocAQLgnxtnHwBc4uhvYE9qPQ=;
+ b=IcFlkPTLn7yAYtfjj/3+fWGiy36sOwr8k1qzkGkwQWlc4r2L0FvimQhQIqApE0xDpI
+ is4hF9vEaCdfj6t2i8ZZepV96J1p3lNA/1KF8ZQDJ4ma4fUHDc0RH4qiT19zi++O8k1M
+ vVX0EUM2vHi2QrBSa/5StXUCRbqJxE0S9/BVMZU51F3/WXrLBEGiZxGxm9PXYL9TdeIe
+ IGm6phkVrUQThyP6THCnRqABFJsuxGRTzQrFfopmPZgI+m3fncdRNr3pHSGfosu372fR
+ IskwZCcIoxky/ALbmcdf3+m9T2EphslouLxqNH0rY6dcvSAv1zv3GLzsbaAKyCz8acpm
+ 3s0w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112; t=1679063334;
- h=content-transfer-encoding:in-reply-to:organization:references:cc:to
- :content-language:subject:reply-to:from:user-agent:mime-version:date
- :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
+ d=1e100.net; s=20210112; t=1679065594;
+ h=cc:to:content-transfer-encoding:mime-version:message-id:date
+ :subject:from:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=tR0wQE8M8Ta7hlf9T/C518wbuU/k1dFHdTpiVCbCQdI=;
- b=nJH4EGQeDrOJLY5V6Wzrrrp1ZdAR2V6TjiaXZyue2ASBgfSpQwGopKmpAzjvJty9zs
- Zkf+WrFLhcIGq/ppKgDyGpk5HybuO4FTKpZrMi+mpiVo8Hql17nKxrHtOKhiGAIa0uWb
- dqN/9g1Y6/28VrrbuipMFwvTicoXMEgHOitmPpL85i42jHs1f+tlTMeDhM6VoSJkV8oJ
- XgbSEHjwEG55q2i/vUQjNiZiHEwQ4d00HL2SLIggkPo5DnS6PHpGoL7aF6RvNqean7Tx
- Lgup0YgIrFP2XxbXRXVOyokC/TGfaXnB72O3XWeZo+LDPqcJ5iQgZJDNwn6Cn1RJMElT
- XVuw==
-X-Gm-Message-State: AO0yUKVotZ1yhpxd52zKTb0g7ijfrftehh9HMNdeGpV4j23Y2pOGHmcj
- 5H4y/hOo1BnCsI0NFTMKSwcX9g==
-X-Google-Smtp-Source: AK7set8AKYEIAth7Eh89Fp1MUe2n6Pd90pcAPWLJZ+SNTSiWn6+fUk1b6MLbrI5cbflwdqY3s2h0AA==
-X-Received: by 2002:adf:f68b:0:b0:2cb:d8f1:1d2f with SMTP id
- v11-20020adff68b000000b002cbd8f11d2fmr7678165wrp.17.1679063334621; 
- Fri, 17 Mar 2023 07:28:54 -0700 (PDT)
-Received: from ?IPV6:2a01:e0a:982:cbb0:9ed5:bad0:e925:7938?
- ([2a01:e0a:982:cbb0:9ed5:bad0:e925:7938])
+ bh=gWIjQ50fIVrAQRlofNeocAQLgnxtnHwBc4uhvYE9qPQ=;
+ b=pYusK7QXWDg098jbfK2SU4dJROUgWGAtJ4tQOregAMHitcAnL+0m58Mon9Kuz/ifii
+ xJMHrFVDiWrH3r8eIzL56pMkZzCRMCGNxNFd2nR9mSojEIILDpWEzMxRn92HyteYaxwR
+ qb/exLkrQVaT37KvXPSzfkBQeJKDLTNpN8Mb/D7ipZJMHvPZA1/Q6I4L56zf0I24sXC5
+ 5/5BmeUNB7WJuJcNYqXmr3cxcDdTHyMnaW0QzVK7alfo8njfOfrUqCwcPsutXZlhhYYh
+ KzZzkIQm8hKYhubU/Ae298UpAFZLQFYLrYdQFP9aUgajfDEArInTaKBtdFpPIyTWqs7F
+ FR9w==
+X-Gm-Message-State: AO0yUKW0rDgjuWepM+DCQjGcA1vZC2kLMQkwynstp7FlwboF1V5YMIs+
+ TUK+snsryzMVozen3gwraoRvKQ==
+X-Google-Smtp-Source: AK7set//ZMCelRRmNvCpiTkkaLWE6bf8oxGkz8Z8HOhcyhzNfGJq8QxwrcJbk5EEak5v1YdsawJv0Q==
+X-Received: by 2002:a05:600c:3584:b0:3ed:358e:c1c2 with SMTP id
+ p4-20020a05600c358400b003ed358ec1c2mr8650770wmq.18.1679065594350; 
+ Fri, 17 Mar 2023 08:06:34 -0700 (PDT)
+Received: from arrakeen.starnux.net ([2a01:e0a:982:cbb0:52eb:f6ff:feb3:451a])
  by smtp.gmail.com with ESMTPSA id
- e8-20020adffc48000000b002c8476dde7asm2057650wrs.114.2023.03.17.07.28.53
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 17 Mar 2023 07:28:54 -0700 (PDT)
-Message-ID: <77195576-34c1-d522-194c-85eba5d023fe@linaro.org>
-Date: Fri, 17 Mar 2023 15:28:53 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.8.0
+ f13-20020a5d58ed000000b002c5493a17efsm2187902wrd.25.2023.03.17.08.06.33
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 17 Mar 2023 08:06:34 -0700 (PDT)
 From: Neil Armstrong <neil.armstrong@linaro.org>
-Content-Language: en-US
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Sean Paul <sean@poorly.run>, David Airlie <airlied@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>, Rob Herring <robh+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Kuogee Hsieh <quic_khsieh@quicinc.com>, Andy Gross <agross@kernel.org>,
- Bjorn Andersson <andersson@kernel.org>,
+Date: Fri, 17 Mar 2023 16:06:31 +0100
+Message-Id: <20230206-topic-sm8450-upstream-dp-controller-v6-0-d78313cbc41d@linaro.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAPeBFGQC/53Oy27DIBQE0F+JWJcKLo+YrPofVRc8rmMkAhY4V
+ qvI/16SXeVVvZxZnJkHaVgjNnI5PUjFNbZYcg/67UT8ZPMVaQw9E2AgGDBNlzJHT9ttkIrR+9y
+ WivZGw0x9yUstKWGlwJiS1sHAApIuOduQumqzn7qV7yn1cq44xu/X9OdXz1NsS6k/rycrf7b/G
+ 105ZXTkQqrhDBi4+Ugx21reS72S58AKB1DoqAITLAATWu1RcQAVHdVC42jQGCNgh8oDqOxo8Fa
+ IUQmOLOxQdQBVHbVwHrkDjQ6HP+i2bb8gEBgIQAIAAA==
+To: Rob Clark <robdclark@gmail.com>, 
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, 
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>, 
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>, 
+ Rob Herring <robh+dt@kernel.org>, 
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>, 
+ Kuogee Hsieh <quic_khsieh@quicinc.com>, Andy Gross <agross@kernel.org>, 
+ Bjorn Andersson <andersson@kernel.org>, 
  Konrad Dybcio <konrad.dybcio@linaro.org>
-References: <20230206-topic-sm8450-upstream-dp-controller-v5-0-a27f1b26ebe8@linaro.org>
- <20230206-topic-sm8450-upstream-dp-controller-v5-4-a27f1b26ebe8@linaro.org>
- <ab6391c4-ff38-8286-77ff-c781669f5aa0@linaro.org>
-Organization: Linaro Developer Services
-In-Reply-To: <ab6391c4-ff38-8286-77ff-c781669f5aa0@linaro.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-Subject: Re: [Freedreno] [PATCH v5 4/5] arm64: dts: qcom: sm8450: switch to
- usb3/dp combo phy
+X-Mailer: b4 0.12.1
+Subject: [Freedreno] [PATCH v6 0/5] arm64: dts: qcom: add DP Controller to
+ SM8350 & SM8450 DTS
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -88,116 +85,76 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: neil.armstrong@linaro.org
-Cc: linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- devicetree@vger.kernel.org
+Cc: Neil Armstrong <neil.armstrong@linaro.org>, devicetree@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org,
+ Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
+ freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 17/03/2023 13:09, Dmitry Baryshkov wrote:
-> On 17/03/2023 11:12, Neil Armstrong wrote:
->> The QMP PHY is a USB3/DP combo phy, switch to the newly
->> documented bindings and register the clocks to the GCC
->> and DISPCC controllers.
->>
->> Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
->> Reviewed-by: Konrad Dybcio <konrad.dybcio@linaro.org>
->> Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
->> ---
->>   arch/arm64/boot/dts/qcom/sm8450.dtsi | 42 +++++++++++++-----------------------
->>   1 file changed, 15 insertions(+), 27 deletions(-)
->>
->> diff --git a/arch/arm64/boot/dts/qcom/sm8450.dtsi b/arch/arm64/boot/dts/qcom/sm8450.dtsi
->> index 69695eb83897..0b5a151ce138 100644
->> --- a/arch/arm64/boot/dts/qcom/sm8450.dtsi
->> +++ b/arch/arm64/boot/dts/qcom/sm8450.dtsi
->> @@ -11,6 +11,7 @@
->>   #include <dt-bindings/dma/qcom-gpi.h>
->>   #include <dt-bindings/gpio/gpio.h>
->>   #include <dt-bindings/mailbox/qcom-ipcc.h>
->> +#include <dt-bindings/phy/phy-qcom-qmp.h>
->>   #include <dt-bindings/power/qcom-rpmpd.h>
->>   #include <dt-bindings/interconnect/qcom,sm8450.h>
->>   #include <dt-bindings/soc/qcom,gpr.h>
->> @@ -748,7 +749,7 @@ gcc: clock-controller@100000 {
->>                    <&ufs_mem_phy_lanes 0>,
->>                    <&ufs_mem_phy_lanes 1>,
->>                    <&ufs_mem_phy_lanes 2>,
->> -                 <0>;
->> +                 <&usb_1_qmpphy QMP_USB43DP_USB3_PIPE_CLK>;
->>               clock-names = "bi_tcxo",
->>                         "sleep_clk",
->>                         "pcie_0_pipe_clk",
->> @@ -2034,37 +2035,24 @@ usb_1_hsphy: phy@88e3000 {
->>               resets = <&gcc GCC_QUSB2PHY_PRIM_BCR>;
->>           };
->> -        usb_1_qmpphy: phy-wrapper@88e9000 {
->> -            compatible = "qcom,sm8450-qmp-usb3-phy";
->> -            reg = <0 0x088e9000 0 0x200>,
->> -                  <0 0x088e8000 0 0x20>;
->> -            status = "disabled";
->> -            #address-cells = <2>;
->> -            #size-cells = <2>;
->> -            ranges;
->> +        usb_1_qmpphy: phy@88e8000 {
->> +            compatible = "qcom,sm8450-qmp-usb3-dp-phy";
->> +            reg = <0 0x088e8000 0 0x4000>;
-> 
-> This should be 0x3000 too, like 8350
+Switch the QMP PHY to the newly documented USB3/DP Combo PHY
+bindings at [1] and add the DP controller nodes.
 
-Ack thx for noticing
+The DP output is shared with the USB3 SuperSpeed lanes and is
+usually connected to an USB-C port which Altmode is controlled
+by the PMIC Glink infrastructure in discution at [1] & [2].
 
-> 
->>               clocks = <&gcc GCC_USB3_PRIM_PHY_AUX_CLK>,
->>                    <&rpmhcc RPMH_CXO_CLK>,
->> -                 <&gcc GCC_USB3_PRIM_PHY_COM_AUX_CLK>;
->> -            clock-names = "aux", "ref_clk_src", "com_aux";
->> +                 <&gcc GCC_USB3_PRIM_PHY_COM_AUX_CLK>,
->> +                 <&gcc GCC_USB3_PRIM_PHY_PIPE_CLK>;
->> +            clock-names = "aux", "ref", "com_aux", "usb3_pipe";
->>               resets = <&gcc GCC_USB3_DP_PHY_PRIM_BCR>,
->>                    <&gcc GCC_USB3_PHY_PRIM_BCR>;
->>               reset-names = "phy", "common";
->> -            usb_1_ssphy: phy@88e9200 {
->> -                reg = <0 0x088e9200 0 0x200>,
->> -                      <0 0x088e9400 0 0x200>,
->> -                      <0 0x088e9c00 0 0x400>,
->> -                      <0 0x088e9600 0 0x200>,
->> -                      <0 0x088e9800 0 0x200>,
->> -                      <0 0x088e9a00 0 0x100>;
->> -                #phy-cells = <0>;
->> -                #clock-cells = <0>;
->> -                clocks = <&gcc GCC_USB3_PRIM_PHY_PIPE_CLK>;
->> -                clock-names = "pipe0";
->> -                clock-output-names = "usb3_phy_pipe_clk_src";
->> -            };
->> +            #clock-cells = <1>;
->> +            #phy-cells = <1>;
->> +
->> +            status = "disabled";
->>           };
->>           remoteproc_slpi: remoteproc@2400000 {
->> @@ -2972,8 +2960,8 @@ dispcc: clock-controller@af00000 {
->>                    <&mdss_dsi0_phy 1>,
->>                    <&mdss_dsi1_phy 0>,
->>                    <&mdss_dsi1_phy 1>,
->> -                 <0>, /* dp0 */
->> -                 <0>,
->> +                 <&usb_1_qmpphy QMP_USB43DP_DP_LINK_CLK>,
->> +                 <&usb_1_qmpphy QMP_USB43DP_DP_VCO_DIV_CLK>,
->>                    <0>, /* dp1 */
->>                    <0>,
->>                    <0>, /* dp2 */
->> @@ -4168,7 +4156,7 @@ usb_1_dwc3: usb@a600000 {
->>                   iommus = <&apps_smmu 0x0 0x0>;
->>                   snps,dis_u2_susphy_quirk;
->>                   snps,dis_enblslpm_quirk;
->> -                phys = <&usb_1_hsphy>, <&usb_1_ssphy>;
->> +                phys = <&usb_1_hsphy>, <&usb_1_qmpphy QMP_USB43DP_USB3_PHY>;
->>                   phy-names = "usb2-phy", "usb3-phy";
->>               };
->>           };
->>
-> 
+DT changes tying the DP controller to the USB-C port on the HDK
+boards will be sent later.
+
+Bindings dependencies merged into v6.3-rc1.
+
+[1] https://lore.kernel.org/all/20230201041853.1934355-1-quic_bjorande@quicinc.com/
+[2] https://lore.kernel.org/all/20230130-topic-sm8450-upstream-pmic-glink-v2-0-71fea256474f@linaro.org/
+
+Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
+---
+Changes in v6:
+- Revert DP opp changes
+- Fix SM8450 combo PHY memory reg range
+- Link to v5: https://lore.kernel.org/r/20230206-topic-sm8450-upstream-dp-controller-v5-0-a27f1b26ebe8@linaro.org
+
+Changes in v5:
+- Add review tags
+- Fixed DP opp tables
+- Link to v4: https://lore.kernel.org/r/20230206-topic-sm8450-upstream-dp-controller-v4-0-dca33f531e0d@linaro.org
+
+Changes in v4:
+- Updated trailers
+- Fixed patch 4 compatible and reg sizes
+- Link to v3: https://lore.kernel.org/r/20230206-topic-sm8450-upstream-dp-controller-v3-0-636ef9e99932@linaro.org
+
+Changes in v3:
+- Added Reviewed-by, Tested-by tags
+- Used QMP PHY constants for phandle parameters
+- Dropped reordering of mdp ports
+- Added p1 dp regs address space
+- Link to v2: https://lore.kernel.org/r/20230206-topic-sm8450-upstream-dp-controller-v2-0-529da2203659@linaro.org
+
+Changes in v2:
+- fixed the bindings
+- cleaned up the usb_1_qmpphy &  displayport-controller nodes as requested by dmitry
+- removed invalid mdss_dp0 change in sm8450-hdk.dts
+- Link to v1: https://lore.kernel.org/r/20230206-topic-sm8450-upstream-dp-controller-v1-0-f1345872ed19@linaro.org
+
+---
+Neil Armstrong (5):
+      dt-bindings: display: msm: dp-controller: document SM8450 compatible
+      arm64: dts: qcom: sm8350: switch to combo usb3/dp phy
+      arm64: dts: qcom: sm8350: add dp controller
+      arm64: dts: qcom: sm8450: switch to usb3/dp combo phy
+      arm64: dts: qcom: sm8450: add dp controller
+
+ .../bindings/display/msm/dp-controller.yaml        |  25 +++--
+ arch/arm64/boot/dts/qcom/sm8350.dtsi               | 121 ++++++++++++++++-----
+ arch/arm64/boot/dts/qcom/sm8450.dtsi               | 121 ++++++++++++++++-----
+ 3 files changed, 203 insertions(+), 64 deletions(-)
+---
+base-commit: bf7a33dc3cca43baa4a4ecf86dcb6838fca09451
+change-id: 20230206-topic-sm8450-upstream-dp-controller-20054ab280de
+
+Best regards,
+-- 
+Neil Armstrong <neil.armstrong@linaro.org>
 
