@@ -1,69 +1,61 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id CBE456BED87
-	for <lists+freedreno@lfdr.de>; Fri, 17 Mar 2023 17:00:11 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id A76636BF1C0
+	for <lists+freedreno@lfdr.de>; Fri, 17 Mar 2023 20:36:03 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EE15510E3D2;
-	Fri, 17 Mar 2023 16:00:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 666A910E14D;
+	Fri, 17 Mar 2023 19:36:02 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-oi1-x231.google.com (mail-oi1-x231.google.com
- [IPv6:2607:f8b0:4864:20::231])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D742510E39F;
- Fri, 17 Mar 2023 16:00:01 +0000 (UTC)
-Received: by mail-oi1-x231.google.com with SMTP id s41so4097209oiw.13;
- Fri, 17 Mar 2023 09:00:01 -0700 (PDT)
+Received: from mail-ed1-x535.google.com (mail-ed1-x535.google.com
+ [IPv6:2a00:1450:4864:20::535])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2F9AF10E1FF
+ for <freedreno@lists.freedesktop.org>; Fri, 17 Mar 2023 19:08:53 +0000 (UTC)
+Received: by mail-ed1-x535.google.com with SMTP id y4so24278097edo.2
+ for <freedreno@lists.freedesktop.org>; Fri, 17 Mar 2023 12:08:53 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20210112; t=1679068801;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=odT4kHXtE8kQmg/3O1COzr8+ljO71h/l65QShukUhlg=;
- b=W8BbGPAzOjaPDAJ96i62qqFoJdcRl1vGdecRNPXVe1bmiWjCBQ63SA04kBXvSOXnW8
- 1kqb3oUdebjwM2yvHSHc+5ChQDxieYtNe0WE3M/y5DhmoDqV561q77w3tXP7D3xGEbNb
- vmqIo5uCI6DKzfGjtvBQbBZY4PNbr4isAKIdgedrflBRrKiOX1SN1xr4V5D0QTQBesE9
- 1SOFJJ/Iotn2vn5omUYr77oKxF2z0gY9hfIFXY26KHLGNH8hsBf5T8gUjwrOsRFMFqLJ
- Ca0VaVXHi9VatJZawkjoWAI9sq4R7UOoA8qZp9fdiBB0E1fsiBArGeK8gTM2nzzgx6Xk
- I2uQ==
+ d=gfxstrand-net.20210112.gappssmtp.com; s=20210112; t=1679080131;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=zAmqKkkhKDfsMSLAtz6NpfSRtoOEAIaHSI5wA/XvDcM=;
+ b=c2P3WuNIJBRyFI8bAo28fWhv5bXZQm9f9w2lvyBACsQ7RhzyG24AaCG4r0ub0ziT4x
+ zKI1DIRjst+55LeHqnkESdgh6IXVKFiZwLil5zhqf3HBrT23etgYONEzW/FvG5O1pOvi
+ fV+KTJaNOeZhKcXfvrduxQ2YN5kLfaVl7uEgfA0KneysWCD3lnq6di2617mADTXTmZ+K
+ OQmzV3MennLFf0eASbHfWWkKCbR4u7vYya+yahXTd4zvabo3he7Rt4DrGXgiZ4H+fukv
+ JuMSTyU9IeY8ZH3WoAtEHY5OJLVo1bzsvpTtj3HTQhJUXviuRIQb0J6MVSpQe6GdJS5i
+ UuXQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112; t=1679068801;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=odT4kHXtE8kQmg/3O1COzr8+ljO71h/l65QShukUhlg=;
- b=nHTmHhUctfZDWZ0mk4Prp5CyoNDtgeEAnvFl7J9kj1UiCIrqwirLp8Bc0+bE/rvUXG
- 0cspoTaJKNeqwft/IcdXn69YV/YctfUpPZ37AxmoB0Bw3AgPVJmoQ3GJJk90uEs5LK5a
- s0yVMT5f6ogU6aQHWFDdZdySgolptjoP4OTGboOT1mcLIWt1zlnVM2a870YxgdLnxCmn
- jzQejgKkyMWOgQ9JbZH2UKsgCimkh5vJ3yrDGOKNo/RStQMk1xMOD4xwHwrbs2CScYmm
- Tka3k2NtUDXgs8l3K5OuP77AHZY5e3CKzLmkFwxvbpvJUYjwCBhGChreOkc5vEFvWznW
- gR6w==
-X-Gm-Message-State: AO0yUKU1Vjn9KHef9aQPibQd9g0LMLp9T3wVomgwHzBlk7XL91Z1WzA7
- QvObGyL5ZelldFQgHTHU3dQZ8bB/NoxJV/EHffgSIcm8lY4=
-X-Google-Smtp-Source: AK7set8lV6Joe7jC2CgUms6NPoQk+LWuWbj7n/2/+PtYFXqEALI182PXHMs8oAk+dlaWXWKjXbF+xbZiIZCMqIfmSBw=
-X-Received: by 2002:a05:6808:b2f:b0:384:1e6a:bf10 with SMTP id
- t15-20020a0568080b2f00b003841e6abf10mr2906582oij.5.1679068799344; Fri, 17 Mar
- 2023 08:59:59 -0700 (PDT)
+ d=1e100.net; s=20210112; t=1679080131;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=zAmqKkkhKDfsMSLAtz6NpfSRtoOEAIaHSI5wA/XvDcM=;
+ b=QeZUmBwLLga9MO0uDpqLssmYv7sUrG8Kur6ZB8AMKQJIBFTrOIyz16Z9dAqYtLYIyS
+ U1Y+PK9ff9gKHfUaXKQhk7L14YJEoenGQ8/xd3kOJoKDmte74UVfxRvqWlBYcFBFuHXs
+ SEEUntu0lrAROjMtQnDY2+V6/oruWbBY3dbBGWYP9zj4PIIaa6JIrai2nj/JOmUWfokw
+ tTNBofld648XKRiwPaiEQTFbmq4PsdtzcHq+QR6yMgC5Mohrog+IJ0tu2DcBB8JnjO1K
+ doZ6t7/fB+af+IQdT1In18G08aUPsHIUsjrOIjEjL1pjzCZ47Trwtwbt21xPojJIi+H6
+ Ur7Q==
+X-Gm-Message-State: AO0yUKUhFjQEHNa2U8PIR2+l6IDe4Z25HCOmf9a2BuU0VV3W3lNoveSy
+ KJW2NbsV2n8Ywof5fUyYN94KCNFe2bOKwJvcV2g2FA==
+X-Google-Smtp-Source: AK7set/vpiOP5buQMb+cQhrW/MMJHTQdQWnIdlrcXVWau9BTn2UD2Iefj7cGhCeJvsiXCPSM/TTsKfN/ciXh6Infj/s=
+X-Received: by 2002:a50:c3cd:0:b0:4fc:fc86:5f76 with SMTP id
+ i13-20020a50c3cd000000b004fcfc865f76mr2362937edf.6.1679080131565; Fri, 17 Mar
+ 2023 12:08:51 -0700 (PDT)
 MIME-Version: 1.0
 References: <20230308155322.344664-1-robdclark@gmail.com>
- <20230308155322.344664-2-robdclark@gmail.com>
- <ZAtQspuFjPtGy7ze@gmail.com>
- <CAF6AEGsGOr5+Q10wX=5ttrWCSUJfn7gzHW8QhxFC0GDLgagMHg@mail.gmail.com>
- <ZBHNvT3BLgS3qvV5@gmail.com>
- <CAF6AEGu1S2CXzRxV_c5tE_H+XUGiO=n0tXjLZ_u_tW-eMqMsQw@mail.gmail.com>
- <ZBLg0t0tTVvuPuiJ@gmail.com>
- <CAF6AEGvV5arZThTyju_=xFFDWRbMaexgO_kkdKZuK-zeCxrN7Q@mail.gmail.com>
- <ZBQ/qoxP+EGI0E7R@gmail.com>
-In-Reply-To: <ZBQ/qoxP+EGI0E7R@gmail.com>
-From: Rob Clark <robdclark@gmail.com>
-Date: Fri, 17 Mar 2023 08:59:48 -0700
-Message-ID: <CAF6AEGvj6SuA63M=tBBfek0ESgU3fRvPcJLKDMn3_hgL3OdnTA@mail.gmail.com>
-To: =?UTF-8?B?Sm9uYXMgw4VkYWhs?= <jadahl@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [Freedreno] [PATCH v10 01/15] dma-buf/dma-fence: Add deadline
- awareness
+ <20230308155322.344664-10-robdclark@gmail.com>
+In-Reply-To: <20230308155322.344664-10-robdclark@gmail.com>
+From: Faith Ekstrand <faith@gfxstrand.net>
+Date: Fri, 17 Mar 2023 14:08:39 -0500
+Message-ID: <CAOFGe944_xJOJ3a-uJDVyca_1_+aYTqat4=Qc3CC1wUubxw3XQ@mail.gmail.com>
+To: Rob Clark <robdclark@gmail.com>
+Content-Type: multipart/alternative; boundary="000000000000caae6905f71d4e06"
+X-Mailman-Approved-At: Fri, 17 Mar 2023 19:36:01 +0000
+Subject: Re: [Freedreno] [Intel-gfx] [PATCH v10 09/15] drm/syncobj: Add
+ deadline support for syncobj waits
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,410 +68,514 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rob Clark <robdclark@chromium.org>,
- Pekka Paalanen <pekka.paalanen@collabora.com>,
- Jonathan Corbet <corbet@lwn.net>,
+Cc: Rob Clark <robdclark@chromium.org>, freedreno@lists.freedesktop.org,
+ Thomas Zimmermann <tzimmermann@suse.de>,
  =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>,
- intel-gfx@lists.freedesktop.org,
- "open list:DOCUMENTATION" <linux-doc@vger.kernel.org>,
+ intel-gfx@lists.freedesktop.org, Rodrigo Vivi <rodrigo.vivi@intel.com>,
  open list <linux-kernel@vger.kernel.org>, dri-devel@lists.freedesktop.org,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- "moderated list:DMA BUFFER SHARING FRAMEWORK" <linaro-mm-sig@lists.linaro.org>,
- Luben Tuikov <luben.tuikov@amd.com>, Bagas Sanjaya <bagasdotme@gmail.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, Gustavo Padovan <gustavo@padovan.org>,
- Matt Turner <mattst88@gmail.com>, freedreno@lists.freedesktop.org,
- Sumit Semwal <sumit.semwal@linaro.org>,
- "open list:DMA BUFFER SHARING FRAMEWORK" <linux-media@vger.kernel.org>
+ Luben Tuikov <luben.tuikov@amd.com>, Maxime Ripard <mripard@kernel.org>,
+ Daniel Vetter <daniel@ffwll.ch>, Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>,
+ Matt Turner <mattst88@gmail.com>, David Airlie <airlied@gmail.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Fri, Mar 17, 2023 at 3:23=E2=80=AFAM Jonas =C3=85dahl <jadahl@gmail.com>=
- wrote:
+--000000000000caae6905f71d4e06
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+On Wed, Mar 8, 2023 at 9:54=E2=80=AFAM Rob Clark <robdclark@gmail.com> wrot=
+e:
+
+> From: Rob Clark <robdclark@chromium.org>
 >
-> On Thu, Mar 16, 2023 at 09:28:55AM -0700, Rob Clark wrote:
-> > On Thu, Mar 16, 2023 at 2:26=E2=80=AFAM Jonas =C3=85dahl <jadahl@gmail.=
-com> wrote:
-> > >
-> > > On Wed, Mar 15, 2023 at 09:19:49AM -0700, Rob Clark wrote:
-> > > > On Wed, Mar 15, 2023 at 6:53=E2=80=AFAM Jonas =C3=85dahl <jadahl@gm=
-ail.com> wrote:
-> > > > >
-> > > > > On Fri, Mar 10, 2023 at 09:38:18AM -0800, Rob Clark wrote:
-> > > > > > On Fri, Mar 10, 2023 at 7:45=E2=80=AFAM Jonas =C3=85dahl <jadah=
-l@gmail.com> wrote:
-> > > > > > >
-> > > > > > > On Wed, Mar 08, 2023 at 07:52:52AM -0800, Rob Clark wrote:
-> > > > > > > > From: Rob Clark <robdclark@chromium.org>
-> > > > > > > >
-> > > > > > > > Add a way to hint to the fence signaler of an upcoming dead=
-line, such as
-> > > > > > > > vblank, which the fence waiter would prefer not to miss.  T=
-his is to aid
-> > > > > > > > the fence signaler in making power management decisions, li=
-ke boosting
-> > > > > > > > frequency as the deadline approaches and awareness of missi=
-ng deadlines
-> > > > > > > > so that can be factored in to the frequency scaling.
-> > > > > > > >
-> > > > > > > > v2: Drop dma_fence::deadline and related logic to filter du=
-plicate
-> > > > > > > >     deadlines, to avoid increasing dma_fence size.  The fen=
-ce-context
-> > > > > > > >     implementation will need similar logic to track deadlin=
-es of all
-> > > > > > > >     the fences on the same timeline.  [ckoenig]
-> > > > > > > > v3: Clarify locking wrt. set_deadline callback
-> > > > > > > > v4: Clarify in docs comment that this is a hint
-> > > > > > > > v5: Drop DMA_FENCE_FLAG_HAS_DEADLINE_BIT.
-> > > > > > > > v6: More docs
-> > > > > > > > v7: Fix typo, clarify past deadlines
-> > > > > > > >
-> > > > > > > > Signed-off-by: Rob Clark <robdclark@chromium.org>
-> > > > > > > > Reviewed-by: Christian K=C3=B6nig <christian.koenig@amd.com=
+> Add a new flag to let userspace provide a deadline as a hint for syncobj
+> and timeline waits.  This gives a hint to the driver signaling the
+> backing fences about how soon userspace needs it to compete work, so it
+> can addjust GPU frequency accordingly.  An immediate deadline can be
+> given to provide something equivalent to i915 "wait boost".
 >
-> > > > > > > > Acked-by: Pekka Paalanen <pekka.paalanen@collabora.com>
-> > > > > > > > Reviewed-by: Bagas Sanjaya <bagasdotme@gmail.com>
-> > > > > > > > ---
-> > > > > > >
-> > > > > > > Hi Rob!
-> > > > > > >
-> > > > > > > >  Documentation/driver-api/dma-buf.rst |  6 +++
-> > > > > > > >  drivers/dma-buf/dma-fence.c          | 59 ++++++++++++++++=
-++++++++++++
-> > > > > > > >  include/linux/dma-fence.h            | 22 +++++++++++
-> > > > > > > >  3 files changed, 87 insertions(+)
-> > > > > > > >
-> > > > > > > > diff --git a/Documentation/driver-api/dma-buf.rst b/Documen=
-tation/driver-api/dma-buf.rst
-> > > > > > > > index 622b8156d212..183e480d8cea 100644
-> > > > > > > > --- a/Documentation/driver-api/dma-buf.rst
-> > > > > > > > +++ b/Documentation/driver-api/dma-buf.rst
-> > > > > > > > @@ -164,6 +164,12 @@ DMA Fence Signalling Annotations
-> > > > > > > >  .. kernel-doc:: drivers/dma-buf/dma-fence.c
-> > > > > > > >     :doc: fence signalling annotation
-> > > > > > > >
-> > > > > > > > +DMA Fence Deadline Hints
-> > > > > > > > +~~~~~~~~~~~~~~~~~~~~~~~~
-> > > > > > > > +
-> > > > > > > > +.. kernel-doc:: drivers/dma-buf/dma-fence.c
-> > > > > > > > +   :doc: deadline hints
-> > > > > > > > +
-> > > > > > > >  DMA Fences Functions Reference
-> > > > > > > >  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-> > > > > > > >
-> > > > > > > > diff --git a/drivers/dma-buf/dma-fence.c b/drivers/dma-buf/=
-dma-fence.c
-> > > > > > > > index 0de0482cd36e..f177c56269bb 100644
-> > > > > > > > --- a/drivers/dma-buf/dma-fence.c
-> > > > > > > > +++ b/drivers/dma-buf/dma-fence.c
-> > > > > > > > @@ -912,6 +912,65 @@ dma_fence_wait_any_timeout(struct dma_=
-fence **fences, uint32_t count,
-> > > > > > > >  }
-> > > > > > > >  EXPORT_SYMBOL(dma_fence_wait_any_timeout);
-> > > > > > > >
-> > > > > > > > +/**
-> > > > > > > > + * DOC: deadline hints
-> > > > > > > > + *
-> > > > > > > > + * In an ideal world, it would be possible to pipeline a w=
-orkload sufficiently
-> > > > > > > > + * that a utilization based device frequency governor coul=
-d arrive at a minimum
-> > > > > > > > + * frequency that meets the requirements of the use-case, =
-in order to minimize
-> > > > > > > > + * power consumption.  But in the real world there are man=
-y workloads which
-> > > > > > > > + * defy this ideal.  For example, but not limited to:
-> > > > > > > > + *
-> > > > > > > > + * * Workloads that ping-pong between device and CPU, with=
- alternating periods
-> > > > > > > > + *   of CPU waiting for device, and device waiting on CPU.=
-  This can result in
-> > > > > > > > + *   devfreq and cpufreq seeing idle time in their respect=
-ive domains and in
-> > > > > > > > + *   result reduce frequency.
-> > > > > > > > + *
-> > > > > > > > + * * Workloads that interact with a periodic time based de=
-adline, such as double
-> > > > > > > > + *   buffered GPU rendering vs vblank sync'd page flipping=
-.  In this scenario,
-> > > > > > > > + *   missing a vblank deadline results in an *increase* in=
- idle time on the GPU
-> > > > > > > > + *   (since it has to wait an additional vblank period), s=
-ending a signal to
-> > > > > > > > + *   the GPU's devfreq to reduce frequency, when in fact t=
-he opposite is what is
-> > > > > > > > + *   needed.
-> > > > > > >
-> > > > > > > This is the use case I'd like to get some better understandin=
-g about how
-> > > > > > > this series intends to work, as the problematic scheduling be=
-havior
-> > > > > > > triggered by missed deadlines has plagued compositing display=
- servers
-> > > > > > > for a long time.
-> > > > > > >
-> > > > > > > I apologize, I'm not a GPU driver developer, nor an OpenGL dr=
-iver
-> > > > > > > developer, so I will need some hand holding when it comes to
-> > > > > > > understanding exactly what piece of software is responsible f=
-or
-> > > > > > > communicating what piece of information.
-> > > > > > >
-> > > > > > > > + *
-> > > > > > > > + * To this end, deadline hint(s) can be set on a &dma_fenc=
-e via &dma_fence_set_deadline.
-> > > > > > > > + * The deadline hint provides a way for the waiting driver=
-, or userspace, to
-> > > > > > > > + * convey an appropriate sense of urgency to the signaling=
- driver.
-> > > > > > > > + *
-> > > > > > > > + * A deadline hint is given in absolute ktime (CLOCK_MONOT=
-ONIC for userspace
-> > > > > > > > + * facing APIs).  The time could either be some point in t=
-he future (such as
-> > > > > > > > + * the vblank based deadline for page-flipping, or the sta=
-rt of a compositor's
-> > > > > > > > + * composition cycle), or the current time to indicate an =
-immediate deadline
-> > > > > > > > + * hint (Ie. forward progress cannot be made until this fe=
-nce is signaled).
-> > > > > > >
-> > > > > > > Is it guaranteed that a GPU driver will use the actual start =
-of the
-> > > > > > > vblank as the effective deadline? I have some memories of sei=
-ng
-> > > > > > > something about vblank evasion browsing driver code, which I =
-might have
-> > > > > > > misunderstood, but I have yet to find whether this is somethi=
-ng
-> > > > > > > userspace can actually expect to be something it can rely on.
-> > > > > >
-> > > > > > I guess you mean s/GPU driver/display driver/ ?  It makes thing=
-s more
-> > > > > > clear if we talk about them separately even if they happen to b=
-e the
-> > > > > > same device.
-> > > > >
-> > > > > Sure, sorry about being unclear about that.
-> > > > >
-> > > > > >
-> > > > > > Assuming that is what you mean, nothing strongly defines what t=
-he
-> > > > > > deadline is.  In practice there is probably some buffering in t=
-he
-> > > > > > display controller.  For ex, block based (including bandwidth
-> > > > > > compressed) formats, you need to buffer up a row of blocks to
-> > > > > > efficiently linearize for scanout.  So you probably need to lat=
-ch some
-> > > > > > time before you start sending pixel data to the display.  But d=
-etails
-> > > > > > like this are heavily implementation dependent.  I think the mo=
-st
-> > > > > > reasonable thing to target is start of vblank.
-> > > > >
-> > > > > The driver exposing those details would be quite useful for users=
-pace
-> > > > > though, so that it can delay committing updates to late, but not =
-too
-> > > > > late. Setting a deadline to be the vblank seems easy enough, but =
-it
-> > > > > isn't enough for scheduling the actual commit.
-> > > >
-> > > > I'm not entirely sure how that would even work.. but OTOH I think y=
-ou
-> > > > are talking about something on the order of 100us?  But that is a b=
-it
-> > > > of another topic.
-> > >
-> > > Yes, something like that. But yea, it's not really related. Schedulin=
-g
-> > > commits closer to the deadline has more complex behavior than that to=
-o,
-> > > e.g. the need for real time scheduling, and knowing how long it usual=
-ly
-> > > takes to create and commit and for the kernel to process.
-> > >
-> > > >
-> > >
-> > > 8-< *snip* 8-<
-> > >
-> > > > > >
-> > > > > > You need a fence to set the deadline, and for that work needs t=
-o be
-> > > > > > flushed.  But you can't associate a deadline with work that the=
- kernel
-> > > > > > is unaware of anyways.
-> > > > >
-> > > > > That makes sense, but it might also a bit inadequate to have it a=
-s the
-> > > > > only way to tell the kernel it should speed things up. Even with =
-the
-> > > > > trick i915 does, with GNOME Shell, we still end up with the feedb=
-ack
-> > > > > loop this series aims to mitigate. Doing triple buffering, i.e. d=
-elaying
-> > > > > or dropping the first frame is so far the best work around that w=
-orks,
-> > > > > except doing other tricks that makes the kernel to ramp up its cl=
-ock.
-> > > > > Having to rely on choosing between latency and frame drops should
-> > > > > ideally not have to be made.
-> > > >
-> > > > Before you have a fence, the thing you want to be speeding up is th=
+> v2: Use absolute u64 ns value for deadline hint, drop cap and driver
+>     feature flag in favor of allowing count_handles=3D=3D0 as a way for
+>     userspace to probe kernel for support of new flag
+> v3: More verbose comments about UAPI
+>
+> Signed-off-by: Rob Clark <robdclark@chromium.org>
+> ---
+>  drivers/gpu/drm/drm_syncobj.c | 64 ++++++++++++++++++++++++++++-------
+>  include/uapi/drm/drm.h        | 17 ++++++++++
+>  2 files changed, 68 insertions(+), 13 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/drm_syncobj.c b/drivers/gpu/drm/drm_syncobj.=
+c
+> index 0c2be8360525..a85e9464f07b 100644
+> --- a/drivers/gpu/drm/drm_syncobj.c
+> +++ b/drivers/gpu/drm/drm_syncobj.c
+> @@ -126,6 +126,11 @@
+>   * synchronize between the two.
+>   * This requirement is inherited from the Vulkan fence API.
+>   *
+> + * If &DRM_SYNCOBJ_WAIT_FLAGS_WAIT_DEADLINE is set, the ioctl will also
+> set
+> + * a fence deadline hint on the backing fences before waiting, to provid=
 e
-> > > > CPU, not the GPU.  There are existing mechanisms for that.
-> > >
-> > > Is there no benefit to let the GPU know earlier that it should speed =
-up,
-> > > so that when the job queue arrives, it's already up to speed?
-> >
-> > Downstream we have input notifier that resumes the GPU so we can
-> > pipeline the 1-2ms it takes to boot up the GPU with userspace.  But we
-> > wait to boost freq until we have cmdstream to submit, since that
-> > doesn't take as long.  What needs help initially after input is all
-> > the stuff that happens on the CPU before the GPU can start to do
-> > anything ;-)
+> the
+> + * fence signaler with an appropriate sense of urgency.  The deadline is
+> + * specified as an absolute &CLOCK_MONOTONIC value in units of ns.
+> + *
+>   * Similarly, &DRM_IOCTL_SYNCOBJ_TIMELINE_WAIT takes an array of syncobj
+>   * handles as well as an array of u64 points and does a host-side wait o=
+n
+> all
+>   * of syncobj fences at the given points simultaneously.
+> @@ -973,7 +978,8 @@ static signed long
+> drm_syncobj_array_wait_timeout(struct drm_syncobj **syncobjs,
+>                                                   uint32_t count,
+>                                                   uint32_t flags,
+>                                                   signed long timeout,
+> -                                                 uint32_t *idx)
+> +                                                 uint32_t *idx,
+> +                                                 ktime_t *deadline)
+>  {
+>         struct syncobj_wait_entry *entries;
+>         struct dma_fence *fence;
+> @@ -1053,6 +1059,15 @@ static signed long
+> drm_syncobj_array_wait_timeout(struct drm_syncobj **syncobjs,
+>                         drm_syncobj_fence_add_wait(syncobjs[i],
+> &entries[i]);
+>         }
 >
-> How do you deal with boosting CPU speeds downstream? Does the input
-> notifier do that too?
-
-Yes.. actually currently downstream (depending on device) we have 1 to
-3 input notifiers, one for CPU boost, one for early-PSR-exit, and one
-to get a head start on booting up the GPU.
-
-> >
-> > Btw, I guess I haven't made this clear, dma-fence deadline is trying
-> > to help the steady-state situation, rather than the input-latency
-> > situation.  It might take a frame or two of missed deadlines for
-> > gpufreq to arrive at a good steady-state freq.
+> +       if (deadline) {
+> +               for (i =3D 0; i < count; ++i) {
+> +                       fence =3D entries[i].fence;
+> +                       if (!fence)
+> +                               continue;
+> +                       dma_fence_set_deadline(fence, *deadline);
+> +               }
+> +       }
+> +
+>         do {
+>                 set_current_state(TASK_INTERRUPTIBLE);
 >
-> I'm just not sure it will help. Missed deadlines set at commit hasn't
-> been enough in the past to let the kernel understand it should speed
-> things up before the next frame (which will be a whole frame late
-> without any triple buffering which should be a last resort), so I don't
-> see how it will help by adding a userspace hook to do the same thing.
-
-So deadline is just a superset of "right now" and "sometime in the
-future".. and this has been useful enough for i915 that they have both
-forms, when waiting on GPU via i915 specific ioctls and when pageflip
-(assuming userspace isn't deferring composition decision and instead
-just pushing it all down to the kernel).  But this breaks down in a
-few cases:
-
-1) non pageflip (for ex. ping-ponging between cpu and gpu) use cases
-when you wait via polling on fence fd or wait via drm_syncobj instead
-of DRM_IOCTL_I915_GEM_WAIT
-2) when userspace decides late in frame to not pageflip because app
-fence isn't signaled yet
-
-And this is all done in a way that doesn't help for situations where
-you have separate kms and render devices.  Or the kms driver doesn't
-bypass atomic helpers (ie. uses drm_atomic_helper_wait_for_fences()).
-So the technique has already proven to be useful.  This series just
-extends it beyond driver specific primitives (ie.
-dma_fence/drm_syncojb)
-
-> I think input latency and steady state target frequency here is tightly
-> linked; what we should aim for is to provide enough information at the
-> right time so that it does *not* take a frame or two to of missed
-> deadlines to arrive at the target frequency, as those missed deadlines
-> either means either stuttering and/or lag.
-
-If you have some magic way for a gl/vk driver to accurately predict
-how many cycles it will take to execute a sequence of draws, I'm all
-ears.
-
-Realistically, the best solution on sudden input is to overshoot and
-let freqs settle back down.
-
-But there is a lot more to input latency than GPU freq.  In UI
-workloads, even fullscreen animation, I don't really see the GPU going
-above the 2nd lowest OPP even on relatively small things like a618.
-UI input latency (touch scrolling, on-screen stylus / low-latency-ink,
-animations) are a separate issue from what this series addresses, and
-aren't too much to do with GPU freq.
-
-> That it helps with the deliberately late commit I do understand, but we
-> don't do that yet, but intend to when there is kernel uapi to lets us do
-> so without negative consequences.
+> @@ -1151,7 +1166,8 @@ static int drm_syncobj_array_wait(struct drm_device
+> *dev,
+>                                   struct drm_file *file_private,
+>                                   struct drm_syncobj_wait *wait,
+>                                   struct drm_syncobj_timeline_wait
+> *timeline_wait,
+> -                                 struct drm_syncobj **syncobjs, bool
+> timeline)
+> +                                 struct drm_syncobj **syncobjs, bool
+> timeline,
+> +                                 ktime_t *deadline)
+>  {
+>         signed long timeout =3D 0;
+>         uint32_t first =3D ~0;
+> @@ -1162,7 +1178,8 @@ static int drm_syncobj_array_wait(struct drm_device
+> *dev,
+>                                                          NULL,
 >
-> >
-> > > >
-> > > > TBF I'm of the belief that there is still a need for input based cp=
-u
-> > > > boost (and early wake-up trigger for GPU).. we have something like
-> > > > this in CrOS kernel.  That is a bit of a different topic, but my po=
-int
-> > > > is that fence deadlines are just one of several things we need to
-> > > > optimize power/perf and responsiveness, rather than the single thin=
-g
-> > > > that solves every problem under the sun ;-)
-> > >
-> > > Perhaps; but I believe it's a bit of a back channel of intent; the pi=
-ece
-> > > of the puzzle that has the information to know whether there is need
-> > > actually speed up is the compositor, not the kernel.
-> > >
-> > > For example, pressing 'p' while a terminal is focused does not need h=
-igh
-> > > frequency clocks, it just needs the terminal emulator to draw a 'p' a=
-nd
-> > > the compositor to composite that update. Pressing <Super> may however
-> > > trigger a non-trivial animation moving a lot of stuff around on scree=
-n,
-> > > maybe triggering Wayland clients to draw and what not, and should mos=
-t
-> > > arguably have the ability to "warn" the kernel about the upcoming flo=
-od
-> > > of work before it is already knocking on its door step.
-> >
-> > The super key is problematic, but not for the reason you think.  It is
-> > because it is a case where we should boost on key-up instead of
-> > key-down.. and the second key-up event comes after the cpu-boost is
-> > already in it's cool-down period.  But even if suboptimal in cases
-> > like this, it is still useful for touch/stylus cases where the
-> > slightest of lag is much more perceptible.
+>  wait->count_handles,
+>                                                          wait->flags,
+> -                                                        timeout, &first)=
+;
+> +                                                        timeout, &first,
+> +                                                        deadline);
+>                 if (timeout < 0)
+>                         return timeout;
+>                 wait->first_signaled =3D first;
+> @@ -1172,7 +1189,8 @@ static int drm_syncobj_array_wait(struct drm_device
+> *dev,
 >
-> Other keys are even more problematic. Alt, for example, does nothing,
-> Alt + Tab does some light rendering, but Alt + KeyAboveTab will,
-> depending on the current active applications, suddenly trigger N Wayland
-> surfaces to start rendering at the same time.
+>  u64_to_user_ptr(timeline_wait->points),
 >
-> >
-> > This is getting off topic but I kinda favor coming up with some sort
-> > of static definition that userspace could give the kernel to let the
-> > kernel know what input to boost on.  Or maybe something could be done
-> > with BPF?
+>  timeline_wait->count_handles,
 >
-> I have hard time seeing any static information can be enough, it's
-> depends too much on context what is expected to happen. And can a BPF
-> program really help? Unless BPF programs that pulls some internal kernel
-> strings to speed things up whenever userspace wants I don't see how it
-> is that much better.
+>  timeline_wait->flags,
+> -                                                        timeout, &first)=
+;
+> +                                                        timeout, &first,
+> +                                                        deadline);
+>                 if (timeout < 0)
+>                         return timeout;
+>                 timeline_wait->first_signaled =3D first;
+> @@ -1243,17 +1261,22 @@ drm_syncobj_wait_ioctl(struct drm_device *dev,
+> void *data,
+>  {
+>         struct drm_syncobj_wait *args =3D data;
+>         struct drm_syncobj **syncobjs;
+> +       unsigned possible_flags;
+> +       ktime_t t, *tp =3D NULL;
+>         int ret =3D 0;
 >
-> I don't think userspace is necessarily too slow to actively particitpate
-> in providing direct scheduling hints either. Input processing can, for
-> example, be off loaded to a real time scheduled thread, and plumbing any
-> hints about future expectations from rendering, windowing and layout
-> subsystems will be significantly easier to plumb to a real time input
-> thread than translated into static informations or BPF programs.
+>         if (!drm_core_check_feature(dev, DRIVER_SYNCOBJ))
+>                 return -EOPNOTSUPP;
+>
+> -       if (args->flags & ~(DRM_SYNCOBJ_WAIT_FLAGS_WAIT_ALL |
+> -                           DRM_SYNCOBJ_WAIT_FLAGS_WAIT_FOR_SUBMIT))
+> +       possible_flags =3D DRM_SYNCOBJ_WAIT_FLAGS_WAIT_ALL |
+> +                        DRM_SYNCOBJ_WAIT_FLAGS_WAIT_FOR_SUBMIT |
+> +                        DRM_SYNCOBJ_WAIT_FLAGS_WAIT_DEADLINE;
+> +
+> +       if (args->flags & ~possible_flags)
+>                 return -EINVAL;
+>
+>         if (args->count_handles =3D=3D 0)
+> -               return -EINVAL;
+> +               return 0;
+>
 
-I mean, the kernel side input handler is called from irq context long
-before even the scheduler gets involved..
+Did you intend this change? If so, why? What does waiting with no handles
+gain us? I mean, it's probably fine but it seems unrelated to this change.
 
-But I think you are over-thinking the Alt + SomeOtherKey case.  The
-important thing isn't what the other key is, it is just to know that
-Alt is a modifier key (ie. handle it on key-up instead of key-down).
-No need to over-complicate things.  It's probably enough to give the
-kernel a list of modifier+key combo's that do _something_..
+        ret =3D drm_syncobj_array_find(file_private,
+>                                      u64_to_user_ptr(args->handles),
+> @@ -1262,8 +1285,13 @@ drm_syncobj_wait_ioctl(struct drm_device *dev, voi=
+d
+> *data,
+>         if (ret < 0)
+>                 return ret;
+>
+> +       if (args->flags & DRM_SYNCOBJ_WAIT_FLAGS_WAIT_DEADLINE) {
+> +               t =3D ns_to_ktime(args->deadline_ns);
+> +               tp =3D &t;
+> +       }
+> +
+>         ret =3D drm_syncobj_array_wait(dev, file_private,
+> -                                    args, NULL, syncobjs, false);
+> +                                    args, NULL, syncobjs, false, tp);
+>
+>         drm_syncobj_array_free(syncobjs, args->count_handles);
+>
+> @@ -1276,18 +1304,23 @@ drm_syncobj_timeline_wait_ioctl(struct drm_device
+> *dev, void *data,
+>  {
+>         struct drm_syncobj_timeline_wait *args =3D data;
+>         struct drm_syncobj **syncobjs;
+> +       unsigned possible_flags;
+> +       ktime_t t, *tp =3D NULL;
+>         int ret =3D 0;
+>
+>         if (!drm_core_check_feature(dev, DRIVER_SYNCOBJ_TIMELINE))
+>                 return -EOPNOTSUPP;
+>
+> -       if (args->flags & ~(DRM_SYNCOBJ_WAIT_FLAGS_WAIT_ALL |
+> -                           DRM_SYNCOBJ_WAIT_FLAGS_WAIT_FOR_SUBMIT |
+> -                           DRM_SYNCOBJ_WAIT_FLAGS_WAIT_AVAILABLE))
+> +       possible_flags =3D DRM_SYNCOBJ_WAIT_FLAGS_WAIT_ALL |
+> +                        DRM_SYNCOBJ_WAIT_FLAGS_WAIT_FOR_SUBMIT |
+> +                        DRM_SYNCOBJ_WAIT_FLAGS_WAIT_AVAILABLE |
+> +                        DRM_SYNCOBJ_WAIT_FLAGS_WAIT_DEADLINE;
+> +
+> +       if (args->flags & ~possible_flags)
+>                 return -EINVAL;
+>
+>         if (args->count_handles =3D=3D 0)
+> -               return -EINVAL;
+> +               return -0;
+>
 
-And like I've said before, keyboard input is the least problematic in
-terms of latency.  It is a _lot_ easier to notice lag with touch
-scrolling or stylus (on screen).  (The latter case, I think wayland
-has some catching up to do compared to CrOS or android.. you really
-need a way to allow the app to do front buffer rendering to an overlay
-for the stylus case, because even just 16ms delay is _very_
-noticeable.)
+Did you intend this change? -0 is a pretty weird integer.
 
-BR,
--R
+
+>         ret =3D drm_syncobj_array_find(file_private,
+>                                      u64_to_user_ptr(args->handles),
+> @@ -1296,8 +1329,13 @@ drm_syncobj_timeline_wait_ioctl(struct drm_device
+> *dev, void *data,
+>         if (ret < 0)
+>                 return ret;
+>
+> +       if (args->flags & DRM_SYNCOBJ_WAIT_FLAGS_WAIT_DEADLINE) {
+> +               t =3D ns_to_ktime(args->deadline_ns);
+> +               tp =3D &t;
+> +       }
+> +
+>         ret =3D drm_syncobj_array_wait(dev, file_private,
+> -                                    NULL, args, syncobjs, true);
+> +                                    NULL, args, syncobjs, true, tp);
+>
+>         drm_syncobj_array_free(syncobjs, args->count_handles);
+>
+> diff --git a/include/uapi/drm/drm.h b/include/uapi/drm/drm.h
+> index 642808520d92..bff0509ac8b6 100644
+> --- a/include/uapi/drm/drm.h
+> +++ b/include/uapi/drm/drm.h
+> @@ -887,6 +887,7 @@ struct drm_syncobj_transfer {
+>  #define DRM_SYNCOBJ_WAIT_FLAGS_WAIT_ALL (1 << 0)
+>  #define DRM_SYNCOBJ_WAIT_FLAGS_WAIT_FOR_SUBMIT (1 << 1)
+>  #define DRM_SYNCOBJ_WAIT_FLAGS_WAIT_AVAILABLE (1 << 2) /* wait for time
+> point to become available */
+> +#define DRM_SYNCOBJ_WAIT_FLAGS_WAIT_DEADLINE (1 << 3) /* set fence
+> deadline based to deadline_ns */
+>  struct drm_syncobj_wait {
+>         __u64 handles;
+>         /* absolute timeout */
+> @@ -895,6 +896,14 @@ struct drm_syncobj_wait {
+>         __u32 flags;
+>         __u32 first_signaled; /* only valid when not waiting all */
+>         __u32 pad;
+> +       /**
+> +        * @deadline_ns - fence deadline hint
+> +        *
+> +        * Deadline hint, in absolute CLOCK_MONOTONIC, to set on backing
+> +        * fence(s) if the DRM_SYNCOBJ_WAIT_FLAGS_WAIT_DEADLINE flag is
+> +        * set.
+> +        */
+> +       __u64 deadline_ns;
+>  };
+>
+>  struct drm_syncobj_timeline_wait {
+> @@ -907,6 +916,14 @@ struct drm_syncobj_timeline_wait {
+>         __u32 flags;
+>         __u32 first_signaled; /* only valid when not waiting all */
+>         __u32 pad;
+> +       /**
+> +        * @deadline_ns - fence deadline hint
+> +        *
+> +        * Deadline hint, in absolute CLOCK_MONOTONIC, to set on backing
+> +        * fence(s) if the DRM_SYNCOBJ_WAIT_FLAGS_WAIT_DEADLINE flag is
+> +        * set.
+> +        */
+> +       __u64 deadline_ns;
+>  };
+>
+>
+> --
+> 2.39.2
+>
+>
+
+--000000000000caae6905f71d4e06
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: base64
+
+PGRpdiBkaXI9Imx0ciI+PGRpdiBkaXI9Imx0ciI+PC9kaXY+PGJyPjxkaXYgY2xhc3M9ImdtYWls
+X3F1b3RlIj48ZGl2IGRpcj0ibHRyIiBjbGFzcz0iZ21haWxfYXR0ciI+T24gV2VkLCBNYXIgOCwg
+MjAyMyBhdCA5OjU04oCvQU0gUm9iIENsYXJrICZsdDs8YSBocmVmPSJtYWlsdG86cm9iZGNsYXJr
+QGdtYWlsLmNvbSI+cm9iZGNsYXJrQGdtYWlsLmNvbTwvYT4mZ3Q7IHdyb3RlOjxicj48L2Rpdj48
+YmxvY2txdW90ZSBjbGFzcz0iZ21haWxfcXVvdGUiIHN0eWxlPSJtYXJnaW46MHB4IDBweCAwcHgg
+MC44ZXg7Ym9yZGVyLWxlZnQ6MXB4IHNvbGlkIHJnYigyMDQsMjA0LDIwNCk7cGFkZGluZy1sZWZ0
+OjFleCI+RnJvbTogUm9iIENsYXJrICZsdDs8YSBocmVmPSJtYWlsdG86cm9iZGNsYXJrQGNocm9t
+aXVtLm9yZyIgdGFyZ2V0PSJfYmxhbmsiPnJvYmRjbGFya0BjaHJvbWl1bS5vcmc8L2E+Jmd0Ozxi
+cj4NCjxicj4NCkFkZCBhIG5ldyBmbGFnIHRvIGxldCB1c2Vyc3BhY2UgcHJvdmlkZSBhIGRlYWRs
+aW5lIGFzIGEgaGludCBmb3Igc3luY29iajxicj4NCmFuZCB0aW1lbGluZSB3YWl0cy7CoCBUaGlz
+IGdpdmVzIGEgaGludCB0byB0aGUgZHJpdmVyIHNpZ25hbGluZyB0aGU8YnI+DQpiYWNraW5nIGZl
+bmNlcyBhYm91dCBob3cgc29vbiB1c2Vyc3BhY2UgbmVlZHMgaXQgdG8gY29tcGV0ZSB3b3JrLCBz
+byBpdDxicj4NCmNhbiBhZGRqdXN0IEdQVSBmcmVxdWVuY3kgYWNjb3JkaW5nbHkuwqAgQW4gaW1t
+ZWRpYXRlIGRlYWRsaW5lIGNhbiBiZTxicj4NCmdpdmVuIHRvIHByb3ZpZGUgc29tZXRoaW5nIGVx
+dWl2YWxlbnQgdG8gaTkxNSAmcXVvdDt3YWl0IGJvb3N0JnF1b3Q7Ljxicj4NCjxicj4NCnYyOiBV
+c2UgYWJzb2x1dGUgdTY0IG5zIHZhbHVlIGZvciBkZWFkbGluZSBoaW50LCBkcm9wIGNhcCBhbmQg
+ZHJpdmVyPGJyPg0KwqAgwqAgZmVhdHVyZSBmbGFnIGluIGZhdm9yIG9mIGFsbG93aW5nIGNvdW50
+X2hhbmRsZXM9PTAgYXMgYSB3YXkgZm9yPGJyPg0KwqAgwqAgdXNlcnNwYWNlIHRvIHByb2JlIGtl
+cm5lbCBmb3Igc3VwcG9ydCBvZiBuZXcgZmxhZzxicj4NCnYzOiBNb3JlIHZlcmJvc2UgY29tbWVu
+dHMgYWJvdXQgVUFQSTxicj4NCjxicj4NClNpZ25lZC1vZmYtYnk6IFJvYiBDbGFyayAmbHQ7PGEg
+aHJlZj0ibWFpbHRvOnJvYmRjbGFya0BjaHJvbWl1bS5vcmciIHRhcmdldD0iX2JsYW5rIj5yb2Jk
+Y2xhcmtAY2hyb21pdW0ub3JnPC9hPiZndDs8YnI+DQotLS08YnI+DQrCoGRyaXZlcnMvZ3B1L2Ry
+bS9kcm1fc3luY29iai5jIHwgNjQgKysrKysrKysrKysrKysrKysrKysrKysrKysrKy0tLS0tLS08
+YnI+DQrCoGluY2x1ZGUvdWFwaS9kcm0vZHJtLmjCoCDCoCDCoCDCoCB8IDE3ICsrKysrKysrKys8
+YnI+DQrCoDIgZmlsZXMgY2hhbmdlZCwgNjggaW5zZXJ0aW9ucygrKSwgMTMgZGVsZXRpb25zKC0p
+PGJyPg0KPGJyPg0KZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9kcm1fc3luY29iai5jIGIv
+ZHJpdmVycy9ncHUvZHJtL2RybV9zeW5jb2JqLmM8YnI+DQppbmRleCAwYzJiZTgzNjA1MjUuLmE4
+NWU5NDY0ZjA3YiAxMDA2NDQ8YnI+DQotLS0gYS9kcml2ZXJzL2dwdS9kcm0vZHJtX3N5bmNvYmou
+Yzxicj4NCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9kcm1fc3luY29iai5jPGJyPg0KQEAgLTEyNiw2
+ICsxMjYsMTEgQEA8YnI+DQrCoCAqIHN5bmNocm9uaXplIGJldHdlZW4gdGhlIHR3by48YnI+DQrC
+oCAqIFRoaXMgcmVxdWlyZW1lbnQgaXMgaW5oZXJpdGVkIGZyb20gdGhlIFZ1bGthbiBmZW5jZSBB
+UEkuPGJyPg0KwqAgKjxicj4NCisgKiBJZiAmYW1wO0RSTV9TWU5DT0JKX1dBSVRfRkxBR1NfV0FJ
+VF9ERUFETElORSBpcyBzZXQsIHRoZSBpb2N0bCB3aWxsIGFsc28gc2V0PGJyPg0KKyAqIGEgZmVu
+Y2UgZGVhZGxpbmUgaGludCBvbiB0aGUgYmFja2luZyBmZW5jZXMgYmVmb3JlIHdhaXRpbmcsIHRv
+IHByb3ZpZGUgdGhlPGJyPg0KKyAqIGZlbmNlIHNpZ25hbGVyIHdpdGggYW4gYXBwcm9wcmlhdGUg
+c2Vuc2Ugb2YgdXJnZW5jeS7CoCBUaGUgZGVhZGxpbmUgaXM8YnI+DQorICogc3BlY2lmaWVkIGFz
+IGFuIGFic29sdXRlICZhbXA7Q0xPQ0tfTU9OT1RPTklDIHZhbHVlIGluIHVuaXRzIG9mIG5zLjxi
+cj4NCisgKjxicj4NCsKgICogU2ltaWxhcmx5LCAmYW1wO0RSTV9JT0NUTF9TWU5DT0JKX1RJTUVM
+SU5FX1dBSVQgdGFrZXMgYW4gYXJyYXkgb2Ygc3luY29iajxicj4NCsKgICogaGFuZGxlcyBhcyB3
+ZWxsIGFzIGFuIGFycmF5IG9mIHU2NCBwb2ludHMgYW5kIGRvZXMgYSBob3N0LXNpZGUgd2FpdCBv
+biBhbGw8YnI+DQrCoCAqIG9mIHN5bmNvYmogZmVuY2VzIGF0IHRoZSBnaXZlbiBwb2ludHMgc2lt
+dWx0YW5lb3VzbHkuPGJyPg0KQEAgLTk3Myw3ICs5NzgsOCBAQCBzdGF0aWMgc2lnbmVkIGxvbmcg
+ZHJtX3N5bmNvYmpfYXJyYXlfd2FpdF90aW1lb3V0KHN0cnVjdCBkcm1fc3luY29iaiAqKnN5bmNv
+YmpzLDxicj4NCsKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKg
+IMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIHVpbnQzMl90IGNvdW50LDxicj4NCsKgIMKgIMKg
+IMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKg
+IMKgIMKgIMKgIHVpbnQzMl90IGZsYWdzLDxicj4NCsKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKg
+IMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIHNpZ25lZCBs
+b25nIHRpbWVvdXQsPGJyPg0KLcKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKg
+IMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgdWludDMyX3QgKmlkeCk8YnI+DQor
+wqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAg
+wqAgwqAgwqAgwqAgwqAgwqB1aW50MzJfdCAqaWR4LDxicj4NCivCoCDCoCDCoCDCoCDCoCDCoCDC
+oCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoGt0
+aW1lX3QgKmRlYWRsaW5lKTxicj4NCsKgezxicj4NCsKgIMKgIMKgIMKgIHN0cnVjdCBzeW5jb2Jq
+X3dhaXRfZW50cnkgKmVudHJpZXM7PGJyPg0KwqAgwqAgwqAgwqAgc3RydWN0IGRtYV9mZW5jZSAq
+ZmVuY2U7PGJyPg0KQEAgLTEwNTMsNiArMTA1OSwxNSBAQCBzdGF0aWMgc2lnbmVkIGxvbmcgZHJt
+X3N5bmNvYmpfYXJyYXlfd2FpdF90aW1lb3V0KHN0cnVjdCBkcm1fc3luY29iaiAqKnN5bmNvYmpz
+LDxicj4NCsKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIGRybV9zeW5jb2JqX2Zl
+bmNlX2FkZF93YWl0KHN5bmNvYmpzW2ldLCAmYW1wO2VudHJpZXNbaV0pOzxicj4NCsKgIMKgIMKg
+IMKgIH08YnI+DQo8YnI+DQorwqAgwqAgwqAgwqBpZiAoZGVhZGxpbmUpIHs8YnI+DQorwqAgwqAg
+wqAgwqAgwqAgwqAgwqAgwqBmb3IgKGkgPSAwOyBpICZsdDsgY291bnQ7ICsraSkgezxicj4NCivC
+oCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoGZlbmNlID0gZW50cmllc1tpXS5mZW5j
+ZTs8YnI+DQorwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqBpZiAoIWZlbmNlKTxi
+cj4NCivCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoGNvbnRp
+bnVlOzxicj4NCivCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoGRtYV9mZW5jZV9z
+ZXRfZGVhZGxpbmUoZmVuY2UsICpkZWFkbGluZSk7PGJyPg0KK8KgIMKgIMKgIMKgIMKgIMKgIMKg
+IMKgfTxicj4NCivCoCDCoCDCoCDCoH08YnI+DQorPGJyPg0KwqAgwqAgwqAgwqAgZG8gezxicj4N
+CsKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIHNldF9jdXJyZW50X3N0YXRlKFRBU0tfSU5URVJSVVBU
+SUJMRSk7PGJyPg0KPGJyPg0KQEAgLTExNTEsNyArMTE2Niw4IEBAIHN0YXRpYyBpbnQgZHJtX3N5
+bmNvYmpfYXJyYXlfd2FpdChzdHJ1Y3QgZHJtX2RldmljZSAqZGV2LDxicj4NCsKgIMKgIMKgIMKg
+IMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIHN0cnVjdCBkcm1fZmlsZSAq
+ZmlsZV9wcml2YXRlLDxicj4NCsKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKg
+IMKgIMKgIMKgIMKgIHN0cnVjdCBkcm1fc3luY29ial93YWl0ICp3YWl0LDxicj4NCsKgIMKgIMKg
+IMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIHN0cnVjdCBkcm1fc3lu
+Y29ial90aW1lbGluZV93YWl0ICp0aW1lbGluZV93YWl0LDxicj4NCi3CoCDCoCDCoCDCoCDCoCDC
+oCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoHN0cnVjdCBkcm1fc3luY29iaiAqKnN5
+bmNvYmpzLCBib29sIHRpbWVsaW5lKTxicj4NCivCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDC
+oCDCoCDCoCDCoCDCoCDCoCDCoCDCoHN0cnVjdCBkcm1fc3luY29iaiAqKnN5bmNvYmpzLCBib29s
+IHRpbWVsaW5lLDxicj4NCivCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDC
+oCDCoCDCoCDCoGt0aW1lX3QgKmRlYWRsaW5lKTxicj4NCsKgezxicj4NCsKgIMKgIMKgIMKgIHNp
+Z25lZCBsb25nIHRpbWVvdXQgPSAwOzxicj4NCsKgIMKgIMKgIMKgIHVpbnQzMl90IGZpcnN0ID0g
+fjA7PGJyPg0KQEAgLTExNjIsNyArMTE3OCw4IEBAIHN0YXRpYyBpbnQgZHJtX3N5bmNvYmpfYXJy
+YXlfd2FpdChzdHJ1Y3QgZHJtX2RldmljZSAqZGV2LDxicj4NCsKgIMKgIMKgIMKgIMKgIMKgIMKg
+IMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKg
+IMKgIMKgIMKgTlVMTCw8YnI+DQrCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDC
+oCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoHdhaXQtJmd0
+O2NvdW50X2hhbmRsZXMsPGJyPg0KwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAg
+wqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqB3YWl0LSZn
+dDtmbGFncyw8YnI+DQotwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAg
+wqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgdGltZW91dCwgJmFtcDtm
+aXJzdCk7PGJyPg0KK8KgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKg
+IMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIHRpbWVvdXQsICZhbXA7Zmly
+c3QsPGJyPg0KK8KgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKg
+IMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIGRlYWRsaW5lKTs8YnI+DQrCoCDC
+oCDCoCDCoCDCoCDCoCDCoCDCoCBpZiAodGltZW91dCAmbHQ7IDApPGJyPg0KwqAgwqAgwqAgwqAg
+wqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgcmV0dXJuIHRpbWVvdXQ7PGJyPg0KwqAgwqAgwqAgwqAg
+wqAgwqAgwqAgwqAgd2FpdC0mZ3Q7Zmlyc3Rfc2lnbmFsZWQgPSBmaXJzdDs8YnI+DQpAQCAtMTE3
+Miw3ICsxMTg5LDggQEAgc3RhdGljIGludCBkcm1fc3luY29ial9hcnJheV93YWl0KHN0cnVjdCBk
+cm1fZGV2aWNlICpkZXYsPGJyPg0KwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAg
+wqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqB1NjRfdG9f
+dXNlcl9wdHIodGltZWxpbmVfd2FpdC0mZ3Q7cG9pbnRzKSw8YnI+DQrCoCDCoCDCoCDCoCDCoCDC
+oCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDC
+oCDCoCDCoCDCoCDCoHRpbWVsaW5lX3dhaXQtJmd0O2NvdW50X2hhbmRsZXMsPGJyPg0KwqAgwqAg
+wqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAg
+wqAgwqAgwqAgwqAgwqAgwqAgwqAgwqB0aW1lbGluZV93YWl0LSZndDtmbGFncyw8YnI+DQotwqAg
+wqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAg
+wqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgdGltZW91dCwgJmFtcDtmaXJzdCk7PGJyPg0KK8KgIMKg
+IMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKg
+IMKgIMKgIMKgIMKgIMKgIMKgIMKgIHRpbWVvdXQsICZhbXA7Zmlyc3QsPGJyPg0KK8KgIMKgIMKg
+IMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKg
+IMKgIMKgIMKgIMKgIMKgIMKgIGRlYWRsaW5lKTs8YnI+DQrCoCDCoCDCoCDCoCDCoCDCoCDCoCDC
+oCBpZiAodGltZW91dCAmbHQ7IDApPGJyPg0KwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAg
+wqAgwqAgcmV0dXJuIHRpbWVvdXQ7PGJyPg0KwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgdGltZWxp
+bmVfd2FpdC0mZ3Q7Zmlyc3Rfc2lnbmFsZWQgPSBmaXJzdDs8YnI+DQpAQCAtMTI0MywxNyArMTI2
+MSwyMiBAQCBkcm1fc3luY29ial93YWl0X2lvY3RsKHN0cnVjdCBkcm1fZGV2aWNlICpkZXYsIHZv
+aWQgKmRhdGEsPGJyPg0KwqB7PGJyPg0KwqAgwqAgwqAgwqAgc3RydWN0IGRybV9zeW5jb2JqX3dh
+aXQgKmFyZ3MgPSBkYXRhOzxicj4NCsKgIMKgIMKgIMKgIHN0cnVjdCBkcm1fc3luY29iaiAqKnN5
+bmNvYmpzOzxicj4NCivCoCDCoCDCoCDCoHVuc2lnbmVkIHBvc3NpYmxlX2ZsYWdzOzxicj4NCivC
+oCDCoCDCoCDCoGt0aW1lX3QgdCwgKnRwID0gTlVMTDs8YnI+DQrCoCDCoCDCoCDCoCBpbnQgcmV0
+ID0gMDs8YnI+DQo8YnI+DQrCoCDCoCDCoCDCoCBpZiAoIWRybV9jb3JlX2NoZWNrX2ZlYXR1cmUo
+ZGV2LCBEUklWRVJfU1lOQ09CSikpPGJyPg0KwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgcmV0dXJu
+IC1FT1BOT1RTVVBQOzxicj4NCjxicj4NCi3CoCDCoCDCoCDCoGlmIChhcmdzLSZndDtmbGFncyAm
+YW1wOyB+KERSTV9TWU5DT0JKX1dBSVRfRkxBR1NfV0FJVF9BTEwgfDxicj4NCi3CoCDCoCDCoCDC
+oCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoERSTV9TWU5DT0JKX1dBSVRfRkxBR1NfV0FJ
+VF9GT1JfU1VCTUlUKSk8YnI+DQorwqAgwqAgwqAgwqBwb3NzaWJsZV9mbGFncyA9IERSTV9TWU5D
+T0JKX1dBSVRfRkxBR1NfV0FJVF9BTEwgfDxicj4NCivCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDC
+oCDCoCDCoCDCoCBEUk1fU1lOQ09CSl9XQUlUX0ZMQUdTX1dBSVRfRk9SX1NVQk1JVCB8PGJyPg0K
+K8KgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIERSTV9TWU5DT0JKX1dBSVRfRkxB
+R1NfV0FJVF9ERUFETElORTs8YnI+DQorPGJyPg0KK8KgIMKgIMKgIMKgaWYgKGFyZ3MtJmd0O2Zs
+YWdzICZhbXA7IH5wb3NzaWJsZV9mbGFncyk8YnI+DQrCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCBy
+ZXR1cm4gLUVJTlZBTDs8YnI+DQo8YnI+DQrCoCDCoCDCoCDCoCBpZiAoYXJncy0mZ3Q7Y291bnRf
+aGFuZGxlcyA9PSAwKTxicj4NCi3CoCDCoCDCoCDCoCDCoCDCoCDCoCDCoHJldHVybiAtRUlOVkFM
+Ozxicj4NCivCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoHJldHVybiAwOzxicj48L2Jsb2NrcXVvdGU+
+PGRpdj7CoDwvZGl2PjxkaXY+RGlkIHlvdSBpbnRlbmQgdGhpcyBjaGFuZ2U/IElmIHNvLCB3aHk/
+IFdoYXQgZG9lcyB3YWl0aW5nIHdpdGggbm8gaGFuZGxlcyBnYWluIHVzPyBJIG1lYW4sIGl0JiMz
+OTtzIHByb2JhYmx5IGZpbmUgYnV0IGl0IHNlZW1zIHVucmVsYXRlZCB0byB0aGlzIGNoYW5nZS48
+YnI+PC9kaXY+PGRpdj48YnI+PC9kaXY+PGJsb2NrcXVvdGUgY2xhc3M9ImdtYWlsX3F1b3RlIiBz
+dHlsZT0ibWFyZ2luOjBweCAwcHggMHB4IDAuOGV4O2JvcmRlci1sZWZ0OjFweCBzb2xpZCByZ2Io
+MjA0LDIwNCwyMDQpO3BhZGRpbmctbGVmdDoxZXgiPg0KwqAgwqAgwqAgwqAgcmV0ID0gZHJtX3N5
+bmNvYmpfYXJyYXlfZmluZChmaWxlX3ByaXZhdGUsPGJyPg0KwqAgwqAgwqAgwqAgwqAgwqAgwqAg
+wqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqB1NjRfdG9fdXNlcl9wdHIoYXJncy0m
+Z3Q7aGFuZGxlcyksPGJyPg0KQEAgLTEyNjIsOCArMTI4NSwxMyBAQCBkcm1fc3luY29ial93YWl0
+X2lvY3RsKHN0cnVjdCBkcm1fZGV2aWNlICpkZXYsIHZvaWQgKmRhdGEsPGJyPg0KwqAgwqAgwqAg
+wqAgaWYgKHJldCAmbHQ7IDApPGJyPg0KwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgcmV0dXJuIHJl
+dDs8YnI+DQo8YnI+DQorwqAgwqAgwqAgwqBpZiAoYXJncy0mZ3Q7ZmxhZ3MgJmFtcDsgRFJNX1NZ
+TkNPQkpfV0FJVF9GTEFHU19XQUlUX0RFQURMSU5FKSB7PGJyPg0KK8KgIMKgIMKgIMKgIMKgIMKg
+IMKgIMKgdCA9IG5zX3RvX2t0aW1lKGFyZ3MtJmd0O2RlYWRsaW5lX25zKTs8YnI+DQorwqAgwqAg
+wqAgwqAgwqAgwqAgwqAgwqB0cCA9ICZhbXA7dDs8YnI+DQorwqAgwqAgwqAgwqB9PGJyPg0KKzxi
+cj4NCsKgIMKgIMKgIMKgIHJldCA9IGRybV9zeW5jb2JqX2FycmF5X3dhaXQoZGV2LCBmaWxlX3By
+aXZhdGUsPGJyPg0KLcKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKg
+IMKgIMKgIMKgIGFyZ3MsIE5VTEwsIHN5bmNvYmpzLCBmYWxzZSk7PGJyPg0KK8KgIMKgIMKgIMKg
+IMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIGFyZ3MsIE5VTEwsIHN5
+bmNvYmpzLCBmYWxzZSwgdHApOzxicj4NCjxicj4NCsKgIMKgIMKgIMKgIGRybV9zeW5jb2JqX2Fy
+cmF5X2ZyZWUoc3luY29ianMsIGFyZ3MtJmd0O2NvdW50X2hhbmRsZXMpOzxicj4NCjxicj4NCkBA
+IC0xMjc2LDE4ICsxMzA0LDIzIEBAIGRybV9zeW5jb2JqX3RpbWVsaW5lX3dhaXRfaW9jdGwoc3Ry
+dWN0IGRybV9kZXZpY2UgKmRldiwgdm9pZCAqZGF0YSw8YnI+DQrCoHs8YnI+DQrCoCDCoCDCoCDC
+oCBzdHJ1Y3QgZHJtX3N5bmNvYmpfdGltZWxpbmVfd2FpdCAqYXJncyA9IGRhdGE7PGJyPg0KwqAg
+wqAgwqAgwqAgc3RydWN0IGRybV9zeW5jb2JqICoqc3luY29ianM7PGJyPg0KK8KgIMKgIMKgIMKg
+dW5zaWduZWQgcG9zc2libGVfZmxhZ3M7PGJyPg0KK8KgIMKgIMKgIMKga3RpbWVfdCB0LCAqdHAg
+PSBOVUxMOzxicj4NCsKgIMKgIMKgIMKgIGludCByZXQgPSAwOzxicj4NCjxicj4NCsKgIMKgIMKg
+IMKgIGlmICghZHJtX2NvcmVfY2hlY2tfZmVhdHVyZShkZXYsIERSSVZFUl9TWU5DT0JKX1RJTUVM
+SU5FKSk8YnI+DQrCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCByZXR1cm4gLUVPUE5PVFNVUFA7PGJy
+Pg0KPGJyPg0KLcKgIMKgIMKgIMKgaWYgKGFyZ3MtJmd0O2ZsYWdzICZhbXA7IH4oRFJNX1NZTkNP
+QkpfV0FJVF9GTEFHU19XQUlUX0FMTCB8PGJyPg0KLcKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKg
+IMKgIMKgIMKgIMKgIMKgRFJNX1NZTkNPQkpfV0FJVF9GTEFHU19XQUlUX0ZPUl9TVUJNSVQgfDxi
+cj4NCi3CoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoERSTV9TWU5DT0JK
+X1dBSVRfRkxBR1NfV0FJVF9BVkFJTEFCTEUpKTxicj4NCivCoCDCoCDCoCDCoHBvc3NpYmxlX2Zs
+YWdzID0gRFJNX1NZTkNPQkpfV0FJVF9GTEFHU19XQUlUX0FMTCB8PGJyPg0KK8KgIMKgIMKgIMKg
+IMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIERSTV9TWU5DT0JKX1dBSVRfRkxBR1NfV0FJVF9GT1Jf
+U1VCTUlUIHw8YnI+DQorwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgRFJNX1NZ
+TkNPQkpfV0FJVF9GTEFHU19XQUlUX0FWQUlMQUJMRSB8PGJyPg0KK8KgIMKgIMKgIMKgIMKgIMKg
+IMKgIMKgIMKgIMKgIMKgIMKgIERSTV9TWU5DT0JKX1dBSVRfRkxBR1NfV0FJVF9ERUFETElORTs8
+YnI+DQorPGJyPg0KK8KgIMKgIMKgIMKgaWYgKGFyZ3MtJmd0O2ZsYWdzICZhbXA7IH5wb3NzaWJs
+ZV9mbGFncyk8YnI+DQrCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCByZXR1cm4gLUVJTlZBTDs8YnI+
+DQo8YnI+DQrCoCDCoCDCoCDCoCBpZiAoYXJncy0mZ3Q7Y291bnRfaGFuZGxlcyA9PSAwKTxicj4N
+Ci3CoCDCoCDCoCDCoCDCoCDCoCDCoCDCoHJldHVybiAtRUlOVkFMOzxicj4NCivCoCDCoCDCoCDC
+oCDCoCDCoCDCoCDCoHJldHVybiAtMDs8YnI+PC9ibG9ja3F1b3RlPjxkaXY+PGJyPjwvZGl2Pjxk
+aXY+RGlkIHlvdSBpbnRlbmQgdGhpcyBjaGFuZ2U/IC0wIGlzIGEgcHJldHR5IHdlaXJkIGludGVn
+ZXIuPGJyPjwvZGl2PjxkaXY+wqA8L2Rpdj48YmxvY2txdW90ZSBjbGFzcz0iZ21haWxfcXVvdGUi
+IHN0eWxlPSJtYXJnaW46MHB4IDBweCAwcHggMC44ZXg7Ym9yZGVyLWxlZnQ6MXB4IHNvbGlkIHJn
+YigyMDQsMjA0LDIwNCk7cGFkZGluZy1sZWZ0OjFleCI+DQrCoCDCoCDCoCDCoCByZXQgPSBkcm1f
+c3luY29ial9hcnJheV9maW5kKGZpbGVfcHJpdmF0ZSw8YnI+DQrCoCDCoCDCoCDCoCDCoCDCoCDC
+oCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoHU2NF90b191c2VyX3B0cihhcmdz
+LSZndDtoYW5kbGVzKSw8YnI+DQpAQCAtMTI5Niw4ICsxMzI5LDEzIEBAIGRybV9zeW5jb2JqX3Rp
+bWVsaW5lX3dhaXRfaW9jdGwoc3RydWN0IGRybV9kZXZpY2UgKmRldiwgdm9pZCAqZGF0YSw8YnI+
+DQrCoCDCoCDCoCDCoCBpZiAocmV0ICZsdDsgMCk8YnI+DQrCoCDCoCDCoCDCoCDCoCDCoCDCoCDC
+oCByZXR1cm4gcmV0Ozxicj4NCjxicj4NCivCoCDCoCDCoCDCoGlmIChhcmdzLSZndDtmbGFncyAm
+YW1wOyBEUk1fU1lOQ09CSl9XQUlUX0ZMQUdTX1dBSVRfREVBRExJTkUpIHs8YnI+DQorwqAgwqAg
+wqAgwqAgwqAgwqAgwqAgwqB0ID0gbnNfdG9fa3RpbWUoYXJncy0mZ3Q7ZGVhZGxpbmVfbnMpOzxi
+cj4NCivCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoHRwID0gJmFtcDt0Ozxicj4NCivCoCDCoCDCoCDC
+oH08YnI+DQorPGJyPg0KwqAgwqAgwqAgwqAgcmV0ID0gZHJtX3N5bmNvYmpfYXJyYXlfd2FpdChk
+ZXYsIGZpbGVfcHJpdmF0ZSw8YnI+DQotwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAg
+wqAgwqAgwqAgwqAgwqAgwqAgwqAgTlVMTCwgYXJncywgc3luY29ianMsIHRydWUpOzxicj4NCivC
+oCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCBOVUxM
+LCBhcmdzLCBzeW5jb2JqcywgdHJ1ZSwgdHApOzxicj4NCjxicj4NCsKgIMKgIMKgIMKgIGRybV9z
+eW5jb2JqX2FycmF5X2ZyZWUoc3luY29ianMsIGFyZ3MtJmd0O2NvdW50X2hhbmRsZXMpOzxicj4N
+Cjxicj4NCmRpZmYgLS1naXQgYS9pbmNsdWRlL3VhcGkvZHJtL2RybS5oIGIvaW5jbHVkZS91YXBp
+L2RybS9kcm0uaDxicj4NCmluZGV4IDY0MjgwODUyMGQ5Mi4uYmZmMDUwOWFjOGI2IDEwMDY0NDxi
+cj4NCi0tLSBhL2luY2x1ZGUvdWFwaS9kcm0vZHJtLmg8YnI+DQorKysgYi9pbmNsdWRlL3VhcGkv
+ZHJtL2RybS5oPGJyPg0KQEAgLTg4Nyw2ICs4ODcsNyBAQCBzdHJ1Y3QgZHJtX3N5bmNvYmpfdHJh
+bnNmZXIgezxicj4NCsKgI2RlZmluZSBEUk1fU1lOQ09CSl9XQUlUX0ZMQUdTX1dBSVRfQUxMICgx
+ICZsdDsmbHQ7IDApPGJyPg0KwqAjZGVmaW5lIERSTV9TWU5DT0JKX1dBSVRfRkxBR1NfV0FJVF9G
+T1JfU1VCTUlUICgxICZsdDsmbHQ7IDEpPGJyPg0KwqAjZGVmaW5lIERSTV9TWU5DT0JKX1dBSVRf
+RkxBR1NfV0FJVF9BVkFJTEFCTEUgKDEgJmx0OyZsdDsgMikgLyogd2FpdCBmb3IgdGltZSBwb2lu
+dCB0byBiZWNvbWUgYXZhaWxhYmxlICovPGJyPg0KKyNkZWZpbmUgRFJNX1NZTkNPQkpfV0FJVF9G
+TEFHU19XQUlUX0RFQURMSU5FICgxICZsdDsmbHQ7IDMpIC8qIHNldCBmZW5jZSBkZWFkbGluZSBi
+YXNlZCB0byBkZWFkbGluZV9ucyAqLzxicj4NCsKgc3RydWN0IGRybV9zeW5jb2JqX3dhaXQgezxi
+cj4NCsKgIMKgIMKgIMKgIF9fdTY0IGhhbmRsZXM7PGJyPg0KwqAgwqAgwqAgwqAgLyogYWJzb2x1
+dGUgdGltZW91dCAqLzxicj4NCkBAIC04OTUsNiArODk2LDE0IEBAIHN0cnVjdCBkcm1fc3luY29i
+al93YWl0IHs8YnI+DQrCoCDCoCDCoCDCoCBfX3UzMiBmbGFnczs8YnI+DQrCoCDCoCDCoCDCoCBf
+X3UzMiBmaXJzdF9zaWduYWxlZDsgLyogb25seSB2YWxpZCB3aGVuIG5vdCB3YWl0aW5nIGFsbCAq
+Lzxicj4NCsKgIMKgIMKgIMKgIF9fdTMyIHBhZDs8YnI+DQorwqAgwqAgwqAgwqAvKio8YnI+DQor
+wqAgwqAgwqAgwqAgKiBAZGVhZGxpbmVfbnMgLSBmZW5jZSBkZWFkbGluZSBoaW50PGJyPg0KK8Kg
+IMKgIMKgIMKgICo8YnI+DQorwqAgwqAgwqAgwqAgKiBEZWFkbGluZSBoaW50LCBpbiBhYnNvbHV0
+ZSBDTE9DS19NT05PVE9OSUMsIHRvIHNldCBvbiBiYWNraW5nPGJyPg0KK8KgIMKgIMKgIMKgICog
+ZmVuY2UocykgaWYgdGhlIERSTV9TWU5DT0JKX1dBSVRfRkxBR1NfV0FJVF9ERUFETElORSBmbGFn
+IGlzPGJyPg0KK8KgIMKgIMKgIMKgICogc2V0Ljxicj4NCivCoCDCoCDCoCDCoCAqLzxicj4NCivC
+oCDCoCDCoCDCoF9fdTY0IGRlYWRsaW5lX25zOzxicj4NCsKgfTs8YnI+DQo8YnI+DQrCoHN0cnVj
+dCBkcm1fc3luY29ial90aW1lbGluZV93YWl0IHs8YnI+DQpAQCAtOTA3LDYgKzkxNiwxNCBAQCBz
+dHJ1Y3QgZHJtX3N5bmNvYmpfdGltZWxpbmVfd2FpdCB7PGJyPg0KwqAgwqAgwqAgwqAgX191MzIg
+ZmxhZ3M7PGJyPg0KwqAgwqAgwqAgwqAgX191MzIgZmlyc3Rfc2lnbmFsZWQ7IC8qIG9ubHkgdmFs
+aWQgd2hlbiBub3Qgd2FpdGluZyBhbGwgKi88YnI+DQrCoCDCoCDCoCDCoCBfX3UzMiBwYWQ7PGJy
+Pg0KK8KgIMKgIMKgIMKgLyoqPGJyPg0KK8KgIMKgIMKgIMKgICogQGRlYWRsaW5lX25zIC0gZmVu
+Y2UgZGVhZGxpbmUgaGludDxicj4NCivCoCDCoCDCoCDCoCAqPGJyPg0KK8KgIMKgIMKgIMKgICog
+RGVhZGxpbmUgaGludCwgaW4gYWJzb2x1dGUgQ0xPQ0tfTU9OT1RPTklDLCB0byBzZXQgb24gYmFj
+a2luZzxicj4NCivCoCDCoCDCoCDCoCAqIGZlbmNlKHMpIGlmIHRoZSBEUk1fU1lOQ09CSl9XQUlU
+X0ZMQUdTX1dBSVRfREVBRExJTkUgZmxhZyBpczxicj4NCivCoCDCoCDCoCDCoCAqIHNldC48YnI+
+DQorwqAgwqAgwqAgwqAgKi88YnI+DQorwqAgwqAgwqAgwqBfX3U2NCBkZWFkbGluZV9uczs8YnI+
+DQrCoH07PGJyPg0KPGJyPg0KPGJyPg0KLS0gPGJyPg0KMi4zOS4yPGJyPg0KPGJyPg0KPC9ibG9j
+a3F1b3RlPjwvZGl2PjwvZGl2Pg0K
+--000000000000caae6905f71d4e06--
