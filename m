@@ -1,61 +1,63 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 753F46BE3B9
-	for <lists+freedreno@lfdr.de>; Fri, 17 Mar 2023 09:34:57 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id B7D766BE4CF
+	for <lists+freedreno@lfdr.de>; Fri, 17 Mar 2023 10:04:35 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3ADCA10E3B5;
-	Fri, 17 Mar 2023 08:34:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7581810EEA2;
+	Fri, 17 Mar 2023 09:04:34 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ed1-x536.google.com (mail-ed1-x536.google.com
- [IPv6:2a00:1450:4864:20::536])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9D96E10E3B5
- for <freedreno@lists.freedesktop.org>; Fri, 17 Mar 2023 08:34:52 +0000 (UTC)
-Received: by mail-ed1-x536.google.com with SMTP id x13so17450344edd.1
- for <freedreno@lists.freedesktop.org>; Fri, 17 Mar 2023 01:34:52 -0700 (PDT)
+Received: from mail-wm1-x332.google.com (mail-wm1-x332.google.com
+ [IPv6:2a00:1450:4864:20::332])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 86AFA10EEA4
+ for <freedreno@lists.freedesktop.org>; Fri, 17 Mar 2023 09:04:33 +0000 (UTC)
+Received: by mail-wm1-x332.google.com with SMTP id m35so2845591wms.4
+ for <freedreno@lists.freedesktop.org>; Fri, 17 Mar 2023 02:04:33 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1679042091;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=KIfNmjlP/emZ8VU0HYeaktKYqZYSqV2w6X7O7md3pTs=;
- b=wRZi0OVE5sRJZF8H5ne08hNllrwQSaDe7kgGBEhqxrCYqeQtS1DYfaDBWAGYGhRX1g
- 9eEESgI7jotBiXvy9PDWwIfXCEKC8O+x7dZ/YPmU1MCK1MCJIMOR9TkKDyWw/ceoJbsi
- CLFpbkrE7zninvqToDa+UVdyqbScL/is+LHeiOC3sosKRFDnOvAmka/sy408NQYE3tWs
- MkLZgpqpYvAJk2+H4jiP/ACpWPtEVBdncsHNeZW1wMSZZ1HVQehNcQdVe5MP0iZl2PT7
- 4ObHyUQsq6E+ghbdkrTFTOnkEqP6x7JrTtCt8Ai9gLXefM1p8G3Z+rWtt2v+8H17cf70
- +W5w==
+ d=linaro.org; s=google; t=1679043872;
+ h=content-transfer-encoding:in-reply-to:organization:references:cc:to
+ :content-language:subject:reply-to:from:user-agent:mime-version:date
+ :message-id:from:to:cc:subject:date:message-id:reply-to;
+ bh=MsOeH5VTIJLvj266rkHX55Fde/Bb5Keky5mnCISQsH4=;
+ b=sd0h8SxnEaPFkX2Ud7MfNZvoReK4uV/7qxpxBxk3xZNM+tmtsKaPyezXdyFkieGIJc
+ 0dAQmQwRAPKZhYDo8xIZRl6VVMR92PTktVWVR8Q0z+vDXYswjUSsVY7wlUIFkthM+20l
+ UDj9+aGUleTQW9Ey5UxTr4So32e0lHEiq9mLQI408omO7fB5G9ivC5Qd1oOp4TH7Zs+5
+ IhAy8bnnVlm7+b12UimMblITYQesVU1arR7gYrybPcxAmy1t/iBfxpnRdVz7YWFmUplW
+ qnEwesi7jE7q/FsQ9bFv2NC7ty5F/KXLGYCECuc9O2FLPeUD2lLEmJwVPKYVEKmWw7U6
+ xWkQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112; t=1679042091;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=KIfNmjlP/emZ8VU0HYeaktKYqZYSqV2w6X7O7md3pTs=;
- b=xrT3Q8dwIExuB9iiWtwx1nvWNoGNEhEAgLxOanPpG/ml9htKj1pOSnjLaYzIX0sU8y
- +kJ2ff24cwj3G2NyesNVHLXaGj8lM1pG0reha1m/LxRlL9IcJfQRex2M7qJEvIIJVgy+
- r3fNLA1UnPZDTrA8iB1FxjApmlgTESqsN/pKag65EKzf0gBaOz5KzQPDNZr5Q+gfrpkC
- nKDUCuH9mfcJnCspAzCv85x1iWacg6pLAT8KxaH9ib2DBBScnbpPZNJ0VEuXaH7LWFY6
- 5UspiGcPSRs75nu4+W6zVupMk8jgU2HQbpxVQocqDiOte3q9sNudNjE8QCDIB/f3k3YG
- tgug==
-X-Gm-Message-State: AO0yUKUZ9F/uTKlNnCAlpcET+QfrJoXWHmEnb5GPZNzOj8m+M2d342f0
- rPL9rOTfkr8Z+D7cGT3K9UhkFA==
-X-Google-Smtp-Source: AK7set9oeh/k8QPKvi6CFkwTq2accUoCK8wDEQMIU95iWYbYqUoF32/8ClKQOzwcdKOzOdUC1XZG8w==
-X-Received: by 2002:a17:906:568a:b0:931:d8db:8a2f with SMTP id
- am10-20020a170906568a00b00931d8db8a2fmr1352054ejc.58.1679042091136; 
- Fri, 17 Mar 2023 01:34:51 -0700 (PDT)
-Received: from ?IPV6:2a02:810d:15c0:828:848a:1971:93e0:b465?
- ([2a02:810d:15c0:828:848a:1971:93e0:b465])
+ d=1e100.net; s=20210112; t=1679043872;
+ h=content-transfer-encoding:in-reply-to:organization:references:cc:to
+ :content-language:subject:reply-to:from:user-agent:mime-version:date
+ :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=MsOeH5VTIJLvj266rkHX55Fde/Bb5Keky5mnCISQsH4=;
+ b=j4hguspAqtJiSD6JPIndQMSzCB5VFUHqOkV6uo5zh5nPyxYznVkTrxlqzhGh2libZp
+ jWkupYr7VbPWLYEZoWPPC3q6n+hAqO3Tc3t0sLGjjbLddodyWXt4ljlQtHPWC9c5JWYo
+ Trkf7FrfqLL3sESt/8IlqcbJ92xLmdJLa7aAyBmSfFSYhJEyMaGFj43EDTuGxUH15HJ8
+ s0fnVIQn19iEWn6C893wmmvdbIv2PSjch2R8EolTGm6qLVYdyKpsWNkIroto92GAh/yU
+ BxvysZbx7LgJJtsf3HSlvd6OkCGKBk/ImoFvUQTMJkCFhchAfNsCyx+pd/o6o21ym9Ls
+ 2yyg==
+X-Gm-Message-State: AO0yUKVl/TiRE7chGVfcHEndxE3eyIsx2jZ3p4VnAFSP+rDUQhQgaESu
+ EM5WMpHu9ny4QuWQ9okq1PBZiQ==
+X-Google-Smtp-Source: AK7set+OoHD95yvZIthSsT6vMUzbdSIlC1qogPX4UgrFrwcsvTC1CiCc4Q7krtb17ucGOJ/QoYalvw==
+X-Received: by 2002:a05:600c:154d:b0:3ed:23d5:4c4c with SMTP id
+ f13-20020a05600c154d00b003ed23d54c4cmr19408344wmg.12.1679043871668; 
+ Fri, 17 Mar 2023 02:04:31 -0700 (PDT)
+Received: from ?IPV6:2a01:e0a:982:cbb0:9ed5:bad0:e925:7938?
+ ([2a01:e0a:982:cbb0:9ed5:bad0:e925:7938])
  by smtp.gmail.com with ESMTPSA id
- i23-20020a508717000000b004af6c5f1805sm727970edb.52.2023.03.17.01.34.49
+ h9-20020a1ccc09000000b003db01178b62sm7154127wmb.40.2023.03.17.02.04.30
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 17 Mar 2023 01:34:50 -0700 (PDT)
-Message-ID: <423d0cd0-ba3c-d163-6005-592a9d594bf3@linaro.org>
-Date: Fri, 17 Mar 2023 09:34:48 +0100
+ Fri, 17 Mar 2023 02:04:31 -0700 (PDT)
+Message-ID: <f9606b1b-2981-4874-4763-ef3ce96cc6f2@linaro.org>
+Date: Fri, 17 Mar 2023 10:04:29 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.9.0
+ Thunderbird/102.8.0
+From: Neil Armstrong <neil.armstrong@linaro.org>
 Content-Language: en-US
 To: Konrad Dybcio <konrad.dybcio@linaro.org>, Rob Clark
  <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
@@ -63,17 +65,17 @@ To: Konrad Dybcio <konrad.dybcio@linaro.org>, Rob Clark
  David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
  Rob Herring <robh+dt@kernel.org>,
  Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Krishna Manikandan <quic_mkrishn@quicinc.com>,
- Bryan O'Donoghue <bryan.odonoghue@linaro.org>, Andy Gross
- <agross@kernel.org>, Bjorn Andersson <andersson@kernel.org>
-References: <20230307-topic-dsi_qcm-v5-0-9d4235b77f4f@linaro.org>
- <20230307-topic-dsi_qcm-v5-8-9d4235b77f4f@linaro.org>
-From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-In-Reply-To: <20230307-topic-dsi_qcm-v5-8-9d4235b77f4f@linaro.org>
-Content-Type: text/plain; charset=UTF-8
+ Kuogee Hsieh <quic_khsieh@quicinc.com>, Andy Gross <agross@kernel.org>,
+ Bjorn Andersson <andersson@kernel.org>
+References: <20230206-topic-sm8450-upstream-dp-controller-v4-0-dca33f531e0d@linaro.org>
+ <20230206-topic-sm8450-upstream-dp-controller-v4-3-dca33f531e0d@linaro.org>
+ <68a26435-4f00-1571-88ef-1f3c0a254cef@linaro.org>
+Organization: Linaro Developer Services
+In-Reply-To: <68a26435-4f00-1571-88ef-1f3c0a254cef@linaro.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH v5 08/10] dt-bindings: display/msm:
- dsi-controller-main: Fix deprecated compatible
+Subject: Re: [Freedreno] [PATCH v4 3/5] arm64: dts: qcom: sm8350: add dp
+ controller
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -86,27 +88,57 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rob Herring <robh@kernel.org>, devicetree@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org,
- Marijn Suijten <marijn.suijten@somainline.org>,
- freedreno@lists.freedesktop.org
+Reply-To: neil.armstrong@linaro.org
+Cc: linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ devicetree@vger.kernel.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 16/03/2023 09:51, Konrad Dybcio wrote:
-> The point of the previous cleanup was to disallow "qcom,mdss-dsi-ctrl"
-> alone. This however didn't quite work out and the property became
-> undocumented instead of deprecated. Fix that.
+On 14/03/2023 23:10, Konrad Dybcio wrote:
 > 
-> Fixes: 0c0f65c6dd44 ("dt-bindings: msm: dsi-controller-main: Add compatible strings for every current SoC")
-> Reviewed-by: Marijn Suijten <marijn.suijten@somainline.org>
-> Signed-off-by: Konrad Dybcio <konrad.dybcio@linaro.org>
-> ---
+> 
+> On 9.03.2023 10:19, Neil Armstrong wrote:
+>> Add the Display Port controller subnode to the MDSS node.
+>>
+>> Tested-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org> #SM8350-HDK
+>> Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+>> Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
+>> ---
+> [...]
+>> +				dp_opp_table: opp-table {
+>> +					compatible = "operating-points-v2";
+>> +
+>> +					opp-160000000 {
+>> +						opp-hz = /bits/ 64 <160000000>;
+>> +						required-opps = <&rpmhpd_opp_low_svs>;
+>> +					};
+> Downstream doesn't seem to use this lowest freq
 
-You have warnings caused by your previous patch and since you fix the
-same commit, this should be rather squashed with #1.
+Now I know to look at, indeed, will remove.
 
-Best regards,
-Krzysztof
+Thanks,
+Neil
+
+> 
+> Konrad
+>> +
+>> +					opp-270000000 {
+>> +						opp-hz = /bits/ 64 <270000000>;
+>> +						required-opps = <&rpmhpd_opp_svs>;
+>> +					};
+>> +
+>> +					opp-540000000 {
+>> +						opp-hz = /bits/ 64 <540000000>;
+>> +						required-opps = <&rpmhpd_opp_svs_l1>;
+>> +					};
+>> +
+>> +					opp-810000000 {
+>> +						opp-hz = /bits/ 64 <810000000>;
+>> +						required-opps = <&rpmhpd_opp_nom>;
+>> +					};
+>>   				};
+>>   			};
+>>   
+>>
 
