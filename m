@@ -1,82 +1,59 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id A821A6BE4E8
-	for <lists+freedreno@lfdr.de>; Fri, 17 Mar 2023 10:07:05 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id D47686BE55E
+	for <lists+freedreno@lfdr.de>; Fri, 17 Mar 2023 10:18:48 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2E67A10EEA2;
-	Fri, 17 Mar 2023 09:07:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9E49B10EEA8;
+	Fri, 17 Mar 2023 09:18:47 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wm1-x335.google.com (mail-wm1-x335.google.com
- [IPv6:2a00:1450:4864:20::335])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 97C4710EEA2
- for <freedreno@lists.freedesktop.org>; Fri, 17 Mar 2023 09:07:02 +0000 (UTC)
-Received: by mail-wm1-x335.google.com with SMTP id
- bh21-20020a05600c3d1500b003ed1ff06fb0so2811765wmb.3
- for <freedreno@lists.freedesktop.org>; Fri, 17 Mar 2023 02:07:02 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1679044021;
- h=content-transfer-encoding:in-reply-to:organization:references:cc:to
- :content-language:subject:reply-to:from:user-agent:mime-version:date
- :message-id:from:to:cc:subject:date:message-id:reply-to;
- bh=FkEW8ZYuZi33cVLz405PPEYTVS02b7guai4VJnc/u0s=;
- b=Q6GGawkHUaBC3zY4KVyRU2zkTV8I/A3fQwxW7vTpJrTozVht9LImkNfbBCRCosXa0m
- pd7TBNyANDkYveJ2bhPyAp4KF6gKFGL5nSe71B61hyNABpnJuYVwciehnVTke16XsHkt
- FsBJJhM40ydNvoYFsecqfm0EzfkcQunE5FgD8M6ukgPmOfmmmPgu/4NlxdQjJpj+hPYJ
- axfR6dGJrSVb3HtEHlPHaxD2AyWfNzbMa4+JeWw0nvc6HsJ085fcxmt3vgf5tLRbSyby
- YeUW4PmcBtee2DYPwXFAwToI8SgWqv+LAG8OKBai099FX6K2zS8T9UqV+0L1tZUy9wWV
- d3Mg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112; t=1679044021;
- h=content-transfer-encoding:in-reply-to:organization:references:cc:to
- :content-language:subject:reply-to:from:user-agent:mime-version:date
- :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=FkEW8ZYuZi33cVLz405PPEYTVS02b7guai4VJnc/u0s=;
- b=fQc9rjNB9Fn5TD+pArlXSaf1x7cP7ZcNLXLUwBSrrgAT8zNZbVRVSy45rXURjvT6Bq
- mZ0mkmgCDR80SZlceOwv3JOtmx+NgRDSAOPECmFnxZEvKWNAz2mQfq4HvnwfWfqVwSKm
- pHQ7JjfbwYElyLXC/3lrdFLJKP1/SgdwthLpk92kV1HljZLfq990wg55nT3mvRFt28+E
- LrmdCtVfU3AJVoNFGAZ+jeAWmBzxHvDN99dpBW3ipQNkCJAfd/oU9XlIRSZ2FjuIBrg3
- ZfecFDVqaLn4YtzJtrqB3+HWCA9rUOM5jmJsa26Y2y42M6LykajCQTuh68S9TMutZbu8
- 5ypw==
-X-Gm-Message-State: AO0yUKWC93GEhmgQLElNv8mQeXTPguAYJVnckre1cb3S1ACNeFhrnXXS
- ttNn32rVpddn7umZQ1BXfBUAaQ==
-X-Google-Smtp-Source: AK7set+A4ni6dKWDcGtNRjRWaK1QKtVa/vvIX67r+ZAtb/CzWUnqPiOUWmFYG5d7yJ93VdhYmJaZlw==
-X-Received: by 2002:a05:600c:450c:b0:3ea:e7e7:95d9 with SMTP id
- t12-20020a05600c450c00b003eae7e795d9mr25428831wmo.32.1679044021068; 
- Fri, 17 Mar 2023 02:07:01 -0700 (PDT)
-Received: from ?IPV6:2a01:e0a:982:cbb0:9ed5:bad0:e925:7938?
- ([2a01:e0a:982:cbb0:9ed5:bad0:e925:7938])
- by smtp.gmail.com with ESMTPSA id
- ay38-20020a05600c1e2600b003df7b40f99fsm7331479wmb.11.2023.03.17.02.06.59
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 17 Mar 2023 02:07:00 -0700 (PDT)
-Message-ID: <8a6ecd92-ff4f-e72f-457e-4061546dc46f@linaro.org>
-Date: Fri, 17 Mar 2023 10:06:59 +0100
+X-Greylist: delayed 471 seconds by postgrey-1.36 at gabe;
+ Fri, 17 Mar 2023 09:18:44 UTC
+Received: from mout-p-101.mailbox.org (mout-p-101.mailbox.org [80.241.56.151])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EABB510EEA8
+ for <freedreno@lists.freedesktop.org>; Fri, 17 Mar 2023 09:18:44 +0000 (UTC)
+Received: from smtp202.mailbox.org (smtp202.mailbox.org
+ [IPv6:2001:67c:2050:b231:465::202])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange ECDHE (P-384) server-signature RSA-PSS (4096 bits) server-digest
+ SHA256) (No client certificate requested)
+ by mout-p-101.mailbox.org (Postfix) with ESMTPS id 4PdJJS0wgpz9sTs;
+ Fri, 17 Mar 2023 10:10:48 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
+ s=mail20150812; t=1679044248;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=tn5PncTOyWtxRza5q2TsQE5fEAu3fMK2xK+AqAvZbho=;
+ b=Y+VziNywRfRo0p0YxCt9vAJJJkXWTB2oYFB6IXyyxVPUkQuatIDv/40S0p0S9A+Q/lhVgT
+ lTxCKmh9gCbe75OH5I4nJUCRqn77pF4gV6FN92wQfUOWOqsVXKsje+5oxU1c1/zgnCOMq0
+ H0/SEULmLieHoXsdA7AiXQw5TIVjIloXie9iKgzbO3DWKiHRZAW2zFC7/k/0cf5SDBIaxd
+ nZzNF9GokuFZdw3km6HgWQ/y173AXrLXCZH21M0OtSHKfM89JRn2d8JFeoJSSBFObO2uFa
+ YNsQn9WXl9Yn94hgddXN/Duaf6YdhQ6xYPVDouaLK+AMdLBvBmi0XMg7ZXgF9Q==
+Message-ID: <12626002-98db-7702-598e-28ea4a3e5061@mailbox.org>
+Date: Fri, 17 Mar 2023 10:10:44 +0100
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.8.0
-From: Neil Armstrong <neil.armstrong@linaro.org>
-Content-Language: en-US
-To: Konrad Dybcio <konrad.dybcio@linaro.org>, Rob Clark
- <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>,
- David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- Rob Herring <robh+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Kuogee Hsieh <quic_khsieh@quicinc.com>, Andy Gross <agross@kernel.org>,
- Bjorn Andersson <andersson@kernel.org>
-References: <20230206-topic-sm8450-upstream-dp-controller-v4-0-dca33f531e0d@linaro.org>
- <20230206-topic-sm8450-upstream-dp-controller-v4-5-dca33f531e0d@linaro.org>
- <c63ecdc2-11e0-79d2-8647-284913f0c0da@linaro.org>
-Organization: Linaro Developer Services
-In-Reply-To: <c63ecdc2-11e0-79d2-8647-284913f0c0da@linaro.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH v4 5/5] arm64: dts: qcom: sm8450: add dp
- controller
+Content-Language: de-CH-frami, en-CA
+To: Sebastian Wick <sebastian.wick@redhat.com>, Rob Clark <robdclark@gmail.com>
+References: <20230308155322.344664-1-robdclark@gmail.com>
+ <20230308155322.344664-2-robdclark@gmail.com> <ZAtQspuFjPtGy7ze@gmail.com>
+ <CAF6AEGsGOr5+Q10wX=5ttrWCSUJfn7gzHW8QhxFC0GDLgagMHg@mail.gmail.com>
+ <ZBHNvT3BLgS3qvV5@gmail.com>
+ <CAF6AEGu1S2CXzRxV_c5tE_H+XUGiO=n0tXjLZ_u_tW-eMqMsQw@mail.gmail.com>
+ <ZBLg0t0tTVvuPuiJ@gmail.com>
+ <CAF6AEGvV5arZThTyju_=xFFDWRbMaexgO_kkdKZuK-zeCxrN7Q@mail.gmail.com>
+ <CA+hFU4xbssR+=Sf4ia5kPdsSb4y9SQUd4nx_2p1Szcbtna28CA@mail.gmail.com>
+From: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel.daenzer@mailbox.org>
+In-Reply-To: <CA+hFU4xbssR+=Sf4ia5kPdsSb4y9SQUd4nx_2p1Szcbtna28CA@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-MBO-RS-ID: 8afd7b6bd4c7689e5ec
+X-MBO-RS-META: 7n4co8ucek6ryf9zcbhkmobgbkmu6uzh
+Subject: Re: [Freedreno] [PATCH v10 01/15] dma-buf/dma-fence: Add deadline
+ awareness
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -89,64 +66,85 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: neil.armstrong@linaro.org
-Cc: linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- devicetree@vger.kernel.org
+Cc: Rob Clark <robdclark@chromium.org>,
+ Pekka Paalanen <pekka.paalanen@collabora.com>,
+ "open list:DOCUMENTATION" <linux-doc@vger.kernel.org>,
+ =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>,
+ intel-gfx@lists.freedesktop.org, Jonathan Corbet <corbet@lwn.net>,
+ open list <linux-kernel@vger.kernel.org>, dri-devel@lists.freedesktop.org,
+ =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
+ "moderated list:DMA BUFFER SHARING FRAMEWORK" <linaro-mm-sig@lists.linaro.org>,
+ Luben Tuikov <luben.tuikov@amd.com>, Bagas Sanjaya <bagasdotme@gmail.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, Gustavo Padovan <gustavo@padovan.org>,
+ Matt Turner <mattst88@gmail.com>, freedreno@lists.freedesktop.org,
+ Sumit Semwal <sumit.semwal@linaro.org>,
+ "open list:DMA BUFFER SHARING FRAMEWORK" <linux-media@vger.kernel.org>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 14/03/2023 23:12, Konrad Dybcio wrote:
+On 3/16/23 23:22, Sebastian Wick wrote:
+> On Thu, Mar 16, 2023 at 5:29 PM Rob Clark <robdclark@gmail.com> wrote:
+>> On Thu, Mar 16, 2023 at 2:26 AM Jonas Ådahl <jadahl@gmail.com> wrote:
+>>> On Wed, Mar 15, 2023 at 09:19:49AM -0700, Rob Clark wrote:
+>>>> On Wed, Mar 15, 2023 at 6:53 AM Jonas Ådahl <jadahl@gmail.com> wrote:
+>>>>> On Fri, Mar 10, 2023 at 09:38:18AM -0800, Rob Clark wrote:
+>>>>>> On Fri, Mar 10, 2023 at 7:45 AM Jonas Ådahl <jadahl@gmail.com> wrote:
+>>>>>>>
+>>>>>>>> + *
+>>>>>>>> + * To this end, deadline hint(s) can be set on a &dma_fence via &dma_fence_set_deadline.
+>>>>>>>> + * The deadline hint provides a way for the waiting driver, or userspace, to
+>>>>>>>> + * convey an appropriate sense of urgency to the signaling driver.
+>>>>>>>> + *
+>>>>>>>> + * A deadline hint is given in absolute ktime (CLOCK_MONOTONIC for userspace
+>>>>>>>> + * facing APIs).  The time could either be some point in the future (such as
+>>>>>>>> + * the vblank based deadline for page-flipping, or the start of a compositor's
+>>>>>>>> + * composition cycle), or the current time to indicate an immediate deadline
+>>>>>>>> + * hint (Ie. forward progress cannot be made until this fence is signaled).
+>>>>>>>
+>>>>>>> Is it guaranteed that a GPU driver will use the actual start of the
+>>>>>>> vblank as the effective deadline? I have some memories of seing
+>>>>>>> something about vblank evasion browsing driver code, which I might have
+>>>>>>> misunderstood, but I have yet to find whether this is something
+>>>>>>> userspace can actually expect to be something it can rely on.
+>>>>>>
+>>>>>> I guess you mean s/GPU driver/display driver/ ?  It makes things more
+>>>>>> clear if we talk about them separately even if they happen to be the
+>>>>>> same device.
+>>>>>
+>>>>> Sure, sorry about being unclear about that.
+>>>>>
+>>>>>>
+>>>>>> Assuming that is what you mean, nothing strongly defines what the
+>>>>>> deadline is.  In practice there is probably some buffering in the
+>>>>>> display controller.  For ex, block based (including bandwidth
+>>>>>> compressed) formats, you need to buffer up a row of blocks to
+>>>>>> efficiently linearize for scanout.  So you probably need to latch some
+>>>>>> time before you start sending pixel data to the display.  But details
+>>>>>> like this are heavily implementation dependent.  I think the most
+>>>>>> reasonable thing to target is start of vblank.
+>>>>>
+>>>>> The driver exposing those details would be quite useful for userspace
+>>>>> though, so that it can delay committing updates to late, but not too
+>>>>> late. Setting a deadline to be the vblank seems easy enough, but it
+>>>>> isn't enough for scheduling the actual commit.
+>>>>
+>>>> I'm not entirely sure how that would even work.. but OTOH I think you
+>>>> are talking about something on the order of 100us?  But that is a bit
+>>>> of another topic.
+>>>
+>>> Yes, something like that. But yea, it's not really related. Scheduling
+>>> commits closer to the deadline has more complex behavior than that too,
+>>> e.g. the need for real time scheduling, and knowing how long it usually
+>>> takes to create and commit and for the kernel to process.
 > 
-> 
-> On 9.03.2023 10:19, Neil Armstrong wrote:
->> Add the Display Port controller subnode to the MDSS node.
->>
->> Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
->> ---
-> [...]
->> +
->> +				dp_opp_table: opp-table {
->> +					compatible = "operating-points-v2";
->> +
->> +					opp-160000000 {
->> +						opp-hz = /bits/ 64 <160000000>;
->> +						required-opps = <&rpmhpd_opp_low_svs>;
->> +					};
-> Downstream seems to use 19200000 here
+> Vblank can be really long, especially with VRR where the additional
+> time you get to finish the frame comes from making vblank longer.
+> Using the start of vblank as a deadline makes VRR useless.
 
-Ack, will update.
+Not really. We normally still want to aim for start of vblank with VRR, which would result in the maximum refresh rate. Missing that target just incurs less of a penalty than with fixed refresh rate.
 
-Thx,
-Neil
 
-> 
-> Otherwise,
-> 
-> Reviewed-by: Konrad Dybcio <konrad.dybcio@linaro.org>
-> 
-> Konrad
-> 
->> +
->> +					opp-270000000 {
->> +						opp-hz = /bits/ 64 <270000000>;
->> +						required-opps = <&rpmhpd_opp_svs>;
->> +					};
->> +
->> +					opp-540000000 {
->> +						opp-hz = /bits/ 64 <540000000>;
->> +						required-opps = <&rpmhpd_opp_svs_l1>;
->> +					};
->> +
->> +					opp-810000000 {
->> +						opp-hz = /bits/ 64 <810000000>;
->> +						required-opps = <&rpmhpd_opp_nom>;
->> +					};
->> +				};
->> +			};
->> +
->>   			mdss_dsi0: dsi@ae94000 {
->>   				compatible = "qcom,sm8450-dsi-ctrl", "qcom,mdss-dsi-ctrl";
->>   				reg = <0 0x0ae94000 0 0x400>;
->>
+-- 
+Earthling Michel Dänzer            |                  https://redhat.com
+Libre software enthusiast          |         Mesa and Xwayland developer
 
