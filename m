@@ -1,60 +1,60 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7516E6BFA55
-	for <lists+freedreno@lfdr.de>; Sat, 18 Mar 2023 14:43:05 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 88BF46BFA66
+	for <lists+freedreno@lfdr.de>; Sat, 18 Mar 2023 14:43:14 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CD45F10E0E2;
-	Sat, 18 Mar 2023 13:43:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6FD4810E458;
+	Sat, 18 Mar 2023 13:43:11 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-x231.google.com (mail-lj1-x231.google.com
- [IPv6:2a00:1450:4864:20::231])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 65FBA10E0C7
- for <freedreno@lists.freedesktop.org>; Sat, 18 Mar 2023 13:42:56 +0000 (UTC)
-Received: by mail-lj1-x231.google.com with SMTP id 20so644569lju.0
- for <freedreno@lists.freedesktop.org>; Sat, 18 Mar 2023 06:42:56 -0700 (PDT)
+Received: from mail-lj1-x22b.google.com (mail-lj1-x22b.google.com
+ [IPv6:2a00:1450:4864:20::22b])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8468310E106
+ for <freedreno@lists.freedesktop.org>; Sat, 18 Mar 2023 13:42:58 +0000 (UTC)
+Received: by mail-lj1-x22b.google.com with SMTP id x36so7789630ljq.7
+ for <freedreno@lists.freedesktop.org>; Sat, 18 Mar 2023 06:42:58 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1679146974;
+ d=linaro.org; s=google; t=1679146976;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=gR7d4RO2oXpB/c3r0bQ4Ajknjymjb6WOVIZPuCDVi/s=;
- b=H+KKwkXjEOO0xzTuKFQmmnSBPzTcBRlFbmOuHHf0Uf1URi+8D0dsxGBIdjFfhSufft
- DrJpuK0pjFw5vgPotYM8FgqBQan/tczhlitMFlsrMRdr6y1YoAiafr7ZNKsSQhjxcP9i
- QdGlVVNlQVzg2orND8EdgzhC7jo6B2q11qv2GhzXuxoRIPLQsqaKpQR8yYmitCbxFlf6
- 8ePht5xEcqLrc9tJ/+GOPrYedYc/80thHuI+k1zq2FBRjOTtam2lDB+hz6s/gbG+/4vc
- nKCUA3ZMHKf8TG1JhXh7229zquYFFboM05CWaQpMqtUQQcK0bYW25K/WR2h7EV2y+JD6
- bT+g==
+ :reply-to; bh=Ja37xKiglxJ/lPrUpuyUvSbThkrJV11m94PBRXq1WhI=;
+ b=j63kOdN48NM1FMwxcRvOouDRuBkw/SDRBHKcP2kCDXbu3eHffkQvdRMB5TPrDoXTcX
+ mHr1VIHZmvH42mEPA3OI5L0LoLqyrsx3ZyHhwdllm985tYhkwUSHBTBf9xgZP1CnUgTy
+ NxeutMT6w3eoDEOWbp74rUCl1bSWJAZLEfTlaHP138zVMIqyhh25b74XRzQfERfdMGKm
+ a3TqcZoBGwQEkRIFc9bG7NZx76E0ZY/ALPtwDZcBrsPYXH9Vkw3rmxnJurwkukLBHiOE
+ Jd/fkrIYQVRk/5yg2Y4uQZI4ZgtCNDUFmrsTufkgG7z35+BfeMn+K8YNwK8jNjQrHUMN
+ PcrQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112; t=1679146974;
+ d=1e100.net; s=20210112; t=1679146976;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=gR7d4RO2oXpB/c3r0bQ4Ajknjymjb6WOVIZPuCDVi/s=;
- b=6ovskFWi2NXPS70xAO0065Z9P4euaoHxUT1TkGcPdFGFjN03bqiV0uO3J1HcF/+/Pp
- gZFXKbQMtczhHy0bCp6Y/KKjDVzHU4ZmwVCzU9wbErMgVx4zmIKoedWfMAgmUjHMsTm0
- OPocZwd49X/f4+yutDE6b4yNCq2ZFGxcCbN2xB+CZ9ciTapcwuCcKI49JVYIswZltwTH
- McrpeJ917E9qrc73AqTf9KEmdZtmslpFuhW70athx4Kj6BypK86fIxFA03bLKt1cznSS
- R0PcJVYj2PVOC3cvG5iU31bIuCiT+LrAYXIOFOK6afw5z/ijaldY0STXmvMIFexlfnxZ
- JghA==
-X-Gm-Message-State: AO0yUKUb/jSNPgC4rCELDLmqhJ4s0g7jF9GkLZTG9Zbm3wIY13EnIBYh
- 5zGdZn84fU7ogazpJ3+0zlic4A==
-X-Google-Smtp-Source: AK7set9GN9auH9hYdKHl3gOJyNgaD+0SoeqFRn4nVBRLI6bcjVlPdnl1lVslCbG8ftxVuXbiMtxUiw==
-X-Received: by 2002:a05:651c:391:b0:298:9db0:a9dd with SMTP id
- e17-20020a05651c039100b002989db0a9ddmr3848542ljp.50.1679146974706; 
- Sat, 18 Mar 2023 06:42:54 -0700 (PDT)
+ bh=Ja37xKiglxJ/lPrUpuyUvSbThkrJV11m94PBRXq1WhI=;
+ b=tF1l/FpfiV8U3UTtBYom0dClbZXSrs2UVibV2yDsuSvUaKZlezMoMZN18/PvzPQZbj
+ fXa1scuCCU+pVZVvZaWsEIIUSxk1RWuDxUjQsoJUmJi/Cp4xqeQtjz1yShY8yb5rftC5
+ HlEcnBPPsO61hhzNO1MFYCr2RJWl3gJ3PlgorUo++iVHQ3VmWUi4vKIW2Fj5/BwmbjsF
+ WEdsn3fkuDuhiT/wQDRX+343SyiAcRlMkS+XvM/G4cRYDo7Tkntbs7TruuAZcJCfC2LA
+ S4ROVz4DHNmJX+8Idg6hyPL4b4ujxP5O7Em3scfgmbu8UZzpxoB/zlWK72rlpVG29M1r
+ yPeg==
+X-Gm-Message-State: AO0yUKVY/7WI6Me+d3SQE9z0Yad07RWZ907OxM2mPeHQs5XSMldK2pGw
+ fAVzvVJ1mbsa0qLCHrkftJ1PAg==
+X-Google-Smtp-Source: AK7set+8apd8tn9mAphOC18izxibwyQooL29lC9fvKqCL5UUy3N4m2lCRBggOum5nEJf5MYRJYnieQ==
+X-Received: by 2002:a05:651c:b10:b0:295:9659:fba5 with SMTP id
+ b16-20020a05651c0b1000b002959659fba5mr5354998ljr.37.1679146976294; 
+ Sat, 18 Mar 2023 06:42:56 -0700 (PDT)
 Received: from [192.168.1.101] (abym238.neoplus.adsl.tpnet.pl. [83.9.32.238])
  by smtp.gmail.com with ESMTPSA id
- c2-20020a2e9d82000000b0029a0b50a34asm888367ljj.36.2023.03.18.06.42.53
+ c2-20020a2e9d82000000b0029a0b50a34asm888367ljj.36.2023.03.18.06.42.54
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 18 Mar 2023 06:42:54 -0700 (PDT)
+ Sat, 18 Mar 2023 06:42:55 -0700 (PDT)
 From: Konrad Dybcio <konrad.dybcio@linaro.org>
-Date: Sat, 18 Mar 2023 14:42:47 +0100
+Date: Sat, 18 Mar 2023 14:42:48 +0100
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20230307-topic-dsi_qcm-v6-1-70e13b1214fa@linaro.org>
+Message-Id: <20230307-topic-dsi_qcm-v6-2-70e13b1214fa@linaro.org>
 References: <20230307-topic-dsi_qcm-v6-0-70e13b1214fa@linaro.org>
 In-Reply-To: <20230307-topic-dsi_qcm-v6-0-70e13b1214fa@linaro.org>
 To: Rob Clark <robdclark@gmail.com>, 
@@ -67,15 +67,15 @@ To: Rob Clark <robdclark@gmail.com>,
  Bryan O'Donoghue <bryan.odonoghue@linaro.org>, 
  Andy Gross <agross@kernel.org>, Bjorn Andersson <andersson@kernel.org>
 X-Mailer: b4 0.12.1
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1679146971; l=1481;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1679146971; l=5720;
  i=konrad.dybcio@linaro.org; s=20230215; h=from:subject:message-id;
- bh=lSCVKFJ04QtIFibtVglZV7BCCs/8/zx27+lAfw7WMPU=;
- b=X/s/41QPUlm8nRs2vQaKIl635XNevr5YacB1S+xQkmK9HwhcN8L3ph+JFfv/IpLFvBj0pHm1IC6M
- af8muWHKDv5rbdPZkHE5JmnQP98Q8umthXsGYo2492dX8ODNKJbj
+ bh=nAK7VhpEOKQPVDoVxGmSH//l3jkm1AocrDNJW7zWKno=;
+ b=0sipnApXZIY2+VWgYQXjuxdpIip3V7pkk/e9SMtNlW7/sozotVv8DC+ri2fXG6ktgln5mEWPoQx6
+ cO56WjaJAvSYJhZTn5zVwfoXybtVsC1jvQYz/UY85zPo2/VBzZMG
 X-Developer-Key: i=konrad.dybcio@linaro.org; a=ed25519;
  pk=iclgkYvtl2w05SSXO5EjjSYlhFKsJ+5OSZBjOkQuEms=
-Subject: [Freedreno] [PATCH v6 1/9] dt-bindings: display/msm:
- dsi-controller-main: Fix deprecated QCM2290 compatible
+Subject: [Freedreno] [PATCH v6 2/9] drm/msm/dsi: Get rid of
+ msm_dsi_config::num_dsi
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -96,38 +96,154 @@ Cc: Rob Herring <robh@kernel.org>, devicetree@vger.kernel.org,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-The point of the previous cleanup was to disallow "qcom,mdss-dsi-ctrl"
-alone. This however didn't quite work out and the property became
-undocumented instead of deprecated. Fix that.
+In preparation for supporting multiple sets of possible base registers,
+remove the num_dsi variable. We're comparing the io_start array contents
+with the reg value from the DTS, so it will either match one of the
+expected values or don't match against a zero (which we get from partial
+array initialization).
 
-Additionally, the "qcom," prefix was missed previously. Fix it.
-
-Fixes: 0c0f65c6dd44 ("dt-bindings: msm: dsi-controller-main: Add compatible strings for every current SoC")
-Acked-by: Rob Herring <robh@kernel.org>
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 Reviewed-by: Marijn Suijten <marijn.suijten@somainline.org>
 Signed-off-by: Konrad Dybcio <konrad.dybcio@linaro.org>
 ---
- .../devicetree/bindings/display/msm/dsi-controller-main.yaml       | 7 +++----
- 1 file changed, 3 insertions(+), 4 deletions(-)
+ drivers/gpu/drm/msm/dsi/dsi_cfg.c  | 13 -------------
+ drivers/gpu/drm/msm/dsi/dsi_cfg.h  |  1 -
+ drivers/gpu/drm/msm/dsi/dsi_host.c |  2 +-
+ 3 files changed, 1 insertion(+), 15 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/display/msm/dsi-controller-main.yaml b/Documentation/devicetree/bindings/display/msm/dsi-controller-main.yaml
-index e75a3efe4dac..ecc89011bec4 100644
---- a/Documentation/devicetree/bindings/display/msm/dsi-controller-main.yaml
-+++ b/Documentation/devicetree/bindings/display/msm/dsi-controller-main.yaml
-@@ -31,10 +31,9 @@ properties:
-               - qcom,sm8450-dsi-ctrl
-               - qcom,sm8550-dsi-ctrl
-           - const: qcom,mdss-dsi-ctrl
--      - items:
--          - enum:
--              - dsi-ctrl-6g-qcm2290
--          - const: qcom,mdss-dsi-ctrl
-+      - enum:
-+          - qcom,dsi-ctrl-6g-qcm2290
-+          - qcom,mdss-dsi-ctrl # This should always come with an SoC-specific compatible
-         deprecated: true
+diff --git a/drivers/gpu/drm/msm/dsi/dsi_cfg.c b/drivers/gpu/drm/msm/dsi/dsi_cfg.c
+index 6d21f0b33411..4515f52b407a 100644
+--- a/drivers/gpu/drm/msm/dsi/dsi_cfg.c
++++ b/drivers/gpu/drm/msm/dsi/dsi_cfg.c
+@@ -22,7 +22,6 @@ static const struct msm_dsi_config apq8064_dsi_cfg = {
+ 	.bus_clk_names = dsi_v2_bus_clk_names,
+ 	.num_bus_clks = ARRAY_SIZE(dsi_v2_bus_clk_names),
+ 	.io_start = { 0x4700000, 0x5800000 },
+-	.num_dsi = 2,
+ };
  
-   reg:
+ static const char * const dsi_6g_bus_clk_names[] = {
+@@ -42,7 +41,6 @@ static const struct msm_dsi_config msm8974_apq8084_dsi_cfg = {
+ 	.bus_clk_names = dsi_6g_bus_clk_names,
+ 	.num_bus_clks = ARRAY_SIZE(dsi_6g_bus_clk_names),
+ 	.io_start = { 0xfd922800, 0xfd922b00 },
+-	.num_dsi = 2,
+ };
+ 
+ static const char * const dsi_8916_bus_clk_names[] = {
+@@ -61,7 +59,6 @@ static const struct msm_dsi_config msm8916_dsi_cfg = {
+ 	.bus_clk_names = dsi_8916_bus_clk_names,
+ 	.num_bus_clks = ARRAY_SIZE(dsi_8916_bus_clk_names),
+ 	.io_start = { 0x1a98000 },
+-	.num_dsi = 1,
+ };
+ 
+ static const char * const dsi_8976_bus_clk_names[] = {
+@@ -80,7 +77,6 @@ static const struct msm_dsi_config msm8976_dsi_cfg = {
+ 	.bus_clk_names = dsi_8976_bus_clk_names,
+ 	.num_bus_clks = ARRAY_SIZE(dsi_8976_bus_clk_names),
+ 	.io_start = { 0x1a94000, 0x1a96000 },
+-	.num_dsi = 2,
+ };
+ 
+ static const struct regulator_bulk_data msm8994_dsi_regulators[] = {
+@@ -99,7 +95,6 @@ static const struct msm_dsi_config msm8994_dsi_cfg = {
+ 	.bus_clk_names = dsi_6g_bus_clk_names,
+ 	.num_bus_clks = ARRAY_SIZE(dsi_6g_bus_clk_names),
+ 	.io_start = { 0xfd998000, 0xfd9a0000 },
+-	.num_dsi = 2,
+ };
+ 
+ static const char * const dsi_8996_bus_clk_names[] = {
+@@ -119,7 +114,6 @@ static const struct msm_dsi_config msm8996_dsi_cfg = {
+ 	.bus_clk_names = dsi_8996_bus_clk_names,
+ 	.num_bus_clks = ARRAY_SIZE(dsi_8996_bus_clk_names),
+ 	.io_start = { 0x994000, 0x996000 },
+-	.num_dsi = 2,
+ };
+ 
+ static const char * const dsi_msm8998_bus_clk_names[] = {
+@@ -138,7 +132,6 @@ static const struct msm_dsi_config msm8998_dsi_cfg = {
+ 	.bus_clk_names = dsi_msm8998_bus_clk_names,
+ 	.num_bus_clks = ARRAY_SIZE(dsi_msm8998_bus_clk_names),
+ 	.io_start = { 0xc994000, 0xc996000 },
+-	.num_dsi = 2,
+ };
+ 
+ static const char * const dsi_sdm660_bus_clk_names[] = {
+@@ -156,7 +149,6 @@ static const struct msm_dsi_config sdm660_dsi_cfg = {
+ 	.bus_clk_names = dsi_sdm660_bus_clk_names,
+ 	.num_bus_clks = ARRAY_SIZE(dsi_sdm660_bus_clk_names),
+ 	.io_start = { 0xc994000, 0xc996000 },
+-	.num_dsi = 2,
+ };
+ 
+ static const char * const dsi_sdm845_bus_clk_names[] = {
+@@ -178,7 +170,6 @@ static const struct msm_dsi_config sdm845_dsi_cfg = {
+ 	.bus_clk_names = dsi_sdm845_bus_clk_names,
+ 	.num_bus_clks = ARRAY_SIZE(dsi_sdm845_bus_clk_names),
+ 	.io_start = { 0xae94000, 0xae96000 },
+-	.num_dsi = 2,
+ };
+ 
+ static const struct regulator_bulk_data sm8550_dsi_regulators[] = {
+@@ -192,7 +183,6 @@ static const struct msm_dsi_config sm8550_dsi_cfg = {
+ 	.bus_clk_names = dsi_sdm845_bus_clk_names,
+ 	.num_bus_clks = ARRAY_SIZE(dsi_sdm845_bus_clk_names),
+ 	.io_start = { 0xae94000, 0xae96000 },
+-	.num_dsi = 2,
+ };
+ 
+ static const struct regulator_bulk_data sc7180_dsi_regulators[] = {
+@@ -206,7 +196,6 @@ static const struct msm_dsi_config sc7180_dsi_cfg = {
+ 	.bus_clk_names = dsi_sc7180_bus_clk_names,
+ 	.num_bus_clks = ARRAY_SIZE(dsi_sc7180_bus_clk_names),
+ 	.io_start = { 0xae94000 },
+-	.num_dsi = 1,
+ };
+ 
+ static const char * const dsi_sc7280_bus_clk_names[] = {
+@@ -224,7 +213,6 @@ static const struct msm_dsi_config sc7280_dsi_cfg = {
+ 	.bus_clk_names = dsi_sc7280_bus_clk_names,
+ 	.num_bus_clks = ARRAY_SIZE(dsi_sc7280_bus_clk_names),
+ 	.io_start = { 0xae94000, 0xae96000 },
+-	.num_dsi = 2,
+ };
+ 
+ static const char * const dsi_qcm2290_bus_clk_names[] = {
+@@ -242,7 +230,6 @@ static const struct msm_dsi_config qcm2290_dsi_cfg = {
+ 	.bus_clk_names = dsi_qcm2290_bus_clk_names,
+ 	.num_bus_clks = ARRAY_SIZE(dsi_qcm2290_bus_clk_names),
+ 	.io_start = { 0x5e94000 },
+-	.num_dsi = 1,
+ };
+ 
+ static const struct msm_dsi_host_cfg_ops msm_dsi_v2_host_ops = {
+diff --git a/drivers/gpu/drm/msm/dsi/dsi_cfg.h b/drivers/gpu/drm/msm/dsi/dsi_cfg.h
+index 44be4a88aa83..6b6b16c5fd25 100644
+--- a/drivers/gpu/drm/msm/dsi/dsi_cfg.h
++++ b/drivers/gpu/drm/msm/dsi/dsi_cfg.h
+@@ -39,7 +39,6 @@ struct msm_dsi_config {
+ 	const char * const *bus_clk_names;
+ 	const int num_bus_clks;
+ 	const resource_size_t io_start[DSI_MAX];
+-	const int num_dsi;
+ };
+ 
+ struct msm_dsi_host_cfg_ops {
+diff --git a/drivers/gpu/drm/msm/dsi/dsi_host.c b/drivers/gpu/drm/msm/dsi/dsi_host.c
+index 18fa30e1e858..9021f0d65515 100644
+--- a/drivers/gpu/drm/msm/dsi/dsi_host.c
++++ b/drivers/gpu/drm/msm/dsi/dsi_host.c
+@@ -1868,7 +1868,7 @@ static int dsi_host_get_id(struct msm_dsi_host *msm_host)
+ 	if (!res)
+ 		return -EINVAL;
+ 
+-	for (i = 0; i < cfg->num_dsi; i++) {
++	for (i = 0; i < DSI_MAX; i++) {
+ 		if (cfg->io_start[i] == res->start)
+ 			return i;
+ 	}
 
 -- 
 2.39.2
