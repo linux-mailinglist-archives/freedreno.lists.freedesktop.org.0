@@ -1,51 +1,52 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 11CEC6BFC8A
-	for <lists+freedreno@lfdr.de>; Sat, 18 Mar 2023 21:06:04 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id A028B6BFFE0
+	for <lists+freedreno@lfdr.de>; Sun, 19 Mar 2023 08:51:34 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BFA0310E128;
-	Sat, 18 Mar 2023 20:06:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 69D6010E16A;
+	Sun, 19 Mar 2023 07:51:30 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-X-Greylist: delayed 399 seconds by postgrey-1.36 at gabe;
- Sat, 18 Mar 2023 19:51:48 UTC
-Received: from devico.uberspace.de (devico.uberspace.de [185.26.156.185])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 813CF10E11B
- for <freedreno@lists.freedesktop.org>; Sat, 18 Mar 2023 19:51:48 +0000 (UTC)
-Received: (qmail 32315 invoked by uid 990); 18 Mar 2023 19:45:06 -0000
-Authentication-Results: devico.uberspace.de;
-	auth=pass (login)
-MIME-Version: 1.0
-Date: Sat, 18 Mar 2023 19:45:05 +0000
-Content-Type: text/plain; charset="utf-8"
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 863BA10E0BF;
+ Sun, 19 Mar 2023 07:51:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=MIME-Version:Content-Transfer-Encoding:Content-Type:References:
+ In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender:Reply-To:Content-ID:
+ Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+ :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+ List-Post:List-Owner:List-Archive;
+ bh=qKQllYX7SZBnf5V3bXi/JU+KAJtPREwzJ2Fs2x9vgCI=; b=DAzBDjr5c6F8vdTvQu28ITI3a9
+ E/OfwvDmKi0BVz8TOCibDb27OXpd1p+/Y3sXrFuPAkvY4IxGKZ+aMSjiWeZwEyXGU1Im0BGy6FvYw
+ Gm7sh45Rf8O6ZIK4kTTTYBBMaW9Wz2Fv9lJvGGx6BIM2RC4AsIdgfCa5zsG2EPw7G/UT4CSRtnevv
+ lqFlgVd50YXEz5d2hBAjS4lVpfn3S6qq9oKKb+I8nogOBGgHVTqKVqmCkmKOK0FMRvoOToOmmyZ3u
+ pfYfQg3JOANk2YO+ZWgBepD6Wh93RM2pUWMSuf3SKtCugi3m3dSY5yvHbOU/WL9mBunfFLF0hvL+B
+ 4WJHXHMg==;
+Received: from 137.red-83-52-2.dynamicip.rima-tde.net ([83.52.2.137]
+ helo=localhost.localdomain) by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
+ id 1pdnp3-000458-QM; Sun, 19 Mar 2023 08:51:21 +0100
+Message-ID: <a96ed67f7f44730c6533dcedf6b1cb7333b0c922.camel@igalia.com>
+From: Ricardo Garcia <rgarcia@igalia.com>
+To: members@x.org, events@lists.x.org, xorg-devel@lists.freedesktop.org, 
+ wayland-devel@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
+ mesa-dev@lists.freedesktop.org, amd-gfx@lists.freedesktop.org, 
+ etnaviv@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
+ nouveau@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ libre-soc-dev <libre-soc-dev@lists.libre-soc.org>
+Date: Sun, 19 Mar 2023 08:51:20 +0100
+In-Reply-To: <19f8b5328550abde46a316189c8cd746339819b0.camel@igalia.com>
+References: <c1c2591a7f7c9bcb05b69b08da529ddb8fc8145c.camel@igalia.com>
+ <19f8b5328550abde46a316189c8cd746339819b0.camel@igalia.com>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-From: "Leonard Lausen" <leonard@lausen.nl>
-Message-ID: <ae78354e98b719c1fc9466d5965aea5a45ac29f6@lausen.nl>
-To: robdclark@gmail.com, quic_abhinavk@quicinc.com,
- dmitry.baryshkov@linaro.org, linux-arm-msm@vger.kernel.org,
- freedreno@lists.freedesktop.org
-X-Rspamd-Bar: ---
-X-Rspamd-Report: BAYES_HAM(-2.999999) MIME_GOOD(-0.1)
-X-Rspamd-Score: -3.099999
-Received: from unknown (HELO unkown) (::1)
- by devico.uberspace.de (Haraka/3.0.1) with ESMTPSA;
- Sat, 18 Mar 2023 20:45:06 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=lausen.nl; s=uberspace;
- h=from; bh=mMAvDOgPzRoHk+xlo6UuvhlBsy65oeD4+ECW73EB0gA=;
- b=khcb2mcdY+hPWv6mELQTyxizkFo7JHNhniw+Fh+fCRHQeA1DTerPCHUHpqo4pUZk11PHMMj7WN
- nDbcVoVUkuvi1cpaojPwxdLDaBy0mBlbxuBtQz6FG8x1ysU2yXzK/8zfwQ3cVoPHpHvXh/ultU+r
- BJH5mKvHa355BwL4MbGN7MIVxs2h7tFosfYMi6GOdkLXV6n7Ci00Efe9/XH0sUUkJssytmMfNV+u
- XhxvdP8GVI/eXLNSHOM9U1ZQaxBTXA2x/tSwZ2BSGtx1cnGbD5rcvFS76Whx+KjJVXOBIBE0ocsb
- SpQvT0bDCWeKoCgiqqHZd16348o3YOaYluB+k59DI7Q6Z3kbwVoGVSWvqh0txTBBdEimatdKp7MC
- gl6EcGhH5n4HPogz7Cb/ou1dJDM69E4em/mI4WydyqnTauTKMu1uWOrsHpTGVIgcsDw51cHMF66m
- 9qUB/RSUv2/GaDuO+HfbhmfTbxsa3bwIgrCuY5rQIIa4quegq6n+r4vcpw3YY2MyCufe0BPkNYAG
- wyqX9bTw05529RT6PILwvXjXFGerLeRXYqUrju3gMwhORE9hi+L8qgVZ92XcFhGZ15mf+vfyG7jn
- 4W3ivq3ClLt4hgJvRIwDFmneA08d+Z81+IS1fAo1r4A3UzUaYebJuNkwOxzm8FWNmck2r2XhcYRK
- A=
-X-Mailman-Approved-At: Sat, 18 Mar 2023 20:06:01 +0000
-Subject: [Freedreno] [PATCH] drm/msm/dpu: Add support for AR30 format
+User-Agent: Evolution 3.46.4 (3.46.4-1.fc37) 
+MIME-Version: 1.0
+Subject: [Freedreno] Reminder: Last day (!) to nominate candidates for the
+ 2023 X.Org Board of Directors Elections
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,60 +59,86 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
+Cc: board <board@foundation.x.org>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Commit da7716a249b699978fb5 ("drm/msm/dpu: Add support for XR30 format") =
-enabled
-support for the 10-bit XR30 color format but missed AR30 color format.
+Final reminder that the nomination period for the X.Org Board of
+Director elections finishes today, March 19th.
 
-This can trigger bugs in userspace. KDE KWin compositor for example alway=
-s
-prefers 10-bit color formats, rendering a 1cm^2 black box around the curs=
-or due
-to missing per-pixel alpha-blending if only XR30 but not AR30 support is
-declared.
+Please send your nominations or self-nominations as soon as possible
+following the instructions below.
 
-Signed-off-by: Leonard Lausen <leonard@lausen.nl>
----
- drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c | 2 ++
- drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c | 1 +
- 2 files changed, 3 insertions(+)
+Thanks again for your attention.
 
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c b/drivers/gpu=
-/drm/msm/disp/dpu1/dpu_hw_catalog.c
-index 83f1dd2c22bd..d99ce3919248 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
-@@ -156,6 +156,7 @@ static const uint32_t plane_formats[] =3D {
- DRM_FORMAT_RGBX8888,
- DRM_FORMAT_BGRX8888,
- DRM_FORMAT_XBGR8888,
-+ DRM_FORMAT_ARGB2101010,
- DRM_FORMAT_XRGB2101010,
- DRM_FORMAT_RGB888,
- DRM_FORMAT_BGR888,
-@@ -185,6 +186,7 @@ static const uint32_t plane_formats_yuv[] =3D {
- DRM_FORMAT_RGBA8888,
- DRM_FORMAT_BGRX8888,
- DRM_FORMAT_BGRA8888,
-+ DRM_FORMAT_ARGB2101010,
- DRM_FORMAT_XRGB2101010,
- DRM_FORMAT_XRGB8888,
- DRM_FORMAT_XBGR8888,
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c b/drivers/gpu/drm/=
-msm/disp/dpu1/dpu_plane.c
-index bfd5be89e8b8..0ed6a1a114c7 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
-@@ -69,6 +69,7 @@ static const uint32_t qcom_compressed_supported_formats=
-[] =3D {
- DRM_FORMAT_ARGB8888,
- DRM_FORMAT_XBGR8888,
- DRM_FORMAT_XRGB8888,
-+ DRM_FORMAT_ARGB2101010,
- DRM_FORMAT_XRGB2101010,
- DRM_FORMAT_BGR565,
-=20
---=20
-2.30.2
+On Mon, 2023-03-13 at 16:27 +0100, Ricardo Garcia wrote:
+> This is a reminder that the nomination period for the X.Org Board of
+> Director elections finishes in a week, on March 19th.
+>=20
+> If you would like to nominate yourself please send email to the election
+> committee elections@x.org, giving your
+>=20
+>     name
+>     current professional affiliation
+>     a statement of contribution to X.Org or related technologies
+>     a personal statement.
+>=20
+> To vote or to be elected to the Board you needed to be a Member of the
+> X.Org Foundation. To be a Member of the X.Org Foundation you need to
+> apply or renew your membership until the end of the nomination period.
+>=20
+> Original email follows below. Thanks for your attention.
+>=20
+> On Wed, 2023-02-15 at 21:53 +0100, Ricardo Garcia wrote:
+> > We are seeking nominations for candidates for election to the X.Org
+> > Foundation Board of Directors. All X.Org Foundation members are eligibl=
+e
+> > for election to the board.
+> >=20
+> > Nominations for the 2023 election are now open and will remain open
+> > until 23:59 UTC on 19 March 2023.
+> >=20
+> > The Board consists of directors elected from the membership. Each year,
+> > an election is held to bring the total number of directors to eight. Th=
+e
+> > four members receiving the highest vote totals will serve as directors
+> > for two year terms.
+> >=20
+> > The directors who received two year terms starting in 2022 were Emma
+> > Anholt, Mark Filion, Alyssa Rosenzweig and Ricardo Garcia. They will
+> > continue to serve until their term ends in 2024. Current directors whos=
+e
+> > term expires in 2023 are Samuel Iglesias Gons=C3=A1lvez, Manasi D Navar=
+e,
+> > Lyude Paul and Daniel Vetter.
+> >=20
+> > A director is expected to participate in the fortnightly IRC meeting to
+> > discuss current business and to attend the annual meeting of the X.Org
+> > Foundation, which will be held at a location determined in advance by
+> > the Board of Directors.
+> >=20
+> > A member may nominate themselves or any other member they feel is
+> > qualified. Nominations should be sent to the Election Committee at
+> > elections at x.org.
+> >=20
+> > Nominees shall be required to be current members of the X.Org
+> > Foundation, and submit a personal statement of up to 200 words that wil=
+l
+> > be provided to prospective voters. The collected statements, along with
+> > the statement of contribution to the X.Org Foundation in the member's
+> > account page on http://members.x.org, will be made available to all
+> > voters to help them make their voting decisions.
+> >=20
+> > Nominations, membership applications or renewals and completed personal
+> > statements must be received no later than 23:59 UTC on 19 March 2023.
+> >=20
+> > The slate of candidates will be published 26 March 2023 and candidate
+> > Q&A will begin then. The deadline for Xorg membership applications and
+> > renewals is 26 March 2023.
+> >=20
+> > Cheers,
+> > Ricardo Garcia, on behalf of the X.Org BoD
+> >=20
+>=20
+
+
