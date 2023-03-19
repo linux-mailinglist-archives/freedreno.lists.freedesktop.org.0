@@ -2,51 +2,78 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id A028B6BFFE0
-	for <lists+freedreno@lfdr.de>; Sun, 19 Mar 2023 08:51:34 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id CF0CF6C0148
+	for <lists+freedreno@lfdr.de>; Sun, 19 Mar 2023 13:04:04 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 69D6010E16A;
-	Sun, 19 Mar 2023 07:51:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E6EEC10E126;
+	Sun, 19 Mar 2023 12:04:01 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 863BA10E0BF;
- Sun, 19 Mar 2023 07:51:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=MIME-Version:Content-Transfer-Encoding:Content-Type:References:
- In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender:Reply-To:Content-ID:
- Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
- :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
- List-Post:List-Owner:List-Archive;
- bh=qKQllYX7SZBnf5V3bXi/JU+KAJtPREwzJ2Fs2x9vgCI=; b=DAzBDjr5c6F8vdTvQu28ITI3a9
- E/OfwvDmKi0BVz8TOCibDb27OXpd1p+/Y3sXrFuPAkvY4IxGKZ+aMSjiWeZwEyXGU1Im0BGy6FvYw
- Gm7sh45Rf8O6ZIK4kTTTYBBMaW9Wz2Fv9lJvGGx6BIM2RC4AsIdgfCa5zsG2EPw7G/UT4CSRtnevv
- lqFlgVd50YXEz5d2hBAjS4lVpfn3S6qq9oKKb+I8nogOBGgHVTqKVqmCkmKOK0FMRvoOToOmmyZ3u
- pfYfQg3JOANk2YO+ZWgBepD6Wh93RM2pUWMSuf3SKtCugi3m3dSY5yvHbOU/WL9mBunfFLF0hvL+B
- 4WJHXHMg==;
-Received: from 137.red-83-52-2.dynamicip.rima-tde.net ([83.52.2.137]
- helo=localhost.localdomain) by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1pdnp3-000458-QM; Sun, 19 Mar 2023 08:51:21 +0100
-Message-ID: <a96ed67f7f44730c6533dcedf6b1cb7333b0c922.camel@igalia.com>
-From: Ricardo Garcia <rgarcia@igalia.com>
-To: members@x.org, events@lists.x.org, xorg-devel@lists.freedesktop.org, 
- wayland-devel@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
- mesa-dev@lists.freedesktop.org, amd-gfx@lists.freedesktop.org, 
- etnaviv@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
- nouveau@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- libre-soc-dev <libre-soc-dev@lists.libre-soc.org>
-Date: Sun, 19 Mar 2023 08:51:20 +0100
-In-Reply-To: <19f8b5328550abde46a316189c8cd746339819b0.camel@igalia.com>
-References: <c1c2591a7f7c9bcb05b69b08da529ddb8fc8145c.camel@igalia.com>
- <19f8b5328550abde46a316189c8cd746339819b0.camel@igalia.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.46.4 (3.46.4-1.fc37) 
+Received: from mail-ed1-x532.google.com (mail-ed1-x532.google.com
+ [IPv6:2a00:1450:4864:20::532])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A663010E0F0
+ for <freedreno@lists.freedesktop.org>; Sun, 19 Mar 2023 12:03:58 +0000 (UTC)
+Received: by mail-ed1-x532.google.com with SMTP id h8so36737150ede.8
+ for <freedreno@lists.freedesktop.org>; Sun, 19 Mar 2023 05:03:58 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1679227437;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=YSXUCaRqA2KtFe3Fei38UJFcRtmzs4d/93iu0lEJ7eE=;
+ b=A3UdxjgBuua477jAvg/jfzl8VfYvRAp5jD2nIFvnnso6EJ0HJW7BERvWj4q6oJx5qw
+ L+aAgmNW38AvQKfLcm2Cw40S1ju3aTn26Hh2fCBB1m34+1wQGgONJ3GBgBr6OyTZmaol
+ q00OFQ5ZJofiqPgZf+Zt4CFoMcw91iF8qN5Dnd0lKgbcUNUkSN7BhjiF9nXVhZewXQ0G
+ B3A4GBAdRtrvc/ngn7ZxTLvMKE6+wHlY9Nfdw9MZVj/2K/sVgwVPLkcgnJ57i23rzXFR
+ jIH4HidO7VrFPiNIzIfycQlaZHGvUeQsZnxSj2+X8Il9mr39VuA+aLovCvZiKggW8HKS
+ +O6Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112; t=1679227437;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=YSXUCaRqA2KtFe3Fei38UJFcRtmzs4d/93iu0lEJ7eE=;
+ b=6BKnlxkD8DFGWX4CpBqUG/VEIhcWds3NxEmxga27zn9gZfFZ0nGBdWusxYTcyzGo5b
+ /Eq7imxa6xwtPbdWIzdIoqZcLlbHvBwkL1pUUNbUVBCWXTJN8AkpdtGgq6xNdeYo3iJx
+ RGS1tghLM7Ub87vvw0EVYptW5NniZKzdGDt1y/XaTQ+ux+qrlbuZhsNuxJMCFO3YVwM1
+ 20B2+wr8R4eg/ROP0enHztqSYi3w0WGOVwF74/w9NVGJTfOrwzvHtvo7cmgROp/YvEXF
+ 2TmUW+iqZUmkC7xfhmN0asnR367Gqx/zaii3zrstWSVgL+1bkIxblTkXdStRsThFCGKS
+ b+wQ==
+X-Gm-Message-State: AO0yUKUHC3V8J8Z3B26qD6iEiuFZKA1QT2lTRQrabQeTWzkcpaDgTur4
+ OdB1DKGoGotSiVldvRqGX+o3og==
+X-Google-Smtp-Source: AK7set+90vgthv/jxsDWW9xfaWDLTNj1lisQrdqpycvWFzwCMmchtYzT7MyBWOCRp8E9tH88s4X5ig==
+X-Received: by 2002:a17:907:9709:b0:8dd:5710:a017 with SMTP id
+ jg9-20020a170907970900b008dd5710a017mr7030413ejc.4.1679227437125; 
+ Sun, 19 Mar 2023 05:03:57 -0700 (PDT)
+Received: from ?IPV6:2a02:810d:15c0:828:5b5f:f22b:a0b:559d?
+ ([2a02:810d:15c0:828:5b5f:f22b:a0b:559d])
+ by smtp.gmail.com with ESMTPSA id
+ z17-20020a5096d1000000b004aee4e2a56esm3435257eda.0.2023.03.19.05.03.55
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Sun, 19 Mar 2023 05:03:56 -0700 (PDT)
+Message-ID: <ec652851-4d6d-cc0f-c071-f83a71d9748d@linaro.org>
+Date: Sun, 19 Mar 2023 13:03:55 +0100
 MIME-Version: 1.0
-Subject: [Freedreno] Reminder: Last day (!) to nominate candidates for the
- 2023 X.Org Board of Directors Elections
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.9.0
+Content-Language: en-US
+To: Konrad Dybcio <konrad.dybcio@linaro.org>, Rob Clark
+ <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>,
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Rob Herring <robh+dt@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Krishna Manikandan <quic_mkrishn@quicinc.com>,
+ Bryan O'Donoghue <bryan.odonoghue@linaro.org>, Andy Gross
+ <agross@kernel.org>, Bjorn Andersson <andersson@kernel.org>
+References: <20230307-topic-dsi_qcm-v6-0-70e13b1214fa@linaro.org>
+ <20230307-topic-dsi_qcm-v6-1-70e13b1214fa@linaro.org>
+From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+In-Reply-To: <20230307-topic-dsi_qcm-v6-1-70e13b1214fa@linaro.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+Subject: Re: [Freedreno] [PATCH v6 1/9] dt-bindings: display/msm:
+ dsi-controller-main: Fix deprecated QCM2290 compatible
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,86 +86,30 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: board <board@foundation.x.org>
+Cc: Rob Herring <robh@kernel.org>, devicetree@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Final reminder that the nomination period for the X.Org Board of
-Director elections finishes today, March 19th.
+On 18/03/2023 14:42, Konrad Dybcio wrote:
+> The point of the previous cleanup was to disallow "qcom,mdss-dsi-ctrl"
+> alone. This however didn't quite work out and the property became
+> undocumented instead of deprecated. Fix that.
+> 
+> Additionally, the "qcom," prefix was missed previously. Fix it.
+> 
+> Fixes: 0c0f65c6dd44 ("dt-bindings: msm: dsi-controller-main: Add compatible strings for every current SoC")
+> Acked-by: Rob Herring <robh@kernel.org>
+> Reviewed-by: Marijn Suijten <marijn.suijten@somainline.org>
+> Signed-off-by: Konrad Dybcio <konrad.dybcio@linaro.org>
+> ---
 
-Please send your nominations or self-nominations as soon as possible
-following the instructions below.
 
-Thanks again for your attention.
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 
-On Mon, 2023-03-13 at 16:27 +0100, Ricardo Garcia wrote:
-> This is a reminder that the nomination period for the X.Org Board of
-> Director elections finishes in a week, on March 19th.
->=20
-> If you would like to nominate yourself please send email to the election
-> committee elections@x.org, giving your
->=20
->     name
->     current professional affiliation
->     a statement of contribution to X.Org or related technologies
->     a personal statement.
->=20
-> To vote or to be elected to the Board you needed to be a Member of the
-> X.Org Foundation. To be a Member of the X.Org Foundation you need to
-> apply or renew your membership until the end of the nomination period.
->=20
-> Original email follows below. Thanks for your attention.
->=20
-> On Wed, 2023-02-15 at 21:53 +0100, Ricardo Garcia wrote:
-> > We are seeking nominations for candidates for election to the X.Org
-> > Foundation Board of Directors. All X.Org Foundation members are eligibl=
-e
-> > for election to the board.
-> >=20
-> > Nominations for the 2023 election are now open and will remain open
-> > until 23:59 UTC on 19 March 2023.
-> >=20
-> > The Board consists of directors elected from the membership. Each year,
-> > an election is held to bring the total number of directors to eight. Th=
-e
-> > four members receiving the highest vote totals will serve as directors
-> > for two year terms.
-> >=20
-> > The directors who received two year terms starting in 2022 were Emma
-> > Anholt, Mark Filion, Alyssa Rosenzweig and Ricardo Garcia. They will
-> > continue to serve until their term ends in 2024. Current directors whos=
-e
-> > term expires in 2023 are Samuel Iglesias Gons=C3=A1lvez, Manasi D Navar=
-e,
-> > Lyude Paul and Daniel Vetter.
-> >=20
-> > A director is expected to participate in the fortnightly IRC meeting to
-> > discuss current business and to attend the annual meeting of the X.Org
-> > Foundation, which will be held at a location determined in advance by
-> > the Board of Directors.
-> >=20
-> > A member may nominate themselves or any other member they feel is
-> > qualified. Nominations should be sent to the Election Committee at
-> > elections at x.org.
-> >=20
-> > Nominees shall be required to be current members of the X.Org
-> > Foundation, and submit a personal statement of up to 200 words that wil=
-l
-> > be provided to prospective voters. The collected statements, along with
-> > the statement of contribution to the X.Org Foundation in the member's
-> > account page on http://members.x.org, will be made available to all
-> > voters to help them make their voting decisions.
-> >=20
-> > Nominations, membership applications or renewals and completed personal
-> > statements must be received no later than 23:59 UTC on 19 March 2023.
-> >=20
-> > The slate of candidates will be published 26 March 2023 and candidate
-> > Q&A will begin then. The deadline for Xorg membership applications and
-> > renewals is 26 March 2023.
-> >=20
-> > Cheers,
-> > Ricardo Garcia, on behalf of the X.Org BoD
-> >=20
->=20
-
+Best regards,
+Krzysztof
 
