@@ -1,119 +1,64 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 475106C1CCF
-	for <lists+freedreno@lfdr.de>; Mon, 20 Mar 2023 17:52:28 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 3F8D96C1EE5
+	for <lists+freedreno@lfdr.de>; Mon, 20 Mar 2023 19:02:32 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0FC1610E5EF;
-	Mon, 20 Mar 2023 16:52:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D52C210E325;
+	Mon, 20 Mar 2023 18:02:30 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2041.outbound.protection.outlook.com [40.107.236.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AA55E10E620;
- Mon, 20 Mar 2023 16:52:25 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=aIiwPN87+x8eX6MyDxhzqIdbrhINIXO4/lDVfZ4F6T3aaQlTH5oVRJQzTPNog0arTHwdYuIxgsMBFfHhxZ8x6+DjVCsHOEDFADuVbVfL+st4xDxj02KHfS5l8uT9ZLQo5mv2uVwwDkTm+kABpc9gM+naUX9OLZ1zETCbq5x4AoqljyIAV8mfOdWCPKdQVV6V2OK/YDwVCiv5Y9kS+btvdmOYNawwa5hioLJ4xVgf3+AIiAxwh6UczRIgxWxIAXu05T54epwKOISeQloBK6AguB1CxeNPG503jLsg71cRQ3Sfo6/mpuzc69TiGZ+TxJk9DpeKdvmkX1FQ9tYuoiRm/Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=c9d8g+D7cgBaHSkKEI1xXWyLloVAj2P0HYquGlLNu8w=;
- b=nl5voy+NScgRISPTGTFfRGHqozMqKo0yMlVAeUjEvwYWQr5BKwfA8YZlWfN3b45YFVWPSpwykc4tdJpv2VJVm4uuf0hzNqCsiKHVYT03HRzWsjvEbhQpNBMrT2vUzAdNwF8oJMfAYEqhPZ6cOYo9yz01eVYcCJ5vTVHcGC6KsgQOqcuyAPnIvORodx3Np+IH2fULoAJYBgn5/7bkNeX9SlWg2DjEuo15qIl3XpSlUIwl6dZG45yv+NdKa2QZSKRN4ye3l+OFRA8O2wEY2F0Omr9GMM1T3EtFw0xARqy0Zcr/dKJU1j3r1xtxGRduzX4dQsq9LnUFYJLO0ECDdbhpuQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=c9d8g+D7cgBaHSkKEI1xXWyLloVAj2P0HYquGlLNu8w=;
- b=34rMvCeD2jObZx8vIf68p5W5B4uElUEiFE1gNyHHuQ4kyntPa0tIGmsaOI72TbwwF+0MdX9oX/nO7E36pcXQZCTtYw5fwnNNSqjvdHcfnoJAzOQONpnXXcpYysm1HE5APuWO6yAfjCCoFQny6zlZDWuy67UpkXfD3mqrwwXUhoM=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from BN8PR12MB3587.namprd12.prod.outlook.com (2603:10b6:408:43::13)
- by SN7PR12MB7297.namprd12.prod.outlook.com (2603:10b6:806:2ad::17)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6178.37; Mon, 20 Mar
- 2023 16:52:23 +0000
-Received: from BN8PR12MB3587.namprd12.prod.outlook.com
- ([fe80::d23f:bb1:df95:3918]) by BN8PR12MB3587.namprd12.prod.outlook.com
- ([fe80::d23f:bb1:df95:3918%4]) with mapi id 15.20.6178.037; Mon, 20 Mar 2023
- 16:52:23 +0000
-Message-ID: <25bd9a77-a703-6eb6-e142-5da9e54754a0@amd.com>
-Date: Mon, 20 Mar 2023 17:52:16 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.8.0
-Content-Language: en-US
-To: Rob Clark <robdclark@gmail.com>, dri-devel@lists.freedesktop.org
-References: <20230320144356.803762-1-robdclark@gmail.com>
- <20230320144356.803762-2-robdclark@gmail.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20230320144356.803762-2-robdclark@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR3P281CA0187.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:a4::15) To BN8PR12MB3587.namprd12.prod.outlook.com
- (2603:10b6:408:43::13)
+Received: from mail-oo1-xc29.google.com (mail-oo1-xc29.google.com
+ [IPv6:2607:f8b0:4864:20::c29])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8E15D10E2CB;
+ Mon, 20 Mar 2023 18:02:28 +0000 (UTC)
+Received: by mail-oo1-xc29.google.com with SMTP id
+ j15-20020a4ad18f000000b00535ed74d62cso2048979oor.5; 
+ Mon, 20 Mar 2023 11:02:28 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20210112; t=1679335348;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=/v9R5gnCY6fdHFgH5PKyKB7qBIPOqi3I48b2pUQUxIw=;
+ b=BEvixRIUWdZ++zol6HP2FDqAImpYFJVOYn8eoRuuKOqhwahmC5d/IShmuHYtg/dggD
+ 3EsPNGlgrzf3IyYJpLbYHXFu8OZRMdgljUUNnsAAatON5W6gxhe148gVIkWTWm1LpcyH
+ NMPEIitAs2+d1b/13yFpAG73H34vLdQEFs9dWGgKvahbsID5XBZ7sV54H5Bh0ob34n+J
+ 7XPeZEITpNd+s7g0oQ0esjbgBy8GrSgN7cRPw1eCSlQaITl6H6mw4Fs3qheNGRszqgUW
+ o4pRJqL6d/zZ4NpVHx3Tu6VHbn0IG7aG4hIKcvI2nNJ1QA5+tqQZ/XmnTgoHMBPvN5u+
+ NmYQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112; t=1679335348;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=/v9R5gnCY6fdHFgH5PKyKB7qBIPOqi3I48b2pUQUxIw=;
+ b=qIn7ZjizCJW+ja/ibYdE7AcAa4AuGMaNXk5wS2AHogAaCLbWmer/B+uY7SIDJ2dE3o
+ sQilQzBiQr+Xq1logoFNOSeBuq+MHl5LZjX7dHG1HaS2fsYzAiWvbPsnBKtGWjtguIH8
+ NPec/NltixI49ukeHbZLxu6hEdtawgf2XOv5WZnOkrZRrsr8m95aC5NSuqLWNEe5HdVd
+ rWRtQ/ob+BTgKh5DjGqQlXbcwK8wG5mIqrQvrlUuRPjBO5utWaIoR32P37LAcZmXlS6f
+ br9KZoV8hBtz9cfavpWMfOTizSUCJBkW95bmed2SRZbfbDld1A1tO2rOr/7VEcrzwz4n
+ AkCg==
+X-Gm-Message-State: AO0yUKUlKBbAADvDfV6yN9Vk4KfDTQLP7kEgysgcZlngEPuqSNZyjVnx
+ ehgTt4OztfhK4uw1kCfE9TN8gGKm7W8WNkk/K14=
+X-Google-Smtp-Source: AK7set9AD56qu+Gun/6aRs1RMmgFg9rKa49NcMCWQF/Z2GZO0K8Lp2H8d2haPlsGoAz5zglTnBSuCq77k3G24DUgNIE=
+X-Received: by 2002:a4a:a301:0:b0:525:5f43:215a with SMTP id
+ q1-20020a4aa301000000b005255f43215amr304148ool.1.1679335347762; Mon, 20 Mar
+ 2023 11:02:27 -0700 (PDT)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN8PR12MB3587:EE_|SN7PR12MB7297:EE_
-X-MS-Office365-Filtering-Correlation-Id: c023df50-08f5-4aba-28a4-08db29637a11
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: v5Mw+iL0mPTy3qaBFr4FBOUFvAzDV3W6Qdlx5KhUB50lo0bvCP7N71EYD7b5aWbyoM/kxh6n/1h7cVKZzyr7zePi+tn9ZfoHgvX6iF/paaAtz1aaXl0tm+3NwJFL1iCMgYtkD/B+/tOMQxiQs/dZcSl6vGLg/S5Bs2FZfsGLVbi1dqfEkxXOdtO6Hwkl9S3coapTrqapwnDMHimYRsbNMXue/qHKhOhu2zL9iKw2nnw/eQiKaiVk5WTFTvhvt2hTneoHS4ldK5QzpJAwJ+hYW92iHhF26DPTAiOmzgQSh+jdm+DAPKKpu4Ajfz2YJdifG3cn9jYglH45HsfA/X4IMKhqi/Te8NYKDZpweAlcWDOxyzLwfKBnsCOb89C+ddPCJpjb3nTz6tkp5sRkk9RhVegPrzC2ZZkY2wCpyufzd7Wk1EKM2T/a4/ABr+d/LATTmWiDNMQO5w42Me15/MF4Mm5MCCzNdyZdZTt2bkFeVV4ZbGtxzVoo/Y6Rk+7F91RdXm/7aGX0XZSpiJAuXZMr8F0gNK5baJGRQV4GiYSnApg0PoZreoBHSH+j0gkQFHOL/d/aIjGc+SdvOct786OPxWZSFD9XNzUYQMCQ63BrWjm+1jLMQ5JhVBclFmRsK6t9xYYpLx6igsfgQP4P3leHRTGCWLm3sZBQcWxh0f56BIZKORazZhhU3mRhj0dgT56nIeLSZg7ebRHtbMTQWFPWxEAhmP7KRa2ahQ0yIYLVtOU=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BN8PR12MB3587.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230025)(4636009)(346002)(376002)(136003)(366004)(39860400002)(396003)(451199018)(316002)(54906003)(6666004)(38100700002)(66946007)(8676002)(4326008)(31686004)(66556008)(478600001)(66476007)(2906002)(6486002)(41300700001)(2616005)(86362001)(186003)(6512007)(8936002)(6506007)(83380400001)(31696002)(36756003)(5660300002)(7416002)(43740500002)(45980500001);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?djJ3cEhvMWpUbWFtZXhtekN5Ui9VUXJ4bU92MmJQblhycDNrRDJCT2VYSzJp?=
- =?utf-8?B?YWpNY25HODM0Y21Zbm9Sd3k3UGZaV3RJRFUrSmhsVG82emtlclBreEVNZ25M?=
- =?utf-8?B?K2YyOVFPSTJWdm4zTTgvT0VYZ2ZxM3ZuTnZIa2NUaFdmdm5TRU9GKzAvOHVD?=
- =?utf-8?B?cUMzeE5lRHNDUVUwMFJsejh3TnhBWUFlR1BpQ1g5TVhDNVhhUm5vTzFQSElk?=
- =?utf-8?B?eHVPaDExeFRjR0Vnck9yQVBTa21lWnhCU3ZYanlYZzlsRXI3RTBmMy84YjV5?=
- =?utf-8?B?OWZnc0E4ZmZVNDZBcUZGRSszbVJ3M1IxcXpoQXU2aVUxMWxzUmdwN0Z5VktT?=
- =?utf-8?B?RWNqVnVuNldLa0NEaHl1VG5HcEE4QUxCWjJ2MW1vVUR4dTVPMzB6NFJMZElh?=
- =?utf-8?B?UnRZdlUyenh4SUFwcHZDL0Y0RGplSjAzRUQrS2syeU9ERlJITGFPak9RVlJ5?=
- =?utf-8?B?R1Q5UFpHQVVqamROckxBVGdaRGNpVjJieFRvd2RlQ2xCVUVacEZBdE92eXJG?=
- =?utf-8?B?UWQ4Z0lrQ3VsZGcwRjZQK29uNzIrTkpkcFI5QkYvbCsyUGNBTEhLb2VpeG1R?=
- =?utf-8?B?b1JaNlNodkJVTWlTb3cyQ0w0WTNkS0NhQVZUTElRVVdsSDd4U3ZaeDdVakxi?=
- =?utf-8?B?WDZieENMYnBtbWdFc3drMzRsK2RobDlicTJQYXF4RVNnbk8vS1paaDFubjJi?=
- =?utf-8?B?Vzc5RGVzTzR5dHMwaFpTQVNrSkRDNndlQmJONmpoUGJlQW1HZ0Ixdmo2SG9F?=
- =?utf-8?B?TGpIMW5EcUh2TXZQeGtWbGRuNWJ4c1ZvZk1xb3ZTY0d2Sk9MRlJ4WllUaEsy?=
- =?utf-8?B?RFNtcURoUlg4OE5TNzNnT2p0T25wbVlCZTRPYmZxMlRLRVNPR2prdVYvKzU3?=
- =?utf-8?B?R1I0OUNEcm1iTU9nNDJjRTYwSHAxNDNzSDhZVUFRR3JPMVlJbVZKcDJuRTJp?=
- =?utf-8?B?VHlVSVVEajVpTE9jc3prZlJTL1Z2N1M4MENZdmZWbjhTU3VNTXZqUGhHcG1B?=
- =?utf-8?B?NUM2MjZHaVBEemtsb3htMFppaHpMZXhLQStBMFQ2eS9aaVlSbGNFdHZ1bXNS?=
- =?utf-8?B?MXJPMFpYL2kyalVGNGZBdFpSam8zUldDdDJ1emFKcElsRXdNUUN4REI2bysw?=
- =?utf-8?B?dG5USnAwNHQ4YnNFV0o5WWNZR055aWFuVnNpTlM5YXpwN3VQdWtnVUJKRXh3?=
- =?utf-8?B?S0U5dWlJek5CVm11SldEbFhmbDNIYnI4VEc1dWlvaExCZ2E2UGJveFlXR1dY?=
- =?utf-8?B?UmNJb1g1dmd4RUF1UStrWXJYSkdGSzl3U0J4TnJEQ3hHNzdKMUZ0YUU0dlc3?=
- =?utf-8?B?bk1pTVVuMXRPSDFtWnZ1NzFjYTZrZHRmM2FYald4NmVJMmlTVmhlT2RIdHRh?=
- =?utf-8?B?eHZ6WkhGWW5ZK1ViTWZnWTR5MFc0YTBWbW5xTm54VnRzeHMzVVNZbkFMakxW?=
- =?utf-8?B?dTF2NXZmcG1rTWhhRnhWYW90bC9xQTJSQVlUa1NzblhZUWhaUy91aXFUbmpI?=
- =?utf-8?B?eE9PekhZb2g5ZG1JUG9TVE9jTHU5c0MzUkxyWXd3NU8ySmRqK25oVzFPT2l4?=
- =?utf-8?B?QXJNZDBQYVUvS21ISzB5WXFiTkprTTQ5SFd2OVY1M0trVW1YV1hDU1RsZEFa?=
- =?utf-8?B?NWhxSlBjSWtJUEpSejBwZG1XcWlldlNBaERoaU81LzdHNXV5c0QzMkhMMWVU?=
- =?utf-8?B?VlJ0OG9OcnBCMXI5ZXRhcU40NGxGSis5MkJobnpQeVJCSmlZSi9hdVpHRmda?=
- =?utf-8?B?SldxeHZKbEwreEJMR1M2N2ozNG81RG94aUxxcHJMQUxvME1jdmkrZzBIZ0hG?=
- =?utf-8?B?MjJ1UjRiZCttdDhpbDlibmVSZy9obE5xcDFGdndkZGtXcGgrRGlmNFNsN1F0?=
- =?utf-8?B?U1l0Q0dtTDJ5cjNueU16NWplbVZzM2lrZDNaQjRtNys5TGcwb3FmSHpXcS8v?=
- =?utf-8?B?MkVrNUluSy9hMlcyellXbGVlbWhUQUR6bEk2SDdPUVFJMU0yL3VKS2E1ZTh3?=
- =?utf-8?B?cThCS1dRVUw2ZktZTVdzUUJYNnVEUFdDR2x0SGpPeDNvbG9JUWY0L29Wd1dV?=
- =?utf-8?B?TFlwaWhYQ1NrMnRva1NaMkNiSjdDck13Z3pYS3FlbklPS0thOW1wYjluTWJr?=
- =?utf-8?B?MWV2cjJtUTQ2UjVNUUhzRmdlenJmQnlORlFhWHRoakw2bXk1bGZoV2tTMWtU?=
- =?utf-8?Q?va4O+tGu+RPyWc4jdayAVlIuRZtCUvrapq8OJMo/S9Dd?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: c023df50-08f5-4aba-28a4-08db29637a11
-X-MS-Exchange-CrossTenant-AuthSource: BN8PR12MB3587.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Mar 2023 16:52:23.2002 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: rdbn+sS7mUDRbNlJ9IjtrDYyx6vzQaP/ZyqAcdA8QhFt+/pzuaXSsLhajeTC9xOE
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB7297
-Subject: Re: [Freedreno] [PATCH v2 01/23] drm/msm: Pre-allocate hw_fence
+References: <20230223-topic-opp-v3-0-5f22163cd1df@linaro.org>
+ <20230223-topic-opp-v3-4-5f22163cd1df@linaro.org>
+ <2f2467d1-f5f3-86dd-edba-fc26e60d142f@marek.ca>
+ <8e9fc1c0-f74f-ba82-fade-31212637d6bb@linaro.org>
+In-Reply-To: <8e9fc1c0-f74f-ba82-fade-31212637d6bb@linaro.org>
+From: Rob Clark <robdclark@gmail.com>
+Date: Mon, 20 Mar 2023 11:02:16 -0700
+Message-ID: <CAF6AEGvYJg1r4A7bvfNrck-wfWv7+sQ8DnN=R_RaSK=tE1tzGw@mail.gmail.com>
+To: Konrad Dybcio <konrad.dybcio@linaro.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [Freedreno] [PATCH v3 4/7] drm/msm/a2xx: Implement .gpu_busy
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -126,116 +71,99 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rob Clark <robdclark@chromium.org>, linux-arm-msm@vger.kernel.org,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- open list <linux-kernel@vger.kernel.org>,
- "moderated list:DMA BUFFER SHARING FRAMEWORK" <linaro-mm-sig@lists.linaro.org>,
- Sean Paul <sean@poorly.run>, Daniel Vetter <daniel@ffwll.ch>,
+Cc: freedreno@lists.freedesktop.org, Jonathan Marek <jonathan@marek.ca>,
+ Sean Paul <sean@poorly.run>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Daniel Vetter <daniel@ffwll.ch>, linux-arm-msm@vger.kernel.org,
  Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- David Airlie <airlied@gmail.com>, freedreno@lists.freedesktop.org,
- Sumit Semwal <sumit.semwal@linaro.org>,
- "open list:DMA BUFFER SHARING FRAMEWORK" <linux-media@vger.kernel.org>
+ David Airlie <airlied@gmail.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-
-
-Am 20.03.23 um 15:43 schrieb Rob Clark:
-> From: Rob Clark <robdclark@chromium.org>
+On Mon, Mar 13, 2023 at 9:54=E2=80=AFAM Konrad Dybcio <konrad.dybcio@linaro=
+.org> wrote:
 >
-> Avoid allocating memory in job_run() by pre-allocating the hw_fence.
 >
-> Signed-off-by: Rob Clark <robdclark@chromium.org>
-> ---
->   drivers/gpu/drm/msm/msm_fence.c      | 12 +++++++++---
->   drivers/gpu/drm/msm/msm_fence.h      |  3 ++-
->   drivers/gpu/drm/msm/msm_gem_submit.c |  7 +++++++
->   drivers/gpu/drm/msm/msm_ringbuffer.c |  2 +-
->   4 files changed, 19 insertions(+), 5 deletions(-)
 >
-> diff --git a/drivers/gpu/drm/msm/msm_fence.c b/drivers/gpu/drm/msm/msm_fence.c
-> index 56641408ea74..bab3d84f1686 100644
-> --- a/drivers/gpu/drm/msm/msm_fence.c
-> +++ b/drivers/gpu/drm/msm/msm_fence.c
-> @@ -99,7 +99,7 @@ static const struct dma_fence_ops msm_fence_ops = {
->   };
->   
->   struct dma_fence *
-> -msm_fence_alloc(struct msm_fence_context *fctx)
-> +msm_fence_alloc(void)
->   {
->   	struct msm_fence *f;
->   
-> @@ -107,10 +107,16 @@ msm_fence_alloc(struct msm_fence_context *fctx)
->   	if (!f)
->   		return ERR_PTR(-ENOMEM);
->   
-> +	return &f->base;
-> +}
-> +
-> +void
-> +msm_fence_init(struct dma_fence *fence, struct msm_fence_context *fctx)
-> +{
-> +	struct msm_fence *f = to_msm_fence(fence);
-> +
->   	f->fctx = fctx;
->   
->   	dma_fence_init(&f->base, &msm_fence_ops, &fctx->spinlock,
->   		       fctx->context, ++fctx->last_fence);
-> -
-> -	return &f->base;
->   }
-> diff --git a/drivers/gpu/drm/msm/msm_fence.h b/drivers/gpu/drm/msm/msm_fence.h
-> index 7f1798c54cd1..f913fa22d8fe 100644
-> --- a/drivers/gpu/drm/msm/msm_fence.h
-> +++ b/drivers/gpu/drm/msm/msm_fence.h
-> @@ -61,7 +61,8 @@ void msm_fence_context_free(struct msm_fence_context *fctx);
->   bool msm_fence_completed(struct msm_fence_context *fctx, uint32_t fence);
->   void msm_update_fence(struct msm_fence_context *fctx, uint32_t fence);
->   
-> -struct dma_fence * msm_fence_alloc(struct msm_fence_context *fctx);
-> +struct dma_fence * msm_fence_alloc(void);
-> +void msm_fence_init(struct dma_fence *fence, struct msm_fence_context *fctx);
->   
->   static inline bool
->   fence_before(uint32_t a, uint32_t b)
-> diff --git a/drivers/gpu/drm/msm/msm_gem_submit.c b/drivers/gpu/drm/msm/msm_gem_submit.c
-> index be4bf77103cd..2570c018b0cb 100644
-> --- a/drivers/gpu/drm/msm/msm_gem_submit.c
-> +++ b/drivers/gpu/drm/msm/msm_gem_submit.c
-> @@ -41,6 +41,13 @@ static struct msm_gem_submit *submit_create(struct drm_device *dev,
->   	if (!submit)
->   		return ERR_PTR(-ENOMEM);
->   
-> +	submit->hw_fence = msm_fence_alloc();
-> +	if (IS_ERR(submit->hw_fence)) {
-> +		ret = PTR_ERR(submit->hw_fence);
-> +		kfree(submit);
-> +		return ERR_PTR(ret);
-> +	}
-> +
->   	ret = drm_sched_job_init(&submit->base, queue->entity, queue);
->   	if (ret) {
->   		kfree(submit);
+> On 24.02.2023 16:04, Jonathan Marek wrote:
+> > This won't work because a2xx freedreno userspace expects to own all the=
+ perfcounters.
+> >
+> > This will break perfcounters for userspace, and when userspace isn't us=
+ing perfcounters, this won't count correctly because userspace writes 0 to =
+CP_PERFMON_CNTL at the start of every submit.
+>
+> Rob, would you be willing to take this without the a2xx bits? It
+> should still be fine, except without devfreq. Not that we had
+> any significant sort of scaling on a2xx before.
 
-You probably need some error handling here or otherwise leak 
-submit->hw_fence.
+Yup, sounds like a plan
 
-Apart from that looks good to me.
+BR,
+-R
 
-Christian.
-
-> diff --git a/drivers/gpu/drm/msm/msm_ringbuffer.c b/drivers/gpu/drm/msm/msm_ringbuffer.c
-> index 57a8e9564540..a62b45e5a8c3 100644
-> --- a/drivers/gpu/drm/msm/msm_ringbuffer.c
-> +++ b/drivers/gpu/drm/msm/msm_ringbuffer.c
-> @@ -18,7 +18,7 @@ static struct dma_fence *msm_job_run(struct drm_sched_job *job)
->   	struct msm_gpu *gpu = submit->gpu;
->   	int i;
->   
-> -	submit->hw_fence = msm_fence_alloc(fctx);
-> +	msm_fence_init(submit->hw_fence, fctx);
->   
->   	for (i = 0; i < submit->nr_bos; i++) {
->   		struct drm_gem_object *obj = &submit->bos[i].obj->base;
-
+> Konrad
+> >
+> > On 2/23/23 5:52 AM, Konrad Dybcio wrote:
+> >> Implement gpu_busy based on the downstream msm-3.4 code [1]. This
+> >> allows us to use devfreq on this old old old hardware!
+> >>
+> >> [1] https://github.com/LineageOS/android_kernel_sony_apq8064/blob/line=
+age-16.0/drivers/gpu/msm/adreno_a2xx.c#L1975
+> >>
+> >> Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> >> Signed-off-by: Konrad Dybcio <konrad.dybcio@linaro.org>
+> >> ---
+> >>   drivers/gpu/drm/msm/adreno/a2xx_gpu.c | 26 +++++++++++++++++++++++++=
++
+> >>   1 file changed, 26 insertions(+)
+> >>
+> >> diff --git a/drivers/gpu/drm/msm/adreno/a2xx_gpu.c b/drivers/gpu/drm/m=
+sm/adreno/a2xx_gpu.c
+> >> index c67089a7ebc1..104bdf28cdaf 100644
+> >> --- a/drivers/gpu/drm/msm/adreno/a2xx_gpu.c
+> >> +++ b/drivers/gpu/drm/msm/adreno/a2xx_gpu.c
+> >> @@ -481,6 +481,31 @@ a2xx_create_address_space(struct msm_gpu *gpu, st=
+ruct platform_device *pdev)
+> >>       return aspace;
+> >>   }
+> >>   +/* While the precise size of this field is unknown, it holds at lea=
+st these three values.. */
+> >> +static u64 a2xx_gpu_busy(struct msm_gpu *gpu, unsigned long *out_samp=
+le_rate)
+> >> +{
+> >> +    u64 busy_cycles;
+> >> +
+> >> +    /* Freeze the counter */
+> >> +    gpu_write(gpu, REG_A2XX_CP_PERFMON_CNTL, PERF_STATE_FREEZE);
+> >> +
+> >> +    busy_cycles =3D gpu_read64(gpu, REG_A2XX_RBBM_PERFCOUNTER1_LO);
+> >> +
+> >> +    /* Reset the counter */
+> >> +    gpu_write(gpu, REG_A2XX_CP_PERFMON_CNTL, PERF_STATE_RESET);
+> >> +
+> >> +    /* Re-enable the performance monitors */
+> >> +    gpu_rmw(gpu, REG_A2XX_RBBM_PM_OVERRIDE2,
+> >> +        A2XX_RBBM_PM_OVERRIDE2_DEBUG_PERF_SCLK_PM_OVERRIDE,
+> >> +        A2XX_RBBM_PM_OVERRIDE2_DEBUG_PERF_SCLK_PM_OVERRIDE);
+> >> +    gpu_write(gpu, REG_A2XX_RBBM_PERFCOUNTER1_SELECT, 1);
+> >> +    gpu_write(gpu, REG_A2XX_CP_PERFMON_CNTL, PERF_STATE_ENABLE);
+> >> +
+> >> +    *out_sample_rate =3D clk_get_rate(gpu->core_clk);
+> >> +
+> >> +    return busy_cycles;
+> >> +}
+> >> +
+> >>   static u32 a2xx_get_rptr(struct msm_gpu *gpu, struct msm_ringbuffer =
+*ring)
+> >>   {
+> >>       ring->memptrs->rptr =3D gpu_read(gpu, REG_AXXX_CP_RB_RPTR);
+> >> @@ -502,6 +527,7 @@ static const struct adreno_gpu_funcs funcs =3D {
+> >>   #if defined(CONFIG_DEBUG_FS) || defined(CONFIG_DEV_COREDUMP)
+> >>           .show =3D adreno_show,
+> >>   #endif
+> >> +        .gpu_busy =3D a2xx_gpu_busy,
+> >>           .gpu_state_get =3D a2xx_gpu_state_get,
+> >>           .gpu_state_put =3D adreno_gpu_state_put,
+> >>           .create_address_space =3D a2xx_create_address_space,
+> >>
