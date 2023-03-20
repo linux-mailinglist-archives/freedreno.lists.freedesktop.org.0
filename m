@@ -2,52 +2,62 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id B99BD6C2250
-	for <lists+freedreno@lfdr.de>; Mon, 20 Mar 2023 21:14:22 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1964F6C22B8
+	for <lists+freedreno@lfdr.de>; Mon, 20 Mar 2023 21:32:24 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B198210E645;
-	Mon, 20 Mar 2023 20:14:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D171810E666;
+	Mon, 20 Mar 2023 20:32:22 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5F97B10E642;
- Mon, 20 Mar 2023 20:14:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1679343258; x=1710879258;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=u+jOUwoE6OkKQ7xRHEiSIZbHt9zZyJpg1s70VOyfcyE=;
- b=NHgDggIOJnZ3VuvH2CuI7NNSEFzg/arHBWJyS50r70ROerwoGqakrS4r
- TxSOTIiewwPLKDjA5HrB9Y7Mra608y9s297Millt41KPvEHsJxKvvPISb
- Xd40ManRRIsmD57ha4yfsC8/rNiVo+W0Ww0tMSrFvNGkxx1me0P1y+pnV
- p4AfgwBzGr4cwP2uAHyRp8wGm3Ed65sYTnGj+wDFyUJ2KhSTSTEWfF0d4
- GPTjQJtHB5+b4tFz1932QZ5FaReKPziFyR03FIgXUFHYvm1Z9JxdUunB3
- 0QC2FH5BqMZXNgC1qJ4KgyTQgDofLGS8Vt68WznzQ5N3WaF6ccEQ6GOSE Q==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10655"; a="319168745"
-X-IronPort-AV: E=Sophos;i="5.98,276,1673942400"; d="scan'208";a="319168745"
-Received: from fmsmga005.fm.intel.com ([10.253.24.32])
- by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 Mar 2023 13:13:59 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10655"; a="1010629523"
-X-IronPort-AV: E=Sophos;i="5.98,276,1673942400"; d="scan'208";a="1010629523"
-Received: from lkp-server01.sh.intel.com (HELO b613635ddfff) ([10.239.97.150])
- by fmsmga005.fm.intel.com with ESMTP; 20 Mar 2023 13:13:56 -0700
-Received: from kbuild by b613635ddfff with local (Exim 4.96)
- (envelope-from <lkp@intel.com>) id 1peLtD-000BHc-1j;
- Mon, 20 Mar 2023 20:13:55 +0000
-Date: Tue, 21 Mar 2023 04:13:37 +0800
-From: kernel test robot <lkp@intel.com>
-To: Rob Clark <robdclark@gmail.com>, dri-devel@lists.freedesktop.org
-Message-ID: <202303210444.Qtybv08z-lkp@intel.com>
-References: <20230320144356.803762-19-robdclark@gmail.com>
+Received: from mail-oa1-x30.google.com (mail-oa1-x30.google.com
+ [IPv6:2001:4860:4864:20::30])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BE6C710E666;
+ Mon, 20 Mar 2023 20:32:21 +0000 (UTC)
+Received: by mail-oa1-x30.google.com with SMTP id
+ 586e51a60fabf-17e140619fdso5796663fac.11; 
+ Mon, 20 Mar 2023 13:32:21 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20210112; t=1679344341;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=12KAyNaeVtkJ5rG4NmiGkp4SVUBOlP5Uo6aQC2/m458=;
+ b=GgFEX8IntA0v6Di1a+rTrNjjl6RrkDQaozC8lQ2nu1fNZaNmjR+yunhZ2d7e1zGBpj
+ OemS7YHDVpLhsOrGr9k0bGA9riGTykK407sjl86mIHF1dfPohd4xDcFc/eREcLnkyjg5
+ IcqVCAFAtiXPfmaPkaDUB60V9udx+KFLFc1jgRT5qGh8PRrRAJlfck7KOULrQ+zbX3E4
+ XWzIlNC129US8nw0E/3xU/y2nVxe2KI9uWRn1Mkm3hMnYXMbFFHx0vRCj1u9ctdMWZvZ
+ xY5Mi66p8B0wDRHYLaOAZ8uogg+6JvpjfbfE0PZyCRF3T8cnCCCYyNaL6m/nVxHZpt8f
+ sgDw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112; t=1679344341;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=12KAyNaeVtkJ5rG4NmiGkp4SVUBOlP5Uo6aQC2/m458=;
+ b=6TCb1t4tRzjo4EcipLXMuzD+iqg/i8zF4HCwL4pZz4fr/ZY5oeBAokd6Jt0ZXrwpcz
+ eF0UdGhETWVsl50Qi2KhF4ogeAbyOjG/8ivpucC/MMtdN/BQlkyNkMpFbuLZXGeWixwf
+ zCvry98Tdf7YKMqJ5mDtuwpMhZH+2JcE7CJoo34I/mgzSNiTdwXLVwESs904TCp52155
+ NbS0DEuWpaLhkeazLHmqAxYMAlsgPm8RYrVK0O1jTJwxgtEcVspXHn0/Uc49gSoulFyi
+ /y9PgqRrfWgCfBs2yPOkrpnuM50i2WBgSn3gZN5yOz1SW7U6gSUdd1Dc+hh/EEvsz854
+ 6N7w==
+X-Gm-Message-State: AO0yUKXep/BowyRbZB1uQE+Qac25awyzVdnqfTaNMhGcnHlq+zNCJAA/
+ g4MjxYg0ptC3d/dv6NGvN1ZS5zxdQNJjqYrgrXg=
+X-Google-Smtp-Source: AK7set+DLFjlPgniOaSyE+Bi3m/ZckWHV551x+C0CntkAwvgXWwf+U3UZOrrp6mZW/7ZzD37hw8KFC+8m3onejMpB6k=
+X-Received: by 2002:a05:687c:90:b0:17a:d52e:77de with SMTP id
+ yg16-20020a05687c009000b0017ad52e77demr3022932oab.5.1679344341050; Mon, 20
+ Mar 2023 13:32:21 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20230320144356.803762-19-robdclark@gmail.com>
-Subject: Re: [Freedreno] [PATCH v2 18/23] PM / QoS: Decouple request alloc
- from dev_pm_qos_mtx
+References: <20230320185416.938842-1-robdclark@gmail.com>
+ <434caf75-eed1-ac35-f43c-da8c66cb99bc@somainline.org>
+ <5a9e6cdb-f640-f070-6722-18e61c9f1136@linaro.org>
+In-Reply-To: <5a9e6cdb-f640-f070-6722-18e61c9f1136@linaro.org>
+From: Rob Clark <robdclark@gmail.com>
+Date: Mon, 20 Mar 2023 13:32:09 -0700
+Message-ID: <CAF6AEGv1ALTcvHCPVo_sqt8UHYVcsV_XdP054D+qQr72yQ6-Dg@mail.gmail.com>
+To: Konrad Dybcio <konrad.dybcio@linaro.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [Freedreno] [PATCH 1/2] drm/msm/a6xx: Some reg64 conversion
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,127 +70,78 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rob Clark <robdclark@chromium.org>, Len Brown <len.brown@intel.com>,
- "Rafael J. Wysocki" <rafael@kernel.org>, linux-arm-msm@vger.kernel.org,
- "open list:POWER MANAGEMENT CORE" <linux-pm@vger.kernel.org>,
- llvm@lists.linux.dev, open list <linux-kernel@vger.kernel.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Pavel Machek <pavel@ucw.cz>,
- oe-kbuild-all@lists.linux.dev, freedreno@lists.freedesktop.org
+Cc: Rob Clark <robdclark@chromium.org>,
+ Akhil P Oommen <quic_akhilpo@quicinc.com>, linux-arm-msm@vger.kernel.org,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
+ Douglas Anderson <dianders@chromium.org>, Sean Paul <sean@poorly.run>,
+ Daniel Vetter <daniel@ffwll.ch>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ David Airlie <airlied@gmail.com>, freedreno@lists.freedesktop.org,
+ Chia-I Wu <olvaffe@gmail.com>, open list <linux-kernel@vger.kernel.org>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Hi Rob,
+On Mon, Mar 20, 2023 at 11:57=E2=80=AFAM Konrad Dybcio <konrad.dybcio@linar=
+o.org> wrote:
+>
+>
+>
+> On 20.03.2023 19:56, Konrad Dybcio wrote:
+> >
+> >
+> > On 20.03.2023 19:54, Rob Clark wrote:
+> >> From: Rob Clark <robdclark@chromium.org>
+> >>
+> >> The next generated header update will drop the _LO/_HI suffix, now tha=
+t
+> >> the userspace tooling properly understands 64b vs 32b regs (and the _L=
+O/
+> >> _HI workarounds are getting cleaned up).  So convert to using the 64b
+> >> reg helpers in prep.
+> >>
+> >> Signed-off-by: Rob Clark <robdclark@chromium.org>
+> >> ---
+> >>  drivers/gpu/drm/msm/adreno/a6xx_gpu.c | 9 +++------
+> >>  1 file changed, 3 insertions(+), 6 deletions(-)
+> >>
+> >> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/drm/m=
+sm/adreno/a6xx_gpu.c
+> >> index 89049094a242..f26e258c6021 100644
+> >> --- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+> >> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+> >> @@ -1053,12 +1053,9 @@ static int hw_init(struct msm_gpu *gpu)
+> >>      gpu_write(gpu, REG_A6XX_RBBM_PERFCTR_GPU_BUSY_MASKED, 0xffffffff)=
+;
+> >>
+> >>      /* Disable L2 bypass in the UCHE */
+> >> -    gpu_write(gpu, REG_A6XX_UCHE_WRITE_RANGE_MAX_LO, 0xffffffc0);
+> >> -    gpu_write(gpu, REG_A6XX_UCHE_WRITE_RANGE_MAX_HI, 0x0001ffff);
+> >> -    gpu_write(gpu, REG_A6XX_UCHE_TRAP_BASE_LO, 0xfffff000);
+> >> -    gpu_write(gpu, REG_A6XX_UCHE_TRAP_BASE_HI, 0x0001ffff);
+> >> -    gpu_write(gpu, REG_A6XX_UCHE_WRITE_THRU_BASE_LO, 0xfffff000);
+> >> -    gpu_write(gpu, REG_A6XX_UCHE_WRITE_THRU_BASE_HI, 0x0001ffff);
+> >> +    gpu_write64(gpu, REG_A6XX_UCHE_WRITE_RANGE_MAX_LO, 0x0001ffffffff=
+ffc0llu);
+> >> +    gpu_write64(gpu, REG_A6XX_UCHE_TRAP_BASE_LO, 0x0001fffffffff000ll=
+u);
+> >> +    gpu_write64(gpu, REG_A6XX_UCHE_WRITE_THRU_BASE_LO, 0x1fffffffff00=
+0llu);
+> > Any reason the last write dropped the leading zeroes?
+> >
+> > Otherwise,
+> >
+> > Reviewed-by: Konrad Dybcio <konrad.dybcio@linaro.org>
+> Bah, thunderfox sent it from the wrong email. It still stands.
 
-I love your patch! Perhaps something to improve:
+No good reason.. I can fix that up when I apply
 
-[auto build test WARNING on drm-misc/drm-misc-next]
-[also build test WARNING on rafael-pm/linux-next drm-intel/for-linux-next drm-intel/for-linux-next-fixes drm-tip/drm-tip linus/master v6.3-rc3 next-20230320]
-[cannot apply to chanwoo/devfreq-testing]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch#_base_tree_information]
+BR,
+-R
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Rob-Clark/drm-msm-Pre-allocate-hw_fence/20230320-224826
-base:   git://anongit.freedesktop.org/drm/drm-misc drm-misc-next
-patch link:    https://lore.kernel.org/r/20230320144356.803762-19-robdclark%40gmail.com
-patch subject: [PATCH v2 18/23] PM / QoS: Decouple request alloc from dev_pm_qos_mtx
-config: arm-randconfig-r005-20230319 (https://download.01.org/0day-ci/archive/20230321/202303210444.Qtybv08z-lkp@intel.com/config)
-compiler: clang version 17.0.0 (https://github.com/llvm/llvm-project 67409911353323ca5edf2049ef0df54132fa1ca7)
-reproduce (this is a W=1 build):
-        wget https://raw.githubusercontent.com/intel/lkp-tests/master/sbin/make.cross -O ~/bin/make.cross
-        chmod +x ~/bin/make.cross
-        # install arm cross compiling tool for clang build
-        # apt-get install binutils-arm-linux-gnueabi
-        # https://github.com/intel-lab-lkp/linux/commit/2d7e4629d7265d7e77fc72d01e84d27d805b7485
-        git remote add linux-review https://github.com/intel-lab-lkp/linux
-        git fetch --no-tags linux-review Rob-Clark/drm-msm-Pre-allocate-hw_fence/20230320-224826
-        git checkout 2d7e4629d7265d7e77fc72d01e84d27d805b7485
-        # save the config file
-        mkdir build_dir && cp config build_dir/.config
-        COMPILER_INSTALL_PATH=$HOME/0day COMPILER=clang make.cross W=1 O=build_dir ARCH=arm olddefconfig
-        COMPILER_INSTALL_PATH=$HOME/0day COMPILER=clang make.cross W=1 O=build_dir ARCH=arm SHELL=/bin/bash drivers/base/power/
-
-If you fix the issue, kindly add following tag where applicable
-| Reported-by: kernel test robot <lkp@intel.com>
-| Link: https://lore.kernel.org/oe-kbuild-all/202303210444.Qtybv08z-lkp@intel.com/
-
-All warnings (new ones prefixed by >>):
-
->> drivers/base/power/qos.c:947:8: warning: variable 'req' is uninitialized when used here [-Wuninitialized]
-                   if (!req) {
-                        ^~~
-   drivers/base/power/qos.c:938:33: note: initialize the variable 'req' to silence this warning
-                   struct dev_pm_qos_request *req;
-                                                 ^
-                                                  = NULL
-   1 warning generated.
-
-
-vim +/req +947 drivers/base/power/qos.c
-
-2d984ad132a87c Rafael J. Wysocki 2014-02-11  917  
-2d984ad132a87c Rafael J. Wysocki 2014-02-11  918  /**
-2d984ad132a87c Rafael J. Wysocki 2014-02-11  919   * dev_pm_qos_update_user_latency_tolerance - Update user space latency tolerance.
-2d984ad132a87c Rafael J. Wysocki 2014-02-11  920   * @dev: Device to update the user space latency tolerance for.
-2d984ad132a87c Rafael J. Wysocki 2014-02-11  921   * @val: New user space latency tolerance for @dev (negative values disable).
-2d984ad132a87c Rafael J. Wysocki 2014-02-11  922   */
-2d984ad132a87c Rafael J. Wysocki 2014-02-11  923  int dev_pm_qos_update_user_latency_tolerance(struct device *dev, s32 val)
-2d984ad132a87c Rafael J. Wysocki 2014-02-11  924  {
-2d7e4629d7265d Rob Clark         2023-03-20  925  	struct dev_pm_qos_request *req = NULL;
-2d984ad132a87c Rafael J. Wysocki 2014-02-11  926  	int ret;
-2d984ad132a87c Rafael J. Wysocki 2014-02-11  927  
-00dd582e52a535 Rob Clark         2023-03-20  928  	ret = dev_pm_qos_constraints_ensure_allocated(dev);
-00dd582e52a535 Rob Clark         2023-03-20  929  	if (ret)
-00dd582e52a535 Rob Clark         2023-03-20  930  		return ret;
-00dd582e52a535 Rob Clark         2023-03-20  931  
-2d7e4629d7265d Rob Clark         2023-03-20  932  	if (!dev->power.qos->latency_tolerance_req)
-2d7e4629d7265d Rob Clark         2023-03-20  933  		req = kzalloc(sizeof(*req), GFP_KERNEL);
-2d7e4629d7265d Rob Clark         2023-03-20  934  
-2d984ad132a87c Rafael J. Wysocki 2014-02-11  935  	mutex_lock(&dev_pm_qos_mtx);
-2d984ad132a87c Rafael J. Wysocki 2014-02-11  936  
-00dd582e52a535 Rob Clark         2023-03-20  937  	if (!dev->power.qos->latency_tolerance_req) {
-2d984ad132a87c Rafael J. Wysocki 2014-02-11  938  		struct dev_pm_qos_request *req;
-2d984ad132a87c Rafael J. Wysocki 2014-02-11  939  
-2d984ad132a87c Rafael J. Wysocki 2014-02-11  940  		if (val < 0) {
-80a6f7c79b7822 Andrew Lutomirski 2016-11-29  941  			if (val == PM_QOS_LATENCY_TOLERANCE_NO_CONSTRAINT)
-80a6f7c79b7822 Andrew Lutomirski 2016-11-29  942  				ret = 0;
-80a6f7c79b7822 Andrew Lutomirski 2016-11-29  943  			else
-2d984ad132a87c Rafael J. Wysocki 2014-02-11  944  				ret = -EINVAL;
-2d984ad132a87c Rafael J. Wysocki 2014-02-11  945  			goto out;
-2d984ad132a87c Rafael J. Wysocki 2014-02-11  946  		}
-2d984ad132a87c Rafael J. Wysocki 2014-02-11 @947  		if (!req) {
-2d984ad132a87c Rafael J. Wysocki 2014-02-11  948  			ret = -ENOMEM;
-2d984ad132a87c Rafael J. Wysocki 2014-02-11  949  			goto out;
-2d984ad132a87c Rafael J. Wysocki 2014-02-11  950  		}
-2d984ad132a87c Rafael J. Wysocki 2014-02-11  951  		ret = __dev_pm_qos_add_request(dev, req, DEV_PM_QOS_LATENCY_TOLERANCE, val);
-2d984ad132a87c Rafael J. Wysocki 2014-02-11  952  		if (ret < 0) {
-2d984ad132a87c Rafael J. Wysocki 2014-02-11  953  			kfree(req);
-2d984ad132a87c Rafael J. Wysocki 2014-02-11  954  			goto out;
-2d984ad132a87c Rafael J. Wysocki 2014-02-11  955  		}
-2d984ad132a87c Rafael J. Wysocki 2014-02-11  956  		dev->power.qos->latency_tolerance_req = req;
-2d984ad132a87c Rafael J. Wysocki 2014-02-11  957  	} else {
-2d7e4629d7265d Rob Clark         2023-03-20  958  		/*
-2d7e4629d7265d Rob Clark         2023-03-20  959  		 * If we raced with another thread to allocate the request,
-2d7e4629d7265d Rob Clark         2023-03-20  960  		 * simply free the redundant allocation and move on.
-2d7e4629d7265d Rob Clark         2023-03-20  961  		 */
-2d7e4629d7265d Rob Clark         2023-03-20  962  		if (req)
-2d7e4629d7265d Rob Clark         2023-03-20  963  			kfree(req);
-2d7e4629d7265d Rob Clark         2023-03-20  964  
-2d984ad132a87c Rafael J. Wysocki 2014-02-11  965  		if (val < 0) {
-2d984ad132a87c Rafael J. Wysocki 2014-02-11  966  			__dev_pm_qos_drop_user_request(dev, DEV_PM_QOS_LATENCY_TOLERANCE);
-2d984ad132a87c Rafael J. Wysocki 2014-02-11  967  			ret = 0;
-2d984ad132a87c Rafael J. Wysocki 2014-02-11  968  		} else {
-2d984ad132a87c Rafael J. Wysocki 2014-02-11  969  			ret = __dev_pm_qos_update_request(dev->power.qos->latency_tolerance_req, val);
-2d984ad132a87c Rafael J. Wysocki 2014-02-11  970  		}
-2d984ad132a87c Rafael J. Wysocki 2014-02-11  971  	}
-2d984ad132a87c Rafael J. Wysocki 2014-02-11  972  
-2d984ad132a87c Rafael J. Wysocki 2014-02-11  973   out:
-2d984ad132a87c Rafael J. Wysocki 2014-02-11  974  	mutex_unlock(&dev_pm_qos_mtx);
-2d984ad132a87c Rafael J. Wysocki 2014-02-11  975  	return ret;
-2d984ad132a87c Rafael J. Wysocki 2014-02-11  976  }
-034e7906211c18 Andrew Lutomirski 2016-11-29  977  EXPORT_SYMBOL_GPL(dev_pm_qos_update_user_latency_tolerance);
-13b2c4a0c3b1cd Mika Westerberg   2015-07-27  978  
-
--- 
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests
+> Konrad
+> >
+> > Konrad
+> >>
+> >>      if (!adreno_is_a650_family(adreno_gpu)) {
+> >>              /* Set the GMEM VA range [0x100000:0x100000 + gpu->gmem -=
+ 1] */
