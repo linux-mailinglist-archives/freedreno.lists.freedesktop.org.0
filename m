@@ -2,66 +2,118 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id BB0796C2744
-	for <lists+freedreno@lfdr.de>; Tue, 21 Mar 2023 02:18:43 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0CD006C285C
+	for <lists+freedreno@lfdr.de>; Tue, 21 Mar 2023 03:56:08 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 674CC10E6B4;
-	Tue, 21 Mar 2023 01:18:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 31C5010E6C6;
+	Tue, 21 Mar 2023 02:56:05 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x12c.google.com (mail-lf1-x12c.google.com
- [IPv6:2a00:1450:4864:20::12c])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 336F610E6BF
- for <freedreno@lists.freedesktop.org>; Tue, 21 Mar 2023 01:18:33 +0000 (UTC)
-Received: by mail-lf1-x12c.google.com with SMTP id x17so17235155lfu.5
- for <freedreno@lists.freedesktop.org>; Mon, 20 Mar 2023 18:18:33 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1679361512;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=7u1KWHHcBPRYaV34yLX+D6szNMMbKpRmY9dWoX1bHws=;
- b=lQArMFxdjhBFChBbiqLMaAY2r4ciqju53EXPbDLjN+rGmHlUB93SeFUG7dW57Ls1xg
- baJZpJrxbkBPSIIeT7yacQL5p6bMvluHKSIPY2Rbdtf9OF6/++J8DVTLL3As/l1RQN4z
- ezry0qADNuKOJvOE6cCvIVB0ZTbm96GTXywRQAftqiOIdumuxinSaCqhA85GdJN0xQtZ
- J/3rZH6S4wRLt5Ip/AEKUE0PqLjGFqONFbvZ1/TtOJMCZeK2F4N4ZmgA+ZZ4klES0MzL
- Vn+V0a0WJ2TaPIbF0fv/UN3Cz76cGxO4X806Jnh8hhy/kqyADqEnhUi58v4tooS/De7m
- g2sQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112; t=1679361512;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=7u1KWHHcBPRYaV34yLX+D6szNMMbKpRmY9dWoX1bHws=;
- b=T17RO3M1VSY6CireFegNyVLsoOR3R3861u+Kn2SjRfHK13wgx+2O76SSAcpxYsib9F
- lWowEB/4d+RxnYAZnMN2Vtr27QRZPzFZGaSM9Zi0fiLRQfdQpzNETfTy2FbDGAs2YgHR
- J1/UedlZbrgJcjj4SbMvcEV/5YFcHs9ejcfbbXF34kvcpbtMfm6EKaKd6x9zOGvzBQcg
- Kay2vc2HJgJKW3hF9yZdlnkNvX99ZPyJL0rRmFRrFGsgKGqLN2n92TZ+4Frx0ooz7bS8
- LMbHBF3TDa5oYm5saB2rqZCQW02TzwBwFtgBC9UFstn0CpepT2MrATwNFpfVpcWNjBiJ
- G0gA==
-X-Gm-Message-State: AO0yUKUetUTfe2dtL7Ou1N0OWuaKtgzcfA+ve4ZOyf4QmBPFxsMVRYui
- 3vWGNpH85/uo6V9PR8rV5YkpU8tuesFA8m5iinP1I5ec
-X-Google-Smtp-Source: AK7set9WQNS+YjDayFDNYoySjliqEtR+dQ+GJ7Id9EfEmsz7AjTkrwxJp03JO8E8e/osh+1IAwCw+w==
-X-Received: by 2002:ac2:4e72:0:b0:4e9:59cd:4172 with SMTP id
- y18-20020ac24e72000000b004e959cd4172mr277111lfs.0.1679361512709; 
- Mon, 20 Mar 2023 18:18:32 -0700 (PDT)
-Received: from umbar.unikie.fi ([192.130.178.91])
- by smtp.gmail.com with ESMTPSA id
- c18-20020ac25312000000b004eaec70c68esm46863lfh.294.2023.03.20.18.18.31
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 20 Mar 2023 18:18:32 -0700 (PDT)
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-To: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>
-Date: Tue, 21 Mar 2023 04:18:21 +0300
-Message-Id: <20230321011821.635977-14-dmitry.baryshkov@linaro.org>
-X-Mailer: git-send-email 2.30.2
-In-Reply-To: <20230321011821.635977-1-dmitry.baryshkov@linaro.org>
-References: <20230321011821.635977-1-dmitry.baryshkov@linaro.org>
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on2041.outbound.protection.outlook.com [40.107.236.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8A86010E0D0;
+ Tue, 21 Mar 2023 02:56:02 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=kRSZshCr2RcDnW9fGnJzp/XQgLrhv8iFT0i334gfbw8KIdjoy6F+nWWLMm/cnnfqsZRhA7wEmMjLWcut0yT/G2ZHV2fRzqyS9+KxL4+WkxhjpuigK+f3a7Owyo+PjDwgbnCXXCP+2zH1maObs8ejHB0fIlGfS+5k6C0+4vtFHlAuDY9833PMX7kT2Wgg7Oj9S4Ty41mnxl+l+PLbBIFqG1PSXA0gIACkLjZObdihj3OnYODgMjvH3jKuOJdGUaBafqTYVKNmm8ty73dbu6O/Q6XaszkUZ71vvlgHHZnaFYskKNN6CE40IL0AYky+qFXvSwkL9s+M8TLnVKaZIqWAPA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=aF+HTQ8gds3JND65WXm8Y2ksv6y+4cVCg0/DUiH++sA=;
+ b=XC91R9OgZeIMPuIg31ahEHIm0+oC48NNcKfh3R0ioaj0/PGmkrHIlGLW0eUpoBlWku03ueH90the1yJhxC+ABCx7EPww4V1Olv6kHep7GR6X3K1LgKhjrptx0Yo/kx5UPuTggnsyjmF6J4j73DG7mTjQOv0qwYh2foZjKK8KrnCPofZ1VyK02LoBCbNAdQDSnUkyDRmqSUuvBhBaalJjyH8XFEQDK3Q6dUgII8LbJW2DVATO5h+eldpnvqt2OA30hDjQFrMmDr9VE0/+TphxaLLNA0WSKID7NTOLglF3STbCGwBn8MW5gKQKBGdAIzSnqKG8kiQzKbkV5RMcvyw63Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=aF+HTQ8gds3JND65WXm8Y2ksv6y+4cVCg0/DUiH++sA=;
+ b=jixEA8vKn67Gyg4e0vJxvrOCDz1riJBfsZwtGrepc/GvklrlhwcRNpnOJWc0OZo6QW+GoLynLeo1VOPYXdCPHZkfzn9xSDrQ3DWo8WJoRWzKzjITRefUPap8iR6JjnRdbUW6e3oS5sVMR7GwM4V5zebWtqa0A3q8gTfTAQHYrkI=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from DM6PR12MB3370.namprd12.prod.outlook.com (2603:10b6:5:38::25) by
+ CY8PR12MB7217.namprd12.prod.outlook.com (2603:10b6:930:5b::20) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.6178.37; Tue, 21 Mar 2023 02:55:58 +0000
+Received: from DM6PR12MB3370.namprd12.prod.outlook.com
+ ([fe80::e43d:5bd2:7a85:d0cf]) by DM6PR12MB3370.namprd12.prod.outlook.com
+ ([fe80::e43d:5bd2:7a85:d0cf%7]) with mapi id 15.20.6178.037; Tue, 21 Mar 2023
+ 02:55:58 +0000
+Message-ID: <97416541-5051-932d-c364-a7c602d54aae@amd.com>
+Date: Mon, 20 Mar 2023 22:55:54 -0400
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.9.0
+Content-Language: en-CA
+To: Rob Clark <robdclark@gmail.com>, dri-devel@lists.freedesktop.org
+References: <20230320144356.803762-1-robdclark@gmail.com>
+ <20230320144356.803762-24-robdclark@gmail.com>
+From: Luben Tuikov <luben.tuikov@amd.com>
+In-Reply-To: <20230320144356.803762-24-robdclark@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: YT4P288CA0016.CANP288.PROD.OUTLOOK.COM
+ (2603:10b6:b01:d4::29) To DM6PR12MB3370.namprd12.prod.outlook.com
+ (2603:10b6:5:38::25)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [RFC PATCH v2 13/13] drm/msm/dpu: allow using two SSPP
- blocks for a single plane
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DM6PR12MB3370:EE_|CY8PR12MB7217:EE_
+X-MS-Office365-Filtering-Correlation-Id: e90e4582-7dfb-4b2c-9ca7-08db29b7cc19
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: KZTaPI/2EcpdnMBcy7cALnvZMX5x5ho0sv4iAS1cp2EzzjYue+itKMc0EZmgvXxTJuvNqqDfnEoXD6izTIJCBoXULM+uIEBEMr8nJYJC4TqMIRNF4R5J62jhCay5+Y8NSNLgeiIyRCXv8hgFwdX+EWzRQd8pocHpPC05h98jM/gNO1HCOS5QKjICXO574kWhDwGKEy6ZUfOPxMArI2XNmShAAxDR0xd56EBUgJtTc++bMMMv8LxOXvwInow3/Ithi3TFt9mPozsDeFB4G2RoGiqzFwJbAiJtjM9ElpORKaaIVI5PgqK9KX+jKiQhQNEQhDgmreB46FVDGoIn/6eC78d9fnHNyYLjRFSv2vt83nJRh3C1kLBtkUfN0LLX/NCRuV0U/smPCaHULN2EGzK9k74ZTZLISeeJ0EB/rfqtYwhXJ6WpuE1BRIORy7fmfE3SWPWf5qJmXLJ5JWQYhk18nlKQuMAAuyg7MrKgtiCxwbEBgYcWpByXDg01fUV/VmxSodDBEVRiQk1rKcGdLTtVeLBtFduIAnqqcrLj5a/C77t31lF4fc0r8DK/IFEnwZgC6+HgSfwmoE1Y/RmNMJg0AEg++NBIcfs8V/tgUPFHOQUNeUumJaas+8DdQ+4DVkkMd9My+6fN0z3VEjJAa3k6/iruT5IKFwb5ASiCYDQxDf3xyGtfkQ/IwuDH0sgARaJ7grhx+aV0Un0izxgxlCNzcgUp54iLPRjMqh7WsMaA2Xw=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM6PR12MB3370.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230025)(4636009)(136003)(39860400002)(376002)(366004)(346002)(396003)(451199018)(966005)(6486002)(44832011)(38100700002)(31686004)(478600001)(7416002)(5660300002)(54906003)(316002)(86362001)(31696002)(83380400001)(66556008)(4326008)(66946007)(8676002)(2616005)(6666004)(66476007)(36756003)(8936002)(53546011)(55236004)(41300700001)(186003)(2906002)(26005)(6506007)(6512007)(43740500002)(45980500001);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?dHlwL1dPNWRsSUVHNVlod3hhUXNZS3ZXVFpIN3VmVTJjVTBrbXA3aG5xMjls?=
+ =?utf-8?B?MEhVKzVCcHg3amI4bHFCRDY0bS9YMXplL0x2RWpmdTZvRWZlbjdQbk9yd2Jh?=
+ =?utf-8?B?MUVLNWNFL1VUQUxXdnJqbnY3ZEdHYW5LRmhkRHhuek9aQVNZcG00bTBQcjdE?=
+ =?utf-8?B?YWdxbUp2aUdMdVNCbk5DVGdFcXRzZTcyVE9wTDdZcVdXTnNCemlrU3RleFdZ?=
+ =?utf-8?B?alRKVXhHamtEd0ZlMWtuaWFSeEpIWDkvZm1PNk81YXRqOS8zVDBUY1VGMDJO?=
+ =?utf-8?B?VWw5YWpFL1N3NU1kRkJabzJjZjQ1RmR5TWorSXkwaGZnWUl0RXZ2OVpMemFx?=
+ =?utf-8?B?VFpvVmdFekQ0aS9XVWdpbVBvNDNCaHgxaG5KNzl5RTZXVHZlakZ1T1dtUG5y?=
+ =?utf-8?B?U0Q5V3Q0ME90ZjFxMHEyekpDVFF1NjJFR0VCRmE4a1BHOHZTWVFYUjZtQUFx?=
+ =?utf-8?B?UU14L1dWTFlBL2tZbXM5bHlsY0lIR1hQWVZqUWIxUW9OYitDL2ZNVHQwcXBT?=
+ =?utf-8?B?aWowdHJKUGlDRUJRdG9jbE50M2piOWFkMlUyUlZ5Q3hIcGNuUU5Ha1VsNE90?=
+ =?utf-8?B?U0ZGamNhSVNFeDRTQWx0dFhGNnJaNG9nSk12OEpmdDQ2eUVLSUxqcm5FL1RG?=
+ =?utf-8?B?NXM5VndHbnZqWEhtOC9va2srSkFjTDJBb3dwNUxZRUh0aE1QYlZQRXZqNUM5?=
+ =?utf-8?B?R1BjOGFVOEFsbiszUEJuczBGZExZdVRsTjYzOUovbnZ2SElNOFV4SVNobUxx?=
+ =?utf-8?B?djgraTR0Y3ZpL1lDN0p0NVErekgxMHJFbmtiaUhJdlNXUDBjSFBrcjVtbFIv?=
+ =?utf-8?B?SUZLcVRKNWgwR25xaThrMTFtbFl4TnQ2Z2tpTU5Fa1ZWaTZNS05KMTdNeEE1?=
+ =?utf-8?B?U0RGekZ2c3lPblZ5MkF3aUdWbys5dklhN1ltenV4RzViSE93N1NWRUQ3R2xS?=
+ =?utf-8?B?ZVc2eWdzZkd2TjdnU0Fha2JXU0hKVlpiVXlzQngrcmNjT2F6SzRlVk1HWCtl?=
+ =?utf-8?B?MGlhVUhXVVU3d3pUd2ljSUdNUXNyM1dKbmNpWXhyTXdJMkhGNGs1Y2RVL1FO?=
+ =?utf-8?B?Y2p3WW5UdEtPYTljdWRmTUpkQ2JBRkpzd1d2WnBxNW44UVQ0cW12VVl3aCtq?=
+ =?utf-8?B?akprSEQ5b2d4MVlNUEFXV0RnazZjeDdTZFpvRFBOb09rU0pTRmRvUTRWdTBP?=
+ =?utf-8?B?Z1g1VW9PZEl4WnpJekQ5d29DdDB3aWx0Z21kREZWNzZEZ210cDM5OWVIUTlz?=
+ =?utf-8?B?QkhPc080VzIySHdJVGNVOHJNalYvaXI0ZVhKTW5mMzZ5S1VDWFlXR1BYWFNy?=
+ =?utf-8?B?U3h4WUI3eFZ1NWxwa20vWkpwTDBDMWw4Nml3STJHUEtRZmg1YjBmREVRR3Z6?=
+ =?utf-8?B?Sm5xL01NbnBhd1A0RkxuYnZMZTFqeERta0RIQ3BKWHh1T2VrdHFNSEFTemxm?=
+ =?utf-8?B?L0hEQkt3TFN3TTdQWjE5bndOV3NtVkV3Q0ljQlFmSlkzc3pqdzJtMUsrNkhD?=
+ =?utf-8?B?OXlPRlN5V2pCZFpVV1VCWDR5a2ZsUFV3bHRIeHJJM3NCOURNdXE0bXF5bjdO?=
+ =?utf-8?B?d1lDVXZEeWVZdExtQzBVRjlZNlA1cnhZd3VXS0VneU14ejU3aGp2UGczL0lu?=
+ =?utf-8?B?cmhqa3NXZnRlQlo5QU8zSm9Oc1VmWE5hdHZkRkl3bWpqSmhJdjJhZDMydDhK?=
+ =?utf-8?B?TDhmc3JyQnNlK3pJVjNrL0d0SENSNVljR052cm5oSEtKbkNWNVZOOXNDQkZB?=
+ =?utf-8?B?dnZ4LzBvRUJFSkZ1c2gyUzRpNnNhR0VuZitVYjRZNk5talloRk1wQTN6bnhG?=
+ =?utf-8?B?TkVLdkwrbTRYUW5KRjluaWYwSmJYZkJNS2MrakdyZWh2Ny8zOE5aNDc4VW5X?=
+ =?utf-8?B?K0Eyc2JHV09DM1JLOG5sUEdRKzVpb05kT3AxL2NwVFJweVkzNkd1S1NDTzJa?=
+ =?utf-8?B?djFlRXA3SW81OGVZWkhKaTZkQXZqY1FVN0hDZjh2VGNqc3RHWGgwUnY5M3RG?=
+ =?utf-8?B?elVqSTdQaTZIOGdBQUdTbW8yS21IYVpKdVV2TDN3eGFKU3cwNGtRSWNWV0hH?=
+ =?utf-8?B?Mnllc2VMbUhjcG9JaDVvbkplR3FQNUtBNG1MZnFkczloMm93aDNjbGM1NktP?=
+ =?utf-8?Q?fTRJAdpTcnACZOsTBG03cKJ4a?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: e90e4582-7dfb-4b2c-9ca7-08db29b7cc19
+X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB3370.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Mar 2023 02:55:58.5072 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: Zd9Y+6ZwY3jEgb7rEu8K0MVXfIyrVrFTJROdCVxbxt7MMaftoj52TmJg3uMg2jPH
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB7217
+Subject: Re: [Freedreno] [PATCH v2 23/23] drm/sched: Add (optional) fence
+ signaling annotation
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,410 +126,97 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
- Bjorn Andersson <andersson@kernel.org>, dri-devel@lists.freedesktop.org,
- Stephen Boyd <swboyd@chromium.org>, Daniel Vetter <daniel@ffwll.ch>,
- David Airlie <airlied@gmail.com>
+Cc: Rob Clark <robdclark@chromium.org>, linux-arm-msm@vger.kernel.org,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ open list <linux-kernel@vger.kernel.org>, Sean Paul <sean@poorly.run>,
+ Daniel Vetter <daniel@ffwll.ch>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ David Airlie <airlied@gmail.com>, freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Virtual wide planes give high amount of flexibility, but it is not
-always enough:
+This is good. Hopefully it helps us catch lockdep bugs.
 
-In parallel multirect case only the half of the usual width is supported
-for tiled formats. Thus the whole width of two tiled multirect
-rectangles can not be greater than max_linewidth, which is not enough
-for some platforms/compositors.
+Reviewed-by: Luben Tuikov <luben.tuikov@amd.com>
 
-Another example is as simple as wide YUV plane. YUV planes can not use
-multirect, so currently they are limited to max_linewidth too.
+Regards,
+Luben
 
-Now that the planes are fully virtualized, add support for allocating
-two SSPP blocks to drive a single DRM plane. This fixes both mentioned
-cases and allows all planes to go up to 2*max_linewidth (at the cost of
-making some of the planes unavailable to the user).
-
-Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
----
- drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c  |   2 +-
- drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c | 247 +++++++++++++++++++---
- drivers/gpu/drm/msm/disp/dpu1/dpu_plane.h |  13 +-
- 3 files changed, 235 insertions(+), 27 deletions(-)
-
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
-index cdece21b81c9..7422bee8d21f 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
-@@ -1354,7 +1354,7 @@ static int dpu_crtc_atomic_check(struct drm_crtc *crtc,
- 			 * is a shortcut. Perform actual check here, after
- 			 * allocating SSPPs.
- 			 */
--			rc = dpu_plane_atomic_check(plane, crtc_state->state);
-+			rc = dpu_plane_virtual_atomic_check_late(plane, crtc_state->state);
- 			if (rc)
- 				return rc;
- 		}
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
-index ee906c276aa5..56cb03f1d393 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
-@@ -840,20 +840,32 @@ static int dpu_plane_atomic_check_pipe(struct dpu_plane *pdpu,
- static int dpu_plane_virtual_atomic_check(struct drm_plane *plane,
- 					  struct drm_atomic_state *state)
- {
-+	struct dpu_plane *pdpu = to_dpu_plane(plane);
- 	struct drm_plane_state *plane_state =
- 		drm_atomic_get_plane_state(state, plane);
- 	struct dpu_plane_state *pstate = to_dpu_plane_state(plane_state);
- 	const struct dpu_format *format;
--	struct drm_crtc_state *crtc_state;
-+	struct drm_crtc_state *crtc_state = NULL;
-+	int ret;
-+
-+	if (plane_state->crtc)
-+		crtc_state = drm_atomic_get_new_crtc_state(state, plane_state->crtc);
- 
- 	/*
--	 * Main part of checks, including drm_atomic_helper_check_plane_state()
--	 * is called from dpu_crtc_atomic_check(). Do minimal processing here.
-+	 * Main part of checks is performed in
-+	 * dpu_plane_virtual_atomic_check_late(), called from
-+	 * dpu_crtc_atomic_check(). Do minimal processing here.
- 	 */
-+	ret = drm_atomic_helper_check_plane_noscale(plane_state, crtc_state,
-+						    true, true);
-+	if (ret) {
-+		DPU_DEBUG_PLANE(to_dpu_plane(plane),
-+				"Check plane state failed (%d)\n", ret);
-+		return ret;
-+	}
- 
--	if (!plane_state->fb) {
--		plane_state->visible = false;
- 
-+	if (!plane_state->visible) {
- 		/* resources are freed by dpu_crtc_atomic_check(), but clean them here */
- 		pstate->pipe.sspp = NULL;
- 		pstate->r_pipe.sspp = NULL;
-@@ -861,18 +873,46 @@ static int dpu_plane_virtual_atomic_check(struct drm_plane *plane,
- 		return 0;
- 	}
- 
-+	pstate->stage = DPU_STAGE_0 + pstate->base.normalized_zpos;
-+	if (pstate->stage >= pdpu->catalog->caps->max_mixer_blendstages) {
-+		DPU_ERROR("> %d plane stages assigned\n",
-+			  pdpu->catalog->caps->max_mixer_blendstages - DPU_STAGE_0);
-+		return -EINVAL;
-+	}
-+
-+	/* Ensure fb size is supported */
-+	if (plane_state->fb->width > MAX_IMG_WIDTH ||
-+	    plane_state->fb->height > MAX_IMG_HEIGHT) {
-+		DPU_DEBUG_PLANE(pdpu, "invalid framebuffer %dx%d\n",
-+				plane_state->fb->width,
-+				plane_state->fb->height);
-+		return -E2BIG;
-+	}
-+
- 	format = to_dpu_format(msm_framebuffer_format(plane_state->fb));
--	crtc_state = drm_atomic_get_new_crtc_state(state, plane_state->crtc);
- 
--	/* force resource reallocation if the format of FB has changed */
--	if (pstate->saved_fmt != format) {
-+	/* force resource reallocation if the format of FB or src/dst have changed */
-+	if (pstate->saved_fmt != format ||
-+	    pstate->saved_src_w != plane_state->src_w ||
-+	    pstate->saved_src_h != plane_state->src_h ||
-+	    pstate->saved_src_w != plane_state->src_w ||
-+	    pstate->saved_crtc_h != plane_state->crtc_h) {
- 		crtc_state->planes_changed = true;
- 		pstate->saved_fmt = format;
-+		pstate->saved_src_w = plane_state->src_w;
-+		pstate->saved_src_h = plane_state->src_h;
-+		pstate->saved_crtc_w = plane_state->crtc_w;
-+		pstate->saved_crtc_h = plane_state->crtc_h;
- 	}
- 
- 	return 0;
- }
- 
-+/*
-+ * Allocate backing SSPP blocks for the plane. This does not perform any
-+ * additional checks on the plane, this is done in
-+ * dpu_plane_virtual_atomic_check_late().
-+ */
- int dpu_plane_virtual_assign_resources(struct drm_plane *plane,
- 				       struct drm_crtc *crtc,
- 				       struct dpu_global_state *global_state,
-@@ -881,18 +921,44 @@ int dpu_plane_virtual_assign_resources(struct drm_plane *plane,
- 	struct dpu_kms *dpu_kms = _dpu_plane_get_kms(plane);
- 	struct dpu_plane_state *pstate;
- 	struct drm_plane_state *plane_state;
-+	struct dpu_sw_pipe *pipe;
-+	struct dpu_sw_pipe *r_pipe;
-+	struct dpu_sw_pipe_cfg *pipe_cfg;
-+	struct dpu_sw_pipe_cfg *r_pipe_cfg;
- 	struct dpu_hw_sspp *hw_sspp;
--	bool yuv, scale, rot90;
-+	const struct dpu_format *fmt;
-+	bool yuv, scale, rot90, tiled;
-+	uint32_t max_linewidth;
- 
- 	plane_state = drm_atomic_get_plane_state(state, plane);
- 	if (IS_ERR(plane_state))
- 		return PTR_ERR(plane_state);
- 
--	yuv = plane_state->fb ?
--		DPU_FORMAT_IS_YUV(to_dpu_format(msm_framebuffer_format(plane_state->fb))) :
--		false;
--	scale = (plane_state->src_w >> 16 != plane_state->crtc_w) ||
--		(plane_state->src_h >> 16 != plane_state->crtc_h);
-+	pstate = to_dpu_plane_state(plane_state);
-+
-+	pipe = &pstate->pipe;
-+	r_pipe = &pstate->r_pipe;
-+	pipe_cfg = &pstate->pipe_cfg;
-+	r_pipe_cfg = &pstate->r_pipe_cfg;
-+
-+	fmt = to_dpu_format(msm_framebuffer_format(plane_state->fb));
-+	yuv = DPU_FORMAT_IS_YUV(fmt);
-+	tiled = DPU_FORMAT_IS_UBWC(fmt);
-+
-+	/* state->src is 16.16, src_rect is not */
-+	drm_rect_fp_to_int(&pipe_cfg->src_rect, &plane_state->src);
-+	pipe_cfg->dst_rect = plane_state->dst;
-+
-+	scale = (drm_rect_width(&pipe_cfg->src_rect) != drm_rect_width(&pipe_cfg->dst_rect)) ||
-+		(drm_rect_height(&pipe_cfg->src_rect) != drm_rect_height(&pipe_cfg->dst_rect));
-+
-+	max_linewidth = dpu_kms->catalog->caps->max_linewidth;
-+
-+	pipe->multirect_index = DPU_SSPP_RECT_SOLO;
-+	pipe->multirect_mode = DPU_SSPP_MULTIRECT_NONE;
-+	r_pipe->multirect_index = DPU_SSPP_RECT_SOLO;
-+	r_pipe->multirect_mode = DPU_SSPP_MULTIRECT_NONE;
-+	r_pipe->sspp = NULL;
- 
- 	rot90 = drm_rotation_90_or_270(plane_state->rotation);
- 
-@@ -900,21 +966,159 @@ int dpu_plane_virtual_assign_resources(struct drm_plane *plane,
- 	if (!hw_sspp)
- 		return -ENODEV;
- 
--	pstate = to_dpu_plane_state(plane_state);
--	pstate->pipe.sspp = hw_sspp;
-+	pipe->sspp = hw_sspp;
-+
-+	if (drm_rect_width(&pipe_cfg->src_rect) <= max_linewidth)
-+		return 0;
-+
-+	drm_rect_rotate(&pipe_cfg->src_rect,
-+			plane_state->fb->width, plane_state->fb->height,
-+			plane_state->rotation);
-+
-+	*r_pipe_cfg = *pipe_cfg;
-+
-+	pipe_cfg->src_rect.x2 = (pipe_cfg->src_rect.x1 + pipe_cfg->src_rect.x2) >> 1;
-+	pipe_cfg->dst_rect.x2 = (pipe_cfg->dst_rect.x1 + pipe_cfg->dst_rect.x2) >> 1;
-+
-+	if (yuv && pipe_cfg->src_rect.x2 & 0x1) {
-+		pipe_cfg->src_rect.x2 -= 1;
-+		pipe_cfg->dst_rect.x2 -= 1;
-+	}
-+
-+	r_pipe_cfg->src_rect.x1 = pipe_cfg->src_rect.x2;
-+	r_pipe_cfg->dst_rect.x1 = pipe_cfg->dst_rect.x2;
-+
-+	if (drm_rect_width(&pipe_cfg->src_rect) > max_linewidth ||
-+	    drm_rect_width(&r_pipe_cfg->src_rect) > max_linewidth) {
-+		DPU_DEBUG_PLANE(to_dpu_plane(plane),
-+				"invalid src " DRM_RECT_FMT " / " DRM_RECT_FMT " line:%u\n",
-+				DRM_RECT_ARG(&pipe_cfg->src_rect),
-+				DRM_RECT_ARG(&r_pipe_cfg->src_rect),
-+				max_linewidth);
-+		return -E2BIG;
-+	}
-+
-+	drm_rect_rotate_inv(&pipe_cfg->src_rect,
-+			    plane_state->fb->width, plane_state->fb->height,
-+			    plane_state->rotation);
-+	drm_rect_rotate_inv(&r_pipe_cfg->src_rect,
-+			    plane_state->fb->width, plane_state->fb->height,
-+			    plane_state->rotation);
-+
-+	/*
-+	 * Check if we can use parallel multirect for the wide plane.
-+	 *
-+	 * For tiled formats there is no point in trying multirect.
-+	 * In parallel multirect case only the half of the usual width
-+	 * is supported for tiled formats. If we are here, we know that
-+	 * full width is more than max_linewidth, thus each rect is
-+	 * wider than allowed.
-+	 */
-+	if (!yuv && !scale && !tiled &&
-+	    test_bit(DPU_SSPP_SMART_DMA_V2, &pipe->sspp->cap->features)) {
-+		pipe->multirect_index = DPU_SSPP_RECT_0;
-+		pipe->multirect_mode = DPU_SSPP_MULTIRECT_PARALLEL;
-+
-+		r_pipe->sspp = pipe->sspp;
-+		r_pipe->multirect_index = DPU_SSPP_RECT_1;
-+		r_pipe->multirect_mode = DPU_SSPP_MULTIRECT_PARALLEL;
-+	} else {
-+		/* multirect is not possible, use two SSPP blocks */
-+		hw_sspp = dpu_rm_reserve_sspp(&dpu_kms->rm, global_state, crtc, yuv, scale, rot90);
-+		if (!hw_sspp)
-+			return -ENODEV;
-+
-+		r_pipe->sspp = hw_sspp;
-+	}
- 
- 	return 0;
- }
- 
--int dpu_plane_atomic_check(struct drm_plane *plane,
--			   struct drm_atomic_state *state)
-+int dpu_plane_virtual_atomic_check_late(struct drm_plane *plane,
-+					struct drm_atomic_state *state)
-+{
-+	struct drm_plane_state *plane_state = drm_atomic_get_new_plane_state(state, plane);
-+	int ret = 0, min_scale, max_scale, hscale, vscale;
-+	struct dpu_plane *pdpu = to_dpu_plane(plane);
-+	struct dpu_plane_state *pstate = to_dpu_plane_state(plane_state);
-+	struct dpu_sw_pipe *pipe = &pstate->pipe;
-+	struct dpu_sw_pipe *r_pipe = &pstate->r_pipe;
-+	const struct drm_crtc_state *crtc_state = NULL;
-+	const struct dpu_format *fmt;
-+	struct dpu_sw_pipe_cfg *pipe_cfg = &pstate->pipe_cfg;
-+	struct dpu_sw_pipe_cfg *r_pipe_cfg = &pstate->r_pipe_cfg;
-+	unsigned int rotation;
-+	uint32_t supported_rotations;
-+	struct drm_rect src;
-+	const struct dpu_sspp_cfg *pipe_hw_caps;
-+	const struct dpu_sspp_sub_blks *sblk;
-+
-+	if (plane_state->crtc)
-+		crtc_state = drm_atomic_get_new_crtc_state(state,
-+							   plane_state->crtc);
-+
-+	if (!plane_state->visible)
-+		return 0;
-+
-+	pipe_hw_caps = pstate->pipe.sspp->cap;
-+	sblk = pstate->pipe.sspp->cap->sblk;
-+
-+	src = drm_plane_state_src(plane_state);
-+	drm_rect_rotate(&src, plane_state->fb->width << 16, plane_state->fb->height << 16,
-+			plane_state->rotation);
-+
-+	min_scale = FRAC_16_16(1, sblk->maxupscale);
-+	max_scale = sblk->maxdwnscale << 16;
-+	hscale = drm_rect_calc_hscale(&plane_state->src, &plane_state->dst, min_scale, max_scale);
-+	vscale = drm_rect_calc_vscale(&plane_state->src, &plane_state->dst, min_scale, max_scale);
-+	if (hscale < 0 || vscale < 0) {
-+		drm_dbg_kms(plane->dev, "Invalid scaling of plane\n");
-+		drm_rect_debug_print("src: ", &plane_state->src, true);
-+		drm_rect_debug_print("dst: ", &plane_state->dst, false);
-+		return -ERANGE;
-+	}
-+
-+	fmt = to_dpu_format(msm_framebuffer_format(plane_state->fb));
-+
-+	ret = dpu_plane_atomic_check_pipe(pdpu, pipe, pipe_cfg, fmt);
-+	if (ret)
-+		return ret;
-+
-+	if (r_pipe->sspp) {
-+		ret = dpu_plane_atomic_check_pipe(pdpu, r_pipe, r_pipe_cfg, fmt);
-+		if (ret)
-+			return ret;
-+	}
-+
-+	supported_rotations = DRM_MODE_REFLECT_MASK | DRM_MODE_ROTATE_0;
-+
-+	if (pipe_hw_caps->features & BIT(DPU_SSPP_INLINE_ROTATION))
-+		supported_rotations |= DRM_MODE_ROTATE_90;
-+
-+	rotation = drm_rotation_simplify(plane_state->rotation,
-+					supported_rotations);
-+
-+	if ((pipe_hw_caps->features & BIT(DPU_SSPP_INLINE_ROTATION)) &&
-+		(rotation & DRM_MODE_ROTATE_90)) {
-+		ret = dpu_plane_check_inline_rotation(pdpu, sblk, pipe_cfg->src_rect, fmt);
-+		if (ret)
-+			return ret;
-+	}
-+
-+	pstate->rotation = rotation;
-+	pstate->needs_qos_remap = drm_atomic_crtc_needs_modeset(crtc_state);
-+
-+	return 0;
-+}
-+
-+static int dpu_plane_atomic_check(struct drm_plane *plane,
-+				  struct drm_atomic_state *state)
- {
- 	struct drm_plane_state *new_plane_state = drm_atomic_get_new_plane_state(state,
- 										 plane);
- 	int ret = 0, min_scale;
- 	struct dpu_plane *pdpu = to_dpu_plane(plane);
- 	struct dpu_plane_state *pstate = to_dpu_plane_state(new_plane_state);
--	struct dpu_kms *dpu_kms = _dpu_plane_get_kms(plane);
- 	struct dpu_sw_pipe *pipe = &pstate->pipe;
- 	struct dpu_sw_pipe *r_pipe = &pstate->r_pipe;
- 	const struct drm_crtc_state *crtc_state = NULL;
-@@ -932,11 +1136,6 @@ int dpu_plane_atomic_check(struct drm_plane *plane,
- 		crtc_state = drm_atomic_get_new_crtc_state(state,
- 							   new_plane_state->crtc);
- 
--	if (pdpu->pipe != SSPP_NONE) {
--		pipe->sspp = dpu_rm_get_sspp(&dpu_kms->rm, pdpu->pipe);
--		r_pipe->sspp = NULL;
--	}
--
- 	pipe_hw_caps = pstate->pipe.sspp->cap;
- 	sblk = pstate->pipe.sspp->cap->sblk;
- 
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.h
-index cb1e31ef0d3f..07e0796cc100 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.h
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.h
-@@ -32,6 +32,10 @@
-  * @needs_dirtyfb: whether attached CRTC needs pixel data explicitly flushed
-  * @rotation: simplified drm rotation hint
-  * @saved_fmt: format used by the plane's FB, saved for for virtual plane support
-+ * @saved_src_w: cached value of plane's src_w, saved for for virtual plane support
-+ * @saved_src_h: cached value of plane's src_h, saved for for virtual plane support
-+ * @saved_crtc_w: cached value of plane's crtc_w, saved for for virtual plane support
-+ * @saved_crtc_h: cached value of plane's crtc_h, saved for for virtual plane support
-  */
- struct dpu_plane_state {
- 	struct drm_plane_state base;
-@@ -51,6 +55,10 @@ struct dpu_plane_state {
- 	unsigned int rotation;
- 
- 	const struct dpu_format *saved_fmt;
-+	uint32_t saved_src_w;
-+	uint32_t saved_src_h;
-+	uint32_t saved_crtc_w;
-+	uint32_t saved_crtc_h;
- };
- 
- #define to_dpu_plane_state(x) \
-@@ -106,11 +114,12 @@ void dpu_plane_danger_signal_ctrl(struct drm_plane *plane, bool enable);
- static inline void dpu_plane_danger_signal_ctrl(struct drm_plane *plane, bool enable) {}
- #endif
- 
--int dpu_plane_atomic_check(struct drm_plane *plane, struct drm_atomic_state *state);
--
- int dpu_plane_virtual_assign_resources(struct drm_plane *plane,
- 				       struct drm_crtc *crtc,
- 				       struct dpu_global_state *global_state,
- 				       struct drm_atomic_state *state);
- 
-+int dpu_plane_virtual_atomic_check_late(struct drm_plane *plane,
-+					struct drm_atomic_state *state);
-+
- #endif /* _DPU_PLANE_H_ */
--- 
-2.30.2
+On 2023-03-20 10:43, Rob Clark wrote:
+> From: Rob Clark <robdclark@chromium.org>
+> 
+> Based on
+> https://lore.kernel.org/dri-devel/20200604081224.863494-10-daniel.vetter@ffwll.ch/
+> but made to be optional.
+> 
+> Signed-off-by: Rob Clark <robdclark@chromium.org>
+> ---
+>  drivers/gpu/drm/msm/msm_ringbuffer.c   | 1 +
+>  drivers/gpu/drm/scheduler/sched_main.c | 9 +++++++++
+>  include/drm/gpu_scheduler.h            | 2 ++
+>  3 files changed, 12 insertions(+)
+> 
+> diff --git a/drivers/gpu/drm/msm/msm_ringbuffer.c b/drivers/gpu/drm/msm/msm_ringbuffer.c
+> index b60199184409..7e42baf16cd0 100644
+> --- a/drivers/gpu/drm/msm/msm_ringbuffer.c
+> +++ b/drivers/gpu/drm/msm/msm_ringbuffer.c
+> @@ -93,6 +93,7 @@ struct msm_ringbuffer *msm_ringbuffer_new(struct msm_gpu *gpu, int id,
+>  	 /* currently managing hangcheck ourselves: */
+>  	sched_timeout = MAX_SCHEDULE_TIMEOUT;
+>  
+> +	ring->sched.fence_signaling = true;
+>  	ret = drm_sched_init(&ring->sched, &msm_sched_ops,
+>  			num_hw_submissions, 0, sched_timeout,
+>  			NULL, NULL, to_msm_bo(ring->bo)->name, gpu->dev->dev);
+> diff --git a/drivers/gpu/drm/scheduler/sched_main.c b/drivers/gpu/drm/scheduler/sched_main.c
+> index 4e6ad6e122bc..c2ee44d6224b 100644
+> --- a/drivers/gpu/drm/scheduler/sched_main.c
+> +++ b/drivers/gpu/drm/scheduler/sched_main.c
+> @@ -978,10 +978,15 @@ static bool drm_sched_blocked(struct drm_gpu_scheduler *sched)
+>  static int drm_sched_main(void *param)
+>  {
+>  	struct drm_gpu_scheduler *sched = (struct drm_gpu_scheduler *)param;
+> +	const bool fence_signaling = sched->fence_signaling;
+> +	bool fence_cookie;
+>  	int r;
+>  
+>  	sched_set_fifo_low(current);
+>  
+> +	if (fence_signaling)
+> +		fence_cookie = dma_fence_begin_signalling();
+> +
+>  	while (!kthread_should_stop()) {
+>  		struct drm_sched_entity *entity = NULL;
+>  		struct drm_sched_fence *s_fence;
+> @@ -1039,6 +1044,10 @@ static int drm_sched_main(void *param)
+>  
+>  		wake_up(&sched->job_scheduled);
+>  	}
+> +
+> +	if (fence_signaling)
+> +		dma_fence_end_signalling(fence_cookie);
+> +
+>  	return 0;
+>  }
+>  
+> diff --git a/include/drm/gpu_scheduler.h b/include/drm/gpu_scheduler.h
+> index 9db9e5e504ee..8f23ea522e22 100644
+> --- a/include/drm/gpu_scheduler.h
+> +++ b/include/drm/gpu_scheduler.h
+> @@ -483,6 +483,7 @@ struct drm_sched_backend_ops {
+>   * @ready: marks if the underlying HW is ready to work
+>   * @free_guilty: A hit to time out handler to free the guilty job.
+>   * @dev: system &struct device
+> + * @fence_signaling: Opt in to fence signaling annotations
+>   *
+>   * One scheduler is implemented for each hardware ring.
+>   */
+> @@ -507,6 +508,7 @@ struct drm_gpu_scheduler {
+>  	bool				ready;
+>  	bool				free_guilty;
+>  	struct device			*dev;
+> +	bool 				fence_signaling;
+>  };
+>  
+>  int drm_sched_init(struct drm_gpu_scheduler *sched,
 
