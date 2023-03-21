@@ -2,48 +2,47 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 202D36C3213
-	for <lists+freedreno@lfdr.de>; Tue, 21 Mar 2023 13:55:30 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E22CD6C3228
+	for <lists+freedreno@lfdr.de>; Tue, 21 Mar 2023 14:00:55 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D16C910E0E3;
-	Tue, 21 Mar 2023 12:55:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 64AD410E778;
+	Tue, 21 Mar 2023 13:00:54 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 20AC210E181;
- Tue, 21 Mar 2023 12:55:27 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8239210E776;
+ Tue, 21 Mar 2023 13:00:52 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by sin.source.kernel.org (Postfix) with ESMTPS id 08EBECE18C1;
- Tue, 21 Mar 2023 12:55:23 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6EFF7C433D2;
- Tue, 21 Mar 2023 12:55:21 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id C6B1561B8C;
+ Tue, 21 Mar 2023 13:00:51 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 35F5BC433D2;
+ Tue, 21 Mar 2023 13:00:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1679403321;
- bh=ZnXocfbauUx27rTMEEdy0hmwDjF0EF1+mrismXf3kiM=;
+ s=k20201202; t=1679403651;
+ bh=B8D6tcxg6AwWwKpnpZveYJcDqvXwTVdwK/BrT8cTJoU=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=Tkw3jE14tuIpxUec0cs3nE3qxp8ZBfKbxRKUg55YFfOnzbL/8/S3KrPpUoKdJHU2i
- 4mUJI6g/rQbbAFz2jxUneGOR8wqUvPmT0NvbyId6LHEIDQCsOdf1Df0BdCCglgOgMT
- DqVH7MxiyAQUxqQG6pZNF17CeuX3jRPfQrCdyWqH8pxM+7whiwd8ja1TeyQf5FiJGc
- eG4rXCakQOZv6YV3wu9roXASPomgovdLHsrSDhoG/7lNPHZKyzcjSupONRbDQfO3y4
- o5MtyhWOX0uEMBPomTuXKiaLgVkUjzNAeMN3Wsp+/O3i/FotomcFIFKPq91tZCqPYT
- Rg+BG/birDn5A==
+ b=qLei1DH+Jz4h1XIQnNgpbQZd3+jU4dQ4RrgCf+OlAl8EGk9sEk68S2JreIDSHwv0z
+ Tmo1/29yHxRZFpbbYp+nsVdKdckBQtQbAZvMrWTCSRe0gCAVG1CDXKtaAqptTvYuYn
+ XtdV8FtbKrRnseZd5D4UQ/o6YLn1uIgPC+RGhk6yeXEfoFK2W0tQlaXq/MjcA84L4m
+ fI0v3QlSuaSwO598vgR5NNXuGqVLgTQ9K1+9IqBRpcolwRh9btO2c3uz5R079yifWc
+ w5yOZV7RgZVzXr5Arpq8mp+t1THppIqVZ/EuAHxGlRwWDP0UY6WNxwM5F+lLtvo112
+ J0bGVENa9uAnw==
 Received: from johan by xi.lan with local (Exim 4.94.2)
  (envelope-from <johan@kernel.org>)
- id 1pebXg-0005uQ-Tw; Tue, 21 Mar 2023 13:56:44 +0100
-Date: Tue, 21 Mar 2023 13:56:44 +0100
+ id 1pebd1-0005wz-6j; Tue, 21 Mar 2023 14:02:15 +0100
+Date: Tue, 21 Mar 2023 14:02:15 +0100
 From: Johan Hovold <johan@kernel.org>
 To: Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
  Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Message-ID: <ZBmpjF6DKMGDiOhT@hovoldconsulting.com>
-References: <20230303164807.13124-1-johan+linaro@kernel.org>
+Message-ID: <ZBmq12uP+TY4EaE3@hovoldconsulting.com>
+References: <20230306100722.28485-1-johan+linaro@kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20230303164807.13124-1-johan+linaro@kernel.org>
-Subject: Re: [Freedreno] [PATCH v2 0/4] drm/msm/adreno: fix runtime PM
- imbalance at unbind
+In-Reply-To: <20230306100722.28485-1-johan+linaro@kernel.org>
+Subject: Re: [Freedreno] [PATCH 00/10] drm/msm: fix bind error handling
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,46 +55,50 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, Sean Paul <sean@poorly.run>,
- Bjorn Andersson <andersson@kernel.org>, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>,
- linux-arm-msm@vger.kernel.org, David Airlie <airlied@gmail.com>
+Cc: Sean Paul <sean@poorly.run>, freedreno@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ Daniel Vetter <daniel@ffwll.ch>, linux-arm-msm@vger.kernel.org,
+ David Airlie <airlied@gmail.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Fri, Mar 03, 2023 at 05:48:03PM +0100, Johan Hovold wrote:
-> As reported by Bjorn, we can end up with an unbalanced runtime PM
-> disable count if unbind() is called before the DRM device is opened
-> (e.g. if component bind fails due to the panel driver not having been
-> loaded yet).
+On Mon, Mar 06, 2023 at 11:07:12AM +0100, Johan Hovold wrote:
+> I had reasons to look closer at the MSM DRM driver error handling and
+> realised that it had suffered from a fair amount of bit rot over the
+> years.
 > 
-> As runtime PM must currently stay disabled until the firmware has been
-> loaded, fix this by making the runtime PM disable call at unbind()
-> conditional.
+> Unfortunately, I started fixing this in my 6.2 branch and failed to
+> notice two partial and, as it turned out, broken attempts to address
+> this that are now in 6.3-rc1.
 > 
-> The rest of the series fixes further imbalances in the load_gpu() error
-> paths and removes a bogus pm_runtime_set_active() call. Included is also
-> a related indentation cleanup.
+> Instead of trying to salvage this incrementally, I'm reverting the two
+> broken commits so that clean and backportable fixes can be added in
+> their place.
+> 
+> Included are also two related cleanups.
 
-I noticed that Rob picked up the first patch below from v1 of this
-series. Any comments to the remaining three?
+Any further comments to these patches (except for 9/10, which should be
+dropped)?
+
+As the patches being reverted here were first added in 6.3-rc1 there is
+still time to get this into 6.3-rc (e.g. before AUTOSEL starts trying to
+backport them).
 
 Johan
 
-> Changes in v2
->  - fix the runtime PM imbalance in the gpu load error paths (new)
+> Johan Hovold (10):
+>   Revert "drm/msm: Add missing check and destroy for
+>     alloc_ordered_workqueue"
+>   Revert "drm/msm: Fix failure paths in msm_drm_init()"
+>   drm/msm: fix NULL-deref on snapshot tear down
+>   drm/msm: fix NULL-deref on irq uninstall
+>   drm/msm: fix drm device leak on bind errors
+>   drm/msm: fix vram leak on bind errors
+>   drm/msm: fix missing wq allocation error handling
+>   drm/msm: fix workqueue leak on bind errors
+>   drm/msm: use drmm_mode_config_init()
+>   drm/msm: move include directive
 > 
->  - drop the patch removing the pm_runtime_disable() from
->    adreno_gpu_cleanup() as this function can currently still be called
->    with runtime PM enabled if suspending the scheduler in
->    adreno_system_suspend() at unbind fails
-> 
-> 
-> Johan Hovold (4):
->   drm/msm/adreno: fix runtime PM imbalance at unbind
->   drm/msm/adreno: fix runtime PM imbalance at gpu load
->   drm/msm/adreno: drop bogus pm_runtime_set_active()
->   drm/msm/adreno: clean up component ops indentation
-> 
->  drivers/gpu/drm/msm/adreno/adreno_device.c | 26 +++++++++++++---------
->  1 file changed, 16 insertions(+), 10 deletions(-)
+>  drivers/gpu/drm/msm/disp/msm_disp_snapshot.c |  3 -
+>  drivers/gpu/drm/msm/msm_drv.c                | 67 +++++++++++++-------
+>  2 files changed, 44 insertions(+), 26 deletions(-)
