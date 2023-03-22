@@ -2,64 +2,70 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id A44D56C3CCA
-	for <lists+freedreno@lfdr.de>; Tue, 21 Mar 2023 22:36:15 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A586B6C4443
+	for <lists+freedreno@lfdr.de>; Wed, 22 Mar 2023 08:44:54 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 88EF210E2AC;
-	Tue, 21 Mar 2023 21:36:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9B1C410E36B;
+	Wed, 22 Mar 2023 07:44:51 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x136.google.com (mail-lf1-x136.google.com
- [IPv6:2a00:1450:4864:20::136])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 512BA10E2AC
- for <freedreno@lists.freedesktop.org>; Tue, 21 Mar 2023 21:36:09 +0000 (UTC)
-Received: by mail-lf1-x136.google.com with SMTP id h25so9229650lfv.6
- for <freedreno@lists.freedesktop.org>; Tue, 21 Mar 2023 14:36:09 -0700 (PDT)
+Received: from mail-ed1-x536.google.com (mail-ed1-x536.google.com
+ [IPv6:2a00:1450:4864:20::536])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CACD310E36B
+ for <freedreno@lists.freedesktop.org>; Wed, 22 Mar 2023 07:44:49 +0000 (UTC)
+Received: by mail-ed1-x536.google.com with SMTP id w9so69189130edc.3
+ for <freedreno@lists.freedesktop.org>; Wed, 22 Mar 2023 00:44:49 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1679434567;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=BDa7nKMtXb7S3BjrifS1ahAFl7WEVFVrO1TP6BvYQW8=;
- b=HygJVWLJQYQZzv5qKjvJmDNkHdctvMuXyb5WW+Szi1sbR0fCUv2Tb5kL2qWEFlLjxq
- Onl2baFYfm7n857a0DVCwVyr6TpeVkmg9s8vk14GaL394coBZtbSqRSutIFUdqKGrzuw
- P5YcVMeYFIG5D66Z77S1qRV8busNsX1apl7Gq0Edpdf15NbtTtDNC5um4zP97/fRi1Ct
- 2Qr/3UJ9qLRgha30++4X7M/1HO2ApQ3CEsykXpAy+DuJ6gJr6iO5n3R/LNn25nhqi4m6
- Qm1bUbW81MHQUToYOdQ/2zg9UjrMwyCX9MOXxwvh/ygj3MCPSWedvtxaIlE2uA76wpRY
- MD7w==
+ d=linaro.org; s=google; t=1679471088;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=S3dGgcVJy56CLtMNjjLfSHiR4v8AC8/EHQCvrk5cImM=;
+ b=Q92NDs+Jr1AUX06FcUhFEtn78+j6vJ8Wrpk9z3vu/2gvD8oREGeNCAmWEW6ljtqtiV
+ keo8FVP806i0kaVPJ97c4AxvwG2+piRPwsLPj9XNdeuvrb07O7ioXdPCVguBYwwj9dqi
+ KNBYAlQaAzI76INTgaOTS6WN0uhHEU7B9qJhlisFznAMtLdX8YIyoNRvG6KGjyokaKgC
+ k7QVBDTs457ZVUAeV8A4UhCqZanUxJyWXGrs+FSk66lIyba81QFwop2WEGjv0NpaeMXj
+ y50BUeSWJ2085oXz7E/d9z1LNqpNHTHKIf1pSbWrmY3wmN/pYbt/+qtCRUU14q8hPVDz
+ 3eYQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112; t=1679434567;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=BDa7nKMtXb7S3BjrifS1ahAFl7WEVFVrO1TP6BvYQW8=;
- b=lUN2/0WBgC17ZJqbiXoX7mIGSerc+h2BBFh20wEjNfNW+M3ojLwo3K60BFLZ+FwT9z
- gOb5AJTDPwolnuha+kHKqE7q2n5QqzuWJkofG3A0QqCOyu8yq0BHT65gUOAFz3AeNgo3
- kM+VxW0U3f1pn/WqkDLgZXZafWu0n1BjkdL5HUnONM9oDTET4xX1ph+ilITMay1BBd7V
- 6JdaiNzEaLEfYUyIKGNM3nthhj+ITAAlACi/cw2Rz96QpyfSnJBL4m7WnEeKl7+3uLjW
- Wqa44vBh/qw7GEWSCvi2wefOR6bSpCFN2CgMEAKunNwIPIfKbA5IHagDZpBkS1lOKy8t
- ExzQ==
-X-Gm-Message-State: AO0yUKWSwLG2ZpsR+xRWRof0qBsc5Qb82rOAwn4/GIy2BMB2/tYiKPS6
- nOuVA6kvw1RTpv35crlSiQPa5A==
-X-Google-Smtp-Source: AK7set/KwCx7+18m5if4fSBoPJCV6gjU21k1/n3wZtbtG6AVFjcu/qxY4/gwTtP4iZ9QQAPQ+znOBw==
-X-Received: by 2002:ac2:5544:0:b0:4e8:3fc7:9483 with SMTP id
- l4-20020ac25544000000b004e83fc79483mr1339983lfk.23.1679434567543; 
- Tue, 21 Mar 2023 14:36:07 -0700 (PDT)
-Received: from localhost.localdomain (abym238.neoplus.adsl.tpnet.pl.
- [83.9.32.238]) by smtp.gmail.com with ESMTPSA id
- j12-20020a19f50c000000b004b40c1f1c70sm2324628lfb.212.2023.03.21.14.36.05
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 21 Mar 2023 14:36:07 -0700 (PDT)
-From: Konrad Dybcio <konrad.dybcio@linaro.org>
-To: linux-arm-msm@vger.kernel.org,
-	andersson@kernel.org,
-	agross@kernel.org
-Date: Tue, 21 Mar 2023 22:35:56 +0100
-Message-Id: <20230321213557.1737905-1-konrad.dybcio@linaro.org>
-X-Mailer: git-send-email 2.40.0
+ d=1e100.net; s=20210112; t=1679471088;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=S3dGgcVJy56CLtMNjjLfSHiR4v8AC8/EHQCvrk5cImM=;
+ b=b4N5LGLaNY8J4YXbLvSf1aMiIEUOKO9QufxG6n2oMoF/MA0tqJkwq009OfhERiaw8i
+ +KRDudbEpspbQCw1o3vUEWz4vXu28tPliXS6kMjxtj/uclqzVEPhIkMw5NWaiMDpuwpt
+ Giqr/M3IZXzkmZa2vJrVFkIipakFpie9+UYeX1t6SSlVHOusp4Iv5agj9l9+rgFUjx+b
+ i5wBkXIgJp1FSO5Kl+BnMGnBF0cEiVM+XALQS/H9bqYRomUnipR2dyQvkPtOxTPgwSqH
+ mhjr5hptUINGGI/STxiUhqhVknJyNFZhfuEPY2EbQbSdEYfXTHuxyAPeD95fsKfPMXjt
+ bEIg==
+X-Gm-Message-State: AO0yUKWJv/GFIEhNYnBXHODRbGjCZLOdDHae/J4hiqgtqTzCSG2xjiZY
+ X4Q1Dj/abN8fdTA4bbWOpMIAsQ==
+X-Google-Smtp-Source: AK7set95apHFzo5CUdeleFgQho6O1MV6v+VQQccJNVBd2oyCWvpIun4HICXyY/p9b5uzS0geTl79IQ==
+X-Received: by 2002:a17:906:1950:b0:921:54da:831c with SMTP id
+ b16-20020a170906195000b0092154da831cmr1236868eje.31.1679471088266; 
+ Wed, 22 Mar 2023 00:44:48 -0700 (PDT)
+Received: from ?IPV6:2a02:810d:15c0:828:5050:151b:e755:1c6?
+ ([2a02:810d:15c0:828:5050:151b:e755:1c6])
+ by smtp.gmail.com with ESMTPSA id
+ zc14-20020a170906988e00b00927f6c799e6sm6839389ejb.132.2023.03.22.00.44.47
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 22 Mar 2023 00:44:47 -0700 (PDT)
+Message-ID: <f62299b2-0140-f7a1-c307-925472e302cf@linaro.org>
+Date: Wed, 22 Mar 2023 08:44:46 +0100
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH] dt-bindings: display: msm: sm8350-mdss: Fix DSI
- compatible
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.9.0
+Content-Language: en-US
+To: Konrad Dybcio <konrad.dybcio@linaro.org>, linux-arm-msm@vger.kernel.org,
+ andersson@kernel.org, agross@kernel.org
+References: <20230321213557.1737905-1-konrad.dybcio@linaro.org>
+From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+In-Reply-To: <20230321213557.1737905-1-konrad.dybcio@linaro.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+Subject: Re: [Freedreno] [PATCH] dt-bindings: display: msm: sm8350-mdss: Fix
+ DSI compatible
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,36 +82,24 @@ Cc: freedreno@lists.freedesktop.org, Robert Foss <rfoss@kernel.org>,
  Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
  devicetree@vger.kernel.org, David Airlie <airlied@gmail.com>,
  Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Konrad Dybcio <konrad.dybcio@linaro.org>,
- Rob Clark <robdclark@gmail.com>, Rob Herring <robh+dt@kernel.org>,
- Daniel Vetter <daniel@ffwll.ch>,
+ linux-kernel@vger.kernel.org, Rob Clark <robdclark@gmail.com>,
+ Rob Herring <robh+dt@kernel.org>, Daniel Vetter <daniel@ffwll.ch>,
  Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, marijn.suijten@somainline.org,
  Sean Paul <sean@poorly.run>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-The DSI compatible changed between patchset revisions, but that wasn't
-reflected in the bindings. Fix it.
+On 21/03/2023 22:35, Konrad Dybcio wrote:
+> The DSI compatible changed between patchset revisions, but that wasn't
+> reflected in the bindings. Fix it.
+> 
+> Fixes: 430e11f42bff ("dt-bindings: display: msm: Add qcom, sm8350-mdss binding")
+> Signed-off-by: Konrad Dybcio <konrad.dybcio@linaro.org>
+> ---
 
-Fixes: 430e11f42bff ("dt-bindings: display: msm: Add qcom, sm8350-mdss binding")
-Signed-off-by: Konrad Dybcio <konrad.dybcio@linaro.org>
----
- .../devicetree/bindings/display/msm/qcom,sm8350-mdss.yaml       | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/Documentation/devicetree/bindings/display/msm/qcom,sm8350-mdss.yaml b/Documentation/devicetree/bindings/display/msm/qcom,sm8350-mdss.yaml
-index 4d94dbff3054..79a226e4cc6a 100644
---- a/Documentation/devicetree/bindings/display/msm/qcom,sm8350-mdss.yaml
-+++ b/Documentation/devicetree/bindings/display/msm/qcom,sm8350-mdss.yaml
-@@ -64,7 +64,7 @@ patternProperties:
-     type: object
-     properties:
-       compatible:
--        const: qcom,dsi-phy-5nm-8350
-+        const: qcom,sm8350-dsi-phy-5nm
- 
- unevaluatedProperties: false
- 
--- 
-2.40.0
+Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+
+Best regards,
+Krzysztof
 
