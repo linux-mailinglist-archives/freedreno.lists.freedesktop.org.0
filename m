@@ -2,58 +2,58 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 50B8F6C6B53
-	for <lists+freedreno@lfdr.de>; Thu, 23 Mar 2023 15:44:29 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 046F36C6B61
+	for <lists+freedreno@lfdr.de>; Thu, 23 Mar 2023 15:45:26 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1DD4510E0F1;
-	Thu, 23 Mar 2023 14:44:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BD9EA10E0F1;
+	Thu, 23 Mar 2023 14:45:24 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wm1-x336.google.com (mail-wm1-x336.google.com
- [IPv6:2a00:1450:4864:20::336])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4926010E0F1
- for <freedreno@lists.freedesktop.org>; Thu, 23 Mar 2023 14:44:26 +0000 (UTC)
-Received: by mail-wm1-x336.google.com with SMTP id l37so728872wms.2
- for <freedreno@lists.freedesktop.org>; Thu, 23 Mar 2023 07:44:26 -0700 (PDT)
+Received: from mail-wr1-x42d.google.com (mail-wr1-x42d.google.com
+ [IPv6:2a00:1450:4864:20::42d])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5BB0B10E11F
+ for <freedreno@lists.freedesktop.org>; Thu, 23 Mar 2023 14:45:23 +0000 (UTC)
+Received: by mail-wr1-x42d.google.com with SMTP id d17so12352778wrb.11
+ for <freedreno@lists.freedesktop.org>; Thu, 23 Mar 2023 07:45:23 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1679582665;
+ d=linaro.org; s=google; t=1679582722;
  h=content-transfer-encoding:in-reply-to:organization:references:cc:to
  :content-language:subject:reply-to:from:user-agent:mime-version:date
  :message-id:from:to:cc:subject:date:message-id:reply-to;
- bh=0Ek4wZhl4Mg0GrDMidRpjCLxiT+Jj8TNIew80B1+dS8=;
- b=t3Vp7RyFM8QV+VOhJkauXK9ZBmgTbo+zXmbbdNc5YTzFZhULmKx7ULUx2hi9UKIvj4
- yIAo+gNJ6mUmL6zRsgWruEYkTL1nqJr4XVGp9j53f1R59pcJo9BvjgV6ZGPCOWExngg3
- 9lwyhlQ7PfizNhOXlnvJ2BjCjfCnW+3z+rA2W9HGw5O1aPBlgxrSE/lr6RkeFNqBSoPK
- gJ3bS3SEKIW41PNmlixE4c62EWhsHJcY3ftPuqZ/F3JOmp8dUDVFskJH15Bv/IRWLTtI
- VmGC96o6jb8k6ouaD0vV0GREdN870JpBDWppohe72sFOYfxOkxkoAarzmhvWz0vtwhhG
- l4sQ==
+ bh=W4MzrlpTb4Yhk+gf2dIUjuh7tsdX9/TNDTntW+YKJvQ=;
+ b=VNwqpfZrV6vnFmwiRhLKz9jY1Ib2cmBxdbakZRZrHeSHzA9AKpPVstW5bUCEJCE5Dq
+ Rprv/C1AYM3gKWrk0hpsmQZpmZMTCBD5Mhd9nkaP6QHffhntf1hkEhmDTI6s/SXZSxho
+ 6jRUFnSso3D7ypelnHOflwy+xoxZSJo9rcG8mUvDwqMVtb16X1CfTci70fPpd0d5ZMYg
+ dv8C2R78hJroZ7ldiETHkKLa9e9Nxxtq0/XEz3SwiugYytzGgyfvtKgcBNCc6kWgnOiD
+ KFOtM5WsAYQPvBIsypLEo1OkcmcV1YT/tc0KBwnXhEv9vzn1JPdiWBxzk9AgQTm/NQcg
+ pncw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112; t=1679582665;
+ d=1e100.net; s=20210112; t=1679582722;
  h=content-transfer-encoding:in-reply-to:organization:references:cc:to
  :content-language:subject:reply-to:from:user-agent:mime-version:date
  :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=0Ek4wZhl4Mg0GrDMidRpjCLxiT+Jj8TNIew80B1+dS8=;
- b=FpH+0dlVBueAcUjPSDbz/vft51S1fZoX/JuMboA8eJAZwjcfmOqKkUepT3nEzBJqeT
- ExAaxjSBr7lSBM/C+Df7R5LSthOG++012t7QTcHSTaoZaXTlwSTzMdU57Jkkf+38z+Ik
- 7xFWNgyg8I3VynSDcT0UO3XfxYPp7PZuidV75tVu4ovNKfkSc3bFv9apQ6BH7ZbRCfvs
- Vo0hsw7fZylb8Bmb8+khoOlbJZUvwbZ/6uvbEsBcI6cnOiwPmaja5G75OaASKHVK1FtM
- FBsQU40DFUcavNe70WMpaYEYYx1Nwj0ZE41OdYz0N8jIzU+uWCMxilkplOg4ZrzHRsGU
- N86g==
-X-Gm-Message-State: AO0yUKURspjZNB0hj3uvsjCEMB3L/lASIn/FIvQl7QSvGgMupI/lH5C+
- YTWO+r/4D59xPxT1nFZaxjqfCA==
-X-Google-Smtp-Source: AK7set/LnBgJwUokuNj+rBAbXxBzVAIv6jLo1Im7boQzr5ZnmQ5GFZnXrwDgWbSR8lrMohjRlVuXtQ==
-X-Received: by 2002:a05:600c:2c48:b0:3eb:39e0:3530 with SMTP id
- r8-20020a05600c2c4800b003eb39e03530mr2306311wmg.41.1679582664667; 
- Thu, 23 Mar 2023 07:44:24 -0700 (PDT)
+ bh=W4MzrlpTb4Yhk+gf2dIUjuh7tsdX9/TNDTntW+YKJvQ=;
+ b=IZMf6161N2eLX33TFVQppw24v1L2eZB/bwoHXvIRVuNIoyNuGtWX2+f+Cy7Tfd+/KP
+ 2TlJO+kkDQUzom3Y7LDj6OpQ2vmPSlr5UMxKvmJRMHUnNhh64yRbHYTp2q4OIcWnPR5c
+ JbTQrFv2PhSzAOJQiZzrENWdP9Uv4/OzFFbO4t86sUF41vewFVAEqGUtDN7IWf3eVNmw
+ IFii6Uh+2YL1ozOEhTxubOM6/hA3MsEDSr2HhqVpC6wSMDpHJiHCn7JnLlTEtw5vhV36
+ nwGQ0uOjqFKB7WhzUEU1+YDs1tz+jQ1f8o51R6ElrAR5qestTgfvwaLRnc6eIK5J0Naj
+ jyWg==
+X-Gm-Message-State: AAQBX9eTn7K6TFEIwN1adbdnkbQS+e5f26uTQDb5R7dGEl+JMKj8SfGh
+ Q4oicFDErt43ikI3vwgYqanE6A==
+X-Google-Smtp-Source: AKy350YwaJwmjXC3UxTKUTSA0ajmbVXL4atAUE52yKdngL+u+dc4euwmiy4LP0GSK7l3dnIU6r4mCw==
+X-Received: by 2002:a5d:4d82:0:b0:2db:11f3:f7ee with SMTP id
+ b2-20020a5d4d82000000b002db11f3f7eemr2473114wru.63.1679582721738; 
+ Thu, 23 Mar 2023 07:45:21 -0700 (PDT)
 Received: from ?IPV6:2a01:e0a:982:cbb0:e25a:65de:379a:3899?
  ([2a01:e0a:982:cbb0:e25a:65de:379a:3899])
  by smtp.gmail.com with ESMTPSA id
- c18-20020a7bc852000000b003ed2c0a0f37sm2045208wml.35.2023.03.23.07.44.22
+ p7-20020a1c5447000000b003dd1bd0b915sm2121364wmi.22.2023.03.23.07.45.20
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 23 Mar 2023 07:44:23 -0700 (PDT)
-Message-ID: <381cad84-da61-5a55-73eb-869294aa1d1c@linaro.org>
-Date: Thu, 23 Mar 2023 15:44:22 +0100
+ Thu, 23 Mar 2023 07:45:21 -0700 (PDT)
+Message-ID: <d16ebe42-e462-b1dd-0ea3-c368b8721ba5@linaro.org>
+Date: Thu, 23 Mar 2023 15:45:19 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.8.0
@@ -61,14 +61,14 @@ From: Neil Armstrong <neil.armstrong@linaro.org>
 Content-Language: en-US
 To: Rob Herring <robh@kernel.org>
 References: <20230323-topic-sm8450-upstream-dt-bindings-fixes-v1-0-3ead1e418fe4@linaro.org>
- <20230323-topic-sm8450-upstream-dt-bindings-fixes-v1-1-3ead1e418fe4@linaro.org>
- <167957963042.3095255.5445133387110199668.robh@kernel.org>
+ <20230323-topic-sm8450-upstream-dt-bindings-fixes-v1-3-3ead1e418fe4@linaro.org>
+ <167957963115.3095299.4593054829506617284.robh@kernel.org>
 Organization: Linaro Developer Services
-In-Reply-To: <167957963042.3095255.5445133387110199668.robh@kernel.org>
+In-Reply-To: <167957963115.3095299.4593054829506617284.robh@kernel.org>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH 1/8] dt-bindings: display: msm: sm8450-mdss:
- Fix DSI compatible
+Subject: Re: [Freedreno] [PATCH 3/8] dt-bindings: ufs: qcom: document the
+ fact the UFS controller can have an ICE core
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -101,14 +101,14 @@ Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 On 23/03/2023 14:58, Rob Herring wrote:
 > 
-> On Thu, 23 Mar 2023 11:25:16 +0100, Neil Armstrong wrote:
->> The DSI compatible changed between patchset revisions, but that wasn't
->> reflected in the bindings. Fix it.
+> On Thu, 23 Mar 2023 11:25:18 +0100, Neil Armstrong wrote:
+>> Move the qcom,sm8450-ufshc to the right allOf:if allowing the ICE clocks
+>> and registers to be specified.
 >>
->> 0eda3c6cb1c5 ("dt-bindings: display/msm: add support for the display on SM8450")
+>> Fixes: 462c5c0aa798 ("dt-bindings: ufs: qcom,ufs: convert to dtschema")
 >> Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
 >> ---
->>   Documentation/devicetree/bindings/display/msm/qcom,sm8450-mdss.yaml | 2 +-
+>>   Documentation/devicetree/bindings/ufs/qcom,ufs.yaml | 2 +-
 >>   1 file changed, 1 insertion(+), 1 deletion(-)
 >>
 > 
@@ -118,23 +118,21 @@ On 23/03/2023 14:58, Rob Herring wrote:
 > yamllint warnings/errors:
 > 
 > dtschema/dtc warnings/errors:
-> /builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sm8450-mdss.example.dtb: display-subsystem@ae00000: phy@ae94400:compatible:0: 'qcom,sm8450-dsi-phy-5nm' was expected
-> 	From schema: /builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sm8450-mdss.yaml
-> /builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sm8450-mdss.example.dtb: display-subsystem@ae00000: phy@ae96400:compatible:0: 'qcom,sm8450-dsi-phy-5nm' was expected
-> 	From schema: /builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sm8450-mdss.yaml
-> Documentation/devicetree/bindings/display/msm/qcom,sm8450-mdss.example.dtb: /example-0/display-subsystem@ae00000/phy@ae94400: failed to match any schema with compatible: ['qcom,dsi-phy-5nm-8450']
-> Documentation/devicetree/bindings/display/msm/qcom,sm8450-mdss.example.dtb: /example-0/display-subsystem@ae00000/phy@ae96400: failed to match any schema with compatible: ['qcom,dsi-phy-5nm-8450']
+> /builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/ufs/qcom,ufs.example.dtb: ufs@1d84000: clocks: [[4294967295, 151], [4294967295, 10], [4294967295, 150], [4294967295, 166], [4294967295, 0], [4294967295, 164], [4294967295, 160], [4294967295, 162]] is too short
+> 	From schema: /builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/ufs/qcom,ufs.yaml
+> /builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/ufs/qcom,ufs.example.dtb: ufs@1d84000: clock-names: ['core_clk', 'bus_aggr_clk', 'iface_clk', 'core_clk_unipro', 'ref_clk', 'tx_lane0_sync_clk', 'rx_lane0_sync_clk', 'rx_lane1_sync_clk'] is too short
+> 	From schema: /builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/ufs/qcom,ufs.yaml
+> /builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/ufs/qcom,ufs.example.dtb: ufs@1d84000: reg: [[0, 30949376, 0, 12288]] is too short
+> 	From schema: /builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/ufs/qcom,ufs.yaml
 
+Same as patch 1, I forgot to fix the example...
 
-Indeed I forgot to fix the bindings example....
-
-Thx,
 Neil
 
 > 
 > doc reference errors (make refcheckdocs):
 > 
-> See https://patchwork.ozlabs.org/project/devicetree-bindings/patch/20230323-topic-sm8450-upstream-dt-bindings-fixes-v1-1-3ead1e418fe4@linaro.org
+> See https://patchwork.ozlabs.org/project/devicetree-bindings/patch/20230323-topic-sm8450-upstream-dt-bindings-fixes-v1-3-3ead1e418fe4@linaro.org
 > 
 > The base for the series is generally the latest rc1. A different dependency
 > should be noted in *this* patch.
