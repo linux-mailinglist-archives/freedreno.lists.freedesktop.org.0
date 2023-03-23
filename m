@@ -2,59 +2,59 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 66BF76C64D9
-	for <lists+freedreno@lfdr.de>; Thu, 23 Mar 2023 11:25:52 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2AC916C64E4
+	for <lists+freedreno@lfdr.de>; Thu, 23 Mar 2023 11:26:01 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 65FCD10EA70;
-	Thu, 23 Mar 2023 10:25:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E4A8310EA7A;
+	Thu, 23 Mar 2023 10:25:59 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from mail-wr1-x435.google.com (mail-wr1-x435.google.com
  [IPv6:2a00:1450:4864:20::435])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9B85110EA6A
- for <freedreno@lists.freedesktop.org>; Thu, 23 Mar 2023 10:25:34 +0000 (UTC)
-Received: by mail-wr1-x435.google.com with SMTP id v1so13758890wrv.1
- for <freedreno@lists.freedesktop.org>; Thu, 23 Mar 2023 03:25:34 -0700 (PDT)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CE23810EA70
+ for <freedreno@lists.freedesktop.org>; Thu, 23 Mar 2023 10:25:36 +0000 (UTC)
+Received: by mail-wr1-x435.google.com with SMTP id r11so3075144wrr.12
+ for <freedreno@lists.freedesktop.org>; Thu, 23 Mar 2023 03:25:36 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1679567134;
+ d=linaro.org; s=google; t=1679567135;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=FaktxrHqSVBJvgr5m72rtimmU8b1rgEPNt97tFbcEsI=;
- b=RA/Lgk4VwDZLxmXqWCBeVhDkzv9+CRUnqPoo9qv4UtG2XacS8baIy+fTIVEV82opdv
- CAjK2Ah7Dy9KSx5k2zPAgeq2dxSnBLeGXdmEf6/8/VZU0eTtKhmridKEGg/n2wWxlFVF
- pH68Xtcbv5kZXA82o/cTGLfrcXJIPqgeBLsOdGqziepgcUDnC0IlmjLXgsrIjUvujNKy
- ATRzK4Chla46roFSYqSZ9kQ1tl1zVSDCzmU5m/eael73KeqBOf1HLH4Mlam0PHYF2S7s
- MZj+/aYc1u6miyHQ4A6newI6jdqIkfLsMq0vtI8rqmqe7vJz2KYOzrcRo53ggOdnlW/a
- QhQA==
+ :reply-to; bh=iaQACbxWFe/pP0PYdcE2NPjjd/o5GOPyZh6BOGAwiP8=;
+ b=EDK/OC2gr0VhTqb/8cfkz3D7WlMPMQM2ELils/2BJph5U5K9iidkuqoUxZlw2Rh4yY
+ bG9nXl3bN8p8ByXNnmUizw7VxwxiBMaFatQ+QWA25ecnX8/EvkWtD1qcL6FpEOZlvnYR
+ +xXKkFPGzURm1L4waqYLeX9UhOuOT3swffCfg/GmLq0qa1q7bk/Ng/0EV8WUnS+G8AXF
+ LfT0kd80T66ZOC5MG/60vWfd0UC2E2zAJ0zP1F9NUpF1IXB5ZbmaYYbC+YBQ7NEA1XMt
+ uFCH47IhPi3S2YE2gzbkBClbF/PAUwlHbpmJ1w+7vZSAOQStcKGGz+EZvu0JdKwZXyzX
+ sPug==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112; t=1679567134;
+ d=1e100.net; s=20210112; t=1679567135;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=FaktxrHqSVBJvgr5m72rtimmU8b1rgEPNt97tFbcEsI=;
- b=xDs22cAJwB5Lporyns/HyorXclokHSOaIA9RtzWWFKxkwRvD+YMSv6aSVorEShxG/N
- DngarPU/w/ec95NMOr7nVdmbJlMH398IS/i5/mWPoa5iwW0eQr6BaL0+Ev1HExLKHPrc
- XRCXa9Hoaw9czI+eB3F35lv6F9Et9U/VMsbwVYTjz7lCuci/LkILRfwbemk3SbOxDanW
- HrpIF51mgA8x3jWRaAZpqX8iEmv1q+33kFjLDRsMDh8J/lQwQAu+6qjOHVsnsEnrTYsr
- gQap0jwINapUlePRKy9l2j2tFiJRwyUqlXZb+2OwDvJveqmYGx+v+1ua9ozi2ZSAKtwt
- 21eA==
-X-Gm-Message-State: AAQBX9eoITUKzEP6ht6BZPX62qKUYdnHH7xXBKCUa17yKyYytIJs3crc
- FoyLADiHJS6wFQ2Bf9Vu1Q4poQ==
-X-Google-Smtp-Source: AKy350YQA+jMkbW6mQuuJtWYSx09at+iDrv03avXAv4uZ7HMAI6MrP6YJqgswmSR4K9JmG855UqLyA==
-X-Received: by 2002:adf:ff8f:0:b0:2da:53e3:57d1 with SMTP id
- j15-20020adfff8f000000b002da53e357d1mr2029999wrr.62.1679567134135; 
- Thu, 23 Mar 2023 03:25:34 -0700 (PDT)
+ bh=iaQACbxWFe/pP0PYdcE2NPjjd/o5GOPyZh6BOGAwiP8=;
+ b=d6MQrzgGKaF/NisW++b/frnmqnh/64+s48p2s1amoVUVB927NHArxmMfWPyrLUDDYZ
+ P6M0Z1hsDGVuso1MNhbY0tmEAgmMLPVf5SJX4q0JHd3l8ILPHTivivxmZYobM42zryf5
+ Hg1WGsGhHdhRnjR3oFD36vnq4rD+iAjQJxQBDxOTMCb7pDlXkfRpHlRXIEWRnkp1hWDa
+ uzPKNsk2dUo1wa4oMN3sOeRYRzVZ5vSeGlx2RK+pJfXhUFozYnnnYxc6Sx2HgUEws8p9
+ zKDL0Dma4/pXXIt57HhwcsNulHCMLOmSn43gl/zaLT+sVB5WetSD8oaf2ZfdXImO3M4P
+ XrEQ==
+X-Gm-Message-State: AAQBX9cEjDpV5ObHFphsy+HpZpbtfn5jWaA5VCSYtPDgR8NvAI+SSE1T
+ x/rEA1xhwr8MC/0hQEDOOvlpQg==
+X-Google-Smtp-Source: AKy350bCeDHpSVI8xLS6NQ/SiOOsVX2JYPYHUtQ3vn3tZY3Uc4D9P3VP7wUr81eOPMcUs86Lve47yw==
+X-Received: by 2002:a5d:49c3:0:b0:2d9:5608:ee0 with SMTP id
+ t3-20020a5d49c3000000b002d956080ee0mr1808899wrs.69.1679567135399; 
+ Thu, 23 Mar 2023 03:25:35 -0700 (PDT)
 Received: from arrakeen.starnux.net ([2a01:e0a:982:cbb0:8261:5fff:fe11:bdda])
  by smtp.gmail.com with ESMTPSA id
- e23-20020a5d5957000000b002cfefa50a8esm15753530wri.98.2023.03.23.03.25.33
+ e23-20020a5d5957000000b002cfefa50a8esm15753530wri.98.2023.03.23.03.25.34
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 23 Mar 2023 03:25:33 -0700 (PDT)
+ Thu, 23 Mar 2023 03:25:34 -0700 (PDT)
 From: Neil Armstrong <neil.armstrong@linaro.org>
-Date: Thu, 23 Mar 2023 11:25:22 +0100
+Date: Thu, 23 Mar 2023 11:25:23 +0100
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20230323-topic-sm8450-upstream-dt-bindings-fixes-v1-7-3ead1e418fe4@linaro.org>
+Message-Id: <20230323-topic-sm8450-upstream-dt-bindings-fixes-v1-8-3ead1e418fe4@linaro.org>
 References: <20230323-topic-sm8450-upstream-dt-bindings-fixes-v1-0-3ead1e418fe4@linaro.org>
 In-Reply-To: <20230323-topic-sm8450-upstream-dt-bindings-fixes-v1-0-3ead1e418fe4@linaro.org>
 To: Rob Clark <robdclark@gmail.com>, 
@@ -69,8 +69,8 @@ To: Rob Clark <robdclark@gmail.com>,
  Alim Akhtar <alim.akhtar@samsung.com>, Avri Altman <avri.altman@wdc.com>, 
  Bart Van Assche <bvanassche@acm.org>
 X-Mailer: b4 0.12.1
-Subject: [Freedreno] [PATCH 7/8] arm64: dts: qcom: sm8450: remove invalid
- reg-names from ufs node
+Subject: [Freedreno] [PATCH 8/8] arm64: dts: qcom: sm8450: fix pcie1 gpios
+ properties name
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -91,26 +91,30 @@ Cc: Rob Herring <robh@kernel.org>, linux-scsi@vger.kernel.org,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Fixes the following DT bindings check error:
-ufshc@1d84000: Unevaluated properties are not allowed ('reg-names' was unexpected)
+Add the final "s" to the pgio properties and fix the invalid "enable"
+name to the correct "wake", checked against the HDK8450 schematics.
 
+Fixes: bc6588bc25fb ("arm64: dts: qcom: sm8450: add PCIe1 root device")
 Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
 ---
- arch/arm64/boot/dts/qcom/sm8450.dtsi | 1 -
- 1 file changed, 1 deletion(-)
+ arch/arm64/boot/dts/qcom/sm8450.dtsi | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
 diff --git a/arch/arm64/boot/dts/qcom/sm8450.dtsi b/arch/arm64/boot/dts/qcom/sm8450.dtsi
-index ef9bae2e6acc..8ecc48c7c5ef 100644
+index 8ecc48c7c5ef..d964d3fbe20c 100644
 --- a/arch/arm64/boot/dts/qcom/sm8450.dtsi
 +++ b/arch/arm64/boot/dts/qcom/sm8450.dtsi
-@@ -3996,7 +3996,6 @@ ufs_mem_hc: ufshc@1d84000 {
- 				     "jedec,ufs-2.0";
- 			reg = <0 0x01d84000 0 0x3000>,
- 			      <0 0x01d88000 0 0x8000>;
--			reg-names = "std", "ice";
- 			interrupts = <GIC_SPI 265 IRQ_TYPE_LEVEL_HIGH>;
- 			phys = <&ufs_mem_phy_lanes>;
- 			phy-names = "ufsphy";
+@@ -1908,8 +1908,8 @@ pcie1: pci@1c08000 {
+ 			phys = <&pcie1_lane>;
+ 			phy-names = "pciephy";
+ 
+-			perst-gpio = <&tlmm 97 GPIO_ACTIVE_LOW>;
+-			enable-gpio = <&tlmm 99 GPIO_ACTIVE_HIGH>;
++			perst-gpios = <&tlmm 97 GPIO_ACTIVE_LOW>;
++			wake-gpios = <&tlmm 99 GPIO_ACTIVE_HIGH>;
+ 
+ 			pinctrl-names = "default";
+ 			pinctrl-0 = <&pcie1_default_state>;
 
 -- 
 2.34.1
