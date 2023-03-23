@@ -2,59 +2,59 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id A15766C64D6
-	for <lists+freedreno@lfdr.de>; Thu, 23 Mar 2023 11:25:50 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6AEE76C64CD
+	for <lists+freedreno@lfdr.de>; Thu, 23 Mar 2023 11:25:41 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5CD9D10EA79;
-	Thu, 23 Mar 2023 10:25:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 399A310EA6B;
+	Thu, 23 Mar 2023 10:25:35 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wr1-x42b.google.com (mail-wr1-x42b.google.com
- [IPv6:2a00:1450:4864:20::42b])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EA00610EA6A
- for <freedreno@lists.freedesktop.org>; Thu, 23 Mar 2023 10:25:29 +0000 (UTC)
-Received: by mail-wr1-x42b.google.com with SMTP id o7so19876759wrg.5
- for <freedreno@lists.freedesktop.org>; Thu, 23 Mar 2023 03:25:29 -0700 (PDT)
+Received: from mail-wr1-x429.google.com (mail-wr1-x429.google.com
+ [IPv6:2a00:1450:4864:20::429])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3EE2410EA66
+ for <freedreno@lists.freedesktop.org>; Thu, 23 Mar 2023 10:25:32 +0000 (UTC)
+Received: by mail-wr1-x429.google.com with SMTP id h17so19855249wrt.8
+ for <freedreno@lists.freedesktop.org>; Thu, 23 Mar 2023 03:25:32 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1679567129;
+ d=linaro.org; s=google; t=1679567130;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=KpNLyip69wJmwS3OqBQsHCVctKdhVF4LiqZDmDMUITQ=;
- b=ksoJnpaK/Zy6H22m19pDj2+MsjnTWx5V52xHiYII2sZY3NnOGH/VCPayWVplJI49n4
- ND5pCgxvdcpo2zY5ivvI+6PaEQb3RUIrHghG0fXowpUPDaiRdFNFFoaptC6atp2LFDu4
- /7l8Ft9XzQI/dgI2u5Kwjzjf3EGfetJ/nD19W1xeFExSOR/0ZrGeJgeovF+mJ5cIQcS6
- IIUH+yBHXb4uTAbLYXpoijgnFWQYeSiSA6Q4cZyNbB1P4/nuqF4+tRfG4scuPUaaB4PZ
- oy7rac3DSmLy92YeMtCqS/0R/2asitjiEoWzOpdqfo6qh7rO6b/GqtLVjy5psj/Std9W
- pipQ==
+ :reply-to; bh=NXsWO/AvbcGFTuUSdH/Ht1at3O5Z+IWMIafYvf7D2hY=;
+ b=A9nrFruVwvfmdqAa9k/GzLJISL5s8P9n/DnONHFbHsC4BZcSiPBiEWZW4SndgxqNqH
+ AFDBsjSdFfjmF8X+3YJVe1NhRW4klv0GCccjBnuHu6WS6mBFEV7K/Fq3xwfR2//IN2o6
+ mjbX6TWGFtGMZazqhza4iYRg+bjhcYb2RjvobGnTYZRMRZpu2N3n3BEDCMbmppRoU+vR
+ Egm2SgKlW78u920qdCFa7U5TfJ3M8KvW/ey5y+fVHJAnz0K+7x6xxXwRMCZMSJMmIudB
+ 9WIBg/dGHgJK3KfociRtxSLXRXLa3gfSBgqSTAIIjmMiNbNFBuIZnrp9L3RLEeIZQybc
+ unFA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112; t=1679567129;
+ d=1e100.net; s=20210112; t=1679567130;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=KpNLyip69wJmwS3OqBQsHCVctKdhVF4LiqZDmDMUITQ=;
- b=LQafMIGOyopLkPaLWMu4hQ5vqPLgexQlQcu4BHYBvrx8xzOUFuymrjlw9iM0/FUXJz
- kQeM6xis590yj/XdNK/74mYqS08rzau3elZu4CmeV6aERcXWbVpOOBWIl+bEP50iC/JQ
- QSgqQvo2Us7M90uD/5TbUmWKXadfrx3gWeSSQ+dRd6Ee6Xw+uVrOKuR1KZluhBIAedLR
- bbS+Crj3vLYaMwVm0vMoJ9O3rzec1NUnZxr/zQA1EeTfflcf5w+MK9q8ZxPD9Cgp69zR
- xh2pS5mwUc9+s+NIJKmEIQU/xnqxXgXvp8JgRADiRlV7xV7Q2WW2Wpjj+utoB3rb5F7c
- UjCQ==
-X-Gm-Message-State: AAQBX9ebdrTkYKupGUL9AhgF0ib4TFpXGKyY7+ADKjAEQi7ifON0rtxM
- FkURMO7bA+bRnmYuy45XzpiGgg==
-X-Google-Smtp-Source: AKy350aWTw8oMw5mfdjhhl2Uko+aQ7QMPlClfObRzjyqr46IHBi4Ee5GKUOe7E4wHzsM5OQklZnfuQ==
-X-Received: by 2002:a5d:6187:0:b0:2ce:adbf:cb14 with SMTP id
- j7-20020a5d6187000000b002ceadbfcb14mr1824465wru.28.1679567129412; 
- Thu, 23 Mar 2023 03:25:29 -0700 (PDT)
+ bh=NXsWO/AvbcGFTuUSdH/Ht1at3O5Z+IWMIafYvf7D2hY=;
+ b=cHdDzkTwvoWkXq16ni0IzJc9cSLZBsECIzAfl2aheIPs8EiPPmgme4ALa3ozeNDI5U
+ ikxpT3gmM8L4hPgMfbq1W4/9PcVs3q1ii1gQBCLHKHiNo9gDs/nmENhrm+FMwy+bQUbI
+ hyVSLuSzWWW8V+dvpgmpRoHrTg6WkqqVEm4qD6dILhBtm/6Lre5FuSkRwesLYa6tXRsh
+ q83IwKLo9hYaFQ8+CjMU58/0/zvjEs/L/An248x9qJEJQs+M4E81ww4BBNgEIFxzj26M
+ F5HUJeHF5zaB1X4PNPUm2CaE9u/wpdySubdhhLpZeMbsdx7D3ZgsBbqOvBU7lyNSy0UI
+ S3nA==
+X-Gm-Message-State: AAQBX9eb7LFBYcmRRcRz0MHiU83P2LRbnGS4+hCymthpR3InBE36aY0D
+ sFL2qXpVeqZg4mcGq6ToNO4VLw==
+X-Google-Smtp-Source: AKy350Z33LMigoWNcasOJWMOplYwZYW6nEi7NOOO6EGbUFZGcXiy7Ec1b7YTrrUOUFvjfEWS/EaUfA==
+X-Received: by 2002:adf:decb:0:b0:2d1:9ce9:2b8f with SMTP id
+ i11-20020adfdecb000000b002d19ce92b8fmr2257319wrn.66.1679567130680; 
+ Thu, 23 Mar 2023 03:25:30 -0700 (PDT)
 Received: from arrakeen.starnux.net ([2a01:e0a:982:cbb0:8261:5fff:fe11:bdda])
  by smtp.gmail.com with ESMTPSA id
- e23-20020a5d5957000000b002cfefa50a8esm15753530wri.98.2023.03.23.03.25.28
+ e23-20020a5d5957000000b002cfefa50a8esm15753530wri.98.2023.03.23.03.25.29
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 23 Mar 2023 03:25:29 -0700 (PDT)
+ Thu, 23 Mar 2023 03:25:30 -0700 (PDT)
 From: Neil Armstrong <neil.armstrong@linaro.org>
-Date: Thu, 23 Mar 2023 11:25:18 +0100
+Date: Thu, 23 Mar 2023 11:25:19 +0100
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20230323-topic-sm8450-upstream-dt-bindings-fixes-v1-3-3ead1e418fe4@linaro.org>
+Message-Id: <20230323-topic-sm8450-upstream-dt-bindings-fixes-v1-4-3ead1e418fe4@linaro.org>
 References: <20230323-topic-sm8450-upstream-dt-bindings-fixes-v1-0-3ead1e418fe4@linaro.org>
 In-Reply-To: <20230323-topic-sm8450-upstream-dt-bindings-fixes-v1-0-3ead1e418fe4@linaro.org>
 To: Rob Clark <robdclark@gmail.com>, 
@@ -69,8 +69,8 @@ To: Rob Clark <robdclark@gmail.com>,
  Alim Akhtar <alim.akhtar@samsung.com>, Avri Altman <avri.altman@wdc.com>, 
  Bart Van Assche <bvanassche@acm.org>
 X-Mailer: b4 0.12.1
-Subject: [Freedreno] [PATCH 3/8] dt-bindings: ufs: qcom: document the fact
- the UFS controller can have an ICE core
+Subject: [Freedreno] [PATCH 4/8] arm64: dts: qcom: sm8450: remove invalid
+ properties in cluster-sleep nodes
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -91,35 +91,44 @@ Cc: Rob Herring <robh@kernel.org>, linux-scsi@vger.kernel.org,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Move the qcom,sm8450-ufshc to the right allOf:if allowing the ICE clocks
-and registers to be specified.
+Fixes the following DT bindings check error:
+domain-idle-states: cluster-sleep-0: 'idle-state-name', 'local-timer-stop' do not match any of the regexes:
+'pinctrl-[0-9]+'
+domain-idle-states: cluster-sleep-1: 'idle-state-name', 'local-timer-stop' do not match any of the regexes:
+'pinctrl-[0-9]+'
 
-Fixes: 462c5c0aa798 ("dt-bindings: ufs: qcom,ufs: convert to dtschema")
 Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
 ---
- Documentation/devicetree/bindings/ufs/qcom,ufs.yaml | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ arch/arm64/boot/dts/qcom/sm8450.dtsi | 4 ----
+ 1 file changed, 4 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/ufs/qcom,ufs.yaml b/Documentation/devicetree/bindings/ufs/qcom,ufs.yaml
-index c5a06c048389..4527bcb949b7 100644
---- a/Documentation/devicetree/bindings/ufs/qcom,ufs.yaml
-+++ b/Documentation/devicetree/bindings/ufs/qcom,ufs.yaml
-@@ -108,7 +108,6 @@ allOf:
-               - qcom,sc8280xp-ufshc
-               - qcom,sm8250-ufshc
-               - qcom,sm8350-ufshc
--              - qcom,sm8450-ufshc
-               - qcom,sm8550-ufshc
-     then:
-       properties:
-@@ -137,6 +136,7 @@ allOf:
-               - qcom,sdm845-ufshc
-               - qcom,sm6350-ufshc
-               - qcom,sm8150-ufshc
-+              - qcom,sm8450-ufshc
-     then:
-       properties:
-         clocks:
+diff --git a/arch/arm64/boot/dts/qcom/sm8450.dtsi b/arch/arm64/boot/dts/qcom/sm8450.dtsi
+index 78fb65bd15cc..ff55fcfdd676 100644
+--- a/arch/arm64/boot/dts/qcom/sm8450.dtsi
++++ b/arch/arm64/boot/dts/qcom/sm8450.dtsi
+@@ -255,22 +255,18 @@ BIG_CPU_SLEEP_0: cpu-sleep-1-0 {
+ 		domain-idle-states {
+ 			CLUSTER_SLEEP_0: cluster-sleep-0 {
+ 				compatible = "domain-idle-state";
+-				idle-state-name = "cluster-l3-off";
+ 				arm,psci-suspend-param = <0x41000044>;
+ 				entry-latency-us = <1050>;
+ 				exit-latency-us = <2500>;
+ 				min-residency-us = <5309>;
+-				local-timer-stop;
+ 			};
+ 
+ 			CLUSTER_SLEEP_1: cluster-sleep-1 {
+ 				compatible = "domain-idle-state";
+-				idle-state-name = "cluster-power-collapse";
+ 				arm,psci-suspend-param = <0x4100c344>;
+ 				entry-latency-us = <2700>;
+ 				exit-latency-us = <3500>;
+ 				min-residency-us = <13959>;
+-				local-timer-stop;
+ 			};
+ 		};
+ 	};
 
 -- 
 2.34.1
