@@ -2,59 +2,59 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6AEE76C64CD
-	for <lists+freedreno@lfdr.de>; Thu, 23 Mar 2023 11:25:41 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 99BAD6C64DA
+	for <lists+freedreno@lfdr.de>; Thu, 23 Mar 2023 11:25:52 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 399A310EA6B;
-	Thu, 23 Mar 2023 10:25:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4A4BC10EA75;
+	Thu, 23 Mar 2023 10:25:38 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wr1-x429.google.com (mail-wr1-x429.google.com
- [IPv6:2a00:1450:4864:20::429])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3EE2410EA66
- for <freedreno@lists.freedesktop.org>; Thu, 23 Mar 2023 10:25:32 +0000 (UTC)
-Received: by mail-wr1-x429.google.com with SMTP id h17so19855249wrt.8
- for <freedreno@lists.freedesktop.org>; Thu, 23 Mar 2023 03:25:32 -0700 (PDT)
+Received: from mail-wr1-x42e.google.com (mail-wr1-x42e.google.com
+ [IPv6:2a00:1450:4864:20::42e])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 64B2D10EA6A
+ for <freedreno@lists.freedesktop.org>; Thu, 23 Mar 2023 10:25:33 +0000 (UTC)
+Received: by mail-wr1-x42e.google.com with SMTP id e18so8323805wra.9
+ for <freedreno@lists.freedesktop.org>; Thu, 23 Mar 2023 03:25:33 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1679567130;
+ d=linaro.org; s=google; t=1679567132;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=NXsWO/AvbcGFTuUSdH/Ht1at3O5Z+IWMIafYvf7D2hY=;
- b=A9nrFruVwvfmdqAa9k/GzLJISL5s8P9n/DnONHFbHsC4BZcSiPBiEWZW4SndgxqNqH
- AFDBsjSdFfjmF8X+3YJVe1NhRW4klv0GCccjBnuHu6WS6mBFEV7K/Fq3xwfR2//IN2o6
- mjbX6TWGFtGMZazqhza4iYRg+bjhcYb2RjvobGnTYZRMRZpu2N3n3BEDCMbmppRoU+vR
- Egm2SgKlW78u920qdCFa7U5TfJ3M8KvW/ey5y+fVHJAnz0K+7x6xxXwRMCZMSJMmIudB
- 9WIBg/dGHgJK3KfociRtxSLXRXLa3gfSBgqSTAIIjmMiNbNFBuIZnrp9L3RLEeIZQybc
- unFA==
+ :reply-to; bh=la//61tmt1JcHM3ugdeN6VnhDtVEZYhOaulQ5DfrvTk=;
+ b=S2plp2biPGbwxEiLWBmwLJwun7H46QDGsXGyrABWfNZDdJqJh2PBS9voTj3QSeOUh1
+ 99qv2UbnDsZDzXJoIi3Y5+uzdePQTnw9tRFUmz1d5jUJ5nQkjPojZ1mzrEt3ZPs0Bj5W
+ sW/yzmYBz3xuR0ejrvsfxWKx7sHxGHnRCxXb62Qq+AX03L2q1sRPSNCrUF9eYAMdea8z
+ /QdKTwqDEAwXxUtwONLXbjwlFiFGL1e09KILItMUY3q7lSet92LZ96YQZq4YpHhRPxG/
+ cehXuvJTmhmnLF/DLCGs8Qd0WUWsclH+WvciD7ootrnnzur54KUypGkVhvyjSRiz6Lj6
+ HzNA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112; t=1679567130;
+ d=1e100.net; s=20210112; t=1679567132;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=NXsWO/AvbcGFTuUSdH/Ht1at3O5Z+IWMIafYvf7D2hY=;
- b=cHdDzkTwvoWkXq16ni0IzJc9cSLZBsECIzAfl2aheIPs8EiPPmgme4ALa3ozeNDI5U
- ikxpT3gmM8L4hPgMfbq1W4/9PcVs3q1ii1gQBCLHKHiNo9gDs/nmENhrm+FMwy+bQUbI
- hyVSLuSzWWW8V+dvpgmpRoHrTg6WkqqVEm4qD6dILhBtm/6Lre5FuSkRwesLYa6tXRsh
- q83IwKLo9hYaFQ8+CjMU58/0/zvjEs/L/An248x9qJEJQs+M4E81ww4BBNgEIFxzj26M
- F5HUJeHF5zaB1X4PNPUm2CaE9u/wpdySubdhhLpZeMbsdx7D3ZgsBbqOvBU7lyNSy0UI
- S3nA==
-X-Gm-Message-State: AAQBX9eb7LFBYcmRRcRz0MHiU83P2LRbnGS4+hCymthpR3InBE36aY0D
- sFL2qXpVeqZg4mcGq6ToNO4VLw==
-X-Google-Smtp-Source: AKy350Z33LMigoWNcasOJWMOplYwZYW6nEi7NOOO6EGbUFZGcXiy7Ec1b7YTrrUOUFvjfEWS/EaUfA==
-X-Received: by 2002:adf:decb:0:b0:2d1:9ce9:2b8f with SMTP id
- i11-20020adfdecb000000b002d19ce92b8fmr2257319wrn.66.1679567130680; 
- Thu, 23 Mar 2023 03:25:30 -0700 (PDT)
+ bh=la//61tmt1JcHM3ugdeN6VnhDtVEZYhOaulQ5DfrvTk=;
+ b=wuLWCsv3xDvRo8qlBJr5de2SndPrLUNx0tTkTQzD6Nfq6ux8h7Pm/A/Ss6uP79X1+h
+ qpENkNJVExIuBp+zftpF5RECR23fB00BNBhX6o1ocQERbt6yJ69z5aB94QrEQKNRoboB
+ RljxEidxpP8yYCfk88CQptZYF+ll94dAuZptonR4QdHRUZUbYIaZcDzncJiFFWmVg8im
+ Lw3krKP30REic++ZMImak3l6ECiN7NnRDkM7BntCVF5KoIFRh9uieoTq+ay8uwNxqhMd
+ ntVUJU578Tsy+iFrV2/qnyk7JkteAp2YXkeiSI8cUG2+gK+JZWhabzJbj6c4aApSzK4/
+ 0f8g==
+X-Gm-Message-State: AAQBX9dZLWI8Ja6uOzSVrctiHKpvIBD+P3eVh68drlMUvivQGupww7Sn
+ 3gmWFpWrRgDzp2u0YSirB7ToYA==
+X-Google-Smtp-Source: AKy350b44afSbkJF5DaYq1NUD5d4106/qJV/mKTzn9m9WMT0RNlmV8eElddHIPWpkEOECHczSuNPjg==
+X-Received: by 2002:adf:f14e:0:b0:2cf:e77e:2eef with SMTP id
+ y14-20020adff14e000000b002cfe77e2eefmr2254862wro.8.1679567131835; 
+ Thu, 23 Mar 2023 03:25:31 -0700 (PDT)
 Received: from arrakeen.starnux.net ([2a01:e0a:982:cbb0:8261:5fff:fe11:bdda])
  by smtp.gmail.com with ESMTPSA id
- e23-20020a5d5957000000b002cfefa50a8esm15753530wri.98.2023.03.23.03.25.29
+ e23-20020a5d5957000000b002cfefa50a8esm15753530wri.98.2023.03.23.03.25.30
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 23 Mar 2023 03:25:30 -0700 (PDT)
+ Thu, 23 Mar 2023 03:25:31 -0700 (PDT)
 From: Neil Armstrong <neil.armstrong@linaro.org>
-Date: Thu, 23 Mar 2023 11:25:19 +0100
+Date: Thu, 23 Mar 2023 11:25:20 +0100
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20230323-topic-sm8450-upstream-dt-bindings-fixes-v1-4-3ead1e418fe4@linaro.org>
+Message-Id: <20230323-topic-sm8450-upstream-dt-bindings-fixes-v1-5-3ead1e418fe4@linaro.org>
 References: <20230323-topic-sm8450-upstream-dt-bindings-fixes-v1-0-3ead1e418fe4@linaro.org>
 In-Reply-To: <20230323-topic-sm8450-upstream-dt-bindings-fixes-v1-0-3ead1e418fe4@linaro.org>
 To: Rob Clark <robdclark@gmail.com>, 
@@ -69,8 +69,8 @@ To: Rob Clark <robdclark@gmail.com>,
  Alim Akhtar <alim.akhtar@samsung.com>, Avri Altman <avri.altman@wdc.com>, 
  Bart Van Assche <bvanassche@acm.org>
 X-Mailer: b4 0.12.1
-Subject: [Freedreno] [PATCH 4/8] arm64: dts: qcom: sm8450: remove invalid
- properties in cluster-sleep nodes
+Subject: [Freedreno] [PATCH 5/8] arm64: dts: qcom: sm8450: remove invalid
+ power-domain-names in pcie nodes
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -92,43 +92,33 @@ Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 Fixes the following DT bindings check error:
-domain-idle-states: cluster-sleep-0: 'idle-state-name', 'local-timer-stop' do not match any of the regexes:
-'pinctrl-[0-9]+'
-domain-idle-states: cluster-sleep-1: 'idle-state-name', 'local-timer-stop' do not match any of the regexes:
-'pinctrl-[0-9]+'
+pci@1c00000: Unevaluated properties are not allowed ('power-domain-names' were unexpected)
 
 Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
 ---
- arch/arm64/boot/dts/qcom/sm8450.dtsi | 4 ----
- 1 file changed, 4 deletions(-)
+ arch/arm64/boot/dts/qcom/sm8450.dtsi | 2 --
+ 1 file changed, 2 deletions(-)
 
 diff --git a/arch/arm64/boot/dts/qcom/sm8450.dtsi b/arch/arm64/boot/dts/qcom/sm8450.dtsi
-index 78fb65bd15cc..ff55fcfdd676 100644
+index ff55fcfdd676..bcb51e612261 100644
 --- a/arch/arm64/boot/dts/qcom/sm8450.dtsi
 +++ b/arch/arm64/boot/dts/qcom/sm8450.dtsi
-@@ -255,22 +255,18 @@ BIG_CPU_SLEEP_0: cpu-sleep-1-0 {
- 		domain-idle-states {
- 			CLUSTER_SLEEP_0: cluster-sleep-0 {
- 				compatible = "domain-idle-state";
--				idle-state-name = "cluster-l3-off";
- 				arm,psci-suspend-param = <0x41000044>;
- 				entry-latency-us = <1050>;
- 				exit-latency-us = <2500>;
- 				min-residency-us = <5309>;
--				local-timer-stop;
- 			};
+@@ -1792,7 +1792,6 @@ pcie0: pci@1c00000 {
+ 			reset-names = "pci";
  
- 			CLUSTER_SLEEP_1: cluster-sleep-1 {
- 				compatible = "domain-idle-state";
--				idle-state-name = "cluster-power-collapse";
- 				arm,psci-suspend-param = <0x4100c344>;
- 				entry-latency-us = <2700>;
- 				exit-latency-us = <3500>;
- 				min-residency-us = <13959>;
--				local-timer-stop;
- 			};
- 		};
- 	};
+ 			power-domains = <&gcc PCIE_0_GDSC>;
+-			power-domain-names = "gdsc";
+ 
+ 			phys = <&pcie0_lane>;
+ 			phy-names = "pciephy";
+@@ -1905,7 +1904,6 @@ pcie1: pci@1c08000 {
+ 			reset-names = "pci";
+ 
+ 			power-domains = <&gcc PCIE_1_GDSC>;
+-			power-domain-names = "gdsc";
+ 
+ 			phys = <&pcie1_lane>;
+ 			phy-names = "pciephy";
 
 -- 
 2.34.1
