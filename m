@@ -2,46 +2,52 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9E5356C837F
-	for <lists+freedreno@lfdr.de>; Fri, 24 Mar 2023 18:42:16 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4574B6C8504
+	for <lists+freedreno@lfdr.de>; Fri, 24 Mar 2023 19:31:42 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F0C3F10E177;
-	Fri, 24 Mar 2023 17:42:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BAB2310E1A2;
+	Fri, 24 Mar 2023 18:31:40 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 71FB310E176;
- Fri, 24 Mar 2023 17:42:11 +0000 (UTC)
+Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E441510E542;
+ Fri, 24 Mar 2023 18:31:37 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id EC91562C15;
- Fri, 24 Mar 2023 17:42:10 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 391B9C433EF;
- Fri, 24 Mar 2023 17:42:09 +0000 (UTC)
+ by sin.source.kernel.org (Postfix) with ESMTPS id 5A0ECCE24B7;
+ Fri, 24 Mar 2023 18:31:34 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 891BDC433D2;
+ Fri, 24 Mar 2023 18:31:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1679679730;
- bh=sk7R+qaRnvRoyWIxFll8DPdn5wqX+Pp6np8xpvBRcZI=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=mxj9WV/IaFFX4jIdJ3milBTT3JlHExArc/Z4f+1/UtC229TqKbL1rMNHcYqoOtdNl
- pa853S/83SrYck1OLSCcvRigaFXNcSTyV+46DNrUChjEwGCYgtZkj8oA8Q8aBjZg7S
- dWuLlazxLkjXjVeQehHkjpkT5uG2gHlBNL95QLA2Gt2FeHcq5GdGrhg85tUrdKFdJy
- kFO/71V+xeVB4euOy6/Y73GROGYcDgzxLD1zdkvvmKO4tXQ0xjmcsTMI2UFWnucy4W
- fZUqdBh8GDsSfKUc7HA0wQnh0nmz6VSgjMxbzYAbvPgr/15QoktLoe4iDUCV/oSSRQ
- hBocaR0TrMPJA==
-Date: Fri, 24 Mar 2023 10:45:18 -0700
+ s=k20201202; t=1679682692;
+ bh=Ej48M9ebls1K+wSIOxZxq4m6TqD3wHLtMGX0qjHoWrg=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=ddlTt0I2BOcRqGKH1iIYeIo/m8otzIVM8Nt/b+TjlYhMbZSNAcl+QEv1y9HDoCWCm
+ 5WPGpb5pcO8GZ+3FwJ2UV9AwdFoQVPYNq2Udd2Knd7CpPKP29fDVeUaykBDlI1dGDs
+ OSkJ6BehLImkO1EempzZwjKrsrcw7SBkziessgIhCruBIEldmynmkUoC69Nvw/x0Qs
+ aAQvEuDCRJbNbxlM0IH4p5LHZ1VFBJNOclz5CFi5YWI0ExvW4DHoxSQLzoFNUP0SNV
+ KANnn8hatcpkQw2hQKht0tz8+FNDeI6bXRC7/OAyBFvjt/NDzoqSo+lfmUD7x282ny
+ FQpGVjUHJ8j2A==
 From: Bjorn Andersson <andersson@kernel.org>
-To: Neil Armstrong <neil.armstrong@linaro.org>
-Message-ID: <20230324174518.2arvdglqqixmxqcp@ripper>
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Konrad Dybcio <konrad.dybcio@linaro.org>, Daniel Vetter <daniel@ffwll.ch>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Rob Herring <robh+dt@kernel.org>, Rob Clark <robdclark@gmail.com>,
+ Sean Paul <sean@poorly.run>, David Airlie <airlied@gmail.com>,
+ Andy Gross <agross@kernel.org>
+Date: Fri, 24 Mar 2023 11:34:32 -0700
+Message-Id: <167968287205.2233401.16927276389264304370.b4-ty@kernel.org>
+X-Mailer: git-send-email 2.39.2
+In-Reply-To: <20230323-topic-sm8450-upstream-dt-bindings-fixes-v2-0-0ca1bea1a843@linaro.org>
 References: <20230323-topic-sm8450-upstream-dt-bindings-fixes-v2-0-0ca1bea1a843@linaro.org>
- <20230323-topic-sm8450-upstream-dt-bindings-fixes-v2-2-0ca1bea1a843@linaro.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20230323-topic-sm8450-upstream-dt-bindings-fixes-v2-2-0ca1bea1a843@linaro.org>
-Subject: Re: [Freedreno] [PATCH v2 2/4] arm64: dts: qcom: sm8450: remove
- invalid properties in cluster-sleep nodes
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+Subject: Re: [Freedreno] (subset) [PATCH v2 0/4] arm64: qcom: sm8450:
+ bindings check cleanup
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,73 +60,34 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- devicetree@vger.kernel.org, Sean Paul <sean@poorly.run>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Konrad Dybcio <konrad.dybcio@linaro.org>,
+Cc: devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
  Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
- Rob Clark <robdclark@gmail.com>, Rob Herring <robh+dt@kernel.org>,
- Andy Gross <agross@kernel.org>, Daniel Vetter <daniel@ffwll.ch>,
- linux-arm-msm@vger.kernel.org, Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- David Airlie <airlied@gmail.com>
+ freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Fri, Mar 24, 2023 at 10:28:47AM +0100, Neil Armstrong wrote:
-> Fixes the following DT bindings check error:
-
-Is that because idle-state-name and local-timer-stop should not be
-defined for domain-idle-states or are you just clearing out the
-dtbs_check warning?
-
-According to cpu-capacity.txt local-timer-stop seems to have been a
-property relevant for clusters in the past, was this a mistake in the
-binding or did something change when this was moved to
-domain-idle-states?
-
-Regards,
-Bjorn
-
-> domain-idle-states: cluster-sleep-0: 'idle-state-name', 'local-timer-stop' do not match any of the regexes:
-> 'pinctrl-[0-9]+'
-> domain-idle-states: cluster-sleep-1: 'idle-state-name', 'local-timer-stop' do not match any of the regexes:
-> 'pinctrl-[0-9]+'
+On Fri, 24 Mar 2023 10:28:45 +0100, Neil Armstrong wrote:
+> A few fixes to pass the DT bindings check successfully
+> for sm8450 qrd & hdk DTs.
 > 
-> Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-> Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
-> ---
->  arch/arm64/boot/dts/qcom/sm8450.dtsi | 4 ----
->  1 file changed, 4 deletions(-)
+> The following are still needed to pass all the checks:
+> - https://lore.kernel.org/r/20230308082424.140224-3-manivannan.sadhasivam@linaro.org
+> - https://lore.kernel.org/r/20230130-topic-sm8450-upstream-pmic-glink-v5-5-552f3b721f9e@linaro.org
+> - https://lore.kernel.org/all/20230308075648.134119-1-manivannan.sadhasivam@linaro.org/
+> - https://lore.kernel.org/r/20230306112129.3687744-1-dmitry.baryshkov@linaro.org
+> - https://lore.kernel.org/all/20221209-dt-binding-ufs-v3-0-499dff23a03c@fairphone.com/
+> - https://lore.kernel.org/all/20221118071849.25506-2-srinivas.kandagatla@linaro.org/
 > 
-> diff --git a/arch/arm64/boot/dts/qcom/sm8450.dtsi b/arch/arm64/boot/dts/qcom/sm8450.dtsi
-> index 78fb65bd15cc..ff55fcfdd676 100644
-> --- a/arch/arm64/boot/dts/qcom/sm8450.dtsi
-> +++ b/arch/arm64/boot/dts/qcom/sm8450.dtsi
-> @@ -255,22 +255,18 @@ BIG_CPU_SLEEP_0: cpu-sleep-1-0 {
->  		domain-idle-states {
->  			CLUSTER_SLEEP_0: cluster-sleep-0 {
->  				compatible = "domain-idle-state";
-> -				idle-state-name = "cluster-l3-off";
->  				arm,psci-suspend-param = <0x41000044>;
->  				entry-latency-us = <1050>;
->  				exit-latency-us = <2500>;
->  				min-residency-us = <5309>;
-> -				local-timer-stop;
->  			};
->  
->  			CLUSTER_SLEEP_1: cluster-sleep-1 {
->  				compatible = "domain-idle-state";
-> -				idle-state-name = "cluster-power-collapse";
->  				arm,psci-suspend-param = <0x4100c344>;
->  				entry-latency-us = <2700>;
->  				exit-latency-us = <3500>;
->  				min-residency-us = <13959>;
-> -				local-timer-stop;
->  			};
->  		};
->  	};
-> 
-> -- 
-> 2.34.1
-> 
+> [...]
+
+Applied, thanks!
+
+[3/4] arm64: dts: qcom: sm8450: remove invalid power-domain-names in pcie nodes
+      commit: c98a56395e7854f7975dd8539d0563e0ac7d060e
+[4/4] arm64: dts: qcom: sm8450: fix pcie1 gpios properties name
+      commit: e57430d2483506f046e39bf8c61159dde88aede2
+
+Best regards,
+-- 
+Bjorn Andersson <andersson@kernel.org>
