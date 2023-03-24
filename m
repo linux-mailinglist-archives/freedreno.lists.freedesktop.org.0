@@ -1,86 +1,75 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 219956C7A92
-	for <lists+freedreno@lfdr.de>; Fri, 24 Mar 2023 09:59:59 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 4EDED6C7B4D
+	for <lists+freedreno@lfdr.de>; Fri, 24 Mar 2023 10:28:53 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 370BA10EB9A;
-	Fri, 24 Mar 2023 08:59:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 16D6D10E15F;
+	Fri, 24 Mar 2023 09:28:52 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wm1-x32b.google.com (mail-wm1-x32b.google.com
- [IPv6:2a00:1450:4864:20::32b])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0D53110E165
- for <freedreno@lists.freedesktop.org>; Fri, 24 Mar 2023 08:59:54 +0000 (UTC)
-Received: by mail-wm1-x32b.google.com with SMTP id l37so670142wms.2
- for <freedreno@lists.freedesktop.org>; Fri, 24 Mar 2023 01:59:53 -0700 (PDT)
+Received: from mail-wr1-x433.google.com (mail-wr1-x433.google.com
+ [IPv6:2a00:1450:4864:20::433])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4A08510E15F
+ for <freedreno@lists.freedesktop.org>; Fri, 24 Mar 2023 09:28:51 +0000 (UTC)
+Received: by mail-wr1-x433.google.com with SMTP id r11so1036319wrr.12
+ for <freedreno@lists.freedesktop.org>; Fri, 24 Mar 2023 02:28:51 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1679648392;
- h=content-transfer-encoding:in-reply-to:organization:references:cc:to
- :content-language:subject:reply-to:from:user-agent:mime-version:date
- :message-id:from:to:cc:subject:date:message-id:reply-to;
- bh=4h1y29ufgBdPBj0FinbulRj195jm8gHSccDSNysL7ng=;
- b=RXGKhRMsOU+O1tqz6J/suUb0aU7VUqgtBJargaGNRHO4USwinGX4Q+o6F1N+3L2w1I
- IvWNS7eL2Mq0WjlaGWdjqZcXoSMK/T0QMNwsmJFsOG8EOZPd73nIrMKCDkjY/McrjEt4
- El++mpFcY/v6AmVH38u3nFhTLyp1GLdbgRMtyvhEvk98Pt717lCdKYIGPkPLogtqYwcq
- mMaL1qfpq5O6vt+csqk1DCAwIxJroCgTYG0s1LW3gjgAWsRIXbZVSHRyZeKytvVMhmrz
- byraSTt+tH/d4z/v/k+OIyK8gQ8JGLKXCrUgi2I9nf4VVRWdcafzGS/bK2673u6mhQhJ
- ZZKA==
+ d=linaro.org; s=google; t=1679650129;
+ h=cc:to:content-transfer-encoding:mime-version:message-id:date
+ :subject:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=pe6xkVW/LwNnSr0qXJhAQ9MlrUZGEMQPRfSGh9j4qrQ=;
+ b=pvrGPWA/YRlHFpq2pgubC7K7Wz159BTtXW1nold76ETFYVsNHJq0KLt5ho23Rm/GbZ
+ wrrBJxjgefV1wsa/1CJF2LzZaArGvqprKvWpKyXwfXfvDCFhe0HlGEZo40acZ9gl6hg4
+ G74NJw7afWFPy8ousSRa3Xd5zuFBLoReJAeoeTw4FgjJjdctgOuple7iNXAA4TaPE9Je
+ iK3TETjd+nQYCERBu0cpgGnNeACZDefAmT1f/OAU3kVd/78bYxGgenOUzfw29OMRUUny
+ lZuiXc3wvlFmZ2y0IID7YttoMweJGjk5ciNzlweou5tiEIQE+0GyhA2yhgHiotySnSUh
+ YD6g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112; t=1679648392;
- h=content-transfer-encoding:in-reply-to:organization:references:cc:to
- :content-language:subject:reply-to:from:user-agent:mime-version:date
- :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
+ d=1e100.net; s=20210112; t=1679650129;
+ h=cc:to:content-transfer-encoding:mime-version:message-id:date
+ :subject:from:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=4h1y29ufgBdPBj0FinbulRj195jm8gHSccDSNysL7ng=;
- b=w8dlnybpF7JtnLEUSgND77N1puXe7CbTTYQVeSL/7QS5EwmA3Zzr8UoAD3JpT/pc/T
- 3UBAUwrzd7DxHFdXYfqRj4VFDD46QIkjNsQw4+biA+pyYGUsihV7pZtE3u4nbOk9PdD2
- AoxyWxMin9szgHFlczhGsRI0KUrVpYqN5FRc7UZAIbR7pMfMogEbmPO8mL3x2//+hMOO
- HtIe08l+HgX4r9i37PVC580mSDvnArW/+p2xB2wMzjtXP3lU2iFkXsaD2KyiC0eoP/Wt
- PpMJLqkAYOXXvFl4tOwzaATQpS81tB9OmQ7H8WExIkl1rPbcSWGIGTIVWN4dRv0I/Z67
- iGlw==
-X-Gm-Message-State: AO0yUKW2kVqaKh0jMCtcEo+BcAhE1fq6UV68CqbGdpAeUY8wy+7a2aI5
- LEGVl+AdmSWEZy29IWkrjWAWMg==
-X-Google-Smtp-Source: AK7set9DG+XY29oWgPGOtByRIw0f/x7EReSCqkruYexEvZ/9XEyDyxvCA4c50AzdzXZSJ7vOBmBf6g==
-X-Received: by 2002:a05:600c:3b1b:b0:3ed:24f7:2b48 with SMTP id
- m27-20020a05600c3b1b00b003ed24f72b48mr4665100wms.8.1679648392490; 
- Fri, 24 Mar 2023 01:59:52 -0700 (PDT)
-Received: from ?IPV6:2a01:e0a:982:cbb0:213f:a579:70af:e4a0?
- ([2a01:e0a:982:cbb0:213f:a579:70af:e4a0])
+ bh=pe6xkVW/LwNnSr0qXJhAQ9MlrUZGEMQPRfSGh9j4qrQ=;
+ b=ySxd3Gg+bZf+dJL5g5ONWoIcQkNfB0Wqa5ZFvWOVFoENjKEbXoY+LqHyhRRnvt8zxZ
+ wQWI6sgcjwTsXCN0eD9wkClgGhJEZzW9+JNek+M3pWPd6xLx9c3g3EfcY5//kRtgJkGl
+ QitBfiuLNRuivawS3uSngMbBwZumd346uW+1EPnJnaVEPH5pnO86eqOseXJNlwbIvRhm
+ Ei7R3jIYfm7NyvePURNj7tdrnabiRsqIcCBamiO7+Y6v7njtvMz2BPw7PbEaOq6yEcSg
+ 9IPzwr4LSTPAFRnFYRL339EcPpEQ6q8QqqeL/f8aETKt4cb+zI8yfzrIwqCeLPQeMvDj
+ oGGA==
+X-Gm-Message-State: AAQBX9f5pl1Keqszdef7NyRu1R1rebXWJmUitZtS4F1ECG9qsLHK7sgS
+ lQFb/3G6naSOxJX2d5JneRwCQA==
+X-Google-Smtp-Source: AKy350ZPhLrsgllqoWa7OK8+vEdPLlF/AzIB3IxOzcqgJtDgt1Cf0B3PK9hkTPs7esoGyotLah7zjA==
+X-Received: by 2002:adf:df83:0:b0:2ca:175b:d850 with SMTP id
+ z3-20020adfdf83000000b002ca175bd850mr1655308wrl.11.1679650129542; 
+ Fri, 24 Mar 2023 02:28:49 -0700 (PDT)
+Received: from arrakeen.starnux.net ([2a01:e0a:982:cbb0:52eb:f6ff:feb3:451a])
  by smtp.gmail.com with ESMTPSA id
- y23-20020a7bcd97000000b003eb966d39desm4253441wmj.2.2023.03.24.01.59.50
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 24 Mar 2023 01:59:52 -0700 (PDT)
-Message-ID: <18ad8d98-b67a-894b-9f6f-efb0afc8321c@linaro.org>
-Date: Fri, 24 Mar 2023 09:59:50 +0100
+ v14-20020adfe28e000000b002c5a790e959sm18029980wri.19.2023.03.24.02.28.48
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 24 Mar 2023 02:28:49 -0700 (PDT)
+From: Neil Armstrong <neil.armstrong@linaro.org>
+Date: Fri, 24 Mar 2023 10:28:45 +0100
+Message-Id: <20230323-topic-sm8450-upstream-dt-bindings-fixes-v2-0-0ca1bea1a843@linaro.org>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.8.0
-From: neil.armstrong@linaro.org
-Content-Language: en-US
-To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
- Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>,
- David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- Rob Herring <robh+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Andy Gross <agross@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konrad.dybcio@linaro.org>, Lee Jones <lee@kernel.org>,
- Stephen Boyd <sboyd@kernel.org>, Manivannan Sadhasivam <mani@kernel.org>,
- Alim Akhtar <alim.akhtar@samsung.com>, Avri Altman <avri.altman@wdc.com>,
- Bart Van Assche <bvanassche@acm.org>
-References: <20230323-topic-sm8450-upstream-dt-bindings-fixes-v1-0-3ead1e418fe4@linaro.org>
- <20230323-topic-sm8450-upstream-dt-bindings-fixes-v1-6-3ead1e418fe4@linaro.org>
- <35e3aa8b-ccff-25fa-42da-d8934ef366c6@linaro.org>
- <006bf3bf-ab9a-4a08-3ba5-fa23ff4ea05a@linaro.org>
- <306b02e8-72bf-3eb7-f4cc-3cc5c598993b@linaro.org>
-Organization: Linaro Developer Services
-In-Reply-To: <306b02e8-72bf-3eb7-f4cc-3cc5c598993b@linaro.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH 6/8] arm64: dts: qcom: sm8450: remove
- invalid npl clock in vamacro node
+X-B4-Tracking: v=1; b=H4sIAE1tHWQC/5WOSw6CQBBEr0JmbZv5oBJX3sOwGKCBTmCGdA9EQ
+ 7i7ozdw+V4qVbUrQSYUdS92xbiRUAwZ7KlQ7ejDgEBdZmW1ddpZByku1ILMVXnRsC6SGP0MXYK
+ GQkdhEOjphQKVuTp9sxbRGZXbGi8IDfvQjrkvrNOU5cL4S2fzrDOPJCny+/dmM1/7//BmQIND3
+ xksTdVj+ZgoeI7nyIOqj+P4APDdCe70AAAA
+To: Rob Clark <robdclark@gmail.com>, 
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, 
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>, 
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>, 
+ Rob Herring <robh+dt@kernel.org>, 
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>, 
+ Andy Gross <agross@kernel.org>, Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konrad.dybcio@linaro.org>
+X-Mailer: b4 0.12.1
+Subject: [Freedreno] [PATCH v2 0/4] arm64: qcom: sm8450: bindings check
+ cleanup
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -93,52 +82,52 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: neil.armstrong@linaro.org
-Cc: Rob Herring <robh@kernel.org>, linux-scsi@vger.kernel.org,
- devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- Krzysztof Kozlowski <krzk@kernel.org>, freedreno@lists.freedesktop.org
+Cc: devicetree@vger.kernel.org, Neil Armstrong <neil.armstrong@linaro.org>,
+ linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org,
+ Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
+ freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 24/03/2023 08:17, Krzysztof Kozlowski wrote:
-> On 23/03/2023 14:13, Neil Armstrong wrote:
->> On 23/03/2023 11:47, Krzysztof Kozlowski wrote:
->>> On 23/03/2023 11:25, Neil Armstrong wrote:
->>>> Fixes the following DT bindings check error:
->>>> codec@33f0000: clocks: [[137, 57, 1], [137, 102, 1], [137, 103, 1], [137, 70, 1]] is too long
->>>> codec@33f0000: clock-names: 'oneOf' conditional failed, one must be fixed:
->>>> 	        ['mclk', 'macro', 'dcodec', 'npl'] is too long
->>>>
->>>> The implementation was checked and this npl clock isn't used for the VA macro.
->>>>
->>>
->>> This does not look correct. DTS looks good, you miss some patches in
->>> your tree.
->>
->> I'm based on today's linux-next,
-> 
-> Which is unfortunately not enough. Several things were
-> fixed/added/changed and are pending. I brought the topic of pending
-> branch few times on IRC for that reason.
-> 
->> while the other lpass macros uses the npl clock,
->> the lpass vamacro bindings doesn't document the npl clock.
->>
->> And I found no fixes whatsover to add the npl clock to bindings.
-> 
-> Really? lore finds it easily:
-> 
-> https://lore.kernel.org/all/20221118071849.25506-2-srinivas.kandagatla@linaro.org/
+A few fixes to pass the DT bindings check successfully
+for sm8450 qrd & hdk DTs.
 
-You're better at lore than me... thx anyway...
+The following are still needed to pass all the checks:
+- https://lore.kernel.org/r/20230308082424.140224-3-manivannan.sadhasivam@linaro.org
+- https://lore.kernel.org/r/20230130-topic-sm8450-upstream-pmic-glink-v5-5-552f3b721f9e@linaro.org
+- https://lore.kernel.org/all/20230308075648.134119-1-manivannan.sadhasivam@linaro.org/
+- https://lore.kernel.org/r/20230306112129.3687744-1-dmitry.baryshkov@linaro.org
+- https://lore.kernel.org/all/20221209-dt-binding-ufs-v3-0-499dff23a03c@fairphone.com/
+- https://lore.kernel.org/all/20221118071849.25506-2-srinivas.kandagatla@linaro.org/
 
-Neil
+A tree with the applied & rebased patches is available at:
+- https://git.codelinaro.org/neil.armstrong/linux/-/tree/topic/sm8450/upstream/dt-bindings-fixes
 
+Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
+---
+Changes in v2:
+- updated patches dependency to pass tests
+- fixes dt-bindings examples
+- added review tag
+- dropped already sent patches (2,6,7)
+- Link to v1: https://lore.kernel.org/r/20230323-topic-sm8450-upstream-dt-bindings-fixes-v1-0-3ead1e418fe4@linaro.org
 
-> 
-> 
-> Best regards,
-> Krzysztof
-> 
+---
+Neil Armstrong (4):
+      dt-bindings: display: msm: sm8450-mdss: Fix DSI compatible
+      arm64: dts: qcom: sm8450: remove invalid properties in cluster-sleep nodes
+      arm64: dts: qcom: sm8450: remove invalid power-domain-names in pcie nodes
+      arm64: dts: qcom: sm8450: fix pcie1 gpios properties name
+
+ .../devicetree/bindings/display/msm/qcom,sm8450-mdss.yaml      |  6 +++---
+ arch/arm64/boot/dts/qcom/sm8450.dtsi                           | 10 ++--------
+ 2 files changed, 5 insertions(+), 11 deletions(-)
+---
+base-commit: 207ecce2dffa48a738c1c4d17f889d25b7629655
+change-id: 20230323-topic-sm8450-upstream-dt-bindings-fixes-81630722ee31
+
+Best regards,
+-- 
+Neil Armstrong <neil.armstrong@linaro.org>
 
