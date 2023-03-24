@@ -2,59 +2,46 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 10CF96C8207
-	for <lists+freedreno@lfdr.de>; Fri, 24 Mar 2023 17:00:30 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9E5356C837F
+	for <lists+freedreno@lfdr.de>; Fri, 24 Mar 2023 18:42:16 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 52EA010E548;
-	Fri, 24 Mar 2023 16:00:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F0C3F10E177;
+	Fri, 24 Mar 2023 17:42:14 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-yb1-xb2f.google.com (mail-yb1-xb2f.google.com
- [IPv6:2607:f8b0:4864:20::b2f])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9581010E541
- for <freedreno@lists.freedesktop.org>; Fri, 24 Mar 2023 16:00:24 +0000 (UTC)
-Received: by mail-yb1-xb2f.google.com with SMTP id p204so2704715ybc.12
- for <freedreno@lists.freedesktop.org>; Fri, 24 Mar 2023 09:00:24 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1679673623;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=dksB5iUeGdRvRQe9WabXTIoiziL1Tg7lbGcFiUozL5I=;
- b=huop7HKeUTs3oNm4X0dfZWPkxEHd4eJSM7/8AC63zKy1bhtOPpkACHUgplxCr5og6y
- 7n8O59piNxsAXGmaYOCSFrc1iUlq59lyB+TYuD1irJs1a2dJymlJ+dWHvAtKks3Wy8rZ
- weDFNYJfiDOuqkTOG+FQ2Ek+UXUoMeN8S+kWzRWsNCQ2Mu0BnWEP77XxF8nQPBJUUyhy
- JZT3oRqB1Uc+l2f/tsTkM3x5Zbes3NPzIUnW8ZCaJuJyo10XBlfSLYpm8jMXhWKMABKD
- sj201UpqF9QsEv6F2+G8qFHpwF8sVDihFncbKo7nPat7oJTOIm6zkP/Uf2v2Iu9mb3Ln
- yOKA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112; t=1679673623;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=dksB5iUeGdRvRQe9WabXTIoiziL1Tg7lbGcFiUozL5I=;
- b=IEp7Ca//GhvtqzupwE+jtdYi46AnwIfVb8U558fMhvuoZIiVyBYSGKfueuIebs5ziO
- PB1cNxlxC2YTzFBgrc3aD8Hs2ilG/KMfEUgeqETh9hCGJIuct+pYN2Pgmh9D3sC7XVMw
- ytIrAtIpDF2QdBK7zcMgTZAlv4qEqdWbQ+VyQn+MOjTwOm841Q9YvycCilFmToxjoAkx
- 8SZjVye4k1Kgnj3gUzTZIwDKQ5ngrE6rp/VVPHbnk5WfbRvbW0HGgDRG7Mmke/Redhwi
- CEhly1c9D+kXDZkLwrGYNTBrMP3c3nnnFxHXFlr49wszVQpXbiN3GXV5wVMUezYVQaep
- nDZw==
-X-Gm-Message-State: AAQBX9fvVunRWPYuidl7imSdIGpswRmXJkcLakANU09fBX+nI5CRHV43
- Bm0g0Ia8P8m2BiReFu6A4r0W3nGLgZ/Lrzl2AqN7VA==
-X-Google-Smtp-Source: AKy350ZoxswfuZe1V0eDrNYugY+teAimH2xnIykHhpuOjIfpxFVli6q2uii5Xx2zsLdj7tAw829/nisfatey66SbkeY=
-X-Received: by 2002:a25:db91:0:b0:b75:8ac3:d5d9 with SMTP id
- g139-20020a25db91000000b00b758ac3d5d9mr1586805ybf.3.1679673623712; Fri, 24
- Mar 2023 09:00:23 -0700 (PDT)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 71FB310E176;
+ Fri, 24 Mar 2023 17:42:11 +0000 (UTC)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id EC91562C15;
+ Fri, 24 Mar 2023 17:42:10 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 391B9C433EF;
+ Fri, 24 Mar 2023 17:42:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1679679730;
+ bh=sk7R+qaRnvRoyWIxFll8DPdn5wqX+Pp6np8xpvBRcZI=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=mxj9WV/IaFFX4jIdJ3milBTT3JlHExArc/Z4f+1/UtC229TqKbL1rMNHcYqoOtdNl
+ pa853S/83SrYck1OLSCcvRigaFXNcSTyV+46DNrUChjEwGCYgtZkj8oA8Q8aBjZg7S
+ dWuLlazxLkjXjVeQehHkjpkT5uG2gHlBNL95QLA2Gt2FeHcq5GdGrhg85tUrdKFdJy
+ kFO/71V+xeVB4euOy6/Y73GROGYcDgzxLD1zdkvvmKO4tXQ0xjmcsTMI2UFWnucy4W
+ fZUqdBh8GDsSfKUc7HA0wQnh0nmz6VSgjMxbzYAbvPgr/15QoktLoe4iDUCV/oSSRQ
+ hBocaR0TrMPJA==
+Date: Fri, 24 Mar 2023 10:45:18 -0700
+From: Bjorn Andersson <andersson@kernel.org>
+To: Neil Armstrong <neil.armstrong@linaro.org>
+Message-ID: <20230324174518.2arvdglqqixmxqcp@ripper>
+References: <20230323-topic-sm8450-upstream-dt-bindings-fixes-v2-0-0ca1bea1a843@linaro.org>
+ <20230323-topic-sm8450-upstream-dt-bindings-fixes-v2-2-0ca1bea1a843@linaro.org>
 MIME-Version: 1.0
-References: <20230324095502.3289094-1-arnd@kernel.org>
-In-Reply-To: <20230324095502.3289094-1-arnd@kernel.org>
-From: Ulf Hansson <ulf.hansson@linaro.org>
-Date: Fri, 24 Mar 2023 16:59:48 +0100
-Message-ID: <CAPDyKFok_k=M8-g4kgm+5CT7vzrqfbZYfLWCD1oU3W6r-2fsog@mail.gmail.com>
-To: Arnd Bergmann <arnd@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [Freedreno] [PATCH] drm/msm/a6xx: add CONFIG_PM dependency
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20230323-topic-sm8450-upstream-dt-bindings-fixes-v2-2-0ca1bea1a843@linaro.org>
+Subject: Re: [Freedreno] [PATCH v2 2/4] arm64: dts: qcom: sm8450: remove
+ invalid properties in cluster-sleep nodes
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,66 +54,73 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, Arnd Bergmann <arnd@arndb.de>,
- Akhil P Oommen <quic_akhilpo@quicinc.com>, Sean Paul <sean@poorly.run>,
+Cc: freedreno@lists.freedesktop.org,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ devicetree@vger.kernel.org, Sean Paul <sean@poorly.run>,
  Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Rob Clark <robdclark@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>, linux-arm-msm@vger.kernel.org,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ linux-kernel@vger.kernel.org, Konrad Dybcio <konrad.dybcio@linaro.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
+ Rob Clark <robdclark@gmail.com>, Rob Herring <robh+dt@kernel.org>,
+ Andy Gross <agross@kernel.org>, Daniel Vetter <daniel@ffwll.ch>,
+ linux-arm-msm@vger.kernel.org, Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
  David Airlie <airlied@gmail.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Fri, 24 Mar 2023 at 10:55, Arnd Bergmann <arnd@kernel.org> wrote:
->
-> From: Arnd Bergmann <arnd@arndb.de>
->
-> Selecting CONFIG_PM_GENERIC_DOMAINS causes a build failure when CONFIG_PM
-> is not enabled:
->
-> WARNING: unmet direct dependencies detected for PM_GENERIC_DOMAINS
->   Depends on [n]: PM [=3Dn]
->   Selected by [m]:
->   - DRM_MSM [=3Dm] && HAS_IOMEM [=3Dy] && DRM [=3Dm] && (ARCH_QCOM [=3Dy]=
- || SOC_IMX5 || COMPILE_TEST [=3Dy]) && COMMON_CLK [=3Dy] && IOMMU_SUPPORT =
-[=3Dy] && (QCOM_OCMEM [=3Dy] || QCOM_OCMEM [=3Dy]=3Dn) && (QCOM_LLCC [=3Dn]=
- || QCOM_LLCC [=3Dn]=3Dn) && (QCOM_COMMAND_DB [=3Dy] || QCOM_COMMAND_DB [=
-=3Dy]=3Dn) && DEVFREQ_GOV_SIMPLE_ONDEMAND [=3Dy]
->
-> drivers/base/power/domain.c:654:13: error: use of undeclared identifier '=
-pm_wq'
->         queue_work(pm_wq, &genpd->power_off_work);
->                    ^
-> drivers/base/power/domain.c:853:26: error: no member named 'ignore_childr=
-en' in 'struct dev_pm_info'
->                 if (!dev || dev->power.ignore_children)
->                             ~~~~~~~~~~ ^
->
-> Fixes: c11fa1204fe9 ("drm/msm/a6xx: Use genpd notifier to ensure cx-gdsc =
-collapse")
-> Signed-off-by: Arnd Bergmann <arnd@arndb.de>
+On Fri, Mar 24, 2023 at 10:28:47AM +0100, Neil Armstrong wrote:
+> Fixes the following DT bindings check error:
 
-Reviewed-by: Ulf Hansson <ulf.hansson@linaro.org>
+Is that because idle-state-name and local-timer-stop should not be
+defined for domain-idle-states or are you just clearing out the
+dtbs_check warning?
 
-Kind regards
-Uffe
+According to cpu-capacity.txt local-timer-stop seems to have been a
+property relevant for clusters in the past, was this a mistake in the
+binding or did something change when this was moved to
+domain-idle-states?
 
+Regards,
+Bjorn
+
+> domain-idle-states: cluster-sleep-0: 'idle-state-name', 'local-timer-stop' do not match any of the regexes:
+> 'pinctrl-[0-9]+'
+> domain-idle-states: cluster-sleep-1: 'idle-state-name', 'local-timer-stop' do not match any of the regexes:
+> 'pinctrl-[0-9]+'
+> 
+> Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+> Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
 > ---
->  drivers/gpu/drm/msm/Kconfig | 1 +
->  1 file changed, 1 insertion(+)
->
-> diff --git a/drivers/gpu/drm/msm/Kconfig b/drivers/gpu/drm/msm/Kconfig
-> index 1c417ba53b5b..85f5ab1d552c 100644
-> --- a/drivers/gpu/drm/msm/Kconfig
-> +++ b/drivers/gpu/drm/msm/Kconfig
-> @@ -9,6 +9,7 @@ config DRM_MSM
->         depends on QCOM_OCMEM || QCOM_OCMEM=3Dn
->         depends on QCOM_LLCC || QCOM_LLCC=3Dn
->         depends on QCOM_COMMAND_DB || QCOM_COMMAND_DB=3Dn
-> +       depends on PM
->         select IOMMU_IO_PGTABLE
->         select QCOM_MDT_LOADER if ARCH_QCOM
->         select REGULATOR
-> --
-> 2.39.2
->
+>  arch/arm64/boot/dts/qcom/sm8450.dtsi | 4 ----
+>  1 file changed, 4 deletions(-)
+> 
+> diff --git a/arch/arm64/boot/dts/qcom/sm8450.dtsi b/arch/arm64/boot/dts/qcom/sm8450.dtsi
+> index 78fb65bd15cc..ff55fcfdd676 100644
+> --- a/arch/arm64/boot/dts/qcom/sm8450.dtsi
+> +++ b/arch/arm64/boot/dts/qcom/sm8450.dtsi
+> @@ -255,22 +255,18 @@ BIG_CPU_SLEEP_0: cpu-sleep-1-0 {
+>  		domain-idle-states {
+>  			CLUSTER_SLEEP_0: cluster-sleep-0 {
+>  				compatible = "domain-idle-state";
+> -				idle-state-name = "cluster-l3-off";
+>  				arm,psci-suspend-param = <0x41000044>;
+>  				entry-latency-us = <1050>;
+>  				exit-latency-us = <2500>;
+>  				min-residency-us = <5309>;
+> -				local-timer-stop;
+>  			};
+>  
+>  			CLUSTER_SLEEP_1: cluster-sleep-1 {
+>  				compatible = "domain-idle-state";
+> -				idle-state-name = "cluster-power-collapse";
+>  				arm,psci-suspend-param = <0x4100c344>;
+>  				entry-latency-us = <2700>;
+>  				exit-latency-us = <3500>;
+>  				min-residency-us = <13959>;
+> -				local-timer-stop;
+>  			};
+>  		};
+>  	};
+> 
+> -- 
+> 2.34.1
+> 
