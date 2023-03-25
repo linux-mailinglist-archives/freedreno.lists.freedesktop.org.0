@@ -1,59 +1,63 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id E2D776C880D
-	for <lists+freedreno@lfdr.de>; Fri, 24 Mar 2023 23:06:39 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 1A70A6C900D
+	for <lists+freedreno@lfdr.de>; Sat, 25 Mar 2023 19:33:29 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9A2D610ECB4;
-	Fri, 24 Mar 2023 22:06:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D200210E1CF;
+	Sat, 25 Mar 2023 18:33:26 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-yb1-xb30.google.com (mail-yb1-xb30.google.com
- [IPv6:2607:f8b0:4864:20::b30])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 308A710ECB4
- for <freedreno@lists.freedesktop.org>; Fri, 24 Mar 2023 22:06:34 +0000 (UTC)
-Received: by mail-yb1-xb30.google.com with SMTP id p203so3958410ybb.13
- for <freedreno@lists.freedesktop.org>; Fri, 24 Mar 2023 15:06:34 -0700 (PDT)
+Received: from mail-oa1-x2f.google.com (mail-oa1-x2f.google.com
+ [IPv6:2001:4860:4864:20::2f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2861310E07D;
+ Sat, 25 Mar 2023 18:33:24 +0000 (UTC)
+Received: by mail-oa1-x2f.google.com with SMTP id
+ 586e51a60fabf-17ab3a48158so5167740fac.1; 
+ Sat, 25 Mar 2023 11:33:24 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1679695593;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=AW96lDx5vwowhGiHzDVKGLsiV7fUhA67Ww+wttjBEwU=;
- b=kpJyuBzmaRYbioRqb5vGqry2GHgycmPyUnnxvdAANb2s+I5+UckR9viLl/8kUnwtsf
- Q7+LDDM69Vu2oFwkJGdq0pk81UJndycZyxuRQhPnR7WIn7TI116XPFHuAu6wWLccOc8o
- 2sBeL91RE2283BvpWqZ1lLdl5THJKMNCJ+BTayM2nZ2dJsHu0EO7S7GQgtCqrYSJvdwW
- UU7aT8YPVkRLG1i0zyfT4IEd5slRhq8VTdfFrM8OfTioFMwOV0gD8IBlT0YtUSuoNtQu
- 539xnoMEbH6SAZf8TaExkU7HmF+MVxlf2Ed51omRr2X6PZWYSIxHlxDf25bEFwSFH7oV
- //iQ==
+ d=gmail.com; s=20210112; t=1679769203;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=tWZ7vu1wUDpr6CzdvpmdoiQa8Pr9sPVDWbxwXHZBvIU=;
+ b=bENPc4KDK7BgP6Q9AGP372cZOl3bPYj48o/Mnui1DECKw+5kUBWPs8jwy6fDjr+B7c
+ bcOOyBQnIvBwuwO2twJrplNCBKn8Yz6ZJT87UVn9wEB+1RF8mlHlNwGL3x6Xsqye43z3
+ S831EzPobaGsdkovBMViZH5aNmz/KwhFQs51ZA32QYikWf8xnkTUYxo809GllHvre7Et
+ GPez1us7Xv4BeXDcXcCYMwbGBLIjF5gJu9yghmjeUcuZnN1Wejmn52IDdDhNtUFsfNqe
+ 6iADdG/sCuOC3BFNDaf5eoicHy+IWAI0T0GLDg1dR++DLYyWg0MwfPV9vKUss7sykge1
+ gW7A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112; t=1679695593;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=AW96lDx5vwowhGiHzDVKGLsiV7fUhA67Ww+wttjBEwU=;
- b=Un5iwM2kCoUyZKvvgcQtk45G1Fo3j4yRZu9xJeMsjPEaW77+d6qv1+LwDnqGX+v4le
- WOBjZ0lobUFDXfkdU99eylI4g4oA1/wCz7jDNDAf32Zt7Mc7Wom5J5IVt6AsYAy8/pOL
- /vfE+oFFikX18X1VwvRmPVqqg7VOwjNtPrzrEZZNn5EXqTlfEo06r/UZcOiMh8XFaaCc
- 5NGDXfzhfpU6K819VBOnqdoWsMUQQxIETh5QZOA9QzCdjuAhXXIVxz0fPrHK52fTzSb8
- /Fity1mozLSMcpR4rjZqlP7xtOENpIlfHIjoJxh7OeQLuwF9ekVTJceLKAjdkmQisivG
- uUjQ==
-X-Gm-Message-State: AAQBX9da3ahogWtRaL+KpJBPxTvTdjZ/ZzfYnUsbNfQum+6cpPdbZyKn
- xH98fDlKDdp9bw7LsFSMJ3eBBBOFtmwACH4tgtsQfw==
-X-Google-Smtp-Source: AKy350b22KWd/52YQxPAH9uA2YhVFFyLDy325ozIEZ34++SQJC7q83qVmJTG2A31rDN5OZEc70zCmWabGGvncpkmyxQ=
-X-Received: by 2002:a05:6902:1501:b0:b4c:9333:2a2 with SMTP id
- q1-20020a056902150100b00b4c933302a2mr1857678ybu.9.1679695593310; Fri, 24 Mar
- 2023 15:06:33 -0700 (PDT)
+ d=1e100.net; s=20210112; t=1679769203;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=tWZ7vu1wUDpr6CzdvpmdoiQa8Pr9sPVDWbxwXHZBvIU=;
+ b=1hB9e5OgCLEAqvPy1q1vSR4SzmXoa5TnHnVczbsC3dCcTPgD3fh/6AjwF5IaoPl92v
+ QRq59Cr5Fti97FZz4z/M4AO/WhaQD2JPlymRMxfDdJPQfEo116h7gVZoi+qa87uPRMDU
+ lndgGSHbJ8/0IugluCpI/Gu1ONT+1rs/jEOA+RoOjualsL3b11noC2lAZaYtzr4752mI
+ Mp4yJh/zIXEeo7uDdxU3cRcTXKer+3wPyBho2u/Tm4fBvLq7Zig9oNeHrv8IrSv79Z2T
+ Ljb2KWXbStX9DMhhEOIvf7IuPCGmYoNrgbggLnIRF3OgKGkFce8o5EnUn25UzrtFqmnV
+ EYxw==
+X-Gm-Message-State: AO0yUKUQ2vjLBQsmcmBdasq/2HVcSt4TIr45/imlHciEMsObfSnDpDQB
+ EuqeZ8R+Iz+7lE/xuhCVtjzeJlOsGieVPUuiY+U=
+X-Google-Smtp-Source: AK7set+wblsLvOe37ueqxSs1n4zY8RDvlGOPBKK+DtMEDmZTkF0mgkBenW37Ve+R160ibxxGaDCVDW6wOAeNQT02yak=
+X-Received: by 2002:a05:6871:4796:b0:17a:df9b:6b1b with SMTP id
+ qa22-20020a056871479600b0017adf9b6b1bmr2581691oab.5.1679769203330; Sat, 25
+ Mar 2023 11:33:23 -0700 (PDT)
 MIME-Version: 1.0
-References: <20230306100722.28485-1-johan+linaro@kernel.org>
- <20230306100722.28485-7-johan+linaro@kernel.org>
-In-Reply-To: <20230306100722.28485-7-johan+linaro@kernel.org>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Sat, 25 Mar 2023 00:06:21 +0200
-Message-ID: <CAA8EJpoMKRY_w1eM6XVx6R3+2Mi3y=AbbvXQcFF-ccTfV_j2AQ@mail.gmail.com>
-To: Johan Hovold <johan+linaro@kernel.org>
+References: <20230223-topic-gmuwrapper-v4-0-e987eb79d03f@linaro.org>
+ <20230223-topic-gmuwrapper-v4-4-e987eb79d03f@linaro.org>
+In-Reply-To: <20230223-topic-gmuwrapper-v4-4-e987eb79d03f@linaro.org>
+From: Rob Clark <robdclark@gmail.com>
+Date: Sat, 25 Mar 2023 11:33:12 -0700
+Message-ID: <CAF6AEGubsUBxskkWvKE1UriQJUCve7YMDBuHhMKOPiedb1bFhA@mail.gmail.com>
+To: Konrad Dybcio <konrad.dybcio@linaro.org>
 Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [PATCH 06/10] drm/msm: fix vram leak on bind errors
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [Freedreno] [PATCH v4 04/14] drm/msm/a6xx: Extend and explain
+ UBWC config
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,31 +70,119 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, Craig Tatlor <ctatlor97@gmail.com>,
- Sean Paul <sean@poorly.run>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Rob Clark <robdclark@gmail.com>, stable@vger.kernel.org,
+Cc: Rob Clark <robdclark@chromium.org>, freedreno@lists.freedesktop.org,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ devicetree@vger.kernel.org, Akhil P Oommen <quic_akhilpo@quicinc.com>,
+ Sean Paul <sean@poorly.run>, Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konrad.dybcio@somainline.org>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Rob Herring <robh+dt@kernel.org>,
  Daniel Vetter <daniel@ffwll.ch>, linux-arm-msm@vger.kernel.org,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
  David Airlie <airlied@gmail.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Mon, 6 Mar 2023 at 12:09, Johan Hovold <johan+linaro@kernel.org> wrote:
+On Tue, Mar 14, 2023 at 8:28=E2=80=AFAM Konrad Dybcio <konrad.dybcio@linaro=
+.org> wrote:
 >
-> Make sure to release the VRAM buffer also in a case a subcomponent fails
-> to bind.
+> Rename lower_bit to hbb_lo and explain what it signifies.
+> Add explanations (wherever possible to other tunables).
 >
-> Fixes: d863f0c7b536 ("drm/msm: Call msm_init_vram before binding the gpu")
-> Cc: stable@vger.kernel.org      # 5.11
-> Cc: Craig Tatlor <ctatlor97@gmail.com>
-> Signed-off-by: Johan Hovold <johan+linaro@kernel.org>
+> Port setting min_access_length, ubwc_mode and hbb_hi from downstream.
+>
+> Signed-off-by: Konrad Dybcio <konrad.dybcio@linaro.org>
+
+Reviewed-by: Rob Clark <robdclark@gmail.com>
+
 > ---
->  drivers/gpu/drm/msm/msm_drv.c | 26 +++++++++++++++++++-------
->  1 file changed, 19 insertions(+), 7 deletions(-)
-
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-
-
--- 
-With best wishes
-Dmitry
+>  drivers/gpu/drm/msm/adreno/a6xx_gpu.c | 39 +++++++++++++++++++++++++++--=
+------
+>  1 file changed, 30 insertions(+), 9 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/drm/msm/=
+adreno/a6xx_gpu.c
+> index a849db8252f2..2f55dac52833 100644
+> --- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+> @@ -786,10 +786,25 @@ static void a6xx_set_cp_protect(struct msm_gpu *gpu=
+)
+>  static void a6xx_set_ubwc_config(struct msm_gpu *gpu)
+>  {
+>         struct adreno_gpu *adreno_gpu =3D to_adreno_gpu(gpu);
+> -       u32 lower_bit =3D 2;
+> -       u32 amsbc =3D 0;
+> +       /* Unknown, introduced with A650 family, related to UBWC mode/ver=
+ 4 */
+>         u32 rgb565_predicator =3D 0;
+> +       /* Unknown, introduced with A650 family */
+>         u32 uavflagprd_inv =3D 0;
+> +       /* Whether the minimum access length is 64 bits */
+> +       u32 min_acc_len =3D 0;
+> +       /* Entirely magic, per-GPU-gen value */
+> +       u32 ubwc_mode =3D 0;
+> +       /*
+> +        * The Highest Bank Bit value represents the bit of the highest D=
+DR bank.
+> +        * We then subtract 13 from it (13 is the minimum value allowed b=
+y hw) and
+> +        * write the lowest two bits of the remaining value as hbb_lo and=
+ the
+> +        * one above it as hbb_hi to the hardware. This should ideally us=
+e DRAM
+> +        * type detection.
+> +        */
+> +       u32 hbb_hi =3D 0;
+> +       u32 hbb_lo =3D 2;
+> +       /* Unknown, introduced with A640/680 */
+> +       u32 amsbc =3D 0;
+>
+>         /* a618 is using the hw default values */
+>         if (adreno_is_a618(adreno_gpu))
+> @@ -800,25 +815,31 @@ static void a6xx_set_ubwc_config(struct msm_gpu *gp=
+u)
+>
+>         if (adreno_is_a650(adreno_gpu) || adreno_is_a660(adreno_gpu)) {
+>                 /* TODO: get ddr type from bootloader and use 2 for LPDDR=
+4 */
+> -               lower_bit =3D 3;
+> +               hbb_lo =3D 3;
+>                 amsbc =3D 1;
+>                 rgb565_predicator =3D 1;
+>                 uavflagprd_inv =3D 2;
+>         }
+>
+>         if (adreno_is_7c3(adreno_gpu)) {
+> -               lower_bit =3D 1;
+> +               hbb_lo =3D 1;
+>                 amsbc =3D 1;
+>                 rgb565_predicator =3D 1;
+>                 uavflagprd_inv =3D 2;
+>         }
+>
+>         gpu_write(gpu, REG_A6XX_RB_NC_MODE_CNTL,
+> -               rgb565_predicator << 11 | amsbc << 4 | lower_bit << 1);
+> -       gpu_write(gpu, REG_A6XX_TPL1_NC_MODE_CNTL, lower_bit << 1);
+> -       gpu_write(gpu, REG_A6XX_SP_NC_MODE_CNTL,
+> -               uavflagprd_inv << 4 | lower_bit << 1);
+> -       gpu_write(gpu, REG_A6XX_UCHE_MODE_CNTL, lower_bit << 21);
+> +                 rgb565_predicator << 11 | hbb_hi << 10 | amsbc << 4 |
+> +                 min_acc_len << 3 | hbb_lo << 1 | ubwc_mode);
+> +
+> +       gpu_write(gpu, REG_A6XX_TPL1_NC_MODE_CNTL, hbb_hi << 4 |
+> +                 min_acc_len << 3 | hbb_lo << 1 | ubwc_mode);
+> +
+> +       gpu_write(gpu, REG_A6XX_SP_NC_MODE_CNTL, hbb_hi << 10 |
+> +                 uavflagprd_inv << 4 | min_acc_len << 3 |
+> +                 hbb_lo << 1 | ubwc_mode);
+> +
+> +       gpu_write(gpu, REG_A6XX_UCHE_MODE_CNTL, min_acc_len << 23 | hbb_l=
+o << 21);
+>  }
+>
+>  static int a6xx_cp_init(struct msm_gpu *gpu)
+>
+> --
+> 2.39.2
+>
