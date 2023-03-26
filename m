@@ -1,63 +1,59 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id E4E9B6C96E1
-	for <lists+freedreno@lfdr.de>; Sun, 26 Mar 2023 18:38:31 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 875626C9858
+	for <lists+freedreno@lfdr.de>; Mon, 27 Mar 2023 00:01:15 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D25C510E26E;
-	Sun, 26 Mar 2023 16:38:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 36F2810E2E2;
+	Sun, 26 Mar 2023 22:01:14 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-pl1-x62f.google.com (mail-pl1-x62f.google.com
- [IPv6:2607:f8b0:4864:20::62f])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1BBDC10E216;
- Sun, 26 Mar 2023 16:38:27 +0000 (UTC)
-Received: by mail-pl1-x62f.google.com with SMTP id u10so6271989plz.7;
- Sun, 26 Mar 2023 09:38:27 -0700 (PDT)
+Received: from mail-yb1-xb34.google.com (mail-yb1-xb34.google.com
+ [IPv6:2607:f8b0:4864:20::b34])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A690A10E2F6
+ for <freedreno@lists.freedesktop.org>; Sun, 26 Mar 2023 22:01:12 +0000 (UTC)
+Received: by mail-yb1-xb34.google.com with SMTP id j7so8225926ybg.4
+ for <freedreno@lists.freedesktop.org>; Sun, 26 Mar 2023 15:01:12 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20210112; t=1679848706;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=jEKgtiO8QFe7E17SjGBY63VNUT2bmgUu7j5N6GIYXa4=;
- b=MwoiDuyPxTS9Z8dOtvnvra6vBeLLn7oR2fH8IZjoeTcQs1z0Tl9EnBa3mwzanhMEgH
- w6IpWAURpAS33RH3VF5owcNxISB2+Df8RfvZxjTYuPXT2dCJnOeJTMdhV3XQUvnbhC8I
- sZo/puQWlFh9s+0/A0tq/VLZPWKAfkGsL1GTz3Dlv2ztb3BRgP0LI5W/s15gmgDPKn4o
- eHBVv+aVfKcgDUUq4NfaEkFRmXylIitg/hvLegwLJuL+iugOB03urwMFwFmB92vYLYhk
- /to8aTUxS0wFeOZKo1ByehL56LmT3+ePE6sh63X2xuLJMM2HMgEyCEq9gbcbj/vSZkvN
- rEjQ==
+ d=linaro.org; s=google; t=1679868071;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=nW5Zc8I9D3NwW9JUY8UwDM40P3d6d2p4PO1EwU3IDaI=;
+ b=lttfX1kJ6ZctCFBJbQWMDHXaxHbnu4g/vIZsHhvCzMCsHG8wsta1JHfgSA8+nTGo9i
+ GTjVry/Ilt1WouW13iOy1ER+vxb6jQmGK6Re+SfNiJswO5v80Ltj+934ZOu22GNA4Dky
+ SlSN6yLPHTxe/Vt0qV2hB7UWrIBWTgs2KtXyUPR2T8KPK7FMoIfazqBl/GZGxLme3i6X
+ 1ld59Ac0M/+x47RyMuMXz19MssYL1s8Dd0wu381+1B2AF6CF3R63lZpUpz/UPGrFi9SO
+ Nmy8KbH4p8InCxAtR1RSvwKaEA76UEURU43lmjRRwPfKtsFmgtE+Uo0bUf8qcPMUlPar
+ wzLg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112; t=1679848706;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ d=1e100.net; s=20210112; t=1679868071;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=jEKgtiO8QFe7E17SjGBY63VNUT2bmgUu7j5N6GIYXa4=;
- b=YBtUY67Kntd+j7smoW9RwhM2cosmiVdWM5ELVTrw1+h1wBAe1cF1Oj+7LSrO8Zs63n
- V2/mLZjexEnpEdOJasw31IQzPdMoz5/MJR7GtpSAfzRVDD3V8EZm5QimyskWyU0Nr4ks
- sn/Bu76SinJMWxapzvK+GYai8a9wPr5g7JOIHY08uTJiVNz0z1V6Fr70/JQYe8uhQ1Gg
- gat3HnH8q/MuNgWTdzvrz0uEQlcwOM9xA4r46+X7TgWUWNHaCypOVSoXNt5R2smhOVVd
- MiQ+dVQ0/3v/NUBG/Qr7bgbtPSgT71H5RClao2utjZIaJjM9k2Mfd0qtW7P6cP/7Lenv
- hNMQ==
-X-Gm-Message-State: AO0yUKW3BHGUkOm4cVpBGASx2N1bQSHTCLsd48sRnwig1FmWQSAmqyFj
- hFRRPzsho3cjj+C8Ms1bJStWOJRcuPs=
-X-Google-Smtp-Source: AK7set+b3pKwVhLF/NmGsZhRs+HpcpdkO06/1xJ22W1zOxMr7Z7de0igJ6VrMv3LMX/PVzPeQaCPUQ==
-X-Received: by 2002:a05:6a20:cc59:b0:db:9a60:a52d with SMTP id
- hq25-20020a056a20cc5900b000db9a60a52dmr7057696pzb.41.1679848706162; 
- Sun, 26 Mar 2023 09:38:26 -0700 (PDT)
-Received: from localhost (c-24-21-48-127.hsd1.or.comcast.net. [24.21.48.127])
- by smtp.gmail.com with ESMTPSA id
- s18-20020aa78d52000000b00627f054a3cdsm337182pfe.31.2023.03.26.09.38.25
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 26 Mar 2023 09:38:25 -0700 (PDT)
-From: Rob Clark <robdclark@gmail.com>
-To: dri-devel@lists.freedesktop.org
-Date: Sun, 26 Mar 2023 09:38:13 -0700
-Message-Id: <20230326163813.535762-1-robdclark@gmail.com>
-X-Mailer: git-send-email 2.39.2
+ bh=nW5Zc8I9D3NwW9JUY8UwDM40P3d6d2p4PO1EwU3IDaI=;
+ b=xmyzdVUo/s2cjqtOAby68RFQd0SbSPvZ/TbqO0ROWc6FwPuPRdn0LVR7r7T2PXCwmF
+ +oy2XB3QfDCE6hMxVwJzas6WfTZGiiUCVm3VghM6Tyh0yhkaVLrfWtbTJmdEYlEfq/8B
+ PiAWcshRmbD0KSUO8Ko06HKYVd+wzNjGoYV5YED/aeGBFZGG+TDU9nALaCoVKuEjK3Jz
+ o1/p2U7/n/XU6jF0TCalU/RT+r5bEnZTaW8GRDOu4KyiOzEF5O06TrPJMkKiggjK28au
+ JX0lddS4TCL9v9Dv/i/E/6wMvHVywMHrPc0jd7MbnGmIbsfhBqh0GgeR6kiUK0+seTxM
+ LdVw==
+X-Gm-Message-State: AAQBX9fPH4oa1N34bOaKHbiqzbSCDqHJ4giQsKBdsBoMPgaXHZoQN138
+ VlufcKeNSH+B8ctg8CDRoNt3gSCpljcti4OHopp0ZA==
+X-Google-Smtp-Source: AKy350YT/xl8gofmmkVhwL2aCMeTVFx6UYQ8WocHxT1/FSBcMYEXjfM1wbj2q4875vnX5Bile5Tlmms3fT3yVFoFri8=
+X-Received: by 2002:a25:234c:0:b0:b35:91cc:9e29 with SMTP id
+ j73-20020a25234c000000b00b3591cc9e29mr6997010ybj.5.1679868071581; Sun, 26 Mar
+ 2023 15:01:11 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH] drm/msm: Rename drm_msm_gem_submit_reloc::or in
- C++ code
+References: <20230326163813.535762-1-robdclark@gmail.com>
+In-Reply-To: <20230326163813.535762-1-robdclark@gmail.com>
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Date: Mon, 27 Mar 2023 01:01:00 +0300
+Message-ID: <CAA8EJpp2vhiq5WWaU=shG-tqDjt3pzw-NGTZbMMkx2cyp+ETCg@mail.gmail.com>
+To: Rob Clark <robdclark@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Subject: Re: [Freedreno] [PATCH] drm/msm: Rename
+ drm_msm_gem_submit_reloc::or in C++ code
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,44 +67,25 @@ List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
 Cc: Rob Clark <robdclark@chromium.org>, linux-arm-msm@vger.kernel.org,
- Danylo Piliaiev <dpiliaiev@igalia.com>,
+ Danylo Piliaiev <dpiliaiev@igalia.com>, dri-devel@lists.freedesktop.org,
  Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>,
- Rob Clark <robdclark@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- David Airlie <airlied@gmail.com>, freedreno@lists.freedesktop.org,
- open list <linux-kernel@vger.kernel.org>
+ Daniel Vetter <daniel@ffwll.ch>, David Airlie <airlied@gmail.com>,
+ freedreno@lists.freedesktop.org, open list <linux-kernel@vger.kernel.org>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-From: Danylo Piliaiev <dpiliaiev@igalia.com>
+On Sun, 26 Mar 2023 at 19:38, Rob Clark <robdclark@gmail.com> wrote:
+>
+> From: Danylo Piliaiev <dpiliaiev@igalia.com>
+>
+> Clashes with C++ `or` keyword
+>
+> Signed-off-by: Danylo Piliaiev <dpiliaiev@igalia.com>
+> Signed-off-by: Rob Clark <robdclark@chromium.org>
 
-Clashes with C++ `or` keyword
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 
-Signed-off-by: Danylo Piliaiev <dpiliaiev@igalia.com>
-Signed-off-by: Rob Clark <robdclark@chromium.org>
----
-This is a port of a C++ compat fix that was made in mesa's copy of the
-drm uapi headers.
 
- include/uapi/drm/msm_drm.h | 4 ++++
- 1 file changed, 4 insertions(+)
-
-diff --git a/include/uapi/drm/msm_drm.h b/include/uapi/drm/msm_drm.h
-index dbf0d6f43fa9..6c34272a13fd 100644
---- a/include/uapi/drm/msm_drm.h
-+++ b/include/uapi/drm/msm_drm.h
-@@ -186,7 +186,11 @@ struct drm_msm_gem_cpu_fini {
-  */
- struct drm_msm_gem_submit_reloc {
- 	__u32 submit_offset;  /* in, offset from submit_bo */
-+#ifdef __cplusplus
-+	__u32 _or;            /* in, value OR'd with result */
-+#else
- 	__u32 or;             /* in, value OR'd with result */
-+#endif
- 	__s32 shift;          /* in, amount of left shift (can be negative) */
- 	__u32 reloc_idx;      /* in, index of reloc_bo buffer */
- 	__u64 reloc_offset;   /* in, offset from start of reloc_bo */
 -- 
-2.39.2
-
+With best wishes
+Dmitry
