@@ -1,67 +1,71 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id F06DA6CCD71
-	for <lists+freedreno@lfdr.de>; Wed, 29 Mar 2023 00:38:30 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id D5C826CCD5D
+	for <lists+freedreno@lfdr.de>; Wed, 29 Mar 2023 00:38:14 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 900E910E9EB;
-	Tue, 28 Mar 2023 22:38:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 84B3310E9F9;
+	Tue, 28 Mar 2023 22:38:13 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-x231.google.com (mail-lj1-x231.google.com
- [IPv6:2a00:1450:4864:20::231])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 634F810E9F5
- for <freedreno@lists.freedesktop.org>; Tue, 28 Mar 2023 22:38:10 +0000 (UTC)
-Received: by mail-lj1-x231.google.com with SMTP id y35so11665894ljq.4
- for <freedreno@lists.freedesktop.org>; Tue, 28 Mar 2023 15:38:10 -0700 (PDT)
+Received: from mail-lj1-x236.google.com (mail-lj1-x236.google.com
+ [IPv6:2a00:1450:4864:20::236])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E1EF010E9F5
+ for <freedreno@lists.freedesktop.org>; Tue, 28 Mar 2023 22:38:09 +0000 (UTC)
+Received: by mail-lj1-x236.google.com with SMTP id a21so6997319ljq.10
+ for <freedreno@lists.freedesktop.org>; Tue, 28 Mar 2023 15:38:09 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1680043088;
+ d=linaro.org; s=google; t=1680043089;
  h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:to:from:from:to:cc:subject:date:message-id
- :reply-to; bh=BOwWonrpE9Dkyy4Q/0LXCbY8zJnCltM/M3j75FmH7fw=;
- b=a7ZnX691SuT2RJykm2XbV+BlyKWG02pym4XibfWplMvBb4nTSxzJIuD7kKwt8/oUbl
- fZmxX4ILQZSUk5uJF7l9HM5XCyngGJJteZT2X6LOHFPjvMAvGLD5x4iiM0SHyPkpqNHU
- B8HO+e701eSARlMTByXmWlnLf0w/rv1qgCgsA8GsKM4eTtt5EF10PIDC8il7kyE8H2aH
- Rxo/W4EAKucYJ2FK4gH7kCD2BK0Ab/pAzIlkLNxlZypojJU1uNUTx9WkFXrVRKkMUfez
- h84Nu3nyxsKq+nGhMISCZ6dABqNxiEdLOeOfw9ToBtOoG/cHKcXpLujtxg+5IHEA34cV
- OsEQ==
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=YqMzGFEFZ4G3mn3A0af48ETcAL5sqfZTnAC0vsbZt14=;
+ b=eQ60LDXSa/NVEp4396sz4hz+p/96XdIU9Pip0WxwqTeDbs/roQIiiJVmWc9GSVUtix
+ 75nWME5ZWnYqrmc9OtB6ywbO8PCuGwcSWvA7+VyG507sdqQPwBU52LNtw2wD9+0FTTnt
+ Zero1A208G+D6DXr65eVVOaCy+KTZCO+rT2m+wKv1nW/liRIU/skkpmM3493qRu5c+6u
+ yoAm9taQWLP4lo01aBwSbiyRP0U1l3MC9RUQI9V4bKU2CuNFlCRVw9wp50v1LE4iDBCu
+ femRp1Vup/4Tw38cu4zVg2e13QVXAlGVkp8rVnNcF1uiVGK/ljcDDKrx0mazDFsklpkw
+ YCKg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112; t=1680043088;
+ d=1e100.net; s=20210112; t=1680043089;
  h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:to:from:x-gm-message-state:from:to:cc
+ :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=BOwWonrpE9Dkyy4Q/0LXCbY8zJnCltM/M3j75FmH7fw=;
- b=pE7xqKcSIh7xYmvhaHlZyp7vYp/tzjr9dUObbVQhjEcTk+Xd81efmFl6TdH2/MpV6U
- rW2O3rWs5+fsx5a4bmMsUEcOcyKkezHHQe0owFBQrfKjm1Dnle8t32JRSUuO7ZK3EGJ8
- 6cNjn9zOgMBANe9pSk4KzxX9fDDpvZhSyV1fxKfNaWZRgbYBdy2gnqeQ5HxUFJMO13Z7
- Pl/XkVIAezLgVzBTeVl2tzHgvNuDnReTimBiYXO1MXjYn+5vg7d5tRvNx15lzXG8ib4H
- ZP3tXKubCu4/3XPf8AaAVksP9TQ9siAe6ya0M9Q2Bcl02fztwrk0tBgD1KN7KIfcX9/A
- tnqQ==
-X-Gm-Message-State: AAQBX9fnyED/9hzCNCyUMnyNzXGma6Oe7pG2kYinqBJnV7G1Q2unwL0v
- z4vlIPjoQbLbU5U56hhaVaN4fcRlDSckwCJ8lbg=
-X-Google-Smtp-Source: AKy350YBE11m41SRDzdOvavHBzk6Aq12RlAFgkaKcKonlKYiYOP6aknoWHMxpgUB9rOLDfqF4VKkdw==
-X-Received: by 2002:a05:651c:153:b0:2a2:781d:2c5f with SMTP id
- c19-20020a05651c015300b002a2781d2c5fmr5335225ljd.39.1680043088731; 
- Tue, 28 Mar 2023 15:38:08 -0700 (PDT)
+ bh=YqMzGFEFZ4G3mn3A0af48ETcAL5sqfZTnAC0vsbZt14=;
+ b=HFpTaCV6rCV8duRwWwslnIuruCZIz69YVQjBNuP5AtkGlSm3jGIjIGMx8KOy+DRf/P
+ 8oV5gGZWl+b+p6a60f0cEqWczbXmf4fNivG9f4gdOp2bw0mA61+/nlTx1yAWy9JEmoMy
+ EsldsSnFUvDniI2HIqT9fvKizgjVFy1c4IEpj92JolhlL2QNTTXZJ6f7e3OcayOSTxEz
+ cxCScsFAPWUCTLkSGBxAViJ68GAoXTey9MT7YEtNr4pBPZ1PFBPi5tYeO/Rnma2GZpGI
+ nqv++nN+HTAcgxWSNwuMRw0SNKKcKhxsH6pwyT49vIrWVG07wV+6RfqswdTdQctpHJAX
+ BqCw==
+X-Gm-Message-State: AAQBX9d8u5ZktmqECMlOneXXMlSQHSauuk9wS9bRhxK+sfISYc5JfJ/r
+ iRR+ygc3SN9LG5tF9dJ/vItw1A==
+X-Google-Smtp-Source: AKy350bc+C5IlC+/Eg5CjRjnK2y1Lqc4kF2FkzeVDTt7xxGQ98NBtHIaDLDNL/a3JVnrPHhasMQXbQ==
+X-Received: by 2002:a2e:a3d0:0:b0:2a0:7a74:b0d3 with SMTP id
+ w16-20020a2ea3d0000000b002a07a74b0d3mr5509419lje.19.1680043089474; 
+ Tue, 28 Mar 2023 15:38:09 -0700 (PDT)
 Received: from eriador.lan (dzccz6yyyyyyyyyyybcwt-3.rev.dnainternet.fi.
  [2001:14ba:a085:4d00::8a5]) by smtp.gmail.com with ESMTPSA id
  t22-20020a2e9d16000000b002934d555783sm5199522lji.6.2023.03.28.15.38.08
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 28 Mar 2023 15:38:08 -0700 (PDT)
+ Tue, 28 Mar 2023 15:38:09 -0700 (PDT)
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-To: robdclark@gmail.com, quic_abhinavk@quicinc.com,
- linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
- Leonard Lausen <leonard@lausen.nl>
-Date: Wed, 29 Mar 2023 01:37:53 +0300
-Message-Id: <168004255465.1060915.4281864962908827878.b4-ty@linaro.org>
+To: Qiang Yu <yuq825@gmail.com>, Rob Clark <robdclark@gmail.com>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>,
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Melissa Wen <mwen@igalia.com>,
+ =?UTF-8?q?Ma=C3=ADra=20Canal?= <mcanal@igalia.com>
+Date: Wed, 29 Mar 2023 01:37:54 +0300
+Message-Id: <168004255464.1060915.109088243199139578.b4-ty@linaro.org>
 X-Mailer: git-send-email 2.39.2
-In-Reply-To: <6f33219dc848ccd7122bce6933338033aa18c33c@lausen.nl>
-References: <6f33219dc848ccd7122bce6933338033aa18c33c@lausen.nl>
+In-Reply-To: <20230224214133.411966-1-mcanal@igalia.com>
+References: <20230224214133.411966-1-mcanal@igalia.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Subject: Re: [Freedreno] [PATCH v2] drm/msm/dpu: Add support for AR30 format
+Subject: Re: [Freedreno] [PATCH 1/2] drm/lima: Use
+ drm_sched_job_add_syncobj_dependency()
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,26 +78,23 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
+Cc: freedreno@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ lima@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 
-On Tue, 21 Mar 2023 02:58:04 +0000, Leonard Lausen wrote:
-> Commit da7716a249b699978fb5 ("drm/msm/dpu: Add support for XR30 format") enabled
-> support for the 10-bit XR30 color format but missed enabling support for the
-> corresponding per-pixel alpha-blending AR30 color format.
+On Fri, 24 Feb 2023 18:41:32 -0300, Maíra Canal wrote:
+> As lima_gem_add_deps() performs the same steps as
+> drm_sched_job_add_syncobj_dependency(), replace the open-coded
+> implementation in Lima in order to simply use the DRM function.
 > 
-> Declaring only XR30 but not AR30 color format support can trigger bugs in
-> userspace. KDE KWin compositor versions prior to 5.27.3 for example prefer
-> 10-bit color formats, rendering a 1cm^2 black box around the cursor due to
-> missing per-pixel alpha-blending.
 > 
-> [...]
 
 Applied, thanks!
 
-[1/1] drm/msm/dpu: Add support for AR30 format
-      https://gitlab.freedesktop.org/lumag/msm/-/commit/a8318110b987
+[2/2] drm/msm: Use drm_sched_job_add_syncobj_dependency()
+      https://gitlab.freedesktop.org/lumag/msm/-/commit/8fd531e6bc56
 
 Best regards,
 -- 
