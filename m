@@ -2,61 +2,70 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7C3306CC733
-	for <lists+freedreno@lfdr.de>; Tue, 28 Mar 2023 17:56:17 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3CC886CCD52
+	for <lists+freedreno@lfdr.de>; Wed, 29 Mar 2023 00:38:09 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 296B210E28B;
-	Tue, 28 Mar 2023 15:56:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7213710E9DF;
+	Tue, 28 Mar 2023 22:38:07 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-oa1-x2b.google.com (mail-oa1-x2b.google.com
- [IPv6:2001:4860:4864:20::2b])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7269310E11F;
- Tue, 28 Mar 2023 15:56:12 +0000 (UTC)
-Received: by mail-oa1-x2b.google.com with SMTP id
- 586e51a60fabf-17786581fe1so13158556fac.10; 
- Tue, 28 Mar 2023 08:56:12 -0700 (PDT)
+Received: from mail-lj1-x236.google.com (mail-lj1-x236.google.com
+ [IPv6:2a00:1450:4864:20::236])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0E37510E496
+ for <freedreno@lists.freedesktop.org>; Tue, 28 Mar 2023 22:38:05 +0000 (UTC)
+Received: by mail-lj1-x236.google.com with SMTP id a21so6997125ljq.10
+ for <freedreno@lists.freedesktop.org>; Tue, 28 Mar 2023 15:38:04 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20210112; t=1680018971;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
+ d=linaro.org; s=google; t=1680043083;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=zLQmwWJisvp20MnJ4qDI8yRnwjPlaeebVHetENzuzzU=;
- b=OMbM7O9EwBPWWFjEMJ+FlcmYiUgbLAfQbAtSTuyxoESDSgQ8hxghe6qUyRx/vWMcwh
- aHVOiBp14eBMTCpWI7EXffI2UDinCk6c7HEi5vnnMdOt0RWbeGRltPE7QsecSf6UZvCy
- m/dzpD6UfN14mpt/DqrhS//y9OxBhElytj2WCu1DJ5badiC7j7HoZfUgvU669VHBXz3N
- UzYknZTA9gE7NJ0H/WeB9SV6uKDRhvEHjv5o2wMVCnVVIh+eKF+8tCUOzzC7LjAztv/T
- v47jIBW3dO77hkBHYiaxICiyfMo4YGu/+7ZHQcLuQUMzxJDp4W3IVeKVsm+FbzfXUSp3
- fyKg==
+ bh=g+xu6yRIN/bJys1fehbCkZUGMmMxxtuBrshP7xCnxko=;
+ b=Al5TIrR6q1JFc/h2LqAur7BsT/df2/oRMpHQNhGfUfvJhr/iaz9FKUsFhPkWaT3hOt
+ yVpY84Q7BPB60YlgRDkwLpmt2C3Le2UnwOYOgfVR5ssUJBz9F3bsjXsm5DgdaoBXZ+B/
+ xMJgOtXE7ibCa6/xgLZBYf9AQII0Dn4ai/pYB1zcS7SyWW7yTrFw74GX0r84tHZYt4RQ
+ zCFRo2RgvbiSzMPd2L3NsY+PWsBVI34IbOBv8trP1AyN+mH/GXOcX4F7Pp9ssRJPG+tj
+ meIfT1pFYHHPbH24cjii+Pqkb04i5IYJwa+Aht37Nkxie43zOQdzp14VRJwJozETYAKb
+ vLDQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112; t=1680018971;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ d=1e100.net; s=20210112; t=1680043083;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=zLQmwWJisvp20MnJ4qDI8yRnwjPlaeebVHetENzuzzU=;
- b=WbJz10V0X5TRuF8jtrKUGnba+z8bFd3rcwHoK3K4LASkkguessjpOoWRgeyk5Ezk5I
- Cxq3mpBgNXK9JNvB1QsvX9YHWlFBSAuF2MQLrcVlW1BhaYdg7zB6CC2YprKPpb7UWO4m
- 6+JH7AMIUbGbeJUH+ilO5Daih9WFVTBKgSGPx9EDz9tebSRf3+sf1Z9Vk9BZgvs1+LvE
- RyXMEiN5OESOAjVzgXxYmtw1T/7hKS/JEP8nNzpkj4c3Il6Xi6w6y+vaMd1Vk11AeCP+
- Fh/Jt0bVqafirJT4crJyVh26GgheQe5ZWOcJMPcPDevJ2f3AIqWke36/XoLmHKUTK49g
- 3pvA==
-X-Gm-Message-State: AO0yUKUSLq3nT5gJN7tnnoZiDFuLtnzyT1FcwtUWJHRKzrfGdnaHgnzG
- vyKHTiDgagz03zgNOXbKx++tPiDdhQuff4AKPoM=
-X-Google-Smtp-Source: AK7set9Dbu34N1vzrjqQsCVc28MeYvZObEv0k5MjUDJn0LlSibv+c/2Gjo7q6ZirexlX1fKiTuUOUJWWFpxN4YAPvJI=
-X-Received: by 2002:a05:6871:4796:b0:17a:df9b:6b1b with SMTP id
- qa22-20020a056871479600b0017adf9b6b1bmr5890211oab.5.1680018971653; Tue, 28
- Mar 2023 08:56:11 -0700 (PDT)
+ bh=g+xu6yRIN/bJys1fehbCkZUGMmMxxtuBrshP7xCnxko=;
+ b=rqBB3QAez3j6oN0VTL4NZcHAzanaB255Z/w1j96MmjUKOElklpL3QHmeZw6NBaI1ds
+ n/JgKlh0Jhw3mEnAH/YeNii5eQtXbd95mhxG2vYPtu9nXudS2ubn7Z1GmmTxpkxgwI62
+ t6i6O8TtG2rU4I/QtTO8kL0bMl7pQzmm6Id0gLP5EsIRmecGYZIOI8q8D4uecHhProyx
+ LNxgsxbBxXt7C12CjCEc7QEyIISZlG2lOEN7oGekI6hM8lVSX5d1nYsQZQbN1JBGEppe
+ LTbMOrBcZQdq4l9NjhCo9UE2CisCiRnDJhk6+1U1js8fYspgQ284fmtTESdkfJyUtM6M
+ zmFA==
+X-Gm-Message-State: AAQBX9cAAQYufCbBzL1a7wW11/MwFtYbXNjwls+X0NJnKl3/407kf3CG
+ IYUoKYQ8qkVHUhCr2zCEAThCvA==
+X-Google-Smtp-Source: AKy350bgyH8LOJ1ATAPftjuIwEIjk5RupKEXKKKMV/7TLrATqUiGPabaR9kv1V0d2QYXK9XVLWYPbg==
+X-Received: by 2002:a05:651c:22e:b0:2a1:2cb4:5f81 with SMTP id
+ z14-20020a05651c022e00b002a12cb45f81mr5018981ljn.36.1680043083113; 
+ Tue, 28 Mar 2023 15:38:03 -0700 (PDT)
+Received: from eriador.lan (dzccz6yyyyyyyyyyybcwt-3.rev.dnainternet.fi.
+ [2001:14ba:a085:4d00::8a5]) by smtp.gmail.com with ESMTPSA id
+ t22-20020a2e9d16000000b002934d555783sm5199522lji.6.2023.03.28.15.38.02
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 28 Mar 2023 15:38:02 -0700 (PDT)
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+To: Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Sean Paul <sean@poorly.run>, David Airlie <airlied@gmail.com>,
+ Daniel Vetter <daniel@ffwll.ch>, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ Colin Ian King <colin.i.king@gmail.com>
+Date: Wed, 29 Mar 2023 01:37:46 +0300
+Message-Id: <168004255462.1060915.681238407755431464.b4-ty@linaro.org>
+X-Mailer: git-send-email 2.39.2
+In-Reply-To: <20230314082050.26331-1-colin.i.king@gmail.com>
+References: <20230314082050.26331-1-colin.i.king@gmail.com>
 MIME-Version: 1.0
-References: <20230324220013.191795-1-robdclark@gmail.com>
- <af31e11c-6c70-a358-1198-3cddc3ee2f89@linaro.org>
-In-Reply-To: <af31e11c-6c70-a358-1198-3cddc3ee2f89@linaro.org>
-From: Rob Clark <robdclark@gmail.com>
-Date: Tue, 28 Mar 2023 08:56:00 -0700
-Message-ID: <CAF6AEGs8yH4SHvjDHKkHT3c4UNc35m3tFGiPBcHA3oATZQiKVA@mail.gmail.com>
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [Freedreno] [PATCH] drm/msm: Avoid rounding down to zero jiffies
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+Subject: Re: [Freedreno] [PATCH][next] drm/msm/dp: Fix spelling mistake
+ "Capabiity" -> "Capability"
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,74 +78,21 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rob Clark <robdclark@chromium.org>, freedreno@lists.freedesktop.org,
- linux-arm-msm@vger.kernel.org, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- dri-devel@lists.freedesktop.org, open list <linux-kernel@vger.kernel.org>,
- Daniel Vetter <daniel@ffwll.ch>, David Airlie <airlied@gmail.com>,
- Sean Paul <sean@poorly.run>
+Cc: kernel-janitors@vger.kernel.org, linux-kernel@vger.kernel.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Tue, Mar 28, 2023 at 8:28=E2=80=AFAM Dmitry Baryshkov
-<dmitry.baryshkov@linaro.org> wrote:
->
-> On 25/03/2023 00:00, Rob Clark wrote:
-> > From: Rob Clark <robdclark@chromium.org>
-> >
-> > If userspace asked for a timeout greater than zero, but less than a
-> > jiffy, they clearly weren't planning on spinning.  So it is better
-> > to round up to one.
-> >
-> > This fixes an issue with supertuxkart that was (for some reason)
-> > spinning on a gl sync with 1ms timeout.  CPU time for a demo lap
-> > drops from:
-> >
-> >    15.83user 20.98system 0:47.46elapsed 77%CPU
-> >
-> > to:
-> >
-> >    8.84user 2.30system 0:46.67elapsed 23%CPU
->
-> Interesting. We potentially increased the timeout, but the overall
-> (elapsed) time has decreased. Nevertheless:
 
-There is some randomness from run to run so small variations in total
---profile-laps=3DN time are normal.  So I wouldn't read too much into
-that, compared to %CPU.  This shouldn't really change how long it
-takes for the fence to signal, as much as just prevent the CPU from
-busy looping until the fence does signal ;-)
+On Tue, 14 Mar 2023 08:20:50 +0000, Colin Ian King wrote:
+> There is a spelling mistake in a drm_dbg_dp message. Fix it.
+> 
+> 
 
-(In theory the CPU busy looping could cause GPU thermal throttling,
-but I don't think that was happening in this case.)
+Applied, thanks!
 
-> Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+[1/1] drm/msm/dp: Fix spelling mistake "Capabiity" -> "Capability"
+      https://gitlab.freedesktop.org/lumag/msm/-/commit/6ee9666a4f4c
 
-thx
-
-> >
-> > Signed-off-by: Rob Clark <robdclark@chromium.org>
-> > ---
-> >   drivers/gpu/drm/msm/msm_drv.h | 2 +-
-> >   1 file changed, 1 insertion(+), 1 deletion(-)
-> >
-> > diff --git a/drivers/gpu/drm/msm/msm_drv.h b/drivers/gpu/drm/msm/msm_dr=
-v.h
-> > index 9f0c184b02a0..7936aa6cad03 100644
-> > --- a/drivers/gpu/drm/msm/msm_drv.h
-> > +++ b/drivers/gpu/drm/msm/msm_drv.h
-> > @@ -548,7 +548,7 @@ static inline unsigned long timeout_to_jiffies(cons=
-t ktime_t *timeout)
-> >               remaining_jiffies =3D ktime_divns(rem, NSEC_PER_SEC / HZ)=
-;
-> >       }
-> >
-> > -     return clamp(remaining_jiffies, 0LL, (s64)INT_MAX);
-> > +     return clamp(remaining_jiffies, 1LL, (s64)INT_MAX);
-> >   }
-> >
-> >   /* Driver helpers */
->
-> --
-> With best wishes
-> Dmitry
->
+Best regards,
+-- 
+Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
