@@ -2,71 +2,71 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4D6D96CBFC2
-	for <lists+freedreno@lfdr.de>; Tue, 28 Mar 2023 14:51:03 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 611E56CC016
+	for <lists+freedreno@lfdr.de>; Tue, 28 Mar 2023 15:04:25 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 118B310E457;
-	Tue, 28 Mar 2023 12:51:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 554A010E0D4;
+	Tue, 28 Mar 2023 13:04:23 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-x234.google.com (mail-lj1-x234.google.com
- [IPv6:2a00:1450:4864:20::234])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5090410E457
- for <freedreno@lists.freedesktop.org>; Tue, 28 Mar 2023 12:51:00 +0000 (UTC)
-Received: by mail-lj1-x234.google.com with SMTP id t14so12438795ljd.5
- for <freedreno@lists.freedesktop.org>; Tue, 28 Mar 2023 05:51:00 -0700 (PDT)
+Received: from mail-lf1-x134.google.com (mail-lf1-x134.google.com
+ [IPv6:2a00:1450:4864:20::134])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 98B5F10E0D4
+ for <freedreno@lists.freedesktop.org>; Tue, 28 Mar 2023 13:04:21 +0000 (UTC)
+Received: by mail-lf1-x134.google.com with SMTP id q16so15709606lfe.10
+ for <freedreno@lists.freedesktop.org>; Tue, 28 Mar 2023 06:04:21 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1680007858;
+ d=linaro.org; s=google; t=1680008660;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :from:to:cc:subject:date:message-id:reply-to;
- bh=oPp+3nUFhZ+YccWkOIH56CCwebX/zcxyGIO1u7xt7XA=;
- b=UMUoBtzi8Lljz2Sgb34U5+xP6Cu5rQuIeiaCyv2PE0Qy2pb0JDEUpuRrub0zyOxEpG
- Cz6ta8fT083O124Iuv8hNxLEjJEaTEwySKZRBOCj4XCsSnnCQsJJd1SbR1KDebBCx/UD
- W8Ju0NAR93gKRNTOFefaA1HYM9rkGhZPYuap7A75MkKBehF60/Cc+O93aT6FvX6pfPzb
- 3i76DO71uzn07NOuoPLptIeTq79g+lpO7aYaikD/lxpuEbfGnlTogT3qhMT1dSSlSfbO
- 4HAwb96diIMyQTLi/KEOP+kT7Khau+oMMDYhtMZgdTEZAduqhqmlh81XdhL6BnLxG/9b
- 7Fmw==
+ bh=09TeZpLfmxfGQ+J3cG2yuYFPbBRZyc4bSWOhtmFg9Do=;
+ b=JMqRG+fZGDQOnk7lKA/P2mssM54tzU3KpCnLMUSpdxMVDT+sDOpjb7aIujcPQa6DUh
+ yxDFNIbGovmGuyLRc4sd2wZyxmR9GBxIJlIIuq5relFg9QEPe4Fp4qdWQD6bg+FYY6w8
+ vqLsETM23BNWL9esoZA7BI5ZoHRWZR+KED5mwvbh1Vxfaxk5ebEkLbz8jOFZ20ViGfAj
+ UoZ28/mcyQgacps0DAJYYtpbH3ZIpabtBuG04ryMs5xCtyVmw7iKx2H0D3+BtW8PQ3Ni
+ 8a3s+fPTmlYpvq3G0Xx8O78MXnK2MoD1FudFwpRBMsVnZ+IdCENH7FN4cJoy60h7PQ/P
+ u/sQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112; t=1680007858;
+ d=1e100.net; s=20210112; t=1680008660;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=oPp+3nUFhZ+YccWkOIH56CCwebX/zcxyGIO1u7xt7XA=;
- b=5o+qdLx/aJ8cwUGmqm6LZuZYL6zGsQ3/OfRuNRibAwJ+WtlJ0vRp+yNzbZfv30UPKR
- geDst/lH2TfqPaDcmLKhl9OI1w1q2BBPqkTmsXCEA2Yk5K9O0hDdRDBd5j43gveGEaYU
- cMcugnPfhAoBtT7AQvrrxie0zLIlEZnoetpEXU1IbXICFghT9aFQXj/wqynkFT71//3d
- 4kf0nlK8F0VBhRRttDareAVzp/2LW/oMRc5hcVNwy6++PZ4Q49pjjogIUTqPWd0z7aLO
- Vd5CJVmITru5L7iun2G+AYCYVI3hzgfFZWYUzIdyEdCPmUj9pjEeET53n2Yjn477HtA2
- i0Pw==
-X-Gm-Message-State: AAQBX9dZgNDVZVQ5Ts+n0+W5MgYjNHuYWuPdVp+96EedFpAzTXklm9gw
- /Gcuz2eiwJzYu8xp8n35Mql+Kw==
-X-Google-Smtp-Source: AKy350Yfu+WCDB8OJ9f2IMPSw0LR1xCUAsN/WKbV1RchlDNRGKaVMzSWeu/KVaJJcuMAw7GWBZ8XcQ==
-X-Received: by 2002:a2e:9d0c:0:b0:29e:4fa5:1708 with SMTP id
- t12-20020a2e9d0c000000b0029e4fa51708mr4844998lji.3.1680007858273; 
- Tue, 28 Mar 2023 05:50:58 -0700 (PDT)
+ bh=09TeZpLfmxfGQ+J3cG2yuYFPbBRZyc4bSWOhtmFg9Do=;
+ b=MgxdOrrfQdjyxVWDiRy9POGdBwyAUGBJijUAA3StZxuEOMfFG8+0LsA4JDQbwy8vQO
+ l36YyQAHnh/f7XYkZkv97SeQuzStZKdoZle5KoY2zwRCoLhiesV6cs3mdiYc1uYDnyF9
+ DXoedQhgiXWwip+PPZS23vek96paDuZEz0cfzkU20G1eXSU+pYpxFVjviLj1n45SdqY7
+ YL+EgnSN8dfTvETQNxghCN/tuILr0VWoU6e44fp8kI5iAxatxifjB+FqWpIKig38p8gv
+ wW5NCZmZaE/2PhUkuvWkj27C24ehNuo6ic+JAc79g2z2/3scznvcslLIgT97JEM9l8l9
+ 9tyQ==
+X-Gm-Message-State: AAQBX9fpzw1H52+YZI49cIV55Z8fpbUJzUTR5Hrmp9n0QIYoQSSIXK1D
+ JJQgCoNZKjbC64QlClOltUq3xw==
+X-Google-Smtp-Source: AKy350YlgfaJnVVyA/LPJ7/Zh0SjVeD/nycZLGwo6ON0q+8f/pPzuZEapsl+R37eWV7VPBYzCWwdFw==
+X-Received: by 2002:ac2:5fc2:0:b0:4e8:4106:ea93 with SMTP id
+ q2-20020ac25fc2000000b004e84106ea93mr4236528lfg.69.1680008659834; 
+ Tue, 28 Mar 2023 06:04:19 -0700 (PDT)
 Received: from ?IPV6:2001:14ba:a085:4d00::8a5?
  (dzccz6yyyyyyyyyyybcwt-3.rev.dnainternet.fi. [2001:14ba:a085:4d00::8a5])
  by smtp.gmail.com with ESMTPSA id
- y2-20020a2eb002000000b0029b32a40934sm4666781ljk.113.2023.03.28.05.50.57
+ x22-20020a19f616000000b0048a982ad0a8sm5053599lfe.23.2023.03.28.06.04.19
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 28 Mar 2023 05:50:57 -0700 (PDT)
-Message-ID: <40178a1b-4a97-8f18-74ca-ccb1fc7403d4@linaro.org>
-Date: Tue, 28 Mar 2023 15:50:57 +0300
+ Tue, 28 Mar 2023 06:04:19 -0700 (PDT)
+Message-ID: <85d0a8c6-f6b4-4cd4-7cc6-b13f37523bd4@linaro.org>
+Date: Tue, 28 Mar 2023 16:04:18 +0300
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.9.0
 Content-Language: en-GB
-To: Johan Hovold <johan+linaro@kernel.org>, Rob Clark <robdclark@gmail.com>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>
-References: <20230306100722.28485-1-johan+linaro@kernel.org>
- <20230306100722.28485-9-johan+linaro@kernel.org>
+To: Abhinav Kumar <quic_abhinavk@quicinc.com>, Rob Clark
+ <robdclark@gmail.com>, Sean Paul <sean@poorly.run>
+References: <20230118130031.2345941-1-dmitry.baryshkov@linaro.org>
+ <8ebd01e3-00be-b0da-e91a-ab1a4e074074@quicinc.com>
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-In-Reply-To: <20230306100722.28485-9-johan+linaro@kernel.org>
+In-Reply-To: <8ebd01e3-00be-b0da-e91a-ab1a4e074074@quicinc.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH 08/10] drm/msm: fix workqueue leak on bind
- errors
+Content-Transfer-Encoding: 8bit
+Subject: Re: [Freedreno] [PATCH] drm/msm/dsi: simplify pixel clk rate
+ handling
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,31 +79,138 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sean Paul <sean@poorly.run>, freedreno@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- stable@vger.kernel.org, Daniel Vetter <daniel@ffwll.ch>,
- linux-arm-msm@vger.kernel.org, David Airlie <airlied@gmail.com>
+Cc: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
+ Bjorn Andersson <andersson@kernel.org>, dri-devel@lists.freedesktop.org,
+ Stephen Boyd <swboyd@chromium.org>, Daniel Vetter <daniel@ffwll.ch>,
+ David Airlie <airlied@gmail.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 06/03/2023 12:07, Johan Hovold wrote:
-> Make sure to destroy the workqueue also in case of early errors during
-> bind (e.g. a subcomponent failing to bind).
+On 26/01/2023 02:07, Abhinav Kumar wrote:
 > 
-> Since commit c3b790ea07a1 ("drm: Manage drm_mode_config_init with
-> drmm_") the mode config will be freed when the drm device is released
-> also when using the legacy interface, but add an explicit cleanup for
-> consistency and to facilitate backporting.
 > 
-> Fixes: 060530f1ea67 ("drm/msm: use componentised device support")
-> Cc: stable@vger.kernel.org      # 3.15
-> Cc: Rob Clark <robdclark@gmail.com>
-> Signed-off-by: Johan Hovold <johan+linaro@kernel.org>
-> ---
->   drivers/gpu/drm/msm/msm_drv.c | 5 ++++-
->   1 file changed, 4 insertions(+), 1 deletion(-)
+> On 1/18/2023 5:00 AM, Dmitry Baryshkov wrote:
+>> Move a call to dsi_calc_pclk() out of calc_clk_rate directly towards
+>> msm_dsi_host_get_phy_clk_req(). It is called for both 6g and v2 hosts.
+>>
+>> Also, while we are at it, replace another dsi_get_pclk_rate() invocation
+>> with using the stored value at msm_host->pixel_clk_rate.
+>>
+>> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+>> ---
+>>   drivers/gpu/drm/msm/dsi/dsi.h      |  4 ++--
+>>   drivers/gpu/drm/msm/dsi/dsi_cfg.h  |  2 +-
+>>   drivers/gpu/drm/msm/dsi/dsi_host.c | 24 ++++++++++++------------
+>>   3 files changed, 15 insertions(+), 15 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/msm/dsi/dsi.h 
+>> b/drivers/gpu/drm/msm/dsi/dsi.h
+>> index bd3763a5d723..93ec54478eb6 100644
+>> --- a/drivers/gpu/drm/msm/dsi/dsi.h
+>> +++ b/drivers/gpu/drm/msm/dsi/dsi.h
+>> @@ -129,8 +129,8 @@ int dsi_dma_base_get_6g(struct msm_dsi_host 
+>> *msm_host, uint64_t *iova);
+>>   int dsi_dma_base_get_v2(struct msm_dsi_host *msm_host, uint64_t *iova);
+>>   int dsi_clk_init_v2(struct msm_dsi_host *msm_host);
+>>   int dsi_clk_init_6g_v2(struct msm_dsi_host *msm_host);
+>> -int dsi_calc_clk_rate_v2(struct msm_dsi_host *msm_host, bool 
+>> is_bonded_dsi);
+>> -int dsi_calc_clk_rate_6g(struct msm_dsi_host *msm_host, bool 
+>> is_bonded_dsi);
+>> +int dsi_calc_clk_rate_v2(struct msm_dsi_host *msm_host);
+>> +int dsi_calc_clk_rate_6g(struct msm_dsi_host *msm_host);
+>>   void msm_dsi_host_snapshot(struct msm_disp_state *disp_state, struct 
+>> mipi_dsi_host *host);
+>>   void msm_dsi_host_test_pattern_en(struct mipi_dsi_host *host);
+>>   struct drm_dsc_config *msm_dsi_host_get_dsc_config(struct 
+>> mipi_dsi_host *host);
+>> diff --git a/drivers/gpu/drm/msm/dsi/dsi_cfg.h 
+>> b/drivers/gpu/drm/msm/dsi/dsi_cfg.h
+>> index 44be4a88aa83..5106e66846c3 100644
+>> --- a/drivers/gpu/drm/msm/dsi/dsi_cfg.h
+>> +++ b/drivers/gpu/drm/msm/dsi/dsi_cfg.h
+>> @@ -51,7 +51,7 @@ struct msm_dsi_host_cfg_ops {
+>>       void* (*tx_buf_get)(struct msm_dsi_host *msm_host);
+>>       void (*tx_buf_put)(struct msm_dsi_host *msm_host);
+>>       int (*dma_base_get)(struct msm_dsi_host *msm_host, uint64_t *iova);
+>> -    int (*calc_clk_rate)(struct msm_dsi_host *msm_host, bool 
+>> is_bonded_dsi);
+>> +    int (*calc_clk_rate)(struct msm_dsi_host *msm_host);
+>>   };
+>>   struct msm_dsi_cfg_handler {
+>> diff --git a/drivers/gpu/drm/msm/dsi/dsi_host.c 
+>> b/drivers/gpu/drm/msm/dsi/dsi_host.c
+>> index 18fa30e1e858..7d99a108bff6 100644
+>> --- a/drivers/gpu/drm/msm/dsi/dsi_host.c
+>> +++ b/drivers/gpu/drm/msm/dsi/dsi_host.c
+>> @@ -616,28 +616,21 @@ static void dsi_calc_pclk(struct msm_dsi_host 
+>> *msm_host, bool is_bonded_dsi)
+>>   }
+>> -int dsi_calc_clk_rate_6g(struct msm_dsi_host *msm_host, bool 
+>> is_bonded_dsi)
+>> +int dsi_calc_clk_rate_6g(struct msm_dsi_host *msm_host)
+>>   {
+>> -    if (!msm_host->mode) {
+>> -        pr_err("%s: mode not set\n", __func__);
+>> -        return -EINVAL;
+>> -    }
+>> -
+>> -    dsi_calc_pclk(msm_host, is_bonded_dsi);
+>>       msm_host->esc_clk_rate = clk_get_rate(msm_host->esc_clk);
+>> +
+>>       return 0;
+>>   }
+>> -int dsi_calc_clk_rate_v2(struct msm_dsi_host *msm_host, bool 
+>> is_bonded_dsi)
+>> +int dsi_calc_clk_rate_v2(struct msm_dsi_host *msm_host)
+>>   {
+>>       u32 bpp = dsi_get_bpp(msm_host->format);
+>>       u64 pclk_bpp;
+>>       unsigned int esc_mhz, esc_div;
+>>       unsigned long byte_mhz;
+>> -    dsi_calc_pclk(msm_host, is_bonded_dsi);
+>> -
+>> -    pclk_bpp = (u64)dsi_get_pclk_rate(msm_host->mode, is_bonded_dsi) 
+>> * bpp;
+>> +    pclk_bpp = msm_host->pixel_clk_rate * bpp;
+>>       do_div(pclk_bpp, 8);
+>>       msm_host->src_clk_rate = pclk_bpp;
+>> @@ -2292,7 +2285,14 @@ void msm_dsi_host_get_phy_clk_req(struct 
+>> mipi_dsi_host *host,
+>>       const struct msm_dsi_cfg_handler *cfg_hnd = msm_host->cfg_hnd;
+>>       int ret;
+>> -    ret = cfg_hnd->ops->calc_clk_rate(msm_host, is_bonded_dsi);
+>> +    if (!msm_host->mode) {
+>> +        pr_err("%s: mode not set\n", __func__);
+>> +        return;
+>> +    }
+>> +
+>> +    dsi_calc_pclk(msm_host, is_bonded_dsi);
+>> +
+>> +    ret = cfg_hnd->ops->calc_clk_rate(msm_host);
+> 
+> I am not too sure what we are gaining by this.
+> 
+> Its not that we are replacing dsi_get_pclk_rate().
+> 
+> We are moving the dsi_get_pclk_rate() from the calc_clk_rate() to the 
+> msm_dsi_host_get_phy_clk_req().
+> 
+> Also, with this change, dsi_calc_clk_rate_6g() looks kind of empty to 
+> stand on its own.
+> 
+> The original intention of the calc_clk_rate() op seems to be calculate 
+> and store all the clocks (byte, pixel and esc).
+> 
+> Why change that behavior by breaking it up?
 
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Unification between platforms. Both v2 and 6g platforms call 
+dsi_calc_pclk(). Let's just move it to a common code path.
+
+> 
+>>       if (ret) {
+>>           pr_err("%s: unable to calc clk rate, %d\n", __func__, ret);
+>>           return;
 
 -- 
 With best wishes
