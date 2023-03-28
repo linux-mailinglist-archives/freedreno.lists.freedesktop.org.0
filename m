@@ -2,57 +2,57 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6E21A6CC658
-	for <lists+freedreno@lfdr.de>; Tue, 28 Mar 2023 17:30:59 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 181F26CC65C
+	for <lists+freedreno@lfdr.de>; Tue, 28 Mar 2023 17:31:33 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3275B10E8F6;
-	Tue, 28 Mar 2023 15:30:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D910F10E70B;
+	Tue, 28 Mar 2023 15:31:31 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-x22e.google.com (mail-lj1-x22e.google.com
- [IPv6:2a00:1450:4864:20::22e])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C696D10E8F6
- for <freedreno@lists.freedesktop.org>; Tue, 28 Mar 2023 15:30:55 +0000 (UTC)
-Received: by mail-lj1-x22e.google.com with SMTP id z42so12956135ljq.13
- for <freedreno@lists.freedesktop.org>; Tue, 28 Mar 2023 08:30:55 -0700 (PDT)
+Received: from mail-lj1-x22d.google.com (mail-lj1-x22d.google.com
+ [IPv6:2a00:1450:4864:20::22d])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4363A10E8B4
+ for <freedreno@lists.freedesktop.org>; Tue, 28 Mar 2023 15:31:30 +0000 (UTC)
+Received: by mail-lj1-x22d.google.com with SMTP id o20so10065375ljp.3
+ for <freedreno@lists.freedesktop.org>; Tue, 28 Mar 2023 08:31:30 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1680017454;
+ d=linaro.org; s=google; t=1680017488;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :from:to:cc:subject:date:message-id:reply-to;
- bh=f6Z3hi5xZpY0A+xzxH10t/g2IJeJJpC83ZgAnnPr4r8=;
- b=ClmAdxKaO+IvbX7WxxMeckWeSwBLmWZS6VF3VOIhXlPLy0T3H1VzIEW1bVGMtqWN1Y
- I1QUxWfEat758nykrdkLKr5HXj2Vh60Jpk8eas0vs7lW+SQlvmD3Ylnl6BcTIMS/+wnU
- 3ryReA+B9YJgzEe7h/UjssBX8pdqHpB6Jp7goWYlUwqJq/KoHqWQUK14+AflgKT+qWYH
- sfzh4BuAORKzWYhu/WVwMS4AgNOytzjEq+PqMGpCrRi04T5mJ1RS5gnGK3oEcIx3lZg4
- IYgN4JfgezD6s461Z8eNyykS1b8LUDQbZt4I853YvlcCoa97VskKGOXlaCimCKYXe2LK
- r8ew==
+ bh=VCfLdVb7TI1yqO2qnnBtIkreowcg0oCZEFmkk9g0KqY=;
+ b=OYu298mz0Km6mev/DZ3Z+2oKlFfDgAdV3rz4AY0vddeyWToeqyu8M6tDOS/CpWyQh3
+ 7RADjOgHYdPgPcz83qBykcvtc3lXOcrXCkh7gG5OEUMwJ8hdYnn/4yEhDdsFloWa5oY1
+ a6bGH30PlPfxE1SFUOZ9H3wjFw+NdEYbRBOOvCVBprfwfG30pJIdS+fgGbgNWt19CHHN
+ pRuxzNWZVJRREZI5iOaaGWry+gFU5FXekUbIg9UVdDNNZB4gb8qNpsk6dZEg6rf/r+er
+ 5z3n0ca9kpjXfOMN6pymbC3X5ggfIZBf9yWOwKRtmOAMKjY+S3uQi+/IqKZCpj+rbaYW
+ a8Dw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112; t=1680017454;
+ d=1e100.net; s=20210112; t=1680017488;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=f6Z3hi5xZpY0A+xzxH10t/g2IJeJJpC83ZgAnnPr4r8=;
- b=XcCCCpFSfVMgcJRgOCa4LMAvw4euxQwJOPqUn4xtvRmKmQnwQX19G4pTbCS0sJZAz7
- 7lJx/2VxrOg/RTdNwJzG9GqRlVYsk735Ezdihxo2d/QrTVoPjzrZ1INcyOygeuU0LQm1
- bnvYV5YGdIY74ZTwU4nFy4JS3JaO9rb8CM0VWppAR6eTaqrxEDUzgi6AmDfEI8oXARhC
- saCSh/jhdPkzIc8qY+Y6qKp+tNPp1+RUkceobJfhicRCZTrBXzwl6lWmz4Ck6f4rfa8I
- 1SKPHkAhNBYrVfUmE4hnIlPldPXThgBzoP8dv3hkc4D2r7qKX53fuktQlWb9q0U9Az9A
- HwVg==
-X-Gm-Message-State: AAQBX9c/OD6lUD1nhBYYS6cm9XjGNrfTbwmO+Xr0LGune1z2z3H95r7O
- /TnMf4O0uvadb/vSgRlhp9nfiQ==
-X-Google-Smtp-Source: AKy350bklgIv21W5yZ/4G5UcuAmEvWzN5s4DIXCp2M2RonQn4ByuJaeNtvsiX9cC+vQau4gr3ZNyUw==
-X-Received: by 2002:a2e:7212:0:b0:2a0:4de2:db88 with SMTP id
- n18-20020a2e7212000000b002a04de2db88mr5008585ljc.44.1680017454043; 
- Tue, 28 Mar 2023 08:30:54 -0700 (PDT)
+ bh=VCfLdVb7TI1yqO2qnnBtIkreowcg0oCZEFmkk9g0KqY=;
+ b=nypvzN7nMTUvjNAjV9R0mgFBKfzZDrjQcK92W2QD84tWxyW0HFYPwcUJ1Wyvmpt1dD
+ j+rSZN/ZuXBU8Ebgy82hAT5U5uyX2BnFniF1nfX0w5MDhEyFLBIQLTjc4EqOuFWxSVjX
+ qQm5DOf2nRKEp/azwBFAxdYE+UwviofCLFoMg0QYrYM9WhSXAaAxpBbnwR+lZAYaBKNV
+ cg5u+1xcFyTgHzfO9qvs3QSKzY4UUAsiMxBN7Yyq1yHqNkGj5D7ndUWhYzNk7xCjSXcF
+ AbrujENw3eYhnvdNiqp12v16yWCtHPPdLD6DZDPWYUSnQay3WwzvGzQ/6A9VaN6cEkL2
+ EKoQ==
+X-Gm-Message-State: AAQBX9fjhAGCBzPhRy00GjvX6pIDjZsrDI26awdWiKmsBLGjhHH0EWUs
+ vQskUW9j6g3HStcCu81DswYz+Q==
+X-Google-Smtp-Source: AKy350YprgK0doz3jlfS4Un0uNGa0u3/hWuIAMuK+uqdb4YwcZi5ITxG4ccIDF6oSsTaUbWZSYsyFA==
+X-Received: by 2002:a2e:910e:0:b0:29a:fe9:3b2 with SMTP id
+ m14-20020a2e910e000000b0029a0fe903b2mr4886135ljg.36.1680017488507; 
+ Tue, 28 Mar 2023 08:31:28 -0700 (PDT)
 Received: from ?IPV6:2001:14ba:a085:4d00::8a5?
  (dzccz6yyyyyyyyyyybcwt-3.rev.dnainternet.fi. [2001:14ba:a085:4d00::8a5])
  by smtp.gmail.com with ESMTPSA id
- c14-20020a05651c014e00b0029913364649sm5123502ljd.11.2023.03.28.08.30.53
+ w8-20020a2e3008000000b002a4bb086610sm1522966ljw.123.2023.03.28.08.31.27
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 28 Mar 2023 08:30:53 -0700 (PDT)
-Message-ID: <bf424375-6306-35b4-4560-1946695f8fee@linaro.org>
-Date: Tue, 28 Mar 2023 18:30:52 +0300
+ Tue, 28 Mar 2023 08:31:28 -0700 (PDT)
+Message-ID: <1e300a26-099c-1f00-2c90-b4832199748b@linaro.org>
+Date: Tue, 28 Mar 2023 18:31:27 +0300
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.9.0
@@ -66,13 +66,13 @@ To: Konrad Dybcio <konrad.dybcio@linaro.org>, Rob Clark
  Konrad Dybcio <konrad.dybcio@somainline.org>,
  Akhil P Oommen <quic_akhilpo@quicinc.com>
 References: <20230223-topic-gmuwrapper-v4-0-e987eb79d03f@linaro.org>
- <20230223-topic-gmuwrapper-v4-12-e987eb79d03f@linaro.org>
+ <20230223-topic-gmuwrapper-v4-13-e987eb79d03f@linaro.org>
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-In-Reply-To: <20230223-topic-gmuwrapper-v4-12-e987eb79d03f@linaro.org>
+In-Reply-To: <20230223-topic-gmuwrapper-v4-13-e987eb79d03f@linaro.org>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH v4 12/14] drm/msm/a6xx: Use adreno_is_aXYZ
- macros in speedbin matching
+Subject: Re: [Freedreno] [PATCH v4 13/14] drm/msm/a6xx: Add A619_holi
+ speedbin support
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -94,17 +94,16 @@ Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 On 14/03/2023 17:28, Konrad Dybcio wrote:
-> Before transitioning to using per-SoC and not per-Adreno speedbin
-> fuse values (need another patchset to land elsewhere), a good
-> improvement/stopgap solution is to use adreno_is_aXYZ macros in
-> place of explicit revision matching. Do so to allow differentiating
-> between A619 and A619_holi.
+> A619_holi is implemented on at least two SoCs: SM4350 (holi) and SM6375
+> (blair). This is what seems to be a first occurrence of this happening,
+> but it's easy to overcome by guarding the SoC-specific fuse values with
+> of_machine_is_compatible(). Do just that to enable frequency limiting
+> on these SoCs.
 > 
 > Signed-off-by: Konrad Dybcio <konrad.dybcio@linaro.org>
 > ---
->   drivers/gpu/drm/msm/adreno/a6xx_gpu.c   | 18 +++++++++---------
->   drivers/gpu/drm/msm/adreno/adreno_gpu.h | 14 ++++++++++++--
->   2 files changed, 21 insertions(+), 11 deletions(-)
+>   drivers/gpu/drm/msm/adreno/a6xx_gpu.c | 31 +++++++++++++++++++++++++++++++
+>   1 file changed, 31 insertions(+)
 
 Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 
