@@ -2,73 +2,66 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 83E2A6CCD5B
-	for <lists+freedreno@lfdr.de>; Wed, 29 Mar 2023 00:38:14 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id F06DA6CCD71
+	for <lists+freedreno@lfdr.de>; Wed, 29 Mar 2023 00:38:30 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BA52D10E9F8;
-	Tue, 28 Mar 2023 22:38:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 900E910E9EB;
+	Tue, 28 Mar 2023 22:38:29 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-x22b.google.com (mail-lj1-x22b.google.com
- [IPv6:2a00:1450:4864:20::22b])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6709310E499
- for <freedreno@lists.freedesktop.org>; Tue, 28 Mar 2023 22:38:08 +0000 (UTC)
-Received: by mail-lj1-x22b.google.com with SMTP id a11so14173517lji.6
- for <freedreno@lists.freedesktop.org>; Tue, 28 Mar 2023 15:38:08 -0700 (PDT)
+Received: from mail-lj1-x231.google.com (mail-lj1-x231.google.com
+ [IPv6:2a00:1450:4864:20::231])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 634F810E9F5
+ for <freedreno@lists.freedesktop.org>; Tue, 28 Mar 2023 22:38:10 +0000 (UTC)
+Received: by mail-lj1-x231.google.com with SMTP id y35so11665894ljq.4
+ for <freedreno@lists.freedesktop.org>; Tue, 28 Mar 2023 15:38:10 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=linaro.org; s=google; t=1680043088;
  h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=almqnIe5p6SPPcYPWjwjdUaws42iWdaybkLQMuaM2c4=;
- b=VNvj+Qt3Niw8C2Q2DzWedzPgUMVj4XaaPMHGKRYb33rIsm8yYIcESVqAoxf2QIFK09
- 9w1BUy+nCK6RGxWxbN9c9zG+TShXJzNdQYj1Xjhy7KWnlqBBc9t7S1e8MeUx+H8p46zr
- 8cGHes9OWTMlsNrVlTfwQyKCKLEn1k4C7nzWpWahTIJWrzZ4IyZzzD4LC0rixel4zZis
- A6hA1aFYygBaYGIKMc3oZ9iA+3QcFkolsE/G5KYZtTsRBFakZi8kq4EXNvZNXm6G1Iqd
- Cg0x34S43hqvGr7xhvI/gsnDXnBSYO4XsQ0uRJzitIxN8BJOGrmAHLiTh5twmCiJ9Zws
- mxVg==
+ :message-id:date:subject:to:from:from:to:cc:subject:date:message-id
+ :reply-to; bh=BOwWonrpE9Dkyy4Q/0LXCbY8zJnCltM/M3j75FmH7fw=;
+ b=a7ZnX691SuT2RJykm2XbV+BlyKWG02pym4XibfWplMvBb4nTSxzJIuD7kKwt8/oUbl
+ fZmxX4ILQZSUk5uJF7l9HM5XCyngGJJteZT2X6LOHFPjvMAvGLD5x4iiM0SHyPkpqNHU
+ B8HO+e701eSARlMTByXmWlnLf0w/rv1qgCgsA8GsKM4eTtt5EF10PIDC8il7kyE8H2aH
+ Rxo/W4EAKucYJ2FK4gH7kCD2BK0Ab/pAzIlkLNxlZypojJU1uNUTx9WkFXrVRKkMUfez
+ h84Nu3nyxsKq+nGhMISCZ6dABqNxiEdLOeOfw9ToBtOoG/cHKcXpLujtxg+5IHEA34cV
+ OsEQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112; t=1680043088;
  h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+ :message-id:date:subject:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=almqnIe5p6SPPcYPWjwjdUaws42iWdaybkLQMuaM2c4=;
- b=3aWU1Ejp8zttZbY1f4ItW0qkPdDYTfpY1+otjDwqtvOjL8MU5n2VNLZ5Iuvp/06Pgb
- ekVSa0UzjL8rpoUWGWf+3clJNkKvjm8ubh9JC1TNIjGno9ZBePEU86ugrmTopjIuZNwT
- QXS2CNq8yZHwPvvv4ny0YkOvTE5AU6EWohn125zkigcVVHadsnaamdZMZ1YdxUTXulBy
- lwHI/M2dv3jeWROvRsZ37/3Zvtrtma3jkaZcZdp6LjwZ2+07svN+Vd0Mcymka6ww2MQk
- 7Ugk/Eg3ek9BQzqfu6Mb3P0/jwRY2oaTA8Q1s77s7MaA8XvtuE1ozOe3mvQdqkLwpl1u
- dAvw==
-X-Gm-Message-State: AAQBX9euWuiQvKgzmfDjw1QY7ELqj6pQRpj1FMHTq/y34IeQ9GuySfgb
- 0RDvWDbgUMPNDecEcPHzZVCx/w==
-X-Google-Smtp-Source: AKy350bJ5wG2PH5jR8pdssprervPgKgRwh9MztjWz+AdpebFRNw2/UCcujsqqC7VgiMDtHSxtqWQqA==
-X-Received: by 2002:a2e:b0f3:0:b0:2a0:8d5b:95c with SMTP id
- h19-20020a2eb0f3000000b002a08d5b095cmr5700934ljl.34.1680043087967; 
- Tue, 28 Mar 2023 15:38:07 -0700 (PDT)
+ bh=BOwWonrpE9Dkyy4Q/0LXCbY8zJnCltM/M3j75FmH7fw=;
+ b=pE7xqKcSIh7xYmvhaHlZyp7vYp/tzjr9dUObbVQhjEcTk+Xd81efmFl6TdH2/MpV6U
+ rW2O3rWs5+fsx5a4bmMsUEcOcyKkezHHQe0owFBQrfKjm1Dnle8t32JRSUuO7ZK3EGJ8
+ 6cNjn9zOgMBANe9pSk4KzxX9fDDpvZhSyV1fxKfNaWZRgbYBdy2gnqeQ5HxUFJMO13Z7
+ Pl/XkVIAezLgVzBTeVl2tzHgvNuDnReTimBiYXO1MXjYn+5vg7d5tRvNx15lzXG8ib4H
+ ZP3tXKubCu4/3XPf8AaAVksP9TQ9siAe6ya0M9Q2Bcl02fztwrk0tBgD1KN7KIfcX9/A
+ tnqQ==
+X-Gm-Message-State: AAQBX9fnyED/9hzCNCyUMnyNzXGma6Oe7pG2kYinqBJnV7G1Q2unwL0v
+ z4vlIPjoQbLbU5U56hhaVaN4fcRlDSckwCJ8lbg=
+X-Google-Smtp-Source: AKy350YBE11m41SRDzdOvavHBzk6Aq12RlAFgkaKcKonlKYiYOP6aknoWHMxpgUB9rOLDfqF4VKkdw==
+X-Received: by 2002:a05:651c:153:b0:2a2:781d:2c5f with SMTP id
+ c19-20020a05651c015300b002a2781d2c5fmr5335225ljd.39.1680043088731; 
+ Tue, 28 Mar 2023 15:38:08 -0700 (PDT)
 Received: from eriador.lan (dzccz6yyyyyyyyyyybcwt-3.rev.dnainternet.fi.
  [2001:14ba:a085:4d00::8a5]) by smtp.gmail.com with ESMTPSA id
- t22-20020a2e9d16000000b002934d555783sm5199522lji.6.2023.03.28.15.38.07
+ t22-20020a2e9d16000000b002934d555783sm5199522lji.6.2023.03.28.15.38.08
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 28 Mar 2023 15:38:07 -0700 (PDT)
+ Tue, 28 Mar 2023 15:38:08 -0700 (PDT)
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-To: Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Sean Paul <sean@poorly.run>, David Airlie <airlied@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>, Rob Herring <robh+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Krishna Manikandan <quic_mkrishn@quicinc.com>,
- Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
- Andy Gross <agross@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konrad.dybcio@linaro.org>
-Date: Wed, 29 Mar 2023 01:37:52 +0300
-Message-Id: <168004255466.1060915.2598614689172044596.b4-ty@linaro.org>
+To: robdclark@gmail.com, quic_abhinavk@quicinc.com,
+ linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
+ Leonard Lausen <leonard@lausen.nl>
+Date: Wed, 29 Mar 2023 01:37:53 +0300
+Message-Id: <168004255465.1060915.4281864962908827878.b4-ty@linaro.org>
 X-Mailer: git-send-email 2.39.2
-In-Reply-To: <20230307-topic-dsi_qcm-v6-0-70e13b1214fa@linaro.org>
-References: <20230307-topic-dsi_qcm-v6-0-70e13b1214fa@linaro.org>
+In-Reply-To: <6f33219dc848ccd7122bce6933338033aa18c33c@lausen.nl>
+References: <6f33219dc848ccd7122bce6933338033aa18c33c@lausen.nl>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Subject: Re: [Freedreno] [PATCH v6 0/9] Fix DSI host idx detection on HW
- revision clash
+Subject: Re: [Freedreno] [PATCH v2] drm/msm/dpu: Add support for AR30 format
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,48 +74,26 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rob Herring <robh@kernel.org>, devicetree@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org,
- Marijn Suijten <marijn.suijten@somainline.org>,
- freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 
-On Sat, 18 Mar 2023 14:42:46 +0100, Konrad Dybcio wrote:
-> v5 -> v6:
-> - Squash both fixes that concerned the deprecated QCM2290 compatible to
->   avoid warnings
+On Tue, 21 Mar 2023 02:58:04 +0000, Leonard Lausen wrote:
+> Commit da7716a249b699978fb5 ("drm/msm/dpu: Add support for XR30 format") enabled
+> support for the 10-bit XR30 color format but missed enabling support for the
+> corresponding per-pixel alpha-blending AR30 color format.
 > 
-> v5: https://lore.kernel.org/r/20230307-topic-dsi_qcm-v5-0-9d4235b77f4f@linaro.org
-> 
-> v4 -> v5:
-> - Drop superfluous items: level in [8/10]
-> - Remove the header define for the qcm2290 config in [6/10] instead of
->   [7/10]
-> - Pick up tags
+> Declaring only XR30 but not AR30 color format support can trigger bugs in
+> userspace. KDE KWin compositor versions prior to 5.27.3 for example prefer
+> 10-bit color formats, rendering a 1cm^2 black box around the cursor due to
+> missing per-pixel alpha-blending.
 > 
 > [...]
 
 Applied, thanks!
 
-[1/9] dt-bindings: display/msm: dsi-controller-main: Fix deprecated QCM2290 compatible
-      https://gitlab.freedesktop.org/lumag/msm/-/commit/236502012d47
-[2/9] drm/msm/dsi: Get rid of msm_dsi_config::num_dsi
-      https://gitlab.freedesktop.org/lumag/msm/-/commit/607ce0e9d462
-[3/9] drm/msm/dsi: Fix DSI index detection when version clash occurs
-      https://gitlab.freedesktop.org/lumag/msm/-/commit/2e6105fe7570
-[4/9] drm/msm/dsi: dsi_cfg: Deduplicate identical structs
-      https://gitlab.freedesktop.org/lumag/msm/-/commit/41301c6d5e5d
-[5/9] drm/msm/dsi: dsi_cfg: Merge SC7180 config into SDM845
-      https://gitlab.freedesktop.org/lumag/msm/-/commit/38ba402f807d
-[6/9] drm/msm/dsi: Switch the QCM2290-specific compatible to index autodetection
-      https://gitlab.freedesktop.org/lumag/msm/-/commit/34f84fcf81c8
-[7/9] drm/msm/dsi: Remove custom DSI config handling
-      https://gitlab.freedesktop.org/lumag/msm/-/commit/ff280b6cc5ef
-[8/9] dt-bindings: display/msm: dsi-controller-main: Add SM6115
-      https://gitlab.freedesktop.org/lumag/msm/-/commit/c7baf742a07b
+[1/1] drm/msm/dpu: Add support for AR30 format
+      https://gitlab.freedesktop.org/lumag/msm/-/commit/a8318110b987
 
 Best regards,
 -- 
