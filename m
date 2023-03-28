@@ -2,67 +2,48 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9D0946CCD87
-	for <lists+freedreno@lfdr.de>; Wed, 29 Mar 2023 00:38:40 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 837646CCDE6
+	for <lists+freedreno@lfdr.de>; Wed, 29 Mar 2023 01:09:37 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 29F0710EA22;
-	Tue, 28 Mar 2023 22:38:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5B1EE10E4C9;
+	Tue, 28 Mar 2023 23:09:33 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-x229.google.com (mail-lj1-x229.google.com
- [IPv6:2a00:1450:4864:20::229])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BB75B10E9DF
- for <freedreno@lists.freedesktop.org>; Tue, 28 Mar 2023 22:38:15 +0000 (UTC)
-Received: by mail-lj1-x229.google.com with SMTP id e21so14180713ljn.7
- for <freedreno@lists.freedesktop.org>; Tue, 28 Mar 2023 15:38:15 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1680043095;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=xzrHNhj4mC5D3BSVzsRn+bfppIAJb6omjbQHw5uSNww=;
- b=wiY9wELxeAw8XealgU0KrNeoQG7lMAOp1Z/t/H/9fpFrj99bdXDk3xvoZyst7EUVWh
- RALoCZF9lRQxK2hdARTVKrS0gQyoNnbezfUpz2E+T+FoKtfvI+9SRy7DvFmTJLJZW75+
- gkVF8nvXaO9+/VFTZ3x6CAYfryI+g8kQNSqIBmDgm/UQcOQrBY5XCViAvCDHm32N/Hz1
- rsx6cCol2oD9Gghtf3CwwequBRhFts3H7PWTGu29iue2gx+yu43CeOWgSEr7tHFUJ02k
- Fl/LiX33mznL3PzpUvaAV+qhtNDlapAnb8+ljW5eIeHJLmoXxmpIdZOzugE+KSnkO3tt
- JKOw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112; t=1680043095;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=xzrHNhj4mC5D3BSVzsRn+bfppIAJb6omjbQHw5uSNww=;
- b=1hPL19HYZw8n79fpuFcVc1ny14zkjPM9g9zsrMgs0Wuk5zzod/r5/AI6gptnwd7gSG
- dmraUeoI6Orm9XMtn252qhlIs9W2094GI0vT1hKtCBaLuecbHUdpi/W84USIPVwrKkvZ
- O/dYlU/3ZB2v1zjU9eouWt3Hr7PYXLSxttYSP5StfVWE+rxDoAN4EIta1ryZfzGESCwn
- u8oh6h4J4MRWp7iiZUF1B5XDBEfHeER1X+R5AqxoxXGTgK5IBc7u2xx9VSl0kqhycdws
- DFhRCJpxFH95KsQCShjEinlrciTpUt2akUSIjUu2QcXLE/VDzhp2CgU7YjXfh5f+tSGp
- fbLA==
-X-Gm-Message-State: AAQBX9ddFMJ4y+eQnDdj2DA3wuaWWweRBwDcelPBuMb8HHsypaPaWh4/
- For5oBLIWjfHE1MkUNtwk5u1Hw==
-X-Google-Smtp-Source: AKy350YPdYgCgBPwMF71vrPCJWfK+dspAXZuTvv4O48LPCzNaPLnY08jSnb2j+86thVL4IGtKMf0qw==
-X-Received: by 2002:a2e:7c06:0:b0:2a4:44a5:d4a3 with SMTP id
- x6-20020a2e7c06000000b002a444a5d4a3mr4760700ljc.0.1680043095309; 
- Tue, 28 Mar 2023 15:38:15 -0700 (PDT)
-Received: from eriador.lan (dzccz6yyyyyyyyyyybcwt-3.rev.dnainternet.fi.
- [2001:14ba:a085:4d00::8a5]) by smtp.gmail.com with ESMTPSA id
- t22-20020a2e9d16000000b002934d555783sm5199522lji.6.2023.03.28.15.38.14
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 28 Mar 2023 15:38:14 -0700 (PDT)
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-To: dri-devel@lists.freedesktop.org,
-	Rob Clark <robdclark@gmail.com>
-Date: Wed, 29 Mar 2023 01:38:02 +0300
-Message-Id: <168004255460.1060915.10055014271321088817.b4-ty@linaro.org>
-X-Mailer: git-send-email 2.39.2
-In-Reply-To: <20230326163813.535762-1-robdclark@gmail.com>
-References: <20230326163813.535762-1-robdclark@gmail.com>
+Received: from bombadil.infradead.org (bombadil.infradead.org
+ [IPv6:2607:7c80:54:3::133])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 82DAC10E12A;
+ Tue, 28 Mar 2023 23:09:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
+ Content-Type:In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:
+ Message-ID:Sender:Reply-To:Content-ID:Content-Description;
+ bh=TtAWW+rcRDNEtRaY+5PARKcs7L5jYJy9Gvn5idod+V8=; b=T6qhdSfj75BjrmtNtqPQemMtTQ
+ 6UA+i8rTanrpWdnc/mgCBuuhh7AwBmjkiGbms4BD9FOndFiKjb6kA5WgXVXSgkpKwB2+sShQt/kb1
+ XTRd7QAODPJSm656Vxq5sS1YT8vkGmqQ+sQB80d8+KKwLy7Hzee6ULrbQw7ggnyRnjvLPJXlXH4RW
+ xcaosmceEBhUVbuYQQAO5urm238UFDRppDvfp2GJcnUBRTNDjWiFwjPTqSphvfRL57un/8zbOJKpc
+ J4TriE2hqlL8eDhplEcKNh3khT12GSBI4NlmbSDLWMfCwdy3+iqBvLEGnYyRNFQlNnzTVC5x2woNL
+ c4Fbj3+A==;
+Received: from [2601:1c2:980:9ec0::2764]
+ by bombadil.infradead.org with esmtpsa (Exim 4.96 #2 (Red Hat Linux))
+ id 1phIRP-00G5fs-2c; Tue, 28 Mar 2023 23:09:23 +0000
+Message-ID: <988d7f44-4c4a-982a-90a9-86fc10f2fc15@infradead.org>
+Date: Tue, 28 Mar 2023 16:09:22 -0700
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Subject: Re: [Freedreno] [PATCH] drm/msm: Rename
- drm_msm_gem_submit_reloc::or in C++ code
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.9.0
+To: Arnd Bergmann <arnd@kernel.org>, Rob Clark <robdclark@gmail.com>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Ulf Hansson <ulf.hansson@linaro.org>,
+ Akhil P Oommen <quic_akhilpo@quicinc.com>
+References: <20230324095502.3289094-1-arnd@kernel.org>
+Content-Language: en-US
+From: Randy Dunlap <rdunlap@infradead.org>
+In-Reply-To: <20230324095502.3289094-1-arnd@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+Subject: Re: [Freedreno] [PATCH] drm/msm/a6xx: add CONFIG_PM dependency
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,25 +56,57 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rob Clark <robdclark@chromium.org>, freedreno@lists.freedesktop.org,
- linux-arm-msm@vger.kernel.org, Danylo Piliaiev <dpiliaiev@igalia.com>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, Daniel Vetter <daniel@ffwll.ch>,
- David Airlie <airlied@gmail.com>, Sean Paul <sean@poorly.run>,
- linux-kernel@vger.kernel.org
+Cc: Sean Paul <sean@poorly.run>, Arnd Bergmann <arnd@arndb.de>,
+ linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 
-On Sun, 26 Mar 2023 09:38:13 -0700, Rob Clark wrote:
-> Clashes with C++ `or` keyword
+
+On 3/24/23 02:54, Arnd Bergmann wrote:
+> From: Arnd Bergmann <arnd@arndb.de>
 > 
+> Selecting CONFIG_PM_GENERIC_DOMAINS causes a build failure when CONFIG_PM
+> is not enabled:
 > 
+> WARNING: unmet direct dependencies detected for PM_GENERIC_DOMAINS
+>   Depends on [n]: PM [=n]
+>   Selected by [m]:
+>   - DRM_MSM [=m] && HAS_IOMEM [=y] && DRM [=m] && (ARCH_QCOM [=y] || SOC_IMX5 || COMPILE_TEST [=y]) && COMMON_CLK [=y] && IOMMU_SUPPORT [=y] && (QCOM_OCMEM [=y] || QCOM_OCMEM [=y]=n) && (QCOM_LLCC [=n] || QCOM_LLCC [=n]=n) && (QCOM_COMMAND_DB [=y] || QCOM_COMMAND_DB [=y]=n) && DEVFREQ_GOV_SIMPLE_ONDEMAND [=y]
+> 
+> drivers/base/power/domain.c:654:13: error: use of undeclared identifier 'pm_wq'
+>         queue_work(pm_wq, &genpd->power_off_work);
+>                    ^
+> drivers/base/power/domain.c:853:26: error: no member named 'ignore_children' in 'struct dev_pm_info'
+>                 if (!dev || dev->power.ignore_children)
+>                             ~~~~~~~~~~ ^
+> 
+> Fixes: c11fa1204fe9 ("drm/msm/a6xx: Use genpd notifier to ensure cx-gdsc collapse")
+> Signed-off-by: Arnd Bergmann <arnd@arndb.de>
 
-Applied, thanks!
 
-[1/1] drm/msm: Rename drm_msm_gem_submit_reloc::or in C++ code
-      https://gitlab.freedesktop.org/lumag/msm/-/commit/be7772e53681
+Tested-by: Randy Dunlap <rdunlap@infradead.org>
+Acked-by: Randy Dunlap <rdunlap@infradead.org>
 
-Best regards,
+Thanks.
+
+> ---
+>  drivers/gpu/drm/msm/Kconfig | 1 +
+>  1 file changed, 1 insertion(+)
+> 
+> diff --git a/drivers/gpu/drm/msm/Kconfig b/drivers/gpu/drm/msm/Kconfig
+> index 1c417ba53b5b..85f5ab1d552c 100644
+> --- a/drivers/gpu/drm/msm/Kconfig
+> +++ b/drivers/gpu/drm/msm/Kconfig
+> @@ -9,6 +9,7 @@ config DRM_MSM
+>  	depends on QCOM_OCMEM || QCOM_OCMEM=n
+>  	depends on QCOM_LLCC || QCOM_LLCC=n
+>  	depends on QCOM_COMMAND_DB || QCOM_COMMAND_DB=n
+> +	depends on PM
+>  	select IOMMU_IO_PGTABLE
+>  	select QCOM_MDT_LOADER if ARCH_QCOM
+>  	select REGULATOR
+
 -- 
-Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+~Randy
