@@ -1,78 +1,62 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7DA716CC675
-	for <lists+freedreno@lfdr.de>; Tue, 28 Mar 2023 17:35:16 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 7C3306CC733
+	for <lists+freedreno@lfdr.de>; Tue, 28 Mar 2023 17:56:17 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 41D1110E944;
-	Tue, 28 Mar 2023 15:35:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 296B210E28B;
+	Tue, 28 Mar 2023 15:56:15 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x12e.google.com (mail-lf1-x12e.google.com
- [IPv6:2a00:1450:4864:20::12e])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8AAC010E934
- for <freedreno@lists.freedesktop.org>; Tue, 28 Mar 2023 15:35:13 +0000 (UTC)
-Received: by mail-lf1-x12e.google.com with SMTP id q16so16337523lfe.10
- for <freedreno@lists.freedesktop.org>; Tue, 28 Mar 2023 08:35:13 -0700 (PDT)
+Received: from mail-oa1-x2b.google.com (mail-oa1-x2b.google.com
+ [IPv6:2001:4860:4864:20::2b])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7269310E11F;
+ Tue, 28 Mar 2023 15:56:12 +0000 (UTC)
+Received: by mail-oa1-x2b.google.com with SMTP id
+ 586e51a60fabf-17786581fe1so13158556fac.10; 
+ Tue, 28 Mar 2023 08:56:12 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1680017711;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=3N8h1DChvaLnm2TUkq7RCFOUn72LEkPBuvQVgji2prc=;
- b=MWTvY67pF8MEgiGs0jD2F1Vba+LhJPWz/XGiFuofZNJLlEA3NardYys19LQAJ2Nutk
- m0Fo1FrI6Hi+fJuGrEHQ+pTH1mPbkH11n2Poeu7kSgO6C1LbRjccfRcMXT61KZUorXQe
- AmuQnfQHrzT2QoYg91RCtwoqwkCgFVd3st/0qc28pr8D04tbsuDjbWUFdABzBDZFoJ0p
- k4x21jaRhb7KwdYmVywi5vlO/jlQgqOGHQiJzsSwCkOYO10V3g1/BRKivvz0L52A7gM1
- zJSYmHOo+yIicNDz6RQFY1UmNKvO71ygggA9+Aj8sGVBFeyY6guMH8GWq3Ba3KTpnHi2
- E6RA==
+ d=gmail.com; s=20210112; t=1680018971;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=zLQmwWJisvp20MnJ4qDI8yRnwjPlaeebVHetENzuzzU=;
+ b=OMbM7O9EwBPWWFjEMJ+FlcmYiUgbLAfQbAtSTuyxoESDSgQ8hxghe6qUyRx/vWMcwh
+ aHVOiBp14eBMTCpWI7EXffI2UDinCk6c7HEi5vnnMdOt0RWbeGRltPE7QsecSf6UZvCy
+ m/dzpD6UfN14mpt/DqrhS//y9OxBhElytj2WCu1DJ5badiC7j7HoZfUgvU669VHBXz3N
+ UzYknZTA9gE7NJ0H/WeB9SV6uKDRhvEHjv5o2wMVCnVVIh+eKF+8tCUOzzC7LjAztv/T
+ v47jIBW3dO77hkBHYiaxICiyfMo4YGu/+7ZHQcLuQUMzxJDp4W3IVeKVsm+FbzfXUSp3
+ fyKg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112; t=1680017711;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=3N8h1DChvaLnm2TUkq7RCFOUn72LEkPBuvQVgji2prc=;
- b=ufaL2/kL//6XbRKeQRlvQLN88o2Qj+LroskavUOxozwJtuP4yOE8WxpMhGtq97OSIz
- LhtMmVx1SsJVI6vJJHKbVCM+Dkg8CsaABAGPOlU8r2smlpOg+Fye2tcM443TqM3NH2e4
- bPVKM+qOn6Zhq52he6n7VmE2RwZab6EAIPAPZg54o2TFv4i5z4E6qptw8M4ByBOemaFm
- mRODmE5lDZc1DpIZbdfTxXN/diSFCNaa7i/eNDlw9+K/QYlqbZGo+9h6TzDhdiJkJPp5
- KZNXVtw+6DzTZKGkvOFe+DxUC6QIPYq2vxxVPfvb4Se9PXz5cshtojTGSznUeBUmg4Fh
- 5XJg==
-X-Gm-Message-State: AAQBX9dpBV0ttqgHDMIfcI4GJoftUMze0eLKFujiT5tZ0pnA4Bn5sBaM
- hhJZEhbwKlzI0OdNrRcopfhlZA==
-X-Google-Smtp-Source: AKy350aVn3vQwYsmxvtq+7/O1t34Z5xIpUuSNYCnORBUR752Ec2avam/4Q48gjVlzD+IBjLDYgwZ7w==
-X-Received: by 2002:ac2:51a1:0:b0:4df:830d:4a3a with SMTP id
- f1-20020ac251a1000000b004df830d4a3amr5009867lfk.23.1680017711678; 
- Tue, 28 Mar 2023 08:35:11 -0700 (PDT)
-Received: from ?IPV6:2001:14ba:a085:4d00::8a5?
- (dzccz6yyyyyyyyyyybcwt-3.rev.dnainternet.fi. [2001:14ba:a085:4d00::8a5])
- by smtp.gmail.com with ESMTPSA id
- m10-20020ac2428a000000b004b6f00832cesm5086017lfh.166.2023.03.28.08.35.11
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 28 Mar 2023 08:35:11 -0700 (PDT)
-Message-ID: <2b0506b7-1a3a-b45a-8514-42066231d2ea@linaro.org>
-Date: Tue, 28 Mar 2023 18:35:10 +0300
+ d=1e100.net; s=20210112; t=1680018971;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=zLQmwWJisvp20MnJ4qDI8yRnwjPlaeebVHetENzuzzU=;
+ b=WbJz10V0X5TRuF8jtrKUGnba+z8bFd3rcwHoK3K4LASkkguessjpOoWRgeyk5Ezk5I
+ Cxq3mpBgNXK9JNvB1QsvX9YHWlFBSAuF2MQLrcVlW1BhaYdg7zB6CC2YprKPpb7UWO4m
+ 6+JH7AMIUbGbeJUH+ilO5Daih9WFVTBKgSGPx9EDz9tebSRf3+sf1Z9Vk9BZgvs1+LvE
+ RyXMEiN5OESOAjVzgXxYmtw1T/7hKS/JEP8nNzpkj4c3Il6Xi6w6y+vaMd1Vk11AeCP+
+ Fh/Jt0bVqafirJT4crJyVh26GgheQe5ZWOcJMPcPDevJ2f3AIqWke36/XoLmHKUTK49g
+ 3pvA==
+X-Gm-Message-State: AO0yUKUSLq3nT5gJN7tnnoZiDFuLtnzyT1FcwtUWJHRKzrfGdnaHgnzG
+ vyKHTiDgagz03zgNOXbKx++tPiDdhQuff4AKPoM=
+X-Google-Smtp-Source: AK7set9Dbu34N1vzrjqQsCVc28MeYvZObEv0k5MjUDJn0LlSibv+c/2Gjo7q6ZirexlX1fKiTuUOUJWWFpxN4YAPvJI=
+X-Received: by 2002:a05:6871:4796:b0:17a:df9b:6b1b with SMTP id
+ qa22-20020a056871479600b0017adf9b6b1bmr5890211oab.5.1680018971653; Tue, 28
+ Mar 2023 08:56:11 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.9.0
-Content-Language: en-GB
-To: Konrad Dybcio <konrad.dybcio@linaro.org>, Rob Clark
- <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Sean Paul <sean@poorly.run>, David Airlie <airlied@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>, Rob Herring <robh+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konrad.dybcio@somainline.org>,
- Akhil P Oommen <quic_akhilpo@quicinc.com>
-References: <20230223-topic-gmuwrapper-v4-0-e987eb79d03f@linaro.org>
- <20230223-topic-gmuwrapper-v4-6-e987eb79d03f@linaro.org>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-In-Reply-To: <20230223-topic-gmuwrapper-v4-6-e987eb79d03f@linaro.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH v4 06/14] drm/msm/a6xx: Remove both GBIF and
- RBBM GBIF halt on hw init
+References: <20230324220013.191795-1-robdclark@gmail.com>
+ <af31e11c-6c70-a358-1198-3cddc3ee2f89@linaro.org>
+In-Reply-To: <af31e11c-6c70-a358-1198-3cddc3ee2f89@linaro.org>
+From: Rob Clark <robdclark@gmail.com>
+Date: Tue, 28 Mar 2023 08:56:00 -0700
+Message-ID: <CAF6AEGs8yH4SHvjDHKkHT3c4UNc35m3tFGiPBcHA3oATZQiKVA@mail.gmail.com>
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [Freedreno] [PATCH] drm/msm: Avoid rounding down to zero jiffies
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -85,31 +69,74 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rob Clark <robdclark@chromium.org>, devicetree@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org,
- Marijn Suijten <marijn.suijten@somainline.org>,
- freedreno@lists.freedesktop.org
+Cc: Rob Clark <robdclark@chromium.org>, freedreno@lists.freedesktop.org,
+ linux-arm-msm@vger.kernel.org, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ dri-devel@lists.freedesktop.org, open list <linux-kernel@vger.kernel.org>,
+ Daniel Vetter <daniel@ffwll.ch>, David Airlie <airlied@gmail.com>,
+ Sean Paul <sean@poorly.run>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 14/03/2023 17:28, Konrad Dybcio wrote:
-> Currently we're only deasserting REG_A6XX_RBBM_GBIF_HALT, but we also
-> need REG_A6XX_GBIF_HALT to be set to 0. For GMU-equipped GPUs this is
-> done in a6xx_bus_clear_pending_transactions(), but for the GMU-less
-> ones we have to do it *somewhere*. Unhalting both side by side sounds
-> like a good plan and it won't cause any issues if it's unnecessary.
-> 
-> Also, add a memory barrier to ensure it's gone through.
-> 
-> Signed-off-by: Konrad Dybcio <konrad.dybcio@linaro.org>
-> ---
->   drivers/gpu/drm/msm/adreno/a6xx_gpu.c | 6 +++++-
->   1 file changed, 5 insertions(+), 1 deletion(-)
+On Tue, Mar 28, 2023 at 8:28=E2=80=AFAM Dmitry Baryshkov
+<dmitry.baryshkov@linaro.org> wrote:
+>
+> On 25/03/2023 00:00, Rob Clark wrote:
+> > From: Rob Clark <robdclark@chromium.org>
+> >
+> > If userspace asked for a timeout greater than zero, but less than a
+> > jiffy, they clearly weren't planning on spinning.  So it is better
+> > to round up to one.
+> >
+> > This fixes an issue with supertuxkart that was (for some reason)
+> > spinning on a gl sync with 1ms timeout.  CPU time for a demo lap
+> > drops from:
+> >
+> >    15.83user 20.98system 0:47.46elapsed 77%CPU
+> >
+> > to:
+> >
+> >    8.84user 2.30system 0:46.67elapsed 23%CPU
+>
+> Interesting. We potentially increased the timeout, but the overall
+> (elapsed) time has decreased. Nevertheless:
 
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+There is some randomness from run to run so small variations in total
+--profile-laps=3DN time are normal.  So I wouldn't read too much into
+that, compared to %CPU.  This shouldn't really change how long it
+takes for the fence to signal, as much as just prevent the CPU from
+busy looping until the fence does signal ;-)
 
--- 
-With best wishes
-Dmitry
+(In theory the CPU busy looping could cause GPU thermal throttling,
+but I don't think that was happening in this case.)
 
+> Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+
+thx
+
+> >
+> > Signed-off-by: Rob Clark <robdclark@chromium.org>
+> > ---
+> >   drivers/gpu/drm/msm/msm_drv.h | 2 +-
+> >   1 file changed, 1 insertion(+), 1 deletion(-)
+> >
+> > diff --git a/drivers/gpu/drm/msm/msm_drv.h b/drivers/gpu/drm/msm/msm_dr=
+v.h
+> > index 9f0c184b02a0..7936aa6cad03 100644
+> > --- a/drivers/gpu/drm/msm/msm_drv.h
+> > +++ b/drivers/gpu/drm/msm/msm_drv.h
+> > @@ -548,7 +548,7 @@ static inline unsigned long timeout_to_jiffies(cons=
+t ktime_t *timeout)
+> >               remaining_jiffies =3D ktime_divns(rem, NSEC_PER_SEC / HZ)=
+;
+> >       }
+> >
+> > -     return clamp(remaining_jiffies, 0LL, (s64)INT_MAX);
+> > +     return clamp(remaining_jiffies, 1LL, (s64)INT_MAX);
+> >   }
+> >
+> >   /* Driver helpers */
+>
+> --
+> With best wishes
+> Dmitry
+>
