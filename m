@@ -1,58 +1,58 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 472376CBFB9
-	for <lists+freedreno@lfdr.de>; Tue, 28 Mar 2023 14:50:10 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 4D6D96CBFC2
+	for <lists+freedreno@lfdr.de>; Tue, 28 Mar 2023 14:51:03 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D003910E8A1;
-	Tue, 28 Mar 2023 12:50:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 118B310E457;
+	Tue, 28 Mar 2023 12:51:02 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x134.google.com (mail-lf1-x134.google.com
- [IPv6:2a00:1450:4864:20::134])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2DAC910E89D
- for <freedreno@lists.freedesktop.org>; Tue, 28 Mar 2023 12:50:07 +0000 (UTC)
-Received: by mail-lf1-x134.google.com with SMTP id x17so15683024lfu.5
- for <freedreno@lists.freedesktop.org>; Tue, 28 Mar 2023 05:50:07 -0700 (PDT)
+Received: from mail-lj1-x234.google.com (mail-lj1-x234.google.com
+ [IPv6:2a00:1450:4864:20::234])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5090410E457
+ for <freedreno@lists.freedesktop.org>; Tue, 28 Mar 2023 12:51:00 +0000 (UTC)
+Received: by mail-lj1-x234.google.com with SMTP id t14so12438795ljd.5
+ for <freedreno@lists.freedesktop.org>; Tue, 28 Mar 2023 05:51:00 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1680007805;
+ d=linaro.org; s=google; t=1680007858;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :from:to:cc:subject:date:message-id:reply-to;
- bh=5aKpkNh/8xXK99VFZwk3PtzVkWaagAJQbPThES4qo4c=;
- b=aDlmW+3M03gsIwxLOi7jI/MjPJRefPCoqxUEHPPvw+Bj6hdtAn6oDZjDN4Rv9QfIuC
- HrMnmJmHdBVQ3USLkYxXH0RuoKAG9ewagvA2THN+WbuR/5mX/jEU+tcn0olCh5S4uT50
- tmNyYhRqrGSNSo5hStO/WvtMuLcLgPDRaeha5V1cFolm5PPvScWNyGjswToTRzW/cyA3
- cbQQDUdQC8CBNzoexTWDqhVv+Rpi7y/kbhgoPRKUzvdYxEtd2ct2NyyAorAbKIRLvl40
- jFYNJpdKqfUaItIyX42pH0+BZnvGOrjgENJIPCZDYlJ3XdZliIE5tT/2tAeBav/H9C6E
- f6jg==
+ bh=oPp+3nUFhZ+YccWkOIH56CCwebX/zcxyGIO1u7xt7XA=;
+ b=UMUoBtzi8Lljz2Sgb34U5+xP6Cu5rQuIeiaCyv2PE0Qy2pb0JDEUpuRrub0zyOxEpG
+ Cz6ta8fT083O124Iuv8hNxLEjJEaTEwySKZRBOCj4XCsSnnCQsJJd1SbR1KDebBCx/UD
+ W8Ju0NAR93gKRNTOFefaA1HYM9rkGhZPYuap7A75MkKBehF60/Cc+O93aT6FvX6pfPzb
+ 3i76DO71uzn07NOuoPLptIeTq79g+lpO7aYaikD/lxpuEbfGnlTogT3qhMT1dSSlSfbO
+ 4HAwb96diIMyQTLi/KEOP+kT7Khau+oMMDYhtMZgdTEZAduqhqmlh81XdhL6BnLxG/9b
+ 7Fmw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112; t=1680007805;
+ d=1e100.net; s=20210112; t=1680007858;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=5aKpkNh/8xXK99VFZwk3PtzVkWaagAJQbPThES4qo4c=;
- b=7D5NJQwHA7niS3d8eedbNGTuQjCPQf5ZXIBp8r11anZaZwyA6RdGL3RuBj/emyoFW1
- 5w6OI6T6U3XRK4H9Y4Lpe7NE+Jiy/hrV2W3NPKxAWMztVbSS8HEgmU+RtUNlnE+gEUhu
- LqqeZx7MzzsytfCM4MCj5s99tiqsK7tE/Z/X05us+fv0lUARdOjCAGa8RY5ORaHuMpcp
- ISBC0ZC9RKs/PLZEd+ehMyhMg72cIT4N79vfoOXdoxt9oT0G0l8K40Tc8e94CtVznEa0
- Agzp59U5ItiA3GeQ1CQ1G0nyoYJ9DLbg5zj6RG3yHg1D+Vfno3gtylH/Aya2N3wBF1B5
- QveA==
-X-Gm-Message-State: AAQBX9fSJsoOoOjVU0kx9KJJeSs2jh38Dtd3PrLeaLYcT+eVaCBViKtO
- Ccbw94evAp3edd0Z9mMMYG1I8w==
-X-Google-Smtp-Source: AKy350YB19ZNZUdZmlZrfVEq4gizIOk+KuH+83cH+JiVYmIQT1UXUtff0FtR/clzr94IT76z/SEGBQ==
-X-Received: by 2002:ac2:531b:0:b0:4e1:8309:1db5 with SMTP id
- c27-20020ac2531b000000b004e183091db5mr4650842lfh.2.1680007805502; 
- Tue, 28 Mar 2023 05:50:05 -0700 (PDT)
+ bh=oPp+3nUFhZ+YccWkOIH56CCwebX/zcxyGIO1u7xt7XA=;
+ b=5o+qdLx/aJ8cwUGmqm6LZuZYL6zGsQ3/OfRuNRibAwJ+WtlJ0vRp+yNzbZfv30UPKR
+ geDst/lH2TfqPaDcmLKhl9OI1w1q2BBPqkTmsXCEA2Yk5K9O0hDdRDBd5j43gveGEaYU
+ cMcugnPfhAoBtT7AQvrrxie0zLIlEZnoetpEXU1IbXICFghT9aFQXj/wqynkFT71//3d
+ 4kf0nlK8F0VBhRRttDareAVzp/2LW/oMRc5hcVNwy6++PZ4Q49pjjogIUTqPWd0z7aLO
+ Vd5CJVmITru5L7iun2G+AYCYVI3hzgfFZWYUzIdyEdCPmUj9pjEeET53n2Yjn477HtA2
+ i0Pw==
+X-Gm-Message-State: AAQBX9dZgNDVZVQ5Ts+n0+W5MgYjNHuYWuPdVp+96EedFpAzTXklm9gw
+ /Gcuz2eiwJzYu8xp8n35Mql+Kw==
+X-Google-Smtp-Source: AKy350Yfu+WCDB8OJ9f2IMPSw0LR1xCUAsN/WKbV1RchlDNRGKaVMzSWeu/KVaJJcuMAw7GWBZ8XcQ==
+X-Received: by 2002:a2e:9d0c:0:b0:29e:4fa5:1708 with SMTP id
+ t12-20020a2e9d0c000000b0029e4fa51708mr4844998lji.3.1680007858273; 
+ Tue, 28 Mar 2023 05:50:58 -0700 (PDT)
 Received: from ?IPV6:2001:14ba:a085:4d00::8a5?
  (dzccz6yyyyyyyyyyybcwt-3.rev.dnainternet.fi. [2001:14ba:a085:4d00::8a5])
  by smtp.gmail.com with ESMTPSA id
- e18-20020a056512091200b004cb08757441sm5031213lft.199.2023.03.28.05.50.04
+ y2-20020a2eb002000000b0029b32a40934sm4666781ljk.113.2023.03.28.05.50.57
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 28 Mar 2023 05:50:05 -0700 (PDT)
-Message-ID: <f1a7f057-0b96-473d-d5fd-5fc2d1352642@linaro.org>
-Date: Tue, 28 Mar 2023 15:50:04 +0300
+ Tue, 28 Mar 2023 05:50:57 -0700 (PDT)
+Message-ID: <40178a1b-4a97-8f18-74ca-ccb1fc7403d4@linaro.org>
+Date: Tue, 28 Mar 2023 15:50:57 +0300
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.9.0
@@ -60,13 +60,13 @@ Content-Language: en-GB
 To: Johan Hovold <johan+linaro@kernel.org>, Rob Clark <robdclark@gmail.com>,
  Abhinav Kumar <quic_abhinavk@quicinc.com>
 References: <20230306100722.28485-1-johan+linaro@kernel.org>
- <20230306100722.28485-8-johan+linaro@kernel.org>
+ <20230306100722.28485-9-johan+linaro@kernel.org>
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-In-Reply-To: <20230306100722.28485-8-johan+linaro@kernel.org>
+In-Reply-To: <20230306100722.28485-9-johan+linaro@kernel.org>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH 07/10] drm/msm: fix missing wq allocation
- error handling
+Subject: Re: [Freedreno] [PATCH 08/10] drm/msm: fix workqueue leak on bind
+ errors
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -87,15 +87,21 @@ Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 On 06/03/2023 12:07, Johan Hovold wrote:
-> Add the missing sanity check to handle workqueue allocation failures.
+> Make sure to destroy the workqueue also in case of early errors during
+> bind (e.g. a subcomponent failing to bind).
 > 
-> Fixes: c8afe684c95c ("drm/msm: basic KMS driver for snapdragon")
-> Cc: stable@vger.kernel.org      # 3.12
+> Since commit c3b790ea07a1 ("drm: Manage drm_mode_config_init with
+> drmm_") the mode config will be freed when the drm device is released
+> also when using the legacy interface, but add an explicit cleanup for
+> consistency and to facilitate backporting.
+> 
+> Fixes: 060530f1ea67 ("drm/msm: use componentised device support")
+> Cc: stable@vger.kernel.org      # 3.15
 > Cc: Rob Clark <robdclark@gmail.com>
 > Signed-off-by: Johan Hovold <johan+linaro@kernel.org>
 > ---
->   drivers/gpu/drm/msm/msm_drv.c | 4 ++++
->   1 file changed, 4 insertions(+)
+>   drivers/gpu/drm/msm/msm_drv.c | 5 ++++-
+>   1 file changed, 4 insertions(+), 1 deletion(-)
 
 Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 
