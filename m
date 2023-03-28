@@ -2,67 +2,73 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id B085D6CCD78
-	for <lists+freedreno@lfdr.de>; Wed, 29 Mar 2023 00:38:33 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2C0336CCD5A
+	for <lists+freedreno@lfdr.de>; Wed, 29 Mar 2023 00:38:14 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DA00F10EA19;
-	Tue, 28 Mar 2023 22:38:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DD86D10E9EB;
+	Tue, 28 Mar 2023 22:38:09 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-x235.google.com (mail-lj1-x235.google.com
- [IPv6:2a00:1450:4864:20::235])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 53F7A10E499
- for <freedreno@lists.freedesktop.org>; Tue, 28 Mar 2023 22:38:07 +0000 (UTC)
-Received: by mail-lj1-x235.google.com with SMTP id h9so14191284ljq.2
- for <freedreno@lists.freedesktop.org>; Tue, 28 Mar 2023 15:38:07 -0700 (PDT)
+Received: from mail-lj1-x22b.google.com (mail-lj1-x22b.google.com
+ [IPv6:2a00:1450:4864:20::22b])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2603D10E496
+ for <freedreno@lists.freedesktop.org>; Tue, 28 Mar 2023 22:38:08 +0000 (UTC)
+Received: by mail-lj1-x22b.google.com with SMTP id e11so14160390lji.8
+ for <freedreno@lists.freedesktop.org>; Tue, 28 Mar 2023 15:38:08 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1680043085;
+ d=linaro.org; s=google; t=1680043086;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=TD7sqkfPpaQWvfvPFZ0+jRqio3L7H18Rm7F/+Kcu9Xk=;
- b=CDGtS1sbbK/S0Oc/g3JVA8LOO3vu9tN2dJ4lmxdvHGxKq/QimetFVqh27rq7LxVxAu
- OGem8KrO8OIZdd0tnaqiR+httRCYsd7/jaWsp4exPDC3Rm12SXOWLiadufl95aw4hiGz
- 0q/qm9T1T7b4fB6mtV+IX/809BXHY80aiJOy7cCyq+Cu7zJwmclr+R5N2M+GDojx9W5p
- /zpX+pgcnX/I00ymnBgIjWZrIiB03zNVNAeBT34TLdkZiX02vW1orumIwNprX0ghXUI6
- uSmRpTTXuCjzI0JLyCm1zlGjEBlHMT2p7uKot68K7r2CAwu2PVhI26pzXcR1AZtVTkZx
- yIbg==
+ bh=NZTRJ0TTqpgk5AjNv95VOIk7xe/ymEV+pZnyuKfYsGM=;
+ b=MeyWE82b5nRejN5xQ6xs/nTf4qV/VYG55PfiMgUVuECOnfrCeGEAFUAdAfV7a3QVWS
+ F0oR+OhDiAoLm2+K2dI/DEXjvwQ1s8LXB6+6RK8cIq4iRN32sY/GyCnve8TTBKjgQuEc
+ Kg4bdvcZje4GD0Cg/jjCR8WTPdU/hJrE5TBK/u6zVMrefCe+x/aZTojiP0sc6XhSiu2X
+ Iz1w21O5qJkrRNU5fjGBRn8903bqEruNkSm8TxTgugVHYuw1Q3kBSSz9GH7SHiXYvf+P
+ bPJs+IY75bLsmrhlPu2nj8whMLi7mk/qDRAe2UEg92EBynFLjmeDMoZ5EIvPTosSP5LC
+ 6Vog==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112; t=1680043085;
+ d=1e100.net; s=20210112; t=1680043086;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=TD7sqkfPpaQWvfvPFZ0+jRqio3L7H18Rm7F/+Kcu9Xk=;
- b=1Cb5OpMH5G1oZLZ/ZMT9lgpxlkThV/C9RmGXpTpXJ5gyr+hubhf6mBllTQDnBe1VE3
- nyva7z2gM3h6D5ilw83T00SP8f1wxPL+oFvrxs2nabNYNCv/QJo1kDcCTfZ8eh51U3I+
- o+a74uPl6u/D2gcGMlApg7hyPskxdxYlxjtL+Q18OFhRBafJ7gD+1i9s8uWrcP+DSgih
- x7X4Iu4SZzRr+vSTjXrrI/d/vVAcjTIj8JyuT+SFh+Z6uFXbqOY+hiMFvjEYzbPckPtm
- tZMbyPfpEuUtdViINBllwn++1AQMCDgnfieQls0mORD3lAw9vr1r9zgtAosRtcQEnzw8
- QHLw==
-X-Gm-Message-State: AAQBX9cglEM/yOIN5d8wJHGokDIi1DZp3nwL0EX0f+zQdYM/L21oLSYP
- PR2b6L0E10OJpNlepBKwmGrEug==
-X-Google-Smtp-Source: AKy350a0i43zHw0/cH8Ye04ya/XYUc5nNEKDabwcksLAb19PnFXgjqHH8//uqjFoYLzRkwBckev2kA==
-X-Received: by 2002:a2e:8894:0:b0:299:ac61:dee5 with SMTP id
- k20-20020a2e8894000000b00299ac61dee5mr5196462lji.37.1680043085393; 
- Tue, 28 Mar 2023 15:38:05 -0700 (PDT)
+ bh=NZTRJ0TTqpgk5AjNv95VOIk7xe/ymEV+pZnyuKfYsGM=;
+ b=mZxs3pIZoegdSbYciSdl7lv1p7+jkaJCedO+Yo25wtrIlpmoRHKN1waoMbDMcbOWvI
+ cqE3JI7KuhGAFCzaXl0J+ZVBw2oQEDzLPNzYplD/fXVfW/usfs9iAp/pPayLrBv5O+9k
+ q8b3QAizlIfH0Sx/ovEiqF3Qn6zXtj9P6RYBDJo4NF4KekRvM+D6b5+BMplF6n4i37cF
+ fffY3+0tgisk7nRsDWCva8CtzV3rg2at2YueMZp0moxkityrRo1K/XApTd353vdtQNa+
+ us3Z7Di5hwipeGasjtZoB/6m5PAtM6+UBLhcR7e5JM9VjFA8xTukzAeaVy0tNUlX6oRc
+ inMQ==
+X-Gm-Message-State: AAQBX9eaasJBBt7qZ6cSt+/JN3OqFcDab8SWSl+KbmHz9cv4J5BN7mMo
+ rbO+drIP+VhmyihKP6Q49teIfw==
+X-Google-Smtp-Source: AKy350ZZ6ELOP4cO/h4cwM1q/AaisZK8fOKm7ULEBLxVANiD4pFWjDs6CEtRSDHRPCZDhKNGppC+8g==
+X-Received: by 2002:a2e:3813:0:b0:299:9de5:2f08 with SMTP id
+ f19-20020a2e3813000000b002999de52f08mr5119053lja.6.1680043086182; 
+ Tue, 28 Mar 2023 15:38:06 -0700 (PDT)
 Received: from eriador.lan (dzccz6yyyyyyyyyyybcwt-3.rev.dnainternet.fi.
  [2001:14ba:a085:4d00::8a5]) by smtp.gmail.com with ESMTPSA id
- t22-20020a2e9d16000000b002934d555783sm5199522lji.6.2023.03.28.15.38.04
+ t22-20020a2e9d16000000b002934d555783sm5199522lji.6.2023.03.28.15.38.05
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
  Tue, 28 Mar 2023 15:38:05 -0700 (PDT)
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-To: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Wed, 29 Mar 2023 01:37:49 +0300
-Message-Id: <168004255465.1060915.5381648060712142697.b4-ty@linaro.org>
+To: Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Sean Paul <sean@poorly.run>, David Airlie <airlied@gmail.com>,
+ Daniel Vetter <daniel@ffwll.ch>, Vinod Koul <vkoul@kernel.org>,
+ Konrad Dybcio <konrad.dybcio@linaro.org>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Kuogee Hsieh <quic_khsieh@quicinc.com>,
+ Geert Uytterhoeven <geert+renesas@glider.be>
+Date: Wed, 29 Mar 2023 01:37:50 +0300
+Message-Id: <168004255463.1060915.9592020077874857953.b4-ty@linaro.org>
 X-Mailer: git-send-email 2.39.2
-In-Reply-To: <20230316161653.4106395-1-dmitry.baryshkov@linaro.org>
-References: <20230316161653.4106395-1-dmitry.baryshkov@linaro.org>
+In-Reply-To: <20230306090633.65918-1-geert+renesas@glider.be>
+References: <20230306090633.65918-1-geert+renesas@glider.be>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Subject: Re: [Freedreno] [PATCH v7 00/32] drm/msm/dpu: wide planes support
+Subject: Re: [Freedreno] [PATCH] drm/msm/dpu: Fix bit-shifting UB in
+ DPU_HW_VER() macro
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,91 +81,32 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
- Bjorn Andersson <andersson@kernel.org>, dri-devel@lists.freedesktop.org,
- Stephen Boyd <swboyd@chromium.org>, Daniel Vetter <daniel@ffwll.ch>,
- David Airlie <airlied@gmail.com>
+Cc: linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 
-On Thu, 16 Mar 2023 19:16:21 +0300, Dmitry Baryshkov wrote:
-> This patchset brings in multirect usage to support using two SSPP
-> rectangles for a single plane. Full virtual planes support is omitted
-> from this pull request, it will come later (I'm at the final stages of
-> polishing and testing, will be posted today).
+On Mon, 06 Mar 2023 10:06:33 +0100, Geert Uytterhoeven wrote:
+> With gcc-5 and CONFIG_UBSAN_SHIFT=y:
 > 
-> Changes since v6:
-> - Really fixed line width check for UBWC formats (Abhinav)
-> - Also dropped R0/R1/R_MAX previously used by
->   dpu_plane_validate_multirect_v2()
-> - Explicitly enabled SmartDMA for SC7280 following Abhinav's testing
-> - Reapplied Abhinav's Tested-by tags with the # sc7280 comment
+>     drivers/gpu/drm/msm/msm_mdss.c: In function 'msm_mdss_enable':
+>     drivers/gpu/drm/msm/msm_mdss.c:296:2: error: case label does not reduce to an integer constant
+>       case DPU_HW_VER_800:
+>       ^
+>     drivers/gpu/drm/msm/msm_mdss.c:299:2: error: case label does not reduce to an integer constant
+>       case DPU_HW_VER_810:
+>       ^
+>     drivers/gpu/drm/msm/msm_mdss.c:300:2: error: case label does not reduce to an integer constant
+>       case DPU_HW_VER_900:
+>       ^
 > 
 > [...]
 
 Applied, thanks!
 
-[01/32] drm/msm/dpu: rename struct dpu_hw_pipe(_cfg) to dpu_hw_sspp(_cfg)
-        https://gitlab.freedesktop.org/lumag/msm/-/commit/995658a1c749
-[02/32] drm/msm/dpu: move SSPP allocation to the RM
-        https://gitlab.freedesktop.org/lumag/msm/-/commit/476754a8ac86
-[03/32] drm/msm/dpu: move SSPP debugfs creation to dpu_kms.c
-        https://gitlab.freedesktop.org/lumag/msm/-/commit/ff77cf2eb1a3
-[04/32] drm/msm/dpu: drop EAGAIN check from dpu_format_populate_layout
-        https://gitlab.freedesktop.org/lumag/msm/-/commit/e29bb8dfd072
-[05/32] drm/msm/dpu: move pipe_hw to dpu_plane_state
-        https://gitlab.freedesktop.org/lumag/msm/-/commit/6d8635715af1
-[06/32] drm/msm/dpu: drop dpu_plane_pipe function
-        https://gitlab.freedesktop.org/lumag/msm/-/commit/a2d023b21887
-[07/32] drm/msm/dpu: introduce struct dpu_sw_pipe
-        https://gitlab.freedesktop.org/lumag/msm/-/commit/f2f524de417a
-[08/32] drm/msm/dpu: use dpu_sw_pipe for dpu_hw_sspp callbacks
-        https://gitlab.freedesktop.org/lumag/msm/-/commit/0e2e459260e3
-[09/32] drm/msm/dpu: pass dpu_format to _dpu_hw_sspp_setup_scaler3()
-        https://gitlab.freedesktop.org/lumag/msm/-/commit/ad03f6653014
-[10/32] drm/msm/dpu: clean up SRC addresses when setting up SSPP for solid fill
-        https://gitlab.freedesktop.org/lumag/msm/-/commit/49f06532da0c
-[11/32] drm/msm/dpu: move stride programming to dpu_hw_sspp_setup_sourceaddress
-        https://gitlab.freedesktop.org/lumag/msm/-/commit/8148109600eb
-[12/32] drm/msm/dpu: remove dpu_hw_fmt_layout from struct dpu_hw_sspp_cfg
-        https://gitlab.freedesktop.org/lumag/msm/-/commit/3a0421182198
-[13/32] drm/msm/dpu: rename dpu_hw_sspp_cfg to dpu_sw_pipe_cfg
-        https://gitlab.freedesktop.org/lumag/msm/-/commit/6f32a14dcaa6
-[14/32] drm/msm/dpu: drop src_split and multirect check from dpu_crtc_atomic_check
-        https://gitlab.freedesktop.org/lumag/msm/-/commit/ec72f615f49b
-[15/32] drm/msm/dpu: don't use unsupported blend stages
-        https://gitlab.freedesktop.org/lumag/msm/-/commit/6a67280b594e
-[16/32] drm/msm/dpu: move the rest of plane checks to dpu_plane_atomic_check()
-        https://gitlab.freedesktop.org/lumag/msm/-/commit/274a82886182
-[17/32] drm/msm/dpu: drop redundant plane dst check from dpu_crtc_atomic_check()
-        https://gitlab.freedesktop.org/lumag/msm/-/commit/36ca301a498e
-[18/32] drm/msm/dpu: rewrite plane's QoS-related functions to take dpu_sw_pipe and dpu_format
-        https://gitlab.freedesktop.org/lumag/msm/-/commit/9a6b14e3c2d8
-[19/32] drm/msm/dpu: make _dpu_plane_calc_clk accept mode directly
-        https://gitlab.freedesktop.org/lumag/msm/-/commit/ddb9302ca7be
-[20/32] drm/msm/dpu: add dpu_hw_sspp_cfg to dpu_plane_state
-        https://gitlab.freedesktop.org/lumag/msm/-/commit/949859a56a29
-[21/32] drm/msm/dpu: simplify dpu_plane_validate_src()
-        https://gitlab.freedesktop.org/lumag/msm/-/commit/d92254e80244
-[22/32] drm/msm/dpu: rework dpu_plane_sspp_atomic_update()
-        https://gitlab.freedesktop.org/lumag/msm/-/commit/4a59602f7c6f
-[23/32] drm/msm/dpu: rework dpu_plane_atomic_check()
-        https://gitlab.freedesktop.org/lumag/msm/-/commit/5aa11fa2f523
-[24/32] drm/msm/dpu: rework plane CSC setting
-        https://gitlab.freedesktop.org/lumag/msm/-/commit/0ef79e954d75
-[25/32] drm/msm/dpu: rework static color fill code
-        https://gitlab.freedesktop.org/lumag/msm/-/commit/43a636a55622
-[26/32] drm/msm/dpu: split pipe handling from _dpu_crtc_blend_setup_mixer
-        https://gitlab.freedesktop.org/lumag/msm/-/commit/9081cb73a25d
-[28/32] drm/msm/dpu: populate SmartDMA features in hw catalog
-        https://gitlab.freedesktop.org/lumag/msm/-/commit/b9d4f598cb69
-[30/32] drm/msm/dpu: drop smart_dma_rev from dpu_caps
-        https://gitlab.freedesktop.org/lumag/msm/-/commit/a4188f96d0a0
-[31/32] drm/msm/dpu: log the multirect_index in _dpu_crtc_blend_setup_pipe
-        https://gitlab.freedesktop.org/lumag/msm/-/commit/a0d1028e968c
-[32/32] drm/msm/dpu: remove unused dpu_plane_validate_multirect_v2 function
-        https://gitlab.freedesktop.org/lumag/msm/-/commit/0a48a0014533
+[1/1] drm/msm/dpu: Fix bit-shifting UB in DPU_HW_VER() macro
+      https://gitlab.freedesktop.org/lumag/msm/-/commit/c8f370bde5b9
 
 Best regards,
 -- 
