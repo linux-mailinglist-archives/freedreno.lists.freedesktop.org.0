@@ -2,63 +2,66 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 152B06CCF1E
-	for <lists+freedreno@lfdr.de>; Wed, 29 Mar 2023 02:55:41 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 668DE6CCF1A
+	for <lists+freedreno@lfdr.de>; Wed, 29 Mar 2023 02:55:36 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 72B7F10E345;
-	Wed, 29 Mar 2023 00:55:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 219EE10E266;
+	Wed, 29 Mar 2023 00:55:35 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-x22a.google.com (mail-lj1-x22a.google.com
- [IPv6:2a00:1450:4864:20::22a])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7BD8610E044
- for <freedreno@lists.freedesktop.org>; Wed, 29 Mar 2023 00:55:33 +0000 (UTC)
-Received: by mail-lj1-x22a.google.com with SMTP id a21so7255321ljq.10
- for <freedreno@lists.freedesktop.org>; Tue, 28 Mar 2023 17:55:33 -0700 (PDT)
+Received: from mail-lj1-x230.google.com (mail-lj1-x230.google.com
+ [IPv6:2a00:1450:4864:20::230])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2062210E044
+ for <freedreno@lists.freedesktop.org>; Wed, 29 Mar 2023 00:55:34 +0000 (UTC)
+Received: by mail-lj1-x230.google.com with SMTP id q14so14422386ljm.11
+ for <freedreno@lists.freedesktop.org>; Tue, 28 Mar 2023 17:55:34 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=linaro.org; s=google; t=1680051332;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=wspEvGhw3Ov/MaCptFOSLj1uP8AL5mjsZccbIYoFgs0=;
- b=qccSE5gDPyXWQOFV9gcvApZCxxiV5PsgFUrXDDldrH9yUic0hXBWom2Nrksb/ElU/O
- mTcNAQuRvcMhT3kfhyzFGb7WKrc3h2sbb0b46+HPWilPrM2kDsL0ZCx67YNcuwQPizkW
- v5MJxSkOrcf+EoI7HmXccn4vMfv6zbZu/yICCEoAtCtNGbMbhCW3gXcqAsHgSuMrI3Ae
- Rn5ouRGyQPOhczXKlht4vEEMspMjzNp72HgKC/JVgqYbZwiKXnTfQebbAeQePzRR2p0W
- YDpL83KibbT/IiflDxguDxNAjk/hoq1+pY2KPinIJS5rUTnlVeNPeNSMeGGAIEYnHOO4
- UYVg==
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=B3QWtwCpJWCtNwbopMCBhlb/eX5Lt6OWuzbQyL+529U=;
+ b=vi6NQbtWRKOHnONykj6hYunJ45FGrQc/U+pXgje1r8U/v24mBupjNskP85Nbn9Hir2
+ B9ZhhHMSTZCuV2X3UzNQJKQMLShuKLAVcCvW6Ro3oUgjqYjEn2i2vjMVjII6BXPG1RtV
+ ZBmH+YdZ1jTJ3cU0pMOkwEFjB3ReUiKvEWGB2RTCPPynKIZcf+vyYIFBsjK5zQMp+xpt
+ b8Zd5QAd1LTib2xpuCkcg+daSSqhkVBgMMvzlhshBMmcNSYZ0TDQap7uHvZitiWANwT5
+ zMQFvvJb/c+zjaMZis0L4yOxbf3fI8nFFhNM09p9xMF3isY0xPqGgvTaJHS7LfPUkqdG
+ /4Dg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112; t=1680051332;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=wspEvGhw3Ov/MaCptFOSLj1uP8AL5mjsZccbIYoFgs0=;
- b=tyPZQGwUxqyjc7BagIS2sfQD4w/uGLalc+xDDKhzqCvQdYX2v85h3sprQJCspMlyM5
- IH7Z4GBHjdnqJh9XuxmfUoPGx9pmkn4kq2LirTB1c7DoJH93JNBPGCigyfb6Ob4Mklef
- SNJnEbHxjZ+QMAFTIprT1NL3p8NWWwp/FfZQipD8MongS9tgRcjPagks5rf6OMpXIJv+
- V6dQnVNLhV3ShDKjf4S/hULVS0eZwXCpVXbU8U7gq7LIu8vcn6hoEMGwnWAEA6VLn9FJ
- Jaon/PDonhywHRD0INnV9vAPwBy1RlT2wNJebS6dqlepFpFBvxg9prK84JOEFcn7mIKk
- ZSNg==
-X-Gm-Message-State: AAQBX9erQYGTkzBvflCBEpaL86ylCbfzwb3WtnUYIBUyhH6log4v4V/p
- +rhvVqYUVkM+/FaicGsaPFdTYQ==
-X-Google-Smtp-Source: AKy350azZ/8o/Tfo8luMhUstYP4ruMWmp+d9Nn0NFdeIy1LT1RDnDdV1l+BtCvu6KKGWHWJfb+4V7g==
-X-Received: by 2002:a05:651c:22e:b0:299:ac68:4806 with SMTP id
- z14-20020a05651c022e00b00299ac684806mr5371715ljn.9.1680051331751; 
- Tue, 28 Mar 2023 17:55:31 -0700 (PDT)
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=B3QWtwCpJWCtNwbopMCBhlb/eX5Lt6OWuzbQyL+529U=;
+ b=GlOpQpX/+3RpunOfCrRkstXlYFdbgoA1JEVaNLvfAdLxix/prlziOL3DNng5B4RGGf
+ SUrtB0ENPGIOEwWm7n5n8sv7yOKzQi9BS39gCFyj+I6aPCNVAMcUmaAg5mrLtVtaSaKq
+ iGK8RqjbUarbj5Ptp2FPXnCRhMOEd20DoIjsPGzTaZEzmqBLnGvIAPqd0dXUTf8HK/mr
+ x3EIxJ2Km1kTBqCAqnz2X7iOjDxqepxqF4GeyaeP9cEFbSGaM3M26eeN7wbpVVPkNEsB
+ 3YUU5MMo31F3u0/h5WccIbNPyJjEuJ0m7UXGcc7RyZl6IUwEKePkC3e43+Mi4ID3l+bk
+ QPMg==
+X-Gm-Message-State: AAQBX9diM43CNfIhY1tl6FlLJo2KWA28juMUHZrnOBNqhpYozlU8oZ9d
+ QxUxDNKyUCLn6G6mSEhxLZW9tA==
+X-Google-Smtp-Source: AKy350boACpnTgN9FtbnZSYhmXfWiLUrmwJjIKp0oD59NFvzwtfWOEcN8QobmftFmb5nwehjacLh6w==
+X-Received: by 2002:a2e:9193:0:b0:293:34f1:73f9 with SMTP id
+ f19-20020a2e9193000000b0029334f173f9mr5683044ljg.13.1680051332456; 
+ Tue, 28 Mar 2023 17:55:32 -0700 (PDT)
 Received: from eriador.lan (dzccz6yyyyyyyyyyybcwt-3.rev.dnainternet.fi.
  [2001:14ba:a085:4d00::8a5]) by smtp.gmail.com with ESMTPSA id
  a4-20020a2e9804000000b002a03f9ffecesm3007181ljj.89.2023.03.28.17.55.31
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 28 Mar 2023 17:55:31 -0700 (PDT)
+ Tue, 28 Mar 2023 17:55:32 -0700 (PDT)
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 To: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
  Abhinav Kumar <quic_abhinavk@quicinc.com>
-Date: Wed, 29 Mar 2023 03:55:28 +0300
-Message-Id: <20230329005530.1077468-1-dmitry.baryshkov@linaro.org>
+Date: Wed, 29 Mar 2023 03:55:29 +0300
+Message-Id: <20230329005530.1077468-2-dmitry.baryshkov@linaro.org>
 X-Mailer: git-send-email 2.39.2
+In-Reply-To: <20230329005530.1077468-1-dmitry.baryshkov@linaro.org>
+References: <20230329005530.1077468-1-dmitry.baryshkov@linaro.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH v3 0/2] drm/msm: rework msm_parse_deps() and
- msm_parse_post_deps()
+Subject: [Freedreno] [PATCH v3 1/2] drm/msm: drop unused ring variable in
+ msm_ioctl_gem_submit()
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,28 +81,37 @@ Cc: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-As discusssed in the the review of [1], rework these two functions to
-separate single point parser and provide clean error path.
+The variable ring is not used by msm_parse_deps() and
+msm_ioctl_gem_submit() and thus can be dropped.
 
-Depenencies: [1], [2]
+Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+---
+ drivers/gpu/drm/msm/msm_gem_submit.c | 5 ++---
+ 1 file changed, 2 insertions(+), 3 deletions(-)
 
-[1] https://lore.kernel.org/all/20230215235048.1166484-1-robdclark@gmail.com
-[2] https://patchwork.freedesktop.org/patch/524090/?series=114362&rev=1
-
-Changes since v2:
-- Rebased on top of [2], which is a nice cleanup
-
-Changes since v1:
-- Restored dumping of ring->id in trace_msm_gpu_submit (requested by Rob
-  Clark)
-
-Dmitry Baryshkov (2):
-  drm/msm: drop unused ring variable in msm_ioctl_gem_submit()
-  drm/msm: simplify msm_parse_deps() and msm_parse_post_deps()
-
- drivers/gpu/drm/msm/msm_gem_submit.c | 191 +++++++++++++++------------
- 1 file changed, 103 insertions(+), 88 deletions(-)
-
+diff --git a/drivers/gpu/drm/msm/msm_gem_submit.c b/drivers/gpu/drm/msm/msm_gem_submit.c
+index 514ff5245c8a..f2a6775a10eb 100644
+--- a/drivers/gpu/drm/msm/msm_gem_submit.c
++++ b/drivers/gpu/drm/msm/msm_gem_submit.c
+@@ -550,8 +550,7 @@ static struct drm_syncobj **msm_parse_deps(struct msm_gem_submit *submit,
+                                            struct drm_file *file,
+                                            uint64_t in_syncobjs_addr,
+                                            uint32_t nr_in_syncobjs,
+-                                           size_t syncobj_stride,
+-                                           struct msm_ringbuffer *ring)
++                                           size_t syncobj_stride)
+ {
+ 	struct drm_syncobj **syncobjs = NULL;
+ 	struct drm_msm_gem_submit_syncobj syncobj_desc = {0};
+@@ -798,7 +797,7 @@ int msm_ioctl_gem_submit(struct drm_device *dev, void *data,
+ 		syncobjs_to_reset = msm_parse_deps(submit, file,
+ 		                                   args->in_syncobjs,
+ 		                                   args->nr_in_syncobjs,
+-		                                   args->syncobj_stride, ring);
++		                                   args->syncobj_stride);
+ 		if (IS_ERR(syncobjs_to_reset)) {
+ 			ret = PTR_ERR(syncobjs_to_reset);
+ 			goto out_unlock;
 -- 
 2.39.2
 
