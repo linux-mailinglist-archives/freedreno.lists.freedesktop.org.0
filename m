@@ -1,68 +1,65 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 415F86CD66F
-	for <lists+freedreno@lfdr.de>; Wed, 29 Mar 2023 11:30:33 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 24DF36CDB79
+	for <lists+freedreno@lfdr.de>; Wed, 29 Mar 2023 16:04:53 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E4A9D10E52B;
-	Wed, 29 Mar 2023 09:30:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AF89710EAE8;
+	Wed, 29 Mar 2023 14:04:51 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wm1-x331.google.com (mail-wm1-x331.google.com
- [IPv6:2a00:1450:4864:20::331])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A4F1D10E52B;
- Wed, 29 Mar 2023 09:30:29 +0000 (UTC)
-Received: by mail-wm1-x331.google.com with SMTP id p34so8477868wms.3;
- Wed, 29 Mar 2023 02:30:29 -0700 (PDT)
+Received: from mail-lf1-x133.google.com (mail-lf1-x133.google.com
+ [IPv6:2a00:1450:4864:20::133])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3F79010EAE8
+ for <freedreno@lists.freedesktop.org>; Wed, 29 Mar 2023 14:04:50 +0000 (UTC)
+Received: by mail-lf1-x133.google.com with SMTP id c9so9941637lfb.1
+ for <freedreno@lists.freedesktop.org>; Wed, 29 Mar 2023 07:04:50 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20210112; t=1680082228;
+ d=linaro.org; s=google; t=1680098688;
  h=content-transfer-encoding:mime-version:message-id:date:subject:cc
  :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=1lEaDc8be8FkWi1HX0iSofPQaKiEa8pAZUfrsxxjcSw=;
- b=FCR79EhyW0vJpHBYVKlPW8vXWhRAihkRSI0u4tf7VDEIDF7RSF3B2bJXqAywT69v72
- meKdvUnF+HCW5+Bqf/2fqch6RTAdmaRS8grsaLPzlZ/RbhskfugKDh7RtxikBZmCQQGF
- Z6DaRvzRiaDxk3OSWzx/ArjH9MqFrNhMiiIeOiEgQ7XI7VmML6U5HqK6/F4ZPg43Q2fD
- gSMO+OWlcHYoGlBwUpXakZ/yUVg1C1SJWkSt0Txi+jHvcAEGMXsT2BJwybKYUAbqHlXN
- EAh+UxqQCU1/CzGu1fGjNRBu7r0QGULKp/iDtEtAAVkPqDmVe9tA9rNEeypYzinW8MJk
- Bi/w==
+ bh=RHJ0WvwFhiwkNTXEVFAcPy6OADOzAA2uvcs+k52iD3M=;
+ b=BVWxz02BP62xHNvQqVawNsr8/34+J8NWKHuzN6MPcgZdTfCDdxWgtB/bRHjQHDLYpa
+ 8y4U3Ktra2AcImTgh7g9x+808EFuitW3L2kKfw8kqmdWNc58ySzVoa83d6wEY8VHio6E
+ AqxwvtzXiD9jvDp4f59y8HlrK2tnynYGSvhH0TfOndIdBF4oX1yloBovV8Ml5qk4tyNm
+ Juq82SBIFpKv0zlGiuT5fCdOiA8689mtzuGQOrFi+gzImO6l0ZJA8c4IoQQyUb72dPG0
+ M97dP58+YmQcnKNItNAho3iXUafJ6//KvH0pFgRgFa0nxfPM/ysTmv9Y2HZ05jm2RsoN
+ C+oA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112; t=1680082228;
+ d=1e100.net; s=20210112; t=1680098688;
  h=content-transfer-encoding:mime-version:message-id:date:subject:cc
  :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=1lEaDc8be8FkWi1HX0iSofPQaKiEa8pAZUfrsxxjcSw=;
- b=C2+/8raGvwsCQm2ndPspD0iMvHWEfhCAwu3o9UGX9gb9Dvjb2aJRpwzmxdt6v5y+Ek
- rGC9MHbYClVGjt9cwhO472TY02SesFxwuXiDv0fAGPqn7/+6fZhMkeM8TYuD6gjnHlFO
- Kp+v07TPh8g7/ZSNFMW33byXBprRPtv/rjIY3+xW+RKz4KeamgCqt7AAk8w7mIvLG1zK
- FhA7VYk8aitrXwHR1z2zosZjdEAqa06DcgLi3c1zuOvc2t/a1UqXVM91Yjo3bN9Cvkn/
- TBvD+ycUxU5JKvAtuadQrYBWGmb0oDiRvwkhAnDG8mA96KOjHYfdEEVIj/5ESMNEHWMP
- v2IA==
-X-Gm-Message-State: AO0yUKVtPTCVvU7u0G+PTdiPYjhsaOEw8y4hUgY0QtZrM/csXMHRtc9W
- bb0gM/92HSdaIX6MLBM7q5Q=
-X-Google-Smtp-Source: AK7set8icXlaIt2CvY3lleghHnnb5TGOj1bkw4TJVx7xOyJ8D/nA/R6NaqroGfmG6xJJgjVkcL3yJg==
-X-Received: by 2002:a1c:4c0d:0:b0:3eb:2e32:72c3 with SMTP id
- z13-20020a1c4c0d000000b003eb2e3272c3mr15711230wmf.22.1680082227927; 
- Wed, 29 Mar 2023 02:30:27 -0700 (PDT)
-Received: from localhost (cpc154979-craw9-2-0-cust193.16-3.cable.virginm.net.
- [80.193.200.194]) by smtp.gmail.com with ESMTPSA id
- a13-20020a05600c224d00b003edef091b17sm1573356wmm.37.2023.03.29.02.30.27
+ bh=RHJ0WvwFhiwkNTXEVFAcPy6OADOzAA2uvcs+k52iD3M=;
+ b=ESfb09bMFd/Ijul0eOsaPMsI95jV7iva22Zu+5yI1EG69Vq7K9UiDQMak32ZFDZgK6
+ JkHMjcJtPFdEV6zMr7cxGdBHmQcr/bKYaxkyVCyLSB2QpbW69b6h72Mw7HJTmnS55Xnl
+ FvJq44FPzRwHc0MtkM3Z0tEUsylXeyRZOs0iSK1/Rv3PcjLykZ8pwmCN7Bw13i8jGcAd
+ WDrEJKt1YnbwcJZD2K28qwqUfXB8B5spWkkI3IBx0QSRsswEOrn+du6fAqITeOhnSSr3
+ 2TaCm+VYLO1fkc4Qvr/i0D3Nf8vJoRhVlPqBcuRWn5UKjxCdqhZexxnSMgjWitfZrezJ
+ cctQ==
+X-Gm-Message-State: AAQBX9dzjajvBp3GiMAcbY3x6sNjbXBMN3helHhVLIpnxjLfm7k5bbzJ
+ HUAYQSNMVhAXTXUHqBcwRD9v+A==
+X-Google-Smtp-Source: AKy350bZjIkvOV30egQBp76DByMuaZbSmTJ1/6zX+9+rZEZvIkolNPlHLICPA3fsY5DWKnVOqEqpzg==
+X-Received: by 2002:ac2:4889:0:b0:4e0:61a6:c158 with SMTP id
+ x9-20020ac24889000000b004e061a6c158mr5775860lfc.36.1680098688469; 
+ Wed, 29 Mar 2023 07:04:48 -0700 (PDT)
+Received: from localhost.localdomain (abxj225.neoplus.adsl.tpnet.pl.
+ [83.9.3.225]) by smtp.gmail.com with ESMTPSA id
+ f21-20020ac251b5000000b004eaf2207a33sm3501083lfk.223.2023.03.29.07.04.47
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 29 Mar 2023 02:30:27 -0700 (PDT)
-From: Colin Ian King <colin.i.king@gmail.com>
-To: Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Sean Paul <sean@poorly.run>, David Airlie <airlied@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org
-Date: Wed, 29 Mar 2023 10:30:26 +0100
-Message-Id: <20230329093026.418847-1-colin.i.king@gmail.com>
-X-Mailer: git-send-email 2.30.2
+ Wed, 29 Mar 2023 07:04:48 -0700 (PDT)
+From: Konrad Dybcio <konrad.dybcio@linaro.org>
+To: linux-arm-msm@vger.kernel.org,
+	andersson@kernel.org,
+	agross@kernel.org
+Date: Wed, 29 Mar 2023 16:04:44 +0200
+Message-Id: <20230329140445.2180662-1-konrad.dybcio@linaro.org>
+X-Mailer: git-send-email 2.40.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH][next] drm/msm/mdss: Fix spelling mistake
- "Unuspported" -> "Unsupported"
+Subject: [Freedreno] [PATCH] drm/msm/adreno: adreno_gpu: Use suspend()
+ instead of idle() on load error
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,30 +72,53 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: kernel-janitors@vger.kernel.org, linux-kernel@vger.kernel.org
+Cc: Nathan Chancellor <nathan@kernel.org>,
+ Akhil P Oommen <quic_akhilpo@quicinc.com>, David Airlie <airlied@gmail.com>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Konrad Dybcio <konrad.dybcio@linaro.org>,
+ "Joel Fernandes \(Google\)" <joel@joelfernandes.org>,
+ Rob Clark <robdclark@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, marijn.suijten@somainline.org,
+ freedreno@lists.freedesktop.org, Sean Paul <sean@poorly.run>,
+ Johan Hovold <johan+linaro@kernel.org>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-There is a spelling mistake in a dev_error message. Fix it.
+If we fail to initialize the GPU for whatever reason (say we don't
+embed the GPU firmware files in the initrd), the error path involves
+pm_runtime_put_sync() which then calls idle() instead of suspend().
 
-Signed-off-by: Colin Ian King <colin.i.king@gmail.com>
+This is suboptimal, as it means that we're not going through the
+clean shutdown sequence. With at least A619_holi, this makes the GPU
+not wake up until it goes through at least one more start-fail-stop
+cycle. Fix that by using pm_runtime_put_sync_suspend to force a clean
+shutdown.
+
+Test cases:
+1. firmware baked into kernel
+2. error loading fw in initrd -> load from rootfs at DE start
+
+Both succeed on A619_holi (SM6375) and A630 (SDM845).
+
+Fixes: 0d997f95b70f ("drm/msm/adreno: fix runtime PM imbalance at gpu load")
+Signed-off-by: Konrad Dybcio <konrad.dybcio@linaro.org>
 ---
- drivers/gpu/drm/msm/msm_mdss.c | 2 +-
+ drivers/gpu/drm/msm/adreno/adreno_device.c | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/msm/msm_mdss.c b/drivers/gpu/drm/msm/msm_mdss.c
-index c15d1e2dc718..7cb301854e64 100644
---- a/drivers/gpu/drm/msm/msm_mdss.c
-+++ b/drivers/gpu/drm/msm/msm_mdss.c
-@@ -274,7 +274,7 @@ static int msm_mdss_enable(struct msm_mdss *msm_mdss)
- 		msm_mdss_setup_ubwc_dec_40(msm_mdss);
- 		break;
- 	default:
--		dev_err(msm_mdss->dev, "Unuspported UBWC decoder version %x\n",
-+		dev_err(msm_mdss->dev, "Unsupported UBWC decoder version %x\n",
- 			msm_mdss->mdss_data->ubwc_dec_version);
- 		dev_err(msm_mdss->dev, "HW_REV: 0x%x\n",
- 			readl_relaxed(msm_mdss->mmio + HW_REV));
+diff --git a/drivers/gpu/drm/msm/adreno/adreno_device.c b/drivers/gpu/drm/msm/adreno/adreno_device.c
+index f61896629be6..59f3302e8167 100644
+--- a/drivers/gpu/drm/msm/adreno/adreno_device.c
++++ b/drivers/gpu/drm/msm/adreno/adreno_device.c
+@@ -477,7 +477,7 @@ struct msm_gpu *adreno_load_gpu(struct drm_device *dev)
+ 	return gpu;
+ 
+ err_put_rpm:
+-	pm_runtime_put_sync(&pdev->dev);
++	pm_runtime_put_sync_suspend(&pdev->dev);
+ err_disable_rpm:
+ 	pm_runtime_disable(&pdev->dev);
+ 
 -- 
-2.30.2
+2.40.0
 
