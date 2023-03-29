@@ -2,72 +2,63 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8B91D6CCEFE
-	for <lists+freedreno@lfdr.de>; Wed, 29 Mar 2023 02:37:46 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 152B06CCF1E
+	for <lists+freedreno@lfdr.de>; Wed, 29 Mar 2023 02:55:41 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3463710EA19;
-	Wed, 29 Mar 2023 00:37:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 72B7F10E345;
+	Wed, 29 Mar 2023 00:55:36 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x129.google.com (mail-lf1-x129.google.com
- [IPv6:2a00:1450:4864:20::129])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B1B5210E4C4
- for <freedreno@lists.freedesktop.org>; Wed, 29 Mar 2023 00:37:21 +0000 (UTC)
-Received: by mail-lf1-x129.google.com with SMTP id y20so18093880lfj.2
- for <freedreno@lists.freedesktop.org>; Tue, 28 Mar 2023 17:37:21 -0700 (PDT)
+Received: from mail-lj1-x22a.google.com (mail-lj1-x22a.google.com
+ [IPv6:2a00:1450:4864:20::22a])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7BD8610E044
+ for <freedreno@lists.freedesktop.org>; Wed, 29 Mar 2023 00:55:33 +0000 (UTC)
+Received: by mail-lj1-x22a.google.com with SMTP id a21so7255321ljq.10
+ for <freedreno@lists.freedesktop.org>; Tue, 28 Mar 2023 17:55:33 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1680050240;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=AXWuxeHMpQCt72Y6URHGm/0rqCv9ixM2ky1A1nPsEmM=;
- b=hqU3ki1Q6/iWlUzswF/kh0d7F4xfgz2At6Aw7rBzVSCGJgu1fGg6DyVkc3kCsr+lh5
- JpwbZnSbNYmu4r2nVr4MZNik83G+5rJ5scblXrzJ+eAD1ZhYpD4p7JRq7MI1wFXfI+iO
- 2upTmNcKfv1cTamizstEzS/jenx01HTJQ8tHXxnM+3TcpejsRClf2QKQLL29J7yE3Wcl
- RqLEnQRSu6kX/ia9yDQ+qkSnWH+bJ2W7MSNb7hegRWi9F53ieJbTOSxaYws63U3Lu4se
- /sd8P3CSqpzCGedTBiiL5e4ezlypJtdfsYaSeLUTNfSvYq5toOw5ExCci5ktz3Qk3R6p
- UjjQ==
+ d=linaro.org; s=google; t=1680051332;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=wspEvGhw3Ov/MaCptFOSLj1uP8AL5mjsZccbIYoFgs0=;
+ b=qccSE5gDPyXWQOFV9gcvApZCxxiV5PsgFUrXDDldrH9yUic0hXBWom2Nrksb/ElU/O
+ mTcNAQuRvcMhT3kfhyzFGb7WKrc3h2sbb0b46+HPWilPrM2kDsL0ZCx67YNcuwQPizkW
+ v5MJxSkOrcf+EoI7HmXccn4vMfv6zbZu/yICCEoAtCtNGbMbhCW3gXcqAsHgSuMrI3Ae
+ Rn5ouRGyQPOhczXKlht4vEEMspMjzNp72HgKC/JVgqYbZwiKXnTfQebbAeQePzRR2p0W
+ YDpL83KibbT/IiflDxguDxNAjk/hoq1+pY2KPinIJS5rUTnlVeNPeNSMeGGAIEYnHOO4
+ UYVg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112; t=1680050240;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=AXWuxeHMpQCt72Y6URHGm/0rqCv9ixM2ky1A1nPsEmM=;
- b=adrqR08DlNMHn5IK/FWdw61jGTwr+k8s+Dm5+HgUIfDQ+2xwpodwDkg95sAQFHZvPY
- Fzul5AlgPKlZTGL0IQG82+PYy50b5XRCKtiSjRJSZ4hD6zinc+rpSGsIEeEUOWreJyD6
- R7o1vRzDR53VldE11O4YqFuN8JpTjOMU1j9DIZxnXXHkmEkvfD3K4yXaHXKjGLJp4zYW
- EbRzV8BhVSStVehYkWcV21sts9X0nn1PjgzcAEm2cEfMko+H+9Uin5XQyTmoRcK2QDGa
- OUhLWk1sxzyYN0mTZMxKinPllBRbmsPfeFpF91fXino8uFCz0xOPwjcyUET2rdPcc5fu
- ViNw==
-X-Gm-Message-State: AAQBX9cZZch3Z1FyAWAPybxvff9uBF9BXtvCdI8fHJuJxXhUXZKxjrhb
- 6F9lUhylhnRMvXCiWXi+/j2AwQ==
-X-Google-Smtp-Source: AKy350aO16EGApaQ88+8KjUEilQMRGi6JlibmmkIedsK2TcF7sV227xOvVzIS6LwpXCFnfxgC0Geuw==
-X-Received: by 2002:a19:f009:0:b0:4eb:1213:ce2d with SMTP id
- p9-20020a19f009000000b004eb1213ce2dmr2335523lfc.61.1680050239847; 
- Tue, 28 Mar 2023 17:37:19 -0700 (PDT)
+ d=1e100.net; s=20210112; t=1680051332;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=wspEvGhw3Ov/MaCptFOSLj1uP8AL5mjsZccbIYoFgs0=;
+ b=tyPZQGwUxqyjc7BagIS2sfQD4w/uGLalc+xDDKhzqCvQdYX2v85h3sprQJCspMlyM5
+ IH7Z4GBHjdnqJh9XuxmfUoPGx9pmkn4kq2LirTB1c7DoJH93JNBPGCigyfb6Ob4Mklef
+ SNJnEbHxjZ+QMAFTIprT1NL3p8NWWwp/FfZQipD8MongS9tgRcjPagks5rf6OMpXIJv+
+ V6dQnVNLhV3ShDKjf4S/hULVS0eZwXCpVXbU8U7gq7LIu8vcn6hoEMGwnWAEA6VLn9FJ
+ Jaon/PDonhywHRD0INnV9vAPwBy1RlT2wNJebS6dqlepFpFBvxg9prK84JOEFcn7mIKk
+ ZSNg==
+X-Gm-Message-State: AAQBX9erQYGTkzBvflCBEpaL86ylCbfzwb3WtnUYIBUyhH6log4v4V/p
+ +rhvVqYUVkM+/FaicGsaPFdTYQ==
+X-Google-Smtp-Source: AKy350azZ/8o/Tfo8luMhUstYP4ruMWmp+d9Nn0NFdeIy1LT1RDnDdV1l+BtCvu6KKGWHWJfb+4V7g==
+X-Received: by 2002:a05:651c:22e:b0:299:ac68:4806 with SMTP id
+ z14-20020a05651c022e00b00299ac684806mr5371715ljn.9.1680051331751; 
+ Tue, 28 Mar 2023 17:55:31 -0700 (PDT)
 Received: from eriador.lan (dzccz6yyyyyyyyyyybcwt-3.rev.dnainternet.fi.
  [2001:14ba:a085:4d00::8a5]) by smtp.gmail.com with ESMTPSA id
- y3-20020ac24463000000b004db00b4c671sm5254138lfl.7.2023.03.28.17.37.19
+ a4-20020a2e9804000000b002a03f9ffecesm3007181ljj.89.2023.03.28.17.55.31
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 28 Mar 2023 17:37:19 -0700 (PDT)
+ Tue, 28 Mar 2023 17:55:31 -0700 (PDT)
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-To: David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Suraj Kandpal <suraj.kandpal@intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
- Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>
-Date: Wed, 29 Mar 2023 03:37:10 +0300
-Message-Id: <20230329003710.1073261-11-dmitry.baryshkov@linaro.org>
+To: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>
+Date: Wed, 29 Mar 2023 03:55:28 +0300
+Message-Id: <20230329005530.1077468-1-dmitry.baryshkov@linaro.org>
 X-Mailer: git-send-email 2.39.2
-In-Reply-To: <20230329003710.1073261-1-dmitry.baryshkov@linaro.org>
-References: <20230329003710.1073261-1-dmitry.baryshkov@linaro.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH v3 10/10] drm/msm/dsi: use new helpers for DSC
- setup
+Subject: [Freedreno] [PATCH v3 0/2] drm/msm: rework msm_parse_deps() and
+ msm_parse_post_deps()
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,112 +71,35 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-arm-msm@vger.kernel.org, intel-gfx@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- =?UTF-8?q?Ville=20Syrj=C3=A4l=C3=A4?= <ville.syrjala@linux.intel.com>
+Cc: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
+ Bjorn Andersson <andersson@kernel.org>, dri-devel@lists.freedesktop.org,
+ Stephen Boyd <swboyd@chromium.org>, Daniel Vetter <daniel@ffwll.ch>,
+ David Airlie <airlied@gmail.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Use new DRM DSC helpers to setup DSI DSC configuration. The
-initial_scale_value needs to be adjusted according to the standard, but
-this is a separate change.
+As discusssed in the the review of [1], rework these two functions to
+separate single point parser and provide clean error path.
 
-Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
----
- drivers/gpu/drm/msm/dsi/dsi_host.c | 61 ++++--------------------------
- 1 file changed, 8 insertions(+), 53 deletions(-)
+Depenencies: [1], [2]
 
-diff --git a/drivers/gpu/drm/msm/dsi/dsi_host.c b/drivers/gpu/drm/msm/dsi/dsi_host.c
-index 18fa30e1e858..dda989727921 100644
---- a/drivers/gpu/drm/msm/dsi/dsi_host.c
-+++ b/drivers/gpu/drm/msm/dsi/dsi_host.c
-@@ -1735,28 +1735,9 @@ static int dsi_host_parse_lane_data(struct msm_dsi_host *msm_host,
- 	return -EINVAL;
- }
- 
--static u32 dsi_dsc_rc_buf_thresh[DSC_NUM_BUF_RANGES - 1] = {
--	0x0e, 0x1c, 0x2a, 0x38, 0x46, 0x54, 0x62,
--	0x69, 0x70, 0x77, 0x79, 0x7b, 0x7d, 0x7e
--};
--
--/* only 8bpc, 8bpp added */
--static char min_qp[DSC_NUM_BUF_RANGES] = {
--	0, 0, 1, 1, 3, 3, 3, 3, 3, 3, 5, 5, 5, 7, 13
--};
--
--static char max_qp[DSC_NUM_BUF_RANGES] = {
--	4, 4, 5, 6, 7, 7, 7, 8, 9, 10, 11, 12, 13, 13, 15
--};
--
--static char bpg_offset[DSC_NUM_BUF_RANGES] = {
--	2, 0, 0, -2, -4, -6, -8, -8, -8, -10, -10, -12, -12, -12, -12
--};
--
- static int dsi_populate_dsc_params(struct msm_dsi_host *msm_host, struct drm_dsc_config *dsc)
- {
--	int i;
--	u16 bpp = dsc->bits_per_pixel >> 4;
-+	int ret;
- 
- 	if (dsc->bits_per_pixel & 0xf) {
- 		DRM_DEV_ERROR(&msm_host->pdev->dev, "DSI does not support fractional bits_per_pixel\n");
-@@ -1768,49 +1749,23 @@ static int dsi_populate_dsc_params(struct msm_dsi_host *msm_host, struct drm_dsc
- 		return -EOPNOTSUPP;
- 	}
- 
--	dsc->rc_model_size = 8192;
--	dsc->first_line_bpg_offset = 12;
--	dsc->rc_edge_factor = 6;
--	dsc->rc_tgt_offset_high = 3;
--	dsc->rc_tgt_offset_low = 3;
- 	dsc->simple_422 = 0;
- 	dsc->convert_rgb = 1;
- 	dsc->vbr_enable = 0;
- 
--	/* handle only bpp = bpc = 8 */
--	for (i = 0; i < DSC_NUM_BUF_RANGES - 1 ; i++)
--		dsc->rc_buf_thresh[i] = dsi_dsc_rc_buf_thresh[i];
-+	drm_dsc_set_const_params(dsc);
-+	drm_dsc_set_rc_buf_thresh(dsc);
- 
--	for (i = 0; i < DSC_NUM_BUF_RANGES; i++) {
--		dsc->rc_range_params[i].range_min_qp = min_qp[i];
--		dsc->rc_range_params[i].range_max_qp = max_qp[i];
--		/*
--		 * Range BPG Offset contains two's-complement signed values that fill
--		 * 8 bits, yet the registers and DCS PPS field are only 6 bits wide.
--		 */
--		dsc->rc_range_params[i].range_bpg_offset = bpg_offset[i] & DSC_RANGE_BPG_OFFSET_MASK;
-+	/* handle only bpp = bpc = 8, pre-SCR panels */
-+	ret = drm_dsc_setup_rc_params(dsc, DRM_DSC_1_1_PRE_SCR);
-+	if (ret) {
-+		DRM_DEV_ERROR(&msm_host->pdev->dev, "could not find DSC RC parameters\n");
-+		return ret;
- 	}
- 
--	dsc->initial_offset = 6144;		/* Not bpp 12 */
--	if (bpp != 8)
--		dsc->initial_offset = 2048;	/* bpp = 12 */
--
--	if (dsc->bits_per_component <= 10)
--		dsc->mux_word_size = DSC_MUX_WORD_SIZE_8_10_BPC;
--	else
--		dsc->mux_word_size = DSC_MUX_WORD_SIZE_12_BPC;
--
--	dsc->initial_xmit_delay = 512;
- 	dsc->initial_scale_value = 32;
--	dsc->first_line_bpg_offset = 12;
- 	dsc->line_buf_depth = dsc->bits_per_component + 1;
- 
--	/* bpc 8 */
--	dsc->flatness_min_qp = 3;
--	dsc->flatness_max_qp = 12;
--	dsc->rc_quant_incr_limit0 = 11;
--	dsc->rc_quant_incr_limit1 = 11;
--
- 	return drm_dsc_compute_rc_parameters(dsc);
- }
- 
+[1] https://lore.kernel.org/all/20230215235048.1166484-1-robdclark@gmail.com
+[2] https://patchwork.freedesktop.org/patch/524090/?series=114362&rev=1
+
+Changes since v2:
+- Rebased on top of [2], which is a nice cleanup
+
+Changes since v1:
+- Restored dumping of ring->id in trace_msm_gpu_submit (requested by Rob
+  Clark)
+
+Dmitry Baryshkov (2):
+  drm/msm: drop unused ring variable in msm_ioctl_gem_submit()
+  drm/msm: simplify msm_parse_deps() and msm_parse_post_deps()
+
+ drivers/gpu/drm/msm/msm_gem_submit.c | 191 +++++++++++++++------------
+ 1 file changed, 103 insertions(+), 88 deletions(-)
+
 -- 
 2.39.2
 
