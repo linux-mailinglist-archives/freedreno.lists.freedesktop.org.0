@@ -1,55 +1,74 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5EC826CF3BF
-	for <lists+freedreno@lfdr.de>; Wed, 29 Mar 2023 21:52:31 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 2E7496CF3F7
+	for <lists+freedreno@lfdr.de>; Wed, 29 Mar 2023 22:01:08 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 24E6010E55A;
-	Wed, 29 Mar 2023 19:52:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A93B410EC08;
+	Wed, 29 Mar 2023 20:01:06 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BD69C10EBA8;
- Wed, 29 Mar 2023 19:52:27 +0000 (UTC)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 03B2E61E05;
- Wed, 29 Mar 2023 19:52:27 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D0CE4C4339E;
- Wed, 29 Mar 2023 19:52:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1680119545;
- bh=mjLUdufgtgjPzwdtcadGyC411S2foJg6r/cD6VhlXN4=;
- h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
- b=qh6CniKz4OR9ie0HZ4eBHL2PCwlZwptw5bOansqcfWqmKbNn0DRr2Jn1rF4Ht+X+B
- g+oOvlU+yBojkq/J+BvLZzSDIm7J3wffF/AS8iWHWDOep0ruQENOFj/NxPm0d/TWGk
- mS4aimJ4z6asp/R7d5fWDpg8rdDQRrQ4RhfR6dFa3noH4lWOUJzZuODvGaUAm8qPRN
- 9gMiEg+sjFjEIWjJ/Cl1qg/ungMxT7U1gg0rGzNva14P2UZpbViHR/m3CfU470jiLt
- ucQVGcw5GrvTOLwGk+bxEHymd7l/mPMYUThEL6G+smkxH84D2PIBCHTmCy5YLZvO6z
- hEjwPoTibmorA==
-Received: by mail-yw1-f172.google.com with SMTP id
- 00721157ae682-536af432ee5so314450717b3.0; 
- Wed, 29 Mar 2023 12:52:25 -0700 (PDT)
-X-Gm-Message-State: AAQBX9cfhZHEdmb5vUeM9KBmgigY/GV+QzmAWDCGFKk8BA/U4a/PbhDJ
- 2JErCfeKHT2yuXkzgj759+XXipui/BFIJr+7Dw==
-X-Google-Smtp-Source: AKy350YmTOlpc30ipg9mtdb/RKboI8SpnHxYbSbWPKuwuA23l/hU01zX5J4huXLPc4DktXCK19e9vRvERkA2b90bHlw=
-X-Received: by 2002:a81:b50f:0:b0:544:b8d8:339e with SMTP id
- t15-20020a81b50f000000b00544b8d8339emr10288144ywh.5.1680119544920; Wed, 29
- Mar 2023 12:52:24 -0700 (PDT)
+Received: from mail-lf1-x130.google.com (mail-lf1-x130.google.com
+ [IPv6:2a00:1450:4864:20::130])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7098610EC08
+ for <freedreno@lists.freedesktop.org>; Wed, 29 Mar 2023 20:01:04 +0000 (UTC)
+Received: by mail-lf1-x130.google.com with SMTP id g19so8599955lfr.9
+ for <freedreno@lists.freedesktop.org>; Wed, 29 Mar 2023 13:01:04 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1680120062;
+ h=content-transfer-encoding:in-reply-to:references:cc:to:from
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=QOz2LnBeoR0UsX1ajFY+JsP7ZZvmsV9hCjLXu958Cw4=;
+ b=bvnD+S2+ONOEkOKYd9Sua4486Us6nUvXP1T7Av/0SNOnmG5sC9rX7LYqJQH4aFbIIk
+ d16Igh19Bdy1nRd8FXa7wbVzZIHgH0efIYEa55zZOI1lubyzPRv0SYYv/irQsNR9P35R
+ PU5x23FQMlg2MCg+1WsA3JdRBa3sgcSivfFTuSBXOb+ktYK8TplB0tG3pq6E1Pyfk/8n
+ /FS9JII8RSU3T3+BL7K9tkXYiYWwJDjJJHlyatB1TRYbis9K51clA5Ayr0FSwev9wtAa
+ lTJ0G9zwkQ4a80pZg4bDROA6+wNOwGxUEolcG+HhVkY+DFsDkXLtaDfLgj4ya8H8vGqT
+ phyQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112; t=1680120062;
+ h=content-transfer-encoding:in-reply-to:references:cc:to:from
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=QOz2LnBeoR0UsX1ajFY+JsP7ZZvmsV9hCjLXu958Cw4=;
+ b=jm4Sc3JBGCQhVL+uuFKHHXqSljXA4vCtrhhabje2KhOroo15Ypdv5u48wI0wNE5K16
+ SR6Lp4bYuOMzGX6BrXmEmvia09ELzgzr1fWXJ8QCOFo5I1x1bNJpsfvBGypkb1F3IKxt
+ P4qHS6tRFtupWfFnyuv0VWejYnhvx6sZlWQvUlcw16pVRF4tgreqe9SpEDiy0BKe4nge
+ aT+NqW7mtNnbIDEKtODtrxigMiZ71WmBHzftJFieiRWAedi6cvGJrqK8c8V3XyFeyKUy
+ yX54QMsQ1WQ8Su02xYC/lRrLDrJR0LEqWbsMIvHOt5JO84bjwfyjN28Q0B67jcMGZ6q7
+ D7/w==
+X-Gm-Message-State: AAQBX9dXmoCacPBnKHGb01Nz6hUolS3By1hIu+BKG6Lhss2OVCnTC0zr
+ YXA2VnsQP4dWBJRz+mXjM2W6Lw==
+X-Google-Smtp-Source: AKy350bhm+8M87yTF9xXkPrCxrIC+ScPXmtLGPFwZX0Q9oEVNcpmxE6UwcLGLVfQlyHI7IY27XqsUw==
+X-Received: by 2002:ac2:5969:0:b0:4b5:2cf4:cc1d with SMTP id
+ h9-20020ac25969000000b004b52cf4cc1dmr6002100lfp.68.1680120062582; 
+ Wed, 29 Mar 2023 13:01:02 -0700 (PDT)
+Received: from [10.10.15.130] ([192.130.178.91])
+ by smtp.gmail.com with ESMTPSA id
+ l17-20020ac25551000000b004cc9042c9cfsm5545322lfk.158.2023.03.29.13.01.01
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 29 Mar 2023 13:01:02 -0700 (PDT)
+Message-ID: <9fbda2ac-d611-ed3a-bbd5-4fa58f39c713@linaro.org>
+Date: Wed, 29 Mar 2023 23:01:01 +0300
 MIME-Version: 1.0
-References: <20230103-topic-sm8550-upstream-mdss-dsi-v3-0-660c3bcb127f@linaro.org>
- <168004255469.1060915.1800625604847213121.b4-ty@linaro.org>
-In-Reply-To: <168004255469.1060915.1800625604847213121.b4-ty@linaro.org>
-From: Rob Herring <robh+dt@kernel.org>
-Date: Wed, 29 Mar 2023 14:52:13 -0500
-X-Gmail-Original-Message-ID: <CAL_Jsq+VoBkpCT_iUD1Nq_SazCVDa49rn0qtX3Qnm1KBB3gkcg@mail.gmail.com>
-Message-ID: <CAL_Jsq+VoBkpCT_iUD1Nq_SazCVDa49rn0qtX3Qnm1KBB3gkcg@mail.gmail.com>
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [Freedreno] [PATCH v3 0/7] drm/msm: add support for SM8550
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.9.0
+Content-Language: en-GB
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+To: Konrad Dybcio <konrad.dybcio@linaro.org>, Rob Clark
+ <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>
+References: <20230211231259.1308718-1-dmitry.baryshkov@linaro.org>
+ <20230211231259.1308718-15-dmitry.baryshkov@linaro.org>
+ <f0cc19ec-83ee-151d-e4d2-83a2cd5dc7f7@linaro.org>
+ <526734f4-d2a6-b8b3-d300-dbf0bcfde91f@linaro.org>
+In-Reply-To: <526734f4-d2a6-b8b3-d300-dbf0bcfde91f@linaro.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Subject: Re: [Freedreno] [PATCH v2 14/50] drm/msm/dpu: Allow variable
+ SSPP/INTF_BLK size
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,61 +81,43 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Neil Armstrong <neil.armstrong@linaro.org>, Daniel Vetter <daniel@ffwll.ch>,
- Jonathan Marek <jonathan@marek.ca>, devicetree@vger.kernel.org,
- Sean Paul <sean@poorly.run>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
- Rob Clark <robdclark@gmail.com>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
+Cc: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
+ Bjorn Andersson <andersson@kernel.org>, dri-devel@lists.freedesktop.org,
+ Stephen Boyd <swboyd@chromium.org>, Daniel Vetter <daniel@ffwll.ch>,
  David Airlie <airlied@gmail.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Tue, Mar 28, 2023 at 5:38=E2=80=AFPM Dmitry Baryshkov
-<dmitry.baryshkov@linaro.org> wrote:
->
->
-> On Mon, 09 Jan 2023 11:15:17 +0100, Neil Armstrong wrote:
-> > This adds support for the MDSS/DPU/DSI on the Qualcomm SM8550 platform.
-> >
-> > This patchset is based on the SM8450 display support serie at [1].
-> >
-> > In order to work, the following patchsets are required:
-> > - PM8550 LDO fix at [2]
-> > - DISPCC driver at [3]
-> >
-> > [...]
->
-> Applied, thanks!
->
-> [2/7] dt-bindings: display/msm: document DPU on SM8550
->       https://gitlab.freedesktop.org/lumag/msm/-/commit/4557e40338d2
-> [3/7] dt-bindings: display/msm: document MDSS on SM8550
->       https://gitlab.freedesktop.org/lumag/msm/-/commit/0e4205eb8663
+On 13/02/2023 13:18, Dmitry Baryshkov wrote:
+> On 13/02/2023 13:01, Konrad Dybcio wrote:
+>>
+>>
+>> On 12.02.2023 00:12, Dmitry Baryshkov wrote:
+>>> From: Konrad Dybcio <konrad.dybcio@linaro.org>
+>>>
+>>> These blocks are of variable length on different SoCs. Set the
+>>> correct values where I was able to retrieve it from downstream
+>>> DTs and leave the old defaults (0x1c8 for sspp and 0x280 for
+>>> intf) otherwise.
+>>>
+>>> Signed-off-by: Konrad Dybcio <konrad.dybcio@linaro.org>
+>>> [DB: fixed some of lengths]
+>>> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+>>> ---
+>> Oh you fixed it quicker than I could respond!
+> 
+> Yes, I wanted to include it into this patchset, so I had to fix it.
+> 
+>>
+>> Still, I think the 8280 sspp size should not be
+>> 2x the norm..
+> 
+> Let's doublecheck this with somebody having access to docs.
 
-And now failing on linux-next just as my bot reported:
+The additional research shows that all of us were wrong here. I'll 
+update it to 0x2ac for the next revision of the patchset.
 
-Documentation/devicetree/bindings/display/msm/qcom,sm8550-dpu.example.dts:2=
-4:18:
-fatal error: dt-bindings/interconnect/qcom,sm8550.h: No such file or
-directory
-   24 |         #include <dt-bindings/interconnect/qcom,sm8550.h>
-      |                  ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-compilation terminated.
-make[1]: *** [scripts/Makefile.lib:419:
-Documentation/devicetree/bindings/display/msm/qcom,sm8550-dpu.example.dtb]
-Error 1
-Documentation/devicetree/bindings/display/msm/qcom,sm8550-mdss.example.dts:=
-25:18:
-fatal error: dt-bindings/interconnect/qcom,sm8550.h: No such file or
-directory
-   25 |         #include <dt-bindings/interconnect/qcom,sm8550.h>
-      |                  ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-compilation terminated.
+-- 
+With best wishes
+Dmitry
 
-Please fix. And quickly please. Fixes in the DRM tree seem to take
-forever to get in...
-
-Rob
