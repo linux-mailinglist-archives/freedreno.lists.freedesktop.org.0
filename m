@@ -2,38 +2,54 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 573E26CF398
-	for <lists+freedreno@lfdr.de>; Wed, 29 Mar 2023 21:49:15 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5EC826CF3BF
+	for <lists+freedreno@lfdr.de>; Wed, 29 Mar 2023 21:52:31 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A979910E1AB;
-	Wed, 29 Mar 2023 19:49:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 24E6010E55A;
+	Wed, 29 Mar 2023 19:52:30 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from m-r2.th.seeweb.it (m-r2.th.seeweb.it [5.144.164.171])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 687B410E1AB
- for <freedreno@lists.freedesktop.org>; Wed, 29 Mar 2023 19:49:10 +0000 (UTC)
-Received: from [192.168.1.101] (abxj225.neoplus.adsl.tpnet.pl [83.9.3.225])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BD69C10EBA8;
+ Wed, 29 Mar 2023 19:52:27 +0000 (UTC)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by m-r2.th.seeweb.it (Postfix) with ESMTPSA id DEF463EF48;
- Wed, 29 Mar 2023 21:49:03 +0200 (CEST)
-Message-ID: <8ebea3bc-6f1f-e5f9-40a1-827a0b22a1ea@somainline.org>
-Date: Wed, 29 Mar 2023 21:49:02 +0200
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 03B2E61E05;
+ Wed, 29 Mar 2023 19:52:27 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D0CE4C4339E;
+ Wed, 29 Mar 2023 19:52:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1680119545;
+ bh=mjLUdufgtgjPzwdtcadGyC411S2foJg6r/cD6VhlXN4=;
+ h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
+ b=qh6CniKz4OR9ie0HZ4eBHL2PCwlZwptw5bOansqcfWqmKbNn0DRr2Jn1rF4Ht+X+B
+ g+oOvlU+yBojkq/J+BvLZzSDIm7J3wffF/AS8iWHWDOep0ruQENOFj/NxPm0d/TWGk
+ mS4aimJ4z6asp/R7d5fWDpg8rdDQRrQ4RhfR6dFa3noH4lWOUJzZuODvGaUAm8qPRN
+ 9gMiEg+sjFjEIWjJ/Cl1qg/ungMxT7U1gg0rGzNva14P2UZpbViHR/m3CfU470jiLt
+ ucQVGcw5GrvTOLwGk+bxEHymd7l/mPMYUThEL6G+smkxH84D2PIBCHTmCy5YLZvO6z
+ hEjwPoTibmorA==
+Received: by mail-yw1-f172.google.com with SMTP id
+ 00721157ae682-536af432ee5so314450717b3.0; 
+ Wed, 29 Mar 2023 12:52:25 -0700 (PDT)
+X-Gm-Message-State: AAQBX9cfhZHEdmb5vUeM9KBmgigY/GV+QzmAWDCGFKk8BA/U4a/PbhDJ
+ 2JErCfeKHT2yuXkzgj759+XXipui/BFIJr+7Dw==
+X-Google-Smtp-Source: AKy350YmTOlpc30ipg9mtdb/RKboI8SpnHxYbSbWPKuwuA23l/hU01zX5J4huXLPc4DktXCK19e9vRvERkA2b90bHlw=
+X-Received: by 2002:a81:b50f:0:b0:544:b8d8:339e with SMTP id
+ t15-20020a81b50f000000b00544b8d8339emr10288144ywh.5.1680119544920; Wed, 29
+ Mar 2023 12:52:24 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.9.0
-Content-Language: en-US
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>
-References: <20230211231259.1308718-16-dmitry.baryshkov@linaro.org>
-From: Konrad Dybcio <konrad.dybcio@somainline.org>
-In-Reply-To: <20230211231259.1308718-16-dmitry.baryshkov@linaro.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [v2,
- 15/50] drm/msm/dpu: constify DSC data structures
+References: <20230103-topic-sm8550-upstream-mdss-dsi-v3-0-660c3bcb127f@linaro.org>
+ <168004255469.1060915.1800625604847213121.b4-ty@linaro.org>
+In-Reply-To: <168004255469.1060915.1800625604847213121.b4-ty@linaro.org>
+From: Rob Herring <robh+dt@kernel.org>
+Date: Wed, 29 Mar 2023 14:52:13 -0500
+X-Gmail-Original-Message-ID: <CAL_Jsq+VoBkpCT_iUD1Nq_SazCVDa49rn0qtX3Qnm1KBB3gkcg@mail.gmail.com>
+Message-ID: <CAL_Jsq+VoBkpCT_iUD1Nq_SazCVDa49rn0qtX3Qnm1KBB3gkcg@mail.gmail.com>
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [Freedreno] [PATCH v3 0/7] drm/msm: add support for SM8550
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -46,82 +62,61 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-arm-msm@vger.kernel.org, Bjorn Andersson <andersson@kernel.org>,
- dri-devel@lists.freedesktop.org, Stephen Boyd <swboyd@chromium.org>,
- Daniel Vetter <daniel@ffwll.ch>, David Airlie <airlied@gmail.com>,
- freedreno@lists.freedesktop.org
+Cc: Neil Armstrong <neil.armstrong@linaro.org>, Daniel Vetter <daniel@ffwll.ch>,
+ Jonathan Marek <jonathan@marek.ca>, devicetree@vger.kernel.org,
+ Sean Paul <sean@poorly.run>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
+ Rob Clark <robdclark@gmail.com>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
+ David Airlie <airlied@gmail.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
+On Tue, Mar 28, 2023 at 5:38=E2=80=AFPM Dmitry Baryshkov
+<dmitry.baryshkov@linaro.org> wrote:
+>
+>
+> On Mon, 09 Jan 2023 11:15:17 +0100, Neil Armstrong wrote:
+> > This adds support for the MDSS/DPU/DSI on the Qualcomm SM8550 platform.
+> >
+> > This patchset is based on the SM8450 display support serie at [1].
+> >
+> > In order to work, the following patchsets are required:
+> > - PM8550 LDO fix at [2]
+> > - DISPCC driver at [3]
+> >
+> > [...]
+>
+> Applied, thanks!
+>
+> [2/7] dt-bindings: display/msm: document DPU on SM8550
+>       https://gitlab.freedesktop.org/lumag/msm/-/commit/4557e40338d2
+> [3/7] dt-bindings: display/msm: document MDSS on SM8550
+>       https://gitlab.freedesktop.org/lumag/msm/-/commit/0e4205eb8663
 
+And now failing on linux-next just as my bot reported:
 
-On 12.02.2023 00:12, Dmitry Baryshkov wrote:
-> DSC hw catalog data is not supposed to be changed, so mark it as const
-> data.
-> 
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> ---
-Reviewed-by: Konrad Dybcio <konrad.dybcio@linaro.org>
+Documentation/devicetree/bindings/display/msm/qcom,sm8550-dpu.example.dts:2=
+4:18:
+fatal error: dt-bindings/interconnect/qcom,sm8550.h: No such file or
+directory
+   24 |         #include <dt-bindings/interconnect/qcom,sm8550.h>
+      |                  ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+compilation terminated.
+make[1]: *** [scripts/Makefile.lib:419:
+Documentation/devicetree/bindings/display/msm/qcom,sm8550-dpu.example.dtb]
+Error 1
+Documentation/devicetree/bindings/display/msm/qcom,sm8550-mdss.example.dts:=
+25:18:
+fatal error: dt-bindings/interconnect/qcom,sm8550.h: No such file or
+directory
+   25 |         #include <dt-bindings/interconnect/qcom,sm8550.h>
+      |                  ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+compilation terminated.
 
-Konrad
->  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c | 4 ++--
->  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h | 2 +-
->  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_dsc.c     | 4 ++--
->  3 files changed, 5 insertions(+), 5 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
-> index 2d53ed92de85..54d706dfdbec 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
-> @@ -1829,14 +1829,14 @@ static const struct dpu_merge_3d_cfg sm8550_merge_3d[] = {
->  	.features = _features, \
->  	}
->  
-> -static struct dpu_dsc_cfg sdm845_dsc[] = {
-> +static const struct dpu_dsc_cfg sdm845_dsc[] = {
->  	DSC_BLK("dsc_0", DSC_0, 0x80000, 0),
->  	DSC_BLK("dsc_1", DSC_1, 0x80400, 0),
->  	DSC_BLK("dsc_2", DSC_2, 0x80800, 0),
->  	DSC_BLK("dsc_3", DSC_3, 0x80c00, 0),
->  };
->  
-> -static struct dpu_dsc_cfg sm8150_dsc[] = {
-> +static const struct dpu_dsc_cfg sm8150_dsc[] = {
->  	DSC_BLK("dsc_0", DSC_0, 0x80000, BIT(DPU_DSC_OUTPUT_CTRL)),
->  	DSC_BLK("dsc_1", DSC_1, 0x80400, BIT(DPU_DSC_OUTPUT_CTRL)),
->  	DSC_BLK("dsc_2", DSC_2, 0x80800, BIT(DPU_DSC_OUTPUT_CTRL)),
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h
-> index e6590302b3bf..a56581b34ddf 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h
-> @@ -867,7 +867,7 @@ struct dpu_mdss_cfg {
->  	const struct dpu_merge_3d_cfg *merge_3d;
->  
->  	u32 dsc_count;
-> -	struct dpu_dsc_cfg *dsc;
-> +	const struct dpu_dsc_cfg *dsc;
->  
->  	u32 intf_count;
->  	const struct dpu_intf_cfg *intf;
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_dsc.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_dsc.c
-> index 619926da1441..4e1396575e6a 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_dsc.c
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_dsc.c
-> @@ -175,7 +175,7 @@ static void dpu_hw_dsc_bind_pingpong_blk(
->  	DPU_REG_WRITE(c, dsc_ctl_offset, mux_cfg);
->  }
->  
-> -static struct dpu_dsc_cfg *_dsc_offset(enum dpu_dsc dsc,
-> +static const struct dpu_dsc_cfg *_dsc_offset(enum dpu_dsc dsc,
->  				       const struct dpu_mdss_cfg *m,
->  				       void __iomem *addr,
->  				       struct dpu_hw_blk_reg_map *b)
-> @@ -207,7 +207,7 @@ struct dpu_hw_dsc *dpu_hw_dsc_init(enum dpu_dsc idx, void __iomem *addr,
->  				   const struct dpu_mdss_cfg *m)
->  {
->  	struct dpu_hw_dsc *c;
-> -	struct dpu_dsc_cfg *cfg;
-> +	const struct dpu_dsc_cfg *cfg;
->  
->  	c = kzalloc(sizeof(*c), GFP_KERNEL);
->  	if (!c)
+Please fix. And quickly please. Fixes in the DRM tree seem to take
+forever to get in...
+
+Rob
