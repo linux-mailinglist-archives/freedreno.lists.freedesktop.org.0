@@ -2,70 +2,72 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 510806CF7AF
-	for <lists+freedreno@lfdr.de>; Thu, 30 Mar 2023 01:49:00 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 220826CF7C0
+	for <lists+freedreno@lfdr.de>; Thu, 30 Mar 2023 01:51:57 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CAAD310EC7C;
-	Wed, 29 Mar 2023 23:48:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DFE7C10E1B8;
+	Wed, 29 Mar 2023 23:51:55 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x12f.google.com (mail-lf1-x12f.google.com
- [IPv6:2a00:1450:4864:20::12f])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DF32910E54E
- for <freedreno@lists.freedesktop.org>; Wed, 29 Mar 2023 23:48:55 +0000 (UTC)
-Received: by mail-lf1-x12f.google.com with SMTP id y15so22334047lfa.7
- for <freedreno@lists.freedesktop.org>; Wed, 29 Mar 2023 16:48:55 -0700 (PDT)
+Received: from mail-lf1-x134.google.com (mail-lf1-x134.google.com
+ [IPv6:2a00:1450:4864:20::134])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C088510E1B8
+ for <freedreno@lists.freedesktop.org>; Wed, 29 Mar 2023 23:51:54 +0000 (UTC)
+Received: by mail-lf1-x134.google.com with SMTP id q16so22338158lfe.10
+ for <freedreno@lists.freedesktop.org>; Wed, 29 Mar 2023 16:51:54 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1680133734;
+ d=linaro.org; s=google; t=1680133913;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :from:to:cc:subject:date:message-id:reply-to;
- bh=4nT0j+zzun4HtuwuHnIU3HzE9OK3SdjOBdsKWomYhs8=;
- b=treoMPKCnP9KvD6g3WiT4R/vOlPlc9SINf22j56KAjCa4W4kt/4xpd+p8ji4YbDR7X
- qql44PqDgfsP2LXvL06L+GSf6ZXy+bYmKW2PLiqFxSxPtmKk6t+osVTQbk4sJwd/4Zxa
- yDulGSvq4FrvMal/KN4xFg8nrWV4UKfbnMoXHGz8L6WS0NEp83JuvwDDDjbJt1AtQ/Ko
- dy74JEho40A4JFx49QO2YyI3JOpZGjM6G6oibRVmmh/Q7tYH9AAqJ1a7LLuGc9Nh2Pg/
- i0DAKu0siIC6lGm/gn7GzsPdWf6cDqmMRucH4V9qPEsjAIk8u83FZ0rA54gS9/QT8HpQ
- Grew==
+ bh=0LKiTCfatgunVbCY7EWbbfW1aBzT4BASgK3wqqdG5gw=;
+ b=zq1HXarnX1WAfWcjIJj/xMH2dxgZaXAEq5cuINHDgaW9dwVuYteEqDFwaIp0kCy3dI
+ KkrUJ8IMLtI/EQenf9WZlbr3sTefJ5oLh82vln3V6Mqwy/L3Gbp6LPP+PASO1BZsHLY4
+ NvnkOnNL5OCWmmhLOKypejobPBmg8Oz8r+lI+OsnJmDQcR7TqJfHam0rcsG7wLR8hoRS
+ xoWu4FsccRkOlcOiQlsfurPMz5pmPuJaarnieJPb9oMe7FfPXuASiB4tMUdR5rMei2JA
+ ng+8nlJz3NUHjy7+W3p80dx/REJX/wQErT2vzMCDS9rJ6V4OPGYd8J8Yo8m380i6qjjK
+ /qeA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112; t=1680133734;
+ d=1e100.net; s=20210112; t=1680133913;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=4nT0j+zzun4HtuwuHnIU3HzE9OK3SdjOBdsKWomYhs8=;
- b=Iir3+RBPd3TsZy5AqCwp6BHz915HelVe/XkKqGFApbx9hGgC6QZQXxeZLdldidhYT3
- qCWbvKCQP0Vd+ezFRDY6Pu03F6IkzTuWvLpDQn90anBg6gGaxuMWm7qEfq0wRL7BmK9G
- wTcAYSbuGsrHtJd97h6w0pxgvLmYtxrD8Z/qFWmkLPc5iu8+JdW4+bkThVjuXz/4wR9b
- irCnBTnOB1WdCuF4hyTYjbeXCnYkLGeCtkT+fGnqUEy2cBzJ+XnRkRqIwg+7FzPdqI3W
- /yiZo/blsrz6Qj/FWjVoO9CE/gpDsv7eP1H80hFhKroOQrjsKj3wSWDTbyNaj/3se6JM
- Cxug==
-X-Gm-Message-State: AAQBX9fE2XFH6kb90Fu54d+5kZOsFqZ2IXwdoJ2Bc7a7pls+wGpnlYxS
- yMHjANKtKaGZD+o1HQ3Y6gXY9Jv2mF6T7OoAvm4=
-X-Google-Smtp-Source: AKy350ba6VQZff9h18Gq+EGyt3d2FKmAT21ZUHO8Hhxi+SOXYHjoTJL701+OV4F+lqxYsDJ7h4iHYQ==
-X-Received: by 2002:ac2:41cd:0:b0:4eb:1527:e2a7 with SMTP id
- d13-20020ac241cd000000b004eb1527e2a7mr2339243lfi.45.1680133734016; 
- Wed, 29 Mar 2023 16:48:54 -0700 (PDT)
+ bh=0LKiTCfatgunVbCY7EWbbfW1aBzT4BASgK3wqqdG5gw=;
+ b=tw7cTq1swG4E/1tcBTQa4wzquU6EWxYgyMp2WKe5qd38SA1vjWdf7qFmlq2K0g6M2b
+ XLk/WN+tngQOk0iRJc83ANAjYmBtCZdOjI1+y6f8cHCP8RY1YAv1/47OVe7Vam5pt80y
+ eKtlXzrnsVYBwtFrM/s6H7T+2G+eOxnBJBK5CLPUS+59A3ohQhthfu61/h6XWE8en6e9
+ RpYsORRo4iSmLi52k2iP9/wsR78GMw7Pnos8ZXkRlH/WfcQp7XHB+cRjJD0mQV1rVRyv
+ HQRKItVye4hNJZ9QQa154lK9Qn1gt06zyNRs0r38QNI0qd3p6qA4k8i+QqC10eu8ejlP
+ 4MoQ==
+X-Gm-Message-State: AAQBX9f9oMiKIzHhdXPHTclKgh7lmhsYpFZO1UVII1KIy0YP3DRGeBX/
+ ZT5L79RjVnT3B1Qye5ZMdoA+0w==
+X-Google-Smtp-Source: AKy350ZJJicQZ0HPbY32XDLcOd4mG+jW4zOrY9d5/HGOO1Dg49vg5uMHEjnFau66a/aIThHm2s1bUA==
+X-Received: by 2002:ac2:5a03:0:b0:4e9:d53:a5ef with SMTP id
+ q3-20020ac25a03000000b004e90d53a5efmr6180140lfn.1.1680133912855; 
+ Wed, 29 Mar 2023 16:51:52 -0700 (PDT)
 Received: from ?IPV6:2001:14ba:a085:4d00::8a5?
  (dzccz6yyyyyyyyyyybcwt-3.rev.dnainternet.fi. [2001:14ba:a085:4d00::8a5])
  by smtp.gmail.com with ESMTPSA id
- r2-20020a2eb602000000b0029a1ccdc560sm5684880ljn.118.2023.03.29.16.48.53
+ f16-20020ac25330000000b004e844eeb555sm5671147lfh.214.2023.03.29.16.51.52
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 29 Mar 2023 16:48:53 -0700 (PDT)
-Message-ID: <0698ce89-d70c-c3f4-f006-18130858aacf@linaro.org>
-Date: Thu, 30 Mar 2023 02:48:52 +0300
+ Wed, 29 Mar 2023 16:51:52 -0700 (PDT)
+Message-ID: <e52a1a47-ce6f-7654-a8fb-428b5a896ad9@linaro.org>
+Date: Thu, 30 Mar 2023 02:51:51 +0300
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.9.0
 Content-Language: en-GB
 To: Jessica Zhang <quic_jesszhan@quicinc.com>, freedreno@lists.freedesktop.org
 References: <20230329-rfc-msm-dsc-helper-v1-0-f3e479f59b6d@quicinc.com>
- <20230329-rfc-msm-dsc-helper-v1-5-f3e479f59b6d@quicinc.com>
+ <20230329-rfc-msm-dsc-helper-v1-3-f3e479f59b6d@quicinc.com>
+ <4e12cc50-cd34-e1a1-3a91-0da369b785c1@linaro.org>
+ <9ba94f43-845f-886f-a87e-ec46613b74b6@quicinc.com>
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-In-Reply-To: <20230329-rfc-msm-dsc-helper-v1-5-f3e479f59b6d@quicinc.com>
+In-Reply-To: <9ba94f43-845f-886f-a87e-ec46613b74b6@quicinc.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH RFC 5/5] drm/msm/dsi: Use MSM and DRM DSC
- helper methods
+Content-Transfer-Encoding: 8bit
+Subject: Re: [Freedreno] [PATCH RFC 3/5] drm/msm/dpu: Use DRM DSC helper for
+ det_thresh_flatness
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -85,96 +87,69 @@ Cc: linux-arm-msm@vger.kernel.org, Abhinav Kumar <quic_abhinavk@quicinc.com>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 30/03/2023 02:18, Jessica Zhang wrote:
-> Use MSM and DRM DSC helper methods.
+On 30/03/2023 02:45, Jessica Zhang wrote:
 > 
-> Signed-off-by: Jessica Zhang <quic_jesszhan@quicinc.com>
-> ---
->   drivers/gpu/drm/msm/dsi/dsi_host.c | 18 ++++++++++++------
->   1 file changed, 12 insertions(+), 6 deletions(-)
 > 
-> diff --git a/drivers/gpu/drm/msm/dsi/dsi_host.c b/drivers/gpu/drm/msm/dsi/dsi_host.c
-> index 74d38f90398a..7419fe58a941 100644
-> --- a/drivers/gpu/drm/msm/dsi/dsi_host.c
-> +++ b/drivers/gpu/drm/msm/dsi/dsi_host.c
-> @@ -31,6 +31,7 @@
->   #include "msm_kms.h"
->   #include "msm_gem.h"
->   #include "phy/dsi_phy.h"
-> +#include "disp/msm_dsc_helper.h"
->   
->   #define DSI_RESET_TOGGLE_DELAY_MS 20
->   
-> @@ -841,14 +842,14 @@ static void dsi_update_dsc_timing(struct msm_dsi_host *msm_host, bool is_cmd_mod
->   {
->   	struct drm_dsc_config *dsc = msm_host->dsc;
->   	u32 reg, reg_ctrl, reg_ctrl2;
-> -	u32 slice_per_intf, total_bytes_per_intf;
-> +	u32 slice_per_intf;
->   	u32 pkt_per_line;
->   	u32 eol_byte_num;
->   
->   	/* first calculate dsc parameters and then program
->   	 * compress mode registers
->   	 */
-> -	slice_per_intf = DIV_ROUND_UP(hdisplay, dsc->slice_width);
-> +	slice_per_intf = msm_dsc_get_slice_per_intf(dsc, hdisplay);
-
-This looks good
-
->   
->   	/*
->   	 * If slice_count is greater than slice_per_intf
-> @@ -858,10 +859,10 @@ static void dsi_update_dsc_timing(struct msm_dsi_host *msm_host, bool is_cmd_mod
->   	if (dsc->slice_count > slice_per_intf)
->   		dsc->slice_count = 1;
->   
-> -	total_bytes_per_intf = dsc->slice_chunk_size * slice_per_intf;
-> +	eol_byte_num = msm_dsc_get_eol_byte_num(msm_host->dsc, hdisplay,
-> +			dsi_get_bpp(msm_host->format));
->   
-> -	eol_byte_num = total_bytes_per_intf % 3;
-> -	pkt_per_line = slice_per_intf / dsc->slice_count;
-> +	pkt_per_line = slice_per_intf / MSM_DSC_SLICE_PER_PKT;
-
-And for these values the result is definitely changed. Separate patch & 
-description please. Just in case, "values per downstream kernel" is not 
-a proper description for such changes.
-
->   
->   	if (is_cmd_mode) /* packet data type */
->   		reg = DSI_COMMAND_COMPRESSION_MODE_CTRL_STREAM0_DATATYPE(MIPI_DSI_DCS_LONG_WRITE);
-> @@ -911,6 +912,11 @@ static void dsi_timing_setup(struct msm_dsi_host *msm_host, bool is_bonded_dsi)
->   
->   	DBG("");
->   
-> +	if (msm_host->mode_flags & MIPI_DSI_MODE_VIDEO)
-> +		/* Default widebus_en to false for now. */
-> +		hdisplay = msm_dsc_get_pclk_per_line(msm_host->dsc, mode->hdisplay,
-> +				dsi_get_bpp(msm_host->format));
-> +
-
-This is definitely something new and thus should probably go into a 
-separate patch and be described. Also I'm not sure how does that 
-interact with the hdisplay-related calculations below, under the if(dsc) 
-clause.
-
->   	/*
->   	 * For bonded DSI mode, the current DRM mode has
->   	 * the complete width of the panel. Since, the complete
-> @@ -1759,7 +1765,7 @@ static int dsi_populate_dsc_params(struct msm_dsi_host *msm_host, struct drm_dsc
->   		return ret;
->   	}
->   
-> -	dsc->initial_scale_value = 32;
-> +	dsc->initial_scale_value = drm_dsc_calculate_initial_scale_value(dsc);
-
-This is fine, we only support 8bpp where these values match.
-
->   	dsc->line_buf_depth = dsc->bits_per_component + 1;
->   
->   	return drm_dsc_compute_rc_parameters(dsc);
+> On 3/29/2023 4:31 PM, Dmitry Baryshkov wrote:
+>> On 30/03/2023 02:18, Jessica Zhang wrote:
+>>> Signed-off-by: Jessica Zhang <quic_jesszhan@quicinc.com>
+>>> ---
+>>>   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_dsc.c | 4 +++-
+>>>   1 file changed, 3 insertions(+), 1 deletion(-)
+>>>
+>>> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_dsc.c 
+>>> b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_dsc.c
+>>> index 619926da1441..648c530b5d05 100644
+>>> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_dsc.c
+>>> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_dsc.c
+>>> @@ -3,6 +3,8 @@
+>>>    * Copyright (c) 2020-2022, Linaro Limited
+>>>    */
+>>> +#include <drm/display/drm_dsc_helper.h>
+>>> +
+>>>   #include "dpu_kms.h"
+>>>   #include "dpu_hw_catalog.h"
+>>>   #include "dpu_hwio.h"
+>>> @@ -102,7 +104,7 @@ static void dpu_hw_dsc_config(struct dpu_hw_dsc 
+>>> *hw_dsc,
+>>>       data |= dsc->final_offset;
+>>>       DPU_REG_WRITE(c, DSC_DSC_OFFSET, data);
+>>> -    det_thresh_flatness = 7 + 2 * (dsc->bits_per_component - 8);
+>>> +    det_thresh_flatness = drm_dsc_calculate_det_thresh_flatness(dsc);
+>>
+>> But this changes the value! Compare:
+>>
+>> bpc | old | new
+>> 8   | 7   | 2
+>> 10  | 11  | 8
+>> 12  | 15  | 256
+>>
+>> If this is intentional, please state so and maybe add a Fixes tag.
 > 
+> Hi Dmitry,
+> 
+> Yep this was intentional to match downstream and the spec. Will add a 
+> fixes tag for this.
+
+Good! I found corresponding change in msm-4.14, so now I understand why 
+previously we had what we had.
+
+> 
+> Thanks,
+> 
+> Jessica Zhang
+> 
+>>
+>>
+>>>       data = det_thresh_flatness << 10;
+>>>       data |= dsc->flatness_max_qp << 5;
+>>>       data |= dsc->flatness_min_qp;
+>>>
+>>
+>> -- 
+>> With best wishes
+>> Dmitry
+>>
 
 -- 
 With best wishes
