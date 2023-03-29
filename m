@@ -1,49 +1,70 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 837646CCDE6
-	for <lists+freedreno@lfdr.de>; Wed, 29 Mar 2023 01:09:37 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 27C636CCEEB
+	for <lists+freedreno@lfdr.de>; Wed, 29 Mar 2023 02:37:25 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5B1EE10E4C9;
-	Tue, 28 Mar 2023 23:09:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 23F3310E488;
+	Wed, 29 Mar 2023 00:37:16 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from bombadil.infradead.org (bombadil.infradead.org
- [IPv6:2607:7c80:54:3::133])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 82DAC10E12A;
- Tue, 28 Mar 2023 23:09:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
- Content-Type:In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:
- Message-ID:Sender:Reply-To:Content-ID:Content-Description;
- bh=TtAWW+rcRDNEtRaY+5PARKcs7L5jYJy9Gvn5idod+V8=; b=T6qhdSfj75BjrmtNtqPQemMtTQ
- 6UA+i8rTanrpWdnc/mgCBuuhh7AwBmjkiGbms4BD9FOndFiKjb6kA5WgXVXSgkpKwB2+sShQt/kb1
- XTRd7QAODPJSm656Vxq5sS1YT8vkGmqQ+sQB80d8+KKwLy7Hzee6ULrbQw7ggnyRnjvLPJXlXH4RW
- xcaosmceEBhUVbuYQQAO5urm238UFDRppDvfp2GJcnUBRTNDjWiFwjPTqSphvfRL57un/8zbOJKpc
- J4TriE2hqlL8eDhplEcKNh3khT12GSBI4NlmbSDLWMfCwdy3+iqBvLEGnYyRNFQlNnzTVC5x2woNL
- c4Fbj3+A==;
-Received: from [2601:1c2:980:9ec0::2764]
- by bombadil.infradead.org with esmtpsa (Exim 4.96 #2 (Red Hat Linux))
- id 1phIRP-00G5fs-2c; Tue, 28 Mar 2023 23:09:23 +0000
-Message-ID: <988d7f44-4c4a-982a-90a9-86fc10f2fc15@infradead.org>
-Date: Tue, 28 Mar 2023 16:09:22 -0700
+Received: from mail-lj1-x22c.google.com (mail-lj1-x22c.google.com
+ [IPv6:2a00:1450:4864:20::22c])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5DD1210E233
+ for <freedreno@lists.freedesktop.org>; Wed, 29 Mar 2023 00:37:13 +0000 (UTC)
+Received: by mail-lj1-x22c.google.com with SMTP id by8so14374350ljb.12
+ for <freedreno@lists.freedesktop.org>; Tue, 28 Mar 2023 17:37:13 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1680050231;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=BoN+U4KTTFxXWQmwg13Yxlkx1E7Pohg3WEKsSIowviU=;
+ b=uKWAwoxBzBWP0lm4jboJdDtbdnJQFPCUPy64D25rIUT6v7Iw2HVipwvHwuZBBIA3nd
+ lDbGgXUvGX5TLQH367xV+SpRrOzokAqVyK8x52/0933V4EM7LdPupCFkQuYUwkIT2b4w
+ Vem8bKb2NLTOsfHs0ULO+Sgy1KGBX3UyGpJzWlofXfJg2T6r5TeHLViHEVefh6optPpr
+ +eBOo/spXoY3XSCqTkumK8CI9tqgizGBXI0kOuhYpM9EOFqbRtd9bdKqbf1saQVaZ54/
+ 6vQ40EgFMFDgqwKDzyqF0Lsm8Npz9On5Phvkp7ut0jiDQKnIHxIkNpFdW9j11p7bE2yh
+ Ty6g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112; t=1680050231;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=BoN+U4KTTFxXWQmwg13Yxlkx1E7Pohg3WEKsSIowviU=;
+ b=ghD/DRq7gjMGcJCPm0i5Tv+ao4T3JBgQ2RRYh7Qhq34FyKYg8EJFv2t7lh75t5HPt3
+ kfeQdtZs0q1J0JJ9xMqVicQlmjnaNlwAVo88ezli/Lt+OSAli+y67ZdPvBiwv+/c56KK
+ 6k9fXspRit8zpS+fROZiCCTX+cv+Wm5HrqFCmwIB8cw/a9C1NIOU7P496uVZ7fPAiFt5
+ sMyXaUuNjv/bxzumknarkJMAvI+6KN8QOQLAQY4DxJrCr1PXCU/lWvSDVa5FGlD6Qa1i
+ Gb3z9GzlBxKIWfXcpQPJGuux9TWObMi61ymr75JyIRQXgvPEpaEtIzMQgRJ7jrYz5LJU
+ 739Q==
+X-Gm-Message-State: AAQBX9fWgrun3UDwUGH/KSVE9z2WJwcVTJqu6pd5ktBTLUcE0zpMedco
+ WMvFTZmtJnL4SHx6f57fedD0Pw==
+X-Google-Smtp-Source: AKy350a2RS08zoZZOG+BWubmWseK/rNgE24Z6x1MnkaDt3fQcNspibs70tW9EreTz3AVcoQITjjJIg==
+X-Received: by 2002:a2e:910e:0:b0:29a:fe9:3b2 with SMTP id
+ m14-20020a2e910e000000b0029a0fe903b2mr5273444ljg.36.1680050231542; 
+ Tue, 28 Mar 2023 17:37:11 -0700 (PDT)
+Received: from eriador.lan (dzccz6yyyyyyyyyyybcwt-3.rev.dnainternet.fi.
+ [2001:14ba:a085:4d00::8a5]) by smtp.gmail.com with ESMTPSA id
+ y3-20020ac24463000000b004db00b4c671sm5254138lfl.7.2023.03.28.17.37.10
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 28 Mar 2023 17:37:11 -0700 (PDT)
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+To: David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Suraj Kandpal <suraj.kandpal@intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
+ Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>
+Date: Wed, 29 Mar 2023 03:37:00 +0300
+Message-Id: <20230329003710.1073261-1-dmitry.baryshkov@linaro.org>
+X-Mailer: git-send-email 2.39.2
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.9.0
-To: Arnd Bergmann <arnd@kernel.org>, Rob Clark <robdclark@gmail.com>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- Ulf Hansson <ulf.hansson@linaro.org>,
- Akhil P Oommen <quic_akhilpo@quicinc.com>
-References: <20230324095502.3289094-1-arnd@kernel.org>
-Content-Language: en-US
-From: Randy Dunlap <rdunlap@infradead.org>
-In-Reply-To: <20230324095502.3289094-1-arnd@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH] drm/msm/a6xx: add CONFIG_PM dependency
+Content-Transfer-Encoding: 8bit
+Subject: [Freedreno] [PATCH v3 00/10] drm/i915: move DSC RC tables to
+ drm_dsc_helper.c
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,57 +77,57 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sean Paul <sean@poorly.run>, Arnd Bergmann <arnd@arndb.de>,
- linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org
+Cc: linux-arm-msm@vger.kernel.org, intel-gfx@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ =?UTF-8?q?Ville=20Syrj=C3=A4l=C3=A4?= <ville.syrjala@linux.intel.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
+Other platforms (msm) will benefit from sharing the DSC config setup
+functions. This series moves parts of static DSC config data from the
+i915 driver to the common helpers to be used by other drivers.
 
+Note: the RC parameters were cross-checked against config files found in
+DSC model 2021062, 20161212 (and 20150914). The first patch modifies
+tables according to those config files, while preserving parameter
+values using the code. I have not changed one of the values in the
+pre-SCR config file as it clearly looks like a typo in the config file,
+considering the table E in DSC 1.1 and in the DSC 1.1 SCR.
 
-On 3/24/23 02:54, Arnd Bergmann wrote:
-> From: Arnd Bergmann <arnd@arndb.de>
-> 
-> Selecting CONFIG_PM_GENERIC_DOMAINS causes a build failure when CONFIG_PM
-> is not enabled:
-> 
-> WARNING: unmet direct dependencies detected for PM_GENERIC_DOMAINS
->   Depends on [n]: PM [=n]
->   Selected by [m]:
->   - DRM_MSM [=m] && HAS_IOMEM [=y] && DRM [=m] && (ARCH_QCOM [=y] || SOC_IMX5 || COMPILE_TEST [=y]) && COMMON_CLK [=y] && IOMMU_SUPPORT [=y] && (QCOM_OCMEM [=y] || QCOM_OCMEM [=y]=n) && (QCOM_LLCC [=n] || QCOM_LLCC [=n]=n) && (QCOM_COMMAND_DB [=y] || QCOM_COMMAND_DB [=y]=n) && DEVFREQ_GOV_SIMPLE_ONDEMAND [=y]
-> 
-> drivers/base/power/domain.c:654:13: error: use of undeclared identifier 'pm_wq'
->         queue_work(pm_wq, &genpd->power_off_work);
->                    ^
-> drivers/base/power/domain.c:853:26: error: no member named 'ignore_children' in 'struct dev_pm_info'
->                 if (!dev || dev->power.ignore_children)
->                             ~~~~~~~~~~ ^
-> 
-> Fixes: c11fa1204fe9 ("drm/msm/a6xx: Use genpd notifier to ensure cx-gdsc collapse")
-> Signed-off-by: Arnd Bergmann <arnd@arndb.de>
+Chances since v2:
+- Rebased on top of drm-intel-next
 
+Chances since v1:
+- Made drm_dsc_rc_buf_thresh static rather than exporting it
+- Switched drm_dsc_rc_buf_thresh loop to use ARRAY_SIZE. Added
+  BUILD_BUG_ON's to be sure that array sizes are correct
+- Fixed rc_parameters_data indentation to be logical and tidy
+- Fixed drm_dsc_setup_rc_params() kerneldoc
+- Added a clause to drm_dsc_setup_rc_params() to verify bpp and bpc
+  being set.
+- Fixed range_bpg_offset programming in calculate_rc_params()
+- Fixed bpp vs bpc bug in intel_dsc_compute_params()
+- Added FIXME comment next to the customizations in
+  intel_dsc_compute_params().
 
-Tested-by: Randy Dunlap <rdunlap@infradead.org>
-Acked-by: Randy Dunlap <rdunlap@infradead.org>
+Dmitry Baryshkov (10):
+  drm/i915/dsc: change DSC param tables to follow the DSC model
+  drm/i915/dsc: move rc_buf_thresh values to common helper
+  drm/i915/dsc: move DSC tables to DRM DSC helper
+  drm/i915/dsc: stop using interim structure for calculated params
+  drm/display/dsc: use flat array for rc_parameters lookup
+  drm/display/dsc: split DSC 1.2 and DSC 1.1 (pre-SCR) parameters
+  drm/display/dsc: include the rest of pre-SCR parameters
+  drm/display/dsc: add YCbCr 4:2:2 and 4:2:0 RC parameters
+  drm/display/dsc: add helper to set semi-const parameters
+  drm/msm/dsi: use new helpers for DSC setup
 
-Thanks.
-
-> ---
->  drivers/gpu/drm/msm/Kconfig | 1 +
->  1 file changed, 1 insertion(+)
-> 
-> diff --git a/drivers/gpu/drm/msm/Kconfig b/drivers/gpu/drm/msm/Kconfig
-> index 1c417ba53b5b..85f5ab1d552c 100644
-> --- a/drivers/gpu/drm/msm/Kconfig
-> +++ b/drivers/gpu/drm/msm/Kconfig
-> @@ -9,6 +9,7 @@ config DRM_MSM
->  	depends on QCOM_OCMEM || QCOM_OCMEM=n
->  	depends on QCOM_LLCC || QCOM_LLCC=n
->  	depends on QCOM_COMMAND_DB || QCOM_COMMAND_DB=n
-> +	depends on PM
->  	select IOMMU_IO_PGTABLE
->  	select QCOM_MDT_LOADER if ARCH_QCOM
->  	select REGULATOR
+ drivers/gpu/drm/display/drm_dsc_helper.c  | 1007 +++++++++++++++++++++
+ drivers/gpu/drm/i915/display/intel_vdsc.c |  443 +--------
+ drivers/gpu/drm/msm/dsi/dsi_host.c        |   61 +-
+ include/drm/display/drm_dsc_helper.h      |   10 +
+ 4 files changed, 1072 insertions(+), 449 deletions(-)
 
 -- 
-~Randy
+2.39.2
+
