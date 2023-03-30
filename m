@@ -2,71 +2,75 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8AE346D06AB
-	for <lists+freedreno@lfdr.de>; Thu, 30 Mar 2023 15:27:44 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C19816D081E
+	for <lists+freedreno@lfdr.de>; Thu, 30 Mar 2023 16:23:58 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4A8DA10EE05;
-	Thu, 30 Mar 2023 13:27:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8059E10EE49;
+	Thu, 30 Mar 2023 14:23:57 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x12e.google.com (mail-lf1-x12e.google.com
- [IPv6:2a00:1450:4864:20::12e])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CFD8010EE05
- for <freedreno@lists.freedesktop.org>; Thu, 30 Mar 2023 13:27:40 +0000 (UTC)
-Received: by mail-lf1-x12e.google.com with SMTP id q16so24494863lfe.10
- for <freedreno@lists.freedesktop.org>; Thu, 30 Mar 2023 06:27:40 -0700 (PDT)
+Received: from mail-ua1-x929.google.com (mail-ua1-x929.google.com
+ [IPv6:2607:f8b0:4864:20::929])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F2E9710EE49
+ for <freedreno@lists.freedesktop.org>; Thu, 30 Mar 2023 14:23:55 +0000 (UTC)
+Received: by mail-ua1-x929.google.com with SMTP id ay14so13906548uab.13
+ for <freedreno@lists.freedesktop.org>; Thu, 30 Mar 2023 07:23:55 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1680182859;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=H9CQm/4MQRYssz1OkX8mlyZhiA0pOtxLWpuES+tcUz4=;
- b=A7CLzVQ47sSXgw4musuKt5TyZyoBHnjJZ+lEgegPjed9M+IOqvq2RQYpibZutfTFNT
- +9ox0k1QqXX+kniEQ6CY1dyM5CFrE6m9zBZdMxy0gwA8Y1v2loW/QDGvP7Fe0DnUCp9p
- xbinL63Gc+lGrFKEZVbbALWCxuqMy703tM09jxqKy2+N9EeQyrWAVrXtDpOftwfMfeNU
- xo1+spYS7BvwIO5STccF9Pzpnu5YAdL50/N0TLl8JTtDC6nohCvgJcJ2cWL6kjfHoki/
- YPwmGuY0GFwJrkPwtqkW7MiIJJVdx7Wv9msBE1SeHB3A+2YsSEjF5fXfdz4L2ZBCIFDo
- yN1A==
+ d=chromium.org; s=google; t=1680186233;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=tdDVtbZuDJf8upkh5HvXpNatNcQceszJUO7yYX9Degg=;
+ b=IQuz2jtZFzq94cljTGq1nSzm2M5CmuJwsIZi6FTj1sdpF09mmo+12lZrH1W3iTdAGP
+ BY6k6mf2miJ34FeVEiRtDO0tMHnowkRYwsWYBiyOdTBd7AIVbvai9YtXFpckuGO0yRkH
+ Bq/x/a7YXHqlBqdNvmsdIy0NufQQaVI2yW5KI=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112; t=1680182859;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=H9CQm/4MQRYssz1OkX8mlyZhiA0pOtxLWpuES+tcUz4=;
- b=2Eg4ifdsvoNC92EldYXUzftumwQJuyaHdtMpLs3ZAhuT6UvaWIkPlgr7HGQ0QGobQZ
- ZVCB2ionncDwz5INH4RTM8Mg+d5v+OxWINiE3aXPLOGeob4Xi/rB4O3O2PS6Tht+lvUg
- 28kFNZMCpPc452pD65yvdVdZGeqmplseRXjJicSU4F+dfEZZmxApghsBxgHpHxfok/Hb
- 6uySe1C3IgHZYBpeNLkMw4d7uuEYcAob9PIk+9eBAXjCx+aj9ffsUmfXwO7kmGxJF02O
- 3ZvgYOEnXbPIdQkDEvXSxegLWPNuIDvDj5sZ6i2s1mD0Y3MfF4UsnfDfWGOisLrxuO6y
- j/4A==
-X-Gm-Message-State: AAQBX9f3V7ey/rJVjleuNqVMLHof5eE0TU0sb96kHD7GnjB1PhH3Cast
- nb7Cp1fLCUYZYyrx46pIszsWkA==
-X-Google-Smtp-Source: AKy350beu5OMs9D0KiVr0EOV6zSRyqV1SlEs5bh0+6BhwS8NOh7Qg3ddtTtWX9CWp+IJY5AJXugR8Q==
-X-Received: by 2002:a05:6512:92a:b0:4e9:8994:49bd with SMTP id
- f10-20020a056512092a00b004e9899449bdmr6094481lft.3.1680182858952; 
- Thu, 30 Mar 2023 06:27:38 -0700 (PDT)
-Received: from [192.168.1.101] (abxj225.neoplus.adsl.tpnet.pl. [83.9.3.225])
- by smtp.gmail.com with ESMTPSA id
- r10-20020a19ac4a000000b004b5979f9ba8sm5889881lfc.210.2023.03.30.06.27.37
+ d=1e100.net; s=20210112; t=1680186233;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=tdDVtbZuDJf8upkh5HvXpNatNcQceszJUO7yYX9Degg=;
+ b=AzRjx0kFIh77OvU1syyjgH7vplEo4g3R3Cthp6iWB/aMYbO/S1b5fOMMofSHVzdQBo
+ fTVmB1dHhWxkbGv/1MMRJy8p1BAhgKXrcO2dfEdBwvwGaKC3/q1sJlXfRkg+E7x7mGS9
+ p2el8YWAjixfGRi3wqttYq/a5ftCATTVc8b/utD/qxmNSvb0NxF0qYv0OK8M7NBjf4fC
+ 0/p4rRmsCMs9ZwlvsmXwLtvFRtRQGqgjC0prwaEx0Bdbe40L7S1BYloY9eXmPnnLjHZ+
+ HZUxhWqaWh2WFKfRJU88KVOFgeExeYuesNZgTUiQJsymmN7HbTD4uPjyps7kI4Zz0CmV
+ ZO2g==
+X-Gm-Message-State: AAQBX9fv4Lf91Q7kPDo6E0M4TuvqdLbcZ/Ar/xMvDKzjc3eWuXsNWY62
+ zt2fC3xWT97EqkjxInymiRdDO7o6QchFOD0/CWQ=
+X-Google-Smtp-Source: AKy350aZWZ4h15o5M0uhA9Wzkt76j72vcCTK0+Du0rWK5UIw/OwCenpu7O0QLFUPsIhvXaERsvu9Hg==
+X-Received: by 2002:a05:6122:c97:b0:432:8f1e:326e with SMTP id
+ ba23-20020a0561220c9700b004328f1e326emr9392073vkb.5.1680186232616; 
+ Thu, 30 Mar 2023 07:23:52 -0700 (PDT)
+Received: from mail-ua1-f46.google.com (mail-ua1-f46.google.com.
+ [209.85.222.46]) by smtp.gmail.com with ESMTPSA id
+ v188-20020a1facc5000000b0041169cebcd3sm5489103vke.30.2023.03.30.07.23.51
+ for <freedreno@lists.freedesktop.org>
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 30 Mar 2023 06:27:38 -0700 (PDT)
-Message-ID: <a016f235-0b1b-3452-d621-4c2323cd38b2@linaro.org>
-Date: Thu, 30 Mar 2023 15:27:37 +0200
+ Thu, 30 Mar 2023 07:23:51 -0700 (PDT)
+Received: by mail-ua1-f46.google.com with SMTP id i22so13908136uat.8
+ for <freedreno@lists.freedesktop.org>; Thu, 30 Mar 2023 07:23:51 -0700 (PDT)
+X-Received: by 2002:a1f:ac17:0:b0:43b:7928:7a25 with SMTP id
+ v23-20020a1fac17000000b0043b79287a25mr10387566vke.1.1680186230654; Thu, 30
+ Mar 2023 07:23:50 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.9.0
-Content-Language: en-US
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-References: <20230211231259.1308718-48-dmitry.baryshkov@linaro.org>
- <045895cf-7866-1c0c-51c3-34ea3a7f0cab@linaro.org>
- <a699774e-d403-46e8-921e-6a4a048cab79@linaro.org>
- <CAA8EJpppVBKFo9-8m3uyqKYNTC39gjzQoOXaiwUrvkchZGG5vQ@mail.gmail.com>
-From: Konrad Dybcio <konrad.dybcio@linaro.org>
-In-Reply-To: <CAA8EJpppVBKFo9-8m3uyqKYNTC39gjzQoOXaiwUrvkchZGG5vQ@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [v2,
- 47/50] drm/msm/dpu: rename CTL_foo_MASK to contain major DPU version
+References: <1677774797-31063-1-git-send-email-quic_vpolimer@quicinc.com>
+ <1677774797-31063-15-git-send-email-quic_vpolimer@quicinc.com>
+ <20230326162723.3lo6pnsfdwzsvbhj@ripper>
+ <20230326163556.iesjkoh3nw3iwvf2@ripper>
+ <CAE-0n520ypTRNT1X6kZ8o_Z+DN_68qwqZc1wZGMwsFqV5naktw@mail.gmail.com>
+ <BN0PR02MB81736AFC01FB13F1640068CEE4899@BN0PR02MB8173.namprd02.prod.outlook.com>
+ <CAD=FV=UjHiEk==KAhbx6QFW++69vDAM44sw-b2MGcJ7NsfbF-A@mail.gmail.com>
+In-Reply-To: <CAD=FV=UjHiEk==KAhbx6QFW++69vDAM44sw-b2MGcJ7NsfbF-A@mail.gmail.com>
+From: Doug Anderson <dianders@chromium.org>
+Date: Thu, 30 Mar 2023 07:23:38 -0700
+X-Gmail-Original-Message-ID: <CAD=FV=V7UoA5jP-ANFMNzm3oLbYmT73uDnqs0oKHKb16-NcULg@mail.gmail.com>
+Message-ID: <CAD=FV=V7UoA5jP-ANFMNzm3oLbYmT73uDnqs0oKHKb16-NcULg@mail.gmail.com>
+To: Vinod Polimera <vpolimer@qti.qualcomm.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [Freedreno] [PATCH v14 14/14] drm/msm/dp: set self refresh
+ aware based on PSR support
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,479 +83,163 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sean Paul <sean@poorly.run>, Bjorn Andersson <andersson@kernel.org>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
- Stephen Boyd <swboyd@chromium.org>, Rob Clark <robdclark@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>, linux-arm-msm@vger.kernel.org,
- David Airlie <airlied@gmail.com>, freedreno@lists.freedesktop.org
+Cc: "Kalyan Thota \(QUIC\)" <quic_kalyant@quicinc.com>,
+ "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+ "Sankeerth Billakanti \(QUIC\)" <quic_sbillaka@quicinc.com>,
+ "Kuogee Hsieh \(QUIC\)" <quic_khsieh@quicinc.com>,
+ "Abhinav Kumar \(QUIC\)" <quic_abhinavk@quicinc.com>,
+ "Vishnuvardhan Prodduturi \(QUIC\)" <quic_vproddut@quicinc.com>,
+ "linux-arm-msm@vger.kernel.org" <linux-arm-msm@vger.kernel.org>,
+ Bjorn Andersson <andersson@kernel.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ "Vinod Polimera \(QUIC\)" <quic_vpolimer@quicinc.com>,
+ "robdclark@gmail.com" <robdclark@gmail.com>,
+ "dmitry.baryshkov@linaro.org" <dmitry.baryshkov@linaro.org>,
+ "Bjorn Andersson \(QUIC\)" <quic_bjorande@quicinc.com>,
+ Stephen Boyd <swboyd@chromium.org>,
+ "freedreno@lists.freedesktop.org" <freedreno@lists.freedesktop.org>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
+Hi,
 
+On Wed, Mar 29, 2023 at 8:47=E2=80=AFAM Doug Anderson <dianders@chromium.or=
+g> wrote:
+>
+> Hi,
+>
+> On Wed, Mar 29, 2023 at 8:16=E2=80=AFAM Vinod Polimera
+> <vpolimer@qti.qualcomm.com> wrote:
+> >
+> >
+> >
+> > > -----Original Message-----
+> > > From: Stephen Boyd <swboyd@chromium.org>
+> > > Sent: Monday, March 27, 2023 9:58 PM
+> > > To: Bjorn Andersson <andersson@kernel.org>; Vinod Polimera (QUIC)
+> > > <quic_vpolimer@quicinc.com>
+> > > Cc: dri-devel@lists.freedesktop.org; linux-arm-msm@vger.kernel.org;
+> > > freedreno@lists.freedesktop.org; devicetree@vger.kernel.org; linux-
+> > > kernel@vger.kernel.org; robdclark@gmail.com; dianders@chromium.org;
+> > > Kalyan Thota (QUIC) <quic_kalyant@quicinc.com>;
+> > > dmitry.baryshkov@linaro.org; Kuogee Hsieh (QUIC)
+> > > <quic_khsieh@quicinc.com>; Vishnuvardhan Prodduturi (QUIC)
+> > > <quic_vproddut@quicinc.com>; Bjorn Andersson (QUIC)
+> > > <quic_bjorande@quicinc.com>; Abhinav Kumar (QUIC)
+> > > <quic_abhinavk@quicinc.com>; Sankeerth Billakanti (QUIC)
+> > > <quic_sbillaka@quicinc.com>
+> > > Subject: Re: [PATCH v14 14/14] drm/msm/dp: set self refresh aware bas=
+ed
+> > > on PSR support
+> > >
+> > > Quoting Bjorn Andersson (2023-03-26 09:35:56)
+> > > > On Sun, Mar 26, 2023 at 09:27:23AM -0700, Bjorn Andersson wrote:
+> > > > > On Thu, Mar 02, 2023 at 10:03:17PM +0530, Vinod Polimera wrote:
+> > > > > > For the PSR to kick in, self_refresh_aware has to be set.
+> > > > > > Initialize it based on the PSR support for the eDP interface.
+> > > > > >
+> > > > >
+> > > > > When I boot my sc8280xp devices (CRD and X13s) to console with th=
+is
+> > > > > patch included I get a login prompt, and then there are no more s=
+creen
+> > > > > updates.
+> > > > >
+> > > > > Switching virtual terminal (ctrl+alt+fN) causes the screen to red=
+raw.
+> > > > >
+> > > > > Blindly login in and launching Wayland works and from then on scr=
+een
+> > > > > updates works as expected.
+> > > > >
+> > > > > Switching from Wayland to another virtual terminal causes the pro=
+blem
+> > > to
+> > > > > re-appear, no updates after the initial refresh, switching back g=
+o the
+> > > > > Wayland-terminal crashed the machine.
+> > > > >
+> > > >
+> > > > Also, trying to bring the eDP-screen back from DPMS gives me:
+> > > >
+> > > > <3>[ 2355.218099] [drm:dp_catalog_ctrl_set_pattern_state_bit [msm]]
+> > > *ERROR* set state_bit for link_train=3D1 failed
+> > > > <3>[ 2355.218926] [drm:dp_ctrl_setup_main_link [msm]] *ERROR* link
+> > > training #1 failed. ret=3D-110
+> > > > <3>[ 2355.262859] [drm:dp_catalog_ctrl_set_pattern_state_bit [msm]]
+> > > *ERROR* set state_bit for link_train=3D1 failed
+> > > > <3>[ 2355.263600] [drm:dp_ctrl_setup_main_link [msm]] *ERROR* link
+> > > training #1 failed. ret=3D-110
+> > > > <3>[ 2355.305211] [drm:dp_catalog_ctrl_set_pattern_state_bit [msm]]
+> > > *ERROR* set state_bit for link_train=3D1 failed
+> > > > <3>[ 2355.305955] [drm:dp_ctrl_setup_main_link [msm]] *ERROR* link
+> > > training #1 failed. ret=3D-110
+> > > > <3>[ 2355.345250] [drm:dp_catalog_ctrl_set_pattern_state_bit [msm]]
+> > > *ERROR* set state_bit for link_train=3D1 failed
+> > > > <3>[ 2355.346026] [drm:dp_ctrl_setup_main_link [msm]] *ERROR* link
+> > > training #1 failed. ret=3D-110
+> > > > <3>[ 2355.405650] [drm:dp_display_process_hpd_high [msm]] *ERROR*
+> > > failed to complete DP link training
+> > > > <3>[ 2355.668988]
+> > > [drm:dpu_encoder_phys_vid_wait_for_commit_done:488] [dpu
+> > > error]vblank timeout
+> > > > <3>[ 2355.669030] [drm:dpu_kms_wait_for_commit_done:510] [dpu
+> > > error]wait for commit done returned -110
+> > > > <3>[ 2355.699989] [drm:dpu_encoder_frame_done_timeout:2398] [dpu
+> > > error]enc35 frame done timeout
+> > > >
+> > > > And then the machine just resets.
+> > > >
+> > >
+> > > I saw similar behavior on ChromeOS after we picked the PSR patches in=
+to
+> > > our kernel. I suspect it's the same problem. I switched back and fort=
+h
+> > > between VT2 and the OOBE screen with ctrl+alt+forward and that showed
+> > > what I typed on the virtual terminal after switching back and forth.
+> > > It's like the redraw only happens once on the switch and never again.=
+ I
+> > > switched back and forth enough times that it eventually crashed the
+> > > kernel and rebooted. This was on CRD (sc7280-herobrine-crd.dts).
+> > >
+> > > There's an animation on the OOBE screen that is working though, so
+> > > perhaps PSR is working with the chrome compositor but not the virtual
+> > > terminal? I haven't investigated.
+> >
+> > I was able to reproduce the issue where in virtual terminal, I don't se=
+e any screen refresh despite typing in.
+> > In the VT mode, I see that PSR is entered, but despite typing in there =
+are no atomic commits triggered, hence the last buffer was always refreshed=
+.
+> >
+> > Queries from my side to Rob & Doug:
+> > 1) In VT mode, does the framework operates in single buffer mode withou=
+t any commit for new updates ?
+> > 2) if above is true then, how does driver know if the framework operate=
+s in single buffer mode, to make any appropriate action
+> > 3) what is the expected behavior with the driver here ? should it retur=
+n atomic_check failure, for single buffer mode operation or, it should exit=
+ PSR ?
+> > 4) is there any HINT passed down to the driver so that we can bank on i=
+t and act accordingly?
+>
+> I haven't looked at this detail about PSR before, and I left my
+> PSR-enabled device at home so I can't easily test this right now. That
+> being said, from a bit of searching I would guess that
+> msm_framebuffer_dirtyfb() is somehow involved here. Are things better
+> if you get rid of the test against 'msm_fb->dirtyfb'?
+>
+> I at least used ftrace to confirm that on a different device
+> msm_framebuffer_dirtyfb() is not called during normal ChromeOS usage
+> but it _is_ called in VT2 usage.
 
-On 30.03.2023 15:26, Dmitry Baryshkov wrote:
-> On Thu, 30 Mar 2023 at 16:16, Konrad Dybcio <konrad.dybcio@linaro.org> wrote:
->>
->>
->>
->> On 30.03.2023 15:15, Konrad Dybcio wrote:
->>>
->>>
->>> On 12.02.2023 00:12, Dmitry Baryshkov wrote:
->>>> To ease review and reuse rename CTL feature masks to contain base DPU
->>>> version since which this mask is used.
->>>>
->>>> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
->>>> ---
->>>>  .../gpu/drm/msm/disp/dpu1/catalog/dpu_3_0_msm8998.h  | 10 +++++-----
->>>>  .../gpu/drm/msm/disp/dpu1/catalog/dpu_4_0_sdm845.h   | 10 +++++-----
->>>>  drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_5_lm6.h    | 12 ++++++------
->>>>  .../gpu/drm/msm/disp/dpu1/catalog/dpu_6_0_sm8250.h   | 12 ++++++------
->>>>  .../gpu/drm/msm/disp/dpu1/catalog/dpu_6_2_sc7180.h   |  6 +++---
->>>>  drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_6_lm1.h    |  2 +-
->>>>  .../gpu/drm/msm/disp/dpu1/catalog/dpu_7_0_sm8350.h   | 12 ++++++------
->>>>  .../gpu/drm/msm/disp/dpu1/catalog/dpu_7_2_sc7280.h   |  8 ++++----
->>>>  drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_8_lm6.h    | 12 ++++++------
->>>>  .../gpu/drm/msm/disp/dpu1/catalog/dpu_9_0_sm8550.h   | 12 ++++++------
->>>>  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c       | 12 ++++++++----
->>>>  11 files changed, 56 insertions(+), 52 deletions(-)
->>>>
->>>> diff --git a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_3_0_msm8998.h b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_3_0_msm8998.h
->>>> index 5e8200d929e4..d42c380275bd 100644
->>>> --- a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_3_0_msm8998.h
->>>> +++ b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_3_0_msm8998.h
->>>> @@ -49,31 +49,31 @@ static const struct dpu_ctl_cfg msm8998_ctl[] = {
->>>>      {
->>>>      .name = "ctl_0", .id = CTL_0,
->>>>      .base = 0x1000, .len = 0x94,
->>>> -    .features = BIT(DPU_CTL_SPLIT_DISPLAY),
->>>> +    .features = BIT(DPU_CTL_SPLIT_DISPLAY) | CTL_DPU_0_MASK,
->>> Again, I'd vote for DPU_3
->> Though thinking about it again, the 8996-and-earlier setup was
->> probably the same and that's what you had in mind. Please confirm
-> 
-> Yes, the idea was to have DPU_0_MASK defined to (0) if that's
-> applicable to early generations.
-OK let's keep it zero then. I think I'm done with the review!
+Indeed, I can confirm that if I comment out the test in
+msm_framebuffer_dirtyfb() and just call straight through to
+drm_atomic_helper_dirtyfb() that typing on VT2 works fine.
 
-Konrad
-> 
->>
->> Konrad
->>>
->>> Reviewed-by: Konrad Dybcio <konrad.dybcio@linaro.org>
->>>
->>> Konrad
->>>>      .intr_start = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR2, 9),
->>>>      },
->>>>      {
->>>>      .name = "ctl_1", .id = CTL_1,
->>>>      .base = 0x1200, .len = 0x94,
->>>> -    .features = 0,
->>>> +    .features = CTL_DPU_0_MASK,
->>>>      .intr_start = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR2, 10),
->>>>      },
->>>>      {
->>>>      .name = "ctl_2", .id = CTL_2,
->>>>      .base = 0x1400, .len = 0x94,
->>>> -    .features = BIT(DPU_CTL_SPLIT_DISPLAY),
->>>> +    .features = BIT(DPU_CTL_SPLIT_DISPLAY) | CTL_DPU_0_MASK,
->>>>      .intr_start = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR2, 11),
->>>>      },
->>>>      {
->>>>      .name = "ctl_3", .id = CTL_3,
->>>>      .base = 0x1600, .len = 0x94,
->>>> -    .features = 0,
->>>> +    .features = CTL_DPU_0_MASK,
->>>>      .intr_start = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR2, 12),
->>>>      },
->>>>      {
->>>>      .name = "ctl_4", .id = CTL_4,
->>>>      .base = 0x1800, .len = 0x94,
->>>> -    .features = 0,
->>>> +    .features = CTL_DPU_0_MASK,
->>>>      .intr_start = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR2, 13),
->>>>      },
->>>>  };
->>>> diff --git a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_4_0_sdm845.h b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_4_0_sdm845.h
->>>> index daef5e48e7ee..281556416322 100644
->>>> --- a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_4_0_sdm845.h
->>>> +++ b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_4_0_sdm845.h
->>>> @@ -47,31 +47,31 @@ static const struct dpu_ctl_cfg sdm845_ctl[] = {
->>>>      {
->>>>      .name = "ctl_0", .id = CTL_0,
->>>>      .base = 0x1000, .len = 0xe4,
->>>> -    .features = BIT(DPU_CTL_SPLIT_DISPLAY),
->>>> +    .features = BIT(DPU_CTL_SPLIT_DISPLAY) | CTL_DPU_0_MASK,
->>>>      .intr_start = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR2, 9),
->>>>      },
->>>>      {
->>>>      .name = "ctl_1", .id = CTL_1,
->>>>      .base = 0x1200, .len = 0xe4,
->>>> -    .features = BIT(DPU_CTL_SPLIT_DISPLAY),
->>>> +    .features = BIT(DPU_CTL_SPLIT_DISPLAY) | CTL_DPU_0_MASK,
->>>>      .intr_start = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR2, 10),
->>>>      },
->>>>      {
->>>>      .name = "ctl_2", .id = CTL_2,
->>>>      .base = 0x1400, .len = 0xe4,
->>>> -    .features = 0,
->>>> +    .features = CTL_DPU_0_MASK,
->>>>      .intr_start = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR2, 11),
->>>>      },
->>>>      {
->>>>      .name = "ctl_3", .id = CTL_3,
->>>>      .base = 0x1600, .len = 0xe4,
->>>> -    .features = 0,
->>>> +    .features = CTL_DPU_0_MASK,
->>>>      .intr_start = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR2, 12),
->>>>      },
->>>>      {
->>>>      .name = "ctl_4", .id = CTL_4,
->>>>      .base = 0x1800, .len = 0xe4,
->>>> -    .features = 0,
->>>> +    .features = CTL_DPU_0_MASK,
->>>>      .intr_start = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR2, 13),
->>>>      },
->>>>  };
->>>> diff --git a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_5_lm6.h b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_5_lm6.h
->>>> index 294702531ce2..7c051c142e06 100644
->>>> --- a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_5_lm6.h
->>>> +++ b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_5_lm6.h
->>>> @@ -42,37 +42,37 @@ static const struct dpu_ctl_cfg dpu_5_lm6_ctl[] = {
->>>>      {
->>>>      .name = "ctl_0", .id = CTL_0,
->>>>      .base = 0x1000, .len = 0x1e0,
->>>> -    .features = BIT(DPU_CTL_ACTIVE_CFG) | BIT(DPU_CTL_SPLIT_DISPLAY),
->>>> +    .features = CTL_DPU_5_MASK | BIT(DPU_CTL_SPLIT_DISPLAY),
->>>>      .intr_start = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR2, 9),
->>>>      },
->>>>      {
->>>>      .name = "ctl_1", .id = CTL_1,
->>>>      .base = 0x1200, .len = 0x1e0,
->>>> -    .features = BIT(DPU_CTL_ACTIVE_CFG) | BIT(DPU_CTL_SPLIT_DISPLAY),
->>>> +    .features = CTL_DPU_5_MASK | BIT(DPU_CTL_SPLIT_DISPLAY),
->>>>      .intr_start = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR2, 10),
->>>>      },
->>>>      {
->>>>      .name = "ctl_2", .id = CTL_2,
->>>>      .base = 0x1400, .len = 0x1e0,
->>>> -    .features = BIT(DPU_CTL_ACTIVE_CFG),
->>>> +    .features = CTL_DPU_5_MASK,
->>>>      .intr_start = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR2, 11),
->>>>      },
->>>>      {
->>>>      .name = "ctl_3", .id = CTL_3,
->>>>      .base = 0x1600, .len = 0x1e0,
->>>> -    .features = BIT(DPU_CTL_ACTIVE_CFG),
->>>> +    .features = CTL_DPU_5_MASK,
->>>>      .intr_start = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR2, 12),
->>>>      },
->>>>      {
->>>>      .name = "ctl_4", .id = CTL_4,
->>>>      .base = 0x1800, .len = 0x1e0,
->>>> -    .features = BIT(DPU_CTL_ACTIVE_CFG),
->>>> +    .features = CTL_DPU_5_MASK,
->>>>      .intr_start = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR2, 13),
->>>>      },
->>>>      {
->>>>      .name = "ctl_5", .id = CTL_5,
->>>>      .base = 0x1a00, .len = 0x1e0,
->>>> -    .features = BIT(DPU_CTL_ACTIVE_CFG),
->>>> +    .features = CTL_DPU_5_MASK,
->>>>      .intr_start = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR2, 23),
->>>>      },
->>>>  };
->>>> diff --git a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_6_0_sm8250.h b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_6_0_sm8250.h
->>>> index fd5df2bdec0e..cffbb6bcc535 100644
->>>> --- a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_6_0_sm8250.h
->>>> +++ b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_6_0_sm8250.h
->>>> @@ -48,37 +48,37 @@ static const struct dpu_ctl_cfg sm8250_ctl[] = {
->>>>      {
->>>>      .name = "ctl_0", .id = CTL_0,
->>>>      .base = 0x1000, .len = 0x1e0,
->>>> -    .features = BIT(DPU_CTL_ACTIVE_CFG) | BIT(DPU_CTL_SPLIT_DISPLAY),
->>>> +    .features = CTL_DPU_5_MASK | BIT(DPU_CTL_SPLIT_DISPLAY),
->>>>      .intr_start = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR2, 9),
->>>>      },
->>>>      {
->>>>      .name = "ctl_1", .id = CTL_1,
->>>>      .base = 0x1200, .len = 0x1e0,
->>>> -    .features = BIT(DPU_CTL_ACTIVE_CFG) | BIT(DPU_CTL_SPLIT_DISPLAY),
->>>> +    .features = CTL_DPU_5_MASK | BIT(DPU_CTL_SPLIT_DISPLAY),
->>>>      .intr_start = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR2, 10),
->>>>      },
->>>>      {
->>>>      .name = "ctl_2", .id = CTL_2,
->>>>      .base = 0x1400, .len = 0x1e0,
->>>> -    .features = BIT(DPU_CTL_ACTIVE_CFG),
->>>> +    .features = CTL_DPU_5_MASK,
->>>>      .intr_start = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR2, 11),
->>>>      },
->>>>      {
->>>>      .name = "ctl_3", .id = CTL_3,
->>>>      .base = 0x1600, .len = 0x1e0,
->>>> -    .features = BIT(DPU_CTL_ACTIVE_CFG),
->>>> +    .features = CTL_DPU_5_MASK,
->>>>      .intr_start = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR2, 12),
->>>>      },
->>>>      {
->>>>      .name = "ctl_4", .id = CTL_4,
->>>>      .base = 0x1800, .len = 0x1e0,
->>>> -    .features = BIT(DPU_CTL_ACTIVE_CFG),
->>>> +    .features = CTL_DPU_5_MASK,
->>>>      .intr_start = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR2, 13),
->>>>      },
->>>>      {
->>>>      .name = "ctl_5", .id = CTL_5,
->>>>      .base = 0x1a00, .len = 0x1e0,
->>>> -    .features = BIT(DPU_CTL_ACTIVE_CFG),
->>>> +    .features = CTL_DPU_5_MASK,
->>>>      .intr_start = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR2, 23),
->>>>      },
->>>>  };
->>>> diff --git a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_6_2_sc7180.h b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_6_2_sc7180.h
->>>> index 66762a0706de..78f8b2506675 100644
->>>> --- a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_6_2_sc7180.h
->>>> +++ b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_6_2_sc7180.h
->>>> @@ -40,19 +40,19 @@ static const struct dpu_ctl_cfg sc7180_ctl[] = {
->>>>      {
->>>>      .name = "ctl_0", .id = CTL_0,
->>>>      .base = 0x1000, .len = 0x1dc,
->>>> -    .features = BIT(DPU_CTL_ACTIVE_CFG),
->>>> +    .features = CTL_DPU_5_MASK,
->>>>      .intr_start = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR2, 9),
->>>>      },
->>>>      {
->>>>      .name = "ctl_1", .id = CTL_1,
->>>>      .base = 0x1200, .len = 0x1dc,
->>>> -    .features = BIT(DPU_CTL_ACTIVE_CFG),
->>>> +    .features = CTL_DPU_5_MASK,
->>>>      .intr_start = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR2, 10),
->>>>      },
->>>>      {
->>>>      .name = "ctl_2", .id = CTL_2,
->>>>      .base = 0x1400, .len = 0x1dc,
->>>> -    .features = BIT(DPU_CTL_ACTIVE_CFG),
->>>> +    .features = CTL_DPU_5_MASK,
->>>>      .intr_start = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR2, 11),
->>>>      },
->>>>  };
->>>> diff --git a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_6_lm1.h b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_6_lm1.h
->>>> index 2849c017ddf2..4f42105d3755 100644
->>>> --- a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_6_lm1.h
->>>> +++ b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_6_lm1.h
->>>> @@ -21,7 +21,7 @@ static const struct dpu_ctl_cfg dpu_6_lm1_ctl[] = {
->>>>      {
->>>>      .name = "ctl_0", .id = CTL_0,
->>>>      .base = 0x1000, .len = 0x1dc,
->>>> -    .features = BIT(DPU_CTL_ACTIVE_CFG),
->>>> +    .features = CTL_DPU_5_MASK,
->>>>      .intr_start = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR2, 9),
->>>>      },
->>>>  };
->>>> diff --git a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_7_0_sm8350.h b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_7_0_sm8350.h
->>>> index 60ad844cfa25..6826758fa202 100644
->>>> --- a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_7_0_sm8350.h
->>>> +++ b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_7_0_sm8350.h
->>>> @@ -46,37 +46,37 @@ static const struct dpu_ctl_cfg sm8350_ctl[] = {
->>>>      {
->>>>      .name = "ctl_0", .id = CTL_0,
->>>>      .base = 0x15000, .len = 0x1e8,
->>>> -    .features = BIT(DPU_CTL_SPLIT_DISPLAY) | CTL_SC7280_MASK,
->>>> +    .features = BIT(DPU_CTL_SPLIT_DISPLAY) | CTL_DPU_7_MASK,
->>>>      .intr_start = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR2, 9),
->>>>      },
->>>>      {
->>>>      .name = "ctl_1", .id = CTL_1,
->>>>      .base = 0x16000, .len = 0x1e8,
->>>> -    .features = BIT(DPU_CTL_SPLIT_DISPLAY) | CTL_SC7280_MASK,
->>>> +    .features = BIT(DPU_CTL_SPLIT_DISPLAY) | CTL_DPU_7_MASK,
->>>>      .intr_start = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR2, 10),
->>>>      },
->>>>      {
->>>>      .name = "ctl_2", .id = CTL_2,
->>>>      .base = 0x17000, .len = 0x1e8,
->>>> -    .features = CTL_SC7280_MASK,
->>>> +    .features = CTL_DPU_7_MASK,
->>>>      .intr_start = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR2, 11),
->>>>      },
->>>>      {
->>>>      .name = "ctl_3", .id = CTL_3,
->>>>      .base = 0x18000, .len = 0x1e8,
->>>> -    .features = CTL_SC7280_MASK,
->>>> +    .features = CTL_DPU_7_MASK,
->>>>      .intr_start = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR2, 12),
->>>>      },
->>>>      {
->>>>      .name = "ctl_4", .id = CTL_4,
->>>>      .base = 0x19000, .len = 0x1e8,
->>>> -    .features = CTL_SC7280_MASK,
->>>> +    .features = CTL_DPU_7_MASK,
->>>>      .intr_start = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR2, 13),
->>>>      },
->>>>      {
->>>>      .name = "ctl_5", .id = CTL_5,
->>>>      .base = 0x1a000, .len = 0x1e8,
->>>> -    .features = CTL_SC7280_MASK,
->>>> +    .features = CTL_DPU_7_MASK,
->>>>      .intr_start = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR2, 23),
->>>>      },
->>>>  };
->>>> diff --git a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_7_2_sc7280.h b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_7_2_sc7280.h
->>>> index 387f2b6c5b56..c5981ea3ec7c 100644
->>>> --- a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_7_2_sc7280.h
->>>> +++ b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_7_2_sc7280.h
->>>> @@ -39,25 +39,25 @@ static const struct dpu_ctl_cfg sc7280_ctl[] = {
->>>>      {
->>>>      .name = "ctl_0", .id = CTL_0,
->>>>      .base = 0x15000, .len = 0x1e8,
->>>> -    .features = CTL_SC7280_MASK,
->>>> +    .features = CTL_DPU_7_MASK,
->>>>      .intr_start = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR2, 9),
->>>>      },
->>>>      {
->>>>      .name = "ctl_1", .id = CTL_1,
->>>>      .base = 0x16000, .len = 0x1e8,
->>>> -    .features = CTL_SC7280_MASK,
->>>> +    .features = CTL_DPU_7_MASK,
->>>>      .intr_start = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR2, 10),
->>>>      },
->>>>      {
->>>>      .name = "ctl_2", .id = CTL_2,
->>>>      .base = 0x17000, .len = 0x1e8,
->>>> -    .features = CTL_SC7280_MASK,
->>>> +    .features = CTL_DPU_7_MASK,
->>>>      .intr_start = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR2, 11),
->>>>      },
->>>>      {
->>>>      .name = "ctl_3", .id = CTL_3,
->>>>      .base = 0x18000, .len = 0x1e8,
->>>> -    .features = CTL_SC7280_MASK,
->>>> +    .features = CTL_DPU_7_MASK,
->>>>      .intr_start = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR2, 12),
->>>>      },
->>>>  };
->>>> diff --git a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_8_lm6.h b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_8_lm6.h
->>>> index 80a7b0670467..5c87e919ea22 100644
->>>> --- a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_8_lm6.h
->>>> +++ b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_8_lm6.h
->>>> @@ -41,37 +41,37 @@ static const struct dpu_ctl_cfg dpu_8_lm6_ctl[] = {
->>>>      {
->>>>      .name = "ctl_0", .id = CTL_0,
->>>>      .base = 0x15000, .len = 0x204,
->>>> -    .features = BIT(DPU_CTL_SPLIT_DISPLAY) | CTL_SC7280_MASK,
->>>> +    .features = BIT(DPU_CTL_SPLIT_DISPLAY) | CTL_DPU_7_MASK,
->>>>      .intr_start = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR2, 9),
->>>>      },
->>>>      {
->>>>      .name = "ctl_1", .id = CTL_1,
->>>>      .base = 0x16000, .len = 0x204,
->>>> -    .features = BIT(DPU_CTL_SPLIT_DISPLAY) | CTL_SC7280_MASK,
->>>> +    .features = BIT(DPU_CTL_SPLIT_DISPLAY) | CTL_DPU_7_MASK,
->>>>      .intr_start = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR2, 10),
->>>>      },
->>>>      {
->>>>      .name = "ctl_2", .id = CTL_2,
->>>>      .base = 0x17000, .len = 0x204,
->>>> -    .features = CTL_SC7280_MASK,
->>>> +    .features = CTL_DPU_7_MASK,
->>>>      .intr_start = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR2, 11),
->>>>      },
->>>>      {
->>>>      .name = "ctl_3", .id = CTL_3,
->>>>      .base = 0x18000, .len = 0x204,
->>>> -    .features = CTL_SC7280_MASK,
->>>> +    .features = CTL_DPU_7_MASK,
->>>>      .intr_start = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR2, 12),
->>>>      },
->>>>      {
->>>>      .name = "ctl_4", .id = CTL_4,
->>>>      .base = 0x19000, .len = 0x204,
->>>> -    .features = CTL_SC7280_MASK,
->>>> +    .features = CTL_DPU_7_MASK,
->>>>      .intr_start = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR2, 13),
->>>>      },
->>>>      {
->>>>      .name = "ctl_5", .id = CTL_5,
->>>>      .base = 0x1a000, .len = 0x204,
->>>> -    .features = CTL_SC7280_MASK,
->>>> +    .features = CTL_DPU_7_MASK,
->>>>      .intr_start = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR2, 23),
->>>>      },
->>>>  };
->>>> diff --git a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_9_0_sm8550.h b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_9_0_sm8550.h
->>>> index 53db0049eecc..334946c8d4e8 100644
->>>> --- a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_9_0_sm8550.h
->>>> +++ b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_9_0_sm8550.h
->>>> @@ -48,37 +48,37 @@ static const struct dpu_ctl_cfg sm8550_ctl[] = {
->>>>      {
->>>>      .name = "ctl_0", .id = CTL_0,
->>>>      .base = 0x15000, .len = 0x290,
->>>> -    .features = CTL_SM8550_MASK | BIT(DPU_CTL_SPLIT_DISPLAY),
->>>> +    .features = CTL_DPU_9_MASK | BIT(DPU_CTL_SPLIT_DISPLAY),
->>>>      .intr_start = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR2, 9),
->>>>      },
->>>>      {
->>>>      .name = "ctl_1", .id = CTL_1,
->>>>      .base = 0x16000, .len = 0x290,
->>>> -    .features = CTL_SM8550_MASK | BIT(DPU_CTL_SPLIT_DISPLAY),
->>>> +    .features = CTL_DPU_9_MASK | BIT(DPU_CTL_SPLIT_DISPLAY),
->>>>      .intr_start = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR2, 10),
->>>>      },
->>>>      {
->>>>      .name = "ctl_2", .id = CTL_2,
->>>>      .base = 0x17000, .len = 0x290,
->>>> -    .features = CTL_SM8550_MASK,
->>>> +    .features = CTL_DPU_9_MASK,
->>>>      .intr_start = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR2, 11),
->>>>      },
->>>>      {
->>>>      .name = "ctl_3", .id = CTL_3,
->>>>      .base = 0x18000, .len = 0x290,
->>>> -    .features = CTL_SM8550_MASK,
->>>> +    .features = CTL_DPU_9_MASK,
->>>>      .intr_start = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR2, 12),
->>>>      },
->>>>      {
->>>>      .name = "ctl_4", .id = CTL_4,
->>>>      .base = 0x19000, .len = 0x290,
->>>> -    .features = CTL_SM8550_MASK,
->>>> +    .features = CTL_DPU_9_MASK,
->>>>      .intr_start = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR2, 13),
->>>>      },
->>>>      {
->>>>      .name = "ctl_5", .id = CTL_5,
->>>>      .base = 0x1a000, .len = 0x290,
->>>> -    .features = CTL_SM8550_MASK,
->>>> +    .features = CTL_DPU_9_MASK,
->>>>      .intr_start = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR2, 23),
->>>>      },
->>>>  };
->>>> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
->>>> index 6b78554df30c..3c604f7b88aa 100644
->>>> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
->>>> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
->>>> @@ -65,11 +65,15 @@
->>>>  #define PINGPONG_SDM845_SPLIT_MASK \
->>>>      (PINGPONG_SDM845_MASK | BIT(DPU_PINGPONG_TE2))
->>>>
->>>> -#define CTL_SC7280_MASK \
->>>> -    (BIT(DPU_CTL_ACTIVE_CFG) | BIT(DPU_CTL_FETCH_ACTIVE) | BIT(DPU_CTL_VM_CFG))
->>>> +#define CTL_DPU_0_MASK  (0)
->>>>
->>>> -#define CTL_SM8550_MASK \
->>>> -    (CTL_SC7280_MASK | BIT(DPU_CTL_HAS_LAYER_EXT4))
->>>> +#define CTL_DPU_5_MASK (CTL_DPU_0_MASK | BIT(DPU_CTL_ACTIVE_CFG))
->>>> +
->>>> +#define CTL_DPU_7_MASK \
->>>> +    (CTL_DPU_5_MASK | BIT(DPU_CTL_FETCH_ACTIVE) | BIT(DPU_CTL_VM_CFG))
->>>> +
->>>> +#define CTL_DPU_9_MASK \
->>>> +    (CTL_DPU_7_MASK | BIT(DPU_CTL_HAS_LAYER_EXT4))
->>>>
->>>>  #define MERGE_3D_SM8150_MASK (0)
->>>>
-> 
-> 
-> 
+...so presumably you need to figure out how to get "dirtyfb" set
+properly when you have a PSR-enabled panel or maybe whenever the panel
+enters PSR mode?
+
+-Doug
