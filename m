@@ -1,70 +1,51 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id F12FB6D0863
-	for <lists+freedreno@lfdr.de>; Thu, 30 Mar 2023 16:34:48 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 275566D08AD
+	for <lists+freedreno@lfdr.de>; Thu, 30 Mar 2023 16:49:26 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B5DB010EE8A;
-	Thu, 30 Mar 2023 14:34:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8350010EEA1;
+	Thu, 30 Mar 2023 14:49:24 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x135.google.com (mail-lf1-x135.google.com
- [IPv6:2a00:1450:4864:20::135])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 228E210EE94
- for <freedreno@lists.freedesktop.org>; Thu, 30 Mar 2023 14:34:46 +0000 (UTC)
-Received: by mail-lf1-x135.google.com with SMTP id k37so24850953lfv.0
- for <freedreno@lists.freedesktop.org>; Thu, 30 Mar 2023 07:34:46 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1680186884;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=2NO2kQrj7E3whQn36YJgoHX6xML1nFzG26j2cCHVyO4=;
- b=sdGdurYgtgDBx5tLVMmY+gEMW+qqgVF6YDSZmfNeziHGdaDC/stXYHbpj/7bfHG4UA
- 2EqO0+gwDGkolx4o+j46o+DtRD2iZN49g7Eb8ylPfey1tJzVD89zMrTMpf81X1YQDxmS
- /ZUQsQlTt5I4bcQMt00lepEgCnf8bJXnu+lHhY/nShsVNKOv5dd+n7M34fyf8b63xL0K
- NfAezGDe6vvv+aBzSv1Xhb+5ldHh1nmBVFIX28f0yO86F3AR2dNRfu16AXM90SZ2gDfL
- ERwYpCAPTdahMU3DlWzYJEPCWwMk4zF0QWLIPGoG6ITGGVcpr2GL7FwRKnDojk4Ffg5p
- 4uQg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112; t=1680186884;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=2NO2kQrj7E3whQn36YJgoHX6xML1nFzG26j2cCHVyO4=;
- b=X4w5Vh8buPdRKwF39+8OKPcBJOBwXTev3UkaME9JAdSkcbiW9B+EFpw+UQPxQ1PbBc
- FugKBnst04Nb7M2Jprb6pPjBp8Z2djkxKhGuhsc+e9+bB9YaSskI4oAU0TWwy/xpuEKR
- HFyGL9sdrGPk5/Y7Xd+RFr0rEJw7ZTiJeqrOOe6Zy3xfs4A1zjKaeCz87exptkwHfbpZ
- g68DEso4Kfa8ixFX5CdWbMqla1Nie7HxUeIMaVpg07itmDGLdpEacsYxCYjiwKc6M+wP
- vqpGJ+tqDlT/8SPgV+XxUd6hmQ37MzP4pOSxWo9REFpHBXmLg4UrvMDmzJ56bJLX/O4f
- YEFQ==
-X-Gm-Message-State: AAQBX9c6koD/u/k9uy2iouZDJIVAo1bW/Knt9b7c1Cxo4IIpQoYAxU/d
- oPPFpPyqSlsq8R72ClcMqdRU1Q==
-X-Google-Smtp-Source: AKy350ZEWGsNomZS724GjcMJTZnNBaTPFYO57SxiPJScbOy2pKJwktNH4/mfctfS9UOUv0uuY9RWSQ==
-X-Received: by 2002:a05:6512:49c:b0:4e9:cb57:8fdc with SMTP id
- v28-20020a056512049c00b004e9cb578fdcmr6836457lfq.46.1680186884146; 
- Thu, 30 Mar 2023 07:34:44 -0700 (PDT)
-Received: from [192.168.1.101] (abxj225.neoplus.adsl.tpnet.pl. [83.9.3.225])
- by smtp.gmail.com with ESMTPSA id
- l16-20020a19c210000000b004dc4becfcd6sm5939188lfc.54.2023.03.30.07.34.42
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 30 Mar 2023 07:34:43 -0700 (PDT)
-Message-ID: <b985e536-227d-df86-0f23-b58882e9654b@linaro.org>
-Date: Thu, 30 Mar 2023 16:34:41 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.9.0
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Received: from ams.source.kernel.org (ams.source.kernel.org
+ [IPv6:2604:1380:4601:e00::1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 063BA10EE9C;
+ Thu, 30 Mar 2023 14:49:22 +0000 (UTC)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by ams.source.kernel.org (Postfix) with ESMTPS id 55428B8291D;
+ Thu, 30 Mar 2023 14:49:20 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DBE71C433D2;
+ Thu, 30 Mar 2023 14:49:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1680187759;
+ bh=kzreuOeVhGy4b0EKlYhtPyFf/2KaV6KQScB7tGg7Ih0=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=RuMwuXV0ihf8NBi8DD5f8I7mE1QMWJJ3lglv0kJ/PAPxM29Rs23fWmWvO5H4Z54MO
+ mF/0guVx5oMJfN57LUKbvq1fFgccmRAm8C6onENXp4oSku7bjezMV2vII689FmxT4s
+ u/18mUKHk0erDq7UOeLFbWTBSe+Xchu4hI8cYWjQ8EWhr1qYSFqrEP2zz5MZQf6KFw
+ xj2GDG1ZPucdyLcT5/3M3swUvECtZ90r9NOVxtyZaWHvP8q88GWy8/nfoG9Jbd+H6/
+ 88jINzWYU1rqan/0HoHX70HI17oZUsxR0C3Eh6a+RIy+guGqBCBaTT546GgjJ2/+rG
+ qVB3OR/2vBLyQ==
+Received: from johan by xi.lan with local (Exim 4.94.2)
+ (envelope-from <johan@kernel.org>)
+ id 1phtar-00037Z-MB; Thu, 30 Mar 2023 16:49:37 +0200
+Date: Thu, 30 Mar 2023 16:49:37 +0200
+From: Johan Hovold <johan@kernel.org>
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Konrad Dybcio <konrad.dybcio@linaro.org>
+Message-ID: <ZCWhgZDuhoMYxs52@hovoldconsulting.com>
 References: <20230329140445.2180662-1-konrad.dybcio@linaro.org>
  <ZCRNFitcrAeH27Pn@hovoldconsulting.com>
  <83986fa9-c9eb-ae5a-b239-584092f2cea5@linaro.org>
  <CAA8EJpohEo+kMw7fx5112m+z7JHSLDmsqOL4T7hmyvr2fPP8vQ@mail.gmail.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@linaro.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 In-Reply-To: <CAA8EJpohEo+kMw7fx5112m+z7JHSLDmsqOL4T7hmyvr2fPP8vQ@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
 Subject: Re: [Freedreno] [PATCH] drm/msm/adreno: adreno_gpu: Use suspend()
  instead of idle() on load error
 X-BeenThere: freedreno@lists.freedesktop.org
@@ -79,46 +60,45 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Akhil P Oommen <quic_akhilpo@quicinc.com>, linux-arm-msm@vger.kernel.org,
- andersson@kernel.org, Johan Hovold <johan@kernel.org>,
- dri-devel@lists.freedesktop.org, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Nathan Chancellor <nathan@kernel.org>, Rob Clark <robdclark@gmail.com>,
- agross@kernel.org, Daniel Vetter <daniel@ffwll.ch>,
+Cc: freedreno@lists.freedesktop.org, Akhil P Oommen <quic_akhilpo@quicinc.com>,
+ linux-arm-msm@vger.kernel.org, andersson@kernel.org,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Nathan Chancellor <nathan@kernel.org>,
+ Rob Clark <robdclark@gmail.com>, agross@kernel.org,
+ Daniel Vetter <daniel@ffwll.ch>,
  "Joel Fernandes \(Google\)" <joel@joelfernandes.org>,
  marijn.suijten@somainline.org, David Airlie <airlied@gmail.com>,
  Sean Paul <sean@poorly.run>, Johan Hovold <johan+linaro@kernel.org>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-
-
-On 29.03.2023 21:45, Dmitry Baryshkov wrote:
+On Wed, Mar 29, 2023 at 10:45:52PM +0300, Dmitry Baryshkov wrote:
 > On Wed, 29 Mar 2023 at 18:48, Konrad Dybcio <konrad.dybcio@linaro.org> wrote:
->>
->>
->>
->> On 29.03.2023 16:37, Johan Hovold wrote:
->>> On Wed, Mar 29, 2023 at 04:04:44PM +0200, Konrad Dybcio wrote:
->>>> If we fail to initialize the GPU for whatever reason (say we don't
->>>> embed the GPU firmware files in the initrd), the error path involves
->>>> pm_runtime_put_sync() which then calls idle() instead of suspend().
->>>>
->>>> This is suboptimal, as it means that we're not going through the
->>>> clean shutdown sequence. With at least A619_holi, this makes the GPU
->>>> not wake up until it goes through at least one more start-fail-stop
->>>> cycle. Fix that by using pm_runtime_put_sync_suspend to force a clean
->>>> shutdown.
->>>
->>> This does not sound right. If pm_runtime_put_sync() fails to suspend the
->>> device when the usage count drops to zero, then you have a bug somewhere
->>> else.
->> I was surprised to see that it was not called as well, but I wasn't able
->> to track it down before..
+> > On 29.03.2023 16:37, Johan Hovold wrote:
+> > > On Wed, Mar 29, 2023 at 04:04:44PM +0200, Konrad Dybcio wrote:
+> > >> If we fail to initialize the GPU for whatever reason (say we don't
+> > >> embed the GPU firmware files in the initrd), the error path involves
+> > >> pm_runtime_put_sync() which then calls idle() instead of suspend().
+> > >>
+> > >> This is suboptimal, as it means that we're not going through the
+> > >> clean shutdown sequence. With at least A619_holi, this makes the GPU
+> > >> not wake up until it goes through at least one more start-fail-stop
+> > >> cycle. Fix that by using pm_runtime_put_sync_suspend to force a clean
+> > >> shutdown.
+> > >
+> > > This does not sound right. If pm_runtime_put_sync() fails to suspend the
+> > > device when the usage count drops to zero, then you have a bug somewhere
+> > > else.
+> > I was surprised to see that it was not called as well, but I wasn't able
+> > to track it down before..
 > 
 > Could you please check that it's autosuspend who kicks in? In other
 > words, if we disable autosuspend, the pm_runtime_put_sync is enough()?
-> 
+
+Yes, that's it. The runtime PM implementation changed at one point and
+since you need to disable autosuspend first to actually get synchronous
+behaviour. My bad.
+
 > That would probably mean that we lack some kind of reset in the hw_init path.
 > 
 > On the other hand, I do not know how the device will react to the
@@ -133,69 +113,15 @@ On 29.03.2023 21:45, Dmitry Baryshkov wrote:
 > Thus said, I think that unless there is an obvious way to restart the
 > init process, Korad's pm_runtime_put_sync_suspend() looks like a
 > correct fix to me.
-On the GPU side, when you cut GX and CX GDSCs, the hardware is off.
-Some clock / gdsc logic may be retained, but the GPU itself gets
-cut off. Parking the clocks and shuttting down VDD_GX (if exists)
-only makes that stronger.
 
-> 
->>> Also since commit 2c087a336676 ("drm/msm/adreno: Load the firmware
->>> before bringing up the hardware") the firmware is loaded before even
->>> hitting these paths so the above description does not sound right in
->>> that respect either (or is missing some details).
->> ..but I did some more digging and I found that the precise "firmware"
->> that fails is the ZAP blob, which is not checked like SQE in the
->> commit you mentioned!
->>
->> Now I don't think that we can easily check for it as-is since
->> zap_shader_load_mdt() does the entire find-load-authenticate
->> dance which is required with secure assets, but it's obviously
->> possible to rip out the find-load part of that and go on from
->> there.
-> 
-> Yes, I think we should load all firmware early. ZAP shader is a bit
-> unique since the DT can override the name, but it might be nice to
-> check for its presence earlier.
-> 
-> At the same time it probably should not stop us from fixing the idle()
-> vs suspend() bug.
-I'm open to both solutions, as long as it can unblock me from
-resubmitting the (hopefully) final version of GMU wrapper!
+I'd prefer to fix this by disabling autosuspend, but as that would
+involve also moving the call to enable autosuspend to this function (and
+add the missing disable on unbind), Konrad's patch using
+pm_runtime_put_sync_suspend() is probably the best option for now. I can
+send a patch to move the autosuspend handling on top.
 
-Konrad
-> 
->>
->> Do you think that would be a better solution?
->>
->> Konrad
->>
->>>
->>>> Test cases:
->>>> 1. firmware baked into kernel
->>>> 2. error loading fw in initrd -> load from rootfs at DE start
->>>>
->>>> Both succeed on A619_holi (SM6375) and A630 (SDM845).
->>>>
->>>> Fixes: 0d997f95b70f ("drm/msm/adreno: fix runtime PM imbalance at gpu load")
->>>> Signed-off-by: Konrad Dybcio <konrad.dybcio@linaro.org>
->>>> ---
->>>>  drivers/gpu/drm/msm/adreno/adreno_device.c | 2 +-
->>>>  1 file changed, 1 insertion(+), 1 deletion(-)
->>>>
->>>> diff --git a/drivers/gpu/drm/msm/adreno/adreno_device.c b/drivers/gpu/drm/msm/adreno/adreno_device.c
->>>> index f61896629be6..59f3302e8167 100644
->>>> --- a/drivers/gpu/drm/msm/adreno/adreno_device.c
->>>> +++ b/drivers/gpu/drm/msm/adreno/adreno_device.c
->>>> @@ -477,7 +477,7 @@ struct msm_gpu *adreno_load_gpu(struct drm_device *dev)
->>>>      return gpu;
->>>>
->>>>  err_put_rpm:
->>>> -    pm_runtime_put_sync(&pdev->dev);
->>>> +    pm_runtime_put_sync_suspend(&pdev->dev);
->>>>  err_disable_rpm:
->>>>      pm_runtime_disable(&pdev->dev);
->>>
->>> Johan
-> 
-> 
-> 
+Perhaps you can just amend the commit message to clarify that not all fw
+is apparently preloaded and also mention that you need to use
+pm_runtime_put_sync_suspend() due to autosuspend being enabled.
+
+Johan
