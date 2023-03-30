@@ -2,56 +2,56 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 47B7B6D0458
-	for <lists+freedreno@lfdr.de>; Thu, 30 Mar 2023 14:08:28 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C289F6D0465
+	for <lists+freedreno@lfdr.de>; Thu, 30 Mar 2023 14:10:47 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0708F10E335;
-	Thu, 30 Mar 2023 12:08:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6F17910E2D3;
+	Thu, 30 Mar 2023 12:10:45 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-x22d.google.com (mail-lj1-x22d.google.com
- [IPv6:2a00:1450:4864:20::22d])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 68FBB10E2C2
- for <freedreno@lists.freedesktop.org>; Thu, 30 Mar 2023 12:08:25 +0000 (UTC)
-Received: by mail-lj1-x22d.google.com with SMTP id h9so19357964ljq.2
- for <freedreno@lists.freedesktop.org>; Thu, 30 Mar 2023 05:08:25 -0700 (PDT)
+Received: from mail-lf1-x12b.google.com (mail-lf1-x12b.google.com
+ [IPv6:2a00:1450:4864:20::12b])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C761210E2CE
+ for <freedreno@lists.freedesktop.org>; Thu, 30 Mar 2023 12:10:43 +0000 (UTC)
+Received: by mail-lf1-x12b.google.com with SMTP id y20so24252345lfj.2
+ for <freedreno@lists.freedesktop.org>; Thu, 30 Mar 2023 05:10:43 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1680178103;
+ d=linaro.org; s=google; t=1680178242;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :from:to:cc:subject:date:message-id:reply-to;
- bh=X0eFzBIjTaoLMGITdLc0Le8FkqJdSU2AOxyyQAPvPcI=;
- b=XwcWpE0duuURNlYoFzQcO0iPJBvzJSDLDDsJ4Vthcw6/mWdQo7p2D+LeOmrI3Dk6Z0
- PUkJdfvsygPf8eZaP6BZ0IU8smSgJhtoD2lNwCoTOvyCLzFMrILZPJ1/TW9IKrdlnOc9
- CbmZGfIYrtqC8sH4SsRt1GeSX9p9c1rXWiNbkgFsrUO6Q2Qy9UusrGnjTIz9ItGlzMu/
- yiq3pCncw7bAF5OXRtJpclJb/MPDKzsHBycVoxK661/KZ6j0zA30bsxpnkv1HroFh+Vm
- h1pna4QkFIxcnvI5bG4kUBY6RKe5a3NwGCKhOOjKKDu9OmXqjfFfChH52sjxt3eu3PIy
- ORKw==
+ bh=8UghwaSwhMPyHe7hsYrUem6pNOd2o2pUK7rc4+LK/dU=;
+ b=YGVjbQREOio7HjYDsbidWGJTKeRSMpj1biDIvYMAbKxjFMxkMIxRj2C7BEd9ikO8gO
+ 5+r3trQzJ3Z4kIER37vljfQvPQMJIAzGP1do02hXmMik5kQE1wD8WMn/TkY7ZJX2cTa1
+ 8BPXyhlU7NR3Vq/nA3Eas6QfYXi+CVNEay0irNUItJ5ubTDPzurxsnQ0I2GL4FzRmqHu
+ UAxCMHMN3+d1GvC7/c5fq3LzrQbOTUlwc8UhuVm4BvX4yzl0hLfp6lFIoxCLbMwmq2jl
+ v5lLs/P5/FtGK1H07RRn9KINlpnp+6Xfz3eClJTbfe9FksvNTztL6M9o+V/13XdIOS9t
+ AIsg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112; t=1680178103;
+ d=1e100.net; s=20210112; t=1680178242;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=X0eFzBIjTaoLMGITdLc0Le8FkqJdSU2AOxyyQAPvPcI=;
- b=AdeE1OuUnDvUA2/lrdUE6LKLY/j5tay+xti+JG9I0mhuMifk/R1g3QSR8jwC7bgH8m
- MhlnYpIwLPqbnZb2ftudPJV3AVASF4cK41/8plCQ9obV2RKw2CYZymAJmbJxhb8QSpE5
- gs6UEitE+8G2rgPpbJ/ZYVPF1ltNE6H6+v5YdKuakKA+XugXO2Fum/b6+jtqi581LzGD
- jQSm3sFq+Ef4qU1aQX721Vl6K3umbNT+eDKHEmDXXBYkutJ35rezPp82AeJ5EsGmHK+q
- WFYwnctpUJeKMjz6uV0tyYxpxzVyUfVe24WD79gHYL2hwf6xfsg/zJEMyPTzir5+185y
- tu4w==
-X-Gm-Message-State: AAQBX9dtVF1xqOlikqlZXsTdrMG0FgkyS4HloMgCbma8GL1mWw9b01QV
- F8EgfUG1Ik4IA+hct5OQsv0V9A==
-X-Google-Smtp-Source: AKy350bqaCg/89XXHDVqz4+DteFeJSmWHMXGZOWhHQk+45q8ZqheVNpPlaHjVPVLZ2go/RpAL2XHjA==
-X-Received: by 2002:a2e:918a:0:b0:298:ac88:8d51 with SMTP id
- f10-20020a2e918a000000b00298ac888d51mr7470424ljg.42.1680178103484; 
- Thu, 30 Mar 2023 05:08:23 -0700 (PDT)
+ bh=8UghwaSwhMPyHe7hsYrUem6pNOd2o2pUK7rc4+LK/dU=;
+ b=ahcBWGbM7kGr3EZOLltl9vnMHkFTtnfE88PUAH6uM3zp/6PW4cJHio2acPRMPmJJpJ
+ jPQL0n0gPHQe2xwHGcmyITFdESssrxJEAX3aUU0WZl73DBxxZe6xUqos1P+RzWy1BxYA
+ AH64qkF9XcxBCzmLa5y6aW5rFRDQLhQfPwC+sVide5dfYJsd4FBJqx5+MAIvE7LC2TSU
+ V3nlmk1cA4mKgxBiVXCPedPh30g1VN9ZnfJV5RZQFgb+6X83Db5SVbkVBPphIIsyG7rP
+ izGkeiPudOUWPRZAurecu4O1YO6kAzq92vsNjP3bvj4X1gM9Si/zYa5LU8rxUTj22Kol
+ 9aJQ==
+X-Gm-Message-State: AAQBX9eKitk21CFsuIcvFScxIDkO6huRLQ6zMiysWpjjXefVM2XcczQq
+ LpqwbN9QacrHXyeTvfDxbYe6gA==
+X-Google-Smtp-Source: AKy350YKhaixTmEgd/5xLdnzqpPM2w5RyTMPej3jB2yD2hFMIfgfz6U8i97rmZeklb0wi51WDPmbqg==
+X-Received: by 2002:a19:f007:0:b0:4e6:9b01:b92b with SMTP id
+ p7-20020a19f007000000b004e69b01b92bmr7103141lfc.67.1680178241787; 
+ Thu, 30 Mar 2023 05:10:41 -0700 (PDT)
 Received: from [192.168.1.101] (abxj225.neoplus.adsl.tpnet.pl. [83.9.3.225])
  by smtp.gmail.com with ESMTPSA id
- o10-20020a2e730a000000b00294692d8645sm5936446ljc.17.2023.03.30.05.08.22
+ r28-20020ac25a5c000000b004eb018fac57sm2896827lfn.191.2023.03.30.05.10.40
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 30 Mar 2023 05:08:23 -0700 (PDT)
-Message-ID: <f4a6fc48-2484-b8f2-25a5-e0767e0e97bf@linaro.org>
-Date: Thu, 30 Mar 2023 14:08:21 +0200
+ Thu, 30 Mar 2023 05:10:41 -0700 (PDT)
+Message-ID: <de9f05db-78a0-0f26-f7ba-022c03afeeff@linaro.org>
+Date: Thu, 30 Mar 2023 14:10:40 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.9.0
@@ -59,13 +59,13 @@ Content-Language: en-US
 To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
  Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
  Abhinav Kumar <quic_abhinavk@quicinc.com>
-References: <20230211231259.1308718-28-dmitry.baryshkov@linaro.org>
+References: <20230211231259.1308718-29-dmitry.baryshkov@linaro.org>
 From: Konrad Dybcio <konrad.dybcio@linaro.org>
-In-Reply-To: <20230211231259.1308718-28-dmitry.baryshkov@linaro.org>
+In-Reply-To: <20230211231259.1308718-29-dmitry.baryshkov@linaro.org>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 Subject: Re: [Freedreno] [v2,
- 27/50] drm/msm/dpu: split SC8180X catalog entry to the separate file
+ 28/50] drm/msm/dpu: split SM8150 catalog entry to the separate file
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -90,27 +90,27 @@ Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 On 12.02.2023 00:12, Dmitry Baryshkov wrote:
 > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 > ---
->  .../msm/disp/dpu1/catalog/dpu_5_1_sc8180x.h   | 108 ++++++++++++++++++
->  .../gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c    | 106 +----------------
->  2 files changed, 109 insertions(+), 105 deletions(-)
->  create mode 100644 drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_5_1_sc8180x.h
+>  .../msm/disp/dpu1/catalog/dpu_5_0_sm8150.h    | 194 ++++++++++++++++++
+>  .../gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c    | 187 +----------------
+>  2 files changed, 195 insertions(+), 186 deletions(-)
+>  create mode 100644 drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_5_0_sm8150.h
 > 
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_5_1_sc8180x.h b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_5_1_sc8180x.h
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_5_0_sm8150.h b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_5_0_sm8150.h
 > new file mode 100644
-> index 000000000000..732ff876d311
+> index 000000000000..08b9648eed37
 > --- /dev/null
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_5_1_sc8180x.h
-> @@ -0,0 +1,108 @@
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_5_0_sm8150.h
+> @@ -0,0 +1,194 @@
 > +/* SPDX-License-Identifier: GPL-2.0-only */
 > +/*
 > + * Copyright (c) 2022. Qualcomm Innovation Center, Inc. All rights reserved.
 > + * Copyright (c) 2015-2018, 2020 The Linux Foundation. All rights reserved.
 > + */
 > +
-> +#ifndef _DPU_5_1_SC8180X_H
-> +#define _DPU_5_1_SC8180X_H
+> +#ifndef _DPU_5_0_SM8150_H
+> +#define _DPU_5_0_SM8150_H
 > +
-> +static const struct dpu_caps sc8180x_dpu_caps = {
+> +static const struct dpu_caps sm8150_dpu_caps = {
 > +	.max_mixer_width = DEFAULT_DPU_OUTPUT_LINE_WIDTH,
 > +	.max_mixer_blendstages = 0xb,
 > +	.qseed_type = DPU_SSPP_SCALER_QSEED3,
@@ -130,47 +130,129 @@ Konrad
 > +	.max_vdeci_exp = MAX_VERT_DECIMATION,
 > +};
 > +
-> +static const struct dpu_ubwc_cfg sc8180x_ubwc_cfg = {
+> +static const struct dpu_ubwc_cfg sm8150_ubwc_cfg = {
 > +	.ubwc_version = DPU_HW_UBWC_VER_30,
-> +	.highest_bank_bit = 0x3,
+> +	.highest_bank_bit = 0x2,
 > +};
 > +
-> +static const struct dpu_mdp_cfg sc8180x_mdp[] = {
+> +static const struct dpu_ctl_cfg sm8150_ctl[] = {
 > +	{
-> +	.name = "top_0", .id = MDP_TOP,
-> +	.base = 0x0, .len = 0x45c,
-> +	.features = BIT(DPU_MDP_AUDIO_SELECT),
-> +	.clk_ctrls[DPU_CLK_CTRL_VIG0] = { .reg_off = 0x2ac, .bit_off = 0 },
-> +	.clk_ctrls[DPU_CLK_CTRL_VIG1] = { .reg_off = 0x2b4, .bit_off = 0 },
-> +	.clk_ctrls[DPU_CLK_CTRL_VIG2] = { .reg_off = 0x2bc, .bit_off = 0 },
-> +	.clk_ctrls[DPU_CLK_CTRL_VIG3] = { .reg_off = 0x2c4, .bit_off = 0 },
-> +	.clk_ctrls[DPU_CLK_CTRL_DMA0] = { .reg_off = 0x2ac, .bit_off = 8 },
-> +	.clk_ctrls[DPU_CLK_CTRL_DMA1] = { .reg_off = 0x2b4, .bit_off = 8 },
-> +	.clk_ctrls[DPU_CLK_CTRL_DMA2] = { .reg_off = 0x2bc, .bit_off = 8 },
-> +	.clk_ctrls[DPU_CLK_CTRL_DMA3] = { .reg_off = 0x2c4, .bit_off = 8 },
+> +	.name = "ctl_0", .id = CTL_0,
+> +	.base = 0x1000, .len = 0x1e0,
+> +	.features = BIT(DPU_CTL_ACTIVE_CFG) | BIT(DPU_CTL_SPLIT_DISPLAY),
+> +	.intr_start = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR2, 9),
+> +	},
+> +	{
+> +	.name = "ctl_1", .id = CTL_1,
+> +	.base = 0x1200, .len = 0x1e0,
+> +	.features = BIT(DPU_CTL_ACTIVE_CFG) | BIT(DPU_CTL_SPLIT_DISPLAY),
+> +	.intr_start = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR2, 10),
+> +	},
+> +	{
+> +	.name = "ctl_2", .id = CTL_2,
+> +	.base = 0x1400, .len = 0x1e0,
+> +	.features = BIT(DPU_CTL_ACTIVE_CFG),
+> +	.intr_start = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR2, 11),
+> +	},
+> +	{
+> +	.name = "ctl_3", .id = CTL_3,
+> +	.base = 0x1600, .len = 0x1e0,
+> +	.features = BIT(DPU_CTL_ACTIVE_CFG),
+> +	.intr_start = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR2, 12),
+> +	},
+> +	{
+> +	.name = "ctl_4", .id = CTL_4,
+> +	.base = 0x1800, .len = 0x1e0,
+> +	.features = BIT(DPU_CTL_ACTIVE_CFG),
+> +	.intr_start = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR2, 13),
+> +	},
+> +	{
+> +	.name = "ctl_5", .id = CTL_5,
+> +	.base = 0x1a00, .len = 0x1e0,
+> +	.features = BIT(DPU_CTL_ACTIVE_CFG),
+> +	.intr_start = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR2, 23),
 > +	},
 > +};
 > +
-> +static const struct dpu_intf_cfg sc8180x_intf[] = {
-> +	INTF_BLK("intf_0", INTF_0, 0x6a000, 0x280, INTF_DP, MSM_DP_CONTROLLER_0, 24, INTF_SC7180_MASK, MDP_SSPP_TOP0_INTR, 24, 25),
-> +	INTF_BLK("intf_1", INTF_1, 0x6a800, 0x280, INTF_DSI, 0, 24, INTF_SC7180_MASK, MDP_SSPP_TOP0_INTR, 26, 27),
-> +	INTF_BLK("intf_2", INTF_2, 0x6b000, 0x280, INTF_DSI, 1, 24, INTF_SC7180_MASK, MDP_SSPP_TOP0_INTR, 28, 29),
-> +	/* INTF_3 is for MST, wired to INTF_DP 0 and 1, use dummy index until this is supported */
-> +	INTF_BLK("intf_3", INTF_3, 0x6b800, 0x280, INTF_DP, 999, 24, INTF_SC7180_MASK, MDP_SSPP_TOP0_INTR, 30, 31),
-> +	INTF_BLK("intf_4", INTF_4, 0x6c000, 0x280, INTF_DP, MSM_DP_CONTROLLER_1, 24, INTF_SC7180_MASK, MDP_SSPP_TOP0_INTR, 20, 21),
-> +	INTF_BLK("intf_5", INTF_5, 0x6c800, 0x280, INTF_DP, MSM_DP_CONTROLLER_2, 24, INTF_SC7180_MASK, MDP_SSPP_TOP0_INTR, 22, 23),
+> +static const struct dpu_lm_cfg sm8150_lm[] = {
+> +	LM_BLK("lm_0", LM_0, 0x44000, MIXER_SDM845_MASK,
+> +		&sdm845_lm_sblk, PINGPONG_0, LM_1, DSPP_0),
+> +	LM_BLK("lm_1", LM_1, 0x45000, MIXER_SDM845_MASK,
+> +		&sdm845_lm_sblk, PINGPONG_1, LM_0, DSPP_1),
+> +	LM_BLK("lm_2", LM_2, 0x46000, MIXER_SDM845_MASK,
+> +		&sdm845_lm_sblk, PINGPONG_2, LM_3, 0),
+> +	LM_BLK("lm_3", LM_3, 0x47000, MIXER_SDM845_MASK,
+> +		&sdm845_lm_sblk, PINGPONG_3, LM_2, 0),
+> +	LM_BLK("lm_4", LM_4, 0x48000, MIXER_SDM845_MASK,
+> +		&sdm845_lm_sblk, PINGPONG_4, LM_5, 0),
+> +	LM_BLK("lm_5", LM_5, 0x49000, MIXER_SDM845_MASK,
+> +		&sdm845_lm_sblk, PINGPONG_5, LM_4, 0),
 > +};
 > +
-> +static const struct dpu_perf_cfg sc8180x_perf_data = {
-> +	.max_bw_low = 9600000,
-> +	.max_bw_high = 9600000,
+> +static const struct dpu_dspp_cfg sm8150_dspp[] = {
+> +	DSPP_BLK("dspp_0", DSPP_0, 0x54000, DSPP_SC7180_MASK,
+> +		 &sm8150_dspp_sblk),
+> +	DSPP_BLK("dspp_1", DSPP_1, 0x56000, DSPP_SC7180_MASK,
+> +		 &sm8150_dspp_sblk),
+> +	DSPP_BLK("dspp_2", DSPP_2, 0x58000, DSPP_SC7180_MASK,
+> +		 &sm8150_dspp_sblk),
+> +	DSPP_BLK("dspp_3", DSPP_3, 0x5a000, DSPP_SC7180_MASK,
+> +		 &sm8150_dspp_sblk),
+> +};
+> +
+> +static const struct dpu_pingpong_cfg sm8150_pp[] = {
+> +	PP_BLK_TE("pingpong_0", PINGPONG_0, 0x70000, MERGE_3D_0, sdm845_pp_sblk_te,
+> +			DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 8),
+> +			DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 12)),
+> +	PP_BLK_TE("pingpong_1", PINGPONG_1, 0x70800, MERGE_3D_0, sdm845_pp_sblk_te,
+> +			DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 9),
+> +			DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 13)),
+> +	PP_BLK("pingpong_2", PINGPONG_2, 0x71000, MERGE_3D_1, sdm845_pp_sblk,
+> +			DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 10),
+> +			DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 14)),
+> +	PP_BLK("pingpong_3", PINGPONG_3, 0x71800, MERGE_3D_1, sdm845_pp_sblk,
+> +			DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 11),
+> +			DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 15)),
+> +	PP_BLK("pingpong_4", PINGPONG_4, 0x72000, MERGE_3D_2, sdm845_pp_sblk,
+> +			DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR2, 30),
+> +			-1),
+> +	PP_BLK("pingpong_5", PINGPONG_5, 0x72800, MERGE_3D_2, sdm845_pp_sblk,
+> +			DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR2, 31),
+> +			-1),
+> +};
+> +
+> +static const struct dpu_merge_3d_cfg sm8150_merge_3d[] = {
+> +	MERGE_3D_BLK("merge_3d_0", MERGE_3D_0, 0x83000),
+> +	MERGE_3D_BLK("merge_3d_1", MERGE_3D_1, 0x83100),
+> +	MERGE_3D_BLK("merge_3d_2", MERGE_3D_2, 0x83200),
+> +};
+> +
+> +static const struct dpu_dsc_cfg sm8150_dsc[] = {
+> +	DSC_BLK("dsc_0", DSC_0, 0x80000, BIT(DPU_DSC_OUTPUT_CTRL)),
+> +	DSC_BLK("dsc_1", DSC_1, 0x80400, BIT(DPU_DSC_OUTPUT_CTRL)),
+> +	DSC_BLK("dsc_2", DSC_2, 0x80800, BIT(DPU_DSC_OUTPUT_CTRL)),
+> +	DSC_BLK("dsc_3", DSC_3, 0x80c00, BIT(DPU_DSC_OUTPUT_CTRL)),
+> +};
+> +
+> +static const struct dpu_intf_cfg sm8150_intf[] = {
+> +	INTF_BLK("intf_0", INTF_0, 0x6a000, 0x2b8, INTF_DP, 0, 24, INTF_SC7180_MASK, MDP_SSPP_TOP0_INTR, 24, 25),
+> +	INTF_BLK("intf_1", INTF_1, 0x6a800, 0x2b8, INTF_DSI, 0, 24, INTF_SC7180_MASK, MDP_SSPP_TOP0_INTR, 26, 27),
+> +	INTF_BLK("intf_2", INTF_2, 0x6b000, 0x2b8, INTF_DSI, 1, 24, INTF_SC7180_MASK, MDP_SSPP_TOP0_INTR, 28, 29),
+> +	INTF_BLK("intf_3", INTF_3, 0x6b800, 0x2b8, INTF_DP, 1, 24, INTF_SC7180_MASK, MDP_SSPP_TOP0_INTR, 30, 31),
+> +};
+> +
+> +static const struct dpu_perf_cfg sm8150_perf_data = {
+> +	.max_bw_low = 12800000,
+> +	.max_bw_high = 12800000,
 > +	.min_core_ib = 2400000,
 > +	.min_llcc_ib = 800000,
 > +	.min_dram_ib = 800000,
+> +	.min_prefill_lines = 24,
 > +	.danger_lut_tbl = {0xf, 0xffff, 0x0},
+> +	.safe_lut_tbl = {0xfff8, 0xf000, 0xffff},
 > +	.qos_lut_tbl = {
-> +		{.nentry = ARRAY_SIZE(sc7180_qos_linear),
-> +		.entries = sc7180_qos_linear
+> +		{.nentry = ARRAY_SIZE(sm8150_qos_linear),
+> +		.entries = sm8150_qos_linear
 > +		},
 > +		{.nentry = ARRAY_SIZE(sc7180_qos_macrotile),
 > +		.entries = sc7180_qos_macrotile
@@ -188,41 +270,45 @@ Konrad
 > +	.bw_inefficiency_factor = 120,
 > +};
 > +
-> +static const struct dpu_mdss_cfg sc8180x_dpu_cfg = {
-> +	.caps = &sc8180x_dpu_caps,
-> +	.ubwc = &sc8180x_ubwc_cfg,
-> +	.mdp_count = ARRAY_SIZE(sc8180x_mdp),
-> +	.mdp = sc8180x_mdp,
+> +static const struct dpu_mdss_cfg sm8150_dpu_cfg = {
+> +	.caps = &sm8150_dpu_caps,
+> +	.ubwc = &sm8150_ubwc_cfg,
+> +	.mdp_count = ARRAY_SIZE(sdm845_mdp),
+> +	.mdp = sdm845_mdp,
 > +	.ctl_count = ARRAY_SIZE(sm8150_ctl),
 > +	.ctl = sm8150_ctl,
 > +	.sspp_count = ARRAY_SIZE(sdm845_sspp),
 > +	.sspp = sdm845_sspp,
 > +	.mixer_count = ARRAY_SIZE(sm8150_lm),
 > +	.mixer = sm8150_lm,
+> +	.dspp_count = ARRAY_SIZE(sm8150_dspp),
+> +	.dspp = sm8150_dspp,
+> +	.dsc_count = ARRAY_SIZE(sm8150_dsc),
+> +	.dsc = sm8150_dsc,
 > +	.pingpong_count = ARRAY_SIZE(sm8150_pp),
 > +	.pingpong = sm8150_pp,
 > +	.merge_3d_count = ARRAY_SIZE(sm8150_merge_3d),
 > +	.merge_3d = sm8150_merge_3d,
-> +	.intf_count = ARRAY_SIZE(sc8180x_intf),
-> +	.intf = sc8180x_intf,
+> +	.intf_count = ARRAY_SIZE(sm8150_intf),
+> +	.intf = sm8150_intf,
 > +	.vbif_count = ARRAY_SIZE(sdm845_vbif),
 > +	.vbif = sdm845_vbif,
 > +	.reg_dma_count = 1,
 > +	.dma_cfg = &sm8150_regdma,
-> +	.perf = &sc8180x_perf_data,
-> +	.mdss_irqs = IRQ_SC8180X_MASK,
+> +	.perf = &sm8150_perf_data,
+> +	.mdss_irqs = IRQ_SDM845_MASK,
 > +};
 > +
 > +#endif
 > diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
-> index b2d994de297c..13796d40c1d7 100644
+> index 13796d40c1d7..db262c251c51 100644
 > --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
 > +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
-> @@ -343,21 +343,6 @@ static const struct dpu_caps sm8150_dpu_caps = {
+> @@ -328,21 +328,6 @@ static const struct dpu_caps sdm845_dpu_caps = {
 >  	.max_vdeci_exp = MAX_VERT_DECIMATION,
 >  };
 >  
-> -static const struct dpu_caps sc8180x_dpu_caps = {
+> -static const struct dpu_caps sm8150_dpu_caps = {
 > -	.max_mixer_width = DEFAULT_DPU_OUTPUT_LINE_WIDTH,
 > -	.max_mixer_blendstages = 0xb,
 > -	.qseed_type = DPU_SSPP_SCALER_QSEED3,
@@ -240,80 +326,191 @@ Konrad
 >  static const struct dpu_ubwc_cfg msm8998_ubwc_cfg = {
 >  	.ubwc_version = DPU_HW_UBWC_VER_10,
 >  	.highest_bank_bit = 0x2,
-> @@ -373,11 +358,6 @@ static const struct dpu_ubwc_cfg sm8150_ubwc_cfg = {
+> @@ -353,11 +338,6 @@ static const struct dpu_ubwc_cfg sdm845_ubwc_cfg = {
 >  	.highest_bank_bit = 0x2,
 >  };
 >  
-> -static const struct dpu_ubwc_cfg sc8180x_ubwc_cfg = {
+> -static const struct dpu_ubwc_cfg sm8150_ubwc_cfg = {
 > -	.ubwc_version = DPU_HW_UBWC_VER_30,
-> -	.highest_bank_bit = 0x3,
+> -	.highest_bank_bit = 0x2,
 > -};
 > -
 >  static const struct dpu_mdp_cfg msm8998_mdp[] = {
 >  	{
 >  	.name = "top_0", .id = MDP_TOP,
-> @@ -430,30 +410,6 @@ static const struct dpu_mdp_cfg sdm845_mdp[] = {
+> @@ -479,45 +459,6 @@ static const struct dpu_ctl_cfg sdm845_ctl[] = {
 >  	},
 >  };
 >  
-> -static const struct dpu_mdp_cfg sc8180x_mdp[] = {
+> -static const struct dpu_ctl_cfg sm8150_ctl[] = {
 > -	{
-> -	.name = "top_0", .id = MDP_TOP,
-> -	.base = 0x0, .len = 0x45C,
-> -	.features = BIT(DPU_MDP_AUDIO_SELECT),
-> -	.clk_ctrls[DPU_CLK_CTRL_VIG0] = {
-> -			.reg_off = 0x2AC, .bit_off = 0},
-> -	.clk_ctrls[DPU_CLK_CTRL_VIG1] = {
-> -			.reg_off = 0x2B4, .bit_off = 0},
-> -	.clk_ctrls[DPU_CLK_CTRL_VIG2] = {
-> -			.reg_off = 0x2BC, .bit_off = 0},
-> -	.clk_ctrls[DPU_CLK_CTRL_VIG3] = {
-> -			.reg_off = 0x2C4, .bit_off = 0},
-> -	.clk_ctrls[DPU_CLK_CTRL_DMA0] = {
-> -			.reg_off = 0x2AC, .bit_off = 8},
-> -	.clk_ctrls[DPU_CLK_CTRL_DMA1] = {
-> -			.reg_off = 0x2B4, .bit_off = 8},
-> -	.clk_ctrls[DPU_CLK_CTRL_DMA2] = {
-> -			.reg_off = 0x2BC, .bit_off = 8},
-> -	.clk_ctrls[DPU_CLK_CTRL_DMA3] = {
-> -			.reg_off = 0x2C4, .bit_off = 8},
+> -	.name = "ctl_0", .id = CTL_0,
+> -	.base = 0x1000, .len = 0x1e0,
+> -	.features = BIT(DPU_CTL_ACTIVE_CFG) | BIT(DPU_CTL_SPLIT_DISPLAY),
+> -	.intr_start = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR2, 9),
+> -	},
+> -	{
+> -	.name = "ctl_1", .id = CTL_1,
+> -	.base = 0x1200, .len = 0x1e0,
+> -	.features = BIT(DPU_CTL_ACTIVE_CFG) | BIT(DPU_CTL_SPLIT_DISPLAY),
+> -	.intr_start = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR2, 10),
+> -	},
+> -	{
+> -	.name = "ctl_2", .id = CTL_2,
+> -	.base = 0x1400, .len = 0x1e0,
+> -	.features = BIT(DPU_CTL_ACTIVE_CFG),
+> -	.intr_start = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR2, 11),
+> -	},
+> -	{
+> -	.name = "ctl_3", .id = CTL_3,
+> -	.base = 0x1600, .len = 0x1e0,
+> -	.features = BIT(DPU_CTL_ACTIVE_CFG),
+> -	.intr_start = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR2, 12),
+> -	},
+> -	{
+> -	.name = "ctl_4", .id = CTL_4,
+> -	.base = 0x1800, .len = 0x1e0,
+> -	.features = BIT(DPU_CTL_ACTIVE_CFG),
+> -	.intr_start = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR2, 13),
+> -	},
+> -	{
+> -	.name = "ctl_5", .id = CTL_5,
+> -	.base = 0x1a00, .len = 0x1e0,
+> -	.features = BIT(DPU_CTL_ACTIVE_CFG),
+> -	.intr_start = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR2, 23),
 > -	},
 > -};
 > -
 >  /*************************************************************
->   * CTL sub blocks config
+>   * SSPP sub blocks config
 >   *************************************************************/
-> @@ -1076,16 +1032,6 @@ static const struct dpu_intf_cfg sm8150_intf[] = {
->  	INTF_BLK("intf_3", INTF_3, 0x6B800, 0x2b8, INTF_DP, 1, 24, INTF_SC7180_MASK, MDP_SSPP_TOP0_INTR, 30, 31),
+> @@ -795,23 +736,6 @@ static const struct dpu_lm_sub_blks sc7180_lm_sblk = {
+>  	},
 >  };
 >  
-> -static const struct dpu_intf_cfg sc8180x_intf[] = {
-> -	INTF_BLK("intf_0", INTF_0, 0x6A000, 0x280, INTF_DP, MSM_DP_CONTROLLER_0, 24, INTF_SC7180_MASK, MDP_SSPP_TOP0_INTR, 24, 25),
-> -	INTF_BLK("intf_1", INTF_1, 0x6A800, 0x280, INTF_DSI, 0, 24, INTF_SC7180_MASK, MDP_SSPP_TOP0_INTR, 26, 27),
-> -	INTF_BLK("intf_2", INTF_2, 0x6B000, 0x280, INTF_DSI, 1, 24, INTF_SC7180_MASK, MDP_SSPP_TOP0_INTR, 28, 29),
-> -	/* INTF_3 is for MST, wired to INTF_DP 0 and 1, use dummy index until this is supported */
-> -	INTF_BLK("intf_3", INTF_3, 0x6B800, 0x280, INTF_DP, 999, 24, INTF_SC7180_MASK, MDP_SSPP_TOP0_INTR, 30, 31),
-> -	INTF_BLK("intf_4", INTF_4, 0x6C000, 0x280, INTF_DP, MSM_DP_CONTROLLER_1, 24, INTF_SC7180_MASK, MDP_SSPP_TOP0_INTR, 20, 21),
-> -	INTF_BLK("intf_5", INTF_5, 0x6C800, 0x280, INTF_DP, MSM_DP_CONTROLLER_2, 24, INTF_SC7180_MASK, MDP_SSPP_TOP0_INTR, 22, 23),
+> -/* SM8150 */
+> -
+> -static const struct dpu_lm_cfg sm8150_lm[] = {
+> -	LM_BLK("lm_0", LM_0, 0x44000, MIXER_SDM845_MASK,
+> -		&sdm845_lm_sblk, PINGPONG_0, LM_1, DSPP_0),
+> -	LM_BLK("lm_1", LM_1, 0x45000, MIXER_SDM845_MASK,
+> -		&sdm845_lm_sblk, PINGPONG_1, LM_0, DSPP_1),
+> -	LM_BLK("lm_2", LM_2, 0x46000, MIXER_SDM845_MASK,
+> -		&sdm845_lm_sblk, PINGPONG_2, LM_3, 0),
+> -	LM_BLK("lm_3", LM_3, 0x47000, MIXER_SDM845_MASK,
+> -		&sdm845_lm_sblk, PINGPONG_3, LM_2, 0),
+> -	LM_BLK("lm_4", LM_4, 0x48000, MIXER_SDM845_MASK,
+> -		&sdm845_lm_sblk, PINGPONG_4, LM_5, 0),
+> -	LM_BLK("lm_5", LM_5, 0x49000, MIXER_SDM845_MASK,
+> -		&sdm845_lm_sblk, PINGPONG_5, LM_4, 0),
+> -};
+> -
+>  /* QCM2290 */
+>  
+>  static const struct dpu_lm_sub_blks qcm2290_lm_sblk = {
+> @@ -857,17 +781,6 @@ static const struct dpu_dspp_cfg msm8998_dspp[] = {
+>  		 &msm8998_dspp_sblk),
+>  };
+>  
+> -static const struct dpu_dspp_cfg sm8150_dspp[] = {
+> -	DSPP_BLK("dspp_0", DSPP_0, 0x54000, DSPP_SC7180_MASK,
+> -		 &sm8150_dspp_sblk),
+> -	DSPP_BLK("dspp_1", DSPP_1, 0x56000, DSPP_SC7180_MASK,
+> -		 &sm8150_dspp_sblk),
+> -	DSPP_BLK("dspp_2", DSPP_2, 0x58000, DSPP_SC7180_MASK,
+> -		 &sm8150_dspp_sblk),
+> -	DSPP_BLK("dspp_3", DSPP_3, 0x5a000, DSPP_SC7180_MASK,
+> -		 &sm8150_dspp_sblk),
+> -};
+> -
+>  /*************************************************************
+>   * PINGPONG sub blocks config
+>   *************************************************************/
+> @@ -934,27 +847,6 @@ static const struct dpu_pingpong_cfg sdm845_pp[] = {
+>  			DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 15)),
+>  };
+>  
+> -static const struct dpu_pingpong_cfg sm8150_pp[] = {
+> -	PP_BLK_TE("pingpong_0", PINGPONG_0, 0x70000, MERGE_3D_0, sdm845_pp_sblk_te,
+> -			DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 8),
+> -			DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 12)),
+> -	PP_BLK_TE("pingpong_1", PINGPONG_1, 0x70800, MERGE_3D_0, sdm845_pp_sblk_te,
+> -			DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 9),
+> -			DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 13)),
+> -	PP_BLK("pingpong_2", PINGPONG_2, 0x71000, MERGE_3D_1, sdm845_pp_sblk,
+> -			DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 10),
+> -			DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 14)),
+> -	PP_BLK("pingpong_3", PINGPONG_3, 0x71800, MERGE_3D_1, sdm845_pp_sblk,
+> -			DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 11),
+> -			DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 15)),
+> -	PP_BLK("pingpong_4", PINGPONG_4, 0x72000, MERGE_3D_2, sdm845_pp_sblk,
+> -			DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR2, 30),
+> -			-1),
+> -	PP_BLK("pingpong_5", PINGPONG_5, 0x72800, MERGE_3D_2, sdm845_pp_sblk,
+> -			DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR2, 31),
+> -			-1),
+> -};
+> -
+>  /*************************************************************
+>   * MERGE_3D sub blocks config
+>   *************************************************************/
+> @@ -966,12 +858,6 @@ static const struct dpu_pingpong_cfg sm8150_pp[] = {
+>  	.sblk = NULL \
+>  	}
+>  
+> -static const struct dpu_merge_3d_cfg sm8150_merge_3d[] = {
+> -	MERGE_3D_BLK("merge_3d_0", MERGE_3D_0, 0x83000),
+> -	MERGE_3D_BLK("merge_3d_1", MERGE_3D_1, 0x83100),
+> -	MERGE_3D_BLK("merge_3d_2", MERGE_3D_2, 0x83200),
+> -};
+> -
+>  /*************************************************************
+>   * DSC sub blocks config
+>   *************************************************************/
+> @@ -989,13 +875,6 @@ static const struct dpu_dsc_cfg sdm845_dsc[] = {
+>  	DSC_BLK("dsc_3", DSC_3, 0x80c00, 0),
+>  };
+>  
+> -static const struct dpu_dsc_cfg sm8150_dsc[] = {
+> -	DSC_BLK("dsc_0", DSC_0, 0x80000, BIT(DPU_DSC_OUTPUT_CTRL)),
+> -	DSC_BLK("dsc_1", DSC_1, 0x80400, BIT(DPU_DSC_OUTPUT_CTRL)),
+> -	DSC_BLK("dsc_2", DSC_2, 0x80800, BIT(DPU_DSC_OUTPUT_CTRL)),
+> -	DSC_BLK("dsc_3", DSC_3, 0x80c00, BIT(DPU_DSC_OUTPUT_CTRL)),
+> -};
+> -
+>  /*************************************************************
+>   * INTF sub blocks config
+>   *************************************************************/
+> @@ -1025,13 +904,6 @@ static const struct dpu_intf_cfg sdm845_intf[] = {
+>  	INTF_BLK("intf_3", INTF_3, 0x6B800, 0x280, INTF_DP, 1, 24, INTF_SDM845_MASK, MDP_SSPP_TOP0_INTR, 30, 31),
+>  };
+>  
+> -static const struct dpu_intf_cfg sm8150_intf[] = {
+> -	INTF_BLK("intf_0", INTF_0, 0x6A000, 0x2b8, INTF_DP, 0, 24, INTF_SC7180_MASK, MDP_SSPP_TOP0_INTR, 24, 25),
+> -	INTF_BLK("intf_1", INTF_1, 0x6A800, 0x2b8, INTF_DSI, 0, 24, INTF_SC7180_MASK, MDP_SSPP_TOP0_INTR, 26, 27),
+> -	INTF_BLK("intf_2", INTF_2, 0x6B000, 0x2b8, INTF_DSI, 1, 24, INTF_SC7180_MASK, MDP_SSPP_TOP0_INTR, 28, 29),
+> -	INTF_BLK("intf_3", INTF_3, 0x6B800, 0x2b8, INTF_DP, 1, 24, INTF_SC7180_MASK, MDP_SSPP_TOP0_INTR, 30, 31),
 > -};
 > -
 >  /*************************************************************
 >   * Writeback blocks config
 >   *************************************************************/
-> @@ -1409,33 +1355,6 @@ static const struct dpu_perf_cfg sm8150_perf_data = {
+> @@ -1326,35 +1198,6 @@ static const struct dpu_perf_cfg sdm845_perf_data = {
 >  	.bw_inefficiency_factor = 120,
 >  };
 >  
-> -static const struct dpu_perf_cfg sc8180x_perf_data = {
-> -	.max_bw_low = 9600000,
-> -	.max_bw_high = 9600000,
+> -static const struct dpu_perf_cfg sm8150_perf_data = {
+> -	.max_bw_low = 12800000,
+> -	.max_bw_high = 12800000,
 > -	.min_core_ib = 2400000,
 > -	.min_llcc_ib = 800000,
 > -	.min_dram_ib = 800000,
+> -	.min_prefill_lines = 24,
 > -	.danger_lut_tbl = {0xf, 0xffff, 0x0},
+> -	.safe_lut_tbl = {0xfff8, 0xf000, 0xffff},
 > -	.qos_lut_tbl = {
-> -		{.nentry = ARRAY_SIZE(sc7180_qos_linear),
-> -		.entries = sc7180_qos_linear
+> -		{.nentry = ARRAY_SIZE(sm8150_qos_linear),
+> -		.entries = sm8150_qos_linear
 > -		},
 > -		{.nentry = ARRAY_SIZE(sc7180_qos_macrotile),
 > -		.entries = sc7180_qos_macrotile
@@ -334,35 +531,40 @@ Konrad
 >  /*************************************************************
 >   * Hardware catalog
 >   *************************************************************/
-> @@ -1518,30 +1437,7 @@ static const struct dpu_mdss_cfg sm8150_dpu_cfg = {
+> @@ -1408,35 +1251,7 @@ static const struct dpu_mdss_cfg sdm845_dpu_cfg = {
 >  	.mdss_irqs = IRQ_SDM845_MASK,
 >  };
 >  
-> -static const struct dpu_mdss_cfg sc8180x_dpu_cfg = {
-> -	.caps = &sc8180x_dpu_caps,
-> -	.ubwc = &sc8180x_ubwc_cfg,
-> -	.mdp_count = ARRAY_SIZE(sc8180x_mdp),
-> -	.mdp = sc8180x_mdp,
+> -static const struct dpu_mdss_cfg sm8150_dpu_cfg = {
+> -	.caps = &sm8150_dpu_caps,
+> -	.ubwc = &sm8150_ubwc_cfg,
+> -	.mdp_count = ARRAY_SIZE(sdm845_mdp),
+> -	.mdp = sdm845_mdp,
 > -	.ctl_count = ARRAY_SIZE(sm8150_ctl),
 > -	.ctl = sm8150_ctl,
 > -	.sspp_count = ARRAY_SIZE(sdm845_sspp),
 > -	.sspp = sdm845_sspp,
 > -	.mixer_count = ARRAY_SIZE(sm8150_lm),
 > -	.mixer = sm8150_lm,
+> -	.dspp_count = ARRAY_SIZE(sm8150_dspp),
+> -	.dspp = sm8150_dspp,
+> -	.dsc_count = ARRAY_SIZE(sm8150_dsc),
+> -	.dsc = sm8150_dsc,
 > -	.pingpong_count = ARRAY_SIZE(sm8150_pp),
 > -	.pingpong = sm8150_pp,
 > -	.merge_3d_count = ARRAY_SIZE(sm8150_merge_3d),
 > -	.merge_3d = sm8150_merge_3d,
-> -	.intf_count = ARRAY_SIZE(sc8180x_intf),
-> -	.intf = sc8180x_intf,
+> -	.intf_count = ARRAY_SIZE(sm8150_intf),
+> -	.intf = sm8150_intf,
 > -	.vbif_count = ARRAY_SIZE(sdm845_vbif),
 > -	.vbif = sdm845_vbif,
 > -	.reg_dma_count = 1,
 > -	.dma_cfg = &sm8150_regdma,
-> -	.perf = &sc8180x_perf_data,
-> -	.mdss_irqs = IRQ_SC8180X_MASK,
+> -	.perf = &sm8150_perf_data,
+> -	.mdss_irqs = IRQ_SDM845_MASK,
 > -};
-> +#include "catalog/dpu_5_1_sc8180x.h"
+> -
+> +#include "catalog/dpu_5_0_sm8150.h"
+>  #include "catalog/dpu_5_1_sc8180x.h"
 >  
 >  #include "catalog/dpu_6_0_sm8250.h"
->  #include "catalog/dpu_6_2_sc7180.h"
