@@ -1,60 +1,60 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id D920D6D12FC
-	for <lists+freedreno@lfdr.de>; Fri, 31 Mar 2023 01:25:31 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id BCCD06D12FE
+	for <lists+freedreno@lfdr.de>; Fri, 31 Mar 2023 01:25:36 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EBE0B10F0A0;
-	Thu, 30 Mar 2023 23:25:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EFE6710F0AC;
+	Thu, 30 Mar 2023 23:25:30 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x132.google.com (mail-lf1-x132.google.com
- [IPv6:2a00:1450:4864:20::132])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3FCB710F09F
- for <freedreno@lists.freedesktop.org>; Thu, 30 Mar 2023 23:25:26 +0000 (UTC)
-Received: by mail-lf1-x132.google.com with SMTP id x17so26679593lfu.5
- for <freedreno@lists.freedesktop.org>; Thu, 30 Mar 2023 16:25:26 -0700 (PDT)
+Received: from mail-lf1-x12e.google.com (mail-lf1-x12e.google.com
+ [IPv6:2a00:1450:4864:20::12e])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DEA8B10F0A8
+ for <freedreno@lists.freedesktop.org>; Thu, 30 Mar 2023 23:25:27 +0000 (UTC)
+Received: by mail-lf1-x12e.google.com with SMTP id bi9so26633389lfb.12
+ for <freedreno@lists.freedesktop.org>; Thu, 30 Mar 2023 16:25:27 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1680218724;
+ d=linaro.org; s=google; t=1680218726;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=1zLOaNti8US4yjllYIUZXiOKkjRQYJjDZ58RHJWDDs4=;
- b=m0/n+I1/rpVCuLYzGLyA+DdSFDWUHEW0zjoWQveb0CSVB7dFpJHcd4bM8YIjOg0yZe
- WfYR3m9h7WRhMe+KuydHADTAar48MOvj4k80PJ8Xd9lIs65AHoGepG1pCPf+2QGq/npG
- N0NhvqG8qBG9B2WIP9msAlEtR3d4QA2lOcZ9drv9ZypulWwOHhYAhG2WVMl/1tmg39yL
- IW6In+inoJDNOC9Axa42Xj3yvm807byLF5/DtxrESKDBmaQrcOgtf5iV0tZG8GsTiWxP
- 3UEWnfM2QUOMtJorWMljBfKsTIuKcxMjDCPfVfeYmYXt3KSQNpTMtOJB14N5BJ48b62+
- tDsA==
+ :reply-to; bh=HnEMhNsn7kHL6KC8gQ4HhHhkok2Hiu0bEYeYgvAPNX0=;
+ b=WA4U34ZFDU5GEpA2HWjsfMPx0WY4xW4xHWtWqTFzepkEWOByY8/2692X7AXb/Sl6lZ
+ Xspckf8n8aKQ6bE0Gp4BxYDtGt3hSSCIYRhxvS+LabVFtGuL+ervvzWF6BaqeRD67CHG
+ mW1mr65rrZ1OjFkAC6HxjoMjeiK7TgnEw+EHxuUaWNeG8mAzdPzBeZzrzJPkujQxWZ8a
+ 7sOw9w/TL/t/wDjlasBnebeYI7HCTiFCpoqg+IdLIxjDn9AL0Y4dPy/erwzMUbuC3ozp
+ 6spDjFsI1LAXUt2I5pxr8My6h6d75sSUVj/pSatoNba9TlC+1Tps6di59E0g4SYpvunp
+ t0Cg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112; t=1680218724;
+ d=1e100.net; s=20210112; t=1680218726;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=1zLOaNti8US4yjllYIUZXiOKkjRQYJjDZ58RHJWDDs4=;
- b=HwLCIM5SZG0bg3uNZMEpnsK2ROiqD7eR8Se2ZAG4SA6ysHdo5LM+wsCyQK0UNuEh8r
- sXqeCjy62fbBsyu190Svex//VwTR6R3GLrSHQ19JR4VnVeK6NnxR0yHOWfSr0YkEjFep
- 0J189GfXRg1GhzjYAMyW03fB/UDFTVgPCGA0ko0Gd9oB9NQ6vOHsho2KRQCA+WRGl0zK
- 207y2+v4YkIBUqC4k29UY7qB+Md0zl6GBqWZzfwrxoOsREmx9uJOee+Zn/n6apmGl1QV
- 9UB4ovTNG3GGMAM18FWYJ5BIAsdJCMBAjUfL2psbMt6lVi1KX1wxOqKpBELRlYA132NN
- H+IA==
-X-Gm-Message-State: AAQBX9f40S4Sv7yTOtKp7lvQHRP1lT8vYXqEPBmDVKSzC/4dGtPfznHp
- XfLRY2UXJtdX02p8f3O72UDdvA==
-X-Google-Smtp-Source: AKy350ZaKAaf6EsDAOCPMKcvbTa5NWbhgOfiPYIRR8JDxCkib3p5Nc8jwuUQmDcwGJJz6ZQ1WJmm2w==
-X-Received: by 2002:ac2:418a:0:b0:4e8:595c:60f9 with SMTP id
- z10-20020ac2418a000000b004e8595c60f9mr6550954lfh.32.1680218724592; 
- Thu, 30 Mar 2023 16:25:24 -0700 (PDT)
+ bh=HnEMhNsn7kHL6KC8gQ4HhHhkok2Hiu0bEYeYgvAPNX0=;
+ b=0GceKRtynWtra+IwZEkM+/pFYjHXg6DngGSlUc1xdZn0PgXyrkg23mg0kZStjQdxLD
+ rYoJmVpiMEuzjhEmuob1ivZb2PY6Pzs+tbjdWGoqcIolUTfWtjRBXX1f/EQkeXuKR6I7
+ zwDbMhtNWeJL1WCcXn+9WJ9P5fIkkjHF3yl3qIt++WkXpB/X/Sb/hbF/RiVqxYvQpg7L
+ xPSJbuy+c5BzxF3TjPdnxHksi2Xecb4Tmmp14Hcr6CnOn4hGKZ4BKpgLdxz9nMVq/4sd
+ Y9G2QrtP59Ob9WcrFv3iY9Sj6qdobM1v1mhYoupghcHSJOTd8LFBxxUX7OwHbtWqxfKP
+ xKbQ==
+X-Gm-Message-State: AAQBX9dOq6Ez5So4rlMHIIz286BMvAeJk+IEsuBwQCIOixs84LWzGGas
+ rffzG02ponYmJW/Uj1NuhhWBnA==
+X-Google-Smtp-Source: AKy350aodM+xf3Nw0jTqZH5DaT1ped+Bwwf9DRY64evZOpWrDyhA6OcSiSD6DBtgUJtCRslbSjhR/w==
+X-Received: by 2002:ac2:5d6b:0:b0:4dc:828f:ef97 with SMTP id
+ h11-20020ac25d6b000000b004dc828fef97mr8191364lft.60.1680218726076; 
+ Thu, 30 Mar 2023 16:25:26 -0700 (PDT)
 Received: from [192.168.1.101] (abxj225.neoplus.adsl.tpnet.pl. [83.9.3.225])
  by smtp.gmail.com with ESMTPSA id
- g26-20020ac2539a000000b004dda80cabf0sm127241lfh.172.2023.03.30.16.25.23
+ g26-20020ac2539a000000b004dda80cabf0sm127241lfh.172.2023.03.30.16.25.24
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 30 Mar 2023 16:25:24 -0700 (PDT)
+ Thu, 30 Mar 2023 16:25:25 -0700 (PDT)
 From: Konrad Dybcio <konrad.dybcio@linaro.org>
-Date: Fri, 31 Mar 2023 01:25:16 +0200
+Date: Fri, 31 Mar 2023 01:25:17 +0200
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20230223-topic-gmuwrapper-v5-2-bf774b9a902a@linaro.org>
+Message-Id: <20230223-topic-gmuwrapper-v5-3-bf774b9a902a@linaro.org>
 References: <20230223-topic-gmuwrapper-v5-0-bf774b9a902a@linaro.org>
 In-Reply-To: <20230223-topic-gmuwrapper-v5-0-bf774b9a902a@linaro.org>
 To: Rob Clark <robdclark@gmail.com>, 
@@ -67,15 +67,15 @@ To: Rob Clark <robdclark@gmail.com>,
  Konrad Dybcio <konrad.dybcio@somainline.org>, 
  Akhil P Oommen <quic_akhilpo@quicinc.com>
 X-Mailer: b4 0.12.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1680218720; l=3273;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1680218720; l=3381;
  i=konrad.dybcio@linaro.org; s=20230215; h=from:subject:message-id;
- bh=PlpPtlQZuCcXGxNxg4tBwrBjp8RpPmQvuWz5XR9uQF0=;
- b=KUKJHvyF8TeKLZ1JC4RG82LkCQbs0eIjTo2BDGIuExX8mjD2ACUXufSJ+O8lmTu3l6DwK31ObAMz
- ZezGDG5fDNQyEQMQtlcKxbonhN8RJmDY9FKNyjVLlfpZWp8jDON5
+ bh=gRbQW6m4WkjCaooGTDuAvaThk4xamrj0048X6Oez/Ng=;
+ b=L5yjYbAyIy1eaZUt6Fje84do7jlXCRtTNb0HkhOCqZub2opNvWhZ+3Qq3UpaP3XSSbi/XytuL5BK
+ 1sGghhSVC/zERXFWxtHF/og72ZHZNB0bvpdo3zPXLUnQE8m2Rr7k
 X-Developer-Key: i=konrad.dybcio@linaro.org; a=ed25519;
  pk=iclgkYvtl2w05SSXO5EjjSYlhFKsJ+5OSZBjOkQuEms=
-Subject: [Freedreno] [PATCH v5 02/15] dt-bindings: display/msm: gpu:
- Document GMU wrapper-equipped A6xx
+Subject: [Freedreno] [PATCH v5 03/15] dt-bindings: display/msm/gmu: Add GMU
+ wrapper
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -91,6 +91,7 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Cc: Rob Clark <robdclark@chromium.org>, devicetree@vger.kernel.org,
  linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
  dri-devel@lists.freedesktop.org, Konrad Dybcio <konrad.dybcio@linaro.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
  Marijn Suijten <marijn.suijten@somainline.org>,
  freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
@@ -106,99 +107,109 @@ GMU-equipped cousins, massively saving up on code duplication.
 The "wrapper" register space was specifically designed to mimic the layout
 of a real GMU, though it rather obviously does not have the M3 core et al.
 
-GMU wrapper-equipped A6xx GPUs require clocks and clock-names to be
-specified under the GPU node, just like their older cousins. Account
-for that.
+To sum it all up, the GMU wrapper is essentially a register space within
+the GPU, which Linux sees as a dumbed-down regular GMU: there's no clocks,
+interrupts, multiple reg spaces, iommus and OPP. Document it.
 
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 Signed-off-by: Konrad Dybcio <konrad.dybcio@linaro.org>
 ---
- .../devicetree/bindings/display/msm/gpu.yaml       | 61 ++++++++++++++++++----
- 1 file changed, 52 insertions(+), 9 deletions(-)
+ .../devicetree/bindings/display/msm/gmu.yaml       | 50 ++++++++++++++++------
+ 1 file changed, 38 insertions(+), 12 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/display/msm/gpu.yaml b/Documentation/devicetree/bindings/display/msm/gpu.yaml
-index 5dabe7b6794b..58ca8912a8c3 100644
---- a/Documentation/devicetree/bindings/display/msm/gpu.yaml
-+++ b/Documentation/devicetree/bindings/display/msm/gpu.yaml
-@@ -36,10 +36,7 @@ properties:
+diff --git a/Documentation/devicetree/bindings/display/msm/gmu.yaml b/Documentation/devicetree/bindings/display/msm/gmu.yaml
+index 029d72822d8b..e36c40b935de 100644
+--- a/Documentation/devicetree/bindings/display/msm/gmu.yaml
++++ b/Documentation/devicetree/bindings/display/msm/gmu.yaml
+@@ -19,16 +19,18 @@ description: |
+ 
+ properties:
+   compatible:
+-    items:
+-      - pattern: '^qcom,adreno-gmu-6[0-9][0-9]\.[0-9]$'
+-      - const: qcom,adreno-gmu
++    oneOf:
++      - items:
++          - pattern: '^qcom,adreno-gmu-6[0-9][0-9]\.[0-9]$'
++          - const: qcom,adreno-gmu
++      - const: qcom,adreno-gmu-wrapper
+ 
+   reg:
+-    minItems: 3
++    minItems: 1
+     maxItems: 4
  
    reg-names:
-     minItems: 1
--    items:
--      - const: kgsl_3d0_reg_memory
--      - const: cx_mem
--      - const: cx_dbgc
-+    maxItems: 3
+-    minItems: 3
++    minItems: 1
+     maxItems: 4
  
-   interrupts:
-     maxItems: 1
-@@ -157,16 +154,62 @@ allOf:
-       required:
-         - clocks
-         - clock-names
-+
-   - if:
-       properties:
-         compatible:
-           contains:
--            pattern: '^qcom,adreno-6[0-9][0-9]\.[0-9]$'
+   clocks:
+@@ -44,7 +46,6 @@ properties:
+       - description: GMU HFI interrupt
+       - description: GMU interrupt
+ 
 -
--    then: # Since Adreno 6xx series clocks should be defined in GMU
-+            enum:
-+              - qcom,adreno-610.0
-+              - qcom,adreno-619.1
+   interrupt-names:
+     items:
+       - const: hfi
+@@ -72,14 +73,8 @@ required:
+   - compatible
+   - reg
+   - reg-names
+-  - clocks
+-  - clock-names
+-  - interrupts
+-  - interrupt-names
+   - power-domains
+   - power-domain-names
+-  - iommus
+-  - operating-points-v2
+ 
+ additionalProperties: false
+ 
+@@ -217,6 +212,28 @@ allOf:
+             - const: axi
+             - const: memnoc
+ 
++  - if:
++      properties:
++        compatible:
++          contains:
++            const: qcom,adreno-gmu-wrapper
 +    then:
-       properties:
--        clocks: false
--        clock-names: false
-+        clocks:
-+          minItems: 6
-+          maxItems: 6
-+
-+        clock-names:
++      properties:
++        reg:
 +          items:
-+            - const: core
-+              description: GPU Core clock
-+            - const: iface
-+              description: GPU Interface clock
-+            - const: mem_iface
-+              description: GPU Memory Interface clock
-+            - const: alt_mem_iface
-+              description: GPU Alternative Memory Interface clock
-+            - const: gmu
-+              description: CX GMU clock
-+            - const: xo
-+              description: GPUCC clocksource clock
-+
++            - description: GMU wrapper register space
 +        reg-names:
-+          minItems: 1
 +          items:
-+            - const: kgsl_3d0_reg_memory
-+            - const: cx_dbgc
-+
++            - const: gmu
++    else:
 +      required:
 +        - clocks
 +        - clock-names
-+    else:
-+      if:
-+        properties:
-+          compatible:
-+            contains:
-+              pattern: '^qcom,adreno-6[0-9][0-9]\.[0-9]$'
++        - interrupts
++        - interrupt-names
++        - iommus
++        - operating-points-v2
 +
-+      then: # Starting with A6xx, the clocks are usually defined in the GMU node
-+        properties:
-+          clocks: false
-+          clock-names: false
-+
-+          reg-names:
-+            minItems: 1
-+            items:
-+              - const: kgsl_3d0_reg_memory
-+              - const: cx_mem
-+              - const: cx_dbgc
- 
  examples:
    - |
+     #include <dt-bindings/clock/qcom,gpucc-sdm845.h>
+@@ -249,3 +266,12 @@ examples:
+         iommus = <&adreno_smmu 5>;
+         operating-points-v2 = <&gmu_opp_table>;
+     };
++
++    gmu_wrapper: gmu@596a000 {
++        compatible = "qcom,adreno-gmu-wrapper";
++        reg = <0x0596a000 0x30000>;
++        reg-names = "gmu";
++        power-domains = <&gpucc GPU_CX_GDSC>,
++                        <&gpucc GPU_GX_GDSC>;
++        power-domain-names = "cx", "gx";
++    };
 
 -- 
 2.40.0
