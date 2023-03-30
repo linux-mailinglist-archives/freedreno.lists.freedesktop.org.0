@@ -1,58 +1,58 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3BB1E6D10E2
-	for <lists+freedreno@lfdr.de>; Thu, 30 Mar 2023 23:32:34 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 899CC6D1100
+	for <lists+freedreno@lfdr.de>; Thu, 30 Mar 2023 23:46:35 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0E49010F037;
-	Thu, 30 Mar 2023 21:32:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5067710F03D;
+	Thu, 30 Mar 2023 21:46:34 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x131.google.com (mail-lf1-x131.google.com
- [IPv6:2a00:1450:4864:20::131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5036B10F037
- for <freedreno@lists.freedesktop.org>; Thu, 30 Mar 2023 21:32:31 +0000 (UTC)
-Received: by mail-lf1-x131.google.com with SMTP id k37so26363889lfv.0
- for <freedreno@lists.freedesktop.org>; Thu, 30 Mar 2023 14:32:31 -0700 (PDT)
+Received: from mail-lj1-x22b.google.com (mail-lj1-x22b.google.com
+ [IPv6:2a00:1450:4864:20::22b])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5A1AD10F03D
+ for <freedreno@lists.freedesktop.org>; Thu, 30 Mar 2023 21:46:32 +0000 (UTC)
+Received: by mail-lj1-x22b.google.com with SMTP id h9so21105706ljq.2
+ for <freedreno@lists.freedesktop.org>; Thu, 30 Mar 2023 14:46:32 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1680211949;
+ d=linaro.org; s=google; t=1680212790;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :from:to:cc:subject:date:message-id:reply-to;
- bh=aTqJwL7oBiO+i/ddIgWkEiFhacs+3OCWtKXm1Tp67Cs=;
- b=OVuKVEb7pgKQF3vr0EZSfol5Mig2ns7Yk/XprlTV1hA7JdOoQY9G+bTWfz06E6sbp3
- 1Tlz81N4K6++tgWAQo1Ca1WD1NRidQBpa01VzgKDXWxjjF0UKLI1WZ8mV1RBaG5ybUSQ
- SgmZGPPbIcz5acSGalsZEsWxzVUbo/h7wkZCh+RC+LruyquKXLnhgNuPstIwU9wlhZzb
- g6ZNjqO+xKWjuPZmqIQ2/GJS4o0CjyW49TWoL9XDvrv/YIeZvWed0sM2IRjeDqErplSX
- eQo+8GaQXobpVk7AWl2UK6CjOIKnbEYp6w5STq2Vk6Av/Dfq5Z0bkHKthJgAjxyu7TaB
- a5Fw==
+ bh=MADZ+T3+xEjmaqwAK3HZYhv40BH/3kPLIH0NLpDWWKI=;
+ b=WmHvFUjiDiAFrxZFfl+bZeBK0iAf6Tj5THXzn01fH+JxsoUeSOFGQlKsfh1VpKEe3f
+ xTIQXo+y64LBXTWMgBzmiS0dEjljfvbVz7itexOdegJSt6RhHp3uUqbcsEXvlcrGojX8
+ ZgokuuEsVMw/rbNeyDqHCOcNJXby2FfRzIOIwcxn1KcI1cVuS8cHtLijorcLrs5Pnl78
+ qFXdem3lXnXMS8mYOjC2FTfsDNkfgRUxHLgL+Hr91UeZWe6Xpm2qWOujYGssujGv/ECK
+ 24LLdaDEEfkEk0gqPNpA/murHiZ20zc49BY7ht6oiSO/lWQOswcaS/FdDwplPk8kDO90
+ q18w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112; t=1680211949;
+ d=1e100.net; s=20210112; t=1680212790;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=aTqJwL7oBiO+i/ddIgWkEiFhacs+3OCWtKXm1Tp67Cs=;
- b=yg+Kkid9pNc+hEg1MI/mIy9xvB44u1Ifi9o5R7FotktsGjwfwSdS82SfdHRvzn1UV7
- JJZP11cV7J8OmB6rLVdjwCGFFl74G79rLLvrTa2NZjSnvpcKdA06dgNMbo78RnFTUylp
- JoHelOVz4W867z0J9+7PYPmjkGkg1H6gxeSKEGXyiatADCIJ97b1s65nEBesurQ/R6B0
- BT9n8P488czFez8mFBkJrocc5Z1CMM7xX1r0Lf7wxUX3Ps3m6Sphg8rK0LuDK2j8AO1m
- wVr1Arr46T7kqD91c4NNcjwNyGRvkfWsb43CDq82qc34eHIO+N/QLka8d04vDg7ajaB7
- NQew==
-X-Gm-Message-State: AAQBX9enWwutXwW8FsKaY40qGG2xfWlrth/ISmseeOljk6IcLkhebxfR
- m7xclgygcrvIHUBMWEoquHte0w==
-X-Google-Smtp-Source: AKy350ZGflQvaIlYJPAclGpHbzprCG3zHk+Wm/YCGsHyvM4odrKaN0sSrPL+HGoNMk0vnKUo3BdjQA==
-X-Received: by 2002:a19:2d1c:0:b0:4d8:86c1:4785 with SMTP id
- k28-20020a192d1c000000b004d886c14785mr2188004lfj.26.1680211949367; 
- Thu, 30 Mar 2023 14:32:29 -0700 (PDT)
+ bh=MADZ+T3+xEjmaqwAK3HZYhv40BH/3kPLIH0NLpDWWKI=;
+ b=xKVboPD89iSEgBmjKs4f3hD0kcUfAnLb9busLQfuOry7xE19k0DpGOUj159vkboGZb
+ nrnOCYYSgqzgTwZNo6dxdxwpb9it4IgP2izQ5fufF0A0JpxIP2e93Fj9mpiRHDeYrQlW
+ Gss5Viq59yyrPKLH4ixuqVxKwA2ERgoGlXLbkJTQFkh5UOwunJKBtGVDIk3EKzDKIUEO
+ DHKVm6evksClqx+yNk2WJFfPmH/4rSso6DLWsQ1kyGaDYZUnbgDIkGb72kkzASQSra7G
+ ssX7RVdlOlkVhICt4T5bvy6DnFmLHsgoxl7PTV9ozEXKlFt3YWbTrYkmKZCiRxOIJgUA
+ 7PRA==
+X-Gm-Message-State: AAQBX9dsF9RD5OqluQ9UTWGRXM8TdaOgXWX3OKcKiVMpIYKKVX+JDZdD
+ UQBH7w8AxCAwB285mXLXUb6bYA==
+X-Google-Smtp-Source: AKy350ZAVBee1zE0gHQ5G0G/YmpxsOLpK53mmAjtYNsKM4JztgEI1u8WQOEpLhH2tb8GE83WwxkNEQ==
+X-Received: by 2002:a2e:98c4:0:b0:299:a8e2:2176 with SMTP id
+ s4-20020a2e98c4000000b00299a8e22176mr7520920ljj.24.1680212790415; 
+ Thu, 30 Mar 2023 14:46:30 -0700 (PDT)
 Received: from ?IPV6:2001:14ba:a085:4d00::8a5?
  (dzccz6yyyyyyyyyyybcwt-3.rev.dnainternet.fi. [2001:14ba:a085:4d00::8a5])
  by smtp.gmail.com with ESMTPSA id
- r25-20020ac25a59000000b004cb45148027sm94871lfn.203.2023.03.30.14.32.28
+ 21-20020a05651c00d500b0029462e98c07sm79875ljr.35.2023.03.30.14.46.29
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 30 Mar 2023 14:32:29 -0700 (PDT)
-Message-ID: <63fd5b75-e4a4-0d15-db9e-461a8f4a1cd9@linaro.org>
-Date: Fri, 31 Mar 2023 00:32:28 +0300
+ Thu, 30 Mar 2023 14:46:29 -0700 (PDT)
+Message-ID: <8d12f4fc-8a7b-c44b-071c-014399fcfa54@linaro.org>
+Date: Fri, 31 Mar 2023 00:46:29 +0300
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.9.0
@@ -60,14 +60,13 @@ Content-Language: en-GB
 To: Konrad Dybcio <konrad.dybcio@linaro.org>, Rob Clark
  <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
  Abhinav Kumar <quic_abhinavk@quicinc.com>
-References: <20230211231259.1308718-38-dmitry.baryshkov@linaro.org>
- <6ca39767-09c7-3323-bde3-52824d81ca41@linaro.org>
+References: <20230211231259.1308718-41-dmitry.baryshkov@linaro.org>
+ <e60607e3-8786-e4fe-f0fa-0851dbb53a3a@linaro.org>
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-In-Reply-To: <6ca39767-09c7-3323-bde3-52824d81ca41@linaro.org>
+In-Reply-To: <e60607e3-8786-e4fe-f0fa-0851dbb53a3a@linaro.org>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-Subject: Re: [Freedreno] [v2,
- 37/50] drm/msm/dpu: enable DPU_CTL_SPLIT_DISPLAY for sc8280xp
+Content-Transfer-Encoding: 7bit
+Subject: Re: [Freedreno] [v2,40/50] drm/msm/dpu: enable DSPP on sc8180x
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -87,54 +86,41 @@ Cc: linux-arm-msm@vger.kernel.org, Bjorn Andersson <andersson@kernel.org>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 30/03/2023 15:29, Konrad Dybcio wrote:
+On 30/03/2023 15:39, Konrad Dybcio wrote:
 > 
 > 
 > On 12.02.2023 00:12, Dmitry Baryshkov wrote:
->> Theoretically since sm8150 we should be using a single CTL for the
->> source split case, but since we do not support it for now, fallback to
->> DPU_CTL_SPLIT_DISPLAY.
+>> Enable DSPP blocks on sc8180x platform, basing on the vendor dtsi.
 >>
 >> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 >> ---
-> Hmm.. so is it a software construct? E.g. "pass half of the data to
-> each of the INTFs and tell them to cooperate"?
-
-It is not a fully software construct, if I understand correctly. You 
-have to program either a single CTL or two CTLs for a flush.
-
+> There's only a single difference between 8150 and 8180:
 > 
-> Apart from that, since it's temporary, I think it deserves a comment
-> reminding us to fix it eventually™
+> qcom,sde-dspp-dither = <0x82c 0x00010007>;
+> 
+> is only present on the former. Not sure if it makes any difference.
 
-Sure, this is, I think, a next item on my plate after getting all of 
-wide planes and catalog in: to rework CTL support for sm8150+.
+I'm not sure too. Currently we support only PP-based dither, so DSPP 
+dither doesn't make any difference. Let's ignore it for now.
 
 > 
 > Konrad
->>   drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_8_0_sc8280xp.h | 4 ++--
->>   1 file changed, 2 insertions(+), 2 deletions(-)
+>>   drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_5_1_sc8180x.h | 2 ++
+>>   1 file changed, 2 insertions(+)
 >>
->> diff --git a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_8_0_sc8280xp.h b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_8_0_sc8280xp.h
->> index a3a79d908451..094876b1019b 100644
->> --- a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_8_0_sc8280xp.h
->> +++ b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_8_0_sc8280xp.h
->> @@ -47,13 +47,13 @@ static const struct dpu_ctl_cfg sc8280xp_ctl[] = {
->>   	{
->>   	.name = "ctl_0", .id = CTL_0,
->>   	.base = 0x15000, .len = 0x204,
->> -	.features = CTL_SC7280_MASK,
->> +	.features = BIT(DPU_CTL_SPLIT_DISPLAY) | CTL_SC7280_MASK,
->>   	.intr_start = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR2, 9),
->>   	},
->>   	{
->>   	.name = "ctl_1", .id = CTL_1,
->>   	.base = 0x16000, .len = 0x204,
->> -	.features = CTL_SC7280_MASK,
->> +	.features = BIT(DPU_CTL_SPLIT_DISPLAY) | CTL_SC7280_MASK,
->>   	.intr_start = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR2, 10),
->>   	},
->>   	{
+>> diff --git a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_5_1_sc8180x.h b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_5_1_sc8180x.h
+>> index c51e1bba1533..457733a6986e 100644
+>> --- a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_5_1_sc8180x.h
+>> +++ b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_5_1_sc8180x.h
+>> @@ -91,6 +91,8 @@ static const struct dpu_mdss_cfg sc8180x_dpu_cfg = {
+>>   	.sspp = sm8150_sspp,
+>>   	.mixer_count = ARRAY_SIZE(sm8150_lm),
+>>   	.mixer = sm8150_lm,
+>> +	.dspp_count = ARRAY_SIZE(sm8150_dspp),
+>> +	.dspp = sm8150_dspp,
+>>   	.pingpong_count = ARRAY_SIZE(sm8150_pp),
+>>   	.pingpong = sm8150_pp,
+>>   	.merge_3d_count = ARRAY_SIZE(sm8150_merge_3d),
 
 -- 
 With best wishes
