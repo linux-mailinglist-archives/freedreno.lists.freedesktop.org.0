@@ -1,60 +1,60 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1C4206D1310
-	for <lists+freedreno@lfdr.de>; Fri, 31 Mar 2023 01:25:50 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 6288A6D131A
+	for <lists+freedreno@lfdr.de>; Fri, 31 Mar 2023 01:25:53 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B810710F0A0;
-	Thu, 30 Mar 2023 23:25:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 21C7510F0B3;
+	Thu, 30 Mar 2023 23:25:52 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from mail-lf1-x12a.google.com (mail-lf1-x12a.google.com
  [IPv6:2a00:1450:4864:20::12a])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3753A10F0B8
- for <freedreno@lists.freedesktop.org>; Thu, 30 Mar 2023 23:25:38 +0000 (UTC)
-Received: by mail-lf1-x12a.google.com with SMTP id g17so26676291lfv.4
- for <freedreno@lists.freedesktop.org>; Thu, 30 Mar 2023 16:25:38 -0700 (PDT)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B0D2510F0B6
+ for <freedreno@lists.freedesktop.org>; Thu, 30 Mar 2023 23:25:39 +0000 (UTC)
+Received: by mail-lf1-x12a.google.com with SMTP id q16so26642852lfe.10
+ for <freedreno@lists.freedesktop.org>; Thu, 30 Mar 2023 16:25:39 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1680218737;
+ d=linaro.org; s=google; t=1680218739;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=r1qkEAaQNTO/CD5dWLHAfXm+a6T+9M+SqzmBcYhiN1U=;
- b=CCeeNvjDBGJBgtguU2LCva5SOHxRmjKNbrSLW+DIrcTTirGjkgnND/QAV+reebxVzx
- dhoirrKQbSD/jwdfub2xWCF9ICWALYsmwJpfT+O3ITzKdXxH7B5ukjKfYeivuLvdl4vH
- tQYgSy/4eysQhu5ORxdOIRuz/+WCFM1UQycow/Z2S+IYn25UIj8wo15UyOPOMVp40/47
- skknMOsCcU1Lh2nqDn7yx6qtaZRRDdzw+sZdUgICRARqOy92vyuTej6FTf4D2m1UAqjt
- +snu5SnM1xf4ogsyxCYXWc9TpKgkH61HhtBl7yKY957g7YLrgLA34aQGk8gonRN5vZK6
- e3TQ==
+ :reply-to; bh=UJtkSDvqvd+N2tN3r+04S+rFblpzh6izfhKCgwy399E=;
+ b=s/HQPOIdCM2wx2RJyNPmcY8kV97ZK8TPWptMk4d6ChufFzl048iV/b0pKilbqFYFLM
+ fctgLgBgPNtgNKads49nSe5vS+rLAtQVuL9a+yYSNcVoTB8JMy3Kk5m/b3jaqc2/XMvQ
+ 0tVWo+ncgHjFdoUK3n4NOk/beBq1RiIIDAQJ3Qco1DQJQBN+IoG/2w9X+7Kia0WY3pRC
+ ze/1Nrv13evTUnj68o0qPswjVD/wOlvfp9ZjP+xqoDC+OeKzABkYRkbfdXS2NYqmOa8E
+ HBclZC+f95kzpkBktPHPl5FZZXOYiyZ4AyC9NUkCwl/yzZ4TTmyZc4UJTyDHdsqnW7oD
+ kaOg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112; t=1680218737;
+ d=1e100.net; s=20210112; t=1680218739;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=r1qkEAaQNTO/CD5dWLHAfXm+a6T+9M+SqzmBcYhiN1U=;
- b=RjjOCFTClker37RuZnsKWbTGIenJRlKrgsyJDFJ+YWWNBVTxUfFOu/yZK0aqx9/TLY
- 09vadjDmt15SnKy7XtPfCTJTUxcVAMVbS2HY2cl2Y6IgBukhAiDQqttc9PUHHZRQRHoq
- jljdxJqWS6+JVQmgjRhYZK78FWvl7qWUxjmH2qWMLHY1ot11qtrnH3eODD03pHu7//87
- pUWC9ue2Cgp7TxAvvS7hlfcMnLDWEUAEG6M8Qe2lVIOJkLU6NckD6Oe/kHBtpia+nDbi
- T6/gHCzc5WYYvD5KkJsIKKN+Dqzao0Pz/nnw15McXcYtmusJ7kvCIIGaF+hxxx1jZ4et
- Oc0w==
-X-Gm-Message-State: AAQBX9eM/riPqoCD2tn/jzZbJzYo/PPF2C9MyPptqnKHqag2agMUnkgE
- j6dOZBhb9i/8kpOqFhzUwFPK8A==
-X-Google-Smtp-Source: AKy350YWEPjKZkDdVfYN1xjqQpjwI6x1EB3w1J5gFScHYlYsn1tfNe58bHr7TJo6zOTCC9+LAgkAGg==
-X-Received: by 2002:ac2:5a03:0:b0:4e9:d53:a5ef with SMTP id
- q3-20020ac25a03000000b004e90d53a5efmr7058419lfn.1.1680218737770; 
- Thu, 30 Mar 2023 16:25:37 -0700 (PDT)
+ bh=UJtkSDvqvd+N2tN3r+04S+rFblpzh6izfhKCgwy399E=;
+ b=rvm/9H+GArlVMvMgz5am6De372wiEPLHLoDvNW/p9lHHeqD7roG/6k92+VEzIRnr8d
+ TfZ/qlm2zTweOhOVMo9/YeQTLjFtP4sHdCQXjgpmc9PY+1fwUJuD1OG9CYVpMhYPmuby
+ 8JdoP7XF+PlqV6seCPy8ajkCGWUwd9YbGcvULl71FWm4yw2pMOjAVIfq7rlj3a5uXX/f
+ VDMWh80ujDsEm51WJEr0WT7JdKYDdckY1roaMUxnAFO3voM4cYW4eBg4e8+aBWGHQhh1
+ rgGfZOijOYKLtkGV+Ogy5YVfLtmJIYAwk4aNNK5Z2/d/tUy4wHEWt0GFDOXmyN43o54I
+ 5hWQ==
+X-Gm-Message-State: AAQBX9fr1UTTfdNtDDz6jwgyikOk8Y4cRv6PjCc1alYTAWyoQbO3yMW6
+ 9yTaztrq6u/oUWURvTXwuv/FZw==
+X-Google-Smtp-Source: AKy350bMoH8wrzy9X0rOyF6hSdT6cQnVC6QTyeEWjyMPdHp3rpeoxywyZ1y63v6eDY9URujHnuYDyg==
+X-Received: by 2002:a19:910f:0:b0:4dc:8049:6f36 with SMTP id
+ t15-20020a19910f000000b004dc80496f36mr2150438lfd.1.1680218739267; 
+ Thu, 30 Mar 2023 16:25:39 -0700 (PDT)
 Received: from [192.168.1.101] (abxj225.neoplus.adsl.tpnet.pl. [83.9.3.225])
  by smtp.gmail.com with ESMTPSA id
- g26-20020ac2539a000000b004dda80cabf0sm127241lfh.172.2023.03.30.16.25.36
+ g26-20020ac2539a000000b004dda80cabf0sm127241lfh.172.2023.03.30.16.25.37
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 30 Mar 2023 16:25:37 -0700 (PDT)
+ Thu, 30 Mar 2023 16:25:38 -0700 (PDT)
 From: Konrad Dybcio <konrad.dybcio@linaro.org>
-Date: Fri, 31 Mar 2023 01:25:25 +0200
+Date: Fri, 31 Mar 2023 01:25:26 +0200
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20230223-topic-gmuwrapper-v5-11-bf774b9a902a@linaro.org>
+Message-Id: <20230223-topic-gmuwrapper-v5-12-bf774b9a902a@linaro.org>
 References: <20230223-topic-gmuwrapper-v5-0-bf774b9a902a@linaro.org>
 In-Reply-To: <20230223-topic-gmuwrapper-v5-0-bf774b9a902a@linaro.org>
 To: Rob Clark <robdclark@gmail.com>, 
@@ -67,14 +67,15 @@ To: Rob Clark <robdclark@gmail.com>,
  Konrad Dybcio <konrad.dybcio@somainline.org>, 
  Akhil P Oommen <quic_akhilpo@quicinc.com>
 X-Mailer: b4 0.12.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1680218720; l=1537;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1680218720; l=1434;
  i=konrad.dybcio@linaro.org; s=20230215; h=from:subject:message-id;
- bh=vSIgBLooy4SpPau69jLvwPl464u8HClYRgiP0Hf1QqY=;
- b=NJKrNhAXk0iryuQaH1Cq4X0A6u4XrEdf3rOBDV+BNa5JPIq8uIm8pH5yaiEBJnxqODbpjp+1c8VW
- MrRIbbAiCJSOCUgRmPBNMEBVZVf8eU999xXHzCUrK+K+GpjyJV7r
+ bh=s5xbHS5B3ZCiDUXL36LQuQu/YVWHv1Qws9XL8zObDRw=;
+ b=0lrLA/hfvQb9236UuY0WgfSVa7GWwFJWUOE4cP7zBhaQUQVZPEH06Zl/rGSuLhfW8wRkV8u9tTsT
+ woreoyUMDHtF32a1vNknVlAKJy5ylWmHmItoggCtDa0EAchVD7A9
 X-Developer-Key: i=konrad.dybcio@linaro.org; a=ed25519;
  pk=iclgkYvtl2w05SSXO5EjjSYlhFKsJ+5OSZBjOkQuEms=
-Subject: [Freedreno] [PATCH v5 11/15] drm/msm/a6xx: Fix some A619 tunables
+Subject: [Freedreno] [PATCH v5 12/15] drm/msm/a6xx: Use "else if" in GPU
+ speedbin rev matching
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -95,39 +96,40 @@ Cc: Rob Clark <robdclark@chromium.org>, devicetree@vger.kernel.org,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Adreno 619 expects some tunables to be set differently. Make up for it.
+The GPU can only be one at a time. Turn a series of ifs into if +
+elseifs to save some CPU cycles.
 
-Fixes: b7616b5c69e6 ("drm/msm/adreno: Add A619 support")
 Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 Signed-off-by: Konrad Dybcio <konrad.dybcio@linaro.org>
 ---
- drivers/gpu/drm/msm/adreno/a6xx_gpu.c | 6 +++++-
- 1 file changed, 5 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/msm/adreno/a6xx_gpu.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
 diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-index 7d14a9cfd410..1f553451ffa5 100644
+index 1f553451ffa5..87ff48f7f3be 100644
 --- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
 +++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-@@ -1186,6 +1186,8 @@ static int hw_init(struct msm_gpu *gpu)
- 		gpu_write(gpu, REG_A6XX_PC_DBG_ECO_CNTL, 0x00200200);
- 	else if (adreno_is_a650(adreno_gpu) || adreno_is_a660(adreno_gpu))
- 		gpu_write(gpu, REG_A6XX_PC_DBG_ECO_CNTL, 0x00300200);
-+	else if (adreno_is_a619(adreno_gpu))
-+		gpu_write(gpu, REG_A6XX_PC_DBG_ECO_CNTL, 0x00018000);
- 	else if (adreno_is_a610(adreno_gpu))
- 		gpu_write(gpu, REG_A6XX_PC_DBG_ECO_CNTL, 0x00080000);
- 	else
-@@ -1203,7 +1205,9 @@ static int hw_init(struct msm_gpu *gpu)
- 	a6xx_set_ubwc_config(gpu);
+@@ -2224,16 +2224,16 @@ static u32 fuse_to_supp_hw(struct device *dev, struct adreno_rev rev, u32 fuse)
+ 	if (adreno_cmp_rev(ADRENO_REV(6, 1, 8, ANY_ID), rev))
+ 		val = a618_get_speed_bin(fuse);
  
- 	/* Enable fault detection */
--	if (adreno_is_a610(adreno_gpu))
-+	if (adreno_is_a619(adreno_gpu))
-+		gpu_write(gpu, REG_A6XX_RBBM_INTERFACE_HANG_INT_CNTL, (1 << 30) | 0x3fffff);
-+	else if (adreno_is_a610(adreno_gpu))
- 		gpu_write(gpu, REG_A6XX_RBBM_INTERFACE_HANG_INT_CNTL, (1 << 30) | 0x3ffff);
- 	else
- 		gpu_write(gpu, REG_A6XX_RBBM_INTERFACE_HANG_INT_CNTL, (1 << 30) | 0x1fffff);
+-	if (adreno_cmp_rev(ADRENO_REV(6, 1, 9, ANY_ID), rev))
++	else if (adreno_cmp_rev(ADRENO_REV(6, 1, 9, ANY_ID), rev))
+ 		val = a619_get_speed_bin(fuse);
+ 
+-	if (adreno_cmp_rev(ADRENO_REV(6, 3, 5, ANY_ID), rev))
++	else if (adreno_cmp_rev(ADRENO_REV(6, 3, 5, ANY_ID), rev))
+ 		val = adreno_7c3_get_speed_bin(fuse);
+ 
+-	if (adreno_cmp_rev(ADRENO_REV(6, 4, 0, ANY_ID), rev))
++	else if (adreno_cmp_rev(ADRENO_REV(6, 4, 0, ANY_ID), rev))
+ 		val = a640_get_speed_bin(fuse);
+ 
+-	if (adreno_cmp_rev(ADRENO_REV(6, 5, 0, ANY_ID), rev))
++	else if (adreno_cmp_rev(ADRENO_REV(6, 5, 0, ANY_ID), rev))
+ 		val = a650_get_speed_bin(fuse);
+ 
+ 	if (val == UINT_MAX) {
 
 -- 
 2.40.0
