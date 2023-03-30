@@ -1,60 +1,60 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id BCCD06D12FE
-	for <lists+freedreno@lfdr.de>; Fri, 31 Mar 2023 01:25:36 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id DF2716D1306
+	for <lists+freedreno@lfdr.de>; Fri, 31 Mar 2023 01:25:46 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EFE6710F0AC;
-	Thu, 30 Mar 2023 23:25:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A14FD10F0B7;
+	Thu, 30 Mar 2023 23:25:36 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x12e.google.com (mail-lf1-x12e.google.com
- [IPv6:2a00:1450:4864:20::12e])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DEA8B10F0A8
+Received: from mail-lf1-x12a.google.com (mail-lf1-x12a.google.com
+ [IPv6:2a00:1450:4864:20::12a])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DBB5910F0A6
  for <freedreno@lists.freedesktop.org>; Thu, 30 Mar 2023 23:25:27 +0000 (UTC)
-Received: by mail-lf1-x12e.google.com with SMTP id bi9so26633389lfb.12
+Received: by mail-lf1-x12a.google.com with SMTP id g17so26675642lfv.4
  for <freedreno@lists.freedesktop.org>; Thu, 30 Mar 2023 16:25:27 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1680218726;
+ d=linaro.org; s=google; t=1680218727;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=HnEMhNsn7kHL6KC8gQ4HhHhkok2Hiu0bEYeYgvAPNX0=;
- b=WA4U34ZFDU5GEpA2HWjsfMPx0WY4xW4xHWtWqTFzepkEWOByY8/2692X7AXb/Sl6lZ
- Xspckf8n8aKQ6bE0Gp4BxYDtGt3hSSCIYRhxvS+LabVFtGuL+ervvzWF6BaqeRD67CHG
- mW1mr65rrZ1OjFkAC6HxjoMjeiK7TgnEw+EHxuUaWNeG8mAzdPzBeZzrzJPkujQxWZ8a
- 7sOw9w/TL/t/wDjlasBnebeYI7HCTiFCpoqg+IdLIxjDn9AL0Y4dPy/erwzMUbuC3ozp
- 6spDjFsI1LAXUt2I5pxr8My6h6d75sSUVj/pSatoNba9TlC+1Tps6di59E0g4SYpvunp
- t0Cg==
+ :reply-to; bh=ulzx50nltdBvd14PSoi/AyrNNr9j/GqEsVc35iPrtqQ=;
+ b=fXwrEbMbQSuULOzCc5FZSh9TsU7bIewyQVd/hNko2e/PZ9uLzQFtEK4cteKOKdLJFr
+ gz7li7VW+2/OqqGK9gQNMpo4O9tesae0ieOoZQ9A3gPHBZq8JAgCg3StWwEonmit2USw
+ UKoshL2RIFAOt0WH66nmGuBuNtlu//r4tERWzle7CxBvRswTx1QTE8kOsXkIHAbU3IDe
+ dO72/BYpDBJtrYoreys9/NF7dG4eTkcVJOW396PrZnQgMUrk2RvAirmYbLm6LOQ17/7q
+ 4yiduTUaAM0zmowThTcJlY2Xk7NHGhYnmIee6NQFuO8yJMoYJi2mrrWtlLcD6paqXi36
+ 0hvg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112; t=1680218726;
+ d=1e100.net; s=20210112; t=1680218727;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=HnEMhNsn7kHL6KC8gQ4HhHhkok2Hiu0bEYeYgvAPNX0=;
- b=0GceKRtynWtra+IwZEkM+/pFYjHXg6DngGSlUc1xdZn0PgXyrkg23mg0kZStjQdxLD
- rYoJmVpiMEuzjhEmuob1ivZb2PY6Pzs+tbjdWGoqcIolUTfWtjRBXX1f/EQkeXuKR6I7
- zwDbMhtNWeJL1WCcXn+9WJ9P5fIkkjHF3yl3qIt++WkXpB/X/Sb/hbF/RiVqxYvQpg7L
- xPSJbuy+c5BzxF3TjPdnxHksi2Xecb4Tmmp14Hcr6CnOn4hGKZ4BKpgLdxz9nMVq/4sd
- Y9G2QrtP59Ob9WcrFv3iY9Sj6qdobM1v1mhYoupghcHSJOTd8LFBxxUX7OwHbtWqxfKP
- xKbQ==
-X-Gm-Message-State: AAQBX9dOq6Ez5So4rlMHIIz286BMvAeJk+IEsuBwQCIOixs84LWzGGas
- rffzG02ponYmJW/Uj1NuhhWBnA==
-X-Google-Smtp-Source: AKy350aodM+xf3Nw0jTqZH5DaT1ped+Bwwf9DRY64evZOpWrDyhA6OcSiSD6DBtgUJtCRslbSjhR/w==
-X-Received: by 2002:ac2:5d6b:0:b0:4dc:828f:ef97 with SMTP id
- h11-20020ac25d6b000000b004dc828fef97mr8191364lft.60.1680218726076; 
- Thu, 30 Mar 2023 16:25:26 -0700 (PDT)
+ bh=ulzx50nltdBvd14PSoi/AyrNNr9j/GqEsVc35iPrtqQ=;
+ b=QoaECDf3mdhQ0lv4UcO9msNeRJE9Lu345KpUAavh0z1OOI+z/sWjNyGzLkZ4U1287J
+ 34I8qil2NJ3+svSsBR5iqryoRzZL3SHVN+w8hjvbxEK2iDbzVVDFFuI8X/nisKlYSjWl
+ QIra/FYo3uEMHBpG+CleKAfrCwERcX6SU8EYvJdJ08+zC6/RSGFD1jecKcVXWs6Nvzu9
+ bM/Z+unmyx7MEGRrmYhPXqOYgzs0a7HnyACG4L4Rpx32sBDUTO7LA3Eqno2zUnJXFSLI
+ FgIkh1R6R+OPR5tzhBKb6bpwoQYVUvZpxmOICWbEIcMmK59TO9sORdlpZC4LfmpzUFNw
+ FdQg==
+X-Gm-Message-State: AAQBX9exIoG2WdRypqxTB3qLB7jGagUoxxPbTtQaONSUg+WFDC+sjg5U
+ l9pv93oub7zQ8ytDhONO/u9uCw==
+X-Google-Smtp-Source: AKy350Y4nvhrHuYbh1yWan15j/HtffFl0NiGPKhIhdyxhJQg/LugZsvI+5L4MzjOXhMaB0mUHyZvTg==
+X-Received: by 2002:ac2:5e88:0:b0:4eb:c4e:bd87 with SMTP id
+ b8-20020ac25e88000000b004eb0c4ebd87mr5700090lfq.58.1680218727463; 
+ Thu, 30 Mar 2023 16:25:27 -0700 (PDT)
 Received: from [192.168.1.101] (abxj225.neoplus.adsl.tpnet.pl. [83.9.3.225])
  by smtp.gmail.com with ESMTPSA id
- g26-20020ac2539a000000b004dda80cabf0sm127241lfh.172.2023.03.30.16.25.24
+ g26-20020ac2539a000000b004dda80cabf0sm127241lfh.172.2023.03.30.16.25.26
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 30 Mar 2023 16:25:25 -0700 (PDT)
+ Thu, 30 Mar 2023 16:25:27 -0700 (PDT)
 From: Konrad Dybcio <konrad.dybcio@linaro.org>
-Date: Fri, 31 Mar 2023 01:25:17 +0200
+Date: Fri, 31 Mar 2023 01:25:18 +0200
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20230223-topic-gmuwrapper-v5-3-bf774b9a902a@linaro.org>
+Message-Id: <20230223-topic-gmuwrapper-v5-4-bf774b9a902a@linaro.org>
 References: <20230223-topic-gmuwrapper-v5-0-bf774b9a902a@linaro.org>
 In-Reply-To: <20230223-topic-gmuwrapper-v5-0-bf774b9a902a@linaro.org>
 To: Rob Clark <robdclark@gmail.com>, 
@@ -67,15 +67,15 @@ To: Rob Clark <robdclark@gmail.com>,
  Konrad Dybcio <konrad.dybcio@somainline.org>, 
  Akhil P Oommen <quic_akhilpo@quicinc.com>
 X-Mailer: b4 0.12.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1680218720; l=3381;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1680218720; l=1711;
  i=konrad.dybcio@linaro.org; s=20230215; h=from:subject:message-id;
- bh=gRbQW6m4WkjCaooGTDuAvaThk4xamrj0048X6Oez/Ng=;
- b=L5yjYbAyIy1eaZUt6Fje84do7jlXCRtTNb0HkhOCqZub2opNvWhZ+3Qq3UpaP3XSSbi/XytuL5BK
- 1sGghhSVC/zERXFWxtHF/og72ZHZNB0bvpdo3zPXLUnQE8m2Rr7k
+ bh=ve7dkZrYc5cSSMu89e01MZzyBYTeqWaeZyy4JZy7U0w=;
+ b=Zke1xsMS3dnkdn+JdDDFWbcG6ov48tbnXWiZVfSJvfbVaMPHjiPK8ibVyXKOALdcGohtiQUDjEq3
+ +dAI+2q3B3cF8Ol2RVrRAj48FIvuMTM7CAjlyLWuwULoocsKuaOI
 X-Developer-Key: i=konrad.dybcio@linaro.org; a=ed25519;
  pk=iclgkYvtl2w05SSXO5EjjSYlhFKsJ+5OSZBjOkQuEms=
-Subject: [Freedreno] [PATCH v5 03/15] dt-bindings: display/msm/gmu: Add GMU
- wrapper
+Subject: [Freedreno] [PATCH v5 04/15] drm/msm/a6xx: Remove static keyword
+ from sptprac en/disable functions
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -91,125 +91,55 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Cc: Rob Clark <robdclark@chromium.org>, devicetree@vger.kernel.org,
  linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
  dri-devel@lists.freedesktop.org, Konrad Dybcio <konrad.dybcio@linaro.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
  Marijn Suijten <marijn.suijten@somainline.org>,
  freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-The "GMU Wrapper" is Qualcomm's name for "let's treat the GPU blocks
-we'd normally assign to the GMU as if they were a part of the GMU, even
-though they are not". It's a (good) software representation of the GMU_CX
-and GMU_GX register spaces within the GPUSS that helps us programatically
-treat these de-facto GMU-less parts in a way that's very similar to their
-GMU-equipped cousins, massively saving up on code duplication.
+These two will be reused by at least A619_holi in the non-gmu
+paths. Turn them non-static them to make it possible.
 
-The "wrapper" register space was specifically designed to mimic the layout
-of a real GMU, though it rather obviously does not have the M3 core et al.
-
-To sum it all up, the GMU wrapper is essentially a register space within
-the GPU, which Linux sees as a dumbed-down regular GMU: there's no clocks,
-interrupts, multiple reg spaces, iommus and OPP. Document it.
-
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 Signed-off-by: Konrad Dybcio <konrad.dybcio@linaro.org>
 ---
- .../devicetree/bindings/display/msm/gmu.yaml       | 50 ++++++++++++++++------
- 1 file changed, 38 insertions(+), 12 deletions(-)
+ drivers/gpu/drm/msm/adreno/a6xx_gmu.c | 4 ++--
+ drivers/gpu/drm/msm/adreno/a6xx_gmu.h | 2 ++
+ 2 files changed, 4 insertions(+), 2 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/display/msm/gmu.yaml b/Documentation/devicetree/bindings/display/msm/gmu.yaml
-index 029d72822d8b..e36c40b935de 100644
---- a/Documentation/devicetree/bindings/display/msm/gmu.yaml
-+++ b/Documentation/devicetree/bindings/display/msm/gmu.yaml
-@@ -19,16 +19,18 @@ description: |
+diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
+index ba6b8ea27c71..1514b3ed0fcf 100644
+--- a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
++++ b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
+@@ -354,7 +354,7 @@ void a6xx_gmu_clear_oob(struct a6xx_gmu *gmu, enum a6xx_gmu_oob_state state)
+ }
  
- properties:
-   compatible:
--    items:
--      - pattern: '^qcom,adreno-gmu-6[0-9][0-9]\.[0-9]$'
--      - const: qcom,adreno-gmu
-+    oneOf:
-+      - items:
-+          - pattern: '^qcom,adreno-gmu-6[0-9][0-9]\.[0-9]$'
-+          - const: qcom,adreno-gmu
-+      - const: qcom,adreno-gmu-wrapper
+ /* Enable CPU control of SPTP power power collapse */
+-static int a6xx_sptprac_enable(struct a6xx_gmu *gmu)
++int a6xx_sptprac_enable(struct a6xx_gmu *gmu)
+ {
+ 	int ret;
+ 	u32 val;
+@@ -376,7 +376,7 @@ static int a6xx_sptprac_enable(struct a6xx_gmu *gmu)
+ }
  
-   reg:
--    minItems: 3
-+    minItems: 1
-     maxItems: 4
+ /* Disable CPU control of SPTP power power collapse */
+-static void a6xx_sptprac_disable(struct a6xx_gmu *gmu)
++void a6xx_sptprac_disable(struct a6xx_gmu *gmu)
+ {
+ 	u32 val;
+ 	int ret;
+diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gmu.h b/drivers/gpu/drm/msm/adreno/a6xx_gmu.h
+index 0bc3eb443fec..7ee5b606bc47 100644
+--- a/drivers/gpu/drm/msm/adreno/a6xx_gmu.h
++++ b/drivers/gpu/drm/msm/adreno/a6xx_gmu.h
+@@ -193,5 +193,7 @@ int a6xx_hfi_set_freq(struct a6xx_gmu *gmu, int index);
  
-   reg-names:
--    minItems: 3
-+    minItems: 1
-     maxItems: 4
+ bool a6xx_gmu_gx_is_on(struct a6xx_gmu *gmu);
+ bool a6xx_gmu_sptprac_is_on(struct a6xx_gmu *gmu);
++void a6xx_sptprac_disable(struct a6xx_gmu *gmu);
++int a6xx_sptprac_enable(struct a6xx_gmu *gmu);
  
-   clocks:
-@@ -44,7 +46,6 @@ properties:
-       - description: GMU HFI interrupt
-       - description: GMU interrupt
- 
--
-   interrupt-names:
-     items:
-       - const: hfi
-@@ -72,14 +73,8 @@ required:
-   - compatible
-   - reg
-   - reg-names
--  - clocks
--  - clock-names
--  - interrupts
--  - interrupt-names
-   - power-domains
-   - power-domain-names
--  - iommus
--  - operating-points-v2
- 
- additionalProperties: false
- 
-@@ -217,6 +212,28 @@ allOf:
-             - const: axi
-             - const: memnoc
- 
-+  - if:
-+      properties:
-+        compatible:
-+          contains:
-+            const: qcom,adreno-gmu-wrapper
-+    then:
-+      properties:
-+        reg:
-+          items:
-+            - description: GMU wrapper register space
-+        reg-names:
-+          items:
-+            - const: gmu
-+    else:
-+      required:
-+        - clocks
-+        - clock-names
-+        - interrupts
-+        - interrupt-names
-+        - iommus
-+        - operating-points-v2
-+
- examples:
-   - |
-     #include <dt-bindings/clock/qcom,gpucc-sdm845.h>
-@@ -249,3 +266,12 @@ examples:
-         iommus = <&adreno_smmu 5>;
-         operating-points-v2 = <&gmu_opp_table>;
-     };
-+
-+    gmu_wrapper: gmu@596a000 {
-+        compatible = "qcom,adreno-gmu-wrapper";
-+        reg = <0x0596a000 0x30000>;
-+        reg-names = "gmu";
-+        power-domains = <&gpucc GPU_CX_GDSC>,
-+                        <&gpucc GPU_GX_GDSC>;
-+        power-domain-names = "cx", "gx";
-+    };
+ #endif
 
 -- 
 2.40.0
