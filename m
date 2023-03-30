@@ -2,73 +2,70 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 26B1E6D08BA
-	for <lists+freedreno@lfdr.de>; Thu, 30 Mar 2023 16:52:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 018A56D0DBC
+	for <lists+freedreno@lfdr.de>; Thu, 30 Mar 2023 20:29:47 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9020A10EEA2;
-	Thu, 30 Mar 2023 14:52:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0712010EF7D;
+	Thu, 30 Mar 2023 18:29:44 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x12c.google.com (mail-lf1-x12c.google.com
- [IPv6:2a00:1450:4864:20::12c])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3235010EEA2
- for <freedreno@lists.freedesktop.org>; Thu, 30 Mar 2023 14:52:34 +0000 (UTC)
-Received: by mail-lf1-x12c.google.com with SMTP id x17so24882569lfu.5
- for <freedreno@lists.freedesktop.org>; Thu, 30 Mar 2023 07:52:34 -0700 (PDT)
+Received: from mail-ua1-x931.google.com (mail-ua1-x931.google.com
+ [IPv6:2607:f8b0:4864:20::931])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 12B3310E3B3
+ for <freedreno@lists.freedesktop.org>; Thu, 30 Mar 2023 18:29:42 +0000 (UTC)
+Received: by mail-ua1-x931.google.com with SMTP id m5so14456616uae.11
+ for <freedreno@lists.freedesktop.org>; Thu, 30 Mar 2023 11:29:42 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1680187952;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=kFDNA5O4BRFjY00+Z1LJW119elAYOYVUw4CBAie71cg=;
- b=eJWBU//eJrHG5mc3MWkqYZSyeiQVk3i4eaOJaS41ZDWBEDAUymCfUZpzw4Pa3onpqz
- fxSBz4CVxHV4C26hz68gTIB7+KPV6LMDDuTcrf9WHS6GBTTtSBLyNjrobEakV77CPSXb
- hnCSvLwk9tDgMA1LICJA9RS1zI5gShpEJev6LHd3x+QMwBgh1IwH2mkaxalD7ekwD6rG
- 94FcZ9oMOdJEF4173i0w4lthkEKj+E7ny6cjXPk5/NYfW0Kp6A6rdQLXII9w43spK3Lg
- 3px+6MCY3Ev88K6PUL95C1q2ctf/xYudq4ASG49tVVzgCEzMygzgtNL7cL0Ri1WwABfV
- jhXg==
+ d=chromium.org; s=google; t=1680200978;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=J1mfsAVkmxLwhRt7IlI3jhuOesEA4D6U7D/dfayN2QA=;
+ b=MOGm1VqeuelvWydwOeZe7j2bl24u03Ml/sqnQ8wtHhI7luYrcx6XexkPdh1+XGg8X7
+ ebLwoFTfM/YVgVdz4rJU3ROd5aWIFR/AJTdDWu93BwzxoFkP87H022wHHMwUQF4HNJg8
+ +A9AYY77V/W0EWSlFW9hCGnTSnAmvXHGEn4/c=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112; t=1680187952;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=kFDNA5O4BRFjY00+Z1LJW119elAYOYVUw4CBAie71cg=;
- b=Tf0iwzD6SNITeCkyefUWilbhQoufdLCsGb5DJPR66OJsmhNFNpcGWfb60Fuqk0xqae
- 3OT3AtVDRv4yab+ZYeaPs+PcWJ7+wRIl7mesrJWIIoQtVQJx/bGHvAVi3yaM/TE5viDw
- BWlfwgIv2sXfWUyZd60i0PenIZTddDwbgThTUjPcaVLyEKuQcp7/Hg1hDtllB6VcdNt0
- MWgij9u2nt+ZhYgo0AubKF8dKs0AYObFlsjMAPMD//l6sHM8JvdgQFQyz7Q2Sxsz3qRP
- TuCuPGE8FXjC8iUKw/6+2pRqUiyni3iVw90kE/w63Ys6TTjNqpzRbMFFOtW7Wq1Mmi0m
- rUVw==
-X-Gm-Message-State: AAQBX9eSZJjH8Fu4kiClkhuXiYBiate8P+dkKAuJXvF294GZxoluPj2m
- xuPYGhVgQYrqJVZcE5MKv0kZVw==
-X-Google-Smtp-Source: AKy350bV2TIdi9zQe23PfA/0zCWQl3PFtYMIVplNdHrQIPV+NXfL02RAP+7MfBDh5lc4xKsVFwO3VQ==
-X-Received: by 2002:a19:7919:0:b0:4e8:3cfe:98c7 with SMTP id
- u25-20020a197919000000b004e83cfe98c7mr1915967lfc.4.1680187952252; 
- Thu, 30 Mar 2023 07:52:32 -0700 (PDT)
-Received: from ?IPV6:2001:14ba:a085:4d00::8a5?
- (dzccz6yyyyyyyyyyybcwt-3.rev.dnainternet.fi. [2001:14ba:a085:4d00::8a5])
- by smtp.gmail.com with ESMTPSA id
- q29-20020ac2511d000000b004eb09820adbsm2385504lfb.105.2023.03.30.07.52.31
+ d=1e100.net; s=20210112; t=1680200978;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=J1mfsAVkmxLwhRt7IlI3jhuOesEA4D6U7D/dfayN2QA=;
+ b=yLCIdhdLdeW/Xmv5wTm3NSqJzVNZ/+/uQ6xViEF/C4qNLRLulDt26WWCkC/nluL4+o
+ n9DLJfTNffVhX88NvWVDZuqsSGb5QU4/92Wc7bI9snOqRVfpAD/jroScUaNEjI/NnweY
+ 82qC00O7rYDX35zcAsAbQsWI6ipVjCoLhaZD6F6U3G/xjdEkCsymqF1Z4qDaK0zO7iyL
+ LbGJUjsYes7J09MQGm9kKYxUQnBe/JpYE8xFiJycPh3fisNk5n7mdZA2RUWlYG7gKKmb
+ xVor1Th8y1x9QSR6x/BFoH7F2BNCrH5emw0vVJS7PuAbXz3y83ZdYxkqLfx8hpasvRGq
+ vcIg==
+X-Gm-Message-State: AAQBX9dseK2wZ9GT4FZTQ518NuCgAo4hkRaekIQVWXRgBChWDCVR7oWx
+ l+Q9jsZQ113WVr3qIUdDiwIr+ouzl8VIqCRSVHU=
+X-Google-Smtp-Source: AKy350auwaNCNMXSRdno6xqTdt81cTS9oSb6c4+1/BZF8cEtqk8NlsYBXRtaZWINdCV+xs0IXSFSJA==
+X-Received: by 2002:a05:6122:c8e:b0:43b:3fda:1fba with SMTP id
+ ba14-20020a0561220c8e00b0043b3fda1fbamr10568275vkb.6.1680200978368; 
+ Thu, 30 Mar 2023 11:29:38 -0700 (PDT)
+Received: from mail-vs1-f52.google.com (mail-vs1-f52.google.com.
+ [209.85.217.52]) by smtp.gmail.com with ESMTPSA id
+ v131-20020a1f2f89000000b0043c2093bbd6sm87930vkv.55.2023.03.30.11.29.37
+ for <freedreno@lists.freedesktop.org>
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 30 Mar 2023 07:52:31 -0700 (PDT)
-Message-ID: <2eff49b1-f0ad-8d44-5902-93937867178b@linaro.org>
-Date: Thu, 30 Mar 2023 17:52:31 +0300
+ Thu, 30 Mar 2023 11:29:37 -0700 (PDT)
+Received: by mail-vs1-f52.google.com with SMTP id d18so17031859vsv.11
+ for <freedreno@lists.freedesktop.org>; Thu, 30 Mar 2023 11:29:37 -0700 (PDT)
+X-Received: by 2002:a67:d493:0:b0:426:a319:a226 with SMTP id
+ g19-20020a67d493000000b00426a319a226mr9101769vsj.7.1680200976855; Thu, 30 Mar
+ 2023 11:29:36 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.9.0
-Content-Language: en-GB
-To: Konrad Dybcio <konrad.dybcio@linaro.org>
-References: <20230329140445.2180662-1-konrad.dybcio@linaro.org>
- <ZCRNFitcrAeH27Pn@hovoldconsulting.com>
- <83986fa9-c9eb-ae5a-b239-584092f2cea5@linaro.org>
- <CAA8EJpohEo+kMw7fx5112m+z7JHSLDmsqOL4T7hmyvr2fPP8vQ@mail.gmail.com>
- <b985e536-227d-df86-0f23-b58882e9654b@linaro.org>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-In-Reply-To: <b985e536-227d-df86-0f23-b58882e9654b@linaro.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH] drm/msm/adreno: adreno_gpu: Use suspend()
- instead of idle() on load error
+References: <20230324195555.3921170-1-markyacoub@google.com>
+ <20230324195555.3921170-9-markyacoub@google.com>
+In-Reply-To: <20230324195555.3921170-9-markyacoub@google.com>
+From: Doug Anderson <dianders@chromium.org>
+Date: Thu, 30 Mar 2023 11:29:25 -0700
+X-Gmail-Original-Message-ID: <CAD=FV=Wq8Z+rf++08fyYvsBUqdWX23qoUSOBBR5nP=hBUk2mzA@mail.gmail.com>
+Message-ID: <CAD=FV=Wq8Z+rf++08fyYvsBUqdWX23qoUSOBBR5nP=hBUk2mzA@mail.gmail.com>
+To: Mark Yacoub <markyacoub@chromium.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [Freedreno] [PATCH v7 08/10] dt-bindings: msm/dp: Add bindings
+ for HDCP registers
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,72 +78,61 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Akhil P Oommen <quic_akhilpo@quicinc.com>, linux-arm-msm@vger.kernel.org,
- andersson@kernel.org, Johan Hovold <johan@kernel.org>,
- dri-devel@lists.freedesktop.org, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Nathan Chancellor <nathan@kernel.org>, Rob Clark <robdclark@gmail.com>,
- agross@kernel.org, Daniel Vetter <daniel@ffwll.ch>,
- "Joel Fernandes \(Google\)" <joel@joelfernandes.org>,
- marijn.suijten@somainline.org, David Airlie <airlied@gmail.com>,
- Sean Paul <sean@poorly.run>, Johan Hovold <johan+linaro@kernel.org>
+Cc: freedreno@lists.freedesktop.org, suraj.kandpal@intel.com,
+ linux-kernel@vger.kernel.org,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Rob Herring <robh@kernel.org>, Sean Paul <sean@poorly.run>,
+ intel-gfx@lists.freedesktop.org, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ dri-devel@lists.freedesktop.org, Kuogee Hsieh <quic_khsieh@quicinc.com>,
+ Rob Clark <robdclark@gmail.com>, Rob Herring <robh+dt@kernel.org>,
+ seanpaul@chromium.org, Daniel Vetter <daniel@ffwll.ch>,
+ linux-arm-msm@vger.kernel.org, Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Stephen Boyd <swboyd@chromium.org>, David Airlie <airlied@gmail.com>,
+ devicetree@vger.kernel.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 30/03/2023 17:34, Konrad Dybcio wrote:
-> 
-> 
-> On 29.03.2023 21:45, Dmitry Baryshkov wrote:
->> On Wed, 29 Mar 2023 at 18:48, Konrad Dybcio <konrad.dybcio@linaro.org> wrote:
->>>
->>>
->>>
->>> On 29.03.2023 16:37, Johan Hovold wrote:
->>>> On Wed, Mar 29, 2023 at 04:04:44PM +0200, Konrad Dybcio wrote:
->>>>> If we fail to initialize the GPU for whatever reason (say we don't
->>>>> embed the GPU firmware files in the initrd), the error path involves
->>>>> pm_runtime_put_sync() which then calls idle() instead of suspend().
->>>>>
->>>>> This is suboptimal, as it means that we're not going through the
->>>>> clean shutdown sequence. With at least A619_holi, this makes the GPU
->>>>> not wake up until it goes through at least one more start-fail-stop
->>>>> cycle. Fix that by using pm_runtime_put_sync_suspend to force a clean
->>>>> shutdown.
->>>>
->>>> This does not sound right. If pm_runtime_put_sync() fails to suspend the
->>>> device when the usage count drops to zero, then you have a bug somewhere
->>>> else.
->>> I was surprised to see that it was not called as well, but I wasn't able
->>> to track it down before..
->>
->> Could you please check that it's autosuspend who kicks in? In other
->> words, if we disable autosuspend, the pm_runtime_put_sync is enough()?
->>
->> That would probably mean that we lack some kind of reset in the hw_init path.
->>
->> On the other hand, I do not know how the device will react to the
->> error-in-the-middle state. Modems for example, can enter the state
->> where you can not properly turn it off once it starts the boot
->> process.
->>
->> And if we remember the efforts that Akhil has put into making sure
->> that the GPU is properly reset in case of an _error_, it might be
->> nearly impossible to shut it down in a proper way.
->>
->> Thus said, I think that unless there is an obvious way to restart the
->> init process, Korad's pm_runtime_put_sync_suspend() looks like a
->> correct fix to me.
-> On the GPU side, when you cut GX and CX GDSCs, the hardware is off.
-> Some clock / gdsc logic may be retained, but the GPU itself gets
-> cut off. Parking the clocks and shuttting down VDD_GX (if exists)
-> only makes that stronger.
+Hi,
 
-If I remember correctly, GX and CX GPU GDSCs might be voted by other 
-users. Again, I'd direct you here to the series at [1]
+On Fri, Mar 24, 2023 at 12:56=E2=80=AFPM Mark Yacoub <markyacoub@chromium.o=
+rg> wrote:
+>
+> From: Sean Paul <seanpaul@chromium.org>
+>
+> Add the bindings for the MSM DisplayPort HDCP registers
+> which are required to write the HDCP key into the display controller as
+> well as the registers to enable HDCP authentication/key
+> exchange/encryption.
+>
+> Cc: Rob Herring <robh@kernel.org>
+> Cc: Stephen Boyd <swboyd@chromium.org>
+> Reviewed-by: Rob Herring <robh@kernel.org>
+> Signed-off-by: Sean Paul <seanpaul@chromium.org>
+> Signed-off-by: Mark Yacoub <markyacoub@chromium.org>
+>
+> ---
+> Changes in v2:
+> -Drop register range names (Stephen)
+> -Fix yaml errors (Rob)
+> Changes in v3:
+> -Add new compatible string for dp-hdcp
+> -Add descriptions to reg
+> -Add minItems/maxItems to reg
+> -Make reg depend on the new hdcp compatible string
+> Changes in v4:
+> -Rebase on Bjorn's multi-dp patchset
+> Changes in v4.5:
+> -Remove maxItems from reg (Rob)
+> -Remove leading zeros in example (Rob)
+> Changes in v5:
+> -None
+> Changes in v6:
+> -Rebased: modify minItems instead of adding it as new line.
+> Changes in v7:
+> -Revert the change to minItems
+> -Added the maxItems to Reg
+>
+>  .../devicetree/bindings/display/msm/dp-controller.yaml     | 7 ++++++-
+>  1 file changed, 6 insertions(+), 1 deletion(-)
 
-[1]: https://patchwork.freedesktop.org/series/111966/
-
--- 
-With best wishes
-Dmitry
-
+Reviewed-by: Douglas Anderson <dianders@chromium.org>
