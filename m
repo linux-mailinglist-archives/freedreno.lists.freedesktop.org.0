@@ -1,72 +1,63 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 899CC6D1100
-	for <lists+freedreno@lfdr.de>; Thu, 30 Mar 2023 23:46:35 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id C22146D1115
+	for <lists+freedreno@lfdr.de>; Thu, 30 Mar 2023 23:53:29 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5067710F03D;
-	Thu, 30 Mar 2023 21:46:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8B09D10F04F;
+	Thu, 30 Mar 2023 21:53:28 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-x22b.google.com (mail-lj1-x22b.google.com
- [IPv6:2a00:1450:4864:20::22b])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5A1AD10F03D
- for <freedreno@lists.freedesktop.org>; Thu, 30 Mar 2023 21:46:32 +0000 (UTC)
-Received: by mail-lj1-x22b.google.com with SMTP id h9so21105706ljq.2
- for <freedreno@lists.freedesktop.org>; Thu, 30 Mar 2023 14:46:32 -0700 (PDT)
+Received: from mail-lf1-x12e.google.com (mail-lf1-x12e.google.com
+ [IPv6:2a00:1450:4864:20::12e])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DA92910F040
+ for <freedreno@lists.freedesktop.org>; Thu, 30 Mar 2023 21:53:26 +0000 (UTC)
+Received: by mail-lf1-x12e.google.com with SMTP id x17so26399687lfu.5
+ for <freedreno@lists.freedesktop.org>; Thu, 30 Mar 2023 14:53:26 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1680212790;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=MADZ+T3+xEjmaqwAK3HZYhv40BH/3kPLIH0NLpDWWKI=;
- b=WmHvFUjiDiAFrxZFfl+bZeBK0iAf6Tj5THXzn01fH+JxsoUeSOFGQlKsfh1VpKEe3f
- xTIQXo+y64LBXTWMgBzmiS0dEjljfvbVz7itexOdegJSt6RhHp3uUqbcsEXvlcrGojX8
- ZgokuuEsVMw/rbNeyDqHCOcNJXby2FfRzIOIwcxn1KcI1cVuS8cHtLijorcLrs5Pnl78
- qFXdem3lXnXMS8mYOjC2FTfsDNkfgRUxHLgL+Hr91UeZWe6Xpm2qWOujYGssujGv/ECK
- 24LLdaDEEfkEk0gqPNpA/murHiZ20zc49BY7ht6oiSO/lWQOswcaS/FdDwplPk8kDO90
- q18w==
+ d=linaro.org; s=google; t=1680213205;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=5L5ZEDSelVBtZ55FOozqu+GozXT8Asc+2u8ZodUwXDM=;
+ b=son3PxDL44lsO58j9wl/U6ELLAKPfRi4WU+BwdMrdzGhdGr3wAEpzOV+o1u9Knprb4
+ dTHmTqFQuT0vccvuJF31FkWbGPFkS7S+5PULFMVASmBOut8/AlDFHBQEIFckwR2MR9lk
+ EHuQg5XwBFoNoTEe4Oo3dWcYFu95tb6xRjSiAa8plNDF2Ol8jMdKlm+cgM178vHpTMFx
+ wXfF45p4ruwIpERLi2AqbMZCEyipIh5U1bIErqgdxiGcQhJVmprRF9qKlLQklQyysi27
+ rVARqfx0OczoTtqhfqDXcuq67skLaM7rJedvzsow/L2xn858+4R1LxNC+oYY+ZPueuSD
+ B/Fg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112; t=1680212790;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=MADZ+T3+xEjmaqwAK3HZYhv40BH/3kPLIH0NLpDWWKI=;
- b=xKVboPD89iSEgBmjKs4f3hD0kcUfAnLb9busLQfuOry7xE19k0DpGOUj159vkboGZb
- nrnOCYYSgqzgTwZNo6dxdxwpb9it4IgP2izQ5fufF0A0JpxIP2e93Fj9mpiRHDeYrQlW
- Gss5Viq59yyrPKLH4ixuqVxKwA2ERgoGlXLbkJTQFkh5UOwunJKBtGVDIk3EKzDKIUEO
- DHKVm6evksClqx+yNk2WJFfPmH/4rSso6DLWsQ1kyGaDYZUnbgDIkGb72kkzASQSra7G
- ssX7RVdlOlkVhICt4T5bvy6DnFmLHsgoxl7PTV9ozEXKlFt3YWbTrYkmKZCiRxOIJgUA
- 7PRA==
-X-Gm-Message-State: AAQBX9dsF9RD5OqluQ9UTWGRXM8TdaOgXWX3OKcKiVMpIYKKVX+JDZdD
- UQBH7w8AxCAwB285mXLXUb6bYA==
-X-Google-Smtp-Source: AKy350ZAVBee1zE0gHQ5G0G/YmpxsOLpK53mmAjtYNsKM4JztgEI1u8WQOEpLhH2tb8GE83WwxkNEQ==
-X-Received: by 2002:a2e:98c4:0:b0:299:a8e2:2176 with SMTP id
- s4-20020a2e98c4000000b00299a8e22176mr7520920ljj.24.1680212790415; 
- Thu, 30 Mar 2023 14:46:30 -0700 (PDT)
-Received: from ?IPV6:2001:14ba:a085:4d00::8a5?
- (dzccz6yyyyyyyyyyybcwt-3.rev.dnainternet.fi. [2001:14ba:a085:4d00::8a5])
- by smtp.gmail.com with ESMTPSA id
- 21-20020a05651c00d500b0029462e98c07sm79875ljr.35.2023.03.30.14.46.29
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 30 Mar 2023 14:46:29 -0700 (PDT)
-Message-ID: <8d12f4fc-8a7b-c44b-071c-014399fcfa54@linaro.org>
-Date: Fri, 31 Mar 2023 00:46:29 +0300
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.9.0
-Content-Language: en-GB
-To: Konrad Dybcio <konrad.dybcio@linaro.org>, Rob Clark
- <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>
-References: <20230211231259.1308718-41-dmitry.baryshkov@linaro.org>
- <e60607e3-8786-e4fe-f0fa-0851dbb53a3a@linaro.org>
+ d=1e100.net; s=20210112; t=1680213205;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=5L5ZEDSelVBtZ55FOozqu+GozXT8Asc+2u8ZodUwXDM=;
+ b=Ub9kIDbXy3dEWj4qrr+nz6I575m/w2HxHFuWIPHeWplvdfZ1B5IA5rhuu0RH8ldGoh
+ /qtJ6E8yfaVCyhUPnM0WD7Wv2To4enGM00bOwBEAmIQAtm/8ddAzSyMzCdFW3UTe1B1z
+ oiMwGlrqkH9cxQZi3bgl/ivoPmTBQyUSIZgFNAyeTeiM2Sxw99bkrygBb9AMngSkOZcA
+ WouT9B7iDRMncljLGRohedgpMsiNDPwX3AqoLntwjAE6k7AH6vU9kXs7PjIND8sAW+S5
+ xox2rEmtzOXfN3410JCRESXCtTNwPfEDPBH8dzHmEU4F+s6u1M2sVrop01/PMZ7NXCCh
+ joNQ==
+X-Gm-Message-State: AAQBX9elXxJ3yOEVVu9/ZGE5aPje74YcHV5v+Q0Cn5xzSTRF7XYELZtx
+ f0aRIGgjoG9z7AYvp/daKJK1+A==
+X-Google-Smtp-Source: AKy350ZGvNeQV/kPw3jx7h3Ip+StbsIHZfgnNJ65dO6ItTZiQzzRUEd05K0L+V+xluigNgYkEX5jDg==
+X-Received: by 2002:ac2:446e:0:b0:4a4:68b8:f4bd with SMTP id
+ y14-20020ac2446e000000b004a468b8f4bdmr7371149lfl.3.1680213205102; 
+ Thu, 30 Mar 2023 14:53:25 -0700 (PDT)
+Received: from eriador.lan (dzccz6yyyyyyyyyyybcwt-3.rev.dnainternet.fi.
+ [2001:14ba:a085:4d00::8a5]) by smtp.gmail.com with ESMTPSA id
+ f16-20020a056512093000b004cc8207741fsm104574lft.93.2023.03.30.14.53.24
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 30 Mar 2023 14:53:24 -0700 (PDT)
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-In-Reply-To: <e60607e3-8786-e4fe-f0fa-0851dbb53a3a@linaro.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [v2,40/50] drm/msm/dpu: enable DSPP on sc8180x
+To: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>
+Date: Fri, 31 Mar 2023 00:52:46 +0300
+Message-Id: <20230330215324.1853304-1-dmitry.baryshkov@linaro.org>
+X-Mailer: git-send-email 2.39.2
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Subject: [Freedreno] [PATCH v3 00/38] drm/msm/dpu: rework HW catalog
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,50 +70,129 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-arm-msm@vger.kernel.org, Bjorn Andersson <andersson@kernel.org>,
- dri-devel@lists.freedesktop.org, Stephen Boyd <swboyd@chromium.org>,
- Daniel Vetter <daniel@ffwll.ch>, David Airlie <airlied@gmail.com>,
- freedreno@lists.freedesktop.org
+Cc: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
+ Bjorn Andersson <andersson@kernel.org>, dri-devel@lists.freedesktop.org,
+ Stephen Boyd <swboyd@chromium.org>, Daniel Vetter <daniel@ffwll.ch>,
+ David Airlie <airlied@gmail.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 30/03/2023 15:39, Konrad Dybcio wrote:
-> 
-> 
-> On 12.02.2023 00:12, Dmitry Baryshkov wrote:
->> Enable DSPP blocks on sc8180x platform, basing on the vendor dtsi.
->>
->> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
->> ---
-> There's only a single difference between 8150 and 8180:
-> 
-> qcom,sde-dspp-dither = <0x82c 0x00010007>;
-> 
-> is only present on the former. Not sure if it makes any difference.
+This huge series attempts to restructure the DPU HW catalog into a
+manageable and reviewable data set. In order to ease review and testing
+I merged all the necessary fixes into this series. Also I cherry-picked
+& slightly fixed Konrad's patch adding size to the SSPP and INTF macros.
 
-I'm not sure too. Currently we support only PP-based dither, so DSPP 
-dither doesn't make any difference. Let's ignore it for now.
+First 4 patches clean up the catalog a bit in order to make it more
+suitable for refactoring.
 
-> 
-> Konrad
->>   drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_5_1_sc8180x.h | 2 ++
->>   1 file changed, 2 insertions(+)
->>
->> diff --git a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_5_1_sc8180x.h b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_5_1_sc8180x.h
->> index c51e1bba1533..457733a6986e 100644
->> --- a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_5_1_sc8180x.h
->> +++ b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_5_1_sc8180x.h
->> @@ -91,6 +91,8 @@ static const struct dpu_mdss_cfg sc8180x_dpu_cfg = {
->>   	.sspp = sm8150_sspp,
->>   	.mixer_count = ARRAY_SIZE(sm8150_lm),
->>   	.mixer = sm8150_lm,
->> +	.dspp_count = ARRAY_SIZE(sm8150_dspp),
->> +	.dspp = sm8150_dspp,
->>   	.pingpong_count = ARRAY_SIZE(sm8150_pp),
->>   	.pingpong = sm8150_pp,
->>   	.merge_3d_count = ARRAY_SIZE(sm8150_merge_3d),
+Then the next batch of 13 + 5 patches split the hw catalog entries into
+per-SoC files.
+
+Next 9 patches rework catalog entries, mostly targeting deduplication of
+data used by several platforms. At this moment only three pairs (out of
+13 devices supported by DPU) are merged. However this part lays out the
+ground to ease adding support for new platforms, some of which use the
+same configuration as the existing platforms
+
+Last batch of 7 patches renames existing macros to ease using them while
+adding support for new devices.
+
+This pile of patches is submitted in a single batch to allow one to
+observe the final goal of the cleanup which otherwise might be hard to
+assess.
+
+
+Changes since v2:
+- Fixed sc8280xp SSPP size to 0x2ac
+- Rebased on top of msm-next-lumag, dropped merged patches
+
+Changes since v1:
+- Picked up Konrad's patch
+- Picked up dependencies into the main series
+- Moved qseed3lite vs qseed4 patches into the fixes part
+- Fixed sm6115 in a similar manner.
+
+Dmitry Baryshkov (37):
+  drm/msm/dpu: constify DSC data structures
+  drm/msm/dpu: mark remaining pp data as const
+  drm/msm/dpu: move UBWC/memory configuration to separate struct
+  drm/msm/dpu: split SM8550 catalog entry to the separate file
+  drm/msm/dpu: split SM8450 catalog entry to the separate file
+  drm/msm/dpu: split SC8280XP catalog entry to the separate file
+  drm/msm/dpu: split SC7280 catalog entry to the separate file
+  drm/msm/dpu: split SM8350 catalog entry to the separate file
+  drm/msm/dpu: split SM6115 catalog entry to the separate file
+  drm/msm/dpu: split QCM2290 catalog entry to the separate file
+  drm/msm/dpu: split SC7180 catalog entry to the separate file
+  drm/msm/dpu: split SM8250 catalog entry to the separate file
+  drm/msm/dpu: split SC8180X catalog entry to the separate file
+  drm/msm/dpu: split SM8150 catalog entry to the separate file
+  drm/msm/dpu: split MSM8998 catalog entry to the separate file
+  drm/msm/dpu: split SDM845 catalog entry to the separate file
+  drm/msm/dpu: duplicate sdm845 catalog entries
+  drm/msm/dpu: duplicate sc7180 catalog entries
+  drm/msm/dpu: duplicate sm8150 catalog entries
+  drm/msm/dpu: duplicate sm8250 catalog entries
+  drm/msm/dpu: duplicate sm8350 catalog entries
+  drm/msm/dpu: use defined symbol for sc8280xp's maxwidth
+  drm/msm/dpu: catalog: add comments regarding DPU_CTL_SPLIT_DISPLAY
+  drm/msm/dpu: enable DPU_CTL_SPLIT_DISPLAY for sc8280xp
+  drm/msm/dpu: enable DSPP_2/3 for LM_2/3 on sm8450
+  drm/msm/dpu: drop duplicate vig_sblk instances
+  drm/msm/dpu: enable DSPP on sc8180x
+  drm/msm/dpu: deduplicate sc8180x with sm8150
+  drm/msm/dpu: deduplicate sm6115 with qcm2290
+  drm/msm/dpu: deduplicate sc8280xp with sm8450
+  drm/msm/dpu: drop unused macros from hw catalog
+  drm/msm/dpu: inline IRQ_n_MASK defines
+  drm/msm/dpu: rename INTF_foo_MASK to contain major DPU version
+  drm/msm/dpu: rename CTL_foo_MASK to contain major DPU version
+  drm/msm/dpu: rename VIG and DMA_foo_MASK to contain major DPU version
+  drm/msm/dpu: rename MIXER_foo_MASK to contain major DPU version
+  drm/msm/dpu: rename MERGE_3D_foo_MASK to contain major DPU version
+
+Konrad Dybcio (1):
+  drm/msm/dpu: Allow variable SSPP/INTF_BLK size
+
+ .../msm/disp/dpu1/catalog/dpu_3_0_msm8998.h   |  210 ++
+ .../msm/disp/dpu1/catalog/dpu_4_0_sdm845.h    |  210 ++
+ .../msm/disp/dpu1/catalog/dpu_5_0_sm8150.h    |   97 +
+ .../msm/disp/dpu1/catalog/dpu_5_1_sc8180x.h   |   91 +
+ .../gpu/drm/msm/disp/dpu1/catalog/dpu_5_lm6.h |  152 ++
+ .../msm/disp/dpu1/catalog/dpu_6_0_sm8250.h    |  244 ++
+ .../msm/disp/dpu1/catalog/dpu_6_2_sc7180.h    |  151 ++
+ .../msm/disp/dpu1/catalog/dpu_6_3_sm6115.h    |   91 +
+ .../msm/disp/dpu1/catalog/dpu_6_5_qcm2290.h   |   83 +
+ .../gpu/drm/msm/disp/dpu1/catalog/dpu_6_lm1.h |   53 +
+ .../msm/disp/dpu1/catalog/dpu_7_0_sm8350.h    |  226 ++
+ .../msm/disp/dpu1/catalog/dpu_7_2_sc7280.h    |  158 ++
+ .../msm/disp/dpu1/catalog/dpu_8_0_sc8280xp.h  |  136 ++
+ .../msm/disp/dpu1/catalog/dpu_8_1_sm8450.h    |  142 ++
+ .../gpu/drm/msm/disp/dpu1/catalog/dpu_8_lm6.h |   99 +
+ .../msm/disp/dpu1/catalog/dpu_9_0_sm8550.h    |  209 ++
+ .../gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c    | 2175 +----------------
+ .../gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h    |   37 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_dsc.c    |    4 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.c   |   18 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.h   |    4 +-
+ 21 files changed, 2443 insertions(+), 2147 deletions(-)
+ create mode 100644 drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_3_0_msm8998.h
+ create mode 100644 drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_4_0_sdm845.h
+ create mode 100644 drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_5_0_sm8150.h
+ create mode 100644 drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_5_1_sc8180x.h
+ create mode 100644 drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_5_lm6.h
+ create mode 100644 drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_6_0_sm8250.h
+ create mode 100644 drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_6_2_sc7180.h
+ create mode 100644 drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_6_3_sm6115.h
+ create mode 100644 drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_6_5_qcm2290.h
+ create mode 100644 drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_6_lm1.h
+ create mode 100644 drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_7_0_sm8350.h
+ create mode 100644 drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_7_2_sc7280.h
+ create mode 100644 drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_8_0_sc8280xp.h
+ create mode 100644 drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_8_1_sm8450.h
+ create mode 100644 drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_8_lm6.h
+ create mode 100644 drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_9_0_sm8550.h
 
 -- 
-With best wishes
-Dmitry
+2.39.2
 
