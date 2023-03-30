@@ -2,56 +2,56 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2119C6D04A6
-	for <lists+freedreno@lfdr.de>; Thu, 30 Mar 2023 14:27:22 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 40BED6D04AA
+	for <lists+freedreno@lfdr.de>; Thu, 30 Mar 2023 14:28:01 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E445110E2C4;
-	Thu, 30 Mar 2023 12:27:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 109F810E2C4;
+	Thu, 30 Mar 2023 12:28:00 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x132.google.com (mail-lf1-x132.google.com
- [IPv6:2a00:1450:4864:20::132])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 862CD10E2C4
- for <freedreno@lists.freedesktop.org>; Thu, 30 Mar 2023 12:27:19 +0000 (UTC)
-Received: by mail-lf1-x132.google.com with SMTP id c9so13854959lfb.1
- for <freedreno@lists.freedesktop.org>; Thu, 30 Mar 2023 05:27:19 -0700 (PDT)
+Received: from mail-lf1-x135.google.com (mail-lf1-x135.google.com
+ [IPv6:2a00:1450:4864:20::135])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F3EC810E2C4
+ for <freedreno@lists.freedesktop.org>; Thu, 30 Mar 2023 12:27:57 +0000 (UTC)
+Received: by mail-lf1-x135.google.com with SMTP id c29so24307001lfv.3
+ for <freedreno@lists.freedesktop.org>; Thu, 30 Mar 2023 05:27:57 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1680179237;
+ d=linaro.org; s=google; t=1680179276;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :from:to:cc:subject:date:message-id:reply-to;
- bh=5ajg+Ow3guC3qmD9ltJQQ/qpcwXPjWBWk66w6LzjOyc=;
- b=e8s7PLeHztUwWtVS9lK5ENZUmLabsRe84+y7W5+EVLiREZYOp+jO7L9nRPyAZcfP2Q
- NF4eQdwlSz/Ex3cMEEf5E7wRT4MEvBysKCYFnTP9fqobGGdC305vIzDXnDxicJ0/pEl0
- kxs8B/6uvhxfVSw0dLR+ipwDHFzqXfam5q4NyQGTX8RrGDKanN+Rrw+Zpi4bPFRpn2z3
- llcFAfva1+3u2mn8yWIyumN3oB4/RDyWyyAs6+3XjICML5LdcXUtIDUA2jpisrUwThbV
- qtpCxgfSf8Nl11QttrQc03LJH52P9lNTi2HPy7DhFO0blyftGDHNaUMnjYwST3UOQ7UQ
- A6zg==
+ bh=gvEbveK1uWCeCDd1RWXdS2lL6JVQ6l3y8DwliRMNQDc=;
+ b=VUbl0GXZMqbt696T8nIZrxZJtcgX/q3qblDeghahOHqODqM2mNOrJGK5sym+faqrq2
+ Tc5Z6717oVrFBXrLYQPOOAlsOLq+FGK6c74GfVr7r50SplJh2lFHqfp9kHOqN4TFN7yN
+ NsPqcBYHXtO/Yr4AGClDN8vtDqPRXwhYnDix3bP5kz5w7O2bWq3cxVqVxrQracHg2b1b
+ fXp0MvIIqqxMzMwQ29yYVR8D5waFAbcbvV3tqp1mA8CW5CDU/E/EbJlwyAgna1JZ69bL
+ usRUlqRoLI4T8lB1qkk8fukyU80C8HfLJPXta9bkxI3ZG9N0SD8pj/UHB+alnUtyNg+1
+ SaLQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112; t=1680179237;
+ d=1e100.net; s=20210112; t=1680179276;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=5ajg+Ow3guC3qmD9ltJQQ/qpcwXPjWBWk66w6LzjOyc=;
- b=v/ReMkam1I1c6ix0/LOSeRrpqHnGjjSgNkzn2/SyugnJ+/lUzL8aLaLXCzSTTD9NvW
- R1YxCIbbizD+a0vP+QWhBC/QNrBKdw2unQLW1vX/POiwZDbyotHhmww3ZYFf97UiNbBy
- hxMmnWX8Xl68sypBB0enZP156uWWSCGy3/0/GQK3rTGEw424x3QjqXTW4r9FcFSq2SMB
- jjK1+mJyVZuocZfWZgb8K7SrYu+3CinG+MU8fb3BUf1lNsaTKOJjHZFTmIwDb/m8fYrG
- aR19tgIE67qarY4xnO4VJ3e1gdtjqvqywuZvMNbbZgRKjJ4shcya6wNzyGEkXKiXsFa1
- yakQ==
-X-Gm-Message-State: AAQBX9fWSf1A0F3NrRH97CsYJj/bBdES5mNzhk3P/o6ZOMw4ENdfxYx2
- 6P2lcfEpDc3ZmyC4ajkSFjf3mw==
-X-Google-Smtp-Source: AKy350a1ePYekgS4apQXRW83eXljH82vSN6O8eqRECd7itzHhQoORQ5JmffHG43FiBCqFs9ooNUTzQ==
-X-Received: by 2002:ac2:50c5:0:b0:4db:2c28:8974 with SMTP id
- h5-20020ac250c5000000b004db2c288974mr6841672lfm.12.1680179237676; 
- Thu, 30 Mar 2023 05:27:17 -0700 (PDT)
+ bh=gvEbveK1uWCeCDd1RWXdS2lL6JVQ6l3y8DwliRMNQDc=;
+ b=NyrBgEMQ2DA4st28zMdPaeP5qEZFu6LzhJiE1eJzgxX/IHqd0Utjh2YwP+ryRw1Qed
+ cO7fcW3e3sgtIHHOQ4i/YfPqsnk/VzY/YdoGi7zypbHq/H0b8MXSyELukjoCk7EdDhVC
+ 7u4+XWKblr9I+IH/qsfZC86RJdHqe9bxNDyXFhJjtPBkqOeUJO8hRAEfK1DlJlUi8sgd
+ HB91YlCxuKvXj7H8GXO0VEhh/JrHAF0YOj7efdt4fauzDrWzR6xkgjYmi/OjlFSTQvvG
+ 0X7XykrSm/YBeMsO+4KvFQzpXNRtGUgn4+Gs4YeDIu63DYiyvkC2RV2RPz+qYD4hNC0I
+ gT2g==
+X-Gm-Message-State: AAQBX9drDv/+6Rodz7BWPFJPCITtVwqyPQrPqM84SDMkvlGFQZuKd5nE
+ kx1W6Yt7oSe97BuwmE1jI+zZRA==
+X-Google-Smtp-Source: AKy350Y1ZQJEhnif7Db4/DhBLluxZ+Poft+wmesJ0nfJVQ9JFGpmHrq9djlwFb1Z+iwpnc/OUnml+g==
+X-Received: by 2002:a05:6512:92a:b0:4e9:8994:49bd with SMTP id
+ f10-20020a056512092a00b004e9899449bdmr6044678lft.3.1680179276029; 
+ Thu, 30 Mar 2023 05:27:56 -0700 (PDT)
 Received: from [192.168.1.101] (abxj225.neoplus.adsl.tpnet.pl. [83.9.3.225])
  by smtp.gmail.com with ESMTPSA id
- i17-20020ac25231000000b004eafa77e435sm3343664lfl.146.2023.03.30.05.27.16
+ u14-20020a056512094e00b004cb35b31b96sm5847822lft.257.2023.03.30.05.27.54
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 30 Mar 2023 05:27:17 -0700 (PDT)
-Message-ID: <663f6933-d532-37e4-e78b-9bd665c24e54@linaro.org>
-Date: Thu, 30 Mar 2023 14:27:16 +0200
+ Thu, 30 Mar 2023 05:27:55 -0700 (PDT)
+Message-ID: <f9ecaf20-bb35-57e9-d604-a2f47a614732@linaro.org>
+Date: Thu, 30 Mar 2023 14:27:54 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.9.0
@@ -59,13 +59,13 @@ Content-Language: en-US
 To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
  Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
  Abhinav Kumar <quic_abhinavk@quicinc.com>
-References: <20230211231259.1308718-35-dmitry.baryshkov@linaro.org>
+References: <20230211231259.1308718-36-dmitry.baryshkov@linaro.org>
 From: Konrad Dybcio <konrad.dybcio@linaro.org>
-In-Reply-To: <20230211231259.1308718-35-dmitry.baryshkov@linaro.org>
+In-Reply-To: <20230211231259.1308718-36-dmitry.baryshkov@linaro.org>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 Subject: Re: [Freedreno] [v2,
- 34/50] drm/msm/dpu: duplicate sm8250 catalog entries
+ 35/50] drm/msm/dpu: duplicate sm8350 catalog entries
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -88,7 +88,7 @@ Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 
 On 12.02.2023 00:12, Dmitry Baryshkov wrote:
-> Duplicate some of sm8250 catalog entries to remove dependencies between
+> Duplicate some of sm8350 catalog entries to remove dependencies between
 > DPU major generations.
 > 
 > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
@@ -96,47 +96,34 @@ On 12.02.2023 00:12, Dmitry Baryshkov wrote:
 Reviewed-by: Konrad Dybcio <konrad.dybcio@linaro.org>
 
 Konrad
->  .../msm/disp/dpu1/catalog/dpu_7_0_sm8350.h    | 23 +++++++++++++++++--
->  1 file changed, 21 insertions(+), 2 deletions(-)
+>  .../gpu/drm/msm/disp/dpu1/catalog/dpu_8_0_sc8280xp.h   | 10 ++++++++--
+>  1 file changed, 8 insertions(+), 2 deletions(-)
 > 
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_7_0_sm8350.h b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_7_0_sm8350.h
-> index d723a690bd41..b27f6c528a1f 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_7_0_sm8350.h
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_7_0_sm8350.h
-> @@ -81,6 +81,25 @@ static const struct dpu_ctl_cfg sm8350_ctl[] = {
->  	},
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_8_0_sc8280xp.h b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_8_0_sc8280xp.h
+> index 748f7e14dfcc..0a5d6d9fe751 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_8_0_sc8280xp.h
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_8_0_sc8280xp.h
+> @@ -137,6 +137,12 @@ static const struct dpu_pingpong_cfg sc8280xp_pp[] = {
+>  		  DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR2, 31), -1),
 >  };
 >  
-> +static const struct dpu_sspp_cfg sm8350_sspp[] = {
-> +	SSPP_BLK("sspp_0", SSPP_VIG0, 0x4000, 0x1f8, VIG_SC7180_MASK,
-> +		sm8250_vig_sblk_0, 0, SSPP_TYPE_VIG, DPU_CLK_CTRL_VIG0),
-> +	SSPP_BLK("sspp_1", SSPP_VIG1, 0x6000, 0x1f8, VIG_SC7180_MASK,
-> +		sm8250_vig_sblk_1, 4, SSPP_TYPE_VIG, DPU_CLK_CTRL_VIG1),
-> +	SSPP_BLK("sspp_2", SSPP_VIG2, 0x8000, 0x1f8, VIG_SC7180_MASK,
-> +		sm8250_vig_sblk_2, 8, SSPP_TYPE_VIG, DPU_CLK_CTRL_VIG2),
-> +	SSPP_BLK("sspp_3", SSPP_VIG3, 0xa000, 0x1f8, VIG_SC7180_MASK,
-> +		sm8250_vig_sblk_3, 12, SSPP_TYPE_VIG, DPU_CLK_CTRL_VIG3),
-> +	SSPP_BLK("sspp_8", SSPP_DMA0, 0x24000, 0x1f8, DMA_SDM845_MASK,
-> +		sdm845_dma_sblk_0, 1, SSPP_TYPE_DMA, DPU_CLK_CTRL_DMA0),
-> +	SSPP_BLK("sspp_9", SSPP_DMA1, 0x26000, 0x1f8, DMA_SDM845_MASK,
-> +		sdm845_dma_sblk_1, 5, SSPP_TYPE_DMA, DPU_CLK_CTRL_DMA1),
-> +	SSPP_BLK("sspp_10", SSPP_DMA2, 0x28000, 0x1f8, DMA_CURSOR_SDM845_MASK,
-> +		sdm845_dma_sblk_2, 9, SSPP_TYPE_DMA, DPU_CLK_CTRL_DMA2),
-> +	SSPP_BLK("sspp_11", SSPP_DMA3, 0x2a000, 0x1f8, DMA_CURSOR_SDM845_MASK,
-> +		sdm845_dma_sblk_3, 13, SSPP_TYPE_DMA, DPU_CLK_CTRL_DMA3),
+> +static const struct dpu_merge_3d_cfg sc8280xp_merge_3d[] = {
+> +	MERGE_3D_BLK("merge_3d_0", MERGE_3D_0, 0x4e000),
+> +	MERGE_3D_BLK("merge_3d_1", MERGE_3D_1, 0x4f000),
+> +	MERGE_3D_BLK("merge_3d_2", MERGE_3D_2, 0x50000),
 > +};
 > +
->  static const struct dpu_lm_cfg sm8350_lm[] = {
->  	LM_BLK("lm_0", LM_0, 0x44000, MIXER_SDM845_MASK,
->  		&sdm845_lm_sblk, PINGPONG_0, LM_1, DSPP_0),
-> @@ -178,8 +197,8 @@ static const struct dpu_mdss_cfg sm8350_dpu_cfg = {
->  	.mdp = sm8350_mdp,
->  	.ctl_count = ARRAY_SIZE(sm8350_ctl),
->  	.ctl = sm8350_ctl,
-> -	.sspp_count = ARRAY_SIZE(sm8250_sspp),
-> -	.sspp = sm8250_sspp,
-> +	.sspp_count = ARRAY_SIZE(sm8350_sspp),
-> +	.sspp = sm8350_sspp,
->  	.mixer_count = ARRAY_SIZE(sm8350_lm),
->  	.mixer = sm8350_lm,
->  	.dspp_count = ARRAY_SIZE(sm8350_dspp),
+>  /* TODO: INTF 3, 8 and 7 are used for MST, marked as INTF_NONE for now */
+>  static const struct dpu_intf_cfg sc8280xp_intf[] = {
+>  	INTF_BLK("intf_0", INTF_0, 0x34000, 0x2c4, INTF_DP, MSM_DP_CONTROLLER_0, 24, INTF_SC7280_MASK, MDP_SSPP_TOP0_INTR, 24, 25),
+> @@ -192,8 +198,8 @@ static const struct dpu_mdss_cfg sc8280xp_dpu_cfg = {
+>  	.dspp = sc8280xp_dspp,
+>  	.pingpong_count = ARRAY_SIZE(sc8280xp_pp),
+>  	.pingpong = sc8280xp_pp,
+> -	.merge_3d_count = ARRAY_SIZE(sm8350_merge_3d),
+> -	.merge_3d = sm8350_merge_3d,
+> +	.merge_3d_count = ARRAY_SIZE(sc8280xp_merge_3d),
+> +	.merge_3d = sc8280xp_merge_3d,
+>  	.intf_count = ARRAY_SIZE(sc8280xp_intf),
+>  	.intf = sc8280xp_intf,
+>  	.vbif_count = ARRAY_SIZE(sdm845_vbif),
