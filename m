@@ -1,71 +1,73 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id DEEE96D0DC6
-	for <lists+freedreno@lfdr.de>; Thu, 30 Mar 2023 20:31:55 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 3BB1E6D10E2
+	for <lists+freedreno@lfdr.de>; Thu, 30 Mar 2023 23:32:34 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9C56110EF7D;
-	Thu, 30 Mar 2023 18:31:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0E49010F037;
+	Thu, 30 Mar 2023 21:32:33 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-vs1-xe33.google.com (mail-vs1-xe33.google.com
- [IPv6:2607:f8b0:4864:20::e33])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 939DB10E207
- for <freedreno@lists.freedesktop.org>; Thu, 30 Mar 2023 18:31:53 +0000 (UTC)
-Received: by mail-vs1-xe33.google.com with SMTP id d2so17036862vso.9
- for <freedreno@lists.freedesktop.org>; Thu, 30 Mar 2023 11:31:53 -0700 (PDT)
+Received: from mail-lf1-x131.google.com (mail-lf1-x131.google.com
+ [IPv6:2a00:1450:4864:20::131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5036B10F037
+ for <freedreno@lists.freedesktop.org>; Thu, 30 Mar 2023 21:32:31 +0000 (UTC)
+Received: by mail-lf1-x131.google.com with SMTP id k37so26363889lfv.0
+ for <freedreno@lists.freedesktop.org>; Thu, 30 Mar 2023 14:32:31 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=chromium.org; s=google; t=1680201111;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=6bmgWM4VeyB5ih4GlZbThd/2eiyQX/X/Evx0/5WbwLA=;
- b=n7Fbcx5kLC5PQCrKOLLphRB+Qj+CJ1V2n+6VE2q9x8tgdTfNT/TvljT9Ud5D0Sev+I
- jSx0/mE5wPBJBUslQrVt+msUKR8oj3psvddiRCxHXDNcC7JwUdR4++FURzyQa2lH2oPP
- QrylpyoNqKGTbaDitz5XTgPk8P5ruj9xa1qC8=
+ d=linaro.org; s=google; t=1680211949;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=aTqJwL7oBiO+i/ddIgWkEiFhacs+3OCWtKXm1Tp67Cs=;
+ b=OVuKVEb7pgKQF3vr0EZSfol5Mig2ns7Yk/XprlTV1hA7JdOoQY9G+bTWfz06E6sbp3
+ 1Tlz81N4K6++tgWAQo1Ca1WD1NRidQBpa01VzgKDXWxjjF0UKLI1WZ8mV1RBaG5ybUSQ
+ SgmZGPPbIcz5acSGalsZEsWxzVUbo/h7wkZCh+RC+LruyquKXLnhgNuPstIwU9wlhZzb
+ g6ZNjqO+xKWjuPZmqIQ2/GJS4o0CjyW49TWoL9XDvrv/YIeZvWed0sM2IRjeDqErplSX
+ eQo+8GaQXobpVk7AWl2UK6CjOIKnbEYp6w5STq2Vk6Av/Dfq5Z0bkHKthJgAjxyu7TaB
+ a5Fw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112; t=1680201111;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=6bmgWM4VeyB5ih4GlZbThd/2eiyQX/X/Evx0/5WbwLA=;
- b=T6DdhBOEnxkPGYi6NDT4P8vKq67WlbGWx0JnABJW7Yjfb5cJa0KW6G+NoU2QuZ/+iY
- v/G1inVKZVCry7pUrGQTRKn0cn/mQguRLeq9QS40vPLM6n843EAPIn1JDd6qU5v43XX8
- e9FF1yWOFOKSoBoU962T+j7AWXBpgbRlzUszv7XfnZpIry7FgETmf8Goo6+bpCYr995+
- HeGhSVkFOLWZq/Svz5Av2ajEZPuK/HUmI6q8J+Wnuw+gGYpHGCQthFKZCDT8h1/jV1/e
- 4wOXmQWTqjHcOwnN5itiwya9dlE78iDsJ/lX+2LqfGRL78Mqw3DWKlT5SOYIEz8I2r/4
- /Ytw==
-X-Gm-Message-State: AAQBX9ekcIzw/Nxed3ptI3rae37EV5HG+MZRpNngnK5n34IrI3wiW3fu
- vvpUa5ZrDOJrcRSEBBwvXbaIFfKmYUtW0lKsNc4=
-X-Google-Smtp-Source: AKy350bv4upVc20Qf76cjyWNd/CxNuaplSO3G8Nd39HHNA9DvzA7pOn+i7rdFlz0+wXt/tDr9D5F1A==
-X-Received: by 2002:a67:f98a:0:b0:422:25e6:bcbf with SMTP id
- b10-20020a67f98a000000b0042225e6bcbfmr9221476vsq.6.1680201111065; 
- Thu, 30 Mar 2023 11:31:51 -0700 (PDT)
-Received: from mail-vs1-f50.google.com (mail-vs1-f50.google.com.
- [209.85.217.50]) by smtp.gmail.com with ESMTPSA id
- a9-20020ab05689000000b006904fa86e7csm42109uab.2.2023.03.30.11.31.50
- for <freedreno@lists.freedesktop.org>
+ d=1e100.net; s=20210112; t=1680211949;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=aTqJwL7oBiO+i/ddIgWkEiFhacs+3OCWtKXm1Tp67Cs=;
+ b=yg+Kkid9pNc+hEg1MI/mIy9xvB44u1Ifi9o5R7FotktsGjwfwSdS82SfdHRvzn1UV7
+ JJZP11cV7J8OmB6rLVdjwCGFFl74G79rLLvrTa2NZjSnvpcKdA06dgNMbo78RnFTUylp
+ JoHelOVz4W867z0J9+7PYPmjkGkg1H6gxeSKEGXyiatADCIJ97b1s65nEBesurQ/R6B0
+ BT9n8P488czFez8mFBkJrocc5Z1CMM7xX1r0Lf7wxUX3Ps3m6Sphg8rK0LuDK2j8AO1m
+ wVr1Arr46T7kqD91c4NNcjwNyGRvkfWsb43CDq82qc34eHIO+N/QLka8d04vDg7ajaB7
+ NQew==
+X-Gm-Message-State: AAQBX9enWwutXwW8FsKaY40qGG2xfWlrth/ISmseeOljk6IcLkhebxfR
+ m7xclgygcrvIHUBMWEoquHte0w==
+X-Google-Smtp-Source: AKy350ZGflQvaIlYJPAclGpHbzprCG3zHk+Wm/YCGsHyvM4odrKaN0sSrPL+HGoNMk0vnKUo3BdjQA==
+X-Received: by 2002:a19:2d1c:0:b0:4d8:86c1:4785 with SMTP id
+ k28-20020a192d1c000000b004d886c14785mr2188004lfj.26.1680211949367; 
+ Thu, 30 Mar 2023 14:32:29 -0700 (PDT)
+Received: from ?IPV6:2001:14ba:a085:4d00::8a5?
+ (dzccz6yyyyyyyyyyybcwt-3.rev.dnainternet.fi. [2001:14ba:a085:4d00::8a5])
+ by smtp.gmail.com with ESMTPSA id
+ r25-20020ac25a59000000b004cb45148027sm94871lfn.203.2023.03.30.14.32.28
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 30 Mar 2023 11:31:50 -0700 (PDT)
-Received: by mail-vs1-f50.google.com with SMTP id dg15so5413695vsb.13
- for <freedreno@lists.freedesktop.org>; Thu, 30 Mar 2023 11:31:50 -0700 (PDT)
-X-Received: by 2002:a67:c18a:0:b0:425:cf00:e332 with SMTP id
- h10-20020a67c18a000000b00425cf00e332mr13402479vsj.7.1680201109830; Thu, 30
- Mar 2023 11:31:49 -0700 (PDT)
+ Thu, 30 Mar 2023 14:32:29 -0700 (PDT)
+Message-ID: <63fd5b75-e4a4-0d15-db9e-461a8f4a1cd9@linaro.org>
+Date: Fri, 31 Mar 2023 00:32:28 +0300
 MIME-Version: 1.0
-References: <20230324195555.3921170-1-markyacoub@google.com>
- <20230324195555.3921170-10-markyacoub@google.com>
-In-Reply-To: <20230324195555.3921170-10-markyacoub@google.com>
-From: Doug Anderson <dianders@chromium.org>
-Date: Thu, 30 Mar 2023 11:31:38 -0700
-X-Gmail-Original-Message-ID: <CAD=FV=Xvu++Bvkkq+xORUB0OWq_49nupFgCqsbX0XJz8vgy0Zw@mail.gmail.com>
-Message-ID: <CAD=FV=Xvu++Bvkkq+xORUB0OWq_49nupFgCqsbX0XJz8vgy0Zw@mail.gmail.com>
-To: Mark Yacoub <markyacoub@chromium.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [Freedreno] [PATCH v7 09/10] arm64: dts: qcom: sc7180: Add
- support for HDCP in dp-controller
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.9.0
+Content-Language: en-GB
+To: Konrad Dybcio <konrad.dybcio@linaro.org>, Rob Clark
+ <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>
+References: <20230211231259.1308718-38-dmitry.baryshkov@linaro.org>
+ <6ca39767-09c7-3323-bde3-52824d81ca41@linaro.org>
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+In-Reply-To: <6ca39767-09c7-3323-bde3-52824d81ca41@linaro.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+Subject: Re: [Freedreno] [v2,
+ 37/50] drm/msm/dpu: enable DPU_CTL_SPLIT_DISPLAY for sc8280xp
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,62 +80,63 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: devicetree@vger.kernel.org, suraj.kandpal@intel.com,
- linux-arm-msm@vger.kernel.org, Bjorn Andersson <andersson@kernel.org>,
- linux-kernel@vger.kernel.org, Rob Herring <robh+dt@kernel.org>,
- Konrad Dybcio <konrad.dybcio@linaro.org>, Andy Gross <agross@kernel.org>,
- seanpaul@chromium.org, dri-devel@lists.freedesktop.org,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- freedreno@lists.freedesktop.org, intel-gfx@lists.freedesktop.org
+Cc: linux-arm-msm@vger.kernel.org, Bjorn Andersson <andersson@kernel.org>,
+ dri-devel@lists.freedesktop.org, Stephen Boyd <swboyd@chromium.org>,
+ Daniel Vetter <daniel@ffwll.ch>, David Airlie <airlied@gmail.com>,
+ freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Hi,
+On 30/03/2023 15:29, Konrad Dybcio wrote:
+> 
+> 
+> On 12.02.2023 00:12, Dmitry Baryshkov wrote:
+>> Theoretically since sm8150 we should be using a single CTL for the
+>> source split case, but since we do not support it for now, fallback to
+>> DPU_CTL_SPLIT_DISPLAY.
+>>
+>> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+>> ---
+> Hmm.. so is it a software construct? E.g. "pass half of the data to
+> each of the INTFs and tell them to cooperate"?
 
-On Fri, Mar 24, 2023 at 12:56=E2=80=AFPM Mark Yacoub <markyacoub@chromium.o=
-rg> wrote:
->
-> From: Sean Paul <seanpaul@chromium.org>
->
-> Add the register ranges required for HDCP key injection and
-> HDCP TrustZone interaction as described in the dt-bindings for the
-> sc7180 dp controller.
->
-> Signed-off-by: Sean Paul <seanpaul@chromium.org>
-> Signed-off-by: Mark Yacoub <markyacoub@chromium.org>
->
-> ---
-> Changes in v3:
-> -Split off into a new patch containing just the dts change (Stephen)
-> -Add hdcp compatible string (Stephen)
-> Changes in v4:
-> -Rebase on Bjorn's multi-dp patchset
-> Changes in v5:
-> -Put the tz register offsets in trogdor dtsi (Rob C)
-> Changes in v6:
-> -Rebased: Removed modifications in sc7180.dtsi as it's already upstream
-> Changes in v7:
-> -Change registers offset
->
->  arch/arm64/boot/dts/qcom/sc7180-trogdor.dtsi | 8 ++++++++
->  1 file changed, 8 insertions(+)
->
-> diff --git a/arch/arm64/boot/dts/qcom/sc7180-trogdor.dtsi b/arch/arm64/bo=
-ot/dts/qcom/sc7180-trogdor.dtsi
-> index 47f39c547c41a..63183ac9c3c48 100644
-> --- a/arch/arm64/boot/dts/qcom/sc7180-trogdor.dtsi
-> +++ b/arch/arm64/boot/dts/qcom/sc7180-trogdor.dtsi
-> @@ -816,6 +816,14 @@ &mdss_dp {
->         status =3D "okay";
->         pinctrl-names =3D "default";
->         pinctrl-0 =3D <&dp_hot_plug_det>;
-> +
-> +       reg =3D <0 0x0ae90000 0 0x200>,
-> +             <0 0x0ae90200 0 0x200>,
-> +             <0 0x0ae90400 0 0xc00>,
-> +             <0 0x0ae91000 0 0x400>,
-> +             <0 0x0ae91400 0 0x400>,
-> +             <0 0x0aed1000 0 0x174>,
-> +             <0 0x0aee1000 0 0x2c>;
+It is not a fully software construct, if I understand correctly. You 
+have to program either a single CTL or two CTLs for a flush.
 
-Reviewed-by: Douglas Anderson <dianders@chromium.org>
+> 
+> Apart from that, since it's temporary, I think it deserves a comment
+> reminding us to fix it eventually™
+
+Sure, this is, I think, a next item on my plate after getting all of 
+wide planes and catalog in: to rework CTL support for sm8150+.
+
+> 
+> Konrad
+>>   drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_8_0_sc8280xp.h | 4 ++--
+>>   1 file changed, 2 insertions(+), 2 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_8_0_sc8280xp.h b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_8_0_sc8280xp.h
+>> index a3a79d908451..094876b1019b 100644
+>> --- a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_8_0_sc8280xp.h
+>> +++ b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_8_0_sc8280xp.h
+>> @@ -47,13 +47,13 @@ static const struct dpu_ctl_cfg sc8280xp_ctl[] = {
+>>   	{
+>>   	.name = "ctl_0", .id = CTL_0,
+>>   	.base = 0x15000, .len = 0x204,
+>> -	.features = CTL_SC7280_MASK,
+>> +	.features = BIT(DPU_CTL_SPLIT_DISPLAY) | CTL_SC7280_MASK,
+>>   	.intr_start = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR2, 9),
+>>   	},
+>>   	{
+>>   	.name = "ctl_1", .id = CTL_1,
+>>   	.base = 0x16000, .len = 0x204,
+>> -	.features = CTL_SC7280_MASK,
+>> +	.features = BIT(DPU_CTL_SPLIT_DISPLAY) | CTL_SC7280_MASK,
+>>   	.intr_start = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR2, 10),
+>>   	},
+>>   	{
+
+-- 
+With best wishes
+Dmitry
+
