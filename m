@@ -2,59 +2,81 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 49C716D2343
-	for <lists+freedreno@lfdr.de>; Fri, 31 Mar 2023 16:58:27 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8478D6D2822
+	for <lists+freedreno@lfdr.de>; Fri, 31 Mar 2023 20:49:57 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D8F3E10F292;
-	Fri, 31 Mar 2023 14:58:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8FBB010E3CE;
+	Fri, 31 Mar 2023 18:49:55 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-yb1-xb2e.google.com (mail-yb1-xb2e.google.com
- [IPv6:2607:f8b0:4864:20::b2e])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5A41710F292
- for <freedreno@lists.freedesktop.org>; Fri, 31 Mar 2023 14:58:24 +0000 (UTC)
-Received: by mail-yb1-xb2e.google.com with SMTP id e65so27664304ybh.10
- for <freedreno@lists.freedesktop.org>; Fri, 31 Mar 2023 07:58:24 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1680274703;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=+9vywVkizA1/BL+IoFGg5oSdyRUHG9JaCTPgm6cyxaI=;
- b=RiEUbASd4Nv2bK5U0NfdCxz+zGU9jvca9t9L9dX8WOCA+TKl2+UavAzbHhwokVPtii
- Ns/nmgxsMfcFREXylGBnoQNH6yVWzO9I2/Lr3fBUhDBuQ1B02+IPW9wI7Go+UeQ767GJ
- EhsoUgCVLsyu3PM+cZRxuOjp9fXxG+208DkvZObKFf5+Y4mixJ7fwrqXVbbPt7cvcmzD
- GgRTzUc4OrI0bZSmug8TxFMTjUjrbMYcNWhYjrwVdDTxEPvyavmLqideHlzGIoFLPTw+
- WE795LitI1h0crKga2+zmrGOIs39+D7z1ih/3NIVqwwwnnbEjuSYrYJrTMzC7ozAKF+L
- 5z3w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112; t=1680274703;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=+9vywVkizA1/BL+IoFGg5oSdyRUHG9JaCTPgm6cyxaI=;
- b=OALFAltIihfSpWej091TFUjv87FSfIyF66dHsFGsudjCsT1i+d+TgvYuUMeZ/lmikT
- XWrPoZ1wV1tFrib9GeR1aDxbjratuDAI/SyW+V4HC97kuV4BvJYDGgJMsd4rcXspf9JC
- 9S/aLDITqjSOD8C/bi+e3BocQnycBd8UZi5FH/gL/s+DKj9srEqdDHvQnhaAq4wK4/M5
- nIsxpEO1mQs82tjmBe8FpZuQybY2PCskOcqZcFKi/jm3EiyGtcdi3Mc6fYYW1EmSn7pG
- jucvGNGO3rb0Op9/G2I86eA1Zt/Y57j0ukur6nua+JhXJE6mOobDDq63KSzy1Gbx3WTq
- FKVA==
-X-Gm-Message-State: AAQBX9dc1ODyDmcTd08coYxcA+XTI4yeOJwBwF1EWBntoYNeoyNR29ia
- G8MdE2FasaYv3oiZZaY8wiGFJhG85mGPOBI8ZEgvQw==
-X-Google-Smtp-Source: AKy350asvDklS51ndeBMVx+J7/M6JaGcY9r/+cXahsDugorB/yziYIP20bAOPlDlUaFmd1YvBHiWeGw991/U9/QIB18=
-X-Received: by 2002:a25:d747:0:b0:b82:410e:daae with SMTP id
- o68-20020a25d747000000b00b82410edaaemr211714ybg.9.1680274703429; Fri, 31 Mar
- 2023 07:58:23 -0700 (PDT)
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3E94310E3CE;
+ Fri, 31 Mar 2023 18:49:45 +0000 (UTC)
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 32V9WBq4014151; Fri, 31 Mar 2023 18:49:42 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
+ h=from : subject :
+ date : message-id : mime-version : content-type :
+ content-transfer-encoding : to : cc; s=qcppdkim1;
+ bh=gKUtHdsMecjbx0OXVg4iNMpOjL09/vDrJuKflJbaNMw=;
+ b=Giq8gZLdHHHzwFu0JHJ5/K/8lxXuGh5j7RnhX1rKkdWi64vPS4u1drlbhZyGYwcM81+6
+ h0wQTdXQZWpySQz829bripTNcWQS5mO8kVrD7jGJr5TbqgqYPI1Hl+w6GrA8yGNp5hLW
+ vpU+UMy8rv9LU7PJ16bAWV1KoNyw0CtEi6eNOxIItyJNxcVFbxj3EzZzdfUstlNGErzs
+ KyxatOH6vz035Iu/daH3p50CHUhO9S90gk2CbA+7qOCSwNl+dtLaFLKVqoFO5BU0OATa
+ Drg6JAuf1Uvnx+xpQ8VQ5W9FZwlj2U1cKjbfZ5yJ0wXkYJvlHPhWs7nt7fed0bQJG2FT vw== 
+Received: from nasanppmta04.qualcomm.com (i-global254.qualcomm.com
+ [199.106.103.254])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3pnvynsudb-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Fri, 31 Mar 2023 18:49:41 +0000
+Received: from nasanex01b.na.qualcomm.com (nasanex01b.na.qualcomm.com
+ [10.46.141.250])
+ by NASANPPMTA04.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 32VInfJP010558
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Fri, 31 Mar 2023 18:49:41 GMT
+Received: from jesszhan-linux.qualcomm.com (10.80.80.8) by
+ nasanex01b.na.qualcomm.com (10.46.141.250) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.986.42; Fri, 31 Mar 2023 11:49:40 -0700
+From: Jessica Zhang <quic_jesszhan@quicinc.com>
+Date: Fri, 31 Mar 2023 11:49:15 -0700
+Message-ID: <20230329-rfc-msm-dsc-helper-v2-0-3c13ced536b2@quicinc.com>
 MIME-Version: 1.0
-References: <1680271114-1534-1-git-send-email-quic_vpolimer@quicinc.com>
- <1680271114-1534-4-git-send-email-quic_vpolimer@quicinc.com>
-In-Reply-To: <1680271114-1534-4-git-send-email-quic_vpolimer@quicinc.com>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Fri, 31 Mar 2023 17:58:12 +0300
-Message-ID: <CAA8EJppc3LDQy2RgVZbWki4Y-_FOTK67Y8RfK5Bm9gqdfqMjqQ@mail.gmail.com>
-To: Vinod Polimera <quic_vpolimer@quicinc.com>
-Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [PATCH v1 3/3] msm: skip the atomic commit of self
- refresh while PSR running
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIACsrJ2QC/32OvQ6CMBSFX4V09ppSRK2TiYmDo6OGgba39iZSs
+ FWiIby7hdHB8fx8OWdgEQNhZLtsYAF7itT6JMQiY9rV/oZAJmkmuCh4ISQEq6GJDZioweG9wwB
+ ym9eyRGOV4SyBqo4IKtReuwk9XX6B8/Ew9bqAlt7z+JVNXpVMR/HZhs98qM/n6N92nwMHW+BqI
+ 20p1drsHy/S5PVStw2rxnH8AkHwVLbjAAAA
+To: <freedreno@lists.freedesktop.org>
+X-Mailer: b4 0.13-dev-00303
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1680288580; l=2402;
+ i=quic_jesszhan@quicinc.com; s=20230329; h=from:subject:message-id;
+ bh=PdNXQWKbJMrGkD4LanFK6d2pIla3Xr9Lse5qflYPrrw=;
+ b=RL1Z9K4mSXYYZG3I5IvewAuTUtBwmLmSihkFcTtR3J9GyMBaTI8YAwCaiN6nU2axqscpDeoM0
+ U6l7CFn2YJMDofFzqRLYIkpGF9awcnWg9Z8eox6OJ0aYVGwbyaqEJfZ
+X-Developer-Key: i=quic_jesszhan@quicinc.com; a=ed25519;
+ pk=gAUCgHZ6wTJOzQa3U0GfeCDH7iZLlqIEPo4rrjfDpWE=
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
+ nasanex01b.na.qualcomm.com (10.46.141.250)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-GUID: nvtJqMYk_S9CnRtCdDb2TkfsQQyi1loY
+X-Proofpoint-ORIG-GUID: nvtJqMYk_S9CnRtCdDb2TkfsQQyi1loY
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.254,Aquarius:18.0.942,Hydra:6.0.573,FMLib:17.11.170.22
+ definitions=2023-03-31_07,2023-03-31_01,2023-02-09_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501
+ lowpriorityscore=0 phishscore=0 clxscore=1015 mlxlogscore=999
+ suspectscore=0 adultscore=0 malwarescore=0 spamscore=0 impostorscore=0
+ bulkscore=0 mlxscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2303200000 definitions=main-2303310151
+Subject: [Freedreno] [PATCH RFC v2 0/6] Introduce MSM-specific DSC helpers
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,54 +89,62 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: quic_kalyant@quicinc.com, devicetree@vger.kernel.org,
- quic_sbillaka@quicinc.com, quic_bjorande@quicinc.com,
- quic_abhinavk@quicinc.com, quic_vproddut@quicinc.com,
- linux-arm-msm@vger.kernel.org, quic_khsieh@quicinc.com,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- dianders@chromium.org, robdclark@gmail.com, swboyd@chromium.org,
- freedreno@lists.freedesktop.org
+Cc: linux-arm-msm@vger.kernel.org, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ dri-devel@lists.freedesktop.org, Konrad Dybcio <konrad.dybcio@linaro.org>,
+ Rob Clark <robdclark@gmail.com>, Daniel Vetter <daniel@ffwll.ch>, Jessica
+ Zhang <quic_jesszhan@quicinc.com>, Dmitry
+ Baryshkov <dmitry.baryshkov@linaro.org>,
+ Marijn Suijten <marijn.suijten@somainline.org>, Sean Paul <sean@poorly.run>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Fri, 31 Mar 2023 at 16:59, Vinod Polimera <quic_vpolimer@quicinc.com> wrote:
->
-> In certain CPU stress conditions, there can be a delay in scheduling commit
-> work and it was observed that PSR commit from a different work queue was
-> scheduled. Avoid these commits as display is already in PSR mode.
->
-> Signed-off-by: Vinod Polimera <quic_vpolimer@quicinc.com>
-> ---
->  drivers/gpu/drm/msm/msm_atomic.c | 3 +++
->  1 file changed, 3 insertions(+)
->
-> diff --git a/drivers/gpu/drm/msm/msm_atomic.c b/drivers/gpu/drm/msm/msm_atomic.c
-> index 645fe53..f8141bb 100644
-> --- a/drivers/gpu/drm/msm/msm_atomic.c
-> +++ b/drivers/gpu/drm/msm/msm_atomic.c
-> @@ -192,6 +192,9 @@ int msm_atomic_check(struct drm_device *dev, struct drm_atomic_state *state)
->                         new_crtc_state->mode_changed = true;
->                         state->allow_modeset = true;
->                 }
-> +
-> +               if (old_crtc_state->self_refresh_active && new_crtc_state->self_refresh_active)
-> +                       return -EINVAL;
+There are some overlap in calculations for MSM-specific DSC variables between DP and DSI. In addition, the calculations for initial_scale_value and det_thresh_flatness that are defined within the DSC 1.2 specifications, but aren't yet included in drm_dsc_helper.c.
 
-EINVAL here means that atomic_check will fail if both old and new
-states are in SR mode. For example, there might be a mode set for
-another CRTC (while keeping this one in SR mode). I don't think this
-is correct. We should skip/shortcut the commit, that's true. But I
-doubt that returning an error here is a proper way to do this. Please
-correct me if I'm wrong.
+This series moves these calculations to a shared msm_dsc_helper.c file and defines drm_dsc_helper methods for initial_scale_value and det_thresh_flatness.
 
->         }
->
->         return drm_atomic_helper_check(dev, state);
-> --
-> 2.7.4
->
+Note: For now, the MSM specific helper methods are only called for the DSI path, but will called for DP once DSC 1.2 support for DP has been added.
 
+Depends on: "drm/i915: move DSC RC tables to drm_dsc_helper.c" [1]
 
+[1] https://patchwork.freedesktop.org/series/114472/
+
+---
+Changes in v2:
+- Changed det_thresh_flatness to flatness_det_thresh
+- Moved msm_dsc_helper files to msm/ directory
+- Fixed type mismatch issues in MSM DSC helpers
+- Dropped MSM_DSC_SLICE_PER_PKT macro
+- Removed get_comp_ratio() helper
+- Style changes to improve readability
+- Use drm_dsc_get_bpp_int() instead of DSC_BPP macro
+- Picked up Fixes tags for patches 3/5 and 4/5
+- Picked up Reviewed-by for patch 4/5
+- Split eol_byte_num and pkt_per_line calculation into a separate patch
+- Moved pclk_per_line calculation into `if (dsc)` block in
+  dsi_timing_setup()
+- Link to v1: https://lore.kernel.org/r/20230329-rfc-msm-dsc-helper-v1-0-f3e479f59b6d@quicinc.com
+
+---
+Jessica Zhang (6):
+      drm/display/dsc: Add flatness and initial scale value calculations
+      drm/msm: Add MSM-specific DSC helper methods
+      drm/msm/dpu: Use DRM DSC helper for det_thresh_flatness
+      drm/msm/dpu: Fix slice_last_group_size calculation
+      drm/msm/dsi: Use MSM and DRM DSC helper methods
+      drm/msm/dsi: Fix calculations for eol_byte_num and pkt_per_line
+
+ drivers/gpu/drm/msm/Makefile               |  1 +
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_dsc.c | 10 ++++--
+ drivers/gpu/drm/msm/dsi/dsi_host.c         | 21 ++++++++----
+ drivers/gpu/drm/msm/msm_dsc_helper.c       | 53 ++++++++++++++++++++++++++++++
+ drivers/gpu/drm/msm/msm_dsc_helper.h       | 42 +++++++++++++++++++++++
+ include/drm/display/drm_dsc_helper.h       | 11 +++++++
+ 6 files changed, 129 insertions(+), 9 deletions(-)
+---
+base-commit: 56777fc93a145afcf71b92ba4281250f59ba6d9b
+change-id: 20230329-rfc-msm-dsc-helper-981a95edfbd0
+
+Best regards,
 -- 
-With best wishes
-Dmitry
+Jessica Zhang <quic_jesszhan@quicinc.com>
+
