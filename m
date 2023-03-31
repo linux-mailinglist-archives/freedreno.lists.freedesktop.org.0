@@ -2,84 +2,47 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 326836D167E
-	for <lists+freedreno@lfdr.de>; Fri, 31 Mar 2023 06:57:48 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D2E886D1826
+	for <lists+freedreno@lfdr.de>; Fri, 31 Mar 2023 09:09:21 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E028E10E2FF;
-	Fri, 31 Mar 2023 04:57:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 93D6010F10A;
+	Fri, 31 Mar 2023 07:09:20 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2596F10E2FF;
- Fri, 31 Mar 2023 04:57:44 +0000 (UTC)
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 32V4NE6O014439; Fri, 31 Mar 2023 04:57:40 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
- h=message-id : date :
- mime-version : subject : to : cc : references : from : in-reply-to :
- content-type : content-transfer-encoding; s=qcppdkim1;
- bh=GuvskULF7sOL7J4PmGMghA3sA9Qn/YSMVIL83HKup/A=;
- b=aSq/Jxc7X3M1STscoA1YtX1Nxhh9SUAx2iJumfIStHkasVE2Z4nW53TG/7dHM02gJVt9
- XzihivrPReQ9kDfqhfy1Gz+l64lNG60P9YGEZWrdr7kuNheEdpa/bz0vcDgwj87ood9D
- FyaS6lcuIGVjyGX9aDdY3O2CGj/OJsrGfvFuZdvzsaGaJQCc1PvxweZQCIVRH0xItDWR
- dnmOTYaw5BpRZUoTAeURX619PzenQCtxbirtpy8M9Q0aZD/laXTP6uTk6TVpuX7E0FFG
- kqc3lYpGjb0xZWNmjfzQMld0V77Xugq19EJ5wMCbKuJNYDphPvZYKnzG92ZesM5QdWn4 rw== 
-Received: from nalasppmta04.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3pn8wnjf3y-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 31 Mar 2023 04:57:40 +0000
-Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
- [10.47.209.196])
- by NALASPPMTA04.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 32V4vcfU016738
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 31 Mar 2023 04:57:38 GMT
-Received: from [10.110.53.163] (10.80.80.8) by nalasex01a.na.qualcomm.com
- (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.42; Thu, 30 Mar
- 2023 21:57:38 -0700
-Message-ID: <87ff4154-8753-c3d0-bd1b-cf01bdfe3059@quicinc.com>
-Date: Thu, 30 Mar 2023 21:57:37 -0700
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A498910F10D;
+ Fri, 31 Mar 2023 07:09:18 +0000 (UTC)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by ams.source.kernel.org (Postfix) with ESMTPS id 4C6E2B82C54;
+ Fri, 31 Mar 2023 07:09:17 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0673EC433D2;
+ Fri, 31 Mar 2023 07:09:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1680246556;
+ bh=8B9ggKbgJA0nMokqNAZYgf88QhUL8VJ/Zq2eCjzoNns=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=t5fJSmjupmwdDWJpAN7hBA7/D6nOMSjgzJ+EuX0R++HOqcOMtQjTSU+RQ6n0aJFGv
+ n4Blc4il4vSJTRgvA9CCdoal+VrKP31DmARfFmke3c+jLrAbSsGYG/TrKg8dpd/vmD
+ gBm8zP6mk4aMh3Y50XULT8nxKrbBROx+YV114lomPOH6k3VKvwAFxVOST8ve7AkXUn
+ s8E4s81+gkdcv/FvVLRSnXXijWlxG9XnZbYd5/HwChG7B0MPLPkCT9iIJ2AvS32fKR
+ xRXMTdzF2PB4itrmnbPY47Z+CHQ0spNUkBcepXeiIDAXEBhMZs3/gded0AQ30YefhQ
+ yOcIYXZHEmi3w==
+Received: from johan by xi.lan with local (Exim 4.94.2)
+ (envelope-from <johan@kernel.org>)
+ id 1pi8tE-0005uP-2j; Fri, 31 Mar 2023 09:09:36 +0200
+Date: Fri, 31 Mar 2023 09:09:36 +0200
+From: Johan Hovold <johan@kernel.org>
+To: Konrad Dybcio <konrad.dybcio@linaro.org>
+Message-ID: <ZCaHMOS0m5UoBJ1k@hovoldconsulting.com>
+References: <20230330231517.2747024-1-konrad.dybcio@linaro.org>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.6.2
-Content-Language: en-US
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Jessica Zhang
- <quic_jesszhan@quicinc.com>
-References: <20230329-rfc-msm-dsc-helper-v1-0-f3e479f59b6d@quicinc.com>
- <20230329-rfc-msm-dsc-helper-v1-5-f3e479f59b6d@quicinc.com>
- <0698ce89-d70c-c3f4-f006-18130858aacf@linaro.org>
- <2c9ac12f-df2f-8576-555b-3d84a6205ee3@quicinc.com>
- <c3ac5c2b-e0e0-5d7c-67d3-4fc2316b68c5@linaro.org>
- <6461a8b8-f620-5f9c-9533-f65ac42c0524@quicinc.com>
- <CAA8EJprriCLXR+P7ZOWLQCOhvi0WCUzNrCu4eyyqegNtPZbBUg@mail.gmail.com>
- <86e851f7-bbbe-b849-e36b-f3c9af93e9e3@quicinc.com>
- <be4b854b-0938-d051-2f74-cde02188a052@linaro.org>
-From: Abhinav Kumar <quic_abhinavk@quicinc.com>
-In-Reply-To: <be4b854b-0938-d051-2f74-cde02188a052@linaro.org>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-ORIG-GUID: 3yRxVNsKpdGWHs71cVcNjPU7soNIjMNg
-X-Proofpoint-GUID: 3yRxVNsKpdGWHs71cVcNjPU7soNIjMNg
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.254,Aquarius:18.0.942,Hydra:6.0.573,FMLib:17.11.170.22
- definitions=2023-03-31_01,2023-03-30_04,2023-02-09_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- mlxscore=0 lowpriorityscore=0
- mlxlogscore=999 phishscore=0 spamscore=0 impostorscore=0 suspectscore=0
- bulkscore=0 priorityscore=1501 clxscore=1015 malwarescore=0 adultscore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2303200000
- definitions=main-2303310037
-Subject: Re: [Freedreno] [PATCH RFC 5/5] drm/msm/dsi: Use MSM and DRM DSC
- helper methods
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20230330231517.2747024-1-konrad.dybcio@linaro.org>
+Subject: Re: [Freedreno] [PATCH v2] drm/msm/adreno: adreno_gpu: Use
+ suspend() instead of idle() on load error
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -92,262 +55,75 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, Konrad
- Dybcio <konrad.dybcio@linaro.org>, Rob Clark <robdclark@gmail.com>, Daniel
- Vetter <daniel@ffwll.ch>, Marijn Suijten <marijn.suijten@somainline.org>,
- Sean Paul <sean@poorly.run>
+Cc: freedreno@lists.freedesktop.org, Akhil P Oommen <quic_akhilpo@quicinc.com>,
+ linux-arm-msm@vger.kernel.org, andersson@kernel.org,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Nathan Chancellor <nathan@kernel.org>,
+ "Joel Fernandes \(Google\)" <joel@joelfernandes.org>,
+ Rob Clark <robdclark@gmail.com>, agross@kernel.org,
+ Daniel Vetter <daniel@ffwll.ch>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, marijn.suijten@somainline.org,
+ David Airlie <airlied@gmail.com>, Sean Paul <sean@poorly.run>,
+ Johan Hovold <johan+linaro@kernel.org>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-
-
-On 3/30/2023 7:47 PM, Dmitry Baryshkov wrote:
-> On 31/03/2023 04:33, Abhinav Kumar wrote:
->>
->>
->> On 3/30/2023 5:16 PM, Dmitry Baryshkov wrote:
->>> On Fri, 31 Mar 2023 at 03:07, Jessica Zhang 
->>> <quic_jesszhan@quicinc.com> wrote:
->>>>
->>>>
->>>>
->>>> On 3/30/2023 4:14 PM, Dmitry Baryshkov wrote:
->>>>> On 31/03/2023 01:49, Jessica Zhang wrote:
->>>>>>
->>>>>>
->>>>>> On 3/29/2023 4:48 PM, Dmitry Baryshkov wrote:
->>>>>>> On 30/03/2023 02:18, Jessica Zhang wrote:
->>>>>>>> Use MSM and DRM DSC helper methods.
->>>>>>>>
->>>>>>>> Signed-off-by: Jessica Zhang <quic_jesszhan@quicinc.com>
->>>>>>>> ---
->>>>>>>>    drivers/gpu/drm/msm/dsi/dsi_host.c | 18 ++++++++++++------
->>>>>>>>    1 file changed, 12 insertions(+), 6 deletions(-)
->>>>>>>>
->>>>>>>> diff --git a/drivers/gpu/drm/msm/dsi/dsi_host.c
->>>>>>>> b/drivers/gpu/drm/msm/dsi/dsi_host.c
->>>>>>>> index 74d38f90398a..7419fe58a941 100644
->>>>>>>> --- a/drivers/gpu/drm/msm/dsi/dsi_host.c
->>>>>>>> +++ b/drivers/gpu/drm/msm/dsi/dsi_host.c
->>>>>>>> @@ -31,6 +31,7 @@
->>>>>>>>    #include "msm_kms.h"
->>>>>>>>    #include "msm_gem.h"
->>>>>>>>    #include "phy/dsi_phy.h"
->>>>>>>> +#include "disp/msm_dsc_helper.h"
->>>>>>>>    #define DSI_RESET_TOGGLE_DELAY_MS 20
->>>>>>>> @@ -841,14 +842,14 @@ static void dsi_update_dsc_timing(struct
->>>>>>>> msm_dsi_host *msm_host, bool is_cmd_mod
->>>>>>>>    {
->>>>>>>>        struct drm_dsc_config *dsc = msm_host->dsc;
->>>>>>>>        u32 reg, reg_ctrl, reg_ctrl2;
->>>>>>>> -    u32 slice_per_intf, total_bytes_per_intf;
->>>>>>>> +    u32 slice_per_intf;
->>>>>>>>        u32 pkt_per_line;
->>>>>>>>        u32 eol_byte_num;
->>>>>>>>        /* first calculate dsc parameters and then program
->>>>>>>>         * compress mode registers
->>>>>>>>         */
->>>>>>>> -    slice_per_intf = DIV_ROUND_UP(hdisplay, dsc->slice_width);
->>>>>>>> +    slice_per_intf = msm_dsc_get_slice_per_intf(dsc, hdisplay);
->>>>>>>
->>>>>>> This looks good
->>>>>>>
->>>>>>>>        /*
->>>>>>>>         * If slice_count is greater than slice_per_intf
->>>>>>>> @@ -858,10 +859,10 @@ static void dsi_update_dsc_timing(struct
->>>>>>>> msm_dsi_host *msm_host, bool is_cmd_mod
->>>>>>>>        if (dsc->slice_count > slice_per_intf)
->>>>>>>>            dsc->slice_count = 1;
->>>>>>>> -    total_bytes_per_intf = dsc->slice_chunk_size * slice_per_intf;
->>>>>>>> +    eol_byte_num = msm_dsc_get_eol_byte_num(msm_host->dsc, 
->>>>>>>> hdisplay,
->>>>>>>> +            dsi_get_bpp(msm_host->format));
->>>>>>>> -    eol_byte_num = total_bytes_per_intf % 3;
->>>>>>>> -    pkt_per_line = slice_per_intf / dsc->slice_count;
->>>>>>>> +    pkt_per_line = slice_per_intf / MSM_DSC_SLICE_PER_PKT;
->>>>>>>
->>>>>>> And for these values the result is definitely changed. Separate 
->>>>>>> patch
->>>>>>> & description please. Just in case, "values per downstream 
->>>>>>> kernel" is
->>>>>>> not a proper description for such changes.
->>>>>>
->>>>>> Hi Dmitry,
->>>>>>
->>>>>> Sure, I can put this into a separate patch.
->>>>>>
->>>>>> The reason this was changed from slice_count to SLICE_PER_PKT was
->>>>>> because slice count and slice per packet aren't always equivalent.
->>>>>> There can be cases where panel configures DSC to have multiple soft
->>>>>> slices per interface, but the panel only specifies 1 slice per 
->>>>>> packet.
->>>>>
->>>>> Please put this nice description into the commit message. It is 
->>>>> exactly
->>>>> what I was looking for!
->>>>>
->>>>> BTW: Do you expect to change MSM_DSC_SLICE_PER_PKT later or it will 
->>>>> stay
->>>>> at "1"? If so, it might be easier to drop it and instead add a 
->>>>> comment.
->>>>
->>>> MSM_DSC_SLICE_PER_PKT is the default value for panels that don't 
->>>> specify
->>>> a slice_per_pkt value. (Now that I think about it, might be better to
->>>> call it MSM_DSC_DEFAULT_SLICE_PER_PKT instead...)
->>>
->>> Note, there is no slice_per_pkt in drm_dsc_config, so we must come up
->>> with another way to pass this data from the panel or to deduce the
->>> value in our driver.
->>>
->>>>
->>>> I don't expect it to change in the future, but it's a little more
->>>> readable than just dividing by 1 IMO. If you prefer dropping the macro
->>>> and adding a comment, I'm also okay with that.
->>>
->>> There is no need to divide by 1, the value doesn't change. So I'd
->>> probably prefer something like:
->>>
->>> /* Default to 1 slice per packet */
->>> if (panel_slice_per_pkt)
->>>      pkt_per_line = slice_per_intf / panel_slice_per_pkt;
->>> else
->>>      pkt_per_line = slice_per_intf;
->>>
->>> Or:
->>>
->>> /* Default to 1 slice per packet */
->>> slice_per_pkt = 1;
->>> if (panel_slice_per_pkt)
->>>      slice_per_pkt = panel_slice_per_pkt;
->>> pkt_per_line = slice_per_intf / slice_per_pkt;
->>>
->>> BTW: could you possibly change 'intf' to 'line' to v2? It seems there
->>> is a mixture of them through the code. If there is a difference
->>> between intf and line which is not yet posted, it's fine to keep the
->>> current code. WDYT?
->>>
->>
->> No, I dont agree with the change from intf to line.
->>
->> In case of dual DSI, intf is not equal to line.
->>
->> 2 intfs = 1 line
->>
->> Hence that distinction is necessary.
+On Fri, Mar 31, 2023 at 01:15:16AM +0200, Konrad Dybcio wrote:
+> The adreno_load_gpu() path is guarded by an error check on
+> adreno_load_fw(). This function is responsible for loading
+> Qualcomm-only-signed binaries (e.g. SQE and GMU FW for A6XX), but it
+> does not take the vendor-signed ZAP blob into account.
 > 
-> Ack, this is what I was looking for!
+> By embedding the SQE (and GMU, if necessary) firmware into the
+> initrd/kernel, we can trigger and unfortunate path that would not bail
+> out early and proceed with gpu->hw_init(). That will fail, as the ZAP
+> loader path will not find the firmware and return back to
+> adreno_load_gpu().
 > 
-> so intf = line / num_intf?
+> This error path involves pm_runtime_put_sync() which then calls idle()
+> instead of suspend(). This is suboptimal, as it means that we're not
+> going through the clean shutdown sequence. With at least A619_holi, this
+> makes the GPU not wake up until it goes through at least one more
+> start-fail-stop cycle. The pm_runtime_put_sync that appears in the error
+> path actually does not guarantee that because of the earlier enabling of
+> runtime autosuspend.
 > 
-
-Yes by definition, "line" is one horizontal line of pixels for the panel.
-
-So intf = h_active of panel / num_intf
-
-But here "line" is one line of pixels pulled by the interface.
-
-So for dual dsi cases its = h_active of panel / 2
-
-> Maybe I should explain the reason for my question:
+> Fix that by using pm_runtime_put_sync_suspend to force a clean shutdown.
 > 
-> msm_dsc_get_pclk_per_line() uses intf_width, calculates pclk_per_line 
-> (not per intf). msm_dsc_get_dce_bytes_per_line() does the same thing
+> Test cases:
+> 1. All firmware baked into kernel
+> 2. error loading ZAP fw in initrd -> load from rootfs at DE start
 > 
-> In this patch we take slice_per_intf, divide it with slice_per_pkt and 
-> get pkt_per_line (rather than pkt_per_intf).
+> Both succeed on A619_holi (SM6375) and A630 (SDM845).
 > 
-> This is what prompted my question regarding intf vs line.
+> Fixes: 0d997f95b70f ("drm/msm/adreno: fix runtime PM imbalance at gpu load")
+
+As this one is marked for stable, you also need:
+
+Cc: stable@vger.kernel.org	# 6.0
+
+> Signed-off-by: Konrad Dybcio <konrad.dybcio@linaro.org>
+
+Reviewed-by: Johan Hovold <johan+linaro@kernel.org>
+
+> ---
+> v1 -> v2:
+> - Improve the commit message and the reasoning within
 > 
-
-Valid question. The terminology gets a bit confusing because.
-
-pclk_per_line can be only per interface.
-
-Thats because each interface can pull the pixels at different pclks.
-
-If it helps, I would say, this is pclk_per_line for each interface.
-
-OR in other words pclks needed to pull one line of pixels for each 
-interface.
-
-But if i changed it to slice_per_line that would be wrong because then 
-line becomes the full panel horizontal line.
-
->>
->>>>
->>>> Thanks,
->>>>
->>>> Jessica Zhang
->>>>
->>>>>
->>>>> Regarding eol_byte_num, probably the best explanation would be that is
->>>>> is a size of a padding rather than a size of a trailer bytes in a line
->>>>> (and thus original calculation was incorrect).
->>>>>
->>>>>>
->>>>>>>
->>>>>>>>        if (is_cmd_mode) /* packet data type */
->>>>>>>>            reg =
->>>>>>>> DSI_COMMAND_COMPRESSION_MODE_CTRL_STREAM0_DATATYPE(MIPI_DSI_DCS_LONG_WRITE); 
->>>>>>>>
->>>>>>>> @@ -911,6 +912,11 @@ static void dsi_timing_setup(struct
->>>>>>>> msm_dsi_host *msm_host, bool is_bonded_dsi)
->>>>>>>>        DBG("");
->>>>>>>> +    if (msm_host->mode_flags & MIPI_DSI_MODE_VIDEO)
->>>>>>>> +        /* Default widebus_en to false for now. */
->>>>>>>> +        hdisplay = msm_dsc_get_pclk_per_line(msm_host->dsc,
->>>>>>>> mode->hdisplay,
->>>>>>>> +                dsi_get_bpp(msm_host->format));
->>>>>>>> +
->>>>>>>
->>>>>>> This is definitely something new and thus should probably go into a
->>>>>>> separate patch and be described. Also I'm not sure how does that
->>>>>>> interact with the hdisplay-related calculations below, under the
->>>>>>> if(dsc) clause.
->>>>>>
->>>>>> After double-checking the math here, I think this part of the change
->>>>>> is actually wrong. pclk_per_line is essentially doing hdisplay / 3,
->>>>>> which is a repeat of what's being done in the `if (dsc)` block.
->>>>>>
->>>>>> Will replace `hdisplay /= 3` with the pclk_per_line calculation.
->>>>>
->>>>> Thanks!
->>>>>
->>>>>>
->>>>>> Thanks,
->>>>>>
->>>>>> Jessica Zhang
->>>>>>
->>>>>>>
->>>>>>>>        /*
->>>>>>>>         * For bonded DSI mode, the current DRM mode has
->>>>>>>>         * the complete width of the panel. Since, the complete
->>>>>>>> @@ -1759,7 +1765,7 @@ static int dsi_populate_dsc_params(struct
->>>>>>>> msm_dsi_host *msm_host, struct drm_dsc
->>>>>>>>            return ret;
->>>>>>>>        }
->>>>>>>> -    dsc->initial_scale_value = 32;
->>>>>>>> +    dsc->initial_scale_value =
->>>>>>>> drm_dsc_calculate_initial_scale_value(dsc);
->>>>>>>
->>>>>>> This is fine, we only support 8bpp where these values match.
->>>>>>>
->>>>>>>>        dsc->line_buf_depth = dsc->bits_per_component + 1;
->>>>>>>>        return drm_dsc_compute_rc_parameters(dsc);
->>>>>>>>
->>>>>>>
->>>>>>> -- 
->>>>>>> With best wishes
->>>>>>> Dmitry
->>>>>>>
->>>>>
->>>>> -- 
->>>>> With best wishes
->>>>> Dmitry
->>>>>
->>>
->>>
->>>
+>  drivers/gpu/drm/msm/adreno/adreno_device.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
 > 
+> diff --git a/drivers/gpu/drm/msm/adreno/adreno_device.c b/drivers/gpu/drm/msm/adreno/adreno_device.c
+> index f61896629be6..59f3302e8167 100644
+> --- a/drivers/gpu/drm/msm/adreno/adreno_device.c
+> +++ b/drivers/gpu/drm/msm/adreno/adreno_device.c
+> @@ -477,7 +477,7 @@ struct msm_gpu *adreno_load_gpu(struct drm_device *dev)
+>  	return gpu;
+>  
+>  err_put_rpm:
+> -	pm_runtime_put_sync(&pdev->dev);
+> +	pm_runtime_put_sync_suspend(&pdev->dev);
+>  err_disable_rpm:
+>  	pm_runtime_disable(&pdev->dev);
+
+Johan
