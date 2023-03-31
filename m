@@ -2,74 +2,60 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 94AB56D21EF
-	for <lists+freedreno@lfdr.de>; Fri, 31 Mar 2023 15:59:15 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id F24FA6D22D5
+	for <lists+freedreno@lfdr.de>; Fri, 31 Mar 2023 16:45:33 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D169510F243;
-	Fri, 31 Mar 2023 13:59:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 215C110F273;
+	Fri, 31 Mar 2023 14:45:32 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AB0BF10F238;
- Fri, 31 Mar 2023 13:59:10 +0000 (UTC)
-Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 32VCDXaD013987; Fri, 31 Mar 2023 13:59:08 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
- h=from : to : cc :
- subject : date : message-id : in-reply-to : references : mime-version :
- content-type : content-transfer-encoding; s=qcppdkim1;
- bh=0efs2B7GiN50fVn2SDR3wcVCxcPBG0kv0j0bjRmvWxo=;
- b=An02CWyn5G2smGq6sQ6adFPRE1QIg9FSWtTdphgkYXMobHsa+WXMKWnVr0JklDXyFfe4
- cl0NLu//RzhgeX7wScjXG7JHxanO2NJg1PpaeufsTBOI3mhw4h1p2nlVtcDr9KrPuA+C
- LWthh4g0CM4WOkqYQKS3gxs71S0I3ZZNznyV4E1X/+u6auNyh7fw5jKVh8joSIAaRdyx
- FVwx+7uhGRq+uxaEwXGf4Mh+9kceu7za84Yf7+KdWEJeS/2NH4ViErmzzwyTu4M3hGpF
- 8lTnYWlVwgHe3IqEpHhO92BKt6IJbmGKrzidVvFVR0ISREVFSdlsWfuLFb63SvaqEG80 7A== 
-Received: from nalasppmta02.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3pnvyuguss-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 31 Mar 2023 13:59:08 +0000
-Received: from nalasex01b.na.qualcomm.com (nalasex01b.na.qualcomm.com
- [10.47.209.197])
- by NALASPPMTA02.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 32VDx7Oa020018
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 31 Mar 2023 13:59:07 GMT
-Received: from vpolimer-linux.qualcomm.com (10.80.80.8) by
- nalasex01b.na.qualcomm.com (10.47.209.197) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.986.42; Fri, 31 Mar 2023 06:59:02 -0700
-From: Vinod Polimera <quic_vpolimer@quicinc.com>
-To: <dri-devel@lists.freedesktop.org>, <linux-arm-msm@vger.kernel.org>,
- <freedreno@lists.freedesktop.org>, <devicetree@vger.kernel.org>
-Date: Fri, 31 Mar 2023 19:28:34 +0530
-Message-ID: <1680271114-1534-4-git-send-email-quic_vpolimer@quicinc.com>
-X-Mailer: git-send-email 2.7.4
-In-Reply-To: <1680271114-1534-1-git-send-email-quic_vpolimer@quicinc.com>
-References: <1680271114-1534-1-git-send-email-quic_vpolimer@quicinc.com>
+Received: from mail-yw1-x1134.google.com (mail-yw1-x1134.google.com
+ [IPv6:2607:f8b0:4864:20::1134])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6677E10F277
+ for <freedreno@lists.freedesktop.org>; Fri, 31 Mar 2023 14:45:29 +0000 (UTC)
+Received: by mail-yw1-x1134.google.com with SMTP id
+ 00721157ae682-54601d90118so263348577b3.12
+ for <freedreno@lists.freedesktop.org>; Fri, 31 Mar 2023 07:45:29 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1680273928;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=0MUvj6InzZLXQQxmjmGO59NHAjC0vDjsk7+Frfxo9oo=;
+ b=Z/hDsToqVvIQ4/eMDlsiI9NRhmjHkAqDNmu25q/Q+/6sK5GtKBqZRl7uUpim+c8ZKc
+ KQf7fxOyz5daa6dYNVfBaaai10t/CE28EEsg7Uk1n4iqcpi8bj33XMel4ORDD5A2DrOb
+ idCPi2QoPeDwhE0qQJ1BMZgb0JkudvpN7/W0yn+DdbavU46S5sZ1V+QS5vAwCatIVo4C
+ mibvjDqPwaiPKxK2YyHZuWPg0j8AO+Dt0Ws38nTa5O++BWQr1Ni4PRaKKj659LCvVCNA
+ IqGZzAA6i9kGAa0kFkMn0mWms+HBwDeY6ClVrrRidMSny07Dm6fzmm8MkO7XC2AX1gSe
+ jP3w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112; t=1680273928;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=0MUvj6InzZLXQQxmjmGO59NHAjC0vDjsk7+Frfxo9oo=;
+ b=Rr8WXr/3N7igbGZ8kXpBxtT4h5VotJ6fp3VPzy04x+21s5BuhrdYUNWv3B7p54Fu3G
+ zmHBjusU00iFZdlfDYconRZY9NHuxSTO/6RN21kl9vQChRNuzLu+4LnJKiQ22lWaTLhh
+ k2c6PMSdD9WOMOnOnFvAQozOlB8xXst30LJziVPL9S+Aj4mJtQJtB9AV/kIhhAY1K1Px
+ zGFWS+NdgcnVIhljryo3P9yGNgbbptI16Pvem3gtQLysvx6fk+y3qzAUi2+ObroOmG2z
+ of252TMXV8DVS1N9f+vhhT2enwMxl5GQ/U5U88MYGD27Dw0EOJjFeDgXjvFDg0Quz71m
+ FjGg==
+X-Gm-Message-State: AAQBX9elRg2C+IAXo/jZdZ7PEH8rrAAsfoK+N7osH/6tNW/om5HD5LDb
+ 4xAzFDXqNZWoyzoogF3HcwGkxr8/9dRKSASzsByRtQ==
+X-Google-Smtp-Source: AKy350YKfTfxSZLTn93/PabzrLMy3cO4bMXqdvdtS7frCg0qBJ1nWyMmjpiUeYSF/Wyv+ZZBUuij7hxKNI9ZCCizUpQ=
+X-Received: by 2002:a81:ae4f:0:b0:545:ed8e:f4f6 with SMTP id
+ g15-20020a81ae4f000000b00545ed8ef4f6mr9444843ywk.5.1680273928397; Fri, 31 Mar
+ 2023 07:45:28 -0700 (PDT)
 MIME-Version: 1.0
+References: <1680271114-1534-1-git-send-email-quic_vpolimer@quicinc.com>
+ <1680271114-1534-2-git-send-email-quic_vpolimer@quicinc.com>
+In-Reply-To: <1680271114-1534-2-git-send-email-quic_vpolimer@quicinc.com>
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Date: Fri, 31 Mar 2023 17:45:17 +0300
+Message-ID: <CAA8EJpo4HaYJ358gnBTfo94o7xUcN+z57+EJUMfJT1gQ5m_UEg@mail.gmail.com>
+To: Vinod Polimera <quic_vpolimer@quicinc.com>
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
- nalasex01b.na.qualcomm.com (10.47.209.197)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-GUID: MnHT4qZKxPdFf57uPNUz_MJJg1rLBTqq
-X-Proofpoint-ORIG-GUID: MnHT4qZKxPdFf57uPNUz_MJJg1rLBTqq
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.254,Aquarius:18.0.942,Hydra:6.0.573,FMLib:17.11.170.22
- definitions=2023-03-31_07,2023-03-31_01,2023-02-09_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 phishscore=0
- spamscore=0 adultscore=0 lowpriorityscore=0 impostorscore=0 clxscore=1015
- priorityscore=1501 malwarescore=0 mlxlogscore=873 suspectscore=0
- mlxscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2303200000 definitions=main-2303310109
-Subject: [Freedreno] [PATCH v1 3/3] msm: skip the atomic commit of self
- refresh while PSR running
+Subject: Re: [Freedreno] [PATCH v1 1/3] drm/msm/dpu: set dirty_fb flag while
+ in self refresh mode
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,37 +68,55 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: quic_kalyant@quicinc.com, quic_sbillaka@quicinc.com,
- quic_bjorande@quicinc.com, quic_abhinavk@quicinc.com,
- quic_vproddut@quicinc.com, quic_khsieh@quicinc.com, dianders@chromium.org,
- linux-kernel@vger.kernel.org, robdclark@gmail.com, dmitry.baryshkov@linaro.org,
- swboyd@chromium.org, Vinod Polimera <quic_vpolimer@quicinc.com>
+Cc: quic_kalyant@quicinc.com, devicetree@vger.kernel.org,
+ quic_sbillaka@quicinc.com, quic_bjorande@quicinc.com,
+ quic_abhinavk@quicinc.com, quic_vproddut@quicinc.com,
+ linux-arm-msm@vger.kernel.org, quic_khsieh@quicinc.com,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ dianders@chromium.org, robdclark@gmail.com, swboyd@chromium.org,
+ freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-In certain CPU stress conditions, there can be a delay in scheduling commit
-work and it was observed that PSR commit from a different work queue was 
-scheduled. Avoid these commits as display is already in PSR mode.
+On Fri, 31 Mar 2023 at 16:59, Vinod Polimera <quic_vpolimer@quicinc.com> wrote:
+>
+> While in virtual terminal mode with PSR enabled, there will be
+> no atomic commits triggered without dirty_fb being set. This
+> will create a notion of no screen update. Allow atomic commit
+> when dirty_fb ioctl is issued, so that it can trigger a PSR exit
+> and shows update on the screen.
 
-Signed-off-by: Vinod Polimera <quic_vpolimer@quicinc.com>
----
- drivers/gpu/drm/msm/msm_atomic.c | 3 +++
- 1 file changed, 3 insertions(+)
+Will this impact non-VT workloads? If I remember correctly, we added
+dirty_fb handling to prevent the framework from limiting the page
+flips to vblank events (in DSI video mode).
 
-diff --git a/drivers/gpu/drm/msm/msm_atomic.c b/drivers/gpu/drm/msm/msm_atomic.c
-index 645fe53..f8141bb 100644
---- a/drivers/gpu/drm/msm/msm_atomic.c
-+++ b/drivers/gpu/drm/msm/msm_atomic.c
-@@ -192,6 +192,9 @@ int msm_atomic_check(struct drm_device *dev, struct drm_atomic_state *state)
- 			new_crtc_state->mode_changed = true;
- 			state->allow_modeset = true;
- 		}
-+
-+		if (old_crtc_state->self_refresh_active && new_crtc_state->self_refresh_active)
-+			return -EINVAL;
- 	}
- 
- 	return drm_atomic_helper_check(dev, state);
+>
+> Reported-by: Bjorn Andersson <andersson@kernel.org>
+> Link: https://lore.kernel.org/all/20230326162723.3lo6pnsfdwzsvbhj@ripper/
+> Signed-off-by: Vinod Polimera <quic_vpolimer@quicinc.com>
+> ---
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c | 3 +++
+>  1 file changed, 3 insertions(+)
+>
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
+> index ab636da..96f645e 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
+> @@ -1158,6 +1158,9 @@ static bool dpu_crtc_needs_dirtyfb(struct drm_crtc_state *cstate)
+>         struct drm_crtc *crtc = cstate->crtc;
+>         struct drm_encoder *encoder;
+>
+> +       if (cstate->self_refresh_active)
+> +               return true;
+> +
+>         drm_for_each_encoder_mask (encoder, crtc->dev, cstate->encoder_mask) {
+>                 if (dpu_encoder_get_intf_mode(encoder) == INTF_MODE_CMD) {
+>                         return true;
+> --
+> 2.7.4
+>
+
+
 -- 
-2.7.4
-
+With best wishes
+Dmitry
