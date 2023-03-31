@@ -1,80 +1,81 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id A45236D1334
-	for <lists+freedreno@lfdr.de>; Fri, 31 Mar 2023 01:26:17 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 17F906D13D4
+	for <lists+freedreno@lfdr.de>; Fri, 31 Mar 2023 02:07:38 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2923910F0C4;
-	Thu, 30 Mar 2023 23:26:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B521210E30E;
+	Fri, 31 Mar 2023 00:07:36 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-x22e.google.com (mail-lj1-x22e.google.com
- [IPv6:2a00:1450:4864:20::22e])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 056D410F0AC
- for <freedreno@lists.freedesktop.org>; Thu, 30 Mar 2023 23:25:46 +0000 (UTC)
-Received: by mail-lj1-x22e.google.com with SMTP id by14so2113286ljb.12
- for <freedreno@lists.freedesktop.org>; Thu, 30 Mar 2023 16:25:45 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1680218744;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=w/CadsX/cgR9x9hYinvKdUNqwtugIvIpkzu1IofxqH4=;
- b=D30vwFl9P7JOarfMELFS1sqqzu5IUG8n0KUVid85FdPQrOmJ3NTQxdPFDCUsWdtYsD
- L0wE3vWOmVsjxV3qHPMQq9W8LAKWgnt0ZKVqdXNyRYKZ5Ywku5nGZpa9KunzPOvGPutP
- oioxn89SMqtnuS4FhqTBb2YVfB0v+mfH7s+SL0Qqp4EJMRmsbRGK1DWm0X9a4W8/hTZf
- KzqAQIVzPYKwSxpFzvv555AU2SZlDQQw2fUfWfU+PAsk9LNmKz+oPVqp4Usa17KBJOhr
- WekSWu/P6cIDlffYLE/OzOpFoG/sfhD1HNnpS/uFrsE+yZH+IkLnEeJAN9XyN0a3h1A3
- aOTQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112; t=1680218744;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=w/CadsX/cgR9x9hYinvKdUNqwtugIvIpkzu1IofxqH4=;
- b=wwyjd963yl/FM/CW/Kyp62Q5YKZsVBmYH5e1TvuiO2gvaBSZR58mPvce/x9RpXeXgz
- K4TdkRtjxJw205UzG5oRfdPrwcNZOehw2BT8TEU4Ml39k+ITHPNCv9A5R6Q+1YSypN57
- SojqqxTpXrciDFpctBokRGJb/mCBbeRcIuVaVL4xCqXsZhwr/ABDBRqqW1K+HvyfHwlS
- +jcVpg7JQQohKpXvERErjiALlnrKIBQGBCuLEtOQeqwSezIFvSH5fGlJV0eyD0qGciWO
- EVClXq+GN3npm/0nnxcpnHLXDLe44ONQPeHyZHyxBjt+QeerXqFjdxm9oz2XJZfmve2r
- lflg==
-X-Gm-Message-State: AAQBX9e+ibHJjQYvd2qKupRgubYLoUDsQAYELD/5A4ToZtk5FK3U2C5z
- Vbk1mCLlVS+qGoJywDIiNk6qBw==
-X-Google-Smtp-Source: AKy350YK4ztKrKefYHEV/s1psOhuMEKBceMA6YunRcHxQRKnTSU+yVxtC9Sh2OPBHEqtL9iSsq9DyQ==
-X-Received: by 2002:a2e:7019:0:b0:299:c03a:1cf9 with SMTP id
- l25-20020a2e7019000000b00299c03a1cf9mr7384502ljc.10.1680218744293; 
- Thu, 30 Mar 2023 16:25:44 -0700 (PDT)
-Received: from [192.168.1.101] (abxj225.neoplus.adsl.tpnet.pl. [83.9.3.225])
- by smtp.gmail.com with ESMTPSA id
- g26-20020ac2539a000000b004dda80cabf0sm127241lfh.172.2023.03.30.16.25.42
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 30 Mar 2023 16:25:43 -0700 (PDT)
-From: Konrad Dybcio <konrad.dybcio@linaro.org>
-Date: Fri, 31 Mar 2023 01:25:29 +0200
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C5C7810E301;
+ Fri, 31 Mar 2023 00:07:34 +0000 (UTC)
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 32UNw649020947; Fri, 31 Mar 2023 00:07:31 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
+ h=message-id : date :
+ mime-version : subject : to : cc : references : from : in-reply-to :
+ content-type : content-transfer-encoding; s=qcppdkim1;
+ bh=PVv+yngciahSuCTzgEKJxghdZYPuOTiCUP5D84dyYm0=;
+ b=I5ekw9/1ufk2rD2C/dCpurJaQtKF3s9u9GQjBrfcCBf/xvJ0ghdspN9bvdy4z0PVP2tE
+ sn5RAWTYmDoBu1lR0YUiq+CT1GR/h3tmSZhp00PfLhegoCJmf+h0QaEvNIRk+lZfgXYJ
+ JxRNL+0EdBBXk3xdiECZIzFOYhBZ49HAtVDGlrGD9BT6woX1P2rvalSyjiIp783qbmCx
+ 57zBRoFEQoLxod+mAcJnSo8Bd3qecvTOn/kjVXmdEAFdJYtFEjcMgnkUy3yvfsZQZD+e
+ Kllw8BuN8vkj0gTbBF6nOx5XCO24ojDpEtqkyLpYPz7iMF/PSnjQizBHjl8k10UkvNRp 8w== 
+Received: from nasanppmta03.qualcomm.com (i-global254.qualcomm.com
+ [199.106.103.254])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3pncx0s328-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Fri, 31 Mar 2023 00:07:30 +0000
+Received: from nasanex01b.na.qualcomm.com (nasanex01b.na.qualcomm.com
+ [10.46.141.250])
+ by NASANPPMTA03.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 32V07Tah018319
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Fri, 31 Mar 2023 00:07:29 GMT
+Received: from [10.71.110.193] (10.80.80.8) by nasanex01b.na.qualcomm.com
+ (10.46.141.250) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.42; Thu, 30 Mar
+ 2023 17:07:28 -0700
+Message-ID: <6461a8b8-f620-5f9c-9533-f65ac42c0524@quicinc.com>
+Date: Thu, 30 Mar 2023 17:07:27 -0700
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20230223-topic-gmuwrapper-v5-15-bf774b9a902a@linaro.org>
-References: <20230223-topic-gmuwrapper-v5-0-bf774b9a902a@linaro.org>
-In-Reply-To: <20230223-topic-gmuwrapper-v5-0-bf774b9a902a@linaro.org>
-To: Rob Clark <robdclark@gmail.com>, 
- Abhinav Kumar <quic_abhinavk@quicinc.com>, 
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>, 
- David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>, 
- Rob Herring <robh+dt@kernel.org>, 
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>, 
- Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konrad.dybcio@somainline.org>, 
- Akhil P Oommen <quic_akhilpo@quicinc.com>
-X-Mailer: b4 0.12.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1680218720; l=1852;
- i=konrad.dybcio@linaro.org; s=20230215; h=from:subject:message-id;
- bh=sRjMSX3RSLjg5O+bbZnBcjOb5P4ZXSSVfgLMBDfv6/0=;
- b=2byAdZ0K4ZJknmJ/po2ONEXUn7MAt5HV2jkFIX+85s9yPzd0JQUgigp/xUAsBjXyTePMMNqdtmwy
- 6QK2s1SeAI6IPLE36ITrYG7f2atB6Yx8W5XnNuZs0n2jYAqiskVp
-X-Developer-Key: i=konrad.dybcio@linaro.org; a=ed25519;
- pk=iclgkYvtl2w05SSXO5EjjSYlhFKsJ+5OSZBjOkQuEms=
-Subject: [Freedreno] [PATCH v5 15/15] drm/msm/a6xx: Add A610 speedbin support
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.8.0
+Content-Language: en-US
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ <freedreno@lists.freedesktop.org>
+References: <20230329-rfc-msm-dsc-helper-v1-0-f3e479f59b6d@quicinc.com>
+ <20230329-rfc-msm-dsc-helper-v1-5-f3e479f59b6d@quicinc.com>
+ <0698ce89-d70c-c3f4-f006-18130858aacf@linaro.org>
+ <2c9ac12f-df2f-8576-555b-3d84a6205ee3@quicinc.com>
+ <c3ac5c2b-e0e0-5d7c-67d3-4fc2316b68c5@linaro.org>
+From: Jessica Zhang <quic_jesszhan@quicinc.com>
+In-Reply-To: <c3ac5c2b-e0e0-5d7c-67d3-4fc2316b68c5@linaro.org>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
+ nasanex01b.na.qualcomm.com (10.46.141.250)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-ORIG-GUID: DKmpaPh4T9ohswR1ACZItFwXWcCuB8rq
+X-Proofpoint-GUID: DKmpaPh4T9ohswR1ACZItFwXWcCuB8rq
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.254,Aquarius:18.0.942,Hydra:6.0.573,FMLib:17.11.170.22
+ definitions=2023-03-30_13,2023-03-30_04,2023-02-09_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 mlxscore=0
+ malwarescore=0 priorityscore=1501 bulkscore=0 adultscore=0 clxscore=1015
+ suspectscore=0 phishscore=0 mlxlogscore=999 spamscore=0 lowpriorityscore=0
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2303200000
+ definitions=main-2303300188
+Subject: Re: [Freedreno] [PATCH RFC 5/5] drm/msm/dsi: Use MSM and DRM DSC
+ helper methods
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -87,72 +88,162 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rob Clark <robdclark@chromium.org>, devicetree@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+Cc: linux-arm-msm@vger.kernel.org, Abhinav Kumar <quic_abhinavk@quicinc.com>,
  dri-devel@lists.freedesktop.org, Konrad Dybcio <konrad.dybcio@linaro.org>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- freedreno@lists.freedesktop.org
+ Rob Clark <robdclark@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Marijn Suijten <marijn.suijten@somainline.org>, Sean Paul <sean@poorly.run>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-A610 is implemented on at least three SoCs: SM6115 (bengal), SM6125
-(trinket) and SM6225 (khaje). Trinket does not support speed binning
-(only a single SKU exists) and we don't yet support khaje upstream.
-Hence, add a fuse mapping table for bengal to allow for per-chip
-frequency limiting.
 
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Signed-off-by: Konrad Dybcio <konrad.dybcio@linaro.org>
----
- drivers/gpu/drm/msm/adreno/a6xx_gpu.c | 27 +++++++++++++++++++++++++++
- 1 file changed, 27 insertions(+)
 
-diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-index c61b1c4090c5..7662104c740f 100644
---- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-+++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-@@ -2153,6 +2153,30 @@ static bool a6xx_progress(struct msm_gpu *gpu, struct msm_ringbuffer *ring)
- 	return progress;
- }
- 
-+static u32 a610_get_speed_bin(u32 fuse)
-+{
-+	/*
-+	 * There are (at least) three SoCs implementing A610: SM6125 (trinket),
-+	 * SM6115 (bengal) and SM6225 (khaje). Trinket does not have speedbinning,
-+	 * as only a single SKU exists and we don't support khaje upstream yet.
-+	 * Hence, this matching table is only valid for bengal and can be easily
-+	 * expanded if need be.
-+	 */
-+
-+	if (fuse == 0)
-+		return 0;
-+	else if (fuse == 206)
-+		return 1;
-+	else if (fuse == 200)
-+		return 2;
-+	else if (fuse == 157)
-+		return 3;
-+	else if (fuse == 127)
-+		return 4;
-+
-+	return UINT_MAX;
-+}
-+
- static u32 a618_get_speed_bin(u32 fuse)
- {
- 	if (fuse == 0)
-@@ -2249,6 +2273,9 @@ static u32 fuse_to_supp_hw(struct device *dev, struct adreno_gpu *adreno_gpu, u3
- {
- 	u32 val = UINT_MAX;
- 
-+	if (adreno_is_a610(adreno_gpu))
-+		val = a610_get_speed_bin(fuse);
-+
- 	if (adreno_is_a618(adreno_gpu))
- 		val = a618_get_speed_bin(fuse);
- 
+On 3/30/2023 4:14 PM, Dmitry Baryshkov wrote:
+> On 31/03/2023 01:49, Jessica Zhang wrote:
+>>
+>>
+>> On 3/29/2023 4:48 PM, Dmitry Baryshkov wrote:
+>>> On 30/03/2023 02:18, Jessica Zhang wrote:
+>>>> Use MSM and DRM DSC helper methods.
+>>>>
+>>>> Signed-off-by: Jessica Zhang <quic_jesszhan@quicinc.com>
+>>>> ---
+>>>>   drivers/gpu/drm/msm/dsi/dsi_host.c | 18 ++++++++++++------
+>>>>   1 file changed, 12 insertions(+), 6 deletions(-)
+>>>>
+>>>> diff --git a/drivers/gpu/drm/msm/dsi/dsi_host.c 
+>>>> b/drivers/gpu/drm/msm/dsi/dsi_host.c
+>>>> index 74d38f90398a..7419fe58a941 100644
+>>>> --- a/drivers/gpu/drm/msm/dsi/dsi_host.c
+>>>> +++ b/drivers/gpu/drm/msm/dsi/dsi_host.c
+>>>> @@ -31,6 +31,7 @@
+>>>>   #include "msm_kms.h"
+>>>>   #include "msm_gem.h"
+>>>>   #include "phy/dsi_phy.h"
+>>>> +#include "disp/msm_dsc_helper.h"
+>>>>   #define DSI_RESET_TOGGLE_DELAY_MS 20
+>>>> @@ -841,14 +842,14 @@ static void dsi_update_dsc_timing(struct 
+>>>> msm_dsi_host *msm_host, bool is_cmd_mod
+>>>>   {
+>>>>       struct drm_dsc_config *dsc = msm_host->dsc;
+>>>>       u32 reg, reg_ctrl, reg_ctrl2;
+>>>> -    u32 slice_per_intf, total_bytes_per_intf;
+>>>> +    u32 slice_per_intf;
+>>>>       u32 pkt_per_line;
+>>>>       u32 eol_byte_num;
+>>>>       /* first calculate dsc parameters and then program
+>>>>        * compress mode registers
+>>>>        */
+>>>> -    slice_per_intf = DIV_ROUND_UP(hdisplay, dsc->slice_width);
+>>>> +    slice_per_intf = msm_dsc_get_slice_per_intf(dsc, hdisplay);
+>>>
+>>> This looks good
+>>>
+>>>>       /*
+>>>>        * If slice_count is greater than slice_per_intf
+>>>> @@ -858,10 +859,10 @@ static void dsi_update_dsc_timing(struct 
+>>>> msm_dsi_host *msm_host, bool is_cmd_mod
+>>>>       if (dsc->slice_count > slice_per_intf)
+>>>>           dsc->slice_count = 1;
+>>>> -    total_bytes_per_intf = dsc->slice_chunk_size * slice_per_intf;
+>>>> +    eol_byte_num = msm_dsc_get_eol_byte_num(msm_host->dsc, hdisplay,
+>>>> +            dsi_get_bpp(msm_host->format));
+>>>> -    eol_byte_num = total_bytes_per_intf % 3;
+>>>> -    pkt_per_line = slice_per_intf / dsc->slice_count;
+>>>> +    pkt_per_line = slice_per_intf / MSM_DSC_SLICE_PER_PKT;
+>>>
+>>> And for these values the result is definitely changed. Separate patch 
+>>> & description please. Just in case, "values per downstream kernel" is 
+>>> not a proper description for such changes.
+>>
+>> Hi Dmitry,
+>>
+>> Sure, I can put this into a separate patch.
+>>
+>> The reason this was changed from slice_count to SLICE_PER_PKT was 
+>> because slice count and slice per packet aren't always equivalent. 
+>> There can be cases where panel configures DSC to have multiple soft 
+>> slices per interface, but the panel only specifies 1 slice per packet.
+> 
+> Please put this nice description into the commit message. It is exactly 
+> what I was looking for!
+> 
+> BTW: Do you expect to change MSM_DSC_SLICE_PER_PKT later or it will stay 
+> at "1"? If so, it might be easier to drop it and instead add a comment.
 
--- 
-2.40.0
+MSM_DSC_SLICE_PER_PKT is the default value for panels that don't specify 
+a slice_per_pkt value. (Now that I think about it, might be better to 
+call it MSM_DSC_DEFAULT_SLICE_PER_PKT instead...)
 
+I don't expect it to change in the future, but it's a little more 
+readable than just dividing by 1 IMO. If you prefer dropping the macro 
+and adding a comment, I'm also okay with that.
+
+Thanks,
+
+Jessica Zhang
+
+> 
+> Regarding eol_byte_num, probably the best explanation would be that is 
+> is a size of a padding rather than a size of a trailer bytes in a line 
+> (and thus original calculation was incorrect).
+> 
+>>
+>>>
+>>>>       if (is_cmd_mode) /* packet data type */
+>>>>           reg = 
+>>>> DSI_COMMAND_COMPRESSION_MODE_CTRL_STREAM0_DATATYPE(MIPI_DSI_DCS_LONG_WRITE);
+>>>> @@ -911,6 +912,11 @@ static void dsi_timing_setup(struct 
+>>>> msm_dsi_host *msm_host, bool is_bonded_dsi)
+>>>>       DBG("");
+>>>> +    if (msm_host->mode_flags & MIPI_DSI_MODE_VIDEO)
+>>>> +        /* Default widebus_en to false for now. */
+>>>> +        hdisplay = msm_dsc_get_pclk_per_line(msm_host->dsc, 
+>>>> mode->hdisplay,
+>>>> +                dsi_get_bpp(msm_host->format));
+>>>> +
+>>>
+>>> This is definitely something new and thus should probably go into a 
+>>> separate patch and be described. Also I'm not sure how does that 
+>>> interact with the hdisplay-related calculations below, under the 
+>>> if(dsc) clause.
+>>
+>> After double-checking the math here, I think this part of the change 
+>> is actually wrong. pclk_per_line is essentially doing hdisplay / 3, 
+>> which is a repeat of what's being done in the `if (dsc)` block.
+>>
+>> Will replace `hdisplay /= 3` with the pclk_per_line calculation.
+> 
+> Thanks!
+> 
+>>
+>> Thanks,
+>>
+>> Jessica Zhang
+>>
+>>>
+>>>>       /*
+>>>>        * For bonded DSI mode, the current DRM mode has
+>>>>        * the complete width of the panel. Since, the complete
+>>>> @@ -1759,7 +1765,7 @@ static int dsi_populate_dsc_params(struct 
+>>>> msm_dsi_host *msm_host, struct drm_dsc
+>>>>           return ret;
+>>>>       }
+>>>> -    dsc->initial_scale_value = 32;
+>>>> +    dsc->initial_scale_value = 
+>>>> drm_dsc_calculate_initial_scale_value(dsc);
+>>>
+>>> This is fine, we only support 8bpp where these values match.
+>>>
+>>>>       dsc->line_buf_depth = dsc->bits_per_component + 1;
+>>>>       return drm_dsc_compute_rc_parameters(dsc);
+>>>>
+>>>
+>>> -- 
+>>> With best wishes
+>>> Dmitry
+>>>
+> 
+> -- 
+> With best wishes
+> Dmitry
+> 
