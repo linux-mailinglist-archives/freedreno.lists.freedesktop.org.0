@@ -2,74 +2,71 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8F8CC6D1A88
-	for <lists+freedreno@lfdr.de>; Fri, 31 Mar 2023 10:40:48 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B54F36D21E2
+	for <lists+freedreno@lfdr.de>; Fri, 31 Mar 2023 15:58:58 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5C48410F125;
-	Fri, 31 Mar 2023 08:40:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6C8D610F230;
+	Fri, 31 Mar 2023 13:58:57 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x134.google.com (mail-lf1-x134.google.com
- [IPv6:2a00:1450:4864:20::134])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1221410E31B
- for <freedreno@lists.freedesktop.org>; Fri, 31 Mar 2023 08:40:44 +0000 (UTC)
-Received: by mail-lf1-x134.google.com with SMTP id k37so27998365lfv.0
- for <freedreno@lists.freedesktop.org>; Fri, 31 Mar 2023 01:40:44 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1680252043;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=gjXQ5aQpqa9dtTjZKu9qBegMD76XnvSRVVOgnd82YkA=;
- b=vltQKUL3hd9OWaeRLdVX83lC9n5JnQDc4llvdPRGU22FvnP96K9I88V0ANxqtlRKXP
- t2DmmsASCcz5z3tr/h3gtvUX7GSjKy6VuQqYaooHwqPN/PlkdqzDVjHfr9QllImsWqG5
- aW01Olub4vZc6jwBtji2t4P4F2tCSgGweFusFG7gLbcqvrtfsyzpJZUW2t1w4itI7lYY
- 47P7raJ7QtH3W7Zpoju4a2yE1Q18SO4+D3PXoYZLYj4tWCoN0yk6BKQMn0plL07ByDl7
- wgkjePVTUHMk4BpyMvopnikvt1g6Q11/AEd/quexyX20zkVSNJEkABjPOrXEs/zutbMX
- 9NSg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112; t=1680252043;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=gjXQ5aQpqa9dtTjZKu9qBegMD76XnvSRVVOgnd82YkA=;
- b=d63YXlNfLoe9KeBByHYHCygLYy97YBuXAuKJvf4YmfrzYqF9YGgSxJ08Hpwv2EzvS9
- D+rfj4nMko6zTDCiIHtFueNTYgVLvVsZFFi2lwwxEcjPY51zPsdEUeD0c5q3cqULSoV3
- ep3tUkqwnDhpmk1t8mPK4B39h/ETx07Tpq1qj74k5GlBfG/voxA3MMaNojmEUXAd3HKr
- LGhXKsqff9mVf6oongQZ9EXrsGQqcYGHrv1yrVKZSuaPHUKmmAsbOAj1JfzVjN+nZsbd
- ksw68F0IaVrU74i8LTxPlCVX2r/oj8baGsd7Fa6sfEKx9X9jgVVmaF0vndzJQ5FGuIoA
- Ir3w==
-X-Gm-Message-State: AAQBX9cJ3dsyP9BmTTdQ7+oypVUovBPl9WX9dXCCBTwRXitlEhKuZMsY
- 2whQu/A+wBYOgV6a+ih3WzTQwg==
-X-Google-Smtp-Source: AKy350ZF4EPLm2KOd54BriJCTJPExfvm5KVPdSmGedrby3dOniEiFQ93phf7NAJWdI34ReDhM3A7ZA==
-X-Received: by 2002:ac2:5482:0:b0:4b5:8f03:a2bc with SMTP id
- t2-20020ac25482000000b004b58f03a2bcmr7517722lfk.9.1680252043253; 
- Fri, 31 Mar 2023 01:40:43 -0700 (PDT)
-Received: from [192.168.0.21] (78-11-189-27.static.ip.netia.com.pl.
- [78.11.189.27]) by smtp.gmail.com with ESMTPSA id
- s5-20020a19ad45000000b004e845b49d81sm289545lfd.140.2023.03.31.01.40.42
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 31 Mar 2023 01:40:42 -0700 (PDT)
-Message-ID: <bdb9c715-3cc9-73b8-e500-d2e34075b53e@linaro.org>
-Date: Fri, 31 Mar 2023 10:40:41 +0200
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A7E9210F230;
+ Fri, 31 Mar 2023 13:58:55 +0000 (UTC)
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 32VCI1bo023681; Fri, 31 Mar 2023 13:58:52 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
+ h=from : to : cc :
+ subject : date : message-id : mime-version : content-type :
+ content-transfer-encoding; s=qcppdkim1;
+ bh=Js71QqueNw1lY9w3+9bRhDoCcGiBN6sicN22goZqP/g=;
+ b=XJauhhwgOaBQXfNrxoWCLSezD1LNzFbsyuGHvVkgSeqr1LA2ZtgOxbKLyow5mGCEAfvb
+ 9tjKuKT8JodGd/ZN9DvPd+WBtYnlOp89C+o3OXIJ7elGy31xMODVg/N3WHc9/akf727h
+ 0CJmuWJQOZoAZSyFl8u7TQG+g5i+OqdDHd2+yFVr5wTYU7oAGZStRJnGqFPPuS81YNRK
+ lA9G7VurISecEG/wzrSzm58JqIagLKxd5q21ugusdKYwCuKQzeyQu2b/RZi/kYroQy90
+ oMvxxy8XMzT58Qr4xr3mv5F5JiiPZ2txvUdrhd1V3vOjiHsCmiI/sishODdifUDu4SFk yQ== 
+Received: from nalasppmta03.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3pnu6cs8fa-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Fri, 31 Mar 2023 13:58:52 +0000
+Received: from nalasex01b.na.qualcomm.com (nalasex01b.na.qualcomm.com
+ [10.47.209.197])
+ by NALASPPMTA03.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 32VDwpaA002708
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Fri, 31 Mar 2023 13:58:51 GMT
+Received: from vpolimer-linux.qualcomm.com (10.80.80.8) by
+ nalasex01b.na.qualcomm.com (10.47.209.197) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.986.42; Fri, 31 Mar 2023 06:58:46 -0700
+From: Vinod Polimera <quic_vpolimer@quicinc.com>
+To: <dri-devel@lists.freedesktop.org>, <linux-arm-msm@vger.kernel.org>,
+ <freedreno@lists.freedesktop.org>, <devicetree@vger.kernel.org>
+Date: Fri, 31 Mar 2023 19:28:31 +0530
+Message-ID: <1680271114-1534-1-git-send-email-quic_vpolimer@quicinc.com>
+X-Mailer: git-send-email 2.7.4
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.9.0
-Content-Language: en-US
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Andy Gross <agross@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konrad.dybcio@linaro.org>, Rob Clark <robdclark@gmail.com>,
- Sean Paul <sean@poorly.run>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Rob Herring <robh+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>
-References: <20230329222500.1131836-1-dmitry.baryshkov@linaro.org>
- <20230329222500.1131836-2-dmitry.baryshkov@linaro.org>
-From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-In-Reply-To: <20230329222500.1131836-2-dmitry.baryshkov@linaro.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [RFC PATCH 1/3] dt-bindings: display/msm/gpu: allow
- specifying MX domain A5xx
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
+ nalasex01b.na.qualcomm.com (10.47.209.197)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-GUID: cipl5w24uUFHSg9DMu_zpqF8gwhOLfbM
+X-Proofpoint-ORIG-GUID: cipl5w24uUFHSg9DMu_zpqF8gwhOLfbM
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.254,Aquarius:18.0.942,Hydra:6.0.573,FMLib:17.11.170.22
+ definitions=2023-03-31_07,2023-03-31_01,2023-02-09_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 adultscore=0
+ spamscore=0 mlxscore=0 lowpriorityscore=0 suspectscore=0 clxscore=1011
+ priorityscore=1501 mlxlogscore=610 phishscore=0 bulkscore=0
+ impostorscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2303200000 definitions=main-2303310109
+Subject: [Freedreno] [PATCH v1 0/3] Fixes for PSR
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,23 +79,31 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, Stephen Boyd <swboyd@chromium.org>,
- Daniel Vetter <daniel@ffwll.ch>, freedreno@lists.freedesktop.org,
- David Airlie <airlied@gmail.com>
+Cc: quic_kalyant@quicinc.com, quic_sbillaka@quicinc.com,
+ quic_bjorande@quicinc.com, quic_abhinavk@quicinc.com,
+ quic_vproddut@quicinc.com, quic_khsieh@quicinc.com, dianders@chromium.org,
+ linux-kernel@vger.kernel.org, robdclark@gmail.com, dmitry.baryshkov@linaro.org,
+ swboyd@chromium.org, Vinod Polimera <quic_vpolimer@quicinc.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 30/03/2023 00:24, Dmitry Baryshkov wrote:
-> Some a5xx Adreno devices might need additional power domains to handle
-> voltage scaling. While we do not (yet) have support for CPR3 providing
-> voltage scaling, allow specifying MX domain to scale the memory cell
-> voltage.
-> 
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+while in virtual terminal with PSR enabled, there will be
+no atomic commits triggered resulting in no screen update.
+Update the dirtyfb flag into plane state during atomic check 
+to flush the pixel data explicitly.
 
-Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+Avoid scheduling PSR commits from different work queues while
+running in PSR mode already.
 
-Best regards,
-Krzysztof
+Vinod Polimera (3):
+  drm/msm/dpu: set dirty_fb flag while in self refresh mode
+  msm/disp/dpu: allow atomic_check in PSR usecase
+  msm: skip the atomic commit of self refresh while PSR running
+
+ drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c | 5 ++++-
+ drivers/gpu/drm/msm/msm_atomic.c         | 3 +++
+ 2 files changed, 7 insertions(+), 1 deletion(-)
+
+-- 
+2.7.4
 
