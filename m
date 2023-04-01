@@ -1,78 +1,57 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id D85D46D2C62
-	for <lists+freedreno@lfdr.de>; Sat,  1 Apr 2023 03:10:33 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 3D5C36D2DFA
+	for <lists+freedreno@lfdr.de>; Sat,  1 Apr 2023 05:49:06 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5F41910E0A7;
-	Sat,  1 Apr 2023 01:10:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C979110E2BC;
+	Sat,  1 Apr 2023 03:49:04 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0753F10E0A7;
- Sat,  1 Apr 2023 01:10:26 +0000 (UTC)
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 3310v1bU004496; Sat, 1 Apr 2023 01:10:22 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
- h=message-id : date :
- mime-version : subject : to : cc : references : from : in-reply-to :
- content-type : content-transfer-encoding; s=qcppdkim1;
- bh=tUiFAVKPUWdEA4iAtHUYnJrmlY855FNd++quJPs1PcI=;
- b=G5JFo/UPMPdHmX4obJxXCdtOdqLsV/vbrCNh55ChcrQfpKgbs7meZLaX8VvjBLf7p3fY
- P3LYpWJlbnWUybK8qb//h5nPv35W3bg3+CpbEYteihzpjdVFjtm6LlGsLeIxDSIg8wlD
- vkJES1/VjRX9HnjadxcDcn5CfDDoBKt3dVlLjvI+EXnsTJHQGnDrN2+iajTI6W1hnz6i
- M+ikX6JdugE1dg4+1wCFTiMzU/+X4lvGy63bxLxxccjZ4jROWpdmtATRvJ1tEM/SQcNg
- a/gzxeXkIRsTCZFoJJu1zwQpQbsZ6geSrQZADJtlAmyU+n9D7f4qSbO2oR8FtcTp9TPy NA== 
-Received: from nalasppmta02.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3pnyeya41x-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Sat, 01 Apr 2023 01:10:21 +0000
-Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
- [10.47.209.196])
- by NALASPPMTA02.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 3311AJJi001897
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Sat, 1 Apr 2023 01:10:19 GMT
-Received: from [10.110.53.163] (10.80.80.8) by nalasex01a.na.qualcomm.com
- (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.42; Fri, 31 Mar
- 2023 18:10:18 -0700
-Message-ID: <8d73aaa5-50b1-7084-bfbd-56f89e6bff3f@quicinc.com>
-Date: Fri, 31 Mar 2023 18:10:17 -0700
+Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 63D5D10E2BC;
+ Sat,  1 Apr 2023 03:49:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1680320943; x=1711856943;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=iKRGjxyuVPlp7bjfbPORRfcTp1PxnLq+Mx9fXMULy44=;
+ b=UoxNKzpmKvc9xeO0MgwwXbKI1+eEvgnHMyAmT6nqLZFi92slQYHIyRQR
+ iLrfz2BOoSz/GH+DhT2QmC9d5ngAsstOOLw/qNCMjCMPb3+jCzj2Lg9LM
+ Fx9TYvSiZXgacFP0gaM9mJZUv052asGxZK8p4Mkl1z+kia+ETfUJ3taXn
+ lTHwRre+bpxbq6w4gKa4wDfs8VIy0iW9UXydbA76ORH6H3DDCn5RW2N3u
+ iCR/HWSoUZiJ2/COTdU3p3Ldfa2Y7SRrJBqmMkkGPsvSOoMg/cRqBLF3G
+ SSlTwxF2wrH0d6Mi7Xy4JRpsvme6OCWHIA2uAZwIb8epfLZIOx+Vaylx+ w==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10666"; a="321268515"
+X-IronPort-AV: E=Sophos;i="5.98,308,1673942400"; d="scan'208";a="321268515"
+Received: from orsmga006.jf.intel.com ([10.7.209.51])
+ by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 31 Mar 2023 20:45:15 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10666"; a="662612093"
+X-IronPort-AV: E=Sophos;i="5.98,308,1673942400"; d="scan'208";a="662612093"
+Received: from lkp-server01.sh.intel.com (HELO b613635ddfff) ([10.239.97.150])
+ by orsmga006.jf.intel.com with ESMTP; 31 Mar 2023 20:45:10 -0700
+Received: from kbuild by b613635ddfff with local (Exim 4.96)
+ (envelope-from <lkp@intel.com>) id 1piSAv-000MQR-2Z;
+ Sat, 01 Apr 2023 03:45:09 +0000
+Date: Sat, 1 Apr 2023 11:44:50 +0800
+From: kernel test robot <lkp@intel.com>
+To: Mark Yacoub <markyacoub@chromium.org>, Rob Clark <robdclark@gmail.com>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Sean Paul <sean@poorly.run>, David Airlie <airlied@gmail.com>,
+ Daniel Vetter <daniel@ffwll.ch>
+Message-ID: <202304011152.dsr8g6yX-lkp@intel.com>
+References: <20230331221213.1691997-11-markyacoub@google.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.6.2
-Content-Language: en-US
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Rob Clark
- <robdclark@gmail.com>, Sean Paul <sean@poorly.run>
-References: <20230330215324.1853304-1-dmitry.baryshkov@linaro.org>
- <20230330215324.1853304-5-dmitry.baryshkov@linaro.org>
-From: Abhinav Kumar <quic_abhinavk@quicinc.com>
-In-Reply-To: <20230330215324.1853304-5-dmitry.baryshkov@linaro.org>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-GUID: 9_UMhNjJui4eT46CroK6KhmKFTDgBj--
-X-Proofpoint-ORIG-GUID: 9_UMhNjJui4eT46CroK6KhmKFTDgBj--
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.254,Aquarius:18.0.942,Hydra:6.0.573,FMLib:17.11.170.22
- definitions=2023-03-31_07,2023-03-31_01,2023-02-09_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0
- lowpriorityscore=0 malwarescore=0 adultscore=0 suspectscore=0
- mlxlogscore=715 spamscore=0 mlxscore=0 priorityscore=1501 clxscore=1015
- phishscore=0 impostorscore=0 classifier=spam adjust=0 reason=mlx
- scancount=1 engine=8.12.0-2303200000 definitions=main-2304010008
-Subject: Re: [Freedreno] [PATCH v3 04/38] drm/msm/dpu: move UBWC/memory
- configuration to separate struct
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20230331221213.1691997-11-markyacoub@google.com>
+Subject: Re: [Freedreno] [Intel-gfx] [PATCH v8 10/10] drm/msm: Implement
+ HDCP 1.x using the new drm HDCP helpers
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -85,23 +64,77 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
- Bjorn Andersson <andersson@kernel.org>, dri-devel@lists.freedesktop.org,
- Stephen Boyd <swboyd@chromium.org>, Konrad Dybcio <konrad.dybcio@linaro.org>,
- Daniel Vetter <daniel@ffwll.ch>, David Airlie <airlied@gmail.com>
+Cc: linux-kernel@vger.kernel.org, Mark Yacoub <markyacoub@chromium.org>,
+ intel-gfx@lists.freedesktop.org, dianders@chromium.org,
+ dri-devel@lists.freedesktop.org, Stephen Boyd <swboyd@chromium.org>,
+ seanpaul@chromium.org, oe-kbuild-all@lists.linux.dev,
+ freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
+Hi Mark,
+
+I love your patch! Yet something to improve:
+
+[auto build test ERROR on drm-intel/for-linux-next-fixes]
+[also build test ERROR on linus/master v6.3-rc4]
+[cannot apply to drm-misc/drm-misc-next drm-intel/for-linux-next drm/drm-next next-20230331]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch#_base_tree_information]
+
+url:    https://github.com/intel-lab-lkp/linux/commits/Mark-Yacoub/drm-hdcp-Add-drm_hdcp_atomic_check/20230401-061425
+base:   git://anongit.freedesktop.org/drm-intel for-linux-next-fixes
+patch link:    https://lore.kernel.org/r/20230331221213.1691997-11-markyacoub%40google.com
+patch subject: [Intel-gfx] [PATCH v8 10/10] drm/msm: Implement HDCP 1.x using the new drm HDCP helpers
+config: arc-randconfig-r043-20230329 (https://download.01.org/0day-ci/archive/20230401/202304011152.dsr8g6yX-lkp@intel.com/config)
+compiler: arc-elf-gcc (GCC) 12.1.0
+reproduce (this is a W=1 build):
+        wget https://raw.githubusercontent.com/intel/lkp-tests/master/sbin/make.cross -O ~/bin/make.cross
+        chmod +x ~/bin/make.cross
+        # https://github.com/intel-lab-lkp/linux/commit/697c762c590d862f4f6ed4a8cac97ac2de815f73
+        git remote add linux-review https://github.com/intel-lab-lkp/linux
+        git fetch --no-tags linux-review Mark-Yacoub/drm-hdcp-Add-drm_hdcp_atomic_check/20230401-061425
+        git checkout 697c762c590d862f4f6ed4a8cac97ac2de815f73
+        # save the config file
+        mkdir build_dir && cp config build_dir/.config
+        COMPILER_INSTALL_PATH=$HOME/0day COMPILER=gcc-12.1.0 make.cross W=1 O=build_dir ARCH=arc olddefconfig
+        COMPILER_INSTALL_PATH=$HOME/0day COMPILER=gcc-12.1.0 make.cross W=1 O=build_dir ARCH=arc SHELL=/bin/bash
+
+If you fix the issue, kindly add following tag where applicable
+| Reported-by: kernel test robot <lkp@intel.com>
+| Link: https://lore.kernel.org/oe-kbuild-all/202304011152.dsr8g6yX-lkp@intel.com/
+
+All errors (new ones prefixed by >>):
+
+   arc-elf-ld: drivers/gpu/drm/msm/msm_atomic.o: in function `msm_atomic_commit_tail':
+>> drivers/gpu/drm/msm/msm_atomic.c:193: undefined reference to `dp_drm_is_bridge_msm_dp'
+>> arc-elf-ld: drivers/gpu/drm/msm/msm_atomic.c:193: undefined reference to `dp_drm_is_bridge_msm_dp'
+>> arc-elf-ld: drivers/gpu/drm/msm/msm_atomic.c:194: undefined reference to `dp_drm_atomic_commit'
+>> arc-elf-ld: drivers/gpu/drm/msm/msm_atomic.c:194: undefined reference to `dp_drm_atomic_commit'
+   arc-elf-ld: drivers/gpu/drm/msm/dp/dp_debug.o: in function `dp_hdcp_key_write':
+>> drivers/gpu/drm/msm/dp/dp_debug.c:219: undefined reference to `dp_hdcp_ingest_key'
+>> arc-elf-ld: drivers/gpu/drm/msm/dp/dp_debug.c:219: undefined reference to `dp_hdcp_ingest_key'
 
 
-On 3/30/2023 2:52 PM, Dmitry Baryshkov wrote:
-> UBWC and highest bank settings differ slightly between different DPU
-> units of the same generation, while the dpu_caps and dpu_mdp_cfg are
-> much more stable. To ease configuration reuse move ubwc_swizzle and
-> highest_bank_bit data to separate structure.
-> 
-> Reviewed-by: Konrad Dybcio <konrad.dybcio@linaro.org>
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> ---
+vim +193 drivers/gpu/drm/msm/msm_atomic.c
 
-Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
+   184	
+   185	static void msm_atomic_commit_connectors(struct drm_atomic_state *state)
+   186	{
+   187		struct drm_device *dev = state->dev;
+   188		struct msm_drm_private *priv = dev->dev_private;
+   189		int i;
+   190	
+   191		for (i = 0; i < priv->num_bridges; ++i) {
+   192			struct drm_bridge *bridge = priv->bridges[i];
+ > 193			if (dp_drm_is_bridge_msm_dp(bridge)) {
+ > 194				dp_drm_atomic_commit(bridge, state);
+   195			}
+   196		}
+   197	}
+   198	
+
+-- 
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests
