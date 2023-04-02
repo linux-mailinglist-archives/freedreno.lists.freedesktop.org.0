@@ -1,71 +1,78 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8BA336D37AF
-	for <lists+freedreno@lfdr.de>; Sun,  2 Apr 2023 13:35:27 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 6BFE96D38D8
+	for <lists+freedreno@lfdr.de>; Sun,  2 Apr 2023 17:44:05 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B956310E2DE;
-	Sun,  2 Apr 2023 11:35:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DAC2410E0D8;
+	Sun,  2 Apr 2023 15:44:02 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x12a.google.com (mail-lf1-x12a.google.com
- [IPv6:2a00:1450:4864:20::12a])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4F0AA10E2DE
- for <freedreno@lists.freedesktop.org>; Sun,  2 Apr 2023 11:35:02 +0000 (UTC)
-Received: by mail-lf1-x12a.google.com with SMTP id y20so34592401lfj.2
- for <freedreno@lists.freedesktop.org>; Sun, 02 Apr 2023 04:35:02 -0700 (PDT)
+Received: from mail-lj1-x22f.google.com (mail-lj1-x22f.google.com
+ [IPv6:2a00:1450:4864:20::22f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4FCE610E0D8
+ for <freedreno@lists.freedesktop.org>; Sun,  2 Apr 2023 15:44:01 +0000 (UTC)
+Received: by mail-lj1-x22f.google.com with SMTP id by14so8710598ljb.12
+ for <freedreno@lists.freedesktop.org>; Sun, 02 Apr 2023 08:44:01 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1680435300;
+ d=linaro.org; s=google; t=1680450239;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :from:to:cc:subject:date:message-id:reply-to;
- bh=2nCMWdel6dHdzVC0ymLbPnP9dfCzAbiSb5UP+e8Vgh0=;
- b=KNVWFW6FF9gShYXpQA8BwvaGJFhl9brMLEQWZy89nhSM+tbWb6OCDwv/cjKa64hp5l
- 3U6mdnP8JE79mOonTJzYs4xPDBye98eOUhJbuNTnIvqv407g/8K59RCEoiVol4LWUSz1
- zUd1wlsMXv3LQxR/brKyS4VTZDd6iJ363/VnE2+koi75GSpBg64KlXNBhDsPLeyB+MVt
- Q9XSGl7IxU4FTFR4W2fx+HydQT2roMP603HFGHBtQT9B5w3rXOTZxrARGS/UjDBL0Ul7
- EXqReK/UN/3ichymIqua4ZgJBpDUCR8uwsMpJVkRwOUO1Mqllzn4De7yM2hYPnTeuW9s
- Evxg==
+ bh=8jXhcT5ZVw1OvQ2qjM62gp4jmz1Chro5Ew3RaPugUX0=;
+ b=vmjyzEB8Q2LRKXisvJ5vw0iEDdeP1zteah9BoGMk2wu89tKXwsIJ5SLD1Num8XYLlY
+ nyvXxB+3DJM63pM1Mb+cEu/uLvI5pGoYB+Al1LGnC7N7FfqnMGl7kTOOCS27UgSGpd0y
+ kJg60dEhsOKK2gAkWM/S+LcOm5sEQxGb1kLcp7fBYLZbBWcIfssbZKnTC4jrRVzMKYQ9
+ 1Ywjb1KOKzDJyQEw0q0viRqNJWdqR6o4phLElQ9aN1hBakNScRj0ES1Xk5z8AxOJJt0M
+ +LShuRN+U8SAXvGightjg12Jl+m9vSxV+wvjlUrnQYL4arer17yYGraL/lStU4YT5jUM
+ ouwQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112; t=1680435300;
+ d=1e100.net; s=20210112; t=1680450239;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=2nCMWdel6dHdzVC0ymLbPnP9dfCzAbiSb5UP+e8Vgh0=;
- b=QP2AcebNe5tFi6tmhyEVy3BSmgKlnBeDLwAr/bVBdf9e5cKAzAZ+IijFQdL6vosm6n
- v1fhs4drcBeWWN97nFsQADyNqYHvX/Rg1bWF2ie1X1lmjs78gydp2OmChkIU5+brQ8E7
- NTC2gRFvowmDNJMC2IvrvlJmnOv0tXT75MGDuur9Fv4zSLfqBdq4ZG+zGyhib9xgGUa4
- HxHRm5E3MJqzXeXaXC+XgTXLIAE11f4x8j9Fc8upj7ilHL5eRab4QTeQm78xsQsTH3/3
- 5KJouv94XuyM0Hkuyb+kGuFNRAzXgOJxJPn3Khc/wChOL68hc4a6xvefFf6qagZMamtb
- 07JQ==
-X-Gm-Message-State: AAQBX9fpSCoL1O6gZcZTPO15Ai+U87Jc8R/kgq2A6T/Cy3z/Y9Ww+2AS
- oAA2MBV4lfW4VrxoJ8D34Izz/Q==
-X-Google-Smtp-Source: AKy350Y8+NwNkDDb/SsEp913su/cFIU8CI5VBxWmQZnY+aY6IEIZtE6uDT6bZRXeJ5bH7Mow34xiFw==
-X-Received: by 2002:ac2:519c:0:b0:4ea:f6d7:2293 with SMTP id
- u28-20020ac2519c000000b004eaf6d72293mr10318888lfi.55.1680435300225; 
- Sun, 02 Apr 2023 04:35:00 -0700 (PDT)
+ bh=8jXhcT5ZVw1OvQ2qjM62gp4jmz1Chro5Ew3RaPugUX0=;
+ b=zdkLlkp+9TYn/W9iITfHjcW3ToMv1LMtjBhuSHkJUB758681zA6hzfscTZtHwYWE2c
+ wOCb7q13NFb9Ux6w9dcezKkNv5vVxVbhSq0+ry3Iw81uQF23Dbzqoenrfws4jv+v7MFK
+ +PfWwsFshBWenUXZvc03ikGGeIej1YAvcjqwPDpHWMOOk9qslzPNZqQ18ByFDPaDJOaN
+ UyflMn3HsfkaAC+4Ymd03+ErOctzYF93xYS6lz998irF9US4Jso1sIFgUPK9Zol/NZRO
+ lbTJcsphxTXVzA4oO3/zSRcRJegeSo10hhuX3IuGGut7FcU/EIaa9PoKgK/DrcDhvRjZ
+ u9tA==
+X-Gm-Message-State: AAQBX9eo4ex9TNVY0rrTMkyBMi8lcBhdetvgxx+7wFkj/PGrnFvtmdDM
+ qT700j1Aw8mvWekovxxgwqQ0Cw==
+X-Google-Smtp-Source: AKy350Y5aEPWgsceuXkfIdTFwafBhWN+FGbs5H/6SNUrjipWa9ZUTqU9oADjjxRPo9rQbefvS5Srwg==
+X-Received: by 2002:a2e:9bc7:0:b0:293:4c17:9998 with SMTP id
+ w7-20020a2e9bc7000000b002934c179998mr9990534ljj.11.1680450239095; 
+ Sun, 02 Apr 2023 08:43:59 -0700 (PDT)
 Received: from ?IPV6:2001:14ba:a085:4d00::8a5?
  (dzccz6yyyyyyyyyyybcwt-3.rev.dnainternet.fi. [2001:14ba:a085:4d00::8a5])
  by smtp.gmail.com with ESMTPSA id
- o11-20020ac2494b000000b004b6efcb7bb5sm1244356lfi.169.2023.04.02.04.34.59
+ q16-20020a2e8750000000b002935632b3f8sm1300173ljj.14.2023.04.02.08.43.58
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sun, 02 Apr 2023 04:34:59 -0700 (PDT)
-Message-ID: <5bb1afde-c6f8-d635-8b24-b0b574901698@linaro.org>
-Date: Sun, 2 Apr 2023 14:34:59 +0300
+ Sun, 02 Apr 2023 08:43:58 -0700 (PDT)
+Message-ID: <51451dc1-14d5-595b-589e-1cbcb5468180@linaro.org>
+Date: Sun, 2 Apr 2023 18:43:57 +0300
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.9.0
 Content-Language: en-GB
-To: Jessica Zhang <quic_jesszhan@quicinc.com>, freedreno@lists.freedesktop.org
-References: <20230329-rfc-msm-dsc-helper-v2-0-3c13ced536b2@quicinc.com>
- <20230329-rfc-msm-dsc-helper-v2-6-3c13ced536b2@quicinc.com>
+To: Konrad Dybcio <konrad.dybcio@linaro.org>, Rob Clark
+ <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Sean Paul <sean@poorly.run>, David Airlie <airlied@gmail.com>,
+ Daniel Vetter <daniel@ffwll.ch>, Rob Herring <robh+dt@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konrad.dybcio@somainline.org>,
+ Akhil P Oommen <quic_akhilpo@quicinc.com>
+References: <20230223-topic-gmuwrapper-v6-0-2034115bb60c@linaro.org>
+ <20230223-topic-gmuwrapper-v6-1-2034115bb60c@linaro.org>
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-In-Reply-To: <20230329-rfc-msm-dsc-helper-v2-6-3c13ced536b2@quicinc.com>
+In-Reply-To: <20230223-topic-gmuwrapper-v6-1-2034115bb60c@linaro.org>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH RFC v2 6/6] drm/msm/dsi: Fix calculations
- for eol_byte_num and pkt_per_line
+Subject: Re: [Freedreno] [PATCH v6 01/15] drm/msm/adreno: adreno_gpu: Don't
+ set OPP scaling clock w/ GMU
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,34 +85,29 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-arm-msm@vger.kernel.org, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- dri-devel@lists.freedesktop.org, Konrad Dybcio <konrad.dybcio@linaro.org>,
- Rob Clark <robdclark@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- Marijn Suijten <marijn.suijten@somainline.org>, Sean Paul <sean@poorly.run>
+Cc: Rob Clark <robdclark@chromium.org>, devicetree@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 31/03/2023 21:49, Jessica Zhang wrote:
-> Use the correct calculations for eol_byte_num and pkt_per_line.
-
-Nit: this line duplicates commit subject and thus is mostly useless.
-
+On 01/04/2023 14:54, Konrad Dybcio wrote:
+> Recently I contributed the switch to OPP API for all Adreno generations.
+> I did however also skip over the fact that GPUs with a GMU don't specify
+> a core clock of any kind in the GPU node. While that didn't break
+> anything, it did introduce unwanted spam in the dmesg:
 > 
-> Currently, pkt_per_line is calculated by dividing slice_per_intf by
-> slice_count. This is incorrect, as slice_per_intf should be divided by
-> slice_per_pkt, which is not always equivalent to slice_count as it is
-> possible for there to be multiple soft slices per interface even though
-> a panel only specifies one slice per packet.
+> adreno 5000000.gpu: error -ENOENT: _opp_set_clknames: Couldn't find clock with name: core_clk
 > 
-> For eol_byte_num, the current calculation describes the size of the
-> trailing bytes in the line. Change the calculation so that it describes
-> the number of padding bytes instead.
+> Guard the entire logic so that it's not used with GMU-equipped GPUs.
 > 
-> Fixes: 08802f515c3c ("drm/msm/dsi: Add support for DSC configuration")
-> Signed-off-by: Jessica Zhang <quic_jesszhan@quicinc.com>
+> Fixes: 9f251f934012 ("drm/msm/adreno: Use OPP for every GPU generation")
+> Signed-off-by: Konrad Dybcio <konrad.dybcio@linaro.org>
 > ---
->   drivers/gpu/drm/msm/dsi/dsi_host.c | 10 ++++++----
->   1 file changed, 6 insertions(+), 4 deletions(-)
+>   drivers/gpu/drm/msm/adreno/adreno_gpu.c | 24 ++++++++++++++----------
+>   1 file changed, 14 insertions(+), 10 deletions(-)
 
 Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 
