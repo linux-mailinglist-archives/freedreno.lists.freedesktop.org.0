@@ -1,65 +1,71 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 89E5C6D3268
-	for <lists+freedreno@lfdr.de>; Sat,  1 Apr 2023 17:39:41 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id E7FB76D3793
+	for <lists+freedreno@lfdr.de>; Sun,  2 Apr 2023 13:21:35 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A03FA10E111;
-	Sat,  1 Apr 2023 15:39:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9189810E2DE;
+	Sun,  2 Apr 2023 11:21:34 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-oi1-x236.google.com (mail-oi1-x236.google.com
- [IPv6:2607:f8b0:4864:20::236])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B09A310E10B;
- Sat,  1 Apr 2023 15:39:35 +0000 (UTC)
-Received: by mail-oi1-x236.google.com with SMTP id f14so5289884oiw.10;
- Sat, 01 Apr 2023 08:39:35 -0700 (PDT)
+Received: from mail-lf1-x134.google.com (mail-lf1-x134.google.com
+ [IPv6:2a00:1450:4864:20::134])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BF70F10E2FA
+ for <freedreno@lists.freedesktop.org>; Sun,  2 Apr 2023 11:21:27 +0000 (UTC)
+Received: by mail-lf1-x134.google.com with SMTP id x17so34557764lfu.5
+ for <freedreno@lists.freedesktop.org>; Sun, 02 Apr 2023 04:21:27 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20210112; t=1680363574;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=KYxMM7aQgk7/69vu4Xnn/fg13H7+aP++LzlmexmE+Sk=;
- b=BN7ihcoiD1gwvlsvCO0+5JABCsJhxXILUukMfO7jRatGrfbBK0tQcW258NzVt/k7sV
- 21ulN1e5aOvQkfe8959QdYx5fjb8Ma2LkEXBmUSGm/EYUib8YMLFmFdNgbYhEJRlezj9
- IwBaObKTWSHJqE2+qqK6AV/QSlQ2t1XrNOeY+AYLBDDSj7kpuUIIzFvqRS/uCIBtG1R4
- LMKY5Whqf/zXQMEmCBf/C74pSpsjQnKQSJkBEVdl/tMj67ibVHy8JVpbpopPsYEVAoEW
- QubX0PvEDQXpscDj6s3BKD0yd6TQh2OjWBIs8znv+uMyPixpBsHbTOVK3fxWLYDqHNny
- +nxQ==
+ d=linaro.org; s=google; t=1680434485;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=pJnS95iSg5T+2CA5mB5x+69zJTEDFHzQva24ij5VuJ8=;
+ b=LzkVWWzqdLB39ZQSzL4mr3kxjS5sY9LOHMh7nQ/sCg7Ny8/pHDl0f+xAw8K7E50pY9
+ 8+kiT3d12cnXFDBNhsAFn8Ja21lAruHdG7jEiqlZJX8y7eMSbpk37ADMeIjYx4KW+hd9
+ 8VjkBXVDicSZbxJbhUpymTp+RPr8ngRQrP07jiGDYm3O2n5KvMltJaLg6UafFFSN4YR8
+ gZzhFuP6nCQyFWU9Cq/Dlotx3H9+9Tp6w3UUr+8yNmRCztI82MyELv3JvZEFKRvrhGeu
+ zUpsl96tqWfhw1SydWP9oRDV0ctERirqiwSXzOAItO4dzaru48vxcsEcpv1Sqeb415x0
+ x2iQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112; t=1680363574;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=KYxMM7aQgk7/69vu4Xnn/fg13H7+aP++LzlmexmE+Sk=;
- b=bI2lO9QYNNk2Qkzamx7j0iixuIeXlVjCTYPjk3wdejx8zRrWtft0E4DSYrL44vAIPG
- T2XwBm97esSI3M3N4cRqxphhRuTsV07WGrV+MCdIo6cGnPkpWSFWmtKITYBZyCWYnhLB
- MsiN3kGhAuntc/ptkHGUn8dQa8vTIzY1gMZr39DFKhfaiImQ2l4kkqxzNFPoomDw4eLL
- XtMtMlaayiU1wh1BJLqXcc68tKZtCNQMW4tQ0y54GeCsKI7bO3YNwLi1zdkrvPmpqY/e
- TdjDvdhg/lWH8KHm06lQjfM2rWlTTcPVKvHYg6DvOg85PyUvgL8Pm6xtCHETiUF9mINV
- 6GSA==
-X-Gm-Message-State: AO0yUKVvsesNN+/V36eFcAlhXfHcNqy02NhhlxKvbqA3hiZX5MBeoRdN
- 44xVr92TwrDBjJQvuVDhN0X2y/p5w4OlkUiUOVw=
-X-Google-Smtp-Source: AK7set8Sg7fcNh6FMpkF+7J9YB+2UwqdCBe2GrmE4EdUGS3rAxwb1B0JnJuVbsgMDx7jZxz1ifHf4ihF/5kCuU9mlf0=
-X-Received: by 2002:a05:6808:650:b0:386:e7e7:d93d with SMTP id
- z16-20020a056808065000b00386e7e7d93dmr9086252oih.5.1680363574493; Sat, 01 Apr
- 2023 08:39:34 -0700 (PDT)
+ d=1e100.net; s=20210112; t=1680434485;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=pJnS95iSg5T+2CA5mB5x+69zJTEDFHzQva24ij5VuJ8=;
+ b=cg/QfLz9KA3oK4hdGfMzDHAh5chgUYdEBtJJJwy8hMALRV8q8MmkXuQd0YveEjfjiY
+ K0PAj14pGThSHIS3o37DovlQmb9JikyOlIHlctTRJfisgUoWg/4apvl3Z8HTQfp8Lkvm
+ OLeN0SsDRF7eLDc2mGn4L7WWot06p7BMrhpCXjbmgByRlJOxP6oOoWg5YEJuk1CJCgt/
+ ZtEIQ4fZBtd8jNpXMavrqfgh//by949Mnj7CVS63R69A+DuyhFynzMF1/z5t8Fcc5Iin
+ A+sLK+JMkOCb/gDwC6HfDHKErgHc9cyvg4QITH52owcfUf/6OKzQftqHZfZEWvlXG4Hm
+ 7qyQ==
+X-Gm-Message-State: AAQBX9efhq3bv+oBMP7FJvWa8+GczRcVz8iorkZ0f3Gh0rEajXaJrPj5
+ 4x6ajcaa+B+aVwHAAo7lHQhvoQ==
+X-Google-Smtp-Source: AKy350aXPpSoj4v8WHbVPE6+HrNms5A92+KabT/kmWenskMpZRsouRllfhpgpFU8tBMLJK4CrGgbTw==
+X-Received: by 2002:ac2:4358:0:b0:4ea:e262:e551 with SMTP id
+ o24-20020ac24358000000b004eae262e551mr8943108lfl.31.1680434485521; 
+ Sun, 02 Apr 2023 04:21:25 -0700 (PDT)
+Received: from ?IPV6:2001:14ba:a085:4d00::8a5?
+ (dzccz6yyyyyyyyyyybcwt-3.rev.dnainternet.fi. [2001:14ba:a085:4d00::8a5])
+ by smtp.gmail.com with ESMTPSA id
+ q28-20020ac25a1c000000b004db1a7e6decsm1237576lfn.205.2023.04.02.04.21.25
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Sun, 02 Apr 2023 04:21:25 -0700 (PDT)
+Message-ID: <5b4a3305-1e26-220d-a770-1f6945fbac7a@linaro.org>
+Date: Sun, 2 Apr 2023 14:21:24 +0300
 MIME-Version: 1.0
-References: <20230308155322.344664-1-robdclark@gmail.com>
- <20230308155322.344664-12-robdclark@gmail.com>
- <20230331204412.GA396777@dev-arch.thelio-3990X>
- <CAF6AEGtDbSDNBBdONQ6YubZDaKMpDQ-BJx5mP+aGw4uy9qbXDQ@mail.gmail.com>
- <20230331233037.GA2443175@dev-arch.thelio-3990X>
-In-Reply-To: <20230331233037.GA2443175@dev-arch.thelio-3990X>
-From: Rob Clark <robdclark@gmail.com>
-Date: Sat, 1 Apr 2023 08:39:23 -0700
-Message-ID: <CAF6AEGvMPhcz-tGM46vKm5yCZOgmKZcrZ7p7UmOkbf21=pTMkQ@mail.gmail.com>
-To: Nathan Chancellor <nathan@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [Freedreno] [PATCH v10 11/15] drm/atomic-helper: Set fence
- deadline for vblank
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.9.0
+Content-Language: en-GB
+To: Jessica Zhang <quic_jesszhan@quicinc.com>, freedreno@lists.freedesktop.org
+References: <20230329-rfc-msm-dsc-helper-v2-0-3c13ced536b2@quicinc.com>
+ <20230329-rfc-msm-dsc-helper-v2-2-3c13ced536b2@quicinc.com>
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+In-Reply-To: <20230329-rfc-msm-dsc-helper-v2-2-3c13ced536b2@quicinc.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Subject: Re: [Freedreno] [PATCH RFC v2 2/6] drm/msm: Add MSM-specific DSC
+ helper methods
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,199 +78,197 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rob Clark <robdclark@chromium.org>, Daniel Vetter <daniel@ffwll.ch>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>,
- intel-gfx@lists.freedesktop.org, Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- open list <linux-kernel@vger.kernel.org>, dri-devel@lists.freedesktop.org,
- Daniel Vetter <daniel.vetter@ffwll.ch>, David Airlie <airlied@gmail.com>,
- Luben Tuikov <luben.tuikov@amd.com>, Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Matt Turner <mattst88@gmail.com>, freedreno@lists.freedesktop.org
+Cc: linux-arm-msm@vger.kernel.org, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ dri-devel@lists.freedesktop.org, Konrad Dybcio <konrad.dybcio@linaro.org>,
+ Rob Clark <robdclark@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Marijn Suijten <marijn.suijten@somainline.org>, Sean Paul <sean@poorly.run>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Fri, Mar 31, 2023 at 4:30=E2=80=AFPM Nathan Chancellor <nathan@kernel.or=
-g> wrote:
->
-> On Fri, Mar 31, 2023 at 03:14:30PM -0700, Rob Clark wrote:
-> > On Fri, Mar 31, 2023 at 1:44=E2=80=AFPM Nathan Chancellor <nathan@kerne=
-l.org> wrote:
-> > >
-> > > Hi Rob,
-> > >
-> > > On Wed, Mar 08, 2023 at 07:53:02AM -0800, Rob Clark wrote:
-> > > > From: Rob Clark <robdclark@chromium.org>
-> > > >
-> > > > For an atomic commit updating a single CRTC (ie. a pageflip) calcul=
-ate
-> > > > the next vblank time, and inform the fence(s) of that deadline.
-> > > >
-> > > > v2: Comment typo fix (danvet)
-> > > > v3: If there are multiple CRTCs, consider the time of the soonest v=
-blank
-> > > >
-> > > > Signed-off-by: Rob Clark <robdclark@chromium.org>
-> > > > Reviewed-by: Daniel Vetter <daniel.vetter@ffwll.ch>
-> > > > Signed-off-by: Rob Clark <robdclark@chromium.org>
-> > >
-> > > I apologize if this has already been reported or fixed, I searched lo=
-re
-> > > but did not find anything.
-> > >
-> > > This change as commit d39e48ca80c0 ("drm/atomic-helper: Set fence
-> > > deadline for vblank") in -next causes a hang while running LTP's
-> > > read_all test on /proc on my Ampere Altra system (it seems it is hang=
-ing
-> > > on a pagemap file?). Additionally, I have this splat in dmesg, which
-> > > seems related based on the call stack.
-> >
-> > Hi, I'm not familiar with this hardware.. do you know which drm driver
-> > is used?  I can't tell from the call-stack.
->
-> I think it is drivers/gpu/drm/ast, as I see ast in lsmod?
+On 31/03/2023 21:49, Jessica Zhang wrote:
+> Introduce MSM-specific DSC helper methods, as some calculations are
+> common between DP and DSC.
+> 
+> Changes in v2:
+> - Moved files up to msm/ directory
+> - Dropped get_comp_ratio() helper
+> - Used drm_int2fixp() to convert to integers to fp
+> - Style changes to improve readability
+> - Dropped unused bpp variable in msm_dsc_get_dce_bytes_per_line()
+> - Changed msm_dsc_get_slice_per_intf() to a static inline method
+> - Dropped last division step of msm_dsc_get_pclk_per_line() and changed
+>    method name accordingly
+> - Changed DSC_BPP macro to drm_dsc_get_bpp_int() helper method
+> - Fixed some math issues caused by passing in incorrect types to
+>    drm_fixed methods in get_bytes_per_soft_slice()
+> 
+> Signed-off-by: Jessica Zhang <quic_jesszhan@quicinc.com>
+> ---
+>   drivers/gpu/drm/msm/Makefile         |  1 +
+>   drivers/gpu/drm/msm/msm_dsc_helper.c | 53 ++++++++++++++++++++++++++++++++++++
+>   drivers/gpu/drm/msm/msm_dsc_helper.h | 42 ++++++++++++++++++++++++++++
+>   3 files changed, 96 insertions(+)
+> 
+> diff --git a/drivers/gpu/drm/msm/Makefile b/drivers/gpu/drm/msm/Makefile
+> index 7274c41228ed..b814fc80e2d5 100644
+> --- a/drivers/gpu/drm/msm/Makefile
+> +++ b/drivers/gpu/drm/msm/Makefile
+> @@ -94,6 +94,7 @@ msm-y += \
+>   	msm_atomic_tracepoints.o \
+>   	msm_debugfs.o \
+>   	msm_drv.o \
+> +	msm_dsc_helper.o \
+>   	msm_fb.o \
+>   	msm_fence.o \
+>   	msm_gem.o \
+> diff --git a/drivers/gpu/drm/msm/msm_dsc_helper.c b/drivers/gpu/drm/msm/msm_dsc_helper.c
+> new file mode 100644
+> index 000000000000..60b73e17e6eb
+> --- /dev/null
+> +++ b/drivers/gpu/drm/msm/msm_dsc_helper.c
+> @@ -0,0 +1,53 @@
+> +// SPDX-License-Identifier: GPL-2.0-only
+> +/*
+> + * Copyright (c) 2023 Qualcomm Innovation Center, Inc. All rights reserved
+> + */
+> +
+> +#include <linux/kernel.h>
+> +#include <linux/errno.h>
+> +#include <drm/drm_fixed.h>
+> +
+> +#include "msm_drv.h"
+> +#include "msm_dsc_helper.h"
+> +
+> +static s64 get_bytes_per_soft_slice(struct drm_dsc_config *dsc, int intf_width, u32 src_bpp)
 
-Ok, assuming my theory is correct, this should fix it:
+intf_width is unused
 
-https://patchwork.freedesktop.org/series/115992/
+> +{
+> +	int bpp = msm_dsc_get_bpp_int(dsc);
+> +	s64 numerator_fp, denominator_fp;
+> +	s64 comp_ratio_fp = drm_fixp_from_fraction(src_bpp, bpp);
+> +
+> +	numerator_fp = drm_int2fixp(dsc->slice_width * 3);
 
-BR,
--R
+You have lost dsc->bits_per_component here.
 
-> > > [   20.542591] fbcon: Taking over console
-> > > [   20.550772] Unable to handle kernel NULL pointer dereference at vi=
-rtual address 0000000000000074
-> > > [   20.550776] Mem abort info:
-> > > [   20.550777]   ESR =3D 0x0000000096000004
-> > > [   20.550779]   EC =3D 0x25: DABT (current EL), IL =3D 32 bits
-> > > [   20.550781]   SET =3D 0, FnV =3D 0
-> > > [   20.550782]   EA =3D 0, S1PTW =3D 0
-> > > [   20.550784]   FSC =3D 0x04: level 0 translation fault
-> > > [   20.550785] Data abort info:
-> > > [   20.550786]   ISV =3D 0, ISS =3D 0x00000004
-> > > [   20.550788]   CM =3D 0, WnR =3D 0
-> > > [   20.550789] user pgtable: 4k pages, 48-bit VAs, pgdp=3D0000080009d=
-16000
-> > > [   20.550791] [0000000000000074] pgd=3D0000000000000000, p4d=3D00000=
-00000000000
-> > > [   20.550796] Internal error: Oops: 0000000096000004 [#1] SMP
-> > > [   20.550800] Modules linked in: ip6table_nat tun nft_fib_inet nft_f=
-ib_ipv4 nft_fib_ipv6 nft_fib nft_reject_inet nf_reject_ipv4 nf_reject_ipv6 =
-nft_reject nft_ct nft_chain_nat nf_nat nf_conntrack nf_defrag_ipv6 nf_defra=
-g_ipv4 rfkill ip_set nf_tables nfnetlink qrtr sunrpc binfmt_misc vfat fat x=
-fs snd_usb_audio snd_hwdep snd_usbmidi_lib snd_seq snd_pcm snd_rawmidi snd_=
-timer snd_seq_device snd soundcore joydev mc ipmi_ssif ipmi_devintf ipmi_ms=
-ghandler arm_spe_pmu arm_cmn arm_dsu_pmu arm_dmc620_pmu cppc_cpufreq loop z=
-ram crct10dif_ce polyval_ce nvme polyval_generic ghash_ce sbsa_gwdt igb nvm=
-e_core ast nvme_common i2c_algo_bit xgene_hwmon gpio_dwapb scsi_dh_rdac scs=
-i_dh_emc scsi_dh_alua ip6_tables ip_tables dm_multipath fuse
-> > > [   20.550869] CPU: 12 PID: 469 Comm: kworker/12:1 Not tainted 6.3.0-=
-rc2-00008-gd39e48ca80c0 #1
-> > > [   20.550872] Hardware name: ADLINK AVA Developer Platform/AVA Devel=
-oper Platform, BIOS TianoCore 2.04.100.07 (SYS: 2.06.20220308) 09/08/2022
-> > > [   20.550875] Workqueue: events fbcon_register_existing_fbs
-> > > [   20.550884] pstate: 20400009 (nzCv daif +PAN -UAO -TCO -DIT -SSBS =
-BTYPE=3D--)
-> > > [   20.550888] pc : drm_crtc_next_vblank_start+0x2c/0x98
-> > > [   20.550894] lr : drm_atomic_helper_wait_for_fences+0x90/0x240
-> > > [   20.550898] sp : ffff80000d583960
-> > > [   20.550900] x29: ffff80000d583960 x28: ffff07ff8fc187b0 x27: 00000=
-00000000000
-> > > [   20.550904] x26: ffff07ff99c08c00 x25: 0000000000000038 x24: ffff0=
-7ff99c0c000
-> > > [   20.550908] x23: 0000000000000001 x22: 0000000000000038 x21: 00000=
-00000000000
-> > > [   20.550912] x20: ffff07ff9640a280 x19: 0000000000000000 x18: fffff=
-fffffffffff
-> > > [   20.550915] x17: 0000000000000000 x16: ffffb24d2eece1c0 x15: 00000=
-03038303178
-> > > [   20.550919] x14: 3032393100000048 x13: 0000000000000000 x12: 00000=
-00000000000
-> > > [   20.550923] x11: 0000000000000000 x10: 0000000000000000 x9 : ffffb=
-24d2eeeaca0
-> > > [   20.550926] x8 : ffff80000d583628 x7 : 0000080077783000 x6 : 00000=
-00000000000
-> > > [   20.550930] x5 : ffff80000d584000 x4 : ffff07ff99c0c000 x3 : 00000=
-00000000130
-> > > [   20.550934] x2 : 0000000000000000 x1 : ffff80000d5839c0 x0 : ffff0=
-7ff99c0cc08
-> > > [   20.550937] Call trace:
-> > > [   20.550939]  drm_crtc_next_vblank_start+0x2c/0x98
-> > > [   20.550942]  drm_atomic_helper_wait_for_fences+0x90/0x240
-> > > [   20.550946]  drm_atomic_helper_commit+0xb0/0x188
-> > > [   20.550949]  drm_atomic_commit+0xb0/0xf0
-> > > [   20.550953]  drm_client_modeset_commit_atomic+0x218/0x280
-> > > [   20.550957]  drm_client_modeset_commit_locked+0x64/0x1a0
-> > > [   20.550961]  drm_client_modeset_commit+0x38/0x68
-> > > [   20.550965]  __drm_fb_helper_restore_fbdev_mode_unlocked+0xb0/0xf8
-> > > [   20.550970]  drm_fb_helper_set_par+0x44/0x88
-> > > [   20.550973]  fbcon_init+0x1e0/0x4a8
-> > > [   20.550976]  visual_init+0xbc/0x118
-> > > [   20.550981]  do_bind_con_driver.isra.0+0x194/0x3a0
-> > > [   20.550984]  do_take_over_console+0x50/0x70
-> > > [   20.550987]  do_fbcon_takeover+0x74/0xf8
-> > > [   20.550989]  do_fb_registered+0x13c/0x158
-> > > [   20.550992]  fbcon_register_existing_fbs+0x78/0xc0
-> > > [   20.550995]  process_one_work+0x1ec/0x478
-> > > [   20.551000]  worker_thread+0x74/0x418
-> > > [   20.551002]  kthread+0xec/0x100
-> > > [   20.551005]  ret_from_fork+0x10/0x20
-> > > [   20.551011] Code: f9400004 b9409013 f940a082 9ba30a73 (b9407662)
-> > > [   20.551013] ---[ end trace 0000000000000000 ]---
-> > >
-> > > If there is any additional information that I can provide or patches =
-I
-> > > can test, I am more than happy to do so.
-> > >
-> > > Cheers,
-> > > Nathan
-> > >
-> > > # bad: [4b0f4525dc4fe8af17b3daefe585f0c2eb0fe0a5] Add linux-next spec=
-ific files for 20230331
-> > > # good: [b2bc47e9b2011a183f9d3d3454a294a938082fb9] Merge tag 'net-6.3=
--rc5' of git://git.kernel.org/pub/scm/linux/kernel/git/netdev/net
-> > > git bisect start '4b0f4525dc4fe8af17b3daefe585f0c2eb0fe0a5' 'b2bc47e9=
-b2011a183f9d3d3454a294a938082fb9'
-> > > # good: [ed5f95f3349003d74a4a11b27b0f05d6794c382a] Merge branch 'mast=
-er' of git://git.kernel.org/pub/scm/linux/kernel/git/herbert/cryptodev-2.6.=
-git
-> > > git bisect good ed5f95f3349003d74a4a11b27b0f05d6794c382a
-> > > # bad: [85f7d1bfa30a05df2c9d8a0e9f6b1f23b4a6f13b] Merge branch 'for-n=
-ext' of git://git.kernel.org/pub/scm/linux/kernel/git/krzk/linux-dt.git
-> > > git bisect bad 85f7d1bfa30a05df2c9d8a0e9f6b1f23b4a6f13b
-> > > # bad: [fbd0f79f200f8e5cb73fb3d7b788de09a8f33a6f] Merge branch 'msm-n=
-ext' of https://gitlab.freedesktop.org/drm/msm.git
-> > > git bisect bad fbd0f79f200f8e5cb73fb3d7b788de09a8f33a6f
-> > > # good: [90031bc33f7525f0cc7a9ef0b1df62a1a4463382] Merge tag 'amd-drm=
--next-6.4-2023-03-17' of https://gitlab.freedesktop.org/agd5f/linux into dr=
-m-next
-> > > git bisect good 90031bc33f7525f0cc7a9ef0b1df62a1a4463382
-> > > # good: [d4e04817db670083aed73de1fadd3b21758e69ba] drm/amdgpu: Return=
- from switch early for EEPROM I2C address
-> > > git bisect good d4e04817db670083aed73de1fadd3b21758e69ba
-> > > # good: [70e360f9b548d99f959668d4f047d1363d42fe8e] drm: exynos: dsi: =
-Consolidate component and bridge
-> > > git bisect good 70e360f9b548d99f959668d4f047d1363d42fe8e
-> > > # bad: [0b43595d0cbb06736d1e572e79e29a410a273573] Merge branch 'drm-n=
-ext' of https://gitlab.freedesktop.org/agd5f/linux
-> > > git bisect bad 0b43595d0cbb06736d1e572e79e29a410a273573
-> > > # good: [fbb3b3500f76ec8b741bd2d0e761ca3e856ad924] dt-bindings: displ=
-ay: boe,tv101wum-nl6: document rotation
-> > > git bisect good fbb3b3500f76ec8b741bd2d0e761ca3e856ad924
-> > > # bad: [82bbec189ab34873688484cd14189a5392946fbb] Merge v6.3-rc4 into=
- drm-next
-> > > git bisect bad 82bbec189ab34873688484cd14189a5392946fbb
-> > > # bad: [d39e48ca80c0960b039cb38633957f0040f63e1a] drm/atomic-helper: =
-Set fence deadline for vblank
-> > > git bisect bad d39e48ca80c0960b039cb38633957f0040f63e1a
-> > > # good: [d7d5a21dd6b4706c04fbba5d25db8da5f25aab68] dma-buf/dma-resv: =
-Add a way to set fence deadline
-> > > git bisect good d7d5a21dd6b4706c04fbba5d25db8da5f25aab68
-> > > # good: [f3823da7e4ba7d4781375c2bb786a8a78efc6591] drm/scheduler: Add=
- fence deadline support
-> > > git bisect good f3823da7e4ba7d4781375c2bb786a8a78efc6591
-> > > # good: [b2c077d001b612b1f34f7e528b2dc6072bd6794e] drm/vblank: Add he=
-lper to get next vblank time
-> > > git bisect good b2c077d001b612b1f34f7e528b2dc6072bd6794e
-> > > # first bad commit: [d39e48ca80c0960b039cb38633957f0040f63e1a] drm/at=
-omic-helper: Set fence deadline for vblank
+> +	denominator_fp = drm_fixp_from_fraction(comp_ratio_fp * 8, drm_int2fixp(bpp));
+
+denominator_fp = drm_fixp_from_fraction(src_bpp * 8, bpp);
+
+> +
+> +	return drm_fixp_div(numerator_fp, denominator_fp);
+> +}
+> +
+> +u32 msm_dsc_get_eol_byte_num(struct drm_dsc_config *dsc, int intf_width, u32 src_bpp)
+> +{
+> +	u32 bytes_per_soft_slice, extra_eol_bytes, bytes_per_intf;
+> +	s64 bytes_per_soft_slice_fp;
+> +	int slice_per_intf = msm_dsc_get_slice_per_intf(dsc, intf_width);
+> +
+> +	bytes_per_soft_slice_fp = get_bytes_per_soft_slice(dsc, intf_width, src_bpp);
+> +	bytes_per_soft_slice = drm_fixp2int_ceil(bytes_per_soft_slice_fp);
+> +
+> +	bytes_per_intf = bytes_per_soft_slice * slice_per_intf;
+> +	extra_eol_bytes = bytes_per_intf % 3;
+> +	if (extra_eol_bytes != 0)
+> +		extra_eol_bytes = 3 - extra_eol_bytes;
+
+I become confused here when I checked eol_bytes in the display techpack.
+
+I see that for DP the dp_panel_dsc_pclk_param_calc() calculates 
+dsc->eol_bytes_num in this way, the size to pad dsc_byte_count * 
+slice_per_intf to 3 bytes.
+
+However, for DSI this is a simple as total_bytes_per_intf % 3 , so it is 
+not a padding, but a length of the last chunk.
+
+Could you please clarify? If the techpack code is correct, I'd prefer if 
+we return last chunk size here and calculate the padding length in the 
+DP driver.
+
+> +
+> +	return extra_eol_bytes;
+> +}
+> +
+> +int msm_dsc_get_uncompressed_pclk_per_line(struct drm_dsc_config *dsc, int intf_width, u32 src_bpp)
+
+Basing on Abhinav's description ("pclk_per_line can be only per 
+interface") would it better be named as 
+msm_dsc_get_uncompressed_pclk_per_intf() ? or 
+msm_dsc_get_uncompressed_pclk_for_intf() ?
+
+BTW: if get_bytes_per_soft_slice() doesn't use intf_width, we can 
+probably drop it here too.
+
+> +{
+> +	s64 data_width;
+> +
+> +	if (!dsc->slice_width || (intf_width < dsc->slice_width))
+> +		return -EINVAL;
+
+Error code is not validated at dsi_timing_setup. I'd suggest moving 
+error checks there and dropping the error handling here. If 
+dsc->slice_width is not set, we should stop much earlier than 
+drm_bridge's pre_enable() callback.
+
+> +
+> +	data_width = drm_fixp_mul(dsc->slice_count,
+> +			get_bytes_per_soft_slice(dsc, intf_width, src_bpp));
+> +
+> +	return drm_fixp2int_ceil(data_width);
+> +}
+> diff --git a/drivers/gpu/drm/msm/msm_dsc_helper.h b/drivers/gpu/drm/msm/msm_dsc_helper.h
+> new file mode 100644
+> index 000000000000..743cd324b7d9
+> --- /dev/null
+> +++ b/drivers/gpu/drm/msm/msm_dsc_helper.h
+> @@ -0,0 +1,42 @@
+> +/* SPDX-License-Identifier: GPL-2.0-only */
+> +/*
+> + * Copyright (c) 2023 Qualcomm Innovation Center, Inc. All rights reserved
+> + */
+> +
+> +#ifndef MSM_DSC_HELPER_H_
+> +#define MSM_DSC_HELPER_H_
+> +
+> +#include <drm/display/drm_dsc_helper.h>
+> +#include <drm/drm_modes.h>
+> +
+> +/*
+> + * Helper methods for MSM specific DSC calculations that are common between timing engine,
+> + * DSI, and DP.
+> + */
+> +
+> +static inline int msm_dsc_get_bpp_int(struct drm_dsc_config *dsc)
+> +{
+> +	WARN_ON_ONCE(dsc->bits_per_pixel & 0xf);
+> +	return dsc->bits_per_pixel >> 4;
+> +}
+> +
+> +static inline int msm_dsc_get_slice_per_intf(struct drm_dsc_config *dsc, int intf_width)
+> +{
+> +	return DIV_ROUND_UP(intf_width, dsc->slice_width);
+> +}
+> +
+> +static inline u32 msm_dsc_get_dce_bytes_per_line(struct drm_dsc_config *dsc, int intf_width)
+> +{
+> +	return DIV_ROUND_UP(msm_dsc_get_bpp_int(dsc) * intf_width, 8);
+> +}
+> +
+> +u32 msm_dsc_get_eol_byte_num(struct drm_dsc_config *dsc, int intf_width, u32 src_bpp);
+> +u32 msm_dsc_get_dce_bytes_per_line(struct drm_dsc_config *dsc, int intf_width);
+> +
+> +/* Calculate uncompressed pclk per line. This value will then be passed along to
+> + * DSI and DP to calculate pclk_per_line. This is because DSI and DP divide the
+> + * uncompressed pclk_per_line by different values depending on if widebus is enabled.
+> + */
+> +int msm_dsc_get_uncompressed_pclk_per_line(struct drm_dsc_config *dsc,
+> +		int intf_width, u32 src_bpp);
+> +#endif /* MSM_DSC_HELPER_H_ */
+> 
+
+-- 
+With best wishes
+Dmitry
+
