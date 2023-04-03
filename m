@@ -2,54 +2,54 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id AFF596D4058
-	for <lists+freedreno@lfdr.de>; Mon,  3 Apr 2023 11:23:47 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D33266D4070
+	for <lists+freedreno@lfdr.de>; Mon,  3 Apr 2023 11:23:56 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0EE1210E446;
-	Mon,  3 Apr 2023 09:23:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0D4BF10E462;
+	Mon,  3 Apr 2023 09:23:28 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x136.google.com (mail-lf1-x136.google.com
- [IPv6:2a00:1450:4864:20::136])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 82E2B10E3F2
- for <freedreno@lists.freedesktop.org>; Mon,  3 Apr 2023 09:23:22 +0000 (UTC)
-Received: by mail-lf1-x136.google.com with SMTP id h11so30203374lfu.8
- for <freedreno@lists.freedesktop.org>; Mon, 03 Apr 2023 02:23:22 -0700 (PDT)
+Received: from mail-lf1-x12b.google.com (mail-lf1-x12b.google.com
+ [IPv6:2a00:1450:4864:20::12b])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C8C4510E3C6
+ for <freedreno@lists.freedesktop.org>; Mon,  3 Apr 2023 09:23:21 +0000 (UTC)
+Received: by mail-lf1-x12b.google.com with SMTP id br6so37138445lfb.11
+ for <freedreno@lists.freedesktop.org>; Mon, 03 Apr 2023 02:23:21 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1680513800;
+ d=linaro.org; s=google; t=1680513801;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=12hT3nvM6iv7Xs3S9m5OXKPOZii6Q3YQ0F3ys83Ul5c=;
- b=sYNzWvU2n6QMsT3o9+0dqdyuCWdjziq7yBJMU7cRnz0h1PlxNy3BzAK3asF+6P1gI+
- b99mVhwxPheR73DiLabtOym95WOSDJ16Z9N7dk46KSULqu2fBWBByWrVVws3Hbc0omFH
- +tf2ar9Os9Xl005jh6Tz1rx0r/ZbnTihAjMKufUTj8fPMC/rI2dI/yhMpwQRKe6NGhe0
- 7cuKhu9sGPido79lWs/4FwNNQnrnXOcbznYor/b0iiafXiG/9r0398IByFuMRiI5H14O
- Wpkz/oaaSVYvQCspOgJc+PU62s+ATu/dQX2afjBitkcj9CBKvlfNtKq6ZLKCluIcQBA3
- bqVQ==
+ bh=B/vvD74dTg6Ok9D3o7oMegz307H2NDMir9mYubi5ivw=;
+ b=K1azTHao1MjTShcSN2oVWr5jewh1WrWWg/uSMSPj0cZSepspTsLsUE8yhji0HfGlfS
+ Xve42Pem8Gr7gFEsGncWjK88pEu2u/i54aUpnGnXjzo8Gwvj3yFzOep9DoXyfwXT2Jit
+ igZD8lH7oN4vqdNNl3G7fM5pnI/IhAVqrmckxc8lwS1+AQgJIc7Ku6fK3yyAOHqX3ZSr
+ xTHl8NoZXJGgUAeu8KkoXVYT5m4+1DsEM+CHdnCF3zczgCJ+cr2bfYWtbBMDzkRNiLlP
+ NuT9FxUS+CrO8IGrxTIWQ3IAEhN9rtrXvg14nnfc/pkPsaKuB48sSSizzX8124BUZiNp
+ C7sA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112; t=1680513800;
+ d=1e100.net; s=20210112; t=1680513801;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=12hT3nvM6iv7Xs3S9m5OXKPOZii6Q3YQ0F3ys83Ul5c=;
- b=30lBBOnSW6CA5jbX8BTxPK4JQA7iRnPXV194uGqc2f5pUCWEJ6JJ09LzVY/OURexND
- PLdouLbWZVagdCaeUuEMyAoHInMlI9PUKT81NUjkj/MlkMKggp2ToI3nJI2ilywiDSxB
- 3YoaWdJhzZOaer/H0w5epA/GqfYZaOW1vrqt9i+Xg5PjmKo4Gia5dnyNyaDi/hODbbpm
- asMT7y2NwhaIUNjzcgYlvsU0Zmv6ZOTv9F4uw0ARGxINrGqFpjM/KN2UtDQbay66cCfg
- A5WBJj7NQ2UqryZCHbNWxj0XV5fyw+KhZyDYe8brWTy5dL5PCslilJ/Dc7SecGGeBTjI
- /ytQ==
-X-Gm-Message-State: AAQBX9f/UyrIWUvOAgYYbQu9WSYaW/8y1bXx/cezRhualUX3cd5PSRjj
- ZeiN/vwxThhORJDiG9AjEkx7rw==
-X-Google-Smtp-Source: AKy350Ysrb0cy1TiRgFWW45XUgmF+T/zJn9DXt2jRufVD9gzk6dvD8UllCSteNRZ8xY7VGMWn128Gw==
-X-Received: by 2002:ac2:4105:0:b0:4db:381d:4496 with SMTP id
- b5-20020ac24105000000b004db381d4496mr8462426lfi.51.1680513800704; 
- Mon, 03 Apr 2023 02:23:20 -0700 (PDT)
+ bh=B/vvD74dTg6Ok9D3o7oMegz307H2NDMir9mYubi5ivw=;
+ b=vdDcvumXEOVweZXA0mhrCXFgYJYKMOUxbBSHsUABTHTrtomlFsFXHjnfmEp++jDmiW
+ mPKj5ezXI1f1wCWby7CgIuAHUzfDP+EhJVbwV4pdw8zWNg2ZxrFWkh8/6cMUJsrFgct8
+ 9pQaR7+TkTIVoy3JnW8ZdORFYLvcLZqfxsO+jJNxAxWmlZYNoS4R6Uy3IAE+rzEvZS2Y
+ bkKf3D7Darrn0/x/hi5V1sqsNJMd4WQjm2+QG5Ix8bWFcZA1TgBIlFS9r+wgeZFAo+Pn
+ Qr1HSFfj2Jg3lKbQHkiwGpeHlzeVzS1+EKMFZGApB3KEcf5ifq2wURD5vrW/qWos+BRq
+ 0NfA==
+X-Gm-Message-State: AAQBX9d72r9oAZfLYT0SBZk3elDaBoJBMXne1ToLTBaYIK/PP4fDwweB
+ mBJR2ZEBXszOEvcrM/1E4xKCtg==
+X-Google-Smtp-Source: AKy350bJEhdvMEKnfbjk6VbrKH8zClgxGzO1FgBv9sn94U6YU1pIrLcBf8WPtHz6DgtOTGbP557o1Q==
+X-Received: by 2002:ac2:54ae:0:b0:4ea:f8f0:545f with SMTP id
+ w14-20020ac254ae000000b004eaf8f0545fmr10148214lfk.52.1680513801365; 
+ Mon, 03 Apr 2023 02:23:21 -0700 (PDT)
 Received: from eriador.lan (dzccz6yyyyyyyyyyybcwt-3.rev.dnainternet.fi.
  [2001:14ba:a085:4d00::8a5]) by smtp.gmail.com with ESMTPSA id
  w5-20020ac25985000000b004e844bb6939sm1680666lfn.2.2023.04.03.02.23.20
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 03 Apr 2023 02:23:20 -0700 (PDT)
+ Mon, 03 Apr 2023 02:23:21 -0700 (PDT)
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 To: David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
  Jani Nikula <jani.nikula@linux.intel.com>,
@@ -59,15 +59,15 @@ To: David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
  Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
  Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
  Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>
-Date: Mon,  3 Apr 2023 12:23:10 +0300
-Message-Id: <20230403092313.235320-10-dmitry.baryshkov@linaro.org>
+Date: Mon,  3 Apr 2023 12:23:11 +0300
+Message-Id: <20230403092313.235320-11-dmitry.baryshkov@linaro.org>
 X-Mailer: git-send-email 2.39.2
 In-Reply-To: <20230403092313.235320-1-dmitry.baryshkov@linaro.org>
 References: <20230403092313.235320-1-dmitry.baryshkov@linaro.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH v4 09/12] drm/display/dsc: add helper to set
- semi-const parameters
+Subject: [Freedreno] [PATCH v4 10/12] drm/display/dsc: Add flatness and
+ initial scale value calculations
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,66 +81,48 @@ List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
 Cc: linux-arm-msm@vger.kernel.org, intel-gfx@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, Jessica Zhang <quic_jesszhan@quicinc.com>,
+ freedreno@lists.freedesktop.org,
  =?UTF-8?q?Ville=20Syrj=C3=A4l=C3=A4?= <ville.syrjala@linux.intel.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Add a helper setting config values which are typically constant across
-operating modes (table E-4 of the standard) and mux_word_size (which is
-a const according to 3.5.2).
+From: Jessica Zhang <quic_jesszhan@quicinc.com>
 
+Add helpers to calculate det_thresh_flatness and initial_scale_value as
+these calculations are defined within the DSC spec.
+
+Changes in v2:
+- Renamed det_thresh_flatness to flatness_det_thresh
+- Set initial_scale_value directly in helper
+
+Signed-off-by: Jessica Zhang <quic_jesszhan@quicinc.com>
 Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 ---
- drivers/gpu/drm/display/drm_dsc_helper.c | 22 ++++++++++++++++++++++
- include/drm/display/drm_dsc_helper.h     |  1 +
- 2 files changed, 23 insertions(+)
+ include/drm/display/drm_dsc_helper.h | 11 +++++++++++
+ 1 file changed, 11 insertions(+)
 
-diff --git a/drivers/gpu/drm/display/drm_dsc_helper.c b/drivers/gpu/drm/display/drm_dsc_helper.c
-index 65e810a54257..b9c4e10ced41 100644
---- a/drivers/gpu/drm/display/drm_dsc_helper.c
-+++ b/drivers/gpu/drm/display/drm_dsc_helper.c
-@@ -270,6 +270,28 @@ void drm_dsc_pps_payload_pack(struct drm_dsc_picture_parameter_set *pps_payload,
- }
- EXPORT_SYMBOL(drm_dsc_pps_payload_pack);
- 
-+/**
-+ * drm_dsc_set_const_params() - Set DSC parameters considered typically
-+ * constant across operation modes
-+ *
-+ * @vdsc_cfg:
-+ * DSC Configuration data partially filled by driver
-+ */
-+void drm_dsc_set_const_params(struct drm_dsc_config *vdsc_cfg)
-+{
-+	if (!vdsc_cfg->rc_model_size)
-+		vdsc_cfg->rc_model_size = DSC_RC_MODEL_SIZE_CONST;
-+	vdsc_cfg->rc_edge_factor = DSC_RC_EDGE_FACTOR_CONST;
-+	vdsc_cfg->rc_tgt_offset_high = DSC_RC_TGT_OFFSET_HI_CONST;
-+	vdsc_cfg->rc_tgt_offset_low = DSC_RC_TGT_OFFSET_LO_CONST;
-+
-+	if (vdsc_cfg->bits_per_component <= 10)
-+		vdsc_cfg->mux_word_size = DSC_MUX_WORD_SIZE_8_10_BPC;
-+	else
-+		vdsc_cfg->mux_word_size = DSC_MUX_WORD_SIZE_12_BPC;
-+}
-+EXPORT_SYMBOL(drm_dsc_set_const_params);
-+
- /* From DSC_v1.11 spec, rc_parameter_Set syntax element typically constant */
- static const u16 drm_dsc_rc_buf_thresh[] = {
- 	896, 1792, 2688, 3584, 4480, 5376, 6272, 6720, 7168, 7616,
 diff --git a/include/drm/display/drm_dsc_helper.h b/include/drm/display/drm_dsc_helper.h
-index 0bb0c3afd740..4448c482b092 100644
+index 4448c482b092..bfa7f3acafcb 100644
 --- a/include/drm/display/drm_dsc_helper.h
 +++ b/include/drm/display/drm_dsc_helper.h
-@@ -21,6 +21,7 @@ void drm_dsc_dp_pps_header_init(struct dp_sdp_header *pps_header);
- int drm_dsc_dp_rc_buffer_size(u8 rc_buffer_block_size, u8 rc_buffer_size);
- void drm_dsc_pps_payload_pack(struct drm_dsc_picture_parameter_set *pps_sdp,
- 			      const struct drm_dsc_config *dsc_cfg);
-+void drm_dsc_set_const_params(struct drm_dsc_config *vdsc_cfg);
- void drm_dsc_set_rc_buf_thresh(struct drm_dsc_config *vdsc_cfg);
+@@ -26,5 +26,16 @@ void drm_dsc_set_rc_buf_thresh(struct drm_dsc_config *vdsc_cfg);
  int drm_dsc_setup_rc_params(struct drm_dsc_config *vdsc_cfg, enum drm_dsc_params_kind kind);
  int drm_dsc_compute_rc_parameters(struct drm_dsc_config *vdsc_cfg);
+ 
++static inline void drm_dsc_set_initial_scale_value(struct drm_dsc_config *dsc)
++{
++	dsc->initial_scale_value = 8 * dsc->rc_model_size /
++		(dsc->rc_model_size - dsc->initial_offset);
++}
++
++static inline int drm_dsc_calculate_flatness_det_thresh(struct drm_dsc_config *dsc)
++{
++	return 2 << (dsc->bits_per_component - 8);
++}
++
+ #endif /* _DRM_DSC_HELPER_H_ */
+ 
 -- 
 2.39.2
 
