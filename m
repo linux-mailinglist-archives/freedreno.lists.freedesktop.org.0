@@ -2,72 +2,48 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 45FC46D4BDB
-	for <lists+freedreno@lfdr.de>; Mon,  3 Apr 2023 17:29:00 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4C72E6D4D3A
+	for <lists+freedreno@lfdr.de>; Mon,  3 Apr 2023 18:08:47 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F0E5310E4D5;
-	Mon,  3 Apr 2023 15:28:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id ED57710E17B;
+	Mon,  3 Apr 2023 16:08:45 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x12a.google.com (mail-lf1-x12a.google.com
- [IPv6:2a00:1450:4864:20::12a])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0B9BE10E0DA
- for <freedreno@lists.freedesktop.org>; Mon,  3 Apr 2023 15:28:56 +0000 (UTC)
-Received: by mail-lf1-x12a.google.com with SMTP id k37so38640628lfv.0
- for <freedreno@lists.freedesktop.org>; Mon, 03 Apr 2023 08:28:56 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1680535734;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=kPrYDdekg0I0RRl5/w+irR1rQMqphVIrp6PinKuObBw=;
- b=hmqvElmrXWJQcUaSjMqNlMYt7VMO5e+YWgeZceMhEr3KKNjrq5vpft3N1tQrJwj8i4
- spJfLHjKk/NeKfJ1DNkS3z4DysUz8zSMacTKa8dxfJuYReoOfj4964HdGF3YD3TypsvH
- kuc6ozrwD7DsG9hMFup6LsPS7DYSGjBjh0KPaXb/MBflDirA7jBV+6La+sxympQFOhJB
- +i7T9WKkMTujomHn2C/+firfbVi0mx9ZRMiTVWRsg9L+6Dkin3IpkVWfpCKix6Xk6p2j
- 94B9k2XKDYhrXH0W3gth/aac1tOFI6rwL6UfsPAphUxScAuonKUd1k51P1YEco5Oa34p
- nPwg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112; t=1680535734;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=kPrYDdekg0I0RRl5/w+irR1rQMqphVIrp6PinKuObBw=;
- b=f0Y/hSHJqug2h8EJYcU1llHoTVl4V2o06GQmiuXqIly30pot11ebo11T0MyMwL6Vqa
- IFJ1mgQ0kWMxqfcbmub3zACOFV0jf/EncKP+TJZx+OQeYOBdU0N7aIg/iLUYEpJloMJG
- wBSK47fJ015T0jWedFZNAh2dYmCjmvyi18ahD38ljRVYzestR9YR90lb6nWGdWh5/gge
- hUFTxJL5Sx+vrdZj3HtngR2gP8h/466pPuUWruqvQaRdohhN+878FiJw+5M8yPPnlVLr
- CAk/2SmyT6Zv8d8btRMmcR7NrniC3nTSZL8cmgnjKt234dh+eXAo8sBNqArw8TQ3rcZL
- 6rtQ==
-X-Gm-Message-State: AAQBX9fSbqj0++mrCtmK44c9FJUWjOIiRr7wDW1JZ7GAXdJoqzY6+QZp
- 7w7mferRC3rXBCguo/zyUL8vbA==
-X-Google-Smtp-Source: AKy350b95P/uSTgREdLEfWsH6IoiTIqaKI1+nr+mYyy4HAI6QLDWwdnTFFIlZWhlWMb7ONSwCX7yew==
-X-Received: by 2002:a05:6512:3c2:b0:4dd:98c6:ee2 with SMTP id
- w2-20020a05651203c200b004dd98c60ee2mr9940947lfp.15.1680535734467; 
- Mon, 03 Apr 2023 08:28:54 -0700 (PDT)
-Received: from ?IPV6:2001:14ba:a085:4d00::8a5?
- (dzccz6yyyyyyyyyyybcwt-3.rev.dnainternet.fi. [2001:14ba:a085:4d00::8a5])
- by smtp.gmail.com with ESMTPSA id
- w6-20020ac24426000000b004cb14fa604csm1815299lfl.262.2023.04.03.08.28.53
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 03 Apr 2023 08:28:54 -0700 (PDT)
-Message-ID: <0e75e04d-fc07-2f60-bfb9-ee092075fae6@linaro.org>
-Date: Mon, 3 Apr 2023 18:28:53 +0300
+X-Greylist: delayed 596 seconds by postgrey-1.36 at gabe;
+ Mon, 03 Apr 2023 15:54:19 UTC
+Received: from 189.cn (ptr.189.cn [183.61.185.102])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 201C210E021
+ for <freedreno@lists.freedesktop.org>; Mon,  3 Apr 2023 15:54:19 +0000 (UTC)
+HMM_SOURCE_IP: 10.64.8.43:58956.1433956841
+HMM_ATTACHE_NUM: 0000
+HMM_SOURCE_TYPE: SMTP
+Received: from clientip-114.242.206.180 (unknown [10.64.8.43])
+ by 189.cn (HERMES) with SMTP id 4815D1002AD;
+ Mon,  3 Apr 2023 23:44:14 +0800 (CST)
+Received: from  ([114.242.206.180])
+ by gateway-151646-dep-7b48884fd-tj646 with ESMTP id
+ 0bd8b32bccb94efd9aa438a66f4d4aaf for tzimmermann@suse.de; 
+ Mon, 03 Apr 2023 23:44:16 CST
+X-Transaction-ID: 0bd8b32bccb94efd9aa438a66f4d4aaf
+X-Real-From: 15330273260@189.cn
+X-Receive-IP: 114.242.206.180
+X-MEDUSA-Status: 0
+Message-ID: <27f4182c-753e-9980-5199-a769f69330ec@189.cn>
+Date: Mon, 3 Apr 2023 23:44:13 +0800
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.9.0
-Content-Language: en-GB
-To: Vinod Polimera <quic_vpolimer@quicinc.com>,
- dri-devel@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
- freedreno@lists.freedesktop.org, devicetree@vger.kernel.org
-References: <1680271114-1534-1-git-send-email-quic_vpolimer@quicinc.com>
- <1680271114-1534-4-git-send-email-quic_vpolimer@quicinc.com>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-In-Reply-To: <1680271114-1534-4-git-send-email-quic_vpolimer@quicinc.com>
+To: Thomas Zimmermann <tzimmermann@suse.de>, robdclark@gmail.com,
+ quic_abhinavk@quicinc.com, dmitry.baryshkov@linaro.org, sean@poorly.run,
+ javierm@redhat.com, airlied@gmail.com, daniel@ffwll.ch
+References: <20230403124538.8497-2-tzimmermann@suse.de>
+Content-Language: en-US
+From: Sui Jingfeng <15330273260@189.cn>
+In-Reply-To: <20230403124538.8497-2-tzimmermann@suse.de>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH v1 3/3] msm: skip the atomic commit of self
- refresh while PSR running
+Content-Transfer-Encoding: 8bit
+X-Mailman-Approved-At: Mon, 03 Apr 2023 16:08:43 +0000
+Subject: Re: [Freedreno] [v2,1/8] drm/msm: Include <linux/io.h>
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,42 +56,35 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: quic_kalyant@quicinc.com, quic_sbillaka@quicinc.com, dianders@chromium.org,
- quic_bjorande@quicinc.com, quic_abhinavk@quicinc.com,
- quic_vproddut@quicinc.com, linux-kernel@vger.kernel.org,
- quic_khsieh@quicinc.com, robdclark@gmail.com, swboyd@chromium.org
+Cc: linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
+ kernel test robot <lkp@intel.com>, dri-devel@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 31/03/2023 16:58, Vinod Polimera wrote:
-> In certain CPU stress conditions, there can be a delay in scheduling commit
-> work and it was observed that PSR commit from a different work queue was
-> scheduled. Avoid these commits as display is already in PSR mode.
-> 
-> Signed-off-by: Vinod Polimera <quic_vpolimer@quicinc.com>
+
+Reviewed-by:  Sui Jingfeng <suijingfeng@loongson.cn>
+
+
+On 2023/4/3 20:45, Thomas Zimmermann wrote:
+> Include <linux/io.h> to get the declaration of devm_ioremap() on
+> sparc64. No functional changes.
+>
+> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+> Reported-by: kernel test robot <lkp@intel.com>
+> Link: https://lore.kernel.org/oe-kbuild-all/202303301856.zSmpwZjj-lkp@intel.com/
 > ---
->   drivers/gpu/drm/msm/msm_atomic.c | 3 +++
->   1 file changed, 3 insertions(+)
-> 
-> diff --git a/drivers/gpu/drm/msm/msm_atomic.c b/drivers/gpu/drm/msm/msm_atomic.c
-> index 645fe53..f8141bb 100644
-> --- a/drivers/gpu/drm/msm/msm_atomic.c
-> +++ b/drivers/gpu/drm/msm/msm_atomic.c
-> @@ -192,6 +192,9 @@ int msm_atomic_check(struct drm_device *dev, struct drm_atomic_state *state)
-
-The corresponding patch is not yet applied. I wonder how this was tested.
-
->   			new_crtc_state->mode_changed = true;
->   			state->allow_modeset = true;
->   		}
-> +
-> +		if (old_crtc_state->self_refresh_active && new_crtc_state->self_refresh_active)
-> +			return -EINVAL;
->   	}
+>   drivers/gpu/drm/msm/msm_io_utils.c | 1 +
+>   1 file changed, 1 insertion(+)
+>
+> diff --git a/drivers/gpu/drm/msm/msm_io_utils.c b/drivers/gpu/drm/msm/msm_io_utils.c
+> index d02cd29ce829..59d2788c4510 100644
+> --- a/drivers/gpu/drm/msm/msm_io_utils.c
+> +++ b/drivers/gpu/drm/msm/msm_io_utils.c
+> @@ -6,6 +6,7 @@
+>    */
 >   
->   	return drm_atomic_helper_check(dev, state);
-
--- 
-With best wishes
-Dmitry
-
+>   #include <linux/interconnect.h>
+> +#include <linux/io.h>
+>   
+>   #include "msm_drv.h"
+>   
