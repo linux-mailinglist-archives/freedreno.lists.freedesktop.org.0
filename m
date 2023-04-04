@@ -2,72 +2,62 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id A2F666D5590
-	for <lists+freedreno@lfdr.de>; Tue,  4 Apr 2023 02:33:42 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C028B6D61D3
+	for <lists+freedreno@lfdr.de>; Tue,  4 Apr 2023 15:08:38 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C6ABD10E115;
-	Tue,  4 Apr 2023 00:33:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9FEB410E2B8;
+	Tue,  4 Apr 2023 13:08:35 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x12d.google.com (mail-lf1-x12d.google.com
- [IPv6:2a00:1450:4864:20::12d])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 57C6A10E08E
- for <freedreno@lists.freedesktop.org>; Tue,  4 Apr 2023 00:33:37 +0000 (UTC)
-Received: by mail-lf1-x12d.google.com with SMTP id g19so27159879lfr.9
- for <freedreno@lists.freedesktop.org>; Mon, 03 Apr 2023 17:33:37 -0700 (PDT)
+Received: from mail-lf1-x130.google.com (mail-lf1-x130.google.com
+ [IPv6:2a00:1450:4864:20::130])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4A27C10E2B8
+ for <freedreno@lists.freedesktop.org>; Tue,  4 Apr 2023 13:08:32 +0000 (UTC)
+Received: by mail-lf1-x130.google.com with SMTP id c9so31890571lfb.1
+ for <freedreno@lists.freedesktop.org>; Tue, 04 Apr 2023 06:08:32 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1680568414;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=cQdINa2c6b4cgwx9wIV+bAKsEBFB3eV4drGNhbSbciE=;
- b=pqylwOZ+zjqFmrzhKur/24LKOTmKskSUp/S1MJ0cbLu1xlJ+L6g1g2OFNGpzmuDI8E
- K/ttVaPO357dXy+MKG1OPurY5MuLXWHUFatl0oyzo2jZxw7ErDGLzG4uq4LjCmRzt3Ix
- s3j2YMm/ZZIkyDx79xD/HmwhIB709R9LiY5TY2jcaanc+UxvNznQ6qQALT4OHjBdmhdv
- 3O+rIRN8KZKuJTQFTqMVjriemlnV4fWf3X7n8/NqTjiZBzoT+7/ExRWKW/NBGqbdSOjy
- zTVkPUxntV979KmqA8dfGAL4kCjmhVSFA8rpiRnBTFuU8F79FokKWSFwrglqN8C83kgP
- TzRA==
+ d=linaro.org; s=google; t=1680613710;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=7kPnU2nLRwz6G9LFL7GuLhoTybSEj4D3+fJk4EzfqT0=;
+ b=sVengYYIfKT0tYEJOvzUwxYQMX6mUMzzLnlnIrnghVX6MxsIkC2iQJTv62sAEDSIiS
+ 6s9R4I+Ji0MkOb+4u0LDvF1luBy5BiFE4LuvYA/B51dWdfkF+9C8U26UCvCgVtu3E2kt
+ gaD/qRbG7tIv/UMBMQD8TY4SLMqgkS0RJMagt+h/hRyecS0mnS7YklqSpxrs1fZHkhyd
+ 4xiwxmcWtT1jPtmNtR78qUGPDvt4M7Zcl/DewMyrvFbVa3NhNoM4buV/QNQ9JYHfovIb
+ eGHxer7QCHvbxUu8wKY/1Z9lP0YdYN2YXpvF0P138G27awrn03k2i4FGbgN2Og+Pxxy8
+ 1EOw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112; t=1680568414;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=cQdINa2c6b4cgwx9wIV+bAKsEBFB3eV4drGNhbSbciE=;
- b=MkC5R/qrZgAKO8oJgZLkkdB1Li9qUoaF31KisDtq3nRIn4XhrWvFJHHqCSMihplvCL
- aiZ7P4DJct/iEied7kQsHdpFlRM3tXxWgiK4vQQC5W5z/qZYF+WgJtSv5aIDbz8+APVB
- L8ECM6O9/P49LbuyBcH/mHa2oIsnlS4nfHN+WobFloUKLirynJOF/Xd2t8wafGPxl0a7
- fLJGX6qGrNwe5oa6B6F4mnJ0sTCDdnjJ3qbYD3mKJlDLeJeGQ40yJ+hvoGgioWW5ibX7
- P6+0wDxIm/aGSvwCuEVz8x/H8llXoaFFB9D4viM1ZRKuvRZeLDkQ98tbZ12vBIagpsiY
- Jc8A==
-X-Gm-Message-State: AAQBX9eBJgSUxd7TANaM6XsYPePvl5r1JK6W9ELMWmzaAbhkinOX0BTI
- d62vumJIiHWUTH346z1rLurYhg==
-X-Google-Smtp-Source: AKy350ZJE+SvDuB0jQquKqVa/yajz63oN/jCeMQj7fTO8UvUauIUL0UIyP6CqQ78DKopphI1PerrOw==
-X-Received: by 2002:ac2:5613:0:b0:4e8:3dc1:70f4 with SMTP id
- v19-20020ac25613000000b004e83dc170f4mr136318lfd.34.1680568414251; 
- Mon, 03 Apr 2023 17:33:34 -0700 (PDT)
-Received: from ?IPV6:2001:14ba:a085:4d00::8a5?
- (dzccz6yyyyyyyyyyybcwt-3.rev.dnainternet.fi. [2001:14ba:a085:4d00::8a5])
+ d=1e100.net; s=20210112; t=1680613710;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=7kPnU2nLRwz6G9LFL7GuLhoTybSEj4D3+fJk4EzfqT0=;
+ b=ylwVYlybxulbvgcrni7aOHGIWTWsTDrCzryICEjwnM7L/4q1bZUyy5M0L0og7jucYw
+ 2lzfz9Q9hoRLodZ94r4eL7WHZE/FI64KeRt98yclNBhPdwOdrGbGdnOM8eJkMBbJswvr
+ 5KVfZ0V7Q1h1rWwN9/WoywjPzWaDbHr9sKawV0w3IjUrT7/z0lXPDQuNXGxwtODsjwwI
+ mm8aaqt+CRgAM2Jn96OXFlRvga3WfmYJf95RFfriIGwvgdfqGY04oFl1DPJ4cLCzfq5I
+ tUcA9J+Xp2hrJZmxTgqUjmLtSJX2lCc82hW56FdR+eXk9BX4gtHf0HcvuDVBbnAwGRb7
+ F8YA==
+X-Gm-Message-State: AAQBX9eX1/TKLHUHjbamrhUmrjc0bSLxTagvVJIjWchUjJuES66Iqkbn
+ pRTOvaZ6KFAY8RO4bhU4VDEUGw==
+X-Google-Smtp-Source: AKy350YTau/wB3HvhMOSz4nsP/qk130OsWvl/OtJ5Xz/Hdxb+06EACeJukXpRjTwNT5WA9SLIVfpWQ==
+X-Received: by 2002:a19:5503:0:b0:4eb:44da:e85d with SMTP id
+ n3-20020a195503000000b004eb44dae85dmr580858lfe.57.1680613710145; 
+ Tue, 04 Apr 2023 06:08:30 -0700 (PDT)
+Received: from eriador.lumag.spb.ru ([193.65.47.217])
  by smtp.gmail.com with ESMTPSA id
- c26-20020ac244ba000000b004e792045b3dsm2018969lfm.106.2023.04.03.17.33.33
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 03 Apr 2023 17:33:33 -0700 (PDT)
-Message-ID: <2591482a-a259-5406-83b8-4afeee9e3a43@linaro.org>
-Date: Tue, 4 Apr 2023 03:33:33 +0300
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.9.0
-Content-Language: en-GB
-To: Jessica Zhang <quic_jesszhan@quicinc.com>, freedreno@lists.freedesktop.org
-References: <20230329-rfc-msm-dsc-helper-v2-0-3c13ced536b2@quicinc.com>
- <20230329-rfc-msm-dsc-helper-v2-2-3c13ced536b2@quicinc.com>
- <5b4a3305-1e26-220d-a770-1f6945fbac7a@linaro.org>
- <acdd6ae0-a6e8-3338-5e68-44a93f94de77@quicinc.com>
+ c11-20020a05651c014b00b0029e5448e752sm2304789ljd.131.2023.04.04.06.07.40
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 04 Apr 2023 06:08:29 -0700 (PDT)
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-In-Reply-To: <acdd6ae0-a6e8-3338-5e68-44a93f94de77@quicinc.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+To: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>
+Date: Tue,  4 Apr 2023 16:05:40 +0300
+Message-Id: <20230404130622.509628-1-dmitry.baryshkov@linaro.org>
+X-Mailer: git-send-email 2.39.2
+MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: Re: [Freedreno] [PATCH RFC v2 2/6] drm/msm: Add MSM-specific DSC
- helper methods
+Subject: [Freedreno] [PATCH v4 00/42] drm/msm/dpu: rework HW catalog
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,256 +70,137 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-arm-msm@vger.kernel.org, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- dri-devel@lists.freedesktop.org, Konrad Dybcio <konrad.dybcio@linaro.org>,
- Rob Clark <robdclark@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- Marijn Suijten <marijn.suijten@somainline.org>, Sean Paul <sean@poorly.run>
+Cc: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
+ Bjorn Andersson <andersson@kernel.org>, dri-devel@lists.freedesktop.org,
+ Stephen Boyd <swboyd@chromium.org>, Daniel Vetter <daniel@ffwll.ch>,
+ David Airlie <airlied@gmail.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 04/04/2023 00:38, Jessica Zhang wrote:
-> 
-> 
-> On 4/2/2023 4:21 AM, Dmitry Baryshkov wrote:
->> On 31/03/2023 21:49, Jessica Zhang wrote:
->>> Introduce MSM-specific DSC helper methods, as some calculations are
->>> common between DP and DSC.
->>>
->>> Changes in v2:
->>> - Moved files up to msm/ directory
->>> - Dropped get_comp_ratio() helper
->>> - Used drm_int2fixp() to convert to integers to fp
->>> - Style changes to improve readability
->>> - Dropped unused bpp variable in msm_dsc_get_dce_bytes_per_line()
->>> - Changed msm_dsc_get_slice_per_intf() to a static inline method
->>> - Dropped last division step of msm_dsc_get_pclk_per_line() and changed
->>>    method name accordingly
->>> - Changed DSC_BPP macro to drm_dsc_get_bpp_int() helper method
->>> - Fixed some math issues caused by passing in incorrect types to
->>>    drm_fixed methods in get_bytes_per_soft_slice()
->>>
->>> Signed-off-by: Jessica Zhang <quic_jesszhan@quicinc.com>
->>> ---
->>>   drivers/gpu/drm/msm/Makefile         |  1 +
->>>   drivers/gpu/drm/msm/msm_dsc_helper.c | 53 
->>> ++++++++++++++++++++++++++++++++++++
->>>   drivers/gpu/drm/msm/msm_dsc_helper.h | 42 ++++++++++++++++++++++++++++
->>>   3 files changed, 96 insertions(+)
->>>
->>> diff --git a/drivers/gpu/drm/msm/Makefile b/drivers/gpu/drm/msm/Makefile
->>> index 7274c41228ed..b814fc80e2d5 100644
->>> --- a/drivers/gpu/drm/msm/Makefile
->>> +++ b/drivers/gpu/drm/msm/Makefile
->>> @@ -94,6 +94,7 @@ msm-y += \
->>>       msm_atomic_tracepoints.o \
->>>       msm_debugfs.o \
->>>       msm_drv.o \
->>> +    msm_dsc_helper.o \
->>>       msm_fb.o \
->>>       msm_fence.o \
->>>       msm_gem.o \
->>> diff --git a/drivers/gpu/drm/msm/msm_dsc_helper.c 
->>> b/drivers/gpu/drm/msm/msm_dsc_helper.c
->>> new file mode 100644
->>> index 000000000000..60b73e17e6eb
->>> --- /dev/null
->>> +++ b/drivers/gpu/drm/msm/msm_dsc_helper.c
->>> @@ -0,0 +1,53 @@
->>> +// SPDX-License-Identifier: GPL-2.0-only
->>> +/*
->>> + * Copyright (c) 2023 Qualcomm Innovation Center, Inc. All rights 
->>> reserved
->>> + */
->>> +
->>> +#include <linux/kernel.h>
->>> +#include <linux/errno.h>
->>> +#include <drm/drm_fixed.h>
->>> +
->>> +#include "msm_drv.h"
->>> +#include "msm_dsc_helper.h"
->>> +
->>> +static s64 get_bytes_per_soft_slice(struct drm_dsc_config *dsc, int 
->>> intf_width, u32 src_bpp)
->>
->> intf_width is unused
-> 
-> Hi Dmitry,
-> 
-> Acked.
-> 
->>
->>> +{
->>> +    int bpp = msm_dsc_get_bpp_int(dsc);
->>> +    s64 numerator_fp, denominator_fp;
->>> +    s64 comp_ratio_fp = drm_fixp_from_fraction(src_bpp, bpp);
->>> +
->>> +    numerator_fp = drm_int2fixp(dsc->slice_width * 3);
->>
->> You have lost dsc->bits_per_component here.
-> 
-> This was moved to the denominator calculation, but I'll move it back to 
-> this line to avoid confusion.
+This huge series attempts to restructure the DPU HW catalog into a
+manageable and reviewable data set. In order to ease review and testing
+I merged all the necessary fixes into this series. Also I cherry-picked
+& slightly fixed Konrad's patch adding size to the SSPP and INTF macros.
 
-Maybe you occasionally mixed bpp and bpc, because there is no 
-bits_per_component usage in denominator. Could you please recheck the 
-calculations.
+First 6 patches clean up the catalog a bit in order to make it more
+suitable for refactoring.
 
-> 
->>
->>> +    denominator_fp = drm_fixp_from_fraction(comp_ratio_fp * 8, 
->>> drm_int2fixp(bpp));
->>
->> denominator_fp = drm_fixp_from_fraction(src_bpp * 8, bpp);
-> 
-> Acked.
-> 
->>
->>> +
->>> +    return drm_fixp_div(numerator_fp, denominator_fp);
->>> +}
->>> +
->>> +u32 msm_dsc_get_eol_byte_num(struct drm_dsc_config *dsc, int 
->>> intf_width, u32 src_bpp)
->>> +{
->>> +    u32 bytes_per_soft_slice, extra_eol_bytes, bytes_per_intf;
->>> +    s64 bytes_per_soft_slice_fp;
->>> +    int slice_per_intf = msm_dsc_get_slice_per_intf(dsc, intf_width);
->>> +
->>> +    bytes_per_soft_slice_fp = get_bytes_per_soft_slice(dsc, 
->>> intf_width, src_bpp);
->>> +    bytes_per_soft_slice = drm_fixp2int_ceil(bytes_per_soft_slice_fp);
->>> +
->>> +    bytes_per_intf = bytes_per_soft_slice * slice_per_intf;
->>> +    extra_eol_bytes = bytes_per_intf % 3;
->>> +    if (extra_eol_bytes != 0)
->>> +        extra_eol_bytes = 3 - extra_eol_bytes;
->>
->> I become confused here when I checked eol_bytes in the display techpack.
->>
->> I see that for DP the dp_panel_dsc_pclk_param_calc() calculates 
->> dsc->eol_bytes_num in this way, the size to pad dsc_byte_count * 
->> slice_per_intf to 3 bytes.
->>
->> However, for DSI this is a simple as total_bytes_per_intf % 3 , so it 
->> is not a padding, but a length of the last chunk.
->>
->> Could you please clarify? If the techpack code is correct, I'd prefer 
->> if we return last chunk size here and calculate the padding length in 
->> the DP driver.
-> 
-> I've double checked the calculations between DP and DSI, and I think 
-> you're right. Will move the `if (extra_eol_bytes != 0)` block out to DP 
-> code.
+Second batch of 13 + 5 + 4 patches split the hw catalog entries into
+per-SoC files.
 
-Ack. Could you please check with HW team that our understanding is correct?
+Then the next 6 patches perform a post-split cleanup. They enable
+missing features, drop obvious duplicates, etc.
 
-> 
->>
->>> +
->>> +    return extra_eol_bytes;
->>> +}
->>> +
->>> +int msm_dsc_get_uncompressed_pclk_per_line(struct drm_dsc_config 
->>> *dsc, int intf_width, u32 src_bpp)
->>
->> Basing on Abhinav's description ("pclk_per_line can be only per 
->> interface") would it better be named as 
->> msm_dsc_get_uncompressed_pclk_per_intf() ? or 
->> msm_dsc_get_uncompressed_pclk_for_intf() ?
->>
->> BTW: if get_bytes_per_soft_slice() doesn't use intf_width, we can 
->> probably drop it here too.
->>
->>> +{
->>> +    s64 data_width;
->>> +
->>> +    if (!dsc->slice_width || (intf_width < dsc->slice_width))
->>> +        return -EINVAL;
->>
->> Error code is not validated at dsi_timing_setup. I'd suggest moving 
->> error checks there and dropping the error handling here. If 
->> dsc->slice_width is not set, we should stop much earlier than 
->> drm_bridge's pre_enable() callback.
-> 
-> Acked.
-> 
-> Thanks,
-> 
-> Jessica Zhang
-> 
->>
->>> +
->>> +    data_width = drm_fixp_mul(dsc->slice_count,
->>> +            get_bytes_per_soft_slice(dsc, intf_width, src_bpp));
->>> +
->>> +    return drm_fixp2int_ceil(data_width);
->>> +}
->>> diff --git a/drivers/gpu/drm/msm/msm_dsc_helper.h 
->>> b/drivers/gpu/drm/msm/msm_dsc_helper.h
->>> new file mode 100644
->>> index 000000000000..743cd324b7d9
->>> --- /dev/null
->>> +++ b/drivers/gpu/drm/msm/msm_dsc_helper.h
->>> @@ -0,0 +1,42 @@
->>> +/* SPDX-License-Identifier: GPL-2.0-only */
->>> +/*
->>> + * Copyright (c) 2023 Qualcomm Innovation Center, Inc. All rights 
->>> reserved
->>> + */
->>> +
->>> +#ifndef MSM_DSC_HELPER_H_
->>> +#define MSM_DSC_HELPER_H_
->>> +
->>> +#include <drm/display/drm_dsc_helper.h>
->>> +#include <drm/drm_modes.h>
->>> +
->>> +/*
->>> + * Helper methods for MSM specific DSC calculations that are common 
->>> between timing engine,
->>> + * DSI, and DP.
->>> + */
->>> +
->>> +static inline int msm_dsc_get_bpp_int(struct drm_dsc_config *dsc)
->>> +{
->>> +    WARN_ON_ONCE(dsc->bits_per_pixel & 0xf);
->>> +    return dsc->bits_per_pixel >> 4;
->>> +}
->>> +
->>> +static inline int msm_dsc_get_slice_per_intf(struct drm_dsc_config 
->>> *dsc, int intf_width)
->>> +{
->>> +    return DIV_ROUND_UP(intf_width, dsc->slice_width);
->>> +}
->>> +
->>> +static inline u32 msm_dsc_get_dce_bytes_per_line(struct 
->>> drm_dsc_config *dsc, int intf_width)
->>> +{
->>> +    return DIV_ROUND_UP(msm_dsc_get_bpp_int(dsc) * intf_width, 8);
->>> +}
->>> +
->>> +u32 msm_dsc_get_eol_byte_num(struct drm_dsc_config *dsc, int 
->>> intf_width, u32 src_bpp);
->>> +u32 msm_dsc_get_dce_bytes_per_line(struct drm_dsc_config *dsc, int 
->>> intf_width);
->>> +
->>> +/* Calculate uncompressed pclk per line. This value will then be 
->>> passed along to
->>> + * DSI and DP to calculate pclk_per_line. This is because DSI and DP 
->>> divide the
->>> + * uncompressed pclk_per_line by different values depending on if 
->>> widebus is enabled.
->>> + */
->>> +int msm_dsc_get_uncompressed_pclk_per_line(struct drm_dsc_config *dsc,
->>> +        int intf_width, u32 src_bpp);
->>> +#endif /* MSM_DSC_HELPER_H_ */
->>>
->>
->> -- 
->> With best wishes
->> Dmitry
->>
+Then 6 patches rename/inline existing macros to ease using them while
+adding support for new devices.
+
+And last 2 patches migrate HW catalog entries to be tied to the
+of_device_id rather than using HW revision to obtain one: in the email
+discussion of the previous revision of the patchset it was revealed that
+there exist different SoCs with the same DPU hw revision, but different
+fetures being enabled in the hardware.
+
+This pile of patches is submitted in a single batch to allow one to
+observe the final goal of the cleanup which otherwise might be hard to
+assess.
+
+Changes since v3:
+- Split the SSPP/INTF size patch into SSPP and INTF parts (Abhinav)
+- Dropped the deduplication part for now. Replaced that with
+  _duplicating_ the data (Abhinav)
+- Reworked catalog/kms interface to bind data using device match table
+
+Changes since v2:
+- Fixed sc8280xp SSPP size to 0x2ac
+- Rebased on top of msm-next-lumag, dropped merged patches
+
+Changes since v1:
+- Picked up Konrad's patch
+- Picked up dependencies into the main series
+- Moved qseed3lite vs qseed4 patches into the fixes part
+- Fixed sm6115 in a similar manner.
+
+Dmitry Baryshkov (40):
+  drm/msm/dpu: use CTL_SC7280_MASK for sm8450's ctl_0
+  drm/msm/dpu: constify DSC data structures
+  drm/msm/dpu: mark remaining pp data as const
+  drm/msm/dpu: move UBWC/memory configuration to separate struct
+  drm/msm/dpu: split SM8550 catalog entry to the separate file
+  drm/msm/dpu: split SM8450 catalog entry to the separate file
+  drm/msm/dpu: split SC8280XP catalog entry to the separate file
+  drm/msm/dpu: split SC7280 catalog entry to the separate file
+  drm/msm/dpu: split SM8350 catalog entry to the separate file
+  drm/msm/dpu: split SM6115 catalog entry to the separate file
+  drm/msm/dpu: split QCM2290 catalog entry to the separate file
+  drm/msm/dpu: split SC7180 catalog entry to the separate file
+  drm/msm/dpu: split SM8250 catalog entry to the separate file
+  drm/msm/dpu: split SC8180X catalog entry to the separate file
+  drm/msm/dpu: split SM8150 catalog entry to the separate file
+  drm/msm/dpu: split MSM8998 catalog entry to the separate file
+  drm/msm/dpu: split SDM845 catalog entry to the separate file
+  drm/msm/dpu: duplicate sdm845 catalog entries
+  drm/msm/dpu: duplicate sc7180 catalog entries
+  drm/msm/dpu: duplicate sm8150 catalog entries
+  drm/msm/dpu: duplicate sm8250 catalog entries
+  drm/msm/dpu: duplicate sm8350 catalog entries
+  drm/msm/dpu: expand sc8180x catalog
+  drm/msm/dpu: expand sc7180 catalog
+  drm/msm/dpu: expand sm6115 catalog
+  drm/msm/dpu: expand sm8550 catalog
+  drm/msm/dpu: use defined symbol for sc8280xp's maxwidth
+  drm/msm/dpu: catalog: add comments regarding DPU_CTL_SPLIT_DISPLAY
+  drm/msm/dpu: enable DPU_CTL_SPLIT_DISPLAY for sc8280xp
+  drm/msm/dpu: enable DSPP_2/3 for LM_2/3 on sm8450
+  drm/msm/dpu: drop duplicate vig_sblk instances
+  drm/msm/dpu: enable DSPP and DSC on sc8180x
+  drm/msm/dpu: inline IRQ_n_MASK defines
+  drm/msm/dpu: rename INTF_foo_MASK to contain major DPU version
+  drm/msm/dpu: rename CTL_foo_MASK to contain major DPU version
+  drm/msm/dpu: rename VIG and DMA_foo_MASK to contain major DPU version
+  drm/msm/dpu: rename MIXER_foo_MASK to contain major DPU version
+  drm/msm/dpu: rename MERGE_3D_foo_MASK to contain major DPU version
+  drm/msm/dpu: fetch DPU configuration from match data
+  drm/msm/dpu: drop unused macros from hw catalog
+
+Konrad Dybcio (2):
+  drm/msm/dpu: Allow variable SSPP_BLK size
+  drm/msm/dpu: Allow variable INTF_BLK size
+
+ .../msm/disp/dpu1/catalog/dpu_3_0_msm8998.h   |  210 ++
+ .../msm/disp/dpu1/catalog/dpu_4_0_sdm845.h    |  210 ++
+ .../msm/disp/dpu1/catalog/dpu_5_0_sm8150.h    |  237 ++
+ .../msm/disp/dpu1/catalog/dpu_5_1_sc8180x.h   |  239 ++
+ .../msm/disp/dpu1/catalog/dpu_6_0_sm8250.h    |  244 ++
+ .../msm/disp/dpu1/catalog/dpu_6_2_sc7180.h    |  156 ++
+ .../msm/disp/dpu1/catalog/dpu_6_3_sm6115.h    |  131 +
+ .../msm/disp/dpu1/catalog/dpu_6_5_qcm2290.h   |  122 +
+ .../msm/disp/dpu1/catalog/dpu_7_0_sm8350.h    |  226 ++
+ .../msm/disp/dpu1/catalog/dpu_7_2_sc7280.h    |  158 ++
+ .../msm/disp/dpu1/catalog/dpu_8_0_sc8280xp.h  |  223 ++
+ .../msm/disp/dpu1/catalog/dpu_8_1_sm8450.h    |  234 ++
+ .../msm/disp/dpu1/catalog/dpu_9_0_sm8550.h    |  239 ++
+ .../gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c    | 2209 +----------------
+ .../gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h    |   89 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_dsc.c    |    4 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.c   |   18 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.h   |    4 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c       |   42 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_kms.h       |    1 -
+ 20 files changed, 2753 insertions(+), 2243 deletions(-)
+ create mode 100644 drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_3_0_msm8998.h
+ create mode 100644 drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_4_0_sdm845.h
+ create mode 100644 drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_5_0_sm8150.h
+ create mode 100644 drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_5_1_sc8180x.h
+ create mode 100644 drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_6_0_sm8250.h
+ create mode 100644 drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_6_2_sc7180.h
+ create mode 100644 drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_6_3_sm6115.h
+ create mode 100644 drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_6_5_qcm2290.h
+ create mode 100644 drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_7_0_sm8350.h
+ create mode 100644 drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_7_2_sc7280.h
+ create mode 100644 drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_8_0_sc8280xp.h
+ create mode 100644 drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_8_1_sm8450.h
+ create mode 100644 drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_9_0_sm8550.h
 
 -- 
-With best wishes
-Dmitry
+2.39.2
 
