@@ -2,72 +2,72 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8E7B86D549D
-	for <lists+freedreno@lfdr.de>; Tue,  4 Apr 2023 00:16:28 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A2F666D5590
+	for <lists+freedreno@lfdr.de>; Tue,  4 Apr 2023 02:33:42 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 57A9510E5A3;
-	Mon,  3 Apr 2023 22:16:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C6ABD10E115;
+	Tue,  4 Apr 2023 00:33:39 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x136.google.com (mail-lf1-x136.google.com
- [IPv6:2a00:1450:4864:20::136])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3322610E5AA
- for <freedreno@lists.freedesktop.org>; Mon,  3 Apr 2023 22:16:25 +0000 (UTC)
-Received: by mail-lf1-x136.google.com with SMTP id br6so39914392lfb.11
- for <freedreno@lists.freedesktop.org>; Mon, 03 Apr 2023 15:16:24 -0700 (PDT)
+Received: from mail-lf1-x12d.google.com (mail-lf1-x12d.google.com
+ [IPv6:2a00:1450:4864:20::12d])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 57C6A10E08E
+ for <freedreno@lists.freedesktop.org>; Tue,  4 Apr 2023 00:33:37 +0000 (UTC)
+Received: by mail-lf1-x12d.google.com with SMTP id g19so27159879lfr.9
+ for <freedreno@lists.freedesktop.org>; Mon, 03 Apr 2023 17:33:37 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1680560183;
+ d=linaro.org; s=google; t=1680568414;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :from:to:cc:subject:date:message-id:reply-to;
- bh=5bxA4Gss3+RptUe9l82LyArjhA/BEimzCrq88tRrjxk=;
- b=ThsidMxEnDpVEQwTPwwaLS+vc0EYzoqJy1xKlf/taZhAz87kNLQPLokCDj2uVY6XqQ
- EjSK85lZE7YDLYHZk0zojbWjIUh5D0DiGt2v431dXGAzqcfV1YEb9VRgds5/4moFjBhU
- YLTFFyw2CT1if24t/dUG5D5a4VnhWumy5UrMpqWyi1SmjYSd1Q4crAkJfX1hWiibGUSU
- sT1KsbQrO2KEqXafy96uRqMZltE43g+ukjtbp27e3jihUzHW9VWXvaEGo43W2clKZuIw
- 8klhGTcE0uwxKMIhTvoeBLWZLSwVHobPA7R6wvUoHKLTJnI6njsho1vWXUdqp2XDq3XU
- ttyQ==
+ bh=cQdINa2c6b4cgwx9wIV+bAKsEBFB3eV4drGNhbSbciE=;
+ b=pqylwOZ+zjqFmrzhKur/24LKOTmKskSUp/S1MJ0cbLu1xlJ+L6g1g2OFNGpzmuDI8E
+ K/ttVaPO357dXy+MKG1OPurY5MuLXWHUFatl0oyzo2jZxw7ErDGLzG4uq4LjCmRzt3Ix
+ s3j2YMm/ZZIkyDx79xD/HmwhIB709R9LiY5TY2jcaanc+UxvNznQ6qQALT4OHjBdmhdv
+ 3O+rIRN8KZKuJTQFTqMVjriemlnV4fWf3X7n8/NqTjiZBzoT+7/ExRWKW/NBGqbdSOjy
+ zTVkPUxntV979KmqA8dfGAL4kCjmhVSFA8rpiRnBTFuU8F79FokKWSFwrglqN8C83kgP
+ TzRA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112; t=1680560183;
+ d=1e100.net; s=20210112; t=1680568414;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=5bxA4Gss3+RptUe9l82LyArjhA/BEimzCrq88tRrjxk=;
- b=JAhXjzwF8BxIsOz5bY8mqh/jOx7/m3yrJjxK05NwKZ/+C0WlvsKWB0PL/+TeKS7yAJ
- /e9fsa99sF5tb8mdAqAE9WxRZ/AfuIDoLNAWj99fd3WpMSFjWoTL0JKEtLoYgIy8TsvQ
- Xu3FR0O+a+MTObX/+8DtUT/7lTu3TiUsSqSzuSlr3i+FRXE0N/d3N5WKwRKpR3KQ1HFf
- 6UD3BlHXeQywYUF2cHWGpDTYk/MokQgw9hHbuZTb+S1r0FpqEZ+CW4oiq2GcxiDbwZB4
- WJ253Wp2cGENzPoJ056h7HrtB3ni3JalVCoYnl2pyDnunvMIrbkxS5kPs4tH/Xv7Qsjy
- GuRg==
-X-Gm-Message-State: AAQBX9fXDJ/NvnoEKECkho14XnsrTMEt1VFDublZCRS9+1GbWt3CZ/CJ
- dJqMS4iD27fYxpRx6kFj3ddJyw==
-X-Google-Smtp-Source: AKy350Y/IBSgH+tFeEA1GQREyA7F8/5hOuGrOnkaZm9d7ktpMtv2+gTKYXFMNw1z7lcQQSVjJ2FBUg==
-X-Received: by 2002:a19:ad04:0:b0:4cb:4362:381d with SMTP id
- t4-20020a19ad04000000b004cb4362381dmr40604lfc.62.1680560182861; 
- Mon, 03 Apr 2023 15:16:22 -0700 (PDT)
+ bh=cQdINa2c6b4cgwx9wIV+bAKsEBFB3eV4drGNhbSbciE=;
+ b=MkC5R/qrZgAKO8oJgZLkkdB1Li9qUoaF31KisDtq3nRIn4XhrWvFJHHqCSMihplvCL
+ aiZ7P4DJct/iEied7kQsHdpFlRM3tXxWgiK4vQQC5W5z/qZYF+WgJtSv5aIDbz8+APVB
+ L8ECM6O9/P49LbuyBcH/mHa2oIsnlS4nfHN+WobFloUKLirynJOF/Xd2t8wafGPxl0a7
+ fLJGX6qGrNwe5oa6B6F4mnJ0sTCDdnjJ3qbYD3mKJlDLeJeGQ40yJ+hvoGgioWW5ibX7
+ P6+0wDxIm/aGSvwCuEVz8x/H8llXoaFFB9D4viM1ZRKuvRZeLDkQ98tbZ12vBIagpsiY
+ Jc8A==
+X-Gm-Message-State: AAQBX9eBJgSUxd7TANaM6XsYPePvl5r1JK6W9ELMWmzaAbhkinOX0BTI
+ d62vumJIiHWUTH346z1rLurYhg==
+X-Google-Smtp-Source: AKy350ZJE+SvDuB0jQquKqVa/yajz63oN/jCeMQj7fTO8UvUauIUL0UIyP6CqQ78DKopphI1PerrOw==
+X-Received: by 2002:ac2:5613:0:b0:4e8:3dc1:70f4 with SMTP id
+ v19-20020ac25613000000b004e83dc170f4mr136318lfd.34.1680568414251; 
+ Mon, 03 Apr 2023 17:33:34 -0700 (PDT)
 Received: from ?IPV6:2001:14ba:a085:4d00::8a5?
  (dzccz6yyyyyyyyyyybcwt-3.rev.dnainternet.fi. [2001:14ba:a085:4d00::8a5])
  by smtp.gmail.com with ESMTPSA id
- a24-20020ac25218000000b004db00b4c671sm1956313lfl.7.2023.04.03.15.16.22
+ c26-20020ac244ba000000b004e792045b3dsm2018969lfm.106.2023.04.03.17.33.33
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 03 Apr 2023 15:16:22 -0700 (PDT)
-Message-ID: <29f0f5e6-bad2-6371-6afd-12eefcba9919@linaro.org>
-Date: Tue, 4 Apr 2023 01:16:21 +0300
+ Mon, 03 Apr 2023 17:33:33 -0700 (PDT)
+Message-ID: <2591482a-a259-5406-83b8-4afeee9e3a43@linaro.org>
+Date: Tue, 4 Apr 2023 03:33:33 +0300
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.9.0
 Content-Language: en-GB
-To: Abhinav Kumar <quic_abhinavk@quicinc.com>, Rob Clark
- <robdclark@gmail.com>, Sean Paul <sean@poorly.run>
-References: <20230330215324.1853304-1-dmitry.baryshkov@linaro.org>
- <b4972790-d990-063a-7ef4-2f05407357e8@quicinc.com>
- <f198ac6a-df12-9c08-55e8-f677acea8e2c@linaro.org>
- <9d1529c0-779c-7f1f-6e6e-1972bb0d39f4@quicinc.com>
+To: Jessica Zhang <quic_jesszhan@quicinc.com>, freedreno@lists.freedesktop.org
+References: <20230329-rfc-msm-dsc-helper-v2-0-3c13ced536b2@quicinc.com>
+ <20230329-rfc-msm-dsc-helper-v2-2-3c13ced536b2@quicinc.com>
+ <5b4a3305-1e26-220d-a770-1f6945fbac7a@linaro.org>
+ <acdd6ae0-a6e8-3338-5e68-44a93f94de77@quicinc.com>
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-In-Reply-To: <9d1529c0-779c-7f1f-6e6e-1972bb0d39f4@quicinc.com>
+In-Reply-To: <acdd6ae0-a6e8-3338-5e68-44a93f94de77@quicinc.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-Subject: Re: [Freedreno] [PATCH v3 00/38] drm/msm/dpu: rework HW catalog
+Subject: Re: [Freedreno] [PATCH RFC v2 2/6] drm/msm: Add MSM-specific DSC
+ helper methods
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,330 +80,253 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
- Bjorn Andersson <andersson@kernel.org>, dri-devel@lists.freedesktop.org,
- Stephen Boyd <swboyd@chromium.org>, Daniel Vetter <daniel@ffwll.ch>,
- David Airlie <airlied@gmail.com>
+Cc: linux-arm-msm@vger.kernel.org, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ dri-devel@lists.freedesktop.org, Konrad Dybcio <konrad.dybcio@linaro.org>,
+ Rob Clark <robdclark@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Marijn Suijten <marijn.suijten@somainline.org>, Sean Paul <sean@poorly.run>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 03/04/2023 22:07, Abhinav Kumar wrote:
+On 04/04/2023 00:38, Jessica Zhang wrote:
 > 
 > 
-> On 4/3/2023 11:48 AM, Dmitry Baryshkov wrote:
->> On 03/04/2023 21:06, Abhinav Kumar wrote:
+> On 4/2/2023 4:21 AM, Dmitry Baryshkov wrote:
+>> On 31/03/2023 21:49, Jessica Zhang wrote:
+>>> Introduce MSM-specific DSC helper methods, as some calculations are
+>>> common between DP and DSC.
 >>>
+>>> Changes in v2:
+>>> - Moved files up to msm/ directory
+>>> - Dropped get_comp_ratio() helper
+>>> - Used drm_int2fixp() to convert to integers to fp
+>>> - Style changes to improve readability
+>>> - Dropped unused bpp variable in msm_dsc_get_dce_bytes_per_line()
+>>> - Changed msm_dsc_get_slice_per_intf() to a static inline method
+>>> - Dropped last division step of msm_dsc_get_pclk_per_line() and changed
+>>>    method name accordingly
+>>> - Changed DSC_BPP macro to drm_dsc_get_bpp_int() helper method
+>>> - Fixed some math issues caused by passing in incorrect types to
+>>>    drm_fixed methods in get_bytes_per_soft_slice()
 >>>
->>> On 3/30/2023 2:52 PM, Dmitry Baryshkov wrote:
->>>> This huge series attempts to restructure the DPU HW catalog into a
->>>> manageable and reviewable data set. In order to ease review and testing
->>>> I merged all the necessary fixes into this series. Also I cherry-picked
->>>> & slightly fixed Konrad's patch adding size to the SSPP and INTF 
->>>> macros.
->>>>
+>>> Signed-off-by: Jessica Zhang <quic_jesszhan@quicinc.com>
+>>> ---
+>>>   drivers/gpu/drm/msm/Makefile         |  1 +
+>>>   drivers/gpu/drm/msm/msm_dsc_helper.c | 53 
+>>> ++++++++++++++++++++++++++++++++++++
+>>>   drivers/gpu/drm/msm/msm_dsc_helper.h | 42 ++++++++++++++++++++++++++++
+>>>   3 files changed, 96 insertions(+)
 >>>
->>> I had to first dig up some history about why dpu catalog grew so much 
->>> in the first place before starting this review. When the DPU driver 
->>> first landed (which pre-dates my work in upstream), it looks like it 
->>> followed mdp5 model from mdp5_cfg.c. But looks like as the number of 
->>> chipsets which use DPU kept growing, this is becoming a burden.
->>>
->>> As everyone knows, downstream follows a devicetree model for the dpu 
->>> hardware and that should have always been the case. Perhaps in the 
->>> last 2-3 years more time could have been spent on standardizing the 
->>> bindings used for hw blocks in order to maintain a less hard-coded 
->>> catalog file and more in the device tree.
+>>> diff --git a/drivers/gpu/drm/msm/Makefile b/drivers/gpu/drm/msm/Makefile
+>>> index 7274c41228ed..b814fc80e2d5 100644
+>>> --- a/drivers/gpu/drm/msm/Makefile
+>>> +++ b/drivers/gpu/drm/msm/Makefile
+>>> @@ -94,6 +94,7 @@ msm-y += \
+>>>       msm_atomic_tracepoints.o \
+>>>       msm_debugfs.o \
+>>>       msm_drv.o \
+>>> +    msm_dsc_helper.o \
+>>>       msm_fb.o \
+>>>       msm_fence.o \
+>>>       msm_gem.o \
+>>> diff --git a/drivers/gpu/drm/msm/msm_dsc_helper.c 
+>>> b/drivers/gpu/drm/msm/msm_dsc_helper.c
+>>> new file mode 100644
+>>> index 000000000000..60b73e17e6eb
+>>> --- /dev/null
+>>> +++ b/drivers/gpu/drm/msm/msm_dsc_helper.c
+>>> @@ -0,0 +1,53 @@
+>>> +// SPDX-License-Identifier: GPL-2.0-only
+>>> +/*
+>>> + * Copyright (c) 2023 Qualcomm Innovation Center, Inc. All rights 
+>>> reserved
+>>> + */
+>>> +
+>>> +#include <linux/kernel.h>
+>>> +#include <linux/errno.h>
+>>> +#include <drm/drm_fixed.h>
+>>> +
+>>> +#include "msm_drv.h"
+>>> +#include "msm_dsc_helper.h"
+>>> +
+>>> +static s64 get_bytes_per_soft_slice(struct drm_dsc_config *dsc, int 
+>>> intf_width, u32 src_bpp)
 >>
->> Unfortunately, this is not how the upstream DT works. If something is 
->> a constant hardware property, it should not go into the DT. So pushing 
->> catalog to dt would have been immediately frowned upon by Rob Herring 
->> or Krzysztof.
+>> intf_width is unused
+> 
+> Hi Dmitry,
+> 
+> Acked.
+> 
 >>
-> 
-> Yes certainly we cannot put hardware specific properties. But in 
-> general, modelling the hardware like the number of sspps, number of 
-> interfaces and number of dspps etc can be a bit abstracted? like 
-> blk-type and blk-offset? blk-type can be a custom string because each 
-> block is named differently for different vendors?
-
-No.
-
-> 
-> The number of blk_offsets decides number of blocks. Its not constant 
-> right. We are seeing it varying with chipsets.
-> 
->>> Then the catalog would have just been a place to parse the device 
->>> tree, set the feature capability based on chipset (refer 
->>> _sde_hardware_pre_caps). That way offsets , number of blocks and the 
->>> blocks themselves still come from the device tree but perhaps some 
->>> specific features are at SOC level for which the catalog still stays.
->>>
->>> That being said, I thought of different strategies even before the 
->>> review but two issues prevented me from suggesting those ideas (one 
->>> of which I am seeing even here , which I am going to suggest below 
->>> and also suggest why it wont work).
->>>
->>> 1) For the same DPU major/minor version, some features might get 
->>> dropped or even get added with different SOCs as overall the system 
->>> capabilities might differ like number of SSPPs or memory footprint of 
->>> the SOC etc.
->>>
->>> So there is no good way right now to generalize any dpu catalog or to 
->>> tie it with a DPU major/minor version. We will have to stick with a 
->>> per-SOC model.
+>>> +{
+>>> +    int bpp = msm_dsc_get_bpp_int(dsc);
+>>> +    s64 numerator_fp, denominator_fp;
+>>> +    s64 comp_ratio_fp = drm_fixp_from_fraction(src_bpp, bpp);
+>>> +
+>>> +    numerator_fp = drm_int2fixp(dsc->slice_width * 3);
 >>
->> Up to now, the SoC was equal to major+minor. Could you please be more 
->> specific here, if there are any actual differences within major+minor 
->> families?
->>
+>> You have lost dsc->bits_per_component here.
 > 
-> So lets say, the same DPU major/minor version is used but we have only 
-> one DSI on one chipset Vs two DSIs on the other, some of the features 
-> which come into play only for dual DSI cannot be used. Like broadcasting 
-> a DCS command across two DSIs etc. This is a very basic example, but 
-> there are many examples.
+> This was moved to the denominator calculation, but I'll move it back to 
+> this line to avoid confusion.
 
-I'm asking for the exact details, because up to now the driver was using 
-major:minor to find the catalog entry. It was modelled this way in 
-sdm845/sc7180, then it was natural for us to continue down this path.
-
-I will put reworking catalog to be bound to the binding data
-
-> 
->>>
->>> This is what led me to not pursue that route.
->>>
->>> 2) For the same DPU major/minor version, even if core-DPU is same (in 
->>> terms of SSPP, DSPP etc), the number of interfaces can change. So 
->>> again no room to generalize same DPU hw version.
->>
->> Again, I might be just scratching the surface, but I have not observed 
->> this.
->>
-> 
-> This typically happens based on what products that chipset is catered 
-> towards. Thats pretty much what I can share. But more number of 
-> interfaces for more number of displays / use-cases.
-
-Ack, I will not that we should be more careful about this items.
+Maybe you occasionally mixed bpp and bpc, because there is no 
+bits_per_component usage in denominator. Could you please recheck the 
+calculations.
 
 > 
->>>
->>> 3) For the same reason as (1) and (2), I think the de-duplication 
->>> strategy used in this series is not correct. The idea of 
->>> dpu_hw_version_num_layer_mixer is just not scalable as I dont know 
->>> how many variants that will lead to. So it seems like just an attempt 
->>> to de-duplicate which perhaps works today for existing dpu chipsets 
->>> in upstream but by no means scalable. Lets go ahead with per-SOC 
->>> catalog file but lets live with some amount of duplication between 
->>> them if we really have to split it across header files.
 >>
->> Indeed, this leads to minor differences on top of major+lm. However, I 
->> think, the overall complexity is lowered.
+>>> +    denominator_fp = drm_fixp_from_fraction(comp_ratio_fp * 8, 
+>>> drm_int2fixp(bpp));
 >>
->> Nevertheless, let's land the major set of patches and leave 
->> generalization for the later time. I think, with the addition of the 
->> next several platforms we will see the drill.
+>> denominator_fp = drm_fixp_from_fraction(src_bpp * 8, bpp);
+> 
+> Acked.
+> 
 >>
-> 
-> Yes, I would say lets handle generalization/de-duplication later when we 
-> see more patterns.
-> 
-> Lets land the main pieces first.
-> 
-> Going with dpu version and number of lms is not the way to generalize it 
-> from what we think.
-> 
->>> I also thought of similar strategies to generalize like based on 
->>> sub-blocks similar to what you have done but all of these were NAKed 
->>> internally by folks who work on more chipsets / have more visibility 
->>> into the spread of features across chipsets.
->>>
->>>> First 4 patches clean up the catalog a bit in order to make it more
->>>> suitable for refactoring.
->>>>
->>>
->>> These are okay. I will address your follow-up questions about patch 
->>> (1) and lets land these.
->>>
->>>> Then the next batch of 13 + 5 patches split the hw catalog entries into
->>>> per-SoC files.
->>>>
->>>
->>> This part is also fine. But perhaps dont have dpu hw version in the 
->>> file. So just dpu_hw_sm8250.h or dpu_hw_sm8350.h etc.
+>>> +
+>>> +    return drm_fixp_div(numerator_fp, denominator_fp);
+>>> +}
+>>> +
+>>> +u32 msm_dsc_get_eol_byte_num(struct drm_dsc_config *dsc, int 
+>>> intf_width, u32 src_bpp)
+>>> +{
+>>> +    u32 bytes_per_soft_slice, extra_eol_bytes, bytes_per_intf;
+>>> +    s64 bytes_per_soft_slice_fp;
+>>> +    int slice_per_intf = msm_dsc_get_slice_per_intf(dsc, intf_width);
+>>> +
+>>> +    bytes_per_soft_slice_fp = get_bytes_per_soft_slice(dsc, 
+>>> intf_width, src_bpp);
+>>> +    bytes_per_soft_slice = drm_fixp2int_ceil(bytes_per_soft_slice_fp);
+>>> +
+>>> +    bytes_per_intf = bytes_per_soft_slice * slice_per_intf;
+>>> +    extra_eol_bytes = bytes_per_intf % 3;
+>>> +    if (extra_eol_bytes != 0)
+>>> +        extra_eol_bytes = 3 - extra_eol_bytes;
 >>
->> Having a version makes it easier to compare chipsets (and also to 
->> verify that feature masks are correct), so I'd like to retain it.
+>> I become confused here when I checked eol_bytes in the display techpack.
 >>
+>> I see that for DP the dp_panel_dsc_pclk_param_calc() calculates 
+>> dsc->eol_bytes_num in this way, the size to pad dsc_byte_count * 
+>> slice_per_intf to 3 bytes.
+>>
+>> However, for DSI this is a simple as total_bytes_per_intf % 3 , so it 
+>> is not a padding, but a length of the last chunk.
+>>
+>> Could you please clarify? If the techpack code is correct, I'd prefer 
+>> if we return last chunk size here and calculate the padding length in 
+>> the DP driver.
 > 
-> This is again trying to generalize it. So for example, yes perhaps today 
-> the chipsets we have belong to a particular DPU major/minor version and 
-> it might look like because they are in the same family things look 
-> similar but that can also go against this. If we find some differences 
-> among them, then some upstream developers might think "Oh, these belong 
-> to the same family, but how come it doesnt have the same features?". 
-> Thats why I am hesitant to go with DPU major/minor version in the name.
+> I've double checked the calculations between DP and DSI, and I think 
+> you're right. Will move the `if (extra_eol_bytes != 0)` block out to DP 
+> code.
 
-We have both major/minor and SoC name, so we will not mix them. However, 
-yes, if I were to see two SoCs having the same major/minor, it would be 
-natural for me to compare them. Ask/check if I got it correct that the 
-details are not the same. Curse and add a separate catalog entry.
-
-Please note, that if we remove the major/minor from the file name, the 
-entry becomes completely deteached from hw version. The only connection 
-will be the cfg_handler table. And moving the SoC <-> catalog binding to 
-the match data (as there can be different chipsets with the same hw rev) 
-will remove this binding completely.
-
-Thus, I think I am going to keep it in the file name at least. The note 
-that major/minor doesn't guarantee the same set of features is noted.
+Ack. Could you please check with HW team that our understanding is correct?
 
 > 
->>>
->>>> Next 9 patches rework catalog entries, mostly targeting 
->>>> deduplication of
->>>> data used by several platforms. At this moment only three pairs (out of
->>>> 13 devices supported by DPU) are merged. However this part lays out the
->>>> ground to ease adding support for new platforms, some of which use the
->>>> same configuration as the existing platforms
->>>>
->>>
->>> This is the part I suggest we drop.
->>>
->>>> Last batch of 7 patches renames existing macros to ease using them 
->>>> while
->>>> adding support for new devices.
->>>>
->>>
->>> I have to check this part but perhaps after re-basing based on my 
->>> earlier comment.
 >>
->> Ack, I'll see what I can drop and what is going to be there.
+>>> +
+>>> +    return extra_eol_bytes;
+>>> +}
+>>> +
+>>> +int msm_dsc_get_uncompressed_pclk_per_line(struct drm_dsc_config 
+>>> *dsc, int intf_width, u32 src_bpp)
 >>
->> Up to now there were some natural shares, like sm8150 vs sc8180x and 
->> qcm2290 vs sm6115. Do you think we should populate the missing parts 
->> by duplicate the data?
+>> Basing on Abhinav's description ("pclk_per_line can be only per 
+>> interface") would it better be named as 
+>> msm_dsc_get_uncompressed_pclk_per_intf() ? or 
+>> msm_dsc_get_uncompressed_pclk_for_intf() ?
 >>
+>> BTW: if get_bytes_per_soft_slice() doesn't use intf_width, we can 
+>> probably drop it here too.
+>>
+>>> +{
+>>> +    s64 data_width;
+>>> +
+>>> +    if (!dsc->slice_width || (intf_width < dsc->slice_width))
+>>> +        return -EINVAL;
+>>
+>> Error code is not validated at dsi_timing_setup. I'd suggest moving 
+>> error checks there and dropping the error handling here. If 
+>> dsc->slice_width is not set, we should stop much earlier than 
+>> drm_bridge's pre_enable() callback.
 > 
-> Yes, lets go ahead with the duplicate data for now. Once a more 
-> reasonable strategy evolves for generalizing it, we can update it.
-
-Ack, will provide corresponding patches.
-
+> Acked.
 > 
+> Thanks,
+> 
+> Jessica Zhang
+> 
+>>
+>>> +
+>>> +    data_width = drm_fixp_mul(dsc->slice_count,
+>>> +            get_bytes_per_soft_slice(dsc, intf_width, src_bpp));
+>>> +
+>>> +    return drm_fixp2int_ceil(data_width);
+>>> +}
+>>> diff --git a/drivers/gpu/drm/msm/msm_dsc_helper.h 
+>>> b/drivers/gpu/drm/msm/msm_dsc_helper.h
+>>> new file mode 100644
+>>> index 000000000000..743cd324b7d9
+>>> --- /dev/null
+>>> +++ b/drivers/gpu/drm/msm/msm_dsc_helper.h
+>>> @@ -0,0 +1,42 @@
+>>> +/* SPDX-License-Identifier: GPL-2.0-only */
+>>> +/*
+>>> + * Copyright (c) 2023 Qualcomm Innovation Center, Inc. All rights 
+>>> reserved
+>>> + */
+>>> +
+>>> +#ifndef MSM_DSC_HELPER_H_
+>>> +#define MSM_DSC_HELPER_H_
+>>> +
+>>> +#include <drm/display/drm_dsc_helper.h>
+>>> +#include <drm/drm_modes.h>
+>>> +
+>>> +/*
+>>> + * Helper methods for MSM specific DSC calculations that are common 
+>>> between timing engine,
+>>> + * DSI, and DP.
+>>> + */
+>>> +
+>>> +static inline int msm_dsc_get_bpp_int(struct drm_dsc_config *dsc)
+>>> +{
+>>> +    WARN_ON_ONCE(dsc->bits_per_pixel & 0xf);
+>>> +    return dsc->bits_per_pixel >> 4;
+>>> +}
+>>> +
+>>> +static inline int msm_dsc_get_slice_per_intf(struct drm_dsc_config 
+>>> *dsc, int intf_width)
+>>> +{
+>>> +    return DIV_ROUND_UP(intf_width, dsc->slice_width);
+>>> +}
+>>> +
+>>> +static inline u32 msm_dsc_get_dce_bytes_per_line(struct 
+>>> drm_dsc_config *dsc, int intf_width)
+>>> +{
+>>> +    return DIV_ROUND_UP(msm_dsc_get_bpp_int(dsc) * intf_width, 8);
+>>> +}
+>>> +
+>>> +u32 msm_dsc_get_eol_byte_num(struct drm_dsc_config *dsc, int 
+>>> intf_width, u32 src_bpp);
+>>> +u32 msm_dsc_get_dce_bytes_per_line(struct drm_dsc_config *dsc, int 
+>>> intf_width);
+>>> +
+>>> +/* Calculate uncompressed pclk per line. This value will then be 
+>>> passed along to
+>>> + * DSI and DP to calculate pclk_per_line. This is because DSI and DP 
+>>> divide the
+>>> + * uncompressed pclk_per_line by different values depending on if 
+>>> widebus is enabled.
+>>> + */
+>>> +int msm_dsc_get_uncompressed_pclk_per_line(struct drm_dsc_config *dsc,
+>>> +        int intf_width, u32 src_bpp);
+>>> +#endif /* MSM_DSC_HELPER_H_ */
 >>>
->>>> This pile of patches is submitted in a single batch to allow one to
->>>> observe the final goal of the cleanup which otherwise might be hard to
->>>> assess.
->>>>
->>>>
->>>> Changes since v2:
->>>> - Fixed sc8280xp SSPP size to 0x2ac
->>>> - Rebased on top of msm-next-lumag, dropped merged patches
->>>>
->>>> Changes since v1:
->>>> - Picked up Konrad's patch
->>>> - Picked up dependencies into the main series
->>>> - Moved qseed3lite vs qseed4 patches into the fixes part
->>>> - Fixed sm6115 in a similar manner.
->>>>
->>>> Dmitry Baryshkov (37):
->>>>    drm/msm/dpu: constify DSC data structures
->>>>    drm/msm/dpu: mark remaining pp data as const
->>>>    drm/msm/dpu: move UBWC/memory configuration to separate struct
->>>>    drm/msm/dpu: split SM8550 catalog entry to the separate file
->>>>    drm/msm/dpu: split SM8450 catalog entry to the separate file
->>>>    drm/msm/dpu: split SC8280XP catalog entry to the separate file
->>>>    drm/msm/dpu: split SC7280 catalog entry to the separate file
->>>>    drm/msm/dpu: split SM8350 catalog entry to the separate file
->>>>    drm/msm/dpu: split SM6115 catalog entry to the separate file
->>>>    drm/msm/dpu: split QCM2290 catalog entry to the separate file
->>>>    drm/msm/dpu: split SC7180 catalog entry to the separate file
->>>>    drm/msm/dpu: split SM8250 catalog entry to the separate file
->>>>    drm/msm/dpu: split SC8180X catalog entry to the separate file
->>>>    drm/msm/dpu: split SM8150 catalog entry to the separate file
->>>>    drm/msm/dpu: split MSM8998 catalog entry to the separate file
->>>>    drm/msm/dpu: split SDM845 catalog entry to the separate file
->>>>    drm/msm/dpu: duplicate sdm845 catalog entries
->>>>    drm/msm/dpu: duplicate sc7180 catalog entries
->>>>    drm/msm/dpu: duplicate sm8150 catalog entries
->>>>    drm/msm/dpu: duplicate sm8250 catalog entries
->>>>    drm/msm/dpu: duplicate sm8350 catalog entries
->>>>    drm/msm/dpu: use defined symbol for sc8280xp's maxwidth
->>>>    drm/msm/dpu: catalog: add comments regarding DPU_CTL_SPLIT_DISPLAY
->>>>    drm/msm/dpu: enable DPU_CTL_SPLIT_DISPLAY for sc8280xp
->>>>    drm/msm/dpu: enable DSPP_2/3 for LM_2/3 on sm8450
->>>>    drm/msm/dpu: drop duplicate vig_sblk instances
->>>>    drm/msm/dpu: enable DSPP on sc8180x
->>>>    drm/msm/dpu: deduplicate sc8180x with sm8150
->>>>    drm/msm/dpu: deduplicate sm6115 with qcm2290
->>>>    drm/msm/dpu: deduplicate sc8280xp with sm8450
->>>>    drm/msm/dpu: drop unused macros from hw catalog
->>>>    drm/msm/dpu: inline IRQ_n_MASK defines
->>>>    drm/msm/dpu: rename INTF_foo_MASK to contain major DPU version
->>>>    drm/msm/dpu: rename CTL_foo_MASK to contain major DPU version
->>>>    drm/msm/dpu: rename VIG and DMA_foo_MASK to contain major DPU 
->>>> version
->>>>    drm/msm/dpu: rename MIXER_foo_MASK to contain major DPU version
->>>>    drm/msm/dpu: rename MERGE_3D_foo_MASK to contain major DPU version
->>>>
->>>> Konrad Dybcio (1):
->>>>    drm/msm/dpu: Allow variable SSPP/INTF_BLK size
->>>>
->>>>   .../msm/disp/dpu1/catalog/dpu_3_0_msm8998.h   |  210 ++
->>>>   .../msm/disp/dpu1/catalog/dpu_4_0_sdm845.h    |  210 ++
->>>>   .../msm/disp/dpu1/catalog/dpu_5_0_sm8150.h    |   97 +
->>>>   .../msm/disp/dpu1/catalog/dpu_5_1_sc8180x.h   |   91 +
->>>>   .../gpu/drm/msm/disp/dpu1/catalog/dpu_5_lm6.h |  152 ++
->>>>   .../msm/disp/dpu1/catalog/dpu_6_0_sm8250.h    |  244 ++
->>>>   .../msm/disp/dpu1/catalog/dpu_6_2_sc7180.h    |  151 ++
->>>>   .../msm/disp/dpu1/catalog/dpu_6_3_sm6115.h    |   91 +
->>>>   .../msm/disp/dpu1/catalog/dpu_6_5_qcm2290.h   |   83 +
->>>>   .../gpu/drm/msm/disp/dpu1/catalog/dpu_6_lm1.h |   53 +
->>>>   .../msm/disp/dpu1/catalog/dpu_7_0_sm8350.h    |  226 ++
->>>>   .../msm/disp/dpu1/catalog/dpu_7_2_sc7280.h    |  158 ++
->>>>   .../msm/disp/dpu1/catalog/dpu_8_0_sc8280xp.h  |  136 ++
->>>>   .../msm/disp/dpu1/catalog/dpu_8_1_sm8450.h    |  142 ++
->>>>   .../gpu/drm/msm/disp/dpu1/catalog/dpu_8_lm6.h |   99 +
->>>>   .../msm/disp/dpu1/catalog/dpu_9_0_sm8550.h    |  209 ++
->>>>   .../gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c    | 2175 
->>>> +----------------
->>>>   .../gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h    |   37 +-
->>>>   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_dsc.c    |    4 +-
->>>>   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.c   |   18 +-
->>>>   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.h   |    4 +-
->>>>   21 files changed, 2443 insertions(+), 2147 deletions(-)
->>>>   create mode 100644 
->>>> drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_3_0_msm8998.h
->>>>   create mode 100644 
->>>> drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_4_0_sdm845.h
->>>>   create mode 100644 
->>>> drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_5_0_sm8150.h
->>>>   create mode 100644 
->>>> drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_5_1_sc8180x.h
->>>>   create mode 100644 drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_5_lm6.h
->>>>   create mode 100644 
->>>> drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_6_0_sm8250.h
->>>>   create mode 100644 
->>>> drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_6_2_sc7180.h
->>>>   create mode 100644 
->>>> drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_6_3_sm6115.h
->>>>   create mode 100644 
->>>> drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_6_5_qcm2290.h
->>>>   create mode 100644 drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_6_lm1.h
->>>>   create mode 100644 
->>>> drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_7_0_sm8350.h
->>>>   create mode 100644 
->>>> drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_7_2_sc7280.h
->>>>   create mode 100644 
->>>> drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_8_0_sc8280xp.h
->>>>   create mode 100644 
->>>> drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_8_1_sm8450.h
->>>>   create mode 100644 drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_8_lm6.h
->>>>   create mode 100644 
->>>> drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_9_0_sm8550.h
->>>>
+>>
+>> -- 
+>> With best wishes
+>> Dmitry
 >>
 
 -- 
