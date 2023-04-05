@@ -2,70 +2,52 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id D8FBE6D7221
-	for <lists+freedreno@lfdr.de>; Wed,  5 Apr 2023 03:43:59 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id F22216D72FD
+	for <lists+freedreno@lfdr.de>; Wed,  5 Apr 2023 06:06:38 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2631E10E2F8;
-	Wed,  5 Apr 2023 01:43:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7E4BA10E2D0;
+	Wed,  5 Apr 2023 04:06:37 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-il1-x136.google.com (mail-il1-x136.google.com
- [IPv6:2607:f8b0:4864:20::136])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4152210E818
- for <freedreno@lists.freedesktop.org>; Wed,  5 Apr 2023 01:43:57 +0000 (UTC)
-Received: by mail-il1-x136.google.com with SMTP id k7so5331708ils.3
- for <freedreno@lists.freedesktop.org>; Tue, 04 Apr 2023 18:43:57 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=chromium.org; s=google; t=1680659035;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=r8kHzkX9SzRAkXXCj8yo/EKVJUuQ4P1xn/63qVUInQs=;
- b=i9T1CFuEPq6knTYwkWxspjaVaE3oVJ+xHE8V/HWUGqp4KihyT8cD6A4jXo195Hs1TB
- 3Nlj3keIDe/Kc4XP1YSA+dsQ2AryZqABe6/cdtCGUVwcFnd38a2uBOc5h6ZKIQs6ymfg
- Ig39Rfj5g4tTuBH3zm/mD0w2GEXNkgrRaaCVk=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112; t=1680659035;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=r8kHzkX9SzRAkXXCj8yo/EKVJUuQ4P1xn/63qVUInQs=;
- b=CighbFS9z23rJ0+3hRnQy7Hb9Wm01Ngjo5ZhdEe/CrRxZB0uJQEvzzKKeWgpyWQt3Z
- QT9WXuFpEpSTaL9ywgXZogkoTOBFUfJXQTtf3SbmPpcBdwLcrtKIlMOj5yJvkzNj0yGJ
- FXsOTlEJO6nAWbMVez2KQAnvaSrjFEa4jpoblwak74Ld5ccRIDSWntCbxTDw01+qT4BE
- KNgrGx64Xj4fSGOi+rQaR7scMav8gDbHqnORn4G3i7qqBIOkkmmZJatqavatFhw5h1xO
- z7cVf4wWlBcNzC7sEKfsebTZ7kTqwb+yX5HlQA1TupzZ3JwHxDUTTP1ef1IzWWg6QbdP
- ZRmw==
-X-Gm-Message-State: AAQBX9fbD62mdMV1lhWJ9bIhY82v/ubYE3edJu0BfrEM94L0jylg+fdv
- nNFpMxNWNspdbQND/JdjHxW1cF8y6KxGXkE90Wk=
-X-Google-Smtp-Source: AKy350YICI6PP52F3ybxtWCNngC673iYuq8HevpOm7QyrmJ7wxbL0ApFI3TAdrPpZREwHVO3xd9DVw==
-X-Received: by 2002:a92:c504:0:b0:325:a728:808 with SMTP id
- r4-20020a92c504000000b00325a7280808mr3297447ilg.22.1680659035362; 
- Tue, 04 Apr 2023 18:43:55 -0700 (PDT)
-Received: from mail-io1-f53.google.com (mail-io1-f53.google.com.
- [209.85.166.53]) by smtp.gmail.com with ESMTPSA id
- o9-20020a02a1c9000000b003c4f35c21absm3516642jah.137.2023.04.04.18.43.54
- for <freedreno@lists.freedesktop.org>
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 04 Apr 2023 18:43:54 -0700 (PDT)
-Received: by mail-io1-f53.google.com with SMTP id d22so14208416iow.12
- for <freedreno@lists.freedesktop.org>; Tue, 04 Apr 2023 18:43:54 -0700 (PDT)
-X-Received: by 2002:a6b:d010:0:b0:752:ed8d:d015 with SMTP id
- x16-20020a6bd010000000b00752ed8dd015mr675791ioa.1.1680659034009; Tue, 04 Apr
- 2023 18:43:54 -0700 (PDT)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BA4EC10E2D0;
+ Wed,  5 Apr 2023 04:06:35 +0000 (UTC)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id D51BC63961;
+ Wed,  5 Apr 2023 04:06:34 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 177E7C433EF;
+ Wed,  5 Apr 2023 04:06:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1680667594;
+ bh=CtE9+GA9FFI2yjCWgFYXyUkZbnUatcRFlqiAUZluLhc=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=XDr29GHb0dqq9DTymcIwcFbUHv72LQvaX1gq2gheD7ntif81Iok6hCzAEB8FlXuoc
+ V5RACM5gVAt11NAjQLzVGv/w8AB2PfAqqyJ8AXFKeErCOzEfbWn8MlnZB9s0WEGLMh
+ oDDitS+brOP2Nr6Re2X4eAmpW/Y8cDhcK3beDMpjjmnmtRGflCxpvW0NBMLmAZIXab
+ 5lirNCdU+a5/SeuZu3RnJ0HZZJcpeW+thJAiCvl9pR02EVUnLy0yNQK3TOeb5zEFqK
+ BpqT7cUtiHGiM0GNyMRU3dZ7AoqoXuLMwdgv0Iy7j6CaaqUUUz9tdSmFH5c8fpG5Zh
+ qGrcbrBuFPmfQ==
+From: Bjorn Andersson <andersson@kernel.org>
+To: Daniel Vetter <daniel@ffwll.ch>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ David Airlie <airlied@gmail.com>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Andy Gross <agross@kernel.org>, Rob Herring <robh+dt@kernel.org>,
+ Rob Clark <robdclark@gmail.com>, Konrad Dybcio <konrad.dybcio@linaro.org>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Sean Paul <sean@poorly.run>
+Date: Tue,  4 Apr 2023 21:09:05 -0700
+Message-Id: <168066774416.443656.11788481622365287210.b4-ty@kernel.org>
+X-Mailer: git-send-email 2.39.2
+In-Reply-To: <20230323-topic-sm8450-upstream-dt-bindings-fixes-v2-0-0ca1bea1a843@linaro.org>
+References: <20230323-topic-sm8450-upstream-dt-bindings-fixes-v2-0-0ca1bea1a843@linaro.org>
 MIME-Version: 1.0
-References: <1680271114-1534-1-git-send-email-quic_vpolimer@quicinc.com>
- <1680271114-1534-3-git-send-email-quic_vpolimer@quicinc.com>
-In-Reply-To: <1680271114-1534-3-git-send-email-quic_vpolimer@quicinc.com>
-From: Doug Anderson <dianders@chromium.org>
-Date: Tue, 4 Apr 2023 18:43:42 -0700
-X-Gmail-Original-Message-ID: <CAD=FV=VSHmQPtsQfWjviEZeErms-VEOTmfozejASUC9zsMjAbA@mail.gmail.com>
-Message-ID: <CAD=FV=VSHmQPtsQfWjviEZeErms-VEOTmfozejASUC9zsMjAbA@mail.gmail.com>
-To: Vinod Polimera <quic_vpolimer@quicinc.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [Freedreno] [PATCH v1 2/3] msm/disp/dpu: allow atomic_check in
- PSR usecase
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+Subject: Re: [Freedreno] (subset) [PATCH v2 0/4] arm64: qcom: sm8450:
+ bindings check cleanup
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,32 +60,32 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: quic_kalyant@quicinc.com, devicetree@vger.kernel.org,
- quic_sbillaka@quicinc.com, quic_bjorande@quicinc.com,
- quic_abhinavk@quicinc.com, quic_vproddut@quicinc.com,
- linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, swboyd@chromium.org, robdclark@gmail.com,
- dmitry.baryshkov@linaro.org, quic_khsieh@quicinc.com,
+Cc: devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
  freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Hi,
+On Fri, 24 Mar 2023 10:28:45 +0100, Neil Armstrong wrote:
+> A few fixes to pass the DT bindings check successfully
+> for sm8450 qrd & hdk DTs.
+> 
+> The following are still needed to pass all the checks:
+> - https://lore.kernel.org/r/20230308082424.140224-3-manivannan.sadhasivam@linaro.org
+> - https://lore.kernel.org/r/20230130-topic-sm8450-upstream-pmic-glink-v5-5-552f3b721f9e@linaro.org
+> - https://lore.kernel.org/all/20230308075648.134119-1-manivannan.sadhasivam@linaro.org/
+> - https://lore.kernel.org/r/20230306112129.3687744-1-dmitry.baryshkov@linaro.org
+> - https://lore.kernel.org/all/20221209-dt-binding-ufs-v3-0-499dff23a03c@fairphone.com/
+> - https://lore.kernel.org/all/20221118071849.25506-2-srinivas.kandagatla@linaro.org/
+> 
+> [...]
 
-On Fri, Mar 31, 2023 at 6:59=E2=80=AFAM Vinod Polimera
-<quic_vpolimer@quicinc.com> wrote:
->
-> Certain flags like dirty_fb will be updated into the plane state
-> during crtc atomic_check. Allow those updates during PSR commit.
->
-> Reported-by: Bjorn Andersson <andersson@kernel.org>
-> Link: https://lore.kernel.org/all/20230326162723.3lo6pnsfdwzsvbhj@ripper/
-> Signed-off-by: Vinod Polimera <quic_vpolimer@quicinc.com>
-> ---
->  drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
+Applied, thanks!
 
-I can confirm that this patch plus patch #1 fixes the typing problems
-seen on VT2 on a Chromebook using PSR.
+[2/4] arm64: dts: qcom: sm8450: remove invalid properties in cluster-sleep nodes
+      commit: 35fa9a7fc577a4d1ed541ff37d9dda83b0635e4b
 
-Tested-by: Douglas Anderson <dianders@chromium.org>
+Best regards,
+-- 
+Bjorn Andersson <andersson@kernel.org>
