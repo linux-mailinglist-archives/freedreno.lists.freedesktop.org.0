@@ -1,71 +1,73 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8BE4E6D7B82
-	for <lists+freedreno@lfdr.de>; Wed,  5 Apr 2023 13:38:37 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id D93CA6D8215
+	for <lists+freedreno@lfdr.de>; Wed,  5 Apr 2023 17:37:39 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0E02D10E8F2;
-	Wed,  5 Apr 2023 11:38:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A63E410E9FC;
+	Wed,  5 Apr 2023 15:37:38 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-x235.google.com (mail-lj1-x235.google.com
- [IPv6:2a00:1450:4864:20::235])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0BC9A10E8F1
- for <freedreno@lists.freedesktop.org>; Wed,  5 Apr 2023 11:38:32 +0000 (UTC)
-Received: by mail-lj1-x235.google.com with SMTP id z42so36924094ljq.13
- for <freedreno@lists.freedesktop.org>; Wed, 05 Apr 2023 04:38:32 -0700 (PDT)
+Received: from smtp-fw-9102.amazon.com (smtp-fw-9102.amazon.com
+ [207.171.184.29])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6C73C10E9FD;
+ Wed,  5 Apr 2023 15:37:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1680694711;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=378I/gGZlt8XUX5v0VEtIxxbJng/T1aUDlAEzlMMcMo=;
- b=K+TH1p9OQZgmI9dQubTs+egT3pRWY+Lpl3EeU1AX7BLJkeIuKwuvuMT2EgjyLdn46r
- MTssKlRaFBhVvVhW830j/MP4QWs6SiY3mSu+FXq+KA2OXXTdmCE6cIeoFAHmqqgYHOVq
- Kh+dVIMN2QEmtWiZtqRe17Qr1sjWCyUCsK8n7PusEQ5iBOo35a9SSA76SXWsz9lgopJg
- M0J6UrwhPs0bm+hMRezXpugxb4c0IcaODV49ZUde3/Ay11jybapgYXfIJo1ceLLLyN5m
- XbIYWIMhFOKkUroEcaSMRAj+rxcBwPnypjslHTR/V6x9nA0E//q00u+FAemPppbXDzLb
- rC+g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112; t=1680694711;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=378I/gGZlt8XUX5v0VEtIxxbJng/T1aUDlAEzlMMcMo=;
- b=OJ3n4CeyW3A38jh8SyYg8L2YzA2Ur65s7gEmBElIRPXGcwr/jlZl34Is4RF8uiImg3
- Xs/aBIlvHRu4V3JBb52pFV7OsuqA0te8f1Zfc+A/P0ZAxr8XcmZPgOd2BbnI5RN9bojU
- i8mqTyHslBGDPVzrqSizDTF64Yv5Pf03sqKGmdEGILgGqQY5tHmKZaOmf5cNbeElIjjN
- NVFkXpgYtHiqq3BgWDmk7nx9B7xuB6cVyEstGgtZRYZ2fiBz+84H9/CtikJFuTg/2zuD
- QHnepnVRYGQCJd4VV4xM3TLmtkDQSugJ2/YbUh68Kd3cZx19ZKi1a17oy7D0fzFFg4au
- gEhA==
-X-Gm-Message-State: AAQBX9fIOMs4+0j1shujxI4CnihCB40w9VOSnsYUvuZsLQ7/RgcRh4XJ
- Yu/TEaqpZhmn1v0SloxGlds22A==
-X-Google-Smtp-Source: AKy350aShuFWZOnsO9uiMPtmd4KhuD0q/HPao2SXlOdTQ2JBpssmhXtALI05z1DLB358PL1P//dxeg==
-X-Received: by 2002:a2e:3812:0:b0:29c:d6f6:8c4 with SMTP id
- f18-20020a2e3812000000b0029cd6f608c4mr1680050lja.16.1680694710858; 
- Wed, 05 Apr 2023 04:38:30 -0700 (PDT)
-Received: from eriador.lan (dzccz6yyyyyyyyyyybcwt-3.rev.dnainternet.fi.
- [2001:14ba:a085:4d00::8a5]) by smtp.gmail.com with ESMTPSA id
- l15-20020a2e700f000000b002a2d7a460f2sm2806492ljc.116.2023.04.05.04.38.30
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 05 Apr 2023 04:38:30 -0700 (PDT)
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-To: dri-devel@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
- freedreno@lists.freedesktop.org, devicetree@vger.kernel.org,
- Vinod Polimera <quic_vpolimer@quicinc.com>
-Date: Wed,  5 Apr 2023 14:38:29 +0300
-Message-Id: <168069464072.1851814.16480389656681286482.b4-ty@linaro.org>
-X-Mailer: git-send-email 2.39.2
-In-Reply-To: <1680271114-1534-1-git-send-email-quic_vpolimer@quicinc.com>
-References: <1680271114-1534-1-git-send-email-quic_vpolimer@quicinc.com>
+ d=amazon.com; i=@amazon.com; q=dns/txt; s=amazon201209;
+ t=1680709058; x=1712245058;
+ h=date:from:to:cc:message-id:references:mime-version:
+ in-reply-to:subject;
+ bh=QSFaPQEqFWauuwq5wK1tuBUPV8rypqU+umcss/29/Qo=;
+ b=BSVurwVHjPYmzJ1VUMxJr7R+HZIyyI52nz/01pVGHpmVoS2i9Kxn50PH
+ +iAf4cy3/rLdqhOZenkGFKWPe6ax4ofbQ/iVEqpxHiwQAL4n3gC5YxLoQ
+ Q8+FcIPd8DQDEKE14TVibTyl9khtvC3pBNaEqu15Y800Ew2Nb5SMfSb4t 4=;
+X-IronPort-AV: E=Sophos;i="5.98,321,1673913600"; d="scan'208";a="326412703"
+Received: from pdx4-co-svc-p1-lb2-vlan2.amazon.com (HELO
+ email-inbound-relay-pdx-2a-m6i4x-d47337e0.us-west-2.amazon.com)
+ ([10.25.36.210]) by smtp-border-fw-9102.sea19.amazon.com with
+ ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Apr 2023 15:37:37 +0000
+Received: from EX19MTAUWC001.ant.amazon.com
+ (pdx1-ws-svc-p6-lb9-vlan3.pdx.amazon.com [10.236.137.198])
+ by email-inbound-relay-pdx-2a-m6i4x-d47337e0.us-west-2.amazon.com (Postfix)
+ with ESMTPS id 83D7F60AEF; Wed,  5 Apr 2023 15:37:35 +0000 (UTC)
+Received: from EX19D047UWB002.ant.amazon.com (10.13.138.34) by
+ EX19MTAUWC001.ant.amazon.com (10.250.64.174) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1118.25; Wed, 5 Apr 2023 15:37:35 +0000
+Received: from amazon.com (10.88.210.141) by EX19D047UWB002.ant.amazon.com
+ (10.13.138.34) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.1118.26; Wed, 5 Apr 2023
+ 15:37:33 +0000
+Date: Wed, 5 Apr 2023 09:37:31 -0600
+From: Jordan Crouse <jorcrous@amazon.com>
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Message-ID: <20230405153731.7pd2qygz2psowkeh@amazon.com>
+Mail-Followup-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ freedreno@lists.freedesktop.org,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Akhil P Oommen <quic_akhilpo@quicinc.com>,
+ Daniel Vetter <daniel@ffwll.ch>, David Airlie <airlied@gmail.com>,
+ "Joel Fernandes (Google)" <joel@joelfernandes.org>,
+ Konrad Dybcio <konrad.dybcio@somainline.org>,
+ Nathan Chancellor <nathan@kernel.org>,
+ Ricardo Ribalda <ribalda@chromium.org>,
+ Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
+ dri-devel@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20230309222049.4180579-1-jorcrous@amazon.com>
+ <e08cad22-09fe-1c65-a329-802b116e7503@linaro.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Subject: Re: [Freedreno] [PATCH v1 0/3] Fixes for PSR
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <e08cad22-09fe-1c65-a329-802b116e7503@linaro.org>
+X-Originating-IP: [10.88.210.141]
+X-ClientProxiedBy: EX19D035UWA003.ant.amazon.com (10.13.139.86) To
+ EX19D047UWB002.ant.amazon.com (10.13.138.34)
+Precedence: Bulk
+Subject: Re: [Freedreno] [PATCH] drm/msm: Check for the GPU IOMMU during bind
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
-Precedence: list
 List-Id: Freedreno graphics driver community testing & development
  <freedreno.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/freedreno>,
@@ -75,34 +77,38 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: quic_kalyant@quicinc.com, quic_sbillaka@quicinc.com, dianders@chromium.org,
- quic_bjorande@quicinc.com, quic_abhinavk@quicinc.com,
- quic_vproddut@quicinc.com, linux-kernel@vger.kernel.org,
- quic_khsieh@quicinc.com, robdclark@gmail.com, swboyd@chromium.org
+Cc: Sean Paul <sean@poorly.run>, Akhil P Oommen <quic_akhilpo@quicinc.com>,
+ freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
+ Konrad Dybcio <konrad.dybcio@somainline.org>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Nathan Chancellor <nathan@kernel.org>,
+ Rob Clark <robdclark@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Ricardo Ribalda <ribalda@chromium.org>, "Joel
+ Fernandes \(Google\)" <joel@joelfernandes.org>,
+ David Airlie <airlied@gmail.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-
-On Fri, 31 Mar 2023 19:28:31 +0530, Vinod Polimera wrote:
-> while in virtual terminal with PSR enabled, there will be
-> no atomic commits triggered resulting in no screen update.
-> Update the dirtyfb flag into plane state during atomic check
-> to flush the pixel data explicitly.
+On Fri, Mar 10, 2023 at 01:05:36AM +0200, Dmitry Baryshkov wrote:
+> CAUTION: This email originated from outside of the organization. Do not click links or open attachments unless you can confirm the sender and know the content is safe.
 > 
-> Avoid scheduling PSR commits from different work queues while
-> running in PSR mode already.
 > 
-> [...]
+> 
+> On 10/03/2023 00:20, Jordan Crouse wrote:
+> > While booting with amd,imageon on a headless target the GPU probe was
+> > failing with -ENOSPC in get_pages() from msm_gem.c.
+> > 
+> > Investigation showed that the driver was using the default 16MB VRAM
+> > carveout because msm_use_mmu() was returning false since headless devices
+> > use a dummy parent device. Avoid this by extending the existing is_a2xx
+> > priv member to check the GPU IOMMU state on all platforms and use that
+> > check in msm_use_mmu().
+> 
+> I wonder if we can fix this by setting 'dummy_dev'->of_node to adreno's
+> of_node. Did you check that possibility?
 
-Applied, thanks!
+I said I would check and then never looped back around. This will stick
+on my todo list for now and I'll check on the next cycle. If anybody
+else wants to jump in the meantime then please go for it.
 
-[1/3] drm/msm/dpu: set dirty_fb flag while in self refresh mode
-      https://gitlab.freedesktop.org/lumag/msm/-/commit/ddf5387d1fb7
-[2/3] msm/disp/dpu: allow atomic_check in PSR usecase
-      https://gitlab.freedesktop.org/lumag/msm/-/commit/86c56ba51aec
-
-Note, patch 3, which solves a different issue (and which requires additional changes) was not applied.
-
-Best regards,
--- 
-Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Jordan
