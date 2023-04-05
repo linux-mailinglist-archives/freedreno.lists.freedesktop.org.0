@@ -2,69 +2,78 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1B9D56D86DD
-	for <lists+freedreno@lfdr.de>; Wed,  5 Apr 2023 21:28:55 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A3BE06D88C1
+	for <lists+freedreno@lfdr.de>; Wed,  5 Apr 2023 22:39:36 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D1EA210E3D6;
-	Wed,  5 Apr 2023 19:28:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 49C4C10E29D;
+	Wed,  5 Apr 2023 20:39:35 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x12d.google.com (mail-lf1-x12d.google.com
- [IPv6:2a00:1450:4864:20::12d])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D136410E3AB
- for <freedreno@lists.freedesktop.org>; Wed,  5 Apr 2023 19:28:52 +0000 (UTC)
-Received: by mail-lf1-x12d.google.com with SMTP id d7so3044889lfj.3
- for <freedreno@lists.freedesktop.org>; Wed, 05 Apr 2023 12:28:52 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1680722931;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=346s2bKdYoG5vPV5rp3s9nWtY0B9BIwq57Oj+lIn3Vg=;
- b=ng0x/2R0Th8bEcsqzNgfBpd7/DzXCd8Cd4TRPar2DMSSggI5YlkDkHDXKcrpUkUqDW
- Z0Y0MexQ0ZUj2q7lmZXTpPCMnUYT/bl32auSmZsJC/z2w7UbSAeRrvLulKh6F/2baSp5
- fZfdIpk47kfzN2ebK676NXnkOU0y9FsG10QR+2KLvI2stawy6Mv+7EQ8yGq47HvcBw1e
- AkN1w4Tuyl9MEhr4XBL2mlenP3w68sSQk4jQDgi5rxICVDy95DwjcCSfvC4esB4s/ibY
- TfNKSNEprLMCPkBC4/7uPfbVBhAlhthOvffo5QWc075V/efwccfDW4spoRNVoUTgZMoS
- QXrw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112; t=1680722931;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=346s2bKdYoG5vPV5rp3s9nWtY0B9BIwq57Oj+lIn3Vg=;
- b=VukskLrMzxNhyOeB5Jlif2cBCyh9+YRvm8XkZqz9F5ru/j2PZLl6QSfyECA3R1SWHQ
- NmBDJm366rZ1BTPGBzTlRKGuQEbepGSmQGkZMK+jiQTAsOpKHBHia2VaF3I4KxYOv7Et
- I8/OCuPDBQ6bAff7IdzFBw6bV4Vn560uouReJL/eEuS9PGAqQOqL6Q60poZWUAQsgQQB
- YEkr//Jl7k3ALSs0F6HAFIGSPiecOHe99vmL67KGkSl8AfT8JOFPjZ4HeE7ycxQbWvNV
- r+409VaVvulNgc0kY+camaYAtkKqRsuu2yzKEA6WrZ/n8y9UFzquFxa8cfLjTon62dGZ
- 6CmQ==
-X-Gm-Message-State: AAQBX9fFJDUq7tPtj4q7VKmx9yInuVjIzMo0l7ZhEzx+vszCbKfCrkRn
- G0638Jadrr3wk1PsAfK3YLT0ZA==
-X-Google-Smtp-Source: AKy350Z/ouHgHeB8oV+efcHIpdWXA+rQsJ/apK5YiovxQb31exrCS09spev/Ov7kjfTinHYxaC9usg==
-X-Received: by 2002:a05:6512:961:b0:4de:ca63:b2d2 with SMTP id
- v1-20020a056512096100b004deca63b2d2mr1776561lft.26.1680722930935; 
- Wed, 05 Apr 2023 12:28:50 -0700 (PDT)
-Received: from [10.10.15.130] ([192.130.178.91])
- by smtp.gmail.com with ESMTPSA id
- o28-20020a056512051c00b004b55ddeb7e3sm2959997lfb.309.2023.04.05.12.28.50
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 05 Apr 2023 12:28:50 -0700 (PDT)
-Message-ID: <14d6749a-1268-f311-1e17-115bc6328681@linaro.org>
-Date: Wed, 5 Apr 2023 22:28:49 +0300
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E95B010E29D;
+ Wed,  5 Apr 2023 20:39:32 +0000 (UTC)
+Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 335KaE5I016550; Wed, 5 Apr 2023 20:39:29 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
+ h=message-id : date :
+ mime-version : subject : to : cc : references : from : in-reply-to :
+ content-type : content-transfer-encoding; s=qcppdkim1;
+ bh=xKojwkrbLVuuB+GLIH2O88EU75DH9K1culwn4sx9p4M=;
+ b=Sjxk2XRxHO8+OGhZCEEVzS15azB5Ay40YOLe/m5hj89KGmr0SMxIsw7jX/g3N+EF6dP5
+ dS8io9yVdz7pwZHg7d9wmgAMJ4KXqtTfbJjCOxyu7MCHrmW0QmxX+0CBto3nATliUyeY
+ GFnQXQKUs3jB3++0Rfu3CpjBE/pkpSfINXZR6+35E51ZbIwdFTO3QhQjIH/bfyGFGsne
+ /7Xe4izsAT0d9Gj5s2Q1KxIsYTPMBWgvj8tfFFJVwwwbcZ4r+Anu94Fqv6AEziMkn6LJ
+ 8JJB4kMkbTBU7BsfbBgYtTOUGbZ5L9qHfucnetBIczSCnCRxaGozoqEYdTUg335Fqdjt Qw== 
+Received: from nasanppmta05.qualcomm.com (i-global254.qualcomm.com
+ [199.106.103.254])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3prn7qkx1q-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 05 Apr 2023 20:39:29 +0000
+Received: from nasanex01b.na.qualcomm.com (nasanex01b.na.qualcomm.com
+ [10.46.141.250])
+ by NASANPPMTA05.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 335KdSkc001775
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 5 Apr 2023 20:39:28 GMT
+Received: from [10.71.110.193] (10.80.80.8) by nasanex01b.na.qualcomm.com
+ (10.46.141.250) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.42; Wed, 5 Apr 2023
+ 13:39:27 -0700
+Message-ID: <89b15ad1-773e-314f-a7f1-e03169ca9195@quicinc.com>
+Date: Wed, 5 Apr 2023 13:39:27 -0700
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.9.0
-Content-Language: en-GB
-To: Jessica Zhang <quic_jesszhan@quicinc.com>, freedreno@lists.freedesktop.org
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.8.0
+Content-Language: en-US
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ <freedreno@lists.freedesktop.org>
 References: <20230329-rfc-msm-dsc-helper-v4-0-1b79c78b30d7@quicinc.com>
- <20230329-rfc-msm-dsc-helper-v4-6-1b79c78b30d7@quicinc.com>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-In-Reply-To: <20230329-rfc-msm-dsc-helper-v4-6-1b79c78b30d7@quicinc.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH v4 6/6] drm/msm/dsi: Fix calculations
- pkt_per_line
+ <20230329-rfc-msm-dsc-helper-v4-4-1b79c78b30d7@quicinc.com>
+ <1cf2d02a-e8d7-1aa8-de3f-3321295d2d09@linaro.org>
+From: Jessica Zhang <quic_jesszhan@quicinc.com>
+In-Reply-To: <1cf2d02a-e8d7-1aa8-de3f-3321295d2d09@linaro.org>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
+ nasanex01b.na.qualcomm.com (10.46.141.250)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-ORIG-GUID: wqItgUEBPYRjWwaRI1Eq9i9bUqIV-Usr
+X-Proofpoint-GUID: wqItgUEBPYRjWwaRI1Eq9i9bUqIV-Usr
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.254,Aquarius:18.0.942,Hydra:6.0.573,FMLib:17.11.170.22
+ definitions=2023-04-05_14,2023-04-05_01,2023-02-09_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 impostorscore=0
+ lowpriorityscore=0 spamscore=0 mlxlogscore=999 suspectscore=0 adultscore=0
+ bulkscore=0 mlxscore=0 priorityscore=1501 phishscore=0 malwarescore=0
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2303200000
+ definitions=main-2304050184
+Subject: Re: [Freedreno] [PATCH v4 4/6] drm/msm/dsi: Use MSM and DRM DSC
+ helper methods
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -84,23 +93,95 @@ Cc: linux-arm-msm@vger.kernel.org, Abhinav Kumar <quic_abhinavk@quicinc.com>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 05/04/2023 03:41, Jessica Zhang wrote:
-> Currently, pkt_per_line is calculated by dividing slice_per_intf by
-> slice_count. This is incorrect, as slice_per_intf should be divided by
-> slice_per_pkt, which is not always equivalent to slice_count as it is
-> possible for there to be multiple soft slices per interface even though
-> a panel only specifies one slice per packet.
+
+
+On 4/5/2023 12:27 PM, Dmitry Baryshkov wrote:
+> On 05/04/2023 03:41, Jessica Zhang wrote:
+>> Use MSM and DRM DSC helper methods to configure DSC for DSI.
+>>
+>> Changes in V2:
+>> - *_calculate_initial_scale_value --> *_set_initial_scale_value
+>> - Split pkt_per_line and eol_byte_num changes to a separate patch
+>> - Moved pclk_per_line calculation to hdisplay adjustment in `if (dsc)`
+>>    block of dsi_update_dsc_timing()
+>>
+>> Changes in v3:
+>> - Split pclk_per_intf calculation into a separate patch
+>> - Added slice_width check to dsi_timing_setup
+>> - Used MSM DSC helper to calculate total_bytes_per_intf
+>>
+>> Signed-off-by: Jessica Zhang <quic_jesszhan@quicinc.com>
+>> ---
+>>   drivers/gpu/drm/msm/dsi/dsi_host.c | 13 ++++++++++---
+>>   1 file changed, 10 insertions(+), 3 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/msm/dsi/dsi_host.c 
+>> b/drivers/gpu/drm/msm/dsi/dsi_host.c
+>> index 74d38f90398a..6a6218a9655f 100644
+>> --- a/drivers/gpu/drm/msm/dsi/dsi_host.c
+>> +++ b/drivers/gpu/drm/msm/dsi/dsi_host.c
+>> @@ -28,6 +28,7 @@
+>>   #include "dsi.xml.h"
+>>   #include "sfpb.xml.h"
+>>   #include "dsi_cfg.h"
+>> +#include "msm_dsc_helper.h"
+>>   #include "msm_kms.h"
+>>   #include "msm_gem.h"
+>>   #include "phy/dsi_phy.h"
+>> @@ -848,7 +849,7 @@ static void dsi_update_dsc_timing(struct 
+>> msm_dsi_host *msm_host, bool is_cmd_mod
+>>       /* first calculate dsc parameters and then program
+>>        * compress mode registers
+>>        */
+>> -    slice_per_intf = DIV_ROUND_UP(hdisplay, dsc->slice_width);
+>> +    slice_per_intf = msm_dsc_get_slice_per_intf(dsc, hdisplay);
+>>       /*
+>>        * If slice_count is greater than slice_per_intf
+>> @@ -858,7 +859,7 @@ static void dsi_update_dsc_timing(struct 
+>> msm_dsi_host *msm_host, bool is_cmd_mod
+>>       if (dsc->slice_count > slice_per_intf)
+>>           dsc->slice_count = 1;
+>> -    total_bytes_per_intf = dsc->slice_chunk_size * slice_per_intf;
+>> +    total_bytes_per_intf = msm_dsc_get_bytes_per_intf(dsc, hdisplay);
+>>       eol_byte_num = total_bytes_per_intf % 3;
+>>       pkt_per_line = slice_per_intf / dsc->slice_count;
+>> @@ -936,6 +937,12 @@ static void dsi_timing_setup(struct msm_dsi_host 
+>> *msm_host, bool is_bonded_dsi)
+>>               return;
+>>           }
+>> +        if (!dsc->slice_width || (mode->hdisplay < dsc->slice_width)) {
+>> +            pr_err("DSI: invalid slice width %d (pic_width: %d)\n",
+>> +                   dsc->slice_width, mode->hdisplay);
+>> +            return;
+>> +        }
 > 
-> Fixes: 08802f515c3c ("drm/msm/dsi: Add support for DSC configuration")
-> Signed-off-by: Jessica Zhang <quic_jesszhan@quicinc.com>
-> Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> ---
->   drivers/gpu/drm/msm/dsi/dsi_host.c | 6 +++++-
->   1 file changed, 5 insertions(+), 1 deletion(-)
+> This is not the "use of MSM and DRM DSC helper methods" and thus should 
+> be moved to a separate patch.
 
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Hi Dmitry,
 
--- 
-With best wishes
-Dmitry
+Acked.
 
+Thanks,
+
+Jessica Zhang
+
+> 
+>> +
+>>           dsc->pic_width = mode->hdisplay;
+>>           dsc->pic_height = mode->vdisplay;
+>>           DBG("Mode %dx%d\n", dsc->pic_width, dsc->pic_height);
+>> @@ -1759,7 +1766,7 @@ static int dsi_populate_dsc_params(struct 
+>> msm_dsi_host *msm_host, struct drm_dsc
+>>           return ret;
+>>       }
+>> -    dsc->initial_scale_value = 32;
+>> +    drm_dsc_set_initial_scale_value(dsc);
+>>       dsc->line_buf_depth = dsc->bits_per_component + 1;
+>>       return drm_dsc_compute_rc_parameters(dsc);
+>>
+> 
+> -- 
+> With best wishes
+> Dmitry
+> 
