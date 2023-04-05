@@ -2,72 +2,72 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id D93CA6D8215
-	for <lists+freedreno@lfdr.de>; Wed,  5 Apr 2023 17:37:39 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E56686D86CB
+	for <lists+freedreno@lfdr.de>; Wed,  5 Apr 2023 21:26:24 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A63E410E9FC;
-	Wed,  5 Apr 2023 15:37:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D2F8210E407;
+	Wed,  5 Apr 2023 19:26:20 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from smtp-fw-9102.amazon.com (smtp-fw-9102.amazon.com
- [207.171.184.29])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6C73C10E9FD;
- Wed,  5 Apr 2023 15:37:37 +0000 (UTC)
+Received: from mail-lf1-x12e.google.com (mail-lf1-x12e.google.com
+ [IPv6:2a00:1450:4864:20::12e])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 897E010EA4B
+ for <freedreno@lists.freedesktop.org>; Wed,  5 Apr 2023 19:26:18 +0000 (UTC)
+Received: by mail-lf1-x12e.google.com with SMTP id br6so48017911lfb.11
+ for <freedreno@lists.freedesktop.org>; Wed, 05 Apr 2023 12:26:18 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=amazon.com; i=@amazon.com; q=dns/txt; s=amazon201209;
- t=1680709058; x=1712245058;
- h=date:from:to:cc:message-id:references:mime-version:
- in-reply-to:subject;
- bh=QSFaPQEqFWauuwq5wK1tuBUPV8rypqU+umcss/29/Qo=;
- b=BSVurwVHjPYmzJ1VUMxJr7R+HZIyyI52nz/01pVGHpmVoS2i9Kxn50PH
- +iAf4cy3/rLdqhOZenkGFKWPe6ax4ofbQ/iVEqpxHiwQAL4n3gC5YxLoQ
- Q8+FcIPd8DQDEKE14TVibTyl9khtvC3pBNaEqu15Y800Ew2Nb5SMfSb4t 4=;
-X-IronPort-AV: E=Sophos;i="5.98,321,1673913600"; d="scan'208";a="326412703"
-Received: from pdx4-co-svc-p1-lb2-vlan2.amazon.com (HELO
- email-inbound-relay-pdx-2a-m6i4x-d47337e0.us-west-2.amazon.com)
- ([10.25.36.210]) by smtp-border-fw-9102.sea19.amazon.com with
- ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Apr 2023 15:37:37 +0000
-Received: from EX19MTAUWC001.ant.amazon.com
- (pdx1-ws-svc-p6-lb9-vlan3.pdx.amazon.com [10.236.137.198])
- by email-inbound-relay-pdx-2a-m6i4x-d47337e0.us-west-2.amazon.com (Postfix)
- with ESMTPS id 83D7F60AEF; Wed,  5 Apr 2023 15:37:35 +0000 (UTC)
-Received: from EX19D047UWB002.ant.amazon.com (10.13.138.34) by
- EX19MTAUWC001.ant.amazon.com (10.250.64.174) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1118.25; Wed, 5 Apr 2023 15:37:35 +0000
-Received: from amazon.com (10.88.210.141) by EX19D047UWB002.ant.amazon.com
- (10.13.138.34) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.1118.26; Wed, 5 Apr 2023
- 15:37:33 +0000
-Date: Wed, 5 Apr 2023 09:37:31 -0600
-From: Jordan Crouse <jorcrous@amazon.com>
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Message-ID: <20230405153731.7pd2qygz2psowkeh@amazon.com>
-Mail-Followup-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- freedreno@lists.freedesktop.org,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Akhil P Oommen <quic_akhilpo@quicinc.com>,
- Daniel Vetter <daniel@ffwll.ch>, David Airlie <airlied@gmail.com>,
- "Joel Fernandes (Google)" <joel@joelfernandes.org>,
- Konrad Dybcio <konrad.dybcio@somainline.org>,
- Nathan Chancellor <nathan@kernel.org>,
- Ricardo Ribalda <ribalda@chromium.org>,
- Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
- dri-devel@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20230309222049.4180579-1-jorcrous@amazon.com>
- <e08cad22-09fe-1c65-a329-802b116e7503@linaro.org>
+ d=linaro.org; s=google; t=1680722776;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=AW2SsPz/H2No+z431I2MLnRYWxZXcAmTMNErQ6Wb7Zo=;
+ b=Ca6uRRCCuPzQhojSUWAc84VZ95cDh6R6erkSzXMCYzSy8eVEiq6ayTEDz4ffG3hYl6
+ JJAQ0hNxgpmfy3ZTTT7FkqKwzGTlHaLMMmWg3YdZZOIYMr2VkbNc3Xcn5q7HTZUYqdEM
+ lr6pL7ZZPm9KLz2UKZZyATcmXf7zhylVaJ3HpscWNWxJf8GBPJNWQfar8c5MlV/fxYRY
+ VMkt+R5U6bO81OfH8+LS+fVkdk1Fa1VZljwMDdYU1EapUM57bog8COSJfRAHS4mgZmYO
+ qnyoOab1feRUIbMTYE+CrH9dMQ/7uqqsQZs1Mm/4orGXvZU3fSM+oz/s7MN6aTvasCIQ
+ KseQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112; t=1680722776;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=AW2SsPz/H2No+z431I2MLnRYWxZXcAmTMNErQ6Wb7Zo=;
+ b=ZxosKnI4mmvUO1gOwMso2ELyy9PNlyl0sfm4YHOBGSlBsLR/HCbq2gL/vzUUPHfLdk
+ hwZOrRKQOUO9LVWYdoEkB8+nlo0C9lUMrYrs5hsUL4MuxzpqAGcGhLzaYdUa62arbg7D
+ CuRxIxk2EmTiH8Zvj4Be0eApV4b3hgcSO9lwxFGA6F6macGIZEMx4DCf4qRcMgiEx9a4
+ 9ts/dcGDxTsRwaAx1tDjrVP0Np0t33a3plMGCJBjzbWm/dCkUrzThsVdCfq6+B8BNCAK
+ LnN9mITGWHolfIfnR6MK46EJRMZJa2Xu0QnJlPIPJVf2Yqh+FdJmnYgLhoKQG7vH/ek+
+ bl1g==
+X-Gm-Message-State: AAQBX9chRox7mrVWcI7U98A1tYbXe9tgT5ZteUuQeHbQptDXpocaky+R
+ MQ4QnJQiJui6jNZ6YvGBB/ovmQ==
+X-Google-Smtp-Source: AKy350b9A/w23O2wScHKIzqz8WM1/ZkM367Bdqh/niolXb3L6CiGIaLCFqo3WhjXER83zkCz24bZgg==
+X-Received: by 2002:ac2:48aa:0:b0:4b3:d6e1:26bb with SMTP id
+ u10-20020ac248aa000000b004b3d6e126bbmr1844372lfg.29.1680722776344; 
+ Wed, 05 Apr 2023 12:26:16 -0700 (PDT)
+Received: from [10.10.15.130] ([192.130.178.91])
+ by smtp.gmail.com with ESMTPSA id
+ u23-20020ac25197000000b004d865c781eesm2944633lfi.24.2023.04.05.12.26.15
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 05 Apr 2023 12:26:15 -0700 (PDT)
+Message-ID: <dd8dcaf7-acc0-69cc-9c7e-bcbd270fb845@linaro.org>
+Date: Wed, 5 Apr 2023 22:26:15 +0300
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <e08cad22-09fe-1c65-a329-802b116e7503@linaro.org>
-X-Originating-IP: [10.88.210.141]
-X-ClientProxiedBy: EX19D035UWA003.ant.amazon.com (10.13.139.86) To
- EX19D047UWB002.ant.amazon.com (10.13.138.34)
-Precedence: Bulk
-Subject: Re: [Freedreno] [PATCH] drm/msm: Check for the GPU IOMMU during bind
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.9.0
+Content-Language: en-GB
+To: Jessica Zhang <quic_jesszhan@quicinc.com>, freedreno@lists.freedesktop.org
+References: <20230329-rfc-msm-dsc-helper-v4-0-1b79c78b30d7@quicinc.com>
+ <20230329-rfc-msm-dsc-helper-v4-1-1b79c78b30d7@quicinc.com>
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+In-Reply-To: <20230329-rfc-msm-dsc-helper-v4-1-1b79c78b30d7@quicinc.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Subject: Re: [Freedreno] [PATCH v4 1/6] drm/msm: Add MSM-specific DSC helper
+ methods
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
+Precedence: list
 List-Id: Freedreno graphics driver community testing & development
  <freedreno.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/freedreno>,
@@ -77,38 +77,215 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sean Paul <sean@poorly.run>, Akhil P Oommen <quic_akhilpo@quicinc.com>,
- freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
- Konrad Dybcio <konrad.dybcio@somainline.org>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Nathan Chancellor <nathan@kernel.org>,
+Cc: linux-arm-msm@vger.kernel.org, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ dri-devel@lists.freedesktop.org, Konrad Dybcio <konrad.dybcio@linaro.org>,
  Rob Clark <robdclark@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- Ricardo Ribalda <ribalda@chromium.org>, "Joel
- Fernandes \(Google\)" <joel@joelfernandes.org>,
- David Airlie <airlied@gmail.com>
+ Marijn Suijten <marijn.suijten@somainline.org>, Sean Paul <sean@poorly.run>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Fri, Mar 10, 2023 at 01:05:36AM +0200, Dmitry Baryshkov wrote:
-> CAUTION: This email originated from outside of the organization. Do not click links or open attachments unless you can confirm the sender and know the content is safe.
+On 05/04/2023 03:41, Jessica Zhang wrote:
+> Introduce MSM-specific DSC helper methods, as some calculations are
+> common between DP and DSC.
 > 
+> Changes in v2:
+> - Moved files up to msm/ directory
+> - Dropped get_comp_ratio() helper
+> - Used drm_int2fixp() to convert to integers to fp
+> - Style changes to improve readability
+> - Dropped unused bpp variable in msm_dsc_get_dce_bytes_per_line()
+> - Changed msm_dsc_get_slice_per_intf() to a static inline method
+> - Dropped last division step of msm_dsc_get_pclk_per_line() and changed
+>    method name accordingly
+> - Changed DSC_BPP macro to drm_dsc_get_bpp_int() helper method
+> - Fixed some math issues caused by passing in incorrect types to
+>    drm_fixed methods in get_bytes_per_soft_slice()
 > 
+> Changes in v3:
+> - Dropped src_bpp parameter from all methods -- src_bpp can be
+>    calculated as dsc->bits_per_component * 3
+> - Dropped intf_width parameter from get_bytes_per_soft_slice()
+> - Moved dsc->bits_per_component to numerator calculation in
+>    get_bytes_per_soft_slice()
+> - Renamed msm_dsc_get_uncompressed_pclk_per_line to
+>    *_get_uncompressed_pclk_per_intf()
+> - Removed dsc->slice_width check from
+>    msm_dsc_get_uncompressed_pclk_per_intf()
+> - Made get_bytes_per_soft_slice() a public method (this will be called
+>    later to help calculate DP pclk params)
+> - Added documentation in comments
+> - Moved extra_eol_bytes math out of msm_dsc_get_eol_byte_num() and
+>    renamed msm_dsc_get_eol_byte_num to *_get_bytes_per_intf.
 > 
-> On 10/03/2023 00:20, Jordan Crouse wrote:
-> > While booting with amd,imageon on a headless target the GPU probe was
-> > failing with -ENOSPC in get_pages() from msm_gem.c.
-> > 
-> > Investigation showed that the driver was using the default 16MB VRAM
-> > carveout because msm_use_mmu() was returning false since headless devices
-> > use a dummy parent device. Avoid this by extending the existing is_a2xx
-> > priv member to check the GPU IOMMU state on all platforms and use that
-> > check in msm_use_mmu().
+> Changes in v4:
+> - Changed msm_dsc_get_uncompressed_pclk_per_intf to
+>    msm_dsc_get_pclk_per_intf
 > 
-> I wonder if we can fix this by setting 'dummy_dev'->of_node to adreno's
-> of_node. Did you check that possibility?
+> Signed-off-by: Jessica Zhang <quic_jesszhan@quicinc.com>
+> ---
+>   drivers/gpu/drm/msm/Makefile         |  1 +
+>   drivers/gpu/drm/msm/msm_dsc_helper.c | 47 ++++++++++++++++++++++++
+>   drivers/gpu/drm/msm/msm_dsc_helper.h | 70 ++++++++++++++++++++++++++++++++++++
+>   3 files changed, 118 insertions(+)
+> 
+> diff --git a/drivers/gpu/drm/msm/Makefile b/drivers/gpu/drm/msm/Makefile
+> index 7274c41228ed..b814fc80e2d5 100644
+> --- a/drivers/gpu/drm/msm/Makefile
+> +++ b/drivers/gpu/drm/msm/Makefile
+> @@ -94,6 +94,7 @@ msm-y += \
+>   	msm_atomic_tracepoints.o \
+>   	msm_debugfs.o \
+>   	msm_drv.o \
+> +	msm_dsc_helper.o \
+>   	msm_fb.o \
+>   	msm_fence.o \
+>   	msm_gem.o \
+> diff --git a/drivers/gpu/drm/msm/msm_dsc_helper.c b/drivers/gpu/drm/msm/msm_dsc_helper.c
+> new file mode 100644
+> index 000000000000..0539221eb09d
+> --- /dev/null
+> +++ b/drivers/gpu/drm/msm/msm_dsc_helper.c
+> @@ -0,0 +1,47 @@
+> +// SPDX-License-Identifier: GPL-2.0-only
+> +/*
+> + * Copyright (c) 2023 Qualcomm Innovation Center, Inc. All rights reserved
+> + */
+> +
+> +#include <linux/kernel.h>
+> +#include <linux/errno.h>
+> +#include <drm/drm_fixed.h>
+> +
+> +#include "msm_drv.h"
+> +#include "msm_dsc_helper.h"
+> +
+> +s64 get_bytes_per_soft_slice(struct drm_dsc_config *dsc)
+> +{
+> +	int bpp = msm_dsc_get_bpp_int(dsc);
+> +	s64 numerator_fp, denominator_fp;
+> +	s64 comp_ratio_fp = drm_fixp_from_fraction(dsc->bits_per_component * 3, bpp);
+> +
+> +	numerator_fp = drm_int2fixp(dsc->slice_width * 3 * dsc->bits_per_component);
+> +	denominator_fp = drm_fixp_mul(comp_ratio_fp, drm_int2fixp(8));
+> +
+> +	return drm_fixp_div(numerator_fp, denominator_fp);
 
-I said I would check and then never looped back around. This will stick
-on my todo list for now and I'll check on the next cycle. If anybody
-else wants to jump in the meantime then please go for it.
+If we remove 3 * dsc->bits_per_components from both numerator and 
+denominator, this whole function seems to be as simple as 
+DIV_ROUND_UP(dsc->slice_width * bpp, 8)
 
-Jordan
+Or, if you prefer FP math, drm_fixp_from_fraction(dsc->slice_width * 
+bpp, 8).
+
+> +}
+> +
+> +u32 msm_dsc_get_bytes_per_intf(struct drm_dsc_config *dsc, int intf_width)
+> +{
+> +	u32 bytes_per_soft_slice, bytes_per_intf;
+> +	s64 bytes_per_soft_slice_fp;
+> +	int slice_per_intf = msm_dsc_get_slice_per_intf(dsc, intf_width);
+> +
+> +	bytes_per_soft_slice_fp = get_bytes_per_soft_slice(dsc);
+> +	bytes_per_soft_slice = drm_fixp2int_ceil(bytes_per_soft_slice_fp);
+> +
+> +	bytes_per_intf = bytes_per_soft_slice * slice_per_intf;
+> +
+> +	return bytes_per_intf;
+> +}
+> +
+> +int msm_dsc_get_pclk_per_intf(struct drm_dsc_config *dsc)
+> +{
+> +	s64 data_width;
+> +
+> +	data_width = drm_fixp_mul(drm_int2fixp(dsc->slice_count),
+> +			get_bytes_per_soft_slice(dsc));
+
+And this is then DIV_ROUND_UP(dsc->slice_width * dsc->slice_count * bpp, 8)
+
+> +
+> +	return drm_fixp2int_ceil(data_width);
+> +}
+> diff --git a/drivers/gpu/drm/msm/msm_dsc_helper.h b/drivers/gpu/drm/msm/msm_dsc_helper.h
+> new file mode 100644
+> index 000000000000..31116a31090f
+> --- /dev/null
+> +++ b/drivers/gpu/drm/msm/msm_dsc_helper.h
+> @@ -0,0 +1,70 @@
+> +/* SPDX-License-Identifier: GPL-2.0-only */
+> +/*
+> + * Copyright (c) 2023 Qualcomm Innovation Center, Inc. All rights reserved
+> + */
+> +
+> +#ifndef MSM_DSC_HELPER_H_
+> +#define MSM_DSC_HELPER_H_
+> +
+> +#include <drm/display/drm_dsc_helper.h>
+> +#include <drm/drm_modes.h>
+> +
+> +/*
+> + * Helper methods for MSM specific DSC calculations that are common between timing engine,
+> + * DSI, and DP.
+> + */
+> +
+> +/**
+> + * msm_dsc_get_bpp_int - get bits per pixel integer value
+> + * @dsc: Pointer to drm dsc config struct
+> + */
+> +static inline int msm_dsc_get_bpp_int(struct drm_dsc_config *dsc)
+> +{
+> +	WARN_ON_ONCE(dsc->bits_per_pixel & 0xf);
+> +	return dsc->bits_per_pixel >> 4;
+> +}
+> +
+> +/**
+> + * msm_dsc_get_slice_per_intf - get number of slices per interface
+> + * @dsc: Pointer to drm dsc config struct
+> + * @intf_width: interface width
+> + */
+> +static inline int msm_dsc_get_slice_per_intf(struct drm_dsc_config *dsc, int intf_width)
+> +{
+> +	return DIV_ROUND_UP(intf_width, dsc->slice_width);
+> +}
+> +
+> +/**
+> + * msm_dsc_get_dce_bytes_per_line - get bytes per line to help calculate data width
+> + *	when configuring the timing engine
+> + * @dsc: Pointer to drm dsc config struct
+> + * @intf_width: interface width
+> + */
+> +static inline u32 msm_dsc_get_dce_bytes_per_line(struct drm_dsc_config *dsc, int intf_width)
+> +{
+> +	return DIV_ROUND_UP(msm_dsc_get_bpp_int(dsc) * intf_width, 8);
+> +}
+> +
+> +/**
+> + * get_bytes_per_soft_slice - get size of each soft slice for dsc
+> + * @dsc: Pointer to drm dsc config struct
+> + */
+> +s64 get_bytes_per_soft_slice(struct drm_dsc_config *dsc);
+> +
+> +/**
+> + * msm_dsc_get_bytes_per_intf - get total bytes per interface
+> + * @dsc: Pointer to drm dsc config struct
+> + * @intf_width: interface width
+> + */
+> +u32 msm_dsc_get_bytes_per_intf(struct drm_dsc_config *dsc, int intf_width);
+> +
+> +/**
+> + * msm_dsc_get_pclk_per_intf - Calculate pclk per interface.
+> + * @dsc: Pointer to drm dsc config struct
+> + *
+> + * Note: This value will then be passed along to DSI and DP for some more
+> + * calculations. This is because DSI and DP divide the pclk_per_intf value
+> + * by different values depending on if widebus is enabled.
+> + */
+> +int msm_dsc_get_pclk_per_intf(struct drm_dsc_config *dsc);
+
+empty line, please
+
+> +#endif /* MSM_DSC_HELPER_H_ */
+> 
+
+-- 
+With best wishes
+Dmitry
+
