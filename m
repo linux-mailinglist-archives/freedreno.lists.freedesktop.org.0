@@ -1,63 +1,75 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id ABD586DA6CB
-	for <lists+freedreno@lfdr.de>; Fri,  7 Apr 2023 03:07:49 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 63BCF6DAB28
+	for <lists+freedreno@lfdr.de>; Fri,  7 Apr 2023 12:00:06 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 283BE10E142;
-	Fri,  7 Apr 2023 01:07:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D03D610ED5F;
+	Fri,  7 Apr 2023 10:00:04 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x12f.google.com (mail-lf1-x12f.google.com
- [IPv6:2a00:1450:4864:20::12f])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A3F9A10E142
- for <freedreno@lists.freedesktop.org>; Fri,  7 Apr 2023 01:07:44 +0000 (UTC)
-Received: by mail-lf1-x12f.google.com with SMTP id br6so52875349lfb.11
- for <freedreno@lists.freedesktop.org>; Thu, 06 Apr 2023 18:07:44 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1680829662;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=w3a+69adOgPkxQyocC5BiinFT3JB1Qibigr0rq2G96c=;
- b=fIDZZ9v6947E0Q3J9sMM+dt8UO0ih+0RZNY8hHqTLr3H89mj4ZBLmEeN122vSa7uEc
- hAl1okX51h9tEX9GsdffWfTPjjTUnnmFRCepSggoM2GfdqABoaovIMGZIXcPbl+mHV0s
- C96a2n9avrnVw7QAZRRA04zcWZdH5qZL/+dc26EvISAZjzLfM7Jt8mmDAdpLZOrhe23i
- kTfskEd707+LTSqKZvWv1PFKBivt2aw21tUyFoevs4UXqUx01WagCpqZQSHr8y6TxOP1
- CKpuYnuEA1p118HFF1e7ZTR801HZNvxEUVx0WL030Ac7ppVEyYql71vvEb0JK0uD+plO
- xUQw==
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 36F7310EDAA
+ for <freedreno@lists.freedesktop.org>; Fri,  7 Apr 2023 10:00:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1680861602;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=vxzX051vG79fA2lg01PCCeNW25HR0i9loTgMaHJhE/0=;
+ b=DHCbkNq4SAbp91DqiDSix0x0JnaxVtWoXH0yWxdDISB4zUqD8aPdJ+xYg9VFeelWaaT0Pq
+ uO2Dcnu9arBkcwZIi+BHEhhClDkVdPnHDbRYf2qHhREW1Y4vAq6pVFMWQbtX85E42zswYI
+ 66SAv+XWeu6W50ASVMFozys/cNNoQfw=
+Received: from mail-wm1-f70.google.com (mail-wm1-f70.google.com
+ [209.85.128.70]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-124-KM7hRNSSO2a_yMEEcS4UBA-1; Fri, 07 Apr 2023 06:00:00 -0400
+X-MC-Unique: KM7hRNSSO2a_yMEEcS4UBA-1
+Received: by mail-wm1-f70.google.com with SMTP id
+ hg24-20020a05600c539800b003f066c0b044so2590187wmb.0
+ for <freedreno@lists.freedesktop.org>; Fri, 07 Apr 2023 03:00:00 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112; t=1680829662;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=w3a+69adOgPkxQyocC5BiinFT3JB1Qibigr0rq2G96c=;
- b=juIvrnOFZxpohuhp+JAxiDLaA15DkMAZfwbcIR4yuvD9C0/RXZWS8Oh29gJ/ucdQQr
- /MlRcAEzak9L8Yvh4eI66XBrs6bpxqKP3BcErbaWjJupsRfcEtcXPA84zX3Gu/kIiM+X
- FZJzDcenBbhdsNFTgBGN7CKsvv4pB1lGVCBsVEab24bBrN2UlAFeygFMWAYtL9uCM1b7
- 4nBBgyxhiqR0bnMYReMEc48rHLdvytUC7vZH/5zKYYARdORspxRHXUdTj7HUFGoC9w1K
- rwB7WvjACc+EylZfH86IbJP1XM1N/J6YNg9mwEPBzVBsdNGZ+USRUZ/ppKWQ9ZYBlhNQ
- whQA==
-X-Gm-Message-State: AAQBX9efiyYLDeMNwgSzLiXu9Stc1vNzpTjQSr+Rv8YKK/1rOCu3K1QB
- 6sCCEhLe0Osvaz7TNK9x7X9SXSeGQhUGUIaslno=
-X-Google-Smtp-Source: AKy350Yoc10BEw0s6ojqNkBbVfQx5NeF7Cm9mBc3P0WyYr2s8+wfKC/vHgJbGCbbP8b3cjqsLqvV3A==
-X-Received: by 2002:ac2:55a3:0:b0:4ea:f7aa:e778 with SMTP id
- y3-20020ac255a3000000b004eaf7aae778mr67466lfg.24.1680829662449; 
- Thu, 06 Apr 2023 18:07:42 -0700 (PDT)
-Received: from eriador.lan (dzccz6yyyyyyyyyyybcwt-3.rev.dnainternet.fi.
- [2001:14ba:a085:4d00::8a5]) by smtp.gmail.com with ESMTPSA id
- w20-20020ac24434000000b004cb14fa604csm475800lfl.262.2023.04.06.18.07.41
+ d=1e100.net; s=20210112; t=1680861599;
+ h=mime-version:message-id:date:references:in-reply-to:subject:cc:to
+ :from:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=vxzX051vG79fA2lg01PCCeNW25HR0i9loTgMaHJhE/0=;
+ b=1zpf/wmAxfppSUd0aPcmxURVisVcAdeqaZVUz6V9xROS/INPJbQNPU1bGUrCsIqoZv
+ usU6SHtVLvzegf8c+Q8fhPFVaF7BBgI7o7ZMvA0fEeDCK+0tCmnkVREXM0IExHcN4OrU
+ V2z1AatRHON5QezkuoRGS8vjSc1vnKg8M/PbArN9yzqHiSAlrfZRKIS+SfilBMD/UY1B
+ 4n1WmBPoW7qGLPy1UK4nXtu94H8eSEBNSvg5v4+b1AAxhcDpfmTWIBvCumqOdmOh+8VS
+ 0XksPOD155Nmq6tjsfTJMyf0WXYIWWRVX1yzk74JfyS6bZalT5OVEk8Ij1rdEMCZgynM
+ oI+A==
+X-Gm-Message-State: AAQBX9dwj8/os2EAG81cX/mgdP+bS3Hjhf6Dz6XMBRTWzVKPXsfBTMIX
+ HMA7OLTbp5spPGXOgC+ih2HyrbWH9hxDwWooqFSSUGGqag3nX2gVwQhkb+lt1EFgu8dAAcM4r3E
+ Z0gu+T259qgGFFRxU5sUBVLoNL1/l
+X-Received: by 2002:a7b:c7d1:0:b0:3eb:38b0:e757 with SMTP id
+ z17-20020a7bc7d1000000b003eb38b0e757mr1043870wmk.10.1680861599792; 
+ Fri, 07 Apr 2023 02:59:59 -0700 (PDT)
+X-Google-Smtp-Source: AKy350ZAbkcTuKHHx1PTF9JjuVOy7h+gk03bYHMX2Dd+d/sWYJgdy2EcgK92+pjvlc6XSCkqiq+Z6Q==
+X-Received: by 2002:a7b:c7d1:0:b0:3eb:38b0:e757 with SMTP id
+ z17-20020a7bc7d1000000b003eb38b0e757mr1043856wmk.10.1680861599506; 
+ Fri, 07 Apr 2023 02:59:59 -0700 (PDT)
+Received: from localhost (205.pool92-176-231.dynamic.orange.es.
+ [92.176.231.205]) by smtp.gmail.com with ESMTPSA id
+ h11-20020adff18b000000b002e40d124460sm4075512wro.97.2023.04.07.02.59.58
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 06 Apr 2023 18:07:41 -0700 (PDT)
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-To: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>
-Date: Fri,  7 Apr 2023 04:07:41 +0300
-Message-Id: <20230407010741.2033800-1-dmitry.baryshkov@linaro.org>
-X-Mailer: git-send-email 2.39.2
+ Fri, 07 Apr 2023 02:59:59 -0700 (PDT)
+From: Javier Martinez Canillas <javierm@redhat.com>
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Rob Clark
+ <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, Abhinav Kumar
+ <quic_abhinavk@quicinc.com>
+In-Reply-To: <20230407010741.2033800-1-dmitry.baryshkov@linaro.org>
+References: <20230407010741.2033800-1-dmitry.baryshkov@linaro.org>
+Date: Fri, 07 Apr 2023 11:59:58 +0200
+Message-ID: <87355c8129.fsf@minerva.mail-host-address-is-not-set>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH] drm/msm/adreno: fix sparse warnings in a6xx code
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain
+Subject: Re: [Freedreno] [PATCH] drm/msm/adreno: fix sparse warnings in a6xx
+ code
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,41 +82,31 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, kernel test robot <lkp@intel.com>,
- linux-arm-msm@vger.kernel.org, Bjorn Andersson <andersson@kernel.org>,
- dri-devel@lists.freedesktop.org, Stephen Boyd <swboyd@chromium.org>,
- Daniel Vetter <daniel@ffwll.ch>, David Airlie <airlied@gmail.com>
+Cc: kernel test robot <lkp@intel.com>, linux-arm-msm@vger.kernel.org,
+ Bjorn Andersson <andersson@kernel.org>, dri-devel@lists.freedesktop.org,
+ Stephen Boyd <swboyd@chromium.org>, freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Sparse reports plenty of warnings against the a6xx code because of
-a6xx_gmu::mmio and a6xx_gmu::rscc members. For some reason they were
-defined as __iomem pointers rather than pointers to __iomem memory.
-Correct the __iomem attribute.
+Dmitry Baryshkov <dmitry.baryshkov@linaro.org> writes:
 
-Fixes: 02ef80c54e7c ("drm/msm/a6xx: update pdc/rscc GMU registers for A640/A650")
-Reported-by: kernel test robot <lkp@intel.com>
-Link: https://lore.kernel.org/oe-kbuild-all/202304070550.NrbhJCvP-lkp@intel.com/
-Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
----
- drivers/gpu/drm/msm/adreno/a6xx_gmu.h | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+> Sparse reports plenty of warnings against the a6xx code because of
+> a6xx_gmu::mmio and a6xx_gmu::rscc members. For some reason they were
+> defined as __iomem pointers rather than pointers to __iomem memory.
+> Correct the __iomem attribute.
+>
+> Fixes: 02ef80c54e7c ("drm/msm/a6xx: update pdc/rscc GMU registers for A640/A650")
+> Reported-by: kernel test robot <lkp@intel.com>
+> Link: https://lore.kernel.org/oe-kbuild-all/202304070550.NrbhJCvP-lkp@intel.com/
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> ---
 
-diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gmu.h b/drivers/gpu/drm/msm/adreno/a6xx_gmu.h
-index 0bc3eb443fec..84d345af126f 100644
---- a/drivers/gpu/drm/msm/adreno/a6xx_gmu.h
-+++ b/drivers/gpu/drm/msm/adreno/a6xx_gmu.h
-@@ -51,8 +51,8 @@ struct a6xx_gmu {
- 
- 	struct msm_gem_address_space *aspace;
- 
--	void * __iomem mmio;
--	void * __iomem rscc;
-+	void __iomem * mmio;
-+	void __iomem * rscc;
- 
- 	int hfi_irq;
- 	int gmu_irq;
+Reviewed-by: Javier Martinez Canillas <javierm@redhat.com>
+
 -- 
-2.39.2
+Best regards,
+
+Javier Martinez Canillas
+Core Platforms
+Red Hat
 
