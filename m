@@ -1,48 +1,48 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2417E6DB1C5
-	for <lists+freedreno@lfdr.de>; Fri,  7 Apr 2023 19:38:42 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id EDC026DB1CB
+	for <lists+freedreno@lfdr.de>; Fri,  7 Apr 2023 19:38:47 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E766810EE2E;
-	Fri,  7 Apr 2023 17:38:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id ABF6610EE32;
+	Fri,  7 Apr 2023 17:38:46 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from dfw.source.kernel.org (dfw.source.kernel.org
  [IPv6:2604:1380:4641:c500::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C355910EE2E
- for <freedreno@lists.freedesktop.org>; Fri,  7 Apr 2023 17:38:38 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 83B1410EE32;
+ Fri,  7 Apr 2023 17:38:44 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 535B960CA0;
- Fri,  7 Apr 2023 17:38:38 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D9C1FC4339B;
- Fri,  7 Apr 2023 17:38:36 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 1124B652B1;
+ Fri,  7 Apr 2023 17:38:44 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F1B8EC4339E;
+ Fri,  7 Apr 2023 17:38:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1680889117;
- bh=KPIevUfhOCnsYWGl++KgpaVzp3iMelMgZUHcaQzbHrE=;
+ s=k20201202; t=1680889123;
+ bh=ShYE/NmpoSW62Nvk+UDzbzXRAyY8hKK3U9ol2L/cDjg=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=NhzB+Ima+sIrbFEAGM90EVhtvmotJR+DjUqi6rvvECD6iojuImvFKYeqNca9XhBXr
- lSCgD5jqsgM2S+FDIXuxInq2hwEZooNzT6ZMLvK+aorFe27YQZuyhyQIbb3xcq0vJ0
- OiQnQ3kZNRtGDBUZwSSuobnqk/fEe8hIOok/Kjy/T7UTcGnLqDB8lCxjYy3bS51k7X
- MpH4JrsHptqhTL/+eaFYR9kMLcRMkuivCRQl+TBGx+ax1xfBiqoesHqks0BhHSWsVK
- 51H1RO5cn/VdBaQE5Ydf7baah/ChiyfAUJe5ty5avOdAezjYNpOmnZM1DnqjPrpZkL
- bnXsmTin8r/iA==
+ b=M0dcZC1PwRN2HkRpAf18Y8Sc3xtdV99EC+vxYRCkvNNAP+f919nIOyOf5C1k+lysA
+ DsIPR1Qt8nC4oUYnjInR8TIxqXfTv7etNNAZFIr8N3Z4pgJcnzOnfgGSt+8WWdyUnl
+ AtCK3R+vmetr+XaPeV8TeeBy7ElBS52aIWcd/f+6IC92wBZ6VtySpHzS+akBWGLAPm
+ 9FGQ7rTD0MB43HTwT8UqysfMbMPTFlPqN0cgjcBIFUJ0L4OURVzzGJE92PFWqiUUkv
+ QzbufEidnsWI3M3Syk9Vjk2T1AbA0NyhHej5ZBtJs+zEboLXJ09NMin4l6aPtNNsSc
+ ndslYUpGWzB9w==
 From: Bjorn Andersson <andersson@kernel.org>
-To: Abhinav Kumar <quic_abhinavk@quicinc.com>,
-	linux-arm-msm@vger.kernel.org
-Date: Fri,  7 Apr 2023 10:41:15 -0700
-Message-Id: <168088927579.2561591.16300478555888489452.b4-ty@kernel.org>
+To: dri-devel@lists.freedesktop.org,
+	Rob Clark <robdclark@gmail.com>
+Date: Fri,  7 Apr 2023 10:41:19 -0700
+Message-Id: <168088927578.2561591.14585371270684166515.b4-ty@kernel.org>
 X-Mailer: git-send-email 2.39.2
-In-Reply-To: <20230329233416.27152-1-quic_abhinavk@quicinc.com>
-References: <20230329233416.27152-1-quic_abhinavk@quicinc.com>
+In-Reply-To: <20230320144356.803762-1-robdclark@gmail.com>
+References: <20230320144356.803762-1-robdclark@gmail.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Subject: Re: [Freedreno] [PATCH] arm64: dts: qcom: sc7280: remove hbr3
- support on herobrine boards
+Subject: Re: [Freedreno] (subset) [PATCH v2 00/23] drm/msm+PM+icc: Make
+ job_run() reclaim-safe
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,27 +55,41 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: quic_bjorande@quicinc.com, dianders@chromium.org, swboyd@chromium.org,
- konrad.dybcio@linaro.org, robdclark@gmail.com, agross@kernel.org,
- seanpaul@chromium.org, dmitry.baryshkov@linaro.org, quic_khsieh@quicinc.com,
- freedreno@lists.freedesktop.org
+Cc: Rob Clark <robdclark@chromium.org>, Nathan Chancellor <nathan@kernel.org>,
+ Konrad Dybcio <konrad.dybcio@linaro.org>,
+ "Rafael J. Wysocki" <rafael@kernel.org>,
+ Akhil P Oommen <quic_akhilpo@quicinc.com>, Sean Paul <sean@poorly.run>,
+ "open list:DEVICE FREQUENCY DEVFREQ" <linux-pm@vger.kernel.org>,
+ Konrad Dybcio <konrad.dybcio@somainline.org>,
+ Douglas Anderson <dianders@chromium.org>,
+ "Joel Fernandes \(Google\)" <joel@joelfernandes.org>,
+ open list <linux-kernel@vger.kernel.org>, Luca Weiss <luca@z3ntu.xyz>,
+ "moderated list:DMA BUFFER SHARING FRAMEWORK" <linaro-mm-sig@lists.linaro.org>,
+ Geert Uytterhoeven <geert@linux-m68k.org>, Daniel Vetter <daniel@ffwll.ch>,
+ linux-arm-msm@vger.kernel.org, Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ freedreno@lists.freedesktop.org, Maximilian Luz <luzmaximilian@gmail.com>,
+ Chia-I Wu <olvaffe@gmail.com>,
+ "open list:DMA BUFFER SHARING FRAMEWORK" <linux-media@vger.kernel.org>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Wed, 29 Mar 2023 16:34:16 -0700, Abhinav Kumar wrote:
-> There are some interop issues seen across a few DP monitors with
-> HBR3 and herobrine boards where the DP display stays blank with hbr3.
-> This is still under investigation but in preparation for supporting
-> higher resolutions, its better to disable HBR3 till the issues are
-> root-caused as there is really no guarantee which monitors will show
-> the issue and which would not.
+On Mon, 20 Mar 2023 07:43:22 -0700, Rob Clark wrote:
+> From: Rob Clark <robdclark@chromium.org>
+> 
+> Inspired by https://lore.kernel.org/dri-devel/20200604081224.863494-10-daniel.vetter@ffwll.ch/
+> it seemed like a good idea to get rid of memory allocation in job_run()
+> fence signaling path, and use lockdep annotations to yell at us about
+> anything that could deadlock against shrinker/reclaim.  Anything that
+> can trigger reclaim, or block on any other thread that has triggered
+> reclaim, can block the GPU shrinker from releasing memory if it is
+> waiting the job to complete, causing deadlock.
 > 
 > [...]
 
 Applied, thanks!
 
-[1/1] arm64: dts: qcom: sc7280: remove hbr3 support on herobrine boards
-      commit: 75eab749e7aec0b7b515d7c50ed429ef4e1c5f3f
+[20/23] soc: qcom: smd-rpm: Use GFP_ATOMIC in write path
+        commit: 5808c532ca0a983d643319caca44f2bcb148298f
 
 Best regards,
 -- 
