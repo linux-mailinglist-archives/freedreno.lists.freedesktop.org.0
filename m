@@ -2,57 +2,57 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id F22E56DB0A5
-	for <lists+freedreno@lfdr.de>; Fri,  7 Apr 2023 18:34:09 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9FDF86DB0AD
+	for <lists+freedreno@lfdr.de>; Fri,  7 Apr 2023 18:34:26 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 81A7910E769;
-	Fri,  7 Apr 2023 16:34:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1CCCF10EE18;
+	Fri,  7 Apr 2023 16:34:25 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x133.google.com (mail-lf1-x133.google.com
- [IPv6:2a00:1450:4864:20::133])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 07D7010E769
- for <freedreno@lists.freedesktop.org>; Fri,  7 Apr 2023 16:34:05 +0000 (UTC)
-Received: by mail-lf1-x133.google.com with SMTP id g29so5221535lfj.4
- for <freedreno@lists.freedesktop.org>; Fri, 07 Apr 2023 09:34:05 -0700 (PDT)
+Received: from mail-lf1-x132.google.com (mail-lf1-x132.google.com
+ [IPv6:2a00:1450:4864:20::132])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 09B2010EAEB
+ for <freedreno@lists.freedesktop.org>; Fri,  7 Apr 2023 16:34:21 +0000 (UTC)
+Received: by mail-lf1-x132.google.com with SMTP id br6so55074486lfb.11
+ for <freedreno@lists.freedesktop.org>; Fri, 07 Apr 2023 09:34:21 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1680885244;
+ d=linaro.org; s=google; t=1680885260;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :from:to:cc:subject:date:message-id:reply-to;
  bh=ns5LOSHu/7rt5El0gaG0VOdBa6A5/wehdLEQPfWFNHE=;
- b=mreYxKmu7Qa1bKhb0dlbcqmjd5mvNHJiWaY50cJ10nht3hVDars6QEXLXzT6VTsJe+
- NvVwJDMppTlB2XpvB3ZxqP5pz6ETnaX/4XvIuNlnmI7VIFE9TKZSaXfgvE8Boh/0JiJV
- l62T2IEjQpJY8EQyoJ9qObQzFizN+JABL6NRYPN9YrjyusUlbFxAM1AxidabgyB5SstI
- kffiZ90QekZb5gtEvxxh8fPCzr9aTMafRzNCiXFSosns5x10+pkllVVlliRuvMdyMuu0
- YmCVSUyZEdB7pRWpLR+7IqAJtFlhckngThMwZufS0LjouQti3UMOzbmhIMtbVDha0oTH
- YX4Q==
+ b=Zd3qxX1eMvUbWNHlNFJpQr1IW9sKUSqmV5VO2F6q3ZofrQcEu9R1utBg4mkgi14+Ed
+ NmMEyHFk1xPRHx+wbV9I6I/gUBaXp1M8AGbPtKJYCMtryWy3yvSXL3Lh4J8Uh7BHlV33
+ y7jxzYBqA93sFwBQF++Dz1QZpW/nAKpe92lBzyAjO7a9A4i8p0FD6lfZ3fV7XH3x6Es2
+ DBxtHKdFYaIb7l4T+KSGlb/Vb4mQytUcU2GlB8vjHF3h/VmhJgJ6gbZU6jhU1OB9C+WR
+ tPpbF/DEHec62VEnr754lztIaWAHrLYFdc3xK/6D3F7s46kBh0n6tiospMzOHWRQ2fYg
+ I9yA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112; t=1680885244;
+ d=1e100.net; s=20210112; t=1680885260;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
  bh=ns5LOSHu/7rt5El0gaG0VOdBa6A5/wehdLEQPfWFNHE=;
- b=nGcMHAFOHYYzpCAg7Za71aVvUyZZ6dxvj/dD68liIqc9SNstgAcaeb3JJ0c4Rt+CQR
- 3RVEnB1+677g+Kj0xyhDi3fWwdqZwh7uhOILO+Ww4YeV/N8ExyqzqWGHtLW/nmJuQPA7
- L9zISwzfuW12nNGPbbG7fi9cKkz5/jCBzBOw+CDu0Q18DP8JI8gKb8lJ5tOcE+fQ2k7t
- I3mXFbF1BDxwx1lpcJTnNgB6eNJDSa0WvX7r5aSlAra23E7lSBpTzTdV6IyvbeSiVuei
- S4zX2IDPIdT3AKA4fgn+sWhDvzEjYixm6XDc2fbITLVPL0CZaRjclf6SLOQp4Gapa8uc
- xdyg==
-X-Gm-Message-State: AAQBX9eu+OygEhoAeBRlsh6QnevsfB55dhvqXa1QU6tyLaVZWBfTzKG9
- xnsa511O/HkmHDPnUrc+t6EkQyViAWGBr+WCqhg=
-X-Google-Smtp-Source: AKy350YiJHTNXXb7fD+W+VfSVc1OojuyNSt8JSxB25sutoPPaP/XveG/bQwJt4kq/eupW1E01yk3yw==
-X-Received: by 2002:ac2:5f0f:0:b0:4eb:13ff:6ca7 with SMTP id
- 15-20020ac25f0f000000b004eb13ff6ca7mr791005lfq.16.1680885243956; 
- Fri, 07 Apr 2023 09:34:03 -0700 (PDT)
+ b=bt+Ugdkh93pHpDuyrRO9pESt2RzH5RYFi7aVom4FTqJt9dT+lvSPZ0cLyuEQQu1ySb
+ MNJq/5P9+4l/tgxYX3xoUI/zte08/mYtwW7SDQKCVnjq3Y/oA1HtKXCNhzTq8z/ahWER
+ jd2nVTgjSwF6gZN0mi5ZQlRU0m8X9TCeMimXK5NyyOONGQaLiXtlX/uosX9IoQeDUFN6
+ tUvHLzYINeDL5LHZv+9Ix0dbTP3H5amFAEniQgblr1OUJDf2dBlhmddqOKsdS5Zu8Ltt
+ wB+0AY61VCJrB/KbWEh24j+yyd+nyfkXex5n53bJ8yZQ41mOER1HmK/YmucqV57K2D3D
+ PwVg==
+X-Gm-Message-State: AAQBX9eQkiymG7PKSa95UKib4dUTSqjCNVD8dQVATsUnH0+BMtWo3YUZ
+ 9eyantPwnEqiq00zvjd8ncB/6Q==
+X-Google-Smtp-Source: AKy350aeMn+uduz5SM1Q+zIFL1amX8/Z79FODoWr4RrabDEAu57MaCpeRCFE4XzvSXWyJrDeJL/JEw==
+X-Received: by 2002:a19:f70f:0:b0:4ea:fdcf:8f62 with SMTP id
+ z15-20020a19f70f000000b004eafdcf8f62mr978422lfe.0.1680885260281; 
+ Fri, 07 Apr 2023 09:34:20 -0700 (PDT)
 Received: from ?IPV6:2001:14ba:a085:4d00::8a5?
  (dzccz6yyyyyyyyyyybcwt-3.rev.dnainternet.fi. [2001:14ba:a085:4d00::8a5])
  by smtp.gmail.com with ESMTPSA id
- o23-20020a2e90d7000000b002934fe524d2sm894103ljg.83.2023.04.07.09.34.03
+ 16-20020ac24850000000b004e817c666eesm774924lfy.193.2023.04.07.09.34.19
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 07 Apr 2023 09:34:03 -0700 (PDT)
-Message-ID: <7745f5c7-9dd0-3010-ae21-b269e059620f@linaro.org>
-Date: Fri, 7 Apr 2023 19:34:03 +0300
+ Fri, 07 Apr 2023 09:34:19 -0700 (PDT)
+Message-ID: <118af32a-c5d8-2c93-887d-8da83779eb9a@linaro.org>
+Date: Fri, 7 Apr 2023 19:34:19 +0300
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.9.0
