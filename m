@@ -2,66 +2,66 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6EF996DB7D1
-	for <lists+freedreno@lfdr.de>; Sat,  8 Apr 2023 02:28:06 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5562A6DB7D4
+	for <lists+freedreno@lfdr.de>; Sat,  8 Apr 2023 02:28:10 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5E7A010EEA3;
-	Sat,  8 Apr 2023 00:27:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9A33910EE92;
+	Sat,  8 Apr 2023 00:28:05 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x132.google.com (mail-lf1-x132.google.com
- [IPv6:2a00:1450:4864:20::132])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2CA4F10EE82
+Received: from mail-lf1-x130.google.com (mail-lf1-x130.google.com
+ [IPv6:2a00:1450:4864:20::130])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F31A110EE97
  for <freedreno@lists.freedesktop.org>; Sat,  8 Apr 2023 00:27:55 +0000 (UTC)
-Received: by mail-lf1-x132.google.com with SMTP id z8so1931383lfb.12
+Received: by mail-lf1-x130.google.com with SMTP id y15so56209116lfa.7
  for <freedreno@lists.freedesktop.org>; Fri, 07 Apr 2023 17:27:55 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1680913673;
+ d=linaro.org; s=google; t=1680913674;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=tES+k/2rCXVwYzByM5X66NR66DuAIeKGJOTQwb8XTGc=;
- b=gl2dOvy71b+fdy0GFm6gRo172Qs+i7rvStO2GKiK5Zn4LHpC7lXESGBa3BdXuz2/Tq
- 3rcqQuiLhn07KYGLnZ/0B1ee070aOOII4mewBYnmhBTK05dWWRfZlODHglUmqKgAnN5w
- JhFCuFey+zy5FswvT7tF+k4CFwucDUUmIcZ9w1qZIKnCJO8JX//033LutoTTLljosEve
- npy+hjT2t1BdMF38QPJvG1KuF5AoIowbEb8K01SiRUxgFyP/2C4RgBualpm4nM+UQh/u
- JKubr6VugfSUhPieNZYT9l4TYhh9wWcbHZSz+fooNY2TrQcCImx5qUDvIg1WbraaSbx7
- u92g==
+ bh=0F6te40Cb/Ad/ox5RO4Z2KRQpaY2oFJdM/k3yKFfV94=;
+ b=IzrnaasFKXy0N3jlJFdW8Z5eDspSyDGhW/GDGKvqO+BuMzlL7dLghr5KKDV69Y4AGM
+ uKlH3/gsn9YMNj/KsReVKH83vrxHqCVbwcS82WxSERQM/36thUeANcKw1jm7Y9CgizNR
+ qhkARizC4sEIA1xG6sUwCoOZh2pVKC283CDCLhu/ZxrfwB/lb5yBirZQm1R4J8pvYzad
+ l89hiNAUZ4z36wXT6298HZ8s5PZ2KRZVD3AsToOCpirQyveNl2eJDLjOW2mgwqu6L/w9
+ WCl/pCg499g0OHZWklMXevavt14ypdYp7aYSBDV5P2JDR4qhRbQ8KwMWlse2gCKFSs9O
+ XwQw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112; t=1680913673;
+ d=1e100.net; s=20210112; t=1680913674;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=tES+k/2rCXVwYzByM5X66NR66DuAIeKGJOTQwb8XTGc=;
- b=Seo8BL0M2VdcKCY8wrp/Y371ajPzGnxELdo/TT4XCDzKLI2bS9GysELsbtMuf8U56l
- D5vlG9L1yaEcfmyERm0RiJN+FySAF8TZd7hl+wJaGBRssry0tosHicYf66illIePd2e6
- 7Ms93MQ8qT9dkGnCQ0t5folxfNtS9KSpLXo+j0akE0LtQvKpCNnd9T6szb5YnPuUEZWZ
- TEFqqYvnUtZhpkBhcNmNstxIF4IskWOF1Lbj3KUsQiqu7pcyaz6GgPMY6/fP+2qlDzeW
- WU0aoHEISWCV2Gv+bAGioBskyukCFLQdiWyF2epb3NUEze5oPZMyvIt0vOMUdfgqIcnV
- BjUA==
-X-Gm-Message-State: AAQBX9dBqQ+53wlet2XvyPGqPiubZmE8AYrWtfGCpSaq7rYwKQ6GGPGP
- fh8hwoF2Ii3tEJ4u6MSHBfM6dw==
-X-Google-Smtp-Source: AKy350bxJCx5CO9kEiOH+oHNMx6p+ge37Cpll9/xs1LeOAcl8bONpJoKkkTQc3L5ZTb428unrONxRA==
-X-Received: by 2002:a19:c215:0:b0:4b5:23c4:ab1a with SMTP id
- l21-20020a19c215000000b004b523c4ab1amr1361811lfc.42.1680913673131; 
+ bh=0F6te40Cb/Ad/ox5RO4Z2KRQpaY2oFJdM/k3yKFfV94=;
+ b=7B+rlIV8ZZV/ydruXY7jzockoX86XwyzSUW+xT8EBpKjKEYLz94grXwDtSPh/eJGbY
+ tKyxqCVM10lUq/HRGMdeQZ9E9b8/q3SEZEpthkOmsXCWJcqWT9+B8Bc+0+Wg1w9QO8ZA
+ XUz/Fa6o9SPPU4Pxj+GQXXxqNwfbkJIHwsqy30KWI2bc6CTNG/ehExR6mcfrQAUSEnMO
+ C2sJoq9x8G3wMo+Hy/p9aA1iJdG0jIoG+dqF8PcQZg4iwGl4ckSbAg/XAC3HCgfXP3aX
+ +clygZF69IB5vWF/BJwpgfMfWRCuHW4qtt3+DjgZdY9Jz88vV5y2QlkwRJ3OjzqkTXL7
+ DkFg==
+X-Gm-Message-State: AAQBX9db7RR60VOVX3wVodm0nw41CDFk49zH/WcQStkVKwOMNHP/efVh
+ t1+7IwYaNjAetx+iTm0sQGw3EQ==
+X-Google-Smtp-Source: AKy350b2wbXFMZJQfSlITNPYmwClKMG1rCnTeltJYoSbVsAPPdHkBGanUTqCiBOKl1fohmdDlgZRgA==
+X-Received: by 2002:ac2:44c8:0:b0:4ea:c730:aabe with SMTP id
+ d8-20020ac244c8000000b004eac730aabemr1157484lfm.20.1680913673898; 
  Fri, 07 Apr 2023 17:27:53 -0700 (PDT)
 Received: from eriador.lan (dzccz6yyyyyyyyyyybcwt-3.rev.dnainternet.fi.
  [2001:14ba:a085:4d00::8a5]) by smtp.gmail.com with ESMTPSA id
- q15-20020a19a40f000000b004db3e2d3efesm915759lfc.204.2023.04.07.17.27.52
+ q15-20020a19a40f000000b004db3e2d3efesm915759lfc.204.2023.04.07.17.27.53
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 07 Apr 2023 17:27:52 -0700 (PDT)
+ Fri, 07 Apr 2023 17:27:53 -0700 (PDT)
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 To: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
  Abhinav Kumar <quic_abhinavk@quicinc.com>
-Date: Sat,  8 Apr 2023 03:27:49 +0300
-Message-Id: <20230408002750.2722304-4-dmitry.baryshkov@linaro.org>
+Date: Sat,  8 Apr 2023 03:27:50 +0300
+Message-Id: <20230408002750.2722304-5-dmitry.baryshkov@linaro.org>
 X-Mailer: git-send-email 2.39.2
 In-Reply-To: <20230408002750.2722304-1-dmitry.baryshkov@linaro.org>
 References: <20230408002750.2722304-1-dmitry.baryshkov@linaro.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH v5 3/4] drm/msm/dpu: enable DSPP and DSC on
- sc8180x
+Subject: [Freedreno] [PATCH v5 4/4] drm/msm/dpu: use CTL_SC7280_MASK for
+ sm8450's ctl_0
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,74 +81,38 @@ Cc: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Enable DSPP and DSC hardware blocks on sc8180x platform.
+On sm8450 platform the CTL_0 doesn't differ from the rest of CTL blocks,
+so switch it to CTL_SC7280_MASK too.
+
+Some background: original commit 100d7ef6995d ("drm/msm/dpu: add support
+for SM8450") had all (relevant at that time) bit spelled individually.
+Then commit 0e91bcbb0016 ("drm/msm/dpu: Add SM8350 to hw catalog"),
+despite being a mismerge, correctly changed all other CTL entries to use
+CTL_SC7280_MASK, except CTL_0.
+
+While the current BLOCK_SOC_MASK style is not ideal (and while we are
+working on a better scheme), let's follow its usage as a least minimal
+surprise. For example, sc8280xp, a close associate of sm8450, also uses
+CTL_SC7280_MASK.
 
 Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 ---
- .../msm/disp/dpu1/catalog/dpu_5_1_sc8180x.h   | 28 +++++++++++++++++--
- 1 file changed, 26 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_8_1_sm8450.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_5_1_sc8180x.h b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_5_1_sc8180x.h
-index c57400265f28..085db379083e 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_5_1_sc8180x.h
-+++ b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_5_1_sc8180x.h
-@@ -102,9 +102,9 @@ static const struct dpu_sspp_cfg sc8180x_sspp[] = {
- 
- static const struct dpu_lm_cfg sc8180x_lm[] = {
- 	LM_BLK("lm_0", LM_0, 0x44000, MIXER_SDM845_MASK,
--		&sdm845_lm_sblk, PINGPONG_0, LM_1, 0),
-+		&sdm845_lm_sblk, PINGPONG_0, LM_1, DSPP_0),
- 	LM_BLK("lm_1", LM_1, 0x45000, MIXER_SDM845_MASK,
--		&sdm845_lm_sblk, PINGPONG_1, LM_0, 0),
-+		&sdm845_lm_sblk, PINGPONG_1, LM_0, DSPP_1),
- 	LM_BLK("lm_2", LM_2, 0x46000, MIXER_SDM845_MASK,
- 		&sdm845_lm_sblk, PINGPONG_2, LM_3, 0),
- 	LM_BLK("lm_3", LM_3, 0x47000, MIXER_SDM845_MASK,
-@@ -115,6 +115,17 @@ static const struct dpu_lm_cfg sc8180x_lm[] = {
- 		&sdm845_lm_sblk, PINGPONG_5, LM_4, 0),
- };
- 
-+static const struct dpu_dspp_cfg sc8180x_dspp[] = {
-+	DSPP_BLK("dspp_0", DSPP_0, 0x54000, DSPP_SC7180_MASK,
-+		 &sm8150_dspp_sblk),
-+	DSPP_BLK("dspp_1", DSPP_1, 0x56000, DSPP_SC7180_MASK,
-+		 &sm8150_dspp_sblk),
-+	DSPP_BLK("dspp_2", DSPP_2, 0x58000, DSPP_SC7180_MASK,
-+		 &sm8150_dspp_sblk),
-+	DSPP_BLK("dspp_3", DSPP_3, 0x5a000, DSPP_SC7180_MASK,
-+		 &sm8150_dspp_sblk),
-+};
-+
- static const struct dpu_pingpong_cfg sc8180x_pp[] = {
- 	PP_BLK_TE("pingpong_0", PINGPONG_0, 0x70000, MERGE_3D_0, sdm845_pp_sblk_te,
- 			DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 8),
-@@ -142,6 +153,15 @@ static const struct dpu_merge_3d_cfg sc8180x_merge_3d[] = {
- 	MERGE_3D_BLK("merge_3d_2", MERGE_3D_2, 0x83200),
- };
- 
-+static const struct dpu_dsc_cfg sc8180x_dsc[] = {
-+	DSC_BLK("dsc_0", DSC_0, 0x80000, BIT(DPU_DSC_OUTPUT_CTRL)),
-+	DSC_BLK("dsc_1", DSC_1, 0x80400, BIT(DPU_DSC_OUTPUT_CTRL)),
-+	DSC_BLK("dsc_2", DSC_2, 0x80800, BIT(DPU_DSC_OUTPUT_CTRL)),
-+	DSC_BLK("dsc_3", DSC_3, 0x80c00, BIT(DPU_DSC_OUTPUT_CTRL)),
-+	DSC_BLK("dsc_4", DSC_4, 0x81000, BIT(DPU_DSC_OUTPUT_CTRL)),
-+	DSC_BLK("dsc_5", DSC_5, 0x81400, BIT(DPU_DSC_OUTPUT_CTRL)),
-+};
-+
- static const struct dpu_intf_cfg sc8180x_intf[] = {
- 	INTF_BLK("intf_0", INTF_0, 0x6a000, 0x280, INTF_DP, MSM_DP_CONTROLLER_0, 24, INTF_SC7180_MASK, MDP_SSPP_TOP0_INTR, 24, 25),
- 	INTF_BLK("intf_1", INTF_1, 0x6a800, 0x2bc, INTF_DSI, 0, 24, INTF_SC7180_MASK, MDP_SSPP_TOP0_INTR, 26, 27),
-@@ -190,6 +210,10 @@ const struct dpu_mdss_cfg dpu_sc8180x_cfg = {
- 	.sspp = sc8180x_sspp,
- 	.mixer_count = ARRAY_SIZE(sc8180x_lm),
- 	.mixer = sc8180x_lm,
-+	.dspp_count = ARRAY_SIZE(sc8180x_dspp),
-+	.dspp = sc8180x_dspp,
-+	.dsc_count = ARRAY_SIZE(sc8180x_dsc),
-+	.dsc = sc8180x_dsc,
- 	.pingpong_count = ARRAY_SIZE(sc8180x_pp),
- 	.pingpong = sc8180x_pp,
- 	.merge_3d_count = ARRAY_SIZE(sc8180x_merge_3d),
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_8_1_sm8450.h b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_8_1_sm8450.h
+index e111ca1f4bf5..221358b9892e 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_8_1_sm8450.h
++++ b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_8_1_sm8450.h
+@@ -47,7 +47,7 @@ static const struct dpu_ctl_cfg sm8450_ctl[] = {
+ 	{
+ 	.name = "ctl_0", .id = CTL_0,
+ 	.base = 0x15000, .len = 0x204,
+-	.features = BIT(DPU_CTL_ACTIVE_CFG) | BIT(DPU_CTL_SPLIT_DISPLAY) | BIT(DPU_CTL_FETCH_ACTIVE),
++	.features = BIT(DPU_CTL_SPLIT_DISPLAY) | CTL_SC7280_MASK,
+ 	.intr_start = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR2, 9),
+ 	},
+ 	{
 -- 
 2.39.2
 
