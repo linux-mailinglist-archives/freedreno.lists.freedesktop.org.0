@@ -2,66 +2,58 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5562A6DB7D4
-	for <lists+freedreno@lfdr.de>; Sat,  8 Apr 2023 02:28:10 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1C7C36DBACE
+	for <lists+freedreno@lfdr.de>; Sat,  8 Apr 2023 14:20:18 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9A33910EE92;
-	Sat,  8 Apr 2023 00:28:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D6C9010E0D9;
+	Sat,  8 Apr 2023 12:20:16 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x130.google.com (mail-lf1-x130.google.com
- [IPv6:2a00:1450:4864:20::130])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F31A110EE97
- for <freedreno@lists.freedesktop.org>; Sat,  8 Apr 2023 00:27:55 +0000 (UTC)
-Received: by mail-lf1-x130.google.com with SMTP id y15so56209116lfa.7
- for <freedreno@lists.freedesktop.org>; Fri, 07 Apr 2023 17:27:55 -0700 (PDT)
+Received: from mail-yb1-xb2d.google.com (mail-yb1-xb2d.google.com
+ [IPv6:2607:f8b0:4864:20::b2d])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BC09E10E0D9;
+ Sat,  8 Apr 2023 12:20:15 +0000 (UTC)
+Received: by mail-yb1-xb2d.google.com with SMTP id ch3so1909718ybb.4;
+ Sat, 08 Apr 2023 05:20:15 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1680913674;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=0F6te40Cb/Ad/ox5RO4Z2KRQpaY2oFJdM/k3yKFfV94=;
- b=IzrnaasFKXy0N3jlJFdW8Z5eDspSyDGhW/GDGKvqO+BuMzlL7dLghr5KKDV69Y4AGM
- uKlH3/gsn9YMNj/KsReVKH83vrxHqCVbwcS82WxSERQM/36thUeANcKw1jm7Y9CgizNR
- qhkARizC4sEIA1xG6sUwCoOZh2pVKC283CDCLhu/ZxrfwB/lb5yBirZQm1R4J8pvYzad
- l89hiNAUZ4z36wXT6298HZ8s5PZ2KRZVD3AsToOCpirQyveNl2eJDLjOW2mgwqu6L/w9
- WCl/pCg499g0OHZWklMXevavt14ypdYp7aYSBDV5P2JDR4qhRbQ8KwMWlse2gCKFSs9O
- XwQw==
+ d=gmail.com; s=20210112; t=1680956414; x=1683548414;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=qhbv7Y5Jgs9ftPKleaknEhF4CyhB+GwqEo6U+Rr9mIc=;
+ b=kewdyz87bq2iHid5EObeNKszKFtBaD+7IqwhaAlfkh4BXU43XHG0n2XFhE+8I64XoZ
+ 5vf/WXHewQ2r1JosqkV7cmmaF7Xo3YvF0R2w4N6H6HLcWl1GoA2FLD4ofgwx0JxaTTrq
+ CSipUN6RQEUZwSJzL3lwv1Zny4ZWY4oDtBZPqBNHgqwrrBaVhKwRgM/zpeASYlW2SZhI
+ 71EqJEbs7Yhe+LjUaohEKTrE1vaWHdE4ojLs8Vewlr/uKsjzGq2f9FzNuRbS0G7zV1WF
+ 3SXZPxBoJCq5Ci9ZklpxYDXRQs/JwtNjqxDNdLTG9w7dTOcoV2GFEBeH5krYm5I5IZ02
+ 8ApA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112; t=1680913674;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=0F6te40Cb/Ad/ox5RO4Z2KRQpaY2oFJdM/k3yKFfV94=;
- b=7B+rlIV8ZZV/ydruXY7jzockoX86XwyzSUW+xT8EBpKjKEYLz94grXwDtSPh/eJGbY
- tKyxqCVM10lUq/HRGMdeQZ9E9b8/q3SEZEpthkOmsXCWJcqWT9+B8Bc+0+Wg1w9QO8ZA
- XUz/Fa6o9SPPU4Pxj+GQXXxqNwfbkJIHwsqy30KWI2bc6CTNG/ehExR6mcfrQAUSEnMO
- C2sJoq9x8G3wMo+Hy/p9aA1iJdG0jIoG+dqF8PcQZg4iwGl4ckSbAg/XAC3HCgfXP3aX
- +clygZF69IB5vWF/BJwpgfMfWRCuHW4qtt3+DjgZdY9Jz88vV5y2QlkwRJ3OjzqkTXL7
- DkFg==
-X-Gm-Message-State: AAQBX9db7RR60VOVX3wVodm0nw41CDFk49zH/WcQStkVKwOMNHP/efVh
- t1+7IwYaNjAetx+iTm0sQGw3EQ==
-X-Google-Smtp-Source: AKy350b2wbXFMZJQfSlITNPYmwClKMG1rCnTeltJYoSbVsAPPdHkBGanUTqCiBOKl1fohmdDlgZRgA==
-X-Received: by 2002:ac2:44c8:0:b0:4ea:c730:aabe with SMTP id
- d8-20020ac244c8000000b004eac730aabemr1157484lfm.20.1680913673898; 
- Fri, 07 Apr 2023 17:27:53 -0700 (PDT)
-Received: from eriador.lan (dzccz6yyyyyyyyyyybcwt-3.rev.dnainternet.fi.
- [2001:14ba:a085:4d00::8a5]) by smtp.gmail.com with ESMTPSA id
- q15-20020a19a40f000000b004db3e2d3efesm915759lfc.204.2023.04.07.17.27.53
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 07 Apr 2023 17:27:53 -0700 (PDT)
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-To: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>
-Date: Sat,  8 Apr 2023 03:27:50 +0300
-Message-Id: <20230408002750.2722304-5-dmitry.baryshkov@linaro.org>
-X-Mailer: git-send-email 2.39.2
-In-Reply-To: <20230408002750.2722304-1-dmitry.baryshkov@linaro.org>
-References: <20230408002750.2722304-1-dmitry.baryshkov@linaro.org>
+ d=1e100.net; s=20210112; t=1680956414; x=1683548414;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=qhbv7Y5Jgs9ftPKleaknEhF4CyhB+GwqEo6U+Rr9mIc=;
+ b=GWtB4l7qzeV+kRGdkQ7CZwSe/d7FjM/47Ut+vBGQ62ABQWwHTuPMiJQC205XmYaPKM
+ lmEA5QvuHj2/+1HWA7g86E6Tnk6DZseo9JdhDtvENdBEc0MUetopFi0x52mJIqoCRDZu
+ xWkC79SrSfzcNF3Z+RzXEo2HampWhi0ueDAxoEgXri6GBXl6+Aae/Qovs3xIHjzwbooT
+ C3P7fYI8nZFh2y2HktQhiPPS2qVGSHB66DFGkTSEpbxgPVY7LyUB1NALFrh/ifHYO527
+ OTM9c8ugs41931/e0/uncAuP3lpFTbPK6nf/GYHIUJn1+OcgX7j9E4oTov1J3goJHLNi
+ uFcw==
+X-Gm-Message-State: AAQBX9djJiMASHfzIca5+0fcR7mE/yD+VQQy9jlrhLDtSIl34ZpE7AP+
+ KnlYVnK8SXvLIn3XyZJZoKW+B/+AhMwlL4mSmiM=
+X-Google-Smtp-Source: AKy350byafsIIuMRDAbzbtG99qHBwJjc6HbvgeYdBJg3DC7Y1cC2snm+nm7ja1eD+czjeKKSwOkkAYx2grZ+GMjtYY4=
+X-Received: by 2002:a25:be11:0:b0:b7d:4c96:de0 with SMTP id
+ h17-20020a25be11000000b00b7d4c960de0mr993477ybk.5.1680956414354; Sat, 08 Apr
+ 2023 05:20:14 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH v5 4/4] drm/msm/dpu: use CTL_SC7280_MASK for
- sm8450's ctl_0
+References: <20230406215917.1475704-1-robdclark@gmail.com>
+ <20230406215917.1475704-2-robdclark@gmail.com>
+In-Reply-To: <20230406215917.1475704-2-robdclark@gmail.com>
+From: Emil Velikov <emil.l.velikov@gmail.com>
+Date: Sat, 8 Apr 2023 13:20:03 +0100
+Message-ID: <CACvgo50nOw-82pc2mEbydWH3=RDXuOKwnBnjmOhV-UYcbjRKQA@mail.gmail.com>
+To: Rob Clark <robdclark@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Subject: Re: [Freedreno] [RFC 1/2] drm: Add fdinfo memory stats
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,45 +66,93 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
- Bjorn Andersson <andersson@kernel.org>, dri-devel@lists.freedesktop.org,
- Stephen Boyd <swboyd@chromium.org>, Daniel Vetter <daniel@ffwll.ch>,
- David Airlie <airlied@gmail.com>
+Cc: Rob Clark <robdclark@chromium.org>,
+ Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
+ "open list:DOCUMENTATION" <linux-doc@vger.kernel.org>,
+ linux-arm-msm@vger.kernel.org, Jonathan Corbet <corbet@lwn.net>,
+ Christopher Healy <healych@amazon.com>, dri-devel@lists.freedesktop.org,
+ open list <linux-kernel@vger.kernel.org>,
+ Boris Brezillon <boris.brezillon@collabora.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>, freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On sm8450 platform the CTL_0 doesn't differ from the rest of CTL blocks,
-so switch it to CTL_SC7280_MASK too.
+Hey Rob,
 
-Some background: original commit 100d7ef6995d ("drm/msm/dpu: add support
-for SM8450") had all (relevant at that time) bit spelled individually.
-Then commit 0e91bcbb0016 ("drm/msm/dpu: Add SM8350 to hw catalog"),
-despite being a mismerge, correctly changed all other CTL entries to use
-CTL_SC7280_MASK, except CTL_0.
+On Thu, 6 Apr 2023 at 22:59, Rob Clark <robdclark@gmail.com> wrote:
 
-While the current BLOCK_SOC_MASK style is not ideal (and while we are
-working on a better scheme), let's follow its usage as a least minimal
-surprise. For example, sc8280xp, a close associate of sm8450, also uses
-CTL_SC7280_MASK.
+> +- drm-purgeable-memory: <uint> [KiB|MiB]
+> +
+> +The total size of buffers that are purgable.
 
-Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
----
- drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_8_1_sm8450.h | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+s/purgable/purgeable/
 
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_8_1_sm8450.h b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_8_1_sm8450.h
-index e111ca1f4bf5..221358b9892e 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_8_1_sm8450.h
-+++ b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_8_1_sm8450.h
-@@ -47,7 +47,7 @@ static const struct dpu_ctl_cfg sm8450_ctl[] = {
- 	{
- 	.name = "ctl_0", .id = CTL_0,
- 	.base = 0x15000, .len = 0x204,
--	.features = BIT(DPU_CTL_ACTIVE_CFG) | BIT(DPU_CTL_SPLIT_DISPLAY) | BIT(DPU_CTL_FETCH_ACTIVE),
-+	.features = BIT(DPU_CTL_SPLIT_DISPLAY) | CTL_SC7280_MASK,
- 	.intr_start = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR2, 9),
- 	},
- 	{
--- 
-2.39.2
 
+> +static void print_size(struct drm_printer *p, const char *stat, size_t sz)
+> +{
+> +       const char *units[] = {"B", "KiB", "MiB", "GiB"};
+
+The documentation says:
+
+> Default unit shall be bytes with optional unit specifiers of 'KiB' or 'MiB'
+> indicating kibi- or mebi-bytes.
+
+So I would drop the B and/or update the documentation to mention B && GiB.
+
+> +       unsigned u;
+> +
+> +       for (u = 0; u < ARRAY_SIZE(units) - 1; u++) {
+> +               if (sz < SZ_1K)
+> +                       break;
+> +               sz /= SZ_1K;
+
+IIRC size_t can be 64bit, so we should probably use do_div() here.
+
+> +       }
+> +
+> +       drm_printf(p, "%s:\t%lu %s\n", stat, sz, units[u]);
+> +}
+> +
+> +/**
+> + * drm_print_memory_stats - Helper to print standard fdinfo memory stats
+> + * @file: the DRM file
+> + * @p: the printer to print output to
+> + * @status: callback to get driver tracked object status
+> + *
+> + * Helper to iterate over GEM objects with a handle allocated in the specified
+> + * file.  The optional status callback can return additional object state which
+
+s/return additional/return an additional/
+
+> + * determines which stats the object is counted against.  The callback is called
+> + * under table_lock.  Racing against object status change is "harmless", and the
+> + * callback can expect to not race against object destroy.
+
+s/destroy/destruction/
+
+> + */
+> +void drm_print_memory_stats(struct drm_file *file, struct drm_printer *p,
+> +                           enum drm_gem_object_status (*status)(struct drm_gem_object *))
+> +{
+
+> +               if (s & DRM_GEM_OBJECT_RESIDENT) {
+> +                       size.resident += obj->size;
+> +                       s &= ~DRM_GEM_OBJECT_PURGEABLE;
+
+Is MSM capable of marking the object as both purgeable and resident or
+is this to catch other drivers? Should we add a note to the
+documentation above - resident memory cannot be purgeable
+
+> +               }
+> +
+> +               if (s & DRM_GEM_OBJECT_ACTIVE) {
+> +                       size.active += obj->size;
+> +                       s &= ~DRM_GEM_OBJECT_PURGEABLE;
+
+Ditto.
+
+With the above nits, the patch is:
+Reviewed-by: Emil Velikov <emil.l.velikov@gmail.com>
+
+HTH
+Emil
