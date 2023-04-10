@@ -1,65 +1,64 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 12D536DCC9A
-	for <lists+freedreno@lfdr.de>; Mon, 10 Apr 2023 23:06:34 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 065A36DCD8B
+	for <lists+freedreno@lfdr.de>; Tue, 11 Apr 2023 00:38:46 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1619110E3B4;
-	Mon, 10 Apr 2023 21:06:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6A0BE10E438;
+	Mon, 10 Apr 2023 22:38:44 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-pl1-x631.google.com (mail-pl1-x631.google.com
- [IPv6:2607:f8b0:4864:20::631])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 37EA810E25B;
- Mon, 10 Apr 2023 21:06:24 +0000 (UTC)
-Received: by mail-pl1-x631.google.com with SMTP id p8so5822744plk.9;
- Mon, 10 Apr 2023 14:06:24 -0700 (PDT)
+Received: from mail-lf1-x129.google.com (mail-lf1-x129.google.com
+ [IPv6:2a00:1450:4864:20::129])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D72B610E433
+ for <freedreno@lists.freedesktop.org>; Mon, 10 Apr 2023 22:38:40 +0000 (UTC)
+Received: by mail-lf1-x129.google.com with SMTP id t14so7998956lft.7
+ for <freedreno@lists.freedesktop.org>; Mon, 10 Apr 2023 15:38:40 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20210112; t=1681160783;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=WoMJpN6B4g/LBSey9MdJhme7GrVtOKGM7Nwy9VTZNzg=;
- b=BlcXAsRgjAj5Zu7jvrN45QfBFtRGjkaydvijkD/qrVhkC1Yt9q6sd8dm98PttiR8sm
- QflvYmOB7VE+sOqDGY0XMVxVuRgmNkAjdXdOFtTjpSniEvUyBp7pRYpcTHdUeHclmGK8
- bNXPEUvkNQxR8M/uwkG1tf+nxg/pmPIZ+/yP04zMGApmPhHTIZOFOzLNuhyF/NL6GTnM
- ZWtZ8rUTbBiQo1fngvQ6WDKxEeYtxUVsUbH5Dc7hl9Hgpa2GwaSojtfxzXFIyXh5QFb5
- cTP14VXyq3G/UfBUWdraL0wT9B9mH+90WD5JdKNL6FTJ529Nx+eGWES2juRXXSN5Sunh
- wAxA==
+ d=linaro.org; s=google; t=1681166317;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=BI3Vr7KkEkwMoV79FDgIFTD4Bqv93i7w+4l4vFTRfu8=;
+ b=UmYSFCW8ZfdbEsYx+S5ct4ZCRWOWe0IX7QxChxHFPbZUVi6hZApfDpI1GTPh2DayBo
+ dkgcEGN8P4KzksT9SUIsb0f47HRprT808vOvtMQAWq6zGKtBlN4e7E92DWFLT0uZk82p
+ ioxYr286SjOILES0BN4hlWElrbFfOuZ04DNkZyHQGuNiNmPaMp1ykoyZpz3s2aPQ30Jg
+ LONOOxtfc0XC+mK+9cH6FvzQAjpI0i1SNASs6mFpgAUHoCJ8KCfRYkyX+hpD/HyOiZJs
+ 7WKexdxtUEjkrXShK0tzKW6e/VZ1xuaCKimmguWRxkzD2/Zl9IE53vR8zX6kvBErT3vM
+ QmWA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112; t=1681160783;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=WoMJpN6B4g/LBSey9MdJhme7GrVtOKGM7Nwy9VTZNzg=;
- b=hzLoJDlwZ8jikjii9k7JL+3EOq5LXqqqs1v+vFo8zMVVR13il8QD/02PaJLI/gNKii
- UdFRM+I2nxQcbj6358ow0FuJUWsR2mpZUtn/WKb6c4S18W8banSzrBeEC4r9UYv1jV6+
- 6bsG4Ps4Fjf11wCn3nSVe7XFnBjZPW0zEE6stPsNgN6dkO00wVrO5lGy0O6WQhDNNUKB
- hi941B8BfL4NC6Xa/MTROoy7jdupZy5EgJ+Fe7iIMnu6gZhCjbSpXbXjdTc/dB8LyPTS
- 7Z3soBU8dhzCfHh10mIj8y0dKNs/Al9/26tyu9Wh2sy7BpdLk6bp/bvu2Nt2VG70KaBX
- 6vOg==
-X-Gm-Message-State: AAQBX9edYTYoqCFZBSCKKLEYJOjtFcMYhfIE/cnR7u7ex40cqRUVs+N6
- VSk3JpYW36Yqh/urPEpv0v9/4EWEj40=
-X-Google-Smtp-Source: AKy350auT6h4uHmPGN7puvU25ZQAvvzrs8Ijoo87GihNfVZmS8pmOvwOPMZawn9IN4ZfWVzrBZBXuQ==
-X-Received: by 2002:a05:6a20:21ca:b0:cc:c5db:ea4a with SMTP id
- p10-20020a056a2021ca00b000ccc5dbea4amr8359014pzb.33.1681160783384; 
- Mon, 10 Apr 2023 14:06:23 -0700 (PDT)
-Received: from localhost ([2a00:79e1:abd:4a00:61b:48ed:72ab:435b])
+ d=1e100.net; s=20210112; t=1681166317;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=BI3Vr7KkEkwMoV79FDgIFTD4Bqv93i7w+4l4vFTRfu8=;
+ b=x2lY/FB4Na+ScELiV2R7G4o1/GlDLqLvFZ2i2aRPwhFKZh+QGLR/I7cmfIiC1Nxeyg
+ /VEMB4Zcdk8k85gn385DFDmgcsI8FGGkbIiF+/C+PVLTz48vNbuzIPvu4DYAreRi7Wgm
+ hxVUdFX573oPVsEL5C/tHjRYRF4agJStOUvb0ZghOZ271B0podP40XWnXTAiF+Egw2f7
+ BQz4DIo02Spx1HmWsaUSy2ko5BiKCYeJhqHNVHlUj9igOF4VoM33olsp3lBk2os7yFZc
+ VLcm62MlVp3Eiy7T2IojviPcBjjeceZhTPxbK/ZtMbBA29B/q5FuAz8miplpK/JXMXNE
+ 33Bw==
+X-Gm-Message-State: AAQBX9dUWWvZOJs4zhpQk/p9X6xjg4G/fCXv1djj+p3jyLJbV4P4ILXF
+ e2qH3h+Br3IqekWXWAnIREMGZQ==
+X-Google-Smtp-Source: AKy350aLN4y8H9Y+NvwcZr3Cywc4xyfTF5Bnog/ZnWKSea+DUvvVGBlKCMfHEmu191v7FIeGFT1wUQ==
+X-Received: by 2002:a05:6512:488:b0:4ea:f632:4738 with SMTP id
+ v8-20020a056512048800b004eaf6324738mr3257068lfq.6.1681166317385; 
+ Mon, 10 Apr 2023 15:38:37 -0700 (PDT)
+Received: from umbar.unikie.fi ([192.130.178.91])
  by smtp.gmail.com with ESMTPSA id
- x13-20020a63f70d000000b005023496e339sm7242152pgh.63.2023.04.10.14.06.22
+ o22-20020a056512051600b004eb1158ff0esm2291945lfb.298.2023.04.10.15.38.36
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 10 Apr 2023 14:06:23 -0700 (PDT)
-From: Rob Clark <robdclark@gmail.com>
-To: dri-devel@lists.freedesktop.org
-Date: Mon, 10 Apr 2023 14:06:07 -0700
-Message-Id: <20230410210608.1873968-3-robdclark@gmail.com>
-X-Mailer: git-send-email 2.39.2
-In-Reply-To: <20230410210608.1873968-1-robdclark@gmail.com>
-References: <20230410210608.1873968-1-robdclark@gmail.com>
+ Mon, 10 Apr 2023 15:38:37 -0700 (PDT)
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+To: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>
+Date: Tue, 11 Apr 2023 01:38:36 +0300
+Message-Id: <20230410223836.442836-1-dmitry.baryshkov@linaro.org>
+X-Mailer: git-send-email 2.30.2
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH v2 2/2] drm/msm: Add memory stats to fdinfo
+Subject: [Freedreno] [PATCH] drm/msm/adreno: warn if chip revn is verified
+ before being set
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,92 +71,210 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rob Clark <robdclark@chromium.org>,
- Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>, linux-arm-msm@vger.kernel.org,
- Emil Velikov <emil.l.velikov@gmail.com>,
- Christopher Healy <healych@amazon.com>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>,
- Rob Clark <robdclark@gmail.com>,
- Boris Brezillon <boris.brezillon@collabora.com>,
- Daniel Vetter <daniel@ffwll.ch>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- David Airlie <airlied@gmail.com>, freedreno@lists.freedesktop.org,
- open list <linux-kernel@vger.kernel.org>
+Cc: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
+ Bjorn Andersson <andersson@kernel.org>, dri-devel@lists.freedesktop.org,
+ Stephen Boyd <swboyd@chromium.org>, Daniel Vetter <daniel@ffwll.ch>,
+ David Airlie <airlied@gmail.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-From: Rob Clark <robdclark@chromium.org>
+The commit 010c8bbad2cb ("drm: msm: adreno: Disable preemption on Adreno
+510") tried to check GPU's revn before revn being set. Add WARN_ON_ONCE
+to prevent such bugs from happening again. A separate helper is
+necessary so that the warning is displayed really just once instead of
+being displayed for each of comparisons.
 
-Use the new helper to export stats about memory usage.
-
-v2: Drop unintended hunk
-
-Signed-off-by: Rob Clark <robdclark@chromium.org>
-Reviewed-by: Emil Velikov <emil.l.velikov@gmail.com>
+Suggested-by: Stephen Boyd <swboyd@chromium.org>
+Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 ---
- drivers/gpu/drm/msm/msm_drv.c | 25 ++++++++++++++++++++++++-
- drivers/gpu/drm/msm/msm_gpu.c |  2 --
- 2 files changed, 24 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/msm/adreno/adreno_gpu.h | 63 ++++++++++++++++---------
+ 1 file changed, 40 insertions(+), 23 deletions(-)
 
-diff --git a/drivers/gpu/drm/msm/msm_drv.c b/drivers/gpu/drm/msm/msm_drv.c
-index 9b6f17b1261f..9acc3ebfbc08 100644
---- a/drivers/gpu/drm/msm/msm_drv.c
-+++ b/drivers/gpu/drm/msm/msm_drv.c
-@@ -1043,17 +1043,40 @@ static const struct drm_ioctl_desc msm_ioctls[] = {
- 	DRM_IOCTL_DEF_DRV(MSM_SUBMITQUEUE_QUERY, msm_ioctl_submitqueue_query, DRM_RENDER_ALLOW),
- };
+diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.h b/drivers/gpu/drm/msm/adreno/adreno_gpu.h
+index f62612a5c70f..47e21d44ac24 100644
+--- a/drivers/gpu/drm/msm/adreno/adreno_gpu.h
++++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.h
+@@ -145,40 +145,51 @@ struct adreno_platform_config {
  
-+enum drm_gem_object_status gem_status(struct drm_gem_object *obj)
+ bool adreno_cmp_rev(struct adreno_rev rev1, struct adreno_rev rev2);
+ 
++static inline bool adreno_cmp_revn(struct adreno_gpu *gpu, uint32_t revn)
 +{
-+	struct msm_gem_object *msm_obj = to_msm_bo(obj);
-+	enum drm_gem_object_status status = 0;
++	WARN_ON_ONCE(!gpu->revn);
 +
-+	if (!dma_resv_test_signaled(obj->resv, dma_resv_usage_rw(true)))
-+		status |= DRM_GEM_OBJECT_ACTIVE;
-+
-+	if (msm_obj->pages)
-+		status |= DRM_GEM_OBJECT_RESIDENT;
-+
-+	if (msm_obj->madv == MSM_MADV_DONTNEED)
-+		status |= DRM_GEM_OBJECT_PURGEABLE;
-+
-+	return status;
++	return gpu->revn == revn;
 +}
 +
- static void msm_fop_show_fdinfo(struct seq_file *m, struct file *f)
+ static inline bool adreno_is_a2xx(struct adreno_gpu *gpu)
  {
- 	struct drm_file *file = f->private_data;
- 	struct drm_device *dev = file->minor->dev;
- 	struct msm_drm_private *priv = dev->dev_private;
-+	struct msm_file_private *ctx = file->driver_priv;
- 	struct drm_printer p = drm_seq_file_printer(m);
- 
- 	if (!priv->gpu)
- 		return;
- 
--	msm_gpu_show_fdinfo(priv->gpu, file->driver_priv, &p);
-+	drm_printf(&p, "drm-driver:\t%s\n", dev->driver->name);
-+	drm_printf(&p, "drm-client-id:\t%u\n", ctx->seqno);
++	WARN_ON_ONCE(!gpu->revn);
 +
-+	msm_gpu_show_fdinfo(priv->gpu, ctx, &p);
-+
-+	drm_print_memory_stats(file, &p, gem_status);
+ 	return (gpu->revn < 300);
  }
  
- static const struct file_operations fops = {
-diff --git a/drivers/gpu/drm/msm/msm_gpu.c b/drivers/gpu/drm/msm/msm_gpu.c
-index 26ebda40be4f..c403912d13ab 100644
---- a/drivers/gpu/drm/msm/msm_gpu.c
-+++ b/drivers/gpu/drm/msm/msm_gpu.c
-@@ -151,8 +151,6 @@ int msm_gpu_pm_suspend(struct msm_gpu *gpu)
- void msm_gpu_show_fdinfo(struct msm_gpu *gpu, struct msm_file_private *ctx,
- 			 struct drm_printer *p)
+ static inline bool adreno_is_a20x(struct adreno_gpu *gpu)
  {
--	drm_printf(p, "drm-driver:\t%s\n", gpu->dev->driver->name);
--	drm_printf(p, "drm-client-id:\t%u\n", ctx->seqno);
- 	drm_printf(p, "drm-engine-gpu:\t%llu ns\n", ctx->elapsed_ns);
- 	drm_printf(p, "drm-cycles-gpu:\t%llu\n", ctx->cycles);
- 	drm_printf(p, "drm-maxfreq-gpu:\t%u Hz\n", gpu->fast_rate);
++	WARN_ON_ONCE(!gpu->revn);
++
+ 	return (gpu->revn < 210);
+ }
+ 
+ static inline bool adreno_is_a225(struct adreno_gpu *gpu)
+ {
+-	return gpu->revn == 225;
++	return adreno_cmp_revn(gpu, 225);
+ }
+ 
+ static inline bool adreno_is_a305(struct adreno_gpu *gpu)
+ {
+-	return gpu->revn == 305;
++	return adreno_cmp_revn(gpu, 305);
+ }
+ 
+ static inline bool adreno_is_a306(struct adreno_gpu *gpu)
+ {
+ 	/* yes, 307, because a305c is 306 */
+-	return gpu->revn == 307;
++	return adreno_cmp_revn(gpu, 307);
+ }
+ 
+ static inline bool adreno_is_a320(struct adreno_gpu *gpu)
+ {
+-	return gpu->revn == 320;
++	return adreno_cmp_revn(gpu, 320);
+ }
+ 
+ static inline bool adreno_is_a330(struct adreno_gpu *gpu)
+ {
+-	return gpu->revn == 330;
++	return adreno_cmp_revn(gpu, 330);
+ }
+ 
+ static inline bool adreno_is_a330v2(struct adreno_gpu *gpu)
+@@ -188,77 +199,78 @@ static inline bool adreno_is_a330v2(struct adreno_gpu *gpu)
+ 
+ static inline int adreno_is_a405(struct adreno_gpu *gpu)
+ {
+-	return gpu->revn == 405;
++	return adreno_cmp_revn(gpu, 405);
+ }
+ 
+ static inline int adreno_is_a420(struct adreno_gpu *gpu)
+ {
+-	return gpu->revn == 420;
++	return adreno_cmp_revn(gpu, 420);
+ }
+ 
+ static inline int adreno_is_a430(struct adreno_gpu *gpu)
+ {
+-	return gpu->revn == 430;
++	return adreno_cmp_revn(gpu, 430);
+ }
+ 
+ static inline int adreno_is_a506(struct adreno_gpu *gpu)
+ {
+-	return gpu->revn == 506;
++	return adreno_cmp_revn(gpu, 506);
+ }
+ 
+ static inline int adreno_is_a508(struct adreno_gpu *gpu)
+ {
+-	return gpu->revn == 508;
++	return adreno_cmp_revn(gpu, 508);
+ }
+ 
+ static inline int adreno_is_a509(struct adreno_gpu *gpu)
+ {
+-	return gpu->revn == 509;
++	return adreno_cmp_revn(gpu, 509);
+ }
+ 
+ static inline int adreno_is_a510(struct adreno_gpu *gpu)
+ {
+-	return gpu->revn == 510;
++	return adreno_cmp_revn(gpu, 510);
+ }
+ 
+ static inline int adreno_is_a512(struct adreno_gpu *gpu)
+ {
+-	return gpu->revn == 512;
++	return adreno_cmp_revn(gpu, 512);
+ }
+ 
+ static inline int adreno_is_a530(struct adreno_gpu *gpu)
+ {
+-	return gpu->revn == 530;
++	return adreno_cmp_revn(gpu, 530);
+ }
+ 
+ static inline int adreno_is_a540(struct adreno_gpu *gpu)
+ {
+-	return gpu->revn == 540;
++	return adreno_cmp_revn(gpu, 540);
+ }
+ 
+ static inline int adreno_is_a618(struct adreno_gpu *gpu)
+ {
+-	return gpu->revn == 618;
++	return adreno_cmp_revn(gpu, 618);
+ }
+ 
+ static inline int adreno_is_a619(struct adreno_gpu *gpu)
+ {
+-	return gpu->revn == 619;
++	return adreno_cmp_revn(gpu, 619);
+ }
+ 
+ static inline int adreno_is_a630(struct adreno_gpu *gpu)
+ {
+-	return gpu->revn == 630;
++	return adreno_cmp_revn(gpu, 630);
+ }
+ 
+ static inline int adreno_is_a640_family(struct adreno_gpu *gpu)
+ {
+-	return (gpu->revn == 640) || (gpu->revn == 680);
++	return adreno_cmp_revn(gpu, 640) ||
++		adreno_cmp_revn(gpu, 680);
+ }
+ 
+ static inline int adreno_is_a650(struct adreno_gpu *gpu)
+ {
+-	return gpu->revn == 650;
++	return adreno_cmp_revn(gpu, 650);
+ }
+ 
+ static inline int adreno_is_7c3(struct adreno_gpu *gpu)
+@@ -269,13 +281,16 @@ static inline int adreno_is_7c3(struct adreno_gpu *gpu)
+ 
+ static inline int adreno_is_a660(struct adreno_gpu *gpu)
+ {
+-	return gpu->revn == 660;
++	return adreno_cmp_revn(gpu, 660);
+ }
+ 
+ /* check for a615, a616, a618, a619 or any derivatives */
+ static inline int adreno_is_a615_family(struct adreno_gpu *gpu)
+ {
+-	return gpu->revn == 615 || gpu->revn == 616 || gpu->revn == 618 || gpu->revn == 619;
++	return adreno_cmp_revn(gpu, 615) ||
++		adreno_cmp_revn(gpu, 616) ||
++		adreno_cmp_revn(gpu, 618) ||
++		adreno_cmp_revn(gpu, 619);
+ }
+ 
+ static inline int adreno_is_a660_family(struct adreno_gpu *gpu)
+@@ -286,7 +301,9 @@ static inline int adreno_is_a660_family(struct adreno_gpu *gpu)
+ /* check for a650, a660, or any derivatives */
+ static inline int adreno_is_a650_family(struct adreno_gpu *gpu)
+ {
+-	return gpu->revn == 650 || gpu->revn == 620 || adreno_is_a660_family(gpu);
++	return adreno_cmp_revn(gpu, 650) ||
++		adreno_cmp_revn(gpu, 620) ||
++		adreno_is_a660_family(gpu);
+ }
+ 
+ u64 adreno_private_address_space_size(struct msm_gpu *gpu);
 -- 
-2.39.2
+2.30.2
 
