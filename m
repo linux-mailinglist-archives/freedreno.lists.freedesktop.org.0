@@ -1,62 +1,80 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 129706DE2AD
-	for <lists+freedreno@lfdr.de>; Tue, 11 Apr 2023 19:36:04 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 312D06DE3CF
+	for <lists+freedreno@lfdr.de>; Tue, 11 Apr 2023 20:26:09 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AAF9B10E5E7;
-	Tue, 11 Apr 2023 17:36:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C24C510E113;
+	Tue, 11 Apr 2023 18:26:07 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-yb1-xb33.google.com (mail-yb1-xb33.google.com
- [IPv6:2607:f8b0:4864:20::b33])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 220C610E5E3
- for <freedreno@lists.freedesktop.org>; Tue, 11 Apr 2023 17:36:00 +0000 (UTC)
-Received: by mail-yb1-xb33.google.com with SMTP id h198so15535456ybg.12
- for <freedreno@lists.freedesktop.org>; Tue, 11 Apr 2023 10:36:00 -0700 (PDT)
+Received: from mail-wr1-x42b.google.com (mail-wr1-x42b.google.com
+ [IPv6:2a00:1450:4864:20::42b])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C592910E60C
+ for <freedreno@lists.freedesktop.org>; Tue, 11 Apr 2023 18:26:06 +0000 (UTC)
+Received: by mail-wr1-x42b.google.com with SMTP id
+ ffacd0b85a97d-2efbab42639so286267f8f.1
+ for <freedreno@lists.freedesktop.org>; Tue, 11 Apr 2023 11:26:06 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1681234559;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=+kyBvTzdzIu1H+Ec72ru36ICQw3wemFp5ak3AycFoQ8=;
- b=oP5s/x3IrjFEbxhZPWV3IVDz/ByDv2Ls5x0O904x2AuYnjvT2xICE5jp4Tqycen2Q0
- doWB5C4gJbHjt9YBfJZZ74qhwDSO3keTBaDVOCqmLMK1KqZX+5iIVtXBR873RnMbYtQN
- 6qhq10qLHF5GjQwzQRpQcqE40Zs9A5kSMovizD+QwySni7mjunbPGP0Mx1H6jwk8yYqJ
- MlIgwBp/dj6LRDnIcO8xxmjGN2EN2EcUy1cMHEOv0gC/M9temGqgAVyIuqZbdYacn2av
- AX0UDtOnbtdAnhuxSth4XG1PDFyojl13Jw2ik9uGUyRJ5joiPzEI+YJz+yPFcLTtnDcj
- IkVw==
+ d=ffwll.ch; s=google; t=1681237565;
+ h=in-reply-to:content-transfer-encoding:content-disposition
+ :mime-version:references:mail-followup-to:message-id:subject:cc:to
+ :from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=6V2fpjYPL3sTmtLv/4ao+yq+fKEhSjDDl7REJsXZ3TQ=;
+ b=d/zOnJVcqw74lXkfDZZyDOVgxROdHfNZVnimMK9k8hdpWl8ptHninUwzQqSnylc6dk
+ AU95xm0qZ6TRmNZQU99Z6CrtzJgV9caG2BvHZ6TRGN1s+zeYiCvssaQ4OA7xsnluWqZn
+ 73hAIpcEjxwsKFiU3uqOeohoLEUmcBu3NCKFc=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112; t=1681234559;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=+kyBvTzdzIu1H+Ec72ru36ICQw3wemFp5ak3AycFoQ8=;
- b=gr+u3ha6VILS2IqOCA2NfNuEJcMguTufH+bPqBS/+FV9uSAw8m5Dxuj2IDs4v40toX
- TGfyQSNat5LSNgvhICldeEHmRvOMZidPmIdm8uH39J8FIsy5cdOz8gzoNemZyHYkvWli
- BBBFawsE7Sly1ODn8JMOCof2Bf6txW5XevEpkJHMLDCZDPCbkbxORBOvaWugPQMmDqby
- VO8UbmSAXeg6OWnNb3JgbppGkMvBIVvNeBzYgfGs8llGtiNYc6KIUBnspdrlNX4ZFWhP
- 5DxE4uaK4HxpQU244+Wqjf66Pxvdgep41gWoaujg0XwT5nIJjfqodBe7AHqiVpAuuNfQ
- 2lqg==
-X-Gm-Message-State: AAQBX9e9dYh0DYB7Ey6T4yb6Pz/VCKZfzkN085rssWLWHY0FlBtcA1hG
- ydZkSJxdXIjEScYJEASRYKKTOrMNJ7QF6E3zXeimkg==
-X-Google-Smtp-Source: AKy350ZiUDyr5F4QFXUjDcGVrWsOHV3bIsrNR3l2Wz60yKVwYn0KzTnbePAGa2kKqDroE8ZtTbd5mUm6RcQfhdr2vEY=
-X-Received: by 2002:a25:d649:0:b0:b8a:7b2d:6555 with SMTP id
- n70-20020a25d649000000b00b8a7b2d6555mr2048091ybg.9.1681234559624; Tue, 11 Apr
- 2023 10:35:59 -0700 (PDT)
-MIME-Version: 1.0
+ d=1e100.net; s=20210112; t=1681237565;
+ h=in-reply-to:content-transfer-encoding:content-disposition
+ :mime-version:references:mail-followup-to:message-id:subject:cc:to
+ :from:date:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=6V2fpjYPL3sTmtLv/4ao+yq+fKEhSjDDl7REJsXZ3TQ=;
+ b=T/D3BhKhuXF/zjy8p7i6H3U2eeiPxYqqXMARMSwYIrwhI/ptf2Q0ZMeDCCrXVENw0N
+ ZwVqqTqdt0Ap3/RDTPIpfyHxjtME4/SyEQTySj2zDwkunRasLxPaycWXZOFsDxgQpaFJ
+ Bue7oANqLONtDJKibrZixb+e/II1OoEWJJfSNmXGE/B4GZ2VSojS+pfgdg8Q7tyuOv0z
+ BoDYFNWjdoya9x+Zaj/eQ52Ufiu4jeDSJKL/n66FdNkvRoYZqyiBwiDm7LeBMcA3Pmzi
+ o01ImCRQdsKnbrahUcWCdDZWk3LTeTSXfKSoDirElpxbABYYtRdluwFKdhB3QqatHj2w
+ KNZA==
+X-Gm-Message-State: AAQBX9e6z0GGVN5ft9unSzW4OQyu8tWVhnV0OJecPHF39uzJoLHfwQ7w
+ +wezho2gcmDJKrkcETfViHdniw==
+X-Google-Smtp-Source: AKy350ZLN7z7OO5hsuZ3LMeZ1jZvhbwhr3vlegYw8TcKWLO3U/rRdkG0GmcZU7l+bRPFupzU7WNqNg==
+X-Received: by 2002:a5d:644c:0:b0:2ef:9699:f906 with SMTP id
+ d12-20020a5d644c000000b002ef9699f906mr39023wrw.7.1681237564706; 
+ Tue, 11 Apr 2023 11:26:04 -0700 (PDT)
+Received: from phenom.ffwll.local (212-51-149-33.fiber7.init7.net.
+ [212.51.149.33]) by smtp.gmail.com with ESMTPSA id
+ e17-20020adffc51000000b002ef2e148d59sm14493882wrs.16.2023.04.11.11.26.03
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 11 Apr 2023 11:26:04 -0700 (PDT)
+Date: Tue, 11 Apr 2023 20:26:02 +0200
+From: Daniel Vetter <daniel@ffwll.ch>
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Message-ID: <ZDWmOsFL38ox+F5g@phenom.ffwll.local>
+Mail-Followup-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Rob Clark <robdclark@gmail.com>, Rob Clark <robdclark@chromium.org>,
+ Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
+ "open list:DOCUMENTATION" <linux-doc@vger.kernel.org>,
+ linux-arm-msm@vger.kernel.org,
+ Emil Velikov <emil.l.velikov@gmail.com>,
+ Christopher Healy <healych@amazon.com>,
+ dri-devel@lists.freedesktop.org,
+ open list <linux-kernel@vger.kernel.org>,
+ Boris Brezillon <boris.brezillon@collabora.com>,
+ freedreno@lists.freedesktop.org, Sean Paul <sean@poorly.run>
 References: <20230410210608.1873968-1-robdclark@gmail.com>
  <CAF6AEGvs4XMggPMthiJ89SiaUj3k+nY95OhxLZ5cD-01XPco4Q@mail.gmail.com>
  <ZDWQfbUBhyJf1Ezx@phenom.ffwll.local>
  <CAF6AEGtYw4Dn80OtrnJESkkDXxhUdAr6Nuva+Jo3ExW8MXH++Q@mail.gmail.com>
-In-Reply-To: <CAF6AEGtYw4Dn80OtrnJESkkDXxhUdAr6Nuva+Jo3ExW8MXH++Q@mail.gmail.com>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Tue, 11 Apr 2023 20:35:48 +0300
-Message-ID: <CAA8EJppnEwcHM++YUYZGrNXEha=-ZVAexBdkMVsU52PTOs4VnA@mail.gmail.com>
-To: Rob Clark <robdclark@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+ <CAA8EJppnEwcHM++YUYZGrNXEha=-ZVAexBdkMVsU52PTOs4VnA@mail.gmail.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAA8EJppnEwcHM++YUYZGrNXEha=-ZVAexBdkMVsU52PTOs4VnA@mail.gmail.com>
+X-Operating-System: Linux phenom 6.1.0-7-amd64 
 Subject: Re: [Freedreno] [PATCH v2 0/2] drm: fdinfo memory stats
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -75,131 +93,137 @@ Cc: Rob Clark <robdclark@chromium.org>,
  "open list:DOCUMENTATION" <linux-doc@vger.kernel.org>,
  linux-arm-msm@vger.kernel.org, Emil Velikov <emil.l.velikov@gmail.com>,
  Christopher Healy <healych@amazon.com>, dri-devel@lists.freedesktop.org,
- open list <linux-kernel@vger.kernel.org>,
+ open list <linux-kernel@vger.kernel.org>, Sean Paul <sean@poorly.run>,
+ Rob Clark <robdclark@gmail.com>,
  Boris Brezillon <boris.brezillon@collabora.com>,
- freedreno@lists.freedesktop.org, Sean Paul <sean@poorly.run>
+ freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Tue, 11 Apr 2023 at 20:13, Rob Clark <robdclark@gmail.com> wrote:
->
-> On Tue, Apr 11, 2023 at 9:53=E2=80=AFAM Daniel Vetter <daniel@ffwll.ch> w=
-rote:
+On Tue, Apr 11, 2023 at 08:35:48PM +0300, Dmitry Baryshkov wrote:
+> On Tue, 11 Apr 2023 at 20:13, Rob Clark <robdclark@gmail.com> wrote:
 > >
-> > On Tue, Apr 11, 2023 at 09:47:32AM -0700, Rob Clark wrote:
-> > > On Mon, Apr 10, 2023 at 2:06=E2=80=AFPM Rob Clark <robdclark@gmail.co=
-m> wrote:
-> > > >
-> > > > From: Rob Clark <robdclark@chromium.org>
-> > > >
-> > > > Similar motivation to other similar recent attempt[1].  But with an
-> > > > attempt to have some shared code for this.  As well as documentatio=
-n.
-> > > >
-> > > > It is probably a bit UMA-centric, I guess devices with VRAM might w=
-ant
-> > > > some placement stats as well.  But this seems like a reasonable sta=
-rt.
-> > > >
-> > > > Basic gputop support: https://patchwork.freedesktop.org/series/1162=
-36/
-> > > > And already nvtop support: https://github.com/Syllo/nvtop/pull/204
+> > On Tue, Apr 11, 2023 at 9:53 AM Daniel Vetter <daniel@ffwll.ch> wrote:
 > > >
-> > > On a related topic, I'm wondering if it would make sense to report
-> > > some more global things (temp, freq, etc) via fdinfo?  Some of this,
-> > > tools like nvtop could get by trawling sysfs or other driver specific
-> > > ways.  But maybe it makes sense to have these sort of things reported
-> > > in a standardized way (even though they aren't really per-drm_file)
+> > > On Tue, Apr 11, 2023 at 09:47:32AM -0700, Rob Clark wrote:
+> > > > On Mon, Apr 10, 2023 at 2:06 PM Rob Clark <robdclark@gmail.com> wrote:
+> > > > >
+> > > > > From: Rob Clark <robdclark@chromium.org>
+> > > > >
+> > > > > Similar motivation to other similar recent attempt[1].  But with an
+> > > > > attempt to have some shared code for this.  As well as documentation.
+> > > > >
+> > > > > It is probably a bit UMA-centric, I guess devices with VRAM might want
+> > > > > some placement stats as well.  But this seems like a reasonable start.
+> > > > >
+> > > > > Basic gputop support: https://patchwork.freedesktop.org/series/116236/
+> > > > > And already nvtop support: https://github.com/Syllo/nvtop/pull/204
+> > > >
+> > > > On a related topic, I'm wondering if it would make sense to report
+> > > > some more global things (temp, freq, etc) via fdinfo?  Some of this,
+> > > > tools like nvtop could get by trawling sysfs or other driver specific
+> > > > ways.  But maybe it makes sense to have these sort of things reported
+> > > > in a standardized way (even though they aren't really per-drm_file)
+> > >
+> > > I think that's a bit much layering violation, we'd essentially have to
+> > > reinvent the hwmon sysfs uapi in fdinfo. Not really a business I want to
+> > > be in :-)
 > >
-> > I think that's a bit much layering violation, we'd essentially have to
-> > reinvent the hwmon sysfs uapi in fdinfo. Not really a business I want t=
-o
-> > be in :-)
->
-> I guess this is true for temp (where there are thermal zones with
-> potentially multiple temp sensors.. but I'm still digging my way thru
-> the thermal_cooling_device stuff)
+> > I guess this is true for temp (where there are thermal zones with
+> > potentially multiple temp sensors.. but I'm still digging my way thru
+> > the thermal_cooling_device stuff)
+> 
+> It is slightly ugly. All thermal zones and cooling devices are virtual
+> devices (so, even no connection to the particular tsens device). One
+> can either enumerate them by checking
+> /sys/class/thermal/thermal_zoneN/type or enumerate them through
+> /sys/class/hwmon. For cooling devices again the only enumeration is
+> through /sys/class/thermal/cooling_deviceN/type.
+> 
+> Probably it should be possible to push cooling devices and thermal
+> zones under corresponding providers. However I do not know if there is
+> a good way to correlate cooling device (ideally a part of GPU) to the
+> thermal_zone (which in our case is provided by tsens / temp_alarm
+> rather than GPU itself).
 
-It is slightly ugly. All thermal zones and cooling devices are virtual
-devices (so, even no connection to the particular tsens device). One
-can either enumerate them by checking
-/sys/class/thermal/thermal_zoneN/type or enumerate them through
-/sys/class/hwmon. For cooling devices again the only enumeration is
-through /sys/class/thermal/cooling_deviceN/type.
+There's not even sysfs links to connect the pieces in both ways?
 
-Probably it should be possible to push cooling devices and thermal
-zones under corresponding providers. However I do not know if there is
-a good way to correlate cooling device (ideally a part of GPU) to the
-thermal_zone (which in our case is provided by tsens / temp_alarm
-rather than GPU itself).
+> > But what about freq?  I think, esp for cases where some "fw thing" is
+> > controlling the freq we end up needing to use gpu counters to measure
+> > the freq.
+> 
+> For the freq it is slightly easier: /sys/class/devfreq/*, devices are
+> registered under proper parent (IOW, GPU). So one can read
+> /sys/class/devfreq/3d00000.gpu/cur_freq or
+> /sys/bus/platform/devices/3d00000.gpu/devfreq/3d00000.gpu/cur_freq.
+> 
+> However because of the components usage, there is no link from
+> /sys/class/drm/card0
+> (/sys/devices/platform/soc@0/ae00000.display-subsystem/ae01000.display-controller/drm/card0)
+> to /sys/devices/platform/soc@0/3d00000.gpu, the GPU unit.
 
->
-> But what about freq?  I think, esp for cases where some "fw thing" is
-> controlling the freq we end up needing to use gpu counters to measure
-> the freq.
+Hm ... do we need to make component more visible in sysfs, with _looooots_
+of links? Atm it's just not even there.
 
-For the freq it is slightly easier: /sys/class/devfreq/*, devices are
-registered under proper parent (IOW, GPU). So one can read
-/sys/class/devfreq/3d00000.gpu/cur_freq or
-/sys/bus/platform/devices/3d00000.gpu/devfreq/3d00000.gpu/cur_freq.
+> Getting all these items together in a platform-independent way would
+> be definitely an important but complex topic.
 
-However because of the components usage, there is no link from
-/sys/class/drm/card0
-(/sys/devices/platform/soc@0/ae00000.display-subsystem/ae01000.display-cont=
-roller/drm/card0)
-to /sys/devices/platform/soc@0/3d00000.gpu, the GPU unit.
+Yeah this sounds like some work. But also sounds like it's all generic
+issues (thermal zones above and component here) that really should be
+fixed at that level?
 
-Getting all these items together in a platform-independent way would
-be definitely an important but complex topic.
+Cheers, Daniel
 
->
-> > What might be needed is better glue to go from the fd or fdinfo to the
-> > right hw device and then crawl around the hwmon in sysfs automatically.=
- I
-> > would not be surprised at all if we really suck on this, probably more
-> > likely on SoC than pci gpus where at least everything should be under t=
-he
-> > main pci sysfs device.
->
-> yeah, I *think* userspace would have to look at /proc/device-tree to
-> find the cooling device(s) associated with the gpu.. at least I don't
-> see a straightforward way to figure it out just for sysfs
->
-> BR,
-> -R
->
-> > -Daniel
+
+> > > What might be needed is better glue to go from the fd or fdinfo to the
+> > > right hw device and then crawl around the hwmon in sysfs automatically. I
+> > > would not be surprised at all if we really suck on this, probably more
+> > > likely on SoC than pci gpus where at least everything should be under the
+> > > main pci sysfs device.
 > >
-> > >
-> > > BR,
-> > > -R
-> > >
-> > >
-> > > > [1] https://patchwork.freedesktop.org/series/112397/
-> > > >
-> > > > Rob Clark (2):
-> > > >   drm: Add fdinfo memory stats
-> > > >   drm/msm: Add memory stats to fdinfo
-> > > >
-> > > >  Documentation/gpu/drm-usage-stats.rst | 21 +++++++
-> > > >  drivers/gpu/drm/drm_file.c            | 79 +++++++++++++++++++++++=
-++++
-> > > >  drivers/gpu/drm/msm/msm_drv.c         | 25 ++++++++-
-> > > >  drivers/gpu/drm/msm/msm_gpu.c         |  2 -
-> > > >  include/drm/drm_file.h                | 10 ++++
-> > > >  5 files changed, 134 insertions(+), 3 deletions(-)
-> > > >
-> > > > --
-> > > > 2.39.2
-> > > >
+> > yeah, I *think* userspace would have to look at /proc/device-tree to
+> > find the cooling device(s) associated with the gpu.. at least I don't
+> > see a straightforward way to figure it out just for sysfs
 > >
-> > --
-> > Daniel Vetter
-> > Software Engineer, Intel Corporation
-> > http://blog.ffwll.ch
+> > BR,
+> > -R
+> >
+> > > -Daniel
+> > >
+> > > >
+> > > > BR,
+> > > > -R
+> > > >
+> > > >
+> > > > > [1] https://patchwork.freedesktop.org/series/112397/
+> > > > >
+> > > > > Rob Clark (2):
+> > > > >   drm: Add fdinfo memory stats
+> > > > >   drm/msm: Add memory stats to fdinfo
+> > > > >
+> > > > >  Documentation/gpu/drm-usage-stats.rst | 21 +++++++
+> > > > >  drivers/gpu/drm/drm_file.c            | 79 +++++++++++++++++++++++++++
+> > > > >  drivers/gpu/drm/msm/msm_drv.c         | 25 ++++++++-
+> > > > >  drivers/gpu/drm/msm/msm_gpu.c         |  2 -
+> > > > >  include/drm/drm_file.h                | 10 ++++
+> > > > >  5 files changed, 134 insertions(+), 3 deletions(-)
+> > > > >
+> > > > > --
+> > > > > 2.39.2
+> > > > >
+> > >
+> > > --
+> > > Daniel Vetter
+> > > Software Engineer, Intel Corporation
+> > > http://blog.ffwll.ch
+> 
+> 
+> 
+> -- 
+> With best wishes
+> Dmitry
 
-
-
---=20
-With best wishes
-Dmitry
+-- 
+Daniel Vetter
+Software Engineer, Intel Corporation
+http://blog.ffwll.ch
