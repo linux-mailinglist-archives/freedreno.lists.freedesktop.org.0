@@ -2,79 +2,72 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8A2DD6DD817
-	for <lists+freedreno@lfdr.de>; Tue, 11 Apr 2023 12:43:18 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B036A6DD82A
+	for <lists+freedreno@lfdr.de>; Tue, 11 Apr 2023 12:44:43 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4FC2810E175;
-	Tue, 11 Apr 2023 10:43:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 745C510E226;
+	Tue, 11 Apr 2023 10:44:42 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wm1-x335.google.com (mail-wm1-x335.google.com
- [IPv6:2a00:1450:4864:20::335])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CE54710E217
- for <freedreno@lists.freedesktop.org>; Tue, 11 Apr 2023 10:43:14 +0000 (UTC)
-Received: by mail-wm1-x335.google.com with SMTP id
- 5b1f17b1804b1-3f080fdb924so3211445e9.1
- for <freedreno@lists.freedesktop.org>; Tue, 11 Apr 2023 03:43:14 -0700 (PDT)
+Received: from mail-lf1-x129.google.com (mail-lf1-x129.google.com
+ [IPv6:2a00:1450:4864:20::129])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B424710E226
+ for <freedreno@lists.freedesktop.org>; Tue, 11 Apr 2023 10:44:40 +0000 (UTC)
+Received: by mail-lf1-x129.google.com with SMTP id t14so9663133lft.7
+ for <freedreno@lists.freedesktop.org>; Tue, 11 Apr 2023 03:44:40 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=ffwll.ch; s=google; t=1681209793; x=1683801793;
- h=in-reply-to:content-disposition:mime-version:references
- :mail-followup-to:message-id:subject:cc:to:from:date:from:to:cc
- :subject:date:message-id:reply-to;
- bh=kdCFQImNcwIaC8ig2ueHYqJphNr8HsFPvfaTYHnuWiU=;
- b=D/hlliBmXRQ9agP9C9pp/JtXQiusdn0Q18slpFMWofSYerQS6n9TITMsy+InyDmtPr
- ZCSJX2JRObQx9Q/UHQJF42N6YrYuzb105H7HiX2RvoxwM1J42sIEhBckN+6WDe9yavBV
- BUltVSjAJK3e4O4zg7VzAmzdLdW+kKUYhxV5g=
+ d=linaro.org; s=google; t=1681209878;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=hirgcP29XHsNtIjSU+Al8iOAd2++V8Gniyy2xGUTSAE=;
+ b=IBbce+lN+Nr+vMoC0k9ByIAXwvFFmDnfFThOZ3mb6AR2zqxfAHisyc0aOOaSYbtBrY
+ 52vr8d45/GQQZPm2GuUm4tltjHvzKNm1w5yPEaon1pI3pB/uXkQNRLc+1II0YnUp2VCE
+ WnMdReneoMAhDy24QDI4j3HWN0dC41jSNJ6W+aj7EjbhHt/WyVOSmrjKLG5NYMFJ0PVz
+ 9bia98efJ9GZVpaaoAjBRSEi4XSiHYBWP2zrCfxjKM3iZh6LrhOud0INyhp+a6gvqSH5
+ ThY4E+dFA9feolSub4Xz1TgTazqA1tJnz8O5Q9TcfdvhpkhASWJpv3XsP12ro42azrwD
+ i6kg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112; t=1681209793; x=1683801793;
- h=in-reply-to:content-disposition:mime-version:references
- :mail-followup-to:message-id:subject:cc:to:from:date
+ d=1e100.net; s=20210112; t=1681209878;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=kdCFQImNcwIaC8ig2ueHYqJphNr8HsFPvfaTYHnuWiU=;
- b=STIZ39T7VamKYO5zPGU0iaMj7gQq2kn/XhPa/z7zQYmQUqYtOcFcWqQMhEXITTrgk+
- 9u8LpsoVeJl7mjOEPgLAW62hFcKHCmNDR+D0Sy3T+v+d3rLkkNKOwNKYilpSoOTeFUCm
- j/T4+zwDMp26YaUOorT9GWz838IrTDH6+h7SRmuMa9GWBa1Gh/mYARMIUTsaXfP1xgcB
- y5tzCEl0NyGr801JXWVz1qiZuXATh9U9LZaNJNO4m98VBwnEygHYbiuAgcLEJPWIXCSS
- /4i1vtevGxjlBVTNYNVFWgISy2tU/u3aVu3HfJ4GTUTHaiF+jraRAdbbLO7TNz3rF3Kv
- jEAw==
-X-Gm-Message-State: AAQBX9dzWzdFKcy796RwDhGyji/9/muZVX5V84tiCxKyHcRvYK3CPqk7
- 9K8LTDl+Rq+8IWVrn5YOaf4ezw==
-X-Google-Smtp-Source: AKy350YbGULpT1gZF8MvSg6CbB17/Bi8MvulFffq8JcFMUHC1QdvMvKX3mNFhYAkiv82evR9sUpkzA==
-X-Received: by 2002:a5d:595a:0:b0:2e4:aa42:7872 with SMTP id
- e26-20020a5d595a000000b002e4aa427872mr5868131wri.4.1681209792784; 
- Tue, 11 Apr 2023 03:43:12 -0700 (PDT)
-Received: from phenom.ffwll.local (212-51-149-33.fiber7.init7.net.
- [212.51.149.33]) by smtp.gmail.com with ESMTPSA id
- c11-20020a5d4f0b000000b002f27dd92643sm2895514wru.99.2023.04.11.03.43.11
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 11 Apr 2023 03:43:12 -0700 (PDT)
-Date: Tue, 11 Apr 2023 12:43:10 +0200
-From: Daniel Vetter <daniel@ffwll.ch>
-To: Rob Clark <robdclark@gmail.com>
-Message-ID: <ZDU5vvc4V85E9hqP@phenom.ffwll.local>
-Mail-Followup-To: Rob Clark <robdclark@gmail.com>,
- dri-devel@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
- freedreno@lists.freedesktop.org,
- Boris Brezillon <boris.brezillon@collabora.com>,
- Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
- Christopher Healy <healych@amazon.com>,
- Emil Velikov <emil.l.velikov@gmail.com>,
- Rob Clark <robdclark@chromium.org>,
- David Airlie <airlied@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Jonathan Corbet <corbet@lwn.net>,
- "open list:DOCUMENTATION" <linux-doc@vger.kernel.org>,
- open list <linux-kernel@vger.kernel.org>
-References: <20230410210608.1873968-1-robdclark@gmail.com>
- <20230410210608.1873968-2-robdclark@gmail.com>
+ bh=hirgcP29XHsNtIjSU+Al8iOAd2++V8Gniyy2xGUTSAE=;
+ b=ssJXOR64M0xBK83G92O3b3+11hYtk7E87+3hJ6mq0v6L6Fzir4Ox+thTW6htoj3z6i
+ 7zXAMhZlZd+lb66aMBjH2hnPFlBGihwhwfHGdjolRMtt9IYqy7TgNUdTa7eX7ezHbY0s
+ WEw87ZFVpiLQGTpqElIhmYtERTQ/GsVdirbqp//LceWDzJB4c+LUGdHyb8fK5DogT9qy
+ k8jqkh+0iZIQ7EoABPWyNSiYPU5Q55wMqy1lh6nKxHKYFlVQ/qiOxSep3eN1f3mw+NnU
+ uGnY1FbULM49zDH/zOrnIGKXVE1imwdUCJAocwmSXdeAZuIVfpwmNKqmvIMyWarH/+Sc
+ 7P6Q==
+X-Gm-Message-State: AAQBX9eNql7OXjkM0h051P/S+FMJ1i9PskSUvI50tuS+F3XPxZuUMDv/
+ lVfwpdPEytNa7k8ajd2uqf5ZJg==
+X-Google-Smtp-Source: AKy350aIHpbNzEiCyJm0KeFoDAJWdaDbLNPH4o/rRl+cwDyOgsuQ7YSupy1n6sfAf+Uy7vVFdGWf3g==
+X-Received: by 2002:a19:7010:0:b0:4ec:8853:136 with SMTP id
+ h16-20020a197010000000b004ec88530136mr1672586lfc.12.1681209878356; 
+ Tue, 11 Apr 2023 03:44:38 -0700 (PDT)
+Received: from ?IPV6:2001:14ba:a085:4d00::8a5?
+ (dzccz6yyyyyyyyyyybcwt-3.rev.dnainternet.fi. [2001:14ba:a085:4d00::8a5])
+ by smtp.gmail.com with ESMTPSA id
+ r26-20020ac252ba000000b004e048852377sm2502146lfm.263.2023.04.11.03.44.37
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 11 Apr 2023 03:44:37 -0700 (PDT)
+Message-ID: <779fbc24-c307-f229-f8e8-874851604b76@linaro.org>
+Date: Tue, 11 Apr 2023 13:44:37 +0300
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20230410210608.1873968-2-robdclark@gmail.com>
-X-Operating-System: Linux phenom 6.1.0-7-amd64 
-Subject: Re: [Freedreno] [PATCH v2 1/2] drm: Add fdinfo memory stats
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.9.0
+Content-Language: en-GB
+To: Abhinav Kumar <quic_abhinavk@quicinc.com>, Rob Clark
+ <robdclark@gmail.com>, Sean Paul <sean@poorly.run>
+References: <20230408002750.2722304-1-dmitry.baryshkov@linaro.org>
+ <20230408002750.2722304-5-dmitry.baryshkov@linaro.org>
+ <66ea8874-424f-e4d8-ff0b-26ffb5333f2d@quicinc.com>
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+In-Reply-To: <66ea8874-424f-e4d8-ff0b-26ffb5333f2d@quicinc.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Subject: Re: [Freedreno] [PATCH v5 4/4] drm/msm/dpu: use CTL_SC7280_MASK for
+ sm8450's ctl_0
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -87,215 +80,65 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rob Clark <robdclark@chromium.org>,
- Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
- Thomas Zimmermann <tzimmermann@suse.de>, Jonathan Corbet <corbet@lwn.net>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- linux-arm-msm@vger.kernel.org,
- "open list:DOCUMENTATION" <linux-doc@vger.kernel.org>,
- Emil Velikov <emil.l.velikov@gmail.com>,
- Christopher Healy <healych@amazon.com>, dri-devel@lists.freedesktop.org,
- open list <linux-kernel@vger.kernel.org>,
- Boris Brezillon <boris.brezillon@collabora.com>,
- Maxime Ripard <mripard@kernel.org>, Daniel Vetter <daniel@ffwll.ch>,
- David Airlie <airlied@gmail.com>, freedreno@lists.freedesktop.org
+Cc: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
+ Bjorn Andersson <andersson@kernel.org>, dri-devel@lists.freedesktop.org,
+ Stephen Boyd <swboyd@chromium.org>, Daniel Vetter <daniel@ffwll.ch>,
+ David Airlie <airlied@gmail.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Mon, Apr 10, 2023 at 02:06:06PM -0700, Rob Clark wrote:
-> From: Rob Clark <robdclark@chromium.org>
+On 11/04/2023 03:57, Abhinav Kumar wrote:
 > 
-> Add a helper to dump memory stats to fdinfo.  For the things the drm
-> core isn't aware of, use a callback.
 > 
-> v2: Fix typos, change size units to match docs, use div_u64
+> On 4/7/2023 5:27 PM, Dmitry Baryshkov wrote:
+>> On sm8450 platform the CTL_0 doesn't differ from the rest of CTL blocks,
+>> so switch it to CTL_SC7280_MASK too.
+>>
+>> Some background: original commit 100d7ef6995d ("drm/msm/dpu: add support
+>> for SM8450") had all (relevant at that time) bit spelled individually.
+>> Then commit 0e91bcbb0016 ("drm/msm/dpu: Add SM8350 to hw catalog"),
+>> despite being a mismerge, correctly changed all other CTL entries to use
+>> CTL_SC7280_MASK, except CTL_0.
+>>
+>> While the current BLOCK_SOC_MASK style is not ideal (and while we are
+>> working on a better scheme), let's follow its usage as a least minimal
+>> surprise. For example, sc8280xp, a close associate of sm8450, also uses
+>> CTL_SC7280_MASK.
+>>
+>> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+>> ---
 > 
-> Signed-off-by: Rob Clark <robdclark@chromium.org>
-> Reviewed-by: Emil Velikov <emil.l.velikov@gmail.com>
+> Although I dont totally agree with this, but because sc8280xp also uses 
+> the same, I am fine.
+> 
+> 
+> Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
+> 
+> But either we need to work on a better scheme or expand the macros but 
+> not duplicate these for the next chipset which gets added.
 
-Uh can't we wire this up by default? Having this as a per-driver opt-in
-sounds like we'll get maximally fragmented drm fd_info, and since that's
-uapi I don't think that's any good at all.
+Yes. I'm also holding the rest of MASK renaming patches for now.
 
-I think it's time we have
-- drm_fd_info
-- rolled out to all drivers in their fops
-- with feature checks as appropriate
-- push the driver-specific things into a drm_driver callback
+I'd like to the following major items finalized and merged (probably a 
+goal for 6.5):
 
-And I guess start peopling giving a hard time for making things needless
-driver-specifict ... there's really no reason at all this is not
-consistent across drivers.
--Daniel
+- INTF_TE restructure
+- QSEED3/4 refactoring
+- Proper support for active CTLs (wip), removing the need for 
+DPU_CTL_SPLIT_DISPLAY on sm8150+
+- Pending platforms (2 from 6.x, one from 5.x, hopefully one from 4.x 
+too, 3.x if possible). Hopefully this will also include more platforms 
+from recent DPU generations (8.x, 9.x)
+- Ideally: also sort out max SSPP line widths for VIG vs DMA
 
-> ---
->  Documentation/gpu/drm-usage-stats.rst | 21 +++++++
->  drivers/gpu/drm/drm_file.c            | 79 +++++++++++++++++++++++++++
->  include/drm/drm_file.h                | 10 ++++
->  3 files changed, 110 insertions(+)
-> 
-> diff --git a/Documentation/gpu/drm-usage-stats.rst b/Documentation/gpu/drm-usage-stats.rst
-> index b46327356e80..b5e7802532ed 100644
-> --- a/Documentation/gpu/drm-usage-stats.rst
-> +++ b/Documentation/gpu/drm-usage-stats.rst
-> @@ -105,6 +105,27 @@ object belong to this client, in the respective memory region.
->  Default unit shall be bytes with optional unit specifiers of 'KiB' or 'MiB'
->  indicating kibi- or mebi-bytes.
->  
-> +- drm-shared-memory: <uint> [KiB|MiB]
-> +
-> +The total size of buffers that are shared with another file (ie. have more
-> +than a single handle).
-> +
-> +- drm-private-memory: <uint> [KiB|MiB]
-> +
-> +The total size of buffers that are not shared with another file.
-> +
-> +- drm-resident-memory: <uint> [KiB|MiB]
-> +
-> +The total size of buffers that are resident in system memory.
-> +
-> +- drm-purgeable-memory: <uint> [KiB|MiB]
-> +
-> +The total size of buffers that are purgeable.
-> +
-> +- drm-active-memory: <uint> [KiB|MiB]
-> +
-> +The total size of buffers that are active on one or more rings.
-> +
->  - drm-cycles-<str> <uint>
->  
->  Engine identifier string must be the same as the one specified in the
-> diff --git a/drivers/gpu/drm/drm_file.c b/drivers/gpu/drm/drm_file.c
-> index a51ff8cee049..085b01842a87 100644
-> --- a/drivers/gpu/drm/drm_file.c
-> +++ b/drivers/gpu/drm/drm_file.c
-> @@ -42,6 +42,7 @@
->  #include <drm/drm_client.h>
->  #include <drm/drm_drv.h>
->  #include <drm/drm_file.h>
-> +#include <drm/drm_gem.h>
->  #include <drm/drm_print.h>
->  
->  #include "drm_crtc_internal.h"
-> @@ -868,6 +869,84 @@ void drm_send_event(struct drm_device *dev, struct drm_pending_event *e)
->  }
->  EXPORT_SYMBOL(drm_send_event);
->  
-> +static void print_size(struct drm_printer *p, const char *stat, size_t sz)
-> +{
-> +	const char *units[] = {"", " KiB", " MiB"};
-> +	unsigned u;
-> +
-> +	for (u = 0; u < ARRAY_SIZE(units) - 1; u++) {
-> +		if (sz < SZ_1K)
-> +			break;
-> +		sz = div_u64(sz, SZ_1K);
-> +	}
-> +
-> +	drm_printf(p, "%s:\t%zu%s\n", stat, sz, units[u]);
-> +}
-> +
-> +/**
-> + * drm_print_memory_stats - Helper to print standard fdinfo memory stats
-> + * @file: the DRM file
-> + * @p: the printer to print output to
-> + * @status: callback to get driver tracked object status
-> + *
-> + * Helper to iterate over GEM objects with a handle allocated in the specified
-> + * file.  The optional status callback can return additional object state which
-> + * determines which stats the object is counted against.  The callback is called
-> + * under table_lock.  Racing against object status change is "harmless", and the
-> + * callback can expect to not race against object destruction.
-> + */
-> +void drm_print_memory_stats(struct drm_file *file, struct drm_printer *p,
-> +			    enum drm_gem_object_status (*status)(struct drm_gem_object *))
-> +{
-> +	struct drm_gem_object *obj;
-> +	struct {
-> +		size_t shared;
-> +		size_t private;
-> +		size_t resident;
-> +		size_t purgeable;
-> +		size_t active;
-> +	} size = {0};
-> +	int id;
-> +
-> +	spin_lock(&file->table_lock);
-> +	idr_for_each_entry (&file->object_idr, obj, id) {
-> +		enum drm_gem_object_status s = 0;
-> +
-> +		if (status)
-> +			s = status(obj);
-> +
-> +		if (obj->handle_count > 1) {
-> +			size.shared += obj->size;
-> +		} else {
-> +			size.private += obj->size;
-> +		}
-> +
-> +		if (s & DRM_GEM_OBJECT_RESIDENT) {
-> +			size.resident += obj->size;
-> +			s &= ~DRM_GEM_OBJECT_PURGEABLE;
-> +		}
-> +
-> +		if (s & DRM_GEM_OBJECT_ACTIVE) {
-> +			size.active += obj->size;
-> +			s &= ~DRM_GEM_OBJECT_PURGEABLE;
-> +		}
-> +
-> +		if (s & DRM_GEM_OBJECT_PURGEABLE)
-> +			size.purgeable += obj->size;
-> +	}
-> +	spin_unlock(&file->table_lock);
-> +
-> +	print_size(p, "drm-shared-memory", size.shared);
-> +	print_size(p, "drm-private-memory", size.private);
-> +
-> +	if (status) {
-> +		print_size(p, "drm-resident-memory", size.resident);
-> +		print_size(p, "drm-purgeable-memory", size.purgeable);
-> +		print_size(p, "drm-active-memory", size.active);
-> +	}
-> +}
-> +EXPORT_SYMBOL(drm_print_memory_stats);
-> +
->  /**
->   * mock_drm_getfile - Create a new struct file for the drm device
->   * @minor: drm minor to wrap (e.g. #drm_device.primary)
-> diff --git a/include/drm/drm_file.h b/include/drm/drm_file.h
-> index 0d1f853092ab..7bd8a1374f39 100644
-> --- a/include/drm/drm_file.h
-> +++ b/include/drm/drm_file.h
-> @@ -41,6 +41,7 @@
->  struct dma_fence;
->  struct drm_file;
->  struct drm_device;
-> +struct drm_printer;
->  struct device;
->  struct file;
->  
-> @@ -438,6 +439,15 @@ void drm_send_event_timestamp_locked(struct drm_device *dev,
->  				     struct drm_pending_event *e,
->  				     ktime_t timestamp);
->  
-> +enum drm_gem_object_status {
-> +	DRM_GEM_OBJECT_RESIDENT  = BIT(0),
-> +	DRM_GEM_OBJECT_PURGEABLE = BIT(1),
-> +	DRM_GEM_OBJECT_ACTIVE    = BIT(2),
-> +};
-> +
-> +void drm_print_memory_stats(struct drm_file *file, struct drm_printer *p,
-> +			    enum drm_gem_object_status (*status)(struct drm_gem_object *));
-> +
->  struct file *mock_drm_getfile(struct drm_minor *minor, unsigned int flags);
->  
->  #endif /* _DRM_FILE_H_ */
-> -- 
-> 2.39.2
-> 
+I think that after this we can return to the question of platform 
+similarities and differences.
+
+Anyway, with the current msm-next + this patchset we should have a 
+catalog which one can expand without fearing about conflicts or 
+incorrect data duplication.
 
 -- 
-Daniel Vetter
-Software Engineer, Intel Corporation
-http://blog.ffwll.ch
+With best wishes
+Dmitry
+
