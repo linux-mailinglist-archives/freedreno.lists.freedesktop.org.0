@@ -1,64 +1,67 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 988A16DE0D6
-	for <lists+freedreno@lfdr.de>; Tue, 11 Apr 2023 18:19:10 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 70A006DE0D8
+	for <lists+freedreno@lfdr.de>; Tue, 11 Apr 2023 18:19:19 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EEBDC10E33B;
-	Tue, 11 Apr 2023 16:19:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CE3E910E5B5;
+	Tue, 11 Apr 2023 16:19:10 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-x22e.google.com (mail-lj1-x22e.google.com
- [IPv6:2a00:1450:4864:20::22e])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4588910E23A
- for <freedreno@lists.freedesktop.org>; Tue, 11 Apr 2023 16:19:07 +0000 (UTC)
-Received: by mail-lj1-x22e.google.com with SMTP id be27so9172953ljb.12
+Received: from mail-lf1-x131.google.com (mail-lf1-x131.google.com
+ [IPv6:2a00:1450:4864:20::131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1741610E33B
+ for <freedreno@lists.freedesktop.org>; Tue, 11 Apr 2023 16:19:08 +0000 (UTC)
+Received: by mail-lf1-x131.google.com with SMTP id g19so54125167lfr.9
  for <freedreno@lists.freedesktop.org>; Tue, 11 Apr 2023 09:19:07 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1681229945;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=SQ0nnIUZB3Cbnx6sjo9wsNQeyY87G+6/+YzgD8Yp9zM=;
- b=BDEnvk8DmdSwRYIM7GfN8TVVqGUxX/fquHdggQ2Ko5J4eL6eCiGQ/zpw2k26QHgt4y
- tZqH9q5Z1omOI1xXJmD3fzYeso4GF8CF+fUqas1f6CBW3MujlxKu79U4Nvsy2PINyNq6
- HkXMvEHyefMuj1bIWzebgDgnJuafo+/8vE+BgpcaTYCsOq0nI8/6qU46XK+klA5CnKu2
- Fu/PjymvyZR+bla0GNqv7ZQe5M+2wM8Z7tlklopN2Y2wBA70is1udA0G+87yc56TGkKH
- x7UHcHVmH8ZMe2gQBEbZdaHhf0PgD8wU4lF+ZBp3zOBqzo5lklbQH55e7nCmLU0tpylw
- pR3w==
+ d=linaro.org; s=google; t=1681229946;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=Zg2u5cQudfufm2tiNQqtM0BKS2NlQC2p1HPqtvrONfo=;
+ b=aO/DfLCbvLl3InM0XhqmTdm87KLkEBZ/lUMnyWl8gXki92fKRivzLJ900Gt89BhcIB
+ WB5sNprVSvcyEc8Ge6zC0jr9CDC7byZo614m1AkhiWRcRNwYewqasjJgTckBhZQH93yg
+ W1sqXclacOyx2bz8Ts2CbF41xEQ/BaSkskCXmKEnEHXPGtAw1V1ReNlML2XKPZ5elerS
+ o0cMHbhSkwIsirC4za7WafZpcgSEdaTUIUXZgk6qr0rWMqGyFXYUG7cTey1WcL4uM/q7
+ 2v2APmeTotxdGe0dQSSH5PuL9zMi8R3H/SbiiVc7vc5P+DZ+FBdibmenxFf1/Fxt7m7O
+ ttHA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112; t=1681229945;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=SQ0nnIUZB3Cbnx6sjo9wsNQeyY87G+6/+YzgD8Yp9zM=;
- b=kK/w/Pmvu7BJEmgtJmE8OmvkYrNU12kJL7zecaLiWl2/MNiAxWOtwkd0v8Huctm9Ze
- 0LfQ9Uqm8aN1jIKjuoPrBlNxbRKBHQnPZ4/q5uOmINkIXLkFATscoQpO0SORV4/IlTwz
- YRdQMqLnUeAKsiN64ct7AJAP1BlidA0LuRTATLyVtAGLaIZRBUfIjgtQcIu3FQLv8Ier
- DkzaDp5N3E2UZMUsQtY0Txt+kEcxtm5+NEUhj6vN3UEozB6ql+Axo5JkFSxEO+f+Sfs0
- 4au8GvPDzbx+EwGhiaReAmdd5uYKY67cWEgBfO7F7jq84o5Hh9CQnMVP1GgzV5vjdQ/x
- VWHA==
-X-Gm-Message-State: AAQBX9dB6ilRk1MSENRS5jZYuLBCf/Yze3wxHztcEN2qWgHfdopvWDya
- wIMMXSeu4hEdffJkS2PmDemfxA==
-X-Google-Smtp-Source: AKy350bXrKqT6UAOGad6zcjrrZgvbOfs3wujtxygNjNYNPs1ezzYqcTbUD02sFBLtETY5oIZjYO2Og==
-X-Received: by 2002:a2e:b0d9:0:b0:29b:d29d:c781 with SMTP id
- g25-20020a2eb0d9000000b0029bd29dc781mr4712023ljl.19.1681229945086; 
+ d=1e100.net; s=20210112; t=1681229946;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=Zg2u5cQudfufm2tiNQqtM0BKS2NlQC2p1HPqtvrONfo=;
+ b=UQYqJjR3E4HEGUE9QG5rBsKrWWNHoNTqJF5/qJq4cWYXNGOxsAgywQ8kPnNfjMd6NS
+ 7w2CEMWryQIVRicikD9eRXveKgtrieJ6wOTZaEBb77QHKLoqxkSZliaRy7u74cCzIM3y
+ ViWq+aYAg+8Cmyi3Y24DTUbnRHXlaafnGMLafbFEp0LMxcHrd3ALEdTe6cbAsaaq4Ldb
+ cSqUyGeYAyyjsUAyqq8TrZcVXLI9g7YfVAYGvQIt2kRkj7n6HqbZy0XxvSoNAFrhViE0
+ u8WnMjD6Ycchcz9EUMKuQ4nvAtx3fLocGuY/YjAYj5hrd2o0wa7Gn0OHo7/x7jsey1gf
+ ULJg==
+X-Gm-Message-State: AAQBX9f6iIjEK3ILwpAZgThHVyKI7p0Up1+ERzGdcZ3B7qGj5s6nek5u
+ bBkvzWqOvI+cjqXEOQunATeoXw==
+X-Google-Smtp-Source: AKy350YCKfAeOxIRnegs7LlJ8yQz2YQv/KwMyHgsavnBuSu6PvdZISFQuv8GnHkXMWA7b7FWRZYNiQ==
+X-Received: by 2002:ac2:530a:0:b0:4eb:1361:895c with SMTP id
+ c10-20020ac2530a000000b004eb1361895cmr5071091lfh.55.1681229945786; 
  Tue, 11 Apr 2023 09:19:05 -0700 (PDT)
 Received: from umbar.unikie.fi ([192.130.178.91])
  by smtp.gmail.com with ESMTPSA id
- b30-20020a056512025e00b004ec55ac6cd1sm2426467lfo.136.2023.04.11.09.19.04
+ b30-20020a056512025e00b004ec55ac6cd1sm2426467lfo.136.2023.04.11.09.19.05
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 11 Apr 2023 09:19:04 -0700 (PDT)
+ Tue, 11 Apr 2023 09:19:05 -0700 (PDT)
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 To: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
  Abhinav Kumar <quic_abhinavk@quicinc.com>
-Date: Tue, 11 Apr 2023 19:19:02 +0300
-Message-Id: <20230411161903.599222-1-dmitry.baryshkov@linaro.org>
+Date: Tue, 11 Apr 2023 19:19:03 +0300
+Message-Id: <20230411161903.599222-2-dmitry.baryshkov@linaro.org>
 X-Mailer: git-send-email 2.30.2
+In-Reply-To: <20230411161903.599222-1-dmitry.baryshkov@linaro.org>
+References: <20230411161903.599222-1-dmitry.baryshkov@linaro.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH v2 1/2] drm/msm/adreno: warn if chip revn is
- verified before being set
+Subject: [Freedreno] [PATCH v2 2/2] drm/msm/adreno: change adreno_is_*
+ functions to accept const argument
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,209 +81,202 @@ Cc: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-The commit 010c8bbad2cb ("drm: msm: adreno: Disable preemption on Adreno
-510") tried to check GPU's revn before revn being set. Add WARN_ON_ONCE
-to prevent such bugs from happening again. A separate helper is
-necessary so that the warning is displayed really just once instead of
-being displayed for each of comparisons.
+All adreno_is_*() functions do not modify their argument in any way, so
+they can be changed to accept const struct adreno_gpu pointer.
 
 Suggested-by: Stephen Boyd <swboyd@chromium.org>
 Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 ---
-
-Changes since v1:
- - Renamed to adreno_is_revn() (Stephen)
- - Changed it to accept const gpu pointer (Stephen)
-
----
- drivers/gpu/drm/msm/adreno/adreno_gpu.h | 63 ++++++++++++++++---------
- 1 file changed, 40 insertions(+), 23 deletions(-)
+ drivers/gpu/drm/msm/adreno/adreno_gpu.h | 56 ++++++++++++-------------
+ 1 file changed, 28 insertions(+), 28 deletions(-)
 
 diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.h b/drivers/gpu/drm/msm/adreno/adreno_gpu.h
-index f62612a5c70f..cf3b7abf201a 100644
+index cf3b7abf201a..9857314295f9 100644
 --- a/drivers/gpu/drm/msm/adreno/adreno_gpu.h
 +++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.h
-@@ -145,40 +145,51 @@ struct adreno_platform_config {
+@@ -152,140 +152,140 @@ static inline bool adreno_is_revn(const struct adreno_gpu *gpu, uint32_t revn)
+ 	return gpu->revn == revn;
+ }
  
- bool adreno_cmp_rev(struct adreno_rev rev1, struct adreno_rev rev2);
- 
-+static inline bool adreno_is_revn(const struct adreno_gpu *gpu, uint32_t revn)
-+{
-+	WARN_ON_ONCE(!gpu->revn);
-+
-+	return gpu->revn == revn;
-+}
-+
- static inline bool adreno_is_a2xx(struct adreno_gpu *gpu)
+-static inline bool adreno_is_a2xx(struct adreno_gpu *gpu)
++static inline bool adreno_is_a2xx(const struct adreno_gpu *gpu)
  {
-+	WARN_ON_ONCE(!gpu->revn);
-+
+ 	WARN_ON_ONCE(!gpu->revn);
+ 
  	return (gpu->revn < 300);
  }
  
- static inline bool adreno_is_a20x(struct adreno_gpu *gpu)
+-static inline bool adreno_is_a20x(struct adreno_gpu *gpu)
++static inline bool adreno_is_a20x(const struct adreno_gpu *gpu)
  {
-+	WARN_ON_ONCE(!gpu->revn);
-+
+ 	WARN_ON_ONCE(!gpu->revn);
+ 
  	return (gpu->revn < 210);
  }
  
- static inline bool adreno_is_a225(struct adreno_gpu *gpu)
+-static inline bool adreno_is_a225(struct adreno_gpu *gpu)
++static inline bool adreno_is_a225(const struct adreno_gpu *gpu)
  {
--	return gpu->revn == 225;
-+	return adreno_is_revn(gpu, 225);
+ 	return adreno_is_revn(gpu, 225);
  }
  
- static inline bool adreno_is_a305(struct adreno_gpu *gpu)
+-static inline bool adreno_is_a305(struct adreno_gpu *gpu)
++static inline bool adreno_is_a305(const struct adreno_gpu *gpu)
  {
--	return gpu->revn == 305;
-+	return adreno_is_revn(gpu, 305);
+ 	return adreno_is_revn(gpu, 305);
  }
  
- static inline bool adreno_is_a306(struct adreno_gpu *gpu)
+-static inline bool adreno_is_a306(struct adreno_gpu *gpu)
++static inline bool adreno_is_a306(const struct adreno_gpu *gpu)
  {
  	/* yes, 307, because a305c is 306 */
--	return gpu->revn == 307;
-+	return adreno_is_revn(gpu, 307);
+ 	return adreno_is_revn(gpu, 307);
  }
  
- static inline bool adreno_is_a320(struct adreno_gpu *gpu)
+-static inline bool adreno_is_a320(struct adreno_gpu *gpu)
++static inline bool adreno_is_a320(const struct adreno_gpu *gpu)
  {
--	return gpu->revn == 320;
-+	return adreno_is_revn(gpu, 320);
+ 	return adreno_is_revn(gpu, 320);
  }
  
- static inline bool adreno_is_a330(struct adreno_gpu *gpu)
+-static inline bool adreno_is_a330(struct adreno_gpu *gpu)
++static inline bool adreno_is_a330(const struct adreno_gpu *gpu)
  {
--	return gpu->revn == 330;
-+	return adreno_is_revn(gpu, 330);
+ 	return adreno_is_revn(gpu, 330);
  }
  
- static inline bool adreno_is_a330v2(struct adreno_gpu *gpu)
-@@ -188,77 +199,78 @@ static inline bool adreno_is_a330v2(struct adreno_gpu *gpu)
- 
- static inline int adreno_is_a405(struct adreno_gpu *gpu)
+-static inline bool adreno_is_a330v2(struct adreno_gpu *gpu)
++static inline bool adreno_is_a330v2(const struct adreno_gpu *gpu)
  {
--	return gpu->revn == 405;
-+	return adreno_is_revn(gpu, 405);
+ 	return adreno_is_a330(gpu) && (gpu->rev.patchid > 0);
  }
  
- static inline int adreno_is_a420(struct adreno_gpu *gpu)
+-static inline int adreno_is_a405(struct adreno_gpu *gpu)
++static inline int adreno_is_a405(const struct adreno_gpu *gpu)
  {
--	return gpu->revn == 420;
-+	return adreno_is_revn(gpu, 420);
+ 	return adreno_is_revn(gpu, 405);
  }
  
- static inline int adreno_is_a430(struct adreno_gpu *gpu)
+-static inline int adreno_is_a420(struct adreno_gpu *gpu)
++static inline int adreno_is_a420(const struct adreno_gpu *gpu)
  {
--	return gpu->revn == 430;
-+	return adreno_is_revn(gpu, 430);
+ 	return adreno_is_revn(gpu, 420);
  }
  
- static inline int adreno_is_a506(struct adreno_gpu *gpu)
+-static inline int adreno_is_a430(struct adreno_gpu *gpu)
++static inline int adreno_is_a430(const struct adreno_gpu *gpu)
  {
--	return gpu->revn == 506;
-+	return adreno_is_revn(gpu, 506);
+ 	return adreno_is_revn(gpu, 430);
  }
  
- static inline int adreno_is_a508(struct adreno_gpu *gpu)
+-static inline int adreno_is_a506(struct adreno_gpu *gpu)
++static inline int adreno_is_a506(const struct adreno_gpu *gpu)
  {
--	return gpu->revn == 508;
-+	return adreno_is_revn(gpu, 508);
+ 	return adreno_is_revn(gpu, 506);
  }
  
- static inline int adreno_is_a509(struct adreno_gpu *gpu)
+-static inline int adreno_is_a508(struct adreno_gpu *gpu)
++static inline int adreno_is_a508(const struct adreno_gpu *gpu)
  {
--	return gpu->revn == 509;
-+	return adreno_is_revn(gpu, 509);
+ 	return adreno_is_revn(gpu, 508);
  }
  
- static inline int adreno_is_a510(struct adreno_gpu *gpu)
+-static inline int adreno_is_a509(struct adreno_gpu *gpu)
++static inline int adreno_is_a509(const struct adreno_gpu *gpu)
  {
--	return gpu->revn == 510;
-+	return adreno_is_revn(gpu, 510);
+ 	return adreno_is_revn(gpu, 509);
  }
  
- static inline int adreno_is_a512(struct adreno_gpu *gpu)
+-static inline int adreno_is_a510(struct adreno_gpu *gpu)
++static inline int adreno_is_a510(const struct adreno_gpu *gpu)
  {
--	return gpu->revn == 512;
-+	return adreno_is_revn(gpu, 512);
+ 	return adreno_is_revn(gpu, 510);
  }
  
- static inline int adreno_is_a530(struct adreno_gpu *gpu)
+-static inline int adreno_is_a512(struct adreno_gpu *gpu)
++static inline int adreno_is_a512(const struct adreno_gpu *gpu)
  {
--	return gpu->revn == 530;
-+	return adreno_is_revn(gpu, 530);
+ 	return adreno_is_revn(gpu, 512);
  }
  
- static inline int adreno_is_a540(struct adreno_gpu *gpu)
+-static inline int adreno_is_a530(struct adreno_gpu *gpu)
++static inline int adreno_is_a530(const struct adreno_gpu *gpu)
  {
--	return gpu->revn == 540;
-+	return adreno_is_revn(gpu, 540);
+ 	return adreno_is_revn(gpu, 530);
  }
  
- static inline int adreno_is_a618(struct adreno_gpu *gpu)
+-static inline int adreno_is_a540(struct adreno_gpu *gpu)
++static inline int adreno_is_a540(const struct adreno_gpu *gpu)
  {
--	return gpu->revn == 618;
-+	return adreno_is_revn(gpu, 618);
+ 	return adreno_is_revn(gpu, 540);
  }
  
- static inline int adreno_is_a619(struct adreno_gpu *gpu)
+-static inline int adreno_is_a618(struct adreno_gpu *gpu)
++static inline int adreno_is_a618(const struct adreno_gpu *gpu)
  {
--	return gpu->revn == 619;
-+	return adreno_is_revn(gpu, 619);
+ 	return adreno_is_revn(gpu, 618);
  }
  
- static inline int adreno_is_a630(struct adreno_gpu *gpu)
+-static inline int adreno_is_a619(struct adreno_gpu *gpu)
++static inline int adreno_is_a619(const struct adreno_gpu *gpu)
  {
--	return gpu->revn == 630;
-+	return adreno_is_revn(gpu, 630);
+ 	return adreno_is_revn(gpu, 619);
  }
  
- static inline int adreno_is_a640_family(struct adreno_gpu *gpu)
+-static inline int adreno_is_a630(struct adreno_gpu *gpu)
++static inline int adreno_is_a630(const struct adreno_gpu *gpu)
  {
--	return (gpu->revn == 640) || (gpu->revn == 680);
-+	return adreno_is_revn(gpu, 640) ||
-+		adreno_is_revn(gpu, 680);
+ 	return adreno_is_revn(gpu, 630);
  }
  
- static inline int adreno_is_a650(struct adreno_gpu *gpu)
+-static inline int adreno_is_a640_family(struct adreno_gpu *gpu)
++static inline int adreno_is_a640_family(const struct adreno_gpu *gpu)
  {
--	return gpu->revn == 650;
-+	return adreno_is_revn(gpu, 650);
+ 	return adreno_is_revn(gpu, 640) ||
+ 		adreno_is_revn(gpu, 680);
  }
  
- static inline int adreno_is_7c3(struct adreno_gpu *gpu)
-@@ -269,13 +281,16 @@ static inline int adreno_is_7c3(struct adreno_gpu *gpu)
- 
- static inline int adreno_is_a660(struct adreno_gpu *gpu)
+-static inline int adreno_is_a650(struct adreno_gpu *gpu)
++static inline int adreno_is_a650(const struct adreno_gpu *gpu)
  {
--	return gpu->revn == 660;
-+	return adreno_is_revn(gpu, 660);
+ 	return adreno_is_revn(gpu, 650);
+ }
+ 
+-static inline int adreno_is_7c3(struct adreno_gpu *gpu)
++static inline int adreno_is_7c3(const struct adreno_gpu *gpu)
+ {
+ 	/* The order of args is important here to handle ANY_ID correctly */
+ 	return adreno_cmp_rev(ADRENO_REV(6, 3, 5, ANY_ID), gpu->rev);
+ }
+ 
+-static inline int adreno_is_a660(struct adreno_gpu *gpu)
++static inline int adreno_is_a660(const struct adreno_gpu *gpu)
+ {
+ 	return adreno_is_revn(gpu, 660);
  }
  
  /* check for a615, a616, a618, a619 or any derivatives */
- static inline int adreno_is_a615_family(struct adreno_gpu *gpu)
+-static inline int adreno_is_a615_family(struct adreno_gpu *gpu)
++static inline int adreno_is_a615_family(const struct adreno_gpu *gpu)
  {
--	return gpu->revn == 615 || gpu->revn == 616 || gpu->revn == 618 || gpu->revn == 619;
-+	return adreno_is_revn(gpu, 615) ||
-+		adreno_is_revn(gpu, 616) ||
-+		adreno_is_revn(gpu, 618) ||
-+		adreno_is_revn(gpu, 619);
+ 	return adreno_is_revn(gpu, 615) ||
+ 		adreno_is_revn(gpu, 616) ||
+@@ -293,13 +293,13 @@ static inline int adreno_is_a615_family(struct adreno_gpu *gpu)
+ 		adreno_is_revn(gpu, 619);
  }
  
- static inline int adreno_is_a660_family(struct adreno_gpu *gpu)
-@@ -286,7 +301,9 @@ static inline int adreno_is_a660_family(struct adreno_gpu *gpu)
+-static inline int adreno_is_a660_family(struct adreno_gpu *gpu)
++static inline int adreno_is_a660_family(const struct adreno_gpu *gpu)
+ {
+ 	return adreno_is_a660(gpu) || adreno_is_7c3(gpu);
+ }
+ 
  /* check for a650, a660, or any derivatives */
- static inline int adreno_is_a650_family(struct adreno_gpu *gpu)
+-static inline int adreno_is_a650_family(struct adreno_gpu *gpu)
++static inline int adreno_is_a650_family(const struct adreno_gpu *gpu)
  {
--	return gpu->revn == 650 || gpu->revn == 620 || adreno_is_a660_family(gpu);
-+	return adreno_is_revn(gpu, 650) ||
-+		adreno_is_revn(gpu, 620) ||
-+		adreno_is_a660_family(gpu);
- }
- 
- u64 adreno_private_address_space_size(struct msm_gpu *gpu);
+ 	return adreno_is_revn(gpu, 650) ||
+ 		adreno_is_revn(gpu, 620) ||
 -- 
 2.30.2
 
