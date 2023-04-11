@@ -1,61 +1,78 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6FD8D6DCE34
-	for <lists+freedreno@lfdr.de>; Tue, 11 Apr 2023 01:39:03 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 78B896DCE93
+	for <lists+freedreno@lfdr.de>; Tue, 11 Apr 2023 02:53:15 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1FBA010E2F4;
-	Mon, 10 Apr 2023 23:39:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1EEDF10E456;
+	Tue, 11 Apr 2023 00:53:13 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x132.google.com (mail-lf1-x132.google.com
- [IPv6:2a00:1450:4864:20::132])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9B7B210E2F4
- for <freedreno@lists.freedesktop.org>; Mon, 10 Apr 2023 23:39:00 +0000 (UTC)
-Received: by mail-lf1-x132.google.com with SMTP id a23so8791643lfk.4
- for <freedreno@lists.freedesktop.org>; Mon, 10 Apr 2023 16:39:00 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=chromium.org; s=google; t=1681169937;
- h=cc:to:subject:message-id:date:user-agent:from:references
- :in-reply-to:mime-version:from:to:cc:subject:date:message-id
- :reply-to; bh=rJ31ZihTsj7BqFMhLU8sqsCWE1qhH5SDejc9nQiQy+s=;
- b=hBkprc6F16wliwY1n352lea2LlV8B3ZWByS9Otf2VX5BRNrEgEmqyraV+yg1P29RQc
- YulzgqCfEvZBUMvbwbwJXhzAOyKEa/xr0+6qRrsz2/wPtAgF196JDvR4TNUnFaWbKxgD
- rzS0o9cXr4lmv1Ud/HgR+npppAdzedB+gEXEw=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112; t=1681169937;
- h=cc:to:subject:message-id:date:user-agent:from:references
- :in-reply-to:mime-version:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=rJ31ZihTsj7BqFMhLU8sqsCWE1qhH5SDejc9nQiQy+s=;
- b=c9LQgjIAPFnrWZytVuC0DqKd4DIo3hYA76rr+IQEQaKJXqwmbwAfuZMOxX5spk2K9n
- Ugw2O1d/u+Oct7UKdenIHNVOtdSQ4Q/z47Whk2JEIW4vrTbV37W5qaA8XCj8Oue15jPD
- y/uCOdF4qgNoKU+JlebFjyVwVZ0TZYlZC4oHQVdHtyH/Z0TXKEQE1A6pFrt1uh1pKb8L
- BDF/bHAb3yS2u7s8HyZuyudgbmIlIhhIjseu3wtmN3UUhjq+5OK/r1TalxTy7mfxEf/0
- /CudjHxCYb5knJnMFPHiwmEWgv8CBRmrIPyOK6ZMm1rm6o0/6hH2vT+Ar/JVC4BQEMYb
- 3Eaw==
-X-Gm-Message-State: AAQBX9dEN2mcY5LrnPQvj/rY/53TRPYSE+EUc0fRujdlnpkwnIpNt3KN
- WLTDskB9wVEbjLqfD19nSHJHieRaeR0w1eAGwHL/gQ==
-X-Google-Smtp-Source: AKy350YKBWAwplvBaUzF0rnPFrcqHdEcRGOoZtR0Ep8v4lU4JBnM3J5FVOHoKAMe6Fw+M1pWneNg6yBiNmIJpZKosgg=
-X-Received: by 2002:ac2:4c14:0:b0:4eb:eaf:aa00 with SMTP id
- t20-20020ac24c14000000b004eb0eafaa00mr3474139lfq.4.1681169936786; Mon, 10 Apr
- 2023 16:38:56 -0700 (PDT)
-Received: from 753933720722 named unknown by gmailapi.google.com with
- HTTPREST; Mon, 10 Apr 2023 16:38:56 -0700
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CEEB610E456;
+ Tue, 11 Apr 2023 00:53:11 +0000 (UTC)
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 33B0ndar012155; Tue, 11 Apr 2023 00:53:05 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
+ h=message-id : date :
+ mime-version : subject : to : cc : references : from : in-reply-to :
+ content-type : content-transfer-encoding; s=qcppdkim1;
+ bh=lHvTItvP5WfF0/qOgq7WIbXFEi1uYdS/jMUrWhiPNvc=;
+ b=FrSP00H1WPhwX0ExRYnHLDOPEqcmC66Rbm2J49Fae68X96zJYHCfkMimV3XdEgPEUy6K
+ +vonNTulQAlTUeHrwpxY0oKoVUApSd7ouseSJ8s+6dEftq3h/mjSfBbGqTgqQyD8G4kf
+ iIJ/akcJIyp65jFewSSgWVpzyBpPMWghbnHttWATLzgltvRgnEYBnMnEmvpG9bgeRLlj
+ uFrLVsDUl4BjpxO6tCEc729yCMPf8egdyA9vvAGxHmVcqbx/yphcSlNYSA0kRXormWbP
+ xxMHGqRxJzUpz+LSfILD3Yr4hL8Shb9N8JsZvHiCiPnVgoBQImR2QfXp9Z56a+mgnnHD 5Q== 
+Received: from nalasppmta02.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3pvgmesjm7-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 11 Apr 2023 00:53:05 +0000
+Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
+ [10.47.209.196])
+ by NALASPPMTA02.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 33B0r4OX029982
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 11 Apr 2023 00:53:04 GMT
+Received: from [10.110.115.18] (10.80.80.8) by nalasex01a.na.qualcomm.com
+ (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.42; Mon, 10 Apr
+ 2023 17:53:03 -0700
+Message-ID: <910e59b4-6dcf-4618-d8ad-49f730cf7180@quicinc.com>
+Date: Mon, 10 Apr 2023 17:53:02 -0700
 MIME-Version: 1.0
-In-Reply-To: <20230410223836.442836-1-dmitry.baryshkov@linaro.org>
-References: <20230410223836.442836-1-dmitry.baryshkov@linaro.org>
-From: Stephen Boyd <swboyd@chromium.org>
-User-Agent: alot/0.10
-Date: Mon, 10 Apr 2023 16:38:56 -0700
-Message-ID: <CAE-0n504Tt8MeWXF7xLeKoTMDciLEVsZagwC-t2nk+XGUc+v+g@mail.gmail.com>
-To: Abhinav Kumar <quic_abhinavk@quicinc.com>, 
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Rob Clark <robdclark@gmail.com>,
- Sean Paul <sean@poorly.run>
-Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [PATCH] drm/msm/adreno: warn if chip revn is
- verified before being set
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
+ Thunderbird/91.6.2
+Content-Language: en-US
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Rob Clark
+ <robdclark@gmail.com>, Sean Paul <sean@poorly.run>
+References: <20230408002750.2722304-1-dmitry.baryshkov@linaro.org>
+ <20230408002750.2722304-2-dmitry.baryshkov@linaro.org>
+From: Abhinav Kumar <quic_abhinavk@quicinc.com>
+In-Reply-To: <20230408002750.2722304-2-dmitry.baryshkov@linaro.org>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-GUID: 6Qu3OcBTcXpEcR7c0HBbL0TExOH64r8C
+X-Proofpoint-ORIG-GUID: 6Qu3OcBTcXpEcR7c0HBbL0TExOH64r8C
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.254,Aquarius:18.0.942,Hydra:6.0.573,FMLib:17.11.170.22
+ definitions=2023-04-10_18,2023-04-06_03,2023-02-09_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ lowpriorityscore=0
+ spamscore=0 phishscore=0 priorityscore=1501 mlxlogscore=727
+ impostorscore=0 adultscore=0 mlxscore=0 malwarescore=0 clxscore=1015
+ bulkscore=0 suspectscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2303200000 definitions=main-2304110006
+Subject: Re: [Freedreno] [PATCH v5 1/4] drm/msm/dpu: enable
+ DPU_CTL_SPLIT_DISPLAY for sc8280xp
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,48 +85,20 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-arm-msm@vger.kernel.org, Bjorn Andersson <andersson@kernel.org>,
- dri-devel@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>,
- David Airlie <airlied@gmail.com>, freedreno@lists.freedesktop.org
+Cc: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
+ Bjorn Andersson <andersson@kernel.org>, dri-devel@lists.freedesktop.org,
+ Stephen Boyd <swboyd@chromium.org>, Daniel Vetter <daniel@ffwll.ch>,
+ David Airlie <airlied@gmail.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Quoting Dmitry Baryshkov (2023-04-10 15:38:36)
-> The commit 010c8bbad2cb ("drm: msm: adreno: Disable preemption on Adreno
-> 510") tried to check GPU's revn before revn being set. Add WARN_ON_ONCE
-> to prevent such bugs from happening again. A separate helper is
-> necessary so that the warning is displayed really just once instead of
-> being displayed for each of comparisons.
->
-> Suggested-by: Stephen Boyd <swboyd@chromium.org>
+
+
+On 4/7/2023 5:27 PM, Dmitry Baryshkov wrote:
+> Theoretically, since sm8150 we should be using a single CTL for the
+> split panel case, but since we do not support it for now, fallback to
+> DPU_CTL_SPLIT_DISPLAY.
+> 
 > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> ---
->  drivers/gpu/drm/msm/adreno/adreno_gpu.h | 63 ++++++++++++++++---------
->  1 file changed, 40 insertions(+), 23 deletions(-)
->
-> diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.h b/drivers/gpu/drm/msm/adreno/adreno_gpu.h
-> index f62612a5c70f..47e21d44ac24 100644
-> --- a/drivers/gpu/drm/msm/adreno/adreno_gpu.h
-> +++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.h
-> @@ -145,40 +145,51 @@ struct adreno_platform_config {
->
->  bool adreno_cmp_rev(struct adreno_rev rev1, struct adreno_rev rev2);
->
-> +static inline bool adreno_cmp_revn(struct adreno_gpu *gpu, uint32_t revn)
 
-'cmp' in the name makes me think it's comparing. Maybe 'is' is better
-because we're testing for equality.
-
-	adreno_is_revn()
-
-Also 'const struct adreno_gpu *' because it isn't changing?
-
-> +{
-> +       WARN_ON_ONCE(!gpu->revn);
-> +
-> +       return gpu->revn == revn;
-> +}
-> +
->  static inline bool adreno_is_a2xx(struct adreno_gpu *gpu)
-
-And then these can all be const in a followup patch probably.
+Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
