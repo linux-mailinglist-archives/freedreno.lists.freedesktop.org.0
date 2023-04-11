@@ -1,62 +1,62 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 329A86DE43C
-	for <lists+freedreno@lfdr.de>; Tue, 11 Apr 2023 20:46:28 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 3C6196DE4B8
+	for <lists+freedreno@lfdr.de>; Tue, 11 Apr 2023 21:21:45 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E010910E617;
-	Tue, 11 Apr 2023 18:46:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 838E110E23B;
+	Tue, 11 Apr 2023 19:21:41 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-x229.google.com (mail-lj1-x229.google.com
- [IPv6:2a00:1450:4864:20::229])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 861DC10E617
- for <freedreno@lists.freedesktop.org>; Tue, 11 Apr 2023 18:46:24 +0000 (UTC)
-Received: by mail-lj1-x229.google.com with SMTP id e20so9322127lji.6
- for <freedreno@lists.freedesktop.org>; Tue, 11 Apr 2023 11:46:24 -0700 (PDT)
+Received: from mail-yw1-x1133.google.com (mail-yw1-x1133.google.com
+ [IPv6:2607:f8b0:4864:20::1133])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DAC0D10E125
+ for <freedreno@lists.freedesktop.org>; Tue, 11 Apr 2023 19:21:38 +0000 (UTC)
+Received: by mail-yw1-x1133.google.com with SMTP id
+ 00721157ae682-5491fa028adso500607907b3.10
+ for <freedreno@lists.freedesktop.org>; Tue, 11 Apr 2023 12:21:38 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=chromium.org; s=google; t=1681238782;
- h=cc:to:subject:message-id:date:user-agent:from:references
- :in-reply-to:mime-version:from:to:cc:subject:date:message-id
- :reply-to; bh=iGi56Bg5OUpWDH44viG14oM0bwik+WxXcsnn4rAhg4g=;
- b=JY3NR6Kd1R5Edh80q6U5b5maTRy1MgNEFB7cvjkoR4ryfX9BcbYUpwbEWlneTCEvkb
- 3fCyg1MyVZoGNKT/AG/5Gn6gtxonf0T7UF3/U6O50Hqy0TZbB8zmRMvLwnigcSUKedf9
- rChAExcHpw7ETolrqjkkCvtgaHVaRHyfcrkuQ=
+ d=chromium.org; s=google; t=1681240897; x=1683832897;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=b0pWNUner6HZpj2mgz7mwe38cCf4K3c4XkTiPKpjEJc=;
+ b=RRh3QoutRS+2+cQHp2e701Gtn2U1A1+atWoa1dPicm57v0QtgikJXIANmTd+LDHttA
+ 29B7KSSb3kXzXikbZMccI/OL9X85TF8oopYzbYf4yElnaqgzr33gXiQykEfRV9rJofXi
+ ltdISIEULFKTJThPiF4N+NbbT0ytWzCJAK/2M=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112; t=1681238782;
- h=cc:to:subject:message-id:date:user-agent:from:references
- :in-reply-to:mime-version:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=iGi56Bg5OUpWDH44viG14oM0bwik+WxXcsnn4rAhg4g=;
- b=VVjhbEsX1Jg833p378l8Kpc7cRIPXMubVXx2FqFrPD9OGwbYMr3K/2HSjBfI/CuNx7
- ctWEbxiOl4uP8NyyLTQVx3gaToTZT3iMV6X8kxO98x0t5Du4ExKkPDY0L7R5Nc+TCsq5
- NlAGCbV8YW1UZHthwClig5zi0BZdlqxeo1QkhRiwoTfUJ0dnmHwdiZgIIiSqH24rF36G
- sm8E73OrAK1HNayDdVcNC3yh8Tmf7kIl5r19bi2xVWqcVKlNd7xPTkBMetiLhfmBtjgs
- wdJHsU8LFulljpbVOGUOSrVCRcGoLrghLGKyxFceOaELEXZNJ2fXNtahCb5zvalJlx27
- 2nvA==
-X-Gm-Message-State: AAQBX9eOQRLdVIhUWOI+u0ALz8j756JOU9dZf8ifhrKtrTI6PJ/R1+Ya
- 2FoyXgJLV41K6+4/J/JAgzjysipnXfs23Z7TZn8LUg==
-X-Google-Smtp-Source: AKy350ZfMTgXBCfIYGkHy5hZyhZsQ32BoV8dwK3uBPbJHXwS8s/7arQZv8IsNfSSDQyzo3Fu3PuMODQh8egr6Uw8r5M=
-X-Received: by 2002:a2e:3005:0:b0:295:bb34:9c2 with SMTP id
- w5-20020a2e3005000000b00295bb3409c2mr3646077ljw.10.1681238782309; Tue, 11 Apr
- 2023 11:46:22 -0700 (PDT)
-Received: from 753933720722 named unknown by gmailapi.google.com with
- HTTPREST; Tue, 11 Apr 2023 11:46:21 -0700
+ d=1e100.net; s=20210112; t=1681240897; x=1683832897;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=b0pWNUner6HZpj2mgz7mwe38cCf4K3c4XkTiPKpjEJc=;
+ b=CUyzrgyEYNxL9GWHZd4u8rHKD8as0gFXmUxSwBLIsqItTaRowFHOPYJQ//AswuWbXV
+ jCVeOyS78SLU7S0DHDdIupWWUxnApmfcZgDG0GVRIn7YP5awaKbK+Z9gc0Zzk19AEL+k
+ t8T0KIOFPTFKeTKznO9Ctuxam8hYoJZZiz8ZBAZyd1tef+KizJxr3xWb4I1seVMp4/qs
+ 3aIIYcfyzB5kv92NAvhHfwkQWP2D2AB3Xzqj4e4dTnx2DO/wTY4jdJF8gLU6BhnbbRyp
+ EJ0MYS54ELsGFaaGq6RZgWL5nXwgbfa1AM1hvkh+dyP/PEGMeYe5Ds6lYU4WNtb0kv5v
+ wfHQ==
+X-Gm-Message-State: AAQBX9eUqsSkYgjiK/XbvMh7BwvmM2crnfEDLs1hGG7nL22lh3Iex302
+ br65VqOu/4sPXtDRQo/jmYWJVw==
+X-Google-Smtp-Source: AKy350Y+xX7nfv8OmHrlOQoBibFhg/Nd9ia2dRuk69P1P5YDXyCjDvXxb+QyK3HTWQobTbQ/p6i3Qg==
+X-Received: by 2002:a81:92c9:0:b0:54f:8af6:bb13 with SMTP id
+ j192-20020a8192c9000000b0054f8af6bb13mr216212ywg.3.1681240897739; 
+ Tue, 11 Apr 2023 12:21:37 -0700 (PDT)
+Received: from localhost ([2620:0:1035:15:2991:9b76:4e62:65bf])
+ by smtp.gmail.com with UTF8SMTPSA id
+ n124-20020a0dcb82000000b00545a0818493sm3689913ywd.35.2023.04.11.12.21.36
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 11 Apr 2023 12:21:37 -0700 (PDT)
+From: Mark Yacoub <markyacoub@chromium.org>
+X-Google-Original-From: Mark Yacoub <markyacoub@google.com>
+To: 
+Date: Tue, 11 Apr 2023 15:21:24 -0400
+Message-Id: <20230411192134.508113-1-markyacoub@google.com>
+X-Mailer: git-send-email 2.40.0.577.gac1e443424-goog
 MIME-Version: 1.0
-In-Reply-To: <20230411161903.599222-2-dmitry.baryshkov@linaro.org>
-References: <20230411161903.599222-1-dmitry.baryshkov@linaro.org>
- <20230411161903.599222-2-dmitry.baryshkov@linaro.org>
-From: Stephen Boyd <swboyd@chromium.org>
-User-Agent: alot/0.10
-Date: Tue, 11 Apr 2023 11:46:21 -0700
-Message-ID: <CAE-0n508=PMma-X8rANuA0ogk9147mTR6XT1YsxcYyq3f-Oj9Q@mail.gmail.com>
-To: Abhinav Kumar <quic_abhinavk@quicinc.com>, 
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Rob Clark <robdclark@gmail.com>,
- Sean Paul <sean@poorly.run>
-Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [PATCH v2 2/2] drm/msm/adreno: change adreno_is_*
- functions to accept const argument
+Content-Transfer-Encoding: 8bit
+Subject: [Freedreno] [PATCH v9 00/10] drm/hdcp: Pull HDCP
+ auth/exchange/check into helpers
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,18 +69,76 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-arm-msm@vger.kernel.org, Bjorn Andersson <andersson@kernel.org>,
- dri-devel@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>,
- David Airlie <airlied@gmail.com>, freedreno@lists.freedesktop.org
+Cc: suraj.kandpal@intel.com, intel-gfx@lists.freedesktop.org,
+ dianders@chromium.org, dri-devel@lists.freedesktop.org, seanpaul@chromium.org,
+ dmitry.baryshkov@linaro.org, freedreno@lists.freedesktop.org,
+ Mark Yacoub <markyacoub@google.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Quoting Dmitry Baryshkov (2023-04-11 09:19:03)
-> All adreno_is_*() functions do not modify their argument in any way, so
-> they can be changed to accept const struct adreno_gpu pointer.
->
-> Suggested-by: Stephen Boyd <swboyd@chromium.org>
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> ---
+Hi all,
+This is v7 of the HDCP patches. The patches are authored by Sean Paul. 
+I rebased and addressed the review comments in v6-v9.
 
-Reviewed-by: Stephen Boyd <swboyd@chromium.org>
+Main change in v9 is renaming i915 priv data and moving the display type specific init to the drm helper instead of the driver.
+
+Patches 1-4 focus on moving the common HDCP helpers to common DRM. 
+This introduces a slight change in the original intel flow
+as it splits the unique driver protocol from the generic implementation.
+
+Patches 5-7 split the HDCP flow on the i915 driver to make use of the common DRM helpers.
+
+Patches 8-10 implement HDCP on MSM driver.
+
+Thanks,
+-Mark Yacoub
+
+Sean Paul (10):
+  drm/hdcp: Add drm_hdcp_atomic_check()
+  drm/hdcp: Avoid changing crtc state in hdcp atomic check
+  drm/hdcp: Update property value on content type and user changes
+  drm/hdcp: Expand HDCP helper library for enable/disable/check
+  drm/i915/hdcp: Consolidate HDCP setup/state cache
+  drm/i915/hdcp: Retain hdcp_capable return codes
+  drm/i915/hdcp: Use HDCP helpers for i915
+  dt-bindings: msm/dp: Add bindings for HDCP registers
+  arm64: dts: qcom: sc7180: Add support for HDCP in dp-controller
+  drm/msm: Implement HDCP 1.x using the new drm HDCP helpers
+
+ .../bindings/display/msm/dp-controller.yaml   |    7 +-
+ arch/arm64/boot/dts/qcom/sc7180-trogdor.dtsi  |    8 +
+ drivers/gpu/drm/display/drm_hdcp_helper.c     | 1224 +++++++++++++++++
+ drivers/gpu/drm/i915/display/intel_atomic.c   |    8 +-
+ drivers/gpu/drm/i915/display/intel_ddi.c      |   32 +-
+ .../drm/i915/display/intel_display_debugfs.c  |   12 +-
+ .../drm/i915/display/intel_display_types.h    |   51 +-
+ drivers/gpu/drm/i915/display/intel_dp_hdcp.c  |  352 ++---
+ drivers/gpu/drm/i915/display/intel_dp_mst.c   |   16 +-
+ drivers/gpu/drm/i915/display/intel_hdcp.c     | 1060 +++-----------
+ drivers/gpu/drm/i915/display/intel_hdcp.h     |   48 +-
+ drivers/gpu/drm/i915/display/intel_hdmi.c     |  267 ++--
+ drivers/gpu/drm/msm/Kconfig                   |    1 +
+ drivers/gpu/drm/msm/Makefile                  |    1 +
+ drivers/gpu/drm/msm/dp/dp_catalog.c           |  156 +++
+ drivers/gpu/drm/msm/dp/dp_catalog.h           |   18 +
+ drivers/gpu/drm/msm/dp/dp_debug.c             |   46 +-
+ drivers/gpu/drm/msm/dp/dp_debug.h             |   11 +-
+ drivers/gpu/drm/msm/dp/dp_display.c           |   39 +-
+ drivers/gpu/drm/msm/dp/dp_display.h           |    5 +
+ drivers/gpu/drm/msm/dp/dp_drm.c               |   39 +-
+ drivers/gpu/drm/msm/dp/dp_drm.h               |    7 +
+ drivers/gpu/drm/msm/dp/dp_hdcp.c              |  389 ++++++
+ drivers/gpu/drm/msm/dp/dp_hdcp.h              |   33 +
+ drivers/gpu/drm/msm/dp/dp_parser.c            |   14 +
+ drivers/gpu/drm/msm/dp/dp_parser.h            |    4 +
+ drivers/gpu/drm/msm/dp/dp_reg.h               |   30 +-
+ drivers/gpu/drm/msm/msm_atomic.c              |   19 +
+ include/drm/display/drm_hdcp.h                |  296 ++++
+ include/drm/display/drm_hdcp_helper.h         |   23 +
+ 30 files changed, 2867 insertions(+), 1349 deletions(-)
+ create mode 100644 drivers/gpu/drm/msm/dp/dp_hdcp.c
+ create mode 100644 drivers/gpu/drm/msm/dp/dp_hdcp.h
+
+-- 
+2.40.0.577.gac1e443424-goog
+
