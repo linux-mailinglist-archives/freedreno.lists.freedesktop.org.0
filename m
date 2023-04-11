@@ -1,78 +1,47 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 35E846DCE9F
-	for <lists+freedreno@lfdr.de>; Tue, 11 Apr 2023 02:57:56 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id EFF0A6DD4AB
+	for <lists+freedreno@lfdr.de>; Tue, 11 Apr 2023 09:54:45 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E9F6C10E467;
-	Tue, 11 Apr 2023 00:57:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AB74610E09C;
+	Tue, 11 Apr 2023 07:54:44 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C808010E464;
- Tue, 11 Apr 2023 00:57:51 +0000 (UTC)
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 33ANcmph021727; Tue, 11 Apr 2023 00:57:47 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
- h=message-id : date :
- mime-version : subject : to : cc : references : from : in-reply-to :
- content-type : content-transfer-encoding; s=qcppdkim1;
- bh=917vhgxI64kasNjOCrPGlxiiye/OY6KVJ/xGA/cpVBc=;
- b=CqpeLR/jpMyN3JWAF550jUHGAtgSBNXx2yv10AbIR6XNJiJ4FE7BwBABzVS6RsgA2OKO
- fqzZeco+2EchnPJsqDfY8F3m0QKs16v/j1yQtfiMsFpe1pFQe8SmsWkiZw3wT3orA8nI
- VcxP5j2qTubLL1waoGFkIURHo0aMh1eK6MHDTbI1qrz44mG0Mgu/nwP7QegrYQaw8QDg
- ETEfmzrulwLEA9vixmNVCzbW+DcYNISsRpuKD1moXxJIClsrbTv/uhvIP+WH8qPfHl3y
- 2+fEQPOr58ci7bCuZQPVRdiHaTifVFg2hUz2lJw0vyeUgoTxejV+aDeKT4Cl8to7jS5V Aw== 
-Received: from nalasppmta02.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3pvmb3h1qy-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 11 Apr 2023 00:57:46 +0000
-Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
- [10.47.209.196])
- by NALASPPMTA02.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 33B0vjF1002003
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 11 Apr 2023 00:57:45 GMT
-Received: from [10.110.115.18] (10.80.80.8) by nalasex01a.na.qualcomm.com
- (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.42; Mon, 10 Apr
- 2023 17:57:45 -0700
-Message-ID: <66ea8874-424f-e4d8-ff0b-26ffb5333f2d@quicinc.com>
-Date: Mon, 10 Apr 2023 17:57:44 -0700
+Received: from madras.collabora.co.uk (madras.collabora.co.uk
+ [IPv6:2a00:1098:0:82:1000:25:2eeb:e5ab])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 265F310E043;
+ Tue, 11 Apr 2023 07:54:42 +0000 (UTC)
+Received: from localhost (unknown [IPv6:2a01:e0a:2c:6930:5cf4:84a1:2763:fe0d])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested) (Authenticated sender: bbrezillon)
+ by madras.collabora.co.uk (Postfix) with ESMTPSA id 5068466031E2;
+ Tue, 11 Apr 2023 08:54:36 +0100 (BST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1681199676;
+ bh=X5FXAGQ1m/4RCqH9j/r3vyunBli9jNcGliIagj4A9cs=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+ b=U+yVRMwKKR3Vkq9p6ta2qsvpVTxDrdCDJ0n7K6B/z+mLWszol+ZnKjaauz3VmYAca
+ NcnI4+5mmVN9Dz8DOGpALGePw98NqqlsKGMdui5PYjT06spn8j9MrmVm/rZhGIKhQj
+ hlwrrkGFyJygHwJVP1shyY553W8hJMV4rzsjSVmXkba95Mw7In6EEupaMWiyalt4b4
+ NmAGla243GyIgIAHJ4QFddVMQWzvvVRPLRVSCm2YJuxxeSVghD7p5uppnq2k1kdBWa
+ GHdvPAbIV6XFyGiuwmBU0slzxEvYF0Ji1BaZj+0yhpz0dglNfDyY9BtbSMUBSUCchc
+ c8rZP56V4KyCg==
+Date: Tue, 11 Apr 2023 09:54:33 +0200
+From: Boris Brezillon <boris.brezillon@collabora.com>
+To: Rob Clark <robdclark@gmail.com>
+Message-ID: <20230411095433.243a256c@collabora.com>
+In-Reply-To: <20230406215917.1475704-2-robdclark@gmail.com>
+References: <20230406215917.1475704-1-robdclark@gmail.com>
+ <20230406215917.1475704-2-robdclark@gmail.com>
+Organization: Collabora
+X-Mailer: Claws Mail 4.1.1 (GTK 3.24.36; x86_64-redhat-linux-gnu)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.6.2
-Content-Language: en-US
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Rob Clark
- <robdclark@gmail.com>, Sean Paul <sean@poorly.run>
-References: <20230408002750.2722304-1-dmitry.baryshkov@linaro.org>
- <20230408002750.2722304-5-dmitry.baryshkov@linaro.org>
-From: Abhinav Kumar <quic_abhinavk@quicinc.com>
-In-Reply-To: <20230408002750.2722304-5-dmitry.baryshkov@linaro.org>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-GUID: jZCzAMOpHQPVrq6WtBmS0nfgfzqUlm_K
-X-Proofpoint-ORIG-GUID: jZCzAMOpHQPVrq6WtBmS0nfgfzqUlm_K
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.254,Aquarius:18.0.942,Hydra:6.0.573,FMLib:17.11.170.22
- definitions=2023-04-10_18,2023-04-06_03,2023-02-09_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0
- malwarescore=0 mlxlogscore=747 suspectscore=0 spamscore=0
- lowpriorityscore=0 bulkscore=0 clxscore=1015 adultscore=0 phishscore=0
- priorityscore=1501 mlxscore=0 classifier=spam adjust=0 reason=mlx
- scancount=1 engine=8.12.0-2303200000 definitions=main-2304110006
-Subject: Re: [Freedreno] [PATCH v5 4/4] drm/msm/dpu: use CTL_SC7280_MASK for
- sm8450's ctl_0
+Subject: Re: [Freedreno] [RFC 1/2] drm: Add fdinfo memory stats
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -85,38 +54,177 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
- Bjorn Andersson <andersson@kernel.org>, dri-devel@lists.freedesktop.org,
- Stephen Boyd <swboyd@chromium.org>, Daniel Vetter <daniel@ffwll.ch>,
- David Airlie <airlied@gmail.com>
+Cc: Rob Clark <robdclark@chromium.org>,
+ Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
+ Daniel Vetter <daniel@ffwll.ch>, Jonathan Corbet <corbet@lwn.net>,
+ linux-arm-msm@vger.kernel.org,
+ "open list:DOCUMENTATION" <linux-doc@vger.kernel.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Christopher Healy <healych@amazon.com>, dri-devel@lists.freedesktop.org,
+ open list <linux-kernel@vger.kernel.org>, Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
+Hi Rob,
 
+On Thu,  6 Apr 2023 14:59:16 -0700
+Rob Clark <robdclark@gmail.com> wrote:
 
-On 4/7/2023 5:27 PM, Dmitry Baryshkov wrote:
-> On sm8450 platform the CTL_0 doesn't differ from the rest of CTL blocks,
-> so switch it to CTL_SC7280_MASK too.
+> From: Rob Clark <robdclark@chromium.org>
 > 
-> Some background: original commit 100d7ef6995d ("drm/msm/dpu: add support
-> for SM8450") had all (relevant at that time) bit spelled individually.
-> Then commit 0e91bcbb0016 ("drm/msm/dpu: Add SM8350 to hw catalog"),
-> despite being a mismerge, correctly changed all other CTL entries to use
-> CTL_SC7280_MASK, except CTL_0.
+> Add a helper to dump memory stats to fdinfo.  For the things the drm
+> core isn't aware of, use a callback.
 > 
-> While the current BLOCK_SOC_MASK style is not ideal (and while we are
-> working on a better scheme), let's follow its usage as a least minimal
-> surprise. For example, sc8280xp, a close associate of sm8450, also uses
-> CTL_SC7280_MASK.
-> 
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> Signed-off-by: Rob Clark <robdclark@chromium.org>
 > ---
+>  Documentation/gpu/drm-usage-stats.rst | 21 +++++++
+>  drivers/gpu/drm/drm_file.c            | 79 +++++++++++++++++++++++++++
+>  include/drm/drm_file.h                | 10 ++++
+>  3 files changed, 110 insertions(+)
+> 
+> diff --git a/Documentation/gpu/drm-usage-stats.rst b/Documentation/gpu/drm-usage-stats.rst
+> index b46327356e80..56e3c95b6e0a 100644
+> --- a/Documentation/gpu/drm-usage-stats.rst
+> +++ b/Documentation/gpu/drm-usage-stats.rst
+> @@ -105,6 +105,27 @@ object belong to this client, in the respective memory region.
+>  Default unit shall be bytes with optional unit specifiers of 'KiB' or 'MiB'
+>  indicating kibi- or mebi-bytes.
+>  
+> +- drm-shared-memory: <uint> [KiB|MiB]
+> +
+> +The total size of buffers that are shared with another file (ie. have more
+> +than a single handle).
+> +
+> +- drm-private-memory: <uint> [KiB|MiB]
+> +
+> +The total size of buffers that are not shared with another file.
+> +
+> +- drm-resident-memory: <uint> [KiB|MiB]
+> +
+> +The total size of buffers that are resident in system memory.
+> +
+> +- drm-purgeable-memory: <uint> [KiB|MiB]
+> +
+> +The total size of buffers that are purgable.
+> +
+> +- drm-active-memory: <uint> [KiB|MiB]
+> +
+> +The total size of buffers that are active on one or more rings.
+> +
+>  - drm-cycles-<str> <uint>
+>  
+>  Engine identifier string must be the same as the one specified in the
+> diff --git a/drivers/gpu/drm/drm_file.c b/drivers/gpu/drm/drm_file.c
+> index a51ff8cee049..21911d6ff38d 100644
+> --- a/drivers/gpu/drm/drm_file.c
+> +++ b/drivers/gpu/drm/drm_file.c
+> @@ -42,6 +42,7 @@
+>  #include <drm/drm_client.h>
+>  #include <drm/drm_drv.h>
+>  #include <drm/drm_file.h>
+> +#include <drm/drm_gem.h>
+>  #include <drm/drm_print.h>
+>  
+>  #include "drm_crtc_internal.h"
+> @@ -868,6 +869,84 @@ void drm_send_event(struct drm_device *dev, struct drm_pending_event *e)
+>  }
+>  EXPORT_SYMBOL(drm_send_event);
+>  
+> +static void print_size(struct drm_printer *p, const char *stat, size_t sz)
+> +{
+> +	const char *units[] = {"B", "KiB", "MiB", "GiB"};
+> +	unsigned u;
+> +
+> +	for (u = 0; u < ARRAY_SIZE(units) - 1; u++) {
+> +		if (sz < SZ_1K)
+> +			break;
+> +		sz /= SZ_1K;
+> +	}
+> +
+> +	drm_printf(p, "%s:\t%lu %s\n", stat, sz, units[u]);
+> +}
+> +
+> +/**
+> + * drm_print_memory_stats - Helper to print standard fdinfo memory stats
+> + * @file: the DRM file
+> + * @p: the printer to print output to
+> + * @status: callback to get driver tracked object status
+> + *
+> + * Helper to iterate over GEM objects with a handle allocated in the specified
+> + * file.  The optional status callback can return additional object state which
+> + * determines which stats the object is counted against.  The callback is called
+> + * under table_lock.  Racing against object status change is "harmless", and the
+> + * callback can expect to not race against object destroy.
+> + */
+> +void drm_print_memory_stats(struct drm_file *file, struct drm_printer *p,
+> +			    enum drm_gem_object_status (*status)(struct drm_gem_object *))
 
-Although I dont totally agree with this, but because sc8280xp also uses 
-the same, I am fine.
+Nit: status() returning an 'enum drm_gem_object_status' makes it look
+like it can only return one of the DRM_GEM_OBJECT_* flag, when it can
+actually be a combination of flags. Should we make it return an u32
+instead? At the very least this should be clarified in the function doc.
 
+> +{
+> +	struct drm_gem_object *obj;
+> +	struct {
+> +		size_t shared;
+> +		size_t private;
+> +		size_t resident;
+> +		size_t purgeable;
+> +		size_t active;
+> +	} size = {0};
+> +	int id;
+> +
+> +	spin_lock(&file->table_lock);
+> +	idr_for_each_entry (&file->object_idr, obj, id) {
+> +		enum drm_gem_object_status s = 0;
+> +
+> +		if (status)
+> +			s = status(obj);
+> +
+> +		if (obj->handle_count > 1) {
+> +			size.shared += obj->size;
+> +		} else {
+> +			size.private += obj->size;
+> +		}
+> +
+> +		if (s & DRM_GEM_OBJECT_RESIDENT) {
+> +			size.resident += obj->size;
+> +			s &= ~DRM_GEM_OBJECT_PURGEABLE;
+> +		}
+> +
+> +		if (s & DRM_GEM_OBJECT_ACTIVE) {
+> +			size.active += obj->size;
+> +			s &= ~DRM_GEM_OBJECT_PURGEABLE;
+> +		}
+> +
+> +		if (s & DRM_GEM_OBJECT_PURGEABLE)
+> +			size.purgeable += obj->size;
+> +	}
+> +	spin_unlock(&file->table_lock);
+> +
+> +	print_size(p, "drm-shared-memory", size.shared);
+> +	print_size(p, "drm-private-memory", size.private);
+> +
+> +	if (status) {
+> +		print_size(p, "drm-resident-memory", size.resident);
+> +		print_size(p, "drm-purgeable-memory", size.purgeable);
+> +		print_size(p, "drm-active-memory", size.active);
+> +	}
 
-Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
+Should we assume that all users of this drm_print_memory_stats() helper
+support tracking all these non-standard stats as soon as they provide a
+status callback? If not, we should probably not print the
+`drm-xxx-memory` line when the driver is not tracking this state (can
+be done with a 'supported_status' mask passed to
+drm_print_memory_stats()).
 
-But either we need to work on a better scheme or expand the macros but 
-not duplicate these for the next chipset which gets added.
+Other than these 2 minor things, I think it's a perfect match for
+panfrost mem-tracking, and I certainly intend to use this helper in
+panfrost.
+
+Thanks,
+
+Boris
