@@ -2,79 +2,83 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id E78A86DED24
-	for <lists+freedreno@lfdr.de>; Wed, 12 Apr 2023 10:01:43 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A567B6DED42
+	for <lists+freedreno@lfdr.de>; Wed, 12 Apr 2023 10:11:38 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 97DB710E733;
-	Wed, 12 Apr 2023 08:01:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 630DB10E37E;
+	Wed, 12 Apr 2023 08:11:37 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wm1-x329.google.com (mail-wm1-x329.google.com
- [IPv6:2a00:1450:4864:20::329])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2628410E72A
- for <freedreno@lists.freedesktop.org>; Wed, 12 Apr 2023 08:01:41 +0000 (UTC)
-Received: by mail-wm1-x329.google.com with SMTP id
- 5b1f17b1804b1-3f080f4fbe1so4117395e9.0
- for <freedreno@lists.freedesktop.org>; Wed, 12 Apr 2023 01:01:41 -0700 (PDT)
+Received: from mail-wr1-x433.google.com (mail-wr1-x433.google.com
+ [IPv6:2a00:1450:4864:20::433])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9D7B410E37E
+ for <freedreno@lists.freedesktop.org>; Wed, 12 Apr 2023 08:11:36 +0000 (UTC)
+Received: by mail-wr1-x433.google.com with SMTP id
+ ffacd0b85a97d-2f4b604e234so2319f8f.1
+ for <freedreno@lists.freedesktop.org>; Wed, 12 Apr 2023 01:11:36 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=ffwll.ch; s=google; t=1681286499; x=1683878499;
- h=in-reply-to:content-disposition:mime-version:references
- :mail-followup-to:message-id:subject:cc:to:from:date:from:to:cc
- :subject:date:message-id:reply-to;
- bh=usxsIwPfR/jBzt5G755oCQZvTnpW/1OqLJBWqcv6Qrk=;
- b=OtKWUa6jI0KcBLBN3oD/q3av8J2pqFdx1JTLgdBG/HriWtRXeWNVb/JHI0KA+Z7a43
- 8SRpNeETcy/f6jwiRngK3D+i/VqMZ6bPSuJBrSR28FH4ehBYbjVEcaMO+EFZkPQGBXRq
- PdUFY8fmukqBYaBeiHzQ03DzQdJ09koE4/SUs=
+ d=ffwll.ch; s=google; t=1681287095; x=1683879095;
+ h=in-reply-to:content-transfer-encoding:content-disposition
+ :mime-version:references:mail-followup-to:message-id:subject:cc:to
+ :from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=ApQh3OO8N/EkSlcg/GoWQjRUynfLNJg2zkmAQ0bDPGw=;
+ b=gfyWMUpShdnQKWyAjpTEdc2LlGQvtN0yklmxrUAwTj29EHlkO5IhoMlUjmWqHs/QD8
+ Mb7XfysniPM4irakrgTheWv1Pk91OvVsHCAzzqQyCbxRl8G5wB9UshcnPPA6YQ4eGZmy
+ QsJIeA5rz0iifCC/VUKfFFyWjgyIK9rVjnbmk=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112; t=1681286499; x=1683878499;
- h=in-reply-to:content-disposition:mime-version:references
- :mail-followup-to:message-id:subject:cc:to:from:date
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=usxsIwPfR/jBzt5G755oCQZvTnpW/1OqLJBWqcv6Qrk=;
- b=gDVflSCMVrBkO0nBQkQNy0rcjpMEXQIsARvSrY5f526K4TIO+TiPtkSQLC7xmq7YVG
- 5lMwKkfp01shBk25YcZRqoFbxGtpxQLufNTsCCUgfcBz/hhK3Zb9YJ63kJIhjz2JtGKZ
- VSH2Yth/HLqDU4lH8buSGeWkC3E2mY01HBXLR/9Z6DfnYw90zIaGkRiBptBAYcLX7QJO
- MbV7d8nHirwz/cJJQ1o1TO6nJHQBAfhWZEWylW4b2EMVHNduQ3FsYksqVBwD+KldgfRl
- ch+lS541yxoEAlZgEJQsOz1e6JOiR8z8YKsBBZvu223aSBH9nNgsQR5p6mo6wOUSnclg
- twrg==
-X-Gm-Message-State: AAQBX9eGHkk2OBQJzMLrDwcRw79vz3p/yoxsmfPvbjAc2BO39xqzE+0r
- JmDXr79CCiZ7ECdhdLi9gh77KA==
-X-Google-Smtp-Source: AKy350ZEQ50V1V6HKttuUaO/U1mjlGEseB0SYTVz6qfuzfynrOwUlXAMSCL53PHfomXoeTjzBcMvww==
-X-Received: by 2002:a05:6000:1050:b0:2f0:843:fc0d with SMTP id
- c16-20020a056000105000b002f00843fc0dmr5705190wrx.5.1681286498852; 
- Wed, 12 Apr 2023 01:01:38 -0700 (PDT)
+ d=1e100.net; s=20210112; t=1681287095; x=1683879095;
+ h=in-reply-to:content-transfer-encoding:content-disposition
+ :mime-version:references:mail-followup-to:message-id:subject:cc:to
+ :from:date:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=ApQh3OO8N/EkSlcg/GoWQjRUynfLNJg2zkmAQ0bDPGw=;
+ b=1GmiPPTBB4CIDZjmA6vQfsOcboo0sve+tva+ez7GaS/RMuMDkYN/b0aL4sD2QWkrYr
+ zsnnsA12IHoUJUlbp9+CveZqLlf0iNA/Ya/QHT39IYf/A9ySbraBEOphiW2Fy8CkdzHD
+ eecga0lWqq2T2rImhThXuszPSAaFR590760Ovx7JrJU73ksT29r/EKhI/1GhGggFHAL4
+ FGM/TLPY9EySCfUVeVcebsm53bbYfnDzy6qK1E/QGU4PCv+/Q6XqrFpT1HnZY7eeczn4
+ mqXUVThLFdF7i/NJVtS2EAgfS6rC+nV8nV8YNzxwJLu6EDj40M2p6klEJpYEip4+C8sS
+ +/SA==
+X-Gm-Message-State: AAQBX9fd+kNfk8ZSFTS0F2b/Lih2tTtOekOYHYPJh6OCYTYRDlpKfRVQ
+ Mh66bweRzfOFXtwnjVjcKTRVRg==
+X-Google-Smtp-Source: AKy350bnBOA1yKbUJKGFfK7Ajlx+yHLgcIBWXcno+RB9JgfyhFepkx/MEZdWOedrsJ7jrgeu2MHhLQ==
+X-Received: by 2002:a5d:6588:0:b0:2e4:aa61:a50 with SMTP id
+ q8-20020a5d6588000000b002e4aa610a50mr9004356wru.1.1681287094654; 
+ Wed, 12 Apr 2023 01:11:34 -0700 (PDT)
 Received: from phenom.ffwll.local (212-51-149-33.fiber7.init7.net.
  [212.51.149.33]) by smtp.gmail.com with ESMTPSA id
- w17-20020a5d5451000000b002f3fcb1869csm1862512wrv.64.2023.04.12.01.01.37
+ m3-20020adfdc43000000b002c5691f13eesm16556148wrj.50.2023.04.12.01.11.33
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 12 Apr 2023 01:01:38 -0700 (PDT)
-Date: Wed, 12 Apr 2023 10:01:36 +0200
+ Wed, 12 Apr 2023 01:11:34 -0700 (PDT)
+Date: Wed, 12 Apr 2023 10:11:32 +0200
 From: Daniel Vetter <daniel@ffwll.ch>
-To: Rob Clark <robdclark@gmail.com>
-Message-ID: <ZDZlYNN/LEdUxZgP@phenom.ffwll.local>
-Mail-Followup-To: Rob Clark <robdclark@gmail.com>,
- dri-devel@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
- freedreno@lists.freedesktop.org,
- Boris Brezillon <boris.brezillon@collabora.com>,
- Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
- Christopher Healy <healych@amazon.com>,
- Emil Velikov <emil.l.velikov@gmail.com>,
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Message-ID: <ZDZntP+0wG6+QyHh@phenom.ffwll.local>
+Mail-Followup-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Rob Clark <robdclark@gmail.com>, dri-devel@lists.freedesktop.org,
  Rob Clark <robdclark@chromium.org>,
- David Airlie <airlied@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Jonathan Corbet <corbet@lwn.net>,
+ Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
  "open list:DOCUMENTATION" <linux-doc@vger.kernel.org>,
- open list <linux-kernel@vger.kernel.org>
-References: <20230411225725.2032862-1-robdclark@gmail.com>
- <20230411225725.2032862-7-robdclark@gmail.com>
+ linux-arm-msm@vger.kernel.org,
+ Emil Velikov <emil.l.velikov@gmail.com>,
+ Christopher Healy <healych@amazon.com>,
+ open list <linux-kernel@vger.kernel.org>,
+ Sean Paul <sean@poorly.run>,
+ Boris Brezillon <boris.brezillon@collabora.com>,
+ freedreno@lists.freedesktop.org
+References: <20230410210608.1873968-1-robdclark@gmail.com>
+ <CAF6AEGvs4XMggPMthiJ89SiaUj3k+nY95OhxLZ5cD-01XPco4Q@mail.gmail.com>
+ <ZDWQfbUBhyJf1Ezx@phenom.ffwll.local>
+ <CAF6AEGtYw4Dn80OtrnJESkkDXxhUdAr6Nuva+Jo3ExW8MXH++Q@mail.gmail.com>
+ <CAA8EJppnEwcHM++YUYZGrNXEha=-ZVAexBdkMVsU52PTOs4VnA@mail.gmail.com>
+ <CAF6AEGsE3NOe9TkEzrk5rr-D2PoKaxF5Yn3W8wWew8um6r2EXw@mail.gmail.com>
+ <d93f4256-4554-e031-9730-4ca2a7de6aaf@linaro.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20230411225725.2032862-7-robdclark@gmail.com>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <d93f4256-4554-e031-9730-4ca2a7de6aaf@linaro.org>
 X-Operating-System: Linux phenom 6.1.0-7-amd64 
-Subject: Re: [Freedreno] [PATCH v3 6/7] drm: Add fdinfo memory stats
+Subject: Re: [Freedreno] [PATCH v2 0/2] drm: fdinfo memory stats
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -89,227 +93,161 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
 Cc: Rob Clark <robdclark@chromium.org>,
  Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
- Thomas Zimmermann <tzimmermann@suse.de>, Jonathan Corbet <corbet@lwn.net>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- linux-arm-msm@vger.kernel.org,
  "open list:DOCUMENTATION" <linux-doc@vger.kernel.org>,
- Emil Velikov <emil.l.velikov@gmail.com>,
+ linux-arm-msm@vger.kernel.org, Emil Velikov <emil.l.velikov@gmail.com>,
  Christopher Healy <healych@amazon.com>, dri-devel@lists.freedesktop.org,
- open list <linux-kernel@vger.kernel.org>,
+ open list <linux-kernel@vger.kernel.org>, Rob Clark <robdclark@gmail.com>,
  Boris Brezillon <boris.brezillon@collabora.com>,
- Maxime Ripard <mripard@kernel.org>, Daniel Vetter <daniel@ffwll.ch>,
- David Airlie <airlied@gmail.com>, freedreno@lists.freedesktop.org
+ freedreno@lists.freedesktop.org, Sean Paul <sean@poorly.run>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Tue, Apr 11, 2023 at 03:56:11PM -0700, Rob Clark wrote:
-> From: Rob Clark <robdclark@chromium.org>
+On Wed, Apr 12, 2023 at 01:36:52AM +0300, Dmitry Baryshkov wrote:
+> On 11/04/2023 21:28, Rob Clark wrote:
+> > On Tue, Apr 11, 2023 at 10:36 AM Dmitry Baryshkov
+> > <dmitry.baryshkov@linaro.org> wrote:
+> > > 
+> > > On Tue, 11 Apr 2023 at 20:13, Rob Clark <robdclark@gmail.com> wrote:
+> > > > 
+> > > > On Tue, Apr 11, 2023 at 9:53 AM Daniel Vetter <daniel@ffwll.ch> wrote:
+> > > > > 
+> > > > > On Tue, Apr 11, 2023 at 09:47:32AM -0700, Rob Clark wrote:
+> > > > > > On Mon, Apr 10, 2023 at 2:06 PM Rob Clark <robdclark@gmail.com> wrote:
+> > > > > > > 
+> > > > > > > From: Rob Clark <robdclark@chromium.org>
+> > > > > > > 
+> > > > > > > Similar motivation to other similar recent attempt[1].  But with an
+> > > > > > > attempt to have some shared code for this.  As well as documentation.
+> > > > > > > 
+> > > > > > > It is probably a bit UMA-centric, I guess devices with VRAM might want
+> > > > > > > some placement stats as well.  But this seems like a reasonable start.
+> > > > > > > 
+> > > > > > > Basic gputop support: https://patchwork.freedesktop.org/series/116236/
+> > > > > > > And already nvtop support: https://github.com/Syllo/nvtop/pull/204
+> > > > > > 
+> > > > > > On a related topic, I'm wondering if it would make sense to report
+> > > > > > some more global things (temp, freq, etc) via fdinfo?  Some of this,
+> > > > > > tools like nvtop could get by trawling sysfs or other driver specific
+> > > > > > ways.  But maybe it makes sense to have these sort of things reported
+> > > > > > in a standardized way (even though they aren't really per-drm_file)
+> > > > > 
+> > > > > I think that's a bit much layering violation, we'd essentially have to
+> > > > > reinvent the hwmon sysfs uapi in fdinfo. Not really a business I want to
+> > > > > be in :-)
+> > > > 
+> > > > I guess this is true for temp (where there are thermal zones with
+> > > > potentially multiple temp sensors.. but I'm still digging my way thru
+> > > > the thermal_cooling_device stuff)
+> > > 
+> > > It is slightly ugly. All thermal zones and cooling devices are virtual
+> > > devices (so, even no connection to the particular tsens device). One
+> > > can either enumerate them by checking
+> > > /sys/class/thermal/thermal_zoneN/type or enumerate them through
+> > > /sys/class/hwmon. For cooling devices again the only enumeration is
+> > > through /sys/class/thermal/cooling_deviceN/type.
+> > > 
+> > > Probably it should be possible to push cooling devices and thermal
+> > > zones under corresponding providers. However I do not know if there is
+> > > a good way to correlate cooling device (ideally a part of GPU) to the
+> > > thermal_zone (which in our case is provided by tsens / temp_alarm
+> > > rather than GPU itself).
+> > > 
+> > > > 
+> > > > But what about freq?  I think, esp for cases where some "fw thing" is
+> > > > controlling the freq we end up needing to use gpu counters to measure
+> > > > the freq.
+> > > 
+> > > For the freq it is slightly easier: /sys/class/devfreq/*, devices are
+> > > registered under proper parent (IOW, GPU). So one can read
+> > > /sys/class/devfreq/3d00000.gpu/cur_freq or
+> > > /sys/bus/platform/devices/3d00000.gpu/devfreq/3d00000.gpu/cur_freq.
+> > > 
+> > > However because of the components usage, there is no link from
+> > > /sys/class/drm/card0
+> > > (/sys/devices/platform/soc@0/ae00000.display-subsystem/ae01000.display-controller/drm/card0)
+> > > to /sys/devices/platform/soc@0/3d00000.gpu, the GPU unit.
+> > > 
+> > > Getting all these items together in a platform-independent way would
+> > > be definitely an important but complex topic.
+> > 
+> > But I don't believe any of the pci gpu's use devfreq ;-)
+> > 
+> > And also, you can't expect the CPU to actually know the freq when fw
+> > is the one controlling freq.  We can, currently, have a reasonable
+> > approximation from devfreq but that stops if IFPC is implemented.  And
+> > other GPUs have even less direct control.  So freq is a thing that I
+> > don't think we should try to get from "common frameworks"
 > 
-> Add support to dump GEM stats to fdinfo.
+> I think it might be useful to add another passive devfreq governor type for
+> external frequencies. This way we can use the same interface to export
+> non-CPU-controlled frequencies.
+
+Yeah this sounds like a decent idea to me too. It might also solve the fun
+of various pci devices having very non-standard freq controls in sysfs
+(looking at least at i915 here ...)
+
+I guess it would minimally be a good idea if we could document this, or
+maybe have a reference implementation in nvtop or whatever the cool thing
+is rn.
+-Daniel
+
 > 
-> v2: Fix typos, change size units to match docs, use div_u64
-> v3: Do it in core
+> > 
+> > BR,
+> > -R
+> > 
+> > > > 
+> > > > > What might be needed is better glue to go from the fd or fdinfo to the
+> > > > > right hw device and then crawl around the hwmon in sysfs automatically. I
+> > > > > would not be surprised at all if we really suck on this, probably more
+> > > > > likely on SoC than pci gpus where at least everything should be under the
+> > > > > main pci sysfs device.
+> > > > 
+> > > > yeah, I *think* userspace would have to look at /proc/device-tree to
+> > > > find the cooling device(s) associated with the gpu.. at least I don't
+> > > > see a straightforward way to figure it out just for sysfs
+> > > > 
+> > > > BR,
+> > > > -R
+> > > > 
+> > > > > -Daniel
+> > > > > 
+> > > > > > 
+> > > > > > BR,
+> > > > > > -R
+> > > > > > 
+> > > > > > 
+> > > > > > > [1] https://patchwork.freedesktop.org/series/112397/
+> > > > > > > 
+> > > > > > > Rob Clark (2):
+> > > > > > >    drm: Add fdinfo memory stats
+> > > > > > >    drm/msm: Add memory stats to fdinfo
+> > > > > > > 
+> > > > > > >   Documentation/gpu/drm-usage-stats.rst | 21 +++++++
+> > > > > > >   drivers/gpu/drm/drm_file.c            | 79 +++++++++++++++++++++++++++
+> > > > > > >   drivers/gpu/drm/msm/msm_drv.c         | 25 ++++++++-
+> > > > > > >   drivers/gpu/drm/msm/msm_gpu.c         |  2 -
+> > > > > > >   include/drm/drm_file.h                | 10 ++++
+> > > > > > >   5 files changed, 134 insertions(+), 3 deletions(-)
+> > > > > > > 
+> > > > > > > --
+> > > > > > > 2.39.2
+> > > > > > > 
+> > > > > 
+> > > > > --
+> > > > > Daniel Vetter
+> > > > > Software Engineer, Intel Corporation
+> > > > > http://blog.ffwll.ch
+> > > 
+> > > 
+> > > 
+> > > --
+> > > With best wishes
+> > > Dmitry
 > 
-> Signed-off-by: Rob Clark <robdclark@chromium.org>
-> Reviewed-by: Emil Velikov <emil.l.velikov@gmail.com>
-> ---
->  Documentation/gpu/drm-usage-stats.rst | 21 ++++++++
->  drivers/gpu/drm/drm_file.c            | 76 +++++++++++++++++++++++++++
->  include/drm/drm_file.h                |  1 +
->  include/drm/drm_gem.h                 | 19 +++++++
->  4 files changed, 117 insertions(+)
-> 
-> diff --git a/Documentation/gpu/drm-usage-stats.rst b/Documentation/gpu/drm-usage-stats.rst
-> index b46327356e80..b5e7802532ed 100644
-> --- a/Documentation/gpu/drm-usage-stats.rst
-> +++ b/Documentation/gpu/drm-usage-stats.rst
-> @@ -105,6 +105,27 @@ object belong to this client, in the respective memory region.
->  Default unit shall be bytes with optional unit specifiers of 'KiB' or 'MiB'
->  indicating kibi- or mebi-bytes.
->  
-> +- drm-shared-memory: <uint> [KiB|MiB]
-> +
-> +The total size of buffers that are shared with another file (ie. have more
-> +than a single handle).
-> +
-> +- drm-private-memory: <uint> [KiB|MiB]
-> +
-> +The total size of buffers that are not shared with another file.
-> +
-> +- drm-resident-memory: <uint> [KiB|MiB]
-> +
-> +The total size of buffers that are resident in system memory.
-> +
-> +- drm-purgeable-memory: <uint> [KiB|MiB]
-> +
-> +The total size of buffers that are purgeable.
-> +
-> +- drm-active-memory: <uint> [KiB|MiB]
-> +
-> +The total size of buffers that are active on one or more rings.
-> +
->  - drm-cycles-<str> <uint>
->  
->  Engine identifier string must be the same as the one specified in the
-> diff --git a/drivers/gpu/drm/drm_file.c b/drivers/gpu/drm/drm_file.c
-> index 37dfaa6be560..46fdd843bb3a 100644
-> --- a/drivers/gpu/drm/drm_file.c
-> +++ b/drivers/gpu/drm/drm_file.c
-> @@ -42,6 +42,7 @@
->  #include <drm/drm_client.h>
->  #include <drm/drm_drv.h>
->  #include <drm/drm_file.h>
-> +#include <drm/drm_gem.h>
->  #include <drm/drm_print.h>
->  
->  #include "drm_crtc_internal.h"
-> @@ -871,6 +872,79 @@ void drm_send_event(struct drm_device *dev, struct drm_pending_event *e)
->  }
->  EXPORT_SYMBOL(drm_send_event);
->  
-> +static void print_size(struct drm_printer *p, const char *stat, size_t sz)
-> +{
-> +	const char *units[] = {"", " KiB", " MiB"};
-> +	unsigned u;
-> +
-> +	for (u = 0; u < ARRAY_SIZE(units) - 1; u++) {
-> +		if (sz < SZ_1K)
-> +			break;
-> +		sz = div_u64(sz, SZ_1K);
-> +	}
-> +
-> +	drm_printf(p, "%s:\t%zu%s\n", stat, sz, units[u]);
-> +}
-> +
-> +static void print_memory_stats(struct drm_printer *p, struct drm_file *file)
-> +{
-> +	struct drm_gem_object *obj;
-> +	struct {
-> +		size_t shared;
-> +		size_t private;
-> +		size_t resident;
-> +		size_t purgeable;
-> +		size_t active;
-> +	} size = {0};
-> +	bool has_status = false;
-> +	int id;
-> +
-> +	spin_lock(&file->table_lock);
-> +	idr_for_each_entry (&file->object_idr, obj, id) {
-> +		enum drm_gem_object_status s = 0;
-> +
-> +		if (obj->funcs && obj->funcs->status) {
-> +			s = obj->funcs->status(obj);
-> +			has_status = true;
-> +		}
-> +
-> +		if (obj->handle_count > 1) {
-> +			size.shared += obj->size;
-> +		} else {
-> +			size.private += obj->size;
-> +		}
-> +
-> +		if (s & DRM_GEM_OBJECT_RESIDENT) {
-> +			size.resident += obj->size;
-> +		} else {
-> +			/* If already purged or not yet backed by pages, don't
-> +			 * count it as purgeable:
-> +			 */
-> +			s &= ~DRM_GEM_OBJECT_PURGEABLE;
-> +		}
-> +
-> +		if (!dma_resv_test_signaled(obj->resv, dma_resv_usage_rw(true))) {
-> +			size.active += obj->size;
-> +
-> +			/* If still active, don't count as purgeable: */
-
-Maybe mention this in the kerneldoc for DRM_GEM_OBJECT_PURGEABLE?
-
-Otherwise looks tidy:
-
-Reviewed-by: Daniel Vetter <daniel.vetter@ffwll.ch>
-
-> +			s &= ~DRM_GEM_OBJECT_PURGEABLE;
-> +		}
-> +
-> +		if (s & DRM_GEM_OBJECT_PURGEABLE)
-> +			size.purgeable += obj->size;
-> +	}
-> +	spin_unlock(&file->table_lock);
-> +
-> +	print_size(p, "drm-shared-memory", size.shared);
-> +	print_size(p, "drm-private-memory", size.private);
-> +	print_size(p, "drm-active-memory", size.active);
-> +
-> +	if (has_status) {
-> +		print_size(p, "drm-resident-memory", size.resident);
-> +		print_size(p, "drm-purgeable-memory", size.purgeable);
-> +	}
-> +}
-> +
->  /**
->   * drm_fop_show_fdinfo - helper for drm file fops
->   * @seq_file: output stream
-> @@ -904,6 +978,8 @@ void drm_fop_show_fdinfo(struct seq_file *m, struct file *f)
->  
->  	if (dev->driver->show_fdinfo)
->  		dev->driver->show_fdinfo(&p, file);
-> +
-> +	print_memory_stats(&p, file);
->  }
->  EXPORT_SYMBOL(drm_fop_show_fdinfo);
->  
-> diff --git a/include/drm/drm_file.h b/include/drm/drm_file.h
-> index dfa995b787e1..e5b40084538f 100644
-> --- a/include/drm/drm_file.h
-> +++ b/include/drm/drm_file.h
-> @@ -41,6 +41,7 @@
->  struct dma_fence;
->  struct drm_file;
->  struct drm_device;
-> +struct drm_printer;
->  struct device;
->  struct file;
->  
-> diff --git a/include/drm/drm_gem.h b/include/drm/drm_gem.h
-> index 189fd618ca65..213917bb6b11 100644
-> --- a/include/drm/drm_gem.h
-> +++ b/include/drm/drm_gem.h
-> @@ -42,6 +42,14 @@
->  struct iosys_map;
->  struct drm_gem_object;
->  
-> +/**
-> + * enum drm_gem_object_status - bitmask of object state for fdinfo reporting
-> + */
-> +enum drm_gem_object_status {
-> +	DRM_GEM_OBJECT_RESIDENT  = BIT(0),
-> +	DRM_GEM_OBJECT_PURGEABLE = BIT(1),
-> +};
-> +
->  /**
->   * struct drm_gem_object_funcs - GEM object functions
->   */
-> @@ -174,6 +182,17 @@ struct drm_gem_object_funcs {
->  	 */
->  	int (*evict)(struct drm_gem_object *obj);
->  
-> +	/**
-> +	 * @status:
-> +	 *
-> +	 * The optional status callback can return additional object state
-> +	 * which determines which stats the object is counted against.  The
-> +	 * callback is called under table_lock.  Racing against object status
-> +	 * change is "harmless", and the callback can expect to not race
-> +	 * against object destruction.
-> +	 */
-> +	enum drm_gem_object_status (*status)(struct drm_gem_object *obj);
-> +
->  	/**
->  	 * @vm_ops:
->  	 *
 > -- 
-> 2.39.2
+> With best wishes
+> Dmitry
 > 
 
 -- 
