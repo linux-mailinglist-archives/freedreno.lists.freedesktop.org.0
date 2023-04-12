@@ -1,51 +1,51 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id CCBCA6DFF81
-	for <lists+freedreno@lfdr.de>; Wed, 12 Apr 2023 22:19:35 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id E16B76DFFA7
+	for <lists+freedreno@lfdr.de>; Wed, 12 Apr 2023 22:23:57 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3DE3010E1E9;
-	Wed, 12 Apr 2023 20:19:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8EB9210E965;
+	Wed, 12 Apr 2023 20:23:56 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-yw1-x112c.google.com (mail-yw1-x112c.google.com
- [IPv6:2607:f8b0:4864:20::112c])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 52B5210E1E9
- for <freedreno@lists.freedesktop.org>; Wed, 12 Apr 2023 20:19:32 +0000 (UTC)
-Received: by mail-yw1-x112c.google.com with SMTP id
- 00721157ae682-54f6fc7943eso123369867b3.3
- for <freedreno@lists.freedesktop.org>; Wed, 12 Apr 2023 13:19:32 -0700 (PDT)
+Received: from mail-oa1-x2b.google.com (mail-oa1-x2b.google.com
+ [IPv6:2001:4860:4864:20::2b])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D40BB10E0FB;
+ Wed, 12 Apr 2023 20:23:53 +0000 (UTC)
+Received: by mail-oa1-x2b.google.com with SMTP id
+ 586e51a60fabf-1878a0bf68fso675282fac.7; 
+ Wed, 12 Apr 2023 13:23:53 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1681330771; x=1683922771;
+ d=gmail.com; s=20221208; t=1681331032; x=1683923032;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=UTBfRC0LvSg06QgiZSsEJ06WzqdIIIpng+1SlnJvGDg=;
- b=wnRJwBqmiACuHtpVEqIwHDdg3GA5XSHjop9evKgRGBqje+3qMPEbYpxIcBTBgEJfut
- 8Egwyx/v2cAAFWyjEwYAISZZvbH+9Ftu1f3IsT+GapthMoVtLgGUZUJngah+8MNWV10L
- PIP6/EYq9fGAchHg/+UJZ3xWWsmb1sX+W94wm8T+n1f3lxaq7XBqAtwB3rJv/W2Qei+m
- 6ju/65zcJNmKXOMzro5s/V72TalgrZQPCTZPU+cPBHnRnmcXE+NcHVyXfuf+aiqXLAsq
- DJ6FwmPAmUQ9B8N9Y3Iv1PgasZnhVO2W0fP3g6egRhVfotUzQxIOIWnsSd3RChr6Ab8G
- FPdw==
+ bh=hg45uBVvTMYShLSKhLpBhqKCtbh24xk1xg+8wXUpC8U=;
+ b=jV99TkiHswVj9FIDBP8GYCygB1vxWsnp+2gd1KDdFw+6Oorh8IuUUwJ26O02rMmVTC
+ MrLGQBEH7k6xXAc9rp7fRYtRaHB6RRHsKzitPWsBhjHTwfXRcngdq1sEIRuvnC0I4h/X
+ Z2vm+mGAXhbo0stXvOb1Vi8E26WY7pKA8FFlFIKwVqbYcbc9FVQSHkEYJfHGZypk0Z2l
+ ZdyCSXcjugl6g/HTYtuA0/KTJe8b6c93nt0nZfXinw3Yez63AF43xai8qNUIgAjLV6HR
+ YEL45Knph7EXnd5UEBMK+E6GKmJTXIBQlkxT4QnEw1spS7QJhwg9Uk4I2YL7Q6VT6HvC
+ rrtg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1681330771; x=1683922771;
+ d=1e100.net; s=20221208; t=1681331032; x=1683923032;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=UTBfRC0LvSg06QgiZSsEJ06WzqdIIIpng+1SlnJvGDg=;
- b=ajjfhBNyTkNIscwAzDAWMYgM2GV8TzFRywg7oF17wApTtoTXt46IEwCEgPicNnhvRz
- lg7/URDTJj06+TeHyUK1EiM5Qk/ykTpCzIYE6tDdCUyMhGkdFXEq1s1f1KjDw1r9Nsyh
- 5FTNPdw9L0450XtTFv1qspMIbO+kTd+XvZUQBAN6hKvVKrLezfmqfsVrnd5luknZ8if0
- MmUXQn3b+YFS2Y0RJOB2Ea3yUuNxQcYOVyiJE45O4K0zxJ9NqSssV6e9+JRslRY0YYqd
- 1AMA2G798ztK6Mjkup99TFkoEe3j2Domu+SBLCa4rGU5Py3DB5WgX3Gq2jvV0Mbwlwdh
- o43w==
-X-Gm-Message-State: AAQBX9dljibn8Nnx0giuH2/ZwqbkVnlP/5uemlkbj5L31TGMXs54V2zM
- RYmz/QhKAcQFIKHNkd8Ju3zu1OmyWdb11v/6p5d7Ew==
-X-Google-Smtp-Source: AKy350bCTF9qQ2g5MLXBdy0yjzrXjtWDco6Dp/V5MUtsVxURAVu+j8mkuberclHiRlugI+p9ycmjjhgEG8Dw+NcsIic=
-X-Received: by 2002:a81:af0e:0:b0:54f:85a6:c80c with SMTP id
- n14-20020a81af0e000000b0054f85a6c80cmr2983965ywh.5.1681330771013; Wed, 12 Apr
- 2023 13:19:31 -0700 (PDT)
+ bh=hg45uBVvTMYShLSKhLpBhqKCtbh24xk1xg+8wXUpC8U=;
+ b=DlCaxdb0nE1+tuD0WlwcNivkHwnCo5YNKWP4KodL8H4sVImjbnzl8rIxubGZdRT2P6
+ yT2r/pCo5AGPsYYLxeqMtOm2KMw2Sn9YwRJ4HrlAjwTyh47HoGCzReGn72mXXclDnqAl
+ tY6VM9oTZvJ6o0zJdsjC+WLyUUs4rI5k3Ri9xPW6L03eZjsHnAF9ccsmHfo6FhTtJH5F
+ Aju+9vgmk4iv2J4mJiJv5lXK8BM3pZsLPLoq6zi7mivAcXtWKe6EavVSEcVPi5fU2GUS
+ KfkqYkVGwJKkTtDNdP2umuWgGGP8ZGlJCom2PW5/eQ8vNjp1EgtVUKoy3RgtUlGkoTY4
+ xRtw==
+X-Gm-Message-State: AAQBX9dWpnRwMUCCWCd6T+lx//toSt/a4w3s0mzva/AjTUDJvWpfhxsI
+ G5agWQrPuvAxIvhc8Vw4J9cp+YOKnWaVhWP1Fho=
+X-Google-Smtp-Source: AKy350bu1rvTbELfK5EPFKNuR6cBSyemvgimm2V7zeJqweH15FedR28ffLZCjPzTck4ePdGPJg+DrwD1Pv8RfUm0KnE=
+X-Received: by 2002:a05:6870:700e:b0:184:56bd:363a with SMTP id
+ u14-20020a056870700e00b0018456bd363amr79734oae.3.1681331032388; Wed, 12 Apr
+ 2023 13:23:52 -0700 (PDT)
 MIME-Version: 1.0
 References: <20230410210608.1873968-1-robdclark@gmail.com>
  <CAF6AEGvs4XMggPMthiJ89SiaUj3k+nY95OhxLZ5cD-01XPco4Q@mail.gmail.com>
@@ -57,9 +57,9 @@ References: <20230410210608.1873968-1-robdclark@gmail.com>
  <ZDZntP+0wG6+QyHh@phenom.ffwll.local> <ZDaoT44hqnIH4ZX3@intel.com>
  <CAF6AEGtOEwG+Wdh_7Nox8pqmWJ=nMs-GFEqTU42Mf=wOFGKfRQ@mail.gmail.com>
 In-Reply-To: <CAF6AEGtOEwG+Wdh_7Nox8pqmWJ=nMs-GFEqTU42Mf=wOFGKfRQ@mail.gmail.com>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Wed, 12 Apr 2023 23:19:19 +0300
-Message-ID: <CAA8EJpoNc+cD9gSZx09JBiV2PFHO3teryaRqx2Ah+1R6dJbybw@mail.gmail.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Wed, 12 Apr 2023 16:23:41 -0400
+Message-ID: <CADnq5_OH5j1DotgpyYOfOLEdLjGU-9uytjYAz0maB2pOiwBihw@mail.gmail.com>
 To: Rob Clark <robdclark@gmail.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
@@ -81,14 +81,16 @@ Cc: Rob Clark <robdclark@chromium.org>,
  "open list:DOCUMENTATION" <linux-doc@vger.kernel.org>,
  linux-arm-msm@vger.kernel.org, Emil Velikov <emil.l.velikov@gmail.com>,
  Christopher Healy <healych@amazon.com>, dri-devel@lists.freedesktop.org,
- open list <linux-kernel@vger.kernel.org>,
+ open list <linux-kernel@vger.kernel.org>, Sean Paul <sean@poorly.run>,
  Boris Brezillon <boris.brezillon@collabora.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, freedreno@lists.freedesktop.org,
- Sean Paul <sean@poorly.run>
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Wed, 12 Apr 2023 at 23:09, Rob Clark <robdclark@gmail.com> wrote:
+On Wed, Apr 12, 2023 at 4:10=E2=80=AFPM Rob Clark <robdclark@gmail.com> wro=
+te:
 >
 > On Wed, Apr 12, 2023 at 5:47=E2=80=AFAM Rodrigo Vivi <rodrigo.vivi@intel.=
 com> wrote:
@@ -252,31 +254,31 @@ t
 > be composed of multiple sensors) to give back an aggregate temp for
 > hwmon to report?
 
-The thermal_device already registers the hwmon, see below. The
-question is about linking that hwmon to the drm. Strictly speaking, I
-don't think that we can reexport it in a clean way.
+amdgpu uses hwmon as well for temp, voltage, power, etc.  Once of the
+problems with hwmon is that it's designed around individual sensors.
+However, on the GPU at least, most customers, at least in the
+datacenter, want an atomic view of all of the attributes.  It would be
+nice if there were some way to get nice snapshot of all of the
+attributes at one time.
 
-# grep gpu /sys/class/hwmon/hwmon*/name
-/sys/class/hwmon/hwmon15/name:gpu_top_thermal
-/sys/class/hwmon/hwmon24/name:gpu_bottom_thermal
-# ls /sys/class/hwmon/hwmon15/ -l
-lrwxrwxrwx    1 root     root             0 Jan 26 08:14 device ->
-../../thermal_zone15
--r--r--r--    1 root     root          4096 Jan 26 08:14 name
-drwxr-xr-x    2 root     root             0 Jan 26 08:15 power
-lrwxrwxrwx    1 root     root             0 Jan 26 08:12 subsystem ->
-../../../../../class/hwmon
--r--r--r--    1 root     root          4096 Jan 26 08:14 temp1_input
--rw-r--r--    1 root     root          4096 Jan 26 08:12 uevent
-
+>
 > Freq could possibly be added to hwmon (ie. seems like a reasonable
 > attribute to add).  Devfreq might also be an option but on arm it
 > isn't necessarily associated with the drm device, whereas we could
 > associate the hwmon with the drm device to make it easier for
 > userspace to find.
 
-Possibly we can register a virtual 'passive' devfreq being driven by
-another active devfreq device.
+freq attributes seem natural for hwmon, at least for reporting.  I'm
+not familiar with devfreq; I wonder if it's flexible enough to deal
+with devices that might have full or partial firmware control of the
+frequencies.  Moreover, each clock domain is not necessarily
+independent.  You might have multiple clock domains with different
+voltage, thermal, and tdp dependencies.  Power limits are controlled
+via hwmon and you may need to adjust them in order to make certain
+clock changes.  Then add in overclocking support on top and it gets
+more complex.
+
+Alex
 
 >
 > BR,
@@ -360,9 +362,3 @@ tree to
 > > > Daniel Vetter
 > > > Software Engineer, Intel Corporation
 > > > http://blog.ffwll.ch
-
-
-
---=20
-With best wishes
-Dmitry
