@@ -1,73 +1,73 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 607F16E0130
-	for <lists+freedreno@lfdr.de>; Wed, 12 Apr 2023 23:50:47 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 032516E01BC
+	for <lists+freedreno@lfdr.de>; Thu, 13 Apr 2023 00:18:44 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 063D510E9A7;
-	Wed, 12 Apr 2023 21:50:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A0B8E10E9CA;
+	Wed, 12 Apr 2023 22:18:40 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x12a.google.com (mail-lf1-x12a.google.com
- [IPv6:2a00:1450:4864:20::12a])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DB93A10E9A5
- for <freedreno@lists.freedesktop.org>; Wed, 12 Apr 2023 21:50:43 +0000 (UTC)
-Received: by mail-lf1-x12a.google.com with SMTP id q26so4345481lfe.9
- for <freedreno@lists.freedesktop.org>; Wed, 12 Apr 2023 14:50:43 -0700 (PDT)
+Received: from mail-oi1-x235.google.com (mail-oi1-x235.google.com
+ [IPv6:2607:f8b0:4864:20::235])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BFA4010E0E6;
+ Wed, 12 Apr 2023 22:18:38 +0000 (UTC)
+Received: by mail-oi1-x235.google.com with SMTP id bx42so25231760oib.6;
+ Wed, 12 Apr 2023 15:18:38 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1681336241; x=1683928241;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=5eOT9e4/C9MFvuVw0SQZQGY7fHUyfQCXLAIJ6rvBi7M=;
- b=zDL49vgl5DP9nszNI6PUZIsUeTh8Da8ZSaKi4A9hjlw4LTs2f/RdpylIifkAZck9Vn
- sgG+Wlfr3Vo4ain32iPawGt2LpjnUhLM3f3jtkAK6RZbl/yy5AoFvKpv6bMRu5VABvXy
- Td5LbVLJOzGZhNpD69G3zFjBrVinc9afPbjHwdhGKPmPFHR7d/3UJeK+al3rRbSrNzHD
- 6t+tGsJ8i3fCm9J7CU9YgU440DNyOkOAl4DZXwXZYSXErSwpwZpZ64mNWXIxnskFCPkB
- oWUZ9yl8INhMCQtjqDUdY0QcYV+H713BHyuhsiyuhEYck8Ag+t+OhhhmkTtMl1ib7SNQ
- mzdQ==
+ d=gmail.com; s=20221208; t=1681337917;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=/nX5ZUWZ+h14V2FRkq8UuCb9+sDAe/a4u14goLUk2eQ=;
+ b=cE5xZzmiH+xB6rbLmtl0fzBJVegyhjkLsVveqwxO5qbNd4xIuKTR3hTFoqJeF9WUhm
+ JlHLAC27LDrFCRNQay/+gqmrXNnoQ8btdgulvP28AuJaWw/c9JRdp4CiPW7KItWgORuP
+ X3GdvgE4UN5p2reyTu+wLa1eNhaMkyUyDlipXEMw/uQeYawfDdj847Rp2y1ncrbAMPRR
+ Pqh+A+wEisSSGwOy8FrS/bJ6eDtK6RIBn3Bp7m8s0zUaaWShkI3zI4+DluUfRpkSm9TF
+ WpiQwT1ks7DbLSHJFmx23w1eXfdDI5y+vXcfAmosXdK406t32J/z2S1j08SeSoPMpb6s
+ OSVw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1681336241; x=1683928241;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=5eOT9e4/C9MFvuVw0SQZQGY7fHUyfQCXLAIJ6rvBi7M=;
- b=N4Tx2LWRLoo/9z4DgjxYIRFVb5NcfijQR2S72eXIhlBNHRwWWINpwBYog0aD8d1X7w
- GCTFbH6Ze8Nrzvh/0LfkIpMEDWKfkUcJmW82E1ho4VP3QxFrw04JHAt8tz19kEaX6vp+
- JJBwfipFUKRKBG/jVLzzXfEH9av6k3H3jYE/RvaMRBsa8u7CcoKZIIM/n3xQspAR7xay
- xG4H4JRbL/jr6ytBdxL5KNNkedy6kDetXLRuuRx9JmCeJKF7cD3PS/3YNx+UqQ3/ZPq+
- a8qc8H9uP007Gt4vh2CA6ZMzGFvTHukEi3Iy7tuDpa7gQrE/OaKgw2ySLWbbKx67lW4s
- hjLw==
-X-Gm-Message-State: AAQBX9cgrHHWMAZaD4ZZAAreSmESZxc9sxsRa+SMyDSsFeCOKGTzJ6BD
- pjuRQMfIm0JD7kqRM0YqO5rM1A==
-X-Google-Smtp-Source: AKy350YKu8hcHn2DkrNBUcgb6sbYl1GgvVCX9RFOrPbw7HgZ2BJJZVYaZCkgWL3u0kM/oqEtZpXbUw==
-X-Received: by 2002:ac2:4c25:0:b0:4eb:44da:e85d with SMTP id
- u5-20020ac24c25000000b004eb44dae85dmr60103lfq.57.1681336241533; 
- Wed, 12 Apr 2023 14:50:41 -0700 (PDT)
-Received: from ?IPV6:2001:14ba:a085:4d00::8a5?
- (dzccz6yyyyyyyyyyybcwt-3.rev.dnainternet.fi. [2001:14ba:a085:4d00::8a5])
- by smtp.gmail.com with ESMTPSA id
- l17-20020a19c211000000b004dc721ea6a1sm3149027lfc.273.2023.04.12.14.50.40
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 12 Apr 2023 14:50:41 -0700 (PDT)
-Message-ID: <ec203372-979e-b5d6-ddfa-1255f2895717@linaro.org>
-Date: Thu, 13 Apr 2023 00:50:40 +0300
+ d=1e100.net; s=20221208; t=1681337917;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=/nX5ZUWZ+h14V2FRkq8UuCb9+sDAe/a4u14goLUk2eQ=;
+ b=PnbOb2esF56gIDDXkiTT6gDEzzMA9nqtwC5dvW4cgttOR8OIW8pHM1pMCZ3YQRrL47
+ p/7P07zs+NOF59X+uN708pyTusWZxU1K7Wc1O6DOQ/kAk0dzJkUU/TKBDd/2gjGQz+SN
+ NISVxHqZTyDbN6NPGZLSwdq8/lcDetH4oUt74bUxwudcWeRMaAoAyOQehf17jisd7ZoX
+ TKyBPtdvhE+W9MjrCLOZdZzm3RZ3R+Gq0bXww2tXRBXBhRfi9IFnDFMUJvxBRvcYkJ/1
+ 5MB2VCbIjYTvsycM4M0OlUS0xB2JJrr/8MdHZULPH3QqRPI29XwDEMeTGflZVnA9D33M
+ 61Pw==
+X-Gm-Message-State: AAQBX9dgxRJj5pi1+L6NQBN2+IjorfMyQJgvfMDfPmxYwNxmorzdIcAL
+ I8y0VXaqWv/vm85HO2270zpoZeXG8EEbqCz6jHw=
+X-Google-Smtp-Source: AKy350bOhvWIiyhe+J80+lztyliieDNbQlmei33h8VmroEAF5j/kc0QWcldJvL0uwIA2beG8ww2iwFaa8ZM/TtWtX3A=
+X-Received: by 2002:aca:917:0:b0:386:a109:57c8 with SMTP id
+ 23-20020aca0917000000b00386a10957c8mr34183oij.5.1681337917575; Wed, 12 Apr
+ 2023 15:18:37 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.9.0
-Content-Language: en-GB
-To: Jessica Zhang <quic_jesszhan@quicinc.com>, freedreno@lists.freedesktop.org
-References: <20230329-rfc-msm-dsc-helper-v5-0-0108401d7886@quicinc.com>
- <20230329-rfc-msm-dsc-helper-v5-2-0108401d7886@quicinc.com>
- <24f68708-dc1a-59eb-ffdc-288c72b91da6@linaro.org>
- <be12f528-c9e1-311a-2b2e-d7774ff9b266@quicinc.com>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-In-Reply-To: <be12f528-c9e1-311a-2b2e-d7774ff9b266@quicinc.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-Subject: Re: [Freedreno] [PATCH v5 2/8] drm/msm: Add MSM-specific DSC helper
- methods
+References: <20230411225725.2032862-1-robdclark@gmail.com>
+ <20230411225725.2032862-6-robdclark@gmail.com>
+ <ZDZk+8uWouvMtWle@phenom.ffwll.local>
+In-Reply-To: <ZDZk+8uWouvMtWle@phenom.ffwll.local>
+From: Rob Clark <robdclark@gmail.com>
+Date: Wed, 12 Apr 2023 15:18:26 -0700
+Message-ID: <CAF6AEGtNANeM4b4Btso8xMreTEMiZSwUfQEJSm=7q+z=C0N9hw@mail.gmail.com>
+To: Rob Clark <robdclark@gmail.com>, dri-devel@lists.freedesktop.org, 
+ linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org, 
+ Boris Brezillon <boris.brezillon@collabora.com>, 
+ Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
+ Christopher Healy <healych@amazon.com>, 
+ Emil Velikov <emil.l.velikov@gmail.com>, Rob Clark <robdclark@chromium.org>, 
+ Lucas Stach <l.stach@pengutronix.de>,
+ Russell King <linux+etnaviv@armlinux.org.uk>, 
+ Christian Gmeiner <christian.gmeiner@gmail.com>,
+ David Airlie <airlied@gmail.com>, 
+ "moderated list:DRM DRIVERS FOR VIVANTE GPU IP"
+ <etnaviv@lists.freedesktop.org>, open list <linux-kernel@vger.kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [Freedreno] [PATCH v3 5/7] drm/etnaviv: Switch to fdinfo helper
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,240 +80,102 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-arm-msm@vger.kernel.org, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- dri-devel@lists.freedesktop.org, Konrad Dybcio <konrad.dybcio@linaro.org>,
- Rob Clark <robdclark@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- Marijn Suijten <marijn.suijten@somainline.org>, Sean Paul <sean@poorly.run>
+Cc: Daniel Vetter <daniel@ffwll.ch>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 13/04/2023 00:49, Jessica Zhang wrote:
-> 
-> 
-> On 4/12/2023 12:16 PM, Dmitry Baryshkov wrote:
->> On 12/04/2023 22:09, Jessica Zhang wrote:
->>> Introduce MSM-specific DSC helper methods, as some calculations are
->>> common between DP and DSC.
->>>
->>> Changes in v2:
->>> - Moved files up to msm/ directory
->>> - Dropped get_comp_ratio() helper
->>> - Used drm_int2fixp() to convert to integers to fp
->>> - Style changes to improve readability
->>> - Dropped unused bpp variable in msm_dsc_get_dce_bytes_per_line()
->>> - Changed msm_dsc_get_slice_per_intf() to a static inline method
->>> - Dropped last division step of msm_dsc_get_pclk_per_line() and changed
->>>    method name accordingly
->>> - Changed DSC_BPP macro to drm_dsc_get_bpp_int() helper method
->>> - Fixed some math issues caused by passing in incorrect types to
->>>    drm_fixed methods in get_bytes_per_soft_slice()
->>>
->>> Changes in v3:
->>> - Dropped src_bpp parameter from all methods -- src_bpp can be
->>>    calculated as dsc->bits_per_component * 3
->>> - Dropped intf_width parameter from get_bytes_per_soft_slice()
->>> - Moved dsc->bits_per_component to numerator calculation in
->>>    get_bytes_per_soft_slice()
->>> - Renamed msm_dsc_get_uncompressed_pclk_per_line to
->>>    *_get_uncompressed_pclk_per_intf()
->>> - Removed dsc->slice_width check from
->>>    msm_dsc_get_uncompressed_pclk_per_intf()
->>> - Made get_bytes_per_soft_slice() a public method (this will be called
->>>    later to help calculate DP pclk params)
->>> - Added documentation in comments
->>> - Moved extra_eol_bytes math out of msm_dsc_get_eol_byte_num() and
->>>    renamed msm_dsc_get_eol_byte_num to *_get_bytes_per_intf.
->>>
->>> Changes in v4:
->>> - Changed msm_dsc_get_uncompressed_pclk_per_intf to
->>>    msm_dsc_get_pclk_per_intf
->>>
->>> Changes in v5:
->>> - Added extra line at end of msm_dsc_helper.h
->>> - Simplified msm_dsc_get_bytes_per_soft_slice() math
->>> - Simplified and inlined msm_dsc_get_pclk_per_intf() math
->>> - Removed unused headers
->>>
->>> Signed-off-by: Jessica Zhang <quic_jesszhan@quicinc.com>
->>> ---
->>>   drivers/gpu/drm/msm/Makefile         |  1 +
->>>   drivers/gpu/drm/msm/msm_dsc_helper.c | 25 ++++++++++++
->>>   drivers/gpu/drm/msm/msm_dsc_helper.h | 75 
->>> ++++++++++++++++++++++++++++++++++++
->>>   3 files changed, 101 insertions(+)
->>>
->>> diff --git a/drivers/gpu/drm/msm/Makefile b/drivers/gpu/drm/msm/Makefile
->>> index 7274c41228ed..b814fc80e2d5 100644
->>> --- a/drivers/gpu/drm/msm/Makefile
->>> +++ b/drivers/gpu/drm/msm/Makefile
->>> @@ -94,6 +94,7 @@ msm-y += \
->>>       msm_atomic_tracepoints.o \
->>>       msm_debugfs.o \
->>>       msm_drv.o \
->>> +    msm_dsc_helper.o \
->>>       msm_fb.o \
->>>       msm_fence.o \
->>>       msm_gem.o \
->>> diff --git a/drivers/gpu/drm/msm/msm_dsc_helper.c 
->>> b/drivers/gpu/drm/msm/msm_dsc_helper.c
->>> new file mode 100644
->>> index 000000000000..a34614b8e131
->>> --- /dev/null
->>> +++ b/drivers/gpu/drm/msm/msm_dsc_helper.c
->>> @@ -0,0 +1,25 @@
->>> +// SPDX-License-Identifier: GPL-2.0-only
->>> +/*
->>> + * Copyright (c) 2023 Qualcomm Innovation Center, Inc. All rights 
->>> reserved
->>> + */
->>> +
->>> +#include <drm/drm_fixed.h>
->>> +
->>> +#include "msm_dsc_helper.h"
->>> +
->>> +s64 msm_dsc_get_bytes_per_soft_slice(struct drm_dsc_config *dsc)
->>> +{
->>> +    return drm_fixp_from_fraction(dsc->slice_width * 
->>> msm_dsc_get_bpp_int(dsc), 8);
->>> +}
->>> +
->>> +u32 msm_dsc_get_bytes_per_intf(struct drm_dsc_config *dsc, int 
->>> intf_width)
->>> +{
->>> +    u32 bytes_per_soft_slice;
->>> +    s64 bytes_per_soft_slice_fp;
->>> +    int slice_per_intf = msm_dsc_get_slice_per_intf(dsc, intf_width);
->>> +
->>> +    bytes_per_soft_slice_fp = msm_dsc_get_bytes_per_soft_slice(dsc);
->>> +    bytes_per_soft_slice = drm_fixp2int_ceil(bytes_per_soft_slice_fp);
->>> +
->>> +    return bytes_per_soft_slice * slice_per_intf;
->>> +}
->>> diff --git a/drivers/gpu/drm/msm/msm_dsc_helper.h 
->>> b/drivers/gpu/drm/msm/msm_dsc_helper.h
->>> new file mode 100644
->>> index 000000000000..34238153ffdf
->>> --- /dev/null
->>> +++ b/drivers/gpu/drm/msm/msm_dsc_helper.h
->>> @@ -0,0 +1,75 @@
->>> +/* SPDX-License-Identifier: GPL-2.0-only */
->>> +/*
->>> + * Copyright (c) 2023 Qualcomm Innovation Center, Inc. All rights 
->>> reserved
->>> + */
->>> +
->>> +#ifndef MSM_DSC_HELPER_H_
->>> +#define MSM_DSC_HELPER_H_
->>> +
->>> +#include <linux/kernel.h>
->>> +#include <linux/bug.h>
->>> +#include <drm/display/drm_dsc_helper.h>
->>> +
->>> +/*
->>> + * Helper methods for MSM specific DSC calculations that are common 
->>> between timing engine,
->>> + * DSI, and DP.
->>> + */
->>> +
->>> +/**
->>> + * msm_dsc_get_bpp_int - get bits per pixel integer value
->>> + * @dsc: Pointer to drm dsc config struct
->>> + */
->>> +static inline int msm_dsc_get_bpp_int(struct drm_dsc_config *dsc)
->>> +{
->>> +    WARN_ON_ONCE(dsc->bits_per_pixel & 0xf);
->>> +    return dsc->bits_per_pixel >> 4;
->>> +}
->>> +
->>> +/**
->>> + * msm_dsc_get_slice_per_intf - get number of slices per interface
->>> + * @dsc: Pointer to drm dsc config struct
->>> + * @intf_width: interface width
->>> + */
->>> +static inline int msm_dsc_get_slice_per_intf(struct drm_dsc_config 
->>> *dsc, int intf_width)
->>> +{
->>> +    return DIV_ROUND_UP(intf_width, dsc->slice_width);
->>> +}
->>> +
->>> +/**
->>> + * msm_dsc_get_dce_bytes_per_line - get bytes per line to help 
->>> calculate data width
->>> + *    when configuring the timing engine
->>> + * @dsc: Pointer to drm dsc config struct
->>> + * @intf_width: interface width
->>> + */
->>> +static inline u32 msm_dsc_get_dce_bytes_per_line(struct 
->>> drm_dsc_config *dsc, int intf_width)
->>> +{
->>> +    return DIV_ROUND_UP(msm_dsc_get_bpp_int(dsc) * intf_width, 8);
->>> +}
->>> +
->>> +/**
->>> + * msm_dsc_get_pclk_per_intf - Calculate pclk per interface.
->>> + * @dsc: Pointer to drm dsc config struct
->>> + *
->>> + * Note: This value will then be passed along to DSI and DP for some 
->>> more
->>> + * calculations. This is because DSI and DP divide the pclk_per_intf 
->>> value
->>> + * by different values depending on if widebus is enabled.
->>> + */
->>> +static inline int msm_dsc_get_pclk_per_intf(struct drm_dsc_config *dsc)
->>> +{
->>> +    return DIV_ROUND_UP(dsc->slice_width * dsc->slice_count * 
->>> msm_dsc_get_bpp_int(dsc), 8);
->>> +}
->>> +
->>> +/**
->>> + * msm_dsc_get_bytes_per_soft_slice - get size of each soft slice 
->>> for dsc
->>> + * @dsc: Pointer to drm dsc config struct
->>
->> Nit:
->> Returns value in fixed point s31.32 format.
-> 
-> Hi Dmitry,
-> 
-> Acked, I'll add docs on the return value for all the helpers.
-> 
->>
->> Even better would be to make this an internal-only static function. 
->> When DSI or DP driver requires it, we can make it public again.
-> 
-> I'd prefer to keep the method public since we're planning to submit DP 
-> driver DSC v1.2 patches (after this series has been finalized) that will 
-> make use of this method. Keeping this function public would mean that 
-> the DP changes won't have to touch the msm_dsc_helper files at all.
+On Wed, Apr 12, 2023 at 12:59=E2=80=AFAM Daniel Vetter <daniel@ffwll.ch> wr=
+ote:
+>
+> On Tue, Apr 11, 2023 at 03:56:10PM -0700, Rob Clark wrote:
+> > From: Rob Clark <robdclark@chromium.org>
+> >
+> > Signed-off-by: Rob Clark <robdclark@chromium.org>
+>
+> You're on an old tree, this got reverted. But I'm kinda wondering whether
+> another patch on top shouldn't just includ the drm_show_fdinfo in
+> DRM_GEM_FOPS macro ... There's really no good reasons for drivers to not
+> have this I think?
 
-Ack (though it is really not the usual way of adding API).
+oh, I'm roughly on msm-next, so didn't see the revert.. I'll drop this
+one.  But with things in flux, this is why I decided against adding it
+to DRM_GEM_FOPS.  Ie. we should do that as a followup cleanup step
+once everyone is moved over to the new helpers to avoid conflicts or
+build breaks when merging things via different driver trees
 
-> 
-> Thanks,
-> 
-> Jessica Zhang
-> 
->>
->>> + */
->>> +s64 msm_dsc_get_bytes_per_soft_slice(struct drm_dsc_config *dsc);
->>> +
->>> +/**
->>> + * msm_dsc_get_bytes_per_intf - get total bytes per interface
->>> + * @dsc: Pointer to drm dsc config struct
->>> + * @intf_width: interface width
->>> + */
->>> +u32 msm_dsc_get_bytes_per_intf(struct drm_dsc_config *dsc, int 
->>> intf_width);
->>> +
->>> +#endif /* MSM_DSC_HELPER_H_ */
->>>
->>
->> -- 
->> With best wishes
->> Dmitry
->>
+BR,
+-R
 
--- 
-With best wishes
-Dmitry
-
+> -Daniel
+>
+> > ---
+> >  drivers/gpu/drm/etnaviv/etnaviv_drv.c | 10 ++++------
+> >  1 file changed, 4 insertions(+), 6 deletions(-)
+> >
+> > diff --git a/drivers/gpu/drm/etnaviv/etnaviv_drv.c b/drivers/gpu/drm/et=
+naviv/etnaviv_drv.c
+> > index 44ca803237a5..170000d6af94 100644
+> > --- a/drivers/gpu/drm/etnaviv/etnaviv_drv.c
+> > +++ b/drivers/gpu/drm/etnaviv/etnaviv_drv.c
+> > @@ -476,9 +476,8 @@ static const struct drm_ioctl_desc etnaviv_ioctls[]=
+ =3D {
+> >       ETNA_IOCTL(PM_QUERY_SIG, pm_query_sig, DRM_RENDER_ALLOW),
+> >  };
+> >
+> > -static void etnaviv_fop_show_fdinfo(struct seq_file *m, struct file *f=
+)
+> > +static void etnaviv_fop_show_fdinfo(struct drm_printer *p, struct drm_=
+file *file)
+> >  {
+> > -     struct drm_file *file =3D f->private_data;
+> >       struct drm_device *dev =3D file->minor->dev;
+> >       struct etnaviv_drm_private *priv =3D dev->dev_private;
+> >       struct etnaviv_file_private *ctx =3D file->driver_priv;
+> > @@ -487,8 +486,6 @@ static void etnaviv_fop_show_fdinfo(struct seq_file=
+ *m, struct file *f)
+> >        * For a description of the text output format used here, see
+> >        * Documentation/gpu/drm-usage-stats.rst.
+> >        */
+> > -     seq_printf(m, "drm-driver:\t%s\n", dev->driver->name);
+> > -     seq_printf(m, "drm-client-id:\t%u\n", ctx->id);
+> >
+> >       for (int i =3D 0; i < ETNA_MAX_PIPES; i++) {
+> >               struct etnaviv_gpu *gpu =3D priv->gpu[i];
+> > @@ -507,7 +504,7 @@ static void etnaviv_fop_show_fdinfo(struct seq_file=
+ *m, struct file *f)
+> >                       cur =3D snprintf(engine + cur, sizeof(engine) - c=
+ur,
+> >                                      "%sNN", cur ? "/" : "");
+> >
+> > -             seq_printf(m, "drm-engine-%s:\t%llu ns\n", engine,
+> > +             drm_printf(p, "drm-engine-%s:\t%llu ns\n", engine,
+> >                          ctx->sched_entity[i].elapsed_ns);
+> >       }
+> >  }
+> > @@ -515,7 +512,7 @@ static void etnaviv_fop_show_fdinfo(struct seq_file=
+ *m, struct file *f)
+> >  static const struct file_operations fops =3D {
+> >       .owner =3D THIS_MODULE,
+> >       DRM_GEM_FOPS,
+> > -     .show_fdinfo =3D etnaviv_fop_show_fdinfo,
+> > +     .show_fdinfo =3D drm_fop_show_fdinfo,
+> >  };
+> >
+> >  static const struct drm_driver etnaviv_drm_driver =3D {
+> > @@ -529,6 +526,7 @@ static const struct drm_driver etnaviv_drm_driver =
+=3D {
+> >  #ifdef CONFIG_DEBUG_FS
+> >       .debugfs_init       =3D etnaviv_debugfs_init,
+> >  #endif
+> > +     .show_fdinfo        =3D etnaviv_fop_show_fdinfo,
+> >       .ioctls             =3D etnaviv_ioctls,
+> >       .num_ioctls         =3D DRM_ETNAVIV_NUM_IOCTLS,
+> >       .fops               =3D &fops,
+> > --
+> > 2.39.2
+> >
+>
+> --
+> Daniel Vetter
+> Software Engineer, Intel Corporation
+> http://blog.ffwll.ch
