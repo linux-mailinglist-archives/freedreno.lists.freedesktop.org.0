@@ -1,56 +1,66 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 42C1E6DF8D6
-	for <lists+freedreno@lfdr.de>; Wed, 12 Apr 2023 16:42:56 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id EB6B36DF96A
+	for <lists+freedreno@lfdr.de>; Wed, 12 Apr 2023 17:12:54 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E231A10E850;
-	Wed, 12 Apr 2023 14:42:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2FE8810E860;
+	Wed, 12 Apr 2023 15:12:52 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9A82310E846;
- Wed, 12 Apr 2023 14:42:53 +0000 (UTC)
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B2FD810E860;
+ Wed, 12 Apr 2023 15:12:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1681310573; x=1712846573;
- h=message-id:date:mime-version:subject:to:cc:references:
- from:in-reply-to:content-transfer-encoding;
- bh=gXVOammf4Est891UaXJ7EnQKB4MFgzNaMuGrB5odaG8=;
- b=KYSMBwVhT5gMUGfarxgmT9uDTjYTv9ISP6upXsNfRq2YbqGDY/KobX3k
- +CQJpnsDJcym106DGXR9EFQNOT2dmUTc1mTGvApWPJgK+ceCgwq9rZzww
- 5SwFVuG434PunVoCxUyv2gPwDbJPCTDeo3y6h2QV3ie7dqYIkZBDCIB8C
- CJHJ4SRmSSQ8ara3G9hsrskCp25spvkf7dxslenJbfQc7xvROv3sjBB23
- 88iMeyygDyD2FrIsPS5ZzO/3LJRCf4+Rv8qkhegngI9nSXXl++spmOsth
- RFlreW9b54+PcUhwHTIKe3iZ/fdc7CnqiPbnzsauhzENWOijaEai89OfZ g==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10678"; a="342671314"
-X-IronPort-AV: E=Sophos;i="5.98,339,1673942400"; d="scan'208";a="342671314"
-Received: from orsmga008.jf.intel.com ([10.7.209.65])
- by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Apr 2023 07:42:52 -0700
+ t=1681312371; x=1712848371;
+ h=message-id:date:mime-version:subject:to:references:from:
+ in-reply-to:content-transfer-encoding;
+ bh=x10ivT5rZHjB7u+rJn5L2DzCTA6oazecYo3P5OVb5Gg=;
+ b=HglPaBlKTDVIUY6P0NhCXstq2c1xYz3Z+H9HArf0zGltEv+oI+ioqhsS
+ KTDh1MW0kiVkenmuUFO060IvvxcLAyL+6jkmoWFQdoquAku9lzw/zvn40
+ jLcQe3N9jKwHjDggyO5zlmGrjB4Gx8x+M/IhYbGpMoEdCVeKsA8fcDN5a
+ zsABNaYeru/OiPkng+/JfiebsHUNvStnmu+DiPdL4al6pwxnH0in22xUP
+ xnnZpOmAviBL2ag8YXfcKOGKm7SwNwFFlHulkLlAIMzzwSfhb7pkaNyYB
+ vCQ0ePH9EBtY8JHxtbj3fJpkTrd+LdVAwF6KZsfSFF5dmfe6HUgoNPtwz g==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10678"; a="341419777"
+X-IronPort-AV: E=Sophos;i="5.98,339,1673942400"; d="scan'208";a="341419777"
+Received: from orsmga007.jf.intel.com ([10.7.209.58])
+ by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 12 Apr 2023 08:12:47 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10678"; a="719395174"
-X-IronPort-AV: E=Sophos;i="5.98,339,1673942400"; d="scan'208";a="719395174"
+X-IronPort-AV: E=McAfee;i="6600,9927,10678"; a="682501720"
+X-IronPort-AV: E=Sophos;i="5.98,339,1673942400"; d="scan'208";a="682501720"
 Received: from amurkovx-mobl.ger.corp.intel.com (HELO [10.213.229.123])
  ([10.213.229.123])
- by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Apr 2023 07:42:48 -0700
-Message-ID: <29a8d9aa-c6ea-873f-ce0b-fb8199b13068@linux.intel.com>
-Date: Wed, 12 Apr 2023 15:42:45 +0100
+ by orsmga007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 12 Apr 2023 08:12:43 -0700
+Message-ID: <625477ba-2f98-4137-7c96-dc54990c6963@linux.intel.com>
+Date: Wed, 12 Apr 2023 16:12:41 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.9.0
 Content-Language: en-US
-To: Rob Clark <robdclark@gmail.com>, dri-devel@lists.freedesktop.org
+To: Rob Clark <robdclark@gmail.com>, dri-devel@lists.freedesktop.org,
+ linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
+ Boris Brezillon <boris.brezillon@collabora.com>,
+ Christopher Healy <healych@amazon.com>,
+ Emil Velikov <emil.l.velikov@gmail.com>, Rob Clark <robdclark@chromium.org>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, David Airlie <airlied@gmail.com>,
+ intel-gfx@lists.freedesktop.org, open list <linux-kernel@vger.kernel.org>
 References: <20230411225725.2032862-1-robdclark@gmail.com>
- <20230411225725.2032862-7-robdclark@gmail.com>
+ <20230411225725.2032862-5-robdclark@gmail.com>
+ <292d10fe-3163-d282-6497-18c1d8621d72@linux.intel.com>
+ <ZDa3U/k9orudzwL2@phenom.ffwll.local>
 From: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
 Organization: Intel Corporation UK Plc
-In-Reply-To: <20230411225725.2032862-7-robdclark@gmail.com>
+In-Reply-To: <ZDa3U/k9orudzwL2@phenom.ffwll.local>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH v3 6/7] drm: Add fdinfo memory stats
+Subject: Re: [Freedreno] [PATCH v3 4/7] drm/i915: Switch to fdinfo helper
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,287 +73,149 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rob Clark <robdclark@chromium.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Jonathan Corbet <corbet@lwn.net>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- linux-arm-msm@vger.kernel.org,
- "open list:DOCUMENTATION" <linux-doc@vger.kernel.org>,
- Emil Velikov <emil.l.velikov@gmail.com>,
- Christopher Healy <healych@amazon.com>, Maxime Ripard <mripard@kernel.org>,
- open list <linux-kernel@vger.kernel.org>,
- Boris Brezillon <boris.brezillon@collabora.com>,
- Daniel Vetter <daniel@ffwll.ch>, David Airlie <airlied@gmail.com>,
- freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 
-On 11/04/2023 23:56, Rob Clark wrote:
-> From: Rob Clark <robdclark@chromium.org>
+On 12/04/2023 14:51, Daniel Vetter wrote:
+> On Wed, Apr 12, 2023 at 01:32:43PM +0100, Tvrtko Ursulin wrote:
+>>
+>> On 11/04/2023 23:56, Rob Clark wrote:
+>>> From: Rob Clark <robdclark@chromium.org>
+>>>
+>>> Signed-off-by: Rob Clark <robdclark@chromium.org>
+>>> ---
+>>>    drivers/gpu/drm/i915/i915_driver.c     |  3 ++-
+>>>    drivers/gpu/drm/i915/i915_drm_client.c | 18 +++++-------------
+>>>    drivers/gpu/drm/i915/i915_drm_client.h |  2 +-
+>>>    3 files changed, 8 insertions(+), 15 deletions(-)
+>>>
+>>> diff --git a/drivers/gpu/drm/i915/i915_driver.c b/drivers/gpu/drm/i915/i915_driver.c
+>>> index db7a86def7e2..37eacaa3064b 100644
+>>> --- a/drivers/gpu/drm/i915/i915_driver.c
+>>> +++ b/drivers/gpu/drm/i915/i915_driver.c
+>>> @@ -1696,7 +1696,7 @@ static const struct file_operations i915_driver_fops = {
+>>>    	.compat_ioctl = i915_ioc32_compat_ioctl,
+>>>    	.llseek = noop_llseek,
+>>>    #ifdef CONFIG_PROC_FS
+>>> -	.show_fdinfo = i915_drm_client_fdinfo,
+>>> +	.show_fdinfo = drm_fop_show_fdinfo,
+>>>    #endif
+>>>    };
+>>> @@ -1796,6 +1796,7 @@ static const struct drm_driver i915_drm_driver = {
+>>>    	.open = i915_driver_open,
+>>>    	.lastclose = i915_driver_lastclose,
+>>>    	.postclose = i915_driver_postclose,
+>>> +	.show_fdinfo = i915_drm_client_fdinfo,
+>>>    	.prime_handle_to_fd = drm_gem_prime_handle_to_fd,
+>>>    	.prime_fd_to_handle = drm_gem_prime_fd_to_handle,
+>>> diff --git a/drivers/gpu/drm/i915/i915_drm_client.c b/drivers/gpu/drm/i915/i915_drm_client.c
+>>> index b09d1d386574..4a77e5e47f79 100644
+>>> --- a/drivers/gpu/drm/i915/i915_drm_client.c
+>>> +++ b/drivers/gpu/drm/i915/i915_drm_client.c
+>>> @@ -101,7 +101,7 @@ static u64 busy_add(struct i915_gem_context *ctx, unsigned int class)
+>>>    }
+>>>    static void
+>>> -show_client_class(struct seq_file *m,
+>>> +show_client_class(struct drm_printer *p,
+>>>    		  struct i915_drm_client *client,
+>>>    		  unsigned int class)
+>>>    {
+>>> @@ -117,22 +117,20 @@ show_client_class(struct seq_file *m,
+>>>    	rcu_read_unlock();
+>>>    	if (capacity)
+>>> -		seq_printf(m, "drm-engine-%s:\t%llu ns\n",
+>>> +		drm_printf(p, "drm-engine-%s:\t%llu ns\n",
+>>>    			   uabi_class_names[class], total);
+>>>    	if (capacity > 1)
+>>> -		seq_printf(m, "drm-engine-capacity-%s:\t%u\n",
+>>> +		drm_printf(p, "drm-engine-capacity-%s:\t%u\n",
+>>>    			   uabi_class_names[class],
+>>>    			   capacity);
+>>>    }
+>>> -void i915_drm_client_fdinfo(struct seq_file *m, struct file *f)
+>>> +void i915_drm_client_fdinfo(struct drm_printer *p, struct drm_file *file)
+>>>    {
+>>> -	struct drm_file *file = f->private_data;
+>>>    	struct drm_i915_file_private *file_priv = file->driver_priv;
+>>>    	struct drm_i915_private *i915 = file_priv->dev_priv;
+>>>    	struct i915_drm_client *client = file_priv->client;
+>>> -	struct pci_dev *pdev = to_pci_dev(i915->drm.dev);
+>>>    	unsigned int i;
+>>>    	/*
+>>> @@ -141,12 +139,6 @@ void i915_drm_client_fdinfo(struct seq_file *m, struct file *f)
+>>>    	 * ******************************************************************
+>>>    	 */
+>>> -	seq_printf(m, "drm-driver:\t%s\n", i915->drm.driver->name);
+>>> -	seq_printf(m, "drm-pdev:\t%04x:%02x:%02x.%d\n",
+>>> -		   pci_domain_nr(pdev->bus), pdev->bus->number,
+>>> -		   PCI_SLOT(pdev->devfn), PCI_FUNC(pdev->devfn));
+>>> -	seq_printf(m, "drm-client-id:\t%u\n", client->id);
+>>
+>> As mentioned in my reply to the cover letter, I think the i915
+>> implementation is the right one. At least the semantics of it.
+>>
+>> Granted it is a super set of the minimum required as documented by
+>> drm-usage-stats.rst - not only 1:1 to current instances of struct file, but
+>> also avoids immediate id recycling.
+>>
+>> Former could perhaps be achieved with a simple pointer hash, but latter
+>> helps userspace detect when a client has exited and id re-allocated to a new
+>> client within a single scanning period.
+>>
+>> Without this I don't think userspace can implement a fail safe method of
+>> detecting which clients are new ones and so wouldn't be able to track
+>> history correctly.
+>>
+>> I think we should rather extend the documented contract to include the
+>> cyclical property than settle for a weaker common implementation.
 > 
-> Add support to dump GEM stats to fdinfo.
+> atomic64_t never wraps, so you don't have any recycling issues?
+
+Okay yes, with 64 bits there aren't any practical recycling issues.
+
+> The other piece and imo much more important is that I really don't want
+> the i915_drm_client design to spread, it conceptually makes no sense.
+> drm_file is the uapi object, once that's gone userspace will never be able
+> to look at anything, having a separate free-standing object that's
+> essentially always dead is backwards.
 > 
-> v2: Fix typos, change size units to match docs, use div_u64
-> v3: Do it in core
+> I went a bit more in-depth in a different thread on scheduler fd_info
+> stats, but essentially fd_info needs to pull stats, you should never push
+> stats towards the drm_file (or i915_drm_client). That avoids all the
+> refcounting issues and rcu needs and everything else like that.
 > 
-> Signed-off-by: Rob Clark <robdclark@chromium.org>
-> Reviewed-by: Emil Velikov <emil.l.velikov@gmail.com>
-> ---
->   Documentation/gpu/drm-usage-stats.rst | 21 ++++++++
->   drivers/gpu/drm/drm_file.c            | 76 +++++++++++++++++++++++++++
->   include/drm/drm_file.h                |  1 +
->   include/drm/drm_gem.h                 | 19 +++++++
->   4 files changed, 117 insertions(+)
+> Maybe you want to jump into that thread:
+> https://lore.kernel.org/dri-devel/CAKMK7uE=m3sSTQrLCeDg0vG8viODOecUsYDK1oC++f5pQi0e8Q@mail.gmail.com/
 > 
-> diff --git a/Documentation/gpu/drm-usage-stats.rst b/Documentation/gpu/drm-usage-stats.rst
-> index b46327356e80..b5e7802532ed 100644
-> --- a/Documentation/gpu/drm-usage-stats.rst
-> +++ b/Documentation/gpu/drm-usage-stats.rst
-> @@ -105,6 +105,27 @@ object belong to this client, in the respective memory region.
->   Default unit shall be bytes with optional unit specifiers of 'KiB' or 'MiB'
->   indicating kibi- or mebi-bytes.
->   
-> +- drm-shared-memory: <uint> [KiB|MiB]
-> +
-> +The total size of buffers that are shared with another file (ie. have more
-> +than a single handle).
-> +
-> +- drm-private-memory: <uint> [KiB|MiB]
-> +
-> +The total size of buffers that are not shared with another file.
-> +
-> +- drm-resident-memory: <uint> [KiB|MiB]
-> +
-> +The total size of buffers that are resident in system memory.
+> So retiring i915_drm_client infrastructure is the right direction I think.
 
-I think this naming maybe does not work best with the existing 
-drm-memory-<region> keys.
+Hmmm.. it is a _mostly_ pull model that we have in i915 ie. data is 
+pulled on fdinfo queries.
 
-How about introduce the concept of a memory region from the start and 
-use naming similar like we do for engines?
+_Mostly_ because it cannot be fully pull based when you look at some 
+internal flows. We have to save some data at runtime at times not driven 
+by the fdinfo queries.
 
-drm-memory-$CATEGORY-$REGION: ...
+For instance context close needs to record the GPU utilisation against 
+the client so that it is not lost. Also in the execlists backend we must 
+transfer the hardware tracked runtime into the software state when hw 
+contexts are switched out.
 
-Then we document a bunch of categories and their semantics, for instance:
+The fact i915_drm_client is detached from file_priv is a consequence of 
+the fact i915 GEM contexts can outlive drm_file, and that when such 
+contexts are closed, we need a to record their runtimes.
 
-'size' - All reachable objects
-'shared' - Subset of 'size' with handle_count > 1
-'resident' - Objects with backing store
-'active' - Objects in use, subset of resident
-'purgeable' - Or inactive? Subset of resident.
+So I think there are three options: how it is now, fully krefed 
+drm_file, or prohibit persistent contexts. Last one don't think we can 
+do due ABI and 2nd felt heavy handed so I choose a lightweight 
+i915_drm_client option.
 
-We keep the same semantics as with process memory accounting (if I got 
-it right) which could be desirable for a simplified mental model.
-
-(AMD needs to remind me of their 'drm-memory-...' keys semantics. If we 
-correctly captured this in the first round it should be equivalent to 
-'resident' above. In any case we can document no category is equal to 
-which category, and at most one of the two must be output.)
-
-Region names we at most partially standardize. Like we could say 
-'system' is to be used where backing store is system RAM and others are 
-driver defined.
-
-Then discrete GPUs could emit N sets of key-values, one for each memory 
-region they support.
-
-I think this all also works for objects which can be migrated between 
-memory regions. 'Size' accounts them against all regions while for 
-'resident' they only appear in the region of their current placement, etc.
-
-Userspace can aggregate if it wishes to do so but kernel side should not.
-
-> +
-> +- drm-purgeable-memory: <uint> [KiB|MiB]
-> +
-> +The total size of buffers that are purgeable.
-> +
-> +- drm-active-memory: <uint> [KiB|MiB]
-> +
-> +The total size of buffers that are active on one or more rings.
-> +
->   - drm-cycles-<str> <uint>
->   
->   Engine identifier string must be the same as the one specified in the
-> diff --git a/drivers/gpu/drm/drm_file.c b/drivers/gpu/drm/drm_file.c
-> index 37dfaa6be560..46fdd843bb3a 100644
-> --- a/drivers/gpu/drm/drm_file.c
-> +++ b/drivers/gpu/drm/drm_file.c
-> @@ -42,6 +42,7 @@
->   #include <drm/drm_client.h>
->   #include <drm/drm_drv.h>
->   #include <drm/drm_file.h>
-> +#include <drm/drm_gem.h>
->   #include <drm/drm_print.h>
->   
->   #include "drm_crtc_internal.h"
-> @@ -871,6 +872,79 @@ void drm_send_event(struct drm_device *dev, struct drm_pending_event *e)
->   }
->   EXPORT_SYMBOL(drm_send_event);
->   
-> +static void print_size(struct drm_printer *p, const char *stat, size_t sz)
-> +{
-> +	const char *units[] = {"", " KiB", " MiB"};
-> +	unsigned u;
-> +
-> +	for (u = 0; u < ARRAY_SIZE(units) - 1; u++) {
-> +		if (sz < SZ_1K)
-> +			break;
-> +		sz = div_u64(sz, SZ_1K);
-> +	}
-> +
-> +	drm_printf(p, "%s:\t%zu%s\n", stat, sz, units[u]);
-> +}
-> +
-> +static void print_memory_stats(struct drm_printer *p, struct drm_file *file)
-> +{
-> +	struct drm_gem_object *obj;
-> +	struct {
-> +		size_t shared;
-> +		size_t private;
-> +		size_t resident;
-> +		size_t purgeable;
-> +		size_t active;
-> +	} size = {0};
-> +	bool has_status = false;
-> +	int id;
-> +
-> +	spin_lock(&file->table_lock);
-> +	idr_for_each_entry (&file->object_idr, obj, id) {
-> +		enum drm_gem_object_status s = 0;
-> +
-> +		if (obj->funcs && obj->funcs->status) {
-> +			s = obj->funcs->status(obj);
-> +			has_status = true;
-> +		}
-> +
-> +		if (obj->handle_count > 1) {
-> +			size.shared += obj->size;
-> +		} else {
-> +			size.private += obj->size;
-> +		}
-> +
-> +		if (s & DRM_GEM_OBJECT_RESIDENT) {
-> +			size.resident += obj->size;
-> +		} else {
-> +			/* If already purged or not yet backed by pages, don't
-> +			 * count it as purgeable:
-> +			 */
-> +			s &= ~DRM_GEM_OBJECT_PURGEABLE;
-
-Side question - why couldn't resident buffers be purgeable? Did you mean 
-for the if branch check to be active here? But then it wouldn't make 
-sense for a driver to report active _and_ purgeable..
-
-> +		}
-> +
-> +		if (!dma_resv_test_signaled(obj->resv, dma_resv_usage_rw(true))) {
-> +			size.active += obj->size;
-> +
-> +			/* If still active, don't count as purgeable: */
-> +			s &= ~DRM_GEM_OBJECT_PURGEABLE;
-
-Another side question - I guess this tidies a race in reporting? If so 
-not sure it matters given the stats are all rather approximate.
-
-> +		}
-> +
-> +		if (s & DRM_GEM_OBJECT_PURGEABLE)
-> +			size.purgeable += obj->size;
-> +	}
-
-One concern I have here is that it is all based on obj->size. That is, 
-there is no provision for drivers to implement page level granularity. 
-So correct reporting in use cases such as VM BIND in the future wouldn't 
-work unless it was a driver hook to get almost all of the info above. At 
-which point common code is just a loop. TBF I don't know if any drivers 
-do sub obj->size backing store granularity today, but I think it is 
-sometimes to be sure of before proceeding.
-
-Second concern is what I touched upon in the first reply block - if the 
-common code blindly loops over all objects then on discrete GPUs it 
-seems we get an 'aggregate' value here which is not what I think we 
-want. We rather want to have the ability for drivers to list stats per 
-individual memory region.
-
-> +	spin_unlock(&file->table_lock);
-> +
-> +	print_size(p, "drm-shared-memory", size.shared);
-> +	print_size(p, "drm-private-memory", size.private);
-> +	print_size(p, "drm-active-memory", size.active);
-> +
-> +	if (has_status) {
-> +		print_size(p, "drm-resident-memory", size.resident);
-> +		print_size(p, "drm-purgeable-memory", size.purgeable);
-> +	}
-> +}
-> +
->   /**
->    * drm_fop_show_fdinfo - helper for drm file fops
->    * @seq_file: output stream
-> @@ -904,6 +978,8 @@ void drm_fop_show_fdinfo(struct seq_file *m, struct file *f)
->   
->   	if (dev->driver->show_fdinfo)
->   		dev->driver->show_fdinfo(&p, file);
-> +
-> +	print_memory_stats(&p, file);
->   }
->   EXPORT_SYMBOL(drm_fop_show_fdinfo);
->   
-> diff --git a/include/drm/drm_file.h b/include/drm/drm_file.h
-> index dfa995b787e1..e5b40084538f 100644
-> --- a/include/drm/drm_file.h
-> +++ b/include/drm/drm_file.h
-> @@ -41,6 +41,7 @@
->   struct dma_fence;
->   struct drm_file;
->   struct drm_device;
-> +struct drm_printer;
->   struct device;
->   struct file;
->   
-> diff --git a/include/drm/drm_gem.h b/include/drm/drm_gem.h
-> index 189fd618ca65..213917bb6b11 100644
-> --- a/include/drm/drm_gem.h
-> +++ b/include/drm/drm_gem.h
-> @@ -42,6 +42,14 @@
->   struct iosys_map;
->   struct drm_gem_object;
->   
-> +/**
-> + * enum drm_gem_object_status - bitmask of object state for fdinfo reporting
-> + */
-> +enum drm_gem_object_status {
-> +	DRM_GEM_OBJECT_RESIDENT  = BIT(0),
-> +	DRM_GEM_OBJECT_PURGEABLE = BIT(1),
-> +};
-> +
->   /**
->    * struct drm_gem_object_funcs - GEM object functions
->    */
-> @@ -174,6 +182,17 @@ struct drm_gem_object_funcs {
->   	 */
->   	int (*evict)(struct drm_gem_object *obj);
->   
-> +	/**
-> +	 * @status:
-> +	 *
-> +	 * The optional status callback can return additional object state
-> +	 * which determines which stats the object is counted against.  The
-> +	 * callback is called under table_lock.  Racing against object status
-> +	 * change is "harmless", and the callback can expect to not race
-> +	 * against object destruction.
-> +	 */
-> +	enum drm_gem_object_status (*status)(struct drm_gem_object *obj);
-
-Does this needs to be in object funcs and couldn't be consolidated to 
-driver level?
+Maybe there is a fourth option of somehow detecting during context 
+destruction that drm_file is gone and skip the runtime recording, but 
+avoiding races and all did not make me want to entertain it much. Is 
+this actually what you are proposing?
 
 Regards,
 
 Tvrtko
-
-> +
->   	/**
->   	 * @vm_ops:
->   	 *
