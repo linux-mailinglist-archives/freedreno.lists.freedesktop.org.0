@@ -2,79 +2,35 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 41A706DE919
-	for <lists+freedreno@lfdr.de>; Wed, 12 Apr 2023 03:50:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C5CD06DEC83
+	for <lists+freedreno@lfdr.de>; Wed, 12 Apr 2023 09:24:23 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C362110E6D0;
-	Wed, 12 Apr 2023 01:50:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4645110E728;
+	Wed, 12 Apr 2023 07:24:22 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 634C310E6D0;
- Wed, 12 Apr 2023 01:50:35 +0000 (UTC)
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 33C0keBK015548; Wed, 12 Apr 2023 01:50:27 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
- h=message-id : date :
- mime-version : subject : to : cc : references : from : in-reply-to :
- content-type : content-transfer-encoding; s=qcppdkim1;
- bh=a2Sk2OO/jA5sTTJNE4j6qslc9o4ud7/nASEjTzby/kg=;
- b=k06ldBsHfCuOUN9bWtG1ybUc57+GvHL4M9Wr3IkfM9W4jDGwOA4jegh8fpqDCqqmmoO3
- tL4dculmqyhWYCDklPxGZqXJaEn6R17zsQnnOsWtj/iYId6xXrt3DjUysRRfZmXZHD4o
- GuDr9QQdipdhjap571oDtYXrCWyknzBrVdNbcdvYSy/wJktQG5VgspiE2fCnG7qC9OV1
- 9ISppgEHRlAiLHmMlwsWbrvOAcQPrShCXsI6eSlujKLkdfhqGWwGy0pi9R9Sd3LLWu1t
- jp6lhdlmE76loTu0MaAPeMuP8JmsCEU0/p4BMaUjQboPnoIdpyLbjwihZQUWhvvYIZHz rA== 
-Received: from nalasppmta04.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3pw3cva1k4-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 12 Apr 2023 01:50:26 +0000
-Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
- [10.47.209.196])
- by NALASPPMTA04.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 33C1oPl9003394
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 12 Apr 2023 01:50:25 GMT
-Received: from [10.110.115.18] (10.80.80.8) by nalasex01a.na.qualcomm.com
- (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.42; Tue, 11 Apr
- 2023 18:50:24 -0700
-Message-ID: <49479b93-b364-d882-7a77-08223a94ed36@quicinc.com>
-Date: Tue, 11 Apr 2023 18:50:24 -0700
+Received: from relay03.th.seeweb.it (relay03.th.seeweb.it
+ [IPv6:2001:4b7a:2000:18::164])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 921C410E714
+ for <freedreno@lists.freedesktop.org>; Wed, 12 Apr 2023 07:24:19 +0000 (UTC)
+Received: from SoMainline.org (unknown [89.205.226.251])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest
+ SHA256) (No client certificate requested)
+ by m-r1.th.seeweb.it (Postfix) with ESMTPSA id 9B2BD20301;
+ Wed, 12 Apr 2023 09:24:13 +0200 (CEST)
+Date: Wed, 12 Apr 2023 09:24:10 +0200
+From: Marijn Suijten <marijn.suijten@somainline.org>
+To: Abhinav Kumar <quic_abhinavk@quicinc.com>
+Message-ID: <feedv4isliterjtwyicqfarwuvzhtov3jkmvjcwqvt7itkyh7y@e2jq5t6r3lxc>
+References: <1681247095-1201-1-git-send-email-quic_khsieh@quicinc.com>
+ <z7wj2lcgcdxsqh7ylhec3ig6o4p6q37zqvpzoxp4bd4vid2z2n@ubsgt3ebqrwr>
+ <83f9a438-52c5-83f3-1767-92d16518d8f0@quicinc.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.6.2
-Content-Language: en-US
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Marijn Suijten
- <marijn.suijten@somainline.org>, Kuogee Hsieh <quic_khsieh@quicinc.com>
-References: <1681247380-1607-1-git-send-email-quic_khsieh@quicinc.com>
- <qvgbm3wimai3jytnikbcixipvwqn2uywqpg4mn6mjh5atergfx@wa4edsrp7y22>
- <96416911-bca3-b007-b036-1c4463e83aaa@quicinc.com>
- <24c5aa23-9b3c-787c-10aa-e9d5ad91512b@linaro.org>
-From: Abhinav Kumar <quic_abhinavk@quicinc.com>
-In-Reply-To: <24c5aa23-9b3c-787c-10aa-e9d5ad91512b@linaro.org>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-GUID: yuaxNTFyxmKnrkjQkZcIqr8zdsDZ_GJP
-X-Proofpoint-ORIG-GUID: yuaxNTFyxmKnrkjQkZcIqr8zdsDZ_GJP
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.254,Aquarius:18.0.942,Hydra:6.0.573,FMLib:17.11.170.22
- definitions=2023-04-11_16,2023-04-11_02,2023-02-09_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 spamscore=0
- suspectscore=0 phishscore=0 adultscore=0 clxscore=1015 bulkscore=0
- mlxlogscore=999 impostorscore=0 lowpriorityscore=0 mlxscore=0
- priorityscore=1501 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2303200000 definitions=main-2304120014
-Subject: Re: [Freedreno] [PATCH] drm/msm/dpu: add DSC range checking during
- resource reservation
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <83f9a438-52c5-83f3-1767-92d16518d8f0@quicinc.com>
+Subject: Re: [Freedreno] [PATCH] drm/msm/dpu: always program dsc active bits
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -87,130 +43,44 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: sean@poorly.run, vkoul@kernel.org, quic_sbillaka@quicinc.com,
- freedreno@lists.freedesktop.org, andersson@kernel.org, dianders@chromium.org,
- dri-devel@lists.freedesktop.org, swboyd@chromium.org, robdclark@gmail.com,
- agross@kernel.org, daniel@ffwll.ch, linux-arm-msm@vger.kernel.org,
- airlied@gmail.com, linux-kernel@vger.kernel.org
+Cc: freedreno@lists.freedesktop.org, quic_sbillaka@quicinc.com,
+ dianders@chromium.org, airlied@gmail.com, andersson@kernel.org,
+ robdclark@gmail.com, dri-devel@lists.freedesktop.org, swboyd@chromium.org,
+ vkoul@kernel.org, agross@kernel.org, daniel@ffwll.ch,
+ linux-arm-msm@vger.kernel.org, dmitry.baryshkov@linaro.org,
+ Kuogee Hsieh <quic_khsieh@quicinc.com>, sean@poorly.run,
+ linux-kernel@vger.kernel.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-
-
-On 4/11/2023 6:06 PM, Dmitry Baryshkov wrote:
-> On 12/04/2023 01:32, Abhinav Kumar wrote:
->> Hi Marijn
->>
->> On 4/11/2023 3:24 PM, Marijn Suijten wrote:
->>> Again, don't forget to include previous reviewers in cc, please :)
->>>
->>> On 2023-04-11 14:09:40, Kuogee Hsieh wrote:
->>>> Perform DSC range checking to make sure correct DSC is requested before
->>>> reserve resource for it.
+On 2023-04-11 16:45:34, Abhinav Kumar wrote:
+[..]
+> > Does this flush all DSCs programmed in CTL_DSC_FLUSH as set above?  That
+> > is currently still in `if (cfg->dsc)` and never overwritten if all DSCs
+> > are disabled, should it be taken out of the `if` to make sure no DSCs
+> > are inadvertently flushed, or otherwise cache the "previous mask" to
+> > make sure we flush exactly the right DSC blocks?
+> > 
 > 
-> nit: reserving
-> 
->>>
->>> This isn't performing any range checking for resource reservations /
->>> requests: this is only validating the constants written in our catalog
->>> and seems rather useless.  It isn't fixing any real bug either, so the
->>> Fixes: tag below seems extraneous.
->>>
->>> Given prior comments from Abhinav that "the kernel should be trusted",
->>> we should remove this validation for all the other blocks instead.
->>>
->>
->> The purpose of this check is that today all our blocks in RM use the 
->> DSC_* enum as the size.
->>
->> struct dpu_hw_blk *dsc_blks[DSC_MAX - DSC_0];
->>
->> If the device tree ends up with more DSC blocks than the DSC_* enum, 
->> how can we avoid this issue today? Not because its a bug in device 
->> tree but how many static number of DSCs are hard-coded in RM.
-> 
-> We don't have these blocks in device tree. And dpu_hw_catalog shouldn't 
-> use indices outside of enum dpu_dsc.
-> 
+> Yes, DSC flush is hierarchical. This is the main DSC flush which will 
+> enforce the flush of the DSC's we are trying to flush in the 
+> CTL_DSC_FLUSH register.
 
-ah, my bad, i should have said catalog here. Okay so the expectation is 
-that dpu_hw_catalog.c will program the indices to match the RM limits.
+That's what I was thinking, thanks for confirming.
 
-I still stand by the fact that the hardware capabilities coming from 
-catalog should be trusted but this is just the SW index.
-
-> Marijn proposed to pass struct dpu_foo_cfg directly to 
-> dpu_hw_foo_init(). This will allow us to drop these checks completely.
+> So if DSC was active, the CTL_FLUSH will only enforce the flush of the 
+> DSC's programmed in CTL_DSC_FLUSH
 > 
-
-Ah okay, sure, would like to see that then uniformly get rid of these 
-checks.
-
-> For the time being, I think it might be better to add these checks for 
-> DSC for the sake of uniformity.
+> If DSC is not active, we still need to flush that as well (that was the 
+> missing bit).
 > 
+> No need to cache previous mask. That programming should be accurate in 
+> cfg->dsc already.
 
-Yes, i think so too.
+This kind of implicit dependency warrants a comment at the very least.
 
->>
->> And like you said, this is not specific to DSC. Such checks are 
->> present for other blocks too.
->>
->>>> Fixes: c985d7bb64ff ("drm/msm/disp/dpu1: Add DSC support in RM")
->>>> Signed-off-by: Kuogee Hsieh <quic_khsieh@quicinc.com>
->>>> ---
->>>>   drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c | 10 +++++++++-
->>>>   1 file changed, 9 insertions(+), 1 deletion(-)
->>>>
->>>> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c 
->>>> b/drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c
->>>> index f4dda88..95e58f1 100644
->>>> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c
->>>> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c
->>>> @@ -1,6 +1,7 @@
->>>>   // SPDX-License-Identifier: GPL-2.0-only
->>>>   /*
->>>>    * Copyright (c) 2016-2018, The Linux Foundation. All rights 
->>>> reserved.
->>>> + * Copyright (c) 2023 Qualcomm Innovation Center, Inc. All rights 
->>>> reserved.
->>>>    */
->>>>   #define pr_fmt(fmt)    "[drm:%s] " fmt, __func__
->>>> @@ -250,6 +251,11 @@ int dpu_rm_init(struct dpu_rm *rm,
->>>>           struct dpu_hw_dsc *hw;
->>>>           const struct dpu_dsc_cfg *dsc = &cat->dsc[i];
->>>> +        if (dsc->id < DSC_0 || dsc->id >= DSC_MAX) {
->>>> +            DPU_ERROR("skip dsc %d with invalid id\n", dsc->id);
->>>> +            continue;
->>>> +        }
->>>> +
->>>>           hw = dpu_hw_dsc_init(dsc->id, mmio, cat);
->>>>           if (IS_ERR_OR_NULL(hw)) {
->>>>               rc = PTR_ERR(hw);
->>>> @@ -557,8 +563,10 @@ static int _dpu_rm_make_reservation(
->>>>       }
->>>>       ret  = _dpu_rm_reserve_dsc(rm, global_state, enc, 
->>>> &reqs->topology);
->>>> -    if (ret)
->>>> +    if (ret) {
->>>> +        DPU_ERROR("unable to find appropriate DSC\n");
->>>
->>> This, while a nice addition, should go in a different patch.
-> 
-> I'd agree here, a separate patch.
-> 
->>>
->>> Thanks!
->>>
->>> - Marijn
->>>
->>>>           return ret;
->>>> +    }
->>>>       return ret;
->>>>   }
->>>> -- 
->>>> The Qualcomm Innovation Center, Inc. is a member of the Code Aurora 
->>>> Forum,
->>>> a Linux Foundation Collaborative Project
->>>>
-> 
+What happens if a device boots without DSC panel connected?  Will
+CTL_DSC_FLUSH be zero and not (unnecessarily, I assume) flush any of the
+DSC blocks?  Or could this flush uninitialized state to the block?
+
+- Marijn
