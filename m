@@ -1,72 +1,73 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id D1CC76E1187
-	for <lists+freedreno@lfdr.de>; Thu, 13 Apr 2023 17:57:37 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id C87856E1281
+	for <lists+freedreno@lfdr.de>; Thu, 13 Apr 2023 18:40:31 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F39C810EB73;
-	Thu, 13 Apr 2023 15:57:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DAEB010EB89;
+	Thu, 13 Apr 2023 16:40:29 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 743AB10EB73;
- Thu, 13 Apr 2023 15:57:34 +0000 (UTC)
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 33DFtiAS023380; Thu, 13 Apr 2023 15:57:28 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
- h=from : to : cc :
- subject : date : message-id : mime-version : content-type; s=qcppdkim1;
- bh=lgGwJBcQMhBKAkSJFoI9V99IVAmxurpS1N+u/QL3rq0=;
- b=ZL7n0yBY0Oge0sb3gRwX5qqw0zD+xz4ENG2rLhi/pbeAj6pO7sFQyAUWftzL8KpJXCUk
- Ogb0x/jcUuYyM2mBbomDJGTO/ZVDF+l+5uqTUy3f30skfJ4lVfwaD94/kHpMlOpwPy30
- UBzbiJof1X9wEqxWhDnTDm/EKaIfJJs9liDXe09A+JTjYpmjrJpYqilRb6Fqo1pB7diu
- sFEIRUUYmVCFCjbswdBxdASJEsr6dyblsf/mfCST5zrxbZlfE9UZrRB6hCdo5XXmmRMm
- Uo2aGYulZ8aCj71YKuAsynslIS7tpb+lOv7Vfbhxsr1C3kcVAvJFO6JHt1c37Z8MMJHd CA== 
-Received: from nalasppmta03.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3px6cnhscp-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 13 Apr 2023 15:57:27 +0000
-Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
- [10.47.209.196])
- by NALASPPMTA03.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 33DFvQPF030062
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 13 Apr 2023 15:57:26 GMT
-Received: from khsieh-linux1.qualcomm.com (10.80.80.8) by
- nalasex01a.na.qualcomm.com (10.47.209.196) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.986.42; Thu, 13 Apr 2023 08:56:56 -0700
-From: Kuogee Hsieh <quic_khsieh@quicinc.com>
-To: <robdclark@gmail.com>, <sean@poorly.run>, <swboyd@chromium.org>,
- <dianders@chromium.org>, <vkoul@kernel.org>, <daniel@ffwll.ch>,
- <airlied@gmail.com>, <agross@kernel.org>,
- <dmitry.baryshkov@linaro.org>, <andersson@kernel.org>
-Date: Thu, 13 Apr 2023 08:56:41 -0700
-Message-ID: <1681401401-15099-1-git-send-email-quic_khsieh@quicinc.com>
-X-Mailer: git-send-email 2.7.4
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A1FF610EB89;
+ Thu, 13 Apr 2023 16:40:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1681404027; x=1712940027;
+ h=message-id:date:mime-version:subject:to:references:from:
+ in-reply-to:content-transfer-encoding;
+ bh=k/vQzzzp37PrEgraenYXJY3XdiyFmmqNE9w0PfWjl6E=;
+ b=Zg4yxJgOCXnBeLrecReA/8ITdwocT6cBVbJsiFIbGOcjFgHo+vCi45eV
+ xFTtFyQoD7Eu4r+sKTThNJAOWEsXfsS8UjNKnlBdjbGFZOrGOPD19bVXZ
+ BCg7a6tLljnCEKPUid9SIYTcFDdtRXCt3H+8vBpS2TUK8UDSxpZWEKNbe
+ ckAetnoO/5lXh/3zaJmSGMeZv1gX6CIImWcLoaTVdea9ikNtOKX1DZFmp
+ PLdB8NUPGNVd+8RmfDnKWqkSZ9CDKHrC3KFXVvomq9iwWbj+XHWmLwVI3
+ 2S3dSz+02HPtdkGcSm1dqOsNspOYFrrmbPkM4nRxWTSqRRW1WFx04hliJ g==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10679"; a="341732842"
+X-IronPort-AV: E=Sophos;i="5.99,194,1677571200"; d="scan'208";a="341732842"
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+ by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 13 Apr 2023 09:40:26 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10679"; a="689422090"
+X-IronPort-AV: E=Sophos;i="5.99,194,1677571200"; d="scan'208";a="689422090"
+Received: from mmcgar2x-mobl1.ger.corp.intel.com (HELO [10.213.231.135])
+ ([10.213.231.135])
+ by orsmga002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 13 Apr 2023 09:40:23 -0700
+Message-ID: <ad8f2793-c1b3-a505-e93f-6cc52fded86d@linux.intel.com>
+Date: Thu, 13 Apr 2023 17:40:21 +0100
 MIME-Version: 1.0
-Content-Type: text/plain
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-ORIG-GUID: XqA7GVMGZUGk30xcLzuG4raDxlmGBVUj
-X-Proofpoint-GUID: XqA7GVMGZUGk30xcLzuG4raDxlmGBVUj
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.254,Aquarius:18.0.942,Hydra:6.0.573,FMLib:17.11.170.22
- definitions=2023-04-13_10,2023-04-13_01,2023-02-09_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- mlxlogscore=894
- priorityscore=1501 adultscore=0 mlxscore=0 malwarescore=0 suspectscore=0
- phishscore=0 impostorscore=0 spamscore=0 bulkscore=0 lowpriorityscore=0
- clxscore=1015 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2303200000 definitions=main-2304130142
-Subject: [Freedreno] [PATCH v2] drm/msm/dpu: always program dsc active bits
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.9.0
+Content-Language: en-US
+To: Rob Clark <robdclark@gmail.com>, dri-devel@lists.freedesktop.org,
+ linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
+ Boris Brezillon <boris.brezillon@collabora.com>,
+ Christopher Healy <healych@amazon.com>,
+ Emil Velikov <emil.l.velikov@gmail.com>, Rob Clark <robdclark@chromium.org>,
+ David Airlie <airlied@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Jonathan Corbet <corbet@lwn.net>,
+ "open list:DOCUMENTATION" <linux-doc@vger.kernel.org>,
+ open list <linux-kernel@vger.kernel.org>
+References: <20230411225725.2032862-1-robdclark@gmail.com>
+ <20230411225725.2032862-7-robdclark@gmail.com>
+ <29a8d9aa-c6ea-873f-ce0b-fb8199b13068@linux.intel.com>
+ <CAF6AEGsZsMx+Vy+4UQSx3X7w_QNvvjLqWxx=PnCLAOC9f-X2CQ@mail.gmail.com>
+ <ZDb1phnddSne79iN@phenom.ffwll.local>
+ <CAF6AEGvBeDVM12ac0j_PKSdcY83hNDhyrQs9-=h=dx_7AoMXLw@mail.gmail.com>
+ <ZDcEGoSPGr/oRLas@phenom.ffwll.local>
+ <c82fd8fa-9f4b-f62f-83be-25853f9ecf5e@linux.intel.com>
+ <ZDgDQ1PqtXwu8zqA@phenom.ffwll.local>
+From: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
+Organization: Intel Corporation UK Plc
+In-Reply-To: <ZDgDQ1PqtXwu8zqA@phenom.ffwll.local>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+Subject: Re: [Freedreno] [PATCH v3 6/7] drm: Add fdinfo memory stats
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,51 +80,194 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: quic_sbillaka@quicinc.com, linux-arm-msm@vger.kernel.org,
- quic_abhinavk@quicinc.com, dri-devel@lists.freedesktop.org,
- quic_khsieh@quicinc.com, freedreno@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-In current code, the DSC active bits are written only if cfg->dsc is set.
-However, for displays which are hot-pluggable, there can be a use-case
-of disconnecting a DSC supported sink and connecting a non-DSC sink.
 
-For those cases we need to clear DSC active bits during tear down.
+On 13/04/2023 14:27, Daniel Vetter wrote:
+> On Thu, Apr 13, 2023 at 01:58:34PM +0100, Tvrtko Ursulin wrote:
+>>
+>> On 12/04/2023 20:18, Daniel Vetter wrote:
+>>> On Wed, Apr 12, 2023 at 11:42:07AM -0700, Rob Clark wrote:
+>>>> On Wed, Apr 12, 2023 at 11:17 AM Daniel Vetter <daniel@ffwll.ch> wrote:
+>>>>>
+>>>>> On Wed, Apr 12, 2023 at 10:59:54AM -0700, Rob Clark wrote:
+>>>>>> On Wed, Apr 12, 2023 at 7:42 AM Tvrtko Ursulin
+>>>>>> <tvrtko.ursulin@linux.intel.com> wrote:
+>>>>>>>
+>>>>>>>
+>>>>>>> On 11/04/2023 23:56, Rob Clark wrote:
+>>>>>>>> From: Rob Clark <robdclark@chromium.org>
+>>>>>>>>
+>>>>>>>> Add support to dump GEM stats to fdinfo.
+>>>>>>>>
+>>>>>>>> v2: Fix typos, change size units to match docs, use div_u64
+>>>>>>>> v3: Do it in core
+>>>>>>>>
+>>>>>>>> Signed-off-by: Rob Clark <robdclark@chromium.org>
+>>>>>>>> Reviewed-by: Emil Velikov <emil.l.velikov@gmail.com>
+>>>>>>>> ---
+>>>>>>>>     Documentation/gpu/drm-usage-stats.rst | 21 ++++++++
+>>>>>>>>     drivers/gpu/drm/drm_file.c            | 76 +++++++++++++++++++++++++++
+>>>>>>>>     include/drm/drm_file.h                |  1 +
+>>>>>>>>     include/drm/drm_gem.h                 | 19 +++++++
+>>>>>>>>     4 files changed, 117 insertions(+)
+>>>>>>>>
+>>>>>>>> diff --git a/Documentation/gpu/drm-usage-stats.rst b/Documentation/gpu/drm-usage-stats.rst
+>>>>>>>> index b46327356e80..b5e7802532ed 100644
+>>>>>>>> --- a/Documentation/gpu/drm-usage-stats.rst
+>>>>>>>> +++ b/Documentation/gpu/drm-usage-stats.rst
+>>>>>>>> @@ -105,6 +105,27 @@ object belong to this client, in the respective memory region.
+>>>>>>>>     Default unit shall be bytes with optional unit specifiers of 'KiB' or 'MiB'
+>>>>>>>>     indicating kibi- or mebi-bytes.
+>>>>>>>>
+>>>>>>>> +- drm-shared-memory: <uint> [KiB|MiB]
+>>>>>>>> +
+>>>>>>>> +The total size of buffers that are shared with another file (ie. have more
+>>>>>>>> +than a single handle).
+>>>>>>>> +
+>>>>>>>> +- drm-private-memory: <uint> [KiB|MiB]
+>>>>>>>> +
+>>>>>>>> +The total size of buffers that are not shared with another file.
+>>>>>>>> +
+>>>>>>>> +- drm-resident-memory: <uint> [KiB|MiB]
+>>>>>>>> +
+>>>>>>>> +The total size of buffers that are resident in system memory.
+>>>>>>>
+>>>>>>> I think this naming maybe does not work best with the existing
+>>>>>>> drm-memory-<region> keys.
+>>>>>>
+>>>>>> Actually, it was very deliberate not to conflict with the existing
+>>>>>> drm-memory-<region> keys ;-)
+>>>>>>
+>>>>>> I wouldn't have preferred drm-memory-{active,resident,...} but it
+>>>>>> could be mis-parsed by existing userspace so my hands were a bit tied.
+>>>>>>
+>>>>>>> How about introduce the concept of a memory region from the start and
+>>>>>>> use naming similar like we do for engines?
+>>>>>>>
+>>>>>>> drm-memory-$CATEGORY-$REGION: ...
+>>>>>>>
+>>>>>>> Then we document a bunch of categories and their semantics, for instance:
+>>>>>>>
+>>>>>>> 'size' - All reachable objects
+>>>>>>> 'shared' - Subset of 'size' with handle_count > 1
+>>>>>>> 'resident' - Objects with backing store
+>>>>>>> 'active' - Objects in use, subset of resident
+>>>>>>> 'purgeable' - Or inactive? Subset of resident.
+>>>>>>>
+>>>>>>> We keep the same semantics as with process memory accounting (if I got
+>>>>>>> it right) which could be desirable for a simplified mental model.
+>>>>>>>
+>>>>>>> (AMD needs to remind me of their 'drm-memory-...' keys semantics. If we
+>>>>>>> correctly captured this in the first round it should be equivalent to
+>>>>>>> 'resident' above. In any case we can document no category is equal to
+>>>>>>> which category, and at most one of the two must be output.)
+>>>>>>>
+>>>>>>> Region names we at most partially standardize. Like we could say
+>>>>>>> 'system' is to be used where backing store is system RAM and others are
+>>>>>>> driver defined.
+>>>>>>>
+>>>>>>> Then discrete GPUs could emit N sets of key-values, one for each memory
+>>>>>>> region they support.
+>>>>>>>
+>>>>>>> I think this all also works for objects which can be migrated between
+>>>>>>> memory regions. 'Size' accounts them against all regions while for
+>>>>>>> 'resident' they only appear in the region of their current placement, etc.
+>>>>>>
+>>>>>> I'm not too sure how to rectify different memory regions with this,
+>>>>>> since drm core doesn't really know about the driver's memory regions.
+>>>>>> Perhaps we can go back to this being a helper and drivers with vram
+>>>>>> just don't use the helper?  Or??
+>>>>>
+>>>>> I think if you flip it around to drm-$CATEGORY-memory{-$REGION}: then it
+>>>>> all works out reasonably consistently?
+>>>>
+>>>> That is basically what we have now.  I could append -system to each to
+>>>> make things easier to add vram/etc (from a uabi standpoint)..
+>>>
+>>> What you have isn't really -system, but everything. So doesn't really make
+>>> sense to me to mark this -system, it's only really true for integrated (if
+>>> they don't have stolen or something like that).
+>>>
+>>> Also my comment was more in reply to Tvrtko's suggestion.
+>>
+>> Right so my proposal was drm-memory-$CATEGORY-$REGION which I think aligns
+>> with the current drm-memory-$REGION by extending, rather than creating
+>> confusion with different order of key name components.
+> 
+> Oh my comment was pretty much just bikeshed, in case someone creates a
+> $REGION that other drivers use for $CATEGORY. Kinda Rob's parsing point.
+> So $CATEGORY before the -memory.
+> 
+> Otoh I don't think that'll happen, so I guess we can go with whatever more
+> folks like :-) I don't really care much personally.
 
-Changes in V2:
-1) correct commit text as suggested
-2) correct Fixes commit id
-3) add FIXME comment
+Okay I missed the parsing problem.
 
-Fixes: 77f6da90487c ("drm/msm/disp/dpu1: Add DSC support in hw_ctl")
-Signed-off-by: Kuogee Hsieh <quic_khsieh@quicinc.com>
-Reviewed-by: Marijn Suijten <marijn.suijten@somainline.org>
----
- drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+>> AMD currently has (among others) drm-memory-vram, which we could define in
+>> the spec maps to category X, if category component is not present.
+>>
+>> Some examples:
+>>
+>> drm-memory-resident-system:
+>> drm-memory-size-lmem0:
+>> drm-memory-active-vram:
+>>
+>> Etc.. I think it creates a consistent story.
+>>
+>> Other than this, my two I think significant opens which haven't been
+>> addressed yet are:
+>>
+>> 1)
+>>
+>> Why do we want totals (not per region) when userspace can trivially
+>> aggregate if they want. What is the use case?
+>>
+>> 2)
+>>
+>> Current proposal limits the value to whole objects and fixates that by
+>> having it in the common code. If/when some driver is able to support sub-BO
+>> granularity they will need to opt out of the common printer at which point
+>> it may be less churn to start with a helper rather than mid-layer. Or maybe
+>> some drivers already support this, I don't know. Given how important VM BIND
+>> is I wouldn't be surprised.
+> 
+> I feel like for drivers using ttm we want a ttm helper which takes care of
+> the region printing in hopefully a standard way. And that could then also
+> take care of all kinds of of partial binding and funny rules (like maybe
+> we want a standard vram region that addds up all the lmem regions on
+> intel, so that all dgpu have a common vram bucket that generic tools
+> understand?).
 
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c
-index bbdc95c..1651cd7 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c
-@@ -541,10 +541,10 @@ static void dpu_hw_ctl_intf_cfg_v1(struct dpu_hw_ctl *ctx,
- 	if (cfg->merge_3d)
- 		DPU_REG_WRITE(c, CTL_MERGE_3D_ACTIVE,
- 			      BIT(cfg->merge_3d - MERGE_3D_0));
--	if (cfg->dsc) {
--		DPU_REG_WRITE(&ctx->hw, CTL_FLUSH, DSC_IDX);
--		DPU_REG_WRITE(c, CTL_DSC_ACTIVE, cfg->dsc);
--	}
-+
-+	/* FIXME: fix reset_intf_cfg to handle teardown of dsc */
-+	DPU_REG_WRITE(&ctx->hw, CTL_FLUSH, DSC_IDX);
-+	DPU_REG_WRITE(c, CTL_DSC_ACTIVE, cfg->dsc);
- }
- 
- static void dpu_hw_ctl_intf_cfg(struct dpu_hw_ctl *ctx,
--- 
-The Qualcomm Innovation Center, Inc. is a member of the Code Aurora Forum,
-a Linux Foundation Collaborative Project
+First part yes, but for the second I would think we want to avoid any 
+aggregation in the kernel which can be done in userspace just as well. 
+Such total vram bucket would be pretty useless on Intel even since 
+userspace needs to be region aware to make use of all resources. It 
+could even be counter productive I think - "why am I getting out of 
+memory when half of my vram is unused!?".
 
+> It does mean we walk the bo list twice, but *shrug*. People have been
+> complaining about procutils for decades, they're still horrible, I think
+> walking bo lists twice internally in the ttm case is going to be ok. If
+> not, it's internals, we can change them again.
+> 
+> Also I'd lean a lot more towards making ttm a helper and not putting that
+> into core, exactly because it's pretty clear we'll need more flexibility
+> when it comes to accurate stats for multi-region drivers.
+
+Exactly.
+
+> But for a first "how much gpu space does this app use" across everything I
+> think this is a good enough starting point.
+
+Okay so we agree this would be better as a helper and not in the core.
+
+On the point are keys/semantics good enough as a starting point I am 
+still not convinced kernel should aggregate and that instead we should 
+start from day one by appending -system (or something) to Rob's proposed 
+keys.
+
+Regards,
+
+Tvrtko
