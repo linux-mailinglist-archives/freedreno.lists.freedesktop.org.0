@@ -2,79 +2,72 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 187196E2751
-	for <lists+freedreno@lfdr.de>; Fri, 14 Apr 2023 17:48:59 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1A4BB6E28A1
+	for <lists+freedreno@lfdr.de>; Fri, 14 Apr 2023 18:46:39 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3C2EB10E1A9;
-	Fri, 14 Apr 2023 15:48:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6EFA010E1F8;
+	Fri, 14 Apr 2023 16:46:37 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
  [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 35BA410E1BF;
- Fri, 14 Apr 2023 15:48:53 +0000 (UTC)
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B1E0010E1F8;
+ Fri, 14 Apr 2023 16:46:35 +0000 (UTC)
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
  by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 33EFaGkm026799; Fri, 14 Apr 2023 15:48:46 GMT
+ 33EEd8QG028575; Fri, 14 Apr 2023 16:46:29 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
- h=message-id : date :
- mime-version : subject : to : cc : references : from : in-reply-to :
- content-type : content-transfer-encoding; s=qcppdkim1;
- bh=eV+8MZDuXiIKzGSEQKZCDKTMq3JK9EG9jZYw22hxMKA=;
- b=hp/bj73VTbHNmgwWQ8gn28A7fFjCEZ88tx4vM2DzctjywscXPWmGDd7SFu1LGxDyqW6L
- 3HvYsuEqKGbY6/QIzjhdIErFXF4CoDKV4hRAb72c2eAx89C4PawJgHV7cZ64jvPQp6yg
- C1nptY5U4xQZcFu8wrYC8VoSD8VWj32rLIB3/cXuiD9lyoPwcQizfS/+Zuq4n2N/Ayl2
- J2YLRhu6bSTw6R1VZ6Des6tgiqX5uk0FCMINkfPf6f3LOM1j3WLOiuccWbd4qwBmQyhK
- +wl6zHn1xGGlxTJZv6i9rbZWSt1f9x+FXANlfjn6r5nsaAeHNVZ7D/13C//zUw+o11bs Tw== 
+ h=from : to : cc :
+ subject : date : message-id : mime-version : content-type; s=qcppdkim1;
+ bh=7+TsOP++DooVFLAxfVY9IG1YmgdG7JzRlvZbp1DatVk=;
+ b=Id6vPLOWdRnZuFZ9/A+Q/2znRUkp8Cluz0RMGSP3zA4PregV+wbCeljV15aXHYs/Iw57
+ HwRW4fRQGJqEDVw4SPFw9p+nvPH9XpNUQNW8AZktO9GSn3p+a8pNdXIjtfDwOIdzo8Hv
+ WKU5/5IqVm2LcaZbzS6xmIMsLxhjsUOFUKu36YCmCrARcfj0s8LlDPYDrr348uSXYBPy
+ RdEUUiHJVX2InNx4LXHyI4OWYeJPQylY1HgY6Hg/R46waJ9UuNnPu+MdhyLOa05s1nKX
+ LC8gQ2u6yCYRGfTa/zbqx5prgMIiJzSpbdYxWRWXEzUowAUjFKcWYM5quTx+7g+/KwrP Gg== 
 Received: from nalasppmta04.qualcomm.com (Global_NAT1.qualcomm.com
  [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3pxdtekm2x-1
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3py20e1743-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 14 Apr 2023 15:48:46 +0000
+ Fri, 14 Apr 2023 16:46:29 +0000
 Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
  [10.47.209.196])
- by NALASPPMTA04.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 33EFmj08023194
+ by NALASPPMTA04.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 33EGkSAf023941
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 14 Apr 2023 15:48:45 GMT
-Received: from [10.110.73.215] (10.80.80.8) by nalasex01a.na.qualcomm.com
- (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.42; Fri, 14 Apr
- 2023 08:48:44 -0700
-Message-ID: <049697ba-d997-62c0-6e21-ffb287ac3100@quicinc.com>
-Date: Fri, 14 Apr 2023 08:48:43 -0700
+ Fri, 14 Apr 2023 16:46:28 GMT
+Received: from khsieh-linux1.qualcomm.com (10.80.80.8) by
+ nalasex01a.na.qualcomm.com (10.47.209.196) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.986.42; Fri, 14 Apr 2023 09:46:27 -0700
+From: Kuogee Hsieh <quic_khsieh@quicinc.com>
+To: <robdclark@gmail.com>, <sean@poorly.run>, <swboyd@chromium.org>,
+ <dianders@chromium.org>, <vkoul@kernel.org>, <daniel@ffwll.ch>,
+ <airlied@gmail.com>, <agross@kernel.org>,
+ <dmitry.baryshkov@linaro.org>, <andersson@kernel.org>,
+ <marijn.suijten@somainline.org>
+Date: Fri, 14 Apr 2023 09:46:17 -0700
+Message-ID: <1681490777-15351-1-git-send-email-quic_khsieh@quicinc.com>
+X-Mailer: git-send-email 2.7.4
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.6.2
-Content-Language: en-US
-To: Marijn Suijten <marijn.suijten@somainline.org>
-References: <1681247095-1201-1-git-send-email-quic_khsieh@quicinc.com>
- <z7wj2lcgcdxsqh7ylhec3ig6o4p6q37zqvpzoxp4bd4vid2z2n@ubsgt3ebqrwr>
- <83f9a438-52c5-83f3-1767-92d16518d8f0@quicinc.com>
- <feedv4isliterjtwyicqfarwuvzhtov3jkmvjcwqvt7itkyh7y@e2jq5t6r3lxc>
- <e78e576a-2a04-e7ca-f6c4-701d508541ad@quicinc.com>
- <mfzi535qsjtcznwdvgb7qyzk25rcsrkwozah6ji4thqsj73n3m@asybxllomisg>
-From: Abhinav Kumar <quic_abhinavk@quicinc.com>
-In-Reply-To: <mfzi535qsjtcznwdvgb7qyzk25rcsrkwozah6ji4thqsj73n3m@asybxllomisg>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain
 X-Originating-IP: [10.80.80.8]
 X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
  nalasex01a.na.qualcomm.com (10.47.209.196)
 X-QCInternal: smtphost
 X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
  signatures=585085
-X-Proofpoint-ORIG-GUID: kftFes2vevQaZo5fUhQal7v15W_k_Nbg
-X-Proofpoint-GUID: kftFes2vevQaZo5fUhQal7v15W_k_Nbg
+X-Proofpoint-GUID: lJwAbsVO9EpPYOAslYzyC-i809aXykHk
+X-Proofpoint-ORIG-GUID: lJwAbsVO9EpPYOAslYzyC-i809aXykHk
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.254,Aquarius:18.0.942,Hydra:6.0.573,FMLib:17.11.170.22
- definitions=2023-04-14_08,2023-04-14_01,2023-02-09_01
+ definitions=2023-04-14_09,2023-04-14_01,2023-02-09_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0
- mlxlogscore=957 clxscore=1015 spamscore=0 lowpriorityscore=0 phishscore=0
- priorityscore=1501 bulkscore=0 malwarescore=0 mlxscore=0 impostorscore=0
- adultscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2303200000 definitions=main-2304140138
-Subject: Re: [Freedreno] [PATCH] drm/msm/dpu: always program dsc active bits
+ mlxscore=0 lowpriorityscore=0
+ phishscore=0 adultscore=0 impostorscore=0 spamscore=0 mlxlogscore=674
+ priorityscore=1501 clxscore=1011 malwarescore=0 bulkscore=0 suspectscore=0
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2303200000
+ definitions=main-2304140148
+Subject: [Freedreno] [PATCH v3] drm/msm/dpu: always program DSC active bits
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -87,47 +80,50 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, quic_sbillaka@quicinc.com,
- dianders@chromium.org, airlied@gmail.com, andersson@kernel.org,
- robdclark@gmail.com, dri-devel@lists.freedesktop.org, swboyd@chromium.org,
- vkoul@kernel.org, agross@kernel.org, daniel@ffwll.ch,
- linux-arm-msm@vger.kernel.org, dmitry.baryshkov@linaro.org,
- Kuogee Hsieh <quic_khsieh@quicinc.com>, sean@poorly.run,
+Cc: quic_sbillaka@quicinc.com, linux-arm-msm@vger.kernel.org,
+ quic_abhinavk@quicinc.com, dri-devel@lists.freedesktop.org,
+ quic_khsieh@quicinc.com, freedreno@lists.freedesktop.org,
  linux-kernel@vger.kernel.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
+In current code, the dsc active bits are set only if the cfg->dsc is set.
+However, for displays which are hot-pluggable, there can be a use-case
+of disconnecting a DSC supported sink and connecting a non-DSC sink.
 
+For those cases we need to clear DSC active bits during teardown.
 
-On 4/14/2023 12:35 AM, Marijn Suijten wrote:
-> On 2023-04-12 10:33:15, Abhinav Kumar wrote:
-> [..]
->>> What happens if a device boots without DSC panel connected?  Will
->>> CTL_DSC_FLUSH be zero and not (unnecessarily, I assume) flush any of the
->>> DSC blocks?  Or could this flush uninitialized state to the block?
->>>
->>
->> If we bootup without DSC panel connected, the kernel's cfg->dsc will be
->> 0 and default register value of CTL_DSC_FLUSH will be 0 so it wont flush
->> any DSC blocks.
-> 
-> Ack, that makes sense.  However, if I connect a DSC panel, then
-> disconnect it (now the register should be non-zero, but cfg->dsc will be
-> zero), and then replug a non-DSC panel multiple times, it'll get flushed
-> every time because we never clear CTL_DSC_FLUSH after that?
-> 
+As discuss at [1], clear DSC active bit will handled at reset_intf_cfg()
 
-If we remove it after kernel starts, that issue is there even today 
-without that change because DSI is not a hot-pluggable display so a 
-teardown wont happen when you plug out the panel. How will cfg->dsc be 0 
-then? In that case, its not a valid test as there was no indication to 
-DRM that display was disconnected so we cannot tear it down.
+Signed-off-by: Kuogee Hsieh <quic_khsieh@quicinc.com>
+Fixes: 77f6da90487c ("drm/msm/disp/dpu1: Add DSC support in hw_ctl")
+Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
+Reviewed-by: Marijn Suijten <marijn.suijten@somainline.org>
 
->> Sure, as I wrote in the other response, we can move this
->> to reset_intf_cfg later when the other pieces are fixed. And leave a
->> FIXME here.
-> 
-> Kuogee forgot to CC me on this patchs so I did not read/receive that
-> side of the email thread.  Will catch up before reviewing v2.
-> 
-> - Marijn
+[1] https://lore.kernel.org/linux-arm-msm/ec045d6b-4ffd-0f8c-4011-8db45edc6978@quicinc.com/
+---
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c | 7 +++----
+ 1 file changed, 3 insertions(+), 4 deletions(-)
+
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c
+index bbdc95c..88e4efe 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c
+@@ -541,10 +541,9 @@ static void dpu_hw_ctl_intf_cfg_v1(struct dpu_hw_ctl *ctx,
+ 	if (cfg->merge_3d)
+ 		DPU_REG_WRITE(c, CTL_MERGE_3D_ACTIVE,
+ 			      BIT(cfg->merge_3d - MERGE_3D_0));
+-	if (cfg->dsc) {
+-		DPU_REG_WRITE(&ctx->hw, CTL_FLUSH, DSC_IDX);
+-		DPU_REG_WRITE(c, CTL_DSC_ACTIVE, cfg->dsc);
+-	}
++
++	DPU_REG_WRITE(&ctx->hw, CTL_FLUSH, DSC_IDX);
++	DPU_REG_WRITE(c, CTL_DSC_ACTIVE, cfg->dsc);
+ }
+ 
+ static void dpu_hw_ctl_intf_cfg(struct dpu_hw_ctl *ctx,
+-- 
+The Qualcomm Innovation Center, Inc. is a member of the Code Aurora Forum,
+a Linux Foundation Collaborative Project
+
