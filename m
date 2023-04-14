@@ -2,62 +2,57 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5A4D36E2B65
-	for <lists+freedreno@lfdr.de>; Fri, 14 Apr 2023 22:59:14 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A017C6E2B69
+	for <lists+freedreno@lfdr.de>; Fri, 14 Apr 2023 23:01:55 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8C3B210E202;
-	Fri, 14 Apr 2023 20:59:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0BA3C10EE78;
+	Fri, 14 Apr 2023 21:01:52 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-yw1-x1133.google.com (mail-yw1-x1133.google.com
- [IPv6:2607:f8b0:4864:20::1133])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7972310E054
- for <freedreno@lists.freedesktop.org>; Fri, 14 Apr 2023 20:59:10 +0000 (UTC)
-Received: by mail-yw1-x1133.google.com with SMTP id
- 00721157ae682-54c0c86a436so486125707b3.6
- for <freedreno@lists.freedesktop.org>; Fri, 14 Apr 2023 13:59:10 -0700 (PDT)
+Received: from mail-yb1-xb32.google.com (mail-yb1-xb32.google.com
+ [IPv6:2607:f8b0:4864:20::b32])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4E10210E22A
+ for <freedreno@lists.freedesktop.org>; Fri, 14 Apr 2023 21:01:49 +0000 (UTC)
+Received: by mail-yb1-xb32.google.com with SMTP id n203so8473534ybg.6
+ for <freedreno@lists.freedesktop.org>; Fri, 14 Apr 2023 14:01:49 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1681505949; x=1684097949;
+ d=linaro.org; s=google; t=1681506108; x=1684098108;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=dv49W7flESYqdL5B04Mpt11hCGR0GI4ibJum6v/68AA=;
- b=DAQMKvO4Dvj7K7kVGdHd40QPe8LxkMtDv4fYjPad43+OIVxl6QP4FZwvcyt7ttzBpu
- 94ZxmEqJItp2xz2psZuOywuDIXXb6OBBfTEc/RsPket/UthY+AIZ7jgJE9brOKkMIE+F
- Iq1s7nZdLqCWWXk882Sd/9N3F1JQgUyUjC3vOxQ9r1yOANtdpOwUcN6f3nkpftSERYKv
- EcB2Xjur/rvGjNFur+so2FRjgJWD6phJAxygQ4l/TRovDhhl4cwJyr1z5jk+qhaCd5EH
- 37BLW4pOyALVcoq75asla+0W+B62kMXilGC9Ipg+v+BXGjZIfq5hrYC+hHJ5j2ABGNl9
- 2x5Q==
+ bh=bpfMXe/KqbWIelZJe4uoAyC5aNyWUPiACGVGh2qmwy4=;
+ b=ESxeOXEPGqrm0OS/iNJo92P5dIcNLtF7YiRD/kjS8BUetUNEyGG7UaUQoJoAoqLqss
+ jxVBbTO2w39KwZLpr9YYuLgInyUGx1ZkwhzNueqqlfVLpPqQOJd1b+77d0mR39cxYqQn
+ 2/lDQzTCSEMjoGhVcVsGyjnRl84ypMIACewEg12ToTddPHqAN99b4nJZIlcgoTRu2yLz
+ JEOugPwNuXnJUehwVqNeK+NeAu3vIr2+6x9Dhpru0CxqMYKizlccomIHjSJCjfG9Is6e
+ J5ZfnZ2NH/mk4S4tSwgeGm6t5RQeqChr6g+QMSRPjvgdD9QrWCIYfZuaPtWpYPzZkKB3
+ RXZw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1681505949; x=1684097949;
+ d=1e100.net; s=20221208; t=1681506108; x=1684098108;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=dv49W7flESYqdL5B04Mpt11hCGR0GI4ibJum6v/68AA=;
- b=W+7ffti4Hb6YO4vj69YCesmJoqlj91tepZFIvLiiahtt5L6ArMjD0qyabCi5qVdM0k
- PXslzPxrL5DJeLnPGkHbCCcZVKJI5KJ4mFabA9V98oUPeX8yxUxflrABziwMM0MYqL2Q
- 2Qrelf6OYwhgSxWlZg2C/kezttyInx0J1QtBvBD4OpIdF7lCwb6Gs+8R2mDLb64oM/gm
- is1HEabGxJ36+bzUO74w0SF6tBZ+trksX+vHAbWygJTfGlRMHzsJbcjVMXeflh/gjiQi
- Jp13wU2JBayYykHy0EepVmBLb0p7CSniX7fBRxfSoPf9F5mrzLGeZV1uiAu0FSanr/J5
- HN6g==
-X-Gm-Message-State: AAQBX9f8G+EgzoH6hnIJbYlrpxewV4Mj0ddZmvvSD3w3GgWEGY19sIDU
- QCvQ05FLRGxsyztPtcraU/Px4BFNhO016vtOEXU/Nw==
-X-Google-Smtp-Source: AKy350a5bm1gWE/tVYBg0HNvrT/FHvn65W/p5FJo+i+yMnXnVvF72WZP/WZnepe1irwvAj3QKtr8zmM0ybCRwSE/bsI=
-X-Received: by 2002:a81:af62:0:b0:54c:bdc:ef18 with SMTP id
- x34-20020a81af62000000b0054c0bdcef18mr4596090ywj.5.1681505949142; Fri, 14 Apr
- 2023 13:59:09 -0700 (PDT)
+ bh=bpfMXe/KqbWIelZJe4uoAyC5aNyWUPiACGVGh2qmwy4=;
+ b=Q6lnXwP6uSKcARkRd1t+D+MqnpzjXUmnlvR/9bAJVAFHop73kvDH2WGp7C2ewjiPgT
+ 0/r+9lxlQBnnW9g2KG/LlXeUV7jYfRkfO/87bPt5vP6F5yfxdB1qbIL5DElhi5j5qJeH
+ F57oPgIG7P5W3vDpQokGuY/P+7Ou310CLXJM8BYHGu+7s+kY5z4IHwZMHpX+LR9lRv6T
+ f8UBGMJi9j/GBM3rnUS/Gds6HDomRaxirg1Pq2aYJo/WFtLh8ievwdPNbkWF7JUbF+nA
+ vlenlwLrk+TXYVqa1I2Xz6ZBsXJwIkChvLkDBEJdoVmCQQ+VbpBxpAdDCipX84F4nqZS
+ G9Ng==
+X-Gm-Message-State: AAQBX9d1c8FSRoJN8SIgFhlEO5CvowMAK1Qjz/Z8iuLcm6BcOoy6O6Fa
+ bjG5GAj0XSu0URfo9xY6I1lNvpJ8IsOtCsI3QHFbMw==
+X-Google-Smtp-Source: AKy350a6AQhCKOCqsuAPG4WgtTUaUp2Zmf+Z17MMZxfmVFeziyrPpCdMUQwN/3lykz1gOYCumpn4K1dyAr2SD+v3B60=
+X-Received: by 2002:a25:748e:0:b0:b6c:2d28:b3e7 with SMTP id
+ p136-20020a25748e000000b00b6c2d28b3e7mr4606248ybc.9.1681506108117; Fri, 14
+ Apr 2023 14:01:48 -0700 (PDT)
 MIME-Version: 1.0
-References: <1681401401-15099-1-git-send-email-quic_khsieh@quicinc.com>
- <tgfbdk6q3uool365jqddibnbgq66clsmsm6tldxpm5toqghxpq@m2ic3oonv2s5>
- <aac210da-dec1-aab8-3f48-c33d9e7687d6@quicinc.com>
- <3oaangxh7gmie3cdd6rmujm7dd3hagsrnwiq3bascdtamvfn3a@bn6ou5hbsgxv>
- <c09725ff-771c-35d1-adc9-4bb1b7c1c334@quicinc.com>
-In-Reply-To: <c09725ff-771c-35d1-adc9-4bb1b7c1c334@quicinc.com>
+References: <1681490777-15351-1-git-send-email-quic_khsieh@quicinc.com>
+In-Reply-To: <1681490777-15351-1-git-send-email-quic_khsieh@quicinc.com>
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Fri, 14 Apr 2023 23:58:58 +0300
-Message-ID: <CAA8EJppKXSGcOcYEc6UKz9Eh8JizSpdDNe+cdvfmFbuBJ9zPKw@mail.gmail.com>
-To: Abhinav Kumar <quic_abhinavk@quicinc.com>
+Date: Sat, 15 Apr 2023 00:01:37 +0300
+Message-ID: <CAA8EJppy0bGKQsQFoDZtWgtKrZuU5NLVoteXMbqDR30Var92NA@mail.gmail.com>
+To: Kuogee Hsieh <quic_khsieh@quicinc.com>
 Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [PATCH v2] drm/msm/dpu: always program dsc active
+Subject: Re: [Freedreno] [PATCH v3] drm/msm/dpu: always program DSC active
  bits
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -71,124 +66,66 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: vkoul@kernel.org, quic_sbillaka@quicinc.com, airlied@gmail.com,
- andersson@kernel.org, freedreno@lists.freedesktop.org, dianders@chromium.org,
- dri-devel@lists.freedesktop.org, swboyd@chromium.org, robdclark@gmail.com,
- agross@kernel.org, daniel@ffwll.ch, linux-arm-msm@vger.kernel.org,
- Marijn Suijten <marijn.suijten@somainline.org>,
- Kuogee Hsieh <quic_khsieh@quicinc.com>, sean@poorly.run,
- linux-kernel@vger.kernel.org
+Cc: freedreno@lists.freedesktop.org, quic_sbillaka@quicinc.com,
+ quic_abhinavk@quicinc.com, airlied@gmail.com, andersson@kernel.org,
+ robdclark@gmail.com, dri-devel@lists.freedesktop.org, dianders@chromium.org,
+ vkoul@kernel.org, agross@kernel.org, daniel@ffwll.ch,
+ linux-arm-msm@vger.kernel.org, marijn.suijten@somainline.org,
+ swboyd@chromium.org, sean@poorly.run, linux-kernel@vger.kernel.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Fri, 14 Apr 2023 at 21:55, Abhinav Kumar <quic_abhinavk@quicinc.com> wrote:
+On Fri, 14 Apr 2023 at 19:46, Kuogee Hsieh <quic_khsieh@quicinc.com> wrote:
 >
+> In current code, the dsc active bits are set only if the cfg->dsc is set.
+> However, for displays which are hot-pluggable, there can be a use-case
+> of disconnecting a DSC supported sink and connecting a non-DSC sink.
 >
+> For those cases we need to clear DSC active bits during teardown.
 >
-> On 4/14/2023 10:28 AM, Marijn Suijten wrote:
-> > On 2023-04-14 08:41:37, Abhinav Kumar wrote:
-> >>
-> >> On 4/14/2023 12:48 AM, Marijn Suijten wrote:
-> >>> Capitalize DSC in the title, as discussed in v1.
-> >>>
-> >>> On 2023-04-13 08:56:41, Kuogee Hsieh wrote:
-> >>>> In current code, the DSC active bits are written only if cfg->dsc is set.
-> >>>> However, for displays which are hot-pluggable, there can be a use-case
-> >>>> of disconnecting a DSC supported sink and connecting a non-DSC sink.
-> >>>>
-> >>>> For those cases we need to clear DSC active bits during tear down.
-> >>>>
-> >>>> Changes in V2:
-> >>>> 1) correct commit text as suggested
-> >>>> 2) correct Fixes commit id
-> >>>> 3) add FIXME comment
-> >>>>
-> >>>> Fixes: 77f6da90487c ("drm/msm/disp/dpu1: Add DSC support in hw_ctl")
-> >>>> Signed-off-by: Kuogee Hsieh <quic_khsieh@quicinc.com>
-> >>>> Reviewed-by: Marijn Suijten <marijn.suijten@somainline.org>
-> >>>
-> >>> By default git send-email should pick this up in the CC line...  but I
-> >>> had to download this patch from lore once again.
-> >>>
-> >>
-> >> Yes, I think what happened here is, he didnt git am the prev rev and
-> >> make changes on top of that so git send-email didnt pick up. We should
-> >> fix that process.
-> >
-> > The mail was sent so it must have gone through git send-email, unless a
-> > different mail client was used to send the .patch file.  I think you are
-> > confusing this with git am (which doesn't need to be used if editing a
-> > commit on a local branch) and subsequently git format-patch, which takes
-> > a commit from a git repository and turns it into a .patch file: neither
-> > of these "converts" r-b's (and other tags) to cc, that's happening in
-> > git send-email (see `--suppress-cc` documentation in `man
-> > git-send-email`).
-> >
->
-> Yes, ofcourse git send-email was used to send the patch, not any other
-> mail client.
->
-> Yes i am also aware that send-email converts rb to CC.
->
-> But if you keep working on the local branch, then you would have to
-> manually add the r-bs. If you use am of the prev version and develop on
-> that, it will automatically add the r-bs.
+> As discuss at [1], clear DSC active bit will handled at reset_intf_cfg()
 
-It looks like there is some misunderstanding here. I think Marijn
-doesn't question his R-B (which was present), but tries to point out
-that Kuogee might want to adjust his git-send-email invocation. By
-default (and that's a good practice, which we should follow),
-git-send-email will CC people mentioned in such tags. Marijn didn't
-get this email. So, it seems, for some reason this Cc: _mail_ header
-was suppressed. Probably git-send-email invocation should be changed
-to prevent suppression of adding mentioned people to CC lists.
+nit: discussed
 
 >
+> Signed-off-by: Kuogee Hsieh <quic_khsieh@quicinc.com>
+> Fixes: 77f6da90487c ("drm/msm/disp/dpu1: Add DSC support in hw_ctl")
+> Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
+> Reviewed-by: Marijn Suijten <marijn.suijten@somainline.org>
 >
-> > I can recommend b4: it has lots of useful features including
-> > automatically picking up reviews and processing revisions.  It even
-> > requires a changelog to be edited ;).  However, finding the right flags
-> > and trusting it'll "do as ordered" is a bit daunting at first.
-> >
-> >>>> ---
-> >>>>    drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c | 8 ++++----
-> >>>>    1 file changed, 4 insertions(+), 4 deletions(-)
-> >>>>
-> >>>> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c
-> >>>> index bbdc95c..1651cd7 100644
-> >>>> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c
-> >>>> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c
-> >>>> @@ -541,10 +541,10 @@ static void dpu_hw_ctl_intf_cfg_v1(struct dpu_hw_ctl *ctx,
-> >>>>            if (cfg->merge_3d)
-> >>>>                    DPU_REG_WRITE(c, CTL_MERGE_3D_ACTIVE,
-> >>>>                                  BIT(cfg->merge_3d - MERGE_3D_0));
-> >>>> -  if (cfg->dsc) {
-> >>>> -          DPU_REG_WRITE(&ctx->hw, CTL_FLUSH, DSC_IDX);
-> >>>> -          DPU_REG_WRITE(c, CTL_DSC_ACTIVE, cfg->dsc);
-> >>>> -  }
-> >>>> +
-> >>>> +  /* FIXME: fix reset_intf_cfg to handle teardown of dsc */
-> >>>
-> >>> There's more wrong than just moving (not "fix"ing) this bit of code into
-> >>> reset_intf_cfg.  And this will have to be re-wrapped in `if (cfg->dsc)`
-> >>> again by reverting this patch.  Perhaps that can be explained, or link
-> >>> to Abhinav's explanation to make it clear to readers what this FIXME
-> >>> actually means?  Let's wait for Abhinav and Dmitry to confirm the
-> >>> desired communication here.
-> >>>
-> >>> https://lore.kernel.org/linux-arm-msm/ec045d6b-4ffd-0f8c-4011-8db45edc6978@quicinc.com/
-> >>>
-> >>
-> >> Yes, I am fine with linking this explanation in the commit text and
-> >> mentioning that till thats fixed, we need to go with this solution. The
-> >> FIXME itself is fine, I will work on it and I remember this context well.
-> >
-> > Looks like it was removed entirely in v3, in favour of only describing
-> > it in the patch body.  The wording seems a bit off but that's fine by me
-> > if you're picking this up soon anyway.
-> >
-> > - Marijn
+> [1] https://lore.kernel.org/linux-arm-msm/ec045d6b-4ffd-0f8c-4011-8db45edc6978@quicinc.com/
+> ---
 
+Changelog? This is v3 already, but it has no changes described.
+
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c | 7 +++----
+>  1 file changed, 3 insertions(+), 4 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c
+> index bbdc95c..88e4efe 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c
+> @@ -541,10 +541,9 @@ static void dpu_hw_ctl_intf_cfg_v1(struct dpu_hw_ctl *ctx,
+>         if (cfg->merge_3d)
+>                 DPU_REG_WRITE(c, CTL_MERGE_3D_ACTIVE,
+>                               BIT(cfg->merge_3d - MERGE_3D_0));
+> -       if (cfg->dsc) {
+> -               DPU_REG_WRITE(&ctx->hw, CTL_FLUSH, DSC_IDX);
+> -               DPU_REG_WRITE(c, CTL_DSC_ACTIVE, cfg->dsc);
+> -       }
+> +
+
+And the comment got dropped. Please restore it in some form.
+
+> +       DPU_REG_WRITE(&ctx->hw, CTL_FLUSH, DSC_IDX);
+> +       DPU_REG_WRITE(c, CTL_DSC_ACTIVE, cfg->dsc);
+>  }
+>
+>  static void dpu_hw_ctl_intf_cfg(struct dpu_hw_ctl *ctx,
+> --
+> The Qualcomm Innovation Center, Inc. is a member of the Code Aurora Forum,
+> a Linux Foundation Collaborative Project
+>
 
 
 -- 
