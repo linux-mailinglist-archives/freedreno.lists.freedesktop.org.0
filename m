@@ -1,83 +1,64 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id C49FE6E2DCC
-	for <lists+freedreno@lfdr.de>; Sat, 15 Apr 2023 02:10:39 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 369ED6E32D8
+	for <lists+freedreno@lfdr.de>; Sat, 15 Apr 2023 19:19:33 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7999210E1CF;
-	Sat, 15 Apr 2023 00:10:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id ED67C10E09F;
+	Sat, 15 Apr 2023 17:19:31 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D0C9610E1CF;
- Sat, 15 Apr 2023 00:10:35 +0000 (UTC)
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 33F01UY3016291; Sat, 15 Apr 2023 00:10:30 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
- h=message-id : date :
- mime-version : subject : to : cc : references : from : in-reply-to :
- content-type : content-transfer-encoding; s=qcppdkim1;
- bh=LUJ2/lAfWFV0553iBaBy/s0Q3nMiR2TR4qQH20SjvaE=;
- b=a9Royk2NmeiLjMtwLn36yyepLw1Zh60uDH1atMzTyAcpQ1dXmT+JKCg75+uay6JFxgZE
- 6tc/R1vg0hEu3LQPU0hV+7MQHk6STanqzC9IvrcLYJH5hR1f7WyXvmf4ZAXL5UhMRlh1
- 5RYL+yFa6jpe/ve4Xc8MulQ0dLBY5Nc7HpdoG4VZCydVz7NAoZlCrUXk8Cgvg/XdsVqY
- P4ciKQw1R0p/p8J1gyntrIL5Tq0ho+w0bRF9Z0CCRUXI1PMwQYbpXz5pRQAv5a5ZYlIP
- f2Up5tFH8SlHgfUQy4I7R9zxNNC5I840nc4WiYh+NBbRK/dYz7pu+OpVzrE8LtqgqDvQ CA== 
-Received: from nalasppmta03.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3pyck1gexa-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Sat, 15 Apr 2023 00:10:30 +0000
-Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
- [10.47.209.196])
- by NALASPPMTA03.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 33F0ATMq027243
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Sat, 15 Apr 2023 00:10:29 GMT
-Received: from [10.110.73.215] (10.80.80.8) by nalasex01a.na.qualcomm.com
- (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.42; Fri, 14 Apr
- 2023 17:10:27 -0700
-Message-ID: <76d217d2-ee49-2074-d54a-7ba21ff4fb2d@quicinc.com>
-Date: Fri, 14 Apr 2023 17:10:27 -0700
+Received: from mail-lj1-x233.google.com (mail-lj1-x233.google.com
+ [IPv6:2a00:1450:4864:20::233])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8239D10E09F
+ for <freedreno@lists.freedesktop.org>; Sat, 15 Apr 2023 17:19:29 +0000 (UTC)
+Received: by mail-lj1-x233.google.com with SMTP id
+ 38308e7fff4ca-2a8aea2a654so4548121fa.1
+ for <freedreno@lists.freedesktop.org>; Sat, 15 Apr 2023 10:19:29 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1681579167; x=1684171167;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=m4nST20IPKOcYwIOfUgXQCsK+huSDja+HNRFSncxwf0=;
+ b=LgKEaTXc6OQ5SGY4uM0igrni/yv0F72lQYofAl2Jcwh6IQk4EoQIBACu1lv6nrg0oY
+ 0Vj6Q1gZ21Us7Yc7Mo2cU6MGBMIqILgC+3MVPYw0ztSlfrQirLp5A+Qb6OXqBDRopNEv
+ gaeRI3au41K4XeucsIpCmnmPCkPX0X0K9eyNwL0mKyWc3E4gYQnfLshInMAI9zqadQA8
+ YBKMK37nlD+9uFH/WFHETV4tMKtZ7AKMu950fXiVt8bXo4P54Yp0xCQuSqwqpxXtmdN3
+ UylZFec81EPEBAiZ9LN/f7yLcuPtVK5FF81VW1W1JpbZ3nOuQFyGLapHBhETHbQ4oFUK
+ fJ9A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20221208; t=1681579167; x=1684171167;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=m4nST20IPKOcYwIOfUgXQCsK+huSDja+HNRFSncxwf0=;
+ b=N4WsCdYZ5U1t9w2mmUbM4hKkwzmdMC76Rh7BuE8+Kpnx2afNvfzWfsfr4KWt8R/CYt
+ CPg48IINoEnOK3QW+GUPjSu5/wRowhYgIUhNYMLMIgFfg9QQHb6n0PXZRoEI/7J4fxn0
+ E8pq2Hdipnrco6th+UOOP02lXDEGSbEeCtpr2r3pC+KtnBqMxWYziO1KCzJnb8wj8WuQ
+ aiuZS7x5Q2hpyUGY3gxNBPMrpDx0bvPYXxtS+RLUNqwCfhDhqjUE6HxaMYgzHJ2yZDKk
+ 4iCGw6g40c24U3ZMCVz4HCDMmPNzTqft19RXI9qi4GBzCvOUxybYFliBeeC/QU6KaZKm
+ yi0Q==
+X-Gm-Message-State: AAQBX9fDvyxk1LMdF6wiO4xVPwtKi2VIv6fo3Io6bvcPYKgt5bmyiSum
+ LSnFyNDCBq1RlWDMcFnqn/AQUw==
+X-Google-Smtp-Source: AKy350YXm6X841XzMI02HB2vU2HU4LiEUQIdFGYoiHVC1a+x3tyGIIwXZM3o79RTKkgXnv6Rafv5OQ==
+X-Received: by 2002:ac2:5390:0:b0:4e8:3d24:de6f with SMTP id
+ g16-20020ac25390000000b004e83d24de6fmr677665lfh.14.1681579167425; 
+ Sat, 15 Apr 2023 10:19:27 -0700 (PDT)
+Received: from umbar.unikie.fi ([192.130.178.91])
+ by smtp.gmail.com with ESMTPSA id
+ v4-20020a056512096400b004ebae99cc1dsm1355834lft.159.2023.04.15.10.19.26
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sat, 15 Apr 2023 10:19:26 -0700 (PDT)
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+To: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>
+Date: Sat, 15 Apr 2023 20:19:24 +0300
+Message-Id: <20230415171926.85774-1-dmitry.baryshkov@linaro.org>
+X-Mailer: git-send-email 2.30.2
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.6.2
-Content-Language: en-US
-To: Marijn Suijten <marijn.suijten@somainline.org>
-References: <1681401401-15099-1-git-send-email-quic_khsieh@quicinc.com>
- <tgfbdk6q3uool365jqddibnbgq66clsmsm6tldxpm5toqghxpq@m2ic3oonv2s5>
- <aac210da-dec1-aab8-3f48-c33d9e7687d6@quicinc.com>
- <3oaangxh7gmie3cdd6rmujm7dd3hagsrnwiq3bascdtamvfn3a@bn6ou5hbsgxv>
- <c09725ff-771c-35d1-adc9-4bb1b7c1c334@quicinc.com>
- <CAA8EJppKXSGcOcYEc6UKz9Eh8JizSpdDNe+cdvfmFbuBJ9zPKw@mail.gmail.com>
- <eb8ea024-1152-418c-a048-f86253867c9e@quicinc.com>
- <m43254ainsnznnehtziigr3akpy7lnwkel424e2emr2tycpbek@yqam6dij63d5>
-From: Abhinav Kumar <quic_abhinavk@quicinc.com>
-In-Reply-To: <m43254ainsnznnehtziigr3akpy7lnwkel424e2emr2tycpbek@yqam6dij63d5>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
 Content-Transfer-Encoding: 8bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-ORIG-GUID: ZrV_lk8tW8jJssG75kSzHIUE4WsBt4OC
-X-Proofpoint-GUID: ZrV_lk8tW8jJssG75kSzHIUE4WsBt4OC
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.254,Aquarius:18.0.942,Hydra:6.0.573,FMLib:17.11.170.22
- definitions=2023-04-14_16,2023-04-14_01,2023-02-09_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 spamscore=0
- adultscore=0 priorityscore=1501 mlxlogscore=999 lowpriorityscore=0
- mlxscore=0 bulkscore=0 clxscore=1015 suspectscore=0 malwarescore=0
- phishscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2303200000 definitions=main-2304150000
-Subject: Re: [Freedreno] [PATCH v2] drm/msm/dpu: always program dsc active
- bits
+Subject: [Freedreno] [PATCH 0/2] drm/msm/dpu: enable INTF_HDMI support
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -90,79 +71,33 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: vkoul@kernel.org, quic_sbillaka@quicinc.com, airlied@gmail.com,
- andersson@kernel.org, freedreno@lists.freedesktop.org, dianders@chromium.org,
- dri-devel@lists.freedesktop.org, swboyd@chromium.org, robdclark@gmail.com,
- agross@kernel.org, daniel@ffwll.ch, linux-arm-msm@vger.kernel.org,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Kuogee Hsieh <quic_khsieh@quicinc.com>, sean@poorly.run,
- linux-kernel@vger.kernel.org
+Cc: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
+ Bjorn Andersson <andersson@kernel.org>, dri-devel@lists.freedesktop.org,
+ Stephen Boyd <swboyd@chromium.org>, Daniel Vetter <daniel@ffwll.ch>,
+ David Airlie <airlied@gmail.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
+Since msm8998 and older platforms (wip) support INTF_HDMI, extend DPU
+driver to support HDMI output. First patch was submitted about a year
+ago, but received some pushback ([1], [2]). However it becomes
+absolutely required to properly support INTF_HDMI as both HDMI and DP
+should use DRM_MODE_ENCODER_TMDS for encoder_type. Thus dpu_encoder can
+not make a difference between HDMI and DP outputs (however they require
+different handling).
 
+[1] https://patchwork.freedesktop.org/patch/473871/
+[2] https://patchwork.freedesktop.org/patch/474271/
 
-On 4/14/2023 3:52 PM, Marijn Suijten wrote:
-> On 2023-04-14 14:03:23, Abhinav Kumar wrote:
-> [..]
->>>> Yes, ofcourse git send-email was used to send the patch, not any other
->>>> mail client.
->>>>
->>>> Yes i am also aware that send-email converts rb to CC.
->>>>
->>>> But if you keep working on the local branch, then you would have to
->>>> manually add the r-bs. If you use am of the prev version and develop on
->>>> that, it will automatically add the r-bs.
-> 
-> I don't think git-am is smart enough to fetch additional replies from
-> lore and apply the reviewed-by (and other trailers).  This workflow
-> relies on downloading the mbox from a service that extracts and
-> accumulates the trailers such as patchwork, see for example:
-> 
-> 	https://patchwork.freedesktop.org/api/1.0/series/116340/revisions/1/mbox/
-> 
-> Note that it also picked up one sentence starting with Fixes:
-> 
-> 	Fixes: tag below seems extraneous.
-> 
+Dmitry Baryshkov (2):
+  drm/msm/dpu: simplify intf allocation code
+  drm/msm/dpu: add HDMI output support
 
-Yes, I usually use git-pw ap.
+ drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c | 39 ++++++----------
+ drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.h |  4 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c     | 51 +++++++++++++++++++--
+ 3 files changed, 63 insertions(+), 31 deletions(-)
 
-So perhaps, I should have been more specific to say that.
+-- 
+2.30.2
 
-Some form of am is what i wanted to emphasize but just wrote git am by 
-mistake.
-
-> On the other hand b4 (shaz)am is itself capable of downloading the whole
-> mail thread and appending all trailers, just like patchwork is doing
-> above, in one automated `b4 shazam <lore link>` command.
-> 
-> And to solve the problem of trailers arriving in your inbox after
-> working on the next revision in a local branch - or without ever even
-> redownloading the series from lore/patchwork¸ b4 has a command to
-> download and apply them to commits in your local branch:
-> 
-> 	b4 trailers -uF <lore link>
-> 
-> Try it out, b4 is amazing :)
-> 
-
-Yes, i recently started using it to send "applied" emails as suggested 
-by Dmitry , for patch related work was still using git-pw.
-
-Perhaps, I will switch completely to it.
-
-> [..]
->> 2) I synced with kuogee. his git version seems to be quite old which is
->> not adding the folks from r-b to cc. So there was nothing wrong with
->> invocation, just versioning.
-> 
-> You are right.  The X-Mailer header of Kuogee's patch indicates git
-> 2.7.4, while cc'ing of additional -by trailers (such as r-b's) was only
-> introduced in 2.20.0:
-> 
-> https://github.com/git/git/commit/ef0cc1df90f6b6c2987ab2db8e0ccf2cfc421edf
-> 
-> Fwiw 2.7.4 is from March 2016.
-> 
-> - Marijn
