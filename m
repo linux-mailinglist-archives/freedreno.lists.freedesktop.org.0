@@ -1,77 +1,62 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 70F2F6E53F8
-	for <lists+freedreno@lfdr.de>; Mon, 17 Apr 2023 23:36:49 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id E34DB6E54D1
+	for <lists+freedreno@lfdr.de>; Tue, 18 Apr 2023 00:55:16 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BB8BB10E618;
-	Mon, 17 Apr 2023 21:36:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C8CB610E636;
+	Mon, 17 Apr 2023 22:55:13 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0216E10E211;
- Mon, 17 Apr 2023 21:36:43 +0000 (UTC)
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 33HKeClM006420; Mon, 17 Apr 2023 21:36:37 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
- h=message-id : date :
- mime-version : subject : to : cc : references : from : in-reply-to :
- content-type : content-transfer-encoding; s=qcppdkim1;
- bh=HNYfTE8aedu25aVlQ+Eoy8AaUtqm6feQUuUGK0VrZao=;
- b=QflANhaVHw4FvSnUxV391nIDXto554eYJN+1eohlPWwwLFyqHKqlbP1KpGPk2emVUr2v
- ounXxXmNFhhsSX54qw4nTgRKgB3PyJrxyJHv5EaFAuLIHQL6h4q5h7adI+NJP8+15UbT
- IwY3P0WDN4+5lEy87OdT2k3FC5fnH7b89OpcH+NSvF1IxZFWNh38bQj/H3swEL6goAee
- GhLtnvF7Gl/ujHwF6OlsMHqlo9Bsz0AEX+41oY3tsoaws2y22FxQahmCdKbPJpDdoLoN
- NeyJX0khR3NJGTdUefbJTxP9JU9IhgL1CKaVjffOl24vTLjc35lgXfRBiH1aGN1rKUk4 0Q== 
-Received: from nalasppmta01.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3q11fe1xr0-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 17 Apr 2023 21:36:37 +0000
-Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
- [10.47.209.196])
- by NALASPPMTA01.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 33HLaapp023299
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 17 Apr 2023 21:36:36 GMT
-Received: from [10.110.98.241] (10.80.80.8) by nalasex01a.na.qualcomm.com
- (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.42; Mon, 17 Apr
- 2023 14:36:35 -0700
-Message-ID: <c218138c-d82c-502c-1a40-26f06d7800e4@quicinc.com>
-Date: Mon, 17 Apr 2023 14:36:35 -0700
+Received: from mail-pl1-x632.google.com (mail-pl1-x632.google.com
+ [IPv6:2607:f8b0:4864:20::632])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6FEBC10E630;
+ Mon, 17 Apr 2023 22:55:11 +0000 (UTC)
+Received: by mail-pl1-x632.google.com with SMTP id la15so4409372plb.11;
+ Mon, 17 Apr 2023 15:55:11 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20221208; t=1681772110; x=1684364110;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=IkA9wnRbo5w7C60BTKvxyOVQM93T/mRdGRMWtweWrTo=;
+ b=q/yzCx2K043mqFDqjj0WM/4OzkUAmFNdBT/a8SMmW2A/EmwUaXNzAZpnxdK4WOh5YN
+ q2vgsr31qOUI/+EC6tEFp1kHH0HjPsva2nFnwfca6Jx6BLm6tNntfzP08ZNTXcDHl4AK
+ IdaaDjH38wRuntwP4pVFY848alLct1vQbaAlAa9Upy4ZU0edg6bdP7L0uqm5Gfpjzm3u
+ SGhxG4AfVtcCOD9ugLSWzODdm/FZ5xea6/DYp6ePBI7nquEtBKnA6+CQ9mGxCxfgKfj3
+ e5M9n/+lW7i+GyQHAjbPg4YbH2Sq8qmYOl4neVesYeO8hJLSRt6nLnRFb/286Hgj+Ja4
+ Oh6A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20221208; t=1681772110; x=1684364110;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=IkA9wnRbo5w7C60BTKvxyOVQM93T/mRdGRMWtweWrTo=;
+ b=KyuGSuWFdnd9N64NQf1KxJfLnnBxqU3QlbmuDbEw0+gqQ3OhAlmYxJoAzP7Ubsu9fi
+ mQvkQwuIxDd5945dL681dOxCzHk1RFpc9uFFd3yLu9q6cybXSWCcKAQ69XVZScsH3sa1
+ O9EAYBRJRcR/kB5oBk6zc2yftlmQdX43U9y51DGKxO11fDoCSToEYFhqQdbUcvRfklqh
+ DLTb4o9kEJmcFlLuWZJhougGk/aO/eelmg8YRKUTDD2x+Sc/JpgiX/+308PfqTYw0FBq
+ A0CsCVjjHQkd2n4mOvnNbn6Ws5AhqfGR+GKAr721AdHDc7dbejw1m60ajj6Z83kKQXNk
+ hq2g==
+X-Gm-Message-State: AAQBX9fvCSRtPV0UqD00kQvaU7OMYTZhA0JvmqX6WRwl/qlk5Pj6fHc+
+ mMkDDX3no+kUUn/WFdTwlyuCL8hyZ40=
+X-Google-Smtp-Source: AKy350bsqttjkFoxN4aClYncUVFHdeiJpJuM4f30fWPgWn6e7CVbVFHW+2DBpXifcM0pL+jPjbUWSw==
+X-Received: by 2002:a05:6a20:8419:b0:d8:bed9:33cf with SMTP id
+ c25-20020a056a20841900b000d8bed933cfmr19558887pzd.17.1681772110125; 
+ Mon, 17 Apr 2023 15:55:10 -0700 (PDT)
+Received: from localhost ([2a00:79e1:abd:4a00:61b:48ed:72ab:435b])
+ by smtp.gmail.com with ESMTPSA id
+ 132-20020a63058a000000b0051ba16c35cfsm3117276pgf.29.2023.04.17.15.55.09
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 17 Apr 2023 15:55:09 -0700 (PDT)
+From: Rob Clark <robdclark@gmail.com>
+To: dri-devel@lists.freedesktop.org
+Date: Mon, 17 Apr 2023 15:55:04 -0700
+Message-Id: <20230417225504.494934-1-robdclark@gmail.com>
+X-Mailer: git-send-email 2.39.2
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.6.2
-Content-Language: en-US
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Rob Clark
- <robdclark@gmail.com>, Sean Paul <sean@poorly.run>
-References: <20230415171926.85774-1-dmitry.baryshkov@linaro.org>
- <20230415171926.85774-3-dmitry.baryshkov@linaro.org>
-From: Abhinav Kumar <quic_abhinavk@quicinc.com>
-In-Reply-To: <20230415171926.85774-3-dmitry.baryshkov@linaro.org>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-GUID: pHT4GeNdE4o_oueO5p3wjFxZAFXvci0k
-X-Proofpoint-ORIG-GUID: pHT4GeNdE4o_oueO5p3wjFxZAFXvci0k
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.254,Aquarius:18.0.942,Hydra:6.0.573,FMLib:17.11.170.22
- definitions=2023-04-17_14,2023-04-17_01,2023-02-09_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 mlxscore=0
- malwarescore=0 suspectscore=0 bulkscore=0 phishscore=0 spamscore=0
- priorityscore=1501 clxscore=1015 mlxlogscore=930 adultscore=0
- lowpriorityscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2303200000 definitions=main-2304170191
-Subject: Re: [Freedreno] [PATCH 2/2] drm/msm/dpu: add HDMI output support
+Content-Transfer-Encoding: 8bit
+Subject: [Freedreno] [PATCH] drm/msm: Fix vmap madv warning
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -84,92 +69,131 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
- Bjorn Andersson <andersson@kernel.org>, dri-devel@lists.freedesktop.org,
- Stephen Boyd <swboyd@chromium.org>, Daniel Vetter <daniel@ffwll.ch>,
- David Airlie <airlied@gmail.com>
+Cc: Rob Clark <robdclark@chromium.org>, linux-arm-msm@vger.kernel.org,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ open list <linux-kernel@vger.kernel.org>, Sean Paul <sean@poorly.run>,
+ Rob Clark <robdclark@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ David Airlie <airlied@gmail.com>, freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
+From: Rob Clark <robdclark@chromium.org>
 
+Commit d6ae7d1cd58e ("drm/msm/gem: Simplify vmap vs LRU tracking")
+introduced a splat in the pin_pages_locked() path for buffers that
+had been MADV_DONTNEED.
 
-On 4/15/2023 10:19 AM, Dmitry Baryshkov wrote:
-> MSM8998 and the older Qualcomm platforms support HDMI outputs. Now as
-> DPU encoder is ready, add support for using INTF_HDMI.
-> 
+   ------------[ cut here ]------------
+   msm_obj->madv != 0
+   WARNING: CPU: 1 PID: 144 at drivers/gpu/drm/msm/msm_gem.c:230 msm_gem_pin_pages_locked+0x9c/0xd4
+   Modules linked in: lzo_rle cros_ec_lid_angle cros_ec_sensors cros_ec_sensors_core venus_dec venus_enc videobuf2_dma_contig cdc_ether usbnet mii uvcvideo videobuf2_vmalloc hci_uart btqca qcom_spmi_adc5 uvc qcom_spmi_temp_alarm qcom_vadc_common cros_ec_sensorhub videobuf2_memops cros_ec_typec sx9324 sx_common typec joydev bluetooth industrialio_triggered_buffer ecdh_generic kfifo_buf ecc venus_core qcom_stats v4l2_mem2mem videobuf2_v4l2 videobuf2_common ath11k_ahb ath11k mac80211 cfg80211 fuse zram zsmalloc
+   CPU: 1 PID: 144 Comm: ring0 Tainted: G        W          6.3.0-rc2-debug+ #622
+   Hardware name: Google Villager (rev1+) with LTE (DT)
+   pstate: 60400009 (nZCv daif +PAN -UAO -TCO -DIT -SSBS BTYPE=--)
+   pc : msm_gem_pin_pages_locked+0x9c/0xd4
+   lr : msm_gem_pin_pages_locked+0x9c/0xd4
+   sp : ffffffc009ffbab0
+   x29: ffffffc009ffbab0 x28: ffffffee8da75008 x27: ffffff80a10274d0
+   x26: ffffff8087fe3bf8 x25: ffffff8087fe3c08 x24: 0000000000000001
+   x23: ffffff80891d5800 x22: ffffff809d0de480 x21: ffffff8081e5a080
+   x20: 0000000000000002 x19: ffffff80a3564c00 x18: 0000000000000000
+   x17: 0000000000000000 x16: 0000000000000000 x15: 00000000000a9620
+   x14: 0000000000000000 x13: 2d2d2d2d2d2d2d2d x12: 2d2d2d2d5d206572
+   x11: 656820747563205b x10: 2d2d2d2d2d2d2d2d x9 : ffffffee8c705dfc
+   x8 : ffffffee8da75000 x7 : ffffffee8d34e6d0 x6 : 0000000000000000
+   x5 : 00000000000affa8 x4 : 000000000000000d x3 : ffffffee8da75008
+   x2 : 0000000000000000 x1 : 0000000000000000 x0 : ffffff8088048040
+   Call trace:
+    msm_gem_pin_pages_locked+0x9c/0xd4
+    get_vaddr+0xb0/0x150
+    msm_gem_get_vaddr_active+0x1c/0x28
+    snapshot_buf+0x90/0x10c
+    msm_rd_dump_submit+0x30c/0x380
+    msm_gpu_submit+0x88/0x174
+    msm_job_run+0x68/0x118
+    drm_sched_main+0x2b8/0x3a0
+    kthread+0xf0/0x100
+    ret_from_fork+0x10/0x20
+   irq event stamp: 3358
+   hardirqs last  enabled at (3357): [<ffffffee8c7051f4>] __up_console_sem+0x7c/0x80
+   hardirqs last disabled at (3358): [<ffffffee8d3480b0>] el1_dbg+0x24/0x80
+   softirqs last  enabled at (3330): [<ffffffee8c610420>] __do_softirq+0x21c/0x4bc
+   softirqs last disabled at (3325): [<ffffffee8c616708>] ____do_softirq+0x18/0x24
+   ---[ end trace 0000000000000000 ]---
 
- From what I see, encoder was always ready but just HDMI case was not 
-handled? Or are you saying this because of the prev patch which sorts 
-out encoder_type and intf_type
+But, as with msm_gem_get_vaddr_active(), this is a special case
+because we know that the buffer won't be purged evicted until it's
+fence is signaled.  We just forgot to propagate the logic get_vaddr()
+to pin_pages_locked().
 
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> ---
->   drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c | 45 +++++++++++++++++++++++++
->   1 file changed, 45 insertions(+)
-> 
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
-> index e85e3721d2c7..65cce59163a4 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
-> @@ -617,6 +617,45 @@ static int _dpu_kms_initialize_displayport(struct drm_device *dev,
->   	return 0;
->   }
->   
-> +static int _dpu_kms_initialize_hdmi(struct drm_device *dev,
-> +				    struct msm_drm_private *priv,
-> +				    struct dpu_kms *dpu_kms)
-> +{
-> +	struct drm_encoder *encoder = NULL;
-> +	struct msm_display_info info;
-> +	int rc;
-> +	int i;
-> +
-> +	if (!priv->hdmi)
-> +		return 0;
-> +
-> +	encoder = dpu_encoder_init(dev, DRM_MODE_ENCODER_TMDS);
-> +	if (IS_ERR(encoder)) {
-> +		DPU_ERROR("encoder init failed for HDMI display\n");
-> +		return PTR_ERR(encoder);
-> +	}
-> +
-> +	memset(&info, 0, sizeof(info));
-> +	rc = msm_hdmi_modeset_init(priv->hdmi, dev, encoder);
-> +	if (rc) {
-> +		DPU_ERROR("modeset_init failed for DP, rc = %d\n", rc);
-> +		drm_encoder_cleanup(encoder);
-> +		return rc;
-> +	}
-> +
-> +	info.num_of_h_tiles = 1;
-> +	info.h_tile_instance[0] = i;
+Fixes: d6ae7d1cd58e ("drm/msm/gem: Simplify vmap vs LRU tracking")
+Signed-off-by: Rob Clark <robdclark@chromium.org>
+---
+ drivers/gpu/drm/msm/msm_gem.c | 22 ++++++++--------------
+ 1 file changed, 8 insertions(+), 14 deletions(-)
 
-As Arnaud noted, i is uninitialized here.
+diff --git a/drivers/gpu/drm/msm/msm_gem.c b/drivers/gpu/drm/msm/msm_gem.c
+index c32264234ea1..20cfd86d2b32 100644
+--- a/drivers/gpu/drm/msm/msm_gem.c
++++ b/drivers/gpu/drm/msm/msm_gem.c
+@@ -219,7 +219,8 @@ static void put_pages(struct drm_gem_object *obj)
+ 	}
+ }
+ 
+-static struct page **msm_gem_pin_pages_locked(struct drm_gem_object *obj)
++static struct page **msm_gem_pin_pages_locked(struct drm_gem_object *obj,
++					      unsigned madv)
+ {
+ 	struct msm_drm_private *priv = obj->dev->dev_private;
+ 	struct msm_gem_object *msm_obj = to_msm_bo(obj);
+@@ -227,7 +228,9 @@ static struct page **msm_gem_pin_pages_locked(struct drm_gem_object *obj)
+ 
+ 	msm_gem_assert_locked(obj);
+ 
+-	if (GEM_WARN_ON(msm_obj->madv != MSM_MADV_WILLNEED)) {
++	if (GEM_WARN_ON(msm_obj->madv > madv)) {
++		DRM_DEV_ERROR(obj->dev->dev, "Invalid madv state: %u vs %u\n",
++			msm_obj->madv, madv);
+ 		return ERR_PTR(-EBUSY);
+ 	}
+ 
+@@ -248,7 +251,7 @@ struct page **msm_gem_pin_pages(struct drm_gem_object *obj)
+ 	struct page **p;
+ 
+ 	msm_gem_lock(obj);
+-	p = msm_gem_pin_pages_locked(obj);
++	p = msm_gem_pin_pages_locked(obj, MSM_MADV_WILLNEED);
+ 	msm_gem_unlock(obj);
+ 
+ 	return p;
+@@ -473,10 +476,7 @@ int msm_gem_pin_vma_locked(struct drm_gem_object *obj, struct msm_gem_vma *vma)
+ 
+ 	msm_gem_assert_locked(obj);
+ 
+-	if (GEM_WARN_ON(msm_obj->madv != MSM_MADV_WILLNEED))
+-		return -EBUSY;
+-
+-	pages = msm_gem_pin_pages_locked(obj);
++	pages = msm_gem_pin_pages_locked(obj, MSM_MADV_WILLNEED);
+ 	if (IS_ERR(pages))
+ 		return PTR_ERR(pages);
+ 
+@@ -699,13 +699,7 @@ static void *get_vaddr(struct drm_gem_object *obj, unsigned madv)
+ 	if (obj->import_attach)
+ 		return ERR_PTR(-ENODEV);
+ 
+-	if (GEM_WARN_ON(msm_obj->madv > madv)) {
+-		DRM_DEV_ERROR(obj->dev->dev, "Invalid madv state: %u vs %u\n",
+-			msm_obj->madv, madv);
+-		return ERR_PTR(-EBUSY);
+-	}
+-
+-	pages = msm_gem_pin_pages_locked(obj);
++	pages = msm_gem_pin_pages_locked(obj, madv);
+ 	if (IS_ERR(pages))
+ 		return ERR_CAST(pages);
+ 
+-- 
+2.39.2
 
-> +	info.intf_type = INTF_HDMI;
-> +	rc = dpu_encoder_setup(dev, encoder, &info);
-> +	if (rc) {
-> +		DPU_ERROR("failed to setup DPU encoder %d: rc:%d\n",
-> +			  encoder->base.id, rc);
-> +		return rc;
-> +	}
-> +
-> +	return 0;
-> +}
-> +
->   static int _dpu_kms_initialize_writeback(struct drm_device *dev,
->   		struct msm_drm_private *priv, struct dpu_kms *dpu_kms,
->   		const u32 *wb_formats, int n_formats)
-> @@ -683,6 +722,12 @@ static int _dpu_kms_setup_displays(struct drm_device *dev,
->   		return rc;
->   	}
->   
-> +	rc = _dpu_kms_initialize_hdmi(dev, priv, dpu_kms);
-> +	if (rc) {
-> +		DPU_ERROR("initialize HDMI failed, rc = %d\n", rc);
-> +		return rc;
-> +	}
-> +
->   	/* Since WB isn't a driver check the catalog before initializing */
->   	if (dpu_kms->catalog->wb_count) {
->   		for (i = 0; i < dpu_kms->catalog->wb_count; i++) {
