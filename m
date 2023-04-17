@@ -1,57 +1,67 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id D5E3D6E4AF4
-	for <lists+freedreno@lfdr.de>; Mon, 17 Apr 2023 16:10:37 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 8A2A26E4B49
+	for <lists+freedreno@lfdr.de>; Mon, 17 Apr 2023 16:20:10 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7CFD010E07C;
-	Mon, 17 Apr 2023 14:10:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EA6B410E4E6;
+	Mon, 17 Apr 2023 14:20:08 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 44EBC10E07C;
- Mon, 17 Apr 2023 14:10:34 +0000 (UTC)
+Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 27B0510E32E;
+ Mon, 17 Apr 2023 14:20:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1681740634; x=1713276634;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=YXao0Y1mlgkXgxIiX0P3t1OzKW+v0FkIvOH0kfXVX2Y=;
- b=ML23VdU3MtAeovqUoRhWjVRDkYYpFOQriqfs896DcgVqmbhpz7yfy5di
- /F92BHeSOvo9C0+qhkqwwSyBFGq+HI9J93DrAfqmMMet+JiFVIeyBauuK
- QZf8SZkpdaBDi3KwCZJ6leHmM3CrKvORMsnJCofY54emxsGD85qQPAMgI
- mJS1GE0Rs8xygsBOvoOKxKKqElDmYkRNQop4+z8rao47XGPZAMDySfnGB
- jawI3QBEzQiAqLdAtMBEyn7ahAjcWKL65aQA6KAuF4KuvqVkQeJZzCDh0
- PDDtDInSOt62kblPKavOQxF4W24ErKezOzEyyTYzUtEUQcldkqH0wweOt w==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10683"; a="344898570"
-X-IronPort-AV: E=Sophos;i="5.99,204,1677571200"; d="scan'208";a="344898570"
-Received: from orsmga003.jf.intel.com ([10.7.209.27])
- by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 Apr 2023 07:06:56 -0700
+ t=1681741206; x=1713277206;
+ h=message-id:date:mime-version:subject:to:cc:references:
+ from:in-reply-to:content-transfer-encoding;
+ bh=Qf8jzuCciMEVSDSI5sxFJPgOXBhFRJovo0jcdx4dq80=;
+ b=nFYhCdNZ0qpctr+sSpTm9PsPBdObTLSnn7NlCj1J3Jn9QyaZsLfHA4dd
+ VA8NjG7W1p7FiEUWHBJifBtbV8zWc4004DHSezdg0SZ8zmAf4GNVuEzMh
+ QrG/0x/nOZSDXswk+v289AWojfvFFpq0vBXOQHmKafiJ5Jjx+REt14x8m
+ Nb2EYXqEQJhtIKJB31kp7lyYdQoFmsmszBEvuVdMtA1oe7W0ObIxISOi8
+ LJ8sfcgoPfasSt/Fobk0vaAnsfDIT/j/PDBHUjWuKvbJ4aGaiZJPimFtA
+ a72YaMGVWEo3SJgTJBecuGGYmfNLxQf3IoTDJETh9lp6TP1kmNeOjnOcV Q==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10683"; a="431192951"
+X-IronPort-AV: E=Sophos;i="5.99,204,1677571200"; d="scan'208";a="431192951"
+Received: from orsmga004.jf.intel.com ([10.7.209.38])
+ by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 17 Apr 2023 07:20:04 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10683"; a="640965833"
-X-IronPort-AV: E=Sophos;i="5.99,204,1677571200"; d="scan'208";a="640965833"
-Received: from lkp-server01.sh.intel.com (HELO b613635ddfff) ([10.239.97.150])
- by orsmga003.jf.intel.com with ESMTP; 17 Apr 2023 07:06:52 -0700
-Received: from kbuild by b613635ddfff with local (Exim 4.96)
- (envelope-from <lkp@intel.com>) id 1poPVG-000cQH-2A;
- Mon, 17 Apr 2023 14:06:46 +0000
-Date: Mon, 17 Apr 2023 22:06:21 +0800
-From: kernel test robot <lkp@intel.com>
-To: Mark Yacoub <markyacoub@chromium.org>, Rob Clark <robdclark@gmail.com>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Sean Paul <sean@poorly.run>, David Airlie <airlied@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>
-Message-ID: <202304172130.pXI8PgGX-lkp@intel.com>
-References: <20230411192134.508113-11-markyacoub@google.com>
+X-IronPort-AV: E=McAfee;i="6600,9927,10683"; a="814821273"
+X-IronPort-AV: E=Sophos;i="5.99,204,1677571200"; d="scan'208";a="814821273"
+Received: from gtohallo-mobl.ger.corp.intel.com (HELO [10.213.232.210])
+ ([10.213.232.210])
+ by orsmga004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 17 Apr 2023 07:20:02 -0700
+Message-ID: <d9ceeb30-2275-0fe9-cdd7-ae3d7e696c8e@linux.intel.com>
+Date: Mon, 17 Apr 2023 15:20:00 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20230411192134.508113-11-markyacoub@google.com>
-Subject: Re: [Freedreno] [Intel-gfx] [PATCH v9 10/10] drm/msm: Implement
- HDCP 1.x using the new drm HDCP helpers
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.9.0
+Content-Language: en-US
+To: Rob Clark <robdclark@gmail.com>
+References: <CAF6AEGsZsMx+Vy+4UQSx3X7w_QNvvjLqWxx=PnCLAOC9f-X2CQ@mail.gmail.com>
+ <ZDb1phnddSne79iN@phenom.ffwll.local>
+ <CAF6AEGvBeDVM12ac0j_PKSdcY83hNDhyrQs9-=h=dx_7AoMXLw@mail.gmail.com>
+ <ZDcEGoSPGr/oRLas@phenom.ffwll.local>
+ <c82fd8fa-9f4b-f62f-83be-25853f9ecf5e@linux.intel.com>
+ <ZDgDQ1PqtXwu8zqA@phenom.ffwll.local>
+ <ad8f2793-c1b3-a505-e93f-6cc52fded86d@linux.intel.com>
+ <ZDhgcqiOtJi6//TS@phenom.ffwll.local>
+ <8893ad56-8807-eb69-2185-b338725f0b18@linux.intel.com>
+ <CAF6AEGtaiKMWsGxTSUHM7_s_Wqiw3=ta+g=arUxknJ0dxbYvFQ@mail.gmail.com>
+ <ZDuoWC7TlvNa1OOm@phenom.ffwll.local>
+ <09c8d794-bb64-f7ba-f854-f14ac30600a6@linux.intel.com>
+ <CAF6AEGsvCBoS+uKyBESk_ZHm-H_nyMbVi0K4ND1Cfbw97QcYfQ@mail.gmail.com>
+From: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
+Organization: Intel Corporation UK Plc
+In-Reply-To: <CAF6AEGsvCBoS+uKyBESk_ZHm-H_nyMbVi0K4ND1Cfbw97QcYfQ@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+Subject: Re: [Freedreno] [PATCH v3 6/7] drm: Add fdinfo memory stats
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,65 +74,287 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-kernel@vger.kernel.org, Mark Yacoub <markyacoub@chromium.org>,
- intel-gfx@lists.freedesktop.org, dianders@chromium.org,
- dri-devel@lists.freedesktop.org, Stephen Boyd <swboyd@chromium.org>,
- seanpaul@chromium.org, oe-kbuild-all@lists.linux.dev,
- freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org
+Cc: Rob Clark <robdclark@chromium.org>,
+ "open list:DOCUMENTATION" <linux-doc@vger.kernel.org>,
+ linux-arm-msm@vger.kernel.org, Jonathan Corbet <corbet@lwn.net>,
+ Emil Velikov <emil.l.velikov@gmail.com>,
+ Christopher Healy <healych@amazon.com>, dri-devel@lists.freedesktop.org,
+ open list <linux-kernel@vger.kernel.org>,
+ Boris Brezillon <boris.brezillon@collabora.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>, freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Hi Mark,
 
-kernel test robot noticed the following build errors:
+On 17/04/2023 14:42, Rob Clark wrote:
+> On Mon, Apr 17, 2023 at 4:10 AM Tvrtko Ursulin
+> <tvrtko.ursulin@linux.intel.com> wrote:
+>>
+>>
+>> On 16/04/2023 08:48, Daniel Vetter wrote:
+>>> On Fri, Apr 14, 2023 at 06:40:27AM -0700, Rob Clark wrote:
+>>>> On Fri, Apr 14, 2023 at 1:57 AM Tvrtko Ursulin
+>>>> <tvrtko.ursulin@linux.intel.com> wrote:
+>>>>>
+>>>>>
+>>>>> On 13/04/2023 21:05, Daniel Vetter wrote:
+>>>>>> On Thu, Apr 13, 2023 at 05:40:21PM +0100, Tvrtko Ursulin wrote:
+>>>>>>>
+>>>>>>> On 13/04/2023 14:27, Daniel Vetter wrote:
+>>>>>>>> On Thu, Apr 13, 2023 at 01:58:34PM +0100, Tvrtko Ursulin wrote:
+>>>>>>>>>
+>>>>>>>>> On 12/04/2023 20:18, Daniel Vetter wrote:
+>>>>>>>>>> On Wed, Apr 12, 2023 at 11:42:07AM -0700, Rob Clark wrote:
+>>>>>>>>>>> On Wed, Apr 12, 2023 at 11:17 AM Daniel Vetter <daniel@ffwll.ch> wrote:
+>>>>>>>>>>>>
+>>>>>>>>>>>> On Wed, Apr 12, 2023 at 10:59:54AM -0700, Rob Clark wrote:
+>>>>>>>>>>>>> On Wed, Apr 12, 2023 at 7:42 AM Tvrtko Ursulin
+>>>>>>>>>>>>> <tvrtko.ursulin@linux.intel.com> wrote:
+>>>>>>>>>>>>>>
+>>>>>>>>>>>>>>
+>>>>>>>>>>>>>> On 11/04/2023 23:56, Rob Clark wrote:
+>>>>>>>>>>>>>>> From: Rob Clark <robdclark@chromium.org>
+>>>>>>>>>>>>>>>
+>>>>>>>>>>>>>>> Add support to dump GEM stats to fdinfo.
+>>>>>>>>>>>>>>>
+>>>>>>>>>>>>>>> v2: Fix typos, change size units to match docs, use div_u64
+>>>>>>>>>>>>>>> v3: Do it in core
+>>>>>>>>>>>>>>>
+>>>>>>>>>>>>>>> Signed-off-by: Rob Clark <robdclark@chromium.org>
+>>>>>>>>>>>>>>> Reviewed-by: Emil Velikov <emil.l.velikov@gmail.com>
+>>>>>>>>>>>>>>> ---
+>>>>>>>>>>>>>>>        Documentation/gpu/drm-usage-stats.rst | 21 ++++++++
+>>>>>>>>>>>>>>>        drivers/gpu/drm/drm_file.c            | 76 +++++++++++++++++++++++++++
+>>>>>>>>>>>>>>>        include/drm/drm_file.h                |  1 +
+>>>>>>>>>>>>>>>        include/drm/drm_gem.h                 | 19 +++++++
+>>>>>>>>>>>>>>>        4 files changed, 117 insertions(+)
+>>>>>>>>>>>>>>>
+>>>>>>>>>>>>>>> diff --git a/Documentation/gpu/drm-usage-stats.rst b/Documentation/gpu/drm-usage-stats.rst
+>>>>>>>>>>>>>>> index b46327356e80..b5e7802532ed 100644
+>>>>>>>>>>>>>>> --- a/Documentation/gpu/drm-usage-stats.rst
+>>>>>>>>>>>>>>> +++ b/Documentation/gpu/drm-usage-stats.rst
+>>>>>>>>>>>>>>> @@ -105,6 +105,27 @@ object belong to this client, in the respective memory region.
+>>>>>>>>>>>>>>>        Default unit shall be bytes with optional unit specifiers of 'KiB' or 'MiB'
+>>>>>>>>>>>>>>>        indicating kibi- or mebi-bytes.
+>>>>>>>>>>>>>>>
+>>>>>>>>>>>>>>> +- drm-shared-memory: <uint> [KiB|MiB]
+>>>>>>>>>>>>>>> +
+>>>>>>>>>>>>>>> +The total size of buffers that are shared with another file (ie. have more
+>>>>>>>>>>>>>>> +than a single handle).
+>>>>>>>>>>>>>>> +
+>>>>>>>>>>>>>>> +- drm-private-memory: <uint> [KiB|MiB]
+>>>>>>>>>>>>>>> +
+>>>>>>>>>>>>>>> +The total size of buffers that are not shared with another file.
+>>>>>>>>>>>>>>> +
+>>>>>>>>>>>>>>> +- drm-resident-memory: <uint> [KiB|MiB]
+>>>>>>>>>>>>>>> +
+>>>>>>>>>>>>>>> +The total size of buffers that are resident in system memory.
+>>>>>>>>>>>>>>
+>>>>>>>>>>>>>> I think this naming maybe does not work best with the existing
+>>>>>>>>>>>>>> drm-memory-<region> keys.
+>>>>>>>>>>>>>
+>>>>>>>>>>>>> Actually, it was very deliberate not to conflict with the existing
+>>>>>>>>>>>>> drm-memory-<region> keys ;-)
+>>>>>>>>>>>>>
+>>>>>>>>>>>>> I wouldn't have preferred drm-memory-{active,resident,...} but it
+>>>>>>>>>>>>> could be mis-parsed by existing userspace so my hands were a bit tied.
+>>>>>>>>>>>>>
+>>>>>>>>>>>>>> How about introduce the concept of a memory region from the start and
+>>>>>>>>>>>>>> use naming similar like we do for engines?
+>>>>>>>>>>>>>>
+>>>>>>>>>>>>>> drm-memory-$CATEGORY-$REGION: ...
+>>>>>>>>>>>>>>
+>>>>>>>>>>>>>> Then we document a bunch of categories and their semantics, for instance:
+>>>>>>>>>>>>>>
+>>>>>>>>>>>>>> 'size' - All reachable objects
+>>>>>>>>>>>>>> 'shared' - Subset of 'size' with handle_count > 1
+>>>>>>>>>>>>>> 'resident' - Objects with backing store
+>>>>>>>>>>>>>> 'active' - Objects in use, subset of resident
+>>>>>>>>>>>>>> 'purgeable' - Or inactive? Subset of resident.
+>>>>>>>>>>>>>>
+>>>>>>>>>>>>>> We keep the same semantics as with process memory accounting (if I got
+>>>>>>>>>>>>>> it right) which could be desirable for a simplified mental model.
+>>>>>>>>>>>>>>
+>>>>>>>>>>>>>> (AMD needs to remind me of their 'drm-memory-...' keys semantics. If we
+>>>>>>>>>>>>>> correctly captured this in the first round it should be equivalent to
+>>>>>>>>>>>>>> 'resident' above. In any case we can document no category is equal to
+>>>>>>>>>>>>>> which category, and at most one of the two must be output.)
+>>>>>>>>>>>>>>
+>>>>>>>>>>>>>> Region names we at most partially standardize. Like we could say
+>>>>>>>>>>>>>> 'system' is to be used where backing store is system RAM and others are
+>>>>>>>>>>>>>> driver defined.
+>>>>>>>>>>>>>>
+>>>>>>>>>>>>>> Then discrete GPUs could emit N sets of key-values, one for each memory
+>>>>>>>>>>>>>> region they support.
+>>>>>>>>>>>>>>
+>>>>>>>>>>>>>> I think this all also works for objects which can be migrated between
+>>>>>>>>>>>>>> memory regions. 'Size' accounts them against all regions while for
+>>>>>>>>>>>>>> 'resident' they only appear in the region of their current placement, etc.
+>>>>>>>>>>>>>
+>>>>>>>>>>>>> I'm not too sure how to rectify different memory regions with this,
+>>>>>>>>>>>>> since drm core doesn't really know about the driver's memory regions.
+>>>>>>>>>>>>> Perhaps we can go back to this being a helper and drivers with vram
+>>>>>>>>>>>>> just don't use the helper?  Or??
+>>>>>>>>>>>>
+>>>>>>>>>>>> I think if you flip it around to drm-$CATEGORY-memory{-$REGION}: then it
+>>>>>>>>>>>> all works out reasonably consistently?
+>>>>>>>>>>>
+>>>>>>>>>>> That is basically what we have now.  I could append -system to each to
+>>>>>>>>>>> make things easier to add vram/etc (from a uabi standpoint)..
+>>>>>>>>>>
+>>>>>>>>>> What you have isn't really -system, but everything. So doesn't really make
+>>>>>>>>>> sense to me to mark this -system, it's only really true for integrated (if
+>>>>>>>>>> they don't have stolen or something like that).
+>>>>>>>>>>
+>>>>>>>>>> Also my comment was more in reply to Tvrtko's suggestion.
+>>>>>>>>>
+>>>>>>>>> Right so my proposal was drm-memory-$CATEGORY-$REGION which I think aligns
+>>>>>>>>> with the current drm-memory-$REGION by extending, rather than creating
+>>>>>>>>> confusion with different order of key name components.
+>>>>>>>>
+>>>>>>>> Oh my comment was pretty much just bikeshed, in case someone creates a
+>>>>>>>> $REGION that other drivers use for $CATEGORY. Kinda Rob's parsing point.
+>>>>>>>> So $CATEGORY before the -memory.
+>>>>>>>>
+>>>>>>>> Otoh I don't think that'll happen, so I guess we can go with whatever more
+>>>>>>>> folks like :-) I don't really care much personally.
+>>>>>>>
+>>>>>>> Okay I missed the parsing problem.
+>>>>>>>
+>>>>>>>>> AMD currently has (among others) drm-memory-vram, which we could define in
+>>>>>>>>> the spec maps to category X, if category component is not present.
+>>>>>>>>>
+>>>>>>>>> Some examples:
+>>>>>>>>>
+>>>>>>>>> drm-memory-resident-system:
+>>>>>>>>> drm-memory-size-lmem0:
+>>>>>>>>> drm-memory-active-vram:
+>>>>>>>>>
+>>>>>>>>> Etc.. I think it creates a consistent story.
+>>>>>>>>>
+>>>>>>>>> Other than this, my two I think significant opens which haven't been
+>>>>>>>>> addressed yet are:
+>>>>>>>>>
+>>>>>>>>> 1)
+>>>>>>>>>
+>>>>>>>>> Why do we want totals (not per region) when userspace can trivially
+>>>>>>>>> aggregate if they want. What is the use case?
+>>>>>>>>>
+>>>>>>>>> 2)
+>>>>>>>>>
+>>>>>>>>> Current proposal limits the value to whole objects and fixates that by
+>>>>>>>>> having it in the common code. If/when some driver is able to support sub-BO
+>>>>>>>>> granularity they will need to opt out of the common printer at which point
+>>>>>>>>> it may be less churn to start with a helper rather than mid-layer. Or maybe
+>>>>>>>>> some drivers already support this, I don't know. Given how important VM BIND
+>>>>>>>>> is I wouldn't be surprised.
+>>>>>>>>
+>>>>>>>> I feel like for drivers using ttm we want a ttm helper which takes care of
+>>>>>>>> the region printing in hopefully a standard way. And that could then also
+>>>>>>>> take care of all kinds of of partial binding and funny rules (like maybe
+>>>>>>>> we want a standard vram region that addds up all the lmem regions on
+>>>>>>>> intel, so that all dgpu have a common vram bucket that generic tools
+>>>>>>>> understand?).
+>>>>>>>
+>>>>>>> First part yes, but for the second I would think we want to avoid any
+>>>>>>> aggregation in the kernel which can be done in userspace just as well. Such
+>>>>>>> total vram bucket would be pretty useless on Intel even since userspace
+>>>>>>> needs to be region aware to make use of all resources. It could even be
+>>>>>>> counter productive I think - "why am I getting out of memory when half of my
+>>>>>>> vram is unused!?".
+>>>>>>
+>>>>>> This is not for intel-aware userspace. This is for fairly generic "gputop"
+>>>>>> style userspace, which might simply have no clue or interest in what lmemX
+>>>>>> means, but would understand vram.
+>>>>>>
+>>>>>> Aggregating makes sense.
+>>>>>
+>>>>> Lmem vs vram is now an argument not about aggregation but about
+>>>>> standardizing regions names.
+>>>>>
+>>>>> One detail also is a change in philosophy compared to engine stats where
+>>>>> engine names are not centrally prescribed and it was expected userspace
+>>>>> will have to handle things generically and with some vendor specific
+>>>>> knowledge.
+>>>>>
+>>>>> Like in my gputop patches. It doesn't need to understand what is what,
+>>>>> it just finds what's there and presents it to the user.
+>>>>>
+>>>>> Come some accel driver with local memory it wouldn't be vram any more.
+>>>>> Or even a headless data center GPU. So I really don't think it is good
+>>>>> to hardcode 'vram' in the spec, or midlayer, or helpers.
+>>>>>
+>>>>> And for aggregation.. again, userspace can do it just as well. If we do
+>>>>> it in kernel then immediately we have multiple sets of keys to output
+>>>>> for any driver which wants to show the region view. IMO it is just
+>>>>> pointless work in the kernel and more code in the kernel, when userspace
+>>>>> can do it.
+>>>>>
+>>>>> Proposal A (one a discrete gpu, one category only):
+>>>>>
+>>>>> drm-resident-memory: x KiB
+>>>>> drm-resident-memory-system: x KiB
+>>>>> drm-resident-memory-vram: x KiB
+>>>>>
+>>>>> Two loops in the kernel, more parsing in userspace.
+>>>>
+>>>> why would it be more than one loop, ie.
+>>>>
+>>>>       mem.resident += size;
+>>>>       mem.category[cat].resident += size;
+>>>>
+>>>> At the end of the day, there is limited real-estate to show a million
+>>>> different columns of information.  Even the gputop patches I posted
+>>>> don't show everything of what is currently there.  And nvtop only
+>>>> shows toplevel resident stat.  So I think the "everything" stat is
+>>>> going to be what most tools use.
+>>>
+>>> Yeah with enough finesse the double-loop isn't needed, it's just the
+>>> simplest possible approach.
+>>>
+>>> Also this is fdinfo, I _really_ want perf data showing that it's a
+>>> real-world problem when we conjecture about algorithmic complexity.
+>>> procutils have been algorithmically garbage since decades after all :-)
+>>
+>> Just run it. :)
+>>
+>> Algorithmic complexity is quite obvious and not a conjecture - to find
+>> DRM clients you have to walk _all_ pids and _all_ fds under them. So
+>> amount of work can scale very quickly and even _not_ with the number of
+>> DRM clients.
+>>
+>> It's not too bad on my desktop setup but it is significantly more CPU
+>> intensive than top(1).
+>>
+>> It would be possible to optimise the current code some more by not
+>> parsing full fdinfo (may become more important as number of keys grow),
+>> but that's only relevant when number of drm fds is large. It doesn't
+>> solve the basic pids * open fds search for which we'd need a way to walk
+>> the list of pids with drm fds directly.
+> 
+> All of which has (almost[1]) nothing to do with one loop or two
 
-[auto build test ERROR on drm-intel/for-linux-next-fixes]
-[also build test ERROR on linus/master v6.3-rc7]
-[cannot apply to drm-tip/drm-tip drm-misc/drm-misc-next drm-intel/for-linux-next drm/drm-next]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch#_base_tree_information]
+Correct, this was just a side discussion where I understood Daniel is 
+asking about the wider performance story. Perhaps I misunderstood.
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Mark-Yacoub/drm-hdcp-Add-drm_hdcp_atomic_check/20230412-032412
-base:   git://anongit.freedesktop.org/drm-intel for-linux-next-fixes
-patch link:    https://lore.kernel.org/r/20230411192134.508113-11-markyacoub%40google.com
-patch subject: [Intel-gfx] [PATCH v9 10/10] drm/msm: Implement HDCP 1.x using the new drm HDCP helpers
-config: loongarch-randconfig-r015-20230417 (https://download.01.org/0day-ci/archive/20230417/202304172130.pXI8PgGX-lkp@intel.com/config)
-compiler: loongarch64-linux-gcc (GCC) 12.1.0
-reproduce (this is a W=1 build):
-        wget https://raw.githubusercontent.com/intel/lkp-tests/master/sbin/make.cross -O ~/bin/make.cross
-        chmod +x ~/bin/make.cross
-        # https://github.com/intel-lab-lkp/linux/commit/93651da28f1a578d2edab2d2b47d9935145d675f
-        git remote add linux-review https://github.com/intel-lab-lkp/linux
-        git fetch --no-tags linux-review Mark-Yacoub/drm-hdcp-Add-drm_hdcp_atomic_check/20230412-032412
-        git checkout 93651da28f1a578d2edab2d2b47d9935145d675f
-        # save the config file
-        mkdir build_dir && cp config build_dir/.config
-        COMPILER_INSTALL_PATH=$HOME/0day COMPILER=gcc-12.1.0 make.cross W=1 O=build_dir ARCH=loongarch olddefconfig
-        COMPILER_INSTALL_PATH=$HOME/0day COMPILER=gcc-12.1.0 make.cross W=1 O=build_dir ARCH=loongarch SHELL=/bin/bash drivers/gpu/drm/msm/
+> (ignoring for a moment that I already pointed out a single loop is all
+> that is needed).  If CPU overhead is a problem, we could perhaps come
+> up some sysfs which has one file per drm_file and side-step crawling
+> of all of the proc * fd.  I'll play around with it some but I'm pretty
+> sure you are trying to optimize the wrong thing.
 
-If you fix the issue, kindly add following tag where applicable
-| Reported-by: kernel test robot <lkp@intel.com>
-| Link: https://lore.kernel.org/oe-kbuild-all/202304172130.pXI8PgGX-lkp@intel.com/
+Yes, that's what I meant too in "a way to walk the list of pids with drm 
+fds directly".
 
-All errors (new ones prefixed by >>):
+Regards,
 
->> drivers/gpu/drm/msm/msm_atomic.c:12:10: fatal error: dp_drm.h: No such file or directory
-      12 | #include "dp_drm.h"
-         |          ^~~~~~~~~~
-   compilation terminated.
+Tvrtko
 
-
-vim +12 drivers/gpu/drm/msm/msm_atomic.c
-
-    11	
-  > 12	#include "dp_drm.h"
-    13	#include "msm_atomic_trace.h"
-    14	#include "msm_drv.h"
-    15	#include "msm_gem.h"
-    16	#include "msm_kms.h"
-    17	
-
--- 
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests
+> 
+> BR,
+> -R
+> 
+> [1] generally a single process using drm has multiple fd's pointing at
+> the same drm_file.. which makes the current approach of having to read
+> fdinfo to find the client-id sub-optimal.  But still the total # of
+> proc * fd is much larger
