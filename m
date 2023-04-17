@@ -2,60 +2,76 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id EA3EC6E5207
-	for <lists+freedreno@lfdr.de>; Mon, 17 Apr 2023 22:45:26 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 70F2F6E53F8
+	for <lists+freedreno@lfdr.de>; Mon, 17 Apr 2023 23:36:49 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5B6E810E1E9;
-	Mon, 17 Apr 2023 20:45:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BB8BB10E618;
+	Mon, 17 Apr 2023 21:36:45 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-oa1-x33.google.com (mail-oa1-x33.google.com
- [IPv6:2001:4860:4864:20::33])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A48C010E0FB;
- Mon, 17 Apr 2023 20:45:22 +0000 (UTC)
-Received: by mail-oa1-x33.google.com with SMTP id
- 586e51a60fabf-187916b6543so16334491fac.7; 
- Mon, 17 Apr 2023 13:45:22 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20221208; t=1681764319; x=1684356319;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=6fpw6Zw0s5R3Qp1iH0xXMY6crGqEVCslknpiblwPum4=;
- b=PbL9RlrcEvNtSBq5aFF1K+XHDmkI1FDrcYfuJUZi/GpvIqLh3TS1ne611uq7ZetEs7
- wTsy6p5MIs1/M1NQGID3U8sN6mdCiFAqtLNe+1MlksdnJ4Q2BoVi9N4G4Wi32A2mcoIS
- CRtbvVrcsxf8IStYHnSXI2//mFbzdQQNb976ojo0B/ZPO7rHgUXtzBClLCH3CrBP7Ivp
- BB6UxkCNPc31gU5iVLET6tA2Dfznsf4FlRy49CqleR2cFoqqvVg7fFCUXHw/KFQi9MmZ
- cchHkgfPOma52nHjRoG4lvsUSnl5tcgdf5u9T6N1pdIsMfaUHlJeeblnSdNkg7WW4wGY
- vojg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1681764319; x=1684356319;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=6fpw6Zw0s5R3Qp1iH0xXMY6crGqEVCslknpiblwPum4=;
- b=eflbo+SeFd3iI3AU6P9G9wCqKKyRyCooKOCwkb/qwHZZDoaRBTskWPT41nIRnbs2Gd
- svdh/cl+DaGkr/P5LhAlrJfd/UZIhCD1RWLcpxyunWX5/L5kgsGQ6exs0XF/cdrU7mDQ
- JUevnWy4haBJD3aF5Btuo37pTeQ0locCL3EXxHa3f4mEc7FxcqSWPCr1w9C0CRHW4pG8
- sarkW/5uBtEVmQZtUzzXuW/zRl7AhK/CHpdLGKCkwkYElj4wPQqCJSovyiaMohhACmIF
- gxMilQm/oe505soorMBG4b1NQmmJf8ToD3Xu1KeSxRyHkjdd8WT4FKxzC2FJJV+FmjO1
- fJ2g==
-X-Gm-Message-State: AAQBX9dmJeRtFI7pIDdEjWgduRQ+C+MJeZveoR+p6uhGiNsu3ixSu+jc
- 3NWA4bY2M8RUiVHtQNu2K8t6NeJw/Jpvk3crQgXmJ+VY
-X-Google-Smtp-Source: AKy350YGawNtt/qIBtEhaGmjXWvU97vjeDYCYWAWwSsngIuB8jSH/zqF+G8k9jUHx6+c7HnX9gmC/4usZ8HmOXt9ftk=
-X-Received: by 2002:a05:6870:34b:b0:187:8ee8:5f5b with SMTP id
- n11-20020a056870034b00b001878ee85f5bmr7174102oaf.5.1681764319699; Mon, 17 Apr
- 2023 13:45:19 -0700 (PDT)
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0216E10E211;
+ Mon, 17 Apr 2023 21:36:43 +0000 (UTC)
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 33HKeClM006420; Mon, 17 Apr 2023 21:36:37 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
+ h=message-id : date :
+ mime-version : subject : to : cc : references : from : in-reply-to :
+ content-type : content-transfer-encoding; s=qcppdkim1;
+ bh=HNYfTE8aedu25aVlQ+Eoy8AaUtqm6feQUuUGK0VrZao=;
+ b=QflANhaVHw4FvSnUxV391nIDXto554eYJN+1eohlPWwwLFyqHKqlbP1KpGPk2emVUr2v
+ ounXxXmNFhhsSX54qw4nTgRKgB3PyJrxyJHv5EaFAuLIHQL6h4q5h7adI+NJP8+15UbT
+ IwY3P0WDN4+5lEy87OdT2k3FC5fnH7b89OpcH+NSvF1IxZFWNh38bQj/H3swEL6goAee
+ GhLtnvF7Gl/ujHwF6OlsMHqlo9Bsz0AEX+41oY3tsoaws2y22FxQahmCdKbPJpDdoLoN
+ NeyJX0khR3NJGTdUefbJTxP9JU9IhgL1CKaVjffOl24vTLjc35lgXfRBiH1aGN1rKUk4 0Q== 
+Received: from nalasppmta01.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3q11fe1xr0-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 17 Apr 2023 21:36:37 +0000
+Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
+ [10.47.209.196])
+ by NALASPPMTA01.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 33HLaapp023299
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 17 Apr 2023 21:36:36 GMT
+Received: from [10.110.98.241] (10.80.80.8) by nalasex01a.na.qualcomm.com
+ (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.42; Mon, 17 Apr
+ 2023 14:36:35 -0700
+Message-ID: <c218138c-d82c-502c-1a40-26f06d7800e4@quicinc.com>
+Date: Mon, 17 Apr 2023 14:36:35 -0700
 MIME-Version: 1.0
-References: <20230417201215.448099-1-robdclark@gmail.com>
-In-Reply-To: <20230417201215.448099-1-robdclark@gmail.com>
-From: Rob Clark <robdclark@gmail.com>
-Date: Mon, 17 Apr 2023 13:45:08 -0700
-Message-ID: <CAF6AEGumgsJJQXojapPAJOjmFo=MZ31DNmp9T+SErQ2GBKBLFg@mail.gmail.com>
-To: dri-devel@lists.freedesktop.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [Freedreno] [RFC 0/3] drm: Add comm/cmdline fdinfo fields
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
+ Thunderbird/91.6.2
+Content-Language: en-US
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Rob Clark
+ <robdclark@gmail.com>, Sean Paul <sean@poorly.run>
+References: <20230415171926.85774-1-dmitry.baryshkov@linaro.org>
+ <20230415171926.85774-3-dmitry.baryshkov@linaro.org>
+From: Abhinav Kumar <quic_abhinavk@quicinc.com>
+In-Reply-To: <20230415171926.85774-3-dmitry.baryshkov@linaro.org>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-GUID: pHT4GeNdE4o_oueO5p3wjFxZAFXvci0k
+X-Proofpoint-ORIG-GUID: pHT4GeNdE4o_oueO5p3wjFxZAFXvci0k
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.254,Aquarius:18.0.942,Hydra:6.0.573,FMLib:17.11.170.22
+ definitions=2023-04-17_14,2023-04-17_01,2023-02-09_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 mlxscore=0
+ malwarescore=0 suspectscore=0 bulkscore=0 phishscore=0 spamscore=0
+ priorityscore=1501 clxscore=1015 mlxlogscore=930 adultscore=0
+ lowpriorityscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2303200000 definitions=main-2304170191
+Subject: Re: [Freedreno] [PATCH 2/2] drm/msm/dpu: add HDMI output support
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,49 +84,92 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rob Clark <robdclark@chromium.org>,
- Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
- "open list:DOCUMENTATION" <linux-doc@vger.kernel.org>,
- Akhil P Oommen <quic_akhilpo@quicinc.com>,
- "open list:DRM DRIVER FOR MSM ADRENO GPU" <linux-arm-msm@vger.kernel.org>,
- open list <linux-kernel@vger.kernel.org>,
- Konrad Dybcio <konrad.dybcio@linaro.org>, Sean Paul <sean@poorly.run>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- "open list:DRM DRIVER FOR MSM ADRENO GPU" <freedreno@lists.freedesktop.org>,
- Chia-I Wu <olvaffe@gmail.com>
+Cc: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
+ Bjorn Andersson <andersson@kernel.org>, dri-devel@lists.freedesktop.org,
+ Stephen Boyd <swboyd@chromium.org>, Daniel Vetter <daniel@ffwll.ch>,
+ David Airlie <airlied@gmail.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Mon, Apr 17, 2023 at 1:12=E2=80=AFPM Rob Clark <robdclark@gmail.com> wro=
-te:
->
-> From: Rob Clark <robdclark@chromium.org>
->
-> When many of the things using the GPU are processes in a VM guest, the
-> actual client process is just a proxy.  The msm driver has a way to let
-> the proxy tell the kernel the actual VM client process's executable name
-> and command-line, which has until now been used simply for GPU crash
-> devcore dumps.  Lets also expose this via fdinfo so that tools can
-> expose who the actual user of the GPU is.
 
-I should have also mentioned, in the VM/proxy scenario we have a
-single process with separate drm_file's for each guest VM process.  So
-it isn't an option to just change the proxy process's name to match
-the client.
 
-> Rob Clark (3):
->   drm/doc: Relax fdinfo string constraints
->   drm/msm: Rework get_comm_cmdline() helper
->   drm/msm: Add comm/cmdline fields
->
->  Documentation/gpu/drm-usage-stats.rst   | 37 +++++++++++++++----------
->  drivers/gpu/drm/msm/adreno/adreno_gpu.c |  4 +--
->  drivers/gpu/drm/msm/msm_drv.c           |  2 ++
->  drivers/gpu/drm/msm/msm_gpu.c           | 27 +++++++++++++-----
->  drivers/gpu/drm/msm/msm_gpu.h           | 12 ++++++--
->  drivers/gpu/drm/msm/msm_submitqueue.c   |  1 +
->  6 files changed, 58 insertions(+), 25 deletions(-)
->
-> --
-> 2.39.2
->
+On 4/15/2023 10:19 AM, Dmitry Baryshkov wrote:
+> MSM8998 and the older Qualcomm platforms support HDMI outputs. Now as
+> DPU encoder is ready, add support for using INTF_HDMI.
+> 
+
+ From what I see, encoder was always ready but just HDMI case was not 
+handled? Or are you saying this because of the prev patch which sorts 
+out encoder_type and intf_type
+
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> ---
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c | 45 +++++++++++++++++++++++++
+>   1 file changed, 45 insertions(+)
+> 
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
+> index e85e3721d2c7..65cce59163a4 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
+> @@ -617,6 +617,45 @@ static int _dpu_kms_initialize_displayport(struct drm_device *dev,
+>   	return 0;
+>   }
+>   
+> +static int _dpu_kms_initialize_hdmi(struct drm_device *dev,
+> +				    struct msm_drm_private *priv,
+> +				    struct dpu_kms *dpu_kms)
+> +{
+> +	struct drm_encoder *encoder = NULL;
+> +	struct msm_display_info info;
+> +	int rc;
+> +	int i;
+> +
+> +	if (!priv->hdmi)
+> +		return 0;
+> +
+> +	encoder = dpu_encoder_init(dev, DRM_MODE_ENCODER_TMDS);
+> +	if (IS_ERR(encoder)) {
+> +		DPU_ERROR("encoder init failed for HDMI display\n");
+> +		return PTR_ERR(encoder);
+> +	}
+> +
+> +	memset(&info, 0, sizeof(info));
+> +	rc = msm_hdmi_modeset_init(priv->hdmi, dev, encoder);
+> +	if (rc) {
+> +		DPU_ERROR("modeset_init failed for DP, rc = %d\n", rc);
+> +		drm_encoder_cleanup(encoder);
+> +		return rc;
+> +	}
+> +
+> +	info.num_of_h_tiles = 1;
+> +	info.h_tile_instance[0] = i;
+
+As Arnaud noted, i is uninitialized here.
+
+> +	info.intf_type = INTF_HDMI;
+> +	rc = dpu_encoder_setup(dev, encoder, &info);
+> +	if (rc) {
+> +		DPU_ERROR("failed to setup DPU encoder %d: rc:%d\n",
+> +			  encoder->base.id, rc);
+> +		return rc;
+> +	}
+> +
+> +	return 0;
+> +}
+> +
+>   static int _dpu_kms_initialize_writeback(struct drm_device *dev,
+>   		struct msm_drm_private *priv, struct dpu_kms *dpu_kms,
+>   		const u32 *wb_formats, int n_formats)
+> @@ -683,6 +722,12 @@ static int _dpu_kms_setup_displays(struct drm_device *dev,
+>   		return rc;
+>   	}
+>   
+> +	rc = _dpu_kms_initialize_hdmi(dev, priv, dpu_kms);
+> +	if (rc) {
+> +		DPU_ERROR("initialize HDMI failed, rc = %d\n", rc);
+> +		return rc;
+> +	}
+> +
+>   	/* Since WB isn't a driver check the catalog before initializing */
+>   	if (dpu_kms->catalog->wb_count) {
+>   		for (i = 0; i < dpu_kms->catalog->wb_count; i++) {
