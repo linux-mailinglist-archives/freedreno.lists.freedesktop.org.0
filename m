@@ -1,78 +1,62 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 35DE26E50C7
-	for <lists+freedreno@lfdr.de>; Mon, 17 Apr 2023 21:25:23 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id E34B66E5119
+	for <lists+freedreno@lfdr.de>; Mon, 17 Apr 2023 21:41:16 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EBCF410E08C;
-	Mon, 17 Apr 2023 19:25:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A150B10E045;
+	Mon, 17 Apr 2023 19:41:15 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DEA0E10E08C;
- Mon, 17 Apr 2023 19:25:19 +0000 (UTC)
-Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 33HFchYL018512; Mon, 17 Apr 2023 19:25:14 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
- h=message-id : date :
- mime-version : subject : to : cc : references : from : in-reply-to :
- content-type : content-transfer-encoding; s=qcppdkim1;
- bh=JEYpsYKwHOR50Mnj7o+oga2T/cgqyoIPU1IgG6RtLT0=;
- b=Fo5zfqT3x2+lzRhSfbl07JPlTVSDSh+4/coZmc0VoNqifGYOO+nTxZ/w/GbUFxy6MRa4
- 5Ikmu93iLeOj30i/6myqshTTfgxzzbdU005RTZZQ8ZIaIvP5QQl25Z/l0XH0DK0g6F1I
- 1IartU+MTZz9vSHSC7kxDcPi+blzzK1pM8IJEdlnIH1hiOq8kaHFwTwCTXozNi8bEGIL
- S2HoR600mWamV2S2ZMV8z6sIkVYmEgZn6HwGX1LV477ABt6krGyhRBbgXjwRMX0+3iwL
- X+nyox2EdkuxarypiSxYrRppRNDleI4gqG1XGeX3K419aYcmx8O2WNGj65sr7DJNturZ Rg== 
-Received: from nalasppmta03.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3q14gk995v-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 17 Apr 2023 19:25:14 +0000
-Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
- [10.47.209.196])
- by NALASPPMTA03.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 33HJPDHE014304
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 17 Apr 2023 19:25:13 GMT
-Received: from [10.110.98.241] (10.80.80.8) by nalasex01a.na.qualcomm.com
- (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.42; Mon, 17 Apr
- 2023 12:25:11 -0700
-Message-ID: <37656370-df7b-208e-9250-10583a54aa56@quicinc.com>
-Date: Mon, 17 Apr 2023 12:25:02 -0700
+Received: from m-r1.th.seeweb.it (m-r1.th.seeweb.it [5.144.164.170])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A9E0D10E045
+ for <freedreno@lists.freedesktop.org>; Mon, 17 Apr 2023 19:41:13 +0000 (UTC)
+Received: from SoMainline.org (94-211-6-86.cable.dynamic.v4.ziggo.nl
+ [94.211.6.86])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest
+ SHA256) (No client certificate requested)
+ by m-r1.th.seeweb.it (Postfix) with ESMTPSA id 7B9701F637;
+ Mon, 17 Apr 2023 21:41:09 +0200 (CEST)
+Date: Mon, 17 Apr 2023 21:41:07 +0200
+From: Marijn Suijten <marijn.suijten@somainline.org>
+To: Abhinav Kumar <quic_abhinavk@quicinc.com>
+Message-ID: <5tjwn4p3nkpjuczudipkrvhy63kfzos6x7o7aufwdei7auujcz@oba37opujh5r>
+Mail-Followup-To: Marijn Suijten <marijn.suijten@somainline.org>, 
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, 
+ Jessica Zhang <quic_jesszhan@quicinc.com>, phone-devel@vger.kernel.org, 
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ ~postmarketos/upstreaming@lists.sr.ht, 
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@somainline.org>,
+ Konrad Dybcio <konrad.dybcio@linaro.org>, 
+ Martin Botka <martin.botka@somainline.org>,
+ Jami Kettunen <jami.kettunen@somainline.org>, 
+ Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
+ David Airlie <airlied@gmail.com>, 
+ Daniel Vetter <daniel@ffwll.ch>, Stephen Boyd <swboyd@chromium.org>, 
+ Vinod Koul <vkoul@kernel.org>, Bjorn Andersson <andersson@kernel.org>, 
+ Kuogee Hsieh <quic_khsieh@quicinc.com>,
+ Konrad Dybcio <konrad.dybcio@somainline.org>, 
+ Loic Poulain <loic.poulain@linaro.org>,
+ Vinod Polimera <quic_vpolimer@quicinc.com>, 
+ Adam Skladowski <a39.skl@gmail.com>, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, 
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
+References: <20221231215006.211860-1-marijn.suijten@somainline.org>
+ <20221231215006.211860-6-marijn.suijten@somainline.org>
+ <773cd72b-a766-1764-e25f-0af1174f0e51@quicinc.com>
+ <1051d6bd-eb3c-6293-0bd2-3f4ea28fa3f8@linaro.org>
+ <df059f88-6ff6-5906-58f1-4f6c752c4214@quicinc.com>
+ <20230214130636.ldckqgcq6ajph372@SoMainline.org>
+ <d514591a-2891-8c2d-2cd4-5af8283748f5@quicinc.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.6.2
-Content-Language: en-US
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Rob Clark
- <robdclark@gmail.com>, Sean Paul <sean@poorly.run>
-References: <20230415171926.85774-1-dmitry.baryshkov@linaro.org>
- <20230415171926.85774-2-dmitry.baryshkov@linaro.org>
-From: Abhinav Kumar <quic_abhinavk@quicinc.com>
-In-Reply-To: <20230415171926.85774-2-dmitry.baryshkov@linaro.org>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-ORIG-GUID: U_66wm-3LZHkv6cvLqGwHglNz7cXFwaj
-X-Proofpoint-GUID: U_66wm-3LZHkv6cvLqGwHglNz7cXFwaj
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.254,Aquarius:18.0.942,Hydra:6.0.573,FMLib:17.11.170.22
- definitions=2023-04-17_12,2023-04-17_01,2023-02-09_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 adultscore=0
- mlxlogscore=638 mlxscore=0 priorityscore=1501 phishscore=0 suspectscore=0
- bulkscore=0 impostorscore=0 clxscore=1011 lowpriorityscore=0 spamscore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2303200000
- definitions=main-2304170171
-Subject: Re: [Freedreno] [PATCH 1/2] drm/msm/dpu: simplify intf allocation
- code
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <d514591a-2891-8c2d-2cd4-5af8283748f5@quicinc.com>
+Subject: Re: [Freedreno] [RFC PATCH 5/7] drm/msm/dpu: Document and enable
+ TEAR interrupts on DSI interfaces
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -85,30 +69,88 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
- Bjorn Andersson <andersson@kernel.org>, dri-devel@lists.freedesktop.org,
- Stephen Boyd <swboyd@chromium.org>, Daniel Vetter <daniel@ffwll.ch>,
- Bjorn Andersson <bjorn.andersson@linaro.org>, David Airlie <airlied@gmail.com>
+Cc: Konrad Dybcio <konrad.dybcio@somainline.org>,
+ dri-devel@lists.freedesktop.org,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@somainline.org>,
+ phone-devel@vger.kernel.org, David Airlie <airlied@gmail.com>,
+ Rob Clark <robdclark@gmail.com>, Kuogee Hsieh <quic_khsieh@quicinc.com>,
+ Jessica Zhang <quic_jesszhan@quicinc.com>, linux-arm-msm@vger.kernel.org,
+ Adam Skladowski <a39.skl@gmail.com>, Stephen Boyd <swboyd@chromium.org>,
+ Martin Botka <martin.botka@somainline.org>,
+ ~postmarketos/upstreaming@lists.sr.ht, Sean Paul <sean@poorly.run>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Loic Poulain <loic.poulain@linaro.org>,
+ Jami Kettunen <jami.kettunen@somainline.org>,
+ Bjorn Andersson <andersson@kernel.org>, linux-kernel@vger.kernel.org,
+ Konrad Dybcio <konrad.dybcio@linaro.org>, Vinod Koul <vkoul@kernel.org>,
+ Daniel Vetter <daniel@ffwll.ch>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ freedreno@lists.freedesktop.org, Vinod Polimera <quic_vpolimer@quicinc.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-
-
-On 4/15/2023 10:19 AM, Dmitry Baryshkov wrote:
-> Rather than passing DRM_MODE_ENCODER_* and letting dpu_encoder to guess,
-> which intf type we mean, pass INTF_DSI/INTF_DP directly. This is
-> required to support HDMI output in DPU, as both DP and HDMI encoders are
-> DRM_MODE_ENCODER_TMDS. Thus dpu_encoder code can not make a difference
-> between HDMI and DP outputs.
+On 2023-02-14 09:54:57, Abhinav Kumar wrote:
+[..]
+> >>>> Just wondering, how were the lengths calculated for the INTF blocks?
+> >>>> The values in general seem a little off to me.
+> > 
+> > These (for MSM8998) have been taken from downstream specifically; my
+> > series starts using INTF_STATUS at 0x26C which conveniently is the
+> > register right after 0x268, matching the fact that INTF TE and these
+> > registers weren't supported/available yet on MSM8998.
+> > 
+> >>>> For example, I'm looking downstream and it seems to me that the length
+> >>>> for the INTF_0 on MSM8998 should be 0x280. Similarly for SC7280, I'm
+> >>>> seeing that length for INTF + tearcheck should be 0x2c4.
+> > 
+> > There are many different downstream sources and tags with seemingly
+> > conflicting/confusing information.  For v2 [2] I've picked the highest
+> > register used by the driver which is INTF_TEAR_AUTOREFRESH_CONFIG at
+> > 0x2B4 (but there might always be more registers that don't need to be
+> > poked at by the driver, but contain magic debug information and the
+> > like... those would be useful to capture in the dump going forward).
+> > 
+> > [2]: https://github.com/SoMainline/linux/commit/2bbc609dd28aa0bd0a2dede20163e521912d0072
+> > 
 > 
-> Reviewed-by: Bjorn Andersson <bjorn.andersson@linaro.org>
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> ---
+> Not entirely correct.TEAR_AUTOREFRESH_STATUS is at 0x2c0 for sm8350 and 
+> sm8450 as well so 0x2b4 is a bit short. DPU code uses autorefresh status 
+> today.Esp after your changes it will use the autorefresh status from 
+> intf te which is at offset 0x2c0
 
-Since it was previously agreed that INTF_eDP will be dropped in favor of 
-using just INTF_DP for both eDP and DP (the previous cause of debate), I 
-am fine with this.
+Revisiting this, I don't see current DPU code nor downstream 5.4 / 5.10
+SDE techpack on some of my checkouts use this register, only
+INTF_TEAR_AUTOREFRESH_CONFIG at 0x2b4..0x2b7.  Am I missing something
+critical here?
 
-Hence,
+> >>> We have discussed INTF lengths in [1]. The current understanding of the
+> >>> block lengths can be found at [2]. Please comment there if any of the
+> >>> fixed lengths sounds incorrect to you.
+> >>>
+> >>> [1] https://patchwork.freedesktop.org/patch/522187/
+> >>> [2] https://patchwork.freedesktop.org/patch/522227/
+> >>>
+> >>> [skipped the rest]
+> >>>
+> >>
+> >> Please correct my understanding here, it was agreed to fix intf blocks
+> >> to 0x2c4 here https://patchwork.freedesktop.org/patch/522227/ but I dont
+> >> see this was merged?
+> >>
+> >> It was agreed to first land INTF_TE and then add the higher addresses
+> > 
+> > Seems like it, at least if I interpret [3] correctly.  My series adds a
+> > new define that will hardcode _len to 0x2B8 for now, and Dmitry/Konrad
+> > can later extend it to whatever is stated by the correct downstream
+> > source.
+> > 
+> 
+> Like mentioned above it should be 0x2c0 for intf block.
+> 
+> If you face any conflicting information in downstream code, you can 
+> always check with me on IRC.
 
-Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
+Ack, it looks like others landed these changes for me now via the
+catalog rework, so I have just rebased and kept the lengths in.
+
+- Marijn
