@@ -1,61 +1,61 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2CE4B6E60BE
-	for <lists+freedreno@lfdr.de>; Tue, 18 Apr 2023 14:11:07 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 2BD546E60BF
+	for <lists+freedreno@lfdr.de>; Tue, 18 Apr 2023 14:11:11 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A362510E785;
+	by gabe.freedesktop.org (Postfix) with ESMTP id CC4F910E786;
 	Tue, 18 Apr 2023 12:11:05 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-x231.google.com (mail-lj1-x231.google.com
- [IPv6:2a00:1450:4864:20::231])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CEDBA10E152
- for <freedreno@lists.freedesktop.org>; Tue, 18 Apr 2023 12:11:01 +0000 (UTC)
-Received: by mail-lj1-x231.google.com with SMTP id
- 38308e7fff4ca-2a8c30ac7e3so14773711fa.1
- for <freedreno@lists.freedesktop.org>; Tue, 18 Apr 2023 05:11:01 -0700 (PDT)
+Received: from mail-lj1-x22e.google.com (mail-lj1-x22e.google.com
+ [IPv6:2a00:1450:4864:20::22e])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 78F7610E77C
+ for <freedreno@lists.freedesktop.org>; Tue, 18 Apr 2023 12:11:03 +0000 (UTC)
+Received: by mail-lj1-x22e.google.com with SMTP id
+ 38308e7fff4ca-2a8ba23a2abso19203961fa.2
+ for <freedreno@lists.freedesktop.org>; Tue, 18 Apr 2023 05:11:03 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1681819859; x=1684411859;
+ d=linaro.org; s=google; t=1681819861; x=1684411861;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=fftkJp3Coct54pcoJxqOJznZa4eb2ZsBLmF7Bh2NPzw=;
- b=yT/BiOHJ+Wb2Fowb5VKhN9CkH2wqsNJE9NMZRSDGk4DXvenGL6eOdB8DlC/etQesDw
- dtOy68VZtrLhULwcn9/Mi9WT7Y8P3NAvFpLgTBxc+8AIDLGEScilP24Dh3AA/nx4wMOD
- j3Z9Q7BlS2bnKN139hMOkzsDLGoMk0fPulZVUEm5TosYsVVqzQMizwSXVbX72TBmvagL
- looqHnRRbrN27J2r3pebd4DSAIVDVFu/Et035MPmkDkjTuMHAluOrpHYbTTgAUgD0AYe
- dP3Kq03ixRHzCPq7IzoNQ3erAJ/HIQVJ4AfwP3pg49snXLAoXuIq8GSkth6QU20GOrmB
- YCXA==
+ :reply-to; bh=TusSYFhXpBTw3hD+Ig+2V6T5nJHWfXxfYQbiZRqJGNM=;
+ b=qMjBZA6z4JwNv9nrY6ZukrVlV+5UNrtliICVTRHPh2CGw8TS41gty9nTL35MX8JJYC
+ BV/AGuAdODhe4i8kD0urhXqyIxDomSAZfMUwiJaDRULOVXEtLJ3C83xJWgzTyAb8ItSi
+ VaidmBVR8YcdgSk+NgWd+3aCzzIz2J4Mu8u0fN4KOTDxoIBQ6G6WGy0X7jXB/nQ4NUbR
+ 2yThvJC/cZpurp7BZqr8f99Mclucd1PkJu1RE+8Te0Zm9yAZ0c/hH0U/HvwEllyF+8cg
+ M6AalA1t0wbUQwceXnEmIvRoGohFNuPFXkQchMgdco4WH4PARnSVKsLMs3h9f7DWJPLm
+ HETQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1681819859; x=1684411859;
+ d=1e100.net; s=20221208; t=1681819861; x=1684411861;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=fftkJp3Coct54pcoJxqOJznZa4eb2ZsBLmF7Bh2NPzw=;
- b=G79tiK56cWMk2xD6DZE66mi6bXcJqw0xxogWZ7xR+HSWP9Rhj4i23vnu/A8JIN/EPs
- vBgp21yHqLchJXnQvL9mNWNbxoKQm25UpFv7iARTM6MxLobLHrnEVsbhEwFSDccCsBL3
- vTjDBss2ypvXFhNrBcIB9KZ11gjRFKbkWnXTDlNat5z1BXU+nk9fJ7V/0X5L+dh3pfs3
- aVXBKXxLUnFhNqJQJkncv8FqegX5YW/P7OAilWrP8z4Ibcw3ANuM/cH0K9dV/OJSM4Ck
- pYaveR3+fXTPlqmptDLh96TkifiHBcCeOx8MIsAM+f9Okvf79fgftwOlFOXp57osU/53
- Ca7Q==
-X-Gm-Message-State: AAQBX9dHlrYjEIoZZTSSBIC2dmsmmCoKZ4uwcnjWWLkzyTXvfrtPGUkJ
- DereBt3wmQI0B2ecPdktZ+RNLQ==
-X-Google-Smtp-Source: AKy350ZPb2pcudeOWD4NUzexqOVtDM0ulgBKkxy07npJmGB5XjCQyP1ClBYjw6LCleNLEPUOy8LFOw==
-X-Received: by 2002:a19:f70b:0:b0:4ed:cb37:7d95 with SMTP id
- z11-20020a19f70b000000b004edcb377d95mr897901lfe.44.1681819859602; 
- Tue, 18 Apr 2023 05:10:59 -0700 (PDT)
+ bh=TusSYFhXpBTw3hD+Ig+2V6T5nJHWfXxfYQbiZRqJGNM=;
+ b=jMIWoqYgY8GA9kl+AcHPCw/1bWRCbm5m8Zu5TEoxJDUS6IVZED/Oq0zyhLn6ViW45C
+ VadvPY0xFmvlicDkDlVCIFFMxUo1lTEcEFs36JJkmLZBnF7VoUxa1wn88Q/BNWHMYBFs
+ vaxHZc3YyUdlYtnag1XT6E7YH41lHxbJisdRwZ6rbNK7I5YXxy648MBq8OSw8XMdEHaG
+ a8g8kJ/m7lWhi01sUAcC3O22rdM5Lrfs7RONYzjo+6FjeCkiObhkDID7FW7bpjqRIVrg
+ AyLWEX2VVhjDveEya7GR5V2+hR5Zjlx/Y9S34b1rMJAArJ4rG2MAjBKzGULDvR13CR3z
+ 8mrw==
+X-Gm-Message-State: AAQBX9f7SK+y61gDrI0QFF76T7FY7DohDnv7ymGCuP33OpCN54i2ZQnt
+ LcIW55hJ/iZAswQP5MHGC27Nng==
+X-Google-Smtp-Source: AKy350YFUr7D3ZA8FFCg0jBRLCUecF1TE4KPX3EM0XpcwN/O7LigF3RcuDV8Htc9b1S2Ec40qe9zRA==
+X-Received: by 2002:ac2:4556:0:b0:4ea:f636:6d02 with SMTP id
+ j22-20020ac24556000000b004eaf6366d02mr2287331lfm.18.1681819860976; 
+ Tue, 18 Apr 2023 05:11:00 -0700 (PDT)
 Received: from [192.168.1.101] (abyj144.neoplus.adsl.tpnet.pl. [83.9.29.144])
  by smtp.gmail.com with ESMTPSA id
- q17-20020a19a411000000b004d86808fd33sm2365895lfc.15.2023.04.18.05.10.58
+ q17-20020a19a411000000b004d86808fd33sm2365895lfc.15.2023.04.18.05.10.59
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 18 Apr 2023 05:10:59 -0700 (PDT)
+ Tue, 18 Apr 2023 05:11:00 -0700 (PDT)
 From: Konrad Dybcio <konrad.dybcio@linaro.org>
-Date: Tue, 18 Apr 2023 14:10:56 +0200
+Date: Tue, 18 Apr 2023 14:10:57 +0200
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20230417-topic-dpu_regbus-v2-1-91a66d04898e@linaro.org>
+Message-Id: <20230417-topic-dpu_regbus-v2-2-91a66d04898e@linaro.org>
 References: <20230417-topic-dpu_regbus-v2-0-91a66d04898e@linaro.org>
 In-Reply-To: <20230417-topic-dpu_regbus-v2-0-91a66d04898e@linaro.org>
 To: Rob Clark <robdclark@gmail.com>, 
@@ -66,15 +66,15 @@ To: Rob Clark <robdclark@gmail.com>,
  Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>, 
  Krishna Manikandan <quic_mkrishn@quicinc.com>
 X-Mailer: b4 0.12.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1681819856; l=1310;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1681819856; l=3187;
  i=konrad.dybcio@linaro.org; s=20230215; h=from:subject:message-id;
- bh=9eGzIhdzE/kh12Ssb8zLi8BB+5t4kj0lnuayorvjl54=;
- b=6fysWEnV+Y3QmSTMiVPNmoQ9u0QIAaEjvJEkX1mj0vdB2azvjMKBFTXFeb43KILmDBjB8FFs4iVp
- BB/S89PrA4Ytu9jBc2Dfi9OeeG/7wbARaGTUTtuRCJrQlU8X+ytt
+ bh=RHVX4b0dy7ygKXk/64XZDOzn26jUEVt2/m6N5KVO6Vs=;
+ b=r2TFBVO5Hj5SdRdHTZ0YLUP9sN8AtEd+o8gl6ja50IX5vktPr9lMiBBhBuvVF1QlIRM+I182r2iE
+ 3e7I94N5DkppyOmS4WSIUeWXQZcRNBW8stdmAZtfC7dB3OlvbPvx
 X-Developer-Key: i=konrad.dybcio@linaro.org; a=ed25519;
  pk=iclgkYvtl2w05SSXO5EjjSYlhFKsJ+5OSZBjOkQuEms=
-Subject: [Freedreno] [PATCH v2 1/5] dt-bindings: display/msm: Add reg bus
- interconnect
+Subject: [Freedreno] [PATCH v2 2/5] drm/msm/dpu1: Rename path references to
+ mdp_path
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -95,39 +95,95 @@ Cc: devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Apart from the already handled data bus (MAS_MDP_Pn<->DDR), there's
-another path that needs to be handled to ensure MDSS functions properly,
-namely the "reg bus", a.k.a the CPU-MDSS interconnect.
+The DPU1 driver needs to handle all MDPn<->DDR paths, as well as
+CPU<->SLAVE_DISPLAY_CFG. The former ones share how their values are
+calculated, but the latter one has static predefines spanning all SoCs.
 
-Gating that path may have a variety of effects.. from none to otherwise
-inexplicable DSI timeouts..
-
-Describe it in bindings to allow for use in device trees.
+In preparation for supporting the CPU<->SLAVE_DISPLAY_CFG path, rename
+the path-related struct members to include "mdp_".
 
 Signed-off-by: Konrad Dybcio <konrad.dybcio@linaro.org>
 ---
- Documentation/devicetree/bindings/display/msm/mdss-common.yaml | 2 ++
- 1 file changed, 2 insertions(+)
+ drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c | 10 +++++-----
+ drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c       | 12 ++++++------
+ drivers/gpu/drm/msm/disp/dpu1/dpu_kms.h       |  4 ++--
+ 3 files changed, 13 insertions(+), 13 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/display/msm/mdss-common.yaml b/Documentation/devicetree/bindings/display/msm/mdss-common.yaml
-index ccd7d6417523..30a8aed4289a 100644
---- a/Documentation/devicetree/bindings/display/msm/mdss-common.yaml
-+++ b/Documentation/devicetree/bindings/display/msm/mdss-common.yaml
-@@ -66,12 +66,14 @@ properties:
-     items:
-       - description: Interconnect path from mdp0 (or a single mdp) port to the data bus
-       - description: Interconnect path from mdp1 port to the data bus
-+      - description: Interconnect path from CPU to the reg bus
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c
+index 1d9d83d7b99e..349c6cb3301d 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c
+@@ -230,18 +230,18 @@ static int _dpu_core_perf_crtc_update_bus(struct dpu_kms *kms,
  
-   interconnect-names:
-     minItems: 1
-     items:
-       - const: mdp0-mem
-       - const: mdp1-mem
-+      - const: cpu-cfg
+ 			DRM_DEBUG_ATOMIC("crtc=%d bw=%llu paths:%d\n",
+ 				  tmp_crtc->base.id,
+-				  dpu_cstate->new_perf.bw_ctl, kms->num_paths);
++				  dpu_cstate->new_perf.bw_ctl, kms->num_mdp_paths);
+ 		}
+ 	}
  
-   resets:
-     items:
+-	if (!kms->num_paths)
++	if (!kms->num_mdp_paths)
+ 		return 0;
+ 
+ 	avg_bw = perf.bw_ctl;
+-	do_div(avg_bw, (kms->num_paths * 1000)); /*Bps_to_icc*/
++	do_div(avg_bw, (kms->num_mdp_paths * 1000)); /*Bps_to_icc*/
+ 
+-	for (i = 0; i < kms->num_paths; i++)
+-		icc_set_bw(kms->path[i], avg_bw, perf.max_per_pipe_ib);
++	for (i = 0; i < kms->num_mdp_paths; i++)
++		icc_set_bw(kms->mdp_path[i], avg_bw, perf.max_per_pipe_ib);
+ 
+ 	return ret;
+ }
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
+index 0e7a68714e9e..dd6c1c40ab9e 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
+@@ -397,12 +397,12 @@ static int dpu_kms_parse_data_bus_icc_path(struct dpu_kms *dpu_kms)
+ 	if (IS_ERR_OR_NULL(path0))
+ 		return PTR_ERR_OR_ZERO(path0);
+ 
+-	dpu_kms->path[0] = path0;
+-	dpu_kms->num_paths = 1;
++	dpu_kms->mdp_path[0] = path0;
++	dpu_kms->num_mdp_paths = 1;
+ 
+ 	if (!IS_ERR_OR_NULL(path1)) {
+-		dpu_kms->path[1] = path1;
+-		dpu_kms->num_paths++;
++		dpu_kms->mdp_path[1] = path1;
++		dpu_kms->num_mdp_paths++;
+ 	}
+ 	return 0;
+ }
+@@ -1238,8 +1238,8 @@ static int __maybe_unused dpu_runtime_suspend(struct device *dev)
+ 	dev_pm_opp_set_rate(dev, 0);
+ 	clk_bulk_disable_unprepare(dpu_kms->num_clocks, dpu_kms->clocks);
+ 
+-	for (i = 0; i < dpu_kms->num_paths; i++)
+-		icc_set_bw(dpu_kms->path[i], 0, 0);
++	for (i = 0; i < dpu_kms->num_mdp_paths; i++)
++		icc_set_bw(dpu_kms->mdp_path[i], 0, 0);
+ 
+ 	return 0;
+ }
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.h
+index aca39a4689f4..d5d9bec90705 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.h
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.h
+@@ -109,8 +109,8 @@ struct dpu_kms {
+ 	 * when disabled.
+ 	 */
+ 	atomic_t bandwidth_ref;
+-	struct icc_path *path[2];
+-	u32 num_paths;
++	struct icc_path *mdp_path[2];
++	u32 num_mdp_paths;
+ };
+ 
+ struct vsync_info {
 
 -- 
 2.40.0
