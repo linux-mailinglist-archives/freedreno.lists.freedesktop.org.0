@@ -1,58 +1,58 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id D5CE56E6109
-	for <lists+freedreno@lfdr.de>; Tue, 18 Apr 2023 14:19:04 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 3DE996E610D
+	for <lists+freedreno@lfdr.de>; Tue, 18 Apr 2023 14:19:48 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8865510E78A;
-	Tue, 18 Apr 2023 12:19:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 042D910E785;
+	Tue, 18 Apr 2023 12:19:47 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-x236.google.com (mail-lj1-x236.google.com
- [IPv6:2a00:1450:4864:20::236])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C5E5D10E78A
- for <freedreno@lists.freedesktop.org>; Tue, 18 Apr 2023 12:19:01 +0000 (UTC)
-Received: by mail-lj1-x236.google.com with SMTP id
- 38308e7fff4ca-2a8c30ac7e3so14826221fa.1
- for <freedreno@lists.freedesktop.org>; Tue, 18 Apr 2023 05:19:01 -0700 (PDT)
+Received: from mail-lj1-x22e.google.com (mail-lj1-x22e.google.com
+ [IPv6:2a00:1450:4864:20::22e])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E2D3910E785
+ for <freedreno@lists.freedesktop.org>; Tue, 18 Apr 2023 12:19:44 +0000 (UTC)
+Received: by mail-lj1-x22e.google.com with SMTP id
+ 38308e7fff4ca-2a8aea2a610so20527561fa.3
+ for <freedreno@lists.freedesktop.org>; Tue, 18 Apr 2023 05:19:44 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1681820340; x=1684412340;
+ d=linaro.org; s=google; t=1681820383; x=1684412383;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :from:to:cc:subject:date:message-id:reply-to;
- bh=tVUHv9GVSnBcu3oMPdI/NIopRwXK/wuVEPMQDh0yxqo=;
- b=hB4XIbeIGzdz2nJmfFOH4csRbqljl9PFshYQtDP3o1MCra1pA4BGNg8OluZ8TU3TNn
- xXgSQJ5Nb7AyRLY2ITfEGUFJb6Zix98/oulPJM869mgnT9DA8+zoeXoBhNCQ4I/7FzOo
- /0S4fbhRbJMnOx+wPTiQ+OaP7tdXoM+LBXwnlPmp2VWCUDt3wFmhJPZjwFR6fllYiLvH
- mZzvkx+doGa+jTh0/k8f9uAFFyiEKfmR/vpt86TctkLNGmMg1JHtcO3aGi5+Bcxjy5PL
- stO6XDkDloqdG3pIS26wKg4s6NpIjoFkrlFL0O1wugY+HSVKEFAy9dI0ix2lCP9Yy1Pa
- 2/Ag==
+ bh=K++As7i154zwy5IfL3jSAA+dS+SNhRonUKRKEBDZdQo=;
+ b=GBNnT2+EtV8AGVfQXoStAHMhcq6vQHNGBuNRiGlipr+QXcMxV5CK6FbJlFQzvgPSkh
+ i0b3FbYhA+oUa2fbANSUyMopARHbAQI70pQI52R8IM9YTs/1EGUd1PDy1L84vnTB952e
+ ot0hGQQJpg88huZFyxCwK0ZfAZfu9QbhwWDkS1ckS4II20yWHtIcFI67zqrpTCdcIX1O
+ OlRLTTTmv9QAiL1JnXmGiKDaryBgPrjtK6zLXunEohOYj/M25Xr2TVUVroGEj2aqRotW
+ B51J3Rdx6htFe/QMo8Tl5K+DzLW7DCgq2oOw8+8kTWIBLfa8uTpKkekQEaRh1mRBKvoQ
+ 0wxA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1681820340; x=1684412340;
+ d=1e100.net; s=20221208; t=1681820383; x=1684412383;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=tVUHv9GVSnBcu3oMPdI/NIopRwXK/wuVEPMQDh0yxqo=;
- b=YFG9dAaCtwIjf3mYRjy46JVZ4dGmG+4+wVSUei38WzjUT5fnR4IeyHBTWZrrms8H9r
- prgyLouT3X8Yp3VUVmZZRTZgETuP1ZOPJWj9ANs43Iq5HKXdd0GXqOjOMKswB7a4q+ug
- BhcAmHeXiZ4er0dyq/t9Vqc6hQYn7yIQymXrzX5dOKr3peoSLUCsSa1dP2nHSIxXVLlK
- Vv4DDjnzo7RsVl07nHFmHFsImd9dCP+RLrVPzway0pL9RUc6UbFVLbx2G9XqNk9fc0NU
- f1KrA0u75noUAYq52miKQG4NwVlwkuBUjDS3x8FInp7MEix22AeUpKSTXGMdZ6m6gtur
- 520A==
-X-Gm-Message-State: AAQBX9eb9paCjP8Ko+k8YWThLkxl62q16KeOmZuoI43/3KCNR5P4LX3U
- jBcwLDXDUrFx6leArt902nxjEQ==
-X-Google-Smtp-Source: AKy350ajegjWSo1YL9giSkWPjZI3mF0HFSGVnnXdrLqJeveDadl9IMChqknDvKeDavaiYXOKevOOsw==
-X-Received: by 2002:a05:6512:11ce:b0:4eb:d20:b2ad with SMTP id
- h14-20020a05651211ce00b004eb0d20b2admr3485799lfr.63.1681820339982; 
- Tue, 18 Apr 2023 05:18:59 -0700 (PDT)
+ bh=K++As7i154zwy5IfL3jSAA+dS+SNhRonUKRKEBDZdQo=;
+ b=cYVFDoc6Vj2H+BAsex/BLVWBptFa5p2EMlK6iRObsKUgxtX8/dZeBI4kkFXFya26ni
+ D1M3EPX9rT17FeKw1f25yHWmqSGF4Iu4QDwpP6RcI4K6iYyHlvV2mYxJ+5wGKKNgrTBH
+ QakqZxu7JLyjNKf/EfGsUPHiWsJcmAT9ppBNfwFU5CHCsA/3psx0RQbhiKtcddmRz+in
+ y8tCJ61psR/4nktQsm9dxtSQ3XB5B5zT66nB2JQBtq4phDOcPh6d22eDG4jXKveyeb19
+ V3ko4qVgMdsIdvmK7k15Sq/kbyr2A1PYg2ewLZlNC0xzyuOaGAyM1asWHGmFOwFGd/ab
+ rI1A==
+X-Gm-Message-State: AAQBX9dDh7BWYlHy/repO/ysN4GwGN7xQZE2kU8g7Ne2Zugkp5qjFTuD
+ sDvuhAAjtHuielaznduSpaHyVQ==
+X-Google-Smtp-Source: AKy350YFhqTX/v70GkNmfk43WzugSNGIvy7NEj5Czhf3tsNe3Jr27fQf5XWxWxVoVhNiYZMv41h2gw==
+X-Received: by 2002:ac2:5e83:0:b0:4eb:2643:c6c6 with SMTP id
+ b3-20020ac25e83000000b004eb2643c6c6mr2836780lfq.53.1681820383155; 
+ Tue, 18 Apr 2023 05:19:43 -0700 (PDT)
 Received: from [192.168.1.101] (abyj144.neoplus.adsl.tpnet.pl. [83.9.29.144])
  by smtp.gmail.com with ESMTPSA id
- 7-20020ac25687000000b004edc2a023ffsm936039lfr.36.2023.04.18.05.18.57
+ s15-20020ac25fef000000b004ec8b638115sm2355741lfg.193.2023.04.18.05.19.41
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 18 Apr 2023 05:18:59 -0700 (PDT)
-Message-ID: <20cdda24-58bc-7439-8bee-e558cf389f5b@linaro.org>
-Date: Tue, 18 Apr 2023 14:18:57 +0200
+ Tue, 18 Apr 2023 05:19:42 -0700 (PDT)
+Message-ID: <8fa0d582-8c1d-5436-ca53-c31badd2f459@linaro.org>
+Date: Tue, 18 Apr 2023 14:19:40 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.9.1
@@ -69,13 +69,13 @@ To: Marijn Suijten <marijn.suijten@somainline.org>,
  Neil Armstrong <neil.armstrong@linaro.org>,
  Chandan Uddaraju <chandanu@codeaurora.org>
 References: <20230411-dpu-intf-te-v2-0-ef76c877eb97@somainline.org>
- <20230411-dpu-intf-te-v2-7-ef76c877eb97@somainline.org>
+ <20230411-dpu-intf-te-v2-8-ef76c877eb97@somainline.org>
 From: Konrad Dybcio <konrad.dybcio@linaro.org>
-In-Reply-To: <20230411-dpu-intf-te-v2-7-ef76c877eb97@somainline.org>
+In-Reply-To: <20230411-dpu-intf-te-v2-8-ef76c877eb97@somainline.org>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH v2 07/17] drm/msm/dpu: Sort INTF registers
- numerically
+Subject: Re: [Freedreno] [PATCH v2 08/17] drm/msm/dpu: Drop unused
+ poll_timeout_wr_ptr PINGPONG callback
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -103,61 +103,71 @@ Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 
 On 17.04.2023 22:21, Marijn Suijten wrote:
-> A bunch of registers were appended at the end in e.g. 91143873a05d
-> ("drm/msm/dpu: Add MISR register support for interface") rather than
-> being inserted in a place that maintains numerical sorting.  Restore
-> that.
+> This callback was migrated from downstream when DPU1 was first
+> introduced to mainline, but never used by any component.  Drop it to
+> save some lines and unnecessary confusion.
 > 
+> Suggested-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 > Signed-off-by: Marijn Suijten <marijn.suijten@somainline.org>
 > ---
 Reviewed-by: Konrad Dybcio <konrad.dybcio@linaro.org>
 
 Konrad
->  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.c | 12 +++++++-----
->  1 file changed, 7 insertions(+), 5 deletions(-)
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_pingpong.c | 18 ------------------
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_pingpong.h |  6 ------
+>  2 files changed, 24 deletions(-)
 > 
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.c
-> index 1d22d7dc99b8..1491568f86fc 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.c
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.c
-> @@ -36,6 +36,10 @@
->  #define INTF_CONFIG2                    0x060
->  #define INTF_DISPLAY_DATA_HCTL          0x064
->  #define INTF_ACTIVE_DATA_HCTL           0x068
-> +
-> +#define INTF_DSI_CMD_MODE_TRIGGER_EN    0x084
-> +#define INTF_PANEL_FORMAT               0x090
-> +
->  #define INTF_FRAME_LINE_COUNT_EN        0x0A8
->  #define INTF_FRAME_COUNT                0x0AC
->  #define INTF_LINE_COUNT                 0x0B0
-> @@ -44,8 +48,6 @@
->  #define INTF_DEFLICKER_STRNG_COEFF      0x0F4
->  #define INTF_DEFLICKER_WEAK_COEFF       0x0F8
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_pingpong.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_pingpong.c
+> index 0fcad9760b6f..b18efd640abd 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_pingpong.c
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_pingpong.c
+> @@ -144,23 +144,6 @@ static bool dpu_hw_pp_get_autorefresh_config(struct dpu_hw_pingpong *pp,
+>  	return !!((val & BIT(31)) >> 31);
+>  }
 >  
-> -#define INTF_DSI_CMD_MODE_TRIGGER_EN    0x084
-> -#define INTF_PANEL_FORMAT               0x090
->  #define INTF_TPG_ENABLE                 0x100
->  #define INTF_TPG_MAIN_CONTROL           0x104
->  #define INTF_TPG_VIDEO_CONFIG           0x108
-> @@ -57,6 +59,9 @@
->  #define INTF_PROG_FETCH_START           0x170
->  #define INTF_PROG_ROT_START             0x174
->  
-> +#define INTF_MISR_CTRL                  0x180
-> +#define INTF_MISR_SIGNATURE             0x184
-> +
->  #define INTF_MUX                        0x25C
->  #define INTF_STATUS                     0x26C
->  
-> @@ -66,9 +71,6 @@
->  #define INTF_CFG2_DATABUS_WIDEN	BIT(0)
->  #define INTF_CFG2_DATA_HCTL_EN	BIT(4)
->  
-> -#define INTF_MISR_CTRL			0x180
-> -#define INTF_MISR_SIGNATURE		0x184
+> -static int dpu_hw_pp_poll_timeout_wr_ptr(struct dpu_hw_pingpong *pp,
+> -		u32 timeout_us)
+> -{
+> -	struct dpu_hw_blk_reg_map *c;
+> -	u32 val;
+> -	int rc;
 > -
->  static const struct dpu_intf_cfg *_intf_offset(enum dpu_intf intf,
->  		const struct dpu_mdss_cfg *m,
->  		void __iomem *addr,
+> -	if (!pp)
+> -		return -EINVAL;
+> -
+> -	c = &pp->hw;
+> -	rc = readl_poll_timeout(c->blk_addr + PP_LINE_COUNT,
+> -			val, (val & 0xffff) >= 1, 10, timeout_us);
+> -
+> -	return rc;
+> -}
+> -
+>  static int dpu_hw_pp_enable_te(struct dpu_hw_pingpong *pp, bool enable)
+>  {
+>  	struct dpu_hw_blk_reg_map *c;
+> @@ -280,7 +263,6 @@ static void _setup_pingpong_ops(struct dpu_hw_pingpong *c,
+>  	c->ops.get_vsync_info = dpu_hw_pp_get_vsync_info;
+>  	c->ops.setup_autorefresh = dpu_hw_pp_setup_autorefresh_config;
+>  	c->ops.get_autorefresh = dpu_hw_pp_get_autorefresh_config;
+> -	c->ops.poll_timeout_wr_ptr = dpu_hw_pp_poll_timeout_wr_ptr;
+>  	c->ops.get_line_count = dpu_hw_pp_get_line_count;
+>  	c->ops.setup_dsc = dpu_hw_pp_setup_dsc;
+>  	c->ops.enable_dsc = dpu_hw_pp_dsc_enable;
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_pingpong.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_pingpong.h
+> index c00223441d99..cf94b4ab603b 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_pingpong.h
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_pingpong.h
+> @@ -107,12 +107,6 @@ struct dpu_hw_pingpong_ops {
+>  	bool (*get_autorefresh)(struct dpu_hw_pingpong *pp,
+>  				u32 *frame_count);
+>  
+> -	/**
+> -	 * poll until write pointer transmission starts
+> -	 * @Return: 0 on success, -ETIMEDOUT on timeout
+> -	 */
+> -	int (*poll_timeout_wr_ptr)(struct dpu_hw_pingpong *pp, u32 timeout_us);
+> -
+>  	/**
+>  	 * Obtain current vertical line counter
+>  	 */
 > 
