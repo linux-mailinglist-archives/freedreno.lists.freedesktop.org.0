@@ -2,57 +2,76 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 42DC96E598B
-	for <lists+freedreno@lfdr.de>; Tue, 18 Apr 2023 08:43:19 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BEA5D6E5A5C
+	for <lists+freedreno@lfdr.de>; Tue, 18 Apr 2023 09:24:42 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 425C410E692;
-	Tue, 18 Apr 2023 06:43:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7F41110E699;
+	Tue, 18 Apr 2023 07:24:41 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1598910E67D;
- Tue, 18 Apr 2023 06:43:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1681800193; x=1713336193;
- h=from:to:cc:subject:in-reply-to:references:date:
- message-id:mime-version;
- bh=OV99Aaw4PAuMFFTVPFSyVFAq2bS/27X0vVBClMwmqC0=;
- b=M3wf9X6ZzG2DDHMsqG+rILRnRFIlHv2+TPtPbWHbBRNxM3kYvVFAG47X
- dyGT/SKqZVbmMGd5IY5ysYJ/EKUGUsjX3LhUCZDMUeykqLqQ/gvEPqsvU
- gDwMdiJ36MP9KXAgCBfsLETZ0xdwdOujErjRcdr3pQZOydH1/qyF95Zd8
- e0M7D9vf5XyrpVDf2KIieLfuNpQplRLYDh5PnvvGEkEcY93Gcx5dpNJnE
- q9+WMrbko+omEpGmUZ3ogNCL+t/QX4KHFbmJNaPEIsaMXDKrkSf9BJj95
- VA7QfLLIHieWBmDhWrl7eRez6tsFYBM/qcaQ28U3CYYkhsK6eAvvPK7ck A==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10683"; a="347840432"
-X-IronPort-AV: E=Sophos;i="5.99,206,1677571200"; d="scan'208";a="347840432"
-Received: from fmsmga008.fm.intel.com ([10.253.24.58])
- by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 Apr 2023 23:43:11 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10683"; a="755602511"
-X-IronPort-AV: E=Sophos;i="5.99,206,1677571200"; d="scan'208";a="755602511"
-Received: from rmenchon-mobl1.ger.corp.intel.com (HELO localhost)
- ([10.252.56.143])
- by fmsmga008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 Apr 2023 23:43:07 -0700
-From: Jani Nikula <jani.nikula@linux.intel.com>
-To: "Kandpal, Suraj" <suraj.kandpal@intel.com>, Mark Yacoub
- <markyacoub@chromium.org>, David Airlie <airlied@gmail.com>, Daniel Vetter
- <daniel@ffwll.ch>, Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- "Vivi, Rodrigo" <rodrigo.vivi@intel.com>, Tvrtko Ursulin
- <tvrtko.ursulin@linux.intel.com>
-In-Reply-To: <SN7PR11MB6750FAC866C29F298B1690F6E39D9@SN7PR11MB6750.namprd11.prod.outlook.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-References: <20230411192134.508113-1-markyacoub@google.com>
- <20230411192134.508113-2-markyacoub@google.com>
- <SN7PR11MB6750FAC866C29F298B1690F6E39D9@SN7PR11MB6750.namprd11.prod.outlook.com>
-Date: Tue, 18 Apr 2023 09:43:05 +0300
-Message-ID: <875y9telmu.fsf@intel.com>
+Received: from mail-ej1-x633.google.com (mail-ej1-x633.google.com
+ [IPv6:2a00:1450:4864:20::633])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3245710E699
+ for <freedreno@lists.freedesktop.org>; Tue, 18 Apr 2023 07:24:40 +0000 (UTC)
+Received: by mail-ej1-x633.google.com with SMTP id dx24so26667110ejb.11
+ for <freedreno@lists.freedesktop.org>; Tue, 18 Apr 2023 00:24:40 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1681802678; x=1684394678;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=Mc2ExA+PYqwwVZ/2XtG8G8622ouzIpPkXOpvzHUJGzY=;
+ b=LlL3Ix9wb13p8+AVSBkcuTAG/yELJ9qLYyM2yRbHicQzplcpKd+hMWgco8vu+ABC0c
+ 0fBZwOlnJ0lL5OuakMB3mxO+yT/DMbRF/x21gW1Y5m2HG1yLCXjfHm/qcF3iisRgpF2F
+ /RQTSKn0omVPRYl34oN3630drxBEXMpp5En18nWgh7LTfXl2NbBGuCnT11yLejK0wO/s
+ ZFgUc0Mlf07+zuDYn6YAsX38ej6CVapUP6kgoJP2TACb7KEtnvJOFQ7hjlLjbks49LYK
+ qsM9HN4jIazntQ95nbJK5ksqIaDlfSXQENJJ7qGNMoxOU20Ek3VLTxM/SPX9WyK+0kQW
+ aFBA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20221208; t=1681802678; x=1684394678;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=Mc2ExA+PYqwwVZ/2XtG8G8622ouzIpPkXOpvzHUJGzY=;
+ b=GxP0s3ZzZ4KCKpx2XADAXARb/Psd6arpFRrIhcJvv/xqFlHHU85C/8B4pnLoFyV5+9
+ qd5Y/GUPOtP6sSdG/uORPUGqcslLhK/agcVHPwHFm3s1f928s0zLihpIMva/6fPdqMi2
+ XVpA6wlZ12h8lEbz2nFTdfr4eRT7l18WptWVuColt1x+91sQSGn5+u8hJNB36lA7I6/t
+ Kb4v7AJWav0U3wJfvqrdf6Y4o4mF9PGkz2smCdMDUEIONtSYmKPM9bonp1eS0SqjHPiK
+ Ciym73zgAxdU6LGIjMU+xlsiRECrn7yoml6AeXTsZhGgtsJFNnyAuwdKi91Pnf/5KWcz
+ D9EA==
+X-Gm-Message-State: AAQBX9cxBDChpIJnT6dvQNuBz4ycavOCySFzlGlo0xQOu71gTq9ARUI2
+ +AjJMvCLAUA96A234i+xbX8IlQ==
+X-Google-Smtp-Source: AKy350ZiD4lH0dbwhlOPNgRf0zXiwlE5tOpXAZnVwKUxlUGU4tbmGbLlxHA0xKSydZHhGMIj5ANaQg==
+X-Received: by 2002:a17:906:938d:b0:94e:46ef:1361 with SMTP id
+ l13-20020a170906938d00b0094e46ef1361mr9458125ejx.34.1681802678423; 
+ Tue, 18 Apr 2023 00:24:38 -0700 (PDT)
+Received: from ?IPV6:2a02:810d:15c0:828:a276:7d35:5226:1c77?
+ ([2a02:810d:15c0:828:a276:7d35:5226:1c77])
+ by smtp.gmail.com with ESMTPSA id
+ p20-20020a170906615400b0094aa087578csm7730783ejl.171.2023.04.18.00.24.37
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 18 Apr 2023 00:24:38 -0700 (PDT)
+Message-ID: <cec395c8-83b0-8626-7229-dd8427db48fc@linaro.org>
+Date: Tue, 18 Apr 2023 09:24:36 +0200
 MIME-Version: 1.0
-Content-Type: text/plain
-Subject: Re: [Freedreno] [PATCH v9 01/10] drm/hdcp: Add
- drm_hdcp_atomic_check()
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.10.0
+Content-Language: en-US
+To: Konrad Dybcio <konrad.dybcio@linaro.org>, Rob Clark
+ <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>,
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Rob Herring <robh+dt@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Krishna Manikandan <quic_mkrishn@quicinc.com>
+References: <20230417-topic-dpu_regbus-v1-0-06fbdc1643c0@linaro.org>
+ <20230417-topic-dpu_regbus-v1-1-06fbdc1643c0@linaro.org>
+From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+In-Reply-To: <20230417-topic-dpu_regbus-v1-1-06fbdc1643c0@linaro.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+Subject: Re: [Freedreno] [PATCH 1/5] dt-bindings: display/msm: Add reg bus
+ interconnect
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,291 +84,40 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>,
- "dianders@chromium.org" <dianders@chromium.org>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "seanpaul@chromium.org" <seanpaul@chromium.org>,
- "dmitry.baryshkov@linaro.org" <dmitry.baryshkov@linaro.org>,
- "freedreno@lists.freedesktop.org" <freedreno@lists.freedesktop.org>
+Cc: devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Tue, 18 Apr 2023, "Kandpal, Suraj" <suraj.kandpal@intel.com> wrote:
-> Yacoub
->> <markyacoub@chromium.org>; linux-kernel@vger.kernel.org
->> Subject: [PATCH v9 01/10] drm/hdcp: Add drm_hdcp_atomic_check()
->>
->> From: Sean Paul <seanpaul@chromium.org>
->>
->> Move the hdcp atomic check from i915 to drm_hdcp so other drivers can use
->> it. No functional changes, just cleaned up some of the code when moving it
->> over.
->>
->> Acked-by: Jani Nikula <jani.nikula@intel.com>
->> Reviewed-by: Rodrigo Vivi <rodrigo.vivi@intel.com>
->> Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
->> Signed-off-by: Sean Paul <seanpaul@chromium.org>
->> Signed-off-by: Mark Yacoub <markyacoub@chromium.org>
->>
->> ---
->> Changes in v2:
->> -None
->> Changes in v3:
->> -None
->> Changes in v4:
->> -None
->> Changes in v5:
->> -None
->> Changes in v6:
->> -Rebase: move helper from drm_hdcp.c to drm_hdcp_helper.c Changes in
->> v7:
->> -Removed links to patch from commit msg (Dmitry Baryshkov)
->>
->>  drivers/gpu/drm/display/drm_hdcp_helper.c   | 64
->> +++++++++++++++++++++
->>  drivers/gpu/drm/i915/display/intel_atomic.c |  4 +-
->>  drivers/gpu/drm/i915/display/intel_hdcp.c   | 47 ---------------
->>  drivers/gpu/drm/i915/display/intel_hdcp.h   |  3 -
->>  include/drm/display/drm_hdcp_helper.h       |  3 +
->>  5 files changed, 69 insertions(+), 52 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/display/drm_hdcp_helper.c
->> b/drivers/gpu/drm/display/drm_hdcp_helper.c
->> index e78999c72bd77..7ca390b3ea106 100644
->> --- a/drivers/gpu/drm/display/drm_hdcp_helper.c
->> +++ b/drivers/gpu/drm/display/drm_hdcp_helper.c
->> @@ -20,6 +20,7 @@
->>  #include <drm/drm_property.h>
->>  #include <drm/drm_mode_object.h>
->>  #include <drm/drm_connector.h>
->> +#include <drm/drm_atomic.h>
->>
->>  static inline void drm_hdcp_print_ksv(const u8 *ksv)  { @@ -419,3 +420,66
->> @@ void drm_hdcp_update_content_protection(struct drm_connector
->> *connector,
->>                                dev-
->> >mode_config.content_protection_property);
->>  }
->>  EXPORT_SYMBOL(drm_hdcp_update_content_protection);
->> +
->> +/**
->> + * drm_hdcp_atomic_check - Helper for drivers to call during
->> +connector->atomic_check
->> + *
->> + * @state: pointer to the atomic state being checked
->> + * @connector: drm_connector on which content protection state needs an
->> +update
->> + *
->> + * This function can be used by display drivers to perform an atomic
->> +check on the
->> + * hdcp state elements. If hdcp state has changed, this function will
->> +set
->> + * mode_changed on the crtc driving the connector so it can update its
->> +hardware
->> + * to match the hdcp state.
->> + */
->> +void drm_hdcp_atomic_check(struct drm_connector *connector,
->> +                        struct drm_atomic_state *state)
->> +{
->> +     struct drm_connector_state *new_conn_state, *old_conn_state;
->> +     struct drm_crtc_state *new_crtc_state;
->> +     u64 old_hdcp, new_hdcp;
->> +
->> +     old_conn_state = drm_atomic_get_old_connector_state(state,
->> connector);
->> +     old_hdcp = old_conn_state->content_protection;
->> +
->> +     new_conn_state = drm_atomic_get_new_connector_state(state,
->> connector);
->> +     new_hdcp = new_conn_state->content_protection;
->> +
->
-> Nit: Why not assign these as right when they are declared we would end up using less lines
+On 17/04/2023 17:30, Konrad Dybcio wrote:
+> Apart from the already handled data bus (MAS_MDP_Pn<->DDR), there's
+> another path that needs to be handled to ensure MDSS functions properly,
+> namely the "reg bus", a.k.a the CPU-MDSS interconnect.
+> 
+> Gating that path may have a variety of effects.. from none to otherwise
+> inexplicable DSI timeouts..
+> 
+> Describe it in bindings to allow for use in device trees.
+> 
+> Signed-off-by: Konrad Dybcio <konrad.dybcio@linaro.org>
+> ---
+>  Documentation/devicetree/bindings/display/msm/mdss-common.yaml | 1 +
+>  1 file changed, 1 insertion(+)
+> 
+> diff --git a/Documentation/devicetree/bindings/display/msm/mdss-common.yaml b/Documentation/devicetree/bindings/display/msm/mdss-common.yaml
+> index ccd7d6417523..9eb5b6d3e0b9 100644
+> --- a/Documentation/devicetree/bindings/display/msm/mdss-common.yaml
+> +++ b/Documentation/devicetree/bindings/display/msm/mdss-common.yaml
+> @@ -72,6 +72,7 @@ properties:
+>      items:
+>        - const: mdp0-mem
+>        - const: mdp1-mem
+> +      - const: cpu-cfg
 
-The rule of thumb is to only initialize trivial stuff at declaration.
+You added only interconnect-name, not actual interconnect.
 
-BR,
-Jani.
+Best regards,
+Krzysztof
 
->
->> +     if (!new_conn_state->crtc) {
->> +             /*
->> +              * If the connector is being disabled with CP enabled, mark it
->> +              * desired so it's re-enabled when the connector is brought
->> back
->> +              */
->> +             if (old_hdcp ==
->> DRM_MODE_CONTENT_PROTECTION_ENABLED)
->> +                     new_conn_state->content_protection =
->> +
->>       DRM_MODE_CONTENT_PROTECTION_DESIRED;
->> +             return;
->> +     }
->> +
->> +     new_crtc_state =
->> +             drm_atomic_get_new_crtc_state(state, new_conn_state-
->> >crtc);
->> +     if (drm_atomic_crtc_needs_modeset(new_crtc_state) &&
->> +         (old_hdcp == DRM_MODE_CONTENT_PROTECTION_ENABLED &&
->> +          new_hdcp != DRM_MODE_CONTENT_PROTECTION_UNDESIRED))
->> +             new_conn_state->content_protection =
->> +                     DRM_MODE_CONTENT_PROTECTION_DESIRED;
->> +
->> +     /*
->> +      * Nothing to do if content type is unchanged and one of:
->> +      *  - state didn't change
->> +      *  - HDCP was activated since the last commit
->> +      *  - attempting to set to desired while already enabled
->> +      */
->> +     if (old_hdcp == new_hdcp ||
->> +         (old_hdcp == DRM_MODE_CONTENT_PROTECTION_DESIRED &&
->> +          new_hdcp == DRM_MODE_CONTENT_PROTECTION_ENABLED) ||
->> +         (old_hdcp == DRM_MODE_CONTENT_PROTECTION_ENABLED &&
->> +          new_hdcp == DRM_MODE_CONTENT_PROTECTION_DESIRED)) {
->> +             if (old_conn_state->hdcp_content_type ==
->> +                 new_conn_state->hdcp_content_type)
->> +                     return;
->> +     }
->> +
->> +     new_crtc_state->mode_changed = true;
->> +}
->> +EXPORT_SYMBOL(drm_hdcp_atomic_check);
->> diff --git a/drivers/gpu/drm/i915/display/intel_atomic.c
->> b/drivers/gpu/drm/i915/display/intel_atomic.c
->> index a9a3f3715279d..e9d00b6a63d39 100644
->> --- a/drivers/gpu/drm/i915/display/intel_atomic.c
->> +++ b/drivers/gpu/drm/i915/display/intel_atomic.c
->> @@ -32,6 +32,7 @@
->>  #include <drm/drm_atomic.h>
->>  #include <drm/drm_atomic_helper.h>
->>  #include <drm/drm_fourcc.h>
->> +#include <drm/display/drm_hdcp_helper.h>
->>
->>  #include "i915_drv.h"
->>  #include "i915_reg.h"
->> @@ -39,7 +40,6 @@
->>  #include "intel_cdclk.h"
->>  #include "intel_display_types.h"
->>  #include "intel_global_state.h"
->> -#include "intel_hdcp.h"
->>  #include "intel_psr.h"
->>  #include "intel_fb.h"
->>  #include "skl_universal_plane.h"
->> @@ -124,7 +124,7 @@ int intel_digital_connector_atomic_check(struct
->> drm_connector *conn,
->>               to_intel_digital_connector_state(old_state);
->>       struct drm_crtc_state *crtc_state;
->>
->> -     intel_hdcp_atomic_check(conn, old_state, new_state);
->> +     drm_hdcp_atomic_check(conn, state);
->>
->>       if (!new_state->crtc)
->>               return 0;
->> diff --git a/drivers/gpu/drm/i915/display/intel_hdcp.c
->> b/drivers/gpu/drm/i915/display/intel_hdcp.c
->> index 6406fd487ee52..396d2cef000aa 100644
->> --- a/drivers/gpu/drm/i915/display/intel_hdcp.c
->> +++ b/drivers/gpu/drm/i915/display/intel_hdcp.c
->> @@ -2524,53 +2524,6 @@ void intel_hdcp_cleanup(struct intel_connector
->> *connector)
->>       mutex_unlock(&hdcp->mutex);
->>  }
->>
->> -void intel_hdcp_atomic_check(struct drm_connector *connector,
->> -                          struct drm_connector_state *old_state,
->> -                          struct drm_connector_state *new_state)
->> -{
->> -     u64 old_cp = old_state->content_protection;
->> -     u64 new_cp = new_state->content_protection;
->> -     struct drm_crtc_state *crtc_state;
->> -
->> -     if (!new_state->crtc) {
->> -             /*
->> -              * If the connector is being disabled with CP enabled, mark it
->> -              * desired so it's re-enabled when the connector is brought
->> back
->> -              */
->> -             if (old_cp ==
->> DRM_MODE_CONTENT_PROTECTION_ENABLED)
->> -                     new_state->content_protection =
->> -
->>       DRM_MODE_CONTENT_PROTECTION_DESIRED;
->> -             return;
->> -     }
->> -
->> -     crtc_state = drm_atomic_get_new_crtc_state(new_state->state,
->> -                                                new_state->crtc);
->> -     /*
->> -      * Fix the HDCP uapi content protection state in case of modeset.
->> -      * FIXME: As per HDCP content protection property uapi doc, an
->> uevent()
->> -      * need to be sent if there is transition from ENABLED->DESIRED.
->> -      */
->> -     if (drm_atomic_crtc_needs_modeset(crtc_state) &&
->> -         (old_cp == DRM_MODE_CONTENT_PROTECTION_ENABLED &&
->> -         new_cp != DRM_MODE_CONTENT_PROTECTION_UNDESIRED))
->> -             new_state->content_protection =
->> -                     DRM_MODE_CONTENT_PROTECTION_DESIRED;
->> -
->> -     /*
->> -      * Nothing to do if the state didn't change, or HDCP was activated
->> since
->> -      * the last commit. And also no change in hdcp content type.
->> -      */
->> -     if (old_cp == new_cp ||
->> -         (old_cp == DRM_MODE_CONTENT_PROTECTION_DESIRED &&
->> -          new_cp == DRM_MODE_CONTENT_PROTECTION_ENABLED)) {
->> -             if (old_state->hdcp_content_type ==
->> -                             new_state->hdcp_content_type)
->> -                     return;
->> -     }
->> -
->> -     crtc_state->mode_changed = true;
->> -}
->> -
->>  /* Handles the CP_IRQ raised from the DP HDCP sink */  void
->> intel_hdcp_handle_cp_irq(struct intel_connector *connector)  { diff --git
->> a/drivers/gpu/drm/i915/display/intel_hdcp.h
->> b/drivers/gpu/drm/i915/display/intel_hdcp.h
->> index 8f53b0c7fe5cf..7c5fd84a7b65a 100644
->> --- a/drivers/gpu/drm/i915/display/intel_hdcp.h
->> +++ b/drivers/gpu/drm/i915/display/intel_hdcp.h
->> @@ -22,9 +22,6 @@ struct intel_digital_port;  enum port;  enum transcoder;
->>
->> -void intel_hdcp_atomic_check(struct drm_connector *connector,
->> -                          struct drm_connector_state *old_state,
->> -                          struct drm_connector_state *new_state);
->>  int intel_hdcp_init(struct intel_connector *connector,
->>                   struct intel_digital_port *dig_port,
->>                   const struct intel_hdcp_shim *hdcp_shim); diff --git
->> a/include/drm/display/drm_hdcp_helper.h
->> b/include/drm/display/drm_hdcp_helper.h
->> index 8aaf87bf27351..dd02b2e72a502 100644
->> --- a/include/drm/display/drm_hdcp_helper.h
->> +++ b/include/drm/display/drm_hdcp_helper.h
->> @@ -11,6 +11,7 @@
->>
->>  #include <drm/display/drm_hdcp.h>
->>
->> +struct drm_atomic_state;
->>  struct drm_device;
->>  struct drm_connector;
->>
->> @@ -18,5 +19,7 @@ int drm_hdcp_check_ksvs_revoked(struct drm_device
->> *dev, u8 *ksvs, u32 ksv_count)  int
->> drm_connector_attach_content_protection_property(struct drm_connector
->> *connector,
->>                                                    bool hdcp_content_type);
->>  void drm_hdcp_update_content_protection(struct drm_connector
->> *connector, u64 val);
->> +void drm_hdcp_atomic_check(struct drm_connector *connector,
->> +                        struct drm_atomic_state *state);
->>
->>  #endif
->> --
->> 2.40.0.577.gac1e443424-goog
->
-
--- 
-Jani Nikula, Intel Open Source Graphics Center
