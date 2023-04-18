@@ -2,63 +2,88 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 234BD6E69C0
-	for <lists+freedreno@lfdr.de>; Tue, 18 Apr 2023 18:42:11 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6AAC26E6BD3
+	for <lists+freedreno@lfdr.de>; Tue, 18 Apr 2023 20:12:16 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B32AB10E2CB;
-	Tue, 18 Apr 2023 16:42:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 26A3C10E813;
+	Tue, 18 Apr 2023 18:12:15 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-pf1-x434.google.com (mail-pf1-x434.google.com
- [IPv6:2607:f8b0:4864:20::434])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AFA4110E048;
- Tue, 18 Apr 2023 16:42:05 +0000 (UTC)
-Received: by mail-pf1-x434.google.com with SMTP id
- d2e1a72fcca58-63b5465fb99so2049393b3a.1; 
- Tue, 18 Apr 2023 09:42:05 -0700 (PDT)
+Received: from mail-wm1-x333.google.com (mail-wm1-x333.google.com
+ [IPv6:2a00:1450:4864:20::333])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 00A3D10E84D
+ for <freedreno@lists.freedesktop.org>; Tue, 18 Apr 2023 18:11:18 +0000 (UTC)
+Received: by mail-wm1-x333.google.com with SMTP id
+ o6-20020a05600c4fc600b003ef6e6754c5so276137wmq.5
+ for <freedreno@lists.freedesktop.org>; Tue, 18 Apr 2023 11:11:18 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20221208; t=1681836124; x=1684428124;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=DBjYteFlARZI3kpDkoIEAMndmdFS6IARwATkjleA/Es=;
- b=JIG4s2/Hoz7mreVcQSsElvHacUy2Z3ED/XO7zoHI+ged7p3//5YqorUh5OBG99ioWI
- fp7Px+9ZoAV5VRQ9vVQc7AoL/QPWmX/4RC16l29E4CoMSQwzSTy483z9Wkc1KHrguw1g
- dQ4V8yhvMerKCokRhUuS2Ys0KcCZ8NEbqnBSqnwCCTrDPNqVOuraHOoAstBMcEgLfJUV
- ZsT5FPg/zySNjh4Kf35grdglzNJhd90uDq289EvTKyLIQ/xzKPkdNhfLncrPq6O2TnK3
- 4NK9n90BlXKQsIU7Jy1G7YfOqdSNOr2PFpnVPaVlfjHhI+J6cTWQgeOitoOT15rtbqQ4
- s2NQ==
+ d=freebox-fr.20221208.gappssmtp.com; s=20221208; t=1681841477; x=1684433477;
+ h=cc:to:content-transfer-encoding:mime-version:message-id:date
+ :subject:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=DMgcP9MFsdAN8yCKBrSy/25dv7G/Q0vscVQs09p5j8s=;
+ b=jvV/M28+57FDMWzSJdsFY6PFf9AR/7siw3/kkaXUvn5ndnMTqlu4r2mnxbVARyvh2L
+ 5iMdx5mXLXb2ToFWhYcxWnkimXV+pDhDhNmmSJzx9WZ1RH1YsNWl3TGetdDvCW8xl5Ly
+ zsiYdLWpWxt9eqVzvbB3dbGWehLnDq3CXNo5fJNUaO59CejZ0qO3fKtsIcdWirsNLJZl
+ gUOyrZ9xBe1s2affK0Od2FrWY6L+ynqQCX5y97Q+bPyvbh+f6Nz7PEXBFNhwmcqKq03X
+ QkXzGns1KaKoMJerXmEzBb875X0C8QEWgetIkWbCrYpTGfazXmhjvI9CV+3TylGO7Gm/
+ JmuQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1681836124; x=1684428124;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ d=1e100.net; s=20221208; t=1681841477; x=1684433477;
+ h=cc:to:content-transfer-encoding:mime-version:message-id:date
+ :subject:from:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=DBjYteFlARZI3kpDkoIEAMndmdFS6IARwATkjleA/Es=;
- b=gTXFXwFuQkiZZOc6RfSEftYn/Y2yTIpPIHrM7qSgTEmsOV6/+f9Yyw4WzR2gxIaLC6
- yHTY+I/mW81veqH/wNs1kUGv4uo23Z9QXDZDxa4+Zt6si8WYFrGmSLFmeH+1Uty2v4CF
- A8LsjGGttQcjUGNkdhSqP2bLik5/LdcCmjRrBXO0/Z3XvbbSRR5nNWpkz+kUaDEmDnbQ
- qExnnR21KROrCMVaUuekF8lZPz9vimlxFltkpi3rwCY7VMq1x0AJFtvS5Em4XvY508xr
- f3tW9hBonzFgOAAepWvB6ZWH2X+FmffxoiLVPMXTKwTdAC1zI8yQf7EN3AJV0Q8CgDlI
- YUgQ==
-X-Gm-Message-State: AAQBX9fYtKJxTe5NblY3G56KrOuCQcTthbUKIv+z1FR7oXdsobtPjE2d
- h5BLSVnVYb26YDp9/4mOV3wSNtr4zzU=
-X-Google-Smtp-Source: AKy350YcV6j1lv6XmhOfSNAWDYy73WgCv1F7VXKe1uo1OIl8xC2iEX9Ihpu2om1pKqDrFlg/8Z0cbA==
-X-Received: by 2002:a17:903:2291:b0:1a6:6d9f:2fc9 with SMTP id
- b17-20020a170903229100b001a66d9f2fc9mr3187958plh.30.1681836124194; 
- Tue, 18 Apr 2023 09:42:04 -0700 (PDT)
-Received: from localhost ([2a00:79e1:abd:4a00:61b:48ed:72ab:435b])
+ bh=DMgcP9MFsdAN8yCKBrSy/25dv7G/Q0vscVQs09p5j8s=;
+ b=H9WJeNtBM66qu8GoiQ1NO5dR4qi0va8RGA5ZBYAEYxZn9khzaNgss2gG85atDuYRfB
+ /4L6Dh5hwKutVLak84mdRqRZ1dm0GUKdrJbQ5PfXKzXkvMr1IlKoaaGs+tVH6DARKn6E
+ JJ7LLDoz0rS+n8nczWU1T6KxWLHCKUWwfM/L+CE9czgBAHZiLdYYWmpiOR47v2NGFj0V
+ W6IAgjgwW0zPNSkv+qsvjo4/qV/ceOAgfQiwI1Br13OKWkuOR0gD8samO7Sk6cPkxoYL
+ dvbsdnxMhvc/WJn5E6zMTWrf3KiJlxUP2JbGmIT7WmXjLAzSZ46vxRYVVtDJCHHMIttD
+ Y+xQ==
+X-Gm-Message-State: AAQBX9cfAMFQLSy4mTBm3En0y9lkqNEKjUg7M69H/LurNyv0F2xY6hYS
+ A3QSjsy25zqd+o6ZkpvGF66nYgGHg6RwfLQjBA==
+X-Google-Smtp-Source: AKy350Y/hSn1dx9JX6EP4aiodyAYctRlEPn0LIKK8iXuOmFxThlQZZf2gHkqmjrMtPzt6jnzO38+Ag==
+X-Received: by 2002:a7b:c30a:0:b0:3dc:4fd7:31e9 with SMTP id
+ k10-20020a7bc30a000000b003dc4fd731e9mr15769036wmj.7.1681841477039; 
+ Tue, 18 Apr 2023 11:11:17 -0700 (PDT)
+Received: from [127.0.1.1] (freebox.vlq16.iliad.fr. [213.36.7.13])
  by smtp.gmail.com with ESMTPSA id
- c9-20020a170902848900b0019a7ef5e9a8sm5445534plo.82.2023.04.18.09.42.03
+ r17-20020a5d4e51000000b002f01e181c4asm13727898wrt.5.2023.04.18.11.11.16
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 18 Apr 2023 09:42:03 -0700 (PDT)
-From: Rob Clark <robdclark@gmail.com>
-To: dri-devel@lists.freedesktop.org
-Date: Tue, 18 Apr 2023 09:41:58 -0700
-Message-Id: <20230418164158.549873-1-robdclark@gmail.com>
-X-Mailer: git-send-email 2.39.2
+ Tue, 18 Apr 2023 11:11:16 -0700 (PDT)
+From: Arnaud Vrac <avrac@freebox.fr>
+Date: Tue, 18 Apr 2023 20:10:42 +0200
+Message-Id: <20230418-msm8998-hdmi-cec-v1-0-176479fb2fce@freebox.fr>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH] drm/msm/atomic: Don't try async if crtc not
- active
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIACLdPmQC/zXNywrCMBCF4Vcps3Yg6QUmvoq4SNKpmUWiZEQKp
+ e9uKnb5w/k4GyhXYYVrt0Hlj6g8Swt76SAmXx6MMreG3vSDGS1h1kzOEaY5C0aOaChM5ExYRsv
+ QWPDKGKovMR2w8PrGvx5OfexelRdZf9e3+75/AfJnIPmKAAAA
+To: Rob Clark <robdclark@gmail.com>, Hans Verkuil <hverkuil-cisco@xs4all.nl>, 
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, 
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>, 
+ Andy Gross <agross@kernel.org>, Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konrad.dybcio@linaro.org>, Rob Herring <robh+dt@kernel.org>, 
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>
+X-Mailer: b4 0.12.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1793; i=avrac@freebox.fr;
+ h=from:subject:message-id; bh=am/H82hqwmU83sVoZuyNqgdTOTTt8SGXNkd+GyuveEU=;
+ b=owEBbQKS/ZANAwAIAXED/9m7NDSrAcsmYgBkPt02Pmrys1RGf4UYjuW9+8hCzdXDkgPQImhKL
+ oA0OHW17S+JAjMEAAEIAB0WIQSUwb/ndwkXHdZ/QQZxA//ZuzQ0qwUCZD7dNgAKCRBxA//ZuzQ0
+ q4oiD/9C+EMeFG+BgIyBSdfXlNecAx5BoK0RU2oOMxOuql17z4c+STsni5IYQ4ksuVMuiqjNCKh
+ u7NW9edxfnEoaVlO+RfOifXXuUv+DWZnL4Wnjv3CCtYFQr+N5w5Rx2a+BEhHlAYTu6XyX/bY5Xi
+ jsht/a/QUjDyWtT3C/40cMxz+hVJKlHkFbyTf4Tp6I0ROeO4bHxGUWL6cQeqPNpWwaW7QZHa5Gm
+ bxLkoaQJvA3UsEMPb9dJC/p0D4lk8dS2ne0B2+lGEN6c4Kn+9cBQXNfL3im3oTmwhHfo0W2zX1G
+ lu+pN6z83DV0ObBRmHJjZL7/qadtFQIIUbX6YhBh1/q3g7Rpwe2oS1nJmX/a2MIBPD9B/9KjIr1
+ ZV01SckN9NGrbQ6Qu5OXqA8MbpKGVX4fetF9TrG+MYnTEDVWE3qnLv/P27Pcvnx0ahE5Oty9mhO
+ hZM44VnYVdaQZci6l+BrrEa+LfOp44ASJe2xvRnIpLVn7OPrCr0Vhl5D9KQj63YidTlp6dNL3zV
+ i3upwSmxRdqZMlnrwSzo/v3+nCePXsd7YtKpc0NP2a7dZUTCPH/QKgbifnwcraoR0N8EenOBPmS
+ +nJ/MmCwDXje1E3H0+YAYioSmiaj0M9v8h38udUJSbp93tF+uN5oWR0GyTuM90nnUMTUa4p+pu/
+ 8mQzWFJrb+M9nVw==
+X-Developer-Key: i=avrac@freebox.fr; a=openpgp;
+ fpr=6225092072BB58E3CEEC091E75392A176D952DB4
+X-Mailman-Approved-At: Tue, 18 Apr 2023 18:12:13 +0000
+Subject: [Freedreno] [PATCH 0/4] Support HDMI CEC on Qualcomm SoCs
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,85 +96,53 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rob Clark <robdclark@chromium.org>, linux-arm-msm@vger.kernel.org,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- open list <linux-kernel@vger.kernel.org>, Sean Paul <sean@poorly.run>,
- Rob Clark <robdclark@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- David Airlie <airlied@gmail.com>, freedreno@lists.freedesktop.org
+Cc: devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, Arnaud Vrac <avrac@freebox.fr>,
+ Daniel Vetter <daniel@ffwll.ch>, David Airlie <airlied@gmail.com>,
+ freedreno@lists.freedesktop.org, linux-media@vger.kernel.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-From: Rob Clark <robdclark@chromium.org>
+Some Qualcomm SoCs that support HDMI also support CEC, including MSM8996
+and MSM8998. The hardware block can handle a single CEC logical address
+and broadcast messages.
 
-For a similar reason as commit f2c7ca890182 ("drm/atomic-helper: Don't
-set deadline for modesets"), we need the crtc to be already active in
-order to compute a target vblank time for an async commit.  Otherwise
-we get this splat reminding us that we are doing it wrong:
+Port the CEC driver from downstream msm-4.4 kernel. It has been tested
+on MSM8998 and passes the cec-compliance tool tests. The equivalent
+downstream driver also passed CEC CTS tests using a Quantum Data QD882E
+analyzer.
 
-   ------------[ cut here ]------------
-   msm_dpu ae01000.mdp: drm_WARN_ON_ONCE(drm_drv_uses_atomic_modeset(dev))
-   WARNING: CPU: 7 PID: 1923 at drivers/gpu/drm/drm_vblank.c:728 drm_crtc_vblank_helper_get_vblank_timestamp_internal+0x148/0x370
-   Modules linked in: snd_seq_dummy snd_seq snd_seq_device bridge stp llc tun vhost_vsock vhost vhost_iotlb vmw_vsock_virtio_transport_common vsock uinput rfcomm algif_hash algif_skcipher af_alg veth venus_dec venus_enc cros_ec_typec typec qcom_spmi_temp_alarm qcom_spmi_adc_tm5 qcom_spmi_adc5 xt_cgroup qcom_vadc_common qcom_stats hci_uart btqca xt_MASQUERADE venus_core 8021q coresight_tmc coresight_funnel coresight_etm4x coresight_replicator snd_soc_lpass_sc7180 coresight snd_soc_sc7180 ip6table_nat fuse ath10k_snoc ath10k_core ath mac80211 iio_trig_sysfs bluetooth cfg80211 cros_ec_sensors cros_ec_sensors_core ecdh_generic industrialio_triggered_buffer ecc kfifo_buf cros_ec_sensorhub r8153_ecm cdc_ether usbnet r8152 mii lzo_rle lzo_compress zram hid_vivaldi hid_google_hammer hid_vivaldi_common joydev
-   CPU: 7 PID: 1923 Comm: DrmThread Not tainted 5.15.107-18853-g3be267609a0b-dirty #16 a1ffc1a66e79c21c3536d8c9a42e819236e39714
-   Hardware name: Google Wormdingler rev1+ BOE panel board (DT)
-   pstate: 60400009 (nZCv daif +PAN -UAO -TCO -DIT -SSBS BTYPE=--)
-   pc : drm_crtc_vblank_helper_get_vblank_timestamp_internal+0x148/0x370
-   lr : drm_crtc_vblank_helper_get_vblank_timestamp_internal+0x144/0x370
-   sp : ffffffc012e2b800
-   x29: ffffffc012e2b840 x28: ffffff8083676094 x27: ffffffc012e2bb28
-   x26: ffffff8084539800 x25: 0000000000000000 x24: ffffff8083676000
-   x23: ffffffd3c8cdc5a0 x22: ffffff80845b9d00 x21: ffffffc012e2b8b4
-   x20: ffffffc012e2b910 x19: 0000000000000001 x18: 0000000000000000
-   x17: 0000000000000000 x16: 0000000000000010 x15: ffffffd3c8451a88
-   x14: 0000000000000003 x13: 0000000000000004 x12: 0000000000000001
-   x11: c0000000ffffdfff x10: ffffffd3c973ef58 x9 : 8ea3526b3cc95900
-   x8 : 8ea3526b3cc95900 x7 : 0000000000000000 x6 : 000000000000003a
-   x5 : ffffffd3c99676cd x4 : 0000000000000000 x3 : ffffffc012e2b4b8
-   x2 : ffffffc012e2b4c0 x1 : 00000000ffffdfff x0 : 0000000000000000
-   Call trace:
-    drm_crtc_vblank_helper_get_vblank_timestamp_internal+0x148/0x370
-    drm_crtc_vblank_helper_get_vblank_timestamp+0x20/0x30
-    drm_crtc_get_last_vbltimestamp+0x68/0xb0
-    drm_crtc_next_vblank_start+0x5c/0xa8
-    msm_atomic_commit_tail+0x264/0x664
-    commit_tail+0xac/0x160
-    drm_atomic_helper_commit+0x160/0x168
-    drm_atomic_commit+0xfc/0x128
-    drm_atomic_helper_disable_plane+0x8c/0x110
-    __setplane_atomic+0x10c/0x138
-    drm_mode_cursor_common+0x3a8/0x410
-    drm_mode_cursor_ioctl+0x48/0x70
-    drm_ioctl_kernel+0xe0/0x158
-    drm_ioctl+0x25c/0x4d8
-    __arm64_sys_ioctl+0x98/0xd0
-    invoke_syscall+0x4c/0x100
-    el0_svc_common+0x98/0x104
-    do_el0_svc+0x30/0x90
-    el0_svc+0x20/0x50
-    el0t_64_sync_handler+0x78/0x108
-    el0t_64_sync+0x1a4/0x1a8
-   ---[ end trace a0f587e1ab9589e8 ]---
+Some registers bitfield definitions were added to make the code clearer,
+and those will also be proposed for upstream in the original xml file
+from which the header was generated, in the mesa project.
 
-Fixes: 52ff0d3073d2 ("drm/msm/atomic: Switch to vblank_start helper")
-Signed-off-by: Rob Clark <robdclark@chromium.org>
+Note HDMI support is not yet included upstream for MSM8998, I would
+appreciate if someone can verify this driver at least works on MSM8996,
+for which adding the pinctrl nodes for CEC should be sufficient.
+
+Signed-off-by: Arnaud Vrac <avrac@freebox.fr>
 ---
- drivers/gpu/drm/msm/msm_atomic.c | 2 ++
- 1 file changed, 2 insertions(+)
+Arnaud Vrac (4):
+      drm/msm: add some cec register bitfield details
+      drm/msm: add hdmi cec support
+      drm/msm: expose edid to hdmi cec adapter
+      arm64: dts: qcom: msm8998: add hdmi cec pinctrl nodes
 
-diff --git a/drivers/gpu/drm/msm/msm_atomic.c b/drivers/gpu/drm/msm/msm_atomic.c
-index c5e71c05f038..3871a6f2d8e1 100644
---- a/drivers/gpu/drm/msm/msm_atomic.c
-+++ b/drivers/gpu/drm/msm/msm_atomic.c
-@@ -155,6 +155,8 @@ static bool can_do_async(struct drm_atomic_state *state,
- 	for_each_new_crtc_in_state(state, crtc, crtc_state, i) {
- 		if (drm_atomic_crtc_needs_modeset(crtc_state))
- 			return false;
-+		if (!crtc_state->active)
-+			return false;
- 		if (++num_crtcs > 1)
- 			return false;
- 		*async_crtc = crtc;
+ arch/arm64/boot/dts/qcom/msm8998.dtsi  |  14 ++
+ drivers/gpu/drm/msm/Kconfig            |   8 +
+ drivers/gpu/drm/msm/Makefile           |   1 +
+ drivers/gpu/drm/msm/hdmi/hdmi.c        |  15 ++
+ drivers/gpu/drm/msm/hdmi/hdmi.h        |  18 +++
+ drivers/gpu/drm/msm/hdmi/hdmi.xml.h    |  62 +++++++-
+ drivers/gpu/drm/msm/hdmi/hdmi_bridge.c |   2 +
+ drivers/gpu/drm/msm/hdmi/hdmi_cec.c    | 280 +++++++++++++++++++++++++++++++++
+ drivers/gpu/drm/msm/hdmi/hdmi_hpd.c    |  17 +-
+ 9 files changed, 412 insertions(+), 5 deletions(-)
+---
+base-commit: e3342532ecd39bbd9c2ab5b9001cec1589bc37e9
+change-id: 20230418-msm8998-hdmi-cec-08b5890bf41e
+
+Best regards,
 -- 
-2.39.2
+Arnaud Vrac <avrac@freebox.fr>
 
