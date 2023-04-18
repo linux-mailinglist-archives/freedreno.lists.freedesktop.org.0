@@ -1,74 +1,63 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 959DE6E6730
-	for <lists+freedreno@lfdr.de>; Tue, 18 Apr 2023 16:31:36 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 60FC66E67A3
+	for <lists+freedreno@lfdr.de>; Tue, 18 Apr 2023 16:57:09 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 38B0D10E7C9;
-	Tue, 18 Apr 2023 14:31:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1B09110E0A1;
+	Tue, 18 Apr 2023 14:57:08 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-oa1-x2a.google.com (mail-oa1-x2a.google.com
- [IPv6:2001:4860:4864:20::2a])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5DA5910E7C9;
- Tue, 18 Apr 2023 14:31:33 +0000 (UTC)
-Received: by mail-oa1-x2a.google.com with SMTP id
- 586e51a60fabf-187df75c907so310652fac.2; 
- Tue, 18 Apr 2023 07:31:33 -0700 (PDT)
+Received: from mail-oa1-x34.google.com (mail-oa1-x34.google.com
+ [IPv6:2001:4860:4864:20::34])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 66CAA10E0A1;
+ Tue, 18 Apr 2023 14:57:06 +0000 (UTC)
+Received: by mail-oa1-x34.google.com with SMTP id
+ 586e51a60fabf-18777914805so4133861fac.1; 
+ Tue, 18 Apr 2023 07:57:06 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20221208; t=1681828292; x=1684420292;
+ d=gmail.com; s=20221208; t=1681829825; x=1684421825;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=l5ACrXrGwITOLTD4dccqngzAY+kQ6PuMFiv2tu/9e90=;
- b=HDG3wPhsu14GZOZbzagsY1x1sk+Kdmr/rua4nDTIL8VZWi1SnNdirRCkg6AlOpaFbe
- kNr6Qg5EZOw8DLgOy9r+OeJGmlf2hnoObFtzRb1Dz+NHhR/kNK7A+uGgvePxyWeMx9cN
- E6MwLh1CqXcsJ+3TZD9v46gyQe4ryV6kPOvatzk28DkgTb1+kQ1A7cQtxHxl5KDh4XhS
- kbThLZR6nIDd3JGBm1tlH8lADFcb25tRDludRZ11Hb4iTGmMoU6n6n9VFnlM+kmlQcHw
- 1IoSssNRoPqOYk1UyyP0FKA41CjUoyzaDPzSAJfP+To3lDYRuXVXHe+PwUzRJr56D40t
- lNTw==
+ bh=FmDPfJiL1LzheWnfKu2SVFLYqu5IpgrAxgASj0DZzms=;
+ b=McqVS1sm0RAeylD6QcUbzCxTIobtJDJH9hZACeZo1Zv2z4KS8Sm7yA3I3V/4jbB5UM
+ tFWhL+PkGEYKGMj7xQWcl2FP5hTb36sZGqpVIGnXq3mQqNPF9g93INQPWjBzgAPyYWiV
+ Dhm5XZxew5l1nPwRxTglNvNRA9y4sbLcn3Qw+WhK3Dp1XeowWFydbpunTnhxxQ2BBNGV
+ A20iyOROE4fmEj7C1c8sdpO39n2aGCZ0AC3j8FGAkO0sEzloVi6mDGObTtee80mMtcuT
+ cSTiWHIi5LZEvejcYtIwiqBlM/Jwmf3H7d6wkaX0lzXT/D+hojPsh2YWrgvPoPi6h3L/
+ A6DA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1681828292; x=1684420292;
+ d=1e100.net; s=20221208; t=1681829825; x=1684421825;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=l5ACrXrGwITOLTD4dccqngzAY+kQ6PuMFiv2tu/9e90=;
- b=WqTdjaIuZG3qI32G70SqlkS43foqup6n616ZHaV2JTVId4IYlSW6+0IRzYHfWzYveW
- 8zkjQugySIJVewV9f1z41eKxp4ysReFgm8C/Meb/I1FB1h7rM0CsHMGJ3c2bncfvB78b
- bRUE9gW+XgID5XPZcWnGhjP7EPGVDi4KLXDcLREK7/ppUSunx2xJcXu6Ubt4GhTGt68X
- dpR6U8nvh/+Thm9Q7tEoO0FWuIxeNmGVApn725svpmgL42NwQK8XYDV5h1WmSLwTXYXS
- N4fSnrotK+h3ExyVziZv92I7QnCXamZNrUSb9+KicNYPYcWNZMVSEJvuK73Kh/dmgrQU
- PYOg==
-X-Gm-Message-State: AAQBX9dM3F8LcodvV8Dv7vefvtA6Kk0PjlyvkUGD83BeUW9Zv/hn+x3V
- iGAR773ky9EndGe6jVHdLObhO8wYzyne1I4+4B0=
-X-Google-Smtp-Source: AKy350aAs+nlCTwr3Bx+LCW+MDhg5c40W8a2nTsaDwXoGoGkBI0MbdGRg43BSQC/ynXheSqyV4A8zoqCX5LyHngHTDo=
-X-Received: by 2002:a05:6870:11cf:b0:184:2097:e64f with SMTP id
- 15-20020a05687011cf00b001842097e64fmr1140305oav.5.1681828291977; Tue, 18 Apr
- 2023 07:31:31 -0700 (PDT)
+ bh=FmDPfJiL1LzheWnfKu2SVFLYqu5IpgrAxgASj0DZzms=;
+ b=Nt60duTwLo2CE9oCrHRJOiTJorqZGD0Hehbm2T2kAjrhXV6eS7UYdQXwYZ2mOdNZIj
+ nsASi2UfVIuhzkNib3TAGjjLPgWJ/Lo8ZA6PPO3f0B4pX8ajVhI1mS5DlHrOis3EY4R+
+ 1qq+ZH70CasiXn8Pyj4HGneluYrf8FdFjfED2LeFm+UkDBT/Ehl+Wm6M++4YXB6brOII
+ UxYrN+nzmLgRMyrziJtGthmagcNOylpqTwit2TXeI06BeAa++gs3b2EUyJVDsmHWe/l9
+ rAh3FDWNKxZySlUPqMqebBhTDLYB16g8oS7JX5SXmXQbiMNEMbv0fsiT3RwXvxXujc6m
+ XhbA==
+X-Gm-Message-State: AAQBX9fBAzgJmCgSjN8j4fdCPi9vS/OqbAv9sOOJDy9nT40X3ddPWZqG
+ uQ1toP4ca4L3B/qeEGRJXwcQ1NTsmM8jY4iWCMI=
+X-Google-Smtp-Source: AKy350a9BK365oN693bGc67eLzEGnBhicvQndwl0wvMB5f0M027wfxuHsVJ0tBoCyY79Fk16pPluUBupgkXoS114wcs=
+X-Received: by 2002:aca:f042:0:b0:38e:30c2:56a8 with SMTP id
+ o63-20020acaf042000000b0038e30c256a8mr685605oih.4.1681829825108; Tue, 18 Apr
+ 2023 07:57:05 -0700 (PDT)
 MIME-Version: 1.0
 References: <20230417201215.448099-1-robdclark@gmail.com>
- <20230417201215.448099-3-robdclark@gmail.com>
- <58977051-197b-f1f0-c795-9037e70d7a91@linux.intel.com>
- <ZD5WLMRNibbRkGQO@phenom.ffwll.local>
-In-Reply-To: <ZD5WLMRNibbRkGQO@phenom.ffwll.local>
+ <20230417201215.448099-4-robdclark@gmail.com>
+ <20655be0-65e3-0000-4acd-310ec9cc1d3a@linux.intel.com>
+In-Reply-To: <20655be0-65e3-0000-4acd-310ec9cc1d3a@linux.intel.com>
 From: Rob Clark <robdclark@gmail.com>
-Date: Tue, 18 Apr 2023 07:31:21 -0700
-Message-ID: <CAF6AEGugcuV08G_pxjUGvhTbp8DFFG4ws3=oiP5PpbRf=SJdhQ@mail.gmail.com>
-To: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
- Rob Clark <robdclark@gmail.com>, 
- dri-devel@lists.freedesktop.org, Rob Clark <robdclark@chromium.org>, 
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, 
- Sean Paul <sean@poorly.run>, David Airlie <airlied@gmail.com>, 
- Akhil P Oommen <quic_akhilpo@quicinc.com>, Chia-I Wu <olvaffe@gmail.com>, 
- Konrad Dybcio <konrad.dybcio@linaro.org>, 
- "open list:DRM DRIVER FOR MSM ADRENO GPU" <linux-arm-msm@vger.kernel.org>, 
- "open list:DRM DRIVER FOR MSM ADRENO GPU" <freedreno@lists.freedesktop.org>,
- open list <linux-kernel@vger.kernel.org>
+Date: Tue, 18 Apr 2023 07:56:53 -0700
+Message-ID: <CAF6AEGsiNeHc7PuBnBkmwZ22S9dkmGqx70AEPmK8Fdp5J0YVaw@mail.gmail.com>
+To: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-Subject: Re: [Freedreno] [RFC 2/3] drm/msm: Rework get_comm_cmdline() helper
+Subject: Re: [Freedreno] [RFC 3/3] drm/msm: Add comm/cmdline fields
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,196 +70,202 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Daniel Vetter <daniel@ffwll.ch>
+Cc: Rob Clark <robdclark@chromium.org>,
+ "open list:DRM DRIVER FOR MSM ADRENO GPU"
+ <freedreno@lists.freedesktop.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Jonathan Corbet <corbet@lwn.net>, Sean Paul <sean@poorly.run>,
+ "open list:DOCUMENTATION" <linux-doc@vger.kernel.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
+ open list <linux-kernel@vger.kernel.org>, Maxime Ripard <mripard@kernel.org>,
+ Daniel Vetter <daniel@ffwll.ch>,
+ "open list:DRM DRIVER FOR MSM ADRENO GPU" <linux-arm-msm@vger.kernel.org>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ David Airlie <airlied@gmail.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Tue, Apr 18, 2023 at 1:34=E2=80=AFAM Daniel Vetter <daniel@ffwll.ch> wro=
-te:
+On Tue, Apr 18, 2023 at 1:53=E2=80=AFAM Tvrtko Ursulin
+<tvrtko.ursulin@linux.intel.com> wrote:
 >
-> On Tue, Apr 18, 2023 at 09:27:49AM +0100, Tvrtko Ursulin wrote:
+>
+> On 17/04/2023 21:12, Rob Clark wrote:
+> > From: Rob Clark <robdclark@chromium.org>
 > >
-> > On 17/04/2023 21:12, Rob Clark wrote:
-> > > From: Rob Clark <robdclark@chromium.org>
-> > >
-> > > Make it work in terms of ctx so that it can be re-used for fdinfo.
-> > >
-> > > Signed-off-by: Rob Clark <robdclark@chromium.org>
-> > > ---
-> > >   drivers/gpu/drm/msm/adreno/adreno_gpu.c |  4 ++--
-> > >   drivers/gpu/drm/msm/msm_drv.c           |  2 ++
-> > >   drivers/gpu/drm/msm/msm_gpu.c           | 13 ++++++-------
-> > >   drivers/gpu/drm/msm/msm_gpu.h           | 12 ++++++++++--
-> > >   drivers/gpu/drm/msm/msm_submitqueue.c   |  1 +
-> > >   5 files changed, 21 insertions(+), 11 deletions(-)
-> > >
-> > > diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.c b/drivers/gpu/dr=
-m/msm/adreno/adreno_gpu.c
-> > > index bb38e728864d..43c4e1fea83f 100644
-> > > --- a/drivers/gpu/drm/msm/adreno/adreno_gpu.c
-> > > +++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
-> > > @@ -412,7 +412,7 @@ int adreno_set_param(struct msm_gpu *gpu, struct =
-msm_file_private *ctx,
-> > >             /* Ensure string is null terminated: */
-> > >             str[len] =3D '\0';
-> > > -           mutex_lock(&gpu->lock);
-> > > +           mutex_lock(&ctx->lock);
-> > >             if (param =3D=3D MSM_PARAM_COMM) {
-> > >                     paramp =3D &ctx->comm;
-> > > @@ -423,7 +423,7 @@ int adreno_set_param(struct msm_gpu *gpu, struct =
-msm_file_private *ctx,
-> > >             kfree(*paramp);
-> > >             *paramp =3D str;
-> > > -           mutex_unlock(&gpu->lock);
-> > > +           mutex_unlock(&ctx->lock);
-> > >             return 0;
-> > >     }
-> > > diff --git a/drivers/gpu/drm/msm/msm_drv.c b/drivers/gpu/drm/msm/msm_=
-drv.c
-> > > index 3d73b98d6a9c..ca0e89e46e13 100644
-> > > --- a/drivers/gpu/drm/msm/msm_drv.c
-> > > +++ b/drivers/gpu/drm/msm/msm_drv.c
-> > > @@ -581,6 +581,8 @@ static int context_init(struct drm_device *dev, s=
-truct drm_file *file)
-> > >     rwlock_init(&ctx->queuelock);
-> > >     kref_init(&ctx->ref);
-> > > +   ctx->pid =3D get_pid(task_pid(current));
+> > Normally this would be the same information that can be obtained in
+> > other ways.  But in some cases the process opening the drm fd is merely
+> > a sort of proxy for the actual process using the GPU.  This is the case
+> > for guest VM processes using the GPU via virglrenderer, in which case
+> > the msm native-context renderer in virglrenderer overrides the comm/
+> > cmdline to be the guest process's values.
 > >
-> > Would it simplify things for msm if DRM core had an up to date file->pi=
-d as
-> > proposed in
-> > https://patchwork.freedesktop.org/patch/526752/?series=3D109902&rev=3D4=
- ? It
-> > gets updated if ioctl issuer is different than fd opener and this being
-> > context_init here reminded me of it. Maybe you wouldn't have to track t=
-he
-> > pid in msm?
+> > Exposing this via fdinfo allows tools like gputop to show something mor=
+e
+> > meaningful than just a bunch of "pcivirtio-gpu" users.
+>
+> You also later expanded with:
+>
+> """
+> I should have also mentioned, in the VM/proxy scenario we have a
+> single process with separate drm_file's for each guest VM process.  So
+> it isn't an option to just change the proxy process's name to match
+> the client.
+> """
+>
+> So how does that work - this single process temporarily changes it's
+> name for each drm fd it opens and creates a context or it is actually in
+> the native context protocol?
 
-The problem is that we also need this for gpu devcore dumps, which
-could happen after the drm_file is closed.  The ctx can outlive the
-file.
+It is part of the protocol, the mesa driver in the VM sends[1] this
+info to the native-context "shim" in host userspace which uses the
+SET_PARAM ioctl to pass this to the kernel.  In the host userspace
+there is just a single process (you see the host PID below) but it
+does a separate open() of the drm dev for each guest process (so that
+they each have their own GPU address space for isolation):
 
-But the ctx->pid has the same problem as the existing file->pid when
-it comes to Xorg.. hopefully over time that problem just goes away.  I
-guess I could do a similar dance to your patch to update the pid
-whenever (for ex) a submitqueue is created.
+DRM minor 128
+    PID    MEM ACTIV              NAME                    gpu
+    5297  200M   82M com.mojang.minecr |=E2=96=88=E2=96=88=E2=96=88=E2=96=
+=88=E2=96=88=E2=96=88=E2=96=88=E2=96=88=E2=96=88=E2=96=88=E2=96=88=E2=96=88=
+=E2=96=88=E2=96=88=E2=96=8F                        |
+    1859  199M    0B            chrome |=E2=96=88=E2=96=89                 =
+                    |
+    5297   64M    9M    surfaceflinger |                                   =
+    |
+    5297   12M    0B org.chromium.arc. |                                   =
+    |
+    5297   12M    0B com.android.syste |                                   =
+    |
+    5297   12M    0B org.chromium.arc. |                                   =
+    |
+    5297   26M    0B com.google.androi |                                   =
+    |
+    5297   65M    0B     system_server |                                   =
+    |
 
-> Can we go one step further and let the drm fdinfo stuff print these new
-> additions? Consistency across drivers and all that.
 
-Hmm, I guess I could _also_ store the overridden comm/cmdline in
-drm_file.  I still need to track it in ctx (msm_file_private) because
-I could need it after the file is closed.
+[1] https://gitlab.freedesktop.org/virgl/virglrenderer/-/blob/master/src/dr=
+m/msm/msm_proto.h#L326
+[2] https://gitlab.freedesktop.org/virgl/virglrenderer/-/blob/master/src/dr=
+m/msm/msm_renderer.c#L1050
 
-Maybe it could be useful to have a gl extension to let the app set a
-name on the context so that this is useful beyond native-ctx (ie.
-maybe it would be nice to see that "chrome: lwn.net" is using less gpu
-memory than "chrome: phoronix.com", etc)
+> >
+> > Signed-off-by: Rob Clark <robdclark@chromium.org>
+> > ---
+> >   Documentation/gpu/drm-usage-stats.rst |  8 ++++++++
+> >   drivers/gpu/drm/msm/msm_gpu.c         | 14 ++++++++++++++
+> >   2 files changed, 22 insertions(+)
+> >
+> > diff --git a/Documentation/gpu/drm-usage-stats.rst b/Documentation/gpu/=
+drm-usage-stats.rst
+> > index 8e00d53231e0..bc90bed455e3 100644
+> > --- a/Documentation/gpu/drm-usage-stats.rst
+> > +++ b/Documentation/gpu/drm-usage-stats.rst
+> > @@ -148,6 +148,14 @@ percentage utilization of the engine, whereas drm-=
+engine-<keystr> only reflects
+> >   time active without considering what frequency the engine is operatin=
+g as a
+> >   percentage of it's maximum frequency.
+> >
+> > +- drm-comm: <valstr>
+> > +
+> > +Returns the clients executable path.
+>
+> Full path and not just current->comm? In this case probably give it a
+> more descriptive name here.
+>
+> drm-client-executable
+> drm-client-command-line
+>
+> So we stay in the drm-client- namespace?
+>
+> Or if the former is absolute path could one key be enough for both?
+>
+> drm-client-command-line: /path/to/executable --arguments
+
+comm and cmdline can be different. Android seems to change the comm to
+the apk name, for example (and w/ the zygote stuff cmdline isn't
+really a thing)
+
+I guess it could be drm-client-comm and drm-client-cmdline?  Although
+comm/cmdline aren't the best names, they are just following what the
+kernel calls them elsewhere.
+
+> > +
+> > +- drm-cmdline: <valstr>
+> > +
+> > +Returns the clients cmdline.
+>
+> I think drm-usage-stats.rst text should provide some more text with
+> these two. To precisely define their content and outline the use case
+> under which driver authors may want to add them, and fdinfo consumer
+> therefore expect to see them. Just so everything is completely clear and
+> people do not start adding them for drivers which do not support native
+> context (or like).
+
+I really was just piggy-backing on existing comm/cmdline.. but I'll
+try to write up something better.
+
+I think it maybe should not be limited just to native context.. for
+ex. if the browser did somehow manage to create different displays
+associated with different drm_file instances (I guess it would have to
+use gbm to do this?) it would be nice to see browser tab names.
+
+> But on the overall it sounds reasonable to me - it would be really cool
+> to not just see pcivirtio-gpu as you say. Even if the standard virtiogpu
+> use case (not native context) could show real users.
+
+For vrend/virgl, we'd first need to solve the issue that there is just
+a single drm_file for all guest processes.  But really, just don't use
+virgl.  (I mean, like seriously, would you put a gl driver in the
+kernel?  Vrend has access to all guest memory, so this is essentially
+what you have with virgl.  This is just not a sane thing to do.) The
+only "valid" reason for not doing native-context is if you don't have
+the src code for your UMD to be able to modify it to talk
+native-context to virtgpu in the guest. ;-)
 
 BR,
 -R
 
-> Also for a generic trigger I think any driver ioctl is good enough (we
-> only really need to avoid the auth dance when you're not on a render
-> node).
-> -Daniel
+> Regards,
 >
-> >
-> > Regards,
-> >
-> > Tvrtko
-> >
-> > > +   mutex_init(&ctx->lock);
-> > >     msm_submitqueue_init(dev, ctx);
-> > >     ctx->aspace =3D msm_gpu_create_private_address_space(priv->gpu, c=
-urrent);
-> > > diff --git a/drivers/gpu/drm/msm/msm_gpu.c b/drivers/gpu/drm/msm/msm_=
-gpu.c
-> > > index c403912d13ab..f0f4f845c32d 100644
-> > > --- a/drivers/gpu/drm/msm/msm_gpu.c
-> > > +++ b/drivers/gpu/drm/msm/msm_gpu.c
-> > > @@ -327,18 +327,17 @@ find_submit(struct msm_ringbuffer *ring, uint32=
-_t fence)
-> > >   static void retire_submits(struct msm_gpu *gpu);
-> > > -static void get_comm_cmdline(struct msm_gem_submit *submit, char **c=
-omm, char **cmd)
-> > > +static void get_comm_cmdline(struct msm_file_private *ctx, char **co=
-mm, char **cmd)
-> > >   {
-> > > -   struct msm_file_private *ctx =3D submit->queue->ctx;
-> > >     struct task_struct *task;
-> > > -   WARN_ON(!mutex_is_locked(&submit->gpu->lock));
-> > > -
-> > >     /* Note that kstrdup will return NULL if argument is NULL: */
-> > > +   mutex_lock(&ctx->lock);
-> > >     *comm =3D kstrdup(ctx->comm, GFP_KERNEL);
-> > >     *cmd  =3D kstrdup(ctx->cmdline, GFP_KERNEL);
-> > > +   mutex_unlock(&ctx->lock);
-> > > -   task =3D get_pid_task(submit->pid, PIDTYPE_PID);
-> > > +   task =3D get_pid_task(ctx->pid, PIDTYPE_PID);
-> > >     if (!task)
-> > >             return;
-> > > @@ -372,7 +371,7 @@ static void recover_worker(struct kthread_work *w=
-ork)
-> > >             if (submit->aspace)
-> > >                     submit->aspace->faults++;
-> > > -           get_comm_cmdline(submit, &comm, &cmd);
-> > > +           get_comm_cmdline(submit->queue->ctx, &comm, &cmd);
-> > >             if (comm && cmd) {
-> > >                     DRM_DEV_ERROR(dev->dev, "%s: offending task: %s (=
-%s)\n",
-> > > @@ -460,7 +459,7 @@ static void fault_worker(struct kthread_work *wor=
-k)
-> > >             goto resume_smmu;
-> > >     if (submit) {
-> > > -           get_comm_cmdline(submit, &comm, &cmd);
-> > > +           get_comm_cmdline(submit->queue->ctx, &comm, &cmd);
-> > >             /*
-> > >              * When we get GPU iova faults, we can get 1000s of them,
-> > > diff --git a/drivers/gpu/drm/msm/msm_gpu.h b/drivers/gpu/drm/msm/msm_=
-gpu.h
-> > > index 7a4fa1b8655b..b2023a42116b 100644
-> > > --- a/drivers/gpu/drm/msm/msm_gpu.h
-> > > +++ b/drivers/gpu/drm/msm/msm_gpu.h
-> > > @@ -377,17 +377,25 @@ struct msm_file_private {
-> > >      */
-> > >     int sysprof;
-> > > +   /** @pid: Process that opened this file. */
-> > > +   struct pid *pid;
-> > > +
-> > > +   /**
-> > > +    * lock: Protects comm and cmdline
-> > > +    */
-> > > +   struct mutex lock;
-> > > +
-> > >     /**
-> > >      * comm: Overridden task comm, see MSM_PARAM_COMM
-> > >      *
-> > > -    * Accessed under msm_gpu::lock
-> > > +    * Accessed under msm_file_private::lock
-> > >      */
-> > >     char *comm;
-> > >     /**
-> > >      * cmdline: Overridden task cmdline, see MSM_PARAM_CMDLINE
-> > >      *
-> > > -    * Accessed under msm_gpu::lock
-> > > +    * Accessed under msm_file_private::lock
-> > >      */
-> > >     char *cmdline;
-> > > diff --git a/drivers/gpu/drm/msm/msm_submitqueue.c b/drivers/gpu/drm/=
-msm/msm_submitqueue.c
-> > > index 0e803125a325..0444ba04fa06 100644
-> > > --- a/drivers/gpu/drm/msm/msm_submitqueue.c
-> > > +++ b/drivers/gpu/drm/msm/msm_submitqueue.c
-> > > @@ -61,6 +61,7 @@ void __msm_file_private_destroy(struct kref *kref)
-> > >     }
-> > >     msm_gem_address_space_put(ctx->aspace);
-> > > +   put_pid(ctx->pid);
-> > >     kfree(ctx->comm);
-> > >     kfree(ctx->cmdline);
-> > >     kfree(ctx);
+> Tvrtko
 >
-> --
-> Daniel Vetter
-> Software Engineer, Intel Corporation
-> http://blog.ffwll.ch
+> > +
+> >   Implementation Details
+> >   =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+> >
+> > diff --git a/drivers/gpu/drm/msm/msm_gpu.c b/drivers/gpu/drm/msm/msm_gp=
+u.c
+> > index f0f4f845c32d..1150dcbf28aa 100644
+> > --- a/drivers/gpu/drm/msm/msm_gpu.c
+> > +++ b/drivers/gpu/drm/msm/msm_gpu.c
+> > @@ -148,12 +148,26 @@ int msm_gpu_pm_suspend(struct msm_gpu *gpu)
+> >       return 0;
+> >   }
+> >
+> > +static void get_comm_cmdline(struct msm_file_private *ctx, char **comm=
+, char **cmd);
+> > +
+> >   void msm_gpu_show_fdinfo(struct msm_gpu *gpu, struct msm_file_private=
+ *ctx,
+> >                        struct drm_printer *p)
+> >   {
+> > +     char *comm, *cmdline;
+> > +
+> > +     get_comm_cmdline(ctx, &comm, &cmdline);
+> > +
+> >       drm_printf(p, "drm-engine-gpu:\t%llu ns\n", ctx->elapsed_ns);
+> >       drm_printf(p, "drm-cycles-gpu:\t%llu\n", ctx->cycles);
+> >       drm_printf(p, "drm-maxfreq-gpu:\t%u Hz\n", gpu->fast_rate);
+> > +
+> > +     if (comm)
+> > +             drm_printf(p, "drm-comm:\t%s\n", comm);
+> > +     if (cmdline)
+> > +             drm_printf(p, "drm-cmdline:\t%s\n", cmdline);
+> > +
+> > +     kfree(comm);
+> > +     kfree(cmdline);
+> >   }
+> >
+> >   int msm_gpu_hw_init(struct msm_gpu *gpu)
