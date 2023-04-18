@@ -2,63 +2,62 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6AAC26E6BD3
-	for <lists+freedreno@lfdr.de>; Tue, 18 Apr 2023 20:12:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A72396E6BD8
+	for <lists+freedreno@lfdr.de>; Tue, 18 Apr 2023 20:12:20 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 26A3C10E813;
-	Tue, 18 Apr 2023 18:12:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 744CD10E83D;
+	Tue, 18 Apr 2023 18:12:19 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wm1-x333.google.com (mail-wm1-x333.google.com
- [IPv6:2a00:1450:4864:20::333])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 00A3D10E84D
- for <freedreno@lists.freedesktop.org>; Tue, 18 Apr 2023 18:11:18 +0000 (UTC)
-Received: by mail-wm1-x333.google.com with SMTP id
- o6-20020a05600c4fc600b003ef6e6754c5so276137wmq.5
- for <freedreno@lists.freedesktop.org>; Tue, 18 Apr 2023 11:11:18 -0700 (PDT)
+Received: from mail-wm1-x330.google.com (mail-wm1-x330.google.com
+ [IPv6:2a00:1450:4864:20::330])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7587810E813
+ for <freedreno@lists.freedesktop.org>; Tue, 18 Apr 2023 18:11:19 +0000 (UTC)
+Received: by mail-wm1-x330.google.com with SMTP id
+ l31-20020a05600c1d1f00b003f1718d89b2so327412wms.0
+ for <freedreno@lists.freedesktop.org>; Tue, 18 Apr 2023 11:11:19 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=freebox-fr.20221208.gappssmtp.com; s=20221208; t=1681841477; x=1684433477;
- h=cc:to:content-transfer-encoding:mime-version:message-id:date
- :subject:from:from:to:cc:subject:date:message-id:reply-to;
- bh=DMgcP9MFsdAN8yCKBrSy/25dv7G/Q0vscVQs09p5j8s=;
- b=jvV/M28+57FDMWzSJdsFY6PFf9AR/7siw3/kkaXUvn5ndnMTqlu4r2mnxbVARyvh2L
- 5iMdx5mXLXb2ToFWhYcxWnkimXV+pDhDhNmmSJzx9WZ1RH1YsNWl3TGetdDvCW8xl5Ly
- zsiYdLWpWxt9eqVzvbB3dbGWehLnDq3CXNo5fJNUaO59CejZ0qO3fKtsIcdWirsNLJZl
- gUOyrZ9xBe1s2affK0Od2FrWY6L+ynqQCX5y97Q+bPyvbh+f6Nz7PEXBFNhwmcqKq03X
- QkXzGns1KaKoMJerXmEzBb875X0C8QEWgetIkWbCrYpTGfazXmhjvI9CV+3TylGO7Gm/
- JmuQ==
+ h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+ :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+ :reply-to; bh=PGEdXpbrAB9bzKbGp8NO/2PlgF61Tq+sqmR873iY16o=;
+ b=D4+RUrwcyPbffPe96qXZM1OWA60iapoCnOWjcS2FRRhNKxyTVmbDZFyPOGFDlvS41B
+ NaEp1CWtDkz2lg+YIFqA+hTg+m9DSJuCRsYtBmchmafvQ/JN7UhNaKBFdX+DyhkzoBNP
+ +UlgkNx2WJmuP40tu7XV+TxFZEXO0QJM9M4jD3zAwGMJxqc8KGeJRPE2DNLUwUPSMknS
+ CKTgzsJgnIspqlNzBqPPhcWr809jbKgsCbshYWJOuVeCy4fEGM8rsn632zoZaqf+5AiM
+ 5S62y01rtBGlV8cadAgJKkjkzMC+KuH3BdvWjKVkjFxQHlYWTye29h3iF+SdqY0WeSg6
+ m24Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20221208; t=1681841477; x=1684433477;
- h=cc:to:content-transfer-encoding:mime-version:message-id:date
- :subject:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=DMgcP9MFsdAN8yCKBrSy/25dv7G/Q0vscVQs09p5j8s=;
- b=H9WJeNtBM66qu8GoiQ1NO5dR4qi0va8RGA5ZBYAEYxZn9khzaNgss2gG85atDuYRfB
- /4L6Dh5hwKutVLak84mdRqRZ1dm0GUKdrJbQ5PfXKzXkvMr1IlKoaaGs+tVH6DARKn6E
- JJ7LLDoz0rS+n8nczWU1T6KxWLHCKUWwfM/L+CE9czgBAHZiLdYYWmpiOR47v2NGFj0V
- W6IAgjgwW0zPNSkv+qsvjo4/qV/ceOAgfQiwI1Br13OKWkuOR0gD8samO7Sk6cPkxoYL
- dvbsdnxMhvc/WJn5E6zMTWrf3KiJlxUP2JbGmIT7WmXjLAzSZ46vxRYVVtDJCHHMIttD
- Y+xQ==
-X-Gm-Message-State: AAQBX9cfAMFQLSy4mTBm3En0y9lkqNEKjUg7M69H/LurNyv0F2xY6hYS
- A3QSjsy25zqd+o6ZkpvGF66nYgGHg6RwfLQjBA==
-X-Google-Smtp-Source: AKy350Y/hSn1dx9JX6EP4aiodyAYctRlEPn0LIKK8iXuOmFxThlQZZf2gHkqmjrMtPzt6jnzO38+Ag==
-X-Received: by 2002:a7b:c30a:0:b0:3dc:4fd7:31e9 with SMTP id
- k10-20020a7bc30a000000b003dc4fd731e9mr15769036wmj.7.1681841477039; 
+ h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+ :mime-version:subject:date:from:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=PGEdXpbrAB9bzKbGp8NO/2PlgF61Tq+sqmR873iY16o=;
+ b=iAK7JeqOMnvQWD88uR5EjLkW6N98psz7g95psbC4On9U/47o/yVpwNi6V7Xs06Fqxs
+ xvftaJuNnvAQr3PJ/oNf1JnlUgKVTav6Yhof4D0kqqi0WSWk4uIwn1OW8leyKrakgjj6
+ Rmm7AG7nTiK6Riee1kwaxnBukvWBWML2NYPaelVBiRq4p14Y6gYW7gZUjbI/dUFP+vgY
+ U8zGoi6CgOlnqzGPlUX3Nc2CNAZ3fpVWCPfzm/Qd8iHUllQvRbKfjEP3pYCNl/E/ZA3Z
+ 3nSf/qwltZBF4lKMwuW1n8movuOYwu4tySIDJi5VVjepoNDSKlLYZM5m3HK9wKs9M6eO
+ FdYg==
+X-Gm-Message-State: AAQBX9d5JVP+WtXfX1e8Bi2AllhBcyupuJTOdzuAZCbIFIVWd17+W/aw
+ lVlIJxLTwWPuFnviKxOuNBMT
+X-Google-Smtp-Source: AKy350bYnn4jHS5URPe6bTfBxOdYvUUb4URy+ztI9QdK6i3OqnYsarUufClbfvVtyqskp5G8whGoPQ==
+X-Received: by 2002:a05:600c:22c7:b0:3f0:5887:bea3 with SMTP id
+ 7-20020a05600c22c700b003f05887bea3mr14377190wmg.27.1681841477500; 
  Tue, 18 Apr 2023 11:11:17 -0700 (PDT)
 Received: from [127.0.1.1] (freebox.vlq16.iliad.fr. [213.36.7.13])
  by smtp.gmail.com with ESMTPSA id
- r17-20020a5d4e51000000b002f01e181c4asm13727898wrt.5.2023.04.18.11.11.16
+ r17-20020a5d4e51000000b002f01e181c4asm13727898wrt.5.2023.04.18.11.11.17
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 18 Apr 2023 11:11:16 -0700 (PDT)
+ Tue, 18 Apr 2023 11:11:17 -0700 (PDT)
 From: Arnaud Vrac <avrac@freebox.fr>
-Date: Tue, 18 Apr 2023 20:10:42 +0200
-Message-Id: <20230418-msm8998-hdmi-cec-v1-0-176479fb2fce@freebox.fr>
+Date: Tue, 18 Apr 2023 20:10:43 +0200
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIACLdPmQC/zXNywrCMBCF4Vcps3Yg6QUmvoq4SNKpmUWiZEQKp
- e9uKnb5w/k4GyhXYYVrt0Hlj6g8Swt76SAmXx6MMreG3vSDGS1h1kzOEaY5C0aOaChM5ExYRsv
- QWPDKGKovMR2w8PrGvx5OfexelRdZf9e3+75/AfJnIPmKAAAA
+Message-Id: <20230418-msm8998-hdmi-cec-v1-1-176479fb2fce@freebox.fr>
+References: <20230418-msm8998-hdmi-cec-v1-0-176479fb2fce@freebox.fr>
+In-Reply-To: <20230418-msm8998-hdmi-cec-v1-0-176479fb2fce@freebox.fr>
 To: Rob Clark <robdclark@gmail.com>, Hans Verkuil <hverkuil-cisco@xs4all.nl>, 
  Abhinav Kumar <quic_abhinavk@quicinc.com>, 
  Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>, 
@@ -66,24 +65,25 @@ To: Rob Clark <robdclark@gmail.com>, Hans Verkuil <hverkuil-cisco@xs4all.nl>,
  Konrad Dybcio <konrad.dybcio@linaro.org>, Rob Herring <robh+dt@kernel.org>, 
  Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>
 X-Mailer: b4 0.12.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1793; i=avrac@freebox.fr;
- h=from:subject:message-id; bh=am/H82hqwmU83sVoZuyNqgdTOTTt8SGXNkd+GyuveEU=;
- b=owEBbQKS/ZANAwAIAXED/9m7NDSrAcsmYgBkPt02Pmrys1RGf4UYjuW9+8hCzdXDkgPQImhKL
- oA0OHW17S+JAjMEAAEIAB0WIQSUwb/ndwkXHdZ/QQZxA//ZuzQ0qwUCZD7dNgAKCRBxA//ZuzQ0
- q4oiD/9C+EMeFG+BgIyBSdfXlNecAx5BoK0RU2oOMxOuql17z4c+STsni5IYQ4ksuVMuiqjNCKh
- u7NW9edxfnEoaVlO+RfOifXXuUv+DWZnL4Wnjv3CCtYFQr+N5w5Rx2a+BEhHlAYTu6XyX/bY5Xi
- jsht/a/QUjDyWtT3C/40cMxz+hVJKlHkFbyTf4Tp6I0ROeO4bHxGUWL6cQeqPNpWwaW7QZHa5Gm
- bxLkoaQJvA3UsEMPb9dJC/p0D4lk8dS2ne0B2+lGEN6c4Kn+9cBQXNfL3im3oTmwhHfo0W2zX1G
- lu+pN6z83DV0ObBRmHJjZL7/qadtFQIIUbX6YhBh1/q3g7Rpwe2oS1nJmX/a2MIBPD9B/9KjIr1
- ZV01SckN9NGrbQ6Qu5OXqA8MbpKGVX4fetF9TrG+MYnTEDVWE3qnLv/P27Pcvnx0ahE5Oty9mhO
- hZM44VnYVdaQZci6l+BrrEa+LfOp44ASJe2xvRnIpLVn7OPrCr0Vhl5D9KQj63YidTlp6dNL3zV
- i3upwSmxRdqZMlnrwSzo/v3+nCePXsd7YtKpc0NP2a7dZUTCPH/QKgbifnwcraoR0N8EenOBPmS
- +nJ/MmCwDXje1E3H0+YAYioSmiaj0M9v8h38udUJSbp93tF+uN5oWR0GyTuM90nnUMTUa4p+pu/
- 8mQzWFJrb+M9nVw==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3874; i=avrac@freebox.fr;
+ h=from:subject:message-id; bh=SVkTAlMIdLXUuPBcPdMnLFItEApcr9xvliEg/2oQQDY=;
+ b=owEBbQKS/ZANAwAIAXED/9m7NDSrAcsmYgBkPt05Q2xMOypajlyQfFQFeWvrZ5qZzytnpP01G
+ 0Ea1IIjyGiJAjMEAAEIAB0WIQSUwb/ndwkXHdZ/QQZxA//ZuzQ0qwUCZD7dOQAKCRBxA//ZuzQ0
+ q+irEACiYxpnV98wcf5XF7eYxq5xeg08MigztVevneCvbFlJhTBa53k32OD0Cvu+Igd9/tTFnzE
+ 0ELuJXyNi7TCcdwwMbWmMO7Yg1Z5ufFbXoKmMc1bHwAi8oykgRjkwZ6NE+oH3QQBbEDfTS+Jk/7
+ LBa2Kfwahyu4SvV7RcPv7WOIZ7p5IxTjbQ9bwKDQ4vWtI4eqXbCh+boiF8PgbgR1kYMy2P0lW9K
+ C2aMQkiH3HC2/rsqsrBPOYqpNkB/iqnG7Sh88WaQuy/1ZL1gkpWRSihfLaF9O8egBZx9LjIsVli
+ in2HnbYmGN/krwEUGaCwF0AgPSMcBKnbS7PrIlc83Il6uJyIxzMGuRcbekcNyi3+gondeuFghXV
+ MYDHrsNK1D2PJokeGcp++f4ZT8MbSnQFg88x2RB3RUiJVC+uNn3viu0RAesPPS/DMaHB1KjtYmO
+ k6t4vb9s6GXaY3smXw1n0uZ+MhDdKpgAokm3vTZRnqFaYHMmaj78/ALi/qXawrOHCQs431UYQ4n
+ +mZGUkOJjIb6BUDHYOWexiU0E1G1FUbuEzeh6aCFgGmoKSM58cf1pf9V9fd/MY95GzjmvJVmCng
+ A2doa8zHKLGwtZJXoaQMZ0GTQguao9U1/1toAbMoLknuTtIjxYVP8HeH34g84rAJ3Ae/ea46uLt
+ 0PEO+UPzt2WVtMA==
 X-Developer-Key: i=avrac@freebox.fr; a=openpgp;
  fpr=6225092072BB58E3CEEC091E75392A176D952DB4
 X-Mailman-Approved-At: Tue, 18 Apr 2023 18:12:13 +0000
-Subject: [Freedreno] [PATCH 0/4] Support HDMI CEC on Qualcomm SoCs
+Subject: [Freedreno] [PATCH 1/4] drm/msm: add some cec register bitfield
+ details
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -103,46 +103,108 @@ Cc: devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Some Qualcomm SoCs that support HDMI also support CEC, including MSM8996
-and MSM8998. The hardware block can handle a single CEC logical address
-and broadcast messages.
-
-Port the CEC driver from downstream msm-4.4 kernel. It has been tested
-on MSM8998 and passes the cec-compliance tool tests. The equivalent
-downstream driver also passed CEC CTS tests using a Quantum Data QD882E
-analyzer.
-
-Some registers bitfield definitions were added to make the code clearer,
-and those will also be proposed for upstream in the original xml file
-from which the header was generated, in the mesa project.
-
-Note HDMI support is not yet included upstream for MSM8998, I would
-appreciate if someone can verify this driver at least works on MSM8996,
-for which adding the pinctrl nodes for CEC should be sufficient.
+The register names and bitfields were determined from the downstream
+msm-4.4 driver.
 
 Signed-off-by: Arnaud Vrac <avrac@freebox.fr>
 ---
-Arnaud Vrac (4):
-      drm/msm: add some cec register bitfield details
-      drm/msm: add hdmi cec support
-      drm/msm: expose edid to hdmi cec adapter
-      arm64: dts: qcom: msm8998: add hdmi cec pinctrl nodes
+ drivers/gpu/drm/msm/hdmi/hdmi.xml.h | 62 ++++++++++++++++++++++++++++++++++++-
+ 1 file changed, 61 insertions(+), 1 deletion(-)
 
- arch/arm64/boot/dts/qcom/msm8998.dtsi  |  14 ++
- drivers/gpu/drm/msm/Kconfig            |   8 +
- drivers/gpu/drm/msm/Makefile           |   1 +
- drivers/gpu/drm/msm/hdmi/hdmi.c        |  15 ++
- drivers/gpu/drm/msm/hdmi/hdmi.h        |  18 +++
- drivers/gpu/drm/msm/hdmi/hdmi.xml.h    |  62 +++++++-
- drivers/gpu/drm/msm/hdmi/hdmi_bridge.c |   2 +
- drivers/gpu/drm/msm/hdmi/hdmi_cec.c    | 280 +++++++++++++++++++++++++++++++++
- drivers/gpu/drm/msm/hdmi/hdmi_hpd.c    |  17 +-
- 9 files changed, 412 insertions(+), 5 deletions(-)
----
-base-commit: e3342532ecd39bbd9c2ab5b9001cec1589bc37e9
-change-id: 20230418-msm8998-hdmi-cec-08b5890bf41e
+diff --git a/drivers/gpu/drm/msm/hdmi/hdmi.xml.h b/drivers/gpu/drm/msm/hdmi/hdmi.xml.h
+index 973b460486a5a..b4dd6e8cba6b7 100644
+--- a/drivers/gpu/drm/msm/hdmi/hdmi.xml.h
++++ b/drivers/gpu/drm/msm/hdmi/hdmi.xml.h
+@@ -76,6 +76,13 @@ enum hdmi_acr_cts {
+ 	ACR_48 = 3,
+ };
+ 
++enum hdmi_cec_tx_status {
++	CEC_TX_OK = 0,
++	CEC_TX_NACK = 1,
++	CEC_TX_ARB_LOSS = 2,
++	CEC_TX_MAX_RETRIES = 3,
++};
++
+ #define REG_HDMI_CTRL						0x00000000
+ #define HDMI_CTRL_ENABLE					0x00000001
+ #define HDMI_CTRL_HDMI						0x00000002
+@@ -476,20 +483,73 @@ static inline uint32_t HDMI_DDC_REF_REFTIMER(uint32_t val)
+ #define REG_HDMI_HDCP_SW_LOWER_AKSV				0x00000288
+ 
+ #define REG_HDMI_CEC_CTRL					0x0000028c
++#define HDMI_CEC_CTRL_ENABLE					0x00000001
++#define HDMI_CEC_CTRL_SEND_TRIGGER				0x00000002
++#define HDMI_CEC_CTRL_FRAME_SIZE__MASK				0x000001f0
++#define HDMI_CEC_CTRL_FRAME_SIZE__SHIFT				4
++static inline uint32_t HDMI_CEC_CTRL_FRAME_SIZE(uint32_t val)
++{
++	return ((val) << HDMI_CEC_CTRL_FRAME_SIZE__SHIFT) & HDMI_CEC_CTRL_FRAME_SIZE__MASK;
++}
++#define HDMI_CEC_CTRL_LINE_OE					0x00000200
+ 
+ #define REG_HDMI_CEC_WR_DATA					0x00000290
++#define HDMI_CEC_WR_DATA_BROADCAST				0x00000001
++#define HDMI_CEC_WR_DATA_DATA__MASK				0x0000ff00
++#define HDMI_CEC_WR_DATA_DATA__SHIFT				8
++static inline uint32_t HDMI_CEC_WR_DATA_DATA(uint32_t val)
++{
++	return ((val) << HDMI_CEC_WR_DATA_DATA__SHIFT) & HDMI_CEC_WR_DATA_DATA__MASK;
++}
+ 
+-#define REG_HDMI_CEC_CEC_RETRANSMIT				0x00000294
++#define REG_HDMI_CEC_RETRANSMIT					0x00000294
++#define HDMI_CEC_RETRANSMIT_ENABLE				0x00000001
++#define HDMI_CEC_RETRANSMIT_COUNT__MASK				0x000000fe
++#define HDMI_CEC_RETRANSMIT_COUNT__SHIFT			1
++static inline uint32_t HDMI_CEC_RETRANSMIT_COUNT(uint32_t val)
++{
++	return ((val) << HDMI_CEC_RETRANSMIT_COUNT__SHIFT) & HDMI_CEC_RETRANSMIT_COUNT__MASK;
++}
+ 
+ #define REG_HDMI_CEC_STATUS					0x00000298
++#define HDMI_CEC_STATUS_BUSY					0x00000001
++#define HDMI_CEC_STATUS_TX_FRAME_DONE				0x00000008
++#define HDMI_CEC_STATUS_TX_STATUS__MASK				0x000000f0
++#define HDMI_CEC_STATUS_TX_STATUS__SHIFT			4
++static inline uint32_t HDMI_CEC_STATUS_TX_STATUS(enum hdmi_cec_tx_status val)
++{
++	return ((val) << HDMI_CEC_STATUS_TX_STATUS__SHIFT) & HDMI_CEC_STATUS_TX_STATUS__MASK;
++}
+ 
+ #define REG_HDMI_CEC_INT					0x0000029c
++#define HDMI_CEC_INT_TX_DONE					0x00000001
++#define HDMI_CEC_INT_TX_DONE_MASK				0x00000002
++#define HDMI_CEC_INT_TX_ERROR					0x00000004
++#define HDMI_CEC_INT_TX_ERROR_MASK				0x00000008
++#define HDMI_CEC_INT_MONITOR					0x00000010
++#define HDMI_CEC_INT_MONITOR_MASK				0x00000020
++#define HDMI_CEC_INT_RX_DONE					0x00000040
++#define HDMI_CEC_INT_RX_DONE_MASK				0x00000080
+ 
+ #define REG_HDMI_CEC_ADDR					0x000002a0
+ 
+ #define REG_HDMI_CEC_TIME					0x000002a4
++#define HDMI_CEC_TIME_ENABLE					0x00000001
++#define HDMI_CEC_TIME_SIGNAL_FREE_TIME__MASK			0x0000ff80
++#define HDMI_CEC_TIME_SIGNAL_FREE_TIME__SHIFT			7
++static inline uint32_t HDMI_CEC_TIME_SIGNAL_FREE_TIME(uint32_t val)
++{
++	return ((val) << HDMI_CEC_TIME_SIGNAL_FREE_TIME__SHIFT) & HDMI_CEC_TIME_SIGNAL_FREE_TIME__MASK;
++}
+ 
+ #define REG_HDMI_CEC_REFTIMER					0x000002a8
++#define HDMI_CEC_REFTIMER_ENABLE				0x00010000
++#define HDMI_CEC_REFTIMER_REFTIMER__MASK			0x0000ffff
++#define HDMI_CEC_REFTIMER_REFTIMER__SHIFT			0
++static inline uint32_t HDMI_CEC_REFTIMER_REFTIMER(uint32_t val)
++{
++	return ((val) << HDMI_CEC_REFTIMER_REFTIMER__SHIFT) & HDMI_CEC_REFTIMER_REFTIMER__MASK;
++}
+ 
+ #define REG_HDMI_CEC_RD_DATA					0x000002ac
+ 
 
-Best regards,
 -- 
-Arnaud Vrac <avrac@freebox.fr>
+2.40.0
 
