@@ -1,37 +1,56 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 904F96E5B00
-	for <lists+freedreno@lfdr.de>; Tue, 18 Apr 2023 09:54:38 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 993F76E5BF7
+	for <lists+freedreno@lfdr.de>; Tue, 18 Apr 2023 10:28:00 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5E1D510E6BE;
-	Tue, 18 Apr 2023 07:54:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 58D3410E6F1;
+	Tue, 18 Apr 2023 08:27:59 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from relay01.th.seeweb.it (relay01.th.seeweb.it [5.144.164.162])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 45B5810E6BE
- for <freedreno@lists.freedesktop.org>; Tue, 18 Apr 2023 07:54:35 +0000 (UTC)
-Received: from SoMainline.org (94-211-6-86.cable.dynamic.v4.ziggo.nl
- [94.211.6.86])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest
- SHA256) (No client certificate requested)
- by m-r1.th.seeweb.it (Postfix) with ESMTPSA id 7B19A2008D;
- Tue, 18 Apr 2023 09:54:32 +0200 (CEST)
-Date: Tue, 18 Apr 2023 09:54:30 +0200
-From: Marijn Suijten <marijn.suijten@somainline.org>
-To: Abhinav Kumar <quic_abhinavk@quicinc.com>
-Message-ID: <tqftgyqd72u5cze7phfkntl7t3zyarvf5ekeoh4zwcn33vimdl@qe3tntyvjyzf>
-References: <20230418-dpu-drop-useless-for-lookup-v1-0-b9897ceb6f3e@somainline.org>
- <20230418-dpu-drop-useless-for-lookup-v1-1-b9897ceb6f3e@somainline.org>
- <bb229562-b0af-88f4-1207-ac23a6076dff@quicinc.com>
+Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5C7F810E6F1;
+ Tue, 18 Apr 2023 08:27:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1681806477; x=1713342477;
+ h=message-id:date:mime-version:subject:to:cc:references:
+ from:in-reply-to:content-transfer-encoding;
+ bh=Lxl9CmQ8kSrqA53q/Kd2vsC6iLrXfQuizeP/KK0MkNc=;
+ b=kG0+GuNtosHxbpmsUCdufiVhJ9hydpOtaKnpGN1M35/+L5+d8YXRfVhg
+ ihnTvPZjlFD6RIRJcluge3V9XvbdSZSkXq55tGe7T715LVHi5T5e2AI+a
+ C6jVbDSKjWgkzuKkVWDePe96fub/iQzk1pXqsF2oaHAjypGQnIU6NsIxc
+ 5SZLEqXRDQyv08GK6IySWZR53rg3OasCZzmbDTqTGp9vk5X4qusTWj6Iz
+ iyHB5Ks66lcW53KNVgJYYQuajgLSHbWOzvtfwnldKcGH1k4i7A3UWjehh
+ DQN3XIMU97OdtBItCdsmNp0jfR1Lba199IDpyOeotC/VYoHwLSPe5iG8t w==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10683"; a="431397769"
+X-IronPort-AV: E=Sophos;i="5.99,206,1677571200"; d="scan'208";a="431397769"
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+ by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 18 Apr 2023 01:27:54 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10683"; a="723550830"
+X-IronPort-AV: E=Sophos;i="5.99,206,1677571200"; d="scan'208";a="723550830"
+Received: from dilipban-mobl.ger.corp.intel.com (HELO [10.213.234.43])
+ ([10.213.234.43])
+ by orsmga001-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 18 Apr 2023 01:27:51 -0700
+Message-ID: <58977051-197b-f1f0-c795-9037e70d7a91@linux.intel.com>
+Date: Tue, 18 Apr 2023 09:27:49 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <bb229562-b0af-88f4-1207-ac23a6076dff@quicinc.com>
-Subject: Re: [Freedreno] [PATCH 1/3] drm/msm/dpu: Drop unused members from
- HW structs
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.9.0
+Content-Language: en-US
+To: Rob Clark <robdclark@gmail.com>, dri-devel@lists.freedesktop.org
+References: <20230417201215.448099-1-robdclark@gmail.com>
+ <20230417201215.448099-3-robdclark@gmail.com>
+From: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
+Organization: Intel Corporation UK Plc
+In-Reply-To: <20230417201215.448099-3-robdclark@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Subject: Re: [Freedreno] [RFC 2/3] drm/msm: Rework get_comm_cmdline() helper
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -44,41 +63,166 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org,
- Jami Kettunen <jami.kettunen@somainline.org>, Sean Paul <sean@poorly.run>,
- linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, Jordan Crouse <jordan@cosmicpenguin.net>,
- Konrad Dybcio <konrad.dybcio@linaro.org>, Rob Clark <robdclark@gmail.com>,
- Martin Botka <martin.botka@somainline.org>,
- ~postmarketos/upstreaming@lists.sr.ht, Daniel Vetter <daniel@ffwll.ch>,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@somainline.org>,
+Cc: Rob Clark <robdclark@chromium.org>,
+ "open list:DRM DRIVER FOR MSM ADRENO GPU"
+ <freedreno@lists.freedesktop.org>, Akhil P Oommen <quic_akhilpo@quicinc.com>,
+ Sean Paul <sean@poorly.run>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ open list <linux-kernel@vger.kernel.org>,
+ Konrad Dybcio <konrad.dybcio@linaro.org>, Daniel Vetter <daniel@ffwll.ch>,
+ "open list:DRM DRIVER FOR MSM ADRENO GPU" <linux-arm-msm@vger.kernel.org>,
  Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- David Airlie <airlied@gmail.com>
+ David Airlie <airlied@gmail.com>, Chia-I Wu <olvaffe@gmail.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 2023-04-17 18:54:18, Abhinav Kumar wrote:
+
+On 17/04/2023 21:12, Rob Clark wrote:
+> From: Rob Clark <robdclark@chromium.org>
 > 
-> On 4/17/2023 4:14 PM, Marijn Suijten wrote:
-> > Some of these members were initialized while never read, while others
-> > were not even assigned any value at all.  Drop them to save some space,
-> > and above all confusion when looking at these members.
-> > 
-> > Fixes: 25fdd5933e4c ("drm/msm: Add SDM845 DPU support")
-> > Fixes: 84a33d0fd921 ("drm/msm/dpu: add dpu_hw_wb abstraction for writeback blocks")
-> > Signed-off-by: Marijn Suijten <marijn.suijten@somainline.org>
-> > ---
+> Make it work in terms of ctx so that it can be re-used for fdinfo.
 > 
-> It seems like WB UBWC formats are not supported today. Because otherwise 
-> ctx->mdp would be used for writeback. I guess we can add a ubwc member 
-> similar to hw_sspp, when we do add the support for this. Hence this is,
+> Signed-off-by: Rob Clark <robdclark@chromium.org>
+> ---
+>   drivers/gpu/drm/msm/adreno/adreno_gpu.c |  4 ++--
+>   drivers/gpu/drm/msm/msm_drv.c           |  2 ++
+>   drivers/gpu/drm/msm/msm_gpu.c           | 13 ++++++-------
+>   drivers/gpu/drm/msm/msm_gpu.h           | 12 ++++++++++--
+>   drivers/gpu/drm/msm/msm_submitqueue.c   |  1 +
+>   5 files changed, 21 insertions(+), 11 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.c b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
+> index bb38e728864d..43c4e1fea83f 100644
+> --- a/drivers/gpu/drm/msm/adreno/adreno_gpu.c
+> +++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
+> @@ -412,7 +412,7 @@ int adreno_set_param(struct msm_gpu *gpu, struct msm_file_private *ctx,
+>   		/* Ensure string is null terminated: */
+>   		str[len] = '\0';
+>   
+> -		mutex_lock(&gpu->lock);
+> +		mutex_lock(&ctx->lock);
+>   
+>   		if (param == MSM_PARAM_COMM) {
+>   			paramp = &ctx->comm;
+> @@ -423,7 +423,7 @@ int adreno_set_param(struct msm_gpu *gpu, struct msm_file_private *ctx,
+>   		kfree(*paramp);
+>   		*paramp = str;
+>   
+> -		mutex_unlock(&gpu->lock);
+> +		mutex_unlock(&ctx->lock);
+>   
+>   		return 0;
+>   	}
+> diff --git a/drivers/gpu/drm/msm/msm_drv.c b/drivers/gpu/drm/msm/msm_drv.c
+> index 3d73b98d6a9c..ca0e89e46e13 100644
+> --- a/drivers/gpu/drm/msm/msm_drv.c
+> +++ b/drivers/gpu/drm/msm/msm_drv.c
+> @@ -581,6 +581,8 @@ static int context_init(struct drm_device *dev, struct drm_file *file)
+>   	rwlock_init(&ctx->queuelock);
+>   
+>   	kref_init(&ctx->ref);
+> +	ctx->pid = get_pid(task_pid(current));
 
-That seems preferable to me.  SSPP does the same in patch 3/3, and I
-have been thinking to replace the dpu_mdss_cfg *catalog parameter in
-dpu_hw_sspp_init with just the ubwc cfg pointer.  Likewise
-dpu_hw_ctl_init also takes the full dpu_mdss_cfg only to take out the
-mixers.
+Would it simplify things for msm if DRM core had an up to date file->pid 
+as proposed in 
+https://patchwork.freedesktop.org/patch/526752/?series=109902&rev=4 ? It 
+gets updated if ioctl issuer is different than fd opener and this being 
+context_init here reminded me of it. Maybe you wouldn't have to track 
+the pid in msm?
 
-- Marijn
+Regards,
 
-> Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
+Tvrtko
+
+> +	mutex_init(&ctx->lock);
+>   	msm_submitqueue_init(dev, ctx);
+>   
+>   	ctx->aspace = msm_gpu_create_private_address_space(priv->gpu, current);
+> diff --git a/drivers/gpu/drm/msm/msm_gpu.c b/drivers/gpu/drm/msm/msm_gpu.c
+> index c403912d13ab..f0f4f845c32d 100644
+> --- a/drivers/gpu/drm/msm/msm_gpu.c
+> +++ b/drivers/gpu/drm/msm/msm_gpu.c
+> @@ -327,18 +327,17 @@ find_submit(struct msm_ringbuffer *ring, uint32_t fence)
+>   
+>   static void retire_submits(struct msm_gpu *gpu);
+>   
+> -static void get_comm_cmdline(struct msm_gem_submit *submit, char **comm, char **cmd)
+> +static void get_comm_cmdline(struct msm_file_private *ctx, char **comm, char **cmd)
+>   {
+> -	struct msm_file_private *ctx = submit->queue->ctx;
+>   	struct task_struct *task;
+>   
+> -	WARN_ON(!mutex_is_locked(&submit->gpu->lock));
+> -
+>   	/* Note that kstrdup will return NULL if argument is NULL: */
+> +	mutex_lock(&ctx->lock);
+>   	*comm = kstrdup(ctx->comm, GFP_KERNEL);
+>   	*cmd  = kstrdup(ctx->cmdline, GFP_KERNEL);
+> +	mutex_unlock(&ctx->lock);
+>   
+> -	task = get_pid_task(submit->pid, PIDTYPE_PID);
+> +	task = get_pid_task(ctx->pid, PIDTYPE_PID);
+>   	if (!task)
+>   		return;
+>   
+> @@ -372,7 +371,7 @@ static void recover_worker(struct kthread_work *work)
+>   		if (submit->aspace)
+>   			submit->aspace->faults++;
+>   
+> -		get_comm_cmdline(submit, &comm, &cmd);
+> +		get_comm_cmdline(submit->queue->ctx, &comm, &cmd);
+>   
+>   		if (comm && cmd) {
+>   			DRM_DEV_ERROR(dev->dev, "%s: offending task: %s (%s)\n",
+> @@ -460,7 +459,7 @@ static void fault_worker(struct kthread_work *work)
+>   		goto resume_smmu;
+>   
+>   	if (submit) {
+> -		get_comm_cmdline(submit, &comm, &cmd);
+> +		get_comm_cmdline(submit->queue->ctx, &comm, &cmd);
+>   
+>   		/*
+>   		 * When we get GPU iova faults, we can get 1000s of them,
+> diff --git a/drivers/gpu/drm/msm/msm_gpu.h b/drivers/gpu/drm/msm/msm_gpu.h
+> index 7a4fa1b8655b..b2023a42116b 100644
+> --- a/drivers/gpu/drm/msm/msm_gpu.h
+> +++ b/drivers/gpu/drm/msm/msm_gpu.h
+> @@ -377,17 +377,25 @@ struct msm_file_private {
+>   	 */
+>   	int sysprof;
+>   
+> +	/** @pid: Process that opened this file. */
+> +	struct pid *pid;
+> +
+> +	/**
+> +	 * lock: Protects comm and cmdline
+> +	 */
+> +	struct mutex lock;
+> +
+>   	/**
+>   	 * comm: Overridden task comm, see MSM_PARAM_COMM
+>   	 *
+> -	 * Accessed under msm_gpu::lock
+> +	 * Accessed under msm_file_private::lock
+>   	 */
+>   	char *comm;
+>   
+>   	/**
+>   	 * cmdline: Overridden task cmdline, see MSM_PARAM_CMDLINE
+>   	 *
+> -	 * Accessed under msm_gpu::lock
+> +	 * Accessed under msm_file_private::lock
+>   	 */
+>   	char *cmdline;
+>   
+> diff --git a/drivers/gpu/drm/msm/msm_submitqueue.c b/drivers/gpu/drm/msm/msm_submitqueue.c
+> index 0e803125a325..0444ba04fa06 100644
+> --- a/drivers/gpu/drm/msm/msm_submitqueue.c
+> +++ b/drivers/gpu/drm/msm/msm_submitqueue.c
+> @@ -61,6 +61,7 @@ void __msm_file_private_destroy(struct kref *kref)
+>   	}
+>   
+>   	msm_gem_address_space_put(ctx->aspace);
+> +	put_pid(ctx->pid);
+>   	kfree(ctx->comm);
+>   	kfree(ctx->cmdline);
+>   	kfree(ctx);
