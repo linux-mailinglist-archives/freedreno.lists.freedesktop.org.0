@@ -1,79 +1,73 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 500666E83B1
-	for <lists+freedreno@lfdr.de>; Wed, 19 Apr 2023 23:26:31 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id E38A96E846C
+	for <lists+freedreno@lfdr.de>; Thu, 20 Apr 2023 00:15:10 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 17C0E10E21A;
-	Wed, 19 Apr 2023 21:26:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8186E10EB34;
+	Wed, 19 Apr 2023 22:15:09 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-x236.google.com (mail-lj1-x236.google.com
- [IPv6:2a00:1450:4864:20::236])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4788A10EAE9
- for <freedreno@lists.freedesktop.org>; Wed, 19 Apr 2023 21:26:29 +0000 (UTC)
-Received: by mail-lj1-x236.google.com with SMTP id a10so521543ljr.5
- for <freedreno@lists.freedesktop.org>; Wed, 19 Apr 2023 14:26:29 -0700 (PDT)
+Received: from mail-lj1-x22b.google.com (mail-lj1-x22b.google.com
+ [IPv6:2a00:1450:4864:20::22b])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5993210EB32
+ for <freedreno@lists.freedesktop.org>; Wed, 19 Apr 2023 22:15:07 +0000 (UTC)
+Received: by mail-lj1-x22b.google.com with SMTP id h2so567327ljh.13
+ for <freedreno@lists.freedesktop.org>; Wed, 19 Apr 2023 15:15:07 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1681939583; x=1684531583;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
+ d=linaro.org; s=google; t=1681942505; x=1684534505;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
  :from:to:cc:subject:date:message-id:reply-to;
- bh=G7rLjVelMroUaEiqjl++LDyQDXZLBXJneIETgFg7kfY=;
- b=R2BeKr1L0hhm6DJSQeidUDfHuDd5+ZJoq4TOgU37eePK+pqACeRlO8XV1NmGmXEqdN
- zMsZtcwFZUEg+uobXe/kysNSlykxrbJZyMM0WrJHwbtgL1tmOOMQa13N+Gqweuj05N24
- xNwLwdcA5gVdLmJirjg6ioH2/lydImJPAfbwjeLIHkQxUZACh8upfgo/E+Kh+djV+/2B
- eMsRAvrBal4w0uX5ENi8No9VWGlPIhWqlNSXaP5WOk0NNB69FhcHp8SMxINZnDn6GEp3
- QCpg0faV1EmNpQzipY/eLVnd9qHHzZAqIEXUrPPEGpO6muEiStWC/YCpu0HHz9FlhvSJ
- nYgA==
+ bh=ytCeCLRrAM5jc6M/DBn6k6KhfCt7gZVNX4R7z0khTGc=;
+ b=OnRB/l3vwD/hi/TsQlTfTlBEMz9NLvwqfNSo1CP2j66Bj8pW7wLDYKHzoOQBGs55qN
+ s9j/cT59DrxIjL9I5wsOYYPGSC1u3zmTVaq2KUnjo/lbADYVAd+g802TYcZo1j5IaBMP
+ yS3SxHVHSDLWF6MjQmNWcXX58EOsLjareyulU/wybmMlz3/sTfv5PMnEDruajOfKowCK
+ el6MMeWgUgUETby0ukQA6Awhae2Ouba6KcHUwVWpbOHAx1o1Dw+KA9HUVIYVPc5fp15c
+ V1g+nSYgTufzn7oIdm5zDI09zsn+6SI/OdYR4Gw/7LkOnSoWzh/1BnRQFZBD4NhrhTHb
+ p2nw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1681939583; x=1684531583;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
+ d=1e100.net; s=20221208; t=1681942505; x=1684534505;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=G7rLjVelMroUaEiqjl++LDyQDXZLBXJneIETgFg7kfY=;
- b=lwHzs6lEByfuBoE0A4lkZ/eOn9ZNZg31BB/05qc+7DdKuLAjxd7HutubDbeNpn+uvv
- rjEq/gFxHEL5i65Vf39SnHw+beFDodrivFKZHD7cIJfrJ7tBDTE9QWrCBBt88KSZ8Ilq
- 0vVXcwPSOzHzAp05e2q+0MIj8N3DnubeZEz4pR/MoSqv4k3EK3aPIVpUT0nPO022/XJk
- jUrJCvV/IN+lfTZtVg9wZFc9+8vmMZcQNcWAQ25GbGoJ5uHP5V04CJfAmbQWnAM7W1pw
- MBSugU+uNDas94eJy/rxCjN6QiUwgtK1ECTLHYYcAd6L7SNJXSipK8ohb94y4k9FIPK6
- FKfA==
-X-Gm-Message-State: AAQBX9dkNGh2D6vvx/Z600bv50++KssDTosNrxfKMpKlUBngWLfUHGrF
- oPzALRfQaJVooARHB3sYSPxBMw==
-X-Google-Smtp-Source: AKy350YwRKyqyht0LHMNwHAknUo5O+PCkps4HQwk0FE03ebRAxhB/2wTs/O6g9F9gTWK2osX8ClJTQ==
-X-Received: by 2002:a2e:9e56:0:b0:299:ac68:4806 with SMTP id
- g22-20020a2e9e56000000b00299ac684806mr2195156ljk.9.1681939583467; 
- Wed, 19 Apr 2023 14:26:23 -0700 (PDT)
-Received: from [192.168.1.101] (abyj144.neoplus.adsl.tpnet.pl. [83.9.29.144])
+ bh=ytCeCLRrAM5jc6M/DBn6k6KhfCt7gZVNX4R7z0khTGc=;
+ b=JkOHz0jqGGzM1CVXMKFpzvhazFN/1ekRVU0F990o3TdSFNGQSXMVL+gPQmigwYrEIt
+ rhBZM4P2aS4eC1U43gla7o7s85Xlw4oTu/Wjp/kTtv2H6dozT9QMBnySNHjtpnSiJ1jD
+ eUJpeOCyKEgguM4Hk+jnmaF/y7KxcGHXM2eLE7JCGN+5dFwGGtG8VokaFRI05CTuyaS5
+ qtOJGjzYWa1+paP8hVeBFViD4w8yKg20Cf9iRPqlUslErXXIY6bUyqdNbwfcAK6FA918
+ +1BCBLQ9V+rfIrq3SMgEwMuqfTUjsSJOGPF0Dc6WaDswYh/hDv87tj+DeChsuSwUeeKJ
+ DqPg==
+X-Gm-Message-State: AAQBX9eZ2+a7g1ooOXh4Megdx57RPTBIGgUvhpsRiR4mTG35kDKCZCNw
+ Lp5tBEXFUTLI2LY3In9c10HuFQ==
+X-Google-Smtp-Source: AKy350ZFutfn0RXVZ/ykfD/OVNTS1p2iLO9nhoF8y7NgvPMPbsszamU9msWN/8x7CYFEeoCAj2bInQ==
+X-Received: by 2002:a2e:954b:0:b0:2a8:d242:4df with SMTP id
+ t11-20020a2e954b000000b002a8d24204dfmr2518118ljh.35.1681942504921; 
+ Wed, 19 Apr 2023 15:15:04 -0700 (PDT)
+Received: from ?IPV6:2001:14ba:a085:4d00::8a5?
+ (dzccz6yyyyyyyyyyybcwt-3.rev.dnainternet.fi. [2001:14ba:a085:4d00::8a5])
  by smtp.gmail.com with ESMTPSA id
- 2-20020a2eb282000000b002a76b9e4058sm3049975ljx.43.2023.04.19.14.26.22
+ u16-20020a2e91d0000000b002934fe524d2sm3067789ljg.83.2023.04.19.15.15.03
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 19 Apr 2023 14:26:23 -0700 (PDT)
-Message-ID: <bb8e3633-3fe5-b4d2-08e1-0789a68620a8@linaro.org>
-Date: Wed, 19 Apr 2023 23:26:21 +0200
+ Wed, 19 Apr 2023 15:15:04 -0700 (PDT)
+Message-ID: <71fe636f-ba8b-643c-9b5f-02f712bc0674@linaro.org>
+Date: Thu, 20 Apr 2023 01:15:03 +0300
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.9.1
-Content-Language: en-US
-To: Jeykumar Sankaran <quic_jeykumar@quicinc.com>,
- Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>,
- David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- Rob Herring <robh+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Krishna Manikandan <quic_mkrishn@quicinc.com>
-References: <20230417-topic-dpu_regbus-v1-0-06fbdc1643c0@linaro.org>
- <20230417-topic-dpu_regbus-v1-5-06fbdc1643c0@linaro.org>
- <11c72462-b256-d0db-a666-9615da4420f6@quicinc.com>
- <e15ec005-ef52-c14c-bdeb-faaca207d39b@linaro.org>
- <77bb1b3c-09cb-310a-be34-166e573a13a7@quicinc.com>
-From: Konrad Dybcio <konrad.dybcio@linaro.org>
-In-Reply-To: <77bb1b3c-09cb-310a-be34-166e573a13a7@quicinc.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-Subject: Re: [Freedreno] [PATCH 5/5] drm/msm/dpu1: Handle the reg bus ICC
- path
+ Thunderbird/102.9.0
+To: Arnaud Vrac <avrac@freebox.fr>, Rob Clark <robdclark@gmail.com>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>,
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>
+References: <20230419-dpu-tweaks-v1-0-d1bac46db075@freebox.fr>
+ <20230419-dpu-tweaks-v1-1-d1bac46db075@freebox.fr>
+Content-Language: en-GB
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+In-Reply-To: <20230419-dpu-tweaks-v1-1-d1bac46db075@freebox.fr>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Subject: Re: [Freedreno] [PATCH 01/11] drm/msm/dpu: tweak msm8998 hw catalog
+ values
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -86,136 +80,90 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- Marijn Suijten <marijn.suijten@somainline.org>,
- freedreno@lists.freedesktop.org
+Cc: linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-
-
-On 19.04.2023 22:11, Jeykumar Sankaran wrote:
+On 19/04/2023 17:41, Arnaud Vrac wrote:
+> Match the values found in the downstream msm-4.4 kernel sde driver.
 > 
+> Signed-off-by: Arnaud Vrac <avrac@freebox.fr>
+
+Fixes: 94391a14fc27 ("drm/msm/dpu1: Add MSM8998 to hw catalog")
+
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+
+> ---
+>   drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_3_0_msm8998.h |  8 ++++----
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c          | 15 +++++----------
+>   2 files changed, 9 insertions(+), 14 deletions(-)
 > 
-> On 4/19/2023 12:48 PM, Konrad Dybcio wrote:
->>
->>
->> On 19.04.2023 21:06, Jeykumar Sankaran wrote:
->>>
->>>
->>> On 4/17/2023 8:30 AM, Konrad Dybcio wrote:
->>>> Apart from the already handled data bus (MAS_MDP_Pn<->DDR), there's
->>>> another path that needs to be handled to ensure MDSS functions properly,
->>>> namely the "reg bus", a.k.a the CPU-MDSS interconnect.
->>>>
->>>> Gating that path may have a variety of effects.. from none to otherwise
->>>> inexplicable DSI timeouts..
->>>>
->>>> On the DPU side, we need to keep the bus alive. The vendor driver
->>>> kickstarts it to max (300Mbps) throughput on first commit, but in
->>>> exchange for some battery life in rare DPU-enabled-panel-disabled
->>>> usecases, we can request it at DPU init and gate it at suspend.
->>>>
->>>> Signed-off-by: Konrad Dybcio <konrad.dybcio@linaro.org>
->>>> ---
->>>>    drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c | 22 ++++++++++++++++++++--
->>>>    drivers/gpu/drm/msm/disp/dpu1/dpu_kms.h |  1 +
->>>>    2 files changed, 21 insertions(+), 2 deletions(-)
->>>>
->>>> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
->>>> index dd6c1c40ab9e..d1f77faebbc0 100644
->>>> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
->>>> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
->>>> @@ -384,15 +384,17 @@ static int dpu_kms_global_obj_init(struct dpu_kms *dpu_kms)
->>>>        return 0;
->>>>    }
->>>>    -static int dpu_kms_parse_data_bus_icc_path(struct dpu_kms *dpu_kms)
->>>> +static int dpu_kms_parse_icc_paths(struct dpu_kms *dpu_kms)
->>>>    {
->>>>        struct icc_path *path0;
->>>>        struct icc_path *path1;
->>>> +    struct icc_path *reg_bus_path;
->>>>        struct drm_device *dev = dpu_kms->dev;
->>>>        struct device *dpu_dev = dev->dev;
->>>>          path0 = msm_icc_get(dpu_dev, "mdp0-mem");
->>>>        path1 = msm_icc_get(dpu_dev, "mdp1-mem");
->>>> +    reg_bus_path = msm_icc_get(dpu_dev, "cpu-cfg");
->>>>          if (IS_ERR_OR_NULL(path0))
->>>>            return PTR_ERR_OR_ZERO(path0);
->>>> @@ -404,6 +406,10 @@ static int dpu_kms_parse_data_bus_icc_path(struct dpu_kms *dpu_kms)
->>>>            dpu_kms->mdp_path[1] = path1;
->>>>            dpu_kms->num_mdp_paths++;
->>>>        }
->>>> +
->>>> +    if (!IS_ERR_OR_NULL(reg_bus_path))
->>>> +        dpu_kms->reg_bus_path = reg_bus_path;
->>>> +
->>>>        return 0;
->>>>    }
->>>>    @@ -1039,7 +1045,7 @@ static int dpu_kms_hw_init(struct msm_kms *kms)
->>>>            DPU_DEBUG("REG_DMA is not defined");
->>>>        }
->>>>    -    dpu_kms_parse_data_bus_icc_path(dpu_kms);
->>>> +    dpu_kms_parse_icc_paths(dpu_kms);
->>>>          rc = pm_runtime_resume_and_get(&dpu_kms->pdev->dev);
->>>>        if (rc < 0)
->>>> @@ -1241,6 +1247,9 @@ static int __maybe_unused dpu_runtime_suspend(struct device *dev)
->>>>        for (i = 0; i < dpu_kms->num_mdp_paths; i++)
->>>>            icc_set_bw(dpu_kms->mdp_path[i], 0, 0);
->>>>    +    if (dpu_kms->reg_bus_path)
->>>> +        icc_set_bw(dpu_kms->reg_bus_path, 0, 0);
->>>> +
->>>>        return 0;
->>>>    }
->>>>    @@ -1261,6 +1270,15 @@ static int __maybe_unused dpu_runtime_resume(struct device *dev)
->>>>            return rc;
->>>>        }
->>>>    +    /*
->>>> +     * The vendor driver supports setting 76.8 / 150 / 300 Mbps on this
->>> How do you arrive at these distint BW values? Are they provided by the ICC fwk for the given path?
->> They're hardcoded in the SDE driver.
->>
->> Konrad
-> These bandwidths are derived from the scaling frequencies of all the buses participating in the icc-path. So they cannot be constants. Ideally they should be read from the hw catalog data of the respective platform.
-msm-5.4 : rotator/sde_rotator_base.c
-
-static const struct sde_rot_bus_data sde_rot_reg_bus_table[] = {
-        {0, 0},
-        {0, 76800},
-        {0, 150000},
-        {0, 300000},
-};
-
-One of the two voters begs to disagree, but I do indeed see that some
-SoCs (lahaina, yupik, shima..) cast votes for 74/148/265 MBps instead
-of 77/150/300 from the MDSS device (with rotator being considered
-separate), or so say their DTs, thanks for pointing that out.
-
-Nonetheless, this code would taste good with bolognese sauce..
-
-Konrad
-
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_3_0_msm8998.h b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_3_0_msm8998.h
+> index 2b3ae84057dfe..b07e8a9941f79 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_3_0_msm8998.h
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_3_0_msm8998.h
+> @@ -134,10 +134,10 @@ static const struct dpu_dspp_cfg msm8998_dspp[] = {
+>   };
+>   
+>   static const struct dpu_intf_cfg msm8998_intf[] = {
+> -	INTF_BLK("intf_0", INTF_0, 0x6a000, 0x280, INTF_DP, 0, 25, INTF_SDM845_MASK, MDP_SSPP_TOP0_INTR, 24, 25),
+> -	INTF_BLK("intf_1", INTF_1, 0x6a800, 0x280, INTF_DSI, 0, 25, INTF_SDM845_MASK, MDP_SSPP_TOP0_INTR, 26, 27),
+> -	INTF_BLK("intf_2", INTF_2, 0x6b000, 0x280, INTF_DSI, 1, 25, INTF_SDM845_MASK, MDP_SSPP_TOP0_INTR, 28, 29),
+> -	INTF_BLK("intf_3", INTF_3, 0x6b800, 0x280, INTF_HDMI, 0, 25, INTF_SDM845_MASK, MDP_SSPP_TOP0_INTR, 30, 31),
+> +	INTF_BLK("intf_0", INTF_0, 0x6a000, 0x280, INTF_DP, 0, 21, INTF_SDM845_MASK, MDP_SSPP_TOP0_INTR, 24, 25),
+> +	INTF_BLK("intf_1", INTF_1, 0x6a800, 0x280, INTF_DSI, 0, 21, INTF_SDM845_MASK, MDP_SSPP_TOP0_INTR, 26, 27),
+> +	INTF_BLK("intf_2", INTF_2, 0x6b000, 0x280, INTF_DSI, 1, 21, INTF_SDM845_MASK, MDP_SSPP_TOP0_INTR, 28, 29),
+> +	INTF_BLK("intf_3", INTF_3, 0x6b800, 0x280, INTF_HDMI, 0, 21, INTF_SDM845_MASK, MDP_SSPP_TOP0_INTR, 30, 31),
+>   };
+>   
+>   static const struct dpu_perf_cfg msm8998_perf_data = {
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
+> index 03f162af1a50b..8d5d782a43398 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
+> @@ -587,12 +587,12 @@ static const u32 sdm845_nrt_pri_lvl[] = {3, 3, 3, 3, 3, 3, 3, 3};
+>   
+>   static const struct dpu_vbif_dynamic_ot_cfg msm8998_ot_rdwr_cfg[] = {
+>   	{
+> -		.pps = 1088 * 1920 * 30,
+> +		.pps = 1920 * 1080 * 30,
+>   		.ot_limit = 2,
+>   	},
+>   	{
+> -		.pps = 1088 * 1920 * 60,
+> -		.ot_limit = 6,
+> +		.pps = 1920 * 1080 * 60,
+> +		.ot_limit = 4,
+>   	},
+>   	{
+>   		.pps = 3840 * 2160 * 30,
+> @@ -705,10 +705,7 @@ static const struct dpu_qos_lut_entry msm8998_qos_linear[] = {
+>   	{.fl = 10, .lut = 0x1555b},
+>   	{.fl = 11, .lut = 0x5555b},
+>   	{.fl = 12, .lut = 0x15555b},
+> -	{.fl = 13, .lut = 0x55555b},
+> -	{.fl = 14, .lut = 0},
+> -	{.fl = 1,  .lut = 0x1b},
+> -	{.fl = 0,  .lut = 0}
+> +	{.fl = 0,  .lut = 0x55555b}
+>   };
+>   
+>   static const struct dpu_qos_lut_entry sdm845_qos_linear[] = {
+> @@ -730,9 +727,7 @@ static const struct dpu_qos_lut_entry msm8998_qos_macrotile[] = {
+>   	{.fl = 10, .lut = 0x1aaff},
+>   	{.fl = 11, .lut = 0x5aaff},
+>   	{.fl = 12, .lut = 0x15aaff},
+> -	{.fl = 13, .lut = 0x55aaff},
+> -	{.fl = 1,  .lut = 0x1aaff},
+> -	{.fl = 0,  .lut = 0},
+> +	{.fl = 0,  .lut = 0x55aaff},
+>   };
+>   
+>   static const struct dpu_qos_lut_entry sc7180_qos_linear[] = {
 > 
-> Jeykumar S.
->>>> +     * path, but it seems to go for the highest level when display output
->>>> +     * is enabled and zero otherwise. For simplicity, we can assume that
->>>> +     * DPU being enabled and running implies that.
->>>> +     */
->>>> +    if (dpu_kms->reg_bus_path)
->>>> +        icc_set_bw(dpu_kms->reg_bus_path, 0, MBps_to_icc(300));
->>>> +
->>>>        dpu_vbif_init_memtypes(dpu_kms);
->>>>          drm_for_each_encoder(encoder, ddev)
->>>> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.h
->>>> index d5d9bec90705..c332381d58c4 100644
->>>> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.h
->>>> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.h
->>>> @@ -111,6 +111,7 @@ struct dpu_kms {
->>>>        atomic_t bandwidth_ref;
->>>>        struct icc_path *mdp_path[2];
->>>>        u32 num_mdp_paths;
->>>> +    struct icc_path *reg_bus_path;
->>>>    };
->>>>      struct vsync_info {
->>>>
+
+-- 
+With best wishes
+Dmitry
+
