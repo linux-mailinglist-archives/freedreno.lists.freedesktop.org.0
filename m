@@ -1,64 +1,62 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id B01716E7D8C
-	for <lists+freedreno@lfdr.de>; Wed, 19 Apr 2023 17:00:50 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 3F1B66E7E95
+	for <lists+freedreno@lfdr.de>; Wed, 19 Apr 2023 17:43:29 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1BB0D10E9DD;
-	Wed, 19 Apr 2023 15:00:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0EF6A10E9F3;
+	Wed, 19 Apr 2023 15:43:28 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-qv1-xf30.google.com (mail-qv1-xf30.google.com
- [IPv6:2607:f8b0:4864:20::f30])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BB1DE10E9D6;
- Wed, 19 Apr 2023 15:00:40 +0000 (UTC)
-Received: by mail-qv1-xf30.google.com with SMTP id oj8so4403122qvb.11;
- Wed, 19 Apr 2023 08:00:40 -0700 (PDT)
+Received: from mail-yw1-x112e.google.com (mail-yw1-x112e.google.com
+ [IPv6:2607:f8b0:4864:20::112e])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C845610E9FF
+ for <freedreno@lists.freedesktop.org>; Wed, 19 Apr 2023 15:43:26 +0000 (UTC)
+Received: by mail-yw1-x112e.google.com with SMTP id
+ 00721157ae682-555bc7f6746so4920427b3.6
+ for <freedreno@lists.freedesktop.org>; Wed, 19 Apr 2023 08:43:26 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20221208; t=1681916439; x=1684508439;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=X+yIEO9tM41Om4Q5uaCccd0BnUH6gwgppvqHFPpI6yw=;
- b=QOwVTX+QNSFCXCs/MJan8WYyINf0tWZcH53Rr2Bu9T5EpKteEBzuFFOQMc5z8HXgPB
- h8hGsp8mMYLmAqpGcsdGzIA/UkFhVIpu9bu+8RzzhymzPgXIXC33IPRRaxckDVh6oYJt
- XXXdyExlRmgx7yJExVEIz5e127w7O5sUTu97Cct2+M3VYa222tEbYJR9/ArcXPNa3Aq4
- J7Iy2EK6QnDmadhAbGnqnCycuIlh81fyCaJk7lYHBaTvVbdQxSOrpLZuyBp//pbB9MJa
- WMSTltAgNXTbZN4nHwJOc8KHP2r2B38AnayEd1irwV76jBNUC9L/+2Fcd19Auq0ENZ7H
- 0MvA==
+ d=chromium.org; s=google; t=1681919005; x=1684511005;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=WYP/FiV4NZRa6cuRzACHXEBSXpiH2T5moAJ/fvYk8fQ=;
+ b=Bg3ej8Mx817Cb/4huu7B23u41PzGHpDtW0vXlB7s/sx0aAPo9GEozdq7daMoHJm9Nw
+ dJcTqIgpwSLn8EGoB0W0O0w4kQ03MKeluC/p2EUWmkeLjBMGHWJdijnfLaBZz3uTp7Ns
+ rVcku7g6+tmnt9iK+3Op1LYMOUGuqT54bNvz4=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1681916439; x=1684508439;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=X+yIEO9tM41Om4Q5uaCccd0BnUH6gwgppvqHFPpI6yw=;
- b=Lg4UHc1YPCgpw5SgQP+AtRUik/nXcQ1A7Y30bikyYTTv4VBgK8UTlqsWzetv4WYyII
- IbbF3PtWZ0PGerhXPU/fwhi17xagTouXpK7Tz6M05p9OwL8RPD6bZ/5TC4xpI0omtwqT
- smHURQg1GwkCd0dn0JqvBPSOn64rFrL/ZcOhRL6LIX2Q4QQ/bYItWXfhtWKP0ZxuRcTW
- qzjO06ThtymDwvgOsWpZx5pFjiQrH5eXtQHBFHlibEU7+EfDlTZ4QyW0k6Cl0AVG3ckl
- Ah3SHzmovWOl8pomnNWzIVWL0WpkCFbSqYxV7rVqIpeTYXFdb6dboWIisoJE7gxD2BlR
- uqdg==
-X-Gm-Message-State: AAQBX9e8mNmycsn0cky4EwtGNVSsp7++yljtcIkhzuRJv7YSoUmcAfuo
- 2+HUeoFiyRZq3/q2ENyD70ETdm2ypmM+/BLC6FjDwhO0
-X-Google-Smtp-Source: AKy350Y0Y/hbLWnpKH21R7X0WmgSsn4q71y5hJ1BaeJMOA8s4dxSu/iV5N/lTPb/+6LtE08yN5Ns2UMq18fFwR86hPA=
-X-Received: by 2002:a05:6214:29ca:b0:56e:a96a:2bdc with SMTP id
- gh10-20020a05621429ca00b0056ea96a2bdcmr22630028qvb.40.1681916439030; Wed, 19
- Apr 2023 08:00:39 -0700 (PDT)
+ d=1e100.net; s=20221208; t=1681919005; x=1684511005;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=WYP/FiV4NZRa6cuRzACHXEBSXpiH2T5moAJ/fvYk8fQ=;
+ b=WPxya2BIxGD/Ot1fl2nTtd+Ir2WBBQlLHWbYjCCXcz3pUWD5ZoeqniIxwY9wulffCg
+ u1HcJlzqiZ86T0LLda0IwtPJUBHJR5v63zoHmXxoYvDAyvcLLyT7KOg7jkaRLZkbdq0U
+ gONrSlHTnxI3oar8kWfXyQNArCKzc+0M3J3BL7TccmqfCdK7HxFgv4ORlTXPsxUPnmkc
+ NA4aoQ0yqgk9B5ZNZBcEIWkFlN61rKAcRn4BlnW/O1DjDKvuu/p7Ty34mW4tXEi8Y16f
+ +mMQjAKsvcwLBGIoT1pU1dsu7MpUTbUVWfeBt/llbT+3a/+U6yta++rz/t4lY0fA7dpf
+ 06Gg==
+X-Gm-Message-State: AAQBX9cuxjAh9MZnwEtB5dJOG5vPcxs8zeMOKsmS49DDxrA076yv7Quu
+ mH655jl9r4+RieENLb3O+mqv3A==
+X-Google-Smtp-Source: AKy350YUz4CgwWDe2UhIdSf3hlN0krIz+k7Rr1p3S6Lmy8YFNkmDRPImpAnYFzPWA5Byud316pAxYQ==
+X-Received: by 2002:a0d:d487:0:b0:54f:9b01:b353 with SMTP id
+ w129-20020a0dd487000000b0054f9b01b353mr3644144ywd.9.1681919005407; 
+ Wed, 19 Apr 2023 08:43:25 -0700 (PDT)
+Received: from localhost ([2620:0:1035:15:55c6:7cf1:a68:79b0])
+ by smtp.gmail.com with UTF8SMTPSA id
+ bf21-20020a05690c029500b0054f8a3624dbsm4477345ywb.145.2023.04.19.08.43.24
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 19 Apr 2023 08:43:25 -0700 (PDT)
+From: Mark Yacoub <markyacoub@chromium.org>
+X-Google-Original-From: Mark Yacoub <markyacoub@google.com>
+To: 
+Date: Wed, 19 Apr 2023 11:43:10 -0400
+Message-ID: <20230419154321.1993419-1-markyacoub@google.com>
+X-Mailer: git-send-email 2.40.0.634.g4ca3ef3211-goog
 MIME-Version: 1.0
-References: <20230417201215.448099-1-robdclark@gmail.com>
- <20230417201215.448099-4-robdclark@gmail.com>
- <20655be0-65e3-0000-4acd-310ec9cc1d3a@linux.intel.com>
- <CAF6AEGsiNeHc7PuBnBkmwZ22S9dkmGqx70AEPmK8Fdp5J0YVaw@mail.gmail.com>
- <dfabcc1b-52d3-c5ef-3cd3-aad0aa51f960@linux.intel.com>
-In-Reply-To: <dfabcc1b-52d3-c5ef-3cd3-aad0aa51f960@linux.intel.com>
-From: Rob Clark <robdclark@gmail.com>
-Date: Wed, 19 Apr 2023 08:00:27 -0700
-Message-ID: <CAF6AEGuxKwAVBijMwPThORsZ5hQ6Mzhfe66UTNFqNQNUfQfimQ@mail.gmail.com>
-To: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [Freedreno] [RFC 3/3] drm/msm: Add comm/cmdline fields
+Content-Transfer-Encoding: 8bit
+Subject: [Freedreno] [PATCH v10 00/10] drm/hdcp: Pull HDCP
+ auth/exchange/check into helpers
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,259 +69,76 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rob Clark <robdclark@chromium.org>,
- "open list:DRM DRIVER FOR MSM ADRENO GPU"
- <freedreno@lists.freedesktop.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Jonathan Corbet <corbet@lwn.net>, Sean Paul <sean@poorly.run>,
- "open list:DOCUMENTATION" <linux-doc@vger.kernel.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
- open list <linux-kernel@vger.kernel.org>, Maxime Ripard <mripard@kernel.org>,
- Daniel Vetter <daniel@ffwll.ch>,
- "open list:DRM DRIVER FOR MSM ADRENO GPU" <linux-arm-msm@vger.kernel.org>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- David Airlie <airlied@gmail.com>
+Cc: suraj.kandpal@intel.com, intel-gfx@lists.freedesktop.org,
+ dianders@chromium.org, dri-devel@lists.freedesktop.org, seanpaul@chromium.org,
+ dmitry.baryshkov@linaro.org, freedreno@lists.freedesktop.org,
+ Mark Yacoub <markyacoub@google.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Wed, Apr 19, 2023 at 6:36=E2=80=AFAM Tvrtko Ursulin
-<tvrtko.ursulin@linux.intel.com> wrote:
->
->
-> On 18/04/2023 15:56, Rob Clark wrote:
-> > On Tue, Apr 18, 2023 at 1:53=E2=80=AFAM Tvrtko Ursulin
-> > <tvrtko.ursulin@linux.intel.com> wrote:
-> >>
-> >>
-> >> On 17/04/2023 21:12, Rob Clark wrote:
-> >>> From: Rob Clark <robdclark@chromium.org>
-> >>>
-> >>> Normally this would be the same information that can be obtained in
-> >>> other ways.  But in some cases the process opening the drm fd is mere=
-ly
-> >>> a sort of proxy for the actual process using the GPU.  This is the ca=
-se
-> >>> for guest VM processes using the GPU via virglrenderer, in which case
-> >>> the msm native-context renderer in virglrenderer overrides the comm/
-> >>> cmdline to be the guest process's values.
-> >>>
-> >>> Exposing this via fdinfo allows tools like gputop to show something m=
-ore
-> >>> meaningful than just a bunch of "pcivirtio-gpu" users.
-> >>
-> >> You also later expanded with:
-> >>
-> >> """
-> >> I should have also mentioned, in the VM/proxy scenario we have a
-> >> single process with separate drm_file's for each guest VM process.  So
-> >> it isn't an option to just change the proxy process's name to match
-> >> the client.
-> >> """
-> >>
-> >> So how does that work - this single process temporarily changes it's
-> >> name for each drm fd it opens and creates a context or it is actually =
-in
-> >> the native context protocol?
-> >
-> > It is part of the protocol, the mesa driver in the VM sends[1] this
-> > info to the native-context "shim" in host userspace which uses the
-> > SET_PARAM ioctl to pass this to the kernel.  In the host userspace
-> > there is just a single process (you see the host PID below) but it
-> > does a separate open() of the drm dev for each guest process (so that
-> > they each have their own GPU address space for isolation):
-> >
-> > DRM minor 128
-> >      PID    MEM ACTIV              NAME                    gpu
-> >      5297  200M   82M com.mojang.minecr |=E2=96=88=E2=96=88=E2=96=88=E2=
-=96=88=E2=96=88=E2=96=88=E2=96=88=E2=96=88=E2=96=88=E2=96=88=E2=96=88=E2=96=
-=88=E2=96=88=E2=96=88=E2=96=8F                        |
-> >      1859  199M    0B            chrome |=E2=96=88=E2=96=89            =
-                         |
-> >      5297   64M    9M    surfaceflinger |                              =
-         |
-> >      5297   12M    0B org.chromium.arc. |                              =
-         |
-> >      5297   12M    0B com.android.syste |                              =
-         |
-> >      5297   12M    0B org.chromium.arc. |                              =
-         |
-> >      5297   26M    0B com.google.androi |                              =
-         |
-> >      5297   65M    0B     system_server |                              =
-         |
-> >
-> >
-> > [1] https://gitlab.freedesktop.org/virgl/virglrenderer/-/blob/master/sr=
-c/drm/msm/msm_proto.h#L326
-> > [2] https://gitlab.freedesktop.org/virgl/virglrenderer/-/blob/master/sr=
-c/drm/msm/msm_renderer.c#L1050
-> >
-> >>>
-> >>> Signed-off-by: Rob Clark <robdclark@chromium.org>
-> >>> ---
-> >>>    Documentation/gpu/drm-usage-stats.rst |  8 ++++++++
-> >>>    drivers/gpu/drm/msm/msm_gpu.c         | 14 ++++++++++++++
-> >>>    2 files changed, 22 insertions(+)
-> >>>
-> >>> diff --git a/Documentation/gpu/drm-usage-stats.rst b/Documentation/gp=
-u/drm-usage-stats.rst
-> >>> index 8e00d53231e0..bc90bed455e3 100644
-> >>> --- a/Documentation/gpu/drm-usage-stats.rst
-> >>> +++ b/Documentation/gpu/drm-usage-stats.rst
-> >>> @@ -148,6 +148,14 @@ percentage utilization of the engine, whereas dr=
-m-engine-<keystr> only reflects
-> >>>    time active without considering what frequency the engine is opera=
-ting as a
-> >>>    percentage of it's maximum frequency.
-> >>>
-> >>> +- drm-comm: <valstr>
-> >>> +
-> >>> +Returns the clients executable path.
-> >>
-> >> Full path and not just current->comm? In this case probably give it a
-> >> more descriptive name here.
-> >>
-> >> drm-client-executable
-> >> drm-client-command-line
-> >>
-> >> So we stay in the drm-client- namespace?
-> >>
-> >> Or if the former is absolute path could one key be enough for both?
-> >>
-> >> drm-client-command-line: /path/to/executable --arguments
-> >
-> > comm and cmdline can be different. Android seems to change the comm to
-> > the apk name, for example (and w/ the zygote stuff cmdline isn't
-> > really a thing)
-> >
-> > I guess it could be drm-client-comm and drm-client-cmdline?  Although
-> > comm/cmdline aren't the best names, they are just following what the
-> > kernel calls them elsewhere.
->
-> I wasn't sure what do you plan to do given mention of a path under the
-> drm-comm description. If it is a path then comm would be misleading,
-> since comm as defined in procfs is not a path, I don't think so at
-> least. Which is why I was suggesting executable. But if you remove the
-> mention of a path from rst and rather refer to processes' comm value I
-> think that is then okay.
+Hi all,
+This is v10 of the HDCP patches. The patches are authored by Sean Paul. 
+I rebased and addressed the review comments in v6-v10.
 
-Oh, whoops the mention of "path" for comm was a mistake.  task->comm
-is described as executable name without path, and that is what the
-fdinfo field was intending to follow.
+Main change in v10 is handling the kernel test bot warnings.
 
-> >>> +
-> >>> +- drm-cmdline: <valstr>
-> >>> +
-> >>> +Returns the clients cmdline.
-> >>
-> >> I think drm-usage-stats.rst text should provide some more text with
-> >> these two. To precisely define their content and outline the use case
-> >> under which driver authors may want to add them, and fdinfo consumer
-> >> therefore expect to see them. Just so everything is completely clear a=
-nd
-> >> people do not start adding them for drivers which do not support nativ=
-e
-> >> context (or like).
-> >
-> > I really was just piggy-backing on existing comm/cmdline.. but I'll
-> > try to write up something better.
-> >
-> > I think it maybe should not be limited just to native context.. for
-> > ex. if the browser did somehow manage to create different displays
-> > associated with different drm_file instances (I guess it would have to
-> > use gbm to do this?) it would be nice to see browser tab names.
->
-> Would be cool yes.
->
-> My thinking behind why we maybe do not want to blanket add them is
-> because for common case is it the same information which can be obtained
-> from procfs. Like in igt_drm_clients.c I get the pid and comm from
-> /proc/$pid/stat. So I was thinking it is only interesting to add to
-> fdinfo for drivers where it could differ by the explicit override like
-> you have with native context.
+Patches 1-4 focus on moving the common HDCP helpers to common DRM. 
+This introduces a slight change in the original intel flow
+as it splits the unique driver protocol from the generic implementation.
 
-Yeah, I suppose I could define them as drm-client-comm-override and
-drm-client-cmdline-override
+Patches 5-7 split the HDCP flow on the i915 driver to make use of the common DRM helpers.
 
-> It can be added once there is a GL/whatever extension which would allow
-> it? (I am not familiar with how browsers manage rendering contexts so
-> maybe I am missing something.)
->
-> >> But on the overall it sounds reasonable to me - it would be really coo=
-l
-> >> to not just see pcivirtio-gpu as you say. Even if the standard virtiog=
-pu
-> >> use case (not native context) could show real users.
-> >
-> > For vrend/virgl, we'd first need to solve the issue that there is just
-> > a single drm_file for all guest processes.  But really, just don't use
-> > virgl.  (I mean, like seriously, would you put a gl driver in the
-> > kernel?  Vrend has access to all guest memory, so this is essentially
-> > what you have with virgl.  This is just not a sane thing to do.) The
-> > only "valid" reason for not doing native-context is if you don't have
-> > the src code for your UMD to be able to modify it to talk
-> > native-context to virtgpu in the guest. ;-)
->
-> I am just observing the current state of things on an Intel based
-> Chromebook. :) Presumably the custom name for a context would be
-> passable via the virtio-gpu protocol or something?
+Patches 8-10 implement HDCP on MSM driver.
 
-It is part of the context-type specific protocol.  Ie. some parts of
-the protocol are "core" and dealt with in virtgpu guest kernel driver.
-But on top of that there are various context-types with their own
-protocol (ie. virgl, venus, cross-domain, msm native ctx, and some WIP
-native ctx types floating around)
+Thanks,
+-Mark Yacoub
 
-BR,
--R
+Sean Paul (10):
+  drm/hdcp: Add drm_hdcp_atomic_check()
+  drm/hdcp: Avoid changing crtc state in hdcp atomic check
+  drm/hdcp: Update property value on content type and user changes
+  drm/hdcp: Expand HDCP helper library for enable/disable/check
+  drm/i915/hdcp: Consolidate HDCP setup/state cache
+  drm/i915/hdcp: Retain hdcp_capable return codes
+  drm/i915/hdcp: Use HDCP helpers for i915
+  dt-bindings: msm/dp: Add bindings for HDCP registers
+  arm64: dts: qcom: sc7180: Add support for HDCP in dp-controller
+  drm/msm: Implement HDCP 1.x using the new drm HDCP helpers
 
-> Regards,
->
-> Tvrtko
->
-> >
-> > BR,
-> > -R
-> >
-> >> Regards,
-> >>
-> >> Tvrtko
-> >>
-> >>> +
-> >>>    Implementation Details
-> >>>    =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-> >>>
-> >>> diff --git a/drivers/gpu/drm/msm/msm_gpu.c b/drivers/gpu/drm/msm/msm_=
-gpu.c
-> >>> index f0f4f845c32d..1150dcbf28aa 100644
-> >>> --- a/drivers/gpu/drm/msm/msm_gpu.c
-> >>> +++ b/drivers/gpu/drm/msm/msm_gpu.c
-> >>> @@ -148,12 +148,26 @@ int msm_gpu_pm_suspend(struct msm_gpu *gpu)
-> >>>        return 0;
-> >>>    }
-> >>>
-> >>> +static void get_comm_cmdline(struct msm_file_private *ctx, char **co=
-mm, char **cmd);
-> >>> +
-> >>>    void msm_gpu_show_fdinfo(struct msm_gpu *gpu, struct msm_file_priv=
-ate *ctx,
-> >>>                         struct drm_printer *p)
-> >>>    {
-> >>> +     char *comm, *cmdline;
-> >>> +
-> >>> +     get_comm_cmdline(ctx, &comm, &cmdline);
-> >>> +
-> >>>        drm_printf(p, "drm-engine-gpu:\t%llu ns\n", ctx->elapsed_ns);
-> >>>        drm_printf(p, "drm-cycles-gpu:\t%llu\n", ctx->cycles);
-> >>>        drm_printf(p, "drm-maxfreq-gpu:\t%u Hz\n", gpu->fast_rate);
-> >>> +
-> >>> +     if (comm)
-> >>> +             drm_printf(p, "drm-comm:\t%s\n", comm);
-> >>> +     if (cmdline)
-> >>> +             drm_printf(p, "drm-cmdline:\t%s\n", cmdline);
-> >>> +
-> >>> +     kfree(comm);
-> >>> +     kfree(cmdline);
-> >>>    }
-> >>>
-> >>>    int msm_gpu_hw_init(struct msm_gpu *gpu)
+ .../bindings/display/msm/dp-controller.yaml   |    7 +-
+ arch/arm64/boot/dts/qcom/sc7180-trogdor.dtsi  |    8 +
+ drivers/gpu/drm/display/drm_hdcp_helper.c     | 1224 +++++++++++++++++
+ drivers/gpu/drm/i915/display/intel_atomic.c   |    8 +-
+ drivers/gpu/drm/i915/display/intel_ddi.c      |   32 +-
+ .../drm/i915/display/intel_display_debugfs.c  |   12 +-
+ .../drm/i915/display/intel_display_types.h    |   51 +-
+ drivers/gpu/drm/i915/display/intel_dp_hdcp.c  |  352 ++---
+ drivers/gpu/drm/i915/display/intel_dp_mst.c   |   16 +-
+ drivers/gpu/drm/i915/display/intel_hdcp.c     | 1060 +++-----------
+ drivers/gpu/drm/i915/display/intel_hdcp.h     |   48 +-
+ drivers/gpu/drm/i915/display/intel_hdmi.c     |  267 ++--
+ drivers/gpu/drm/msm/Kconfig                   |    1 +
+ drivers/gpu/drm/msm/Makefile                  |    1 +
+ drivers/gpu/drm/msm/dp/dp_catalog.c           |  156 +++
+ drivers/gpu/drm/msm/dp/dp_catalog.h           |   18 +
+ drivers/gpu/drm/msm/dp/dp_debug.c             |   46 +-
+ drivers/gpu/drm/msm/dp/dp_debug.h             |   11 +-
+ drivers/gpu/drm/msm/dp/dp_display.c           |   39 +-
+ drivers/gpu/drm/msm/dp/dp_display.h           |    5 +
+ drivers/gpu/drm/msm/dp/dp_drm.c               |   39 +-
+ drivers/gpu/drm/msm/dp/dp_drm.h               |    7 +
+ drivers/gpu/drm/msm/dp/dp_hdcp.c              |  389 ++++++
+ drivers/gpu/drm/msm/dp/dp_hdcp.h              |   33 +
+ drivers/gpu/drm/msm/dp/dp_parser.c            |   14 +
+ drivers/gpu/drm/msm/dp/dp_parser.h            |    4 +
+ drivers/gpu/drm/msm/dp/dp_reg.h               |   30 +-
+ drivers/gpu/drm/msm/msm_atomic.c              |   19 +
+ include/drm/display/drm_hdcp.h                |  296 ++++
+ include/drm/display/drm_hdcp_helper.h         |   23 +
+ 30 files changed, 2867 insertions(+), 1349 deletions(-)
+ create mode 100644 drivers/gpu/drm/msm/dp/dp_hdcp.c
+ create mode 100644 drivers/gpu/drm/msm/dp/dp_hdcp.h
+
+-- 
+2.40.0.634.g4ca3ef3211-goog
+
