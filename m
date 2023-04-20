@@ -1,39 +1,37 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id B62E16E9DFA
-	for <lists+freedreno@lfdr.de>; Thu, 20 Apr 2023 23:39:19 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id EA3DE6E9E15
+	for <lists+freedreno@lfdr.de>; Thu, 20 Apr 2023 23:47:11 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8754A10E2E6;
-	Thu, 20 Apr 2023 21:39:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F392010E2CC;
+	Thu, 20 Apr 2023 21:47:07 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from relay04.th.seeweb.it (relay04.th.seeweb.it [5.144.164.165])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 92A9E10E2E6
- for <freedreno@lists.freedesktop.org>; Thu, 20 Apr 2023 21:39:16 +0000 (UTC)
+Received: from m-r1.th.seeweb.it (m-r1.th.seeweb.it [5.144.164.170])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5334510E2CC
+ for <freedreno@lists.freedesktop.org>; Thu, 20 Apr 2023 21:47:06 +0000 (UTC)
 Received: from SoMainline.org (94-211-6-86.cable.dynamic.v4.ziggo.nl
  [94.211.6.86])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest
  SHA256) (No client certificate requested)
- by m-r1.th.seeweb.it (Postfix) with ESMTPSA id 8C81120571;
- Thu, 20 Apr 2023 23:39:13 +0200 (CEST)
-Date: Thu, 20 Apr 2023 23:39:12 +0200
+ by m-r1.th.seeweb.it (Postfix) with ESMTPSA id 39341205A5;
+ Thu, 20 Apr 2023 23:47:03 +0200 (CEST)
+Date: Thu, 20 Apr 2023 23:47:02 +0200
 From: Marijn Suijten <marijn.suijten@somainline.org>
-To: Abhinav Kumar <quic_abhinavk@quicinc.com>
-Message-ID: <2ujeakobg7oulzarvzjktx5elo4ckpjq5pbknr3jx3h43snmry@yd4j64s7tqy5>
-References: <20230418-dpu-drop-useless-for-lookup-v1-0-b9897ceb6f3e@somainline.org>
- <20230418-dpu-drop-useless-for-lookup-v1-1-b9897ceb6f3e@somainline.org>
- <7ad86cd9-4b30-e7f1-780f-2c1c7093087e@linaro.org>
- <cd308be9-5420-6d75-da23-e844107ec275@quicinc.com>
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Message-ID: <3njpny4lxaexyrcpcpbvbiampqdcgc3nbrmvwxmfmin2esweat@oysuxu6b4iks>
+References: <20230411-dpu-intf-te-v2-0-ef76c877eb97@somainline.org>
+ <20230411-dpu-intf-te-v2-7-ef76c877eb97@somainline.org>
+ <f9e8a86f-3c69-4fda-01b9-2d4cd261bee8@linaro.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <cd308be9-5420-6d75-da23-e844107ec275@quicinc.com>
-Subject: Re: [Freedreno] [PATCH 1/3] drm/msm/dpu: Drop unused members from
- HW structs
+In-Reply-To: <f9e8a86f-3c69-4fda-01b9-2d4cd261bee8@linaro.org>
+Subject: Re: [Freedreno] [PATCH v2 07/17] drm/msm/dpu: Sort INTF registers
+ numerically
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -46,46 +44,56 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org,
- Jami Kettunen <jami.kettunen@somainline.org>, Sean Paul <sean@poorly.run>,
+Cc: dri-devel@lists.freedesktop.org, Jordan Crouse <jordan@cosmicpenguin.net>,
  AngeloGioacchino Del Regno <angelogioacchino.delregno@somainline.org>,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- Jordan Crouse <jordan@cosmicpenguin.net>,
- Konrad Dybcio <konrad.dybcio@linaro.org>, Rob Clark <robdclark@gmail.com>,
+ David Airlie <airlied@gmail.com>, Chandan Uddaraju <chandanu@codeaurora.org>,
+ Archit Taneja <architt@codeaurora.org>, Robert Foss <rfoss@kernel.org>,
+ Rob Clark <robdclark@gmail.com>, Kuogee Hsieh <quic_khsieh@quicinc.com>,
+ Rajesh Yadav <ryadav@codeaurora.org>, linux-arm-msm@vger.kernel.org,
+ Adam Skladowski <a39.skl@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
  Martin Botka <martin.botka@somainline.org>,
- ~postmarketos/upstreaming@lists.sr.ht, Daniel Vetter <daniel@ffwll.ch>,
- linux-arm-msm@vger.kernel.org, Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- David Airlie <airlied@gmail.com>
+ ~postmarketos/upstreaming@lists.sr.ht,
+ Jeykumar Sankaran <jsanka@codeaurora.org>, Sean Paul <sean@poorly.run>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Loic Poulain <loic.poulain@linaro.org>,
+ Jami Kettunen <jami.kettunen@somainline.org>,
+ Bjorn Andersson <andersson@kernel.org>, linux-kernel@vger.kernel.org,
+ Konrad Dybcio <konrad.dybcio@linaro.org>, Vinod Koul <vkoul@kernel.org>,
+ Daniel Vetter <daniel@ffwll.ch>, freedreno@lists.freedesktop.org,
+ Sravanthi Kollukuduru <skolluku@codeaurora.org>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 2023-04-20 08:46:46, Abhinav Kumar wrote:
+On 2023-04-20 03:47:57, Dmitry Baryshkov wrote:
+> On 17/04/2023 23:21, Marijn Suijten wrote:
+> > A bunch of registers were appended at the end in e.g. 91143873a05d
+> > ("drm/msm/dpu: Add MISR register support for interface") rather than
+> > being inserted in a place that maintains numerical sorting.  Restore
+> > that.
 > 
-> 
-> On 4/20/2023 7:33 AM, Dmitry Baryshkov wrote:
-> > On 18/04/2023 02:14, Marijn Suijten wrote:
-> >> Some of these members were initialized while never read, while others
-> >> were not even assigned any value at all.  Drop them to save some space,
-> >> and above all confusion when looking at these members.
-> >>
-> >> Fixes: 25fdd5933e4c ("drm/msm: Add SDM845 DPU support")
-> >> Fixes: 84a33d0fd921 ("drm/msm/dpu: add dpu_hw_wb abstraction for 
-> >> writeback blocks")
-> > 
-> > The fixes headers are slightly questionable, as unused fields are not a 
-> > bug. Nevertheless:
-> > 
-> 
-> Yes, I would also not treat this as a "fix" but just cleanup.
+> Assuming that = "sort order":
 
-Ack to both.  This seems like a fine line to me as the fields are not
-contributing to anything except confusion.  Specifically hw_mdp which is
-never initialized and may accidentally be used without realizing that
-it'll stay NULL, but that is again up to the developer using the field
-at that point.
+This is what I mean(t) to say, but not what I meant to write.  See the
+previous sentence: "restore that" refers to "numerical sorting" (not
+just "sort order") right before.
 
-Feel free to drop them while applying, or should I reword the message to
-at least still link these commits to mention the origin of the unused
-fields?
+> Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> 
+> If I don't forget, I'll fix it when applying.
+
+If you feel the above explanation is inadequate, feel free to replace
+the sentence with "Restore said numerical sorting".
 
 - Marijn
+
+> > Signed-off-by: Marijn Suijten <marijn.suijten@somainline.org>
+> > ---
+> >   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.c | 12 +++++++-----
+> >   1 file changed, 7 insertions(+), 5 deletions(-)
+> 
+> 
+> 
+> -- 
+> With best wishes
+> Dmitry
+> 
