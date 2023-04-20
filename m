@@ -1,58 +1,58 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 67A7F6E86F0
-	for <lists+freedreno@lfdr.de>; Thu, 20 Apr 2023 02:49:37 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 5B55F6E8709
+	for <lists+freedreno@lfdr.de>; Thu, 20 Apr 2023 02:55:58 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2FE6C10E207;
-	Thu, 20 Apr 2023 00:49:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A858110E1CF;
+	Thu, 20 Apr 2023 00:55:56 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-x22b.google.com (mail-lj1-x22b.google.com
- [IPv6:2a00:1450:4864:20::22b])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E087410E248
- for <freedreno@lists.freedesktop.org>; Thu, 20 Apr 2023 00:49:32 +0000 (UTC)
-Received: by mail-lj1-x22b.google.com with SMTP id r9so939489ljp.9
- for <freedreno@lists.freedesktop.org>; Wed, 19 Apr 2023 17:49:32 -0700 (PDT)
+Received: from mail-lj1-x231.google.com (mail-lj1-x231.google.com
+ [IPv6:2a00:1450:4864:20::231])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AC07410E207
+ for <freedreno@lists.freedesktop.org>; Thu, 20 Apr 2023 00:55:55 +0000 (UTC)
+Received: by mail-lj1-x231.google.com with SMTP id x34so1034660ljq.1
+ for <freedreno@lists.freedesktop.org>; Wed, 19 Apr 2023 17:55:55 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1681951771; x=1684543771;
+ d=linaro.org; s=google; t=1681952154; x=1684544154;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :from:to:cc:subject:date:message-id:reply-to;
- bh=nBTNgbwSnEqrTM/8Zo3F3tUjXoH2/yS/Mjd7eOQXnxA=;
- b=d4mVL2ra6uk1DxPznvuIlP+NohLtEcADu43dZmKn68AbF9I1zDQUZtYdsL9Ka0fhK3
- yBoz6Y7I3MnVwjpbhFc9Th4t+ZXspnyWt7Lc6y12HI5yaJ6oqi4MJEWpl1d7uYP8stbM
- LNKY3VIrY9nuQjCTDZIOnB5RGi61FRnWR7cQ4mUK/Zf7IQ/ucseIb93BUhbJqZoJKQ/m
- z7tRSVl+KOi6Rk5qzuPo+pDa1Dr99MX2uMLjhsgfGnfHbDtTrro1EULq4qpm9VahfKvA
- VpcozY7D8YtZNPLSSDC+bUNOOjPLdDTCgCy4RrCInmG9axwD2Gd/JZj5qr3K9X17LUen
- jbhg==
+ bh=Mj/IZ8/q3LWYaJuZh+m8gKrrpGLIcx9rD0SuhtK3tA0=;
+ b=wKv2MHhswPxaQN1cvJymcq+PHFU2en0Au7w8Jlszz54MzG8ur11HQ1j14KwjUWi0WR
+ sXqW8pubQhjY7cNDvhgNa/JeBQAHY/7Bctniz5vtabJGRW06+Vem9xbxOOY8yX5c7mdX
+ sDaP+2BtiDlNzGe7uyFEYyXw97yB8igo4TggW0NikQWyehzbuqaG/llskyNC0VodlkW8
+ kn7z26NUfdRo6h7E9o14ZBbT9fb816KEbifHA1LBJSz+vt3W7dmxCS2QpSxE0+Yx7idY
+ B0Q2skq9z1kOdMTExgJUJA82nKI+mhWVaYd0SKHjHXC6TzvJ1GcWRiiZnGtP5q88trSP
+ r0tg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1681951771; x=1684543771;
+ d=1e100.net; s=20221208; t=1681952154; x=1684544154;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=nBTNgbwSnEqrTM/8Zo3F3tUjXoH2/yS/Mjd7eOQXnxA=;
- b=UbaWAo0JEmxl1q5RUgNYkrAKZ8vFbTrGidYhnXWJ+sdf8mmrM1nkUEzMFHWA8nSu00
- yitjh1cu6IA5kJVxjgrexue1yhEoI6somxl5WgyMNM4NUnkrr2n/OKOUpSLIMXqvvnNc
- Tr5TV/n60HK4Y03bmySXWVwtpd/EiKyOYApi7lFc1QJk+7X9fV++oz35oq4iyXgXU6KF
- vfmzUvcpR5vt+O/ilmqzmzV3nUWFcEYKYT8l0Y4AqhZ6ceW0FOA7QMU8vC7D7tS32Z0D
- tlvyyFSbekH83I7kYWNyBlTyB2Gi+rWEQ55Kw4QNoAZvtkVKF8q8zIwMJdkOWrSP1OTD
- RJoA==
-X-Gm-Message-State: AAQBX9cNGaMMHgAkeqmg8aA2qiLncM7Gy14gLRUF2uuwM1lylK+ad5ck
- 7S2mZEC0KmuIhVmhuPcXM5sX5Q==
-X-Google-Smtp-Source: AKy350a58zmn+YohNF/dZT6zaO4ejf273w1HbL0Zriw2gCHMn/70LvEy/Q0m9ouzpmYgb6kSJCE2QA==
-X-Received: by 2002:a2e:6e0f:0:b0:2a8:bd3a:d418 with SMTP id
- j15-20020a2e6e0f000000b002a8bd3ad418mr2264178ljc.52.1681951771044; 
- Wed, 19 Apr 2023 17:49:31 -0700 (PDT)
+ bh=Mj/IZ8/q3LWYaJuZh+m8gKrrpGLIcx9rD0SuhtK3tA0=;
+ b=SHXOE7RFkL3HBDWFxFWYnYLyhkzLXEYFqoXmWqpi7HDLVBjvKTNWV1TtJ20kgs7tXj
+ CEg8NocS44D9h/YkRWdVLXcPRPceni/EkSh3zuKputLgTDzM1C3PTY6MfPYPd9k9CU3I
+ Kqib3ttlP8zx09L31h+PedUGJP72093B0PqHD8gWEN76BiiGEwKZpm54c1HTR8LQh7tq
+ InNSbfomuBzokFfSmfRGiZzgZWQ/3hCTJhplR8BbVXJMhfwM9enJ2xUpLDpaa8VWM7z+
+ 1vG/4mWIh19kNtseXKjJaGg/Viid38XJSQn7irKP2eICz52TjOglCwkRdjxXNCFK1K75
+ 6fXA==
+X-Gm-Message-State: AAQBX9d84Pzpjq482wYu+faGgDH+h9wbhsxuKSNWjhLtqiZ4H932yfMs
+ Rw4EeQstSZMrXV1PrqxKPUoouw==
+X-Google-Smtp-Source: AKy350aBjbBI2fnSI78CYPlvQ6MQ6S6ZIkXziORI8Lxrfejc+O5akyG1vq476JVPJqKUPfd4c0EzpQ==
+X-Received: by 2002:a2e:8217:0:b0:2a8:b7e6:b622 with SMTP id
+ w23-20020a2e8217000000b002a8b7e6b622mr2067402ljg.46.1681952153810; 
+ Wed, 19 Apr 2023 17:55:53 -0700 (PDT)
 Received: from ?IPV6:2001:14ba:a085:4d00::8a5?
  (dzccz6yyyyyyyyyyybcwt-3.rev.dnainternet.fi. [2001:14ba:a085:4d00::8a5])
  by smtp.gmail.com with ESMTPSA id
- w4-20020a2e9584000000b002a8bae7f9e8sm17599ljh.129.2023.04.19.17.49.30
+ t18-20020a2e7812000000b002a77e01c3a0sm21056ljc.23.2023.04.19.17.55.52
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 19 Apr 2023 17:49:30 -0700 (PDT)
-Message-ID: <c4344301-2c89-3b8b-2a5c-e6523f078fd9@linaro.org>
-Date: Thu, 20 Apr 2023 03:49:29 +0300
+ Wed, 19 Apr 2023 17:55:53 -0700 (PDT)
+Message-ID: <4bba553e-8fd0-6727-695b-452fbd69ea61@linaro.org>
+Date: Thu, 20 Apr 2023 03:55:52 +0300
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.9.0
@@ -69,13 +69,13 @@ To: Marijn Suijten <marijn.suijten@somainline.org>,
  Neil Armstrong <neil.armstrong@linaro.org>,
  Chandan Uddaraju <chandanu@codeaurora.org>
 References: <20230411-dpu-intf-te-v2-0-ef76c877eb97@somainline.org>
- <20230411-dpu-intf-te-v2-9-ef76c877eb97@somainline.org>
+ <20230411-dpu-intf-te-v2-10-ef76c877eb97@somainline.org>
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-In-Reply-To: <20230411-dpu-intf-te-v2-9-ef76c877eb97@somainline.org>
+In-Reply-To: <20230411-dpu-intf-te-v2-10-ef76c877eb97@somainline.org>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH v2 09/17] drm/msm/dpu: Move autorefresh
- disable from CMD encoder to pingpong
+Subject: Re: [Freedreno] [PATCH v2 10/17] drm/msm/dpu: Disable pingpong TE
+ on DPU 5.0.0 and above
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -102,26 +102,38 @@ Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 On 17/04/2023 23:21, Marijn Suijten wrote:
-> This autorefresh disable logic in the physical command-mode encoder
-> consumes three callbacks to the pingpong block, and will explode in
-> unnecessary complexity when the same callbacks need to be called on the
-> interface block instead to accommodate INTF TE support.  To clean this
-> up, move the logic into the pingpong block under a disable_autorefresh
-> callback, replacing the aforementioned three get_autorefresh,
-> setup_autorefresh and get_vsync_info callbacks.
+> Since hardware revision 5.0.0 the TE configuration moved out of the
+> PINGPONG block into the INTF block.  Writing these registers has no
+> effect, and is omitted downstream via the DPU/SDE_PINGPONG_TE feature
+> flag.  This flag is only added to PINGPONG blocks used by hardware prior
+> to 5.0.0.
 > 
-> The same logic will have to be replicated to the interface block when it
-> receives INTF TE support, but it is less complex than constantly
-> switching on a "has_intf_te" boolean to choose a callback.
+> The existing PP_BLK_TE macro has been removed in favour of directly
+> passing this feature flag, which has thus far been the only difference
+> with PP_BLK.  PP_BLK_DITHER has been left in place as its embedded
+> feature flag already excludes this DPU_PINGPONG_TE bit and differs by
+> setting the block length to zero, as it only contains a DITHER subblock.
 > 
-> Suggested-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> The code that writes to these registers in the INTF block will follow in
+> subsequent patches.
+> 
 > Signed-off-by: Marijn Suijten <marijn.suijten@somainline.org>
 > ---
->   .../gpu/drm/msm/disp/dpu1/dpu_encoder_phys_cmd.c   | 60 ++--------------------
->   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_pingpong.c    | 47 +++++++++++++++--
->   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_pingpong.h    | 25 ++-------
->   drivers/gpu/drm/msm/disp/dpu1/dpu_kms.h            |  4 ++
->   4 files changed, 57 insertions(+), 79 deletions(-)
+>   .../drm/msm/disp/dpu1/catalog/dpu_3_0_msm8998.h    |  8 +++----
+>   .../gpu/drm/msm/disp/dpu1/catalog/dpu_4_0_sdm845.h |  8 +++----
+>   .../gpu/drm/msm/disp/dpu1/catalog/dpu_5_0_sm8150.h | 12 +++++------
+>   .../drm/msm/disp/dpu1/catalog/dpu_5_1_sc8180x.h    | 12 +++++------
+>   .../gpu/drm/msm/disp/dpu1/catalog/dpu_6_0_sm8250.h | 12 +++++------
+>   .../gpu/drm/msm/disp/dpu1/catalog/dpu_6_2_sc7180.h |  4 ++--
+>   .../gpu/drm/msm/disp/dpu1/catalog/dpu_6_3_sm6115.h |  2 +-
+>   .../drm/msm/disp/dpu1/catalog/dpu_6_5_qcm2290.h    |  2 +-
+>   .../gpu/drm/msm/disp/dpu1/catalog/dpu_7_0_sm8350.h | 12 +++++------
+>   .../gpu/drm/msm/disp/dpu1/catalog/dpu_7_2_sc7280.h |  8 +++----
+>   .../drm/msm/disp/dpu1/catalog/dpu_8_0_sc8280xp.h   | 24 ++++++++++-----------
+>   .../gpu/drm/msm/disp/dpu1/catalog/dpu_8_1_sm8450.h | 16 +++++++-------
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c     | 25 ++++++++++------------
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_pingpong.c    | 12 ++++++-----
+>   14 files changed, 78 insertions(+), 79 deletions(-)
 
 Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 
