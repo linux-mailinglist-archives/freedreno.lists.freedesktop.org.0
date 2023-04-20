@@ -1,59 +1,59 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4C3916E934C
-	for <lists+freedreno@lfdr.de>; Thu, 20 Apr 2023 13:47:28 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 1096E6E934F
+	for <lists+freedreno@lfdr.de>; Thu, 20 Apr 2023 13:48:12 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0F16910E20B;
-	Thu, 20 Apr 2023 11:47:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C3E4A10E253;
+	Thu, 20 Apr 2023 11:48:10 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x131.google.com (mail-lf1-x131.google.com
- [IPv6:2a00:1450:4864:20::131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 81AA410E23F
- for <freedreno@lists.freedesktop.org>; Thu, 20 Apr 2023 11:47:24 +0000 (UTC)
-Received: by mail-lf1-x131.google.com with SMTP id
- 2adb3069b0e04-4ec81245ae1so512903e87.0
- for <freedreno@lists.freedesktop.org>; Thu, 20 Apr 2023 04:47:24 -0700 (PDT)
+Received: from mail-lf1-x129.google.com (mail-lf1-x129.google.com
+ [IPv6:2a00:1450:4864:20::129])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6A94810E20B
+ for <freedreno@lists.freedesktop.org>; Thu, 20 Apr 2023 11:48:09 +0000 (UTC)
+Received: by mail-lf1-x129.google.com with SMTP id
+ 2adb3069b0e04-4ec94eb6dcaso497491e87.3
+ for <freedreno@lists.freedesktop.org>; Thu, 20 Apr 2023 04:48:09 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1681991241; x=1684583241;
+ d=linaro.org; s=google; t=1681991287; x=1684583287;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :from:to:cc:subject:date:message-id:reply-to;
- bh=utfMEwjRtQb+equBbrKCD4/CcQSjoaSGMcoZ72gCVUA=;
- b=Z95rycXDwUNq2/dzSTQKDDcUK4tqkWc+YMELEldeqvDixA2V+Z+xNp330XqyOOBrmk
- v/wW41zMrD+3p1GrFUD/y6BSpPX7F33bjHFF9DDNEY6I6UfxTuB8Id8FRZ8lVCRepr0q
- h3+qxLEQskhrORnHK96uzUwSp9JUDljd3yidp7xqu2Z9DUjr9vHCPg+BxNbc6QDjl3q4
- eHwSd9ZRs5828Cm0iQF02/L4ayxfHlQSNuzpU9C0XG0vWQk0SekdxyOLw7r7leKxXYfC
- I+PdjXUuijJBxwx7+nm/1hIZZttX8IA91cVufFVvPa3xoUiTv31/YKCscw8oaUPXrNuJ
- 5s/g==
+ bh=bbzxcashoCDQOSY342pzyq2G7WMo2lq5fOYuUvS4juM=;
+ b=j/jHkLE3rW45/Eb7oViVdeEuTCbgLb3dJ1DaMd4dkcG01aQyARQoL9vKLJR2MAqee7
+ 9/3JlhAnHnLuU5TPyvUqpriI5zwG5X73t7jJvMB6ItPvtgLqClrqmHcWiDU3Fgr68EOt
+ Pz/XwjHx8Mrv4E8ouFFU0BffiAqbKJ59MdCI/Vr+RxyP+dGsBQ7JrUIZCBn2n97qQZH2
+ TX7GTJ3swuBByfoww/DVAh3x+0SUqiWdBhIXQx+Vko5CGEVs8GQYU1Iu3Y9gLauHr4me
+ MjKBtTJdHvDteIYw7vS1pTGCbALFrcQPRW84yAevZ+wNzQ4N+9FCDincpXVOfcjvOMwY
+ BgTQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1681991241; x=1684583241;
+ d=1e100.net; s=20221208; t=1681991287; x=1684583287;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=utfMEwjRtQb+equBbrKCD4/CcQSjoaSGMcoZ72gCVUA=;
- b=ekTK1d+F4Jphmk6fKZ4lr26U0C2feWgIvFHgOtqWpl8BNnpyMqxF17gnLejaUtqyl8
- 3CEEkiaym4tkESaobDumUu6s7ytZQjec9Rb8V02EZiSL/8++MjwTu/HU2CAXt2LpQyfi
- qDB1y3v22zkX/5epGx2aNyDpf+WLbg9cxUpJMXFwMUe9gaDQW+MX0WUSrHD8E/IJvuBe
- lHEu1HIVRq1NoDl1BXJwb7Zkw1OiM0XibGZlYLY40AE4kqRHPWkYASRHFngGDeUgNCzq
- W7uUch/JH5sQerGVuk/3TgMu+3l7bCqOED1GUnG1CRlQiekz29RFR/02g6JXUnrXaMhF
- GAig==
-X-Gm-Message-State: AAQBX9ctspVcAI/jNb02uVDHoaWijsKeObxHqM373kdIBgjvWkLzn7ZK
- Z9N0Z5sUQBXMbHb0Ihox8jMWHw==
-X-Google-Smtp-Source: AKy350YpTdCf86eHSVO6lbjuxm9lf1D6AX1RTL02jKTJiTegbNyrqK4LLlNSpQqowFLuQZw9kxbxbA==
-X-Received: by 2002:a05:6512:145:b0:4d7:44c9:9f4c with SMTP id
- m5-20020a056512014500b004d744c99f4cmr415139lfo.4.1681991240676; 
- Thu, 20 Apr 2023 04:47:20 -0700 (PDT)
+ bh=bbzxcashoCDQOSY342pzyq2G7WMo2lq5fOYuUvS4juM=;
+ b=I2isgqz/9XreBvQYhW1Mp5GJSoXYVdOuMOeKBKzshdfM87kDQfYo2lXRwqMmelmiiJ
+ ygS2bXNCc6nPkED/0D9y3mkSU4XcA9jJwrxoT9riZLOpnI/zhJSmaG/leI+U+qJ1k9Ir
+ 579SPDSkYmB1LuHPflWn74Ka3pwT3Jrg9SMUTzMQ6Gi6kRRRKC9bqjjAM/NLGN4ylGMW
+ zebkLs6kKHabJxyT3kClaJNCFNE+aCRVaEjfW3GgWk4PxIvffAe/sk1TAjCquWN7FVpS
+ dCedFrZhIQlxSAf3ms7xFKGP+uT1wqjc56H4I+PTRRUaVo4xXN1w+ng13nh5vKGAzt2c
+ dn9w==
+X-Gm-Message-State: AAQBX9cwoSjrxhbfBcch2gCjptYAUK9LNbTQDnKL8/BJzfzyUyHYP1nN
+ I2ZnqwGOZUwXM8A4ftpRIOwalA==
+X-Google-Smtp-Source: AKy350bDBd5I0jzSrTgkcplYpxYdInqlBZJb94gB+M0ExOUSpGan2r6Fowa9JWmLRx3tG5jrkzMKMg==
+X-Received: by 2002:a19:f80b:0:b0:4eb:2523:e929 with SMTP id
+ a11-20020a19f80b000000b004eb2523e929mr375118lff.43.1681991287486; 
+ Thu, 20 Apr 2023 04:48:07 -0700 (PDT)
 Received: from ?IPV6:2001:14ba:a085:4d00::8a5?
  (dzccz6yyyyyyyyyyybcwt-3.rev.dnainternet.fi. [2001:14ba:a085:4d00::8a5])
  by smtp.gmail.com with ESMTPSA id
- m16-20020a195210000000b004eed6175e3fsm191457lfb.143.2023.04.20.04.47.19
+ y21-20020ac24215000000b004ece331c830sm192447lfh.206.2023.04.20.04.48.06
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 20 Apr 2023 04:47:20 -0700 (PDT)
-Message-ID: <786cda44-cd82-4353-d195-35a987a80b3d@linaro.org>
-Date: Thu, 20 Apr 2023 14:47:19 +0300
+ Thu, 20 Apr 2023 04:48:07 -0700 (PDT)
+Message-ID: <a2addd26-e027-c5f5-ee40-e8e5be9d866c@linaro.org>
+Date: Thu, 20 Apr 2023 14:48:06 +0300
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.9.0
@@ -108,9 +108,9 @@ On 20/04/2023 04:14, Konrad Dybcio wrote:
 >   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c           | 2 +-
 >   9 files changed, 27 insertions(+), 27 deletions(-)
 
-Please follow this by enabling DSPP on sdm845. Otherwise it is strange 
-to have sdm845_dspp_sblk, but not to have it enabled on sdm845 itself. 
-If necessary, I can test it on RB3.
+For the patch itself:
+
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 
 -- 
 With best wishes
